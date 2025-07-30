@@ -4187,7 +4187,7 @@
             },
             "coachSpaceInfo": "En este espacio, su profesor podrá acceder a su resumen de pagos por sesión, así como ver su horario. También pueden añadir su disponibilidad.",
             "coachSpace": "Área de profesores",
-            "noPaymentRule": "Tenga en cuenta que no se han definido reglas de remuneración para este profesor."
+            "noPaymentRule": "Tenga en cuenta que no se han definido reglas de remuneración para este profesor. "
         },
         "noCoachs": "Ninguno profesor guardado, administre a sus profes, colaboradores y su remuneración aquí.",
         "inactiveCoaches": "Profesores archivados",
@@ -7405,7 +7405,9 @@
                     "label": "Empieze la reserva recurrente el "
                 },
                 "groupWarning": "Tenga en cuenta que no es posible crear una repetición de reservas para grupos de sesiones",
-                "permissionWarning": "No tiene permiso para crear reservas para esta actividad."
+                "permissionWarning": "No tiene permiso para crear reservas para esta actividad.",
+                "globalError": "Se produjo un error al guardar la reserva recurrente.",
+                "duplicateError": "Ya existe una reserva recurrente con los mismos parámetros. Modifica el criterio o revisa los criterios existentes antes de guardar."
             },
             "recurrentRuleBooking": "Reserva recurrente",
             "item": {
@@ -8795,7 +8797,7 @@
                     "availability": {
                         "expiresToday": "Último día",
                         "expiresIn": "{{ daysRemaining }} día restante",
-                        "expiresIn_plural": "días restantes",
+                        "expiresIn_plural": "Días restantes",
                         "future": "Inicio: {{ startDate }}",
                         "expired": "Caducado: {{ expirationDate }}",
                         "active": "Caduca: {{ expirationDate }}"
@@ -11308,7 +11310,7 @@
             "recipient_plural": "destinatarios",
             "see": "Ver",
             "seeRecipients": "Ver destinatarios",
-            "noSmartListPopup": "No hay ventanas emergentes de inicio",
+            "noSmartListPopup": "No hay ventanas emergentes de inicio ",
             "memberListTitle": "Ventana emergente de inicio"
         },
         "messageList": {
@@ -11750,6 +11752,24 @@
                         "helperText": "Los nuevos clientes pueden reservar actividades sin crear primero una cuenta. Esta función no es compatible con las citas ni con la \"confirmación por correo electrónico al registrarse\". Solo se aplica a las actividades que pueden reservarse con un pase \"solo para nuevos socios\"."
                     },
                     "title": "Pago exprés"
+                },
+                "subscriptionPersonalizationTitle": "Suscripción",
+                "displayStopSubscriptionFromMemberSide": {
+                    "modal": {
+                        "cancel": "Cancelar",
+                        "confirm": "Activar ahora",
+                        "linkButton": "Revisa la guía",
+                        "linkText": "Antes de activarlo, te recomendamos revisar cómo funciona y qué debes tener en cuenta:",
+                        "content": "En muchos países, las leyes obligan a los estudios a permitir que los miembros cancelen sus suscripciones por sí mismos. Activar esta función garantiza que cumplas con la normativa local y protege a tu estudio de posibles riesgos legales.",
+                        "title": "¿Activar la opción para que los miembros cancelen sus suscripciones?"
+                    },
+                    "helperText": {
+                        "franchisor": "Este cambio se aplicará a todas tus franquicias",
+                        "disabled": "Para que se aplique a todas las franquicias, activa esta función desde la Cuenta Maestra.",
+                        "lawCompliance": "Si no activas esta función, los miembros no podrán cancelar sus suscripciones por sí mismos y tu estudio podría estar incumpliendo la ley en tu país.",
+                        "simple": "Activa esta opción para que los miembros puedan cancelar sus suscripciones por su cuenta. No tendrás control sobre el período de aviso, pero así es más probable que cumplas con las leyes del país donde está tu estudio. Revisa en qué países aplica esto."
+                    },
+                    "label": "Habilitar la opción para que los miembros cancelen sus suscripciones"
                 }
             },
             "submit": "Guardar",
@@ -14461,6 +14481,9 @@
                     "default": "Se ha producido un error al generar la factura XML"
                 },
                 "success": "Factura XML generada correctamente"
+            },
+            "receipt": {
+                "genericError": "Se produjo un error al generar el recibo"
             }
         },
         "playlist": {
@@ -15180,7 +15203,8 @@
             "85000": "Ya hay una reserva en curso, espere unos instantes",
             "85101": "Imposible reservar. Esta plaza está reservada por otro usuario. Por favor, inténtelo de nuevo eligiendo otra plaza.",
             "generic": "No se puede reservar",
-            "undefined": "Su tarjeta de curso ya no le permite reservar este año"
+            "undefined": "Su tarjeta de curso ya no le permite reservar este año",
+            "addToBasketError": "No se puede añadir a la cesta"
         },
         "paymentRuleGroups": {
             "update": {
@@ -21559,7 +21583,9 @@
                 "subText": "El pago ha sido procesado. La factura se ha enviado por correo electrónico.",
                 "subTextAnonymous": "El pago ha sido procesado.",
                 "printTicket": "Imprimir ticket",
-                "sendByEmail": "Enviar la factura por correo electrónico"
+                "sendByEmail": "Enviar la factura por correo electrónico",
+                "qrCodeTitle": "Descarga tu recibo",
+                "description": "El pago se ha procesado correctamente."
             },
             "billingDate": "Fecha de facturación",
             "priceExcludingTax": "Total antes de impuestos",

@@ -32,6 +32,7 @@ import type {
 
 import {
   setMembers,
+  setSearchHistory,
   setSearchMembers,
   updateIrregularities,
   updateMember,
@@ -316,4 +317,10 @@ export const untagAllMembersAction: Action<
         cause: error,
       }),
   );
+};
+
+export const addMemberToSearchHistoryAction = (member: Member) => {
+  if (member) {
+    setSearchHistory(member);
+  }
 };

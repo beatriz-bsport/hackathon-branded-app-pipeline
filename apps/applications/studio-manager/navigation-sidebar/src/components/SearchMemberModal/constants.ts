@@ -9,6 +9,7 @@ export type FormattedMember = {
   email?: string;
   phone?: string;
   tags: number[];
+  onClick: () => void;
 };
 
 export type TagConfig = {

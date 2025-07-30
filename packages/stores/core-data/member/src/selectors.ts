@@ -15,3 +15,7 @@ export const selectIrregularities = (state: MemberState) =>
 export const selectSearchMembers = (state: MemberState, archived?: boolean) => {
   return archived ? state.search.archived : state.search.active;
 };
+
+export const selectSearchedMembers = (state: MemberState) => {
+  return state.search.history;
+};

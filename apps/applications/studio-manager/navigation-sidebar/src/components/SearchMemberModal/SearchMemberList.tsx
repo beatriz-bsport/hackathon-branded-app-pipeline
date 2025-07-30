@@ -7,6 +7,7 @@ import { useTranslation } from "#src/utils/i18n";
 import { SearchMemberListItem } from "./SearchMemberListItem";
 import type { ListItemProps, TagsMap } from "./constants";
 import { useFormatMembers } from "./useFormatMembers";
+import { useListItemTranslations } from "./useListItemTranslations";
 import { useSearchMembers } from "./useSearchMembers";
 
 type SearchMemberListProps = {
@@ -27,15 +28,9 @@ export const SearchMemberList: React.FC<SearchMemberListProps> = ({
     { searchInput, searchArchived: archivedSegment },
   );
 
-  const formattedMembers = useFormatMembers(members);
+  const formattedMembers = useFormatMembers({ members });
 
-  const toastEmailCopied = t(
-    "searchMembers.copyToClipboard.toasts.emailCopied",
-  );
-  const toastPhoneCopied = t(
-    "searchMembers.copyToClipboard.toasts.phoneNumberCopied",
-  );
-  const tagsTooltip = t("searchMembers.tagsTooltip");
+  const translations = useListItemTranslations();
 
   return (
     <div className="min-h-[400px] flex flex-col justify-center flex-1 mt-md">
@@ -65,9 +60,7 @@ export const SearchMemberList: React.FC<SearchMemberListProps> = ({
         items={formattedMembers.map((member) => ({
           ...member,
           navigate,
-          toastEmailCopied,
-          toastPhoneCopied,
-          tagsTooltip,
+          ...translations,
           tagsMap,
         }))}
         emptyStateProps={{

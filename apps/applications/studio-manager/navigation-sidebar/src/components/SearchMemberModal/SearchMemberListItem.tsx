@@ -63,6 +63,7 @@ export const SearchMemberListItem: React.FC<ListItemProps> = ({
   navigate,
   phone,
   email,
+  onClick,
   tags,
   tagsTooltip,
   toastPhoneCopied,
@@ -106,33 +107,17 @@ export const SearchMemberListItem: React.FC<ListItemProps> = ({
                   size="md"
                   intent="flat"
                   color="default"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    setIsPopoverOpened((prev) => !prev);
-                  }}
+                  onMouseEnter={() => setIsPopoverOpened(true)}
+                  onMouseLeave={() => setIsPopoverOpened(false)}
                 />
               )}
             </Popover.Anchor>
             <Popover.Content placement="bottom-left">
-              {({ setIsPopoverOpened }) => (
+              {() => (
                 <div className="flex flex-col gap-xs p-sm max-w-[240px]">
-                  <div className="flex flex-row justify-between items-center gap-lg">
-                    <Body htmlVariant="p" size="lg" color="weak" weight="weak">
-                      {tagsTooltip}
-                    </Body>
-                    <Button
-                      iconLeft="x-close"
-                      size="md"
-                      intent="flat"
-                      color="default"
-                      onClick={(event) => {
-                        event.preventDefault();
-                        event.stopPropagation();
-                        setIsPopoverOpened(false);
-                      }}
-                    />
-                  </div>
+                  <Body htmlVariant="p" size="lg" color="weak" weight="weak">
+                    {tagsTooltip}
+                  </Body>
                   <div className="flex flex-row gap-xs items-center flex-wrap">
                     {tags.map((tagId) => {
                       const tagInfo = tagsMap.get(tagId);
@@ -160,6 +145,7 @@ export const SearchMemberListItem: React.FC<ListItemProps> = ({
         id: id,
         href: `${LEGACY_URLS.member}/${id}/info`,
         revamped: false,
+        navigationCallback: onClick,
       }}
       navigate={navigate}
       renderElement={renderItem}

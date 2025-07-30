@@ -13,6 +13,7 @@ export interface MemberState {
   search: {
     active: Array<Member>;
     archived: Array<Member>;
+    history: Array<Member>;
   };
 }
 
@@ -25,6 +26,7 @@ export const memberStore = createStore<MemberState>()(() => ({
   search: {
     active: [],
     archived: [],
+    history: [],
   },
 }));
 

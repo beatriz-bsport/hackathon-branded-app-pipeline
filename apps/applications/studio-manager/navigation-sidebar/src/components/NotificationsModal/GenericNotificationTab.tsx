@@ -18,7 +18,9 @@ export const GenericNotificationTab: FC<GenericNotificationTabProps> = ({
     pageSize,
   });
 
-  const listItems = alerts.map(config.transformData);
+  const listItems = alerts.map((alert, index) =>
+    config.transformData(alert, index),
+  );
 
   return (
     <List

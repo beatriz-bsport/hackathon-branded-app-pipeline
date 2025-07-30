@@ -3,8 +3,11 @@ import { type FC } from "react";
 import { type Locale } from "@bsport/i18n";
 import { Body } from "@bsport/kaizen-primitive-core";
 
+import { NavigationLink } from "#src/components/NavigationLink";
 import { LEGACY_URLS } from "#src/urls";
 import { useTranslation } from "#src/utils/i18n";
+
+import { useNotificationsNavigation } from "./NotificationsNavigationContext";
 
 export type TutorialsListItemProps = {
   id: string;
@@ -30,6 +33,7 @@ const TutorialsListItem: FC<TutorialsListItemProps> = ({
   lessonId,
 }) => {
   const { t, i18n } = useTranslation("default");
+  const { navigateAndClose } = useNotificationsNavigation();
 
   const language = i18n.language as Locale;
   const sectionName = getLocalizedText(sectionNames, language);
@@ -50,35 +54,56 @@ const TutorialsListItem: FC<TutorialsListItemProps> = ({
       sectionName,
     });
   }
-  return (
-    <a
-      href={`${LEGACY_URLS.tutorial}/${sectionId}/${lessonId}`}
-      className="relative flex min-h-2xl py-xs px-md gap-xs border-b-stroke-thin border-b-stroke-divider hover:bg-surface-action-default-weak-hovered active:bg-surface-action-default-weak-pressed text-inherit no-underline"
-    >
-      <div className="grid grid-cols-[minmax(0,7fr)_minmax(0,3fr)] w-full gap-xs items-center">
-        {/* Left column with title and description */}
-        <div className="flex items-center gap-xs">
-          <div className="flex-1 min-w-0">
-            <Body
-              htmlVariant="span"
-              size="lg"
-              weight="bold"
-              className="block truncate break-word"
-            >
-              {title}
-            </Body>
-            <Body
-              htmlVariant="span"
-              size="md"
-              color="weak"
-              className="block truncate break-word"
-            >
-              {description}
-            </Body>
-          </div>
+
+  const renderItem = () => (
+    <div className="grid grid-cols-[minmax(0,7fr)_minmax(0,3fr)] w-full gap-xs items-center">
+      {/* Left column with title and description */}
+      <div className="flex items-center gap-xs">
+        <div className="flex-1 min-w-0">
+          <Body
+            htmlVariant="span"
+            size="lg"
+            weight="bold"
+            className="block truncate break-word"
+          >
+            {title}
+          </Body>
+          <Body
+            htmlVariant="span"
+            size="md"
+            color="weak"
+            className="block truncate break-word"
+          >
+            {description}
+          </Body>
         </div>
       </div>
-    </a>
+    </div>
+  );
+
+  return (
+    <NavigationLink
+      item={{
+        id: `${sectionId}-${lessonId}`,
+        href: `${LEGACY_URLS.tutorial}/${sectionId}/${lessonId}`,
+        revamped: false,
+      }}
+      renderElement={renderItem}
+      navigate={navigateAndClose}
+      wrapperConfig={{
+        withOnClick: true,
+        className: [
+          "relative flex",
+          "min-h-2xl py-xs px-md gap-xs",
+          "border-b-stroke-thin border-b-stroke-divider",
+          "hover:bg-surface-action-default-weak-hovered",
+          "hover:cursor-pointer",
+          "active:bg-surface-action-default-weak-pressed",
+          "text-inherit no-underline",
+        ].join(" "),
+        tabIndex: 0,
+      }}
+    />
   );
 };
 

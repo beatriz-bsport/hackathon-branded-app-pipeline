@@ -16,6 +16,7 @@ import {
   DialogTitle,
   DialogContent,
   InputLabel,
+  FormHelperText,
 } from '@material-ui/core';
 import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
 
@@ -44,6 +45,8 @@ import {
   // @ts-expect-error
 } from '#src/components/forms';
 
+import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
+
 // @ts-expect-error
 import FeatureListProvider from '#src/libs/company/hocs/feature-list-provider.hoc';
 import { UPSELL_IDENTIFIER_SPIVI } from '#src/libs/platform-billing/upsell-identifiers';
@@ -52,6 +55,8 @@ import { FeatureList } from '#src/libs/company/types';
 import { CompanyTheme } from '../types';
 import { OptionCallback } from '../../../state/types';
 import Config from '../../../config';
+import { StopSubscriptionInfoModal } from '#src/libs/theme/components/StopSubscriptionInfoModal';
+import { getIntercomLink } from '#src/intercom';
 
 interface FormikValues {
   show_offers_filling: boolean;
@@ -65,6 +70,7 @@ interface FormikValues {
   coach_can_edit_attendance: boolean;
   default_attendance: boolean;
   show_cancelled_offers_manager: boolean;
+  display_stop_subscription_from_member_side: boolean;
   show_cancelled_offers_customer: boolean;
   hideCoach: boolean;
   show_workshops_customer: boolean;
@@ -141,6 +147,28 @@ const ThemePersonalizeForm: React.FC<FormikProps<FormikValues>> = ({
     },
     [setFieldValue],
   );
+
+  const [isStopSubscriptionModalOpen, setIsStopSubscriptionModalOpen] =
+    useState(false);
+
+  const handleOnChangeStopSubscription = React.useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      if (e.target.checked) {
+        setIsStopSubscriptionModalOpen(true);
+      }
+    },
+    [],
+  );
+
+  const handleCancelSwitchStopSubscription = React.useCallback(() => {
+    setFieldValue('display_stop_subscription_from_member_side', false);
+    setIsStopSubscriptionModalOpen(false);
+  }, [setFieldValue]);
+
+  const handleValidateSwitchStopSubscription = React.useCallback(() => {
+    setIsStopSubscriptionModalOpen(false);
+    setFieldValue('display_stop_subscription_from_member_side', true);
+  }, [setFieldValue]);
 
   const [showDialogGuest, setShowDialogGuest] = useState(false);
   const guestFrequencyOptions = [
@@ -639,6 +667,54 @@ const ThemePersonalizeForm: React.FC<FormikProps<FormikValues>> = ({
         </div>
         <div className={classes.section}>
           <Typography className={classes.namesHeader}>
+            {t('forms.themePersonalization.subscriptionPersonalizationTitle')}
+          </Typography>
+          <div className={classes.horizontalGroup}>
+            <SwitchField
+              disabled={theme.franchisor}
+              label={t(
+                'forms.themePersonalization.displayStopSubscriptionFromMemberSide.label',
+              )}
+              name="display_stop_subscription_from_member_side"
+              onChange={handleOnChangeStopSubscription}
+            />
+            <a
+              className={classes.link}
+              href={getIntercomLink('stopSubscriptionOnMemberSide')}
+              rel="noreferrer"
+              target="_blank"
+            >
+              <HelpOutlineIcon />
+            </a>
+          </div>
+          <FormHelperText>
+            <div>
+              {t(
+                'forms.themePersonalization.displayStopSubscriptionFromMemberSide.helperText.simple',
+              )}
+            </div>
+            <div>
+              {t(
+                'forms.themePersonalization.displayStopSubscriptionFromMemberSide.helperText.lawCompliance',
+              )}
+            </div>
+            <div>
+              {theme.franchisor &&
+                t(
+                  'forms.themePersonalization.displayStopSubscriptionFromMemberSide.helperText.disabled',
+                )}
+            </div>
+          </FormHelperText>
+        </div>
+        <StopSubscriptionInfoModal
+          link={getIntercomLink('stopSubscriptionOnMemberSide')}
+          onClose={handleCancelSwitchStopSubscription}
+          onValidate={handleValidateSwitchStopSubscription}
+          open={isStopSubscriptionModalOpen}
+        />
+
+        <div className={classes.section}>
+          <Typography className={classes.namesHeader}>
             {t('forms.themePersonalization.calendarPersonalizationTitle')}
           </Typography>
           <SwitchField
@@ -1001,6 +1077,21 @@ const useStyles = makeStyles((theme: Theme) => ({
     marginTop: theme.spacing(2),
     fontSize: 16,
   },
+  link: {
+    textDecoration: 'none',
+    display: 'flex',
+    color: 'black',
+    '&:focus, &:hover, &:visited, &:link, &:active': {
+      textDecoration: 'none',
+      color: 'black',
+    },
+  },
+  horizontalGroup: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    color: theme.palette.text.primary,
+  },
   horizontalInput: {
     marginRight: theme.spacing(3),
   },
@@ -1096,6 +1187,7 @@ const ThemePersonalizeFormSchema = Yup.object().shape({
   coach_can_edit_attendance: Yup.boolean().required(),
   default_attendance: Yup.boolean().required(),
   show_cancelled_offers_manager: Yup.boolean().required(),
+  display_stop_subscription_from_member_side: Yup.boolean().required(),
   show_cancelled_offers_customer: Yup.boolean().required(),
   hideCoach: Yup.boolean().required(),
   show_workshops_customer: Yup.boolean().required(),
@@ -1244,6 +1336,8 @@ const ThemePersonalizeFormFormikHOC = withFormik<Props, FormikValues>({
         coach_can_edit_attendance: theme.coach_can_edit_attendance,
         default_attendance: theme.default_attendance,
         show_cancelled_offers_manager: theme.show_cancelled_offers_manager,
+        display_stop_subscription_from_member_side:
+          theme.display_stop_subscription_from_member_side,
         show_cancelled_offers_customer: theme.show_cancelled_offers_customer,
         hideCoach: theme.hideCoach,
         show_workshops_customer: theme.show_workshops_customer,
@@ -1251,7 +1345,6 @@ const ThemePersonalizeFormFormikHOC = withFormik<Props, FormikValues>({
         is_checking_balance: theme.is_checking_balance,
         hide_member_details_in_app_private_booking_for_coach:
           theme.hide_member_details_in_app_private_booking_for_coach,
-
         gender_max_shift_for_booking: theme.gender_max_shift_for_booking,
         max_future_booking: theme.max_future_booking,
         // @ts-expect-error
@@ -1315,6 +1408,7 @@ const ThemePersonalizeFormFormikHOC = withFormik<Props, FormikValues>({
       coach_can_edit_attendance: false,
       default_attendance: false,
       show_cancelled_offers_manager: false,
+      display_stop_subscription_from_member_side: false,
       show_cancelled_offers_customer: false,
       hideCoach: false,
       show_workshops_customer: false,
@@ -1370,6 +1464,7 @@ const ThemePersonalizeFormFormikHOC = withFormik<Props, FormikValues>({
       'show_cancelled_offers_customer',
       'hideCoach',
       'show_cancelled_offers_manager',
+      'display_stop_subscription_from_member_side',
       'hide_member_details_in_app_private_booking_for_coach',
       'show_workshops_customer',
       'basket_expiration_days',
@@ -1430,6 +1525,13 @@ const ThemePersonalizeFormFormikHOC = withFormik<Props, FormikValues>({
         } else {
           data.append('no_show_email_sent_number_of_hours', '0');
         }
+      } else if (key === 'display_stop_subscription_from_member_side') {
+        // While display_stop_subscription_from_member_side is a backend property managing the franchisor case
+        // the real database field to update is stop_subscription_from_member_side_enabled
+        data.append(
+          'stop_subscription_from_member_side_enabled',
+          values[key] ? '1' : '0',
+        );
       } else {
         // @ts-expect-error
         data.append(key, values[key]);

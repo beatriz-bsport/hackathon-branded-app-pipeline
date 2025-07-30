@@ -11,6 +11,7 @@ import {
 import { useTranslation } from "#src/utils/i18n";
 
 import { GenericNotificationTab } from "./GenericNotificationTab";
+import { NotificationsNavigationProvider } from "./NotificationsNavigationContext";
 import type {
   NotificationTab,
   NotificationsModalProps,
@@ -24,9 +25,8 @@ export const NotificationsModal: React.FC<NotificationsModalProps> = ({
   navigate,
 }) => {
   const { t } = useTranslation("default");
-  const { availableTabs: tabs, tabConfigurations } =
-    useNotificationTabs(navigate);
 
+  const { availableTabs: tabs, tabConfigurations } = useNotificationTabs();
   const defaultTab =
     tabs.length > 0 ? (tabs[0].id as NotificationTab) : "billing";
   const [activeTab, setActiveTab] = useState<NotificationTab>(defaultTab);
@@ -48,7 +48,7 @@ export const NotificationsModal: React.FC<NotificationsModalProps> = ({
       size="lg"
     >
       {tabs.length > 0 ? (
-        <>
+        <NotificationsNavigationProvider navigate={navigate} onClose={onClose}>
           <Tabs
             orientation="horizontal"
             value={activeTab}
@@ -58,7 +58,7 @@ export const NotificationsModal: React.FC<NotificationsModalProps> = ({
           <div className="mt-4 min-h-[480px]">
             <GenericNotificationTab config={activeConfig} />
           </div>
-        </>
+        </NotificationsNavigationProvider>
       ) : (
         <div className="mt-4 min-h-[480px] flex flex-col gap-4 items-center justify-center text-center p-8">
           <Illustration name="empty" size="xl" />

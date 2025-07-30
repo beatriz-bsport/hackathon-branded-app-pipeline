@@ -1,21 +1,7 @@
-/// <reference types="vitest" />
-import { resolve } from "path";
-import { defineConfig } from "vitest/config";
+import { createVitestConfig } from "@bsport/config-vitest";
 
-export default defineConfig({
-  resolve: {
-    alias: {
-      "#src": resolve(__dirname, "./src"),
-    },
-  },
+export default createVitestConfig(__dirname, {
   test: {
-    globals: true,
-    environment: "node",
-    include: ["src/__tests__/**/*.test.ts"],
     setupFiles: ["./src/__tests__/setup.ts"],
-    coverage: {
-      provider: "v8",
-      reporter: ["text", "json", "html"],
-    },
   },
 });

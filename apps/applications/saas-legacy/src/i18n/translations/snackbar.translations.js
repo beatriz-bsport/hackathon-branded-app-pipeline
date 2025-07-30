@@ -772,6 +772,9 @@ const getTranslations = async () => {
             'You cannot refund this invoice because your PayPal account does not have enough funds.',
         },
       },
+      receipt: {
+        genericError: 'An error occurred while generating the receipt',
+      },
     },
     privateConsumerPass: {
       creditUpdate: {

@@ -5217,7 +5217,25 @@
                         "helperText": "I nuovi clienti possono prenotare le attività senza creare prima un account. Questa funzione non è compatibile con gli appuntamenti o con la “conferma via e-mail all'iscrizione”. Si applica solo alle attività che possono essere prenotate con un pacchetto “solo per nuovi membri”."
                     },
                     "title": "Express Checkout"
-                }
+                },
+                "displayStopSubscriptionFromMemberSide": {
+                    "modal": {
+                        "confirm": "Abilita ora",
+                        "cancel": "Cancella",
+                        "linkButton": "Rivedi la guida",
+                        "linkText": "Prima di abilitare questa opzione, ti consigliamo di rivedere come funziona e cosa aspettarti:",
+                        "content": "In molti paesi, gli studi sono legalmente obbligati a permettere ai membri di annullare autonomamente i propri abbonamenti. Abilitare questa funzione ti assicura la conformità con le leggi locali e protegge il tuo studio da rischi legali.",
+                        "title": "Consentire ai membri di annullare l'abbonamento?"
+                    },
+                    "helperText": {
+                        "franchisor": "Questa modifica si applicherà a tutti i tuoi franchisee.",
+                        "disabled": "Per applicarla a tutti i franchisee, attiva questa funzione dal Master Account.",
+                        "lawCompliance": "Se non attivi questa funzione, i membri non potranno annullare autonomamente gli abbonamenti e il tuo studio potrebbe rischiare di non essere conforme alla legge del tuo paese.",
+                        "simple": "Attiva questa funzione per consentire ai membri di annullare l'abbonamento in autonomia. Anche se non avrai controllo sul periodo di preavviso per gli abbonamenti, è più probabile che tu sia conforme alle normative vigenti nel paese in cui ha sede il tuo studio. Ti invitiamo a verificare in quali paesi si applica questa opzione."
+                    },
+                    "label": "Consentire ai membri di annullare i propri abbonamenti"
+                },
+                "subscriptionPersonalizationTitle": "Abbonamento ricorrente"
             },
             "instagramURL": {
                 "label": "URL di Instagram",
@@ -5990,6 +6008,9 @@
                     "default": "Si è verificato un errore durante la generazione della fattura XML"
                 },
                 "success": "Fattura XML generata con successo"
+            },
+            "receipt": {
+                "genericError": "Si è verificato un errore durante la generazione della ricevuta"
             }
         },
         "establishment": {
@@ -6354,7 +6375,8 @@
             "85000": "Una prenotazione è già in corso, attendi qualche istante",
             "85101": "Impossibile prenotare. Questo posto è stato prenotato da un altro membro. Si prega di riprovare scegliendo un altro punto.",
             "generic": "Impossibile di prenotare",
-            "undefined": "La tessera non ti permette più di prenotare quest'anno"
+            "undefined": "La tessera non ti permette più di prenotare quest'anno",
+            "addToBasketError": "Impossibile aggiungere al carrello"
         },
         "establishmentGroup": {
             "create": {
@@ -11828,7 +11850,9 @@
                     "label": "Inizio della ricorrenza su "
                 },
                 "groupWarning": "Si noti che non è possibile creare una ricorrenza di prenotazioni per gruppi di sessioni",
-                "permissionWarning": "Non hai il permesso di effettuare prenotazioni per questa attività"
+                "permissionWarning": "Non hai il permesso di effettuare prenotazioni per questa attività",
+                "duplicateError": "Una prenotazione ricorrente con gli stessi parametri esiste già. Modifica la tua regola o controlla le regole esistenti prima di salvare.",
+                "globalError": "Si è verificato un errore durante il salvataggio della prenotazione ricorrente."
             },
             "recurrentRuleBooking": "Prenotazione ricorrente",
             "item": {
@@ -21560,7 +21584,9 @@
                 "subText": "Il pagamento è stato elaborato. La ricevuta è stata inviata per email.",
                 "sendByEmail": "Invia la ricevuta per email",
                 "subTextPartialPayment": "Il pagamento è stato elaborato e la ricevuta inviata per email. Il resto del pagamento è stato posticipato: può essere effettuato dal Back Office o dal profilo del membro.",
-                "title": "Pagamento accettato"
+                "title": "Pagamento accettato",
+                "description": "Il pagamento è stato elaborato con successo.",
+                "qrCodeTitle": "Scarica la ricevuta"
             },
             "emailSent": {
                 "title": "Email inviata",

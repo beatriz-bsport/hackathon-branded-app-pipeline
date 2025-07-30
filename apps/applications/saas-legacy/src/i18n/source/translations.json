@@ -11508,10 +11508,10 @@
             "validate": "Validate",
             "paymentSuccess": {
                 "title": "Payment accepted",
-                "subTextAnonymous": "The payment has been processed.",
-                "subText": "The payment has been processed. The invoice was sent by e-mail.",
+                "description": "The payment has been successfully processed.",
                 "subTextPartialPayment": "The payment has been processed. The invoice was sent by e-mail. The rest of the payment has been postponed: it can be made from the Backoffice or the customer profile.",
                 "printTicket": "Print ticket",
+                "qrCodeTitle": "Download your receipt",
                 "sendByEmail": "Email the invoice"
             },
             "emailSent": {
@@ -16790,6 +16790,9 @@
                     "14102": "It is impossible to reimburse this invoice.",
                     "35024": "You cannot refund this invoice because your PayPal account does not have enough funds."
                 }
+            },
+            "receipt": {
+                "genericError": "An error occurred while generating the receipt"
             }
         },
         "privateConsumerPass": {
@@ -18679,6 +18682,23 @@
         "forms": {
             "themePersonalization": {
                 "displayActivityPrice": "Display the number of credits",
+                "displayStopSubscriptionFromMemberSide": {
+                    "label": "Enable members to cancel their subscriptions",
+                    "helperText": {
+                        "simple": "Activate to enable members to cancel their subscription themselves. While you won't have control over the notice period for subscriptions, you're more likely to be legally compliant in the country where your studio is based. Please check in which countries this applies.",
+                        "lawCompliance": "If you don't activate this feature, members won’t be able to cancel subscriptions themselves and your studio may risk non-compliance with the law in your country.",
+                        "disabled": "To apply to all franchisees, activate this feature from the Master Account.",
+                        "franchisor": "This change will apply across all of your franchisees."
+                    },
+                    "modal": {
+                        "title": "Enable Subscription Cancellation for Members?",
+                        "content": "In many countries, studios are legally required to let members cancel their subscriptions themselves. Enabling this feature ensures you're compliant with local laws and protects your studio from legal risk.",
+                        "linkText": "Before enabling, we recommend reviewing how it works and what to expect:",
+                        "linkButton": "Review the guide",
+                        "confirm": "Enable now",
+                        "cancel": "Cancel"
+                    }
+                },
                 "names_label_info": "Edit the fields 'First name' and 'Last name' on your sign up form",
                 "first_name_label": {
                     "placeholder": "First name label",
@@ -18730,6 +18750,7 @@
                 "workshopsCustomer": "Show workshops on the calendar of your members",
                 "cancelledOffersCustomer": "Show cancelled sessions on the calendar of your members",
                 "calendarPersonalizationTitle": "Calendar",
+                "subscriptionPersonalizationTitle": "Subscription",
                 "basket_expiration_days": {
                     "alert": "Add the amount of days before abandoned baskets gets emptied.",
                     "placeholder": "Days",

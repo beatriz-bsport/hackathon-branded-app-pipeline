@@ -11,17 +11,19 @@ import {
   getCurrencyDisplay,
   getCurrencyDisplayWithPrice,
 } from '#src/libs/theme/selectors';
-import CouponCodeForm from '#src/libs/coupon/components/CouponCodeForm.component';
+// import CouponCodeForm from '#src/libs/coupon/components/CouponCodeForm.component';
 import type { PaymentGroup } from '#src/libs/payment/types';
-import type { Basket } from '#src/libs/checkout/types';
+// import type { Basket } from '#src/libs/checkout/types';
 import type { OptionCallback } from '#src/state/types';
 
 import useStyles from './styles';
 
 type Props = {
-  attachCoupon: (code: string, options?: OptionCallback<Basket>) => void;
+  // (Quicksale MVP): Hide Coupon
+  // attachCoupon: (code: string, options?: OptionCallback<Basket>) => void;
   basketTotalPrice?: number;
-  disableCoupon?: boolean;
+  // (Quicksale MVP): Hide Coupon
+  // disableCoupon?: boolean;
   internalAccount?: number;
   loading?: boolean;
   modifiedPrice?: number;
@@ -35,9 +37,11 @@ type Props = {
 };
 
 const QuicksaleBasketPriceRecap: React.FC<Props> = ({
-  attachCoupon,
+  // (Quicksale MVP): Hide Coupon
+  // attachCoupon,
   basketTotalPrice,
-  disableCoupon,
+  // (Quicksale MVP): Hide Coupon
+  // disableCoupon,
   internalAccount,
   loading,
   modifiedPrice,
@@ -96,31 +100,32 @@ const QuicksaleBasketPriceRecap: React.FC<Props> = ({
     setIsEditingPrice(false);
   }, [basketPriceLeftToPay, modifiedPrice, setModifiedPrice]);
 
-  const addCoupon = useCallback(
-    (code: string, options?: OptionCallback) => {
-      attachCoupon(code, {
-        onSuccess: (newBasket) => {
-          if (
-            setModifiedPrice &&
-            newBasket &&
-            modifiedPrice !== basketPriceLeftToPay
-          )
-            setModifiedPrice(
-              newBasket.total_price_cts / 100 - (partialPayment ?? 0),
-            );
-          options?.onSuccess?.();
-        },
-        onError: options?.onError,
-      });
-    },
-    [
-      attachCoupon,
-      basketPriceLeftToPay,
-      modifiedPrice,
-      partialPayment,
-      setModifiedPrice,
-    ],
-  );
+  /*(Quicksale MVP): Hide Coupon
+  // const addCoupon = useCallback(
+  //   (code: string, options?: OptionCallback) => {
+  //     attachCoupon(code, {
+  //       onSuccess: (newBasket) => {
+  //         if (
+  //           setModifiedPrice &&
+  //           newBasket &&
+  //           modifiedPrice !== basketPriceLeftToPay
+  //         )
+  //           setModifiedPrice(
+  //             newBasket.total_price_cts / 100 - (partialPayment ?? 0),
+  //           );
+  //         options?.onSuccess?.();
+  //       },
+  //       onError: options?.onError,
+  //     });
+  //   },
+  //   [
+  //     attachCoupon,
+  //     basketPriceLeftToPay,
+  //     modifiedPrice,
+  //     partialPayment,
+  //     setModifiedPrice,
+  //   ],
+  */
 
   if (!basketTotalPrice) return <></>;
 
@@ -130,7 +135,8 @@ const QuicksaleBasketPriceRecap: React.FC<Props> = ({
         {t('checkout.priceRecap')}
       </Typography>
 
-      {!loading && basketPriceLeftToPay !== modifiedPrice && (
+      {/* (Quicksale MVP): Hide the recap line for now, we deprecated the partial payment feature. */}
+      {/*{!loading && basketPriceLeftToPay !== modifiedPrice && (
         <div className={classes.recapLine}>
           <Typography variant="caption">{t('checkout.amountDue')}</Typography>
           <div className={classes.line} />
@@ -160,7 +166,7 @@ const QuicksaleBasketPriceRecap: React.FC<Props> = ({
             </Typography>
           </div>
         </>
-      )}
+      )}*/}
 
       <div className={classes.priceFrame}>
         {isEditingPrice ? (
@@ -219,14 +225,14 @@ const QuicksaleBasketPriceRecap: React.FC<Props> = ({
           </Typography>
         )}
       </div>
-
-      <div className={classes.couponButton}>
+      {/* (Quicksale MVP): Hide price modification */}
+      {/* <div className={classes.couponButton}>
         <CouponCodeForm
           disabled={disableCoupon}
           loading={loading}
           onSubmit={addCoupon}
         />
-      </div>
+      </div> */}
     </div>
   );
 };

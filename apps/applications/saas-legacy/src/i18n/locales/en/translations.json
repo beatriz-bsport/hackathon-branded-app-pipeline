@@ -541,7 +541,9 @@
                     "label": "Start the recurrent booking the "
                 },
                 "groupWarning": "Please note that it's not possible to add recurrent bookings for events.",
-                "permissionWarning": "You do not have the permission to create bookings for this activity"
+                "permissionWarning": "You do not have the permission to create bookings for this activity",
+                "globalError": "We couldn't save your recurring booking right now. Please try again later.",
+                "duplicateError": "This rule is already applied to a Recurring Booking. To save, change existing booking rules or adjust parameters."
             },
             "offerForm": {
                 "helperText": "It appears that sessions contained in the recurrent booking were canceled before for this member, you can select here the sessions that you’ll allow the system to book again",

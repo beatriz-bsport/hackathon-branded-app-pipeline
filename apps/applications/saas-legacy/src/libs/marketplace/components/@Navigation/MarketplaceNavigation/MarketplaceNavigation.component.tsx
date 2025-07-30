@@ -1,8 +1,8 @@
 import React, { useCallback, useMemo } from 'react';
 import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
-import { makeStyles, MuiThemeProvider } from '@material-ui/core/styles';
-import { DialogContent, DialogTitle } from '@material-ui/core';
+import { MuiThemeProvider } from '@material-ui/core/styles';
+import { DialogContent } from '@material-ui/core';
 
 import {
   ArrowLeft,
@@ -29,10 +29,7 @@ import ApplyCustomTheme from '#src/libs/exportable-components/ApplyCustomTheme.c
 import ApplyCustomCssStyles from '#src/libs/widget/components/ApplyCustomCssStyles.component';
 // @ts-expect-error JS
 import { getTheme } from '#src/theme';
-import CustomFormView from '#src/libs/custom-form/components/consumer-form/CustomFormView.form';
-import CustomFormViewDialog from '#src/libs/custom-form/components/consumer-form/CustomFormViewDialog.component';
 import CustomFormPortal from '#Fabrique/Temporary/CustomFormPortal';
-import { CustomFormTitle } from '#src/libs/custom-form/components/CustomFormTitle.component';
 
 import useNavigationSideDrawerData from '#src/components/css-only/Navigation/NavigationSideDrawer/useNavigationSideDrawerData.hook';
 
@@ -49,7 +46,6 @@ import type { MemberMinimal } from '#src/libs/member/types';
 
 import { STORAGE_KEY_BSPORT_RELATED_MEMBER_TOKEN } from '#src/actions/constants';
 
-import { useCssVariantActivated } from '#src/libs/custom-form/hooks/useCssVariantActivated';
 import './styles.css';
 
 type Props = {
@@ -125,10 +121,8 @@ const MarketplaceNavigation: React.FC<Props> = ({
 }) => {
   const { t } = useTranslation('consumerSpace');
   const { width } = useViewport();
-  const classes = useStyles();
-  const isMobile = width < CONSUMER_SPACE_MOBILE_BREAKPOINT;
 
-  const isCssVariantActivated = useCssVariantActivated();
+  const isMobile = width < CONSUMER_SPACE_MOBILE_BREAKPOINT;
 
   const isRelationshipAuth = !!getItemInStorage(
     'local',
@@ -322,61 +316,24 @@ const MarketplaceNavigation: React.FC<Props> = ({
             </DialogContent>
           </GenericResponsiveDialog>
 
-          {isCssVariantActivated ? (
-            <CustomFormPortal
-              generalTermsAndConditions={companyTheme.general_terms_of_use}
-              initial={signUpCustomForm}
-              isOpen={
-                isSignUpDialogOpen && !isAuthenticated && !!signUpCustomForm
-              }
-              layouts={signUpCustomForm ? signUpCustomForm.layout : null}
-              onCancel={handleCloseSignUpDialog}
-              onClose={handleCloseSignUpDialog}
-              onSubmit={handleSubmitCustomForm}
-              onSubmitDraft={handleSubmitDraftCustomForm}
-              title={t('translation:form.signUpTitle')}
-              waiver={companyTheme.waiver}
-            />
-          ) : (
-            // @ts-expect-error
-            <CustomFormViewDialog
-              fullWidth
-              maxWidth="md"
-              onClose={handleCloseSignUpDialog}
-              open={isSignUpDialogOpen && !isAuthenticated && signUpCustomForm}
-            >
-              <DialogTitle>
-                <CustomFormTitle
-                  isCompany
-                  title={t('translation:form.signUpTitle')}
-                />
-              </DialogTitle>
-              <div className={classes.customFormContainer}>
-                <CustomFormView
-                  general_terms_and_conditions={
-                    companyTheme.general_terms_of_use
-                  }
-                  initial={signUpCustomForm}
-                  layouts={signUpCustomForm ? signUpCustomForm.layout : null}
-                  onCancel={handleCloseSignUpDialog}
-                  onSubmit={handleSubmitCustomForm}
-                  onSubmitDraft={handleSubmitDraftCustomForm}
-                  waiver={companyTheme.waiver}
-                />
-              </div>
-            </CustomFormViewDialog>
-          )}
+          <CustomFormPortal
+            generalTermsAndConditions={companyTheme.general_terms_of_use}
+            initial={signUpCustomForm}
+            isOpen={
+              isSignUpDialogOpen && !isAuthenticated && !!signUpCustomForm
+            }
+            layouts={signUpCustomForm ? signUpCustomForm.layout : null}
+            onCancel={handleCloseSignUpDialog}
+            onClose={handleCloseSignUpDialog}
+            onSubmit={handleSubmitCustomForm}
+            onSubmitDraft={handleSubmitDraftCustomForm}
+            title={t('translation:form.signUpTitle')}
+            waiver={companyTheme.waiver}
+          />
         </div>
       </MemberShipValidationWrapper>
     </MuiThemeProvider>
   );
 };
-
-const useStyles = makeStyles((theme) => ({
-  customFormContainer: {
-    padding: theme.spacing(2),
-    marginBottom: theme.spacing(2),
-  },
-}));
 
 export default React.memo(MarketplaceNavigation);

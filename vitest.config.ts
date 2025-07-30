@@ -1,4 +1,4 @@
-import { defineConfig } from "vitest/config";
+import { defaultExclude, defineConfig } from "vitest/config";
 
 export default defineConfig({
   test: {
@@ -12,5 +12,12 @@ export default defineConfig({
       // Use glob patterns to discover all vitest configs in tools
       "tools/**/vitest.config.ts",
     ],
+
+    // Configuration for coverage
+    coverage: {
+      provider: "v8",
+      reporter: ["text", "json", "html"],
+      exclude: [...defaultExclude, "build/**", "dist/**"],
+    },
   },
 });

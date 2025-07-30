@@ -133,7 +133,7 @@ export enum TermsAndConditionType {
 export type PaymentGroup = {
   id: number;
   member: number;
-  invoice: number | null;
+  invoice: string | null;
   basket: number | null;
   payment_method_identifier: number;
   client_secret: string;

@@ -7835,7 +7835,9 @@
                     "label": "Startdatum "
                 },
                 "groupWarning": "Het is niet mogelijk om een periodieke reservering voor evenementen toe te voegen.",
-                "permissionWarning": "U heeft geen toestemming om boekingen te maken voor deze activiteit"
+                "permissionWarning": "U heeft geen toestemming om boekingen te maken voor deze activiteit",
+                "globalError": "Er is een fout opgetreden tijdens het opslaan van de terugkerende boeking.",
+                "duplicateError": "Er bestaat al een terugkerende boeking met dezelfde parameters. Wijzig de regel of controleer de bestaande regels voordat je opslaat."
             },
             "deleteModal": {
                 "cancel": "Annuleren",
@@ -12844,6 +12846,9 @@
                     "default": "Er is een fout opgetreden tijdens het genereren van de XML-factuur"
                 },
                 "success": "XML-factuur succesvol gegenereerd"
+            },
+            "receipt": {
+                "genericError": "Er is een fout opgetreden tijdens het genereren van het ontvangstbewijs"
             }
         },
         "link": {
@@ -15174,7 +15179,25 @@
                         "helperText": "Nieuwe klanten kunnen activiteiten boeken zonder eerst een account aan te maken. Deze functie is niet compatibel met afspraken of met ‘bevestiging per e-mail bij aanmelding’. Geldt alleen voor activiteiten die geboekt kunnen worden met een ‘nieuwe ledenpas’."
                     },
                     "title": "Snel afrekenen"
-                }
+                },
+                "displayStopSubscriptionFromMemberSide": {
+                    "helperText": {
+                        "simple": "Activeer deze optie om leden in staat te stellen hun abonnement zelf op te zeggen. Hoewel je geen controle hebt over de opzegtermijn voor abonnementen, is de kans groter dat je voldoet aan de wettelijke voorschriften in het land waar je studio is gevestigd. Controleer in welke landen dit van toepassing is.",
+                        "franchisor": "Deze wijziging geldt voor al je franchisenemers.",
+                        "disabled": "Om deze functie toe te passen op alle franchisenemers, activeer deze functie vanuit het Master Account",
+                        "lawCompliance": "Als je deze functie niet activeert, kunnen leden hun abonnementen niet zelf opzeggen en loopt je studio het risico niet te voldoen aan de wetgeving in je land."
+                    },
+                    "modal": {
+                        "cancel": "Annuleren",
+                        "confirm": "Nu inschakelen",
+                        "linkButton": "Bekijk de handleiding",
+                        "linkText": "Voordat je deze functie inschakelt, raden we je aan om te bekijken hoe deze werkt en wat je kunt verwachten:",
+                        "content": "In veel landen zijn studio's wettelijk verplicht om leden zelf hun abonnement te laten opzeggen. Door deze functie in te schakelen, zorg je ervoor dat je voldoet aan de lokale wetgeving en bescherm je je studio tegen juridische risico's.",
+                        "title": "Abonnement opzeggen voor leden inschakelen?"
+                    },
+                    "label": "Leden de mogelijkheid bieden om hun abonnement op te zeggen"
+                },
+                "subscriptionPersonalizationTitle": "Abonnement"
             },
             "gtmId": {
                 "placeholder": "GTM-XXXXXX",
@@ -21575,7 +21598,9 @@
                 "title": "Betaling geaccepteerd!",
                 "subTextAnonymous": "De betaling is succesvol voltooid.",
                 "printTicket": "Bon printen",
-                "sendByEmail": "Factuur per e-mail versturen"
+                "sendByEmail": "Factuur per e-mail versturen",
+                "qrCodeTitle": "Download ontvangst",
+                "description": "De betaling is succesvol verwerkt."
             },
             "payLater": {
                 "subText": "Deze betaling kan later via de Back Office worden voltooid.",

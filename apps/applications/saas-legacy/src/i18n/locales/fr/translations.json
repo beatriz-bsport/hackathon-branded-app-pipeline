@@ -154,7 +154,9 @@
                     "helperText": "Indique combien de semaines en avance le membre sera inscrit ( {{delayWeek}} semaines maximum)"
                 },
                 "groupWarning": "Attention il n’est pas possible de créer une récurrence de réservation sur des groupes de séances",
-                "permissionWarning": "Vous n'avez pas l'autorisation de créer des réservations pour cette activité"
+                "permissionWarning": "Vous n'avez pas l'autorisation de créer des réservations pour cette activité",
+                "globalError": "Nous n'avons pas pu enregistrer votre réservation récurrente, veuillez réessayer plus tard.",
+                "duplicateError": "Cette règle est déjà utilisée par une réservation récurrente. Pour enregistrer, veuillez changer les règles existantes ou ajuster les paramètres."
             },
             "actions": {
                 "close": "Fermer",
@@ -15694,7 +15696,8 @@
             "45005": "La carte cadeau n'est plus disponible à la vente.",
             "85000": "Une réservation est déjà en cours, veuillez patienter quelques instants",
             "85101": "Impossible de réserver. Ce spot est en cours de réservation par un autre membre. Veuillez réessayer en choisissant un autre spot.",
-            "generic": "Impossible de réserver"
+            "generic": "Impossible de réserver",
+            "addToBasketError": "Impossible d'ajouter au panier"
         },
         "offer": {
             "restore": {
@@ -15785,6 +15788,9 @@
                     "default": "Une erreur s'est produite lors de la génération de la facture XML"
                 },
                 "success": "Facture XML générée avec succès"
+            },
+            "receipt": {
+                "genericError": "Une erreur s'est produite lors de la génération du reçu"
             }
         },
         "zoom": {
@@ -18462,6 +18468,24 @@
                         "label": "One-Click Booking (beta)"
                     },
                     "title": "Réservation rapide"
+                },
+                "subscriptionPersonalizationTitle": "Abonnement",
+                "displayStopSubscriptionFromMemberSide": {
+                    "modal": {
+                        "cancel": "Annuler",
+                        "confirm": "Activer maintenant",
+                        "linkButton": "Consultez notre guide",
+                        "linkText": "Avant de l'activer, nous vous recommandons de vérifier son fonctionnement et ce à quoi vous pouvez vous attendre :",
+                        "content": "Dans de nombreux pays, les studios sont légalement tenus de permettre à leurs membres d'annuler eux-mêmes leur abonnement. L'activation de cette fonctionnalité vous garantit la conformité avec les lois locales et protège votre studio contre tout risque juridique.",
+                        "title": "Activer la résiliation de l'abonnement pour les membres ?"
+                    },
+                    "helperText": {
+                        "franchisor": "Ce changement s'appliquera à tous vos franchisés.",
+                        "disabled": "Pour appliquer cette fonctionnalité à tous les franchisés, activez-la depuis le Master Account.",
+                        "lawCompliance": "Si vous n'activez pas cette fonctionnalité, les membres ne pourront pas résilier eux-mêmes leur abonnement et votre studio risque de ne pas être en conformité avec la législation de votre pays.",
+                        "simple": "Activez cette option pour permettre aux membres d'annuler eux-mêmes leur abonnement. Bien que vous n'ayez plus contrôle sur le délai de préavis pour les abonnements, vous serez plus susceptible d'être en conformité avec la législation du pays où votre studio est basé. Merci de vérifier la législation appliquée dans votre pays."
+                    },
+                    "label": "Permettre aux membres d'annuler leur abonnement"
                 }
             },
             "cover": {
@@ -21222,7 +21246,9 @@
                 "subTextAnonymous": "Le paiement a bien été pris en compte.",
                 "subTextPartialPayment": "Le paiement a bien été pris en compte. La facture a été envoyée par mail. Le reste du paiement a été remis à plus tard : il pourra être effectué depuis le Backoffice ou sur le profil client.",
                 "printTicket": "Imprimer le ticket",
-                "sendByEmail": "Envoyer la facture par mail"
+                "sendByEmail": "Envoyer la facture par mail",
+                "description": "Le paiement a été effectué avec succès.",
+                "qrCodeTitle": "Téléchargez votre reçu"
             },
             "emailSent": {
                 "title": "Email envoyé",

@@ -9,8 +9,8 @@ import type {
   QuicksaleSection,
 } from '#src/libs/quicksale/types';
 import QuicksaleItemCard from '#src/libs/quicksale/components/QuicksaleItemCard';
-import QuicksaleConfigurationItemList from '#src/libs/quicksale/components/QuicksaleConfigurationItemList';
-import QuicksaleConfigurationSectionList from '#src/libs/quicksale/components/QuicksaleConfigurationSectionList';
+import QuicksaleItemList from '#src/libs/quicksale/components/QuicksaleItemList';
+import QuicksaleSectionList from '#src/libs/quicksale/components/QuicksaleSectionList';
 
 import MuiIcon from '#src/components/MuiIcon.component';
 
@@ -49,7 +49,7 @@ const QuicksaleTileList: React.FC<Props> = ({
       <div className={classes.searchResultsContainer}>
         <Typography variant="body1">
           {t('interface.resultsForString', {
-            count: searchResults.length,
+            count: searchResults?.length,
             searchText,
           })}
         </Typography>
@@ -58,7 +58,10 @@ const QuicksaleTileList: React.FC<Props> = ({
           const resultsForThisSection = searchResults?.filter(
             (result) => result.sectionId === section.section_id,
           );
-          if (resultsForThisSection.length === 0) return <></>;
+
+          if (!resultsForThisSection || resultsForThisSection.length === 0)
+            return <></>;
+
           return (
             <div
               key={section.section_id}
@@ -100,8 +103,7 @@ const QuicksaleTileList: React.FC<Props> = ({
 
   if (currentSection) {
     return (
-      <QuicksaleConfigurationItemList
-        isQuicksaleInterfaceView
+      <QuicksaleItemList
         isExcludingTax={isExcludingTax}
         itemList={itemCardInfoList}
         loading={loading}
@@ -111,8 +113,7 @@ const QuicksaleTileList: React.FC<Props> = ({
   }
 
   return (
-    <QuicksaleConfigurationSectionList
-      isQuicksaleInterfaceView
+    <QuicksaleSectionList
       loading={loading}
       onSectionClick={onSectionClick}
       sectionList={sectionList}

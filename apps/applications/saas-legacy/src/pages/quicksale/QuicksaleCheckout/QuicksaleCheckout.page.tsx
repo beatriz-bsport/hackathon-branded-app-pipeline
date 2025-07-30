@@ -6,11 +6,13 @@ import {
   replace as replaceAction,
 } from 'connected-react-router';
 
+import { PAYMENT_INTENT_STATUS_SUCCESS } from '@bsport/common/lib/master-data/payment-group.js';
+
 import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
 
+import { getPaymentGroupStatus as getPaymentGroupStatusAPI } from '#src/libs/payment/api';
 import {
   assignInstalmentPayment as assignInstalmentPaymentAction,
-  attachCoupon as attachCouponAction,
   createOrRefreshInternalAccountPrepaidLine as createOrRefreshInternalAccountPrepaidLineAction,
   fetchBasket as fetchBasketAction,
   patchCurrentBasket as patchCurrentBasketAction,
@@ -21,10 +23,14 @@ import { getBasket } from '#src/libs/checkout/selectors';
 
 import {
   detachPaymentMethod as detachPaymentMethodAction,
+  fetchPaymentGroup as fetchPaymentGroupAction,
   updatePaymentGroupPriceCts,
 } from '#src/libs/payment/actions';
 
-import { fetchPaymentList as fetchPaymentListAction } from '#src/libs/invoice/actions';
+import {
+  fetchPaymentList as fetchPaymentListAction,
+  getInvoiceReceiptUrl as getInvoiceReceiptUrlAction,
+} from '#src/libs/invoice/actions';
 import { getPaymentList } from '#src/libs/invoice/selectors';
 
 import { fetchInstalmentPaymentByBasket as fetchInstalmentPaymentByBasketAction } from '#src/libs/instalment-payment-configuration/actions';
@@ -52,7 +58,11 @@ import { getInstalmentForBasketList } from '#src/libs/instalment-payment-configu
 // @ts-expect-error
 import { mapFormData } from '#src/pages/form.utils';
 import QuicksaleCheckout from './QuicksaleCheckout.component';
-import { useModals, useQuicksalePayments } from './hooks';
+import {
+  useFetchPaymentGroupWithRetry,
+  useModals,
+  useQuicksalePayments,
+} from './hooks';
 
 import { QuicksaleDeliveryType } from '#src/libs/quicksale/constants';
 import type { Basket, BasketAddress } from '#src/libs/checkout/types';
@@ -60,6 +70,8 @@ import type { MemberFormData } from '#src/libs/member/types';
 import type { PaymentGroup } from '#src/libs/payment/types';
 import type { RootState } from '#src/reducers';
 import type { OptionCallback } from '#src/state/types';
+
+const NEXT_PAYMENT_INTENT_STATUS_CHECK_SECONDS = 1.5;
 
 type Props = {
   basketId: string;
@@ -76,6 +88,8 @@ const QuicksalePayment: React.FC<Props> = ({
   instalmentPaymentConfigurationList,
   fetchBasket,
   fetchMembers,
+  fetchPaymentGroup,
+  getInvoiceReceiptUrl,
   push,
   replace,
   searchMembers,
@@ -83,7 +97,8 @@ const QuicksalePayment: React.FC<Props> = ({
   updateQuicksaleBasketMember,
   updatePaymentGroupPrice,
   fetchPaymentList,
-  attachCoupon,
+  // (Quicksale MVP): Hide Coupon
+  // attachCoupon,
   removeItemFromBasket,
   getFeatureList,
   fetchStripeReaders,
@@ -92,13 +107,14 @@ const QuicksalePayment: React.FC<Props> = ({
   createOrRefreshInternalAccountPrepaidLine,
   // detachPaymentMethod,
   // detachPaymentMethodLoading,
-  // snackbarErrorMsg,
+  snackbarErrorMsg,
 }) => {
   const goBack = React.useCallback(() => {
     push('/quicksale/');
   }, [push]);
 
   const [loading, setLoading] = React.useState(true);
+  const [qrCodeValue, setQrCodeValue] = React.useState('');
 
   const {
     clientSecret,
@@ -110,7 +126,7 @@ const QuicksalePayment: React.FC<Props> = ({
     paymentMethod,
     availablePaymentMethods,
     setPaymentMethod,
-  } = useQuicksalePayments({ basketId, setLoading });
+  } = useQuicksalePayments({ basket, setLoading });
 
   const member = memberById[basket?.member];
 
@@ -121,19 +137,24 @@ const QuicksalePayment: React.FC<Props> = ({
     setShowWarningRemovedItemsModal,
     showPaymentSuccessModal,
     setShowPaymentSuccessModal,
-    showAnonymousPaymentSuccessModal,
     showPartialPaymentSuccesModal,
-    setShowAnonymousPaymentSuccessModal,
+    setShowPartialPaymentSuccesModal,
     openCannotSignOutModal,
     closeCannotSignOutModal,
     openMemberModal,
     closeMemberModal,
     closeWarningRemovedItemsModal,
-    closeAnonymousPaymentSuccessModal,
-    setShowPartialPaymentSuccesModal,
     someObjectsRequireAuthentication,
     setSomeObjectsRequireAuthentication,
   } = useModals({ goBack, basket, member });
+
+  const fetchPaymentGroupWithRetry = useFetchPaymentGroupWithRetry({
+    paymentGroupId,
+    fetchPaymentGroup,
+    getInvoiceReceiptUrl,
+    setQrCodeValue,
+    snackbarErrorMsg,
+  });
 
   // ===========================================
 
@@ -149,16 +170,30 @@ const QuicksalePayment: React.FC<Props> = ({
   React.useEffect(() => {
     fetchBasket(basketId, {
       onSuccess: (fetchedBasket) => {
+        if (!fetchedBasket) return;
+
         fetchMembers({ id__in: [fetchedBasket.member] });
-        if (fetchedBasket.invoice)
+
+        if (fetchedBasket.invoice) {
           fetchPaymentList({
             invoice__uuid: fetchedBasket.invoice,
             page: 1,
             page_size: 100,
           });
+        }
+
+        if (fetchedBasket.is_finalized) {
+          setShowPaymentSuccessModal(true);
+        }
       },
     });
-  }, [basketId, fetchBasket, fetchMembers, fetchPaymentList]);
+  }, [
+    basketId,
+    fetchBasket,
+    fetchMembers,
+    fetchPaymentList,
+    setShowPaymentSuccessModal,
+  ]);
 
   React.useEffect(() => {
     fetchInstalmentPaymentByBasket(basketId);
@@ -190,6 +225,13 @@ const QuicksalePayment: React.FC<Props> = ({
   React.useEffect(() => {
     getFeatureList();
   }, [getFeatureList]);
+
+  // Fetch paymentGroup and receipt URL to set the QR code rendered in the payment success modal
+  React.useEffect(() => {
+    if (showPaymentSuccessModal && paymentGroupId) {
+      fetchPaymentGroupWithRetry();
+    }
+  }, [showPaymentSuccessModal, paymentGroupId, fetchPaymentGroupWithRetry]);
 
   // =========================================
 
@@ -259,22 +301,35 @@ const QuicksalePayment: React.FC<Props> = ({
 
   const onPaymentSuccess = React.useCallback(
     (callback?: () => void) => {
-      callback?.();
-      if (member?.is_pos) setShowAnonymousPaymentSuccessModal(true);
-      else if (
-        basket &&
-        paymentGroupPriceCts / 100 !==
-          basket.total_price_cts / 100 - alreadyPaidAmount
-      )
-        setShowPartialPaymentSuccesModal(true);
-      else setShowPaymentSuccessModal(true);
+      getPaymentGroupStatusAPI(paymentGroupId)
+        .then((body) => {
+          if (body.data >= PAYMENT_INTENT_STATUS_SUCCESS) {
+            setTimeout(() => {
+              callback?.();
+              if (
+                !member?.is_pos &&
+                basket &&
+                paymentGroupPriceCts / 100 !==
+                  basket.total_price_cts / 100 - alreadyPaidAmount
+              )
+                setShowPartialPaymentSuccesModal(true);
+              else setShowPaymentSuccessModal(true);
+            }, 2000);
+          } else {
+            setTimeout(
+              onPaymentSuccess,
+              NEXT_PAYMENT_INTENT_STATUS_CHECK_SECONDS * 1000,
+            );
+          }
+        })
+        .catch(console.error);
     },
     [
       alreadyPaidAmount,
       basket,
+      paymentGroupId,
       member?.is_pos,
       paymentGroupPriceCts,
-      setShowAnonymousPaymentSuccessModal,
       setShowPartialPaymentSuccesModal,
       setShowPaymentSuccessModal,
     ],
@@ -305,13 +360,14 @@ const QuicksalePayment: React.FC<Props> = ({
     [basketId, removeItemFromBasket],
   );
 
-  const addCoupon = React.useCallback(
+  // (Quicksale MVP): Hide Coupon
+  /*const addCoupon = React.useCallback(
     (code: string, options?: OptionCallback<Basket>) => {
       setLoading(true);
       attachCoupon(basketId, code, options);
     },
     [attachCoupon, basketId],
-  );
+  );*/
 
   /*const removePaymentMethod = React.useCallback(
     (paymentMethodId: string, options: OptionCallback<unknown, number>) => {
@@ -389,7 +445,8 @@ const QuicksalePayment: React.FC<Props> = ({
     <>
       <QuicksaleCheckout
         alreadyPaidAmount={alreadyPaidAmount}
-        attachCoupon={addCoupon}
+        // (Quicksale MVP): Hide Coupon
+        // attachCoupon={addCoupon}
         availablePaymentMethods={availablePaymentMethods}
         basket={basket}
         basketAddress={basketAddress}
@@ -428,12 +485,11 @@ const QuicksalePayment: React.FC<Props> = ({
       />
 
       <QuicksaleDialogs
-        closeAnonymousPaymentSuccessModal={closeAnonymousPaymentSuccessModal}
         closePartialPaymentSuccesModal={closePaymentSuccessModal}
         closePaymentSuccessModal={closePaymentSuccessModal}
         closeStillOpenBasketsModal={closeCannotSignOutModal}
         closeWarningRemovedItemsModal={closeWarningRemovedItemsModal}
-        showAnonymousPaymentSuccessModal={showAnonymousPaymentSuccessModal}
+        qrCodeValue={qrCodeValue}
         showPartialPaymentSuccesModal={showPartialPaymentSuccesModal}
         showPaymentSuccessModal={showPaymentSuccessModal}
         showStillOpenBasketsModal={showCannotSignOutModal}
@@ -477,7 +533,10 @@ const connector = connect(
     updateQuicksaleBasketMember: updateQuicksaleBasketMemberAction,
     updatePaymentGroupPrice: updatePaymentGroupPriceCts,
     fetchPaymentList: fetchPaymentListAction,
-    attachCoupon: attachCouponAction,
+    fetchPaymentGroup: fetchPaymentGroupAction,
+    getInvoiceReceiptUrl: getInvoiceReceiptUrlAction,
+    // (Quicksale MVP): Hide Coupon
+    // attachCoupon: attachCouponAction,
     removeItemFromBasket: removeItemFromBasketAction,
     patchCurrentBasket: patchCurrentBasketAction,
     getFeatureList: getFeatureListAction,

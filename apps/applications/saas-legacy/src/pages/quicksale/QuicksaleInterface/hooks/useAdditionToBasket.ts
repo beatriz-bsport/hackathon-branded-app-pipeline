@@ -24,7 +24,7 @@ import useAdditionToBasketHelpers from './useAdditionToBasketHelpers';
 const useAdditionToBasket = (
   setCurrentBasket: (basket: Basket | null) => void,
   setPendingItemToAdd: (item: QuicksaleCardInfo | null) => void,
-  setShowGiftcardFormModal: (show: boolean) => void,
+  // setShowGiftcardFormModal: (show: boolean) => void,
   setShowAuthenticatedMemberRestrictionModal: (show: boolean) => void,
   setShowUnauthenticatedMemberRestrictionModal: (show: boolean) => void,
   setMemberRestrictionSubTexts: (subTexts: TranslationProps[][]) => void,
@@ -71,7 +71,7 @@ const useAdditionToBasket = (
   } = useAdditionToBasketHelpers(
     setCurrentBasket,
     setPendingItemToAdd,
-    setShowGiftcardFormModal,
+    // setShowGiftcardFormModal,
     setShowAuthenticatedMemberRestrictionModal,
     setShowUnauthenticatedMemberRestrictionModal,
     setMemberRestrictionSubTexts,

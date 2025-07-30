@@ -32,7 +32,6 @@ import type {
   SignUpCustomFormPayload,
 } from '#src/libs/custom-form/types';
 import WidgetUtils from '#src/libs/widget/WidgetUtils';
-import CustomFormTitle from '#src/libs/custom-form/components/CustomFormTitle.component';
 import CustomFormTitleCSS from '#src/libs/custom-form/components/CustomFormTitleCSS';
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 import WithCustomCssProvider from '#src/hocs/company-custom-css.hoc';
@@ -188,11 +187,6 @@ export class SignupPage extends Component<Props> {
       <div ref={containerRef} className={this.getContainerClass()}>
         <div className="bs-signup-container--margin-top">
           <CustomFormTitleCSS
-            isCompany={!!membership}
-            simplifyUI={simplifyUI}
-            title={signUpTitle}
-          />
-          <CustomFormTitle
             isCompany={!!membership}
             simplifyUI={simplifyUI}
             title={signUpTitle}

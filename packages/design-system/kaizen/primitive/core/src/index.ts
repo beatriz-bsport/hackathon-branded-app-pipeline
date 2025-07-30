@@ -37,6 +37,10 @@ export {
   type DatePickerProps,
 } from "./components/DatePicker";
 export {
+  default as DetailDrawer,
+  type DetailDrawerProps,
+} from "./components/DetailDrawer";
+export {
   default as DetailsLayout,
   useDetailsLayout,
   type DetailsLayoutProps,
@@ -127,10 +131,10 @@ export {
 export {
   default as NavigationMenu,
   type NavigationMenuProps,
-  type NavigationMenuElement,
   type NavigationMenuItem,
   type NavigationMenuDivider,
   type NavigationMenuGroup,
+  type NavigationMenuElement,
 } from "./components/NavigationMenu";
 export {
   default as NestedSortableList,
@@ -147,6 +151,10 @@ export {
   type RadioGroupProps,
 } from "./components/RadioGroup";
 export { default as Select, type SelectProps } from "./components/Select";
+export {
+  default as SegmentedControl,
+  type SegmentedControlProps,
+} from "./components/SegmentedControl";
 export {
   default as SortableList,
   type SortableListHeaderProps,

@@ -118,11 +118,11 @@ const BaseItem: React.FC<
                 </span>
               )}
             </div>
-            {chipsDirection === "start" && renderedChips}
           </div>
 
           {/* Right column with actions */}
           <div className="flex justify-end gap-sm">
+            {chipsDirection === "start" && renderedChips}
             {rightTitle && (
               <span className="text-onsurface-default text-body-lg leading-md">
                 {rightTitle}

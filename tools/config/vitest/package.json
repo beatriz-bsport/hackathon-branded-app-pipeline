@@ -1,0 +1,46 @@
+{
+  "name": "@bsport/config-vitest",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Configuration for vitest testing framework",
+  "license": "UNLICENSED",
+  "author": "osmel.more@bsport.io",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./build/index.d.ts",
+      "import": "./build/index.js",
+      "default": "./build/index.js"
+    }
+  },
+  "main": "build/index.js",
+  "module": "build/index.js",
+  "types": "build/index.d.ts",
+  "files": [
+    "build"
+  ],
+  "scripts": {
+    "build": "rimraf build && tsc",
+    "dev": "tsc --watch",
+    "format": "prettier --write '**/*.{ts,tsx,js,jsx,cjs,mjs,scss,css,json,md,mdx,html,svg}'",
+    "format:check": "prettier --check '**/*.{ts,tsx,js,jsx,cjs,mjs}'",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix .",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "dependencies": {
+    "vitest": "^3.2.4"
+  },
+  "devDependencies": {
+    "@bsport/config-eslint-react": "workspace:*",
+    "@types/node": "^22.13.15",
+    "rimraf": "^6.0.1",
+    "typescript": "^5.6.3"
+  },
+  "nx": {
+    "tags": [
+      "postinstall"
+    ]
+  }
+}

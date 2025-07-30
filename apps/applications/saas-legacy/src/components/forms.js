@@ -1042,9 +1042,11 @@ type SwitchFieldProps = {
   inverse?: boolean,
   helperText?: string,
   color?: Variant,
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void,
 };
 export const SwitchField = (props: SwitchFieldProps) => {
-  const { name, disabled, label, inverse, className, helperText } = props;
+  const { name, disabled, label, inverse, className, helperText, onChange } =
+    props;
 
   return (
     <div>
@@ -1054,7 +1056,15 @@ export const SwitchField = (props: SwitchFieldProps) => {
             {...field}
             checked={inverse ? !field.value : field.value}
             className={className}
-            control={<Switch color={props.color} />}
+            control={
+              <Switch
+                color={props.color}
+                onChange={(event, checked) => {
+                  field.onChange(event); // Call Formik's handler to update its state
+                  onChange?.(event); // Call custom handler if provided
+                }}
+              />
+            }
             disabled={disabled}
             label={label}
             value=""

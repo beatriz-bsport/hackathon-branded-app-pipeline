@@ -1,4 +1,4 @@
-import { cva } from "class-variance-authority";
+import { cva, cx } from "class-variance-authority";
 import React from "react";
 
 import { ChipProps } from "#src/components/Chip";
@@ -153,7 +153,12 @@ const List = <T extends { id: string }>(props: ListProps<T>) => {
   if (shouldRenderLoadingState) return <LoadingState />;
 
   return (
-    <Collapse {...collapsibleProps}>
+    <Collapse
+      className={cx({
+        "h-full": !collapsibleProps,
+      })}
+      {...collapsibleProps}
+    >
       <CheckboxProvider valueIds={valueIds}>
         <div className={className} id={id}>
           {!!header && (

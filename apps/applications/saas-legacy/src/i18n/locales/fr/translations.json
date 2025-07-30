@@ -10883,7 +10883,7 @@
                 },
                 "color": "Code couleur",
                 "use_full_establishment_capacity": {
-                    "label": "Toute la établissement est nécessaire pour ce rendez-vous",
+                    "label": "Toute l'établissement est nécessaire pour ce rendez-vous",
                     "helperText": "Tout l'espace est nécessaire pour le rendez-vous. Décochez pour autoriser plusieurs rendez-vous dans le même établissement."
                 },
                 "title": "Rendez-vous",

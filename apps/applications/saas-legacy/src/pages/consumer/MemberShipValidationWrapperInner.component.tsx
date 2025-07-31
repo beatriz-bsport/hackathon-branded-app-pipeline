@@ -171,6 +171,7 @@ export class MemberShipValidationWrapper extends React.Component<Props> {
               !this.props.isRelationNavigation &&
               !this.props.isValidated
             }
+            style={{ zIndex: 'unset' }}
           >
             <div className={classes.customFormContainer}>
               {this.props.memberCustomForm && (

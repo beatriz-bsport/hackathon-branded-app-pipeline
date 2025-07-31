@@ -5,8 +5,8 @@ import { getConfig } from "../config.js";
 vi.mock("@module-federation/vite", () => ({
   federation: vi.fn().mockReturnValue([{ name: "module-federation" }]),
 }));
-vi.mock("@nx/vite/plugins/nx-tsconfig-paths.plugin", () => ({
-  nxViteTsPaths: vi.fn().mockReturnValue({ name: "nx-tsconfig-paths" }),
+vi.mock("vite-tsconfig-paths", () => ({
+  default: vi.fn().mockReturnValue({ name: "vite-tsconfig-paths" }),
 }));
 vi.mock("@vitejs/plugin-react-swc", () => ({
   default: vi.fn().mockReturnValue({ name: "vite:react-swc" }),
@@ -370,9 +370,7 @@ describe("getConfig", () => {
     const config = getConfig(createConfig());
 
     // Import all mocked plugins
-    const { nxViteTsPaths } = await import(
-      "@nx/vite/plugins/nx-tsconfig-paths.plugin"
-    );
+    const { default: tsconfigPaths } = await import("vite-tsconfig-paths");
     const { default: svgr } = await import("vite-plugin-svgr");
     const { default: react } = await import("@vitejs/plugin-react-swc");
     const { federation } = await import("@module-federation/vite");
@@ -388,7 +386,7 @@ describe("getConfig", () => {
     expect(config.plugins).toHaveLength(7);
 
     // Verify each plugin is called once
-    expect(nxViteTsPaths).toHaveBeenCalledOnce();
+    expect(tsconfigPaths).toHaveBeenCalledOnce();
     expect(svgr).toHaveBeenCalledOnce();
     expect(react).toHaveBeenCalledOnce();
     expect(federation).toHaveBeenCalledOnce();

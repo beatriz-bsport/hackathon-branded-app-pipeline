@@ -1,10 +1,10 @@
-import { nxViteTsPaths } from "@nx/vite/plugins/nx-tsconfig-paths.plugin";
 import react from "@vitejs/plugin-react-swc";
 import { resolve } from "path";
 import tailwindcss from "tailwindcss";
 import type { UserConfig } from "vite";
 import dts from "vite-plugin-dts";
 import svgr from "vite-plugin-svgr";
+import tsconfigPaths from "vite-tsconfig-paths";
 
 import pkg from "./package.json";
 
@@ -24,7 +24,7 @@ const config: UserConfig = {
     emptyOutDir: true,
   },
   /*plugins: [svgr(), react(), dts({ rollupTypes: true })],*/
-  plugins: [nxViteTsPaths(), svgr(), react(), dts({ insertTypesEntry: true })],
+  plugins: [tsconfigPaths(), svgr(), react(), dts({ insertTypesEntry: true })],
   resolve: {
     alias: {
       "#src": resolve(__dirname, "src"),

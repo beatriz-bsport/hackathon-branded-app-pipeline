@@ -17380,6 +17380,9 @@
             "error": "An error has occurred during save",
             "updated": "Configuration saved"
         },
+        "quicksaleCheckout": {
+            "15010": "Impossible to read, update or work on this quicksale basket, it was previously dropped"
+        },
         "spivi": {
             "error": {
                 "21000": "The Spivi upsell is not activated.",

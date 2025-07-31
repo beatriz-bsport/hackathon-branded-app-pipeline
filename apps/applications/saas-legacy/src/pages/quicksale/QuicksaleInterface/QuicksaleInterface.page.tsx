@@ -72,6 +72,10 @@ import type { Contract } from '#src/libs/subscription/types';
 import withDatatypeDynamicData from '#src/libs/datatype-filtering/dynamic-data-hoc';
 import type { DynamicFilterDataType } from '#src/libs/datatype-filtering/types';
 
+import { getUserRoleByIdentity } from '#src/libs/role/selectors';
+import { getStaffEstablishmentBillingGroup } from '#src/libs/role/utils';
+import { fetchCompanyUserRoles as fetchCompanyUserRolesAction } from '#src/libs/role/actions';
+
 import { getCompanyCountry } from '#src/libs/theme/selectors';
 
 import { getEnabledEstablishmentBillingGroups } from '#src/libs/establishment/selectors';
@@ -106,6 +110,7 @@ const QuicksaleInterface: React.FC<Props> = ({
   theme,
   memberById,
   quicksaleStaffFullName,
+  userRole,
   baskets,
   sectionList,
   loading,
@@ -116,7 +121,7 @@ const QuicksaleInterface: React.FC<Props> = ({
   giftcardById,
   contractById,
   // savedPaymentMethodList,
-  // establishmentBillingGroups,
+  establishmentBillingGroups,
   // stripeReaders,
   // giftcardBackgroundImageList,
   tagsById,
@@ -145,6 +150,7 @@ const QuicksaleInterface: React.FC<Props> = ({
   // fetchGiftcardBackgroundImageList,
   fetchAllTags,
   fetchAllEstablishmentBillingGroup,
+  fetchCompanyUserRoles,
   currentVariantItem,
 }) => {
   const { t } = useTranslation('quicksale');
@@ -300,10 +306,12 @@ const QuicksaleInterface: React.FC<Props> = ({
     fetchAllTags();
     if (theme.enable_multi_localization) {
       fetchAllEstablishmentBillingGroup({ params: { company: theme.company } });
+      fetchCompanyUserRoles();
     }
   }, [
     fetchAllEstablishmentBillingGroup,
     fetchAllTags,
+    fetchCompanyUserRoles,
     fetchMembers,
     fetchOpenQuicksaleBaskets,
     fetchPOSMember,
@@ -447,6 +455,11 @@ const QuicksaleInterface: React.FC<Props> = ({
 
   // =====================================================
 
+  const staffEstablishmentBillingGroup = getStaffEstablishmentBillingGroup(
+    userRole,
+    establishmentBillingGroups,
+  );
+
   // ========== Handlers for contract's subscription ==========
 
   // const stripeRegion = getStripeRegion();
@@ -510,6 +523,9 @@ const QuicksaleInterface: React.FC<Props> = ({
         setCurrentBasket={setCurrentBasket}
         showGiftcardFormModal={showGiftcardFormModal}
         signOut={signOut}
+        staffEstablishmentBillingGroupName={
+          staffEstablishmentBillingGroup?.name || ''
+        }
         theme={theme}
       />
 
@@ -582,6 +598,7 @@ const connector = connect(
     theme: state.theme.theme,
     memberById: getMemberListData(state),
     quicksaleStaffFullName: state.auth.name,
+    userRole: getUserRoleByIdentity(state),
     baskets: getOpenBasketList(state),
     sectionList: getActiveSectionList(state),
     currentVariantItem: variantItemId
@@ -632,6 +649,7 @@ const connector = connect(
     // registerContractBackground: registerContractBackgroundAction,
     // fetchStripeReaders: fetchStripeReadersAction,
     fetchAllEstablishmentBillingGroup: fetchAllEstablishmentBillingGroupAction,
+    fetchCompanyUserRoles: fetchCompanyUserRolesAction,
     // fetchGiftcardBackgroundImageList: fetchGiftcardBackgroundImageListAction,
     fetchAllTags: fetchAllTagsAction,
   },

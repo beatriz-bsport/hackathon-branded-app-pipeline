@@ -48,7 +48,14 @@ import { snackbarWarning } from '#src/libs/snackbar/actions';
 
 import QuicksaleDialogs from '#src/libs/quicksale/components/QuicksaleDialogs.component';
 
+import { getUserRoleByIdentity } from '#src/libs/role/selectors';
+import { getStaffEstablishmentBillingGroup } from '#src/libs/role/utils';
+import { fetchCompanyUserRoles as fetchCompanyUserRolesAction } from '#src/libs/role/actions';
+
 import { getCompanyCountry } from '#src/libs/theme/selectors';
+
+import { getEnabledEstablishmentBillingGroups } from '#src/libs/establishment/selectors';
+import { fetchAllEstablishmentBillingGroup as fetchAllEstablishmentBillingGroupAction } from '#src/libs/establishment/actions';
 
 import { getFeatureList as getFeatureListAction } from '#src/libs/company/actions';
 import { fetchStripeReaders as fetchStripeReadersAction } from '#src/libs/terminal/actions';
@@ -83,13 +90,17 @@ const QuicksalePayment: React.FC<Props> = ({
   memberById,
   theme,
   quicksaleStaffFullName,
+  userRole,
   paymentList,
   stripeReaders,
   instalmentPaymentConfigurationList,
   fetchBasket,
   fetchMembers,
+  fetchCompanyUserRoles,
   fetchPaymentGroup,
+  fetchAllEstablishmentBillingGroup,
   getInvoiceReceiptUrl,
+  establishmentBillingGroups,
   push,
   replace,
   searchMembers,
@@ -168,6 +179,10 @@ const QuicksalePayment: React.FC<Props> = ({
 
   // Fetch basket and associated member
   React.useEffect(() => {
+    if (theme.enable_multi_localization) {
+      fetchAllEstablishmentBillingGroup({ params: { company: theme.company } });
+      fetchCompanyUserRoles();
+    }
     fetchBasket(basketId, {
       onSuccess: (fetchedBasket) => {
         if (!fetchedBasket) return;
@@ -190,10 +205,14 @@ const QuicksalePayment: React.FC<Props> = ({
     });
   }, [
     basketId,
+    fetchAllEstablishmentBillingGroup,
     fetchBasket,
+    fetchCompanyUserRoles,
     fetchMembers,
     fetchPaymentList,
     setShowPaymentSuccessModal,
+    theme.company,
+    theme.enable_multi_localization,
   ]);
 
   React.useEffect(() => {
@@ -406,6 +425,11 @@ const QuicksalePayment: React.FC<Props> = ({
     [basketId, fetchBasket, snackbarErrorMsg],
   );*/
 
+  const staffEstablishmentBillingGroup = getStaffEstablishmentBillingGroup(
+    userRole,
+    establishmentBillingGroups,
+  );
+
   const companyCountry = getCompanyCountry();
 
   // ========== Instalment payments ==========
@@ -477,6 +501,9 @@ const QuicksalePayment: React.FC<Props> = ({
         setIsProcessing={setIsProcessing}
         setLoading={setLoading}
         setSelectedPaymentMethod={setPaymentMethod}
+        staffEstablishmentBillingGroupName={
+          staffEstablishmentBillingGroup?.name || ''
+        }
         stripeReaders={stripeReaders}
         theme={theme}
         // (Quicksale MVP): Internal account disabled
@@ -519,16 +546,20 @@ const connector = connect(
     memberById: getMemberListData(state),
     theme: state.theme.theme,
     quicksaleStaffFullName: state.auth.name,
+    userRole: getUserRoleByIdentity(state),
     paymentList: getPaymentList(state),
     featureList: state.company.feature.data,
     stripeReaders: getStripeReaders(state),
     detachPaymentMethodLoading:
       state.paymentBackend.detachPaymentMethod.loading,
     instalmentPaymentConfigurationList: getInstalmentForBasketList(state),
+    establishmentBillingGroups: getEnabledEstablishmentBillingGroups(state),
   }),
   {
     fetchBasket: fetchBasketAction,
     fetchMembers: fetchMemberBulk,
+    fetchAllEstablishmentBillingGroup: fetchAllEstablishmentBillingGroupAction,
+    fetchCompanyUserRoles: fetchCompanyUserRolesAction,
     push: pushAction,
     replace: replaceAction,
     searchMembers: search,

@@ -10,17 +10,19 @@ import type { Coach } from '#src/libs/associated-coach/types';
 import type { Company, UpsellSumup } from '#src/libs/company/types';
 import type {
   Establishment,
+  EstablishmentBillingGroup,
   EstablishmentGroupAPI,
 } from '#src/libs/establishment/types';
 import Config from '#src/config';
 import type {
-  RolePermission,
-  ProtectedUrls,
-  Role,
-  SelectFieldItem,
   FranchiseRole,
   FranchiseRolePermission,
   ObjectLevelPermissions,
+  ProtectedUrls,
+  Role,
+  RolePermission,
+  SelectFieldItem,
+  UserRole,
 } from './types';
 import { URLS_PERMISSIONS, UUID_REGEX } from './constants';
 
@@ -577,5 +579,27 @@ export const hasUpsellIdentifier = (
     subscribedUpsells
       .map((upsell) => upsell.upsell_identifier)
       .includes(identifier)
+  );
+};
+
+/**
+ * Returns the current user's establishment billing group object, or null if not found.
+ * @param userRole The user role assignment object.
+ * @param establishmentBillingGroups The list of enabled establishment billing groups.
+ */
+export const getStaffEstablishmentBillingGroup = (
+  userRole: UserRole | undefined,
+  establishmentBillingGroups: EstablishmentBillingGroup[] | undefined,
+): EstablishmentBillingGroup | null => {
+  if (
+    !userRole?.staff_establishment_billing_group ||
+    !Array.isArray(establishmentBillingGroups)
+  ) {
+    return null;
+  }
+  return (
+    establishmentBillingGroups.find(
+      (group) => group.id === userRole.staff_establishment_billing_group,
+    ) || null
   );
 };

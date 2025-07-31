@@ -251,16 +251,16 @@ const SegmentedControl: React.FC<SegmentedControlProps> = ({
 
   // Helper function to get current query parameter value
   const getCurrentQueryValue = useCallback((): string | null => {
-    if (typeof window === "undefined" || !id) return null;
+    if (typeof window === "undefined" || !urlQueryParamName) return null;
     const urlParams = new URLSearchParams(window.location.search);
-    return urlParams.get(id);
-  }, [id]);
+    return urlParams.get(urlQueryParamName);
+  }, [urlQueryParamName]);
 
   // Helper function to get initial value based on URL query or props
   const getInitialValue = useCallback((): string | undefined => {
     if (urlQueryParamName) {
       const queryValue = getCurrentQueryValue();
-      // Check if query value exists in options
+      // Check if query value exists in options1
       if (queryValue && options.some((option) => option.value === queryValue)) {
         return queryValue;
       }
@@ -423,6 +423,7 @@ const SegmentedControl: React.FC<SegmentedControlProps> = ({
 
   return (
     <div
+      id={id}
       ref={containerRef}
       role="radiogroup"
       aria-label={label}

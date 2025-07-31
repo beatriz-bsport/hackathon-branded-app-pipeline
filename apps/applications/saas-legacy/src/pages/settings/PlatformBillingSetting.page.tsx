@@ -74,6 +74,11 @@ const { trackFormAdd, trackFormSubmitIntent, trackFormSuccess } =
     SegmentAnalyticsFormObjectIdentifier.UpsellSubscription,
   );
 
+const { trackFormSubmitIntent: trackFormSubmitIntentUpsellRequest } =
+  rudderStackFormTrackingFunctionsRegistry(
+    SegmentAnalyticsFormObjectIdentifier.UpsellRequest,
+  );
+
 type Props = {
   loading: boolean;
   savedPaymentMethodList: Array<PaymentMethod>;
@@ -179,6 +184,13 @@ export class PlatformBillingSetting extends React.Component<Props, State> {
     });
   };
 
+  handleRequestUpsell = (upsellIdentifier: number, sourceComponent: string) => {
+    trackFormSubmitIntentUpsellRequest(upsellIdentifier, {
+      source_component: sourceComponent,
+    });
+    this.props.onRequestUpsell(upsellIdentifier);
+  };
+
   handleCloseSubscriptionForm = () => {
     this.setState({ openSubscribeModal: false });
   };
@@ -207,6 +219,18 @@ export class PlatformBillingSetting extends React.Component<Props, State> {
 
     const isOnlinePaymentEnabled: boolean =
       this.props.theme.online_payment_enabled;
+
+    const handleRequestUpsellInPage = (upsell_identifier: number) =>
+      this.handleRequestUpsell(
+        upsell_identifier,
+        'CompanyPlatformBillingGroupDetail',
+      );
+
+    const handleRequestUpsellInDrawer = (upsell_identifier: number) =>
+      this.handleRequestUpsell(
+        upsell_identifier,
+        'UpsellPackageSubscriptionDrawer',
+      );
 
     if (loading) {
       return <BackofficeLinearProgress />;
@@ -250,7 +274,7 @@ export class PlatformBillingSetting extends React.Component<Props, State> {
           handleSubscribe={this.handleOpenSubscriptionForm}
           hasLimitedAccessToAudience={hasLimitedAccessToAudience}
           nonSubscribedUpsellPackages={this.props.nonSubscribedUpsellPackages}
-          onKnowMore={this.props.onRequestUpsell}
+          onKnowMore={handleRequestUpsellInPage}
           platformSubscription={this.props.platformSubscription}
           subscribedUpsellPackages={this.props.subscribedUpsellPackages}
         />
@@ -263,7 +287,7 @@ export class PlatformBillingSetting extends React.Component<Props, State> {
           loading={this.state.upsellSubscriptionLoading}
           onClose={this.handleCloseSubscriptionForm}
           onCloseDialog={this.handleCloseConfirmationModal}
-          onKnowMore={this.props.onRequestUpsell}
+          onKnowMore={handleRequestUpsellInDrawer}
           onSubscribe={this.handleSubscribeUpsellPackage}
           open={this.state.openSubscribeModal}
           openDialog={this.state.openConfirmationDialog}

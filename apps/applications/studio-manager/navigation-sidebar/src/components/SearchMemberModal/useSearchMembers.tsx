@@ -51,13 +51,12 @@ export const useSearchMembers = ({
     }
   }, [searchInput, searchArchived, searchMembers]);
 
-  // Display the empty search state (CTA) when input or members list is empty
-  const isEmptySearch = count === 0 || searchInput.length === 0;
+  const isEmptySearch = count === 0;
 
   return {
     isEmptySearch,
     isLoading,
-    members: searchInput.length > 0 ? members : [],
-    isShowingList: !isLoading && !isEmptySearch && searchInput.length > 0,
+    members: members,
+    isShowingList: !isLoading && !isEmptySearch,
   };
 };

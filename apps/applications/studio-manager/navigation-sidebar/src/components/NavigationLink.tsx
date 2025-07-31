@@ -15,6 +15,7 @@ type NavigationLinkProps = {
     href?: string;
     onClick?: () => void;
     revamped?: boolean;
+    navigationCallback?: () => void;
   };
   navigate?: (to: string) => void;
   wrapperConfig?: {
@@ -73,6 +74,7 @@ export const NavigationLink: React.FC<NavigationLinkProps> = ({
   // In Legacy context, with a legacy link, we rely on navigate (history.push)
   if (isBridged && !item.revamped) {
     const onClick = () => {
+      item?.navigationCallback?.();
       navigate?.(item.href!);
       // Dispatch custom event to help with reactive pathname detection
       window.dispatchEvent(
@@ -94,7 +96,7 @@ export const NavigationLink: React.FC<NavigationLinkProps> = ({
 
   // In Revamp Context, with a revamp link, we can use React Router Context
   return (
-    <NavLink key={item.id} to={item.href}>
+    <NavLink key={item.id} to={item.href} onClick={item?.navigationCallback}>
       {({ isActive }) => {
         return renderElement({ isActive });
       }}

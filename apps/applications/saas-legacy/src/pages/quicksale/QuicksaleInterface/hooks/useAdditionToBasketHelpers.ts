@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { QuicksaleBasketItem } from '@bsport/common/lib/master-data/buyable-items.js';
@@ -39,6 +39,7 @@ const useAdditionToBasketHelpers = (
     options?: OptionCallback<Basket>,
     params?: AddItemToBasketParams,
   ) => void,
+  setShowOutOfStockModal: (show: boolean) => void,
   currentBasket?: Basket,
   paymentPackById?: any,
   privatePassById?: {
@@ -60,6 +61,7 @@ const useAdditionToBasketHelpers = (
   tagsById?: {
     [key: string]: Tag<number>;
   },
+  pendingItemToAdd?: QuicksaleCardInfo,
 ) => {
   // (Quicksale MVP): Following block is not working as Giftcard have been removed from the MVP
   // The giftcard form is not handled in onItemClick like the subscriptions
@@ -107,12 +109,76 @@ const useAdditionToBasketHelpers = (
     ],
   );
 
+  const canIncreaseQuantity = useCallback(
+    (checkoutItemData: CheckoutItemData) => {
+      if (
+        checkoutItemData.buyable_item_identifier !==
+        QuicksaleBasketItem.ShopItemIdentifier
+      )
+        return true;
+      const buyableItem = getBuyableItemFromIdentifierAndId(
+        Number(checkoutItemData.buyable_item_identifier),
+        Number(checkoutItemData.buyable_item_id),
+        paymentPackById,
+        privatePassById,
+        paymentComboById,
+        shopItemById,
+        contractById,
+        giftcardById,
+      ) as ShopItem;
+      if (!currentBasket?.checkout_items?.length) return true;
+
+      const checkoutItem = currentBasket?.checkout_items?.find(
+        (item) =>
+          item.buyable_item_identifier ===
+            checkoutItemData.buyable_item_identifier &&
+          item.buyable_item_id === checkoutItemData.buyable_item_id,
+      );
+      if (!buyableItem || !checkoutItem || !buyableItem.current_stock)
+        return true;
+
+      return checkoutItem.quantity !== buyableItem.current_stock;
+    },
+    [
+      contractById,
+      currentBasket,
+      giftcardById,
+      paymentComboById,
+      paymentPackById,
+      privatePassById,
+      shopItemById,
+    ],
+  );
+
   // This function is used to add an item to the current basket while
   // skipping all the checks done on the items, which is useful when
   // clicking on the "+" button in the basket panel
   const addToBasket = React.useCallback(
     (checkoutItemData: CheckoutItemData) => {
       if (currentBasket) {
+        const canIncreaseItemQuantity = canIncreaseQuantity(checkoutItemData);
+
+        const isItemAlreadyPending =
+          pendingItemToAdd?.id ===
+          getQuicksaleCardInfoIdFromIds(
+            checkoutItemData.buyable_item_identifier,
+            checkoutItemData.buyable_item_id,
+          );
+
+        if (!canIncreaseItemQuantity) {
+          if (!isItemAlreadyPending) {
+            setPendingItemToAdd({
+              id: getQuicksaleCardInfoIdFromIds(
+                checkoutItemData.buyable_item_identifier,
+                checkoutItemData.buyable_item_id,
+              ),
+              sectionId: '',
+            });
+            setShowOutOfStockModal(true);
+            return;
+          }
+        }
+        // If the item can be added, we add it to the basket
         addItemToBasketOrOpenGiftcardForm(
           currentBasket,
           {
@@ -125,7 +191,15 @@ const useAdditionToBasketHelpers = (
         );
       }
     },
-    [currentBasket, addItemToBasketOrOpenGiftcardForm, setCurrentBasket],
+    [
+      currentBasket,
+      addItemToBasketOrOpenGiftcardForm,
+      setCurrentBasket,
+      canIncreaseQuantity,
+      pendingItemToAdd?.id,
+      setPendingItemToAdd,
+      setShowOutOfStockModal,
+    ],
   );
 
   const { t } = useTranslation('quicksale');

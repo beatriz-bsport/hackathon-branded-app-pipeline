@@ -9,54 +9,60 @@ import Block from '@material-ui/icons/Block';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
-import useGlobalStyle from '../../globalStyleHook';
-import type { QuicksaleCardInfo } from '../../types';
+import useGlobalStyle from '#src/libs/quicksale/globalStyleHook';
+import type { QuicksaleCardInfo } from '#src/libs/quicksale/types';
+import { QuicksaleItemColor } from '#src/libs/quicksale/constants';
 import useStyle from './styles';
+import { useTranslation } from 'react-i18next';
 
 const stopPropagation = (e: React.KeyboardEvent) => e.stopPropagation();
 
 type Props = {
-  item: QuicksaleCardInfo;
-  openColorModal?: (itemId: string) => void;
-  deleteItem?: (itemId: string) => void;
   addToBasket?: (item: QuicksaleCardInfo) => void;
-  outOfStock?: boolean;
-  restrictedPurchase?: boolean;
   adminView?: boolean;
-  isExcludingTax?: boolean;
+  deleteItem?: (itemId: string) => void;
+  isExcludingTax: boolean;
+  item: QuicksaleCardInfo;
+  onVariantItemClick?: (itemId: string) => void;
+  openColorModal?: (itemId: string, variantIndex?: number) => void;
+  outOfStock: boolean;
+  restrictedPurchase: boolean;
+  variantIndex?: number;
 };
 
-const QuicksaleItemCard: React.FC<Props> = (props) => {
-  const {
-    openColorModal,
-    deleteItem,
-    addToBasket,
-    item,
-    outOfStock,
-    restrictedPurchase,
-    adminView,
-    isExcludingTax,
-  } = props;
+const QuicksaleItemCard: React.FC<Props> = ({
+  addToBasket,
+  adminView,
+  deleteItem,
+  isExcludingTax,
+  item,
+  onVariantItemClick,
+  openColorModal,
+  outOfStock,
+  restrictedPurchase,
+  variantIndex,
+}) => {
+  const { t } = useTranslation('quicksale');
 
   const isMobile = useMediaQuery((theme: Theme) =>
     theme.breakpoints.down('sm'),
   );
 
   const classes = useStyle({
-    color: item.color,
-    admin: adminView,
+    color: item.color || QuicksaleItemColor.Gray,
+    isClickable: !adminView || !!item.variants?.length,
   });
   const globalClasses = useGlobalStyle(isMobile)({
-    color: item.color,
+    color: item.color || QuicksaleItemColor.Gray,
     admin: adminView,
   });
 
   const openColorModalForCurrentItem = React.useCallback(
     (e: React.MouseEvent) => {
       e.stopPropagation();
-      openColorModal?.(item.id);
+      openColorModal?.(item.id, variantIndex);
     },
-    [item.id, openColorModal],
+    [item.id, openColorModal, variantIndex],
   );
 
   const deleteCurrentItem = React.useCallback(
@@ -67,15 +73,42 @@ const QuicksaleItemCard: React.FC<Props> = (props) => {
     [item.id, deleteItem],
   );
 
-  const addItemToBasket = React.useCallback(
-    () => addToBasket?.(item),
-    [item, addToBasket],
-  );
+  const onItemCardClick = React.useCallback(() => {
+    if (item.variants?.length) {
+      const idParts = item.id.split(' ');
+      const targetId = idParts.length > 1 ? idParts[1] : idParts[0];
+      if (targetId) {
+        onVariantItemClick?.(`${targetId}`);
+      }
+    } else {
+      addToBasket?.(item);
+    }
+  }, [addToBasket, item, onVariantItemClick]);
+
+  const itemPrice = (() => {
+    const lowestVariantPrice = !!item?.lowestVariantPrice
+      ? item?.lowestVariantPrice?.toFixed(2)
+      : null;
+    const allVariantsHaveSamePrice = item?.allVariantsFollowBasePrice !== false;
+
+    const price = item?.price;
+
+    if (allVariantsHaveSamePrice) {
+      return getCurrencyDisplayWithPrice(
+        price,
+        isExcludingTax,
+        item.tax ?? '0',
+      );
+    }
+    return t('objectCard.startingPrice', {
+      price: getCurrencyDisplayWithPrice(lowestVariantPrice),
+    });
+  })();
 
   return (
     <div
       className={clsx(globalClasses.quicksaleCardContainer, classes.container)}
-      onClick={addItemToBasket}
+      onClick={onItemCardClick}
       onKeyDown={stopPropagation}
       role="button"
       tabIndex={0}
@@ -92,20 +125,20 @@ const QuicksaleItemCard: React.FC<Props> = (props) => {
             {item.title ?? ''}
           </Typography>
 
-          <Typography className={classes.cardSubtitle} variant="caption">
-            {item.subtitle ?? ''}
-          </Typography>
+          {!!item.numberOfVariants && (
+            <Typography className={classes.cardSubtitle} variant="caption">
+              {t('objectCard.numberOfVariants', {
+                count: item.numberOfVariants,
+              })}
+            </Typography>
+          )}
         </div>
       </div>
 
       <div className={classes.cardFooter}>
         <div className={classes.priceAndRecurrence}>
           <Typography className={classes.cardPrice} variant="subtitle2">
-            {getCurrencyDisplayWithPrice(
-              (item.price ?? 0).toFixed(2),
-              isExcludingTax,
-              item.tax ?? '0',
-            )}
+            {itemPrice}
           </Typography>
 
           {item.recurrence && (
@@ -131,13 +164,15 @@ const QuicksaleItemCard: React.FC<Props> = (props) => {
         >
           <div className={globalClasses.quicksaleCardColorPickerButton} />
         </IconButton>
-        <IconButton
-          disableRipple
-          className={globalClasses.quicksaleCardAction}
-          onClick={deleteCurrentItem}
-        >
-          <DeleteIcon className={globalClasses.quicksaleCardDeleteIcon} />
-        </IconButton>
+        {!!deleteItem && (
+          <IconButton
+            disableRipple
+            className={globalClasses.quicksaleCardAction}
+            onClick={deleteCurrentItem}
+          >
+            <DeleteIcon className={globalClasses.quicksaleCardDeleteIcon} />
+          </IconButton>
+        )}
       </div>
     </div>
   );

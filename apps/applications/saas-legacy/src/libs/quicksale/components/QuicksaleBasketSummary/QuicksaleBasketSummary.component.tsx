@@ -64,6 +64,7 @@ type Props = {
   date: string;
   setDate: (date: string) => void;
   invoiceFootNote: string;
+  isProcessing?: boolean;
   setInvoiceFootNote: (note: string) => void;
   onCouponRemove: (data: { checkout_item: string; quantity: number }) => void;
   removeInternalAccountPrepaidLine: (options?: OptionCallback<Basket>) => void;
@@ -77,6 +78,7 @@ const QuicksaleBasketSummary: React.FC<Props> = ({
   date,
   setDate,
   invoiceFootNote,
+  isProcessing,
   setInvoiceFootNote,
   onCouponRemove,
   removeInternalAccountPrepaidLine,
@@ -89,7 +91,7 @@ const QuicksaleBasketSummary: React.FC<Props> = ({
   // are not used since the backend is not ready for it
   const showInvoiceInformation = false;
 
-  const canChangeMember = !!basket && !basket.invoice;
+  const canChangeMember = !!basket && !basket.invoice && !isProcessing;
 
   const onFootNoteChange = React.useCallback(
     (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) =>

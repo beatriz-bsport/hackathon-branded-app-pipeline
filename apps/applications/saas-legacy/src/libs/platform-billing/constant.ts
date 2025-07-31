@@ -1,5 +1,4 @@
 import {
-  UPSELL_IDENTIFIER_CADENCE,
   UPSELL_IDENTIFIER_KISI_INTEGRATION,
   UPSELL_IDENTIFIER_QUICKBOOKS,
   UPSELL_IDENTIFIER_QUICKSALE,
@@ -19,7 +18,6 @@ export const DISPUTED_PAYMENT = 1;
  * that are in the beta testing phase and should not be visible in the 'available add-ons' section.
  */
 export const BETA_UPSELL_IDS = [
-  UPSELL_IDENTIFIER_CADENCE,
   UPSELL_IDENTIFIER_QUICKSALE,
   UPSELL_IDENTIFIER_KISI_INTEGRATION,
 ];

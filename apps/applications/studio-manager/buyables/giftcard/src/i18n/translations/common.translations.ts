@@ -7,7 +7,7 @@ exports.default = {
     header: {
       buttons: {
         addGiftcard: "Add Gift Card",
-        openBankImage: "Gift Card image bank",
+        openBankImage: "Image library",
       },
     },
     empty: {
@@ -16,24 +16,25 @@ exports.default = {
         "Create Gift Cards and let your members gift it to their loved ones",
     },
     archiveModal: {
-      title: "Archive Gift Card ?",
+      title: "Archive Gift Card?",
       description: {
         lineOne:
-          "If you archive '{{ name }}', current or previous purchases won't be affected.",
-        lineTwo: "You can restore this Gift Card at any time.",
+          "Members won't see '{{ name }}' anymore and current or previous purchases won't be affected.",
+        lineTwo:
+          "You can restore this Gift Card at any time from your archive.",
       },
       buttons: {
-        cancel: "Cancel",
+        cancel: "Go back",
         archive: "Archive",
       },
     },
     duplicateModal: {
-      title: "Duplicate Gift Card ?",
+      title: "Duplicate Gift Card?",
       description: {
-        action: "You'll be able to edit '{{ name }}' afterwards.",
+        action: "You can edit '{{ name }}' after.",
       },
       buttons: {
-        cancel: "Cancel",
+        cancel: "Go back",
         duplicate: "Duplicate",
       },
     },
@@ -71,7 +72,7 @@ exports.default = {
       price: "Price",
     },
     values: {
-      unavailable: "Unavailable",
+      unavailable: "Hidden",
       shared: "Shared",
       unlimited: "Unlimited",
       expireInXDays: "{{ expiration }} days",
@@ -81,17 +82,18 @@ exports.default = {
       duplicate: "Duplicate Gift Card",
       restore: "Restore Gift Card",
       shared: "Item created by master account",
-      unavailable: "Cannot be purchased on marketplace",
+      unavailable: "Not visible in the Member Area",
     },
     loading: "Loading Gift Cards",
   },
   imageUploadModal: {
-    title: "Gift Card image bank",
+    title: "Image library",
+    uploadButton: "Upload image",
     description:
-      "Add custom images to allow your members to make their " +
-      "Gift Cards more personal. During the creation of the Gift Card, members will " +
-      "be able to choose a background image.",
-    selectImage: "Select an image to preview Gift Card design",
+      "Add custom images so your members can " +
+      "personalize their Gift Cards for their customers. Members will be able " +
+      "to choose from your image library when creating Gift Cards.",
+    selectImage: "Select an image to preview it in the Gift Card design",
     emptyList: "No custom images yet",
   },
 };

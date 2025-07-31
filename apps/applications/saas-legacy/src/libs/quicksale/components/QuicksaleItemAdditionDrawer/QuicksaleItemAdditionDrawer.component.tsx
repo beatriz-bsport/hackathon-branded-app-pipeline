@@ -137,8 +137,9 @@ const QuicksaleItemAdditionDrawer: React.FC<Props> = ({
   }, []);
 
   const addToSelectedItems = React.useCallback(
-    (itemList: Array<QuicksaleCardInfo>) =>
-      dispatch({ type: 'ADD_MANY_ITEMS', payload: itemList }),
+    (itemList: Array<QuicksaleCardInfo>) => {
+      dispatch({ type: 'ADD_MANY_ITEMS', payload: itemList });
+    },
     [],
   );
 
@@ -156,6 +157,7 @@ const QuicksaleItemAdditionDrawer: React.FC<Props> = ({
         selectedItems.map((item) => ({
           ...item,
           color: selectedColor as QuicksaleItemColor,
+          variants: item.variants,
           ...(item.recurrence &&
           item.id.split(' ')[0] !==
             QuicksaleBasketItem.SubscriptionIdentifier.toString()

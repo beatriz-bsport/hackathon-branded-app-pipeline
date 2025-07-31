@@ -2,13 +2,14 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { makeStyles } from '@material-ui/core/styles';
-import Event from '@material-ui/icons/Event';
+// import Event from '@material-ui/icons/Event';
 import Alert from '@material-ui/lab/Alert';
 import Button from '@material-ui/core/Button';
 
 import {
   PAYMENT_ENGINE_BSPORT,
   PAYMENT_GROUP_METHOD_BY_ENGINE,
+  PAYMENT_GROUP_METHOD_IDENTIFIER_DEBT,
 } from '@bsport/common/lib/master-data/payment-group.js';
 
 import {
@@ -34,6 +35,7 @@ type Props = {
   instalmentPaymentConfigurationList?: InstalmentPaymentApiWithBasketId[];
   instalmentPaymentSelectedId?: number;
   isMemberPOS?: boolean;
+  isProcessing?: boolean;
   loading?: boolean;
   onCancel?: () => void;
   onPaymentSuccess: (callabck?: () => void) => void;
@@ -72,6 +74,7 @@ const QuicksalePaymentInfo: React.FC<Props> = ({
   instalmentPaymentConfigurationList,
   instalmentPaymentSelectedId,
   isMemberPOS,
+  isProcessing,
   loading,
   onCancel,
   onPaymentSuccess,
@@ -104,7 +107,7 @@ const QuicksalePaymentInfo: React.FC<Props> = ({
         }}
         paymentMethodChoices={availablePaymentMethods ?? []}
         paymentMethodSelected={selectedPaymentMethod}
-        paymentProcessing={loading}
+        paymentProcessing={loading || isProcessing}
         selectPaymentMethod={setSelectedPaymentMethod}
       />
 
@@ -117,7 +120,7 @@ const QuicksalePaymentInfo: React.FC<Props> = ({
             actionRow: classes.stripeTerminalActions,
           }}
           hideSaveForLater={isMemberPOS}
-          loading={loading || basket?.is_finalized}
+          loading={loading || basket?.is_finalized || isProcessing}
           onCancel={onCancel}
           onSuccess={onPaymentSuccess}
           paymentGroupId={paymentGroup}
@@ -137,15 +140,19 @@ const QuicksalePaymentInfo: React.FC<Props> = ({
           customClasses={{
             actionRow: classes.manualPaymentActionRow,
           }}
-          dateFieldEndAdornment={
-            <Event className={classes.manualPaymentDateFieldIcon} />
-          }
-          loading={loading || basket?.is_finalized}
+          // dateFieldEndAdornment={
+          //   <Event className={classes.manualPaymentDateFieldIcon} />
+          // }
+          loading={loading || basket?.is_finalized || isProcessing}
           onCancel={onCancel}
+          onProcessing={setIsProcessing}
           onSuccess={onPaymentSuccess}
-          paymentMethodChoices={
-            PAYMENT_GROUP_METHOD_BY_ENGINE[PAYMENT_ENGINE_BSPORT]
-          }
+          paymentMethodChoices={PAYMENT_GROUP_METHOD_BY_ENGINE[
+            PAYMENT_ENGINE_BSPORT
+          ].filter(
+            (paymentGroupMethod) =>
+              paymentGroupMethod !== PAYMENT_GROUP_METHOD_IDENTIFIER_DEBT,
+          )}
         >
           {children}
         </PaymentBsportInternal>

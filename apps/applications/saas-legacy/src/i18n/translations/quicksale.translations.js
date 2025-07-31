@@ -44,6 +44,9 @@ exports.default = {
       credit_plural: 'credits',
       unlimited: 'Unlimited',
     },
+    startingPrice: 'From {{ price }}',
+    numberOfVariants: '{{ count }} variant',
+    numberOfVariants_plural: '{{ count }} variants',
   },
   rolePage: {
     noResult: 'No access created',
@@ -102,6 +105,7 @@ exports.default = {
     noResult: 'No result',
     resultsForString: '{{ count }} result for {{ searchText }}',
     resultsForString_plural: '{{ count }} results for {{ searchText }}',
+    home: 'Home',
     goBack: 'Back',
     taxes: 'Taxes',
     totalIncludingTax: 'Total',

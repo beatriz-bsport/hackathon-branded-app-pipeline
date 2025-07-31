@@ -113,14 +113,14 @@
                 "cancel": "Annuler",
                 "content": "La règle de récurrence va être supprimée, souhaitez-vous également annuler les réservations futures déjà effectuées avec cette règle ?",
                 "title": "Suppression règle de récurrence",
-                "success": "La réservation récurrente a bien été supprimée"
+                "success": "La réservation récurrente a bien été supprimée."
             },
             "editModal": {
-                "success": "La réservation récurrente a bien été modifié"
+                "success": "La réservation récurrente a bien été modifiée."
             },
             "createModal": {
-                "success": "La réservation récurrente a bien été crée.",
-                "info": "Impossible de recréer une réservation récurrente qui éxiste déja",
+                "success": "La réservation récurrente a bien été créée. Les réservations sont en cours de création.",
+                "info": "Impossible de recréer une réservation récurrente qui existe déjà",
                 "create": "Créer une réservation récurrente"
             },
             "recurrentBookings": "Réservations récurrentes",

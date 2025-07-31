@@ -26,6 +26,8 @@ import COMMON_ROLES, { OWNER_ROLE } from '../role-types';
 import { getRoleName } from '../utils';
 import { useAdvancedRoleSettings } from '../hooks/advancedRoleSettings';
 import AdvancedRoleSettingsForm from './AdvancedRoleSettingsForm.component';
+import { EstablishmentBillingGroup } from '#src/libs/establishment/types';
+import { RoleType } from '@bsport/common/lib/master-data/user-role';
 
 type OwnProps = {
   // eslint-disable-next-line react/no-unused-prop-types
@@ -41,6 +43,7 @@ type OwnProps = {
   ) => void;
   open: boolean;
   roles: Role[];
+  establishmentBillingGroups: EstablishmentBillingGroup[];
 };
 
 type Props = OwnProps &
@@ -68,6 +71,7 @@ function withUserRoleAdvancedSettings(Component) {
     onConfirm,
     updateUserRole,
     userRole,
+    establishmentBillingGroups,
     ...props
   }: Parameters<typeof useAdvancedRoleSettings>[0]) {
     const {
@@ -82,6 +86,9 @@ function withUserRoleAdvancedSettings(Component) {
       selectedEstablishments,
       selectedSite,
       siteOptions,
+      handleSelectEstablishmentBillingGroup,
+      selectedEstablishmentBillingGroup,
+      establishmentBillingGroupOptions,
     } = useAdvancedRoleSettings({
       coachList,
       establishmentGroupList,
@@ -90,19 +97,27 @@ function withUserRoleAdvancedSettings(Component) {
       onConfirm,
       updateUserRole,
       userRole,
+      establishmentBillingGroups,
     });
+
     return (
       <Component
         {...props}
         coachOptions={coachOptions}
+        establishmentBillingGroupOptions={establishmentBillingGroupOptions}
+        establishmentBillingGroups={establishmentBillingGroups}
         establishmentOptions={establishmentOptions}
         handleResetAdvancedSettings={handleResetAdvancedSettings}
         handleSelectCoaches={handleSelectCoaches}
+        handleSelectEstablishmentBillingGroup={
+          handleSelectEstablishmentBillingGroup
+        }
         handleSelectEstablishments={handleSelectEstablishments}
         handleSelectSite={handleSelectSite}
         handleSubmit={handleSubmit}
         hasMultiLocationUpsell={hasMultiLocationUpsell}
         selectedCoaches={selectedCoaches}
+        selectedEstablishmentBillingGroup={selectedEstablishmentBillingGroup}
         selectedEstablishments={selectedEstablishments}
         selectedSite={selectedSite}
         siteOptions={siteOptions}
@@ -134,6 +149,13 @@ export class CreateStaffUser extends React.Component<Props, State> {
     this.setState({ staff_commission_percentage: parsedValue });
   };
 
+  getCustomRole = () => {
+    const { roles } = this.props;
+    const { role } = this.state;
+    if (!role) return null;
+    return roles.find((r) => r.id === role);
+  };
+
   onSubmit = (ev: any) => {
     ev.preventDefault();
     const {
@@ -149,9 +171,17 @@ export class CreateStaffUser extends React.Component<Props, State> {
       selectedCoaches,
       onSubmit,
       handleResetAdvancedSettings,
+      selectedEstablishmentBillingGroup,
+      establishmentBillingGroups,
     } = this.props;
     if (!email || !password || !role) return;
-
+    const customRole = this.getCustomRole();
+    if (
+      customRole?.id === RoleType.USER_ROLE_QUICKSALE &&
+      !!establishmentBillingGroups?.length &&
+      !selectedEstablishmentBillingGroup?.value
+    )
+      return;
     onSubmit({
       email: email?.toLowerCase() || '',
       password,
@@ -162,6 +192,8 @@ export class CreateStaffUser extends React.Component<Props, State> {
       establishments_in_role_ids: selectedEstablishments.map((e) => e.value),
       // @ts-expect-error
       staff_commission_percentage,
+      staff_establishment_billing_group:
+        selectedEstablishmentBillingGroup?.value,
     });
     handleResetAdvancedSettings?.();
     this.setState({
@@ -195,7 +227,12 @@ export class CreateStaffUser extends React.Component<Props, State> {
       open,
       onClose,
       t,
+      establishmentBillingGroups,
+      establishmentBillingGroupOptions,
+      handleSelectEstablishmentBillingGroup,
+      selectedEstablishmentBillingGroup,
     } = this.props;
+
     return (
       <form>
         <Dialog open={open}>
@@ -288,18 +325,28 @@ export class CreateStaffUser extends React.Component<Props, State> {
                     withTitle
                     coachListLoading={coachListLoading}
                     coachOptions={coachOptions}
-                    customRole={roles?.find((r) => r.id === this.state.role)}
+                    customRole={this.getCustomRole()}
+                    establishmentBillingGroupOptions={
+                      establishmentBillingGroupOptions
+                    }
+                    establishmentBillingGroups={establishmentBillingGroups}
                     establishmentGroupListLoading={
                       establishmentGroupListLoading
                     }
                     establishmentListLoading={establishmentListLoading}
                     establishmentOptions={establishmentOptions}
                     handleSelectCoaches={handleSelectCoaches}
+                    handleSelectEstablishmentBillingGroup={
+                      handleSelectEstablishmentBillingGroup
+                    }
                     handleSelectEstablishments={handleSelectEstablishments}
                     handleSelectSite={handleSelectSite}
                     hasAccessMonitoringUpsell={hasAccessMonitoringUpsell}
                     hasMultiLocationUpsell={hasMultiLocationUpsell}
                     selectedCoaches={selectedCoaches}
+                    selectedEstablishmentBillingGroup={
+                      selectedEstablishmentBillingGroup
+                    }
                     selectedEstablishments={selectedEstablishments}
                     selectedSite={selectedSite}
                     sitesOptions={siteOptions}

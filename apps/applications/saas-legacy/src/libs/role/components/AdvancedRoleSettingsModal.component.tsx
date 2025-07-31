@@ -6,6 +6,7 @@ import ModalConfirm from '#src/components/ModalConfirm.component';
 import type { Coach } from '#src/libs/associated-coach/types';
 import type {
   Establishment,
+  EstablishmentBillingGroup,
   EstablishmentGroupAPI,
 } from '#src/libs/establishment/types';
 import AdvancedRoleSettingsForm from './AdvancedRoleSettingsForm.component';
@@ -26,9 +27,15 @@ export type Props = {
   customRole: Role;
   updateUserRole: (
     userId: number,
-    params: { roleId?: number; coaches?: number[]; establishments?: number[] },
+    params: {
+      roleId?: number;
+      coaches?: number[];
+      establishments?: number[];
+      staff_establishment_billing_group?: number | null;
+    },
   ) => void;
   userRole?: UserRole<number, FranchiseRole>;
+  establishmentBillingGroups: EstablishmentBillingGroup[];
 };
 
 const AdvancedRoleSettingsModal: React.FC<Props> = ({
@@ -45,6 +52,7 @@ const AdvancedRoleSettingsModal: React.FC<Props> = ({
   customRole,
   updateUserRole,
   userRole,
+  establishmentBillingGroups,
 }) => {
   const { t } = useTranslation('role');
 
@@ -59,6 +67,9 @@ const AdvancedRoleSettingsModal: React.FC<Props> = ({
     selectedEstablishments,
     selectedSite,
     siteOptions,
+    establishmentBillingGroupOptions,
+    handleSelectEstablishmentBillingGroup,
+    selectedEstablishmentBillingGroup,
   } = useAdvancedRoleSettings({
     coachList,
     establishmentGroupList,
@@ -67,6 +78,7 @@ const AdvancedRoleSettingsModal: React.FC<Props> = ({
     onConfirm,
     updateUserRole,
     userRole,
+    establishmentBillingGroups,
   });
 
   return (
@@ -89,15 +101,21 @@ const AdvancedRoleSettingsModal: React.FC<Props> = ({
         coachListLoading={coachListLoading}
         coachOptions={coachOptions}
         customRole={customRole}
+        establishmentBillingGroupOptions={establishmentBillingGroupOptions}
+        establishmentBillingGroups={establishmentBillingGroups}
         establishmentGroupListLoading={establishmentGroupListLoading}
         establishmentListLoading={establishmentListLoading}
         establishmentOptions={establishmentOptions}
         handleSelectCoaches={handleSelectCoaches}
+        handleSelectEstablishmentBillingGroup={
+          handleSelectEstablishmentBillingGroup
+        }
         handleSelectEstablishments={handleSelectEstablishments}
         handleSelectSite={handleSelectSite}
         hasAccessMonitoringUpsell={hasAccessMonitoringUpsell}
         hasMultiLocationUpsell={hasMultiLocationUpsell}
         selectedCoaches={selectedCoaches}
+        selectedEstablishmentBillingGroup={selectedEstablishmentBillingGroup}
         selectedEstablishments={selectedEstablishments}
         selectedSite={selectedSite}
         sitesOptions={siteOptions}

@@ -5,17 +5,28 @@ import type {
   FilterField,
   FilterProps,
 } from "@bsport/kaizen-primitive-core";
-
 import {
   type Tag,
   type TagGroup,
-  fetchTagGroupList,
-  fetchTagList,
-} from "#src/store-api-custom-data-plaform-pkg";
+  fetchTagGroupsAction,
+  fetchTagsAction,
+  selectTagGroups,
+  selectTags,
+  useTagStore,
+} from "@bsport/store-cdp-tag";
+
+import { fetch } from "#src/utils/fetch";
 import { useTranslation } from "#src/utils/i18n";
 
 const FILTER_IS = "is" as const;
 const FILTER_IS_NOT = "isNot" as const;
+
+const fetchTagGroups = fetchTagGroupsAction.bind(null, fetch);
+const fetchTags = fetchTagsAction.bind(null, fetch);
+
+type TagGroupWithTags = Omit<TagGroup, "tags"> & {
+  tags: Tag[];
+};
 
 /**
  * @param selectedFilters Current selection of the Filter
@@ -46,21 +57,25 @@ export type FilterParams = {
 
 export const useFilterMembers = () => {
   const { t } = useTranslation("common");
+
+  // ----- Load tags -----
+
+  useEffect(() => {
+    fetchTags();
+    fetchTagGroups();
+  }, []);
+
+  const tags = useTagStore(selectTags);
+  const tagGroups = useTagStore(selectTagGroups);
+
+  // ----- State to build and store dynamically filters -----
+
   const [tagFields, setTagFields] = useState<Record<string, FilterField>>({});
+
   const [activeFilters, setActiveFilters] = useState<FilterParams>({
     tags_excluded: "",
     tags_included: "",
   });
-  const filterRef = useRef<{ resetFilters: () => void }>(null);
-
-  // ----- Filter configuration -----
-  const filters = useMemo(
-    () => [
-      { id: FILTER_IS, label: t("filters.operators.is") },
-      { id: FILTER_IS_NOT, label: t("filters.operators.isNot") },
-    ],
-    [t],
-  );
 
   // ----- Handlers -----
 
@@ -69,34 +84,27 @@ export const useFilterMembers = () => {
     filterRef.current?.resetFilters?.();
   }, []);
 
-  const onFilterChange = useCallback(
-    (selectedFilters: FilterElementState[]) => {
-      setActiveFilters({
-        tags_included: buildTagsSelector({
-          selectedFilters,
-          operator: FILTER_IS,
-        }),
-        tags_excluded: buildTagsSelector({
-          selectedFilters,
-          operator: FILTER_IS_NOT,
-        }),
-      });
-    },
-    [],
+  // ----- Filter configuration -----
+
+  const filterRef = useRef<{ resetFilters: () => void }>(null);
+
+  const filters = useMemo(
+    () => [
+      { id: FILTER_IS, label: t("filters.operators.is") },
+      { id: FILTER_IS_NOT, label: t("filters.operators.isNot") },
+    ],
+    [t],
   );
 
-  // Load tags to update tagFields
   useEffect(() => {
-    const fetchAndSetTags = async () => {
-      // Retrieve tags and tag groups, and join them
-      const tagList = await fetchTagList();
-      const tagGroupList = await fetchTagGroupList();
-      const tagGroupListWithTags: TagGroup<Tag>[] = tagGroupList.map(
+    if (tags.length > 0 && tagGroups.length > 0) {
+      const tagGroupListWithTags: TagGroupWithTags[] = tagGroups.map(
         (tagGroup) => ({
           ...tagGroup,
-          tags: [...tagList.filter((tag) => tagGroup.tags.includes(tag.id))],
+          tags: [...tags.filter((tag) => tagGroup.tags.includes(tag.id))],
         }),
       );
+
       // Compute filter fields where each tag group is a category
       const tagFields = tagGroupListWithTags.reduce(
         (acc: Record<string, FilterField>, tagGroup) => ({
@@ -115,11 +123,24 @@ export const useFilterMembers = () => {
         {},
       );
       setTagFields(tagFields);
-    };
+    }
+  }, [tags, tagGroups, filters]);
 
-    fetchAndSetTags();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const onFilterChange = useCallback(
+    (selectedFilters: FilterElementState[]) => {
+      setActiveFilters({
+        tags_included: buildTagsSelector({
+          selectedFilters,
+          operator: FILTER_IS,
+        }),
+        tags_excluded: buildTagsSelector({
+          selectedFilters,
+          operator: FILTER_IS_NOT,
+        }),
+      });
+    },
+    [],
+  );
 
   const filterConfig: FilterProps = useMemo(() => {
     return {

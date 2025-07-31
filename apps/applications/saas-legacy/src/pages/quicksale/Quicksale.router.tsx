@@ -48,6 +48,11 @@ const Quicksale: React.FC<Props> = ({
         component={QuicksaleInterface}
         path="/quicksale/:sectionId/"
       />
+      <Route
+        exact
+        component={QuicksaleInterface}
+        path="/quicksale/:sectionId/:variantItemId/"
+      />
       <Route exact component={QuicksaleInterface} path="/quicksale/" />
     </Switch>
   );

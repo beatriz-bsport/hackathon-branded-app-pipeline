@@ -16,6 +16,7 @@ import Check from '@material-ui/icons/Check';
 import Mail from '@material-ui/icons/Mail';
 import Phone from '@material-ui/icons/Phone';
 import Chip from '@material-ui/core/Chip';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import Pagination from '@material-ui/lab/Pagination';
 import Alert from '@material-ui/lab/Alert';
 
@@ -23,9 +24,9 @@ import GenericResponsiveDialog from '#src/components/genericDialog/GenericRespon
 // @ts-expect-error
 import MemberForm from '#src/libs/member/MemberForm.component';
 import { getLatest } from '#src/libs/member/api';
-import type { MemberFormData, MemberMinimal } from '#src/libs/member/types';
 import ObjectLevelPermissionProvider from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
-import type { OptionCallback } from '../../../../state/types';
+import type { MemberFormData, MemberMinimal } from '#src/libs/member/types';
+import type { OptionCallback } from '#src/state/types';
 
 import useStyles from './styles';
 import MemberSearchBar from '../MemberSearchBar.component';
@@ -120,11 +121,15 @@ const MemberAuthenticationDialog: React.FC<Props> = ({
   elementClasses,
   isDisplayCancelButton,
 }) => {
+  const [isLoading, setIsLoading] = React.useState(false);
+
   const [searchText, setSearchText] = React.useState('');
 
   const [searchResults, setSearchResults] = React.useState<MemberMinimal[]>([]);
 
-  const [selectedMemberId, setSelectedMemberId] = React.useState<number>(null);
+  const [selectedMemberId, setSelectedMemberId] = React.useState<number | null>(
+    null,
+  );
 
   const [showMemberCreateForm, setShowMemberCreateForm] = React.useState(false);
 
@@ -160,16 +165,26 @@ const MemberAuthenticationDialog: React.FC<Props> = ({
 
   const onChange = React.useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
+      if (event.target.value.trim() === '') {
+        clearSearch();
+        return;
+      }
+
       setSearchText(event.target.value);
+      setIsLoading(true);
       searchMembers(
         event.target.value,
         { hide_archived: true },
         {
-          onSuccess: (response) => setSearchResults(response.data),
+          onSuccess: (response) => {
+            setSearchResults(response?.data ?? []);
+            setIsLoading(false);
+          },
+          onError: () => setIsLoading(false),
         },
       );
     },
-    [searchMembers],
+    [clearSearch, searchMembers],
   );
 
   const onValidateClick = React.useCallback(() => {
@@ -266,7 +281,11 @@ const MemberAuthenticationDialog: React.FC<Props> = ({
                 />
               </IconButton>
             </div>
-
+            {isLoading && (
+              <div className={classes.loadingSpinner}>
+                <CircularProgress className={classes.spinner} size={25} />
+              </div>
+            )}
             {searchResults.length ? (
               <div>
                 {searchResults

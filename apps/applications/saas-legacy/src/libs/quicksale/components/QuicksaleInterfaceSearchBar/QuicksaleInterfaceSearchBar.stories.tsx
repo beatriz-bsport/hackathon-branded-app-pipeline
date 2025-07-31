@@ -1,5 +1,5 @@
 import React from 'react';
-import { ComponentStory, ComponentMeta } from '@storybook/react';
+import { ComponentMeta, ComponentStory } from '@storybook/react';
 
 import QuicksaleInterfaceSearchBar from './QuicksaleInterfaceSearchBar.component';
 import { isNotQuicksaleCardInfoList } from '#src/libs/quicksale/utils';
@@ -53,6 +53,7 @@ const Template: ComponentStory<typeof QuicksaleInterfaceSearchBar> = (args) => {
       onSearchTextChange={onSearchTextChange}
       searchResults={searchResults}
       clearSearch={clearSearch}
+      openPopper={searchText !== '' && searchResults.length > 0}
     />
   );
 };

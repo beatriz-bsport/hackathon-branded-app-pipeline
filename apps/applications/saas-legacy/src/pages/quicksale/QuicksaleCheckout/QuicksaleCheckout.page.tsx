@@ -186,6 +186,7 @@ const QuicksalePayment: React.FC<Props> = ({
           setShowPaymentSuccessModal(true);
         }
       },
+      onError: () => push('/quicksale/'),
     });
   }, [
     basketId,

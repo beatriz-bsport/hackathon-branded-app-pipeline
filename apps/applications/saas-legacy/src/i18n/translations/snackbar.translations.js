@@ -188,8 +188,10 @@ const getTranslations = async () => {
     SPIVI_DOUBLE_BOOKING_ACTIVATION_EXCEPTION,
   } = await import('@bsport/common/lib/master-data/error-codes/spivi.js');
 
-  const { BASKET_CANNOT_REMOVE_ITEM_BECAUSE_OF_PAYMENT_GROUP_STATUS } =
-    await import('@bsport/common/lib/master-data/error-codes/basket.js');
+  const {
+    BASKET_CANNOT_REMOVE_ITEM_BECAUSE_OF_PAYMENT_GROUP_STATUS,
+    BASKET_QUICKSALE_PREVIOUSLY_DROPPED,
+  } = await import('@bsport/common/lib/master-data/error-codes/basket.js');
 
   const {
     CANNOT_ADD_VARIANT_WHILE_SHOP_ITEM_IS_USED_IN_PAYMENT_COMBO,
@@ -1427,6 +1429,10 @@ const getTranslations = async () => {
     quicksaleConfiguration: {
       error: 'An error has occurred during save',
       updated: 'Configuration saved',
+    },
+    quicksaleCheckout: {
+      [BASKET_QUICKSALE_PREVIOUSLY_DROPPED]:
+        'Impossible to read, update or work on this quicksale basket, it was previously dropped',
     },
     spivi: {
       error: {

@@ -172,3 +172,12 @@ export type UsersPaginatedWithRoleSelector = ReturnType<
 
 export const getUserRole = (state: RootState) =>
   state.role.role.byId[state.auth.role];
+
+export const getUserRoleByIdentity = (state: RootState) => {
+  const { role: authRoleId, username: authUsername } = state.auth;
+  const rolesById = state.role.byId;
+
+  return Object.values(rolesById).find(
+    (role) => role.role === authRoleId && role.email === authUsername,
+  );
+};

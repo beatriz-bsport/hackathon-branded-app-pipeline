@@ -10,12 +10,14 @@ import type { Theme } from '#src/libs/theme/types';
 
 type Props = {
   theme: Theme;
+  staffEstablishmentBillingGroupName: string;
   staffFullName: string;
   onSignOut: () => void;
 };
 
 const QuicksaleAppBar: React.FC<Props> = ({
   theme,
+  staffEstablishmentBillingGroupName,
   staffFullName,
   onSignOut,
 }) => {
@@ -32,7 +34,12 @@ const QuicksaleAppBar: React.FC<Props> = ({
           height={40}
           src={theme?.cover}
         />
-        <Typography variant="subtitle2">{theme?.company_name}</Typography>
+        <div>
+          <Typography variant="subtitle2">{theme?.company_name}</Typography>
+          <Typography variant="caption">
+            {staffEstablishmentBillingGroupName}
+          </Typography>
+        </div>
       </div>
 
       <div className={classes.sellerInfoAndLogOut}>

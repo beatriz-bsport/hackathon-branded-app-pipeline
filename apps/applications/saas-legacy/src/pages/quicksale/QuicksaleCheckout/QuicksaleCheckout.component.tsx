@@ -8,14 +8,12 @@ import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 // import Alert from '@material-ui/lab/Alert';
-
 import QuicksaleAppBar from '#src/libs/quicksale/components/QuicksaleAppBar';
 import QuicksaleBasketSummary from '#src/libs/quicksale/components/QuicksaleBasketSummary';
 import QuicksaleBasketPriceRecap from '#src/libs/quicksale/components/QuicksaleBasketPriceRecap';
 import QuicksaleDeliveryForm from '#src/libs/quicksale/components/QuicksaleDeliveryForm/QuicksaleDeliveryForm.component';
 import QuicksalePaymentInfo from '#src/libs/quicksale/components/QuicksalePaymentInfo';
 // import UseInternalAccountForm from '#src/libs/payment/components/UseInternalAccountForm.component';
-
 import {
   QuicksaleDeliveryType,
   QuicksalePaymentMethod,
@@ -65,6 +63,7 @@ type Props = {
   setIsProcessing?: (isProcessing: boolean) => void;
   setLoading?: (loading: boolean) => void;
   setSelectedPaymentMethod: (paymentMethod: QuicksalePaymentMethod) => void;
+  staffEstablishmentBillingGroupName: string;
   stripeReaders?: StripeReader[];
   theme: Theme;
   // useInternalAccount: (
@@ -110,6 +109,7 @@ const QuicksaleCheckout: React.FC<Props> = ({
   setIsProcessing,
   setLoading,
   setSelectedPaymentMethod,
+  staffEstablishmentBillingGroupName,
   stripeReaders,
   theme,
   // useInternalAccount,
@@ -143,6 +143,7 @@ const QuicksaleCheckout: React.FC<Props> = ({
     <div className={classes.container}>
       <QuicksaleAppBar
         onSignOut={onSignOut}
+        staffEstablishmentBillingGroupName={staffEstablishmentBillingGroupName}
         staffFullName={quicksaleStaffFullName}
         theme={theme}
       />

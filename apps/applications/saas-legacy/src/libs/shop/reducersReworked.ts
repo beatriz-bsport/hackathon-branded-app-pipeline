@@ -227,8 +227,7 @@ export default handleActions<Immutable.Immutable<ShopStateReworked>, any>(
                     acc[shopItemBase.id] = shopItemBase;
                     acc[shopItemBase.id] = {
                       ...acc[shopItemBase.id],
-                      // TODO POS: Update when backend ready
-                      variant_ids: [1767, 1769, 1766],
+                      variant_ids: shopItemBase.variant_ids,
                     };
                     return acc;
                   },

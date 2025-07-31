@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import Fuse, { FuseOptions } from 'fuse.js';
 
@@ -9,8 +9,7 @@ import IconButton from '@material-ui/core/IconButton';
 
 import FuzeSearch from '#src/components/FuzeSearch.component';
 import CustomMuiIcon from '#src/components/icons/CustomMuiIcon.component';
-import type { QuicksaleCardInfo } from '../../types';
-
+import type { QuicksaleCardInfo } from '#src/libs/quicksale/types';
 import useStyles from './styles';
 
 type ListItemProps = {
@@ -19,33 +18,17 @@ type ListItemProps = {
 };
 
 const ListItem: React.FC<ListItemProps> = ({ item, onItemClick }) => {
-  const onClick = React.useCallback(
-    () => onItemClick(item),
-    [item, onItemClick],
-  );
-
-  const stopPropagation = React.useCallback(
-    (ev: React.KeyboardEvent<HTMLDivElement>) => {
-      ev.stopPropagation();
-    },
-    [],
-  );
-
-  const onIconButtonClick = React.useCallback(
-    (ev: React.MouseEvent<HTMLButtonElement>) => {
-      ev.stopPropagation();
-      onClick();
-    },
-    [onClick],
-  );
-
   const classes = useStyles();
+
+  const handleIconButtonClick = (ev: React.MouseEvent<HTMLButtonElement>) => {
+    ev.stopPropagation();
+    onItemClick(item);
+  };
 
   return (
     <div
       className={classes.listItemContainer}
-      onClick={onClick}
-      onKeyDown={stopPropagation}
+      onClick={() => onItemClick(item)}
       role="button"
       tabIndex={0}
     >
@@ -53,10 +36,9 @@ const ListItem: React.FC<ListItemProps> = ({ item, onItemClick }) => {
         <Typography variant="body2">{item.title}</Typography>
         <Typography variant="caption">{item.subtitle}</Typography>
       </div>
-
       <IconButton
         className={classes.listItemIconButton}
-        onClick={onIconButtonClick}
+        onClick={handleIconButtonClick}
       >
         <CustomMuiIcon
           customClassName={classes.listItemIcon}
@@ -69,36 +51,45 @@ const ListItem: React.FC<ListItemProps> = ({ item, onItemClick }) => {
 };
 
 type Props = {
-  searchText?: string;
-  clearSearch?: () => void;
-  onSearchTextChange?: (
+  searchText: string;
+  searchItems: QuicksaleCardInfo[];
+  searchResults: QuicksaleCardInfo[];
+  clearSearch: () => void;
+  onSearchTextChange: (
     fuse: Fuse<QuicksaleCardInfo, FuseOptions<QuicksaleCardInfo>>,
   ) => (ev: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => void;
-  searchItems?: QuicksaleCardInfo[];
-  searchResults?: QuicksaleCardInfo[];
   onItemClick: (item: QuicksaleCardInfo) => void;
-  onSearchIconClick?: () => void;
-  openPopper?: boolean;
+  onSearchIconClick: () => void;
+  openPopper: boolean;
 };
 
 const QuicksaleInterfaceSearchBar: React.FC<Props> = ({
   searchText,
-  clearSearch,
-  onSearchTextChange,
   searchItems,
   searchResults,
+  clearSearch,
+  onSearchTextChange,
   onItemClick,
   onSearchIconClick,
   openPopper,
 }) => {
   const { t } = useTranslation('quicksale');
-
-  const searchBarRef = React.useRef(null);
-
   const classes = useStyles();
+  const searchBarRef = useRef<HTMLDivElement | null>(null);
+
+  const handleKeyDown = useCallback(
+    (event: React.KeyboardEvent<HTMLDivElement>) => {
+      if (event.key === 'Enter') onSearchIconClick();
+    },
+    [onSearchIconClick],
+  );
 
   return (
-    <div ref={searchBarRef} className={classes.searchBarContainer}>
+    <div
+      ref={searchBarRef}
+      className={classes.searchBarContainer}
+      onKeyDown={handleKeyDown}
+    >
       <FuzeSearch
         disableAutoFocus
         searchOnItemsChange
@@ -113,7 +104,6 @@ const QuicksaleInterfaceSearchBar: React.FC<Props> = ({
         searchText={searchText}
         variant="outlined"
       />
-
       <Popper
         anchorEl={searchBarRef.current}
         className={classes.popper}
@@ -124,14 +114,13 @@ const QuicksaleInterfaceSearchBar: React.FC<Props> = ({
         }}
       >
         <Paper className={classes.resultListContainer}>
-          {searchResults.length > 0 &&
-            searchResults.map((result) => (
-              <ListItem
-                key={`search ${result.sectionId} ${result.id}`}
-                item={result}
-                onItemClick={onItemClick}
-              />
-            ))}
+          {searchResults.map((result) => (
+            <ListItem
+              key={`search ${result.sectionId} ${result.id}`}
+              item={result}
+              onItemClick={onItemClick}
+            />
+          ))}
         </Paper>
       </Popper>
     </div>

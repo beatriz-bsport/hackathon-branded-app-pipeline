@@ -34,6 +34,7 @@ type Props = {
   changeEstablishmentBillingGroupFilter: (options: SelectOption) => void;
   establishmentBillingGroupFilterOptionList: SelectOption[];
   variantEstablishmentBillingGroupFilterOptionValue: SelectOption;
+  isMultiLocationWebshopEnabled: boolean;
 };
 
 const ShopItemDetailInventoryListMobile: React.FC<Props> = ({
@@ -45,6 +46,7 @@ const ShopItemDetailInventoryListMobile: React.FC<Props> = ({
   changeEstablishmentBillingGroupFilter,
   establishmentBillingGroupFilterOptionList,
   variantEstablishmentBillingGroupFilterOptionValue,
+  isMultiLocationWebshopEnabled,
 }) => {
   const { t } = useTranslation('shop');
 
@@ -62,7 +64,8 @@ const ShopItemDetailInventoryListMobile: React.FC<Props> = ({
   } = useShopItemDetailInventoryFilters(shopItemVariantList);
 
   const shouldDisplayEstablishmentBillingGroupFilter =
-    establishmentBillingGroupFilterOptionList.length > 0;
+    establishmentBillingGroupFilterOptionList.length > 0 &&
+    isMultiLocationWebshopEnabled;
 
   const getListItemTitle = useCallback(
     (color: string, size: string) =>

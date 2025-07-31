@@ -61,6 +61,7 @@ type Props = {
   ) => (options: SelectOption[]) => void;
   changeEstablishmentBillingGroupFilter: (options: SelectOption) => void;
   establishmentBillingGroupFilterOptionList: SelectOption[];
+  isMultiLocationWebshopEnabled: boolean;
 };
 
 const ShopItemDetailInventoryTab: React.FC<Props> = ({
@@ -80,6 +81,7 @@ const ShopItemDetailInventoryTab: React.FC<Props> = ({
   changeInventoryVariantFilter,
   establishmentBillingGroupFilterOptionList,
   changeEstablishmentBillingGroupFilter,
+  isMultiLocationWebshopEnabled,
 }) => {
   const { t } = useTranslation('shop');
 
@@ -111,9 +113,15 @@ const ShopItemDetailInventoryTab: React.FC<Props> = ({
           payload.push({
             shop_item: variant.id,
             qty: parseInt(variant.stockAdjustment, 10),
-            establishment_billing_group: Number(
-              shopItemVariantFilterOptionValues.establishmentBillingGroup.value,
-            ),
+            ...(!!shopItemVariantFilterOptionValues.establishmentBillingGroup
+              .value && isMultiLocationWebshopEnabled
+              ? {
+                  establishment_billing_group: Number(
+                    shopItemVariantFilterOptionValues.establishmentBillingGroup
+                      .value,
+                  ),
+                }
+              : {}),
           });
         }
       }
@@ -124,6 +132,7 @@ const ShopItemDetailInventoryTab: React.FC<Props> = ({
     [
       createShopItemProvisionBulk,
       shopItemVariantFilterOptionValues.establishmentBillingGroup.value,
+      isMultiLocationWebshopEnabled,
     ],
   );
 
@@ -137,9 +146,15 @@ const ShopItemDetailInventoryTab: React.FC<Props> = ({
           {
             shop_item: shopItem?.id,
             qty: parseInt(values.stockAdjustment, 10),
-            establishment_billing_group: Number(
-              shopItemVariantFilterOptionValues.establishmentBillingGroup.value,
-            ),
+            ...(!!shopItemVariantFilterOptionValues.establishmentBillingGroup
+              .value && isMultiLocationWebshopEnabled
+              ? {
+                  establishment_billing_group: Number(
+                    shopItemVariantFilterOptionValues.establishmentBillingGroup
+                      .value,
+                  ),
+                }
+              : {}),
           },
           {
             onSuccess: () => resetForm(),
@@ -150,6 +165,7 @@ const ShopItemDetailInventoryTab: React.FC<Props> = ({
       createShopItemProvision,
       shopItem?.id,
       shopItemVariantFilterOptionValues.establishmentBillingGroup.value,
+      isMultiLocationWebshopEnabled,
     ],
   );
 
@@ -199,6 +215,7 @@ const ShopItemDetailInventoryTab: React.FC<Props> = ({
             establishmentBillingGroupFilterOptionList
           }
           formType={formType}
+          isMultiLocationWebshopEnabled={isMultiLocationWebshopEnabled}
           isUpdatingVariant={isUpdatingVariant}
           shopItem={shopItem}
           shopItemVariantList={shopItemVariantList}
@@ -217,6 +234,7 @@ const ShopItemDetailInventoryTab: React.FC<Props> = ({
           }
           formType={formType}
           handleSubmit={submitHandlerMapper[formType]}
+          isMultiLocationWebshopEnabled={isMultiLocationWebshopEnabled}
           isUpdatingVariant={isUpdatingVariant}
           shopItem={shopItem}
           shopItemVariantList={shopItemVariantList}

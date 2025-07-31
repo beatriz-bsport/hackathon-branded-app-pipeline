@@ -108,6 +108,7 @@ type Props = {
   getShopItemBarcodeUnicity: (barcode: string) => boolean;
   snackbarSuccess: (text: string) => void;
   establishmentBillingGroupFilterOptionList: SelectOption[];
+  isMultiLocationWebshopEnabled: boolean;
 };
 
 const ShopItemDetail: React.FC<Props> = ({
@@ -148,6 +149,7 @@ const ShopItemDetail: React.FC<Props> = ({
   snackbarSuccess,
   establishmentBillingGroupFilterOptionList,
   changeEstablishmentBillingGroupFilter,
+  isMultiLocationWebshopEnabled,
 }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('xs'));
@@ -397,6 +399,7 @@ const ShopItemDetail: React.FC<Props> = ({
           handleOpenVariantDrawer={handleOpenCreateVariantDrawer}
           isDeletingVariant={isDeletingVariant}
           isLoading={isLoading}
+          isMultiLocationWebshopEnabled={isMultiLocationWebshopEnabled}
           isSupplierPriceHidden={isSupplierPriceHidden}
           isUpdatingVariant={isUpdatingVariant}
           isVariantEditMode={isVariantEditMode}

@@ -87,6 +87,7 @@ type Props = {
   ) => void;
   getShopItemBarcodeUnicity: (barcode: string) => boolean;
   establishmentBillingGroup: number | null;
+  isMultiLocationWebshopEnabled: boolean;
 };
 
 type ShopItemOption = {
@@ -121,6 +122,7 @@ const ShopReworkedProductList: React.FC<Props> = ({
   checkBarcodeUnicity,
   getShopItemBarcodeUnicity,
   establishmentBillingGroup,
+  isMultiLocationWebshopEnabled,
 }) => {
   const { t } = useTranslation(['shop', 'translation', 'common']);
 
@@ -176,13 +178,13 @@ const ShopReworkedProductList: React.FC<Props> = ({
   const handleGoToShopItem = useCallback(
     (shopItemId: number) => () => {
       const params = {
-        ...(establishmentBillingGroup
+        ...(!!establishmentBillingGroup && isMultiLocationWebshopEnabled
           ? { establishment_billing_group: establishmentBillingGroup }
           : {}),
       };
       goToShopItem(shopItemId, params);
     },
-    [goToShopItem, establishmentBillingGroup],
+    [goToShopItem, establishmentBillingGroup, isMultiLocationWebshopEnabled],
   );
 
   const handleOpenShopItemCreationDrawer = useCallback(

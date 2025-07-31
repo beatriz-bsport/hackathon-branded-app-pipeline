@@ -204,6 +204,9 @@ export class ShopReworkedProductListPage extends PureComponent<Props> {
           this.props.shopItemBaseLoading ||
           this.props.isSupplierListLoading
         }
+        isMultiLocationWebshopEnabled={
+          !!this.props.theme.is_multi_location_webshop_enabled
+        }
         provincialTax={this.props.theme.provincial_tax_value}
         retrieveShopItemUsedInCombo={this.handleRetrieveShopItemUsedInCombo}
         subshopList={this.props.subshopList}

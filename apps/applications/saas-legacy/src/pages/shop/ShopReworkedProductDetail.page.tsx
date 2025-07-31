@@ -440,6 +440,9 @@ export class ShopReworkedProductDetailPage extends Component<Props> {
         isDeleting={this.props.isDeleteLoading}
         isDeletingVariant={this.props.isDeleteVariantLoading}
         isLoading={this.props.isLoading}
+        isMultiLocationWebshopEnabled={
+          !!this.props.theme.is_multi_location_webshop_enabled
+        }
         isSupplierPriceHidden={this.isSupplierPriceHidden()}
         isUpdatingVariant={this.props.isUpdateVariantLoading}
         isVariantListLoading={this.props.isVariantListLoading}

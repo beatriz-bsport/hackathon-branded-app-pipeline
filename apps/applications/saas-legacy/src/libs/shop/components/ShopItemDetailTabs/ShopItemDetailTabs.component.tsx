@@ -86,6 +86,7 @@ type Props = {
   ) => void;
   getShopItemBarcodeListUnicity: (barcodeList: string[]) => boolean;
   establishmentBillingGroupFilterOptionList: SelectOption[];
+  isMultiLocationWebshopEnabled: boolean;
 };
 
 const ShopItemDetailTabs: React.FC<Props> = ({
@@ -119,6 +120,7 @@ const ShopItemDetailTabs: React.FC<Props> = ({
   getShopItemBarcodeListUnicity,
   establishmentBillingGroupFilterOptionList,
   changeEstablishmentBillingGroupFilter,
+  isMultiLocationWebshopEnabled,
 }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('xs'));
@@ -193,6 +195,7 @@ const ShopItemDetailTabs: React.FC<Props> = ({
                 establishmentBillingGroupFilterOptionList
               }
               handleOpenVariantDrawer={handleOpenVariantDrawer}
+              isMultiLocationWebshopEnabled={isMultiLocationWebshopEnabled}
               isStandaloneItem={shopItem?.is_standalone_item}
               isUpdatingVariant={isUpdatingVariant}
               page={page}

@@ -122,6 +122,7 @@ export type Theme = {
   hide_credits_for_customers: boolean;
   hide_book_button: boolean;
   is_sequential_marketing_active: boolean;
+  is_multi_location_webshop_enabled: boolean;
   /**
    * @deprecated Do not use this field for conditional feature checks.
    * This is always set to true on the backend.

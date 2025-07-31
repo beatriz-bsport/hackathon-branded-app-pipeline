@@ -565,10 +565,10 @@
             },
             "explain": "The member will always be registered {{ delayWeek }} weeks in advance of class on {{ dayOfWeek}} at {{hour}}:{{minute}}. They will only be registered if they possess a valid pass.",
             "editModal": {
-                "success": "The recurrent booking has been modified"
+                "success": "Recurring booking rule edited. We'll set up your bookings now according to your parameters."
             },
             "createModal": {
-                "success": "The recurrent booking has been created.",
+                "success": "Recurring booking rule saved. We'll set up your bookings now according to your parameters.",
                 "info": "Cannot recreate a recurrent booking that already exists",
                 "create": "Add a recurrent booking"
             },
@@ -16951,7 +16951,7 @@
                 "success": "Recurring appointment deleted"
             },
             "createOrUpdate": {
-                "success": "Recurring appointment successfully saved",
+                "success": "Recurring booking rule saved. We'll set up your bookings now according to your parameters.",
                 "error": "Impossible to save this recurring appointment",
                 "locked": "Recurring appointment rule already exists with these settings"
             }

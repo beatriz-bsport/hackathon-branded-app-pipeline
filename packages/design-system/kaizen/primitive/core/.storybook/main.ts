@@ -1,8 +1,8 @@
-import { nxViteTsPaths } from "@nx/vite/plugins/nx-tsconfig-paths.plugin";
 import type { StorybookConfig } from "@storybook/react-vite";
 import tailwindcss from "tailwindcss";
 import { mergeConfig } from "vite";
 import svgr from "vite-plugin-svgr";
+import tsconfigPaths from "vite-tsconfig-paths";
 
 const config: StorybookConfig = {
   stories: ["../src/**/*.@(mdx|stories.@(js|jsx|ts|tsx))"],
@@ -22,7 +22,7 @@ const config: StorybookConfig = {
   // https://storybook.js.org/recipes/tailwindcss#3-add-a-theme-switcher-tool
   viteFinal: async (config) =>
     mergeConfig(config, {
-      plugins: [svgr(), nxViteTsPaths()],
+      plugins: [svgr(), tsconfigPaths()],
       css: {
         postcss: {
           plugins: [tailwindcss()],

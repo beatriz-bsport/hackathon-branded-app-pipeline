@@ -33,6 +33,7 @@
     "test:watch": "vitest"
   },
   "dependencies": {
+    "vite-tsconfig-paths": "^5.1.4",
     "zod": "^3.25.64"
   },
   "devDependencies": {

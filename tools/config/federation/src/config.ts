@@ -1,11 +1,11 @@
 import { federation } from "@module-federation/vite";
-import { nxViteTsPaths } from "@nx/vite/plugins/nx-tsconfig-paths.plugin";
 import react from "@vitejs/plugin-react-swc";
 import { resolve } from "path";
 import { type PreviewOptions, type ServerOptions, type UserConfig } from "vite";
 import restart from "vite-plugin-restart";
 import svgr from "vite-plugin-svgr";
 import topLevelAwait from "vite-plugin-top-level-await";
+import tsconfigPaths from "vite-tsconfig-paths";
 import { z } from "zod";
 
 import { translationsWatcher } from "./translationsWatcherPlugin.js";
@@ -287,7 +287,7 @@ export const getConfig = (config: {
   };
 
   const plugins = [
-    nxViteTsPaths(),
+    tsconfigPaths(),
     svgr(),
     react(),
     federation(federationConfig),

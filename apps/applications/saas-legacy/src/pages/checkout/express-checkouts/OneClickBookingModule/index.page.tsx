@@ -1,5 +1,4 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import isEqual from 'lodash/isEqual';
 import { connect, ConnectedProps } from 'react-redux';
 import { compose } from 'recompose';
 import { useTranslation } from 'react-i18next';
@@ -52,25 +51,23 @@ import {
 } from '#src/components/css-only/Fabrique/ButtonV2/constants';
 import { useFormikContext } from 'formik';
 import { OneClickCheckoutSkeleton } from '#src/pages/checkout/express-checkouts/components/OneClickCheckoutSkeleton';
-import useDebouncedCallback from '#src/hooks/useDebouncedCallBack';
-import { useLightSignUp } from '#src/pages/checkout/express-checkouts/hooks/useLightSignUp';
 import { OnlinePaymentBasket } from '#src/libs/payment/payment-module-revamped/basket-payment/OnlinePaymentBasket';
 import { useHandleUserRegistration } from './_hooks/useHandleUserRegistration';
 import { getItemInStorage } from '#src/utils/storage';
 import { STORAGE_KEY_LIGHT_SIGNUP_MEMBER_ID } from '#src/actions/constants';
-import { getAuthToken } from '#src/http';
 import ALL_ERROR_CODES from '@bsport/common/lib/master-data/error-codes/buyable-item-can-not-be-bought';
 import { PaymentButtons } from '#src/pages/checkout/express-checkouts/components/PaymentButtons';
 import { SUBMIT_BUTTONS } from '#src/libs/checkout/types';
-import {
-  CheckPaymentIntent,
-  DEBOUNCE_CALLBACK_DELAY,
-} from '#src/pages/checkout/express-checkouts/constants';
+import { CheckPaymentIntent } from '#src/pages/checkout/express-checkouts/constants';
 import { BASKET_INCONSISTENT } from '#src/libs/checkout/constants';
 import { useCheckPaymentStatusFail } from '#src/pages/checkout/express-checkouts/hooks/useCheckPaymentStatusFail';
 import { useNavigation } from '#src/pages/checkout/express-checkouts/hooks/useNavigation';
 import { getUserRegistrationResponse } from '#src/pages/checkout/express-checkouts/utils/userRegistration';
-import { useLightSignupFormUtils } from '#src/pages/checkout/express-checkouts/hooks/useLightSignupFormUtils';
+import {
+  useLightSignUpOperations,
+  LightSignupCreateResult,
+  LightSignupUpdateResult,
+} from '#src/pages/checkout/express-checkouts/hooks/useLightSignUpOperations';
 
 import './index.css';
 
@@ -111,15 +108,8 @@ const OneClickBookingModule: React.FC<Props> = ({
 
   const paymentRef = useRef(null);
 
-  const {
-    values: lightSignupValues,
-    submitForm: submitLightSignupForm,
-    validateForm: validateLightSignupForm,
-    isValid,
-  } = useFormikContext<LightSignupFormValues>();
-
-  const { getIsFormInvalid, getLighSignUpCustomErrors, trimFormValues } =
-    useLightSignupFormUtils();
+  const { values: lightSignupValues, isValid } =
+    useFormikContext<LightSignupFormValues>();
 
   const onCheckPaymentStatusFail = useCheckPaymentStatusFail(setQueryParams);
 
@@ -128,32 +118,12 @@ const OneClickBookingModule: React.FC<Props> = ({
   const memberId =
     getItemInStorage('local', STORAGE_KEY_LIGHT_SIGNUP_MEMBER_ID) ?? '';
 
-  const token = getAuthToken();
-
-  const isTokenNull = !token || token === 'null';
-
   const [selectedPaymentPackId, setSelectedPaymentPackId] = useState<
     number | null
   >(null);
 
   const [bookableStatusState, checkBookableStatus] = useCheckBookableStatus();
   const [offerState, fetchOffer] = useFetchOfferInformation();
-  const {
-    lightSignupCreate: [
-      {
-        loading: lightSignupCreateLoading,
-        value: createdMember,
-        error: lightSignupCreateError,
-      },
-      lightSignupCreate,
-    ],
-    lightSignUpUpdate: [{ value: updatedMember }, lightSignUpUpdate],
-  } = useLightSignUp();
-
-  useEffect(
-    () => getLighSignUpCustomErrors(lightSignupCreateError),
-    [lightSignupCreateError, getLighSignUpCustomErrors],
-  );
 
   const {
     bookInOneClick: [bookingState, bookInOneClick],
@@ -173,79 +143,22 @@ const OneClickBookingModule: React.FC<Props> = ({
         encodeURIComponent(JSON.stringify(userRegistrationResponse)),
       );
     }
-  }, [userRegistrationResponse]);
+  }, [userRegistrationResponse, setQueryParams]);
 
   const buyableItemErrorCode =
     userRegistrationResponse?.buyable_item_error_code;
-
-  const canPerformLightSignUpCreate =
-    !memberId && isTokenNull && !lightSignupCreateLoading;
-
-  /**
-   * Determines whether a light signup update should be performed.
-   *
-   * This function checks if the current user (identified by memberId and existing token)
-   * has made changes to their form data that warrant an update to their profile.
-   *
-   * Returns true when ALL of the following conditions are met:
-   * 1. User/Member exists (has a memberId from previous signup)
-   * 2. User is authenticated (has a valid token, not null)
-   * 3. Form has valid data (lightSignupValues exists)
-   * 4. Form data has actually changed (current form values differ from last saved member data)
-   *
-   * The function excludes 'passwordConfirm' from comparison since it's a UI-only field
-   * that doesn't exist in the backend member object.
-   *
-   * @returns {boolean} - true if update should be performed, false otherwise
-   */
-  const canPerformLightSignupUpdate = (() => {
-    if (!lightSignupValues) return false;
-    const lightSignupValuesWithoutPassword = Object.fromEntries(
-      Object.entries(lightSignupValues).filter(
-        ([key]) => key !== 'passwordConfirm',
-      ),
-    ) as LightSignupFormValues;
-
-    return (
-      !!memberId &&
-      !isTokenNull &&
-      !!lightSignupValuesWithoutPassword &&
-      !isEqual(updatedMember, trimFormValues(lightSignupValuesWithoutPassword))
-    );
-  })();
 
   useEffect(() => {
     if (queryParams?.redirect_status !== RedirectStatus.FAILED) {
       checkBookableStatus(offerId);
     }
-  }, [offerId, checkBookableStatus]);
-
-  useEffect(() => {
-    (async () => {
-      if (companyId) {
-        retrieveCompanyCssConfiguration(companyId);
-      }
-      const response = await fetchOffer(offerId, companyId);
-      if (response?.paymentPacks && response?.paymentPacks.length > 0) {
-        setSelectedPaymentPackId(response.paymentPacks[0].id);
-        if (!basket?.id && memberId) {
-          handleUserRegistration({
-            companyId,
-            email: createdMember?.email ?? updatedMember?.email,
-            offerId,
-            paymentPackId: response.paymentPacks[0].id,
-          });
-        }
-      }
-    })();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [companyId, offerId]);
+  }, [offerId, checkBookableStatus, queryParams?.redirect_status]);
 
   useEffect(() => {
     if (bookingState.error) {
       snackbarError('oneClickBooking.genericError');
     }
-  }, [bookingState.error]);
+  }, [bookingState.error, snackbarError]);
 
   useEffect(() => {
     if (buyableItemErrorCode) {
@@ -255,7 +168,7 @@ const OneClickBookingModule: React.FC<Props> = ({
         snackbarError(`canNotBuyErrorCode.generic`);
       }
     }
-  }, [buyableItemErrorCode]);
+  }, [buyableItemErrorCode, snackbarError]);
 
   useEffect(() => {
     if (hasRedirectionFailed(queryParams)) {
@@ -268,7 +181,7 @@ const OneClickBookingModule: React.FC<Props> = ({
     if (queryParams?.paypalError == BASKET_INCONSISTENT) {
       snackbarError(t('invoice:paymentPanel.actions.basketWasInconsistent'));
     }
-  }, []);
+  }, [queryParams, snackbarError, t]);
 
   const offer = offerState.value?.offer;
   const metaActivity = offerState.value?.metaActivity;
@@ -280,77 +193,64 @@ const OneClickBookingModule: React.FC<Props> = ({
     ({ id }) => id === selectedPaymentPackId,
   )?.price;
 
-  const debouncedLightSignUp = useDebouncedCallback(
-    async () => {
-      if (!selectedPaymentPackId || !offer) return;
-      if (canPerformLightSignUpCreate) {
-        if (!isValid || (await getIsFormInvalid())) {
-          return;
-        }
-        await submitLightSignupForm();
-        const { email } =
-          (await lightSignupCreate({
-            companyId,
-            password: lightSignupValues.password,
-            firstName: lightSignupValues.firstName,
-            lastName: lightSignupValues.lastName,
-            email: lightSignupValues.email,
-            phone: lightSignupValues.phone,
-            acceptEmail: lightSignupValues.acceptEmail,
-            acceptSms: lightSignupValues.acceptSms,
-            accept_terms_and_conditions:
-              lightSignupValues.acceptTermsAndConditions,
-          })) ?? {};
-        await handleUserRegistration({
-          companyId,
-          offerId,
-          email,
-          paymentPackId: selectedPaymentPackId,
-        });
-        return;
-      }
-      if (canPerformLightSignupUpdate) {
-        if (!isValid || (await getIsFormInvalid())) {
-          return;
-        }
-        await submitLightSignupForm();
-        await lightSignUpUpdate({
-          id: memberId,
-          password: lightSignupValues.password,
-          first_name: lightSignupValues.firstName,
-          last_name: lightSignupValues.lastName,
-          email: lightSignupValues.email,
-          phone_number: lightSignupValues.phone,
-          accept_email: lightSignupValues.acceptEmail,
-          accept_sms: lightSignupValues.acceptSms,
-          accept_terms_and_conditions:
-            lightSignupValues.acceptTermsAndConditions,
-        });
-      }
+  const {
+    debouncedLightSignUp,
+    lightSignUpWithoutDebounce,
+    createdMember,
+    updatedMember,
+  } = useLightSignUpOperations({
+    companyId,
+    onDebouncedCreateSuccess: async (result: LightSignupCreateResult) => {
+      await handleUserRegistration({
+        companyId,
+        offerId,
+        email: result.email,
+        paymentPackId: selectedPaymentPackId!,
+      });
     },
-    DEBOUNCE_CALLBACK_DELAY,
-    [
-      checkBookableStatus,
-      companyId,
-      lightSignupCreate,
-      lightSignupValues.acceptEmail,
-      lightSignupValues.acceptSms,
-      lightSignupValues.email,
-      lightSignupValues.firstName,
-      lightSignupValues.lastName,
-      lightSignupValues.phone,
-      lightSignupValues.acceptTermsAndConditions,
-      offer,
-      offerId,
-      selectedPaymentPackId,
-      submitLightSignupForm,
-      validateLightSignupForm,
-    ],
-  );
+    onImmediateCreateSuccess: async (result: LightSignupCreateResult) => {
+      await bookInOneClick({
+        offer: offer!,
+        companyId,
+        selectedPaymentPackId: selectedPaymentPackId!,
+        email: result.email,
+      });
+    },
+    onImmediateUpdateSuccess: async (result: LightSignupUpdateResult) => {
+      await bookInOneClick({
+        offer: offer!,
+        companyId,
+        selectedPaymentPackId: selectedPaymentPackId!,
+        email: result.email,
+      });
+    },
+    shouldSkip: !selectedPaymentPackId || !offer,
+  });
 
   useEffect(() => {
     if (!isSelectedPaymentPackFree) debouncedLightSignUp();
   }, [debouncedLightSignUp, isSelectedPaymentPackFree, lightSignupValues]);
+
+  useEffect(() => {
+    (async () => {
+      if (companyId) {
+        retrieveCompanyCssConfiguration(companyId);
+      }
+      const response = await fetchOffer(offerId, companyId);
+      if (response?.paymentPacks && response?.paymentPacks.length > 0) {
+        setSelectedPaymentPackId(response.paymentPacks[0].id);
+        if (!basket?.id && memberId) {
+          handleUserRegistration({
+            companyId,
+            email: createdMember?.email || updatedMember?.email,
+            offerId,
+            paymentPackId: response.paymentPacks[0].id,
+          });
+        }
+      }
+    })();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [companyId, offerId]);
 
   const cleanLocalStorageAndRedirect = useCallback(() => {
     const basketId = queryParams?.basket_redirection
@@ -376,87 +276,12 @@ const OneClickBookingModule: React.FC<Props> = ({
   ]);
 
   const onBookWithFreePaymentPack = useCallback(async () => {
-    if (!selectedPaymentPackId || !offer) return;
-    if (await getIsFormInvalid()) {
-      return;
-    }
-
-    await submitLightSignupForm();
-
     if ((await checkBookableStatus(offerId))?.shouldDisplayErrorPage) {
       return;
     }
 
-    if (canPerformLightSignUpCreate) {
-      try {
-        await lightSignupCreate({
-          companyId,
-          password: lightSignupValues.password,
-          firstName: lightSignupValues.firstName,
-          lastName: lightSignupValues.lastName,
-          email: lightSignupValues.email,
-          phone: lightSignupValues.phone,
-          acceptEmail: lightSignupValues.acceptEmail,
-          acceptSms: lightSignupValues.acceptSms,
-          accept_terms_and_conditions:
-            lightSignupValues.acceptTermsAndConditions,
-        });
-        await bookInOneClick({
-          offer,
-          companyId,
-          selectedPaymentPackId,
-          email: createdMember?.email!!,
-        });
-      } catch (error) {
-        console.error(error);
-      }
-      return;
-    }
-    try {
-      await lightSignUpUpdate({
-        id: memberId,
-        password: lightSignupValues.password,
-        first_name: lightSignupValues.firstName,
-        last_name: lightSignupValues.lastName,
-        email: lightSignupValues.email,
-        phone_number: lightSignupValues.phone,
-        accept_email: lightSignupValues.acceptEmail,
-        accept_sms: lightSignupValues.acceptSms,
-        accept_terms_and_conditions: lightSignupValues.acceptTermsAndConditions,
-      });
-      await bookInOneClick({
-        offer,
-        companyId,
-        selectedPaymentPackId,
-        email: updatedMember?.email!!,
-      });
-    } catch (error) {
-      console.error(error);
-    }
-    return;
-  }, [
-    lightSignupCreate,
-    lightSignUpUpdate,
-    updatedMember,
-    submitLightSignupForm,
-    bookInOneClick,
-    companyId,
-    selectedPaymentPackId,
-    offer,
-    lightSignupValues.acceptEmail,
-    lightSignupValues.acceptSms,
-    lightSignupValues.firstName,
-    lightSignupValues.lastName,
-    lightSignupValues.email,
-    lightSignupValues.phone,
-    lightSignupValues.acceptTermsAndConditions,
-    memberId,
-    canPerformLightSignUpCreate,
-    createdMember,
-    getIsFormInvalid,
-    checkBookableStatus,
-    offerId,
-  ]);
+    await lightSignUpWithoutDebounce();
+  }, [checkBookableStatus, offerId, lightSignUpWithoutDebounce]);
 
   const offerDate = useConsumerBookingDateTime({
     dateStart: offer?.date_start,
@@ -489,9 +314,9 @@ const OneClickBookingModule: React.FC<Props> = ({
     [
       offerId,
       companyId,
-      createdMember?.email,
       handleUserRegistration,
       memberId,
+      createdMember?.email,
       updatedMember?.email,
     ],
   );

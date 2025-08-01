@@ -7,7 +7,7 @@ import { postUserRegistration } from '#src/libs/offer/api';
 
 type HandleUserRegistrationParams = {
   companyId: number;
-  email: string;
+  email?: string;
   offerId: number;
   paymentPackId: number;
 };
@@ -37,7 +37,7 @@ export const handleUserRegistration = async ({
         extra_data: { one_click_checkout: true, auto_assign_spot: true },
       },
     ],
-    email,
+    ...(email && { email }),
   });
   const { data: updatedBasket } = await fetchCurrentBasket(companyId);
 

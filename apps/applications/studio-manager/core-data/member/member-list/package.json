@@ -28,6 +28,7 @@
     "@bsport/store-core-data-member": "workspace:*",
     "@bsport/store-shared-background-task": "workspace:*",
     "@bsport/use-async": "workspace:*",
+    "@bsport/use-debounce": "workspace:*",
     "@bsport/use-pagination-query-params": "workspace:*",
     "clsx": "^2.1.1",
     "react": "^19.0.0",

@@ -1,11 +1,11 @@
-import React, { memo, useEffect, useState } from "react";
+import React, { memo, useState } from "react";
 
 import {
   MemberTable,
   type TableRequiredPermissions,
 } from "#src/components/MemberTable";
-import { useFetchMembers } from "#src/hooks/useFetchMembers";
 import type { FilterParams } from "#src/hooks/useFilterMembers";
+import { useLoadMembers } from "#src/hooks/useLoadMembers";
 
 import { MemberArchiveModal } from "./MemberArchiveModal";
 
@@ -14,6 +14,7 @@ type MemberListContentProps = {
   onAddMemberClick?: () => void;
   onClearFiltersClick?: () => void;
   permissions: TableRequiredPermissions;
+  searchInput: string;
 };
 
 const MemberListContentInternal: React.FC<MemberListContentProps> = ({
@@ -21,11 +22,12 @@ const MemberListContentInternal: React.FC<MemberListContentProps> = ({
   onAddMemberClick,
   onClearFiltersClick,
   permissions,
+  searchInput,
 }) => {
   // ----- Pagination settings -----
 
   const { fetchMemberPage, isLoading, memberList, paginationParams } =
-    useFetchMembers({ archived: false, activeFilters });
+    useLoadMembers({ archived: false, activeFilters, searchInput });
 
   // ----- State -----
 
@@ -38,12 +40,6 @@ const MemberListContentInternal: React.FC<MemberListContentProps> = ({
   // ----- Handlers -----
 
   const handleCloseArchiveModal = () => setMemberToArchive(null);
-
-  // ----- Load data -----
-
-  useEffect(() => {
-    fetchMemberPage();
-  }, [fetchMemberPage]);
 
   return (
     <>

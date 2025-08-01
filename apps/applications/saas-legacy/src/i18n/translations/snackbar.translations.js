@@ -924,7 +924,8 @@ const getTranslations = async () => {
         success: 'Recurring appointment deleted',
       },
       createOrUpdate: {
-        success: 'Recurring appointment successfully saved',
+        success:
+          'Recurring appointment successfully saved. Appointments are being created.',
         error: 'Impossible to save this recurring appointment',
         locked: 'Recurring appointment rule already exists with these settings',
       },

@@ -16409,7 +16409,7 @@
         },
         "privateRecurrentRule": {
             "createOrUpdate": {
-                "success": "Rendez-vous récurrent enregistré avec succès",
+                "success": "Rendez-vous récurrent enregistré avec succès. Les rendez-vous sont en cours de création.",
                 "error": "Impossible d'enregistrer le rendez-vous récurrent",
                 "locked": "Une règle de récurrence existe déjà avec ces paramètres"
             },

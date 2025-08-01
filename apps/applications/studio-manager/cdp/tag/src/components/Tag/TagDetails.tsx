@@ -8,14 +8,13 @@ import {
 } from "@bsport/kaizen-primitive-core";
 import type { Tag } from "@bsport/store-cdp-tag";
 
+import { TagMemberList } from "#src/components/Tag/TagMemberList";
+import { useTagContext } from "#src/context/useTagContext";
 import { useFetchMembers } from "#src/hooks/api/use-fetch-members";
 import { useTranslation } from "#src/utils/i18n";
 
-import { TagMemberList } from "./TagMemberList";
-
 type TagDetailsProps = {
   tag: Tag | null;
-  handleEditTag?: (tag: Tag) => void;
 };
 
 type TagSegments = "tagged" | "untagged";
@@ -24,16 +23,31 @@ function isTagSegment(value: string): value is TagSegments {
   return value === "tagged" || value === "untagged";
 }
 
-export const TagDetails = ({ tag, handleEditTag }: TagDetailsProps) => {
+export const TagDetails = ({ tag }: TagDetailsProps) => {
+  const { handleUpdateTagAllMember, handleEditTag } = useTagContext();
   const [selectedOption, setSelectedOption] = useState<TagSegments>("tagged");
   const { t } = useTranslation("tags");
-  const { isLoading, memberList, paginationParams, resetMemberList } =
+  const { isLoading, memberList, paginationParams, fetchMemberPage } =
     useFetchMembers({
       relatedTagId: tag?.id || 0,
       isTagged: selectedOption === "tagged",
     });
 
   if (!tag) return null;
+
+  const handleBatchAction = () => {
+    handleUpdateTagAllMember({
+      tag,
+      totalImpactedMembers: paginationParams.totalItems,
+      updateMode: selectedOption === "tagged" ? "untag" : "tag",
+      onSuccessCallback: () => {
+        fetchMemberPage({
+          tagId: tag.id,
+          tagged: false,
+        });
+      },
+    });
+  };
 
   return (
     <div className="w-[450px]">
@@ -85,7 +99,12 @@ export const TagDetails = ({ tag, handleEditTag }: TagDetailsProps) => {
             size="md"
             intent="default"
             color="main"
-            label={t("tagsDetails.actions.tagAll")}
+            label={
+              selectedOption === "tagged"
+                ? t("tagsDetails.actions.untagAll")
+                : t("tagsDetails.actions.tagAll")
+            }
+            onClick={handleBatchAction}
           />
         </div>
         <TagMemberList
@@ -94,7 +113,7 @@ export const TagDetails = ({ tag, handleEditTag }: TagDetailsProps) => {
           paginationParams={paginationParams}
           selectedOption={selectedOption}
           tag={tag}
-          refreshMemberPage={resetMemberList}
+          refreshMemberPage={fetchMemberPage}
         />
       </div>
     </div>

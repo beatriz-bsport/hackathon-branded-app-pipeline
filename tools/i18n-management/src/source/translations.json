@@ -1591,6 +1591,33 @@
             }
           }
         }
+      },
+      "updateMemberTagBatchModal": {
+        "title": { "tag": "Tag all?", "untag": "Untag all?" },
+        "description": {
+          "tag": "Add the {{tagName}} tag from {{number}} members?",
+          "untag": "Remove the {{tagName}} tag from {{number}} members?"
+        },
+        "actions": {
+          "tag": "Tag all",
+          "untag": "Untag all",
+          "cancel": "Cancel",
+          "undo": "Undo"
+        },
+        "loading": {
+          "tag": "Tagging {{number}} members...",
+          "untag": "Untagging {{number}} members..."
+        },
+        "results": {
+          "tag": {
+            "success": { "title": "All members were tagged" },
+            "failure": { "title": "Failed to tag members" }
+          },
+          "untag": {
+            "success": { "title": "All members were untagged" },
+            "failure": { "title": "Failed to untag members" }
+          }
+        }
       }
     }
   },

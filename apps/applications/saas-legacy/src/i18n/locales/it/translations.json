@@ -10289,21 +10289,21 @@
                 },
                 "advancedOptions": {
                     "tag": {
-                        "doNotSelectToAllowAllMembers": "Lasciare vuoto per permettere a tutti i membri",
+                        "doNotSelectToAllowAllMembers": "Lascia questo campo vuoto per renderlo disponibile a tutti i membri.",
                         "notAllowedFor": "Non consentito per",
-                        "notAllowed": "Non consentito",
+                        "notAllowed": "Non disponibile",
                         "allowedFor": "Autorizzato per",
-                        "allowed": "Autorizzato",
-                        "helperText": "Utilizzate i tag per rendere il pacchetto disponibile solo a membri specifici nel MarketPlace, nei widget e nell'app mobile. È possibile scegliere di visualizzare questi pacchetti solo ai membri con tag specifici, oppure di non visualizzare affatto il pacchetti per tag specifici. ",
+                        "allowed": "Disponibile",
+                        "helperText": "Utilizza i tag per rendere questo pacchetto disponibile o non disponibile all'acquisto per specifici segmenti della tua clientela.",
                         "header": "Tags",
-                        "tagsOnAcquisitionHelper": "Utilizza i tag per identificare il membro che ha acquistato il pacchetto.",
-                        "tagsOnAcquisition": "Tag dopo l'acquisto",
+                        "tagsOnAcquisitionHelper": "Tagga i membri che hanno acquistato questo pacchetto per identificarli rapidamente in futuro.",
+                        "tagsOnAcquisition": "Applica i tag dopo l'acquisto",
                         "selectTags": "Seleziona tag"
                     },
                     "header": "Avanzato",
                     "appliesForPayroll": {
-                        "label": "Sessioni prese in considerazione nel calcolo della retribuzione dell'insegnante",
-                        "helperText": "Per impostazione predefinita, le sessioni vengono contabilizzate allo studio e conteggiate nel riepilogo e nel compenso del docente da parte dello studio. Disattivando questa impostazione, le sessioni associate a questo pacchetto non appariranno più nel riepilogo dell'insegnante.",
+                        "label": "Le lezioni acquistate con questo pacchetto sono incluse nella busta paga dell'insegnante",
+                        "helperText": "Per impostazione predefinita, le lezioni vengono fatturate allo studio e incluse nella busta paga dell'insegnante. Disattiva questa impostazione per fare in modo che le lezioni associate a questo pacchetto non vengano più visualizzate nella busta paga degli insegnanti.",
                         "header": "Retribuzione dell'insegnante"
                     }
                 },
@@ -10579,13 +10579,13 @@
             "only_vod_access": "Limitare l'uso della carta al solo VOD",
             "vodAccessCard": "Fornisce l'accesso al VOD",
             "vod": "VOD",
-            "compatibility": "Questo pacchetto sarà compatibile solo con le sessioni, le attività, le categorie e/o gli stabilimenti selezionati.",
-            "letBlank": "Lasciare questo campo vuoto per non applicare alcuna restrizione",
+            "compatibility": "Questo pacchetto sarà compatibile solo con le lezioni, attività, categorie o sedi selezionate.",
+            "letBlank": "Lascia vuoto per non limitare questo pacchetto",
             "activities": "Attività",
             "room": "Stabilimenti",
             "categories": "Categorie",
             "inShopPayment": "Possibilità di pagare sul posto",
-            "notForSell": "Non visibile per i clienti",
+            "notForSell": "Nascosto ai membri",
             "newClientOnly": "Visibile solo ai nuovi clienti",
             "maxUseMember": "Acquisto massimo per membro",
             "maxUseMonth": "Usi massimi al mese",
@@ -10647,7 +10647,7 @@
             "creditWarning": "Se si cambia il numero di crediti, tutti i pacchetti esistenti saranno interessati.",
             "migration": "Questo pacchetto proviene da una migrazione di dati precedentemente completata. Alcuni campi potrebbero non essere modificabili per preservare i dati. Le attività/categorie compatibili possono comunque essere modificate.",
             "franchise": "Il pacchetto è condiviso attraverso l'account master. Alcune impostazioni sono state predefinite da tale Account Master e non possono essere modificate.",
-            "allowGuest": "Compatibile con la prenotazione per un ospite",
+            "allowGuest": "Compatibile con le prenotazioni per ospiti",
             "penalityModeFranchisor": {
                 "buyer": {
                     "explain": "Il saldo del conto membro sarà addebitato con {{ price }} solo sul franchisee in cui è stato acquistato il pacchetto.",
@@ -10663,11 +10663,11 @@
                     "explain": "L'acconto di {{ price }} verrà applicato in proporzione alle assenze (no show) registrate presso ciascuno dei tuoi memrbi. Verrà addebitato un totale di {{ price }} sulla franchigia."
                 }
             },
-            "unusableByStaff": "Non visibile per lo staff",
+            "unusableByStaff": "Nascosto allo staff",
             "expiration_date": {
-                "label": "Data limite di acquisto",
+                "label": "Durata della vendita",
                 "helperText": "Disponibile fino al",
-                "tooltip": "Dopo la data scelta, il pass non apparirà più in vendita ai clienti."
+                "tooltip": "Dopo la data selezionata, il pacchetto non sarà più disponibile per l'acquisto"
             },
             "description": "Descrizione",
             "offPeak": {
@@ -10677,7 +10677,7 @@
                     "allDay": "Tutto il giorno",
                     "timeSlot": "Fasce orarie"
                 },
-                "label": "Prenotazioni possibili solamente in alcune fasce orarie"
+                "label": "Limita le prenotazioni a orari specifici"
             },
             "atLeastOneDay": "Seleziona almeno un giorno",
             "startAfterEnd": "L'ora di inizio deve essere inferiore all'ora di fine",
@@ -11160,7 +11160,7 @@
                 "welcome": "Buongiorno {{- firstname }}"
             },
             "title": "Informazioni sull'utente",
-            "newMemberOnlyHelperText": "Un membro è considerato nuovo fino a quando non ha effettuato un acquisto superiore a 0 {{ currency }} sulla piattaforma. Si avvisa che qualsiasi acquisto di un articolo a pagamento con una riduzione del 100% sul suo prezzo causerà la perdita dello stato di \"Nuovo membro\"."
+            "newMemberOnlyHelperText": "I membri sono considerati \"nuovi\" finché non hanno effettuato un acquisto superiore a 0 €. Nota bene: se un membro acquista un prodotto con uno sconto del 100%, questo verrà comunque conteggiato come un acquisto."
         },
         "user": {
             "existsWithPhone": "Un utente con il numero di telefono {{phonenumber}} esiste già.",

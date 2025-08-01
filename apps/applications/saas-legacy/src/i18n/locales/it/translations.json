@@ -6251,7 +6251,7 @@
             },
             "createOrUpdate": {
                 "error": "Impossibile salvare l'appuntamento ricorrente",
-                "success": "Appuntamento ricorrente registrato con successo",
+                "success": "Appuntamento ricorrente salvato con successo",
                 "locked": "Esiste già una regola di ricorrenza con questi parametri"
             }
         },

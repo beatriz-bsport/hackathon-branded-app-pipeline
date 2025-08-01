@@ -31,7 +31,11 @@ import FabriqueTextFormField from '#Fabrique/Temporary/TextFormField';
 import FabriqueRadioGroupfield from '#Fabrique/Temporary/RadioGroupfield';
 import FabriqueMultipleCheckboxfield from '#Fabrique/Temporary/MultipleCheckboxfield';
 import FabriqueSelectfield from '#Fabrique/Temporary/Selectfield';
-import { generateUniqueCustomFormFieldIdentifier } from '#src/libs/custom-form/utils';
+import {
+  MAX_LENGTH_FOR_SHORT_ANSWER,
+  MAX_LENGTH_FOR_LONG_ANSWER,
+  generateUniqueCustomFormFieldIdentifier,
+} from '../../utils';
 
 import { MaterialStyleType } from '../../../../utils/types';
 import FileUploaderCustomized from '../../../../components/FileUploaderCustomized';
@@ -41,6 +45,14 @@ import type {
   ResponsiveLayouts,
 } from '../../types';
 import SignatureCanvas from './SignatureCanvas.component';
+
+import {
+  MultipleCheckboxField,
+  RadioGroupField,
+  TextFieldEnhancedLabelWithError,
+  SelectFieldWithEnhancedLabeLError,
+  // @ts-expect-error
+} from '../../../../components/forms';
 
 import CustomFormFieldSignUpInput from './CustomFormField.signup-input';
 import CustomFormFieldLocationInput from './CustomFormField.location-input';
@@ -54,13 +66,14 @@ type OwnProps = {
   values: FormikCustomFormFilled;
   layouts: ResponsiveLayouts;
   waiver?: string;
+  isCssVariantActivated?: boolean;
 };
 type Props = OwnProps &
   MaterialStyleType<ReturnType<typeof styles>> &
   WithTranslation;
 
 export const CustomFormConsumerInput = (props: Props) => {
-  const { t, classes } = props;
+  const { t, classes, isCssVariantActivated } = props;
   const [openSignatureCanvas, setOpenSignatureCanvas] = React.useState(false);
   const setImageAnswer = (ImageDataUrl: string) => {
     props.setFieldValue(
@@ -93,63 +106,192 @@ export const CustomFormConsumerInput = (props: Props) => {
 
   switch (props.field?.kind) {
     case CUSTOM_FORM_FIELD_TITLE_OPTION:
-      return <FabriqueTitle label={props.field.label} />;
-
-    case CUSTOM_FORM_FIELD_PARAGRAPH_OPTION:
-      return <FabriqueParagraph label={props.field.label} />;
-
-    case CUSTOM_FORM_FIELD_SHORT_ANSWER_OPTION:
+      if (isCssVariantActivated) {
+        return <FabriqueTitle label={props.field.label} />;
+      }
       return (
-        <FabriqueTextfield
-          inputId={uniqueCustomFormFieldIdentifier}
-          isDisabled={props.asManager}
-          isRequired={props.field.mandatory}
-          label={props.field.label}
-          name={`custom_form_field.${props.index}.answer`}
-        />
+        <div className={classes.spacedField}>
+          <div style={{ overflowWrap: 'break-word' }}>
+            <Typography variant="h4">{props.field.label}</Typography>
+          </div>
+        </div>
+      );
+    case CUSTOM_FORM_FIELD_PARAGRAPH_OPTION:
+      if (isCssVariantActivated) {
+        return <FabriqueParagraph label={props.field.label} />;
+      }
+      return (
+        <div className={classes.spacedField}>
+          <div style={{ overflowWrap: 'break-word' }}>
+            <Typography component="div" variant="caption">
+              {props.field.label}
+            </Typography>
+          </div>
+        </div>
+      );
+    case CUSTOM_FORM_FIELD_SHORT_ANSWER_OPTION:
+      if (isCssVariantActivated) {
+        return (
+          <FabriqueTextfield
+            inputId={uniqueCustomFormFieldIdentifier}
+            isDisabled={props.asManager}
+            isRequired={props.field.mandatory}
+            label={props.field.label}
+            name={`custom_form_field.${props.index}.answer`}
+          />
+        );
+      }
+      return (
+        <div key={props.index}>
+          <div className={classes.spacedField}>
+            <TextFieldEnhancedLabelWithError
+              fullWidth
+              disabled={props.asManager}
+              InputLabelProps={{ color: 'red' }}
+              inputProps={{ maxlength: MAX_LENGTH_FOR_SHORT_ANSWER }}
+              label={props.field.label}
+              name={`custom_form_field.${props.index}.answer`}
+              onBlur={props.handleBlur}
+              required={props.field.mandatory}
+            />
+          </div>
+        </div>
       );
     case CUSTOM_FORM_FIELD_LONG_ANSWER_OPTION:
+      if (isCssVariantActivated) {
+        return (
+          <FabriqueTextFormField
+            isDisabled={props.asManager}
+            isRequired={props.field.mandatory}
+            label={props.field.label}
+            name={`custom_form_field.${props.index}.answer`}
+            textFormId={uniqueCustomFormFieldIdentifier}
+          />
+        );
+      }
       return (
-        <FabriqueTextFormField
-          isDisabled={props.asManager}
-          isRequired={props.field.mandatory}
-          label={props.field.label}
-          name={`custom_form_field.${props.index}.answer`}
-          textFormId={uniqueCustomFormFieldIdentifier}
-        />
+        <div className={classes.spacedField}>
+          <TextFieldEnhancedLabelWithError
+            fullWidth
+            multiline
+            disabled={props.asManager}
+            inputProps={{ maxlength: MAX_LENGTH_FOR_LONG_ANSWER }}
+            label={props.field.label}
+            name={`custom_form_field.${props.index}.answer`}
+            onBlur={props.handleBlur}
+            required={props.field.mandatory}
+            variant="outlined"
+          />
+        </div>
       );
+
     case CUSTOM_FORM_FIELD_RADIO_OPTION:
+      if (isCssVariantActivated) {
+        return (
+          <FabriqueRadioGroupfield
+            choices={memoizedChoices}
+            disabled={props.asManager}
+            id={uniqueCustomFormFieldIdentifier}
+            isRequired={props.field.mandatory}
+            label={props.field.label}
+            name={`custom_form_field.${props.index}.answer`}
+          />
+        );
+      }
       return (
-        <FabriqueRadioGroupfield
-          choices={memoizedChoices}
-          disabled={props.asManager}
-          id={uniqueCustomFormFieldIdentifier}
-          isRequired={props.field.mandatory}
-          label={props.field.label}
-          name={`custom_form_field.${props.index}.answer`}
-        />
+        <div className={classes.spacedField}>
+          <RadioGroupField
+            choices={(props.field.choices ?? []).map((choice: string) => ({
+              label: choice,
+              value: choice,
+            }))}
+            disabled={props.asManager}
+            label={`${props.field.label}${props.field.mandatory ? ' *' : ''}`}
+            labelClass={classes.labelClass}
+            name={`custom_form_field.${props.index}.answer`}
+            required={props.field.mandatory}
+          />
+          <ErrorMessage name={`custom_form_field.${props.index}.answer`}>
+            {(error_msg) => (
+              <Typography color="error" variant="caption">
+                {t(`${error_msg}`)}
+              </Typography>
+            )}
+          </ErrorMessage>
+        </div>
       );
     case CUSTOM_FORM_FIELD_CHECHBOX_OPTION:
+      if (isCssVariantActivated) {
+        return (
+          <FabriqueMultipleCheckboxfield
+            choices={memoizedChoices}
+            disabled={props.asManager}
+            id={uniqueCustomFormFieldIdentifier}
+            isRequired={props.field.mandatory}
+            label={props.field.label}
+            name={`custom_form_field.${props.index}.answer`}
+          />
+        );
+      }
       return (
-        <FabriqueMultipleCheckboxfield
-          choices={memoizedChoices}
-          disabled={props.asManager}
-          id={uniqueCustomFormFieldIdentifier}
-          isRequired={props.field.mandatory}
-          label={props.field.label}
-          name={`custom_form_field.${props.index}.answer`}
-        />
+        <div className={classes.spacedField}>
+          <MultipleCheckboxField
+            choices={(props.field.choices ?? []).map((choice: string) => ({
+              optionLabel: choice,
+              id: choice,
+            }))}
+            disabled={props.asManager}
+            label={`${props.field.label}${props.field.mandatory ? ' *' : ''}`}
+            labelClass={classes.labelClass}
+            name={`custom_form_field.${props.index}.answer`}
+            required={props.field.mandatory}
+          />
+          <ErrorMessage name={`custom_form_field.${props.index}.answer`}>
+            {(error_msg) => (
+              <Typography color="error" variant="caption">
+                {t(`${error_msg}`)}
+              </Typography>
+            )}
+          </ErrorMessage>
+        </div>
       );
     case CUSTOM_FORM_FIELD_SELECT_OPTION:
+      if (isCssVariantActivated) {
+        return (
+          <FabriqueSelectfield
+            id={uniqueCustomFormFieldIdentifier}
+            isDisabled={props.asManager}
+            isRequired={props.field.mandatory}
+            label={props.field.label}
+            name={`custom_form_field.${props.index}.answer`}
+            suggestions={memoizedSuggestions}
+          />
+        );
+      }
       return (
-        <FabriqueSelectfield
-          id={uniqueCustomFormFieldIdentifier}
-          isDisabled={props.asManager}
-          isRequired={props.field.mandatory}
-          label={props.field.label}
-          name={`custom_form_field.${props.index}.answer`}
-          suggestions={memoizedSuggestions}
-        />
+        <div className={classes.spacedField}>
+          <FormLabel className={classes.labelClass}>
+            {props.field.label}
+            {props.field.mandatory && ' *'}
+          </FormLabel>
+          <div style={{ maxWidth: '400px' }}>
+            <SelectFieldWithEnhancedLabeLError
+              isClearable
+              isDisabled={props.asManager}
+              label={props.field.label}
+              name={`custom_form_field.${props.index}.answer`}
+              onChange={(item: { label: string; value: string }) =>
+                props.setFieldValue(
+                  `custom_form_field.${props.index}.answer`,
+                  item ? item.value : null,
+                )
+              }
+              placeholder={t('customForm.field.select_placeholder')}
+              selected={props.values.custom_form_field[props.index].answer}
+              suggestions={memoizedSuggestions}
+            />
+          </div>
+        </div>
       );
     case CUSTOM_FORM_FIELD_SIGNATURE_OPTION:
       return (

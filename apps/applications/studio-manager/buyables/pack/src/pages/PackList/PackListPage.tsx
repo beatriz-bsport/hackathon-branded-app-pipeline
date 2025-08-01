@@ -1,9 +1,12 @@
 import { useEffect, useId, useState } from "react";
 
+import { getEnv } from "@bsport/envs";
 import { Button, ListLayout } from "@bsport/kaizen-primitive-core";
 
+import { PackCreateModal } from "#src/components/PackCreateModal";
 import { PackDeleteModal } from "#src/components/PackDeleteModal";
 import { PackTable } from "#src/components/PackTable";
+import { useCreateModal } from "#src/hooks/useCreateModal";
 import { useFetchPacks } from "#src/hooks/useFetchPacks";
 import { useSearchPacks } from "#src/hooks/useSearchPacks";
 import { LEGACY_URLS } from "#src/urls";
@@ -15,9 +18,18 @@ export const PackListPage: React.FC = () => {
     { id: number; name: string } | undefined
   >(undefined);
 
+  const { closeCreateModal, isCreateModalOpen, openCreateModal } =
+    useCreateModal();
+  const env = getEnv();
+
   const onAddPackClick = () => {
-    // Use window history to navigate to legacy backoffice
-    window.location.assign(LEGACY_URLS.CREATE);
+    if (env === "local") {
+      // WIP - Display Create modal only on local development
+      openCreateModal();
+    } else {
+      // Use window history to navigate to legacy backoffice
+      window.location.assign(LEGACY_URLS.CREATE);
+    }
   };
 
   const { searchInput, setSearchInput, clearSearchInput } = useSearchPacks();
@@ -83,6 +95,10 @@ export const PackListPage: React.FC = () => {
             refreshPageList={fetchPacks}
           />
         )}
+        <PackCreateModal
+          isOpen={isCreateModalOpen}
+          onClose={closeCreateModal}
+        />
       </ListLayout.Content>
     </ListLayout>
   );

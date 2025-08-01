@@ -6,7 +6,7 @@ exports.default = {
   },
   activeList: {
     actions: {
-      addForm: "Add Form",
+      addForm: "Create form",
     },
     addFormModal: {
       title: "Create new Form",
@@ -30,24 +30,21 @@ exports.default = {
     archiveModal: {
       actions: {
         archive: "Archive",
-        cancel: "Cancel",
+        cancel: "Go back",
       },
-      title: "Archive Form",
-      description: {
-        verification: "Do you want to archive <b>{{ name }}</b> ?",
-        effect:
-          "Archiving this form will move it to your archive. Members won't be able to access it anymore.",
-      },
+      title: "Archive Form?",
+      description:
+        "Members won't see <b>{{ name }}</b> anymore but you can access it from your archive.",
     },
     duplicateModal: {
       actions: {
         duplicate: "Duplicate",
-        cancel: "Cancel",
+        cancel: "Go back",
       },
-      title: "Duplicate Form",
+      title: "Duplicate Form?",
       description: {
         verification: "Duplicate <b>{{ name }}</b> ?",
-        effect: "You can edit the form afterwards.",
+        effect: "You can edit <b>{{ name }}</b> after.",
       },
     },
   },
@@ -88,8 +85,8 @@ exports.default = {
     },
     empty: {
       activeList: {
-        title: "No forms yet",
-        subtitle: "Create forms to easily get feedback from your members",
+        title: "No forms to display yet",
+        subtitle: "Create your first form to get feedback from your members.",
       },
       archivedList: {
         title: "No archived forms yet",

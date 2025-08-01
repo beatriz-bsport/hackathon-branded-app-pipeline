@@ -64,9 +64,6 @@ export const DuplicateSmartlistModal: React.FC<
             }}
           />
         </Body>
-        <Body htmlVariant="p" size="lg" color="default" weight="weak">
-          {t("duplicateModal.editAfter")}
-        </Body>
       </div>
     </Modal>
   );

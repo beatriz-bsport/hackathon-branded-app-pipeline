@@ -73,15 +73,12 @@ export const DeleteCategoryModal: React.FC<Props> = ({
       <div className="flex flex-col gap-y-sm">
         <Body htmlVariant="p" size="lg" color="default" weight="weak">
           <Trans
-            i18nKey={"activeList.deleteCategoryModal.description.firstStep"}
+            i18nKey={"activeList.deleteCategoryModal.description"}
             values={{ categoryName: categoryName }}
             components={{
               b: <b></b>,
             }}
           />
-        </Body>
-        <Body htmlVariant="p" size="lg" color="default" weight="weak">
-          {t("activeList.deleteCategoryModal.description.secondStep")}
         </Body>
       </div>
     </Modal>

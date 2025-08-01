@@ -51,8 +51,9 @@ export const TagsPageContent = ({
       handleEditTagGroup,
       handleClickTag: (tag) => {
         setCurrentInspectedTag(tag);
-        openDrawer(tag.id.toString());
+        openDrawer(tag.id);
       },
+      currentSelectedTag: currentInspectedTag,
     });
 
   return (
@@ -112,9 +113,9 @@ export const TagsPageContent = ({
           {
             id: "next-tag-details",
             iconLeft: "chevron-down",
-            intent: "flat",
+            intent: "default",
             size: "md",
-            color: "default",
+            color: "main",
             onClick: navigateToNextTag,
             tooltipProps: {
               label: t("tagsDetails.tooltip.nextSubTag"),
@@ -124,9 +125,9 @@ export const TagsPageContent = ({
           {
             id: "previous-tag-details",
             iconLeft: "chevron-up",
-            intent: "flat",
+            intent: "default",
             size: "md",
-            color: "default",
+            color: "main",
             onClick: navigateToPreviousTag,
             tooltipProps: {
               label: t("tagsDetails.tooltip.previousSubTag"),

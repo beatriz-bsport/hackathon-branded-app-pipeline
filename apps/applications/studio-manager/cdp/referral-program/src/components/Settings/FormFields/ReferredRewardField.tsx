@@ -18,7 +18,6 @@ import {
 function isReferringRewardOptionType(
   value: string,
 ): value is ReferringRewardOptionType {
-  console.log(value);
   return (
     value === referringRewardTypeValues.amount ||
     value === referringRewardTypeValues.percentage

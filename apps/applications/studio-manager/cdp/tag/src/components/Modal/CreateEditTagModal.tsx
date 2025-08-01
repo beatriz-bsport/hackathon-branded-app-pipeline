@@ -7,7 +7,10 @@ import type { Tag, TagGroup } from "@bsport/store-cdp-tag";
 import { CreateEditTagForm } from "#src/components/Form/CreateEditTagForm";
 import { useCreateTag } from "#src/hooks/api/use-create-tag";
 import { useUpdateTag } from "#src/hooks/api/use-update-tag";
-import { TAG_GROUP_NAME_ALREADY_EXIST_ERROR_CODE } from "#src/utils/constants";
+import {
+  TAG_LIST_ITEM_ID,
+  TAG_NAME_ALREADY_EXIST_ERROR_CODE,
+} from "#src/utils/constants";
 import { useTranslation } from "#src/utils/i18n";
 import { createEditTagSchema } from "#src/utils/schemas/create-edit-tag.schema";
 import type { CreateEditTagData } from "#src/utils/types";
@@ -64,42 +67,51 @@ export const CreateEditTagModal: React.FC<Props> = ({
     [tagGroupList],
   );
 
-  const handleFailure = () => {
-    toast({
-      title: tagDraft
-        ? t("tagModal.result.updateFailure.title")
-        : t("tagModal.result.createFailure.title"),
-      status: "critical",
-      icon: "alert-circle",
-      buttonIcon: "x-close",
-    });
-    onFailure?.();
-    onClose();
+  const handleFailure = (error: Error) => {
+    if (error.name === TAG_NAME_ALREADY_EXIST_ERROR_CODE) {
+      methods.setError("tagName", {
+        type: "manual",
+        message: t("tagModal.formField.tagName.errors.alreadyInUse"),
+      });
+    } else {
+      toast({
+        title: tagDraft
+          ? t("tagModal.result.updateFailure.title")
+          : t("tagModal.result.createFailure.title"),
+        status: "critical",
+        icon: "alert-circle",
+        buttonIcon: "x-close",
+      });
+      onFailure?.();
+      onClose();
+    }
   };
 
   const { createTag } = useCreateTag({
-    onFailure: (error) => {
-      if (
-        error instanceof Error &&
-        error.name === TAG_GROUP_NAME_ALREADY_EXIST_ERROR_CODE
-      ) {
-        methods.setError("tagName", {
-          type: "manual",
-          message: t("tagModal.formField.tagName.errors.alreadyInUse"),
-        });
-      } else {
-        handleFailure();
-      }
-    },
-    onSuccess: () => {
+    onFailure: handleFailure,
+    onSuccess: (createdTag: Tag) => {
+      toast({
+        title: t("tagModal.result.createSuccess.title"),
+        status: "default",
+        icon: "save",
+        buttonLabel: t("tagModal.actions.goTo"),
+        onButtonClick: () => {
+          const tagListId = TAG_LIST_ITEM_ID(createdTag.id);
+          const tagElement = document.getElementById(tagListId);
+          if (tagElement) {
+            tagElement.scrollIntoView({
+              behavior: "smooth",
+              block: "nearest",
+            });
+          }
+        },
+      });
       onSuccess?.();
       onClose();
     },
   });
   const { updateTag } = useUpdateTag({
-    onFailure: () => {
-      handleFailure();
-    },
+    onFailure: handleFailure,
     onSuccess: () => {
       onSuccess?.();
       toast({

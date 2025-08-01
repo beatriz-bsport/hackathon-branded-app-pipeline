@@ -5,6 +5,7 @@ import {
   Body,
   Checkbox,
   Modal,
+  type TooltipProps,
   toast,
 } from "@bsport/kaizen-primitive-core";
 import type { Tag, TagUsage } from "@bsport/store-cdp-tag";
@@ -35,6 +36,13 @@ export const DeleteTagModal: React.FC<Props> = ({
   const [acceptWarning, setAcceptWarning] = useState(false);
   const { t } = useTranslation("tags");
 
+  const confirmButtonTooltipProps: TooltipProps = {
+    label: t(
+      "deleteMainTagModal.alerts.tagInUse.confirmCheckbox.confirmButtonTooltip",
+    ),
+    placement: "bottom-left",
+  };
+
   // @debt (1, 1, 1): Do not reproduce this pattern please, this is a temporary solution
   // Normally the backend should check is the tags are deletable or not, this is completely a fallback solution
   // Just to notify users and prevent them to accidentally delete tags that are in use and that are
@@ -54,6 +62,12 @@ export const DeleteTagModal: React.FC<Props> = ({
       onClose();
     },
     onSuccess: () => {
+      toast({
+        title: t("deleteSubTagModal.result.success.title"),
+        status: "default",
+        icon: "trash-01",
+        buttonIcon: "x-close",
+      });
       onSuccess?.();
       onClose();
     },
@@ -76,6 +90,9 @@ export const DeleteTagModal: React.FC<Props> = ({
         onClick: handleDelete,
         label: t("deleteSubTagModal.actions.confirm"),
         disabled: isTagUsedInMembers && !acceptWarning,
+        tooltipProps: isTagUsedInMembers
+          ? confirmButtonTooltipProps
+          : undefined,
       }}
       cancelButton={{
         label: t("deleteSubTagModal.actions.cancel"),

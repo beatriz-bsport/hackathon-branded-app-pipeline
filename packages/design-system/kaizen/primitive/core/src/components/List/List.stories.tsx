@@ -68,6 +68,7 @@ const meta: Meta<typeof List> = {
       link?: string;
       onCheckboxChange?: (checked: boolean) => void;
       onItemClick?: () => void;
+      isActive?: boolean; // Indicates if the item is currently active
       }
           `.trim(),
         },
@@ -275,6 +276,7 @@ export const Primary: Story = {
         id: "list-item-1",
         title: "Playing with fonts is fun",
         rightTitle: "Right title",
+        isActive: true,
         description: "Playing with fonts is fun",
         dropdownConfig: { visibleActionsDisplayLimit: 2 },
         onItemClick: () => console.log("Item 1 clicked"),

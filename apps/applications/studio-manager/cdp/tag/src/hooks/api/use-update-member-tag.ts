@@ -48,6 +48,7 @@ export function useUpdateMemberTag({
     asyncFn: tagMember,
     onSuccess: ({ value }) => onTagSuccess?.(value),
     onFailure: ({ error }) => onTagFailure?.(error),
+    dependencies: [onTagSuccess, onTagFailure],
   });
 
   const [{ isLoading: isUntagging }, triggerUntagMember] = useAsync<
@@ -56,6 +57,7 @@ export function useUpdateMemberTag({
     asyncFn: untagMember,
     onSuccess: ({ value }) => onUntagSuccess?.(value),
     onFailure: ({ error }) => onUntagFailure?.(error),
+    dependencies: [onUntagSuccess, onUntagFailure],
   });
 
   return {

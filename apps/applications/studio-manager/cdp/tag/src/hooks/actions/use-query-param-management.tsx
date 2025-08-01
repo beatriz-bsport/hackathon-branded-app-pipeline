@@ -7,7 +7,7 @@ export function useDrawerQueryParam(paramName = "tagDetail") {
   const openId = searchParams.get(paramName);
 
   // Call this to open the drawer for a given ID
-  const openDrawer = (id: string | number) => {
+  const openDrawer = (id: number) => {
     const next = new URLSearchParams(searchParams);
     next.set(paramName, String(id));
     next.set("page", "1"); // Clear the page param to reset pagination
@@ -21,6 +21,7 @@ export function useDrawerQueryParam(paramName = "tagDetail") {
     next.delete(paramName);
     next.delete("page"); // Clear the page param
     next.delete("page_size"); // Clear the pageSize param
+    next.delete("taggedStatus"); // Clear the taggedStatus param
     setSearchParams(next, { replace: true });
   };
 

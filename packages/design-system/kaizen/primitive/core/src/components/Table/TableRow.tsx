@@ -142,6 +142,7 @@ const TableRow = withLink(
               {row.color && !selectable && index === 0 && (
                 <ColorIndicator
                   color={row.color}
+                  size="2xs"
                   type="line"
                   className="absolute left-0 top-0"
                 />
@@ -173,6 +174,7 @@ const TableRow = withLink(
                 color={row.color}
                 type="line"
                 className="absolute left-0 top-0"
+                size="2xs"
               />
             )}
             <Checkbox

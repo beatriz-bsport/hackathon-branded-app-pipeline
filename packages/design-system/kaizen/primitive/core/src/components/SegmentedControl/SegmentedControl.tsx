@@ -272,7 +272,7 @@ const SegmentedControl: React.FC<SegmentedControlProps> = ({
 
   // State for uncontrolled usage
   const [selectedValue, setSelectedValue] = useState<string | undefined>(
-    getInitialValue(),
+    undefined,
   );
 
   // Determine current active value
@@ -325,6 +325,7 @@ const SegmentedControl: React.FC<SegmentedControlProps> = ({
   useEffect(() => {
     if (urlQueryParamName && value === undefined) {
       const queryValue = getCurrentQueryValue();
+      // If query value exists in options, set
       if (queryValue && options.some((option) => option.value === queryValue)) {
         setSelectedValue(queryValue);
         onChangeValue?.(queryValue);
@@ -353,6 +354,19 @@ const SegmentedControl: React.FC<SegmentedControlProps> = ({
     },
     [disabled, onChangeValue, value, urlQueryParamName, updateUrlQuery],
   );
+
+  useEffect(() => {
+    const initialValue = getInitialValue();
+    if (initialValue) {
+      setSelectedValue(initialValue);
+      // If URL query is enabled, update it with initial value
+      if (urlQueryParamName) {
+        updateUrlQuery(initialValue);
+      }
+      // Notify parent component if initial value is set
+      onChangeValue?.(initialValue);
+    }
+  }, []);
 
   const handleKeyDown = useCallback(
     (event: React.KeyboardEvent) => {

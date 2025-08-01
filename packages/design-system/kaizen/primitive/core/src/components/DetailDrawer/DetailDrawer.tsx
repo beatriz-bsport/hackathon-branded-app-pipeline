@@ -206,7 +206,7 @@ const DetailDrawerComponent: React.FC<ComponentProps> = ({
   >("desktop-false");
   const [cachedContent, setCachedContent] = useState<React.ReactNode>(children);
   const drawerRef = useRef<HTMLDivElement>(null);
-  const { isResponsiveRequired, isDesktop } = useScreenType();
+  const { isResponsiveRequired } = useScreenType();
 
   useEffect(() => {
     if (isOpen) {
@@ -215,14 +215,11 @@ const DetailDrawerComponent: React.FC<ComponentProps> = ({
   }, [isOpen, children]);
 
   const getOpenByOrientation = useCallback(() => {
-    console.log("getOpenByOrientation called");
-    console.log("isResponsiveRequired:", isResponsiveRequired);
-    console.log("isDesktop:", isDesktop);
     if (isResponsiveRequired) {
       return isOpen ? "mobile-true" : "mobile-false";
     }
     return isOpen ? "desktop-true" : "desktop-false";
-  }, [isOpen, isResponsiveRequired, isDesktop]);
+  }, [isOpen, isResponsiveRequired]);
 
   useEffect(() => {
     setOpenByOrientation(getOpenByOrientation());

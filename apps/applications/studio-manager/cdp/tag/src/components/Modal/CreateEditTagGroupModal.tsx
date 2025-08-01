@@ -6,6 +6,7 @@ import { useCreateTagGroup } from "#src/hooks/api/use-create-tag-group";
 import { useUpdateTagGroup } from "#src/hooks/api/use-update-tag-group";
 import {
   BASE_TAG_GROUP_KIND,
+  TAG_GROUP_LIST_HEADER_ID,
   TAG_GROUP_NAME_ALREADY_EXIST_ERROR_CODE,
 } from "#src/utils/constants";
 import { useTranslation } from "#src/utils/i18n";
@@ -70,36 +71,13 @@ export const CreateEditTagGroupModal: React.FC<Props> = ({
     },
   };
 
-  const { createTagGroup } = useCreateTagGroup({
-    onFailure: (error) => {
-      if (
-        error instanceof Error &&
-        error.name === TAG_GROUP_NAME_ALREADY_EXIST_ERROR_CODE
-      ) {
-        methods.setError("tagGroupName", {
-          type: "manual",
-          message: t(
-            "tagGroupModal.formField.tagGroupName.errors.alreadyInUse",
-          ),
-        });
-      } else {
-        toast({
-          title: translations.toast.failure.title,
-          status: "critical",
-          icon: "alert-circle",
-          buttonIcon: "x-close",
-        });
-        onFailure?.();
-        onClose();
-      }
-    },
-    onSuccess: () => {
-      onSuccess?.();
-      onClose();
-    },
-  });
-  const { updateTagGroup } = useUpdateTagGroup({
-    onFailure: () => {
+  const handleFailure = (error: Error) => {
+    if (error.name === TAG_GROUP_NAME_ALREADY_EXIST_ERROR_CODE) {
+      methods.setError("tagGroupName", {
+        type: "manual",
+        message: t("tagGroupModal.formField.tagGroupName.errors.alreadyInUse"),
+      });
+    } else {
       toast({
         title: translations.toast.failure.title,
         status: "critical",
@@ -108,7 +86,34 @@ export const CreateEditTagGroupModal: React.FC<Props> = ({
       });
       onFailure?.();
       onClose();
+    }
+  };
+
+  const { createTagGroup } = useCreateTagGroup({
+    onFailure: handleFailure,
+    onSuccess: (createdTagGroup: TagGroup) => {
+      toast({
+        title: t("tagGroupModal.result.createSuccess.title"),
+        status: "default",
+        icon: "save",
+        buttonLabel: t("tagGroupModal.actions.goTo"),
+        onButtonClick: () => {
+          const tagGroupHeaderId = TAG_GROUP_LIST_HEADER_ID(createdTagGroup.id);
+          const tagGroupElement = document.getElementById(tagGroupHeaderId);
+          if (tagGroupElement) {
+            tagGroupElement.scrollIntoView({
+              behavior: "smooth",
+              block: "nearest",
+            });
+          }
+        },
+      });
+      onSuccess?.();
+      onClose();
     },
+  });
+  const { updateTagGroup } = useUpdateTagGroup({
+    onFailure: handleFailure,
     onSuccess: () => {
       onSuccess?.();
       toast({

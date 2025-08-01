@@ -19,6 +19,11 @@ const meta: Meta<typeof ColorIndicator> = {
       control: { type: "inline-radio" },
       table: { type: { summary: "string" } },
     },
+    size: {
+      options: ["2xs", "xs", "sm", "md", "lg"],
+      control: { type: "inline-radio" },
+      table: { type: { summary: "string" } },
+    },
   },
 };
 
@@ -36,5 +41,6 @@ export const Primary: Story = {
   args: {
     color: "#2563eb",
     type: "block",
+    size: "md",
   },
 };

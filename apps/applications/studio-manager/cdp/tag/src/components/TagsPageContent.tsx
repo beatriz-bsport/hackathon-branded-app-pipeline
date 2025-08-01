@@ -21,12 +21,11 @@ export const TagsPageContent = ({
   tagGroups,
 }: TagsPageContentProps) => {
   const {
-    handleCreateTagGroup,
-    handleEditTagGroup,
     handleCreateTag,
-    handleEditTag,
-    handleDeleteTagGroup,
     handleDeleteTag,
+    handleDeleteTagGroup,
+    handleEditTagGroup,
+    handleCreateTagGroup,
   } = useTagContext();
   const { t } = useTranslation("tags");
   const { openId, openDrawer, closeDrawer } = useDrawerQueryParam();
@@ -136,7 +135,7 @@ export const TagsPageContent = ({
           },
         ]}
       >
-        <TagDetails tag={currentInspectedTag} handleEditTag={handleEditTag} />
+        <TagDetails tag={currentInspectedTag} />
       </DetailDrawer>
     </div>
   );

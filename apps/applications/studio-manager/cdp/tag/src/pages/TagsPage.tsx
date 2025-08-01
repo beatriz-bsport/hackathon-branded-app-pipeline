@@ -4,6 +4,7 @@ import { CreateEditTagGroupModal } from "#src/components/Modal/CreateEditTagGrou
 import { CreateEditTagModal } from "#src/components/Modal/CreateEditTagModal";
 import { DeleteTagGroupModal } from "#src/components/Modal/DeleteTagGroupModal";
 import { DeleteTagModal } from "#src/components/Modal/DeleteTagModal";
+import { UpdateMemberTagBatchModal } from "#src/components/Modal/UpdateMemberTagBatchModal";
 import { TagsPageContent } from "#src/components/TagsPageContent";
 import { TagsPageProvider, useTagContext } from "#src/context/useTagContext";
 import { useFetchTag } from "#src/hooks/api/use-fetch-tags";
@@ -16,6 +17,8 @@ const TagsComponent: React.FC = () => {
     selectedTagGroup,
     selectedTag,
     preselectedTagGroupId,
+    totalImpactedMembers,
+    onBatchUpdateMemberTagSuccessCallback,
     handleCreateTagGroup,
     handleCreateTag,
     handleUnselectAction: handleCloseModal,
@@ -93,6 +96,21 @@ const TagsComponent: React.FC = () => {
           tagUsage={tagUsagesMap[selectedTag.id]}
           onSuccess={() => {
             fetchAllTagsInformation();
+          }}
+        />
+      ) : null}
+      {(pageCurrentAction === "batch-tag-member" ||
+        pageCurrentAction === "batch-untag-member") &&
+      selectedTag ? (
+        <UpdateMemberTagBatchModal
+          isOpen={true}
+          onClose={handleCloseModal}
+          tag={selectedTag}
+          totalImpactedMembers={totalImpactedMembers}
+          mode={pageCurrentAction}
+          onSuccess={() => {
+            fetchAllTagsInformation();
+            onBatchUpdateMemberTagSuccessCallback();
           }}
         />
       ) : null}

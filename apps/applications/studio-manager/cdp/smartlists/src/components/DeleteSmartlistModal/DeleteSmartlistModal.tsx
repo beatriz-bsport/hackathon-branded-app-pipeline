@@ -83,7 +83,13 @@ export const DeleteSmartlistModal: React.FC<DeleteSmartlistModalProps> = ({
           />
         </Body>
         <Body htmlVariant="p" size="lg" color="default" weight="weak">
-          {t("deleteModal.warning")}
+          <Trans
+            i18nKey={"deleteModal.warning"}
+            values={{ name: smartlist.name }}
+            components={{
+              b: <b></b>,
+            }}
+          />
         </Body>
         <Body htmlVariant="p" size="lg" color="default" weight="weak">
           {t("deleteModal.audienceWarning")}

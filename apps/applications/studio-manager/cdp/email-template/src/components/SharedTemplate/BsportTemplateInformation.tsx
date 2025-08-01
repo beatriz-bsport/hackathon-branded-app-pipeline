@@ -33,10 +33,7 @@ export const BsportTemplateInformation = () => {
               </Body>
             </div>
             <Body htmlVariant="p" color="default" weight="weak">
-              {t("activeList.bsportTemplateInfo.description.firstStep")}
-            </Body>
-            <Body htmlVariant="p" color="default" weight="weak">
-              {t("activeList.bsportTemplateInfo.description.secondStep")}
+              {t("activeList.bsportTemplateInfo.description")}
             </Body>
           </div>
         )}

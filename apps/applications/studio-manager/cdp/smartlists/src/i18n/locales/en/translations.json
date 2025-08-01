@@ -1,94 +1,93 @@
 {
     "list": {
         "title": "Smartlists",
-        "addSmartlist": "Add smartlist",
-        "loading": "Loading smartlists...",
+        "addSmartlist": "Create Smartlist",
+        "loading": "Loading Smartlists...",
         "emptyState": {
-            "title": "No smartlists yet",
-            "subtitle": "Create smartlists to segment your members, send targeted messages, and track engagement metrics."
+            "title": "No Smartlists yet",
+            "subtitle": "Create your first Smartlist to segment members with tags, send targeted messages and track engagement."
         },
         "emptySearch": {
             "title": "No results found",
-            "subtitle": "No smartlists match your search.\nTry clearing it to see more results",
+            "subtitle": "No Smartlists match your search.\nTry clearing it to see more results",
             "clearFilters": "Clear search"
         },
         "duplicateModal": {
-            "title": "Duplicate smartlist",
-            "description": "Duplicate <b>{{name}}</b>?",
-            "editAfter": "You can edit the smartlist afterwards.",
+            "title": "Duplicate Smartlist?",
+            "description": "You can edit <b>{{name}}</b> after",
             "buttons": {
                 "duplicate": "Duplicate",
-                "cancel": "Cancel"
+                "cancel": "Go back"
             }
         },
         "deleteModal": {
-            "title": "Delete Smartlist",
+            "title": "Delete Smartlist?",
             "description": "Do you want to delete <b>{{name}}</b>?",
-            "warning": "This will stop any upcoming actions, like scheduled messages or automatic tagging. Previously tagged members won't be affected.",
-            "audienceWarning": "Smartlists used in an Audience cannot be deleted.",
-            "cannotBeDeleted": "This Smartlist is currently used in the following Audience workflows and can’t be deleted:",
-            "audienceCallToAction": "To delete this Smartlist, remove it from the workflows above and try again.",
+            "warning": "If you delete <b>{{name}}</b>, any scheduled messages or automatic tagging will be cancelled but previously tagged members won't be affected.",
+            "audienceWarning": "Smartlists used in Audience workflows can't be deleted. ",
+            "cannotBeDeleted": "This Smartlist is currently being used in Audience workflows and can't be deleted on this page.",
+            "audienceCallToAction": "To delete this Smartlist, go to the Audience page and remove it from the associated workflows.",
             "buttons": {
                 "delete": "Delete",
-                "cancel": "Cancel"
+                "cancel": "Go back"
             }
         },
         "toasts": {
             "success": {
-                "duplicated": "Your smartlist was duplicated",
+                "duplicated": "Smartlist duplicated",
                 "open": "Open",
-                "saved": "Your smartlist revisions have been saved",
-                "created": "Your smartlist has been created",
-                "deleted": "Your smartlist was deleted",
+                "saved": "Smartlist updated",
+                "created": "Smartlist created",
+                "deleted": "Smartlist deleted",
                 "undo": "Undo",
                 "actionUndone": "Action undone"
             },
             "error": {
-                "duplicateFailed": "Something went wrong while duplicating the smartlist. Please try again.",
-                "updateFailed": "Something went wrong while updating the smartlist. Please try again.",
-                "createFailed": "Something went wrong while creating the smartlist. Please try again.",
-                "deleteFailed": "Something went wrong while deleting the smartlist. Please try again.",
+                "duplicateFailed": "Something went wrong while duplicating the Smartlist. Please try again.",
+                "updateFailed": "Something went wrong while updating the Smartlist. Please try again.",
+                "createFailed": "Something went wrong while creating the Smartlist. Please try again.",
+                "deleteFailed": "Something went wrong while deleting the Smartlist. Please try again.",
                 "deleteError": {
                     "101000": "Smartlist deletion failed. Please try again.",
-                    "101001": "This smartlist cannot be deleted because it's being used in active communication groups.",
-                    "101002": "This smartlist cannot be deleted because it's being used in active cadences."
+                    "101001": "This Smartlist cannot be deleted because it's being used in active communication groups.",
+                    "101002": "This Smartlist cannot be deleted because it's being used in active cadences."
                 }
             }
         },
         "inlineActions": {
-            "duplicate": "Duplicate smartlist",
+            "duplicate": "Duplicate Smartlist",
             "edit": "Change name or description",
-            "delete": "Delete smartlist"
+            "delete": "Delete Smartlist"
         },
         "createForm": {
-            "title": "Create a smartlist",
-            "subtitle": "Smartlists help you organize member segments. Add a name and description so it’s easy to understand and reuse later.",
+            "title": "Create Smartlist",
+            "subtitle": "Segment your members by specific criteria with Smartlists. Add a name and description for this Smartlist so you can find it later.",
             "actions": {
                 "create": "Save",
-                "cancel": "Cancel"
+                "cancel": "Go back"
             }
         },
         "editForm": {
             "fields": {
                 "name": {
-                    "label": "Smartlist name",
-                    "placeholder": "Enter smartlist name",
+                    "label": "Name",
+                    "placeholder": "e.g. Members who paid via Stripe",
                     "required": "Give your Smartlist a name so you can find it later",
                     "maxLength": "Smartlist name is too long, please keep it under 200 characters"
                 },
                 "description": {
                     "label": "Description",
-                    "placeholder": "Enter description"
+                    "placeholder": "e.g. Members who have paid using Stripe payment"
                 }
             },
             "actions": {
                 "save": "Save",
-                "cancel": "Cancel",
+                "cancel": "Go back",
                 "create": "Create"
             },
             "title": {
-                "edit": "Edit smartlist",
-                "add": "Add smartlist"
+                "edit": "Edit Smartlist",
+                "add": "Create Smartlist"
             }
         }
     }

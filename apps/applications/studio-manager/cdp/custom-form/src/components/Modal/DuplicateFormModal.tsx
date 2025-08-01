@@ -84,11 +84,17 @@ export const DuplicateFormModal: React.FC<Props> = ({
             components={{
               b: <b></b>,
             }}
-          />{" "}
+          />
         </Body>
         <Body htmlVariant="p" size="lg" color="default" weight="weak">
-          {t("activeList.duplicateModal.description.effect")}
-        </Body>{" "}
+          <Trans
+            i18nKey={"activeList.duplicateModal.description.effect"}
+            values={{ name: formName }}
+            components={{
+              b: <b></b>,
+            }}
+          />
+        </Body>
       </div>
     </Modal>
   );

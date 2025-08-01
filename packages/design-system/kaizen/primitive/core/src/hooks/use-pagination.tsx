@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 import Pagination, {
   type PaginationProps,
@@ -20,6 +20,24 @@ export const usePagination = (paginationProps?: PaginationProps) => {
   const [rowsPerPage, setRowsPerPage] = useState(
     paginationProps?.rowsPerPage || DEFAULT_ROWS_PER_PAGE,
   );
+
+  useEffect(() => {
+    if (
+      paginationProps?.rowsPerPage &&
+      paginationProps?.rowsPerPage !== rowsPerPage
+    ) {
+      setRowsPerPage(paginationProps?.rowsPerPage);
+    }
+  }, [paginationProps?.rowsPerPage, rowsPerPage]);
+
+  useEffect(() => {
+    if (
+      paginationProps?.currentPage &&
+      paginationProps?.currentPage !== currentPage
+    ) {
+      setCurrentPage(paginationProps?.currentPage);
+    }
+  }, [paginationProps?.currentPage, currentPage]);
 
   const handlePageChange = useCallback(
     (page: number) => {

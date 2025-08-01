@@ -7,6 +7,7 @@ import {
   useImportLeadsModal,
 } from "#src/components/ImportLeadsModal";
 import { useAddMember } from "#src/hooks/useAddMember";
+import { useDebouncedSearch } from "#src/hooks/useDebouncedSearch";
 import { useFetchMembers } from "#src/hooks/useFetchMembers";
 import { useFilterMembers } from "#src/hooks/useFilterMembers";
 import { useMemberPermissions } from "#src/hooks/useMemberPermissions";
@@ -20,6 +21,8 @@ export const MemberListPage: React.FC = () => {
 
   const { filterConfig, handleClearFilters, activeFilters, filterRef } =
     useFilterMembers();
+
+  const searchConfig = useDebouncedSearch();
 
   const { handleAddMember } = useAddMember();
 
@@ -82,6 +85,7 @@ export const MemberListPage: React.FC = () => {
             />
           ) : undefined,
         ]}
+        searchConfig={searchConfig}
       />
       <ListLayout.Content>
         <MemberListContent
@@ -89,6 +93,7 @@ export const MemberListPage: React.FC = () => {
           activeFilters={activeFilters}
           onAddMemberClick={handleAddMember}
           permissions={permissions}
+          searchInput={searchConfig.inputValue}
         />
         {permissions.importLeads && (
           <ImportLeadsModal

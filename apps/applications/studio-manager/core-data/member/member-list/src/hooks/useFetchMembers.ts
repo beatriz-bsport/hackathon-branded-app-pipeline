@@ -1,12 +1,6 @@
 import { useCallback } from "react";
 
-import type { PaginationProps } from "@bsport/kaizen-primitive-core";
-import {
-  fetchMembersAction,
-  selectCount,
-  selectMembers,
-  useMemberStore,
-} from "@bsport/store-core-data-member";
+import { fetchMembersAction } from "@bsport/store-core-data-member";
 import { useAsync } from "@bsport/use-async";
 import {
   DEFAULT_PAGE,
@@ -28,11 +22,6 @@ export const useFetchMembers = ({
   const { currentPage, currentPageSize, setPageSettings } =
     usePaginationQueryParams();
 
-  // Retrieve pagination results from the store
-  const memberList = useMemberStore(selectMembers);
-  const totalItems = useMemberStore(selectCount);
-
-  // Handlers
   const { tags_included, tags_excluded } = activeFilters ?? {};
   const fetchMemberPageGeneric = useCallback(
     async ({ page, pageSize }: { page?: number; pageSize?: number }) => {
@@ -63,20 +52,17 @@ export const useFetchMembers = ({
     return fetchMemberPage({});
   }, [fetchMemberPage]);
 
-  const paginationParams: PaginationProps = {
+  const fetchPaginationParams = {
     currentPage,
     rowsPerPage: currentPageSize,
-    totalItems,
     onPageSettingsChange: setPageSettings,
     showRowsPerPageSelector: true,
   };
 
   return {
-    paginationParams,
-    memberList,
-    totalItems,
+    isFetching: isLoading,
+    fetchPaginationParams,
     fetchMemberPage: fetchMemberCurrentPage,
     refreshMemberList,
-    isLoading,
   };
 };

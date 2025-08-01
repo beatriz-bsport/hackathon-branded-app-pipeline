@@ -1639,6 +1639,9 @@ importers:
       '@bsport/use-async':
         specifier: workspace:*
         version: link:../../../../../../packages/hooks/use-async
+      '@bsport/use-debounce':
+        specifier: workspace:*
+        version: link:../../../../../../packages/hooks/use-debounce
       '@bsport/use-pagination-query-params':
         specifier: workspace:*
         version: link:../../../../../../packages/utils/query-params/use-pagination

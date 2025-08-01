@@ -153,6 +153,9 @@ export class InvoiceConfigurationPage extends React.Component<Props, State> {
                     establishmentBillingGroupList={
                       this.props.establishmentBillingGroup
                     }
+                    isMultiLocationWebshopEnabled={
+                      !!this.props.theme?.is_multi_location_webshop_enabled
+                    }
                     onDeleteEstablishmentBillingGroup={(
                       group: EstablishmentBillingGroupType,
                     ) => this.props.deleteEstablishmentBillingGroup(group)}

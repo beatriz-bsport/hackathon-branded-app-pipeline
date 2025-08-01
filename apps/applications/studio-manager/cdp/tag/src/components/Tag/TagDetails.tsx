@@ -27,10 +27,11 @@ function isTagSegment(value: string): value is TagSegments {
 export const TagDetails = ({ tag, handleEditTag }: TagDetailsProps) => {
   const [selectedOption, setSelectedOption] = useState<TagSegments>("tagged");
   const { t } = useTranslation("tags");
-  const { isLoading, memberList, paginationParams } = useFetchMembers({
-    relatedTagId: tag?.id || 0,
-    isTagged: selectedOption === "tagged",
-  });
+  const { isLoading, memberList, paginationParams, resetMemberList } =
+    useFetchMembers({
+      relatedTagId: tag?.id || 0,
+      isTagged: selectedOption === "tagged",
+    });
 
   if (!tag) return null;
 
@@ -93,6 +94,7 @@ export const TagDetails = ({ tag, handleEditTag }: TagDetailsProps) => {
           paginationParams={paginationParams}
           selectedOption={selectedOption}
           tag={tag}
+          refreshMemberPage={resetMemberList}
         />
       </div>
     </div>

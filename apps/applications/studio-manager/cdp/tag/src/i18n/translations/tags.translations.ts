@@ -199,6 +199,24 @@ exports.default = {
       untagged: "Untagged",
     },
     memberList: {
+      actions: {
+        tag: {
+          success: {
+            title: "Member tagged successfully",
+          },
+          failure: {
+            title: "Failed to tag member",
+          },
+        },
+        untag: {
+          success: {
+            title: "Member untagged successfully",
+          },
+          failure: {
+            title: "Failed to untag member",
+          },
+        },
+      },
       loadingState: {
         tagged: "Loading tagged members...",
         untagged: "Loading untagged members...",

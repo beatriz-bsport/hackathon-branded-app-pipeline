@@ -14,6 +14,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import Divider from '@material-ui/core/Divider';
 import Collapse from '@material-ui/core/Collapse';
+import { CUSTOM_FORM_CSS_VARIANT_ACTIVATED } from '#src/libs/custom-form/constants';
 import ObjectLevelPermissionWrapper from '#src/libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
 import withTitle from '../../hocs/with-title.hoc';
 import { WithHandlerType } from '../../utils/types';
@@ -120,6 +121,9 @@ export class MemberCustomForm extends React.Component<Props> {
                             this.props.theme.general_terms_of_use
                           }
                           initialWithAnswer={this.getCustomFormEnabledFieldWithAnswer()}
+                          isCssVariantActivated={
+                            CUSTOM_FORM_CSS_VARIANT_ACTIVATED
+                          }
                           refreshLoading={this.props.customFormViewLoading}
                           waiver={this.props?.theme.waiver}
                         />

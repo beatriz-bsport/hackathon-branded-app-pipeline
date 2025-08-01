@@ -16951,7 +16951,7 @@
                 "success": "Recurring appointment deleted"
             },
             "createOrUpdate": {
-                "success": "Recurring booking rule saved. We'll set up your bookings now according to your parameters.",
+                "success": "Recurring booking rule saved. We'll set up your bookings now according to your parameters",
                 "error": "Impossible to save this recurring appointment",
                 "locked": "Recurring appointment rule already exists with these settings"
             }

@@ -1,5 +1,8 @@
 import React, { JSX } from 'react';
 import { useLocation } from 'react-router';
+import { useTranslation } from 'react-i18next';
+import { push } from 'connected-react-router';
+import clsx from 'clsx';
 
 // eslint-disable-next-line bsport/no-redux-in-component
 import { connect, ConnectedProps } from 'react-redux';
@@ -10,23 +13,22 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Dialog from '@material-ui/core/Dialog';
 
-import { useTranslation } from 'react-i18next';
-import clsx from 'clsx';
 import { BLOCKER_FRAME_ID } from '#src/libs/platform-billing/constant';
-import WelcomeIcon from '#src/components/icons/WelcomeIcon.component';
 import { hasUpsell } from '#src/libs/platform-billing/utils';
 import {
   requestUpsellPackage as requestUpsellPackageAction,
   subscribeUpsellPackage as subscribeUpsellPackageAction,
 } from '#src/libs/platform-billing/actions';
-
-import type { UpsellPackage } from '#src/libs/company/types';
-import FeatureRequestDialog from '#src/libs/platform-billing/components/FeatureRequestDialog.component';
-import Config from '../../../config';
-import type { Dispatch } from '../../../state/types';
-import type { RootState } from '../../../reducers';
 import { SegmentAnalyticsFormObjectIdentifier } from '#src/components/analytics/segment';
 import { rudderStackFormTrackingFunctionsRegistry } from '#src/components/analytics/rudderstack/utils';
+import { UPSELL_IDENTIFIER_CADENCE } from '#src/libs/platform-billing/upsell-identifiers';
+import AudienceUpsellBlockerDialog from './AudienceUpsellBlockerDialog';
+import FeatureRequestDialog from '#src/libs/platform-billing/components/FeatureRequestDialog.component';
+import WelcomeIcon from '#src/components/icons/WelcomeIcon.component';
+
+import type { UpsellPackage } from '#src/libs/company/types';
+import type { Dispatch } from '../../../state/types';
+import type { RootState } from '../../../reducers';
 
 const { trackFormSubmitIntent: trackFormSubmitIntentUpsellRequest } =
   rudderStackFormTrackingFunctionsRegistry(
@@ -112,7 +114,7 @@ export const UpsellBlockerDialog = React.memo(
     requestUpsellPackage,
     handleOpenSubscriptionForm,
     upsellPackage,
-  }: Omit<Props, 'featureList' | 'subscribeUpsellPackage'>) => {
+  }: Omit<Props, 'featureList' | 'subscribeUpsellPackage' | 'redirectTo'>) => {
     const classes = useStyles();
     const theme = useTheme();
     const { t } = useTranslation('platformBilling');
@@ -227,11 +229,23 @@ const UpsellBlocker = React.memo(
     requestUpsellPackage,
     handleOpenSubscriptionForm,
     upsellPackage,
+    redirectTo,
   }: Props) => {
-    const allow = hasUpsell(featureList, upsellIdentifier);
+    const hasAccessToUpsell = hasUpsell(featureList, upsellIdentifier);
+    const isAudienceUpsell = upsellIdentifier === UPSELL_IDENTIFIER_CADENCE;
 
-    if (allow || Config.REACT_APP_SENTRY_ENVIRONMENT !== 'production') {
+    if (hasAccessToUpsell) {
       return null;
+    }
+
+    if (isAudienceUpsell) {
+      return (
+        <AudienceUpsellBlockerDialog
+          redirectTo={redirectTo}
+          requestUpsellPackage={requestUpsellPackage}
+          upsellIdentifier={upsellIdentifier}
+        />
+      );
     }
 
     return (
@@ -253,6 +267,9 @@ const connector = connect(
   (dispatch: Dispatch) => ({
     requestUpsellPackage(upsellIdentifier: number) {
       dispatch(requestUpsellPackageAction(upsellIdentifier));
+    },
+    redirectTo(page: string) {
+      dispatch(push(page));
     },
     subscribeUpsellPackage: subscribeUpsellPackageAction,
   }),

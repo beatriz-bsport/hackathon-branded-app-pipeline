@@ -10079,6 +10079,19 @@
                 },
                 "requestAccess": "Request access"
             },
+            "audienceLockDialog": {
+                "title": "Meet your customers where they are with Audience",
+                "videoLink": "https://www.youtube.com/watch?v=VanGWUIAzTE&t=88s&ab_channel=bsport",
+                "description": "Automated workflows help you connect with your customers across multiple channels, so you can:",
+                "benefits": [
+                    "Convert leads with personalized messaging at key touch points",
+                    "Boost revenue with tailored customer journeys for VIP customers",
+                    "Retain customers with automated follow-ups"
+                ],
+                "explain": "This feature is an add-on. Contact your Account Manager for more information.",
+                "showInterest": "Get in touch",
+                "goHome": "Back to calendar"
+            },
             "subscriptionForm": {
                 "title": "Subscribe to add-on",
                 "priceHelper": "This price will be added to your monthly plan.",
@@ -10096,8 +10109,9 @@
         },
         "featureRequest": {
             "close": "Close",
-            "content": "Thank you for your interest in this add-on. If you would like to learn more, we kindly invite you to ask your question in our custom support chat. Your account manager will be delighted to provide you with more information.",
-            "title": "Let’s start a conversation"
+            "interestMessageWithChat": "Thanks for your interest in this add-on. Your Account Manager will reach out soon to give you more information. In the meantime, we can answer any questions you have via the help chat.",
+            "interestMessage": "Thanks for your interest in this add-on. Your Account Manager will reach out soon to give you more information.",
+            "header": "We'll be in touch!"
         },
         "platformBillingPlan": {
             "max_establishment": {

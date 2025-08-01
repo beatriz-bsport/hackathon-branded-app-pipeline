@@ -8,6 +8,7 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import Select from 'react-select';
 import Typography from '@material-ui/core/Typography';
+import Tooltip from '@material-ui/core/Tooltip';
 
 import ShopItemUpdateProvisionDialog from '#src/libs/shop/components/ShopItemUpdateProvisionDialog';
 
@@ -160,14 +161,37 @@ const FranchiseShopItemDetailInventoryListMobile: React.FC<Props> = ({
                 )}: ${variant.total_sales}`}</Typography>
               </div>
 
-              <Button
-                fullWidth
-                color="primary"
-                onClick={handleOpenProvisionDialog(variant.id)}
-                variant="outlined"
-              >
-                {t('shopItemDetail.table.inventory.stockAdjustment')}
-              </Button>
+              {!!variant.company_details.is_multi_location_webshop_enabled ? (
+                <Tooltip
+                  title={t(
+                    'shopItemDetail.table.inventory.tooltipForMultiLocationWebshop',
+                  )}
+                >
+                  <span className={classes.fullWidth}>
+                    <Button
+                      fullWidth
+                      color="primary"
+                      disabled={
+                        !!variant.company_details
+                          .is_multi_location_webshop_enabled
+                      }
+                      onClick={handleOpenProvisionDialog(variant.id)}
+                      variant="outlined"
+                    >
+                      {t('shopItemDetail.table.inventory.stockAdjustment')}
+                    </Button>
+                  </span>
+                </Tooltip>
+              ) : (
+                <Button
+                  fullWidth
+                  color="primary"
+                  onClick={handleOpenProvisionDialog(variant.id)}
+                  variant="outlined"
+                >
+                  {t('shopItemDetail.table.inventory.stockAdjustment')}
+                </Button>
+              )}
             </ListItem>
           ))}
         </List>
@@ -193,14 +217,37 @@ const FranchiseShopItemDetailInventoryListMobile: React.FC<Props> = ({
                 )}: ${shopItem.total_sales}`}</Typography>
               </div>
 
-              <Button
-                fullWidth
-                color="primary"
-                onClick={handleOpenProvisionDialog(shopItem.id)}
-                variant="outlined"
-              >
-                {t('shopItemDetail.table.inventory.stockAdjustment')}
-              </Button>
+              {!!shopItem.company_details.is_multi_location_webshop_enabled ? (
+                <Tooltip
+                  title={t(
+                    'shopItemDetail.table.inventory.tooltipForMultiLocationWebshop',
+                  )}
+                >
+                  <span className={classes.fullWidth}>
+                    <Button
+                      fullWidth
+                      color="primary"
+                      disabled={
+                        !!shopItem.company_details
+                          .is_multi_location_webshop_enabled
+                      }
+                      onClick={handleOpenProvisionDialog(shopItem.id)}
+                      variant="outlined"
+                    >
+                      {t('shopItemDetail.table.inventory.stockAdjustment')}
+                    </Button>
+                  </span>
+                </Tooltip>
+              ) : (
+                <Button
+                  fullWidth
+                  color="primary"
+                  onClick={handleOpenProvisionDialog(shopItem.id)}
+                  variant="outlined"
+                >
+                  {t('shopItemDetail.table.inventory.stockAdjustment')}
+                </Button>
+              )}
             </ListItem>
           ))}
         </List>
@@ -256,6 +303,9 @@ const useStyles = makeStyles((theme) => ({
   },
   flexGrow: {
     flex: 1,
+  },
+  fullWidth: {
+    width: '100%',
   },
 }));
 

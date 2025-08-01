@@ -169,6 +169,7 @@ export type ShopItem = {
   company_details: {
     id: number;
     name: string;
+    is_multi_location_webshop_enabled: boolean;
   };
   bookkeeping_account?: number;
   cover: string | null;

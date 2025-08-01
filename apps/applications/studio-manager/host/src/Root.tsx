@@ -31,6 +31,9 @@ const Smartlists = lazy(() => import("sm-smartlists/App"));
 const CustomForm = lazy(() => import("sm-custom-form/App"));
 const ReferralProgram = lazy(() => import("sm-referral-program/App"));
 const Tag = lazy(() => import("sm-tag/App"));
+const TransactionalNotification = lazy(
+  () => import("sm-transactional-notification/App"),
+);
 
 // ----- Common -----
 const NavigationSidebar = lazy(
@@ -70,9 +73,16 @@ export function Root() {
     /* ----- Customer Data Platform ----- */
     { url: urls.customForm, element: <CustomForm /> },
     { url: urls.emailTemplate, element: <EmailTemplate /> },
-    { url: urls.settings_referral, element: <ReferralProgram /> },
+    {
+      url: urls.settings_referral,
+      element: <ReferralProgram />,
+    },
     { url: urls.smartlist, element: <Smartlists /> },
     { url: urls.tag, element: <Tag /> },
+    {
+      url: urls.settings_transactionalNotification,
+      element: <TransactionalNotification />,
+    },
   ];
 
   return (

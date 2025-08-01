@@ -1,0 +1,49 @@
+{
+  "name": "@bsport/sm-transactional-notification",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Studio Manager Transactional Notification",
+  "author": "Théo Steffanetti <theo.steffanetti@bsport.io>",
+  "type": "module",
+  "scripts": {
+    "build": "tsc -b && vite build",
+    "build:preview": "vite build --mode preview",
+    "ci:compile": "tsc -b",
+    "dev": "concurrently \"pnpm run --silent -w federate:navigation\" \"vite\"",
+    "dev:single": "vite",
+    "format": "prettier --write '**/*.{ts,tsx,js,jsx,cjs,mjs,scss,css,json,md,mdx,html,svg}'",
+    "format:check": "prettier --check '**/*.{ts,tsx,js,jsx,cjs,mjs}'",
+    "lint": "eslint .",
+    "preview": "vite preview --mode preview",
+    "translation:update": "pnpm run -w translation:update"
+  },
+  "dependencies": {
+    "@bsport/fetch": "workspace:*",
+    "@bsport/i18n": "workspace:*",
+    "@bsport/kaizen-primitive-core": "workspace:*",
+    "@bsport/sm-backbone": "workspace:*",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-router": "^7.2.0"
+  },
+  "devDependencies": {
+    "@bsport/config-eslint-react": "workspace:*",
+    "@bsport/config-federation": "workspace:*",
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.4.49",
+    "tailwindcss": "^3.4.14",
+    "vite": "^5.4.11"
+  },
+  "federation": {
+    "devPort": 4305,
+    "exposes": {
+      "./App": "./src/App"
+    },
+    "remotes": {
+      "sm-navigation-sidebar": {
+        "devPort": 4050,
+        "watchPath": "../navigation-sidebar/src/**/*"
+      }
+    }
+  }
+}

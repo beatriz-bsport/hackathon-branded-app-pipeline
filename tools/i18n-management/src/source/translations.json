@@ -1703,6 +1703,7 @@
       }
     }
   },
+  "@bsport/sm-transactional-notification": { "transactionalNotification": { "helloName": "Hello {{ name }} !" } },
   "@bsport/template-sm-application": {
     "namespaceAlpha": { "helloName": "Hello {{ name }} !" },
     "namespaceBeta": {}

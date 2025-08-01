@@ -92,6 +92,10 @@
       "sm-tag": {
         "devPort": 4304,
         "watchPath": "../cdp/tag/src/**/*"
+      },
+      "sm-transactional-notification": {
+        "devPort": 4305,
+        "watchPath": "../cdp/transactional-notification/src/**/*"
       }
     }
   }

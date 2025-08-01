@@ -1,7 +1,9 @@
 import { useState } from "react";
+import { useSearchParams } from "react-router";
 
 import {
   Button,
+  ColorIndicator,
   SegmentedControl,
   Title,
   Tooltip,
@@ -25,7 +27,10 @@ function isTagSegment(value: string): value is TagSegments {
 
 export const TagDetails = ({ tag }: TagDetailsProps) => {
   const { handleUpdateTagAllMember, handleEditTag } = useTagContext();
-  const [selectedOption, setSelectedOption] = useState<TagSegments>("tagged");
+  const [searchParams] = useSearchParams();
+  const [selectedOption, setSelectedOption] = useState<TagSegments>(
+    (searchParams.get("taggedStatus") as TagSegments) || "tagged",
+  );
   const { t } = useTranslation("tags");
   const { isLoading, memberList, paginationParams, fetchMemberPage } =
     useFetchMembers({
@@ -34,6 +39,11 @@ export const TagDetails = ({ tag }: TagDetailsProps) => {
     });
 
   if (!tag) return null;
+
+  const handleChangeSegmentedControl = (value: string) => {
+    if (!isTagSegment(value)) return;
+    setSelectedOption(value);
+  };
 
   const handleBatchAction = () => {
     handleUpdateTagAllMember({
@@ -54,10 +64,7 @@ export const TagDetails = ({ tag }: TagDetailsProps) => {
       <div className="flex flex-col gap-md">
         <div className="flex flex-row items-center justify-between">
           <div className="flex flex-row items-center gap-sm">
-            <div
-              className={`w-[20px] h-[20px] rounded-sm`}
-              style={{ backgroundColor: tag.color }}
-            ></div>
+            <ColorIndicator type="block" size="sm" color={tag.color} />
             <Title htmlVariant="h2">{tag.name}</Title>
           </div>
           <Tooltip
@@ -78,6 +85,7 @@ export const TagDetails = ({ tag }: TagDetailsProps) => {
           className="h-[32px]"
           id="tag-member-filter"
           urlQueryParamName="taggedStatus"
+          value={selectedOption}
           options={[
             {
               value: "tagged",
@@ -88,10 +96,7 @@ export const TagDetails = ({ tag }: TagDetailsProps) => {
               label: t("tagsDetails.segmentedControl.untagged"),
             },
           ]}
-          onChangeValue={(value) => {
-            if (!isTagSegment(value)) return;
-            setSelectedOption(value);
-          }}
+          onChangeValue={handleChangeSegmentedControl}
         />
         <div className="flex flex-row items-center justify-between">
           <Title htmlVariant="h3">{t("tagsDetails.members")}</Title>
@@ -104,6 +109,7 @@ export const TagDetails = ({ tag }: TagDetailsProps) => {
                 ? t("tagsDetails.actions.untagAll")
                 : t("tagsDetails.actions.tagAll")
             }
+            disabled={isLoading || memberList.length === 0}
             onClick={handleBatchAction}
           />
         </div>

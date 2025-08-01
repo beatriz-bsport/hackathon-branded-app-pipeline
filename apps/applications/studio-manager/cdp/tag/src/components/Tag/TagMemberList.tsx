@@ -8,6 +8,7 @@ import {
 import type { Tag } from "@bsport/store-cdp-tag";
 import type { Member } from "@bsport/store-core-data-member";
 
+import { useFetchTag } from "#src/hooks/api/use-fetch-tags";
 import { useUpdateMemberTag } from "#src/hooks/api/use-update-member-tag";
 import { useMemberListFactory } from "#src/hooks/layout/use-member-list-factory";
 import { useTranslation } from "#src/utils/i18n";
@@ -35,6 +36,8 @@ export const TagMemberList: React.FC<TagMemberListProps> = ({
   tag,
   refreshMemberPage,
 }: TagMemberListProps) => {
+  const { fetchTagUsages } = useFetchTag();
+
   const { t } = useTranslation("tags");
   const { untagMember, tagMember } = useUpdateMemberTag({
     onTagSuccess: () => {
@@ -44,6 +47,7 @@ export const TagMemberList: React.FC<TagMemberListProps> = ({
         icon: "plus",
         buttonIcon: "x-close",
       });
+      fetchTagUsages();
       refreshMemberPage?.({
         tagId: tag.id,
         tagged: false,
@@ -56,6 +60,7 @@ export const TagMemberList: React.FC<TagMemberListProps> = ({
         icon: "x-close",
         buttonIcon: "x-close",
       });
+      fetchTagUsages();
       refreshMemberPage?.({
         tagId: tag.id,
         tagged: true,
@@ -118,10 +123,6 @@ export const TagMemberList: React.FC<TagMemberListProps> = ({
               selectedOption === "tagged"
                 ? t("tagsDetails.memberList.emptyState.title.tagged")
                 : t("tagsDetails.memberList.emptyState.title.untagged"),
-            subtitle:
-              selectedOption === "tagged"
-                ? t("tagsDetails.memberList.emptyState.description.tagged")
-                : t("tagsDetails.memberList.emptyState.description.untagged"),
           },
         }}
         items={memberListItems}

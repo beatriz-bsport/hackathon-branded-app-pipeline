@@ -1,6 +1,13 @@
 exports.default = {
   page: {
     title: "Tags",
+    filters: {
+      label: "Filter by main tag",
+      operators: {
+        is: "is",
+        isNot: "is not",
+      },
+    },
     actions: {
       createTagGroup: {
         label: "Add main tag",
@@ -11,6 +18,12 @@ exports.default = {
     },
     loadingState: {
       message: "Loading tags...",
+    },
+    emptyFilteredPageState: {
+      title: "No results found",
+      description:
+        "No main tags match your filters. Try clearing them to see more results.",
+      secondaryButtonLabel: "Clear filters",
     },
     emptyPageState: {
       title: "No tags yet",
@@ -58,10 +71,14 @@ exports.default = {
       create: "Create",
       update: "Save",
       cancel: "Cancel",
+      goTo: "Go to Main Tag",
     },
     result: {
+      createSuccess: {
+        title: "Main Tag created",
+      },
       updateSuccess: {
-        title: "Your main tag revisions were saved",
+        title: "Main Tag updated",
       },
       updateFailure: {
         title: "There was an error while updating your main tag",
@@ -106,13 +123,17 @@ exports.default = {
       create: "Create",
       update: "Update",
       cancel: "Cancel",
+      goTo: "Go to Sub Tag",
     },
     result: {
+      createSuccess: {
+        title: "Sub Tag created",
+      },
       createFailure: {
         title: "Your sub tag could not be saved",
       },
       updateSuccess: {
-        title: "Your sub tag revisions were saved",
+        title: "Sub Tag updated",
       },
       updateFailure: {
         title: "Your sub tag revisions could not be saved",

@@ -6251,7 +6251,7 @@
             },
             "createOrUpdate": {
                 "error": "Impossibile salvare l'appuntamento ricorrente",
-                "success": "Appuntamento ricorrente salvato con successo",
+                "success": "Regola di prenotazione ricorrente salvata. Ora imposteremo le tue prenotazioni in base ai parametri che hai specificato.",
                 "locked": "Esiste già una regola di ricorrenza con questi parametri"
             }
         },
@@ -11871,10 +11871,10 @@
             "createModal": {
                 "create": "Aggiungi una prenotazione ricorrente",
                 "info": "Impossibile ricreare una prenotazione ricorrente che già esiste",
-                "success": "La prenotazione ricorrente è stata creata."
+                "success": "Regola di prenotazione ricorrente salvata. Le tue prenotazioni verranno ora impostate in base ai parametri che hai definito."
             },
             "editModal": {
-                "success": "La prenotazione ricorrente è stata modificata"
+                "success": "Regola di prenotazione ricorrente modificata. Ora imposteremo le tue prenotazioni in base ai parametri che hai definito."
             },
             "blockedBookings": "I membri possono prenotare fino a {{days}} giorni di anticipo per questa attività.\nConsiderare di estendere i periodi di ricorrenza per evitare il sovraffollamento.",
             "notifyIfCanceled": "Invia una mail di cancellazione delle prenotazioni",

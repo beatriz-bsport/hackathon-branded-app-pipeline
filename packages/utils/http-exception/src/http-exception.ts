@@ -16,7 +16,7 @@ function getErrorType(status: number): HTTPExceptionType {
   return "Unknown";
 }
 
-function getErrorName(name: string | Serializable): string {
+function getErrorName(name?: Serializable): string {
   if (!name) {
     return DEFAULT_NAME;
   }
@@ -46,7 +46,7 @@ export class HTTPException<
     cause,
   }: {
     path: string;
-    name?: string;
+    name?: Serializable;
     message?: string;
     statusCode?: number;
     context?: Serializable;

@@ -65,13 +65,16 @@ export const TagDetails = ({ tag }: TagDetailsProps) => {
         <div className="flex flex-row items-center justify-between">
           <div className="flex flex-row items-center gap-sm">
             <ColorIndicator type="block" size="sm" color={tag.color} />
-            <Title htmlVariant="h2">{tag.name}</Title>
+            <Title htmlVariant="h2" className="truncate max-w-sm">
+              {tag.name}
+            </Title>
           </div>
           <Tooltip
             label={t("tagsDetails.tooltip.editTag")}
             placement="bottom-right"
           >
             <Button
+              id="edit-tag-button"
               iconLeft="edit-02"
               size="md"
               intent="default"

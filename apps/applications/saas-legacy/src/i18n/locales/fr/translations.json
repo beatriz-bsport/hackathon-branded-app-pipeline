@@ -16232,7 +16232,8 @@
                 "error": {
                     "11000": "Impossible de créer des variantes sur un produit utilisé dans un pack",
                     "11001": "Impossible de créer un pack avec des variantes de produits"
-                }
+                },
+                "fetchError": "Erreur lors du chargement des variantes"
             },
             "supplier": {
                 "delete": {
@@ -16870,6 +16871,9 @@
         },
         "oneClickBooking": {
             "genericError": "Nous n'avons pas pu finaliser votre réservation. Veuillez vérifier vos informations et réessayer."
+        },
+        "quicksaleCheckout": {
+            "15010": "Le panier n'est plus disponible"
         }
     },
     "spotScheduling": {
@@ -21127,7 +21131,8 @@
             "itemsRemovedFromBasket": {
                 "title": "Items retirés du panier",
                 "subText": "Lors du changement de membre, certains items ont été retirés du panier car ils ne sont pas compatibles avec le nouveau membre."
-            }
+            },
+            "home": "Accueil"
         },
         "objectCard": {
             "subtitle": {
@@ -21152,7 +21157,10 @@
                 "month_plural": "tous les {{ recurrence_basis }} mois",
                 "year": "tous les ans",
                 "year_plural": "tous les {{ recurrence_basis }} ans"
-            }
+            },
+            "startingPrice": "À partir de {{ price }}",
+            "numberOfVariants": "{{ count }} variante",
+            "numberOfVariants_plural": "{{ count }} variantes"
         },
         "sectionCard": {
             "item": "item",

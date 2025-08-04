@@ -1,11 +1,13 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
+import Divider from '@material-ui/core/Divider';
+import IconButton from '@material-ui/core/IconButton';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
 import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
 
+import QuicksaleLanguageSelector from '#src/libs/quicksale/components/QuicksaleLanguageSelector';
 import type { Theme } from '#src/libs/theme/types';
 
 type Props = {
@@ -42,16 +44,22 @@ const QuicksaleAppBar: React.FC<Props> = ({
         </div>
       </div>
 
-      <div className={classes.sellerInfoAndLogOut}>
+      <div className={classes.rightSection}>
         <div className={classes.sellerInfo}>
           <Typography className={classes.seller} variant="subtitle2">
             {t('interface.seller')}
           </Typography>
           <Typography variant="body2">{staffFullName}</Typography>
         </div>
-        <IconButton className={classes.signOutButton} onClick={onSignOut}>
-          <PowerSettingsNewIcon fontSize="large" />
-        </IconButton>
+
+        <Divider className={classes.divider} orientation="vertical" />
+
+        <div className={classes.rightSection}>
+          <QuicksaleLanguageSelector />
+          <IconButton className={classes.signOutButton} onClick={onSignOut}>
+            <PowerSettingsNewIcon fontSize="large" />
+          </IconButton>
+        </div>
       </div>
     </div>
   );
@@ -72,18 +80,23 @@ const useStyles = makeStyles((theme) => ({
   companyLogo: {
     borderRadius: theme.spacing(1),
   },
-  sellerInfoAndLogOut: {
+  rightSection: {
     display: 'flex',
     alignItems: 'center',
-    gap: theme.spacing(3),
+    gap: theme.spacing(2),
   },
   sellerInfo: {
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
+    alignItems: 'flex-start',
   },
   seller: {
     fontWeight: 500,
+  },
+  divider: {
+    margin: theme.spacing(0, 1),
+    height: theme.spacing(4),
   },
   signOutButton: {
     padding: 0,

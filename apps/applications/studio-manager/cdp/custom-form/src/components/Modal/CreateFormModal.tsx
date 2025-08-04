@@ -1,17 +1,14 @@
-import { useEffect, useRef, useState } from "react";
+import { useId } from "react";
 
+import { ControlledForm, FormField, useFormController } from "@bsport/form";
 import { Body, Modal, TextField, toast } from "@bsport/kaizen-primitive-core";
 import type { CustomForm } from "@bsport/store-cdp-custom-form";
 
 import { useCreateCustomForm } from "#src/hooks/api/use-create-form";
 import { LEGACY_URLS } from "#src/urls";
 import { useTranslation } from "#src/utils/i18n";
-import type { ModalProps } from "#src/utils/types";
-
-const FORM_NAME_MIN_LENGTH = 1;
-const FORM_NAME_MAX_LENGTH = 100;
-
-type TextfieldStatuses = "default" | "positive" | "error" | undefined;
+import { customFormCreationSchema } from "#src/utils/schema";
+import type { CustomFormCreationData, ModalProps } from "#src/utils/types";
 
 type Props = ModalProps & {
   isOpen: boolean;
@@ -24,10 +21,19 @@ export const CreateFormModal: React.FC<Props> = ({
   onSuccess,
   onFailure,
 }: Props) => {
-  const [formName, setFormName] = useState("");
-  const [textFieldStatus, setTextFieldStatus] =
-    useState<TextfieldStatuses>("default");
-  const inputRef = useRef<HTMLInputElement | null>(null);
+  const fieldIdPrefix = useId();
+  const formId = `${fieldIdPrefix}-create-form-modal`;
+  const defaultValues: CustomFormCreationData = {
+    name: "",
+  };
+  const methods = useFormController({
+    mode: "onBlur",
+    schema: customFormCreationSchema,
+    defaultValues,
+  });
+  const {
+    formState: { isDirty, isSubmitting },
+  } = methods;
   const { t } = useTranslation("common");
 
   const { createCustomForm } = useCreateCustomForm({
@@ -59,56 +65,12 @@ export const CreateFormModal: React.FC<Props> = ({
   });
 
   const handleClose = () => {
-    setFormName("");
-    setTextFieldStatus("default");
     onClose();
   };
 
-  const formNameError = (() => {
-    if (formName.length < FORM_NAME_MIN_LENGTH) {
-      return t("activeList.addFormModal.errors.nameTooShort", {
-        minimalLength: FORM_NAME_MIN_LENGTH,
-      });
-    }
-    if (formName.length > FORM_NAME_MAX_LENGTH) {
-      return t("activeList.addFormModal.errors.nameTooLong", {
-        maximalLength: FORM_NAME_MAX_LENGTH,
-      });
-    }
-    if (formName.trim() === "") {
-      return t("activeList.addFormModal.errors.nameRequired");
-    }
-    return null;
-  })();
-
-  const handleSaveForm = () => {
-    if (!formNameError) {
-      setTextFieldStatus("default");
-      createCustomForm({ name: formName });
-    } else {
-      setTextFieldStatus("error");
-      toast({
-        status: "critical",
-        icon: "x",
-        title: formNameError,
-      });
-    }
+  const handleSaveForm = ({ formName }: { formName: string }) => {
+    createCustomForm({ name: formName });
   };
-
-  const handleChangeFormName = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (textFieldStatus !== "default") setTextFieldStatus("default");
-    setFormName(event.target.value);
-  };
-
-  const handleClearTextfield = () => {
-    setFormName("");
-  };
-
-  useEffect(() => {
-    if (isOpen && inputRef?.current) {
-      inputRef.current.focus();
-    }
-  }, [isOpen, inputRef]);
 
   return (
     <Modal
@@ -117,7 +79,9 @@ export const CreateFormModal: React.FC<Props> = ({
       title={t("activeList.addFormModal.title")}
       confirmButton={{
         label: t("activeList.addFormModal.actions.create"),
-        onClick: handleSaveForm,
+        type: "submit",
+        form: formId,
+        disabled: !isDirty || isSubmitting,
       }}
       cancelButton={{
         label: t("activeList.addFormModal.actions.cancel"),
@@ -127,19 +91,33 @@ export const CreateFormModal: React.FC<Props> = ({
     >
       <div className="flex flex-col gap-md">
         <Body htmlVariant="p">{t("activeList.addFormModal.description")}</Body>
-        <TextField
-          inputRef={inputRef}
-          fullWidth
-          id="create-custom-form-name-input"
-          type="text"
-          status={textFieldStatus}
-          label={t("activeList.addFormModal.input.label")}
-          placeholder={t("activeList.addFormModal.input.placeholder")}
-          value={formName}
-          onChange={handleChangeFormName}
-          onClear={handleClearTextfield}
-          required
-        />
+        <ControlledForm
+          id={formId}
+          onSubmit={(data) => handleSaveForm({ formName: data.name })}
+          {...methods}
+        >
+          <FormField<CustomFormCreationData, "name">
+            name="name"
+            mapProps={({ defaultProps, form, field }) => ({
+              ...defaultProps,
+              type: "text",
+              onClear: () => {
+                form.setValue("name", "", { shouldDirty: true });
+                // We trigger validation after clearing the value
+                field.onBlur();
+              },
+            })}
+          >
+            <TextField
+              fullWidth
+              id={`${fieldIdPrefix}-custom-form-name`}
+              type="text"
+              label={t("activeList.addFormModal.input.label")}
+              placeholder={t("activeList.addFormModal.input.placeholder")}
+              required
+            />
+          </FormField>
+        </ControlledForm>
       </div>
     </Modal>
   );

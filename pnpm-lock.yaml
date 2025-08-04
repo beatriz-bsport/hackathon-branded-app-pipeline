@@ -2942,6 +2942,9 @@ importers:
       '@bsport/config-eslint-react':
         specifier: workspace:*
         version: link:../../../tools/config/eslint-react
+      '@bsport/config-vitest':
+        specifier: workspace:*
+        version: link:../../../tools/config/vitest
 
   packages/utils/i18n:
     dependencies:

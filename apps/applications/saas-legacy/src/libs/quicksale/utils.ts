@@ -323,16 +323,22 @@ export const getQuicksaleCardInfoFromQuicksaleItem = (
     item.buyable_item_identifier === QuicksaleBasketItem.ShopItemIdentifier &&
     Array.isArray(item.variants) &&
     Array.isArray((buyableItem as ShopItem).variant_ids)
-      ? (buyableItem as ShopItem).variant_ids?.map((variant_id) => {
-          const matched = item.variants?.find(
-            (v) => v.variant_id === variant_id,
-          );
-          return {
-            variant_id,
-            color:
-              (matched?.color as QuicksaleItemColor) ?? QuicksaleItemColor.Gray,
-          };
-        })
+      ? item.variants
+          ?.map((configuredVariant) => {
+            const existsInBuyableItem = (
+              buyableItem as ShopItem
+            ).variant_ids?.includes(configuredVariant.variant_id);
+
+            if (!existsInBuyableItem) return null;
+
+            return {
+              variant_id: configuredVariant.variant_id,
+              color:
+                (configuredVariant.color as QuicksaleItemColor) ??
+                QuicksaleItemColor.Gray,
+            };
+          })
+          .filter(Boolean)
       : undefined;
 
   return getCardInfoFromBuyableItem(

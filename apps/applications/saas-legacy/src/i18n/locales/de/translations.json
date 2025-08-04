@@ -11342,7 +11342,7 @@
                 "blacklist_tags": "Nicht erlaubt",
                 "whitelist_tags": "Erlaubt",
                 "tags": "Tags",
-                "tagInfo": "Verwende Tags, um den Coupon nur für eine bestimmte Gruppe von Mitgliedern auf dem Marketplace, im Widget und in der App nutzbar zu machen. Du kannst Tags auswählen, damit der Gutschein nur von Mitgliedern mit einem der ausgewählten Tags verwendet werden kann. Oder Du kannst Tags auswählen, um den Gutschein nur für Mitglieder mit einem der ausgewählten Tags unbrauchbar zu machen. "
+                "tagInfo": "Verwenden Tags, um diesen Rabattcode für bestimmte Segmente Ihrer Mitgliederbasis verfügbar oder nicht verfügbar zu machen."
             },
             "selectorPlaceholder": {
                 "paymentPack": "Kurspässe auswählen (gültig für alle Pässe, wenn keiner ausgewählt wurde)",
@@ -15223,7 +15223,7 @@
                 "0": "App",
                 "1": "Webseite",
                 "2": "bsport Backoffice",
-                "3": "Marketplaces",
+                "3": "Mitgliederbereich",
                 "4": "Datenmigration"
             }
         },
@@ -15625,7 +15625,7 @@
                 "broadcast": "Videokonferenz",
                 "general": "Allgemein",
                 "platform_billing": "bsport-Abonnement",
-                "marketplaceSettings": "Marketplace-Einstellungen",
+                "marketplaceSettings": "Mitgliederbereich-Einstellungen",
                 "widget": "Widgets",
                 "paymentMethod": "Zahlungsmethoden",
                 "forms": "Formulare für Mitglieder",
@@ -17380,8 +17380,8 @@
             },
             "preview": "Vorschau",
             "saveButton": "Speichern",
-            "link": "Logg dich aus und öffne deinen Marktplatz",
-            "explainMarketplace": "Deine Mitglieder haben mit einem PC, Tablet oder Smartphone Online-Zugriff auf deinen Marktplatz. Hier kannst du die Module auswählen, die du in deinem Marktplatz zur Verfügung stellen möchtest.",
+            "link": "Logg dich aus und öffne deinen Mitgliederbereich",
+            "explainMarketplace": "Deine Mitglieder haben mit einem PC, Tablet oder Smartphone Online-Zugriff auf deinen Mitgliederbereich. Hier kannst du die Module auswählen, die du in deinem Mitgliederbereich zur Verfügung stellen möchtest.",
             "addButton": "Einen Tab hinzufügen"
         },
         "companyOnboarding": {
@@ -17776,7 +17776,7 @@
                 "delete": {
                     "confirm": "Löschen",
                     "cancel": "Abbrechen",
-                    "content": "Diese Einrichtung wird nicht mehr in den verfügbaren Filtern auf dem Marketplace, im Widget und in der mobilen Marken-App erscheinen.",
+                    "content": "Diese Einrichtung wird nicht mehr in den verfügbaren Filtern auf dem Mitgliederbereich, im Widget und in der mobilen Marken-App erscheinen.",
                     "title": "Einen Standort löschen"
                 }
             },
@@ -17789,7 +17789,7 @@
                 "associated_localizations": "Verbundene Einrichtungen",
                 "name": "Name"
             },
-            "noGroupHelper": "Standorte werden verwendet, um mehrere Adressen zu gruppieren. Wenn Sie mehrere Studios in verschiedenen Städten haben, können Sie Studios aus derselben Stadt an einem Ort gruppieren. Auf den Marktplatz, dem Widget und der personalisierten Anwendung können Ihre Mitglieder den Standort auswählen, der sie am meisten interessiert, um nur die Kurse in ihrer Nähe zu sehen.",
+            "noGroupHelper": "Standorte werden verwendet, um mehrere Adressen zu gruppieren. Wenn Sie mehrere Studios in verschiedenen Städten haben, können Sie Studios aus derselben Stadt an einem Ort gruppieren. Auf den Mitgliederbereich, dem Widget und der personalisierten Anwendung können Ihre Mitglieder den Standort auswählen, der sie am meisten interessiert, um nur die Kurse in ihrer Nähe zu sehen.",
             "actions": "Aktion",
             "name": " Name",
             "addLocalisation": "Raum hinzufügen",
@@ -17903,7 +17903,7 @@
                 "relatedPaymentPacks": "Der folgende Pass {{- pass_name }} kann für diese Einrichtung nicht mehr verwendet werden. Bitte informiere die Kunden darüber.",
                 "hasRelatedAvailabilitySlots": "Die verfügbaren Zeitfenster im Terminkalender dieser Einrichtung werden gelöscht.",
                 "hasRelatedZoomEstablishment": "Diese Einrichtung wird aus der Liste der Einrichtungen, die für das Live-Streaming mit der Zoom-Integration verwendet werden, entfernt.",
-                "hasRelatedMarketplaceComponentConfigs": "Die Kalender- und Workshop-Registerkarten, die für Ihren Marktplatz konfiguriert sind, zeigen den Kalender dieser Einrichtung nicht mehr an.",
+                "hasRelatedMarketplaceComponentConfigs": "Die Kalender- und Workshop-Registerkarten, die für Ihren Mitgliederbereich konfiguriert sind, zeigen den Kalender dieser Einrichtung nicht mehr an.",
                 "hasRelatedMarketingNotifications": "Meldungen, die sich auf diese Einrichtung beziehen, werden gelöscht."
             },
             "errors": {
@@ -17914,7 +17914,7 @@
                 "exclusivePaymentPacks": "Der Pass {{- pass_name }} kann nur in dieser Einrichtung verwendet werden. Bitte bearbeite die Einschränkungen des Passes, bevor du die Einrichtung löschst.",
                 "exclusiveEstablishmentGroups_plural": "Die Standorte {{- establishment_group_name }} enthalten nur die Einrichtung, die du löschen möchtest. Bitte bearbeite oder lösche erst diese Standorte.",
                 "exclusiveEstablishmentGroups": "Der Standort {{- establishment_group_name }} enthält nur die Einrichtung, die du löschen möchtest. Bitte bearbeite oder lösche erst diesen Standort.",
-                "hasExclusiveMarketplaceComponentConfigs": "Eine oder mehrere Registerkarten auf dem Marktplatz zeigen nur den Kalender und die Workshops dieser Einrichtung an. Bitte bearbeite die Einstellungen der Registerkarten, bevor du die Einrichtung löschst.",
+                "hasExclusiveMarketplaceComponentConfigs": "Eine oder mehrere Registerkarten auf dem Mitgliederbereich zeigen nur den Kalender und die Workshops dieser Einrichtung an. Bitte bearbeite die Einstellungen der Registerkarten, bevor du die Einrichtung löschst.",
                 "isIntegratedInPartnership": "Eine oder mehrere Integrationen nutzen diese Einrichtung."
             },
             "infos": {
@@ -17932,7 +17932,7 @@
             },
             "deleteObject": {
                 "errors": {
-                    "hasExclusiveMarketplaceComponentConfigs": "Eine oder mehrere Registerkarten auf dem Marktplatz sind so eingestellt, dass sie nur den Kalender und die Workshops dieses Standorts anzeigen. Bitte aktualisiere diese vor der Löschung des Standorts."
+                    "hasExclusiveMarketplaceComponentConfigs": "Eine oder mehrere Registerkarten auf dem Mitgliederbereich sind so eingestellt, dass sie nur den Kalender und die Workshops dieses Standorts anzeigen. Bitte aktualisiere diese vor der Löschung des Standorts."
                 },
                 "warnings": {
                     "hasRelatedStaffConfigurations": "Dieser Standort wird für die Zutrittskontrolle durch einen oder mehrere Mitarbeiter verwendet. Wenn der Standort gelöscht wird, ohne einen neuen auszuwählen, können die Mitarbeiter keine Zutrittskontrolle mehr durchführen.",
@@ -17940,7 +17940,7 @@
                     "exclusiveAssociatedCoaches_plural": "Ihre Lehrkräfte {{- coach_name }} werden nur benachrichtigt, wenn eine Vertretungsanfrage für eine Sitzung an diesem Standort gestellt wird. Wenn der Standort gelöscht wird, erhalten die Lehrkräfte daher Vertretungsanfragen von jedem Standort.",
                     "exclusiveAssociatedCoaches": "Ihre Lehrkraft {{- coach_name }} wird nur benachrichtigt, wenn eine Vertretungsanfrage für eine Sitzung an diesem Standort gestellt wird. Wenn der Standort gelöscht wird, erhalten die Lehrkräfte daher Vertretungsanfragen von jedem Standort.",
                     "hasRelatedMarketingNotifications": "Benachrichtigungen, die mit diesem Standort verknüpft sind, werden gelöscht.",
-                    "hasRelatedMarketplaceComponentConfigs": "Die für Ihren Marktplatz konfigurierten Kalender- und Workshop-Registerkarten werden in diesem Standortkalender nicht mehr angezeigt."
+                    "hasRelatedMarketplaceComponentConfigs": "Die für Ihren Mitgliederbereich konfigurierten Kalender- und Workshop-Registerkarten werden in diesem Standortkalender nicht mehr angezeigt."
                 },
                 "infos": {
                     "reportsDefault": "Dieser Standort wird aus früheren Berichten gelöscht.",
@@ -17978,13 +17978,13 @@
             "almostDone": "Fast geschafft",
             "newCheckout": {
                 "isEmpty": "Ihr Warenkorb ist leer!",
-                "isEmptyDescription": "Erkunde den Marktplatz weiter!"
+                "isEmptyDescription": "Erkunde den Mitgliederbereich weiter!"
             },
             "noBooking": {
                 "acceptTermsAndFinalize": "Bitte akzeptiere die Allgemeinen Geschäftsbedingungen und schließe deinen Warenkorb ab",
                 "checkAndFinalize": "Bitte überprüfe deinen Warenkorb"
             },
-            "goToMarketplace": "Marktplatz ansehen",
+            "goToMarketplace": "Mitgliederbereich ansehen",
             "referral": {
                 "hasReachedMaxUses": "Die maximale Anzahl an Verwendungen für den Empfehlungslink wurde erreicht.",
                 "missingAmountBeforeApplication": "Der Mindestkaufbetrag wurde nicht erreicht. Du riskierst, deinen Empfehlungslink zu verlieren. Nur noch {{ missingAmount }}, um vom Rabatt zu profitieren!"
@@ -19379,8 +19379,8 @@
                         "modify": "Bearbeiten",
                         "cancel": "Abbrechen",
                         "create": "Hinzufügen",
-                        "helperTextNewMembers": "Das Formular erscheint als Pop-up auf dem Marketplace und dem Widget nach dem Anmeldeformular.",
-                        "helperTextRegisteredMembers": "Dieses Formular wird als Pop-up auf dem Marketplace und im Widget für alle betroffenen Mitglieder angezeigt.",
+                        "helperTextNewMembers": "Das Formular erscheint als Pop-up auf dem Mitgliederbereich und dem Widget nach dem Anmeldeformular.",
+                        "helperTextRegisteredMembers": "Dieses Formular wird als Pop-up auf dem Mitgliederbereich und im Widget für alle betroffenen Mitglieder angezeigt.",
                         "subTitle": "Welche Mitglieder wollen Sie ansprechen?",
                         "title": "Regeln anzeigen"
                     }

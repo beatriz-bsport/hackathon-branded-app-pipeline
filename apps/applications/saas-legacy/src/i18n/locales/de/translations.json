@@ -3326,16 +3326,16 @@
                     "modal": {
                         "cancel": "Abbrechen",
                         "confirm": "Jetzt aktivieren",
-                        "linkButton": "Lesen Sie den Leitfaden durch",
-                        "linkText": "Bevor Sie die Funktion aktivieren, empfehlen wir Ihnen, sich mit ihrer Funktionsweise und den zu erwartenden Ergebnissen vertraut zu machen:",
-                        "content": "In vielen Ländern sind Studios gesetzlich verpflichtet, Mitgliedern die Möglichkeit zu geben, ihre Abonnements selbst zu kündigen. Durch die Aktivierung dieser Funktion stellen Sie sicher, dass Sie die lokalen Gesetze einhalten und Ihr Studio vor rechtlichen Risiken schützen.",
+                        "linkButton": "Lies den Leitfaden durch",
+                        "linkText": "Bevor du die Funktion aktivierst, empfehlen wir dir, dich mit ihrer Funktionsweise und den zu erwartenden Ergebnissen vertraut zu machen:",
+                        "content": "In vielen Ländern sind Studios gesetzlich verpflichtet, Mitgliedern die Möglichkeit zu geben, ihre Abonnements selbst zu kündigen. Durch die Aktivierung dieser Funktion stellst du sicher, dass du die lokalen Gesetze einhältst und dein Studio vor rechtlichen Risiken schützt.",
                         "title": "Abonnementkündigung für Mitglieder aktivieren?"
                     },
                     "helperText": {
-                        "franchisor": "Diese Änderung gilt für alle Ihre Franchisenehmer.",
-                        "disabled": "Um diese Funktion für alle Franchisenehmer zu aktivieren, aktivieren Sie sie über das Hauptkonto.",
-                        "lawCompliance": "Wenn Sie diese Funktion nicht aktivieren, können Mitglieder ihre Abonnements nicht selbst kündigen, und Ihr Studio riskiert möglicherweise, gegen die Gesetze Ihres Landes zu verstoßen.",
-                        "simple": "Aktivieren Sie diese Option, damit Mitglieder ihr Abonnement selbst kündigen können. Sie haben zwar keine Kontrolle über die Kündigungsfrist für Abonnements, aber es ist wahrscheinlicher, dass Sie die gesetzlichen Bestimmungen des Landes, in dem Ihr Studio ansässig ist, einhalten. Bitte überprüfen Sie, in welchen Ländern dies gilt."
+                        "franchisor": "Diese Änderung gilt für alle Franchisenehmer.",
+                        "disabled": "Um diese Funktion für alle Franchisenehmer zu aktivieren, aktiviere sie über den Master Account.",
+                        "lawCompliance": "Wenn du diese Funktion nicht aktivierst, können Mitglieder ihre Abonnements nicht selbst kündigen, und dein Studio riskiert möglicherweise, gegen die Gesetze deines Landes zu verstoßen.",
+                        "simple": "Aktiviere diese Option, damit Mitglieder ihr Abonnement selbst kündigen können. Du hast zwar keine Kontrolle über die Kündigungsfrist für Abonnements, aber es ist wahrscheinlicher, dass du die gesetzlichen Bestimmungen des Landes, in dem dein Studio ansässig ist, einhältst. Bitte überprüfe, in welchen Ländern dies gilt."
                     },
                     "label": "Mitgliedern die Möglichkeit geben, ihre Abonnements zu kündigen"
                 }
@@ -5407,7 +5407,7 @@
                     "label": "Mehrwertsteuer"
                 },
                 "priceIncludingTax": {
-                    "helperText": "Gesamtverkaufspreis des Passes.",
+                    "helperText": "Gesamtverkaufspreis des Kurspasses.",
                     "label": "Preis inkl. Mehrwertsteuer * "
                 },
                 "startOnFirstUseHelper": "Andernfalls beginnt die Abrechnung an dem Tag, an dem der Kurspass in Rechnung gestellt wurde",
@@ -5525,12 +5525,12 @@
                 },
                 "advancedOptions": {
                     "tag": {
-                        "doNotSelectToAllowAllMembers": "Leer lassen, um allen Mitgliedern zu erlauben",
+                        "doNotSelectToAllowAllMembers": "Leer lassen, um es allen Mitgliedern zu erlauben",
                         "notAllowedFor": "Nicht erlaubt für",
                         "notAllowed": "Nicht erlaubt",
                         "allowedFor": "Zugelassen für",
                         "allowed": "Erlaubt",
-                        "helperText": "Mit Tags kannst du bestimmte Kunden vom Kauf dieses Passes entweder ein- oder ausschließen.",
+                        "helperText": "Mit Tags kannst du bestimmte Kunden vom Kauf dieses Passes ein- oder ausschließen.",
                         "header": "Tags",
                         "tagsOnAcquisitionHelper": "Mit Tags kannst du Mitglieder markieren, die diesen Pass gekauft haben, um sie in Zukunft schnell wiederfinden zu können.",
                         "tagsOnAcquisition": "Tags nach dem Kauf anwenden",
@@ -5538,8 +5538,8 @@
                     },
                     "header": "Erweiterte Optionen",
                     "appliesForPayroll": {
-                        "label": "Kurse, die bei der Berechnung der Lohnabrechnung der Lehrkraft berücksichtigt werden",
-                        "helperText": "Standardmäßig werden die Kurse dem Studio in Rechnung gestellt und in die Lohnabrechnung der Lehrkraft und die Vergütung durch das Studio aufgenommen. Wenn Sie diese Einstellung deaktivieren, erscheinen die mit diesem Pass verbundenen Kurse nicht mehr in der Lohnabrechnung der Lehrkraft.",
+                        "label": "Kurse, die mit diesem Kurspass gekauft werden, werden in der Lohnabrechnung der Lehrkraft berücksichtigt",
+                        "helperText": "Standardmäßig werden die Kurse dem Studio in Rechnung gestellt und standardmäßig in die Lohnabrechnung der Lehrkraft aufgenommen. Wenn du diese Einstellung deaktivierst, erscheinen die mit diesem Kurspass gebuchten Kurse nicht mehr in der Lohnabrechnung der Lehrkraft.",
                         "header": "Gehaltsabrechnung für Lehrer"
                     }
                 },
@@ -5552,7 +5552,7 @@
                 },
                 "highlightedAsRecommended": {
                     "label": "Als empfohlen markieren",
-                    "helperText": "Du kannst deinen Mitgliedern auf diesen Pass aufmerksam machen, in dem du ihn während einer Buchung im Bereich \"Empfohlen\" bewirbst."
+                    "helperText": "Du kannst deine Mitglieder auf diesen Pass aufmerksam machen, in dem du ihn während einer Buchung im Bereich \"Empfohlen\" bewirbst."
                 },
                 "notification": "Benachrichtigungen",
                 "detailsAndRestrictions": "Details und Bedingungen",
@@ -5837,7 +5837,7 @@
         },
         "selector": {
             "noAvailable": "Kein Pass, der den gewählten Verfügbarkeiten entspricht",
-            "noManagerOnly": "Sichtbar für Kunden",
+            "noManagerOnly": "Sichtbar für Mitglieder",
             "managerOnly": "Für Mitglieder ausgeblendet",
             "filterManagerOnly": "Für alle sichtbar",
             "filterCategory": "Alle Kategorien",
@@ -5883,14 +5883,14 @@
             "only_vod_access": "Die Nutzung des Passes ausschließlich auf VOD beschränken",
             "vodAccessCard": "Gibt Zugriff zur Mediathek (VOD)",
             "vod": "VOD",
-            "compatibility": "Dieser Pass ist nur mit den ausgewählten Kursen, Aktivitäten, Kategorien oder Einrichtungen kompatibel.",
+            "compatibility": "Dieser Kurspass ist nur mit den ausgewählten Kursen, Aktivitäten, Kategorien oder Einrichtungen kompatibel.",
             "letBlank": "Leer lassen, um alles zu erlauben",
             "activities": "Aktivitäten",
             "room": "Einrichtungen",
             "categories": "Kategorien",
             "inShopPayment": "Zahlungen vor Ort erlauben",
-            "notForSell": "Für Kunden ausgeblendet",
-            "newClientOnly": "Nur neuen Mitgliedern einblenden",
+            "notForSell": "Für Mitglieder ausgeblendet",
+            "newClientOnly": "Nur neuen Mitgliedern anzeigen",
             "maxUseMember": "Maximaler Einkauf pro Mitglied",
             "maxUseMonth": "Maximale Nutzungen pro Monat",
             "maxUseWeek": "Maximale Nutzungen pro Woche",
@@ -5910,7 +5910,7 @@
             "marginalContributionHelperText": "Wird verwendet, um die Lohnabrechnung von Lehrkräften zu berechnen. 10{{ currencyDisplay }} bedeutet, dass eine mit diesem Pass vorgenommene Buchung mit 10{{ currencyDisplay }} vergütet wird. Wenn leer oder 0{{ currencyDisplay }}, wird die Einbringung einer Karte PREIS/NB_RESERVATION",
             "marginalContribution": "Theoretischer marginaler Wert TTC",
             "expirationDateHelper": "Wird der Pass innerhalb dieser Zeit nicht genutzt, verfällt er automatisch.",
-            "expirationDate": "Anzahl der Tage bis zum Ablauf des Passes bei Nichtnutzung *",
+            "expirationDate": "Anzahl der Tage bis zum Ablauf des Kurspasses bei Nichtnutzung *",
             "beginningDate": "Startdatum",
             "attendance": "Bei der ersten Anwesenheit",
             "firstBooking": "Bei der ersten Buchung",
@@ -5966,7 +5966,7 @@
                     "explain": "Die Anzahlung von {{ price }} wird anteilig auf die Abwesenheiten (no show) angewendet, die bei jedem Ihrer Franchisenehmer registriert sind. Ein Gesamtbetrag von {{ price }} wird auf Ihr Franchise berechnet."
                 }
             },
-            "unusableByStaff": "Für Mitarbeiter ausgeblendet",
+            "unusableByStaff": "Für Mitarbeitende ausgeblendet",
             "allowGuest": "Kompatibel mit Gastbuchungen",
             "expiration_date": {
                 "tooltip": "Nach dem gewählten Datum ist der Pass nicht mehr zum Kauf verfügbar",
@@ -7463,6 +7463,9 @@
                     "default": "Beim Generieren der XML-Rechnung ist ein Fehler aufgetreten"
                 },
                 "success": "XML-Rechnung erfolgreich generiert"
+            },
+            "receipt": {
+                "genericError": "Ein Fehler ist aufgetreten, während die Quittung generiert wurde"
             }
         },
         "member": {
@@ -7897,7 +7900,7 @@
             },
             "createOrUpdate": {
                 "error": "Wiederkehrende Termine können nicht gespeichert werden",
-                "success": "Wiederkehrender Termin erfolgreich gespeichert",
+                "success": "Die Regel für wiederkehrende Termine wurde erfolgreich gespeichert. Wir legen die Buchungen entsprechend der Parameter an.",
                 "locked": "Mit diesen Parametern existiert bereits eine Wiederholungsregel"
             }
         },
@@ -10357,8 +10360,8 @@
                 },
                 "groupWarning": "Achtung es ist nicht möglich, wiederkehrende Buchungen für Gruppen von Kursen zu erstellen",
                 "permissionWarning": "Du hast keine Erlaubnis Buchungen für diese Aktivität abzuschließen",
-                "globalError": "Wir konnten Ihre wiederkehrende Buchung derzeit nicht speichern. Bitte versuchen Sie es später erneut.",
-                "duplicateError": "Diese Regel wird bereits auf eine wiederkehrende Buchung angewendet. Um zu speichern, ändern Sie die bestehenden Buchungsregeln oder passen Sie die Parameter an."
+                "globalError": "Wir konnten die wiederkehrende Buchung derzeit nicht speichern. Bitte versuche es später erneut.",
+                "duplicateError": "Diese Regel wird bereits auf eine wiederkehrende Buchung angewendet. Um zu speichern, ändere die bestehende Buchungsregel oder passe die Parameter an."
             },
             "recurrentRuleBooking": "Wiederkehrende Buchung",
             "item": {
@@ -10369,10 +10372,10 @@
             "createModal": {
                 "create": "Erstelle eine wiederkehrende Buchung",
                 "info": "Eine bereits vorhandene wiederkehrende Buchung kann nicht neu erstellt werden",
-                "success": "Die wiederkehrende Buchung wurde erstellt."
+                "success": "Die wiederkehrende Buchung wurde erstellt. Buchungen werden angelegt."
             },
             "editModal": {
-                "success": "Die wiederkehrende Buchung wurde geändert"
+                "success": "Die wiederkehrende Buchung wurde geändert. Wir legen die Buchungen entsprechend der Parameter an."
             },
             "blockedBookings": "Mitglieder können bis zu {{days}} Tage im Voraus für diese Aktivität buchen. Erwäge eine Verlängerung der Wiederholungszeiträume, um eine Überfüllung zu vermeiden.",
             "notifyIfCanceled": "Sende eine Stornierungs-E-Mail",
@@ -10753,7 +10756,7 @@
                 }
             },
             "title": "[Form] Anmeldung",
-            "newMemberOnlyHelperText": "Ein Mitglied gilt als \"neu\", solange es keinen Kauf von mehr als 0 € getätigt hat. Kauft ein Mitglied ein Produkt mit 100 % Rabatt, zählt dies als Kauf."
+            "newMemberOnlyHelperText": "Ein Mitglied gilt als \"neu\", solange kein Kauf von mehr als 0 € getätigt wurde. Kauft ein Mitglied ein Produkt mit 100 % Rabatt, zählt dies als Kauf."
         },
         "showSubscriptions": "Abonnements ansehen",
         "showInvoices": "Rechnungen ansehen",
@@ -18064,7 +18067,8 @@
                         "waitingList": "Du hast dich auf die Warteliste gesetzt",
                         "paymentSuccess": "Zahlung bestätigt!",
                         "offerOnlySuccess": "Viel Spaß beim Kurs!",
-                        "offerOnlyGuestSuccess": "Viel Spaß beim Kurs mit deinem Gast!"
+                        "offerOnlyGuestSuccess": "Viel Spaß beim Kurs mit deinem Gast!",
+                        "expressCheckoutPassPurchaseSuccess": "Glückwunsch! Du hast gerade einen Kurspass gebucht!"
                     },
                     "errors": {
                         "genericOfferError": "Hoppla! Die Buchung ist fehlgeschlagen.",
@@ -21483,7 +21487,7 @@
                 "title": "Bezahlung akzeptiert",
                 "printTicket": "Ticket drucken",
                 "sendByEmail": "Rechnung per E-Mail senden",
-                "qrCodeTitle": "Laden Sie Ihre Quittung herunter",
+                "qrCodeTitle": "Lade deine Quittung herunter",
                 "description": "Die Zahlung wurde erfolgreich verarbeitet."
             },
             "emailSent": {

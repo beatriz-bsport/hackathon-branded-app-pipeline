@@ -5445,7 +5445,7 @@
                     "confirm": "Verwijder",
                     "cancel": "Annuleer",
                     "title": "Een vestiging verwijderen",
-                    "content": "Deze vestiging wordt niet langer weergegeven in de filters van de widgets, marketplace en de mobiele app."
+                    "content": "Deze vestiging wordt niet langer weergegeven in de filters van de widgets, Ledenruimte en de mobiele app."
                 }
             },
             "form": {
@@ -5461,7 +5461,7 @@
             "name": " Naam",
             "addLocalisation": "Een vestiging toevoegen",
             "groupButton": "Groepeer vestigingen",
-            "noGroupHelper": "Hier kun je meerdere vestigingen op verschillende adressen groeperen. Zo kun je meerdere studio's in verschillende steden hebt, kun je studio's uit dezelfde stad op één locatie groeperen. Je leden kunnen vervolgens op je widgets, app, of marketplace een locatie selecteren om alle lessen bij hun in de buurt te bekijken."
+            "noGroupHelper": "Hier kun je meerdere vestigingen op verschillende adressen groeperen. Zo kun je meerdere studio's in verschillende steden hebt, kun je studio's uit dezelfde stad op één locatie groeperen. Je leden kunnen vervolgens op je widgets, app, of Ledenruimte een locatie selecteren om alle lessen bij hun in de buurt te bekijken."
         },
         "room": "Vestiging",
         "localisation": "Locatie",
@@ -5557,7 +5557,7 @@
                 "exclusivePaymentPacks_plural": "De volgende passen {{- pass_name }} zijn alleen geldig in deze vestiging. Update hun beperkingen eerst voordat je de vestiging verwijdert.",
                 "exclusiveEstablishmentGroups": "De locatie {{- establishment_group_name }} bevat alleen de vestiging die u wilt verwijderen. Werk deze locatie bij of verwijder deze.",
                 "exclusiveEstablishmentGroups_plural": "De locaties {{- establishment_group_name }} bevatten alleen de vestiging die je wilt verwijderen, bewerk of verwijder deze locaties eerst.",
-                "hasExclusiveMarketplaceComponentConfigs": "Een of meerdere tabbladen op de marktplaats zijn ingesteld om alleen de agenda en workshops van deze vestiging weer te geven.",
+                "hasExclusiveMarketplaceComponentConfigs": "Een of meerdere tabbladen op de Ledenruimte zijn ingesteld om alleen de agenda en workshops van deze vestiging weer te geven.",
                 "hasUpcomingOffers": "Sommige komende sessies vinden plaats in deze vestiging. Annuleer en verwijder ze voordat je deze vestiging verwijdert.",
                 "hasExclusiveBillingGroup": "Deze vestiging is de laatste van zijn factureringsgroep. Verwijder deze factureringsgroep of werk deze bij voordat u deze vestiging verwijdert.",
                 "isIntegratedInPartnership": "Een of meerdere integraties gebruiken deze vestiging."
@@ -5578,7 +5578,7 @@
                 "relatedPaymentPacks": "De volgende pas {{- pass_name }} zal niet langer bruikbaar zijn voor deze vestiging, zorg ervoor dat u uw klanten hierover informeert.",
                 "hasRelatedAvailabilitySlots": "De beschikbare slots van deze vestiging worden verwijderd.",
                 "hasRelatedZoomEstablishment": "Deze vestiging zal verwijderd worden uit de lijst van vestigingen die gebruikt worden voor live streaming met de Zoom-integratie.",
-                "hasRelatedMarketplaceComponentConfigs": "De kalender- en workshop-tabbladen die zijn geconfigureerd voor je marktplaats zullen de kalender van deze vestiging niet meer weergeven.",
+                "hasRelatedMarketplaceComponentConfigs": "De kalender- en workshop-tabbladen die zijn geconfigureerd voor Ledenruimte zullen de kalender van deze vestiging niet meer weergeven.",
                 "hasRelatedMarketingNotifications": "Meldingen met betrekking tot deze vestiging worden verwijderd."
             },
             "title": {
@@ -5600,10 +5600,10 @@
                     "exclusiveAssociatedCoaches": "Je instructeur {{- coach_name }} krijgt alleen bericht als er een vervangingsverzoek wordt gedaan voor een sessie in deze locatie. Door de locatie te verwijderen, zullen ze dus vervangingsverzoeken van elke locatie ontvangen.",
                     "hasRelatedAssociatedCoaches": "Sommige leerkrachten krijgen een melding wanneer er een vervangingsverzoek wordt ingediend voor een sessie op deze locatie. Door de locatie te verwijderen, ontvangen ze geen meldingen meer.",
                     "hasRelatedMarketingNotifications": "Meldingen die aan deze locatie zijn gekoppeld, worden verwijderd.",
-                    "hasRelatedMarketplaceComponentConfigs": "De kalender- en workshop-tabbladen die zijn geconfigureerd voor je marktplaats zullen deze locatiekalender niet meer weergeven."
+                    "hasRelatedMarketplaceComponentConfigs": "De kalender- en workshop-tabbladen die zijn geconfigureerd voor Ledenruimte zullen deze locatiekalender niet meer weergeven."
                 },
                 "errors": {
-                    "hasExclusiveMarketplaceComponentConfigs": "Een of meerdere tabbladen op de marktplaats zijn ingesteld om alleen de agenda en workshops van deze locatie weer te geven."
+                    "hasExclusiveMarketplaceComponentConfigs": "Een of meerdere tabbladen op de Ledenruimte zijn ingesteld om alleen de agenda en workshops van deze locatie weer te geven."
                 },
                 "infos": {
                     "reportsDefault": "De locatie wordt verwijderd uit eerdere rapporten.",
@@ -10259,8 +10259,8 @@
             },
             "preview": "Voorvertoning",
             "saveButton": "Opslaan",
-            "link": "Afmelden en MarketPlace openen",
-            "explainMarketplace": "Leden hebben op hun telefoon, computer en tablet toegang tot je Marketplace waar je agenda, webshop, lidmaatschappen e.d. te vinden zijn. In dit onderdeel kan de MarketPlace verder gepersonaliseerd worden.",
+            "link": "Open Ledenruimte (u wordt uitgelogd)",
+            "explainMarketplace": "Leden hebben op hun telefoon, computer en tablet toegang tot je Ledenruimte waar je agenda, webshop, lidmaatschappen e.d. te vinden zijn. In dit onderdeel kan de Ledenruimte verder gepersonaliseerd worden.",
             "addButton": "Een tabblad toevoegen"
         },
         "companyOnboarding": {
@@ -13997,7 +13997,7 @@
                 "whitelist_tags": "[Whitelist] Kan alleen worden gebruikt door leden met de tag(s):",
                 "tags": "Tags",
                 "blacklist_tags": "[Blacklist] Kan niet worden gebruikt door leden met de tag(s):",
-                "tagInfo": "Gebruik tags om de promotiecode alleen voor bepaalde leden op de marketplace, widget en app beschikbaar te maken. Selecteer met welke tags wie wel óf niet deze promotiecode kan gebruiken. "
+                "tagInfo": "Gebruik tags om deze kortingscode beschikbaar of niet beschikbaar te maken voor bepaalde segmenten van uw ledenbestand."
             },
             "name": {
                 "label": "Naam",
@@ -14388,7 +14388,7 @@
                 "0": "App",
                 "1": "Web",
                 "2": "[BSPORT] Back Office",
-                "3": "Andere",
+                "3": "Ledenruimte",
                 "4": "Gegevensoverdracht"
             }
         },
@@ -15484,9 +15484,9 @@
             "acceptTermsAndFinalize": "Accepteer de voorwaarden om je reservering te voltooien",
             "checkAndFinalize": "Controleer je winkelmandje en voltooi je betaling",
             "almostDone": "Laatste stap",
-            "goToMarketplace": "Op de Marktplaats",
+            "goToMarketplace": "Zie Ledenruimte",
             "newCheckout": {
-                "isEmptyDescription": "Ga door met het verkennen van de Marktplaats!",
+                "isEmptyDescription": "Ga door met het verkennen van de Ledenruimte!",
                 "isEmpty": "Je mandje is leeg!"
             },
             "noBooking": {
@@ -18195,7 +18195,7 @@
                 "broadcast": "Livestreamen",
                 "general": "Algemeen",
                 "platform_billing": "Bsport Abonnement",
-                "marketplaceSettings": "Marketplace",
+                "marketplaceSettings": "Ledenruimte-Instellingen",
                 "widget": "Widgets",
                 "paymentMethod": "Betaalmethoden",
                 "forms": "Ledenformulieren",
@@ -19477,8 +19477,8 @@
                         "modify": "Bewerken",
                         "cancel": "Annuleer",
                         "create": "Toevoegen",
-                        "helperTextNewMembers": "Alle relevante leden zullen dit formulier als een pop-up op de MarketPlace en na het inschrijfformulier zien.",
-                        "helperTextRegisteredMembers": "Alle relevante leden zullen dit formulier als een pop-up op de MarketPlace en op de widget zien.",
+                        "helperTextNewMembers": "Alle relevante leden zullen dit formulier als een pop-up op de Ledenruimte en na het inschrijfformulier zien.",
+                        "helperTextRegisteredMembers": "Alle relevante leden zullen dit formulier als een pop-up op de Ledenruimte en op de widget zien.",
                         "subTitle": "Welke leden wil je contacteren?",
                         "title": "[Formulier] Berichtgeving",
                         "snoozeOptionHelperText": "We tonen dit formulier opnieuw nadat het {{count}} uur/uren gesnoozed is.",

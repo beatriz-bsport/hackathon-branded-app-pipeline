@@ -9314,7 +9314,11 @@
             "decimalCredit": {
                 "helperText": "Cette carte de cours possédera {{count}} crédit",
                 "helperText_plural": "Cette carte de cours possédera {{count}} crédits"
-            }
+            },
+            "enableAccessControl": "Accorde l'accès au studio",
+            "accessControlBetaAlert": "Pendant cette phase de beta, les restrictions telles que les tags, les limites d'utilisation, les établissements, les activités, les catégories et les créneaux horaires ne s'appliquent pas à l'accès aux portes. L'option « Restreindre l’utilisation de la carte à de la VOD uniquement » doit être désactivée pour que l'accès aux portes fonctionne.",
+            "accessControlInfo": "Les membres disposant de ce pass peuvent déverrouiller les portes de votre studio. Pour contrôler les moments où les portes ne sont pas accessibles, définissez des règles horaires sur Kisi.",
+            "doorAccess": "Accès aux portes"
         },
         "disabled": "Désactivé",
         "disableConsumer": "Bloquer",

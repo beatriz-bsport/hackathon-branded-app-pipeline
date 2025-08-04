@@ -10,15 +10,19 @@ import { useTagListFactory } from "#src/hooks/layout/use-tag-list-factory";
 import { useTranslation } from "#src/utils/i18n";
 
 type TagsPageContentProps = {
+  isFiltered: boolean;
   tagsMappedByTagId: Record<number, Tag>;
   tagUsagesMap: Record<number, TagUsage>;
   tagGroups: TagGroup[];
+  handleClearFilters: () => void;
 };
 
 export const TagsPageContent = ({
+  isFiltered,
   tagsMappedByTagId,
   tagUsagesMap,
   tagGroups,
+  handleClearFilters,
 }: TagsPageContentProps) => {
   const {
     handleCreateTag,
@@ -40,8 +44,10 @@ export const TagsPageContent = ({
     baseTagId: openId ? parseInt(openId, 10) : undefined,
   });
   const { emptyPageState, getEmptyListState } = usePageLayout({
+    isFiltered,
     handleCreateTagGroup,
     handleCreateTag,
+    handleClearFilters,
   });
   const { formatListItemsByMainTag, formatTagGroupInListHeader } =
     useTagListFactory({

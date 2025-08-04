@@ -1324,7 +1324,7 @@
                 "0": "Aplicación",
                 "1": "Web",
                 "2": "Backoffice bsport",
-                "3": "Marketplaces",
+                "3": "Área de Miembros",
                 "4": "Migración de datos"
             }
         },
@@ -2127,7 +2127,7 @@
             "addLocalisation": "Añadir una ubicación",
             "name": " Nombre",
             "actions": "Acciones",
-            "noGroupHelper": "Las ubicaciones permiten agrupar varias direcciones. Si tiene varios estudios en diferentes ciudades, puede agrupar los estudios de la misma ciudad en un solo lugar. En el Marketplace, el widget y la aplicación personalizada, sus estudiantes podrán seleccionar la ubicación que más les interese para ver sólo los cursos que estén cerca de ellos.",
+            "noGroupHelper": "Las ubicaciones permiten agrupar varias direcciones. Si tiene varios estudios en diferentes ciudades, puede agrupar los estudios de la misma ciudad en un solo lugar. En el Área de Miembros, el widget y la aplicación personalizada, sus estudiantes podrán seleccionar la ubicación que más les interese para ver sólo los cursos que estén cerca de ellos.",
             "form": {
                 "name": "Nombre",
                 "associated_localizations": "Establecimientos asociados",
@@ -2139,7 +2139,7 @@
             },
             "modal": {
                 "delete": {
-                    "content": "Esta ubicación ya no aparecerá en los filtros disponibles en el mercado, el widget y la aplicación personalizada.",
+                    "content": "Esta ubicación ya no aparecerá en los filtros disponibles en el Área de Miembros, el widget y la aplicación personalizada.",
                     "cancel": "Cancelar",
                     "confirm": "Borrar",
                     "title": "Borrar un establecimiento"
@@ -2247,7 +2247,7 @@
                     "reportsDefault": "La ubicación se eliminará de los informes anteriores."
                 },
                 "warnings": {
-                    "hasRelatedMarketplaceComponentConfigs": "Las pestañas de calendario y taller configuradas para su mercado ya no mostrarán este calendario de ubicación.",
+                    "hasRelatedMarketplaceComponentConfigs": "Las pestañas de calendario y taller configuradas para el Area Membri ya no mostrarán este calendario de ubicación.",
                     "hasRelatedMarketingNotifications": "Las notificaciones vinculadas a esta ubicación se eliminarán.",
                     "exclusiveAssociatedCoaches": "Su profesor {{- coach_name }} sólo recibe una notificación cuando se realiza una solicitud de sustitución para una sesión en esta ubicación. Por lo tanto, al eliminar la ubicación, recibirán solicitudes de sustitución de todas las ubicaciones.",
                     "exclusiveAssociatedCoaches_plural": "Sus profesores {{- coach_name }} sólo reciben una notificación cuando se realiza una solicitud de sustitución para una sesión en esta ubicación. Por lo tanto, al eliminar la ubicación, recibirán solicitudes de sustitución de todas las ubicaciones.",
@@ -2255,7 +2255,7 @@
                     "hasRelatedStaffConfigurations": "Esta ubicación se utiliza para la supervisión de accesos por uno o varios miembros del personal. Al eliminar la ubicación sin seleccionar una nueva, ya no podrán realizar la supervisión de accesos."
                 },
                 "errors": {
-                    "hasExclusiveMarketplaceComponentConfigs": "Una o varias pestañas del mercado están configuradas para mostrar únicamente el calendario y los talleres de esta ubicación, actualízalas antes de eliminar la ubicación."
+                    "hasExclusiveMarketplaceComponentConfigs": "Una o varias pestañas del Área de Miembros están configuradas para mostrar únicamente el calendario y los talleres de esta ubicación, actualízalas antes de eliminar la ubicación."
                 }
             },
             "forms": {
@@ -2267,7 +2267,7 @@
         "deleteObject": {
             "warnings": {
                 "hasRelatedMarketingNotifications": "Las notificaciones relacionadas con este establecimiento se eliminarán.",
-                "hasRelatedMarketplaceComponentConfigs": "Las pestañas de calendario y taller configuradas para su mercado ya no mostrarán el calendario de este establecimiento.",
+                "hasRelatedMarketplaceComponentConfigs": "Las pestañas de calendario y taller configuradas para el Área de Miembros ya no mostrarán el calendario de este establecimiento.",
                 "hasRelatedZoomEstablishment": "Este establecimiento se eliminará de la lista de establecimientos utilizados para la retransmisión en directo con la integración de Zoom.",
                 "hasRelatedAvailabilitySlots": "Se borrarán las franjas horarias disponibles de este establecimiento.",
                 "relatedPaymentPacks": "El siguiente pase {{- pass_name }} ya no será utilizable para este establecimiento, asegúrese de informar a sus clientes al respecto.",
@@ -2292,7 +2292,7 @@
             },
             "errors": {
                 "isIntegratedInPartnership": "Una o varias integraciones utilizan este establecimiento.",
-                "hasExclusiveMarketplaceComponentConfigs": "Una o varias pestañas del marketplace están configuradas para mostrar únicamente el calendario y los talleres de este establecimiento, actualízalas antes de eliminar el establecimiento.",
+                "hasExclusiveMarketplaceComponentConfigs": "Una o varias pestañas del Área de Miembros están configuradas para mostrar únicamente el calendario y los talleres de este establecimiento, actualízalas antes de eliminar el establecimiento.",
                 "exclusiveEstablishmentGroups": "La ubicación {{- establishment_group_name }} sólo contiene el establecimiento que desea eliminar, actualice o elimine esta ubicación.",
                 "exclusiveEstablishmentGroups_plural": "Las ubicaciones {{- establishment_group_name }} sólo contienen el establecimiento que desea eliminar, actualice o elimine estas ubicaciones.",
                 "exclusivePaymentPacks": "El siguiente pase {{- pass_name }} sólo se puede utilizar en este establecimiento. Actualiza sus restricciones antes de eliminar el establecimiento.",
@@ -2547,8 +2547,8 @@
             },
             "preview": "Vista previa",
             "saveButton": "Guardar",
-            "link": "Acceda al mercado de clientes (se te desconectará)",
-            "explainMarketplace": "Sus miembros pueden acceder a su mercado (calendario, tienda, VOD, etc.) en línea en un ordenador, tableta o teléfono. Personaliza tu página aquí!",
+            "link": "Acceda al Área de Miembros (se te desconectará)",
+            "explainMarketplace": "Sus miembros pueden acceder a su Área de Miembros (calendario, tienda, VOD, etc.) en línea en un ordenador, tableta o teléfono. Personaliza tu página aquí!",
             "addButton": "Añade una pestaña"
         },
         "companyOnboarding": {
@@ -9444,7 +9444,7 @@
                 "tags": "Tags",
                 "whitelist_tags": "Autorizado",
                 "blacklist_tags": "No autorizado",
-                "tagInfo": "Utiliza etiquetas para que el cupón sólo pueda ser utilizado por el grupo de miembros que desees en el marketplace, el widget y la app. Puede seleccionar etiquetas para que el cupón sólo pueda ser utilizado por los miembros con una de las etiquetas elegidas. O puede seleccionar etiquetas para que el cupón sólo pueda ser utilizado por los miembros con una de las etiquetas seleccionadas. "
+                "tagInfo": "Utilice etiquetas para que este cupón esté disponible o no para determinados segmentos de su base de miembros."
             },
             "selectorPlaceholder": {
                 "shopitem": "Seleccione productos de la tienda (válido en todos los productos si no se selecciona ninguno)",
@@ -13938,9 +13938,9 @@
             "acceptTermsAndFinalize": "Por favor, acepte las condiciones generales y finalice su reserva",
             "checkAndFinalize": "Compruebe su cesta y finalice su reserva",
             "almostDone": "Última etapa",
-            "goToMarketplace": "Ver el Marketplace",
+            "goToMarketplace": "Ver el Área de Miembros",
             "newCheckout": {
-                "isEmptyDescription": "¡Continúe explorando el Marketplace!",
+                "isEmptyDescription": "¡Continúe explorando el Área de Miembros!",
                 "isEmpty": "¡Tu cesta está vacía!"
             },
             "noBooking": {
@@ -16875,7 +16875,7 @@
                 "broadcast": "Videoconferencia",
                 "general": "General",
                 "platform_billing": "Suscripción a bsport",
-                "marketplaceSettings": "Parámetros marketplace",
+                "marketplaceSettings": "Parámetros Área de Miembros",
                 "widget": "Widget",
                 "paymentMethod": "Medios de pago",
                 "forms": "Formularios miembros",
@@ -19476,8 +19476,8 @@
                         "modify": "Editar",
                         "cancel": "Cancelar",
                         "create": "Añadir",
-                        "helperTextNewMembers": "El formulario aparecerá como una ventana emergente en el mercado y el widget después del formulario de registro.",
-                        "helperTextRegisteredMembers": "El formulario aparecerá como una ventana emergente en el mercado y el widget para todos los miembros interesados.",
+                        "helperTextNewMembers": "El formulario aparecerá como una ventana emergente en el Área de Miembros y el widget después del formulario de registro.",
+                        "helperTextRegisteredMembers": "El formulario aparecerá como una ventana emergente en el Área de Miembros y el widget para todos los miembros interesados.",
                         "subTitle": "¿A qué miembros quiere dirigirse?",
                         "title": "Normas de visualización"
                     }

@@ -265,13 +265,14 @@ const QuicksaleItemAdditionDrawer: React.FC<Props> = ({
                       (pageNumber - 1) * PAGE_SIZE,
                       Math.min(selectableItems.length, pageNumber * PAGE_SIZE),
                     )
-                    .map((item) => (
+                    .map((item, index, array) => (
                       <ListItem
                         key={item.id}
                         clickToSelect
                         checked={selectedItems.includes(item)}
                         dispatch={dispatch}
                         item={item}
+                        noDivider={index === array.length - 1}
                       />
                     ))}
 

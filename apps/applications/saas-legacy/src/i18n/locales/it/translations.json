@@ -21615,7 +21615,6 @@
             "leftDue": "Importo in sospeso :",
             "firstName": "Nome",
             "lastName": "Cognome",
-            "unauthenticatedWarning": "Se nessun membro è autenticato per questa ricevuta, questa verrà creata in forma anonima. È consigliabile assegnare un membro per facilitare la tracciabilità delle informazioni.",
             "sendToTerminal": "Invia al terminale di pagamento",
             "validate": "Convalida",
             "clientDebt": "Saldo cliente"

@@ -21621,7 +21621,6 @@
             "homeDelivery": "Bezorging",
             "firstName": "Voornaam",
             "lastName": "Achternaam",
-            "unauthenticatedWarning": "Er wordt een anonieme factuur aangemaakt, indien er geen lid aan gekoppeld kan worden. We raden aan om facturen altijd aan leden te koppelen om de informatie overzichtelijk te houden.",
             "sendToTerminal": "Stripe Terminal",
             "cancel": "Annuleren",
             "validate": "Bevestigen",

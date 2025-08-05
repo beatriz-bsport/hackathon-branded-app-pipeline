@@ -21503,7 +21503,6 @@
             "amountDue": "Geschuldeter Gesamtbetrag",
             "partialPayment": "Bezahlt",
             "onSpot": "Vor Ort",
-            "unauthenticatedWarning": "Wenn kein Mitglied für diese Rechnung authentifiziert ist, wird sie im anonymen Modus erstellt. Es ist ratsam, ein Mitglied zuzuweisen, um die Nachverfolgung der Informationen zu erleichtern.",
             "noPartialInstalment": {
                 "explanation": "Es ist nicht möglich, in Raten zu zahlen, wenn der zu zahlende Gesamtbetrag geändert wurde.",
                 "reset": "Zurücksetzen"

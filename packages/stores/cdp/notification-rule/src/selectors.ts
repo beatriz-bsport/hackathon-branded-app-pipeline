@@ -40,6 +40,7 @@ export const selectNotificationRuleEventsByGroup = (
   state: NotificationRuleState,
 ): Record<string, NotificationRuleEvent[]> =>
   state.notificationRuleEvents
+    // When we filter the events, we only want to keep the editable ones.
     .filter((event) => event.is_editable)
     .reduce(
       (acc, event) => {

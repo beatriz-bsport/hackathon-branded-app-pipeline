@@ -209,12 +209,13 @@ const QuicksaleItemAdditionDrawer: React.FC<Props> = ({
                 (pageNumber - 1) * PAGE_SIZE,
                 Math.min(selectedItems.length, pageNumber * PAGE_SIZE),
               )
-              .map((item) => (
+              .map((item, index, array) => (
                 <ListItem
                   key={`selected ${item.id}`}
                   displayBin
                   dispatch={dispatch}
                   item={item}
+                  noDivider={index === array.length - 1}
                 />
               ))}
 
@@ -273,7 +274,9 @@ const QuicksaleItemAdditionDrawer: React.FC<Props> = ({
         open={searchText !== ''}
         placement="bottom-start"
         style={{
-          width: searchBarRef.current ? searchBarRef.current.clientWidth : 0,
+          width: searchBarRef.current
+            ? (searchBarRef.current as HTMLElement).clientWidth
+            : 0,
         }}
       >
         <Paper className={classes.resultListContainer}>

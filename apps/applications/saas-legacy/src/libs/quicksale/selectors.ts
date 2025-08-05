@@ -163,6 +163,23 @@ export const getItemsInQuicksaleConfig = createSelector(
   }),
 );
 
+/**
+ * Local selector that combines subShops with their associated shop items.
+ * Converts immutable data to mutable format for React Select compatibility.
+ * Returns an array of subShops where each subShop contains its filtered shop items.
+ */
+const _getSubShopsWithItems = createSelector(
+  [(state: RootState) => state.shop.subShops, getStandaloneAndBaseShopItemList],
+  (subShops, shopItems) => {
+    const mutableShopItems = Immutable.asMutable(shopItems);
+    return Immutable.asMutable(subShops).map((subShop) => ({
+      id: subShop.id,
+      name: subShop.name,
+      shopItems: mutableShopItems.filter((item) => item.subshop === subShop.id),
+    }));
+  },
+);
+
 export const getAvailableItemsByItemIdentifierByCategory = createSelector(
   [
     groupByCategory(
@@ -177,7 +194,7 @@ export const getAvailableItemsByItemIdentifierByCategory = createSelector(
         getBuyableItem(state)[QuicksaleBasketItem.PrivatePassIdentifier],
     ),
     getBuyableItem,
-    getStandaloneAndBaseShopItemList,
+    _getSubShopsWithItems,
     // @ts-expect-error
     getAvailableContractList as () => Contract[],
   ],
@@ -185,7 +202,7 @@ export const getAvailableItemsByItemIdentifierByCategory = createSelector(
     paymentPacksByCategory,
     privatePassByCategory,
     buyableItems,
-    shopItems,
+    subShops,
     contractList,
   ): QuicksaleObjectsByItemIdentifierByCategory => ({
     [QuicksaleBasketItem.PaymentPackIdentifier]: {
@@ -220,13 +237,11 @@ export const getAvailableItemsByItemIdentifierByCategory = createSelector(
     },
     [QuicksaleBasketItem.ShopItemIdentifier]: {
       hasCategories: true,
-      itemsByCategory: [
-        {
-          id: null,
-          name: '',
-          items: shopItems,
-        },
-      ],
+      itemsByCategory: subShops.map((subShop) => ({
+        id: subShop.id,
+        name: subShop.name,
+        items: subShop.shopItems,
+      })),
     },
     [QuicksaleBasketItem.SubscriptionIdentifier]: {
       hasCategories: false,

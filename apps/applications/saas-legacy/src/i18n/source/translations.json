@@ -312,7 +312,9 @@
             "recurrent": {
                 "backToRegistererChoice": "Back",
                 "bookMultiple": "Book",
-                "title": "Upcoming sessions"
+                "title": "Upcoming sessions",
+                "selectAll": "Select all",
+                "unselectAll": "Unselect all"
             },
             "isLoading": "Looking for sessions...",
             "book": {

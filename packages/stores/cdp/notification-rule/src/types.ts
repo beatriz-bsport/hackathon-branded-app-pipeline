@@ -46,3 +46,36 @@ export type NotificationRuleSettingsResult = Array<{
   id: number | null;
   settings: Record<number, NotificationRuleEventSetting>;
 }>;
+
+/**
+ * Valid notification rule event category identifiers.
+ * These correspond to the notification_group values from the API and translation keys.
+ *
+ * @example
+ * ```tsx
+ * // Use with the formatting hook
+ * const categories: NotificationRuleEventCategory[] = ["member", "booking", "payment_pack"];
+ * const { formatNotificationRuleEventListItems } = useFormatNotificationEventList({
+ *   notificationRuleEventMapByGroup
+ * });
+ * const listItems = formatNotificationRuleEventListItems(categories);
+ * ```
+ */
+
+export const notificationRuleEventCategories = [
+  "member",
+  "booking",
+  "private_booking",
+  "recurrent_private_booking",
+  "payment_pack",
+  "giftcard",
+  "offer",
+  "replacement_request",
+  "waiting_list",
+  "subscription",
+  "invoice",
+  "referral",
+] as const;
+
+export type NotificationRuleEventCategory =
+  (typeof notificationRuleEventCategories)[number];

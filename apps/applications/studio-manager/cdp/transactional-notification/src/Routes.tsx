@@ -1,12 +1,15 @@
 import { lazy } from "react";
-import { Route, Routes } from "react-router";
+import { Navigate, Route, Routes } from "react-router";
 
-const SettingPage = lazy(() => import("#src/pages/SettingPage"));
+const NotificationRuleEventPage = lazy(
+  () => import("#src/pages/NotificationRuleEventPage"),
+);
 
 export const AppRoutes = () => {
   return (
     <Routes>
-      <Route element={<SettingPage />} path="/" />
+      <Route element={<NotificationRuleEventPage />} path="/" />
+      <Route element={<Navigate to="/" />} path="*" />
     </Routes>
   );
 };

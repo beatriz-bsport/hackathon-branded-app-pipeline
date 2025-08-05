@@ -715,6 +715,7 @@ const connector = connect(
   (state: RootState) => ({
     authenticated: state.auth.authenticated,
     theme: themeSelectors.getTheme(state),
+    customConfiguration: state.exportableComponents.customCss,
   }),
   {
     snackbarError: snackbarErrorAction,

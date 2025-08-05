@@ -9,7 +9,6 @@ import Event from '@material-ui/icons/Event';
 import Cancel from '@material-ui/icons/Cancel';
 import IconButton from '@material-ui/core/IconButton';
 import Delete from '@material-ui/icons/Delete';
-import Alert from '@material-ui/lab/Alert';
 
 import {
   BUYABLE_ITEM_COUPON,
@@ -161,12 +160,6 @@ const QuicksaleBasketSummary: React.FC<Props> = ({
         member={member}
         openChangeMemberModal={openMemberAuthenticationModal}
       />
-
-      {member?.is_pos ? (
-        <Alert className={classes.unauthenticatedAlert} severity="warning">
-          {t('checkout.unauthenticatedWarning')}
-        </Alert>
-      ) : null}
 
       {showInvoiceInformation && (
         <DateInput

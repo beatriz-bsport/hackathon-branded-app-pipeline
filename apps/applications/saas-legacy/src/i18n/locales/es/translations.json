@@ -21613,7 +21613,6 @@
             "amountDue": "Total debido",
             "partialPayment": "Pagado",
             "lastName": "Apellido",
-            "unauthenticatedWarning": "Si no hay ningún miembro autentificado para esta factura, se creará en modo anónimo. Se recomienda asignar un miembro para facilitar el seguimiento de la información.",
             "sendToTerminal": "Enviar al terminal",
             "cancel": "Cancelar",
             "validate": "Validar",

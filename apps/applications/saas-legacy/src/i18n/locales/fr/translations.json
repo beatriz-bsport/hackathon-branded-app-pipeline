@@ -21236,7 +21236,6 @@
             "homeDelivery": "Livraison",
             "firstName": "Prénom",
             "lastName": "Nom",
-            "unauthenticatedWarning": "Si aucun membre n'est authentifié sur cette facture, elle sera créée en mode anonyme. Il est conseillé d'attribuer un membre afin de faciliter le suivi de l'information.",
             "sendToTerminal": "Envoyer sur le terminal",
             "cancel": "Annuler",
             "validate": "Valider",

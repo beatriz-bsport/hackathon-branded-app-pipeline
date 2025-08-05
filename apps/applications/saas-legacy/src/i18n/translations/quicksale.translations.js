@@ -217,8 +217,6 @@ exports.default = {
     homeDelivery: 'Delivery',
     firstName: 'First name',
     lastName: 'Last name',
-    unauthenticatedWarning:
-      'If no member is authenticated for this invoice, it will be created in anonymous mode. Assigning a member is recommended to make it easier to track information.',
     sendToTerminal: 'Send to terminal',
     cancel: 'Cancel',
     validate: 'Validate',

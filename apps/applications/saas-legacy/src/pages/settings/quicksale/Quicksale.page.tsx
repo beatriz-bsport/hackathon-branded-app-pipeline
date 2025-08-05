@@ -36,6 +36,11 @@ const Quicksale: React.FC<Props> = ({ pageHeight, fullHeight = true }) => {
           component={QuicksaleItemListPage}
           path="/settings/quicksale/:sectionId"
         />
+        <Route
+          exact
+          component={QuicksaleItemListPage}
+          path="/settings/quicksale/:sectionId/:variantItemId/"
+        />
       </Switch>
     </div>
   );

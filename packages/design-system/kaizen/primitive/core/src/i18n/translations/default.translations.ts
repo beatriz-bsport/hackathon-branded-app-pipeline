@@ -57,4 +57,9 @@ exports.default = {
     failed: "Failed to copy to clipboard",
     tooltip: "Click to copy",
   },
+  detailDrawer: {
+    tooltip: {
+      close: "Close",
+    },
+  },
 };

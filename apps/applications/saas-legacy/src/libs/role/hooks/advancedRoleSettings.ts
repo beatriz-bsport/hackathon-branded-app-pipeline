@@ -9,6 +9,7 @@ import {
 
 import type { SelectFieldItem } from '../types';
 import type { Props as AdvancedSettingsProps } from '../components/AdvancedRoleSettingsModal.component';
+import type { EstablishmentBillingGroup } from '#src/libs/establishment/types';
 
 /**
  * `useAdvancedRoleSettings` is a custom hook that manages the advanced role settings.
@@ -38,6 +39,7 @@ export const useAdvancedRoleSettings = ({
   onConfirm,
   updateUserRole,
   userRole,
+  establishmentBillingGroups,
 }: Pick<
   AdvancedSettingsProps,
   | 'coachList'
@@ -47,6 +49,7 @@ export const useAdvancedRoleSettings = ({
   | 'onConfirm'
   | 'updateUserRole'
   | 'userRole'
+  | 'establishmentBillingGroups'
 >) => {
   /**
    * TEACHERS
@@ -269,6 +272,59 @@ export const useAdvancedRoleSettings = ({
   ]);
 
   /**
+   * Establishment Billing Groups
+   */
+
+  const selectedEstablishmentBillingGroupInitial = useMemo(() => {
+    if (
+      !userRole?.staff_establishment_billing_group ||
+      !establishmentBillingGroups
+    )
+      return null;
+    const establishmentBillingGroup = establishmentBillingGroups.find(
+      (group) => group.id === userRole.staff_establishment_billing_group,
+    );
+
+    if (!establishmentBillingGroup) return null;
+
+    return {
+      label: establishmentBillingGroup.name,
+      value: establishmentBillingGroup.id,
+    };
+  }, [establishmentBillingGroups, userRole]);
+
+  const establishmentBillingGroupOptions = useMemo(
+    () =>
+      establishmentBillingGroups
+        ? [...establishmentBillingGroups]?.map(
+            (object: EstablishmentBillingGroup) => ({
+              value: object.id,
+              label: object.name,
+            }),
+          )
+        : [],
+    [establishmentBillingGroups],
+  );
+
+  const [
+    selectedEstablishmentBillingGroup,
+    setSelectedEstablishmentBillingGroup,
+  ] = useState<SelectFieldItem | null>(null);
+
+  const handleSelectEstablishmentBillingGroup = useCallback(
+    (value: SelectFieldItem) => {
+      setSelectedEstablishmentBillingGroup(value);
+    },
+    [setSelectedEstablishmentBillingGroup],
+  );
+
+  useEffect(() => {
+    setSelectedEstablishmentBillingGroup(
+      selectedEstablishmentBillingGroupInitial,
+    );
+  }, [selectedEstablishmentBillingGroupInitial]);
+
+  /**
    * GENERAL
    */
 
@@ -280,9 +336,12 @@ export const useAdvancedRoleSettings = ({
     const establishmentIds = selectedEstablishments.map(
       (establishment) => establishment.value,
     );
+    const staff_establishment_billing_group =
+      selectedEstablishmentBillingGroup?.value || null;
     updateUserRole(userRole.id, {
       coaches: coachIds,
       establishments: establishmentIds,
+      staff_establishment_billing_group,
     });
     onConfirm?.();
   }, [
@@ -291,14 +350,18 @@ export const useAdvancedRoleSettings = ({
     updateUserRole,
     userRole,
     selectedEstablishments,
+    selectedEstablishmentBillingGroup,
   ]);
 
   return {
     coachOptions,
     establishmentOptions,
+    establishmentBillingGroupOptions,
     handleResetAdvancedSettings,
     handleSelectCoaches,
     handleSelectEstablishments,
+    handleSelectEstablishmentBillingGroup,
+    selectedEstablishmentBillingGroup,
     handleSelectSite,
     handleSubmit,
     selectedCoaches,

@@ -11,38 +11,55 @@ import type {
 import QuicksaleItemCard from '#src/libs/quicksale/components/QuicksaleItemCard';
 import QuicksaleItemList from '#src/libs/quicksale/components/QuicksaleItemList';
 import QuicksaleSectionList from '#src/libs/quicksale/components/QuicksaleSectionList';
+import type { ShopItem } from '#src/libs/shop/types';
 
 import MuiIcon from '#src/components/MuiIcon.component';
 
 import useStyles from './hooks/styles';
+import QuicksaleVariantList from '#src/libs/quicksale/components/QuicksaleVariantList/QuicksaleVariantList';
+import { QuicksaleBasketItem } from '@bsport/common/lib/master-data/buyable-items';
 
 type Props = {
-  sectionList?: QuicksaleSection[];
-  itemCardInfoList?: QuicksaleCardInfo[];
-  searchResults?: QuicksaleCardInfo[];
-  showResults?: boolean;
   currentSection?: QuicksaleSection;
-  searchText?: string;
-  onSectionClick: (sectionId: string) => void;
-  onItemClick?: (item: QuicksaleCardInfo) => void;
-  loading?: boolean;
+  currentVariantItem: ShopItem | null;
   isExcludingTax?: boolean;
+  itemCardInfoList?: QuicksaleCardInfo[];
+  loading?: boolean;
+  onItemClick: (item: QuicksaleCardInfo) => void;
+  onSectionClick: (sectionId: string) => void;
+  onVariantItemClick: (itemId: string) => void;
+  searchResults?: QuicksaleCardInfo[];
+  searchText?: string;
+  sectionList?: QuicksaleSection[];
+  showResults?: boolean;
 };
 
 const QuicksaleTileList: React.FC<Props> = ({
-  sectionList,
-  itemCardInfoList,
-  searchResults,
-  showResults,
   currentSection,
-  searchText,
-  onSectionClick,
-  onItemClick,
-  loading,
+  currentVariantItem,
   isExcludingTax,
+  itemCardInfoList,
+  loading,
+  onItemClick,
+  onSectionClick,
+  onVariantItemClick,
+  searchResults,
+  searchText,
+  sectionList,
+  showResults,
 }) => {
   const classes = useStyles();
   const { t } = useTranslation('quicksale');
+
+  const currentItemVariantList = React.useMemo(
+    () =>
+      itemCardInfoList?.find(
+        (item) =>
+          item.id ===
+          `${QuicksaleBasketItem.ShopItemIdentifier} ${currentVariantItem?.id}`,
+      )?.variants ?? [],
+    [currentVariantItem?.id, itemCardInfoList],
+  );
 
   if (showResults) {
     return (
@@ -101,6 +118,18 @@ const QuicksaleTileList: React.FC<Props> = ({
     );
   }
 
+  if (currentVariantItem) {
+    return (
+      <QuicksaleVariantList
+        currentSectionId={currentSection?.section_id ?? ''}
+        currentVariantItemId={currentVariantItem.id}
+        isExcludingTax={isExcludingTax}
+        onItemClick={onItemClick}
+        variantList={currentItemVariantList}
+      />
+    );
+  }
+
   if (currentSection) {
     return (
       <QuicksaleItemList
@@ -108,6 +137,7 @@ const QuicksaleTileList: React.FC<Props> = ({
         itemList={itemCardInfoList}
         loading={loading}
         onItemClick={onItemClick}
+        onVariantItemClick={onVariantItemClick}
       />
     );
   }

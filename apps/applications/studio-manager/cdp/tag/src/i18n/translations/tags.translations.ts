@@ -9,6 +9,9 @@ exports.default = {
         label: "Add sub tag",
       },
     },
+    loadingState: {
+      message: "Loading tags...",
+    },
     emptyPageState: {
       title: "No tags yet",
       description: "Create tags to manage your members",
@@ -173,6 +176,44 @@ exports.default = {
       },
       failure: {
         title: "There was an error while deleting your sub tag",
+      },
+    },
+  },
+  tagsDetails: {
+    members: "Members",
+    actions: {
+      tagAll: "Tag all",
+      untagAll: "Untag all",
+      edit: "Edit",
+    },
+    tooltip: {
+      close: "Close",
+      tagMember: "Tag member",
+      untagMember: "Untag member",
+      editTag: "Change name or color",
+      previousSubTag: "View previous sub tag",
+      nextSubTag: "View next sub tag",
+    },
+    segmentedControl: {
+      tagged: "Tagged",
+      untagged: "Untagged",
+    },
+    memberList: {
+      loadingState: {
+        tagged: "Loading tagged members...",
+        untagged: "Loading untagged members...",
+      },
+      emptyState: {
+        title: {
+          tagged: "No members tagged yet",
+          untagged: "No members untagged yet",
+        },
+        description: {
+          untagged:
+            "You can tag members by clicking on the plus icon next to their name on the untagged list.",
+          tagged:
+            "You can untag members by clicking on the minus icon next to their name on the tagged list.",
+        },
       },
     },
   },

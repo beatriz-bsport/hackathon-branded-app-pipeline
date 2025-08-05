@@ -14,12 +14,17 @@ type Props = {
   isExcludingTax?: boolean;
   itemList?: Array<QuicksaleCardInfo>;
   loading?: boolean;
-  onItemClick?: (item: QuicksaleCardInfo) => void;
+  onItemClick: (item: QuicksaleCardInfo) => void;
+  onVariantItemClick: (itemId: string) => void;
 };
 
-const QuicksaleItemList: React.FC<Props> = (props) => {
-  const { isExcludingTax, itemList, loading, onItemClick } = props;
-
+const QuicksaleItemList: React.FC<Props> = ({
+  isExcludingTax,
+  itemList,
+  loading,
+  onItemClick,
+  onVariantItemClick,
+}) => {
   const classes = useStyle({ isQuicksaleInterfaceView: true });
 
   const isMobile = useMediaQuery((theme: Theme) =>
@@ -37,7 +42,6 @@ const QuicksaleItemList: React.FC<Props> = (props) => {
             style={{
               maxHeight: autoSizerProps.height,
               width: autoSizerProps.width,
-              overflow: 'auto',
             }}
           >
             {loading
@@ -60,6 +64,7 @@ const QuicksaleItemList: React.FC<Props> = (props) => {
                       addToBasket={onItemClick}
                       isExcludingTax={isExcludingTax}
                       item={item}
+                      onVariantItemClick={onVariantItemClick}
                       outOfStock={item.outOfStock}
                       restrictedPurchase={item.restricted}
                     />

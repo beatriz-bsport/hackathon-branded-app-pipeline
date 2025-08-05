@@ -3,8 +3,11 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 
 import withDelayedUnmount from "#src/HoC/withDelayedUnmount";
 import withEscapeHandler from "#src/HoC/withEscapeHandler";
-import Button from "#src/components/Button";
+import Button, { ButtonProps } from "#src/components/Button";
 import { useScreenType } from "#src/hooks/use-screen-type";
+import { useKaizenI18nInstance, useTranslation } from "#src/i18n";
+
+import { WithTooltip, withTooltip } from "../Tooltip";
 
 // Base drawer styles - positioned fixed for overlay behavior
 const defaultClasses = [
@@ -88,15 +91,15 @@ export type DetailDrawerProps = React.HTMLAttributes<HTMLDivElement> &
     children?: React.ReactNode;
     /** Function called when drawer should close */
     onClose: () => void;
-    /** Optional - Function called when clicking on the previous item button, if not provide, the button is not shown*/
-    onPrevious?: () => void;
-    /** Optional - Function called when clicking on the next item button, if not provide, the button is not shown*/
-    onNext?: () => void;
+    /** Optional - Tupple of two actions to add at the end of the Detail Drawer component*/
+    actionsConfig?: [WithTooltip<ButtonProps>, WithTooltip<ButtonProps>];
   };
 
 type ComponentProps = DetailDrawerProps & {
   shouldRender: boolean; // Controls whether to render the drawer content
 };
+
+const ButtonWithTooltip = withTooltip(Button);
 
 /**
  * DetailDrawer - A transient, side-mounted container for viewing or minimally editing a selected item within a broader context.
@@ -191,11 +194,13 @@ const DetailDrawerComponent: React.FC<ComponentProps> = ({
   isOpen,
   children,
   onClose,
-  onPrevious,
-  onNext,
+  actionsConfig,
   shouldRender,
   ...props
 }) => {
+  const i18nInstance = useKaizenI18nInstance();
+  const { t } = useTranslation("default", { i18n: i18nInstance });
+
   const [openByOrientation, setOpenByOrientation] = useState<
     "desktop-true" | "desktop-false" | "mobile-true" | "mobile-false" | null
   >("desktop-false");
@@ -242,7 +247,7 @@ const DetailDrawerComponent: React.FC<ComponentProps> = ({
     >
       {/* Header with close button */}
       <header className={header()}>
-        <Button
+        <ButtonWithTooltip
           id={`close-detail-drawer-${id}`}
           intent="flat"
           size="sm"
@@ -253,30 +258,22 @@ const DetailDrawerComponent: React.FC<ComponentProps> = ({
               : "chevron-right-double"
           }
           onClick={onClose}
+          tooltipProps={{
+            label: t("detailDrawer.tooltip.close"),
+            placement: "bottom-left",
+          }}
         />
         <div className="flex flex-row gap-xs">
-          {onPrevious ? (
-            <Button
-              intent="default"
-              size="sm"
-              color="main"
-              iconLeft="chevron-up"
-              onClick={() => {
-                onPrevious?.();
+          {(actionsConfig || []).map((action) => (
+            <ButtonWithTooltip
+              key={action.id}
+              {...action}
+              onClick={(event) => {
+                event.stopPropagation();
+                action.onClick?.(event);
               }}
             />
-          ) : null}
-          {onNext ? (
-            <Button
-              intent="default"
-              size="sm"
-              color="main"
-              iconLeft="chevron-down"
-              onClick={() => {
-                onNext?.();
-              }}
-            />
-          ) : null}
+          ))}
         </div>
       </header>
 

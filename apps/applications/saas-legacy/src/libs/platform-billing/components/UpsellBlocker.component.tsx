@@ -25,6 +25,13 @@ import FeatureRequestDialog from '#src/libs/platform-billing/components/FeatureR
 import Config from '../../../config';
 import type { Dispatch } from '../../../state/types';
 import type { RootState } from '../../../reducers';
+import { SegmentAnalyticsFormObjectIdentifier } from '#src/components/analytics/segment';
+import { rudderStackFormTrackingFunctionsRegistry } from '#src/components/analytics/rudderstack/utils';
+
+const { trackFormSubmitIntent: trackFormSubmitIntentUpsellRequest } =
+  rudderStackFormTrackingFunctionsRegistry(
+    SegmentAnalyticsFormObjectIdentifier.UpsellRequest,
+  );
 
 const useStyles = makeStyles((theme) => ({
   blockerFrame: {
@@ -124,6 +131,9 @@ export const UpsellBlockerDialog = React.memo(
     }, []);
 
     const handleRequestUpsellPackage = React.useCallback(() => {
+      trackFormSubmitIntentUpsellRequest(upsellIdentifier, {
+        source_component: 'UpsellBlockerDialog',
+      });
       requestUpsellPackage(upsellIdentifier);
       setIsFeatureRequestDialogOpen(true);
     }, [requestUpsellPackage, upsellIdentifier]);

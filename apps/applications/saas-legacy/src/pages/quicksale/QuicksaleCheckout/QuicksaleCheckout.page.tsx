@@ -186,6 +186,7 @@ const QuicksalePayment: React.FC<Props> = ({
           setShowPaymentSuccessModal(true);
         }
       },
+      onError: () => push('/quicksale/'),
     });
   }, [
     basketId,
@@ -427,12 +428,13 @@ const QuicksalePayment: React.FC<Props> = ({
 
   // ========== Internal account ==========
 
-  const useInternalAccount = React.useCallback(
-    (amount: number, options?: OptionCallback<Basket>) => {
-      createOrRefreshInternalAccountPrepaidLine(basketId, amount, options);
-    },
-    [basketId, createOrRefreshInternalAccountPrepaidLine],
-  );
+  // (Quicksale MVP): CreditCard and Sepa payment methods disabled
+  // const useInternalAccount = React.useCallback(
+  //   (amount: number, options?: OptionCallback<Basket>) => {
+  //     createOrRefreshInternalAccountPrepaidLine(basketId, amount, options);
+  //   },
+  //   [basketId, createOrRefreshInternalAccountPrepaidLine],
+  // );
 
   const removeInternalAccountPrepaidLine = React.useCallback(
     (options?: OptionCallback<Basket>) => {
@@ -477,7 +479,8 @@ const QuicksalePayment: React.FC<Props> = ({
         setSelectedPaymentMethod={setPaymentMethod}
         stripeReaders={stripeReaders}
         theme={theme}
-        useInternalAccount={useInternalAccount}
+        // (Quicksale MVP): Internal account disabled
+        // useInternalAccount={useInternalAccount}
         // (Quicksale MVP): CreditCard and Sepa payment methods disabled
         /* checkItemsBasket={checkItemsBasket}
         detachPaymentMethodLoading={detachPaymentMethodLoading}

@@ -190,6 +190,7 @@ export type ShopItem = {
   total_sales?: number;
   tva: string;
   unlimited_provisions?: boolean;
+  variant_ids?: number[];
 };
 
 export type ShopItemBarcodeUnicity = {

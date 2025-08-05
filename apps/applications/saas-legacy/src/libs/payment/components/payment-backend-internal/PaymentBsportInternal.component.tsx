@@ -1,4 +1,4 @@
-import React, { JSX } from 'react';
+import React from 'react';
 
 import { DateTime } from 'luxon';
 import clsx from 'clsx';
@@ -16,7 +16,7 @@ import { useTranslation } from 'react-i18next';
 import { PAYMENT_GROUP_METHOD_IDENTIFIER_CASH } from '@bsport/common/lib/master-data/payment-group.js';
 import PriceInput from '#src/components/input/PriceInput.component';
 import type { InternalPaymentPayload } from '#src/libs/payment/types';
-import DateInput from '../../../../components/input/DateInput.component';
+// import DateInput from '../../../../components/input/DateInput.component';
 
 import { submitInternalPayment as submitInternalPaymentAPI } from '../../api';
 
@@ -27,9 +27,10 @@ type Props = {
   amountToPay: string;
   clientSecret: string;
   onCancel: () => void;
+  onProcessing?: (processing: boolean) => void;
   onSuccess: (callback?: () => void) => void;
   hideAmountToPay?: boolean;
-  dateFieldEndAdornment?: JSX.Element;
+  // dateFieldEndAdornment?: JSX.Element;
   customClasses?: { [className: string]: string };
   children?: React.ReactNode;
   submitInternalPaymentInBackground?: (
@@ -47,9 +48,10 @@ export const PaymentBsportInternal: React.FC<Props> = ({
   amountToPay,
   clientSecret,
   onCancel,
+  onProcessing,
   onSuccess,
   hideAmountToPay,
-  dateFieldEndAdornment,
+  // dateFieldEndAdornment,
   customClasses,
   children,
   submitInternalPaymentInBackground,
@@ -71,7 +73,7 @@ export const PaymentBsportInternal: React.FC<Props> = ({
     [amountToPay],
   );
 
-  const [date, setDate] = React.useState(DateTime.now());
+  const [date, _setDate] = React.useState(DateTime.now());
 
   const [paymentMethodSelected, setPaymentMethodSelected] = React.useState(
     PAYMENT_GROUP_METHOD_IDENTIFIER_CASH,
@@ -91,6 +93,7 @@ export const PaymentBsportInternal: React.FC<Props> = ({
     (ev: React.FormEvent) => {
       ev.preventDefault();
       setProcessing(true);
+      onProcessing?.(true);
       if (submitInternalPaymentInBackground) {
         submitInternalPaymentInBackground(
           {
@@ -104,9 +107,11 @@ export const PaymentBsportInternal: React.FC<Props> = ({
           {
             onSuccess: () => {
               setProcessing(false);
+              onProcessing?.(false);
             },
             onError: () => {
               setProcessing(false);
+              onProcessing?.(false);
             },
           },
         );
@@ -121,6 +126,7 @@ export const PaymentBsportInternal: React.FC<Props> = ({
         })
           .then(() => {
             onSuccess(() => setProcessing(false));
+            onProcessing?.(false);
           })
           .catch((err) => console.error(err));
       }
@@ -129,6 +135,7 @@ export const PaymentBsportInternal: React.FC<Props> = ({
       clientSecret,
       date,
       modifiedAmountToPay,
+      onProcessing,
       onSuccess,
       paymentMethodSelected,
       payment_note,
@@ -136,9 +143,9 @@ export const PaymentBsportInternal: React.FC<Props> = ({
     ],
   );
 
-  const onDateChange = React.useCallback((dateMoment: DateTime) => {
-    setDate(dateMoment);
-  }, []);
+  // const onDateChange = React.useCallback((dateMoment: DateTime) => {
+  //   setDate(dateMoment);
+  // }, []);
 
   const onPaymentNoteChange = React.useCallback(
     (ev: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) =>
@@ -198,7 +205,7 @@ export const PaymentBsportInternal: React.FC<Props> = ({
           ))}
         </Select>
       </FormControl>
-      <div className={clsx(classes.field, customClasses?.field)}>
+      {/* <div className={clsx(classes.field, customClasses?.field)}>
         <DateInput
           required
           disabled={processing}
@@ -207,7 +214,7 @@ export const PaymentBsportInternal: React.FC<Props> = ({
           onChange={onDateChange}
           value={date}
         />
-      </div>
+      </div> */}
       <div
         className={clsx(classes.innerContainer, customClasses?.innerContainer)}
       >

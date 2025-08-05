@@ -5,7 +5,8 @@ const useStyle = makeStyles<Theme, { isQuicksaleInterfaceView?: boolean }>(
   (theme) => ({
     itemContainer: {
       borderRadius: theme.spacing(1),
-      overflow: 'auto',
+      overflowY: 'auto',
+      overflowX: 'hidden',
       margin: 0,
       height: 'fit-content',
     },

@@ -92,6 +92,14 @@ const useStyles = makeStyles<
     alignItems: 'center',
     width: '100%',
   },
+  loadingSpinner: {
+    display: 'flex',
+    justifyContent: 'center',
+    margin: theme.spacing(2, 0, 1),
+  },
+  spinner: {
+    color: theme.palette.grey[300],
+  },
 }));
 
 export default useStyles;

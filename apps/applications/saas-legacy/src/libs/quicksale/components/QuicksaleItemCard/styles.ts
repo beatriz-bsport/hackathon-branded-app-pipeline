@@ -7,16 +7,16 @@ import {
 
 const useStyle = makeStyles<
   Theme,
-  { color: QuicksaleItemColor; admin: boolean }
+  { color: QuicksaleItemColor; isClickable: boolean }
 >((theme) => ({
-  container: ({ color, admin }) => ({
+  container: ({ color, isClickable }) => ({
     minWidth: QuicksaleItemCardStyle.minWidth,
     minHeight: QuicksaleItemCardStyle.minHeight,
     aspectRatio: QuicksaleItemCardStyle.aspectRatio.toString(),
     border: `1px solid ${getBorderColorFromBackgroundColor(color)}`,
     padding: theme.spacing(1.375),
     containerType: 'inline-size',
-    ...(admin ? {} : { cursor: 'pointer' }),
+    ...(isClickable ? { cursor: 'pointer' } : {}),
   }),
   cardHeader: {
     display: 'flex',

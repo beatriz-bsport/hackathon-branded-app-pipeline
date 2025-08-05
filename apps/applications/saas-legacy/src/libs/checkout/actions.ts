@@ -6,7 +6,10 @@ import {
   BASKET_PROCESSING_PAYMENT_EXCEPTION,
 } from '@bsport/common/lib/master-data/error-codes/lock.js';
 
-import { BASKET_CANNOT_REMOVE_ITEM_BECAUSE_OF_PAYMENT_GROUP_STATUS } from '@bsport/common/lib/master-data/error-codes/basket.js';
+import {
+  BASKET_CANNOT_REMOVE_ITEM_BECAUSE_OF_PAYMENT_GROUP_STATUS,
+  BASKET_QUICKSALE_PREVIOUSLY_DROPPED,
+} from '@bsport/common/lib/master-data/error-codes/basket.js';
 
 import { snackbarError, snackbarSuccess } from '#src/libs/snackbar/actions';
 import { fetchEventList } from '#src/libs/event/actions';
@@ -164,6 +167,17 @@ export function fetchBasket(
     } catch (error) {
       dispatch(retrieveBasket.error(error));
       if (options && options.onError) options.onError(error);
+
+      if (
+        isErrorWithCustomCode(error) &&
+        error.response.data?.error_code === BASKET_QUICKSALE_PREVIOUSLY_DROPPED
+      ) {
+        dispatch(
+          snackbarError(
+            `quicksaleCheckout.${BASKET_QUICKSALE_PREVIOUSLY_DROPPED}`,
+          ),
+        );
+      }
     }
     dispatch(retrieveBasket.isLoading(false));
   };

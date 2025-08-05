@@ -23,6 +23,7 @@ import {
   PAYMENT_ENGINE_BSPORT,
   PAYMENT_ENGINE_STRIPE,
   PAYMENT_GROUP_METHOD_IDENTIFIER_CASH,
+  PAYMENT_GROUP_METHOD_IDENTIFIER_DEBT,
 } from '@bsport/common/lib/master-data/payment-group.js';
 import {
   InvoiceAllowedReverseMethods,
@@ -414,11 +415,13 @@ export const InvoiceReverterDialog = ({
                 value={`${paymentMethodSelected}`}
               >
                 {PAYMENT_GROUP_METHOD_BY_ENGINE[PAYMENT_ENGINE_BSPORT].map(
-                  (pm) => (
-                    <MenuItem key={pm} value={pm}>
-                      {t(`paymentMethod.label.${pm}`)}
-                    </MenuItem>
-                  ),
+                  (pm) =>
+                    (pm !== PAYMENT_GROUP_METHOD_IDENTIFIER_DEBT ||
+                      !invoice.is_member_pos) && (
+                      <MenuItem key={pm} value={pm}>
+                        {t(`paymentMethod.label.${pm}`)}
+                      </MenuItem>
+                    ),
                 )}
               </Select>
             </Collapse>

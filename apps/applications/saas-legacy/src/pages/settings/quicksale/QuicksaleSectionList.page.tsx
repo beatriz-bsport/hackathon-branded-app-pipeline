@@ -46,6 +46,10 @@ import PromptOnPageLeave from '#src/components/Prompt';
 import { Dispatch } from '../../../state/types';
 import { RootState } from '../../../reducers';
 import useStyles from './cardListHook';
+import {
+  fetchShopItemBaseList as fetchShopItemBaseListAction,
+  fetchShopItemStandaloneList as fetchShopItemStandaloneListAction,
+} from '#src/libs/shop/actions/shopItemReworked';
 
 enum ReducerActionType {
   SET_SECTIONS = 'SET_SECTIONS',
@@ -86,6 +90,8 @@ const QuicksaleSectionList: React.FC<Props> = ({
   sectionList,
   openInfoSnackbar,
   fetchQuicksaleConfiguration,
+  fetchShopItemBaseList,
+  fetchShopItemStandaloneList,
   saveConfiguration,
   pushRouter,
   loading,
@@ -312,16 +318,21 @@ const QuicksaleSectionList: React.FC<Props> = ({
     [],
   );
 
-  // ==================== Fetch configuration ====================
+  // ==================== Fetch configuration and shop items ====================
   React.useEffect(() => {
+    fetchShopItemBaseList();
+    fetchShopItemStandaloneList();
     fetchQuicksaleConfiguration();
-  }, [fetchQuicksaleConfiguration]);
+  }, [
+    fetchQuicksaleConfiguration,
+    fetchShopItemBaseList,
+    fetchShopItemStandaloneList,
+  ]);
 
   // ==================== Save configuration ====================
-  const saveQuicksaleConfiguration = React.useCallback(
-    () => saveConfiguration(unsavedSectionList),
-    [saveConfiguration, unsavedSectionList],
-  );
+  const saveQuicksaleConfiguration = React.useCallback(async () => {
+    await saveConfiguration(unsavedSectionList);
+  }, [saveConfiguration, unsavedSectionList]);
 
   return (
     <>
@@ -471,11 +482,13 @@ const QuicksaleSectionList: React.FC<Props> = ({
 const connector = connect(
   (state: RootState) => ({
     sectionList: getSectionList(state),
-    loading: getLoading(state),
+    loading: getLoading(state) || state.shop.shopItem.bulk.loading,
     updateLoading: getUpdateLoading(state),
   }),
   {
     openInfoSnackbar: bottomSnackbarInfo,
+    fetchShopItemBaseList: fetchShopItemBaseListAction,
+    fetchShopItemStandaloneList: fetchShopItemStandaloneListAction,
     fetchQuicksaleConfiguration: fetchQuicksaleConfigurationAction,
     saveConfiguration: updateQuicksaleConfiguration,
     pushRouter: push,

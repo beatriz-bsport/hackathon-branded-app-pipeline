@@ -565,7 +565,7 @@
                 "success": "The recurrent booking has been modified"
             },
             "createModal": {
-                "success": "The recurrent booking has been created.",
+                "success": "The recurrent booking has been created. Bookings are being created.",
                 "info": "Cannot recreate a recurrent booking that already exists",
                 "create": "Add a recurrent booking"
             },
@@ -11351,7 +11351,10 @@
                 "credit": "credit",
                 "credit_plural": "credits",
                 "unlimited": "Unlimited"
-            }
+            },
+            "startingPrice": "From {{ price }}",
+            "numberOfVariants": "{{ count }} variant",
+            "numberOfVariants_plural": "{{ count }} variants"
         },
         "rolePage": {
             "noResult": "No access created",
@@ -11404,6 +11407,7 @@
             "noResult": "No result",
             "resultsForString": "{{ count }} result for {{ searchText }}",
             "resultsForString_plural": "{{ count }} results for {{ searchText }}",
+            "home": "Home",
             "goBack": "Back",
             "taxes": "Taxes",
             "totalIncludingTax": "Total",
@@ -13055,6 +13059,10 @@
                         "placeholder": "Select teachers",
                         "allOptionsPlaceholder": "All teachers",
                         "ifEmptySelectAll": "Leave empty to select all"
+                    },
+                    "establishmentBillingGroup": {
+                        "title": "Associated billing group *",
+                        "helpText": "A billing group is a way to group multiple locations under a single legal entity for invoicing and billing purposes."
                     },
                     "accessMonitoring": {
                         "title": "Access monitoring",
@@ -16379,7 +16387,8 @@
                 "error": {
                     "11000": "Cannot create variant(s) on a product used in a pack",
                     "11001": "Cannot create a pack with variant products"
-                }
+                },
+                "fetchError": "Error while fetching variants"
             }
         },
         "role": {
@@ -17370,6 +17379,9 @@
         "quicksaleConfiguration": {
             "error": "An error has occurred during save",
             "updated": "Configuration saved"
+        },
+        "quicksaleCheckout": {
+            "15010": "Impossible to read, update or work on this quicksale basket, it was previously dropped"
         },
         "spivi": {
             "error": {

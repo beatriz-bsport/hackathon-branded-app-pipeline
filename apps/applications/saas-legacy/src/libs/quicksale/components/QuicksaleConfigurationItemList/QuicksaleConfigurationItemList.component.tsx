@@ -23,6 +23,7 @@ type Props = {
   loading?: boolean;
   isQuicksaleInterfaceView?: boolean;
   onItemClick?: (item: QuicksaleCardInfo) => void;
+  onVariantItemClick: (itemId: string) => void;
   isExcludingTax?: boolean;
   onItemReorder?: (
     draggedItemIndex: number,
@@ -39,6 +40,7 @@ const QuicksaleConfigurationItemList: React.FC<Props> = (props) => {
     loading,
     isQuicksaleInterfaceView,
     onItemClick,
+    onVariantItemClick,
     isExcludingTax,
     onItemReorder,
   } = props;
@@ -109,7 +111,6 @@ const QuicksaleConfigurationItemList: React.FC<Props> = (props) => {
                 style={{
                   maxHeight: autoSizerProps.height,
                   width: autoSizerProps.width,
-                  overflow: 'auto',
                 }}
               >
                 {[...Array(16).keys()].map((index) => (
@@ -131,7 +132,6 @@ const QuicksaleConfigurationItemList: React.FC<Props> = (props) => {
                   style={{
                     maxHeight: autoSizerProps.height,
                     width: autoSizerProps.width,
-                    overflow: 'auto',
                   }}
                 >
                   {(itemList ?? []).map((item, index) => (
@@ -207,6 +207,7 @@ const QuicksaleConfigurationItemList: React.FC<Props> = (props) => {
                               deleteItem={deleteItem}
                               isExcludingTax={isExcludingTax}
                               item={item}
+                              onVariantItemClick={onVariantItemClick}
                               openColorModal={openColorModal}
                               outOfStock={item.outOfStock}
                               restrictedPurchase={item.restricted}

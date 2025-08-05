@@ -13,15 +13,10 @@ const SubscriptionEventsInnerRouter: React.FC<Props> = () => {
     <Switch>
       <Route
         exact
-        path="/subscription-events/omni"
-        render={() => <SubscriptionEvents biTool="omni" />}
-      />
-      <Route
-        exact
         path="/subscription-events/sigma"
         render={() => <SubscriptionEvents biTool="sigma" />}
       />
-      <Redirect to="/subscription-events/omni" />
+      <Redirect to="/subscription-events/sigma" />
     </Switch>
   );
 };

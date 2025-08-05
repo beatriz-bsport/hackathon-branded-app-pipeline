@@ -8,7 +8,7 @@ export default function TrialAnalysis() {
   return (
     <Switch>
       <Route component={TrialAnalysisInnerRouter} path="/trial-analysis" />
-      <Redirect to="/trial-analysis/franchise/omni" />
+      <Redirect to="/trial-analysis/franchise/sigma" />
     </Switch>
   );
 }

@@ -7178,8 +7178,7 @@
             "search": "Search",
             "reporting": "Reporting",
             "insights": {
-                "omni": "Insights - Omni",
-                "sigma": "Insights - Sigma",
+                "insights": "Insights",
                 "franchise": "Franchise",
                 "company": "Company",
                 "subscriptionEvents": "Subscription Events",
@@ -12045,6 +12044,44 @@
             "offerHasActiveRequest": {
                 "helper": "Do you want to be redirected to the substitution requests page to cancel obsolete requests?",
                 "title": "An active substitution request is linked to this session"
+            }
+        }
+    },
+    "insights": {
+        "sections": {
+            "memberInsights": "Member Insights",
+            "performance": "Performance Analytics"
+        },
+        "memberInsights": {
+            "trialAnalysisFranchise": {
+                "title": "Trial Analysis - Franchise",
+                "description": "Discover more about acquisition, conversion rates and how you can increase the effectiveness of your trial offer at franchise level."
+            },
+            "trialAnalysisCompany": {
+                "title": "Trial Analysis - Company", 
+                "description": "Discover more about acquisition, conversion rates and how you can increase the effectiveness of your trial offer at company level."
+            },
+            "subscriptionEvents": {
+                "title": "Subscription Events",
+                "description": "Track member lifecycle events and subscription patterns to understand member behavior."
+            }
+        },
+        "performance": {
+            "booking": {
+                "title": "Booking Performance",
+                "description": "Gain insights into scheduling efficiency and how full your sessions are."
+            },
+            "teacher": {
+                "title": "Teacher Performance", 
+                "description": "Get an overview of your teachers' performance and session quality over time."
+            },
+            "financial": {
+                "title": "Financial Health",
+                "description": "Understand how your business is performing and what you can do to improve your financial standing."
+            },
+            "marketing": {
+                "title": "Marketing Performance",
+                "description": "Keep an eye on trends related to your campaign reach, such as conversion and engagement rates."
             }
         }
     },
@@ -19395,8 +19432,9 @@
         "dashboard": {
             "marketingDashboard": "Marketing",
             "reportingDashboard": "Reporting",
-            "subscriptionEvents": "Subscription Events",
-            "trialAnalysis": "Trial Analysis",
+                            "subscriptionEvents": "Subscription Events",
+                "trialAnalysis": "Trial Analysis",
+                "insights": "Insights",
             "dashboard": "Dashboard"
         },
         "subscription": {
@@ -21109,6 +21147,7 @@
                     "order": "Orders"
                 },
                 "reporting": "Reporting",
+                "insights": "Insights",
                 "search": "Search",
                 "dashboard": "Dashboard",
                 "workshopActivities": "Workshops",

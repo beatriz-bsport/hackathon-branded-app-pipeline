@@ -567,52 +567,10 @@ const ResponsiveDrawer: React.FC<Props> = ({
         text: t('backofficeMenu.reporting'),
       } as DrawerItemDefault,
       {
-        icon: Dashboard,
-        text: t('backofficeMenu.insights.omni'),
-        type: 'nested',
-        nestedItems: [
-          { type: 'divider' } as DrawerItemDivider,
-          {
-            to: '/trial-analysis/franchise/omni',
-            icon: Business,
-            text: t('backofficeMenu.insights.trialAnalysisFranchise'),
-          } as DrawerItemDefault,
-          {
-            to: '/trial-analysis/company/omni',
-            icon: Store,
-            text: t('backofficeMenu.insights.trialAnalysisCompany'),
-          } as DrawerItemDefault,
-          {
-            to: '/subscription-events/omni',
-            icon: AssignmentIcon,
-            text: t('backofficeMenu.insights.subscriptionEvents'),
-          } as DrawerItemDefault,
-        ],
-      } as DrawerItemNested,
-      {
+        to: '/insights',
         icon: TrendingUp,
-        text: t('backofficeMenu.insights.sigma'),
-        type: 'nested',
-        nestedItems: [
-          { type: 'divider' } as DrawerItemDivider,
-          {
-            to: '/trial-analysis/franchise/sigma',
-            icon: Business,
-            text: t('backofficeMenu.insights.trialAnalysisFranchise'),
-          } as DrawerItemDefault,
-
-          {
-            to: '/trial-analysis/company/sigma',
-            icon: Store,
-            text: t('backofficeMenu.insights.trialAnalysisCompany'),
-          } as DrawerItemDefault,
-          {
-            to: '/subscription-events/sigma',
-            icon: AssignmentIcon,
-            text: t('backofficeMenu.insights.subscriptionEvents'),
-          } as DrawerItemDefault,
-        ],
-      } as DrawerItemNested,
+        text: t('backofficeMenu.insights.insights'),
+      } as DrawerItemDefault,
       { type: 'divider' } as DrawerItemDivider,
       {
         icon: SettingsIcon,

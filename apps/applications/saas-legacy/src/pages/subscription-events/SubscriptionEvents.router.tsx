@@ -11,7 +11,7 @@ export default function SubscriptionEvents() {
         component={SubscriptionEventsInnerRouter}
         path="/subscription-events"
       />
-      <Redirect to="/subscription-events/omni" />
+      <Redirect to="/subscription-events/sigma" />
     </Switch>
   );
 }

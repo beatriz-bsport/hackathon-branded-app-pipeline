@@ -13,16 +13,6 @@ const TrialAnalysisInnerRouter: React.FC<Props> = () => {
     <Switch>
       <Route
         exact
-        path="/trial-analysis/franchise/omni"
-        render={() => <TrialAnalysis biTool="omni" level="franchise" />}
-      />
-      <Route
-        exact
-        path="/trial-analysis/company/omni"
-        render={() => <TrialAnalysis biTool="omni" level="company" />}
-      />
-      <Route
-        exact
         path="/trial-analysis/franchise/sigma"
         render={() => <TrialAnalysis biTool="sigma" level="franchise" />}
       />
@@ -31,7 +21,7 @@ const TrialAnalysisInnerRouter: React.FC<Props> = () => {
         path="/trial-analysis/company/sigma"
         render={() => <TrialAnalysis biTool="sigma" level="company" />}
       />
-      <Redirect to="/trial-analysis/franchise/omni" />
+      <Redirect to="/trial-analysis/franchise/sigma" />
     </Switch>
   );
 };

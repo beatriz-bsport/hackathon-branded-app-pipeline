@@ -20,13 +20,8 @@ import EstablishmentSelectorField from '../../establishment/components/Establish
 
 // @ts-expect-error
 import { IntegerField, SelectField } from '../../../components/forms';
-import Config from '#src/config';
 
-import {
-  RECURRENCE_RULE_BOOKING_52_WEEKS_ALLOWLIST_BY_ENV,
-  RECURRENT_BOOKING_MAX_DELAY_52_WEEKS,
-  RECURRENT_BOOKING_MAX_DELAY_8_WEEKS,
-} from '#src/libs/booking/components/constants';
+import { RECURRENT_BOOKING_MAX_DELAY_52_WEEKS } from '#src/libs/booking/components/constants';
 import { MetaActivity } from '#src/libs/meta-activity/types';
 import { Establishment } from '#src/api/types';
 
@@ -65,7 +60,6 @@ type Props = {
     page: number;
     page_size: number;
   }) => void;
-  companyId: number;
   // eslint-disable-next-line react/no-unused-prop-types
   onSubmit: (
     values: RecurrenceRuleBooking,
@@ -87,7 +81,6 @@ const RecurrenceRuleBookingForm: React.FC<Props> = ({
   hasActivityGroups = false,
   setFieldValue,
   showCreateBookingWarning,
-  companyId,
 }) => {
   const { t } = useTranslation(['booking', 'datetime']);
   const classes = useStyles();
@@ -192,7 +185,7 @@ const RecurrenceRuleBookingForm: React.FC<Props> = ({
         <IntegerField
           required
           helperText={t('booking:recurrenceRule.form.delayWeek.helperText', {
-            delayWeek: getMaxDelayWeek(companyId),
+            delayWeek: RECURRENT_BOOKING_MAX_DELAY_52_WEEKS,
           })}
           id="delay_week"
           label={t('booking:recurrenceRule.form.delayWeek.label')}
@@ -266,31 +259,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const getMaxDelayWeek = (companyId: number) => {
-  type EnvKey = 'local' | 'dev' | 'staging' | 'production';
-  const environment: EnvKey =
-    (Config.REACT_APP_SENTRY_ENVIRONMENT as EnvKey) || 'production';
-  const allowlistedCompanies =
-    RECURRENCE_RULE_BOOKING_52_WEEKS_ALLOWLIST_BY_ENV[environment] || [];
-  return allowlistedCompanies.includes(companyId)
-    ? RECURRENT_BOOKING_MAX_DELAY_52_WEEKS
-    : RECURRENT_BOOKING_MAX_DELAY_8_WEEKS;
-};
-
-const recurrenceRuleBookingSchema = (props: Props) => {
-  return Yup.object().shape({
-    day_of_week: Yup.number().min(0).max(6).required(),
-    minute: Yup.number().min(0).max(59).required(),
-    hour: Yup.number().min(0).max(23).required(),
-    delay_week: Yup.number()
-      .min(1)
-      .max(getMaxDelayWeek(props.companyId))
-      .required(),
-    meta_activity: Yup.number().required(),
-    establishment: Yup.number().nullable(),
-    notify_if_booked: Yup.boolean(),
-  });
-};
+const recurrenceRuleBookingSchema = Yup.object().shape({
+  day_of_week: Yup.number().min(0).max(6).required(),
+  minute: Yup.number().min(0).max(59).required(),
+  hour: Yup.number().min(0).max(23).required(),
+  delay_week: Yup.number()
+    .min(1)
+    .max(RECURRENT_BOOKING_MAX_DELAY_52_WEEKS)
+    .required(),
+  meta_activity: Yup.number().required(),
+  establishment: Yup.number().nullable(),
+  notify_if_booked: Yup.boolean(),
+});
 
 export const RecurrenceRuleBookingFormikHOC = withFormik({
   mapPropsToValues: ({ initial }: Props): RecurrenceRuleBooking =>

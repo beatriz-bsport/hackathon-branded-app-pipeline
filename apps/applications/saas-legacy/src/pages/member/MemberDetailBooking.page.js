@@ -976,7 +976,6 @@ export class MemberDetailBooking extends Component<Props, State> {
             </ObjectLevelPermissionProvider>
             {this.props.bookerInAvanceDialog && (
               <RecurrenceRuleBookingFormDialog
-                companyId={this.props.theme.company}
                 establishmentList={this.props.establishmentList}
                 fetchGroupsOfferList={this.props.fetchGroupsOfferList}
                 hasActivityGroups={this.props.activityGroups > 0}

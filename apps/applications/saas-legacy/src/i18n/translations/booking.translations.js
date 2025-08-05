@@ -93,6 +93,8 @@ const getTranslations = async () => {
         backToRegistererChoice: 'Back',
         bookMultiple: 'Book',
         title: 'Upcoming sessions',
+        selectAll: 'Select all',
+        unselectAll: 'Unselect all',
       },
       isLoading: 'Looking for sessions...',
       book: { unknowError: 'Error while booking - try again later' },

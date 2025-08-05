@@ -55,6 +55,7 @@ import {
 } from '#src/libs/membership/actions';
 import { getMarketplaceRoute } from '#src/libs/marketplace/routing-utils';
 
+import { CUSTOM_FORM_CSS_VARIANT_ACTIVATED } from '#src/libs/custom-form/constants';
 import withThemeProvider from '#src/hocs/company-themifier.hoc';
 import { buildUrlParams } from '../../http';
 // @ts-expect-error not typed
@@ -295,6 +296,7 @@ export class ReferralRegistration extends Component<Props, State> {
                   simplifyUI
                   general_terms_and_conditions={theme.general_terms_of_use}
                   initial={form}
+                  isCssVariantActivated={CUSTOM_FORM_CSS_VARIANT_ACTIVATED}
                   layouts={form.layout}
                   onSubmit={this.submitCustomForm}
                   onSubmitDraft={this.props.setLoginInformations}

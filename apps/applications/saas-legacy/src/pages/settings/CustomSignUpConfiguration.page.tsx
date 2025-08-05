@@ -16,6 +16,7 @@ import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import ViewCompactIcon from '@material-ui/icons/ViewCompact';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
+import { CUSTOM_FORM_CSS_VARIANT_ACTIVATED } from '#src/libs/custom-form/constants';
 import withTitle from '../../hocs/with-title.hoc';
 import { fetchTags } from '../../libs/tag/actions';
 import { RootState } from '../../reducers';
@@ -185,6 +186,7 @@ export class FormsConfiguration extends React.Component<Props> {
                     asManager
                     shouldWrapLayerInCssHoc
                     initial={this.props.customFormSelected}
+                    isCssVariantActivated={CUSTOM_FORM_CSS_VARIANT_ACTIVATED}
                     layouts={this.props.customFormSelected.layout}
                   />
                 </Paper>

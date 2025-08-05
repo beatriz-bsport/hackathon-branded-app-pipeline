@@ -19,6 +19,7 @@ import { OptionCallback } from '../../../state/types';
 import { MaterialStyleType } from '../../../utils/types';
 import type { CustomForm, CustomFormDisplayRule } from '../types';
 import CustomFormView from './consumer-form/CustomFormView.form';
+import { CUSTOM_FORM_CSS_VARIANT_ACTIVATED } from '../constants';
 
 type OwnProps = {
   customFormList: Array<CustomForm>;
@@ -152,6 +153,7 @@ export const CustomFormStepper = (props: Props) => {
             disconnectOnCancel
             shouldWrapLayerInCssHoc
             initial={customForm}
+            isCssVariantActivated={CUSTOM_FORM_CSS_VARIANT_ACTIVATED}
             isSubmitting={props.customFormListIsSubmitting}
             onCancel={() => props.onDisconnect()}
             // @ts-expect-error
@@ -214,6 +216,7 @@ export const CustomFormStepper = (props: Props) => {
                 initial={customForm}
                 // @ts-expect-error
                 initialWithAnswer={getDraftData(customForm.id)}
+                isCssVariantActivated={CUSTOM_FORM_CSS_VARIANT_ACTIVATED}
                 isSubmitting={props.customFormListIsSubmitting}
                 // @ts-expect-error
                 onCancel={

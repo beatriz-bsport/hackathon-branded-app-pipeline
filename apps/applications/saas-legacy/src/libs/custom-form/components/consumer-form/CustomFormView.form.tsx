@@ -4,10 +4,12 @@ import { useTranslation } from 'react-i18next';
 import { Form } from 'formik';
 
 import Alert from '@material-ui/lab/Alert/Alert';
+import Button from '@material-ui/core/Button';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import type { Theme } from '@material-ui/core/styles';
 
+import clsx from 'clsx';
 import {
   USER_STATUS_VALIDATION_WITH_USER_NOT_MEMBER_OF_COMPANY,
   USER_STATUS_VALIDATION_WITH_MEMBER_OF_COMPANY,
@@ -43,6 +45,7 @@ type Props = {
   textButtonConfirm?: boolean;
   userStatus?: number;
   values?: CustomFormFilled;
+  isCssVariantActivated?: boolean;
   measureBeforeMount?: boolean;
   shouldWrapLayerInCssHoc?: boolean;
   waiver?: string;
@@ -55,8 +58,10 @@ type Props = {
 
 const ConsumerFormView: React.FC<Props> = (props: Props) => {
   const {
+    asManager,
     data,
     disconnectOnCancel,
+    hideBackButton,
     initial,
     isMulti,
     isSubmitting,
@@ -68,6 +73,7 @@ const ConsumerFormView: React.FC<Props> = (props: Props) => {
     handleSubmit,
     onCancel,
     onSubmitDraft,
+    isCssVariantActivated,
   } = props;
 
   const { t } = useTranslation('marketing');
@@ -76,6 +82,11 @@ const ConsumerFormView: React.FC<Props> = (props: Props) => {
   const handleCancel = useCallback(() => {
     onCancel(data);
   }, [data, onCancel]);
+
+  const handleClickOnSubmit = useCallback(() => {
+    handleSubmit();
+    onSubmitDraft?.(values);
+  }, [handleSubmit, onSubmitDraft, values]);
 
   const renderConfirmButtonText = (userStatusValidation?: number) => {
     if (
@@ -119,20 +130,57 @@ const ConsumerFormView: React.FC<Props> = (props: Props) => {
   return (
     <Form className={classes.form}>
       <ConsumerFormFields {...props} />
-      <CustomFormButtonsCSS
-        {...customCssProps}
-        disconnectOnCancel={disconnectOnCancel}
-        handleCancel={handleCancel}
-        handleSubmit={handleSubmit}
-        isMulti={isMulti}
-        isSubmitting={isSubmitting}
-        onCancel={onCancel}
-        onSubmitDraft={onSubmitDraft}
-        renderConfirmButtonText={renderConfirmButtonText}
-        simplifyUI={simplifyUI}
-        userStatus={userStatus}
-        values={values}
-      />
+      {isCssVariantActivated ? (
+        <CustomFormButtonsCSS
+          {...customCssProps}
+          disconnectOnCancel={disconnectOnCancel}
+          handleCancel={handleCancel}
+          handleSubmit={handleSubmit}
+          isMulti={isMulti}
+          isSubmitting={isSubmitting}
+          onCancel={onCancel}
+          onSubmitDraft={onSubmitDraft}
+          renderConfirmButtonText={renderConfirmButtonText}
+          simplifyUI={simplifyUI}
+          userStatus={userStatus}
+          values={values}
+        />
+      ) : (
+        <div
+          className={clsx({
+            [classes.hidden]: asManager,
+            [classes.submitAndCancel]: !!onCancel,
+            [classes.submit]: !onCancel,
+          })}
+        >
+          {onCancel && !hideBackButton && (
+            <Button
+              className={classes.button}
+              color="primary"
+              disabled={isSubmitting}
+              id="button_custom_form_cancel"
+              onClick={handleCancel}
+              variant="text"
+            >
+              {disconnectOnCancel
+                ? t('customForm.disconnect')
+                : t('customForm.previous')}
+            </Button>
+          )}
+          <Button
+            className={classes.button}
+            color="primary"
+            disabled={isSubmitting}
+            id="button_custom_form_save"
+            onClick={handleClickOnSubmit}
+            variant="contained"
+          >
+            {isMulti
+              ? t('customForm.next')
+              : t(renderConfirmButtonText(userStatus))}
+          </Button>
+        </div>
+      )}
     </Form>
   );
 };

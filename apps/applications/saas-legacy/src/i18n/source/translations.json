@@ -4469,6 +4469,7 @@
                     "2": "Backoffice",
                     "3": "Other",
                     "4": "Migration",
+                    "7": "POS",
                     "label": "Channel : {{ source }}"
                 },
                 "clientAuthor": "Customer",

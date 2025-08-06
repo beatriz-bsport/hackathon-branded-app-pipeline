@@ -9,4 +9,4 @@ export const INSIGHTS_TRANSLATION_NAMESPACES = [
   'titles',
   'trial-analysis',
   'subscription-events',
-] as const;
+];

@@ -79,7 +79,7 @@ const DrawerListItem: React.FC<DrawerListItemProps> = ({
 
   const id = openPop ? 'simple-popover' : undefined;
   const handleUpdateUserAcknowlegdeTutorial = (
-    ev: React.MouseEvent<HTMLButtonEvent, MouseEvent>,
+    ev: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) => {
     ev.stopPropagation();
     if (updateUserAcknowlegdeTutorial) {

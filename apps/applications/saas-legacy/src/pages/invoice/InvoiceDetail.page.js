@@ -648,8 +648,9 @@ export class InvoiceDetail extends React.Component<Props, State> {
                 editEstablishmentBillingGroupIsLoading={
                   this.props.editEstablishmentBillingGroupIsLoading
                 }
-                enableMultiLocalization={
-                  this.props.companyTheme.enable_multi_localization
+                enableEditEstablishmentBillingGroup={
+                  this.props.companyTheme.enable_multi_localization &&
+                  !this.props.companyTheme?.is_multi_location_webshop_enabled
                 }
                 establishmentBillingGroups={
                   this.props.establishmentBillingGroups

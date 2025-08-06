@@ -185,7 +185,7 @@ const OfferManagement = asyncComponent(() =>
 const SearchResults = asyncComponent(() => import('./SearchResults.component'));
 const Shop = asyncComponent(() => import('./shop/Shop.router'));
 const Reporting = asyncComponent(() => import('./reporting/Reporting.router'));
-const Analytics = asyncComponent(() => import('./analytics/Analytics.router'));
+
 const SubscriptionEvents = asyncComponent(() =>
   import('./subscription-events/SubscriptionEvents.router'),
 );
@@ -459,7 +459,7 @@ const BackofficeRoute = withSentryErrorReporting((props) => {
       <Route component={EmailTemplate} path="/email-template" />
       <Route component={Giftcard} path="/giftcard" />
       <Route component={Reporting} path="/reporting/" />
-      <Route component={Analytics} path="/analytics/" />
+
       <Route component={SubscriptionEvents} path="/subscription-events/" />
       <Route component={TrialAnalysis} path="/trial-analysis/" />
       <Route component={Insights} path="/insights" />

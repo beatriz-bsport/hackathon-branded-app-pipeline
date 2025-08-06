@@ -91,7 +91,7 @@ type Props = {
   // giftcardBackgroundImageList: GiftcardBackgroundImage[];
   pendingItemToAdd: QuicksaleCardInfo | null;
   showGiftcardFormModal: boolean;
-  staffEstablishmentBillingGroupName: string;
+  staffEstablishmentBillingGroup?: { id: number; name: string };
   closeGiftcardFormModal: () => void;
   addToBasket: (checkoutItemData: CheckoutItemData) => void;
   // fetchGiftcardBackgroundImageList: (
@@ -130,8 +130,8 @@ const QuicksaleInterface: React.FC<Props> = ({
   showGiftcardFormModal,
   closeGiftcardFormModal,
   addToBasket,
+  staffEstablishmentBillingGroup,
   // fetchGiftcardBackgroundImageList,
-  staffEstablishmentBillingGroupName,
   goToPaymentPage,
 }) => {
   const { t } = useTranslation('quicksale');
@@ -245,7 +245,7 @@ const QuicksaleInterface: React.FC<Props> = ({
         <QuicksaleAppBar
           onSignOut={onSignOut}
           staffEstablishmentBillingGroupName={
-            staffEstablishmentBillingGroupName
+            staffEstablishmentBillingGroup?.name || ''
           }
           staffFullName={quicksaleStaffFullName}
           theme={theme}
@@ -330,6 +330,7 @@ const QuicksaleInterface: React.FC<Props> = ({
         <QuicksaleTileList
           currentSection={currentSection}
           currentVariantItem={currentVariantItem}
+          establishmentBillingGroupId={staffEstablishmentBillingGroup?.id}
           isExcludingTax={theme.is_tax_excluded_in_marketplace}
           itemCardInfoList={itemCardInfoList}
           loading={loading}

@@ -22,6 +22,7 @@ import { QuicksaleBasketItem } from '@bsport/common/lib/master-data/buyable-item
 type Props = {
   currentSection?: QuicksaleSection;
   currentVariantItem: ShopItem | null;
+  establishmentBillingGroupId?: number;
   isExcludingTax?: boolean;
   itemCardInfoList?: QuicksaleCardInfo[];
   loading?: boolean;
@@ -37,6 +38,7 @@ type Props = {
 const QuicksaleTileList: React.FC<Props> = ({
   currentSection,
   currentVariantItem,
+  establishmentBillingGroupId,
   isExcludingTax,
   itemCardInfoList,
   loading,
@@ -123,6 +125,7 @@ const QuicksaleTileList: React.FC<Props> = ({
       <QuicksaleVariantList
         currentSectionId={currentSection?.section_id ?? ''}
         currentVariantItemId={currentVariantItem.id}
+        establishmentBillingGroupId={establishmentBillingGroupId}
         isExcludingTax={isExcludingTax}
         onItemClick={onItemClick}
         variantList={currentItemVariantList}

@@ -1,4 +1,4 @@
-import { DEFAULT_ALLOWED_PAGE_SIZES } from "#src/constants";
+import { DEFAULT_ALLOWED_PAGE_SIZES, DEFAULT_PAGE } from "#src/constants";
 
 /**
  * Ensures the page number is at least 1.
@@ -7,7 +7,11 @@ import { DEFAULT_ALLOWED_PAGE_SIZES } from "#src/constants";
  * @returns The valid page number, guaranteed to be 1 or greater.
  */
 export const getValidPage = (page: number): number => {
-  return Math.max(page, 1);
+  if (isNaN(page)) {
+    return DEFAULT_PAGE;
+  }
+
+  return Math.max(Math.ceil(page), DEFAULT_PAGE);
 };
 
 /**

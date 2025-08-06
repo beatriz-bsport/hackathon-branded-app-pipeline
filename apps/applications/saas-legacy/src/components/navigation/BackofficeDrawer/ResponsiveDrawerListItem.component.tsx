@@ -16,7 +16,6 @@ import Hidden from '@material-ui/core/Hidden';
 import OpenInNewIcon from '@material-ui/icons/OpenInNew';
 import Chip from '@material-ui/core/Chip';
 import Box from '@material-ui/core/Box';
-import { useTheme } from '@material-ui/core/styles';
 import TutorialIconWithAlertings from '#src/libs/platform-tutorial/components/TutorialIconWithAlertings.component';
 import { BADGE_STYLES } from './badge-styles';
 import type {
@@ -24,6 +23,24 @@ import type {
   DrawerItemDefault,
 } from './ResponsiveDrawer.component';
 import DrawerListItemIcon from './DrawerListItemIcon.component';
+
+// Type guard for items with badges
+const hasBadge = (
+  item: DrawerItem,
+): item is DrawerItemDefault & { badge: string } => {
+  return (
+    'badge' in item && typeof (item as DrawerItemDefault).badge === 'string'
+  );
+};
+
+// Type guard for items with openInNewTab
+const hasOpenInNewTab = (
+  item: DrawerItem,
+): item is DrawerItemDefault & { openInNewTab: true } => {
+  return (
+    'openInNewTab' in item && (item as DrawerItemDefault).openInNewTab === true
+  );
+};
 
 type DrawerListItemProps = {
   item: DrawerItem;
@@ -50,8 +67,7 @@ const DrawerListItem: React.FC<DrawerListItemProps> = ({
   iconsOnly,
 }) => {
   const { t } = useTranslation('navigation');
-  const classes = useStyles({ iconsOnly });
-  const theme = useTheme();
+  const classes = useStyles({ iconsOnly: iconsOnly ?? false });
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(
     null,
   );
@@ -63,10 +79,12 @@ const DrawerListItem: React.FC<DrawerListItemProps> = ({
 
   const id = openPop ? 'simple-popover' : undefined;
   const handleUpdateUserAcknowlegdeTutorial = (
-    ev: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    ev: React.MouseEvent<HTMLButtonEvent, MouseEvent>,
   ) => {
     ev.stopPropagation();
-    updateUserAcknowlegdeTutorial();
+    if (updateUserAcknowlegdeTutorial) {
+      updateUserAcknowlegdeTutorial();
+    }
   };
   return (
     <div
@@ -93,17 +111,15 @@ const DrawerListItem: React.FC<DrawerListItemProps> = ({
         selected={isActive}
       >
         <DrawerListItemIcon
-          iconsOnly={iconsOnly}
-          isNested={isNested}
+          iconsOnly={iconsOnly ?? false}
+          isNested={isNested ?? false}
           item={item}
           nbTutorialAlerting={nbTutorialAlerting}
         />
 
         {!iconsOnly && (
           <ListItemText
-            // @ts-expect-error
-            id={item.id}
-            // @ts-expect-error
+            id={(item as DrawerItemDefault).id}
             primary={
               <Box
                 display="flex"
@@ -111,11 +127,10 @@ const DrawerListItem: React.FC<DrawerListItemProps> = ({
                 justifyContent="space-between"
                 width="100%"
               >
-                {/* @ts-expect-error */}
-                <span>{item.text}</span>
-                {(item as DrawerItemDefault)?.badge && (
+                <span>{(item as DrawerItemDefault).text}</span>
+                {hasBadge(item) && (
                   <Chip
-                    label={(item as DrawerItemDefault).badge}
+                    label={item.badge}
                     size="small"
                     style={BADGE_STYLES.NEW_BADGE}
                   />
@@ -125,15 +140,12 @@ const DrawerListItem: React.FC<DrawerListItemProps> = ({
             primaryTypographyProps={{
               style: { color: 'initial' },
             }}
-            // @ts-expect-error
-            secondary={item.subtext}
+            secondary={(item as DrawerItemDefault).subtext}
             secondaryTypographyProps={{ style: { color: colors.primaryDark } }}
           />
         )}
 
-        {(item as DrawerItemDefault)?.openInNewTab && (
-          <OpenInNewIcon color="disabled" />
-        )}
+        {hasOpenInNewTab(item) && <OpenInNewIcon color="disabled" />}
       </ListItem>
       <Hidden smDown>
         {/* @ts-expect-error */}

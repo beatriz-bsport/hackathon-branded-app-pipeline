@@ -103,6 +103,7 @@ const BuyableItemSelector: React.FC<BuyableItemProps> = React.memo(
                 selectedShopItemName || t('shopitem.selector.placeholder')
               }
               searchedObjectType="shop_item"
+              styles={{ menu: (provided) => ({ ...provided, zIndex: 2 }) }}
               value={[]}
             />
           );

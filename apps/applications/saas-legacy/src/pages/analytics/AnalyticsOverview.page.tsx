@@ -49,7 +49,7 @@ const AnalyticsOverview: React.FC<Props> = ({ t: _t }) => {
     const fetchAnalyticsUrl = async () => {
       try {
         const response = await getAuth<AnalyticsResponse>(
-          `${API_V1_URI}/dashboard?provider=sigma&dashboard_type=franchise`,
+          `${API_V1_URI}/dashboard?dashboard_type=franchise`,
         );
         setIframeUrl(response.data.embed_url);
       } catch (error) {
@@ -75,7 +75,7 @@ const AnalyticsOverview: React.FC<Props> = ({ t: _t }) => {
             className={classes.iframe}
             loading="lazy"
             src={iframeUrl}
-            title="Analytics Dashboard - Sigma"
+            title="Analytics Dashboard"
           />
         )}
       </Box>

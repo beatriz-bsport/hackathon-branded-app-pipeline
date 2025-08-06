@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import { Box, CircularProgress } from '@material-ui/core';
+import { Alert } from '@material-ui/lab';
 import { makeStyles } from '@material-ui/core/styles';
 import { getAuth } from '../../http';
 import Config from '../../config';
@@ -30,6 +31,13 @@ const useStyles = makeStyles((_theme) => ({
     alignItems: 'center',
     height: '100%',
   },
+  errorContainer: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: '100%',
+    padding: _theme.spacing(2),
+  },
 }));
 
 const API_V1_URI = Config.REACT_APP_BASE_URI_BUSINESS_INSIGHTS_V1;
@@ -39,14 +47,13 @@ interface SubscriptionEventsResponse {
   embed_url?: string;
 }
 
-interface Props extends WithTranslation {
-  biTool: 'omni' | 'sigma';
-}
+interface Props extends WithTranslation {}
 
-const SubscriptionEvents: React.FC<Props> = ({ t: _t, biTool }) => {
+const SubscriptionEvents: React.FC<Props> = ({ t: _t }) => {
   const classes = useStyles();
   const [iframeUrl, setIframeUrl] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchSubscriptionEventsUrl = async () => {
@@ -54,23 +61,26 @@ const SubscriptionEvents: React.FC<Props> = ({ t: _t, biTool }) => {
         let response;
         let data: SubscriptionEventsResponse;
         response = await getAuth<SubscriptionEventsResponse>(
-          `${API_V1_URI}/embedded_analytics/presigned_url/?dashboard_type=subscription_events&provider=${biTool}`,
+          `${API_V1_URI}/embedded_analytics/presigned_url/?dashboard_type=subscription_events`,
         );
         data = response.data as SubscriptionEventsResponse;
         if (data.presigned_url) {
           setIframeUrl(data.presigned_url);
+        } else {
+          setError('Unable to load dashboard. Please refresh the page.');
         }
       } catch (error) {
         console.error('Failed to fetch subscription events URL:', error);
+        setError('Failed to load dashboard. Please refresh the page.');
       } finally {
         setLoading(false);
       }
     };
 
     fetchSubscriptionEventsUrl();
-  }, [biTool]);
+  }, []);
 
-  const title = `Subscription Events (${biTool.toUpperCase()})`;
+  const title = `Subscription Events`;
 
   return (
     <Box className={classes.root}>
@@ -78,6 +88,10 @@ const SubscriptionEvents: React.FC<Props> = ({ t: _t, biTool }) => {
         {loading ? (
           <Box className={classes.loading}>
             <CircularProgress />
+          </Box>
+        ) : error ? (
+          <Box className={classes.errorContainer}>
+            <Alert severity="error">{error}</Alert>
           </Box>
         ) : (
           <iframe

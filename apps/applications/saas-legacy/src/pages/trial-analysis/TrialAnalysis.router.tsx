@@ -1,14 +1,32 @@
 import React from 'react';
+import { withTranslation } from 'react-i18next';
+import { compose } from 'recompose';
+import { Redirect, Route, Switch } from 'react-router';
 
-import { Redirect, Route, Switch } from 'react-router-dom';
+import withTitle from '#src/hocs/with-title.hoc';
+import TrialAnalysis from '#src/pages/trial-analysis/TrialAnalysis.page';
 
-import TrialAnalysisInnerRouter from '#src/pages/trial-analysis/TrialAnalysisInner.router';
+type Props = {};
 
-export default function TrialAnalysis() {
+const TrialAnalysisRouter: React.FC<Props> = () => {
   return (
     <Switch>
-      <Route component={TrialAnalysisInnerRouter} path="/trial-analysis" />
-      <Redirect to="/trial-analysis/franchise/sigma" />
+      <Route
+        exact
+        path="/trial-analysis/franchise"
+        render={() => <TrialAnalysis level="franchise" />}
+      />
+      <Route
+        exact
+        path="/trial-analysis/company"
+        render={() => <TrialAnalysis level="company" />}
+      />
+      <Redirect to="/trial-analysis/franchise" />
     </Switch>
   );
-}
+};
+
+export default compose(
+  withTranslation(['trial-analysis', 'titles']),
+  withTitle(({ t }) => t('titles:dashboard.trialAnalysis')),
+)(TrialAnalysisRouter);

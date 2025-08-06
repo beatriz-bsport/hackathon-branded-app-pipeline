@@ -12047,44 +12047,20 @@
             }
         }
     },
-    "insights": {
-        "sections": {
-            "memberInsights": "Member Insights",
-            "performance": "Performance Analytics"
-        },
-        "memberInsights": {
-            "trialAnalysisFranchise": {
-                "title": "Trial Analysis - Franchise",
-                "description": "Discover more about acquisition, conversion rates and how you can increase the effectiveness of your trial offer at franchise level."
-            },
-            "trialAnalysisCompany": {
-                "title": "Trial Analysis - Company", 
-                "description": "Discover more about acquisition, conversion rates and how you can increase the effectiveness of your trial offer at company level."
-            },
-            "subscriptionEvents": {
-                "title": "Subscription Events",
-                "description": "Track member lifecycle events and subscription patterns to understand member behavior."
-            }
-        },
-        "performance": {
-            "booking": {
-                "title": "Booking Performance",
-                "description": "Gain insights into scheduling efficiency and how full your sessions are."
-            },
-            "teacher": {
-                "title": "Teacher Performance", 
-                "description": "Get an overview of your teachers' performance and session quality over time."
-            },
-            "financial": {
-                "title": "Financial Health",
-                "description": "Understand how your business is performing and what you can do to improve your financial standing."
-            },
-            "marketing": {
-                "title": "Marketing Performance",
-                "description": "Keep an eye on trends related to your campaign reach, such as conversion and engagement rates."
-            }
-        }
+      "insights": {
+    "sections": {
+      "memberInsights": "Member Insights",
+      "financialHealth": "Financial Health"
     },
+    "trackTrialOffer": {
+      "title": "Track trial offer performance",
+      "description": "Discover more about acquisition, conversion rates and how you can increase the effectiveness of your trial offer."
+    },
+    "monitorRevenue": {
+      "title": "Monitor recurring revenue",
+      "description": "Keep track of trends and understand how to stabilize recurring income streams."
+    }
+  },
     "reporting": {
         "columns": {
             "private_service_name": "Appointment",

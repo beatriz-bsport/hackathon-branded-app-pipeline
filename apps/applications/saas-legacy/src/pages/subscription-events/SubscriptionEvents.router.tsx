@@ -1,17 +1,27 @@
 import React from 'react';
+import { withTranslation } from 'react-i18next';
+import { compose } from 'recompose';
+import { Redirect, Route, Switch } from 'react-router';
 
-import { Redirect, Route, Switch } from 'react-router-dom';
+import withTitle from '#src/hocs/with-title.hoc';
+import SubscriptionEvents from '#src/pages/subscription-events/SubscriptionEvents.page';
 
-import SubscriptionEventsInnerRouter from '#src/pages/subscription-events/SubscriptionEventsInner.router';
+type Props = {};
 
-export default function SubscriptionEvents() {
+const SubscriptionEventsRouter: React.FC<Props> = () => {
   return (
     <Switch>
       <Route
-        component={SubscriptionEventsInnerRouter}
+        exact
         path="/subscription-events"
+        render={() => <SubscriptionEvents />}
       />
-      <Redirect to="/subscription-events/sigma" />
+      <Redirect to="/subscription-events" />
     </Switch>
   );
-}
+};
+
+export default compose(
+  withTranslation(['subscription-events', 'titles']),
+  withTitle(({ t }) => t('titles:dashboard.subscriptionEvents')),
+)(SubscriptionEventsRouter);

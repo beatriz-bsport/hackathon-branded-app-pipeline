@@ -7178,12 +7178,7 @@
             "search": "Search",
             "reporting": "Reporting",
             "insights": {
-                "insights": "Insights",
-                "franchise": "Franchise",
-                "company": "Company",
-                "subscriptionEvents": "Subscription Events",
-                "trialAnalysisFranchise": "Trial Analysis - Franchise",
-                "trialAnalysisCompany": "Trial Analysis - Company"
+                "insights": "Insights"
             },
             "consumer": {
                 "order": "My orders",
@@ -19408,9 +19403,7 @@
         "dashboard": {
             "marketingDashboard": "Marketing",
             "reportingDashboard": "Reporting",
-                            "subscriptionEvents": "Subscription Events",
-                "trialAnalysis": "Trial Analysis",
-                "insights": "Insights",
+            "insights": "Insights",
             "dashboard": "Dashboard"
         },
         "subscription": {

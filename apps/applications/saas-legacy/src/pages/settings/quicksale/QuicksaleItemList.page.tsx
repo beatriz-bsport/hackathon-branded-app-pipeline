@@ -710,9 +710,11 @@ const QuicksaleItemList: React.FC<Props> = (props) => {
                 <ul className={classes.actionList}>
                   <li>{t('cardListPage.editColor')}</li>
                   <li>{t('cardListPage.moveTile')}</li>
-                  <li>{t('cardListPage.deleteTile')}</li>
+                  {!currentVariantItem && (
+                    <li>{t('cardListPage.deleteTile')}</li>
+                  )}
                 </ul>
-                {t('cardListPage.addItems')}
+                {!currentVariantItem && t('cardListPage.addItems')}
               </>
             )}
             {isMobile && showFullHelperAlert && (

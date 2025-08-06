@@ -41,7 +41,7 @@ import { formatAsDatetimeAdapted } from '#src/utils/datetime';
 type Props = {
   editEstablishmentBillingGroupIsLoading: boolean;
   establishmentBillingGroups: EstablishmentBillingGroup[];
-  enableMultiLocalization: boolean;
+  enableEditEstablishmentBillingGroup: boolean;
   invoice?:
     | WithAuthor<WithEstablishment<InvoiceV1Serializer<Member>>>
     | WithAuthor<WithEstablishmentBillingGroup<InvoiceV1Serializer<Member>>>;
@@ -205,7 +205,7 @@ export const InvoiceHeader = (props: Props) => {
             {t(`invoice.header.source.${invoice.source}`)}
           </Typography>
         </div>
-        {props.enableMultiLocalization ? (
+        {props.enableEditEstablishmentBillingGroup ? (
           <>
             {showEstablishmentBillingGroupSelector ? (
               <div className={classes.row}>

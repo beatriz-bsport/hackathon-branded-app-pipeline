@@ -20,6 +20,7 @@ import {
   retrieveShopItemUsedInCombo as retrieveShopItemUsedInComboAction,
   fetchShopItemVariantCombinationList as fetchShopItemVariantCombinationListAction,
 } from '#src/libs/shop/actions/shopItemReworked';
+import { fetchAllEstablishmentBillingGroup as fetchAllEstablishmentBillingGroupAction } from '#src/libs/establishment/actions';
 import { fetchBookkeepingAccountList as fetchBookkeepingAccountListAction } from '#src/libs/payment/actions';
 
 import {
@@ -49,6 +50,7 @@ import {
   getShopItemBarcodeUnicityLoading,
   getShopItemBarcodeListUnicity,
   getShopItemBarcodeUnicity,
+  getEstablishmentBillingGroupFilterOptionList,
 } from '#src/libs/shop/selectors';
 import {
   getBookkeepingAccountList,
@@ -94,6 +96,7 @@ type OwnProps = {
     page?: string;
     color?: string;
     size?: string;
+    establishment_billing_group?: number;
   };
   setQueryParam: (queryParam: string) => (value: string) => void;
   backToShopPage: () => void;
@@ -103,6 +106,11 @@ type Props = OwnProps & ConnectedProps<typeof connector>;
 
 export class ShopReworkedProductDetailPage extends Component<Props> {
   componentDidMount() {
+    this.props.fetchAllEstablishmentBillingGroup({
+      ...(!!this.props.theme?.company && {
+        params: { company: this.props.theme.company },
+      }),
+    });
     this.props.retrieveShopItemUsedInCombo(this.props.id);
     this.props.fetchShopSupplierList();
     this.retrieveShopItemDetails();
@@ -124,13 +132,27 @@ export class ShopReworkedProductDetailPage extends Component<Props> {
     */
     if (
       prevProps.queryParams.color !== this.props.queryParams.color ||
-      prevProps.queryParams.size !== this.props.queryParams.size
+      prevProps.queryParams.size !== this.props.queryParams.size ||
+      (prevProps.queryParams?.establishment_billing_group !==
+        this.props.queryParams?.establishment_billing_group &&
+        !this.props.shopItem?.is_standalone_item)
     ) {
       this.props.setQueryParam('page')('1');
       // if we are applying filters but already on page 1
       if (this.props.queryParams.page === '1') {
         this.fetchShopItemVariantList();
       }
+    }
+    /*
+      Whenever changing the establishment billing group in case of a standalone item, we want to refetch the
+      main ShopItem Details to update the inventory tab with stock of the newly selected establishment billing group.
+    */
+    if (
+      prevProps.queryParams?.establishment_billing_group !==
+        this.props.queryParams?.establishment_billing_group &&
+      !!this.props.shopItem?.is_standalone_item
+    ) {
+      this.retrieveShopItemDetails();
     }
     /*
       Whenever changing tab, we want to get back to page 1 to prevent
@@ -148,11 +170,15 @@ export class ShopReworkedProductDetailPage extends Component<Props> {
   }
 
   retrieveShopItemDetails = () => {
-    this.props.retrieveShopItemDetails(this.props.id, {
-      onSuccess: () => {
-        this.fetchShopItemVariantList();
+    this.props.retrieveShopItemDetails(
+      this.props.id,
+      this.props.queryParams?.establishment_billing_group,
+      {
+        onSuccess: () => {
+          this.fetchShopItemVariantList();
+        },
       },
-    });
+    );
   };
 
   fetchShopItemVariantList = () => {
@@ -162,12 +188,15 @@ export class ShopReworkedProductDetailPage extends Component<Props> {
       1;
     const colorFilter = this.props.queryParams?.color?.split(',');
     const sizeFilter = this.props.queryParams?.size?.split(',');
+    const establishmentBillingGroupFilter =
+      this.props.queryParams?.establishment_billing_group;
 
     this.props.fetchShopItemVariantList({
       id: this.props.id,
       page,
       colors: colorFilter,
       sizes: sizeFilter,
+      establishment_billing_group: establishmentBillingGroupFilter,
       ...(this.props.shopItem?.number_of_variants > 0
         ? {
             is_variant: true,
@@ -182,6 +211,10 @@ export class ShopReworkedProductDetailPage extends Component<Props> {
       type === 'colors' && this.props.setQueryParam('color')(availableOptions);
       type === 'sizes' && this.props.setQueryParam('size')(availableOptions);
     };
+
+  handleChangeEstablishmentBillingGroupFilter = (option: SelectOption) => {
+    this.props.setQueryParam('establishment_billing_group')(option.value);
+  };
 
   handleUpdateShopItem = (
     formData: ShopItemEdit,
@@ -342,7 +375,7 @@ export class ShopReworkedProductDetailPage extends Component<Props> {
   };
 
   /**
-   * Transform the color/size query params into an array of selector options
+   * Transform the color/size/establishmentBillingGroup query params into an array of selector options
    * to set selector options on page render (if any query params)
    */
   getVariantFilterOptionValues = () => {
@@ -354,7 +387,21 @@ export class ShopReworkedProductDetailPage extends Component<Props> {
       .split(',')
       .map((value) => ({ label: value, value }))
       .filter((option) => !!option.value);
-    return { colors, sizes };
+
+    const establishmentBillingGroupLabel =
+      this.props.establishmentBillingGroupFilterOptionList?.find(
+        (option) =>
+          option.value ===
+          this.props.queryParams?.establishment_billing_group?.toString(),
+      )?.label;
+
+    const establishmentBillingGroup: SelectOption = {
+      label: establishmentBillingGroupLabel ?? '',
+      value:
+        this.props.queryParams?.establishment_billing_group?.toString() ?? '',
+    };
+
+    return { colors, sizes, establishmentBillingGroup };
   };
 
   /**
@@ -372,6 +419,9 @@ export class ShopReworkedProductDetailPage extends Component<Props> {
       <ShopItemDetail
         bookkeepingAccountById={this.props.bookkeepingAccountById}
         bookkeepingAccounts={this.props.bookkeepingAccounts}
+        changeEstablishmentBillingGroupFilter={
+          this.handleChangeEstablishmentBillingGroupFilter
+        }
         changeInventoryVariantFilter={this.handleChangeInventoryVariantFilters}
         checkBarcodeUnicity={this.checkBarcodeUnicity}
         companyId={this.props.theme.company}
@@ -381,12 +431,18 @@ export class ShopReworkedProductDetailPage extends Component<Props> {
         createShopItemVariants={this.handleCreateShopItemVariants}
         deleteShopItem={this.handleDeleteShopItem}
         deleteShopItemVariant={this.handleDeleteShopItemVariant}
+        establishmentBillingGroupFilterOptionList={
+          this.props.establishmentBillingGroupFilterOptionList ?? []
+        }
         getIsShopItemUsedInCombo={this.props.getIsShopItemUsedInCombo}
         getShopItemBarcodeListUnicity={this.props.getShopItemBarcodeListUnicity}
         getShopItemBarcodeUnicity={this.props.getShopItemBarcodeUnicity}
         isDeleting={this.props.isDeleteLoading}
         isDeletingVariant={this.props.isDeleteVariantLoading}
         isLoading={this.props.isLoading}
+        isMultiLocationWebshopEnabled={
+          !!this.props.theme.is_multi_location_webshop_enabled
+        }
         isSupplierPriceHidden={this.isSupplierPriceHidden()}
         isUpdatingVariant={this.props.isUpdateVariantLoading}
         isVariantListLoading={this.props.isVariantListLoading}
@@ -443,6 +499,8 @@ const connector = connect(
     getShopItemBarcodeUnicity: (barcode: string) =>
       getShopItemBarcodeUnicity(state, barcode),
     shopItemBarcodeUnicityLoading: getShopItemBarcodeUnicityLoading(state),
+    establishmentBillingGroupFilterOptionList:
+      getEstablishmentBillingGroupFilterOptionList(state),
   }),
   {
     retrieveShopItemUsedInCombo: retrieveShopItemUsedInComboAction,
@@ -463,6 +521,7 @@ const connector = connect(
     fetchTags: fetchTagsAction,
     fetchBookkeepingAccountList: fetchBookkeepingAccountListAction,
     retrieveFranchise: retrieveFranchiseAction,
+    fetchAllEstablishmentBillingGroup: fetchAllEstablishmentBillingGroupAction,
     push: (path: string) => (dispatch: Dispatch) => dispatch(pushRouter(path)),
     snackbarSuccess,
   },
@@ -470,7 +529,7 @@ const connector = connect(
 
 export default compose<Props, OwnProps>(
   withQueryParams([
-    ['tab', 'page', 'color', 'size'],
+    ['tab', 'page', 'color', 'size', 'establishment_billing_group'],
     'queryParams',
     'setQueryParam',
   ]),

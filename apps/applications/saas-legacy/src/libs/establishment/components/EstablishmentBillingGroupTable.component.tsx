@@ -15,6 +15,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Avatar from '@material-ui/core/Avatar';
 import Chip from '@material-ui/core/Chip';
+import Tooltip from '@material-ui/core/Tooltip';
 import { MaterialStyleType } from '../../../utils/types';
 // @ts-expect-error
 import withConfirm from '../../../hocs/with-confirm.hoc';
@@ -22,6 +23,7 @@ import type { EstablishmentBillingGroup } from '../types';
 
 type OwnProps = {
   establishmentBillingGroupList: Array<EstablishmentBillingGroup>;
+  isMultiLocationWebshopEnabled: boolean;
   onEditEstablishmentBillingGroup: (group: EstablishmentBillingGroup) => void;
   onDeleteEstablishmentBillingGroup: (group: EstablishmentBillingGroup) => void;
 };
@@ -40,6 +42,7 @@ export const EstablishmentBillingGroupTable = (props: Props) => {
   const { t, classes } = props;
   const {
     establishmentBillingGroupList,
+    isMultiLocationWebshopEnabled,
     onEditEstablishmentBillingGroup,
     onDeleteEstablishmentBillingGroup,
   } = props;
@@ -83,11 +86,25 @@ export const EstablishmentBillingGroupTable = (props: Props) => {
                   >
                     <EditIcon color="primary" />
                   </Button>
-                  <ButtonWithConfirm
-                    onClick={() => onDeleteEstablishmentBillingGroup(group)}
-                  >
-                    <DeleteIcon className={classes.greyIcon} />
-                  </ButtonWithConfirm>
+                  {isMultiLocationWebshopEnabled ? (
+                    <Tooltip
+                      title={t('group.table.multiLocationWebshopEnabled')}
+                    >
+                      <span>
+                        <ButtonWithConfirm
+                          disabled={isMultiLocationWebshopEnabled}
+                        >
+                          <DeleteIcon />
+                        </ButtonWithConfirm>
+                      </span>
+                    </Tooltip>
+                  ) : (
+                    <ButtonWithConfirm
+                      onClick={() => onDeleteEstablishmentBillingGroup(group)}
+                    >
+                      <DeleteIcon className={classes.greyIcon} />
+                    </ButtonWithConfirm>
+                  )}
                 </TableCell>
               </TableRow>
             ),

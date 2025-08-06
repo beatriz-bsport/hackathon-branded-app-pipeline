@@ -104,6 +104,8 @@ exports.default = {
       name: 'Name',
       address: 'Address',
       noAddress: 'No address is associated with this billing group',
+      multiLocationWebshopEnabled:
+        "This billing group can't be deleted because the multi-location webshop feature is enabled.",
     },
   },
   billing_group: {

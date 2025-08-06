@@ -3578,7 +3578,8 @@
                 "establishment": "Establishment",
                 "name": "Name",
                 "address": "Address",
-                "noAddress": "No address is associated with this billing group"
+                "noAddress": "No address is associated with this billing group",
+                "multiLocationWebshopEnabled": "This billing group can't be deleted because the multi-location webshop feature is enabled."
             }
         },
         "billing_group": {
@@ -15367,7 +15368,8 @@
                     "filterPlaceholder": {
                         "company": "Select studio",
                         "size": "Select size",
-                        "color": "Select color"
+                        "color": "Select color",
+                        "establishmentBillingGroup": "Select a billing group"
                     },
                     "unsavedChangesModal": {
                         "title": "Unsaved changes",
@@ -15382,7 +15384,8 @@
                     "currentStock": "Current stock",
                     "companyName": "Studio",
                     "stockAdjustment": "Stock adjustment (+/-)",
-                    "totalSales": "Total sales"
+                    "totalSales": "Total sales",
+                    "tooltipForMultiLocationWebshop": "Since multilocation is enabled for this studio, stock can only be adjusted from the sub-account, not from the Master account."
                 },
                 "variants": {
                     "formError": {

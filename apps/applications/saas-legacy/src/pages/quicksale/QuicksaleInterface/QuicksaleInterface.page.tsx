@@ -122,6 +122,7 @@ const QuicksaleInterface: React.FC<Props> = ({
   contractById,
   // savedPaymentMethodList,
   establishmentBillingGroups,
+  establishmentBillingGroupLoading,
   // stripeReaders,
   // giftcardBackgroundImageList,
   tagsById,
@@ -284,25 +285,32 @@ const QuicksaleInterface: React.FC<Props> = ({
   );
   // =====================================================
 
-  // ========== Run all fetches ==========
+  const staffEstablishmentBillingGroup = getStaffEstablishmentBillingGroup(
+    userRole,
+    establishmentBillingGroups,
+  );
+
+  // ========== Run initial fetches (independent of billing group) ==========
   React.useEffect(() => {
     fetchPOSMember(theme.company);
     fetchOpenQuicksaleBaskets({
       onSuccess: (data) => {
-        if (data.length)
+        if (Array.isArray(data) && data.length > 0) {
           fetchMembers({ id__in: data.map((basket) => basket.member) });
+        }
       },
     });
     fetchQuicksaleConfiguration();
-    fetchShopItemBaseList();
-    fetchShopItemStandaloneList();
-    // fetchPaymentComboList();
-    handleGetDynamicDataForFilters('payment_pack');
-    handleGetDynamicDataForFilters('payment_pack_category');
-    handleGetDynamicDataForFilters('private_pass');
-    handleGetDynamicDataForFilters('private_pass_category');
-    handleGetDynamicDataForFilters('subshop');
-    handleGetDynamicDataForFilters('giftcard');
+    [
+      'payment_pack',
+      'payment_pack_category',
+      'private_pass',
+      'private_pass_category',
+      'subshop',
+      'giftcard',
+    ].forEach((datatype) =>
+      handleGetDynamicDataForFilters(datatype as DynamicFilterDataType),
+    );
     fetchAllTags();
     if (theme.enable_multi_localization) {
       fetchAllEstablishmentBillingGroup({ params: { company: theme.company } });
@@ -316,23 +324,48 @@ const QuicksaleInterface: React.FC<Props> = ({
     fetchOpenQuicksaleBaskets,
     fetchPOSMember,
     fetchQuicksaleConfiguration,
-    fetchShopItemBaseList,
-    fetchShopItemStandaloneList,
     handleGetDynamicDataForFilters,
     theme.company,
     theme.enable_multi_localization,
   ]);
 
+  // ========== Run billing group dependent fetches ==========
   React.useEffect(() => {
+    if (
+      theme.is_multi_location_webshop_enabled &&
+      (establishmentBillingGroupLoading || !staffEstablishmentBillingGroup)
+    )
+      return;
+
+    const params =
+      theme.is_multi_location_webshop_enabled &&
+      staffEstablishmentBillingGroup?.id
+        ? { establishment_billing_group: staffEstablishmentBillingGroup.id }
+        : undefined;
+
+    fetchShopItemBaseList(params);
+    fetchShopItemStandaloneList(params);
+
     if (variantItemId) {
       fetchShopItemVariantList({
-        id: parseInt(variantItemId, 10),
+        id: Number(variantItemId),
         page_size: 0,
         page: 1,
         is_variant: true,
+        ...(staffEstablishmentBillingGroup?.id && {
+          establishment_billing_group: staffEstablishmentBillingGroup.id,
+        }),
       });
     }
-  }, [variantItemId, fetchShopItemVariantList]);
+  }, [
+    establishmentBillingGroupLoading,
+    fetchShopItemBaseList,
+    fetchShopItemStandaloneList,
+    fetchShopItemVariantList,
+    staffEstablishmentBillingGroup,
+    theme.is_multi_location_webshop_enabled,
+    variantItemId,
+  ]);
   // =====================================
 
   const signOut = React.useCallback(() => push('/login/signout'), [push]);
@@ -453,13 +486,6 @@ const QuicksaleInterface: React.FC<Props> = ({
     memberById,
   );
 
-  // =====================================================
-
-  const staffEstablishmentBillingGroup = getStaffEstablishmentBillingGroup(
-    userRole,
-    establishmentBillingGroups,
-  );
-
   // ========== Handlers for contract's subscription ==========
 
   // const stripeRegion = getStripeRegion();
@@ -523,8 +549,13 @@ const QuicksaleInterface: React.FC<Props> = ({
         setCurrentBasket={setCurrentBasket}
         showGiftcardFormModal={showGiftcardFormModal}
         signOut={signOut}
-        staffEstablishmentBillingGroupName={
-          staffEstablishmentBillingGroup?.name || ''
+        staffEstablishmentBillingGroup={
+          staffEstablishmentBillingGroup
+            ? {
+                id: staffEstablishmentBillingGroup.id,
+                name: staffEstablishmentBillingGroup.name,
+              }
+            : undefined
         }
         theme={theme}
       />
@@ -621,6 +652,8 @@ const connector = connect(
     contractById: getContractsById(state),
     savedPaymentMethodList: getSavedPaymentMethodList(state),
     establishmentBillingGroups: getEnabledEstablishmentBillingGroups(state),
+    establishmentBillingGroupLoading:
+      state.establishment.establishmentBillingGroup.loading,
     stripeReaders: getStripeReaders(state),
     giftcardBackgroundImageList: getGiftcardBackgroundImageList(state),
     tagsById: getTagsDict(state),

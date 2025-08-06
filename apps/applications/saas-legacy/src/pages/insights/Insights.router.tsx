@@ -18,7 +18,7 @@ const InsightsRouter: React.FC<Props> = () => {
       <Route
         exact
         path={INSIGHTS_ROUTES.TRIAL_ANALYSIS}
-        render={() => <TrialAnalysis level="company" />}
+        component={TrialAnalysis}
       />
       <Route
         exact

@@ -47,11 +47,9 @@ interface TrialAnalysisResponse {
   embed_url?: string;
 }
 
-interface Props extends WithTranslation {
-  level: 'franchise' | 'company';
-}
+interface Props extends WithTranslation {}
 
-const TrialAnalysis: React.FC<Props> = ({ t: _t, level }) => {
+const TrialAnalysis: React.FC<Props> = ({ t: _t }) => {
   const classes = useStyles();
   const [iframeUrl, setIframeUrl] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(true);
@@ -63,9 +61,7 @@ const TrialAnalysis: React.FC<Props> = ({ t: _t, level }) => {
         let response;
         let data: TrialAnalysisResponse;
         response = await getAuth<TrialAnalysisResponse>(
-          `${API_V1_URI}/embedded_analytics/presigned_url/?dashboard_type=trial_analysis_${level}&company_level=${
-            level === 'company'
-          }`,
+          `${API_V1_URI}/embedded_analytics/presigned_url/?dashboard_type=trial_analysis`,
         );
         data = response.data as TrialAnalysisResponse;
         if (data.presigned_url) {
@@ -82,11 +78,9 @@ const TrialAnalysis: React.FC<Props> = ({ t: _t, level }) => {
     };
 
     fetchTrialAnalysisUrl();
-  }, [level]);
+  }, []);
 
-  const title = `Trial Analysis - ${
-    level.charAt(0).toUpperCase() + level.slice(1)
-  }`;
+  const title = 'Trial Analysis';
 
   return (
     <Box className={classes.root}>

@@ -86,6 +86,7 @@ import VersionVisualizer from '../../VersionVisualizer.component';
 import LOGO_ASSET from '../../../public/images/banner_lowres.png';
 import { getCurrencyDisplay } from '../../../libs/theme/selectors';
 import { CompanyTheme } from '#src/libs/theme/types';
+import { INSIGHTS_ROUTES } from '#src/pages/insights/constants';
 
 export const drawerWidth = 260;
 const usePrevious = (value: boolean) => {
@@ -137,6 +138,7 @@ export type DrawerItemDefault = {
   hasInnerTabs?: boolean;
   excludeUrlPatterns?: string[];
   openInNewTab?: boolean;
+  badge?: string | number | null;
 };
 
 export type DrawerItemDivider = {
@@ -567,9 +569,10 @@ const ResponsiveDrawer: React.FC<Props> = ({
         text: t('backofficeMenu.reporting'),
       } as DrawerItemDefault,
       {
-        to: '/insights',
+        to: INSIGHTS_ROUTES.INDEX,
         icon: TrendingUp,
         text: t('backofficeMenu.insights.insights'),
+        badge: 'New',
       } as DrawerItemDefault,
       { type: 'divider' } as DrawerItemDivider,
       {

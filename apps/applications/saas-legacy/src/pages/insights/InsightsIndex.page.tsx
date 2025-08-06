@@ -6,6 +6,7 @@ import Divider from '@material-ui/core/Divider';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import { useHistory } from 'react-router-dom';
+import { INSIGHTS_ROUTES } from './constants';
 
 const useStyles = makeStyles((theme) => ({
   pageContainer: {
@@ -63,7 +64,7 @@ const InsightsIndex: React.FC = () => {
           <Card className={classes.card} variant="outlined">
             <CardActionArea
               className={classes.cardActionArea}
-              onClick={handleGoToReport('/insights/trial_analysis')}
+              onClick={handleGoToReport(INSIGHTS_ROUTES.TRIAL_ANALYSIS)}
             >
               <Typography color="textPrimary" variant="body1">
                 {t('trackTrialOffer.title')}
@@ -85,7 +86,7 @@ const InsightsIndex: React.FC = () => {
           <Card className={classes.card} variant="outlined">
             <CardActionArea
               className={classes.cardActionArea}
-              onClick={handleGoToReport('/insights/recurring_revenue')}
+              onClick={handleGoToReport(INSIGHTS_ROUTES.RECURRING_REVENUE)}
             >
               <Typography color="textPrimary" variant="body1">
                 {t('monitorRevenue.title')}

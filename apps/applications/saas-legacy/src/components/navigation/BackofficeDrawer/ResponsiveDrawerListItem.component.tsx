@@ -14,7 +14,11 @@ import Popper from '@material-ui/core/Popper';
 import { Typography } from '@material-ui/core';
 import Hidden from '@material-ui/core/Hidden';
 import OpenInNewIcon from '@material-ui/icons/OpenInNew';
+import Chip from '@material-ui/core/Chip';
+import Box from '@material-ui/core/Box';
+import { useTheme } from '@material-ui/core/styles';
 import TutorialIconWithAlertings from '#src/libs/platform-tutorial/components/TutorialIconWithAlertings.component';
+import { BADGE_STYLES } from './badge-styles';
 import type {
   DrawerItem,
   DrawerItemDefault,
@@ -47,6 +51,7 @@ const DrawerListItem: React.FC<DrawerListItemProps> = ({
 }) => {
   const { t } = useTranslation('navigation');
   const classes = useStyles({ iconsOnly });
+  const theme = useTheme();
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(
     null,
   );
@@ -99,7 +104,24 @@ const DrawerListItem: React.FC<DrawerListItemProps> = ({
             // @ts-expect-error
             id={item.id}
             // @ts-expect-error
-            primary={item.text}
+            primary={
+              <Box
+                display="flex"
+                alignItems="center"
+                justifyContent="space-between"
+                width="100%"
+              >
+                {/* @ts-expect-error */}
+                <span>{item.text}</span>
+                {(item as DrawerItemDefault)?.badge && (
+                  <Chip
+                    label={(item as DrawerItemDefault).badge}
+                    size="small"
+                    style={BADGE_STYLES.NEW_BADGE}
+                  />
+                )}
+              </Box>
+            }
             primaryTypographyProps={{
               style: { color: 'initial' },
             }}

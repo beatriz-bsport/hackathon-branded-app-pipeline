@@ -30,7 +30,7 @@ exports.default = {
       quickbooks: 'QuickBooks',
       mobilePersonalization: 'Branded app',
       coachUserspace: 'Teacher view',
-      quicksale: 'Sales interface',
+      quicksale: 'POS',
       referral: 'Referral',
     },
     pass: 'Passes',

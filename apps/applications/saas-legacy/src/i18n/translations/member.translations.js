@@ -484,7 +484,7 @@ const getTranslations = async () => {
     membershipNumber: { value: 'Number {{id}}', label: 'Membership number' },
     officialIdNumber: {
       value: 'Number {{id}}',
-      label: 'Identity document number',
+      label: 'ID number',
     },
   };
 };

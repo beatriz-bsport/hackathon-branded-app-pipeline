@@ -8453,6 +8453,9 @@
             "60": "Giropay",
             "70": "Bacs Direct Debit",
             "80": "PayPal",
+            "90": "Twint",
+            "100": "Apple Pay",
+            "110": "Google Pay",
             "CB": "Card",
             "CREDIT_ACCOUNT": "Internal account",
             "GIROPAY": "Giropay",
@@ -8463,7 +8466,10 @@
             "SEPA": "SEPA",
             "CHECK": "Check",
             "CASH": "Cash",
-            "BACS_DEBIT": "Bacs Direct Debit"
+            "BACS_DEBIT": "Bacs Direct Debit",
+            "TWINT": "Twint",
+            "APPLE_PAY": "Apple Pay",
+            "GOOGLE_PAY": "Google Pay"
         },
         "forms": {
             "cancelPayment": "Previous",
@@ -8539,6 +8545,9 @@
             "60": "Giropay",
             "70": "Bacs Direct Debit",
             "80": "PayPal",
+            "90": "Twint",
+            "100": "Apple Pay",
+            "110": "Google Pay",
             "label": "Payment method",
             "disputeWon": "Won",
             "onlinePayments": "Online payments"
@@ -12287,6 +12296,9 @@
             "payment_method_sofort": "Sofort",
             "payment_method_paypal_wallet": "PayPal Wallet",
             "payment_method_eps": "EPS",
+            "payment_method_twint": "Twint",
+            "payment_method_apple_pay": "Apple Pay",
+            "payment_method_google_pay": "Google Pay",
             "stock_at_end": "Stock (end date)",
             "stock_at_start": "Stock (start date)",
             "accept_email": "Accepts marketing notifications (emails)",
@@ -12471,7 +12483,10 @@
             "giropay": "Giropay",
             "paypal_wallet": "PayPal Wallet",
             "debt": "Internal account",
-            "bacs_debit": "Bacs Direct Debit"
+            "bacs_debit": "Bacs Direct Debit",
+            "twint": "Twint",
+            "apple_pay": "Apple Pay",
+            "google_pay": "Google Pay"
         },
         "product_type": {
             "payment_pack": "Pass",
@@ -12823,7 +12838,10 @@
                 "30": "Sofort",
                 "40": "iDEAL",
                 "50": "EPS",
-                "60": "Giropay"
+                "60": "Giropay",
+                "90": "Twint",
+                "100": "Apple Pay",
+                "110": "Google Pay"
             },
             "booking_status_code": {
                 "0": "Not cancelled",

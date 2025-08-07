@@ -28,7 +28,7 @@ type Props = {
   loading?: boolean;
   onItemClick: (item: QuicksaleCardInfo) => void;
   onSectionClick: (sectionId: string) => void;
-  onVariantItemClick: (itemId: string) => void;
+  onVariantItemClick: (itemId: string, sectionId?: string) => void;
   searchResults?: QuicksaleCardInfo[];
   searchText?: string;
   sectionList?: QuicksaleSection[];
@@ -52,6 +52,13 @@ const QuicksaleTileList: React.FC<Props> = ({
 }) => {
   const classes = useStyles();
   const { t } = useTranslation('quicksale');
+
+  const handleVariantItemClick = React.useCallback(
+    (itemId: string, sectionId?: string) => {
+      onVariantItemClick(itemId, sectionId);
+    },
+    [onVariantItemClick],
+  );
 
   const currentItemVariantList = React.useMemo(
     () =>
@@ -107,6 +114,9 @@ const QuicksaleTileList: React.FC<Props> = ({
                       addToBasket={onItemClick}
                       isExcludingTax={isExcludingTax}
                       item={result}
+                      onVariantItemClick={(itemId) =>
+                        handleVariantItemClick(itemId, section.section_id)
+                      }
                       outOfStock={result.outOfStock}
                       restrictedPurchase={result.restricted}
                     />

@@ -375,47 +375,47 @@ const QuicksaleInterface: React.FC<Props> = ({
     [push],
   );
   const onVariantItemClick = React.useCallback(
-    (itemId: string) => push(`/quicksale/${sectionId}/${itemId}/`),
+    (itemId: string, sectionIdParam?: string) => {
+      const targetSectionId = sectionIdParam || sectionId;
+      push(`/quicksale/${targetSectionId}/${itemId}/`);
+    },
     [push, sectionId],
   );
 
-  // ========== Build available search items ==========
-  const availableSearchItemsInWholeConfig = React.useMemo(
-    () =>
-      sectionList
-        ?.map((section) =>
-          section.items.map((item) =>
-            getQuicksaleCardInfoFromQuicksaleItem(
-              item,
-              paymentPackById,
-              privatePassById,
-              paymentComboById,
-              shopItemById,
-              contractById,
-              giftcardById,
-              t,
-              section,
-              currentBasket,
-              memberById,
-            ),
+  // ========== Build all search items ==========
+  const allSearchItems = React.useMemo(() => {
+    return sectionList
+      ?.map((section) =>
+        section.items.map((item) =>
+          getQuicksaleCardInfoFromQuicksaleItem(
+            item,
+            paymentPackById,
+            privatePassById,
+            paymentComboById,
+            shopItemById,
+            contractById,
+            giftcardById,
+            t,
+            section,
+            currentBasket,
+            memberById,
           ),
-        )
-        .flat()
-        .filter((item) => !!item),
-    [
-      sectionList,
-      paymentPackById,
-      privatePassById,
-      paymentComboById,
-      shopItemById,
-      contractById,
-      giftcardById,
-      t,
-      currentBasket,
-      memberById,
-    ],
-  );
-  // ==================================================
+        ),
+      )
+      .flat()
+      .filter((item): item is QuicksaleCardInfo => !!item);
+  }, [
+    sectionList,
+    paymentPackById,
+    privatePassById,
+    paymentComboById,
+    shopItemById,
+    contractById,
+    giftcardById,
+    t,
+    currentBasket,
+    memberById,
+  ]);
 
   // In redux, there is an immutable object so we need to convert it here
   const basketList = React.useMemo(
@@ -523,7 +523,7 @@ const QuicksaleInterface: React.FC<Props> = ({
         addBasket={createQuicksaleBasket}
         addItemToBasket={addItemToBasket}
         addToBasket={addToBasket}
-        availableSearchItemsInWholeConfig={availableSearchItemsInWholeConfig}
+        allSearchItems={allSearchItems}
         basketList={basketList}
         closeGiftcardFormModal={closeGiftcardFormModal}
         currentBasket={currentBasket}
@@ -544,6 +544,7 @@ const QuicksaleInterface: React.FC<Props> = ({
         openMemberAuthenticationModal={openMemberAuthenticationModal}
         pendingItemToAdd={pendingItemToAdd}
         quicksaleStaffFullName={quicksaleStaffFullName}
+        redirectTo={push}
         removeItemFromBasket={removeItemFromBasket}
         sectionList={sectionList}
         setCurrentBasket={setCurrentBasket}

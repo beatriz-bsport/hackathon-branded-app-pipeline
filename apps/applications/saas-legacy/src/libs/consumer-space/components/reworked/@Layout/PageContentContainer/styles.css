@@ -6,4 +6,5 @@
   display: flex;
   flex-direction: column;
   gap: var(--bs-space-size-6);
+  background-color: var(--bs-grey-0);
 }

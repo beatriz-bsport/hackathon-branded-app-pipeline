@@ -11115,7 +11115,9 @@
                     "confirm": "Delete",
                     "cancel": "Cancel",
                     "content": "Deleting recurring appointments will result in the cancellation of future appointments that've been made via this rule.",
-                    "title": "Delete a recurring appointment"
+                    "title": "Delete a recurring appointment",
+                    "content_with_cancellation_option": "This recurring booking rule will be deleted. Do you also want to cancel any future bookings made with this rule?",
+                    "cancelRelatedBookings": "Cancel any future bookings made with the rule"
                 }
             },
             "form": {

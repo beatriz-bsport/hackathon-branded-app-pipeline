@@ -141,6 +141,7 @@ type Props = {
   onDeleteRecurrenceRulePrivateBooking: (
     rb: RecurrenceRulePrivateBooking,
     memberId: number,
+    data: { cancel_related_bookings: boolean },
   ) => void,
   fetchRecurrenceRulePrivateBooking: () => void,
   setSelectedRecurrentRule: (RecurrenceRulePrivateBooking) => void,
@@ -256,10 +257,11 @@ export class MemberDetailPrivateBooking extends Component<Props> {
                   renderItem={(rb) => (
                     <RecurrenceRulePrivateBookingItem
                       notShowMember
-                      onDelete={() =>
+                      onDelete={(data) =>
                         this.props.onDeleteRecurrenceRulePrivateBooking(
                           rb,
                           this.props.id,
+                          data,
                         )
                       }
                       onEdit={() => {
@@ -610,8 +612,8 @@ export default compose(
         fetchMember,
         filters,
       }) =>
-      (recurrentBooking, memberId) => {
-        deleteRecurrenceRulePrivateBooking(recurrentBooking.id, {
+      (recurrentBooking, memberId, data) => {
+        deleteRecurrenceRulePrivateBooking(recurrentBooking.id, data, {
           onSuccess: () => {
             fetchMember(memberId);
             fetchRecurrenceRulePrivateBooking({ member: memberId });

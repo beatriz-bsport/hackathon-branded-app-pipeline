@@ -1,4 +1,3 @@
-// @flow
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { DateTime } from 'luxon';
@@ -13,14 +12,14 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Avatar from '@material-ui/core/Avatar';
 
 import ObjectLevelPermissionProvider from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
-import { RecurrenceRulePrivateBookingDeleteDialog } from './RecurrenceRulePrivateBookingConfirmDialog.component';
+import { RecurrenceRulePrivateBookingDeleteDialog } from './RecurrenceRulePrivateBookingDeleteDialog.component';
 import { formatAsDatetimeAdapted } from '../../../../utils/datetime';
 
 type Props = {
-  recurrentPrivateBooking: any,
-  onDelete: (id: number) => void,
-  onEdit: (id: number) => void,
-  notShowMember: boolean,
+  recurrentPrivateBooking: any;
+  onDelete: (data: { cancel_related_bookings: boolean }) => void;
+  onEdit: () => void;
+  notShowMember: boolean;
 };
 
 const RecurrenceRulePrivateBookingItem = (props: Props) => {
@@ -131,14 +130,14 @@ const RecurrenceRulePrivateBookingItem = (props: Props) => {
           'reservation.privateBooking.allowed_actions.cancel',
         ]}
       >
-        {([hasEditPermission, hasCancelPermission]) => (
+        {([hasEditPermission, hasCancelPermission]: boolean[]) => (
           <ListItemSecondaryAction>
-            {onEdit && hasEditPermission && (
+            {hasEditPermission && (
               <IconButton color="primary" onClick={onEdit}>
                 <EditIcon />
               </IconButton>
             )}
-            {onDelete && hasCancelPermission && (
+            {hasCancelPermission && (
               <IconButton onClick={() => setDeleteDialogOpen(true)}>
                 <CancelIcon />
               </IconButton>
@@ -147,11 +146,11 @@ const RecurrenceRulePrivateBookingItem = (props: Props) => {
         )}
       </ObjectLevelPermissionProvider>
       <RecurrenceRulePrivateBookingDeleteDialog
-        onChange={() => {
-          props.onDelete(recurrentPrivateBooking.id);
+        onClose={() => setDeleteDialogOpen(false)}
+        onDelete={(data) => {
+          onDelete(data);
           setDeleteDialogOpen(false);
         }}
-        onClose={() => setDeleteDialogOpen(false)}
         recurrentRuleId={deleteDialogOpen ? recurrentPrivateBooking.id : null}
       />
     </ListItem>

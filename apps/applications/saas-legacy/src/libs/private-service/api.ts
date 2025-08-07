@@ -692,9 +692,10 @@ export const createOrUpdateRecurrenceRulePrivateBooking = async (data: any) => {
   );
 };
 
-export const deleteRecurrenceRulePrivateBooking = (id: number) => {
+export const deleteRecurrenceRulePrivateBooking = (id: number, data: any) => {
   return deleteAuth(
     `${API_V1_URI}/private_service/recurrence_rule_private_booking/${id}/`,
+    data,
   );
 };
 

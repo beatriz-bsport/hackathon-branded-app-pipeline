@@ -540,9 +540,9 @@ exports.default = {
     email: 'Email',
     phone: 'Telephone',
     clearDate: 'Clear',
-    birthday: 'Birthday',
+    birthday: 'Date of birth',
     birthdayYear: 'Year of birth',
-    gender: 'Sex',
+    gender: 'Gender',
     lastname: 'Last name',
     firstname: 'First name',
     newCoach: 'New teacher',
@@ -713,10 +713,10 @@ exports.default = {
     },
     member: {
       referenceNumberHelper:
-        '(Optional) If empty, a number will automatically be generated for your members.',
+        "(optional) If left empty, we'll automatically generate one",
       referenceNumber: 'Membership Number',
       birthdayYear: 'Year of birth',
-      rgpdTitle: 'Accepted communication channels:',
+      rgpdTitle: 'I agree to be contacted for promotions via:',
       phone: 'Telephone',
       delete: { success: 'Note deleted', error: 'Error deleting note' },
       createOrUpdate: {
@@ -724,11 +724,10 @@ exports.default = {
         error: 'Error while saving note',
       },
       rgpd: {
-        sms: 'I agree to be notified by SMS for commercial purposes (promotions, special offers ...)',
-        email:
-          'I agree to be notified by email for commercial purposes (promotions, special offers ...)',
+        sms: 'SMS',
+        email: 'Email',
       },
-      barcodeHelper: '(Optional) Use this barcode for your access cards.',
+      barcodeHelper: '(optional) Use this barcode for Access Monitoring',
       barcode: 'Barcode',
       errors: {
         waiver: "It's required to accept the Liability Waiver.",

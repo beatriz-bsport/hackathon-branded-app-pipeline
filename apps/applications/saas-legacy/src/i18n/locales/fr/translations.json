@@ -4122,6 +4122,7 @@
                     "2": "Backoffice",
                     "3": "Autre",
                     "4": "Migration",
+                    "7": "PDV",
                     "label": "Canal : {{ source }}"
                 },
                 "noBillingGroup": "Aucun groupe de facturation n'a été associé à cette facture",
@@ -4713,7 +4714,7 @@
                 "confirm": "Valider"
             }
         },
-        "anonymousMember": "Membre anonyme",
+        "anonymousMember": "Vente sans profil",
         "invoiceFuturePaymentsDialog": {
             "applyForAllFuturePayments": "Appliquer aux échéances futures de cette facture"
         },
@@ -6625,7 +6626,7 @@
         },
         "accountBalance": "Solde",
         "officialIdNumber": {
-            "label": "Numéro document d'identité",
+            "label": "CNI/Passeport/NIF",
             "value": "N°{{id}}"
         },
         "membershipNumber": {
@@ -7029,7 +7030,7 @@
                 "forms": "Formulaire membre",
                 "mobilePersonalization": "Personnalisation app",
                 "coachUserspace": "Espace professeur",
-                "quicksale": "Interface de vente",
+                "quicksale": "PDV",
                 "referral": "Parrainage"
             },
             "marketingNotification": "Notifications",
@@ -12521,6 +12522,10 @@
                         },
                         "title": "Access monitoring"
                     },
+                    "establishmentBillingGroup": {
+                        "title": "Groupe de facturation",
+                        "description": "Toutes les ventes effectuées au sein de ce groupe de facturation associé seront facturées depuis un seul et même point de vente. Cela inclut les factures, les rapports et les mises à jour de l’inventaire."
+                    },
                     "teacher": {
                         "ifEmptySelectAll": "Laisser vide pout tout sélectionner",
                         "allOptionsPlaceholder": "Tous les professeurs",
@@ -12946,8 +12951,8 @@
                 "name": "Rapports"
             },
             "-1": {
-                "description": "Accès uniquement à l'interface de vente rapide",
-                "name": "Checkin interface de vente"
+                "description": "Ce rôle donne accès à l’interface POS",
+                "name": "PDV"
             }
         },
         "objectLevelPermissions": {
@@ -16762,6 +16767,9 @@
             "updated": "Configuration sauvegardée",
             "error": "Une erreur est survenue lors de la sauvegarde"
         },
+        "quicksaleCheckout": {
+            "15010": "Le panier n'est plus disponible"
+        },
         "spivi": {
             "error": {
                 "21000": "L'upsell Spivi n'est pas activé.",
@@ -19151,8 +19159,8 @@
             },
             "member": {
                 "rgpd": {
-                    "email": "Accepte les notifications par email",
-                    "sms": "Accepte les notifications SMS"
+                    "email": "Email",
+                    "sms": "SMS"
                 },
                 "createOrUpdate": {
                     "error": "Erreur lors de l'enregistrement de la note",
@@ -19171,12 +19179,12 @@
                     }
                 },
                 "phone": "Téléphone",
-                "rgpdTitle": "Moyen de communication accepté par le membre (promotions, marketing, smartlist etc...) :",
+                "rgpdTitle": "J’accepte d’être contacté(e) pour des offres promotionnelles par :",
                 "birthdayYear": "Année de naissance",
                 "barcode": "Code-barre (carte)",
-                "barcodeHelper": "(optionnel) utilisez ce code pour vos carte d'accès",
+                "barcodeHelper": "(optionnel) Utiliser ce code-barres pour l'Access Monitoring",
                 "referenceNumber": "Numéro d'adhérent",
-                "referenceNumberHelper": "(optionnel) si vide un numéro sera automatiquement créé",
+                "referenceNumberHelper": "(optionnel) Si ce champ est vide, un numéro sera généré automatiquement",
                 "errors": {
                     "accept_sms": "Vous devez accepter les notifications par SMS",
                     "accept_email": "Vous devez accepter les notifications par Email",
@@ -21046,36 +21054,36 @@
     "quicksale": {
         "interface": {
             "outOfStock": {
-                "subText": "Le produit que vous tentez d'ajouter au panier n'est plus en stock dans votre établiussement. Voulez-vous tout de même l'ajouter ?",
-                "title": "Plus de stock",
-                "addAnyway": "Ajouter quand même"
+                "subText": "Cet article est actuellement en rupture de stock, mais vous pouvez quand même l’ajouter au panier.",
+                "title": "Article en rupture de stock",
+                "addAnyway": "Ajouter au panier"
             },
             "seller": "Vendeur",
-            "anonymousSale": "Vente anonyme",
+            "anonymousSale": "Vente sans profil",
             "searchAProduct": "Rechercher un produit",
             "noResult": "Aucun résultat",
             "resultsForString": "{{ count }} résultat pour \"{{ searchText }}\"",
             "resultsForString_plural": "{{ count }} résultats pour \"{{ searchText }}\"",
             "goBack": "Retour",
             "totalExcludingTax": "Total HT",
-            "taxes": "Taxes",
+            "taxes": "TVA",
             "totalIncludingTax": "Total",
             "payment": "Paiement",
-            "selectItemToStart": "Cliquez sur un objet pour commencer un panier",
+            "selectItemToStart": "Ajoutez un article au panier pour commencer",
             "memberModal": {
-                "title": "Identification du membre",
-                "confirm": "Enregistrer",
+                "title": "Profil du membre",
+                "confirm": "Sauvegarder",
                 "cancel": "Annuler"
             },
             "authenticationNecessary": "L'authentification d'un membre est nécessaire pour cette section.",
             "ongoingBaskets": {
-                "title": "Paniers en cours",
-                "subText": "Des factures sont en cours, veuillez les fermer avant de vous déconnecter."
+                "title": "Paniers ouverts détectés",
+                "subText": "Merci de finaliser ou supprimer vos paniers ouverts pour pouvoir vous déconnecter."
             },
             "deleteCurrentBasket": {
-                "title": "Suppression du panier en cours",
-                "subText": "Êtes-vous sûr de vouloir supprimer le panier actuel ?",
-                "cancel": "Annuler",
+                "title": "Supprimer le panier ?",
+                "subText": "Les articles ajoutés à ce panier ne seront pas enregistrés.",
+                "cancel": "Retour",
                 "delete": "Supprimer"
             },
             "payLater": {
@@ -21163,8 +21171,8 @@
             "numberOfVariants_plural": "{{ count }} variantes"
         },
         "sectionCard": {
-            "item": "item",
-            "item_plural": "items"
+            "item": "article",
+            "item_plural": "articles"
         },
         "iconSelector": {
             "searchPlaceholder": "Chercher (recherche en anglais)"
@@ -21172,10 +21180,10 @@
         "itemList": {
             "goBack": "Retour",
             "additionDrawer": {
-                "title": "Interface de vente",
-                "simpleObjectsSubtitle": "Ajouter des objets",
-                "objectGroupsSubtitle": "Ajouter un groupe d'objets",
-                "objectsAddition": "Ajout d'objets",
+                "title": "PDV",
+                "simpleObjectsSubtitle": "Ajouter des produits",
+                "objectGroupsSubtitle": "Ajouter un groupe de produits",
+                "objectsAddition": "Produits",
                 "tilesColor": "Couleur des tuiles",
                 "search": "Rechercher",
                 "cancel": "Annuler",
@@ -21192,7 +21200,7 @@
             "preview": "Prévisualisation",
             "save": "Sauvegarder",
             "possibleActionsShort": "Vous pouvez effectuer des actions au survol des tuiles à l'aide de la souris...",
-            "possibleActionsFull": "Vous pouvez effectuer des actions au survol des tuiles à l'aide de la souris. Vous pourrez ainsi :",
+            "possibleActionsFull": "Survolez les tuiles avec votre souris pour effectuer différentes actions :",
             "seeMore": "Voir plus",
             "seeLess": "Voir moins",
             "editIcon": "Modifier l'icône",
@@ -21201,21 +21209,21 @@
             "moveTile": "Déplacer la tuile",
             "archiveSection": "Archiver la catégorie",
             "deleteTile": "Supprimer la tuile",
-            "addSection": "Vous pouvez également ajouter une catégorie en cliquant sur la tuile + en dernière position.",
-            "addItems": "Vous pouvez également ajouter des objets en cliquant sur la tuile + en dernière position.",
+            "addSection": "Vous pouvez également ajouter une catégorie en cliquant sur la tuile + située en dernière position.",
+            "addItems": "Vous pouvez également ajouter des produits en cliquant sur la tuile + située en dernière position.",
             "newSection": "Nouvelle catégorie",
-            "categoryModalTitle": "Couleur de la catégorie",
+            "categoryModalTitle": "Couleur de la tuile",
             "categoryModalSubtitle": "Palette de couleur",
             "archivedCategories": "Catégories archivées",
             "categoryArchivedSnackbar": "La catégorie a été archivée"
         },
         "pageLeavePrompt": {
-            "title": "Modifications non sauvegardées",
-            "description": "Attention, vous n'avez pas effectué de sauvegarde. Vous vous apprêtez à perdre tous les changements apportés. Souhaitez-vous sauvegarder votre travail ?",
+            "title": "Sauvegarder vos changements ?",
+            "description": "Attention, vos modifications n’ont pas été sauvegardées.",
             "save": "Sauvegarder",
             "discard": "Quitter sans sauvegarder"
         },
-        "pageTitle": "Interface de vente",
+        "pageTitle": "PDV",
         "rolePage": {
             "title": "Accès point de vente",
             "subtitle": "Ces accès permettent au staff d'accéder à l'interface de vente rapide. Il est nécessaire de se connecter afin de pouvoir vendre via l'interface.",
@@ -21235,7 +21243,7 @@
         "checkout": {
             "billingDate": "Date de facturation",
             "priceExcludingTax": "Total HT",
-            "tax": "Taxes",
+            "tax": "TVA",
             "priceIncludingTax": "Total",
             "invoiceFootNote": "Note de bas de facture",
             "deliveryFee": "Frais de livraison",
@@ -21252,14 +21260,14 @@
             "cancel": "Annuler",
             "validate": "Valider",
             "paymentSuccess": {
-                "title": "Paiement accepté",
+                "title": "Vente réussie",
                 "subText": "Le paiement a bien été pris en compte. La facture a été envoyée par mail.",
                 "subTextAnonymous": "Le paiement a bien été pris en compte.",
                 "subTextPartialPayment": "Le paiement a bien été pris en compte. La facture a été envoyée par mail. Le reste du paiement a été remis à plus tard : il pourra être effectué depuis le Backoffice ou sur le profil client.",
                 "printTicket": "Imprimer le ticket",
                 "sendByEmail": "Envoyer la facture par mail",
-                "description": "Le paiement a été effectué avec succès.",
-                "qrCodeTitle": "Téléchargez votre reçu"
+                "description": "Paiement effectué",
+                "qrCodeTitle": "Télécharger le reçu"
             },
             "emailSent": {
                 "title": "Email envoyé",

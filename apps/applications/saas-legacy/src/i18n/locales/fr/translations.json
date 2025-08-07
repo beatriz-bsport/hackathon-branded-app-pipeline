@@ -11102,10 +11102,10 @@
             },
             "forms": {
                 "delete": {
-                    "title": "Déprogrammer un RDV récurrent",
                     "content": "Déprogrammer le RDV récurrent entrainera l'annulation des RDV futurs enregistrés via cette règle.",
                     "cancel": "Annuler",
-                    "confirm": "Supprimer"
+                    "confirm": "Supprimer",
+                    "title": "Suppression RDV récurrent"
                 },
                 "update": {
                     "title": "Modification RDV récurrent",

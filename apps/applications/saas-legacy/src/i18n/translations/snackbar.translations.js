@@ -1433,7 +1433,7 @@ const getTranslations = async () => {
     },
     quicksaleCheckout: {
       [BASKET_QUICKSALE_PREVIOUSLY_DROPPED]:
-        'Impossible to read, update or work on this quicksale basket, it was previously dropped',
+        'The basket is no longer available',
     },
     spivi: {
       error: {

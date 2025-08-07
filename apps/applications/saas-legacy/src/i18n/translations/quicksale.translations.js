@@ -11,10 +11,10 @@ exports.default = {
       cancel: 'Cancel',
       search: 'Search',
       tilesColor: 'Tile colour',
-      objectsAddition: 'Adding objects',
-      objectGroupsSubtitle: 'Add a group of objects',
-      simpleObjectsSubtitle: 'Add objects',
-      title: 'Sales interface',
+      objectsAddition: 'Products',
+      objectGroupsSubtitle: 'Add a group of products',
+      simpleObjectsSubtitle: 'Add products',
+      title: 'POV',
     },
     goBack: 'Back',
   },
@@ -65,22 +65,21 @@ exports.default = {
     subtitle:
       'These accesses enable staff to access the sales interface. You need to be logged in to be able to sell via the interface.',
   },
-  pageTitle: 'Sales interface',
+  pageTitle: 'POS',
   pageLeavePrompt: {
     discard: 'Exit without saving',
     save: 'Save',
-    description:
-      "Be careful, you haven't made a save. You are about to lose all the changes you have made. Would you like to save your work?",
-    title: 'Changes not saved',
+    description: 'Your changes have not been saved.',
+    title: 'Save your changes?',
   },
   cardListPage: {
     categoryArchivedSnackbar: 'The category has been archived',
     archivedCategories: 'Archived categories',
-    categoryModalSubtitle: 'Color palette',
-    categoryModalTitle: 'Color of the category',
+    categoryModalSubtitle: 'Colour palette',
+    categoryModalTitle: 'Tile colour',
     newSection: 'New category',
     addItems:
-      'You can also add objects by clicking on the + tile in the last position.',
+      'You can also add products by clicking on the + tile in the last position.',
     addSection:
       'You can also add a category by clicking on the + tile in the last position.',
     deleteTile: 'Delete the tile',
@@ -100,8 +99,8 @@ exports.default = {
   },
   interface: {
     seller: 'Seller',
-    anonymousSale: 'Anonymous sale',
-    searchAProduct: 'Look for a product',
+    anonymousSale: 'No profile',
+    searchAProduct: 'Search products',
     noResult: 'No result',
     resultsForString: '{{ count }} result for {{ searchText }}',
     resultsForString_plural: '{{ count }} results for {{ searchText }}',
@@ -175,30 +174,30 @@ exports.default = {
     },
     totalExcludingTax: 'Total before tax',
     payment: 'Payment',
-    selectItemToStart: 'Click on an item to start a shopping cart',
+    selectItemToStart: 'Add an item to the basket to get started',
     memberModal: {
-      title: 'Member identification',
+      title: 'Member profile',
       confirm: 'Save',
       cancel: 'Cancel',
     },
     authenticationNecessary:
       'Member authentication is necessary for this section.',
     ongoingBaskets: {
-      title: 'Shopping cart in progress',
+      title: 'Close baskets to log out',
       subText:
-        'You have invoices in progress, please close them before logging out.',
+        'You still have some incomplete sales—close pending baskets to log out.',
     },
     deleteCurrentBasket: {
-      title: 'Deletion of the current basket',
-      subText: 'Are you sure that you want to deleted the current basket ?',
-      cancel: 'Cancel',
+      title: 'Delete basket?',
+      subText: "The items added to this basket won't be saved.",
+      cancel: 'Back',
       delete: 'Delete',
     },
     outOfStock: {
-      title: 'Out of stock',
+      title: 'Item out of stock',
       subText:
-        'The item you try to add to the shopping cart is out of stock in your establishment. Do you want to add it anyway ?',
-      addAnyway: 'Add anyway',
+        'This item is currently out of stock but you can still add it to the basket.',
+      addAnyway: 'Add to basket',
     },
   },
   checkout: {
@@ -221,12 +220,12 @@ exports.default = {
     cancel: 'Cancel',
     validate: 'Validate',
     paymentSuccess: {
-      title: 'Payment accepted',
-      description: 'The payment has been successfully processed.',
+      title: 'Sale successful',
+      description: 'Payment processed',
       subTextPartialPayment:
         'The payment has been processed. The invoice was sent by e-mail. The rest of the payment has been postponed: it can be made from the Backoffice or the customer profile.',
       printTicket: 'Print ticket',
-      qrCodeTitle: 'Download your receipt',
+      qrCodeTitle: 'Download receipt',
       sendByEmail: 'Email the invoice',
     },
     emailSent: {

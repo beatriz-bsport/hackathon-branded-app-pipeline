@@ -4350,7 +4350,7 @@
                             "setupIntent": "The payment method has not been saved."
                         },
                         "explain": {
-                            "label": "Reason for failure :"
+                            "label": "Reason for failure:"
                         },
                         "interac": {
                             "content": "Interac cards cannot be used for recurring payments or saved. Please use an alternative payment method.",
@@ -4898,7 +4898,7 @@
             "3": "Cancelled",
             "4": "In progress"
         },
-        "anonymousMember": "Anonymous member",
+        "anonymousMember": "No profile",
         "sentToFiskaly": "Sent to Fiskaly"
     },
     "login": {
@@ -6870,7 +6870,7 @@
         },
         "officialIdNumber": {
             "value": "Number {{id}}",
-            "label": "Identity document number"
+            "label": "ID number"
         }
     },
     "membership": {
@@ -7107,7 +7107,7 @@
                 "quickbooks": "QuickBooks",
                 "mobilePersonalization": "Branded app",
                 "coachUserspace": "Teacher view",
-                "quicksale": "Sales interface",
+                "quicksale": "POS",
                 "referral": "Referral"
             },
             "pass": "Passes",
@@ -11343,10 +11343,10 @@
                 "cancel": "Cancel",
                 "search": "Search",
                 "tilesColor": "Tile colour",
-                "objectsAddition": "Adding objects",
-                "objectGroupsSubtitle": "Add a group of objects",
-                "simpleObjectsSubtitle": "Add objects",
-                "title": "Sales interface"
+                "objectsAddition": "Products",
+                "objectGroupsSubtitle": "Add a group of products",
+                "simpleObjectsSubtitle": "Add products",
+                "title": "POV"
             },
             "goBack": "Back"
         },
@@ -11401,20 +11401,20 @@
             "title": "Sales interface access",
             "subtitle": "These accesses enable staff to access the sales interface. You need to be logged in to be able to sell via the interface."
         },
-        "pageTitle": "Sales interface",
+        "pageTitle": "POS",
         "pageLeavePrompt": {
             "discard": "Exit without saving",
             "save": "Save",
-            "description": "Be careful, you haven't made a save. You are about to lose all the changes you have made. Would you like to save your work?",
-            "title": "Changes not saved"
+            "description": "Your changes have not been saved.",
+            "title": "Save your changes?"
         },
         "cardListPage": {
             "categoryArchivedSnackbar": "The category has been archived",
             "archivedCategories": "Archived categories",
-            "categoryModalSubtitle": "Color palette",
-            "categoryModalTitle": "Color of the category",
+            "categoryModalSubtitle": "Colour palette",
+            "categoryModalTitle": "Tile colour",
             "newSection": "New category",
-            "addItems": "You can also add objects by clicking on the + tile in the last position.",
+            "addItems": "You can also add products by clicking on the + tile in the last position.",
             "addSection": "You can also add a category by clicking on the + tile in the last position.",
             "deleteTile": "Delete the tile",
             "archiveSection": "Archive the category",
@@ -11431,8 +11431,8 @@
         },
         "interface": {
             "seller": "Seller",
-            "anonymousSale": "Anonymous sale",
-            "searchAProduct": "Look for a product",
+            "anonymousSale": "No profile",
+            "searchAProduct": "Search products",
             "noResult": "No result",
             "resultsForString": "{{ count }} result for {{ searchText }}",
             "resultsForString_plural": "{{ count }} results for {{ searchText }}",
@@ -11496,27 +11496,27 @@
             },
             "totalExcludingTax": "Total before tax",
             "payment": "Payment",
-            "selectItemToStart": "Click on an item to start a shopping cart",
+            "selectItemToStart": "Add an item to the basket to get started",
             "memberModal": {
-                "title": "Member identification",
+                "title": "Member profile",
                 "confirm": "Save",
                 "cancel": "Cancel"
             },
             "authenticationNecessary": "Member authentication is necessary for this section.",
             "ongoingBaskets": {
-                "title": "Shopping cart in progress",
-                "subText": "You have invoices in progress, please close them before logging out."
+                "title": "Close baskets to log out",
+                "subText": "You still have some incomplete sales—close pending baskets to log out."
             },
             "deleteCurrentBasket": {
-                "title": "Deletion of the current basket",
-                "subText": "Are you sure that you want to deleted the current basket ?",
-                "cancel": "Cancel",
+                "title": "Delete basket?",
+                "subText": "The items added to this basket won't be saved.",
+                "cancel": "Back",
                 "delete": "Delete"
             },
             "outOfStock": {
-                "title": "Out of stock",
-                "subText": "The item you try to add to the shopping cart is out of stock in your establishment. Do you want to add it anyway ?",
-                "addAnyway": "Add anyway"
+                "title": "Item out of stock",
+                "subText": "This item is currently out of stock but you can still add it to the basket.",
+                "addAnyway": "Add to basket"
             }
         },
         "checkout": {
@@ -11539,11 +11539,11 @@
             "cancel": "Cancel",
             "validate": "Validate",
             "paymentSuccess": {
-                "title": "Payment accepted",
-                "description": "The payment has been successfully processed.",
+                "title": "Sale successful",
+                "description": "Payment processed",
                 "subTextPartialPayment": "The payment has been processed. The invoice was sent by e-mail. The rest of the payment has been postponed: it can be made from the Backoffice or the customer profile.",
                 "printTicket": "Print ticket",
-                "qrCodeTitle": "Download your receipt",
+                "qrCodeTitle": "Download receipt",
                 "sendByEmail": "Email the invoice"
             },
             "emailSent": {
@@ -13098,7 +13098,7 @@
                         "ifEmptySelectAll": "Leave empty to select all"
                     },
                     "establishmentBillingGroup": {
-                        "title": "Associated billing group *",
+                        "title": "billing group *",
                         "helpText": "A billing group is a way to group multiple locations under a single legal entity for invoicing and billing purposes."
                     },
                     "accessMonitoring": {
@@ -13194,8 +13194,8 @@
                 "description": "This will only provide access to Reporting, which may be useful for your accountants."
             },
             "-1": {
-                "description": "Access to quick sales interface only",
-                "name": "Checkin sales interface"
+                "description": "This role gives access to the POS interface",
+                "name": "POS"
             }
         },
         "rolePermissions": {
@@ -17420,7 +17420,7 @@
             "updated": "Configuration saved"
         },
         "quicksaleCheckout": {
-            "15010": "Impossible to read, update or work on this quicksale basket, it was previously dropped"
+            "15010": "The basket is no longer available"
         },
         "spivi": {
             "error": {
@@ -17659,7 +17659,7 @@
             "invalid_bank_account_routing_number": "The sort code provided is invalid.",
             "email_invalid": "The email address is invalid.",
             "terminal_reader_busy": "The reader is currently busy processing another request or is performing an update.",
-            "terminal_reader_offline": "The reader is currently offline, please ensure the reader is powered on and connected to the internet before retrying your request.",
+            "terminal_reader_offline": "Card reader offline. Make sure the reader is turned on and connected to the internet, then try again.",
             "terminal_reader_timeout": "There was a timeout when sending this command to the reader."
         },
         "error_code": {
@@ -19872,9 +19872,9 @@
             "email": "Email",
             "phone": "Telephone",
             "clearDate": "Clear",
-            "birthday": "Birthday",
+            "birthday": "Date of birth",
             "birthdayYear": "Year of birth",
-            "gender": "Sex",
+            "gender": "Gender",
             "lastname": "Last name",
             "firstname": "First name",
             "newCoach": "New teacher",
@@ -20029,10 +20029,10 @@
                 "cantAddSameName": "There's already an activity with this name."
             },
             "member": {
-                "referenceNumberHelper": "(Optional) If empty, a number will automatically be generated for your members.",
+                "referenceNumberHelper": "(optional) If left empty, we'll automatically generate one",
                 "referenceNumber": "Membership Number",
                 "birthdayYear": "Year of birth",
-                "rgpdTitle": "Accepted communication channels:",
+                "rgpdTitle": "I agree to be contacted for promotions via:",
                 "phone": "Telephone",
                 "delete": {
                     "success": "Note deleted",
@@ -20043,10 +20043,10 @@
                     "error": "Error while saving note"
                 },
                 "rgpd": {
-                    "sms": "I agree to be notified by SMS for commercial purposes (promotions, special offers ...)",
-                    "email": "I agree to be notified by email for commercial purposes (promotions, special offers ...)"
+                    "sms": "SMS",
+                    "email": "Email"
                 },
-                "barcodeHelper": "(Optional) Use this barcode for your access cards.",
+                "barcodeHelper": "(optional) Use this barcode for Access Monitoring",
                 "barcode": "Barcode",
                 "errors": {
                     "waiver": "It's required to accept the Liability Waiver.",

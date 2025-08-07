@@ -4625,7 +4625,7 @@
                 },
                 "priceIncludingTax": {
                     "label": "Prijs (incl. btw)",
-                    "helperText": "Dit is de verkoopprijs."
+                    "helperText": "De totale verkoopprijs van de leskaart."
                 },
                 "unlimited": "Onbeperkt",
                 "maxBookingPerWeek": {
@@ -4766,7 +4766,7 @@
                     "noShowCheckbox": "Te veel no-shows",
                     "cancellationsCheckbox": "Te veel annuleringen buiten de tijd",
                     "titleCheckbox": "Pas een sanctie toe voor",
-                    "helperText": "Sancties toepassen voor te veel no-shows of te late annuleringen",
+                    "helperText": "Leg een boete op aan leden die te vaak niet komen opdagen of te laat annuleren. ",
                     "label": "Een sanctie toepassen"
                 },
                 "only_vod_access": "Alleen geschikt voor Video On Demand",
@@ -4779,37 +4779,37 @@
                 },
                 "advancedOptions": {
                     "tag": {
-                        "doNotSelectToAllowAllMembers": "Laat dit veld leeg om geen beperkingen op te leggen",
+                        "doNotSelectToAllowAllMembers": "Laat dit veld leeg om het beschikbaar te maken voor alle leden.",
                         "notAllowedFor": "Afgekeurd voor",
                         "notAllowed": "Afgekeurd",
                         "allowedFor": "Goedgekeurd voor",
-                        "allowed": "Goedgekeurd",
-                        "helperText": "Gebruik tags om deze kaart juist wel óf niet aan bepaalde leden op de MarketPlace, op de widget of op de app te tonen. ",
+                        "allowed": "Beschikbaar",
+                        "helperText": "Gebruik tags om deze pas beschikbaar of niet beschikbaar te maken voor aankoop door bepaalde segmenten van je klantenbestand.",
                         "header": "Tags",
                         "tagsOnAcquisition": "Tag ná aankoop",
                         "selectTags": "Selecteer tags",
-                        "tagsOnAcquisitionHelper": "Gebruik tags om te identificeren welk lid de leskaart heeft gekocht."
+                        "tagsOnAcquisitionHelper": "Tag leden die deze pas hebben gekocht om ze in de toekomst snel te kunnen herkennen."
                     },
                     "header": "Geavanceerd",
                     "appliesForPayroll": {
-                        "label": "Sessies meeberekenen voor de payroll van de instructeur(s)",
-                        "helperText": "Standaard worden sessies gefactureerd aan de studio en opgenomen in het overzicht van de leraar en de beloning door de studio. Als je deze instelling uitschakelt, verschijnen de sessies die aan deze kaart gekoppeld zijn niet meer in het overzicht van de docent.",
+                        "label": "Lessen die met deze pas worden gekocht, worden opgenomen in de payroll van de docent.",
+                        "helperText": "Lessen worden standaard gefactureerd aan de studio en opgenomen in de payroll van de docent. Deactiveer deze instelling om ervoor te zorgen dat lessen die aan deze leskaart zijn gekoppeld niet langer in de payroll van docenten verschijnen.",
                         "header": "instructeur payroll"
                     }
                 },
                 "universalPass": {
                     "warningIsUniversalPass": "Gekoppelde afspraakkaarten worden automatisch aangemaakt voor universele kaarten. Alle velden die hier ingesteld zijn kunnen ook op de gekoppelde afspraakkaarten worden gewijzigd m.u.v. de categorieën. Hetzelfde geldt voor de meldingen, geldigheidsverlengingen en creditwijzigingen.",
                     "deativatedTags": "Deactiveren voor universele kaarten",
-                    "helperText": "Een universele kaart kan voor groepsactiviteiten én afspraken worden gebruikt. Iedere universele kaart heeft twee gekoppelde kaarten voor de credits. De gekoppelde kaarten worden automatisch en kosteloos toegevoegd zodra een universele kaart is aangeschaft.",
+                    "helperText": "Universele kaarten kunnen door leden worden gebruikt om zowel groepsactiviteiten als afspraken te boeken. Elke keer dat een universele kaart wordt gekocht, voegen we automatisch een ‘tweeling’-afsprakenkaart toe om de credits tussen de twee kaartsoorten te verdelen.",
                     "marketplaceLabel": "Een universele kaart kan voor groepsactiviteiten én afspraken worden gebruikt.",
                     "label": "Universele kaart"
                 },
                 "highlightedAsRecommended": {
                     "label": "Als aanrader markeren",
-                    "helperText": "Dit geeft klanten een overzicht van de leskaarten die momenteel worden aangeraden."
+                    "helperText": "Breng deze leskaart onder de aandacht van je leden door deze te promoten in het gedeelte ‘aanbevolen’ van het boekingsproces."
                 },
                 "notification": "Meldingen",
-                "detailsAndRestrictions": "Details en beperkingen",
+                "detailsAndRestrictions": "Details en voorwaarden",
                 "noNotificationsWarning": "Je hebt nog geen meldingen ingesteld. Ga naar <strong>Marketing > Meldingen</strong> om nieuwe meldingen te maken"
             }
         },
@@ -5032,12 +5032,12 @@
         },
         "selector": {
             "noAvailable": "Er is geen kaart die overeenkomt met de gekozen beschikbaarheid.",
-            "noManagerOnly": "Beschikbare kaarten",
-            "managerOnly": "Onzichtbaar voor klanten",
-            "filterManagerOnly": "Alle beschikbaarheid",
+            "noManagerOnly": "Zichtbaar op Marketplace",
+            "managerOnly": "Onzichtbaar voor leden",
+            "filterManagerOnly": "Zichtbaar voor iedereen",
             "filterCategory": "Alle categorieën",
             "titleSort": "Sorteren",
-            "titleManagerOnly": "Beschikbaarheid",
+            "titleManagerOnly": "Zichtbaarheid",
             "titleCategory": "Categorieën",
             "sorting": {
                 "descendingCredit": "Credits (aflopend)",
@@ -5046,7 +5046,7 @@
                 "ascendingPrice": "Prijs: oplopend",
                 "customSort": "Aanvullende bestellingen (MarketPlace en Mobiele App)"
             },
-            "unusableByStaff": "Onzichtbaar voor het personeel"
+            "unusableByStaff": "Verborgen voor het personeel"
         },
         "paymentPackTemplate": {
             "actions": {
@@ -5163,19 +5163,19 @@
             "only_vod_access": "Maak deze kaart alleen geschikt voor Video On Demand",
             "vodAccessCard": "Activeer toegang tot Video On Demand",
             "vod": "Video On Demand",
-            "compatibility": "Deze kaart is alleen geschikt voor alle geselecteerde activiteiten, categorieën en/of vestigingen.",
-            "letBlank": "Laat dit veld leeg om geen beperkingen in te stellen.",
+            "compatibility": "Deze leskaart is alleen geldig voor de geselecteerde lessen, activiteiten, categorieën of instellingen.",
+            "letBlank": "Laat leeg om deze leskaart niet te beperken",
             "activities": "Activiteiten",
             "room": "Vestigingen",
             "categories": "Categorieën",
             "inShopPayment": "Accepteer fysieke betalingen",
-            "newClientOnly": "Maak dit product alleen voor nieuwe leden beschikbaar",
+            "newClientOnly": "Alleen zichtbaar voor nieuwe leden",
             "maxUseMember": "Maximale aankoop per lid",
             "maxUseMonth": "Maximaal gebruik per maand",
             "maxUseWeek": "Maximaal gebruik per week",
-            "maxUseHelper": "Laat dit veld leeg om geen limiet in te stellen.",
+            "maxUseHelper": "Laat leeg om geen gebruikslimiet in te stellen",
             "maxUseDay": "Maximaal gebruik per dag",
-            "restriction": "Beperkingen",
+            "restriction": "Voorwaarden",
             "penalityAccountHelper": "{{penalityBlockAccount}}{{ currencyDisplay }} wordt ten laste gebracht van het rekeningsaldo van dit lid.",
             "penalityBlockDayHelper": "Leden hun kaarten worden {{penalityBlockDay}} dag(en) geblokkeerd.",
             "penalityAccountPrice": "Boetebedrag",
@@ -5188,8 +5188,8 @@
             "penalityNumberCancel": "Aantal annuleringen",
             "marginalContributionHelperText": "Wordt gebruikt om de vergoeding voor docenten te berekenen. {{ currencyDisplay }}10betekent dat een reservering die met deze kaart is gemaakt, wordt vergoed tegen {{ currencyDisplay }}10. Indien leeg of {{ currencyDisplay }}0} is de bijdrage van een kaart PRIJS / NB_RESERVATIE.",
             "marginalContribution": "Theoretische marginale waarde excl. btw",
-            "expirationDateHelper": "De geldigheid van deze leskaart verloopt na X aantal dagen als het niet gebruikt wordt.",
-            "expirationDate": "De vervaldatum indien deze leskaart niet gebruikt wordt:",
+            "expirationDateHelper": "Als de leskaart tijdens deze periode niet is gebruikt, verloopt deze automatisch.",
+            "expirationDate": "Aantal dagen voordat de pas verloopt indien niet gebruikt *",
             "beginningDate": "Startdatum",
             "attendance": "Geldig vanaf de 1e aanwezigheid",
             "firstBooking": "Geldig vanaf de 1e reservering",
@@ -5206,8 +5206,8 @@
             "yearValidityHelper": "Dit wordt aan het aantal dagen en maanden toegevoegd.",
             "monthValidityHelper": "Dit wordt aan het aantal dagen toegevoegd.",
             "yearValidity": "Geldigheidsduur (in jaren)",
-            "monthValidity": "Geldigheidsduur (in maanden)",
-            "dayValidity": "Geldigheidsduur (in dagen)",
+            "monthValidity": "Maanden",
+            "dayValidity": "Dagen",
             "endBeforeStart": "De einddatum moet groter zijn dan de begindatum",
             "toDate": "Tot",
             "fromDate": "Van",
@@ -5229,7 +5229,7 @@
             "creditWarning": "Attentie! Alle kaarten worden bijgewerkt als het aantal credits wordt gewijzigd.",
             "migration": "Deze kaart is overgenomen van een eerder voltooide gegevensoverdracht. Het is mogelijk dat sommige velden niet bewerkt kunnen worden om de data niet te beschadigen. Compatibele activiteiten/categorieën kunnen nog wel worden gewijzigd.",
             "franchise": "Deze kaart is gemaakt door het Master-Account. Bepaalde instellingen zijn op groepsniveau ingesteld en kunnen niet worden gewijzigd.",
-            "allowGuest": "Dit product kan voor het uitnodigen van gasten worden gebruikt",
+            "allowGuest": "Compatibel met gastreserveringen",
             "penalityModeFranchisor": {
                 "buyer": {
                     "explain": "Het saldo van de ledenaccount wordt alleen belast met {{ price }} bij de franchisenemer waar de pas is gekocht.",
@@ -5247,9 +5247,9 @@
             },
             "unusableByStaff": "Onzichtbaar voor het personeel",
             "expiration_date": {
-                "label": "Aankooptermijn",
+                "label": "Duur van de verkoop",
                 "helperText": "Beschikbaar tot",
-                "tooltip": "Na de gekozen datum is de kaart niet meer te koop voor klanten."
+                "tooltip": "Na de gekozen datum is de pas niet meer te koop."
             },
             "description": "Beschrijving",
             "offPeak": {
@@ -5259,7 +5259,7 @@
                     "allDay": "Gehele dag"
                 },
                 "addTimeSlot": "Een tijdslot toevoegen",
-                "label": "Reserveringen zijn alleen tussen bepaalde tijden mogelijk"
+                "label": "Beperk boekingen tot bepaalde tijden"
             },
             "atLeastOneDay": "Selecteer ten minste één dag",
             "startAfterEnd": "De starttijd moet vóór de eindtijd zijn",
@@ -5445,7 +5445,7 @@
                     "confirm": "Verwijder",
                     "cancel": "Annuleer",
                     "title": "Een vestiging verwijderen",
-                    "content": "Deze vestiging wordt niet langer weergegeven in de filters van de widgets, marketplace en de mobiele app."
+                    "content": "Deze vestiging wordt niet langer weergegeven in de filters van de widgets, Ledenruimte en de mobiele app."
                 }
             },
             "form": {
@@ -5461,7 +5461,7 @@
             "name": " Naam",
             "addLocalisation": "Een vestiging toevoegen",
             "groupButton": "Groepeer vestigingen",
-            "noGroupHelper": "Hier kun je meerdere vestigingen op verschillende adressen groeperen. Zo kun je meerdere studio's in verschillende steden hebt, kun je studio's uit dezelfde stad op één locatie groeperen. Je leden kunnen vervolgens op je widgets, app, of marketplace een locatie selecteren om alle lessen bij hun in de buurt te bekijken."
+            "noGroupHelper": "Hier kun je meerdere vestigingen op verschillende adressen groeperen. Zo kun je meerdere studio's in verschillende steden hebt, kun je studio's uit dezelfde stad op één locatie groeperen. Je leden kunnen vervolgens op je widgets, app, of Ledenruimte een locatie selecteren om alle lessen bij hun in de buurt te bekijken."
         },
         "room": "Vestiging",
         "localisation": "Locatie",
@@ -5557,7 +5557,7 @@
                 "exclusivePaymentPacks_plural": "De volgende passen {{- pass_name }} zijn alleen geldig in deze vestiging. Update hun beperkingen eerst voordat je de vestiging verwijdert.",
                 "exclusiveEstablishmentGroups": "De locatie {{- establishment_group_name }} bevat alleen de vestiging die u wilt verwijderen. Werk deze locatie bij of verwijder deze.",
                 "exclusiveEstablishmentGroups_plural": "De locaties {{- establishment_group_name }} bevatten alleen de vestiging die je wilt verwijderen, bewerk of verwijder deze locaties eerst.",
-                "hasExclusiveMarketplaceComponentConfigs": "Een of meerdere tabbladen op de marktplaats zijn ingesteld om alleen de agenda en workshops van deze vestiging weer te geven.",
+                "hasExclusiveMarketplaceComponentConfigs": "Een of meerdere tabbladen op de Ledenruimte zijn ingesteld om alleen de agenda en workshops van deze vestiging weer te geven.",
                 "hasUpcomingOffers": "Sommige komende sessies vinden plaats in deze vestiging. Annuleer en verwijder ze voordat je deze vestiging verwijdert.",
                 "hasExclusiveBillingGroup": "Deze vestiging is de laatste van zijn factureringsgroep. Verwijder deze factureringsgroep of werk deze bij voordat u deze vestiging verwijdert.",
                 "isIntegratedInPartnership": "Een of meerdere integraties gebruiken deze vestiging."
@@ -5578,7 +5578,7 @@
                 "relatedPaymentPacks": "De volgende pas {{- pass_name }} zal niet langer bruikbaar zijn voor deze vestiging, zorg ervoor dat u uw klanten hierover informeert.",
                 "hasRelatedAvailabilitySlots": "De beschikbare slots van deze vestiging worden verwijderd.",
                 "hasRelatedZoomEstablishment": "Deze vestiging zal verwijderd worden uit de lijst van vestigingen die gebruikt worden voor live streaming met de Zoom-integratie.",
-                "hasRelatedMarketplaceComponentConfigs": "De kalender- en workshop-tabbladen die zijn geconfigureerd voor je marktplaats zullen de kalender van deze vestiging niet meer weergeven.",
+                "hasRelatedMarketplaceComponentConfigs": "De kalender- en workshop-tabbladen die zijn geconfigureerd voor Ledenruimte zullen de kalender van deze vestiging niet meer weergeven.",
                 "hasRelatedMarketingNotifications": "Meldingen met betrekking tot deze vestiging worden verwijderd."
             },
             "title": {
@@ -5600,10 +5600,10 @@
                     "exclusiveAssociatedCoaches": "Je instructeur {{- coach_name }} krijgt alleen bericht als er een vervangingsverzoek wordt gedaan voor een sessie in deze locatie. Door de locatie te verwijderen, zullen ze dus vervangingsverzoeken van elke locatie ontvangen.",
                     "hasRelatedAssociatedCoaches": "Sommige leerkrachten krijgen een melding wanneer er een vervangingsverzoek wordt ingediend voor een sessie op deze locatie. Door de locatie te verwijderen, ontvangen ze geen meldingen meer.",
                     "hasRelatedMarketingNotifications": "Meldingen die aan deze locatie zijn gekoppeld, worden verwijderd.",
-                    "hasRelatedMarketplaceComponentConfigs": "De kalender- en workshop-tabbladen die zijn geconfigureerd voor je marktplaats zullen deze locatiekalender niet meer weergeven."
+                    "hasRelatedMarketplaceComponentConfigs": "De kalender- en workshop-tabbladen die zijn geconfigureerd voor Ledenruimte zullen deze locatiekalender niet meer weergeven."
                 },
                 "errors": {
-                    "hasExclusiveMarketplaceComponentConfigs": "Een of meerdere tabbladen op de marktplaats zijn ingesteld om alleen de agenda en workshops van deze locatie weer te geven."
+                    "hasExclusiveMarketplaceComponentConfigs": "Een of meerdere tabbladen op de Ledenruimte zijn ingesteld om alleen de agenda en workshops van deze locatie weer te geven."
                 },
                 "infos": {
                     "reportsDefault": "De locatie wordt verwijderd uit eerdere rapporten.",
@@ -7190,7 +7190,7 @@
                 "welcome": "Hoi, {{firstname}}!"
             },
             "title": "[Formulier] Inschrijfformulier",
-            "newMemberOnlyHelperText": "Een lid wordt als \"nieuw\" gemarkeerd indien de persoon niet meer dan {{ currency }}0 heeft besteed. Een nieuw lid verliest ook de status \"nieuw\" indien de persoon een product aanschaft met een korting t.w.v. 100%."
+            "newMemberOnlyHelperText": "Leden worden als ‘nieuw’ beschouwd zolang ze geen aankoop hebben gedaan van meer dan €0. Let op: als een lid een product koopt met 100% korting, telt dit als een aankoop."
         },
         "user": {
             "existsWithEmail": "Er bestaat al een gebruiker met dit e-mailadres ({{email}}).",
@@ -7860,7 +7860,7 @@
             "createModal": {
                 "create": "Een terugkerende reservering toevoegen",
                 "info": "Je kunt geen bestaande terugkerende reserveringen dupliceren",
-                "success": "De terugkerende reservering is aangemaakt."
+                "success": "De terugkerende reservering is aangemaakt. Boekingen worden aangemaakt."
             },
             "editModal": {
                 "success": "De terugkerende reservering is gewijzigd"
@@ -10259,8 +10259,8 @@
             },
             "preview": "Voorvertoning",
             "saveButton": "Opslaan",
-            "link": "Afmelden en MarketPlace openen",
-            "explainMarketplace": "Leden hebben op hun telefoon, computer en tablet toegang tot je Marketplace waar je agenda, webshop, lidmaatschappen e.d. te vinden zijn. In dit onderdeel kan de MarketPlace verder gepersonaliseerd worden.",
+            "link": "Open Ledenruimte (u wordt uitgelogd)",
+            "explainMarketplace": "Leden hebben op hun telefoon, computer en tablet toegang tot je Ledenruimte waar je agenda, webshop, lidmaatschappen e.d. te vinden zijn. In dit onderdeel kan de Ledenruimte verder gepersonaliseerd worden.",
             "addButton": "Een tabblad toevoegen"
         },
         "companyOnboarding": {
@@ -13997,7 +13997,7 @@
                 "whitelist_tags": "[Whitelist] Kan alleen worden gebruikt door leden met de tag(s):",
                 "tags": "Tags",
                 "blacklist_tags": "[Blacklist] Kan niet worden gebruikt door leden met de tag(s):",
-                "tagInfo": "Gebruik tags om de promotiecode alleen voor bepaalde leden op de marketplace, widget en app beschikbaar te maken. Selecteer met welke tags wie wel óf niet deze promotiecode kan gebruiken. "
+                "tagInfo": "Gebruik tags om deze kortingscode beschikbaar of niet beschikbaar te maken voor bepaalde segmenten van uw ledenbestand."
             },
             "name": {
                 "label": "Naam",
@@ -14388,7 +14388,7 @@
                 "0": "App",
                 "1": "Web",
                 "2": "[BSPORT] Back Office",
-                "3": "Andere",
+                "3": "Ledenruimte",
                 "4": "Gegevensoverdracht"
             }
         },
@@ -15484,9 +15484,9 @@
             "acceptTermsAndFinalize": "Accepteer de voorwaarden om je reservering te voltooien",
             "checkAndFinalize": "Controleer je winkelmandje en voltooi je betaling",
             "almostDone": "Laatste stap",
-            "goToMarketplace": "Op de Marktplaats",
+            "goToMarketplace": "Zie Ledenruimte",
             "newCheckout": {
-                "isEmptyDescription": "Ga door met het verkennen van de Marktplaats!",
+                "isEmptyDescription": "Ga door met het verkennen van de Ledenruimte!",
                 "isEmpty": "Je mandje is leeg!"
             },
             "noBooking": {
@@ -18195,7 +18195,7 @@
                 "broadcast": "Livestreamen",
                 "general": "Algemeen",
                 "platform_billing": "Bsport Abonnement",
-                "marketplaceSettings": "Marketplace",
+                "marketplaceSettings": "Ledenruimte-Instellingen",
                 "widget": "Widgets",
                 "paymentMethod": "Betaalmethoden",
                 "forms": "Ledenformulieren",
@@ -19477,8 +19477,8 @@
                         "modify": "Bewerken",
                         "cancel": "Annuleer",
                         "create": "Toevoegen",
-                        "helperTextNewMembers": "Alle relevante leden zullen dit formulier als een pop-up op de MarketPlace en na het inschrijfformulier zien.",
-                        "helperTextRegisteredMembers": "Alle relevante leden zullen dit formulier als een pop-up op de MarketPlace en op de widget zien.",
+                        "helperTextNewMembers": "Alle relevante leden zullen dit formulier als een pop-up op de Ledenruimte en na het inschrijfformulier zien.",
+                        "helperTextRegisteredMembers": "Alle relevante leden zullen dit formulier als een pop-up op de Ledenruimte en op de widget zien.",
                         "subTitle": "Welke leden wil je contacteren?",
                         "title": "[Formulier] Berichtgeving",
                         "snoozeOptionHelperText": "We tonen dit formulier opnieuw nadat het {{count}} uur/uren gesnoozed is.",

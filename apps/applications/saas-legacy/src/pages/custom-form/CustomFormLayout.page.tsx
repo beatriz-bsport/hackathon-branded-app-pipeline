@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { compose, withHandlers, withStateHandlers } from 'recompose';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import { TFunction } from 'i18next';
+import { CUSTOM_FORM_CSS_VARIANT_ACTIVATED } from '#src/libs/custom-form/constants';
 import BackofficeLinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import { getCustomFormWithEnableField } from '../../libs/custom-form/selectors';
@@ -54,6 +55,7 @@ export class CustomFormLayoutPage extends Component<Props> {
             this.props.theme?.general_terms_and_conditions
           }
           initial={this.props.customForm}
+          isCssVariantActivated={CUSTOM_FORM_CSS_VARIANT_ACTIVATED}
           layouts={this.props.customForm?.layout}
           maxHeight="75%"
           onLayoutChange={(allLayouts: ResponsiveLayouts) =>
@@ -65,6 +67,7 @@ export class CustomFormLayoutPage extends Component<Props> {
               layout: this.props.responsiveLayouts,
             })
           }
+          shouldWrapLayerInCssHoc={CUSTOM_FORM_CSS_VARIANT_ACTIVATED}
           waiver={this.props.theme?.waiver}
         />
       </>

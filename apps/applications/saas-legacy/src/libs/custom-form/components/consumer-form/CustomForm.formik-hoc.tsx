@@ -37,6 +37,7 @@ type OwnProps = {
   customProviderWidth?: number;
   measureBeforeMount?: boolean;
   fieldsAreIndependent?: boolean; // if they are, FastField is used to avoid useless re-rendering
+  isCssVariantActivated?: boolean;
   shouldWrapLayerInCssHoc?: boolean;
   rowHeight?: number;
 };
@@ -57,12 +58,12 @@ export const ConsumerFormFields = (props: Props) => {
     // @ts-expect-error
     classes,
     fieldsAreIndependent,
-    measureBeforeMount,
+    isCssVariantActivated,
     shouldWrapLayerInCssHoc,
+    measureBeforeMount,
     ...restProps
   } = props;
   /* eslint-disable */
-
   return (
     <FieldArray name="custom_form_field">
       {({
@@ -73,12 +74,13 @@ export const ConsumerFormFields = (props: Props) => {
         <>
           <GridLayoutWrapper
             customProviderWidth={props.customProviderWidth}
+            isCssVariantActivated={isCssVariantActivated}
             isEditing={props.isEditing}
             layouts={props.layouts}
             measureBeforeMount={measureBeforeMount}
             onLayoutChange={props.onLayoutChange}
-            rowHeight={props.rowHeight}
             shouldWrapLayerInCssHoc={shouldWrapLayerInCssHoc}
+            rowHeight={props.rowHeight}
           >
             {fieldsAreIndependent
               ? custom_form_field?.map((field: CustomFormField, i: number) => (
@@ -93,6 +95,7 @@ export const ConsumerFormFields = (props: Props) => {
                           {...restProps}
                           field={field}
                           index={i}
+                          isCssVariantActivated={isCssVariantActivated}
                         />
                       )}
                     </FastField>
@@ -101,14 +104,15 @@ export const ConsumerFormFields = (props: Props) => {
               : custom_form_field?.map((field: CustomFormField, i: number) => {
                   return (
                     <div
-                      key={field?.id?.toString()}
                       className="bs-fabrique-checkbox__wrapper"
+                      key={field?.id?.toString()}
                     >
                       {/* @ts-expect-error */}
                       <CustomFormConsumerInput
                         {...restProps}
                         field={field}
                         index={i}
+                        isCssVariantActivated={isCssVariantActivated}
                       />
                     </div>
                   );

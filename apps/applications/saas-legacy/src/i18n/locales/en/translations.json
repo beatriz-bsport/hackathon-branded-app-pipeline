@@ -565,10 +565,10 @@
             },
             "explain": "The member will always be registered {{ delayWeek }} weeks in advance of class on {{ dayOfWeek}} at {{hour}}:{{minute}}. They will only be registered if they possess a valid pass.",
             "editModal": {
-                "success": "The recurrent booking has been modified"
+                "success": "Recurring booking rule edited. We'll set up your bookings now according to your parameters."
             },
             "createModal": {
-                "success": "The recurrent booking has been created.",
+                "success": "Recurring booking rule saved. We'll set up your bookings now according to your parameters.",
                 "info": "Cannot recreate a recurrent booking that already exists",
                 "create": "Add a recurrent booking"
             },
@@ -985,9 +985,9 @@
             "checkAndFinalize": "Please check your basket and finalize your booking",
             "acceptTermsAndFinalize": "Please accept the general terms and conditions and finalize your booking",
             "almostDone": "Almost done",
-            "goToMarketplace": "See the Marketplace",
+            "goToMarketplace": "See the Member Area",
             "newCheckout": {
-                "isEmptyDescription": "Continue your exploration of the Marketplace!",
+                "isEmptyDescription": "Continue your exploration of the Member Area!",
                 "isEmpty": "Your basket is empty!"
             },
             "noBooking": {
@@ -3040,7 +3040,7 @@
                 "0": "App",
                 "1": "Web",
                 "2": "BSPORT Back Office",
-                "3": "Marketplaces",
+                "3": "Member Area",
                 "4": "Data migration"
             }
         },
@@ -3552,10 +3552,10 @@
         "billingGroupRequired": "Billing group *",
         "group": {
             "name": " Name",
-            "noGroupHelper": "Locations allow you to group several addresses together. If you have several studios in different cities, you can group the studios in the same city into one location. On the marketplace, the widget and the personalized application your students will be able to select the location they are most interested in to see only the classes near their home.",
+            "noGroupHelper": "Locations allow you to group several addresses together. If you have several studios in different cities, you can group the studios in the same city into one location. On the Member Area, the widget and the personalized application your students will be able to select the location they are most interested in to see only the classes near their home.",
             "modal": {
                 "delete": {
-                    "content": "This establishment will no longer appear in the available filters on the marketplace, the widget, and the branded mobile app.",
+                    "content": "This establishment will no longer appear in the available filters on the Member Area, the widget, and the branded mobile app.",
                     "cancel": "Cancel",
                     "title": "Delete a location",
                     "confirm": "Delete"
@@ -3676,7 +3676,7 @@
                 "exclusivePaymentPacks": "The following pass {{- pass_name }} is only usable in this establishment. Please update its restrictions before deleting the establishment.",
                 "exclusiveEstablishmentGroups_plural": "The locations {{- establishment_group_name }} only contain the establishment that you want to delete, please update or delete these locations.",
                 "exclusiveEstablishmentGroups": "The location {{- establishment_group_name }} only contains the establishment that you want to delete, please update or delete this location.",
-                "hasExclusiveMarketplaceComponentConfigs": "One or several tabs in the marketplace are set to only display this establishment's calendar and workshops, please update them before deleting the establishment.",
+                "hasExclusiveMarketplaceComponentConfigs": "One or several tabs in the Member Area are set to only display this establishment's calendar and workshops, please update them before deleting the establishment.",
                 "isIntegratedInPartnership": "One or several integrations are using this establishment."
             },
             "infos": {
@@ -3701,7 +3701,7 @@
                 "relatedPaymentPacks": "The following pass {{- pass_name }} will no longer be usable for this establishment, make sure to inform your clients about it.",
                 "hasRelatedAvailabilitySlots": "The available slots of this establishment's schedule will be deleted.",
                 "hasRelatedZoomEstablishment": "This establishment will be removed from the list of establishments used for live streaming with the Zoom integration.",
-                "hasRelatedMarketplaceComponentConfigs": "The calendar and workshop tabs configured for your marketplace will not display this establishment's calendar anymore.",
+                "hasRelatedMarketplaceComponentConfigs": "The calendar and workshop tabs configured for the Member Area will not display this establishment's calendar anymore.",
                 "hasRelatedMarketingNotifications": "Notifications related to this establishment will be deleted."
             }
         },
@@ -3713,7 +3713,7 @@
             },
             "deleteObject": {
                 "errors": {
-                    "hasExclusiveMarketplaceComponentConfigs": "One or several tabs in the marketplace are set to only display this location's calendar and workshops, please update them before deleting the location."
+                    "hasExclusiveMarketplaceComponentConfigs": "One or several tabs in the Member Area are set to only display this location's calendar and workshops, please update them before deleting the location."
                 },
                 "warnings": {
                     "hasRelatedStaffConfigurations": "This location is used for access monitoring by one or several staff members. By deleting the location without selecting a new one, they will not be able to perform access monitoring anymore.",
@@ -3721,7 +3721,7 @@
                     "exclusiveAssociatedCoaches_plural": "Your teachers {{- coach_name }} are only notified when a substitution request is made for a session in this location. By deleting the location, they will therefore receive substitution requests from every location.",
                     "exclusiveAssociatedCoaches": "Your teacher {{- coach_name }} is only notified when a substitution request is made for a session in this location. By deleting the location, they will therefore receive substitution requests from every location.",
                     "hasRelatedMarketingNotifications": "Notifications linked to this location will be deleted.",
-                    "hasRelatedMarketplaceComponentConfigs": "The calendar and workshop tabs configured for your marketplace will not display this location calendar anymore."
+                    "hasRelatedMarketplaceComponentConfigs": "The calendar and workshop tabs configured for the Member Area will not display this location calendar anymore."
                 },
                 "infos": {
                     "reportsDefault": "The location will be deleted from past reports.",
@@ -5520,7 +5520,7 @@
                 "header": "Notifications",
                 "form": {
                     "dialog": {
-                        "helperTextRegisteredMembers": "This form will appear as a pop-up on the marketplace and the widget for all relevant members.",
+                        "helperTextRegisteredMembers": "This form will appear as a pop-up on the Member Area and the widget for all relevant members.",
                         "subTitle": "Which members do you want to target?",
                         "title": "Display rules",
                         "snoozeOptionHelperText": "This form will reappear after having been snoozed for {{count}} hour(s).",
@@ -5531,7 +5531,7 @@
                         "modify": "Edit",
                         "cancel": "Cancel",
                         "create": "Add",
-                        "helperTextNewMembers": "The form will appear as a pop-up on the marketplace and the widget after the sign up form."
+                        "helperTextNewMembers": "The form will appear as a pop-up on the Member Area and the widget after the sign up form."
                     },
                     "errors": {
                         "timedeltaBeforeDisplayMustBeGraterThanZero": "This value must be greater than 0."
@@ -7151,7 +7151,7 @@
                 "invoice": "Billing",
                 "company": "Company",
                 "platform_billing": "bsport subscription",
-                "marketplaceSettings": "Marketplace Settings",
+                "marketplaceSettings": "Member Area Settings",
                 "widget": "Widgets",
                 "paymentMethod": "Payment methods",
                 "forms": "Member forms",
@@ -14961,8 +14961,8 @@
             },
             "preview": "Preview",
             "saveButton": "Save",
-            "link": "Log out and open the marketplace",
-            "explainMarketplace": "Here you can edit your marketplace (calendar, agenda, appointments, etc.), in which you members can consult and purchase your offer over their phone, tablet, and computer.",
+            "link": "Log out and open Member Area",
+            "explainMarketplace": "Here you can edit your Member Area (calendar, agenda, appointments, etc.), in which you members can consult and purchase your offer over their phone, tablet, and computer.",
             "addButton": "Add a tab"
         },
         "companyOnboarding": {
@@ -16950,7 +16950,7 @@
                 "success": "Recurring appointment deleted"
             },
             "createOrUpdate": {
-                "success": "Recurring appointment successfully saved. Appointments are being created.",
+                "success": "Recurring booking rule saved. We'll set up your bookings now according to your parameters",
                 "error": "Impossible to save this recurring appointment",
                 "locked": "Recurring appointment rule already exists with these settings"
             }
@@ -19950,7 +19950,7 @@
             "clearDate": "Clear",
             "birthday": "Birthday",
             "birthdayYear": "Year of birth",
-            "gender": "Sex",
+            "gender": "Gender",
             "lastname": "Last name",
             "firstname": "First name",
             "newCoach": "New teacher",

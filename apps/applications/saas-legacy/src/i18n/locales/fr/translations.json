@@ -116,7 +116,7 @@
                 "success": "La réservation récurrente a bien été supprimée."
             },
             "editModal": {
-                "success": "La réservation récurrente a bien été modifiée."
+                "success": "Réservation récurrente modifiée avec succès. Nous allons créer les réservations selon vos paramètres."
             },
             "createModal": {
                 "success": "La réservation récurrente a bien été créée. Les réservations sont en cours de création.",
@@ -818,9 +818,9 @@
             },
             "newCheckout": {
                 "isEmpty": "Votre panier est vide !",
-                "isEmptyDescription": "Poursuivez votre exploration de la marketplace !"
+                "isEmptyDescription": "Poursuivez votre exploration de l'espace membre !"
             },
-            "goToMarketplace": "Voir le marketplace",
+            "goToMarketplace": "Voir l'espace membre",
             "referral": {
                 "hasReachedMaxUses": "Le nombre maximum d'utilisations du lien de parrainage a été atteint.",
                 "missingAmountBeforeApplication": "Le montant minimum d'achat n'a pas été atteint. Vous risquez de perdre votre lien de parrainage. Il suffit de {{ missingAmount }} de plus pour pouvoir bénéficier de la réduction !"
@@ -2873,7 +2873,7 @@
                 "0": "Application",
                 "1": "Web",
                 "2": "Backoffice bsport",
-                "3": "Marketplaces",
+                "3": "Espace membre",
                 "4": "Migration de données"
             }
         },
@@ -3390,7 +3390,7 @@
             "addLocalisation": "Ajouter une localisation",
             "name": " Nom",
             "actions": "Actions",
-            "noGroupHelper": "Les localisations permettent de regrouper plusieurs adresses entre elles. Si vous possèdez plusieurs studios dans différentes villes vous pouvez regrouper les studios de la même ville dans une localisation. Sur la marketplace, le widget et l’application personnalisée vos élèves pourront sélectionner la localisation qui les intéresse le plus pour ne voir que les cours proches de chez eux.",
+            "noGroupHelper": "Les localisations permettent de regrouper plusieurs adresses entre elles. Si vous possèdez plusieurs studios dans différentes villes vous pouvez regrouper les studios de la même ville dans une localisation. Sur l'espace membre, le widget et l’application personnalisée vos élèves pourront sélectionner la localisation qui les intéresse le plus pour ne voir que les cours proches de chez eux.",
             "form": {
                 "name": "Nom",
                 "associated_localizations": "Salles associées",
@@ -3403,7 +3403,7 @@
             "modal": {
                 "delete": {
                     "title": "Supprimer une localisation",
-                    "content": "Cette localisation n'appraitra plus dans les filtres disponibles sur la marketplace, le widget et l'application personnalisée.",
+                    "content": "Cette localisation n'appraitra plus dans les filtres disponibles sur l'espace membre, le widget et l'application personnalisée.",
                     "cancel": "Annuler",
                     "confirm": "Supprimer"
                 }
@@ -3497,7 +3497,7 @@
                 "hasExclusiveBillingGroup": "Cet établissement est le dernier de son groupe de facturation. Veuillez supprimer ou mettre à jour ce groupe de facturation avant de supprimer cet établissement.",
                 "exclusiveEstablishmentGroups_plural": "Les localisations {{- establishment_group_name }} ne contiennent que l'établissement que vous souhaitez supprimer, veuillez mettre à jour ou supprimer ces localisations.",
                 "exclusiveEstablishmentGroups": "La localisation {{- establishment_group_name }} ne contient que l'établissement que vous souhaitez supprimer, veuillez mettre à jour ou supprimer cette localisation.",
-                "hasExclusiveMarketplaceComponentConfigs": "Un ou plusieurs onglets de la marketplace sont paramétrés pour n'afficher que le calendrier et les ateliers de cet établissement, veuillez les mettre à jour avant de supprimer l'établissement.",
+                "hasExclusiveMarketplaceComponentConfigs": "Un ou plusieurs onglets de l'espace membre sont paramétrés pour n'afficher que le calendrier et les ateliers de cet établissement, veuillez les mettre à jour avant de supprimer l'établissement.",
                 "isIntegratedInPartnership": "Une ou plusieurs intégrations utilisent cet établissement."
             },
             "infos": {
@@ -3522,7 +3522,7 @@
                 "relatedPaymentPacks": "La carte de cours suivante {{- pass_name }} ne sera plus utilisable pour cet établissement, veillez à en informer vos clients.",
                 "hasRelatedAvailabilitySlots": "Les créneaux disponibles de cet établissement seront supprimés de son calendrier.",
                 "hasRelatedZoomEstablishment": "Cet établissement sera supprimé de la liste des établissements utilisés pour les visioconférences via l'intégration Zoom.",
-                "hasRelatedMarketplaceComponentConfigs": "Les onglets du calendrier et des ateliers configurés pour votre marketplace n'afficheront plus le calendrier de cet établissement.",
+                "hasRelatedMarketplaceComponentConfigs": "Les onglets du calendrier et des ateliers configurés pour l'Espace membre n'afficheront plus le calendrier de cet établissement.",
                 "hasRelatedMarketingNotifications": "Les notifications relatives à cet établissement seront supprimées."
             },
             "title": {
@@ -3533,7 +3533,7 @@
         "establishmentGroup": {
             "deleteObject": {
                 "errors": {
-                    "hasExclusiveMarketplaceComponentConfigs": "Un ou plusieurs onglets de la marketplace sont paramétrés pour n'afficher que le calendrier et les ateliers de cette localisation, veuillez les mettre à jour avant de supprimer la localisation."
+                    "hasExclusiveMarketplaceComponentConfigs": "Un ou plusieurs onglets de l'Espace membre sont paramétrés pour n'afficher que le calendrier et les ateliers de cette localisation, veuillez les mettre à jour avant de supprimer la localisation."
                 },
                 "warnings": {
                     "hasRelatedAssociatedCoaches": "Certains professeurs reçoivent une notification lorsqu'une demande de substitution est faite pour une séance dans cette localisation. En supprimant la localisation, ils ne recevront plus de notification à ce sujet.",
@@ -3541,7 +3541,7 @@
                     "exclusiveAssociatedCoaches_plural": "Le(s) professeur(s) {{- coach_name }} ne sont avertis que lorsqu'une demande de remplacement est faite pour une séance dans cette localisation. En supprimant la localisation, ils recevront donc les demandes de remplacement de toutes les localisations.",
                     "hasRelatedStaffConfigurations": "Cette localisation est utilisée pour la surveillance des accès par un ou plusieurs membres du personnel. En supprimant la localisation sans en sélectionner une nouvelle, ils ne pourront plus effectuer de surveillance des accès.",
                     "hasRelatedMarketingNotifications": "Les notifications liées à cette localisation seront supprimées.",
-                    "hasRelatedMarketplaceComponentConfigs": "Les onglets du calendrier et des ateliers configurés pour votre marketplace n'afficheront plus le calendrier cette localisation."
+                    "hasRelatedMarketplaceComponentConfigs": "Les onglets du calendrier et des ateliers configurés pour l'Espace membre n'afficheront plus le calendrier cette localisation."
                 },
                 "infos": {
                     "reportsDefault": "La localisation sera supprimée des rapports antérieurs.",
@@ -5388,8 +5388,8 @@
                     "dialog": {
                         "title": "Règles d'affichage",
                         "subTitle": "Quels membres voulez-vous cibler ?",
-                        "helperTextRegisteredMembers": "Le formulaire apparaitra en pop-up sur la marketplace et le widget pour tous les membres concernés.",
-                        "helperTextNewMembers": "Le formulaire apparaitra en pop-up sur la marketplace et le widget à la suite du formulaire d'inscription.",
+                        "helperTextRegisteredMembers": "Le formulaire apparaitra en pop-up sur l'Espace membre et le widget pour tous les membres concernés.",
+                        "helperTextNewMembers": "Le formulaire apparaitra en pop-up sur l'Espace membre et le widget à la suite du formulaire d'inscription.",
                         "create": "Ajouter",
                         "cancel": "Annuler",
                         "modify": "Modifier",
@@ -7008,7 +7008,7 @@
             "pass": "Cartes de cours",
             "settings": {
                 "general": "Général",
-                "marketplaceSettings": "Paramètres marketplace",
+                "marketplaceSettings": "Paramètres Espace membre",
                 "widget": "Widget",
                 "broadcast": "Visioconférence",
                 "notificationRule": "Emails transactionnels",
@@ -9314,7 +9314,11 @@
             "decimalCredit": {
                 "helperText": "Cette carte de cours possédera {{count}} crédit",
                 "helperText_plural": "Cette carte de cours possédera {{count}} crédits"
-            }
+            },
+            "enableAccessControl": "Accorde l'accès au studio",
+            "accessControlBetaAlert": "Pendant cette phase de beta, les restrictions telles que les tags, les limites d'utilisation, les établissements, les activités, les catégories et les créneaux horaires ne s'appliquent pas à l'accès aux portes. L'option « Restreindre l’utilisation de la carte à de la VOD uniquement » doit être désactivée pour que l'accès aux portes fonctionne.",
+            "accessControlInfo": "Les membres disposant de ce pass peuvent déverrouiller les portes de votre studio. Pour contrôler les moments où les portes ne sont pas accessibles, définissez des règles horaires sur Kisi.",
+            "doorAccess": "Accès aux portes"
         },
         "disabled": "Désactivé",
         "disableConsumer": "Bloquer",
@@ -14329,8 +14333,8 @@
         },
         "marketplaceSettings": {
             "addButton": "Ajouter un onglet",
-            "explainMarketplace": "Vos adhérents peuvent accéder à votre marketplace (calendrier, magasin, VOD...) en ligne sur ordinateur tablette ou téléphone. Personnalisez votre page ici !",
-            "link": "Accédez à la marketplace client (vous serez déconnecté)",
+            "explainMarketplace": "Vos adhérents peuvent accéder à votre Espace membre (calendrier, magasin, VOD...) en ligne sur ordinateur tablette ou téléphone. Personnalisez votre page ici !",
+            "link": "Accédez à l'Espace membre (vous serez déconnecté)",
             "saveButton": "Sauvegarder",
             "preview": "Aperçu",
             "componentType": {
@@ -16228,7 +16232,8 @@
                 "error": {
                     "11000": "Impossible de créer des variantes sur un produit utilisé dans un pack",
                     "11001": "Impossible de créer un pack avec des variantes de produits"
-                }
+                },
+                "fetchError": "Erreur lors du chargement des variantes"
             },
             "supplier": {
                 "delete": {
@@ -16409,7 +16414,7 @@
         },
         "privateRecurrentRule": {
             "createOrUpdate": {
-                "success": "Rendez-vous récurrent enregistré avec succès. Les rendez-vous sont en cours de création.",
+                "success": "Réservation récurrente enregistrée avec succès. Nous allons créer les réservations selon vos paramètres.",
                 "error": "Impossible d'enregistrer le rendez-vous récurrent",
                 "locked": "Une règle de récurrence existe déjà avec ces paramètres"
             },
@@ -16866,6 +16871,9 @@
         },
         "oneClickBooking": {
             "genericError": "Nous n'avons pas pu finaliser votre réservation. Veuillez vérifier vos informations et réessayer."
+        },
+        "quicksaleCheckout": {
+            "15010": "Le panier n'est plus disponible"
         }
     },
     "spotScheduling": {
@@ -21123,7 +21131,8 @@
             "itemsRemovedFromBasket": {
                 "title": "Items retirés du panier",
                 "subText": "Lors du changement de membre, certains items ont été retirés du panier car ils ne sont pas compatibles avec le nouveau membre."
-            }
+            },
+            "home": "Accueil"
         },
         "objectCard": {
             "subtitle": {
@@ -21148,7 +21157,10 @@
                 "month_plural": "tous les {{ recurrence_basis }} mois",
                 "year": "tous les ans",
                 "year_plural": "tous les {{ recurrence_basis }} ans"
-            }
+            },
+            "startingPrice": "À partir de {{ price }}",
+            "numberOfVariants": "{{ count }} variante",
+            "numberOfVariants_plural": "{{ count }} variantes"
         },
         "sectionCard": {
             "item": "item",

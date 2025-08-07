@@ -11,6 +11,7 @@ import {
   CUSTOM_FORM_SUBMITTION_DRAFT,
 } from '@bsport/common/lib/master-data/custom-form.js';
 import withStyles from '@material-ui/core/styles/withStyles';
+import { isCustomFormCssVariantActivated } from '#src/libs/custom-form/utils';
 import { fetchCurrentBasket as fetchCurrentBasketAction } from '../../libs/checkout/actions';
 import CustomFormView from '../../libs/custom-form/components/consumer-form/CustomFormView.form';
 import WidgetUtils from '../../libs/widget/WidgetUtils';
@@ -153,6 +154,12 @@ export class MemberShipValidationWrapper extends React.Component<Props> {
     });
   };
 
+  shoulDisplayCssVariant = () =>
+    isCustomFormCssVariantActivated(
+      !!this.props.memberCustomForm?.layout_configuration
+        ?.use_custom_css_variant,
+    );
+
   render() {
     const { classes } = this.props;
     if (!this.props.theme) {
@@ -189,6 +196,7 @@ export class MemberShipValidationWrapper extends React.Component<Props> {
                       this.props.theme.general_terms_of_use
                     }
                     initial={this.props.memberCustomForm}
+                    isCssVariantActivated={this.shoulDisplayCssVariant()}
                     layouts={this.props.memberCustomForm.layout}
                     onCancel={() => this.props.disconnect()}
                     onSubmit={this.props.submitCustomMembeForm}

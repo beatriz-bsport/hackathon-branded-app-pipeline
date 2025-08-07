@@ -35,6 +35,8 @@ type OwnProps = {
   setOutterContainerWidth: (width: number) => void;
   defaultEditMode?: boolean;
   maxHeight?: string;
+  isCssVariantActivated?: boolean;
+  shouldWrapLayerInCssHoc?: boolean;
 };
 
 type Props = OwnProps & WithTranslation;
@@ -49,6 +51,8 @@ export const CustomFormLayoutView = (props: Props) => {
     setOutterContainerWidth,
     defaultEditMode,
     maxHeight,
+    isCssVariantActivated,
+    shouldWrapLayerInCssHoc,
   } = props;
   const [currentLayoutIndex, setCurrentLayoutIndex] = React.useState(-1);
   const [isEditing, setIsEditing] = React.useState(defaultEditMode || false);
@@ -252,8 +256,8 @@ export const CustomFormLayoutView = (props: Props) => {
                   ) : (
                     <ConsumerFormFields
                       {...props}
-                      shouldWrapLayerInCssHoc
                       customProviderWidth={containerWidth}
+                      isCssVariantActivated={isCssVariantActivated}
                       isEditing={isEditing}
                       layouts={layouts}
                       onLayoutChange={handleLayoutChange}
@@ -262,6 +266,7 @@ export const CustomFormLayoutView = (props: Props) => {
                           ? initial?.layout_configuration?.row_height
                           : null
                       }
+                      shouldWrapLayerInCssHoc={shouldWrapLayerInCssHoc}
                     />
                   )}
                 </div>

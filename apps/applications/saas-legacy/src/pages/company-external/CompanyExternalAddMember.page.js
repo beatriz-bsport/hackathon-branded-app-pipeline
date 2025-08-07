@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { goBack as goBackAction } from 'connected-react-router';
 import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/styles';
+import { CUSTOM_FORM_CSS_VARIANT_ACTIVATED } from '#src/libs/custom-form/constants';
 import { snackbar } from '../../actions/snackbar.actions';
 import { createOrUpdateMember } from '../../libs/member/actions';
 import { MemberMap } from '../../libs/member/utils';
@@ -81,6 +82,7 @@ export const CompanyExternalAddMember = (props: Props) => {
             shouldWrapLayerInCssHoc
             general_terms_and_conditions={theme.general_terms_of_use}
             initial={signUpCustomForm}
+            isCssVariantActivated={CUSTOM_FORM_CSS_VARIANT_ACTIVATED}
             layouts={signUpCustomForm.layout}
             onCancel={() => goBack()}
             onSubmit={submitCustomForm}

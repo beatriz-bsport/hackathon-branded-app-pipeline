@@ -1324,7 +1324,7 @@
                 "0": "Aplicación",
                 "1": "Web",
                 "2": "Backoffice bsport",
-                "3": "Marketplaces",
+                "3": "Área de Miembros",
                 "4": "Migración de datos"
             }
         },
@@ -2127,7 +2127,7 @@
             "addLocalisation": "Añadir una ubicación",
             "name": " Nombre",
             "actions": "Acciones",
-            "noGroupHelper": "Las ubicaciones permiten agrupar varias direcciones. Si tiene varios estudios en diferentes ciudades, puede agrupar los estudios de la misma ciudad en un solo lugar. En el Marketplace, el widget y la aplicación personalizada, sus estudiantes podrán seleccionar la ubicación que más les interese para ver sólo los cursos que estén cerca de ellos.",
+            "noGroupHelper": "Las ubicaciones permiten agrupar varias direcciones. Si tiene varios estudios en diferentes ciudades, puede agrupar los estudios de la misma ciudad en un solo lugar. En el Área de Miembros, el widget y la aplicación personalizada, sus estudiantes podrán seleccionar la ubicación que más les interese para ver sólo los cursos que estén cerca de ellos.",
             "form": {
                 "name": "Nombre",
                 "associated_localizations": "Establecimientos asociados",
@@ -2139,7 +2139,7 @@
             },
             "modal": {
                 "delete": {
-                    "content": "Esta ubicación ya no aparecerá en los filtros disponibles en el mercado, el widget y la aplicación personalizada.",
+                    "content": "Esta ubicación ya no aparecerá en los filtros disponibles en el Área de Miembros, el widget y la aplicación personalizada.",
                     "cancel": "Cancelar",
                     "confirm": "Borrar",
                     "title": "Borrar un establecimiento"
@@ -2247,7 +2247,7 @@
                     "reportsDefault": "La ubicación se eliminará de los informes anteriores."
                 },
                 "warnings": {
-                    "hasRelatedMarketplaceComponentConfigs": "Las pestañas de calendario y taller configuradas para su mercado ya no mostrarán este calendario de ubicación.",
+                    "hasRelatedMarketplaceComponentConfigs": "Las pestañas de calendario y taller configuradas para el Area Membri ya no mostrarán este calendario de ubicación.",
                     "hasRelatedMarketingNotifications": "Las notificaciones vinculadas a esta ubicación se eliminarán.",
                     "exclusiveAssociatedCoaches": "Su profesor {{- coach_name }} sólo recibe una notificación cuando se realiza una solicitud de sustitución para una sesión en esta ubicación. Por lo tanto, al eliminar la ubicación, recibirán solicitudes de sustitución de todas las ubicaciones.",
                     "exclusiveAssociatedCoaches_plural": "Sus profesores {{- coach_name }} sólo reciben una notificación cuando se realiza una solicitud de sustitución para una sesión en esta ubicación. Por lo tanto, al eliminar la ubicación, recibirán solicitudes de sustitución de todas las ubicaciones.",
@@ -2255,7 +2255,7 @@
                     "hasRelatedStaffConfigurations": "Esta ubicación se utiliza para la supervisión de accesos por uno o varios miembros del personal. Al eliminar la ubicación sin seleccionar una nueva, ya no podrán realizar la supervisión de accesos."
                 },
                 "errors": {
-                    "hasExclusiveMarketplaceComponentConfigs": "Una o varias pestañas del mercado están configuradas para mostrar únicamente el calendario y los talleres de esta ubicación, actualízalas antes de eliminar la ubicación."
+                    "hasExclusiveMarketplaceComponentConfigs": "Una o varias pestañas del Área de Miembros están configuradas para mostrar únicamente el calendario y los talleres de esta ubicación, actualízalas antes de eliminar la ubicación."
                 }
             },
             "forms": {
@@ -2267,7 +2267,7 @@
         "deleteObject": {
             "warnings": {
                 "hasRelatedMarketingNotifications": "Las notificaciones relacionadas con este establecimiento se eliminarán.",
-                "hasRelatedMarketplaceComponentConfigs": "Las pestañas de calendario y taller configuradas para su mercado ya no mostrarán el calendario de este establecimiento.",
+                "hasRelatedMarketplaceComponentConfigs": "Las pestañas de calendario y taller configuradas para el Área de Miembros ya no mostrarán el calendario de este establecimiento.",
                 "hasRelatedZoomEstablishment": "Este establecimiento se eliminará de la lista de establecimientos utilizados para la retransmisión en directo con la integración de Zoom.",
                 "hasRelatedAvailabilitySlots": "Se borrarán las franjas horarias disponibles de este establecimiento.",
                 "relatedPaymentPacks": "El siguiente pase {{- pass_name }} ya no será utilizable para este establecimiento, asegúrese de informar a sus clientes al respecto.",
@@ -2292,7 +2292,7 @@
             },
             "errors": {
                 "isIntegratedInPartnership": "Una o varias integraciones utilizan este establecimiento.",
-                "hasExclusiveMarketplaceComponentConfigs": "Una o varias pestañas del marketplace están configuradas para mostrar únicamente el calendario y los talleres de este establecimiento, actualízalas antes de eliminar el establecimiento.",
+                "hasExclusiveMarketplaceComponentConfigs": "Una o varias pestañas del Área de Miembros están configuradas para mostrar únicamente el calendario y los talleres de este establecimiento, actualízalas antes de eliminar el establecimiento.",
                 "exclusiveEstablishmentGroups": "La ubicación {{- establishment_group_name }} sólo contiene el establecimiento que desea eliminar, actualice o elimine esta ubicación.",
                 "exclusiveEstablishmentGroups_plural": "Las ubicaciones {{- establishment_group_name }} sólo contienen el establecimiento que desea eliminar, actualice o elimine estas ubicaciones.",
                 "exclusivePaymentPacks": "El siguiente pase {{- pass_name }} sólo se puede utilizar en este establecimiento. Actualiza sus restricciones antes de eliminar el establecimiento.",
@@ -2547,8 +2547,8 @@
             },
             "preview": "Vista previa",
             "saveButton": "Guardar",
-            "link": "Acceda al mercado de clientes (se te desconectará)",
-            "explainMarketplace": "Sus miembros pueden acceder a su mercado (calendario, tienda, VOD, etc.) en línea en un ordenador, tableta o teléfono. Personaliza tu página aquí!",
+            "link": "Acceda al Área de Miembros (se te desconectará)",
+            "explainMarketplace": "Sus miembros pueden acceder a su Área de Miembros (calendario, tienda, VOD, etc.) en línea en un ordenador, tableta o teléfono. Personaliza tu página aquí!",
             "addButton": "Añade una pestaña"
         },
         "companyOnboarding": {
@@ -6756,7 +6756,7 @@
                 }
             },
             "title": "Información para el usuario",
-            "newMemberOnlyHelperText": "Un miembro se considera nuevo siempre que no haya realizado una compra superior a 0 {{ currency }} en la plataforma. Tenga en cuenta que cualquier compra de un artículo de pago con un descuento del 100% sobre su precio hará que se pierda la condición de 'Nuevo Miembro'"
+            "newMemberOnlyHelperText": "Los miembros se consideran «nuevos» siempre y cuando no hayan realizado una compra superior a 0 €. Nota: si un miembro compra un producto con un descuento del 100 %, esto se considerará una compra."
         },
         "user": {
             "existsWithEmail": "Un cliente con este correo electronico {{email}} existe.",
@@ -7425,10 +7425,10 @@
             "createModal": {
                 "create": "Crear una reserva recurrente",
                 "info": "No se puede recrear una reserva recurrente que ya existe",
-                "success": "La reserva recurrente ha sido creada."
+                "success": "Regla de reserva recurrente guardada. Ahora configuraremos sus reservas de acuerdo con sus parámetros."
             },
             "editModal": {
-                "success": "La reserva recurrente ha sido modificada"
+                "success": "Regla de reserva recurrente editada. Configuraremos sus reservas ahora según sus parámetros."
             },
             "blockedBookings": "Los miembros pueden reservar hasta {{días}} de antelación para esta actividad.\nConsidera la posibilidad de ampliar los periodos de repetición para evitar la masificación.",
             "notifyIfCanceled": "Enviar un correo electrónico de cancelación de reserva",
@@ -9444,7 +9444,7 @@
                 "tags": "Tags",
                 "whitelist_tags": "Autorizado",
                 "blacklist_tags": "No autorizado",
-                "tagInfo": "Utiliza etiquetas para que el cupón sólo pueda ser utilizado por el grupo de miembros que desees en el marketplace, el widget y la app. Puede seleccionar etiquetas para que el cupón sólo pueda ser utilizado por los miembros con una de las etiquetas elegidas. O puede seleccionar etiquetas para que el cupón sólo pueda ser utilizado por los miembros con una de las etiquetas seleccionadas. "
+                "tagInfo": "Utilice etiquetas para que este cupón esté disponible o no para determinados segmentos de su base de miembros."
             },
             "selectorPlaceholder": {
                 "shopitem": "Seleccione productos de la tienda (válido en todos los productos si no se selecciona ninguno)",
@@ -13938,9 +13938,9 @@
             "acceptTermsAndFinalize": "Por favor, acepte las condiciones generales y finalice su reserva",
             "checkAndFinalize": "Compruebe su cesta y finalice su reserva",
             "almostDone": "Última etapa",
-            "goToMarketplace": "Ver el Marketplace",
+            "goToMarketplace": "Ver el Área de Miembros",
             "newCheckout": {
-                "isEmptyDescription": "¡Continúe explorando el Marketplace!",
+                "isEmptyDescription": "¡Continúe explorando el Área de Miembros!",
                 "isEmpty": "¡Tu cesta está vacía!"
             },
             "noBooking": {
@@ -14396,7 +14396,7 @@
         "edit": "Editar",
         "preview": "Vista previa",
         "gender": {
-            "X": "No binario",
+            "X": "Otro",
             "M": "Masculino",
             "F": "Femenino"
         },
@@ -15101,7 +15101,7 @@
             },
             "createOrUpdate": {
                 "error": "Imposible guardar esta cita recurrente",
-                "success": "La cita recurrente se guardo con éxito",
+                "success": "Regla de reserva recurrente guardada. Ahora configuraremos sus reservas según sus parámetros.",
                 "locked": "La cita recurrente ya existe con esta regla"
             }
         },
@@ -15719,7 +15719,7 @@
                 "unlimited": "Créditos ilimitados",
                 "priceIncludingTax": {
                     "label": "Precio con impuestos incluidos",
-                    "helperText": "Precio para el cliente por la tarjeta"
+                    "helperText": "El precio total de venta del pase."
                 },
                 "tax": {
                     "label": "IVA"
@@ -15788,7 +15788,7 @@
                     "noShowCheckbox": "Demasiados \"no se presenta\"",
                     "cancellationsCheckbox": "Demasiadas cancelaciones tardías",
                     "titleCheckbox": "Aplicar una penalización por",
-                    "helperText": "Aplicar penalizaciones en caso de no presentarse o de anulación tardía.",
+                    "helperText": "Aplicar una penalización a los miembros con demasiadas ausencias o cancelaciones tardías. ",
                     "label": "Aplicar una penalización"
                 },
                 "only_vod_access": "Sólo para VOD",
@@ -15801,37 +15801,37 @@
                 },
                 "advancedOptions": {
                     "tag": {
-                        "doNotSelectToAllowAllMembers": "Dejar vacío para permitir a todos los miembros",
+                        "doNotSelectToAllowAllMembers": "Deje este campo vacío para que esté disponible para todos los miembros.",
                         "notAllowedFor": "No está permitido para",
-                        "notAllowed": "No se permite",
+                        "notAllowed": "No disponible",
                         "allowedFor": "Autorizado para",
-                        "allowed": "Autorizado",
-                        "helperText": "Utiliza etiquetas para que el mapa sea visible sólo para el grupo de miembros que desees en el mercado, el widget y la aplicación. Puede seleccionar etiquetas para que el mapa sea visible sólo para los miembros con una etiqueta seleccionada. O puede seleccionar etiquetas para que el mapa sea invisible sólo para los miembros con una de las etiquetas seleccionadas. ",
+                        "allowed": "Disponible",
+                        "helperText": "Utilice etiquetas para que esta oferta esté disponible o no para la compra por parte de determinados segmentos de su base de clientes.",
                         "header": "Etiquetas",
-                        "tagsOnAcquisitionHelper": "Utilice etiquetas para identificar qué miembro compró el bono.",
-                        "tagsOnAcquisition": "Etiqueta tras la compra",
+                        "tagsOnAcquisitionHelper": "Etiqueta a los miembros que hayan comprado este pase para identificarlos rápidamente en el futuro.",
+                        "tagsOnAcquisition": "Aplicar etiquetas después de la compra",
                         "selectTags": "Seleccionar etiquetas"
                     },
                     "header": "Avanzado",
                     "appliesForPayroll": {
-                        "label": "Sesiones que se tienen en cuenta para calcular la remuneración del profesor",
-                        "helperText": "Por defecto, las sesiones son facturadas al estudio e incluidas en la nómina del profesor y remuneradas por el estudio. Al desactivar este ajuste, las sesiones asociadas a este pase ya no aparecerán en la nómina del profesor.",
+                        "label": "Las clases compradas con este pase se incluyen en la nómina del profesor.",
+                        "helperText": "Las clases se facturan al estudio y se incluyen en la nómina del profesor de forma predeterminada. Desactive esta configuración para asegurarse de que las clases asociadas a este pase ya no aparezcan en las nóminas de los profesores.",
                         "header": "Nómina de profesores"
                     }
                 },
                 "universalPass": {
                     "deativatedTags": "Discapacitados para las tarjetas universales",
-                    "helperText": "Las tarjetas universales pueden utilizarse para reservar clases en grupo Y citas. Una vez creada la tarjeta, se creará una tarjeta gemela en las tarjetas de citas. El número de créditos de ambas tarjetas estará vinculado. Al comprar una de las dos tarjetas, la otra se añadirá automáticamente al socio (sin coste adicional).",
+                    "helperText": "Los pases universales pueden ser utilizados por los miembros para reservar tanto actividades grupales como citas. Cada vez que se compra un pase universal, añadiremos automáticamente un pase de cita «gemelo» para compartir los créditos entre los dos tipos de pases.",
                     "marketplaceLabel": "Tarjeta universal. Se puede utilizar para cursos y citas en grupo.",
                     "label": "Tarjeta universal",
                     "warningIsUniversalPass": "Este bono es un bono universal, se ha creado un bono gemelo en las tarjetas de cita. Todos los campos modificados en este bono se modificarán también en el bono gemelo (excepto la categoría). Lo mismo ocurre con las notificaciones, las prórrogas y las modificaciones de crédito."
                 },
                 "highlightedAsRecommended": {
                     "label": "Marcar como recomendado",
-                    "helperText": "Permite a sus clientes ver rápidamente qué pases se recomiendan actualmente."
+                    "helperText": "Destaque este pase para sus miembros promocionándolo en la sección «recomendado» del proceso de reserva."
                 },
                 "notification": "Notificaciones",
-                "detailsAndRestrictions": "Detalles y restricciones",
+                "detailsAndRestrictions": "Detalles y condiciones",
                 "noNotificationsWarning": "Aún no tienes notificaciones configuradas. Para crear nuevas notificaciones, vaya a <strong>Marketing > Notificaciones.</strong>"
             }
         },
@@ -16201,12 +16201,12 @@
         },
         "selector": {
             "noAvailable": "No hay tarjeta correspondiente a la disponibilidad elegida",
-            "noManagerOnly": "Disponible para la venta",
-            "managerOnly": "Invisible para los clientes",
-            "filterManagerOnly": "Todas las disponibilidades",
+            "noManagerOnly": "Visible para los miembros",
+            "managerOnly": "Oculto para los miembros",
+            "filterManagerOnly": "Visible para todos",
             "filterCategory": "Todas las categorías",
             "titleSort": "Ordenar",
-            "titleManagerOnly": "Disponibilidad para la venta",
+            "titleManagerOnly": "Visibilidad",
             "titleCategory": "Categorías",
             "sorting": {
                 "descendingCredit": "Disminución del crédito",
@@ -16215,7 +16215,7 @@
                 "ascendingPrice": "Aumento del precio",
                 "customSort": "Pedido del lado del cliente (mercado y aplicación)"
             },
-            "unusableByStaff": "Invisible para el personal"
+            "unusableByStaff": "Oculto al personal"
         },
         "cardDetails": {
             "packBlocking2": " cancelaciones fuera de plazo durante una semana",
@@ -16247,20 +16247,20 @@
             "only_vod_access": "Restringir el uso de la tarjeta sólo a VOD",
             "vodAccessCard": "Da acceso a la VOD",
             "vod": "VOD",
-            "compatibility": "Su tarjeta sólo será compatible con las sesiones correspondientes a una de las categorías seleccionadas Y una de las sedes seleccionadas Y una de las actividades seleccionadas",
-            "letBlank": "Déjelo vacío para permitirlo todo",
+            "compatibility": "Este pase sólo será compatible con las clases, actividades, categorías o establecimientos seleccionados.",
+            "letBlank": "Deje en blanco para no limitar este pase.",
             "activities": "Actividades",
             "room": "Salas",
             "categories": "Categorías",
             "inShopPayment": "Permitir el pago presencial",
-            "notForSell": "Invisible para los clientes",
-            "newClientOnly": "Solo para nuevos clientes",
+            "notForSell": "Oculto para los miembros",
+            "newClientOnly": "Solo visible para los nuevos miembros",
             "maxUseMember": "Compra máxima por miembro",
             "maxUseMonth": "Usos máximos por mes",
             "maxUseWeek": "Usos máximos por semana",
-            "maxUseHelper": "Dejar vacío para no imponer un límite",
+            "maxUseHelper": "Deje en blanco para no establecer un límite de uso.",
             "maxUseDay": "Usos máximos por día",
-            "restriction": "Restricciones",
+            "restriction": "Condiciones",
             "penalityAccountHelper": "Un depósito de {{penalityBlockAccount}}{{ currencyDisplay }} se aplicara para este miembro",
             "penalityBlockDayHelper": "La tarjeta del socio se bloqueará durante {{penalityBlockDay}} días",
             "penalityAccountPrice": "Importe de la fianza",
@@ -16273,8 +16273,8 @@
             "penalityNumberCancel": "Número de cancelaciones",
             "marginalContributionHelperText": "Se utiliza para calcular la remuneración de los profesores. 10{{ currencyDisplay }} significa que una reserva hecha con esta tarjeta se paga 10{{ currencyDisplay }}. Si está vacía o es 0{{ currencyDisplay }} la contribución de una tarjeta será PRICE/NB_RESERVATION",
             "marginalContribution": "Contribución marginal teórica, incluido el IVA",
-            "expirationDateHelper": "Si la tarjeta del curso no se utiliza por primera vez dentro de este número de días, queda invalidada",
-            "expirationDate": "Caducidad si no hay reserva inicial",
+            "expirationDateHelper": "Si el pase no se ha utilizado durante este periodo, caducará automáticamente.",
+            "expirationDate": "Número de días antes de que caduque el pase si no se utiliza *",
             "beginningDate": "Fecha de inicio",
             "attendance": "A la primera presencia",
             "firstBooking": "A la primera reservación",
@@ -16290,14 +16290,14 @@
             },
             "yearValidityHelper": "Sumado al número de días y meses",
             "monthValidityHelper": "Además del número de días",
-            "yearValidity": "Duración de la validez en años",
-            "monthValidity": "Duración de la validez en meses",
-            "dayValidity": "Duración de la validez en días",
+            "yearValidity": "Años",
+            "monthValidity": "Meses",
+            "dayValidity": "Días",
             "endBeforeStart": "La fecha final debe ser mayor que la fecha de inicio",
             "toDate": "Hasta el",
             "fromDate": "A partir del",
-            "availabilitySlot": "Hacer que la tarjeta sea válida sólo para un rango de fechas",
-            "availabilityGivenNumber": "Hacer que la tarjeta sea válida sólo durante un número determinado de días (después de la fecha de compra)",
+            "availabilitySlot": "Hacer que este pase sea válido entre determinadas fechas.",
+            "availabilityGivenNumber": "Hacer que este pase sea válido durante un número determinado de días después de la compra.",
             "penalityRule": "Sólo se puede aplicar una penalización si el número de créditos es ilimitado",
             "penality": "Aplicar una penalización por demasiadas cancelaciones después de la fecha límite",
             "packValidity": "Validez de la tarjeta",
@@ -16315,7 +16315,7 @@
             "creditWarning": "Si cambia el número de créditos, todas las tarjetas existentes se verán afectadas.",
             "migration": "Este mapa del curso es el resultado de una migración, algunos campos no son editables para respetar el historial. Las actividades/categorías compatibles siguen siendo editables.",
             "franchise": "Esta tarjeta es una tarjeta compartida por la cuenta del franquiciador. Algunos elementos han sido definidos por la cuenta del franquiciador y no son modificables",
-            "allowGuest": "Compatible con la reserva de invitados",
+            "allowGuest": "Compatible con reservas de invitados",
             "penalityModeFranchisor": {
                 "buyer": {
                     "explain": "El saldo de la cuenta del socio se cargará con {{ price }} sólo en el franquiciado en la que se ha comprado el pase.",
@@ -16331,11 +16331,11 @@
                     "label": "Pro rata, por franquiciado, de no presentarse"
                 }
             },
-            "unusableByStaff": "Invisible para el personal",
+            "unusableByStaff": "Oculto al personal",
             "expiration_date": {
-                "label": "Fecha límite de compra",
+                "label": "Duración de la venta",
                 "helperText": "Disponible hasta el",
-                "tooltip": "Después de la fecha elegida, el paquete ya no estará a la venta para los clientes."
+                "tooltip": "Después de la fecha elegida, el pase no estará disponible para su compra."
             },
             "description": "Descripción",
             "offPeak": {
@@ -16345,7 +16345,7 @@
                     "allDay": "Todo el día",
                     "timeSlot": "Franjas horarias"
                 },
-                "label": "Limitar las reservas a determinadas franjas horarias"
+                "label": "Restringir las reservas a determinados horarios."
             },
             "atLeastOneDay": "Debe seleccionarse al menos un día",
             "startAfterEnd": "La hora de inicio debe ser inferior a la hora de finalización",
@@ -16875,7 +16875,7 @@
                 "broadcast": "Videoconferencia",
                 "general": "General",
                 "platform_billing": "Suscripción a bsport",
-                "marketplaceSettings": "Parámetros marketplace",
+                "marketplaceSettings": "Parámetros Área de Miembros",
                 "widget": "Widget",
                 "paymentMethod": "Medios de pago",
                 "forms": "Formularios miembros",
@@ -19476,8 +19476,8 @@
                         "modify": "Editar",
                         "cancel": "Cancelar",
                         "create": "Añadir",
-                        "helperTextNewMembers": "El formulario aparecerá como una ventana emergente en el mercado y el widget después del formulario de registro.",
-                        "helperTextRegisteredMembers": "El formulario aparecerá como una ventana emergente en el mercado y el widget para todos los miembros interesados.",
+                        "helperTextNewMembers": "El formulario aparecerá como una ventana emergente en el Área de Miembros y el widget después del formulario de registro.",
+                        "helperTextRegisteredMembers": "El formulario aparecerá como una ventana emergente en el Área de Miembros y el widget para todos los miembros interesados.",
                         "subTitle": "¿A qué miembros quiere dirigirse?",
                         "title": "Normas de visualización"
                     }

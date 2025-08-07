@@ -26,6 +26,9 @@ const getTranslations = async () => {
     SOFORT,
     PAYMENT_PACK,
     BACS_DEBIT,
+    TWINT,
+    APPLE_PAY,
+    GOOGLE_PAY,
   } = await import('@bsport/common/lib/master-data/payment-methods.js');
 
   const {
@@ -271,6 +274,9 @@ const getTranslations = async () => {
       payment_method_sofort: 'Sofort',
       payment_method_paypal_wallet: 'PayPal Wallet',
       payment_method_eps: 'EPS',
+      payment_method_twint: 'Twint',
+      payment_method_apple_pay: 'Apple Pay',
+      payment_method_google_pay: 'Google Pay',
       stock_at_end: 'Stock (end date)',
       stock_at_start: 'Stock (start date)',
       accept_email: 'Accepts marketing notifications (emails)',
@@ -458,6 +464,9 @@ const getTranslations = async () => {
       paypal_wallet: 'PayPal Wallet',
       debt: 'Internal account',
       bacs_debit: 'Bacs Direct Debit',
+      twint: 'Twint',
+      apple_pay: 'Apple Pay',
+      google_pay: 'Google Pay',
     },
     product_type: {
       payment_pack: 'Pass',
@@ -827,6 +836,9 @@ const getTranslations = async () => {
         [PAYMENT_PACK.id]: 'Pass',
         [OTHER.id]: 'Other',
         [DISPUTE.id]: 'Dispute',
+        [TWINT.id]: 'Twint',
+        [APPLE_PAY.id]: 'Apple Pay',
+        [GOOGLE_PAY.id]: 'Google Pay',
       },
       booking_status_code: {
         [BOOKING_STATUS_OK.id]: 'Not cancelled',

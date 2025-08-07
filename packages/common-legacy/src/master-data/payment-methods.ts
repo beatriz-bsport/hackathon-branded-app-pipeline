@@ -109,6 +109,21 @@ export const PAYPAL_WALLET: PaymentMethodType = {
   text: 'Paypal Wallet',
   is_method_editable: false,
 };
+export const TWINT: PaymentMethodType = {
+  id: 90,
+  text: 'Twint',
+  is_method_editable: false,
+};
+export const APPLE_PAY: PaymentMethodType = {
+  id: 100,
+  text: 'Apple Pay',
+  is_method_editable: false,
+};
+export const GOOGLE_PAY: PaymentMethodType = {
+  id: 110,
+  text: 'Google Pay',
+  is_method_editable: false,
+};
 
 const PAYMENT_METHODS: Array<PaymentMethodType> = [
   CB,
@@ -131,6 +146,9 @@ const PAYMENT_METHODS: Array<PaymentMethodType> = [
   GIROPAY,
   BACS_DEBIT,
   PAYPAL_WALLET,
+  TWINT,
+  APPLE_PAY,
+  GOOGLE_PAY,
 ];
 
 export default PAYMENT_METHODS;

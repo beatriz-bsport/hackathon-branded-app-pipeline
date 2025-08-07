@@ -160,7 +160,7 @@ export const useNavigationElements = ({
             {
               id: "webshop",
               label: t("menus.products.webshop"),
-              ...navigationUrls.webshop,
+              ...navigationUrls.webshopOld,
             },
             {
               id: "packs",

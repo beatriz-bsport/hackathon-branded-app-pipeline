@@ -41,6 +41,7 @@ export type QuicksaleCardInfo = {
   lowestVariantPrice?: number | null;
   numberOfVariants?: number;
   allVariantsFollowBasePrice?: boolean | null;
+  is_base_item?: boolean;
   variants?: Array<{
     variant_id: number;
     color: QuicksaleItemColor;

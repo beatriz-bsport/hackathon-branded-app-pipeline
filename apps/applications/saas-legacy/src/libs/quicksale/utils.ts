@@ -209,6 +209,8 @@ export const getCardInfoFromBuyableItem = (
         lowestVariantPrice: buyableItem?.lowest_variant_price,
         numberOfVariants: buyableItem?.number_of_variants,
         allVariantsFollowBasePrice: buyableItem?.all_variants_follow_base_price,
+        is_base_item:
+          !buyableItem.is_standalone_item && buyableItem.base_item === null,
         variants: variants?.length
           ? variants
           : buyableItem.variant_ids?.map((variantId) => ({

@@ -20,8 +20,8 @@
   }
 }
 
-.bs-fabrique-date-picker__menu__header__buttons__left,
-.bs-fabrique-date-picker__menu__header__buttons__right {
+.bs-fabrique-date-picker__header__buttons__left,
+.bs-fabrique-date-picker__header__buttons__right {
   color: var(--bs-grey-800);
   background-color: transparent;
   border: none;
@@ -32,14 +32,14 @@
   width: var(--bs-space-size-6);
 }
 
-.bs-fabrique-date-picker__menu__header__buttons__left,
-.bs-fabrique-date-picker__menu__header__buttons__right {
+.bs-fabrique-date-picker__header__buttons__left,
+.bs-fabrique-date-picker__header__buttons__right {
   color: var(--bs-brand-main);
 }
 
-.bs-fabrique-date-picker__menu__calendar__day::before,
-.bs-fabrique-date-picker__menu__header__buttons__left::before,
-.bs-fabrique-date-picker__menu__header__buttons__right::before {
+.bs-fabrique-date-picker__calendar__day::before,
+.bs-fabrique-date-picker__header__buttons__left::before,
+.bs-fabrique-date-picker__header__buttons__right::before {
   transition: 0.2s background-color;
   content: '';
   position: absolute;
@@ -50,19 +50,19 @@
   opacity: 0.1;
 }
 
-.bs-fabrique-date-picker__menu__calendar__day::before,
-.bs-fabrique-date-picker__menu__header__buttons__left::before,
-.bs-fabrique-date-picker__menu__header__buttons__right::before {
+.bs-fabrique-date-picker__calendar__day::before,
+.bs-fabrique-date-picker__header__buttons__left::before,
+.bs-fabrique-date-picker__header__buttons__right::before {
   border-radius: 50%;
 }
 
-.bs-fabrique-date-picker__menu__header__buttons__left:active::before,
-.bs-fabrique-date-picker__menu__header__buttons__right:active::before {
+.bs-fabrique-date-picker__header__buttons__left:active::before,
+.bs-fabrique-date-picker__header__buttons__right:active::before {
   background-color: var(--bs-brand-main);
 }
 
-.bs-fabrique-date-picker__menu {
-  width: 420px;
+.bs-fabrique-date-picker {
+  max-width: 336px;
   overflow: hidden;
   padding-top: var(--bs-space-size-4);
   padding-bottom: var(--bs-space-size-4);
@@ -70,7 +70,7 @@
   padding-right: var(--bs-space-size-8);
 }
 
-.bs-fabrique-date-picker__menu__header {
+.bs-fabrique-date-picker__header {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -79,7 +79,7 @@
   padding-left: var(--bs-space-size-3);
 }
 
-.bs-fabrique-date-picker__menu__header__date__icon {
+.bs-fabrique-date-picker__header__date__icon {
   padding: var(--bs-space-size-2);
   display: inline-flex;
   justify-content: center;
@@ -90,22 +90,22 @@
   box-sizing: content-box;
 }
 
-.bs-fabrique-date-picker__menu__header__date__icon--year-picker-open {
+.bs-fabrique-date-picker__header__date__icon--year-picker-open {
   animation: rotateIconOnOpen var(--bs-transition-duration-normal) ease-in-out;
 }
 
-.bs-fabrique-date-picker__menu__header__date__icon--year-picker-close {
+.bs-fabrique-date-picker__header__date__icon--year-picker-close {
   animation: rotateIconOnClose var(--bs-transition-duration-normal) ease-in-out;
 }
 
-.bs-fabrique-date-picker__menu__header__buttons {
+.bs-fabrique-date-picker__header__buttons {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: var(--bs-space-size-2);
 }
 
-.bs-fabrique-date-picker__menu__header__buttons--hidden {
+.bs-fabrique-date-picker__header__buttons--hidden {
   display: none;
 }
 
@@ -113,7 +113,7 @@
   display: none;
 }
 
-.bs-fabrique-date-picker__menu__calendar {
+.bs-fabrique-date-picker__calendar {
   margin-top: var(--bs-space-size-4);
   display: grid;
   grid-template-columns: repeat(7, 1fr);
@@ -122,30 +122,43 @@
   column-gap: var(--bs-space-size-2);
 }
 
-.bs-fabrique-date-picker__menu__calendar--hidden {
+.bs-fabrique-date-picker__calendar--hidden {
   display: none;
 }
 
-.bs-fabrique-date-picker__menu__calendar__day {
+.bs-fabrique-date-picker__calendar__day {
   text-transform: uppercase;
+  color: var(--bs-color-action-grey-default);
+  text-align: center;
+  position: relative;
+  cursor: pointer;
+  background-color: inherit;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--bs-border-radius-circle);
+  justify-content: center;
+  align-items: center;
+  width: var(--spacing-4);
+  height: var(--spacing-4);
 }
 
-.bs-fabrique-date-picker__menu__calendar__day--header {
+.bs-fabrique-date-picker__calendar__day--header {
   cursor: inherit;
   justify-self: center;
   color: var(--bs-brand-main);
 }
 
-.bs-fabrique-date-picker__menu__calendar__day--header::before {
+.bs-fabrique-date-picker__calendar__day--header::before {
   display: none;
 }
 
-.bs-fabrique-date-picker__menu__calendar__day:active::before {
+.bs-fabrique-date-picker__calendar__day:active::before {
   background-color: var(--bs-brand-main);
   opacity: 0.2;
 }
 
-.bs-fabrique-date-picker__menu__calendar__day__number {
+.bs-fabrique-date-picker__calendar__day__number {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -153,50 +166,50 @@
   width: var(--bs-space-size-8);
   height: var(--bs-space-size-8);
 }
-.bs-fabrique-date-picker__menu__calendar__day__number:hover {
+.bs-fabrique-date-picker__calendar__day__number:hover {
   background-color: var(--bs-grey-100);
 }
 
-.bs-fabrique-date-picker__menu__calendar__day--selected {
+.bs-fabrique-date-picker__calendar__day--selected {
   background-color: var(--bs-brand-main);
-  color: var(--color-primary-contrastText);
+  color: var(--bs-color-action-inverse-default);
 }
 
-.bs-fabrique-date-picker__menu__calendar__day--disabled {
+.bs-fabrique-date-picker__calendar__day--disabled {
   color: var(--bs-grey-500);
 }
 
-.bs-fabrique-date-picker__menu__calendar__day--disabled:hover::before {
+.bs-fabrique-date-picker__calendar__day--disabled:hover::before {
   background-color: var(--bs-grey-500);
 }
 
-.bs-fabrique-date-picker__menu__calendar__day--disabled:active::before {
+.bs-fabrique-date-picker__calendar__day--disabled:active::before {
   background-color: var(--bs-grey-500);
 }
 
-.bs-fabrique-date-picker__menu__calendar__day--disabled-past {
-  color: var(--color-disabled);
+.bs-fabrique-date-picker__calendar__day--disabled-past {
+  color: var(--bs-color-action-disabled);
   background: none;
 }
 
-.bs-fabrique-date-picker__menu__calendar__day--disabled-past:hover {
+.bs-fabrique-date-picker__calendar__day--disabled-past:hover {
   color: inherit;
   background: none;
 }
 
-.bs-fabrique-date-picker__menu__calendar__day--disabled-past:hover::before {
+.bs-fabrique-date-picker__calendar__day--disabled-past:hover::before {
   background: none;
 }
 
-.bs-fabrique-date-picker__menu__calendar__day:hover {
-  background-color: var(--bs-grey-200);
+.bs-fabrique-date-picker__calendar__day:hover {
+  background-color: var(--bs-color-action-inverse-hovered);
 }
 
-.bs-fabrique-date-picker__menu__calendar__day--header:hover {
+.bs-fabrique-date-picker__calendar__day--header:hover {
   background-color: var(--color-background-paper);
 }
 
-.bs-fabrique-date-picker__menu__calendar__day::before {
+.bs-fabrique-date-picker__calendar__day::before {
   transition: 0.2s background-color;
   content: '';
   position: absolute;
@@ -208,13 +221,13 @@
 }
 
 /* ----- MODAL DIALOG ----- */
-.bs-fabrique-modal-dialog__content .bs-fabrique-date-picker__menu {
+.bs-fabrique-modal-dialog__content .bs-fabrique-date-picker {
   padding: 0;
   width: 100%;
 }
 
 @container (max-width: 570px) {
-  .bs-fabrique-date-picker__menu__calendar {
+  .bs-fabrique-date-picker__calendar {
     row-gap: 0;
   }
 }

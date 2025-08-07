@@ -9,3 +9,7 @@ export type AvailabilityModalProps = {
   onDisableSuccess?: () => void;
   onDisableFailure?: () => void;
 };
+
+export type CustomFormCreationData = {
+  name: string;
+};

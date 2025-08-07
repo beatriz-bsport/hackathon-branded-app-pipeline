@@ -393,9 +393,19 @@ const QuicksaleItemList: React.FC<Props> = (props) => {
   );
 
   const onVariantItemClick = React.useCallback(
-    (itemId: string) =>
-      pushRouter(`/settings/quicksale/${sectionId}/${itemId}/`),
-    [pushRouter, sectionId],
+    (itemId: string) => {
+      const variantExistsInSavedConfig =
+        availableItemsFromBackendConfig.current.some(
+          (item) => item.object_id === parseInt(itemId, 10),
+        );
+
+      if (!variantExistsInSavedConfig && isSaveNeeded) {
+        pushRouter(`/settings/quicksale/${sectionId}`);
+      } else {
+        pushRouter(`/settings/quicksale/${sectionId}/${itemId}/`);
+      }
+    },
+    [availableItemsFromBackendConfig, isSaveNeeded, pushRouter, sectionId],
   );
 
   // ==================== Variant management ====================
@@ -700,9 +710,11 @@ const QuicksaleItemList: React.FC<Props> = (props) => {
                 <ul className={classes.actionList}>
                   <li>{t('cardListPage.editColor')}</li>
                   <li>{t('cardListPage.moveTile')}</li>
-                  <li>{t('cardListPage.deleteTile')}</li>
+                  {!currentVariantItem && (
+                    <li>{t('cardListPage.deleteTile')}</li>
+                  )}
                 </ul>
-                {t('cardListPage.addItems')}
+                {!currentVariantItem && t('cardListPage.addItems')}
               </>
             )}
             {isMobile && showFullHelperAlert && (

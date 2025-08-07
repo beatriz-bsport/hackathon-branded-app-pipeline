@@ -23,13 +23,6 @@ const BREAKPOINTS = [
 ] as const;
 
 function getScreenType(width: number): ScreenType {
-  console.log("getScreenType called with width:", width);
-  console.log(
-    "screen type : ",
-    BREAKPOINTS.find((b) => width >= b.min && width <= b.max)?.type ||
-      "desktop",
-  );
-
   return (
     BREAKPOINTS.find((b) => width >= b.min && width <= b.max)?.type || "desktop"
   );

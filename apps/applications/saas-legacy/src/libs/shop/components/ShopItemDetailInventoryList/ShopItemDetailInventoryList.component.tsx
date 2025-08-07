@@ -28,6 +28,8 @@ type Props = {
   variantSizeFilterOptionValueList: SelectOption[];
   variantColorFilterOptionList: SelectOption[];
   variantColorFilterOptionValueList: SelectOption[];
+  establishmentBillingGroupFilterOptionList: SelectOption[];
+  variantEstablishmentBillingGroupFilterOptionValue: SelectOption;
   handleSubmit: (
     values: ShopItemInventoryBulkUpdateFormValues | ShopItemInventoryFormValues,
     {
@@ -39,6 +41,8 @@ type Props = {
   changeInventoryVariantFilter: (
     type: 'colors' | 'sizes',
   ) => (options: SelectOption[]) => void;
+  changeEstablishmentBillingGroupFilter: (options: SelectOption) => void;
+  isMultiLocationWebshopEnabled: boolean;
 };
 
 const ShopItemDetailInventoryList: React.FC<Props> = ({
@@ -50,8 +54,12 @@ const ShopItemDetailInventoryList: React.FC<Props> = ({
   variantSizeFilterOptionValueList,
   variantColorFilterOptionList,
   variantColorFilterOptionValueList,
+  establishmentBillingGroupFilterOptionList,
+  variantEstablishmentBillingGroupFilterOptionValue,
   handleSubmit,
   changeInventoryVariantFilter,
+  changeEstablishmentBillingGroupFilter,
+  isMultiLocationWebshopEnabled,
 }) => {
   const { t } = useTranslation('shop');
   const classes = useStyles();
@@ -84,6 +92,10 @@ const ShopItemDetailInventoryList: React.FC<Props> = ({
     [shopItem?.current_stock, shopItem?.total_sales, shopItemVariantList],
   );
 
+  const shouldDisplayEstablishmentBillingGroupFilter =
+    establishmentBillingGroupFilterOptionList.length > 0 &&
+    isMultiLocationWebshopEnabled;
+
   return (
     <Formik
       enableReinitialize
@@ -94,11 +106,35 @@ const ShopItemDetailInventoryList: React.FC<Props> = ({
     >
       <>
         {formType === ShopItemDetailInventoryFormType.STANDALONE && (
-          <ShopItemInventoryUpdateForm />
+          <>
+            {shouldDisplayEstablishmentBillingGroupFilter && (
+              <Select
+                className={clsx(classes.filterContainer, classes.filterBox)}
+                onChange={changeEstablishmentBillingGroupFilter}
+                options={establishmentBillingGroupFilterOptionList}
+                placeholder={t(
+                  'shopItemDetail.table.inventory.filterPlaceholder.establishmentBillingGroup',
+                )}
+                value={variantEstablishmentBillingGroupFilterOptionValue}
+              />
+            )}
+            <ShopItemInventoryUpdateForm />
+          </>
         )}
         {formType === ShopItemDetailInventoryFormType.VARIANTS && (
           <>
             <div className={clsx(classes.flexGap, classes.filterContainer)}>
+              {shouldDisplayEstablishmentBillingGroupFilter && (
+                <Select
+                  className={classes.flexGrow}
+                  onChange={changeEstablishmentBillingGroupFilter}
+                  options={establishmentBillingGroupFilterOptionList}
+                  placeholder={t(
+                    'shopItemDetail.table.inventory.filterPlaceholder.establishmentBillingGroup',
+                  )}
+                  value={variantEstablishmentBillingGroupFilterOptionValue}
+                />
+              )}
               <Select
                 isClearable
                 isMulti
@@ -143,6 +179,9 @@ const useStyles = makeStyles((theme) => ({
   },
   flexGrow: {
     flex: 1,
+  },
+  filterBox: {
+    width: '50%',
   },
 }));
 

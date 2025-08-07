@@ -2,6 +2,10 @@ import { useEffect, useMemo, useState } from "react";
 
 import type { Tag, TagGroup } from "@bsport/store-cdp-tag";
 
+import { TAG_LIST_ITEM_ID } from "#src/utils/constants";
+
+import { useDrawerQueryParam } from "./use-query-param-management";
+
 type UseNavigateTagDetailsProps = {
   tagGroups: TagGroup[];
   tagsMappedByTagId: Record<number, Tag>;
@@ -13,6 +17,7 @@ export const useNavigateTagDetails = ({
   tagsMappedByTagId,
   baseTagId,
 }: UseNavigateTagDetailsProps) => {
+  const { openDrawer } = useDrawerQueryParam();
   const [currentInspectedTag, setCurrentInspectedTag] = useState<Tag | null>(
     null,
   );
@@ -25,6 +30,16 @@ export const useNavigateTagDetails = ({
       }, []),
     [tagGroups, tagsMappedByTagId],
   );
+
+  const scrollScreenIntoNavigatedTag = (tagId: number) => {
+    const tagElement = document.getElementById(TAG_LIST_ITEM_ID(tagId));
+    if (tagElement) {
+      tagElement.scrollIntoView({
+        behavior: "smooth",
+        block: "nearest",
+      });
+    }
+  };
 
   const navigateTagDetails = ({
     direction,
@@ -41,7 +56,10 @@ export const useNavigateTagDetails = ({
     const indexToNavigate =
       (currentIndex + indexDiff + circularListOfTags.length) %
       circularListOfTags.length;
-    setCurrentInspectedTag(circularListOfTags[indexToNavigate]);
+    const navigatedTag = circularListOfTags[indexToNavigate];
+    openDrawer(navigatedTag.id);
+    setCurrentInspectedTag(navigatedTag);
+    scrollScreenIntoNavigatedTag(navigatedTag.id);
   };
 
   useEffect(() => {
@@ -53,7 +71,6 @@ export const useNavigateTagDetails = ({
   useEffect(() => {
     if (baseTagId && tagsMappedByTagId) {
       setCurrentInspectedTag(tagsMappedByTagId[baseTagId] || null);
-      console.log(`tag data :`, tagsMappedByTagId[baseTagId]);
     }
   }, [baseTagId, tagsMappedByTagId]);
 

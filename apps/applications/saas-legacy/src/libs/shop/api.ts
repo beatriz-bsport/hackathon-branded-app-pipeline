@@ -185,6 +185,7 @@ export default {
  * @param size Filter by size field value
  * @param page_size The number of items to retrieve per page
  * @param page The page number to retrieve
+ * @param establishment_billing_group Filter by establishment billing group
  */
 export const fetchShopItemList = (params?: ShopItemFilterParams) => {
   return getAuth<PaginatedResponse<ShopItem>>(
@@ -195,9 +196,15 @@ export const fetchShopItemList = (params?: ShopItemFilterParams) => {
 /**
  * Retrieves a base/standalone item.
  * @param id The ID of the shop item
+ * @param params Optional parameters to filter the item details, such as establishment billing group
  */
-export const retrieveShopItemDetails = (id: number) => {
-  return getAuth<ShopItem>(`${API_V1_URI}/shop/item/${id}`);
+export const retrieveShopItemDetails = (
+  id: number,
+  params?: Pick<ShopItemFilterParams, 'establishment_billing_group'>,
+) => {
+  return getAuth<ShopItem>(
+    `${API_V1_URI}/shop/item/${id}/${buildUrlParams(params)}`,
+  );
 };
 
 /**

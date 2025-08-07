@@ -101,15 +101,12 @@ export const DisableFormModal: React.FC<Props> = ({
       <div className="flex flex-col gap-y-[16px]">
         <Body htmlVariant="p" size="lg" color="default" weight="weak">
           <Trans
-            i18nKey={"activeList.archiveModal.description.verification"}
+            i18nKey={"activeList.archiveModal.description"}
             values={{ name: formName }}
             components={{
               b: <b></b>,
             }}
           />
-        </Body>
-        <Body htmlVariant="p" size="lg" color="default" weight="weak">
-          {t("activeList.archiveModal.description.effect")}
         </Body>
       </div>
     </Modal>

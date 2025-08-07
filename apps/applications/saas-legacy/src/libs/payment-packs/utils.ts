@@ -182,6 +182,7 @@ export const getPaymentPackTimeLimitation = (paymentPack, baseDate) => {
 
   return {
     start: baseDate ? DateTime.fromISO(baseDate) : DateTime.now(),
+    // TODO(BOO-746): The duration should be added to the base date too.
     end: baseDate
       ? DateTime.fromISO(baseDate)
       : DateTime.now().plus({

@@ -17773,7 +17773,6 @@
             "leftToPay": "Resta pagar",
             "leftDue": "Restante devido :",
             "onSpot": "No local",
-            "unauthenticatedWarning": "Se nenhum membro estiver autenticado para esta fatura, esta será criada de forma anónima. É aconselhável atribuir um membro para facilitar o controlo das informações.",
             "payLater": {
                 "title": "Pagamento adiado",
                 "subText": "O pagamento foi adiado : pode ser efetuado a partir do backoffice ou do perfil do membro."

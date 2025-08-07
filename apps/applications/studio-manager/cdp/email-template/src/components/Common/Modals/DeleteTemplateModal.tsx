@@ -129,15 +129,12 @@ export const DeleteTemplateModal: React.FC<Props> = ({
         <div className="flex flex-col gap-y-sm">
           <Body htmlVariant="p" size="lg" color="default" weight="weak">
             <Trans
-              i18nKey={"activeList.deleteTemplateModal.description.firstStep"}
+              i18nKey={"activeList.deleteTemplateModal.description"}
               values={{ emailTemplateTitle: emailTemplateDetail?.title }}
               components={{
                 b: <b></b>,
               }}
             />
-          </Body>
-          <Body htmlVariant="p" size="lg" color="default" weight="weak">
-            {t("activeList.deleteTemplateModal.description.secondStep")}
           </Body>
         </div>
       )}

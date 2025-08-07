@@ -58,6 +58,8 @@ const FranchiseShopItemTemplateDetailInventoryList: React.FC<Props> = ({
         size: shopItem.size,
         currentStock: shopItem.current_stock ?? 0,
         companyName: shopItem.company_details?.name,
+        isMultiLocationWebshopEnabled:
+          !!shopItem.company_details?.is_multi_location_webshop_enabled,
         stockAdjustment: '',
         totalSales: shopItemTemplate?.total_sales ?? 0,
       })),

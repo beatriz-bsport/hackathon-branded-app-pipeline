@@ -40,7 +40,11 @@ export const MyForm = () => {
 
 ### ControlledForm + useFormController
 
-Use this combination when you need access to form state outside the form context (e.g., `isDirty`, `isValid`, `watch`).
+Use this combination when you need access to form state outside the form context :
+
+- `isDirty`: Set to true after the user modifies any of the inputs.
+- `isValid`: Set to true if the form doesn't have any errors.
+- `watch`: This method will watch specified inputs and return their values.
 
 ```tsx
 import { z } from "zod";

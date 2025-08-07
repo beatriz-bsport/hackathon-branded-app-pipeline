@@ -5,7 +5,6 @@ import clsx from 'clsx';
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 
 import Menu from '#Fabrique/Menu';
-import MarketplaceDatePickerDay from '#src/libs/marketplace/components/@Date/MarketplaceDatePicker/MarketplaceDatePickerDay.component';
 import {
   ChevronDown,
   ChevronLeft,
@@ -127,22 +126,19 @@ const DatePicker: React.FC<DatePickerProps> = ({
       isOpen={isOpen && !!dateDisplayed}
       onClose={handleCloseMenu}
     >
-      <div className="bs-fabrique-date-picker__menu">
-        <div className="bs-fabrique-date-picker__menu__header">
+      <div className="bs-fabrique-date-picker">
+        <div className="bs-fabrique-date-picker__header">
           <ButtonBase onClick={toggleYearPicker}>
             <Typography variant="title-sm">
               {dateDisplayed.toFormat('MMMM yyyy')}
             </Typography>
             <span
-              className={clsx(
-                'bs-fabrique-date-picker__menu__header__date__icon',
-                {
-                  'bs-fabrique-date-picker__menu__header__date__icon--year-picker-open':
-                    isYearPickerOpen,
-                  'bs-fabrique-date-picker__menu__header__date__icon--year-picker-close':
-                    !isYearPickerOpen,
-                },
-              )}
+              className={clsx('bs-fabrique-date-picker__header__date__icon', {
+                'bs-fabrique-date-picker__header__date__icon--year-picker-open':
+                  isYearPickerOpen,
+                'bs-fabrique-date-picker__header__date__icon--year-picker-close':
+                  !isYearPickerOpen,
+              })}
             >
               {!isYearPickerOpen ? (
                 <ChevronDown stroke="currentColor" />
@@ -152,20 +148,20 @@ const DatePicker: React.FC<DatePickerProps> = ({
             </span>
           </ButtonBase>
           <div
-            className={clsx('bs-fabrique-date-picker__menu__header__buttons', {
-              'bs-fabrique-date-picker__menu__header__buttons--hidden':
+            className={clsx('bs-fabrique-date-picker__header__buttons', {
+              'bs-fabrique-date-picker__header__buttons--hidden':
                 isYearPickerOpen,
             })}
           >
             <button
-              className="bs-fabrique-date-picker__menu__header__buttons__left"
+              className="bs-fabrique-date-picker__header__buttons__left"
               onClick={handleChangeDateDisplayed('subtract')}
               type="button"
             >
               <ChevronLeft />
             </button>
             <button
-              className="bs-fabrique-date-picker__menu__header__buttons__right"
+              className="bs-fabrique-date-picker__header__buttons__right"
               onClick={handleChangeDateDisplayed('add')}
               type="button"
             >
@@ -175,8 +171,8 @@ const DatePicker: React.FC<DatePickerProps> = ({
         </div>
         <YearPicker isOpen={isYearPickerOpen} onSelectYear={handleSelectYear} />
         <div
-          className={clsx('bs-fabrique-date-picker__menu__calendar', {
-            'bs-fabrique-date-picker__menu__calendar--hidden': isYearPickerOpen,
+          className={clsx('bs-fabrique-date-picker__calendar', {
+            'bs-fabrique-date-picker__calendar--hidden': isYearPickerOpen,
           })}
         >
           {Array(7)
@@ -184,7 +180,7 @@ const DatePicker: React.FC<DatePickerProps> = ({
             .map((value, i) => (
               <Typography
                 key={`header-${i}`}
-                className="bs-fabrique-date-picker__menu__calendar__day bs-fabrique-date-picker__menu__calendar__day--header"
+                className="bs-fabrique-date-picker__calendar__day bs-fabrique-date-picker__calendar__day--header"
                 variant="body-md"
               >
                 {DateTime.now()
@@ -205,18 +201,51 @@ const DatePicker: React.FC<DatePickerProps> = ({
                     .fill(0)
                     .map((trashValueDay, dayNumber) => {
                       const day = weekStartingDay.plus({
-                        day: trashValueDay + dayNumber,
+                        days: trashValueDay + dayNumber,
                       });
                       const dayString = day.toISODate();
+                      const daySelected =
+                        DateTime.fromISO(dateSelected).startOf('day');
+
+                      if (!dayString) return null;
+
                       return (
-                        <MarketplaceDatePickerDay
+                        <div
                           key={dayString}
-                          date={dayString}
-                          dateDisplayed={dateDisplayed.toISODate()}
-                          dateSelected={dateSelected}
-                          handleSelect={handleSelect}
-                          isDisabled={isDayDisabled(dayString)}
-                        />
+                          className={clsx(
+                            'bs-fabrique-date-picker__calendar__day__container',
+                          )}
+                        >
+                          <button
+                            className={clsx(
+                              'bs-fabrique-date-picker__calendar__day',
+                              {
+                                'bs-fabrique-date-picker__calendar__day--today':
+                                  DateTime.now().startOf('day').toSeconds() ===
+                                  DateTime.fromISO(dayString)
+                                    .startOf('day')
+                                    .toSeconds(),
+                                'bs-fabrique-date-picker__calendar__day--selected':
+                                  daySelected.toSeconds() ===
+                                  DateTime.fromISO(dayString).toSeconds(),
+                                'bs-fabrique-date-picker__calendar__day--disabled':
+                                  DateTime.fromISO(dateDisplayed.toISODate())
+                                    .month -
+                                    DateTime.fromISO(dayString).month !==
+                                  0,
+                                'bs-fabrique-date-picker__calendar__day--disabled-past':
+                                  isDayDisabled(dayString),
+                              },
+                            )}
+                            disabled={isDayDisabled(dayString)}
+                            onClick={handleSelect(dayString)}
+                            type="button"
+                          >
+                            <Typography color="default" variant="body-md">
+                              {DateTime.fromISO(dayString).toFormat('d')}
+                            </Typography>
+                          </button>
+                        </div>
                       );
                     })}
                 </>

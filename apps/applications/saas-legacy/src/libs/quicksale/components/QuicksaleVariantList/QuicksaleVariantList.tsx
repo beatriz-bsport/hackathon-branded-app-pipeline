@@ -20,6 +20,7 @@ type Props = {
   currentSectionId: string;
   variantList?: Array<{ variant_id: number; color?: string }>;
   currentVariantItemId: number;
+  establishmentBillingGroupId?: number;
 };
 
 const QuicksaleVariantList: React.FC<Props> = ({
@@ -28,6 +29,7 @@ const QuicksaleVariantList: React.FC<Props> = ({
   currentSectionId,
   variantList,
   currentVariantItemId,
+  establishmentBillingGroupId,
 }) => {
   const { t } = useTranslation('quicksale');
 
@@ -37,8 +39,10 @@ const QuicksaleVariantList: React.FC<Props> = ({
     theme.breakpoints.down('xs'),
   );
 
-  const { loading, variants, error } =
-    useFetchShopItemVariants(currentVariantItemId);
+  const { loading, variants, error } = useFetchShopItemVariants(
+    currentVariantItemId,
+    establishmentBillingGroupId,
+  );
 
   const variantCardsInfo = useMemo(() => {
     if (!variantList?.length || !variants?.length) return [];

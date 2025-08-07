@@ -28,6 +28,7 @@ const getTranslations = async () => {
     SOURCE_SAAS,
     SOURCE_OTHER,
     SOURCE_MIGRATION,
+    SOURCE_QUICKSALE,
   } = await import('@bsport/common/lib/master-data/source-device.js');
   const {
     PAYMENT_GROUP_METHOD_IDENTIFIER_BACS_DEBIT,
@@ -311,6 +312,7 @@ const getTranslations = async () => {
           [SOURCE_SAAS]: 'Backoffice',
           [SOURCE_OTHER]: 'Other',
           [SOURCE_MIGRATION]: 'Migration',
+          [SOURCE_QUICKSALE]: 'POS',
           label: 'Channel : {{ source }}',
         },
         clientAuthor: 'Customer',

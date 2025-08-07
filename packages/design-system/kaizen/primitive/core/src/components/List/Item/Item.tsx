@@ -24,6 +24,7 @@ type Props = {
   rightTitle?: string;
   description?: string;
   isSelectable?: boolean;
+  isActive?: boolean;
   onCheckboxChange?: (value: boolean) => void;
   icon?: IconName;
   avatar?: WithTooltip<AvatarProps>;
@@ -100,6 +101,7 @@ const BaseItem: React.FC<
               <ColorIndicator
                 color={color}
                 type="line"
+                size="xs"
                 className="absolute left-0"
               />
             )}
@@ -180,6 +182,7 @@ const Item: React.FC<ListItemProps> = ({
   rightTitle,
   description,
   isSelectable = false,
+  isActive = false,
   icon,
   avatar,
   color,
@@ -205,10 +208,11 @@ const Item: React.FC<ListItemProps> = ({
 
   return (
     <li
+      id={id}
       className={classNames(
         listItem({
           className,
-          selected: checkboxState === "checked",
+          selected: checkboxState === "checked" || isActive,
           isLink: !!link,
           compactMode,
         }),

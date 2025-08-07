@@ -63,6 +63,7 @@ type Props = {
   shopItemVariantFilterOptionValues: {
     colors: SelectOption[];
     sizes: SelectOption[];
+    establishmentBillingGroup: SelectOption;
   };
   isSupplierPriceHidden?: boolean;
   tagList: Tag<TagGroupAPI>[];
@@ -97,6 +98,7 @@ type Props = {
   changeInventoryVariantFilter: (
     type: 'colors' | 'sizes',
   ) => (options: SelectOption[]) => void;
+  changeEstablishmentBillingGroupFilter: (options: SelectOption) => void;
   checkBarcodeUnicity: (
     barcode: string,
     companyIds?: number[],
@@ -105,6 +107,8 @@ type Props = {
   getShopItemBarcodeListUnicity: (barcodeList: string[]) => boolean;
   getShopItemBarcodeUnicity: (barcode: string) => boolean;
   snackbarSuccess: (text: string) => void;
+  establishmentBillingGroupFilterOptionList: SelectOption[];
+  isMultiLocationWebshopEnabled: boolean;
 };
 
 const ShopItemDetail: React.FC<Props> = ({
@@ -143,6 +147,9 @@ const ShopItemDetail: React.FC<Props> = ({
   getShopItemBarcodeListUnicity,
   getShopItemBarcodeUnicity,
   snackbarSuccess,
+  establishmentBillingGroupFilterOptionList,
+  changeEstablishmentBillingGroupFilter,
+  isMultiLocationWebshopEnabled,
 }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('xs'));
@@ -375,17 +382,24 @@ const ShopItemDetail: React.FC<Props> = ({
       <ShopModalContextProvider>
         <ShopItemDetailTabs
           availableTabListOptions={availableTabListOptions}
+          changeEstablishmentBillingGroupFilter={
+            changeEstablishmentBillingGroupFilter
+          }
           changeInventoryVariantFilter={changeInventoryVariantFilter}
           checkBarcodeUnicity={handleCheckVariantBarcodeUnicity}
           companyId={companyId}
           count={count}
           createShopItemProvision={createShopItemProvision}
           createShopItemProvisionBulk={createShopItemProvisionBulk}
+          establishmentBillingGroupFilterOptionList={
+            establishmentBillingGroupFilterOptionList
+          }
           getShopItemBarcodeListUnicity={getShopItemBarcodeListUnicity}
           handleOpenBarcodeModal={handleOpenBarcodeModal}
           handleOpenVariantDrawer={handleOpenCreateVariantDrawer}
           isDeletingVariant={isDeletingVariant}
           isLoading={isLoading}
+          isMultiLocationWebshopEnabled={isMultiLocationWebshopEnabled}
           isSupplierPriceHidden={isSupplierPriceHidden}
           isUpdatingVariant={isUpdatingVariant}
           isVariantEditMode={isVariantEditMode}

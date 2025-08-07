@@ -1,9 +1,15 @@
 import { useMemo } from "react";
 
-import { List, type PaginationProps } from "@bsport/kaizen-primitive-core";
+import {
+  List,
+  type PaginationProps,
+  toast,
+} from "@bsport/kaizen-primitive-core";
 import type { Tag } from "@bsport/store-cdp-tag";
 import type { Member } from "@bsport/store-core-data-member";
 
+import { useFetchTag } from "#src/hooks/api/use-fetch-tags";
+import { useUpdateMemberTag } from "#src/hooks/api/use-update-member-tag";
 import { useMemberListFactory } from "#src/hooks/layout/use-member-list-factory";
 import { useTranslation } from "#src/utils/i18n";
 
@@ -13,6 +19,13 @@ type TagMemberListProps = {
   paginationParams: PaginationProps;
   selectedOption: string;
   tag: Tag;
+  refreshMemberPage?: ({
+    tagId,
+    tagged,
+  }: {
+    tagId: number;
+    tagged: boolean;
+  }) => void;
 };
 
 export const TagMemberList: React.FC<TagMemberListProps> = ({
@@ -21,17 +34,62 @@ export const TagMemberList: React.FC<TagMemberListProps> = ({
   paginationParams,
   selectedOption,
   tag,
+  refreshMemberPage,
 }: TagMemberListProps) => {
+  const { fetchTagUsages } = useFetchTag();
+
   const { t } = useTranslation("tags");
+  const { untagMember, tagMember } = useUpdateMemberTag({
+    onTagSuccess: () => {
+      toast({
+        title: t("tagsDetails.memberList.actions.tag.success.title"),
+        status: "default",
+        icon: "plus",
+        buttonIcon: "x-close",
+      });
+      fetchTagUsages();
+      refreshMemberPage?.({
+        tagId: tag.id,
+        tagged: false,
+      });
+    },
+    onUntagSuccess: () => {
+      toast({
+        title: t("tagsDetails.memberList.actions.untag.success.title"),
+        status: "default",
+        icon: "x-close",
+        buttonIcon: "x-close",
+      });
+      fetchTagUsages();
+      refreshMemberPage?.({
+        tagId: tag.id,
+        tagged: true,
+      });
+    },
+    onTagFailure: () => {
+      toast({
+        title: t("tagsDetails.memberList.actions.tag.failure.title"),
+        status: "critical",
+        icon: "alert-circle",
+        buttonIcon: "x-close",
+      });
+    },
+    onUntagFailure: () => {
+      toast({
+        title: t("tagsDetails.memberList.actions.untag.failure.title"),
+        status: "critical",
+        icon: "alert-circle",
+        buttonIcon: "x-close",
+      });
+    },
+  });
 
   const { formatMemberList } = useMemberListFactory({
     handleTagMember: ({ memberId, tagId }) => {
-      // Logic to tag a member
-      console.log(`Tagging member ${memberId} with tag ${tagId}`);
+      tagMember({ memberId, tagId });
     },
     handleUntagMember: ({ memberId, tagId }) => {
-      // Logic to untag a member
-      console.log(`Untagging member ${memberId} from tag ${tagId}`);
+      untagMember({ memberId, tagId });
     },
   });
 
@@ -65,10 +123,6 @@ export const TagMemberList: React.FC<TagMemberListProps> = ({
               selectedOption === "tagged"
                 ? t("tagsDetails.memberList.emptyState.title.tagged")
                 : t("tagsDetails.memberList.emptyState.title.untagged"),
-            subtitle:
-              selectedOption === "tagged"
-                ? t("tagsDetails.memberList.emptyState.description.tagged")
-                : t("tagsDetails.memberList.emptyState.description.untagged"),
           },
         }}
         items={memberListItems}

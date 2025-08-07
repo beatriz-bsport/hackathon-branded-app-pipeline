@@ -22,12 +22,13 @@ import { QuicksaleBasketItem } from '@bsport/common/lib/master-data/buyable-item
 type Props = {
   currentSection?: QuicksaleSection;
   currentVariantItem: ShopItem | null;
+  establishmentBillingGroupId?: number;
   isExcludingTax?: boolean;
   itemCardInfoList?: QuicksaleCardInfo[];
   loading?: boolean;
   onItemClick: (item: QuicksaleCardInfo) => void;
   onSectionClick: (sectionId: string) => void;
-  onVariantItemClick: (itemId: string) => void;
+  onVariantItemClick: (itemId: string, sectionId?: string) => void;
   searchResults?: QuicksaleCardInfo[];
   searchText?: string;
   sectionList?: QuicksaleSection[];
@@ -37,6 +38,7 @@ type Props = {
 const QuicksaleTileList: React.FC<Props> = ({
   currentSection,
   currentVariantItem,
+  establishmentBillingGroupId,
   isExcludingTax,
   itemCardInfoList,
   loading,
@@ -50,6 +52,13 @@ const QuicksaleTileList: React.FC<Props> = ({
 }) => {
   const classes = useStyles();
   const { t } = useTranslation('quicksale');
+
+  const handleVariantItemClick = React.useCallback(
+    (itemId: string, sectionId?: string) => {
+      onVariantItemClick(itemId, sectionId);
+    },
+    [onVariantItemClick],
+  );
 
   const currentItemVariantList = React.useMemo(
     () =>
@@ -105,6 +114,9 @@ const QuicksaleTileList: React.FC<Props> = ({
                       addToBasket={onItemClick}
                       isExcludingTax={isExcludingTax}
                       item={result}
+                      onVariantItemClick={(itemId) =>
+                        handleVariantItemClick(itemId, section.section_id)
+                      }
                       outOfStock={result.outOfStock}
                       restrictedPurchase={result.restricted}
                     />
@@ -123,6 +135,7 @@ const QuicksaleTileList: React.FC<Props> = ({
       <QuicksaleVariantList
         currentSectionId={currentSection?.section_id ?? ''}
         currentVariantItemId={currentVariantItem.id}
+        establishmentBillingGroupId={establishmentBillingGroupId}
         isExcludingTax={isExcludingTax}
         onItemClick={onItemClick}
         variantList={currentItemVariantList}

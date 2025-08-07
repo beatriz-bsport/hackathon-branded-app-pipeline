@@ -173,6 +173,7 @@ exports.default = {
           company: 'Select studio',
           size: 'Select size',
           color: 'Select color',
+          establishmentBillingGroup: 'Select a billing group',
         },
         unsavedChangesModal: {
           title: 'Unsaved changes',
@@ -188,6 +189,8 @@ exports.default = {
         companyName: 'Studio',
         stockAdjustment: 'Stock adjustment (+/-)',
         totalSales: 'Total sales',
+        tooltipForMultiLocationWebshop:
+          'Since multilocation is enabled for this studio, stock can only be adjusted from the sub-account, not from the Master account.',
       },
       variants: {
         formError: {

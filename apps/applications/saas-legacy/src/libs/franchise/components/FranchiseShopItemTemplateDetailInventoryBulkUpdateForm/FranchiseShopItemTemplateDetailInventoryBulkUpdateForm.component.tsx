@@ -22,6 +22,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import TextField from '@material-ui/core/TextField';
+import Tooltip from '@material-ui/core/Tooltip';
 
 import { CustomChip } from '#src/components/chip/CustomChip.component';
 
@@ -35,6 +36,7 @@ type ShopItemInventoryBulkUpdateFormRow = {
   size: string;
   currentStock: number;
   companyName: string;
+  isMultiLocationWebshopEnabled: boolean;
   stockAdjustment: string;
   totalSales: number;
 };
@@ -177,17 +179,34 @@ const FranchiseShopItemTemplateDetailInventoryBulkForm: React.FC<Props> = ({
                           key={index.toString()}
                           name={`instances.${index}.stockAdjustment`}
                         >
-                          {({ field }: { field: FieldInputProps<number> }) => (
-                            <TextField
-                              {...field}
-                              error={
-                                !!(
-                                  errors.instances as FormikErrors<ShopItemInventoryBulkUpdateFormRow>[]
-                                )?.[index]?.stockAdjustment
-                              }
-                              placeholder="0"
-                            />
-                          )}
+                          {({ field }: { field: FieldInputProps<number> }) =>
+                            row.isMultiLocationWebshopEnabled ? (
+                              <Tooltip
+                                title={
+                                  row.isMultiLocationWebshopEnabled &&
+                                  t(
+                                    'shopItemDetail.table.inventory.tooltipForMultiLocationWebshop',
+                                  )
+                                }
+                              >
+                                <TextField
+                                  {...field}
+                                  disabled={row.isMultiLocationWebshopEnabled}
+                                  placeholder="0"
+                                />
+                              </Tooltip>
+                            ) : (
+                              <TextField
+                                {...field}
+                                error={
+                                  !!(
+                                    errors.instances as FormikErrors<ShopItemInventoryBulkUpdateFormRow>[]
+                                  )?.[index]?.stockAdjustment
+                                }
+                                placeholder="0"
+                              />
+                            )
+                          }
                         </FastField>
                       </TableCell>
                       <TableCell>

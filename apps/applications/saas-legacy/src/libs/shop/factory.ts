@@ -77,6 +77,7 @@ export const shopItemFactory = (options?: ShopItemFactoryOptions) => {
     company_details: {
       id: faker.number.int({ max: 10000 }),
       name: faker.lorem.words(3),
+      is_multi_location_webshop_enabled: faker.datatype.boolean(),
     },
     unlimited_provisions:
       options?.isUnlimitedProvisions ?? faker.datatype.boolean(),

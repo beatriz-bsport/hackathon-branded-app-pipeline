@@ -43,6 +43,7 @@ type Props = {
   shopItemVariantFilterOptionValues: {
     colors: SelectOption[];
     sizes: SelectOption[];
+    establishmentBillingGroup: SelectOption;
   };
   variantCombinationListCount: number;
   handleOpenVariantDrawer: () => void;
@@ -58,6 +59,9 @@ type Props = {
   changeInventoryVariantFilter: (
     type: 'colors' | 'sizes',
   ) => (options: SelectOption[]) => void;
+  changeEstablishmentBillingGroupFilter: (options: SelectOption) => void;
+  establishmentBillingGroupFilterOptionList: SelectOption[];
+  isMultiLocationWebshopEnabled: boolean;
 };
 
 const ShopItemDetailInventoryTab: React.FC<Props> = ({
@@ -75,6 +79,9 @@ const ShopItemDetailInventoryTab: React.FC<Props> = ({
   createShopItemProvision,
   setQueryParam,
   changeInventoryVariantFilter,
+  establishmentBillingGroupFilterOptionList,
+  changeEstablishmentBillingGroupFilter,
+  isMultiLocationWebshopEnabled,
 }) => {
   const { t } = useTranslation('shop');
 
@@ -106,15 +113,27 @@ const ShopItemDetailInventoryTab: React.FC<Props> = ({
           payload.push({
             shop_item: variant.id,
             qty: parseInt(variant.stockAdjustment, 10),
+            ...(!!shopItemVariantFilterOptionValues.establishmentBillingGroup
+              .value && isMultiLocationWebshopEnabled
+              ? {
+                  establishment_billing_group: Number(
+                    shopItemVariantFilterOptionValues.establishmentBillingGroup
+                      .value,
+                  ),
+                }
+              : {}),
           });
         }
       }
-
       createShopItemProvisionBulk(payload, {
         onSuccess: () => resetForm(),
       });
     },
-    [createShopItemProvisionBulk],
+    [
+      createShopItemProvisionBulk,
+      shopItemVariantFilterOptionValues.establishmentBillingGroup.value,
+      isMultiLocationWebshopEnabled,
+    ],
   );
 
   const handleOnSubmitStandalone = useCallback(
@@ -127,13 +146,27 @@ const ShopItemDetailInventoryTab: React.FC<Props> = ({
           {
             shop_item: shopItem?.id,
             qty: parseInt(values.stockAdjustment, 10),
+            ...(!!shopItemVariantFilterOptionValues.establishmentBillingGroup
+              .value && isMultiLocationWebshopEnabled
+              ? {
+                  establishment_billing_group: Number(
+                    shopItemVariantFilterOptionValues.establishmentBillingGroup
+                      .value,
+                  ),
+                }
+              : {}),
           },
           {
             onSuccess: () => resetForm(),
           },
         );
     },
-    [createShopItemProvision, shopItem?.id],
+    [
+      createShopItemProvision,
+      shopItem?.id,
+      shopItemVariantFilterOptionValues.establishmentBillingGroup.value,
+      isMultiLocationWebshopEnabled,
+    ],
   );
 
   const submitHandlerMapper = {
@@ -174,23 +207,43 @@ const ShopItemDetailInventoryTab: React.FC<Props> = ({
     >
       {isMobile ? (
         <ShopItemDetailInventoryListMobile
+          changeEstablishmentBillingGroupFilter={
+            changeEstablishmentBillingGroupFilter
+          }
           createShopItemProvision={createShopItemProvision}
+          establishmentBillingGroupFilterOptionList={
+            establishmentBillingGroupFilterOptionList
+          }
           formType={formType}
+          isMultiLocationWebshopEnabled={isMultiLocationWebshopEnabled}
           isUpdatingVariant={isUpdatingVariant}
           shopItem={shopItem}
           shopItemVariantList={shopItemVariantList}
+          variantEstablishmentBillingGroupFilterOptionValue={
+            shopItemVariantFilterOptionValues.establishmentBillingGroup
+          }
         />
       ) : (
         <ShopItemDetailInventoryList
+          changeEstablishmentBillingGroupFilter={
+            changeEstablishmentBillingGroupFilter
+          }
           changeInventoryVariantFilter={changeInventoryVariantFilter}
+          establishmentBillingGroupFilterOptionList={
+            establishmentBillingGroupFilterOptionList
+          }
           formType={formType}
           handleSubmit={submitHandlerMapper[formType]}
+          isMultiLocationWebshopEnabled={isMultiLocationWebshopEnabled}
           isUpdatingVariant={isUpdatingVariant}
           shopItem={shopItem}
           shopItemVariantList={shopItemVariantList}
           variantColorFilterOptionList={shopItemVariantFilterOptionList.colors}
           variantColorFilterOptionValueList={
             shopItemVariantFilterOptionValues.colors
+          }
+          variantEstablishmentBillingGroupFilterOptionValue={
+            shopItemVariantFilterOptionValues.establishmentBillingGroup
           }
           variantSizeFilterOptionList={shopItemVariantFilterOptionList.sizes}
           variantSizeFilterOptionValueList={

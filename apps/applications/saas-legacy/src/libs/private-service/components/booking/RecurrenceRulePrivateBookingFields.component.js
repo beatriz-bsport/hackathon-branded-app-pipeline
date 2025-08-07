@@ -11,13 +11,7 @@ import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import DateInput from '../../../../components/input/DateInput.component';
 
-import Config from '#src/config';
-
-import {
-  RECURRENCE_RULE_BOOKING_52_WEEKS_ALLOWLIST_BY_ENV,
-  RECURRENT_BOOKING_MAX_DELAY_52_WEEKS,
-  RECURRENT_BOOKING_MAX_DELAY_8_WEEKS,
-} from '#src/libs/booking/components/constants';
+import { RECURRENT_BOOKING_MAX_DELAY_52_WEEKS } from '#src/libs/booking/components/constants';
 
 type Props = {
   privateSlotSet?: boolean,
@@ -28,7 +22,6 @@ type Props = {
     minute: number,
   }) => void,
   selectedSetting?: any,
-  companyId: number,
 };
 
 export default function RecurrenceRulePrivateBookingFields(props: Props) {
@@ -52,14 +45,6 @@ export default function RecurrenceRulePrivateBookingFields(props: Props) {
     });
   };
 
-  const getMaxDelayWeek = (companyId: number) => {
-    const environment = Config.REACT_APP_SENTRY_ENVIRONMENT || 'production';
-    const allowlistedCompanies =
-      RECURRENCE_RULE_BOOKING_52_WEEKS_ALLOWLIST_BY_ENV[environment] || [];
-    return allowlistedCompanies.includes(companyId)
-      ? RECURRENT_BOOKING_MAX_DELAY_52_WEEKS
-      : RECURRENT_BOOKING_MAX_DELAY_8_WEEKS;
-  };
   return (
     <div>
       {!props.privateSlotSet && (
@@ -136,11 +121,11 @@ export default function RecurrenceRulePrivateBookingFields(props: Props) {
       <TextField
         required
         helperText={t('booking:recurrenceRule.form.delayWeek.helperText', {
-          delayWeek: getMaxDelayWeek(props.companyId),
+          delayWeek: RECURRENT_BOOKING_MAX_DELAY_52_WEEKS,
         })}
         InputProps={{
           inputProps: {
-            max: getMaxDelayWeek(props.companyId),
+            max: RECURRENT_BOOKING_MAX_DELAY_52_WEEKS,
             min: 1,
           },
         }}

@@ -2,6 +2,13 @@
     "tags": {
         "page": {
             "title": "Tags",
+            "filters": {
+                "label": "Filter by main tag",
+                "operators": {
+                    "is": "is",
+                    "isNot": "is not"
+                }
+            },
             "actions": {
                 "createTagGroup": {
                     "label": "Add main tag"
@@ -12,6 +19,11 @@
             },
             "loadingState": {
                 "message": "Loading tags..."
+            },
+            "emptyFilteredPageState": {
+                "title": "No results found",
+                "description": "No main tags match your filters. Try clearing them to see more results.",
+                "secondaryButtonLabel": "Clear filters"
             },
             "emptyPageState": {
                 "title": "No tags yet",
@@ -54,11 +66,15 @@
             "actions": {
                 "create": "Create",
                 "update": "Save",
-                "cancel": "Cancel"
+                "cancel": "Cancel",
+                "goTo": "Go to Main Tag"
             },
             "result": {
+                "createSuccess": {
+                    "title": "Main Tag created"
+                },
                 "updateSuccess": {
-                    "title": "Your main tag revisions were saved"
+                    "title": "Main Tag updated"
                 },
                 "updateFailure": {
                     "title": "There was an error while updating your main tag"
@@ -99,14 +115,18 @@
             "actions": {
                 "create": "Create",
                 "update": "Update",
-                "cancel": "Cancel"
+                "cancel": "Cancel",
+                "goTo": "Go to Sub Tag"
             },
             "result": {
+                "createSuccess": {
+                    "title": "Sub Tag created"
+                },
                 "createFailure": {
                     "title": "Your sub tag could not be saved"
                 },
                 "updateSuccess": {
-                    "title": "Your sub tag revisions were saved"
+                    "title": "Sub Tag updated"
                 },
                 "updateFailure": {
                     "title": "Your sub tag revisions could not be saved"
@@ -185,6 +205,24 @@
                 "untagged": "Untagged"
             },
             "memberList": {
+                "actions": {
+                    "tag": {
+                        "success": {
+                            "title": "Member tagged successfully"
+                        },
+                        "failure": {
+                            "title": "Failed to tag member"
+                        }
+                    },
+                    "untag": {
+                        "success": {
+                            "title": "Member untagged successfully"
+                        },
+                        "failure": {
+                            "title": "Failed to untag member"
+                        }
+                    }
+                },
                 "loadingState": {
                     "tagged": "Loading tagged members...",
                     "untagged": "Loading untagged members..."
@@ -197,6 +235,44 @@
                     "description": {
                         "untagged": "You can tag members by clicking on the plus icon next to their name on the untagged list.",
                         "tagged": "You can untag members by clicking on the minus icon next to their name on the tagged list."
+                    }
+                }
+            }
+        },
+        "updateMemberTagBatchModal": {
+            "title": {
+                "tag": "Tag all?",
+                "untag": "Untag all?"
+            },
+            "description": {
+                "tag": "Add the {{tagName}} tag from {{number}} members?",
+                "untag": "Remove the {{tagName}} tag from {{number}} members?"
+            },
+            "actions": {
+                "tag": "Tag all",
+                "untag": "Untag all",
+                "cancel": "Cancel",
+                "undo": "Undo"
+            },
+            "loading": {
+                "tag": "Tagging {{number}} members...",
+                "untag": "Untagging {{number}} members..."
+            },
+            "results": {
+                "tag": {
+                    "success": {
+                        "title": "All members were tagged"
+                    },
+                    "failure": {
+                        "title": "Failed to tag members"
+                    }
+                },
+                "untag": {
+                    "success": {
+                        "title": "All members were untagged"
+                    },
+                    "failure": {
+                        "title": "Failed to untag members"
                     }
                 }
             }

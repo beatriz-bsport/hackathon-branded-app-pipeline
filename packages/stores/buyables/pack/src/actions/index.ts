@@ -11,11 +11,12 @@ import {
   type FetchPacksParams,
   type FuzzySearchParams,
   archivePackAPI,
+  createPackAPI,
   fetchPacksAPI,
   fuzzySearchPacksAPI,
   restorePackAPI,
 } from "#src/api";
-import type { Pack } from "#src/types";
+import type { Pack, PackFormData } from "#src/types";
 
 import { setFuzzyPacks, setPacks, updatePack } from "./store";
 
@@ -132,6 +133,28 @@ export const restorePackAction: Action<{ id: number }, Pack> = async (
     (error) =>
       createErrorWithContext(error, {
         message: `Failed to restore pack n°${params.id}`,
+        params,
+      }),
+  );
+};
+
+export const createPackAction: Action<PackFormData, Pack> = async (
+  fetch,
+  params,
+) => {
+  const [uri, init] = createPackAPI(params);
+
+  return Result.try(
+    async () => {
+      const { data } = await fetch(uri, init);
+
+      updatePack(data);
+
+      return data;
+    },
+    (error) =>
+      createErrorWithContext(error, {
+        message: `Failed to create pack`,
         params,
       }),
   );

@@ -2497,13 +2497,14 @@ export const deleteRecurrenceRulePrivateBookingActions = {
 
 export function deleteRecurrenceRulePrivateBooking(
   id: number,
+  data: { cancel_related_bookings: boolean },
   options: OptionCallback<number>,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(deleteRecurrenceRulePrivateBookingActions.isLoading(true));
     dispatch(deleteRecurrenceRulePrivateBookingActions.error(null));
     try {
-      await deleteRecurrenceRulePrivateBookingAPI(id);
+      await deleteRecurrenceRulePrivateBookingAPI(id, data);
       dispatch(deleteRecurrenceRulePrivateBookingActions.success(id));
       dispatch(snackbarSuccess('privateRecurrentRule.delete.success'));
       if (options && options.onSuccess) options.onSuccess(id);

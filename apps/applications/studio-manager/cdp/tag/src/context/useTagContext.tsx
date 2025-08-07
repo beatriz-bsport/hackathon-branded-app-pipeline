@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useRef, useState } from "react";
 
 import type { Tag, TagGroup } from "@bsport/store-cdp-tag";
 
@@ -9,7 +9,16 @@ type PageCurrentAction =
   | "edit-tag"
   | "delete-tag-group"
   | "delete-tag"
+  | "batch-tag-member"
+  | "batch-untag-member"
   | null;
+
+type UpdateMemberTagBatchParams = {
+  tag: Tag;
+  totalImpactedMembers: number;
+  updateMode?: "tag" | "untag";
+  onSuccessCallback?: () => void;
+};
 
 interface TagsPageContextValue {
   // State values
@@ -17,6 +26,8 @@ interface TagsPageContextValue {
   selectedTagGroup: TagGroup | null;
   selectedTag: Tag | null;
   preselectedTagGroupId: number | null;
+  totalImpactedMembers: number;
+  onBatchUpdateMemberTagSuccessCallback: () => void;
 
   // Actions
   handleCreateTagGroup: () => void;
@@ -26,6 +37,12 @@ interface TagsPageContextValue {
   handleEditTag: (tag: Tag) => void;
   handleDeleteTag: (tag: Tag) => void;
   handleUnselectAction: () => void;
+  handleUpdateTagAllMember: ({
+    tag,
+    totalImpactedMembers,
+    updateMode,
+    onSuccessCallback,
+  }: UpdateMemberTagBatchParams) => void;
   setPageCurrentAction: (action: PageCurrentAction) => void;
   setSelectedTagGroup: (tagGroup: TagGroup | null) => void;
   setSelectedTag: (tag: Tag | null) => void;
@@ -51,6 +68,8 @@ export const TagsPageProvider: React.FC<TagsPageProviderProps> = ({
   const [preselectedTagGroupId, setPreselectedTagGroupId] = useState<
     number | null
   >(null);
+  const [totalImpactedMembers, setTotalImpactedMembers] = useState<number>(0);
+  const onBatchUpdateMemberTagSuccessCallback = useRef<() => void>();
 
   const handleCreateTagGroup = () => {
     setPageCurrentAction("create-tag-group");
@@ -87,6 +106,20 @@ export const TagsPageProvider: React.FC<TagsPageProviderProps> = ({
     setSelectedTag(tag);
   };
 
+  const handleUpdateTagAllMember = ({
+    tag,
+    totalImpactedMembers,
+    updateMode,
+    onSuccessCallback,
+  }: UpdateMemberTagBatchParams) => {
+    const mode =
+      updateMode === "tag" ? "batch-tag-member" : "batch-untag-member";
+    setPageCurrentAction(mode);
+    setSelectedTag(tag);
+    setTotalImpactedMembers(totalImpactedMembers);
+    onBatchUpdateMemberTagSuccessCallback.current = onSuccessCallback;
+  };
+
   const handleUnselectAction = () => {
     setPageCurrentAction(null);
     if (selectedTagGroup) {
@@ -98,6 +131,12 @@ export const TagsPageProvider: React.FC<TagsPageProviderProps> = ({
     if (preselectedTagGroupId) {
       setPreselectedTagGroupId(null);
     }
+    if (totalImpactedMembers) {
+      setTotalImpactedMembers(0);
+    }
+    if (typeof onBatchUpdateMemberTagSuccessCallback.current === "function") {
+      onBatchUpdateMemberTagSuccessCallback.current = () => {};
+    }
   };
 
   const value: TagsPageContextValue = {
@@ -106,6 +145,9 @@ export const TagsPageProvider: React.FC<TagsPageProviderProps> = ({
     selectedTagGroup,
     selectedTag,
     preselectedTagGroupId,
+    totalImpactedMembers,
+    onBatchUpdateMemberTagSuccessCallback:
+      onBatchUpdateMemberTagSuccessCallback.current ?? (() => {}),
 
     // Actions
     handleCreateTagGroup,
@@ -115,6 +157,7 @@ export const TagsPageProvider: React.FC<TagsPageProviderProps> = ({
     handleEditTag,
     handleDeleteTag,
     handleUnselectAction,
+    handleUpdateTagAllMember,
     setPageCurrentAction,
     setSelectedTagGroup,
     setSelectedTag,

@@ -72,6 +72,10 @@ import type { Contract } from '#src/libs/subscription/types';
 import withDatatypeDynamicData from '#src/libs/datatype-filtering/dynamic-data-hoc';
 import type { DynamicFilterDataType } from '#src/libs/datatype-filtering/types';
 
+import { getUserRoleByIdentity } from '#src/libs/role/selectors';
+import { getStaffEstablishmentBillingGroup } from '#src/libs/role/utils';
+import { fetchCompanyUserRoles as fetchCompanyUserRolesAction } from '#src/libs/role/actions';
+
 import { getCompanyCountry } from '#src/libs/theme/selectors';
 
 import { getEnabledEstablishmentBillingGroups } from '#src/libs/establishment/selectors';
@@ -106,6 +110,7 @@ const QuicksaleInterface: React.FC<Props> = ({
   theme,
   memberById,
   quicksaleStaffFullName,
+  userRole,
   baskets,
   sectionList,
   loading,
@@ -116,7 +121,8 @@ const QuicksaleInterface: React.FC<Props> = ({
   giftcardById,
   contractById,
   // savedPaymentMethodList,
-  // establishmentBillingGroups,
+  establishmentBillingGroups,
+  establishmentBillingGroupLoading,
   // stripeReaders,
   // giftcardBackgroundImageList,
   tagsById,
@@ -145,6 +151,7 @@ const QuicksaleInterface: React.FC<Props> = ({
   // fetchGiftcardBackgroundImageList,
   fetchAllTags,
   fetchAllEstablishmentBillingGroup,
+  fetchCompanyUserRoles,
   currentVariantItem,
 }) => {
   const { t } = useTranslation('quicksale');
@@ -278,53 +285,87 @@ const QuicksaleInterface: React.FC<Props> = ({
   );
   // =====================================================
 
-  // ========== Run all fetches ==========
+  const staffEstablishmentBillingGroup = getStaffEstablishmentBillingGroup(
+    userRole,
+    establishmentBillingGroups,
+  );
+
+  // ========== Run initial fetches (independent of billing group) ==========
   React.useEffect(() => {
     fetchPOSMember(theme.company);
     fetchOpenQuicksaleBaskets({
       onSuccess: (data) => {
-        if (data.length)
+        if (Array.isArray(data) && data.length > 0) {
           fetchMembers({ id__in: data.map((basket) => basket.member) });
+        }
       },
     });
     fetchQuicksaleConfiguration();
-    fetchShopItemBaseList();
-    fetchShopItemStandaloneList();
-    // fetchPaymentComboList();
-    handleGetDynamicDataForFilters('payment_pack');
-    handleGetDynamicDataForFilters('payment_pack_category');
-    handleGetDynamicDataForFilters('private_pass');
-    handleGetDynamicDataForFilters('private_pass_category');
-    handleGetDynamicDataForFilters('subshop');
-    handleGetDynamicDataForFilters('giftcard');
+    [
+      'payment_pack',
+      'payment_pack_category',
+      'private_pass',
+      'private_pass_category',
+      'subshop',
+      'giftcard',
+    ].forEach((datatype) =>
+      handleGetDynamicDataForFilters(datatype as DynamicFilterDataType),
+    );
     fetchAllTags();
     if (theme.enable_multi_localization) {
       fetchAllEstablishmentBillingGroup({ params: { company: theme.company } });
+      fetchCompanyUserRoles();
     }
   }, [
     fetchAllEstablishmentBillingGroup,
     fetchAllTags,
+    fetchCompanyUserRoles,
     fetchMembers,
     fetchOpenQuicksaleBaskets,
     fetchPOSMember,
     fetchQuicksaleConfiguration,
-    fetchShopItemBaseList,
-    fetchShopItemStandaloneList,
     handleGetDynamicDataForFilters,
     theme.company,
     theme.enable_multi_localization,
   ]);
 
+  // ========== Run billing group dependent fetches ==========
   React.useEffect(() => {
+    if (
+      theme.is_multi_location_webshop_enabled &&
+      (establishmentBillingGroupLoading || !staffEstablishmentBillingGroup)
+    )
+      return;
+
+    const params =
+      theme.is_multi_location_webshop_enabled &&
+      staffEstablishmentBillingGroup?.id
+        ? { establishment_billing_group: staffEstablishmentBillingGroup.id }
+        : undefined;
+
+    fetchShopItemBaseList(params);
+    fetchShopItemStandaloneList(params);
+
     if (variantItemId) {
       fetchShopItemVariantList({
-        id: parseInt(variantItemId, 10),
+        id: Number(variantItemId),
         page_size: 0,
         page: 1,
         is_variant: true,
+        ...(staffEstablishmentBillingGroup?.id && {
+          establishment_billing_group: staffEstablishmentBillingGroup.id,
+        }),
       });
     }
-  }, [variantItemId, fetchShopItemVariantList]);
+  }, [
+    establishmentBillingGroupLoading,
+    fetchShopItemBaseList,
+    fetchShopItemStandaloneList,
+    fetchShopItemVariantList,
+    staffEstablishmentBillingGroup,
+    theme.is_multi_location_webshop_enabled,
+    variantItemId,
+  ]);
   // =====================================
 
   const signOut = React.useCallback(() => push('/login/signout'), [push]);
@@ -334,47 +375,47 @@ const QuicksaleInterface: React.FC<Props> = ({
     [push],
   );
   const onVariantItemClick = React.useCallback(
-    (itemId: string) => push(`/quicksale/${sectionId}/${itemId}/`),
+    (itemId: string, sectionIdParam?: string) => {
+      const targetSectionId = sectionIdParam || sectionId;
+      push(`/quicksale/${targetSectionId}/${itemId}/`);
+    },
     [push, sectionId],
   );
 
-  // ========== Build available search items ==========
-  const availableSearchItemsInWholeConfig = React.useMemo(
-    () =>
-      sectionList
-        ?.map((section) =>
-          section.items.map((item) =>
-            getQuicksaleCardInfoFromQuicksaleItem(
-              item,
-              paymentPackById,
-              privatePassById,
-              paymentComboById,
-              shopItemById,
-              contractById,
-              giftcardById,
-              t,
-              section,
-              currentBasket,
-              memberById,
-            ),
+  // ========== Build all search items ==========
+  const allSearchItems = React.useMemo(() => {
+    return sectionList
+      ?.map((section) =>
+        section.items.map((item) =>
+          getQuicksaleCardInfoFromQuicksaleItem(
+            item,
+            paymentPackById,
+            privatePassById,
+            paymentComboById,
+            shopItemById,
+            contractById,
+            giftcardById,
+            t,
+            section,
+            currentBasket,
+            memberById,
           ),
-        )
-        .flat()
-        .filter((item) => !!item),
-    [
-      sectionList,
-      paymentPackById,
-      privatePassById,
-      paymentComboById,
-      shopItemById,
-      contractById,
-      giftcardById,
-      t,
-      currentBasket,
-      memberById,
-    ],
-  );
-  // ==================================================
+        ),
+      )
+      .flat()
+      .filter((item): item is QuicksaleCardInfo => !!item);
+  }, [
+    sectionList,
+    paymentPackById,
+    privatePassById,
+    paymentComboById,
+    shopItemById,
+    contractById,
+    giftcardById,
+    t,
+    currentBasket,
+    memberById,
+  ]);
 
   // In redux, there is an immutable object so we need to convert it here
   const basketList = React.useMemo(
@@ -445,8 +486,6 @@ const QuicksaleInterface: React.FC<Props> = ({
     memberById,
   );
 
-  // =====================================================
-
   // ========== Handlers for contract's subscription ==========
 
   // const stripeRegion = getStripeRegion();
@@ -484,7 +523,7 @@ const QuicksaleInterface: React.FC<Props> = ({
         addBasket={createQuicksaleBasket}
         addItemToBasket={addItemToBasket}
         addToBasket={addToBasket}
-        availableSearchItemsInWholeConfig={availableSearchItemsInWholeConfig}
+        allSearchItems={allSearchItems}
         basketList={basketList}
         closeGiftcardFormModal={closeGiftcardFormModal}
         currentBasket={currentBasket}
@@ -505,11 +544,20 @@ const QuicksaleInterface: React.FC<Props> = ({
         openMemberAuthenticationModal={openMemberAuthenticationModal}
         pendingItemToAdd={pendingItemToAdd}
         quicksaleStaffFullName={quicksaleStaffFullName}
+        redirectTo={push}
         removeItemFromBasket={removeItemFromBasket}
         sectionList={sectionList}
         setCurrentBasket={setCurrentBasket}
         showGiftcardFormModal={showGiftcardFormModal}
         signOut={signOut}
+        staffEstablishmentBillingGroup={
+          staffEstablishmentBillingGroup
+            ? {
+                id: staffEstablishmentBillingGroup.id,
+                name: staffEstablishmentBillingGroup.name,
+              }
+            : undefined
+        }
         theme={theme}
       />
 
@@ -582,6 +630,7 @@ const connector = connect(
     theme: state.theme.theme,
     memberById: getMemberListData(state),
     quicksaleStaffFullName: state.auth.name,
+    userRole: getUserRoleByIdentity(state),
     baskets: getOpenBasketList(state),
     sectionList: getActiveSectionList(state),
     currentVariantItem: variantItemId
@@ -604,6 +653,8 @@ const connector = connect(
     contractById: getContractsById(state),
     savedPaymentMethodList: getSavedPaymentMethodList(state),
     establishmentBillingGroups: getEnabledEstablishmentBillingGroups(state),
+    establishmentBillingGroupLoading:
+      state.establishment.establishmentBillingGroup.loading,
     stripeReaders: getStripeReaders(state),
     giftcardBackgroundImageList: getGiftcardBackgroundImageList(state),
     tagsById: getTagsDict(state),
@@ -632,6 +683,7 @@ const connector = connect(
     // registerContractBackground: registerContractBackgroundAction,
     // fetchStripeReaders: fetchStripeReadersAction,
     fetchAllEstablishmentBillingGroup: fetchAllEstablishmentBillingGroupAction,
+    fetchCompanyUserRoles: fetchCompanyUserRolesAction,
     // fetchGiftcardBackgroundImageList: fetchGiftcardBackgroundImageListAction,
     fetchAllTags: fetchAllTagsAction,
   },

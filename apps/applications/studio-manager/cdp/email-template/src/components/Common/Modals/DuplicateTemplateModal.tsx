@@ -98,17 +98,12 @@ export const DuplicateTemplateModal: React.FC<Props> = ({
         <div className="flex flex-col gap-y-sm">
           <Body htmlVariant="p" size="lg" color="default" weight="weak">
             <Trans
-              i18nKey={
-                "activeList.duplicateTemplateModal.description.firstStep"
-              }
+              i18nKey={"activeList.duplicateTemplateModal.description"}
               values={{ emailTemplateTitle: emailTemplateDetail?.title }}
               components={{
                 b: <b></b>,
               }}
             />
-          </Body>
-          <Body htmlVariant="p" size="lg" color="default" weight="weak">
-            {t("activeList.duplicateTemplateModal.description.secondStep")}
           </Body>
         </div>
       )}

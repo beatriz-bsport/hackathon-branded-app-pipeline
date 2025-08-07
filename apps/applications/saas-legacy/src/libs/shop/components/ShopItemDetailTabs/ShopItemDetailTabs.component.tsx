@@ -54,6 +54,7 @@ type Props = {
   shopItemVariantFilterOptionValues: {
     colors: SelectOption[];
     sizes: SelectOption[];
+    establishmentBillingGroup: SelectOption;
   };
   variantCombinationListCount: number;
   isSupplierPriceHidden?: boolean;
@@ -78,11 +79,14 @@ type Props = {
   changeInventoryVariantFilter: (
     type: 'colors' | 'sizes',
   ) => (options: SelectOption[]) => void;
+  changeEstablishmentBillingGroupFilter: (options: SelectOption) => void;
   checkBarcodeUnicity: (
     barcode: string,
     options?: OptionCallback<ShopItemBarcodeUnicity>,
   ) => void;
   getShopItemBarcodeListUnicity: (barcodeList: string[]) => boolean;
+  establishmentBillingGroupFilterOptionList: SelectOption[];
+  isMultiLocationWebshopEnabled: boolean;
 };
 
 const ShopItemDetailTabs: React.FC<Props> = ({
@@ -114,6 +118,9 @@ const ShopItemDetailTabs: React.FC<Props> = ({
   changeInventoryVariantFilter,
   checkBarcodeUnicity,
   getShopItemBarcodeListUnicity,
+  establishmentBillingGroupFilterOptionList,
+  changeEstablishmentBillingGroupFilter,
+  isMultiLocationWebshopEnabled,
 }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('xs'));
@@ -177,11 +184,18 @@ const ShopItemDetailTabs: React.FC<Props> = ({
         {!isLoading && (
           <>
             <ShopItemDetailInventoryTab
+              changeEstablishmentBillingGroupFilter={
+                changeEstablishmentBillingGroupFilter
+              }
               changeInventoryVariantFilter={changeInventoryVariantFilter}
               count={count}
               createShopItemProvision={createShopItemProvision}
               createShopItemProvisionBulk={createShopItemProvisionBulk}
+              establishmentBillingGroupFilterOptionList={
+                establishmentBillingGroupFilterOptionList
+              }
               handleOpenVariantDrawer={handleOpenVariantDrawer}
+              isMultiLocationWebshopEnabled={isMultiLocationWebshopEnabled}
               isStandaloneItem={shopItem?.is_standalone_item}
               isUpdatingVariant={isUpdatingVariant}
               page={page}

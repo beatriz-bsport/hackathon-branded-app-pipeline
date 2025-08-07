@@ -20,12 +20,13 @@ exports.default = {
   templateList: {
     loading: "Loading email templates...",
     emptyPage: {
-      title: "No email templates yet",
-      description: "Create email templates to easily contact your members",
+      title: "You haven't made any custom templates yet!",
+      description:
+        "Create your first custom template to send personalized emails to your members.",
     },
     emptyCategory: {
       description:
-        "You haven’t created any email templates in this category yet",
+        "Create a custom template for this category to send personalized emails to members.",
     },
     noCategory: "No Category ({{emailTemplateCount}})",
   },
@@ -50,25 +51,21 @@ exports.default = {
     },
     bsportTemplateInfo: {
       title: "bsport templates",
-      description: {
-        firstStep:
-          "If you want to send communications or edit the templates in this section, it is necessary to create a copy of the desired template. ",
-        secondStep:
-          "Then select the copy of the email when sending a communication.",
-      },
+      description:
+        "Duplicate the template that you want to use, then edit and send the copied version to members directly from this page.",
       quit: "Quit",
     },
     createTemplateModal: {
       title: "Create new email template",
       description: "Name your template to get started!",
       confirmButton: "Create",
-      cancelButton: "Cancel",
+      cancelButton: "Go back",
       textInput: {
         label: "Template title",
         placeholder: "Template title here...",
       },
       onSuccess: {
-        title: "Your email template was created",
+        title: "Template created",
         action: "Open",
       },
       onFailure: {
@@ -83,16 +80,13 @@ exports.default = {
       cancelButton: "Close",
     },
     duplicateTemplateModal: {
-      title: "Duplicate email template",
-      description: {
-        firstStep: "Duplicate <b>{{emailTemplateTitle}}</b>?",
-        secondStep: "You can edit the email template afterwards.",
-      },
+      title: "Duplicate template?",
+      description: "You can edit <b>{{emailTemplateTitle}}</b> after",
       duplicateEmailTitle: "{{emailTemplateTitle}} - Copy",
       confirmButton: "Duplicate",
-      cancelButton: "Cancel",
+      cancelButton: "Go back",
       onSuccess: {
-        title: "Your email template was duplicated",
+        title: "Template duplicated",
         action: "Open",
       },
       onFailure: {
@@ -100,16 +94,13 @@ exports.default = {
       },
     },
     deleteTemplateModal: {
-      title: "Delete email template",
-      description: {
-        firstStep: "Do you want to delete <b>{{emailTemplateTitle}}</b>?",
-        secondStep:
-          "Deleting this template will also remove it for any transactional email(s) that it has been linked to. Are you sure that you want to delete this email template?",
-      },
+      title: "Delete email template?",
+      description:
+        "Deleting <b>{{emailTemplateTitle}}</b> will also remove it from any transactional emails that it's linked to.",
       confirmButton: "Delete",
-      cancelButton: "Cancel",
+      cancelButton: "Go back",
       onSuccess: {
-        title: "Your email template was deleted",
+        title: "Email template deleted",
         action: "Undo",
       },
       onFailure: {
@@ -123,9 +114,9 @@ exports.default = {
         placeholder: "Category name here...",
       },
       confirmButton: "Create",
-      cancelButton: "Cancel",
+      cancelButton: "Go back",
       onSuccess: {
-        title: "Your category was created",
+        title: "Category created",
       },
       onFailure: {
         title: "An error occurred when creating your category.",
@@ -141,9 +132,9 @@ exports.default = {
         placeholder: "Category name here...",
       },
       confirmButton: "Rename",
-      cancelButton: "Cancel",
+      cancelButton: "Go back",
       onSuccess: {
-        title: "Your category was renamed",
+        title: "Category renamed",
         action: "Undo",
       },
       onFailure: {
@@ -151,16 +142,13 @@ exports.default = {
       },
     },
     deleteCategoryModal: {
-      title: "Delete category",
-      description: {
-        firstStep: "Do you want to delete <b>{{categoryName}}</b>?",
-        secondStep:
-          "All items under this category will be moved to the no category section",
-      },
+      title: "Delete category?",
+      description:
+        "All items listed under <b>{{categoryName}}</b> will be moved to the 'No Category' section.",
       confirmButton: "Delete",
-      cancelButton: "Cancel",
+      cancelButton: "Go back",
       onSuccess: {
-        title: "Your category was deleted",
+        title: "Category deleted",
         action: "Undo",
       },
       onFailure: {
@@ -179,7 +167,7 @@ exports.default = {
         placeholder: "Template title here...",
       },
       confirmButton: "Rename",
-      cancelButton: "Cancel",
+      cancelButton: "Go back",
       onSuccess: {
         title: "Template renamed",
         action: "Undo",

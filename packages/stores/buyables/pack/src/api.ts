@@ -4,6 +4,8 @@ import {
   buildUrlParams,
 } from "@bsport/store-base";
 
+import type { PackFormData } from "./types";
+
 const API_URL = "buyable/v1/payment_combo";
 
 function getUrlParams(params: URLParams) {
@@ -55,6 +57,16 @@ export const restorePackAPI = ({ id }: { id: number }): ApiConfig => {
     `${API_URL}/${id}/restore/`,
     {
       method: "PATCH",
+    },
+  ];
+};
+
+export const createPackAPI = (data: PackFormData): ApiConfig => {
+  return [
+    `${API_URL}/`,
+    {
+      method: "POST",
+      body: JSON.stringify(data),
     },
   ];
 };

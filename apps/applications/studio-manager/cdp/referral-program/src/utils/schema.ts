@@ -21,7 +21,6 @@ export const referralProgramSchema = z
       .refine(
         (value) => {
           const match = positivePriceRegex.test(value);
-          console.log(match);
           return match;
         },
         {

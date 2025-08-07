@@ -33,3 +33,18 @@ export type Pack = {
   tags_on_consumer_item_creation: Array<number>;
   bookkeeping_account: number | undefined | null;
 };
+
+export type PackFormData = {
+  id?: number;
+  name: string;
+  description: string;
+  manager_only: boolean;
+  price: number;
+  tax: number;
+  company: number;
+  available: boolean;
+  payment_pack_ids: number[];
+  shop_item_ids: number[];
+  private_pass_ids: number[];
+  is_usable_by_staff: boolean;
+};

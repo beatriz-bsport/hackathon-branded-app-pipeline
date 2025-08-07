@@ -59,7 +59,7 @@
         "loading": "Loading..."
       },
       "activeList": {
-        "actions": { "addForm": "Add Form" },
+        "actions": { "addForm": "Create form" },
         "addFormModal": {
           "title": "Create new Form",
           "description": "Name your new form to get started!",
@@ -72,19 +72,16 @@
           }
         },
         "archiveModal": {
-          "actions": { "archive": "Archive", "cancel": "Cancel" },
-          "title": "Archive Form",
-          "description": {
-            "verification": "Do you want to archive <b>{{ name }}</b> ?",
-            "effect": "Archiving this form will move it to your archive. Members won't be able to access it anymore."
-          }
+          "actions": { "archive": "Archive", "cancel": "Go back" },
+          "title": "Archive Form?",
+          "description": "Members won't see <b>{{ name }}</b> anymore but you can access it from your archive."
         },
         "duplicateModal": {
-          "actions": { "duplicate": "Duplicate", "cancel": "Cancel" },
-          "title": "Duplicate Form",
+          "actions": { "duplicate": "Duplicate", "cancel": "Go back" },
+          "title": "Duplicate Form?",
           "description": {
             "verification": "Duplicate <b>{{ name }}</b> ?",
-            "effect": "You can edit the form afterwards."
+            "effect": "You can edit <b>{{ name }}</b> after."
           }
         }
       },
@@ -107,8 +104,8 @@
         },
         "empty": {
           "activeList": {
-            "title": "No forms yet",
-            "subtitle": "Create forms to easily get feedback from your members"
+            "title": "No forms to display yet",
+            "subtitle": "Create your first form to get feedback from your members."
           },
           "archivedList": {
             "title": "No archived forms yet",
@@ -145,11 +142,11 @@
       "templateList": {
         "loading": "Loading email templates...",
         "emptyPage": {
-          "title": "No email templates yet",
-          "description": "Create email templates to easily contact your members"
+          "title": "You haven't made any custom templates yet!",
+          "description": "Create your first custom template to send personalized emails to your members."
         },
         "emptyCategory": {
-          "description": "You haven’t created any email templates in this category yet"
+          "description": "Create a custom template for this category to send personalized emails to members."
         },
         "noCategory": "No Category ({{emailTemplateCount}})"
       },
@@ -174,57 +171,48 @@
         },
         "bsportTemplateInfo": {
           "title": "bsport templates",
-          "description": {
-            "firstStep": "If you want to send communications or edit the templates in this section, it is necessary to create a copy of the desired template. ",
-            "secondStep": "Then select the copy of the email when sending a communication."
-          },
+          "description": "Duplicate the template that you want to use, then edit and send the copied version to members directly from this page.",
           "quit": "Quit"
         },
         "createTemplateModal": {
           "title": "Create new email template",
           "description": "Name your template to get started!",
           "confirmButton": "Create",
-          "cancelButton": "Cancel",
+          "cancelButton": "Go back",
           "textInput": {
             "label": "Template title",
             "placeholder": "Template title here..."
           },
-          "onSuccess": { "title": "Your email template was created", "action": "Open" },
+          "onSuccess": { "title": "Template created", "action": "Open" },
           "onFailure": { "title": "An error occurred when creating your email template." },
           "errors": { "name": "Cannot create a template: template name not valid" }
         },
         "previewEmailTemplateModal": { "confirmButton": "Edit", "cancelButton": "Close" },
         "duplicateTemplateModal": {
-          "title": "Duplicate email template",
-          "description": {
-            "firstStep": "Duplicate <b>{{emailTemplateTitle}}</b>?",
-            "secondStep": "You can edit the email template afterwards."
-          },
+          "title": "Duplicate template?",
+          "description": "You can edit <b>{{emailTemplateTitle}}</b> after",
           "duplicateEmailTitle": "{{emailTemplateTitle}} - Copy",
           "confirmButton": "Duplicate",
-          "cancelButton": "Cancel",
-          "onSuccess": { "title": "Your email template was duplicated", "action": "Open" },
+          "cancelButton": "Go back",
+          "onSuccess": { "title": "Template duplicated", "action": "Open" },
           "onFailure": {
             "title": "An error occurred when duplicating your email template."
           }
         },
         "deleteTemplateModal": {
-          "title": "Delete email template",
-          "description": {
-            "firstStep": "Do you want to delete <b>{{emailTemplateTitle}}</b>?",
-            "secondStep": "Deleting this template will also remove it for any transactional email(s) that it has been linked to. Are you sure that you want to delete this email template?"
-          },
+          "title": "Delete email template?",
+          "description": "Deleting <b>{{emailTemplateTitle}}</b> will also remove it from any transactional emails that it's linked to.",
           "confirmButton": "Delete",
-          "cancelButton": "Cancel",
-          "onSuccess": { "title": "Your email template was deleted", "action": "Undo" },
+          "cancelButton": "Go back",
+          "onSuccess": { "title": "Email template deleted", "action": "Undo" },
           "onFailure": { "title": "An error occurred when deleting your email template." }
         },
         "createCategoryModal": {
           "title": "Create a new category",
           "textInput": { "label": "Category name", "placeholder": "Category name here..." },
           "confirmButton": "Create",
-          "cancelButton": "Cancel",
-          "onSuccess": { "title": "Your category was created" },
+          "cancelButton": "Go back",
+          "onSuccess": { "title": "Category created" },
           "onFailure": { "title": "An error occurred when creating your category." },
           "errors": { "name": "Cannot create a category: category name not valid" }
         },
@@ -232,19 +220,16 @@
           "title": "Rename category",
           "textInput": { "label": "Category name", "placeholder": "Category name here..." },
           "confirmButton": "Rename",
-          "cancelButton": "Cancel",
-          "onSuccess": { "title": "Your category was renamed", "action": "Undo" },
+          "cancelButton": "Go back",
+          "onSuccess": { "title": "Category renamed", "action": "Undo" },
           "onFailure": { "title": "An error occurred when renaming your category." }
         },
         "deleteCategoryModal": {
-          "title": "Delete category",
-          "description": {
-            "firstStep": "Do you want to delete <b>{{categoryName}}</b>?",
-            "secondStep": "All items under this category will be moved to the no category section"
-          },
+          "title": "Delete category?",
+          "description": "All items listed under <b>{{categoryName}}</b> will be moved to the 'No Category' section.",
           "confirmButton": "Delete",
-          "cancelButton": "Cancel",
-          "onSuccess": { "title": "Your category was deleted", "action": "Undo" },
+          "cancelButton": "Go back",
+          "onSuccess": { "title": "Category deleted", "action": "Undo" },
           "onFailure": { "title": "An error occured when deleting your category." }
         },
         "restoreEmailTemplateAction": {
@@ -257,7 +242,7 @@
             "placeholder": "Template title here..."
           },
           "confirmButton": "Rename",
-          "cancelButton": "Cancel",
+          "cancelButton": "Go back",
           "onSuccess": { "title": "Template renamed", "action": "Undo" },
           "onFailure": { "title": "An error occurred when renaming your template." }
         }
@@ -1222,6 +1207,26 @@
         "messageUndo": { "success": "Action undone", "error": "Failed to undo action" },
         "actions": { "undo": "Undo" }
       }
+    },
+    "details": {
+      "createModal": {
+        "title": "Create a new pack",
+        "buttons": { "create": "Create", "cancel": "Cancel" },
+        "failToCreate": "Failed to create a new Pack"
+      },
+      "formFields": {
+        "name": {
+          "label": "Pack name",
+          "helperText": "Limited to {{ maxLength }} characters ({{ length }}/{{ maxLength }})",
+          "errorMaxLength": "The name is too long."
+        },
+        "description": {
+          "label": "Description",
+          "helperText": "Limited to {{ maxLength }} characters ({{ length }}/{{ maxLength }})",
+          "errorMaxLength": "The description is too long."
+        },
+        "requiredField": "This field is required."
+      }
     }
   },
   "@bsport/sm-referral-program": {
@@ -1348,76 +1353,78 @@
   "@bsport/sm-smartlists": {
     "list": {
       "title": "Smartlists",
-      "addSmartlist": "Add smartlist",
-      "loading": "Loading smartlists...",
+      "addSmartlist": "Create Smartlist",
+      "loading": "Loading Smartlists...",
       "emptyState": {
-        "title": "No smartlists yet",
-        "subtitle": "Create smartlists to segment your members, send targeted messages, and track engagement metrics."
+        "title": "No Smartlists yet",
+        "subtitle": "Create your first Smartlist to segment members with tags, send targeted messages and track engagement."
       },
       "emptySearch": {
         "title": "No results found",
-        "subtitle": "No smartlists match your search.\nTry clearing it to see more results",
+        "subtitle": "No Smartlists match your search.\nTry clearing it to see more results",
         "clearFilters": "Clear search"
       },
       "duplicateModal": {
-        "title": "Duplicate smartlist",
-        "description": "Duplicate <b>{{name}}</b>?",
-        "editAfter": "You can edit the smartlist afterwards.",
-        "buttons": { "duplicate": "Duplicate", "cancel": "Cancel" }
+        "title": "Duplicate Smartlist?",
+        "description": "You can edit <b>{{name}}</b> after",
+        "buttons": { "duplicate": "Duplicate", "cancel": "Go back" }
       },
       "deleteModal": {
-        "title": "Delete Smartlist",
+        "title": "Delete Smartlist?",
         "description": "Do you want to delete <b>{{name}}</b>?",
-        "warning": "This will stop any upcoming actions, like scheduled messages or automatic tagging. Previously tagged members won't be affected.",
-        "audienceWarning": "Smartlists used in an Audience cannot be deleted.",
-        "cannotBeDeleted": "This Smartlist is currently used in the following Audience workflows and can’t be deleted:",
-        "audienceCallToAction": "To delete this Smartlist, remove it from the workflows above and try again.",
-        "buttons": { "delete": "Delete", "cancel": "Cancel" }
+        "warning": "If you delete <b>{{name}}</b>, any scheduled messages or automatic tagging will be cancelled but previously tagged members won't be affected.",
+        "audienceWarning": "Smartlists used in Audience workflows can't be deleted. ",
+        "cannotBeDeleted": "This Smartlist is currently being used in Audience workflows and can't be deleted on this page.",
+        "audienceCallToAction": "To delete this Smartlist, go to the Audience page and remove it from the associated workflows.",
+        "buttons": { "delete": "Delete", "cancel": "Go back" }
       },
       "toasts": {
         "success": {
-          "duplicated": "Your smartlist was duplicated",
+          "duplicated": "Smartlist duplicated",
           "open": "Open",
-          "saved": "Your smartlist revisions have been saved",
-          "created": "Your smartlist has been created",
-          "deleted": "Your smartlist was deleted",
+          "saved": "Smartlist updated",
+          "created": "Smartlist created",
+          "deleted": "Smartlist deleted",
           "undo": "Undo",
           "actionUndone": "Action undone"
         },
         "error": {
-          "duplicateFailed": "Something went wrong while duplicating the smartlist. Please try again.",
-          "updateFailed": "Something went wrong while updating the smartlist. Please try again.",
-          "createFailed": "Something went wrong while creating the smartlist. Please try again.",
-          "deleteFailed": "Something went wrong while deleting the smartlist. Please try again.",
+          "duplicateFailed": "Something went wrong while duplicating the Smartlist. Please try again.",
+          "updateFailed": "Something went wrong while updating the Smartlist. Please try again.",
+          "createFailed": "Something went wrong while creating the Smartlist. Please try again.",
+          "deleteFailed": "Something went wrong while deleting the Smartlist. Please try again.",
           "deleteError": {
             "101000": "Smartlist deletion failed. Please try again.",
-            "101001": "This smartlist cannot be deleted because it's being used in active communication groups.",
-            "101002": "This smartlist cannot be deleted because it's being used in active cadences."
+            "101001": "This Smartlist cannot be deleted because it's being used in active communication groups.",
+            "101002": "This Smartlist cannot be deleted because it's being used in active cadences."
           }
         }
       },
       "inlineActions": {
-        "duplicate": "Duplicate smartlist",
+        "duplicate": "Duplicate Smartlist",
         "edit": "Change name or description",
-        "delete": "Delete smartlist"
+        "delete": "Delete Smartlist"
       },
       "createForm": {
-        "title": "Create a smartlist",
-        "subtitle": "Smartlists help you organize member segments. Add a name and description so it’s easy to understand and reuse later.",
-        "actions": { "create": "Save", "cancel": "Cancel" }
+        "title": "Create Smartlist",
+        "subtitle": "Segment your members by specific criteria with Smartlists. Add a name and description for this Smartlist so you can find it later.",
+        "actions": { "create": "Save", "cancel": "Go back" }
       },
       "editForm": {
         "fields": {
           "name": {
-            "label": "Smartlist name",
-            "placeholder": "Enter smartlist name",
+            "label": "Name",
+            "placeholder": "e.g. Members who paid via Stripe",
             "required": "Give your Smartlist a name so you can find it later",
             "maxLength": "Smartlist name is too long, please keep it under 200 characters"
           },
-          "description": { "label": "Description", "placeholder": "Enter description" }
+          "description": {
+            "label": "Description",
+            "placeholder": "e.g. Members who have paid using Stripe payment"
+          }
         },
-        "actions": { "save": "Save", "cancel": "Cancel", "create": "Create" },
-        "title": { "edit": "Edit smartlist", "add": "Add smartlist" }
+        "actions": { "save": "Save", "cancel": "Go back", "create": "Create" },
+        "title": { "edit": "Edit Smartlist", "add": "Create Smartlist" }
       }
     }
   },
@@ -1425,11 +1432,20 @@
     "tags": {
       "page": {
         "title": "Tags",
+        "filters": {
+          "label": "Filter by main tag",
+          "operators": { "is": "is", "isNot": "is not" }
+        },
         "actions": {
           "createTagGroup": { "label": "Add main tag" },
           "createTag": { "label": "Add sub tag" }
         },
         "loadingState": { "message": "Loading tags..." },
+        "emptyFilteredPageState": {
+          "title": "No results found",
+          "description": "No main tags match your filters. Try clearing them to see more results.",
+          "secondaryButtonLabel": "Clear filters"
+        },
         "emptyPageState": {
           "title": "No tags yet",
           "description": "Create tags to manage your members"
@@ -1461,9 +1477,15 @@
             }
           }
         },
-        "actions": { "create": "Create", "update": "Save", "cancel": "Cancel" },
+        "actions": {
+          "create": "Create",
+          "update": "Save",
+          "cancel": "Cancel",
+          "goTo": "Go to Main Tag"
+        },
         "result": {
-          "updateSuccess": { "title": "Your main tag revisions were saved" },
+          "createSuccess": { "title": "Main Tag created" },
+          "updateSuccess": { "title": "Main Tag updated" },
           "updateFailure": { "title": "There was an error while updating your main tag" },
           "createFailure": { "title": "There was an error while creating your main tag" }
         }
@@ -1488,10 +1510,16 @@
           },
           "tagColor": { "label": "Colour", "placeholder": "#FFFFFF" }
         },
-        "actions": { "create": "Create", "update": "Update", "cancel": "Cancel" },
+        "actions": {
+          "create": "Create",
+          "update": "Update",
+          "cancel": "Cancel",
+          "goTo": "Go to Sub Tag"
+        },
         "result": {
+          "createSuccess": { "title": "Sub Tag created" },
           "createFailure": { "title": "Your sub tag could not be saved" },
-          "updateSuccess": { "title": "Your sub tag revisions were saved" },
+          "updateSuccess": { "title": "Sub Tag updated" },
           "updateFailure": { "title": "Your sub tag revisions could not be saved" }
         }
       },
@@ -1546,6 +1574,16 @@
         },
         "segmentedControl": { "tagged": "Tagged", "untagged": "Untagged" },
         "memberList": {
+          "actions": {
+            "tag": {
+              "success": { "title": "Member tagged successfully" },
+              "failure": { "title": "Failed to tag member" }
+            },
+            "untag": {
+              "success": { "title": "Member untagged successfully" },
+              "failure": { "title": "Failed to untag member" }
+            }
+          },
           "loadingState": {
             "tagged": "Loading tagged members...",
             "untagged": "Loading untagged members..."
@@ -1559,6 +1597,33 @@
               "untagged": "You can tag members by clicking on the plus icon next to their name on the untagged list.",
               "tagged": "You can untag members by clicking on the minus icon next to their name on the tagged list."
             }
+          }
+        }
+      },
+      "updateMemberTagBatchModal": {
+        "title": { "tag": "Tag all?", "untag": "Untag all?" },
+        "description": {
+          "tag": "Add the {{tagName}} tag from {{number}} members?",
+          "untag": "Remove the {{tagName}} tag from {{number}} members?"
+        },
+        "actions": {
+          "tag": "Tag all",
+          "untag": "Untag all",
+          "cancel": "Cancel",
+          "undo": "Undo"
+        },
+        "loading": {
+          "tag": "Tagging {{number}} members...",
+          "untag": "Untagging {{number}} members..."
+        },
+        "results": {
+          "tag": {
+            "success": { "title": "All members were tagged" },
+            "failure": { "title": "Failed to tag members" }
+          },
+          "untag": {
+            "success": { "title": "All members were untagged" },
+            "failure": { "title": "Failed to untag members" }
           }
         }
       }
@@ -1622,6 +1687,50 @@
           }
         },
         "tooltips": { "archive": "Archive teacher", "restore": "Restore teacher" }
+      }
+    }
+  },
+  "@bsport/sm-transactional-notification": {
+    "transactionalNotification": {
+      "page": { "title": "Transactional Notifications" },
+      "notificationRuleEvents": {
+        "list": {
+          "notificationNumber_one": "1 notification",
+          "notificationNumber_other": "{{ count }} notifications",
+          "loading": { "message": "Loading notification rule events..." },
+          "emptyState": {
+            "title": "No notification rule events found",
+            "description": "There are no notification rule events available at the moment. Please check back later or contact support."
+          }
+        },
+        "categories": {
+          "member": "Member registration",
+          "booking": "Bookings",
+          "private_booking": "Appointments",
+          "recurrent_private_booking": "Recurring appointments",
+          "payment_pack": "Penalties",
+          "giftcard": "Gift cards",
+          "offer": "Sessions",
+          "replacement_request": "Substitutions",
+          "waiting_list": "Waitlists",
+          "subscription": "Subscriptions",
+          "invoice": "Billing",
+          "referral": "Referral"
+        }
+      },
+      "notificationRuleEventDetails": {
+        "table": {
+          "headers": {
+            "name": "Notification",
+            "email": "Email",
+            "pushNotification": "Push Notification"
+          },
+          "helper": {
+            "title": "Push notifications",
+            "description": "You can start enabling a push notification after you’ve set it up."
+          },
+          "actions": { "preview": "Preview" }
+        }
       }
     }
   },

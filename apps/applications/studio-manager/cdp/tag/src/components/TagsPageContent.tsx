@@ -10,23 +10,26 @@ import { useTagListFactory } from "#src/hooks/layout/use-tag-list-factory";
 import { useTranslation } from "#src/utils/i18n";
 
 type TagsPageContentProps = {
+  isFiltered: boolean;
   tagsMappedByTagId: Record<number, Tag>;
   tagUsagesMap: Record<number, TagUsage>;
   tagGroups: TagGroup[];
+  handleClearFilters: () => void;
 };
 
 export const TagsPageContent = ({
+  isFiltered,
   tagsMappedByTagId,
   tagUsagesMap,
   tagGroups,
+  handleClearFilters,
 }: TagsPageContentProps) => {
   const {
-    handleCreateTagGroup,
-    handleEditTagGroup,
     handleCreateTag,
-    handleEditTag,
-    handleDeleteTagGroup,
     handleDeleteTag,
+    handleDeleteTagGroup,
+    handleEditTagGroup,
+    handleCreateTagGroup,
   } = useTagContext();
   const { t } = useTranslation("tags");
   const { openId, openDrawer, closeDrawer } = useDrawerQueryParam();
@@ -41,8 +44,10 @@ export const TagsPageContent = ({
     baseTagId: openId ? parseInt(openId, 10) : undefined,
   });
   const { emptyPageState, getEmptyListState } = usePageLayout({
+    isFiltered,
     handleCreateTagGroup,
     handleCreateTag,
+    handleClearFilters,
   });
   const { formatListItemsByMainTag, formatTagGroupInListHeader } =
     useTagListFactory({
@@ -52,8 +57,9 @@ export const TagsPageContent = ({
       handleEditTagGroup,
       handleClickTag: (tag) => {
         setCurrentInspectedTag(tag);
-        openDrawer(tag.id.toString());
+        openDrawer(tag.id);
       },
+      currentSelectedTag: currentInspectedTag,
     });
 
   return (
@@ -113,9 +119,9 @@ export const TagsPageContent = ({
           {
             id: "next-tag-details",
             iconLeft: "chevron-down",
-            intent: "flat",
+            intent: "default",
             size: "md",
-            color: "default",
+            color: "main",
             onClick: navigateToNextTag,
             tooltipProps: {
               label: t("tagsDetails.tooltip.nextSubTag"),
@@ -125,9 +131,9 @@ export const TagsPageContent = ({
           {
             id: "previous-tag-details",
             iconLeft: "chevron-up",
-            intent: "flat",
+            intent: "default",
             size: "md",
-            color: "default",
+            color: "main",
             onClick: navigateToPreviousTag,
             tooltipProps: {
               label: t("tagsDetails.tooltip.previousSubTag"),
@@ -136,7 +142,7 @@ export const TagsPageContent = ({
           },
         ]}
       >
-        <TagDetails tag={currentInspectedTag} handleEditTag={handleEditTag} />
+        <TagDetails tag={currentInspectedTag} />
       </DetailDrawer>
     </div>
   );

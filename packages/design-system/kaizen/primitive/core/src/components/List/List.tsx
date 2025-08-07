@@ -179,6 +179,7 @@ const List = <T extends { id: string }>(props: ListProps<T>) => {
                     {...header}
                     collapsibleProps={collapsibleProps}
                     isSelectable={isSelectable}
+                    aria-expanded={isCollapseOpen}
                     onCollapse={toggleOpen}
                     isCollapseOpen={isCollapseOpen}
                   />

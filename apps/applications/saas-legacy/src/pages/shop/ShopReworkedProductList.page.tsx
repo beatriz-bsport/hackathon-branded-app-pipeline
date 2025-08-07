@@ -26,6 +26,7 @@ import {
 } from '#src/libs/shop/actions/shopItemReworked';
 import { fetchBookkeepingAccountList } from '#src/libs/payment/actions';
 import { fetchTags as fetchTagsAction } from '#src/libs/tag/actions';
+import { fetchAllEstablishmentBillingGroup as fetchAllEstablishmentBillingGroupAction } from '#src/libs/establishment/actions';
 
 // --- SELECTORS ---
 import { getTheme } from '#src/libs/theme/selectors';
@@ -63,6 +64,7 @@ import type {
   ShopItemCreate,
   SubShop,
   ShopItemBarcodeUnicity,
+  ShopItemFilterParams,
 } from '#src/libs/shop/types';
 import type { ShopListSubshopFormValues } from '#src/libs/shop/components/ShopListSubshopForm/types';
 import type { OptionCallback } from '#src/state/types';
@@ -76,10 +78,15 @@ import { FUZZY_SEARCH_BAR_PAGE_ADDITIONAL_PARAMS_WEBSHOP_REWORKED } from '#src/l
 import { SHOPITEM_FORMDATA_KEYS_MAPPER } from '#src/libs/shop/constants';
 
 import { IS_BOOKKEEPING_ACOUNT_FEATURE_ENABLED } from '#src/libs/payment/constants';
+import { buildUrlParams } from '#src/http';
+import { getAllEstablishmentBillingGroupIds } from '#src/libs/establishment/selectors';
 
 type Handlers = {
   fetchBookkeepingAccountList: () => void;
-  goToShopItem: (id: number) => void;
+  goToShopItem: (
+    id: number,
+    params?: Pick<ShopItemFilterParams, 'establishment_billing_group'>,
+  ) => void;
 };
 
 type Props = ConnectedProps<typeof connector> & Handlers & WithObjectSearch;
@@ -93,6 +100,7 @@ export class ShopReworkedProductListPage extends PureComponent<Props> {
     IS_BOOKKEEPING_ACOUNT_FEATURE_ENABLED &&
       this.props.fetchBookkeepingAccountList();
     this.props.fetchTags();
+    this.props.fetchAllEstablishmentBillingGroup();
   }
 
   /** Handler to retrieve standalone + base shop items */
@@ -186,6 +194,7 @@ export class ShopReworkedProductListPage extends PureComponent<Props> {
         deleteShopItem={this.handleDeleteShopItem}
         deleteSubshop={this.handleDeleteSubshop}
         duplicateShopItem={this.handleDuplicateShopItem}
+        establishmentBillingGroup={this.props.establishmentBillingGroup}
         getIsShopItemUsedInCombo={this.props.getIsShopItemUsedInCombo}
         getShopItemBarcodeUnicity={this.props.getShopItemBarcodeUnicity}
         goToShopItem={this.props.goToShopItem}
@@ -194,6 +203,9 @@ export class ShopReworkedProductListPage extends PureComponent<Props> {
           this.props.shopItemStandaloneLoading ||
           this.props.shopItemBaseLoading ||
           this.props.isSupplierListLoading
+        }
+        isMultiLocationWebshopEnabled={
+          !!this.props.theme.is_multi_location_webshop_enabled
         }
         provincialTax={this.props.theme.provincial_tax_value}
         retrieveShopItemUsedInCombo={this.handleRetrieveShopItemUsedInCombo}
@@ -222,6 +234,7 @@ const connector = connect(
     allTagsWithTagGroup: getAllTagsWithTagGroup(state),
     getShopItemBarcodeUnicity: (barcode: string) =>
       getShopItemBarcodeUnicity(state, barcode),
+    establishmentBillingGroup: getAllEstablishmentBillingGroupIds(state)?.[0],
   }),
   {
     // SHOP ITEM
@@ -245,6 +258,8 @@ const connector = connect(
     fetchBookkeepingAccountListAction: fetchBookkeepingAccountList,
     // TAGS
     fetchTags: fetchTagsAction,
+    // ESTABLISHMENT BILLING GROUPS
+    fetchAllEstablishmentBillingGroup: fetchAllEstablishmentBillingGroupAction,
   },
 );
 
@@ -259,8 +274,11 @@ export default compose<Props, {}>(
         fetchBookkeepingAccountListAction({ is_active: true }),
     goToShopItem:
       ({ push }) =>
-      (id: number) =>
-        push(`/shop/products/${id}`),
+      (
+        id: number,
+        params?: Pick<ShopItemFilterParams, 'establishment_billing_group'>,
+      ) =>
+        push(`/shop/products/${id}${buildUrlParams(params)}`),
   }),
   withTitle(({ t }: { t: TFunction }) => t('titles:shop')),
 )(ShopReworkedProductListPage);

@@ -456,7 +456,6 @@ export class PrivateBookingBooker extends React.Component<Props, State> {
               {/* TODO: Check why validation is not performed */}
               <RecurrenceRulePrivateBookingFields
                 privateSlotSet
-                companyId={this.props.theme.company}
                 onTimeSettingChange={this.handleTimeSettingChange}
               />
               <FormControlLabel

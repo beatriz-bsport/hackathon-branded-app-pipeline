@@ -11,6 +11,7 @@ import clsx from 'clsx';
 import GenericResponsiveDrawer from '#src/components/genericDrawer/GenericResponsiveDrawer.component';
 import FormSection from '#src/components/forms/FormSection';
 import Selector from '#src/components/Selector/MaterialUISelector.component';
+import type { OptionTypeBase } from '#src/components/Selector/MaterialUISelector.component';
 import {
   QuicksaleCardInfo,
   QuicksaleItemsByItemIdentifierByCategory,
@@ -137,8 +138,14 @@ const QuicksaleItemAdditionDrawer: React.FC<Props> = ({
   } | null>(null);
 
   const onCategoryChange = React.useCallback(
-    (category: { label: string; value: number }) => {
-      setSelectedCategory(category);
+    (category: OptionTypeBase | OptionTypeBase[] | null) => {
+      // Handle both single value and array cases, and convert to our expected type
+      const selectedCategoryValue = Array.isArray(category)
+        ? (category[0] as { label: string; value: number } | null)
+        : (category as { label: string; value: number } | null);
+      setSelectedCategory(selectedCategoryValue);
+      // Reset to page 1 when category changes to ensure results are visible
+      setPageNumber(1);
     },
     [],
   );
@@ -265,13 +272,14 @@ const QuicksaleItemAdditionDrawer: React.FC<Props> = ({
                       (pageNumber - 1) * PAGE_SIZE,
                       Math.min(selectableItems.length, pageNumber * PAGE_SIZE),
                     )
-                    .map((item) => (
+                    .map((item, index, array) => (
                       <ListItem
                         key={item.id}
                         clickToSelect
                         checked={selectedItems.includes(item)}
                         dispatch={dispatch}
                         item={item}
+                        noDivider={index === array.length - 1}
                       />
                     ))}
 

@@ -3,8 +3,20 @@ import React from "react";
 
 const variants = {
   type: {
-    line: "h-full w-2xs",
-    block: "h-sm w-sm rounded-xs",
+    line: "h-full",
+    block: "rounded-xs",
+  },
+  sizeByType: {
+    "line-2xs": "w-1xs",
+    "line-xs": "w-2xs",
+    "line-sm": "w-2xs",
+    "line-md": "w-xs",
+    "line-lg": "w-sm",
+    "block-2xs": "h-xs w-xs",
+    "block-xs": "h-sm w-sm",
+    "block-sm": "h-md w-md",
+    "block-md": "h-lg w-lg",
+    "block-lg": "h-xl w-xl",
   },
 } as const;
 
@@ -14,6 +26,7 @@ export type ColorIndicatorProps = React.HTMLAttributes<HTMLDivElement> &
   VariantProps<typeof colorIndicator> & {
     color: string;
     type: "line" | "block";
+    size: "2xs" | "xs" | "sm" | "md" | "lg";
   };
 
 /**
@@ -29,11 +42,16 @@ const ColorIndicator: React.FC<ColorIndicatorProps> = ({
   className,
   color,
   type,
+  size,
   ...props
 }) => {
   return (
     <div
-      className={colorIndicator({ type, className })}
+      className={colorIndicator({
+        type,
+        className,
+        sizeByType: `${type}-${size}`,
+      })}
       style={{ backgroundColor: color }}
       {...props}
     />

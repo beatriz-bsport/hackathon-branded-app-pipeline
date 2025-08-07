@@ -49,6 +49,7 @@ export type ShopItemFilterParams = ShopAPIFilter & {
   buyable_shop_item?: boolean;
   size?: string;
   id__in?: number[];
+  establishment_billing_group?: number | null;
 };
 
 export type ShopItemTemplateFilterParams = ShopItemFilterParams & {
@@ -92,9 +93,14 @@ export type Provision = {
   id: number;
   shop_item: number;
   manual_adjustement: boolean;
+  establishment_billing_group?: number | null;
 };
 
-export type ProvisionCreate = { shop_item: number; qty: number };
+export type ProvisionCreate = {
+  shop_item: number;
+  qty: number;
+  establishment_billing_group?: number | null;
+};
 
 export type ProvisionBulkCreate = ProvisionCreate[];
 
@@ -163,6 +169,7 @@ export type ShopItem = {
   company_details: {
     id: number;
     name: string;
+    is_multi_location_webshop_enabled: boolean;
   };
   bookkeeping_account?: number;
   cover: string | null;

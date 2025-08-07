@@ -65,9 +65,9 @@ type Props = {
   currentVariantItem: ShopItem | null;
   onItemClick: (item: QuicksaleCardInfo) => void;
   onSectionClick: (sectionId: string) => void;
-  onVariantItemClick: (itemId: string) => void;
+  onVariantItemClick: (itemId: string, sectionId?: string) => void;
   itemCardInfoList?: QuicksaleCardInfo[];
-  availableSearchItemsInWholeConfig?: QuicksaleCardInfo[];
+  allSearchItems?: QuicksaleCardInfo[];
   goBackToSectionList?: () => void;
   addItemToBasket: (
     basketId: string,
@@ -91,6 +91,7 @@ type Props = {
   // giftcardBackgroundImageList: GiftcardBackgroundImage[];
   pendingItemToAdd: QuicksaleCardInfo | null;
   showGiftcardFormModal: boolean;
+  staffEstablishmentBillingGroup?: { id: number; name: string };
   closeGiftcardFormModal: () => void;
   addToBasket: (checkoutItemData: CheckoutItemData) => void;
   // fetchGiftcardBackgroundImageList: (
@@ -98,6 +99,7 @@ type Props = {
   //   options?: OptionCallback<GiftcardBackgroundImage>,
   // ) => void;
   goToPaymentPage: () => void;
+  redirectTo?: (url: string) => void;
 };
 
 const QuicksaleInterface: React.FC<Props> = ({
@@ -117,7 +119,7 @@ const QuicksaleInterface: React.FC<Props> = ({
   onSectionClick,
   onVariantItemClick,
   itemCardInfoList,
-  availableSearchItemsInWholeConfig,
+  allSearchItems,
   goBackToSectionList,
   // addItemToBasket,
   removeItemFromBasket,
@@ -129,8 +131,10 @@ const QuicksaleInterface: React.FC<Props> = ({
   showGiftcardFormModal,
   closeGiftcardFormModal,
   addToBasket,
+  staffEstablishmentBillingGroup,
   // fetchGiftcardBackgroundImageList,
   goToPaymentPage,
+  redirectTo,
 }) => {
   const { t } = useTranslation('quicksale');
 
@@ -197,9 +201,30 @@ const QuicksaleInterface: React.FC<Props> = ({
     setShowResultsOnPage(false);
   }, []);
 
-  const onSearchIconClick = React.useCallback(() => {
+  const onSearchIconClick = React.useCallback((searchTextParam?: string) => {
+    if (searchTextParam) {
+      setSearchText(searchTextParam);
+    }
     setShowResultsOnPage(true);
   }, []);
+
+  const handleItemClickFromSearch = React.useCallback(
+    (item: QuicksaleCardInfo) => {
+      setSearchText(item.title || '');
+      onItemClick(item);
+    },
+    [onItemClick],
+  );
+
+  const handleVariantItemClickInSearch = React.useCallback(
+    (itemId: string, sectionId?: string) => {
+      if (sectionId) {
+        clearSearch();
+        redirectTo?.(`/quicksale/${sectionId}/${itemId}/`);
+      }
+    },
+    [redirectTo, clearSearch],
+  );
 
   // ================================================
 
@@ -242,6 +267,9 @@ const QuicksaleInterface: React.FC<Props> = ({
       <Grid item className={classes.leftContainer} xs={9}>
         <QuicksaleAppBar
           onSignOut={onSignOut}
+          staffEstablishmentBillingGroupName={
+            staffEstablishmentBillingGroup?.name || ''
+          }
           staffFullName={quicksaleStaffFullName}
           theme={theme}
         />
@@ -289,7 +317,7 @@ const QuicksaleInterface: React.FC<Props> = ({
           >
             <QuicksaleInterfaceSearchBar
               clearSearch={clearSearch}
-              onItemClick={onItemClick}
+              onItemClick={handleItemClickFromSearch}
               onSearchIconClick={onSearchIconClick}
               onSearchTextChange={onSearchTextChange}
               openPopper={
@@ -297,21 +325,20 @@ const QuicksaleInterface: React.FC<Props> = ({
                 !showResultsOnPage &&
                 searchResults.length > 0
               }
-              searchItems={
-                (!currentSection || showResultsOnPage
-                  ? availableSearchItemsInWholeConfig
-                  : itemCardInfoList) ?? []
-              }
+              searchItems={allSearchItems ?? []}
               searchResults={searchResults}
               searchText={searchText}
             />
           </div>
         </div>
 
-        {currentSection && (
+        {currentSection && !showResultsOnPage && (
           <QuicksaleBreadcrumbs
             homeLabel={t('interface.home')}
-            onHomeClick={goBackToSectionList}
+            onHomeClick={() => {
+              clearSearch();
+              goBackToSectionList?.();
+            }}
             onSectionClick={
               currentVariantItem
                 ? () => onSectionClick(currentSection.section_id)
@@ -325,12 +352,17 @@ const QuicksaleInterface: React.FC<Props> = ({
         <QuicksaleTileList
           currentSection={currentSection}
           currentVariantItem={currentVariantItem}
+          establishmentBillingGroupId={staffEstablishmentBillingGroup?.id}
           isExcludingTax={theme.is_tax_excluded_in_marketplace}
           itemCardInfoList={itemCardInfoList}
           loading={loading}
           onItemClick={onItemClick}
           onSectionClick={onSectionClick}
-          onVariantItemClick={onVariantItemClick}
+          onVariantItemClick={
+            showResultsOnPage
+              ? handleVariantItemClickInSearch
+              : onVariantItemClick
+          }
           searchResults={searchResults}
           searchText={searchText}
           sectionList={sectionList}

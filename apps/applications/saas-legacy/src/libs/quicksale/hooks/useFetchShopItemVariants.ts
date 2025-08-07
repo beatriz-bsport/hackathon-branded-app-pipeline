@@ -7,19 +7,25 @@ import { RootState } from '#src/reducers';
 import { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-export const useFetchShopItemVariants = (itemId: number) => {
+export const useFetchShopItemVariants = (
+  itemId: number,
+  establishmentBillingGroupId?: number,
+) => {
   const dispatch = useDispatch();
 
   const fetchVariants = useCallback(() => {
-    dispatch(
-      fetchShopItemVariantList({
-        id: itemId,
-        page_size: 0,
-        page: 1,
-        is_variant: true,
+    const params = {
+      id: itemId,
+      page_size: 0,
+      page: 1,
+      is_variant: true,
+      ...(establishmentBillingGroupId && {
+        establishment_billing_group: establishmentBillingGroupId,
       }),
-    );
-  }, [itemId, dispatch]);
+    };
+
+    dispatch(fetchShopItemVariantList(params));
+  }, [itemId, establishmentBillingGroupId, dispatch]);
 
   useEffect(() => {
     fetchVariants();

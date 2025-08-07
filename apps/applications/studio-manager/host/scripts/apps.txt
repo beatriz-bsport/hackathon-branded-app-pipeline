@@ -11,3 +11,4 @@
 @bsport/sm-teacher
 @bsport/sm-referral-program
 @bsport/sm-tag
+@bsport/sm-transactional-notification

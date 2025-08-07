@@ -46,6 +46,21 @@ const BaseSchema = {
             }
 
             if (
+              filter_data.datatype === 'products' ||
+              filter_data.datatype === 'product_category'
+            ) {
+              return Yup.object().shape({
+                ...defaultSchema,
+                value: Yup.object()
+                  .shape({
+                    object_ids: Yup.array().of(Yup.number()).required().min(1),
+                    buyable_item_identifier: Yup.number().required(),
+                  })
+                  .required(),
+              });
+            }
+
+            if (
               DATATYPE_FILTERABLE_BY_FLOAT_RANGE.includes(filter_data.datatype)
             ) {
               if (filter_data.comparator === FILTER_IN_OPERAND) {

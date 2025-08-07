@@ -11,6 +11,7 @@ const defaultClasses = [
   "leading-md",
   "text-onsurface-weak placeholder:text-onsurface-weaker",
   "focus:outline focus:outline-2",
+  "bg-[transparent]",
 ] as const;
 
 const variants = {

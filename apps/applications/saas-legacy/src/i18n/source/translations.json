@@ -312,7 +312,9 @@
             "recurrent": {
                 "backToRegistererChoice": "Back",
                 "bookMultiple": "Book",
-                "title": "Upcoming sessions"
+                "title": "Upcoming sessions",
+                "selectAll": "Select all",
+                "unselectAll": "Unselect all"
             },
             "isLoading": "Looking for sessions...",
             "book": {
@@ -3576,7 +3578,8 @@
                 "establishment": "Establishment",
                 "name": "Name",
                 "address": "Address",
-                "noAddress": "No address is associated with this billing group"
+                "noAddress": "No address is associated with this billing group",
+                "multiLocationWebshopEnabled": "This billing group can't be deleted because the multi-location webshop feature is enabled."
             }
         },
         "billing_group": {
@@ -4469,6 +4472,7 @@
                     "2": "Backoffice",
                     "3": "Other",
                     "4": "Migration",
+                    "7": "POS",
                     "label": "Channel : {{ source }}"
                 },
                 "clientAuthor": "Customer",
@@ -8449,6 +8453,9 @@
             "60": "Giropay",
             "70": "Bacs Direct Debit",
             "80": "PayPal",
+            "90": "Twint",
+            "100": "Apple Pay",
+            "110": "Google Pay",
             "CB": "Card",
             "CREDIT_ACCOUNT": "Internal account",
             "GIROPAY": "Giropay",
@@ -8459,7 +8466,10 @@
             "SEPA": "SEPA",
             "CHECK": "Check",
             "CASH": "Cash",
-            "BACS_DEBIT": "Bacs Direct Debit"
+            "BACS_DEBIT": "Bacs Direct Debit",
+            "TWINT": "Twint",
+            "APPLE_PAY": "Apple Pay",
+            "GOOGLE_PAY": "Google Pay"
         },
         "forms": {
             "cancelPayment": "Previous",
@@ -8535,6 +8545,9 @@
             "60": "Giropay",
             "70": "Bacs Direct Debit",
             "80": "PayPal",
+            "90": "Twint",
+            "100": "Apple Pay",
+            "110": "Google Pay",
             "label": "Payment method",
             "disputeWon": "Won",
             "onlinePayments": "Online payments"
@@ -10079,6 +10092,19 @@
                 },
                 "requestAccess": "Request access"
             },
+            "audienceLockDialog": {
+                "title": "Meet your customers where they are with Audience",
+                "videoLink": "https://www.youtube.com/watch?v=VanGWUIAzTE&t=88s&ab_channel=bsport",
+                "description": "Automated workflows help you connect with your customers across multiple channels, so you can:",
+                "benefits": [
+                    "Convert leads with personalized messaging at key touch points",
+                    "Boost revenue with tailored customer journeys for VIP customers",
+                    "Retain customers with automated follow-ups"
+                ],
+                "explain": "This feature is an add-on. Contact your Account Manager for more information.",
+                "showInterest": "Get in touch",
+                "goHome": "Back to calendar"
+            },
             "subscriptionForm": {
                 "title": "Subscribe to add-on",
                 "priceHelper": "This price will be added to your monthly plan.",
@@ -10096,8 +10122,9 @@
         },
         "featureRequest": {
             "close": "Close",
-            "content": "Thank you for your interest in this add-on. If you would like to learn more, we kindly invite you to ask your question in our custom support chat. Your account manager will be delighted to provide you with more information.",
-            "title": "Let’s start a conversation"
+            "interestMessageWithChat": "Thanks for your interest in this add-on. Your Account Manager will reach out soon to give you more information. In the meantime, we can answer any questions you have via the help chat.",
+            "interestMessage": "Thanks for your interest in this add-on. Your Account Manager will reach out soon to give you more information.",
+            "header": "We'll be in touch!"
         },
         "platformBillingPlan": {
             "max_establishment": {
@@ -11088,7 +11115,9 @@
                     "confirm": "Delete",
                     "cancel": "Cancel",
                     "content": "Deleting recurring appointments will result in the cancellation of future appointments that've been made via this rule.",
-                    "title": "Delete a recurring appointment"
+                    "title": "Delete a recurring appointment",
+                    "content_with_cancellation_option": "This recurring booking rule will be deleted. Do you also want to cancel any future bookings made with this rule?",
+                    "cancelRelatedBookings": "Cancel any future bookings made with the rule"
                 }
             },
             "form": {
@@ -11506,7 +11535,6 @@
             "homeDelivery": "Delivery",
             "firstName": "First name",
             "lastName": "Last name",
-            "unauthenticatedWarning": "If no member is authenticated for this invoice, it will be created in anonymous mode. Assigning a member is recommended to make it easier to track information.",
             "sendToTerminal": "Send to terminal",
             "cancel": "Cancel",
             "validate": "Validate",
@@ -12270,6 +12298,9 @@
             "payment_method_sofort": "Sofort",
             "payment_method_paypal_wallet": "PayPal Wallet",
             "payment_method_eps": "EPS",
+            "payment_method_twint": "Twint",
+            "payment_method_apple_pay": "Apple Pay",
+            "payment_method_google_pay": "Google Pay",
             "stock_at_end": "Stock (end date)",
             "stock_at_start": "Stock (start date)",
             "accept_email": "Accepts marketing notifications (emails)",
@@ -12454,7 +12485,10 @@
             "giropay": "Giropay",
             "paypal_wallet": "PayPal Wallet",
             "debt": "Internal account",
-            "bacs_debit": "Bacs Direct Debit"
+            "bacs_debit": "Bacs Direct Debit",
+            "twint": "Twint",
+            "apple_pay": "Apple Pay",
+            "google_pay": "Google Pay"
         },
         "product_type": {
             "payment_pack": "Pass",
@@ -12806,7 +12840,10 @@
                 "30": "Sofort",
                 "40": "iDEAL",
                 "50": "EPS",
-                "60": "Giropay"
+                "60": "Giropay",
+                "90": "Twint",
+                "100": "Apple Pay",
+                "110": "Google Pay"
             },
             "booking_status_code": {
                 "0": "Not cancelled",
@@ -15351,7 +15388,8 @@
                     "filterPlaceholder": {
                         "company": "Select studio",
                         "size": "Select size",
-                        "color": "Select color"
+                        "color": "Select color",
+                        "establishmentBillingGroup": "Select a billing group"
                     },
                     "unsavedChangesModal": {
                         "title": "Unsaved changes",
@@ -15366,7 +15404,8 @@
                     "currentStock": "Current stock",
                     "companyName": "Studio",
                     "stockAdjustment": "Stock adjustment (+/-)",
-                    "totalSales": "Total sales"
+                    "totalSales": "Total sales",
+                    "tooltipForMultiLocationWebshop": "Since multilocation is enabled for this studio, stock can only be adjusted from the sub-account, not from the Master account."
                 },
                 "variants": {
                     "formError": {
@@ -16947,7 +16986,7 @@
                 "success": "Recurring appointment deleted"
             },
             "createOrUpdate": {
-                "success": "Recurring appointment successfully saved",
+                "success": "Recurring appointment successfully saved. Appointments are being created.",
                 "error": "Impossible to save this recurring appointment",
                 "locked": "Recurring appointment rule already exists with these settings"
             }

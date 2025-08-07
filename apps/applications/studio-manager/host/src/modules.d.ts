@@ -22,6 +22,7 @@ declare module "sm-navigation-sidebar/urls" {
     smartlist: string;
     teacher: string;
     settings_referral: string;
+    settings_transactionalNotification: string;
     tag: string;
   };
   export const REVAMP_URLS_PRODUCTION: Partial<typeof REVAMP_URLS_DEVELOPMENT>;
@@ -88,6 +89,11 @@ declare module "sm-referral-program/App" {
 }
 
 declare module "sm-tag/App" {
+  const App: BaseApp["App"];
+  export default App;
+}
+
+declare module "sm-transactional-notification/App" {
   const App: BaseApp["App"];
   export default App;
 }

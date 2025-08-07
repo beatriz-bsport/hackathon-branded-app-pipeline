@@ -30,6 +30,8 @@ type Props = {
   similarOfferLoading: boolean,
   classes: Object,
   toogleChecked: (number) => void,
+  setOffersSelected: (offersSelected: Array<number>) => void,
+  resetOffersSelected: () => void,
   registerToOffer: (offerIds: Array<number>) => void,
   fetchSimilarOffers: (id: number) => void,
   goBack: () => void,
@@ -79,6 +81,67 @@ export class BookingModuleOfferChoice extends React.Component<Props> {
     });
   }
 
+  isOfferValid = (offer) => {
+    return !!offer.establishment && !!offer.coach && !!offer.meta_activity;
+  };
+
+  isOfferEligible = (offer, start_payment_pack, end_payment_pack) => {
+    // Skip invalid offers
+    if (!this.isOfferValid(offer)) return false;
+
+    // Check date range
+    // TODO(BOO-745): We should use DateTime.fromISO for all dates, otherwise this check
+    // does not work correctly.
+    if (
+      DateTime.fromISO(offer.date_start) < start_payment_pack ||
+      DateTime.fromISO(offer.date_start) > end_payment_pack
+    ) {
+      return false;
+    }
+
+    return true;
+  };
+
+  isOfferDisabled = (offer, start, end, credits, creditToBeConsumed) => {
+    // Use the eligibility check first (covers current offer, date range, and validity)
+    if (!this.isOfferEligible(offer, start, end)) return true;
+
+    // Skip current offer
+    if (offer.id === this.props.offerId) return true;
+
+    // Check if the offer would exceed the credit limit (only if not already selected)
+    return (
+      creditToBeConsumed + offer.credit_price > credits &&
+      !this.props.offersSelected.includes(offer.id)
+    );
+  };
+
+  getSelectableOffers = (eligibleOffers, credits) => {
+    const selectableOffers = [];
+    let runningCreditTotal = 0;
+
+    for (const offer of eligibleOffers) {
+      if (runningCreditTotal + offer.credit_price <= credits) {
+        selectableOffers.push(offer.id);
+        runningCreditTotal += offer.credit_price;
+      }
+    }
+
+    return selectableOffers;
+  };
+
+  handleSelectAllEligibleOffers = (start, end, credits) => {
+    // Filter eligible offers that can be booked
+    const eligibleOffers = this.props.similarOffers.filter((offer) =>
+      this.isOfferEligible(offer, start, end),
+    );
+
+    // Calculate which offers can be selected within credit limit
+    const selectableOffers = this.getSelectableOffers(eligibleOffers, credits);
+
+    this.props.setOffersSelected(selectableOffers);
+  };
+
   render() {
     const { paymentPack, consumerPaymentPack } = this.props.registererObject;
     const { start, end, credits } = getLimitation(
@@ -103,33 +166,53 @@ export class BookingModuleOfferChoice extends React.Component<Props> {
           {!!this.props.similarOfferLoading && <CircularProgress size={18} />}
         </div>
         {!this.props.similarOfferLoading &&
-          !!this.props.similarOffers.length &&
-          this.props.similarOffers
-            .filter((o) => !!o.establishment && !!o.coach && !!o.meta_activity)
-            .map((o) => {
-              const disabled =
-                o.id === this.props.offerId ||
-                (creditToBeConsumed + o.credit_price > credits &&
-                  !this.props.offersSelected.includes(o.id)) ||
-                DateTime.fromISO(o.date_start) < start ||
-                DateTime.fromISO(o.date_start) > end;
-              return (
-                <div key={o.id} className={classes.row}>
-                  <Checkbox
-                    checked={this.props.offersSelected.includes(o.id)}
-                    disabled={disabled}
-                    onChange={() => this.props.toogleChecked(o.id)}
-                  />
-                  <OfferListItemV2
-                    showDate
-                    disabled={disabled}
-                    offer={o}
-                    onClick={this.props.toogleChecked}
-                    selected={this.props.offersSelected.includes(o.id)}
-                  />
-                </div>
-              );
-            })}
+          !!this.props.similarOffers.length && (
+            <div>
+              <div>
+                <Button
+                  onClick={() =>
+                    this.handleSelectAllEligibleOffers(start, end, credits)
+                  }
+                >
+                  <Typography variant="caption">
+                    {t('bookingModule.recurrent.selectAll')}
+                  </Typography>
+                </Button>
+                <Button onClick={this.props.resetOffersSelected}>
+                  <Typography variant="caption">
+                    {t('bookingModule.recurrent.unselectAll')}
+                  </Typography>
+                </Button>
+              </div>
+              {this.props.similarOffers
+                .filter((o) => this.isOfferValid(o))
+                .map((o) => {
+                  const disabled = this.isOfferDisabled(
+                    o,
+                    start,
+                    end,
+                    credits,
+                    creditToBeConsumed,
+                  );
+                  return (
+                    <div key={o.id} className={classes.row}>
+                      <Checkbox
+                        checked={this.props.offersSelected.includes(o.id)}
+                        disabled={disabled}
+                        onChange={() => this.props.toogleChecked(o.id)}
+                      />
+                      <OfferListItemV2
+                        showDate
+                        disabled={disabled}
+                        offer={o}
+                        onClick={this.props.toogleChecked}
+                        selected={this.props.offersSelected.includes(o.id)}
+                      />
+                    </div>
+                  );
+                })}
+            </div>
+          )}
         <div className={classes.actions}>
           <Button
             color="primary"
@@ -189,6 +272,14 @@ export default compose(
         }
         return { offersSelected: [...offersSelected, id] };
       },
+    setOffersSelected: () => (offersSelected) => ({
+      offersSelected,
+    }),
+    resetOffersSelected:
+      (_, { offerId }) =>
+      () => ({
+        offersSelected: [offerId],
+      }),
   }),
   withProps(({ similarOfferLoading, paymentPack, consumerPaymentPack }) => ({
     loading: similarOfferLoading || (!paymentPack && !consumerPaymentPack),

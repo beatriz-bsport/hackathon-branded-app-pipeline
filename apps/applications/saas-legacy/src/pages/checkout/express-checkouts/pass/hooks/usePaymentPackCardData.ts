@@ -45,6 +45,7 @@ export const usePaymentPackCardData = () => {
     establishments,
     metaActivities,
     categories,
+    unlimited,
   } = paymentPackData?.paymentPack ?? {};
 
   const isCompatibleWithAllActivities = metaActivities?.length === 0;
@@ -160,5 +161,6 @@ export const usePaymentPackCardData = () => {
     metaActivityChipsData,
     roomChipsData,
     timeSlotsWithChipsData,
+    unlimited,
   };
 };

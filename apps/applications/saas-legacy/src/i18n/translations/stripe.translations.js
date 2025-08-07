@@ -32,7 +32,7 @@ exports.default = {
     terminal_reader_busy:
       'The reader is currently busy processing another request or is performing an update.',
     terminal_reader_offline:
-      'The reader is currently offline, please ensure the reader is powered on and connected to the internet before retrying your request.',
+      'Card reader offline. Make sure the reader is turned on and connected to the internet, then try again.',
     terminal_reader_timeout:
       'There was a timeout when sending this command to the reader.',
   },

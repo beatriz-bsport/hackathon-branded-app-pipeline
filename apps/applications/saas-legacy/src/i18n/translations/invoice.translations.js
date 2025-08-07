@@ -182,7 +182,7 @@ const getTranslations = async () => {
               paymentIntent: 'The payment was not processed.',
               setupIntent: 'The payment method has not been saved.',
             },
-            explain: { label: 'Reason for failure :' },
+            explain: { label: 'Reason for failure:' },
             interac: {
               content:
                 'Interac cards cannot be used for recurring payments or saved. Please use an alternative payment method.',
@@ -750,7 +750,7 @@ const getTranslations = async () => {
       [PLANNED_INVOICE_STATUS.PROCESSING.id]: 'In progress',
       [PLANNED_INVOICE_STATUS.CANCELED.id]: 'Cancelled',
     },
-    anonymousMember: 'Anonymous member',
+    anonymousMember: 'No profile',
     sentToFiskaly: 'Sent to Fiskaly',
   };
 };

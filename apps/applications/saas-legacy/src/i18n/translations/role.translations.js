@@ -67,7 +67,7 @@ const getTranslations = async () => {
             ifEmptySelectAll: 'Leave empty to select all',
           },
           establishmentBillingGroup: {
-            title: 'Associated billing group *',
+            title: 'billing group *',
             helpText:
               'A billing group is a way to group multiple locations under a single legal entity for invoicing and billing purposes.',
           },
@@ -172,8 +172,8 @@ const getTranslations = async () => {
           'This will only provide access to Reporting, which may be useful for your accountants.',
       },
       [RoleType.USER_ROLE_QUICKSALE]: {
-        description: 'Access to quick sales interface only',
-        name: 'Checkin sales interface',
+        description: 'This role gives access to the POS interface',
+        name: 'POS',
       },
     },
     rolePermissions: {

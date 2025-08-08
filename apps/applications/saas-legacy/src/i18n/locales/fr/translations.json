@@ -3413,7 +3413,8 @@
                 "establishment": "Établissement",
                 "name": "Nom",
                 "noAddress": "Aucune adresse n'est associée à ce groupe de facturation",
-                "address": "Adresse"
+                "address": "Adresse",
+                "multiLocationWebshopEnabled": "Ce groupe de facturation ne peut pas être supprimé car la fonctionnalité de boutique en ligne multi-localisation est activée."
             }
         },
         "billing_group": {
@@ -14735,14 +14736,16 @@
                     "filterPlaceholder": {
                         "color": "Choisir la couleur",
                         "size": "Choisir la taille",
-                        "company": "Sélectionner un studio"
+                        "company": "Sélectionner un studio",
+                        "establishmentBillingGroup": "Sélectionnez un groupe de facturation"
                     },
                     "unsavedChangesModal": {
                         "default": "Souhaitez-vous enregistrer vos modifications avant de passer à une autre page ?",
                         "inventory": "Avant de passer à une autre page, souhaitez-vous mettre à jour l'inventaire en fonction des valeurs introduites dans la colonne « Modification des stocks » ?",
                         "title": "Modifications non sauvegardées"
                     },
-                    "companyName": "Studio"
+                    "companyName": "Studio",
+                    "tooltipForMultiLocationWebshop": "Étant donné que la fonctionnalité multi-localisation est activée pour ce studio, le stock ne peut être ajusté qu'à partir du sous-compte, et non à partir du Master Account."
                 },
                 "history": {
                     "invoice": {
@@ -16879,9 +16882,6 @@
         },
         "oneClickBooking": {
             "genericError": "Nous n'avons pas pu finaliser votre réservation. Veuillez vérifier vos informations et réessayer."
-        },
-        "quicksaleCheckout": {
-            "15010": "Le panier n'est plus disponible"
         }
     },
     "spotScheduling": {

@@ -3237,7 +3237,13 @@
             "SEPA": "SEPA",
             "CHECK": "Consulte",
             "CASH": "Especies",
-            "BACS_DEBIT": "Bacs Direct Debit"
+            "BACS_DEBIT": "Bacs Direct Debit",
+            "TWINT": "TWINT",
+            "90": "TWINT",
+            "GOOGLE_PAY": "Google Pay",
+            "110": "Google Pay",
+            "APPLE_PAY": "Apple Pay",
+            "100": "Apple Pay"
         },
         "paymentComboSectionTitle": "Pack",
         "actions": {
@@ -3267,7 +3273,10 @@
             "80": "PayPal",
             "label": "Medios de pago",
             "disputeWon": "Resuelto",
-            "onlinePayments": "Pagos online"
+            "onlinePayments": "Pagos online",
+            "90": "TWINT",
+            "110": "Google Pay",
+            "100": "Apple Pay"
         },
         "creditAccountBalance": {
             "current": "Anticipo actual"
@@ -5552,7 +5561,10 @@
             "nb_first_attendances": "Número de primeras visitas",
             "nb_payments": "Número de pagos",
             "total_rows": "Total de filas",
-            "amount_upcoming_cts": "Importe pendiente"
+            "amount_upcoming_cts": "Importe pendiente",
+            "payment_method_twint": "TWINT",
+            "payment_method_google_pay": "Google Pay",
+            "payment_method_apple_pay": "Apple Pay"
         },
         "payment_method": {
             "cash": "Efectivo",
@@ -5577,7 +5589,10 @@
             "sofort": "Sofort",
             "bancontact": "Bancontact",
             "bacs_debit": "Bacs Direct Debit",
-            "paypal_wallet": "Cartera PayPal"
+            "paypal_wallet": "Cartera PayPal",
+            "twint": "TWINT",
+            "google_pay": "Google Pay",
+            "apple_pay": "Apple Pay"
         },
         "product_type": {
             "payment_pack": "Bono",
@@ -5891,7 +5906,10 @@
                 "30": "Sofort",
                 "40": "iDEAL",
                 "50": "EPS",
-                "60": "Giropay"
+                "60": "Giropay",
+                "100": "Apple Pay",
+                "90": "TWINT",
+                "110": "Google Pay"
             },
             "booking_status_code": {
                 "0": "No cancelado",

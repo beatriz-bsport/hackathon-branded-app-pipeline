@@ -6266,7 +6266,10 @@
             "sofort": "Sofort",
             "debt": "Interne Abrechnung",
             "bacs_debit": "Bacs-Lastschriftverfahren",
-            "paypal_wallet": "PayPal-Wallet"
+            "paypal_wallet": "PayPal-Wallet",
+            "twint": "TWINT",
+            "google_pay": "Google Pay",
+            "apple_pay": "Apple Pay"
         },
         "columns": {
             "date_sumup": "Datum",
@@ -6615,7 +6618,10 @@
             "nb_first_attendances": "Anzahl der Erstbesuche",
             "nb_payments": "Anzahl der Zahlungen",
             "total_rows": "Zeilen insgesamt",
-            "amount_upcoming_cts": "Anstehender Betrag"
+            "amount_upcoming_cts": "Anstehender Betrag",
+            "payment_method_twint": "TWINT",
+            "payment_method_google_pay": "Google Pay",
+            "payment_method_apple_pay": "Apple Pay"
         },
         "no": "Nein",
         "yes": "Ja",
@@ -6879,7 +6885,10 @@
                 "30": "Sofort",
                 "40": "iDEAL",
                 "50": "EPS",
-                "60": "Giropay"
+                "60": "Giropay",
+                "100": "Apple Pay",
+                "90": "TWINT",
+                "110": "Google Pay"
             },
             "payment_method_with_credit_account": {
                 "0": "Karte",
@@ -9087,7 +9096,10 @@
             "80": "PayPal",
             "label": "Zahlungsmethode",
             "disputeWon": "Gewonnen",
-            "onlinePayments": "Online-Zahlungen"
+            "onlinePayments": "Online-Zahlungen",
+            "90": "TWINT",
+            "110": "Google Pay",
+            "100": "Apple Pay"
         },
         "generalTermsAndConditions": {
             "close": "Schließen",
@@ -9172,7 +9184,13 @@
             "SEPA": "SEPA",
             "CHECK": "Siehe",
             "CASH": "Bargeld",
-            "BACS_DEBIT": "Bacs-Lastschriftverfahren"
+            "BACS_DEBIT": "Bacs-Lastschriftverfahren",
+            "TWINT": "TWINT",
+            "90": "TWINT",
+            "GOOGLE_PAY": "Google Pay",
+            "110": "Google Pay",
+            "APPLE_PAY": "Apple Pay",
+            "100": "Apple Pay"
         },
         "paymentComboSectionTitle": "Paket",
         "hasOneOrMoreOption": "Sie sind bereits auf der Warteliste",

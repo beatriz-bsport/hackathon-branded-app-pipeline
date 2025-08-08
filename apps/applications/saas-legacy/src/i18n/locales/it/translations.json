@@ -9227,7 +9227,10 @@
             "nb_first_attendances": "Numero di prime presenze",
             "nb_payments": "Numero di pagamenti",
             "total_rows": "Righe totali",
-            "amount_upcoming_cts": "Prossimo importo"
+            "amount_upcoming_cts": "Prossimo importo",
+            "payment_method_twint": "TWINT",
+            "payment_method_google_pay": "Google Pay",
+            "payment_method_apple_pay": "Apple Pay"
         },
         "payment_method": {
             "dispute": "Contenzioso",
@@ -9252,7 +9255,10 @@
             "giropay": "Giropay",
             "debt": "Credito interno",
             "bacs_debit": "Bacs Direct Debit",
-            "paypal_wallet": "Portafoglio PayPal"
+            "paypal_wallet": "Portafoglio PayPal",
+            "twint": "TWINT",
+            "google_pay": "Google Pay",
+            "apple_pay": "Apple Pay"
         },
         "list": {
             "empty": "Aggiungi report personalizzati per avere una panoramica dettagliata del tuo studio.",
@@ -9464,7 +9470,10 @@
                 "30": "Sofort",
                 "40": "iDEAL",
                 "50": "EPS",
-                "60": "Giropay"
+                "60": "Giropay",
+                "100": "Apple Pay",
+                "90": "TWINT",
+                "110": "Google Pay"
             },
             "source_device": {
                 "0": "App",
@@ -13985,7 +13994,10 @@
             "80": "PayPal",
             "label": "Metodi di pagamento",
             "disputeWon": "Risolta",
-            "onlinePayments": "Pagamenti online"
+            "onlinePayments": "Pagamenti online",
+            "90": "TWINT",
+            "110": "Google Pay",
+            "100": "Apple Pay"
         },
         "bookAnotherOption": "Iscrivimi nuovamente nella lista di attesa",
         "method": {
@@ -14020,7 +14032,13 @@
             "SOFORT": "Sofort",
             "BANCONTACT": "Bancontact",
             "SEPA": "SEPA",
-            "BACS_DEBIT": "Bacs Direct Debit"
+            "BACS_DEBIT": "Bacs Direct Debit",
+            "TWINT": "TWINT",
+            "90": "TWINT",
+            "GOOGLE_PAY": "Google Pay",
+            "110": "Google Pay",
+            "APPLE_PAY": "Apple Pay",
+            "100": "Apple Pay"
         },
         "generalTermsAndConditions": {
             "iAccept": "Accetto le ",

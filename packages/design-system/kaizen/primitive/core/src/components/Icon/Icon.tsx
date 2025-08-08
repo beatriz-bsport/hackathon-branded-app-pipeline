@@ -1,6 +1,6 @@
 import { type VariantProps, cva } from "class-variance-authority";
 import mapValues from "lodash/mapValues";
-import React, { HTMLAttributes, Suspense, useMemo } from "react";
+import React, { type HTMLAttributes, Suspense } from "react";
 
 import ICONS from "./icons";
 
@@ -32,13 +32,17 @@ export type IconProps = HTMLAttributes<HTMLDivElement> &
  * @link https://docs.infra.bsport.io/storybook/kaizen/main/index.html?path=/docs/components-icon--docs
  */
 const Icon: React.FC<IconProps> = ({ icon, className, size, ...rest }) => {
-  const SvgIcon = useMemo(() => ICONS[icon], [icon]);
-  if (!SvgIcon) {
+  const isValidIcon = icon in ICONS;
+
+  if (!isValidIcon) {
     console.error(
       `Invalid value for props icon: ${icon}. Available values: ${Object.keys(ICONS).join(", ")}`,
     );
+
     return null;
   }
+
+  const SvgIcon = ICONS[icon];
 
   return (
     <div

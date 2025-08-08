@@ -8391,7 +8391,13 @@
             "IDEAL": "iDEAL",
             "EPS": "EPS",
             "GIROPAY": "Giropay",
-            "BACS_DEBIT": "Bacs Direct Debit"
+            "BACS_DEBIT": "Bacs Direct Debit",
+            "APPLE_PAY": "Apple Pay",
+            "TWINT": "TWINT",
+            "90": "TWINT",
+            "GOOGLE_PAY": "Google Pay",
+            "110": "Google Pay",
+            "100": "Apple Pay"
         },
         "forms": {
             "cancelPayment": "Précédent",
@@ -8470,7 +8476,10 @@
             "80": "PayPal",
             "label": "Moyen de paiement",
             "disputeWon": "Résolu",
-            "onlinePayments": "Paiement en ligne"
+            "onlinePayments": "Paiement en ligne",
+            "90": "TWINT",
+            "110": "Google Pay",
+            "100": "Apple Pay"
         },
         "actions": {
             "addThisPaymentItem": "Ajouter ce moyen de paiement"
@@ -11960,7 +11969,10 @@
             "nb_credit": "Nombre total de lignes",
             "nb_cashbook": "Nombre total de lignes",
             "total_rows": "Nombre total de lignes",
-            "amount_upcoming_cts": "Montant à venir"
+            "amount_upcoming_cts": "Montant à venir",
+            "payment_method_twint": "TWINT",
+            "payment_method_google_pay": "Google Pay",
+            "payment_method_apple_pay": "Apple Pay"
         },
         "yes": "Oui",
         "no": "Non",
@@ -11987,7 +11999,10 @@
             "eps": "EPS",
             "giropay": "Giropay",
             "debt": "Crédit interne",
-            "paypal_wallet": "Portefeuille PayPal"
+            "paypal_wallet": "Portefeuille PayPal",
+            "twint": "TWINT",
+            "google_pay": "Google Pay",
+            "apple_pay": "Apple Pay"
         },
         "payment_method_with_credit_account": {
             "0": "Carte",
@@ -12201,7 +12216,10 @@
                 "30": "Sofort",
                 "40": "iDEAL",
                 "50": "EPS",
-                "60": "Giropay"
+                "60": "Giropay",
+                "100": "Apple Pay",
+                "90": "TWINT",
+                "110": "Google Pay"
             },
             "payment_method_with_credit_account": {
                 "0": "Carte",
@@ -17084,7 +17102,7 @@
             "reader_error": "Une erreur est survenue. Assurez-vous que votre terminal est bien en ligne, et connecté au même réseau wifi que votre appareil.",
             "none": "",
             "terminal_reader_busy": "Le lecteur est actuellement occupé à traiter une autre demande ou à effectuer une mise à jour.",
-            "terminal_reader_offline": "Le lecteur est actuellement hors ligne, veuillez vous assurer que le lecteur est sous tension et connecté à l'internet avant de réitérer votre demande.",
+            "terminal_reader_offline": "Le lecteur de carte est hors ligne. Vérifiez qu’il est allumé et connecté à Internet, puis réessayez.",
             "terminal_reader_timeout": "Un délai d'attente s'est écoulé lors de l'envoi de cette commande au lecteur."
         },
         "error_code": {

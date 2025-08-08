@@ -180,16 +180,15 @@ export const getPaymentPackTimeLimitation = (paymentPack, baseDate) => {
     };
   }
 
+  const startDate = baseDate ? DateTime.fromISO(baseDate) : DateTime.now();
+
   return {
-    start: baseDate ? DateTime.fromISO(baseDate) : DateTime.now(),
-    // TODO(BOO-746): The duration should be added to the base date too.
-    end: baseDate
-      ? DateTime.fromISO(baseDate)
-      : DateTime.now().plus({
-          days: (duration_days || 0) - 1,
-          months: duration_months,
-          years: duration_years,
-        }),
+    start: startDate,
+    end: startDate.plus({
+      days: (duration_days || 0) - 1,
+      months: duration_months,
+      years: duration_years,
+    }),
   };
 };
 

@@ -3406,7 +3406,10 @@
             "giropay": "Giropay",
             "debt": "Interne rekening (Wallet)",
             "bacs_debit": "Bacs Automatische Incasso",
-            "paypal_wallet": "PayPal Wallet"
+            "paypal_wallet": "PayPal Wallet",
+            "twint": "TWINT",
+            "google_pay": "Google Pay",
+            "apple_pay": "Apple Pay"
         },
         "product_type": {
             "shop_item": "Webshop",
@@ -3781,7 +3784,10 @@
             "nb_first_attendances": "Aantal eerste bezoeken",
             "nb_payments": "Aantal betalingen",
             "total_rows": "Aantal rijen",
-            "amount_upcoming_cts": "Geplande betaling"
+            "amount_upcoming_cts": "Geplande betaling",
+            "payment_method_twint": "TWINT",
+            "payment_method_google_pay": "Google Pay",
+            "payment_method_apple_pay": "Apple Pay"
         },
         "report": {
             "delete_message": "Weet je zeker dat je \"{{- name }}\" wilt verwijderen?"
@@ -4054,7 +4060,10 @@
                 "30": "Sofort",
                 "40": "iDEAL",
                 "50": "EPS",
-                "60": "Giropay"
+                "60": "Giropay",
+                "100": "Apple Pay",
+                "90": "TWINT",
+                "110": "Google Pay"
             },
             "payment_engine": {
                 "0": "Handmatige betaling",
@@ -12262,7 +12271,10 @@
             "80": "PayPal",
             "label": "Betaalmethode",
             "disputeWon": "Gewonnen",
-            "onlinePayments": "Online betalingen"
+            "onlinePayments": "Online betalingen",
+            "90": "TWINT",
+            "110": "Google Pay",
+            "100": "Apple Pay"
         },
         "explainOption": "Je ontvangt een e-mail wanneer er een plaats vrij komt",
         "bookAnotherOption": "Opnieuw op de wachtlijst inschrijven",
@@ -12301,7 +12313,13 @@
             "SEPA": "SEPA",
             "CHECK": "Cheque",
             "CASH": "Contant",
-            "BACS_DEBIT": "Bacs Automatische Incasso"
+            "BACS_DEBIT": "Bacs Automatische Incasso",
+            "TWINT": "TWINT",
+            "90": "TWINT",
+            "GOOGLE_PAY": "Google Pay",
+            "110": "Google Pay",
+            "APPLE_PAY": "Apple Pay",
+            "100": "Apple Pay"
         },
         "forms": {
             "cancelPayment": "Terug",

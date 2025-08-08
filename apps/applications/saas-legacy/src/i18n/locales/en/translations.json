@@ -9412,7 +9412,8 @@
                     "titleEdit": "Category",
                     "update": "Rename",
                     "create": "Add",
-                    "cancel": "Cancel"
+                    "cancel": "Cancel",
+                    "helper": "Categories are a useful way to organize your passes. These names will appear to your members on the Member Area and Mobile App. "
                 }
             },
             "category": "Pass categories"
@@ -10654,7 +10655,7 @@
                 "detailsAndRestrictions": "Details and restrictions",
                 "notification": "Notifications",
                 "managerOnly": {
-                    "label": "Unavailable for purchase"
+                    "label": "Hidden to members"
                 },
                 "name": {
                     "label": "Name",

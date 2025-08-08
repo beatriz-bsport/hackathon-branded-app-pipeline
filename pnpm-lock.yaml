@@ -2988,6 +2988,9 @@ importers:
       '@bsport/config-eslint-react':
         specifier: workspace:*
         version: link:../../../tools/config/eslint-react
+      '@bsport/config-vitest':
+        specifier: workspace:*
+        version: link:../../../tools/config/vitest
       '@types/luxon':
         specifier: ^3.4.2
         version: 3.4.2

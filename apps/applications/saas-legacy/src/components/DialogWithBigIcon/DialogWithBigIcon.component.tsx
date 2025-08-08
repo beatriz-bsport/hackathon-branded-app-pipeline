@@ -350,6 +350,7 @@ const useStyles = makeStyles<
     paddingRight: theme.spacing(3),
     paddingLeft: theme.spacing(3),
     gap: theme.spacing(4),
+    width: '100%',
   },
   dialogTitle: {
     display: 'flex',

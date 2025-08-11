@@ -11126,7 +11126,9 @@
                 "configuration": "Bookings",
                 "title": "[Form] Recurring appointment",
                 "override_availabilities": "Complete the booking even though the appointment, the establishment or the teacher is unavailable",
-                "allow_unpaid": "Authorize unpaid reservations (no compatible card owned)"
+                "allow_unpaid": "Authorize unpaid reservations (no compatible card owned)",
+                "duplicate_error": "This rule is already applied to a Recurring Booking. To save, change existing booking rules or adjust parameters.",
+                "global_error": "An error occurred while saving the recurring booking."
             },
             "actions": {
                 "save": "Save",

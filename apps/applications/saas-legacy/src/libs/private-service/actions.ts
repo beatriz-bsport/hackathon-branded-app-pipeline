@@ -2479,7 +2479,6 @@ export function createOrUpdateRecurrenceRulePrivateBooking(
         dispatch(snackbarWarning('privateRecurrentRule.createOrUpdate.locked'));
       } else {
         dispatch(createOrUpdateRecurrenceRulePrivateBookingActions.error(err));
-        dispatch(snackbarError('privateRecurrentRule.createOrUpdate.error'));
       }
       if (options && options.onError) options.onError(err);
     }

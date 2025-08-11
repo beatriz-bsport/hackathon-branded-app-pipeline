@@ -11120,7 +11120,9 @@
                     "content": "Déprogrammer le RDV récurrent entrainera l'annulation des RDV futurs enregistrés via cette règle.",
                     "cancel": "Annuler",
                     "confirm": "Supprimer",
-                    "title": "Suppression RDV récurrent"
+                    "title": "Suppression RDV récurrent",
+                    "content_with_cancellation_option": "Cette règle de réservation récurrente sera supprimée. Souhaitez-vous également annuler toutes les réservations futures effectuées avec cette règle ?",
+                    "cancelRelatedBookings": "Annuler toutes les réservations futures effectuées avec cette règle"
                 },
                 "update": {
                     "title": "Modification RDV récurrent",

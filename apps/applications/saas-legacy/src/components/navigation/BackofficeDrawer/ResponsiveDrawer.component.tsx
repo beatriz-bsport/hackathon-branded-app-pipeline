@@ -50,6 +50,7 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import Divider from '@material-ui/core/Divider';
 import Immutable from 'seamless-immutable';
+import { useFlag } from '@unleash/proxy-client-react';
 
 import SwitchHorizontalIcon from '#src/components/icons/SwitchHorizontalIcon.component';
 import TutorialIconWithAlertings from '#src/libs/platform-tutorial/components/TutorialIconWithAlertings.component';
@@ -280,6 +281,8 @@ const ResponsiveDrawer: React.FC<Props> = ({
   ]);
 
   const revampedBOEnabledForCompany = companyTheme.revamped_backoffice_enabled;
+
+  const showNewBIDashboard = useFlag('new_bi_dashboard');
 
   const items: DrawerItem[] = React.useMemo(() => {
     return [
@@ -565,12 +568,16 @@ const ResponsiveDrawer: React.FC<Props> = ({
         icon: DescriptionIcon,
         text: t('backofficeMenu.reporting'),
       } as DrawerItemDefault,
-      {
-        to: INSIGHTS_ROUTES.INDEX,
-        icon: TrendingUp,
-        text: t('backofficeMenu.insights.insights'),
-        badge: 'New',
-      } as DrawerItemDefault,
+      ...(showNewBIDashboard
+        ? [
+            {
+              to: INSIGHTS_ROUTES.INDEX,
+              icon: TrendingUp,
+              text: t('backofficeMenu.insights.insights'),
+              badge: 'New',
+            } as DrawerItemDefault,
+          ]
+        : []),
       { type: 'divider' } as DrawerItemDivider,
       {
         icon: SettingsIcon,
@@ -770,6 +777,7 @@ const ResponsiveDrawer: React.FC<Props> = ({
     disconnect,
     iconsOnly,
     setDrawerIconsOnly,
+    showNewBIDashboard,
   ]);
 
   React.useEffect(() => {

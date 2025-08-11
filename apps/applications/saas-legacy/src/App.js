@@ -23,8 +23,10 @@ import Root from './Root';
 import initStore from './store';
 import { rudderInitialize } from './components/analytics/rudderstack/utils';
 import theme from './theme';
+import { FlagProvider } from '@unleash/proxy-client-react';
+import initUnleash from './unleash';
 
-export class App extends Component<{}, {}> {
+export class App extends Component {
   state = {
     reloaded: false,
   };
@@ -39,6 +41,8 @@ export class App extends Component<{}, {}> {
     const { store, history } = initStore();
     this.store = store;
     this.history = history;
+
+    this.unleash_config = initUnleash();
   }
 
   componentDidMount() {
@@ -52,28 +56,29 @@ export class App extends Component<{}, {}> {
   render() {
     return (
       <Provider store={this.store}>
-        <MuiThemeProvider theme={theme}>
-          <CssBaseline>
-            <ConnectedRouter history={this.history}>
-              <Suspense fallback={<LoadingBackoffice />}>
-                <MuiPickersUtilsProvider
-                  locale={Settings.defaultLocale}
-                  utils={LocalizedLuxonUtils}
-                >
-                  <SnackbarPile />
-                  <BackgroundSnackbar />
-                  <BackgroundDialog />
-                  <Root />
-                </MuiPickersUtilsProvider>
-              </Suspense>
-            </ConnectedRouter>
-          </CssBaseline>
-        </MuiThemeProvider>
+        <FlagProvider config={this.unleash_config}>
+          <MuiThemeProvider theme={theme}>
+            <CssBaseline>
+              <ConnectedRouter history={this.history}>
+                <Suspense fallback={<LoadingBackoffice />}>
+                  <MuiPickersUtilsProvider
+                    locale={Settings.defaultLocale}
+                    utils={LocalizedLuxonUtils}
+                  >
+                    <SnackbarPile />
+                    <BackgroundSnackbar />
+                    <BackgroundDialog />
+                    <Root />
+                  </MuiPickersUtilsProvider>
+                </Suspense>
+              </ConnectedRouter>
+            </CssBaseline>
+          </MuiThemeProvider>
+        </FlagProvider>
       </Provider>
     );
   }
 }
-
 export const storage = window.localStorage;
 
 export default compose(withSentryErrorReporting)(App);

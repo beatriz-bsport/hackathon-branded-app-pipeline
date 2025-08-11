@@ -4103,7 +4103,8 @@
                     "confirm": "Cancella",
                     "cancel": "Annulla",
                     "content": "Non programmare la sessione ricorrente comporterà la cancellazione di future sessioni registrate tramite questa regola.",
-                    "title": "Non fissare un appuntamento ricorrente"
+                    "title": "Non fissare un appuntamento ricorrente",
+                    "cancelRelatedBookings": "Annulla tutte le prenotazioni future effettuate con la regola"
                 }
             },
             "form": {

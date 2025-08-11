@@ -9767,7 +9767,7 @@
             "workshop": "Ateliers",
             "subtitle": {
                 "helper": "Vous pouvez grouper ensemble vos règles de rémunérations pour les activités, ateliers et rendez-vous. En ajoutant un professeur à un groupe, l’ensemble des règles de rémunération du groupe viennent s’appliquer automatiquement au professeur. Tout changement sur le groupe viendra aussi se faire sur tous les professeurs du groupe.",
-                "default": "Rémunérations par défaut",
+                "default": "Règles de rémunération par défaut",
                 "specfic_private_slot": "Rémunération spécifique pour un rendez-vous",
                 "coaches": "Professeurs associés",
                 "removed_coaches": "Professeurs retirés"
@@ -12543,7 +12543,8 @@
                     },
                     "establishmentBillingGroup": {
                         "title": "Groupe de facturation",
-                        "description": "Toutes les ventes effectuées au sein de ce groupe de facturation associé seront facturées depuis un seul et même point de vente. Cela inclut les factures, les rapports et les mises à jour de l’inventaire."
+                        "description": "Toutes les ventes effectuées au sein de ce groupe de facturation associé seront facturées depuis un seul et même point de vente. Cela inclut les factures, les rapports et les mises à jour de l’inventaire.",
+                        "helpText": "Toutes les ventes effectuées au sein de ce groupe de facturation associé seront facturées depuis un seul et même point de vente. Cela inclut les factures, les rapports et les mises à jour de l’inventaire."
                     },
                     "teacher": {
                         "ifEmptySelectAll": "Laisser vide pout tout sélectionner",

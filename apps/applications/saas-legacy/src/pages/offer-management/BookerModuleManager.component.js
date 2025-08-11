@@ -85,6 +85,7 @@ export default compose(
       similarOfferGroup: withMetaActivity(
         withEstablishment(withCustomLevel(getOffersListByGroupSelector)),
       )(state, props.offer.group?.id ?? props.offer.group),
+      similarOfferGroupLoading: state.offer.groups.loading,
       compatiblePacks: compatiblePacksWithOfferAndEnabled(state),
       compatiblePacksLoading: state.offer.compatiblePacks.loading,
       userRole: getUserRole(state),
@@ -128,15 +129,23 @@ export default compose(
   ),
 
   withHandlers({
-    fetchSimilarOffers:
+    fetchAssociatedOffers:
       ({
         fetchMetaActivityBulk,
         fetchEstablishmentBulk,
         fetchCoachBulk,
         fetchSimilarOffers,
+        fetchOffersInGroup,
         offerId,
+        offer,
       }) =>
       () => {
+        // For offers with a group, we fetch the offers in the same group rather than with the same recurrent id
+        if (offer.group) {
+          fetchOffersInGroup(offer.group.id);
+          return;
+        }
+        // Otherwise, we fetch similar offers based on the recurrent id or the datetime of the session
         fetchSimilarOffers(
           offerId,
           { wide: true },

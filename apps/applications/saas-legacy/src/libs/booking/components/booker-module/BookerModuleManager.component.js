@@ -62,7 +62,9 @@ type Props = {
   member: { name: string, id: number, photo?: string },
   similarOffers: Array<Offer>,
   similarOfferLoading: boolean,
-  fetchSimilarOffers: () => void,
+  similarOfferGroup: Array<Offer>,
+  similarOfferGroupLoading: boolean,
+  fetchAssociatedOffers: () => void,
   registererObject: {
     paymentPack?: PaymentPack,
     consumerPaymentPack?: ConsumerPaymentPack,
@@ -441,7 +443,6 @@ export class BookerModuleManager extends PureComponent<Props, State> {
                   cppMaxoutBookingsByCpp={this.props.cppMaxoutBookingsByCpp}
                   disableMultiBooking={
                     !!this.props.offer.room_blueprint ||
-                    hasGroup ||
                     this.props.isAutoBooking
                   }
                   enableMultiLocalization={
@@ -490,15 +491,22 @@ export class BookerModuleManager extends PureComponent<Props, State> {
               )}
               {this.props.step === OFFER_CHOICE && (
                 <BookingModuleOfferChoice
+                  associatedOffers={
+                    this.props.offer.group
+                      ? this.props.similarOfferGroup
+                      : this.props.similarOffers
+                  }
+                  associatedOffersLoading={
+                    this.props.similarOfferLoading ||
+                    this.props.similarOfferGroupLoading
+                  }
+                  fetchAssociatedOffers={this.props.fetchAssociatedOffers}
                   fetchLevelList={this.handleLevelList}
-                  fetchSimilarOffers={this.props.fetchSimilarOffers}
                   goBack={this.props.backToRegistererChoice}
                   offer={this.props.offer}
                   offerId={this.props.offerId}
                   registererObject={this.props.registererObject}
                   registerToOffer={this.props.registerToOffer}
-                  similarOfferLoading={this.props.similarOfferLoading}
-                  similarOffers={this.props.similarOffers}
                 />
               )}
               <Button onClick={onCancel} variant="outlined">

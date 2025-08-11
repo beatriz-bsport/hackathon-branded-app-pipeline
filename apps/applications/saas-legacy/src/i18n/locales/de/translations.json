@@ -5369,7 +5369,7 @@
                 "delete": {
                     "thereAreConsumers": "Achtung! Einige Mitglieder haben diesen Kurspass gekauft. Wenn Du sie archivierst, können diese Mitglieder ihre verbleibenden Credits weiterhin verwenden. Du kannst sie hier manuell auf Null stellen.\n\nDer Pass wird nicht mehr in Deinem Shop für neue Käufer erscheinen.",
                     "actions": {
-                        "submit": "Löschen",
+                        "submit": "Archivieren",
                         "cancel": "Abbrechen"
                     },
                     "title": "Archivieren des Passes:",

@@ -12536,7 +12536,8 @@
                     "cancel": "Abbrechen",
                     "content": "Das Entfernen des wiederkehrenden Termins führt zur Stornierung zukünftiger Termine, die über diese Regel erfasst wurden.",
                     "title": "Entferne einen wiederkehrenden Termin",
-                    "content_with_cancellation_option": "Diese Regel zu wiederkehrenden Buchungen wird gelöscht. Möchtest du außerdem alle zukünftigen Buchungen mit dieser Regelung absagen?"
+                    "content_with_cancellation_option": "Diese Regel zu wiederkehrenden Buchungen wird gelöscht. Möchtest du außerdem alle zukünftigen Buchungen mit dieser Regelung absagen?",
+                    "cancelRelatedBookings": "Alle zukünftigen Buchungen, die mit dieser Regel vorgenommen wurden, stornieren"
                 }
             },
             "form": {

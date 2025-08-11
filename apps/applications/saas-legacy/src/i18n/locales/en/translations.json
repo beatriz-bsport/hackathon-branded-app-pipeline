@@ -8525,7 +8525,9 @@
             "SEPA": "SEPA",
             "CHECK": "Check",
             "CASH": "Cash",
-            "BACS_DEBIT": "Bacs Direct Debit"
+            "BACS_DEBIT": "Bacs Direct Debit",
+            "TWINT": "TWINT",
+            "90": "TWINT"
         },
         "forms": {
             "cancelPayment": "Previous",
@@ -8601,7 +8603,8 @@
             "80": "PayPal",
             "label": "Payment method",
             "disputeWon": "Won",
-            "onlinePayments": "Online payments"
+            "onlinePayments": "Online payments",
+            "90": "TWINT"
         },
         "actions": {
             "addThisPaymentItem": "Add this payment method"
@@ -9412,7 +9415,8 @@
                     "titleEdit": "Category",
                     "update": "Rename",
                     "create": "Add",
-                    "cancel": "Cancel"
+                    "cancel": "Cancel",
+                    "helper": "Categories are a useful way to organize your passes. These names will appear to your members on the Member Area and Mobile App. "
                 }
             },
             "category": "Pass categories"
@@ -10654,7 +10658,7 @@
                 "detailsAndRestrictions": "Details and restrictions",
                 "notification": "Notifications",
                 "managerOnly": {
-                    "label": "Unavailable for purchase"
+                    "label": "Hidden to members"
                 },
                 "name": {
                     "label": "Name",
@@ -12352,7 +12356,8 @@
             "updated_status": "Updated status",
             "admission": "Admission",
             "kind": "Type",
-            "billing_date_start": "First billing date"
+            "billing_date_start": "First billing date",
+            "payment_method_twint": "TWINT"
         },
         "groupedColumns": {
             "member": "Member",
@@ -12386,7 +12391,8 @@
             "giropay": "Giropay",
             "paypal_wallet": "PayPal Wallet",
             "debt": "Internal account",
-            "bacs_debit": "Bacs Direct Debit"
+            "bacs_debit": "Bacs Direct Debit",
+            "twint": "TWINT"
         },
         "product_type": {
             "payment_pack": "Pass",
@@ -12743,7 +12749,8 @@
                 "30": "Sofort",
                 "40": "iDEAL",
                 "50": "EPS",
-                "60": "Giropay"
+                "60": "Giropay",
+                "90": "TWINT"
             },
             "booking_status_code": {
                 "0": "Not cancelled",
@@ -13066,7 +13073,8 @@
                     "title": "Advanced settings",
                     "establishmentBillingGroup": {
                         "title": "billing group *",
-                        "description": "All sales performed within this associated billing group will be billed from a single location. This includes invoices, reports, and stock inventory updates."
+                        "description": "All sales performed within this associated billing group will be billed from a single location. This includes invoices, reports, and stock inventory updates.",
+                        "helpText": "All sales performed within this associated billing group will be billed from a single location. This includes invoices, reports, and stock inventory updates."
                     },
                     "teacher": {
                         "title": "Teacher restrictions",

@@ -3413,7 +3413,8 @@
                 "establishment": "Établissement",
                 "name": "Nom",
                 "noAddress": "Aucune adresse n'est associée à ce groupe de facturation",
-                "address": "Adresse"
+                "address": "Adresse",
+                "multiLocationWebshopEnabled": "Ce groupe de facturation ne peut pas être supprimé car la fonctionnalité de boutique en ligne multi-localisation est activée."
             }
         },
         "billing_group": {
@@ -8390,7 +8391,13 @@
             "IDEAL": "iDEAL",
             "EPS": "EPS",
             "GIROPAY": "Giropay",
-            "BACS_DEBIT": "Bacs Direct Debit"
+            "BACS_DEBIT": "Bacs Direct Debit",
+            "APPLE_PAY": "Apple Pay",
+            "TWINT": "TWINT",
+            "90": "TWINT",
+            "GOOGLE_PAY": "Google Pay",
+            "110": "Google Pay",
+            "100": "Apple Pay"
         },
         "forms": {
             "cancelPayment": "Précédent",
@@ -8469,7 +8476,10 @@
             "80": "PayPal",
             "label": "Moyen de paiement",
             "disputeWon": "Résolu",
-            "onlinePayments": "Paiement en ligne"
+            "onlinePayments": "Paiement en ligne",
+            "90": "TWINT",
+            "110": "Google Pay",
+            "100": "Apple Pay"
         },
         "actions": {
             "addThisPaymentItem": "Ajouter ce moyen de paiement"
@@ -9757,7 +9767,7 @@
             "workshop": "Ateliers",
             "subtitle": {
                 "helper": "Vous pouvez grouper ensemble vos règles de rémunérations pour les activités, ateliers et rendez-vous. En ajoutant un professeur à un groupe, l’ensemble des règles de rémunération du groupe viennent s’appliquer automatiquement au professeur. Tout changement sur le groupe viendra aussi se faire sur tous les professeurs du groupe.",
-                "default": "Rémunérations par défaut",
+                "default": "Règles de rémunération par défaut",
                 "specfic_private_slot": "Rémunération spécifique pour un rendez-vous",
                 "coaches": "Professeurs associés",
                 "removed_coaches": "Professeurs retirés"
@@ -11110,7 +11120,9 @@
                     "content": "Déprogrammer le RDV récurrent entrainera l'annulation des RDV futurs enregistrés via cette règle.",
                     "cancel": "Annuler",
                     "confirm": "Supprimer",
-                    "title": "Suppression RDV récurrent"
+                    "title": "Suppression RDV récurrent",
+                    "content_with_cancellation_option": "Cette règle de réservation récurrente sera supprimée. Souhaitez-vous également annuler toutes les réservations futures effectuées avec cette règle ?",
+                    "cancelRelatedBookings": "Annuler toutes les réservations futures effectuées avec cette règle"
                 },
                 "update": {
                     "title": "Modification RDV récurrent",
@@ -11959,7 +11971,10 @@
             "nb_credit": "Nombre total de lignes",
             "nb_cashbook": "Nombre total de lignes",
             "total_rows": "Nombre total de lignes",
-            "amount_upcoming_cts": "Montant à venir"
+            "amount_upcoming_cts": "Montant à venir",
+            "payment_method_twint": "TWINT",
+            "payment_method_google_pay": "Google Pay",
+            "payment_method_apple_pay": "Apple Pay"
         },
         "yes": "Oui",
         "no": "Non",
@@ -11986,7 +12001,10 @@
             "eps": "EPS",
             "giropay": "Giropay",
             "debt": "Crédit interne",
-            "paypal_wallet": "Portefeuille PayPal"
+            "paypal_wallet": "Portefeuille PayPal",
+            "twint": "TWINT",
+            "google_pay": "Google Pay",
+            "apple_pay": "Apple Pay"
         },
         "payment_method_with_credit_account": {
             "0": "Carte",
@@ -12200,7 +12218,10 @@
                 "30": "Sofort",
                 "40": "iDEAL",
                 "50": "EPS",
-                "60": "Giropay"
+                "60": "Giropay",
+                "100": "Apple Pay",
+                "90": "TWINT",
+                "110": "Google Pay"
             },
             "payment_method_with_credit_account": {
                 "0": "Carte",
@@ -12524,7 +12545,8 @@
                     },
                     "establishmentBillingGroup": {
                         "title": "Groupe de facturation",
-                        "description": "Toutes les ventes effectuées au sein de ce groupe de facturation associé seront facturées depuis un seul et même point de vente. Cela inclut les factures, les rapports et les mises à jour de l’inventaire."
+                        "description": "Toutes les ventes effectuées au sein de ce groupe de facturation associé seront facturées depuis un seul et même point de vente. Cela inclut les factures, les rapports et les mises à jour de l’inventaire.",
+                        "helpText": "Toutes les ventes effectuées au sein de ce groupe de facturation associé seront facturées depuis un seul et même point de vente. Cela inclut les factures, les rapports et les mises à jour de l’inventaire."
                     },
                     "teacher": {
                         "ifEmptySelectAll": "Laisser vide pout tout sélectionner",
@@ -14735,14 +14757,16 @@
                     "filterPlaceholder": {
                         "color": "Choisir la couleur",
                         "size": "Choisir la taille",
-                        "company": "Sélectionner un studio"
+                        "company": "Sélectionner un studio",
+                        "establishmentBillingGroup": "Sélectionnez un groupe de facturation"
                     },
                     "unsavedChangesModal": {
                         "default": "Souhaitez-vous enregistrer vos modifications avant de passer à une autre page ?",
                         "inventory": "Avant de passer à une autre page, souhaitez-vous mettre à jour l'inventaire en fonction des valeurs introduites dans la colonne « Modification des stocks » ?",
                         "title": "Modifications non sauvegardées"
                     },
-                    "companyName": "Studio"
+                    "companyName": "Studio",
+                    "tooltipForMultiLocationWebshop": "Étant donné que la fonctionnalité multi-localisation est activée pour ce studio, le stock ne peut être ajusté qu'à partir du sous-compte, et non à partir du Master Account."
                 },
                 "history": {
                     "invoice": {
@@ -16879,9 +16903,6 @@
         },
         "oneClickBooking": {
             "genericError": "Nous n'avons pas pu finaliser votre réservation. Veuillez vérifier vos informations et réessayer."
-        },
-        "quicksaleCheckout": {
-            "15010": "Le panier n'est plus disponible"
         }
     },
     "spotScheduling": {
@@ -17084,7 +17105,7 @@
             "reader_error": "Une erreur est survenue. Assurez-vous que votre terminal est bien en ligne, et connecté au même réseau wifi que votre appareil.",
             "none": "",
             "terminal_reader_busy": "Le lecteur est actuellement occupé à traiter une autre demande ou à effectuer une mise à jour.",
-            "terminal_reader_offline": "Le lecteur est actuellement hors ligne, veuillez vous assurer que le lecteur est sous tension et connecté à l'internet avant de réitérer votre demande.",
+            "terminal_reader_offline": "Le lecteur de carte est hors ligne. Vérifiez qu’il est allumé et connecté à Internet, puis réessayez.",
             "terminal_reader_timeout": "Un délai d'attente s'est écoulé lors de l'envoi de cette commande au lecteur."
         },
         "error_code": {

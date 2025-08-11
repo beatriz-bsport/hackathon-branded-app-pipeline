@@ -11562,7 +11562,9 @@
                     "confirm": "Verwijder",
                     "cancel": "Annuleer",
                     "content": "Het annuleren van de terugkerende afspraak leidt tot de annulering van toekomstige afspraken die via deze regel zijn geregistreerd.",
-                    "title": "Terugkerende afspraak annuleren"
+                    "title": "Terugkerende afspraak annuleren",
+                    "cancelRelatedBookings": "Annuleer alle toekomstige boekingen die met de regel zijn gemaakt",
+                    "content_with_cancellation_option": "Deze terugkerende boekingsregel wordt verwijderd. Wil je ook toekomstige boekingen die met deze regel zijn gemaakt annuleren?"
                 }
             },
             "form": {

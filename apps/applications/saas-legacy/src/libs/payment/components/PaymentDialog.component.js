@@ -222,6 +222,7 @@ export class PaymentDialog extends React.Component<Props, State> {
                       {[PAYMENT_ENGINE_STRIPE, PAYMENT_ENGINE_BSPORT].map(
                         (engineIdentifier) => (
                           <FormControlLabel
+                            key={engineIdentifier}
                             control={<Radio color="primary" />}
                             disabled={
                               !availableEngineList.includes(engineIdentifier) ||
@@ -362,6 +363,7 @@ export class PaymentDialog extends React.Component<Props, State> {
                   {parseInt(this.state.paymentEngine, 10) ===
                     PAYMENT_ENGINE_BSPORT && (
                     <PaymentBsportInternal
+                      showDateInput
                       amountToPay={this.props.amountToPay}
                       clientSecret={this.props.clientSecret}
                       establishment={this.props.establishments}

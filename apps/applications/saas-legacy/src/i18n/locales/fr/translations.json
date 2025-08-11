@@ -9767,7 +9767,7 @@
             "workshop": "Ateliers",
             "subtitle": {
                 "helper": "Vous pouvez grouper ensemble vos règles de rémunérations pour les activités, ateliers et rendez-vous. En ajoutant un professeur à un groupe, l’ensemble des règles de rémunération du groupe viennent s’appliquer automatiquement au professeur. Tout changement sur le groupe viendra aussi se faire sur tous les professeurs du groupe.",
-                "default": "Rémunérations par défaut",
+                "default": "Règles de rémunération par défaut",
                 "specfic_private_slot": "Rémunération spécifique pour un rendez-vous",
                 "coaches": "Professeurs associés",
                 "removed_coaches": "Professeurs retirés"
@@ -11120,7 +11120,9 @@
                     "content": "Déprogrammer le RDV récurrent entrainera l'annulation des RDV futurs enregistrés via cette règle.",
                     "cancel": "Annuler",
                     "confirm": "Supprimer",
-                    "title": "Suppression RDV récurrent"
+                    "title": "Suppression RDV récurrent",
+                    "content_with_cancellation_option": "Cette règle de réservation récurrente sera supprimée. Souhaitez-vous également annuler toutes les réservations futures effectuées avec cette règle ?",
+                    "cancelRelatedBookings": "Annuler toutes les réservations futures effectuées avec cette règle"
                 },
                 "update": {
                     "title": "Modification RDV récurrent",
@@ -12543,7 +12545,8 @@
                     },
                     "establishmentBillingGroup": {
                         "title": "Groupe de facturation",
-                        "description": "Toutes les ventes effectuées au sein de ce groupe de facturation associé seront facturées depuis un seul et même point de vente. Cela inclut les factures, les rapports et les mises à jour de l’inventaire."
+                        "description": "Toutes les ventes effectuées au sein de ce groupe de facturation associé seront facturées depuis un seul et même point de vente. Cela inclut les factures, les rapports et les mises à jour de l’inventaire.",
+                        "helpText": "Toutes les ventes effectuées au sein de ce groupe de facturation associé seront facturées depuis un seul et même point de vente. Cela inclut les factures, les rapports et les mises à jour de l’inventaire."
                     },
                     "teacher": {
                         "ifEmptySelectAll": "Laisser vide pout tout sélectionner",

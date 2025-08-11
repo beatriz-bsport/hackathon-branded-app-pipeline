@@ -10632,7 +10632,9 @@
                     "confirm": "Eliminar",
                     "cancel": "Cancelar",
                     "content": "Si no se programan las citas recurrentes, se cancelarán las citas futuras que se registren mediante esta regla.",
-                    "title": "Desprogramar una cita recurrente"
+                    "title": "Desprogramar una cita recurrente",
+                    "cancelRelatedBookings": "Cancelar todas las reservas futura realizadas con la norma",
+                    "content_with_cancellation_option": "Esta regla de reserva recurrente será eliminada. ¿Desea también cancelar las futuras reservas realizadas con esta regla?"
                 }
             },
             "form": {

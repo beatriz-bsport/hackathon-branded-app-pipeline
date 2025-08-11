@@ -13073,7 +13073,8 @@
                     "title": "Advanced settings",
                     "establishmentBillingGroup": {
                         "title": "billing group *",
-                        "description": "All sales performed within this associated billing group will be billed from a single location. This includes invoices, reports, and stock inventory updates."
+                        "description": "All sales performed within this associated billing group will be billed from a single location. This includes invoices, reports, and stock inventory updates.",
+                        "helpText": "All sales performed within this associated billing group will be billed from a single location. This includes invoices, reports, and stock inventory updates."
                     },
                     "teacher": {
                         "title": "Teacher restrictions",

@@ -42,7 +42,7 @@ export const RecurrenceRulePrivateBookingDeleteDialog = (props: Props) => {
       </DialogTitle>
       <DialogContent>
         <DialogContentText>
-          {t('recurrenceRule.forms.delete.content')}
+          {t('recurrenceRule.forms.delete.content_with_cancellation_option')}
         </DialogContentText>
         <FormGroup>
           <FormControlLabel

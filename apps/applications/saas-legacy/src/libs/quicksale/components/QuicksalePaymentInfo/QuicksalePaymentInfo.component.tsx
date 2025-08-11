@@ -153,6 +153,7 @@ const QuicksalePaymentInfo: React.FC<Props> = ({
             (paymentGroupMethod) =>
               paymentGroupMethod !== PAYMENT_GROUP_METHOD_IDENTIFIER_DEBT,
           )}
+          showDateInput={false}
         >
           {children}
         </PaymentBsportInternal>

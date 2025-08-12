@@ -1,6 +1,10 @@
 {
-    "default": {
-        "menus": {
+  "default": {
+    "common": {
+      "back": "Zurück",
+      "new": "Neu"
+    },
+    "menus": {
             "reporting": "Berichte",
             "dashboard": "Dashboard / Übersicht",
             "marketing": {

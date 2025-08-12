@@ -1,6 +1,10 @@
 {
-    "default": {
-        "menus": {
+  "default": {
+    "common": {
+      "back": "Retour",
+      "new": "Nouveau"
+    },
+    "menus": {
             "inbox": "Messagerie",
             "notifications": "Notifications",
             "calendar": "Calendrier",

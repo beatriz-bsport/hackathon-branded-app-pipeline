@@ -1,6 +1,10 @@
 {
-    "default": {
-        "menus": {
+  "default": {
+    "common": {
+      "back": "Indietro",
+      "new": "Nuovo"
+    },
+    "menus": {
             "memberships": {
                 "title": "Iscrizioni",
                 "subscriptions": "Abbonamenti ricorrenti",

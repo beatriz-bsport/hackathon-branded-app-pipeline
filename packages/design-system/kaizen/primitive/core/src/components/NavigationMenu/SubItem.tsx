@@ -70,6 +70,7 @@ const SubItem: React.FC<SubItemProps> = ({
   id,
   label,
   active,
+  endSlot,
   ...props
 }) => {
   const { selectedItemId, setSelectedItemId, onItemClick } =
@@ -118,15 +119,20 @@ const SubItem: React.FC<SubItemProps> = ({
       {...props}
     >
       {indicator}
-      <Body
-        htmlVariant="p"
-        size="md"
-        color="inherit"
-        className={navigationMenuSubItemLabel({ selected })}
-        weight={selected ? "stronger" : "weak"}
-      >
-        {label}
-      </Body>
+      <div className="flex items-center w-full gap-xs">
+        <Body
+          htmlVariant="p"
+          size="md"
+          color="inherit"
+          className={navigationMenuSubItemLabel({ selected })}
+          weight={selected ? "stronger" : "weak"}
+        >
+          {label}
+        </Body>
+        {!!endSlot && (
+          <div className="ml-auto flex items-center">{endSlot}</div>
+        )}
+      </div>
     </button>
   );
 };

@@ -1,6 +1,7 @@
 exports.default = {
   common: {
     back: "Back",
+    new: "New",
   },
   menus: {
     popover: {

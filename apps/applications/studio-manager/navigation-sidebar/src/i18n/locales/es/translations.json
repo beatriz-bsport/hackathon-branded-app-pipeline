@@ -1,6 +1,10 @@
 {
-    "default": {
-        "revampCard": {
+  "default": {
+    "common": {
+      "back": "Atrás",
+      "new": "Nuevo"
+    },
+    "revampCard": {
             "goBackToOldUi": "Volver a la antigua interfaz de usuario",
             "betaFeedbackLink": "Comentarios sobre la versión beta"
         },

@@ -86,7 +86,7 @@ const QuicksaleTileList: React.FC<Props> = ({
           );
 
           if (!resultsForThisSection || resultsForThisSection.length === 0)
-            return <></>;
+            return null;
 
           return (
             <div
@@ -112,13 +112,13 @@ const QuicksaleTileList: React.FC<Props> = ({
                   >
                     <QuicksaleItemCard
                       addToBasket={onItemClick}
-                      isExcludingTax={isExcludingTax}
+                      isExcludingTax={!!isExcludingTax}
                       item={result}
                       onVariantItemClick={(itemId) =>
                         handleVariantItemClick(itemId, section.section_id)
                       }
-                      outOfStock={result.outOfStock}
-                      restrictedPurchase={result.restricted}
+                      outOfStock={!!result.outOfStock}
+                      restrictedPurchase={!!result.restricted}
                     />
                   </Grid>
                 ))}

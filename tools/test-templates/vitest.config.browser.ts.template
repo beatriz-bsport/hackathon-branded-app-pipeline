@@ -1,0 +1,7 @@
+import { {{CONFIG_FUNCTION}} } from "@bsport/config-vitest";
+
+export default {{CONFIG_FUNCTION}}(__dirname, {
+  test: {
+    setupFiles: [{{SETUP_FILES}}],
+  },
+});

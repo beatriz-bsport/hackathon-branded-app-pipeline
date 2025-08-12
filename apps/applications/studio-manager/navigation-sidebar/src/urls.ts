@@ -24,6 +24,7 @@ export const LEGACY_URLS: Omit<Urls, "payout"> = {
   feedback: "/feature-base",
   giftcard: "/giftcard",
   inbox: "/inbox/thread",
+  insights: "/insights",
   invoice: "/invoice",
   member: "/member",
   memberNotification: "/marketing/notifications",

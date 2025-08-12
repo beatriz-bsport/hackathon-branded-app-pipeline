@@ -224,9 +224,20 @@ export const useNavigationElements = ({
         },
         {
           icon: "bar-chart-10",
-          id: "reporting",
-          label: t("menus.reporting"),
-          ...navigationUrls.reporting,
+          id: "analytics",
+          label: t("menus.analytics.title"),
+          subItems: [
+            {
+              id: "insights",
+              label: t("menus.analytics.insights"),
+              ...navigationUrls.insights,
+            },
+            {
+              id: "reports",
+              label: t("menus.analytics.reports"),
+              ...navigationUrls.reporting,
+            },
+          ],
         },
         {
           type: "divider",

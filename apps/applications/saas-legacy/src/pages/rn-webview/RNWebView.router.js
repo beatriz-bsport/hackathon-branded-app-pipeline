@@ -10,6 +10,7 @@ import ContractPayment from './ContractPayment.page';
 import SubscriptionPaymentMethod from './SubscriptionPaymentMethod';
 import SpotSchedulingSelector from './SpotSchedulingSelector.page';
 import namespaces from '../../i18n/namespaces.json';
+import { InvoicePayment } from './InvoicePayment.page';
 
 const RNWebView = () => {
   useTranslation(namespaces);
@@ -42,6 +43,11 @@ const RNWebView = () => {
         exact
         component={SpotSchedulingSelector}
         path="/rn-webview/spot-scheduling-selector/:companyId/:offerId/"
+      />
+      <Route
+        exact
+        component={InvoicePayment}
+        path="/rn-webview/invoice-payment/:invoiceUuid/:memberId/:companyId/"
       />
     </Switch>
   );

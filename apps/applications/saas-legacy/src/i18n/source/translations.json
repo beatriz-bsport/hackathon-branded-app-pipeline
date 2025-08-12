@@ -8722,7 +8722,8 @@
                 "firstPart": "At bsport we use the Stripe service to manage all your online payments. The amounts of these are kept on Stripe and then transferred to your account (section \"My collections\")."
             },
             "title": "Stripe balance"
-        }
+        },
+        "setupPaymentError": "An error occurred"
     },
     "paymentCombo": {
         "pageTitle": {

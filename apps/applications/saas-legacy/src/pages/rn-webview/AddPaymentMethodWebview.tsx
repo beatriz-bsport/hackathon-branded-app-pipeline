@@ -88,8 +88,11 @@ export class AddPaymentMethodWebview extends React.Component<Props, State> {
   };
 
   onCancel = () => {
-    // @ts-expect-error
-    window.ReactNativeWebView.postMessage(JSON.stringify({ status: 'cancel' }));
+    if (!!window.ReactNativeWebView) {
+      window.ReactNativeWebView.postMessage(
+        JSON.stringify({ status: 'cancel' }),
+      );
+    }
   };
 
   render() {

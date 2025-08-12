@@ -108,7 +108,6 @@ export class SpotSchedulingSelector extends Component<Props, State> {
         selectedSpotId: this.state.selectedSpotId,
       },
     };
-    // @ts-expect-error
     window?.ReactNativeWebView?.postMessage(JSON.stringify(message));
   };
 
@@ -137,7 +136,6 @@ export class SpotSchedulingSelector extends Component<Props, State> {
     const message = {
       type: 'spot-scheduling-selector::go-to-checkout',
     };
-    // @ts-expect-error
     window?.ReactNativeWebView?.postMessage(JSON.stringify(message));
   };
 

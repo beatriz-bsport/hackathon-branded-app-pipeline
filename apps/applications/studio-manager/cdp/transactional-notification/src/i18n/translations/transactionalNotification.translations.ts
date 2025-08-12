@@ -37,6 +37,15 @@ exports.default = {
         email: "Email",
         pushNotification: "Push Notification",
       },
+      tooltip: {
+        pushNotificationHelper: {
+          title: "Push notifications",
+          message:
+            "You can start enabling a push notification after you’ve set it up.",
+        },
+        franchiseOwned:
+          "The Master Account directly manages this transactional notification.",
+      },
       helper: {
         title: "Push notifications",
         description:

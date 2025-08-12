@@ -32,7 +32,7 @@ export type NotificationRuleDetail = {
 export type NotificationRuleEventSetting = {
   disabled: boolean;
   send_company: boolean;
-  disabled_checkboxes: boolean;
+  disabled_checkboxes?: boolean;
 };
 
 export type NotificationRuleSettings = {

@@ -205,20 +205,6 @@ export const fetchNotificationRuleDetailsAction: Action<
  *
  * @param fetch - The fetch function for making API calls
  * @returns Promise<Result<Record<number, NotificationRuleSetting>, Error>> - A Result containing settings mapped by rule ID
- *
- * @example
- * ```typescript
- * const result = await fetchNotificationRuleSettingsAction(fetch);
- * if (result.ok) {
- *   const ruleId = 123;
- *   const setting = result.value[ruleId];
- *   if (setting && !setting.disabled) {
- *     console.log('Rule is enabled and can send notifications');
- *   }
- * }
- * ```
- *
- * @see NotificationRuleSetting - For setting object structure
  */
 export const fetchNotificationRuleSettingsAction: Action<
   void,

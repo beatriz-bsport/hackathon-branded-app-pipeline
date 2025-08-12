@@ -18,9 +18,11 @@
     "translation:update": "pnpm run -w translation:update"
   },
   "dependencies": {
+    "@bsport/common": "workspace:*",
     "@bsport/fetch": "workspace:*",
     "@bsport/i18n": "workspace:*",
     "@bsport/kaizen-primitive-core": "workspace:*",
+    "@bsport/permissions": "workspace:*",
     "@bsport/sm-backbone": "workspace:*",
     "@bsport/store-cdp-notification-rule": "workspace:*",
     "@bsport/use-async": "workspace:*",

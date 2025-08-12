@@ -4,12 +4,13 @@ import {
   isValidNotificationRuleEventCategory,
 } from "@bsport/store-cdp-notification-rule";
 
+import { useNotificationRuleNavigation } from "#src/hooks/actions/use-notification-rule-navigation";
 import { useTranslation } from "#src/utils/i18n";
 
 /**
- * Hook for formatting notification rule event categories into list items.
+ * Hook for formatting notification rule group categories into list items.
  *
- * This hook provides utilities to format notification rule event categories for display
+ * This hook provides utilities to format notification rule group categories for display
  * in list components. It handles translation of category names and generates properly
  * formatted list items with action buttons showing notification counts.
  *
@@ -18,14 +19,16 @@ import { useTranslation } from "#src/utils/i18n";
  * @returns Object containing formatting functions
  * @returns returns.formatNotificationRuleEventListItems - Function to format categories into list items
  */
-export const useFormatNotificationEventList = ({
+export const useFormatNotificationGroupList = ({
   notificationRuleEventMapByGroup,
 }: {
   notificationRuleEventMapByGroup: Record<string, NotificationRuleEvent[]>;
 }) => {
   const { t } = useTranslation("transactionalNotification");
+  const { navigateToNotificationGroupDetails } =
+    useNotificationRuleNavigation();
 
-  const getNotificationRuleEventLabel = (event: string): string => {
+  const getNotificationRuleGroupLabel = (event: string): string => {
     if (!isValidNotificationRuleEventCategory(event)) {
       return event;
     }
@@ -42,16 +45,19 @@ export const useFormatNotificationEventList = ({
    * @param items - Array of notification rule event category identifiers
    * @returns Array of list item props ready for rendering
    */
-  const formatNotificationRuleEventListItems = (
+  const formatNotificationRuleGroupListItems = (
     items: string[],
   ): ListItemProps[] => {
     return items.map((item) => {
-      const eventLabel = getNotificationRuleEventLabel(item);
+      const eventLabel = getNotificationRuleGroupLabel(item);
       const notificationCount =
         notificationRuleEventMapByGroup[item]?.length ?? 0;
       return {
         id: item,
         title: eventLabel,
+        onItemClick: () => {
+          navigateToNotificationGroupDetails(item);
+        },
         buttons: [
           {
             id: `goto-notification-rule-event-${item}`,
@@ -65,6 +71,9 @@ export const useFormatNotificationEventList = ({
             intent: "flat",
             color: "default",
             size: "md",
+            onClick: () => {
+              navigateToNotificationGroupDetails(item);
+            },
           },
         ],
       };
@@ -72,7 +81,7 @@ export const useFormatNotificationEventList = ({
   };
 
   return {
-    formatNotificationRuleEventListItems,
-    getNotificationRuleEventLabel,
+    formatNotificationRuleGroupListItems,
+    getNotificationRuleGroupLabel,
   };
 };

@@ -1,5 +1,3 @@
-// @flow
-
 import React, { Component, Suspense } from 'react';
 import 'intl';
 import 'intl/locale-data/jsonp/en';
@@ -23,8 +21,7 @@ import Root from './Root';
 import initStore from './store';
 import { rudderInitialize } from './components/analytics/rudderstack/utils';
 import theme from './theme';
-import { FlagProvider } from '@unleash/proxy-client-react';
-import initUnleash from './unleash';
+import FeatureFlagsProvider from './unleash/FeatureFlagsProvider';
 
 export class App extends Component {
   state = {
@@ -41,8 +38,6 @@ export class App extends Component {
     const { store, history } = initStore();
     this.store = store;
     this.history = history;
-
-    this.unleash_config = initUnleash();
   }
 
   componentDidMount() {
@@ -56,7 +51,7 @@ export class App extends Component {
   render() {
     return (
       <Provider store={this.store}>
-        <FlagProvider config={this.unleash_config}>
+        <FeatureFlagsProvider>
           <MuiThemeProvider theme={theme}>
             <CssBaseline>
               <ConnectedRouter history={this.history}>
@@ -74,7 +69,7 @@ export class App extends Component {
               </ConnectedRouter>
             </CssBaseline>
           </MuiThemeProvider>
-        </FlagProvider>
+        </FeatureFlagsProvider>
       </Provider>
     );
   }

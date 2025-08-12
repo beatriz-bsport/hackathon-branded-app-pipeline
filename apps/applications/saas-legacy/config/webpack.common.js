@@ -56,9 +56,8 @@ module.exports = {
         __dirname,
         '../src/components/css-only/Fabrique',
       ),
-      // Force a single React instance for the legacy app to avoid Invalid Hook Call.
-      // Always resolve react & react-dom to this app's local node_modules copy (React 16.10.2)
-      // so dependencies pulled from the monorepo cannot introduce a second copy (e.g. React 19).
+      // Necessary to make unleash proxy work:
+      // Hook requires to have only 1 react verion
       react: path.resolve(__dirname, '../node_modules/react'),
       'react-dom': path.resolve(__dirname, '../node_modules/react-dom'),
     },

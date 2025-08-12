@@ -51,6 +51,7 @@ import ListItem from '@material-ui/core/ListItem';
 import Divider from '@material-ui/core/Divider';
 import Immutable from 'seamless-immutable';
 import { useFlag } from '@unleash/proxy-client-react';
+import { FeatureFlags } from '../../../unleash/flags';
 
 import SwitchHorizontalIcon from '#src/components/icons/SwitchHorizontalIcon.component';
 import TutorialIconWithAlertings from '#src/libs/platform-tutorial/components/TutorialIconWithAlertings.component';
@@ -282,7 +283,7 @@ const ResponsiveDrawer: React.FC<Props> = ({
 
   const revampedBOEnabledForCompany = companyTheme.revamped_backoffice_enabled;
 
-  const showNewBIDashboard = useFlag('new_bi_dashboard');
+  const showInsightsPage = useFlag(FeatureFlags.INSIGHTS_PAGE);
 
   const items: DrawerItem[] = React.useMemo(() => {
     return [
@@ -568,7 +569,7 @@ const ResponsiveDrawer: React.FC<Props> = ({
         icon: DescriptionIcon,
         text: t('backofficeMenu.reporting'),
       } as DrawerItemDefault,
-      ...(showNewBIDashboard
+      ...(showInsightsPage
         ? [
             {
               to: INSIGHTS_ROUTES.INDEX,
@@ -777,7 +778,7 @@ const ResponsiveDrawer: React.FC<Props> = ({
     disconnect,
     iconsOnly,
     setDrawerIconsOnly,
-    showNewBIDashboard,
+    showInsightsPage,
   ]);
 
   React.useEffect(() => {

@@ -119,12 +119,16 @@ const SubItem: React.FC<SubItemProps> = ({
       {...props}
     >
       {indicator}
-      <div className="flex items-center w-full gap-xs">
+      <div
+        className={classNames(
+          "flex items-center w-full gap-xs",
+          navigationMenuSubItemLabel({ selected }),
+        )}
+      >
         <Body
           htmlVariant="p"
           size="md"
           color="inherit"
-          className={navigationMenuSubItemLabel({ selected })}
           weight={selected ? "stronger" : "weak"}
         >
           {label}

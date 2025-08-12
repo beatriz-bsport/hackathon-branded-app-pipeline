@@ -26,15 +26,20 @@
     "format": "prettier --write '**/*.{ts,tsx,js,jsx,cjs,mjs,scss,css,json,md,mdx,html,svg}'",
     "format:check": "prettier --check '**/*.{ts,tsx,js,jsx,cjs,mjs}'",
     "lint": "eslint .",
-    "lint:fix": "eslint --fix ."
+    "lint:fix": "eslint --fix .",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage"
   },
   "dependencies": {},
   "devDependencies": {
-    "@bsport/config-eslint-react": "workspace:*"
+    "@bsport/config-eslint-react": "workspace:*",
+    "@bsport/config-vitest": "workspace:*"
   },
   "nx": {
     "tags": [
-      "postinstall"
+      "postinstall",
+      "execute:unit-tests"
     ]
   }
 }

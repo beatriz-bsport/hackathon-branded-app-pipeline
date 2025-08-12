@@ -11,6 +11,7 @@ import projectDependenciesList from "./project-dependencies-list";
 import projectImport from "./project-import";
 import projectList from "./project-list";
 import setApiEnvironment from "./set-api-environment";
+import testSetup from "./test-setup";
 
 // DO NOT REMOVE THIS LINE: IMPORTS
 
@@ -26,6 +27,7 @@ const COMMANDS: ((program: Command) => Promise<Command> | Command)[] = [
   projectImport,
   projectList,
   setApiEnvironment,
+  testSetup,
   // DO NOT REMOVE THIS LINE: COMMANDS
 ];
 

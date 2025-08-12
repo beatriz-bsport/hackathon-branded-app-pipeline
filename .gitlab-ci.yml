@@ -12,6 +12,7 @@ stages:
   - analyze
   - deploy-feature-branch
   - deploy
+  - post-deploy
 
 include:
   - local: "/tools/ci/validate-mr-title.yml"
@@ -21,6 +22,7 @@ include:
   - local: "/tools/ci/analyze.yml"
   - local: "/tools/ci/deploy-feature-branch.yml"
   - local: "/tools/ci/deploy-environment.yml"
+  - local: "/tools/ci/merge-branches.yml"
 
 workflow:
   rules:

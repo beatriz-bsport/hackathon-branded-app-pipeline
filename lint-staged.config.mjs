@@ -6,7 +6,6 @@ export default {
   "*.{ts,tsx,js,jsx}": [
     "prettier --write",
     (files) => `nx affected:lint --files="${files.join(",")}"`,
-    (files) => `nx affected:lint-old --files="${files.join(",")}"`,
   ],
 
   // Other files should not be linted, only formatted

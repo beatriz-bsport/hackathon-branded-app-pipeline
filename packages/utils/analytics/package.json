@@ -28,9 +28,12 @@
     "lint": "eslint .",
     "lint:fix": "eslint --fix ."
   },
-  "dependencies": {},
+  "dependencies": {
+    "mixpanel-browser": "^2.60.0"
+  },
   "devDependencies": {
-    "@bsport/config-eslint-react": "workspace:*"
+    "@bsport/config-eslint-react": "workspace:*",
+    "@types/mixpanel-browser": "^2.60.0"
   },
   "nx": {
     "tags": [

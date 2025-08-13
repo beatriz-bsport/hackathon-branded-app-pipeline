@@ -731,8 +731,8 @@ importers:
         specifier: ^4.1.1
         version: 4.1.1
       '@types/mixpanel-browser':
-        specifier: ^2.51.0
-        version: 2.51.0
+        specifier: ^2.60.0
+        version: 2.60.0
       '@types/mui-datatables':
         specifier: ^2.0.5
         version: 2.14.2
@@ -2849,10 +2849,17 @@ importers:
         version: link:../../../../tools/config/eslint-react
 
   packages/utils/analytics:
+    dependencies:
+      mixpanel-browser:
+        specifier: ^2.60.0
+        version: 2.60.0
     devDependencies:
       '@bsport/config-eslint-react':
         specifier: workspace:*
         version: link:../../../tools/config/eslint-react
+      '@types/mixpanel-browser':
+        specifier: ^2.60.0
+        version: 2.60.0
 
   packages/utils/broadcast-channel-polyfill:
     devDependencies:
@@ -7619,8 +7626,8 @@ packages:
   '@types/minimatch@5.1.2':
     resolution: {integrity: sha512-K0VQKziLUWkVKiRVrx4a40iPaxTUefQmjtkQofBkYRcoaaL/8rhwDWww9qWbrgicNOgnpIsMxyNIUM4+n6dUIA==}
 
-  '@types/mixpanel-browser@2.51.0':
-    resolution: {integrity: sha512-or4HZRDmqMJ1OP+O6h4hB+tVDKJffpVi2bFxi/Gem5TGnE94I7OtWKXtrwdDfSGhfOLL+WQIOUOxUZHAzHNi8A==}
+  '@types/mixpanel-browser@2.60.0':
+    resolution: {integrity: sha512-70oe8T3KdxHwsSo5aZphALdoqcsIorQBrlisnouIn9Do4dmC2C6/D56978CmSE/BO2QHgb85ojPGa4R8OFvVHA==}
 
   '@types/ms@0.7.34':
     resolution: {integrity: sha512-nG96G3Wp6acyAgJqGasjODb+acrI7KltPiRxzHPXnP3NgI28bpQDRv53olbqGXbfcgF5aiiHmO3xpwEpS5Ld9g==}
@@ -15944,7 +15951,7 @@ packages:
   puppeteer@12.0.1:
     resolution: {integrity: sha512-YQ3GRiyZW0ddxTW+iiQcv2/8TT5c3+FcRUCg7F8q2gHqxd5akZN400VRXr9cHQKLWGukmJLDiE72MrcLK9tFHQ==}
     engines: {node: '>=10.18.1'}
-    deprecated: < 22.8.2 is no longer supported
+    deprecated: < 24.9.0 is no longer supported
 
   pure-rand@6.1.0:
     resolution: {integrity: sha512-bVWawvoZoBYpp6yIoQtQXHZjmz35RSVHnUOTefl8Vcjr8snTPY1wnpSPMWekcFwbxI6gtmT7rSYPFvz71ldiOA==}
@@ -25599,7 +25606,7 @@ snapshots:
 
   '@types/minimatch@5.1.2': {}
 
-  '@types/mixpanel-browser@2.51.0': {}
+  '@types/mixpanel-browser@2.60.0': {}
 
   '@types/ms@0.7.34': {}
 

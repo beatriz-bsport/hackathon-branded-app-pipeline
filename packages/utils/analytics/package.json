@@ -23,17 +23,25 @@
     "build": "vite build",
     "ci:compile": "tsc",
     "dev": "vite build --watch",
+    "docs:generate": "tsx ./scripts/generate-events-docs.ts",
     "format": "prettier --write '**/*.{ts,tsx,js,jsx,cjs,mjs,scss,css,json,md,mdx,html,svg}'",
     "format:check": "prettier --check '**/*.{ts,tsx,js,jsx,cjs,mjs}'",
     "lint": "eslint .",
     "lint:fix": "eslint --fix ."
   },
   "dependencies": {
-    "mixpanel-browser": "^2.60.0"
+    "mixpanel-browser": "^2.60.0",
+    "zod": "^3.25.64"
   },
   "devDependencies": {
     "@bsport/config-eslint-react": "workspace:*",
-    "@types/mixpanel-browser": "^2.60.0"
+    "@bsport/typescript-monorepo-utils": "workspace:*",
+    "@types/mixpanel-browser": "^2.60.0",
+    "tsx": "^4.19.2",
+    "zod-to-json-schema": "^3.24.6"
+  },
+  "peerDependencies": {
+    "zod": "^3.25.64"
   },
   "nx": {
     "tags": [

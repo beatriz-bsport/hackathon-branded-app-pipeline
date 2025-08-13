@@ -5390,7 +5390,7 @@
                     "dialog": {
                         "title": "Règles d'affichage",
                         "subTitle": "Quels membres voulez-vous cibler ?",
-                        "helperTextRegisteredMembers": "Le formulaire apparaitra en pop-up sur l'Espace membre et le widget pour tous les membres concernés.",
+                        "helperTextRegisteredMembers": "Le formulaire apparaitra en pop-up sur l'Espace membre et le Mobile App pour tous les membres concernés.",
                         "helperTextNewMembers": "Le formulaire apparaitra en pop-up sur l'Espace membre et le widget à la suite du formulaire d'inscription.",
                         "create": "Ajouter",
                         "cancel": "Annuler",

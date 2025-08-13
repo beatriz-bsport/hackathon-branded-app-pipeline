@@ -6,12 +6,12 @@ Abstract the complexity of integrating and managing analytics across multiple pl
 
 Add `@bsport/analytics` to your project dependencies :
 
-```json
+```jsonc
 {
   "dependencies": {
-    "@bsport/analytics": "workspace:*"
+    "@bsport/analytics": "workspace:*",
     // other dependencies...
-  }
+  },
 }
 ```
 
@@ -19,9 +19,9 @@ Add `@bsport/analytics` to your project dependencies :
 
 ### Step 1 - Init and configure your analytics client
 
-Initialize an analytics client object. It will use by default Mixpanel.
+Initialize an analytics client object. By default, it uses Mixpanel.
 
-:warning: Make sure to enforce the typing of your analytics object with `AnalyticsClientInterface`, because of typing inference limitations.
+:warning: Make sure to enforce typing of your analytics object with `AnalyticsClientInterface` due to type inference limitations.
 
 ```tsx
 import {
@@ -32,32 +32,86 @@ import {
 export const analytics: AnalyticsClientInterface = new AnalyticsClient({
   internalDebug: true, // Agnostic debug, internal to the object
 });
+
+// Toggle internal debug mode at runtime when needed:
+analytics.setInternalDebugMode(true);
 ```
 
-If the object has not been configured, you might need to call
+If the object has not been configured in your frontend architecture, you might need to call
 
 ```tsx
-analytics.configure();
+import { analytics } from "#src/utils/analytics";
+
+analytics.configure({
+  token: import.meta.env.VITE_MIXPANEL_B2C_TOKEN,
+  env: import.meta.env.MODE,
+});
 ```
 
-### Step 2 - Inject the event in the track method of your analytics client
+### Step 2 - Define your event schema and function
+
+Define your event with Zod and the `generateEvent` helper.
+
+Rules:
+
+- In order to be detected by the extractor script, your application should contain a `#src/events/register.ts` file.
+- Your events schema can be defined anywhere, but should be exported inside the register file.
+- Your Zod Schema must contain an eventType: `eventType: z.string().default("my_event_name")`.
+- Your Zod Schema should contain a description: `z.object({}).describe("My event description")`.
+- All your properties must be set in the Zod Schema, with a description: `myProperty: z.number().describe("property description")`
+  The descriptions on the Zod Schema replace the JSDoc.
 
 ```tsx
-import { addButtonClickEvent } from "#src/events/some-file.ts";
+// src/events/list-events.ts
+import { z } from "zod";
+
+import { generateEvent } from "@bsport/analytics";
+
+export const buttonClickedEventSchema = z
+  .object({
+    eventType: z.string().default("button_clicked"),
+    kind: z
+      .string()
+      .describe("Kind of action performed when clicking on the button"),
+  })
+  .describe("When the user clicks on a button");
+
+// Used in your runtime application
+export const buttonClickedEvent = generateEvent(buttonClickedEventSchema);
+```
+
+```tsx
+// src/events/register.ts
+export { buttonClickedEventSchema } from "./list-events.ts";
+```
+
+### Step 3 - Inject the event in the track method of your analytics client
+
+```tsx
+import { buttonClickedEvent } from "#src/events/list-events.ts";
 import { analytics } from "#src/utils/analytics";
 
 const MyButton = () => {
   const onClick = () => {
     // Do something
 
-    analytics.track({
-      eventType: "button_clicked",
-      page: "my_current_url",
-      id: 5,
-    });
+    analytics.track(buttonClickedEvent({ kind: "Add Teacher" }));
   };
   return <button onClick={onClick} />;
 };
+```
+
+### Step 4 - Identify your users
+
+```tsx
+// On login
+analytics.identify({
+  userId: user.id,
+  traits: { email: user.email, role: user.role },
+});
+
+// On logout
+analytics.reset(); // or analytics.clearSuperProperties();
 ```
 
 ## Custom analytics tool

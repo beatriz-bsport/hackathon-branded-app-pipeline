@@ -1,6 +1,7 @@
 {
   "extends": "../../../tools/config/typescript/src/ts-package/tsconfig.json",
   "compilerOptions": {
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "types": ["vitest/globals"]
   }
 }

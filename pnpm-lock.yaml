@@ -2979,6 +2979,15 @@ importers:
       '@bsport/config-eslint-react':
         specifier: workspace:*
         version: link:../../../tools/config/eslint-react
+      '@bsport/config-vitest':
+        specifier: workspace:*
+        version: link:../../../tools/config/vitest
+      '@testing-library/jest-dom':
+        specifier: ^6.6.3
+        version: 6.6.3
+      '@testing-library/react':
+        specifier: ^16.3.0
+        version: 16.3.0(@testing-library/dom@10.4.0)(@types/react-dom@18.3.1)(@types/react@18.3.23)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       '@types/react':
         specifier: ^18.3.17
         version: 18.3.23

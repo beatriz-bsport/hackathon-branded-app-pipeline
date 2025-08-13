@@ -1,6 +1,7 @@
 import type { Command } from "commander";
 import fs from "fs-extra";
 import inquirer from "inquirer";
+import { select as selectWithSearch } from "inquirer-select-pro";
 import path from "path";
 
 import {
@@ -72,20 +73,24 @@ async function action(
         throw new Error(`Project not found: ${packagePath}`);
       }
     } else {
-      const { project } = await inquirer.prompt<{
-        project: ProjectWithAnalysis;
-      }>([
-        {
-          type: "list",
-          name: "project",
-          message: "Select package to configure test setup:",
-          choices: projects.map((project) => ({
-            name: formatProjectChoice(project),
-            value: project,
-          })),
+      selectedProject = await selectWithSearch({
+        message: "Select package to configure test setup:",
+        multiple: false,
+        options: (input?: string) => {
+          return projects
+            .filter((project) =>
+              input
+                ? project.name.toLowerCase().includes(input.toLowerCase()) ||
+                  project.path.toLowerCase().includes(input.toLowerCase())
+                : true,
+            )
+            .map((project) => ({
+              name: formatProjectChoice(project),
+              value: project,
+              disabled: false,
+            }));
         },
-      ]);
-      selectedProject = project;
+      });
     }
 
     // Check if already configured (unless force)

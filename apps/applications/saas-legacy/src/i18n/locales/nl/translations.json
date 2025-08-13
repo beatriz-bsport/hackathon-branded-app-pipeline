@@ -19506,7 +19506,7 @@
                         "cancel": "Annuleer",
                         "create": "Toevoegen",
                         "helperTextNewMembers": "Alle relevante leden zullen dit formulier als een pop-up op de Ledenruimte en na het inschrijfformulier zien.",
-                        "helperTextRegisteredMembers": "Alle relevante leden zullen dit formulier als een pop-up op de Ledenruimte en op de widget zien.",
+                        "helperTextRegisteredMembers": "Alle relevante leden zullen dit formulier als een pop-up op de Ledenruimte en op de Mobiele app zien.",
                         "subTitle": "Welke leden wil je contacteren?",
                         "title": "[Formulier] Berichtgeving",
                         "snoozeOptionHelperText": "We tonen dit formulier opnieuw nadat het {{count}} uur/uren gesnoozed is.",

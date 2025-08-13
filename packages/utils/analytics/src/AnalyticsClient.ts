@@ -21,12 +21,12 @@ export class AnalyticsClient<T = MixpanelConfig>
 
   constructor({
     adapter,
-    debug = false,
+    internalDebug = false,
   }: {
     adapter?: AnalyticsAdapter<T>;
-    debug?: boolean;
+    internalDebug?: boolean;
   } = {}) {
-    this.debug = debug;
+    this.debug = internalDebug;
     this.superProperties = {};
     this.analyticsAdapter = adapter ?? new MixpanelAdapter();
   }
@@ -109,7 +109,7 @@ export class AnalyticsClient<T = MixpanelConfig>
 
   //#region ----- Agnostic methods -----
 
-  setDebugMode(debug: boolean) {
+  setInternalDebugMode(debug: boolean) {
     this.debug = debug;
   }
 

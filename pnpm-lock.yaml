@@ -1853,6 +1853,9 @@ importers:
 
   apps/applications/studio-manager/host:
     dependencies:
+      '@bsport/analytics':
+        specifier: workspace:*
+        version: link:../../../../packages/utils/analytics
       '@bsport/envs':
         specifier: workspace:*
         version: link:../../../../packages/utils/envs

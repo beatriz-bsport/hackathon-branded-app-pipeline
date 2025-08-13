@@ -96,7 +96,7 @@ export type AnalyticsAgnosticMethods = {
    * Enable or disable the debug mode (logs in the console starting with [Analytics])
    * @param debug Whether to enable the debug mode
    */
-  setDebugMode(debug: boolean): void;
+  setInternalDebugMode(debug: boolean): void;
 
   /**
    * Remove properties that were appended to all events

@@ -19407,7 +19407,7 @@
                         "cancel": "Abbrechen",
                         "create": "Hinzufügen",
                         "helperTextNewMembers": "Das Formular erscheint als Pop-up auf dem Mitgliederbereich und dem Widget nach dem Anmeldeformular.",
-                        "helperTextRegisteredMembers": "Dieses Formular wird als Pop-up auf dem Mitgliederbereich und im Widget für alle betroffenen Mitglieder angezeigt.",
+                        "helperTextRegisteredMembers": "Dieses Formular wird als Pop-up auf dem Mitgliederbereich und im Mobile App für alle betroffenen Mitglieder angezeigt.",
                         "subTitle": "Welche Mitglieder wollen Sie ansprechen?",
                         "title": "Regeln anzeigen"
                     }

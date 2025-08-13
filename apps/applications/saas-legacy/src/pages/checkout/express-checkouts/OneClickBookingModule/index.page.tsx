@@ -361,7 +361,8 @@ const OneClickBookingModule: React.FC<Props> = ({
          * Instead of writing again a if statement, we cast the value of statusCode
          */
         errorCode={bookableStatusState?.value?.statusCode as ErrorCode}
-        goBackToCalendar={goBackToCalendar}
+        goBack={goBackToCalendar}
+        goBackButtonLabel={t('booking:oneClickBooking.goToCalendar')}
       />
     );
   }

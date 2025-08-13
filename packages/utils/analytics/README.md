@@ -30,7 +30,7 @@ import {
 } from "@bsport/analytics";
 
 export const analytics: AnalyticsClientInterface = new AnalyticsClient({
-  debug: true, // Agnostic debug, internal to the object
+  internalDebug: true, // Agnostic debug, internal to the object
 });
 ```
 

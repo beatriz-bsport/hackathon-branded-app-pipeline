@@ -98,6 +98,10 @@
       "sm-transactional-notification": {
         "devPort": 4305,
         "watchPath": "../cdp/transactional-notification/src/**/*"
+      },
+      "sm-insights": {
+        "devPort": 4350,
+        "watchPath": "../analytics/insights/src/**/*"
       }
     }
   }

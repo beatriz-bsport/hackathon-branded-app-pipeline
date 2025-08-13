@@ -78,6 +78,9 @@ const icons = {
     async () => await import("./assets/clock-stopwatch.svg?react"),
   ),
   clock: React.lazy(async () => await import("./assets/clock.svg?react")),
+  "coins-stacked-01": React.lazy(
+    async () => await import("./assets/coins-stacked-01.svg?react"),
+  ),
   "copy-03": React.lazy(async () => await import("./assets/copy-03.svg?react")),
   "copy-07": React.lazy(async () => await import("./assets/copy-07.svg?react")),
   "dots-horizontal": React.lazy(
@@ -193,6 +196,9 @@ const icons = {
   ),
   "shopping-cart-03": React.lazy(
     async () => await import("./assets/shopping-cart-03.svg?react"),
+  ),
+  "spacing-width-02": React.lazy(
+    async () => await import("./assets/spacing-width-02.svg?react"),
   ),
   "stop-circle-solid": React.lazy(
     async () => await import("./assets/stop-circle-solid.svg?react"),

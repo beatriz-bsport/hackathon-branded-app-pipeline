@@ -42,6 +42,9 @@ const TransactionalNotification = lazy(
   () => import("sm-transactional-notification/App"),
 );
 
+// ----- Analytics -----
+const Insights = lazy(() => import("sm-insights/App"));
+
 // ----- Common -----
 const NavigationSidebar = lazy(
   () => import("sm-navigation-sidebar/NavigationSidebar"),
@@ -90,6 +93,9 @@ export function Root() {
       url: urls.settings_transactionalNotification,
       element: <TransactionalNotification />,
     },
+
+    /* ----- Analytics ----- */
+    { url: urls.insights, element: <Insights /> },
   ];
 
   useEffect(() => {

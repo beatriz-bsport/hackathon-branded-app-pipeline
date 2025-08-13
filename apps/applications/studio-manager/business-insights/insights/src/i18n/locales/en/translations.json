@@ -1,0 +1,27 @@
+{
+    "insights": {
+        "pageTitle": "Insights",
+        "sections": {
+            "member": "Member Insights",
+            "financial": "Financial Health",
+            "booking": "Booking Performance",
+            "teacher": "Teacher Performance",
+            "marketing": "Marketing Performance"
+        },
+        "items": {
+            "trial": {
+                "title": "Track trial offer performance",
+                "description": "Discover more about acquisition, conversion rates and how you can increase the effectiveness of your trial offer."
+            },
+            "recurring": {
+                "title": "Monitor recurring revenue",
+                "description": "Keep track of trends and understand how to stabilize recurring income streams."
+            }
+        },
+        "filter": {
+            "selectFieldLabel": "Filter by section",
+            "filterLabel": "Filter",
+            "isLabel": "is"
+        }
+    }
+}

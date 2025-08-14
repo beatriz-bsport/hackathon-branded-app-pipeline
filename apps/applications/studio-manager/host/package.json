@@ -101,7 +101,7 @@
       },
       "sm-insights": {
         "devPort": 4350,
-        "watchPath": "../analytics/insights/src/**/*"
+        "watchPath": "../business-insights/insights/src/**/*"
       }
     }
   }

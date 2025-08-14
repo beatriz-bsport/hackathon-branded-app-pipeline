@@ -1,14 +1,12 @@
 import { useMemo, useRef, useState } from "react";
-import { useNavigate } from "react-router";
 
 import {
-  Body,
-  Chip,
   type FilterProps,
   List,
   ListLayout,
 } from "@bsport/kaizen-primitive-core";
 
+import { LEGACY_URLS } from "#src/urls";
 import { useTranslation } from "#src/utils/i18n";
 
 const SECTIONS = [
@@ -23,15 +21,16 @@ const ALL_ROWS = [
   {
     id: "trial",
     section: "member",
+    link: LEGACY_URLS.TRIAL_ANALYSIS,
   },
   {
     id: "recurring",
     section: "financial",
+    link: LEGACY_URLS.RECURRING_REVENUE,
   },
 ] as const;
 
 const InsightsPage = () => {
-  const navigate = useNavigate();
   const { t } = useTranslation("insights");
   const [selected, setSelected] = useState<string | null>(null);
   const [searchInput, setSearchInput] = useState<string>("");
@@ -122,41 +121,16 @@ const InsightsPage = () => {
             id: row.id,
             title: row.title,
             description: row.description,
-            section: row.section,
-            onClick: () => {
-              if (row.id === "trial") navigate("/insights/trial_analysis");
-              if (row.id === "recurring")
-                navigate("/insights/recurring_revenue");
+            chip: {
+              size: "lg",
+              type: "weak",
+              color: "default",
+              label: t(`sections.${row.section}`),
+              iconLeft:
+                SECTIONS.find((s) => s.id === row.section)?.icon || "user-01",
             },
+            onClick: () => window.location.assign(row.link),
           }))}
-          ListItem={({ title, description, section, onClick }) => (
-            <div
-              className="flex items-start justify-between gap-sm p-sm cursor-pointer hover:bg-gray-50 border-b-stroke-thin border-b-stroke-divider last:border-none"
-              onClick={onClick}
-              role="button"
-              tabIndex={0}
-            >
-              <div className="flex-1 min-w-0">
-                <Body htmlVariant="p" size="lg" weight="strong">
-                  {title}
-                </Body>
-                <Body htmlVariant="p" color="weak">
-                  {description}
-                </Body>
-              </div>
-              <div className="shrink-0">
-                <Chip
-                  size="lg"
-                  type="weak"
-                  color="default"
-                  label={t(`sections.${section}`)}
-                  iconLeft={
-                    SECTIONS.find((s) => s.id === section)?.icon || "user-01"
-                  }
-                />
-              </div>
-            </div>
-          )}
         />
       </ListLayout.Content>
     </ListLayout>

@@ -140,6 +140,19 @@ const FilterElement: React.FC<FilterElementProps> = ({
     onClear?.();
   }, [fields, onClear]);
 
+  // Compute whether there are trailing segments after the field selector
+  const hasTrailingSegmentComputed =
+    (displayEntireFilter && !!selectedField) ||
+    (!!selectedField && Object.keys(fields).length > 1) ||
+    !!selectedValues?.length;
+
+  // Show clear button when:
+  // - Multiple values are selected, OR
+  // - A field is selected in multi-category mode (even without values)
+  const shouldShowClearButton =
+    (selectedValues && selectedValues.length > 0) ||
+    (!!selectedField && Object.keys(fields).length > 1);
+
   return (
     <ol className="inline-flex">
       <FilterElementSelectField
@@ -148,6 +161,7 @@ const FilterElement: React.FC<FilterElementProps> = ({
         openedByDefault={openedByDefault}
         selectedField={selectedField}
         selectedValues={selectedValues}
+        hasTrailingSegment={hasTrailingSegmentComputed}
         onSelectOption={handleSelectFieldSelectOption}
       />
       {displayEntireFilter && selectedField && (
@@ -167,7 +181,9 @@ const FilterElement: React.FC<FilterElementProps> = ({
         fields={fields}
         onSelectOption={handleSelectValue}
       />
-      {selectedField && <FilterElementClearButton onClear={handleClear} />}
+      {shouldShowClearButton && (
+        <FilterElementClearButton onClear={handleClear} />
+      )}
     </ol>
   );
 };

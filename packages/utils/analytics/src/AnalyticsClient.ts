@@ -22,13 +22,15 @@ export class AnalyticsClient<T = MixpanelConfig>
   constructor({
     adapter,
     internalDebug = false,
+    instanceName,
   }: {
     adapter?: AnalyticsAdapter<T>;
     internalDebug?: boolean;
+    instanceName?: string;
   } = {}) {
     this.debug = internalDebug;
     this.superProperties = {};
-    this.analyticsAdapter = adapter ?? new MixpanelAdapter();
+    this.analyticsAdapter = adapter ?? new MixpanelAdapter(instanceName);
   }
 
   //#region ----- Tracking tool methods (to be implemented in the Adapter) -----

@@ -5988,7 +5988,11 @@
             "decimalCredit": {
                 "helperText": "Dieser Pass enthält {{count}} Credit",
                 "helperText_plural": "Dieser pass enthält {{count}} Credits"
-            }
+            },
+            "enableAccessControl": "Studiozutritt gewähren",
+            "accessControlBetaAlert": "Während dieser beta Phase funktionieren Pass-Restriktionen wie Tags, Nutzungslimits, Locations, Aktivitäten, Kategorien und Zeitslots nicht für den Zutritt durch Türen. \"Beschränkt die Nutzung auf die Mediathek (VOD)\" muss abgewählt bleiben, um Zutritt durch Türen zu ermöglichen.",
+            "accessControlInfo": "Mitglieder mit diesem Pass können Türen des Studios öffnen. Um zu kontrollieren, wann Türen nicht geöffnet werden können, lege eine Zeitregelung auf der Kisi Plattform fest.",
+            "doorAccess": "Zutritt Tür(en)"
         },
         "paymentPackTemplate": {
             "actions": {
@@ -9704,14 +9708,16 @@
                     "filterPlaceholder": {
                         "color": "Farbe auswählen",
                         "size": "Größe auswählen",
-                        "company": "Studio auswählen"
+                        "company": "Studio auswählen",
+                        "establishmentBillingGroup": "Wähle eine Abrechnungsgruppe"
                     },
                     "unsavedChangesModal": {
                         "default": "Möchten Sie Ihre Änderungen speichern, bevor Sie zu einer anderen Seite wechseln?",
                         "inventory": "Bevor Sie zu einer anderen Seite wechseln, möchten Sie den Bestand auf der Grundlage der in der Spalte \"Bestandsanpassung\" eingegebenen Werte aktualisieren?",
                         "title": "Ungespeicherte Änderungen"
                     },
-                    "companyName": "Studio"
+                    "companyName": "Studio",
+                    "tooltipForMultiLocationWebshop": "Da für das Studio mehrere Standorte freigeschaltet sind, kann der Lagerbestand nur von den jeweiligen Studio-Accounts bearbeitet werden, nicht vom Master Account."
                 }
             },
             "tab": {
@@ -17790,7 +17796,8 @@
                 "establishment": "Einrichtung",
                 "actions": "Aktion",
                 "noAddress": "Keine Adresse ist mit dieser Rechnungsgruppe verbunden",
-                "address": "Adresse"
+                "address": "Adresse",
+                "multiLocationWebshopEnabled": "Diese Abrechnungsgruppe kann nicht gelöscht werden, weil der Multi-Location Webshop freigeschaltet ist."
             },
             "modal": {
                 "delete": {
@@ -19400,7 +19407,7 @@
                         "cancel": "Abbrechen",
                         "create": "Hinzufügen",
                         "helperTextNewMembers": "Das Formular erscheint als Pop-up auf dem Mitgliederbereich und dem Widget nach dem Anmeldeformular.",
-                        "helperTextRegisteredMembers": "Dieses Formular wird als Pop-up auf dem Mitgliederbereich und im Widget für alle betroffenen Mitglieder angezeigt.",
+                        "helperTextRegisteredMembers": "Dieses Formular wird als Pop-up auf dem Mitgliederbereich und im Mobile App für alle betroffenen Mitglieder angezeigt.",
                         "subTitle": "Welche Mitglieder wollen Sie ansprechen?",
                         "title": "Regeln anzeigen"
                     }

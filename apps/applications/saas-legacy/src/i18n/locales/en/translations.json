@@ -1048,7 +1048,8 @@
                     "offerOnlySuccess": "The booking has been made. You will soon receive a confirmation e-mail with all the details.",
                     "offerOnlySuccess_plural": "The bookings have been made. You will soon receive a confirmation e-mail with all the details.",
                     "offerOnlyGuestSuccess": "The booking has been made. You and your guest will shortly receive a confirmation e-mail with all the details.",
-                    "offersPartiallyConfirmed": "Some sessions could not be booked, possibly because they filled up or were canceled during checkout. You will receive a confirmation email shortly with details of the successful bookings."
+                    "offersPartiallyConfirmed": "Some sessions could not be booked, possibly because they filled up or were canceled during checkout. You will receive a confirmation email shortly with details of the successful bookings.",
+                    "expressCheckoutPassPurchaseSuccess": "Now that you have your pass, book your class to enjoy all the benefits."
                 },
                 "confirmationStatusTitle": {
                     "success": {
@@ -5521,7 +5522,7 @@
                 "header": "Notifications",
                 "form": {
                     "dialog": {
-                        "helperTextRegisteredMembers": "This form will appear as a pop-up on the Member Area and the widget for all relevant members.",
+                        "helperTextRegisteredMembers": "This form will appear as a pop-up on the Member Area and Mobile App for all relevant members.",
                         "subTitle": "Which members do you want to target?",
                         "title": "Display rules",
                         "snoozeOptionHelperText": "This form will reappear after having been snoozed for {{count}} hour(s).",
@@ -6235,8 +6236,8 @@
                 "penalty": {
                     "penaltyDay": "{{count}} day",
                     "penaltyDay_plural": "{{count}} days",
-                    "amount": "{{penalty_amount}} deducted after {{penalty_cancellations}} out of time over a period of {{penalty_days_period}}",
-                    "days": "{{penalty_days}} of blocking after {{penalty_cancellations}} out of time over a {{penalty_days_period}} period"
+                    "amount": "A {{penalty_amount}} fine will be applied for {{penalty_cancellations}} no shows over a period of {{penalty_days_period}} days.",
+                    "days": "The pass will be blocked for {{penalty_days}} day(s) if {{penalty_cancellations}} late cancellation(s) are registered within {{penalty_days_period}} day(s)."
                 },
                 "maxPurchasePerMember": "{{count}} purchase per member",
                 "maxPurchasePerMember_plural": "{{count}} purchases per member",
@@ -10095,6 +10096,12 @@
                 "confirmationMessage": "You have successfully subscribed to {{- name }}",
                 "commitmentMessage": "Please note: Subscribing entails a 12-month commitment period",
                 "timeConsumingHelper": "The subscription to this upsell may take a few seconds to be processed"
+            },
+            "audienceLockDialog": {
+                "goHome": "Back to Calendar",
+                "benefits": [
+                    "Convert leads with personalised messaging at key touch points"
+                ]
             }
         },
         "platformBillingStage": {
@@ -14977,7 +14984,7 @@
             "preview": "Preview",
             "saveButton": "Save",
             "link": "Log out and open Member Area",
-            "explainMarketplace": "Here you can edit your Member Area (calendar, agenda, appointments, etc.), in which you members can consult and purchase your offer over their phone, tablet, and computer.",
+            "explainMarketplace": "Here you can edit your Member Area, the branded website where members can view the calendar, book classes and browse the products available in your shop.",
             "addButton": "Add a tab"
         },
         "companyOnboarding": {

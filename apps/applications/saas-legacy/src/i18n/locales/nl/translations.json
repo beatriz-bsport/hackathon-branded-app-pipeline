@@ -4998,7 +4998,7 @@
                     "titleEdit": "Categorie",
                     "titleNew": "Nieuwe categorie",
                     "name": "Naam van de categorie",
-                    "helper": "Categorieën van beschikbare kaarten verschijnen op de MarketPlace en de Mobiele Applicatie.",
+                    "helper": "Categorieën zijn een handige manier om uw passen te ordenen. Deze namen worden aan uw leden getoond op de Ledenruimte en in de mobiele app. ",
                     "update": "Hernoemen",
                     "create": "Toevoegen",
                     "cancel": "Annuleren"
@@ -5275,7 +5275,11 @@
             "decimalCredit": {
                 "helperText": "Deze pas bevat {{count}} krediet",
                 "helperText_plural": "Deze pas bevat {{count}} kredieten"
-            }
+            },
+            "enableAccessControl": "Toegang tot de studio verlenen",
+            "accessControlBetaAlert": "Tijdens deze bètaversie zijn toegangsbeperkingen zoals tags, gebruikslimieten, locaties, activiteiten, categorieën en tijdvakken niet van toepassing op deuropening. “Beperk gebruik tot Video on Demand” moet worden uitgeschakeld om deuropening te laten werken.",
+            "accessControlInfo": "Leden met deze pas kunnen de deuren van de studio ontgrendelen. Om te bepalen wanneer de deuren niet toegankelijk zijn, kun je tijdregels instellen op het Kisi-platform.",
+            "doorAccess": "Toegang tot de deur"
         },
         "unlimitedPlural": "Onbeperkt",
         "universalPass": {
@@ -5447,7 +5451,8 @@
                 "establishment": "Vestiging",
                 "actions": "Acties",
                 "address": "Adres",
-                "noAddress": "Er is geen adres gekoppeld aan deze factureringsgroep"
+                "noAddress": "Er is geen adres gekoppeld aan deze factureringsgroep",
+                "multiLocationWebshopEnabled": "Deze factuurgroep kan niet worden verwijderd omdat de functie voor webshops met meerdere locaties is ingeschakeld."
             },
             "modal": {
                 "delete": {
@@ -10932,7 +10937,7 @@
             "form": {
                 "credits": {
                     "label": "Credits",
-                    "helperText": "Geef aan wat het aantal inbegrepen credits is.",
+                    "helperText": "Kies het aantal credits dat in deze pas is inbegrepen",
                     "decimalCredit": {
                         "helperText": "Deze pas zal {{count}} krediet bevatten.",
                         "helperText_plural": "Deze pas zal {{count}} kredieten bevatten."
@@ -10940,11 +10945,11 @@
                 },
                 "durationDays": {
                     "helperText": "Geldigheidsduur (in dagen) ",
-                    "label": "Geldigheidsduur (in dagen)"
+                    "label": "Dagen"
                 },
-                "title": "[Formulier] Afspraakkaart",
+                "title": "Een afspraakkaart toevoegen",
                 "managerOnly": {
-                    "label": "Onbeschikbaar voor leden"
+                    "label": "Niet beschikbaar voor verkoop"
                 },
                 "name": {
                     "label": "Naam",
@@ -10954,16 +10959,16 @@
                     "label": "Btw"
                 },
                 "durationMonths": {
-                    "label": "Geldigheidsduur (in maanden)",
+                    "label": "Maanden",
                     "helperText": "Dit wordt bij het aantal dagen opgeteld."
                 },
                 "durationYears": {
-                    "label": "Geldigheidsduur (in jaren)",
+                    "label": "Jaren",
                     "helperText": "Dit wordt bij het aantal dagen en maanden opgeteld."
                 },
                 "available_payment_method_identifiers": {
                     "label": "Geaccepteerde betaalmethoden",
-                    "helperText": "Selecteer ten minste één betaalmethode. Als er geen is geselecteerd, worden online betalingen standaard aangeboden.",
+                    "helperText": "Kies ten minste één betaalmethode. Als er geen is geselecteerd, worden online betalingen standaard aangeboden.",
                     "warning": "Maak deze afspraakkaart beschikbaar voor leden om de geaccepteerde betaalmethode(n) in te stellen."
                 },
                 "actions": {
@@ -10974,7 +10979,7 @@
                 },
                 "price": {
                     "label": "Prijs (incl. btw)",
-                    "helperText": "Dit is de verkoopprijs."
+                    "helperText": "De totale verkoopprijs van de leskaart."
                 },
                 "full_vod_access": {
                     "label": "Activeer toegang tot Video On Demand"
@@ -10989,7 +10994,7 @@
                     "on_purchase": "Geldig vanaf de factuurdatum"
                 },
                 "new_member_only": {
-                    "label": "Maak dit product alleen voor nieuwe leden beschikbaar"
+                    "label": "Alleen zichtbaar voor nieuwe leden"
                 },
                 "start_date_method_detail": {
                     "on_attendance": " vanaf de 1e aanwezigheid",
@@ -11010,7 +11015,7 @@
                 },
                 "category": "Naam van de categorie",
                 "categoryTitle": {
-                    "compatibility": "Compatibiliteit",
+                    "compatibility": "Compatibele afspraken",
                     "validity": "Geldigheid",
                     "paymentMeans": "Betaalmethoden",
                     "info": "Algemeen",
@@ -11022,22 +11027,22 @@
                 "franchise": "Deze afspraakkaart is gemaakt door het Master-Account. Bepaalde instellingen zijn op groepsniveau ingesteld en kunnen niet worden gewijzigd.",
                 "universalPass": {
                     "deativatedTags": "Deactiveren voor universele kaarten",
-                    "helperText": "Een universele kaart kan voor groepsactiviteiten én afspraken worden gebruikt. Iedere universele kaart heeft twee gekoppelde kaarten voor de credits. De gekoppelde kaarten worden automatisch en kosteloos toegevoegd zodra een universele kaart is aangeschaft.",
+                    "helperText": "Universele kaarten kunnen door leden worden gebruikt om zowel groepsactiviteiten als afspraken te boeken. Elke keer dat een universele kaart wordt gekocht, voegen we automatisch een ‘tweeling’-afsprakenkaart toe om de credits tussen de twee kaartsoorten te verdelen.",
                     "label": "Universele kaart",
                     "warningIsUniversalPass": "Gekoppelde leskaarten worden automatisch aangemaakt voor universele kaarten. Alle velden die hier ingesteld zijn kunnen ook op de gekoppelde afspraakkaarten worden gewijzigd m.u.v. de categorieën. Hetzelfde geldt voor de meldingen, geldigheidsverlengingen en creditwijzigingen."
                 },
                 "appliesForPayroll": {
-                    "helperText": "Standaard worden afspraken gefactureerd aan de studio en opgenomen in het overzicht en de vergoeding van de docent. Als u deze instelling uitschakelt, verschijnen de afspraken die aan deze kaart zijn gekoppeld niet meer in het overzicht van de docent.",
-                    "label": "Afspraken meeberekenen voor de payroll van de instructeur(s)"
+                    "helperText": "Lessen worden standaard gefactureerd aan de studio en opgenomen in de payroll van de docent. Deactiveer deze instelling om ervoor te zorgen dat lessen die aan deze leskaart zijn gekoppeld niet langer in de payroll van docenten verschijnen.",
+                    "label": "Lessen die met deze pas worden gekocht, worden opgenomen in de payroll van de docent."
                 },
                 "onBehalfOfTeacher": {
-                    "helperText": "Met deze instelling kunt u aangeven dat de inkomsten in verband met afspraken op deze kaart volledig aan de docent worden betaald. Deze informatie zal zichtbaar zijn in uw inkoopverslagen (CA) in de kolom 'Betaling volledig betaald aan de leerkracht'.",
+                    "helperText": "Selecteer deze instelling om ervoor te zorgen dat het inkomen dat verband houdt met afspraken op deze pas volledig aan de docent wordt uitbetaald. U kunt deze informatie bekijken in de kolom ‘Betaling volledig aan de docent uitbetaald’ in uw aankooprapporten. ",
                     "label": "Instructeurs volledig uitbetalen"
                 },
                 "expiration_date": {
-                    "label": "Aankooptermijn",
+                    "label": "Duur van de verkoop",
                     "helperText": "Beschikbaar tot",
-                    "tooltip": "Zodra de gekozen datum is verstreken, verschijnt de afsprakenkaart niet meer te koop voor klanten."
+                    "tooltip": "Na de gekozen datum is de pas niet meer te koop."
                 },
                 "description": {
                     "label": "Beschrijving"
@@ -11045,8 +11050,8 @@
                 "advancedOptions": {
                     "tag": {
                         "selectTags": "Selecteer tags",
-                        "tagsOnAcquisition": "Tag ná aankoop",
-                        "tagsOnAcquisitionHelper": "Gebruik tags om te identificeren welk lid de afspraakkaart heeft gekocht."
+                        "tagsOnAcquisition": "Pas tags toe na aankoop",
+                        "tagsOnAcquisitionHelper": "Tag leden die deze pas hebben gekocht, zodat je ze in de toekomst snel kunt herkennen."
                     },
                     "header": "Geavanceerd"
                 },
@@ -11079,8 +11084,8 @@
             "compatibleServices": {
                 "title": "Compatibele afspraken",
                 "add": "Toevoegen",
-                "isEmpty": "Waarschuwing: er zijn geen compatible afspraken aan deze afspraakkaart gekoppeld.",
-                "unusable": "Leden kunnen deze afspraakkaart voor geen enkele afspraak gebruiken."
+                "isEmpty": "Belangrijke informatie ontbreekt",
+                "unusable": "Deze afspraakpas is momenteel niet compatibel voor enige afspraak omdat er belangrijke informatie ontbreekt. Vul de vereiste velden in en probeer het opnieuw.   "
             },
             "edit": "Wijzigen",
             "disabledTitle": "Gearchiveerde afspraakkaarten",
@@ -11937,14 +11942,16 @@
                     "filterPlaceholder": {
                         "color": "Selecteer kleur",
                         "size": "Selecteer maat",
-                        "company": "Selecteer studio"
+                        "company": "Selecteer studio",
+                        "establishmentBillingGroup": "Selecteer een factureringsgroep"
                     },
                     "unsavedChangesModal": {
                         "default": "Wil je je wijzigingen opslaan voordat je naar een andere pagina gaat?",
                         "inventory": "Wil je, voordat je naar een andere pagina gaat, de inventaris bijwerken op basis van de waarden die zijn ingevoerd in de kolom “Voorraadaanpassing”?",
                         "title": "Niet-opgeslagen wijzigingen"
                     },
-                    "companyName": "Sudio"
+                    "companyName": "Sudio",
+                    "tooltipForMultiLocationWebshop": "Aangezien multilocatie is ingeschakeld voor deze studio, kan de voorraad alleen worden aangepast vanuit het subaccount, niet vanuit het Master-account."
                 },
                 "history": {
                     "invoice": {
@@ -12358,7 +12365,8 @@
                     "collect": "Accepteren",
                     "retry": "Probeer het opnieuw",
                     "error": "Kunt u het incasso-mandaat niet verlengen, neem dan contact op met uw bank."
-                }
+                },
+                "9": "Betaal in de studio"
             },
             "savePaymentMethod": {
                 "section": "Selecteer een betaalmethode",
@@ -19498,7 +19506,7 @@
                         "cancel": "Annuleer",
                         "create": "Toevoegen",
                         "helperTextNewMembers": "Alle relevante leden zullen dit formulier als een pop-up op de Ledenruimte en na het inschrijfformulier zien.",
-                        "helperTextRegisteredMembers": "Alle relevante leden zullen dit formulier als een pop-up op de Ledenruimte en op de widget zien.",
+                        "helperTextRegisteredMembers": "Alle relevante leden zullen dit formulier als een pop-up op de Ledenruimte en op de Mobiele app zien.",
                         "subTitle": "Welke leden wil je contacteren?",
                         "title": "[Formulier] Berichtgeving",
                         "snoozeOptionHelperText": "We tonen dit formulier opnieuw nadat het {{count}} uur/uren gesnoozed is.",

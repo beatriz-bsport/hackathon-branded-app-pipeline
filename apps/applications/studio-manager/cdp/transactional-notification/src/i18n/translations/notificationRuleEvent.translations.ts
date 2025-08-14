@@ -79,8 +79,7 @@ exports.default = {
     [NOTIFICATION_MEMBERSHIP_CREATION_WEB]: "Member account created by member",
     [NOTIFICATION_BOOKING_PASS_CHECKOUT]: "Booking with pass",
     [NOTIFICATION_BOOKING_PLUS_PASS_STRIPE_CHECKOUT]: "Booking + pass purchase",
-    [NOTIFICATION_BOOKING_OPTION_CONVERTIBLE]:
-      "A member has unsubscribed from the waitlist (opening up a spot)",
+    [NOTIFICATION_BOOKING_OPTION_CONVERTIBLE]: "A booking spot is available",
     [NOTIFICATION_BOOKING_OPTION_NOT_CONVERTIBLE_ANYMORE]:
       "A member's spot on the waitlist has expired",
     [NOTIFICATION_INVOICE_CREATE]: "Invoice confirmation",
@@ -88,9 +87,9 @@ exports.default = {
       "A member that hasn't responded in time and has been kicked from the waitlist",
     [NOTIFICATION_BOOKING_OPTION_CREATED]: "A member joined the waitlist",
     [NOTIFICATION_BOOKING_OPTION_CANCELLED_BY_CONSUMER]:
-      "A member has unsubscribed from the waitlist (for members)",
+      "A member has unsubscribed himself from the waitlist",
     [NOTIFICATION_BOOKING_OPTION_CANCELLED_BY_MANAGER]:
-      "A member has unsubscribed from the waiting list (for staff)",
+      "A member was removed from the waitlist by the studio",
     [NOTIFICATION_OFFER_IN_BOOKING_MODIFIED]: "Modified session (for members)",
     [NOTIFICATION_BOOKING_NOT_REFUNDED]:
       "Booking cancelled: credit not refunded (for members)",
@@ -195,5 +194,13 @@ exports.default = {
       "Subscription payment method about to expire (first warning)",
     [NOTIFICATION_PAYMENT_METHOD_EXPIRED_SECOND_WARNING]:
       "Subscription payment method about to expire (second warning)",
+    "21": "New booking (for members)",
+    "23": "Subscription paid with internal account balance",
+    "30": "Booking for a guest (for inviting member)",
+    "31": "Booking for a guest (for guest)",
+    "1200":
+      "Payment method expiration first reminder for payments by instalments",
+    "1201":
+      "Payment method expiration second reminder for payments by instalments",
   },
 };

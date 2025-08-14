@@ -71,8 +71,9 @@ export const notificationRuleEventCategories = [
   "giftcard",
   "offer",
   "replacement_request",
-  "waiting_list",
+  "waiting-list",
   "subscription",
+  "substitution",
   "invoice",
   "referral",
 ] as const;

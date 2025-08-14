@@ -1,14 +1,14 @@
 import type { RefinedNotificationRuleEventData } from "./types";
 
 /**
- * Checks if push notifications are enabled for a notification rule event.
+ * Checks if push notifications are checked for a notification rule event.
  *
  * This utility function examines the details of a refined notification rule event
  * to determine if push notifications are active for that event.
  *
  * @param params - Configuration object
  * @param params.refinedNotificationRuleData - The refined notification rule event data
- * @returns True if push notifications are enabled, false otherwise
+ * @returns True if push notifications are checked, false otherwise
  */
 export const getIsPushNotificationChecked = ({
   refinedNotificationRuleData,
@@ -21,15 +21,15 @@ export const getIsPushNotificationChecked = ({
 };
 
 /**
- * Checks if email notifications are enabled for a notification rule event.
+ * Checks if email notifications are checked for a notification rule event.
  *
  * This utility function examines the settings of a refined notification rule event
- * to determine if email notifications are enabled. It returns true if the notification
+ * to determine if email notifications are checked. It returns true if the notification
  * is NOT disabled in the settings.
  *
  * @param params - Configuration object
  * @param params.refinedNotificationRuleData - The refined notification rule event data
- * @returns True if email notifications are enabled (not disabled), false if disabled
+ * @returns True if email notifications are checked (not disabled), false if disabled
  */
 export const getIsEmailNotificationChecked = ({
   refinedNotificationRuleData,

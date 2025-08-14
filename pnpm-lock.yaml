@@ -216,6 +216,9 @@ importers:
 
   apps/applications/saas-legacy:
     dependencies:
+      '@bsport/analytics':
+        specifier: workspace:*
+        version: link:../../../packages/utils/analytics
       '@bsport/broadcast-channel-polyfill':
         specifier: workspace:*
         version: link:../../../packages/utils/broadcast-channel-polyfill
@@ -402,9 +405,6 @@ importers:
       mini-css-extract-plugin:
         specifier: ^2.9.0
         version: 2.9.2(webpack@5.93.0)
-      mixpanel-browser:
-        specifier: ^2.60.0
-        version: 2.60.0
       mui-datatables:
         specifier: ^2.0.0-beta.59
         version: 2.15.0(@material-ui/core@4.12.4(@types/react@16.14.62)(react-dom@16.10.2(react@16.10.2))(react@16.10.2))(@material-ui/icons@4.11.3(@material-ui/core@4.12.4(@types/react@16.14.62)(react-dom@16.10.2(react@16.10.2))(react@16.10.2))(@types/react@16.14.62)(react-dom@16.10.2(react@16.10.2))(react@16.10.2))(react-dom@16.10.2(react@16.10.2))(react@16.10.2)
@@ -730,9 +730,6 @@ importers:
       '@types/memoize-one':
         specifier: ^4.1.1
         version: 4.1.1
-      '@types/mixpanel-browser':
-        specifier: ^2.60.0
-        version: 2.60.0
       '@types/mui-datatables':
         specifier: ^2.0.5
         version: 2.14.2

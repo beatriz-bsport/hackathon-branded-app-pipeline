@@ -36,6 +36,7 @@
     "extends": "react-app"
   },
   "dependencies": {
+    "@bsport/analytics": "workspace:*",
     "@bsport/broadcast-channel-polyfill": "workspace:*",
     "@bsport/common": "workspace:*",
     "@bsport/consent-management": "workspace:*",
@@ -98,7 +99,6 @@
     "material-ui-pickers": "^2",
     "memoize-one": "^4.0.2",
     "mini-css-extract-plugin": "^2.9.0",
-    "mixpanel-browser": "^2.60.0",
     "mui-datatables": "^2.0.0-beta.59",
     "object-assign": "^4.1.1",
     "prismjs": "^1.29.0",
@@ -209,7 +209,6 @@
     "@types/lodash": "^4.14.165",
     "@types/luxon": "^3.4.2",
     "@types/memoize-one": "^4.1.1",
-    "@types/mixpanel-browser": "^2.60.0",
     "@types/mui-datatables": "^2.0.5",
     "@types/node": "^20.12.12",
     "@types/object-assign": "^4.0.30",

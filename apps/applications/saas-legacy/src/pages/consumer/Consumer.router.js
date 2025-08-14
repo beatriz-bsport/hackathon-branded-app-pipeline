@@ -1,5 +1,5 @@
 // @flow
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Switch, Route, Redirect, RouteProps } from 'react-router-dom';
 
 import { compose, lifecycle } from 'recompose';
@@ -14,6 +14,7 @@ import useSaasRouterTracker from '../../hooks/useSaasRouterTracker';
 import asyncComponent from '../../AsyncComponent';
 import { getAuthToken } from '../../http';
 import namespaces from '../../i18n/namespaces.json';
+import { configureAnalyticsB2CInstance } from '#src/components/analytics/mixpanel';
 
 const ConsumerHome = asyncComponent(() => import('./ConsumerHome.page'));
 const ConsumerSpacePreSelector = asyncComponent(() =>
@@ -41,6 +42,10 @@ type Props = {
 
 export const ConsumerRouter = (props: Props) => {
   useSaasRouterTracker(BsportRequestFromHeaderValue.SAAS_CONSUMER_ROUTER);
+
+  useEffect(() => {
+    configureAnalyticsB2CInstance();
+  }, []);
 
   if (
     !props.authenticated &&

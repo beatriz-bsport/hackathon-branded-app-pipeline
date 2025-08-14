@@ -90,8 +90,11 @@ class SubscriptionPaymentMethod extends React.PureComponent<Props, State> {
   };
 
   onCancel = () => {
-    // @ts-expect-error
-    window.ReactNativeWebView.postMessage(JSON.stringify({ status: 'cancel' }));
+    if (window.ReactNativeWebView) {
+      window.ReactNativeWebView.postMessage(
+        JSON.stringify({ status: 'cancel' }),
+      );
+    }
   };
 
   requestSetupIntentSecret = () =>
@@ -158,17 +161,19 @@ class SubscriptionPaymentMethod extends React.PureComponent<Props, State> {
       {
         onSuccess: () => {
           this.setState({ processing: false });
-          // @ts-expect-error
-          window.ReactNativeWebView.postMessage(
-            JSON.stringify({ status: 'succeeded' }),
-          );
+          if (window.ReactNativeWebView) {
+            window.ReactNativeWebView.postMessage(
+              JSON.stringify({ status: 'succeeded' }),
+            );
+          }
         },
         onError: () => {
           this.setState({ processing: false });
-          // @ts-expect-error
-          window.ReactNativeWebView.postMessage(
-            JSON.stringify({ status: 'error' }),
-          );
+          if (window.ReactNativeWebView) {
+            window.ReactNativeWebView.postMessage(
+              JSON.stringify({ status: 'error' }),
+            );
+          }
         },
       },
     );

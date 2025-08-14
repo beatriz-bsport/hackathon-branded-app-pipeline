@@ -327,6 +327,7 @@ const getTranslations = async () => {
       },
       title: 'Stripe balance',
     },
+    setupPaymentError: 'An error occurred',
   };
 };
 

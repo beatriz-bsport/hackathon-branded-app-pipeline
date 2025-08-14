@@ -21,10 +21,10 @@ exports.default = {
       private_booking: "Appointments",
       recurrent_private_booking: "Recurring appointments",
       payment_pack: "Penalties",
-      giftcard: "Gift cards",
+      giftcard: "Gift Cards",
       offer: "Sessions",
-      replacement_request: "Substitutions",
-      waiting_list: "Waitlists",
+      replacement_request: "Substitution",
+      "waiting-list": "Waitlists",
       subscription: "Subscriptions",
       invoice: "Billing",
       referral: "Referral",
@@ -36,6 +36,15 @@ exports.default = {
         name: "Notification",
         email: "Email",
         pushNotification: "Push Notification",
+      },
+      tooltip: {
+        pushNotificationHelper: {
+          title: "Push notifications",
+          message:
+            "You can start enabling a push notification after you’ve set it up.",
+        },
+        franchiseOwned:
+          "The Master Account directly manages this transactional notification.",
       },
       helper: {
         title: "Push notifications",

@@ -376,9 +376,7 @@ export class BasketPaymentIntent extends React.Component<Props, State> {
     ];
     const sendMessage = (i: number) => {
       setTimeout(() => {
-        // @ts-expect-error
         if (window.ReactNativeWebView) {
-          // @ts-expect-error
           window.ReactNativeWebView.postMessage(
             JSON.stringify({ status: 'succeeded' }),
           );
@@ -819,7 +817,6 @@ export default compose(
       attachPayment(data, basketId, {
         onSuccess: (response: any) => {
           if (options && options.onSuccess) options.onSuccess(response);
-          // @ts-expect-error
           window.ReactNativeWebView.postMessage(
             JSON.stringify({ status: 'succeeded' }),
           );

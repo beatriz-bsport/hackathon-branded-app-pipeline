@@ -1,10 +1,5 @@
 import { resolve } from "path";
-import {
-  type ViteUserConfig,
-  defineConfig,
-  defineProject,
-  mergeConfig,
-} from "vitest/config";
+import { type ViteUserConfig, defineConfig, mergeConfig } from "vitest/config";
 
 const DEFAULT_SOURCE_DIRECTORY = "./src";
 const FILES_TO_INCLUDE = [
@@ -16,7 +11,7 @@ export const createVitestConfig = (
   dirname: string,
   config?: ViteUserConfig,
 ) => {
-  const base = defineProject({
+  const base = defineConfig({
     resolve: {
       alias: {
         "#src": resolve(dirname, DEFAULT_SOURCE_DIRECTORY),
@@ -26,6 +21,10 @@ export const createVitestConfig = (
       globals: true,
       environment: "node",
       include: FILES_TO_INCLUDE,
+      coverage: {
+        include: ["src/**"],
+        exclude: ["src/__tests__/**"],
+      },
     },
   });
 
@@ -40,7 +39,7 @@ export const createVitestBrowserConfig = (
   dirname: string,
   config?: ViteUserConfig,
 ) => {
-  const base = defineProject({
+  const base = defineConfig({
     resolve: {
       alias: {
         "#src": resolve(dirname, DEFAULT_SOURCE_DIRECTORY),
@@ -50,6 +49,10 @@ export const createVitestBrowserConfig = (
       globals: true,
       environment: "jsdom",
       include: FILES_TO_INCLUDE,
+      coverage: {
+        include: ["src/**"],
+        exclude: ["src/__tests__/**"],
+      },
     },
   });
 

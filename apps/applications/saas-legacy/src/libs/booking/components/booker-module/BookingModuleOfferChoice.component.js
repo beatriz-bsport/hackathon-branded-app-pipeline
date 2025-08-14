@@ -26,14 +26,14 @@ type Props = {
   },
 
   offersSelected: Array<number>,
-  similarOffers: Array<Offer>,
-  similarOfferLoading: boolean,
+  associatedOffers: Array<Offer>,
+  associatedOffersLoading: boolean,
   classes: Object,
   toogleChecked: (number) => void,
   setOffersSelected: (offersSelected: Array<number>) => void,
   resetOffersSelected: () => void,
   registerToOffer: (offerIds: Array<number>) => void,
-  fetchSimilarOffers: (id: number) => void,
+  fetchAssociatedOffers: () => void,
   goBack: () => void,
   fetchLevelList: (
     params: LevelFilterSet,
@@ -72,13 +72,7 @@ const getLimitation = (
 
 export class BookingModuleOfferChoice extends React.Component<Props> {
   componentDidMount() {
-    this.props.fetchSimilarOffers(this.props.offerId, {
-      onSuccess: (data) => {
-        this.props.fetchLevelList({
-          id__in: Array.from(new Set(data?.results?.map((o) => o.level))),
-        });
-      },
-    });
+    this.props.fetchAssociatedOffers();
   }
 
   isOfferValid = (offer) => {
@@ -99,7 +93,7 @@ export class BookingModuleOfferChoice extends React.Component<Props> {
       return false;
     }
 
-    return true;
+    return DateTime.fromISO(offer.date_start) >= DateTime.now();
   };
 
   isOfferDisabled = (offer, start, end, credits, creditToBeConsumed) => {
@@ -131,13 +125,22 @@ export class BookingModuleOfferChoice extends React.Component<Props> {
   };
 
   handleSelectAllEligibleOffers = (start, end, credits) => {
-    // Filter eligible offers that can be booked
-    const eligibleOffers = this.props.similarOffers.filter((offer) =>
-      this.isOfferEligible(offer, start, end),
+    // Filter eligible offers that can be booked (excluding current offer)
+    const eligibleOffers = this.props.associatedOffers.filter(
+      (offer) =>
+        this.isOfferEligible(offer, start, end) &&
+        offer.id !== this.props.offerId,
     );
 
+    // Always include the current offer in the selection
+    const allEligibleOffers = [this.props.offer, ...eligibleOffers];
+
     // Calculate which offers can be selected within credit limit
-    const selectableOffers = this.getSelectableOffers(eligibleOffers, credits);
+    // If there is not enough credits for the current offer, this form should not be displayed
+    const selectableOffers = this.getSelectableOffers(
+      allEligibleOffers,
+      credits,
+    );
 
     this.props.setOffersSelected(selectableOffers);
   };
@@ -151,7 +154,7 @@ export class BookingModuleOfferChoice extends React.Component<Props> {
       },
       this.props.offer.date_start,
     );
-    const creditToBeConsumed = this.props.similarOffers.reduce((acc, v) => {
+    const creditToBeConsumed = this.props.associatedOffers.reduce((acc, v) => {
       if (this.props.offersSelected.includes(v.id)) return acc + v.credit_price;
       return acc;
     }, 0);
@@ -161,12 +164,18 @@ export class BookingModuleOfferChoice extends React.Component<Props> {
       <div className={classes.container}>
         <div className={classes.sectionTitle}>
           <Typography variant="h6">
-            {t('bookingModule.recurrent.title')}
+            {t(
+              !!this.props.offer.group
+                ? 'bookingModule.recurrent.titleGroupedSessions'
+                : 'bookingModule.recurrent.title',
+            )}
           </Typography>
-          {!!this.props.similarOfferLoading && <CircularProgress size={18} />}
+          {!!this.props.associatedOffersLoading && (
+            <CircularProgress size={18} />
+          )}
         </div>
-        {!this.props.similarOfferLoading &&
-          !!this.props.similarOffers.length && (
+        {!this.props.associatedOffersLoading &&
+          !!this.props.associatedOffers.length && (
             <div>
               <div>
                 <Button
@@ -184,7 +193,7 @@ export class BookingModuleOfferChoice extends React.Component<Props> {
                   </Typography>
                 </Button>
               </div>
-              {this.props.similarOffers
+              {this.props.associatedOffers
                 .filter((o) => this.isOfferValid(o))
                 .map((o) => {
                   const disabled = this.isOfferDisabled(

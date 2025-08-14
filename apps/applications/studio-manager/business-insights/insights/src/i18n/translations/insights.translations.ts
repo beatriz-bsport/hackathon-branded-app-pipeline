@@ -25,6 +25,22 @@ exports.default = {
     },
   },
 
+  // Detail pages
+  pages: {
+    trialAnalysis: {
+      title: "Trial offer performance",
+    },
+    recurringRevenue: {
+      title: "Recurring Revenue",
+    },
+  },
+
+  // Error messages
+  errors: {
+    loadDashboard: "Unable to load dashboard. Please refresh the page.",
+    fetchFailed: "Failed to load dashboard. Please refresh the page.",
+  },
+
   // Filter labels
   filter: {
     selectFieldLabel: "Filter by section",

@@ -1,5 +1,7 @@
 export const URLS = {
-  INDEX: "..",
+  INDEX: "/",
+  TRIAL_ANALYSIS: "/trial_analysis",
+  RECURRING_REVENUE: "/recurring_revenue",
 } as const;
 
 export const LEGACY_URLS = {

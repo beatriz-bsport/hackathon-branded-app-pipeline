@@ -32,6 +32,8 @@ type PassCardData = {
   privatePassData?: PrivatePassData;
 };
 
+export type { PassCardData };
+
 type PassCardDataContextType = {
   passCardData: PassCardData | null;
   setPassCardData: (data: PassCardData) => void;

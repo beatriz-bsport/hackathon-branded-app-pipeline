@@ -51,6 +51,7 @@ export const PaymentPackCard: React.FC = memo(() => {
     categoryChipsData,
     metaActivityChipsData,
     timeSlotsWithChipsData,
+    unlimited,
   } = usePaymentPackCardData();
 
   return (
@@ -79,7 +80,9 @@ export const PaymentPackCard: React.FC = memo(() => {
           color="grey"
           variant="weak"
         >
-          {t('passes.detail.header.credits', { count: credits })}
+          {unlimited
+            ? t('passes.detail.header.unlimited')
+            : t('passes.detail.header.credits', { count: credits })}
         </Chip>
         {isOnsitePaymentAvailable && (
           <Chip
@@ -118,7 +121,7 @@ export const PaymentPackCard: React.FC = memo(() => {
           </Chip>
         )}
       </div>
-      {description?.length && (
+      {!!description?.length && (
         <ExpandableContent
           className="bs-express-checkout-pass-detail__description-section"
           id="description"

@@ -183,16 +183,31 @@ const QuicksaleInterface: React.FC<Props> = ({
 
   const [showResultsOnPage, setShowResultsOnPage] = React.useState(false);
 
+  const computeAndSetResults = React.useCallback(
+    (
+      text: string,
+      fuseInstance?: Fuse<QuicksaleCardInfo, FuseOptions<QuicksaleCardInfo>>,
+    ) => {
+      const fuse =
+        fuseInstance ??
+        new Fuse(allSearchItems ?? [], { threshold: 0, keys: ['title'] });
+      const results = fuse.search(text);
+      if (isNotQuicksaleCardInfoList(results)) {
+        setSearchResults(results.map((r) => r.item));
+      } else {
+        setSearchResults(results);
+      }
+    },
+    [allSearchItems],
+  );
+
   const onSearchTextChange = React.useCallback(
     (fuse: Fuse<QuicksaleCardInfo, FuseOptions<QuicksaleCardInfo>>) =>
       (ev: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
         setSearchText(ev.target.value);
-        const results = fuse.search(ev.target.value);
-        if (isNotQuicksaleCardInfoList(results))
-          setSearchResults(results.map((result) => result.item));
-        else setSearchResults(results);
+        computeAndSetResults(ev.target.value, fuse);
       },
-    [],
+    [computeAndSetResults],
   );
 
   const clearSearch = React.useCallback(() => {
@@ -201,12 +216,15 @@ const QuicksaleInterface: React.FC<Props> = ({
     setShowResultsOnPage(false);
   }, []);
 
-  const onSearchIconClick = React.useCallback((searchTextParam?: string) => {
-    if (searchTextParam) {
-      setSearchText(searchTextParam);
-    }
-    setShowResultsOnPage(true);
-  }, []);
+  const onSearchIconClick = React.useCallback(
+    (searchTextParam?: string) => {
+      const textToSearch = searchTextParam ?? searchText;
+      if (searchTextParam) setSearchText(searchTextParam);
+      computeAndSetResults(textToSearch);
+      setShowResultsOnPage(true);
+    },
+    [computeAndSetResults, searchText],
+  );
 
   const handleItemClickFromSearch = React.useCallback(
     (item: QuicksaleCardInfo) => {

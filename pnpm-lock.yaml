@@ -731,8 +731,8 @@ importers:
         specifier: ^4.1.1
         version: 4.1.1
       '@types/mixpanel-browser':
-        specifier: ^2.51.0
-        version: 2.51.0
+        specifier: ^2.60.0
+        version: 2.60.0
       '@types/mui-datatables':
         specifier: ^2.0.5
         version: 2.14.2
@@ -1615,6 +1615,9 @@ importers:
 
   apps/applications/studio-manager/cdp/transactional-notification:
     dependencies:
+      '@bsport/common':
+        specifier: workspace:*
+        version: link:../../../../../packages/common-legacy
       '@bsport/fetch':
         specifier: workspace:*
         version: link:../../../../../packages/utils/fetch
@@ -1624,6 +1627,9 @@ importers:
       '@bsport/kaizen-primitive-core':
         specifier: workspace:*
         version: link:../../../../../packages/design-system/kaizen/primitive/core
+      '@bsport/permissions':
+        specifier: workspace:*
+        version: link:../../../../../packages/utils/permissions
       '@bsport/sm-backbone':
         specifier: workspace:*
         version: link:../../../../../packages/utils/sm-backbone
@@ -1847,6 +1853,9 @@ importers:
 
   apps/applications/studio-manager/host:
     dependencies:
+      '@bsport/analytics':
+        specifier: workspace:*
+        version: link:../../../../packages/utils/analytics
       '@bsport/envs':
         specifier: workspace:*
         version: link:../../../../packages/utils/envs
@@ -2456,6 +2465,15 @@ importers:
         specifier: ^3.2.4
         version: 3.2.4(@types/debug@4.1.12)(@types/node@22.13.15)(@vitest/ui@3.2.4)(jsdom@25.0.1)(less@4.1.3)(msw@2.7.6(@types/node@22.13.15)(typescript@5.8.2))(sass@1.77.8)(terser@5.31.3)
 
+  packages/local-storage/request-from-header:
+    devDependencies:
+      '@bsport/config-eslint-react':
+        specifier: workspace:*
+        version: link:../../../tools/config/eslint-react
+      '@bsport/config-vitest':
+        specifier: workspace:*
+        version: link:../../../tools/config/vitest
+
   packages/stores/base:
     dependencies:
       '@bsport/http-exception':
@@ -2834,10 +2852,29 @@ importers:
         version: link:../../../../tools/config/eslint-react
 
   packages/utils/analytics:
+    dependencies:
+      mixpanel-browser:
+        specifier: ^2.60.0
+        version: 2.60.0
+      zod:
+        specifier: ^3.25.64
+        version: 3.25.67
     devDependencies:
       '@bsport/config-eslint-react':
         specifier: workspace:*
         version: link:../../../tools/config/eslint-react
+      '@bsport/typescript-monorepo-utils':
+        specifier: workspace:*
+        version: link:../monorepo
+      '@types/mixpanel-browser':
+        specifier: ^2.60.0
+        version: 2.60.0
+      tsx:
+        specifier: ^4.19.2
+        version: 4.19.2
+      zod-to-json-schema:
+        specifier: ^3.24.6
+        version: 3.24.6(zod@3.25.67)
 
   packages/utils/broadcast-channel-polyfill:
     devDependencies:
@@ -2942,6 +2979,15 @@ importers:
       '@bsport/config-eslint-react':
         specifier: workspace:*
         version: link:../../../tools/config/eslint-react
+      '@bsport/config-vitest':
+        specifier: workspace:*
+        version: link:../../../tools/config/vitest
+      '@testing-library/jest-dom':
+        specifier: ^6.6.3
+        version: 6.6.3
+      '@testing-library/react':
+        specifier: ^16.3.0
+        version: 16.3.0(@testing-library/dom@10.4.0)(@types/react-dom@18.3.1)(@types/react@18.3.23)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       '@types/react':
         specifier: ^18.3.17
         version: 18.3.23
@@ -2988,6 +3034,9 @@ importers:
       '@bsport/config-eslint-react':
         specifier: workspace:*
         version: link:../../../tools/config/eslint-react
+      '@bsport/config-vitest':
+        specifier: workspace:*
+        version: link:../../../tools/config/vitest
       '@types/luxon':
         specifier: ^3.4.2
         version: 3.4.2
@@ -7601,8 +7650,8 @@ packages:
   '@types/minimatch@5.1.2':
     resolution: {integrity: sha512-K0VQKziLUWkVKiRVrx4a40iPaxTUefQmjtkQofBkYRcoaaL/8rhwDWww9qWbrgicNOgnpIsMxyNIUM4+n6dUIA==}
 
-  '@types/mixpanel-browser@2.51.0':
-    resolution: {integrity: sha512-or4HZRDmqMJ1OP+O6h4hB+tVDKJffpVi2bFxi/Gem5TGnE94I7OtWKXtrwdDfSGhfOLL+WQIOUOxUZHAzHNi8A==}
+  '@types/mixpanel-browser@2.60.0':
+    resolution: {integrity: sha512-70oe8T3KdxHwsSo5aZphALdoqcsIorQBrlisnouIn9Do4dmC2C6/D56978CmSE/BO2QHgb85ojPGa4R8OFvVHA==}
 
   '@types/ms@0.7.34':
     resolution: {integrity: sha512-nG96G3Wp6acyAgJqGasjODb+acrI7KltPiRxzHPXnP3NgI28bpQDRv53olbqGXbfcgF5aiiHmO3xpwEpS5Ld9g==}
@@ -15926,7 +15975,7 @@ packages:
   puppeteer@12.0.1:
     resolution: {integrity: sha512-YQ3GRiyZW0ddxTW+iiQcv2/8TT5c3+FcRUCg7F8q2gHqxd5akZN400VRXr9cHQKLWGukmJLDiE72MrcLK9tFHQ==}
     engines: {node: '>=10.18.1'}
-    deprecated: < 22.8.2 is no longer supported
+    deprecated: < 24.9.0 is no longer supported
 
   pure-rand@6.1.0:
     resolution: {integrity: sha512-bVWawvoZoBYpp6yIoQtQXHZjmz35RSVHnUOTefl8Vcjr8snTPY1wnpSPMWekcFwbxI6gtmT7rSYPFvz71ldiOA==}
@@ -19446,6 +19495,11 @@ packages:
   yup@0.26.10:
     resolution: {integrity: sha512-keuNEbNSnsOTOuGCt3UJW69jDE3O4P+UHAakO7vSeFMnjaitcmlbij/a3oNb9g1Y1KvSKH/7O1R2PQ4m4TRylw==}
 
+  zod-to-json-schema@3.24.6:
+    resolution: {integrity: sha512-h/z3PKvcTcTetyjl1fkj79MHNEjm+HpD6NXheWjzOekY7kV+lwDYnHw+ivHkijnCSMz1yJaWBD9vu/Fcmk+vEg==}
+    peerDependencies:
+      zod: ^3.24.1
+
   zod-validation-error@3.4.0:
     resolution: {integrity: sha512-ZOPR9SVY6Pb2qqO5XHt+MkkTRxGXb4EVtnjc9JpXUOtUB1T9Ru7mZOT361AN3MsetVe7R0a1KZshJDZdgp9miQ==}
     engines: {node: '>=18.0.0'}
@@ -21700,7 +21754,9 @@ snapshots:
       source-map: 0.6.1
       string-length: 2.0.0
     transitivePeerDependencies:
+      - bufferutil
       - supports-color
+      - utf-8-validate
 
   '@jest/reporters@28.1.3(node-notifier@8.0.2)':
     dependencies:
@@ -25581,7 +25637,7 @@ snapshots:
 
   '@types/minimatch@5.1.2': {}
 
-  '@types/mixpanel-browser@2.51.0': {}
+  '@types/mixpanel-browser@2.60.0': {}
 
   '@types/ms@0.7.34': {}
 
@@ -33325,7 +33381,9 @@ snapshots:
       pretty-format: 24.9.0
       throat: 4.1.0
     transitivePeerDependencies:
+      - bufferutil
       - supports-color
+      - utf-8-validate
 
   jest-junit@14.0.1:
     dependencies:
@@ -41335,6 +41393,10 @@ snapshots:
       property-expr: 1.5.1
       synchronous-promise: 2.0.17
       toposort: 2.0.2
+
+  zod-to-json-schema@3.24.6(zod@3.25.67):
+    dependencies:
+      zod: 3.25.67
 
   zod-validation-error@3.4.0(zod@3.25.67):
     dependencies:

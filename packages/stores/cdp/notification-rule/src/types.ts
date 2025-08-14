@@ -32,7 +32,7 @@ export type NotificationRuleDetail = {
 export type NotificationRuleEventSetting = {
   disabled: boolean;
   send_company: boolean;
-  disabled_checkboxes: boolean;
+  disabled_checkboxes?: boolean;
 };
 
 export type NotificationRuleSettings = {
@@ -71,8 +71,9 @@ export const notificationRuleEventCategories = [
   "giftcard",
   "offer",
   "replacement_request",
-  "waiting_list",
+  "waiting-list",
   "subscription",
+  "substitution",
   "invoice",
   "referral",
 ] as const;

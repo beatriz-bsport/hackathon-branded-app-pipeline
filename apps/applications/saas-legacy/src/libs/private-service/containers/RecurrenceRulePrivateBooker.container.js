@@ -13,6 +13,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import LinearProgress from '@material-ui/core/LinearProgress';
+import Alert from '@material-ui/lab/Alert';
 
 import { fetchAssociatedEstablishmentBulk } from '../../establishment/actions';
 import { fetchAssociatedCoachBulk } from '../../associated-coach/actions';
@@ -77,6 +78,8 @@ type State = {
   },
   notify_if_booked: boolean,
   is_overriding_availabilities: boolean,
+  isSubmitting: boolean,
+  submitError: ?string,
 };
 
 export class RecurrenceRulePrivateBooker extends React.Component<Props, State> {
@@ -105,6 +108,8 @@ export class RecurrenceRulePrivateBooker extends React.Component<Props, State> {
         is_overriding_availabilities:
           props.initial.is_overriding_availabilities,
         allow_unpaid: !!props.initial?.allow_unpaid,
+        isSubmitting: false,
+        submitError: null,
       };
     } else {
       this.state = {
@@ -124,6 +129,8 @@ export class RecurrenceRulePrivateBooker extends React.Component<Props, State> {
         notify_if_booked: false,
         is_overriding_availabilities: false,
         allow_unpaid: false,
+        isSubmitting: false,
+        submitError: null,
       };
     }
   }
@@ -216,7 +223,21 @@ export class RecurrenceRulePrivateBooker extends React.Component<Props, State> {
     );
   };
 
+  processError = (error) => {
+    if (!error) return null;
+    if (
+      error?.response?.data?.non_field_errors?.[0]?.includes(
+        'must make a unique set',
+      )
+    ) {
+      return this.props.t('recurrenceRule.form.duplicate_error');
+    }
+    return this.props.t('recurrenceRule.form.global_error');
+  };
+
   handleSubmit = (options: OptionCallback) => {
+    this.setState({ isSubmitting: true, submitError: null });
+
     this.props.createOrUpdateRecurrentRule(
       {
         ...this.state.time_setting,
@@ -230,12 +251,19 @@ export class RecurrenceRulePrivateBooker extends React.Component<Props, State> {
       },
       {
         onSuccess: () => {
+          this.setState({ isSubmitting: false });
           if (options && options.onSuccess) options.onSuccess();
           this.props.onChange();
+          this.props.setOpen(false);
+        },
+        onError: (error) => {
+          this.setState({
+            isSubmitting: false,
+            submitError: this.processError(error),
+          });
         },
       },
     );
-    this.props.setOpen(false);
   };
 
   render() {
@@ -250,6 +278,7 @@ export class RecurrenceRulePrivateBooker extends React.Component<Props, State> {
           <form
             onSubmit={(ev) => {
               ev.preventDefault();
+              if (this.state.isSubmitting) return; // Prevent double submission
               if (this.props.initial) this.props.setUpdateDialogOpen(true);
               else this.handleSubmit();
             }}
@@ -328,17 +357,27 @@ export class RecurrenceRulePrivateBooker extends React.Component<Props, State> {
                 }
                 label={t('recurrenceRule.form.allow_unpaid')}
               />
+              {this.state.submitError && (
+                <Alert severity="error">{this.state.submitError}</Alert>
+              )}
             </DialogContent>
             <DialogActions>
               <Button
                 color="secondary"
-                onClick={() => this.props.setOpen(false)}
+                disabled={this.state.isSubmitting}
+                onClick={() => {
+                  this.setState({ submitError: null });
+                  this.props.setOpen(false);
+                }}
               >
                 {t('recurrenceRule.actions.close')}
               </Button>
               <Button
                 color="primary"
-                disabled={!this.state.configuration.private_slot}
+                disabled={
+                  !this.state.configuration.private_slot ||
+                  this.state.isSubmitting
+                }
                 type="submit"
               >
                 {t('recurrenceRule.actions.save')}
@@ -348,8 +387,11 @@ export class RecurrenceRulePrivateBooker extends React.Component<Props, State> {
         </Dialog>
         <RecurrenceRulePrivateBookingUpdateDialog
           onChange={() => {
-            this.handleSubmit();
-            this.props.setUpdateDialogOpen(false);
+            this.handleSubmit({
+              onSuccess: () => {
+                this.props.setUpdateDialogOpen(false);
+              },
+            });
           }}
           onClose={() => this.props.setUpdateDialogOpen(false)}
           recurrentRuleId={
@@ -401,12 +443,18 @@ export default compose(
               onSuccess: (b) => {
                 if (options && options.onSuccess) options.onSuccess(b);
               },
+              onError: (error) => {
+                if (options && options.onError) options.onError(error);
+              },
             },
           );
         } else {
           createOrUpdateRecurrentRule(data, {
             onSuccess: (b) => {
               if (options && options.onSuccess) options.onSuccess(b);
+            },
+            onError: (error) => {
+              if (options && options.onError) options.onError(error);
             },
           });
         }

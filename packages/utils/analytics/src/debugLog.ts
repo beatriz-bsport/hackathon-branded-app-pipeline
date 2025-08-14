@@ -1,0 +1,81 @@
+import type { AnalyticsConfig, AnalyticsEvent, Properties } from "./types";
+
+const DEBUG_PREFIX = "[Analytics]";
+
+export const debugLog = {
+  addSuperProperties: (properties: Properties) =>
+    console.log(
+      `${DEBUG_PREFIX} Add super properties: `,
+      JSON.stringify(properties, null, 2),
+    ),
+
+  configure: (config?: AnalyticsConfig) =>
+    console.log(
+      `${DEBUG_PREFIX} Configure client: `,
+      JSON.stringify(config, null, 2),
+    ),
+
+  configureFailed: ({
+    config,
+    error,
+  }: {
+    config?: AnalyticsConfig;
+    error: unknown;
+  }) =>
+    console.error(`${DEBUG_PREFIX} Configuration failed: `, {
+      config: JSON.stringify(config, null, 2),
+      error,
+    }),
+
+  event: (event: AnalyticsEvent) =>
+    console.log(
+      `${DEBUG_PREFIX} Tracked event: `,
+      JSON.stringify(event, null, 2),
+    ),
+
+  flush: () => console.log(`${DEBUG_PREFIX} Flush events`),
+
+  identify: ({ userId, traits }: { userId: string; traits?: Properties }) =>
+    console.log(
+      `${DEBUG_PREFIX} Set user identity with id ${userId} and traits: `,
+      JSON.stringify(traits, null, 2),
+    ),
+
+  overloadAddSuperProperties: (properties: Properties) =>
+    console.log(
+      `${DEBUG_PREFIX} Add overload super properties: `,
+      JSON.stringify(properties, null, 2),
+    ),
+
+  overloadRemoveSuperProperties: (propertiesKeys: string[]) =>
+    console.log(
+      `${DEBUG_PREFIX} Remove overload super properties: `,
+      propertiesKeys,
+    ),
+
+  overloadResetSuperProperties: () =>
+    console.log(`${DEBUG_PREFIX} Reset overload super properties`),
+
+  removeSuperProperties: (propertiesKeys: string[]) =>
+    console.log(`${DEBUG_PREFIX} Remove super properties: `, propertiesKeys),
+
+  resetIdentity: () => console.log(`${DEBUG_PREFIX} Reset user identity`),
+
+  resetSuperProperties: () =>
+    console.log(`${DEBUG_PREFIX} Reset super properties`),
+
+  undefinedOverloadAddSuperProperties: () =>
+    console.log(
+      `${DEBUG_PREFIX} overloadAddSuperProperties method is not defined`,
+    ),
+
+  undefinedOverloadRemoveSuperProperties: () =>
+    console.log(
+      `${DEBUG_PREFIX} overloadRemoveSuperProperties method is not defined`,
+    ),
+
+  undefinedOverloadResetSuperProperties: () =>
+    console.log(
+      `${DEBUG_PREFIX} overloadResetSuperProperties method is not defined`,
+    ),
+};

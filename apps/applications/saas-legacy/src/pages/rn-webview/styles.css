@@ -3,3 +3,32 @@
   overflow: auto;
   padding-bottom: 30vh;
 }
+
+.bs-invoice-payment-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: var(--bs-space-size-4);
+  gap: var(--bs-space-size-4);
+}
+
+.bs-invoice-payment-buttons-containers {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.bs-invoice-payment-loader {
+  animation: spin 2s linear infinite;
+  align-self: center;
+}

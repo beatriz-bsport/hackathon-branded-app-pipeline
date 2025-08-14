@@ -93,6 +93,7 @@ const getTranslations = async () => {
         backToRegistererChoice: 'Back',
         bookMultiple: 'Book',
         title: 'Upcoming sessions',
+        titleGroupedSessions: 'All sessions in this group',
         selectAll: 'Select all',
         unselectAll: 'Unselect all',
       },

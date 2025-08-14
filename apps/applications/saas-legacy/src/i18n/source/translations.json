@@ -313,6 +313,7 @@
                 "backToRegistererChoice": "Back",
                 "bookMultiple": "Book",
                 "title": "Upcoming sessions",
+                "titleGroupedSessions": "All sessions in this group",
                 "selectAll": "Select all",
                 "unselectAll": "Unselect all"
             },
@@ -1154,6 +1155,17 @@
             "title": "Preferred location",
             "placeholder": "Location",
             "helperText": "The preferred location is the one where you plan to use your purchase and will be used to issue your invoice."
+        },
+        "passExpressCheckout": {
+            "yourPass": "Your selected pass",
+            "payNow": "Pay now",
+            "errors": {
+                "unavailable": {
+                    "title": "Pass no longer available",
+                    "description": "Please check to see which passes are currently on offer at your studio.",
+                    "goBackButtonLabel": "See available passes"
+                }
+            }
         }
     },
     "clockIn": {
@@ -8721,7 +8733,8 @@
                 "firstPart": "At bsport we use the Stripe service to manage all your online payments. The amounts of these are kept on Stripe and then transferred to your account (section \"My collections\")."
             },
             "title": "Stripe balance"
-        }
+        },
+        "setupPaymentError": "An error occurred"
     },
     "paymentCombo": {
         "pageTitle": {
@@ -11126,7 +11139,9 @@
                 "configuration": "Bookings",
                 "title": "[Form] Recurring appointment",
                 "override_availabilities": "Complete the booking even though the appointment, the establishment or the teacher is unavailable",
-                "allow_unpaid": "Authorize unpaid reservations (no compatible card owned)"
+                "allow_unpaid": "Authorize unpaid reservations (no compatible card owned)",
+                "duplicate_error": "This rule is already applied to a Recurring Booking. To save, change existing booking rules or adjust parameters.",
+                "global_error": "An error occurred while saving the recurring booking."
             },
             "actions": {
                 "save": "Save",

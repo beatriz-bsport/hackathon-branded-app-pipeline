@@ -1,6 +1,6 @@
 import { type ApiConfig } from "@bsport/store-base";
 
-import { NotificationRuleDetail } from "./types";
+import { NotificationRuleDetail, NotificationRuleSettings } from "./types";
 
 const API_URL = "customer-data-platform/v1/notification";
 const RULE_API_URL = API_URL + "/rule";
@@ -25,20 +25,8 @@ export const fetchNotificationRuleSettingListAPI = (): ApiConfig => {
   return [`${API_URL}/settings/`];
 };
 
-export type NotificationRuleSettingPayload = {
-  disabled: boolean;
-  send_company: boolean;
-  disabled_checkboxes: boolean;
-};
-
-export type PatchNotificationRuleSettingsPayload = {
-  company: number | null;
-  id: number;
-  settings: Record<string, NotificationRuleSettingPayload>;
-};
-
 export const putNotificationRuleSettingsAPI = (
-  params: PatchNotificationRuleSettingsPayload,
+  params: NotificationRuleSettings,
 ): ApiConfig => {
   return [
     `${API_URL}/settings/${params.id}`,

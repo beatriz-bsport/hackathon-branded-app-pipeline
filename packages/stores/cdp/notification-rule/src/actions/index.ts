@@ -3,7 +3,6 @@ import { Result } from "typescript-result";
 import { type Action, createErrorWithContext } from "@bsport/store-base";
 
 import {
-  type PatchNotificationRuleSettingsPayload,
   fetchCommunicationVariablesAPI,
   fetchGenericCommunicationVariablesAPI,
   fetchNotificationRuleDetailListAPI,
@@ -268,11 +267,11 @@ export const fetchNotificationRuleSettingsAction: Action<
  * }
  * ```
  *
- * @see PatchNotificationRuleSettingsPayload - For parameter structure details
+ * @see NotificationRuleSettings - For parameter structure details
  * @see NotificationRuleSettings - For setting object structure
  */
 export const updateNotificationRuleSettingsAction: Action<
-  PatchNotificationRuleSettingsPayload,
+  NotificationRuleSettings,
   NotificationRuleSettings
 > = async (fetch, params) => {
   const [uri, init] = putNotificationRuleSettingsAPI(params);

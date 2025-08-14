@@ -32,6 +32,7 @@ export const useFormatNotificationGroupList = ({
     if (!isValidNotificationRuleEventCategory(event)) {
       return event;
     }
+    // @ts-expect-error: our setup TSC isn't supporting dynamic keys yet
     return t(`notificationRuleEvents.categories.${event}`) || event;
   };
 

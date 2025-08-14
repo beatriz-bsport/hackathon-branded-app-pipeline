@@ -162,6 +162,7 @@ const BookerModuleOfferSummary: React.FC<Props> = ({
     showCredits &&
     t(`booking:creditConsumed`, {
       credit_consumed: getCreditsDividedDisplay(offer?.credit_price),
+      count: offer?.credit_price,
     });
 
   const taxes = getTaxPrice(price, tax);

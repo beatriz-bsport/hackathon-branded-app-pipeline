@@ -21,7 +21,7 @@ import Root from './Root';
 import initStore from './store';
 import { rudderInitialize } from './components/analytics/rudderstack/utils';
 import theme from './theme';
-import FeatureFlagsProvider from './unleash/FeatureFlagsProvider';
+import FeatureFlagsProvider from './utils/feature-flag/FeatureFlagsProvider';
 
 export class App extends Component {
   state = {

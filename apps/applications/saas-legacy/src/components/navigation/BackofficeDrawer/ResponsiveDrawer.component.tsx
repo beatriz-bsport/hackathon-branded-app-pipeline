@@ -51,7 +51,7 @@ import ListItem from '@material-ui/core/ListItem';
 import Divider from '@material-ui/core/Divider';
 import Immutable from 'seamless-immutable';
 import { useFlag } from '@unleash/proxy-client-react';
-import { FeatureFlags } from '../../../unleash/flags';
+import { FeatureFlags } from '#src/utils/feature-flag/flags';
 
 import SwitchHorizontalIcon from '#src/components/icons/SwitchHorizontalIcon.component';
 import TutorialIconWithAlertings from '#src/libs/platform-tutorial/components/TutorialIconWithAlertings.component';

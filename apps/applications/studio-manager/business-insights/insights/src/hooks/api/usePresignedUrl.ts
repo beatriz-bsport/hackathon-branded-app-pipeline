@@ -1,10 +1,10 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import { useGenericToasts } from "#src/hooks/ui";
 import type { DashboardType } from "#src/types/api";
 import { fetchPresignedUrl } from "#src/utils/api";
 
-type ErrorKeys = "errors.loadDashboard" | "errors.fetchFailed";
+export type ErrorKeys = "errors.loadDashboard" | "errors.fetchFailed";
 
 interface UsePresignedUrlState {
   /** The presigned URL for the dashboard iframe, or null if not loaded */
@@ -32,48 +32,50 @@ export const usePresignedUrl = (
     error: null,
   });
 
-  const fetchUrl = useCallback(async () => {
-    const setLoadingState = () => {
-      setState((prev) => ({ ...prev, isLoading: true, error: null }));
-    };
-
-    const setSuccessState = (url: string) => {
-      setState({
-        iframeUrl: url,
-        isLoading: false,
-        error: null,
-      });
-    };
-
-    const setErrorState = (errorKey: ErrorKeys) => {
-      setState({
-        iframeUrl: null,
-        isLoading: false,
-        error: errorKey,
-      });
-    };
-
-    try {
-      setLoadingState();
-
-      const data = await fetchPresignedUrl(dashboardType);
-
-      if (data.presigned_url) {
-        setSuccessState(data.presigned_url);
-      } else {
-        handleActionFailed("errors.loadDashboard");
-        setErrorState("errors.loadDashboard");
-      }
-    } catch (error) {
-      console.error(`Error fetching ${dashboardType} dashboard:`, error);
-      handleActionFailed("errors.fetchFailed");
-      setErrorState("errors.fetchFailed");
-    }
-  }, [dashboardType, handleActionFailed]);
-
   useEffect(() => {
+    let isMounted = true;
+
+    const fetchUrl = async () => {
+      try {
+        setState((prev) => ({ ...prev, isLoading: true, error: null }));
+
+        const data = await fetchPresignedUrl(dashboardType);
+
+        if (!isMounted) return;
+
+        if (data.presigned_url) {
+          setState({
+            iframeUrl: data.presigned_url,
+            isLoading: false,
+            error: null,
+          });
+        } else {
+          handleActionFailed("errors.loadDashboard");
+          setState({
+            iframeUrl: null,
+            isLoading: false,
+            error: "errors.loadDashboard",
+          });
+        }
+      } catch (error) {
+        if (!isMounted) return;
+
+        console.error(`Error fetching ${dashboardType} dashboard:`, error);
+        handleActionFailed("errors.fetchFailed");
+        setState({
+          iframeUrl: null,
+          isLoading: false,
+          error: "errors.fetchFailed",
+        });
+      }
+    };
+
     fetchUrl();
-  }, [fetchUrl]);
+
+    return () => {
+      isMounted = false;
+    };
+  }, [dashboardType, handleActionFailed]);
 
   return state;
 };

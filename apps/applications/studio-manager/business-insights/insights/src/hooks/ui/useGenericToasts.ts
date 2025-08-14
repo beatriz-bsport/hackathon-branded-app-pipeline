@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+import { useCallback, useRef } from "react";
 
 import { toast } from "@bsport/kaizen-primitive-core";
 
@@ -6,17 +6,21 @@ import { useTranslation } from "#src/utils/i18n";
 
 export const useGenericToasts = () => {
   const { t } = useTranslation("insights");
+  const tRef = useRef(t);
+
+  // Update ref when translation function changes
+  tRef.current = t;
 
   const handleActionFailed = useCallback(
     (errorKey: "errors.loadDashboard" | "errors.fetchFailed") => {
       toast({
         status: "critical",
         icon: "alert-circle",
-        title: t(errorKey),
+        title: tRef.current(errorKey),
         buttonIcon: "x-close",
       });
     },
-    [t],
+    [], // No dependencies - stable function
   );
 
   return {

@@ -25,6 +25,7 @@ type FilterElementSelectFieldProps = {
   openedByDefault: boolean;
   selectedField: string | null;
   selectedValues: string[] | null;
+  hasTrailingSegment?: boolean;
   onSelectOption: (fieldId: string, shouldDisplayEntireFilter: boolean) => void;
 };
 
@@ -34,6 +35,7 @@ const FilterElementSelectField: React.FC<FilterElementSelectFieldProps> = ({
   openedByDefault,
   selectedField,
   selectedValues,
+  hasTrailingSegment = false,
   onSelectOption,
 }) => {
   const [menu, setMenu] = useState({
@@ -63,6 +65,16 @@ const FilterElementSelectField: React.FC<FilterElementSelectFieldProps> = ({
           {({ setIsPopoverOpened }) => {
             const handleButtonClick = () => {
               setIsPopoverOpened((prev: boolean) => !prev);
+              if (selectedField) {
+                setMenu({
+                  type: "values",
+                  items: fields[selectedField].values.map((value) => ({
+                    id: value.id,
+                    label: value.label,
+                  })),
+                });
+                return;
+              }
               if (Object.keys(fields).length === 1) {
                 setMenu({
                   type: "values",
@@ -85,7 +97,7 @@ const FilterElementSelectField: React.FC<FilterElementSelectFieldProps> = ({
             return (
               <Button
                 className={classNames(filterElementBtnClasses, {
-                  "!rounded-r-[0]": selectedField,
+                  "!rounded-r-[0]": hasTrailingSegment,
                 })}
                 label={selectedField ? fields[selectedField].label : label}
                 color="default"

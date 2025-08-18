@@ -69,8 +69,8 @@ const TrialAnalysis: React.FC<Props> = ({ t: _t }) => {
         } else {
           setError('Unable to load dashboard. Please refresh the page.');
         }
-      } catch (error) {
-        console.error('Error fetching trial analysis dashboard:', error);
+      } catch (err) {
+        console.error('Error fetching trial analysis dashboard:', err);
         setError('Failed to load dashboard. Please refresh the page.');
       } finally {
         setLoading(false);

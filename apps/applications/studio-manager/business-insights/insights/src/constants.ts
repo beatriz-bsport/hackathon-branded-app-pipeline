@@ -3,7 +3,7 @@
  */
 export const DASHBOARD_TYPES = {
   TRIAL_ANALYSIS: "trial_analysis",
-  SUBSCRIPTION_EVENTS: "subscription_events",
+  RECURRING_REVENUE: "subscription_events",
 } as const;
 
 /**
@@ -29,6 +29,6 @@ export const INSIGHT_ITEMS = [
   {
     id: "recurring",
     section: "financial",
-    dashboardType: DASHBOARD_TYPES.SUBSCRIPTION_EVENTS,
+    dashboardType: DASHBOARD_TYPES.RECURRING_REVENUE,
   },
 ] as const;

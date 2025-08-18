@@ -11,7 +11,7 @@ import { useTranslation } from "#src/utils/i18n";
 const RecurringRevenuePage = () => {
   const { t } = useTranslation("insights");
   const { iframeUrl, isLoading, error } = usePresignedUrl(
-    DASHBOARD_TYPES.SUBSCRIPTION_EVENTS,
+    DASHBOARD_TYPES.RECURRING_REVENUE,
   );
 
   const pageTitle = t("pages.recurringRevenue.title");

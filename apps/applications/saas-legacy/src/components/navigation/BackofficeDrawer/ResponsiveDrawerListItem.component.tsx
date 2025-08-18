@@ -122,8 +122,8 @@ const DrawerListItem: React.FC<DrawerListItemProps> = ({
             id={(item as DrawerItemDefault).id}
             primary={
               <Box
-                display="flex"
                 alignItems="center"
+                display="flex"
                 justifyContent="space-between"
                 width="100%"
               >

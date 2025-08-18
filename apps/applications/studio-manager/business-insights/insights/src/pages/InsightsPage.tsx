@@ -100,7 +100,8 @@ const InsightsPage = () => {
             id: row.id,
             title: row.title,
             description: row.description,
-            chip: createChipForRow(row, t),
+            chips: [createChipForRow(row, t)],
+            chipsDirection: "end",
             onClick: () => navigate(row.link),
             className: "hover:cursor-pointer",
           }))}

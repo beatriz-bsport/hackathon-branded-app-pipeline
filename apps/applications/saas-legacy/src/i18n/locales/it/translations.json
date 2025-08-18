@@ -19051,9 +19051,9 @@
                 "confirmationMessage": "Ti sei iscritto con successo a {{- name }}",
                 "info": "Contatta il supporto clienti",
                 "infoHelper": "Maggiori informazioni?",
-                "priceHelper": "Questo prezzo verrà aggiunto al piano mensile.",
+                "priceHelper": "Questo prezzo verrà aggiunto al tuo piano mensile.",
                 "confirmHelper": "Conferma di volerti abbonare a questo componente aggiuntivo",
-                "title": "Iscriviti al pacchetto combinato",
+                "title": "Aggiungi add-on",
                 "timeConsumingHelper": "L'iscrizione a questo upsell potrebbe richiedere alcuni secondi per essere elaborata"
             },
             "seeMore": "Mostra di più",

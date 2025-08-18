@@ -19054,7 +19054,10 @@
                 "timeConsumingHelper": "L'iscrizione a questo upsell potrebbe richiedere alcuni secondi per essere elaborata"
             },
             "seeMore": "Mostra di più",
-            "billSMS": "{{ price_cts }} / SMS"
+            "billSMS": "{{ price_cts }} / SMS",
+            "audienceLockDialog": {
+                "videoLink": "https://youtu.be/Ua_4dHrCjUQ"
+            }
         },
         "paymentMethod": {
             "actions": {

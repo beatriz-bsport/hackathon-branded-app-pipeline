@@ -2,6 +2,10 @@
   display: flex;
 }
 
+.bs-marketplace-card-price__typography {
+  word-break: keep-all;
+}
+
 .bs-marketplace-card-price__fractional-amount {
   padding-top: 4px;
 }

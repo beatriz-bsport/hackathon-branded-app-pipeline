@@ -25,7 +25,6 @@ export const PrivatePassCard: React.FC = memo(() => {
     isNewMemberOnly,
     hasNoCompatibleServices,
     compatibleServices,
-    tax,
   } = usePrivatePassCardData();
 
   return (
@@ -37,7 +36,7 @@ export const PrivatePassCard: React.FC = memo(() => {
         >
           {title}
         </Typography>
-        <Price price={price} tax={tax} />
+        <Price price={price} />
       </div>
       <div className="bs-express-checkout-private-pass-card__validity">
         <CalendarDate
@@ -77,6 +76,7 @@ export const PrivatePassCard: React.FC = memo(() => {
       </div>
       {description?.length && (
         <ExpandableContent
+          initiallyOpen
           className="bs-express-checkout-private-pass-card__description-section"
           id="description"
           title={t('passes.detail.description.label')}
@@ -90,6 +90,7 @@ export const PrivatePassCard: React.FC = memo(() => {
         </ExpandableContent>
       )}
       <ExpandableContent
+        initiallyOpen
         className="bs-express-checkout-private-pass-card__compatibility"
         id="compatibility"
         title={t('passes.detail.compatibility.titles.main')}
@@ -117,16 +118,18 @@ export const PrivatePassCard: React.FC = memo(() => {
                 title={t('passes.detail.compatibility.subtitles.appointments')}
                 variant="xs"
               />
-              <List className="bs-express-checkout-private-pass-detail__compatibility__appointments__list">
+              <div className="bs-express-checkout-private-pass-card__chips">
                 {compatibleServices.map((compatibleService) => (
-                  <ListItem
+                  <Chip
                     key={compatibleService.id}
                     className="bs-express-checkout-private-pass-detail__compatibility__appointments__list-item"
-                    label={compatibleService.name}
-                    size="lg"
-                  />
+                    color="grey"
+                    variant="weak"
+                  >
+                    {compatibleService.name}
+                  </Chip>
                 ))}
-              </List>
+              </div>
             </div>
           )}
         </div>

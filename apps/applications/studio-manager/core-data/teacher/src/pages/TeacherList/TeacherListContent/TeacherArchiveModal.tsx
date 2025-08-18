@@ -9,7 +9,7 @@ import { useAsync } from "@bsport/use-async";
 
 import { useGenericToasts } from "#src/hooks/useGenericToasts";
 import { fetch } from "#src/utils/fetch";
-import { Trans, useTranslation } from "#src/utils/i18n";
+import { useTranslation } from "#src/utils/i18n";
 
 type TeacherArchiveModalProps = {
   teacherId: number;
@@ -91,29 +91,24 @@ export const TeacherArchiveModal: React.FC<TeacherArchiveModalProps> = ({
         onClick: handleArchive,
       }}
       cancelButton={{
-        label: t("activeList.archiveModal.buttons.cancel"),
+        label: t("activeList.archiveModal.buttons.back"),
         onClick: onClose,
       }}
       onCloseButtonClick={onClose}
       title={t("activeList.archiveModal.title")}
       size="md"
       onClickOutside={onClose}
-      description={
-        <>
-          <Body htmlVariant="p">
-            <Trans
-              i18nKey={"activeList.archiveModal.description.action"}
-              values={{ name: teacherName }}
-              components={{
-                b: <b></b>,
-              }}
-            />
-          </Body>
-          <Body htmlVariant="p">
-            {t("activeList.archiveModal.description.effect")}
-          </Body>
-        </>
-      }
-    ></Modal>
+    >
+      <>
+        <Body htmlVariant="p">
+          {t("activeList.archiveModal.description.action", {
+            name: teacherName,
+          })}
+        </Body>
+        <Body htmlVariant="p" weight="strong">
+          {t("activeList.archiveModal.description.effect")}
+        </Body>
+      </>
+    </Modal>
   );
 };

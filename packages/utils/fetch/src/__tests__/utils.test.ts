@@ -13,6 +13,10 @@ vi.mock("@bsport/local-storage-auth-token", () => ({
   getAuthToken: vi.fn(),
 }));
 
+vi.mock("@bsport/request-from-header", () => ({
+  getBsportRequestFrom: vi.fn(),
+}));
+
 vi.mock("@bsport/sentry", () => ({
   getSessionId: vi.fn(() => "test-session-id"),
   getTransactionId: vi.fn(() => "test-transaction-id"),
@@ -25,6 +29,10 @@ vi.mock("@bsport/timezone-utils", () => ({
 const mockGetAuthToken = vi.mocked(
   await import("@bsport/local-storage-auth-token"),
 ).getAuthToken;
+
+const mockGetBsportRequestFrom = vi.mocked(
+  await import("@bsport/request-from-header"),
+).getBsportRequestFrom;
 
 // Mock window.location for referrer tests
 Object.defineProperty(window, "location", {
@@ -69,6 +77,21 @@ describe("utils", () => {
 
       expect(headers.Authorization).toBe("Token test-auth-token");
       expect(headers.Accept).toBe("application/json");
+    });
+
+    it("should include bsport-request-from header when value is defined", () => {
+      mockGetBsportRequestFrom.mockReturnValue("backoffice");
+
+      const headers = getHeaders() as Record<string, string>;
+
+      expect(headers["X-bsport-request-from"]).toBe("backoffice");
+    });
+
+    it("should omit bsport-request-from header when value is null", () => {
+      mockGetBsportRequestFrom.mockReturnValue(null);
+
+      const headers = getHeaders() as Record<string, string>;
+      expect(headers["X-bsport-request-from"]).toBeUndefined();
     });
 
     it("should merge custom headers with default headers", () => {

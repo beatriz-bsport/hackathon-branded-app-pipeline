@@ -25,6 +25,7 @@
     "@bsport/fetch": "workspace:*",
     "@bsport/i18n": "workspace:*",
     "@bsport/kaizen-primitive-core": "workspace:*",
+    "@bsport/request-from-header": "workspace:*",
     "@bsport/sm-backbone": "workspace:*",
     "@bsport/use-pagination-query-params": "workspace:*",
     "react": "^19.0.0",

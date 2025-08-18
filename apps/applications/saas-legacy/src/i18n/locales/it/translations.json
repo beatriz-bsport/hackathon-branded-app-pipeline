@@ -19056,7 +19056,13 @@
             "seeMore": "Mostra di più",
             "billSMS": "{{ price_cts }} / SMS",
             "audienceLockDialog": {
-                "videoLink": "https://youtu.be/Ua_4dHrCjUQ"
+                "videoLink": "https://youtu.be/Ua_4dHrCjUQ",
+                "benefits": [
+                    "Aumenta il valore dei clienti VIP con sequenze esclusive",
+                    "Genera più guadagni con messaggi personalizzati in base a ciò che fanno"
+                ],
+                "description": "Comunica facilmente con i tuoi clienti attraverso più canali grazie a sequenze automatiche:",
+                "title": "La comunicazione giusta al momento giusto, facile con Audience"
             }
         },
         "paymentMethod": {

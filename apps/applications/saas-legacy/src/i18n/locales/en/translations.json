@@ -8852,6 +8852,12 @@
                     "tagGroupDuplicated": "Please note that selected items contain tags of the same category that cannot be applied simultaneously. Only the first of these tags will be applied after purchase."
                 },
                 "tagGroupDuplicated": "Please note that selected items contain tags of the same category"
+            },
+            "manager_only": {
+                "label": "Hidden on Member Area"
+            },
+            "unusableByStaff": {
+                "label": "Hidden from staff"
             }
         },
         "detail": {

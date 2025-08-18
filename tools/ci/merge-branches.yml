@@ -25,12 +25,6 @@
       if git merge origin/${SOURCE_BRANCH} --no-commit --no-ff; then
         echo "✅ Merge successful - no conflicts detected"
 
-        # If nothing was staged by the merge, target is already up-to-date
-        if git diff --cached --quiet; then
-          echo "No changes to merge — ${TARGET_BRANCH} already up to date with ${SOURCE_BRANCH}"
-          exit 0
-        fi
-
         # Complete the merge
         git commit -m "chore: merge ${SOURCE_BRANCH} into ${TARGET_BRANCH}"
           

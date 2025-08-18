@@ -19063,7 +19063,10 @@
                     "Fidelizza i clienti con follow-up automatizzati"
                 ],
                 "description": "I flussi di lavoro automatizzati ti aiutano a comunicare con i tuoi clienti su più canali, permettendoti di:",
-                "title": "Raggiungi i tuoi clienti ovunque si trovino, con Audience"
+                "title": "Raggiungi i tuoi clienti ovunque si trovino, con Audience",
+                "goHome": "Torna al calendario",
+                "showInterest": "Contattaci",
+                "explain": "Questa funzionalità è un add-on. Contatta il tuo Account Manager per maggiori informazioni."
             }
         },
         "paymentMethod": {

@@ -16,6 +16,7 @@
     "api-environment:set": "ts-node tools/toolkit-cli/src/index.ts api-environment:set",
     "build": "nx build",
     "build:all": "nx run-many --all --target=build",
+    "cleanup": "bash tools/scripts/cleanup-and-rebuild.sh",
     "docs:events": "pnpm exec nx docs:generate @bsport/analytics",
     "federate:navigation": "pnpm --filter '@bsport/sm-navigation-sidebar' dev",
     "format": "pnpm exec nx run-many -t format",

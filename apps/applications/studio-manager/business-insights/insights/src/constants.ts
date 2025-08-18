@@ -1,3 +1,5 @@
+import { URLS } from "./urls";
+
 /**
  * Dashboard types for the embedded analytics API
  */
@@ -25,10 +27,12 @@ export const INSIGHT_ITEMS = [
     id: "trial",
     section: "member",
     dashboardType: DASHBOARD_TYPES.TRIAL_ANALYSIS,
+    link: URLS.TRIAL_ANALYSIS,
   },
   {
     id: "recurring",
     section: "financial",
     dashboardType: DASHBOARD_TYPES.RECURRING_REVENUE,
+    link: URLS.RECURRING_REVENUE,
   },
 ] as const;

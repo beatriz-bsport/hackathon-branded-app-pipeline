@@ -1,5 +1,4 @@
 import { INSIGHT_ITEMS, INSIGHT_SECTIONS } from "#src/constants";
-import { URLS } from "#src/urls";
 import type { TFunction } from "#src/utils/i18n";
 
 export interface InsightRow {
@@ -18,7 +17,7 @@ export const createInsightRows = (t: TFunction): InsightRow[] => {
     ...item,
     title: t(`items.${item.id}.title`),
     description: t(`items.${item.id}.description`),
-    link: item.id === "trial" ? URLS.TRIAL_ANALYSIS : URLS.RECURRING_REVENUE,
+    link: item.link,
   }));
 };
 

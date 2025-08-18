@@ -1,4 +1,5 @@
 import { getAuthToken } from "@bsport/local-storage-auth-token";
+import { getBsportRequestFrom } from "@bsport/request-from-header";
 import { getSessionId, getTransactionId } from "@bsport/sentry";
 import { getTimezoneName } from "@bsport/timezone-utils";
 
@@ -18,8 +19,8 @@ export const BACKGROUND_TASK_UUID_HEADER = "x-background-task-uuid";
 
 export function getHeaders(customHeaders?: HeadersInit): HeadersInit {
   const token = getAuthToken();
+  const requestFrom = getBsportRequestFrom();
 
-  // missing getBsportRequestFromHeader() here
   return {
     Accept: "application/json",
     "X-Session-ID": getSessionId(),
@@ -28,6 +29,7 @@ export function getHeaders(customHeaders?: HeadersInit): HeadersInit {
     "X-bsport-log-collection": "true",
     "X-Transaction-ID": getTransactionId(),
     ...(token ? { Authorization: `Token ${token}` } : {}),
+    ...(requestFrom ? { "X-bsport-request-from": requestFrom } : {}),
     ...customHeaders,
   };
 }

@@ -1865,6 +1865,9 @@ importers:
       '@bsport/kaizen-primitive-core':
         specifier: workspace:*
         version: link:../../../../packages/design-system/kaizen/primitive/core
+      '@bsport/request-from-header':
+        specifier: workspace:*
+        version: link:../../../../packages/local-storage/request-from-header
       '@bsport/sm-backbone':
         specifier: workspace:*
         version: link:../../../../packages/utils/sm-backbone
@@ -2941,6 +2944,9 @@ importers:
       '@bsport/local-storage-auth-token':
         specifier: workspace:*
         version: link:../../local-storage/auth-token
+      '@bsport/request-from-header':
+        specifier: workspace:*
+        version: link:../../local-storage/request-from-header
       '@bsport/sentry':
         specifier: workspace:*
         version: link:../sentry

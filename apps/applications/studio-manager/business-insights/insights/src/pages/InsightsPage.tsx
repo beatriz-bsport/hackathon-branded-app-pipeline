@@ -102,6 +102,7 @@ const InsightsPage = () => {
             description: row.description,
             chip: createChipForRow(row, t),
             onClick: () => navigate(row.link),
+            className: "hover:cursor-pointer",
           }))}
         />
       </ListLayout.Content>

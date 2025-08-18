@@ -19000,7 +19000,10 @@
         "featureRequest": {
             "close": "Chiudi",
             "content": "Il tuo interesse è stato notato, grazie! Il tuo account manager si metterà presto in contatto con te per maggiori informazioni.",
-            "title": "Componenti aggiuntivi"
+            "title": "Componenti aggiuntivi",
+            "header": "Ti contatteremo presto!",
+            "interestMessage": "Grazie per l'interesse in questo componente aggiuntivo. Il tuo Account Manager ti contatterà presto per fornirti maggiori informazioni.",
+            "interestMessageWithChat": "Grazie per il tuo interesse in questo componente aggiuntivo. Il tuo Account Manager ti contatterà a breve per fornirti maggiori informazioni. Nel frattempo, siamo a tua disposizione per qualsiasi domanda tramite la chat di supporto."
         },
         "platformBillingStage": {
             "maxBooking": "Fino a {{ max_booking_per_month }} prenotazioni / mese",
@@ -19066,7 +19069,7 @@
                 "title": "Raggiungi i tuoi clienti ovunque si trovino, con Audience",
                 "goHome": "Torna al calendario",
                 "showInterest": "Contattaci",
-                "explain": "Questa funzionalità è un add-on. Contatta il tuo Account Manager per maggiori informazioni."
+                "explain": "Questa funzionalità è un componente aggiuntivo. Contatta il tuo Account Manager per maggiori informazioni."
             }
         },
         "paymentMethod": {

@@ -19037,12 +19037,27 @@
                 "timeConsumingHelper": "La suscripción a esta funcionalidad adicional puede tardar unos segundos en procesarse"
             },
             "seeMore": "Ver más",
-            "billSMS": "{{ price_cts }} / SMS"
+            "billSMS": "{{ price_cts }} / SMS",
+            "audienceLockDialog": {
+                "goHome": "Volver al calendario",
+                "showInterest": "Ponte en contacto",
+                "explain": "Esta función es un complemento. Póngase en contacto con su gestor de cuentas para obtener más información.",
+                "benefits": [
+                    "Fidelizar a los clientes con seguimientos automatizados",
+                    "Aumentar los ingresos con experiencias personalizadas para clientes VIP.",
+                    "Convertir clientes potenciales con mensajes personalizados en puntos de contacto clave."
+                ],
+                "description": "Los flujos de trabajo automatizados le ayudan a conectar con sus clientes a través de múltiples canales, para que pueda:",
+                "title": "Contacte con sus clientes allí donde se encuentren con Audience."
+            }
         },
         "featureRequest": {
             "close": "Cerrar",
             "content": "Hemos tomado nota de su interés. ¡Gracias por su interés! Su gestor de cuenta se pondrá en contacto con usted muy pronto con más información.",
-            "title": "Empecemos una conversación"
+            "title": "Empecemos una conversación",
+            "header": "¡Nos pondremos en contacto contigo!",
+            "interestMessage": "Gracias por su interés en este complemento. Su gestor de cuentas se pondrá en contacto con usted en breve para proporcionarle más información.",
+            "interestMessageWithChat": "Gracias por su interés en este complemento. Su gestor de cuentas se pondrá en contacto con usted en breve para proporcionarle más información. Mientras tanto, podemos responder a cualquier pregunta que tenga a través del chat de ayuda."
         },
         "platformBillingStage": {
             "maxBooking": "Hasta {{ max_booking_per_month }} reservas / mes",

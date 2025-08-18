@@ -19039,7 +19039,9 @@
         "featureRequest": {
             "close": "Sluiten",
             "content": "Hartelijk dank voor je interesse in deze aanvullende dienst. Indien je meer wilt weten over deze optie, stuur dan een bericht in de Chatbox vanuit je account. Je Accountmanager zal je graag verder ondersteunen met verdere informatie.",
-            "title": "Start een gesprek"
+            "title": "Start een gesprek",
+            "header": "We nemen contact met je op!",
+            "interestMessageWithChat": "Bedankt voor je interesse in deze dienst. Je account manager neemt snel contact met je op voor meer informatie. In de tussentijd kunnen we al je vragen beantwoorden via de chat."
         },
         "platformBillingStage": {
             "maxBooking": "Tot {{max_booking_per_month}} reserveringen / maand",
@@ -19083,7 +19085,19 @@
                 "timeConsumingHelper": "Het kan enkele seconden duren voordat de inschrijving voor deze upsell is verwerkt"
             },
             "seeMore": "Toon meer",
-            "billSMS": "{{ price_cts }} / sms"
+            "billSMS": "{{ price_cts }} / sms",
+            "audienceLockDialog": {
+                "goHome": "Terug naar de kalender",
+                "showInterest": "Neem contact op",
+                "explain": "Dit is een aanvullende dienst. Contacteer je account manager voor meer informatie.",
+                "benefits": [
+                    "Klanten kunt behouden door middel van automatische opvolging",
+                    "De omzet kunt verhogen met persoonlijke klantreizen voor VIPs",
+                    "Leads kunt omzetten met gepersonaliseerde berichten op belangrijke momenten"
+                ],
+                "description": "Geautomatiseerde workflows helpen u om via meerdere kanalen contact te leggen met uw klanten, zodat je:",
+                "title": "Ontmoet uw klanten waar ze zich bevinden met Audience"
+            }
         },
         "paymentMethod": {
             "actions": {

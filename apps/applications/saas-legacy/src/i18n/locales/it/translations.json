@@ -19054,7 +19054,20 @@
                 "timeConsumingHelper": "L'iscrizione a questo upsell potrebbe richiedere alcuni secondi per essere elaborata"
             },
             "seeMore": "Mostra di più",
-            "billSMS": "{{ price_cts }} / SMS"
+            "billSMS": "{{ price_cts }} / SMS",
+            "audienceLockDialog": {
+                "videoLink": "https://youtu.be/Ua_4dHrCjUQ",
+                "benefits": [
+                    "Converti i potenziali clienti con messaggi personalizzati nei momenti chiave",
+                    "Aumenta i ricavi con percorsi cliente su misura per i clienti VIP",
+                    "Fidelizza i clienti con follow-up automatizzati"
+                ],
+                "description": "I flussi di lavoro automatizzati ti aiutano a comunicare con i tuoi clienti su più canali, permettendoti di:",
+                "title": "Raggiungi i tuoi clienti ovunque si trovino, con Audience",
+                "goHome": "Torna al calendario",
+                "showInterest": "Contattaci",
+                "explain": "Questa funzionalità è un add-on. Contatta il tuo Account Manager per maggiori informazioni."
+            }
         },
         "paymentMethod": {
             "actions": {

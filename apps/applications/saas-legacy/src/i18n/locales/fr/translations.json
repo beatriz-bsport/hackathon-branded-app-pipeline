@@ -9944,7 +9944,10 @@
                 "timeConsumingHelper": "L'abonnement à ce produit peut prendre quelques secondes avant d'être traité"
             },
             "seeMore": "Voir plus",
-            "billSMS": "{{ price_cts }} / SMS"
+            "billSMS": "{{ price_cts }} / SMS",
+            "audienceLockDialog": {
+                "videoLink": "https://youtu.be/kdLTssiA7bM"
+            }
         },
         "platformBillingGroup": {
             "myGroup": "Mon forfait",

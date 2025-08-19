@@ -3,4 +3,4 @@ export interface PresignedUrlResponse {
   embed_url?: string;
 }
 
-export type DashboardType = "trial_analysis" | "subscription_events";
+export type DashboardType = "trial_analysis" | "recurring_revenue";

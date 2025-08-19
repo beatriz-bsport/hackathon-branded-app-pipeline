@@ -5,7 +5,7 @@ import { URLS } from "./urls";
  */
 export const DASHBOARD_TYPES = {
   TRIAL_ANALYSIS: "trial_analysis",
-  RECURRING_REVENUE: "subscription_events",
+  RECURRING_REVENUE: "recurring_revenue",
 } as const;
 
 /**

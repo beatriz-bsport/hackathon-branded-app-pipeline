@@ -65,7 +65,12 @@ export const InsightDetailLayout = ({
         pageTitle={title}
         BreadcrumbsItems={breadcrumbsItems}
       />
-      <DetailsLayout.Content>{renderContent()}</DetailsLayout.Content>
+      <div
+        style={{ gridArea: "content" }}
+        className="w-full h-full p-0 overflow-hidden"
+      >
+        {renderContent()}
+      </div>
     </DetailsLayout>
   );
 };

@@ -202,50 +202,28 @@ Components from SM Backbone (like `AppWrapper`, `ErrorBoundaryWrapper`, etc.) wi
 
 ## Feature Flags (Unleash)
 
-SM Backbone exposes a Feature Flags provider based on `@unleash/proxy-client-react`. The provider only mounts when a tenant scope exists (company or single-scoped franchise) and when required env variables are present. Flags default to `false` if the provider is not mounted.
+SM Backbone exposes Feature Flags via `@unleash/proxy-client-react`.
 
-Required environment variables (Vite)
+Required Vite envs: `VITE_UNLEASH_PROXY_URL`, `VITE_UNLEASH_CLIENT_KEY`.
 
-- `VITE_UNLEASH_PROXY_URL`
-- `VITE_UNLEASH_CLIENT_KEY`
-
-Setup via CLI (recommended)
-
-Run from anywhere in the monorepo:
+Setup (run anywhere in the monorepo):
 
 ```sh
-# Local defaults (writes .env.local) and rebuilds this package
 pnpm run -w feature-flags-environment:set local
-
-# Staging (writes .env.production) and rebuilds this package
-pnpm run -w feature-flags-environment:set staging \
-  --proxy-url https://<your-staging-unleash>/api/frontend \
-  --client-key <token>
-
-# Production (writes .env.production) and rebuilds this package
-pnpm run -w feature-flags-environment:set production \
-  --proxy-url https://<your-prod-unleash>/api/frontend \
-  --client-key <token>
+pnpm run -w feature-flags-environment:set dev
+pnpm run -w feature-flags-environment:set staging
+pnpm run -w feature-flags-environment:set feature-branch
+pnpm run -w feature-flags-environment:set production
 ```
 
-How it works
+Notes:
 
-- Env values are read by Vite during the build of this library and baked into the generated bundle.
-- For local development, values are written to `.env.local` (loaded in all modes).
-- For non-local envs, values are written to `.env.production`.
-- The CLI triggers a rebuild of `@bsport/sm-backbone` so consuming apps immediately pick up changes.
+- Writes `.env.local` (local) or `.env.production` (others) in this package, then rebuilds it.
+- You can override defaults with `--proxy-url <url>` and/or `--client-key <token>`.
+- `.env.production` is gitignored.
 
-Notes
+Debugging:
 
-- `.env.production` is gitignored in this package to avoid committing secrets.
-- If the variables are not set, the provider renders children without issuing Unleash network calls.
-- Env → Unleash environment mapping: `production` -> `production`, else `development`.
+- Check `.env.local` / `.env.production` in this package, re-run the CLI and restart the consuming app if needed.
 
-Debugging
-
-- Verify env files in this package: `.env.local` and/or `.env.production`.
-- Re-run the CLI after changing envs to trigger a rebuild.
-- In a consuming app, restart the dev server if it still uses a cached version of the library.
-- Open your browser network tab and filter by `unleash` to validate proxy calls and context.
-
-An example file `.env.example` is provided in this package. Use it as reference for expected keys.
+See `.env.example` in this package for expected keys.

@@ -32,10 +32,18 @@ export function declareEnvVariable({
       return;
     }
 
-    const targetIndex = existingLine ? envFileLines.indexOf(existingLine) : 0;
-
-    // replace the name/value with the new value
-    envFileLines.splice(targetIndex, 1, `${name}=${value}`);
+    if (existingLine) {
+      const targetIndex = envFileLines.indexOf(existingLine);
+      // replace the name/value with the new value
+      envFileLines.splice(targetIndex, 1, `${name}=${value}`);
+    } else {
+      // If the file is empty (single empty line), replace it; else append at the end
+      if (envFileLines.length === 1 && envFileLines[0] === "") {
+        envFileLines[0] = `${name}=${value}`;
+      } else {
+        envFileLines.push(`${name}=${value}`);
+      }
+    }
 
     // write everything back to the file system
     fs.writeFileSync(filename, envFileLines.join(os.EOL));

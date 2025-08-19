@@ -537,7 +537,7 @@
                     "cancel": "Abbrechen",
                     "submit": "Registrieren",
                     "warning": "Die Abrechnung bleibt gleich. Wenn Sie den monatlichen Betrag erhöhen/verringern möchten, ändern Sie jede Rate einzeln.",
-                    "title": "Ändern des Terminpasses",
+                    "title": "Terminpass wurde aktualisiert",
                     "explain": "Dieser Terminpass wird auf allen zukünftigen Rechnungen anstelle des alten Passes berechnet. Kurse, die mit des alten Passes gebucht wurden, werden auf den neuen Pass übertragen, auch wenn diese angeblich nicht kompatibel ist."
                 }
             },
@@ -5787,7 +5787,7 @@
             },
             "form": {
                 "dialog": {
-                    "helper": "Die Kategorien werden auf dem Marketplace und in der mobilen App für zum Verkauf stehende Pässen angezeigt.",
+                    "helper": "Kategorien sind eine hilfreiche Möglichkeit, deine Pässe zu organisieren. Diese Namen werden deinen Mitgliedern auf dem Marktplatz und in der mobilen App angezeigt. ",
                     "titleEdit": "Kategorie",
                     "titleNew": "Neue Kategorie",
                     "name": "Name der Kategorie",
@@ -5988,7 +5988,11 @@
             "decimalCredit": {
                 "helperText": "Dieser Pass enthält {{count}} Credit",
                 "helperText_plural": "Dieser pass enthält {{count}} Credits"
-            }
+            },
+            "enableAccessControl": "Studiozutritt gewähren",
+            "accessControlBetaAlert": "Während dieser beta Phase funktionieren Pass-Restriktionen wie Tags, Nutzungslimits, Locations, Aktivitäten, Kategorien und Zeitslots nicht für den Zutritt durch Türen. \"Beschränkt die Nutzung auf die Mediathek (VOD)\" muss abgewählt bleiben, um Zutritt durch Türen zu ermöglichen.",
+            "accessControlInfo": "Mitglieder mit diesem Pass können Türen des Studios öffnen. Um zu kontrollieren, wann Türen nicht geöffnet werden können, lege eine Zeitregelung auf der Kisi Plattform fest.",
+            "doorAccess": "Zutritt Tür(en)"
         },
         "paymentPackTemplate": {
             "actions": {
@@ -9097,7 +9101,7 @@
             "label": "Zahlungsmethode",
             "disputeWon": "Gewonnen",
             "onlinePayments": "Online-Zahlungen",
-            "90": "TWINT",
+            "90": "Twint",
             "110": "Google Pay",
             "100": "Apple Pay"
         },
@@ -9143,7 +9147,8 @@
                     "success": "Das Abonnement wurde verlängert, und die nächste Lastschrift wird erfolgreich eingezogen.",
                     "collect": "Akzeptieren",
                     "error": "Sie können die Einzugsermächtigung nicht verlängern, wenden Sie sich bitte an Ihre Bank."
-                }
+                },
+                "9": "Vor Ort Zahlung"
             },
             "savePaymentMethod": {
                 "section": "Wählen Sie eine Zahlungsmethode",
@@ -9704,14 +9709,16 @@
                     "filterPlaceholder": {
                         "color": "Farbe auswählen",
                         "size": "Größe auswählen",
-                        "company": "Studio auswählen"
+                        "company": "Studio auswählen",
+                        "establishmentBillingGroup": "Wähle eine Abrechnungsgruppe"
                     },
                     "unsavedChangesModal": {
                         "default": "Möchten Sie Ihre Änderungen speichern, bevor Sie zu einer anderen Seite wechseln?",
                         "inventory": "Bevor Sie zu einer anderen Seite wechseln, möchten Sie den Bestand auf der Grundlage der in der Spalte \"Bestandsanpassung\" eingegebenen Werte aktualisieren?",
                         "title": "Ungespeicherte Änderungen"
                     },
-                    "companyName": "Studio"
+                    "companyName": "Studio",
+                    "tooltipForMultiLocationWebshop": "Da für das Studio mehrere Standorte freigeschaltet sind, kann der Lagerbestand nur von den jeweiligen Studio-Accounts bearbeitet werden, nicht vom Master Account."
                 }
             },
             "tab": {
@@ -12104,7 +12111,7 @@
         "privatePass": {
             "form": {
                 "credits": {
-                    "helperText": "Jeder Kurs kostet eine bestimmte Anzahl von Credits",
+                    "helperText": "Wähle die Anzahl an Credits in diesem Terminpass",
                     "label": "Anzahl der eingeschlossenen Credits",
                     "decimalCredit": {
                         "helperText": "Dieser Pass enthält {{count}} Credit .",
@@ -12118,37 +12125,37 @@
                     "back": "Zurück"
                 },
                 "available_payment_method_identifiers": {
-                    "helperText": "Wählen Sie mindestens eine Zahlungsmethode aus. Wenn Sie keine auswählen, wird standardmäßig eine Kartenzahlung angeboten.",
+                    "helperText": "Wähle mindestens eine Zahlungsmethode aus. Wenn keine ausgewählt ist, wird standardmäßig eine online Zahlung angeboten.",
                     "label": "Zugelassene Zahlungsmethoden",
                     "warning": "Machen Sie Ihre Karte für Mitglieder sichtbar, damit sie die Zahlungsmethoden auswählen können."
                 },
                 "durationYears": {
                     "helperText": "Zusätzlich der Anzahl der Tage und Monate",
-                    "label": "Gültigkeitsdauer (Jahre), falls zutreffend"
+                    "label": "Jahre"
                 },
                 "durationMonths": {
                     "helperText": "Zusätzlich der Anzahl der Tage",
-                    "label": "Gültigkeitsdauer in Monaten"
+                    "label": "Monate"
                 },
                 "durationDays": {
                     "helperText": "Zeitraum in Tagen, für den die Karte nach dem Kauf gültig ist ",
-                    "label": "Gültigkeitsdauer in Tagen"
+                    "label": "Tage"
                 },
                 "tax": {
                     "label": "Mehrwertsteuer"
                 },
                 "price": {
                     "label": "Preis inkl. MwSt",
-                    "helperText": "Pass-Preis für Mitglieder"
+                    "helperText": "Gesamtpreis für den Terminpass"
                 },
                 "name": {
                     "label": "Name",
                     "helperText": "Name des Kurspasses"
                 },
                 "managerOnly": {
-                    "label": "Für Kunden unsichtbar"
+                    "label": "Nicht zum Kauf verfügbar"
                 },
-                "title": "Terminpass",
+                "title": "Terminpass hinzufügen",
                 "full_vod_access": {
                     "label": "Gibt Zugriff zur Mediathek (VOD)"
                 },
@@ -12162,7 +12169,7 @@
                     "on_purchase": "Beginnt mit der Rechnungsstellung"
                 },
                 "new_member_only": {
-                    "label": "Nur für neue Mitglieder"
+                    "label": "Nur für neue Mitglieder sichtbar"
                 },
                 "start_date_method_detail": {
                     "on_attendance": " ab der ersten Anwesenheit",
@@ -12183,7 +12190,7 @@
                 },
                 "category": "Name der Kategorie",
                 "categoryTitle": {
-                    "compatibility": "Kompatibilität",
+                    "compatibility": "Kompatible Termine",
                     "validity": "Gültigkeit der Karte",
                     "paymentMeans": "Zahlungsmittel",
                     "info": "Allgemeine Informationen",
@@ -12194,23 +12201,23 @@
                 },
                 "franchise": "Diese Karte ist eine Karte, die vom Master Account gemeinsam genutzt wird. Einige Elemente wurden vom Master Account festgelegt und können nicht geändert werden",
                 "universalPass": {
-                    "helperText": "Universalpässe können zur Buchung von Gruppenkursen UND Terminen verwendet werden. Sobald ein Pass erstellt wurde, wird ein Zwillingspass in den Kurspässe erstellt. Die Anzahl der Guthaben auf beiden Pässe wird verknüpft. Beim Kauf einer der beiden Pässe wird die andere automatisch dem Mitglied hinzugefügt (ohne zusätzliche Kosten).",
+                    "helperText": "Universalpässe können zur Buchung von Gruppenkursen UND Terminen verwendet werden. Sobald ein Universalpass gekauft wurde, fügen wir automatisch einen \"Zwilling\" Terminpass hinzu um die Credits zwischen beiden Arten zu teilen.",
                     "warningIsUniversalPass": "Dieser Pass ist ein Universalpass, ein Zwillingspass wurde in den Kurspässen erstellt. Alle Felder, die auf diesem Pass geändert werden, werden auch auf dem Zwillingspass geändert (außer der Kategorie). Dasselbe gilt für Benachrichtigungen, Erweiterungen und Änderungen von Guthaben.",
                     "label": "Universalpass",
                     "deativatedTags": "Deaktiviert für Universalpässe"
                 },
                 "appliesForPayroll": {
-                    "helperText": "Standardmäßig werden die Termine dem Studio in Rechnung gestellt und in die Zusammenfassung und die Lohnabrechnung der Lehrkraft aufgenommen. Wenn Sie diese Einstellung deaktivieren, werden die mit diesem Pass verbundenen Termine nicht mehr in der Zusammenfassung der Lehrkraft angezeigt.",
-                    "label": "Termine, die bei der Berechnung der Lohnabrechnung der Lehrkräfte berücksichtigt werden"
+                    "helperText": "Kurse werden dem Studio standardmäßig in Rechnung gestellt und in die Lohnabrechnung der Lehrkraft aufgenommen. Deaktiviere diese Einstellung, um sicherzustellen, dass mit diesem Pass verbundene Kurse nicht mehr in der Lohnabrechnung der Lehrkraft angezeigt werden.",
+                    "label": "Kurse, die mit diesem Pass gebucht wurden, werden bei der Berechnung der Lohnabrechnung der Lehrkräfte berücksichtigt"
                 },
                 "onBehalfOfTeacher": {
-                    "helperText": "Mit dieser Einstellung können Sie angeben, dass die Einnahmen im Zusammenhang mit Terminen auf diesem Ausweis vollständig an die Lehrkraft gezahlt werden. Diese Information wird in Ihren Einkaufsberichten (CA) in der Spalte \"Zahlung vollständig an die Lehrkraft\" sichtbar sein.",
+                    "helperText": "Wähle diese Einstellung, um sicherzustellen, dass die Einnahmen aus Terminen, die mit diesem Pass gebucht werden, vollständig an die Lehrkraft ausgezahlt werden. Du findest diese Information in deinen Kaufberichten in der Spalte \"Zahlung vollständig an die Lehrkraft ausgezahlt\". ",
                     "label": "Vollständige Zahlung an die Lehrkraft"
                 },
                 "expiration_date": {
                     "helperText": "Verfügbar bis",
-                    "tooltip": "Nach dem gewählten Datum wird das Paket für die Kunden nicht mehr zum Verkauf stehen.",
-                    "label": "Frist für den Kauf"
+                    "tooltip": "Nach dem gewählten Datum wird der Pass nicht mehr zum Verkauf stehen.",
+                    "label": "Dauer des Verkaufs"
                 },
                 "description": {
                     "label": "Beschreibung"
@@ -12219,7 +12226,7 @@
                     "tag": {
                         "selectTags": "Tags auswählen",
                         "tagsOnAcquisitionHelper": "Mit Tags kannst du Mitglieder markieren, die diesen Pass gekauft haben, um sie in Zukunft schnell wiederfinden zu können.",
-                        "tagsOnAcquisition": "Tag nach dem Kauf"
+                        "tagsOnAcquisition": "Nach dem Kauf Tags anwenden"
                     },
                     "header": "Erweitert"
                 },
@@ -12245,9 +12252,9 @@
             },
             "compatibleServices": {
                 "title": "Kompatible Termine",
-                "isEmpty": "Keine kompatiblen Termine",
+                "isEmpty": "Wichtige Informationen fehlen",
                 "add": "Hinzufügen",
-                "unusable": "Unbrauchbar"
+                "unusable": "Dieser Terminpass ist aktuell nicht mit irgendeinem Termin kompatibel, da wichtige Informationen fehlen. Fülle die erforderlichen Felder aus und versuche es erneut.   "
             },
             "list": {
                 "createButton": "Einen Terminpass erstellen",
@@ -17790,7 +17797,8 @@
                 "establishment": "Einrichtung",
                 "actions": "Aktion",
                 "noAddress": "Keine Adresse ist mit dieser Rechnungsgruppe verbunden",
-                "address": "Adresse"
+                "address": "Adresse",
+                "multiLocationWebshopEnabled": "Diese Abrechnungsgruppe kann nicht gelöscht werden, weil der Multi-Location Webshop freigeschaltet ist."
             },
             "modal": {
                 "delete": {
@@ -18336,7 +18344,10 @@
         "featureRequest": {
             "close": "Schließen",
             "content": "Vielen Dank für Ihr Interesse an diesem Add-on. Wenn Sie mehr erfahren möchten, laden wir Sie herzlich ein, Ihre Frage in unserem Support-Chat zu stellen. Ihr Kundenbetreuer wird Ihnen gerne weitere Informationen geben.",
-            "title": "Lassen Sie uns ein Gespräch beginnen"
+            "title": "Lassen Sie uns ein Gespräch beginnen",
+            "header": "Wir melden uns!",
+            "interestMessage": "Danke für dein Interesse an diesem Add-On. Dein Account Manager wird sich bald mit mehr Informationen bei dir melden.",
+            "interestMessageWithChat": "Danke für dein Interesse an diesem Add-On.\nDein Account Manager wird sich bald mit weiteren Informationen bei dir melden. In der Zwischenzeit können wir deine Fragen im Hilfe-Chat beantworten."
         },
         "platformBillingStage": {
             "maxBooking": "Bis zu {{max_booking_per_month}} Buchungen / Monat",
@@ -18390,7 +18401,20 @@
                 "timeConsumingHelper": "Die Bearbeitung der Anmeldung für diesen Upsell kann einige Sekunden dauern"
             },
             "seeMore": "Mehr anzeigen",
-            "billSMS": "{{ price_cts }} / SMS"
+            "billSMS": "{{ price_cts }} / SMS",
+            "audienceLockDialog": {
+                "showInterest": "Jetzt mehr erfahren",
+                "goHome": "Zurück zum Kalender",
+                "explain": "Dieses Feature ist ein Add-On. Kontaktiere deinen Account Manager für mehr Informationen.",
+                "benefits": [
+                    "Mit automatisierten Follow-Ups deine Kund·innen erhalten",
+                    "Mit maßgeschneiderten Customer Journeys für VIP Kunden deinen Umsatz fördern",
+                    "Leads mit personalisierten Nachrichten an entscheidenden Berührungspunkten konvertieren"
+                ],
+                "description": "Automatisierte Workflows helfen dir, dich über verschiedene Kanäle mit deinen Kund·innen zu verbinden. So kannst du:",
+                "title": "Triff deine Kund·innen dort, wo sie sind - mit Audience",
+                "videoLink": "https://youtu.be/RR2HB0DiNeU"
+            }
         },
         "paymentMethod": {
             "actions": {
@@ -19400,7 +19424,7 @@
                         "cancel": "Abbrechen",
                         "create": "Hinzufügen",
                         "helperTextNewMembers": "Das Formular erscheint als Pop-up auf dem Mitgliederbereich und dem Widget nach dem Anmeldeformular.",
-                        "helperTextRegisteredMembers": "Dieses Formular wird als Pop-up auf dem Mitgliederbereich und im Widget für alle betroffenen Mitglieder angezeigt.",
+                        "helperTextRegisteredMembers": "Dieses Formular wird als Pop-up auf dem Mitgliederbereich und im Mobile App für alle betroffenen Mitglieder angezeigt.",
                         "subTitle": "Welche Mitglieder wollen Sie ansprechen?",
                         "title": "Regeln anzeigen"
                     }

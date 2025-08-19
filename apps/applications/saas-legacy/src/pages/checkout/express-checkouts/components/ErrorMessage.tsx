@@ -11,27 +11,34 @@ import BigIcon from '#src/components/css-only/Fabrique/BigIcon';
 import Typography from '#src/components/css-only/Fabrique/Typography';
 
 import { Button } from '#src/components/css-only/Fabrique/ButtonV2/Button.component';
+import {
+  PASS_ERROR_INVALID,
+  PassErrorCode,
+} from '#src/pages/checkout/express-checkouts/pass/hooks/useCheckPassValidity';
 import './error-message.css';
 
 export type ErrorCode =
   | typeof OFFER_BOOKABLE_STATUS_CLOSE_TOO_LATE
   | typeof OFFER_BOOKABLE_STATUS_CLOSE_TOO_SOON
   | typeof OFFER_BOOKABLE_STATUS_FULL
-  | typeof OFFER_BOOKABLE_STATUS_LOCKED;
+  | typeof OFFER_BOOKABLE_STATUS_LOCKED
+  | PassErrorCode;
 
 type Props = {
   errorCode: ErrorCode;
-  goBackToCalendar: () => void;
+  goBack: () => void;
+  goBackButtonLabel: string;
 };
 
 export const ErrorMessage: React.FC<Props> = ({
   errorCode,
-  goBackToCalendar,
+  goBack,
+  goBackButtonLabel,
 }) => {
-  const { t } = useTranslation('booking');
+  const { t } = useTranslation(['booking', 'checkout']);
 
   const unhandledError = {
-    title: t('oneClickBooking.bookableStatus.unhandled.title'),
+    title: t('booking:oneClickBooking.bookableStatus.unhandled.title'),
     description: t(
       'booking:oneClickBooking.bookableStatus.unhandled.description',
     ),
@@ -39,27 +46,33 @@ export const ErrorMessage: React.FC<Props> = ({
 
   const errorData = {
     [OFFER_BOOKABLE_STATUS_CLOSE_TOO_LATE]: {
-      title: t('oneClickBooking.bookableStatus.closeTooLate.title'),
+      title: t('booking:oneClickBooking.bookableStatus.closeTooLate.title'),
       description: (
         <Trans i18nKey="booking:oneClickBooking.bookableStatus.closeTooLate.description" />
       ),
     },
     [OFFER_BOOKABLE_STATUS_CLOSE_TOO_SOON]: {
-      title: t('oneClickBooking.bookableStatus.closeTooSoon.title'),
+      title: t('booking:oneClickBooking.bookableStatus.closeTooSoon.title'),
       description: (
         <Trans i18nKey="booking:oneClickBooking.bookableStatus.closeTooSoon.description" />
       ),
     },
     [OFFER_BOOKABLE_STATUS_FULL]: {
-      title: t('oneClickBooking.bookableStatus.full.title'),
+      title: t('booking:oneClickBooking.bookableStatus.full.title'),
       description: (
         <Trans i18nKey="booking:oneClickBooking.bookableStatus.full.description" />
       ),
     },
     [OFFER_BOOKABLE_STATUS_LOCKED]: {
-      title: t('oneClickBooking.bookableStatus.locked.title'),
+      title: t('booking:oneClickBooking.bookableStatus.locked.title'),
       description: (
         <Trans i18nKey="booking:oneClickBooking.bookableStatus.locked.description" />
+      ),
+    },
+    [PASS_ERROR_INVALID]: {
+      title: t('checkout:passExpressCheckout.errors.unavailable.title'),
+      description: (
+        <Trans i18nKey="checkout:passExpressCheckout.errors.unavailable.description" />
       ),
     },
   };
@@ -87,11 +100,11 @@ export const ErrorMessage: React.FC<Props> = ({
       <Button
         className="bs-oneclick-booking-error-message__button"
         color="grey"
-        onClick={goBackToCalendar}
+        onClick={goBack}
         size="lg"
         variant="outlined"
       >
-        {t('oneClickBooking.goToCalendar')}
+        {goBackButtonLabel}
       </Button>
     </div>
   );

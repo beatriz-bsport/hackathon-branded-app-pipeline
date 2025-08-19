@@ -209,7 +209,7 @@
     "@types/lodash": "^4.14.165",
     "@types/luxon": "^3.4.2",
     "@types/memoize-one": "^4.1.1",
-    "@types/mixpanel-browser": "^2.51.0",
+    "@types/mixpanel-browser": "^2.60.0",
     "@types/mui-datatables": "^2.0.5",
     "@types/node": "^20.12.12",
     "@types/object-assign": "^4.0.30",

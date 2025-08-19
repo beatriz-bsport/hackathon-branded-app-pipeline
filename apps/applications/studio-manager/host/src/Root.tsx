@@ -10,6 +10,8 @@ import { getEnv } from "@bsport/envs";
 import { Title } from "@bsport/kaizen-primitive-core";
 import { AppWrapper } from "@bsport/sm-backbone";
 
+import { analyticsClient, debugActive } from "#src/utils/analytics";
+
 // ----- Booking -----
 const GroupActivities = lazy(() => import("sm-group-activity/App"));
 
@@ -84,6 +86,13 @@ export function Root() {
       element: <TransactionalNotification />,
     },
   ];
+
+  // Init analytics tool only once
+  analyticsClient.configure({
+    env: env === "production" ? "production" : "dev",
+    debug: debugActive, // Mixpanel debug mode
+    track_pageview: "url-with-path-and-query-string",
+  });
 
   return (
     <AppWrapper

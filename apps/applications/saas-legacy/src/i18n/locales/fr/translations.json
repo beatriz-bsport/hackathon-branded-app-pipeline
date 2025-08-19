@@ -5390,7 +5390,7 @@
                     "dialog": {
                         "title": "Règles d'affichage",
                         "subTitle": "Quels membres voulez-vous cibler ?",
-                        "helperTextRegisteredMembers": "Le formulaire apparaitra en pop-up sur l'Espace membre et le widget pour tous les membres concernés.",
+                        "helperTextRegisteredMembers": "Le formulaire apparaitra en pop-up sur l'Espace membre et le Mobile App pour tous les membres concernés.",
                         "helperTextNewMembers": "Le formulaire apparaitra en pop-up sur l'Espace membre et le widget à la suite du formulaire d'inscription.",
                         "create": "Ajouter",
                         "cancel": "Annuler",
@@ -9944,7 +9944,20 @@
                 "timeConsumingHelper": "L'abonnement à ce produit peut prendre quelques secondes avant d'être traité"
             },
             "seeMore": "Voir plus",
-            "billSMS": "{{ price_cts }} / SMS"
+            "billSMS": "{{ price_cts }} / SMS",
+            "audienceLockDialog": {
+                "videoLink": "https://youtu.be/kdLTssiA7bM",
+                "explain": "Cette fonctionnalité est un service additionnel. Contactez votre Account Manager pour en savoir plus.",
+                "goHome": "Retour au calendrier",
+                "showInterest": "Prendre contact",
+                "benefits": [
+                    "Réduisez le churn en réengageant vos clients automatiquement",
+                    "Augmenter vos revenus en créant des parcours adaptés pour vos meilleurs clients",
+                    "Convertir vos prospects grâce à des messages personnalisés envoyés à des moments clés"
+                ],
+                "description": "Les workflows automatisés vous permettent de rester en contact avec vos clients sur plusieurs canaux, afin de :",
+                "title": "Contactez vos clients au bon moment, au bon endroit avec Audience"
+            }
         },
         "platformBillingGroup": {
             "myGroup": "Mon forfait",
@@ -9967,7 +9980,10 @@
         "featureRequest": {
             "title": "Engageons la conversation",
             "content": "Nous vous remercions pour votre intérêt. Si vous souhaitez en savoir plus sur cet add-on, nous vous invitons à poser votre question dans notre chat d'assistance personnalisé. Votre gestionnaire de compte sera ravi de vous fournir de plus amples informations.",
-            "close": "Fermer"
+            "close": "Fermer",
+            "interestMessageWithChat": "Merci pour votre intérêt pour ce service additionnel. Votre Account Manager vous contactera prochainement pour vous fournir plus d’informations. En attendant, n’hésitez pas à nous poser vos questions via le chat d’aide.",
+            "header": "À très vite !",
+            "interestMessage": "Merci pour votre intérêt pour ce service ! Votre Account Manager vous contactera prochainement pour vous fournir plus d’informations."
         },
         "platformCustomerEntity": {
             "vatId": {

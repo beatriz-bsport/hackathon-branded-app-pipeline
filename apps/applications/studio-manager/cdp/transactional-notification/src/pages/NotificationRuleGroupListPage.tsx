@@ -1,7 +1,7 @@
 import { List, ListLayout } from "@bsport/kaizen-primitive-core";
 
 import { useFetchNotificationRuleEvents } from "#src/hooks/api/use-fetch-notification-rule-events";
-import { useFormatNotificationEventList } from "#src/hooks/layout/use-format-notification-event-list";
+import { useFormatNotificationGroupList } from "#src/hooks/layout/use-format-notification-group-list";
 import { notificationRuleEventMap } from "#src/utils/constants";
 import { useTranslation } from "#src/utils/i18n";
 
@@ -9,12 +9,12 @@ const NotificationRuleEventPage: React.FC = () => {
   const { t } = useTranslation("transactionalNotification");
   const { notificationRuleEventMapByGroup, isLoading } =
     useFetchNotificationRuleEvents();
-  const { formatNotificationRuleEventListItems } =
-    useFormatNotificationEventList({
+  const { formatNotificationRuleGroupListItems } =
+    useFormatNotificationGroupList({
       notificationRuleEventMapByGroup,
     });
 
-  const formattedListItems = formatNotificationRuleEventListItems(
+  const formattedListItems = formatNotificationRuleGroupListItems(
     Object.values(notificationRuleEventMap),
   );
 

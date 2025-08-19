@@ -169,7 +169,8 @@ const QuicksalePayment: React.FC<Props> = ({
 
   // ===========================================
 
-  const [basketAddress, setBasketAddress] = React.useState<BasketAddress>(null);
+  const [basketAddress, setBasketAddress] =
+    React.useState<BasketAddress | null>(null);
 
   const [deliveryType, setDeliveryType] = React.useState<QuicksaleDeliveryType>(
     QuicksaleDeliveryType.HomeDelivery,
@@ -195,24 +196,28 @@ const QuicksalePayment: React.FC<Props> = ({
             page: 1,
             page_size: 100,
           });
-        }
-
-        if (fetchedBasket.is_finalized) {
           setShowPaymentSuccessModal(true);
+          getInvoiceReceiptUrl(fetchedBasket.invoice, {
+            onSuccess: (receiptUrl) => setQrCodeValue(receiptUrl || ''),
+            onError: () => snackbarErrorMsg('invoice.receipt.genericError'),
+          });
         }
       },
       onError: () => push('/quicksale/'),
     });
   }, [
     basketId,
+    getInvoiceReceiptUrl,
     fetchAllEstablishmentBillingGroup,
     fetchBasket,
     fetchCompanyUserRoles,
     fetchMembers,
     fetchPaymentList,
     setShowPaymentSuccessModal,
+    snackbarErrorMsg,
     theme.company,
     theme.enable_multi_localization,
+    push,
   ]);
 
   React.useEffect(() => {
@@ -253,8 +258,6 @@ const QuicksalePayment: React.FC<Props> = ({
     }
   }, [showPaymentSuccessModal, paymentGroupId, fetchPaymentGroupWithRetry]);
 
-  // =========================================
-
   // ========== Member authentication handlers ==========
 
   const createMember = React.useCallback(
@@ -280,7 +283,7 @@ const QuicksalePayment: React.FC<Props> = ({
 
       updateQuicksaleBasketMember(basket.id, memberId, {
         onSuccess: (updateData) => {
-          if (updateData.updated_member) {
+          if (updateData?.updated_member && updateData?.new_basket) {
             closeMemberModal();
             setSomeObjectsRequireAuthentication(false);
             replace(`/quicksale/checkout/${updateData.new_basket.id}/`);
@@ -321,6 +324,7 @@ const QuicksalePayment: React.FC<Props> = ({
 
   const onPaymentSuccess = React.useCallback(
     (callback?: () => void) => {
+      if (paymentGroupId == null) return;
       getPaymentGroupStatusAPI(paymentGroupId)
         .then((body) => {
           if (body.data >= PAYMENT_INTENT_STATUS_SUCCESS) {
@@ -329,6 +333,7 @@ const QuicksalePayment: React.FC<Props> = ({
               if (
                 !member?.is_pos &&
                 basket &&
+                paymentGroupPriceCts !== null &&
                 paymentGroupPriceCts / 100 !==
                   basket.total_price_cts / 100 - alreadyPaidAmount
               )

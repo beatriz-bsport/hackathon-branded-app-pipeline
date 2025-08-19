@@ -60,6 +60,10 @@ const useQuicksalePayments = ({
   // ========== Fetch/Refresh Payment Group ==========
   const fetchOrRefreshPaymentGroup = useCallback(() => {
     if (paymentEngine !== null && basket) {
+      // Do not create/refresh a payment group if the basket is already finalized or already has an invoice
+      if (basket.is_finalized || !!basket.invoice) {
+        return;
+      }
       setLoading(true);
       requestClientSecretAPI(paymentEngine, PAYMENT_INTENT_TYPE_BASKET, {
         basket: basket.id,

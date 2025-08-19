@@ -19000,7 +19000,10 @@
         "featureRequest": {
             "close": "Chiudi",
             "content": "Il tuo interesse è stato notato, grazie! Il tuo account manager si metterà presto in contatto con te per maggiori informazioni.",
-            "title": "Componenti aggiuntivi"
+            "title": "Componenti aggiuntivi",
+            "header": "Ti contatteremo presto!",
+            "interestMessage": "Grazie per l'interesse in questo componente aggiuntivo. Il tuo Account Manager ti contatterà presto per fornirti maggiori informazioni.",
+            "interestMessageWithChat": "Grazie per il tuo interesse in questo componente aggiuntivo. Il tuo Account Manager ti contatterà a breve per fornirti maggiori informazioni. Nel frattempo, siamo a tua disposizione per qualsiasi domanda tramite la chat di supporto."
         },
         "platformBillingStage": {
             "maxBooking": "Fino a {{ max_booking_per_month }} prenotazioni / mese",
@@ -19048,13 +19051,26 @@
                 "confirmationMessage": "Ti sei iscritto con successo a {{- name }}",
                 "info": "Contatta il supporto clienti",
                 "infoHelper": "Maggiori informazioni?",
-                "priceHelper": "Questo prezzo verrà aggiunto al piano mensile.",
+                "priceHelper": "Questo prezzo verrà aggiunto al tuo piano mensile.",
                 "confirmHelper": "Conferma di volerti abbonare a questo componente aggiuntivo",
-                "title": "Iscriviti al pacchetto combinato",
+                "title": "Aggiungi add-on",
                 "timeConsumingHelper": "L'iscrizione a questo upsell potrebbe richiedere alcuni secondi per essere elaborata"
             },
             "seeMore": "Mostra di più",
-            "billSMS": "{{ price_cts }} / SMS"
+            "billSMS": "{{ price_cts }} / SMS",
+            "audienceLockDialog": {
+                "videoLink": "https://youtu.be/Ua_4dHrCjUQ",
+                "benefits": [
+                    "Converti i potenziali clienti con messaggi personalizzati nei momenti chiave",
+                    "Aumenta i ricavi con percorsi cliente su misura per i clienti VIP",
+                    "Fidelizza i clienti con follow-up automatizzati"
+                ],
+                "description": "I flussi di lavoro automatizzati ti aiutano a comunicare con i tuoi clienti su più canali, permettendoti di:",
+                "title": "Raggiungi i tuoi clienti ovunque si trovino, con Audience",
+                "goHome": "Torna al calendario",
+                "showInterest": "Contattaci",
+                "explain": "Questa funzionalità è un componente aggiuntivo. Contatta il tuo Account Manager per maggiori informazioni."
+            }
         },
         "paymentMethod": {
             "actions": {
@@ -19492,7 +19508,7 @@
                         "cancel": "Cancella",
                         "create": "Aggiungi",
                         "helperTextNewMembers": "Il form apparirà come un pop-up sul Area Membri e sul widget dopo il form di registrazione.",
-                        "helperTextRegisteredMembers": "Il form apparirà come un pop-up sul Area Membri e sul widget di tutti i membri interessati.",
+                        "helperTextRegisteredMembers": "Il form apparirà come un pop-up sul Area Membri e sul App móvil di tutti i membri interessati.",
                         "subTitle": "A quali membri volete rivolgervi?",
                         "title": "Regole di visualizzazione"
                     }

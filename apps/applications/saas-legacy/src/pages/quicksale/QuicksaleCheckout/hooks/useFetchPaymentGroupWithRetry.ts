@@ -71,11 +71,12 @@ const useFetchPaymentGroupWithRetry = ({
         {
           onSuccess: (paymentGroup) => {
             // Retry if paymentGroup or invoice is missing/invalid
-            if (
-              !paymentGroup ||
-              typeof paymentGroup.invoice !== 'string' ||
-              !paymentGroup.invoice
-            ) {
+            const invoiceId =
+              paymentGroup && typeof paymentGroup.invoice === 'string'
+                ? paymentGroup.invoice
+                : '';
+
+            if (!invoiceId) {
               if (retryCountRef.current < maxRetries) {
                 retryCountRef.current += 1;
                 setTimeout(() => {
@@ -92,7 +93,7 @@ const useFetchPaymentGroupWithRetry = ({
 
             // Success: fetch receipt URL and mark as finished
             finishedRef.current = true;
-            getInvoiceReceiptUrl(paymentGroup.invoice, {
+            getInvoiceReceiptUrl(invoiceId, {
               onSuccess: (receiptUrl) => setQrCodeValue(receiptUrl || ''),
               onError: () => {
                 snackbarErrorMsg('invoice.receipt.genericError');

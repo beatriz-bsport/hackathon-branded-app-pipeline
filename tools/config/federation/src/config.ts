@@ -263,6 +263,9 @@ export const getConfig = (config: {
         singleton: true,
         requiredVersion: packageJson.dependencies["zod"] ?? "^3.0.0",
       },
+      "@bsport/analytics": {
+        singleton: true,
+      },
       "@bsport/i18n": {
         singleton: true,
       },

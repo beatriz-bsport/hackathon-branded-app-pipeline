@@ -138,5 +138,6 @@ export const FilterWithSingleCategory: Story = {
         multiSelect: false,
       },
     },
+    singleField: true,
   },
 };

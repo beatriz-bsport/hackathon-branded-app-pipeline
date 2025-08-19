@@ -1,4 +1,8 @@
-/* TODO - clean this joke */
+/* @debt(4,4,1): 
+  Deprecated CSS code that provides an extra protective layer preventing studio custom CSS from being applied  
+  This file is used to ensure that the signup page has a consistent layout and style across different contexts. 
+  Do not change or remove this file without first checking with the team.
+*/
 .bs-signup-container--default {
   container-type: inline-size;
   display: flex;
@@ -14,7 +18,11 @@
   height: 92vh;
 }
 
-/* TODO - clean this joke */
+/* @debt(4,4,1):
+  Deprecated CSS code that provides an extra protective layer preventing studio custom CSS from being applied  
+  This file is used to ensure that the signup page has a consistent layout and style across different contexts. 
+  Do not change or remove this file without first checking with the team.
+*/
 .bs-signup-container--no_pop_up {
   container-type: inline-size;
   display: flex;
@@ -30,7 +38,11 @@
   /* height: 92vh; */
 }
 
-/* TODO - clean this joke */
+/* @debt(4,4,1):
+  Deprecated CSS code that provides an extra protective layer preventing studio custom CSS from being applied  
+  This file is used to ensure that the signup page has a consistent layout and style across different contexts. 
+  Do not change or remove this file without first checking with the team.
+*/
 .bs-signup-container--widget {
   container-type: inline-size;
   display: flex;

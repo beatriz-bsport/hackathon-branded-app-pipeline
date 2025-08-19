@@ -274,6 +274,7 @@ const QuicksaleCheckout: React.FC<Props> = ({
 
 const useStyles = makeStyles((theme) => ({
   container: {
+    height: '100vh',
     width: '100%',
     display: 'flex',
     flexDirection: 'column',

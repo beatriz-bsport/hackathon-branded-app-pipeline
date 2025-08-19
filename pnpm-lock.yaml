@@ -3258,6 +3258,9 @@ importers:
       '@bsport/config-vitest':
         specifier: workspace:*
         version: link:../../../tools/config/vitest
+      '@unleash/proxy-client-react':
+        specifier: ^5.0.1
+        version: 5.0.1(unleash-proxy-client@3.7.8)
 
   packages/utils/string:
     dependencies:

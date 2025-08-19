@@ -13,6 +13,7 @@ import { initSentry } from "@bsport/sentry";
 
 import DevTools from "#src/dev-utils/DevTools";
 
+import FeatureFlagsProvider from "../../feature-flags/FeatureFlagsProvider";
 import { RoutesWrapper, type RoutesWrapperProps } from "../RoutesWrapper";
 
 type AppWrapperProps = {
@@ -42,6 +43,7 @@ initSentry();
  * - Translations provider for Kaizen
  * - DevTools
  * - Authentication redirection
+ * - Feature flags (Unleash)
  *
  * @param basename [Optional] Relative basename of the running application.
  * @param LoginApp [Optional] React application to be displayed on the login page. Default to DevLoginPage.
@@ -75,15 +77,17 @@ export const AppWrapper: React.FC<AppWrapperProps> = ({
     <BrowserRouter basename={basename}>
       <ThemeProvider>
         <KaizenI18nProvider kaizenI18nInstance={kaizenI18nInstance}>
-          <div className="bg-surface-page text-onsurface-default min-h-screen">
-            <DevTools
-              i18nInstance={kaizenI18nInstance}
-              onLogoutCallback={
-                routesWrapperProps?.navigationProps?.onLogoutCallback
-              }
-            />
-            <RoutesWrapper {...routesWrapperProps}>{children}</RoutesWrapper>
-          </div>
+          <FeatureFlagsProvider>
+            <div className="bg-surface-page text-onsurface-default min-h-screen">
+              <DevTools
+                i18nInstance={kaizenI18nInstance}
+                onLogoutCallback={
+                  routesWrapperProps?.navigationProps?.onLogoutCallback
+                }
+              />
+              <RoutesWrapper {...routesWrapperProps}>{children}</RoutesWrapper>
+            </div>
+          </FeatureFlagsProvider>
         </KaizenI18nProvider>
       </ThemeProvider>
     </BrowserRouter>

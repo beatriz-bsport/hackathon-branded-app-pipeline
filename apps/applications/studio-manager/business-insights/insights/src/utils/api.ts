@@ -5,7 +5,7 @@ import { fetch } from "#src/utils/fetch";
 const getApiBaseUrl = () => {
   // In studio manager apps, we'll use relative paths to let the browser handle the correct base URL
   // This follows the pattern used in other studio manager applications
-  return "/api/v1";
+  return "api/v1";
 };
 
 export const fetchPresignedUrl = async (

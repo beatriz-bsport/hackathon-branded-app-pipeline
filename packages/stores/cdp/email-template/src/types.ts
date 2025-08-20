@@ -40,14 +40,14 @@ export type FetchEmailTemplateCategoriesParams = {
 } & PaginationBaseParams;
 
 export type CompanyTemplateFilters = {
-  id__in?: number[];
+  id__in?: string;
   company?: number;
   is_default_bsport_template?: boolean;
   is_franchise?: boolean;
 };
 
 export type FetchEmailTemplateSummaryParams = {
-  id__in?: number[];
+  id__in?: string;
 } & CompanyTemplateFilters &
   PaginationBaseParams;
 

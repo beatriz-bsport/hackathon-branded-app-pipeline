@@ -29,6 +29,7 @@ exports.default = {
       invoice: "Billing",
       referral: "Referral",
     },
+    noCategory: "No category",
   },
   notificationRuleEventDetails: {
     table: {
@@ -53,6 +54,26 @@ exports.default = {
       },
       actions: {
         preview: "Preview",
+      },
+    },
+    details: {
+      segmentedControl: {
+        email: "Email",
+        push: "Push",
+      },
+      emailTemplateSelector: {
+        searchingMessage: "Searching email templates...",
+      },
+      emailNotification: {
+        preview: "Preview",
+        noPreview: "No preview available",
+        select: {
+          label: "Email notification",
+          placeholder: "Select an email template",
+        },
+        carbonCopy: {
+          label: "Receive a copy of the email",
+        },
       },
     },
   },

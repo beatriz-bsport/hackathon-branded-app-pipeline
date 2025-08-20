@@ -9,7 +9,7 @@ export const menuItemTypes = {
 
 export const baseMenuItemClasses = [
   "group",
-  "h-xl min-h-xl",
+  "min-h-xl",
   "rounded-sm",
   "p-2xs",
   "gap-xs",
@@ -64,7 +64,7 @@ export const menuItemVariants = {
   checked: {
     true: [
       "group",
-      "h-xl min-h-xl",
+      "min-h-xl",
       "rounded-sm",
       "p-2xs",
       "gap-xs",

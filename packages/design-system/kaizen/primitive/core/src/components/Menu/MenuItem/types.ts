@@ -28,6 +28,7 @@ export type Text = {
   subItems?: SubMenu[];
   label: string;
   rightSlot?: React.ReactNode;
+  description?: string;
   type: typeof menuItemTypes.text;
 } & LeftSlot;
 
@@ -40,6 +41,7 @@ export type Radio = {
   rightSlot?: React.ReactNode;
   type: typeof menuItemTypes.radio;
   value: string;
+  description?: string;
 } & LeftSlot;
 
 export type CheckBox = {

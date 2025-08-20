@@ -15,6 +15,7 @@ export type TextItem = {
   avatar?: { src: string; initials: string };
   iconLeft?: IconName;
   label: string;
+  description?: string;
   rightSlot?: React.ReactNode;
 };
 
@@ -24,6 +25,7 @@ export type MenuOption = {
   id: string;
   label: string;
   rightSlot?: React.ReactNode;
+  description?: string;
   type?: null;
 };
 

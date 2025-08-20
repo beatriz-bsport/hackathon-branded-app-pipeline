@@ -1630,6 +1630,9 @@ importers:
       '@bsport/sm-backbone':
         specifier: workspace:*
         version: link:../../../../../packages/utils/sm-backbone
+      '@bsport/store-cdp-email-template':
+        specifier: workspace:*
+        version: link:../../../../../packages/stores/cdp/email-template
       '@bsport/store-cdp-notification-rule':
         specifier: workspace:*
         version: link:../../../../../packages/stores/cdp/notification-rule
@@ -1645,6 +1648,9 @@ importers:
       react-router:
         specifier: ^7.2.0
         version: 7.2.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      typescript-result:
+        specifier: ^3.1.1
+        version: 3.1.1
     devDependencies:
       '@bsport/config-eslint-react':
         specifier: workspace:*

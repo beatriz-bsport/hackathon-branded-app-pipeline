@@ -8,6 +8,11 @@ export const selectCategory = (state: EmailTemplateState, id: number) =>
 export const selectAllCategories = (state: EmailTemplateState) =>
   Object.values(state.categories.byId);
 
+export const selectAllCategoriesMappedById = (state: EmailTemplateState) => {
+  const { byId } = state.categories;
+  return byId;
+};
+
 export const selectCategoriesCount = (state: EmailTemplateState) =>
   state.categories.count;
 

@@ -1719,7 +1719,8 @@
           "subscription": "Subscriptions",
           "invoice": "Billing",
           "referral": "Referral"
-        }
+        },
+        "noCategory": "No category"
       },
       "notificationRuleEventDetails": {
         "table": {
@@ -1740,6 +1741,19 @@
             "description": "You can start enabling a push notification after you’ve set it up."
           },
           "actions": { "preview": "Preview" }
+        },
+        "details": {
+          "segmentedControl": { "email": "Email", "push": "Push" },
+          "emailTemplateSelector": { "searchingMessage": "Searching email templates..." },
+          "emailNotification": {
+            "preview": "Preview",
+            "noPreview": "No preview available",
+            "select": {
+              "label": "Email notification",
+              "placeholder": "Select an email template"
+            },
+            "carbonCopy": { "label": "Receive a copy of the email" }
+          }
         }
       }
     },

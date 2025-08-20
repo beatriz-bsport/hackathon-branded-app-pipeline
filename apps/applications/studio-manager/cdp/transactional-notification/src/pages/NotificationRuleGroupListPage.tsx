@@ -1,5 +1,6 @@
 import { List, ListLayout } from "@bsport/kaizen-primitive-core";
 
+import { EmailTemplateSelector } from "#src/components/EmailTemplateSelector/EmailTemplateSelector";
 import { useFetchNotificationRuleEvents } from "#src/hooks/api/use-fetch-notification-rule-events";
 import { useFormatNotificationGroupList } from "#src/hooks/layout/use-format-notification-group-list";
 import { notificationRuleEventMap } from "#src/utils/constants";
@@ -21,7 +22,10 @@ const NotificationRuleEventPage: React.FC = () => {
   return (
     <ListLayout>
       <ListLayout.Header pageTitle={t("page.title")} />
-      <ListLayout.Content>
+      <ListLayout.Content className="w-full flex flex-col gap-md">
+        <div className="m-sm">
+          <EmailTemplateSelector />
+        </div>
         <List
           className="h-full"
           id="notification-rule-event-list"

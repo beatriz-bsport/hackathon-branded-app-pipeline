@@ -117,11 +117,12 @@ export const TagSelector = ({
     setFilteredItems([]);
   };
 
-  const handleSelectTag = (tagId: string) => {
-    const tag = getTagById({ tagId: tagId, tags });
-    if (!tag) return;
-    onSelectTag?.(tag);
-    setSelectedTag(tag);
+  const handleSelectTag = (selectedTagId: string) => {
+    const tag = getTagById({ tagId: selectedTagId, tags });
+    if (tag) {
+      onSelectTag?.(tag);
+      setSelectedTag(tag);
+    }
   };
 
   useEffect(() => {

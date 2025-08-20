@@ -95,7 +95,7 @@ const Autocomplete: React.FC<AutocompleteProps> = ({
   className,
   textfieldProps,
   items,
-  fullWidth,
+  fullWidth = false,
   debounceValue = 500,
   loadingProps,
   popoverPlacement = "bottom-left",

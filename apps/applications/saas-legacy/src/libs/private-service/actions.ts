@@ -97,6 +97,7 @@ import {
   disablePrivateBooking as disablePrivateBookingAPI,
   deletePrivateBooking as deletePrivateBookingAPI,
   restorePrivateBooking as restorePrivateBookingAPI,
+  setPrivateBookingUnpaid as setPrivateBookingUnpaidAPI,
   fetchCalendarEventList as fetchCalendarEventListAPI,
   updatePrivateBookingDatetime as updatePrivateBookingDatetimeAPI,
   updatePrivateBookingCoach as updatePrivateBookingCoachAPI,
@@ -2385,6 +2386,43 @@ export function restorePrivateBooking(
       }
     }
     dispatch(privateBookingCreateOrUpdateActions.isLoading(false));
+  };
+}
+
+export const setPrivateBookingUnpaidActions = {
+  error: createAction('PRIVATE_BOOKING/SET_UNPAID/ERROR'),
+  isLoading: createAction('PRIVATE_BOOKING/SET_UNPAID/IS_LOADING'),
+  success: createAction('PRIVATE_BOOKING/SET_UNPAID/SUCCESS'),
+};
+
+export function setPrivateBookingUnpaid(
+  id: number,
+  options?: OptionCallback,
+): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    dispatch(setPrivateBookingUnpaidActions.isLoading(true));
+    dispatch(setPrivateBookingUnpaidActions.error(null));
+    try {
+      const response = await setPrivateBookingUnpaidAPI(id);
+      const updatedBooking = response.data;
+      dispatch(setPrivateBookingUnpaidActions.success(updatedBooking));
+
+      // Fetch the newly created unpaid pass
+      if (updatedBooking.private_consumer_pass) {
+        // Fetch the private consumer pass details to get the updated information
+        dispatch(
+          fetchPrivateConsumerPass(updatedBooking.private_consumer_pass),
+        );
+      }
+
+      if (options && options.onSuccess) options.onSuccess();
+      dispatch(snackbarSuccess('privateBooking.setUnpaid.success'));
+    } catch (error) {
+      dispatch(setPrivateBookingUnpaidActions.error(error));
+      if (options && options.onError) options.onError();
+      dispatch(snackbarError('privateBooking.setUnpaid.error'));
+    }
+    dispatch(setPrivateBookingUnpaidActions.isLoading(false));
   };
 }
 

@@ -61,6 +61,8 @@ type Props = {
   goToMember?: (id: number) => void,
   onDelete: () => void,
   onRestore: () => void,
+  onSetUnpaid?: () => void,
+  setPrivateBookingUnpaidLoading?: boolean,
   isUpdateTimeFormOpen: boolean,
   loading: boolean,
   setUpdatedTime: (updatedTime: DateTime | null) => void,
@@ -169,6 +171,11 @@ export const PrivateBookingCard = (props: Props) => {
     () => setUnpaidInvoicesSectionOpened((previousValue) => !previousValue),
     [setUnpaidInvoicesSectionOpened],
   );
+
+  const canBeConvertedToUnpaid =
+    props.onSetUnpaid &&
+    !props.private_booking.is_unpaid &&
+    DateTime.fromISO(props.private_booking.date_start) > DateTime.now();
 
   if (
     loading ||
@@ -434,6 +441,21 @@ export const PrivateBookingCard = (props: Props) => {
               {t('privateBooking.discard')}
             </RedButton>
           </ObjectLevelPermissionWrapper>
+          {canBeConvertedToUnpaid && (
+            <ObjectLevelPermissionWrapper
+              forcedBehavior="hidden"
+              requiredPermission="reservation.privateBooking.allowed_actions.edit"
+            >
+              <Button
+                disabled={props.setPrivateBookingUnpaidLoading}
+                onClick={props.onSetUnpaid}
+                style={{ marginLeft: 8 }}
+                variant="outlined"
+              >
+                {t('privateBooking.setUnpaid.button')}
+              </Button>
+            </ObjectLevelPermissionWrapper>
+          )}
         </div>
       ) : (
         <div className={classes.buttonContainer}>

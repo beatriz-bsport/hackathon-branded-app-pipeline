@@ -49,6 +49,7 @@ import {
   fetchRecurrenceRulePrivateBooking as fetchRecurenceRulePrivateBookingAction,
   deleteRecurrenceRulePrivateBooking as deleteRecurrenceRulePrivateBookingAction,
   forceRegularizeUnpaid as forceRegularizeUnpaidAction,
+  setPrivateBookingUnpaid as setPrivateBookingUnpaidAction,
 } from '../../libs/private-service/actions';
 import { getCoaches } from '../../libs/associated-coach/selectors';
 import {
@@ -65,6 +66,7 @@ import { fetchMember as fetchMemberAction } from '../../libs/member/actions';
 import PrivateBookingListItem from '../../libs/private-service/components/booking/PrivateBookingListItem.component';
 import PrivateBookingDetail from '../../libs/private-service/components/booking/PrivateBookingDetail.component';
 import PrivateBookingDisableDialog from '../../libs/private-service/components/booking/PrivateBookingDisableDialog.component';
+import PrivateBookingSetUnpaidConfirmDialog from '../../libs/private-service/components/booking/PrivateBookingSetUnpaidConfirmDialog.component';
 import PrivateBookingAttachCoachDialog from '../../libs/private-service/components/booking/PrivateBookingAttachCoachDialog.component';
 import RecurrenceRulePrivateBookingItem from '../../libs/private-service/components/booking/RecurrenceRulePrivateBookingItem.component';
 
@@ -122,6 +124,10 @@ type Props = {
   goToPrivateBooking: (memberId: number, privateBookingId: number) => void,
   setBookingToDelete: (booking?: PrivateBooking) => void,
   bookingToDelete?: PrivateBooking,
+  setBookingToSetUnpaid: (booking?: PrivateBooking) => void,
+  bookingToSetUnpaid?: PrivateBooking,
+  setPrivateBookingUnpaid: (id: number, options?: OptionCallBack) => void,
+  setPrivateBookingUnpaidLoading: boolean,
   disablePrivateBooking: (
     id: number,
     data: any,
@@ -235,8 +241,12 @@ export class MemberDetailPrivateBooking extends Component<Props> {
                     }
                     onDelete={() => this.props.setBookingToDelete(b)}
                     onRestore={() => this.props.restorePrivateBooking(b.id)}
+                    onSetUnpaid={() => this.props.setBookingToSetUnpaid(b)}
                     private_booking={b}
                     selected={this.props.privateBookingId === b.id}
+                    setPrivateBookingUnpaidLoading={
+                      this.props.setPrivateBookingUnpaidLoading
+                    }
                   />
                 )}
               />
@@ -348,6 +358,26 @@ export class MemberDetailPrivateBooking extends Component<Props> {
             private_booking={this.props.bookingToDelete}
           />
         )}
+        {!!this.props.bookingToSetUnpaid && (
+          <PrivateBookingSetUnpaidConfirmDialog
+            loading={this.props.setPrivateBookingUnpaidLoading}
+            onClose={() => this.props.setBookingToSetUnpaid(null)}
+            onConfirm={() => {
+              this.props.setPrivateBookingUnpaid(
+                this.props.bookingToSetUnpaid.id,
+                {
+                  onSuccess: () => {
+                    this.props.setBookingToSetUnpaid(null);
+                  },
+                  onError: () => {
+                    this.props.setBookingToSetUnpaid(null);
+                  },
+                },
+              );
+            }}
+            open={!!this.props.bookingToSetUnpaid}
+          />
+        )}
         {this.props.bookerInAdvanceDialog && (
           <RecurrenceRulePrivateBooker
             companyId={this.props.companyId}
@@ -415,6 +445,8 @@ export default compose(
       recurrentPrivateBookingLoading:
         state.privateService.recurrenceRule.loading,
       userFilters: getMemberPrivateBookingFilter(state),
+      setPrivateBookingUnpaidLoading:
+        state.privateService.privateBooking.setUnpaid.loading,
     }),
     {
       fetchPrivateBookings: fetchPrivateBookingListAction,
@@ -438,6 +470,7 @@ export default compose(
       attachCoach: attachCoachAction,
       restorePrivateBooking,
       setMemberPrivateBookingFilter: setMemberPrivateBookingFilterAction,
+      setPrivateBookingUnpaid: setPrivateBookingUnpaidAction,
       goToPrivateService: (privateServiceId) =>
         push(`/private-service/service/${privateServiceId}/`),
       goToPrivateBooking: (memberId, privateBookingId) =>
@@ -473,6 +506,7 @@ export default compose(
         goToPrivateService(private_booking.private_service.id),
   }),
   withState('bookingToDelete', 'setBookingToDelete', null),
+  withState('bookingToSetUnpaid', 'setBookingToSetUnpaid', null),
   withStateHandlers(
     { isOpenAttachCoach: null },
     {

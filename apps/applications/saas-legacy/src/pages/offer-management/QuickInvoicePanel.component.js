@@ -69,6 +69,7 @@ type Props = {
   ) => void,
   displayNewWebshop: boolean,
   isCustomDiscountReasonRequired: boolean,
+  panelRef?: React.RefObject<any>,
 };
 
 type State = {
@@ -200,7 +201,10 @@ export class QuickInvoicePanel extends React.PureComponent<Props, State> {
     return (
       <ObjectLevelPermissionProvider requiredPermission="billing.allowed_actions.readInvoices">
         {(hasReadInvoicePermission) => (
-          <Paper className={clsx(classes.root, className)}>
+          <Paper
+            ref={this.props.panelRef}
+            className={clsx(classes.root, className)}
+          >
             <ButtonBase
               className={classes.titleContainer}
               onClick={this.toggleIsOpen}

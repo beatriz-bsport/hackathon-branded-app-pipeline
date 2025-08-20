@@ -24,6 +24,7 @@ import { RootState } from '#src/reducers';
 import { ConsumerSpaceContextEnum } from '#src/libs/consumer-space/constants';
 //@ts-expect-error
 import BasketPage from '#src/pages/checkout/basket/Basket.page';
+import { fetchMembershipByCompany as fetchMembershipByCompanyAction } from '#src/libs/membership/actions';
 
 const BridgeWidget = asyncComponent(() => import('./BridgeWidget.page'));
 
@@ -38,6 +39,9 @@ type Props = RouterProps &
 class WidgetRouter extends React.Component<Props> {
   componentDidMount() {
     this.props.fetchCompanyTheme(this.props.companyId);
+    if (!this.props.membership) {
+      this.props.fetchMembershipByCompany(this.props.companyId);
+    }
   }
 
   attachConsumerProps =
@@ -95,6 +99,7 @@ const connector = connect(
   }),
   {
     fetchCompanyTheme,
+    fetchMembershipByCompany: fetchMembershipByCompanyAction,
   },
 );
 

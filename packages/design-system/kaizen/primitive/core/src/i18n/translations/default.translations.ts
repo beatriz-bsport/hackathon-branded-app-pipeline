@@ -1,4 +1,10 @@
 exports.default = {
+  autocomplete: {
+    categories: {
+      selectedItems: "Selected Items",
+      allItems: "All Items",
+    },
+  },
   fileUpload: {
     uploadFileCTA: "Upload a file",
     dragAndDropCTA: "or drag and drop it here",

@@ -59,6 +59,7 @@ const Menu: React.FC<MenuProps> = ({
             avatar={item.avatar}
             iconLeft={item.iconLeft}
             rightSlot={item.rightSlot}
+            description={item.description}
           />
         );
 
@@ -88,6 +89,7 @@ const Menu: React.FC<MenuProps> = ({
           key={item.id}
           checked={selectedValues?.[0] === item.id}
           onChange={handleSelectOption(item.id)}
+          description={item.description}
         />
       );
     });

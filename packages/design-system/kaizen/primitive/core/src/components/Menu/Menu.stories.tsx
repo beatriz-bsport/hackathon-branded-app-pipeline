@@ -13,15 +13,18 @@ const menuOptions: Item[] = [
   { type: "title", label: "Menu title" },
   {
     id: "1",
-    label: "Option 1",
+    label: "Base Option 1",
+    description: "This is the first option",
   },
   {
     id: "2",
-    label: "Option 2",
+    label: "Base Option 2",
+    description: "This is the second option",
   },
   {
     id: "3",
-    label: "Option 3",
+    label: "Base Option 3",
+    description: "This is the third option",
   },
   { type: "divider" },
 ];

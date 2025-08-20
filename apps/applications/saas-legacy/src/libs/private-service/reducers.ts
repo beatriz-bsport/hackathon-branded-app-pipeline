@@ -41,6 +41,7 @@ import {
   privateBookingDeleteActions,
   privateBookingListActions,
   privateBookingRetrieveActions,
+  setPrivateBookingUnpaidActions,
   privateConsumerPassBulkActions,
   privateConsumerPassListActions,
   privateConsumerPassRetrieveActions,
@@ -208,6 +209,10 @@ const initialState: Seamless.Immutable<PrivateServiceState> =
       loading: false,
       error: null,
       createOrUpdate: {
+        loading: false,
+        error: null,
+      },
+      setUnpaid: {
         loading: false,
         error: null,
       },
@@ -879,6 +884,21 @@ export default handleActions<Seamless.Immutable<PrivateServiceState>, any>(
       );
     },
     [privateBookingCreateOrUpdateActions.success.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['privateBooking', 'byId', payload.id], payload);
+    },
+    [setPrivateBookingUnpaidActions.isLoading.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['privateBooking', 'setUnpaid', 'loading'], payload);
+    },
+    [setPrivateBookingUnpaidActions.error.toString()]: (state, { payload }) => {
+      return state.setIn(['privateBooking', 'setUnpaid', 'error'], payload);
+    },
+    [setPrivateBookingUnpaidActions.success.toString()]: (
       state,
       { payload },
     ) => {

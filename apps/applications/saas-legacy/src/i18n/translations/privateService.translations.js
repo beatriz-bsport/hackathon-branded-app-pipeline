@@ -152,6 +152,9 @@ const getTranslations = async () => {
         historyTitle: 'History',
         by: 'By',
         cancelledByRecurrenceOn: 'Recurring booking cancelled on ',
+        setUnpaid: 'Set as unpaid',
+        setUnpaidBy: 'Set as unpaid by',
+        setUnpaidOn: 'Set as unpaid on',
       },
       managerAdd: {
         title: 'New booking',
@@ -239,6 +242,14 @@ const getTranslations = async () => {
       isCancelledByManagerDate:
         'Cancelled on {{-date}} at {{time}} by {{cancelled_by}}',
       isCancelledByManager: 'Cancelled by {{cancelled_by}}',
+      setUnpaid: {
+        button: 'Reimburse appointment',
+        confirmTitle: 'Reimburse appointment?',
+        confirmMessage:
+          "Once you reimburse this appointment to the member, it will be marked as an 'unpaid' appointment.",
+        cancel: 'Back',
+        confirm: 'Reimburse appointment',
+      },
     },
     privateService: {
       delete: {

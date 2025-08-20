@@ -893,3 +893,9 @@ export function checkPrivateServiceTagEligibility(
     memberId ? { member_id: memberId } : undefined,
   );
 }
+
+export function setPrivateBookingUnpaid(privateBookingId: number) {
+  return postAuth<PrivateBooking>(
+    `${API_V1_URI}/private_service/private_booking/${privateBookingId}/set_unpaid/`,
+  );
+}

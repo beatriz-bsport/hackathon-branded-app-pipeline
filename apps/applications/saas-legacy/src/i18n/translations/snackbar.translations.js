@@ -826,6 +826,10 @@ const getTranslations = async () => {
           [PRIVATE_SLOT_ALREADY_BOOKED]: "You've recently booked this already",
         },
       },
+      setUnpaid: {
+        success: 'Appointment reimbursed successfully',
+        error: 'Unable to reimburse appointment',
+      },
     },
     playlist: {
       video: {

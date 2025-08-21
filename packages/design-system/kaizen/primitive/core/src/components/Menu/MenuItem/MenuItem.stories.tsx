@@ -103,6 +103,8 @@ export const MenuItemText: Story = {
   name: "MenuItemText",
   args: {
     type: menuItemTypes.text,
+    label: "Menu Item Text",
+    description: "This is a description for the menu item text.",
   },
   argTypes: {
     type: {

@@ -19,6 +19,7 @@ import { usePayment } from '#src/libs/payment/payment-module-revamped/basket-pay
 
 type Props = UseSubmitButtonsProps & {
   enforceDisabled?: boolean;
+  label?: string;
 };
 
 type PayPalButtonProps = {
@@ -73,6 +74,7 @@ const PayPalButton: React.FC<PayPalButtonProps> = ({
  * @param props.paymentContext - The context for the payment, including basketId, companyId, and memberId.
  * @param props.submitButtons - An array of submit button configurations.
  * @param props.enforceDisabled - A flag to enforce the disabled state on all buttons.
+ * @param props.label - An optional props to override the button label.
  * @returns The rendered PaymentButtons component.
  */
 export const PaymentButtons: React.FC<Props> = ({
@@ -80,6 +82,7 @@ export const PaymentButtons: React.FC<Props> = ({
   paymentContext,
   submitButtons,
   enforceDisabled,
+  label,
 }) => {
   const { t } = useTranslation('booking');
 
@@ -127,7 +130,7 @@ export const PaymentButtons: React.FC<Props> = ({
                   <Loader />
                 </div>
               ) : (
-                t('oneClickBooking.bookButtonLabel')
+                label ?? t('oneClickBooking.bookButtonLabel')
               )}
             </ButtonV2>
           ),

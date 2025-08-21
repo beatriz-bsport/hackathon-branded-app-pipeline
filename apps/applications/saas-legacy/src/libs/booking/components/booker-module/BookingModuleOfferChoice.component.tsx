@@ -1,11 +1,15 @@
-// @flow
 import React from 'react';
-import { withStyles } from '@material-ui/core/styles';
-import { compose, withStateHandlers, withProps } from 'recompose';
+import {
+  Theme,
+  WithStyles,
+  withStyles,
+  createStyles,
+} from '@material-ui/core/styles';
+import { compose, withStateHandlers } from 'recompose';
 import Typography from '@material-ui/core/Typography';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Checkbox from '@material-ui/core/Checkbox';
-import { withTranslation, TFunction } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import { DateTime } from 'luxon';
 
 import Button from '@material-ui/core/Button';
@@ -13,45 +17,59 @@ import OfferListItemV2 from '../../../offer/components/OfferListItemV2.component
 
 import { getPaymentPackTimeLimitation } from '../../../payment-packs/utils';
 import type { ConsumerPaymentPack } from '../../../consumer-payment-pack/types';
-import type { PaymentPack } from '../../../payment-packs/types';
+import type { PaymentPack as AbstractPaymentPack } from '../../../payment-packs/types';
+import { TFunction } from 'i18next';
+import { Offer as AbstractOffer } from '#src/libs/offer/types';
+import { MetaActivity } from '#src/libs/meta-activity/types';
+import { Establishment } from '#src/libs/establishment/types';
+import { Coach } from '#src/libs/associated-coach/types';
+import { Level } from '#src/libs/level/types';
+
+type Offer = AbstractOffer<Coach, Establishment, MetaActivity> & {
+  customLevel: Level;
+};
+
+type PaymentPack = AbstractPaymentPack<any, any, string>;
 
 type Props = {
-  t: TFunction,
-  offerId: number,
-  offer: Offer,
+  t: TFunction;
+  offerId: number;
+  offer: Offer;
 
   registererObject: {
-    consumerPaymentPack?: ConsumerPaymentPack,
-    paymentPack?: PaymentPack,
-  },
+    consumerPaymentPack?: ConsumerPaymentPack<PaymentPack>;
+    paymentPack?: PaymentPack;
+  };
 
-  offersSelected: Array<number>,
-  associatedOffers: Array<Offer>,
-  associatedOffersLoading: boolean,
-  classes: Object,
-  toogleChecked: (number) => void,
-  setOffersSelected: (offersSelected: Array<number>) => void,
-  resetOffersSelected: () => void,
-  registerToOffer: (offerIds: Array<number>) => void,
-  fetchAssociatedOffers: () => void,
-  goBack: () => void,
-  fetchLevelList: (
-    params: LevelFilterSet,
-    options?: OptionCallback<Level[]>,
-  ) => void,
-};
+  offersSelected: Array<number>;
+  associatedOffers: Array<Offer>;
+  associatedOffersLoading: boolean;
+  toogleChecked: (id: number) => void;
+  setOffersSelected: (offersSelected: Array<number>) => void;
+  resetOffersSelected: () => void;
+  registerToOffer: (offerIds: Array<number>) => void;
+  fetchAssociatedOffers: () => void;
+  goBack: () => void;
+} & WithStyles<typeof styles>;
 
 const getLimitation = (
   {
     paymentPack,
     consumerPaymentPack,
-  }: { paymentPack?: PaymentPack, consumerPaymentPack?: ConsumerPaymentPack },
+  }: {
+    paymentPack?: PaymentPack;
+    consumerPaymentPack?: ConsumerPaymentPack<PaymentPack>;
+  },
   baseDate: string,
-) => {
+): {
+  start?: DateTime;
+  end?: DateTime;
+  credits?: number;
+} => {
   if (consumerPaymentPack) {
     return {
-      start: consumerPaymentPack.starting_date,
-      end: consumerPaymentPack.ending_date,
+      start: DateTime.fromISO(consumerPaymentPack.starting_date),
+      end: DateTime.fromISO(consumerPaymentPack.ending_date),
       credits: consumerPaymentPack.payment_pack.unlimited
         ? 99999
         : consumerPaymentPack.available_credits,
@@ -62,7 +80,7 @@ const getLimitation = (
     if (paymentPack.unlimited) {
       credits = 1000;
     } else {
-      credits = paymentPack.credits;
+      credits = paymentPack.credits ?? 0;
     }
     const { start, end } = getPaymentPackTimeLimitation(paymentPack, baseDate);
     return { start, end, credits };
@@ -75,17 +93,19 @@ export class BookingModuleOfferChoice extends React.Component<Props> {
     this.props.fetchAssociatedOffers();
   }
 
-  isOfferValid = (offer) => {
+  isOfferValid = (offer: Offer) => {
     return !!offer.establishment && !!offer.coach && !!offer.meta_activity;
   };
 
-  isOfferEligible = (offer, start_payment_pack, end_payment_pack) => {
+  isOfferEligible = (
+    offer: Offer,
+    start_payment_pack: DateTime,
+    end_payment_pack: DateTime,
+  ) => {
     // Skip invalid offers
     if (!this.isOfferValid(offer)) return false;
 
     // Check date range
-    // TODO(BOO-745): We should use DateTime.fromISO for all dates, otherwise this check
-    // does not work correctly.
     if (
       DateTime.fromISO(offer.date_start) < start_payment_pack ||
       DateTime.fromISO(offer.date_start) > end_payment_pack
@@ -96,7 +116,14 @@ export class BookingModuleOfferChoice extends React.Component<Props> {
     return DateTime.fromISO(offer.date_start) >= DateTime.now();
   };
 
-  isOfferDisabled = (offer, start, end, credits, creditToBeConsumed) => {
+  isOfferDisabled = (
+    offer: Offer,
+    creditToBeConsumed: number,
+    start?: DateTime,
+    end?: DateTime,
+    credits?: number,
+  ) => {
+    if (!start || !end || !credits) return true;
     // Use the eligibility check first (covers current offer, date range, and validity)
     if (!this.isOfferEligible(offer, start, end)) return true;
 
@@ -110,7 +137,7 @@ export class BookingModuleOfferChoice extends React.Component<Props> {
     );
   };
 
-  getSelectableOffers = (eligibleOffers, credits) => {
+  getSelectableOffers = (eligibleOffers: Array<Offer>, credits: number) => {
     const selectableOffers = [];
     let runningCreditTotal = 0;
 
@@ -124,7 +151,13 @@ export class BookingModuleOfferChoice extends React.Component<Props> {
     return selectableOffers;
   };
 
-  handleSelectAllEligibleOffers = (start, end, credits) => {
+  handleSelectAllEligibleOffers = (
+    start?: DateTime,
+    end?: DateTime,
+    credits?: number,
+  ) => {
+    if (!start || !end || !credits) return;
+
     // Filter eligible offers that can be booked (excluding current offer)
     const eligibleOffers = this.props.associatedOffers.filter(
       (offer) =>
@@ -198,10 +231,10 @@ export class BookingModuleOfferChoice extends React.Component<Props> {
                 .map((o) => {
                   const disabled = this.isOfferDisabled(
                     o,
+                    creditToBeConsumed,
                     start,
                     end,
                     credits,
-                    creditToBeConsumed,
                   );
                   return (
                     <div key={o.id} className={classes.row}>
@@ -211,7 +244,6 @@ export class BookingModuleOfferChoice extends React.Component<Props> {
                         onChange={() => this.props.toogleChecked(o.id)}
                       />
                       <OfferListItemV2
-                        showDate
                         disabled={disabled}
                         offer={o}
                         onClick={this.props.toogleChecked}
@@ -244,53 +276,54 @@ export class BookingModuleOfferChoice extends React.Component<Props> {
   }
 }
 
-const styles = (theme) => ({
-  container: {},
-  row: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-  actions: {
-    display: 'flex',
-    flexDirection: 'row',
-    width: '100%',
-    alignItems: 'center',
-    marginTop: theme.spacing(2),
-    marginBottom: theme.spacing(2),
-  },
-  sectionTitle: {
-    marginBottom: theme.spacing(1),
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-});
+const styles = (theme: Theme) =>
+  createStyles({
+    container: {},
+    row: {
+      display: 'flex',
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+    },
+    actions: {
+      display: 'flex',
+      flexDirection: 'row',
+      width: '100%',
+      alignItems: 'center',
+      marginTop: theme.spacing(2),
+      marginBottom: theme.spacing(2),
+    },
+    sectionTitle: {
+      marginBottom: theme.spacing(1),
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+    },
+  });
 
 export default compose(
   withStyles(styles),
   withTranslation(['booking']),
-  withStateHandlers(({ offerId }) => ({ offersSelected: [offerId] }), {
-    toogleChecked:
-      ({ offersSelected }) =>
-      (id) => {
-        if (offersSelected.includes(id)) {
-          return { offersSelected: offersSelected.filter((i) => i !== id) };
-        }
-        return { offersSelected: [...offersSelected, id] };
-      },
-    setOffersSelected: () => (offersSelected) => ({
-      offersSelected,
-    }),
-    resetOffersSelected:
-      (_, { offerId }) =>
-      () => ({
-        offersSelected: [offerId],
+  withStateHandlers(
+    ({ offerId }: { offerId: number }) => ({ offersSelected: [offerId] }),
+    {
+      toogleChecked:
+        ({ offersSelected }) =>
+        (id) => {
+          if (offersSelected.includes(id)) {
+            return { offersSelected: offersSelected.filter((i) => i !== id) };
+          }
+          return { offersSelected: [...offersSelected, id] };
+        },
+      setOffersSelected: () => (offersSelected) => ({
+        offersSelected,
       }),
-  }),
-  withProps(({ similarOfferLoading, paymentPack, consumerPaymentPack }) => ({
-    loading: similarOfferLoading || (!paymentPack && !consumerPaymentPack),
-  })),
+      resetOffersSelected:
+        (_, { offerId }: { offerId: number }) =>
+        () => ({
+          offersSelected: [offerId],
+        }),
+    },
+  ),
 )(BookingModuleOfferChoice);

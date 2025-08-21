@@ -163,20 +163,26 @@ export const getValidityString = (
   }
   return dateInfo;
 };
-// @ts-expect-error
-export const getPaymentPackTimeLimitation = (paymentPack, baseDate) => {
+
+export const getPaymentPackTimeLimitation = (
+  paymentPack: PaymentPack<any, any, string>,
+  baseDate: string,
+): {
+  start?: DateTime;
+  end?: DateTime;
+  credits?: number;
+} => {
+  if (!paymentPack) {
+    return {};
+  }
+
   const { validity_daterange, duration_days, duration_months, duration_years } =
     paymentPack;
 
-  if (!paymentPack) {
-    return { start: null, end: null };
-  }
   if (validity_daterange) {
     return {
-      start: DateTime.fromISO(JSON.parse(validity_daterange).lower).toFormat(
-        'D',
-      ),
-      end: DateTime.fromISO(JSON.parse(validity_daterange).upper).toFormat('D'),
+      start: DateTime.fromISO(JSON.parse(validity_daterange).lower),
+      end: DateTime.fromISO(JSON.parse(validity_daterange).upper),
     };
   }
 

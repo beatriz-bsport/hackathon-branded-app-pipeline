@@ -10,15 +10,15 @@ exports.default = {
     addTeacherModal: {
       title: "Add teacher",
       input: {
-        label: "Teacher email",
-        placeholder: "Add teacher's email...",
+        label: "Email",
+        placeholder: "teacher@email.com",
         helper:
-          "If an email is already in our system, the teacher's account will be linked automatically.",
+          "If we already have this email, the teacher's account will be linked automatically.",
         missingEmailError: "This is required",
       },
       actions: {
-        cancel: "Cancel",
-        create: "Create",
+        back: "Back",
+        add: "Add",
         open: "Open",
       },
       linkedTeacher: "Teacher successfully linked",
@@ -32,13 +32,12 @@ exports.default = {
     archiveModal: {
       buttons: {
         archive: "Archive",
-        cancel: "Cancel",
+        back: "Back",
       },
-      title: "Archive teacher",
+      title: "Archive teacher?",
       description: {
-        action: "Are you sure that you want to archive <b>{{ name }}<b> ?",
-        effect:
-          "They will no longer be active but can be restored any time from your archive.",
+        action: "Once you archive {{ name }}, they will no longer be active.",
+        effect: "You can restore this teacher at any time from your archive.",
       },
     },
   },

@@ -602,6 +602,7 @@ export interface PrivateServiceState {
     byId: { [id: string]: PrivateBooking };
     allIds: Array<number>;
     createOrUpdate: ErrorAndLoading;
+    setUnpaid: ErrorAndLoading;
   };
   calendarEvent: ErrorAndLoading & {
     byId: { [key: string]: PrivateSlot };

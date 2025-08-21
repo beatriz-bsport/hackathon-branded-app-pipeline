@@ -22,7 +22,6 @@ import BackgroundDialog from './libs/background-dialog/components/BackgroundDial
 import Root from './Root';
 import initStore from './store';
 import { rudderInitialize } from './components/analytics/rudderstack/utils';
-import { initMixpanel } from './components/analytics/mixpanel';
 import theme from './theme';
 
 export class App extends Component<{}, {}> {
@@ -44,7 +43,7 @@ export class App extends Component<{}, {}> {
 
   componentDidMount() {
     rudderInitialize();
-    initMixpanel();
+
     if (!this.state.reloaded && window.location.search === '?storeReload') {
       this.setState({ reloaded: true });
     }

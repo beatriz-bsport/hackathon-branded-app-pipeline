@@ -1,0 +1,265 @@
+.bs-express-pass-checkout__root {
+  container: bsExpressPassCheckout / inline-size;
+  width: 100%;
+}
+
+.bs-oneclick-booking__skeleton--mobile {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: var(--bs-space-size-2);
+}
+
+.bs-oneclick-booking__skeleton--desktop {
+  display: none;
+}
+
+.bs-oneclick-booking__skeleton {
+  width: 100%;
+  height: 300px;
+}
+
+.bs-oneclick-booking__skeleton--small {
+  width: 100%;
+  height: 100px;
+}
+
+.bs-oneclick-booking__skeleton--tiny {
+  height: 30px;
+}
+
+.bs-express-pass-checkout__container {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  width: 100%;
+  gap: var(--bs-space-size-2);
+  padding: var(--bs-space-size-6) var(--bs-space-size-4);
+}
+
+.bs-express-pass-checkout__title {
+  display: flex;
+  gap: var(--bs-space-size-2);
+  align-items: center;
+}
+
+.bs-express-pass-checkout__container--loading {
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.bs-express-pass-checkout__content {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  width: 100%;
+  gap: var(--bs-space-size-4);
+}
+
+.bs-express-pass-checkout__payment-packs {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  width: 100%;
+  gap: var(--bs-space-size-2);
+}
+
+.bs-express-pass-checkout__payment-pack-item {
+  width: 100%;
+  cursor: pointer;
+}
+
+.bs-express-pass-checkout__booking-details {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: var(--bs-space-size-1);
+}
+
+.bs-express-pass-checkout__booking-details__card {
+  width: 100%;
+}
+
+.bs-express-pass-checkout__checkout-header__title {
+  font-family: var(--h5-fontFamily);
+  font-size: var(--h5-fontSize);
+  font-weight: var(--h5-fontWeight);
+  letter-spacing: var(--h5-letterSpacing);
+  line-height: var(--h5-lineHeight);
+}
+
+.bs-express-pass-checkout__already-member--mobile {
+  display: flex;
+  align-items: center;
+  gap: var(--bs-space-size-2);
+}
+
+.bs-express-pass-checkout__already-member--desktop {
+  display: none;
+}
+
+.bs-express-pass-checkout__see-more-with-login {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--bs-space-size-2);
+}
+
+.bs-express-pass-checkout__light-signup-form,
+.bs-light-signup-form__container,
+.bs-light-signup-form__name-section,
+.bs-light-signup-form__contact-section {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: var(--bs-space-size-3);
+}
+
+.bs-express-pass-checkout__light-signup-form {
+  gap: var(--bs-space-size-4);
+}
+
+.bs-light-signup-form__submit-button {
+  align-self: flex-start;
+}
+
+.bs-light-signup-form__submit-button-loader {
+  margin: 0 var(--bs-space-size-2);
+}
+
+.bs-light-signup-form__submit-button-loader svg {
+  stroke: white;
+  fill: white;
+}
+
+.bs-light-signup-form__field {
+  width: 100%;
+}
+
+.bs-express-pass-checkout__book-button-container,
+.bs-express-pass-checkout__book-button {
+  width: 100%;
+}
+
+.bs-express-pass-checkout__book-button-container {
+  margin: var(--bs-space-size-4) 0;
+}
+
+.bs-express-pass-checkout__divider--mobile {
+  height: 1px;
+  width: 100%;
+  background-color: var(--bs-color-border-weak);
+}
+
+.bs-express-pass-checkout__divider--desktop {
+  display: none;
+}
+
+.bs-light-signup-form__password-section > .bs-fabrique-password-field__wrapper {
+  flex-direction: column;
+}
+
+@container bsExpressPassCheckout (width > 950px) {
+  .bs-express-pass-checkout__container {
+    padding: var(--bs-space-size-8);
+  }
+
+  .bs-express-pass-checkout__content {
+    flex-direction: row;
+    gap: var(--bs-space-size-6);
+  }
+
+  .bs-express-pass-checkout__booking-details {
+    width: 40%;
+  }
+
+  .bs-express-pass-checkout__light-signup-form {
+    width: 60%;
+  }
+
+  .bs-light-signup-form__name-section,
+  .bs-light-signup-form__contact-section {
+    flex-direction: row;
+    gap: var(--bs-space-size-4);
+  }
+
+  .bs-express-pass-checkout__divider--mobile {
+    display: none;
+  }
+
+  .bs-express-pass-checkout__divider--desktop {
+    height: 1px;
+    width: 100%;
+    background-color: var(--bs-color-border-weak);
+    display: initial;
+  }
+
+  .bs-express-pass-checkout__book-button-container {
+    margin: 0;
+  }
+
+  .bs-express-pass-checkout__book-button {
+    width: auto;
+  }
+
+  .bs-express-pass-checkout__already-member--mobile {
+    display: none;
+  }
+
+  .bs-express-pass-checkout__already-member--desktop {
+    display: flex;
+    align-items: center;
+    gap: var(--bs-space-size-2);
+  }
+
+  .bs-oneclick-booking__skeleton--mobile {
+    display: none;
+  }
+
+  .bs-oneclick-booking__skeleton--desktop {
+    display: flex;
+    flex-direction: row;
+    gap: var(--bs-space-size-6);
+    width: 100%;
+  }
+
+  .bs-oneclick-booking__skeleton-booking-details {
+    display: flex;
+    flex-direction: column;
+    gap: var(--bs-space-size-3);
+    width: 40%;
+  }
+
+  .bs-oneclick-booking__skeleton {
+    height: 600px;
+  }
+
+  .bs-oneclick-booking__skeleton-form {
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+    gap: var(--bs-space-size-3);
+  }
+
+  .bs-oneclick-booking__skeleton--medium {
+    width: 49%;
+    height: 70px;
+  }
+
+  .bs-oneclick-booking__skeleton-form__container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--bs-space-size-3);
+  }
+
+  .bs-oneclick-booking__skeleton--thin {
+    height: 30px;
+    width: 70%;
+  }
+
+  .bs-light-signup-form__password-section
+    > .bs-fabrique-password-field__wrapper {
+    flex-direction: row;
+  }
+}

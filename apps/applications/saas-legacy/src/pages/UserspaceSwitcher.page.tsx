@@ -29,6 +29,8 @@ const FranchiseHome = asyncComponent(
   () => import('./franchise/Franchise.router'),
 );
 
+import { configureAnalyticsB2BInstance } from '#src/components/analytics/mixpanel';
+
 type RouterProps = { companyId: number };
 type Props = ConnectedProps<typeof connector> & RouterProps;
 
@@ -61,6 +63,18 @@ export const UserspaceSwitcher = (props: Props) => {
       window.removeEventListener('storage', updateToken);
     };
   }, [storedToken, disconnect]);
+
+  useEffect(() => {
+    if (!authenticated) return;
+
+    if (
+      isFranchisor ||
+      isManager ||
+      (isCoach && companyId && !WidgetUtils.isWidget())
+    ) {
+      configureAnalyticsB2BInstance();
+    }
+  }, [authenticated, isFranchisor, isManager, isCoach, companyId]);
 
   if (!authenticated) {
     return <Redirect to="/login" />;

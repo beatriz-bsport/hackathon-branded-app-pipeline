@@ -35,6 +35,7 @@
   "dependencies": {
     "@bsport/http-exception": "workspace:*",
     "@bsport/local-storage-auth-token": "workspace:*",
+    "@bsport/request-from-header": "workspace:*",
     "@bsport/sentry": "workspace:*",
     "@bsport/timezone-utils": "workspace:*"
   },

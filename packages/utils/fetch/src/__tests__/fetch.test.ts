@@ -11,6 +11,10 @@ vi.mock("@bsport/local-storage-auth-token", () => ({
   getAuthToken: vi.fn(() => "test-token"),
 }));
 
+vi.mock("@bsport/request-from-header", () => ({
+  getBsportRequestFrom: vi.fn(() => "backoffice"),
+}));
+
 vi.mock("@bsport/sentry", () => ({
   getSessionId: vi.fn(() => "test-session-id"),
   getTransactionId: vi.fn(() => "test-transaction-id"),
@@ -305,6 +309,9 @@ describe("getFetch", () => {
       expect(capturedRequest?.headers.get("X-Timezone-Name")).toBe(
         "Europe/Paris",
       );
+      expect(capturedRequest?.headers.get("X-bsport-request-from")).toBe(
+        "backoffice",
+      );
     });
 
     it("should merge custom headers with defaults", async () => {
@@ -333,6 +340,9 @@ describe("getFetch", () => {
       );
       expect(capturedRequest?.headers.get("Authorization")).toBe(
         "Token test-token",
+      );
+      expect(capturedRequest?.headers.get("X-bsport-request-from")).toBe(
+        "backoffice",
       );
     });
 

@@ -256,6 +256,58 @@ pnpm install --ignore-scripts
 
 ## Troubleshooting
 
+### Cleanup and Rebuild Script
+
+If you encounter build failures, dependency resolution issues, or MODULE_NOT_FOUND errors during the post-install process, you can use our comprehensive cleanup script to resolve these issues.
+
+#### When to use the cleanup script
+
+The cleanup script is designed to solve common issues such as:
+
+- **Build failures during post-install**: When packages fail to build
+- **MODULE_NOT_FOUND errors**: When builds can't find essential dependencies like `vite` or `typescript` for example.
+- **Outdated lockfile errors**: When `pnpm-lock.yaml` is out of sync with `package.json` files
+- **Corrupted dependency cache**: When pnpm store or node_modules are in an inconsistent state
+- **Workspace sync issues**: When workspace dependencies are not properly linked
+
+#### How to run the cleanup script
+
+⚠️ **Important Warning**: This script performs a **global cleanup** that affects ALL projects on your machine, not just this workspace.
+
+```bash
+# Using the npm script (recommended)
+pnpm cleanup
+
+# Or directly
+bash tools/scripts/cleanup-and-rebuild.sh
+```
+
+**Before running**, the script will show a confirmation prompt explaining:
+
+- All node_modules directories will be removed
+- The global pnpm store will be cleared (affects ALL projects on your machine)
+- All pnpm cache files will be removed
+- Dependencies will be reinstalled from scratch
+
+You must confirm with 'y' to proceed, or 'N' to cancel the operation.
+
+#### What the script does
+
+The cleanup script performs a complete reset and rebuild of your workspace:
+
+1. **Global cleanup**: Removes all node_modules, global pnpm store, and cache files
+2. **Fresh dependency installation**: Reinstalls all dependencies
+3. **Full project rebuild**: Builds all projects in the workspace to ensure everything is properly compiled
+
+**⚠️ Global Impact**: This script clears the global pnpm store, which means it will affect dependency cache for ALL pnpm projects on your machine, not just this workspace.
+
+This script is particularly useful when:
+
+- Switching between branches with different dependency versions
+- After major dependency updates
+- When encountering persistent build or dependency issues
+- Setting up the project on a new machine
+
 ### Error: ENOSPC: System limit for number of file watchers reached
 
 If you face this error on Linux, you may need to increase the max number of watches:

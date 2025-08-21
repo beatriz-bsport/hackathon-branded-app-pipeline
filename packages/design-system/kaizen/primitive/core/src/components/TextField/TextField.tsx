@@ -1,7 +1,11 @@
 import { cva } from "class-variance-authority";
 import classNames from "classnames";
 import mapValues from "lodash/mapValues";
-import React, { type ChangeEvent, useState } from "react";
+import React, {
+  type ChangeEvent,
+  HTMLInputAutoCompleteAttribute,
+  useState,
+} from "react";
 
 import Badge from "#src/components/Badge";
 import Button from "#src/components/Button";
@@ -88,6 +92,7 @@ export type TextFieldProps = Omit<
   type?: (typeof inputTypes)[number];
   containerProps?: React.HTMLAttributes<HTMLDivElement>;
   inputRef?: React.Ref<HTMLInputElement>;
+  autocomplete?: HTMLInputAutoCompleteAttribute;
 };
 
 /**
@@ -137,6 +142,7 @@ const TextField: React.FC<TextFieldProps> = ({
   fullWidth,
   containerProps,
   inputRef,
+  autocomplete = "off",
   ...props
 }) => {
   /* TODO: Check with design if the color picker needs all these props, and split it in a separate component (explained here: https://gitlab.com/bsport/ichizen/-/merge_requests/425#note_2402509306) */
@@ -296,6 +302,7 @@ const TextField: React.FC<TextFieldProps> = ({
               aria-required={required}
               aria-invalid={status === "error"}
               aria-describedby={helperText ? `${id}-helper-text` : undefined}
+              autoComplete={autocomplete}
               {...props}
               {...colorInputProps}
             />

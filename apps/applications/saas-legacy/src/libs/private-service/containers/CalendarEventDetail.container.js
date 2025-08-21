@@ -10,6 +10,9 @@ import Hidden from '@material-ui/core/Hidden';
 import EditIcon from '@material-ui/icons/Edit';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import Typography from '@material-ui/core/Typography';
 import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code.js';
 import isEqual from 'lodash/isEqual';
 
@@ -92,6 +95,7 @@ import { fetchRoomBlueprints } from '../../spot-scheduling/actions';
 import type { RoomBlueprint } from '../../spot-scheduling/types';
 import PrivateBookingDisableDialog from '../components/booking/PrivateBookingDisableDialog.component';
 import PrivateBookingUpdateCoachDialog from '../components/booking/PrivateBookingUpdateCoachDialog.component';
+import PrivateBookingSetUnpaidConfirmDialog from '../components/booking/PrivateBookingSetUnpaidConfirmDialog.component';
 import CustomEventCard from '../components/custom-event/CustomEventCard.component';
 import {
   getPrivateBooking,
@@ -109,6 +113,7 @@ import {
   updatePrivateBookingCoach as updatePrivateBookingCoachAction,
   deleteCustomEvent as deleteCustomEventAction,
   updatePrivateBooking as updatePrivateBookingAction,
+  setPrivateBookingUnpaid as setPrivateBookingUnpaidAction,
 } from '../actions';
 import {
   fetchMetaActivityBulk as fetchMetaActivityBulkAction,
@@ -276,6 +281,11 @@ type Props = {
     ids: number,
     options?: OptionCallback<Member[]>,
   ) => void,
+  setPrivateBookingUnpaidLoading: boolean,
+  setPrivateBookingUnpaid: (id: number, options?: OptionCallback) => void,
+  closeSetUnpaidModal: () => void,
+  openSetUnpaidModal: () => void,
+  setUnpaidModalOpen: boolean,
 };
 
 type State = {
@@ -453,6 +463,9 @@ export class CalendarEventDetail extends React.Component<Props, State> {
               ? null
               : () => this.props.restorePrivateBooking(privateBooking.id)
           }
+          onSetUnpaid={
+            this.props.isCoach ? null : this.props.openSetUnpaidModal
+          }
           paymentGroupId={this.state.paymentGroupId}
           paymentGroupPriceCts={this.state.paymentGroupPriceCts}
           private_booking={privateBooking}
@@ -461,6 +474,9 @@ export class CalendarEventDetail extends React.Component<Props, State> {
           requestClientSecret={this.requestClientSecret}
           setInvoiceToBill={this.props.setInvoiceToBill}
           setIsUpdateCoachFormOpen={this.props.setIsUpdateCoachFormOpen}
+          setPrivateBookingUnpaidLoading={
+            this.props.setPrivateBookingUnpaidLoading
+          }
           snackbarSuccess={this.props.snackbarSuccess}
           stripePaymentElementConfig={{
             isDefaultForRegion: this.props.theme.is_default_for_region,
@@ -696,6 +712,17 @@ export class CalendarEventDetail extends React.Component<Props, State> {
           />
         ) : null}
 
+        {this.props.privateBooking && this.props.setUnpaidModalOpen ? (
+          <PrivateBookingSetUnpaidConfirmDialog
+            loading={this.props.setPrivateBookingUnpaidLoading}
+            onClose={this.props.closeSetUnpaidModal}
+            onConfirm={() =>
+              this.props.setPrivateBookingUnpaid(this.props.privateBooking.id)
+            }
+            open={this.props.setUnpaidModalOpen}
+          />
+        ) : null}
+
         <GenericResponsiveDrawer
           withoutHeaderContainer
           withoutPadding
@@ -887,11 +914,13 @@ const PrivateBookingCancellatorContainer = compose(
     deletePrivateBooking: deletePrivateBookingAction,
     restorePrivateBooking: restorePrivateBookingAction,
     updatePrivateBooking: updatePrivateBookingAction,
+    setPrivateBookingUnpaid: setPrivateBookingUnpaidAction,
   }),
   withStateHandlers(
     {
       privateBookingDeleteModalOpen: false,
       privateBookingProcessing: false,
+      setUnpaidModalOpen: false,
     },
     {
       openDisablePrivateBookingModal: () => () => ({
@@ -902,6 +931,12 @@ const PrivateBookingCancellatorContainer = compose(
       }),
       setPrivateBookingProcessing: () => (privateBookingProcessing) => ({
         privateBookingProcessing,
+      }),
+      openSetUnpaidModal: () => () => ({
+        setUnpaidModalOpen: true,
+      }),
+      closeSetUnpaidModal: () => () => ({
+        setUnpaidModalOpen: false,
       }),
     },
   ),
@@ -953,6 +988,19 @@ const PrivateBookingCancellatorContainer = compose(
           options,
         );
       },
+    setPrivateBookingUnpaid:
+      ({ setPrivateBookingUnpaid, closeSetUnpaidModal, onClose }) =>
+      (privateBookingId) => {
+        setPrivateBookingUnpaid(privateBookingId, {
+          onSuccess: () => {
+            closeSetUnpaidModal();
+            onClose();
+          },
+          onError: () => {
+            closeSetUnpaidModal();
+          },
+        });
+      },
   }),
 );
 
@@ -970,6 +1018,8 @@ export default compose(
       )(state, privateBookingId),
       privateBookingLoading:
         state.privateService.privateBooking.createOrUpdate.loading,
+      setPrivateBookingUnpaidLoading:
+        state.privateService.privateBooking.setUnpaid.loading,
       theme: state.theme.theme,
       offer: withTags(
         withCustomLevel(

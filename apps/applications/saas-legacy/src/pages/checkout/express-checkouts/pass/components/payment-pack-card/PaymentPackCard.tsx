@@ -1,6 +1,7 @@
 import React, { memo } from 'react';
 import { Trans, useTranslation } from 'react-i18next';
 import {
+  AlertOctagon,
   CalendarDate,
   CheckCircle,
   ClockCheck,
@@ -31,7 +32,6 @@ export const PaymentPackCard: React.FC = memo(() => {
     description,
     validity,
     price,
-    tax,
     credits,
     isOnsitePaymentAvailable,
     isCompatibleWithAllActivities,
@@ -52,7 +52,16 @@ export const PaymentPackCard: React.FC = memo(() => {
     metaActivityChipsData,
     timeSlotsWithChipsData,
     unlimited,
+    isNoShowPenaltyActive,
+    noShowPenaltyInfo,
+    isPenaltyActive,
+    penaltyInfo,
   } = usePaymentPackCardData();
+
+  const showRestrictions =
+    restrictions.length > 0 || isNoShowPenaltyActive || isPenaltyActive;
+
+  const showPenalties = isNoShowPenaltyActive || isPenaltyActive;
 
   return (
     <Card className="bs-express-checkout-pass-detail__root">
@@ -63,7 +72,7 @@ export const PaymentPackCard: React.FC = memo(() => {
         >
           {title}
         </Typography>
-        <Price price={price} tax={tax} />
+        <Price price={price} />
       </div>
       <div className="bs-express-checkout-pass-detail__validity">
         <CalendarDate
@@ -123,6 +132,7 @@ export const PaymentPackCard: React.FC = memo(() => {
       </div>
       {!!description?.length && (
         <ExpandableContent
+          initiallyOpen
           className="bs-express-checkout-pass-detail__description-section"
           id="description"
           title={t('passes.detail.description.label')}
@@ -137,6 +147,7 @@ export const PaymentPackCard: React.FC = memo(() => {
       )}
 
       <ExpandableContent
+        initiallyOpen
         className="bs-express-checkout-pass-detail__compatibility"
         id="compatibility"
         title={t('passes.detail.compatibility.titles.main')}
@@ -281,24 +292,50 @@ export const PaymentPackCard: React.FC = memo(() => {
           )}
         </div>
       </ExpandableContent>
-      {restrictions.length > 0 && (
+      {showRestrictions && (
         <ExpandableContent
+          initiallyOpen
           className="bs-express-checkout-pass-detail__restrictions"
           id="restrictions"
           title={t('passes.detail.restriction.title')}
         >
-          <List className="bs-express-checkout-pass-detail__restrictions__list">
-            {restrictions.map((restriction) => (
-              <ListItem
-                key={restriction.frequency}
-                className="bs-express-checkout-pass-detail__restrictions__list-item"
-                label={t(`passes.detail.restriction.${restriction.frequency}`, {
-                  amount: restriction.amount,
-                })}
-                size="sm"
-              />
-            ))}
-          </List>
+          {!!restrictions.length && (
+            <List className="bs-express-checkout-pass-detail__restrictions__list">
+              {restrictions.map((restriction, index) => (
+                <ListItem
+                  key={`${restriction.frequency}-${index}`}
+                  className="bs-express-checkout-pass-detail__restrictions__list-item"
+                  label={t(
+                    `passes.detail.restriction.${restriction.frequency}`,
+                    {
+                      amount: restriction.amount,
+                    },
+                  )}
+                  size="sm"
+                />
+              ))}
+            </List>
+          )}
+          {showPenalties && (
+            <List className="bs-express-checkout-pass-detail__penalties__list">
+              {noShowPenaltyInfo && (
+                <ListItem
+                  className="bs-express-checkout-pass-detail__penalties__list-item"
+                  icon={<AlertOctagon />}
+                  label={noShowPenaltyInfo}
+                  size="sm"
+                />
+              )}
+              {penaltyInfo && (
+                <ListItem
+                  className="bs-express-checkout-pass-detail__penalties__list-item"
+                  icon={<AlertOctagon />}
+                  label={penaltyInfo}
+                  size="sm"
+                />
+              )}
+            </List>
+          )}
         </ExpandableContent>
       )}
     </Card>

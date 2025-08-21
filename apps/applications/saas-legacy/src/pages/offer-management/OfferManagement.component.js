@@ -102,6 +102,7 @@ import { mapFormData } from '../form.utils';
 import { openNewBackOfficeWindow } from '#src/utils/windows';
 
 const RECURRENT_BOOKING_PAGE_SIZE = 10;
+const COLLAPSE_ANIMATION_DURATION_MS = 300; // Material-UI Collapse default duration
 
 const AUTOBOOKING_DIALOGS = {
   info: 'info',
@@ -362,6 +363,11 @@ type State = {
 };
 
 export class OfferManagement extends Component<Props, State> {
+  constructor(props) {
+    super(props);
+    this.quickInvoicePanelRef = React.createRef();
+  }
+
   state = {
     quickInvoices: [],
     unpaidInvoiceList: [],
@@ -590,6 +596,22 @@ export class OfferManagement extends Component<Props, State> {
         quickInvoices: [...prevState.quickInvoices, quickInvoiceToAdd],
       }));
     }
+
+    // Auto-scroll to QuickInvoicePanel on mobile/tablet devices
+    if (window.innerWidth < 1280) {
+      // If the panel is closed, wait for collapse animation to complete
+      const scrollDelay = !isOpened ? COLLAPSE_ANIMATION_DURATION_MS : 0;
+
+      setTimeout(() => {
+        if (this.quickInvoicePanelRef.current) {
+          this.quickInvoicePanelRef.current.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start',
+          });
+        }
+      }, scrollDelay);
+    }
+
     this.props.clearSearch();
   };
 
@@ -1269,6 +1291,7 @@ export class OfferManagement extends Component<Props, State> {
             onlinePaymentEnabled={
               this.props.company_theme.online_payment_enabled
             }
+            panelRef={this.quickInvoicePanelRef}
             quickInvoices={this.state.quickInvoices}
             refreshInvoice={this.props.fetchInvoice}
             revertQuickInvoice={this.props.revertQuickInvoiceAndRefreshOffer}

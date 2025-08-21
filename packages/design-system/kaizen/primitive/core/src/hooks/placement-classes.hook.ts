@@ -14,7 +14,7 @@ export const Placements = [
   "right",
 ] as const;
 
-type Placement = (typeof Placements)[number];
+export type Placement = (typeof Placements)[number];
 
 /**
  * CSS classes for relative positioning of elements based on placement

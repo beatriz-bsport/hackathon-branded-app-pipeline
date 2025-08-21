@@ -1,6 +1,9 @@
 import { useCallback, useMemo } from 'react';
 import { DateTime } from 'luxon';
-import { getTheme } from '#src/libs/theme/selectors';
+import {
+  getTheme,
+  getCurrencyDisplayWithPrice,
+} from '#src/libs/theme/selectors';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { usePassCardDataContext } from '#src/pages/checkout/express-checkouts/pass/context/PassCardDataContext';
@@ -10,6 +13,10 @@ import {
   getDailyTimeSlots,
   getPackRestrictions,
 } from '#src/pages/marketplace/passes/utils';
+import {
+  PENALTY_KIND_BLOCK_CPP,
+  PENALTY_KIND_NEGATIVE_ACCOUNT,
+} from '#src/libs/payment-packs/constants';
 import type { ChipData } from '#src/pages/marketplace/passes/components/chips-container/ChipsContainer';
 import type { DailyTimeSlots } from '#src/pages/marketplace/passes/types';
 
@@ -46,6 +53,18 @@ export const usePaymentPackCardData = () => {
     metaActivities,
     categories,
     unlimited,
+    penalty_active,
+    penalty_kind,
+    penalty_days_blocked,
+    penalty_nb_late_cancellations,
+    penalty_nb_days,
+    penalty_account_value,
+    no_show_penalty_active,
+    no_show_penalty_kind,
+    no_show_penalty_threshold,
+    no_show_penalty_time_window_days,
+    no_show_penalty_days_blocked,
+    no_show_penalty_amount,
   } = paymentPackData?.paymentPack ?? {};
 
   const isCompatibleWithAllActivities = metaActivities?.length === 0;
@@ -125,6 +144,111 @@ export const usePaymentPackCardData = () => {
     }));
   }, [timeSlots, getTimeSlotChipsLabels]);
 
+  const penaltyInfo = useMemo(() => {
+    if (!penalty_active) return null;
+
+    if (penalty_kind === PENALTY_KIND_BLOCK_CPP) {
+      return t('genericCardDetails.includedElements.penalty.days', {
+        penalty_days: t(
+          'genericCardDetails.includedElements.penalty.penaltyDay',
+          {
+            count: penalty_days_blocked,
+          },
+        ),
+        penalty_cancellations: t(
+          'genericCardDetails.includedElements.cancellation',
+          {
+            count: penalty_nb_late_cancellations,
+          },
+        ),
+        penalty_days_period: t(
+          'genericCardDetails.includedElements.penalty.penaltyDay',
+          {
+            count: penalty_nb_days,
+          },
+        ),
+      });
+    }
+
+    if (penalty_kind === PENALTY_KIND_NEGATIVE_ACCOUNT) {
+      return t('genericCardDetails.includedElements.penalty.amount', {
+        penalty_amount: getCurrencyDisplayWithPrice(penalty_account_value),
+        penalty_cancellations: t(
+          'genericCardDetails.includedElements.cancellation',
+          { count: penalty_nb_late_cancellations },
+        ),
+        penalty_days_period: t(
+          'genericCardDetails.includedElements.penalty.penaltyDay',
+          { count: penalty_nb_days },
+        ),
+      });
+    }
+
+    return null;
+  }, [
+    penalty_active,
+    penalty_kind,
+    penalty_days_blocked,
+    penalty_nb_late_cancellations,
+    penalty_nb_days,
+    penalty_account_value,
+    t,
+  ]);
+
+  const noShowPenaltyInfo = useMemo(() => {
+    if (!no_show_penalty_active) return null;
+
+    const penaltyThresholdMessage = t(
+      'genericCardDetails.includedElements.penaltyNoShow.threshold',
+      {
+        count: no_show_penalty_threshold,
+      },
+    );
+
+    const penaltyTimeWindowMessage = t(
+      'genericCardDetails.includedElements.penaltyNoShow.penaltyDay',
+      {
+        count: no_show_penalty_time_window_days,
+      },
+    );
+
+    const penaltyDaysBlockedMessage =
+      no_show_penalty_days_blocked &&
+      t('genericCardDetails.includedElements.penaltyNoShow.penaltyDay', {
+        count: no_show_penalty_days_blocked,
+      });
+
+    const penaltyAmountMessage =
+      no_show_penalty_amount &&
+      getCurrencyDisplayWithPrice(no_show_penalty_amount);
+
+    if (no_show_penalty_kind === PENALTY_KIND_BLOCK_CPP) {
+      return t('genericCardDetails.includedElements.penaltyNoShow.block', {
+        days_blocked: penaltyDaysBlockedMessage,
+        threshold: penaltyThresholdMessage,
+        time_window_days: penaltyTimeWindowMessage,
+      });
+    }
+
+    if (no_show_penalty_kind === PENALTY_KIND_NEGATIVE_ACCOUNT) {
+      return t('genericCardDetails.includedElements.penaltyNoShow.account', {
+        amount: penaltyAmountMessage,
+        threshold: penaltyThresholdMessage,
+        time_window_days: penaltyTimeWindowMessage,
+      });
+    }
+
+    return null;
+  }, [
+    no_show_penalty_active,
+    no_show_penalty_kind,
+    no_show_penalty_threshold,
+    no_show_penalty_time_window_days,
+    no_show_penalty_days_blocked,
+    no_show_penalty_amount,
+    t,
+  ]);
+
   return {
     id,
     title: name,
@@ -162,5 +286,9 @@ export const usePaymentPackCardData = () => {
     roomChipsData,
     timeSlotsWithChipsData,
     unlimited,
+    penaltyInfo,
+    isPenaltyActive: penalty_active,
+    noShowPenaltyInfo,
+    isNoShowPenaltyActive: no_show_penalty_active,
   };
 };

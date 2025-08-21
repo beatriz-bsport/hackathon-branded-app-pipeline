@@ -18,6 +18,7 @@ import { RoutesWrapper, type RoutesWrapperProps } from "../RoutesWrapper";
 type AppWrapperProps = {
   children: React.ReactNode;
   basename?: string;
+  switchAnalyticsDebug?: (debug: boolean) => void;
 } & RoutesWrapperProps;
 
 const { i18nInstance: kaizenI18nInstance } = instanciateAppI18n({

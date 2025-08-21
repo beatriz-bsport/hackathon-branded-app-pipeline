@@ -2859,6 +2859,9 @@ importers:
 
   packages/utils/analytics:
     dependencies:
+      '@bsport/broadcast-channel-polyfill':
+        specifier: workspace:*
+        version: link:../broadcast-channel-polyfill
       mixpanel-browser:
         specifier: ^2.60.0
         version: 2.60.0
@@ -3154,6 +3157,9 @@ importers:
 
   packages/utils/sm-backbone:
     dependencies:
+      '@bsport/broadcast-channel-polyfill':
+        specifier: workspace:*
+        version: link:../broadcast-channel-polyfill
       '@bsport/envs':
         specifier: workspace:*
         version: link:../envs

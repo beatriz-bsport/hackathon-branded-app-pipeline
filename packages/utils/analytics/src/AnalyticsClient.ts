@@ -1,10 +1,12 @@
 import { MixpanelAdapter } from "./MixpanelAdapter";
 import { debugLog } from "./debugLog";
+import { AnalyticsMessageBus } from "./message-bus";
 import type {
   AnalyticsAdapter,
   AnalyticsClientInterface,
   AnalyticsConfig,
   AnalyticsEvent,
+  DualVoid,
   MixpanelConfig,
   Properties,
 } from "./types";
@@ -31,12 +33,22 @@ export class AnalyticsClient<T = MixpanelConfig>
     this.debug = internalDebug;
     this.superProperties = {};
     this.analyticsAdapter = adapter ?? new MixpanelAdapter(instanceName);
+
+    try {
+      // Connect AnalyticsClient to a broadcast channel to have debug sync
+      AnalyticsMessageBus.receive((debug) => this.setInternalDebugMode(debug));
+    } catch {
+      // Graceful no-op: environments without BroadcastChannel should not throw
+      // as it's only for debugging and no production purpose
+    }
   }
 
   //#region ----- Tracking tool methods (to be implemented in the Adapter) -----
 
   configure(defaultConfig?: AnalyticsConfig<T>) {
-    if (this.debug) debugLog.configure(defaultConfig);
+    if (this.debug) {
+      debugLog.configure(defaultConfig);
+    }
 
     try {
       return this.analyticsAdapter.configure(defaultConfig);
@@ -51,60 +63,107 @@ export class AnalyticsClient<T = MixpanelConfig>
       ...event,
     };
 
-    if (this.debug) debugLog.event(eventWithSuperProperties);
+    if (this.debug) {
+      debugLog.track(eventWithSuperProperties);
+    }
 
     return this.analyticsAdapter.track(eventWithSuperProperties);
   }
 
   identify(params: { userId: string; traits: Properties }) {
-    if (this.debug) debugLog.identify(params);
+    if (this.debug) {
+      debugLog.identify(params);
+    }
 
     return this.analyticsAdapter.identify(params);
   }
 
   resetIdentity() {
-    if (this.debug) debugLog.resetIdentity();
+    if (this.debug) {
+      debugLog.resetIdentity();
+    }
 
     return this.analyticsAdapter.resetIdentity();
   }
 
   flush() {
-    if (this.debug) debugLog.flush();
+    if (this.debug) {
+      debugLog.flush();
+    }
 
     return this.analyticsAdapter.flush();
   }
 
   overloadAddSuperProperties(properties: Properties) {
-    if (!this.analyticsAdapter.overloadAddSuperProperties) {
-      if (this.debug) debugLog.undefinedOverloadAddSuperProperties();
+    const { overloadAddSuperProperties } = this.analyticsAdapter;
+
+    if (!overloadAddSuperProperties) {
+      if (this.debug) {
+        debugLog.undefinedOverloadAddSuperProperties();
+      }
+
       return;
     }
 
-    if (this.debug) debugLog.overloadAddSuperProperties(properties);
+    if (this.debug) {
+      debugLog.overloadAddSuperProperties(properties);
+    }
 
-    return this.analyticsAdapter.overloadAddSuperProperties(properties);
+    return overloadAddSuperProperties(properties);
   }
 
   overloadRemoveSuperProperties(propertiesKeys: string[]) {
-    if (!this.analyticsAdapter.overloadRemoveSuperProperties) {
-      if (this.debug) debugLog.undefinedOverloadRemoveSuperProperties();
+    const { overloadRemoveSuperProperties } = this.analyticsAdapter;
+
+    if (!overloadRemoveSuperProperties) {
+      if (this.debug) {
+        debugLog.undefinedOverloadRemoveSuperProperties();
+      }
+
       return;
     }
 
-    if (this.debug) debugLog.overloadRemoveSuperProperties(propertiesKeys);
+    if (this.debug) {
+      debugLog.overloadRemoveSuperProperties(propertiesKeys);
+    }
 
-    return this.analyticsAdapter.overloadRemoveSuperProperties(propertiesKeys);
+    return overloadRemoveSuperProperties(propertiesKeys);
   }
 
   overloadResetSuperProperties() {
-    if (!this.analyticsAdapter.overloadResetSuperProperties) {
-      if (this.debug) debugLog.undefinedOverloadResetSuperProperties();
+    const { overloadResetSuperProperties } = this.analyticsAdapter;
+
+    if (!overloadResetSuperProperties) {
+      if (this.debug) {
+        debugLog.undefinedOverloadResetSuperProperties();
+      }
+
       return;
     }
 
-    if (this.debug) debugLog.overloadResetSuperProperties();
+    if (this.debug) {
+      debugLog.overloadResetSuperProperties();
+    }
 
-    return this.analyticsAdapter.overloadResetSuperProperties();
+    return overloadResetSuperProperties();
+  }
+
+  overloadSetDebugMode(debug: boolean): DualVoid {
+    const { overloadSetDebugMode } = this.analyticsAdapter;
+
+    if (!overloadSetDebugMode) {
+      if (this.debug) {
+        debugLog.undefinedOverloadSetDebugMode();
+      }
+
+      return;
+    }
+
+    if (this.debug) {
+      debugLog.overloadSetDebugMode(debug);
+    }
+
+    return overloadSetDebugMode(debug);
   }
 
   //#endregion
@@ -113,12 +172,16 @@ export class AnalyticsClient<T = MixpanelConfig>
 
   setInternalDebugMode(debug: boolean) {
     this.debug = debug;
+
+    debugLog.setInternalDebugMode(debug);
   }
 
   addSuperProperties(properties: Properties) {
     this.superProperties = { ...this.superProperties, ...properties };
 
-    if (this.debug) debugLog.addSuperProperties(properties);
+    if (this.debug) {
+      debugLog.addSuperProperties(properties);
+    }
   }
 
   removeSuperProperties(propertiesKeys: string[]) {
@@ -128,13 +191,17 @@ export class AnalyticsClient<T = MixpanelConfig>
       ),
     );
 
-    if (this.debug) debugLog.removeSuperProperties(propertiesKeys);
+    if (this.debug) {
+      debugLog.removeSuperProperties(propertiesKeys);
+    }
   }
 
   resetSuperProperties() {
     this.superProperties = {};
 
-    if (this.debug) debugLog.resetSuperProperties();
+    if (this.debug) {
+      debugLog.resetSuperProperties();
+    }
   }
 
   //#endregion

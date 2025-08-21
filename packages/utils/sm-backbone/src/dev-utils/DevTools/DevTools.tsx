@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { getEnv } from "@bsport/envs";
 import { Button, Popover, Tooltip } from "@bsport/kaizen-primitive-core";
 
+import { AnalyticsDebugToggle } from "./AnalyticsDebugToggle";
 import LanguageSelector, {
   type LanguageSelectorProps,
 } from "./LanguageSelector";
@@ -13,6 +14,7 @@ export type DevToolsProps = LanguageSelectorProps;
 
 const DevTools: React.FC<DevToolsProps> = ({ i18nInstance }) => {
   const [counter, setCounter] = useState(0);
+  const [analyticsDebug, setAnalyticsDebug] = useState(false);
   const env = getEnv();
 
   if (env === "production" || env === "staging") return null;
@@ -54,6 +56,10 @@ const DevTools: React.FC<DevToolsProps> = ({ i18nInstance }) => {
             <div className="gap-xs flex flex-col">
               <ThemeSelector />
               <LanguageSelector i18nInstance={i18nInstance} />
+              <AnalyticsDebugToggle
+                debugMode={analyticsDebug}
+                setDebugMode={setAnalyticsDebug}
+              />
               <Logout />
             </div>
           )}

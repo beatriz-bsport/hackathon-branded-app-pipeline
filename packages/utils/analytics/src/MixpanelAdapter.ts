@@ -4,6 +4,7 @@ import type {
   AnalyticsAdapter,
   AnalyticsConfig,
   AnalyticsEvent,
+  DualVoid,
   MixpanelConfig,
   Properties,
 } from "./types";
@@ -112,5 +113,11 @@ export class MixpanelAdapter implements AnalyticsAdapter {
     if (!this.checkIsInitialized()) return;
 
     this.instance.reset();
+  }
+
+  overloadSetDebugMode(debug: boolean): DualVoid {
+    if (!this.checkIsInitialized()) return;
+
+    this.instance.set_config({ debug });
   }
 }

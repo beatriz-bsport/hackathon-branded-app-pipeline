@@ -81,6 +81,12 @@ export type AnalyticsAdapter<ExtraConfig = Record<string, unknown>> = {
    * Remove all super properties that were attached to the selected analytics tool directly
    */
   overloadResetSuperProperties?(): DualVoid;
+
+  /**
+   * Allow to set the debug mode on the selected analytics tool directly
+   * @param debug Whether the debug mode should be activated
+   */
+  overloadSetDebugMode?(debug: boolean): DualVoid;
 };
 
 export type AnalyticsAgnosticMethods = {

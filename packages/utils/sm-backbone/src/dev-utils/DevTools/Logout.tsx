@@ -1,14 +1,22 @@
+import React from "react";
 import { useNavigate } from "react-router";
 
 import { Button } from "@bsport/kaizen-primitive-core";
 import { getAuthToken } from "@bsport/local-storage-auth-token";
 import { LOGIN_URL, logoutAction } from "@bsport/store-auth";
 
-const Logout: React.FC = () => {
+export type LogoutProps = {
+  onLogoutCallback?: () => void;
+};
+
+const Logout: React.FC<LogoutProps> = ({ onLogoutCallback }) => {
   const navigate = useNavigate();
   return (
     <Button
-      onClick={() => logoutAction(() => navigate(LOGIN_URL))}
+      onClick={() => {
+        onLogoutCallback?.();
+        logoutAction(() => navigate(LOGIN_URL));
+      }}
       color="critical"
       intent="call-to-action"
       size="md"

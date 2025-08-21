@@ -17,6 +17,7 @@ import {
   BUYABLE_ITEM_PASS,
   BUYABLE_ITEM_PRIVATE_PASS,
 } from '@bsport/common/lib/master-data/buyable-items';
+import { FlowTypes } from '#src/libs/checkout/constants';
 
 export const useBasket = () => {
   const { companyId, passId, passType } = usePassCardDataContext();
@@ -67,7 +68,9 @@ export const useBasket = () => {
             ? BUYABLE_ITEM_PASS
             : BUYABLE_ITEM_PRIVATE_PASS,
         quantity: 1,
-        extra_data: {},
+        extra_data: {
+          flow: FlowTypes.ONE_CLICK_CHECKOUT,
+        },
       };
 
       const { data: updatedBasket } = await addItemToBasket(

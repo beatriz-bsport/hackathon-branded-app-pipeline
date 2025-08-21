@@ -50,6 +50,7 @@ import {
   fromConfigToUrl,
   getUserSpaceUrl,
   getCheckoutUrl,
+  getPassExpressCheckoutUrl,
 } from '#src/libs/marketplace/routing-utils';
 import { urlToMarketplace } from '#src/libs/marketplace/utils';
 import { getBasketBuyableItemsCount } from '#src/libs/checkout/utils';
@@ -113,6 +114,7 @@ import { getItemInStorage } from '../../utils/storage';
 import { STORAGE_KEY_BSPORT_RELATED_MEMBER_TOKEN } from '../../actions/constants';
 import analyticsUtils from '../../components/analytics/analytics';
 import { PassesPageTabNames } from '../../libs/marketplace/types';
+import Config from '#src/config';
 
 const MarketplacePassPage = asyncComponent(() => import('./MarketplacePass'));
 
@@ -312,6 +314,25 @@ export class MarketPlace extends Component<Props, State> {
     this.props.goToTab(newPath);
   };
 
+  redirectToPassExpressCheckout = ({ passType, passId }) => {
+    const canRedirect =
+      !['production'].includes(Config.REACT_APP_SENTRY_ENVIRONMENT) &&
+      this.props.companyTheme.one_click_checkout_enabled &&
+      !this.props.companyTheme.requires_email_confirmation_when_signing_up;
+
+    if (canRedirect) {
+      this.props.push(
+        getPassExpressCheckoutUrl(
+          Number(this.props.companyId),
+          Number(passId),
+          passType,
+        ),
+      );
+    } else {
+      this.openLogin();
+    }
+  };
+
   renderContent = () => {
     if (!this.props.companyId) {
       return null;
@@ -330,6 +351,7 @@ export class MarketPlace extends Component<Props, State> {
           <MarketplacePassPage
             key={this.props.tabSelected}
             companyId={this.props.companyId}
+            redirectToPassExpressCheckout={this.redirectToPassExpressCheckout}
             requestSignUp={this.openLogin}
             toggleCurrentBasketOpen={this.toggleCurrentBasketOpen}
           />

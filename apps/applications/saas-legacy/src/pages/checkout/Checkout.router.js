@@ -86,9 +86,7 @@ export class PaymentRouter extends React.Component<Props> {
 
   getExpressCheckoutRedirect = (passType) => {
     const shouldRedirect =
-      !['staging', 'production'].includes(
-        Config.REACT_APP_SENTRY_ENVIRONMENT,
-      ) &&
+      !['production'].includes(Config.REACT_APP_SENTRY_ENVIRONMENT) &&
       this.props.theme.one_click_checkout_enabled &&
       !this.props.theme.requires_email_confirmation_when_signing_up;
 

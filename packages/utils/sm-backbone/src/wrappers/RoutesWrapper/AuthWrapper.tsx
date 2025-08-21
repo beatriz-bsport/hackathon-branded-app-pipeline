@@ -5,8 +5,16 @@ import { getAuthToken } from "@bsport/local-storage-auth-token";
 
 import { fetchSharedData } from "#src/api";
 
+type NavigationSidebarProps = {
+  navigate?: (to: string) => void;
+  disableRevampOnLegacyStore?: () => void;
+  isLoadingData?: boolean;
+  onLogoutCallback?: () => void;
+};
+
 export type AuthWrapperProps = {
-  NavigationApp?: LazyExoticComponent<FC>;
+  NavigationApp?: LazyExoticComponent<FC<NavigationSidebarProps>>;
+  navigationProps?: NavigationSidebarProps;
   loginUrl: string;
 };
 
@@ -19,10 +27,12 @@ export type AuthWrapperProps = {
  *
  * @param NavigationApp Navigation Sidebar to display on the left
  * @param loginUrl URL path to the login page
+ * @param navigationProps Props to provide to the NavigationSidebar
  */
 export const AuthWrapper: FC<AuthWrapperProps> = ({
   NavigationApp,
   loginUrl,
+  navigationProps = {},
 }) => {
   const location = useLocation();
 
@@ -51,7 +61,7 @@ export const AuthWrapper: FC<AuthWrapperProps> = ({
           <div className="h-screen w-[240px] bg-surface-page-navigation" />
         }
       >
-        {NavigationApp ? <NavigationApp /> : undefined}
+        {NavigationApp ? <NavigationApp {...navigationProps} /> : undefined}
       </Suspense>
       <DataLayerWrapper />
       {/** react-router will map Route.Element to Outlet

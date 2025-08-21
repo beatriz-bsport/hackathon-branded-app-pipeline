@@ -13,6 +13,7 @@ import {
   setBsportRequestFrom,
 } from "@bsport/request-from-header";
 import { AppWrapper } from "@bsport/sm-backbone";
+import { dataAccessLayer } from "@bsport/sm-backbone";
 
 import { analyticsClient, debugActive } from "#src/utils/analytics";
 
@@ -108,35 +109,82 @@ export function Root() {
     <AppWrapper
       basename={basename}
       NavigationApp={NavigationSidebar}
+      navigationProps={{
+        onLogoutCallback: () => {
+          analyticsClient.resetIdentity();
+          analyticsClient.overloadResetSuperProperties(); // Analytics tool level super properties
+        },
+      }}
       loginUrl={loginUrl}
     >
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <div className="flex flex-col justify-center h-screen items-center flex-1">
-              <Title
-                htmlVariant="h1"
-                color="positive"
-                weight="strong"
-                className="animate-bounce"
-              >
-                Welcome to our revamped backoffice !
-              </Title>
-            </div>
-          }
-        />
-
-        {routes_configs
-          .filter((config) => !!config.url)
-          .map((config) => (
-            <Route
-              key={`route-${config.url}`}
-              path={`${config.url}/*`}
-              element={config.element}
-            />
-          ))}
-      </Routes>
+      <AuthenticatedRoutes routes={routes_configs} />
     </AppWrapper>
   );
 }
+
+const AuthenticatedRoutes = ({
+  routes,
+}: {
+  routes: Array<{ url?: string; element: ReactNode }>;
+}) => {
+  const user = dataAccessLayer.useUserAccess();
+  const companyTheme = dataAccessLayer.useCompanyTheme();
+
+  useEffect(() => {
+    if (user?.id) {
+      const { id, role: company_role, franchise_role, username } = user;
+      analyticsClient.identify({
+        userId: String(id),
+        traits: {
+          username,
+          franchise_role,
+          company_role,
+          company_id: companyTheme?.company,
+          franchise_id: companyTheme?.franchisor,
+        },
+      });
+    }
+  }, [user, companyTheme]);
+
+  useEffect(() => {
+    if (companyTheme) {
+      analyticsClient.overloadAddSuperProperties({
+        company_id: companyTheme?.company,
+        company_name: companyTheme?.company_name,
+        franchise_id: companyTheme?.franchisor,
+        source_label: "web",
+        is_logged_in: true,
+      });
+    }
+  }, [companyTheme]);
+
+  return (
+    <Routes>
+      <Route
+        path="/"
+        element={
+          <div className="flex flex-col justify-center h-screen items-center flex-1">
+            <Title
+              htmlVariant="h1"
+              color="positive"
+              weight="strong"
+              className="animate-bounce"
+            >
+              Welcome to our revamped backoffice !
+            </Title>
+          </div>
+        }
+      />
+
+      {routes
+        .filter((config) => !!config.url)
+        .map((config) => (
+          <Route
+            key={`route-${config.url}`}
+            path={`${config.url}/*`}
+            element={config.element}
+          />
+        ))}
+    </Routes>
+  );
+};

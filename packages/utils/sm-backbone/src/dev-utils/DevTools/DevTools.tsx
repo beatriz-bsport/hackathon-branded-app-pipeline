@@ -7,12 +7,15 @@ import { AnalyticsDebugToggle } from "./AnalyticsDebugToggle";
 import LanguageSelector, {
   type LanguageSelectorProps,
 } from "./LanguageSelector";
-import Logout from "./Logout";
+import Logout, { type LogoutProps } from "./Logout";
 import ThemeSelector from "./ThemeSelector";
 
-export type DevToolsProps = LanguageSelectorProps;
+export type DevToolsProps = LanguageSelectorProps & LogoutProps;
 
-const DevTools: React.FC<DevToolsProps> = ({ i18nInstance }) => {
+const DevTools: React.FC<DevToolsProps> = ({
+  i18nInstance,
+  onLogoutCallback,
+}) => {
   const [counter, setCounter] = useState(0);
   const [analyticsDebug, setAnalyticsDebug] = useState(false);
   const env = getEnv();
@@ -60,7 +63,7 @@ const DevTools: React.FC<DevToolsProps> = ({ i18nInstance }) => {
                 debugMode={analyticsDebug}
                 setDebugMode={setAnalyticsDebug}
               />
-              <Logout />
+              <Logout onLogoutCallback={onLogoutCallback} />
             </div>
           )}
         </Popover.Content>

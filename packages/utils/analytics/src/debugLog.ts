@@ -15,6 +15,9 @@ export const debugLog = {
       JSON.stringify(config, null, 2),
     ),
 
+  setInternalDebugMode: (debug: boolean) =>
+    console.log(`${DEBUG_PREFIX} Set debug mode to ${debug}`),
+
   configureFailed: ({
     config,
     error,
@@ -27,7 +30,7 @@ export const debugLog = {
       error,
     }),
 
-  event: (event: AnalyticsEvent) =>
+  track: (event: AnalyticsEvent) =>
     console.log(
       `${DEBUG_PREFIX} Tracked event: `,
       JSON.stringify(event, null, 2),
@@ -56,6 +59,9 @@ export const debugLog = {
   overloadResetSuperProperties: () =>
     console.log(`${DEBUG_PREFIX} Reset overload super properties`),
 
+  overloadSetDebugMode: (debug: boolean) =>
+    console.log(`${DEBUG_PREFIX} Set adapter debug mode to ${debug}`),
+
   removeSuperProperties: (propertiesKeys: string[]) =>
     console.log(`${DEBUG_PREFIX} Remove super properties: `, propertiesKeys),
 
@@ -78,4 +84,7 @@ export const debugLog = {
     console.log(
       `${DEBUG_PREFIX} overloadResetSuperProperties method is not defined`,
     ),
+
+  undefinedOverloadSetDebugMode: () =>
+    console.log(`${DEBUG_PREFIX} overloadSetDebugMode method is not defined`),
 };

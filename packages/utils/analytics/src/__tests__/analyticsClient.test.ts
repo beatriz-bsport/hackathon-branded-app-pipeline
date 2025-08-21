@@ -17,6 +17,7 @@ describe("AnalyticsClient", () => {
       overloadAddSuperProperties: vi.fn(),
       overloadRemoveSuperProperties: vi.fn(),
       overloadResetSuperProperties: vi.fn(),
+      overloadSetDebugMode: vi.fn(),
     };
     client = new AnalyticsClient({
       adapter: mockAdapter,
@@ -84,6 +85,30 @@ describe("AnalyticsClient", () => {
     client.flush();
 
     expect(mockAdapter.flush).toHaveBeenCalled();
+  });
+
+  it("forwards overload methods to adapter", () => {
+    const properties = { foo: "bar", role: "admin" };
+
+    client.overloadAddSuperProperties(properties);
+
+    expect(mockAdapter.overloadAddSuperProperties).toHaveBeenCalledWith(
+      properties,
+    );
+
+    client.overloadRemoveSuperProperties(["foo"]);
+
+    expect(mockAdapter.overloadRemoveSuperProperties).toHaveBeenCalledWith([
+      "foo",
+    ]);
+
+    client.overloadResetSuperProperties();
+
+    expect(mockAdapter.overloadResetSuperProperties).toHaveBeenCalled();
+
+    client.overloadSetDebugMode(true);
+
+    expect(mockAdapter.overloadSetDebugMode).toHaveBeenCalledWith(true);
   });
 
   it("handles undefined overload methods gracefully", () => {

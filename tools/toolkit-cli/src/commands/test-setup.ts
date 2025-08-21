@@ -242,7 +242,7 @@ async function action(
     }
 
     // Update package.json with dependencies and scripts
-    await updatePackageJson(projectAbsPath, finalOptions);
+    await updatePackageJson(projectAbsPath);
 
     // Write vitest.config.ts
     await fs.writeFile(
@@ -504,31 +504,19 @@ async function generateExampleTest(
 }
 
 /**
- * Update package.json with test dependencies and scripts
+ * Update package.json with test scripts and configuration
  */
-async function updatePackageJson(
-  projectPath: string,
-  options: TestSetupOptions,
-) {
+async function updatePackageJson(projectPath: string) {
   const packageJsonPath = path.join(projectPath, "package.json");
   const packageJson: PackageJsonWithNx = JSON.parse(
     fs.readFileSync(packageJsonPath, "utf-8"),
   );
 
-  // Add dev dependencies
+  // Add dev dependencies (only package-specific ones, global deps are in root)
   if (!packageJson.devDependencies) {
     packageJson.devDependencies = {};
   }
   packageJson.devDependencies["@bsport/config-vitest"] = "workspace:*";
-
-  if (options.react) {
-    packageJson.devDependencies["@testing-library/jest-dom"] = "^6.0.0";
-    packageJson.devDependencies["@testing-library/react"] = "^14.0.0";
-  }
-
-  if (options.msw) {
-    packageJson.devDependencies["msw"] = "^2.0.0";
-  }
 
   // Add test scripts
   if (!packageJson.scripts) {

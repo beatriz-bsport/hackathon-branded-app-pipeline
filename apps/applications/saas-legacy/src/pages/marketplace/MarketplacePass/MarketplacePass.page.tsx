@@ -63,6 +63,7 @@ import {
   MarketplacePassPageDialogState,
   type MarketplacePassParams,
   type OptionalWidgetConfig,
+  PassTypes,
 } from '#src/libs/marketplace/types';
 import type { PaymentPack } from '#src/libs/payment-packs/types';
 import type { PrivatePass } from '#src/libs/private-service/types';
@@ -105,6 +106,13 @@ type OwnProps = {
   addPaymentPackToCart?: (id: number) => void;
   addPrivatePassToCart?: (id: number) => void;
   widgetContext: OptionalWidgetConfig;
+  redirectToPassExpressCheckout: ({
+    passId,
+    passType,
+  }: {
+    passId: string;
+    passType: string;
+  }) => void;
 };
 
 type Props = OwnProps &
@@ -327,7 +335,10 @@ export class MarketPlacePassPage extends Component<Props, State> {
     }
 
     if (!this.props.authenticated) {
-      this.props.requestSignUp();
+      this.props.redirectToPassExpressCheckout({
+        passId: packId.toString(),
+        passType: PassTypes.PAYMENTPACK,
+      });
     } else if (this.props.currentBasket) {
       if (this.state.dialogSelectedItem) {
         analyticsUtils.addItemToCart(this.state.dialogSelectedItem);
@@ -345,7 +356,10 @@ export class MarketPlacePassPage extends Component<Props, State> {
     }
 
     if (!this.props.authenticated) {
-      this.props.requestSignUp();
+      this.props.redirectToPassExpressCheckout({
+        passId: packId.toString(),
+        passType: PassTypes.PRIVATEPASS,
+      });
     } else if (this.props.currentBasket) {
       if (this.state.dialogSelectedItem) {
         analyticsUtils.addItemToCart(this.state.dialogSelectedItem);

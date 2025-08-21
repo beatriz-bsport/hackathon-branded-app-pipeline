@@ -11,7 +11,5 @@ import { useFlag as useUnleashFlag } from "@unleash/proxy-client-react";
 export function makeFeatureFlags<T extends Record<string, string>>(flags: T) {
   type FlagName = T[keyof T];
   const useFlag = (name: FlagName) => useUnleashFlag(name);
-  const isKnownFlag = (name: string): name is FlagName =>
-    (Object.values(flags) as string[]).includes(name);
-  return { flags, useFlag, isKnownFlag };
+  return { flags, useFlag };
 }

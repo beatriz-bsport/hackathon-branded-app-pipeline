@@ -1,12 +1,12 @@
 import { FlagProvider } from "@unleash/proxy-client-react";
 import React from "react";
 
-import { getEnv } from "@bsport/envs";
+import { type Environment, getEnv } from "@bsport/envs";
 
 import { dataAccessLayer } from "../data-access-layer";
 import { UNLEASH_CLIENT_KEY, UNLEASH_PROXY_URL } from "./constants";
 
-function mapEnvToUnleashEnvironment(env: string) {
+function mapEnvToUnleashEnvironment(env: Environment) {
   if (env === "production") return "production" as const;
   return "development" as const;
 }

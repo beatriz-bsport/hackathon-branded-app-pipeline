@@ -12,8 +12,8 @@ import {
 import { initSentry } from "@bsport/sentry";
 
 import DevTools from "#src/dev-utils/DevTools";
+import FeatureFlagsProvider from "#src/feature-flags/FeatureFlagsProvider";
 
-import FeatureFlagsProvider from "../../feature-flags/FeatureFlagsProvider";
 import { RoutesWrapper, type RoutesWrapperProps } from "../RoutesWrapper";
 
 type AppWrapperProps = {

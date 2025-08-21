@@ -95,9 +95,7 @@ export class AnalyticsClient<T = MixpanelConfig>
   }
 
   overloadAddSuperProperties(properties: Properties) {
-    const { overloadAddSuperProperties } = this.analyticsAdapter;
-
-    if (!overloadAddSuperProperties) {
+    if (!this.analyticsAdapter.overloadAddSuperProperties) {
       if (this.debug) {
         debugLog.undefinedOverloadAddSuperProperties();
       }
@@ -109,13 +107,11 @@ export class AnalyticsClient<T = MixpanelConfig>
       debugLog.overloadAddSuperProperties(properties);
     }
 
-    return overloadAddSuperProperties(properties);
+    return this.analyticsAdapter.overloadAddSuperProperties(properties);
   }
 
   overloadRemoveSuperProperties(propertiesKeys: string[]) {
-    const { overloadRemoveSuperProperties } = this.analyticsAdapter;
-
-    if (!overloadRemoveSuperProperties) {
+    if (!this.analyticsAdapter.overloadRemoveSuperProperties) {
       if (this.debug) {
         debugLog.undefinedOverloadRemoveSuperProperties();
       }
@@ -127,13 +123,11 @@ export class AnalyticsClient<T = MixpanelConfig>
       debugLog.overloadRemoveSuperProperties(propertiesKeys);
     }
 
-    return overloadRemoveSuperProperties(propertiesKeys);
+    return this.analyticsAdapter.overloadRemoveSuperProperties(propertiesKeys);
   }
 
   overloadResetSuperProperties() {
-    const { overloadResetSuperProperties } = this.analyticsAdapter;
-
-    if (!overloadResetSuperProperties) {
+    if (!this.analyticsAdapter.overloadResetSuperProperties) {
       if (this.debug) {
         debugLog.undefinedOverloadResetSuperProperties();
       }
@@ -145,13 +139,11 @@ export class AnalyticsClient<T = MixpanelConfig>
       debugLog.overloadResetSuperProperties();
     }
 
-    return overloadResetSuperProperties();
+    return this.analyticsAdapter.overloadResetSuperProperties();
   }
 
   overloadSetDebugMode(debug: boolean): DualVoid {
-    const { overloadSetDebugMode } = this.analyticsAdapter;
-
-    if (!overloadSetDebugMode) {
+    if (!this.analyticsAdapter.overloadSetDebugMode) {
       if (this.debug) {
         debugLog.undefinedOverloadSetDebugMode();
       }
@@ -163,7 +155,7 @@ export class AnalyticsClient<T = MixpanelConfig>
       debugLog.overloadSetDebugMode(debug);
     }
 
-    return overloadSetDebugMode(debug);
+    return this.analyticsAdapter.overloadSetDebugMode(debug);
   }
 
   //#endregion

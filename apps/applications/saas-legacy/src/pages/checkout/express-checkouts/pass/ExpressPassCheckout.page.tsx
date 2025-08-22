@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useRef } from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { compose } from 'recompose';
 
@@ -138,7 +138,7 @@ const ExpressPassCheckoutContent: React.FC<ContentProps> = ({
   const [passValidityState, checkPassValidity] = useCheckPassValidity();
 
   // Storage
-  const memberId = useMemo(() => {
+  const memberId = (() => {
     try {
       return (
         getItemInStorage('local', STORAGE_KEY_LIGHT_SIGNUP_MEMBER_ID) ?? ''
@@ -147,7 +147,7 @@ const ExpressPassCheckoutContent: React.FC<ContentProps> = ({
       console.error('Failed to retrieve member ID from storage:', error);
       return '';
     }
-  }, []);
+  })();
 
   // Basket
   const {

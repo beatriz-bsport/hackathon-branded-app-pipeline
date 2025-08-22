@@ -21,12 +21,7 @@ import {
 
 import { StripePaymentMethodNames } from '#src/libs/payment/constants';
 import type { StripePaymentElementConfig } from '#src/libs/company/types';
-import {
-  type StripeInit,
-  TermsAndConditionType,
-} from '#src/libs/payment/types';
-
-import AcceptTermsAndConditions from '#src/libs/payment/components/AcceptTermsAndConditions.component';
+import { type StripeInit } from '#src/libs/payment/types';
 import ObjectLevelPermissionProvider from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 import PaymentStripeCardRevamped from './PaymentStripeCardRevamped.component';
 import PaymentStripeGenericElement from '#src/libs/payment/components/payment-backend-stripe/PaymentStripeGenericElement.component';
@@ -116,9 +111,14 @@ const STRIPE_PAYMENT_METHOD: {
   },
 };
 
-const PaymentStripeRevamped: React.FC<
+export interface PaymentStripeRevampedHandle {
+  onPaymentConfirm: (event: React.FormEvent<HTMLFormElement>) => void;
+}
+
+const PaymentStripeRevamped = forwardRef<
+  PaymentStripeRevampedHandle,
   PaymentStripeProps | PaymentStripePropsNewCheckoutFlow
-> = forwardRef(
+>(
   (
     {
       allowConsumerToUseInternalAccount,
@@ -152,10 +152,8 @@ const PaymentStripeRevamped: React.FC<
       sepaDefaultEmail,
       setIsOnlinePaymentDisabled,
       setPaymentProcessing,
-      setTermsAndConditionsAccepted,
       stripePaymentElementConfig,
       stripePromise,
-      termsAndConditions,
       termsAndConditionsAccepted,
       useInternalAccount,
     },
@@ -222,7 +220,8 @@ const PaymentStripeRevamped: React.FC<
           ],
           currency,
           ...(setupFutureUsage !== undefined ? { setupFutureUsage } : {}),
-          ...(!stripePaymentElementConfig.isDefaultForRegion
+          ...(!stripePaymentElementConfig.isDefaultForRegion &&
+          stripePaymentElementConfig.stripeId
             ? { onBehalfOf: stripePaymentElementConfig.stripeId }
             : {}),
           locale: (elementLocale?.replace('_', '-') ||
@@ -234,16 +233,6 @@ const PaymentStripeRevamped: React.FC<
           {(hasAddPaymentMethodPermission: boolean) => (
             <StripePaymentMethodForm
               ref={ref}
-              AcceptTermsAndConditionsComponent={
-                termsAndConditions ? (
-                  <AcceptTermsAndConditions
-                    accepted={termsAndConditionsAccepted}
-                    onChecked={setTermsAndConditionsAccepted}
-                    termsAndConditions={termsAndConditions}
-                    type={TermsAndConditionType.TERMS_AND_CONDITIONS}
-                  />
-                ) : null
-              }
               allowConsumerToUseInternalAccount={
                 allowConsumerToUseInternalAccount &&
                 (useInternalAccount || applyBalanceToInvoice)

@@ -53,7 +53,7 @@ export const TagDetails = ({ tag }: TagDetailsProps) => {
       onSuccessCallback: () => {
         fetchMemberPage({
           tagId: tag.id,
-          tagged: false,
+          tagged: selectedOption === "tagged",
         });
       },
     });
@@ -88,6 +88,7 @@ export const TagDetails = ({ tag }: TagDetailsProps) => {
           className="h-[32px]"
           id="tag-member-filter"
           urlQueryParamName="taggedStatus"
+          disabled={isLoading}
           value={selectedOption}
           options={[
             {

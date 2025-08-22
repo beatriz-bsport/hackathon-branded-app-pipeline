@@ -71,7 +71,7 @@ export type BackendSelectorProps<TParams, TResult> = {
   loadingMessage?: string;
   defaultValues?: string[];
   className?: string;
-  onSelect?: (selectedIds: string[]) => void;
+  onSelect?: (selectedId: string) => void;
 };
 
 /**
@@ -136,33 +136,31 @@ export const BackendSelector = <
   }
 
   return (
-    <div className={className}>
-      <Autocomplete
-        fullWidth
-        multiSelect
-        searchMode="remote"
-        popoverPlacement="bottom-right"
-        textfieldProps={{
-          id: "backend-selector-textfield",
-          ...textfieldProps,
-        }}
-        defaultSelectedIds={defaultValues ? defaultValues : []}
-        items={itemsList}
-        loadingProps={{
-          isLoading: isLoading && !isHydrating,
-          message:
-            loadingMessage ||
-            t(
-              "notificationRuleEventDetails.details.emailTemplateSelector.searchingMessage",
-            ),
-        }}
-        onSelect={(value: string[]) => {
-          onSelect?.(value);
-        }}
-        onValueChange={(event: string) => {
-          setSearchInput(event);
-        }}
-      />
-    </div>
+    <Autocomplete
+      fullWidth
+      className={className}
+      searchMode="remote"
+      popoverPlacement="bottom-right"
+      textfieldProps={{
+        id: "backend-selector-textfield",
+        ...textfieldProps,
+      }}
+      defaultSelectedIds={defaultValues ? defaultValues : []}
+      items={itemsList}
+      loadingProps={{
+        isLoading: isLoading && !isHydrating,
+        message:
+          loadingMessage ||
+          t(
+            "notificationRuleEventDetails.details.emailTemplateSelector.searchingMessage",
+          ),
+      }}
+      onSelect={(value: string) => {
+        onSelect?.(value);
+      }}
+      onValueChange={(event: string) => {
+        setSearchInput(event);
+      }}
+    />
   );
 };

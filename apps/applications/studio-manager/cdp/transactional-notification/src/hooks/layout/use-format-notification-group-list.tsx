@@ -5,7 +5,7 @@ import {
 } from "@bsport/store-cdp-notification-rule";
 
 import { useNotificationRuleNavigation } from "#src/hooks/actions/use-notification-rule-navigation";
-import { useTranslation } from "#src/utils/i18n";
+import { i18nInstance } from "#src/utils/i18n";
 
 /**
  * Hook for formatting notification rule group categories into list items.
@@ -24,7 +24,6 @@ export const useFormatNotificationGroupList = ({
 }: {
   notificationRuleEventMapByGroup: Record<string, NotificationRuleEvent[]>;
 }) => {
-  const { t } = useTranslation("transactionalNotification");
   const { navigateToNotificationGroupDetails } =
     useNotificationRuleNavigation();
 
@@ -32,8 +31,11 @@ export const useFormatNotificationGroupList = ({
     if (!isValidNotificationRuleEventCategory(event)) {
       return event;
     }
-    // @ts-expect-error: our setup TSC isn't supporting dynamic keys yet
-    return t(`notificationRuleEvents.categories.${event}`) || event;
+    return (
+      i18nInstance.t(`notificationRuleEvents.categories.${event}`, {
+        ns: "sm-transactional-notification_transactionalNotification",
+      }) || event
+    );
   };
 
   /**
@@ -49,11 +51,15 @@ export const useFormatNotificationGroupList = ({
   const formatNotificationRuleGroupListItems = (
     items: string[],
   ): ListItemProps[] => {
-    return items.map((item) => {
+    const itemsArray: ListItemProps[] = [];
+    for (const item of items) {
       const eventLabel = getNotificationRuleGroupLabel(item);
       const notificationCount =
         notificationRuleEventMapByGroup[item]?.length ?? 0;
-      return {
+      if (notificationCount === 0) {
+        continue; // Skip empty categories
+      }
+      itemsArray.push({
         id: item,
         title: eventLabel,
         onItemClick: () => {
@@ -63,9 +69,9 @@ export const useFormatNotificationGroupList = ({
           {
             id: `goto-notification-rule-event-${item}`,
             label: String(
-              // @ts-expect-error : known pluralization issue with our current setup
-              t("notificationRuleEvents.list.notificationNumber", {
+              i18nInstance.t("notificationRuleEvents.list.notificationNumber", {
                 count: notificationCount,
+                ns: "sm-transactional-notification_transactionalNotification",
               }),
             ),
             iconRight: "arrow-right",
@@ -77,8 +83,9 @@ export const useFormatNotificationGroupList = ({
             },
           },
         ],
-      };
-    });
+      });
+    }
+    return itemsArray;
   };
 
   return {

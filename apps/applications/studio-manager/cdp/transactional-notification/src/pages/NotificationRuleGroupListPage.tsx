@@ -1,7 +1,5 @@
 import { List, ListLayout } from "@bsport/kaizen-primitive-core";
 
-import { CommunicationVariableSelector } from "#src/components/CommunicationVariableSelector/CommunicationVariableSelector";
-import { EmailTemplateSelector } from "#src/components/EmailTemplateSelector/EmailTemplateSelector";
 import { useFetchNotificationRuleEvents } from "#src/hooks/api/use-fetch-notification-rule-events";
 import { useFormatNotificationGroupList } from "#src/hooks/layout/use-format-notification-group-list";
 import { notificationRuleEventMap } from "#src/utils/constants";
@@ -24,16 +22,6 @@ const NotificationRuleEventPage: React.FC = () => {
     <ListLayout>
       <ListLayout.Header pageTitle={t("page.title")} />
       <ListLayout.Content className="w-full flex flex-col gap-md">
-        <div className="flex flex-col gap-md p-xs">
-          <EmailTemplateSelector />
-          <CommunicationVariableSelector
-            id="notification-rule-event-communication-variable-selector"
-            onSelectCommunicationVariable={(variable) => {
-              console.log(variable);
-            }}
-            fullWidth
-          />
-        </div>
         <List
           className="h-full"
           id="notification-rule-event-list"

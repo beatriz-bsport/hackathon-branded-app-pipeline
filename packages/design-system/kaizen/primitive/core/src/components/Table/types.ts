@@ -35,6 +35,7 @@ export type BaseRow = {
   link?: string;
   color?: string;
   className?: string;
+  onRowClick?: () => void;
 };
 
 export type Column<RowType extends BaseRow> = {

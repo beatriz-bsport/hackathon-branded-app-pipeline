@@ -7,8 +7,10 @@ import {
   fetchGenericCommunicationVariablesAPI,
   fetchNotificationRuleDetailListAPI,
   fetchNotificationRuleEventListAPI,
+  fetchNotificationRuleGenericDetailListAPI,
   fetchNotificationRuleSettingListAPI,
   patchNotificationRuleDetailsAPI,
+  postNotificationRuleDetailsAPI,
   putNotificationRuleSettingsAPI,
 } from "#src/api";
 import type {
@@ -16,6 +18,7 @@ import type {
   GenericCommunicationVariable,
   NotificationRuleDetail,
   NotificationRuleEvent,
+  NotificationRuleGenericEvents,
   NotificationRuleSettings,
   NotificationRuleSettingsResult,
 } from "#src/types";
@@ -195,6 +198,51 @@ export const fetchNotificationRuleDetailsAction: Action<
 };
 
 /**
+ * Fetches all notification rule details (configurations) from the system.
+ *
+ * Notification rule details contain the complete configuration for each notification rule,
+ * including email design settings, target companies, push notification settings,
+ * and activation status. These are the core configurations that determine
+ * how and when notifications are sent.
+ *
+ * @param fetch - The fetch function for making API calls
+ * @returns Promise<Result<NotificationRuleDetail[], Error>> - A Result containing array of notification rule configurations
+ *
+ * @example
+ * ```typescript
+ * const result = await fetchNotificationRuleDetailsAction(fetch);
+ * if (result.ok) {
+ *   const activeRules = result.value.filter(rule => rule.is_active);
+ *   const pushEnabledRules = result.value.filter(rule => rule.is_notification_push_active);
+ *   console.log('Active rules:', activeRules.length);
+ * }
+ * ```
+ *
+ * @see NotificationRuleDetail - For rule detail object structure
+ */
+export const fetchNotificationRuleGenericDetailsAction: Action<
+  void,
+  NotificationRuleGenericEvents
+> = async (fetch) => {
+  const [uri, init] = fetchNotificationRuleGenericDetailListAPI();
+
+  return Result.try(
+    async () => {
+      const { data } = await fetch(uri, init);
+
+      setNotificationRuleDetails({ details: data.rules });
+      setGenericCommunicationVariables(data.tags);
+
+      return data;
+    },
+    (error) =>
+      createErrorWithContext(error, {
+        message: "Failed to fetch generic notification rule details",
+      }),
+  );
+};
+
+/**
  * Fetches all notification rule settings from the system.
  *
  * Notification rule settings control the behavior and permissions for notification rules,
@@ -355,6 +403,61 @@ export const updateNotificationRuleDetailsAction: Action<
     (error) =>
       createErrorWithContext(error, {
         message: "Failed to update notification rule details",
+      }),
+  );
+};
+
+/**
+ * Updates notification rule details (configuration) for a specific notification rule.
+ *
+ * This action allows modification of notification rule configuration including
+ * email design, target companies, push notification settings, activation status,
+ * and franchisor carbon copy preferences. The update is performed via PATCH request
+ * and automatically updates the local store state upon success.
+ *
+ * @param fetch - The fetch function for making API calls
+ * @param params - The notification rule detail object with updated values
+ * @param params.id - The notification rule ID (required for updates)
+ * @param params.title - The notification rule title
+ * @param params.is_active - Whether the notification rule is active
+ * @param params.is_notification_push_active - Whether push notifications are enabled
+ * @param params.email_design - The email design template ID
+ * @param params.companies - Array of company IDs that this rule applies to
+ * @param params.send_franchisor_carbon_copy - Whether to CC the franchisor
+ * @returns Promise<Result<NotificationRuleDetail, Error>> - A Result containing the updated rule detail
+ *
+ * @example
+ * ```typescript
+ * const updateParams = {
+ *   email_design: 456,
+ *   notification_event: 123,
+ * };
+ *
+ * const result = await updateNotificationRuleDetailsAction(fetch, updateParams);
+ * if (result.ok) {
+ *   console.log('Rule updated:', result.value.title);
+ * }
+ * ```
+ *
+ * @see NotificationRuleDetail - For complete parameter structure details
+ */
+export const createNotificationRuleDetailsAction: Action<
+  Partial<NotificationRuleDetail>,
+  NotificationRuleDetail
+> = async (fetch, params) => {
+  const [uri, init] = postNotificationRuleDetailsAPI(params);
+
+  return Result.try(
+    async () => {
+      const { data } = await fetch(uri, init);
+
+      updateNotificationRuleDetail({ detail: data });
+
+      return data;
+    },
+    (error) =>
+      createErrorWithContext(error, {
+        message: "Failed to create notification rule details",
       }),
   );
 };

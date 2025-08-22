@@ -51,10 +51,16 @@ export const setNotificationRuleDetails = ({
   details: NotificationRuleDetail[];
 }) => {
   notificationRuleStore.setState((state) => {
-    const sanitizedDetails = details.filter(Boolean);
+    const mergedDetails = [
+      ...state.notificationRuleDetails.filter(
+        (existingDetail) =>
+          !details.some((newDetail) => newDetail.id === existingDetail.id),
+      ),
+      ...details,
+    ];
     return {
       ...state,
-      notificationRuleDetails: [...sanitizedDetails],
+      notificationRuleDetails: [...mergedDetails],
     };
   });
 };

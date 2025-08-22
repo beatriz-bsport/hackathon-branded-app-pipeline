@@ -47,6 +47,9 @@ export const getTableColumns = ({
           id={`email-checkbox-action-${row.id}`}
           value={row.email_notification_checked ? "checked" : "unchecked"}
           disabled={row.email_notification_disabled}
+          onClick={(e: React.MouseEvent) => {
+            e.stopPropagation();
+          }}
           onChange={(checked: boolean) => {
             checkCommunicationMethodPreferences({
               notificationRuleEventId: row.id,
@@ -78,6 +81,9 @@ export const getTableColumns = ({
         id={`push-notification-checkbox-action-${row.id}`}
         value={row.push_notification_checked ? "checked" : "unchecked"}
         disabled={row.push_notification_disabled}
+        onClick={(e: React.MouseEvent) => {
+          e.stopPropagation();
+        }}
         onChange={(checked: boolean) => {
           checkCommunicationMethodPreferences({
             notificationRuleEventId: row.id,
@@ -106,7 +112,6 @@ export const getTableColumns = ({
           color="main"
           intent="default"
           size="md"
-          disabled={row.is_franchise_owned}
           onClick={() => {
             openPreview(row.id);
           }}

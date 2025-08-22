@@ -23,6 +23,7 @@ type TableRowProps<RowType extends BaseRow> = {
   selected?: boolean;
   rowHeight?: "sm" | "lg";
   withVerticalBorders?: boolean;
+  onRowClick?: () => void;
 };
 
 // Type-safe utility to resolve a deep path in an object
@@ -42,6 +43,7 @@ const TableRow = withLink(
     selected = false,
     rowHeight = "sm",
     withVerticalBorders = false,
+    onRowClick,
   }: TableRowProps<RowType>): React.ReactElement => {
     const i18nInstance = useKaizenI18nInstance();
     const intlLocale = i18nInstance?.language;
@@ -156,6 +158,7 @@ const TableRow = withLink(
 
     return (
       <div
+        onClick={() => onRowClick?.()}
         className={classNames("relative table-row", {
           "bg-surface-default hover:bg-surface-action-default-weak-hovered active:bg-surface-action-default-weak-pressed":
             !selected,

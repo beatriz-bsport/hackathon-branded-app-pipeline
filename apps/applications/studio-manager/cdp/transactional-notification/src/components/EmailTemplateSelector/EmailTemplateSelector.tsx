@@ -15,6 +15,7 @@ type EmailTemplateSelectorProps = {
 
 export const EmailTemplateSelector = ({
   defaultTemplateId,
+  onSelectTemplate,
 }: EmailTemplateSelectorProps) => {
   const { t } = useTranslation("transactionalNotification");
   const { emailTemplateCategoriesMappedById } =
@@ -61,6 +62,7 @@ export const EmailTemplateSelector = ({
 
   return (
     <BackendSelector<EmailTemplateSearchParams, EmailTemplateSummary>
+      className="w-full"
       key={defaultTemplateId}
       storeConfig={{
         searchFn: (query, params) => fetchEmailTemplates(query, params),
@@ -83,6 +85,14 @@ export const EmailTemplateSelector = ({
       defaultValues={
         defaultTemplateId ? [defaultTemplateId.toString()] : undefined
       }
+      onSelect={(selected) => {
+        const selectedTemplate = emailTemplates.find(
+          (template) => template.id.toString() === selected,
+        );
+        if (selectedTemplate && onSelectTemplate) {
+          onSelectTemplate(selectedTemplate);
+        }
+      }}
     />
   );
 };

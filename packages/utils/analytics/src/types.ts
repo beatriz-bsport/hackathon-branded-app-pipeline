@@ -1,4 +1,8 @@
-import type { Config } from "mixpanel-browser";
+import type {
+  Config,
+  InTrackingOptions,
+  OutTrackingOptions,
+} from "mixpanel-browser";
 
 export type Serializable =
   | string
@@ -28,7 +32,11 @@ export type DualVoid = void | Promise<void>;
  * Interface of an Analytics Adapter, which basically is a set of methods that
  * allow to use tool-specific methods within the generic Analytics Client
  */
-export type AnalyticsAdapter<ExtraConfig = Record<string, unknown>> = {
+export type AnalyticsAdapter<
+  ExtraConfig = Record<string, unknown>,
+  OptInOptions = Record<string, unknown> | undefined,
+  OptOutOptions = Record<string, unknown> | undefined,
+> = {
   /**
    * Initialize the Analytics service with provided configuration
    * @param config Parameters to provide to the adapter
@@ -64,6 +72,16 @@ export type AnalyticsAdapter<ExtraConfig = Record<string, unknown>> = {
    * Force trigger the sending of events without waiting for the automatic batch sending
    */
   flush(): DualVoid;
+
+  /**
+   * Activate data tracking
+   */
+  optInTracking?(config?: OptInOptions): DualVoid;
+
+  /**
+   * Deactivate data tracking
+   */
+  optOutTracking?(config?: OptOutOptions): DualVoid;
 
   /**
    * Allow to add super properties to the selected analytics tool directly
@@ -121,8 +139,12 @@ export type AnalyticsAgnosticMethods = {
 };
 
 export type MixpanelConfig = Partial<Config>;
+export type MixpanelOptInOptions = Partial<InTrackingOptions>;
+export type MixpanelOptOutOptions = Partial<OutTrackingOptions>;
 
-export type AnalyticsClientInterface<ExtraConfig = MixpanelConfig> = Required<
-  AnalyticsAdapter<ExtraConfig>
-> &
+export type AnalyticsClientInterface<
+  ExtraConfig = MixpanelConfig,
+  OptInOptions = MixpanelOptInOptions,
+  OptOutOptions = MixpanelOptOutOptions,
+> = Required<AnalyticsAdapter<ExtraConfig, OptInOptions, OptOutOptions>> &
   AnalyticsAgnosticMethods;

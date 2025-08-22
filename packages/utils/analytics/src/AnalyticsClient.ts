@@ -8,35 +8,55 @@ import type {
   AnalyticsEvent,
   DualVoid,
   MixpanelConfig,
+  MixpanelOptInOptions,
+  MixpanelOptOutOptions,
   Properties,
 } from "./types";
 
-export class AnalyticsClient<T = MixpanelConfig>
-  implements AnalyticsClientInterface
+export class AnalyticsClient<
+  ExtraConfig = MixpanelConfig,
+  OptInOptions = MixpanelOptInOptions,
+  OptOutOptions = MixpanelOptOutOptions,
+> implements AnalyticsClientInterface<ExtraConfig, OptInOptions, OptOutOptions>
 {
   /** Class providing all analytics methods to this AnalyticsClient instance*/
-  private analyticsAdapter: AnalyticsAdapter<T>;
+  private analyticsAdapter: AnalyticsAdapter<
+    ExtraConfig,
+    OptInOptions,
+    OptOutOptions
+  >;
   /** Boolean to activate the internal debug mode on this AnalyticsClient instance */
   private debug: boolean;
   /** Set of internal properties to apply to all events on this AnalyticsClient instance */
   private superProperties: Properties;
+  /** Whether the tracking is activated and logs should be sent */
+  private isTracking: boolean;
 
   constructor({
     adapter,
     internalDebug = false,
     instanceName,
   }: {
-    adapter?: AnalyticsAdapter<T>;
+    adapter?: AnalyticsAdapter<ExtraConfig, OptInOptions, OptOutOptions>;
     internalDebug?: boolean;
     instanceName?: string;
   } = {}) {
     this.debug = internalDebug;
+    this.isTracking = true; // Consider that the client is tracking by default
     this.superProperties = {};
-    this.analyticsAdapter = adapter ?? new MixpanelAdapter(instanceName);
+    this.analyticsAdapter =
+      adapter ??
+      (new MixpanelAdapter(instanceName) as AnalyticsAdapter<
+        ExtraConfig,
+        OptInOptions,
+        OptOutOptions
+      >);
 
     try {
       // Connect AnalyticsClient to a broadcast channel to have debug sync
-      AnalyticsMessageBus.receive((debug) => this.setInternalDebugMode(debug));
+      AnalyticsMessageBus.subscribe((debug) =>
+        this.setInternalDebugMode(debug),
+      );
     } catch {
       // Graceful no-op: environments without BroadcastChannel should not throw
       // as it's only for debugging and no production purpose
@@ -45,7 +65,7 @@ export class AnalyticsClient<T = MixpanelConfig>
 
   //#region ----- Tracking tool methods (to be implemented in the Adapter) -----
 
-  configure(defaultConfig?: AnalyticsConfig<T>) {
+  configure(defaultConfig?: AnalyticsConfig<ExtraConfig>) {
     if (this.debug) {
       debugLog.configure(defaultConfig);
     }
@@ -63,7 +83,7 @@ export class AnalyticsClient<T = MixpanelConfig>
       ...event,
     };
 
-    if (this.debug) {
+    if (this.debug && this.isTracking) {
       debugLog.track(eventWithSuperProperties);
     }
 
@@ -92,6 +112,40 @@ export class AnalyticsClient<T = MixpanelConfig>
     }
 
     return this.analyticsAdapter.flush();
+  }
+
+  optInTracking(config?: OptInOptions): DualVoid {
+    if (!this.analyticsAdapter.optInTracking) {
+      if (this.debug) {
+        debugLog.undefinedOptInTracking();
+      }
+
+      return;
+    }
+
+    if (this.debug) {
+      debugLog.optInTracking();
+    }
+
+    this.isTracking = true;
+    return this.analyticsAdapter.optInTracking(config);
+  }
+
+  optOutTracking(config?: OptOutOptions): DualVoid {
+    if (!this.analyticsAdapter.optOutTracking) {
+      if (this.debug) {
+        debugLog.undefinedOptOutTracking();
+      }
+
+      return;
+    }
+
+    if (this.debug) {
+      debugLog.optOutTracking();
+    }
+
+    this.isTracking = false;
+    return this.analyticsAdapter.optOutTracking(config);
   }
 
   overloadAddSuperProperties(properties: Properties) {

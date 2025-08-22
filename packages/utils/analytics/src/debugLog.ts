@@ -44,6 +44,10 @@ export const debugLog = {
       JSON.stringify(traits, null, 2),
     ),
 
+  optInTracking: () => console.log(`${DEBUG_PREFIX} Activate tracking`),
+
+  optOutTracking: () => console.log(`${DEBUG_PREFIX} Deactivate tracking`),
+
   overloadAddSuperProperties: (properties: Properties) =>
     console.log(
       `${DEBUG_PREFIX} Add overload super properties: `,
@@ -69,6 +73,12 @@ export const debugLog = {
 
   resetSuperProperties: () =>
     console.log(`${DEBUG_PREFIX} Reset super properties`),
+
+  undefinedOptInTracking: () =>
+    console.log(`${DEBUG_PREFIX} optInTracking method is not defined`),
+
+  undefinedOptOutTracking: () =>
+    console.log(`${DEBUG_PREFIX} optOutTracking method is not defined`),
 
   undefinedOverloadAddSuperProperties: () =>
     console.log(

@@ -6,6 +6,8 @@ import type {
   AnalyticsEvent,
   DualVoid,
   MixpanelConfig,
+  MixpanelOptInOptions,
+  MixpanelOptOutOptions,
   Properties,
 } from "./types";
 
@@ -93,6 +95,18 @@ export class MixpanelAdapter implements AnalyticsAdapter {
   flush(): void {
     // Mixpanel doesn't expose flush in browser SDK
     console.warn("[Mixpanel] Flush is not supported in browser sdk");
+  }
+
+  optInTracking(config?: MixpanelOptInOptions): DualVoid {
+    if (!this.checkIsInitialized()) return;
+
+    this.instance.opt_in_tracking(config);
+  }
+
+  optOutTracking(config?: MixpanelOptOutOptions): DualVoid {
+    if (!this.checkIsInitialized()) return;
+
+    this.instance.opt_out_tracking(config);
   }
 
   overloadAddSuperProperties(properties: Properties) {

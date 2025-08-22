@@ -28,7 +28,7 @@ export const AnalyticsMessageBus = {
    * Listen to messages from the analytics debug switcher broadcast channel
    * @param handleReceive Action to do when receiving a switch message
    */
-  receive: (handleReceive: (debug: boolean) => void) => {
+  subscribe: (handleReceive: (debug: boolean) => void) => {
     const broadcast = new BroadcastChannel(ANALYTICS_CHANNEL);
 
     broadcast.addEventListener("message", (event) => {

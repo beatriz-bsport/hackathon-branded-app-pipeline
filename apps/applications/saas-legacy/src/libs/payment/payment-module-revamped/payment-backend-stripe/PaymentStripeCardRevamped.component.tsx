@@ -102,7 +102,7 @@ type Props = {
   saveForLater: boolean;
   setIsOnlinePaymentDisabled?: (isLoading: boolean) => void;
   setPaymentProcessing?: (processing: boolean) => void;
-  termsAndConditionsAccepted: boolean;
+  termsAndConditionsAccepted?: boolean;
   useInternalAccount?: (amount: number) => void;
   userDefaultEmail?: string;
   userDefaultName?: string;
@@ -111,7 +111,6 @@ type Props = {
 const PaymentStripeCardRevamped = forwardRef(
   (
     {
-      AcceptTermsAndConditionsComponent,
       allowConsumerToUseInternalAccount,
       applyBalanceLoading,
       applyBalanceToInvoice,
@@ -313,7 +312,7 @@ const PaymentStripeCardRevamped = forwardRef(
       !elements ||
       !clientSecret ||
       !isEstablishmentBillingGroupSelected ||
-      !termsAndConditionsAccepted ||
+      termsAndConditionsAccepted === false ||
       !areBillingDetailsProvided ||
       (!hasAddPaymentMethodPermission && !paymentMethodList?.length);
 
@@ -735,46 +734,31 @@ const PaymentStripeCardRevamped = forwardRef(
             {children ?? null}
             {(!isCheckoutContext || forceButtonDisplay) &&
               !forceHideConfirmPaymentButton && (
-                <>
-                  {AcceptTermsAndConditionsComponent && (
-                    <div
-                      className={clsx(
-                        classes.conditionRow,
-                        customClasses?.conditionRow,
-                      )}
-                    >
-                      {AcceptTermsAndConditionsComponent}
-                    </div>
-                  )}
-                  <div
-                    className={clsx(
-                      classes.actionRow,
-                      customClasses?.actionRow,
-                    )}
-                  >
-                    {processing ? (
-                      <CircularProgress />
-                    ) : (
-                      <React.Fragment>
-                        <Button
-                          color="primary"
-                          disabled={isSubmitButtonDisabled}
-                          type="submit"
-                          variant="contained"
-                        >
-                          {t('paymentPanel.actions.confirmPayment')}
+                <div
+                  className={clsx(classes.actionRow, customClasses?.actionRow)}
+                >
+                  {processing ? (
+                    <CircularProgress />
+                  ) : (
+                    <React.Fragment>
+                      <Button
+                        color="primary"
+                        disabled={isSubmitButtonDisabled}
+                        type="submit"
+                        variant="contained"
+                      >
+                        {t('paymentPanel.actions.confirmPayment')}
+                      </Button>
+                      {onCancel ? (
+                        <Button disabled={processing} onClick={onCancel}>
+                          {t('paymentPanel.actions.cancel')}
                         </Button>
-                        {onCancel ? (
-                          <Button disabled={processing} onClick={onCancel}>
-                            {t('paymentPanel.actions.cancel')}
-                          </Button>
-                        ) : (
-                          <div />
-                        )}
-                      </React.Fragment>
-                    )}
-                  </div>
-                </>
+                      ) : (
+                        <div />
+                      )}
+                    </React.Fragment>
+                  )}
+                </div>
               )}
           </>
         )}

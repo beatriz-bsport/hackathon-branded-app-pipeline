@@ -10264,7 +10264,7 @@
                 "registeredOn": "Booked on ",
                 "source": "Booked via ",
                 "slotTitle": "Session",
-                "passTitle": "Appointment pass",
+                "passTitle": "Collect outstanding payments from Appointment Pass?",
                 "wasRefunded": "The credit(s) will be refunded to the pass.",
                 "wasRefundedYes": "Yes",
                 "wasRefundedNo": "No",
@@ -10272,7 +10272,7 @@
                 "attachCoach": "Assign a teacher",
                 "coach": "Teacher",
                 "cancelledOn": "Cancelled on ",
-                "unpaidBooking": "The member selected the option to pay later. The {{ credits}} credit(s) for this unpaid booking will be debited from the first purchased appointment pass.",
+                "unpaidBooking": "This member selected the option to pay later. {{ credits}} credit(s) from this booking will be collected from the member's Appointment Pass.",
                 "cancelledByRecurrenceBy": "Cancelled by",
                 "cancelledBy": "Cancelled by",
                 "restoredBy": "Restored by",
@@ -10362,7 +10362,13 @@
             "isUnpaid": "Outstanding payment",
             "bookingIsUnpaid": "Unpaid booking",
             "isCancelledByManagerDate": "Cancelled on {{-date}} at {{time}} by {{cancelled_by}}",
-            "isCancelledByManager": "Cancelled by {{cancelled_by}}"
+            "isCancelledByManager": "Cancelled by {{cancelled_by}}",
+            "setUnpaid": {
+                "confirm": "Mark as unpaid",
+                "confirmMessage": "Marking this booking as 'unpaid' will return the credits to the member's pass. This booking will remain valid but will be marked as 'unpaid' until any outstanding payments are collected.",
+                "confirmTitle": "Mark as unpaid?",
+                "button": "Mark as unpaid"
+            }
         },
         "privateService": {
             "delete": {
@@ -10782,7 +10788,7 @@
             },
             "ht": "Excl. VAT / Sales Tax",
             "actions": {
-                "forceRegularizeUnpaid": "Regularise all outstanding payments"
+                "forceRegularizeUnpaid": "Collect outstanding payments"
             }
         },
         "service": {
@@ -19459,7 +19465,7 @@
                 "coachFormPage": "[Form] Teacher",
                 "coachPerformance": "Payroll",
                 "offerFormPage": "Add sessions",
-                "metaActivityList": "Group activities",
+                "metaActivityList": "Group Activities",
                 "metaActivityEditForm": "[Form] Group activity",
                 "WorkshopActivityFormPage": "[Form] Workshop",
                 "workshopActivityList": "Workshops",
@@ -19470,7 +19476,8 @@
                 "dashboard": "Dashboard",
                 "mergeMember": "Merge members",
                 "allCoachPerformance": "Payroll",
-                "planning": "Schedule"
+                "planning": "Schedule",
+                "metaActivityFormPage": "Add a Group Activity"
             }
         },
         "offerManagement": {

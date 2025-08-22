@@ -69,9 +69,11 @@ export const useCompanyPaymentSettings = (
 
   const handleFetchCompanyTheme = useCallback(
     (options?: OptionCallback<CompanyTheme>) => {
-      if (companyId) dispatch(fetchCompanyTheme(companyId, options));
+      if (!companyTheme && companyId) {
+        dispatch(fetchCompanyTheme(companyId, options));
+      }
     },
-    [dispatch, companyId],
+    [dispatch, companyId, companyTheme],
   );
 
   const handleFetchCompanyThemeWithEstablishmentBillingGroups = useCallback(

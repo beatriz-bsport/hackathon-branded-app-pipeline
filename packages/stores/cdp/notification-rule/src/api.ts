@@ -17,6 +17,10 @@ export const fetchNotificationRuleEventListAPI = (): ApiConfig => {
   return [`${RULE_API_URL}/events/`];
 };
 
+export const fetchNotificationRuleGenericDetailListAPI = (): ApiConfig => {
+  return [`${RULE_API_URL}/generic/`];
+};
+
 export const fetchNotificationRuleDetailListAPI = (): ApiConfig => {
   return [`${RULE_API_URL}/`];
 };
@@ -29,9 +33,21 @@ export const putNotificationRuleSettingsAPI = (
   params: NotificationRuleSettings,
 ): ApiConfig => {
   return [
-    `${API_URL}/settings/${params.id}`,
+    `${API_URL}/settings/${params.id}/`,
     {
       method: "PUT",
+      body: JSON.stringify(params),
+    },
+  ];
+};
+
+export const postNotificationRuleDetailsAPI = (
+  params: Partial<NotificationRuleDetail>,
+): ApiConfig => {
+  return [
+    `${RULE_API_URL}/`,
+    {
+      method: "POST",
       body: JSON.stringify(params),
     },
   ];
@@ -41,7 +57,7 @@ export const patchNotificationRuleDetailsAPI = (
   params: NotificationRuleDetail,
 ): ApiConfig => {
   return [
-    `${RULE_API_URL}/${params.id}`,
+    `${RULE_API_URL}/${params.id}/`,
     {
       method: "PATCH",
       body: JSON.stringify(params),

@@ -18,7 +18,8 @@ export type NotificationRuleDetail = {
   id: number;
   company: number | null;
   notification_event: number;
-  email_design: number;
+  email_design: number | null;
+  email_template: string | null;
   franchisor: number | null;
   companies: number[];
   title: string;
@@ -80,3 +81,8 @@ export const notificationRuleEventCategories = [
 
 export type NotificationRuleEventCategory =
   (typeof notificationRuleEventCategories)[number];
+
+export type NotificationRuleGenericEvents = {
+  rules: NotificationRuleDetail[];
+  tags: Record<string, string>;
+};

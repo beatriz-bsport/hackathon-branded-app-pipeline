@@ -33,12 +33,10 @@ export const NavigationSidebarWithData: React.FC<NavigationSidebarProps> = (
   }, []);
 
   return (
-    <FeatureFlagsProvider>
-      <ErrorBoundaryWrapper
-        appName={__NAVIGATION_SIDEBAR__.__SENTRY_SCOPE_TAG__}
-      >
+    <ErrorBoundaryWrapper appName={__NAVIGATION_SIDEBAR__.__SENTRY_SCOPE_TAG__}>
+      <FeatureFlagsProvider>
         <NavigationSidebar {...props} isLoadingData={isLoading} />
-      </ErrorBoundaryWrapper>
-    </FeatureFlagsProvider>
+      </FeatureFlagsProvider>
+    </ErrorBoundaryWrapper>
   );
 };

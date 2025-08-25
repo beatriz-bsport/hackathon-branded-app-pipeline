@@ -33,7 +33,6 @@ export default defineConfig({
         "@bsport/i18n",
         "@bsport/kaizen-primitive-core",
         "@bsport/use-async",
-        "@unleash/proxy-client-react",
       ],
     },
   },

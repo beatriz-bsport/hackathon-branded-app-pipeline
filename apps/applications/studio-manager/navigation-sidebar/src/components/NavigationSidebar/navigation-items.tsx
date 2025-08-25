@@ -5,7 +5,7 @@ import type {
   NavigationMenuGroup,
   NavigationMenuItem,
 } from "@bsport/kaizen-primitive-core";
-import { Indicator } from "@bsport/kaizen-primitive-core";
+import { Badge, Indicator } from "@bsport/kaizen-primitive-core";
 import {
   selectAllAlertsCount,
   useAlertingStore,
@@ -224,9 +224,28 @@ export const useNavigationElements = ({
         },
         {
           icon: "bar-chart-10",
-          id: "reporting",
-          label: t("menus.reporting"),
-          ...navigationUrls.reporting,
+          id: "analytics",
+          label: t("menus.analytics.title"),
+          endSlot: <Indicator size="sm" color="main" position="top" />,
+          subItems: [
+            {
+              id: "insights",
+              label: t("menus.analytics.insights"),
+              ...navigationUrls.insights,
+              endSlot: (
+                <Badge
+                  size="sm"
+                  color="main"
+                  text={t("common.new", { defaultValue: "New" })}
+                />
+              ),
+            },
+            {
+              id: "reports",
+              label: t("menus.analytics.reports"),
+              ...navigationUrls.reporting,
+            },
+          ],
         },
         {
           type: "divider",

@@ -852,7 +852,7 @@
   },
   "@bsport/sm-navigation-sidebar": {
     "default": {
-      "common": { "back": "Back" },
+      "common": { "back": "Back", "new": "New" },
       "menus": {
         "popover": {
           "settings": "Settings",
@@ -899,6 +899,7 @@
         },
         "dashboard": "Dashboard",
         "reporting": "Reporting",
+        "analytics": { "title": "Analytics", "insights": "Insights", "reports": "Reports" },
         "finance": {
           "title": "Finance",
           "invoices": "Invoices",

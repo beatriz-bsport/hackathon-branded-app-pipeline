@@ -6,6 +6,7 @@ export type BaseItem = {
   href?: React.AnchorHTMLAttributes<HTMLAnchorElement>["href"];
   target?: React.AnchorHTMLAttributes<HTMLAnchorElement>["target"];
   active?: boolean;
+  endSlot?: React.ReactNode;
 };
 
 export type NavigationMenuItem = BaseItem & {

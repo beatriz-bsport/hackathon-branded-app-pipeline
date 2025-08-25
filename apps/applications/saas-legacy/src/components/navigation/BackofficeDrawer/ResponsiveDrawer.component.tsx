@@ -13,6 +13,9 @@ import DateRangeIcon from '@material-ui/icons/DateRange';
 import DescriptionIcon from '@material-ui/icons/Description';
 import DoubleArrow from '@material-ui/icons/DoubleArrow';
 import Email from '@material-ui/icons/Email';
+import Store from '@material-ui/icons/Store';
+import Business from '@material-ui/icons/Business';
+import Dashboard from '@material-ui/icons/Dashboard';
 import EuroSymbolIcon from '@material-ui/icons/EuroSymbol';
 import FitnessCenter from '@material-ui/icons/FitnessCenter';
 import GroupWorkIcon from '@material-ui/icons/GroupWork';
@@ -83,6 +86,7 @@ import VersionVisualizer from '../../VersionVisualizer.component';
 import LOGO_ASSET from '../../../public/images/banner_lowres.png';
 import { getCurrencyDisplay } from '../../../libs/theme/selectors';
 import { CompanyTheme } from '#src/libs/theme/types';
+import { INSIGHTS_ROUTES } from '#src/pages/insights/constants';
 
 export const drawerWidth = 260;
 const usePrevious = (value: boolean) => {
@@ -134,6 +138,7 @@ export type DrawerItemDefault = {
   hasInnerTabs?: boolean;
   excludeUrlPatterns?: string[];
   openInNewTab?: boolean;
+  badge?: string | number | null;
 };
 
 export type DrawerItemDivider = {
@@ -562,6 +567,12 @@ const ResponsiveDrawer: React.FC<Props> = ({
         to: '/reporting/categories',
         icon: DescriptionIcon,
         text: t('backofficeMenu.reporting'),
+      } as DrawerItemDefault,
+      {
+        to: INSIGHTS_ROUTES.INDEX,
+        icon: TrendingUp,
+        text: t('backofficeMenu.insights.insights'),
+        badge: 'New',
       } as DrawerItemDefault,
       { type: 'divider' } as DrawerItemDivider,
       {

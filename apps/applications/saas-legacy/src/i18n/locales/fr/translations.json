@@ -10284,7 +10284,10 @@
                 "dateModifiedBy": "Modifié par",
                 "restoredBy": "Restauré par",
                 "cancelledBy": "Annulé par",
-                "cancelledByRecurrenceBy": "Annulé par"
+                "cancelledByRecurrenceBy": "Annulé par",
+                "setUnpaidOn": "Marqué comme impayé le",
+                "setUnpaidBy": "Marqué comme impayé par",
+                "setUnpaid": "Marquer comme impayé"
             },
             "managerAdd": {
                 "title": "Nouvelle réservation",
@@ -10340,6 +10343,13 @@
                 "description": "Veuillez noter que ce membre n'a pas les tags requis pour ce rendez-vous. Voulez-vous quand même effectuer la réservation ?",
                 "cancel": "Annuler",
                 "confirm": "Confirmer"
+            },
+            "setUnpaid": {
+                "confirm": "Marquer comme impayé",
+                "cancel": "Retour",
+                "confirmMessage": "Marquer cette réservation comme « impayée » restituera les crédits au membre. La réservation restera confirmée mais apparaîtra comme « impayée » tant que le solde n’est pas régularisé.",
+                "confirmTitle": "Marquer comme impayé ?",
+                "button": "Marquer comme impayé"
             }
         },
         "privateService": {
@@ -11134,7 +11144,8 @@
                 "allow_unpaid": "Autoriser les réservations impayées (aucune carte compatible possédée)",
                 "notify_member": "Envoyer un mail de confirmation lors de l'inscription du membre",
                 "override_availabilities": "Faire la réservation même si le professeur, la salle ou le rendez-vous ne sont pas disponibles",
-                "global_error": "Nous n'avons pas pu enregistrer votre réservation récurrente, veuillez réessayer plus tard."
+                "global_error": "Nous n'avons pas pu enregistrer votre réservation récurrente, veuillez réessayer plus tard.",
+                "duplicate_error": "Cette règle est déjà appliquée à une réservation récurrente. Pour enregistrer, modifiez les règles existantes ou ajustez les paramètres."
             },
             "forms": {
                 "delete": {
@@ -16439,6 +16450,10 @@
                     "11106": "Vous avez déjà réservé ce créneau"
                 },
                 "error": "Impossible de réserver sur cette date"
+            },
+            "setUnpaid": {
+                "error": "Impossible de marquer comme impayé",
+                "success": "Réservation marquée comme impayée"
             }
         },
         "privateConsumerPass": {

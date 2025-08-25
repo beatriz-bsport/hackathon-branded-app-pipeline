@@ -50,6 +50,7 @@ import {
 } from '#src/libs/checkout/selectors';
 import {
   hasRedirectionFailed,
+  removeQueryParamsFromUrl,
   shouldCheckPaymentStatus,
   shouldNotRetrieveSecret,
 } from '#src/libs/checkout/utils';
@@ -174,6 +175,15 @@ export class BasketPage extends React.Component<BasketPageProps> {
           'validation.sections.confirmationStatusTitle.errors.generic',
         ),
       );
+
+      // Remove error-related query params from the URL to avoid repeated error triggers on page refresh
+      removeQueryParamsFromUrl([
+        'redirect_status',
+        'payment_intent',
+        'payment_intent_client_secret',
+        'payment_method_type',
+        'check_payment_intent',
+      ]);
     }
     this.props.fetchCompanyTheme(this.props.companyId, {
       onSuccess: (theme) => {

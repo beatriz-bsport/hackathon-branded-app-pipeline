@@ -11,7 +11,7 @@ type Props = {};
 const TrialAnalysisRouter: React.FC<Props> = () => {
   return (
     <Switch>
-      <Route exact path="/trial-analysis" component={TrialAnalysis} />
+      <Route exact component={TrialAnalysis} path="/trial-analysis" />
       <Redirect to="/trial-analysis" />
     </Switch>
   );

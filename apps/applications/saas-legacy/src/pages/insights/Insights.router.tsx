@@ -14,16 +14,16 @@ type Props = {};
 const InsightsRouter: React.FC<Props> = () => {
   return (
     <Switch>
-      <Route exact path={INSIGHTS_ROUTES.INDEX} component={InsightsIndex} />
+      <Route exact component={InsightsIndex} path={INSIGHTS_ROUTES.INDEX} />
       <Route
         exact
-        path={INSIGHTS_ROUTES.TRIAL_ANALYSIS}
         component={TrialAnalysis}
+        path={INSIGHTS_ROUTES.TRIAL_ANALYSIS}
       />
       <Route
         exact
+        component={SubscriptionEvents}
         path={INSIGHTS_ROUTES.RECURRING_REVENUE}
-        render={() => <SubscriptionEvents />}
       />
       <Redirect to={INSIGHTS_ROUTES.INDEX} />
     </Switch>

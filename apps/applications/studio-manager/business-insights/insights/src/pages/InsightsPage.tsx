@@ -1,4 +1,5 @@
 import { useMemo, useRef, useState } from "react";
+import { useNavigate } from "react-router";
 
 import {
   type FilterProps,
@@ -6,54 +7,32 @@ import {
   ListLayout,
 } from "@bsport/kaizen-primitive-core";
 
-import { LEGACY_URLS } from "#src/urls";
+import { INSIGHT_SECTIONS } from "#src/constants";
 import { useTranslation } from "#src/utils/i18n";
+import {
+  createChipForRow,
+  createInsightRows,
+  filterBySearch,
+  filterBySection,
+} from "#src/utils/insightFilters";
 
-const SECTIONS = [
-  { id: "member", icon: "user-01" },
-  { id: "financial", icon: "coins-stacked-01" },
-  { id: "booking", icon: "calendar" },
-  { id: "teacher", icon: "spacing-width-02" },
-  { id: "marketing", icon: "announcement-01" },
-] as const;
-
-const ALL_ROWS = [
-  {
-    id: "trial",
-    section: "member",
-    link: LEGACY_URLS.TRIAL_ANALYSIS,
-  },
-  {
-    id: "recurring",
-    section: "financial",
-    link: LEGACY_URLS.RECURRING_REVENUE,
-  },
-] as const;
-
+/**
+ * Main insights page displaying a list of available business insight dashboards.
+ * Provides filtering by section and search functionality.
+ */
 const InsightsPage = () => {
+  const navigate = useNavigate();
   const { t } = useTranslation("insights");
   const [selected, setSelected] = useState<string | null>(null);
   const [searchInput, setSearchInput] = useState<string>("");
   const filterRef = useRef<{ resetFilters: () => void }>(null);
 
   const rows = useMemo(() => {
-    let filteredRows = ALL_ROWS.map((row) => ({
-      ...row,
-      title: t(`items.${row.id}.title`),
-      description: t(`items.${row.id}.description`),
-    })).filter((r) => (selected ? r.section === selected : true));
+    const baseRows = createInsightRows(t);
+    const sectionFiltered = filterBySection(baseRows, selected);
+    const searchFiltered = filterBySearch(sectionFiltered, searchInput);
 
-    // Apply search filter
-    if (searchInput.trim()) {
-      const searchLower = searchInput.toLowerCase();
-      filteredRows = filteredRows.filter(
-        (row) =>
-          row.title.toLowerCase().includes(searchLower) ||
-          row.description.toLowerCase().includes(searchLower),
-      );
-    }
-
-    return filteredRows;
+    return searchFiltered;
   }, [selected, searchInput, t]);
 
   const filterConfig: FilterProps = useMemo(() => {
@@ -62,7 +41,7 @@ const InsightsPage = () => {
         id: "filter",
         label: t("filter.filterLabel"),
         availableFilters: ["is"],
-        values: SECTIONS.map((section) => ({
+        values: INSIGHT_SECTIONS.map((section) => ({
           id: section.id,
           label: t(`sections.${section.id}`),
         })),
@@ -121,15 +100,10 @@ const InsightsPage = () => {
             id: row.id,
             title: row.title,
             description: row.description,
-            chip: {
-              size: "lg",
-              type: "weak",
-              color: "default",
-              label: t(`sections.${row.section}`),
-              iconLeft:
-                SECTIONS.find((s) => s.id === row.section)?.icon || "user-01",
-            },
-            onClick: () => window.location.assign(row.link),
+            chips: [createChipForRow(row, t)],
+            chipsDirection: "end",
+            onClick: () => navigate(row.link),
+            className: "hover:cursor-pointer",
           }))}
         />
       </ListLayout.Content>

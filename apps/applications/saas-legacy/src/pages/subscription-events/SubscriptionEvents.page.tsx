@@ -61,7 +61,7 @@ const SubscriptionEvents: React.FC<Props> = ({ t: _t }) => {
         let response;
         let data: SubscriptionEventsResponse;
         response = await getAuth<SubscriptionEventsResponse>(
-          `${API_V1_URI}/embedded_analytics/presigned_url/?dashboard_type=subscription_events`,
+          `${API_V1_URI}/embedded_analytics/presigned_url/?dashboard_type=recurring_revenue`,
         );
         data = response.data as SubscriptionEventsResponse;
         if (data.presigned_url) {
@@ -69,8 +69,8 @@ const SubscriptionEvents: React.FC<Props> = ({ t: _t }) => {
         } else {
           setError('Unable to load dashboard. Please refresh the page.');
         }
-      } catch (error) {
-        console.error('Failed to fetch subscription events URL:', error);
+      } catch (err) {
+        console.error('Failed to fetch subscription events URL:', err);
         setError('Failed to load dashboard. Please refresh the page.');
       } finally {
         setLoading(false);

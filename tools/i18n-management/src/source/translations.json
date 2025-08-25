@@ -734,6 +734,14 @@
           "description": "Keep track of trends and understand how to stabilize recurring income streams."
         }
       },
+      "pages": {
+        "trialAnalysis": { "title": "Trial offer performance" },
+        "recurringRevenue": { "title": "Recurring Revenue" }
+      },
+      "errors": {
+        "loadDashboard": "Unable to load dashboard. Please refresh the page.",
+        "fetchFailed": "Failed to load dashboard. Please refresh the page."
+      },
       "filter": {
         "selectFieldLabel": "Filter by section",
         "filterLabel": "Filter",

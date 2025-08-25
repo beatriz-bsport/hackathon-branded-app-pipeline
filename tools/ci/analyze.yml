@@ -60,3 +60,25 @@ Analyze:
         exit 1
       fi
     - echo "✅ All translations have been managed as expected"
+
+# Run gitleaks secret detection on changed files only
+gitleaks:
+  stage: analyze
+  image: zricethezav/gitleaks:v8.28.0
+  tags: ["cluster:bsport-tooling", "light"]
+  script:
+    - git config --global --add safe.directory $CI_PROJECT_DIR
+    - git fetch origin $CI_MERGE_REQUEST_TARGET_BRANCH_NAME
+    - |
+      gitleaks git -v --redact --log-opts="origin/$CI_MERGE_REQUEST_TARGET_BRANCH_NAME..$CI_COMMIT_SHA" . \
+      || {
+         echo "\n⚠️ Gitleaks detected a secret, please see the documentation: https://gitlab.com/bsport/ichizen/-/blob/dev/docs/gitleaks.md#dealing-with-gitleaks-detections";
+         exit 1;
+        }
+  rules:
+    - if: $CI_MERGE_REQUEST_ID
+  retry:
+    max: 2
+    when:
+      - runner_system_failure
+      - unknown_failure

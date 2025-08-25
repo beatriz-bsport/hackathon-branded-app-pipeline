@@ -3397,7 +3397,7 @@
             "bookings": "Appuntamenti",
             "notRefunded": "Non rimborsato",
             "isRefunded": "Rimborsato",
-            "isUnpaid": "Non pagato",
+            "isUnpaid": "Pagamento in sospeso",
             "bookingIsUnpaid": "Prenotazioni non pagate",
             "isCancelledByManagerDate": "Annullato il {{-date}} alle {{time}} da {{cancelled_by}}",
             "isCancelledByManager": "Annullato da {{cancelled_by}}",
@@ -3406,6 +3406,12 @@
                 "description": "Si prega di notare che questo membro non ha i tag richiesti per questo appuntamento. Si desidera procedere con la prenotazione comunque?",
                 "cancel": "Annulla",
                 "title": "Informazioni"
+            },
+            "setUnpaid": {
+                "confirm": "Segna come non pagato",
+                "cancel": "Indietro",
+                "confirmMessage": "Contrassegnare questa prenotazione come \"non pagata\" restituirà i crediti al pacchetto del membro. La prenotazione rimarrà valida ma risulterà come \"non pagata\" finché tutti i pagamenti in sospeso non verranno saldati.",
+                "confirmTitle": "Segnare come non pagato?"
             }
         },
         "privateService": {
@@ -3824,7 +3830,7 @@
             },
             "ht": "Tasse escluse",
             "actions": {
-                "forceRegularizeUnpaid": "Regolarizzare tutti i pagamenti in sospeso"
+                "forceRegularizeUnpaid": "Riscuoti i pagamenti in sospeso"
             },
             "listItem": {
                 "unusableByStaff": "Non visibile per lo staff"

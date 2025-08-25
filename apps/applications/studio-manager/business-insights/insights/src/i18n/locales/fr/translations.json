@@ -1,0 +1,27 @@
+{
+  "insights": {
+    "pageTitle": "Aperçus",
+    "sections": {
+      "member": "Aperçus Membres",
+      "financial": "Santé Financière",
+      "booking": "Performance des Réservations",
+      "teacher": "Performance des Professeurs", 
+      "marketing": "Performance Marketing"
+    },
+    "items": {
+      "trial": {
+        "title": "Suivre les performances de l'offre d'essai",
+        "description": "Découvrez plus sur l'acquisition, les taux de conversion et comment augmenter l'efficacité de votre offre d'essai."
+      },
+      "recurring": {
+        "title": "Surveiller les revenus récurrents",
+        "description": "Suivez les tendances et comprenez comment stabiliser les flux de revenus récurrents."
+      }
+    },
+    "filter": {
+      "selectFieldLabel": "Filtrer par section",
+      "filterLabel": "Filtre",
+      "isLabel": "est"
+    }
+  }
+}

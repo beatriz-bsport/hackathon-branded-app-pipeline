@@ -10653,6 +10653,11 @@
                 "description": "Let op: dit lid heeft niet de vereiste tags voor deze afspraak. Wilt u deze toch inboeken?",
                 "cancel": "Annuleer",
                 "confirm": "Bevestig"
+            },
+            "setUnpaid": {
+                "cancel": "Terug",
+                "confirmMessage": "Zodra je deze afspraak aan het lid vergoed, wordt deze gemarkeerd als een ‘onbetaalde’ afspraak.",
+                "confirmTitle": "Afspraak vergoeden?"
             }
         },
         "privateService": {
@@ -11099,7 +11104,7 @@
             },
             "ht": "Excl. btw",
             "actions": {
-                "forceRegularizeUnpaid": "Alle openstaande facturen vereffenen"
+                "forceRegularizeUnpaid": "Openstaande betalingen innen"
             },
             "listItem": {
                 "unusableByStaff": "Onzichtbaar voor het personeel"

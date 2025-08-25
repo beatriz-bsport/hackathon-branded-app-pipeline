@@ -1,3 +1,9 @@
+import {
+  NotificationRuleDetail,
+  NotificationRuleEvent,
+  NotificationRuleSettings,
+} from "@bsport/store-cdp-notification-rule";
+
 import type { RefinedNotificationRuleEventData } from "./types";
 
 /**
@@ -120,4 +126,103 @@ export const getIsFranchiseOwned = ({
   refinedNotificationRuleData: RefinedNotificationRuleEventData;
 }) => {
   return refinedNotificationRuleData?.details?.franchisor !== null;
+};
+
+/**
+ * Merges notification rule details that share the same notification_event.
+ * Priority rules:
+ * 1. Items with company === null are always overridden by items with a company
+ * 2. The last element in the array always takes precedence when there are multiple items with the same notification_event
+ * 3. email_design and email_template fields are merged - if one entry has email_design and another has email_template, both are preserved
+ *
+ * @param details - Array of notification rule details from the API
+ * @returns Array of merged notification rule details with duplicates resolved
+ */
+export const mergeNotificationRuleDetailsByEvent = (
+  details: NotificationRuleDetail[],
+) => {
+  const mergedMap = new Map();
+
+  details.forEach((detail) => {
+    const eventId = detail.notification_event;
+    const existing = mergedMap.get(eventId);
+
+    if (!existing) {
+      // First occurrence of this notification_event
+      mergedMap.set(eventId, detail);
+    } else {
+      // Apply priority rules
+      const currentHasCompany = detail.company !== null;
+      const existingHasCompany = existing.company !== null;
+
+      // Rule 1: If existing has no company and current has company, override
+      // Rule 2: If both have companies or both don't have companies, last one wins
+      const shouldOverride =
+        (currentHasCompany && !existingHasCompany) || // Prefer items with company
+        currentHasCompany === existingHasCompany; // Same priority → last wins
+
+      if (shouldOverride) {
+        // Merge email fields from existing entry before overriding
+        const mergedDetail = {
+          ...detail,
+          // Preserve email_design from existing if current doesn't have it
+          email_design: detail.email_design || existing.email_design,
+          // Preserve email_template from existing if current doesn't have it
+          email_template: detail.email_template || existing.email_template,
+        };
+        mergedMap.set(eventId, mergedDetail);
+      } else {
+        // Keep existing but merge email fields from current detail
+        const mergedDetail = {
+          ...existing,
+          // Preserve email_design from current if existing doesn't have it
+          email_design: existing.email_design || detail.email_design,
+          // Preserve email_template from current if existing doesn't have it
+          email_template: existing.email_template || detail.email_template,
+        };
+        mergedMap.set(eventId, mergedDetail);
+      }
+    }
+  });
+  return Array.from(mergedMap.values());
+};
+
+/**
+ * Refines the notification rule event data for a specific event ID.
+ * For this object, notification rule, data are scattered accross different endpoints and are really not practical to work with.
+ * To limit the spreading of technical debt in the frontend we want to refine the data in a single object.
+ * This way it will be easier to remove this logic and to not spread it in the future if we plan to revamp this feature.
+ * @param notificationRuleEventId - The ID of the notification rule event to refine
+ * @returns RefinedNotificationRuleEventData | null, an object containing the rule, details, and settings for the event, or null if not found
+ */
+export const refineNotificationRuleEventData = ({
+  eventGroupIdentifier,
+  notificationRuleEventId,
+  notificationRuleEventMapByGroup,
+  mergedNotificationRuleDetails,
+  notificationRuleSettings,
+}: {
+  eventGroupIdentifier: string;
+  notificationRuleEventMapByGroup: Record<string, NotificationRuleEvent[]>;
+  mergedNotificationRuleDetails: NotificationRuleDetail[];
+  notificationRuleEventId: number;
+  notificationRuleSettings: NotificationRuleSettings;
+}): RefinedNotificationRuleEventData | null => {
+  const eventRule = notificationRuleEventMapByGroup[eventGroupIdentifier]?.find(
+    (event) => event.notification_event === notificationRuleEventId,
+  );
+  if (!eventRule) {
+    return null;
+  }
+  const eventDetails =
+    mergedNotificationRuleDetails.find(
+      (detail) => detail.notification_event === notificationRuleEventId,
+    ) || undefined;
+  const eventSettings =
+    notificationRuleSettings.settings[notificationRuleEventId] || undefined;
+  return {
+    rule: eventRule,
+    details: eventDetails,
+    settings: eventSettings,
+  };
 };

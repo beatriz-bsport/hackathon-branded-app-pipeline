@@ -61,8 +61,36 @@ export function useUpdateNotificationRuleSettings({
     });
   };
 
+  const toggleEmailCarbonCopy = ({
+    checked,
+    notificationEventId,
+  }: {
+    checked: boolean;
+    notificationEventId: number;
+  }) => {
+    const { id, company, settings } = notificationRuleSettings;
+    if (id == null || company == null) {
+      return;
+    }
+    const currentEventSettings =
+      (settings && settings[notificationEventId]) || {};
+    const payload = {
+      id,
+      company,
+      settings: {
+        ...settings,
+        [notificationEventId]: {
+          ...currentEventSettings,
+          send_company: checked,
+        },
+      },
+    };
+    updateNotificationRuleEventSettings(payload);
+  };
+
   return {
     isLoading,
     toggleEmailNotification,
+    toggleEmailCarbonCopy,
   };
 }

@@ -10,6 +10,8 @@ import { useAvailableUpsells } from "#src/hooks/layout/use-upsell-blocker";
 import { useTranslation } from "#src/utils/i18n";
 import type { RefinedNotificationRuleEventData } from "#src/utils/types";
 
+import { NotificationRuleDetailsContent } from "../NotificationRuleEventDetail/NotificationRuleDetailsContent";
+
 type NotificationRuleEventTableContentProps = {
   notificationEventsRefinedData: RefinedNotificationRuleEventData[]; // Replace with actual type
   notificationRuleSettings: NotificationRuleSettings; // Replace with actual type
@@ -37,12 +39,13 @@ export const NotificationRuleTableContent = ({
     refinedNotificationRules: notificationEventsRefinedData,
     baseNotificationEventId: openId ? parseInt(openId, 10) : undefined,
   });
-  const { toggleEmailNotification } = useUpdateNotificationRuleSettings({
-    notificationRuleSettings,
-    onSuccess: () => {
-      fetchNotificationRuleEventData();
-    },
-  });
+  const { toggleEmailNotification, toggleEmailCarbonCopy } =
+    useUpdateNotificationRuleSettings({
+      notificationRuleSettings,
+      onSuccess: () => {
+        fetchNotificationRuleEventData();
+      },
+    });
 
   const openDetailDrawer = (notificationEventId: number) => {
     if (
@@ -130,11 +133,17 @@ export const NotificationRuleTableContent = ({
         ]}
       >
         {selectedNotificationRule?.rule ? (
-          <p>
-            {getNotificationRuleEventLabel(
-              selectedNotificationRule.rule.notification_event,
-            )}
-          </p>
+          <NotificationRuleDetailsContent
+            eventGroupIdentifier={
+              selectedNotificationRule.rule.notification_group
+            }
+            selectedNotificationEventId={
+              selectedNotificationRule?.rule.notification_event
+            }
+            selectedNotificationRule={selectedNotificationRule}
+            getNotificationRuleEventLabel={getNotificationRuleEventLabel}
+            toggleEmailCarbonCopy={toggleEmailCarbonCopy}
+          />
         ) : null}
       </DetailDrawer>
     </ListLayout.Content>

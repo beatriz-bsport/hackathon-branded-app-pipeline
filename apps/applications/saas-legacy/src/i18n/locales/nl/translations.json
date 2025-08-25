@@ -619,7 +619,7 @@
                     "title": "Algemene voorwaarden"
                 },
                 "paymentMethods": {
-                    "add": "Voeg een betaalmethode oe",
+                    "add": "Voeg een betaalmethode toe",
                     "cardItemCaptionText": "Vervalt {{- additionalInfo}}",
                     "paymentMethodLabel": "Stopt met <strong>{{- identifier}}</strong>",
                     "empty": "Zodra je een betaling hebt opgeslagen, wordt deze hier weergegeven.",
@@ -15585,7 +15585,7 @@
                 },
                 "confirmationStatusTitle": {
                     "success": {
-                        "waitingList": "U staat op de wachtlijst",
+                        "waitingList": "Je staat op de wachtlijst",
                         "paymentSuccess": "Betaling bevestigd!",
                         "offerOnlySuccess": "Geniet van de sessie!",
                         "offerOnlyGuestSuccess": "Geniet van de sessie met je gast!"

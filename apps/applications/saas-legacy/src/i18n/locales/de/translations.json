@@ -11734,7 +11734,7 @@
             "bookings": "Termine",
             "notRefunded": "Nicht erstattet",
             "isRefunded": "Erstattet",
-            "isUnpaid": "Unbezahlte Rechnungen",
+            "isUnpaid": "Ausstehende Zahlung",
             "bookingIsUnpaid": "Unbezahlte Reservierung",
             "isCancelledByManagerDate": "Storniert am {{-date}} um {{time}} von {{cancelled_by}}",
             "isCancelledByManager": "Storniert von {{cancelled_by}}",
@@ -11743,6 +11743,12 @@
                 "description": "Bitte beachte, dass dieses Mitglied nicht die erforderlichen Tags für diesen Termin hat. Soll das Mitglied trotzdem angemeldet werden?",
                 "cancel": "Abbrechen",
                 "confirm": "Bestätigen"
+            },
+            "setUnpaid": {
+                "confirm": "Termin rückerstatten",
+                "cancel": "Zurück",
+                "confirmMessage": "Dieser Termin wird als \"unbezahlt\" markiert, sobald er dem Mitglied rückerstattet wurde.",
+                "confirmTitle": "Termin rückerstatten?"
             }
         },
         "service": {
@@ -12280,7 +12286,7 @@
             },
             "ht": "Ohne Steuer",
             "actions": {
-                "forceRegularizeUnpaid": "Alle unbezahlten Rechnungen begleichen"
+                "forceRegularizeUnpaid": "Ausstehende Zahlungen einziehen"
             },
             "listItem": {
                 "unusableByStaff": "Unsichtbar für Mitarbeiter"

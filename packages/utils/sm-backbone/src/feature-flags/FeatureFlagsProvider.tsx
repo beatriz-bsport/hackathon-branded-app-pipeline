@@ -1,9 +1,9 @@
-import { FlagProvider } from "@unleash/proxy-client-react";
-import React from "react";
+import { FlagProvider, useUnleashClient } from "@unleash/proxy-client-react";
+import React, { useEffect, useRef } from "react";
 
 import { type Environment, getEnv } from "@bsport/envs";
+import { companyThemeStore } from "@bsport/store-core-data-company-theme";
 
-import { dataAccessLayer } from "../data-access-layer";
 import { UNLEASH_CLIENT_KEY, UNLEASH_PROXY_URL } from "./constants";
 
 function mapEnvToUnleashEnvironment(env: Environment) {
@@ -13,13 +13,12 @@ function mapEnvToUnleashEnvironment(env: Environment) {
 
 function buildUnleashConfig() {
   const unleashEnv = mapEnvToUnleashEnvironment(getEnv());
-  const url = UNLEASH_PROXY_URL;
-  const clientKey = UNLEASH_CLIENT_KEY;
-  if (!url || !clientKey) return null;
 
   return {
-    url,
-    clientKey,
+    url: UNLEASH_PROXY_URL || "http://localhost:4242/api/frontend", // Default for local dev,
+    clientKey:
+      UNLEASH_CLIENT_KEY ||
+      "default:development.unleash-insecure-frontend-api-token", // Default for local dev
     appName: "studio-manager",
     environment: unleashEnv,
     refreshInterval: 0,
@@ -30,54 +29,54 @@ function buildUnleashConfig() {
 const FeatureFlagsProvider: React.FC<{ children?: React.ReactNode }> = ({
   children,
 }) => {
-  // Context sources from shared Zustand stores
-  const companyTheme = dataAccessLayer.useCompanyTheme();
-  const userAccess = dataAccessLayer.useUserAccess();
+  const getConfig = () => {
+    const baseConfig = buildUnleashConfig();
 
-  const companyId = companyTheme?.company;
-  const userEmail = userAccess?.username;
-
-  // Best-effort franchiseId: only send when clearly scoped to a single franchise
-  const franchiseId = (() => {
-    if (
-      userAccess?.is_franchisor &&
-      Array.isArray(userAccess.allowed_franchisees)
-    ) {
-      return userAccess.allowed_franchisees.length === 1
-        ? userAccess.allowed_franchisees[0]
-        : undefined;
-    }
-    return undefined;
-  })();
-
-  if (!companyId && !franchiseId) {
-    return <>{children}</>;
-  }
-
-  const config = buildUnleashConfig();
-  if (config == null) {
-    return <>{children}</>;
-  }
+    return {
+      ...baseConfig,
+      context: {
+        currentTime: new Date().toISOString(),
+      },
+    };
+  };
 
   return (
     <FlagProvider
-      config={{
-        ...config,
-        context: {
-          // Standard Unleash context fields
-          ...(userEmail ? { userId: userEmail } : {}),
-          currentTime: new Date().toISOString(),
-          // Custom properties
-          properties: {
-            ...(companyId ? { companyId: String(companyId) } : {}),
-            ...(franchiseId ? { franchiseId: String(franchiseId) } : {}),
-          },
-        },
-      }}
+      config={getConfig()}
+      startClient={false} // Don't start immediately
     >
+      <ClientStarter />
       {children}
     </FlagProvider>
   );
+};
+
+// Component to start the client when companyId is available
+const ClientStarter: React.FC = () => {
+  const client = useUnleashClient();
+  const clientStartedRef = useRef(false);
+
+  useEffect(() => {
+    // Subscribe to company theme store changes to detect when companyId becomes available
+    const unsubscribe = companyThemeStore.subscribe((state) => {
+      const currentCompanyId = state.companyTheme?.company;
+
+      if (currentCompanyId && client && !clientStartedRef.current) {
+        // Update context with companyId (keep it simple for now)
+        const contextUpdate = {
+          currentTime: new Date().toISOString(),
+          companyId: String(currentCompanyId),
+        };
+        client.updateContext(contextUpdate as Record<string, unknown>);
+        client.start();
+        clientStartedRef.current = true;
+      }
+    });
+
+    return unsubscribe;
+  }, [client]);
+
+  return null;
 };
 
 export default FeatureFlagsProvider;

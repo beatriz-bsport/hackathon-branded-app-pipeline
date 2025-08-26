@@ -1,0 +1,75 @@
+// TO BE USED FOR DEBUGGING ONLY
+
+window.runtime = window.runtime || { env: {} };
+var env = window.runtime.env;
+
+// ENV
+
+env.REACT_APP_SENTRY_DSN = '';
+env.REACT_APP_SENTRY_ENVIRONMENT = 'local';
+env.REACT_APP_STRIPE_PK_KEY = 'pk_live_1pfyc0rY3HcMlwavrdT633XL';
+env.REACT_APP_STRIPE_PK_KEY_US = 'pk_live_Z5xZmSP82aqC6jSlSaNRgjy200StEKsbDS';
+env.REACT_APP_GOOGLE_MAPS_API_KEY = 'AIzaSyCz0gy4ESe5awksepoS0ENTBTf1sKytIjI';
+env.REACT_APP_BASE_URI = 'https://api.production.bsport.io';
+env.REACT_APP_API_URI = 'https://api.production.bsport.io/api-v0';
+env.NODE_ENV = 'production';
+env.REACT_APP_INTERCOM_APP_ID = 'q6foivp2';
+env.PUBLIC_URL = 'http://localhost:3000';
+env.REACT_APP_RECAPTCHA_V3 = '6LeC6rIZAAAAAJSN0DVqzOF3cYXwQcXgp8rKX9cf';
+env.REACT_APP_RECAPTCHA_V2 = '6Lds67IZAAAAAFaPGpfl_ALgtV2t6Re63MBtCshi';
+
+env.REACT_APP_BASE_URI_BUSINESS_INSIGHTS_V0 =
+  'https://api.production.bsport.io/business-insights/v0';
+env.REACT_APP_BASE_URI_BUSINESS_INSIGHTS_V1 =
+  'https://api.production.bsport.io/business-insights/v1';
+env.REACT_APP_BASE_URI_BOOK_V0 = 'https://api.production.bsport.io/book/v0';
+env.REACT_APP_BASE_URI_BOOK_V1 = 'https://api.production.bsport.io/book/v1';
+env.REACT_APP_BASE_URI_BUYABLE_V0 =
+  'https://api.production.bsport.io/buyable/v0';
+env.REACT_APP_BASE_URI_BUYABLE_V1 =
+  'https://api.production.bsport.io/buyable/v1';
+env.REACT_APP_BASE_URI_COMMUNICATE_V0 =
+  'https://api.production.bsport.io/communicate/v0';
+env.REACT_APP_BASE_URI_COMMUNICATE_V1 =
+  'https://api.production.bsport.io/communicate/v1';
+env.REACT_APP_BASE_URI_CORE_V0 =
+  'https://api.production.bsport.io/core-data/v0';
+env.REACT_APP_BASE_URI_CORE_V1 =
+  'https://api.production.bsport.io/core-data/v1';
+env.REACT_APP_BASE_URI_FINANCIAL_SERVICES_V0 =
+  'https://api.production.bsport.io/financial-services/v0';
+env.REACT_APP_BASE_URI_FINANCIAL_SERVICES_V1 =
+  'https://api.production.bsport.io/financial-services/v1';
+env.REACT_APP_BASE_URI_CDP_V0 =
+  'https://api.production.bsport.io/customer-data-platform/v0';
+env.REACT_APP_BASE_URI_CDP_V1 =
+  'https://api.production.bsport.io/customer-data-platform/v1';
+env.REACT_APP_BASE_URI_MEMBER_EXPERIENCE_V0 =
+  'https://api.production.bsport.io/member-experience/v0';
+env.REACT_APP_BASE_URI_MEMBER_EXPERIENCE_V1 =
+  'https://api.production.bsport.io/member-experience/v1';
+env.REACT_APP_BASE_URI_PLATFORM_V0 =
+  'https://api.production.bsport.io/platform/v0';
+env.REACT_APP_BASE_URI_PLATFORM_V1 =
+  'https://api.production.bsport.io/platform/v1';
+env.REACT_APP_BASE_URI_STAFF_MANAGEMENT_V0 =
+  'https://api.production.bsport.io/staff-management/v0';
+env.REACT_APP_BASE_URI_STAFF_MANAGEMENT_V1 =
+  'https://api.production.bsport.io/staff-management/v1';
+
+env.REACT_APP_ZOOM_CLIENT_ID = 'ayAjSMV0SiOR383VkR3I4Q';
+env.REACT_APP_CDN_DOMAIN = 'cdn.bsport.io';
+env.I18N_TRANSLATION_DOMAIN = '';
+
+env.REACT_APP_PAYPAL_CLIENT_ID =
+  'AeoWTpMP4f4KK9S2222pgn9znTd-NUG2gxPwLW4JkvOUhteqUiOWhyaKJESCWv_F_3ixWbmr8HW1kK9i';
+env.REACT_APP_PAYPAL_PARTNER_ATTRIBUTION_ID = 'bsport_SP_PPCP';
+
+env.REACT_APP_SEGMENT_API_KEY = 'pAWGzKKTMFVIDSKPGNmBGsLfSVln7LBn';
+
+env.REACT_APP_MIXPANEL_TOKEN = '64b285a4568de04b3aa17110bc16ad16';
+
+env.REACT_APP_DIDOMI_API_KEY = 'b262349d-3421-4579-8f14-fa3d8d67f825';
+env.REACT_APP_DIDOMI_NOTICE_ID = 'FT99WiD7';
+
+env.REACT_APP_UNLAYER_PROJECT_ID = '4736';

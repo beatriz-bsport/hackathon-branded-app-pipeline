@@ -1,3 +1,4 @@
+import * as fs from "fs";
 import { existsSync, readJSONSync } from "fs-extra";
 import path from "path";
 
@@ -148,5 +149,11 @@ function getNamespaceTranslationsPath({
   } else {
     console.warn(`Could not find ${filePathTs} or ${filePathJs}`);
     return "";
+  }
+}
+
+export function ensureDir(dir: string) {
+  if (!fs.existsSync(dir)) {
+    fs.mkdirSync(dir, { recursive: true });
   }
 }

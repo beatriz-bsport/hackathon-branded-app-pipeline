@@ -2,8 +2,7 @@ import Immutable from 'seamless-immutable';
 import uniq from 'lodash/uniq';
 
 import { handleActions } from 'redux-actions';
-// @ts-expect-error
-import authActionTypes from '../../actions/auth.types';
+import { authActionTypes } from '#src/actions/constants';
 
 import {
   actionTypes,

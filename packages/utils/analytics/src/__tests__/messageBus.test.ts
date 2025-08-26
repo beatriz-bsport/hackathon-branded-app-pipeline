@@ -1,7 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 import { AnalyticsClient } from "#src/AnalyticsClient";
-import { debugLog } from "#src/debugLog";
 import { AnalyticsMessageBus } from "#src/message-bus";
 
 describe("AnalyticsClient debug mode sync via BroadcastChannel", () => {
@@ -9,8 +8,8 @@ describe("AnalyticsClient debug mode sync via BroadcastChannel", () => {
   let eventSpy: ReturnType<typeof vi.spyOn>;
 
   beforeEach(() => {
-    eventSpy = vi.spyOn(debugLog, "track").mockImplementation(() => {});
     client = new AnalyticsClient({ internalDebug: false });
+    eventSpy = vi.spyOn(client.debugLog, "track").mockImplementation(() => {});
     client.configure({ env: "dev" });
   });
 

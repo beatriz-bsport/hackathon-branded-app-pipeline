@@ -68,7 +68,8 @@ export class MixpanelAdapter implements AnalyticsAdapter {
     }
 
     console.log(
-      `[Mixpanel] Init mixpanel client with env "${env}" and ${token ? "provided token" : "default token"}`,
+      `[Mixpanel] Init mixpanel client with env "${env}", ${token ? "provided token" : "default token"}`,
+      `and instance ${this.instanceName ?? "default"}`,
     );
   }
 
@@ -79,10 +80,10 @@ export class MixpanelAdapter implements AnalyticsAdapter {
     this.instance.track(eventType, properties);
   }
 
-  identify({ userId, traits }: { userId: string; traits?: Properties }): void {
+  identify({ userId, traits }: { userId?: string; traits?: Properties }): void {
     if (!this.checkIsInitialized()) return;
 
-    this.instance.identify(userId);
+    if (userId) this.instance.identify(userId);
     if (traits) this.instance.people.set(traits);
   }
 

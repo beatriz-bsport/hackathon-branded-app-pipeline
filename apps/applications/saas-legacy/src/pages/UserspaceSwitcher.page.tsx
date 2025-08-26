@@ -17,6 +17,11 @@ import { disconnect as disconnectAction } from '../actions/auth.actions';
 import withQueryParams from '../hocs/with-query-params.hoc';
 
 import namespaces from '../i18n/namespaces.json';
+import {
+  identifyAnalyticsB2BWithTheme,
+  optInTrackingAnalyticsB2B,
+  optOutTrackingAnalyticsB2C,
+} from '#src/components/analytics/mixpanel';
 
 // @ts-expect-error
 const ConsumerHome = asyncComponent(() => import('./consumer/Consumer.router'));
@@ -28,8 +33,6 @@ const Backoffice = asyncComponent(() => import('./Backoffice.component'));
 const FranchiseHome = asyncComponent(
   () => import('./franchise/Franchise.router'),
 );
-
-import { configureAnalyticsB2BInstance } from '#src/components/analytics/mixpanel';
 
 type RouterProps = { companyId: number };
 type Props = ConnectedProps<typeof connector> & RouterProps;
@@ -45,6 +48,7 @@ export const UserspaceSwitcher = (props: Props) => {
     disconnect,
     companyId,
     has_completed_account_configuration_on_boarding,
+    theme,
   } = props;
   useTranslation(namespaces);
   useEffect(() => {
@@ -72,9 +76,20 @@ export const UserspaceSwitcher = (props: Props) => {
       isManager ||
       (isCoach && companyId && !WidgetUtils.isWidget())
     ) {
-      configureAnalyticsB2BInstance();
+      // Activate tracking for B2B and deactivate tracking for B2C
+      optInTrackingAnalyticsB2B();
+      optOutTrackingAnalyticsB2C();
+
+      // After configuring the instance, we can setup additional properties
+      if (theme) {
+        identifyAnalyticsB2BWithTheme({
+          companyId: theme.company,
+          companyName: theme.company_name,
+          franchisorId: theme.franchisor,
+        });
+      }
     }
-  }, [authenticated, isFranchisor, isManager, isCoach, companyId]);
+  }, [authenticated, isFranchisor, isManager, isCoach, companyId, theme]);
 
   if (!authenticated) {
     return <Redirect to="/login" />;
@@ -112,6 +127,7 @@ const connector = connect(
     has_completed_account_configuration_on_boarding:
       state.auth.has_completed_account_configuration_on_boarding,
     email_confirmed: state.auth.email_confirmed,
+    theme: state.theme.theme,
   }),
   {
     disconnect: disconnectAction,

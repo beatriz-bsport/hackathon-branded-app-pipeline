@@ -182,8 +182,7 @@ import type { VideoState } from '#src/libs/video/types';
 import type { WaitingListState } from '#src/libs/waiting-list/types';
 import type { WellhubState } from '#src/libs/wellhub/types';
 import type { ZoomAppState } from '#src/libs/zoom-app/types';
-// @ts-expect-error
-import actionTypes from '../actions/auth.types';
+import { authActionTypes } from '#src/actions/constants';
 // @ts-expect-error
 import searchReducer from './search.reducers';
 // @ts-expect-error
@@ -383,11 +382,11 @@ export type RootState = {
 
 export default (history: any) => (state: any, action: any) => {
   const newState = state;
-  if (action.type === actionTypes.DISCONNECT) {
+  if (action.type === authActionTypes.DISCONNECT) {
     return rootReducer(history)(undefined, action);
   }
 
-  if (action.type === actionTypes.RESET_STORE) {
+  if (action.type === authActionTypes.RESET_STORE) {
     return rootReducer(history)(
       // @ts-expect-error
       {

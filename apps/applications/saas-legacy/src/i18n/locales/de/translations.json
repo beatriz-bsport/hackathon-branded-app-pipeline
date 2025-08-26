@@ -16344,7 +16344,7 @@
             "cancel": "Abbrechen",
             "confirm": "Weiter",
             "warningPartialBooking": "Sie buchen eine Gruppe von Kursen. Sie sind jedoch nicht verpflichtet, an allen Kursen dieser Gruppe teilzunehmen. Sie können die Kurse auswählen, an denen Sie teilnehmen möchten.",
-            "warningFullBooking": "Du buchst gerade einen Gruppe von Kursen. Du wirst für alle {{count}} Kurse dieser Einheit angemeldet"
+            "warningFullBooking": "Du buchst gerade eine Gruppe von Kursen. Du wirst für alle {{count}} Kurse dieser Einheit angemeldet"
         },
         "warning": {
             "disconnect": "Abmelden",

@@ -3411,7 +3411,8 @@
                 "confirm": "Segna come non pagato",
                 "cancel": "Indietro",
                 "confirmMessage": "Contrassegnare questa prenotazione come \"non pagata\" restituirà i crediti al pacchetto del membro. La prenotazione rimarrà valida ma risulterà come \"non pagata\" finché tutti i pagamenti in sospeso non verranno saldati.",
-                "confirmTitle": "Segnare come non pagato?"
+                "confirmTitle": "Segnare come non pagato?",
+                "button": "Segna come non pagato"
             }
         },
         "privateService": {

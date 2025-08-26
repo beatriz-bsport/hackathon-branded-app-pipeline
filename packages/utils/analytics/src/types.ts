@@ -59,7 +59,7 @@ export type AnalyticsAdapter<
     userId,
     traits,
   }: {
-    userId: string;
+    userId?: string;
     traits?: Properties;
   }): DualVoid;
 

@@ -7,7 +7,7 @@ import {
   setAccessControlBroadcastsChannelId,
   getAccessControlBroadcastsChannelId,
 } from '../http';
-import actionTypes from '../actions/auth.types';
+import { authActionTypes as actionTypes } from '../actions/constants';
 import {
   stampLastPlatformSubscriptionWarningDateSuccess,
   stampLastPlatformSubscriptionDisputeWarningDateSuccess,

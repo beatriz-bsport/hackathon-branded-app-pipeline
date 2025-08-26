@@ -1,5 +1,5 @@
 import { MixpanelAdapter } from "./MixpanelAdapter";
-import { debugLog } from "./debugLog";
+import { debugLog as agnosticDebugLog } from "./debugLog";
 import { AnalyticsMessageBus } from "./message-bus";
 import type {
   AnalyticsAdapter,
@@ -31,6 +31,10 @@ export class AnalyticsClient<
   private superProperties: Properties;
   /** Whether the tracking is activated and logs should be sent */
   private isTracking: boolean;
+  /** Name of the Instance name provided to the apdater, to differentiate debugging */
+  private instanceName: string | undefined;
+  /** Custom logger for the instance */
+  debugLog: ReturnType<typeof agnosticDebugLog>;
 
   constructor({
     adapter,
@@ -44,6 +48,8 @@ export class AnalyticsClient<
     this.debug = internalDebug;
     this.isTracking = true; // Consider that the client is tracking by default
     this.superProperties = {};
+    this.instanceName = instanceName;
+    this.debugLog = agnosticDebugLog(this.instanceName);
     this.analyticsAdapter =
       adapter ??
       (new MixpanelAdapter(instanceName) as AnalyticsAdapter<
@@ -67,13 +73,13 @@ export class AnalyticsClient<
 
   configure(defaultConfig?: AnalyticsConfig<ExtraConfig>) {
     if (this.debug) {
-      debugLog.configure(defaultConfig);
+      this.debugLog.configure(defaultConfig);
     }
 
     try {
       return this.analyticsAdapter.configure(defaultConfig);
     } catch (error) {
-      debugLog.configureFailed({ config: defaultConfig, error });
+      this.debugLog.configureFailed({ config: defaultConfig, error });
     }
   }
 
@@ -84,15 +90,15 @@ export class AnalyticsClient<
     };
 
     if (this.debug && this.isTracking) {
-      debugLog.track(eventWithSuperProperties);
+      this.debugLog.track(eventWithSuperProperties);
     }
 
     return this.analyticsAdapter.track(eventWithSuperProperties);
   }
 
-  identify(params: { userId: string; traits: Properties }) {
+  identify(params: { userId?: string; traits?: Properties }) {
     if (this.debug) {
-      debugLog.identify(params);
+      this.debugLog.identify(params);
     }
 
     return this.analyticsAdapter.identify(params);
@@ -100,7 +106,7 @@ export class AnalyticsClient<
 
   resetIdentity() {
     if (this.debug) {
-      debugLog.resetIdentity();
+      this.debugLog.resetIdentity();
     }
 
     return this.analyticsAdapter.resetIdentity();
@@ -108,7 +114,7 @@ export class AnalyticsClient<
 
   flush() {
     if (this.debug) {
-      debugLog.flush();
+      this.debugLog.flush();
     }
 
     return this.analyticsAdapter.flush();
@@ -117,14 +123,14 @@ export class AnalyticsClient<
   optInTracking(config?: OptInOptions): DualVoid {
     if (!this.analyticsAdapter.optInTracking) {
       if (this.debug) {
-        debugLog.undefinedOptInTracking();
+        this.debugLog.undefinedOptInTracking();
       }
 
       return;
     }
 
     if (this.debug) {
-      debugLog.optInTracking();
+      this.debugLog.optInTracking();
     }
 
     this.isTracking = true;
@@ -134,14 +140,14 @@ export class AnalyticsClient<
   optOutTracking(config?: OptOutOptions): DualVoid {
     if (!this.analyticsAdapter.optOutTracking) {
       if (this.debug) {
-        debugLog.undefinedOptOutTracking();
+        this.debugLog.undefinedOptOutTracking();
       }
 
       return;
     }
 
     if (this.debug) {
-      debugLog.optOutTracking();
+      this.debugLog.optOutTracking();
     }
 
     this.isTracking = false;
@@ -151,14 +157,14 @@ export class AnalyticsClient<
   overloadAddSuperProperties(properties: Properties) {
     if (!this.analyticsAdapter.overloadAddSuperProperties) {
       if (this.debug) {
-        debugLog.undefinedOverloadAddSuperProperties();
+        this.debugLog.undefinedOverloadAddSuperProperties();
       }
 
       return;
     }
 
     if (this.debug) {
-      debugLog.overloadAddSuperProperties(properties);
+      this.debugLog.overloadAddSuperProperties(properties);
     }
 
     return this.analyticsAdapter.overloadAddSuperProperties(properties);
@@ -167,14 +173,14 @@ export class AnalyticsClient<
   overloadRemoveSuperProperties(propertiesKeys: string[]) {
     if (!this.analyticsAdapter.overloadRemoveSuperProperties) {
       if (this.debug) {
-        debugLog.undefinedOverloadRemoveSuperProperties();
+        this.debugLog.undefinedOverloadRemoveSuperProperties();
       }
 
       return;
     }
 
     if (this.debug) {
-      debugLog.overloadRemoveSuperProperties(propertiesKeys);
+      this.debugLog.overloadRemoveSuperProperties(propertiesKeys);
     }
 
     return this.analyticsAdapter.overloadRemoveSuperProperties(propertiesKeys);
@@ -183,14 +189,14 @@ export class AnalyticsClient<
   overloadResetSuperProperties() {
     if (!this.analyticsAdapter.overloadResetSuperProperties) {
       if (this.debug) {
-        debugLog.undefinedOverloadResetSuperProperties();
+        this.debugLog.undefinedOverloadResetSuperProperties();
       }
 
       return;
     }
 
     if (this.debug) {
-      debugLog.overloadResetSuperProperties();
+      this.debugLog.overloadResetSuperProperties();
     }
 
     return this.analyticsAdapter.overloadResetSuperProperties();
@@ -199,14 +205,14 @@ export class AnalyticsClient<
   overloadSetDebugMode(debug: boolean): DualVoid {
     if (!this.analyticsAdapter.overloadSetDebugMode) {
       if (this.debug) {
-        debugLog.undefinedOverloadSetDebugMode();
+        this.debugLog.undefinedOverloadSetDebugMode();
       }
 
       return;
     }
 
     if (this.debug) {
-      debugLog.overloadSetDebugMode(debug);
+      this.debugLog.overloadSetDebugMode(debug);
     }
 
     return this.analyticsAdapter.overloadSetDebugMode(debug);
@@ -219,14 +225,14 @@ export class AnalyticsClient<
   setInternalDebugMode(debug: boolean) {
     this.debug = debug;
 
-    debugLog.setInternalDebugMode(debug);
+    this.debugLog.setInternalDebugMode(debug);
   }
 
   addSuperProperties(properties: Properties) {
     this.superProperties = { ...this.superProperties, ...properties };
 
     if (this.debug) {
-      debugLog.addSuperProperties(properties);
+      this.debugLog.addSuperProperties(properties);
     }
   }
 
@@ -238,7 +244,7 @@ export class AnalyticsClient<
     );
 
     if (this.debug) {
-      debugLog.removeSuperProperties(propertiesKeys);
+      this.debugLog.removeSuperProperties(propertiesKeys);
     }
   }
 
@@ -246,7 +252,7 @@ export class AnalyticsClient<
     this.superProperties = {};
 
     if (this.debug) {
-      debugLog.resetSuperProperties();
+      this.debugLog.resetSuperProperties();
     }
   }
 

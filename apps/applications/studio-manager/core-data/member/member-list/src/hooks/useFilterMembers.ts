@@ -88,13 +88,10 @@ export const useFilterMembers = () => {
 
   const filterRef = useRef<{ resetFilters: () => void }>(null);
 
-  const filters = useMemo(
-    () => [
-      { id: FILTER_IS, label: t("filters.operators.is") },
-      { id: FILTER_IS_NOT, label: t("filters.operators.isNot") },
-    ],
-    [t],
-  );
+  const filters = [
+    { id: FILTER_IS, label: t("filters.operators.is") },
+    { id: FILTER_IS_NOT, label: t("filters.operators.isNot") },
+  ];
 
   useEffect(() => {
     if (tags.length > 0 && tagGroups.length > 0) {
@@ -124,7 +121,7 @@ export const useFilterMembers = () => {
       );
       setTagFields(tagFields);
     }
-  }, [tags, tagGroups, filters]);
+  }, [tags, tagGroups]);
 
   const onFilterChange = useCallback(
     (selectedFilters: FilterElementState[]) => {
@@ -152,7 +149,7 @@ export const useFilterMembers = () => {
           ? tagFields[Object.keys(tagFields)[0]].label
           : t("filters.label"),
     };
-  }, [tagFields, filters, onFilterChange, t]);
+  }, [tagFields, onFilterChange]);
 
   return {
     handleClearFilters,

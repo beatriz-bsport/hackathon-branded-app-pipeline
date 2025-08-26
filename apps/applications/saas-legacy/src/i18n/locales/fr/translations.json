@@ -204,7 +204,9 @@
             "recurrent": {
                 "title": "Séances futures",
                 "bookMultiple": "Reserver",
-                "backToRegistererChoice": "Retour"
+                "backToRegistererChoice": "Retour",
+                "unselectAll": "Tout désélectionner",
+                "selectAll": "Tout sélectionner"
             },
             "section": {
                 "consumerPacks": "Mes cartes de cours",
@@ -723,7 +725,7 @@
                     "label": "J'accepte de recevoir des courriels promotionnels, y compris des offres spéciales et des réductions"
                 },
                 "password": {
-                    "label": "Je crée mon mot de passe"
+                    "label": "Créer un mot de passe"
                 }
             }
         }
@@ -6252,7 +6254,8 @@
                 },
                 "description": {
                     "showLess": "Voir moins",
-                    "showMore": "Voir plus"
+                    "showMore": "Voir plus",
+                    "label": "Description"
                 },
                 "availability": {
                     "validUntil": "Valable jusqu'au {{ expirationDate }}",
@@ -8587,7 +8590,8 @@
             "nullPendingBalanceText": "Aucun",
             "availableBalance": "Solde disponible",
             "pendingBalance": "Solde en cours de traitement"
-        }
+        },
+        "setupPaymentError": "Une erreur s'est produite"
     },
     "paymentCombo": {
         "search": "Rechercher un pack",
@@ -10280,7 +10284,10 @@
                 "dateModifiedBy": "Modifié par",
                 "restoredBy": "Restauré par",
                 "cancelledBy": "Annulé par",
-                "cancelledByRecurrenceBy": "Annulé par"
+                "cancelledByRecurrenceBy": "Annulé par",
+                "setUnpaidOn": "Marqué comme impayé le",
+                "setUnpaidBy": "Marqué comme impayé par",
+                "setUnpaid": "Marquer comme impayé"
             },
             "managerAdd": {
                 "title": "Nouvelle réservation",
@@ -10336,6 +10343,13 @@
                 "description": "Veuillez noter que ce membre n'a pas les tags requis pour ce rendez-vous. Voulez-vous quand même effectuer la réservation ?",
                 "cancel": "Annuler",
                 "confirm": "Confirmer"
+            },
+            "setUnpaid": {
+                "confirm": "Marquer comme impayé",
+                "cancel": "Retour",
+                "confirmMessage": "Marquer cette réservation comme « impayée » restituera les crédits au membre. La réservation restera confirmée mais apparaîtra comme « impayée » tant que le solde n’est pas régularisé.",
+                "confirmTitle": "Marquer comme impayé ?",
+                "button": "Marquer comme impayé"
             }
         },
         "privateService": {
@@ -10857,7 +10871,7 @@
                     "label": "Invisible sur le Marketplace"
                 },
                 "last_discard_minutes": {
-                    "label": "Dernière annulation remboursable jusqu'à",
+                    "label": "Dernière annulation remboursable jusqu'à ",
                     "helperText": "Si la réservation est annulée hors délai le crédit ne sera pas remboursé"
                 },
                 "last_booking_minutes": {
@@ -11129,7 +11143,9 @@
                 "timeGroup": "Date de la séance",
                 "allow_unpaid": "Autoriser les réservations impayées (aucune carte compatible possédée)",
                 "notify_member": "Envoyer un mail de confirmation lors de l'inscription du membre",
-                "override_availabilities": "Faire la réservation même si le professeur, la salle ou le rendez-vous ne sont pas disponibles"
+                "override_availabilities": "Faire la réservation même si le professeur, la salle ou le rendez-vous ne sont pas disponibles",
+                "global_error": "Nous n'avons pas pu enregistrer votre réservation récurrente, veuillez réessayer plus tard.",
+                "duplicate_error": "Cette règle est déjà appliquée à une réservation récurrente. Pour enregistrer, modifiez les règles existantes ou ajustez les paramètres."
             },
             "forms": {
                 "delete": {
@@ -15482,12 +15498,12 @@
                 "explanation": "Segmenter les membres qui ont accepté les conditions générales d'utilisation"
             },
             "400": {
-                "explain": "possède un mot de passe sur bsport",
+                "explain": "Segmentez les membres qui ont enregistré un mot de passe avec votre compte bsport",
                 "name": "Mot de passe",
                 "explanation": "Segmentez les membres qui ont enregistré un mot de passe avec votre compte bsport"
             },
             "410": {
-                "explain": "ayant accepté les décharges de responsabilité",
+                "explain": "Segmenter tous les membres qui ont accepté votre décharge de responsabilité",
                 "name": "Décharge de responsabilité",
                 "explanation": "Segmenter tous les membres qui ont accepté votre décharge de responsabilité"
             },
@@ -16434,6 +16450,10 @@
                     "11106": "Vous avez déjà réservé ce créneau"
                 },
                 "error": "Impossible de réserver sur cette date"
+            },
+            "setUnpaid": {
+                "error": "Impossible de marquer comme impayé",
+                "success": "Réservation marquée comme impayée"
             }
         },
         "privateConsumerPass": {

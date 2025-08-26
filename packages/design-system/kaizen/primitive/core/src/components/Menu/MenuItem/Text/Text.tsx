@@ -2,6 +2,7 @@ import { type VariantProps, cva } from "class-variance-authority";
 import React, { useMemo } from "react";
 
 import Avatar from "#src/components/Avatar";
+import Body from "#src/components/Body";
 import Icon from "#src/components/Icon";
 import {
   defaultMenuItemClasses,
@@ -25,6 +26,7 @@ const Text: React.FC<TextProps> = ({
   iconLeft,
   label,
   rightSlot,
+  description,
   ...props
 }) => {
   const renderedAvatar = useMemo(
@@ -47,16 +49,37 @@ const Text: React.FC<TextProps> = ({
   );
 
   const renderedLabel = useMemo(
-    () => (label ? <span className="pr-xs">{label}</span> : null),
+    () =>
+      label ? (
+        <Body htmlVariant="span" className="pr-xs">
+          {label}
+        </Body>
+      ) : null,
     [label],
+  );
+
+  const renderedDescription = useMemo(
+    () =>
+      description ? (
+        <Body
+          htmlVariant="span"
+          className="pr-xs text-[14px] text-onsurface-weak"
+        >
+          {description}
+        </Body>
+      ) : null,
+    [description],
   );
 
   return (
     <div className={menuItemText({ className })} {...props}>
       <div className="flex items-center justify-between w-full">
-        <div className="flex gap-xs">
+        <div className="flex gap-xs items-center">
           {renderedAvatar ?? renderedIcon}
-          {renderedLabel}
+          <div className="flex flex-col">
+            {renderedLabel}
+            {renderedDescription}
+          </div>
         </div>
         {rightSlot ?? null}
       </div>

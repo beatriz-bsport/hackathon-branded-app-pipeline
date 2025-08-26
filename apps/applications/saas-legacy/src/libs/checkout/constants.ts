@@ -9,3 +9,8 @@ export const EXCEPTION_BOOKING_GUEST_NOT_ENOUGH_SPOT = 19057;
 export const BASKET_INCONSISTENT = 'basketInconsistent';
 export const PAYMENT_PACK_CAN_NOT_BOOK_ALL_OFFERS = 2128;
 export const PAYMENT_COMBO_CAN_NOT_BOOK_ALL_OFFERS = 1123;
+
+export enum FlowTypes {
+  ONE_CLICK_CHECKOUT = 'one_click_checkout',
+  NORMAL = 'normal',
+}

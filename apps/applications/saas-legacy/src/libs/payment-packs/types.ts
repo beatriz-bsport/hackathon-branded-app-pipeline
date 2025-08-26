@@ -66,7 +66,16 @@ export type PaymentPackFiltersOpener = {
   credit_left?: boolean;
 };
 
-export type PaymentPack<LPP = number | null, PPCategories = Array<number>> = {
+export type PaymentPackValidityRange = {
+  upper: string;
+  lower: string;
+};
+
+export type PaymentPack<
+  LPP = number | null,
+  PPCategories = Array<number>,
+  PPValidityRange = PaymentPackValidityRange,
+> = {
   id: number;
   name: string;
   description?: string;
@@ -82,10 +91,7 @@ export type PaymentPack<LPP = number | null, PPCategories = Array<number>> = {
   max_purchase_per_member: number | null;
   expiration_days_before_first_use: number;
   theorical_margin_value: number;
-  validity_daterange?: {
-    upper: string;
-    lower: string;
-  };
+  validity_daterange?: PPValidityRange;
   duration_days?: number;
   duration_months?: number;
   duration_years?: number;

@@ -2,6 +2,7 @@ import { cva } from "class-variance-authority";
 import React, { useMemo, useRef } from "react";
 
 import Avatar from "#src/components/Avatar";
+import Body from "#src/components/Body";
 import Icon from "#src/components/Icon";
 import Indicator from "#src/components/Menu/MenuItem/Indicator";
 import {
@@ -59,6 +60,7 @@ const Radio: React.FC<RadioProps> = ({
   rightSlot,
   avatar,
   iconLeft,
+  description,
   ...props
 }) => {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -85,11 +87,31 @@ const Radio: React.FC<RadioProps> = ({
   const renderedLabel = useMemo(
     () =>
       label || value ? (
-        <label htmlFor={id} className="cursor-pointer">
-          <span className="pr-xs">{label ?? value}</span>
+        <label
+          id={`${id}-menu-radio-item-label`}
+          htmlFor={id}
+          className="flex cursor-pointer"
+        >
+          <Body htmlVariant="span" className="pr-xs">
+            {label ?? value}
+          </Body>
         </label>
       ) : null,
     [label, value, id],
+  );
+
+  const renderedDescription = useMemo(
+    () =>
+      description ? (
+        <Body
+          id={`${id}-menu-radio-item-description`}
+          htmlVariant="span"
+          className="pr-xs text-[14px] text-onsurface-weak"
+        >
+          {description}
+        </Body>
+      ) : null,
+    [description, id],
   );
 
   const handleMenuItemClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -127,7 +149,10 @@ const Radio: React.FC<RadioProps> = ({
       <div className="flex items-center justify-between w-full">
         <div className="flex items-center gap-xs">
           {renderedAvatar ?? renderedIcon}
-          {renderedLabel}
+          <div className="flex flex-col">
+            {renderedLabel}
+            {renderedDescription}
+          </div>
         </div>
         {rightSlot ?? null}
       </div>

@@ -6,8 +6,11 @@ import IconButton from '@material-ui/core/IconButton';
 import UndoIcon from '@material-ui/icons/Undo';
 import CancelIcon from '@material-ui/icons/Cancel';
 import UpdateIcon from '@material-ui/icons/Update';
+import MoneyOffOutlinedIcon from '@material-ui/icons/MoneyOffOutlined';
 import Typography from '@material-ui/core/Typography';
+import Tooltip from '@material-ui/core/Tooltip';
 import { useTranslation } from 'react-i18next';
+import { DateTime } from 'luxon';
 
 import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code.js';
 
@@ -27,6 +30,8 @@ type Props = {
   private_booking: PrivateBooking;
   onDelete?: () => void;
   onRestore?: () => void;
+  onSetUnpaid?: () => void;
+  setPrivateBookingUnpaidLoading?: boolean;
 };
 export const PrivateBookingListItem: React.FC<Props> = (props: Props) => {
   const getIsRecurrentBooking = () => {
@@ -35,6 +40,13 @@ export const PrivateBookingListItem: React.FC<Props> = (props: Props) => {
     }
     return '';
   };
+
+  const canBeConvertedToUnpaid =
+    props.onSetUnpaid &&
+    props.private_booking.booking_status_code === BOOKING_STATUS_OK.id &&
+    !props.private_booking.is_unpaid &&
+    DateTime.fromISO(props.private_booking.date_start) > DateTime.now();
+
   const { t } = useTranslation(['privateService']);
   const classes = useStyles();
   return (
@@ -128,6 +140,21 @@ export const PrivateBookingListItem: React.FC<Props> = (props: Props) => {
             {t('privateBooking.isUnpaid')}
           </Typography>
         </IconButton>
+      )}
+      {canBeConvertedToUnpaid && (
+        <ObjectLevelPermissionWrapper
+          forcedBehavior="hidden"
+          requiredPermission="reservation.privateBooking.allowed_actions.edit"
+        >
+          <Tooltip title={t('privateBooking.setUnpaid.button') ?? ''}>
+            <IconButton
+              disabled={props.setPrivateBookingUnpaidLoading}
+              onClick={props.onSetUnpaid}
+            >
+              <MoneyOffOutlinedIcon />
+            </IconButton>
+          </Tooltip>
+        </ObjectLevelPermissionWrapper>
       )}
       {props.onDelete && (
         <ObjectLevelPermissionWrapper

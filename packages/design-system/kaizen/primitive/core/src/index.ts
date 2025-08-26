@@ -7,6 +7,7 @@ export { default as Alert, type AlertProps } from "./components/Alert";
 export {
   default as Autocomplete,
   type AutocompleteProps,
+  type AutocompleteItems,
 } from "./components/Autocomplete";
 export { default as Avatar, type AvatarProps } from "./components/Avatar";
 export {

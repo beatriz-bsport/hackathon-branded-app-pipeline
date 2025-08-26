@@ -10042,7 +10042,7 @@
             },
             "ht": "Sin IVA",
             "actions": {
-                "forceRegularizeUnpaid": "Regularizar todos los pagos pendientes"
+                "forceRegularizeUnpaid": "Cobrar los pagos pendientes"
             },
             "listItem": {
                 "unusableByStaff": "Invisible para el personal"
@@ -10162,6 +10162,12 @@
                 "title": "Info",
                 "cancel": "Cancelar",
                 "confirm": "Confirmar"
+            },
+            "setUnpaid": {
+                "confirm": "Reembolsar la cita",
+                "confirmMessage": "Una vez que reembolses esta cita al miembro, se marcará como una cita «pendiente de pago».",
+                "cancel": "Atrás",
+                "confirmTitle": "¿Reembolsar la cita?"
             }
         },
         "consumerPass": {

@@ -1,6 +1,9 @@
 {
   "@bsport/kaizen-primitive-core": {
     "default": {
+      "autocomplete": {
+        "categories": { "selectedItems": "Selected Items", "allItems": "All Items" }
+      },
       "fileUpload": {
         "uploadFileCTA": "Upload a file",
         "dragAndDropCTA": "or drag and drop it here",
@@ -1637,12 +1640,12 @@
         "addTeacherModal": {
           "title": "Add teacher",
           "input": {
-            "label": "Teacher email",
-            "placeholder": "Add teacher's email...",
-            "helper": "If an email is already in our system, the teacher's account will be linked automatically.",
+            "label": "Email",
+            "placeholder": "teacher@email.com",
+            "helper": "If we already have this email, the teacher's account will be linked automatically.",
             "missingEmailError": "This is required"
           },
-          "actions": { "cancel": "Cancel", "create": "Create", "open": "Open" },
+          "actions": { "back": "Back", "add": "Add", "open": "Open" },
           "linkedTeacher": "Teacher successfully linked",
           "errors": {
             "staffExists": "The email indicated is already linked to a staff account.",
@@ -1650,11 +1653,11 @@
           }
         },
         "archiveModal": {
-          "buttons": { "archive": "Archive", "cancel": "Cancel" },
-          "title": "Archive teacher",
+          "buttons": { "archive": "Archive", "back": "Back" },
+          "title": "Archive teacher?",
           "description": {
-            "action": "Are you sure that you want to archive <b>{{ name }}<b> ?",
-            "effect": "They will no longer be active but can be restored any time from your archive."
+            "action": "Once you archive {{ name }}, they will no longer be active.",
+            "effect": "You can restore this teacher at any time from your archive."
           }
         }
       },
@@ -1716,7 +1719,8 @@
           "subscription": "Subscriptions",
           "invoice": "Billing",
           "referral": "Referral"
-        }
+        },
+        "noCategory": "No category"
       },
       "notificationRuleEventDetails": {
         "table": {
@@ -1737,6 +1741,19 @@
             "description": "You can start enabling a push notification after you’ve set it up."
           },
           "actions": { "preview": "Preview" }
+        },
+        "details": {
+          "segmentedControl": { "email": "Email", "push": "Push" },
+          "emailTemplateSelector": { "searchingMessage": "Searching email templates..." },
+          "emailNotification": {
+            "preview": "Preview",
+            "noPreview": "No preview available",
+            "select": {
+              "label": "Email notification",
+              "placeholder": "Select an email template"
+            },
+            "carbonCopy": { "label": "Receive a copy of the email" }
+          }
         }
       }
     },

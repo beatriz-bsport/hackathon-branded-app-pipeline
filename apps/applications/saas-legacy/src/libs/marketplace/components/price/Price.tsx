@@ -2,6 +2,7 @@ import React, { memo } from 'react';
 import Typography from '#src/components/css-only/Fabrique/Typography';
 import { getPriceDetails } from '#src/libs/theme/utils';
 import { useTheme } from '#src/pages/marketplace/passes/hooks/useTheme';
+import clsx from 'clsx';
 import './style.css';
 
 type PriceProps = {
@@ -28,19 +29,28 @@ const Price: React.FC<PriceProps> = ({ price, tax }) => {
   return (
     <div className="bs-marketplace-card-price">
       <Typography
-        className="bs-marketplace-card-price__main-amount"
+        className={clsx(
+          'bs-marketplace-card-price__main-amount',
+          'bs-marketplace-card-price__typography',
+        )}
         variant="title-lg"
       >
         {symbol}
       </Typography>
       <Typography
-        className="bs-marketplace-card-price__main-amount"
+        className={clsx(
+          'bs-marketplace-card-price__main-amount',
+          'bs-marketplace-card-price__typography',
+        )}
         variant="title-lg"
       >
         {integerAmount}
       </Typography>
       <Typography
-        className="bs-marketplace-card-price__fractional-amount"
+        className={clsx(
+          'bs-marketplace-card-price__fractional-amount',
+          'bs-marketplace-card-price__typography',
+        )}
         variant="body-md"
       >
         {fractionalAmount}

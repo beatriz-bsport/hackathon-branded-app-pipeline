@@ -1,4 +1,4 @@
-import { type ReactNode, lazy } from "react";
+import { type ReactNode, lazy, useEffect } from "react";
 import { Route, Routes } from "react-router";
 // Import urls from the navigation sidebar
 import {
@@ -8,6 +8,10 @@ import {
 
 import { getEnv } from "@bsport/envs";
 import { Title } from "@bsport/kaizen-primitive-core";
+import {
+  BSPORT_REQUEST_FROM_HEADER_VALUES,
+  setBsportRequestFrom,
+} from "@bsport/request-from-header";
 import { AppWrapper } from "@bsport/sm-backbone";
 
 import { analyticsClient, debugActive } from "#src/utils/analytics";
@@ -87,12 +91,18 @@ export function Root() {
     },
   ];
 
-  // Init analytics tool only once
-  analyticsClient.configure({
-    env: env === "production" ? "production" : "dev",
-    debug: debugActive, // Mixpanel debug mode
-    track_pageview: "url-with-path-and-query-string",
-  });
+  useEffect(() => {
+    // Init analytics tool only once
+    analyticsClient.configure({
+      env: env === "production" ? "production" : "dev",
+      debug: debugActive, // Mixpanel debug mode
+      track_pageview: "url-with-path-and-query-string",
+    });
+  }, [env]);
+
+  useEffect(() => {
+    setBsportRequestFrom(BSPORT_REQUEST_FROM_HEADER_VALUES.backoffice);
+  }, []);
 
   return (
     <AppWrapper

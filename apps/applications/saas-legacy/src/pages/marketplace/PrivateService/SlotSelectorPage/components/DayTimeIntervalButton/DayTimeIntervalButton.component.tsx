@@ -4,7 +4,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
 import Typography from '@material-ui/core/Typography';
 import ButtonBase from '@material-ui/core/ButtonBase';
-import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import { SlotSelectorContext } from '#src/pages/marketplace/PrivateService/SlotSelectorPage/context/SlotSelector.context';
 import { useSlotCalendarNavigation } from '#src/pages/marketplace/PrivateService/SlotSelectorPage/hooks';
 import { Interval } from 'luxon';
@@ -40,7 +39,6 @@ const DayTimeIntervalButton: React.FC<Props> = React.memo(
         disabled={!selectedPrivateSlot}
         onClick={onSelectDayTimeInterval(dayTimeInterval)}
       >
-        <AccessTimeIcon className={classes.accessTimeIcon} fontSize="small" />
         <div className={classes.row}>
           <Typography align="left" variant="subtitle2">
             {t(

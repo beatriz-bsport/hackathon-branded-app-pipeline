@@ -1,0 +1,11 @@
+filters:
+  - filter_type: dynamic
+    file_format: KEYVALUEJSON
+    source_language: en
+    source_files_expression: "apps/applications/studio-manager/<dir>/src/i18n/source/<file>.json"
+    translation_files_expression: "apps/applications/studio-manager/<dir>/src/i18n/locales/<lang>/<file>.json"
+  - filter_type: dynamic
+    file_format: KEYVALUEJSON
+    source_language: en
+    source_files_expression: "packages/design-system/kaizen/<dir>/src/i18n/source/<file>.json"
+    translation_files_expression: "packages/design-system/kaizen/<dir>/src/i18n/locales/<lang>/<file>.json"

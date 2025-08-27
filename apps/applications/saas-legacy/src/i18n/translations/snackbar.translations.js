@@ -559,6 +559,10 @@ const getTranslations = async () => {
         fail: 'Error while updating pass compatibilities',
       },
       credit: { error: 'Error while saving', updated: 'Changes saved' },
+      manualActivation: {
+        updated: 'Pass successfully activated',
+        error: 'There was an issue activating the pass, please try again.',
+      },
       paymentPackDisabled: {
         error: 'Impossible to disable pass',
         success: 'Pass disabled',

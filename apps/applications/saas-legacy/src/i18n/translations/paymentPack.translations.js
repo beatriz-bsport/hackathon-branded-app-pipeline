@@ -442,6 +442,18 @@ const getTranslations = async () => {
     isNonCompatible: 'non-compatible',
     disableConsumer: 'Block',
     enableConsumer: 'Unblock',
+    activateManually: 'Activate',
+    manualActivation: {
+      close: 'Close',
+      submit: 'Activate Pass',
+      title: 'Manually activate this pass?',
+      replaceActiveStartDate:
+        'Activating this pass will set the activation date to today, replacing the previous first booking date. This action cannot be undone.',
+      setActiveStartDate:
+        'Activating this pass will set the activation date to today. This action cannot be undone.',
+      replaceActiveStartDateAlert:
+        'The pass will now be valid from today. If any of the member’s future bookings falls after the updated validity period, their bookings will still stay active, but staff will need to assist with entry.',
+    },
     credit: { updated: 'Changes saved' },
     consumer: {
       isFromShare: 'Shared from another account',
@@ -770,6 +782,11 @@ const getTranslations = async () => {
     validityTo: ' until ',
     unlimitedPlural: 'Unlimited',
     addPaymentPack: {
+      accessControl: {
+        firstBooking: '1st booking or check-in',
+        firstBookingDisclaimer:
+          'The pass will be valid from either the 1st booking or 1st check-in, whichever comes first. If staff manually check in a member before the date of their 1st booking, the pass will be valid from the date of the 1st check-in.',
+      },
       doorAccess: 'Door access',
       accessControlInfo:
         'Members with this pass can unlock studio doors. To control when doors can’t be accessed, set time rules on the Kisi platform.',
@@ -814,10 +831,11 @@ const getTranslations = async () => {
       expirationDateHelper:
         "If the pass hasn't been used during this period, it'll automatically expire.",
       expirationDate: 'Number of days before the pass expires if unused *',
-      beginningDate: 'Start date',
-      attendance: 'Valid from the 1st attendance',
-      firstBooking: 'Valid from the 1st booking',
-      billing: 'Valid from the billing date',
+      beginningDate: 'Start from',
+      activationWindow: 'Set activation window',
+      attendance: '1st attendance',
+      firstBooking: '1st booking',
+      billing: 'Billing date',
       validForDuration: {
         day: 'This pass will be available for {{ duration_day }} day(s).',
         month:
@@ -841,8 +859,7 @@ const getTranslations = async () => {
       toDate: 'Until',
       fromDate: 'From',
       availabilitySlot: 'Make this pass valid between certain dates',
-      availabilityGivenNumber:
-        'Make this pass valid for a certain number of days after purchase',
+      availabilityGivenNumber: 'Set how long this pass will be valid for',
       penalityRule: 'This penalty can only be applied to unlimited passes',
       penality: 'Apply a penalty for too many late cancellations',
       packValidity: 'Validity',

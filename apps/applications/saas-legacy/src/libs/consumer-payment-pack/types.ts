@@ -55,6 +55,7 @@ export type ConsumerPaymentPack<PP = number> = {
   track_modified_credit: number[][];
   used_credits: number;
   created_from_payment_pack_template_instance: number | null;
+  manual_start_date: string | null;
 };
 
 export type ConsumerPaymentPackREST = ConsumerPaymentPack<number>;

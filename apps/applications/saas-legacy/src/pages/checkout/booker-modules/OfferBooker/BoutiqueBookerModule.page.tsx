@@ -780,11 +780,9 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
       );
 
       // If there are any recommended items, then preselect the 'Recommended' category
-      this.setState((prevState: State) => {
+      this.setState(() => {
         const selectedCategoryBackupValue =
-          updatedCurrentCategory ||
-          firstBuyableCategoryWithValues ||
-          prevState.selectedBuyableItemCategory;
+          updatedCurrentCategory || firstBuyableCategoryWithValues;
         return {
           buyableItemCategories,
           selectedBuyableItemCategory:
@@ -793,7 +791,7 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
               : selectedCategoryBackupValue &&
                 selectedCategoryBackupValue.id === 'RECOMMENDED'
               ? firstBuyableCategoryWithValues
-              : selectedCategoryBackupValue,
+              : null,
         };
       });
     }

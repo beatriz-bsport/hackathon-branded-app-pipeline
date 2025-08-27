@@ -24,6 +24,7 @@ export const LEGACY_URLS: Omit<Urls, "payout"> = {
   feedback: "/feature-base",
   giftcard: "/giftcard",
   inbox: "/inbox/thread",
+  insights: "/insights",
   invoice: "/invoice",
   member: "/member",
   memberNotification: "/marketing/notifications",
@@ -78,6 +79,7 @@ export const LEGACY_URLS: Omit<Urls, "payout"> = {
 
 export const REVAMP_URLS_DEVELOPMENT = {
   activity: "/activity",
+  insights: "/insights",
   customForm: "/custom-form",
   emailTemplate: "/email-template",
   giftcard: "/giftcard",
@@ -93,6 +95,7 @@ export const REVAMP_URLS_DEVELOPMENT = {
 } as const satisfies Partial<Urls>;
 
 export const REVAMP_URLS_PRODUCTION = {
+  insights: "/insights",
   customForm: "/custom-form",
   emailTemplate: "/email-template",
   giftcard: "/giftcard",

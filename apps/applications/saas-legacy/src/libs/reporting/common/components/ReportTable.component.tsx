@@ -191,7 +191,8 @@ const ReportTable: React.FC<TableProps> = ({
   /*
     Replace values with empty string if the staff user doesn't have permission to
     see the column's data
-    If the report category is not in ReportColumnPermissions, resultsWithPermissions returns result and we avoid useless calculations
+    If the report category is not in ReportColumnPermissions, 
+    resultsWithPermissions returns result and we avoid useless calculations
     If not, we retrieve columnPermissionsIndex which is an array of boolean in which the staff user have permission to see column's data
     and we map on results to filter out the hidden data.
    */

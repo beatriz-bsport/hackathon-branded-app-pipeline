@@ -12,6 +12,7 @@ declare module "sm-navigation-sidebar/NavigationSidebar" {
 declare module "sm-navigation-sidebar/urls" {
   export const REVAMP_URLS_DEVELOPMENT: {
     activity: string;
+    insights: string;
     customForm: string;
     emailTemplate: string;
     giftcard: string;
@@ -94,6 +95,12 @@ declare module "sm-tag/App" {
 }
 
 declare module "sm-transactional-notification/App" {
+  const App: BaseApp["App"];
+  export default App;
+}
+
+// ----- Analytics -----
+declare module "sm-insights/App" {
   const App: BaseApp["App"];
   export default App;
 }

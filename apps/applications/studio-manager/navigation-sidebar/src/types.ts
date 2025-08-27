@@ -36,6 +36,7 @@ export type Urls = {
   // Group 6
   dashboard: string;
   reporting: string;
+  insights: string;
   // Group 7
   // --- Finance ---
   invoice: string;

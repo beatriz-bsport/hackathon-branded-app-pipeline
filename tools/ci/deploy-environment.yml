@@ -32,6 +32,10 @@
     - pnpm run -w api-environment:set $ENV
     - echo "✅ the API environment has been set"
     - echo "*"
+    - echo "⏳ Set Feature Flag environment"
+    - pnpm run -w feature-flags-environment:set $ENV
+    - echo "✅ the Feature Flag environment has been set"
+    - echo "*"
     - echo "🔱 These are the affected projects :"
     - AFFECTED_PROJECTS=$(pnpm exec nx show projects --affected --base=$CI_COMMIT_BEFORE_SHA --head=HEAD)
     - echo "$AFFECTED_PROJECTS"

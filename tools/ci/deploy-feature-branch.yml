@@ -39,6 +39,10 @@
       fi
     - pnpm run -w api-environment:set $ENVIRONMENT_FLAG
     - echo "*"
+    - echo "⏳ Set Feature Flag environment"
+    - pnpm run -w feature-flags-environment:set feature-branch
+    - echo "✅ the Feature Flag environment has been set"
+    - echo "*"
     - echo "⏳ Build affected projects and their dependencies"
     - pnpm exec nx affected --target=ci:build --base=origin/dev --head=HEAD "feature-branch" $FRONTEND_ONLY
     - echo "✅ All affected projets have been rebuilt"

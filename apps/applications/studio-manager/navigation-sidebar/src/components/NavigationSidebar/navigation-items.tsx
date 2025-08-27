@@ -5,12 +5,13 @@ import type {
   NavigationMenuGroup,
   NavigationMenuItem,
 } from "@bsport/kaizen-primitive-core";
-import { Indicator } from "@bsport/kaizen-primitive-core";
+import { Badge, Indicator } from "@bsport/kaizen-primitive-core";
 import {
   selectAllAlertsCount,
   useAlertingStore,
 } from "@bsport/store-staff-management-alerting";
 
+import { NavFlags, useNavFlag } from "#src/featureFlags";
 import { useTranslation } from "#src/utils/i18n";
 
 import type { NavigationUrlItem, NavigationUrls } from "./navigation-urls";
@@ -47,6 +48,9 @@ export const useNavigationElements = ({
   const { t } = useTranslation("default");
 
   const totalAlertsCount = useAlertingStore(selectAllAlertsCount);
+
+  // Feature flags
+  const embeddedBIEnabled = useNavFlag(NavFlags.INSIGHTS_PAGE);
 
   const navigationItems: Record<MenuSet, NavigationElement[]> = useMemo(() => {
     return {
@@ -224,9 +228,32 @@ export const useNavigationElements = ({
         },
         {
           icon: "bar-chart-10",
-          id: "reporting",
-          label: t("menus.reporting"),
-          ...navigationUrls.reporting,
+          id: "analytics",
+          label: t("menus.analytics.title"),
+          endSlot: <Indicator size="sm" color="main" position="top" />,
+          subItems: (() => {
+            const items: NavigationSidebarSubItem[] = [];
+            if (embeddedBIEnabled) {
+              items.push({
+                id: "insights",
+                label: t("menus.analytics.insights"),
+                ...navigationUrls.insights,
+                endSlot: (
+                  <Badge
+                    size="sm"
+                    color="main"
+                    text={t("common.new", { defaultValue: "New" })}
+                  />
+                ),
+              });
+            }
+            items.push({
+              id: "reports",
+              label: t("menus.analytics.reports"),
+              ...navigationUrls.reporting,
+            });
+            return items;
+          })(),
         },
         {
           type: "divider",
@@ -420,6 +447,7 @@ export const useNavigationElements = ({
     navigationUrls,
     t,
     totalAlertsCount,
+    embeddedBIEnabled,
   ]);
 
   return navigationItems[menuSet];

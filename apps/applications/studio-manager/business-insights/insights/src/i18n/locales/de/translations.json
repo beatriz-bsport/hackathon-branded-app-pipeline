@@ -1,0 +1,27 @@
+{
+  "insights": {
+    "pageTitle": "Erkenntnisse",
+    "sections": {
+      "member": "Mitglieder-Erkenntnisse",
+      "financial": "Finanzielle Gesundheit",
+      "booking": "Buchungsleistung",
+      "teacher": "Lehrerleistung",
+      "marketing": "Marketing-Performance"
+    },
+    "items": {
+      "trial": {
+        "title": "Verfolgen Sie die Leistung des Testangebots",
+        "description": "Erfahren Sie mehr über Akquisition, Conversion-Raten und wie Sie die Effektivität Ihres Testangebots steigern können."
+      },
+      "recurring": {
+        "title": "Wiederkehrende Einnahmen überwachen",
+        "description": "Verfolgen Sie Trends und verstehen Sie, wie Sie wiederkehrende Einnahmequellen stabilisieren können."
+      }
+    },
+    "filter": {
+      "selectFieldLabel": "Nach Sektion filtern",
+      "filterLabel": "Filter",
+      "isLabel": "ist"
+    }
+  }
+}

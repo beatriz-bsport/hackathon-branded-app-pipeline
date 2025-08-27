@@ -7,16 +7,11 @@ import themeSelectors from '#src/libs/theme/selectors';
 import Config from '#src/config';
 
 function buildUnleashConfig() {
-  const environment =
-    process.env.NODE_ENV === 'production' || Config.NODE_ENV === 'production'
-      ? 'production'
-      : 'development';
-
   return {
     url: Config.REACT_APP_UNLEASH_PROXY_URL,
     clientKey: Config.REACT_APP_UNLEASH_CLIENT_KEY,
     appName: 'saas-legacy',
-    environment,
+    environment: Config.REACT_APP_SENTRY_ENVIRONMENT,
     refreshInterval: 0,
     metricsInterval: 240,
   } as const;

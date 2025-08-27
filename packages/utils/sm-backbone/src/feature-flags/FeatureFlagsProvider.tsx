@@ -5,27 +5,20 @@ import {
 } from "@unleash/proxy-client-react";
 import React, { useEffect, useMemo, useState } from "react";
 
-import { type Environment, getEnv } from "@bsport/envs";
+import { getEnv } from "@bsport/envs";
 
 import { dataAccessLayer } from "#src/data-access-layer";
 
 import { UNLEASH_CLIENT_KEY, UNLEASH_PROXY_URL } from "./constants";
 
-function mapEnvToUnleashEnvironment(env: Environment) {
-  if (env === "production") return "production" as const;
-  return "development" as const;
-}
-
 function buildUnleashConfig() {
-  const unleashEnv = mapEnvToUnleashEnvironment(getEnv());
-
   return {
     url: UNLEASH_PROXY_URL || "http://localhost:4242/api/frontend", // Default for local dev,
     clientKey:
       UNLEASH_CLIENT_KEY ||
       "default:development.unleash-insecure-frontend-api-token", // Default for local dev
     appName: "studio-manager",
-    environment: unleashEnv,
+    environment: getEnv(),
     refreshInterval: 0,
     metricsInterval: 240,
   } as const;

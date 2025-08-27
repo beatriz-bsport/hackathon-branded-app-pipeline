@@ -227,22 +227,29 @@ export const OnlinePaymentBasket: React.FC<Props> = forwardRef(
       [],
     );
 
-    const onSuccessfulPayment = useCallback(() => {
+    const onSuccessfulPayment = useCallback(async (): Promise<void> => {
       // wrap retry fetchPaymentGroupStatus
-      !!paymentGroupId &&
-        handleFetchPaymentGroupStatus({
-          paymentGroupId,
-          options: {
-            onSuccess: (paymentIntentStatus) => {
-              if (hasBackendProcessedPayment(paymentIntentStatus as number)) {
-                setTimeout(onConfirmPaymentSuccess, 2000);
-              } else {
-                // retry
-                setTimeout(onSuccessfulPayment, 1000);
-              }
+      return new Promise((resolve) => {
+        !!paymentGroupId &&
+          handleFetchPaymentGroupStatus({
+            paymentGroupId,
+            options: {
+              onSuccess: (paymentIntentStatus) => {
+                if (hasBackendProcessedPayment(paymentIntentStatus as number)) {
+                  setTimeout(() => {
+                    onConfirmPaymentSuccess();
+                    resolve();
+                  }, 2000);
+                } else {
+                  // retry
+                  setTimeout(() => {
+                    onSuccessfulPayment().then(resolve);
+                  }, 1000);
+                }
+              },
             },
-          },
-        });
+          });
+      });
     }, [
       onConfirmPaymentSuccess,
       hasBackendProcessedPayment,

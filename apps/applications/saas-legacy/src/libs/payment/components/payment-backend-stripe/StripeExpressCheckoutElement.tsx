@@ -15,7 +15,7 @@ import {
   useElements,
   useStripe,
 } from '@stripe/react-stripe-js';
-import { loadStripe, StripeElementLocale } from '@stripe/stripe-js';
+import { loadStripe, type StripeElementLocale } from '@stripe/stripe-js';
 import { getStripePkKey } from '#src/libs/theme/selectors';
 import { getLocaleFromLanguage } from '#src/utils/language';
 
@@ -26,7 +26,7 @@ type StripeExpressCheckoutElementProps = {
   onReady?: (event: {
     availablePaymentMethods?: { applePay: boolean; googlePay: boolean };
   }) => void;
-  onSuccessfulPayment: () => void;
+  onSuccessfulPayment: () => Promise<void>;
 };
 
 const StripeExpressCheckoutElementInner: React.FC<
@@ -61,8 +61,7 @@ const StripeExpressCheckoutElementInner: React.FC<
       console.error('Stripe confirmation error:', error);
       onError?.();
     } else {
-      setIsSuccessfulPayment(true);
-      onSuccessfulPayment();
+      onSuccessfulPayment().then(() => setIsSuccessfulPayment(true));
     }
   }, [stripe, elements, clientSecret, onError, onSuccessfulPayment]);
 

@@ -23,6 +23,7 @@ import {
   fetchConsumerPaymentPackCompatibleList as fetchConsumerPaymentPackCompatibleListAPI,
   fetchConsumerPaymentPackPenalty as fetchConsumerPaymentPackPenaltyAPI,
   unblock as unblockAPI,
+  activateManually as activateManuallyAPI,
   fetchConsumerPaymentPackMaxoutBooking as fetchConsumerPaymentPackMaxoutBookingAPI,
   fetchByOfferByMemberV2 as fetchByOfferByMemberV2API,
   fetchConsumerPack as fetchConsumerPackAPI,
@@ -39,6 +40,7 @@ import type { RootState } from '../../reducers';
 
 import { CONSUMER_PAYMENT_PACK_EXTENSION_PAGE_SIZE } from './constants';
 import { isErrorWithCustomCode } from '#src/libs/utils';
+import { DateTime } from 'luxon';
 
 export const byOfferByMember = {
   isLoading: createAction('CONSUMER_PACK/BY_OFFER_BY_MEMBER/IS_LOADING'),
@@ -252,6 +254,34 @@ export function unblock(consumerPackId: number) {
       console.error(err);
       dispatch(updateConsumerPack.error(err));
       dispatch(snackbarError('paymentPack.credit.error'));
+    }
+    dispatch(
+      updateConsumerPack.isLoading({ id: consumerPackId, loading: false }),
+    );
+  };
+}
+
+export function activateManually(consumerPackId: number) {
+  return async (dispatch: Dispatch, getState: () => RootState) => {
+    dispatch(
+      updateConsumerPack.isLoading({ id: consumerPackId, loading: true }),
+    );
+    try {
+      const tz = getState()?.theme?.theme?.timezone_name;
+      const startDate = tz
+        ? DateTime.now().setZone(tz).toISODate()
+        : DateTime.now().toISODate();
+
+      const response = await activateManuallyAPI(
+        consumerPackId,
+        startDate || DateTime.now().toISODate(),
+      ).then((_) => fetchConsumerPackAPI(consumerPackId));
+      dispatch(updateConsumerPack.success(response.data));
+      dispatch(snackbarSuccess('paymentPack.manualActivation.updated'));
+    } catch (err) {
+      console.error(err);
+      dispatch(updateConsumerPack.error(err));
+      dispatch(snackbarError('paymentPack.manualActivation.error'));
     }
     dispatch(
       updateConsumerPack.isLoading({ id: consumerPackId, loading: false }),

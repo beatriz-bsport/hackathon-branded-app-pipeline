@@ -24,7 +24,7 @@ import withWidth, { isWidthDown } from '@material-ui/core/withWidth';
 import type { Breakpoint } from '@material-ui/core/styles/createBreakpoints';
 import type { Theme } from '@material-ui/core/styles';
 
-import { formatAsDate } from '#src/utils/datetime';
+import { formatAsDate, isDateInTheFuture } from '#src/utils/datetime';
 import { getSpecificIncompatibilitiesReasons } from '#src/libs/consumer-payment-pack/utils';
 import {
   DialogActionEnum,
@@ -46,6 +46,8 @@ import type {
 } from '#src/libs/consumer-payment-pack/types';
 import type { OptionCallback } from '../../../state/types';
 import ConsumerPaymentPackIncompatibilitiesReasons from './ConsumerPaymentPackIncompatibilitiesReasons.component';
+import { START_ON_FIRST_BOOKING } from '@bsport/common/lib/master-data/payment-pack';
+import { ManualActivationDialog } from './ManualActivationDialog.component';
 
 type Props = {
   loading: boolean;
@@ -60,6 +62,7 @@ type Props = {
   button?: Node;
 
   unblock?: (id: number) => void;
+  activateManually?: (id: number) => void;
 
   onClick?: () => void;
   incrementCredit?: (id: number) => void;
@@ -90,6 +93,7 @@ type State = {
   consumerPackHasBeenHovered: boolean;
   showIncompatibilities: boolean;
   incompatibilitiesAreLoading: boolean;
+  manualActivationDialogOpen: boolean;
 };
 
 export class ConsumerPackRowItem extends Component<Props, State> {
@@ -97,6 +101,7 @@ export class ConsumerPackRowItem extends Component<Props, State> {
     consumerPackHasBeenHovered: false,
     showIncompatibilities: false,
     incompatibilitiesAreLoading: true,
+    manualActivationDialogOpen: false,
   };
 
   checkMaxoutBeforeBook = async (callback: () => void) => {
@@ -165,6 +170,27 @@ export class ConsumerPackRowItem extends Component<Props, State> {
     this.setState({ showIncompatibilities: false });
   };
 
+  openManualActivationDialog = () => {
+    this.setState((prevState: State) => ({
+      ...prevState,
+      manualActivationDialogOpen: true,
+    }));
+  };
+
+  closeManualActivationDialog = () => {
+    this.setState((prevState: State) => ({
+      ...prevState,
+      manualActivationDialogOpen: false,
+    }));
+  };
+
+  activateManuallyFromDialog = (id: number) => {
+    if (this.props.activateManually) {
+      this.props.activateManually(id);
+    }
+    this.closeManualActivationDialog();
+  };
+
   renderCompanySourceChip = () => {
     const { consumerPack, t } = this.props;
     return (
@@ -202,6 +228,36 @@ export class ConsumerPackRowItem extends Component<Props, State> {
       this.props.incompatibilitiesReasons,
       this.props.offer?.id,
       consumerPack?.id,
+    );
+
+    const isManuallyActivable =
+      !consumerPack.manual_start_date &&
+      !isDateInTheFuture(consumerPack.date_bought) &&
+      paymentPack?.grants_door_access &&
+      paymentPack?.start_date_method === START_ON_FIRST_BOOKING &&
+      this.props.activateManually;
+
+    const manualActivationButton = (
+      <>
+        <ManualActivationDialog
+          action={() => this.activateManuallyFromDialog(consumerPack.id)}
+          close={this.closeManualActivationDialog}
+          consumerPaymentPack={consumerPack}
+          isActivating={updating}
+          open={this.state.manualActivationDialogOpen}
+        />
+        <Button
+          color="primary"
+          onClick={(ev) => {
+            ev.preventDefault();
+            ev.stopPropagation();
+            this.openManualActivationDialog();
+          }}
+          variant="contained"
+        >
+          {t('activateManually')}
+        </Button>
+      </>
     );
 
     if (isNonCompatible) {
@@ -341,6 +397,7 @@ export class ConsumerPackRowItem extends Component<Props, State> {
           <div className={this.props.classes.rightButtonsContainer}>
             {consumerPack.consumer_payment_pack_source &&
               this.renderCompanySourceChip()}
+            {isManuallyActivable && manualActivationButton}
             <Button onClick={incrementConsumerPackCredit} variant="outlined">
               {t('enableConsumer')}
             </Button>
@@ -351,6 +408,7 @@ export class ConsumerPackRowItem extends Component<Props, State> {
         <div className={this.props.classes.rightButtonsContainer}>
           {consumerPack.consumer_payment_pack_source &&
             this.renderCompanySourceChip()}
+          {isManuallyActivable && manualActivationButton}
           <RedButton onClick={decrementConsumerPackCredit} variant="outlined">
             {t('disableConsumer')}
           </RedButton>
@@ -359,7 +417,7 @@ export class ConsumerPackRowItem extends Component<Props, State> {
     }
 
     if (!incrementCredit || !decrementCredit) {
-      return null;
+      return isManuallyActivable ? manualActivationButton : null;
     }
 
     if (loading) {
@@ -380,6 +438,8 @@ export class ConsumerPackRowItem extends Component<Props, State> {
       >
         {!!consumerPack.consumer_payment_pack_source &&
           this.renderCompanySourceChip()}
+
+        {isManuallyActivable && manualActivationButton}
 
         {updating ? (
           <CircularProgress size={24} />

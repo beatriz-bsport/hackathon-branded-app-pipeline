@@ -50,6 +50,7 @@ import {
   retrieveConsumerPackBulk,
   updateCredit as updateCreditAction,
   unblock,
+  activateManually,
   fetchConsumerPaymentPackExtensionList as fetchConsumerPaymentPackExtensionListAction,
   deleteConsumerPaymentPackExtension as deleteConsumerPaymentPackExtensionAction,
   createConsumerPaymentPackExtension as createConsumerPaymentPackExtensionAction,
@@ -131,6 +132,7 @@ type Props = {
   incrementCredit: (id: number) => void,
   decrementCredit: (id: number) => void,
   unblock: (id: number) => void,
+  activateManually: (id: number) => void,
 
   discardBookingAttendance: (id: number) => void,
   confirmBookingAttendance: (id: number) => void,
@@ -498,6 +500,9 @@ export class MemberDetailPass extends Component<Props, State> {
                       <ConsumerPackRowItem
                         key={consumerPaymentPack.id}
                         hideConsumer
+                        activateManually={() =>
+                          this.props.activateManually(consumerPaymentPack.id)
+                        }
                         consumerPack={consumerPaymentPack}
                         decrementCredit={
                           hasPaymentPackManagementPermission(
@@ -805,6 +810,7 @@ export default compose(
       incrementCredit: (id_: number) => updateCreditAction(id_, 1),
       decrementCredit: (id_: number) => updateCreditAction(id_, -1),
       unblock,
+      activateManually,
       refundConsumerPaymentPack: refundConsumerPaymentPackActions,
 
       fetchInvoice: (uuid: string, options) =>

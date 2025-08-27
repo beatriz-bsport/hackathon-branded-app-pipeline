@@ -57,7 +57,7 @@ export const PaymentMethodCardSelector = ({
       </Typography>
       <div className={clsx(classes.row, customClasses?.row)}>
         {paymentMethodChoices
-          .filter(
+          ?.filter(
             (pm) =>
               /* Apple Pay and Google Pay are rendered in the Express Checkout element */
               ![
@@ -65,7 +65,7 @@ export const PaymentMethodCardSelector = ({
                 PAYMENT_GROUP_METHOD_IDENTIFIER_GOOGLE_PAY,
               ].includes(pm),
           )
-          .map((pm) => (
+          ?.map((pm) => (
             <ButtonBase
               key={`${pm}`}
               disabled={paymentProcessing}

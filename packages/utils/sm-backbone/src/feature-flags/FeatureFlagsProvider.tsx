@@ -1,8 +1,13 @@
-import { FlagProvider, useUnleashClient } from "@unleash/proxy-client-react";
-import React, { useEffect, useRef } from "react";
+import {
+  FlagProvider,
+  IMutableContext,
+  useUnleashClient,
+} from "@unleash/proxy-client-react";
+import React, { useEffect, useMemo, useState } from "react";
 
 import { type Environment, getEnv } from "@bsport/envs";
-import { companyThemeStore } from "@bsport/store-core-data-company-theme";
+
+import { dataAccessLayer } from "#src/data-access-layer";
 
 import { UNLEASH_CLIENT_KEY, UNLEASH_PROXY_URL } from "./constants";
 
@@ -29,20 +34,11 @@ function buildUnleashConfig() {
 const FeatureFlagsProvider: React.FC<{ children?: React.ReactNode }> = ({
   children,
 }) => {
-  const getConfig = () => {
-    const baseConfig = buildUnleashConfig();
-
-    return {
-      ...baseConfig,
-      context: {
-        currentTime: new Date().toISOString(),
-      },
-    };
-  };
+  const config = useMemo(() => buildUnleashConfig(), []);
 
   return (
     <FlagProvider
-      config={getConfig()}
+      config={config}
       startClient={false} // Don't start immediately
     >
       <ClientStarter />
@@ -54,27 +50,47 @@ const FeatureFlagsProvider: React.FC<{ children?: React.ReactNode }> = ({
 // Component to start the client when companyId is available
 const ClientStarter: React.FC = () => {
   const client = useUnleashClient();
-  const clientStartedRef = useRef(false);
+  const [isClientStarted, setIsClientStarted] = useState(false);
+  const companyTheme = dataAccessLayer.useCompanyTheme();
+  const user = dataAccessLayer.useUserAccess();
+
+  const context = useMemo<IMutableContext>(() => {
+    const properties: Record<string, string> = {
+      currentTime: new Date().toISOString(),
+    };
+
+    if (companyTheme?.company) {
+      properties.companyId = String(companyTheme.company);
+    }
+    if (companyTheme?.franchisor) {
+      properties.franchiseId = String(companyTheme.franchisor);
+    }
+
+    return {
+      ...(user?.username ? { userId: user.username } : {}),
+      properties,
+    };
+  }, [companyTheme?.company, companyTheme?.franchisor, user?.username]);
 
   useEffect(() => {
-    // Subscribe to company theme store changes to detect when companyId becomes available
-    const unsubscribe = companyThemeStore.subscribe((state) => {
-      const currentCompanyId = state.companyTheme?.company;
+    if (isClientStarted || !client) {
+      return;
+    }
 
-      if (currentCompanyId && client && !clientStartedRef.current) {
-        // Update context with companyId (keep it simple for now)
-        const contextUpdate = {
-          currentTime: new Date().toISOString(),
-          companyId: String(currentCompanyId),
-        };
-        client.updateContext(contextUpdate as Record<string, unknown>);
+    const hasRequiredContext =
+      (context.properties?.companyId || context.properties?.franchiseId) &&
+      "userId" in context;
+
+    if (hasRequiredContext) {
+      try {
+        client.updateContext(context);
         client.start();
-        clientStartedRef.current = true;
+        setIsClientStarted(true);
+      } catch (error) {
+        console.error("[FeatureFlags] Failed to start Unleash client:", error);
       }
-    });
-
-    return unsubscribe;
-  }, [client]);
+    }
+  }, [context, client, isClientStarted]);
 
   return null;
 };

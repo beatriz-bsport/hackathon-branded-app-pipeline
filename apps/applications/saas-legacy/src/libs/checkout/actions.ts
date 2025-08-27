@@ -473,7 +473,7 @@ export const assignInstalmentPaymentActions = {
 
 export function assignInstalmentPayment(
   basketId: string,
-  instalment_payment: number,
+  instalment_payment: number | null,
   options?: OptionCallback<Basket>,
 ) {
   return async (dispatch: Dispatch) => {

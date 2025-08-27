@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 
 import {
   ErrorBoundaryWrapper,
+  FeatureFlagsProvider,
   fetchSharedDataAction,
 } from "@bsport/sm-backbone";
 
@@ -33,7 +34,9 @@ export const NavigationSidebarWithData: React.FC<NavigationSidebarProps> = (
 
   return (
     <ErrorBoundaryWrapper appName={__NAVIGATION_SIDEBAR__.__SENTRY_SCOPE_TAG__}>
-      <NavigationSidebar {...props} isLoadingData={isLoading} />
+      <FeatureFlagsProvider>
+        <NavigationSidebar {...props} isLoadingData={isLoading} />
+      </FeatureFlagsProvider>
     </ErrorBoundaryWrapper>
   );
 };

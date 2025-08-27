@@ -1,23 +1,7 @@
 {
+  "extends": "../../../tools/config/typescript/src/ts-package/tsconfig.json",
   "compilerOptions": {
-    "target": "ESNext",
-    "lib": ["DOM", "DOM.Iterable", "ESNext"],
     "jsx": "react-jsx",
-    "module": "ESNext",
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "allowJs": true,
-    "isolatedModules": true,
-    "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-    "strict": true,
-    "noFallthroughCasesInSwitch": true,
-    "skipLibCheck": true,
-    "outDir": "build",
-    "paths": {
-      "#src/*": ["./src/*"]
-    }
-  },
-  "include": ["src"]
+    "resolveJsonModule": true
+  }
 }

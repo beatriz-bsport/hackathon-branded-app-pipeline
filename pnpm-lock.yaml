@@ -3248,6 +3248,9 @@ importers:
       '@bsport/store-staff-management-role':
         specifier: workspace:*
         version: link:../../stores/staff-management/role
+      '@unleash/proxy-client-react':
+        specifier: ^5.0.1
+        version: 5.0.1(unleash-proxy-client@3.7.8)
       react-router:
         specifier: ^7.2.0
         version: 7.2.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)

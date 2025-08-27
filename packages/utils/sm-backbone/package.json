@@ -43,7 +43,8 @@
     "@bsport/store-base": "workspace:*",
     "@bsport/store-core-data-company": "workspace:*",
     "@bsport/store-core-data-company-theme": "workspace:*",
-    "@bsport/store-staff-management-role": "workspace:*"
+    "@bsport/store-staff-management-role": "workspace:*",
+    "@unleash/proxy-client-react": "^5.0.1"
   },
   "devDependencies": {
     "@bsport/config-eslint-react": "workspace:*",

@@ -90,6 +90,19 @@ You can always get some help on the command by running
 pnpm run -w api-environment:set -h
 ```
 
+#### Set Feature Flags for revamped application
+
+Feature flags are configured via CLI, selecting the target Unleash environment (local or remote). From anywhere in the workspace, run:
+
+```sh
+# Local defaults
+pnpm run -w feature-flags-environment:set local
+# Staging (provide proxy and key)
+pnpm run -w feature-flags-environment:set staging
+# Production (provide proxy and key)
+pnpm run -w feature-flags-environment:set production
+```
+
 #### Run a revamped application
 
 All our revamped applications work in a consistent way. Apps dedicated to the future Studio Manager backoffice are located under [apps/applications/studio-manager](./apps/applications/studio-manager/README.md).

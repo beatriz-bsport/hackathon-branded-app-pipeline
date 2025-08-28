@@ -1224,7 +1224,7 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
           this.props.offerStatusById[selectedOffer.offer.id]
             ?.bookable_status !== OFFER_BOOKABLE_STATUS_BOOKABLE,
       ).length > 0;
-    let isBookingBlocked = !isBookable || blockedByTags || isBlockedByGroup;
+    let isBookingBlocked = !isBookable || !!blockedByTags || !!isBlockedByGroup;
     const { title, message, icon, color, isWaitingListOpenMainReason } =
       getMainOfferNotBookableReasonWithTitle(
         this.props.offer,
@@ -1589,7 +1589,7 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
     const offerStatus =
       this.props.offerStatusById?.[this.props.offerId] ?? ({} as OfferStatus);
 
-    const isBookable =
+    const isOfferStatusBookable =
       offerStatus?.bookable_status === OFFER_BOOKABLE_STATUS_BOOKABLE;
     const isWaitlistOpen =
       offerStatus?.waiting_list_status === OFFER_WAITING_LIST_STATUS_OPEN;
@@ -1599,10 +1599,19 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
 
     const isWaitingList = this.props.offer?.full && !isWaitlistConvertible;
 
+    const isOfferNotBookableAndNotWaitlistOpen =
+      offerStatus && !isOfferStatusBookable && !isWaitlistOpen;
+    const hasNoSelectedItem = this.state.selectedItem === null;
+    const isBookingBlockedButNotWaitlist =
+      this.state.isBookingBlocked &&
+      !this.state.bookingBlockedReason?.isWaitingListOpenMainReason;
+    const isLoading = this.state.confirmLoading || this.getIsLoading();
+
     const disableBookingButton =
-      this.state.selectedItem === null ||
-      (this.state.isBookingBlocked &&
-        !this.state.bookingBlockedReason.isWaitingListOpenMainReason);
+      isOfferNotBookableAndNotWaitlistOpen ||
+      hasNoSelectedItem ||
+      isBookingBlockedButNotWaitlist ||
+      isLoading;
 
     const isAbleToFetchMoreSimilarSessions =
       this.props.similarOffersAllIds.length <
@@ -1843,12 +1852,7 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
                     bookingConfirmButtonComponent={
                       <BookingConfirmButtonWithOfferSummary
                         buttonLoading={this.state.confirmLoading}
-                        disabled={
-                          (offerStatus && !isBookable && !isWaitlistOpen) ||
-                          disableBookingButton ||
-                          this.state.confirmLoading ||
-                          this.getIsLoading()
-                        }
+                        disabled={disableBookingButton}
                         displayTax={
                           !!this.props.theme?.is_tax_excluded_in_marketplace
                         }
@@ -1973,11 +1977,7 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
               <div className="bs-new-offer-booking__offer-summary">
                 <BookingConfirmButtonWithOfferSummary
                   buttonLoading={this.state.confirmLoading}
-                  disabled={
-                    disableBookingButton ||
-                    this.state.confirmLoading ||
-                    this.getIsLoading()
-                  }
+                  disabled={disableBookingButton}
                   displayTax={
                     !!this.props.theme?.is_tax_excluded_in_marketplace
                   }

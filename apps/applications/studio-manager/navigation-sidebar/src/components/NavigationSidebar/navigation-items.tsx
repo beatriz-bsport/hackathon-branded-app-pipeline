@@ -230,7 +230,9 @@ export const useNavigationElements = ({
           icon: "bar-chart-10",
           id: "analytics",
           label: t("menus.analytics.title"),
-          endSlot: <Indicator size="sm" color="main" position="top" />,
+          endSlot: embeddedBIEnabled ? (
+            <Indicator size="sm" color="main" position="top" />
+          ) : undefined,
           subItems: (() => {
             const items: NavigationSidebarSubItem[] = [];
             if (embeddedBIEnabled) {

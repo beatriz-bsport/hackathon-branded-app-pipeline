@@ -15,15 +15,32 @@ interface DashboardIframeProps {
 export const DashboardIframe = ({ src, title }: DashboardIframeProps) => {
   const { i18n } = useTranslation();
 
-  const toSigmaLocale = (languageCode: string): string => {
+  // https://help.sigmacomputing.com/docs/manage-workbook-localization#supported-languages-and-locales
+  const SUPPORTED_LOCALES = new Set([
+    "en",
+    "fr", // fr-fr isn't supported
+    "fr-ca",
+    "es",
+    "de",
+    "it",
+    "pt",
+    "ru",
+    "th",
+    "ja",
+    "pl",
+  ]);
+
+  const coerceSigmaLocale = (languageCode: string): string => {
     if (!languageCode) return "en";
-    const parts = languageCode.split("-");
-    if (parts.length === 1) return parts[0].toLowerCase();
-    return `${parts[0].toLowerCase()}-${parts[1].toLowerCase()}`;
+    const lc = languageCode.toLowerCase();
+    if (SUPPORTED_LOCALES.has(lc)) return lc;
+    const [lang] = lc.split("-");
+    if (SUPPORTED_LOCALES.has(lang)) return lang;
+    return "en";
   };
 
   const localizedSrc = useMemo(() => {
-    const lng = toSigmaLocale(i18n.language);
+    const lng = coerceSigmaLocale(i18n.language);
     try {
       const urlObj = new URL(src);
       urlObj.searchParams.set(":lng", lng);

@@ -1,0 +1,26 @@
+{
+  "toasts": {
+    "actionUndo": "Deshacer",
+    "messageDeleted": "Tu imagen ha sido borrada"
+  },
+  "modal": {
+    "description": "Añada imágenes personalizadas para que sus miembros puedan hacer sus tarjetas regalo más personales. Durante la creación de la tarjeta de regalo, los miembros podrán elegir una imagen de fondo.",
+    "title": "Banco de imágenes de tarjetas de regalo"
+  },
+  "emptyList": "Aún no hay imágenes personalizadas",
+  "selectImage": "Seleccione una imagen para previsualizar el diseño de la tarjeta de regalo",
+  "giftcardPreview": {
+    "hints": {
+      "recipient": "A la atención de",
+      "buyer": "Desde",
+      "amount": "Valor"
+    },
+    "placeholders": {
+      "recipient": "[Nombre del beneficiario]",
+      "name": "[Nombre de la tarjeta de regalo]",
+      "message": "[Mensaje personalizado]",
+      "buyer": "[Nombre del comprador]",
+      "amount": "[Importe de la tarjeta de regalo]"
+    }
+  }
+}

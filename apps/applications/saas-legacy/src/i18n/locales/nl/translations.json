@@ -10657,7 +10657,8 @@
             "setUnpaid": {
                 "cancel": "Terug",
                 "confirmMessage": "Zodra je deze afspraak aan het lid vergoed, wordt deze gemarkeerd als een ‘onbetaalde’ afspraak.",
-                "confirmTitle": "Afspraak vergoeden?"
+                "confirmTitle": "Afspraak vergoeden?",
+                "button": "Afspraak vergoeden"
             }
         },
         "privateService": {

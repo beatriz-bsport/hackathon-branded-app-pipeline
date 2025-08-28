@@ -1,0 +1,78 @@
+{
+  "giftcardTable": {
+    "loading": "Cargando tarjetas de regalo",
+    "tooltips": {
+      "unavailable": "No se puede comprar en el marketplace",
+      "shared": "Elemento creado por la master account",
+      "restore": "Desarchivar tarjeta de regalo",
+      "duplicate": "Duplicar tarjeta de regalo",
+      "archive": "Archivar tarjeta de regalo"
+    },
+    "values": {
+      "expireInXDays": "{{ expiration }} días",
+      "unlimited": "Ilimitada",
+      "shared": "Compartida",
+      "unavailable": "No disponible"
+    },
+    "headers": {
+      "price": "Precio",
+      "validity": "Validez",
+      "name": "Nombre"
+    }
+  },
+  "archivedListPage": {
+    "toasts": {
+      "actionUndo": "Deshacer",
+      "messageUnarchived": "'{{ name }}' ha sido desarchivada"
+    },
+    "empty": {
+      "title": "No hay tarjetas de regalo archivadas"
+    }
+  },
+  "listPage": {
+    "duplicateModal": {
+      "toasts": {
+        "actionOpen": "Abrir",
+        "messageDuplicated": "'{{ name }}' ha sido duplicada"
+      },
+      "buttons": {
+        "duplicate": "Duplicar",
+        "cancel": "Cancelar"
+      },
+      "description": {
+        "effect": "Después podrás modificar los datos de la tarjeta de regalo.",
+        "action": "¿Quieres duplicar '{{ name }}'?"
+      },
+      "title": "Duplicar tarjeta de regalo"
+    },
+    "archiveModal": {
+      "toasts": {
+        "actionUndo": "Deshacer",
+        "messageArchived": "'{{ name }}' ha sido archivado"
+      },
+      "buttons": {
+        "archive": "Archivar",
+        "cancel": "Cancelar"
+      },
+      "description": {
+        "effect": "Los miembros que la hayan comprado anteriormente podrán seguir utilizándola. Puedes desarchivar esta tarjeta de regalo en cualquier momento.",
+        "action": "¿Quieres archivar '{{ name }}' ?"
+      },
+      "title": "Archivar tarjeta de regalo"
+    },
+    "empty": {
+      "subtitle": "Crea tarjetas de regalo y deja que tus miembros las regalen a sus seres queridos",
+      "title": "Aún no hay tarjetas de regalo"
+    },
+    "header": {
+      "buttons": {
+        "addGiftcard": "Añadir tarjeta de regalo",
+        "openBankImage": "Banco de imágenes de tarjetas de regalo"
+      }
+    }
+  },
+  "pages": {
+    "archivedList": "Tarjetas regalo archivadas",
+    "list": "Tarjetas regalo"
+  }
+}

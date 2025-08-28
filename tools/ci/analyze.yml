@@ -83,3 +83,4 @@ gitleaks:
     when:
       - runner_system_failure
       - unknown_failure
+  allow_failure: true

@@ -1,5 +1,6 @@
 // Utilities to handle Sigma embed URL localization
 
+// https://help.sigmacomputing.com/docs/manage-workbook-localization#supported-languages-and-locales
 const SUPPORTED_LOCALES = new Set([
   'en',
   'fr', // fr-fr isn't supported

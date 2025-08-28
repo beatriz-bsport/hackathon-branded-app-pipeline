@@ -13,16 +13,17 @@ import { LANGUAGES, LOCALES } from "../src";
 import { type ProjectConfig, getInternationalizedApplications } from "./utils";
 
 async function main() {
-  // Step 1 : List all projects with i18n folder
-  const projectList = await getInternationalizedApplications();
+  // Step 1 : List all projects with i18n folder but old structure (aggregated translations in i18n-management)
+  const projectList = (await getInternationalizedApplications()).filter(
+    (proj) => !proj.hasTransifexStructure,
+  );
 
   // Step 2 : Iterate through locales to split the translations to each project
-  console.group("> Build translations files for :");
   LOCALES.forEach((locale: string) => {
-    console.log(`- ${locale}`);
+    console.group(`----- ${locale} -----`);
     splitLocaleTranslationsBetweenProjects({ locale, projectList });
+    console.groupEnd();
   });
-  console.groupEnd();
 }
 
 function splitLocaleTranslationsBetweenProjects({
@@ -69,6 +70,7 @@ function splitLocaleTranslationsBetweenProjects({
       pathToI18n,
       name,
     });
+    console.log(`✅ Successfully uploaded translations for project ${name}`);
   }
 }
 

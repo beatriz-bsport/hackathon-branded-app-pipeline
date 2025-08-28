@@ -10,8 +10,10 @@ import {
 } from "./utils";
 
 async function main() {
-  // Step 1 : List all projects with i18n folder
-  const projectList = await getInternationalizedApplications();
+  // Step 1 : List all projects with i18n folder but old structure (aggregated translations in i18n-management)
+  const projectList = (await getInternationalizedApplications()).filter(
+    (proj) => !proj.hasTransifexStructure,
+  );
 
   // Step 2 : Aggregate in a Js object all namespaces of all projects
   const projectsMap: { [namespace: string]: object } = {};

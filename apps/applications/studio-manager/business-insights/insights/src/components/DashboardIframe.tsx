@@ -23,7 +23,6 @@ export const DashboardIframe = ({ src, title }: DashboardIframeProps) => {
     "es",
     "de",
     "it",
-    "nl",
     "pt",
     "ru",
     "th",

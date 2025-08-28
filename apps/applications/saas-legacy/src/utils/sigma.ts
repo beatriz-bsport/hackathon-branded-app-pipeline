@@ -8,7 +8,6 @@ const SUPPORTED_LOCALES = new Set([
   'es',
   'de',
   'it',
-  'nl',
   'pt',
   'ru',
   'th',

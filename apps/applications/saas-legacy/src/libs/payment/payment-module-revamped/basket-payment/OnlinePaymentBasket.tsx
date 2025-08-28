@@ -60,6 +60,7 @@ type Props = {
     termsAndConditionsAccepted?: boolean;
   };
   setTermsAndConditionsAccepted?: (termsAndConditionsAccepted: boolean) => void;
+  showAcceptTermsAndConditions?: boolean;
   onCancelPaymentBeforeConfirming?: () => void;
   onConfirmPaymentError?: () => void;
   onConfirmPaymentSuccess: (callback?: () => void) => void;
@@ -74,6 +75,7 @@ export const OnlinePaymentBasket: React.FC<Props> = forwardRef(
       hideConfirmPaymentButton,
       payerContext: { memberId, fromApp, termsAndConditionsAccepted },
       setTermsAndConditionsAccepted,
+      showAcceptTermsAndConditions,
       onCancelPaymentBeforeConfirming,
       onConfirmPaymentError,
       onConfirmPaymentSuccess,
@@ -348,7 +350,8 @@ export const OnlinePaymentBasket: React.FC<Props> = forwardRef(
               }
             />
           )}
-          {generalTermsAndConditions &&
+          {showAcceptTermsAndConditions &&
+            generalTermsAndConditions &&
             termsAndConditionsAccepted === undefined &&
             !fromApp && (
               <AcceptTermsAndConditions

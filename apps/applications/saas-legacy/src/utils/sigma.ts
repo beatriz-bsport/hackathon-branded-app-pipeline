@@ -30,7 +30,6 @@ const buildSigmaEmbedUrl = (rawSrc: string, lng: string): string => {
     if (typeof window === 'undefined') return rawSrc;
     const urlObj = new URL(rawSrc, window.location.origin);
     urlObj.searchParams.set(':lng', lng);
-    console.log('urlObj', urlObj.toString());
     return urlObj.toString();
   } catch (_e) {
     const separator = rawSrc.includes('?') ? '&' : '?';

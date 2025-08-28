@@ -1,10 +1,27 @@
 // Utilities to handle Sigma embed URL localization
 
-const toSigmaLocale = (languageCode: string | undefined | null): string => {
+const SUPPORTED_LOCALES = new Set([
+  'en',
+  'fr', // fr-fr isn't supported
+  'fr-ca',
+  'es',
+  'de',
+  'it',
+  'nl',
+  'pt',
+  'ru',
+  'th',
+  'ja',
+  'pl',
+]);
+
+const coerceSigmaLocale = (languageCode: string | undefined | null): string => {
   if (!languageCode) return 'en';
-  const parts = languageCode.split('-');
-  if (parts.length === 1) return parts[0].toLowerCase();
-  return `${parts[0].toLowerCase()}-${parts[1].toLowerCase()}`;
+  const lc = languageCode.toLowerCase();
+  if (SUPPORTED_LOCALES.has(lc)) return lc;
+  const [lang] = lc.split('-');
+  if (SUPPORTED_LOCALES.has(lang)) return lang;
+  return 'en';
 };
 
 const buildSigmaEmbedUrl = (rawSrc: string, lng: string): string => {
@@ -12,6 +29,7 @@ const buildSigmaEmbedUrl = (rawSrc: string, lng: string): string => {
     if (typeof window === 'undefined') return rawSrc;
     const urlObj = new URL(rawSrc, window.location.origin);
     urlObj.searchParams.set(':lng', lng);
+    console.log('urlObj', urlObj.toString());
     return urlObj.toString();
   } catch (_e) {
     const separator = rawSrc.includes('?') ? '&' : '?';
@@ -26,7 +44,7 @@ export const appendSigmaLocale = (
   const browserLanguage =
     languageCode ||
     (typeof navigator !== 'undefined' ? navigator.language : 'en');
-  const lng = toSigmaLocale(browserLanguage);
+  const lng = coerceSigmaLocale(browserLanguage);
   return buildSigmaEmbedUrl(rawSrc, lng);
 };
 

@@ -4,6 +4,7 @@ import { Box, CircularProgress } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
 import { makeStyles } from '@material-ui/core/styles';
 import { getAuth } from '../../http';
+import { appendSigmaLocale } from '../../utils/sigma';
 import Config from '../../config';
 
 const useStyles = makeStyles((_theme) => ({
@@ -65,7 +66,7 @@ const TrialAnalysis: React.FC<Props> = ({ t: _t }) => {
         );
         data = response.data as TrialAnalysisResponse;
         if (data.presigned_url) {
-          setIframeUrl(data.presigned_url);
+          setIframeUrl(appendSigmaLocale(data.presigned_url));
         } else {
           setError('Unable to load dashboard. Please refresh the page.');
         }

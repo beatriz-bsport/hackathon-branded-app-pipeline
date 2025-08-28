@@ -1,7 +1,8 @@
 {
     "default": {
         "common": {
-            "back": "Back"
+            "back": "Back",
+            "new": "New"
         },
         "menus": {
             "popover": {
@@ -49,6 +50,11 @@
             },
             "dashboard": "Dashboard",
             "reporting": "Reporting",
+            "analytics": {
+                "title": "Analytics",
+                "insights": "Insights",
+                "reports": "Reports"
+            },
             "finance": {
                 "title": "Finance",
                 "invoices": "Invoices",

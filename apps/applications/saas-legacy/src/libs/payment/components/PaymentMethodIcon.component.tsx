@@ -8,15 +8,16 @@ import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import MoneyIcon from '@material-ui/icons/Money';
 import Typography from '@material-ui/core/Typography';
 import {
+  PAYMENT_GROUP_METHOD_IDENTIFIER_APPLE_PAY,
   PAYMENT_GROUP_METHOD_IDENTIFIER_BACS_DEBIT,
   PAYMENT_GROUP_METHOD_IDENTIFIER_BANCONTACT,
   PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
+  PAYMENT_GROUP_METHOD_IDENTIFIER_GOOGLE_PAY,
   PAYMENT_GROUP_METHOD_IDENTIFIER_IDEAL,
   PAYMENT_GROUP_METHOD_IDENTIFIER_PAYPAL_WALLET,
   PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA,
   PAYMENT_GROUP_METHOD_IDENTIFIER_TWINT,
 } from '@bsport/common/lib/master-data/payment-group.js';
-import { getCurrencyDisplay } from '../../theme/selectors';
 
 import BACS_DEBIT_LOGO from '#src/libs/payment/icons/bacs-direct-debit.png';
 import BANCONTACT_LOGO from '#src/libs/payment/icons/bancontact.png';
@@ -24,9 +25,12 @@ import IDEAL_LOGO from '#src/libs/payment/icons/ideal.png';
 import PAYPAL_LOGO from '#src/libs/payment/icons/paypal.png';
 import SEPA_LOGO from '#src/libs/payment/icons/sepa.svg';
 import TWINT_LOGO from '#src/libs/payment/icons/twint.svg';
+import APPLE_PAY_LOGO from '#src/libs/payment/icons/apple_pay.svg';
+import GOOGLE_PAY_LOGO from '#src/libs/payment/icons/google_pay.svg';
 import Stripe from '#src/libs/payment/icons/Stripe.icon';
 import { PAYMENT_STRIPE_TERMINAL_FAKE } from '#src/libs/payment/utils';
 import { QuicksalePaymentMethod } from '#src/libs/quicksale/constants';
+import { getCurrencyDisplay } from '#src/libs/theme/selectors';
 
 const PaymentMethodIcon = (props: { paymentMethod: number }) => {
   const classes = useStyles();
@@ -45,29 +49,57 @@ const PaymentMethodIcon = (props: { paymentMethod: number }) => {
     case PAYMENT_GROUP_METHOD_IDENTIFIER_PAYPAL_WALLET:
       return (
         <div className={classes.largeContainer}>
-          <img alt="paypal" className={classes.paypalIcon} src={PAYPAL_LOGO} />
+          <img alt="paypal" className={classes.iconMd} src={PAYPAL_LOGO} />
         </div>
       );
     case PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA:
       return (
         <div className={classes.largeContainer}>
-          <img alt="sepa" className={classes.sepaIcon} src={SEPA_LOGO} />
+          <img alt="sepa" className={classes.iconSm} src={SEPA_LOGO} />
         </div>
       );
     case PAYMENT_GROUP_METHOD_IDENTIFIER_BANCONTACT:
       return (
-        <img alt="bancontact" className={classes.icon} src={BANCONTACT_LOGO} />
+        <img
+          alt="bancontact"
+          className={classes.iconLg}
+          src={BANCONTACT_LOGO}
+        />
       );
     case PAYMENT_GROUP_METHOD_IDENTIFIER_IDEAL:
-      return <img alt="ideal" className={classes.icon} src={IDEAL_LOGO} />;
+      return <img alt="ideal" className={classes.iconLg} src={IDEAL_LOGO} />;
     case PAYMENT_GROUP_METHOD_IDENTIFIER_BACS_DEBIT:
       return (
-        <img alt="bacs_debit" className={classes.icon} src={BACS_DEBIT_LOGO} />
+        <img
+          alt="bacs_debit"
+          className={classes.iconLg}
+          src={BACS_DEBIT_LOGO}
+        />
       );
     case PAYMENT_GROUP_METHOD_IDENTIFIER_TWINT:
       return (
         <div className={classes.container}>
-          <img alt="twint" className={classes.icon} src={TWINT_LOGO} />
+          <img alt="twint" className={classes.iconLg} src={TWINT_LOGO} />
+        </div>
+      );
+    case PAYMENT_GROUP_METHOD_IDENTIFIER_APPLE_PAY:
+      return (
+        <div className={classes.largeContainer}>
+          <img
+            alt="apple_pay"
+            className={classes.iconMd}
+            src={APPLE_PAY_LOGO}
+          />
+        </div>
+      );
+    case PAYMENT_GROUP_METHOD_IDENTIFIER_GOOGLE_PAY:
+      return (
+        <div className={classes.largeContainer}>
+          <img
+            alt="google_pay"
+            className={classes.iconMd}
+            src={GOOGLE_PAY_LOGO}
+          />
         </div>
       );
     case PAYMENT_STRIPE_TERMINAL_FAKE:
@@ -81,9 +113,9 @@ const PaymentMethodIcon = (props: { paymentMethod: number }) => {
       );
     default:
       if (getCurrencyDisplay() === '€') {
-        return <EuroSymbolIcon className={classes.icon} />;
+        return <EuroSymbolIcon className={classes.iconLg} />;
       }
-      return <AttachMoneyIcon className={classes.icon} />;
+      return <AttachMoneyIcon className={classes.iconLg} />;
   }
 };
 
@@ -101,14 +133,14 @@ const useStyles = makeStyles((theme: Theme) => ({
     paddingLeft: theme.spacing(2),
     paddingRight: theme.spacing(2),
   },
-  sepaIcon: {
+  iconSm: {
     height: 18,
   },
-  icon: {
-    height: 36,
-  },
-  paypalIcon: {
+  iconMd: {
     height: 26,
+  },
+  iconLg: {
+    height: 36,
   },
   stripeIcon: {
     margin: theme.spacing(1, 2),

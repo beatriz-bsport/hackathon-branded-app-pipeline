@@ -26,7 +26,7 @@ import { PAYMENT_INTENT_STATUS_SUCCESS } from '@bsport/common/lib/master-data/pa
 
 type UseBasketPaymentActionsData = {
   handleAssignInstalmentPayment: (
-    instalmentPayment: number,
+    instalmentPayment: number | null,
     options?: OptionCallback<Basket>,
   ) => void;
   handleDetachPaymentMethod: (
@@ -142,8 +142,8 @@ export const useBasketPaymentActions = (
   );
 
   const handleAssignInstalmentPayment = useCallback(
-    (instalmentPayment: number, options?: OptionCallback<Basket>) => {
-      if (basketId && instalmentPayment)
+    (instalmentPayment: number | null, options?: OptionCallback<Basket>) => {
+      if (basketId)
         dispatch(assignInstalmentPayment(basketId, instalmentPayment, options));
     },
     [dispatch, basketId],

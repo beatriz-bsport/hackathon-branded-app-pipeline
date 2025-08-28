@@ -7177,6 +7177,9 @@
             "dashboard": "Dashboard",
             "search": "Search",
             "reporting": "Reporting",
+            "insights": {
+                "insights": "Insights"
+            },
             "consumer": {
                 "order": "My orders",
                 "profile": "My account",
@@ -7416,6 +7419,10 @@
             "reporting": {
                 "categories": "Reports",
                 "views": "Your views"
+            },
+            "insights": {
+                "franchise": "Franchise",
+                "company": "Company"
             }
         },
         "featureBaseButton": "Suggest a feature or improvement"
@@ -9600,10 +9607,10 @@
             "penalityNumberCancel": "Number of cancellations",
             "marginalContributionHelperText": "This is used to calculate the payroll of the teachers. Example: {{ currencyDisplay }}10 for 1 booking means that the teacher will be paid {{ currencyDisplay }}10.  When left empty, the marginal value will be calculated as PRICE / NUMBER OF BOOKINGS.",
             "marginalContribution": "Theoretical marginal value incl. VAT",
-            "beginningDate": "Start date",
-            "attendance": "Valid from the 1st attendance",
-            "firstBooking": "Valid from the 1st booking",
-            "billing": "Valid from the billing date",
+            "beginningDate": "Start from",
+            "attendance": "1st attendance",
+            "firstBooking": "1st booking",
+            "billing": "Billing date",
             "validForDuration": {
                 "day": "This pass will be available for {{ duration_day }} day(s).",
                 "month": "This pass will be available for {{ duration_day }} day(s) and {{ duration_month }} month(s).",
@@ -12035,6 +12042,20 @@
             }
         }
     },
+      "insights": {
+    "sections": {
+      "memberInsights": "Member Insights",
+      "financialHealth": "Financial Health"
+    },
+    "trackTrialOffer": {
+      "title": "Track trial offer performance",
+      "description": "Discover more about acquisition, conversion rates and how you can increase the effectiveness of your trial offer."
+    },
+    "monitorRevenue": {
+      "title": "Monitor recurring revenue",
+      "description": "Keep track of trends and understand how to stabilize recurring income streams."
+    }
+  },
     "reporting": {
         "columns": {
             "private_service_name": "Appointment",
@@ -19382,6 +19403,7 @@
         "dashboard": {
             "marketingDashboard": "Marketing",
             "reportingDashboard": "Reporting",
+            "insights": "Insights",
             "dashboard": "Dashboard"
         },
         "subscription": {
@@ -21094,6 +21116,7 @@
                     "order": "Orders"
                 },
                 "reporting": "Reporting",
+                "insights": "Insights",
                 "search": "Search",
                 "dashboard": "Dashboard",
                 "workshopActivities": "Workshops",

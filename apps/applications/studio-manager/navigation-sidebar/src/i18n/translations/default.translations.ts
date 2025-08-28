@@ -1,6 +1,7 @@
 exports.default = {
   common: {
     back: "Back",
+    new: "New",
   },
   menus: {
     popover: {
@@ -48,6 +49,11 @@ exports.default = {
     },
     dashboard: "Dashboard",
     reporting: "Reporting",
+    analytics: {
+      title: "Analytics",
+      insights: "Insights",
+      reports: "Reports",
+    },
     finance: {
       title: "Finance",
       invoices: "Invoices",

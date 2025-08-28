@@ -179,13 +179,11 @@ const Autocomplete: React.FC<AutocompleteProps> = ({
       const selectedItem = filteredItems
         .flatMap((item) => ("options" in item ? item.options : [item]))
         .find((option) => option.id === value);
-
       if (!selectedItem) return;
 
       // Update cached items
       setCachedItems((prev) => {
         const existingItem = prev.find((item) => item.id === value);
-
         if (existingItem) {
           return prev.filter((item) => item.id !== value);
         }
@@ -194,7 +192,6 @@ const Autocomplete: React.FC<AutocompleteProps> = ({
         }
         return [selectedItem];
       });
-
       // Update selected values
       setSelectedValues((prev) => {
         if (multiSelect) {
@@ -202,6 +199,7 @@ const Autocomplete: React.FC<AutocompleteProps> = ({
             ? prev.filter((v) => v !== value)
             : [...prev, value];
         }
+
         return [value];
       });
 

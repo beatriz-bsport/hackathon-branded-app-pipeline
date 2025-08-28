@@ -3,6 +3,7 @@ import { createRemoteComponent } from '@module-federation/bridge-react';
 import { loadRemote, init } from '@module-federation/runtime';
 import { useHistory } from 'react-router-dom';
 import { clsx } from 'clsx';
+import { resetAnalyticsB2B } from '#src/components/analytics/mixpanel';
 
 import './compat-drawer.css';
 
@@ -26,6 +27,7 @@ type NavigationSidebarProps = {
   className?: string;
   navigate: (path: string) => void;
   disableRevampOnLegacyStore?: () => void;
+  onLogoutCallback?: () => void;
 };
 
 const NavigationSidebarFallback = () => (
@@ -79,6 +81,7 @@ export const Navigation: React.FC<{
         )}
         disableRevampOnLegacyStore={disableRevampOnLegacyStore}
         navigate={navigate}
+        onLogoutCallback={resetAnalyticsB2B}
       />
     </Suspense>
   );

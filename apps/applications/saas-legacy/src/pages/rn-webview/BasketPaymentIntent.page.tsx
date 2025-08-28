@@ -25,7 +25,6 @@ import {
 } from '#src/libs/payment/api';
 import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
 import {
-  assignInstalmentPayment as assignInstalmentPaymentAction,
   attachPaymentToBasketId as attachPaymentAction,
   createOrRefreshInternalAccountPrepaidLine as createOrRefreshInternalAccountPrepaidLineAction,
   fetchBasket as fetchBasketAction,
@@ -89,8 +88,6 @@ import { loadDefaultEstablishmentBillingGroup } from '#src/libs/marketplace/util
 import type { RootState } from '../../reducers';
 import { OptionCallback } from '../../state/types';
 // @ts-expect-error
-import asyncComponent from '../../AsyncComponent';
-// @ts-expect-error
 import withQueryParams from '../../hocs/with-query-params.hoc';
 import { MaterialStyleType } from '#src/utils/types';
 import {
@@ -103,10 +100,7 @@ import {
   PAYMENT_PACK_CAN_NOT_BOOK_ALL_OFFERS,
 } from '#src/libs/checkout/constants';
 import Alert from '@material-ui/lab/Alert';
-
-const OnlinePayment = asyncComponent(
-  () => import('../../libs/payment/components/OnlinePayment.component'),
-);
+import { OnlinePaymentBasket } from '#src/libs/payment/payment-module-revamped/basket-payment/OnlinePaymentBasket';
 
 type Props = {
   basket: Basket<number, PrepaidLine>;
@@ -123,12 +117,7 @@ type Props = {
     options: OptionCallback,
   ) => void;
   instalmentPaymentConfigurationList: Array<InstalmentPayment>;
-  assignInstalmentPayment: (
-    basket: string,
-    instalment_payment_id: number,
-    options: OptionCallback<Basket>,
-  ) => void;
-  refreshBasket: (options: OptionCallback) => void;
+  refreshBasket: (options: OptionCallback<Basket>) => void;
   useInternalAccount: (amount: number, options: OptionCallback) => void;
   onRemoveInternalAccountPrepaidLine: (options?: OptionCallback) => void;
   creditAccountBalance: number | null;
@@ -317,24 +306,6 @@ export class BasketPaymentIntent extends React.Component<Props, State> {
         console.error(err);
         this.setState({ clientSecretLoading: false });
       });
-  };
-
-  onSelectInstalmentPayment = (
-    instalment_payment_id: number,
-    options: OptionCallback,
-  ) => {
-    if (this.props.basket?.id) {
-      this.props.assignInstalmentPayment(
-        this.props.basket.id,
-        instalment_payment_id,
-        {
-          onSuccess: () => {
-            this.props.refreshBasket(options);
-          },
-          onError: options && options.onError,
-        },
-      );
-    }
   };
 
   onFail = () => {
@@ -597,81 +568,14 @@ export class BasketPaymentIntent extends React.Component<Props, State> {
             </div>
           </>
         ) : (
-          <OnlinePayment
-            fromApp
-            termsAndConditionsAccepted
-            allowConsumerToUseInternalAccount={
-              this.state.theme.allow_consumer_to_use_internal_account
-            }
+          <OnlinePaymentBasket
             basketId={this.props.basketId}
-            basketTotalPriceCts={this.props.basket.total_price_cts}
-            basketTotalPricePrepaidLines={
-              this.props.basket.total_price_prepaid_lines_cts
-            }
-            cardBillingDetailsMandatory={this.props.cardBillingDetailsMandatory}
-            checkItemsBasket={this.props.checkItemsBasket}
-            clientSecret={this.state.clientSecret}
-            clientSecretLoading={this.state.clientSecretLoading}
-            createPendingBookingsIfNecessary={
-              this.createPendingBookingsIfNecessary
-            }
-            creditAccountBalance={this.props.creditAccountBalance}
-            enableMultiLocalization={
-              this.state.theme?.enable_multi_localization
-            }
-            establishmentBillingGroups={
-              !this.state.hideEstablishmentBillingGroupSelector
-                ? this.props.establishmentBillingGroups
-                : []
-            }
-            instalmentPaymentConfigurationList={this.props.instalmentPaymentConfigurationList.filter(
-              (ipc) => ipc.basketId === this.props.basket?.id,
-            )}
-            instalmentPaymentSelectedId={this.props.basket?.instalment_payment}
-            invalidatePendingBookingsIfNecessary={
-              this.invalidatePendingBookingsIfNecessary
-            }
-            isEstablishmentBillingGroupSelected={
-              this.state.isEstablishmentBillingGroupSelected
-            }
-            loading={
-              this.props.loading ||
-              this.props.processing ||
-              this.props.paymentProcessing
-            }
-            memberId={this.props.basket.member}
-            onError={this.props.refreshBasket}
-            onSelectInstalmentPayment={this.onSelectInstalmentPayment}
-            onSuccess={this.onSuccess}
-            paymentEngine={this.state.paymentEngine}
-            paymentGroupId={this.state.paymentGroupId}
-            paymentGroupPriceCts={this.state.paymentGroupPriceCts}
-            paymentMethodChoices={
-              this.state.theme.payment_method_available_basket || []
-            }
-            paymentProcessing={this.props.paymentProcessing}
-            selectedEstablishmentBillingGroup={
-              !this.state.hideEstablishmentBillingGroupSelector
-                ? this.state.selectedEstablishmentBillingGroup
-                : null
-            }
-            setIsEstablishmentBillingGroupSelected={
-              this.setIsEstablishmentBillingGroupSelected
-            }
-            setPaymentEngine={this.handlePaymentEngineUpdate}
-            setPaymentProcessing={this.props.setPaymentProcessing}
-            setSelectedEstablishmentBillingGroup={
-              this.setSelectedEstablishmentBillingGroup
-            }
-            snackbarErrorMsg={this.props.snackbarErrorMsg}
-            stripePaymentElementConfig={{
-              isDefaultForRegion: this.state.theme.is_default_for_region,
-              stripeId: this.state.theme.stripe_id,
+            companyId={this.props.basket.company}
+            onConfirmPaymentSuccess={this.onSuccess}
+            payerContext={{
+              memberId: this.props.basket.member,
+              fromApp: true,
             }}
-            stripePromise={this.state.stripePromise}
-            updateMemberBillingGroup={this.updateMemberBillingGroup}
-            useInternalAccount={this.props.useInternalAccount}
-            validateUnpaid={this.validateUnpaid}
           />
         )}
 
@@ -769,7 +673,6 @@ const connector = connect(
     attachPayment: attachPaymentAction,
     fetchPaymentMethodList,
     fetchInstalmentPaymentByBasket: fetchInstalmentPaymentByBasketAction,
-    assignInstalmentPayment: assignInstalmentPaymentAction,
     fetchCompanyTheme,
     snackbarError,
     createOrRefreshInternalAccountPrepaidLine:

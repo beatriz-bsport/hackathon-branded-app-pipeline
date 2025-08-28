@@ -1,0 +1,27 @@
+{
+  "insights": {
+    "pageTitle": "Perspectivas",
+    "sections": {
+      "member": "Perspectivas de Miembros",
+      "financial": "Salud Financiera",
+      "booking": "Rendimiento de Reservas",
+      "teacher": "Rendimiento de Profesores",
+      "marketing": "Rendimiento de Marketing"
+    },
+    "items": {
+      "trial": {
+        "title": "Seguir el rendimiento de la oferta de prueba",
+        "description": "Descubre más sobre adquisición, tasas de conversión y cómo aumentar la efectividad de tu oferta de prueba."
+      },
+      "recurring": {
+        "title": "Monitorear ingresos recurrentes",
+        "description": "Sigue las tendencias y comprende cómo estabilizar los flujos de ingresos recurrentes."
+      }
+    },
+    "filter": {
+      "selectFieldLabel": "Filtrar por sección",
+      "filterLabel": "Filtro",
+      "isLabel": "es"
+    }
+  }
+}

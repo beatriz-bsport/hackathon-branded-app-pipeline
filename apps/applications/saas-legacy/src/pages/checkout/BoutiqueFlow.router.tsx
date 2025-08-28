@@ -13,7 +13,7 @@ import { fetchProfile as fetchProfileAction } from '#src/libs/consumer-space/act
 import withThemeProvider from '#src/hocs/company-themifier.hoc';
 // @ts-expect-error
 import asyncComponent from '../../AsyncComponent.js';
-import { RootState } from '../../reducers';
+import { RootState } from '#src/reducers';
 import { AuthenticatedSwitch } from './components/AuthenticatedSwitch';
 
 const MarketplaceAsManager = asyncComponent(

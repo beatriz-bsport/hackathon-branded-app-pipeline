@@ -6,6 +6,7 @@ import { createAction } from 'redux-actions';
 
 import { DateTime } from 'luxon';
 import { rudderStackIdentify } from '#src/components/analytics/rudderstack/utils';
+import { identifyAnalyticsB2BUser } from '#src/components/analytics/mixpanel';
 import {
   getRelationToken as getRelationTokenAPI,
   impersonateAdmin as impersonateAdminAPI,
@@ -18,7 +19,6 @@ import {
   getEmailValidationStatus,
   toggleRevampedBackofficeAPI,
 } from '../libs/login/api';
-import types from './auth.types';
 import { Dispatch, ThunkAction, OptionCallback } from '../state/types';
 import WidgetUtils from '../libs/widget/WidgetUtils';
 import { WidgetMessageType } from '../libs/widget/types';
@@ -43,6 +43,7 @@ import {
   STORAGE_KEY_BSPORT_IMPERSONATED_TOKEN,
   STORAGE_KEY_BSPORT_RELATED_MEMBER_TOKEN,
   STORAGE_KEY_BSPORT_IMPERSONATED_GOTO_URL,
+  authActionTypes as types,
 } from './constants';
 import {
   STORAGE_KEY_BSPORT_DISPLAY_PASS_CREDIT_FACTOR,
@@ -152,6 +153,7 @@ export function fetchAccessLevel(
             name,
           },
         });
+        identifyAnalyticsB2BUser(id);
       } catch (err) {
         console.error(err);
       }

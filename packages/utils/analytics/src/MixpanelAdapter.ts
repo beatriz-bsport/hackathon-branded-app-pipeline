@@ -4,7 +4,10 @@ import type {
   AnalyticsAdapter,
   AnalyticsConfig,
   AnalyticsEvent,
+  DualVoid,
   MixpanelConfig,
+  MixpanelOptInOptions,
+  MixpanelOptOutOptions,
   Properties,
 } from "./types";
 
@@ -65,7 +68,8 @@ export class MixpanelAdapter implements AnalyticsAdapter {
     }
 
     console.log(
-      `[Mixpanel] Init mixpanel client with env "${env}" and ${token ? "provided token" : "default token"}`,
+      `[Mixpanel] Init mixpanel client with env "${env}", ${token ? "provided token" : "default token"}`,
+      `and instance ${this.instanceName ?? "default"}`,
     );
   }
 
@@ -76,10 +80,10 @@ export class MixpanelAdapter implements AnalyticsAdapter {
     this.instance.track(eventType, properties);
   }
 
-  identify({ userId, traits }: { userId: string; traits?: Properties }): void {
+  identify({ userId, traits }: { userId?: string; traits?: Properties }): void {
     if (!this.checkIsInitialized()) return;
 
-    this.instance.identify(userId);
+    if (userId) this.instance.identify(userId);
     if (traits) this.instance.people.set(traits);
   }
 
@@ -92,6 +96,18 @@ export class MixpanelAdapter implements AnalyticsAdapter {
   flush(): void {
     // Mixpanel doesn't expose flush in browser SDK
     console.warn("[Mixpanel] Flush is not supported in browser sdk");
+  }
+
+  optInTracking(config?: MixpanelOptInOptions): DualVoid {
+    if (!this.checkIsInitialized()) return;
+
+    this.instance.opt_in_tracking(config);
+  }
+
+  optOutTracking(config?: MixpanelOptOutOptions): DualVoid {
+    if (!this.checkIsInitialized()) return;
+
+    this.instance.opt_out_tracking(config);
   }
 
   overloadAddSuperProperties(properties: Properties) {
@@ -112,5 +128,11 @@ export class MixpanelAdapter implements AnalyticsAdapter {
     if (!this.checkIsInitialized()) return;
 
     this.instance.reset();
+  }
+
+  overloadSetDebugMode(debug: boolean): DualVoid {
+    if (!this.checkIsInitialized()) return;
+
+    this.instance.set_config({ debug });
   }
 }

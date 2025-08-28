@@ -203,13 +203,23 @@ export const getIsLateBookingCancellation = (
 };
 
 /**
- * Returns whether the indicated date is in the pas or not
+ * Returns whether the indicated date is in the past or not
  * @param date The date selected for comparison
  * @returns {boolean}
  */
 export function isDateInThePast(date: string) {
   if (!date) return false;
   return DateTime.fromISO(date) < DateTime.now();
+}
+
+/**
+ * Returns whether the indicated date is in the future or not
+ * @param date The date selected for comparison
+ * @returns {boolean}
+ */
+export function isDateInTheFuture(date: string) {
+  if (!date) return false;
+  return DateTime.fromISO(date) > DateTime.now();
 }
 
 /**

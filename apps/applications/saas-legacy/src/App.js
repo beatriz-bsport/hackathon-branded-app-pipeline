@@ -1,5 +1,3 @@
-// @flow
-
 import React, { Component, Suspense } from 'react';
 import 'intl';
 import 'intl/locale-data/jsonp/en';
@@ -23,8 +21,9 @@ import Root from './Root';
 import initStore from './store';
 import { rudderInitialize } from './components/analytics/rudderstack/utils';
 import theme from './theme';
+import FeatureFlagsProvider from './utils/feature-flag/FeatureFlagsProvider';
 
-export class App extends Component<{}, {}> {
+export class App extends Component {
   state = {
     reloaded: false,
   };
@@ -52,28 +51,29 @@ export class App extends Component<{}, {}> {
   render() {
     return (
       <Provider store={this.store}>
-        <MuiThemeProvider theme={theme}>
-          <CssBaseline>
-            <ConnectedRouter history={this.history}>
-              <Suspense fallback={<LoadingBackoffice />}>
-                <MuiPickersUtilsProvider
-                  locale={Settings.defaultLocale}
-                  utils={LocalizedLuxonUtils}
-                >
-                  <SnackbarPile />
-                  <BackgroundSnackbar />
-                  <BackgroundDialog />
-                  <Root />
-                </MuiPickersUtilsProvider>
-              </Suspense>
-            </ConnectedRouter>
-          </CssBaseline>
-        </MuiThemeProvider>
+        <FeatureFlagsProvider>
+          <MuiThemeProvider theme={theme}>
+            <CssBaseline>
+              <ConnectedRouter history={this.history}>
+                <Suspense fallback={<LoadingBackoffice />}>
+                  <MuiPickersUtilsProvider
+                    locale={Settings.defaultLocale}
+                    utils={LocalizedLuxonUtils}
+                  >
+                    <SnackbarPile />
+                    <BackgroundSnackbar />
+                    <BackgroundDialog />
+                    <Root />
+                  </MuiPickersUtilsProvider>
+                </Suspense>
+              </ConnectedRouter>
+            </CssBaseline>
+          </MuiThemeProvider>
+        </FeatureFlagsProvider>
       </Provider>
     );
   }
 }
-
 export const storage = window.localStorage;
 
 export default compose(withSentryErrorReporting)(App);

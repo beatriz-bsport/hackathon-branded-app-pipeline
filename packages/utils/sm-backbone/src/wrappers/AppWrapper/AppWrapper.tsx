@@ -12,12 +12,14 @@ import {
 import { initSentry } from "@bsport/sentry";
 
 import DevTools from "#src/dev-utils/DevTools";
+import FeatureFlagsProvider from "#src/feature-flags/FeatureFlagsProvider";
 
 import { RoutesWrapper, type RoutesWrapperProps } from "../RoutesWrapper";
 
 type AppWrapperProps = {
   children: React.ReactNode;
   basename?: string;
+  switchAnalyticsDebug?: (debug: boolean) => void;
 } & RoutesWrapperProps;
 
 const { i18nInstance: kaizenI18nInstance } = instanciateAppI18n({
@@ -41,11 +43,13 @@ initSentry();
  * - Translations provider for Kaizen
  * - DevTools
  * - Authentication redirection
+ * - Feature flags (Unleash)
  *
  * @param basename [Optional] Relative basename of the running application.
  * @param LoginApp [Optional] React application to be displayed on the login page. Default to DevLoginPage.
  * @param loginUrl [Optional] URL to redirect to when user is not authenticated. Default to `/login`.
  * @param NavigationApp [Optional] Lazy loading of the NavigationSidebar application.
+ * @param navigationProps [Optional] Props to provide to the NavigationSidebar
  *
  * @description
  * ```tsx
@@ -67,24 +71,23 @@ initSentry();
 export const AppWrapper: React.FC<AppWrapperProps> = ({
   children,
   basename = "",
-  LoginApp,
-  NavigationApp,
-  loginUrl,
+  ...routesWrapperProps
 }) => {
   return (
     <BrowserRouter basename={basename}>
       <ThemeProvider>
         <KaizenI18nProvider kaizenI18nInstance={kaizenI18nInstance}>
-          <div className="bg-surface-page text-onsurface-default min-h-screen">
-            <DevTools i18nInstance={kaizenI18nInstance} />
-            <RoutesWrapper
-              LoginApp={LoginApp}
-              NavigationApp={NavigationApp}
-              loginUrl={loginUrl}
-            >
-              {children}
-            </RoutesWrapper>
-          </div>
+          <FeatureFlagsProvider>
+            <div className="bg-surface-page text-onsurface-default min-h-screen">
+              <DevTools
+                i18nInstance={kaizenI18nInstance}
+                onLogoutCallback={
+                  routesWrapperProps?.navigationProps?.onLogoutCallback
+                }
+              />
+              <RoutesWrapper {...routesWrapperProps}>{children}</RoutesWrapper>
+            </div>
+          </FeatureFlagsProvider>
         </KaizenI18nProvider>
       </ThemeProvider>
     </BrowserRouter>

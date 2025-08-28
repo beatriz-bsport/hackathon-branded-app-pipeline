@@ -1,6 +1,11 @@
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
 
 import type { EstablishmentBillingGroup } from '#src/libs/establishment/types';
+import { getCurrentBasket } from '#src/libs/checkout/selectors';
+import { getDefaultEstablishmentBillingGroup } from '#src/libs/establishment/selectors';
+import themeSelectors from '#src/libs/theme/selectors';
+import { type RootState } from '#src/reducers';
 
 import {
   PAYMENT_ENGINE_BSPORT,
@@ -48,10 +53,33 @@ type UseBasketPaymentLocalStateData = {
  */
 export const useBasketPaymentLocalState =
   (): UseBasketPaymentLocalStateData => {
+    const basket = useSelector((state: RootState) => getCurrentBasket(state));
+    const member = basket?.member;
+    const defaultEstablishmentBillingGroup: EstablishmentBillingGroup | null =
+      useSelector((state: RootState) =>
+        member ? getDefaultEstablishmentBillingGroup(state, member) : null,
+      );
+    const theme = useSelector((state: RootState) =>
+      themeSelectors.getTheme(state),
+    );
+    const enableMultiLocalization = theme?.enable_multi_localization || false;
+
+    /**
+     * Determine the initial selection state for the establishment billing group.
+     *
+     * Logic:
+     * - If there is no member (unauthenticated), always consider the billing group as selected.
+     * - If multi-localization is not enabled, always consider the billing group as selected.
+     * - If there is a default establishment billing group, consider it as selected.
+     * - Otherwise, the billing group is not selected by default.
+     */
+    const initialIsEstablishmentBillingGroupSelected =
+      !member || !enableMultiLocalization || !!defaultEstablishmentBillingGroup;
+
     const [
       isEstablishmentBillingGroupSelected,
       setIsEstablishmentBillingGroupSelected,
-    ] = useState(true);
+    ] = useState(initialIsEstablishmentBillingGroupSelected);
 
     const [selectedPaymentEngine, setSelectedPaymentEngine] =
       useState<PaymentEngine>(PAYMENT_ENGINE_STRIPE);
@@ -61,7 +89,9 @@ export const useBasketPaymentLocalState =
     const [
       selectedEstablishmentBillingGroup,
       setSelectedEstablishmentBillingGroup,
-    ] = useState<EstablishmentBillingGroup | null>(null);
+    ] = useState<EstablishmentBillingGroup | null>(
+      defaultEstablishmentBillingGroup,
+    );
 
     const [isOnlinePaymentDisabled, setIsOnlinePaymentDisabled] =
       useState(false);

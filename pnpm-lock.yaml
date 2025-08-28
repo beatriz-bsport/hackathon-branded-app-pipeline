@@ -304,14 +304,17 @@ importers:
         specifier: ^7.26.0
         version: 7.114.0
       '@stripe/react-stripe-js':
-        specifier: ^2.1.0
-        version: 2.9.0(@stripe/stripe-js@1.54.2)(react-dom@16.10.2(react@16.10.2))(react@16.10.2)
+        specifier: ^3.7.0
+        version: 3.7.0(@stripe/stripe-js@7.4.0)(react-dom@16.10.2(react@16.10.2))(react@16.10.2)
       '@stripe/stripe-js':
-        specifier: ^1.52.0
-        version: 1.54.2
+        specifier: ^7.4.0
+        version: 7.4.0
       '@types/react-virtualized-auto-sizer':
         specifier: ^1.0.1
         version: 1.0.4
+      '@unleash/proxy-client-react':
+        specifier: ^5.0.1
+        version: 5.0.1(unleash-proxy-client@3.7.8)
       autoprefixer:
         specifier: 7.1.6
         version: 7.1.6
@@ -591,6 +594,9 @@ importers:
       tinycolor2:
         specifier: ^1.6.0
         version: 1.6.0
+      unleash-proxy-client:
+        specifier: ^3.7.8
+        version: 3.7.8
       urijs:
         specifier: ^1.19.6
         version: 1.19.11
@@ -1075,6 +1081,52 @@ importers:
       typescript-result:
         specifier: ^3.1.1
         version: 3.1.1
+    devDependencies:
+      '@bsport/config-eslint-react':
+        specifier: workspace:*
+        version: link:../../../../../tools/config/eslint-react
+      '@bsport/config-federation':
+        specifier: workspace:*
+        version: link:../../../../../tools/config/federation
+      autoprefixer:
+        specifier: ^10.4.20
+        version: 10.4.20(postcss@8.4.49)
+      postcss:
+        specifier: ^8.4.49
+        version: 8.4.49
+      tailwindcss:
+        specifier: ^3.4.14
+        version: 3.4.14(ts-node@10.9.2(@swc/core@1.11.13(@swc/helpers@0.5.15))(@types/node@22.13.15)(typescript@5.8.2))
+      vite:
+        specifier: ^5.4.11
+        version: 5.4.11(@types/node@22.13.15)(less@4.1.3)(sass@1.77.8)(terser@5.31.3)
+
+  apps/applications/studio-manager/business-insights/insights:
+    dependencies:
+      '@bsport/fetch':
+        specifier: workspace:*
+        version: link:../../../../../packages/utils/fetch
+      '@bsport/i18n':
+        specifier: workspace:*
+        version: link:../../../../../packages/utils/i18n
+      '@bsport/kaizen-primitive-core':
+        specifier: workspace:*
+        version: link:../../../../../packages/design-system/kaizen/primitive/core
+      '@bsport/sm-backbone':
+        specifier: workspace:*
+        version: link:../../../../../packages/utils/sm-backbone
+      '@bsport/use-async':
+        specifier: workspace:*
+        version: link:../../../../../packages/hooks/use-async
+      react:
+        specifier: ^19.0.0
+        version: 19.0.0
+      react-dom:
+        specifier: ^19.0.0
+        version: 19.0.0(react@19.0.0)
+      react-router:
+        specifier: ^7.2.0
+        version: 7.2.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
     devDependencies:
       '@bsport/config-eslint-react':
         specifier: workspace:*
@@ -1639,6 +1691,9 @@ importers:
       '@bsport/use-async':
         specifier: workspace:*
         version: link:../../../../../packages/hooks/use-async
+      dompurify:
+        specifier: ^3.2.6
+        version: 3.2.6
       react:
         specifier: ^19.0.0
         version: 19.0.0
@@ -2859,6 +2914,9 @@ importers:
 
   packages/utils/analytics:
     dependencies:
+      '@bsport/broadcast-channel-polyfill':
+        specifier: workspace:*
+        version: link:../broadcast-channel-polyfill
       mixpanel-browser:
         specifier: ^2.60.0
         version: 2.60.0
@@ -3154,6 +3212,9 @@ importers:
 
   packages/utils/sm-backbone:
     dependencies:
+      '@bsport/broadcast-channel-polyfill':
+        specifier: workspace:*
+        version: link:../broadcast-channel-polyfill
       '@bsport/envs':
         specifier: workspace:*
         version: link:../envs
@@ -3187,6 +3248,9 @@ importers:
       '@bsport/store-staff-management-role':
         specifier: workspace:*
         version: link:../../stores/staff-management/role
+      '@unleash/proxy-client-react':
+        specifier: ^5.0.1
+        version: 5.0.1(unleash-proxy-client@3.7.8)
       react-router:
         specifier: ^7.2.0
         version: 7.2.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
@@ -7081,15 +7145,16 @@ packages:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0
       react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
 
-  '@stripe/react-stripe-js@2.9.0':
-    resolution: {integrity: sha512-+/j2g6qKAKuWSurhgRMfdlIdKM+nVVJCy/wl0US2Ccodlqx0WqfIIBhUkeONkCG+V/b+bZzcj4QVa3E/rXtT4Q==}
+  '@stripe/react-stripe-js@3.7.0':
+    resolution: {integrity: sha512-PYls/2S9l0FF+2n0wHaEJsEU8x7CmBagiH7zYOsxbBlLIHEsqUIQ4MlIAbV9Zg6xwT8jlYdlRIyBTHmO3yM7kQ==}
     peerDependencies:
-      '@stripe/stripe-js': ^1.44.1 || ^2.0.0 || ^3.0.0 || ^4.0.0
-      react: ^16.8.0 || ^17.0.0 || ^18.0.0
-      react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
+      '@stripe/stripe-js': '>=1.44.1 <8.0.0'
+      react: '>=16.8.0 <20.0.0'
+      react-dom: '>=16.8.0 <20.0.0'
 
-  '@stripe/stripe-js@1.54.2':
-    resolution: {integrity: sha512-R1PwtDvUfs99cAjfuQ/WpwJ3c92+DAMy9xGApjqlWQMj0FKQabUAys2swfTRNzuYAYJh7NqK2dzcYVNkKLEKUg==}
+  '@stripe/stripe-js@7.4.0':
+    resolution: {integrity: sha512-lQHQPfXPTBeh0XFjq6PqSBAyR7umwcJbvJhXV77uGCUDD6ymXJU/f2164ydLMLCCceNuPlbV9b+1smx98efwWQ==}
+    engines: {node: '>=12.16'}
 
   '@surma/rollup-plugin-off-main-thread@2.2.3':
     resolution: {integrity: sha512-lR8q/9W7hZpMWweNiAKU7NQerBnzQQLvi8qnTDU/fxItPhtZVMbPV3lbCwjhIlNBe9Bbr5V+KHshvWmVSG9cxQ==}
@@ -8116,6 +8181,12 @@ packages:
   '@typescript-eslint/visitor-keys@8.32.1':
     resolution: {integrity: sha512-ar0tjQfObzhSaW3C3QNmTc5ofj0hDoNQ5XWrCy6zDyabdr0TWhCkClp+rywGNj/odAFBVzzJrK4tEq5M4Hmu4w==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
+
+  '@unleash/proxy-client-react@5.0.1':
+    resolution: {integrity: sha512-F/IDo853ghZkGreLWg4fSVSM4NiLg5aZb1Kvr4vG29u5/PB0JLKNgNVdadt+qrlkI1GMzmP7IuFXSnv9A0McRw==}
+    engines: {node: '>=16.0.0'}
+    peerDependencies:
+      unleash-proxy-client: ^3.7.3
 
   '@videojs/http-streaming@2.16.3':
     resolution: {integrity: sha512-91CJv5PnFBzNBvyEjt+9cPzTK/xoVixARj2g7ZAvItA+5bx8VKdk5RxCz/PP2kdzz9W+NiDUMPkdmTsosmy69Q==}
@@ -18004,6 +18075,9 @@ packages:
     resolution: {integrity: sha512-9phl76Cqm6FhSX9Xe1ZUAMLtm1BLkKj2Qd5ApyWkXzsMRaA7dgr81kf4wJmQf/hAvg8EEyJxDo3du/0KlhPiKQ==}
     engines: {node: '>=0.6.0'}
 
+  tiny-emitter@2.1.0:
+    resolution: {integrity: sha512-NB6Dk1A9xgQPMoGqC5CVXn123gWyte215ONT5Pp5a0yt4nlEoO1ZWeCwpncaekPHXO60i47ihFnZPiRPjRMq4Q==}
+
   tiny-invariant@1.3.3:
     resolution: {integrity: sha512-+FbBPE1o9QAYvviau/qC5SE3caw21q3xkvWKBtja5vgqOWIHHJ3ioaq1VPfn/Szqctz2bU/oYeKd9/z5BL+PVg==}
 
@@ -18595,6 +18669,9 @@ packages:
 
   unlayer-types@1.278.0:
     resolution: {integrity: sha512-5GpkhTsDyBBtjcGOFxTKHrIwdP2x/qrYC2iDC3z20hFI6KMlQLRryN/ch1EiHbSN3gfILEv3eb7fp4Ox4iTX0A==}
+
+  unleash-proxy-client@3.7.8:
+    resolution: {integrity: sha512-VX0jDcOporeVb1nh4+HGpEZIwcwHl/HP/7cyZxQq3umffN0hx44Tw1u4nmdopmm9s7Hb2BES0pFCIntr/lh3vQ==}
 
   unpipe@1.0.0:
     resolution: {integrity: sha512-pjy2bYhSsufwWlKwPc+l3cN7+wuJlK6uz0YdJEOlQDbl6jo/YlPi4mb8agUkVC8BF7V8NuzeyPNqRksA3hztKQ==}
@@ -21772,9 +21849,7 @@ snapshots:
       source-map: 0.6.1
       string-length: 2.0.0
     transitivePeerDependencies:
-      - bufferutil
       - supports-color
-      - utf-8-validate
 
   '@jest/reporters@28.1.3(node-notifier@8.0.2)':
     dependencies:
@@ -24962,14 +25037,14 @@ snapshots:
       regenerator-runtime: 0.13.11
       resolve-from: 5.0.0
 
-  '@stripe/react-stripe-js@2.9.0(@stripe/stripe-js@1.54.2)(react-dom@16.10.2(react@16.10.2))(react@16.10.2)':
+  '@stripe/react-stripe-js@3.7.0(@stripe/stripe-js@7.4.0)(react-dom@16.10.2(react@16.10.2))(react@16.10.2)':
     dependencies:
-      '@stripe/stripe-js': 1.54.2
+      '@stripe/stripe-js': 7.4.0
       prop-types: 15.8.1
       react: 16.10.2
       react-dom: 16.10.2(react@16.10.2)
 
-  '@stripe/stripe-js@1.54.2': {}
+  '@stripe/stripe-js@7.4.0': {}
 
   '@surma/rollup-plugin-off-main-thread@2.2.3':
     dependencies:
@@ -26301,6 +26376,10 @@ snapshots:
     dependencies:
       '@typescript-eslint/types': 8.32.1
       eslint-visitor-keys: 4.2.0
+
+  '@unleash/proxy-client-react@5.0.1(unleash-proxy-client@3.7.8)':
+    dependencies:
+      unleash-proxy-client: 3.7.8
 
   '@videojs/http-streaming@2.16.3(video.js@7.21.6)':
     dependencies:
@@ -39435,6 +39514,8 @@ snapshots:
     dependencies:
       setimmediate: 1.0.5
 
+  tiny-emitter@2.1.0: {}
+
   tiny-invariant@1.3.3: {}
 
   tiny-warning@1.0.3: {}
@@ -40080,6 +40161,11 @@ snapshots:
   universalify@2.0.1: {}
 
   unlayer-types@1.278.0: {}
+
+  unleash-proxy-client@3.7.8:
+    dependencies:
+      tiny-emitter: 2.1.0
+      uuid: 9.0.1
 
   unpipe@1.0.0: {}
 

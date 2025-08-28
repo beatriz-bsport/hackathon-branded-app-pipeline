@@ -13,6 +13,8 @@ export default defineConfig({
     }),
   ],
   build: {
+    // Enable source maps so breakpoints bind when this lib is consumed by apps
+    sourcemap: true,
     outDir: "build",
     lib: {
       entry: path.resolve(__dirname, "src/index.ts"), // Entry point of your library

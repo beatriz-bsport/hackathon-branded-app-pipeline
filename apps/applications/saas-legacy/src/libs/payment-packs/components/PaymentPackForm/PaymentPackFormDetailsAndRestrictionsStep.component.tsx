@@ -84,6 +84,19 @@ const PaymentPackFormDetailsAndRestrictionsStep = ({
         />
       </div>
       <Divider className={classes.divider} />
+      <FeatureListProvider featureList={['paymentPackAccessControl']}>
+        {(featureList: FeatureList) =>
+          hasUpsell(featureList, UPSELL_IDENTIFIER_KISI_INTEGRATION) &&
+          !initial?.template_instance && (
+            <>
+              <div className={classes.formContainer}>
+                <PaymentPackFormAccessControl />
+              </div>
+            </>
+          )
+        }
+      </FeatureListProvider>
+      <Divider className={classes.divider} />
       <div className={classes.formContainer}>
         <PaymentPackFormValidity
           disabledUniversalPassFields={disabledUniversalPassFields}
@@ -101,20 +114,6 @@ const PaymentPackFormDetailsAndRestrictionsStep = ({
           metaActivityList={metaActivityList}
         />
       </div>
-      <Divider className={classes.divider} />
-      <FeatureListProvider featureList={['paymentPackAccessControl']}>
-        {(featureList: FeatureList) =>
-          hasUpsell(featureList, UPSELL_IDENTIFIER_KISI_INTEGRATION) &&
-          !initial?.template_instance && (
-            <>
-              <div className={classes.formContainer}>
-                <PaymentPackFormAccessControl />
-              </div>
-              <Divider className={classes.divider} />
-            </>
-          )
-        }
-      </FeatureListProvider>
       {values.is_universal_pass && (
         <>
           <div className={classes.formContainer}>

@@ -2,6 +2,12 @@
 echo "⏳ Starting pre-commit hook"
 
 if [ "$ECOSYSTEM_SKIP_HOOKS" != "true" ] && [ -z "$CI" ]; then
+    if ! which gitleaks >/dev/null 2>&1; then
+        echo "⚠️ Gitleaks is not installed." >&2;
+        echo "See https://gitlab.com/bsport/ichizen/-/blob/dev/docs/gitleaks.md#pre-commit-hook-setup for installation guidelines" >&2;
+    else
+        gitleaks git --pre-commit --redact --staged --verbose
+    fi
     pnpm exec nx affected --target=pre-commit --base=HEAD
     pnpm exec lint-staged --relative
 fi

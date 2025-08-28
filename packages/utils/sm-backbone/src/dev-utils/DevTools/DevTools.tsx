@@ -3,16 +3,21 @@ import React, { useState } from "react";
 import { getEnv } from "@bsport/envs";
 import { Button, Popover, Tooltip } from "@bsport/kaizen-primitive-core";
 
+import { AnalyticsDebugToggle } from "./AnalyticsDebugToggle";
 import LanguageSelector, {
   type LanguageSelectorProps,
 } from "./LanguageSelector";
-import Logout from "./Logout";
+import Logout, { type LogoutProps } from "./Logout";
 import ThemeSelector from "./ThemeSelector";
 
-export type DevToolsProps = LanguageSelectorProps;
+export type DevToolsProps = LanguageSelectorProps & LogoutProps;
 
-const DevTools: React.FC<DevToolsProps> = ({ i18nInstance }) => {
+const DevTools: React.FC<DevToolsProps> = ({
+  i18nInstance,
+  onLogoutCallback,
+}) => {
   const [counter, setCounter] = useState(0);
+  const [analyticsDebug, setAnalyticsDebug] = useState(false);
   const env = getEnv();
 
   if (env === "production" || env === "staging") return null;
@@ -54,7 +59,11 @@ const DevTools: React.FC<DevToolsProps> = ({ i18nInstance }) => {
             <div className="gap-xs flex flex-col">
               <ThemeSelector />
               <LanguageSelector i18nInstance={i18nInstance} />
-              <Logout />
+              <AnalyticsDebugToggle
+                debugMode={analyticsDebug}
+                setDebugMode={setAnalyticsDebug}
+              />
+              <Logout onLogoutCallback={onLogoutCallback} />
             </div>
           )}
         </Popover.Content>

@@ -74,3 +74,5 @@ env.REACT_APP_DIDOMI_API_KEY = 'b262349d-3421-4579-8f14-fa3d8d67f825';
 env.REACT_APP_DIDOMI_NOTICE_ID = 'LDhETnJ6';
 
 env.REACT_APP_UNLAYER_PROJECT_ID = '4736';
+env.REACT_APP_UNLEASH_PROXY_URL = 'https://unleash.tooling.bsport.io/api/frontend';
+env.REACT_APP_UNLEASH_CLIENT_KEY = 'default:development.33c0b79cf07ad244a1d63da1126b2306bc47f3c56f8f01637119d864';

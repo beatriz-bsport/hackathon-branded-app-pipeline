@@ -8,6 +8,7 @@ export type ProjectConfig = {
   name: string;
   pathToI18n: string;
   pathToPublicLocales: string;
+  hasTransifexStructure: boolean;
 };
 
 export type Translations = {
@@ -58,18 +59,13 @@ export async function getInternationalizedApplications(params?: {
           name: projectName,
           pathToI18n: i18nPath,
           pathToPublicLocales: publicLocalesPath,
+          hasTransifexStructure: existsSync(path.resolve(i18nPath, "source")),
         });
       }
     } catch (error) {
       printError(`Skip ${projectName} : Could not find src/i18n folder`);
     }
   }
-
-  printGroup(`\n> Projects with i18n configuration`);
-  for (const project of filteredProjectList) {
-    print(`- ${project.name}`);
-  }
-  printGroupEnd();
 
   return filteredProjectList;
 }

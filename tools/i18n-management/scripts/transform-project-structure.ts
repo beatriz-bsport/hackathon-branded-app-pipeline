@@ -3,8 +3,9 @@ import fs, { existsSync } from "fs";
 import { readJSONSync, writeFileSync } from "fs-extra";
 import { select as selectWithSearch } from "inquirer-select-pro";
 import beautify from "json-beautify";
-import { getMonorepoBasePathSync } from "packages/utils/monorepo/build";
 import path from "path";
+
+import { getMonorepoBasePathSync } from "@bsport/typescript-monorepo-utils";
 
 import {
   type ProjectConfig,
@@ -131,12 +132,18 @@ async function main({ project }: { project?: string }) {
     console.log("> Create i18n/source directory");
     ensureDir(sourceDir);
 
-    console.log('> Move "en" files to "source" folder');
-    const englishFiles = fs.readdirSync(path.join(localesDir, "en"));
+    console.log('> Copy "en" files to "source" folder');
+    const localeEnglishFolder = path.join(localesDir, "en");
+    const englishFiles = fs.readdirSync(localeEnglishFolder);
     for (const file of englishFiles) {
       const englishPath = path.join(localesDir, "en", file);
       const sourcePath = path.join(sourceDir, file);
       fs.copyFileSync(englishPath, sourcePath);
+    }
+
+    console.log("> Remove locales/en folder");
+    if (fs.existsSync(localeEnglishFolder)) {
+      fs.rmSync(localeEnglishFolder, { recursive: true, force: true });
     }
 
     console.groupEnd();
@@ -209,7 +216,7 @@ async function main({ project }: { project?: string }) {
     console.log('import namespaces from "#src/i18n/namespaces.json";');
     for (const namespace of finalNamespaces) {
       console.log(
-        `import type ${namespace}Translations from "#src/i18n/source/${namespace}.json;`,
+        `import type ${namespace}Translations from "#src/i18n/source/${namespace}.json";`,
       );
     }
     console.group("\ntype Translations = {");

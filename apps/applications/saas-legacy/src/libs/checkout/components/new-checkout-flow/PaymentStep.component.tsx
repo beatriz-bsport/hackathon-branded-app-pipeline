@@ -141,6 +141,7 @@ export const PaymentStep: React.FC<PaymentStepProps> = forwardRef(
           <OnlinePaymentBasket
             ref={onlinePaymentRef}
             hideConfirmPaymentButton
+            showAcceptTermsAndConditions
             basketId={basket.id}
             companyId={companyId}
             onConfirmPaymentSuccess={onPaymentSuccess}

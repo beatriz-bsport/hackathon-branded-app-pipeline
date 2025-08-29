@@ -50,8 +50,8 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import Divider from '@material-ui/core/Divider';
 import Immutable from 'seamless-immutable';
-import { useFlag } from '@unleash/proxy-client-react';
-import { FeatureFlags } from '#src/utils/feature-flag/flags';
+
+import { useSafeFlag, FeatureFlags } from '#src/utils/feature-flag';
 
 import SwitchHorizontalIcon from '#src/components/icons/SwitchHorizontalIcon.component';
 import TutorialIconWithAlertings from '#src/libs/platform-tutorial/components/TutorialIconWithAlertings.component';
@@ -283,7 +283,7 @@ const ResponsiveDrawer: React.FC<Props> = ({
 
   const revampedBOEnabledForCompany = companyTheme.revamped_backoffice_enabled;
 
-  const showInsightsPage = useFlag(FeatureFlags.INSIGHTS_PAGE);
+  const showInsightsPage = useSafeFlag(FeatureFlags.INSIGHTS_PAGE);
 
   const items: DrawerItem[] = React.useMemo(() => {
     return [

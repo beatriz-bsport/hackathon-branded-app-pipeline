@@ -9234,7 +9234,7 @@
             "packValidity": "Validité de la carte",
             "penality": "Appliquer une pénalite en cas d’annulations hors délai trop nombreuses",
             "penalityRule": "Vous pouvez appliquer une pénalité uniquement si le nombre de crédits est illimité",
-            "availabilityGivenNumber": "Rendre la carte valide uniquement un certain nombre de jours après l’achat",
+            "availabilityGivenNumber": "Définir la durée de validité de la carte de cours",
             "availabilitySlot": "Rendre la carte valide entre certaines dates",
             "fromDate": "À partir du",
             "toDate": "Jusqu’au",
@@ -9333,7 +9333,12 @@
             "enableAccessControl": "Accorde l'accès au studio",
             "accessControlBetaAlert": "Pendant cette phase de beta, les restrictions telles que les tags, les limites d'utilisation, les établissements, les activités, les catégories et les créneaux horaires ne s'appliquent pas à l'accès aux portes. L'option « Restreindre l’utilisation de la carte à de la VOD uniquement » doit être désactivée pour que l'accès aux portes fonctionne.",
             "accessControlInfo": "Les membres disposant de ce pass peuvent déverrouiller les portes de votre studio. Pour contrôler les moments où les portes ne sont pas accessibles, définissez des règles horaires sur Kisi.",
-            "doorAccess": "Accès aux portes"
+            "doorAccess": "Accès aux portes",
+            "activationWindow": "Définir la fenêtre d'activation",
+            "accessControl": {
+                "firstBookingDisclaimer": "La carte de cours sera valable à compter de la 1ère réservation ou du 1er accès, en fonction duquel des deux est fait en premier. Si le personnel valide manuellement l'accès pour un membre avant la date de sa première réservation, la carte sera valable à compter de la date de cette validation manuelle.",
+                "firstBooking": "1ère réservation ou accès"
+            }
         },
         "disabled": "Désactivé",
         "disableConsumer": "Bloquer",
@@ -9603,7 +9608,16 @@
                     "submit": "Archiver"
                 }
             }
-        }
+        },
+        "manualActivation": {
+            "replaceActiveStartDateAlert": "La carte sera désormais valide à compter d'aujourd'hui. Si l'une des réservations futures du membre tombe après la nouvelle période de validité, ses réservations resteront actives, mais le personnel devra manuellement ouvrir la porte pour ce membre .",
+            "setActiveStartDate": "L'activation de cette carte fixera la date d'activation à aujourd'hui. Cette action ne peut pas être annulée.",
+            "replaceActiveStartDate": "L'activation de cette carte fixera la date d'activation à aujourd'hui, remplaçant ainsi la date de première réservation. Cette action ne peut pas être annulée.",
+            "title": "Activer manuellement cette carte de cours ?",
+            "submit": "Activer la carte de cours",
+            "close": "Fermer"
+        },
+        "activateManually": "Activer"
     },
     "paymentRules": {
         "simulate": "Simuler",
@@ -16039,6 +16053,10 @@
             "paymentPackTemplateArchived": {
                 "success": "Carte archivée",
                 "error": "Impossible d'archiver la carte partagée"
+            },
+            "manualActivation": {
+                "error": "Il y a eu un problème lors de l'activation de la carte, veuillez réessayer.",
+                "updated": "Carte activée avec succès"
             }
         },
         "paymentMethod": {

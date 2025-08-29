@@ -6,19 +6,385 @@ import { MenuOption } from "#src/components/Menu/types";
 import Autocomplete from "./Autocomplete";
 
 /**
- * This component is a text input field that offers autocompletion from a set of items.<br>
- * It functions by filtering these items according to the user's input and displaying them in a popover.<br>
- * Debounces the `onChange` callback if supplied, otherwise filters items.<br>
- * <a href="https://www.figma.com/design/aQ73ihLayonUHVquF0QY2C/Kaizen-library?node-id=2474-3186" target="_blank">Figma</a><br>
+ * Autocomplete
+ *
+ * A comprehensive text input field that provides intelligent autocompletion from a set of items.
+ * It filters items based on user input and displays them in an accessible popover interface,
+ * supporting both single and multi-selection modes with advanced features like caching and loading states.
+ *
+ * ## Features
+ * - Smart text filtering with fuzzy matching support
+ * - Single and multi-selection modes with conditional typing
+ * - Local and remote search capabilities
+ * - Intelligent caching of selected items
+ * - Debounced input for performance optimization
+ * - Loading states and async data handling
+ * - Grouped and flat item structures
+ * - Keyboard navigation and accessibility
+ * - Pre-selected default values
+ * - Clearable selections and chips display
+ *
+ * ## Usage
+ * ```tsx
+ * // Basic single-select autocomplete
+ * <Autocomplete
+ *   textfieldProps={{
+ *     id: "language-select",
+ *     label: "Choose a language",
+ *     placeholder: "Start typing..."
+ *   }}
+ *   items={languageOptions}
+ *   onSelect={(selectedValue: string) => console.log(selectedValue)}
+ * />
+ *
+ * // Multi-select with grouped items
+ * <Autocomplete
+ *   textfieldProps={{
+ *     id: "skills-select",
+ *     label: "Select your skills"
+ *   }}
+ *   items={groupedSkills}
+ *   multiSelect={true}
+ *   defaultSelectedIds={["react", "typescript"]}
+ *   onSelect={(selectedValues: string[]) => console.log(selectedValues)}
+ *   fullWidth
+ * />
+ *
+ * // Remote search with API integration
+ * <Autocomplete
+ *   textfieldProps={{
+ *     id: "city-search",
+ *     label: "Search cities worldwide"
+ *   }}
+ *   items={searchResults}
+ *   searchMode="remote"
+ *   onValueChange={handleApiSearch}
+ *   loadingProps={{
+ *     isLoading: isSearching,
+ *     message: "Searching cities..."
+ *   }}
+ * />
+ * ```
+ *
+ * ## Props
+ * | Name                  | Type                                    | Default        | Description                                                     |
+ * |-----------------------|-----------------------------------------|----------------|-----------------------------------------------------------------|
+ * | `textfieldProps`      | `TextFieldProps`                        | —              | Props passed to the underlying TextField component.            |
+ * | `items`               | `AutocompleteItems`                     | —              | List of items to provide as autocompletion options.           |
+ * | `multiSelect`         | `boolean`                               | `false`        | Enable multi-selection mode with checkboxes.                  |
+ * | `onSelect`            | `(value: string \| string[]) => void`   | —              | Callback triggered when item(s) are selected.                 |
+ * | `defaultSelectedIds`  | `string[]`                              | `[]`           | Array of item IDs that should be pre-selected.                |
+ * | `searchMode`          | `"local" \| "remote"`                   | `"local"`      | Search mode: local filtering or remote API calls.             |
+ * | `onValueChange`       | `(value: string) => void`               | —              | Callback triggered when input value changes.                  |
+ * | `debounceValue`       | `number`                                | `500`          | Debounce duration in milliseconds for value changes.          |
+ * | `fullWidth`           | `boolean`                               | `false`        | Whether the popover should take full width.                   |
+ * | `popoverPlacement`    | `Placement`                             | `"bottom-left"`| Placement of the popover relative to input.                   |
+ * | `disabled`            | `boolean`                               | `false`        | Disables the autocomplete and prevents interaction.           |
+ * | `clearOnSelect`       | `boolean`                               | `false`        | Clears input after selection (useful for search interfaces).  |
+ * | `loadingProps`        | `{ isLoading: boolean; message?: string }` | —          | Configuration for loading states.                             |
+ * | `className`           | `string`                                | —              | Additional CSS classes for the container.                     |
+ * | ...props              | `React.HTMLAttributes<HTMLDivElement>` | —              | Other native div attributes.                                   |
+ *
+ * ## AutocompleteItems Structure
+ * The component supports two item structures:
+ *
+ * ### Flat Structure
+ * ```tsx
+ * const flatItems: MenuOption[] = [
+ *   { id: "react", label: "React", description: "JavaScript library" },
+ *   { id: "vue", label: "Vue.js", description: "Progressive framework" },
+ *   { id: "angular", label: "Angular", description: "Platform framework" }
+ * ];
+ * ```
+ *
+ * ### Grouped Structure
+ * ```tsx
+ * const groupedItems = [
+ *   {
+ *     title: "Frontend",
+ *     options: [
+ *       { id: "react", label: "React" },
+ *       { id: "vue", label: "Vue.js" }
+ *     ]
+ *   },
+ *   {
+ *     title: "Backend",
+ *     options: [
+ *       { id: "node", label: "Node.js" },
+ *       { id: "python", label: "Python" }
+ *     ]
+ *   }
+ * ];
+ * ```
+ *
+ * ## Conditional Typing for onSelect
+ * The `onSelect` callback is conditionally typed based on the `multiSelect` prop:
+ *
+ * ```tsx
+ * // Single-select: receives string
+ * <Autocomplete
+ *   multiSelect={false}
+ *   onSelect={(selectedValue: string) => {
+ *     // selectedValue is typed as string
+ *   }}
+ * />
+ *
+ * // Multi-select: receives string[]
+ * <Autocomplete
+ *   multiSelect={true}
+ *   onSelect={(selectedValues: string[]) => {
+ *     // selectedValues is typed as string[]
+ *   }}
+ * />
+ * ```
+ *
+ * ## Search Modes
+ *
+ * ### Local Search Mode
+ * - **Client-side filtering**: Items are filtered locally using fuzzy matching
+ * - **Debounced input**: Input changes are debounced to improve performance
+ * - **Instant results**: No API calls, immediate filtering response
+ * - **Best for**: Static datasets, small to medium item lists
+ *
+ * ```tsx
+ * <Autocomplete
+ *   searchMode="local"
+ *   items={localItems}
+ *   debounceValue={300}
+ * />
+ * ```
+ *
+ * ### Remote Search Mode
+ * - **API integration**: Relies on external API for filtering results
+ * - **Loading states**: Built-in loading indicators during API calls
+ * - **Real-time search**: Triggers API calls on input changes
+ * - **Best for**: Large datasets, dynamic content, server-side filtering
+ *
+ * ```tsx
+ * <Autocomplete
+ *   searchMode="remote"
+ *   items={apiResults}
+ *   onValueChange={handleApiSearch}
+ *   loadingProps={{
+ *     isLoading: isSearching,
+ *     message: "Searching..."
+ *   }}
+ * />
+ * ```
+ *
+ * ## Advanced Features
+ *
+ * ### Selected Items Caching
+ * The component automatically manages selected items in a cache:
+ * - **Multi-select**: Selected items appear as chips below the input
+ * - **Grouped display**: Cached items get their own "Selected Items" section
+ * - **Persistence**: Selected items remain available even when not in current search results
+ * - **Removal**: Users can remove selections via chip dismiss buttons or re-selecting items
+ *
+ * ### Loading States
+ * ```tsx
+ * <Autocomplete
+ *   loadingProps={{
+ *     isLoading: isApiLoading,
+ *     message: "Searching worldwide database..."
+ *   }}
+ * />
+ * ```
+ *
+ * ### Default Selections
+ * ```tsx
+ * <Autocomplete
+ *   defaultSelectedIds={["react", "typescript", "node"]}
+ *   multiSelect={true}
+ * />
+ * ```
+ *
+ * ### Clear on Select (Search Interface Pattern)
+ * ```tsx
+ * <Autocomplete
+ *   clearOnSelect={true}
+ *   onSelect={(value) => {
+ *     // Input clears after selection
+ *     addToList(value);
+ *   }}
+ * />
+ * ```
+ *
+ * ## Accessibility
+ * - **ARIA attributes**: Proper labeling and role assignments for screen readers
+ * - **Keyboard navigation**: Arrow keys, Enter, Escape support
+ * - **Focus management**: Logical focus flow and visual indicators
+ * - **Live regions**: Search results announced to screen readers
+ * - **High contrast**: Support for high contrast and dark modes
+ *
+ * ## Performance Considerations
+ * - **Debouncing**: Input changes are debounced to prevent excessive API calls
+ * - **Virtual scrolling**: Large item lists are efficiently rendered
+ * - **Memoization**: Internal components use React.memo for optimization
+ * - **Smart filtering**: Efficient string matching algorithms
+ * - **Cache management**: Selected items are cached for instant access
+ *
+ * ## Best Practices
+ * 1. **Use appropriate search mode**: Local for small datasets, remote for large ones
+ * 2. **Provide meaningful placeholders**: Help users understand what to search for
+ * 3. **Handle empty states**: Show helpful messages when no results are found
+ * 4. **Optimize debounce timing**: Balance responsiveness with API call frequency
+ * 5. **Group related items**: Use grouped structure for better organization
+ * 6. **Include descriptions**: Help users differentiate between similar options
+ *
+ * ## See Also
+ * - [TextField](./?path=/docs/components-textfield--docs) - For the underlying input component
+ * - [Menu](./?path=/docs/components-menu--docs) - For dropdown menu patterns
+ * - [Popover](./?path=/docs/components-popover--docs) - For popover positioning
+ * - [Chip](./?path=/docs/components-chip--docs) - For selected item display
+ *
+ * <a href="https://www.figma.com/design/aQ73ihLayonUHVquF0QY2C/Kaizen-library?node-id=2474-3186" target="_blank">Figma Design</a><br>
+ *
+ * @component
  */
 const meta: Meta<typeof Autocomplete> = {
   component: Autocomplete,
   argTypes: {
     textfieldProps: {
       control: "object",
+      description:
+        "Props passed to the underlying TextField component including id, label, placeholder, etc.",
+      table: {
+        type: { summary: "TextFieldProps" },
+        category: "Required",
+      },
+    },
+    items: {
+      control: "object",
+      description:
+        "List of items to provide as autocompletion options. Can be flat array or grouped structure.",
+      table: {
+        type: { summary: "AutocompleteItems" },
+        category: "Required",
+      },
+    },
+    multiSelect: {
+      control: "boolean",
+      description:
+        "Enable multi-selection mode using checkboxes instead of radio buttons. Changes onSelect typing.",
+      table: {
+        type: { summary: "boolean" },
+        defaultValue: { summary: "false" },
+        category: "Selection",
+      },
+    },
+    onSelect: {
+      description:
+        "Callback triggered when items are selected. Type changes based on multiSelect prop.",
+      table: {
+        type: { summary: "(value: string | string[]) => void" },
+        category: "Events",
+      },
+    },
+    defaultSelectedIds: {
+      control: "object",
+      description:
+        "Array of item IDs that should be pre-selected on component mount.",
+      table: {
+        type: { summary: "string[]" },
+        defaultValue: { summary: "[]" },
+        category: "Selection",
+      },
+    },
+    searchMode: {
+      control: { type: "radio", options: ["local", "remote"] },
+      description:
+        "Search mode: 'local' filters items client-side, 'remote' relies on external filtering.",
+      table: {
+        type: { summary: "'local' | 'remote'" },
+        defaultValue: { summary: "'local'" },
+        category: "Search",
+      },
+    },
+    onValueChange: {
+      description:
+        "Callback triggered whenever the input value changes. Used for remote search integration.",
+      table: {
+        type: { summary: "(value: string) => void" },
+        category: "Events",
+      },
+    },
+    debounceValue: {
+      control: { type: "number", min: 0, max: 2000, step: 100 },
+      description:
+        "Debounce duration in milliseconds to limit how often value change callbacks are triggered.",
+      table: {
+        type: { summary: "number" },
+        defaultValue: { summary: "500" },
+        category: "Performance",
+      },
     },
     fullWidth: {
       control: "boolean",
+      description:
+        "Whether the popover should take the full width of its container.",
+      table: {
+        type: { summary: "boolean" },
+        defaultValue: { summary: "false" },
+        category: "Layout",
+      },
+    },
+    popoverPlacement: {
+      control: {
+        type: "select",
+        options: [
+          "top",
+          "bottom",
+          "left",
+          "right",
+          "bottom-left",
+          "bottom-right",
+          "top-left",
+          "top-right",
+        ],
+      },
+      description: "Placement of the popover relative to the input field.",
+      table: {
+        type: { summary: "Placement" },
+        defaultValue: { summary: "'bottom-left'" },
+        category: "Layout",
+      },
+    },
+    disabled: {
+      control: "boolean",
+      description:
+        "Disables the autocomplete input and prevents user interaction.",
+      table: {
+        type: { summary: "boolean" },
+        defaultValue: { summary: "false" },
+        category: "State",
+      },
+    },
+    clearOnSelect: {
+      control: "boolean",
+      description:
+        "Empty the input after selection. Useful for search interfaces where selection adds to a list.",
+      table: {
+        type: { summary: "boolean" },
+        defaultValue: { summary: "false" },
+        category: "Behavior",
+      },
+    },
+    loadingProps: {
+      control: "object",
+      description: "Configuration for loading states during async operations.",
+      table: {
+        type: { summary: "{ isLoading: boolean; message?: string }" },
+        category: "Loading",
+      },
+    },
+    className: {
+      control: "text",
+      description: "Additional CSS classes to apply to the container element.",
+      table: {
+        type: { summary: "string" },
+        category: "Styling",
+      },
     },
   },
 };
@@ -82,12 +448,20 @@ const items = [
 ];
 
 export const Primary: Story = {
-  name: "Autocomplete",
+  name: "Default Multi-Select",
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Basic multi-select autocomplete with grouped items. Shows chips for selected items and supports local search filtering.",
+      },
+    },
+  },
   args: {
     textfieldProps: {
-      id: "autocomplete-1",
-      label: "Autocomplete",
-      placeholder: "Select an option",
+      id: "autocomplete-primary",
+      label: "Select Languages",
+      placeholder: "Choose your preferred languages",
       status: "default",
     },
     items,
@@ -96,31 +470,71 @@ export const Primary: Story = {
   },
 };
 
-export const DebouncedSearch: Story = {
-  name: "Debounced search",
+export const SingleSelect: Story = {
+  name: "Single Selection Mode",
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Single-select autocomplete that updates the input field with the selected item label and closes the popover after selection.",
+      },
+    },
+  },
   args: {
     textfieldProps: {
-      id: "autocomplete-1",
-      label: "Autocomplete",
-      placeholder: "Select an option",
+      id: "autocomplete-single",
+      label: "Primary Language",
+      placeholder: "Select your primary language",
       status: "default",
     },
     items,
     multiSelect: false,
     fullWidth: false,
+  },
+};
+
+export const DebouncedSearch: Story = {
+  name: "Debounced Local Search",
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Demonstrates debounced input handling with custom onValueChange callback. Useful for tracking search queries or triggering analytics.",
+      },
+    },
+  },
+  args: {
+    textfieldProps: {
+      id: "autocomplete-debounced",
+      label: "Search with Debouncing",
+      placeholder: "Type to search (debounced)",
+      status: "default",
+    },
+    items,
+    multiSelect: false,
+    fullWidth: false,
+    debounceValue: 300,
     onValueChange: (value: string) => {
-      console.log("Search value changed:", value);
+      console.log("Debounced search value:", value);
     },
   },
 };
 
-export const AutocompleteItemsWithoutTitle: Story = {
-  name: "Autocomplete Items Without Title",
+export const FlatItemStructure: Story = {
+  name: "Flat Item Structure",
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Demonstrates autocomplete with flat item structure (no grouping) and clearOnSelect behavior for search-like interactions.",
+      },
+    },
+  },
   args: {
     textfieldProps: {
-      id: "autocomplete-1",
-      label: "Autocomplete",
-      placeholder: "Select an option",
+      id: "autocomplete-flat",
+      label: "Programming Languages",
+      placeholder: "Search programming languages",
       status: "default",
     },
     items: [
@@ -135,17 +549,26 @@ export const AutocompleteItemsWithoutTitle: Story = {
       },
       { id: "russian", label: "Russian", description: "Russian Language" },
     ],
+    clearOnSelect: true,
     fullWidth: false,
   },
 };
 
-export const AutocompleteCustomOnChange: Story = {
-  name: "Autocomplete Custom OnChange",
+export const CustomFilteringLogic: Story = {
+  name: "Custom Filtering Logic",
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Example of implementing custom filtering logic that works with both grouped and flat item structures. The filtering happens in the render function based on user input.",
+      },
+    },
+  },
   render: (args) => {
     const [filteredItems, setFilteredItems] = useState(args.items);
 
     const handleChange = (value: string) => {
-      // Simulate fetching items from an API ...
+      // Simulate fetching items from an API
       const fetchedItems = args.items;
 
       // Filter the items based on the search value
@@ -175,7 +598,14 @@ export const AutocompleteCustomOnChange: Story = {
 
     return (
       <div className="flex flex-col gap-md">
-        <div className="h-[700px] bg-[#777]"></div>
+        <div className="p-4 bg-blue-50 rounded-lg border border-blue-200">
+          <p className="text-sm text-blue-800">
+            <strong>Custom Filtering:</strong> This example shows how to
+            implement custom filtering logic that works with both grouped and
+            flat item structures. The filtering happens in real-time as you
+            type.
+          </p>
+        </div>
         <Autocomplete
           {...args}
           items={filteredItems}
@@ -186,29 +616,37 @@ export const AutocompleteCustomOnChange: Story = {
   },
   args: {
     textfieldProps: {
-      id: "autocomplete-2",
-      label: "Custom Autocomplete that filters options only",
-      placeholder: "Choose a language",
+      id: "autocomplete-custom",
+      label: "Custom Filtered Languages",
+      placeholder: "Type to filter languages",
       status: "default",
       iconRight: "chevron-down",
     },
     items,
     fullWidth: true,
+    searchMode: "local",
   },
 };
 
-export const AutocompleteWithDefaultSelection: Story = {
-  name: "With Default Selection",
+export const WithDefaultSelection: Story = {
+  name: "Single-Select with Default Value",
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Demonstrates how to set a default selected value in single-select mode. The selected item appears in the input field on mount.",
+      },
+    },
+  },
   render: (args) => {
     return (
       <div className="flex flex-col gap-md">
         <Autocomplete {...args} defaultSelectedIds={["english"]} />
         <div className="p-4 bg-gray-100 rounded">
-          <p>
-            <em>
-              Single-select with &apos;English&apos; pre-selected in the
-              textfield and menu
-            </em>
+          <p className="text-sm text-gray-700">
+            <strong>Default Selection:</strong> The &quot;English&quot; option
+            is pre-selected. In single-select mode, the input shows the selected
+            item&apos;s label.
           </p>
         </div>
       </div>
@@ -217,17 +655,26 @@ export const AutocompleteWithDefaultSelection: Story = {
   args: {
     textfieldProps: {
       id: "autocomplete-default-single",
-      label: "Single-Select with Default",
-      placeholder: "Choose a language",
+      label: "Primary Language",
+      placeholder: "Choose your primary language",
       status: "default",
     },
     items,
+    multiSelect: false,
     fullWidth: true,
   },
 };
 
-export const AutocompleteMultiSelectWithDefaults: Story = {
+export const MultiSelectWithDefaults: Story = {
   name: "Multi-Select with Default Selections",
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Shows multi-select mode with multiple pre-selected items. Selected items appear as chips below the input and also get their own 'Selected Items' section in the dropdown.",
+      },
+    },
+  },
   render: (args) => {
     const [selectedValues, setSelectedValues] = useState<string[]>([
       "english",
@@ -247,14 +694,13 @@ export const AutocompleteMultiSelectWithDefaults: Story = {
           onSelect={handleSelectionChange}
         />
         <div className="p-4 bg-gray-100 rounded">
-          <p>
-            <strong>Selected Values:</strong> {selectedValues.join(", ")}
+          <p className="text-sm text-gray-700">
+            <strong>Selected Items:</strong>{" "}
+            {selectedValues.length > 0 ? selectedValues.join(", ") : "None"}
           </p>
-          <p>
-            <em>
-              Multi-select with &apos;English&apos; and &apos;French&apos;
-              pre-selected in the menu
-            </em>
+          <p className="text-xs text-gray-600 mt-2">
+            Notice how selected items appear as chips and also have their own
+            section in the dropdown.
           </p>
         </div>
       </div>
@@ -263,7 +709,7 @@ export const AutocompleteMultiSelectWithDefaults: Story = {
   args: {
     textfieldProps: {
       id: "autocomplete-multi-defaults",
-      label: "Multi-Select with Defaults",
+      label: "Programming Languages",
       placeholder: "Choose multiple languages",
       status: "default",
     },
@@ -404,8 +850,16 @@ const simulateApiCall = (
   });
 };
 
-export const AutocompleteWithApiMock: Story = {
-  name: "API Mock with Remote Search",
+export const ApiMockRemoteSearch: Story = {
+  name: "Remote Search with API Mock",
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Demonstrates remote search mode with simulated API calls. Features debounced input, loading states, and real-time search results from a mock global cities database.",
+      },
+    },
+  },
   render: (args) => {
     const [searchResults, setSearchResults] = useState<MenuOption[]>([]);
     const [isLoading, setIsLoading] = useState(false);
@@ -529,8 +983,16 @@ export const AutocompleteWithApiMock: Story = {
   },
 };
 
-export const AutocompleteWithContinentGroups: Story = {
-  name: "API Mock with Grouped Results",
+export const GroupedApiResults: Story = {
+  name: "Remote Search with Grouped Results",
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Shows how remote search can return grouped results organized by continent. Demonstrates the autocomplete's ability to handle dynamically grouped API responses.",
+      },
+    },
+  },
   render: (args) => {
     const [searchResults, setSearchResults] = useState<
       { title: string; options: MenuOption[] }[]

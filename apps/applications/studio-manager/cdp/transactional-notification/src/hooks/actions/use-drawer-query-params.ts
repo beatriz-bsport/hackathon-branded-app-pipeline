@@ -17,6 +17,8 @@ export function useDrawerQueryParam(paramName = "notificationEvent") {
   const closeDrawer = () => {
     const next = new URLSearchParams(searchParams);
     next.delete(paramName);
+    // Also remove the notificationType param if it exists that is used for segmented control
+    next.delete("notificationType");
     setSearchParams(next, { replace: true });
   };
 

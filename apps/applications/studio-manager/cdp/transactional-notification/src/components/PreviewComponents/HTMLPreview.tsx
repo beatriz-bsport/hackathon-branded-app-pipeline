@@ -1,8 +1,11 @@
 import DOMPurify from "dompurify";
 
+import { Body, Card } from "@bsport/kaizen-primitive-core";
+
 type Props = {
   htmlContent: string;
   resolvedGenericTags?: Record<string, string>;
+  noContentMessage?: string;
 };
 
 export const replaceGenericTagsInTemplate = (
@@ -25,14 +28,31 @@ export const replaceGenericTagsInTemplate = (
 export const HTMLPreview: React.FC<Props> = ({
   htmlContent,
   resolvedGenericTags,
+  noContentMessage,
 }: Props) => {
-  if (!htmlContent) return null;
   const processedContent = resolvedGenericTags
     ? replaceGenericTagsInTemplate(resolvedGenericTags, htmlContent)
     : htmlContent;
+
+  if (!processedContent) {
+    return (
+      <Card className="flex flex-col min-h-[180px] bg-surface-default-weaker border-none justify-center">
+        <Body
+          className="my-auto text-center"
+          htmlVariant="p"
+          weight="weak"
+          color="weak"
+          size="md"
+        >
+          {noContentMessage || ""}
+        </Body>
+      </Card>
+    );
+  }
+
   return (
     <div
-      className="p-4 bg-white max-h-[80vh] overflow-auto scrollbar-thin"
+      className="p-4 rounded-md bg-white max-h-[80vh] overflow-auto scrollbar-thin"
       /**
        * We need to use `dangerouslySetInnerHTML` to render HTML content easily.
        * But as this can lead to XSS attacks, we need to sanitize the HTML content

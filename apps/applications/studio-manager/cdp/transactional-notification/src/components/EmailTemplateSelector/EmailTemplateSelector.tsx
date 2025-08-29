@@ -9,11 +9,13 @@ import {
 import { useTranslation } from "#src/utils/i18n";
 
 type EmailTemplateSelectorProps = {
+  disabled?: boolean;
   defaultTemplateId?: number;
   onSelectTemplate?: (selectedTemplate: EmailTemplateSummary) => void;
 };
 
 export const EmailTemplateSelector = ({
+  disabled = false,
   defaultTemplateId,
   onSelectTemplate,
 }: EmailTemplateSelectorProps) => {
@@ -64,6 +66,7 @@ export const EmailTemplateSelector = ({
     <BackendSelector<EmailTemplateSearchParams, EmailTemplateSummary>
       className="w-full"
       key={defaultTemplateId}
+      disabled={disabled}
       storeConfig={{
         searchFn: (query, params) => fetchEmailTemplates(query, params),
         data: emailTemplates,

@@ -64,6 +64,10 @@ type BaseAutocompleteProps = Omit<
     isLoading: boolean;
     message?: string;
   };
+  /** options to disable the field making the autocomplete, textfield and popover not usable */
+  disabled?: boolean;
+  /** Empty the selected value array when clicking, used when you want to display a filterable list of choice not made to be kept */
+  clearOnSelect?: boolean;
 };
 
 type MultiSelectAutocompleteProps = BaseAutocompleteProps & {
@@ -104,6 +108,8 @@ const Autocomplete: React.FC<AutocompleteProps> = ({
   searchMode = "local",
   onSelect,
   onValueChange,
+  disabled,
+  clearOnSelect = false,
   ...props
 }) => {
   const textFieldRef = React.useRef<HTMLInputElement | null>(null);
@@ -181,6 +187,15 @@ const Autocomplete: React.FC<AutocompleteProps> = ({
         .find((option) => option.id === value);
       if (!selectedItem) return;
 
+      if (!multiSelect && clearOnSelect) {
+        const singleValue = value || "";
+        (onSelect as (selectedItem: string) => void)?.(singleValue);
+        setSearchedValue("");
+        setTextFieldValue("");
+        setIsPopoverOpened(false);
+        return;
+      }
+
       // Update cached items
       setCachedItems((prev) => {
         const existingItem = prev.find((item) => item.id === value);
@@ -214,6 +229,7 @@ const Autocomplete: React.FC<AutocompleteProps> = ({
       setCachedItems,
       setSelectedValues,
       multiSelect,
+      clearOnSelect,
       setTextFieldValue,
     ],
   );
@@ -311,6 +327,7 @@ const Autocomplete: React.FC<AutocompleteProps> = ({
 
             return (
               <TextField
+                disabled={disabled}
                 inputRef={textFieldRef}
                 {...textfieldProps}
                 value={textfieldValue}

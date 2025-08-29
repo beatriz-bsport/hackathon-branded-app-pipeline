@@ -32,6 +32,14 @@ exports.default = {
     noCategory: "No category",
   },
   notificationRuleEventDetails: {
+    toast: {
+      create: {
+        failure: "Failed to update notification rule",
+      },
+      update: {
+        failure: "Failed to update notification rule",
+      },
+    },
     table: {
       headers: {
         name: "Notification",
@@ -46,6 +54,8 @@ exports.default = {
         },
         franchiseOwned:
           "The Master Account directly manages this transactional notification.",
+        setPushNotificationBeforeEnabling:
+          "Set up your push notification before enabling it.",
       },
       helper: {
         title: "Push notifications",
@@ -73,6 +83,30 @@ exports.default = {
         },
         carbonCopy: {
           label: "Receive a copy of the email",
+        },
+      },
+      pushNotification: {
+        title: {
+          label: "Title",
+          errors: {
+            minLength: "Cannot be empty",
+            maxLength: "Cannot exceed 25 characters",
+          },
+        },
+        content: {
+          label: "Content",
+          errors: {
+            minLength: "Cannot be empty",
+            maxLength: "Cannot exceed 200 characters",
+          },
+        },
+        preview: {
+          title: "Preview",
+          placeholder: "Set-up your push notification and preview here",
+          noPreview: "No preview available",
+        },
+        actions: {
+          save: "Save",
         },
       },
     },

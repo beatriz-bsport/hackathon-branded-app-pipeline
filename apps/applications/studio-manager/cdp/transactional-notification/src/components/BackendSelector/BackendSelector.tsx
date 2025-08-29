@@ -29,48 +29,38 @@ export type BackendSelectorProps<TParams, TResult> = {
    *
    * @param results - Array of search results from store
    * @returns Array of autocomplete items with id, label, and optional description
-   *
-   * @example
-   * ```tsx
-   * optionsFormatter={(results) =>
-   *   results.map((item) => ({
-   *     id: item.id.toString(),
-   *     label: item.title,
-   *     description: item.subject,
-   *   }))
-   * }
-   * ```
    */
   optionsFormatter?: (results: TResult[]) => AutocompleteProps["items"];
 
   /**
    * Props to customize the underlying text field component.
    * Common props include label, placeholder, iconLeft, etc.
-   *
-   * @example
-   * ```tsx
-   * textfieldProps={{
-   *   id: "my-selector",
-   *   label: "Select an item",
-   *   placeholder: "Start typing to search...",
-   *   iconLeft: "search",
-   * }}
-   * ```
    */
   textfieldProps?: TextFieldProps;
 
   /**
    * Loading message to display during search operations
-   * Note: Store-based search is instant, so this is mainly for consistency
-   *
-   * @example
-   * ```tsx
-   * loadingMessage="Searching templates..."
-   * ```
    */
   loadingMessage?: string;
+
+  /**
+   * Array of default selected item IDs.
+   */
   defaultValues?: string[];
+
+  /**
+   * If true, disables the selector input.
+   */
+  disabled?: boolean;
+
+  /**
+   * Optional CSS class name for custom styling
+   */
   className?: string;
+
+  /**
+   * Callback fired when an item is selected, receiving the selected item's ID.
+   */
   onSelect?: (selectedId: string) => void;
 };
 
@@ -91,6 +81,7 @@ export const BackendSelector = <
   TParams = Record<string, unknown>,
   TResult = unknown,
 >({
+  disabled = false,
   storeConfig,
   textfieldProps,
   loadingMessage,
@@ -138,7 +129,9 @@ export const BackendSelector = <
   return (
     <Autocomplete
       fullWidth
+      clearOnSelect
       className={className}
+      disabled={disabled}
       searchMode="remote"
       popoverPlacement="bottom-right"
       textfieldProps={{

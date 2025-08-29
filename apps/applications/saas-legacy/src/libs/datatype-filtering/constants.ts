@@ -184,6 +184,7 @@ export const DATATYPE_PRESET_INTEGER_VALUE = [
   'access_monitoring_status',
   'access_monitoring_admission',
   'product_type',
+  'products',
 ];
 
 export const DATATYPE_FILTERABLE_BY_DATE = ['datetime', 'date', 'time'];

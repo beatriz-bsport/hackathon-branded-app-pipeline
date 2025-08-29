@@ -5,8 +5,29 @@ import type { RootState } from '#src/reducers';
 import { getFranchiseId } from '#src/libs/franchise/selectors';
 import themeSelectors from '#src/libs/theme/selectors';
 import Config from '#src/config';
+import { captureException } from '@sentry/react';
 
 function buildUnleashConfig() {
+  const url = Config.REACT_APP_UNLEASH_PROXY_URL;
+  // TEMP DEBUG
+  if (!url) {
+    const error_url = new Error(
+      'REACT_APP_UNLEASH_PROXY_URL is not defined. Test env var: ' +
+        Config.REACT_APP_BASE_URI_COMMUNICATE_V0,
+    );
+    console.error(error_url);
+    captureException(error_url);
+  }
+  const key = Config.REACT_APP_UNLEASH_CLIENT_KEY;
+  if (!key) {
+    const error_key = new Error(
+      'REACT_APP_UNLEASH_CLIENT_KEY is not defined. Test env var: ' +
+        Config.REACT_APP_BASE_URI_COMMUNICATE_V0,
+    );
+    console.error(error_key);
+    captureException(error_key);
+  }
+
   return {
     url: Config.REACT_APP_UNLEASH_PROXY_URL,
     clientKey: Config.REACT_APP_UNLEASH_CLIENT_KEY,

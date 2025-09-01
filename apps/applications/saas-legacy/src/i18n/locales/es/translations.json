@@ -3957,7 +3957,8 @@
                 "17": "PayPal"
             },
             "select": {
-                "label": "Método de pago"
+                "label": "Método de pago",
+                "orPayUsing": "O paga utilizando"
             },
             "isInternalExplain": "Cuenta de cliente (manual): cada mes se aplicará un cargo a este miembro.",
             "title": "Método de pago",
@@ -7196,7 +7197,8 @@
             "recurrent": {
                 "backToRegistererChoice": "Volver",
                 "title": "Sesiones futuras",
-                "bookMultiple": "Reservar"
+                "bookMultiple": "Reservar",
+                "titleGroupedSessions": "Todas las sesiones de este grupo."
             },
             "isLoading": "Búsqueda de las sesiones...",
             "book": {
@@ -13976,7 +13978,8 @@
             "referral": {
                 "hasReachedMaxUses": "Se ha alcanzado el número máximo de usos del enlace de recomendación.",
                 "missingAmountBeforeApplication": "No se ha alcanzado el importe mínimo de compra. Te arriesgas a perder tu enlace de recomendación. ¡Sólo {{ missingAmount }} más para poder disfrutar del descuento!"
-            }
+            },
+            "expressCheckoutTitle": "Pago rápido"
         },
         "autoAdd": {
             "paymentPack": {
@@ -14919,6 +14922,10 @@
             },
             "compatibilitiesUpdate": {
                 "fail": "Error al actualizar las compatibilidades de los bonos"
+            },
+            "manualActivation": {
+                "error": "Hubo un problema al activar el pase, por favor, inténtalo de nuevo.",
+                "updated": "Pase activado correctamente."
             }
         },
         "coupon": {
@@ -16378,6 +16385,11 @@
             "decimalCredit": {
                 "helperText": "Este pase contendrá {{count}} crédito",
                 "helperText_plural": "Este pase contendrá {{count}} créditos"
+            },
+            "activationWindow": "Establecer periodo de activación",
+            "accessControl": {
+                "firstBookingDisclaimer": "El pase será válido a partir de la primera reserva o del primer acceso al hotel, lo que ocurra primero. Si el personal registra manualmente a un miembro antes de la fecha de su primera reserva, el pase será válido a partir de la fecha del primer acceso.",
+                "firstBooking": "Primera reserva o acceso"
             }
         },
         "paymentPackTemplate": {
@@ -16504,7 +16516,16 @@
         "orderingAlert": {
             "button": "Página de personalización",
             "text": "Cualquier cambio en el orden de las \"Categorías\" sólo afectará a la visualización de la página \"Bonos\" del marketplace y de la aplicación. Esta actualización no afectará a ninguna otra sección o categoría."
-        }
+        },
+        "manualActivation": {
+            "replaceActiveStartDateAlert": "El pase será válido a partir de hoy. Si alguna de las futuras reservas del miembro cae después del período de validez actualizado, sus reservas seguirán activas, pero el personal tendrá que ayudar con la entrada.",
+            "setActiveStartDate": "Al activar este pase, la fecha de activación se establecerá en la fecha de hoy. Esta acción no se puede deshacer.",
+            "replaceActiveStartDate": "Al activar este pase, la fecha de activación se establecerá en la fecha de hoy, sustituyendo la fecha de la primera reserva anterior. Esta acción no se puede deshacer.",
+            "title": "¿Activar manualmente este pase?",
+            "submit": "Activar Pase",
+            "close": "Cerrar"
+        },
+        "activateManually": "Activar"
     },
     "selfCheckIn": {
         "offerList": {

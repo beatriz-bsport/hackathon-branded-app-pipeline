@@ -206,7 +206,8 @@
                 "bookMultiple": "Reserver",
                 "backToRegistererChoice": "Retour",
                 "unselectAll": "Tout désélectionner",
-                "selectAll": "Tout sélectionner"
+                "selectAll": "Tout sélectionner",
+                "titleGroupedSessions": "Toutes les séances de ce groupe"
             },
             "section": {
                 "consumerPacks": "Mes cartes de cours",
@@ -826,7 +827,8 @@
             "referral": {
                 "hasReachedMaxUses": "Le nombre maximum d'utilisations du lien de parrainage a été atteint.",
                 "missingAmountBeforeApplication": "Le montant minimum d'achat n'a pas été atteint. Vous risquez de perdre votre lien de parrainage. Il suffit de {{ missingAmount }} de plus pour pouvoir bénéficier de la réduction !"
-            }
+            },
+            "expressCheckoutTitle": "Paiement express"
         },
         "payLater": {
             "submit": "Payer sur place",
@@ -4150,7 +4152,8 @@
             "none": "Aucun moyen de paiement sauvergardé",
             "isInternalExplain": "Acompte client (manuel) : tous les mois une dette est automatiquement créée dans le compte du membre.",
             "select": {
-                "label": "Moyen de paiement"
+                "label": "Moyen de paiement",
+                "orPayUsing": "Ou payer par"
             },
             "label": {
                 "0": "Espèces",

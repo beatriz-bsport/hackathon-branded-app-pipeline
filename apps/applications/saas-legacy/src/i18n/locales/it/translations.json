@@ -5836,6 +5836,10 @@
             "paymentPackTemplateArchived": {
                 "success": "Pacchetto condiviso archiviato",
                 "error": "Impossibile archiviare il pacchetto condiviso"
+            },
+            "manualActivation": {
+                "error": "Si è verificato un problema durante l'attivazione del pacchetto, per favore riprova.",
+                "updated": "Pass attivato con successo"
             }
         },
         "coupon": {
@@ -7687,7 +7691,8 @@
                 "17": "PayPal"
             },
             "select": {
-                "label": "Metodo di pagamento"
+                "label": "Metodo di pagamento",
+                "orPayUsing": "O paga con"
             },
             "isInternalExplain": "Account cliente (manuale): ogni mese un debito viene creato automaticamente nel conto del membro.",
             "add": "Aggiungere",
@@ -10702,6 +10707,11 @@
             "decimalCredit": {
                 "helperText": "Questo pacchetto conterrà {{count}} credito",
                 "helperText_plural": "Questo pacchetto conterrà {{count}} crediti"
+            },
+            "activationWindow": "Imposta periodo di attivazione",
+            "accessControl": {
+                "firstBookingDisclaimer": "Il pacchetto sarà valido a partire dalla prima prenotazione o dal primo check-in, a seconda di quale dei due avvenga per primo. Se il personale effettua il check-in manuale di un membro prima della data della sua prima prenotazione, il pacchetto sarà valido a partire dalla data del primo check-in.",
+                "firstBooking": "Prima prenotazione o check-in"
             }
         },
         "paymentPackTemplate": {
@@ -10855,7 +10865,16 @@
                     "submit": "Archivia"
                 }
             }
-        }
+        },
+        "manualActivation": {
+            "replaceActiveStartDateAlert": "Il pacchetto sarà valido a partire da oggi. Se una delle future prenotazioni del membro ricade dopo il periodo di validità aggiornato, le sue prenotazioni rimarranno attive, ma il personale dovrà assisterlo per l'ingresso.",
+            "setActiveStartDate": "Attivando questo pacchetto, la data di attivazione sarà impostata su oggi. Questa azione non può essere annullata.",
+            "replaceActiveStartDate": "Attivando questo pacchetto, la data di attivazione sarà impostata su oggi, sostituendo la precedente data di prima prenotazione. Questa azione non può essere annullata.",
+            "title": "Attivare manualmente questo pacchetto?",
+            "submit": "Attiva Pacchetto",
+            "close": "Chiudi"
+        },
+        "activateManually": "Attiva"
     },
     "metaActivity": {
         "detail": {
@@ -11614,7 +11633,8 @@
             "recurrent": {
                 "backToRegistererChoice": "Indietro",
                 "bookMultiple": "Prenota",
-                "title": "Sessioni future"
+                "title": "Sessioni future",
+                "titleGroupedSessions": "Tutte le sessioni in questo gruppo"
             },
             "isLoading": "Cerca sessioni...",
             "book": {
@@ -15723,7 +15743,8 @@
             "referral": {
                 "hasReachedMaxUses": "È stato raggiunto il numero massimo di utilizzi per il referral link.",
                 "missingAmountBeforeApplication": "L'importo minimo di acquisto non è stato raggiunto. Si rischia di perdere il proprio referral link. Solo {{ missingAmount }} in più per poter usufruire dello sconto!"
-            }
+            },
+            "expressCheckoutTitle": "Express checkout"
         },
         "paymentIntent": {
             "isProcessing": "Attendere prego"

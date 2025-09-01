@@ -1,0 +1,61 @@
+{
+  "menus": {
+    "memberships": {
+      "title": "Iscrizioni",
+      "subscriptions": "Abbonamenti ricorrenti",
+      "passes": "Pacchetti"
+    },
+    "myStudio": {
+      "establishments": "Stabilimenti",
+      "teachers": "Insegnanti",
+      "title": "Il mio Studio"
+    },
+    "membersHub": {
+      "tags": "Tag",
+      "forms": "Form",
+      "members": "Membri",
+      "title": "Hub dei membri"
+    },
+    "finance": {
+      "payroll": "Regole di retribuzione",
+      "expenses": "Spese",
+      "directDebits": "Addebiti diretti",
+      "payouts": "Pagamenti",
+      "invoices": "Ricevute",
+      "title": "Finanza"
+    },
+    "reporting": "Report",
+    "dashboard": "Panoramica",
+    "marketing": {
+      "promotions": "Promozioni",
+      "audience": "Audience",
+      "smartlists": "Smartlist",
+      "emailTemplates": "Modelli email",
+      "memberNotifications": "Notifiche per i membri",
+      "title": "Marketing"
+    },
+    "products": {
+      "orders": "Ordini",
+      "videosAndEbooks": "Librerie video",
+      "giftcards": "Gift card",
+      "packs": "Pacchetti",
+      "webshop": "Shop",
+      "title": "Prodotti"
+    },
+    "classes": {
+      "appointments": "Appuntamenti",
+      "workshops": "Workshop",
+      "activities": "Attività",
+      "title": "Classi"
+    },
+    "accessControl": "Controllo degli Accessi",
+    "schedule": "Programma",
+    "calendar": "Calendario",
+    "notifications": "Notifiche",
+    "inbox": "Posta in arrivo"
+  },
+  "revampCard": {
+    "goBackToOldUi": "Torna alla vecchia interfaccia utente",
+    "betaFeedbackLink": "Feedback beta"
+  }
+}

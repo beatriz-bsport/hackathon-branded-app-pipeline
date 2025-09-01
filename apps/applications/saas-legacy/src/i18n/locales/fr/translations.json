@@ -206,7 +206,8 @@
                 "bookMultiple": "Reserver",
                 "backToRegistererChoice": "Retour",
                 "unselectAll": "Tout désélectionner",
-                "selectAll": "Tout sélectionner"
+                "selectAll": "Tout sélectionner",
+                "titleGroupedSessions": "Toutes les séances de ce groupe"
             },
             "section": {
                 "consumerPacks": "Mes cartes de cours",

@@ -2243,7 +2243,7 @@
                     "cancellationPolicy": {
                         "title": "Cancellation policy",
                         "noDuration": "Cancellations are always possible without any charges.",
-                        "maxDuration": "Cancellations are possible without any charges up to {{days}} day(s), {{hours}} hour(s) and {{minutes}} minute(s)."
+                        "maxDuration": "This booking can only be cancelled for free up to  {{days}} day(s), {{hours}} hour(s) and {{minutes}} minute(s) in advance."
                     },
                     "waitlist": {
                         "position": "Your position in the waitlist is: {{position}}"

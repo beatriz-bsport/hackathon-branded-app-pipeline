@@ -317,7 +317,7 @@
                         "position": "Mijn positie op de wachtlijst: {{position}}"
                     },
                     "cancellationPolicy": {
-                        "maxDuration": "Kosteloos annuleren kan tot {{days}} dag(en), {{hours}} uur en {{minutes}} minuut/minuten voor het begin van de sessie.",
+                        "maxDuration": "Deze boeking kan alleen gratis worden geannuleerd tot {{days}} dagen, {{hours}} uur en {{minutes}} minuten van tevoren.",
                         "noDuration": "Kosteloos annuleren is altijd mogelijk.",
                         "title": "Annuleringsvoorwaarden"
                     },

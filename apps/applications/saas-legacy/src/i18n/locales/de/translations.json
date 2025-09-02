@@ -13576,7 +13576,7 @@
                         "position": "Deine Position auf der Warteliste: {{position}}"
                     },
                     "cancellationPolicy": {
-                        "maxDuration": "Kostenfreie Stornierungen enden in: {{days}} Tag(e), {{hours}} Stunde(n) und {{minutes}} Minute(n).",
+                        "maxDuration": "Eine kostenlose Stornierung dieser Buchung ist nur bis {{days}} Tag(e), {{hours}} Stunde(n) und {{minutes}} Minute(n) vorher möglich.",
                         "noDuration": "Stornierungen sind immer kostenfrei möglich.",
                         "title": "Stornierungsbedingungen"
                     },

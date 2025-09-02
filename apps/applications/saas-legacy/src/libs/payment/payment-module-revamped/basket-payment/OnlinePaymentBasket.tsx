@@ -367,6 +367,7 @@ export const OnlinePaymentBasket: React.FC<Props> = forwardRef(
           <div className={classes.expressCheckoutContainer}>
             <StripeExpressCheckoutElement
               clientSecret={clientSecret}
+              disabled={!areTermsAndConditionsAccepted}
               onError={handleExpressCheckoutError}
               onLoadError={() => setAvailableExpressCheckoutMethods(false)}
               onReady={handleExpressCheckoutReady}

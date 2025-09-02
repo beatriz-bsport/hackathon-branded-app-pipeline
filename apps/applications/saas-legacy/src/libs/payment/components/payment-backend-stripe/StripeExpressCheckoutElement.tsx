@@ -1,5 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import clsx from 'clsx';
 import i18n from 'i18next';
 import {
   CircularProgress,
@@ -15,12 +16,17 @@ import {
   useElements,
   useStripe,
 } from '@stripe/react-stripe-js';
-import { loadStripe, type StripeElementLocale } from '@stripe/stripe-js';
+import {
+  loadStripe,
+  type StripeElementLocale,
+  StripeExpressCheckoutElementClickEvent,
+} from '@stripe/stripe-js';
 import { getStripePkKey } from '#src/libs/theme/selectors';
 import { getLocaleFromLanguage } from '#src/utils/language';
 
 type StripeExpressCheckoutElementProps = {
   clientSecret: string;
+  disabled?: boolean;
   onError?: () => void;
   onLoadError?: () => void;
   onReady?: (event: {
@@ -31,7 +37,14 @@ type StripeExpressCheckoutElementProps = {
 
 const StripeExpressCheckoutElementInner: React.FC<
   StripeExpressCheckoutElementProps
-> = ({ clientSecret, onError, onLoadError, onReady, onSuccessfulPayment }) => {
+> = ({
+  clientSecret,
+  disabled,
+  onError,
+  onLoadError,
+  onReady,
+  onSuccessfulPayment,
+}) => {
   const classes = useStyles();
   const { t } = useTranslation('checkout');
   const theme = useTheme();
@@ -47,6 +60,18 @@ const StripeExpressCheckoutElementInner: React.FC<
 
   const onlyOneWallet =
     [wallets.applePay, wallets.googlePay].filter(Boolean).length === 1;
+
+  const handleClick = useCallback(
+    (e: StripeExpressCheckoutElementClickEvent) => {
+      // The ExpressCheckoutElement does not natively support a disabled state. (as of SDK v3.7.0 from 2025-05)
+      // The user can still navigate through Tab key and press Enter/Space to trigger the click event as it's an iframe
+      // inside a shadow DOM, so we need to handle the disabled state manually here.
+      // This ensures that if the component is disabled,the promise is rejected and no payment sheet is opened
+      // For non-native browsers, the modal may still open, but the user won't be able to proceed with the payment
+      if (disabled) e.reject();
+    },
+    [disabled],
+  );
 
   const handleConfirm = useCallback(async () => {
     if (!stripe || !elements) return;
@@ -72,9 +97,15 @@ const StripeExpressCheckoutElementInner: React.FC<
       </Typography>
       {!isSuccessfulPayment ? (
         <div
-          style={{ maxWidth: onlyOneWallet && !isMobile ? '300px' : '100%' }}
+          aria-disabled={disabled || undefined}
+          className={clsx(classes.checkoutContainer, {
+            [classes.singleWallet]: onlyOneWallet && !isMobile,
+            [classes.disabled]: disabled,
+          })}
+          tabIndex={disabled ? -1 : undefined}
         >
           <ExpressCheckoutElement
+            onClick={handleClick}
             onConfirm={handleConfirm}
             onLoadError={onLoadError}
             onReady={(event) => {
@@ -122,6 +153,18 @@ const useStyles = makeStyles((theme) => ({
   divider: {
     marginTop: theme.spacing(4),
     marginBottom: theme.spacing(4),
+  },
+  checkoutContainer: {
+    width: '100%',
+  },
+  singleWallet: {
+    maxWidth: 300,
+  },
+  disabled: {
+    pointerEvents: 'none',
+    cursor: 'not-allowed',
+    opacity: 0.5,
+    userSelect: 'none',
   },
 }));
 

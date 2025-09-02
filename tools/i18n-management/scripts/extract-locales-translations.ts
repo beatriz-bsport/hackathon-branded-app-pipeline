@@ -1,7 +1,13 @@
 /**
- * This script is only here to generate src/locales/[locale].translations.json files,
- * based on the existing translations files of the legacy structure.
- * In other words, it generates the first builds based on historical translations (before migration to monorepo).
+ * /! HISTORICAL SCRIPT FOR MIGRATION !\
+ *
+ * Context:
+ * In the old frontend repository `bsport-saas`, the translations of the target languages where
+ * built in the src/i18n/build folder.
+ * After the migration from `bsport-saas` to `ichizen`, these locales translations were located at path
+ * apps/applications/saas-legacy/src/i18n/build.
+ * This script has be called once, to perform the final migration. It has been used to initialize
+ * `i18n-management/src/locales/<lang>.translations.json` files, based on the previous build folders.
  */
 import { readJsonSync, writeFileSync } from "fs-extra";
 import beautify from "json-beautify";

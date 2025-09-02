@@ -1,7 +1,11 @@
 import fs from "fs";
 import path from "path";
 
-import { ensureDir, getInternationalizedApplications } from "./utils";
+import {
+  ensureDir,
+  getInternationalizedApplications,
+  getProjectPrefix,
+} from "./utils";
 
 /**
  * Copy namespace translations of a locale into project/public/locales/[locale]/[prefix]_[namespace].translations.json
@@ -55,8 +59,7 @@ async function main() {
       const sourceDir = path.resolve(pathToI18n, "source");
       const localesDir = path.resolve(pathToI18n, "locales");
 
-      const prefix =
-        name === "@bsport/saas-legacy" ? `` : `${name.split("@bsport/")[1]}_`;
+      const prefix = getProjectPrefix(name);
 
       // Copy from "source" → "en"
       if (fs.existsSync(sourceDir)) {

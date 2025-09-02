@@ -10,7 +10,11 @@ import { mergeFiles } from "json-merger";
 import path from "path";
 
 import { LANGUAGES, LOCALES } from "../src";
-import { type ProjectConfig, getInternationalizedApplications } from "./utils";
+import {
+  type ProjectConfig,
+  getInternationalizedApplications,
+  getProjectPrefix,
+} from "./utils";
 
 async function main() {
   // Step 1 : List all projects with i18n folder but old structure (aggregated translations in i18n-management)
@@ -112,10 +116,7 @@ function updateProjectTranslations({
 
   // Populate dir with namespaced translations file
   Object.entries(translations).map(([namespaceName, namespaceTranslations]) => {
-    // Add package name as prefix to translation files
-    // to prevent conflict when loading chunks from backend
-    const prefix =
-      name === "@bsport/saas-legacy" ? `` : `${name.split("@bsport/")[1]}_`;
+    const prefix = getProjectPrefix(name);
     const namespaceTranslationsPath = path.resolve(
       pathToCurrentLocaleDir,
       `${prefix}${namespaceName}.json`,

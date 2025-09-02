@@ -10,72 +10,16 @@ import { getMonorepoBasePathSync } from "@bsport/typescript-monorepo-utils";
 
 import { LOCALES } from "../src";
 import {
+  type KeyValuePair,
   type ProjectConfig,
   type Translations,
   getAppNamespaces,
-  getInternationalizedApplications,
+  getFlattenKeyValuePairs,
   getNamespacesTranslations,
+  selectProject,
 } from "./utils";
 
-// ----- Types -----
-
-interface KeyValuePair {
-  flattenKey: string;
-  value: string;
-}
-
 // ----- Utils -----
-
-/**
- * Recursive function to get a flatten structure of a dictionary of translations.
- *
- * @param translations The dictionaries to be flatten
- * @param parentKey Only used inside the function itself for recursive call
- *
- * @return A list of KeyValuePair { flattenKey: string, value: string }
- *
- * @example
- * const translations = {
- *  key1: {
- *    nestedKey1: "Hello !",
- *    nestedKey2: {
- *      item1: "Bonjour !",
- *      item2: "Hola !",
- *    }
- *  },
- *  ...
- * };
- *
- * const flattenTranslations = getFlattenKeyValuePairs(translations);
- * // Equals to
- * [
- *  { flattenKey: "key1.nestedKey1", value: "Hello !" },
- *  { flattenKey: "key1.nestedKey2.item1", value: "Bonjour !" },
- *  { flattenKey: "key1.nestedKey2.item2", value: "Hola !" },
- *  ...
- * ]
- */
-function getFlattenKeyValuePairs(
-  translations: Translations,
-  parentKey: string = "",
-): KeyValuePair[] {
-  const keyValuePairs: KeyValuePair[] = [];
-
-  for (const key in translations) {
-    if (translations.hasOwnProperty(key)) {
-      const newKey = parentKey ? `${parentKey}.${key}` : key;
-      if (typeof translations[key] === "object") {
-        keyValuePairs.push(
-          ...getFlattenKeyValuePairs(translations[key], newKey),
-        );
-      } else {
-        keyValuePairs.push({ flattenKey: newKey, value: translations[key] });
-      }
-    }
-  }
-
-  return keyValuePairs;
-}
 
 /**
  * Filter a base list of KeyValuePair if the input matches key or value.
@@ -242,18 +186,7 @@ async function main({
   await exec("pnpm run translation:update", { cwd: saasLegacyPath });
 
   // Step 1: Select your project
-  let projectToTranslate: ProjectConfig;
-  {
-    const projects = await getInternationalizedApplications({ quiet: true });
-    const projectConfig = await select({
-      message: "Select your project",
-      choices: projects.map((project) => ({
-        name: project.name,
-        value: project,
-      })),
-    });
-    projectToTranslate = projectConfig;
-  }
+  const projectToTranslate: ProjectConfig = await selectProject();
 
   // Step 2: Select keys you want to translate (targetKeys)
   let targetKeyValuePairs: KeyValuePair[];

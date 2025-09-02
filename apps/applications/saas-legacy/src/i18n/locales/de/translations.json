@@ -7655,6 +7655,10 @@
                     "11106": "Sie haben diesen Slot bereits gebucht"
                 },
                 "error": "Kann für dieses Datum nicht gebucht werden"
+            },
+            "setUnpaid": {
+                "error": "Kann nicht als unbezahlt markieren",
+                "success": "Als unbezahlt markiert"
             }
         },
         "communication": {

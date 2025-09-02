@@ -23,6 +23,8 @@ import type {
 } from '#src/libs/private-service/types';
 import type { PaymentPack } from '#src/libs/payment-packs/types';
 import { PassTypes } from '#src/libs/marketplace/types';
+import { Establishment } from '#src/libs/establishment/types';
+import { MetaActivity } from '#src/libs/meta-activity/types';
 
 export const useFetchPassData = () => {
   const { passId, passType, companyId, setPassCardData } =
@@ -38,13 +40,17 @@ export const useFetchPassData = () => {
 
       const {
         data: { results: establishments },
-      } = await fetchEstablishmentList({
-        id__in: establishmentIds,
-      });
+      }: { data: { results: Establishment[] } } = !!establishmentIds?.length
+        ? await fetchEstablishmentList({
+            id__in: establishmentIds,
+          })
+        : { data: { results: [] } };
 
       const {
         data: { results: metaActivities },
-      } = await fetchAllActivities({ id__in: metaActivityIds });
+      }: { data: { results: MetaActivity[] } } = !!metaActivityIds?.length
+        ? await fetchAllActivities({ id__in: metaActivityIds })
+        : { data: { results: [] } };
 
       const { data: categories } = await fetchAllPaymentPackCategory({});
 

@@ -10043,6 +10043,10 @@
             "restore": {
                 "error": "Não é possível recuperar a marcação, não possuí os créditos suficiente no passe.",
                 "success": "A marcação foi recuperada"
+            },
+            "setUnpaid": {
+                "error": "Não é possível marcar como não pago",
+                "success": "Marcado como não pago"
             }
         },
         "paymentRuleGroups": {

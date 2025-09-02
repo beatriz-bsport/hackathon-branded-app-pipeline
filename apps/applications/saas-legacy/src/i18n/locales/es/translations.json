@@ -14579,6 +14579,9 @@
                 "warning": {
                     "11106": "Ya has reservado esta franja horaria"
                 }
+            },
+            "setUnpaid": {
+                "success": "Marcado como impagado"
             }
         },
         "communication": {

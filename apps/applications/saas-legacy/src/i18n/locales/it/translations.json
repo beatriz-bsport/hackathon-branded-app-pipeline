@@ -6161,6 +6161,10 @@
                 "warning": {
                     "11106": "Hai già prenotato in questa fascia oraria"
                 }
+            },
+            "setUnpaid": {
+                "error": "Impossibile contrassegnare come non pagato",
+                "success": "Contrassegnato come non pagato"
             }
         },
         "order": {

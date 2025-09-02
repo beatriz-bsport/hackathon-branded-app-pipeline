@@ -137,6 +137,8 @@ const getTranslations = async () => {
     INVOICE_NO_REFUND_ON_INTERAC_PAYMENT_ERROR_CODE,
     INVOICE_NO_REFUND_ON_TYPE_EMPTY_CONTAINER,
     CANNOT_REFUND_INVOICE_EXCEPTION_ERROR_CODE,
+    CANNOT_REFUND_INVOICE_DISABLED_FOR_BO_ERROR_CODE,
+    CANNOT_REFUND_INVOICE_INSUFFICIENT_STRIPE_BALANCE_ERROR_CODE,
     PAYPAL_REFUND_INSUFFICIENT_FUNDS,
     PAYMENT_GROUP_LOCK_ACQUISITION_ERROR,
     PAYMENT_DISABLED,
@@ -777,6 +779,10 @@ const getTranslations = async () => {
             'It is impossible to reimburse this invoice.',
           [PAYPAL_REFUND_INSUFFICIENT_FUNDS]:
             'You cannot refund this invoice because your PayPal account does not have enough funds.',
+          [CANNOT_REFUND_INVOICE_DISABLED_FOR_BO_ERROR_CODE]:
+            'Refund unavailable. Refunds are disabled for this BO.',
+          [CANNOT_REFUND_INVOICE_INSUFFICIENT_STRIPE_BALANCE_ERROR_CODE]:
+            'Refund unavailable. Current Stripe balance is insufficient.',
         },
       },
       receipt: {

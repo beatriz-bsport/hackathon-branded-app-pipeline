@@ -6237,7 +6237,7 @@
                     "penaltyDay": "{{count}} day",
                     "penaltyDay_plural": "{{count}} days",
                     "amount": "A {{penalty_amount}} fine will be applied for {{penalty_cancellations}} no shows over a period of {{penalty_days_period}} days.",
-                    "days": "The pass will be blocked for {{penalty_days}} day(s) if {{penalty_cancellations}} late cancellation(s) are registered within {{penalty_days_period}} day(s)."
+                    "days": "The pass will be blocked for {{penalty_days}} if {{penalty_cancellations}} are registered within {{penalty_days_period}}."
                 },
                 "maxPurchasePerMember": "{{count}} purchase per member",
                 "maxPurchasePerMember_plural": "{{count}} purchases per member",
@@ -6265,7 +6265,7 @@
                 "cancellation": "{{count}} cancellation",
                 "cancellation_plural": "{{count}} cancellations",
                 "penaltyNoShow": {
-                    "block": "{{days_blocked}} of blocking after {{threshold}} over a period of {{time_window_days}}.",
+                    "block": "The pass will be blocked for {{days_blocked}} after {{threshold}} over a period of {{time_window_days}}.",
                     "account": "A deposit of {{amount}} will be applied for {{threshold}} over a period of {{time_window_days}}.",
                     "penaltyDay": "{{count}} day",
                     "penaltyDay_plural": "{{count}} days",
@@ -6419,7 +6419,7 @@
             "close": "Close",
             "detail": {
                 "restriction": {
-                    "monthly": "Can only be used {{ amount }} time per month.",
+                    "monthly": "Can only be used {{ amount }} times per month.",
                     "monthly_plural": "Can only be used {{ amount }} times per month.",
                     "weekly": "Can only be used {{ amount }} time per week.",
                     "weekly_plural": "Can only be used {{ amount }} times per week.",

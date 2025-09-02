@@ -13218,6 +13218,10 @@
                 "warning": {
                     "11106": "Deze afspraak is recent gereserveerd"
                 }
+            },
+            "setUnpaid": {
+                "error": "Kan niet als onbetaald markeren",
+                "success": "Gemarkeerd als onbetaald"
             }
         },
         "privatePass": {

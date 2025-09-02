@@ -1747,7 +1747,7 @@
                         "position": "La tua posizione nella waitlist è: {{position}}"
                     },
                     "cancellationPolicy": {
-                        "maxDuration": "Le cancellazioni sono possibili senza alcun addebito fino a {{days}} giorno/i, {{hours}} ora/e e {{minutes}} minuto/i.",
+                        "maxDuration": "Questa prenotazione può essere cancellata gratuitamente fino a {{days}} giorno(i), {{hours}} ora(e) e {{minutes}} minuto(i) prima.",
                         "noDuration": "Le cancellazioni sono sempre possibili senza alcun addebito.",
                         "title": "Politica di cancellazione"
                     },

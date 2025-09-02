@@ -1,4 +1,4 @@
-# CDP | Notificatio rule store package
+# CDP | NotificationRule store package
 
 This package provides a Zustand store implementation for managing the state related to the notification rule entity in an application. It includes types, actions, API interactions, and selectors to facilitate state management.
 

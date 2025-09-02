@@ -39,8 +39,13 @@
 
         # Send success notification to Slack using jq for safe JSON encoding
         if [ -n "$SLACK_DEV_WEBHOOK_URL" ]; then
+          MESSAGE=$(printf "✅ Successfully merged \`%s\` into \`%s\` branch on repo <%s|%s>\n\n*%s commits merged:*\n%s" \
+            "${SOURCE_BRANCH}" "${TARGET_BRANCH}" \
+            "https://gitlab.com/${CI_PROJECT_PATH}" "${CI_PROJECT_NAME}" \
+            "${COMMIT_COUNT}" "${COMMIT_MESSAGES}")
+          
           jq -n \
-            --arg text "✅ Successfully merged \`${SOURCE_BRANCH}\` into \`${TARGET_BRANCH}\` branch on repo <https://gitlab.com/${CI_PROJECT_PATH}|${CI_PROJECT_NAME}>\n\n*${COMMIT_COUNT} commits merged:*\n${COMMIT_MESSAGES}" \
+            --arg text "$MESSAGE" \
             --arg username "GitLab CI" \
             --arg icon_emoji ":gitlab:" \
             '{

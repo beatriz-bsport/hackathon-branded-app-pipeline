@@ -63,4 +63,17 @@ describe("MixpanelAdapter", () => {
 
     expect(spy).not.toHaveBeenCalled();
   });
+
+  it("tracks an opt-in event", () => {
+    adapter.configure(BASE_CONFIG);
+    const spy = vi.spyOn(adapter.instance, "track");
+
+    adapter.optInTracking({ track_event_name: "opt-in-event" });
+
+    expect(spy).toHaveBeenCalledWith(
+      "opt-in-event",
+      undefined,
+      expect.any(Object),
+    );
+  });
 });

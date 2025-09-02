@@ -212,17 +212,18 @@ export const usePayment = (
   /**
    * Selects an instalment payment method for the basket.
    *
-   * @param {number} instalmentPayment - The instalment payment method to select.
+   * @param {number|null} instalmentPayment - The instalment payment method to select.
    * @param {OptionCallback<Basket>} [options] - Optional callbacks for success and error handling.
    */
   const selectInstalmentPayment = useCallback(
     (instalmentPayment: number | null, options?: OptionCallback<Basket>) => {
-      if (basketId && instalmentPayment) {
+      if (basketId) {
         handleAssignInstalmentPayment(instalmentPayment, {
           onSuccess: () => {
             refreshBasket();
             options?.onSuccess?.();
           },
+          onError: options?.onError,
         });
       }
     },

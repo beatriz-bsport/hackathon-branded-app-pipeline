@@ -1,11 +1,11 @@
 import { TFunction } from 'i18next';
 import {
-  BUYABLE_ITEM_FEE,
   BUYABLE_ITEM_COUPON,
+  BUYABLE_ITEM_FEE,
 } from '@bsport/common/lib/master-data/buyable-items.js';
 import {
-  OFFER_WAITING_LIST_NO_USABLE_CONSUMER_PAYMENT_PACK,
   OFFER_WAITING_LIST_CAN_NOT_BOOK_TOO_MANY_FUTURE,
+  OFFER_WAITING_LIST_NO_USABLE_CONSUMER_PAYMENT_PACK,
 } from '@bsport/common/lib/master-data/error-codes/waitinglist-can-not-be-joined.js';
 import {
   LOCK_ACQUISITION_FAILURE_GENERIC,
@@ -26,17 +26,17 @@ import {
   EXCEPTION_BOOKING_GUEST_IS_UNAVAILABLE_IN_OFFER,
   EXCEPTION_BOOKING_GUEST_IS_UNAVAILABLE_IN_PASS,
   EXCEPTION_BOOKING_GUEST_IS_UNAVAILABLE_IN_SETTINGS,
+  EXCEPTION_BOOKING_GUEST_NOT_ENOUGH_SPOT,
   EXCEPTION_BOOKING_GUEST_OVERCOME_LIMIT,
   EXCEPTION_BOOKING_GUEST_REACHED_LIMIT,
-  EXCEPTION_BOOKING_GUEST_NOT_ENOUGH_SPOT,
 } from './constants';
 import {
   Basket,
-  ConfirmationStatus,
   BuyableItemOptions,
   CheckoutItem,
-  PrepaidLine,
   CheckoutItemExtraData,
+  ConfirmationStatus,
+  PrepaidLine,
 } from './types';
 
 // IDK what the hell is happening, but importing them from common broke the VOD widget
@@ -487,3 +487,26 @@ export const basketHasPartiallyAppliedCoupon = (basket: Basket) =>
       Math.abs(checkoutItem.unit_price) * 100 <
         checkoutItem.extra_data?.theoretical_voucher_cts,
   );
+
+/**
+ * Removes specified query params from the current URL without reloading the page.
+ * Preserves the hash fragment.
+ * @param paramsToRemove Array of query param names to remove
+ */
+export const removeQueryParamsFromUrl = (paramsToRemove: string[]): void => {
+  const url = new URL(window.location.href);
+  let changed = false;
+  for (const param of paramsToRemove) {
+    if (url.searchParams.has(param)) {
+      url.searchParams.delete(param);
+      changed = true;
+    }
+  }
+  if (changed) {
+    window.history.replaceState(
+      window.history.state,
+      '',
+      url.pathname + url.search + url.hash,
+    );
+  }
+};

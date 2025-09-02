@@ -24,6 +24,8 @@ export const useSearchEmailTemplate = () => {
       return await fuzzySearchEmailTemplateAction(fetch, {
         queryString: query,
         ...params,
+        is_default_bsport_template: false,
+        is_franchise: false,
         page_size: 10,
         page: 1,
       });

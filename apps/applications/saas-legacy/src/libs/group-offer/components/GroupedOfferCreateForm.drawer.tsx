@@ -114,11 +114,14 @@ export const GroupedOfferCreateFormDrawer: React.FC<Props> = ({
     if (!open) {
       setSelectedMetaActivity(null);
       setStep(STEP_GROUPED_OPTION_FORM);
+      return;
+    }
+    resetPreview();
+    if (metaActivity) {
+      setSelectedMetaActivity(metaActivity);
+      setStep(STEP_GROUPED_OPTION_FORM);
     } else {
-      resetPreview();
-      setStep(
-        metaActivity ? STEP_GROUPED_OPTION_FORM : STEP_METACTIVITY_SELECT,
-      );
+      setStep(STEP_METACTIVITY_SELECT);
     }
   }, [open, metaActivity, resetPreview]);
 

@@ -14,6 +14,7 @@ import {
 import createCompressor from 'redux-persist-transform-compress';
 import history from './history';
 import networkErrorMiddleWare from './libs/network/redux-middleware';
+import { analyticsMiddleware } from './components/analytics/mixpanel/middleware';
 
 import createRootReducer from './reducers/index';
 
@@ -48,6 +49,7 @@ export default function initStore(initialState: Object = {}) {
         thunk,
         routerMiddlewareWithHistory,
         networkErrorMiddleWare,
+        analyticsMiddleware,
       ),
     ),
   );

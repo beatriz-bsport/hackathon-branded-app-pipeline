@@ -1,7 +1,6 @@
 import memoize from 'memoize-one';
 import { DateTime } from 'luxon';
 import {
-  OFFER_WAITING_LIST_STATUS_CONVERTIBLE,
   OFFER_WAITING_LIST_STATUS_ALREADY_BOOKED,
   OFFER_BOOKABLE_STATUS_FULL,
   OFFER_BOOKABLE_STATUS_CLOSE_TOO_SOON,
@@ -195,13 +194,11 @@ export const getOfferFeature = (
     offerStatus.waiting_list_status ===
     OFFER_WAITING_LIST_STATUS_ALREADY_BOOKED;
   const isBookable =
-    (offerStatus.bookable_status === OFFER_BOOKABLE_STATUS_BOOKABLE ||
-      offerStatus.waiting_list_status ===
-        OFFER_WAITING_LIST_STATUS_CONVERTIBLE) &&
+    offerStatus.bookable_status === OFFER_BOOKABLE_STATUS_BOOKABLE &&
     (!isRegistered ||
       (acceptDoubleBooking && !offer.meta_activity?.is_workshop) ||
       (acceptDoubleBookingWorkshop && offer.meta_activity?.is_workshop)) &&
-    !offerStatus.blockedByTags;
+    !offerStatus.blocked_by_tags;
 
   const isWaitingList =
     offerStatus.bookable_status === OFFER_BOOKABLE_STATUS_FULL &&

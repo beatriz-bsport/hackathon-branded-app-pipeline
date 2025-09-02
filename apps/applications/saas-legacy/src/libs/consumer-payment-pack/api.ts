@@ -138,6 +138,13 @@ export async function unblock(id: number) {
   );
 }
 
+export async function activateManually(id: number, start_date: string) {
+  return postAuth(
+    `${API_V1_URI}/payment-pack/consumer-payment-pack/${id}/manual_activation/`,
+    { start_date },
+  );
+}
+
 export async function fetchConsumerPaymentPackCompatibleList(params: any) {
   return postAuth(
     `${API_V1_URI}/payment-pack/consumer-payment-pack/compatible/`,

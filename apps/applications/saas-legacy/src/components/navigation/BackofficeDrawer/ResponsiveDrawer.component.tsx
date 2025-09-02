@@ -51,6 +51,8 @@ import ListItem from '@material-ui/core/ListItem';
 import Divider from '@material-ui/core/Divider';
 import Immutable from 'seamless-immutable';
 
+import { useSafeFlag, FeatureFlags } from '#src/utils/feature-flag';
+
 import SwitchHorizontalIcon from '#src/components/icons/SwitchHorizontalIcon.component';
 import TutorialIconWithAlertings from '#src/libs/platform-tutorial/components/TutorialIconWithAlertings.component';
 
@@ -83,6 +85,7 @@ import VersionVisualizer from '../../VersionVisualizer.component';
 import LOGO_ASSET from '../../../public/images/banner_lowres.png';
 import { getCurrencyDisplay } from '../../../libs/theme/selectors';
 import { CompanyTheme } from '#src/libs/theme/types';
+import { INSIGHTS_ROUTES } from '#src/pages/insights/constants';
 
 export const drawerWidth = 260;
 const usePrevious = (value: boolean) => {
@@ -134,6 +137,7 @@ export type DrawerItemDefault = {
   hasInnerTabs?: boolean;
   excludeUrlPatterns?: string[];
   openInNewTab?: boolean;
+  badge?: string | number | null;
 };
 
 export type DrawerItemDivider = {
@@ -278,6 +282,8 @@ const ResponsiveDrawer: React.FC<Props> = ({
   ]);
 
   const revampedBOEnabledForCompany = companyTheme.revamped_backoffice_enabled;
+
+  const showInsightsPage = useSafeFlag(FeatureFlags.INSIGHTS_PAGE);
 
   const items: DrawerItem[] = React.useMemo(() => {
     return [
@@ -563,6 +569,16 @@ const ResponsiveDrawer: React.FC<Props> = ({
         icon: DescriptionIcon,
         text: t('backofficeMenu.reporting'),
       } as DrawerItemDefault,
+      ...(showInsightsPage
+        ? [
+            {
+              to: INSIGHTS_ROUTES.INDEX,
+              icon: TrendingUp,
+              text: t('backofficeMenu.insights.insights'),
+              badge: 'New',
+            } as DrawerItemDefault,
+          ]
+        : []),
       { type: 'divider' } as DrawerItemDivider,
       {
         icon: SettingsIcon,
@@ -762,6 +778,7 @@ const ResponsiveDrawer: React.FC<Props> = ({
     disconnect,
     iconsOnly,
     setDrawerIconsOnly,
+    showInsightsPage,
   ]);
 
   React.useEffect(() => {

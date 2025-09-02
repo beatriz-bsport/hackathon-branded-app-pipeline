@@ -169,6 +169,7 @@ const InnerTableWithContext = <RowType extends BaseRow>({
             link={row.link}
             color={row.color}
             className="contents"
+            onRowClick={() => row.onRowClick?.()}
           />
         ))}
       </div>

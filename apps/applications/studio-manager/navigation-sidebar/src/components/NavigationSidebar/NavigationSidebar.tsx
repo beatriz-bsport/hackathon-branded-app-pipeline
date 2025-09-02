@@ -62,11 +62,13 @@ export type NavigationSidebarProps = {
   navigate?: (to: string) => void;
   disableRevampOnLegacyStore?: () => void;
   isLoadingData?: boolean;
+  onLogoutCallback?: () => void;
 };
 
 const NavigationSidebarContent = ({
   navigate,
   disableRevampOnLegacyStore,
+  onLogoutCallback,
 }: NavigationSidebarProps) => {
   const { t } = useTranslation("default");
 
@@ -212,6 +214,8 @@ const NavigationSidebarContent = ({
             navigateInContext(LEGACY_URLS.tutorial);
           }
           if (id === "logout") {
+            onLogoutCallback?.();
+
             const navigateToLoginPage = () => {
               const loginUrl = `${LOGIN_URL}/signout${companyId ? `?membership=${companyId}` : ""}`;
               if (isBridged) {

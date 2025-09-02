@@ -50,6 +50,7 @@ export const NavigationMenuElement: React.FC<NavigationMenuItemProps> = ({
           label={item.label}
           active={isActive}
           onClick={item?.onClick ?? onClick}
+          endSlot={(item as NavigationSidebarSubItem).endSlot}
         >
           {children}
         </NavigationMenu.SubItem>

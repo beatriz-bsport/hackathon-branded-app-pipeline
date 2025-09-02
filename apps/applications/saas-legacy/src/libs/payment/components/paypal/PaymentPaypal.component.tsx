@@ -1,4 +1,4 @@
-import React, { useImperativeHandle, forwardRef } from 'react';
+import React, { forwardRef, useImperativeHandle } from 'react';
 import { PayPalScriptProvider } from '@paypal/react-paypal-js';
 // eslint-disable-next-line bsport/no-redux-in-component
 import { connect } from 'react-redux';
@@ -65,7 +65,14 @@ type Props = {
   basketPriceCts?: number;
 };
 
-const PaymentPaypal = forwardRef(
+export interface PaymentPaypalHandle {
+  onPayPalCreateOrder: () => Promise<string>;
+  onPayPalApprove: () => Promise<void>;
+  onPayPalCancel: () => void;
+  onPayPalError: () => void;
+}
+
+const PaymentPaypal = forwardRef<PaymentPaypalHandle, Props>(
   (
     {
       acceptTermsAndConditionsElement,

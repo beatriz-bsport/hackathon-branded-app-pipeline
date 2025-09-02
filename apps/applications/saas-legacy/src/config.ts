@@ -46,6 +46,8 @@ type ConfigType = {
   REACT_APP_DIDOMI_API_KEY: string;
   REACT_APP_DIDOMI_NOTICE_ID: string;
   REACT_APP_UNLAYER_PROJECT_ID: string;
+  REACT_APP_UNLEASH_PROXY_URL: string;
+  REACT_APP_UNLEASH_CLIENT_KEY: string;
 };
 
 const Config = {} as ConfigType;

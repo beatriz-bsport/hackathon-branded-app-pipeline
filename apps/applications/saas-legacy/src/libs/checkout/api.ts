@@ -129,7 +129,7 @@ export const createOrRefreshInternalAccountPrepaidLine = (
 
 export const assignInstalmentPayment = (
   basketId: string,
-  instalment_payment: number,
+  instalment_payment: number | null,
 ) => {
   return postAuthDeprecated(
     `${API_V1_URI}/checkout/basket/assign_instalment_payment/`,

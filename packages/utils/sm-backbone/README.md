@@ -199,3 +199,31 @@ This approach ensures that:
 ### Usage in Applications
 
 Components from SM Backbone (like `AppWrapper`, `ErrorBoundaryWrapper`, etc.) will work correctly with their styling once you've added the content paths to your Tailwind configuration.
+
+## Feature Flags (Unleash)
+
+SM Backbone exposes Feature Flags via `@unleash/proxy-client-react`.
+
+Required Vite envs: `VITE_UNLEASH_PROXY_URL`, `VITE_UNLEASH_CLIENT_KEY`.
+
+Setup (run anywhere in the monorepo):
+
+```sh
+pnpm run -w feature-flags-environment:set local
+pnpm run -w feature-flags-environment:set dev
+pnpm run -w feature-flags-environment:set staging
+pnpm run -w feature-flags-environment:set feature-branch
+pnpm run -w feature-flags-environment:set production
+```
+
+Notes:
+
+- Writes `.env.local` (local) or `.env.production` (others) in this package, then rebuilds it.
+- You can override defaults with `--proxy-url <url>` and/or `--client-key <token>`.
+- `.env.production` is gitignored.
+
+Debugging:
+
+- Check `.env.local` / `.env.production` in this package, re-run the CLI and restart the consuming app if needed.
+
+See `.env.example` in this package for expected keys.

@@ -14,9 +14,12 @@ describe("AnalyticsClient", () => {
       identify: vi.fn(),
       resetIdentity: vi.fn(),
       flush: vi.fn(),
+      optInTracking: vi.fn(),
+      optOutTracking: vi.fn(),
       overloadAddSuperProperties: vi.fn(),
       overloadRemoveSuperProperties: vi.fn(),
       overloadResetSuperProperties: vi.fn(),
+      overloadSetDebugMode: vi.fn(),
     };
     client = new AnalyticsClient({
       adapter: mockAdapter,
@@ -86,12 +89,74 @@ describe("AnalyticsClient", () => {
     expect(mockAdapter.flush).toHaveBeenCalled();
   });
 
+  it("forwards optInTracking and optOutTracking to adapter", () => {
+    const optInOptions = {
+      enable_persistence: true,
+      track_event_name: "opt-in-tracking",
+    } as const;
+
+    client.optInTracking(optInOptions);
+
+    expect(mockAdapter.optInTracking).toHaveBeenCalledWith(optInOptions);
+
+    const optOutOptions = {
+      clear_persistence: true,
+      persistence_type: "localStorage",
+    } as const;
+
+    client.optOutTracking(optOutOptions);
+
+    expect(mockAdapter.optOutTracking).toHaveBeenCalledWith(optOutOptions);
+  });
+
+  it("forwards overload methods to adapter", () => {
+    const properties = { foo: "bar", role: "admin" };
+
+    client.overloadAddSuperProperties(properties);
+
+    expect(mockAdapter.overloadAddSuperProperties).toHaveBeenCalledWith(
+      properties,
+    );
+
+    client.overloadRemoveSuperProperties(["foo"]);
+
+    expect(mockAdapter.overloadRemoveSuperProperties).toHaveBeenCalledWith([
+      "foo",
+    ]);
+
+    client.overloadResetSuperProperties();
+
+    expect(mockAdapter.overloadResetSuperProperties).toHaveBeenCalled();
+
+    client.overloadSetDebugMode(true);
+
+    expect(mockAdapter.overloadSetDebugMode).toHaveBeenCalledWith(true);
+  });
+
   it("handles undefined overload methods gracefully", () => {
     delete mockAdapter.overloadAddSuperProperties;
 
     expect(() =>
       client.overloadAddSuperProperties({ foo: "bar" }),
     ).not.toThrow();
+  });
+
+  it("does not log tracked events when opt-out of tracking", () => {
+    client.setInternalDebugMode(true);
+
+    const logSpy = vi.spyOn(console, "log").mockImplementation(() => {});
+
+    client.track({ eventType: "test_event" });
+    expect(logSpy).toHaveBeenCalled();
+
+    client.optOutTracking();
+
+    logSpy.mockClear();
+
+    client.track({ eventType: "test_event" });
+    expect(logSpy).not.toHaveBeenCalled();
+
+    logSpy.mockRestore();
   });
 
   it("logs messages only when debug mode is enabled", () => {

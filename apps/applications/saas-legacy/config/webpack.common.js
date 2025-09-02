@@ -56,6 +56,10 @@ module.exports = {
         __dirname,
         '../src/components/css-only/Fabrique',
       ),
+      // Necessary to make unleash proxy work:
+      // Hook requires to have only 1 react verion
+      react: path.resolve(__dirname, '../node_modules/react'),
+      'react-dom': path.resolve(__dirname, '../node_modules/react-dom'),
     },
   },
   module: {

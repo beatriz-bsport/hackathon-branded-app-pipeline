@@ -18,6 +18,7 @@
     "build:all": "nx run-many --all --target=build",
     "cleanup": "bash tools/scripts/cleanup-and-rebuild.sh",
     "docs:events": "pnpm exec nx docs:generate @bsport/analytics",
+    "feature-flags-environment:set": "ts-node tools/toolkit-cli/src/index.ts feature-flags-environment:set",
     "federate:navigation": "pnpm --filter '@bsport/sm-navigation-sidebar' dev",
     "format": "pnpm exec nx run-many -t format",
     "format:affected": "pnpm exec nx affected --target=format",
@@ -43,6 +44,7 @@
     "test:ui": "vitest --ui",
     "test:watch": "vitest",
     "translation:migrate": "pnpm exec nx translation:migrate @bsport/i18n-management",
+    "translation:project:transform": "pnpm --filter=@bsport/i18n-management project:transform",
     "translation:update": "pnpm exec nx translation:update @bsport/i18n-management",
     "utils": "ts-node tools/toolkit-cli/src/index.ts"
   },

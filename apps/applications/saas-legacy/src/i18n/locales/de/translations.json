@@ -5992,7 +5992,12 @@
             "enableAccessControl": "Studiozutritt gewähren",
             "accessControlBetaAlert": "Während dieser beta Phase funktionieren Pass-Restriktionen wie Tags, Nutzungslimits, Locations, Aktivitäten, Kategorien und Zeitslots nicht für den Zutritt durch Türen. \"Beschränkt die Nutzung auf die Mediathek (VOD)\" muss abgewählt bleiben, um Zutritt durch Türen zu ermöglichen.",
             "accessControlInfo": "Mitglieder mit diesem Pass können Türen des Studios öffnen. Um zu kontrollieren, wann Türen nicht geöffnet werden können, lege eine Zeitregelung auf der Kisi Plattform fest.",
-            "doorAccess": "Zutritt Tür(en)"
+            "doorAccess": "Zutritt Tür(en)",
+            "accessControl": {
+                "firstBookingDisclaimer": "Der Kurspass ist entweder ab der 1. Buchung oder dem 1. Check-in (Zutritt) gültig, je nachdem, welches Ereignis zuerst eintritt. Wenn Mitarbeiter ein Mitglied manuell vor dem Datum der 1. Buchung einchecken, ist der Pass ab diesem Datum (1. Check-in durch den Mitarbeiter) gültig.",
+                "firstBooking": "1. Buchung oder 1. Check-in (Zutritt)"
+            },
+            "activationWindow": "Aktivierungszeitraum festlegen"
         },
         "paymentPackTemplate": {
             "actions": {
@@ -6145,7 +6150,16 @@
                     "submit": "Archivieren"
                 }
             }
-        }
+        },
+        "manualActivation": {
+            "setActiveStartDate": "Die Aktivierung dieses Kurspass wird das Aktivierungsdatum auf heute festlegen. Diese Aktion kann nicht rückgängig gemacht werden.",
+            "replaceActiveStartDateAlert": "Der Kurspass ist hiermit ab heute gültig. Falls zukünftige Buchungen des Mitglieds nach dem aktualisierten Gültigkeitszeitraum stattfinden, bleiben diese Buchungen aktiv. Das Personal muss jedoch beim Einlass behilflich sein.",
+            "replaceActiveStartDate": "Die Aktivierung dieses Kurspasses setzt das Aktivierungsdatum auf heute und ersetzt das vorherige Datum der ersten Buchung. Diese Aktion kann nicht rückgängig gemacht werden.",
+            "title": "Diesen Kurspass manuell aktivieren?",
+            "submit": "Kurspass aktivieren",
+            "close": "Schließen"
+        },
+        "activateManually": "Aktivieren"
     },
     "alerting": {
         "task": {
@@ -7299,6 +7313,10 @@
             "paymentPackTemplateArchived": {
                 "success": "Geteilter Kurspass wurde archiviert",
                 "error": "Der geteilte Kurspass kann nicht archiviert werden"
+            },
+            "manualActivation": {
+                "error": "Bei der Aktivierung des Kurspass ist ein Fehler aufgetreten, bitte versuche es nochmal.",
+                "updated": "Der Kurspass wurde erfolgreich aktiviert"
             }
         },
         "paymentRules": {
@@ -7637,6 +7655,10 @@
                     "11106": "Sie haben diesen Slot bereits gebucht"
                 },
                 "error": "Kann für dieses Datum nicht gebucht werden"
+            },
+            "setUnpaid": {
+                "error": "Kann nicht als unbezahlt markieren",
+                "success": "Als unbezahlt markiert"
             }
         },
         "communication": {
@@ -8808,7 +8830,8 @@
                 "17": "PayPal"
             },
             "select": {
-                "label": "Zahlungsmethode"
+                "label": "Zahlungsmethode",
+                "orPayUsing": "oder zahle mit"
             },
             "isInternalExplain": "Kundenzahlung (manuell): Jeden Monat wird automatisch ein Restguthaben auf dem Konto des Mitglieds erstellt.",
             "add": "Hinzufügen",
@@ -10128,7 +10151,8 @@
             "recurrent": {
                 "backToRegistererChoice": "Zurück",
                 "bookMultiple": "Buchen",
-                "title": "Nächsten Kurse"
+                "title": "Nächsten Kurse",
+                "titleGroupedSessions": "Alle Kurse dieser Gruppe"
             },
             "isLoading": "Kurse werden gesucht...",
             "book": {
@@ -11748,7 +11772,8 @@
                 "confirm": "Termin rückerstatten",
                 "cancel": "Zurück",
                 "confirmMessage": "Dieser Termin wird als \"unbezahlt\" markiert, sobald er dem Mitglied rückerstattet wurde.",
-                "confirmTitle": "Termin rückerstatten?"
+                "confirmTitle": "Termin rückerstatten?",
+                "button": "Als \"unbezahlt\" markieren"
             }
         },
         "service": {
@@ -18022,7 +18047,8 @@
             "referral": {
                 "hasReachedMaxUses": "Die maximale Anzahl an Verwendungen für den Empfehlungslink wurde erreicht.",
                 "missingAmountBeforeApplication": "Der Mindestkaufbetrag wurde nicht erreicht. Du riskierst, deinen Empfehlungslink zu verlieren. Nur noch {{ missingAmount }}, um vom Rabatt zu profitieren!"
-            }
+            },
+            "expressCheckoutTitle": "Express-Zahlung"
         },
         "forms": {
             "delivery": {

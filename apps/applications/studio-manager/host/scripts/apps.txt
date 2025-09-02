@@ -9,6 +9,7 @@
 @bsport/sm-pack
 @bsport/sm-smartlists
 @bsport/sm-teacher
+@bsport/sm-insights
 @bsport/sm-referral-program
 @bsport/sm-tag
 @bsport/sm-transactional-notification

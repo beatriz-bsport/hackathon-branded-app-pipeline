@@ -14,7 +14,10 @@ import useSaasRouterTracker from '../../hooks/useSaasRouterTracker';
 import asyncComponent from '../../AsyncComponent';
 import { getAuthToken } from '../../http';
 import namespaces from '../../i18n/namespaces.json';
-import { configureAnalyticsB2CInstance } from '#src/components/analytics/mixpanel';
+import {
+  optInTrackingAnalyticsB2C,
+  optOutTrackingAnalyticsB2B,
+} from '#src/components/analytics/mixpanel';
 
 const ConsumerHome = asyncComponent(() => import('./ConsumerHome.page'));
 const ConsumerSpacePreSelector = asyncComponent(() =>
@@ -44,7 +47,8 @@ export const ConsumerRouter = (props: Props) => {
   useSaasRouterTracker(BsportRequestFromHeaderValue.SAAS_CONSUMER_ROUTER);
 
   useEffect(() => {
-    configureAnalyticsB2CInstance();
+    optInTrackingAnalyticsB2C();
+    optOutTrackingAnalyticsB2B();
   }, []);
 
   if (

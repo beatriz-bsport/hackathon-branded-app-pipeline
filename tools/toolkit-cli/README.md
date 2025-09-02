@@ -30,6 +30,7 @@ You can run any script from this folder using the following command: `pnpm exec 
 [command:create](#commandcreate)
 [command:list](#commandlist)
 [db:sync](#dbsync)
+[feature-flags-environment:set](#feature-flags-environmentset)
 [legacy:migrate](#legacymigrate)
 [open:branch:list](#openbranch-list)
 [project:clean](#projectclean)
@@ -97,6 +98,23 @@ Sync production DB backup to other environment
 |    Option    |       Description        |
 | :----------: | :----------------------: |
 | `-h, --help` | display help for command |
+
+### `feature-flags-environment:set`
+
+Set Unleash Feature Flags environment variables in @bsport/sm-backbone (.env.local/.env.production) and rebuild the package.
+
+**Usage:** `@bsport/toolkit-cli feature-flags-environment:set [options] <env>`
+
+|  Arg  |                                                      Description                                                      |
+| :---: | :-------------------------------------------------------------------------------------------------------------------: |
+| `env` | Environment to set for Feature Flags variables. Accepted values are : dev, local, staging, production, feature-branch |
+
+|         Option          |                          Description                          |
+| :---------------------: | :-----------------------------------------------------------: |
+| `--proxy-url <string>`  | Unleash proxy URL (e.g., http://localhost:4242/api/frontend)  |
+| `--client-key <string>` |                   Unleash client key/token                    |
+|      `-q, --quiet`      | Suppress all output, unless an error occurs. (default: false) |
+|      `-h, --help`       |                   display help for command                    |
 
 ### `legacy:migrate`
 

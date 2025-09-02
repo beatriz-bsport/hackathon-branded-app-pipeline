@@ -1,4 +1,4 @@
-import { useTranslation } from "#src/utils/i18n";
+import { i18nInstance } from "#src/utils/i18n";
 import {
   getIsEmailNotificationChecked,
   getIsEmailNotificationDisabled,
@@ -21,13 +21,12 @@ import type { RefinedNotificationRuleEventData } from "#src/utils/types";
  * @returns returns.formatNotificationRuleEventListItems - Function to format categories into list items
  */
 export const useFormatNotificationEventTable = () => {
-  const { t } = useTranslation("notificationRuleEvent");
-
   const getNotificationRuleEventLabel = (
     notificationEventId: number,
   ): string => {
-    // @ts-expect-error: our setup TSC isn't supporting dynamic keys yet
-    return t("eventType." + String(notificationEventId));
+    return i18nInstance.t("eventType." + String(notificationEventId), {
+      ns: "sm-transactional-notification_notificationRuleEvent",
+    });
   };
 
   /**
@@ -40,9 +39,13 @@ export const useFormatNotificationEventTable = () => {
    * @param items - Array of notification rule event category identifiers
    * @returns Array of list item props ready for rendering
    */
-  const formatNotificationRuleEventTableItems = (
-    items: RefinedNotificationRuleEventData[],
-  ) => {
+  const formatNotificationRuleEventTableItems = ({
+    items,
+    onRowClick,
+  }: {
+    items: RefinedNotificationRuleEventData[];
+    onRowClick: (row: RefinedNotificationRuleEventData) => void;
+  }) => {
     return items.map((event) => {
       const notificationEventId = event.rule.notification_event;
       const isPushNotificationChecked = getIsPushNotificationChecked({
@@ -68,6 +71,7 @@ export const useFormatNotificationEventTable = () => {
         push_notification_disabled: isPushNotificationDisabled,
         email_notification_disabled: isEmailNotificationDisabled,
         is_franchise_owned: isFranchiseOwned,
+        onRowClick: () => onRowClick(event),
       };
     });
   };

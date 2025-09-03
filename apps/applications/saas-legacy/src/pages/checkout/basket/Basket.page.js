@@ -1,129 +1,214 @@
+// @flow
+
 import React from 'react';
-import { compose, withHandlers, withState } from 'recompose';
-import { CircularProgress, type Theme, withStyles } from '@material-ui/core';
+import { compose, withState, withHandlers } from 'recompose';
+import withStyles from '@material-ui/core/styles/withStyles';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import { connect } from 'react-redux';
-import { withTranslation } from 'react-i18next';
+
 import {
+  replace as replaceRouter,
   goBack,
   push as pushRouter,
-  replace as replaceRouter,
 } from 'connected-react-router';
+import { withTranslation } from 'react-i18next';
 
-import ALL_ERROR_CODES from '@bsport/common/lib/master-data/error-codes/buyable-item-can-not-be-bought.js';
 import {
   PAYMENT_ENGINE_STRIPE,
-  PAYMENT_INTENT_STATUS_SUCCESS,
   PAYMENT_INTENT_TYPE_BASKET,
+  PAYMENT_INTENT_STATUS_SUCCESS,
 } from '@bsport/common/lib/master-data/payment-group.js';
-
+import ALL_ERROR_CODES from '@bsport/common/lib/master-data/error-codes/buyable-item-can-not-be-bought.js';
 import {
-  fetchAllEstablishmentBillingGroup as fetchAllEstablishmentBillingGroupAction,
   fetchEstablishmentBulk as fetchEstablishmentBulkAction,
+  fetchAllEstablishmentBillingGroup as fetchAllEstablishmentBillingGroupAction,
 } from '#src/libs/establishment/actions';
-import {
-  getDefaultEstablishmentBillingGroup,
-  getEnabledEstablishmentBillingGroups,
-} from '#src/libs/establishment/selectors';
 import { fetchInstalmentPaymentByBasket as fetchInstalmentPaymentByBasketAction } from '#src/libs/instalment-payment-configuration/actions';
 import { getInstalmentForBasketList } from '#src/libs/instalment-payment-configuration/selectors';
 import NewCheckoutFlow from '#src/libs/checkout/components/new-checkout-flow/NewCheckoutFlow.component';
 import {
-  addItemToBasket as addItemToBasketAction,
-  assignInstalmentPayment as assignInstalmentPaymentAction,
-  attachCoupon,
-  attachPayment as attachPaymentAction,
-  createOrRefreshInternalAccountPrepaidLine as createOrRefreshInternalAccountPrepaidLineAction,
-  fetchCurrentBasket as fetchCurrentBasketAction,
-  monitorExpiredItemRemoval,
-  patchCurrentBasket,
-  removeItemFromBasket as removeItemFromBasketAction,
-} from '#src/libs/checkout/actions';
-import {
-  BASKET_INCONSISTENT,
-  PAYMENT_COMBO_CAN_NOT_BOOK_ALL_OFFERS,
-  PAYMENT_PACK_CAN_NOT_BOOK_ALL_OFFERS,
-} from '#src/libs/checkout/constants';
-import {
-  getBasketOfferList,
   getCurrentBasket,
+  getBasketOfferList,
   getCurrentBasketItemRemovalStatusLoading,
 } from '#src/libs/checkout/selectors';
+import { withMetaActivity, withEstablishment } from '#src/libs/offer/selectors';
+import WidgetUtils from '#src/libs/widget/WidgetUtils';
+import themeSelectors from '#src/libs/theme/selectors';
+import { fetchCompanyTheme } from '#src/libs/theme/actions';
 import {
-  hasRedirectionFailed,
-  removeQueryParamsFromUrl,
-  shouldCheckPaymentStatus,
-  shouldNotRetrieveSecret,
-} from '#src/libs/checkout/utils';
-import { validateUnpaid as validateUnpaidAPI } from '#src/libs/checkout/api';
-import {
-  detachPaymentMethod,
-  fetchPaymentMethodList,
-} from '#src/libs/payment/actions';
-import {
-  checkItemsBasket as checkItemsBasketAPI,
-  createPendingBookings as createPendingBookingsAPI,
-  getPaymentGroupStatus as getPaymentGroupStatusAPI,
-  invalidatePendingBookings as invalidatePendingBookingsAPI,
-} from '#src/libs/payment/api';
-import {
-  USER_REGISTRATION_RESPONSE_LOCAL_STORAGE_KEY,
-  USER_REGISTRATION_RESPONSE_QUERY_PARAM,
-} from '#src/libs/payment/constants';
+  getDefaultEstablishmentBillingGroup,
+  getEnabledEstablishmentBillingGroups,
+} from '#src/libs/establishment/selectors';
+import { getUsableCreditAccountBalance } from '#src/libs/membership/selectors';
 import {
   fetchMember,
   updateDefaultEstablishmentBillingGroup as updateDefaultEstablishmentBillingGroupAction,
 } from '#src/libs/member/actions';
+import { BasketAddress } from '#src/libs/checkout/types';
+import {
+  shouldNotRetrieveSecret,
+  hasRedirectionFailed,
+  shouldCheckPaymentStatus,
+} from '#src/libs/checkout/utils';
 import { fetchMembership } from '#src/libs/membership/actions';
-import { getUsableCreditAccountBalance } from '#src/libs/membership/selectors';
 import { CouponErrorCodes } from '#src/libs/coupon/constants';
-import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '#src/libs/meta-activity/actions';
-import { fetchOfferBulk as fetchOfferBulkAction } from '#src/libs/offer/actions';
-import { withEstablishment, withMetaActivity } from '#src/libs/offer/selectors';
 import { retrieveCompanyCssConfiguration as retrieveCompanyCssConfigurationAction } from '#src/libs/exportable-components/actions';
-import { fetchShopItemFeatured } from '#src/libs/shop/actions/shopitem';
-import { getBookedSessionListDataFromBasket } from '#src/components/analytics/utils';
-import WidgetUtils from '#src/libs/widget/WidgetUtils';
-import themeSelectors from '#src/libs/theme/selectors';
-import { fetchCompanyTheme } from '#src/libs/theme/actions';
+import WithCustomCssProvider from '#src/hocs/company-custom-css.hoc';
 import { isErrorWithCustomCode } from '#src/libs/utils';
 import { loadDefaultEstablishmentBillingGroup } from '#src/libs/marketplace/utils/booking';
-import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
-import WithCustomCssProvider from '#src/hocs/company-custom-css.hoc';
+import { marketplaceCssHoc } from '../../../hocs/marketplace-css.hoc';
 import {
-  getCheckoutValidationUrl,
-  getMarketplaceRoute,
-  getMemberProfileRoute,
-  getUserSpaceUrl,
-} from '#src/libs/marketplace/routing-utils';
+  addItemToBasket as addItemToBasketAction,
+  attachCoupon,
+  removeItemFromBasket as removeItemFromBasketAction,
+  fetchCurrentBasket as fetchCurrentBasketAction,
+  patchCurrentBasket,
+  attachPayment as attachPaymentAction,
+  createOrRefreshInternalAccountPrepaidLine as createOrRefreshInternalAccountPrepaidLineAction,
+  assignInstalmentPayment as assignInstalmentPaymentAction,
+  monitorExpiredItemRemoval,
+} from '../../../libs/checkout/actions';
+import withQueryParams from '../../../hocs/with-query-params.hoc';
+import analyticsUtils from '../../../components/analytics/analytics';
+import routerParamsToProps from '../../../hocs/router-params-to-props.hoc';
 
-// @ts-expect-error
-import withQueryParams from '#src/hocs/with-query-params.hoc';
-import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
-import analyticsUtils from '#src/components/analytics/analytics';
-// @ts-expect-error
-import CheckPaymentStatus from './CheckPaymentStatus.component';
-import ConsumerAppBarContainer from '../ConsumerAppBar.container';
-import CheckoutContext from './CheckoutContext';
+import { fetchOfferBulk as fetchOfferBulkAction } from '../../../libs/offer/actions';
+import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '../../../libs/meta-activity/actions';
+import {
+  fetchPaymentMethodList,
+  detachPaymentMethod,
+} from '../../../libs/payment/actions';
 
-import { requestClientSecret as requestClientSecretAPI } from '#src/libs/invoice/api';
-import { fetchProfile } from '#src/libs/consumer-space/actions';
-// @ts-expect-error js file
-import { auth as authActions } from '#src/actions';
+import { fetchShopItemFeatured } from '../../../libs/shop/actions/shopitem';
+
+import { requestClientSecret as requestClientSecretAPI } from '../../../libs/invoice/api';
+import {
+  getPaymentGroupStatus as getPaymentGroupStatusAPI,
+  checkItemsBasket as checkItemsBasketAPI,
+  createPendingBookings as createPendingBookingsAPI,
+  invalidatePendingBookings as invalidatePendingBookingsAPI,
+} from '../../../libs/payment/api';
+import { validateUnpaid as validateUnpaidAPI } from '../../../libs/checkout/api';
+
+import { auth as authActions } from '../../../actions';
 import {
   snackbarError,
-  snackbarSuccess,
   snackbarWarning,
-} from '#src/libs/snackbar/actions';
+  snackbarSuccess,
+} from '../../../libs/snackbar/actions';
 
-import type { BasketPageProps } from '#src/pages/checkout/basket/Basket.types';
-import type { Coupon } from '#src/libs/coupon/types';
-import type { EstablishmentBillingGroup } from '#src/libs/establishment/types';
+import { fetchProfile } from '../../../libs/consumer-space/actions';
+
+import CheckPaymentStatus from './CheckPaymentStatus.component';
+import ConsumerAppBarContainer from '../ConsumerAppBar.container';
 import type {
   OptionCallback,
   OptionCallBackWithKeyedCallbacks,
-} from '#src/state/types';
+  APIPollOptionCallback,
+} from '../../../state/types';
+import CheckoutContext from './CheckoutContext';
+import {
+  getCheckoutValidationUrl,
+  getUserSpaceUrl,
+  getMarketplaceRoute,
+  getMemberProfileRoute,
+} from '../../../libs/marketplace/routing-utils';
+import {
+  USER_REGISTRATION_RESPONSE_QUERY_PARAM,
+  USER_REGISTRATION_RESPONSE_LOCAL_STORAGE_KEY,
+} from '../../../libs/payment/constants';
 
-export class BasketPage extends React.Component<BasketPageProps> {
+import { type EstablishmentBillingGroup } from '../../../libs/establishment/types';
+import {
+  BASKET_INCONSISTENT,
+  PAYMENT_PACK_CAN_NOT_BOOK_ALL_OFFERS,
+  PAYMENT_COMBO_CAN_NOT_BOOK_ALL_OFFERS,
+} from '#src/libs/checkout/constants';
+import { getBookedSessionListDataFromBasket } from '#src/components/analytics/utils';
+
+type Props = {
+  basket: ?Basket,
+  loading: boolean,
+  processing: boolean,
+  companyId: number,
+  removeItemFromBasket: (basketId: string, data: any) => void,
+  companyThemeLoading: boolean,
+  fetchCompanyTheme: (companyId: number) => void,
+  goBack: () => void,
+  theme: ?Theme,
+  classes: Object,
+
+  t: TFunction,
+  patchCurrentBasket: (
+    basketAddress: BasketAddress,
+    options: OptionCallback,
+  ) => void,
+  fetchPaymentMethod: (params: any) => void,
+  attachCoupon: (
+    basketId: string,
+    code: string,
+    options?: OptionCallBackWithKeyedCallbacks<Coupon, CouponErrorCodes>,
+    hideSnackBar?: boolean,
+  ) => void,
+  fetchShopItemFeatured: (companyId: number) => void,
+  basketItemRemovalStatusLoading: boolean,
+  monitorExpiredItemRemoval: (
+    companyId: number,
+    checkoutItemId: string,
+    pollOptionCallback?: APIPollOptionCallback,
+  ) => void,
+  fetchProfile: () => void,
+  auth: any,
+
+  onSuccess: () => void,
+
+  removeItemFromBasket: (basketId: string, data: any) => void,
+  addItemToBasket: (
+    basketId: string,
+    data: any,
+    options?: OptionCallback,
+  ) => void,
+
+  snackbarError: (string) => void,
+  queryParams: any,
+  setQueryParams: (string, string) => void,
+  detachPaymentMethodLoading: boolean,
+  detachPaymentMethod: (pm_id: string) => void,
+  snackbarErrorMsg: (msg: string) => void,
+  snackbarSuccessMsg: (msg: string) => void,
+  useInternalAccount: (amount: number) => void,
+  onRemoveInternalAccountPrepaidLine: () => void,
+  creditAccountBalance: number | null,
+  fetchMember: (id: number) => void,
+  fetchMembership: (id: number) => void,
+  refreshBasket: () => void,
+  checkItemsBasket: (basketId: string) => boolean,
+
+  paymentProcessing: boolean,
+  setPaymentProcessing: (process: boolean) => void,
+
+  paymentPackOrComboCanNotBookAllOffers: boolean,
+  setPaymentPackOrComboCanNotBookAllOffers: (value: boolean) => void,
+
+  instalmentPaymentConfigurationList: Array<InstalmentPayment>,
+  assignInstalmentPayment: (
+    basket: string,
+    instalment_payment_id: number,
+    options: OptionCallback<Basket>,
+  ) => void,
+  basketOffers: Array<Offer<number, Establishment, MetaActivity>>,
+  fetchInstalmentPaymentByBasket: (basketId: string) => void,
+  goToMarketplace: () => void,
+  goToCalendar: () => void,
+  goToMyProfile: () => void,
+  retrieveCompanyCssConfiguration: (companyid: number) => void,
+  fetchAllEstablishmentBillingGroup: () => void,
+  establishmentBillingGroups: EstablishmentBillingGroup[],
+  defaultEstablishmentBillingGroup: EstablishmentBillingGroup,
+  updateMemberBillingGroup: (establishmentBillingGroupId: number) => void,
+};
+
+export class BasketPage extends React.Component<Props> {
   state = {
     clientSecret: null,
     paymentGroupId: null,
@@ -175,15 +260,6 @@ export class BasketPage extends React.Component<BasketPageProps> {
           'validation.sections.confirmationStatusTitle.errors.generic',
         ),
       );
-
-      // Remove error-related query params from the URL to avoid repeated error triggers on page refresh
-      removeQueryParamsFromUrl([
-        'redirect_status',
-        'payment_intent',
-        'payment_intent_client_secret',
-        'payment_method_type',
-        'check_payment_intent',
-      ]);
     }
     this.props.fetchCompanyTheme(this.props.companyId, {
       onSuccess: (theme) => {
@@ -220,7 +296,7 @@ export class BasketPage extends React.Component<BasketPageProps> {
     }
   }
 
-  componentDidUpdate(prevProps: BasketPageProps) {
+  componentDidUpdate(prevProps: Props) {
     if (prevProps.companyId !== this.props.companyId && this.props.companyId) {
       this.props.refreshBasket();
       this.props.fetchPaymentMethod({ company: this.props.companyId });
@@ -598,7 +674,7 @@ export class BasketPage extends React.Component<BasketPageProps> {
   }
 }
 
-const styles = (theme: Theme) => ({
+const styles = (theme) => ({
   container: {
     width: '100%',
     maxWidth: 1180,

@@ -475,6 +475,12 @@ const OneClickBookingModule: React.FC<Props> = ({
                   onConfirmPaymentSuccess={cleanLocalStorageAndRedirect}
                   payerContext={{
                     memberId: parseInt(memberId),
+                    termsAndConditionsAccepted:
+                      lightSignupValues.acceptTermsAndConditions,
+                  }}
+                  stripePaymentElementConfig={{
+                    isDefaultForRegion: theme.is_default_for_region,
+                    stripeId: theme.stripe_id,
                   }}
                 />
               )}

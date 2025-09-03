@@ -6,6 +6,7 @@ import { compose } from 'recompose';
 import { connect, ConnectedProps } from 'react-redux';
 import { retrieveCompanyCssConfiguration as retrieveCompanyCssConfigurationAction } from '#src/libs/exportable-components/actions';
 import type { RootState } from '#src/reducers';
+import { getTheme } from '#src/libs/theme/selectors';
 import { snackbarError as snackbarErrorAction } from '#src/libs/snackbar/actions';
 
 // HOCs
@@ -100,6 +101,7 @@ type Props = {
 type ContentProps = Pick<
   Props,
   | 'authenticated'
+  | 'companyTheme'
   | 'retrieveCompanyCssConfiguration'
   | 'setQueryParams'
   | 'queryParams'
@@ -108,6 +110,7 @@ type ContentProps = Pick<
 
 const ExpressPassCheckoutContent: React.FC<ContentProps> = ({
   authenticated,
+  companyTheme,
   retrieveCompanyCssConfiguration,
   queryParams,
   setQueryParams,
@@ -441,6 +444,10 @@ const ExpressPassCheckoutContent: React.FC<ContentProps> = ({
                     termsAndConditionsAccepted:
                       lightSignupValues.acceptTermsAndConditions,
                   }}
+                  stripePaymentElementConfig={{
+                    isDefaultForRegion: companyTheme.is_default_for_region,
+                    stripeId: companyTheme.stripe_id,
+                  }}
                 />
               )}
               {isPassFree ? (
@@ -492,6 +499,7 @@ const ExpressPassCheckout: React.FC<Props> = ({
   passType,
   authenticated,
   retrieveCompanyCssConfiguration,
+  companyTheme,
   queryParams,
   setQueryParams,
   snackbarError,
@@ -504,6 +512,7 @@ const ExpressPassCheckout: React.FC<Props> = ({
     >
       <ExpressPassCheckoutContent
         authenticated={authenticated}
+        companyTheme={companyTheme}
         queryParams={queryParams}
         retrieveCompanyCssConfiguration={retrieveCompanyCssConfiguration}
         setQueryParams={setQueryParams}
@@ -516,6 +525,7 @@ const ExpressPassCheckout: React.FC<Props> = ({
 const connector = connect(
   (state: RootState) => ({
     authenticated: state.auth.authenticated,
+    companyTheme: getTheme(state),
     customConfiguration: state.exportableComponents.customCss,
   }),
   {

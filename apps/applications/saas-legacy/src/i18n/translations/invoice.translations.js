@@ -589,10 +589,7 @@ const getTranslations = async () => {
         [PAYMENT_GROUP_METHOD_IDENTIFIER_GIROPAY]: 'Giropay',
         [PAYMENT_GROUP_METHOD_IDENTIFIER_PAYPAL_WALLET]: 'PayPal',
       },
-      select: {
-        label: 'Payment method',
-        orPayUsing: 'Or pay using',
-      },
+      select: { label: 'Payment method' },
       isInternalExplain:
         'The account balance will be automatically charged if no payment method has been added.',
       add: 'Add',

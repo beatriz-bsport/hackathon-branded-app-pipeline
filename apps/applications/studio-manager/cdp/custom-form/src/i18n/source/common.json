@@ -36,7 +36,7 @@
     "duplicateModal": {
       "actions": {
         "duplicate": "Duplicate",
-        "cancel": "Go back"
+        "cancel": "Back"
       },
       "title": "Duplicate Form?",
       "description": {

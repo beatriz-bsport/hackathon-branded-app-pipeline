@@ -1,5 +1,5 @@
 /**
- * /! HISTORICAL SCRIPT FOR MIGRATION !\
+ * /! HISTORICAL SCRIPT FOR MIGRATION - NOT USED ANYMORE !\
  *
  * Context:
  * In the old frontend repository `bsport-saas`, the translations of the target languages where

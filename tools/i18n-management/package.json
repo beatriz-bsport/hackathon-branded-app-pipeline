@@ -8,7 +8,7 @@
     "format:check": "prettier --check '**/*.{ts,tsx,js,jsx,cjs,mjs}'",
     "project:transform": "tsx ./scripts/transform-project-structure.ts",
     "translation:migrate": "tsx ./scripts/import-legacy-translations.ts",
-    "translation:update": "./scripts/update-translations.sh"
+    "translation:update": "tsx ./scripts/build-public-locales-files.ts"
   },
   "dependencies": {
     "@bsport/typescript-monorepo-utils": "workspace:*",

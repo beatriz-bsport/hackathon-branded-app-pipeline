@@ -222,8 +222,7 @@ const PaymentStripe: React.FC<
           ],
           currency,
           ...(setupFutureUsage !== undefined ? { setupFutureUsage } : {}),
-          ...(!stripePaymentElementConfig.isDefaultForRegion &&
-          stripePaymentElementConfig.stripeId
+          ...(!stripePaymentElementConfig.isDefaultForRegion
             ? { onBehalfOf: stripePaymentElementConfig.stripeId }
             : {}),
           locale: (elementLocale?.replace('_', '-') ||

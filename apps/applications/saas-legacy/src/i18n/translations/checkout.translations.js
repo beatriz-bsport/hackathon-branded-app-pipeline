@@ -58,7 +58,6 @@ const getTranslations = async () => {
         hasReachedMaxUses:
           'The maximum number of uses for the referral link has been reached.',
       },
-      expressCheckoutTitle: 'Express checkout',
     },
     payLater: {
       submit: 'Pay later',

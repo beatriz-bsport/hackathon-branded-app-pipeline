@@ -49,7 +49,7 @@ export const usePaymentMethod = (
   const { getClientSecret } = usePayment(basketId, companyId, memberId);
 
   const { handleFetchMemberPaymentMethodList } =
-    useMemberPaymentMethodListProvider({ memberId });
+    useMemberPaymentMethodListProvider(memberId);
   /**
    * Detaches a payment method linked to a member.
    *

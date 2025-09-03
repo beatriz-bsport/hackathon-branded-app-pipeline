@@ -24,7 +24,6 @@ import {
   PAYMENT_METHOD_PNG_MAP,
   PaymentMethodBrands,
 } from '#src/libs/payment/constants';
-import WidgetUtils from '#src/libs/widget/WidgetUtils';
 
 export const fromPaymentGroupIdentifierToPaymentMethodIdentifier = (
   paymentGroupIdentifier: number,
@@ -178,15 +177,4 @@ export const getPaymentMethodBrandName = (
     return PAYMENT_METHOD_BRAND_NAME_MAP[brandName as PaymentMethodBrands];
   }
   return defaultBrandName;
-};
-
-/**
- * Check if Apple Pay & Google Pay should be blocked
- * Blocks them on production environment and in widget context
- */
-export const shouldBlockDigitalWallets = (): boolean => {
-  const isProduction = Config.REACT_APP_SENTRY_ENVIRONMENT === 'production';
-  const isWidget = WidgetUtils.isWidget();
-
-  return isProduction || isWidget;
 };

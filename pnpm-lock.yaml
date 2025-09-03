@@ -304,11 +304,11 @@ importers:
         specifier: ^7.26.0
         version: 7.114.0
       '@stripe/react-stripe-js':
-        specifier: ^3.7.0
-        version: 3.7.0(@stripe/stripe-js@7.4.0)(react-dom@16.10.2(react@16.10.2))(react@16.10.2)
+        specifier: ^2.1.0
+        version: 2.9.0(@stripe/stripe-js@1.54.2)(react-dom@16.10.2(react@16.10.2))(react@16.10.2)
       '@stripe/stripe-js':
-        specifier: ^7.4.0
-        version: 7.4.0
+        specifier: ^1.52.0
+        version: 1.54.2
       '@types/react-virtualized-auto-sizer':
         specifier: ^1.0.1
         version: 1.0.4
@@ -7145,16 +7145,15 @@ packages:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0
       react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
 
-  '@stripe/react-stripe-js@3.7.0':
-    resolution: {integrity: sha512-PYls/2S9l0FF+2n0wHaEJsEU8x7CmBagiH7zYOsxbBlLIHEsqUIQ4MlIAbV9Zg6xwT8jlYdlRIyBTHmO3yM7kQ==}
+  '@stripe/react-stripe-js@2.9.0':
+    resolution: {integrity: sha512-+/j2g6qKAKuWSurhgRMfdlIdKM+nVVJCy/wl0US2Ccodlqx0WqfIIBhUkeONkCG+V/b+bZzcj4QVa3E/rXtT4Q==}
     peerDependencies:
-      '@stripe/stripe-js': '>=1.44.1 <8.0.0'
-      react: '>=16.8.0 <20.0.0'
-      react-dom: '>=16.8.0 <20.0.0'
+      '@stripe/stripe-js': ^1.44.1 || ^2.0.0 || ^3.0.0 || ^4.0.0
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0
+      react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
 
-  '@stripe/stripe-js@7.4.0':
-    resolution: {integrity: sha512-lQHQPfXPTBeh0XFjq6PqSBAyR7umwcJbvJhXV77uGCUDD6ymXJU/f2164ydLMLCCceNuPlbV9b+1smx98efwWQ==}
-    engines: {node: '>=12.16'}
+  '@stripe/stripe-js@1.54.2':
+    resolution: {integrity: sha512-R1PwtDvUfs99cAjfuQ/WpwJ3c92+DAMy9xGApjqlWQMj0FKQabUAys2swfTRNzuYAYJh7NqK2dzcYVNkKLEKUg==}
 
   '@surma/rollup-plugin-off-main-thread@2.2.3':
     resolution: {integrity: sha512-lR8q/9W7hZpMWweNiAKU7NQerBnzQQLvi8qnTDU/fxItPhtZVMbPV3lbCwjhIlNBe9Bbr5V+KHshvWmVSG9cxQ==}
@@ -25037,14 +25036,14 @@ snapshots:
       regenerator-runtime: 0.13.11
       resolve-from: 5.0.0
 
-  '@stripe/react-stripe-js@3.7.0(@stripe/stripe-js@7.4.0)(react-dom@16.10.2(react@16.10.2))(react@16.10.2)':
+  '@stripe/react-stripe-js@2.9.0(@stripe/stripe-js@1.54.2)(react-dom@16.10.2(react@16.10.2))(react@16.10.2)':
     dependencies:
-      '@stripe/stripe-js': 7.4.0
+      '@stripe/stripe-js': 1.54.2
       prop-types: 15.8.1
       react: 16.10.2
       react-dom: 16.10.2(react@16.10.2)
 
-  '@stripe/stripe-js@7.4.0': {}
+  '@stripe/stripe-js@1.54.2': {}
 
   '@surma/rollup-plugin-off-main-thread@2.2.3':
     dependencies:

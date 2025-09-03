@@ -1001,8 +1001,7 @@
             "referral": {
                 "missingAmountBeforeApplication": "The minimum purchase amount has not been reached. You risk losing your referral link. Only {{ missingAmount }} more to be able to enjoy the discount!",
                 "hasReachedMaxUses": "The maximum number of uses for the referral link has been reached."
-            },
-            "expressCheckoutTitle": "Express checkout"
+            }
         },
         "payLater": {
             "submit": "Pay later",
@@ -4763,8 +4762,7 @@
                 "17": "PayPal"
             },
             "select": {
-                "label": "Payment method",
-                "orPayUsing": "Or pay using"
+                "label": "Payment method"
             },
             "isInternalExplain": "The account balance will be automatically charged if no payment method has been added.",
             "add": "Add",

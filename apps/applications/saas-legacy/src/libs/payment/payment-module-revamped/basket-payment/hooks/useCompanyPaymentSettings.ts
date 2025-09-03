@@ -45,14 +45,14 @@ export const useCompanyPaymentSettings = (
   );
 
   const companyTheme = useSelector((state: RootState) => getTheme(state));
-  const isConsumerAllowedToUseInternalAccount =
-    companyTheme?.allow_consumer_to_use_internal_account;
-  const isCardBillingDetailsMandatory =
-    companyTheme?.force_billing_details_on_cards;
-  const paymentMethodAvailableBasket =
-    companyTheme?.payment_method_available_basket;
-  const generalTermsAndConditions = companyTheme?.general_terms_and_conditions;
-  const isMultiLocalizationEnabled = companyTheme?.enable_multi_localization;
+  const {
+    allow_consumer_to_use_internal_account:
+      isConsumerAllowedToUseInternalAccount,
+    force_billing_details_on_cards: isCardBillingDetailsMandatory,
+    payment_method_available_basket: paymentMethodAvailableBasket,
+    general_terms_and_conditions: generalTermsAndConditions,
+    enable_multi_localization: isMultiLocalizationEnabled,
+  } = useSelector((state: RootState) => getTheme(state)) ?? {};
 
   const handleFetchAllEstablishmentBillingGroup = useCallback(
     (options?: OptionCallback) => {
@@ -85,7 +85,7 @@ export const useCompanyPaymentSettings = (
           }
         },
       }),
-    [handleFetchAllEstablishmentBillingGroup, handleFetchCompanyTheme],
+    [handleFetchCompanyTheme, handleFetchAllEstablishmentBillingGroup],
   );
 
   return {

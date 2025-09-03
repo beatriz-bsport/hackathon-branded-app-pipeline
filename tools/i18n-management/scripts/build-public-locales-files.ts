@@ -94,6 +94,9 @@ async function main() {
     }
   }
   console.groupEnd();
+  console.log(
+    "✅ Successfully loaded public/locales/[locale]/[namespace].json files for all projects",
+  );
 }
 
 main();

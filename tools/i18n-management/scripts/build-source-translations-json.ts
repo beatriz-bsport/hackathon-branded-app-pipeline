@@ -1,3 +1,12 @@
+/**
+ * /! HISTORICAL SCRIPT - NOT USED ANYMORE!\
+ *
+ * Context:
+ * To have dynamic discovery of new micro-frontends translations and synchronization with Weblate,
+ * this script was used to retrieve revamped internationalized projects and build a JSON source file
+ * at path i18n-management/src/source/translations.json.
+ * This file was watched by Weblate to discover new strings.
+ */
 import { writeFileSync } from "fs-extra";
 import beautify from "json-beautify";
 import path from "path";

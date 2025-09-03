@@ -1,3 +1,12 @@
+/**
+ * /! HISTORICAL SCRIPT - NOT USED ANYMORE !\
+ *
+ * Context:
+ * To have dynamic discovery of new micro-frontends translations and synchronization with Weblate,
+ * this script was used to split translations from i18n-management/src/locales into all the
+ * revamped internationalized projects.
+ * These files were edited by Weblate.
+ */
 import {
   existsSync,
   mkdirSync,

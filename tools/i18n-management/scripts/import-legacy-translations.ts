@@ -1,4 +1,3 @@
-import { select } from "@inquirer/prompts";
 import { exec } from "child_process";
 import { Command } from "commander";
 import { existsSync, mkdirSync, readJSONSync, writeFileSync } from "fs-extra";

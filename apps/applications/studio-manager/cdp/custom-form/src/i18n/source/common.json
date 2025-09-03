@@ -28,7 +28,7 @@
     "archiveModal": {
       "actions": {
         "archive": "Archive",
-        "cancel": "Go back"
+        "cancel": "Back"
       },
       "title": "Archive Form?",
       "description": "Members won't see <b>{{ name }}</b> anymore but you can access it from your archive."

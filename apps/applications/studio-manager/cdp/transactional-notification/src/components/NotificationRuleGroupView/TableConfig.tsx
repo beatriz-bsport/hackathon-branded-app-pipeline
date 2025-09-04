@@ -76,23 +76,35 @@ export const getTableColumns = ({
     keyPath: "push_notification_checked",
     type: "custom",
     align: "center",
-    render: (row) => (
-      <Checkbox
-        id={`push-notification-checkbox-action-${row.id}`}
-        value={row.push_notification_checked ? "checked" : "unchecked"}
-        disabled={row.push_notification_disabled}
-        onClick={(e: React.MouseEvent) => {
-          e.stopPropagation();
-        }}
-        onChange={(checked: boolean) => {
-          checkCommunicationMethodPreferences({
-            notificationRuleEventId: row.id,
-            communicationMethod: "push_notification",
-            checked,
-          });
-        }}
-      />
-    ),
+    render: (row) => {
+      const tooltipLabel = t(
+        "notificationRuleEventDetails.table.tooltip.setPushNotificationBeforeEnabling",
+      );
+      const CheckboxComponent = (
+        <Checkbox
+          id={`push-notification-checkbox-action-${row.id}`}
+          value={row.push_notification_checked ? "checked" : "unchecked"}
+          disabled={
+            row.push_notification_disabled || !row.is_push_notification_set
+          }
+          onChange={(checked: boolean) => {
+            checkCommunicationMethodPreferences({
+              notificationRuleEventId: row.id,
+              communicationMethod: "push_notification",
+              checked,
+            });
+          }}
+        />
+      );
+      if (!row.push_notification_disabled && !row.is_push_notification_set) {
+        return (
+          <Tooltip placement="bottom" label={tooltipLabel}>
+            {CheckboxComponent}
+          </Tooltip>
+        );
+      }
+      return <div>{CheckboxComponent}</div>;
+    },
   };
 
   const columnOpenPreviewAction: TableColumn = {
@@ -133,7 +145,8 @@ export const getTableColumns = ({
   return [
     columnName,
     columnEmailCheckbox,
-    permissions.pushNotification && columnPushNotificationCheckbox,
+    // TODO : We have to check if push notifications are set before adding the column
+    permissions.isPushNotificationEnabled && columnPushNotificationCheckbox,
     columnOpenPreviewAction,
   ].filter((item) => !!item);
 };

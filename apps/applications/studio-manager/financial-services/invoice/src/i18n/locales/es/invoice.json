@@ -1,0 +1,43 @@
+{
+  "download": {
+    "explainPdfDraft": "La factura es todavía un borrador, el pdf no está disponible.",
+    "receipt": "Recibo",
+    "pdf": "PDF",
+    "title": "Descargar como..."
+  },
+  "emptyTable": {
+    "description": "Una vez que empieces a realizar ventas, tus facturas aparecerán aquí.",
+    "title": "Aún no hay facturas"
+  },
+  "filters": {
+    "is-not": "no es",
+    "is": "es"
+  },
+  "tableColumnLabel": {
+    "status": "Estado",
+    "type": "Tipo",
+    "amount": "Cantidad",
+    "member": "Miembro",
+    "date": "Fecha",
+    "number": "Número"
+  },
+  "invoiceStatus": {
+    "credit_payment": "Pago a crédito",
+    "return": "Volver",
+    "migration": "Migración",
+    "reversed": "Revertida",
+    "regular": "Regular",
+    "voided": "Anulada",
+    "refunded": "Reembolsada",
+    "paid": "Pagada",
+    "past_due": "Vencida",
+    "open": "Abrir"
+  },
+  "invoiceType": {
+    "regular": "Factura",
+    "migration": "Migración",
+    "credit_payment": "Recibo (ajuste del saldo)",
+    "return": "Factura reembolsada",
+    "reversed": "Factura (anulada)"
+  }
+}

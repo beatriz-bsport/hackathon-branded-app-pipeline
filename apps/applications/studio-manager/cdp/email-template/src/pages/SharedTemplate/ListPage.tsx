@@ -30,12 +30,13 @@ const SharedListPage: React.FC = () => {
       : [];
 
   useEffect(() => {
-    if (!isFranchisee && activeTab !== "bsport") {
+    if (companyTheme && !isFranchisee && activeTab !== "bsport") {
       navigate(`../${ROUTES.BSPORT_TEMPLATES}`);
     }
   }, [companyTheme, isFranchisee, activeTab, navigate]);
 
   useEffect(() => {
+    console.log("pathname", pathname);
     const tab = pathname.includes("bsport") ? "bsport" : "master";
     setActiveTab(tab);
   }, [pathname]);
@@ -48,7 +49,7 @@ const SharedListPage: React.FC = () => {
         pageTabs={tabsConfig}
         searchConfig={searchConfig}
       />
-      <ListLayout.Content>
+      <ListLayout.Content key={activeTab}>
         {searchInput ? (
           <SearchedTemplateList
             searchInput={searchInput}

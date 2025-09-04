@@ -1,0 +1,16 @@
+{
+  "giftcardPreview": {
+    "placeholders": {
+      "amount": "[Amount of the Gift Card]",
+      "buyer": "[Buyer's name]",
+      "message": "[Custom message]",
+      "name": "[Gift Card name]",
+      "recipient": "[Recipient's name]"
+    },
+    "hints": {
+      "amount": "Value",
+      "buyer": "From",
+      "recipient": "For the attention of"
+    }
+  }
+}

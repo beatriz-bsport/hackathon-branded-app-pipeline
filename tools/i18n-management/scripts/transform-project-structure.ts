@@ -1,67 +1,27 @@
 import { Command } from "commander";
 import fs, { existsSync } from "fs";
 import { readJSONSync, writeFileSync } from "fs-extra";
-import { select as selectWithSearch } from "inquirer-select-pro";
 import beautify from "json-beautify";
-import { getMonorepoBasePathSync } from "packages/utils/monorepo/build";
 import path from "path";
+
+import { getMonorepoBasePathSync } from "@bsport/typescript-monorepo-utils";
 
 import {
   type ProjectConfig,
   ensureDir,
   getAppNamespaces,
-  getInternationalizedApplications,
+  selectProject,
 } from "./utils";
 
 async function main({ project }: { project?: string }) {
   // Globals
   const monorepoBasePath = getMonorepoBasePathSync();
-  let selectedProject: ProjectConfig;
   let finalNamespaces: string[];
 
   // Step 1: Select the project
-  {
-    const projects = await getInternationalizedApplications({ quiet: true });
-
-    if (project) {
-      // Validate the provided project
-      const projectConfig = projects.find((proj) => proj.name === project);
-
-      if (projectConfig) {
-        selectedProject = projectConfig;
-      } else {
-        console.error(
-          "❌ Unknown project name provided. Make sure this is an internationalized project",
-        );
-        process.exit(1);
-      }
-    } else {
-      // Show a selector
-      const projectConfig = await selectWithSearch({
-        message: "Select your project",
-        multiple: false,
-        required: true,
-        options: (input?: string) => {
-          const baseList = projects.map((project) => ({
-            name: project.name,
-            value: project,
-          }));
-
-          if (!input) return baseList;
-
-          return baseList.filter((option) => option.name.includes(input));
-        },
-      });
-
-      if (projectConfig) {
-        selectedProject = projectConfig;
-      } else {
-        console.error("❌ You did not select a project. Please select one.");
-        process.exit(1);
-      }
-    }
-    console.log(`✅ Selected project: ${selectedProject.name}`);
-  }
+  const selectedProject: ProjectConfig = await selectProject({
+    initialProject: project,
+  });
 
   // Step 2: Transform the project
   {
@@ -131,12 +91,18 @@ async function main({ project }: { project?: string }) {
     console.log("> Create i18n/source directory");
     ensureDir(sourceDir);
 
-    console.log('> Move "en" files to "source" folder');
-    const englishFiles = fs.readdirSync(path.join(localesDir, "en"));
+    console.log('> Copy "en" files to "source" folder');
+    const localeEnglishFolder = path.join(localesDir, "en");
+    const englishFiles = fs.readdirSync(localeEnglishFolder);
     for (const file of englishFiles) {
       const englishPath = path.join(localesDir, "en", file);
       const sourcePath = path.join(sourceDir, file);
       fs.copyFileSync(englishPath, sourcePath);
+    }
+
+    console.log("> Remove locales/en folder");
+    if (fs.existsSync(localeEnglishFolder)) {
+      fs.rmSync(localeEnglishFolder, { recursive: true, force: true });
     }
 
     console.groupEnd();
@@ -209,7 +175,7 @@ async function main({ project }: { project?: string }) {
     console.log('import namespaces from "#src/i18n/namespaces.json";');
     for (const namespace of finalNamespaces) {
       console.log(
-        `import type ${namespace}Translations from "#src/i18n/source/${namespace}.json;`,
+        `import type ${namespace}Translations from "#src/i18n/source/${namespace}.json";`,
       );
     }
     console.group("\ntype Translations = {");
@@ -230,6 +196,7 @@ async function main({ project }: { project?: string }) {
 
   console.log("\n\n✅ Transformation script completed !");
 }
+
 const program = new Command();
 
 program

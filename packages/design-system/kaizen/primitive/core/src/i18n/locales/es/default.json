@@ -1,0 +1,16 @@
+{
+  "fileUpload": {
+    "uploadStatus": {
+      "error": "No se ha podido cargar este archivo",
+      "success": "Cargado con éxito"
+    },
+    "dragAndDropCTA": "o arrástrelo y suéltelo aquí",
+    "uploadFileCTA": "Cargar un archivo"
+  },
+  "emptyState": {
+    "noResultsFound": {
+      "clearFilters": "Borrar filtros",
+      "title": "No se han encontrado resultados"
+    }
+  }
+}

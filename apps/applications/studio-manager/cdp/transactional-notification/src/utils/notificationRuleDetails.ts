@@ -96,14 +96,6 @@ export const getIsPushNotificationDisabled = ({
 }: {
   refinedNotificationRuleData: RefinedNotificationRuleEventData;
 }) => {
-  // Check if push notification is set up by studio manager
-  const pushNotificationTitle =
-    refinedNotificationRuleData?.details?.push_notification_title || "";
-  const pushNotificationContent =
-    refinedNotificationRuleData?.details?.push_notification_content || "";
-  const hasPushNotificationEmptyContent =
-    pushNotificationTitle === "" || pushNotificationContent === "";
-
   // Check if checkboxes should be disabled
   const shouldDisableCheckboxes =
     refinedNotificationRuleData?.settings?.disabled_checkboxes ?? false;
@@ -113,11 +105,7 @@ export const getIsPushNotificationDisabled = ({
     refinedNotificationRuleData?.rule?.required_tags || [];
   const hasRequiredTags = requiredTagList.length > 0;
 
-  return (
-    hasPushNotificationEmptyContent ||
-    shouldDisableCheckboxes ||
-    hasRequiredTags
-  );
+  return shouldDisableCheckboxes || hasRequiredTags;
 };
 
 export const getIsFranchiseOwned = ({
@@ -125,7 +113,7 @@ export const getIsFranchiseOwned = ({
 }: {
   refinedNotificationRuleData: RefinedNotificationRuleEventData;
 }) => {
-  return refinedNotificationRuleData?.details?.franchisor !== null;
+  return !!refinedNotificationRuleData?.details?.franchisor;
 };
 
 /**

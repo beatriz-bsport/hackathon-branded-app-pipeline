@@ -18,6 +18,7 @@ import type {
   OfferStatus,
   OfferREST,
   DeleteOfferPayload,
+  RecurrenceResponse,
 } from './types';
 
 import { PaginatedResponse } from '../../state/types';
@@ -31,6 +32,12 @@ const API_URI_BUYABLE = Config.REACT_APP_BASE_URI_BUYABLE_V0;
 
 export async function createOffers(data: OfferCreate) {
   return postAuth(`${API_V1_URI}/offer/create_similar_offers/`, data);
+}
+
+export async function getLastOfferInRecurrence(offerId: number) {
+  return getAuth<RecurrenceResponse>(
+    `${API_V1_URI}/offer/${offerId}/recurrence/`,
+  );
 }
 
 export async function editOffers({
@@ -357,4 +364,5 @@ export default {
   fetchBookedGender,
   fetchOfferStatus,
   checkOfferTagEligibility,
+  getLastOfferInRecurrence,
 };

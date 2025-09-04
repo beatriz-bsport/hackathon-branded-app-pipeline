@@ -119,11 +119,17 @@ export type Offer<
   activity_id: number;
   activity: A;
   allow_guest_offer: boolean;
+  available_on_partnership: boolean;
   available: boolean;
   blacklist_tags: T[];
+  booking_window_end_datetime?: string;
+  booking_window_start_datetime?: string;
+  booking_window_status?: BookingWindowStatus;
   broadcast_info?: BroadcastInfo;
+  broadcast_link: string;
   category: string;
   coach_override?: C;
+  coach_payment_rule_id: number | null;
   coach: C;
   company: number;
   cover_main: string;
@@ -146,6 +152,7 @@ export type Offer<
   level: L;
   linked_hybrid_offer_id: number | null;
   male?: number;
+  manager_only: boolean;
   meta_activity_id: number;
   meta_activity: M;
   name_override?: string;
@@ -154,20 +161,20 @@ export type Offer<
   nb_option: number;
   other?: number;
   parent_category: number;
+  partner_max_booking_count: number;
   price_coach: number;
   price: number;
+  recurrence_id: string;
   roll_call_needs_validation: boolean;
   room_blueprint?: number;
   source: number;
+  sync_on_spivi?: boolean;
   tax?: number;
   timezone_name: string;
   title: string;
   validated_booking_count: number;
   waiting_list_max_size: number;
   whitelist_tags: T[];
-  booking_window_status?: BookingWindowStatus;
-  booking_window_start_datetime?: string;
-  booking_window_end_datetime?: string;
 };
 
 /**
@@ -577,4 +584,13 @@ export type DeleteOfferPayload = {
   deleteAll: boolean;
   custom_selection: boolean;
   custom_selection_ids: number[];
+};
+
+export type RecurrenceResponse = {
+  last_offer: {
+    id: number;
+    date_start: string;
+  };
+  recurrence_count: number;
+  recurrence_id: string;
 };

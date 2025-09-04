@@ -4,8 +4,6 @@ import type {
   NotificationRuleEventSetting,
 } from "@bsport/store-cdp-notification-rule";
 
-import type { NotificationRuleAvailableUpsells } from "#src/hooks/layout/use-upsell-blocker";
-
 export type NotificationRuleEventTableRowData = {
   openPreview: (notificationRuleEventId: number) => void;
   checkCommunicationMethodPreferences: ({
@@ -17,7 +15,9 @@ export type NotificationRuleEventTableRowData = {
     communicationMethod: "push_notification" | "email_notification";
     checked: boolean;
   }) => void;
-  permissions: NotificationRuleAvailableUpsells;
+  permissions: {
+    isPushNotificationEnabled: boolean;
+  };
 };
 
 export type TableRowData = {
@@ -28,10 +28,16 @@ export type TableRowData = {
   push_notification_disabled: boolean;
   email_notification_disabled: boolean;
   is_franchise_owned: boolean;
+  is_push_notification_set: boolean;
 };
 
 export type RefinedNotificationRuleEventData = {
   details?: NotificationRuleDetail;
   settings?: NotificationRuleEventSetting;
   rule: NotificationRuleEvent;
+};
+
+export type PushNotificationFormData = {
+  title: string;
+  content: string;
 };

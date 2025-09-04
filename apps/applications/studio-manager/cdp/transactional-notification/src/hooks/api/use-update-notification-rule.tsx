@@ -1,3 +1,4 @@
+import { toast } from "@bsport/kaizen-primitive-core";
 import {
   type NotificationRuleDetail,
   createNotificationRuleDetailsAction,
@@ -6,6 +7,7 @@ import {
 import { useAsync } from "@bsport/use-async";
 
 import { fetch } from "#src/utils/fetch";
+import { useTranslation } from "#src/utils/i18n";
 
 type UseUpdateNotificationRuleSettingsProps = {
   notificationEventId: number;
@@ -37,11 +39,19 @@ export function useUpdateNotificationRule({
   onSuccess,
   onFailure,
 }: UseUpdateNotificationRuleSettingsProps) {
+  const { t } = useTranslation("transactionalNotification");
   const [{ isLoading: isCreatingRuleDetails }, createNotificationRuleDetails] =
     useAsync<typeof _createNotificationRuleDetails>({
       asyncFn: _createNotificationRuleDetails,
       onSuccess: ({ value }) => onSuccess?.(value),
-      onFailure: ({ error }) => onFailure?.(error),
+      onFailure: ({ error }) => {
+        onFailure?.(error);
+        toast({
+          icon: "alert-triangle",
+          title: t("notificationRuleEventDetails.toast.create.failure"),
+          status: "critical",
+        });
+      },
     });
 
   const [{ isLoading }, updateNotificationRuleEventDetails] = useAsync<
@@ -49,7 +59,14 @@ export function useUpdateNotificationRule({
   >({
     asyncFn: _updateNotificationRuleDetails,
     onSuccess: ({ value }) => onSuccess?.(value),
-    onFailure: ({ error }) => onFailure?.(error),
+    onFailure: ({ error }) => {
+      onFailure?.(error);
+      toast({
+        icon: "alert-triangle",
+        title: t("notificationRuleEventDetails.toast.update.failure"),
+        status: "critical",
+      });
+    },
   });
 
   const createEmailDesignInNotification = ({
@@ -78,9 +95,43 @@ export function useUpdateNotificationRule({
     updateNotificationRuleEventDetails(notificationEventData);
   };
 
+  const createPushNotificationContentInNotification = ({
+    title,
+    content,
+  }: {
+    title: string;
+    content: string;
+  }) => {
+    const notificationEventData = {
+      notification_event: notificationEventId,
+      push_notification_title: title,
+      push_notification_content: content,
+    };
+    createNotificationRuleDetails(notificationEventData);
+  };
+
+  const updatePushNotificationContentInNotification = ({
+    title,
+    content,
+    notificationEventDetails,
+  }: {
+    title: string;
+    content: string;
+    notificationEventDetails: NotificationRuleDetail;
+  }) => {
+    const notificationEventData: NotificationRuleDetail = {
+      ...notificationEventDetails,
+      push_notification_content: content,
+      push_notification_title: title,
+    };
+    updateNotificationRuleEventDetails(notificationEventData);
+  };
+
   return {
     isLoading: isCreatingRuleDetails || isLoading,
     createEmailDesignInNotification,
     updateEmailDesignInNotification,
+    createPushNotificationContentInNotification,
+    updatePushNotificationContentInNotification,
   };
 }

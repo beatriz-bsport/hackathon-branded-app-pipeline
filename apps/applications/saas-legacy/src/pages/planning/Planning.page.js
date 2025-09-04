@@ -1441,6 +1441,7 @@ export class Planning extends PureComponent<Props, State> {
                         onDeleteButtonClick={this.openDeleteModal}
                         onEditButtonClick={this.openEditModal}
                         onModifyTags={this.onModifyTags}
+                        onRefreshOffers={this.fetchOffersOfSelectedDate}
                         onRestoreButtonClick={this.openRestoreModal}
                         showOfferGender={
                           this.props.theme &&

@@ -1,8 +1,12 @@
 {
   "name": "@bsport/analytics",
-  "version": "0.0.0",
-  "private": true,
+  "version": "1.0.0",
+  "private": false,
   "description": "To collect highly targeted, structured data on how users interact with our platform",
+  "repository": {
+    "type": "git",
+    "url": "https://gitlab.com/bsport/ichizen/-/tree/dev/packages/utils/analytics"
+  },
   "license": "UNLICENSED",
   "author": "David Bretaud <david.bretaud@bsport.io>",
   "type": "module",
@@ -16,12 +20,18 @@
   "main": "build/lib.es.js",
   "module": "build/lib.es.js",
   "types": "build/lib.d.ts",
+  "directories": {
+    "build": "build"
+  },
   "files": [
-    "build"
+    "build",
+    "README.md",
+    "package.json"
   ],
   "scripts": {
     "build": "vite build",
     "ci:compile": "tsc",
+    "ci:publish": "./scripts/ci-publish.sh",
     "dev": "vite build --watch",
     "docs:generate": "tsx ./scripts/generate-events-docs.ts",
     "format": "prettier --write '**/*.{ts,tsx,js,jsx,cjs,mjs,scss,css,json,md,mdx,html,svg}'",
@@ -30,7 +40,8 @@
     "lint:fix": "eslint --fix .",
     "test": "vitest run",
     "test:coverage": "vitest run --coverage",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "upgrade-version": "npm version"
   },
   "dependencies": {
     "@bsport/broadcast-channel-polyfill": "workspace:*",

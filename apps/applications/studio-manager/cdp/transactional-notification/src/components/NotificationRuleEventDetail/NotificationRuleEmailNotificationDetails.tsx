@@ -60,6 +60,9 @@ export const NotificationRuleEmailNotificationDetails = ({
     <div className="flex flex-col gap-md">
       <div>
         <EmailTemplateSelector
+          disabled={getIsEmailNotificationDisabled({
+            refinedNotificationRuleData: selectedNotificationRule,
+          })}
           defaultTemplateId={emailDesignId ?? undefined}
           onSelectTemplate={(selectedTemplate) => {
             if (selectedTemplate.id !== emailDesignId) {
@@ -110,6 +113,9 @@ export const NotificationRuleEmailNotificationDetails = ({
           ""
         }
         resolvedGenericTags={genericCommunicationVariables}
+        noContentMessage={t(
+          "notificationRuleEventDetails.details.emailNotification.noPreview",
+        )}
       />
     </div>
   );

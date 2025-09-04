@@ -82,7 +82,7 @@ const Tooltip: React.FC<TooltipProps> = ({
         aria-hidden={!isVisible}
         title={label}
       >
-        <span className="text-onsurface-default text-body-sm leading-xs">
+        <span className="text-wrap text-onsurface-default text-body-sm leading-xs">
           {label}
         </span>
         {renderedChip}

@@ -19,8 +19,9 @@ import { LuxonDateTime } from '#src/types';
 import { OFFER_RECURRENCE } from '#src/libs/offer/constants';
 import { Offer, OfferCreate } from '#src/libs/offer/types';
 import { OptionBackgroundCallback } from '#src/state/types';
-import { Coach, Establishment, MetaActivity } from '#src/api/types';
+import { Coach, Establishment } from '#src/api/types';
 import { Tag } from '#src/libs/tag/types';
+import { MetaActivity } from '#src/libs/meta-activity/types';
 import { SwitchField } from '#src/libs/custom-form/components/GenericFormik.input';
 import { useTranslation } from 'react-i18next';
 import Alert from '@material-ui/lab/Alert';
@@ -203,7 +204,6 @@ const OfferDuplicateDialog: React.FC<Props> = ({
         blacklist_tags: offer.blacklist_tags.map(({ id }) => id),
         whitelist_tags: offer.whitelist_tags.map(({ id }) => id),
         dates: dates,
-        // TODO(BOO-836): check if it works with the decimal values...
         credits: offer.credit_price,
         is_hybrid: isHybrid,
         coach_payment_rule: offer.coach_payment_rule_id,
@@ -211,6 +211,7 @@ const OfferDuplicateDialog: React.FC<Props> = ({
         establishment: offer.establishment.id,
         meta_activity: offer.meta_activity.id,
         recurrence_id: values.linkNewOffers ? offer.recurrence_id : undefined,
+        level: offer.custom_level,
       };
 
       // Use Redux action which handles background tasks and snackbars automatically

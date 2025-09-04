@@ -20,12 +20,13 @@ import { OFFER_RECURRENCE } from '#src/libs/offer/constants';
 import { Offer, OfferCreate } from '#src/libs/offer/types';
 import { OptionBackgroundCallback } from '#src/state/types';
 import { Coach, Establishment, MetaActivity } from '#src/api/types';
+import { Tag } from '#src/libs/tag/types';
 import { SwitchField } from '#src/libs/custom-form/components/GenericFormik.input';
 import { useTranslation } from 'react-i18next';
 import Alert from '@material-ui/lab/Alert';
 
 type Props = {
-  offer: Offer<Coach, Establishment, MetaActivity>;
+  offer: Offer<Coach, Establishment, MetaActivity, number, Tag>;
   onClose: () => void;
   onDuplicate: () => void;
   open: boolean;
@@ -197,8 +198,10 @@ const OfferDuplicateDialog: React.FC<Props> = ({
         : [values.dateIntervalStart.toUnixInteger()];
 
       // Use original offer data for most fields, only override with form values for date/time
-      const duplicateData = {
+      const duplicateData: OfferCreate = {
         ...offer,
+        blacklist_tags: offer.blacklist_tags.map(({ id }) => id),
+        whitelist_tags: offer.whitelist_tags.map(({ id }) => id),
         dates: dates,
         // TODO(BOO-836): check if it works with the decimal values...
         credits: offer.credit_price,

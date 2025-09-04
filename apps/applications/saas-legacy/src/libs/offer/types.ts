@@ -134,7 +134,7 @@ export type Offer<
   company: number;
   cover_main: string;
   credit_price: number;
-  custom_level: number;
+  custom_level: L;
   date_end: string;
   date_roll_call_last_modified?: string;
   date_start: string;

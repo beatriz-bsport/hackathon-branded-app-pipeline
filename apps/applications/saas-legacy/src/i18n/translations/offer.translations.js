@@ -27,6 +27,7 @@ exports.default = {
     duplicateModalTitle: 'Duplicate Session',
     modifyOffer: 'Edit',
     deleteOffer: 'Cancel',
+    duplicateOffer: 'Duplicate',
     filter: 'Filter',
     today: 'Today',
     alertSpivi: {

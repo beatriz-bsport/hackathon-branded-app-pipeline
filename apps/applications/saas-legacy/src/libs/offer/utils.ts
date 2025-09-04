@@ -131,3 +131,17 @@ export function getDeletePermission(
   }
   return false;
 }
+
+export function getCreatePermission(
+  offer: Offer_FULL,
+  hasCreateActivityPermission: boolean,
+  hasCreateWorkshopPermission: boolean,
+) {
+  if (offer.meta_activity?.is_workshop) {
+    return hasCreateWorkshopPermission;
+  }
+  if (offer.meta_activity?.is_workshop === false) {
+    return hasCreateActivityPermission;
+  }
+  return false;
+}

@@ -72,6 +72,11 @@ const InvoicePaymentContent: React.FC<Props> = ({
     paymentRef?.current?.onResetInvoicePaymentSetup?.();
   }, [paymentRef]);
 
+  const applyBalanceToInvoiceCallbacks = {
+    onSuccess: onConfirmPaymentSuccess,
+    onError: onConfirmPaymentError,
+  };
+
   useEffect(() => {
     return () => {
       handleResetInvoicePaymentSetup();
@@ -147,6 +152,7 @@ const InvoicePaymentContent: React.FC<Props> = ({
       <OnlinePaymentInvoice
         ref={paymentRef}
         forceHideConfirmPaymentButton
+        applyBalanceToInvoiceCallbacks={applyBalanceToInvoiceCallbacks}
         companyId={Number(companyId)}
         invoiceUuid={invoiceUuid}
         memberId={Number(memberId)}

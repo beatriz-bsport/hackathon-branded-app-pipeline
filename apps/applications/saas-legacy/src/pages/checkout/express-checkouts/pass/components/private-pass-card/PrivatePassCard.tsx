@@ -27,6 +27,9 @@ export const PrivatePassCard: React.FC = memo(() => {
     compatibleServices,
   } = usePrivatePassCardData();
 
+  const shouldDisplayCompatibilitySection =
+    isCompatibleWithVod || compatibleServices?.length > 0;
+
   return (
     <Card className="bs-express-checkout-private-pass-card__root">
       <div className="bs-express-checkout-private-pass-card__header">
@@ -89,51 +92,55 @@ export const PrivatePassCard: React.FC = memo(() => {
           </Typography>
         </ExpandableContent>
       )}
-      <ExpandableContent
-        initiallyOpen
-        className="bs-express-checkout-private-pass-card__compatibility"
-        id="compatibility"
-        title={t('passes.detail.compatibility.titles.main')}
-      >
-        <div className="bs-express-checkout-private-pass-card__compatibility__content">
-          <List className="bs-express-checkout-private-pass-card__compatibility__list">
-            {isCompatibleWithVod && (
-              <ListItem
-                className="bs-express-checkout-private-pass-detail__compatibility__list-item"
-                icon={<VideoRecorder stroke="currentColor" />}
-                label={
-                  <Trans
-                    i18nKey="passes.detail.compatibility.contents.vod"
-                    t={t}
-                  />
-                }
-                size="sm"
-              />
-            )}
-          </List>
-          {!!compatibleServices.length && (
-            <div className="bs-express-checkout-private-pass-detail__compatibility__appointments">
-              <Title
-                className="bs-express-checkout-private-pass-detail__compatibility__appointments__title"
-                title={t('passes.detail.compatibility.subtitles.appointments')}
-                variant="xs"
-              />
-              <div className="bs-express-checkout-private-pass-card__chips">
-                {compatibleServices.map((compatibleService) => (
-                  <Chip
-                    key={compatibleService.id}
-                    className="bs-express-checkout-private-pass-detail__compatibility__appointments__list-item"
-                    color="grey"
-                    variant="weak"
-                  >
-                    {compatibleService.name}
-                  </Chip>
-                ))}
+      {shouldDisplayCompatibilitySection && (
+        <ExpandableContent
+          initiallyOpen
+          className="bs-express-checkout-private-pass-card__compatibility"
+          id="compatibility"
+          title={t('passes.detail.compatibility.titles.main')}
+        >
+          <div className="bs-express-checkout-private-pass-card__compatibility__content">
+            <List className="bs-express-checkout-private-pass-card__compatibility__list">
+              {isCompatibleWithVod && (
+                <ListItem
+                  className="bs-express-checkout-private-pass-detail__compatibility__list-item"
+                  icon={<VideoRecorder stroke="currentColor" />}
+                  label={
+                    <Trans
+                      i18nKey="passes.detail.compatibility.contents.vod"
+                      t={t}
+                    />
+                  }
+                  size="sm"
+                />
+              )}
+            </List>
+            {!!compatibleServices.length && (
+              <div className="bs-express-checkout-private-pass-detail__compatibility__appointments">
+                <Title
+                  className="bs-express-checkout-private-pass-detail__compatibility__appointments__title"
+                  title={t(
+                    'passes.detail.compatibility.subtitles.appointments',
+                  )}
+                  variant="xs"
+                />
+                <div className="bs-express-checkout-private-pass-card__chips">
+                  {compatibleServices.map((compatibleService) => (
+                    <Chip
+                      key={compatibleService.id}
+                      className="bs-express-checkout-private-pass-detail__compatibility__appointments__list-item"
+                      color="grey"
+                      variant="weak"
+                    >
+                      {compatibleService.name}
+                    </Chip>
+                  ))}
+                </div>
               </div>
-            </div>
-          )}
-        </div>
-      </ExpandableContent>
+            )}
+          </div>
+        </ExpandableContent>
+      )}
     </Card>
   );
 });

@@ -15,7 +15,7 @@ type ConfirmationAlert = {
 };
 
 type ValidationsActions = {
-  cancel: ConfirmationAction;
+  cancel?: ConfirmationAction;
   confirm?: ConfirmationAction;
 };
 
@@ -467,10 +467,14 @@ export const useConfirmationMessageData = (
             label: t('validation.actions.bookAClass'),
             onClick: goToCalendar,
           },
-          cancel: {
-            label: t('validation.actions.seeAllPasses'),
-            onClick: goToMemberPasses,
-          },
+          ...(goToMemberPasses
+            ? {
+                cancel: {
+                  label: t('validation.actions.seeAllPasses'),
+                  onClick: goToMemberPasses,
+                },
+              }
+            : {}),
         },
         icon: React.createElement(ConfirmationMessageIcon, { isError: false }),
         message: t(

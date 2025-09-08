@@ -1,0 +1,234 @@
+{
+  "cardListPage": {
+    "deleteTile": "Eliminar",
+    "editColor": "Editar a cor",
+    "editName": "Editar o nome",
+    "editIcon": "Alterar ícone",
+    "seeLess": "Ver menos",
+    "archiveSection": "Arquivar a categoria",
+    "addSection": "Também pode adicionar uma categoria clicando no quadrado + na última posição.",
+    "archivedCategories": "Categorias arquivadas",
+    "categoryArchivedSnackbar": "Esta categoria foi arquivada",
+    "moveTile": "Mover",
+    "addItems": "Também pode adicionar objetos clicando no quadrado + na última posição.",
+    "newSection": "Nova categoria",
+    "categoryModalTitle": "Cor da categoria",
+    "categoryModalSubtitle": "Palete de cores",
+    "preview": "Pré-visualizar",
+    "possibleActionsShort": "Pode realizar ações passando o rato por cima...",
+    "save": "Guardar",
+    "seeMore": "Ver mais",
+    "possibleActionsFull": "Pode realizar ações passando o rato por cima dos artigos. Pode :"
+  },
+  "objectCard": {
+    "subtitle": {
+      "giftcard": "Passe de oferta",
+      "paymentPack": "Passe de aulas",
+      "credit": "crédito",
+      "credit_plural": "créditos",
+      "privatePass": "Passe de Aula Privada",
+      "paymentCombo": "Pack",
+      "unlimited": "Ilimitado",
+      "product": "produto",
+      "product_plural": "produtos",
+      "subscription": "Subscrição",
+      "shopProduct": "Produto"
+    },
+    "recurrence": {
+      "day": "todos os dias",
+      "day_plural": "todos os {{ recurrence_basis }} dias",
+      "month": "todos os meses",
+      "month_plural": "todos os {{ recurrence_basis }} meses",
+      "year": "todos os anos",
+      "year_plural": "todos os {{ recurrence_basis }} anos",
+      "week": "todas as semanas",
+      "week_plural": "todas as {{ recurrence_basis }} semanas"
+    }
+  },
+  "rolePage": {
+    "noResult": "Nenhum acesso criado",
+    "actionColumn": "Ação",
+    "email": "E-mail",
+    "addAccess": "Adicionar acesso",
+    "submit": "Confirmar",
+    "firstName": "Nome próprio",
+    "lastName": "Nome",
+    "password": "Palavra-passe",
+    "cancel": "Cancelar",
+    "title": "Acesso ao ponto de venda",
+    "subtitle": "Estes acessos permitem ao pessoal aceder à interface de venda rápida. É necessário ter sessão iniciada para poder vender através da interface.",
+    "modalTitle": "Criar um acesso interface de vendas",
+    "staffColumn": "Staff",
+    "emailColumn": "E-mail"
+  },
+  "pageLeavePrompt": {
+    "save": "Guardar",
+    "description": "Atenção, não foi feita uma cópia de segurança. Está prestes a perder todas as alterações efetuadas. Gostaria de guardar?",
+    "discard": "Sair sem guardar",
+    "title": "As alterações não foram guardadas"
+  },
+  "pageTitle": "Interface de vendas",
+  "checkout": {
+    "paymentSuccess": {
+      "subTextPartialPayment": "O pagamento já foi processado e a fatura foi enviada por email. O resto do pagamento foi adiado : pode ser efetuado a partir do backoffice ou da ficha do membro.",
+      "title": "Pagamento aceite",
+      "printTicket": "Descarregar o recibo",
+      "sendByEmail": "Enviar a fatura por email",
+      "subText": "O pagamento foi processado. A fatura foi enviada por email.",
+      "subTextAnonymous": "O pagamento já foi processado."
+    },
+    "homeDelivery": "Entrega",
+    "firstName": "Apelido",
+    "lastName": "Nome",
+    "cancel": "Cancelar",
+    "validate": "Validar",
+    "emailSent": {
+      "title": "Email enviado",
+      "subText": "A fatura foi enviada para o endereço de email que introduziu.",
+      "printTicket": "Descarregar a fatura"
+    },
+    "noAnonymousInstalment": {
+      "explanation": "É impossível pagar em várias prestações se a fatura for anónima",
+      "identify": "Identificador"
+    },
+    "noPartialInstalment": {
+      "explanation": "Não é possível efetuar o pagamento em prestações se o montante total a pagar tiver sido alterado.",
+      "reset": "Reiniciar"
+    },
+    "billingDate": "Data da faturação",
+    "tax": "Taxas",
+    "priceIncludingTax": "Total",
+    "invoiceFootNote": "Nota de rodapé",
+    "deliveryFee": "Taxas de entrega",
+    "priceRecap": "Resumo",
+    "amountDue": "Total devido",
+    "partialPayment": "Pago",
+    "leftToPay": "Resta pagar",
+    "leftDue": "Restante devido :",
+    "onSpot": "No local",
+    "payLater": {
+      "title": "Pagamento adiado",
+      "subText": "O pagamento foi adiado : pode ser efetuado a partir do backoffice ou do perfil do membro."
+    },
+    "noAnonymousClientDebt": "É necessário identificar um membro na fatura para utilizar o saldo da conta cliente",
+    "internalCredits": "Créditos internos",
+    "priceExcludingTax": "Total antes das taxas",
+    "sendToTerminal": "Enviar para o terminal",
+    "clientDebt": "Saldo da conta do cliente"
+  },
+  "itemList": {
+    "additionDrawer": {
+      "category": "Categoria",
+      "selectAll": "Selecionar tudo",
+      "unselectAll": "Desmarcar tudo",
+      "title": "Interface de vendas",
+      "simpleObjectsSubtitle": "Adicionar artigos",
+      "noResult": "Nenhum resultado",
+      "withoutCategory": "Sem categoria",
+      "objectGroupsSubtitle": "Adicionar um grupo de artigos",
+      "objectsAddition": "Adicionar artigos",
+      "objectType": "Tipo de artigo",
+      "tilesColor": "Cor",
+      "search": "Pesquisar",
+      "cancel": "Cancelar",
+      "add": "Adicionar"
+    },
+    "goBack": "Anterior"
+  },
+  "interface": {
+    "anonymousSale": "Venda anónima",
+    "searchAProduct": "Procurar um produto",
+    "selectItemToStart": "Clique num artigo para iniciar um carrinho",
+    "memberModal": {
+      "confirm": "Guardar",
+      "cancel": "Cancelar",
+      "title": "Identificação dos membros"
+    },
+    "deleteCurrentBasket": {
+      "subText": "Tem a certeza de que pretende apagar um carrinho ativo ?",
+      "cancel": "Cancelar",
+      "delete": "Eliminar",
+      "title": "Eliminar um carrinho ativo"
+    },
+    "payLater": {
+      "title": "Adiar para mais tarde",
+      "subText": "Este carrinho já foi parcialmente pago. Ao fechá-lo, está a adiar o resto do pagamento. Pode encontrar a fatura no backoffice.",
+      "cancel": "Cancelar",
+      "payLater": "Adiar para mais tarde"
+    },
+    "cannotEdit": {
+      "payment": "Pagamento",
+      "subText": "O carrinho já não pode ser alterado, uma vez que já foi parcialmente pago.",
+      "title": "Alterações impossíveis"
+    },
+    "scannerMode": {
+      "title": "Modo scanner",
+      "subText": "Digitalize os artigos para os adicionar ao seu carrinho.",
+      "done": "Terminar"
+    },
+    "outOfStock": {
+      "title": "Mais stock",
+      "subText": "O artigo que está a tentar adicionar ao seu carrinho já não se encontra em stock na sua loja. Gostaria de o adicionar na mesma ?",
+      "addAnyway": "Adicionar na mesma"
+    },
+    "noResult": "Nenhum resultado",
+    "ongoingBaskets": {
+      "title": "Carrinhos atuais",
+      "subText": "As faturas estão pendentes, feche-as antes de desconectar."
+    },
+    "cannotAdd": {
+      "title": "Impossível adicionar",
+      "newMember": {
+        "subText": "{{ optionalBeginning }} {{- name }} não é um novo membro."
+      },
+      "tag": {
+        "hasTag": "{{ optionalBeginning }} {{- name }} tem a etiqueta {{- tagName }}.",
+        "doesNotHaveTag": "{{ optionalBeginning }} {{- name }} não tem possuí a etiqueta {{- tagName }}.",
+        "hasTagAndDoesNotHaveTag": "{{ optionalBeginning }} {{- name }} possuí a etiqueta {{- ownedTagName }} e não tem a etiqueta {{- notOwnedTagName }}."
+      },
+      "subTextListItem": "Infelizmente, o artigo não pôde ser acrescentado porque"
+    },
+    "authenticationRequired": {
+      "maxPurchase": {
+        "subTextListItem": "Sujeito a um limite do número de compras",
+        "subText": "O artigo que pretende adicionar está sujeito a um limite do número de compras."
+      },
+      "tag": {
+        "subText": "O artigo que pretende adicionar está reservado a membros com determinadas etiquetas.",
+        "subTextListItem": "Reservado a membros com determinadas etiquetas"
+      },
+      "subTextListItem": "O artigo que pretende adicionar é",
+      "bottomSubText": "Sem a identificação do membro, as verificações necessárias não podem ser efetuadas.",
+      "newMember": {
+        "subTextListItem": "Reservado para novos membros",
+        "subText": "O artigo que pretende acrescentar está reservado para os novos membros."
+      },
+      "identifyMember": "Identificar um membro",
+      "title": "Identificação necessária"
+    },
+    "resultsForString": "{{ count }} resultado para \"{{ searchText }}\"",
+    "resultsForString_plural": "{{ count }} resultados para \"{{ searchText }}\"",
+    "itemsRemovedFromBasket": {
+      "title": "Artigos retirados do carrinho",
+      "subText": "Quando um novo membro se junta a nós, alguns artigos são retirados do carrinho porque não são compatíveis com o novo membro."
+    },
+    "seller": "Vender",
+    "taxes": "Taxas",
+    "totalIncludingTax": "Total",
+    "authenticationNecessary": "A autenticação do membro é necessária para esta secção.",
+    "goBack": "Anterior",
+    "totalExcludingTax": "Total antes das taxas",
+    "payment": "Pagamento",
+    "objectAdded": {
+      "subText": "O artigo foi adicionado ao carrinho.",
+      "title": "Artigo adicionado"
+    }
+  },
+  "sectionCard": {
+    "item": "artigo",
+    "item_plural": "artigos"
+  },
+  "iconSelector": {
+    "searchPlaceholder": "Pesquisar (pesquisa em inglês)"
+  }
+}

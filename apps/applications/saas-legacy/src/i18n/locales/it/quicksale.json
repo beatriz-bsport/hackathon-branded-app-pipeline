@@ -1,0 +1,236 @@
+{
+  "itemList": {
+    "additionDrawer": {
+      "withoutCategory": "Senza categoria",
+      "noResult": "Nessun risultato",
+      "unselectAll": "Deseleziona tutto",
+      "selectAll": "Seleziona tutto",
+      "objectType": "Tipo di oggetto",
+      "category": "Categoria",
+      "add": "Aggiungi",
+      "cancel": "Cancella",
+      "search": "Cerca",
+      "tilesColor": "Colore tessere",
+      "objectsAddition": "Aggiungi oggetti",
+      "objectGroupsSubtitle": "Aggiungi un insieme di oggetti",
+      "simpleObjectsSubtitle": "Aggiungi oggetti",
+      "title": "Interfaccia di vendita"
+    },
+    "goBack": "Indietro"
+  },
+  "iconSelector": {
+    "searchPlaceholder": "Cerca"
+  },
+  "sectionCard": {
+    "item": "Articolo",
+    "item_plural": "Articoli"
+  },
+  "objectCard": {
+    "recurrence": {
+      "year": "tutti gli anni",
+      "year_plural": "ogni {{ recurrence_basis }} anni",
+      "week": "tutte le settimane",
+      "week_plural": "ogni {{ recurrence_basis }} settimane",
+      "month": "tutti i mesi",
+      "month_plural": "ogni {{ recurrence_basis }} mesi",
+      "day": "tutti i giorni",
+      "day_plural": "ogni {{ recurrence_basis }} giorni"
+    },
+    "subtitle": {
+      "giftcard": "Gift card",
+      "subscription": "Abbonamento ricorrente",
+      "paymentCombo": "Pacchetto combinato",
+      "shopProduct": "Prodotto",
+      "privatePass": "Pacchetto per appuntamenti",
+      "paymentPack": "Pacchetto",
+      "product": "prodotto",
+      "product_plural": "prodotti",
+      "credit": "credito",
+      "credit_plural": "crediti",
+      "unlimited": "Illimitato"
+    }
+  },
+  "cardListPage": {
+    "save": "Salva",
+    "possibleActionsShort": "Puoi eseguire azioni quando passi sopra i riquadri con il mouse...",
+    "seeMore": "Mostra di piú",
+    "seeLess": "Mostra meno",
+    "editIcon": "Modifica l'icona",
+    "addItems": "Puoi anche aggiungere oggetti facendo clic sul riquadro + nell'ultima posizione.",
+    "newSection": "Nuova categoria",
+    "categoryModalTitle": "Colore della categoria",
+    "archivedCategories": "Categorie archiviate",
+    "categoryArchivedSnackbar": "La categoria è stata archiviata",
+    "preview": "Anteprima",
+    "moveTile": "Muovi il riquadro",
+    "archiveSection": "Archivia la categoria",
+    "deleteTile": "Elimina il riquadro",
+    "categoryModalSubtitle": "Palette colori",
+    "possibleActionsFull": "Puoi eseguire azioni quando passi sopra i riquadri con il mouse. Puoi:",
+    "editName": "Modifica il nome",
+    "editColor": "Modifica il colore",
+    "addSection": "Puoi anche aggiungere una categoria facendo clic sul riquadro + nell'ultima posizione."
+  },
+  "pageLeavePrompt": {
+    "title": "Modifiche non salvate",
+    "save": "Salva",
+    "discard": "Esci senza salvare",
+    "description": "Attenzione, non hai salvato. Stai per perdere tutte le modifiche apportate. Vuoi salvare il tuo lavoro?"
+  },
+  "pageTitle": "Interfaccia di vendita",
+  "rolePage": {
+    "title": "Accesso all'interfaccia di vendita",
+    "password": "Password",
+    "cancel": "Cancella",
+    "submit": "Salva",
+    "emailColumn": "Email",
+    "actionColumn": "Azione",
+    "noResult": "Nessun accesso creato",
+    "staffColumn": "Staff",
+    "addAccess": "Crea nuovo accesso",
+    "modalTitle": "Creazione di un nuovo accesso per l'interfaccia di vendita",
+    "firstName": "Nome",
+    "lastName": "Cognome",
+    "email": "Email",
+    "subtitle": "Questi accessi consentono allo staff di collegarsi all'interfaccia di vendita. È necessario effettuare il login per poter vendere tramite l'interfaccia."
+  },
+  "interface": {
+    "goBack": "Indietro",
+    "memberModal": {
+      "confirm": "Registra",
+      "title": "Identificazione del membro",
+      "cancel": "Cancella"
+    },
+    "cannotEdit": {
+      "subText": "Il carrello non può più essere modificato perché è già stato parzialmente pagato.",
+      "title": "Non è possibile modificare",
+      "payment": "Pagamento"
+    },
+    "objectAdded": {
+      "subText": "L'articolo è stato aggiunto al carrello.",
+      "title": "Articolo aggiunto"
+    },
+    "outOfStock": {
+      "title": "Esaurito",
+      "subText": "L'articolo che si sta cercando di aggiungere al carrello è esaurito nel vostro stabilimento. Vuoi comunque aggiungerlo?",
+      "addAnyway": "Aggiungi ugualmente"
+    },
+    "cannotAdd": {
+      "tag": {
+        "doesNotHaveTag": "{{ optionalBeginning }} {{- name }} non è taggato come {{- tagName }}.",
+        "hasTag": "{{ optionalBeginning }} {{- name }} è taggato come {{- tagName }}.",
+        "hasTagAndDoesNotHaveTag": "{{ optionalBeginning }} {{- name }} è taggato come {{- ownedTagName }} e non come {{- notOwnedTagName }}."
+      },
+      "title": "Impossibile aggiungere",
+      "subTextListItem": "Purtroppo non è stato possibile aggiungere l'articolo perché",
+      "newMember": {
+        "subText": "{{ optionalBeginning }} {{- name }}} non è un nuovo membro."
+      }
+    },
+    "authenticationRequired": {
+      "maxPurchase": {
+        "subTextListItem": "Soggetto a un limite nel numero di acquisti",
+        "subText": "L'articolo che si desidera aggiungere è soggetto a un limite di acquisti."
+      },
+      "tag": {
+        "subText": "L'articolo che si vuole aggiungere è riservato ai membri con determinati tag.",
+        "subTextListItem": "Riservato ai membri con determinati tag"
+      },
+      "title": "Identificazione necessaria",
+      "subTextListItem": "L'elemento che si desidera aggiungere è",
+      "bottomSubText": "Senza l'identificazione del membro, non è possibile effettuare i controlli necessari.",
+      "identifyMember": "Identifica un membro",
+      "newMember": {
+        "subText": "L'articolo che si desidera aggiungere è riservato ai nuovi membri.",
+        "subTextListItem": "Riservato ai nuovi membri"
+      }
+    },
+    "seller": "Vendite",
+    "anonymousSale": "Vendita anonima",
+    "searchAProduct": "Cerca un prodotto",
+    "noResult": "Nessun risultato",
+    "resultsForString": "{{ count }} risultato per \"{{ searchText }}\"",
+    "resultsForString_plural": "{{ count }} risultati per \"{{ searchText }}\"",
+    "totalExcludingTax": "Totale tasse incluse",
+    "taxes": "Tasse",
+    "totalIncludingTax": "Totale",
+    "payment": "Pagamento",
+    "selectItemToStart": "Fare clic su un articolo per avviare il carrello",
+    "authenticationNecessary": "Per questa sezione è richiesta l'autenticazione del membro.",
+    "ongoingBaskets": {
+      "title": "Carrello in corso",
+      "subText": "Le ricevute in corso sono da chiudere prima di uscire."
+    },
+    "deleteCurrentBasket": {
+      "title": "Eliminazione del carrello in corso",
+      "subText": "Sei sicuro di voler eliminare il carrello attuale?",
+      "cancel": "Cancella",
+      "delete": "Elimina"
+    },
+    "payLater": {
+      "title": "Rimanda",
+      "subText": "Questo carrello è già parzialmente pagato. Chiudendolo, si rimanderà il pagamento della parte restante. Troverai la ricevua nel Back Office.",
+      "cancel": "Cancella",
+      "payLater": "Rimanda"
+    },
+    "scannerMode": {
+      "title": "Modalità scanner",
+      "subText": "Scansiona gli articoli per aggiungerli al carrello.",
+      "done": "Completa"
+    },
+    "itemsRemovedFromBasket": {
+      "title": "Articoli rimossi dal carrello",
+      "subText": "Quando un nuovo membro si iscrive, alcuni articoli vengono rimossi dal carrello perché non compatibili con il nuovo membro."
+    }
+  },
+  "checkout": {
+    "priceExcludingTax": "Totale tasse incluse",
+    "tax": "Tasse",
+    "priceIncludingTax": "Totale",
+    "invoiceFootNote": "Nota a piè di pagina",
+    "priceRecap": "Sintesi",
+    "amountDue": "Totale da pagare",
+    "partialPayment": "Incasso",
+    "homeDelivery": "Consegna",
+    "paymentSuccess": {
+      "subTextAnonymous": "Il pagamento è stato elaborato.",
+      "printTicket": "Stampa ricevuta",
+      "subText": "Il pagamento è stato elaborato. La ricevuta è stata inviata per email.",
+      "sendByEmail": "Invia la ricevuta per email",
+      "subTextPartialPayment": "Il pagamento è stato elaborato e la ricevuta inviata per email. Il resto del pagamento è stato posticipato: può essere effettuato dal Back Office o dal profilo del membro.",
+      "title": "Pagamento accettato",
+      "description": "Il pagamento è stato elaborato con successo.",
+      "qrCodeTitle": "Scarica la ricevuta"
+    },
+    "emailSent": {
+      "title": "Email inviata",
+      "subText": "La ricevuta è stata inviata all'indirizzo email inserito.",
+      "printTicket": "Stampa ricevuta"
+    },
+    "noAnonymousInstalment": {
+      "identify": "Identificazione",
+      "explanation": "È impossibile pagare in più rate se la ricevuta è anonima"
+    },
+    "noPartialInstalment": {
+      "reset": "Reset",
+      "explanation": "Non è possibile rateizzare il pagamento se l'importo totale da pagare è cambiato."
+    },
+    "internalCredits": "Credito interno",
+    "billingDate": "Data di contabilizzazione",
+    "deliveryFee": "Spese di consegna",
+    "leftToPay": "Importo in sospeso",
+    "onSpot": "Sul posto",
+    "cancel": "Annulla",
+    "payLater": {
+      "title": "Pagamento posticipato",
+      "subText": "Il pagamento è stato posticipato: può essere effettuato dal Backoffice o dal profilo del cliente."
+    },
+    "noAnonymousClientDebt": "Per utilizzare il saldo del cliente, è necessario identificare un membro nella ricevuta",
+    "leftDue": "Importo in sospeso :",
+    "firstName": "Nome",
+    "lastName": "Cognome",
+    "sendToTerminal": "Invia al terminale di pagamento",
+    "validate": "Convalida",
+    "clientDebt": "Saldo cliente"
+  }
+}

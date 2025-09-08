@@ -1,0 +1,118 @@
+{
+  "member": {
+    "detail": {
+      "title": "Detalhes da lista de espera",
+      "offerTitle": "Sessão interligada",
+      "registrationSource": "Painel de registo",
+      "registeredOn": "Registado em"
+    },
+    "empty": "Não há lista de espera",
+    "listTitle": "Lista de espera",
+    "delete": "Eliminar",
+    "addToBook": "Registo",
+    "waitingListPosition": "Posição na lista de espera{{ position }}/{{ size }}"
+  },
+  "dialog": {
+    "delete": {
+      "title": "Eliminar lista de espera",
+      "confirm": "Eliminar",
+      "contentV2": "Tem a certeza de que pretende retirar este membro da lista de espera ?",
+      "content": "Tem a certeza de que pretende retirar este membro da lista de espera ? Ele será notificado por e-mail.",
+      "cancel": "Cancelar",
+      "sendEmail": "Enviar uma mensagem de email para anular a subscrição"
+    },
+    "autoBooking": {
+      "warning": {
+        "content": "Ao fechar o formulário, o(s) membro(s) selecionado(s) não será(ão) adicionado(s) à sessão. Se seleccionou vários membros e pretende anular a seleção apenas deste membro, clique em cancelar no formulário de membro",
+        "title": "Tens certeza?"
+      },
+      "loading": {
+        "content": "Não atualize o separador nem saia desta página. Este processo pode demorar alguns segundos",
+        "title": "Os membros estão a ser adicionados à sessão"
+      },
+      "info": {
+        "content": "Os membros com passes válidos serão automaticamente inscritos na sessão e receberão um e-mail de confirmação. O sistema deduzirá automaticamente os créditos dos passes que expiram mais cedo",
+        "title": "Reservas automáticas para passes válidos"
+      },
+      "success": {
+        "title": "Os membros foram acrescentados à sessão com êxito"
+      },
+      "error": {
+        "content": "Não foi possível adicionar membros à sessão. Por favor, tente novamente",
+        "title": "A reserva automática falhou"
+      },
+      "incomplete": {
+        "actions": {
+          "bookThem": "Reservar manualmente",
+          "ok": "OK"
+        },
+        "content": {
+          "unregistered": "Os seguintes membros NÃO puderam ser registados, não foi possível encontrar um passe compatível",
+          "registered": "Os seguintes membros foram registados, uma vez que foi encontrada uma compatibilidade:"
+        },
+        "title": "Finalizar a sua lista de espera"
+      }
+    },
+    "confirm": "Confirmar",
+    "cancel": "Cancelar"
+  },
+  "form": {
+    "auto_cancellation_type": {
+      "title": "Gestão da lista de espera"
+    },
+    "is_option_blocking": {
+      "helper": "Enquanto um aluno estiver em lista de espera, um lugar é-lhe bloqueado até que se inscreva.",
+      "label": "Os lugares disponíveis são reservados exclusivamente às pessoas em lista de espera."
+    },
+    "autokick_delay": {
+      "helper": "Número de avisos que o aluno recebe antes des ser automaticamente retirado da lista de espera, caso não seja tomada qualquer ação por sua parte",
+      "label": "Eliminar automaticamente a lista de espera"
+    },
+    "dynamic": {
+      "0": {
+        "explain": "Quando um aluno inscreve-se na lista de espera é-lhe atribuído um lugar. Quando surgir uma vaga, o primeiro aluno da lista pode inscrever-se, enquanto os outros aguardam a sua vez",
+        "overallExplainSmart": "Se houver um lugar disponível, o aluno tem {{ autokick_delay }} lembretes em intervalos de {{ smart_delay_percentage }} do tempo restante antes do início da sessão para se registar. Por exemplo, se houver {{ example_hours_before }} h antes da sessão, tem {{ example_computed_delay_one }} minutos para se registar e depois {{ example_computed_delay_two }} minutos após o primeiro reinício, e assim sucessivamente, antes de dar lugar ao aluno seguinte.",
+        "overallExplainSimple": "Se houver um lugar disponível, o aluno tem {{ autokick_delay }} lembretes em intervalos de {{ dumb_delay_minutes }} minutos para se inscrever antes de ceder o seu lugar ao aluno seguinte.",
+        "settingsDelay": "Tempo entre lembretes",
+        "label": "Um por um"
+      },
+      "1": {
+        "explain": "A lista de espera não é ordenada. Quando um lugar fica disponível, todos os inscritos na lista recebem um e-mail ao mesmo tempo de convite.",
+        "label": "Primeiro a chegar, primeiro a ser servido"
+      },
+      "label": "Gerir as prioridades da lista de espera"
+    },
+    "check_credit": {
+      "helper": "Os clientes não podem ser colocados em fila de espera enquanto não dispuserem de um passe de aulas compatível com a oferta em causa e de crédito suficiente para efetuar a reserva",
+      "label": "Verificar se o cliente dispõe de um passe de aulas compatível com a oferta e se tem crédito suficiente"
+    },
+    "submit": "Registo",
+    "smart_delay_percentage": {
+      "helper": "Se houver um lugar disponível, é atribuído ao aluno um horário proporcional ao tempo que falta para a sessão.",
+      "label": "Gestão inteligente"
+    },
+    "dumb_delay_minutes": {
+      "label": "Gestão simples"
+    },
+    "auto_consume_pack": {
+      "helper": "Se o membro tiver um passe de aulas válido, quando houver um lugar disponível, é automaticamente inscrito e o seu passe é debitado. O passe com a data de expiração mais antiga e com menos crédito disponível é utilizado em primeiro lugar.",
+      "label": "Reservar automaticamente um membro da lista de espera quando houver um lugar disponível e deduzir o(s) crédito(s) de um passe válido"
+    },
+    "last_delay_before_auto_consume": {
+      "helper": "Se a sessão tiver lugar demasiado cedo, o membro não será registado, mesmo que tenha um passe de aulas válido",
+      "label": "Não aceitar reservas automaticamente se uma sessão tiver lugar em menos de "
+    },
+    "display_member_position": {
+      "label": "Mostrar a posição na fila de espera"
+    },
+    "kick_if_no_pack_when_auto_consume": {
+      "label": "Retirar automaticamente o membro da lista de espera se, quando as suas faixas horárias ficarem disponíveis, já não tiver um passe válido",
+      "helper": "Um membro pode utilizar os seus créditos noutra sessão enquanto aguarda na lista de espera. Com esta definição activada, se isso acontecer, a sua vaga na lista de espera será automaticamente cancelada quando for a sua vez de se inscrever."
+    }
+  },
+  "switchToDisable": "Desativar a lista de espera",
+  "switchToEnable": "Reativar a lista de espera",
+  "explainWaitingListConf": "Por exemplo: Faltam 3 horas para a sessão, o aluno tem {{ nbMinutesBeforeBookingOptionExpire }} minutos para validar a sua reserva antes de deixar o seu lugar.",
+  "nbConvertible": "{{ nbConvertible }} a aguardar confirmação",
+  "nbPending": "{{ nbPending }} na lista"
+}

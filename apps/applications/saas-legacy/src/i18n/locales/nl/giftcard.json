@@ -1,0 +1,220 @@
+{
+  "list": {
+    "unlimited": "Onbeperkt",
+    "validity": "Geldig voor {{ duration }} dag(en)",
+    "actions": {
+      "create": "Een cadeaubon toevoegen",
+      "goToGiftcard": "Toon alle cadeaubonnen"
+    },
+    "addBackgroundImage": "Een afbeelding toevoegen",
+    "isEmpty": "Er zijn geen cadeaubonnen om weer te geven.",
+    "archivedTitle": "Gearchiveerde cadeaubonnen",
+    "unavailableForSaleTitle": "Onbeschikbare cadeaubonnen",
+    "activeTitle": "Beschikbare cadeaubonnen",
+    "visibility": "Onbeschikbaar",
+    "explainIfEmpty": "In dit onderdeel worden alle cadeaubonnen beheerd. De geselecteerde waarde wordt op de interne rekening (Wallet) van de ontvanger gezet."
+  },
+  "backgroundImage": {
+    "dialog": {
+      "explain": "Laat leden gepersonaliseerde afbeeldingen toevoegen om hun cadeaubonnen persoonlijker te maken. Tijdens het aanmaken van een cadeaubon kunnen leden zelf een achtergrondafbeelding uploaden.",
+      "actions": {
+        "close": "Sluit"
+      },
+      "title": "Gepersonaliseerde afbeeldingen"
+    }
+  },
+  "form": {
+    "giftcard": {
+      "manager_only": {
+        "label": "Onbeschikbaar voor leden"
+      },
+      "unlimited": {
+        "label": "Onbeperkt"
+      },
+      "expiration_days": {
+        "helperText": "De geldigheid van de cadeaubon gaat in vanaf de verzenddatum.",
+        "label": "Geldigheid in dagen"
+      },
+      "price": {
+        "helperText": "Dit zal de waarde van je cadeaubon worden.",
+        "label": "Verkoopprijs"
+      },
+      "section": {
+        "parameters": {
+          "title": "Instellingen"
+        }
+      },
+      "description": {
+        "label": "Beschrijving"
+      },
+      "available_payment_method_identifiers": {
+        "label": "Geaccepteerde betaalmethoden",
+        "helperText": "  "
+      },
+      "name": {
+        "label": "Naam"
+      },
+      "title": "Cadeaubon",
+      "actions": {
+        "submit": "Bevestig",
+        "cancel": "Sluit"
+      },
+      "advancedOptions": {
+        "tag": {
+          "tagsOnAcquisition": "Tag ná aankoop",
+          "selectTags": "Selecteer tags",
+          "tagsOnAcquisitionHelper": "Gebruik tags om te identificeren welk lid de cadeaubon heeft gekocht"
+        },
+        "header": "Geavanceerd"
+      }
+    },
+    "canNotUpdateBecauseShared": "Deze cadeaukaart is een gedeelde kaart van de franchisegever. Hij is vastgesteld door de franchisegever en kan niet worden gewijzigd."
+  },
+  "giftcard": {
+    "delete": {
+      "dialog": {
+        "actions": {
+          "close": "Sluit",
+          "delete": "Verwijder"
+        },
+        "content": "Weet je zeker dat je deze cadeaubon wilt verwijderen? Leden die het eerder hebben gekocht zullen het nog steeds kunnen verzilveren.",
+        "title": "Verwijder"
+      }
+    },
+    "detail": {
+      "manager_only": "Kan niet door leden online worden gekocht",
+      "availablePaymentMethods": "Betaalmethoden",
+      "expirationDate": "Geldigheid voor de vervaldatum: {{ expiration_days }} dag(en)"
+    },
+    "configurationTitle": "Cadeaubon"
+  },
+  "link": {
+    "copyLink": "Kopieer de directe link naar de cadeaubon",
+    "activationLink": "Kopieer activeringslink"
+  },
+  "consumerGiftcard": {
+    "form": {
+      "footer": "De cadeaubon wordt naar de ontvanger verzonden op {{- hour_send}}. De cadeaubon is geldig tot {{ expiration_days }} dag(en) na activering en het account van de ontvanger wordt opgewaardeerd met {{- price }}.",
+      "actions": {
+        "submit": "Toevoegen aan winkelmandje",
+        "cancel": "Annuleer"
+      },
+      "date_send": {
+        "label": "Verzenddatum van de e-mail"
+      },
+      "recipients": {
+        "label": "E-mail van de ontvanger"
+      },
+      "message_content": {
+        "label": "Gepersonaliseerd bericht"
+      },
+      "message_is_from": {
+        "label": "Van "
+      },
+      "message_is_for": {
+        "label": "T.a.v. "
+      },
+      "name": {
+        "label": "Naam van de cadeaubon"
+      },
+      "footerUnlimited": "De cadeaubon heeft een waarde van {{- price }} en wordt op {{- date_send }} om {{- hour_send }} naar de ontvanger verstuurd. Deze cadeaubon heeft een onbeperkte geldigheid.",
+      "select_image": "Selecteer je achtergrondafbeelding",
+      "hour_send": "Verstuur om",
+      "activationDate": {
+        "helperText": "De ontvanger kan de cadeaubon vanaf deze datum gebruiken",
+        "label": "Activeringsdatum",
+        "errorMaxDate": "Voer een geldige datum in"
+      },
+      "footerPhysicalUnlimited": "Je ontvangt per e-mail de benodigde informatie om de cadeaukaart te gebruiken en een printbare versie van je kaart in een PDF-bestand.",
+      "footerPhysical": "De cadeaubon wordt geactiveerd op {{- activation_date }} en is geldig tot {{- activation_date_until }} ({{ duration}} day(s)). Je ontvangt per e-mail de benodigde informatie voor het gebruik van de cadeaubon en een afdrukbare versie van je cadeaubon in een PDF-bestand.",
+      "type": {
+        "option": {
+          "physical": "Code afdrukken (PDF)",
+          "digital": "Activatie link via email"
+        },
+        "label": "Hoe wilt u de cadeaubon versturen"
+      }
+    },
+    "previewPlaceholder": {
+      "message_content": "[Gepersonaliseerd bericht]",
+      "message_is_for": "[Naam van de ontvanger]",
+      "message_is_from": "[Naam van de koper]",
+      "name": "[Naam van de cadeaubon]",
+      "giftcard_amount": "[Bedrag van de cadeaubon]"
+    },
+    "sendTo": "Opnieuw de uitnodiging versturen",
+    "notAttributedYet": "Niet geactiveerd",
+    "expiresOn": "Vervaldatum: {{- d }}",
+    "willInviteOn": "De uitnodiging is op {{- d }} verstuurd",
+    "invitedOn": "Verstuurd op: {{- d }}",
+    "value": "Waarde",
+    "isFrom": "Van ",
+    "isFor": "T.a.v. ",
+    "isEmpty": "Er zijn geen cadeaubonnen om weer te geven.",
+    "linkedInvoice": "Gekoppelde factuur",
+    "list": {
+      "myGifted": "Ontvangen cadeaubonnen",
+      "myPurchases": "Gekochte cadeaubonnen"
+    },
+    "invitationForm": {
+      "actions": {
+        "submit": "Verstuur",
+        "close": "Sluit"
+      },
+      "content": "Je kunt de ontvanger van deze cadeaubon wijzigen. Belangrijk: het kan slechts door 1 persoon worden gebruikt. Je kunt ook deze activeringslink doorsturen:",
+      "title": "Cadeaubon versturen",
+      "activationCodeLink": "De uitnodiging is verstuurd en kan niet langer worden bewerkt. Indien de ontvanger het bericht niet heeft ontvangen kun je ook deze link sturen: "
+    },
+    "activation": {
+      "alreadyActivated": "Deze cadeaubon is al gebruikt.",
+      "activate": "Mijn cadeaubon activeren",
+      "content3": "Als je je met het incorrecte account hebt ingelogd, vragen we vriendelijk om deze cadeaubon niet te verzilveren. Gelieve je opnieuw aanmelden met het juiste account.",
+      "content2": "Deze cadeaubon wordt automatisch als betaalmethode aan je winkelmandje toegevoegd. Alle informatie over je cadeaubon staat in je profiel.",
+      "content1": "Je kunt je cadeaubon t.w.v. {{price}} voor al onze producten gebruiken en heeft geen vervaldatum. Geniet ervan!",
+      "subtitle": "Het lijkt erop dat iemand je wilde verrassen.",
+      "title": "Iemand wilde je blij maken!",
+      "content1withDate": "Je kunt je cadeaubon t.w.v. {{price}} is op al onze producten geldig. Gelieve rekening houden met het feit dat de cadeaubon {{ expiration_days }} dag(en) na activatie verloopt. Geniet ervan!"
+    },
+    "physicalDetails": {
+      "helperAlert": {
+        "message": "Deel de cadeauboncode met het lid zodat ze het tegoed kunnen gebruiken bij hun volgende aankoop.",
+        "title": "Hoe gebruik je de cadeaubon?"
+      },
+      "validFrom": "Geldig van: {{- from }} tot {{- to }}",
+      "code": "Code:",
+      "to": "Naar",
+      "title": "Cadeaubon"
+    },
+    "seeDetails": "Zie details"
+  },
+  "delete": {
+    "submit": "Bevestig",
+    "cancel": "Annuleer",
+    "content": "Weet je zeker dat je deze cadeaubon wilt archiveren? Het zal niet meer in je Back Office verschijnen, maar je kunt het op een later moment heractiveren.",
+    "title": "Archiveer de cadeaubon"
+  },
+  "search": "Zoek een cadeaubon",
+  "widget": "Kies een cadeaubon",
+  "giftcardTemplate": {
+    "template": {
+      "withoutTax": "Exclusief BTW",
+      "unlimited": "Onbeperkt",
+      "validityDetail": "Geldig voor {{count}} dag na factuurdatum",
+      "validityDetail_plural": "Geldig voor {{count}} dagen na factuurdatum",
+      "validity": "Geldig voor {{count}} dag",
+      "validity_plural": "Geldig voor {{count}} dagen",
+      "deleteDialogContent": "Door een gedeelde cadeaukaart te deactiveren, kunnen leden deze alleen gebruiken in de studio waar hij is gekocht.",
+      "deleteInstanceContent2": "Tot slot zullen cadeaubonnen die in andere studio's zijn gekocht niet langer bruikbaar zijn in de gedeactiveerde studio, ongeacht wanneer ze zijn gekocht.",
+      "deleteInstanceContent1": "Door deze studio te deactiveren van het delen van de cadeaukaart, zullen alle leden die deze kaart hebben, en ontvangen hebben van een lid dat de kaart in deze studio heeft gekocht, deze nog steeds kunnen gebruiken. Zij zullen hem echter niet in andere studio's kunnen gebruiken.",
+      "deleteTemplateContent": "Door een gedeelde cadeaubon te deactiveren kunnen leden deze alleen gebruiken in de studio waar deze is gekocht."
+    },
+    "listPage": {
+      "fuzzyPlaceholder": "Zoek een cadeaubon",
+      "emptyLabel": "Geen gedeelde cadeaubon geregistreerd",
+      "addButton": "Maak een gedeelde cadeaubon"
+    },
+    "giftcard": "Cadeaubon",
+    "sharedCard": "Gedeeld door een andere franchisenemer"
+  },
+  "downloadPDF": "Download PDF"
+}

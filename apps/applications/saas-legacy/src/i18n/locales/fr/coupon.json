@@ -1,0 +1,291 @@
+{
+  "list": {
+    "isEmpty": "Aucun code promotionnel enregistré",
+    "inactiveCoupons": "Promotions inactives",
+    "activeCoupons": "Promotions actives",
+    "expiredActiveCoupons": "Promotions actives expirées"
+  },
+  "detail": {
+    "seeParameters": "Voir les paramètres",
+    "seeVouchers": "Voir les bons d'achat"
+  },
+  "card": {
+    "allowedFor": "Autorisé pour",
+    "unallowedFor": "Non-Autorisé pour",
+    "first_buy": "Utilisable sur le premier achat seulement",
+    "expiration": "Date d'expiration",
+    "no_expiration": "Pas de date d'expiration",
+    "validity": "Validité :",
+    "cumulable": "Cumulable",
+    "no_cumulable": "Non cumulable",
+    "uses": "Utilisations",
+    "member_uses": "utilisations par membre",
+    "member_use": "utilisation par membre",
+    "limitation": "Limité à",
+    "whitelist_tags": "Disponible uniquement pour les membres ayant certains tags :",
+    "blacklist_tags": "Indisponible pour les membres ayant certains tags :"
+  },
+  "noDiscount": "Aucun achat effectué avec le code",
+  "modal": {
+    "delete": {
+      "title": "Suppression",
+      "content": "Êtes-vous sûr de vouloir supprimer ce code promotionnel ? Vous n'aurez plus accès à l'historique d'utilisation. Cette opération est définitive.",
+      "actions": {
+        "cancel": "Annuler",
+        "submit": "Supprimer"
+      }
+    }
+  },
+  "form": {
+    "title": "Ajouter un code de réduction",
+    "selectorPlaceholder": {
+      "privatePass": "Sélectionner des cartes de rendez-vous (valables sur toutes les cartes si aucune n'est sélectionnée)",
+      "paymentPack": "Sélectionner des cartes de cours (valable sur toutes les cartes de cours si aucune n'est sélectionnée)",
+      "shopitem": "Sélectionner des produits du magasin (valable sur tous les produits si aucun n'est sélectionné)",
+      "paymentCombo": "Sélectionner des packs (valable sur tous les produits si aucun n'est sélectionné)"
+    },
+    "section": {
+      "subscription": "Facturation des abonnements",
+      "general": "Informations générales",
+      "availability": "Disponibilité",
+      "usability": "Conditions",
+      "voucherConfig": "Réduction",
+      "applies_to": "Produits achetables",
+      "advanced": "Avancé",
+      "tags": "Tags",
+      "tagInfo": "Utilisez des tags pour rendre ce code de réduction disponible ou non pour certains membres.",
+      "whitelist_tags": "Disponible",
+      "blacklist_tags": "Indisponible"
+    },
+    "name": {
+      "label": "Nom",
+      "helperText": "Le nom saisi ici apparaîtra sur les factures lorsque le code promo est appliqué"
+    },
+    "code": {
+      "label": "Code de réduction *",
+      "helperText": "Le code que vous transmettrez aux clients concernés",
+      "helperTextFranchise": "Le code que vous transmettrez aux clients concernés. Assurez-vous que le code n'existe pas déjà dans vos différents studios.",
+      "codeAlreadyInUse": "Ce code est déjà utilisé."
+    },
+    "voucher_type": {
+      "percent": "En pourcentage",
+      "amount": "En valeur"
+    },
+    "subscription_mode": {
+      "0": "Appliquer à toutes les factures",
+      "1": "Appliquer uniquement à la première facture",
+      "2": "Appliquer à toutes les factures avant le renouvellement automatique ",
+      "3": "Non utilisable"
+    },
+    "percent_off": {
+      "label": "Pourcentage de réduction"
+    },
+    "amount_off": {
+      "label": "Montant de la réduction"
+    },
+    "is_active": {
+      "label": "Disponible pour les membres",
+      "helperText": "Selectionnez cette option pour rendre ce code disponible à vos membres."
+    },
+    "with_expiration_date": {
+      "label": "Avec date d'expiration"
+    },
+    "expiration_date": {
+      "clear_date": "Aucune expiration",
+      "cancel": "Annuler",
+      "label": "Date d'expiration"
+    },
+    "usage_per_member": {
+      "label": "Limite d'utilisation par client"
+    },
+    "usage_total": {
+      "label": "Limite d'utilisation tous membres confondus"
+    },
+    "only_on_first_checkout": {
+      "label": "Le bon ne peut être utilisé que pour le premier achat"
+    },
+    "combinable": {
+      "label": "Le code de réduction peut être utilisé avec d'autres codes promotionnels"
+    },
+    "minimum_amount": {
+      "label": "Montant minimum d'achat"
+    },
+    "applies_to": {
+      "choices": {
+        "1": "Carte de cours",
+        "2": "Magasin",
+        "6": "Frais de livraison",
+        "9": "Carte RDV",
+        "10": "Pack",
+        "all": "Ensemble du panier",
+        "null": "Ensemble du panier"
+      },
+      "choicesFranchise": {
+        "1": "Cartes de cours partagées",
+        "2": "Articles partagés de la boutique en ligne",
+        "9": "Cartes de RDV partagées"
+      }
+    },
+    "actions": {
+      "cancel": "Annuler",
+      "submit": "Valider"
+    },
+    "tag": {
+      "tag_group": "Groupe",
+      "tag": "Tag",
+      "select": {
+        "tag_group": "Choisissez un groupe de tags",
+        "tag": "Sélectionnez un tag",
+        "empty_tag_list": "Auncun tag sélectionné",
+        "error": "Un même tag ne peut pas être présent dans les deux listes"
+      }
+    },
+    "alert": "Les membres peuvent utiliser des codes de réduction pour réduire le prix de leur panier. Utilisez ce formulaire pour personnaliser l'application du code et sa diffusion auprès de vos membres. "
+  },
+  "createCoupon": "Ajouter un code",
+  "code": {
+    "addCoupon": {
+      "5004": "Ce code ne peut être appliqué que sur un seul article.",
+      "5006": "Ce code unique est déjà lié à un panier ouvert",
+      "45009": "Ce code de carte cadeau ne peut pas être appliqué à ce panier",
+      "45010": "La carte cadeau a bien été associée à votre compte, mais n'a pas pu être activée car elle est antérieure à la date d'activation",
+      "submit": "Valider",
+      "cancel": "annuler",
+      "label": "Code promo & carte cadeau",
+      "placeholder": "SPECIAL_RENTREE",
+      "not_found": "Ce code promo n'est pas valide.",
+      "not_applicable": "Ce code promo n'est pas applicable.",
+      "apply": "Appliquer",
+      "couponOnlyLabel": "Code promo"
+    }
+  },
+  "search": "Rechercher un code promo",
+  "reverted": "Facture annulée",
+  "couponTemplate": {
+    "formDisclaimer": "Si dans le futur, vous souhaitez modifier cette section pour rendre cette promotion applicable sur une ou plusieurs cartes de cours/RDV en particulier, la liste des studios qui partageront cette promotion sera remise à zéro pour des questions de compatibilité.",
+    "warningDialog": {
+      "title": "Confirmer la modification",
+      "content1": "Attention, vous souhaitez modifier des paramètres d’application de la promotion partagée sur certaines cartes de cours ou de RDV.",
+      "content2": "Cette opération va réinitialiser la liste des studios avec lesquels la promotion sera partagée.",
+      "content3": "Vous pourrez de nouveau choisir les studios qui partageront cette promotion."
+    },
+    "actions": {
+      "create": "Ajouter un code partagé"
+    },
+    "isEmptyExplain": "Aucun code promotionnel partagé enregistré",
+    "notEditable": "Ce coupon est un coupon partagé par le compte franchiseur. Les éléments ont été définis par le compte franchiseur et ne sont pas modifiables."
+  },
+  "couponTemplateInstance": {
+    "create": {
+      "title": "Configurer mes studios",
+      "explain1": "Les studios suivants seront compatibles avec les produits sélectionnés dans votre coupon.",
+      "explain2": "Si un membre applique un code promo dans l'un des studios compatibles, il pourra également l'utiliser dans les autres studios que vous avez défini."
+    },
+    "delete": {
+      "title": "Stopper le partage",
+      "explain1": "Êtes-vous sûr de vouloir stopper le partage du code promotionnel pour ({{- name }}) ?",
+      "explain2": "Vous pourrez l'ajouter de nouveau par la suite."
+    },
+    "companyEmpty": "Aucun studio n'est configuré pour accepter cette promotion"
+  },
+  "uniqueCodeCoupon": {
+    "form": {
+      "selectorPlaceholder": {
+        "privatePass": "Sélectionner une carte de rendez-vous",
+        "paymentPack": "Sélectionner une carte de cours",
+        "shopItem": "Sélectionner un produit du magasin",
+        "paymentCombo": "Sélectionner un pack"
+      },
+      "alertInfo": "Les bons d'achat sont des codes qui offrent une réduction de 100 % sur les cartes, les produits et les packs. Ces codes doivent être téléchargés au format CSV au bas de ce formulaire. Si vous êtes partenaire de Groupon (ou d'une entité similaire), votre partenaire peut générer et vendre des codes en votre nom.",
+      "alertWarning": "Non applicable aux souscriptions",
+      "couponCostForCompany": {
+        "label": "Ce nom apparaîtra sur les factures lorsque le code de réduction sera appliqué. ",
+        "helperText": "Vos membres devront copier ce code."
+      },
+      "usage_per_member": {
+        "label": "Limiter le nombre de bons d'achat qu'un membre peut acheter",
+        "helperText": "Limite maximale"
+      },
+      "only_on_first_checkout": {
+        "label": "Le code de réduction s'applique uniquement au premier achat des membres"
+      },
+      "fileUploader": {
+        "title": "Télécharger des bons d'achat uniques ",
+        "label": "Glisser/Déposer ou cliquer pour sélectionner le fichier",
+        "sizeLimitHelper": "Fichier CSV (1Mo maximum)",
+        "helperText": "Veuillez télécharger un fichier CSV avec tous les codes de bons d'achat dans la première colonne, un code par ligne, sans en-tête."
+      },
+      "update": {
+        "alertInfo": "Il y a {{count}} code enregistré pour cette promotion, vous pouvez télécharger de nouveaux codes.",
+        "alertInfo_plural": "Il y a {{count}} codes enregistrés pour cette promotion, vous pouvez télécharger de nouveaux codes.",
+        "append": "Ajouter aux codes existants",
+        "replace": "Remplacer les codes existants",
+        "popover": "Les codes non utilisés seront supprimés, mais les codes utilisés seront conservés."
+      },
+      "errors": {
+        "5000": "Vous ne pouvez pas fournir de code déjà utilisé dans un autre coupon.",
+        "5001": "Certains des codes uniques ne peuvent pas être ajoutés car ils ont déjà été enregistrés.",
+        "5003": "Certains codes uniques sont déjà enregistrés dans un autre coupon.",
+        "5004": "Ce code ne peut être appliqué que sur un seul article.",
+        "5005": "Ce code est déjà utilisé ou est actuellement attaché à un panier.",
+        "5006": "Ce code unique est déjà lié à un panier ouvert",
+        "required": "Ce champ est requis",
+        "positiveNumber": "La valeur doit être supérieure à 0",
+        "expirationDate": {
+          "dateBeforeNow": "La date d'expiration ne peut pas être antérieure à la date actuelle.",
+          "format": "Erreur lors du formatage de la date"
+        },
+        "fileUploader": {
+          "fileTooLargeError": "Le fichier est trop volumineux. Veuillez ne pas dépasser 1 Mo.",
+          "incorrectDataError": "Le fichier ne contient pas de données correctes.",
+          "notCsvFileError": "Le type de fichier ne correspond pas à un fichier CSV."
+        },
+        "only_on_objects": "Vous devez impérativement choisir un objet sur lequel appliquer la réduction",
+        "applies_to": "L'objet sur lequel appliquer la réduction doit être impérativement une carte de cours, une carte de rendez-vous, un pack ou un article du magasin",
+        "update_mode": "Si vous souhaitez modifier les codes enregistrés pour cette promotion vous pouvez ajouter les codes aux existants, ou remplacer les codes existants",
+        "codes": {
+          "updateMode": "Vous devez choisir entre ajouter les codes aux existants ou les remplacer",
+          "emptyArray": "Vous devez ajouter au moins un code"
+        },
+        "positiveOrZeroNumber": "La valeur doit être supérieure ou égale à 0"
+      }
+    },
+    "voucherCodesDialog": {
+      "header": {
+        "codes": "Codes",
+        "status": "Statut"
+      },
+      "selector": {
+        "allStatus": "Tous les statuts",
+        "redeemed": "Marqué comme utilisé",
+        "pending": "En attente de validation externe",
+        "notUsed": "Non utilisé"
+      },
+      "checkBoxes": {
+        "selectAll": "Tout sélectionner",
+        "unselectAll": "Tout désélectionner"
+      },
+      "searchBar": {
+        "placeHolder": "Chercher un code"
+      },
+      "noResult": "Aucun résultat",
+      "export": "Exporter",
+      "markAsRedeemed": "Marquer comme utilisé",
+      "markAsRedeemed_plural": "Marquer comme utilisés",
+      "close": "Fermer"
+    }
+  },
+  "fabLabels": {
+    "voucherCodes": "Bons d'achat",
+    "discountCode": "Code de réduction"
+  },
+  "couponFilter": {
+    "title": "Type de promotion",
+    "allType": "Tout type de promotion"
+  },
+  "couponType": {
+    "0": "Code de réduction",
+    "3": "Bon d'achat à usage unique"
+  },
+  "couponNotFullyAppliedWarning": "Certaines remises n'ont pas été entièrement appliquées car elles dépassaient les prix initiaux des articles. Les montants de remise non utilisés seront perdus."
+}

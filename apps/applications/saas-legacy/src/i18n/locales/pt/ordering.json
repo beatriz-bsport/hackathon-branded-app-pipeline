@@ -1,0 +1,30 @@
+{
+  "category": {
+    "deleteModal": {
+      "content": "Tem a certeza de que pretende eliminar esta categoria? Todos os elementos que contém serão colocados na secção sem categoria",
+      "cancel": "Cancelar",
+      "confirm": "Confirmar",
+      "title": "Eliminar"
+    },
+    "popover": {
+      "delete": "Eliminar",
+      "edit": "Renomear"
+    },
+    "creationDialog": {
+      "edit": "Editar",
+      "create": "Criar",
+      "titleEdit": "Categoria",
+      "titleNew": "Nova categoria",
+      "name": "Nome da categoria",
+      "cancel": "Cancelar"
+    },
+    "noCategory": {
+      "name": "Nenhuma categoria"
+    },
+    "add": "Adicionar uma categoria",
+    "empty": "Esta categoria está vazia",
+    "noAvailable": "Não há itens que correspondam aos filtros selecionados",
+    "selector": "Nome da categoria"
+  },
+  "disabledItemsTitle": "Arquivo"
+}

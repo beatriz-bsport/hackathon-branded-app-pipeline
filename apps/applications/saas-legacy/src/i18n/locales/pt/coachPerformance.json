@@ -1,0 +1,94 @@
+{
+  "fields": {
+    "nb_appointments": "Número de nomeações",
+    "date": "Data",
+    "rule": "Regra de remuneração das sessões",
+    "unpaid_private_booking": "Algumas referências não são remuneradas.",
+    "marginValue": "Contribuição marginal",
+    "netGain": "Ganho líquido",
+    "coachName": "Professor",
+    "error": "Parece que algumas aulas não têm uma regra de pagamento associada. É necessário associar uma regra de pagamento a estas aulas ou associar uma regra de pagamento ao professor.",
+    "bonus": "Bónus",
+    "base": "Base",
+    "duration": "Duração",
+    "nb_bookings": "Reservas",
+    "nb_sessions": "Número de sessões",
+    "name": "Nome da sessão",
+    "confirmed_bookings": "Participantes",
+    "cancelled_bookings": "Reservas canceladas",
+    "total_on_sessions": "Remuneração das aulas em grupo",
+    "total_on_appointments": "Remuneração (Aulas Privadas)",
+    "total": "Remuneração total",
+    "totalNetGain": "Ganho líquido total",
+    "noShowsAndLateCancellations": "Não comparência e cancelamentos tardios",
+    "location": "Localização",
+    "establishment": "Estabelecimento"
+  },
+  "advancedFilters": {
+    "apply": "Aplicar filtros",
+    "privateserviceCoachPaymentRuleSelector": "Aulas Privadas",
+    "header": "Filtros avançados",
+    "reset": "Redefinir filtros",
+    "coachSelector": "Selecionar professores",
+    "coachPaymentRuleGroupSelector": "Grupos de remuneração",
+    "sessionCoachPaymentRuleSelctor": "Aulas de grupo ",
+    "workshopCoachPaymentRuleSelctor": "Workshops",
+    "byCoachPaymentruleGroups": "Filtrar por grupo de remuneração",
+    "byCoachPaymentRules": "Filtro por regras de remuneração (para professores sem grupo de remuneração)",
+    "establishments": "Estabelecimentos",
+    "locations": "Localizações"
+  },
+  "cachedData": {
+    "title": "Dados guardados ({{ count }})",
+    "previewModeTitle": "Modo de pré-visualização",
+    "dateRange": "Remuneração a partir de {{- startDate }} até {{- endDate }}",
+    "unresolvedDaterange": "Intervalo de pagamento inválido",
+    "enterPreviewMode": "Mudar para o modo de pré-visualização",
+    "dateSaved": "Dados gerados em {{ date }}",
+    "downloadMySavedData": "Descarregar",
+    "leavePreviewMode": "Sair do modo de pré-visualização",
+    "oldestUpdate": "Última atualização feita em : {{- date }}",
+    "undeterminedOldestUpdate": "Atualização mais antiga não determinada"
+  },
+  "export": {
+    "dialog": {
+      "buttonText": "Confirmar",
+      "title": "Exportação e armazenamento de dados",
+      "message": "Ao exportar os dados, é possível gerar uma folha de cálculo Excel para a duração selecionada. Estes dados também serão guardados para utilização futura."
+    },
+    "buttonText": "Exportar",
+    "completed": {
+      "title": "Exportação em Excel da remuneração dos professores",
+      "message": "O ficheiro de exportação das remunerações dos professores está disponível. Também é possível recuperar estes dados na secção \"Dados guardados\"."
+    }
+  },
+  "performance": {
+    "table": {
+      "header": {
+        "nbSessions": "Número de aulas em grupo",
+        "coachName": "Professor"
+      }
+    }
+  },
+  "pricePerAdditionalBookingLabel": "Variável por marcação",
+  "pricePerAdditionalBookingHelper": "Montante pago por todas as reservas acima do limite",
+  "form": {
+    "ifEmptyAllowAll": "Deixar em branco para ignorar este filtro",
+    "selectEstablishments": "Selecionar estabelecimentos"
+  },
+  "table": {
+    "downloadCSV": "Descarregar (.csv)",
+    "downloadPDF": "Descarregar (.pdf)",
+    "downloadAll": "Resumo"
+  },
+  "addBonus": "Adicionar uma regra",
+  "dateTitle": "Periodo de intervalo",
+  "remuneration": "Remuneração",
+  "pricePerOffer": "Montante por sessão",
+  "bonus": "Bónus",
+  "checkboxIncludeABonus": "Incluir um bónus de desempenho",
+  "bookingThresholdLabel": "Regra de acionamento do limiar de reserva",
+  "fixedPriceForAdditionalBookingLabel": "Fixo por sessão",
+  "fixedPriceForAdditionalBookingHelper": "Montante fixo pago para todas as sessões com inscrições suficientes",
+  "bookingThresholdHelper": "Cada reserva que ultrapasse este limiar acrescenta um bónus"
+}

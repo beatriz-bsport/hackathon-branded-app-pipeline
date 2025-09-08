@@ -1,0 +1,858 @@
+{
+  "customForm": {
+    "signUpInfoModal": {
+      "content": "Acabou de tornar obrigatório algumas perguntas do formulário de adesão. As perguntas obrigatórias do formulário devem ser editáveis pelos seus membros no respetivo perfil. Por conseguinte, estas perguntas foram adicionadas automaticamente ao formulário de adesão onde podem ser visualizadas e alteradas. Pode personalizar acedendo ao formulário de adesão.",
+      "confirm": "Continuar",
+      "title": "Informações",
+      "cancel": "Cancelar"
+    },
+    "submit": {
+      "errors": {
+        "requiredField": "Obrigatório",
+        "passwordMinimumRequirementsError": "A palavra-passe deve conter pelo menos 6 caracteres",
+        "invalidEmail": "E-mail inválido",
+        "passwordConfirmationError": "As palavras-passe não são encriptadas",
+        "requiredSignature": "Por favor, assine o formulário.",
+        "requiredFile": "Anexar um ficheiro",
+        "invalidOfficialDocumentId": "Este campo só pode conter números e letras"
+      },
+      "date_submitted": "Data de conclusão",
+      "dialog": {
+        "title": "Certo ! ",
+        "content": "Obrigado por preencher este formulário.",
+        "confirmButton": "Continuar"
+      }
+    },
+    "displayRule": {
+      "kind": {
+        "connectionLabel": "Antiguidade do membro (dias)",
+        "connectionHelperText": "Apenas os membros registados há pelo menos {{count}} dias irão receber esta notificação",
+        "signUp": "Novos membros",
+        "signUpAlreadyExists": " Regra em vigor",
+        "connection": "Membros já registados"
+      },
+      "form": {
+        "dialog": {
+          "title": "Regras de visualização",
+          "force_display": "Submeter a apresentação aos membros que já preencheram o formulário",
+          "helperTextRegisteredMembers": "O formulário aparecerá como um pop-up no marketplace e no widget para todos os membros selecionados.",
+          "snoozeOptionHelperText": "O formulário será novamente apresentado depois de {{count}} horas, após ter sido ignorado",
+          "snoozeOption": "Autorizar os membros a adiar o preenchimento do formulário",
+          "subTitle": "Quais os membros que pretende alcançar?",
+          "create": "Adicionar",
+          "helperTextNewMembers": "O formulário aparecerá como um pop-up no marketplace e o widget após o formulário de inscrição.",
+          "cancel": "Cancelar",
+          "modify": "Editar",
+          "advancedOptions": "Configurações avançadas",
+          "snoozeOptionLabel": "Tempo de adiamento (horas)"
+        },
+        "errors": {
+          "timedeltaBeforeDisplayMustBeGraterThanZero": "Este valor deve ser superior a 0."
+        }
+      },
+      "forNewMember": "Para os novos membros",
+      "addNewDisplayRule": "Adicionar uma regra",
+      "forRegisteredMemberMinimal": ">{{ count }} horas",
+      "unSnoozableMinimal": "Obrigatório",
+      "forbiddenForSignup": "Este formulário não pode ser associado a regras de notificação",
+      "unForcedModeMinimal": "Não visível para os membros que já preencheram o formulário",
+      "forcedDisplayMinimal": "Visível mesmo para os membros que já preencheram o formulário",
+      "header": "Regras de notificações",
+      "forRegisteredMember": "Para os membros registados há mais de {{ count }} horas",
+      "snoozableMinimal": "Pode ser ignorado",
+      "snoozeTime": "Cuidado com {{ count }} horas",
+      "empty": "Não há regras de notificação para este formulário"
+    },
+    "signUp": {
+      "helperMemberForm": "O formulário de adesão é o formulário que se encontra na página de perfil dos seus membros. Permite-lhes ver e alterar as suas informações. Este formulário também pode ser personalizado.",
+      "signupFields": "Questões do formulário",
+      "helperSignup": "Aqui pode alterar o formulário de registo do seu estabelecimento. Escolha e personalize as perguntas a preencher, para se tornarem membros."
+    },
+    "statistics": {
+      "table": {
+        "column": {
+          "display_count": "Número de vagas",
+          "last_display_date": "Última abertura",
+          "completed": "Concluído",
+          "member": "Membro"
+        },
+        "row": {
+          "no": "Não",
+          "yes": "Sim"
+        }
+      },
+      "byMember": "Detalhes"
+    },
+    "allFieldDisabled": "Todas as perguntas estão arquivadas",
+    "field": {
+      "zipcode": "Código de postal",
+      "emergency_contact": "Contacto de emergência",
+      "phone": "Telefone",
+      "waiver": "Isenção de responsabilidade",
+      "first_name": "Nome próprio",
+      "address_line_1": "Morada",
+      "paragraph": "Parágrafo",
+      "short_answer": "Resposta breve",
+      "country": "País",
+      "choice_warning": "Todas as opções guardadas já não podem ser modificadas. No entanto, é possível eliminá-las ou acrescentar novas opções.",
+      "location": "Local de preferência",
+      "accept_email": "Aceitar correio electrónico",
+      "long_answer": "Resposta longa",
+      "radio": "Escolha múltipla",
+      "accept_sms": "Aceitar SMS",
+      "vaccination_status": "Estado de vacinação COVID-19",
+      "title": "Título",
+      "email": "E-mail",
+      "password": "Palavra-passe",
+      "isMandatoryOnSignUp": "A questão é obrigatória no ato da inscrição",
+      "sign_up_question": "Pergunta do formulário de inscrição",
+      "last_name": "Apelido",
+      "birthday": "Data de nascimento",
+      "address_line_2": "Informação adicional",
+      "gender": "Género",
+      "photo": "Foto de perfil",
+      "additional_adress": "Endereço adicional",
+      "state": "Estado",
+      "general_terms_and_conditions": "Eu aceito os Termos e Condições de uso",
+      "repeatPassword": "Confirmar a palavra-passe",
+      "city": "Cidade",
+      "tag_name": "Etiqueta",
+      "tag_group": "Categoria",
+      "link_to_tag_popover": "Associar uma etiqueta a esta opção",
+      "signature": "Assinatura",
+      "text_size_limit": "O comprimento da resposta será limitado a {{count}} caracteres.",
+      "link_to_note_helper": "Ao associar a pergunta a uma nota, a resposta será automaticamente adicionada ao perfil do membro.",
+      "link_to_note": "Criar uma nota",
+      "fileHelper": "Os ficheiros carregados serão adicionados à secção \"Documentos\" das contas dos seus membros.",
+      "file": "Anexar um ficheiro",
+      "select_placeholder": "Selecionar",
+      "select": "Lista pendente",
+      "check_box": "Assinalar",
+      "official_document_id": "Número de identidade"
+    },
+    "customFormField": {
+      "modal": {
+        "disable": {
+          "title": "Eliminar item",
+          "cancel": "Cancelar",
+          "confirm": "Confirmar",
+          "content": "O item eliminado será colocado nos arquivados e não será mais visível para os seus membros."
+        },
+        "add": {
+          "title": "Elemento do formulário",
+          "addField": "Adicionar um ",
+          "select": "Selecionar um item",
+          "option": "Adicionar uma opção",
+          "cancel": "Cancelar",
+          "confirm": "Confirmar"
+        },
+        "signature": {
+          "addSignatureHelper": "A assinatura pode ser desenhada abaixo",
+          "addSignature": "Adicionar uma assinatura",
+          "editSignature": "Editar assinatura",
+          "clear": "Eliminar assinatura"
+        },
+        "error": {
+          "tooShort": "A palavra-passe deve ter pelo menos 8 caracteres",
+          "signupQuestionShouldBeSelected": " Deve selecionar uma pergunta no formulário de inscrição",
+          "choicesLength": "Deve fazer pelo menos 2 escolhas",
+          "emptyChoice": "As opções têm de estar preenchidas",
+          "passwordsDontMatch": "As duas palavras-chaves não correspondem"
+        }
+      }
+    },
+    "clientForms": {
+      "modify": "editar",
+      "modification": "Alteração",
+      "customize": "Personalizar",
+      "preview": "Resumo dos meus formulários",
+      "signup": "Inscrição"
+    },
+    "changesAreSubmitting": "O formulário está a ser atualizado.",
+    "answerForDisabledField": "Questões arquivadas",
+    "tab": {
+      "general": "Conteúdo",
+      "statistics": "Estatísticas",
+      "layout": "Personalização",
+      "campaign": "Campanha"
+    },
+    "listActions": "Acções",
+    "selectCustomForm": "Selecione um formulário para ver os detalhes",
+    "selectCustomFormFilled": "Seleccione um dos formulários preenchidos para ver o seu conteúdo",
+    "emptyCustomForm": "Este formulário está vazio, mas pode adicionar elementos para o configurar.",
+    "addFieldLong": "Adicionar mais",
+    "unaccessibleForm": "Este formulário está atualmente inacessível. Para voltar à sua página de perfil, clique no botão abaixo.",
+    "disconnect": "Desconectar",
+    "actions": {
+      "configure": "Configurar",
+      "statistics": "Estatísticas",
+      "customization": "Personalização"
+    },
+    "modal": {
+      "delete": {
+        "title": "Arquivar um formulário",
+        "cancel": "Anular",
+        "confirm": "Confirmar",
+        "content": "Ao arquivar este formulário, este ficará junto dos formulários arquivados e deixa de ser acessível aos seus membros."
+      }
+    },
+    "breakpoints": {
+      "xs": "Telemóvel",
+      "sm": "Ecrã pequeno",
+      "md": "Ecrã médio",
+      "lg": "Ecrã grande"
+    },
+    "display": "Visualizar",
+    "addCustomFrom": "Adicionar um formulário",
+    "changesDetected": "Foram efectuadas alterações. Guarde o formulário para as aplicar.",
+    "noChanges": "Formulário atualizado.",
+    "allStepsCompleted": "Completou todas as etapas",
+    "resetSubmit": "Editar as minhas respostas",
+    "editable": "Modificar",
+    "numberQuestions": "Número de questões",
+    "disabledCustomForm": "Formulários arquivados",
+    "disabledCustomFormField": "Elementos arquivados",
+    "noCustomForm": "Utilize os formulários para recolher informações adicionais sobre os seus membros.",
+    "backToUserSpace": "Perfil",
+    "mandatory": "Obrigatório",
+    "send": "Enviar",
+    "submitLater": "Responder mais tarde",
+    "previous": "Voltar",
+    "next": "Seguinte",
+    "cancel": "Cancelar",
+    "kind": "Tipo",
+    "label": "Etiqueta",
+    "preview": "Previsualizar",
+    "content": "Conteúdo do formulário",
+    "name": "Nome",
+    "search": "Procurar um formulário",
+    "linkHelper": "Para enviar o formulário aos seus membros copie o link acima no seu e-mail. Apenas as alterações guardadas serão visíveis.",
+    "CustomFormLink": "Link do formulário",
+    "title": "Formulários",
+    "editLayoutSubtitle": "Alterou um formulário para um esquema personalizado. Verifique aqui e modifique, se necessário, a pré-visualização dos seus formulários em diferentes tamanhos de ecrã",
+    "editLayoutTitle": "Editar a apresentação do formulário",
+    "navigateToMemberForm": "Editar o formulário do perfil do aluno",
+    "navigateToSignup": "Editar formulário de inscrição",
+    "memberFormHelper": "As perguntas obrigatórias do formulário de inscrição são apresentadas e podem ser alteradas por defeito. Não podem ser eliminadas.",
+    "signupFormHelper": "As perguntas obrigatórias do formulário de inscrição devem ser editáveis pelos seus membros, no respetivo perfil. Estas perguntas serão adicionadas automaticamente ao formulário de inscrição no perfil do aluno e podem ser visualizadas e alteradas.",
+    "memberFormTitle": "Formulário de edição de perfil (páginas de perfil dos membros)",
+    "signupFormTitle": "Formulário de inscrição",
+    "save": "Guardar",
+    "layout": {
+      "layoutUpdating": "Está a ser efectuada uma cópia de segurança",
+      "layoutUpTodate": "Não existem gravações ativas",
+      "saveAndExit": "Guardar e Fechar",
+      "save": "Guardar",
+      "redo": " Reaplicar",
+      "reset": "Reiniciar",
+      "undo": "Voltar",
+      "editLayout": "Editar apresentação"
+    }
+  },
+  "cadence": {
+    "form": {
+      "trigger": {
+        "helpers": {
+          "exitFail": "Defina aqui o ativador que define quando um membro será considerado como perdido e sairá da sequência.",
+          "step": "Defina aqui o ativador para a etapa seguinte. Os membros têm de cumprir os critérios abaixo para passarem à fase seguinte.",
+          "exitSuccess": "Defina aqui o ativador que define quando um membro será considerado como ganho e sairá da sequência.",
+          "cadence": "Defina os ativadores para entrar na sequência aqui. Os membros devem cumprir os critérios abaixo para iniciar a sequência de marketing."
+        },
+        "labels": {
+          "exitFail": "A saída de sequência como \"perdido\" pode ser feita através de :",
+          "cadence": "A sequência é introduzida através de :",
+          "step": "A entrada para esta fase faz-se através de :",
+          "exitSuccess": "A saída de sequência como \"ganho\" pode ser feita através de :"
+        },
+        "trigger_event_kind_label": "Um evento",
+        "trigger_smartlist_kind_label": "Uma lista inteligente",
+        "had_filtering_on_selected_event": "Filtrar o evento selecionado com uma lista inteligente",
+        "title": "Ativadores",
+        "trigger_timeout_explain_value_selected": "Se o membro ainda estiver presente na sequência após {{ days }} dias, será automaticamente retirado da lista e é considerado como perdido",
+        "trigger_timeout_select_label": "máximo de dias na sequência",
+        "trigger_timeout_title": "Tempo limite",
+        "select_marketing_actions_helper": "Seleccione uma ou mais ações a realizar quando há um novo membro. Esta opção é opcional.",
+        "marketing_actions": "Ações de marketing",
+        "event_or_smartlist_helper": "Os membros terão de corresponder ao evento ou fazer parte da lista inteligente para serem incluídos na sequência",
+        "event_and_smartlist_helper": "Os membros terão de corresponder ao evento e fazer parte da lista inteligente para entrar na sequência",
+        "or_rule_between_triggers": "Ou",
+        "and_rule_between_triggers": "E",
+        "rule_between_triggers": "Regra entre eventos",
+        "triggerTimeoutDays": "dia",
+        "triggerTimeoutDays_plural": "dias",
+        "triggerTimeoutLabel": "Acionamento após",
+        "selectSmartlist": "Selecionar uma lista inteligente",
+        "selectEvent": "Selecionar um evento"
+      },
+      "delete": "Eliminar",
+      "updateTitle": "Alterar o nome da sequência",
+      "createCadenceHelper": "Ao utilizar as sequências, pode direcionar as ações de marketing que envia aos seus membros com base no seu comportamento na plataforma. Crie uma sequência de ações que os seus membros devem realizar para obter determinadas promoções ou etiquetas, por exemplo.",
+      "cadenceStep": "Etapa",
+      "cancel": "Cancelar",
+      "lose_step": "Perdido",
+      "addACadence": "Adicionar uma sequência",
+      "cadenceStepNameLabel": "Nome da etapa",
+      "cadenceStepHelper": "Defina o nome da etapa aqui para que possa ver onde é que os membros estão na sequência.",
+      "entry_step": "Introdução",
+      "submit": "Criar",
+      "edit": "Editar",
+      "title": "Criar uma sequência",
+      "cadenceNameLabel": "Nome da sequência",
+      "modify_name_label": "Alterar o nome",
+      "win_step": "Ganhou",
+      "previous": "Anterior",
+      "next": "Seguinte",
+      "updateSubmit": "Confirmar",
+      "marketing_action": {
+        "1": "E-mail",
+        "2": "SMS",
+        "3": "Notificação push",
+        "4": "Etiqueta",
+        "5": "Modelo de Email",
+        "form": {
+          "reset": "Eliminar",
+          "helper": "Selecione uma ou mais ações a realizar quando um membro entra nesta fase. Esta opção é opcional.",
+          "submit": "Confirmar"
+        },
+        "defaultName": "Nome predefinido",
+        "select_tag": "Selecionar uma etiqueta"
+      },
+      "error": {
+        "timeoutMustBeStrictPositive": "O prazo deve ser de, pelo menos, 1 dia.",
+        "triggerCannotBeEmpty": "É necessário selecionar um tipo de entrada.",
+        "maximumConnectedTrigger": "Não é possível definir mais de cinco accionadores.",
+        "minimumConnectedTrigger": "É necessário selecionar pelo menos um acionador."
+      },
+      "event": {
+        "1": "Passe de aulas",
+        "2": "Passes de Aulas Privadas",
+        "3": "Aulas em grupo",
+        "4": "Frequência das aulas em grupo",
+        "5": "Aulas Privadas",
+        "6": "Cancelamento de Aula Privada",
+        "7": "Criar",
+        "8": "Adicionar ao carrinho",
+        "9": "Carrinho pago",
+        "10": "Fatura criada",
+        "11": "Criar",
+        "12": "Pausa",
+        "13": "Parar",
+        "14": "Renovação",
+        "100": "Comprar",
+        "101": "Reserva",
+        "102": "Carrinho",
+        "103": "Faturação",
+        "104": "Subscrição",
+        "billing_plan-renew": "Renovar",
+        "billing_plan-stop": "Parar",
+        "billing_plan-pause": "Pausa",
+        "billing_plan-create": "Criar",
+        "invoice-create": "Fatura criada",
+        "basket-finalize": "Carrinho pago",
+        "basket-additem": "Adicionar ao carrinho",
+        "basket-created": "Criar",
+        "booking-attendance": "Frequência das aulas de grupo",
+        "booking-create": "Aulas de grupo",
+        "private_consumer_pass-create": "Passe de Aula Privada",
+        "consumer_payment_pack-create": "Passe de aulas",
+        "private_booking-cancel": "Cancelamento de Aula Privada",
+        "private_booking-create": "Aulas privadas"
+      },
+      "exit": {
+        "exit_fail_label": "Perdido",
+        "exit_success_label": "Ganhou",
+        "title": "Saída"
+      }
+    },
+    "back": "Anterior",
+    "editMode": "Editar",
+    "triggerElement": "Elemento desencadeador",
+    "marketingElement": "Ações de marketing",
+    "cadenceIndexHelper": "A ordem das sequências define a ordem de prioridade. Se um membro puder introduzir 2 sequências diferentes, começará pela mais prioritária da lista.",
+    "shutOff": "Pausa",
+    "editModeLabel": "Mudar para o modo de edição",
+    "exitEditMode": "Terminar",
+    "exitEditModeLabel": "Sair do modo de edição",
+    "cadenceParameters": "Parâmetros da sequência",
+    "graph": {
+      "tools": {
+        "hideDisabledTriggers": "Ocultar ativadores desativados",
+        "showDisabledTriggers": "Mostrar ativadores desativados",
+        "showControls": "Exibir a barra de ferramentas",
+        "hideControls": "Ocultar a barra de ferramentas",
+        "showMap": "Ver o minimapa",
+        "hideMap": "Ocultar o minimapa",
+        "centerView": "Centrar a vista"
+      },
+      "nodeElement": {
+        "deleteStep": "Eliminar etapa",
+        "cancelOnGoingCreation": "Cancelar criação",
+        "deleteTrigger": "Eliminar ativador",
+        "addElement": "Adicionar um ativador",
+        "edgeLabelForNodeCreation": "Em processo de criação"
+      },
+      "alert": {
+        "cadenceIsActive": "A sua sequência está em curso. Faça uma pausa na sua sequência para a poder alterar.",
+        "switchToEditMode": "Se estiver no modo de visualização, clique em EDITAR para alterar a velocidade da sequência."
+      }
+    },
+    "archive": {
+      "dialog": {
+        "beingArchived": "Está prestes a  arquivar {{- name }}.",
+        "confirm": "Continuar",
+        "cancel": "Cancelar",
+        "helper": "Os membros atualmente na sequência serão automaticamente removidos. Esta sequência será arquivada, pelo que poderá reactivá-la mais tarde.",
+        "title": "Eliminar uma sequência",
+        "confirmButton": "Arquivo"
+      },
+      "archivedHeader": "Sequências arquivadas"
+    },
+    "triggers": {
+      "timeout": {
+        "timout_days_chip": "{{ days }} dia",
+        "timout_days_chip_plural": "{{ days }} dias",
+        "timeout_days_chip": "{{ count }} dia",
+        "timeout_days_chip_plural": "{{ count }} dias"
+      },
+      "trigger": "Acionador",
+      "exit": "Saída",
+      "start": "Entrar",
+      "delete": "Eliminar",
+      "smartlist": {
+        "label": "Lista Inteligente"
+      },
+      "kinds": {
+        "0": "Evento",
+        "1": "Lista Inteligente",
+        "2": "Evento &  Lista Inteligente",
+        "3": "Prazo"
+      },
+      "events": {
+        "label": "Evento",
+        "billing_plan_chip": "Subscrição",
+        "invoice_chip": "Faturação",
+        "basket_chip": "Carrinho",
+        "book_chip": "Reserva",
+        "purchase_chip": "Comprar"
+      },
+      "changeKind": "Alterar para"
+    },
+    "cadenceCard": {
+      "lost": "Perdido",
+      "win": "Ganhou",
+      "outputRules": "Regras de saída"
+    },
+    "activate": {
+      "dialog": {
+        "cancel": "Cancelar",
+        "secondHelper": "Não será possível editá-lo enquanto estiver a decorrer.",
+        "firstHelper": "Gostaria de lançar a sequência?",
+        "title": "Definir o ritmo",
+        "confirmButton": "Lançamento"
+      },
+      "setupBeforeActivationHelper": "Termine de configurar a sua sequência e crie a primeira ação de marketing para lançar a mesma.",
+      "button": "Lançamento"
+    },
+    "svgText": {
+      "push_notification": "Notificação Push",
+      "sms": "SMS",
+      "email": "E-mail",
+      "select_event": "Selecionar um evento",
+      "action_name": "{ Nome da ação de marketing }",
+      "marketing_actions": "Ações de marketing",
+      "triggers": "Acionadores"
+    },
+    "howTo": {
+      "set_trigger_destination": "{{ index }}. Redirecionar para uma ação de marketing",
+      "add_smartlist_filter": "{{ index }}. Filtrar pelas listas inteligentes",
+      "add_trigger": "{{ index }}. Adicionar separações",
+      "edit_event": "{{ index }}. Editar evento",
+      "add_event": "{{ index }}. Adicionar um evento",
+      "edit_marketing_action": "{{ index }}. Editar uma ação de marketing",
+      "add_marketing_action": "{{ index }}. Adicionar uma ação de marketing",
+      "explain": "Edite os elementos do gráfico clicando neles ou crie ligações entre blocos arrastando e largando.",
+      "title": "Como editar a cadência"
+    },
+    "marketingAction": {
+      "addAction": "Adicionar uma ação"
+    },
+    "steps": {
+      "actions": {
+        "addNextStep": "Adicionar próxima etapa",
+        "changeInExit": "Converter numa saída",
+        "changeInStep": "Transformar numa etapa",
+        "delete": "Eliminar",
+        "nextStepTrigger": "Acionador para a próxima etapa",
+        "convertIntoExit": "Converter em saída",
+        "convertIntoStep": "Converter em passo",
+        "edit": "Editar"
+      },
+      "defaultName": "Autostep"
+    },
+    "bubble": {
+      "entryTrigger": {
+        "helperText": "Primeiro, vamos decidir como é que os seus membros vão entrar no {{ workflowLowerCase }}. Seleccione um ou vários eventos ou listas inteligentes, se o membro corresponder a um deles, ele/ela entrará no {{ workflowLowerCase }}",
+        "addTrigger": "Adicionar um acionador de entrada",
+        "title": "Critérios de entrada",
+        "creationHelper": "Em primeiro lugar, decida os critérios para os seus membros entrarem no {{ workflowLowerCase }}. Selecione um ou mais eventos ou listas inteligentes. Se um membro se enquadrar em qualquer um destes, juntar-se-á ao  {{ workflowLowerCase }}.",
+        "editionHelper": "Edite os critérios para que os seus membros entrem na {{ workflowLowerCase }}. Pode escolher um ou mais eventos ou listas inteligentes. Se um membro se enquadrar em qualquer um destes, juntar-se-á ao  {{ workflowLowerCase }}."
+      },
+      "marketingAction": {
+        "label": "Selecionar uma ação de marketing",
+        "title": "Ação de marketing"
+      },
+      "changeInStep": {
+        "default": "Nome da etapa",
+        "label": "Nome da etapa"
+      },
+      "changeInExit": {
+        "label": "Considerar o membro como",
+        "title": "Saída"
+      },
+      "previous": "Anterior",
+      "next": "Seguinte",
+      "confirm": "Guardar",
+      "cancel": "Cancelar",
+      "step": {
+        "name": "Nome"
+      },
+      "convertIntoStep": {
+        "label": "Etiqueta da etapa",
+        "default": "Etiqueta da etapa"
+      },
+      "convertIntoExit": {
+        "label": "Considerar o membro como",
+        "title": "Sair"
+      },
+      "entryAction": {
+        "title": "Ação de entrada",
+        "helperText": "Decidir o que acontece quando os membros entram no {{ workflowLowerCase }}. Pode marcá-los, enviar-lhes um e-mail ou escolher qualquer outra ação que se adeqúe às suas necessidades. Também pode optar por não fazer nada; este passo é opcional.",
+        "addAction": "Adicionar ação"
+      },
+      "requiredField": "Este campo é obrigatório para continuar.",
+      "finish": "Finalizar",
+      "delete": "Eliminar",
+      "lostAction": {
+        "title": "Ação perdida",
+        "helperText": "Decida o que acontece quando os membros deixam o {{ workflowLowerCase }} como 'Perdidos'. Pode marcá-los, enviar-lhes um e-mail ou escolher qualquer outra ação que se adeqúe às suas necessidades. Também pode optar por não fazer nada; este passo é opcional.",
+        "addAction": "Adicionar ação"
+      },
+      "lostTrigger": {
+        "title": "Critérios perdidos",
+        "helperText": "Definir o que é considerado uma falha, o membro será marcado como \"Perdido\" ao sair do {{ workflowLowerCase }}. Também define o tempo máximo que um membro pode estar presente no {{ workflowLowerCase }}",
+        "addTrigger": "Adicionar um acionador de saída",
+        "timeout": {
+          "helperText": "Se um membro ainda estiver presente neste  {{ workflowLowerCase }} após o Limite de tempo selecionado, o membro será considerado como \"Perdido\".",
+          "label": "Dias no {{ workflowLowerCase }}",
+          "title": "Tempo limite"
+        }
+      },
+      "wonAction": {
+        "title": "Ação ganha",
+        "helperText": "Decidir o que acontece quando os membros deixam o {{ workflowLowerCase }} omo \"Ganhou\". Pode marcá-los, enviar-lhes um e-mail ou escolher qualquer outra ação que se adeqúe às suas necessidades. Também pode optar por não fazer nada; este passo é opcional.",
+        "addAction": "Adicionar ação"
+      },
+      "wonTrigger": {
+        "title": "Critérios de ganho",
+        "helperText": "Define as regras básicas para quando os membros devem sair do {{ workflowLowerCase }}. Se um membro cumprir qualquer um dos accionadores, ele sairá, independentemente do passo em que se encontre. Primeiro, seleccione os accionadores de 'sucesso' que marcarão um membro como 'Vencido' quando ele sair do {{ workflowLowerCase }}",
+        "addTrigger": "Adicionar um acionador de saída"
+      }
+    },
+    "dialog": {
+      "do_not_display_anymore": "Deixar de apresentar esta mensagem.",
+      "confirm": "Confirmar",
+      "cancel": "Cancelar"
+    },
+    "step": {
+      "convertExit": {
+        "dialog": {
+          "helper": "Os accionadores que se seguem a este passo também serão eliminados. O resto dos {{ workflowLowerCase }} será desconectado mas não eliminado.",
+          "title": "Converter esta etapa numa saída"
+        }
+      },
+      "archive": {
+        "dialog": {
+          "helper": "Os accionadores diretamente ligados a esta etapa também serão eliminados.  O resto do {{ workflowLowerCase }} será desconectado mas não eliminado.",
+          "title": "Tem a certeza de que pretende eliminar este passo?"
+        }
+      }
+    },
+    "deleteStep": {
+      "dialog": {
+        "confirmButton": "Deletar"
+      }
+    },
+    "converStepToExit": {
+      "dialog": {
+        "confirmButton": "Converter"
+      }
+    },
+    "pause": {
+      "dialog": {
+        "confirmButton": "Pausa",
+        "helper": "Todas as acções dos membros que ocorram durante a pausa não serão tidas em conta.",
+        "title": "Pausar {{ workflowLowerCase }}"
+      }
+    },
+    "trigger": {
+      "addTrigger": "Adicionar um acionador"
+    },
+    "welcome": {
+      "dialog": {
+        "helper": "Vamos começar a configurar o seu {{ workflowLowerCase }}juntos! Primeiro, vamos definir as regras para os seus membros entrarem no{{ workflowLowerCase }}. Em seguida, decidiremos quando os seus membros são considerados \"Ganhados\" ou \"Perdidos\" com base nas suas acções.",
+        "title": "Bem-vindo ao {{ audienceCamelCase }}",
+        "confirm": "Início",
+        "return": "Voltar para trás"
+      }
+    },
+    "exit": {
+      "archive": {
+        "dialog": {
+          "helper": "O acionador que o precede também será eliminado.  O resto do {{ workflowLowerCase }} será desligado mas não eliminado.",
+          "title": "Tem certeza de que pretende eliminar esta saída?"
+        }
+      }
+    },
+    "deleteExit": {
+      "dialog": {
+        "confirmButton": "Eliminar"
+      }
+    }
+  },
+  "notifications": {
+    "deleteDialogText": "Tem a certeza de que quer eliminar esta regra ? Esta operação é definitiva",
+    "deleteDialogTitle": "Eliminar a regra",
+    "removeRule": "Eliminar a regra",
+    "editRule": "Editar a regra",
+    "stats": {
+      "total_mail_opened": "Número de e-mails abertos",
+      "opened_rate": "Taxa de abertura",
+      "total_mail_send": "Número de e-mails enviados"
+    },
+    "mailTitle": "Pré-visualização do e-mail",
+    "mail": "E-mail ",
+    "createNotificationFabLabel": "Adicionar uma notificação",
+    "notificationsEmpty": "Não existe nenhuma notificação para este grupo",
+    "notificationPreview": "Pré-visualização da notificação",
+    "statisticDetails": "Estatísticas",
+    "notificationDetails": "Detalhes da notificação",
+    "contractKind": {
+      "contractEnd": "Fim da subscrição",
+      "contractStart": "Início da subscrição"
+    },
+    "paymentPackKind": {
+      "credit": "Número de créditos",
+      "validity": "Validade do passe"
+    },
+    "groupTitle": {
+      "contract": "Subscrição",
+      "privatePass": "Passe de Aula Privada",
+      "paymentPack": "Passe de aulas",
+      "privateBooking": "Marcação",
+      "booking": "Reserva",
+      "birthday": "Aniversário"
+    },
+    "fabLabels": {
+      "contract": "Subscrição",
+      "private_pass": "Passes de marcação",
+      "payment_pack": "Passe de aulas",
+      "private_service": "Marcação",
+      "establishment": "Sala",
+      "workshop": "Workshop",
+      "meta_activity": "Aulas em grupo",
+      "birthday": "Aniversário",
+      "establishmentGroup": "Localização"
+    },
+    "cancel": "Anular",
+    "next": "Seguinte",
+    "privatePassPlaceholder": "Passes de marcação",
+    "paymentPackPlaceholder": "Passe de aulas",
+    "selectIdentifierLabel": {
+      "contract": "Selecionar uma subscrição",
+      "private_service": "Selecionar uma marcação",
+      "private_pass": "Selecionar um passe de marcação",
+      "payment_pack": "Selecionar um passe de aulas",
+      "establishment": "Selecionar uma sala",
+      "workshop": "Selecionar um workshop",
+      "meta_activity": "Selecionar uma atividade",
+      "establishment_group": "Selecionar um local"
+    },
+    "createNotification": "Formulário de notificação",
+    "selectNotificationRules": "Selecionar uma regra para ver os detalhes",
+    "listTitle": "Notificações",
+    "dialogTitle": "Criar uma notificação",
+    "create": "Criar uma notificação",
+    "handleNotification": "Gerir as notificações",
+    "noNotification": "Nenhuma notificação ativada"
+  },
+  "newsletter": {
+    "messages": {
+      "success": "Está registado !",
+      "error": "Impossível guardar o seu e-mail de momento"
+    },
+    "form": {
+      "validate": "Confirmar",
+      "lastName": "Nome",
+      "firstName": "Nome próprio",
+      "email": "E-mail",
+      "title": "Subscrever à nossa newsletter"
+    },
+    "formV2": {
+      "error": {
+        "invalidEmail": "Introduza um endereço de correio eletrónico válido.",
+        "emailRequired": "Introduza um endereço de correio eletrónico."
+      },
+      "subtitle": "Obter ofertas exclusivas e conhecer as nossas últimas notícias",
+      "title": "Subscrever a nossa newsletter",
+      "email": "Correio eletrónico",
+      "validate": "Submeter",
+      "successText": "A sua subscrição foi enviada",
+      "successTitle": "Obrigado pelo seu interesse!"
+    }
+  },
+  "audience": {
+    "form": {
+      "trigger": {
+        "helpers": {
+          "exitFail": "Definir aqui o acionamento que faz com que um membro seja considerado perdido e saia do{{ workflowLowerCase }}",
+          "exitSuccess": "Defina aqui o acionador que faz com que um membro seja considerado como vencedor e saia do {{ workflowLowerCase }}",
+          "workflow": "Definir os accionadores para entrar na {{ workflowLowerCase }} aqui. Os membros terão de corresponder aos critérios abaixo indicados para iniciar a sequência de comercialização."
+        },
+        "trigger_timeout_explain_value_selected": "Se o membro ainda estiver presente no {{ workflowLowerCase }} depois de {{ days }} dias, será automaticamente removido do{{ workflowLowerCase }} e considerado \"perdido\"",
+        "trigger_timeout_select_label": "dias no máximo no {{ workflowLowerCase }}",
+        "event_and_smartlist_helper": "Os membros terão de corresponder ao evento e fazer parte da lista inteligente para acederem ao {{ workflowLowerCase }}",
+        "labels": {
+          "workflow": "A entrada no {{ workflowLowerCase }} é efectuada através de :"
+        },
+        "event_or_smartlist_helper": "Os membros terão de corresponder ao evento ou fazer parte da lista inteligente para se enquadrarem no {{ workflowLowerCase }}"
+      },
+      "audienceStepHelper": "Defina o nome da etapa aqui: é aqui que poderá ver onde os membros se encontram na {{ workflowLowerCase }}",
+      "createAudienceHelper": "Graças ao {{ workflowPluralLowerCase }},direcionar as acções de marketing que envia aos seus membros em função do seu comportamento na plataforma. Crie uma sequência de acções que os seus membros devem realizar para obter determinadas promoções ou etiquetas, por exemplo.",
+      "updateTitle": "Editar o nome do {{ workflowLowerCase }}",
+      "audienceNameLabel": "Nome do {{ workflowLowerCase }}",
+      "title": "Crie um {{ workflowLowerCase }}",
+      "addAWorkflow": "Adicionar um {{ workflowLowerCase }}",
+      "cadenceParameters": "{{ workflowLowerCase }} parâmetros",
+      "multipleVisit": {
+        "helperText": "Quando ativado, os membros que correspondam aos critérios de entrada podem entrar neste {{ workflowLowerCase }} várias vezes, independentemente de terem saído anteriormente como 'perdidos' ou 'ganhos'.",
+        "isMultipleVisitAllowedLabel": "Os membros podem passar por este  {{ workflowLowerCase }} várias vezes"
+      },
+      "formTitle": {
+        "updateTitle": "Editar o seu {{ workflowLowerCase }}",
+        "createTitle": "Criar um{{ workflowLowerCase }}",
+        "updateNameTitle": "Edite o nome do seu {{ workflowLowerCase }}"
+      }
+    },
+    "activate": {
+      "setupBeforeActivationHelper": "Termine de configurar o seu {{ workflowLowerCase }} e crie a sua primeira ação de marketing para lançar o seu {{ workflowLowerCase }}.",
+      "dialog": {
+        "firstHelper": "Pretende lançar o {{ workflowLowerCase }} ?",
+        "title": "Lançar o {{ workflowLowerCase }}"
+      }
+    },
+    "howTo": {
+      "title": "Como editar o seu {{ workflowLowerCase }}"
+    },
+    "audienceIndexHelper": "A ordem do {{ workflowPluralLowerCase }}  define a ordem de prioridade: se um membro puder introduzir 2 diferentes {{ workflowPluralLowerCase }} ao mesmo tempo, começará pelo mais alto da lista.",
+    "graph": {
+      "alert": {
+        "switchToEditMode": "Se estiver no modo de visualização, clique em EDITAR para editar o {{ workflowLowerCase }}",
+        "audienceIsActive": "Seu {{ workflowLowerCase }} está a decorrer, faça uma pausa para o modificar."
+      }
+    },
+    "archive": {
+      "archivedHeader": "Arquivado {{ workflowPluralLowerCase }}",
+      "dialog": {
+        "helper": "Membros atualmente no {{ workflowLowerCase }} sairá automaticamente. Esse {{ workflowLowerCase }}será pausado e arquivado, mas pode ser reativado mais tarde.",
+        "title": "Tem a certeza de que pretende arquivar o {{ workflowLowerCase }} ?",
+        "beingArchived": "Está prestes a arquivar \"{{- name }}\""
+      }
+    },
+    "block": {
+      "unrecognized": {
+        "dialog": {
+          "helper": "O {{ workflowLowerCase }} que está a tentar aceder não pode ser encontrado.",
+          "title": "{{ workflowCamelCase }} não reconhecido"
+        }
+      },
+      "archived": {
+        "dialog": {
+          "helper": "O {{ workflowLowerCase }} está arquivado. Para o restaurar, volte à página principal e desarquive o{{ workflowLowerCase }} da lista.",
+          "title": "{{ workflowCamelCase }} arquivado"
+        }
+      }
+    },
+    "workflowMetrics": {
+      "cards": {
+        "members": {
+          "description": "Número de membros que entraram no {{ workflowLowerCase }}",
+          "title": "Membros",
+          "label": "membro inscrito",
+          "label_plural": "membros inscritos"
+        },
+        "tags": {
+          "description": "Número de etiquetas aplicadas aos membros no {{ workflowLowerCase }}",
+          "title": "Etiquetas",
+          "label": "etiqueta",
+          "label_plural": "etiquetas"
+        },
+        "success": {
+          "title": "Sucesso",
+          "description": "Percentagem de pessoas consideradas como ganhas.",
+          "label": "taxa de êxito"
+        },
+        "averageTime": {
+          "title": "Tempo médio",
+          "description": "Período médio de tempo necessário para que um membro seja considerado como ganho.",
+          "label": "dias em média",
+          "label_plural": "dias em média"
+        }
+      },
+      "openButton": "Abrir {{ workflowLowerCase }}",
+      "communication": {
+        "title": "Comunicações enviadas",
+        "knowMore": "Mais informações sobre {{- upsellName }} upsell",
+        "availableSoon": "Disponível em breve",
+        "email": "Email",
+        "sms": "SMS",
+        "pushNotif": "Notificação push"
+      }
+    },
+    "listItem": {
+      "labels": {
+        "unarchive": "Desarquivar",
+        "metrics": "Métricas",
+        "active": "Ativo",
+        "paused": "Pausado",
+        "notLaunched": "Não lançado",
+        "open": "Aberto",
+        "archive": "Arquivo {{ workflowLowerCase }}",
+        "edit": " Editar {{ workflowLowerCase }} definições"
+      },
+      "tooltip": {
+        "moreActions": "Mais acções {{ workflowLowerCase }}"
+      }
+    },
+    "memberTable": {
+      "tableColumnLabel": {
+        "status": "Estado",
+        "member": "Membro",
+        "currentStep": "Etapa atual",
+        "entryDate": "Data de entrada",
+        "exitDate": "Data de saída"
+      },
+      "searchPlaceHolder": "Pesquisar...",
+      "title": "Os membros presentes no {{ workflowLowerCase }} {{count}}",
+      "historicTitle": "Histórico {{count}}"
+    },
+    "editModal": {
+      "dialog": {
+        "checkboxLabel": "Deixar de apresentar esta mensagem.",
+        "cancel": "Cancelar",
+        "confirm": "Confirmar",
+        "title": "Editar  {{ workflowLowerCase }}",
+        "helper": "Os accionadores de edição podem alterar a posição das barras em diferentes etapas."
+      }
+    }
+  }
+}

@@ -1,0 +1,649 @@
+{
+  "details": {
+    "pleaseSelectABooking": "Selectionnar una reserva para ver el detaille",
+    "title": "Detalle de la reserva",
+    "offerTitle": "Sesión vinculada",
+    "consumerPaymentPackTitle": "Bono utilizado"
+  },
+  "parameters": {
+    "registeredOn": "Reservado el ",
+    "source": "Canal de compra",
+    "cancelledOn": "Cancelado el ",
+    "by": "Por",
+    "noShow": "No se presenta "
+  },
+  "source": {
+    "web": "En el sitio web",
+    "app": "En la app bsport",
+    "saas": "Por el manager",
+    "other": "Otros",
+    "migration": "Migration Mindbody"
+  },
+  "customerView": {
+    "wasRefunded": "Reembolsada",
+    "cancelled": "Cancelada"
+  },
+  "attend": "Presente",
+  "doNotAttend": "Ausente",
+  "loading": "Cargando",
+  "wasRefunded": "Reembolsada",
+  "statusCode": {
+    "cancelledByManager": "Cancelado por manager {{cancelled_by}}",
+    "cancelledByConsumer": "Cancelación cliente",
+    "cancelledByOffer": "Clase cancelada por el club",
+    "cancelledByOfferDate": "Sesión cancelada por el club el {{-date}} a las {{time}}",
+    "cancelledByConsumerDate": "Cancelado por el cliente el {{-date}} a las {{time}}",
+    "cancelledByManagerDate": "Cancelado por el manager el {{-date}} a las {{time}} por {{cancelled_by}}",
+    "cancelledByAnonymousManagerDate": "Cancelado por el manager el {{-date}} a las {{time}}",
+    "cancelledByAnonymousManager": "Cancelación manager"
+  },
+  "bookingModule": {
+    "messages": {
+      "offerLocked": "No puedes reservar esta sesión",
+      "maleUnavailable": "La sesión ya no se puede reservar para los hombres.",
+      "femaleUnavailable": "La sesión ya no se puede reservar para las mujeres."
+    },
+    "offer": {
+      "isWaitingListFull": "La sesión está llena, la lista de espera está llena.",
+      "isTooSoon": "La inscripción está actualmente cerrada y se abrirá el {{-date}}.",
+      "isTooLate": "Las inscripciones están cerradas.",
+      "isDisabled": "La sesión fue desafortunadamente cancelada.",
+      "isAlreadyRegistered": "Ya está inscrito en esta sesión",
+      "blockedByTags": "No tiene la suscripción o el nivel de acceso necesarios para reservar esta sesión."
+    },
+    "option": {
+      "registerOption": "Registrar en la lista de espera",
+      "isFull": "La sesión está llena, puedes registrarse en la lista de espera, te le notificará por email cuando haya un espacio disponible.",
+      "isAlreadyOnWaitingList": "Está inscrito en la lista de espera, le informaremos por correo electrónico cuando haya una plaza disponible.",
+      "isAlreadyRegistered": "La sesión está llena, ¡felicidades, estás bien registrado!",
+      "waitingListOpen": "La sesión está completa, pero puede inscribirse en la lista de espera. Le informaremos por correo electrónico cuando haya una plaza disponible",
+      "waitingListLockedByPendingBookings": "Otras personas están reservando, la lista de espera no está disponible en este momento. Por favor, inténtelo de nuevo en unos minutos para ver si hay una plaza disponible.",
+      "isBookingLimitReached": "Ya ha alcanzado su límite de reservas. Podrás volver a reservar cuando una sesión haya pasado o se haya cancelado."
+    },
+    "section": {
+      "paymentCombos": "Ofertas promocionales",
+      "paymentPacks": "Comprar bono",
+      "contracts": "Abonos",
+      "consumerPacks": "Mis bonos",
+      "contract": "Inscríbete"
+    },
+    "hasRegistered": "Estás registrado para esta sesión",
+    "recurrent": {
+      "backToRegistererChoice": "Volver",
+      "title": "Sesiones futuras",
+      "bookMultiple": "Reservar",
+      "titleGroupedSessions": "Todas las sesiones de este grupo."
+    },
+    "isLoading": "Búsqueda de las sesiones...",
+    "book": {
+      "unknowError": "No es posible reservar, por favor, inténtelo más tarde"
+    },
+    "tags": {
+      "managerDialogWarningDialog": {
+        "content": "Tenga en cuenta que este miembro no tiene las etiquetas necesarias para inscribirse en esta sesión. ¿Quieres registrarlo de todos modos?",
+        "title": "Información",
+        "cancel": "Cancelar",
+        "confirm": "Validar"
+      },
+      "unAuthorized": "No tiene la suscripción o el nivel de acceso necesarios para reservar esta sesión."
+    },
+    "isBookingLimitReached": "Ha alcanzado su límite de reservas",
+    "multiSession": {
+      "selectSpot": {
+        "validationButton": "Añadir sesión",
+        "validationButton_plural": "Añadir sesiones ({{selectedSessionsCount}})",
+        "dialogSubtitle": "Seleccione su sitio para la clase",
+        "dialogTitle": "Seleccionar sitio",
+        "dialogTitleWithSteps": "Seleccionar sitio ({{currentStep}}/{{totalSteps}})"
+      },
+      "addSession": {
+        "noContent": "No se han encontrado sesiones similares.",
+        "dialogSubtitle": "Seleccione la sesión que desea reservar",
+        "dialogTitle": "Añadir una sesión",
+        "sessionCount": "{{selectedSessionsCount}} de {{totalSessionsCount}} sesiones",
+        "selectAll": "Seleccionar todo"
+      }
+    },
+    "groupedSession": {
+      "warningModal": {
+        "partialBooking": {
+          "text": "Esta actividad forma parte de un grupo de sesiones. No está obligado a asistir a todas las sesiones del grupo, y puede elegir a qué sesiones desea unirse."
+        },
+        "fullBookingOnly": {
+          "text": "Estará inscrito en todas las sesiones {{sessionsTotal}} de este grupo"
+        },
+        "title": "Reservar un grupo de sesiones"
+      },
+      "showLessButtonText": "Mostrar menos",
+      "showMoreButtonText": "Mostrar todas las sesiones ({{totalSessions}})"
+    }
+  },
+  "filters": {
+    "notRefunded": "No reembolsada",
+    "isRefunded": "Reembolsada",
+    "refunded": "Reembolso",
+    "pastBooking": "Reservas pasadas",
+    "futureBooking": "Reservas futuras",
+    "time": "Reservas a lo largo del tiempo",
+    "attendance": "Presencia",
+    "cancel": "Cancelación",
+    "consumerCanceled": "Cancelación cliente",
+    "managerCanceled": "Cancelado por el estudio",
+    "canceled": "Sesión cancelada",
+    "absent": "Ausente",
+    "present": "Presente",
+    "all": "Todas las reservas",
+    "withoutRecurrentBookings": "Reservas no recurrentes",
+    "withRecurrentBookings": "Reservas recurrentes",
+    "recurrentBooking": "Reserva recurrente",
+    "notCancelled": "No cancelado",
+    "isUnpaid": "Reservas impagadas",
+    "isPaid": "Reservas pagadas",
+    "paid": "Pago",
+    "pickCoach": "Buscar un profesor...",
+    "coach": "Profesor"
+  },
+  "actions": {
+    "bill": "Facturar",
+    "unregister": "Desinscribir"
+  },
+  "creditConsumed": "{{credit_consumed}} crédito",
+  "creditConsumed_plural": "{{credit_consumed}} créditos",
+  "notification": {
+    "form": {
+      "listItemPrimary": {
+        "cancellation": "Cancelación n° {{notify_booking_nb}}",
+        "attendance": "Asistencia n° {{notify_booking_nb}}",
+        "booking": "Reserva n° {{notify_booking_nb}}",
+        "after": "Notificación {{hours}}h después de la sesión",
+        "before": "Notificación {{hours}}h antes de la sesión",
+        "cancelledDeprecated": "Cancelación n° {{notify_booking_nb}}",
+        "notRefunded": "Cancelación después de la fecha límite n° {{notify_booking_nb}}",
+        "refunded": "Cancelación reembolsada n° {{notify_booking_nb}}",
+        "absence": "Ausencia n° {{notify_booking_nb}}",
+        "notifyAllEvents": {
+          "notRefunded": "En cada cancelación tardía",
+          "refunded": "En cada cancelación reembolsada",
+          "absence": "En cada ausencia",
+          "attendance": "En cada asistencia",
+          "bookingDeprecated": "En cada reserva"
+        },
+        "birthday": "Enviar el día del cumpleaños",
+        "day_after": "Esta notificación se enviará {{days}} día después del inicio de la sesión.",
+        "day_after_plural": "Esta notificación se enviará {{days}} días después del inicio de la sesión.",
+        "day_before": "Esta notificación se enviará {{days}} día antes del inicio de la sesión.",
+        "day_before_plural": "Esta notificación se enviará {{days}} días antes del inicio de la sesión.",
+        "hour_before": "Esta notificación se enviará {{hours}} hora antes del inicio de la sesión.",
+        "hour_before_plural": "Esta notificación se enviará {{hours}} horas antes del inicio de la sesión.",
+        "hour_after": "Esta notificación se enviará {{hours}} hora después del final de la sesión.",
+        "hour_after_plural": "Esta notificación se enviará {{hours}} horas después de finalizar la sesión.",
+        "bookingDeprecated": "Reserva: {{notify_booking_nb}}"
+      },
+      "cancel": "Cancelar",
+      "next": "siguiente",
+      "submit": "Validar",
+      "help": {
+        "cancellation": "su cancelación de la reserva n° {{notify_booking_nb}}",
+        "attendance": "Esta notificación se enviará cuando un miembro asista a {{notify_booking_nb}} hora(s).",
+        "booking": "su reserva n° {{notify_booking_nb}}",
+        "text": "Ayuda: la notificación se enviará al miembro durante",
+        "notRefunded": "Esta notificación se enviará cuando un miembro registre {{notify_booking_nb}} cancelación(es) tardía(s).",
+        "refunded": "Esta notificación se enviará cuando un miembro registre {{notify_booking_nb}} cancelaciones reembolsadas.",
+        "absence": "Esta notificación se enviará cuando un miembro se ausente {{notify_booking_nb}} vez(s).",
+        "allEvents": {
+          "notRefunded": "Ayuda: la notificación será enviada al miembro por cada una de sus cancelaciones tardías",
+          "refunded": "Ayuda: la notificación será enviada al miembro por cada una de sus cancelaciones reembolsadas",
+          "absence": "Ayuda: la notificación será enviada al miembro cada vez que esté ausente",
+          "attendance": "Ayuda: la notificación será enviada al miembro cada vez que asista"
+        }
+      },
+      "choicesKind": {
+        "cancellation": "Cancelación de una reserva por parte del miembro",
+        "attendance": "Presencia del miembro en una sesión",
+        "booking": "Creación de una reserva"
+      },
+      "chooseKindTitle": "Evento que activa la notificación",
+      "chooseTime": {
+        "second_after": "{{ count }} hora después del final de la sesión.",
+        "second_after_plural": "{{ count }} horas después del final de la sesión.",
+        "second_before": "{{ count }} hora antes del inicio de la sesión.",
+        "second_before_plural": "{{ count }} horas antes del inicio de la sesión.",
+        "first": "Enviar un email",
+        "second_after_days": "{{ count }} día después del final de la sesión",
+        "second_after_days_plural": "{{ count }} días después del final de la sesión",
+        "second_before_days": "{{ count }} día antes del inicio de la sesión",
+        "second_before_days_plural": "{{ count }} días antes del inicio de la sesión"
+      },
+      "sendAfterMail": "Enviar el email al miembro después de la sesión afectada por la notificación",
+      "sendBeforeMail": "Enviar el email al miembro antes de la sesión afectada por la notificación",
+      "eventNb": "Notificar al miembro durante el evento n °:",
+      "settingTitle": "Parámetros",
+      "typeTitle": "Tipo de notificación",
+      "title": "Formulario de notificación",
+      "chooseKind": {
+        "notRefunded": "Cancelación después de la fecha límite",
+        "refunded": "Reembolso de la cancelación",
+        "absence": "La ausencia de un miembro en una sesión",
+        "attendance": "La presencia de un miembro en una sesión",
+        "title": "Evento que desencadena la notificación"
+      },
+      "chooseStatus": {
+        "cancelled": "Reserva cancelada por el cliente",
+        "valid": "Reserva válida",
+        "title": "Elija el tipo de reserva que desea notificar"
+      },
+      "explain": "Puede notificar a sus clientes antes o después de ciertas sesiones, dependiendo de varios criterios como el número de asistencias, ausencias o incluso cancelaciones.",
+      "notifyAllEvents": "Notificar al miembro en cada evento",
+      "bookingNumber_n": "Reserva nº{{notify_booking_nb}}",
+      "bookingNumber": "Todas las reservas",
+      "bookingNumber_plural": "1ª reserva",
+      "ifKind": {
+        "notRefunded": "Si la reserva se ha cancelado demasiado tarde",
+        "refunded": "Si la reserva se ha cancelado a tiempo",
+        "absence": "Si el miembro está ausente",
+        "attendance": "Si el miembro está presente"
+      },
+      "bookingNumberAll": "Todas las reservas",
+      "bookingNumberFirst": "1ª reserva",
+      "bookingNumberThird": "3rd booking",
+      "bookingNumberSecond": "2ª reserva",
+      "bookingNumberN": "{{notify_booking_nb}}la reserva",
+      "needPushUpsell": "No te has suscrito al complemento de notificaciones push",
+      "push": "Notificación push",
+      "mail": "Correo",
+      "sendingMethod": "Método de envío",
+      "sendAfterNotifications": "Enviar notificaciones al miembro después de la sesión afectada por la notificación",
+      "sendAfterNotification": "Enviar una notificación push al miembro después de la sesión afectada por la notificación",
+      "sendBeforeNotifications": "Enviar las notificaciones al socio antes de la reunión a la que se refiere la notificación",
+      "sendBeforeNotification": "Enviar la notificación push al socio antes de la reunión a la que se refiere la notificación",
+      "addVariable": "Añadir una etiqueta",
+      "pushHelper": "Cuidado, las notificaciones push deben utilizarse con moderación. Demasiadas notificaciones push pueden llevar a algunos miembros a desinstalar la aplicación.",
+      "createSmartList": "Crear una smartlist",
+      "smartListHelper": "No enviar email si el miembro pertenece a una de las siguientes listas",
+      "smartListHelperInclude": "Enviar un email sólo si el miembro pertenece a una de las siguientes listas",
+      "advanced": "Avanzado",
+      "warning": "Si no se selecciona una smartlist, se corre el riesgo de notificar a los miembros que ya han comprado otro bono",
+      "smartListSelection": "Elegir listas (opcional)"
+    },
+    "addNotification": "Añadir una notificación",
+    "title": "Notificación"
+  },
+  "recurrenceRule": {
+    "explain": "El miembro siempre estará registrado {{ delayWeek }} semanas antes de la clase de {{ dayOfWeek}} at {{hour}}:{{minute}}. Sólo se registrarán si poseen un pase válido.",
+    "actions": {
+      "save": "Guardar",
+      "close": "Cerrar"
+    },
+    "form": {
+      "delayWeek": {
+        "helperText": "Indique con cuántas semanas de antelación se registrará el miembro ({{delayWeek}} semanas máximo)",
+        "label": "Número de semanas"
+      },
+      "metaActivity": {
+        "helperText": "Actividad",
+        "label": "Actividad"
+      },
+      "minute": {
+        "label": "minuto"
+      },
+      "hour": {
+        "label": "hora"
+      },
+      "dayOfWeek": {
+        "label": "Día de la semana"
+      },
+      "at": " en ",
+      "timeGroup": "Fecha de la sesión",
+      "title": "Programar una recurrencia",
+      "startFromDate": {
+        "label": "Empieze la reserva recurrente el "
+      },
+      "groupWarning": "Tenga en cuenta que no es posible crear una repetición de reservas para grupos de sesiones",
+      "permissionWarning": "No tiene permiso para crear reservas para esta actividad.",
+      "globalError": "Se produjo un error al guardar la reserva recurrente.",
+      "duplicateError": "Ya existe una reserva recurrente con los mismos parámetros. Modifica el criterio o revisa los criterios existentes antes de guardar."
+    },
+    "recurrentRuleBooking": "Reserva recurrente",
+    "item": {
+      "explain": "Todos los {{dayOfWeek}} - {{hour}}:{{minute}}, {{delayWeek}} semanas antes"
+    },
+    "needConsumerPack": "Este miembro no tiene un pase de clase compatible, es imposible programar una repetición",
+    "recurrentBookings": "Reservas recurrentes",
+    "deleteModal": {
+      "title": "Eliminar la regla de recurrencia",
+      "content": "Al eliminar la regla de recurrencia se cancelarán las reservas futuras que utilizaban esta regla.",
+      "cancel": "Cancelar",
+      "confirm": "Eliminar",
+      "success": "La reserva recurrente ha sido eliminada"
+    },
+    "createModal": {
+      "create": "Crear una reserva recurrente",
+      "info": "No se puede recrear una reserva recurrente que ya existe",
+      "success": "Regla de reserva recurrente guardada. Ahora configuraremos sus reservas de acuerdo con sus parámetros."
+    },
+    "editModal": {
+      "success": "Regla de reserva recurrente editada. Configuraremos sus reservas ahora según sus parámetros."
+    },
+    "blockedBookings": "Los miembros pueden reservar hasta {{días}} de antelación para esta actividad.\nConsidera la posibilidad de ampliar los periodos de repetición para evitar la masificación.",
+    "notifyIfCanceled": "Enviar un correo electrónico de cancelación de reserva",
+    "notify": "Envíe un correo electrónico de confirmación al registrarse como miembro",
+    "showLess": "Mostrar menos",
+    "showMore": "Mostrar más ({{count}})",
+    "cancelRelatedBookings": "Cancelar las reservas futuras ya realizadas",
+    "offerForm": {
+      "selectAll": "Seleccionar todo",
+      "unselectAll": "Deseleccionar todo",
+      "helperText": "Parece que las sesiones contenidas en la reserva recurrente fueron canceladas anteriormente para este miembro, puede seleccionar aquí las sesiones que permitirá al sistema reservar de nuevo"
+    }
+  },
+  "memberGraph": {
+    "label": "Reservas",
+    "title": "Resumen de las reservas"
+  },
+  "offer": {
+    "packTitle": "Mi método de reserva",
+    "offerStatus": {
+      "waiting_list_status": {
+        "0": "Lista de espera",
+        "1": "Registros cerrados",
+        "2": "Inscripciones completadas",
+        "3": "Sesión completa",
+        "4": "Registros cerrados",
+        "5": "Ya está registrado",
+        "6": "Proporción desequilibrada entre hombres y mujeres",
+        "7": "Proporción desequilibrada entre hombres y mujeres",
+        "9": "Está intentando reservar más sesiones futuras de las que permite su club",
+        "6002": "Lista de espera completa",
+        "6003": "Liste d'attente complète",
+        "6005": "Lista de espera",
+        "displayWaitlistSize": "Su posición actual en la lista de espera es: {{waitlistPosition}}",
+        "displayPosition": "Su posición en la lista de espera es: {{waitlistPosition}}"
+      },
+      "bookable_status": {
+        "0": "Inscripciones abiertas",
+        "1": "Inscripciones cerradas",
+        "2": "Inscripciones terminadas",
+        "4": "Sesión no disponible",
+        "9": "Está intentando reservar más sesiones futuras de las que permite su club"
+      },
+      "waiting_list": "Lista de espera",
+      "book": "Inscripción",
+      "blockedByTags": "No se permite reservar"
+    },
+    "similarOffer": {
+      "showMore": "Ver más",
+      "empty": "No se ha encontrado ninguna sesión",
+      "title": "Reservar más sesiones",
+      "selectAll": "Seleccionar todo"
+    },
+    "noPackAvailable": "Ningún pase es compatible con todas estas sesiones al mismo tiempo. Deberá reservarlas por separado.",
+    "noPackAvailable_plural": "Ningún pase es compatible con estas sesiones!",
+    "showMore": "Ver más",
+    "mainButton": {
+      "numberOfBook": "{{count}} inscripción",
+      "numberOfBook_plural": "{{count}} inscripciones",
+      "registerWaitingList": "Inscribirse en la lista de espera",
+      "book": "Reservar"
+    },
+    "bookingsTitle": "Reservar ahora",
+    "addSession": "Añadir una sesión",
+    "bookingForMe": "yo",
+    "bookingsTitleFor": "Estoy reservando para {{name}}",
+    "bookingForAGuest": {
+      "warningLeveledSession": "Esta sesión es para personas con el nivel: {{level}}. Asegúrate de que la persona que invitas tiene el nivel esperado.",
+      "addGuestNumberLeftSeveral": "Puedes invitar de nuevo {{number}} personas en",
+      "addGuest": "Añadir un invitado",
+      "addGuestLimit": "Ha alcanzado el límite de invitaciones para",
+      "addGuestNumberLeftOne": "Puedes invitar a 1 persona más en",
+      "frequencyWeekly": "esta semana.",
+      "frequencyMonthly": "este mes.",
+      "frequencyYearly": "el año en curso.",
+      "frequencyGeneric": "el período actual.",
+      "warningCustomLeveledSession": "Esta sesión tiene un nivel personalizado. Asegúrate de que la persona que invitas tiene el nivel esperado.",
+      "bookingStatus": {
+        "0": "Invitar a un amigo",
+        "1": "La sesión aún no está abierta a reservas",
+        "2": "La sesión no admite reservas",
+        "3": "La sesión está completa",
+        "4": "La sesión no admite reservas",
+        "guestNotAllowed": "La sesión no está abierta a invitados"
+      },
+      "addGuestNumberLeftGeneric": "Puedes invitar a 1 persona más este periodo.",
+      "addGuestNumberLeftGeneric_plural": "Aún puedes invitar a {{count}} personas este periodo.",
+      "addGuestNumberLeftYear": "Puedes invitar a 1 persona más este año.",
+      "addGuestNumberLeftYear_plural": "Aún puedes invitar a {{count}} personas este año.",
+      "addGuestNumberLeftMonth": "Puedes invitar a 1 persona más este mes.",
+      "addGuestNumberLeftMonth_plural": "Aún puedes invitar a {{count}} personas este mes.",
+      "addGuestNumberLeftWeek": "Puedes invitar a 1 persona más esta semana.",
+      "addGuestNumberLeftWeek_plural": "Aún puedes invitar a {{count}} personas esta semana.",
+      "guestLimitReached": {
+        "every_year": "Ha alcanzado el límite de invitaciones para este año.",
+        "every_month": "Ha alcanzado el límite de invitaciones para este mes.",
+        "every_week": "Ha alcanzado el límite de invitaciones para esta semana."
+      },
+      "sendInvitation": "Enviar invitación",
+      "submit": "Reserva para un invitado"
+    },
+    "bookingFor": "Reserva para",
+    "bookingForSubtitle": "Seleccione la persona para la que desea reservar"
+  },
+  "placeNumber": "Sitios {{count}}",
+  "noSpotAttributed": "No hay lugar asignado",
+  "changeSpot": "Cambiar el lugar",
+  "setSpot": "Asignar un asiento",
+  "performanceTracking": {
+    "stat": "Estadísticas"
+  },
+  "attendanceUpdatedOn": "Actualizado el {{- d }} à {{- t }}",
+  "guest": {
+    "form": {
+      "firstname": {
+        "label": "Nombre"
+      },
+      "lastname": {
+        "label": "Apellido"
+      },
+      "actions": {
+        "submit": "Validar",
+        "close": "Cerrar",
+        "addGuest": "Añadir invitado",
+        "limitGuest": "(Ningún bono permite añadir invitados)"
+      },
+      "email": {
+        "label": "Correo electrónico"
+      },
+      "errors": {
+        "email": "Introduzca una dirección de correo electrónico válida",
+        "requiredField": "Rellene este campo"
+      },
+      "dialog": {
+        "emailWarning": {
+          "actions": {
+            "saveAndContinue": "Guardar y continuar",
+            "continueWithoutEmail": "Continuar sin correo electrónico"
+          },
+          "description": "No has proporcionado una dirección de correo electrónico para tu invitado.",
+          "title": "No se ha introducido correo electrónico",
+          "submitLabel": "Continuar sin",
+          "fieldLabel": "¿Quieres incluir el correo electrónico?",
+          "alert": "No recibirán información sobre esta sesión."
+        },
+        "description": "¿Trae a un amigo o acompañante para compartir la experiencia? Sólo tiene que indicar el nombre y la dirección de correo electrónico de su invitado, y nos aseguraremos de que reciba toda la información necesaria.",
+        "title": "Invitar a un invitado"
+      }
+    }
+  },
+  "asGuest": "Invitado",
+  "unlimited": "Ilimitado",
+  "place": "Sitio",
+  "noShowChip": {
+    "message": "El miembro fue registrado como ausente después de la sesión",
+    "title": "no se presenta"
+  },
+  "warning": "Atención",
+  "spivi": {
+    "errorText": "El miembro no cumple los requisitos de Spivi, por lo que la reserva no se realizó en Spivi.",
+    "connectionImpossible": "Imposible conectarse a Spivi",
+    "error": "Problema de conexión con Spivi"
+  },
+  "newBookingModule": {
+    "myPasses": "Mi bono",
+    "myPasses_plural": "Mis bonos",
+    "buyNewPass": "Comprar un nuevo bono",
+    "buyPass": "Comprar un bono",
+    "choosePass": "Seleccionar un bono",
+    "cards": {
+      "seeMore": "Ver más",
+      "seeLess": "Ver menos"
+    },
+    "filterAll": "Todo",
+    "blockedReasons": {
+      "default": {
+        "title": "Reserva bloqueada",
+        "message": "Esta sesión no está abierta a reservas"
+      },
+      "waitingListOpen": {
+        "message": "Apúntese a la lista de espera y recibirá un mensaje en cuanto haya una plaza disponible.",
+        "title": "Sesión completa"
+      },
+      "isTooLate": {
+        "message": "Lo sentimos, pero el plazo de reserva para esta sesión ha finalizado.",
+        "title": "Tiempo límite superado"
+      },
+      "blockedByTags": {
+        "title": "Permisos insuficientes",
+        "message": "No tiene los derechos necesarios o el nivel de acceso requerido para reservar esta sesión."
+      },
+      "waitingListLockedByPendingBookings": {
+        "title": "Otras reservas en curso",
+        "message": "Otras personas están reservando actualmente, la lista de espera no está disponible en este momento. Por favor, inténtelo de nuevo en unos minutos para ver si hay alguna plaza disponible."
+      },
+      "isWaitingListFull": {
+        "title": "Lista de espera completa",
+        "message": "Esta sesión y la lista de espera están completas.\nVuelva a intentarlo más tarde."
+      },
+      "isAlreadyOnWaitingList": {
+        "title": "Ya está en lista de espera",
+        "message": "Si está en lista de espera, le informaremos por correo electrónico en cuanto haya una plaza disponible."
+      },
+      "isAlreadyRegistered": {
+        "title": "Sesión ya reservada",
+        "message": "Ya se ha inscrito en esta sesión."
+      },
+      "isTooSoon": {
+        "title": "Disponible próximamente",
+        "message": "La inscripción está actualmente cerrada y se abrirá el {{-date}}."
+      },
+      "noPassAvailable": {
+        "title": "No hay ningún bono disponible",
+        "message": "No hay bonos disponibles para apuntarse a la lista de espera."
+      },
+      "isBookingLimitReached": {
+        "message": "Ya ha alcanzado su límite de reservas. Podrás volver a reservar cuando una sesión haya pasado o se haya cancelado.",
+        "title": "No se puede reservar"
+      }
+    },
+    "waitingListWarning": "Antes de inscribirse en la lista de espera, asegúrese de haber adquirido el bono, pack o suscripción correspondiente. Es obligatorio estar en posesión de un bono, pack o suscripción activo para tener garantizada una plaza en la lista de espera.",
+    "backToCalendar": "Volver al calendario",
+    "subscriptions": "Subscripciones",
+    "combos": "Packs",
+    "passes": "Bonos",
+    "otherPasses": "Otros bonos",
+    "spotSelectorTitle": "Elige tu sitio",
+    "seeAllProducts": "Ver todos los productos",
+    "recommended": "Recomendados",
+    "reviewAndConfirm": "Revisar y confirmar",
+    "guestSpotSelectorTitle": "Seleccione un sitio para su invitado",
+    "removeFromBasket": {
+      "message": "Si elimina el pase de la cesta, también se eliminarán las reservas relacionadas",
+      "title": "Eliminar",
+      "buttons": {
+        "confirm": "Eliminar",
+        "cancel": "Cancelar"
+      }
+    },
+    "multipleSpotSelectionSpotSelectorTitle": "Seleccionar sitio ({{currentSpot}}/{{totalSpot}})"
+  },
+  "refundDialog": {
+    "contentUnlimitedPaymentPack": "Esta reserva se realizó con un pase ilimitado y se canceló fuera de plazo. Las cancelaciones tardías excesivas pueden conllevar penalizaciones. Haga clic en «Reiniciar» para eliminar la cancelación tardía de los registros de pases. Tenga en cuenta que si ya se ha aplicado una penalización, no se puede eliminar.",
+    "titleUnlimitedPaymentPack": "Reiniciar el recuento de cancelaciones tardías",
+    "content": "Esta reserva se canceló demasiado tarde para ser reembolsada automáticamente. Haga clic en «Reembolsar» para procesar un reembolso de crédito único para esta reserva.",
+    "title": "Reembolso por cancelación tardía"
+  },
+  "refund": "Reembolso",
+  "oneClickBooking": {
+    "seeMoreWithLogin": "Inicie sesión para explorar los packs y las suscripciones.",
+    "yourBooking": "Su reserva",
+    "goToLogin": "Iniciar sesión",
+    "alreadyMember": "¿Ya tiene una cuenta?",
+    "checkoutTitle": "Pago",
+    "bookButtonLabel": "Reserve ahora",
+    "bookableStatus": {
+      "error": "Uy, parece que esta reserva no está disponible",
+      "closeTooLate": {
+        "description": "Esta sesión ya ha comenzado o finalizado, por lo que ya no es posible reservar. <br> Consulte el calendario para conocer las próximas sesiones.",
+        "title": "¡Uy! Demasiado tarde para reservar"
+      },
+      "closeTooSoon": {
+        "description": "Esta sesión aún no se puede reservar. <br> Consulte el calendario para ver cuándo se abren las reservas o explorar otras sesiones disponibles.",
+        "title": "¡Uy! Demasiado pronto para reservar"
+      },
+      "locked": {
+        "description": "Esta sesión ha sido cancelada y ya no está disponible para reservas. <br> Consulte el calendario para ver otras sesiones disponibles.",
+        "title": "Sesión cancelada"
+      },
+      "full": {
+        "description": "Esta sesión se acaba de llenar y no hemos podido completar su reserva. <br> Consulte el calendario para encontrar otra sesión disponible.",
+        "title": "Sesión completa"
+      },
+      "unhandled": {
+        "description": "Nos hemos encontrado con un error inesperado. No parece posible reservar esta sesión por ahora.",
+        "title": "Ha ocurrido un error inesperado"
+      }
+    },
+    "goToCalendar": "Ir al calendario",
+    "yourDetails": "Tus datos"
+  },
+  "lightSignup": {
+    "form": {
+      "errors": {
+        "global": "Se ha producido un error al inscribirse",
+        "phone": "Introduzca un número de teléfono válido",
+        "email": "Introduzca una dirección de email válida",
+        "requiredField": "Este campo es obligatorio",
+        "phoneTaken": "Este número de teléfono ya está siendo utilizado por otro miembro",
+        "emailTaken": "El correo electrónico ya existe, puede intentar iniciar sesión con este correo electrónico",
+        "passwordConfirmation": "Las contraseñas deben coincidir",
+        "passwordMinimumRequirements": "Tu contraseña debe tener 6 caracteres como mínimo y no puede llevar espacios"
+      },
+      "button": {
+        "label": "Inscríbete"
+      },
+      "phone": {
+        "placeholder": "+34612345678",
+        "label": "Teléfono"
+      },
+      "email": {
+        "label": "Email"
+      },
+      "lastName": {
+        "label": "Apellido"
+      },
+      "firstName": {
+        "label": "Nombre"
+      },
+      "acceptTermsAndCondition": {
+        "label": "Acepto las condiciones generales de uso"
+      },
+      "acceptSms": {
+        "label": "Acepto recibir SMS promocionales, incluidas ofertas especiales y descuentos"
+      },
+      "acceptEmail": {
+        "label": "Acepto recibir correos electrónicos promocionales, incluyendo ofertas especiales y descuentos"
+      },
+      "password": {
+        "label": "Crear contraseña"
+      }
+    }
+  }
+}

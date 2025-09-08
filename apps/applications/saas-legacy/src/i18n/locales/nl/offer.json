@@ -1,0 +1,404 @@
+{
+  "video": {
+    "cantOpenLink": "De link voor deze online lijkt onjuist. Neem contact op met de studio: {{contact_email}}",
+    "redirectLink": "Als u niet automatisch wordt doorgestuurd, gebruikt dan deze link:",
+    "startingSoon": "Je online les begint over {{minutesLeft}} minuten.",
+    "isAutoRefresh": "Je wordt automatisch 15 min. voor het begin van de online les automatisch naar de livestream doorverwezen.",
+    "loadingSoon": "Bezig met laden...",
+    "activateVideo": "Verbind",
+    "hasEnded": "Deze online les is afgelopen.",
+    "livestream": "Livestream",
+    "description": "Start uw online sessie"
+  },
+  "disabled": "Geannuleerd",
+  "credit_price": " Credit(s)",
+  "booking": {
+    "confirmed": "Reserveringen",
+    "fillRate": "Bezettingsgraad",
+    "waiting": "Wachtlijst",
+    "comesFromMigration": "Deze reservering is afkomstig van een gegevensoverdracht"
+  },
+  "extraordinaryEstablishment": "(tijdelijke plaats)",
+  "calendar": {
+    "modifyOffer": "Bewerken",
+    "deleteOffer": "Annuleren",
+    "filter": "Filter",
+    "today": "Vandaag",
+    "alertSpivi": {
+      "textBooking": "Eén of meerdere reserveringen voldoen niet aan de Spivi-voorwaarden.",
+      "title": "Verbindingsproblemen met Spivi",
+      "textOffer": "De sessie voldoet niet aan de voorwaarden van Spivi. De informatie kon daarom niet gesynchroniseerd worden."
+    }
+  },
+  "forms": {
+    "old_date": "Origineel:",
+    "new_date": "Wijziging:",
+    "delete": {
+      "buttonHardDelete": "Verwijderen"
+    }
+  },
+  "card": {
+    "copyLink": "De directe link naar de reserveerpagina kopiëren",
+    "copied": "Link gekopieerd"
+  },
+  "offerManagement": {
+    "bookingOrder": {
+      "date": "Sorteer op: datum",
+      "lastname": "Sorteer op: achternaam",
+      "firstname": "Sorteer op: voornaam"
+    },
+    "unevenQuickInvoices": "Er bevinden zich openstaande facturen zonder betaalmethode op deze pagina. Weet je zeker dat je deze pagina wilt sluiten?"
+  },
+  "substitute": "Plaatsvervanger",
+  "manageOffer": "Reserveringen beheren",
+  "massDisabler": {
+    "explainLoading": "Een moment geduld alstublieft",
+    "explain": "Selecteer de data waartussen de sessies geannuleerd moeten worden. Leden die hebben gereserveerd worden per e-mail op de hoogte gebracht en hun credits worden teruggestort.",
+    "explainWarning": "Waarschuwing: deze actie is definitief.",
+    "actions": {
+      "cancel": "Annuleren",
+      "submit": "Bevestigen",
+      "continue": "Bevestigen"
+    },
+    "title": "In bulk annuleren",
+    "secondWarningConfirm": "Weet je zeker dat je verder wilt gaan?",
+    "secondWarning": "Klik op \"BEVESTIGEN\" om de sessies in de geselecteerde periode te annuleren. Deze actie is definitief.",
+    "warning": "Deze actie is definitief.",
+    "info": "Selecteer de data waartussen de sessies geannuleerd moeten worden.",
+    "endDateLabel": "Einddatum",
+    "startDateLabel": "Startdatum",
+    "sure": "Weet je zeker dat je deze actie wilt uitvoeren?",
+    "confirmInfo": "Deze actie annuleert alle sessies ({{number_of_deleted_offer}}) van {{start_date}} tot en met {{end_date}}.",
+    "confirmInfo_plural": "Deze actie annuleert alle sessies ({{number_of_deleted_offer}}) van {{start_date}} tot en met {{end_date}}.",
+    "confirm": "Bevestigen",
+    "successInfo": "Er is rekening gehouden met de schrapping van alle sessies tussen {{start_date}} en {{end_date}}.",
+    "iConfirm": "IK BEVESTIG",
+    "confirmationExplain": "Gelieve \"IK BEVESTIG\" in hoofdletters schrijven om deze actie te bevestigen.",
+    "success": "Annulering bevestigd",
+    "warningOfferGroup": "Het is niet mogelijk deze sessies te annuleren, omdat ze een onderdeel vormen van een evenement. Verwijder, indien nodig, het gekoppelde evenement.",
+    "warningOfferGroupTitle": "Geldige sessies",
+    "offers": "Onopzegbare sessies",
+    "activityOnly": "Je kunt geen workshops in bulk annuleren, omdat je account niet de juiste bevoegdheden heeft. Groepsactiviteiten worden wel geannuleerd.",
+    "workshopOnly": "Je kunt geen groepsactiviteiten in bulk annuleren, omdat je account niet de juiste bevoegdheden heeft. Workshops worden wel geannuleerd."
+  },
+  "bookingListEmpty": "Er zijn nog geen reserveringen geregistreerd.",
+  "bookingList": "Reserveringen",
+  "menu": {
+    "download": "Exporteren",
+    "massDisable": "In bulk annuleren",
+    "hideCancelled": "Verberg annuleringen",
+    "showCancelled": "Toon annuleringen",
+    "showWeek": "Weekoverzicht",
+    "showMonth": "Maandoverzicht"
+  },
+  "liveOfferEdit": {
+    "editSimilarOffers": "Selecteer de te wijzigen sessies",
+    "unselectAll": "Deselecteer alles",
+    "selectAll": "Selecteer alles",
+    "select": "Selecteer de te wijzigen sessies",
+    "noSimilarOffer": "Geen soortgelijke sessies gevonden. Alleen deze sessie zal worden gewijzigd.",
+    "selectCancel": "Selecteer de te annuleren sessies",
+    "cancelSimilarOffers": "Soortgelijke sessies annuleren",
+    "selectDelete": "Selecteer de te verwijderen sessies",
+    "deleteSimilarOffers": "Wil je soortgelijke sessies verwijderen?",
+    "selectEdit": "Selecteer de te wijzigen sessies",
+    "deleteSimilarOffersGroups": "Evenement annuleren",
+    "cancelSimilarOffersGroup": "Overige sessies van dit evenement annuleren",
+    "editSimilarOffersGroup": "Wijzig ook de toekomstige sessies van dit evenement",
+    "editSubteacher": {
+      "propagateToSimilarOffers": {
+        "mode": {
+          "all": "Verspreid de veranderingen met betrekking tot de vervangende leraar over deze sessies",
+          "offersWithSameCoachOverrideOnly": "Houd de huidige vervanger op deze sessies"
+        },
+        "warning": "De volgende vergelijkbare sessies hebben al een andere plaatsvervanger. Wat wil je doen?",
+        "checkboxInfo": "Als u dit vakje aanvinkt, worden de wijzigingen die voor de vervangende instructeur van deze sessie zijn toegepast, toegepast op alle vergelijkbare sessies. Anders worden ze alleen op deze sessie toegepast.",
+        "checkboxLabel": "De wijzigingen van de vervangende instructeur toepassen op geselecteerde sessies"
+      },
+      "title": "Verandering van vervangende instructeur"
+    }
+  },
+  "close": "Sluiten",
+  "deleteImpossibleText": "Je kunt deze sessie niet verwijderen, omdat er reserveringen in staan.",
+  "deleteImpossibleTitle": "Deze sessie kan niet worden verwijderd",
+  "restoreOffer": "Herstellen",
+  "maximumNumberDescription": "Het maximum aantal reserveringen ({{effectif}}) is reeds bereikt. Weet je zeker dat je dit lid wilt inboeken? Deze actie overschrijdt het vooraf ingestelde maximum aantal reserveringen.",
+  "maximumNumber": "Maximum aantal reserveringen",
+  "warningOfferFull": "Het maximum aantal reserveringen is bereikt.",
+  "tagManagementInfo": "{{authorized}} goedgekeurde tag(s) en {{unauthorized}} afgekeurde tag(s)",
+  "levels": {
+    "edit": "Wijzigen",
+    "delete": "Verwijderen",
+    "customs": "Gepersonaliseerd",
+    "select": {
+      "placeholder": "Niveau",
+      "title": "Niveau",
+      "add": "Een niveau toevoegen"
+    },
+    "deleteModal": {
+      "content2": "Bestaande sessies die aan dit niveau gekoppeld zijn worden niet gewijzigd. Toekomstige sessies worden wel bewerkt.",
+      "content": "Weet je zeker dat je dit niveau wilt verwijderen?",
+      "title": "Verwijderen"
+    },
+    "modal": {
+      "submit": "Opslaan",
+      "cancel": "Annuleren",
+      "color": "Kleurcode",
+      "nameCaption": "Maximaal aantal tekens: {{count}} / {{max}}",
+      "name": "Naam",
+      "title": "Niveau wijzigen"
+    }
+  },
+  "recurrenceIndex": "Herhaling: {{ index }}",
+  "pendingReplacementRequest": "Een verzoek om vervanging staat open",
+  "rollCall": {
+    "drawer": {
+      "listMembers": "Lijst van geregistreerde leden",
+      "info": "Het valideren van de oproep start de countdown voor no-show sancties.",
+      "rollCall": "Bellen"
+    },
+    "chip": {
+      "notValidatedRollCall": "Onvoltooide aanwezigheidsregistratie",
+      "validatedRollCall": "Beroep gevalideerd op {{-date}} {{time}}"
+    },
+    "dialog": {
+      "savedRollCall": "De aanwezigheidsstatus is opgeslagen.",
+      "savedRollCall_plural": "De aanwezigheidsstatus is opgeslagen.",
+      "validatedRollCall": "Aanwezigheidsregistratie voltooid",
+      "validatedRollCall_plural": "Aanwezigheidsregistratie voltooid",
+      "confirmationRollCall": "Attentie: de sancties voor onbeperte leskaarten worden op afwezige leden toegepast. Weet je zeker dat je de aanwezigheidsregistratie wilt voltooien?",
+      "confirmationRollCall_plural": "Je staat op het punt de aanwezigheidsregistratie voor de gehele te voltooien. Attentie: de sancties voor onbeperte leskaarten worden op afwezige leden toegepast. Weet je zeker dat je de gehele aanwezigheidsregistratie wilt voltooien?",
+      "validationRollCall": "Aanwezigheidsregistratie"
+    },
+    "button": {
+      "validationRollCall": "Aanwezigheidsregistratie",
+      "validationRollCall_plural": "Aanwezigheidsregistratie",
+      "validationRollCallZero": "Aanwezigheidsregistratie"
+    },
+    "warningIcon": {
+      "stateChanged": "De status is gewijzigd maar niet gevalideerd",
+      "stateChangedTitle": "Status niet gevalideerd"
+    },
+    "warningText": {
+      "lastValidatedRollCall": "De meest recente aanwezigheidsregistratie was op {{- date }} om {{ time }}",
+      "noRollCallLeft": "Alle aanwezigheidsregistraties zijn voltooid",
+      "rollCallsLeftToValidate": "Bevestig {{ number }} aanwezigheid",
+      "rollCallsLeftToValidate_plural": "Bevestig {{ number }} aanwezigheden",
+      "validatedDate": "Gevalideerd op {{- date }} om {{ time }}",
+      "modifiedRollCall": "De oproep is gewijzigd, u moet hem opnieuw valideren",
+      "notValidatedRollCall": "Onbevestigde aanwezigheidsregistratie"
+    },
+    "filter": {
+      "notValidated": "Oproep niet geldig",
+      "validated": "Voltooide aanwezigheidsregistraties",
+      "placeholder": "Status van het gesprek"
+    }
+  },
+  "form": {
+    "warnings": {
+      "editOfferInitialCredits": "Oudere reserveringen houden geen rekening met wijzigingen in credits",
+      "effectif": "Wees voorzichtig, je voert geen prijs in. Ben je zeker van de waarde?"
+    },
+    "errors": {
+      "field": {
+        "dateIntervalEnd": "De einddatum kan niet voor de begindatum liggen",
+        "durationMinute": "De duur van een sessie moet groter zijn dan 0 minuten",
+        "broadcastLink": "Deze link is onjuist. Het moet beginnen met http:// of https:// en mag geen spaties bevatten.",
+        "partnerMaxBookingCount": "Het aantal zitplaatsen hier is groter dan het aantal zitplaatsen in de zitting",
+        "effectif": "De waarde is hoger dan het maximum aantal plaatsen",
+        "durationMinuteSpivi": "Een Spivi-sessie moet tussen 20 minuten en 4 uur zijn.",
+        "roomBlueprintSpivi": "Er moet een Spot Scheduling-layout voor de synchronisatie met Spivi geselecteerd worden",
+        "wellhubProductMissing": "Dit veld is verplicht, je moet een product selecteren."
+      },
+      "dateTooFar": "Onmogelijk om sessies te maken die in meer dan 3 jaar plaatsvinden",
+      "dateFormat": "Ongeldig datumformaat",
+      "minTwo": "De waarde moet groter zijn dan of gelijk aan 2",
+      "minZero": "De waarde moet groter zijn dan of gelijk aan 0",
+      "positiveNumber": "De waarde moet groter zijn dan 0",
+      "required": "In compleet veld"
+    },
+    "dialog": {
+      "createLevel": "Een niveau creëren",
+      "recurrencePreview": "Voorbeeld"
+    },
+    "section": {
+      "coachOverride": {
+        "info": "Vink dit vakje aan om de vervangende instructeur op alle soortgelijke sessie toe te passen. Als dit vakje niet is aangevinkt dan zijn de wijzigingen alleen op deze sessie van toepassing.",
+        "field": {
+          "isCoachOverridePropagate": "De wijzigingen van de vervangende leraar toepassen op de geselecteerde sessies"
+        },
+        "title": "Plaatsvervanger wijzigen"
+      },
+      "similarOffers": {
+        "info": "Gelieve rekening houden dat het wijzigen van sessies kan resulteren in het feit dat sommige leskaarten niet langer geldig of compatibel met elkaar zijn. We raden aan om te controleren of eventuele wijzigingen qua vestiging of instructeur geen onbedoelde gevolgen hebben.",
+        "unselectAll": "Alles deselecteren",
+        "selectAll": "Selecteer alle",
+        "title": "Selecteer de te wijzigen sessies"
+      },
+      "tags": {
+        "placeholder": "Laat leeg om alle leden toe te laten",
+        "field": {
+          "blacklistTags": "Niet toegestaan",
+          "whitelistTags": "Geautoriseerd"
+        },
+        "helperText": "Gebruik tags om de sessie alleen boekbaar te maken voor een gewenste groep leden. U selecteert tags om de sessie alleen boekbaar te maken voor leden met een van de geselecteerde tags. Of u kunt tags selecteren om de sessie alleen boekbaar te maken voor leden met een van de geselecteerde tags.",
+        "title": "Tags"
+      },
+      "settings": {
+        "field": {
+          "isModifyRecursively": "Wil je soortgelijke sessies wijzigen aan de aan hand van de nieuwe informatie?",
+          "isNotifyConsumers": "Wil je ingeboekte leden over deze wijzigingen informeren?",
+          "partnership": {
+            "partnerMaxBookingCount": "Maximale boekingen (alleen Wellhub & Urban Sports Club).",
+            "availableOnPartnership": "Op marketplaces (ClassPass, OneFit...)",
+            "title": "Marketplace integraties",
+            "uscIntegrationWorkshopWarning": "Workshops zijn niet compatibel met Urban Sports Club en worden daarom ook niet getoond.",
+            "uscIntegrationWarning": "Je integratie met Urban Sports Club is actief. Sessies die later plaatsvinden dan 2 dagen worden niet getoond.",
+            "wellhubProduct": {
+              "selectionMissing": "Dit veld is verplicht, je moet een product selecteren.",
+              "helperText": "Deze producten worden door jouw studio aangeboden op het Wellhub platform. Ga naar het onderdeel 'Partnerschap' in de Partner Portal van je Wellhub account voor meer informatie.",
+              "title": "Uw beschikbare producten op Wellhub:"
+            },
+            "subtitle": "Inclusief: ClassPass, Urban Sports Club, Gymlib en Wellhub voor externe boekingen.",
+            "enablePartneshipBookings": "Boekingen op de marktplaats mogelijk maken"
+          },
+          "allowGuestOffer": "De reservering voor een gast autoriseren",
+          "isManagerOnly": "Beschikbaar voor reservering (web+app)",
+          "syncOfferOnSpivi": "Doorsturen naar Spivi"
+        },
+        "title": "Instellingen"
+      },
+      "coach": {
+        "field": {
+          "coachPaymentRule": {
+            "placeholder": "Selecteer een regel",
+            "title": "Payroll-regel"
+          },
+          "coachOverride": {
+            "placeholder": "Selecteer een plaatsvervanger",
+            "title": "Vervanging"
+          },
+          "coach": {
+            "placeholder": "Selecteer een instructeur",
+            "title": "Instructeur"
+          }
+        },
+        "title": "Instructeur",
+        "additionalCoaches": {
+          "field": {
+            "placeHolder": "Selecteer extra instructeur(s)"
+          },
+          "title": "Extra instructeur(s)"
+        }
+      },
+      "dateTime": {
+        "field": {
+          "recurrence": {
+            "previewCount": "Er wordt {{count}} sessie aangemaakt.",
+            "previewCount_plural": "Er worden {{count}} sessies aangemaakt.",
+            "preview": "Voorbeeld",
+            "option": {
+              "monthly": "Maandelijks",
+              "weekly": "Wekelijks",
+              "daily": "Dagelijks"
+            },
+            "placeholder": "Selecteer een herhaling",
+            "title": "Herhaling"
+          },
+          "dateIntervalEnd": "Einddatum",
+          "dateIntervalStart": "Datum van de les",
+          "durationMinute": "Duur",
+          "dateIntervalStartTime": "Starttijd",
+          "wellhubDurationWarning": "Sessies die langer duren dan 200 minuten worden automatisch aangepast naar een maximale duur van 200 minuten wanneer ze worden ingediend bij Wellhub. Zorg ervoor dat de duur van uw sessie aan deze limiet voldoet om discrepanties te voorkomen."
+        },
+        "title": "Tijd en datum"
+      },
+      "credits": {
+        "field": {
+          "creditCount": "Credits"
+        },
+        "title": "Credits"
+      },
+      "specificities": {
+        "tooltip": {
+          "roomBlueprint": "Laat uw leerlingen de plek in de zaal reserveren die ze willen",
+          "credits": "Dit is het vereiste aantal credits voor een reservering.",
+          "broadcastLink": "De link wordt automatisch gegenereerd voor ZOOM door bsport"
+        },
+        "field": {
+          "roomBlueprint": {
+            "placeholder": "Selecteer een ontwerp",
+            "title": "Spot Scheduling"
+          },
+          "broadcastLink": "Link naar de livestream",
+          "establishment": "Vestiging",
+          "credits": "Credits",
+          "level": "Niveau",
+          "waitingListMaxSize": "Wachtlijst",
+          "effectif": "Beschikbare plaatsen",
+          "hybridHelper": "Schakel deze optie in voor sessies die tegelijkertijd in een van je vestigingen en online plaatsvinden. De online versie bevat standaard {{ onlineOfferDefaultEffectif }} plaats(en). De informatie voor de online sessie, zoals de link, het aantal deelnemers en de prijs kunnen kun je later wijzigen.",
+          "hybridEditHelper": "Momenteel bewerk je een online sessie die ook gekoppeld is aan een fysieke sessie. Het toepassen van wijzigingen moet via de fysieke sessie.",
+          "hybridSection": "Hybride sessie",
+          "hybridManagementHelper": "Klik op het onderstaande icoontje om de reserveringen die aan deze hybride sessies gekoppeld zijn te beheren.",
+          "hybridLabel": "Maak dit een Hybride Sessie dat zowel online als in de vestiging te volgen is",
+          "metaActivity": "Activiteit",
+          "decimalCredit": {
+            "helperText": "Deze sessie kost {{count}} credit.",
+            "helperText_plural": "Deze sessie kost {{count}} credits."
+          }
+        },
+        "title": "Kenmerken"
+      },
+      "nameDescriptionOverride": {
+        "description": {
+          "captionText": "Een gepersonaliseerde beschrijving aan deze sessie toevoegen",
+          "label": "Beschrijving"
+        },
+        "name": {
+          "captionText": "Een gepersonaliseerde naam voor deze sessie toevoegen",
+          "label": "Naam"
+        },
+        "showButton": "Gepersonaliseerde naam tonen",
+        "hideButton": "Gepersonaliseerde naam verbergen",
+        "setButton": "Gepersonaliseerde naam invoeren"
+      }
+    },
+    "groupedOffer": {
+      "warning": "Deze sessie is onderdeel van de de groep {{- name }}"
+    },
+    "stepper": {
+      "step": {
+        "SETTINGS": "Wijzigingen",
+        "INFOS": "Sessies"
+      }
+    },
+    "forbidden": "Het is niet mogelijk om sessies toe te voegen, omdat je account niet de juiste bevoegdheden heeft. Contacteer een manager om de juiste toegang te bemachtigen.",
+    "uscWarning": {
+      "alertContent": "Wijzigingen aan deze sessie annuleren de huidige boekingen op USC. Bevestigen om door te gaan.",
+      "content": "Je verliest alle huidige boekingsgegevens als je de datum, tijd of instelling van deze sessie wijzigt. Als u deze gegevens wijzigt, wordt er een nieuwe sessie aangemaakt en wordt de huidige sessie op USC geannuleerd.",
+      "title": "Let op: Hierdoor worden de huidige boekingen op USC geannuleerd."
+    }
+  },
+  "isFree": "Gratis",
+  "broadcast": "Videoconferenties",
+  "onSite": "In de studio",
+  "allCoaches": "{{count}} instructeurs",
+  "additionalCoaches": "{{count}} aanvullende instructeur",
+  "additionalCoaches_plural": "{{count}} aanvullende instructeurs",
+  "subTeacherRequestFilter": {
+    "false": "Geen subaanvraag",
+    "true": "Subaanvraag in behandeling",
+    "placeholder": "Subaanvraag"
+  },
+  "notePad": {
+    "title": "Notities",
+    "placeholder": "Laat een bericht achter over deze sessie…",
+    "loading": "Laden…",
+    "modal": {
+      "title": "Niet opgeslagen veranderingen",
+      "description": "Je hebt niet-opgeslagen notities op deze pagina. Wil je ze opslaan voordat je weggaat?"
+    }
+  },
+  "numberOfCredits": "{{count}} credit",
+  "numberOfCredits_plural": "{{count}} credits"
+}

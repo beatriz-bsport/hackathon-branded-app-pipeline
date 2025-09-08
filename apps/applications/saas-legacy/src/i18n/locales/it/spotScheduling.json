@@ -1,0 +1,171 @@
+{
+  "placeCount": "{{count}} posti",
+  "roomBlueprints": "Gestione dei posti",
+  "saveError": "Errore",
+  "errorLessSpotThanEffectif": "Impossibile salvare. La selezione dello spot deve contenere più spazio della dimensione della capacità della sessione",
+  "saved": "Salvato",
+  "effectifError": "Il numero di posti deve essere uguale o superiore al numero di studenti della sessione",
+  "searchHelper": "(Facoltativo) I membri possono utilizzare la configurazione di gestione dei posti per prenotare quello che preferiscono",
+  "search": "Cercare una configurazione per la gestione dei posti",
+  "roomBlueprintSelectorTitle": "Scegliere una configurazione",
+  "spotSelectorDialog": {
+    "takeSpotError": "Il posto che hai selezionato per questo corso non è più disponibile. Si prega di selezionarne uno nuovo.",
+    "submit": "Conferma",
+    "cancel": "Cancella",
+    "spot": "Posto {{count}}",
+    "title": "Scegliere un posto",
+    "book": "Iscriviti: {{prefix}}{{indexType}}{{suffix}}",
+    "legend": "Legenda"
+  },
+  "toolbar": {
+    "loadExistingBlueprint": "Cambiare una mappa esistente",
+    "exit": "Uscire",
+    "titleLabel": "Nome della mappa",
+    "save": "Salva",
+    "spiviHelperText": "Vedi la corrispondenza con i posti Spivi",
+    "spivi": "Spivi"
+  },
+  "spotImageDialog": {
+    "actions": {
+      "submit": "Conferma",
+      "cancel": "Cancella"
+    },
+    "imageFormat": "Formato consigliato: .png, .jpg",
+    "taken": "Riservato",
+    "free": "Disponibile",
+    "imageUploadButton": "Cambiare un immagine",
+    "takenImageLabel": "Posto riservato",
+    "freeImageLabel": "Posto disponibile",
+    "helper": "È possibile personalizzare la forma dei posti importando le proprie immagini. Per questo abbiamo bisogno di 2 icone diverse. Uno per indicare che il posto è disponibile, un altro quando è riservato. Assicurati che siano della stessa dimensione e per favore non includere alcun numero sulle tue icone.",
+    "title": "Personalizza i tuoi posti"
+  },
+  "toolsMenu": {
+    "showGrid": "Visualizzare la griglia",
+    "customIconButton": "Scaricare le mie icone",
+    "customIconLabel": "Icone dei posti",
+    "customFill": "Colore di riempimento",
+    "customStroke": "Colore delle linee",
+    "hand": "Mano",
+    "pointer": "Cursore",
+    "door": "Porta",
+    "screen": "Schermo",
+    "teacher": "Insegnante",
+    "spot": "Posto",
+    "rect": "Rettangolo",
+    "line": "Linea",
+    "rotation": "Rotazione",
+    "redo": "Prossimo",
+    "undo": "Precedente",
+    "eraser": "Gomma",
+    "sections": {
+      "custom": "Personalizzazione",
+      "elements": "Elementi",
+      "place": "Posizione",
+      "walls": "Muri",
+      "edition": "Edizione",
+      "spivi": "Integrazione Spivi",
+      "assets": "Attività",
+      "editionAdvanced": "Modifica avanzata",
+      "editionHistory": "Cronologia modifiche",
+      "marketplaces": "Marketplace"
+    },
+    "title": "Cassetta degli attrezzi",
+    "helperText": "La dimensione del docente deve essere strettamente positiva",
+    "addSpotType": "Aggiungi un tipo di spot",
+    "requiredForSpivi": "Necessario per l'integrazione Spivi",
+    "boxId": "Box ID",
+    "resize": "Scala",
+    "openAssetModal": "Gestione delle attività",
+    "copier": "Duplicare",
+    "cssEditor": "CSS",
+    "advancedTool": "HTML",
+    "bsportPreferentialSpots": "Posto per i membri"
+  },
+  "spotCreatorForm": {
+    "alertDefaultSpot": "Modificando lo spot di default, tutti gli altri presenti su tutte le planimetrie verranno poi modificati in modo identico",
+    "subtitle": "Creazione di un tipo di spot",
+    "name": "Nome",
+    "triangle": "Triangolo",
+    "square": "Quadrato",
+    "generalInfo": "Informazioni generali",
+    "title": "Gestione dei posti",
+    "nameExplain": "Nome del tipo di spot",
+    "prefix": "Prefisso",
+    "prefixExplain": "Il carattere qui indicato apparirà come prefisso ai numeri spot",
+    "prefixError": "Il prefisso deve essere di una sola lettera",
+    "customization": "Personalizzazione",
+    "predefined": "Forme predefinite",
+    "personalized": "Immagini personalizzate",
+    "circular": "Cerchio",
+    "rectangle": "Rettangolo",
+    "preview": "Previsualizzazione",
+    "freePersonalized": "{{- name }} disponibile",
+    "taken": "Spot prenotato",
+    "selected": "Spot selezionato",
+    "selectedPersonalized": "{{- name }} selezionato",
+    "missImageFree": "Non hai caricato l'immagine per lo spot libero",
+    "missImageTaken": "Non hai caricato l'immagine per lo spot prenotato",
+    "missImageSelected": "Non hai caricato l'immagine per lo spot selezionato",
+    "saved": "Spot salvato",
+    "deleted": "Spot eliminato",
+    "personalizedExplain": "Puoi personalizzare la forma degli slot importando le tue immagini. Per fare questo abbiamo bisogno di 3 icone diverse. Una per indicare che la posizione è disponibile e un'altra quando lo spot è prenotato. Assicurati che abbiano le stesse dimensioni e, per favore, non includere numeri sulle tue icone.",
+    "free": "Spot disponibile",
+    "takenPersonalized": "{{- name }} prenotato",
+    "suffix": "Suffisso",
+    "suffixExplain": "Il carattere qui indicato apparirà come suffisso ai numeri dei posti",
+    "suffixError": "Il suffisso deve essere una singola lettera",
+    "nameCustomization": {
+      "suffix": "Numero del posto con un suffisso",
+      "prefix": "Numero del posto con un prefisso",
+      "none": "Solo il numero del posto",
+      "title": "Formato del nome del posto"
+    }
+  },
+  "forms": {
+    "delete": {
+      "title": "Elimina",
+      "content": {
+        "canDelete": "Sei sicuro di voler eliminare questo posto? Questa azione è irreversibile. Verrà rimosso e sostituito con il posto predefinito su questo piano e su tutti gli altri a cui è stato aggiunto."
+      },
+      "actions": {
+        "cancel": "Annulla",
+        "confirm": "Conferma"
+      }
+    }
+  },
+  "errorAvailableOffersScheduled": "Impossibil salvare. Questo layout non può essere modificato perché viene utilizzato nelle sessioni future.",
+  "spiviDialog": {
+    "spiviIdentifiers": "ID Spivi",
+    "bsportIdentifiers": "ID bsport",
+    "spotCorrespondence": "Posti corrispondenti"
+  },
+  "spotSelector": {
+    "legend": "Leggenda",
+    "available": "Disponibile",
+    "availableSpot": "Posto disponibile",
+    "availablePersonalizedSpot": "{{- spotName }} disponibile",
+    "unavailable": "Non disponibile",
+    "unavailableSpot": "Posto non disponibile",
+    "unavailablePersonalizedSpot": "{{- spotName }} non disponibile",
+    "seeAll": "Vedi tutto",
+    "confirm": "Conferma",
+    "selectOtherSpot": {
+      "message": "Il posto precedentemente selezionato diventerà disponibile per gli altri.",
+      "title": "O seleziona un nuovo posto"
+    },
+    "goBackToCheckout": "Torna al checkout"
+  },
+  "cssForm": {
+    "helper": "In questa sezione è possibile aggiungere regole CSS per il layout. L'intera mappa è racchiusa in un svg con l'ID \"svg-canvas-display\". Per impostazione predefinita, viene generato automaticamente un foglio di stile per ogni elemento della tela (come punti, rettangoli e insegnanti). È possibile osservare gradualmente le modifiche facendo clic sul pulsante \"{{ buttonLabel }}\".",
+    "openPreview": "Anteprima"
+  },
+  "assetUpoadForm": {
+    "loadMore": "Leggi di più",
+    "submit": "Salva",
+    "description": "È possibile caricare e utilizzare le immagini direttamente da qui. Una volta caricate, le nuove immagini saranno disponibili per essere inserite nella mappa."
+  },
+  "bsportPreferentialGroupForm": {
+    "isPreferentialBsportSpotLabel": "Posti riservati ai membri in maniera prioritaria. Le prenotazioni sui marketplace (Classpass, OneFit, ecc.) avranno minore priorità.",
+    "submit": "Invia"
+  }
+}

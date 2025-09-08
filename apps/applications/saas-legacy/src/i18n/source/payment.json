@@ -1,0 +1,306 @@
+{
+  "explainOption": "You will be notified by email when a slot will be free",
+  "bookAnotherOption": "Rejoin waitlist",
+  "bookAnOption": "Join waitlist",
+  "availablePaymentPacks": "Compatible Passes: ",
+  "goBack": "Go back",
+  "hasOneOrMoreOption": "You've already joined this waitlist",
+  "method": {
+    "0": "Card",
+    "1": "Cash",
+    "2": "Check",
+    "3": "Pass",
+    "4": "Card (manual)",
+    "5": "Holiday check",
+    "6": "AMEX",
+    "7": "Transfer",
+    "8": "Eventbrite",
+    "9": "Internal account",
+    "10": "Direct debit",
+    "11": "Other",
+    "12": "Chargeback",
+    "13": "SEPA",
+    "20": "Bancontact",
+    "30": "Sofort",
+    "40": "iDEAL",
+    "50": "EPS",
+    "60": "Giropay",
+    "70": "Bacs Direct Debit",
+    "80": "PayPal",
+    "90": "TWINT",
+    "100": "Apple Pay",
+    "110": "Google Pay",
+    "CB": "Card",
+    "CREDIT_ACCOUNT": "Internal account",
+    "GIROPAY": "Giropay",
+    "EPS": "EPS",
+    "IDEAL": "iDEAL",
+    "SOFORT": "Sofort",
+    "BANCONTACT": "Bancontact",
+    "SEPA": "SEPA",
+    "CHECK": "Check",
+    "CASH": "Cash",
+    "BACS_DEBIT": "Bacs Direct Debit",
+    "TWINT": "TWINT",
+    "APPLE_PAY": "Apple Pay",
+    "GOOGLE_PAY": "Google Pay"
+  },
+  "forms": {
+    "cancelPayment": "Previous",
+    "credit": {
+      "explain": "The studio will be informed of your debit and the payment will be completed in the studio, too.",
+      "pay": "Confirm"
+    },
+    "paymentIntent": {
+      "pay": "Pay"
+    },
+    "paymentMethod": {
+      "9": "Pay on-site",
+      "actions": {
+        "addPaymentMethod": "Add a payment method",
+        "addPaymentMethodDenied": "This member does not currently have any saved payment methods of this kind, and you do not have permission to add a new one.",
+        "retry": "Try again",
+        "collect": "Save",
+        "close": "Close",
+        "displayPaymentMethod": "Display my payment methods",
+        "selectPaymentMethod": "Select your payment method",
+        "cancel": "Cancel"
+      },
+      "collect": {
+        "content": "This payment method will be saved in your account to be invoiced in accordance with the contract.",
+        "title": "Add a payment method",
+        "contentAdd": "This payment method will be saved in your account."
+      },
+      "message": {
+        "error": "Unable to save this payment method",
+        "success": "Payment method successfully saved!"
+      },
+      "mandateRevalidated": {
+        "retry": "Try again",
+        "error": "Unable to renew the direct debit mandate, please contact your bank.",
+        "success": "The mandate has been renewed and the next direct debit will be taken successfully.",
+        "content": "The direct debit mandate will be revalidated with the bank.",
+        "collect": "Agree"
+      }
+    },
+    "savePaymentMethod": {
+      "select": "Select a payment method",
+      "label": "Save this payment method",
+      "add": "Payment details"
+    }
+  },
+  "generalTermsAndConditions": {
+    "iAccept": "I accept the ",
+    "theTermsAndConditions": "General Terms & Conditions.",
+    "close": "Close",
+    "generalTermsOfUse": " General Terms of Use.",
+    "waiver": "Liability Waiver."
+  },
+  "paymentComboSectionTitle": "Pack",
+  "paymentMethod": {
+    "0": "Card",
+    "1": "Cash",
+    "2": "Check",
+    "3": "Pass",
+    "4": "Card (manual - card machine)",
+    "5": "Holidays check",
+    "6": "AMEX",
+    "7": "Bank transfer",
+    "8": "EventBrite",
+    "9": "Internal account (credit)",
+    "10": "Automatic payment",
+    "11": "Other",
+    "12": "Litigation",
+    "13": "SEPA",
+    "20": "Bancontact",
+    "30": "Sofort",
+    "40": "iDEAL",
+    "50": "EPS",
+    "60": "Giropay",
+    "70": "Bacs Direct Debit",
+    "80": "PayPal",
+    "90": "TWINT",
+    "100": "Apple Pay",
+    "110": "Google Pay",
+    "label": "Payment method",
+    "disputeWon": "Won",
+    "onlinePayments": "Online payments"
+  },
+  "actions": {
+    "addThisPaymentItem": "Add this payment method"
+  },
+  "creditAccountBalance": {
+    "current": "Current account"
+  },
+  "paymentNote": {
+    "helperText": "(Optional) Payment reference",
+    "label": "Note"
+  },
+  "bankAccount": {
+    "form": {
+      "actions": {
+        "submit": "Confirm",
+        "cancel": "Cancel"
+      },
+      "accountNumber": {
+        "placeholder": "GB89370400440532013000",
+        "label": "Account number",
+        "eurSpecific": " (IBAN)"
+      },
+      "invalid": "IBAN invalid. Please note: the IBAN must correspond to a bank account domiciled in the same country as your company",
+      "accountHolderName": {
+        "placeholder": "Tom Smith",
+        "label": "Bank account owner"
+      },
+      "content": "This bank account will be used to transfer the amounts paid online to you via bsport.",
+      "title": "Bank account",
+      "unknownCountry": "Manual operation for this country, please contact bsport via contact@bsport.io",
+      "routingNumber": {
+        "placeholder": "000001",
+        "label": "Routing Number",
+        "usdSpecific": " (ACH Routing Number)"
+      },
+      "clearingCode": {
+        "label": "Clearing Code"
+      },
+      "branchCode": {
+        "label": "Branch Code"
+      },
+      "transitNumber": {
+        "label": "Transit Number",
+        "placeholder": "Transit Number"
+      },
+      "institutionNumber": {
+        "label": "Institution Number",
+        "placeholder": "Institution Number"
+      },
+      "bankCode": {
+        "label": "Bank Code"
+      },
+      "sortCode": {
+        "label": "Sort code",
+        "placeholder": "123456"
+      }
+    }
+  },
+  "payment": {
+    "return": "Refund"
+  },
+  "returnedAmount": "Reimbursed: ",
+  "payout": {
+    "isEmptyWarning": "Attention: payouts before March 15th 2021 might not be listed.",
+    "isEmpty": "There are no payouts to display.",
+    "invoice": "Invoice {{ uuid }}",
+    "seeMore": "See more",
+    "paymentNb": "{{nb}} payments",
+    "status": {
+      "0": "Pending",
+      "1": "Being processed",
+      "2": "Successful",
+      "3": "Failed",
+      "4": "Canceled"
+    },
+    "title": "My payouts",
+    "payoutAmountFromIncludedPayouts": "of which {{price}} is from previous payouts",
+    "payoutIsIncludedInOther": "This transfer was included in the transfer of {{date}} with the identifier {{readable_identifier}}",
+    "payoutIsManual": "This Payout transfer has been triggered manually by the bsport team to accelerate the transfer of your funds. In this case the detail of the linked payments is not available. Please get in touch with our team for more information.",
+    "dialog": {
+      "title": "Payment Syncing Notification",
+      "content": "There has been a syncing issue between Stripe and bsport. We are unable to display the details of this payout at the moment. However, rest assured that it will be processed and transferred to your bank account as per the usual procedure. To obtain more information about the amount sent, you can refer to the payment report covering the period between the date of this payout and the previous one."
+    }
+  },
+  "instalment": {
+    "form": {
+      "recurrence_basis": {
+        "intervalName": {
+          "week": "week",
+          "week_plural": "weeks",
+          "day": "day",
+          "day_plural": "days",
+          "month": "month",
+          "month_plural": "months",
+          "year": "year",
+          "year_plural": "years"
+        },
+        "label": "Repeat every",
+        "helperText": " "
+      },
+      "recurrence": {
+        "explain": "Every {{ recurrence_basis }} {{ interval }}, a payment will be processed for a total of {{ total_interval_duration }} {{ interval }} billings. The member will be billed {{ nb_interval }} times in total.",
+        "section": "Recurrence"
+      },
+      "interval": {
+        "helperText": "Frequency of generated invoices / passes",
+        "label": "Interval"
+      },
+      "nb_interval": {
+        "label": "Number of invoices"
+      },
+      "actions": {
+        "close": "Close",
+        "previous": "Previous",
+        "next": "Next",
+        "submit": "Confirm"
+      },
+      "title": {
+        "payment": "Payment method",
+        "scheduler": "Timeline"
+      },
+      "anchor_date": {
+        "helperText": "The payment will processed in the morning.",
+        "label": "First instalment"
+      }
+    }
+  },
+  "interval": {
+    "week": "week",
+    "week_plural": "weeks",
+    "day": "day",
+    "day_plural": "days",
+    "year": "year",
+    "year_plural": "years",
+    "month": "month",
+    "month_plural": "months"
+  },
+  "subscriptionPaymentDialog": {
+    "error": {
+      "button_text": "Retry",
+      "text_status": "Your purchase couldn't be completed!",
+      "text_content": "Your purchase could not be completed, you can try again or return to your member account.",
+      "userSpace": "My account",
+      "title": "Error during payment"
+    },
+    "success": {
+      "button_text": "Continue",
+      "text_status": "Your purchase was successful!",
+      "text_content": "Your purchase has been taken into account, you can now find the details of your subscription on your member area.",
+      "text_content_funnel": "Your purchase has been processed, click on 'next' to finalise your booking. The pass linked to your subscription has been added to the \"My passes\" section, select it to make your booking.",
+      "title": "Congratulations! Your payment has been processed successfully.",
+      "contract": "My membership (contract)",
+      "recap": "Summary"
+    },
+    "title": "Purchase a subscription"
+  },
+  "disputeStatus": {
+    "1": "Dispute processing",
+    "2": "Dispute won",
+    "3": "Dispute lost"
+  },
+  "stripeBalance": {
+    "pendingBalance": "Balance in process",
+    "availableBalance": "Available balance",
+    "nullPendingBalanceText": "None",
+    "dialog": {
+      "close": "Close",
+      "alert": "Note that when you make a direct refund, this money is taken directly from your Stripe account. This can cause it to go into the negative.",
+      "secondPart": "Your \"available balance\" is therefore the amount of online payments that has not yet been paid to you.",
+      "thirdPart": "Your \"balance in process\" is the amount that will arrive on your available balance.",
+      "firstPart": "At bsport we use the Stripe service to manage all your online payments. The amounts of these are kept on Stripe and then transferred to your account (section \"My collections\")."
+    },
+    "title": "Stripe balance"
+  },
+  "setupPaymentError": "An error occurred",
+  "order": {
+    "success": "Your payment has been successfully registered"
+  }
+}

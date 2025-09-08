@@ -1,0 +1,404 @@
+{
+  "manageOffer": "Buchungen verwalten",
+  "offerManagement": {
+    "bookingOrder": {
+      "firstname": "Nach Vornamen sortieren",
+      "lastname": "Nach Nachnamen sortieren",
+      "date": "Nach Datum sortieren"
+    },
+    "unevenQuickInvoices": "Auf dieser Seite befinden sich offene Rechnungen ohne jegliche Zahlungsmethode. Sind Sie sich sicher, dass Sie den Vorgang abbrechen möchten?"
+  },
+  "card": {
+    "copied": "Link kopiert",
+    "copyLink": "Kopiere den Link zur Buchungsseite"
+  },
+  "video": {
+    "redirectLink": "Wenn Sie nicht automatisch weitergeleitet werden, benutzen Sie diesen Link:",
+    "cantOpenLink": "Der Link zur Konferenz scheint falsch zu sein, bitte kontaktieren Sie Ihr Studio {{ contact_email }}",
+    "startingSoon": "Ihr Kurs beginnt in {{ minutesLeft }} Minuten",
+    "hasEnded": "Dieser Kurs ist beendet",
+    "isAutoRefresh": "Sie werden 10 Minuten vor Beginn des Kurses automatisch zur Videokonferenz weitergeleitet",
+    "loadingSoon": "Es lädt...",
+    "activateVideo": "Verbinden",
+    "livestream": "Live-Stream",
+    "description": "Starten Sie Ihren Online-Kurs"
+  },
+  "forms": {
+    "old_date": "Alte Zeit :",
+    "new_date": "Neue Zeit :",
+    "delete": {
+      "buttonHardDelete": "Löschen"
+    }
+  },
+  "substitute": "Vertretung",
+  "credit_price": " Credit(s)",
+  "calendar": {
+    "modifyOffer": "Ändern",
+    "deleteOffer": "Löschen",
+    "filter": "Filter",
+    "today": "Heute",
+    "alertSpivi": {
+      "textBooking": "Eine oder mehrere Buchungen erfüllen nicht die Bedingungen von Spivi.",
+      "textOffer": "Der Kurs erfüllte nicht die Spivi-Bedingungen, daher konnte er nicht synchronisiert werden.",
+      "title": "Probleme bei der Verbindung mit Spivi"
+    }
+  },
+  "disabled": "Storniert",
+  "extraordinaryEstablishment": "(provisorische Einrichtung)",
+  "booking": {
+    "fillRate": "Auslastung",
+    "confirmed": "Buchungen",
+    "waiting": "Warteliste",
+    "comesFromMigration": "Dieser Kurs stammt aus einer Migration"
+  },
+  "massDisabler": {
+    "actions": {
+      "submit": "Bestätigen",
+      "cancel": "Abbrechen",
+      "continue": "Weiter"
+    },
+    "explainLoading": "Bitte warten",
+    "explainWarning": "VORSICHT: Dieser Vorgang ist nicht umkehrbar.",
+    "explain": "Wählen Sie das Datumsintervall, über das Sie Ihre Kurse stornieren möchten. Mitglieder, die gebucht haben, werden per E-Mail benachrichtigt und ihre Credits werden automatisch auf den entsprechenden Kurspass erstattet.",
+    "title": "Kollektive Stornierung",
+    "secondWarningConfirm": "Sind Sie sicher, dass Sie fortfahren wollen?",
+    "secondWarning": "Wenn Sie auf \"BESTÄTIGEN\" klicken, werden die im ausgewählten Intervall enthaltenen Kurse storniert und Sie können sie nicht mehr wiederherstellen.",
+    "warning": "Diese Aktion kann nicht rückgängig gemacht werden.",
+    "info": "Wählen Sie die Daten aus, an denen Sie die Kurse absagen möchten.",
+    "endDateLabel": "Enddatum",
+    "startDateLabel": "Startdatum",
+    "sure": "Sind Sie sicher, dass Sie diese Aktion bestätigen möchten?",
+    "confirmInfo": "Sie sind dabei, alle Kurse zwischen dem {{start_date}} und dem {{end_date}} zu stornieren. Das bedeutet, dass {{number_of_deleted_offer}} Kurs abgesagt wird.",
+    "confirmInfo_plural": "Sie sind dabei, alle Kurse zwischen dem {{start_date}} und dem {{end_date}} zu stornieren. Das bedeutet, dass {{number_of_deleted_offer}} Kurse abgesagt werden.",
+    "confirm": "Speichern",
+    "successInfo": "Die Löschung aller Kurse zwischen {{start_date}} und {{end_date}} wurde berücksichtigt.",
+    "iConfirm": "ICH BESTÄTIGE",
+    "confirmationExplain": "Bitte schreiben Sie unten in Großbuchstaben \"ICH BESTÄTIGE\".",
+    "success": "Absage bestätigt",
+    "warningOfferGroup": "Bitte beachten Sie, dass die folgenden Kurse nicht abgesagt werden können, da sie Teil eines Events sind. Um sie zu stornieren, stornieren Sie bitte das entsprechende Event.",
+    "offers": "Unkündbar Kurse",
+    "warningOfferGroupTitle": "Zulässige Kurse",
+    "activityOnly": "Da Sie nicht die Erlaubnis haben Workshop-Kurse zu stornieren, wird diese Aktion nur Gruppenaktivitäts-Kurse stornieren.",
+    "workshopOnly": "Da Sie nicht die Erlaubnis haben Gruppenaktivitäten zu stornieren, wird diese Aktion nur Workshop-Kurse stornieren."
+  },
+  "bookingListEmpty": "Keine Buchung",
+  "bookingList": "Buchungen",
+  "liveOfferEdit": {
+    "select": "Wählen Sie die Sessions aus, die geändert werden sollen",
+    "editSimilarOffers": "Wählen Sie die Kurse, die geändert werden sollen",
+    "unselectAll": "Alle abwählen",
+    "selectAll": "Alles auswählen",
+    "noSimilarOffer": "Keine ähnlichen Kurse gefunden. Nur dieser Kurs ist betroffen.",
+    "selectCancel": "Wähle die Kurse aus, die storniert werden sollen",
+    "cancelSimilarOffers": "Ähnliche Kurse stornieren",
+    "selectDelete": "Wählen Sie die Kurse aus, die gelöscht werden sollen",
+    "deleteSimilarOffers": "Möchten Sie ähnliche Kurse löschen?",
+    "selectEdit": "Wählen Sie die Kurse aus, die geändert werden sollen",
+    "editSimilarOffersGroup": "Bearbeiten Sie auch die zukünftigen Kurse dieser Veranstaltung",
+    "editSubteacher": {
+      "propagateToSimilarOffers": {
+        "checkboxInfo": "Wenn Sie dieses Kästchen ankreuzen, werden die Änderungen, die für den Vertretungslehrer dieser Lerneinheit gelten, auf alle ähnlichen Lerneinheiten angewandt. Andernfalls werden sie nur auf diesen Kurs angewandt.",
+        "warning": "Für die folgenden ähnlichen Kurse gibt es bereits einen anderen Vertretungslehrer. Was würden Sie gerne tun?",
+        "mode": {
+          "offersWithSameCoachOverrideOnly": "Behalten Sie die derzeitige Vertretung für diesen Kurs bei",
+          "all": "Verteilen Sie die Änderungen in Bezug auf die Vertretungslehrkraft auf diese Kurse"
+        },
+        "checkboxLabel": "Übertragen Sie die Änderungen an der Vertretungslehrkraft auf die ausgewählten Kurse"
+      },
+      "title": "Wechsel der Vertretungslehrkraft"
+    },
+    "deleteSimilarOffersGroups": "Möchten Sie zukünftige Wiederholungen der Gruppe löschen",
+    "cancelSimilarOffersGroup": "Alle Kurse im Rahmen dieses Workshops stornieren"
+  },
+  "deleteImpossibleText": "Dieser Kurs kann nicht gelöscht werden, da offene Buchungen vorhanden sind.",
+  "deleteImpossibleTitle": "Dieser Kurs kann nicht gelöscht werden",
+  "menu": {
+    "download": "Zusammenfassung",
+    "massDisable": "Massenstornierungen",
+    "hideCancelled": "Stornierungen ausblenden",
+    "showCancelled": "Stornierungen anzeigen",
+    "showWeek": "Wochenansicht",
+    "showMonth": "Monatsansicht"
+  },
+  "close": "Schließen",
+  "restoreOffer": "Kurs wiederherstellen",
+  "maximumNumberDescription": "Die maximale Anzahl an {{effectif}} Buchungen wurde bereits erreicht.Wenn Sie dieses Mitglied anmelden, überschreiten Sie die ursprünglich geplante Anzahl an Buchungen. Sind Sie sicher, dass Sie dieses Mitglied anmelden möchten?",
+  "maximumNumber": "Maximale Anzahl an Buchungen",
+  "warningOfferFull": "Die maximale Anzahl an Buchungen wurde bereits erreicht",
+  "levels": {
+    "modal": {
+      "name": "Name",
+      "title": "Niveaus ändern",
+      "color": "Farbcode",
+      "nameCaption": "{{max}}max. Zeichen {{count}}/{{max}}",
+      "submit": "Speichern",
+      "cancel": "Abbrechen"
+    },
+    "select": {
+      "add": "Ein Niveau hinzufügen",
+      "title": "Niveau",
+      "placeholder": "Niveau"
+    },
+    "edit": "Bearbeiten",
+    "deleteModal": {
+      "title": "Löschen",
+      "content": "Sind Sie sicher, dass Sie diese Stufe entfernen wollen?",
+      "content2": "Kurse, die diese Stufe bereits haben, behalten sie, aber sie kann nicht mehr zu zukünftigen Kursen hinzugefügt werden."
+    },
+    "customs": "Persönlich",
+    "delete": "Löschen"
+  },
+  "tagManagementInfo": "{{authorized}} erlaubte(r) Tag(s), {{unauthorized}} nicht zugelassene(s) Tag(s)",
+  "rollCall": {
+    "warningText": {
+      "notValidatedRollCall": "Die Anwesenheit wurde nicht bestätigt",
+      "rollCallsLeftToValidate": "{{ number }} Anwesenheit erfordert eine Bestätigung",
+      "rollCallsLeftToValidate_plural": "{{ number }} Anwesenheiten erfordern eine Bestätigung",
+      "modifiedRollCall": "Die Anwesenheit wurde bearbeitet, Sie müssen sie erneut bestätigen",
+      "validatedDate": "Validiert am {{- date }} um {{ time }}",
+      "noRollCallLeft": "Alle Anwesenheiten wurden bestätigt",
+      "lastValidatedRollCall": "Letzter Anwesenheit bestätigt am {{- date }} {{ time }}"
+    },
+    "dialog": {
+      "confirmationRollCall": "Bitte beachten Sie, dass Mitglieder, die als abwesend gekennzeichnet sind und einen unbegrenzten Ausweis besitzen, der mit Sanktionen belegt ist, bestraft werden. Sind Sie sicher, dass Sie den Aufruf bestätigen möchten?",
+      "confirmationRollCall_plural": "Sie sind dabei, den Aufruf für alle Kurse des Tages zu validieren. Bitte beachten Sie, dass Mitglieder, die als abwesend gekennzeichnet sind und einen unbegrenzten Ausweis besitzen, der mit Sanktionen belegt ist, bestraft werden. Sind Sie sicher, dass Sie alle Aufrufe bestätigen wollen?",
+      "validationRollCall": "Anwesenheit bestätigen",
+      "validatedRollCall": "Bestätigte Anwesenheit",
+      "validatedRollCall_plural": "Bestätigte Anwesenheiten",
+      "savedRollCall": "Die Anwesenheit wurde erfolgreich gespeichert.",
+      "savedRollCall_plural": "Die Anwesenheiten wurden erfolgreich gespeichert."
+    },
+    "warningIcon": {
+      "stateChangedTitle": "Status nicht validiert",
+      "stateChanged": "Der Status wurde geändert, aber nicht validiert"
+    },
+    "button": {
+      "validationRollCall": "Anwesenheit bestätigen",
+      "validationRollCall_plural": "Anwesenheiten bestätigen",
+      "validationRollCallZero": "Anwesenheit bestätigen"
+    },
+    "chip": {
+      "notValidatedRollCall": "Anweseheit nicht bestätigt",
+      "validatedRollCall": "Anwesenheit bestätigt am {{- date }} {{ time }}"
+    },
+    "drawer": {
+      "rollCall": "Anwesenheit",
+      "info": "Mit der Freigabe der Anwesenheiten beginnt der Countdown für die Strafe bei Nichterscheinen.",
+      "listMembers": "Liste der eingeschriebenen Mitglieder"
+    },
+    "filter": {
+      "validated": "Anwesenheit bestätigt",
+      "notValidated": "Anwesenheit wurde nicht bestätigt",
+      "placeholder": "Anwesenheitsstatus"
+    }
+  },
+  "recurrenceIndex": "Wiederholung: {{ index }}",
+  "pendingReplacementRequest": "Ein Antrag auf Vertretung ist offen",
+  "form": {
+    "warnings": {
+      "editOfferInitialCredits": "Ältere Buchungen berücksichtigen keine Creditänderungen",
+      "effectif": "Achtung: Sie geben hier keinen Preis ein. Sind Sie sich über den Wert sicher?"
+    },
+    "errors": {
+      "field": {
+        "dateIntervalEnd": "Das Enddatum kann nicht vor dem Startdatum liegen",
+        "durationMinute": "Die Dauer eines Kurses muss größer als 0 Minuten sein",
+        "broadcastLink": "Der Link ist falsch. Er sollte mit http:// oder https:// beginnen und keine Leerzeichen enthalten",
+        "partnerMaxBookingCount": "Die Anzahl der Plätze hier ist größer als die Anzahl der Plätze im Kurs",
+        "effectif": "Der Wert ist höher als die maximale Anzahl von Plätzen",
+        "roomBlueprintSpivi": "Für mit Spivi synchronisierte Kurse muss ein Raumplan ausgewählt werden",
+        "durationMinuteSpivi": "Die Dauer eines Kurses auf Spivi sollte zwischen 20 Minuten und 4 Stunden betragen",
+        "wellhubProductMissing": "Dieses Feld ist erforderlich, Sie müssen ein Produkt auswählen."
+      },
+      "dateTooFar": "Es ist nicht möglich, Kurse zu erstellen, die in mehr als 3 Jahren stattfinden",
+      "dateFormat": "Ungültiges Datumsformat",
+      "minTwo": "Der Wert muss größer als oder gleich 2 sein",
+      "minZero": "Der Wert muss größer als oder gleich 0 sein",
+      "positiveNumber": "Der Wert muss größer als 0 sein",
+      "required": "Unvollständiges Feld"
+    },
+    "dialog": {
+      "createLevel": "Niveau erstellen",
+      "recurrencePreview": "Vorschau"
+    },
+    "section": {
+      "coachOverride": {
+        "info": "Wenn Sie dieses Kästchen ankreuzen, werden die Änderungen, die für die Vertretungslehrkraft in diesem Kurs vorgenommen wurden, auf alle ähnlichen Kurse angewandt. Andernfalls werden sie nur auf diesen Kurs angewandt.",
+        "field": {
+          "isCoachOverridePropagate": "Übertragen Sie die Änderungen der Vertretungslehrkraft auf die ausgewählten Kurse"
+        },
+        "title": "Wechsel der Vertretungslehrkraft"
+      },
+      "similarOffers": {
+        "info": "Änderungen an den Kursen können dazu führen, dass sie mit einigen Pässen nicht mehr kompatibel sind. Nach der Änderung nehmen Sie sich bitte die Zeit, um zu überprüfen, ob sie mit allen Änderungen in der Einrichtung / Lehrkräften kompatibel bleiben.",
+        "unselectAll": "Alle abwählen",
+        "selectAll": "Alle auswählen",
+        "title": "Wählen Sie die Kurse aus, die geändert werden sollen"
+      },
+      "tags": {
+        "helperText": "Verwenden Sie Tags, um den Kurs nur für eine bestimmte Gruppe von Mitgliedern buchbar zu machen. Sie wählen Tags aus, um den Kurs nur für Mitglieder mit einem der ausgewählten Tags buchbar zu machen. Sie können auch Tags auswählen, um den Kurs nur für Mitglieder mit einem der ausgewählten Tags unbuchbar zu machen.",
+        "placeholder": "Leer lassen, um alle Mitglieder zu autorisieren",
+        "field": {
+          "blacklistTags": "Nicht autorisiert",
+          "whitelistTags": "Autorisiert"
+        },
+        "title": "Tags"
+      },
+      "settings": {
+        "field": {
+          "isModifyRecursively": "Möchten Sie ähnliche Kurse gemäß dieser neuen Bedingungen ändern?",
+          "isNotifyConsumers": "Möchten Sie Ihre Kunden über diese Änderung informieren?",
+          "partnership": {
+            "partnerMaxBookingCount": "Maximale Anzahl von Buchungen von Wellhub und Urban Sports Club zusammen (die übrigen Marktplätze sind von dieser Einstellung nicht betroffen).",
+            "availableOnPartnership": "Über die Marketplaces (ClassPass, OneFit...)",
+            "title": "Marktplatz",
+            "uscIntegrationWarning": "Ihre Integration mit dem Urban Sports Club Marketplace ist aktiv. Alle Kurse, die 2 oder mehr Tage lang sind, werden nicht angezeigt.",
+            "uscIntegrationWorkshopWarning": "Workshops sind nicht mit dem Urban Sports Club Marketplace kompatibel, also wir dieser Kurs nicht eingeschlossen.",
+            "wellhubProduct": {
+              "selectionMissing": "Dieses Feld ist erforderlich, Sie müssen ein Produkt auswählen.",
+              "helperText": "Diese Produkte werden von Ihrem Studio auf der Wellhub-Plattform angeboten. Gehen Sie zum Abschnitt „Partnerschaft“ im Partner-Portal Ihres Wellhub-Kontos für weitere Informationen.",
+              "title": "Ihre verfügbaren Produkte auf Wellhub:"
+            },
+            "subtitle": "Einschließlich: ClassPass, Urban Sports Club, Gymlib und Wellhub für externe Buchungen.",
+            "enablePartneshipBookings": "Marktplatz-Buchungen ermöglichen"
+          },
+          "allowGuestOffer": "Buchung für einen Gast zulassen",
+          "isManagerOnly": "Verfügbar zur Buchung (Web + App)",
+          "syncOfferOnSpivi": "An Spivi senden"
+        },
+        "title": "Einstellungen"
+      },
+      "coach": {
+        "field": {
+          "coachPaymentRule": {
+            "placeholder": "Regel auswählen",
+            "title": "Lohnabrechnungsregeln"
+          },
+          "coachOverride": {
+            "placeholder": "Vertretung auswählen",
+            "title": "Vertretung"
+          },
+          "coach": {
+            "placeholder": "Lehrkraft auswählen",
+            "title": "Lehrkraft"
+          }
+        },
+        "title": "Lehrkraft",
+        "additionalCoaches": {
+          "title": "Zusätzliche Lehrkraft/Lehrkräfte",
+          "field": {
+            "placeHolder": "Zusätzliche Lehrkräfte auswählen"
+          }
+        }
+      },
+      "dateTime": {
+        "field": {
+          "recurrence": {
+            "previewCount": "{{count}} Kurs wird erstellt",
+            "previewCount_plural": "{{count}} Kurse werden erstellt",
+            "preview": "Vorschau",
+            "option": {
+              "monthly": "Monatlich",
+              "weekly": "Wöchentlich",
+              "daily": "Täglich"
+            },
+            "placeholder": "Wiederholung auswählen",
+            "title": "Wiederholung"
+          },
+          "dateIntervalEnd": "Enddatum",
+          "dateIntervalStart": "Datum des Kurses",
+          "durationMinute": "Dauer",
+          "dateIntervalStartTime": "Startzeit",
+          "wellhubDurationWarning": "Kurse, die 200 Minuten überschreiten, werden beim Übermitteln an Wellhub automatisch auf eine maximale Dauer von 200 Minuten angepasst. Bitte stellen Sie sicher, dass die Kursdauer diesem Limit entspricht, um Unstimmigkeiten zu vermeiden."
+        },
+        "title": "Datum & Uhrzeit"
+      },
+      "credits": {
+        "field": {
+          "creditCount": "Anzahl der Credits"
+        },
+        "title": "Credits"
+      },
+      "specificities": {
+        "tooltip": {
+          "roomBlueprint": "Ermöglicht Ihren Schülern, den von ihnen gewünschten Platz im Raum zu buchen",
+          "credits": "Anzahl der für die Buchung erforderlichen Kurspass-Credits",
+          "broadcastLink": "Der Link für ZOOM wird automatisch von bsport generiert"
+        },
+        "field": {
+          "roomBlueprint": {
+            "placeholder": "Plan auswählen",
+            "title": "Spot-Scheduling"
+          },
+          "broadcastLink": "Link zum Livestream",
+          "establishment": "Einrichtung",
+          "credits": "Credits",
+          "level": "Level",
+          "waitingListMaxSize": "Warteliste",
+          "effectif": "Verfügbare Slots",
+          "hybridLabel": "Dieser Kurs findet sowohl vor Ort als auch online statt.",
+          "hybridHelper": "Wenn Sie diese Option wählen, wird ein Online-Kurs mit einer Standardbesetzung von {{ onlineOfferDefaultEffectif }} erstellt. Sie können die Informationen des Onlineangebots nach der Erstellung bearbeiten (Verbreitungslink, Mitgliederzahl, Preis, etc.)",
+          "hybridSection": "Hybrid-Kurs",
+          "hybridEditHelper": "Sie bearbeiten einen Online-Kurs, die mit einem Vor-Ort-Kurs verknüpft ist. Um manche Informationen zu ändern, müssen Sie den Vor-Ort-Kurs bearbeiten.",
+          "hybridManagementHelper": "Sie können die Buchungen, die mit dieser Partnerschaftssitzung verbunden sind, sowohl im Raum als auch online verwalten, indem Sie auf das Symbol unten klicken, um eine neue Verwaltungsseite zu öffnen.",
+          "metaActivity": "Aktivität",
+          "decimalCredit": {
+            "helperText": "Dieser Termin wird {{count}} Credit kosten.",
+            "helperText_plural": "Dieser Termin wird {{count}} Credits kosten."
+          }
+        },
+        "title": "Eigenschaften"
+      },
+      "nameDescriptionOverride": {
+        "description": {
+          "captionText": "Benutzerdefinierte Beschreibung zu diesem Kurs hinzufügen",
+          "label": "Beschreibung"
+        },
+        "name": {
+          "captionText": "Benutzerdefinierten Namen zu diesem Kurs hinzufügen",
+          "label": "Name"
+        },
+        "showButton": "Benutzerdefinierten Namen anzeigen",
+        "hideButton": "Benutzerdefinierten Namen verstecken",
+        "setButton": "Benutzerdefinierten Namen festlegen"
+      }
+    },
+    "groupedOffer": {
+      "warning": "Achtung dieser Kurs ist Teil der Gruppe von Kursen {{- name }}"
+    },
+    "stepper": {
+      "step": {
+        "SETTINGS": "Ändern der Einstellungen",
+        "INFOS": "Kurs"
+      }
+    },
+    "forbidden": "Sie haben nicht die Erlaubnis Kurse zu dieser Aktivität hinzuzufügen. Bitte kontaktieren Sie Ihren Manager, um die notwendigen Rechte zu erhalten.",
+    "uscWarning": {
+      "alertContent": "Änderungen an diesem Kurs führen zur Stornierung der aktuellen Buchungen bei USC. Bestätigen Sie, um fortzufahren.",
+      "content": "Sie verlieren alle aktuellen Buchungsdaten, wenn Sie das Datum, die Uhrzeit oder die Einrichtung dieses Kurses ändern. Wenn Sie diese Angaben ändern, wird eine neuer Kurs erstellt und der aktuelle Kurs bei USC storniert.",
+      "title": "Achtung: Dadurch werden die laufenden Buchungen auf USC storniert."
+    }
+  },
+  "broadcast": "Videokonferenzen",
+  "onSite": "Im Studio",
+  "isFree": "Gratis",
+  "additionalCoaches": "{{count}} zusätzliche Lehrkraft",
+  "additionalCoaches_plural": "{{count}} zusätzliche Lehrkräfte",
+  "allCoaches": "{{count}} Lehrkräfte",
+  "subTeacherRequestFilter": {
+    "false": "Keine Vertretungsanfrage",
+    "true": "Ausstehende Vertretungsanfrage",
+    "placeholder": "Vertretungsanfrage"
+  },
+  "notePad": {
+    "title": "Notizen",
+    "placeholder": "Hinterlassen Sie eine Notiz über diesen Kurs.…",
+    "loading": "Lädt…",
+    "modal": {
+      "title": "Ungespeicherte Änderungen",
+      "description": "Sie haben ungespeicherte Notizen auf dieser Seite. Möchten Sie sie vor dem Verlassen der Seite speichern?"
+    }
+  },
+  "numberOfCredits": "{{count}} Credit",
+  "numberOfCredits_plural": "{{count}} Credits"
+}

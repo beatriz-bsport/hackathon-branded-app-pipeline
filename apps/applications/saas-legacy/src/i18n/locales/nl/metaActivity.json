@@ -1,0 +1,194 @@
+{
+  "forms": {
+    "delete": {
+      "content": {
+        "cannotDelete": "Er zijn toekomstige sessies gepland. Controleer of ze niet worden geannuleerd.",
+        "canDelete": "Weet je zeker dat je dit wilt verwijderen? Sessies en reserveringen worden niet beïnvloed. Deze actie is definitief."
+      },
+      "actions": {
+        "cancel": "Annuleren",
+        "confirm": "Verwijderen"
+      },
+      "title": "Activiteit verwijderen"
+    },
+    "create": {
+      "compatible_packs": {
+        "passHelperText": "Deze kaarten zijn compatibel met deze activiteit:",
+        "seeMore": "Toon meer",
+        "createPass": "Een leskaart toevoegen",
+        "goToActivity": "Toon activiteit",
+        "noCompatiblePass": "Maak minstens één compatibele leskaart aan zodat leden zich voor deze activiteit kunnen inschrijven."
+      },
+      "steps": {
+        "activity_form": "Een activiteit toevoegen",
+        "pass_form": "(Optioneel) Een leskaart toevoegen",
+        "pass_list": "Afronden",
+        "offer_form": "(Optioneel) Sessies toevoegen",
+        "workshop_form": "Workshop toevoegen"
+      }
+    },
+    "warning": {
+      "lowFirsBookingUntilWarning": "Let op: u moet wachten tot {{ durationFormatted }} voor het begin van de sessie om de allereerste boeking te maken!",
+      "highLastBookingBeforeWarning": "Houd er rekening mee dat {{ durationFormatted }} voor het begin van de sessie geen reserveringen meer mogelijk zijn!"
+    }
+  },
+  "detail": {
+    "pack": {
+      "noCompatiblePass": "Geen compatibele leskaart",
+      "consumerPacks": "Aangeschaft door",
+      "paymentPacks": "Beschikbare kaarten"
+    },
+    "tab": {
+      "general": "Algemeen",
+      "pack": "Beschikbare leskaarten",
+      "group": "Groepsessies"
+    }
+  },
+  "name": "Naam",
+  "category": "Categorie",
+  "addOffers": "Sessies toevoegen",
+  "offersThisDay": "Sessies van vandaag:",
+  "description": "Beschrijving",
+  "modal": {
+    "delete": {
+      "cancel": "Annuleren",
+      "title": "Activiteit verwijderen",
+      "content": "Weet je zeker dat je dit wilt verwijderen? Sessies en reserveringen worden niet beïnvloed. Deze actie is definitief.",
+      "confirm": "Verwijderen"
+    }
+  },
+  "settings": {
+    "lastBookingBeforeMinutes": "Reserveren kan tot {{m}} voor het begin van een sessie.",
+    "lastDiscardBeforeMinutes": "Kosteloos annuleren kan tot {{m}} voor het begin van de sessie.",
+    "title": "Instellingen",
+    "firstBookingMinutesUntil": "Reserveren kan tot {{m}} in de toekomst.",
+    "conditions": "Annuleringsvoorwaarden",
+    "autoDiscard": "Deze sessie wordt automatisch {{hours}} uur voor het begin van de sessie geannuleerd als er minder of gelijk dan {{nb_bookings}} reserveringen zijn.",
+    "firstBookingMinutesUntilHeader": "Opening reserveringen",
+    "lastDiscardBeforeMinutesHeader": "Annuleringsvoorwaarden",
+    "lastBookingBeforeMinutesHeader": "Sluiting reserveringen",
+    "seeRestrictions": "Toon",
+    "restrictions": " Gepersonaliseerde beperking: {{ count }}",
+    "restrictionsHeader": "Gepersonaliseerde beperkingen",
+    "autoDiscardHeader": "De sessie wordt geannuleerd als",
+    "lastDiscardBeforeMinutesFull": "Annuleren kan tot {{m}} voor het begin van de sessie",
+    "lastBookingBeforeMinutesFull": "Reserveren kan tot {{m}} voor het begin van de sessie."
+  },
+  "metaActivity": "Activiteit",
+  "search": "Zoek een groepsactiviteit",
+  "packsAvailable": "Beschikbare leskaarten:",
+  "reviews": "Ledenbeoordelingen: ",
+  "navigation": {
+    "goToPaymentPack": "Leskaarten"
+  },
+  "actions": {
+    "search": "Zoek een activiteit",
+    "addActivity": "Een groepsactiviteit toevoegen"
+  },
+  "noActivities": "Groepsactiviteiten zijn lessen die aan een groep worden gegeven. Hier kun je groepsactiviteiten toevoegen, bewerken en beheren.",
+  "disabledMetaActivities": "Gearchiveerde groepsactiviteiten",
+  "workshop": "Workshop",
+  "groupedOption": {
+    "helperText": {
+      "year": "Dit evenement begint jaarlijks op: {{-day}} {{-mont}}",
+      "year_plural": "Dit evenement begint jaarlijks op: {{-day}} {{-month}} voor {{ count }} jaar",
+      "day": "Dit evenement wordt dagelijks herhaald",
+      "day_plural": "Dit evenement begint dagelijks op: {{-day}} voor {{ count }} dagen",
+      "week": "Dit evenement begint dagelijks op: {{-day}}",
+      "week_plural": "Dit evenement begint dagelijks op: {{-day}} voor {{ count }} weken",
+      "month": "Dit evenement begint maandelijks op: {{-day}}",
+      "month_plural": "Dit evenement begint maandelijks op: {{-day}} voor {{ count }} maanden"
+    },
+    "modal": {
+      "form": {
+        "required": "Selecteer ten minste één evenement.",
+        "withRecurrence": "Activeer herhaling",
+        "allowBookingAfterStart": "Accepteer reserveringen wanneer het evenement al begonnen is",
+        "fullBookingOnly": "Accepteer enkel reserveringen voor alle gekoppelde sessies van dit evenement",
+        "delete": {
+          "content": "Het verwijderen van dit evenement zal tevens alle geregistreerde reserveringen annuleren. Deze actie is definitief.",
+          "firstSession": "De eerstvolgende sessie is op: {{-day}}",
+          "selectHeader": "Selecteer de te wijzigen evenementen",
+          "selectGroup": "Annuleer vergelijkbare evenementen",
+          "applyRecursive": "Annuleer vergelijkbare evenementen",
+          "title": "Verwijderen",
+          "missingOffer": "Er zijn geen evenementen om weer te geven."
+        },
+        "recurrenceUntilHelper2": "Het is niet mogelijk om sessies na deze datum toe te voegen.",
+        "timeStartHelper": "Selecteer de datum van de eerste sessie van dit evenement. Alle toekomstige sessies worden vervolgens ook aan dit evenement gekoppeld.",
+        "nameCaption": "Naam van dit evenement",
+        "allowBookingAfterStartCaption": "Standaard is het niet mogelijk voor leden om zich voor reeds begonnen evenementen in te schrijven. Activeer deze optie om dat juist wel toe te staan.",
+        "fullBookingOnlyCaption": "Standaard worden leden automatisch voor alle gekoppelde sessies binnen een evenement ingeschreven. Schakel deze optie uit om leden de vrijheid te geven om te selecteren voor welke sessies ze zich wel of niet willen inschrijven.",
+        "impossibleState": "Aan de hand van deze configuratie is het niet mogelijk om een evenement aan te maken.",
+        "copyRecurrence": "Dupliceer ook herhalingen van toekomstige evenementen",
+        "recurrenceUntilHelper": "Gelieve de einddatum van dit evenement invoeren.",
+        "submit": "Bevestigen",
+        "back": "Terug",
+        "save": "Opslaan",
+        "next": "Volgende",
+        "groupName": "Naam",
+        "daily": "Dagelijks",
+        "recurrence": "Frequentie",
+        "recurrenceNumberPrefix": "Herhaal ieder(e)",
+        "preview": "Voorvertoning",
+        "recurrenceUntil": "Herhalen tot",
+        "recurrenceCount": "Aantal herhalingen",
+        "timeStart": "Startdatum",
+        "marketPlaceAvailable": "Accepteer reserveringen (Website + Mobiele App)",
+        "name": "Naam",
+        "subtitleRecurrence": "Frequentie",
+        "subtitleSettings": "Instellingen",
+        "addOffers": "Sessies toevoegen",
+        "subtitleOffers": "Sessies",
+        "subtitle": "Algemeen",
+        "allowGuest": "Dit product kan voor het uitnodigen van gasten worden gebruikt",
+        "allowGuestUnavailable": "Deze functie is niet beschikbaar voor groepsactiviteiten.",
+        "creationError": "Onmogelijk te maken",
+        "uncreatedGroupsTitle": "Niet aangemaakte groepen",
+        "syncOnSpivi": "Doorsturen naar Spivi",
+        "spiviWarningHelperText": "Gelieve rekening houden met het feit dat als sessies aan Spivi gekoppeld zijn dat de kopieën hiervan niet aan Spivi gekoppeld zullen worden."
+      },
+      "duplicate": "Een evenement dupliceren",
+      "subtitleMetaActivitySelect": "Configuratie",
+      "title": "Groepsessies",
+      "subtitlePreview": "Voorvertoning"
+    },
+    "offerDescription": "{{ count }} sessie(s) van {{- firstSession }} tot en met {{- lastSession }}",
+    "last": "Terug",
+    "intervalLabel": {
+      "until": {
+        "year": "Elk jaar tot {{-until}} ",
+        "year_plural": "Jaarlijks van {{ count }} tot {{-until}} ",
+        "day": "Elke dag tot {{-until}} ",
+        "day_plural": "Dagelijks van {{ count }} tot {{-until}} ",
+        "week": "Elke week tot {{-until}} ",
+        "week_plural": "Wekelijks van {{ count }} tot {{-until}} ",
+        "month": "Maandelijks tot {{-until}} ",
+        "month_plural": "Elke maand van {{ count }} tot {{-until}} "
+      },
+      "year": "Elk jaar",
+      "year_plural": "Elke {{ count }} jaar",
+      "day": "Elke dag",
+      "day_plural": "Elke {{ count }} dagen",
+      "week": "Elke week",
+      "week_plural": "Elke {{ count }} weken",
+      "month": "Elke maand",
+      "month_plural": "Elke {{ count }} maanden"
+    },
+    "warning": {
+      "groupsWithOutOfTheRangeOffers": "De onderstaande groepsessies zullen niet worden aangemaakt, omdat deze sessies meer dan 3 jaar later plaatsvinden.",
+      "uncreatedGroups": "Sommige groepen worden niet aangemaakt.\nU vindt ze in de sectie \"Niet aangemaakte groepen\" onderaan deze lijst"
+    },
+    "errors": {
+      "offers_length": "Je hebt maar één sessie aangemaakt. Een groepsessie moet altijd uit twee of meer sessies bestaan. \nEnkele sessies kunnen direct vanuit de workshop of vanuit de agenda worden gemaakt."
+    }
+  },
+  "cancelledOffers": "{{count}} annuleringen",
+  "workshopSelect": "Zoek een workshop",
+  "close": "Sluiten",
+  "edit": "Bewerken",
+  "warningUSCDialog": {
+    "content": "De nieuwe annuleringsvoorwaarden gelden voor toekomstige evenementen. Evenementen die in de komende twee weken worden gepubliceerd, kunnen echter niet worden bijgewerkt.",
+    "title": "Annuleringsvoorwaarden voor USC"
+  }
+}

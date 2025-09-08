@@ -1,0 +1,76 @@
+{
+  "subject": "Oggetto della mail:",
+  "modal": {
+    "delete": {
+      "title": "Elimina modello email",
+      "cancel": "Annulla",
+      "content": "Se questo modello è collegato a una configurazione email transazionale, verrà anch'esso eliminato. Sei sicuro di voler eliminare questo modello di email?",
+      "confirm": "Rimuovi"
+    }
+  },
+  "duplicate": "Duplica",
+  "no_subject": "Nessun oggetto",
+  "copy": "copia",
+  "search": "Trova un modello",
+  "listTitle": "I miei modelli di email",
+  "create": "Crea un modello",
+  "editor": {
+    "title": "Titolo",
+    "save": "Salva",
+    "error": {
+      "title": "Inserisci un titolo",
+      "content": "Inserisci testo nell'e mail",
+      "subject": "Inserisci un oggetto"
+    },
+    "subject": "Oggetto della mail",
+    "cancel": "Annulla",
+    "exportHtml": "Esporta HTML",
+    "selectorPlaceholder": "Selezione dei franchisee",
+    "shareWithHelper": "Il modello non può essere modificato dagli affiliati",
+    "shareWith": "Condividi con",
+    "infoBoxTextFirstLine": "Questa email è collegata all'email transazionale '{{-names}}'. Alcune variabili sono obbligatorie.",
+    "showRequiredTags": "Vedi variabili",
+    "alertBoxTextFirstLine": "Questa email è collegata all'email transazionale '{{-names}}'. Deve contenere le seguenti variabili: ",
+    "infoBoxTextLastLine": "Assicurati di aggiungerli al tuo modello in modo da poterlo salvare.",
+    "dialogWindowTitle": "Variabili obbligatorie",
+    "closeButton": "Chiudi"
+  },
+  "preview": "Anteprima mail",
+  "editTitle": "Modifica modello",
+  "createTitle": "Creazione del modello",
+  "detail": "Informazioni dettagliate",
+  "selectToShowPreview": "Seleziona un modello",
+  "templateListEmpty": "Nessun modello, crea qui il tuo primo modello.",
+  "modification_date": "Ultima modifica il",
+  "autoSave": "Backup automatico",
+  "leaveAlert": "Sei sicuro di voler lasciare questa pagina?",
+  "delete": "Rimuovi",
+  "edit": "Modifica",
+  "allCompanies": "Tutti gli affiliati",
+  "seeAll": "Vedi tutti",
+  "franchiseEmails": "Modelli di franchising",
+  "companieEmails": "I miei modelli",
+  "infoBsportTemplateEmails": "Se si desidera inviare comunicazioni o modificare i modelli presenti in questa sezione, è necessario creare una copia del modello desiderato. Quindi seleziona la copia dell'e-mail quando invii una comunicazione.",
+  "bsportTemplateEmails": "Template Bsport",
+  "franchiseEmailsPage": {
+    "filters": {
+      "companySelectPlaceHolder": "Seleziona uno studio"
+    },
+    "informativeAlert": {
+      "bsportDefault": {
+        "description": "Questi modelli sono forniti da bsport. Per modificarli o utilizzarli nelle campagne, duplicali. Appariranno nella scheda \"{{-masterAccountTabName}}\"."
+      },
+      "ownedByFranchisee": {
+        "description": "Questi modelli email sono stati creati dai tuoi affiliati dal loro backoffice. Puoi visualizzare solo i modelli degli studi ai quali hai accesso. Puoi modificare questi modelli; tieni presente che la tua modifica influenzerà il modello originale, che potrebbe essere utilizzato nelle campagne dallo studio correlato."
+      },
+      "ownedByFranchisor": {
+        "description": "Crea modelli email da condividere tra i tuoi Studi per mantenere l'identità del brand."
+      }
+    },
+    "tabs": {
+      "bsportDefault": "Modelli email bsport",
+      "ownByFranchisee": "Modelli email per gli Studi",
+      "ownByFranchisor": "Modelli email nell'Account Master"
+    }
+  }
+}

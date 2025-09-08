@@ -1,0 +1,101 @@
+{
+  "forms": {
+    "delete": {
+      "content": {
+        "canDelete": "Lehrkraft wirklich löschen? Danach hast du keinen Zugang mehr auf ihre Lohnberechnung. Du kannst sie aber mit ihrer E-Mail-Adresse wieder hinzufügen.",
+        "cannotDelete": "Du kannst diese Lehrkraft nicht löschen, weil sie anstehende Kurse hat."
+      },
+      "confirm": "Löschen",
+      "cancel": "Abbrechen",
+      "actions": {
+        "confirm": "Löschen",
+        "cancel": "Abbrechen"
+      },
+      "title": "Lehrkraft löschen"
+    },
+    "error_email_exists": "Es gibt bereits eine Lehrkraft mit dieser E-Mail-Adresse. Bitte erstelle eine neue Lehrkraft über das entsprechende Formular",
+    "linkByEmail": {
+      "emailPlaceHolder": "beispiel@email.com",
+      "explain": "Gib hier die E-Mail-Adresse der Lehrkraft an, die du hinzufügen möchtest. Haben wir ihre Daten bereits, wird automatisch ein Konto für sie erstellt.",
+      "emailLabel": "E-Mail",
+      "title": "E-Mail-Adresse der Lehrkraft",
+      "submit": "Bestätigen",
+      "cancel": "Abbrechen"
+    },
+    "create": {
+      "title": "Neue Lehrkraft",
+      "success": "Lehrkraft hinzugefügt"
+    },
+    "update": {
+      "success": "Lehrkraftdetails aktualisiert",
+      "title": "Lehrkraft aktualisieren",
+      "errors": {
+        "emailAlreadyInUse": "Die eingegebene E-Mail existiert bereits in der Datenbank. Du kannst diese E-Mail nur dann mit einer Lehrkraft verknüpfen, wenn du eine neue Lehrkraft erstellst."
+      }
+    },
+    "errorDescription": "Deine Beschreibung ist zu lang (max. 1.000 Zeichen)",
+    "errorLinkLength": "Der angegebene Link ist zu lang (max. 150 Zeichen)",
+    "errorInvalidURL": "Bitte gib einen gültigen Link ein"
+  },
+  "noActivity": "Diese Lehrkraft leitet keine Aktivität.",
+  "selfNoActivity": "Du bist für keine Aktivität eingeteilt.",
+  "showActivities": "Aktivitäten anzeigen",
+  "performance": {
+    "nbBookings": "Buchungen",
+    "payment": "Lohnabrechnung",
+    "calculate": "Berechnen",
+    "pricePerAdditionalBooking": "Betrag pro Buchung",
+    "pricePerOffer": "Betrag pro Kurs",
+    "nbOffersTotal": "Kurse",
+    "coachName": "Lehrkraft",
+    "title": "Übersicht der Lehrkräfte",
+    "nbBookingsOverThreshold": "Bonus-Buchungen",
+    "durationBookings": "Anzahl der Stunden",
+    "totalNetGain": "Gesamtgewinn netto"
+  },
+  "description": "Beschreibung",
+  "card": {
+    "update": "Bearbeiten"
+  },
+  "addCoach": "Eine Lehrkraft hinzufügen",
+  "search": "Eine Lehrkraft suchen",
+  "selector": {
+    "label": "Lehrkraft",
+    "disabled": "Archivierte Lehrkräfte",
+    "enabled": "Aktive Lehrkräfte"
+  },
+  "emptyDescription": "Keine Beschreibung verfügbar.",
+  "pleaseFill": "Bitte gib eine Lehrkraft an",
+  "showDescription": "Beschreibung ansehen",
+  "color": "Farbcode (Termin)",
+  "coach_override": "Vertretung",
+  "overrideSelectorTitle": "Lehrkraft",
+  "overrider": "Vertretung",
+  "baseCoach": "Standard",
+  "coach": "Lehrkraft",
+  "detail": {
+    "tab": {
+      "calendar": "Wochenplan",
+      "general": "Profil"
+    },
+    "coachSpaceInfo": "Bei Aktivierung der Lehrkraftansicht können Lehrkräfte ihre Lohnabrechnung, ihren Wochenplan einsehen und ihre Verfügbarkeiten verwalten.",
+    "coachSpace": "Lehrkraftansicht",
+    "noPaymentRule": "Hinweis: Für diese Lehrkraft wurde keine Lohnabrechnung festgelegt. "
+  },
+  "showPerformance": "Lohnabrechnung anzeigen",
+  "noCoach": "Zur Zeit gibt es keine registrierten Lehrkräfte",
+  "noCoachs": "Keine registrierten Lehrkräfte. Verwalte hier die Lehrkräfte, Referenten und deren Gehälter.",
+  "inactiveCoaches": "Archivierte Lehrkräfte",
+  "paymentRule": "Lohnabrechnung",
+  "coachAccess": {
+    "teacher": "Lehrkraft",
+    "student": "Mitglied",
+    "info": "Wir haben festgestellt, dass du Lehrkraft in diesem Studio bist. Möchtest du Zugang zu der Mitgliederansicht oder der Lehrkraftansicht?",
+    "access": "Zugang"
+  },
+  "numberCoaches": "{{ number }} Lehrkräfte",
+  "workingDateSection": "Zeitraum der Aktivität im Studio",
+  "dateJoinedCompany": "Startdatum",
+  "dateLeftCompany": "Enddatum",
+  "emptyNotes": "Keine Notizen"
+}

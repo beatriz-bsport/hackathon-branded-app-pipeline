@@ -1,0 +1,76 @@
+{
+  "editor": {
+    "error": {
+      "content": "Bitte geben Sie den Inhalt der E-Mail an",
+      "title": "Bitte geben Sie einen Namen an",
+      "subject": "Bitte geben Sie einen Betreff an"
+    },
+    "cancel": "Abbrechen",
+    "subject": "Betreff",
+    "save": "Speichern",
+    "title": "Name der Vorlage",
+    "exportHtml": "HTML exportieren",
+    "selectorPlaceholder": "Studios auswählen",
+    "shareWithHelper": "Die Vorlage kann von den Franchisenehmern nicht geändert werden",
+    "shareWith": "Teilen mit",
+    "showRequiredTags": "Variablen anzeigen",
+    "infoBoxTextFirstLine": "Diese E-Mail ist mit der Transaktions-E-Mail \"{{-names}}\" verknüpft. Einige Variablen sind erforderlich.",
+    "infoBoxTextLastLine": "Stellen Sie sicher, dass Sie sie zu Ihrer Vorlage hinzufügen, damit sie gespeichert werden können.",
+    "alertBoxTextFirstLine": "Diese E-Mail ist mit der Transaktions-E-Mail \"{{-names}}\" verknüpft. Sie muss die folgenden Variablen enthalten: ",
+    "dialogWindowTitle": "Variablen erforderlich",
+    "closeButton": "Schließen"
+  },
+  "no_subject": "Kein Betreff",
+  "preview": "Vorschau der E-Mail",
+  "subject": "Betreff:",
+  "modification_date": "Zuletzt bearbeitet am",
+  "templateListEmpty": "Auf diesem Tab können Sie mit unserem Drag-&-Drop-E-Mail-Editor schöne und personalisierte E-Mail-Vorlagen entwerfen. Sie können diese direkt an Mitglieder senden und mit automatischen Benachrichtigungen verknüpfen, um Ihre Mitgliederinteraktion zu optimieren.",
+  "create": "Vorlage erstellen",
+  "selectToShowPreview": "Wählen Sie eine E-Mail aus, um eine Vorschau zu sehen.",
+  "detail": "Ausführliche Informationen",
+  "search": "Eine Vorlage suchen",
+  "createTitle": "Erstellung der Vorlage",
+  "listTitle": "Meine E-Mail-Vorlagen",
+  "copy": "Kopie",
+  "duplicate": "Duplizieren",
+  "modal": {
+    "delete": {
+      "confirm": "Löschen",
+      "cancel": "Abbrechen",
+      "content": "Wenn diese Vorlage mit einer Transaktions-E-Mail-Konfiguration verknüpft ist, wird diese ebenfalls gelöscht. Sind Sie sicher, dass Sie diese E-Mail-Vorlage löschen möchten?",
+      "title": "E-Mail-Vorlage löschen"
+    }
+  },
+  "editTitle": "Vorlage bearbeiten",
+  "autoSave": "Automatisches Backup",
+  "leaveAlert": "Möchten Sie diese Seite wirklich verlassen?",
+  "delete": "Löschen",
+  "edit": "Bearbeiten",
+  "allCompanies": "Alle Studios",
+  "seeAll": "Alle ansehen",
+  "franchiseEmails": "[Master Account] E-Mail-Vorlagen",
+  "companieEmails": "Meine Vorlagen",
+  "infoBsportTemplateEmails": "Wenn Sie Benachrichtigungen versenden oder die Vorlagen in diesem Abschnitt bearbeiten möchten, müssen Sie eine Kopie der gewünschten Vorlage erstellen. Wählen Sie dann die Kopie der E-Mail aus, wenn Sie eine Benachrichtigung versenden.",
+  "bsportTemplateEmails": "bsport-Templates",
+  "franchiseEmailsPage": {
+    "filters": {
+      "companySelectPlaceHolder": "Ein Studio auswählen"
+    },
+    "informativeAlert": {
+      "bsportDefault": {
+        "description": "Diese Vorlagen werden von bsport zur Verfügung gestellt. Um sie zu bearbeiten oder sie in Kampagnen zu verwenden, duplizieren Sie sie bitte. Sie werden auf der Registerkarte \"{{-masterAccountTabName}}\" angezeigt."
+      },
+      "ownedByFranchisee": {
+        "description": "Diese Vorlagen wurden von Ihren Franchisenehmern in deren Backoffice erstellt. Sie sehen nur Vorlagen von Studios, auf die Sie Zugriff haben. Sie können diese Vorlagen bearbeiten. Beachten Sie, dass sich Ihre Bearbeitung auf die Quellvorlage auswirkt, die in Kampagnen des entsprechenden Studios verwendet werden kann."
+      },
+      "ownedByFranchisor": {
+        "description": "Erstellen Sie Vorlagen, die Sie an Ihre Franchisenehmer weitergeben können, um Ihre Markenidentität aufrecht zu halten."
+      }
+    },
+    "tabs": {
+      "bsportDefault": "bsport Vorlagen",
+      "ownByFranchisee": "Studio-Vorlagen",
+      "ownByFranchisor": "Master-Konto Vorlagen"
+    }
+  }
+}

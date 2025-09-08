@@ -1,0 +1,126 @@
+{
+  "platformBillingPlan": {
+    "max_coach": {
+      "help": "Een instructeur wordt als actief beschouwt als deze persoon ten minste 8 lessen per maand geeft.",
+      "label": "Tot {{max_coach}} instructeurs"
+    },
+    "max_establishment": {
+      "help": "Een vestiging wordt als actief beschouwt als deze minstens 8 sessies per maand organiseert",
+      "label": "Tot {{max_establishment}} vestigingen"
+    }
+  },
+  "featureRequest": {
+    "close": "Sluiten",
+    "content": "Hartelijk dank voor je interesse in deze aanvullende dienst. Indien je meer wilt weten over deze optie, stuur dan een bericht in de Chatbox vanuit je account. Je Accountmanager zal je graag verder ondersteunen met verdere informatie.",
+    "title": "Start een gesprek",
+    "header": "We nemen contact met je op!",
+    "interestMessageWithChat": "Bedankt voor je interesse in deze dienst. Je account manager neemt snel contact met je op voor meer informatie. In de tussentijd kunnen we al je vragen beantwoorden via de chat."
+  },
+  "platformBillingStage": {
+    "maxBooking": "Tot {{max_booking_per_month}} reserveringen / maand",
+    "monthlyPrice": "{{ price }} / maand"
+  },
+  "platformBillingGroup": {
+    "soonAvailable": "Binnenkort beschikbaar!",
+    "myGroup": "Mijn abonnement"
+  },
+  "upsellPackage": {
+    "vod": {
+      "explainBilling": "  +{{currencyDisplay }}1 / actief lid"
+    },
+    "otherAddonTitle": "Beschikbare aanvullende diensten",
+    "myAddonTitle": "Mijn aanvullende diensten",
+    "knowMore": "Meer informatie",
+    "billRecurrent": "{{ price_cts }} / maand",
+    "billOnce": "{{ price_cts }}",
+    "sms": {
+      "explainBilling": "{{ price_cts }} per sms"
+    },
+    "lockDialog": {
+      "31": {
+        "intro": "Toegang voor doelgroep ontgrendelen",
+        "explain": "Deze functie is een add-on, neem contact op met je accountmanager voor meer informatie."
+      },
+      "33": {
+        "intro": "Ontdek de nieuwe live chatbox met leden!",
+        "explain": "Hier staan alle gesprekken met individuele personen, maar ook gesprekken uit Sessies en Smartlists. Deze Inbox is compatibel met e-mails, sms'jes en push-notificaties."
+      },
+      "requestAccess": "Vraag om toegang"
+    },
+    "subscriptionForm": {
+      "commitmentMessage": "Houd rekening met het feit dat er een termijn van 12 maanden hierop van toepassing is.",
+      "confirmationMessage": "Deze optie {{- name }} is succesvol toegevoegd!",
+      "info": "Contacteer onze klantenservice",
+      "infoHelper": "Verdere vragen?",
+      "confirmHelper": "Bevestig of je deze aanvullende dienst aan je pakket wilt toevoegen.",
+      "priceHelper": "Dit bedrag komt bovenop je huidige maandelijkse pakket.",
+      "title": "Aanvullende dienst activeren",
+      "timeConsumingHelper": "Het kan enkele seconden duren voordat de inschrijving voor deze upsell is verwerkt"
+    },
+    "seeMore": "Toon meer",
+    "billSMS": "{{ price_cts }} / sms",
+    "audienceLockDialog": {
+      "goHome": "Terug naar de kalender",
+      "showInterest": "Neem contact op",
+      "explain": "Dit is een aanvullende dienst. Contacteer je account manager voor meer informatie.",
+      "benefits": [
+        "Klanten kunt behouden door middel van automatische opvolging",
+        "De omzet kunt verhogen met persoonlijke klantreizen voor VIPs",
+        "Leads kunt omzetten met gepersonaliseerde berichten op belangrijke momenten"
+      ],
+      "description": "Geautomatiseerde workflows helpen u om via meerdere kanalen contact te leggen met uw klanten, zodat je:",
+      "title": "Ontmoet uw klanten waar ze zich bevinden met Audience",
+      "videoLink": "https://youtu.be/Bc2OsBXEjlY"
+    }
+  },
+  "paymentMethod": {
+    "actions": {
+      "createCard": "Betaalkaart toevoegen",
+      "createSepa": "IBAN toevoegen"
+    },
+    "sectionTitle": "Mijn betaalmethoden",
+    "info": {
+      "content": "bsport gebruikt de volgende betaalmethode voor het incasseren van je abonnement. Klik hier om rekening van de uitbetalingen te configureren",
+      "link": "Hier"
+    }
+  },
+  "platformInvoice": {
+    "noInvoice": "Momenteel zijn er nog geen facturen beschikbaar om weer te geven.",
+    "sectionTitle": "Mijn facturen",
+    "label": "Factuur {{month}} / {{year}}",
+    "status": {
+      "failed": "Betaling: mislukt",
+      "processing": "Betaling: in behandeling",
+      "disputed": "Betaling: betwist",
+      "succeeded": "Betaling: succesvol",
+      "missing_charge": "Er zijn geen betalingspogingen om weer te geven.",
+      "cancelled_with_negative_invoice": "Factuur geannuleerd door negatieve factuur",
+      "cancelled_with_credit_note": "Factuur geannuleerd door creditnota",
+      "negative_invoice_cancelling_bad_debt_invoice": "Een vorige factuur annuleren"
+    },
+    "bill": "Vereffenen"
+  },
+  "platformCustomerEntity": {
+    "vatId": {
+      "alert": {
+        "update": "BTW-nummer bijwerken",
+        "description": "bsport heeft uw btw-nummer (ook wel btw-registratienummer of intracommunautair btw-nummer genoemd) nodig om het te kunnen vermelden op facturen die wij aan u uitreiken.",
+        "text": "Je hebt geen btw-nummer opgegeven, of het btw-nummer dat je hebt opgegeven is ongeldig.",
+        "title": "Ontbrekend geldig BTW-nummer"
+      },
+      "dialog": {
+        "actions": {
+          "save": "Opslaan",
+          "cancel": "Annuleer"
+        },
+        "update": "BTW-nummer bijwerken",
+        "hasAttributedVatIdLabel": "Ik heb geen btw-nummer. Als uw bedrijf is gevestigd in de EU (met uitzondering van Frankrijk), is de verleggingsregeling niet van toepassing en brengt bsport het Franse btw-tarief (20%) in rekening.",
+        "vatIdLabel": "BTW-identificatienummer",
+        "content": "bsport heeft uw btw-nummer (ook wel btw-registratienummer of intracommunautair btw-nummer genoemd) nodig om het te kunnen vermelden op facturen die wij aan u uitreiken.",
+        "invalidFormat": "Ongeldig formaat",
+        "errorChip": "Geldig BTW-nummer ontbreekt",
+        "title": "BTW nummer"
+      }
+    }
+  }
+}

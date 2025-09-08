@@ -1,0 +1,125 @@
+{
+  "nbPending": "{{nbPending}} nell'elenco",
+  "form": {
+    "dumb_delay_minutes": {
+      "label": "Gestione semplice",
+      "helper": "Se un posto diventa disponibile, lo studente ha N minuti per registrarsi, prima che il prossimo in coda prenda il suo posto."
+    },
+    "smart_delay_percentage": {
+      "label": "Gestione intelligente",
+      "helper": "Se un posto diventa disponibile, il membro ha un tempo proporzionale al tempo rimanente prima della sessione."
+    },
+    "submit": "Salva",
+    "auto_cancellation_type": {
+      "title": "Gestione della lista d'attesa"
+    },
+    "auto_consume_pack": {
+      "helper": "Se il membro ha un pacchetto valido quando un posto diventa disponibile, viene automaticamente registrato e il suo pacchetto viene addebitato. Il pacchetto che scade prima, e quello con meno credito disponibile, vengono utilizzati per primi.",
+      "label": "Prenotate automaticamente un membro dalla lista d'attesa quando si libera un posto e deducete il credito da un pacchetto valido."
+    },
+    "is_option_blocking": {
+      "helper": "Finché un membro è nella lista d'attesa, un posto viene tenuto bloccato per lui mentre si aspetta che si registri.",
+      "label": "I posti disponibili sono riservati esclusivamente alle persone in lista d'attesa."
+    },
+    "autokick_delay": {
+      "helper": "Numero di promemoria prima dei quali il membro viene automaticamente rimosso dalla lista di attesa se non c'è nessuna azione da parte sua",
+      "label": "Rimozione automatica dalla lista d'attesa"
+    },
+    "dynamic": {
+      "0": {
+        "explain": "Quando un membro si registra, viene concesso un posto nella lista di attesa. Quando un posto è disponibile, il primo membro dell'elenco può registrarsi, gli altri attendono il proprio turno",
+        "settingsDelay": "Scadenza per la registrazione",
+        "label": "Uno alla volta",
+        "overallExplainSimple": "Se un posto diventa disponibile, il membro ha {{ autokick_delay }} promemoria distanziati di {{ dumb_delay_minutes }} minuti per registrarsi prima di cedere il proprio posto al membro successivo.",
+        "overallExplainSmart": "Se un posto diventa disponibile, il membro ha {{ autokick_delay }} promemoria intervallati {{ smart_delay_percentage }}% del tempo rimanente prima dell'inizio della sessione per registrarsi. Ad esempio, se rimangono {{ example_hours_before }}h prima della sessione, ha {{ example_computed_delay_one }} minuti per registrarsi, quindi {{ example_computed_delay_two }} minuti dopo il primo promemoria e così via, prima di lasciare il posto al membro successivo ."
+      },
+      "1": {
+        "explain": "La lista d'attesa non è ordinata. Quando un posto è disponibile, tutte le persone dell'elenco ricevono contemporaneamente un'email che li invita a registrarsi .",
+        "label": "Primo arrivato, primo servito"
+      },
+      "label": "Gestione delle priorità della lista d'attesa"
+    },
+    "last_delay_before_auto_consume": {
+      "helper": "Se la sessione ha luogo troppo presto nel futuro, il membro non sarà registrato anche se ha un pacchetto valido",
+      "label": "Non accettare prenotazioni automatiche se una sessione si svolge in meno di "
+    },
+    "check_credit": {
+      "label": "Verificare che il cliente sia in possesso di un pacchetto compatibile con l'offerta e sufficientemente accreditato",
+      "helper": "Un cliente non può essere aggiunto a una lista di attesa fino a quando non dispone di un pacchetto compatibile con l'offerta in questione e di un credito sufficiente per effettuare la prenotazione"
+    },
+    "display_member_position": {
+      "label": "Mostrare la posizione nella lista di attesa"
+    },
+    "kick_if_no_pack_when_auto_consume": {
+      "label": "Rimuovi automaticamente il membro dalla lista d'attesa se, quando i suoi posti diventano disponibili, non ha più un pacchetto valido",
+      "helper": "Un membro potrebbe utilizzare i suoi crediti per un'altra sessione mentre è in lista d'attesa. Con questa impostazione attivata, se ciò accade, il suo posto in lista d'attesa verrà automaticamente cancellato quando sarà il suo turno di iscriversi."
+    },
+    "errors": {
+      "lastDelayBeforeAutoConsumeError": "I minuti devono essere compresi tra 0 e 240",
+      "autokickDelayError": "È richiesto un numero",
+      "smartDelayPercentageError": "La percentuale deve essere compresa tra 10 e 100",
+      "dumbDelayMinutesError": "I minuti tra i richiami devono essere superiori a 15"
+    }
+  },
+  "switchToDisable": "Riattiva la lista di attesa",
+  "dialog": {
+    "delete": {
+      "content": "Sei sicuro di voler rimuovere questo membro dalla lista di attesa? Sarà avvisato via email.",
+      "confirm": "Rimuovi",
+      "title": "Rimozione dalla lista di attesa",
+      "cancel": "Annulla",
+      "sendEmail": "Inviare un email di cancellazione della registrazione",
+      "contentV2": "Sei sicuro di voler rimuovere questo membro della lista d'attesa ?"
+    },
+    "autoBooking": {
+      "warning": {
+        "content": "Chiudendo il modulo, i membri selezionati non saranno aggiunti alla sessione. Se sono stati selezionati più membri e si desidera deselezionare solo questo membro, fare clic su Annulla nel formulario",
+        "title": "Sei sicuro?"
+      },
+      "loading": {
+        "content": "Non aggiornare la scheda e non lasciare la pagina. Questo processo può richiedere alcuni secondi.",
+        "title": "I membri stanno per essere aggiunti alla sessione"
+      },
+      "info": {
+        "content": "I membri con pacchetti validi saranno automaticamente prenotati per la sessione e riceveranno un'e-mail di conferma. Il sistema dedurrà automaticamente i crediti dai pacchetti che scadono prima",
+        "title": "Prenotazioni automatiche per i pacchetti validi"
+      },
+      "success": {
+        "title": "I membri sono stati aggiunti con successo alla sessione"
+      },
+      "error": {
+        "content": "Non è stato possibile aggiungere membri alla sessione. Riprova",
+        "title": "La prenotazione automatica non è andata a buon fine"
+      },
+      "incomplete": {
+        "actions": {
+          "bookThem": "Iscrivili manualmente",
+          "ok": "OK"
+        },
+        "content": {
+          "unregistered": "I seguenti membri NON possono essere registrati dato che non è stato possibile trovare un pacchetto compatibile",
+          "registered": "I seguenti membri sono stati registrati in quanto è stato trovato un pacchetto compatibile:"
+        },
+        "title": "Completa la lista d'attesa"
+      }
+    },
+    "confirm": "Conferma",
+    "cancel": "Annulla"
+  },
+  "switchToEnable": "Riattiva la lista di attesa",
+  "nbConvertible": "{{nbConvertible}} in attesa di conferma",
+  "explainWaitingListConf": "es: ci sono 3 ore prima della sessione, il membro ha {{nbMinutesBeforeBookingOptionExpire}} minuti per confermare la sua prenotazione prima di lasciare il suo posto.",
+  "member": {
+    "detail": {
+      "offerTitle": "Sessione legata",
+      "registrationSource": "Canale di registrazione",
+      "registeredOn": "Registrato il",
+      "title": "Dettagli lista d'attesa"
+    },
+    "empty": "Nessuna inscrizione nella lista d'attesa",
+    "delete": "Elimina",
+    "addToBook": "Registrare",
+    "listTitle": "Lista d'attesa",
+    "waitingListPosition": "Posizione in lista d'attesa {{ position }}/{{ size }}"
+  }
+}

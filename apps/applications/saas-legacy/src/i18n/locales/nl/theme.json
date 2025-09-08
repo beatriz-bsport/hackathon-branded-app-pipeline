@@ -1,0 +1,503 @@
+{
+  "forms": {
+    "themePersonalization": {
+      "calendar": {
+        "offerCard": {
+          "helperText": "Verander de stijl van leskaarten",
+          "label": "Leskaarten",
+          "placeholder": "Voer CSS-code in"
+        },
+        "columns": {
+          "placeholder": "Voer CSS-code in",
+          "label": "Kolommen",
+          "helperText": "Kolomstijl wijzigen"
+        },
+        "police": {
+          "placeholder": "Voer CSS-code in",
+          "label": "Lettertype",
+          "helperText": "Wijzig lettertype"
+        },
+        "title": "Voer je eigen CSS-code in om de agenda aan te passen",
+        "bookButton": {
+          "placeholder": "Voer CSS-code in",
+          "label": "\"Reserveer\" knop",
+          "helperText": "Verander de stijl van de \"reserveer\" knop"
+        }
+      },
+      "default_attendance": {
+        "present": "Aanwezig",
+        "missing": "Afwezig",
+        "title": "Standaardstatus voor reserveringen"
+      },
+      "default_booking_ordering": {
+        "date": "Sorteer op: meest recent",
+        "firstname": "Sorteer op: voornaam (alfabetisch)",
+        "lastname": "Sorteer op: achternaam (alfabetisch)",
+        "title": "Kies de standaard sorteervolgorde voor reserveringen op je agenda"
+      },
+      "names_label_info": "Wijzig het label van de velden Voornaam en Achternaam in je aanmeldformulier.",
+      "first_name_label": {
+        "placeholder": "Voornaam label",
+        "label": "Voornaam label",
+        "helperText": "Voer het label in voor de voornaam"
+      },
+      "last_name_label": {
+        "placeholder": "Achternaam label",
+        "label": "Achternaam label",
+        "helperText": "Voer het label in voor de achternaam"
+      },
+      "offersFilling": "Toon het aantal reserveringen van een sessie op de agenda van je leden",
+      "acceptDoubleBooking": "Dubbele reserveringen aanvaarden (alleen voor groepsactiviteiten)",
+      "consumerRegularizeDebt": "Sta leden toe hun om uitstaande bedragen online te betalen",
+      "workshopsCustomer": "Toon workshops op de agenda van je leden",
+      "cancelledOffersCustomer": "Toon geannuleerde sessies op de agenda van je leden",
+      "calendarPersonalizationTitle": "Agenda",
+      "basket_expiration_days": {
+        "alert": "Geef de vervaldagen van het mandje op.",
+        "placeholder": "Aantal dagen voor de vervaldatum",
+        "helperText": "Dit is het aantal dagen voordat een ongebruikt winkelmandje automatisch wordt geleegd.",
+        "label": "Activeer deze optie om winkelmandjes automatisch een vervaldatum te geven"
+      },
+      "cancelledOffersManager": "Toon geannuleerde sessies op de agenda van je Back Office",
+      "checkBalance": {
+        "shiftRatio": {
+          "explain": "Als een sessie meer dan {{numberCheck}} reserveringen heeft, worden er geen toekomstige reserveringen geaccepteerd die de onevenwichtigheid tussen MANNEN/VROUWEN groter maakt dan {{gender_max_shift_for_booking}} personen.",
+          "helperText": "Beperk de onevenwichtigheid tussen MANNEN/VROUWEN tot {{gender_max_shift_for_booking}} personen.",
+          "placeholder": "Maximale onevenwichtigheid tussen MANNEN/VROUWEN"
+        },
+        "numberCheck": {
+          "helperText": "Wanneer {{number}} leden zich voor een sessie inschrijven, worden alleen reserveringen geaccepteerd als de onevenwichtigheid tussen MANNEN/VROUWEN minder is dan de volgende waarde.",
+          "placeholder": "Beperk reserveringen als de MAN / VROUW verhouding ≥"
+        },
+        "checkbox": "Automatisch de man-vrouwverhouding reguleren"
+      },
+      "offerBalance": "Geslachtsverhouding",
+      "showGenderOffer": "Toon het aantal ingeschreven MANNEN / VROUWEN op de agenda van je leden",
+      "hideCoach": "Verberg de informatie van instructeurs op de agenda van je leden",
+      "maxFutureBooking": {
+        "label": "Dit is het maximum aantal toekomstige reserveringen voor workshops die leden vooraf kunnen inplannen",
+        "numberCheck": {
+          "placeholder": "Limiet",
+          "helperText": "Dit is het maximum aantal toekomstige reserveringen voor groepsactiviteiten die leden vooraf kunnen inplannen."
+        }
+      },
+      "hiddenFromMarketplace": "Activeer deze optie om je studio op de algemene app van BSPORT te tonen",
+      "schedule": {
+        "alert": "De starttijd moet vroeger dan de eindtijd zijn",
+        "end": "Eindtijd",
+        "begin": "Starttijd",
+        "title": "Rooster"
+      },
+      "coach_can_edit_attendance": "Sta toe dat instructeurs de aan- en/of afwezigheid op de mobiele app kunnen wijzigen",
+      "internalAccount": "Interne rekening (Wallet)",
+      "internalAccountNotusableOnContract": "Deze betaalmethode kan niet voor abonnementen worden gebruikt.",
+      "internalAccountWarning2": "Ga naar Rapportages > Een rapportage toevoegen > Scroll naar \"Betalingen\" > Selecteer \"credit(s)\" > Selecteer alle kolommen > Klik op \"Bevestigen\".",
+      "internalAccountWarning1": "We raden aan om eerst een rapportage voor het saldo van leden hun interne rekening (Wallet) aan te maken voordat deze functie aan wordt gezet.",
+      "internalAccountWarningTitle": "Houd rekening met het saldo van leden hun interne rekening (Wallet).",
+      "allowConsumerToUseInternalAccount": "Sta leden toe om het saldo van hun interne rekening (Wallet) te gebruiken om uitstaande facturen/winkelmandjes te betalen",
+      "goToReports": "Rapportages",
+      "errorURL": "Voer een geldige URL in om dit formulier op te slaan",
+      "bookingTitle": "Reserveringen",
+      "attendanceTitle": "Aanwezigheid",
+      "hideBuyablePassIfSuperfluous": "Verberg kaarten, abonnementen en pakketten indien het lid al een compatibel product bezit",
+      "hideSessionWithTagsNotEligible": "Verberg sessies waarvoor leden niet de juiste tags bezitten",
+      "hideMemberForCoach": "Verberg de contactgegevens van leden op accounts van instructeurs",
+      "signup": {
+        "urlHelperText": "Het lid wordt doorverwezen naar deze link na bevestiging van het e-mailadres. Zo niet, dan worden ze doorgestuurd naar hun profiel op de marketplace.",
+        "urlError": "Voer een geldige url in",
+        "urlRedirection": "Omleidings-URL",
+        "helperText": "Zodra nieuwe leden zich inschrijven aan de hand van een nieuw account zullen ze een e-mail ontvangen om het gebruikte e-mailadres te bevestigen. Nieuwe accounts zijn pas na activatie geactiveerd.",
+        "label": "Bevestigingsmails na nieuwe inschrijvingen sturen",
+        "title": "Registratiebevestiging",
+        "emailConfirmationAtSignUp": {
+          "label": "Bevestiging per e-mail bij inschrijving",
+          "helperText": "Klanten krijgen een e-mail als ze zich aanmelden en moeten hun e-mailadres bevestigen. Hun ledenaccount wordt pas geactiveerd als ze op de link in de e-mail klikken. "
+        }
+      },
+      "coachUserspace": {
+        "errors": {
+          "restrictionToggles": "Selecteer ten minste één optie"
+        },
+        "requestLimitationPeriods": {
+          "placeholder": "Selecteer een periode",
+          "year": "Jaren",
+          "month": "Maanden",
+          "week": "Weken"
+        },
+        "maxNbRequestPerPeriod": {
+          "recap": {
+            "1": "Iedere {{nbPeriods}} week/weken kunnen instructeurs maximaal {{nbRequests}} laattijdige vervangingsverzoek(en) indienen. Zodra dit aantal wordt overschreden is het niet langer mogelijk om gedurende deze periode nieuwe verzoeken in te dienen.",
+            "2": "Iedere {{nbPeriods}} maand(en) kunnen instructeurs maximaal {{nbRequests}} laattijdige vervangingsverzoek(en) indienen. Zodra dit aantal wordt overschreden is het niet langer mogelijk om gedurende deze periode nieuwe verzoeken in te dienen.",
+            "3": "Iedere {{nbPeriods}} jaar kunnen instructeurs maximaal {{nbRequests}} laattijdige vervangingsverzoek(en) indienen. Zodra dit aantal wordt overschreden is het niet langer mogelijk om gedurende deze periode nieuwe verzoeken in te dienen."
+          },
+          "helperText": "Maximum aantal late vervangingsverzoeken"
+        },
+        "isLateReplacementRequestLimited": "Limiet voor laattijdige vervangingsverzoeken",
+        "daysBeforeReplacementClosingAcceptance": {
+          "description": "Insctructeurs kunnen geen vervangingsverzoeken accepteren als een sessie over {{count}} dag begint.",
+          "description_plural": "Insctructeurs kunnen geen vervangingsverzoeken accepteren als een sessie over {{count}} dagen begint.",
+          "helperText": "Sluiting vervangingsverzoeken",
+          "placeholder": "Aantal dagen"
+        },
+        "daysBeforeReplacementClosing": {
+          "interval": "Interval",
+          "every": "Iedere",
+          "description": "Vervangingsverzoeken die minder dan {{count}} dag voor het begin van de sessie worden ingediend worden als te laat beschouwd.",
+          "description_plural": "Vervangingsverzoeken die minder dan {{count}} dag(en) envoor het begin van de sessie worden ingediend worden als te laat beschouwd.",
+          "helperText": "Sluiten vervangingsverzoeken",
+          "placeholder": "Aantal dagen"
+        },
+        "daysBeforeRequestIsLate": {
+          "description": "Vervangingsverzoeken die minder dan {{count}} dag voor het begin van de sessie worden ingediend worden als te laat beschouwd.",
+          "description_plural": "Vervangingsverzoeken die minder dan {{count}} dag(en) voor het begin van de sessie worden ingediend worden als te laat beschouwd.",
+          "helperText": "Laattijdige verzoeken",
+          "placeholder": "Aantal dagen"
+        },
+        "replacementSettings": "Vervangingsinstellingen",
+        "enableReplacement": "Vervanging",
+        "enableRemuneration": "Payroll",
+        "enableSchedule": "Rooster",
+        "restrictionsDescription": "Selecteer tot welke tabbladen instructeurs toegang hebben om de instructeursweergave.",
+        "restrictions": "Beperkingen",
+        "enableDescription": "Zet deze optie aan om standaard de instructeursweergave aan alle instructeurs toe te wijzen.",
+        "enable": "De instructeursweergave standaard inschakelen",
+        "access": "Toegang",
+        "description": "Pas de weergave van de instructeur op het web aan. Let op: deze instellingen hebben geen invloed op de weergave van de app voor de instructeur.",
+        "enableRemunerationDownload": "Geef docenten de mogelijkheid om hun salarislijst te downloaden"
+      },
+      "noShow": {
+        "notAvailable": "Deze optie is momenteel niet beschikbaar, omdat je eerst een onbeperkte leskaart met no-show sancties moet aanmaken.",
+        "error": "De e-mail ter kennisgeving van afwezigheid kan niet worden verzonden nadat het lid is beschouwd als een no-show.",
+        "sendMailHelpText": "Om de e-mail in/uit te schakelen gaat u naar Instellingen> Transactiemails> Sanctie> Verzuimmelding",
+        "sendMail": "Stuur een e-mail <0/> <1/> na het gesprek om het lid te waarschuwen dat hij als no show wordt beschouwd als hij als afwezig wordt aangemerkt.",
+        "daysBeforeNoShowHelpText": "Met deze instelling kunnen boetes worden toegepast op afwezigheden van leden met een onbeperkte kaart.",
+        "daysBeforeNoShow": "Beschouw het lid als (no-show) <0/> <1/> na de oproep op sessies waar hij/zij als afwezig is aangegeven.",
+        "alert": "Deze instellingen gelden alleen voor no-show boetes op onbeperkte kaarten. Om de volgende tellingen te activeren, moet u de oproep voor elke cursus valideren.",
+        "title": "Afwezigheid (no-shows)",
+        "errorValidatedTime": "De tijd die verstrijkt voordat een lid als niet aanwezig wordt beschouwd, moet groter zijn dan 0.",
+        "errorEmailTime": "De tijd die verstrijkt voordat de e-mail om het lid te waarschuwen dat hij/zij niet zal komen moet groter zijn dan 0."
+      },
+      "daysFormatSelector": {
+        "oneLetter": "1 letter",
+        "threeLetters": "3 letters",
+        "fullWord": "Volledig woord",
+        "label": "Weergaveopties voor de dagen op lesroosters"
+      },
+      "showActivityColor": "De kleur van de activiteit weergeven",
+      "sessionDatesDisplayOptions": {
+        "onlyShowStartingTime": "Alleen starttijd weergeven",
+        "showDuration": "Toon de lesduur",
+        "showEndingTime": "Eindtijd weergeven",
+        "label": "Weergaveopties voor lesroosters"
+      },
+      "showLevel": "Toon het lesniveau",
+      "showEstablishment": "Toon de vestiging",
+      "coachDisplayOptions": {
+        "showCoachFirstNameWithPicture": "Voornaam en foto",
+        "showCoachFullNameWithoutPicture": "Volledige naam zonder foto",
+        "onlyShowCoachFirstName": "Alleen de voornaam van de instructeur",
+        "showCoachFullNameWithPicture": "Volledige naam en foto",
+        "label": "Weergavemogelijkheden voor insctructeursinformatie"
+      },
+      "showFreeSessionLabel": "Voeg het label \"Gratis\" toe als een sessie 0 credits kost",
+      "acceptDoubleBookingMetaActivity": "Accepteer dubbele boekingen voor activiteiten",
+      "acceptDoubleBookingWorkshop": "Accepteer dubbele boekingen voor workshops",
+      "hideBookButton": {
+        "switchLabel": "Verberg de knop \"{{-bookButtonTranslation}}\"",
+        "dialogDescription": "Door de \"{{-bookButtonTranslation}}\" knop te verbergen, wordt de kaart klikbaar om de sessie te boeken."
+      },
+      "doubleBookingDisabledWithSpivi": "Dubbele reserveringen zijn niet mogelijk met de Spivi-integratie.",
+      "startWeekOnToday": "Start de kalender van uw leden op de datum van vandaag als het scherm in de kaartmodus voor weekweergave staat.",
+      "showPastSessionsCalendar": "Toon sessies uit het verleden op de kalender van je leden",
+      "maxFutureWorkshop": {
+        "label": "Dit is het maximum aantal toekomstige reserveringen voor workshops die leden vooraf kunnen inplannen.",
+        "numberCheck": {
+          "placeholder": "Maximum",
+          "helperText": "Het maximale aantal workshop-sessies dat een lid van tevoren kan reserveren."
+        }
+      },
+      "waitingListAccountsForMaxFutureBookings": {
+        "helperText": "Indien geactiveerd, zullen toekomstige boekingen zowel wachtlijstregistraties als daadwerkelijke boekingen omvatten. Wanneer het limiet is bereikt, zal een lid beperkt worden in zowel het inschrijven op de wachtlijst als het reserveren van een sessie.",
+        "label": "Bereken ook inschrijvingen op wachtlijst wanneer toekomstige reserveringen geteld worden"
+      },
+      "bookingLimitation": "Globale boekingsbeperkingen",
+      "resetPassword": {
+        "urlError": "Voer een geldige url in",
+        "urlHelperText": "Laat dit veld leeg om door te verwijzen naar de marktplaats",
+        "urlRedirection": "Aangepaste URL",
+        "helperText": "Wanneer je leden hun wachtwoord opnieuw instellen, worden ze standaard doorgestuurd naar de marktplaats. Als je ze ergens anders heen wilt sturen (bijvoorbeeld naar je eigen website), vul dan het volgende veld in met de gewenste URL.",
+        "title": "Wachtwoord opnieuw instellen"
+      },
+      "memberProfile": {
+        "myProfile": {
+          "showMembershipNumber": "Lidmaatschapsnummer tonen",
+          "showBarcodeButton": "Toon barcode knop",
+          "showMemberAccountBalance": "Saldo ledenrekening tonen",
+          "title": "Mijn profiel"
+        }
+      },
+      "displayActivityPrice": "Geef het aantal credits weer",
+      "consumerRegularizeDebtHelper": "Deze functie is beschikbaar op de marketplace, Easy Connect Button en Login Button Widget. Het is nog niet beschikbaar op de App en Leden Profiel widget.\"",
+      "expressCheckout": {
+        "oneClickBooking": {
+          "label": "One-Click Booking (beta)",
+          "helperText": "Nieuwe klanten kunnen activiteiten boeken zonder eerst een account aan te maken. Deze functie is niet compatibel met afspraken of met ‘bevestiging per e-mail bij aanmelding’. Geldt alleen voor activiteiten die geboekt kunnen worden met een ‘nieuwe ledenpas’."
+        },
+        "title": "Snel afrekenen"
+      },
+      "displayStopSubscriptionFromMemberSide": {
+        "helperText": {
+          "simple": "Activeer deze optie om leden in staat te stellen hun abonnement zelf op te zeggen. Hoewel je geen controle hebt over de opzegtermijn voor abonnementen, is de kans groter dat je voldoet aan de wettelijke voorschriften in het land waar je studio is gevestigd. Controleer in welke landen dit van toepassing is.",
+          "franchisor": "Deze wijziging geldt voor al je franchisenemers.",
+          "disabled": "Om deze functie toe te passen op alle franchisenemers, activeer deze functie vanuit het Master Account",
+          "lawCompliance": "Als je deze functie niet activeert, kunnen leden hun abonnementen niet zelf opzeggen en loopt je studio het risico niet te voldoen aan de wetgeving in je land."
+        },
+        "modal": {
+          "cancel": "Annuleren",
+          "confirm": "Nu inschakelen",
+          "linkButton": "Bekijk de handleiding",
+          "linkText": "Voordat je deze functie inschakelt, raden we je aan om te bekijken hoe deze werkt en wat je kunt verwachten:",
+          "content": "In veel landen zijn studio's wettelijk verplicht om leden zelf hun abonnement te laten opzeggen. Door deze functie in te schakelen, zorg je ervoor dat je voldoet aan de lokale wetgeving en bescherm je je studio tegen juridische risico's.",
+          "title": "Abonnement opzeggen voor leden inschakelen?"
+        },
+        "label": "Leden de mogelijkheid bieden om hun abonnement op te zeggen"
+      },
+      "subscriptionPersonalizationTitle": "Abonnement"
+    },
+    "gtmId": {
+      "placeholder": "GTM-XXXXXX",
+      "label": "[ID] Google Tag Management"
+    },
+    "instagramURL": {
+      "label": "Instagram",
+      "helperText": "Plak hier de link naar je eigen Instagram.",
+      "placeholder": "https://instagram.com/mijn-studio/"
+    },
+    "cover": {
+      "label": "Logo",
+      "helperText": "Upload hier je logo met een transparante achtergrond (een .PNG-bestand)."
+    },
+    "primary_color": {
+      "label": "Primaire kleur",
+      "helperText": "Kies een themakleur (vermijd zwart-wit)."
+    },
+    "secondary_color": {
+      "label": "Secundaire kleur",
+      "helperText": "Kies een complementaire themakleur."
+    },
+    "websiteURL": {
+      "label": "Website",
+      "helperText": "Plak hier de link naar de hoofdpagina van je eigen website.",
+      "placeholder": "https://studio.nl/",
+      "errorText": "De URL is ongeldig"
+    },
+    "scheduleURL": {
+      "label": "Link naar eigen rooster",
+      "helperText": "Plak hier de link naar je rooster op je eigen website.",
+      "placeholder": "https://studio.nl/rooster/"
+    },
+    "submit": "Opslaan",
+    "facebookURL": {
+      "label": "Facebook",
+      "helperText": "Plak hier de link naar je eigen Facebook.",
+      "placeholder": "https://facebook.com/mijn-studio/"
+    },
+    "general_terms_and_conditions": {
+      "label": "Algemene servicevoorwaarden",
+      "helperText": "Dit dient voor alle betalingen en inschrijvingen te worden geaccepteerd.",
+      "placeholder": "Ik verklaar dat ik in bezit ben van een medisch certificaat."
+    },
+    "general_terms_of_use": {
+      "placeholder": "Ik bevestig dat ik 13 jaar of ouder ben.",
+      "helperText": "Dit dient bij elke inschrijving te worden geaccepteerd.",
+      "label": "Algemene voorwaarden"
+    },
+    "android_app_url": {
+      "label": "Android",
+      "placeholder": "https://play.google.com/store/apps/details?id=com.bsport",
+      "helperText": "Plak hier de link voor je Android app (Google Play Store)."
+    },
+    "ios_app_url": {
+      "helperText": "Plaats hier de link voor je iOS app (Apple App Store).",
+      "placeholder": "https://apps.apple.com/nl/app/id1356621554",
+      "label": "iOS"
+    },
+    "facebookPixelId": {
+      "label": "[ID] Facebook Pixel",
+      "placeholder": "ID"
+    },
+    "waiver": {
+      "label": "Waiver / Vrijstelling",
+      "placeholder": "Ik bevestig dat ik 13 jaar of ouder ben.",
+      "helperText": "Dit dient bij elke inschrijving te worden geaccepteerd."
+    },
+    "provincialTax": {
+      "taxHelperText": "Dit wordt op facturen getoond.",
+      "taxValue": "Waarde van de belasting",
+      "taxName": "Naam van de belasting",
+      "info": "Vul hier de naam en de waarde van uw provinciale belasting in. Vermeld op alle producten in het platform de totale toegepaste belasting (federale belasting + provinciale belasting). De federale en provinciale belasting zullen op de facturen van uw klanten worden vermeld.",
+      "title": "Provinciale btw-bedrag"
+    },
+    "acceptGuest": "Accepteer reserveringen voor gasten",
+    "allowGuest": {
+      "title": "Activeer de functie voor leden om gasten uit te nodigen",
+      "frequencies": {
+        "week": "Week",
+        "month": "Maand",
+        "year": "Jaar",
+        "placeholder": "Frequentie",
+        "text": " keer per "
+      },
+      "dialog": {
+        "dialogTitle": "Waarschuwing",
+        "dialogContent": "Deactiveer deze functie om het uitnodigen van gasten niet langer toe te staan.",
+        "dialogButtonCancel": "Annuleren",
+        "dialogButtonConfirm": "Bevestigen"
+      }
+    },
+    "extra_info": {
+      "label": "Studio informatie"
+    },
+    "warningColorBrightness": {
+      "save": "Opslaan",
+      "cancel": "Annuleren",
+      "text": "Een van de geselecteerde kleuren is erg licht en kan moeilijk te zien zijn",
+      "title": "Attentie",
+      "example": "Voorbeeld"
+    },
+    "productsThemePersonalization": {
+      "credits": {
+        "description": "Kies om de credits op kaarten van leden wel of niet te tonen.",
+        "label": "Credits verbergen",
+        "subTitle": "Credits"
+      },
+      "title": "Producten",
+      "productsOrdering": {
+        "itemNumberCaption": "{{count}} product",
+        "itemNumberCaption_plural": "{{count}} producten",
+        "description": "Rangschik je producten om verschillende producten, zoals leskaarten, pakketten en abonnementen tijdens het reserveerproces te tonen.",
+        "reset": "Herstellen",
+        "label": "Gepersonaliseerde rangschikking",
+        "subTitle": "Rangschikking"
+      }
+    },
+    "checkInPersonalization": {
+      "settings": {
+        "save": "Opslaan",
+        "beforeStartTime": "Sessies uit het verleden worden nog steeds weergegeven <0/> uur(en) en <1/> minuten(s) na hun starttijd"
+      },
+      "title": "Check-in Tablet"
+    }
+  },
+  "pageTitles": {
+    "theme": "Algemeen",
+    "personalization": "Personalisering",
+    "broadcast": "Livestreamen"
+  },
+  "analytics": {
+    "eventDesc": "Evenementen",
+    "cancel": "Annuleer",
+    "addPrivatePassToCart": "Wanneer een gebruiker een afspraakkaart aan zijn/haar winkelmandje toevoegt",
+    "gtmEvent": "Google Tag Management",
+    "showBasket": "Wanneer een gebruiker zijn/haar winkelmandje opent",
+    "showPass": "Wanneer een gebruiker op een leskaart klikt",
+    "addPackToCart": "Wanneer een gebruiker een pakket aan zijn/haar winkelmandje toevoegt",
+    "addShopItemToCart": "Wanneer een gebruiker een product uit je webshop aan zijn/haar winkelmandje toevoegt",
+    "signupShow": "Wanneer een gebruiker het aanmeldformulier opent",
+    "fbPixelEvent": "Facebook Pixel",
+    "signupSuccess": "Wanneer een gebruiker een account heeft aangemaakt",
+    "contractPaymentSuccess": "Wanneer een gebruiker een abonnement heeft gekocht",
+    "contractShow": "Wanneer een gebruiker op een abonnement klikt",
+    "contractPaymentShow": "Wanneer een gebruiker zich op de betaalpagina van een abonnement bevindt",
+    "showAnalyticsInformation": "Toon retargeting evenementen",
+    "addPassToCart": "Wanneer een gebruiker een leskaart aan zijn/haar winkelmandje toevoegt",
+    "paymentSuccess": "Wanneer een gebruiker een succesvolle betaling verricht",
+    "signinShow": "Wanneer een gebruiker de inlogpagina opent",
+    "sessionShow": "Wanneer een gebruiker een sessie selecteert",
+    "workshopClick": "Wanneer een lid een datum van een workshop selecteert",
+    "bookingSuccess": "Wanneer een gebruiker een sessie boekt (groepsactiviteiten)",
+    "leadAcquisitionSuccess": "Wanneer een gebruiker de aankoopwidget met succes indient",
+    "openAnalyticsModalButton": "Verbind Analytics Tools",
+    "analyticsInformationModal": {
+      "confirm": "BEKIJK DE INSTALLATIEGIDS",
+      "content": "Ontgrendel krachtigere analytics door Google Tag Manager te verbinden met Google Analytics en Meta Pixel (Facebook Pixel). Raadpleeg onze stapsgewijze handleiding om de belangrijkste statistieken voor jouw bedrijf te gaan volgen.",
+      "title": "Stel analytics in voor betere inzichten in je gegevens"
+    }
+  },
+  "zoom": {
+    "confirmDialog": {
+      "title": "Integratie met Zoom",
+      "text": "Als je eerder de links naar online lessen handmatig hebt ingevoerd, worden deze nu verwijderd en vervangen door automatisch gegenereerde Zoom-links. Bijeenkomsten die al op de Zoom-agenda stonden, zullen handmatig moeten worden verwijderd, omdat deze ook door automatisch gegeneerde links worden vervangen."
+    }
+  },
+  "signUpForm": {
+    "fields": {
+      "waiver": "Waiver / Vrijstelling",
+      "general_terms_and_conditions_accepted": "Algemene voorwaarden",
+      "cgu": "Algemene voorwaarden",
+      "accept_sms": "Ik ontvang graag relevante sms'jes.",
+      "accept_email": "Ik ontvang graag relevante e-mails.",
+      "sms_notification": "Ik ontvang graag relevante sms'jes.",
+      "email_notification": "Ik ontvang graag relevante e-mails.",
+      "emergency_contact": "Contactpersoon voor noodgevallen",
+      "profile_picture": "Profielfoto",
+      "zipcode": "Postcode",
+      "zip_code": "Postcode",
+      "country": "Land",
+      "city": "Stad",
+      "additionnal_address_info": "Aanvulling adres",
+      "address": "Adres",
+      "birthdate": "Geboortedatum",
+      "phone": "Telefoonnummer",
+      "main_phone": "Telefoonnummer",
+      "gender": "Geslacht",
+      "email": "E-mailadres",
+      "last_name": "Achternaam",
+      "first_name": "Voornaam",
+      "photo": "Profielfoto",
+      "address_line_2": "Aanvulling adres",
+      "address_line_1": "Adres",
+      "birthday": "Geboortedatum",
+      "vaccination_status": "Status coronabewijs"
+    },
+    "error": "Fout bij het opslaan van de wijzigingen",
+    "success": "Configuratie opgeslagen",
+    "save": "Opslaan",
+    "editable": "Bewerkbaar",
+    "required": "Verplicht",
+    "show": "Toon",
+    "label": "Label",
+    "field_identifier": "Velden",
+    "account_modification": "Account bewerken",
+    "account_creation": "Account aanmaken",
+    "title": "Ledenformulier",
+    "customQuestionDialog": {
+      "confirm": "Een formulier toevoegen",
+      "cancel": "Annuleer",
+      "content": "Je kunt zelf gepersonaliseerde vragen aan je inschrijfformulier toevoegen door een nieuw inschrijfformulier via Marketing > Formulieren aan te maken.",
+      "title": "Gepersonaliseerde vragen"
+    },
+    "addQuestions": "Een vraag toevoegen",
+    "additionalCustomForm": "Aanvullende formulieren"
+  },
+  "quickbooks": {
+    "confirmDialog": {
+      "text": "Weet je zeker dat je toegang aan BSPORT wilt geven voor deze applicatie?",
+      "title": "QuickBooks verbinding"
+    },
+    "title": "QuickBooks"
+  },
+  "marketingEmail": {
+    "caption": "De in dit veld ingevuld e-mailadres ontvangt een kopie van verzonden e-mails.",
+    "placeholder": "E-mail",
+    "label": "Aanvullende e-mail"
+  },
+  "provincialTax": {
+    "helperText": "De btw lager dan of gelijk aan het aangegeven provinciale btw-bedrag. Alleen deze belasting wordt vermeld zonder onderscheid tussen federale en nationale belastingen."
+  },
+  "taxDisplay": {
+    "info": "Activeer deze optie om de prijzen excl. btw op de Widgets, MarketPlace en Mobiele App weer te geven.",
+    "title": "Prijsweergave",
+    "checkbox": "Toon het belastingvrije bedrag van producten"
+  }
+}

@@ -1,0 +1,540 @@
+{
+  "recipient": {
+    "table": {
+      "columns": {
+        "lastRead": "Última apertura",
+        "readCount": "Aperturas",
+        "status": "Estado",
+        "clicked": "Clicks",
+        "email": "Email"
+      }
+    },
+    "status": {
+      "0": "En curso",
+      "1": "En curso",
+      "2": "Rechazado",
+      "3": "Espera",
+      "4": "Recibido",
+      "5": "Error",
+      "-1": "Desconocido"
+    },
+    "readCount": "Apertura",
+    "showEmail": "Ver el email",
+    "clicksCount": "Click",
+    "showSms": "Ver SMS",
+    "showNotification": "Ver la notificación",
+    "numberOfRecipientsCompact": "{{count}} destinatorios.",
+    "numberOfRecipients": "Enviado a 1 destinatario",
+    "numberOfRecipients_plural": "Enviado a {{count}} destinatarios",
+    "isAnswerWarning": "¡Atención! Sólo tú puedes ver este mensaje"
+  },
+  "campaign": {
+    "report": {
+      "dateCreated": "Fecha de envío",
+      "lastOpen": "Última apertura",
+      "deliveryRate": "Envíos exitosos",
+      "totalRead": "Número de personas que abrieron el correo",
+      "noTopLink": "Ningún click",
+      "recipientList": "Detalle por destinatario",
+      "topLinks": "Enlaces más visitados",
+      "totalClick": "Número de personas que han hecho clic en un enlace",
+      "exportError": "Se ha producido un error al exportar",
+      "exportCampaign": "Exportar campaña",
+      "plannedResends": "Reenvíos automáticos previstos:",
+      "resentOn": "Enviado de nuevo el:"
+    },
+    "list": {
+      "showMore": "Ver más",
+      "isEmpty": "Ningún email enviado por el momento"
+    },
+    "readCount": "Aperturas",
+    "showReport": "Informe",
+    "clickCount": "Clicks",
+    "sentAt": "Enviado el {{ date_created }}",
+    "showMail": "Ver el email",
+    "recipientCount": "Destinatario: {{ total_recipients }}",
+    "kind": {
+      "0": "Email",
+      "1": "SMS",
+      "2": "Notificación push"
+    },
+    "unavailableMail": "Vista previa no disponible",
+    "automated": {
+      "deleteDialog": {
+        "content": "¿Está seguro de que quiere eliminar esta regla de envío automático? Esta acción es definitiva.",
+        "title": "Supresión"
+      },
+      "panel": {
+        "subtitle": {
+          "onJoin": "Al entrar",
+          "onLeft": "Al salir"
+        },
+        "add": "Añadir un mensaje",
+        "title": "Regla de envío automático"
+      },
+      "form": {
+        "frequenceHelper": "Esta comunicación se enviará para {{ max }} {{ event_kind }} de la smartlist para cada miembro. Después de {{ max }} {{ event_kind }} de la smartlist para el mismo miembro, éste ya no recibirá esta comunicación. Puede cambiar esta configuración en \"Avanzado\".",
+        "subtitles": {
+          "create": {
+            "leftSmartList": "Crear un mensaje automático para los miembros que salen de esta Smartlist.",
+            "joinSmartList": "Creación de una regla de envío automático a la entrada a la smartlist"
+          },
+          "update": {
+            "leftSmartList": "Modificación de una regla de envío automático a la salida de la smartlist",
+            "joinSmartList": "Modificación de una regla de envío automático en la smartlist"
+          }
+        },
+        "max_communications_sent_per_member_limit": "Valor máximo : {{ max }}",
+        "max_communications_sent_per_member": "Cantidad de veces que se aplica la norma",
+        "advancedSection": "Avanzado",
+        "submit": "Confirmar",
+        "maxCommunicationSentHelperText": {
+          "0": "Este mensaje se enviará cada vez que un miembro entre en el segmento. Si un miembro sale y vuelve a entrar, el mensaje se volverá a enviar. Establezca un límite en el número de veces que un mismo miembro puede ver este mensaje.",
+          "1": "Por defecto, el mensaje se envía cada vez que un miembro sale de la smartlist. Si un miembro vuelve a entrar y más tarde sale de nuevo, el mensaje se envía de nuevo. Ajuste la configuración si desea limitar el número de veces que el mismo miembro puede recibir el mensaje: una, dos o tres veces."
+        },
+        "limitSection": "Límite",
+        "unlimited": "Sin límites"
+      },
+      "activeSince": "Activo desde el {{-date}}",
+      "eventKind": {
+        "0": "Entrada",
+        "1": "Salida"
+      },
+      "create": "Creación ",
+      "onLeft": "Al final de la smartlist",
+      "onJoin": "En la entrada de la smartlist"
+    },
+    "automatedTitle": "Envíos automáticos",
+    "manualTitle": "Envíos manuales",
+    "processing": "Enviando...",
+    "exportCampaigns": {
+      "dialogButtonGenerateAnyway": "Generar de todos modos",
+      "dialogContentAlternative": "También puede hacer clic en \"Generar de todos modos\" para generar el informe sin la hoja de destinatarios.",
+      "dialogContentSurplus": "El límite se ha superado en {{ difference_count }} filas.",
+      "dialogContent": "Este informe tiene ~{{ count }} millones de filas de destinatarios, superando el límite de la hoja xlsx de 1 millón. Para incluir destinatarios, disminuya el intervalo de fechas para reducir el recuento.",
+      "dialogTitle": "Límite de destinatarios superado",
+      "title": "Exportar campañas"
+    },
+    "scheduledTitle": "Programado para más tarde"
+  },
+  "common": {
+    "refresh": "Refrescar",
+    "submit": "Enviar",
+    "cancel": "Cancelar",
+    "recipient": "destinatario",
+    "recipient_plural": "destinatarios",
+    "confirm": "Confirmar",
+    "close": "Cerrar"
+  },
+  "recipients": "Destinatarios",
+  "mail": {
+    "noObject": "Ningún objeto",
+    "refreshText": "Por favor, recarga la página para actualizar el cambio de email",
+    "error": "No se ha enviado el email, por favor inténtelo de nuevo más tarde.",
+    "success": "Comunicación enviada",
+    "missing": "Email ausente",
+    "content": "Contenido del email",
+    "title": "Asunto del email",
+    "refreshTextPhone": "Por favor, recargue la página para actualizar el teléfono",
+    "sendSms": "Envía un sms",
+    "hideMail": "Ocultar el email",
+    "count": "caracteres",
+    "showMail": "Ver el email",
+    "mailSelection": "Selecciona un email",
+    "selectToShowPreview": "Selecciona un email para verlo de antemano",
+    "noMailAvailable": "No hay email disponible, considere la posibilidad de crear uno",
+    "phoneMissing": "Falta el teléfono",
+    "mailMissing": "Falta el email",
+    "numberSms": "sms",
+    "contentSms": "Contenido de los SMS",
+    "selectTemplate": "Seleccione una plantilla",
+    "writeMail": "Escribir un email",
+    "dialogTitle": "Comunicación",
+    "contentNotification": "Contenido",
+    "titleNotification": "Título",
+    "sendNotification": "Notificación push",
+    "warningConsent1": "Advertencia: este socio no quiere recibir correos electrónicos promocionales. Los correos electrónicos directos son una forma rápida y sencilla de contactar a tus miembros. No deben utilizarse con fines publicitarios o promocionales.",
+    "warningConsent2": "No respetar esta decisión de su socio sería ilegal. Bsport no se hace responsable en caso de uso abusivo de los correos electrónicos directos.",
+    "titleInterpolated": "Las variables contenidas en el título y el cuerpo del correo electrónico se actualizan en función del destinatario",
+    "warningProvider": "Las respuestas a este mensaje se enviarán automáticamente a tu buzón de correo electrónico. Ve a Ajustes - Personalización - Ajustes del chat para que todas tus comunicaciones aparezcan aquí."
+  },
+  "table": {
+    "columns": {
+      "date_created": "Fecha",
+      "member": "Miembro",
+      "status": "Estado",
+      "title": "Vistazo"
+    }
+  },
+  "dialogReceiverChoice": {
+    "title": "Selección de los destinatarios",
+    "waitingList": "Enviar a la lista de espera",
+    "reservation": "Enviar a las reservas",
+    "canceledReservation": "Enviar a reservas canceladas"
+  },
+  "send": {
+    "error": "Error durante el envío",
+    "success": "Email en curso de envio..."
+  },
+  "sms": {
+    "warningConsent2": "No respetar esta decisión de tu socio sería ilegal. Bsport no se hace responsable en caso de uso abusivo del sms directo.",
+    "warningConsent1": "Advertencia: este miembro no quiere recibir sms promocionales. Los sms directos te permiten llegar a tus socios de forma sencilla y rápida. No deben utilizarse con fines publicitarios o promocionales.",
+    "warningProviderNotVerified": {
+      "regulatoryNotice": "Antes de poder enviar campañas de SMS, comunicaciones automáticas o mensajes directos, es necesario validar el número para cumplir la normativa local de EE.UU. y Canadá.",
+      "mainMessage": "Parece que el número de teléfono para SMS aún no ha sido validado.",
+      "title": "Envío de SMS no disponible"
+    }
+  },
+  "filter": {
+    "numberFilter": "1 filtro aplicado",
+    "numberFilter_plural": "{{count}} filtros aplicados",
+    "dateFilter": {
+      "dateEnd": "Fecha de finalización",
+      "dateStart": "Fecha de inicio",
+      "period": "Periodo",
+      "title": "Fecha de envío"
+    },
+    "filterAction": "Filtrar",
+    "applyFilter": "Aplicar",
+    "choicesLabels": {
+      "0": "Email",
+      "1": "SMS",
+      "2": "Notificación push",
+      "3": "Sesión",
+      "4": "Notificación",
+      "5": "Smartlist",
+      "6": "Mensaje directo",
+      "7": "Reservas",
+      "8": "Reservas canceladas",
+      "9": "Lista de espera",
+      "10": "Sesión",
+      "11": "Mensaje directo",
+      "12": "Smartlist",
+      "13": "Notificación",
+      "14": "Emails transaccionales",
+      "15": "{{ audienceCamelCase }}",
+      "16": "Franquicia",
+      "30": "Reservas",
+      "31": "Reservas canceladas",
+      "32": "Lista de espera",
+      "50": "Automático",
+      "51": "Manual",
+      "70": "Enviados",
+      "71": "Recibidos"
+    },
+    "sendParameter": {
+      "placeholder": "Seleccione un parámetro de envío",
+      "title": "Parámetro de envío"
+    },
+    "recipient": {
+      "placeholder": "Seleccione el estado de la reserva",
+      "title": "Destinatarios"
+    },
+    "channel": {
+      "placeholder": "Seleccione un tipo de canal",
+      "title": "Canales"
+    },
+    "kind": {
+      "placeholder": "Seleccione un tipo de envío",
+      "title": "Tipo de envío"
+    },
+    "srcOrDst": {
+      "placeholder": "Selecciona un tipo de mensaje",
+      "title": "Mensajes"
+    },
+    "ariaLabel": {
+      "deleteAllFilters": "Borrar todos los filtros"
+    }
+  },
+  "dialogRecipients": {
+    "noMail": "correo electrónico no suministrado",
+    "warnings": {
+      "full": "Algunos destinatarios no tienen correo electrónico/número de teléfono y no se han seleccionado todos los destinatarios.",
+      "recipientsNotAllSelected": "No todos los beneficiarios han sido seleccionados.",
+      "phoneOrMailMissing": "Algunos destinatarios no tienen correo electrónico/número de teléfono.",
+      "header": "Cuidado"
+    },
+    "noPhone": "número no suministrado",
+    "refreshMemberData": "Para ver los cambios, haz clic en el botón de actualización."
+  },
+  "dialogInformation": {
+    "status": {
+      "1": "esperando",
+      "4": "recibido",
+      "notReceived": "no recibido",
+      "openNo": "no",
+      "openYes": "sí"
+    },
+    "headerOpen": "Abierto",
+    "headerStatus": "Estado"
+  },
+  "dialogTemplate": {
+    "refreshText": "Para que su nueva plantilla aparezca en la lista, haga clic en el botón de actualización.",
+    "title": "Selección de plantilla"
+  },
+  "sendMessage": {
+    "icons": {
+      "balise": "Etiquetas",
+      "template": "Plantilla de email",
+      "notification": "Notificación push",
+      "sms": "SMS",
+      "mail": "Email",
+      "autoResend": "Renvío automático",
+      "automaticCommunicationLimit": "Establecer un límite",
+      "messageScheduling": "Programar el mensaje"
+    },
+    "refresh": "Para ver la nueva versión de tu plantilla, haz clic en el botón de actualización.",
+    "sendDisabled": {
+      "missingContent": "Tu mensaje no está completo.",
+      "missingRecipients": "Primero elige a los destinatarios",
+      "missingPhoneInDirectMember": "Este miembro no tiene un número de teléfono",
+      "missingEmailInDirectMember": "Este miembro no tiene correo electrónico."
+    },
+    "buttons": {
+      "selectRecipientsMobile": "dest.",
+      "selectRecipients": "Elige destinatarios",
+      "send": "Enviar",
+      "updateScheduled": "Actualizar",
+      "scheduleCommunication": "Programar"
+    },
+    "textField": {
+      "warningLength": "Se enviarán {{number_sms}} SMS",
+      "object": "Asunto",
+      "title": "Título",
+      "content": "Mensaje"
+    },
+    "writeCommunication": "Crear un mensaje",
+    "smsCostReminderModal": {
+      "confirm": "Confirmar",
+      "cancel": "Cancelar",
+      "content": {
+        "effect": "Puedes consultar el precio por SMS en tu contrato. ¿Estás seguro de que quieres enviar esta comunicación?",
+        "description": "Enviar SMS a un grupo numeroso de afiliados puede resultar costoso."
+      },
+      "title": "Recordatorio de costes SMS"
+    },
+    "membersWontLoad": "Estamos teniendo problemas para cargar los miembros de esta smartlist. Tenga en cuenta que no podrá previsualizar el número de miembros a los que llegará esta comunicación.",
+    "smsCostWarning": {
+      "confirm": "Enviar de todos modos",
+      "cancel": "Cancelar",
+      "content": {
+        "effect": "Consulta tu contrato para saber el coste por SMS.",
+        "description": "Los SMS pueden ser más caros que otros canales."
+      },
+      "title": "¿Enviar un SMS a un grupo grande?"
+    },
+    "cannotReviewRecipients": {
+      "confirm": "Enviar de todos modos",
+      "cancel": "Cancelar",
+      "content": {
+        "effect": "Si envías tu mensaje ahora, se seguirá enviando a todas las personas que coincidan con los filtros de tu Smartlist.",
+        "description": "Aún estamos cargando la lista completa de destinatarios."
+      },
+      "title": "¿Enviar sin revisar todos los destinatarios?"
+    },
+    "warningModalTitle": {
+      "title": "Queremos informarle de algunas cosas antes de que envíe comunicaciones"
+    }
+  },
+  "communication": "Comunicaciones",
+  "generic": {
+    "history": "Historia",
+    "communication": "Comunicación"
+  },
+  "thread": {
+    "emptyThread": {
+      "becauseNeverUsed": "Todavía no has enviado ninguna comunicación por este canal.",
+      "becauseOfFilters": "No hay resultados que coincidan con los filtros."
+    },
+    "filterOutCommunicationSent": "La comunicación que acabas de enviar queda oculta por los filtros activos.",
+    "item": {
+      "year": "{{count}} año",
+      "year_plural": "{{count}} años",
+      "weeks": "sem",
+      "days": "d",
+      "hours": "h",
+      "minutes": "min",
+      "unarchive": "Restablecer",
+      "archive": "Archivar",
+      "unmute": "Reactivar",
+      "mute": "Silenciar",
+      "removeFavorite": "Eliminar de favoritos",
+      "addToFavorite": "Añadir a favoritos",
+      "markAsRead": "Marcar como no leído",
+      "detail": {
+        "offer": "Detalles de la sesión",
+        "smartlist": "Detalles de la Smartlist",
+        "member": "Datos del miembro"
+      },
+      "filterMessages": "Filtrar mensajes",
+      "disableDialog": {
+        "secondContent": "Ya no aparecerá en la lista de chats, pero se podrá seguir accediendo a él seleccionando el filtro \"Archivado\".",
+        "title": "Archivar chat",
+        "firstContent": "Estás a punto de archivar este chat.",
+        "thirdContent": "Ten en cuenta que un nuevo mensaje en este chat, ya sea tuyo o de la persona con la que estás hablando, restablecerá automáticamente el chat."
+      },
+      "noMessage": "Ningún mensaje"
+    },
+    "search": "Buscar...",
+    "filter": {
+      "allThreads": "Todos los mensajes",
+      "hasNotBeenRead": "No leído",
+      "favorites": "Favoritos",
+      "muted": "Silenciar",
+      "disabled": "Archivado"
+    },
+    "kind": {
+      "member": "Miembros",
+      "smartlist": "Smartlists",
+      "offer": "Sesiones"
+    },
+    "loadMoreThreads": "Cargar más mensajes",
+    "noThread": {
+      "item": {
+        "smartlist": "Aquí puedes encontrar las conversaciones de tus smartlists.",
+        "member": "Más información sobre las conversaciones con los miembros",
+        "offer": "Haga clic aquí para obtener más información sobre sus sesiones"
+      },
+      "list": "Ningún resultado"
+    },
+    "selectThread": {
+      "description": "Haga clic en un miembro, una lista inteligente o una sesión para ver la conversación asociada.",
+      "title": "Seleccione un chat"
+    },
+    "panel": {
+      "smartlist": {
+        "memberCount": "Miembros en la smartlist",
+        "filters": "Filtros",
+        "description": "Descripción"
+      },
+      "member": {
+        "invoices": {
+          "title": "Facturas",
+          "noUnpaidInvoices": "Al día"
+        },
+        "files": "Documentos",
+        "notes": "Notas"
+      },
+      "navigation": {
+        "offer": "Ver detalles de la sesión",
+        "member": "Ver los datos del miembro",
+        "smartlist": "Ver detalles de la smartlist"
+      },
+      "header": "Detalles",
+      "tags": "Etiquetas",
+      "openPanel": "Abrir detalles",
+      "closePanel": "Cerrar detalles"
+    }
+  },
+  "sentStatus": {
+    "fail": "Se produjo un error al enviar",
+    "processing": "La comunicación se está enviando"
+  },
+  "forms": {
+    "twoWayEmail": {
+      "description": "Tenga en cuenta que las respuestas por correo electrónico de los miembros ya no aparecerán en su buzón, sino directamente en la plataforma.",
+      "title": "Recibir respuestas por correo electrónico en la plataforma"
+    },
+    "submit": "Guardar",
+    "title": "Parámetros del chat"
+  },
+  "smartListPopup": {
+    "preview": "Vista previa",
+    "previewTitle": "Vista previa",
+    "drawerTitle": "Historia de las ventanas emergentes",
+    "close": "Cerrar",
+    "cancelPreview": "Cancelar",
+    "recipients": "Destinatarios ",
+    "recipient": "destinatario",
+    "recipient_plural": "destinatarios",
+    "see": "Ver",
+    "seeRecipients": "Ver destinatarios",
+    "noSmartListPopup": "No hay ventanas emergentes de inicio ",
+    "memberListTitle": "Ventana emergente de inicio"
+  },
+  "messageList": {
+    "emptyList": {
+      "becauseOfFilters": "No hay resultados que coincidan con los filtros.",
+      "becauseNeverUsed": "No hay mensajes que mostrar. Haga clic en el cuadro de texto de abajo para escribir su primer mensaje."
+    },
+    "filterOutCommunicationSent": "La comunicación que acaba de enviar queda oculta por los filtros activos."
+  },
+  "createThread": {
+    "close": "Cerrar",
+    "confirmResourceSelected": "Confirmar",
+    "title": "Nuevo mensaje",
+    "smartlistPlaceholder": "Selecciona una smartlist",
+    "refreshSmartlist": "Haz clic en el botón de actualización para ver las nuevas smartlists"
+  },
+  "resendSection": {
+    "resendDelay": {
+      "helperText": "Valor maximo: 180",
+      "label": "Duración antes de reenviar"
+    },
+    "resendCount": {
+      "helperText": "El correo electrónico se reenviará a todos los destinatarios que no lo hayan abierto. Valor máximo: 5",
+      "label": "Cantidad de reenvíos automáticos"
+    },
+    "title": "Reenvío automático de los correos no leídos",
+    "dialogTitle": "Renvío automático de los correos no leídos"
+  },
+  "scheduled": {
+    "tooLateToUpdateDialog": {
+      "close": "Volver a smartlist",
+      "content": "Este mensaje no puede modificarse ni borrarse en los 5 minutos precedentes a su envío.",
+      "title": "Ya no puede modificar ni borrar este mensaje."
+    },
+    "dialog": {
+      "close": "Cancelar",
+      "submit": "Programar mensaje",
+      "separator": "a las",
+      "helperText": "Elija la hora a la que desea programar el mensaje.",
+      "title": "Programar un mensaje"
+    },
+    "nighttimeLimit": "El mensaje se enviará por la noche. Para obtener mejores resultados, recomendamos enviar los mensajes de marketing durante el día.",
+    "datetimeLimit": "Los mensajes deben programarse con al menos 5 minutos de antelación.",
+    "schedule": "Programar",
+    "at": "a las",
+    "when": "Cuándo",
+    "scheduleForLater": "Programar para más tarde",
+    "sendImmediately": "Enviar inmediatamente",
+    "sectionTitle": "Programación de mensajes",
+    "isEmpty": "No hay mensajes programados para mostrar.",
+    "show": "Mostrar",
+    "delete": "Borrar",
+    "edit": "Editar",
+    "clicked": "Clicado",
+    "opened": "Abierto",
+    "nextCommunicationScheduled": "Próximo mensaje programado",
+    "scheduledFor": "Programado para: {{ datetime }}",
+    "numberOfRecipients": "Destinatario: {{ count }}",
+    "numberOfRecipients_plural": "Destinatarios: {{ count }}",
+    "sendNowDialog": {
+      "confirm": "Enviar",
+      "close": "Cancelar",
+      "content": "El mensaje se enviará inmediatamente y se eliminará de la lista programada.",
+      "title": "Enviar inmediatamente"
+    },
+    "deleteDialog": {
+      "submit": "Borrar",
+      "close": "Cancelar",
+      "content": "¿Seguro que quieres borrar este mensaje?",
+      "title": "Borrar este mensaje"
+    },
+    "deleteMessage": "Borrar este mensaje",
+    "cancelEdition": "Descartar cambios",
+    "saveEdition": "Guardar cambios",
+    "chooseTime": "Elige una hora",
+    "chooseDate": "Elige una fecha",
+    "inputLabel": "Elija cuándo desea programar el mensaje."
+  },
+  "sendNowDialog": {
+    "confirm": "Enviar",
+    "close": "Cancelar",
+    "content": "El mensaje se enviará inmediatamente.",
+    "title": "Enviar inmediatamente"
+  },
+  "accessibilityText": {
+    "expandRow": "Expandir fila"
+  }
+}

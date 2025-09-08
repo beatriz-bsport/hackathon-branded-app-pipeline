@@ -1,0 +1,97 @@
+{
+  "dateTitle": "Datumbereik",
+  "remuneration": "Payroll",
+  "bonus": "Bonus",
+  "checkboxIncludeABonus": "Een bonus toevoegen",
+  "bookingThresholdLabel": "Minimaal aantal reserveringen",
+  "pricePerAdditionalBookingLabel": "Prijs per reservering",
+  "bookingThresholdHelper": "Elke reservering boven deze drempel telt als een bonus",
+  "fixedPriceForAdditionalBookingHelper": "Het vaste bedrag dat voor elke sessie met voldoende reserveringen geldt",
+  "fields": {
+    "bonus": "Bonus",
+    "base": "Vast bedrag",
+    "duration": "Duur",
+    "nb_bookings": "Reserveringen",
+    "date": "Datum",
+    "rule": "Payroll-regel",
+    "name": "Sessie",
+    "error": "Het lijkt erop dat sommige activiteiten niet aan een payroll regel zijn gekoppeld. Koppel je activiteiten en instructeurs aan je payroll regels om de payroll te gebruiken.",
+    "total": "Vergoeding (totaal)",
+    "cancelled_bookings": "Annuleringen",
+    "confirmed_bookings": "Deelnemers",
+    "unpaid_private_booking": "Onbetaalde afspraken.",
+    "coachName": "Instructeur",
+    "total_on_appointments": "Totale vergoeding (Afspraken)",
+    "total_on_sessions": "Totale vergoeding (Groepsactiviteiten & Workshops)",
+    "nb_private_bookings": " ",
+    "nb_appointments": "Aantal afspraken",
+    "nb_sessions": "Aantal sessies",
+    "totalNetGain": "Nettowinst (totaal)",
+    "netGain": "Nettowinst",
+    "marginValue": "Marginale bijdrage",
+    "noShowsAndLateCancellations": "No shows en late annuleringen",
+    "location": "Plaats",
+    "establishment": "Vestiging"
+  },
+  "table": {
+    "download": "Downloaden",
+    "downloadAll": "Payroll exporteren",
+    "downloadPDF": "Downloaden (PDF)",
+    "downloadCSV": "Downloaden (CSV)"
+  },
+  "addBonus": "Een regel toevoegen",
+  "pricePerAdditionalBookingHelper": "Het bedrag dat per reservering boven deze drempel geldt",
+  "fixedPriceForAdditionalBookingLabel": "Standaard per sessie",
+  "pricePerOffer": "Bedrag per sessie",
+  "cachedData": {
+    "leavePreviewMode": "Voorvertoning afsluiten",
+    "previewModeTitle": "Voorvertoning",
+    "downloadMySavedData": "Download",
+    "enterPreviewMode": "Overschakelen naar de Voorvertoning",
+    "unresolvedDaterange": "Ongeldige payroll-regel",
+    "dateRange": "Payroll van {{- startDate }} tot {{- endDate }}",
+    "dateSaved": "Aangemaakt op: {{ date }}",
+    "title": "Opgeslagen data: {{ count }}",
+    "undeterminedOldestUpdate": "Er is geen eerdere update beschikbaar.",
+    "oldestUpdate": "Laatste update: {{- date }}"
+  },
+  "export": {
+    "completed": {
+      "message": "Het te exporteren bestand voor de payroll is nu beschikbaar. Het staat tevens onder \"Opgeslagen data\".",
+      "title": "Payroll exporteren"
+    },
+    "dialog": {
+      "buttonText": "Bevestigen",
+      "message": "Deze gegevens kunnen als een Excel-bestand geëxporteerd worden voor de geselecteerde duur. Deze gegevens worden opgeslagen voor toekomstig gebruik.",
+      "title": "Gegevens exporteren en opslaan"
+    },
+    "buttonText": "Exporteren"
+  },
+  "performance": {
+    "table": {
+      "header": {
+        "confirmedBookings": " ",
+        "nbSessions": "Aantal groepsactiviteiten",
+        "coachName": "Instructeur"
+      }
+    }
+  },
+  "advancedFilters": {
+    "byCoachPaymentRules": "Filter op payroll-regel (voor instructeurs zonder payroll-regel groepen)",
+    "byCoachPaymentruleGroups": "Filter op payroll-regel groep",
+    "privateserviceCoachPaymentRuleSelector": "Afspraken",
+    "workshopCoachPaymentRuleSelctor": "Workshops",
+    "sessionCoachPaymentRuleSelctor": "Groepsactiviteiten ",
+    "coachPaymentRuleGroupSelector": "Payroll-regel groepen",
+    "coachSelector": "Selecteer instructeurs",
+    "reset": "Filters resetten",
+    "apply": "Filters toepassen",
+    "header": "Geavanceerde filters",
+    "establishments": "Vestigingen",
+    "locations": "Plaatsen"
+  },
+  "form": {
+    "ifEmptyAllowAll": "Laat dit veld leeg om deze filter te negeren",
+    "selectEstablishments": "Selecteer vestigingen"
+  }
+}

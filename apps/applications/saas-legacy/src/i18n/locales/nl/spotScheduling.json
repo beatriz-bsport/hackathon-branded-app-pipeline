@@ -1,0 +1,171 @@
+{
+  "toolsMenu": {
+    "customFill": "Opvulkleur",
+    "customStroke": "Lijnkleur",
+    "door": "Deur",
+    "screen": "Scherm",
+    "teacher": "Instructeur",
+    "spot": "Plaats",
+    "rect": "Rechthoek",
+    "line": "Lijn",
+    "rotation": "Draai",
+    "redo": "Volgende",
+    "undo": "Terug",
+    "eraser": "Gum",
+    "sections": {
+      "custom": "Personalisatie",
+      "elements": "Elementen",
+      "place": "Plaats",
+      "walls": "Muren",
+      "edition": "Bewerken",
+      "spivi": "Spivi-integratie",
+      "assets": "Middelen",
+      "editionAdvanced": "Geavanceerde versie",
+      "editionHistory": "Versie geschiedenis",
+      "marketplaces": "Marketplace"
+    },
+    "title": "Hulpmiddelen",
+    "showGrid": "Toon raster",
+    "customIconButton": "Pictogrammen uploaden",
+    "customIconLabel": "Pictogrammen",
+    "hand": "Hand",
+    "pointer": "Muis",
+    "addSpotType": "Een type plaats toevoegen",
+    "helperText": "De grootte moet positief zijn.",
+    "requiredForSpivi": "Dit is een vereiste voor de Spivi-integratie.",
+    "boxId": "Box ID",
+    "resize": "Schalen",
+    "openAssetModal": "Open middelen afhandelen",
+    "copier": "Duplicator",
+    "cssEditor": "CSS",
+    "advancedTool": "HTML",
+    "bsportPreferentialSpots": "Plekken voor leden"
+  },
+  "placeCount": "{{count}} plaats(en)",
+  "roomBlueprints": "Plattegrond",
+  "saveError": "Error",
+  "saved": "Plattegrond opgeslagen",
+  "searchHelper": "(Optioneel Leden kunnen de Spot Scheduling-plattegrond gebruiken om hun gewenste plaats in de vestiging te reserveren.",
+  "search": "Zoek een plattegrond voor de Spot Scheduling",
+  "roomBlueprintSelectorTitle": "Kies een plattegrond",
+  "spotSelectorDialog": {
+    "takeSpotError": "De plaats die je hebt geselecteerd is niet meer beschikbaar. Selecteer een andere plaats.",
+    "submit": "Bevestigen",
+    "cancel": "Annuleer",
+    "spot": "Plaats {{count}}",
+    "title": "Selecteer een plaats",
+    "book": "Reserveer plaats: {{prefix}}{{indexType}}{{suffix}}",
+    "legend": "Legenda"
+  },
+  "toolbar": {
+    "loadExistingBlueprint": "Een bestaande plattegrond gebruiken",
+    "exit": "Terug",
+    "titleLabel": "Naam",
+    "save": "Opslaan",
+    "spivi": "Spivi",
+    "spiviHelperText": "Toon Overeenkomende Spivi Spots"
+  },
+  "spotImageDialog": {
+    "actions": {
+      "submit": "Bevestigen",
+      "cancel": "Annuleer"
+    },
+    "imageFormat": "Aanbevolen formaten: .PNG of .JPG",
+    "taken": "Reserveer",
+    "free": "Vrij",
+    "imageUploadButton": "Een afbeelding uploaden",
+    "takenImageLabel": "Gereserveerd",
+    "freeImageLabel": "Vrij",
+    "title": "Plaatsen wijzigen",
+    "helper": "Je kunt de vorm van de locaties verder personaliseren door je eigen pictogrammen up te loaden. Je moet 2 verschillende pictogrammen uploaden: één voor vrije plaatsen en één voor gereserveerde plaatsen. Zorg ervoor dat de pictogrammen even groot zijn en dat ze geen nummers bevatten."
+  },
+  "effectifError": "Het aantal plaatsen moet groter of gelijk zijn aan de beschikbare plaatsen",
+  "errorLessSpotThanEffectif": "Fout bij het opslaan van de wijzigingen. De plattegrond moet meer plaatsen hebben dan de gekoppelde grootte van de sessie.",
+  "spotCreatorForm": {
+    "alertDefaultSpot": "Deze wijzigingen worden op alle plaatsen toegepast.",
+    "deleted": "Verwijderde plaats",
+    "saved": "Opgeslagen plaats",
+    "missImageSelected": "Er mist een afbeelding voor de geselecteerde plaatsen.",
+    "missImageTaken": "Er mist een afbeelding voor de gereserveerde plaatsen.",
+    "missImageFree": "Er mist een afbeelding voor de vrije plaatsen.",
+    "selectedPersonalized": "Geselecteerd: {{- name }}",
+    "selected": "Geselecteerde plaats",
+    "takenPersonalized": "Gereserveerd: {{- name }}",
+    "freePersonalized": "Beschikbaar: {{- name }}",
+    "taken": "Gereserveerd",
+    "free": "Vrij",
+    "personalizedExplain": "Upload 2 verschillende iconen om gepersonaliseerde afbeeldingen voor vrije en gereserveerde plaatsen te gebruiken. Deze iconen moeten dezelfde grootte hebben en niet bedrukt met letters of cijfers zijn.",
+    "preview": "Voorvertoning",
+    "generalInfo": "Algemeen",
+    "square": "Vierkant",
+    "triangle": "Driehoek",
+    "rectangle": "Rechthoek",
+    "circular": "Cirkel",
+    "personalized": "Gepersonaliseerde afbeeldingen",
+    "predefined": "Sjablonen",
+    "customization": "Personalisering",
+    "prefixError": "Het voorvoegsel kan slechts één letter zijn.",
+    "prefixExplain": "Dit karakter is een voorvoegsel voor de plaatsnummers.",
+    "prefix": "Voorvoegsel",
+    "nameExplain": "Naam van de plattegrond",
+    "name": "Naam",
+    "subtitle": "Ontwerp een gepersonaliseerde plattegrond",
+    "title": "Spot Scheduling",
+    "suffix": "Achtervoegsel",
+    "suffixExplain": "Het teken dat hier wordt aangegeven, verschijnt als achtervoegsel van de spotnummers",
+    "suffixError": "Het achtervoegsel moet één letter zijn",
+    "nameCustomization": {
+      "suffix": "Spot nummer met een achtervoegsel",
+      "prefix": "Spot nummer met een voorvoegsel",
+      "none": "Alleen spotnummer",
+      "title": "Formaat spotnaam"
+    }
+  },
+  "forms": {
+    "delete": {
+      "actions": {
+        "confirm": "Bevestigen",
+        "cancel": "Annuleren"
+      },
+      "content": {
+        "canDelete": "Weet je zeker dat je dit wilt verwijderen? Deze actie is definitief. De standaardplaats wordt opnieuw toegvoegd."
+      },
+      "title": "Verwijderen"
+    }
+  },
+  "errorAvailableOffersScheduled": "Het is niet mogelijk om deze layout op te slaan, omdat het gebruikt wordt voor toekomstige sessies.",
+  "spiviDialog": {
+    "spiviIdentifiers": "Spivi ID's",
+    "bsportIdentifiers": "BSPORT ID's",
+    "spotCorrespondence": "Overeenkomende Spots"
+  },
+  "spotSelector": {
+    "legend": "Legenda",
+    "available": "Beschikbaar op",
+    "availableSpot": "Beschikbare ruimte",
+    "availablePersonalizedSpot": "{{- spotName }} beschikbaar",
+    "unavailable": "Niet beschikbaar",
+    "unavailableSpot": "Ruimte niet beschikbaar",
+    "unavailablePersonalizedSpot": "{{- spotName }} niet beschikbaar",
+    "seeAll": "Bekijk alle",
+    "confirm": "Bevestig",
+    "selectOtherSpot": {
+      "message": "Eerdere selecties komen beschikbaar voor anderen.",
+      "title": "Of selecteer een nieuwe plek"
+    },
+    "goBackToCheckout": "Ga terug naar de kassa"
+  },
+  "cssForm": {
+    "helper": "In dit gedeelte kunt u CSS-regels voor uw lay-out toevoegen. De hele kaart is verpakt in een svg met de ID 'svg-canvas-display'. Standaard wordt er automatisch een stylesheet gegenereerd voor elk element op het canvas (zoals stippen, rechthoeken en leraren). U kunt uw wijzigingen stapsgewijs bekijken door op de knop '{{ buttonLabel }}' te klikken.",
+    "openPreview": "Preview"
+  },
+  "assetUpoadForm": {
+    "loadMore": "Lees meer",
+    "submit": "Verzenden",
+    "description": "U kunt afbeeldingen rechtstreeks vanaf hier uploaden en gebruiken. Zodra nieuwe afbeeldingen zijn geüpload, zijn ze beschikbaar om in uw kaart in te voegen."
+  },
+  "bsportPreferentialGroupForm": {
+    "isPreferentialBsportSpotLabel": "Plek gereserveerd voor leden met voorrang. Boekingen via marktplaatsen (Classpass, OneFit, enz.) komen als laatste aan de beurt.",
+    "submit": "Stuur  in"
+  }
+}

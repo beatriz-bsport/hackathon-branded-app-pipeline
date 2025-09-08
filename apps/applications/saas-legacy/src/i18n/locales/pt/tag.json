@@ -1,0 +1,143 @@
+{
+  "management": {
+    "smartlistDetail": {
+      "removeTag": "Eliminar",
+      "createViaSmartlist": "Acesso a Listas inteligentes",
+      "title": "Regra de marcação (Listas inteligentes)",
+      "empty": "Nenhuma regra de etiquetagem está ligada à etiqueta {{ tag }}"
+    },
+    "deleteTagDialog": {
+      "text": "Tens a certeza de que queres eliminar esta etiqueta ? Todas as regras ligadas a esta etiqueta serão eliminadas.",
+      "title": "Eliminar etiqueta"
+    },
+    "deleteTagGroupDialog": {
+      "text": "Tem a certeza de que pretende eliminar esta categoria ? Todas as etiquetas da categoria também serão eliminadas. ",
+      "title": "Eliminação de categorias"
+    },
+    "delete": "Eliminar",
+    "addGroup": "Criar uma categoria",
+    "createGroupDialog": {
+      "title": "Categoria",
+      "field": "Nome",
+      "helper": "Crie uma categoria para identificar um conjunto de membros. Por exemplo, \"VIP\". Pode então criar etiquetas \"sim\" e \"não\" para indicar se o membro pertence a esse grupo."
+    },
+    "tagColumn": {
+      "member_count": "Membros afectados",
+      "smartlist_count": "Regras de marcação",
+      "tag": "Etiqueta",
+      "actions": "Acções ",
+      "offer_count": "Sessões relacionadas"
+    },
+    "tagKind": {
+      "member": "Membros",
+      "coupon": "Código promocional",
+      "toolbar": "Mostrar por",
+      "smartlist": "Listas inteligentes",
+      "offer": "Sessões"
+    },
+    "memberDetail": {
+      "removeTagFromAll": "Remover a etiqueta de todos",
+      "removeTag": "Desmarcar",
+      "addTag": "Etiquetador",
+      "memberWithoutTag": "Membros não marcados",
+      "addTagToAll": "Adicionar etiqueta a todos",
+      "memberWithTag": "Membros etiquetados"
+    },
+    "couponDetail": {
+      "whitelist": "Pode ser utilizado por membros que tenham a etiqueta",
+      "blacklist": "Não utilizável por membros com a etiqueta",
+      "removeTag": "Retirar a etiqueta",
+      "empty": "Nenhum código promocional está associado à etiqueta {{- tag }}",
+      "createViaCoupon": "Códigos promocionais",
+      "title": "Códigos de cupão associados à etiqueta"
+    },
+    "offerDetail": {
+      "detailTable": {
+        "tagInBlackList": "Não pode ser reservado por membros com a etiqueta",
+        "tagInWhiteList": "Reserva apenas por membros com etiqueta"
+      },
+      "offerWithTag": "Ofertas de produtos",
+      "removeTagFromAll": "Remover todas as etiquetas",
+      "filters": {
+        "options": {
+          "all": "Mostrar todas as sessões",
+          "onlyWhite": "Pode ser reservado com esta etiqueta",
+          "onlyBlack": "Não pode ser reservado com esta etiqueta"
+        },
+        "selectorTitle": "Filtro de autorizações"
+      }
+    },
+    "addTag": "Adicionar uma etiqueta",
+    "form": {
+      "groupRename": "Categoria",
+      "tagGroupName": "Nome",
+      "tagGroupEmpty": "Não há etiquetas nesta categoria"
+    },
+    "submit": "Confirmar",
+    "tagDetail": {
+      "noTag": "Seleccione uma etiqueta para ver os detalhes"
+    },
+    "rename": "Mudar o nome",
+    "cancel": "Cancelar"
+  },
+  "form": {
+    "tag": {
+      "delete": {
+        "submit": "Eliminar",
+        "title": "Eliminar",
+        "explain": "Tenha em atenção que esta etiqueta será eliminada de TODOS os membros. Esta operação é irreversível",
+        "cancel": "Cancelar"
+      },
+      "searchIcon": "Procurar um ícone",
+      "info": "Se selecionar um ícone, este aparecerá como um emblema junto à fotografia de perfil de todos os membros marcados com esta etiqueta.",
+      "selectIcon": "Selecionar um ícone",
+      "namePlaceholder": "Nome da etiqueta",
+      "name": "Nome da etiqueta",
+      "submit": "Registo",
+      "icon": "Ícone (opcional)",
+      "color": "Cor"
+    },
+    "group": {
+      "deleteCategory": "Eliminar categoria",
+      "delete": {
+        "submit": "Eliminar",
+        "title": "Eliminar",
+        "cancel": "Cancelar",
+        "explain": "Tenha em atenção que a eliminação desta categoria afectará todos os membros. Esta operação é irreversível"
+      },
+      "edit": "Editar as etiquetas",
+      "addTagGroup": "Criar uma categoria",
+      "namePlaceholder": "Nome da categoria"
+    },
+    "filter": {
+      "include": "Inclui etiqueta",
+      "cancel": "Cancelar",
+      "addFilter": "Filtrar",
+      "exclude": "Não inclui a etiqueta",
+      "includeLabel": "Tipo",
+      "tagGroupLabel": "Etiqueta (categoria)",
+      "tagLabel": "Etiqueta (valor)",
+      "title": "Filtro"
+    }
+  },
+  "select": "Selecionar uma etiqueta",
+  "panel": {
+    "title": "Etiquetas",
+    "noTagAvailable": "Nenhuma etiqueta criada"
+  },
+  "memberStatus": "Estatuto de membro : ",
+  "filter": {
+    "addATagFilter": "Filtrar por etiqueta..."
+  },
+  "tag": {
+    "noTagAttributed": "Selecionar uma etiqueta"
+  },
+  "modal": {
+    "confirm": {
+      "title": "Desmarcar",
+      "submit": "Confirmar",
+      "text": "Esta sessão faz parte de um grupo, vai ver todas as sessões deste grupo. Deseja continuar ?"
+    }
+  },
+  "tagGroupDuplicated": "Tenha em atenção que algumas etiquetas pertencem ao mesmo grupo."
+}

@@ -1,0 +1,245 @@
+{
+  "error": {
+    "invalidEmail": "Diese E-Mail existiert nicht in unserer Datenbank",
+    "authError": "Falsche E-Mail oder falsches Passwort",
+    "invalidPassword": "Passwort ungültig"
+  },
+  "tempPassword": {
+    "explainRequest": "Fragen Sie nach einem temporären Passwort, das z.B. 2 Stunden lang gültig ist, damit sich unser Team für einen begrenzten Zeitraum mit Ihrem Konto verbinden kann. Ihr Hauptpasswort bleibt unverändert.",
+    "explain": "Dieses Passwort ist bis {{expirationDate }} gültig. Ihr Hauptpasswort ändert sich nicht.",
+    "submit": "Generieren",
+    "title": "Provisorisches Passwort",
+    "close": "Schließen",
+    "copied": "Passwort kopiert",
+    "copy": "Passwort in die Zwischenablage kopieren"
+  },
+  "doubleLogin": {
+    "explain": "Ihr Kurs ist abgelaufen. Sie haben sich bei zwei verschiedenen Konten gleichzeitig angemeldet oder Sie haben sich von einer anderen Rubrik/einem anderen Fenster abgemeldet.",
+    "disconnect": "Erneut anmelden"
+  },
+  "signup": {
+    "title": "Registrierung",
+    "titleAsResgisterBooking": "Registrieren Sie Ihre Buchung"
+  },
+  "contactUs": "Sie sind als Studio-Manager an unserer Lösung interessiert? \nBitte kontaktieren Sie uns.",
+  "or": " oder ",
+  "actions": {
+    "signin": "Anmelden",
+    "signup": {
+      "register": "Registrieren",
+      "noAccount": "Neues Konto erstellen",
+      "goBack": "Gehe zurück"
+    },
+    "forgottenPassword": "Passwort vergessen?"
+  },
+  "forms": {
+    "password": {
+      "label": "Passwort"
+    }
+  },
+  "country": {
+    "ES": "Spanien",
+    "BE": "Belgien",
+    "NL": "Niederlande",
+    "IT": "Italien",
+    "DE": "Deutschland",
+    "FR": "Frankreich",
+    "CH": "Schweiz",
+    "IE": "Irland",
+    "AT": "Österreich",
+    "MT": "Malta",
+    "GB": "Großbritannien",
+    "DK": "Dänemark",
+    "FI": "Finnland",
+    "SE": "Schweden",
+    "NO": "Norwegen",
+    "LU": "Luxemburg",
+    "CA": "Kanada",
+    "AE": "Vereinigte Arabische Emirate",
+    "SI": "Slowenien",
+    "RO": "Rumänien",
+    "BG": "Bulgarien",
+    "CZ": "Tschechische Republik",
+    "GR": "Griechenland",
+    "IN": "Indien",
+    "MY": "Malaysien",
+    "LV": "Lettland",
+    "LT": "Litauen",
+    "NZ": "Neuseeland",
+    "SG": "Singapur",
+    "BR": "Brasilien",
+    "PT": "Portugal",
+    "PL": "Polen",
+    "HK": "Hongkong",
+    "AU": "Australien",
+    "SK": "Slowakei",
+    "CY": "Zypern",
+    "US": "Vereinigte Staaten von Amerika",
+    "EE": "Estland",
+    "LI": "Liechtenstein",
+    "MX": "Mexiko"
+  },
+  "signupCompany": {
+    "form": {
+      "next": "Bestätigen",
+      "previous": "Vorherige",
+      "country": {
+        "label": "Land"
+      },
+      "password2": {
+        "error": "Passwörter stimmen nicht überein",
+        "label": "Bestätigung"
+      },
+      "password1": {
+        "label": "Passwort"
+      },
+      "email": {
+        "errorExists": "Diese E-Mail existiert bereits, bitte wählen Sie eine andere.",
+        "placeholder": "me@bsport.io",
+        "label": "E-Mail"
+      },
+      "name": {
+        "helperText": "Dieser Name ist für Ihre Mitglieder sichtbar",
+        "placeholder": "Yoga Shala",
+        "label": "Name Ihres Studios"
+      },
+      "title": "Meine Informationen",
+      "timezone": {
+        "label": "Zeitzone"
+      }
+    },
+    "welcome": {
+      "next": "Weiter",
+      "content": "bsport ist ein Zusammenschluss von Enthusiasten, deren Ziel es ist, deine IT-Tools zu vereinfachen und dir ein besseres Verständnis Ihrer Community zu ermöglichen.",
+      "title": "Herzlich Willkommen!"
+    },
+    "confirmation": {
+      "disconnect": "Trennen",
+      "content": {
+        "help": "Beziehe dich auf die interne Dokumentation für detaillierte Anweisungen zu jedem Schritt.",
+        "emailValidation": "Email-Validierung: Führe die administrative Maßnahme zur Bestätigung der Email-Adresse durch.",
+        "upsell": "Upsells: Füge alle entsprechenden Upsells zur Plattform hinzu.",
+        "billing": "Plattform-Abrechnung: Erstelle das Abrechnungs-Setup für das neue Backoffice.",
+        "core": "Die neue Backoffice-Plattform wurde erfolgreich erstellt.\nBevor die Zugangsdaten an den Kunden gesendet werden, stelle bitte sicher, dass die folgenden Validierungsschritte gemäß der internen Dokumentation abgeschlossen sind:",
+        "contactAccountManager": "Die Bestätigung des Accounts steht noch aus. Wenn du Studio-Manager bist, kontaktiere bitte deine bsport Kontaktperson, um dein Backoffice zu aktivieren."
+      }
+    }
+  },
+  "emailValidation": {
+    "disconnect": "Konto ändern",
+    "goToLogin": "Zurück",
+    "linkExpired": "Dein Bestätigungslink ist abgelaufen",
+    "hasSentAgain": "E-Mail gesendet",
+    "sendAgain": "Bestätigungs-E-Mail nochmal senden",
+    "success": "Ihre E-Mail wurde bestätigt, Sie werden in wenigen Sekunden weitergeleitet.",
+    "explain": "Wir haben Ihnen eine Bestätigungs-E-Mail geschickt!"
+  },
+  "language": {
+    "es": "Spanisch",
+    "nl": "Niederländisch",
+    "it": "Italienisch",
+    "de": "Deutsch",
+    "fr": "Französisch",
+    "en": "Englisch",
+    "pt": "Portugiesisch",
+    "cs": "Tschechisch"
+  },
+  "signin": {
+    "connect": "Bitte melden Sie sich an, um fortzufahren.",
+    "connection": "Anmeldung",
+    "selectYourCurrentEmail": "Wählen Sie Ihre aktuellen Anmeldedaten."
+  },
+  "accountConfiguration": {
+    "bankAccountSuccess": "Ihre IBAN wurde validiert. Sie können diese Informationen später im Backoffice in den Unternehmenseinstellungen ändern.",
+    "bankAccount": {
+      "owner_address": "Adresse des Eigentümers",
+      "address": "Adresse",
+      "bank_details": "Bankinformationen",
+      "general": "Allgemein",
+      "fields": {
+        "iban": "IBAN",
+        "bank_account_holder": "Kontoinhaber"
+      }
+    },
+    "needToConfigureStripeInfo": "Sie müssen eine Zahlungsmethode hinzufügen, um Rechnungen zu begleichen.",
+    "paymentMethodSuccess": "Die angegebene Zahlungsmethode ist gültig. Sie können sie jederzeit in den bsport-Abo-Einstellungen ändern.",
+    "accountSuccess": "Ihr Stripe-Konto wurde erstellt. Sie können diese Informationen später im Backoffice in den Unternehmenseinstellungen ändern.",
+    "welcomeDescription": "Wir freuen uns, Sie auf Ihrer neuen Plattform begrüßen zu dürfen. Bitte führen Sie die folgenden Schritte aus, um mit der Plattform zu beginnen.",
+    "cardStep": "Zahlungsmethode",
+    "configureStripe": "Es ist notwendig, Ihr Stripe-Konto zu konfigurieren, um fortzufahren.",
+    "companyName": "Name des Unternehmens",
+    "stripeConfiguration": "Stripe-Konfiguration",
+    "stripeConfigurationExplain": "Sie werden zu Stripe weitergeleitet. Wenn Sie das Formular ausfüllen, kehren Sie zu Ihrem Back Office zurück, um die Konfiguration abzuschließen.",
+    "redirecting": "Weiterleitung zu Stripe...",
+    "companyStripeName": "Stripe-Account",
+    "managerIbanExplain": "Wählen Sie das Bankkonto, auf das Sie die Auszahlungen über bsport erhalten möchten",
+    "paymentMethodTitle": "Wählen Sie Ihre Zahlungsmethode",
+    "paymentMethodExplain": "Wählen Sie die Zahlungsmethode, die Sie für die bsport-Rechnung verwenden möchten",
+    "finishExplain": "Die Konfiguration ist abgeschlossen. Sie können nun bsport verwenden.",
+    "welcomeConfigure": "Richten Sie Ihr Konto in nur {{numberOfSteps}} Schritt ein!",
+    "welcomeConfigure_plural": "Richten Sie Ihr Konto in nur {{numberOfSteps}} Schritten ein!",
+    "congrats": "Herzlichen Glückwunsch!",
+    "finishStep": "Fertig!",
+    "infoGoingBack": "Sie können dies später nachholen, wenn Sie diese Seite verlassen.",
+    "configureMyStripeAccount": "Meinen Stripe-Account konfigurieren",
+    "welcomeTitle": "Willkommen bei bsport!",
+    "goToBackoffice": "Klicken Sie auf \"Los geht's\", um zum Backoffice weitergeleitet zu werden.",
+    "stripeStep": "Stripe-Konfiguration",
+    "ibanStep": "IBAN",
+    "createStripe": "Stripe",
+    "companyAdress": "Adresse",
+    "configureStripeAction": "Stripe-Konfiguration"
+  },
+  "emailConfirmation": {
+    "textExplain": "Sie haben soeben eine Bestätigungs-E-Mail erhalten, um Ihre E-Mail-Adresse zu bestätigen. Um Ihre Anmeldung abzuschließen, klicken Sie auf den Link, um Ihr Konto zu aktivieren.",
+    "dialog": {
+      "cannotBeResent": "Eine E-Mail wurde bereits versendet. Wenn Sie in {{timeLeftBeforeNewSent}} Minuten noch nichts erhalten haben, versuchen Sie es bitte erneut. Vergessen Sie nicht, Ihren Spam zu überprüfen.",
+      "title": "Bestätigungsmail erneut senden",
+      "canBeResent": "Bevor Sie die Bestätigungsmail erneut versenden, überprüfen Sie bitte Ihren Spam-Ordner und laden Sie Ihre Mailbox neu. Wenn Sie nichts erhalten haben, klicken Sie bitte auf den Button \"Senden\".",
+      "send": "Senden",
+      "cancel": "Abbrechen",
+      "sentAgain": "E-Mail erneut gesendet!",
+      "continue": "Weiter",
+      "close": "Schließen",
+      "sentAgainExplain": "Die Bestätigungs-E-Mail wurde soeben erneut an Ihre E-Mail-Adresse gesendet."
+    },
+    "title": "Registrierung war erfolgreich",
+    "clickHere": "Hier klicken",
+    "helperToSendOnceAgain": "um die Bestätigungsmail erneut zu senden",
+    "backToLogin": "Zurück zur Anmelde-Seite",
+    "notReceived": "Sie haben noch nichts erhalten?"
+  },
+  "welcome": {
+    "textExplain": "Herzlichen Glückwunsch, Ihre Registrierung wurde erfolgreich abgeschlossen. Sie können nun Ihr Konto nutzen und Ihren ersten Kurs buchen.",
+    "title": "Willkommen bei {{- companyName}}!",
+    "begin": "Start"
+  },
+  "needStripe": {
+    "stripeAccount": "Stripe-Account",
+    "infoDateBlocked": "Bitte konfigurieren Sie Ihr Stripe-Konto vor {{ dateAccountIsBLockedFormattedLL }}, um weiterhin von den Diensten von bsport zu profitieren.",
+    "actionRegularize": "Stripe-Account konfigurieren",
+    "info": "Bitte konfigurieren Sie Ihren Stripe-Account, um weiterhin die Dienste von bsport nutzen zu können."
+  },
+  "regularizeInvoice": {
+    "needPaymentMethod": {
+      "fail": "Zahlung fehlgeschlagen",
+      "dispute": "Strittige Rechnung"
+    },
+    "needPaymentMethodContent": {
+      "dispute": "Sie haben eine oder mehrere strittige Rechnungen. Bitte setzen Sie sich so schnell wie möglich mit Ihrer Bank in Verbindung, um den Streitfall zu lösen und weiterhin die Dienste von bsport in Anspruch zu nehmen. Falls erforderlich, wenden Sie sich bitte an support@bsport.io.",
+      "fail": "Sie haben eine oder mehrere ausstehende Rechnungen. Bitte begleichen Sie Ihre Rechnung, um weiterhin die Dienste von bsport in Anspruch nehmen zu können."
+    },
+    "actionRegularize": {
+      "dispute": "Rechnung ansehen",
+      "fail": "Rechnung begleichen"
+    },
+    "contactSuport": "Support-Team kontaktieren"
+  },
+  "referral": {
+    "signUpNow": "Vielen Dank, dass Sie den Empfehlungslink von {{ referringMemberFirstName }} verwendet haben. Melden Sie sich jetzt an und lösen Sie einen speziellen Gutschein für Ihren ersten Warenkorb ein!"
+  },
+  "disconnectedStatus": {
+    "subtitle": "Sie müssen eingeloggt sein, um auf Ihr Profil zugreifen zu können.",
+    "title": "Sie scheinen nicht eingeloggt zu sein"
+  }
+}

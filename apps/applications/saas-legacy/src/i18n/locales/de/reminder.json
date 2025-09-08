@@ -1,0 +1,39 @@
+{
+  "task": {
+    "form": {
+      "task_owner": {
+        "helperText": "Mitarbeiter, die benachrichtigt werden müssen"
+      },
+      "name": {
+        "label": "Titel"
+      },
+      "description": {
+        "label": "Nachricht"
+      },
+      "submit": "Bestätigen",
+      "close": "Abbrechen",
+      "title": "Auftrag",
+      "date_due": {
+        "label": "Erinnerung"
+      }
+    },
+    "actions": {
+      "cancel": "Archivieren",
+      "restart": "Neu starten",
+      "finish": "Als erledigt markieren",
+      "addTask": "Einen Auftrag planen"
+    },
+    "author": "Autor",
+    "status": {
+      "0": "In Bearbeitung",
+      "10": "Fertig",
+      "20": "Storniert"
+    },
+    "sectionTitle": {
+      "past": "Archivierte Aufgaben",
+      "future": "Geplante Aufträge",
+      "pending": "Laufende Aufträge"
+    },
+    "owners": "Zugeordnet zu "
+  }
+}

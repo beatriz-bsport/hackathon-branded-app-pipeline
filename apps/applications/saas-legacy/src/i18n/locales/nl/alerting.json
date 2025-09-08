@@ -1,0 +1,77 @@
+{
+  "list": {
+    "title": "Meldingen",
+    "emptyAlerting": "Er zijn geen nieuwe meldingen."
+  },
+  "alert_kind": {
+    "1": "Facturatie",
+    "2": "Bestelling",
+    "3": "Openstaande taken",
+    "4": "Openstaande afspraken",
+    "5": "Juridische kennisgeving",
+    "6": "Onbetaalde afspraken",
+    "7": "Handleiding",
+    "8": "Late plaatsvervangingen",
+    "9": "Inbox"
+  },
+  "showMore": "Toon meer",
+  "unevenInvoice": {
+    "title": "Openstaande factuur",
+    "priceDue": "Openstaand bedrag: {{price_due }}",
+    "explainUneven": "Factuur \"{{ invoice_identifier }}\" is nog niet betaald.",
+    "pricePayed": "Betaald: {{price_payed}}"
+  },
+  "newOrder": {
+    "price": "Bedrag: {{ price }}.",
+    "title": "Bestelling in behandeling",
+    "explain": "Betaald door <1>{{-naam }}</1> in de winkel."
+  },
+  "task": {
+    "name": "{{name}}"
+  },
+  "privateBookingIncomplete": {
+    "name": "Lid: {{ user_name }}",
+    "date": "Datum: {{ date_start }}",
+    "explain": "De afspraak van <1> {{name}} </1> heeft geen aangewezen instructeur."
+  },
+  "companyOnboarding": {
+    "creation": {
+      "content": "Controleer alle gegevens om (online) betalingen te activeren.",
+      "title": "Online betalingen: uitgeschakeld"
+    },
+    "payout": {
+      "content": "Momenteel kunnen we je verdiensten niet uitbetalen, omdat je bankgegevens niet of onjuist geconfigureerd zijn.",
+      "title": "Incomplete bankgegevens"
+    },
+    "verification": {
+      "warning": "Het is mogelijk dat online betalingen na deze datum <1> gedeactiveerd </1> worden!",
+      "content": "Er ontbreken documenten om het aanmaken van je account te voltooien. Je hebt tot <1>{{ date }}</1>  om je account te verifiëren.",
+      "title": "Bedrijfsbeheer"
+    },
+    "paypal": {
+      "issue_repeat_onboarding": "Er is een probleem met uw PayPal-rekening. Herhaal het verbindingsproces met dezelfde rekening om dit probleem op te lossen.",
+      "issue_check_account": "Er is een probleem met je PayPal-rekening. Controleer uw PayPal-rekening om dit probleem op te lossen.",
+      "requires_more_information": "Uw PayPal-rekening vereist aanvullende informatie of validatie van PayPal. Controleer uw PayPal-rekening om dit probleem op te lossen.",
+      "primary_email_confirmation": "De e-mail voor uw PayPal-account moet worden bevestigd. Controleer je PayPal-account om dit probleem op te lossen.",
+      "title": "PayPal-betalingen zijn uitgeschakeld"
+    }
+  },
+  "unpaidPrivateBooking": {
+    "credits_due": "Onbetaalde credit(s): {{ credits }}"
+  },
+  "newTutorialSectionOrLesson": {
+    "newLesson": {
+      "title": "Nieuwe les ({{- name}})",
+      "content": "Toegevoegd aan: {{- name}}"
+    },
+    "newSection": {
+      "content": "Er is een nieuwe sectie ({{- name}}) toegevoegd. Begin de training om meer te leren.",
+      "title": "Nieuwe Sectie"
+    }
+  },
+  "readAll": "Markeer alles als gelezen",
+  "lateReplacementRequest": {
+    "title": "Late plaatsvervanging",
+    "content": "heeft een vervanging aangevraagd voor de volgende sessie: {{activity_name}} - {{-date_start}}"
+  }
+}

@@ -1,0 +1,419 @@
+{
+  "tag": {
+    "BookingOption": {
+      "tags": {
+        "option_expiration_date": "Data di scadenza inserita nella lista d'attesa",
+        "address": "Indirizzo",
+        "option_payment_url": "Link per la prenotazione",
+        "activity": "Attività",
+        "coach": "Insegnante",
+        "date": "Ora / data della sessione",
+        "establishment": "Stabilimento",
+        "establishment_practical_info": "Informazioni sull'accesso allo stabilimento",
+        "waiting_list_position": "Posizione in lista d'attesa",
+        "waiting_list_size": "Dimensione della lista d'attesa"
+      },
+      "name": "Lista d'attesa"
+    },
+    "Offer": {
+      "name": "Allenamento",
+      "tags": {
+        "date": "Ora / data della sessione",
+        "establishment": "Stabilimenti",
+        "establishment_practical_info": "Informazioni sull'accesso allo stabilimento",
+        "address": "Indirizzo",
+        "activity": "Attività",
+        "coach": "Insegnante"
+      }
+    },
+    "BillingPlan": {
+      "name": "Abbonamento ricorrente",
+      "tags": {
+        "subscription_payment_method": "Metodo di pagamento",
+        "subscription_name": "Nome dell'abbonamento ricorrente",
+        "subscription_recurrent_price": "Importo mensile addebitato",
+        "subscription_nb_months": "Numero di mesi",
+        "subscription_flat_fee": "Spese amministrative",
+        "subscription_nb_days_pause": "Pausa: numero di giorni",
+        "subscription_next_invoice_date": "Data della prossima contabilizzazione",
+        "subscription_contract_terms_link": "link \"Condizioni Legali\"",
+        "subscription_duration": "Durata totale",
+        "days_until_payment_method_expiration": "Numero di giorni prima della scadenza del metodo di pagamento"
+      }
+    },
+    "PrivateConsumerPass": {
+      "tags": {
+        "pass_starting_date": "Data di inizio del pacchetto per appuntamenti",
+        "pass_expiration": "Data di fine appuntamento",
+        "pass_credit_left": "Numero di crediti rimanenti",
+        "pass_price": "Prezzo del pacchetto",
+        "pass_name": "Nome del pacchetto per appuntamenti"
+      },
+      "name": "Pacchetti per appuntamenti"
+    },
+    "PrivateBooking": {
+      "name": "Appuntamento",
+      "tags": {
+        "activity": "Attività",
+        "coach": "Insegnante",
+        "date": "Ora / Data",
+        "address": "Indirizzo",
+        "establishment_practical_info": "Informazioni sull'accesso allo stabilimento",
+        "establishment": "Stabilimento",
+        "ics_calendar_link": "Link al calendario ics"
+      }
+    },
+    "User": {
+      "name": "Allievo",
+      "tags": {
+        "firstname": "Nome del membro",
+        "lastname": "Cognome",
+        "unsubscribe_link": "Annulla l'iscrizione alla newsletter",
+        "reset_password_url": "Link per reimpostare la password",
+        "email_confirmation_url": "Link di conferma email"
+      }
+    },
+    "Booking": {
+      "name": "Prenotazioni",
+      "tags": {
+        "activity": "Attività",
+        "coach": "Insegnante",
+        "date": "Ora / data della sessione",
+        "establishment": "Stabilimento",
+        "establishment_practical_info": "Informazioni sull'accesso allo stabilimento",
+        "address": "Indirizzo",
+        "ics_calendar_link": "Collegamento ics al calendario",
+        "spot": "Posto",
+        "canceled_grouped_session": "Gruppo di prenotazione annullato"
+      },
+      "subtitles": {
+        "workshop": "Workshop",
+        "establishment_group": "Sede",
+        "establishment": "Stabilimento",
+        "meta_activity": "Attività"
+      }
+    },
+    "ConsumerPaymentPack": {
+      "name": "Pacchetti",
+      "tags": {
+        "pass_price": "Prezzo del pacchetto",
+        "pass_starting_date": "Data di inizio del pacchetto",
+        "pass_expiration": "Data di fine del pacchetto",
+        "pass_name": "Nome del pacchetto",
+        "pass_credit_left": "Numero di crediti rimanenti"
+      }
+    },
+    "ReplacementRequest": {
+      "tags": {
+        "sub_teacher": "Supplente",
+        "closing_date": "Data di chiusura"
+      },
+      "name": "Sostituzione"
+    },
+    "Company": {
+      "tags": {
+        "company_websiteURL": "URL del sito web",
+        "company_info": "Informazioni sullo studio",
+        "android_app_URL": "URL dell'applicazione android",
+        "ios_app_URL": "URL dell'applicazione iOS",
+        "company_instagramURL": "URL Instagram",
+        "company_facebookURL": "URL Facebook",
+        "company_scheduleURL": "Pianifica l'URL",
+        "login_url": "URL di accesso",
+        "company": "Nome dell'azienda",
+        "company_logo": "Logo dell'azienda"
+      },
+      "name": "Azienda"
+    },
+    "RecurrentRule": {
+      "tags": {
+        "recurring_booking_fail_reason": "Motivo dell'errore di prenotazione ricorrente",
+        "establishment_practical_info": "Informazioni sull'accesso allo stabilimento",
+        "establishment": "Stabilimento",
+        "date": "Ora/Data",
+        "coach": "Insegnante",
+        "address": "Indirizzo",
+        "activity": "Attività"
+      },
+      "name": "Regola ricorrente"
+    },
+    "Birthday": {
+      "name": "Compleanno"
+    },
+    "Invoice": {
+      "name": "Contabilizzazione",
+      "tags": {
+        "id": "Codice di identificazione della ricevuta",
+        "invoice_price": "Importo della ricevuta",
+        "invoice_sum_up": "Riepilogo della ricevuta",
+        "invoice_date": "Data di contabilizzazione",
+        "invoice_download_link": "Link per scaricare",
+        "days_until_payment_method_expiration_planned_payment_event": "Giorni prima della scadenza del metodo di pagamento"
+      }
+    },
+    "GiftCard": {
+      "tags": {
+        "activate_giftcard_url": "Link di attivazione della gift card",
+        "message_is_from": "Membro che invia la gift card",
+        "message_is_for": "Destinatario della gift card",
+        "giftcard_message": "Messaggio nella gift card",
+        "giftcard_value": "Valore della gift card",
+        "giftcard_name": "Nome della gift card",
+        "printable_code": "Codice stampabile della gift card",
+        "pdf_link": "Link PDF della gift card",
+        "activation_datetime": "Data di attivazione della gift card"
+      },
+      "name": "Gift card"
+    },
+    "EmailChange": {
+      "tags": {
+        "manage_changing_email_link": "Link per la gestione delle modifiche della email",
+        "new_email": "Nuova e-mail di accesso",
+        "old_email": "Email di accesso precedente",
+        "login_link": "Link di accesso all'area personale"
+      },
+      "name": "Modifica dell'account"
+    },
+    "requiredTags": {
+      "giftcard_message": "Messaggio nella gift card",
+      "reset_password_url": "Link reset password",
+      "email_confirmation_url": "Link per la verifica della email",
+      "new_email": "Nuova email di accesso",
+      "old_email": "Email di accesso precedente",
+      "activate_giftcard_url": "Link di attivazione della gift card",
+      "message_is_from": "Membro che invia la gift card",
+      "giftcard_value": "Valore della gift card",
+      "manage_changing_email_link": "Link per la gestione delle modifiche all'email",
+      "pdf_link": "Link PDF della gift card"
+    },
+    "SpiviPerformance": {
+      "tags": {
+        "SEP": "Spivi Ecosystem Point",
+        "total_distance": "Distanza percorsa",
+        "calories_kJ": "Calorie in kJ",
+        "calories": "Calorie",
+        "max_watts": "Potenza massima",
+        "maximum_speed": "Velocità massima",
+        "average_RPM": "RPM medie",
+        "max_RPM": "RPM massime",
+        "max_HR": "Frequenza cardiaca massima",
+        "average_watts": "Potenza media",
+        "average_speed": "Velocità media",
+        "average_HR": "Frequenza cardiaca media"
+      },
+      "name": "Performance"
+    },
+    "GuestInvitation": {
+      "tags": {
+        "lastname_host": "Cognome del membro che invita",
+        "firstname_host": "Nome del membro che invita",
+        "lastname_guest": "Cognome dell'ospite",
+        "firstname_guest": "Nome ospite"
+      },
+      "name": "Prenotazione per l'ospite"
+    },
+    "ReferralProgram": {
+      "tags": {
+        "deadline_use_referral": "Validità del premio referral",
+        "minimum_purchase_referral": "Importo minimo di acquisto",
+        "referring_reward": "Ricompensa per il referente",
+        "reduction_purchase_referred": "Sconto per il membro invitato",
+        "registration_date": "Data di iscrizione del membro riferito",
+        "referral_link": "Link referral",
+        "referred_lastname": "Cognome del riferito",
+        "referred_firstname": "Nome del riferito",
+        "referring_lastname": "Cognome del referente",
+        "referring_firstname": "Nome del referente"
+      },
+      "name": "Referral"
+    }
+  },
+  "eventType": {
+    "3": "Annulla sessione",
+    "6": "Account membro creato dal membro",
+    "7": "Prenotazione tramite pacchetto",
+    "8": "Prenotazione + acquisto del pacchetto",
+    "9": "Un posto si è liberato",
+    "10": "Per questo turno, il posto nella lista d'attesa è scaduto",
+    "12": "Registrazione alla lista d'attesa",
+    "13": "Un membro si è cancellato dalla lista d'attesa",
+    "14": "Un membro è stato rimosso dalla lista d'attesa dallo studio",
+    "16": "Sessione modificata",
+    "17": "Prenotazione annullata: credito non rimborsato",
+    "18": "Prenotazione annullata: credito rimborsato",
+    "19": "Account membro creato dallo staff",
+    "20": "Richiesta di download della ricevuta",
+    "21": "Nuova prenotazione",
+    "22": "Conferma della ricevuta",
+    "23": "Abbonamento ricorrente pagato con il saldo del conto interno",
+    "24": "Abbonamento ricorrente creato",
+    "25": "Cambio del metodo di pagamento",
+    "26": "Abbonamento in pausa",
+    "27": "Abbonamento interrotto o terminato",
+    "28": "Pagamento ricevuto",
+    "29": "Promemoria corso online tra 15 min",
+    "30": "Prenotazione per un ospite (per il membro che invita)",
+    "31": "Prenotazione per un ospite (per l'ospite)",
+    "32": "Per i membri iscritti tramite prenotazione con un clic (per i membri)",
+    "101": "Promemoria corso online in 15 min (insegnanti)",
+    "102": "Annullamento della sessione (insegnanti)",
+    "103": "Sessione modificata (insegnanti)",
+    "200": "Metodo di pagamento dell'abbonamento in scadenza (primo avviso)",
+    "201": "Metodo di pagamento dell'abbonamento in scadenza (secondo avviso)",
+    "300": "Kick (non validato in tempo troppe volte)",
+    "301": "Reimpostazione della password utente",
+    "302": "Convalida della email utente",
+    "303": "Unire due account studio",
+    "304": "Attivazione della gift card digitale",
+    "305": "Modifica della email del membro dal backoffice",
+    "308": "Attivazione della git card fisica",
+    "400": "Appuntamento annullato - fuori tempo (insegnante)",
+    "401": "Appuntamento annullato - rimborsato (insegnante)",
+    "402": "Nuovo appuntamento (insegnante)",
+    "403": "Orario modificato (insegnante)",
+    "450": "Appuntamento - fuori tempo massimo (membro)",
+    "451": "Appuntamento annullato - rimborsato (membro)",
+    "452": "Nuovo appuntamento (membro)",
+    "453": "Orario modificato (membro)",
+    "480": "L'appuntamento ricorrente non è andato a buon fine per mancanza di disponibilità (insegnante)",
+    "481": "L'appuntamento ricorrente non è andato a buon fine per mancanza di disponibilità (membri)",
+    "510": "Pagamento di un abbonamento ricorrente fallito",
+    "515": "Pacchetto per abonnamenti disattivato automaticamente",
+    "520": "Pagamento di un abonnamento fallito, verrà eseguito un nuovo tentativo",
+    "530": "Controversia sul pagamento di un abbonamento ricorrente",
+    "601": "Poche prenotazioni [tot. ore] prima dell'inizio della lezione",
+    "602": "Troppe poche prenotazioni N ore prima dell'inizio della sessione (membri)",
+    "701": "Cancellazione tardiva: il pacchetto è stato temporaneamente bloccato (per i memebri)",
+    "702": "Cancellazione tardiva: una multa è stata aggiunta al saldo del conto interno (per i membri)",
+    "703": "Assenze (no-show): pacchetto bloccato (studenti)",
+    "704": "Assenze (no-show): addebito conto cliente (studenti)",
+    "705": "Avviso di assenza",
+    "801": "Gruppo appuntamenti annullato",
+    "901": "Sostituto trovato (insegnante)",
+    "902": "Richiesta di sostituzione annullata (sostituzione)",
+    "903": "È stata trovata un'altra sostituzione (sostituzione)",
+    "904": "Nuova richiesta di sostituzione (sostituzione)",
+    "905": "Nuova richiesta tardiva (sostituzione)",
+    "906": "Data di chiusura posticipata (sostituzione)",
+    "907": "Sostituto trovato (sostituzione)",
+    "987": "Tentativo di riscuotere una rata",
+    "1001": "Account Spivi creato (membri)",
+    "1002": "Performance della sessione di spinning",
+    "1003": "Account Spivi creato (insegnanti)",
+    "1101": "Contributo per il referral disponibile (membro riferito)",
+    "1102": "Contributo per il referral disponibile (membro referente)",
+    "1200": "Modalità di pagamento, primo sollecito per la scadenza dei pagamenti rateali",
+    "1201": "Modalità di pagamento, secondo sollecito per la scadenza dei pagamenti rateali"
+  },
+  "ruleGroup": {
+    "private_booking": "Appuntamento",
+    "offer": "Allenamento",
+    "booking": "Prenotazioni",
+    "waiting-list": "Lista d'attesa",
+    "subscription": "Abbonamento ricorrente",
+    "member": "Creazione account allievo",
+    "marketing": "Marketing",
+    "invoice": "Contabilizzazione",
+    "payment_pack": "Badge",
+    "recurrent_private_booking": "Appuntamento ricorrente",
+    "replacement_request": "Sostituzione",
+    "giftcard": "Gift card",
+    "performance": "Performance",
+    "referral": "Referral"
+  },
+  "emailDesign": {
+    "placeholder": "Generato da bsport",
+    "closePreview": "Chiudi",
+    "birthdayPlaceholder": "Scegliere un email"
+  },
+  "pageTitle": "Email transazionali",
+  "caption": {
+    "emailDesign": "Mail da inviare",
+    "event": "Evento",
+    "sendCopy": "Ricevere una copia di questa email",
+    "active": "Abilitato"
+  },
+  "marketingNotification": {
+    "birthday": "E-mail di compleanno"
+  },
+  "franchiseOwned": "Il tuo franchisor sta attualmente gestendo questa e-mail transazionale",
+  "franchise": {
+    "delete": {
+      "delete": "Cancella",
+      "content": "Sei sicuro di voler eliminare questa configurazione? Le impostazioni selezionate e i modelli di e-mail saranno ripristinati ai loro valori originali.",
+      "title": "Cancellazione"
+    },
+    "card": {
+      "carbonCopy": "Ricevere una copia dell'e-mail",
+      "deactivated": "Disattivato",
+      "activated": "Attivato",
+      "companies": "Franchisees",
+      "parameters": "Parametri",
+      "template": "Template"
+    },
+    "form": {
+      "error": {
+        "email_design": "Seleziona un modello",
+        "selectCompanies": "Selezionare almeno un franchise",
+        "name": "Selezionare un nome"
+      },
+      "save": "Salva",
+      "cancel": "Cancella",
+      "mailSelection": "Scegliere un modello",
+      "receiveCarbonCopySubtitle": "Riceverai una copia di ogni e-mail inviata",
+      "receiveCC": "Ricevere una copia dell'e-mail",
+      "activateSubtitleDeactivate": "L'email transazionale è disabilitata, non sarà inviata ai membri",
+      "activateSubtitleActivate": "L'email transazionale è attivata, sarà inviata ai membri",
+      "activate": "Attivato",
+      "parameters": "Parametri",
+      "useFor": "Utilizzare per ",
+      "pickTemplate": "Scegliere un modello",
+      "name": "Nome",
+      "description": "Il modello scelto sarà usato per l'email transazionale \"{{-name}}\" per tutti gli affiliati selezionati qui.",
+      "title": "Configurazione",
+      "restrictedAccess": "Questa configurazione è impostata per i franchise a cui non hai accesso. Alcuni campi non sono modificabili"
+    },
+    "emptyStateConfiguration": "Crea una configurazione per forzare l'uso di modelli di e-mail per ciascuno dei tuoi franchisee.",
+    "addConfiguration": "Aggiungere una configurazione",
+    "emptySelect": "Seleziona un'email transazionale per vedere con quale franchisee è condivisa e utilizzata."
+  },
+  "listItem": {
+    "createTransactionnalNotification": "impostare la notifica push",
+    "modifyTransactionnalNotification": "cambiare la notifica push",
+    "sendTransactionnalNotification": "Inviare una notifica push",
+    "transactionnalNotification": "Notifica push",
+    "mailToSend": "Posta da inviare",
+    "copyCarbon": "Ricevi una copia dell'e-mail",
+    "sendTransactionnalEmail": "Abilita le comunicazioni disponibili",
+    "transactionnalEmail": "Email transazionali",
+    "infoBoxErrorMessageFirstLine": "Questa email deve contenere le seguenti variabili:",
+    "infoBoxErrorMessageLastLine": "Assicurati di aggiungerli al tuo modello in modo da poterlo salvare"
+  },
+  "preview": {
+    "email": "Email",
+    "notification": "Push",
+    "emptyStateNotification": "Per vedere la tua anteprima, imposta la tua notifica push",
+    "emptyState": "Per vedere le anteprime, clicca su una delle categorie",
+    "title": "Panoramica"
+  },
+  "goBackToMenu": "Precedente",
+  "configureNotif": "Configurare",
+  "countNotification": "{{nbr}} notifiche push abilitate",
+  "countEmail": "{{nbr}} email transazionali attivate",
+  "countElements": "{{nbr}} elementi",
+  "triggeringEvent": {
+    "title": "Evento scatenante"
+  },
+  "type": {
+    "hours": "Ore",
+    "days": "Giorni",
+    "bookingConcerned": "la sessione interessata dalla notifica",
+    "sendNotification": "Invia la notifica"
+  },
+  "eventTypeHelperText": {
+    "200": "È possibile personalizzare il numero di giorni considerati per l'invio della notifica nella sezione Metodi di pagamento",
+    "201": "È possibile personalizzare il numero di giorni considerati per l'invio della notifica nella sezione Metodi di pagamento",
+    "1200": "È possibile personalizzare il numero di giorni considerati per l'invio della notifica nella sezione Metodi di pagamento",
+    "1201": "È possibile personalizzare il numero di giorni considerati per l'invio della notifica nella sezione Metodi di pagamento"
+  }
+}

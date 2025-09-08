@@ -1,0 +1,127 @@
+{
+  "featureRequest": {
+    "close": "Schließen",
+    "content": "Vielen Dank für Ihr Interesse an diesem Add-on. Wenn Sie mehr erfahren möchten, laden wir Sie herzlich ein, Ihre Frage in unserem Support-Chat zu stellen. Ihr Kundenbetreuer wird Ihnen gerne weitere Informationen geben.",
+    "title": "Lassen Sie uns ein Gespräch beginnen",
+    "header": "Wir melden uns!",
+    "interestMessage": "Danke für dein Interesse an diesem Add-On. Dein Account Manager wird sich bald mit mehr Informationen bei dir melden.",
+    "interestMessageWithChat": "Danke für dein Interesse an diesem Add-On.\nDein Account Manager wird sich bald mit weiteren Informationen bei dir melden. In der Zwischenzeit können wir deine Fragen im Hilfe-Chat beantworten."
+  },
+  "platformBillingStage": {
+    "maxBooking": "Bis zu {{max_booking_per_month}} Buchungen / Monat",
+    "monthlyPrice": "{{ price }} / Monat"
+  },
+  "platformBillingPlan": {
+    "max_establishment": {
+      "help": "Eine Einrichtung wird ab 8 monatlichen Kursen als aktiv gewertet",
+      "label": "Bis zu {{max_establishment}} Einrichtungen"
+    },
+    "max_coach": {
+      "help": "Eine Lehrkraft gilt als aktiv ab 8 monatlichen Kursen",
+      "label": "Bis zu {{max_coach}} Lehrkräften"
+    }
+  },
+  "platformBillingGroup": {
+    "soonAvailable": "Bald verfügbar!",
+    "myGroup": "Mein Abonnement"
+  },
+  "upsellPackage": {
+    "vod": {
+      "explainBilling": "  +1 {{currencyDisplay}} / aktiver Kunde"
+    },
+    "otherAddonTitle": "Add-Ons verfügbar",
+    "myAddonTitle": "Meine Add-Ons",
+    "knowMore": "Mehr erfahren",
+    "billRecurrent": "{{ price_cts }} / Monat",
+    "billOnce": "{{ price_cts }}",
+    "sms": {
+      "explainBilling": "{{ price_cts }} / SMS"
+    },
+    "lockDialog": {
+      "31": {
+        "intro": "Audience Zugang freischalten",
+        "explain": "Bei dieser Funktion handelt es sich um ein Add-on. Bitte wenden Sie sich an Ihren Account Manager, um weitere Informationen zu erhalten."
+      },
+      "33": {
+        "explain": "Hier finden Sie alle Ihre direkten Unterhaltungen, die mit Ihren Kursen verbundenen Chats sowie Ihre Smartlist-Kampagnen. Der Chat ist kompatibel mit SMS, E-Mails und Push-Benachrichtigungen.",
+        "intro": "Entdecken Sie unser neues Interface für den direkten Chat mit Ihren Mitgliedern."
+      },
+      "requestAccess": "Zugang beantragen"
+    },
+    "subscriptionForm": {
+      "commitmentMessage": "Bitte beachten Sie: Ein Abonnement ist mit einer 12-monatigen Verpflichtung verbunden",
+      "confirmationMessage": "Sie haben erfolgreich {{- name }} abonniert",
+      "info": "Kundenservice kontaktieren",
+      "infoHelper": "Brauchen Sie mehr Informationen?",
+      "confirmHelper": "Bitte bestätigen Sie, dass Sie dieses Add-on abonnieren möchten",
+      "priceHelper": "Dieser Preis wird zu Ihrem monatlichen Plan hinzugefügt.",
+      "title": "Das Add-On abonnieren",
+      "timeConsumingHelper": "Die Bearbeitung der Anmeldung für diesen Upsell kann einige Sekunden dauern"
+    },
+    "seeMore": "Mehr anzeigen",
+    "billSMS": "{{ price_cts }} / SMS",
+    "audienceLockDialog": {
+      "showInterest": "Jetzt mehr erfahren",
+      "goHome": "Zurück zum Kalender",
+      "explain": "Dieses Feature ist ein Add-On. Kontaktiere deinen Account Manager für mehr Informationen.",
+      "benefits": [
+        "Mit automatisierten Follow-Ups deine Kund·innen erhalten",
+        "Mit maßgeschneiderten Customer Journeys für VIP Kunden deinen Umsatz fördern",
+        "Leads mit personalisierten Nachrichten an entscheidenden Berührungspunkten konvertieren"
+      ],
+      "description": "Automatisierte Workflows helfen dir, dich über verschiedene Kanäle mit deinen Kund·innen zu verbinden. So kannst du:",
+      "title": "Triff deine Kund·innen dort, wo sie sind - mit Audience",
+      "videoLink": "https://youtu.be/RR2HB0DiNeU"
+    }
+  },
+  "paymentMethod": {
+    "actions": {
+      "createCard": "Kreditkarte hinzufügen",
+      "createSepa": "Füge eine IBAN hinzu"
+    },
+    "sectionTitle": "Abo-Zahlungen",
+    "info": {
+      "content": "Hier gibst du deine Kreditkartendaten für Abo-Zahlungen ein. Deine Kontodaten für Gutschriften von bsport kannst du hier eingeben:",
+      "link": "hier"
+    }
+  },
+  "platformInvoice": {
+    "noInvoice": "Keine Rechnungen verfügbar",
+    "sectionTitle": "Deine Rechnungen",
+    "label": "Rechnung {{month}} / {{year}}",
+    "status": {
+      "failed": "Zahlung fehlgeschlagen",
+      "processing": "Laufende Zahlungen",
+      "disputed": "Angefochtene Zahlung",
+      "succeeded": "Erfolgreiche Zahlung",
+      "missing_charge": "Keine Zahlung versucht",
+      "cancelled_with_negative_invoice": "Rechnung durch Negativrechnung storniert",
+      "cancelled_with_credit_note": "Rechnung durch Gutschrift storniert",
+      "negative_invoice_cancelling_bad_debt_invoice": "Eine vorherige Rechnung stornieren"
+    },
+    "bill": "Zahlung vervollständigen"
+  },
+  "platformCustomerEntity": {
+    "vatId": {
+      "alert": {
+        "update": "Umsatzsteuer-Identifikationsnummer aktualisieren",
+        "description": "bsport benötigt Ihre Umsatzsteuer-Identifikationsnummer (auch bekannt als USt-IdNr. oder innergemeinschaftliche USt-IdNr.), um diese auf den Rechnungen, die wir Ihnen ausstellen, anzugeben.",
+        "text": "Sie haben keine Umsatzsteuer-Identifikationsnummer angegeben oder die angegebene ist ungültig",
+        "title": "Gültige USt-IdNr. fehlt"
+      },
+      "dialog": {
+        "actions": {
+          "save": "Speichern",
+          "cancel": "Abbrechen"
+        },
+        "update": "USt-IdNr. aktualisieren",
+        "hasAttributedVatIdLabel": "Ich habe keine registrierte Umsatzsteuer-Identifikationsnummer. Wenn dein Unternehmen in der EU (außerhalb von Frankreich) ansässig ist, wird das Reverse-Charge-Verfahren nicht angewendet und bsport wird die französischen Mehrwertsteuersätze (20%) berechnen.",
+        "vatIdLabel": "Umsatzsteuer-Identifikationsnummer",
+        "content": "bsport benötigt deine Umsatzsteuer-Identifikationsnummer (auch bekannt als USt-IdNr. oder innergemeinschaftliche USt-IdNr.), um sie auf den Rechnungen, die wir dir ausstellen, anzugeben.",
+        "invalidFormat": "Ungültiges Format",
+        "errorChip": "Keine gültige USt-IdNr. vorhanden",
+        "title": "Umsatzsteuer-Identifikationsnummer (USt-IdNr.)"
+      }
+    }
+  }
+}

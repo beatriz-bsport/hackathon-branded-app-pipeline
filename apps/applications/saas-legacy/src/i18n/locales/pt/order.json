@@ -1,0 +1,73 @@
+{
+  "deliveryFee": {
+    "modal": {
+      "delete": {
+        "confirm": "Eliminar",
+        "title": "Eliminar uma taxa de entrega",
+        "content": "Note-se que esta operação é definitiva e que as encomendas antigas que utilizam este encargo não serão alteradas.",
+        "cancel": "Cancelar"
+      }
+    },
+    "name": "Nome",
+    "forms": {
+      "feeLabel": "Taxas de entrega",
+      "nameLabel": "Nome",
+      "freeThresholdLabel": "Disponível em",
+      "onSubmit": "Guardar",
+      "title": "Formulário de taxas de entrega",
+      "freeThresholdHelper": "Se o valor da encomenda for superior a este montante, os custos de entrega são gratuitos",
+      "onCancel": "Cancelar",
+      "create": "Adicionar uma taxa de entrega"
+    },
+    "fee": "Taxas de entrega",
+    "free_threshold": "Disponível a partir de",
+    "offeredAboveAmount": "Oferecido após a compra de {{ free_threshold, price }}"
+  },
+  "state": {
+    "0": "Em espera",
+    "700": "Pago",
+    "1100": "Cancelar",
+    "1200": "A recolher no local",
+    "9000": "Expedido"
+  },
+  "form": {
+    "delivery": {
+      "first_name": "Nome próprio",
+      "last_name": "Apelido"
+    }
+  },
+  "configuration": {
+    "deliveryFee": "Taxa de entrega",
+    "forms": {
+      "onSubmit": "Guardar"
+    },
+    "noDefaultDeliveryFee": "Sem taxas de entrega",
+    "defaultDeliveryFee": "Taxas de entrega por defeito"
+  },
+  "detail": {
+    "section": {
+      "deliveryInfo": "Morada de entrega",
+      "productDetail": "Detalhes do carrinho",
+      "invoice": "Fatura associada",
+      "member": "Adquirente",
+      "title": "Estado da encomenda :"
+    }
+  },
+  "table": {
+    "state": "Estado",
+    "updated_at": "Atualizado em",
+    "actions": "Ações",
+    "name": "Adquirente",
+    "created_at": "Criado em",
+    "qty": "Quantidade"
+  },
+  "products": {
+    "nbProducts": "artigos"
+  },
+  "actions": {
+    "flagAsSent": "Expedido",
+    "flagAsOnSiteDelivery": "A recolher no local",
+    "flagAsCancelled": "Cancelar"
+  },
+  "pageTitle": "Loja"
+}

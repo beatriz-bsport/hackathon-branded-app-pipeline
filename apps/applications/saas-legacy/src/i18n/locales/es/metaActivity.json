@@ -1,0 +1,194 @@
+{
+  "reviews": "Opinión de los clientes: ",
+  "packsAvailable": "Elegible para pases:",
+  "settings": {
+    "firstBookingMinutesUntil": "Las reservas están bloqueadas antes del {{m}} del inicio de la sesión",
+    "lastDiscardBeforeMinutes": "Hasta {{m}} antes del inicio de la sesión",
+    "lastBookingBeforeMinutes": "Hasta {{m}} antes del inicio de la sesión",
+    "title": "Parámetros",
+    "conditions": "Condiciones",
+    "autoDiscard": "La sesión será cancelada si hay {{nb_bookings}} reserva (s) o menos {{hours}} h antes del inicio de la sesión",
+    "seeRestrictions": "Ver",
+    "restrictions": " Restricción personalizada n°{{count}}",
+    "restrictionsHeader": "Restricciones personalizadas",
+    "autoDiscardHeader": "La sesión se cancelará si",
+    "firstBookingMinutesUntilHeader": "Se pueden reservar sesiones futuras si empiezan en menos de",
+    "lastDiscardBeforeMinutesHeader": "Seleccione hasta cuándo los miembros pueden cancelar gratuitamente antes del inicio de la sesión",
+    "lastBookingBeforeMinutesHeader": "Seleccione hasta cuándo pueden reservar los miembros antes del inicio de la sesión",
+    "lastDiscardBeforeMinutesFull": "Se aceptan cancelaciones hasta {{m}} antes del inicio de la sesión",
+    "lastBookingBeforeMinutesFull": "Últimas reservas posibles hasta {{m}} antes del inicio de la sesión"
+  },
+  "modal": {
+    "delete": {
+      "confirm": "Suprimir",
+      "cancel": "Cancelar",
+      "content": "¿Estás seguro de que quieres suprimir este taller? Las sesiones y reservas anteriores no se verán afectadas. Esto es definitivo.",
+      "title": "Supresión de la actividad"
+    }
+  },
+  "description": "Descripción",
+  "offersThisDay": "Sesiones de hoy :",
+  "addOffers": "Añadir sesiones",
+  "category": "Categoría",
+  "name": "Nombre",
+  "detail": {
+    "tab": {
+      "pack": "Tarjetas compatibles",
+      "general": "General",
+      "group": "Sesiones de grupo"
+    },
+    "pack": {
+      "paymentPacks": "Tarjetas compatibles",
+      "consumerPacks": "Bonos propiedad de miembros",
+      "noCompatiblePass": "Ningún bono compatible"
+    }
+  },
+  "forms": {
+    "delete": {
+      "actions": {
+        "confirm": "Suprimir",
+        "cancel": "Cancelar"
+      },
+      "content": {
+        "cannotDelete": "Sesiones están programadas para el futuro, verifica que han bien sido canceladas.",
+        "canDelete": "¿Estás seguro de que quieres suprimir este taller? Las sesiones y reservas anteriores no se verán afectadas. Esto es definitivo."
+      },
+      "title": "Supresión de la actividad"
+    },
+    "create": {
+      "steps": {
+        "workshop_form": "Creación del taller",
+        "offer_form": "Creación de sesiones (opcional)",
+        "pass_list": "Terminar",
+        "pass_form": "Creación de bono (opcional)",
+        "activity_form": "Crear una actividad"
+      },
+      "compatible_packs": {
+        "noCompatiblePass": "Ningún bono compatible con esta actividad, considera crear uno",
+        "passHelperText": "Los siguientes bonos son compatibles con la actividad creada:",
+        "goToActivity": "Ir a la actividad",
+        "createPass": "Crear un bono",
+        "seeMore": "Ver más"
+      }
+    },
+    "warning": {
+      "lowFirsBookingUntilWarning": "Tenga en cuenta que tiene que esperar hasta {{ durationFormatted }} antes del inicio de la sesión para hacer la primera reserva.",
+      "highLastBookingBeforeWarning": "¡Atención, {{ durationFormatted }} antes del inicio de la sesión, no se podrán hacer más reservas!"
+    }
+  },
+  "navigation": {
+    "goToPaymentPack": "Bonos"
+  },
+  "actions": {
+    "search": "Buscar una actividad",
+    "addActivity": "Añadir una actividad"
+  },
+  "noActivities": "Las actividades de grupo son clases impartidas a un grupo. Aquí puedes añadir, editar y gestionar tus actividades de grupo.",
+  "search": "Buscar une actividad",
+  "metaActivity": "Actividad",
+  "disabledMetaActivities": "Actividades archivadas",
+  "workshop": "Taller",
+  "groupedOption": {
+    "modal": {
+      "form": {
+        "recurrenceUntil": "Repetir hasta",
+        "recurrenceCount": "Número de repeticiones",
+        "timeStart": "Fecha de inicio",
+        "timeStartHelper": "Selecciona la fecha de la primera sesión de la copia de grupo. Las demás sesiones del grupo se copiarán y desplazarán en función de esta fecha.",
+        "nameCaption": "Nombre del grupo de sesión",
+        "withRecurrence": "Activar la recurrencia",
+        "marketPlaceAvailable": "Disponible para reservas (web+app)",
+        "allowBookingAfterStartCaption": "Por defecto, si un grupo de sesiones ya se ha iniciado, tus miembros no podrán inscribirse a él. Al activar esta función, tus miembros podrán seguir inscribiéndose en las sesiones restantes.",
+        "allowBookingAfterStart": "Permitir la inscripción en el camino",
+        "fullBookingOnlyCaption": "Por defecto, los miembros se inscribirán automáticamente en todas las sesiones de este grupo cuando reserven una de las sesiones del grupo. Desactiva esta opción para que los usuarios puedan seleccionar por separado las sesiones a las que desean inscribirse.",
+        "fullBookingOnly": "Inscripción en todas las sesiones de grupo",
+        "name": "Nombre",
+        "subtitleRecurrence": "Recurrencia",
+        "subtitleSettings": "Parámetros",
+        "addOffers": "Añadir una sesión",
+        "subtitleOffers": "Añadir sesiones",
+        "subtitle": "Informaciones generales",
+        "recurrenceUntilHelper": "Indique la fecha de la última sesión del último ciclo.",
+        "allowGuestUnavailable": "Esta función no está disponible en las sesiones de grupo.",
+        "allowGuest": "Compatible con la reserva de invitados",
+        "impossibleState": "Los parámetros introducidos no permiten la generación de un grupo",
+        "submit": "Validar",
+        "back": "Anterior",
+        "save": "Guardar",
+        "delete": {
+          "content": "Tenga en cuenta que al eliminar este grupo se cancelarán todas las sesiones que contenga. A los estudiantes inscritos se les anulará la reserva. Esta operación es definitiva",
+          "missingOffer": "Ninguna oferta en el grupo",
+          "firstSession": "Primera sesión el {{-day}}",
+          "selectHeader": "Selecciona los grupos a modificar",
+          "selectGroup": "Cancelar otros grupos similares",
+          "applyRecursive": "Cancelar otros grupos similares",
+          "title": "Supresión"
+        },
+        "copyRecurrence": "También duplicar futuras recurrencias del grupo",
+        "required": "Se necesita al menos un grupo",
+        "next": "Siguiente",
+        "groupName": "Nombre",
+        "daily": "Todos los días",
+        "recurrence": "Recurrencia",
+        "recurrenceNumberPrefix": "Repetir todos los",
+        "preview": "Previsualizar",
+        "recurrenceUntilHelper2": "No se crearán grupos cuya última sesión sea posterior a esta fecha.",
+        "creationError": "Imposible crear",
+        "uncreatedGroupsTitle": "Grupos no creados",
+        "syncOnSpivi": "Enviar a Spivi",
+        "spiviWarningHelperText": "Tenga en cuenta que si las sesiones están vinculadas a Spivi, las copias no estarán vinculadas a Spivi."
+      },
+      "duplicate": "Duplicar un grupo",
+      "subtitlePreview": "Pre-visualización de la recurrencia",
+      "subtitleMetaActivitySelect": "Creación de un grupo de sesiones",
+      "title": "Sesiones de grupo"
+    },
+    "offerDescription": "{{ count }} sesiones desde {{- firstSession }} hasta {{- lastSession }}",
+    "helperText": {
+      "year": "Este grupo comienza el {{-day}}, de {{-mont}} cada año",
+      "year_plural": "Este grupo comienza el {{-day}}, de {{-month}} cada {{ count }} años",
+      "day": "Este grupo se ensaya cada día",
+      "day_plural": "Este grupo se ensaya cada {{ count }} días",
+      "week": "Este grupo comienza el {{-day}}, cada semana",
+      "week_plural": "Este grupo comienza el {{-day}}, cada {{ count }} semanas",
+      "month": "Este grupo comienza el {{-day}}, cada mes",
+      "month_plural": "Este grupo comienza el {{-day}}, cada {{ count }} meses"
+    },
+    "last": "último",
+    "intervalLabel": {
+      "until": {
+        "year": "Cada año hasta {{-until}} ",
+        "year_plural": "Cada {{ count }} años hasta {{-until}} ",
+        "day": "Cada día hasta {{-until}} ",
+        "day_plural": "Cada {{ count }} días hasta {{-until}} ",
+        "week": "Cada semana hasta ",
+        "week_plural": "Cada {{ count }} semanas hasta {{-until}} ",
+        "month": "Cada mes hasta {{-until}} ",
+        "month_plural": "Cada {{ count }} meses hasta {{-until}} "
+      },
+      "year": "Cada año",
+      "year_plural": "Cada {{ count }} años",
+      "day": "Cada día",
+      "day_plural": "Cada {{ count }} días",
+      "week": "Cada semana",
+      "week_plural": "Cada {{ count }} semanas",
+      "month": "Cada mes",
+      "month_plural": "Cada {{ count }} meses"
+    },
+    "warning": {
+      "groupsWithOutOfTheRangeOffers": "Los grupos de sesiones que figuran a continuación no se crearán porque incluyen sesiones para las que faltan más de 3 años",
+      "uncreatedGroups": "Ten en cuenta que algunos grupos no se crearán. \nPuede encontrarlos en la sección \"Grupos no creados\" al final de esta lista"
+    },
+    "errors": {
+      "offers_length": "Sólo ha creado una sesión. Para crear un grupo de sesiones, añada al menos dos sesiones. Si desea crear una sola sesión, puede hacerlo directamente desde el taller en cuestión o desde la pestaña del calendario."
+    }
+  },
+  "workshopSelect": "Buscar un taller",
+  "close": "Cerrar",
+  "edit": "Modificar",
+  "cancelledOffers": "{{count}} cancelaciones",
+  "warningUSCDialog": {
+    "content": "La nueva política de cancelación se aplicará a los eventos futuros. Sin embargo, los eventos ya publicados en las próximas dos semanas no podrán actualizarse.",
+    "title": "Política de cancelación de USC"
+  }
+}

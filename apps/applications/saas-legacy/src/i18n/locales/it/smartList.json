@@ -1,0 +1,801 @@
+{
+  "mail": {
+    "sendSuccess": "Posta inviata",
+    "sendMailTitle": "Invia una email",
+    "sendMail": "Invia una email",
+    "cancel": "Annulla",
+    "noMailAvailable": "Nessuna email disponibile, ricordati di crearne una",
+    "sendError": "Problema durante l'invio dell'email",
+    "send": "Invia"
+  },
+  "filters": {
+    "1": {
+      "name": "Debito",
+      "first": "Il saldo del conto del membro è (comprese le ricevute non pagate)",
+      "second": " a   ",
+      "third": "{{ currencyDisplay }}",
+      "explanation": "Raggruppa i membri con un determinato importo nei loro saldi conto.",
+      "between": "e"
+    },
+    "2": {
+      "second": "giorni",
+      "explanation": "Ha prenotato la sua ultima sessione...",
+      "name": "Data dell'ultima sessione prenotata",
+      "first": "L'ultima sessione riservata ha avuto luogo più di"
+    },
+    "5": {
+      "name": "Genere",
+      "first": "Raggruppa solamente",
+      "men": "uomini",
+      "explanation": "Raggruppa i membri in base al genere dichiarato (uomo o donna)",
+      "women": "donna"
+    },
+    "8": {
+      "explanation": "Hai un pacchetto X utilizzabile",
+      "name": "Validità del pacchetto",
+      "first": "Pacchetti",
+      "second": "utilizzabile (con crediti o illimitato e non scaduto)"
+    },
+    "11": {
+      "name": "Tag",
+      "first": "Raggruppa per tag",
+      "explanation": "Raggruppa i membri in base ai loro tag"
+    },
+    "14": {
+      "workshop": "Pacchetti per workshop",
+      "first": "Ha speso",
+      "explanation": "Prodotti acquistati: A e B",
+      "shop": "Shop",
+      "pack": "Pacchetti",
+      "combo": "Pacchetto combinato",
+      "private_pass": "Lezioni private",
+      "name": "Spese",
+      "second": "{{ currencyDisplay }} tra",
+      "third": "e",
+      "fourth": "per i prodotti",
+      "selector": "Scegli i prodotti"
+    },
+    "18": {
+      "name": "Data d'iscrizione",
+      "first": "Iscritto al tuo studio il",
+      "explanation": "Raggruppa i membri in base alla data di iscrizione: specifica, precedente, successiva o compresa tra due date"
+    },
+    "19": {
+      "expiration": {
+        "first_has_expire": "è scaduto",
+        "first_will_expire": "scaduto"
+      },
+      "has_not": "Non possiede",
+      "second": "e",
+      "third": "di",
+      "explanation": "Raggruppa i clienti con un pacchetto acquistato in una certa data e con X crediti residui",
+      "credits": {
+        "first": "crediti:",
+        "second": "e",
+        "helperText": "Filtrato su {{count}} credito",
+        "helperText_plural": "Filtrato su {{count}} crediti"
+      },
+      "infoIcon": "I pacchetti illimitati saranno sempre inclusi",
+      "name": "Pacchetti",
+      "first": "uno dei seguenti pacchetti",
+      "has": "Possiede",
+      "date_bought": {
+        "first": "data di acquisto"
+      }
+    },
+    "20": {
+      "first": "Il valore totale degli articoli nel cestino è",
+      "name": "Carrelli non finalizzati",
+      "date": {
+        "second": "giorni",
+        "first": "Il cestino è stato abbandonato"
+      },
+      "explanation": "Raggruppa i membri che hanno prodotti nel carrello ma non hanno completato l’acquisto",
+      "third": "{{ currencyDisplay }}",
+      "second": "di",
+      "between": "e"
+    },
+    "21": {
+      "hour": {
+        "third": "ore",
+        "first": "il tempo di inizio dell'allenamento è compreso tra",
+        "second": "ore e"
+      },
+      "establishment": {
+        "first": "nel"
+      },
+      "date": {
+        "first": "la data dell'allenamento è"
+      },
+      "name": "X-esimo numero di prenotazione",
+      "explanation": "Raggruppa i clienti in base a quante sessioni hanno prenotato, in quale sala, con quale insegnante, e con quale pacchetto acquistato",
+      "second_singular": "1a sessione",
+      "first": "Ha prenotato la sua ",
+      "second_plural": "allenamento",
+      "activity": {
+        "first": "di"
+      },
+      "coach": {
+        "first": "con gli insegnanti"
+      },
+      "payment_pack": {
+        "first": "con i pacchetti"
+      },
+      "attendance": "con lo status",
+      "level": {
+        "first": "livello "
+      },
+      "second_singular_v2": "sessione",
+      "first_v2": "I membri che hanno prenotato il loro "
+    },
+    "22": {
+      "activity": {
+        "first": "d'attività"
+      },
+      "establishment": {
+        "first": "negli stabilimenti"
+      },
+      "date": {
+        "first": "prendere posto"
+      },
+      "hour": {
+        "first": "inizia tra",
+        "second": "ore e",
+        "third": "ore"
+      },
+      "name": "Numero di prenotazioni",
+      "payment_pack": {
+        "first": "con i pacchetti"
+      },
+      "coach": {
+        "first": "con gli insegnanti"
+      },
+      "explanation": "Raggruppa i clienti in base al numero totale di sessioni prenotate per l'attività A, nello stabilimento B, acquistate con il pacchetto C",
+      "first": "Ha prenotato",
+      "second": "sessioni",
+      "between": "e",
+      "attendance": "con lo status",
+      "level": {
+        "first": "livello"
+      }
+    },
+    "23": {
+      "name": "Prima prenotazione",
+      "explanation": "Ha prenotato la sua prima sessione il..."
+    },
+    "24": {
+      "date": {
+        "first": "acquisti effettuati"
+      },
+      "second": "{{ currencyDisplay }} per i prodotti",
+      "first": "Ha speso",
+      "name": "Cronologia degli acquisti",
+      "workshop": "Pacchetti per workshop",
+      "private_pass": "Lezioni private",
+      "between": "e",
+      "combo": "Pacchetto combinato",
+      "pack": "Pacchetti",
+      "shop": "Shop",
+      "explanation": "Raggruppa i clienti che hanno acquistato determinati prodotti"
+    },
+    "25": {
+      "expiration": {
+        "first_has_expire": "è scaduto",
+        "first_will_expire": "scade"
+      },
+      "date_bought": {
+        "first": "data di acquisto"
+      },
+      "credits": {
+        "second": "e",
+        "first": "crediti:",
+        "helperText": "Filtrato su {{count}} credito",
+        "helperText_plural": "Filtrato su {{count}} crediti"
+      },
+      "third": "a",
+      "second": "e",
+      "has_not": "Non hai",
+      "has": "Hai",
+      "first": "uno dei pacchetti per appuntamenti",
+      "name": "Pacchetti (appuntamenti)",
+      "explanation": "Raggruppa i clienti che hanno acquistato un pacchetto per appuntamenti in una certa data, con X crediti rimanenti"
+    },
+    "26": {
+      "hour": {
+        "third": "ore",
+        "second": "ore e",
+        "first": "che inizia tra"
+      },
+      "date": {
+        "first": "che si svolgono"
+      },
+      "coach": {
+        "first": "con gli insegnanti"
+      },
+      "private_pass": {
+        "first": "con il pacchetto per appuntamenti"
+      },
+      "establishment": {
+        "third": "a casa",
+        "second": "o",
+        "first": "negli stabilimenti"
+      },
+      "between": "e",
+      "second": "appuntamento",
+      "first": "Hai prenotato",
+      "explanation": "Raggruppa i clienti in base a quanti appuntamenti hanno prenotato nella stabilimento A, con l'insegnante B, acquistati con il pacchetto C",
+      "name": "Numero di appuntamenti",
+      "private_service": {
+        "first": "con gli appuntamenti"
+      }
+    },
+    "27": {
+      "explanation": "Raggruppa i clienti che hanno X pacchetti validi o pacchetti per appuntamenti",
+      "name": "Pacchetti validi",
+      "first": "Membri che hanno",
+      "between": "e",
+      "second": "Pacchetti validi. nclusi",
+      "third": "o",
+      "fourth": "in totale.",
+      "info": "Vengono prese in considerazione anche i pacchetti e i pacchetti per appuntamenti bloccati"
+    },
+    "28": {
+      "numbersComparator": {
+        "payment": {
+          "after": "{{currency}}",
+          "between": "e",
+          "before": "L'importo del primo acquisto è stato"
+        }
+      },
+      "filterByDate": {
+        "before": "Filtra per data"
+      },
+      "booleanChoice": {
+        "is_not": "non ancora fatto",
+        "is": "fatto",
+        "before": "Il primo acquisto è"
+      },
+      "explanation": "Raggruppa i membri che hanno completato il loro primo acquisto tra determinate date",
+      "name": "Primo acquisto"
+    },
+    "29": {
+      "numbersComparator": {
+        "money": {
+          "after": "{{currency}} come referente",
+          "between": "e",
+          "before": "Il membro ha ottenuto"
+        },
+        "referred": {
+          "tooltip": "Possono essere inclusi anche i membri che non hanno raccomandato nessuno",
+          "after": "membri",
+          "between": "e",
+          "before": "Il membro segnalato"
+        },
+        "reward": {
+          "after": "premi come referente",
+          "between": "e",
+          "before": "Il membro ha ottenuto"
+        }
+      },
+      "explanation": "Filtra i membri che hanno fatto da referente",
+      "name": "Referenti"
+    },
+    "30": {
+      "numbersComparator": {
+        "money": {
+          "after": "{{currency}} come membro raccomandato",
+          "between": "e",
+          "before": "Il membro ha ottenuto"
+        }
+      },
+      "booleanChoice": {
+        "after": "un membro raccomandato",
+        "is_not": "non è",
+        "is": "è",
+        "before": "Il membro"
+      },
+      "explanation": " Filtra i membri che hanno usato un link di riferimento per iscriversi",
+      "name": "Membro raccomandato"
+    },
+    "101": {
+      "name": "Età",
+      "first": "Ha un'età",
+      "between": "e",
+      "to": "a",
+      "second": "anni (inclusi)",
+      "explanation": "Raggruppa i membri in base alla loro età"
+    },
+    "102": {
+      "name": "Form",
+      "hasCompleted": "Completato",
+      "hasNotCompleted": "Non completato",
+      "atLeastOne": "Almeno un form",
+      "all": "Tutti i form",
+      "hasCompletedNone": "Non completato",
+      "none": "Nessun form",
+      "explanation": "Raggruppa i membri a seconda di quanti moduli hanno compilato in certe date",
+      "date": {
+        "first": "ultimo completato"
+      },
+      "to": "a",
+      "second": "tra",
+      "third": "ad una percentuale",
+      "between": "e",
+      "first": "Ha completato"
+    },
+    "103": {
+      "name": "Autorizzazione alle notifiche",
+      "allNeeded": "Tutte le condizioni abilitate devono essere soddisfatte",
+      "oneNeeded": "Almeno una delle condizioni abilitate deve essere soddisfatta",
+      "true": "Accettato",
+      "false": "Non accettato",
+      "sms": "per ricevere notifiche SMS",
+      "email": "per ricevere le notifiche via e-mail",
+      "explanation": "Raggruppa i membri che hanno dato il consenso a ricevere notifiche via SMS o Email",
+      "or": "O",
+      "and": "E"
+    },
+    "104": {
+      "info": "Le cosiddette note mediche corrispondono a quelle che figurano nella sezione \"Informazioni Essenziali\" del fascicolo di appartenenza",
+      "name": "Note informative",
+      "first": "Ha almeno una nota",
+      "medicalOrNot": "medico o meno",
+      "medical": "medico",
+      "nonMedical": "non medico",
+      "date": {
+        "first": "che è stato creato"
+      },
+      "explanation": "Ha almeno una nota medica (o meno)"
+    },
+    "105": {
+      "consumerPrivatePasses": "dei pacchetti per appuntamenti",
+      "info": {
+        "consumerPaymentPacks": "\"valido\" significa che il pacchetto può essere utilizzato ora per prenotare una lezione di gruppo",
+        "consumerPrivatePasses": "\"valido\" significa che il pacchetto può essere utilizzato ora per prenotare un appuntamento"
+      },
+      "name": "Pacchetti condivisi",
+      "date": {
+        "first": "La relazione è stata stabilita"
+      },
+      "to": "a",
+      "between": "e",
+      "first": "Ha un numero",
+      "second": "relazioni che rispettano i filtri selezionati:",
+      "third": "il membro ha condiviso con la relazione un numero",
+      "fourth": "la relazione ha riservato un numero",
+      "consumerPaymentPacks": "dei pacchetti",
+      "bookings": "lezioni di gruppo e appuntamenti grazie ad un pacchetto condiviso dall'iscritto",
+      "valid": "valido",
+      "validOrNot": "valido o meno",
+      "receiveCopyOfEmail": {
+        "first": "email inviate alla relazione",
+        "true": "vengono anche inviati",
+        "false": "non vengono inviati",
+        "second": "in copia al membro"
+      },
+      "acceptSms": {
+        "first": "la relazione",
+        "true": "accettato",
+        "false": "non accetto",
+        "second": "SMS"
+      },
+      "acceptEmail": {
+        "first": "la relazione",
+        "true": "accettato",
+        "false": "non accettato",
+        "second": "email"
+      },
+      "explanation": "Raggruppa i membri legati da relazioni o che condividono un pacchetto"
+    },
+    "106": {
+      "name": "Numero di telefono",
+      "true": "Ha informato",
+      "false": "Non compilato",
+      "first": "un numero di telefono",
+      "explanation": "Raggruppa i membri che hanno fornito un numero di telefono"
+    },
+    "107": {
+      "false": "Non ha accettato",
+      "first": "le tue condizioni d'uso",
+      "explanation": "Ha accettato i termini di utilizzo",
+      "name": "Termini di utilizzo",
+      "true": "Ha accettato"
+    },
+    "400": {
+      "explain": "ha una password su bsport",
+      "name": "Password",
+      "explanation": "Raggruppa i membri che hanno registrato una password con il loro account bsport"
+    },
+    "410": {
+      "explanation": "Raggruppa i membri che hanno firmato la tua liberatoria di responsabilità",
+      "name": "Rilascio di responsabilità",
+      "explain": "avendo accettato il rilascio di responsabilità"
+    },
+    "501": {
+      "explanation": "Raggruppa i clienti in base a quando hanno prenotato una lezione l’ultima volta",
+      "second": "giorni e non ha prenotazioni pianificate in futuro.",
+      "first": "L'ultima sessione prenotata ha avuto luogo più di",
+      "name": "Data dell'ultima sessione prenotata"
+    },
+    "600": {
+      "expiryDateLabel": "con una data di scadenza",
+      "owns": "Ha almeno un metodo di pagamento salvato",
+      "does_not_own": "Non ha un metodo di pagamento salvato",
+      "labelFirst": "Filtra solo i membri",
+      "title": "Metodo di pagamento salvato",
+      "explanation": "Raggruppa i membri in base al fatto che abbiano salvato un metodo di pagamento o meno",
+      "name": "Metodi di pagamento"
+    },
+    "booking_status": {
+      "booked": "prenotato",
+      "canceled": "annullato"
+    },
+    "isEmpty": "Questo segmento mostra tutti i tuoi membri, poiché non è stato impostato alcun parametro.",
+    "calendarPicker": {
+      "text": {
+        "0": {
+          "first": "il o dopo il"
+        },
+        "1": {
+          "first": "il o prima del"
+        },
+        "2": {
+          "first": "tra il",
+          "second": "e il"
+        },
+        "3": {
+          "first": "il"
+        },
+        "4": {
+          "second": "giorni",
+          "first": "in più di"
+        },
+        "5": {
+          "first": "in meno di",
+          "second": "giorni"
+        },
+        "6": {
+          "first": "nel ",
+          "second": "giorni"
+        },
+        "7": {
+          "first": "in più di",
+          "second": "giorni e meno di",
+          "third": "giorni"
+        },
+        "8": {
+          "second": "giorni",
+          "first": "ci sono meno"
+        },
+        "9": {
+          "first": "c'è più di",
+          "second": "giorni"
+        },
+        "10": {
+          "first": "c'è ",
+          "second": "giorni"
+        },
+        "11": {
+          "first": "ce ne sono più",
+          "second": "giorni e meno di",
+          "third": "giorni"
+        }
+      },
+      "selectduration": {
+        "4": {
+          "first": "In più del",
+          "second": "giorni"
+        },
+        "5": {
+          "first": "In meno di",
+          "second": "giorni"
+        },
+        "6": {
+          "first": "Nel",
+          "second": "giorni"
+        },
+        "7": {
+          "first": "In più del",
+          "second": "giorni",
+          "third": "giorni e meno di"
+        },
+        "8": {
+          "first": "ci sono meno di",
+          "second": "giorni"
+        },
+        "9": {
+          "second": "giorni",
+          "first": "Ce ne sono più di"
+        },
+        "10": {
+          "second": "giorni",
+          "first": "C'è "
+        },
+        "11": {
+          "third": "giorni e meno di",
+          "first": "Ce ne sono più di",
+          "second": "giorni"
+        },
+        "selector": {
+          "4": "Tra più di X giorni",
+          "5": "In meno di X giorni",
+          "6": "In X giorni",
+          "7": "Tra più di X giorni e meno di Y giorni",
+          "8": "Meno di X giorni fa",
+          "9": "Più di X giorni fa",
+          "10": "X giorni fa",
+          "11": "Ci sono più di X giorni e meno di Y giorni"
+        }
+      },
+      "duration": "giorni",
+      "durationTitle": "Durata",
+      "select": {
+        "0": "Le o dopo il",
+        "1": "Il o prima del",
+        "2": "Tra due date",
+        "3": "Il"
+      },
+      "dateTitle": "Data"
+    },
+    "durations_comparators": {
+      "1": "meno di (⩽)",
+      "2": "più di (⩾)",
+      "5": "esattamente",
+      "6": "tra due"
+    },
+    "before": "indietro",
+    "undefined": {
+      "first": "Ha acquistato la scheda del corso",
+      "third": "e il",
+      "name": "Data di acquisto e crediti per carta dei corsi",
+      "infoIcon": "Le carte lezione illimitate non vengono filtrate in base al credito",
+      "second": "tra il",
+      "fourth": "e possiede",
+      "fifth": "crediti sopra"
+    },
+    "active_filters": "Parametri attivi in questa Smartlist",
+    "add_filter": "Aggiungi parametri",
+    "after": "avanti",
+    "classic_comparators": {
+      "1": "minore (⩽)",
+      "2": "maggiore (⩾)",
+      "3": "rigorosamente inferiore",
+      "4": "rigorosamente superiore",
+      "5": "pari"
+    },
+    "all": "Tutti",
+    "add": "Inserisci",
+    "comparators": {
+      "1": "inferiore (⩽)",
+      "2": "maggiore (⩾)",
+      "5": "pari",
+      "6": "tra due"
+    },
+    "attendanceTrue": "presente",
+    "attendanceFalse": "assente",
+    "attendanceWarning": "Seleziona uno status"
+  },
+  "smart_list": {
+    "list": {
+      "detailTitle": "Dettaglio smartlist",
+      "title": "Smartlist"
+    },
+    "createTitle": "Smartlist",
+    "name": "Nome",
+    "description": {
+      "label": "Descrizione",
+      "isEmpty": "Nessuna descrizione"
+    },
+    "submit": "Salva",
+    "add": "Aggiungi una smartlist",
+    "detail": "Dettaglio smartlist",
+    "actions": {
+      "configure": "Configurazione",
+      "campaign": "Campagne"
+    },
+    "cancel": "Annulla"
+  },
+  "graphs": {
+    "expensesSegments": {
+      "label": {
+        "0": "Nessuna spesa",
+        "1": "Primo quartile",
+        "2": "Media",
+        "3": "Ultimo quartile"
+      },
+      "title": {
+        "second": "e il",
+        "first": "Spese entro"
+      }
+    },
+    "bookings": "Prenotazioni",
+    "bookingsSegments": {
+      "label": {
+        "0": "Scorso mese",
+        "1": "Tra 1 e 12 mesi",
+        "2": "Più di un anno"
+      },
+      "title": "Ultima prenotazione"
+    }
+  },
+  "filterCategory": {
+    "1": "Informazioni sui soci",
+    "2": "Pacchetti",
+    "3": "Prenotazioni",
+    "4": "Pagamenti"
+  },
+  "multiSelector": {
+    "coaches": {
+      "helperSelectedText": "insegnanti selezionati",
+      "helperText": "selezionare insegnanti",
+      "textFieldPlaceholder": "Cerca un insegnante",
+      "helperAllSelectedText": "tutti gli insegnanti",
+      "warning": "Seleziona almeno un insegnante"
+    },
+    "selectAll": "Seleziona tutto",
+    "selectNothing": "Deseleziona tutto",
+    "paymentPacks": {
+      "helperText": "seleziona i pacchetti",
+      "helperSelectedText": "pacchetti selezionati",
+      "textFieldPlaceholder": "Cerca un pacchetto",
+      "helperAllSelectedText": "tutti i pacchetti",
+      "warning": "Seleziona almeno un pacchetto"
+    },
+    "metaActivities": {
+      "warning": "Seleziona almeno un'attività",
+      "helperText": "selezionare le attività",
+      "helperSelectedText": "attività selezionate",
+      "textFieldPlaceholder": "Cerca un'attività",
+      "helperAllSelectedText": "tutte le attività"
+    },
+    "establishments": {
+      "helperAllSelectedText": "tutti gli stabilimenti",
+      "warning": "Seleziona almeno uno stabilimento",
+      "helperText": "seleziona stabilimento",
+      "helperSelectedText": "stabilimenti selezionati",
+      "textFieldPlaceholder": "Cerca uno stabilimento"
+    },
+    "buyables": {
+      "helperAllSelectedText": "tutti i prodotti",
+      "textFieldPlaceholder": "Trova una categoria di prodotti",
+      "helperSelectedText": "categorie selezionate",
+      "helperText": "seleziona categorie"
+    },
+    "privatePass": {
+      "warning": "Seleziona almeno un pacchetto per appuntamenti",
+      "helperAllSelectedText": "Tutti i pacchetti per appuntamenti",
+      "textFieldPlaceholder": "Trova un pacchetto per appuntamenti",
+      "helperSelectedText": "pacchetti per appuntamenti selezionato",
+      "helperText": "seleziona pacchetti per appuntamenti"
+    },
+    "privateServices": {
+      "warning": "Seleziona almeno un appuntamento",
+      "helperAllSelectedText": "tutti gli appuntamenti",
+      "textFieldPlaceholder": "Cercare un appuntamento",
+      "helperSelectedText": "appuntamenti selezionati",
+      "helperText": "seleziona appuntamenti"
+    },
+    "level": {
+      "warning": "Seleziona almeno un livello",
+      "select": "selezionare un livello",
+      "advanced": "avanzato",
+      "intermediary": "intermedio",
+      "beginner": "debuttante",
+      "all": "tutti i livelli"
+    },
+    "customForms": {
+      "helperText": "Seleziona un form",
+      "helperSelectedText": "form selezionati",
+      "textFieldPlaceholder": "Trova un form",
+      "helperAllSelectedText": "tutti i form",
+      "warning": "Seleziona almeno un form"
+    },
+    "activePasses": {
+      "paymentPackHelperText": "nessun pacchetto",
+      "privatePassHelperText": "Nessun pacchetto per appuntamenti da mostrare.",
+      "warning": "Seleziona almeno un pacchetto o un pacchetto per appuntamenti"
+    },
+    "userMarketingNotifications": {
+      "warning": "Attiva almeno una delle due opzioni"
+    }
+  },
+  "detail": {
+    "statTitle": "Statistiche",
+    "tab": {
+      "member": "Generale",
+      "campaign": "Campagne",
+      "statistic": "Statistico"
+    }
+  },
+  "duplicate": "Duplica",
+  "mails": "Mails",
+  "name": "Nome dell'elenco",
+  "search": "Cerca una smartlist",
+  "description": "Descrizione",
+  "membersInList": "Membri nella Smartlist:",
+  "modal": {
+    "delete": {
+      "title": "Rimozione di una Smartlist",
+      "content": "Sei sicuro di voler eliminare questa smartlist? Questa operazione è definitiva",
+      "cancel": "Annulla",
+      "confirm": "Rimuovi",
+      "linkedToAFranchiseCommunication": "Questa smartlist è utilizzata dal franchising e non può essere cancellata"
+    },
+    "validate": "Convalidare"
+  },
+  "selectToShowPreview": "Seleziona un modello",
+  "exportList": "Esporta la smartlist",
+  "noSmartLists": "Usa le smartlist per filtrare, analizzare e conoscere meglio i tuoi membri.",
+  "delete": "Rimuovi",
+  "edit": "Configurazione",
+  "tag_rules": {
+    "tag_on_left": "Tagga se un membro esce da questa Smartlist",
+    "tag_on_join_and_untag_on_left": "Aggiungere un Tag se presente nella smartlist",
+    "tag_group": "Nome del gruppo",
+    "type_of_rule": "Tipo di regola",
+    "tag_on_join": "Aggiungere un Tag in ingresso della smartlist",
+    "create": "Creare una regola",
+    "associated_tag": "Tag associato",
+    "display_tag_rules": "Mostrare le regole dei Tag",
+    "cancel": "Cancella",
+    "tag_name": "Nome del Tag",
+    "activeSince": "Attivo dal {{ since }}",
+    "tag": "Tag",
+    "asyncDialog": {
+      "message": "Tutti i tag dei membri di questa Smartlist verranno aggiornati.",
+      "title": "Aggiornamenti alle regole dei tag "
+    }
+  },
+  "memberBase": {
+    "options": {
+      "0": "Non archiviato e archiviato",
+      "1": "Non archiviato",
+      "2": "Archiviato"
+    },
+    "helperText": "Scegli quali membri vuoi mostrare in questa Smartlist:"
+  },
+  "popup": {
+    "sendPopup": "Invia un pop-up"
+  },
+  "cadenceListDialog": {
+    "close": "Chiudi",
+    "title": "Lista delle cadenze"
+  },
+  "cadence": {
+    "content": "Utilizzata nella cadenza: {{- cadence_name }}",
+    "content_plural": "Utilizzata in {{ count }} cadenze"
+  },
+  "cannotBeDeletedDialog": {
+    "content": "Non puoi eliminare questa smartlist mentre è utilizzata nella seguente cadenza :",
+    "content_plural": "Non puoi eliminare questa smartlist mentre è utilizzata nelle seguenti cadenze :",
+    "cancel": "Chiudi",
+    "title": "Utilizzata in una cadenza"
+  },
+  "downLoadSavedExport": "Scarica l'esportazione precedente",
+  "lastGenerated": "Ultima esportazione generata il : {{-date}} {{time}}",
+  "generateHelperText": "Generare l'esportazione per scaricare la smartlist",
+  "generateExport": "Generare l'esportazione",
+  "usedInFranchiseCommmunication": "Utilizzato in una campagna dal franchising",
+  "cannotBeDeletedDialogAudience": {
+    "content": "Non è possibile eliminare questa smartlist finché viene utilizzata nel seguente {{ workflowLowerCase }}:",
+    "content_plural": "Non è possibile eliminare questa smartlist finché viene utilizzata nei seguenti {{ workflowPluralLowerCase }}:",
+    "title": "Utilizzato in uno dei {{ workflowPluralLowerCase }}"
+  },
+  "audienceListDialog": {
+    "title": "Elenco dei {{ workflowPluralLowerCase }}"
+  },
+  "audience": {
+    "content": "Usata nel {{ workflowLowerCase }}: {{- workflow_name }}",
+    "content_plural": "Usata in {{ count }} {{ workflowPluralLowerCase }}"
+  },
+  "downloadReport": "Scarica il report",
+  "generateReport": "Genera il report",
+  "communication": {
+    "scheduled": {
+      "total": "Totale messaggi programmati: {{ count }}",
+      "viewAll": "Vedi tutti",
+      "isEmpty": "Non ci sono messaggi programmati.",
+      "nextScheduledMessage": "Prossimo messaggio programmato"
+    }
+  }
+}

@@ -1,0 +1,984 @@
+{
+  "newsletter": {
+    "messages": {
+      "success": "Ingeschreven!",
+      "error": "Fout bij het registreren van je e-mail"
+    },
+    "form": {
+      "validate": "Bevestigen",
+      "lastName": "Achternaam",
+      "firstName": "Voornaam",
+      "email": "E-mailadres",
+      "title": "Schrijf je hieronder in voor onze nieuwsbrief en ontvang interessante updates en artikelen."
+    },
+    "formV2": {
+      "error": {
+        "invalidEmail": "Voer gelieve een geldig e-mailadres in.",
+        "emailRequired": "Voer gelieve je e-mailadres in."
+      },
+      "subtitle": "Ontvang exclusieve promo's en blijf altijd up-to-date",
+      "title": "Abonneer op onze nieuwsbrief",
+      "email": "E-mail",
+      "validate": "Versturen",
+      "successText": "Je abonnement is verstuurd",
+      "successTitle": "Bedankt voor je interesse!"
+    }
+  },
+  "notifications": {
+    "deleteDialogText": "Weet je zeker dat je deze regel wilt verwijderen? Deze actie is definitief.",
+    "createNotificationFabLabel": "Een melding toevoegen",
+    "notificationsEmpty": "Er zijn nog geen meldingen aan deze groep toegevoegd.",
+    "deleteDialogTitle": "Regel verwijderen",
+    "removeRule": "verwijderen",
+    "editRule": "Wijzigen",
+    "paymentPackKind": {
+      "credit": "Credits",
+      "validity": "Geldigheid"
+    },
+    "groupTitle": {
+      "paymentPack": "Leskaarten",
+      "privateBooking": "Afspraken",
+      "booking": "Reservering",
+      "privatePass": "Afspraakkaarten",
+      "birthday": "Verjaardag",
+      "contract": "Abonnementen"
+    },
+    "fabLabels": {
+      "payment_pack": "Leskaarten",
+      "private_service": "Afspraken",
+      "establishment": "Vestigingen",
+      "meta_activity": "Groepsactiviteiten",
+      "workshop": "Workshops",
+      "private_pass": "Afspraakkaarten",
+      "birthday": "Verjaardag",
+      "establishmentGroup": "Locatie",
+      "contract": "Abonnementen"
+    },
+    "cancel": "Annuleren",
+    "next": "Volgende",
+    "paymentPackPlaceholder": "Leskaarten",
+    "selectIdentifierLabel": {
+      "payment_pack": "Selecteer een leskaart",
+      "private_service": "Selecteer een afspraakkaart",
+      "establishment": "Selecteer een vestiging",
+      "meta_activity": "Selecteer een activiteit",
+      "workshop": "Selecteer een workshop",
+      "private_pass": "Selecteer een afspraakkaart",
+      "establishment_group": "Selecteer een locatie",
+      "contract": "Selecteer een abonnement"
+    },
+    "createNotification": "[Formulier] Melding",
+    "selectNotificationRules": "Selecteer een melding voor een gedetailleerd overzicht.",
+    "stats": {
+      "opened_rate": "Openingspercentage",
+      "total_mail_opened": "Klikpercentage",
+      "total_mail_send": "Aantal verzonden e-mails"
+    },
+    "mailTitle": "Voorbeeld",
+    "mail": "E-mail ",
+    "statisticDetails": "Statistieken",
+    "notificationDetails": "Overzicht",
+    "notificationPreview": "Voorbeeld van pushberichten",
+    "privatePassPlaceholder": "Afspraakkaarten",
+    "dialogTitle": "Een melding toevoegen",
+    "listTitle": "Meldingen",
+    "create": "Een melding toevoegen",
+    "handleNotification": "Berichtgeving",
+    "noNotification": "Er zijn geen actieve meldingen om weer te geven.",
+    "contractKind": {
+      "contractStart": "Start",
+      "contractEnd": "Einde abonnement"
+    },
+    "editPasses": "Bewerk",
+    "addPasses": "Voeg toe",
+    "sendingDelay": {
+      "onSession": "{{hours}} na de sessie",
+      "justOnSession": "Net na de sessie",
+      "onBooking": "{{hours}} na de boeking",
+      "justOnBooking": "Net na de boeking"
+    },
+    "triggerDescription": {
+      "expiredValidity": "Verlopen voor {{count}} dag",
+      "expiredValidity_plural": "Verlopen voor {{count}} dagen",
+      "todayValidity": "Op de vervaldag",
+      "remainingValidity": "{{count}} resterende dag voor vervaldatum",
+      "remainingValidity_plural": "{{count}} resterende dagen voor vervaldatum",
+      "remainingCredit": "{{count}} credit over",
+      "remainingCredit_plural": "{{count}} credits over"
+    },
+    "passSelectionPlaceholder": {
+      "payment_pack": "Kaarten",
+      "private_pass": "Afspraakkaarten"
+    },
+    "selectAllPassesToggle": {
+      "private_pass": "Van toepassing op alle bestaande en toekomstige afspraakkaarten",
+      "payment_pack": "Van toepassing op alle bestaande en toekomstige passen"
+    },
+    "allPassSelected": {
+      "private_pass": "Alle afspraakkaarten zijn inbegrepen",
+      "payment_pack": "Alle passen zijn inbegrepen"
+    },
+    "allOptionsPlaceholder": {
+      "payment_pack": "Alle passen",
+      "private_pass": "Alle afspraakpassen"
+    },
+    "notificationTitle": {
+      "expiredValidity": "Kennisgevingen bij afloop",
+      "remainingValidity": "Resterende geldigheidsmeldingen",
+      "remainingCredit": "Resterende kredietmeldingen"
+    },
+    "passNotificationDeleteDialog": {
+      "warning": {
+        "irreversible": "Deze bewerking kan niet ongedaan worden gemaakt.",
+        "sure": "Weet je zeker dat je deze melding wilt verwijderen?",
+        "attachedPrivatePasses": "Je hebt nog steeds een of meer afspraakpassen gekoppeld aan deze melding",
+        "attachedPaymentPacks": "Je hebt nog een of meer passen gekoppeld aan deze melding"
+      },
+      "title": "Deze melding verwijderen"
+    },
+    "optionalStepInfo": "Deze stap is optioneel. Je kunt later nog steeds meldingen instellen. Alleen meldingen die je al hebt aangemaakt worden hier weergegeven. Ga naar Marketing > Meldingen om nieuwe meldingen te maken.",
+    "select": "Selecteer",
+    "excluded": "Uitgesloten",
+    "included": "Inbegrepen",
+    "smartListTitle": "Smartlist",
+    "pushNotificationTitle": "Pushmelding",
+    "preview": "Voorbeeld",
+    "viewPreview": "Voorbeeld bekijken",
+    "delete": "Verwijder",
+    "save": "Bewaar",
+    "primaryText": {
+      "privatePass": {
+        "creditsLeft": {
+          "credits": "om de gebruiker eraan te herinneren dat hij nog 1 tegoed heeft op zijn afspraakkaart",
+          "credits_plural": "om de gebruiker eraan te herinneren dat hij {{credits}} tegoed over heeft op zijn afspraakkaart",
+          "noCredits": "om de gebruiker eraan te herinneren dat hij geen tegoed meer heeft op zijn afspraakkaart"
+        }
+      },
+      "paymentPack": {
+        "creditsLeftOnSessionEnd": {
+          "creditsHours": "1 uur na het einde van de sessie om de gebruiker eraan te herinneren dat hij {{credits}} credits over heeft op zijn pas",
+          "creditsHours_plural": "{{hours}} uren na het einde van de sessie om de gebruiker eraan te herinneren dat hij {{credits}} credits over heeft op zijn pas",
+          "creditsNoHours": "na het einde van de sessie om de gebruiker eraan te herinneren dat hij {{credits}} credits over heeft op zijn pas",
+          "oneCreditHours": "1 uur na het einde van de sessie om de gebruiker eraan te herinneren dat ze nog 1 tegoed op hun pas hebben",
+          "oneCreditHours_plural": "{{hours}} uur na het einde van de sessie om de gebruiker eraan te herinneren dat ze nog 1 tegoed op hun pas hebben",
+          "oneCreditNoHours": "na het einde van de sessie om de gebruiker eraan te herinneren dat er nog 1 tegoed op zijn pas staat",
+          "noCreditsHours": "1 uur na het einde van de sessie om de gebruiker eraan te herinneren dat er geen tegoed meer op zijn pas staat",
+          "noCreditsHours_plural": "{{hours}} uur na het einde van de sessie om de gebruiker eraan te herinneren dat er geen tegoed meer op zijn pas staat",
+          "noCreditsNoHours": "na het einde van de sessie om de gebruiker eraan te herinneren dat er geen tegoed meer op zijn pas staat"
+        },
+        "creditsLeftOnBooking": {
+          "creditsHours": "1 uur na een boeking om de gebruiker eraan te herinneren dat ze {{credits}} credits over hebben op hun pas",
+          "creditsHours_plural": "{{hours}} uur na een boeking om de gebruiker eraan te herinneren dat hij {{credits}} credits over heeft op zijn pas",
+          "creditsNoHours": "na een boeking om de gebruiker eraan te herinneren dat hij {{credits}} credits over heeft op zijn pas",
+          "oneCreditHours": "1 uur na een boeking om de gebruiker eraan te herinneren dat er nog 1 tegoed op zijn pas staat",
+          "oneCreditHours_plural": "{{hours}} uur na een boeking om de gebruiker eraan te herinneren dat ze nog 1 tegoed op hun pas hebben",
+          "oneCreditNoHours": "na een boeking om de gebruiker eraan te herinneren dat hij nog 1 tegoed op zijn pas heeft",
+          "noCreditsHours": "1 uur na een boeking om de gebruiker eraan te herinneren dat er geen tegoed meer op zijn pas staat",
+          "noCreditsHours_plural": "{{hours}} uur na een boeking om de gebruiker eraan te herinneren dat er geen tegoed meer op zijn pas staat",
+          "noCreditsNoHours": "na een boeking om de gebruiker eraan te herinneren dat er geen tegoed meer op zijn pas staat"
+        }
+      },
+      "expires": {
+        "days": "1 dag voor vervaldatum",
+        "days_plural": "{{days}} dagen voor vervaldatum",
+        "noDays": "op de vervaldag"
+      },
+      "expired": {
+        "days": "na 1 dag na vervaldatum",
+        "days_plural": "na {{days}} dagen van verlopen"
+      },
+      "smartlist": {
+        "smartListExclude": "Deze melding is niet bedoeld voor deze smartlist: {{smartlist_names}}.",
+        "smartListExclude_plural": "Deze melding is niet bedoeld voor deze smartlists: {{smartlist_names}}.",
+        "smartListInclude": "Deze melding is bedoeld voor deze smartlist: {{smartlist_names}}.",
+        "smartListInclude_plural": "Deze melding is bedoeld voor deze smartlists: {{smartlist_names}}."
+      },
+      "send": {
+        "emailAndPush": "Er wordt een e-mail en een pushmelding verzonden",
+        "push": "Er wordt een pushmelding verzonden",
+        "email": "Er wordt een e-mail verzonden"
+      }
+    }
+  },
+  "customForm": {
+    "title": "Formulieren",
+    "linkHelper": "Stuur deze link direct naar je leden:",
+    "noCustomForm": "In dit onderdeel worden alle formulieren beheerd. Personaliseer enquêtes om actuele informatie van leden te vergaren.",
+    "selectCustomForm": "Selecteer een formulier voor een gedetailleerd overzicht.",
+    "selectCustomFormFilled": "Selecteer een formulier om de inhoud te zien.",
+    "changesDetected": "Sla het formulier op om de gemaakte veranderingen toe te passen.",
+    "modal": {
+      "delete": {
+        "cancel": "Annuleer",
+        "content": "Als je dit formulier archiveert, wordt het in je gearchiveerde formulieren gezet. Dit formulier zal niet langer beschikbaar zijn voor je leden.",
+        "title": "Een formulier archiveren",
+        "confirm": "Bevestigen"
+      }
+    },
+    "field": {
+      "file": "Een bestand toevoegen",
+      "fileHelper": "De geüploade bestanden worden aan \"Documenten\" in het ledenprofiel toegevoegd.",
+      "link_to_tag_popover": "Een tag aan dit veld koppelen.",
+      "tag_group": "Hoofd-tag",
+      "choice_warning": "Alle velden die voor het opslaan zijn toegevoegd kunnen niet langer worden bewerkt. Je kunt de velden nog wel verwijderen of nieuwe velden toevoegen.",
+      "title": "Titel",
+      "paragraph": "Tekstblok",
+      "short_answer": "Kort antwoord",
+      "long_answer": "Lang antwoord",
+      "radio": "Meerkeuze",
+      "check_box": "Selectievakjes",
+      "select": "Keuzelijst",
+      "select_placeholder": "Selecteer",
+      "link_to_note": "Een notitie toevoegen",
+      "link_to_note_helper": "Door de vraag aan een notitie te koppelen, zullen de antwoorden automatisch in je ledenprofielen worden opgeslagen.",
+      "text_size_limit": "Maximaal aantal tekens: {{count}}.",
+      "signature": "Handtekening",
+      "tag_name": "Sub-tag",
+      "sign_up_question": "Inschrijfvragen",
+      "isMandatoryOnSignUp": "Dit is een verplichte vraag",
+      "waiver": "Waiver / Vrijstelling",
+      "repeatPassword": "Wachtwoord bevestigen",
+      "general_terms_and_conditions": "Ik ga akkoord met de algemene voorwaarden.",
+      "country": "Land",
+      "city": "Stad",
+      "additional_adress": "Aanvulling adres",
+      "password": "Wachtwoord",
+      "phone": "Telefoonnummer",
+      "email": "E-mailadres",
+      "vaccination_status": "Status coronabewijs",
+      "accept_sms": "Ik ontvang graag relevante sms'jes.",
+      "accept_email": "Ik ontvang graag relevante e-mails.",
+      "emergency_contact": "Contactpersoon voor noodgevallen",
+      "photo": "Profielfoto",
+      "zipcode": "Postcode",
+      "gender": "Geslacht",
+      "address_line_2": "Aanvulling adres",
+      "address_line_1": "Adres",
+      "birthday": "Geboortedatum",
+      "last_name": "Achternaam",
+      "first_name": "Voornaam",
+      "location": "Favoriete vestiging",
+      "state": "Staat",
+      "official_document_id": "Identificatienummer"
+    },
+    "customFormField": {
+      "modal": {
+        "add": {
+          "title": "Formulierveld",
+          "addField": "Toevoegen: ",
+          "select": "Selecteer een veld",
+          "option": "Een optie toevoegen",
+          "confirm": "Bevestig",
+          "cancel": "Annuleer"
+        },
+        "error": {
+          "emptyChoice": "Gelieve alle velden invullen.",
+          "choicesLength": "Selecteer minimaal 2 opties",
+          "signupQuestionShouldBeSelected": " Je moet een vraag van het inschrijfformulier selecteren.",
+          "tooShort": "Het wachtwoord moet minimaal 8 tekens bevatten.",
+          "passwordsDontMatch": "Deze wachtwoorden komen niet overeen."
+        },
+        "disable": {
+          "title": "Een veld verwijderen",
+          "cancel": "Annuleer",
+          "confirm": "Bevestigen",
+          "content": "Als je dit veld verwijdert, wordt het in gearchiveerde velden geplaatst. Het zal niet langer beschikbaar zijn voor je leden."
+        },
+        "signature": {
+          "addSignature": "Een handtekening toevoegen",
+          "editSignature": "Handtekening bewerken",
+          "addSignatureHelper": "Hieronder kun je je handtekening toevoegen.",
+          "clear": "Verwijder handtekening"
+        }
+      }
+    },
+    "submit": {
+      "errors": {
+        "requiredSignature": "Dit formulier vereist een handtekening.",
+        "requiredField": "Dit veld is verplicht.",
+        "requiredFile": "Een bestand toevoegen",
+        "passwordConfirmationError": "Deze wachtwoorden komen niet overeen",
+        "invalidEmail": "Ongeldig e-mailadres",
+        "passwordMinimumRequirementsError": "Je wachtwoord moet minimaal 6 tekens bevatten.",
+        "invalidOfficialDocumentId": "Dit veld mag alleen letters en cijfers bevatten.",
+        "membershipIdMaximumLength": "Een lidmaatschaps-ID mag niet langer zijn dan 24 tekens",
+        "barcodeMaximumLength": "Een streepjescode mag niet langer zijn dan 16 tekens"
+      },
+      "date_submitted": "Datum",
+      "dialog": {
+        "title": "Dit formulier is in goede orde ontvangen! ",
+        "content": "Hartelijk dank dat je de tijd hebt genomen om dit formulier in te vullen.",
+        "confirmButton": "Verder"
+      }
+    },
+    "CustomFormLink": "Directe link van dit formulier",
+    "search": "Zoek een formulier",
+    "name": "Naam",
+    "content": "Inhoud",
+    "preview": "Voorvertoning",
+    "label": "Label",
+    "kind": "Type",
+    "save": "Opslaan",
+    "cancel": "Annuleer",
+    "send": "Verstuur",
+    "mandatory": "Verplicht",
+    "numberQuestions": "Vragen",
+    "listActions": "Acties",
+    "disabledCustomForm": "Gearchiveerde formulieren",
+    "disabledCustomFormField": "Gearchiveerde velden",
+    "addCustomFrom": "Een formulier toevoegen",
+    "emptyCustomForm": "Dit formulier is leeg. Begin met het toevoegen van velden om je formulier samen te stellen.",
+    "addFieldLong": "Een veld toevoegen",
+    "unaccessibleForm": "Dit formulier is momenteel niet beschikbaar. Klik op de onderstaande knop om terug naar je profiel te gaan.",
+    "backToUserSpace": "Mijn profiel",
+    "noChanges": "Dit formulier is bijgewerkt.",
+    "actions": {
+      "configure": "Configureren",
+      "statistics": "Statistieken",
+      "customization": "Personalisering"
+    },
+    "tab": {
+      "general": "Inhoud",
+      "campaign": "Campagne",
+      "statistics": "Statistieken",
+      "layout": "Personalisering"
+    },
+    "statistics": {
+      "byMember": "Individuele informatie",
+      "table": {
+        "column": {
+          "member": "Lid",
+          "display_count": "Aantal openingen",
+          "last_display_date": "Laatste opening",
+          "completed": "Voltooid"
+        },
+        "row": {
+          "no": "Nee",
+          "yes": "Ja"
+        }
+      }
+    },
+    "allFieldDisabled": "Alle vragen zijn gearchiveerd.",
+    "answerForDisabledField": "Gearchiveerde vragen",
+    "displayRule": {
+      "form": {
+        "dialog": {
+          "advancedOptions": "Geavanceerde instellingen",
+          "modify": "Bewerken",
+          "cancel": "Annuleer",
+          "create": "Toevoegen",
+          "helperTextNewMembers": "Alle relevante leden zullen dit formulier als een pop-up op de Ledenruimte en na het inschrijfformulier zien.",
+          "helperTextRegisteredMembers": "Alle relevante leden zullen dit formulier als een pop-up op de Ledenruimte en op de Mobiele app zien.",
+          "subTitle": "Welke leden wil je contacteren?",
+          "title": "[Formulier] Berichtgeving",
+          "snoozeOptionHelperText": "We tonen dit formulier opnieuw nadat het {{count}} uur/uren gesnoozed is.",
+          "snoozeOptionLabel": "Snoozen (in uren)",
+          "force_display": "Toon dit formulier ook aan leden die het voorheen hebben ingevuld",
+          "snoozeOption": "Geef leden de mogelijkheid om dit formulier later in te vullen (\"snoozen\")"
+        },
+        "errors": {
+          "timedeltaBeforeDisplayMustBeGraterThanZero": "De waarde moet groter dan 0 zijn."
+        }
+      },
+      "kind": {
+        "connectionHelperText": "Deze melding wordt alleen naar leden gestuurd die al langer dan {{count}} dag(en) lid zijn.",
+        "connectionLabel": "Lid sinds... (in dagen)",
+        "connection": "Bestaande leden",
+        "signUpAlreadyExists": " bestaande regel",
+        "signUp": "Nieuwe leden"
+      },
+      "empty": "Er zijn geen meldingen aan dit formulier gekoppeld.",
+      "addNewDisplayRule": "Een regel toevoegen",
+      "header": "Berichtgeving",
+      "snoozeTime": "Gesnoozed voor {{ count }} uur/uren",
+      "unSnoozableMinimal": "Verplicht",
+      "snoozableMinimal": "Mag worden genegeerd",
+      "forcedDisplayMinimal": "Toon dit formulier ook aan leden die dit formulier eerder voltooid hebben",
+      "unForcedModeMinimal": "Toon dit formulier niet aan leden die dit formulier eerder hebben voltooid",
+      "forRegisteredMemberMinimal": ">{{ count }} dag(en)",
+      "forRegisteredMember": "Dit formulier is voor leden die al {{ count }} dag(en) lid zijn",
+      "forNewMember": "Alleen voor nieuwe leden",
+      "forbiddenForSignup": "Dit formulier kan niet aan een melding worden gekoppeld"
+    },
+    "disconnect": "Afmelden",
+    "resetSubmit": "Mijn antwoorden bewerken",
+    "allStepsCompleted": "Je hebt alle formulieren voltooid.",
+    "submitLater": "Later beantwoorden",
+    "previous": "Terug",
+    "next": "Volgende",
+    "signUp": {
+      "helperMemberForm": "Het wijzigingsformulier kun je wijzigen en wordt getoond zodra leden naar hun profiel gaan. Op het wijzigingsformulier kunnen leden hun informatie inzien en eventueel bewerken.",
+      "helperSignup": "Je kunt je inschrijfformulier wijzigen met gepersonaliseerde vragen/velden.",
+      "signupFields": "Formuliervragen"
+    },
+    "signUpInfoModal": {
+      "content": "De verplichte inschrijvingsvragen moeten door je leden kunnen worden bewerkt als ze naar hun profiel gaan. Deze vragen worden automatisch voor leden aan het wijzigingsformulier toegevoegd.",
+      "confirm": "Bevestigen",
+      "cancel": "Annuleer",
+      "title": "Informatie"
+    },
+    "memberFormHelper": "De verplichte inschrijvingsvragen kunnen niet worden verwijderd en worden standaard getoond en zijn altijd wijzigbaar.",
+    "signupFormHelper": "De verplichte velden moeten door je leden kunnen bewerkt worden als ze naar hun profiel gaan. Deze vragen worden automatisch voor leden aan het wijzigingsformulier voor ledenprofielen toegevoegd.",
+    "clientForms": {
+      "preview": "Overzicht",
+      "modify": "Bewerken",
+      "customize": "Personaliseren",
+      "modification": "Bewerken",
+      "signup": "Inschrijving"
+    },
+    "editable": "Bewerkbaar",
+    "display": "Toon",
+    "navigateToMemberForm": "Ledenprofiel wijzigen",
+    "navigateToSignup": "Inschrijfformulier bewerken",
+    "memberFormTitle": "Wijzigingsformulier",
+    "signupFormTitle": "Inschrijfformulier",
+    "layout": {
+      "save": "Opslaan",
+      "redo": " Opnieuw",
+      "reset": "Resetten",
+      "undo": "Terug",
+      "editLayout": "Layout bewerken",
+      "layoutUpdating": "Er wordt een back-up gemaakt.",
+      "saveAndExit": "Opslaan & Sluiten",
+      "layoutUpTodate": "Er is geen layout om weer te geven"
+    },
+    "editLayoutTitle": "Layout bewerken",
+    "changesAreSubmitting": "Formulier wordt bijgewerkt.",
+    "editLayoutSubtitle": "Je hebt een formulier bewerkt met een zelfgemaakte layout. Klik hier om de weergave van je formulieren op verschillende schermgroottes te bekijken.",
+    "breakpoints": {
+      "lg": "Groot scherm",
+      "md": "Gemiddeld scherm",
+      "sm": "Klein scherm",
+      "xs": "Mobiel"
+    }
+  },
+  "cadence": {
+    "activate": {
+      "dialog": {
+        "firstHelper": "Wil je de cadence activeren?",
+        "title": "Activatie",
+        "cancel": "Annuleren",
+        "secondHelper": "Het is niet mogelijk om de cadence te wijzigen zodra de cadence geactiveerd is.",
+        "confirmButton": "Lanceren"
+      },
+      "setupBeforeActivationHelper": "Voltooi het aanmaken van je eerste cadence door verschillende stappen en berichten toe te voegen.",
+      "button": "Activeren"
+    },
+    "archive": {
+      "archivedHeader": "Gearchiveerde cadences",
+      "dialog": {
+        "helper": "Deze cadence wordt gearchiveerd en kan op een later moment geheractiveerd worden. Ingeschreven leden worden na de archivering automatisch uit de cadence verwijderd.",
+        "title": "Een cadence verwijderen",
+        "confirm": "Vervolgen",
+        "cancel": "Annuleren",
+        "beingArchived": "U staat op het punt om \"{{ name }}\" te archiveren.",
+        "confirmButton": "Archiveren"
+      }
+    },
+    "howTo": {
+      "title": "Cadence bewerken",
+      "set_trigger_destination": "{{ index }}}. Redirect naar een marketingactie",
+      "add_smartlist_filter": "{{ index }}}. Filteren op smartlists",
+      "add_trigger": "{{ index }}}. Branches toevoegen",
+      "edit_event": "{{ index }}}. Bewerk een evenement",
+      "add_event": "{{ index }}}. Een evenement toevoegen",
+      "edit_marketing_action": "{{ index }}}. De marketingactie bewerken",
+      "add_marketing_action": "{{ index }}}. Een marketingactie toevoegen",
+      "explain": "Bewerk de verschillende stappen en elementen van de cadence om erop te klikken of om verschillende onderdelen met elkaar te verbinden."
+    },
+    "form": {
+      "marketing_action": {
+        "1": "Nieuwe e-mail",
+        "2": "Sms'je",
+        "3": "Push-notificatie",
+        "4": "Tags",
+        "5": "E-mailsjabloon",
+        "select_tag": "Selecteer een tag",
+        "form": {
+          "helper": "(Optioneel) Selecteer één of meer acties om aan te geven hoe je leden bij deze stap van de cadence wilt contacteren.",
+          "reset": "Verwijderen",
+          "submit": "Bevestigen"
+        },
+        "defaultName": "Standaardnaam"
+      },
+      "event": {
+        "1": "Leskaarten",
+        "2": "Afspraakkaarten",
+        "3": "Groepsactiviteiten",
+        "4": "Aanwezigheid (groepsactiviteiten)",
+        "5": "Afspraken",
+        "6": "Geannuleerde afspraken",
+        "7": "Aangemaakte winkelmadjes",
+        "8": "Toevoegen aan winkelmandje",
+        "9": "Betaalde winkelmandjes",
+        "10": "Nieuwe facturen",
+        "11": "Maken",
+        "12": "Pauze",
+        "13": "Gestopte abonnementen",
+        "14": "Hernieuwde abonnementen",
+        "100": "Aankoop",
+        "101": "Reservering",
+        "102": "Winkelmandjes",
+        "103": "Facturatie",
+        "104": "Abonnementen",
+        "billing_plan-renew": "Hernieuwde abonnementen",
+        "billing_plan-stop": "Gestopte abonnementen",
+        "billing_plan-pause": "Gepauzeerde abonnementen",
+        "billing_plan-create": "Nieuwe abonnementen",
+        "invoice-create": "Nieuwe facturen",
+        "basket-finalize": "Betaalde winkelmandjes",
+        "basket-additem": "Openstaande winkelmandjes",
+        "basket-created": "Aangemaakte winkelmadjes",
+        "private_booking-cancel": "Geannuleerde afspraken",
+        "private_booking-create": "Afspraken",
+        "booking-attendance": "Aanwezigheid (groepsactiviteiten)",
+        "booking-create": "Groepsactiviteiten",
+        "private_consumer_pass-create": "Afspraakkaarten",
+        "consumer_payment_pack-create": "Leskaarten",
+        "consumer_giftcard-create": "Cadeaukaart",
+        "provision_update-create": "Winkelartikel"
+      },
+      "trigger": {
+        "trigger_timeout_explain_value_selected": "Een lid wordt automatisch uit de cadence gezet, indien het lid na {{ days }} dag(en) zich nog steeds in de cadence bevindt.",
+        "trigger_timeout_select_label": "dag(en)",
+        "labels": {
+          "cadence": "Leden worden voor de cadence ingeschreven via:",
+          "exitFail": "Selecteer wanneer iemand uit de cadence wordt gezet",
+          "exitSuccess": "Selecteer het gewenste resultaat om iemand uit de cadence te verwijderen",
+          "step": "Selecteer de criteria"
+        },
+        "event_and_smartlist_helper": "Leden moeten zowel aan de criteria van het geselecteerde Evenement voldoen en deel uitmaken van de geselecteerde Smartlist(s) om in deze cadence terecht te komen.",
+        "trigger_timeout_title": "Tijdslimiet",
+        "select_marketing_actions_helper": "Selecteer een of meer acties die moeten worden ondernomen wanneer een lid is gewonnen. Deze optie is facultatief.",
+        "marketing_actions": "Acties",
+        "or_rule_between_triggers": "Of",
+        "and_rule_between_triggers": "En",
+        "rule_between_triggers": "Regels",
+        "trigger_smartlist_kind_label": "Smartlist",
+        "had_filtering_on_selected_event": "Filter op de geselecteerde evenementen met een Smartlist",
+        "trigger_event_kind_label": "Evenement",
+        "helpers": {
+          "exitFail": "Selecteer hieronder de criteria om leden automatisch uit de cadence te verwijderen indien ze niet de gewenste handelingen voltooien.",
+          "exitSuccess": "Selecteer hieronder de gewenste resultaten. Zodra een lid aan de voorwaarden voldoet wordt de persoon uit de cadence verwijdert, omdat de cadence succesvol was.",
+          "step": "Selecteer de criteria waar leden aan moeten voldoen om de volgende stappen van de cadence te kunnen betreden.",
+          "cadence": "Geef hier onder de criteria waar leden aan moeten voldoen om via de cadence automatisch gecontacteerd te kunnen worden."
+        },
+        "title": "Aanleiding",
+        "event_or_smartlist_helper": "Leden moeten aan de criteria van het geselecteerde Evenement voldoen óf deel uitmaken van de geselecteerde Smartlists(s) om in deze cadence terecht te komen.",
+        "triggerTimeoutDays": "dag.",
+        "triggerTimeoutDays_plural": "dagen.",
+        "triggerTimeoutLabel": "Trigger na",
+        "selectSmartlist": "Selecteer een smartlist",
+        "selectEvent": "Selecteer een evenement",
+        "finnerGrain": {
+          "purchaseLabelTitle": "Aangekochte artikel(en)",
+          "specifyItemsToggleLabel": "Artikelen specificeren"
+        }
+      },
+      "exit": {
+        "exit_fail_label": "Verloren",
+        "exit_success_label": "Gewonnen",
+        "title": "Einde"
+      },
+      "error": {
+        "triggerCannotBeEmpty": "U moet een invoertype kiezen.",
+        "timeoutMustBeStrictPositive": "De termijn moet minstens 1 dag bedragen.",
+        "maximumConnectedTrigger": "Je kunt maximaal vijf Aanleidingen instellen.",
+        "minimumConnectedTrigger": "Selecteer ten minste één Aanleiding."
+      },
+      "next": "Volgende",
+      "previous": "Terug",
+      "lose_step": "Verloren",
+      "win_step": "Gewonnen",
+      "entry_step": "Invoer",
+      "modify_name_label": "Naam van de cadence",
+      "cadenceNameLabel": "Naam van de cadence",
+      "cadenceStepHelper": "Selecteer hieronder de naam van deze stap om gemakkelijk in te zien waar leden zich binnen je cadence bevinden.",
+      "cadenceStepNameLabel": "Stap",
+      "cadenceStep": "Stap",
+      "updateTitle": "[Formulier] Cadence toevoegen",
+      "title": "[Formulier] Cadence toevoegen",
+      "addACadence": "Een cadence toevoegen",
+      "createCadenceHelper": "Cadences zijn krachtige hulpmiddelen om continue relevante en gepersonaliseerde berichten naar bepaalde doelgroepen binnen je ledenbestand te sturen. Alle instellingen kunnen volledig worden aangepast naar eigen wensen en behoeften. Stuur bijvoorbeeld promoties naar inactieve klanten, beloon vaste bezoekers en meer.",
+      "edit": "Bewerken",
+      "submit": "Aanmaken",
+      "cancel": "Annuleren",
+      "delete": "Verwijderen",
+      "updateSubmit": "Bevestigen"
+    },
+    "graph": {
+      "alert": {
+        "switchToEditMode": "Je bent momenteel in de Weergavemodus. Klik op \"Bewerken\" om de cadence te wijzigen.",
+        "cadenceIsActive": "Deze koers is actief. Pauzeer de cadence om wijzigingen te kunnen verwerken."
+      },
+      "nodeElement": {
+        "deleteStep": "De stap verwijderen",
+        "cancelOnGoingCreation": "Annuleren",
+        "edgeLabelForNodeCreation": "Openstaand",
+        "addElement": "Een stap toevoegen",
+        "deleteTrigger": "Stap verwijderen"
+      },
+      "tools": {
+        "showDisabledTriggers": "Uitgeschakelde triggers tonen",
+        "hideDisabledTriggers": "Verberg uitgeschakelde triggers",
+        "hideControls": "Werkbalk verbergen",
+        "showControls": "De werkbalk weergeven",
+        "hideMap": "De minimap verbergen",
+        "showMap": "Bekijk de minimap",
+        "centerView": "De weergave centreren"
+      }
+    },
+    "triggers": {
+      "smartlist": {
+        "label": "Smartlist"
+      },
+      "events": {
+        "label": "Evenement",
+        "book_chip": "Reservering",
+        "purchase_chip": "Aankoop",
+        "billing_plan_chip": "Abonnementen",
+        "invoice_chip": "Factuur",
+        "basket_chip": "Winkelmand"
+      },
+      "timeout": {
+        "timout_days_chip": "{{ days }} dag(en)",
+        "timout_days_chip_plural": "{{ days }} dagen",
+        "timeout_days_chip": "{{ count }} dag(en)",
+        "timeout_days_chip_plural": "{{ count }} dagen"
+      },
+      "trigger": "Trigger",
+      "exit": "Einde",
+      "start": "Begin",
+      "delete": "Verwijderen",
+      "kinds": {
+        "0": "Evenementen",
+        "1": "Smartlists",
+        "2": "Evenementen & Smartlists",
+        "3": "Tijdslimiet"
+      },
+      "changeKind": "Verander naar"
+    },
+    "cadenceCard": {
+      "lost": "Verloren",
+      "win": "Gewonnen",
+      "outputRules": "Uitvoerregels"
+    },
+    "svgText": {
+      "push_notification": "Push-notificatie",
+      "sms": "SMS",
+      "email": "Email",
+      "select_event": "Selecteer een evenement",
+      "action_name": "{Naam van de marketingactie }",
+      "marketing_actions": "Acties",
+      "triggers": "Aanleidingen"
+    },
+    "cadenceIndexHelper": "De volgorde van de cadences bepaalt de prioriteit. Als een lid aan twee of meer cadences is toegevoegd, dan zal de bovenstaande cadence voorrang krijgen.",
+    "marketingElement": "Acties",
+    "triggerElement": "Activerende gebeurtenis",
+    "cadenceParameters": "Instellingen",
+    "exitEditModeLabel": "Overschakelen naar de Weergavemodus",
+    "exitEditMode": "Beëindigen",
+    "editModeLabel": "Overschakelen naar de Bewerkingsmode",
+    "editMode": "Bewerken",
+    "shutOff": "Pauze",
+    "back": "Terug",
+    "steps": {
+      "actions": {
+        "changeInStep": "Transformeer in een stap",
+        "changeInExit": "Converteren naar uitvoer",
+        "delete": "Verwijderen",
+        "addNextStep": "Volgende stap toevoegen",
+        "nextStepTrigger": "Trigger",
+        "convertIntoExit": "Omzetten in uitgang",
+        "convertIntoStep": "Omzetten in stap",
+        "edit": "Bewerk"
+      },
+      "defaultName": "Naamloze stap"
+    },
+    "marketingAction": {
+      "addAction": "Een actie toevoegen"
+    },
+    "bubble": {
+      "entryTrigger": {
+        "addTrigger": "Selecteer een aanleiding",
+        "title": "Aanleiding",
+        "helperText": "Laten we eerst beslissen hoe uw leden de {{ workflowLowerCase }} gaan invoeren. Selecteer een of meerdere gebeurtenissen of smartlists, als het lid overeenkomt met een van hen, komt hij/zij in de {{ workflowLowerCase }}.",
+        "creationHelper": "Bepaal eerst de criteria voor uw leden om de {{ workflowLowerCase }} in te voeren. Kies een of meer evenementen of smartlists. Als een lid aan een van deze criteria voldoet, wordt hij of zij lid van {{ workflowLowerCase }}.",
+        "editionHelper": "Bewerk de criteria voor uw leden om de {{ workflowLowerCase }} in te voeren. U kunt een of meer gebeurtenissen of smartlists kiezen. Als een lid aan een van deze criteria voldoet, wordt het lid van {{ workflowLowerCase }}."
+      },
+      "marketingAction": {
+        "label": "Selecteer een marketingactie",
+        "title": "Marketingactie"
+      },
+      "changeInStep": {
+        "default": "Naam van de stap",
+        "label": "Naam van de stap"
+      },
+      "changeInExit": {
+        "title": "Sluiten",
+        "label": "Label dit lid als"
+      },
+      "previous": "Terug",
+      "next": "Volgende",
+      "confirm": "Opslaan",
+      "cancel": "Annuleren",
+      "step": {
+        "name": "Naam"
+      },
+      "convertIntoStep": {
+        "label": "Staplabel",
+        "default": "Staplabel"
+      },
+      "convertIntoExit": {
+        "label": "Beschouw het lid als",
+        "title": "Uitgang"
+      },
+      "entryAction": {
+        "title": "Aanleiding",
+        "helperText": "Bepaal wat er gebeurt als de leden de {{ workflowLowerCase }} binnenkomen. U kunt ze taggen, een e-mail sturen of een andere actie kiezen die aan uw behoeften voldoet. U kunt er ook voor kiezen om niets te doen; deze stap is optioneel.",
+        "addAction": "Een actie toevoegen"
+      },
+      "requiredField": "Dit veld is verplicht.",
+      "finish": "Beëindigen",
+      "delete": "Verwijderen",
+      "lostAction": {
+        "addAction": "Actie toevoegen",
+        "title": "Verloren actie",
+        "helperText": "Bepaal wat er gebeurt als leden de {{ workflowLowerCase }} als 'Verloren' verlaten. U kunt ze taggen, een e-mail sturen of een andere actie kiezen die aan uw behoeften voldoet. U kunt er ook voor kiezen om niets te doen; deze stap is optioneel."
+      },
+      "lostTrigger": {
+        "title": "Verloren criteria",
+        "timeout": {
+          "helperText": "Als een lid nog steeds aanwezig is in deze {{ workflowLowerCase }} na de geselecteerde tijdslimiet, wordt het lid beschouwd als 'Verloren'.",
+          "title": "Tijdslimiet",
+          "label": "Dagen in de {{ workflowLowerCase }}"
+        },
+        "helperText": "Definieer wat wordt beschouwd als een mislukking, het lid wordt gemarkeerd als 'Verloren' bij het verlaten van de {{ workflowLowerCase }}. Stel ook de maximale tijd in dat een lid aanwezig kan zijn in {{ workflowLowerCase }}.",
+        "addTrigger": "Een uitgangstrigger toevoegen"
+      },
+      "wonAction": {
+        "helperText": "Bepaal wat er gebeurt als de leden de {{ workflowLowerCase }} verlaten als 'Gewonnen'. U kunt ze taggen, een e-mail sturen of een andere actie kiezen die aan uw behoeften voldoet. U kunt er ook voor kiezen om niets te doen; deze stap is optioneel.",
+        "addAction": "Actie toevoegen",
+        "title": "Gewonnen actie"
+      },
+      "wonTrigger": {
+        "title": "Gewonnen",
+        "helperText": "Stel de basisregels in voor wanneer leden de {{ workflowLowerCase }} moeten verlaten. Als een lid aan een van de triggers voldoet, verlaat het {{ workflowLowerCase }}, ongeacht de stap waarin het zich bevindt. Selecteer eerst de 'succes' triggers die een lid als 'Gewonnen' markeren als ze de {{ workflowLowerCase }} verlaten.",
+        "addTrigger": "Een uitgangstrigger toevoegen"
+      }
+    },
+    "dialog": {
+      "do_not_display_anymore": "Dit bericht niet meer weergeven.",
+      "confirm": "Bevestigen",
+      "cancel": "Annuleren"
+    },
+    "step": {
+      "convertExit": {
+        "dialog": {
+          "helper": "De triggers die direct op deze stap volgen worden verwijderd. De rest van de {{ workflowLowerCase }} wordt losgekoppeld maar niet verwijderd.",
+          "title": "Zet deze stap om in een exit"
+        }
+      },
+      "archive": {
+        "dialog": {
+          "helper": "De triggers die direct gekoppeld zijn aan deze stap worden ook verwijderd. De rest van {{ workflowLowerCase }} wordt losgekoppeld maar niet verwijderd.",
+          "title": "Weet u zeker dat u deze stap wilt verwijderen?"
+        }
+      }
+    },
+    "deleteStep": {
+      "dialog": {
+        "confirmButton": "Verwijderen"
+      }
+    },
+    "converStepToExit": {
+      "dialog": {
+        "confirmButton": "Converteren"
+      }
+    },
+    "pause": {
+      "dialog": {
+        "confirmButton": "Pauzeer",
+        "helper": "Alle acties van leden die plaatsvinden tijdens de pauze worden niet in acht genomen.",
+        "title": "Pauzeer {{ workflowLowerCase }}"
+      }
+    },
+    "trigger": {
+      "addTrigger": "Aanleiding toevoegen"
+    },
+    "welcome": {
+      "dialog": {
+        "helper": "Laten we samen beginnen met het opzetten van uw {{ workflowLowerCase }}! Eerst definiëren we de regels voor het betreden van de {{ workflowLowerCase }} door je leden. Vervolgens bepalen we wanneer je leden als 'Gewonnen' of 'Verloren' worden beschouwd op basis van hun acties.",
+        "title": "Welkom bij {{ audienceCamelCase }}!",
+        "confirm": "Start",
+        "return": "Ga terug"
+      }
+    },
+    "deleteExit": {
+      "dialog": {
+        "confirmButton": "Verwijderen"
+      }
+    },
+    "exit": {
+      "archive": {
+        "dialog": {
+          "helper": "De trigger die voorafgaat wordt ook verwijderd. De rest van de {{ workflowLowerCase }} wordt losgekoppeld maar niet verwijderd.",
+          "title": "Weet je zeker dat je deze uitgang wilt verwijderen?"
+        }
+      }
+    }
+  },
+  "audience": {
+    "form": {
+      "trigger": {
+        "helpers": {
+          "exitFail": "Definieer hier de trigger die ervoor zorgt dat een lid als verloren wordt beschouwd en de {{ workflowLowerCase }} verlaat.",
+          "exitSuccess": "Definieer hier de trigger die ervoor zorgt dat een lid als winnaar wordt beschouwd en de {{ workflowLowerCase }} verlaat.",
+          "workflow": "Definieer hier de triggers voor het invoeren van de {{ workflowLowerCase }}. Leden moeten voldoen aan de onderstaande criteria om de marketingreeks te starten."
+        },
+        "trigger_timeout_explain_value_selected": "Als het lid na {{ dagen }} dagen nog steeds aanwezig is in {{ workflowLowerCase }} dan wordt het automatisch verwijderd uit {{ workflowLowerCase }} en als verloren beschouwd.",
+        "trigger_timeout_select_label": "dagen maximaal in de {{ workflowLowerCase }}",
+        "event_and_smartlist_helper": "Leden moeten overeenkomen met de gebeurtenis en deel uitmaken van de smartlist om in de {{ workflowLowerCase }}",
+        "labels": {
+          "workflow": "De invoer in de {{ workflowLowerCase }} wordt gedaan via :"
+        },
+        "event_or_smartlist_helper": "Leden moeten overeenkomen met de gebeurtenis of deel uitmaken van de smartlist om in de {{ workflowLowerCase }}",
+        "oneOrMoreFinnerGrainDisabledText": "Een bepaald artikel staat momenteel niet in uw productenlijst."
+      },
+      "audienceStepHelper": "Stel hier de naam van de stap in: hier kunt u zien waar de leden zich bevinden in de {{ workflowLowerCase }}.",
+      "createAudienceHelper": "Dankzij {{ workflowPluralLowerCase }} kun je de marketingacties die je naar je leden stuurt richten op basis van hun gedrag op het platform. Maak bijvoorbeeld een reeks acties die je leden moeten voltooien om bepaalde promoties of tags te krijgen.",
+      "updateTitle": "Bewerk de naam van de {{ workflowLowerCase }}",
+      "audienceNameLabel": "Naam van de {{ workflowLowerCase }}",
+      "title": "Maak een {{ workflowLowerCase }}",
+      "addAWorkflow": "Voeg een {{ workflowLowerCase }} toe.",
+      "cadenceParameters": "Instellingen van \"{{ workflowLowerCase }}\"",
+      "formTitle": {
+        "updateNameTitle": "Bewerk de naam van \"{{ workflowLowerCase }}\"",
+        "updateTitle": "Bewerk uw {{ workflowLowerCase }}",
+        "createTitle": "Maak een {{ workflowLowerCase }}"
+      },
+      "multipleVisit": {
+        "helperText": "Indien geactiveerd, kunnen leden die voldoen aan de invoercriteria deze {{ workflowLowerCase }} meerdere keren betreden, ongeacht of ze deze eerder hebben verlaten als 'verloren' of 'gewonnen'.",
+        "isMultipleVisitAllowedLabel": "Leden kunnen deze {{ workflowLowerCase }} meerdere keren doorlopen."
+      }
+    },
+    "graph": {
+      "alert": {
+        "switchToEditMode": "U bevindt zich in de weergavemodus. Klik op EDIT om de {{ workflowLowerCase }} te bewerken.",
+        "audienceIsActive": "Uw {{ workflowLowerCase }} is bezig, onderbreek het om het aan te passen."
+      }
+    },
+    "activate": {
+      "setupBeforeActivationHelper": "Voltooi het instellen van uw {{ workflowLowerCase }} en maak uw eerste marketingactie om uw {{ workflowLowerCase }} te starten.",
+      "dialog": {
+        "firstHelper": "Wilt u de {{ workflowLowerCase }} starten?",
+        "title": "Start de {{ workflowLowerCase }}"
+      }
+    },
+    "audienceIndexHelper": "De volgorde van de {{ workflowPluralLowerCase }} bepaalt de volgorde van prioriteit: als een lid 2 verschillende {{ workflowPluralLowerCase }} tegelijk kan invoeren, dan beginnen ze met de hoogste in de lijst.",
+    "archive": {
+      "archivedHeader": "Gearchiveerd {{ workflowPluralLowerCase }}",
+      "dialog": {
+        "helper": "Leden die zich momenteel in de {{ workflowLowerCase }} bevinden, verlaten deze automatisch. De {{ workflowLowerCase }} wordt gepauzeerd en gearchiveerd, maar u kunt deze later eenvoudig weer activeren.",
+        "title": "Weet je zeker dat je \"{{ workflowLowerCase }}\" wilt archiveren?",
+        "beingArchived": "Je staat op het punt om \"{{ naam }}\" te archiveren."
+      }
+    },
+    "howTo": {
+      "title": "Hoe bewerk je {{ workflowLowerCase }}"
+    },
+    "block": {
+      "unrecognized": {
+        "dialog": {
+          "helper": "De {{ workflowLowerCase }} die u probeert te openen kan niet worden gevonden.",
+          "title": "{{ workflowCamelCase }} niet herkend"
+        }
+      },
+      "archived": {
+        "dialog": {
+          "helper": "De {{ workflowLowerCase }} is nu gearchiveerd. Om het te herstellen, ga terug naar de hoofdpagina en unarchiveer de {{ workflowLowerCase }} uit de lijst.",
+          "title": "{{ workflowCamelCase }} gearchiveerd"
+        }
+      }
+    },
+    "workflowMetrics": {
+      "cards": {
+        "members": {
+          "title": "Leden",
+          "description": "Aantal leden dat de {{ workflowLowerCase }} heeft ingevoerd.",
+          "label": "lid ingevoerd",
+          "label_plural": "leden ingevoerd"
+        },
+        "success": {
+          "title": "Succes",
+          "description": "Percentage dat als gewonnen wordt beschouwd.",
+          "label": "succesratio"
+        },
+        "averageTime": {
+          "title": "Gemiddelde tijd",
+          "description": "Gemiddelde periode die een lid nodig heeft om als gewonnen te worden beschouwd.",
+          "label": "dag (gem.)",
+          "label_plural": "dagen (gem.)"
+        },
+        "tags": {
+          "title": "Tags",
+          "description": "Aantal tags toegepast op de leden in de {{ workflowLowerCase }}.",
+          "label": "tag",
+          "label_plural": "tags"
+        }
+      },
+      "communication": {
+        "pushNotif": "Push-notificaties",
+        "sms": "Sms",
+        "email": "E-mail",
+        "availableSoon": "Binnenkort beschikbaard",
+        "knowMore": "Leer meer over {{ upsellName }}!",
+        "title": "Berichten verstuurd"
+      },
+      "openButton": "Open {{ workflowLowerCase }}"
+    },
+    "editModal": {
+      "dialog": {
+        "helper": "Het bewerken van de workflow kan de positie van leden veranderen.",
+        "confirm": "Bevestigen",
+        "cancel": "Annuleren",
+        "checkboxLabel": "Dit bericht niet meer tonen.",
+        "title": "Bewerk {{ workflowLowerCase }}"
+      }
+    },
+    "memberTable": {
+      "tableColumnLabel": {
+        "status": "Status",
+        "exitDate": "Uitvoerdatum",
+        "entryDate": "Invoerdatum",
+        "currentStep": "Huidige stap",
+        "member": "Lid"
+      },
+      "historicTitle": "Geschiedenis ({{count}})",
+      "title": "Huidige leden in {{ workflowLowerCase }} ({{count}})",
+      "searchPlaceHolder": "Zoeken..."
+    },
+    "listItem": {
+      "toolTip": {
+        "moreActions": "Meer workflow-acties"
+      },
+      "labels": {
+        "edit": " Bewerk {{ workflowLowerCase }} instellingen",
+        "archive": "Archive {{ workflowLowerCase }}",
+        "open": "Open",
+        "notLaunched": "Niet geactiveerd",
+        "paused": "Gepauzeerd",
+        "active": "Actief",
+        "unarchive": "Dearchiveren",
+        "metrics": "Statistieken",
+        "invalid": "Probleem"
+      },
+      "tooltip": {
+        "moreActions": "Meer {{ workflowLowerCase }} acties"
+      }
+    },
+    "workflow": {
+      "finnerGrainIssues": "Eén of meerdere opgegeven items zijn niet meer beschikbaar."
+    }
+  }
+}

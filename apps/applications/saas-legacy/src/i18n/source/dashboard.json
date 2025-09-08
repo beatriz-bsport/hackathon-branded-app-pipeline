@@ -1,0 +1,326 @@
+{
+  "placeholderEmptyValues": {
+    "coach": "No teacher",
+    "establishment": "No establishment"
+  },
+  "current_week": "Last week",
+  "current_month": "Last month",
+  "last_three_months": "Last 3 months",
+  "current_year": "Last year",
+  "thisWeek": "This week",
+  "thisMonth": "This month",
+  "newMembers": "New members",
+  "nbOffers": "Sessions",
+  "pageTitle": "Dashboard",
+  "turnover": {
+    "title": "Turnover",
+    "popover": "Total sum of all payments received from invoices",
+    "caption": "Revenue"
+  },
+  "bookings": "Bookings",
+  "dateRange": {
+    "start": "Start",
+    "end": "End"
+  },
+  "filterByDateTitle": "Filter by: date",
+  "detailsGraphTitle": "Details",
+  "current_day": "Last 24 hours",
+  "billedSubscriptions": {
+    "title": "Number of invoiced subscriptions",
+    "caption": "Subscriptions",
+    "popover": "The number of invoices linked to a non-canceled subscription"
+  },
+  "bookingsWeektimeSlot": {
+    "popover": "Average number of sessions per time slot",
+    "title": "Average"
+  },
+  "dateFilter": {
+    "customSelect": "Select a data range",
+    "quickSelect": "Quick select"
+  },
+  "noData": "There is no data to display.",
+  "bookingSource": {
+    "title": "Sources of the bookings",
+    "app": "Application",
+    "web": "Web",
+    "saas": "Backoffice bsport",
+    "other": "Other",
+    "migration": "Data migration"
+  },
+  "plannedPayment": {
+    "title": "Turnover of the subscriptions",
+    "caption": "Turnover",
+    "popover": "Total sum of all payments received over subscriptions"
+  },
+  "invoiceItems": {
+    "title": "Sales by product type",
+    "contentType": {
+      "1": "Passes",
+      "2": "Shop products",
+      "6": "Shipping costs",
+      "7": "Promotion",
+      "9": "Appointment pass",
+      "10": "Packs"
+    }
+  },
+  "invoiceItemDropdown": {
+    "contentType": {
+      "1": "Passes",
+      "2": "Webshop",
+      "6": "Delivery fees",
+      "7": "Promotions",
+      "9": "Appointment passes",
+      "10": "Packs"
+    }
+  },
+  "bookingDropdown": {
+    "source": {
+      "0": "App",
+      "1": "Web",
+      "2": "BSPORT Back Office",
+      "3": "Member Area",
+      "4": "Data migration"
+    }
+  },
+  "resetModal": {
+    "confirm": "Continue",
+    "cancel": "Cancel",
+    "content": "The graphs will be reset to their default settings. If you created tabs, they will be erased. Are you sure that you want to continue?",
+    "title": "Reset settings"
+  },
+  "save": "Save",
+  "customChart": {
+    "form": {
+      "radio": {
+        "pie": "Pie chart",
+        "grid": "Frequency table",
+        "area": "Area chart",
+        "bar": "Histogram",
+        "qualitativeInvoiceItem": "Division",
+        "temporalPlannedInvoice": "Historic development",
+        "temporalPayment": "Development over time",
+        "qualitativeBooking": "Divide",
+        "temporalBooking": "Historic development",
+        "temporalTimeslotBooking": "Frequency per day and per hour",
+        "temporalMember": "Development over time",
+        "temporalPrivateBooking": "Evolution over time"
+      },
+      "aggregateHelper": "Example: shows the progression of the total number of members instead of the total number new numbers per month.",
+      "aggregate": "Accumulate",
+      "name": "Graph title",
+      "selector": {
+        "invoice": "Purchases",
+        "payment": "Payments",
+        "booking": "Bookings",
+        "member": "New members",
+        "object": {
+          "helperText": "Select the info that you wish to display.",
+          "placeholder": "Select the data.",
+          "isEmpty": "No data has been selected."
+        },
+        "privateBooking": "Appointments"
+      },
+      "graphComponent": "Display",
+      "datatype": "Type of graph",
+      "submit": "Save",
+      "cancel": "Cancel",
+      "title": "Graph"
+    },
+    "noResource": "Please choose a data type.",
+    "addChart": "Add a graph"
+  },
+  "booking": {
+    "popover": "This is the total number of bookings for said date. You can filter on cancellations, late cancellations, etc.",
+    "caption": "Confirmed bookings",
+    "title": "Bookings"
+  },
+  "tabNameDialog": {
+    "titleAdd": "Add a new tab",
+    "titleRename": "Rename the tab",
+    "placeholder": "Name"
+  },
+  "noGraphToDisplay": "No graphs set up in this tab. Add one here.",
+  "privateBooking": {
+    "title": "Appointments",
+    "caption": "Saved appointments",
+    "popover": "The total number of booked appointments for this date. You can filter cancellations / refunds / ..."
+  },
+  "graphDefaultTitles": {
+    "privateBookingTemporal": "Appointment",
+    "memberTemporal": "New members",
+    "subscriptionTemporalSum": "Receipt of subscriptions",
+    "subscriptionTemporalCount": "Number of subscription invoices",
+    "bookingTemporal": "Bookings",
+    "bookingQualitative": "Sources of the bookings",
+    "bookingTimeslots": "Average number of people",
+    "paymentTemporal": "Receipts",
+    "billingPlanTemporal": "Subscriptions",
+    "invoiceItemTemporal": "Sum of items billed"
+  },
+  "dataSourceIdentifiers": {
+    "private_service_name": "Appointment",
+    "price": "Price incl. VAT / Sales Tax",
+    "contract": "Subscription",
+    "date": "Payment date",
+    "payment_method": "Payment method",
+    "payment_price": "Price incl. VAT / Sales Tax",
+    "payment_date": "Payment date",
+    "accept_sms": "Accepts text messages",
+    "accept_email": "Accept emails",
+    "gender": "Gender",
+    "billing_establishment": "Location",
+    "billing_group": "Billing group",
+    "establishment": "Establishment",
+    "coach": "Teachers",
+    "was_refunded": "Refunded",
+    "booking_date_created": "Booking date",
+    "booking_status_code": "Booking status",
+    "date_start": "Session date",
+    "date_created": "Booking date",
+    "attendance": "Present",
+    "payment_engine": "Type of payment",
+    "is_workshop": "Workshop",
+    "activity_kind": "Type of session",
+    "booking_effectif_timeslots": "Average number of people",
+    "plannedinvoice_pk": "Number of invoices",
+    "payment_pk": "Number of payments",
+    "privatebooking_pk": "Number of appointments",
+    "source_device": "Origin",
+    "is_recurrent_booking": "Recurrent booking",
+    "booking_pk": "Number of bookings",
+    "member_pk_accumulate": "Number of members",
+    "member_pk": "Number of new members",
+    "date_joined": "Sign up date",
+    "margin_value": "Marginal value incl. VAT / Sales Tax",
+    "activity": "Activity",
+    "payment_pack": "Pass",
+    "dispute_status": "Dispute status",
+    "private_pass": "Appointment pass",
+    "payout_date_created": "Transfer: date",
+    "payout_identifier": "Transfer",
+    "payout_status": "Transfer: status",
+    "is_unpaid": "Unpaid",
+    "total_payments_made": "Number of receipts paid",
+    "total_discount": "Total discount",
+    "nb_planned_invoices": "Total number of receipts",
+    "plan_status": "Subscription status",
+    "plan_recurrent_price": "Recurring payment amount",
+    "plan_flat_fee": "Joining fee",
+    "plan_date_start": "First billing date",
+    "plan_date_end": "End date of billing",
+    "new_member_only": "New member offer",
+    "billingplan_pk": "Number of subscriptions",
+    "last_invoice_status": "Last payment status",
+    "contract_name": "Subscription",
+    "billing_plan_payment_method": "Payment method",
+    "plan_auto_renewal": "Auto renewal",
+    "is_no_show": "No show",
+    "franchisor_commission_amount_notax": "Franchise fees exc. tax",
+    "franchisor_commission_amount": "Franchise fees inc. tax",
+    "total_price_notax": "Total amount exc. tax",
+    "total_price": "Total amount inc. tax",
+    "author": "Author",
+    "invoiceitem_pk": "Number of items billed",
+    "staff_commission_amount": "Staff commission fees incl. VAT",
+    "staff_commission_amount_notax": "Staff commission fee excl. VAT",
+    "invoice_datetime": "Invoice issue date",
+    "bookkeeping_account_name": "Account name",
+    "bookkeeping_account_number": "Account number",
+    "is_first_visit": "First booking",
+    "private_booking_date_created": "Date and time of booking",
+    "billing_group_address": "Address",
+    "product": "Product",
+    "product_type": "Product Type",
+    "invoice_date_created": "Date invoice issued"
+  },
+  "graphFormDrawer": {
+    "helperText": {
+      "booking_effectif_timeslots": "Average number of sessions per time slot.",
+      "accumulateMembers": "Shows the evolution of the total number of members.",
+      "subscriptionCount": "Number of invoices related to subscriptions.",
+      "subscriptionPrice": {
+        "sum": "Sum of all payments received related to subscriptions.",
+        "avg": "Average of all payments received related to subscriptions.",
+        "min": "Minimum of all payments received related to subscriptions.",
+        "max": "Maximum of all payments received related to subscriptions."
+      },
+      "plannedInvoiceCount": "Number of invoices related to subscriptions.",
+      "dateCreated": "The data will be represented in time according to the date on which the bookings were made.",
+      "dateStart": "The data will be plotted over time according to the start date of the sessions."
+    },
+    "accumulate": {
+      "total": "Accumulate"
+    },
+    "dashboardGraphIdentifier": {
+      "graph_members": "New members",
+      "graph_bookings": "Bookings",
+      "graph_private_bookings": "Appointments",
+      "graph_payments": "Payments",
+      "graph_subscriptions": "Subscriptions Invoices",
+      "graph_billing_plan": "Subscriptions",
+      "graph_dispute": "Disputes",
+      "graph_invoice_items": "Purchases"
+    },
+    "aggregation": {
+      "max": "Maximum",
+      "min": "Minimum",
+      "avg": "Average",
+      "sum": "Total"
+    },
+    "graphFamily": {
+      "week_timeslots": "Daily and hourly frequencies",
+      "qualitative": "Distribution",
+      "temporal": "Evolution over time"
+    },
+    "chartComponents": {
+      "timeslots": "Daily and hourly frequencies",
+      "pie": "Pie chart",
+      "area": "Area diagram",
+      "bar": "Histogram",
+      "qualitativeBar": "Histogram"
+    },
+    "placeholders": {
+      "aggregationSelector": "Choose an operation",
+      "dashboardGraphIdentifier": "Choose a data type"
+    },
+    "labels": {
+      "aggregationName": "Aggregation",
+      "dividedBy": "Divided by",
+      "dataToDisplay": "Data displayed",
+      "dateFilterField": "Data for the date",
+      "groupByField": "Distribute over",
+      "graphFamily": {
+        "qualitative": "Distribution",
+        "temporal": "Evolution over time"
+      },
+      "title": "Name"
+    },
+    "sectionTitles": {
+      "filterConfig": "Filters",
+      "timePeriod": "Period",
+      "graphParams": "Data",
+      "graphFamily": "Graph",
+      "dashboardGraphIdentifier": "Type of data",
+      "general": "General information"
+    },
+    "title": {
+      "edit": "Modification of a graph",
+      "create": "Creation of a graph"
+    }
+  },
+  "graphActions": {
+    "delete": "Delete",
+    "edit": "Edit"
+  },
+  "showMoreLegend": "+ {{count}} legend",
+  "showMoreLegend_plural": "+ {{count}} legends",
+  "addFilter": "Add a filter",
+  "filterChipLabel": "{{count}} filter",
+  "filterChipLabel_plural": "{{count}} filters",
+  "popover": {
+    "bookingsWeektimeSlot": "Average number of sessions per time slot",
+    "billedSubscriptions": "Number of invoices linked to a non-cancelled subscription",
+    "turnover": "Sum of all payments received on invoices"
+  },
+  "turnoverTitle": "Revenue"
+}

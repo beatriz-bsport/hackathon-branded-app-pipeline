@@ -1,0 +1,190 @@
+{
+  "settings": {
+    "seeRestrictions": "Ver",
+    "autoDiscard": "A sessão será cancelada se {{nb_bookings}} marcação(ões) ou menos {{hours}}h antes do início da sessão",
+    "autoDiscardHeader": "A sessão será cancelada se",
+    "firstBookingMinutesUntil": "Os membros podem reservar sessões até {{m}} no futuro.",
+    "restrictionsHeader": "Restrições personalizadas",
+    "restrictions": " Restrição personalizada n.º{{ count }}",
+    "lastBookingBeforeMinutes": "Até {{m}} antes do início da sessão",
+    "firstBookingMinutesUntilHeader": "Os alunos podem reservar sessões futuras se começarem em menos de",
+    "lastDiscardBeforeMinutesFull": "Cancelamentos possíveis até {{m}} antes do início da sessão",
+    "lastBookingBeforeMinutesHeader": "Antes do início do curso, última reserva possível",
+    "conditions": "Condições",
+    "lastDiscardBeforeMinutesHeader": "Antes do início da aula, último cancelamento possível",
+    "lastBookingBeforeMinutesFull": "Últimas reservas possíveis até {{m}} antes do início da sessão",
+    "title": "Configurações",
+    "lastDiscardBeforeMinutes": "Até {{m}} antes do início da sessão"
+  },
+  "groupedOption": {
+    "modal": {
+      "form": {
+        "addOffers": "Adicionar uma sessão",
+        "allowBookingAfterStartCaption": "Por defeito, se uma sessão de grupo já tiver começado, os seus membros já não poderão registar-se nela. Ao ativar esta função, os membros poderão continuar a inscrever-se nas restantes sessões.",
+        "timeStartHelper": "Seleccione a data da primeira sessão da cópia de grupo. As outras sessões do grupo serão copiadas e remarcadas de acordo com esta data.",
+        "daily": "Todos os dias",
+        "subtitleSettings": "Configurações",
+        "subtitleRecurrence": "Periodicidade",
+        "recurrenceUntil": "Repetir até",
+        "recurrence": "Periodicidade",
+        "delete": {
+          "selectHeader": "Selecionar os grupos a modificar",
+          "title": "Cancelamento",
+          "selectGroup": "Cancelar outros grupos semelhantes",
+          "firstSession": "Primeira sessão em {{-day}}",
+          "content": "Tenha em atenção que a eliminação deste grupo cancelará todas as sessões nele incluídas. As reservas dos estudantes registados serão anuladas. Esta operação é definitiva",
+          "missingOffer": "Não há ofertas no grupo",
+          "applyRecursive": "Cancelar outros grupos semelhantes"
+        },
+        "fullBookingOnly": "Inscrição a todas as sessões de grupo",
+        "marketPlaceAvailable": "Disponível para reserva (website+app)",
+        "withRecurrence": "Ativar a periodicidade",
+        "required": "É necessário pelo menos um grupo",
+        "copyRecurrence": "Duplicar também as futuras repetições do grupo",
+        "back": "Anterior",
+        "allowBookingAfterStart": "Autorizar a inscrição em tempo real",
+        "preview": "Pré-visualizar",
+        "recurrenceNumberPrefix": "Repetir todos os",
+        "groupName": "Nome",
+        "subtitle": "Informações gerais",
+        "timeStart": "Data de início",
+        "recurrenceCount": "Número de repetições",
+        "uncreatedGroupsTitle": "Grupos não criados",
+        "next": "Seguinte",
+        "subtitleOffers": "Adicionar sessões",
+        "name": "Nome",
+        "save": "salvar",
+        "submit": "Confirmar",
+        "impossibleState": "Os critérios introduzidos não geram um grupo",
+        "allowGuestUnavailable": "Esta função não está disponível para sessões agrupadas.",
+        "recurrenceUntilHelper2": "Os grupos com uma última sessão posterior a esta data não serão criados.",
+        "creationError": "Criação impossível",
+        "allowGuest": "Pode ser marcado para um convidado",
+        "fullBookingOnlyCaption": "Por predefinição, se os membros se registarem numa das sessões de grupo, serão automaticamente registados em todas as sessões de grupo. Ao desativar esta definição, os membros poderão registrar-se em todas ou algumas das sessões do grupo.",
+        "nameCaption": "Nome do grupo de sessões",
+        "recurrenceUntilHelper": "Indicar a data da última sessão da última etapa.",
+        "spiviWarningHelperText": "Atenção, se as sessões estiverem ligadas ao Spivi, as suas cópias não estarão conectadas ao Spivi.",
+        "syncOnSpivi": "Enviar para Spivi"
+      },
+      "subtitlePreview": "Previsão de periodicidade",
+      "duplicate": "Duplicar um grupo",
+      "title": "Sessões de grupo",
+      "subtitleMetaActivitySelect": "Criar um grupo de sessões"
+    },
+    "intervalLabel": {
+      "until": {
+        "year": "Todos os anos até {{-until}} ",
+        "year_plural": "Todos os {{ count }} anos até {{-until}} ",
+        "week": "Todas as semanas até {{-until}} ",
+        "week_plural": "Todas as {{ count }} semanas até {{-until}} ",
+        "month": "Todos os meses até {{-until}} ",
+        "month_plural": "Todos os {{ count }} mês até {{-until}} ",
+        "day": "Todos os dias até {{-until}} ",
+        "day_plural": "Todos os {{ count }} dias até {{-until}} "
+      },
+      "month": "O mês inteiro",
+      "month_plural": "Todos os {{ count }} meses",
+      "week": "A semana inteira",
+      "week_plural": "Todas as {{ count }} semanas",
+      "day": "O dia inteiro",
+      "day_plural": "Todos os {{ count }} dias",
+      "year": "O ano inteiro",
+      "year_plural": "Todos os {{ count }} anos"
+    },
+    "helperText": {
+      "month": "Este grupo começa em {{-day}}, o mês inteiro",
+      "month_plural": "Este grupo começa em {{-day}}, todos {{ count }} meses",
+      "day": "Este grupo repete-se todos os dias",
+      "day_plural": "Este grupo repete-se a cada {{ count }} dias",
+      "week": "Este grupo começa em {{-day}}, a semana inteira",
+      "week_plural": "Este grupo começa em {{-day}}, todas {{ count }} semanas",
+      "year": "Este grupo começa {{-day}}, de {{-mont}} todos os anos",
+      "year_plural": "Este grupo começa {{-day}}, de {{-month}} todos os {{ count }} anos"
+    },
+    "warning": {
+      "uncreatedGroups": "Tenha em atenção que alguns grupos não serão criados.\n…Pode encontrá-los na secção \"Grupos não criados\" na parte inferior desta lista",
+      "groupsWithOutOfTheRangeOffers": "Os grupos de sessões abaixo não serão criados porque\n…incluem sessões que se realizam há mais de 3 anos"
+    },
+    "offerDescription": "{{ count }} sessões {{- firstSession }} em {{- lastSession }}",
+    "errors": {
+      "offers_length": "Só foi criada uma sessão. Para criar um grupo de sessões,\n…adicione pelo menos duas sessões. Se pretender criar uma única sessão, pode fazê-lo diretamente a partir de\n…o workshop em questão ou o separador do calendário."
+    },
+    "last": "último"
+  },
+  "packsAvailable": "Elegível para :",
+  "reviews": "Comentários dos alunos ",
+  "disabledMetaActivities": "Atividades de grupo arquivadas",
+  "cancelledOffers": "{{count}} cancelamentos",
+  "modal": {
+    "delete": {
+      "confirm": "Eliminar",
+      "content": "Tem a certeza de que pretende eliminar esta atividade ? As sessões e as reservas não serão afectadas. Esta operação é definitiva.",
+      "title": "Eliminar uma atividade",
+      "cancel": "Cancelar"
+    }
+  },
+  "forms": {
+    "delete": {
+      "actions": {
+        "confirm": "Eliminar",
+        "cancel": "Cancelar"
+      },
+      "content": {
+        "canDelete": "Tem a certeza de que pretende eliminar esta atividade ? As sessões e reservas anteriores não serão afectadas. Esta operação é definitiva.",
+        "cannotDelete": "As sessões estão programadas para o futuro, pelo que deve verificar se foram canceladas."
+      },
+      "title": "Eliminar atividade"
+    },
+    "create": {
+      "compatible_packs": {
+        "noCompatiblePass": "Não existe nenhum passe de aulas compatível com esta atividade, por isso não se esqueça de criar um",
+        "passHelperText": "Os passes de aulas seguintes são compatíveis com a atividade criada:",
+        "goToActivity": "Ir para a atividade",
+        "createPass": "Criar um passe de aulas",
+        "seeMore": "Ver mais"
+      },
+      "steps": {
+        "pass_form": "Criar um passe de aulas (opcional)",
+        "offer_form": "Criação de sessões (opcional)",
+        "activity_form": "Criação de uma atividade",
+        "workshop_form": "Criação de um workshop",
+        "pass_list": "Finalização"
+      }
+    },
+    "warning": {
+      "lowFirsBookingUntilWarning": "Atenção, tem de estar {{ durationFormatted }} antes do início do aula para poder efetuar a sua primeira reserva !",
+      "highLastBookingBeforeWarning": "Atenção, {{ durationFormatted }} antes do início da aula, não serão aceites mais inscrições !"
+    }
+  },
+  "edit": "Editar",
+  "detail": {
+    "tab": {
+      "pack": "Passes compatíveis",
+      "general": "Geral",
+      "group": "Grupo de sessões"
+    },
+    "pack": {
+      "paymentPacks": "Passes compatíveis",
+      "consumerPacks": "Passe de aulas pertencentes a membros",
+      "noCompatiblePass": "Não há passe de aulas compatível"
+    }
+  },
+  "navigation": {
+    "goToPaymentPack": "Passes de aulas"
+  },
+  "workshopSelect": "Procurar um workshop",
+  "actions": {
+    "addActivity": "Adicionar uma atividade",
+    "search": "Procurar uma atividade"
+  },
+  "description": "Descrição",
+  "close": "Fechar",
+  "search": "Procurar um workshop",
+  "noActivities": "Uma atividade agrupa uma série de sessões (normalmente sessões de grupo) da mesma prática.",
+  "category": "Categoria",
+  "addOffers": "Adicionar sessões",
+  "metaActivity": "Atividade",
+  "offersThisDay": "Sessões para hoje :",
+  "workshop": "Workshop",
+  "name": "Nome"
+}

@@ -1,0 +1,12 @@
+{
+  "time": {
+    "weekday": {
+      "sunday": "Neděle",
+      "friday": "Pátek",
+      "thursday": "Čtvrtek",
+      "wednesday": "Středa",
+      "tuesday": "Úterý",
+      "monday": "pondělí"
+    }
+  }
+}

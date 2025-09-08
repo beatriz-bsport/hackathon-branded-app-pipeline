@@ -1,0 +1,64 @@
+{
+  "historyTable": {
+    "staff": "Staff",
+    "durationHoursMinutes": "Horas trabajadas (horas y minutos)",
+    "startingHour": "Hora de inicio",
+    "endingHour": "Hora de finalización",
+    "durationHours": "Horas trabajadas (horas)",
+    "action": "Acción",
+    "download": "Descargar"
+  },
+  "modal": {
+    "delete": {
+      "content": "Atención, ¿está seguro de que quiere eliminar la franja horaria de este personal? Esta operación es irreversible.",
+      "title": "Supresión"
+    }
+  },
+  "editModal": {
+    "title": "Cambios en el horario",
+    "endingTime": "Hora de finalización",
+    "startingTime": "Hora de inicio",
+    "cancel": "Cancelar",
+    "confirm": "Validar"
+  },
+  "pageTitle": "Horarios del personal",
+  "tabRealTime": "En tiempo real",
+  "tabHistory": "Historia",
+  "export": {
+    "dialog": {
+      "message": "Su exportación está lista para ser descargada.",
+      "title": "Exportar el historial"
+    }
+  },
+  "clockinDialog": {
+    "title": "Reloj de fichaje",
+    "close": "Cerrar",
+    "clockIn": "Empezar",
+    "clockOut": "Acabar",
+    "lastClockIn": "Último registro: {{- date }} - {{ hour }}",
+    "lastClockOut": "Hora de llegada: ",
+    "subtitleClockIn": "Buenos días {{ name }}, haga clic en \"Inicio\" para comenzar el registro de su día.",
+    "subtitleClockOut": "¡Aquí vamos! Para volver a fichar y detener la cuenta atrás, haga clic en \"Finalizar\".",
+    "clockInForOther": "fichar por otro personal",
+    "subtitleSuccess": "Su horario se ha guardado con éxito. La próxima vez que abra esta ventana podrá iniciar un nuevo fichaje.",
+    "successClockIn": "Hora de llegada:",
+    "successClockOut": "Hora de salida:",
+    "successDuration": "Número de horas trabajadas:"
+  },
+  "attendanceTable": {
+    "firstname": "Nombre",
+    "lastname": "Apellido",
+    "staff": "Staff",
+    "email": "Email",
+    "lastClockIn": "Última puntuación",
+    "status": "Estado",
+    "action": "Acción",
+    "role": "Papel",
+    "start": "Finalizar",
+    "end": "Empezar",
+    "here": "Presente",
+    "missing": "Ausente",
+    "createStaff": "crear un acceso para el personal",
+    "emptyState": "Todavía no ha dado acceso al personal. Para definir los accesos del personal vaya a la configuración y luego al personal o haga clic en el botón de abajo. Para seguir los horarios de su personal no olvide activar \"Reloj de tiempo\" al crear su rol."
+  }
+}

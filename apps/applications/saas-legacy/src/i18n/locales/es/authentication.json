@@ -1,0 +1,17 @@
+{
+  "resetPassword": {
+    "actions": {
+      "backToLogin": "Volver",
+      "reset": "OK",
+      "cancel": "Cancelar",
+      "confirm": "Confirmar"
+    },
+    "emailHasBeenSent": "Se ha enviado un email a {{email}} para recuperar tu contraseña",
+    "explain2": "Te enviaremos instrucciones de recuperación",
+    "explain1": "¿Cuál era el email de la cuenta?",
+    "noEmail": "Este correo electrónico no existe en nuestra base de datos de miembros.",
+    "title": "Recuperación de la contraseña",
+    "contactUs": "Ponte en contacto con nosotros a través de ",
+    "hasProblem": "¿Tienes problemas para reiniciar?"
+  }
+}

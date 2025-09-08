@@ -1,0 +1,99 @@
+{
+  "requiredField": "este campo es obligatorio",
+  "form": {
+    "cancel": "Cancelar",
+    "close": "cerrar",
+    "add": "añadir",
+    "delete": "Borrar",
+    "search": "Buscar",
+    "validate": "Validar",
+    "save": "Registrar"
+  },
+  "memberProgram": {
+    "infoNoConsumerProgram": "Si todavía no tienes un programa, ponte en contacto con tu estudio para empezar a controlar tu rendimiento.",
+    "infoNoMemberProgram": "Este miembro no tiene ningún programa en este momento.",
+    "actions": {
+      "create": {
+        "error": "Error al asignar el programa al miembro",
+        "success": "Programa asociado al socio",
+        "errorAlreadyExists": "Este miembro ya ha participado en este programa"
+      },
+      "disable": {
+        "error": "Error al desagregar el programa",
+        "success": "Programa de miembros disociados"
+      }
+    },
+    "deleteHeader": "¿Realmente quiere desvincular este programa de este miembro?",
+    "deleteContent": "Perderá los valores de las métricas del programa para este miembro"
+  },
+  "metric": {
+    "form": {
+      "color": "Color",
+      "maxValueHelperText": "Valor máximo de la métrica",
+      "maxValue": "Valor máximo",
+      "minValueHelperText": "Valor mínimo de la métrica",
+      "minValue": "Valor mínimo",
+      "default_valueHelperText": "Valor base de la métrica. Si está vacío, el valor será el mínimo",
+      "default_value": "Valor por defecto",
+      "machine": "Identificador de la máquina",
+      "name": "Nombre",
+      "general": "General",
+      "noMetric": "No se registran métricas",
+      "addMetric": "añadir una métrica",
+      "range": "El valor por defecto no está entre el valor mínimo y el máximo ",
+      "minMax": "El valor mínimo no puede ser inferior al valor máximo"
+    },
+    "title": "Métrica",
+    "statistic": "Estadísticas",
+    "deleteContent": "La métrica se eliminará de forma permanente.",
+    "deleteHeader": "¿Realmente quieres eliminar esta métrica?"
+  },
+  "program": {
+    "member": {
+      "name": "Nombre",
+      "title": "Miembros",
+      "addDate": "Fecha de registro"
+    },
+    "form": {
+      "default": "Establecer como programa por defecto para todos los nuevos inscritos",
+      "color": "Color",
+      "description": "Descripción",
+      "name": "Nombre del programa",
+      "generalInfo": "Información general",
+      "create": "Crear un programa",
+      "modify": "modificar el programa",
+      "delete": "eliminar el programa",
+      "addProgram": "añadir un programa",
+      "update": "Modificar el programa"
+    },
+    "title": "Programas",
+    "archived": "Archivado",
+    "infoNoProgram": "Añade un programa para que tus miembros hagan un seguimiento de sus métricas",
+    "deleteContent": "Este programa ya no aparecerá en los miembros a los que se ha añadido. Puede recuperarlo en la sección \"Archivado\".",
+    "deleteHeader": "¿Realmente quieres eliminar este programa?",
+    "infoSelectProgram": "Seleccione un programa para ver sus detalles",
+    "detail": "Detalles del programa",
+    "selectProgram": "Seleccione un programa",
+    "default": "Programa por defecto",
+    "titleForConsumer": "Mis programas",
+    "actions": {
+      "disable": {
+        "error": "Error al archivar el programa",
+        "success": "Programa archivado"
+      },
+      "enable": {
+        "error": "Error al restaurar el programa",
+        "success": "Programa restaurado"
+      },
+      "create": {
+        "error": "Error al crear el programa",
+        "success": "Programa creado"
+      },
+      "update": {
+        "error": "Error al modificar el programa",
+        "success": "Programa modificado"
+      }
+    }
+  },
+  "maxLength200": "Este campo tiene un máximo de 200 caracteres."
+}

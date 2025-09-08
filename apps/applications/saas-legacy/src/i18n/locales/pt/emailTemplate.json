@@ -1,0 +1,55 @@
+{
+  "delete": "Eliminar",
+  "modal": {
+    "delete": {
+      "confirm": "Eliminar",
+      "content": "Se este modelo estiver ligado a uma configuração de e-mail transacional, também será eliminado. Tem a certeza de que pretende eliminar este modelo de e-mail?",
+      "cancel": "Cancelar",
+      "title": "Eliminar modelo de e-mail"
+    }
+  },
+  "edit": "Editar",
+  "allCompanies": "Todos os franchisados",
+  "seeAll": "Ver tudo",
+  "autoSave": "Cópia de segurança automática",
+  "leaveAlert": "Quer mesmo sair desta página?",
+  "infoBsportTemplateEmails": "Se pretender enviar comunicações ou editar os modelos desta secção, tem de criar uma cópia do modelo que pretende. Em seguida, seleccione a cópia da mensagem quando enviar uma comunicação.",
+  "franchiseEmails": "Modelos franchising",
+  "bsportTemplateEmails": "Modelos Bsport",
+  "companieEmails": "Os meus modelos",
+  "editor": {
+    "closeButton": "Fechar",
+    "dialogWindowTitle": "Variáveis obrigatórias",
+    "infoBoxTextLastLine": "Certifique-se de que os adiciona ao seu modelo para o poder guardar.",
+    "alertBoxTextFirstLine": "Este e-mail está ligado ao seguinte e-mail '{{-names}}'. Deve conter as seguintes variáveis : ",
+    "infoBoxTextFirstLine": "Esta e-mail está ligada ao seguinte e-mail '{{-names}}'. Algumas variáveis são obrigatórias.",
+    "showRequiredTags": "Ver as variáveis",
+    "selectorPlaceholder": "Seleção de franchisados",
+    "error": {
+      "subject": "Introduzir um objeto",
+      "content": "Introduzir conteúdo na mensagem",
+      "title": "Introduza um nome"
+    },
+    "shareWithHelper": "O modelo não pode ser alterado pelos franchisados",
+    "shareWith": "Partilhar com",
+    "cancel": "Cancelar",
+    "subject": "Assunto do e-mail",
+    "exportHtml": "Exportar HTML",
+    "save": "Guardar",
+    "title": "Nome do modelo"
+  },
+  "no_subject": "Nenhum assunto",
+  "preview": "Pré-visualização",
+  "subject": "Assunto:",
+  "modification_date": "Última notificação em",
+  "templateListEmpty": "Sem nenhum modelo, crie o primeiro aqui.",
+  "create": "Criar um modelo",
+  "selectToShowPreview": "Selecionar um modelo",
+  "detail": "Informações detalhadas",
+  "createTitle": "Criar um modelo",
+  "editTitle": "Editar modelo",
+  "listTitle": "Os meus modelos de e-mail",
+  "search": "Procurar um modelo",
+  "copy": "copiar",
+  "duplicate": "Duplicar"
+}

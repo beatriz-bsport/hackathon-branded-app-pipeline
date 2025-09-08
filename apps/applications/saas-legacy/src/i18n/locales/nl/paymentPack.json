@@ -1,0 +1,923 @@
+{
+  "actions": {
+    "edit": "Bewerken",
+    "delete": "Archiveren",
+    "scaleCredit": "credits vermenigvuldigen / delen",
+    "massExtension": "Geldigheid verlengen",
+    "close": "Sluiten"
+  },
+  "consumerPaymentPack": {
+    "addExtension": "Geldigheid verlengen",
+    "refund": {
+      "actions": {
+        "submit": "Opslaan",
+        "cancel": "Annuleren"
+      },
+      "warning": "Let op, deze bewerking is onomkeerbaar (genereren van factuur).",
+      "explain": "Selecteer eerst het aantal credits dat moet worden terugbetaald en selecteer vervolgens ook de totale waarde dat moet worden bijgeschreven",
+      "credits": {
+        "label": "Af te trekken credits",
+        "decimalCredit": {
+          "helperText": "{{count}} krediet zal worden afgetrokken",
+          "helperText_plural": "{{count}} krediet zal worden afgetrokken"
+        }
+      },
+      "note": {
+        "label": "Notitie"
+      },
+      "description": "{{ credits }} credit(s) - {{ note }}",
+      "description_plural": "{{ credits }} credits - {{ note }}",
+      "price": {
+        "label": "Te verrekenen bedrag"
+      },
+      "title": "Terugbetaling",
+      "warningSecond": "Als je het lid wenst te vergoeden via een bankoverschrijving met de gebruikte betaalmethode, annuleer dan de factuur en betaal hem/haar niet in credits terug!",
+      "warningFirst": "Waarschuwing: deze actie is definitief en genereert een factuur.",
+      "blockUnlimited": "Leskaart blokkeren",
+      "error": {
+        "2029": "Het restitutiebedrag overschrijdt het aankoopbedrag. Probeer het opnieuw met een lager bedrag.",
+        "2030": "Het aantal af te trekken credits overschrijdt het aantal credits op de pas. Probeer het opnieuw met een lager aantal.",
+        "2031": "Er is een fout opgetreden. Probeer het opnieuw.",
+        "default": "Er is een fout opgetreden. Probeer het opnieuw."
+      }
+    },
+    "details": {
+      "actions": {
+        "refund": "Omzetten in saldo",
+        "applyVoucher": "Terugbetaling"
+      }
+    },
+    "maxout": {
+      "dialog_message": "Deze kaart heeft het gebruikslimiet ({{count}}) voor deze {{unit}} bereikt. Weet je zeker dat je hier alsnog mee wilt reserveren? ",
+      "dialogTitle": "Reserveringslimiet bereikt",
+      "months": "maand",
+      "weeks": "week",
+      "days": "dag",
+      "limit_reach": "De gebruikslimiet per {{unit}} is bereikt."
+    }
+  },
+  "notification": {
+    "0": {
+      "first": "Stuur een melding als ",
+      "second": "dagen voordat deze leskaart verloopt"
+    },
+    "1": {
+      "first": "Stuur een melding als",
+      "second": "credit(s) heeft."
+    },
+    "2": {
+      "second": "dagen verstreken.",
+      "first": "Stuur een melding als de kaart sinds verlopen is "
+    },
+    "listItem": {
+      "mail": "E-mail ",
+      "deleteModal": {
+        "cancel": "annuleren",
+        "title": "Melding verwijderen",
+        "confirm": "Verwijderen",
+        "content": "Weet je zeker dat je deze melding wilt verwijderen? Deze actie is definitief."
+      },
+      "smartListInclude": "Inbegrepen Smartlists",
+      "smartList": "Uitgesloten Smartlists"
+    },
+    "addButton": "Een melding toevoegen",
+    "form": {
+      "selectToShowPreview": "Selecteer een e-mail om de voorvertoning te zien.",
+      "mailTitle": "Selecteer de te versturen e-mailsjabloon",
+      "typeTitle": "Evenement",
+      "creditType": "Resterende credits",
+      "daysType": "Resterende geldigheid",
+      "mailSelection": "Selecteer een e-mailsjabloon",
+      "smartListSelection": "(Optioneel) Smartlist(s) selecteren",
+      "showMail": "Toon e-mail",
+      "settingTitle": "Instellingen",
+      "hideMail": "Verberg e-mail",
+      "cancel": "Annuleren",
+      "smartListHelper": "Stuur GÉÉN melding als een lid tot één van de volgende Smartlists behoort",
+      "smartListHelperInclude": "Stuur WÉL een melding als een lid tot één van de volgende Smartlists behoort",
+      "noMailAvailable": "Er zijn geen e-mailsjablonen om weer te geven.",
+      "createSmartList": "Een Smartlist toevoegen",
+      "warning": "Door geen Smartlist(s) te selecteren is het mogelijk dat je leden contacteert die recent een aankoop hebben gedaan!",
+      "daysPastType": "Verlopen kaart",
+      "submit": "Bevestigen",
+      "pushTitle": "Berichtgevingsinstellingen",
+      "mailSettings": "Inhoud",
+      "creditNotificationType": {
+        "onOfferStart": "Verstuur het bericht na het einde van een sessie na reservering",
+        "onBooking": "Verstuur het bericht na het maken van reservering"
+      },
+      "chooseTime": {
+        "first": "Een melding versturen",
+        "secondOnOfferStart": "uur na het einde van de sessie",
+        "secondOnBooking": "uur na de reservering"
+      },
+      "infoContract": "Leden die deze kaart als onderdeel van een abonnement hebben gekregen, ontvangen alleen notificaties over het abonnement en niet over de kaart. Door deze optie te deactiveren zullen zij beide ontvangen.",
+      "contractTitle": "Abonnement",
+      "dontSendIfInContract": "Niet versturen als de kaart deel uitmaakt van een abonnement",
+      "notificationNamePlaceholder": "Naam melding",
+      "generalTitle": "Algemeen"
+    },
+    "daysPast": {
+      "second": "dag(en) verlopen is.",
+      "first": "Stuur een melding wanneer deze kaart"
+    },
+    "daysLeft": {
+      "second": "dag(en) geldig is.",
+      "first": "Stuur een melding wanneer deze kaart nog"
+    },
+    "creditsLeft": {
+      "second": "credit(s) heeft.",
+      "first": "Stuur een melding wanneer deze kaart nog",
+      "helperText": "Deze melding wordt geactiveerd als er {{count}} krediet over is",
+      "helperText_plural": "Deze melding wordt geactiveerd als er {{count}} kredieten over is"
+    },
+    "daysLeftLabel": "Een melding versturen wanneer deze kaart nog {{day}} dag geldig is.",
+    "daysLeftLabel_plural": "Een melding versturen wanneer deze kaart nog {{day}} dagen geldig is.",
+    "daysPastLabel": "Een melding versturen wanneer deze kaart {{day}} dag verlopen is.",
+    "daysPastLabel_plural": "Een melding versturen wanneer deze kaart {{day}} dagen verlopen is.",
+    "creditsLeftLabel": "Een melding versturen wanneer deze kaart nog {{count}} credit(s) heeft.",
+    "creditsLeftLabel_plural": "Een melding versturen wanneer deze kaart nog {{credit}} credits heeft.",
+    "creditsLeftOnOfferStart": "{{hours}} uur na het einde van de sessie",
+    "creditsLeftOnBooking": "{{hours}} uur na het maken van de reservering"
+  },
+  "search": "Zoek een leskaart",
+  "extension": {
+    "nbDaysAdded": "{{count}} dag",
+    "nbDaysAdded_plural": "{{count}} dagen",
+    "addedOn": "Toegevoegd op: ",
+    "delete": {
+      "title": "Verwijder verlenging van geldigheidsduur",
+      "explain": "Weet je zeker dat je de verlenging van de geldigheidsduur wilt verwijderen?",
+      "cancel": "Annuleren",
+      "confirm": "Bevestigen"
+    },
+    "create": {
+      "submit": "Aanmaken",
+      "explain": {
+        "oldDate": "Oude datum: ",
+        "newDate": "Nieuwe datum: "
+      },
+      "warning": "Controleer of de nieuwe datum deze pas niet een nieuwe fiscale periode overschrijdt. Als dit het geval is, neem dan contact op met uw accountant over de relevantie van deze actie.",
+      "note": {
+        "label": "Notities"
+      },
+      "nbDays": {
+        "label": "Aantal extra dagen"
+      },
+      "title": "Verleng de geldigheid van de pas",
+      "cancel": "Annuleren",
+      "datePicker": {
+        "label": "Nieuwe datum"
+      }
+    },
+    "options": {
+      "addNumberOfDays": "De geldigheid verlengen door een bepaald aantal dagen toe te voegen",
+      "selectNewEndDate": "Stel een nieuwe vervaldatum in"
+    },
+    "seeMore": "Zie meer",
+    "seeLess": "Zie minder"
+  },
+  "form": {
+    "paymentPack": {
+      "name": {
+        "helperText": "Naam van de leskaart",
+        "label": "Naam"
+      },
+      "priceIncludingTax": {
+        "label": "Prijs (incl. btw)",
+        "helperText": "De totale verkoopprijs van de leskaart."
+      },
+      "unlimited": "Onbeperkt",
+      "maxBookingPerWeek": {
+        "helperText": "Laat dit veld leeg om geen limiet in te stellen.",
+        "label": "Maximaal gebruik per week"
+      },
+      "newMemberOnly": "Maak dit product alleen voor nieuwe leden beschikbaar",
+      "onsitePaymentAvailable": "Accepteer fysieke betalingen",
+      "expirationDaysBeforeFirstUse": {
+        "label": "De vervaldatum indien deze kaart niet gebruikt wordt:",
+        "helperText": "De geldigheid van deze kaart verloopt na X aantal dagen als het niet gebruikt wordt."
+      },
+      "managerOnly": "Onbeschikbaar voor leden",
+      "helper": {
+        "starting_date": "Begin van de geldigheid van de leskaart. Laat dit veld leeg om het direct geldig te maken.",
+        "ending_date": "Einde van de geldigheid van de leskaart. Als dit veld leeg is blijft de leskaart geldig."
+      },
+      "start_date_method": {
+        "on_booking": "Geldig vanaf de 1e reservering",
+        "on_attendance": "Geldig vanaf de 1e aanwezigheid",
+        "on_purchase": "Geldig vanaf de factuurdatum"
+      },
+      "timeSettingsTitle": "Geldigheid",
+      "generalSettingsTitle": "Algemeen",
+      "validByDuration": "Deze leskaart is N aantal dagen na aankoop geldig",
+      "validByDaterange": "Deze leskaart is tussen X en Y geldig",
+      "durationDays": {
+        "helperText": "Geldigheidsduur in dagen na aankoop. ",
+        "label": "Geldigheidsduur (in dagen)"
+      },
+      "durationMonths": {
+        "label": "Geldigheidsduur (in maanden)",
+        "helperText": "Dit wordt aan het aantal dagen toegevoegd."
+      },
+      "durationYears": {
+        "label": "Geldigheidsduur (in jaren) indien van toepassing",
+        "helperText": "Dit wordt aan het aantal dagen en maanden toegevoegd."
+      },
+      "actions": {
+        "skip": "Overslaan",
+        "edit": "Bewerken",
+        "create": "Opslaan",
+        "cancel": "Annuleren",
+        "back": "Terug",
+        "next": "Volgende",
+        "submit": "Opslaan"
+      },
+      "activities": "Activiteit",
+      "restrictionsTitle": "Beperkingen",
+      "noneMeansAll": "Laat dit veld leeg om geen beperkingen op te leggen.",
+      "update": {
+        "success": "Leskaart: de actie is succesvol uitgevoerd",
+        "error": "Leskaart: uitvoering mislukt"
+      },
+      "delete": {
+        "actions": {
+          "cancel": "Annuleren",
+          "submit": "Verwijderen"
+        },
+        "title": "Leskaart verwijderen:",
+        "askConfirmation": "Waarschuwing! Deze actie is definitief. Deze kaart zal hierna niet meer zichtbaar of te koop zijn.",
+        "thereAreConsumers": "Belangrijk! Het is mogelijk dat leden deze leskaart al hebben gekocht. Leden zullen hun credits nog kunnen gebruiken, maar als je deze leskaart direct onbruikbaar wilt maken raden we aan om het aantal credits op 0 te zetten. Leden zullen deze leskaart niet meer kunnen zien en kopen.",
+        "isUsedInCombo": "Waarschuwing! Door deze leskaart te verwijderen wordt het ook onbruikbaar bij de relevante pakketten."
+      },
+      "theoricalMarginValue": {
+        "helperText": "Dit wordt gebruikt om de payroll van de instructeur(s) te berekenen. Voorbeeld: {{currency}}10 betekent dat bij 1 reservering, de instructeur {{currency}}10 ontvangt. Indien dit veld leeg of {{currency}}0 is, dan wordt de payroll op basis van PRIJS / AANTAL RESERVERINGEN berekend.",
+        "label": "Theoretische marginale waarde per reservering (alleen voor onbeperkte leskaarten)"
+      },
+      "establishments": "Vestiging",
+      "from": "Van ",
+      "tax": {
+        "label": "Btw"
+      },
+      "credits": {
+        "label": "credit(s)",
+        "helperText": "Dit is het aantal inbegrepen credits. Laat dit veld leeg om het onbeperkt te maken.",
+        "bewareChange": "Waarschuwing! Alle kaarten worden gewijzigd indien het aantal credits bewerkt wordt."
+      },
+      "until": "Tot ",
+      "startOnFirstUse": "De geldigheidsduur begint op de dag van de 1e reservering",
+      "startOnFirstUseHelper": "Anders begint het op de factuurdatum",
+      "sports": "Categorie",
+      "notEditable": "Deze kaart is overgenomen van een eerder voltooide gegevensoverdracht. Het is mogelijk dat sommige velden niet bewerkt kunnen worden om de data niet te beschadigen. Compatibele activiteiten/categorieën kunnen nog wel worden gewijzigd.",
+      "maxPurchasePerMember": {
+        "helperText": "Laat dit veld leeg om geen limiet in te stellen.",
+        "label": "Maximale aankoop per lid"
+      },
+      "maxBookingPerDay": {
+        "helperText": "Laat dit veld leeg om geen limiet in te stellen.",
+        "label": "Maximaal gebruik per dag"
+      },
+      "full_vod_access": "Geschikt voor Video On Demand",
+      "maxBookingPerMonth": {
+        "helperText": "Laat dit veld leeg om geen limiet in te stellen.",
+        "label": "Maximaal gebruik per maand"
+      },
+      "penalty": {
+        "account": {
+          "helperText": "Leden krijgen een boete t.w.v. {{value}} op hun interne rekening (Wallet).",
+          "label": "Boetebedrag:"
+        },
+        "block": {
+          "helperText": "De leskaart wordt {{nb_days}} dagen geblokkeerd",
+          "label": "Duur van de blokkering van de kaart (in dagen):"
+        },
+        "kind": {
+          "account": "Een boetebedrag instellen",
+          "block": "Tijdelijk deze kaart blokkeren",
+          "label": "Kies het type sanctie dat je wilt toepassen:"
+        },
+        "nb_days": "Aantal dagen:",
+        "nb_cancellations": "Aantal te late annuleringen:",
+        "explain": "Een boete zal worden toegepast als er {{nb_cancellations}} annuleringen zijn buiten de tijd binnen een {{nb_days}} periode",
+        "checkbox": "Een sanctie bij te veel te late annuleringen instellen",
+        "title": "Sancties",
+        "deleteNoShowDialog": {
+          "text": "Geen onbeperkte kaarten meer met no-show boetes. We hebben de \"oproep\"-functie gedeactiveerd, zodat u de oproep niet langer voor elke cursus hoeft te valideren.",
+          "title": "Sancties verwijderd"
+        },
+        "noShowDialog": {
+          "alert": "U kunt de no show-voorwaarden instellen in de aanpassingsinstellingen.",
+          "text": "Je hebt zojuist no-show sancties aangemaakt.  We hebben zojuist de \"beroepsmogelijkheid\" geactiveerd, u moet nu voor elke cursus een beroep doen om de sancties te activeren.",
+          "title": "Sancties op no-shows"
+        },
+        "bothPenaltiesInfo": "Een boete zal worden toegepast als er {{penalityNumberNoShow}} annuleringen zijn buiten de tijd of no-shows binnen een periode van {{penalityNumberDay}} dag",
+        "bothPenaltiesInfo_plural": "Een boete zal worden toegepast als er {{penalityNumberNoShow}} annuleringen zijn buiten de tijd of no-shows binnen een periode van {{penalityNumberDay}} dagen",
+        "bothPenaltiesNumber": "Aantal annuleringen en no-shows",
+        "noShowPenaltyInfo": "Er wordt een boete toegepast als er {{penalityNumberNoShow}} afwezigheid (no show) is gedurende een periode van {{penalityNumberDay}} dag",
+        "noShowPenaltyInfo_plural": "Er wordt een boete toegepast als er {{penalityNumberNoShow}} afwezigheid (no show) is gedurende een periode van {{penalityNumberDay}} dagen",
+        "noShowPenaltyNumber": "Aantal afwezigheden (no show)",
+        "noShowPenaltyAlert": "Om te bepalen wanneer een lid als afwezig (no show) wordt beschouwd, ga naar Instellingen>Aanpassing",
+        "penaltyParamsText": "Pas dezelfde telling toe voor late annuleringen en no-shows",
+        "penaltyParams": "Sanctieparameters",
+        "bothPenaltiesTitle": "Boetes voor te late annuleringen en no-shows",
+        "noShowPenaltyTitle": "No-show sancties",
+        "cancellationsPenaltyTitle": "Sancties voor te late annuleringen",
+        "errorNoPenaltyRule": "U kunt uw wijzigingen niet opslaan, u moet een sanctie kiezen of sancties uitschakelen om door te gaan.",
+        "noShowCheckbox": "Te veel no-shows",
+        "cancellationsCheckbox": "Te veel annuleringen buiten de tijd",
+        "titleCheckbox": "Pas een sanctie toe voor",
+        "helperText": "Leg een boete op aan leden die te vaak niet komen opdagen of te laat annuleren. ",
+        "label": "Een sanctie toepassen"
+      },
+      "only_vod_access": "Alleen geschikt voor Video On Demand",
+      "category": {
+        "helperText": "Naam van de categorie",
+        "label": "(Optioneel) Categorie"
+      },
+      "error": {
+        "start_date_method_type": "Geef het begin van de geldigheid van de kaart aan."
+      },
+      "advancedOptions": {
+        "tag": {
+          "doNotSelectToAllowAllMembers": "Laat dit veld leeg om het beschikbaar te maken voor alle leden.",
+          "notAllowedFor": "Afgekeurd voor",
+          "notAllowed": "Afgekeurd",
+          "allowedFor": "Goedgekeurd voor",
+          "allowed": "Beschikbaar",
+          "helperText": "Gebruik tags om deze pas beschikbaar of niet beschikbaar te maken voor aankoop door bepaalde segmenten van je klantenbestand.",
+          "header": "Tags",
+          "tagsOnAcquisition": "Tag ná aankoop",
+          "selectTags": "Selecteer tags",
+          "tagsOnAcquisitionHelper": "Tag leden die deze pas hebben gekocht om ze in de toekomst snel te kunnen herkennen."
+        },
+        "header": "Geavanceerd",
+        "appliesForPayroll": {
+          "label": "Lessen die met deze pas worden gekocht, worden opgenomen in de payroll van de docent.",
+          "helperText": "Lessen worden standaard gefactureerd aan de studio en opgenomen in de payroll van de docent. Deactiveer deze instelling om ervoor te zorgen dat lessen die aan deze leskaart zijn gekoppeld niet langer in de payroll van docenten verschijnen.",
+          "header": "instructeur payroll"
+        }
+      },
+      "universalPass": {
+        "warningIsUniversalPass": "Gekoppelde afspraakkaarten worden automatisch aangemaakt voor universele kaarten. Alle velden die hier ingesteld zijn kunnen ook op de gekoppelde afspraakkaarten worden gewijzigd m.u.v. de categorieën. Hetzelfde geldt voor de meldingen, geldigheidsverlengingen en creditwijzigingen.",
+        "deativatedTags": "Deactiveren voor universele kaarten",
+        "helperText": "Universele kaarten kunnen door leden worden gebruikt om zowel groepsactiviteiten als afspraken te boeken. Elke keer dat een universele kaart wordt gekocht, voegen we automatisch een ‘tweeling’-afsprakenkaart toe om de credits tussen de twee kaartsoorten te verdelen.",
+        "marketplaceLabel": "Een universele kaart kan voor groepsactiviteiten én afspraken worden gebruikt.",
+        "label": "Universele kaart"
+      },
+      "highlightedAsRecommended": {
+        "label": "Als aanrader markeren",
+        "helperText": "Breng deze leskaart onder de aandacht van je leden door deze te promoten in het gedeelte ‘aanbevolen’ van het boekingsproces."
+      },
+      "notification": "Meldingen",
+      "detailsAndRestrictions": "Details en voorwaarden",
+      "noNotificationsWarning": "Je hebt nog geen meldingen ingesteld. Ga naar <strong>Marketing > Meldingen</strong> om nieuwe meldingen te maken"
+    }
+  },
+  "details": {
+    "pleaseSelectAPack": "Selecteer een kaart voor een gedetailleerd overzicht.",
+    "shareAPass": "Een leskaart delen",
+    "invoiceTitle": "Gekoppelde factuur",
+    "bookingsTitle": "Gekoppelde reserveringen",
+    "extensionsTitle": "Geldigheid verlengen",
+    "refundTitle": "Bijbehorende terugbetaling",
+    "trackModifiedCreditTitle": "Geschiedenis",
+    "penaltyAccount": "Extra facturatie t.w.v. {{currencyDisplay }}{{account_value}}",
+    "penaltyBlock": "Deze kaart is voor {{nb_days}} dag(en) geblokkeerd.",
+    "penaltyTitle": "Toegepaste sancties"
+  },
+  "paymentPackDisabled": {
+    "error": "Kan niet verwijderen",
+    "success": "Leskaart verwijderd"
+  },
+  "disableConsumer": "Blokkeer",
+  "enableConsumer": "Deblokkeren",
+  "maxNBookingsByWeek1": "Tot ",
+  "maxNBookingsByWeek2": " reservering(en) per week",
+  "validity": "Geldig van ",
+  "consumer": {
+    "isFromShare": "Gedeeld met een ander account",
+    "isFromDisabledShare": "Delen is uitgezet",
+    "expiresOn": "Verloopt op: ",
+    "bookingsThisWeek": "reservering(en) deze week",
+    "isOwnerOfShares": "Gedeelde kaart"
+  },
+  "validForDuration": {
+    "days": "{{ count }} dag",
+    "days_plural": "{{ count }} dagen",
+    "months": "{{ count }} maand(en)",
+    "years": "{{ count }} jaar",
+    "years_plural": "{{ count }} jaar",
+    "general": "Geldig voor {{duration_days}} dag(en), {{duration_months}} maand(en) en {{duration_years}} jaar.",
+    "and": " en ",
+    "attendance": "Geldig vanaf de 1e aanwezigheid",
+    "booking": "Geldig vanaf de 1e reservering",
+    "purchase": "Geldig vanaf de factuurdatum",
+    "daysMonths": "Geldig voor {{ duration_months }} maand(en) en {{ duration_days }} dag(en)",
+    "valid": "Geldigheid: ",
+    "validFor": "voor "
+  },
+  "validForNdays2": " dagen na aankoop",
+  "validFrom": "Geldig vanaf ",
+  "validTo": " tot ",
+  "bookingsLeftThisWeek": "Maximaal aantal reserveringen per week",
+  "addButton": "Een leskaart toevoegen",
+  "noPaymentPackSubscribed": "Geen abonnement",
+  "validUntil": "Geldig tot",
+  "expirationDate": "Vervalt op",
+  "never": "Nooit",
+  "unlimitedCredits": "Onbeperkt",
+  "credits": "Credit(s)",
+  "credits_plural": "Credits",
+  "specifications": {
+    "unlimitedCredits": "Onbeperkt",
+    "price": "{{price, price}}",
+    "nbCredits": "{{ credits}} credit(s)",
+    "nbCredits_plural": "{{credits}} credits"
+  },
+  "availableOnFollowingSports": "Categorieën: ",
+  "availableOnFollowingEstablishments": "Vestigingen: ",
+  "anySport": "Alle categorieën",
+  "availableOnFollowingActivities": "Activiteiten: ",
+  "notificationToolTip": "Geactiveerde meldingen",
+  "disabled": "Uitgeschakeld",
+  "anyActivity": "Alle activiteiten",
+  "noRestrictionOnActivityType": "Alle categorieën, activiteiten en vestigingen zijn compatibel met deze leskaart.",
+  "credit": {
+    "updated": "Wijzigingen opgeslagen"
+  },
+  "noConsumerPack": "Er zijn nog geen aankopen geregistreerd.",
+  "reverted": "Geannuleerde factuur",
+  "link": {
+    "copied": "Link gekopieerd",
+    "copyLink": "De directe link naar de betaalpagina kopiëren"
+  },
+  "newMemberOnly": "Maak dit product alleen voor nieuwe leden beschikbaar",
+  "publicPacksTitle": "Beschikbare leskaarten",
+  "privatePacksTitle": "Onbeschikbare leskaarten",
+  "subscribeToOffer": "Inschrijven",
+  "use": "Gebruik",
+  "isNonCompatible": "incompatibel",
+  "boughtConsumerPaymentPacks": "Abonnees",
+  "validForNdays1": "Geldig voor ",
+  "ht": "Excl. btw",
+  "scaleCredit": {
+    "actions": {
+      "submit": "Opslaan",
+      "cancel": "Annuleren"
+    },
+    "parameterLegend": "Instellingen",
+    "factor": {
+      "label": "Factor"
+    },
+    "scaleUp": "Vermenigvuldigen",
+    "scaleDown": "Delen",
+    "explain": "Je kunt de credit op je leskaart vermenigvuldigen (bijv. 3/7 x 2 wordt 6/14) of delen in het geval van een fout (bijv. 3/7 ÷ 2 wordt 1/3) en naar een beneden afgerond.",
+    "title": "[Formulier] Credits wijzigen"
+  },
+  "notificationForm": "[Formulier] Melding",
+  "noPaymentPack": "Met leskaarten kunnen leden zich inschrijven voor workshops en groepsactiviteiten. Leden moeten een (geldig en compatibel) leskaart bezitten voordat zij zich ergens voor kunnen inschrijven.",
+  "disabledPacks": {
+    "hide": "Verberg gearchiveerde leskaarten",
+    "show": "Toon gearchiveerde leskaarten"
+  },
+  "disabledPacksTitle": "Gearchiveerde leskaarten",
+  "filters": {
+    "hasCreditNull": "Zonder credits",
+    "hasCreditLeft": "Met credits",
+    "isActive": "Actief",
+    "isExpired": "Verlopen",
+    "invoice": "Facturen",
+    "reverted": "Geannuleerde facturen",
+    "notReverted": "Geldige facturen",
+    "credits": "Credits",
+    "expiration": "Geldigheid",
+    "all": "Alle kaarten",
+    "isValidToday": "Geldig",
+    "companyGroupPlaceholder": "Selecteer categorieën",
+    "companyGroup": "Categorie",
+    "company": "Inkoopstudio"
+  },
+  "multipleBookingTooltip": "Meerdere reserveringen",
+  "maxNBookingsByMonth2": " reservering(en) per maand",
+  "blockedCpp": "Deze leskaart is van {{-blocked_from}} tot en met {{-blocked_until}} geblokkeerd",
+  "penalty": {
+    "block": "Bij {{nb_cancellations}} te late annuleringen binnen {{nb_days}} dagen, wordt deze leskaart voor {{days_blocked}} dag(en) geblokkeerd.",
+    "account": "Bij {{nb_cancellations}} te late annuleringen binnen {{nb_days}} dag(en), wordt een sanctie t.w.v. {{account_value}} gefactureerd.",
+    "title": "Annuleringsbeleid"
+  },
+  "only_vod_access": "Alleen geschikt voor Video On Demand",
+  "massExtension": {
+    "title": "Geldigheid verlengen",
+    "minDate": "Niet eerder dan",
+    "dateHelpText": "Verleng alle kaarten die tussen X en Y verlopen",
+    "helpText": "Deze bewerking kan niet worden teruggedraaid",
+    "listItemNbDays": "+{{ count }} dag",
+    "listItemNbDays_plural": "+{{ count }} dagen",
+    "createdAt": "Toegevoegd op: {{date}}",
+    "listItemDate": "Verloopt tussen {{ minDate }} en {{ maxDate }}",
+    "cancel": "Annuleer",
+    "submit": "Bevestigen",
+    "maxDate": "Niet later dan",
+    "listItem": {
+      "seeLess": "Zie minder",
+      "seeMore": "Zie meer"
+    },
+    "error": {
+      "note": "Het maximum aantal tekens voor dit veld is 500",
+      "nbDays": "Voer een positief getal in",
+      "maxEndingDate": "Voer een geldige maximumdatum in",
+      "minEndingDate": "Voer een geldige minimumdatum in"
+    },
+    "titleDialog": "Verleng de geldigheid voor alle leden"
+  },
+  "section": {
+    "massExtension": "Geldigheidsuitbreiding"
+  },
+  "category": {
+    "deleteModal": {
+      "confirm": "Bevestigen",
+      "cancel": "Annuleer",
+      "title": "Verwijderen",
+      "content": "Weet je zeker dat je deze categorie wilt verwijderen? Categorieën verschijnen op de MarketPlace en op de mobiele app voor kaarten die te koop zijn."
+    },
+    "popover": {
+      "delete": "Verwijderen",
+      "edit": "Hernoemen"
+    },
+    "form": {
+      "dialog": {
+        "titleEdit": "Categorie",
+        "titleNew": "Nieuwe categorie",
+        "name": "Naam van de categorie",
+        "helper": "Categorieën zijn een handige manier om uw passen te ordenen. Deze namen worden aan uw leden getoond op de Ledenruimte en in de mobiele app. ",
+        "update": "Hernoemen",
+        "create": "Toevoegen",
+        "cancel": "Annuleren"
+      }
+    },
+    "add": "Een categorie toevoegen",
+    "category": "Leskaart-categorieën"
+  },
+  "noCategory": {
+    "help": "Deze kaarten verschijnen in de naamloze categorie op je MarketPlace.",
+    "name": "Naamloze categorie",
+    "empty": "Er zijn geen kaarten aan deze categorie gekoppeld om weer te geven."
+  },
+  "paymentPackTemplateInstance": {
+    "deleteForm": {
+      "content": "Leden die een pas hebben gekocht bij deze studio kunnen deze leskaart nog steeds gebruiken bij andere compatibele studio's, zelfs nadat deze specifieke studio is gedeactiveerd. Andere gedeelde passen kunnen niet meer gebruikt worden in de gedeactiveerde studio.",
+      "actions": {
+        "submit": "Delen deactiveren",
+        "close": "Sluiten"
+      },
+      "title": "Stop met delen met een studio"
+    },
+    "actions": {
+      "addCompany": "Een studio toevoegen",
+      "buy": "Aanschaffen"
+    },
+    "companyEmpty": "Er zijn geen studio's aan deze kaart gekoppeld.",
+    "form": {
+      "actions": {
+        "submit": "Opslaan",
+        "close": "Sluiten"
+      },
+      "explain2": "Leden die deze pas of een daaraan gekoppeld abonnement hebben aangeschaft, kunnen deze gebruiken in elk van de nieuwe compatibele studio's.",
+      "explain1": "De volgende studio's bieden deze pas automatisch aan, maar kunnen de prijs of het tegoednummer niet wijzigen.",
+      "title": "Beschikbaarheid"
+    },
+    "consumerPaymentPackSharedFromOtherFranchisee": "Gedeeld met een andere studio",
+    "paymentPackSharedFromFranchisor": "Kaart van het Master-Account",
+    "isFromShareTooltip": "Deze pas wordt gedeeld door een andere franchisestudio"
+  },
+  "selector": {
+    "noAvailable": "Er is geen kaart die overeenkomt met de gekozen beschikbaarheid.",
+    "noManagerOnly": "Zichtbaar op Marketplace",
+    "managerOnly": "Onzichtbaar voor leden",
+    "filterManagerOnly": "Zichtbaar voor iedereen",
+    "filterCategory": "Alle categorieën",
+    "titleSort": "Sorteren",
+    "titleManagerOnly": "Zichtbaarheid",
+    "titleCategory": "Categorieën",
+    "sorting": {
+      "descendingCredit": "Credits (aflopend)",
+      "ascendingCredit": "Credits (oplopend)",
+      "descendingPrice": "Prijs: aflopend",
+      "ascendingPrice": "Prijs: oplopend",
+      "customSort": "Aanvullende bestellingen (MarketPlace en Mobiele App)"
+    },
+    "unusableByStaff": "Verborgen voor het personeel"
+  },
+  "paymentPackTemplate": {
+    "actions": {
+      "create": "Een gedeelde leskaart toevoegen",
+      "createUniversalPass": "Een gedeelde universele pas toevoegen"
+    },
+    "deleteForm": {
+      "actions": {
+        "submit": "Archiveren",
+        "close": "Sluiten"
+      },
+      "content": "Leden kunnen de pas nog steeds gebruiken in de studio waar ze hem gekocht hebben. Abonnementen die aan deze pas zijn gekoppeld, blijven geldig in dezelfde studio.",
+      "title": "Gedeelde pas archiveren"
+    },
+    "form": {
+      "actions": {
+        "submit": "Opslaan",
+        "close": "Sluiten"
+      },
+      "submit": "Bevestigen",
+      "close": "Sluiten",
+      "title": "[Formulier] Gedeelde leskaart",
+      "editConfirmation": {
+        "confirm": "Toch opslaan",
+        "cancel": "Annuleer",
+        "content": "Je wijzigingen worden ook toegepast op abonnementen die aan deze gedeelde pas zijn gekoppeld. Weet je zeker dat je wilt doorgaan en je wijzigingen wilt opslaan?",
+        "title": "Bevestiging bewerken"
+      },
+      "universalPassTooltip": "Universele passen kunnen worden gebruikt voor groepsactiviteiten en afspraken. Voor elke universele pas worden dubbele afsprakenpassen aangemaakt om het aantal credits te koppelen. Zodra een van deze passen is aangeschaft, wordt de andere automatisch toegevoegd zonder extra kosten.",
+      "universalPassTitle": "Gedeelde universele pas",
+      "notEditable": "Deze pas is afkomstig van een eerder voltooide gegevensmigratie. Sommige velden kunnen mogelijk niet worden bewerkt om de gegevens te bewaren."
+    },
+    "section": {
+      "titleManagerOnly": "Niet beschikbaar voor verkoop",
+      "titleAvailable": "Beschikbare leskaarten",
+      "titleArchived": "Gearchiveerde leskaarten"
+    },
+    "isEmptyExplain": "Leden kunnen deze kaarten bij alle gekoppelde studio aanschaffen en gebruiken.",
+    "specification": {
+      "companySharedWithTitle": "Beschikbare vestigingen:"
+    },
+    "widget": {
+      "choose": "Filter op leskaarten"
+    },
+    "pass": "Leskaarten",
+    "restoreForm": {
+      "title": "Gedeelde leskaart herstellen",
+      "content": "De gedeelde universele leskaart wordt hersteld en opnieuw gedeeld tussen de eerder geselecteerde studio's.",
+      "actions": {
+        "close": "Sluiten",
+        "submit": "Herstellen"
+      }
+    }
+  },
+  "unlimitedAndCalculatedMargin": " De theoretische marginale waarde wordt berekend op basis van PRIJS / AANTAL RESERVERINGEN ",
+  "unlimitedAndMargin": " De theoretische marginale waarde per reservering is: ",
+  "noUnauthorizedTag": "Er zijn geen afgekeurde tags om weer te geven.",
+  "noAuthorizedTag": "Er zijn geen goedgekeurde tags om weer te geven.",
+  "blackList": "Afgekeurde tags",
+  "whiteList": "Goedgekeurde tags",
+  "accessibility": {
+    "onsitePayment": "Fysieke betalingen worden geaccepteerd",
+    "managerOnly": "Onbeschikbaar voor leden",
+    "newMembers": "Maak dit product alleen voor nieuwe leden beschikbaar"
+  },
+  "activities": "Activiteiten",
+  "categories": "Categorieën",
+  "establishments": "Vestigingen",
+  "tags": {
+    "blackList": "{{ count }} afgekeurde tag",
+    "blackList_plural": "{{ count }} afgekeurde tags",
+    "whiteList": "{{ count }} goedgekeurde tag",
+    "whiteList_plural": "{{ count }} goedgekeurde tags"
+  },
+  "full_vod": "Geschikt voor Video On Demand",
+  "seeAll": "Toon alles",
+  "compatibility": {
+    "and": " en ",
+    "establishments": "{{ count }} vestiging",
+    "establishments_plural": "{{ count }} vestigingen",
+    "activities": "{{ count }} activiteit",
+    "activities_plural": "{{ count }} activiteiten",
+    "categories": "{{ count }} categorie",
+    "categories_plural": "{{ count }} categorieën",
+    "compatible": "Compatibel met: ",
+    "all": "Deze kaart is compatibel met alle categorieën, activiteiten en vestigingen."
+  },
+  "cardDetails": {
+    "packBlocking2": " te late annuleringen binnen een week",
+    "packBlocking1": " dag(en) geblokkeerd bij ",
+    "maxPurchasePerMember": "Maximaal aantal aankopen: ",
+    "maxBookingPerDay": "Maximaal gebruik per dag: ",
+    "maxBookingPerWeek": "Maximaal gebruik per week: ",
+    "maxBookingPerMonth": "Maximaal gebruik per maand: ",
+    "universalPass": "Deze universele kaart is compatibel met groepsactiviteiten én afspraken."
+  },
+  "detailTitles": {
+    "vod": "Video On Demand",
+    "restrictions": "Beperkingen",
+    "tags": "Tags",
+    "accessibility": "Toegankelijkheid",
+    "compatibility": "Compatibiliteit",
+    "validity": "Geldigheid",
+    "credit_quantity": "Credits",
+    "universalPass": "Universele kaart",
+    "compatibilityPaymentPack": "Groepsactiviteiten",
+    "offPeak": "Tijdsloten"
+  },
+  "validityTo": " tot ",
+  "addPaymentPack": {
+    "notForSell": "Onzichtbaar voor klanten",
+    "limited": "Beperkt",
+    "sumNotZero": "Het aantal dagen kan niet 0 zijn",
+    "only_vod_access": "Maak deze kaart alleen geschikt voor Video On Demand",
+    "vodAccessCard": "Activeer toegang tot Video On Demand",
+    "vod": "Video On Demand",
+    "compatibility": "Deze leskaart is alleen geldig voor de geselecteerde lessen, activiteiten, categorieën of instellingen.",
+    "letBlank": "Laat leeg om deze leskaart niet te beperken",
+    "activities": "Activiteiten",
+    "room": "Vestigingen",
+    "categories": "Categorieën",
+    "inShopPayment": "Accepteer fysieke betalingen",
+    "newClientOnly": "Alleen zichtbaar voor nieuwe leden",
+    "maxUseMember": "Maximale aankoop per lid",
+    "maxUseMonth": "Maximaal gebruik per maand",
+    "maxUseWeek": "Maximaal gebruik per week",
+    "maxUseHelper": "Laat leeg om geen gebruikslimiet in te stellen",
+    "maxUseDay": "Maximaal gebruik per dag",
+    "restriction": "Voorwaarden",
+    "penalityAccountHelper": "{{penalityBlockAccount}}{{ currencyDisplay }} wordt ten laste gebracht van het rekeningsaldo van dit lid.",
+    "penalityBlockDayHelper": "Leden hun kaarten worden {{penalityBlockDay}} dag(en) geblokkeerd.",
+    "penalityAccountPrice": "Boetebedrag",
+    "penalityBlockDay": "Blokkeerperiode (in dagen)",
+    "penalityType": "Type sanctie",
+    "penalityAccount": "De interne rekening (Wallet) van het lid in rekening brengen",
+    "penalityBlock": "Tijdelijk de kaart blokkeren",
+    "penalityInfo": "Er zal een boete worden toegepast als {{penalityNumberCancel}} wordt geannuleerd buiten de {{penalityNumberDay}} dagperiode.",
+    "penalityNumberDay": "Aantal dagen",
+    "penalityNumberCancel": "Aantal annuleringen",
+    "marginalContributionHelperText": "Wordt gebruikt om de vergoeding voor docenten te berekenen. {{ currencyDisplay }}10betekent dat een reservering die met deze kaart is gemaakt, wordt vergoed tegen {{ currencyDisplay }}10. Indien leeg of {{ currencyDisplay }}0} is de bijdrage van een kaart PRIJS / NB_RESERVATIE.",
+    "marginalContribution": "Theoretische marginale waarde excl. btw",
+    "expirationDateHelper": "Als de leskaart tijdens deze periode niet is gebruikt, verloopt deze automatisch.",
+    "expirationDate": "Aantal dagen voordat de pas verloopt indien niet gebruikt *",
+    "beginningDate": "Startdatum",
+    "attendance": "Geldig vanaf de 1e aanwezigheid",
+    "firstBooking": "Geldig vanaf de 1e reservering",
+    "billing": "Geldig vanaf de factuurdatum",
+    "validForDuration": {
+      "day": "Deze kaart heeft een geldigheid van {{ duration_day }} dag(en).",
+      "month": "Deze kaart heeft een geldigheid van {{ duration_day }} dag(en) en {{ duration_month }} maand(en).",
+      "year": "Deze kaart heeft een geldigheid van {{ duration_day }} dag(en), {{ duration_month }} maand(en) en {{ duration_year }} jaar.",
+      "monthNoDay": "Deze kaart heeft een geldigheid van {{ duration_month }} maand(en).",
+      "yearNoDayNoMonth": "Deze kaart heeft een geldigheid van {{ duration_year }} jaar.",
+      "yearDayNoMonth": "Deze kaart heeft een geldigheid van {{ duration_day }} dag(en) en {{ duration_year }} jaar.",
+      "yearNoDay": "Deze kaart heeft een geldigheid van {{ duration_month }} maand(en) en {{ duration_year }} jaar."
+    },
+    "yearValidityHelper": "Dit wordt aan het aantal dagen en maanden toegevoegd.",
+    "monthValidityHelper": "Dit wordt aan het aantal dagen toegevoegd.",
+    "yearValidity": "Geldigheidsduur (in jaren)",
+    "monthValidity": "Maanden",
+    "dayValidity": "Dagen",
+    "endBeforeStart": "De einddatum moet groter zijn dan de begindatum",
+    "toDate": "Tot",
+    "fromDate": "Van",
+    "availabilitySlot": "Maak de kaart alleen tussen bepaalde data geldig",
+    "availabilityGivenNumber": "Maak de kaart een bepaald aantal dagen na aankoop geldig",
+    "penalityRule": "Sancties kunnen alleen voor onbeperkte kaarten worden ingesteld.",
+    "penality": "Een sanctie bij te veel te late annuleringen toepassen",
+    "packValidity": "Geldigheid",
+    "numberOfAvailableCredits": "Aantal beschikbare credits",
+    "credit": "Credits",
+    "unlimited": "Onbeperkt",
+    "numberOfCredit": "Credits",
+    "namePaymentPack": "Naam van de leskaart.",
+    "name": "Naam",
+    "generalInfo": "Algemeen",
+    "paymentPack": "Leskaart",
+    "minusZero": "Dit veld kan niet 0 zijn",
+    "requiredField": "Dit veld is verplicht",
+    "creditWarning": "Attentie! Alle kaarten worden bijgewerkt als het aantal credits wordt gewijzigd.",
+    "migration": "Deze kaart is overgenomen van een eerder voltooide gegevensoverdracht. Het is mogelijk dat sommige velden niet bewerkt kunnen worden om de data niet te beschadigen. Compatibele activiteiten/categorieën kunnen nog wel worden gewijzigd.",
+    "franchise": "Deze kaart is gemaakt door het Master-Account. Bepaalde instellingen zijn op groepsniveau ingesteld en kunnen niet worden gewijzigd.",
+    "allowGuest": "Compatibel met gastreserveringen",
+    "penalityModeFranchisor": {
+      "buyer": {
+        "explain": "Het saldo van de ledenaccount wordt alleen belast met {{ price }} bij de franchisenemer waar de pas is gekocht.",
+        "label": "Op de franchisenemer die de pas heeft gefactureerd"
+      },
+      "prorata": {
+        "explain": "Het saldo van de ledenaccount zal worden belast met {{ price }} in verhouding tot de te late annuleringen die in elke franchisenemer zijn geregistreerd. Een totaalbedrag van {{ price }} zal door de franchise in rekening worden gebracht.",
+        "label": "In verhouding tot de late opzeggingen in elke franchisenemer"
+      },
+      "label": "Het saldo van de ledenaccount wordt in rekening gebracht",
+      "prorataNoShow": {
+        "explain": "De aanbetaling van {{ price }} wordt pro rata toegepast op de geregistreerde no-shows bij elk van uw franchisenemers. Een totaal van {{ price }} wordt ten laste gebracht van uw franchise.",
+        "label": "Pro rata, per franchisenemer, van afwezigheden (no shows)"
+      }
+    },
+    "unusableByStaff": "Onzichtbaar voor het personeel",
+    "expiration_date": {
+      "label": "Duur van de verkoop",
+      "helperText": "Beschikbaar tot",
+      "tooltip": "Na de gekozen datum is de pas niet meer te koop."
+    },
+    "description": "Beschrijving",
+    "offPeak": {
+      "addGroupTimeSlot": "Een nieuwe groep tijdsloten toevoegen",
+      "choice": {
+        "timeSlot": "Tijdsloten",
+        "allDay": "Gehele dag"
+      },
+      "addTimeSlot": "Een tijdslot toevoegen",
+      "label": "Beperk boekingen tot bepaalde tijden"
+    },
+    "atLeastOneDay": "Selecteer ten minste één dag",
+    "startAfterEnd": "De starttijd moet vóór de eindtijd zijn",
+    "decimalCredit": {
+      "helperText": "Deze pas bevat {{count}} krediet",
+      "helperText_plural": "Deze pas bevat {{count}} kredieten"
+    },
+    "enableAccessControl": "Toegang tot de studio verlenen",
+    "accessControlBetaAlert": "Tijdens deze bètaversie zijn toegangsbeperkingen zoals tags, gebruikslimieten, locaties, activiteiten, categorieën en tijdvakken niet van toepassing op deuropening. “Beperk gebruik tot Video on Demand” moet worden uitgeschakeld om deuropening te laten werken.",
+    "accessControlInfo": "Leden met deze pas kunnen de deuren van de studio ontgrendelen. Om te bepalen wanneer de deuren niet toegankelijk zijn, kun je tijdregels instellen op het Kisi-platform.",
+    "doorAccess": "Toegang tot de deur",
+    "activationWindow": "Activeringsvenster instellen",
+    "accessControl": {
+      "firstBookingDisclaimer": "De lesekarte is geldig vanaf de eerste reservering of de eerste check-in, afhankelijk van wat het eerst plaatsvindt. Als het personeel een lid handmatig incheckt vóór de datum van de eerste reservering, is de lesekarte geldig vanaf de datum van de eerste check-in.",
+      "firstBooking": "1e boeking of check-in"
+    }
+  },
+  "unlimitedPlural": "Onbeperkt",
+  "universalPass": {
+    "restore": {
+      "dialog": {
+        "continue": "Verder",
+        "text": "De gekoppelde kaarten van de universele kaart worden ook gedearchiveerd.",
+        "title": "Dearchiveren"
+      }
+    },
+    "delete": {
+      "dialog": {
+        "warningText": "Waarschuwing! De gekoppelde kaarten worden óók verwijderd.",
+        "title": "Verwijderen"
+      }
+    },
+    "add": {
+      "credit": "Aantal credits",
+      "helperText": "Aantal credits is ingesteld op gelinieerd",
+      "availabilityGivenNumber": "Geldig voor een bepaald aantal dagen na aankoop"
+    }
+  },
+  "previous": "Terug",
+  "next": "Volgende",
+  "maxoutInfo": {
+    "month": "Deze kaart kan {{count}} keer per maand gebruikt worden",
+    "month_plural": "Deze kaart kan {{count}} keer per maand gebruikt worden",
+    "week": "Deze kaart kan {{count}} keer per week gebruikt worden",
+    "week_plural": "Deze kaart kan {{count}} keer per week gebruikt worden",
+    "day": "Deze kaart kan {{count}} keer per jaar gebruikt worden",
+    "day_plural": "Deze kaart kan {{count}} keer per jaar gebruikt worden"
+  },
+  "incompatibilities": {
+    "2008": "Incompatibele activiteit",
+    "2009": "Incompatibele categorie",
+    "2010": "Incompatibele vestiging",
+    "2018": "Onvoldoende credits",
+    "2019": "De leskaart is geblokkeerd",
+    "2020": "De data zijn niet compatibel",
+    "2021": "De leskaart start bij de eerste boeking, op ",
+    "2022": "De leskaart begint bij de eerste aanwezigheid, op ",
+    "2023": "De leskaart is verlopen",
+    "2027": "Dit tijdslot is incompatibel",
+    "paymentPack": "Deze leskaart is incompatibel met de volgende activiteit(en):",
+    "undefined": "Deze tijdsloten zijn incompatibel"
+  },
+  "listItem": {
+    "unusableByStaff": "Onzichtbaar voor het personeel"
+  },
+  "noShowPenalty": {
+    "account": "Een waarborg van {{amount}} zal worden toegepast voor {{treshold}} afwezigheden over een periode van {{time_window_days}} dagen.",
+    "block": "De sanctie bedraagt een blokkering van {{days_blocked}} dag(en) bij het overschrijven dan {{treshold}} of meer No-Shows binnen {{time_window_days}} dag(en)."
+  },
+  "orderingAlert": {
+    "button": "Personalisering",
+    "text": "Het wijzigen van de volgorde van de \"Categorieën\" is alleen te zien om het tabblad \"Leskaarten\" op de marketplace en op de mobiele app. Deze update zal geen enkel ander onderdeel wijzigen."
+  },
+  "universalPaymentPackTemplate": {
+    "restoreForm": {
+      "title": "Herstel gedeelde universele leskaart",
+      "content": "De gedeelde universele leskaart wordt hersteld en opnieuw gedeeld tussen de eerder geselecteerde studio's.",
+      "actions": {
+        "close": "Sluiten",
+        "submit": "Herstellen"
+      }
+    },
+    "deleteForm": {
+      "title": "Archiveer gedeelde universele leskaart",
+      "content": "Leden kunnen de universele leskaart nog steeds gebruiken in de studio waar ze hem gekocht hebben. Abonnementen die aan deze universele pas leskaart gekoppeld, blijven geldig in dezelfde studio.",
+      "actions": {
+        "close": "Sluiten",
+        "submit": "Archiveren"
+      }
+    }
+  },
+  "manualActivation": {
+    "setActiveStartDate": "Door deze lesekarte te activeren, wordt de activeringsdatum ingesteld op vandaag. Deze actie kan niet ongedaan worden gemaakt.",
+    "replaceActiveStartDateAlert": "De lesekarte is vanaf vandaag geldig. Als een van de toekomstige reserveringen van het lid na de bijgewerkte geldigheidsperiode valt, blijven hun reserveringen actief, maar moet het personeel helpen bij het binnenkomen.",
+    "replaceActiveStartDate": "Door deze lesekarte te activeren, wordt de activeringsdatum ingesteld op vandaag, ter vervanging van de vorige eerste boekingsdatum. Deze actie kan niet ongedaan worden gemaakt.",
+    "title": "Deze lesekarte handmatig activeren?",
+    "submit": "Leeskaart activeren",
+    "close": "Sluiten"
+  },
+  "activateManually": "Activeren"
+}

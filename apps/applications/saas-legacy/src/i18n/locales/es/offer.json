@@ -1,0 +1,404 @@
+{
+  "disabled": "Cancelada",
+  "booking": {
+    "confirmed": "Confirmada",
+    "fillRate": "Tasa de ocupación",
+    "waiting": "Lista de espera",
+    "comesFromMigration": "Esta sesión procede de una migración"
+  },
+  "extraordinaryEstablishment": "lugar temporal",
+  "substitute": "Sustituto",
+  "calendar": {
+    "modifyOffer": "Modificar",
+    "deleteOffer": "Cancelar",
+    "filter": "Filtrar",
+    "today": "Hoy",
+    "alertSpivi": {
+      "textBooking": "Una o varias reservas no cumplen las condiciones de Spivi.",
+      "textOffer": "La sesión no cumplía los requisitos de Spivi, por lo que no pudo sincronizarse.",
+      "title": "Problema de conexión con Spivi"
+    }
+  },
+  "manageOffer": "Gestionar las reservas",
+  "forms": {
+    "delete": {
+      "buttonHardDelete": "Suprimir"
+    },
+    "new_date": "Nuevo horario:",
+    "old_date": "Antiguo horario:"
+  },
+  "offerManagement": {
+    "bookingOrder": {
+      "firstname": "Ordenar por nombre",
+      "lastname": "Ordenar por apellido",
+      "date": "Ordenar por fecha"
+    },
+    "unevenQuickInvoices": "Facturas sin ningún método de pago están abiertas en esta página. ¿Seguro que quieres salir?"
+  },
+  "card": {
+    "copied": "Enlace copiado",
+    "copyLink": "Copiar el enlace a la página de reserva"
+  },
+  "credit_price": " Crédito",
+  "video": {
+    "activateVideo": "Conectar",
+    "loadingSoon": "Cargando...",
+    "isAutoRefresh": "Serás redirigido automáticamente a la videoconferencia 15 minutos antes del inicio del curso",
+    "hasEnded": "Esta sesión ha terminado",
+    "startingSoon": "Su sesión comenzará en {{minutesLeft}} minutos",
+    "redirectLink": "Si no es redirigido automáticamente, usa este enlace:",
+    "cantOpenLink": "El enlace de la conferencia parece incorrecto, comunica con su club {{contact_email}}",
+    "livestream": "Transmisión en directo",
+    "description": "Inicie su sesión en línea"
+  },
+  "massDisabler": {
+    "actions": {
+      "submit": "Confirmar",
+      "cancel": "Cancelar",
+      "continue": "Continuar"
+    },
+    "explainLoading": "Por favor espera",
+    "explainWarning": "ATENCIÓN esta operación es irreversible.",
+    "explain": "Selecciona el intervalo de fechas durante el cual deseas cancelar tus sesiones. Los miembros que hayan reservado recibirán una notificación por email y sus créditos se reembolsarán automáticamente en el bono correspondiente",
+    "title": "Cancelación grupal",
+    "secondWarningConfirm": "Estás seguro de que quieres continuar?",
+    "secondWarning": "Al hacer clic en \"CONFIRMAR\", las sesiones incluidas en el intervalo seleccionado se cancelarán y no podrá volver atrás.",
+    "warning": "ATENCIÓN esta operación es irreversible",
+    "info": "Seleccione las fechas entre las que desea cancelar todas las sesiones. Se incluyen las fechas seleccionadas.",
+    "endDateLabel": "Fecha de finalización (inclusive)",
+    "startDateLabel": "Fecha de inicio (inclusive)",
+    "sure": "¿Está seguro de que quiere validar esta acción?",
+    "confirmInfo": "Está a punto de cancelar todas las sesiones entre {{start_date}} y {{end_date}} (inclusive). Es decir, {{number_of_deleted_offer}} sesión cancelada.",
+    "confirmInfo_plural": "Está a punto de cancelar todas las sesiones entre {{start_date}} y {{end_date}} (inclusive). Es decir, {{number_of_deleted_offer}} sesiones canceladas.",
+    "confirm": "Confirmar",
+    "successInfo": "Se ha tenido en cuenta la eliminación de todas las sesiones entre {{start_date}} y {{end_date}}.",
+    "iConfirm": "CONFIRMO",
+    "confirmationExplain": "Por favor, escriba \"CONFIRMO\" abajo en letras mayúsculas.",
+    "success": "Anulación confirmada",
+    "warningOfferGroup": "Tenga en cuenta que las siguientes sesiones no han podido ser canceladas por formar parte de un grupo de sesiones. Para anularlos, anula el grupo correspondiente.",
+    "warningOfferGroupTitle": "Sesiones no canceladas",
+    "offers": "Sesiones no cancelables",
+    "activityOnly": "Dado que no tiene permiso para cancelar sesiones de taller, esta acción sólo cancelará sesiones de actividades de grupo.",
+    "workshopOnly": "Dado que no tiene permiso para cancelar sesiones de actividades de grupo, esta acción sólo cancelará las sesiones de taller."
+  },
+  "bookingList": "Reservas",
+  "bookingListEmpty": "Ninguna reserva",
+  "liveOfferEdit": {
+    "unselectAll": "Deseleccionar todo",
+    "selectAll": "Seleccionar todo",
+    "select": "Selecciona las sesiones que se modificarán",
+    "editSimilarOffers": "¿Deseas modificar las sesiones similares de acuerdo con estas nuevas condiciones?",
+    "noSimilarOffer": "No se han encontrado sesiones similares. Sólo esta sesión se verá afectada.",
+    "selectCancel": "Seleccione las sesiones que serán canceladas",
+    "cancelSimilarOffers": "Le gustaría cancelar sesiones similares?",
+    "selectDelete": "Seleccione las sesiones que serán eliminadas",
+    "deleteSimilarOffers": "Desea eliminar sesiones similares?",
+    "selectEdit": "Seleccione las sesiones que serán modificadas",
+    "cancelSimilarOffersGroup": "¿Cancelar la sesión en las otras recurrencias del grupo?",
+    "deleteSimilarOffersGroups": "Desea eliminar las futuras recurrencias del grupo",
+    "editSimilarOffersGroup": "¿Cambiar la sesión en futuras recurrencias del grupo?",
+    "editSubteacher": {
+      "propagateToSimilarOffers": {
+        "mode": {
+          "all": "Extender los cambios relativos al profesor sustituto entre estas sesiones.",
+          "offersWithSameCoachOverrideOnly": "Mantener al sustituto actual en estas sesiones"
+        },
+        "warning": "Las siguientes sesiones similares ya tienen otro profesor sustituto. ¿Qué le gustaría hacer?",
+        "checkboxInfo": "Marcando esta casilla, los cambios aplicados al profesor sustituto de esta sesión se aplicarán a todas las sesiones similares. En caso contrario, sólo se aplicarán a esta sesión.",
+        "checkboxLabel": "Aplicar los cambios en el profesor sustituto a las sesiones seleccionadas"
+      },
+      "title": "Cambio de profesor sustituto"
+    }
+  },
+  "menu": {
+    "download": "Resumen",
+    "massDisable": "Cancelación grupal",
+    "hideCancelled": "Ocultar cancelaciones",
+    "showCancelled": "Ver las cancelaciones",
+    "showWeek": "Visión semana",
+    "showMonth": "Visión mes"
+  },
+  "close": "Cerrar",
+  "deleteImpossibleText": "No puede borrar esta sesión porque tiene reservas abiertas.",
+  "deleteImpossibleTitle": "No se puede eliminar la sesión",
+  "restoreOffer": "Restablecer la sesión",
+  "maximumNumberDescription": "Ya se ha alcanzado el número máximo de {{effectif}} reservas y al inscribir a este miembro se superará el número original de reservas. ¿Está seguro de que quiere registrar a este miembro?",
+  "maximumNumber": "Número máximo de reservas",
+  "warningOfferFull": "Ya se ha alcanzado el número máximo de reservas",
+  "tagManagementInfo": "{{authorized}} tag(s) autorizado(s), {{unauthorized}} tag(s) no autorizado(s)",
+  "levels": {
+    "edit": "Modificar",
+    "delete": "Suprimir",
+    "customs": "Personalizados",
+    "select": {
+      "placeholder": "Nivel",
+      "title": "Nivel",
+      "add": "Añadir un nivel"
+    },
+    "deleteModal": {
+      "content2": "Las sesiones que ya tienen este nivel lo mantendrán pero no se podrá añadir a futuras sesiones.",
+      "content": "¿Estás seguro de que quieres eliminar este nivel?",
+      "title": "Supresión"
+    },
+    "modal": {
+      "submit": "Guardar",
+      "cancel": "Cancelar",
+      "color": "Código color",
+      "nameCaption": "{{max}} caracteres máximos ({{count}}/{max}})",
+      "name": "Nombre",
+      "title": "Cambiar el nivel"
+    }
+  },
+  "recurrenceIndex": "Grupo n°{{ index }} de la recurrencia",
+  "pendingReplacementRequest": "Está abierta una solicitud de sustitución",
+  "rollCall": {
+    "drawer": {
+      "listMembers": "Lista de los miembros inscritos",
+      "info": "La validación de la asistencia activa la cuenta atrás para las sanciones por no presentarse.",
+      "rollCall": "Asistencia"
+    },
+    "chip": {
+      "notValidatedRollCall": "Asistencia no validada",
+      "validatedRollCall": "Asistencia validada en {{- date }} {{ time }}"
+    },
+    "dialog": {
+      "savedRollCall": "La asistencia se ha guardado.",
+      "savedRollCall_plural": "Las asistencias se han guardado.",
+      "validatedRollCall": "Asistencia validada",
+      "validatedRollCall_plural": "Asistencias validadas",
+      "validationRollCall": "Validar la asistencia",
+      "confirmationRollCall": "Tenga en cuenta que los miembros marcados como ausentes y titulares de un pase ilimitado sujeto a penalización serán sancionados. ¿Está seguro de que desea confirmar la convocatoria?",
+      "confirmationRollCall_plural": "Está a punto de validar la convocatoria para todas las sesiones del día. Tenga en cuenta que se penalizará a los miembros marcados como ausentes y titulares de un pase ilimitado sujeto a penalización. ¿Está seguro de que desea confirmar todas las convocatorias?"
+    },
+    "button": {
+      "validationRollCall": "Validar la asistencia",
+      "validationRollCall_plural": "Validar las asistencias",
+      "validationRollCallZero": "Validar el pase de lista"
+    },
+    "warningText": {
+      "lastValidatedRollCall": "Última asistencia validada el {{- date }} {{ time }}",
+      "noRollCallLeft": "Todas las asistencias fueron validadas",
+      "rollCallsLeftToValidate": "{{ number }} asistencia requiere validación",
+      "rollCallsLeftToValidate_plural": "{{ number }} asistencias requieren validación",
+      "validatedDate": "Validada el {{- date }} a las {{ time }}",
+      "modifiedRollCall": "La asistencia ha sido modificada, debe validarla de nuevo",
+      "notValidatedRollCall": "La asistencia no fue validada"
+    },
+    "warningIcon": {
+      "stateChanged": "El estado ha sido modificado pero no validado",
+      "stateChangedTitle": "Estado sin validar"
+    },
+    "filter": {
+      "notValidated": "Solicitud no validada",
+      "validated": "Solicitud validada",
+      "placeholder": "Estado del pase de lista"
+    }
+  },
+  "form": {
+    "warnings": {
+      "editOfferInitialCredits": "Las reservas antiguas no tienen en cuenta los cambios en los créditos",
+      "effectif": "Tenga cuidado, no está introduciendo un precio. ¿Está seguro del valor?"
+    },
+    "errors": {
+      "field": {
+        "dateIntervalEnd": "La fecha final no puede ser anterior a la fecha de inicio",
+        "durationMinute": "La duración de una sesión debe ser superior a 0 minutos",
+        "broadcastLink": "El enlace es incorrecto. Debe empezar por http:// o https:// y no contener espacios.",
+        "partnerMaxBookingCount": "El número de plazas aquí es mayor que el número de plazas en la sesión",
+        "effectif": "El valor es superior al número máximo de plazas",
+        "roomBlueprintSpivi": "Debe seleccionarse un plano de la sala para las sesiones sincronizadas con Spivi",
+        "durationMinuteSpivi": "Una sesión en Spivi debe durar entre 20 minutos y 4 horas",
+        "wellhubProductMissing": "Este campo es obligatorio, debe seleccionar un producto."
+      },
+      "dateTooFar": "Imposible crear sesiones que tengan lugar en más de 3 años",
+      "dateFormat": "Formato de fecha inválido",
+      "minTwo": "El valor debe ser mayor o igual a 2",
+      "minZero": "El valor debe ser mayor o igual a 0",
+      "positiveNumber": "El valor debe ser superior a 0",
+      "required": "Campo incompleto"
+    },
+    "dialog": {
+      "createLevel": "Crear un nivel",
+      "recurrencePreview": "Vista previa"
+    },
+    "section": {
+      "coachOverride": {
+        "info": "Si marca esta casilla, los cambios aplicados al profesor sustituto en esta sesión se aplicarán a todas las sesiones similares. En caso contrario, sólo se aplicarán a esta sesión.",
+        "field": {
+          "isCoachOverridePropagate": "Aplicar los cambios del profesor sustituto a las sesiones seleccionadas"
+        },
+        "title": "Cambio de profesor sustituto"
+      },
+      "similarOffers": {
+        "info": "Los cambios en las sesiones pueden hacerlas incompatibles con algunos pases. Después del cambio por favor tómese el tiempo para comprobar que seguirán siendo compatibles con cualquier cambio de establecimiento / profesor.",
+        "unselectAll": "Deseleccionar todas",
+        "selectAll": "Seleccionar todas",
+        "title": "Seleccione las sesiones que se modificarán"
+      },
+      "tags": {
+        "placeholder": "Dejar en blanco para permitir todos los miembros",
+        "field": {
+          "blacklistTags": "No autorizado",
+          "whitelistTags": "Autorizado"
+        },
+        "helperText": "Utilice etiquetas para que la sesión sólo pueda ser reservada por el grupo de usuarios que desee. Puede seleccionar etiquetas para que sólo puedan reservar la sesión los usuarios que tengan una de las etiquetas seleccionadas. También puede seleccionar etiquetas para que la sesión sólo puedan reservarla los miembros que tengan una de las etiquetas seleccionadas.",
+        "title": "Etiquetas"
+      },
+      "settings": {
+        "field": {
+          "isModifyRecursively": "¿Desea modificar sesiones similares en función de estas nuevas condiciones?",
+          "isNotifyConsumers": "¿Quiere informar a sus clientes de este cambio?",
+          "partnership": {
+            "partnerMaxBookingCount": "Número máximo de reservas de Wellhub y Urban Sports Club combinadas (el resto de mercados no se ven afectados por esta configuración)",
+            "availableOnPartnership": "En los marketplaces (ClassPass, OneFit...)",
+            "title": "Integraciones de Marketplace",
+            "uscIntegrationWorkshopWarning": "Los talleres no son compatibles con el marketplace Urban Sports Club, por lo que no se incluirá esta sesión.",
+            "uscIntegrationWarning": "Tu integración en el marketplace Urban Sports Club está activa, cualquier sesión que dure 2 días o más no aparecerá.",
+            "wellhubProduct": {
+              "selectionMissing": "Este campo es obligatorio, debe seleccionar un producto.",
+              "helperText": "Estos productos son ofrecidos por su estudio en la plataforma Wellhub. Vaya a la sección «Asociación» en el Portal de Socios de su cuenta Wellhub para obtener más información.",
+              "title": "Tus productos disponibles en Wellhub:"
+            },
+            "subtitle": "Incluye: ClassPass, Urban Sports Club, Gymlib y Wellhub para reservas externas.",
+            "enablePartneshipBookings": "Permitir reservas de marketplace"
+          },
+          "allowGuestOffer": "Permitir reservar para invitados",
+          "isManagerOnly": "Disponible para reservas (web + app)",
+          "syncOfferOnSpivi": "Enviar a Spivi"
+        },
+        "title": "Parámetros"
+      },
+      "coach": {
+        "field": {
+          "coachPaymentRule": {
+            "placeholder": "Selecciona una regla",
+            "title": "Regla de remuneración"
+          },
+          "coachOverride": {
+            "placeholder": "Selecciona un sustituto",
+            "title": "Sustituto"
+          },
+          "coach": {
+            "placeholder": "Selecciona un profesor",
+            "title": "Profesor"
+          }
+        },
+        "title": "Profesor",
+        "additionalCoaches": {
+          "field": {
+            "placeHolder": "Seleccione profesores adicionales"
+          },
+          "title": "Profesor(es) adicional(es)"
+        }
+      },
+      "dateTime": {
+        "field": {
+          "recurrence": {
+            "previewCount": "{{count}} sesión será creada",
+            "previewCount_plural": "{{count}} sesiones serán creadas",
+            "preview": "Vista previa",
+            "option": {
+              "weekly": "Semanal",
+              "monthly": "Mensual",
+              "daily": "A diario"
+            },
+            "placeholder": "Seleccione una recurrencia",
+            "title": "Recurrencia"
+          },
+          "dateIntervalEnd": "Fecha final",
+          "dateIntervalStart": "Fecha de la clase",
+          "durationMinute": "Duración",
+          "dateIntervalStartTime": "Hora de inicio",
+          "wellhubDurationWarning": "Las sesiones que superen los 200 minutos se ajustarán automáticamente a una duración máxima de 200 minutos cuando se envíen a Wellhub. Asegúrese de que la duración de su sesión se ajusta a este límite para evitar discrepancias."
+        },
+        "title": "Fecha y hora"
+      },
+      "credits": {
+        "field": {
+          "creditCount": "Número de créditos"
+        },
+        "title": "Créditos"
+      },
+      "specificities": {
+        "tooltip": {
+          "roomBlueprint": "Permite a sus alumnos reservar el sitio que deseen en la sala",
+          "credits": "Número de créditos de bono necesarios para la reserva",
+          "broadcastLink": "El enlace se generará automáticamente para ZOOM por bsport"
+        },
+        "field": {
+          "roomBlueprint": {
+            "placeholder": "Seleccione un plano",
+            "title": "Plano del establecimiento"
+          },
+          "broadcastLink": "Enlace a la retransmisión en directo",
+          "establishment": "Establecimiento",
+          "credits": "Créditos",
+          "level": "Nivel",
+          "waitingListMaxSize": "Lista de espera",
+          "effectif": "Plazas disponibles",
+          "hybridManagementHelper": "Puede gestionar las reservas asociadas a esta sesión hermanada, tanto en la sala como en línea, haciendo clic en el icono siguiente para abrir una nueva pestaña de gestión.",
+          "hybridEditHelper": "Está editando una sesión en línea vinculada a una sesión presencial. Para modificar algunos datos, debe editar la sesión presencial.",
+          "hybridHelper": "Al elegir esta opción se creará una sesión online con una afiliación por defecto de {{ onlineOfferDefaultEffectif }}. Podrá editar la información de la oferta en línea una vez creada (Enlace de difusión, afiliación, precio, etc.).",
+          "hybridLabel": "Esta sesión es presencial y en línea.",
+          "hybridSection": "Sesión híbrida",
+          "metaActivity": "Actividad",
+          "decimalCredit": {
+            "helperText": "Esta sesión costará {{count}} créditos.",
+            "helperText_plural": "Estas sesiones costarán {{count}} créditos."
+          }
+        },
+        "title": "Características"
+      },
+      "nameDescriptionOverride": {
+        "description": {
+          "captionText": "Añadir una descripción personalizada a esta sesión",
+          "label": "Descripción"
+        },
+        "name": {
+          "captionText": "Añadir un nombre personalizado a esta sesión",
+          "label": "Nombre"
+        },
+        "showButton": "Mostrar nombre personalizado",
+        "hideButton": "Ocultar nombre personalizado",
+        "setButton": "Establecer nombre personalizado"
+      }
+    },
+    "groupedOffer": {
+      "warning": "Cuidado, esta sesión forma parte del grupo de sesiones {{- name }}"
+    },
+    "stepper": {
+      "step": {
+        "SETTINGS": "Parámetros de modificación",
+        "INFOS": "Sesión"
+      }
+    },
+    "forbidden": "No tiene permiso para añadir sesiones a esta actividad. Póngase en contacto con su gestor para obtener los derechos necesarios.",
+    "uscWarning": {
+      "alertContent": "Los cambios en esta sesión cancelarán las reservas actuales en USC. Confirme para continuar.",
+      "content": "Perderá todos los datos de reserva actuales si cambia la fecha, la hora o el establecimiento de esta sesión. Al cambiar estos datos se creará una nueva sesión y se cancelará la actual en USC.",
+      "title": "Atención: Esto cancelará las reservas actuales en USC."
+    }
+  },
+  "isFree": "Gratis",
+  "onSite": "En el estudio",
+  "broadcast": "Videoconferencia",
+  "allCoaches": "{{count}} profesores",
+  "additionalCoaches": "{{count}} profesor adicional",
+  "additionalCoaches_plural": "{{count}} profesores adicionales",
+  "subTeacherRequestFilter": {
+    "false": "Ninguna solicitud secundaria",
+    "true": "Solicitud secundaria pendiente",
+    "placeholder": "Solicitud secundaria"
+  },
+  "notePad": {
+    "title": "Notas",
+    "placeholder": "Deje una nota sobre esta sesión…",
+    "loading": "Cargando…",
+    "modal": {
+      "title": "Cambios no guardados",
+      "description": "Tienes notas sin guardar en esta página. ¿Quieres guardarlas antes de salir?"
+    }
+  },
+  "numberOfCredits": "{{count}} crédito",
+  "numberOfCredits_plural": "{{count}} créditos"
+}

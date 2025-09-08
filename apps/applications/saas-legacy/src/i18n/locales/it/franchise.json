@@ -1,0 +1,125 @@
+{
+  "companies": {
+    "pageTitle": "Franchising",
+    "navigateToCompany": "Accesso all'account del franchisee",
+    "membersEmptyState": "Nessun membro in questa azienda",
+    "establishmentEmptyState": "Nessuno stabilimento da mostrare per questo studio.",
+    "establishment": "Stabilimenti",
+    "members": "Membri",
+    "emptySelect": "Seleziona un franchising per vedere i dettagli.",
+    "searchPlaceholder": "Ricerca di un franchisee",
+    "manageOnStudio": "Gestisci in {{studio_name}}"
+  },
+  "member": {
+    "pageTitle": "Membro",
+    "seeMembership": "vedere il file del membro",
+    "isVaccinated": "Pass sanitario valido",
+    "franchises": "Franchising",
+    "seeMemberInCompany": "Mostra"
+  },
+  "pagination": {
+    "outOf": "{{from}} - {{to}} su {{count}}",
+    "rowPerPage": "Elemento per pagina",
+    "nextPage": "Pagina successiva",
+    "previousPage": "Pagina precedente"
+  },
+  "membersList": {
+    "pageTitle": "membri",
+    "see": "vedere",
+    "actions": "Azioni",
+    "franchised": "Franchisee",
+    "name": "Nome"
+  },
+  "emails": {
+    "chooseGroup": "Scegliere un gruppo",
+    "copy": "copia",
+    "groupByPlaceholder": "Gruppo per",
+    "franchised": "Franchisee",
+    "groupBy": "Gruppo per",
+    "pageTitle": "Modelo",
+    "companiesEmails": "Modelli di franchising",
+    "create": "Creare un modello",
+    "franchiseEmails": "I miei modelli",
+    "emptyStateDescription": "Seleziona un modello",
+    "emptyStateTitle": "Anteprima della posta",
+    "searchPlaceholder": "Cerca un modello"
+  },
+  "login": {
+    "disconnect": "Log-out",
+    "previous": "Indietro",
+    "connect": "Collegami",
+    "signUp": "Iscriviti"
+  },
+  "companyGroup": {
+    "explain": "Le categorie sono utilizzate per raggruppare le tue licenze sotto un nome comune (ad esempio Studios Paris) e saranno visualizzate nell'applicazione mobile",
+    "actions": {
+      "add": "Aggiungere una categoria",
+      "submit": "Convalidare",
+      "cancel": "Cancella"
+    },
+    "name": {
+      "label": "Nome"
+    }
+  },
+  "genericProduct": {
+    "templateCard": {
+      "shareTemplate": {
+        "closeDialog": "Chiudere",
+        "seeAll": "Mostra tutto",
+        "addCompany": "Aggiungi uno studio",
+        "emptyCompanyList": "Nessuno studio è configurato per accettare questa carta",
+        "categoryName": "Condividi con gli studi"
+      },
+      "buttons": {
+        "delete": "Elimina",
+        "update": "Modifica"
+      }
+    },
+    "dialogs": {
+      "deleteTemplateInstance": {
+        "buttonValidate": "Disabilita la condivisione",
+        "title": "Interrompi condivisione"
+      },
+      "selectCompanies": {
+        "allCompaniesShared": "Hai già condiviso questa carta con tutti gli studi in franchising a cui hai accesso.",
+        "content2": "I membri che ricevono questa carta potranno utilizzarla in tutti gli studi compatibili.",
+        "content1": "Gli studi successivi avranno automaticamente questa carta disponibile per la vendita, ma non potranno modificare il numero di crediti.",
+        "title": "Configura i miei studi"
+      },
+      "deleteTemplate": {
+        "title": "Disattivazione"
+      }
+    },
+    "list": {
+      "visibility": "Invisibile per i clienti",
+      "shortMenu": {
+        "restore": "Ripristina",
+        "edit": "Modifica",
+        "delete": "Elimina",
+        "goTo": "Dettaglio"
+      },
+      "fuzzySearch": "Cerca un pacchetto",
+      "titleInactive": "Non disponibile alla vendita",
+      "titleActive": "Disponibile alla vendita"
+    }
+  },
+  "staff": {
+    "roleTabTitle": "Ruoli",
+    "explainStaff": "Con l'accesso dello staff all'account principale, si può selezionare a quali franchisee lo staff avrà accesso e quali azioni potrà eseguire. L'accesso dello staff non consente di collegarsi all'applicazione mobile.",
+    "staffAccountTabTitle": "Account del personale"
+  },
+  "search": {
+    "usersTableTitle": "Utenti",
+    "pageTitle": "Cerca"
+  },
+  "userProfile": {
+    "numberBrands": "{{ number }} categorie",
+    "numberStudios": "{{ number }} studi di acquisto",
+    "goToMemberProfile": "Gestisci su {{ purchasing_studio }}",
+    "tagModalPlaceholcer": "Seleziona tag",
+    "tagModalHelperText": "Tag",
+    "tagModalText": "Le azioni intraprese sui tag saranno applicate al membro in ogni franchisee",
+    "manageTags": "Gestisci tag",
+    "tagsListTitle": "Tag condivisi"
+  }
+}

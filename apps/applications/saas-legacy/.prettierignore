@@ -8,7 +8,7 @@ src/public
 public
 flow
 src/i18n/locales
-src/i18n/source/translations.json
+src/i18n/source
 
 # Ignore files
 **/*.mdx

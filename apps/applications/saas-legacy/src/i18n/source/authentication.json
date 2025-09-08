@@ -1,0 +1,17 @@
+{
+  "resetPassword": {
+    "title": "Reset password",
+    "noEmail": "This email doesn't exist in our member database.",
+    "explain1": "Which email do you use to log in?",
+    "explain2": "We'll send you the password reset instructions shortly.",
+    "emailHasBeenSent": "We've sent a message to \"{{email}}\" to reset your password.",
+    "actions": {
+      "cancel": "Cancel",
+      "reset": "OK",
+      "backToLogin": "Back",
+      "confirm": "Confirm"
+    },
+    "contactUs": "Contact us via ",
+    "hasProblem": "Are you experiencing issues resetting your password?"
+  }
+}

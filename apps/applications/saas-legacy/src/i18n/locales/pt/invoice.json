@@ -1,0 +1,576 @@
+{
+  "paymentPanel": {
+    "actions": {
+      "cancel": "Cancelar",
+      "pay": "Pagar esta fatura",
+      "revert": "Cancelar",
+      "basketInconsistent": "O seu cesto foi alterado, actualize a sua página antes de validar o seu pagamento. Não foi debitado.",
+      "bill": "Cobrar o pagamento",
+      "showInvoice": "Ver a fatura",
+      "saveForLater": "Guardar este método de pagamento",
+      "billByInstalment": "Pagamento em prestações",
+      "generatePaymentLink": "Gerar uma método de pagamento",
+      "paymentLink": "Método de pagamento",
+      "payAll": "Liquidação de dívidas de membros",
+      "confirmPayment": "Confirmar o pagamento",
+      "paymentSecurityInformation": "Pode guardar o seu método de pagamento com segurança para futuras compras. Os dados são encriptados e armazenados de forma segura.",
+      "saveForLaterAsSEPA": "O pedido será registado como \"SEPA\""
+    },
+    "paymentList": {
+      "titleReverse": "Reembolso",
+      "isEmpty": "Sem pagamento",
+      "title": "Pagamentos"
+    },
+    "fields": {
+      "email": {
+        "label": "E-mail do titular da conta",
+        "placeholder": "maria@correia.pt"
+      },
+      "country": {
+        "label": "País da conta bancária",
+        "placeholder": "França"
+      },
+      "accountHolderName": {
+        "label": "Titular da conta",
+        "placeholder": "Maria Correia"
+      }
+    },
+    "amountRemaining": "Ainda por pagar: {{ amount }}",
+    "errorSecretExplain2": "",
+    "errorSecretExplain1": "Este método de pagamento não está atualmente disponível.",
+    "billingMoreThanNeeded": "Se o montante cobrado for superior ao montante da fatura, o saldo do membro será acrescido na diferença",
+    "amount": {
+      "label": "Montante a cobrar"
+    },
+    "paymentNote": {
+      "label": "Nota",
+      "helperText": "(facultativo) número do cheque, data dos recibos..."
+    },
+    "sumup": {
+      "amountBeingProcessed": "Montante processado",
+      "amountRemaining": "Pagamento pendente",
+      "title": "Resumo",
+      "amountDue": "Total devido",
+      "amountPaid": "Recibo"
+    },
+    "date": {
+      "label": "Data do recibo"
+    },
+    "plannedPaymentEvent": {
+      "title": "Pagamento programado",
+      "title_plural": "Pagamentos programados"
+    }
+  },
+  "invoicePaymentPackTagWarningDialog": {
+    "content": "Atenção, está a tentar debitar um passe a um membro que não tem os requisitos necessários para o comprar. Pretende faturar este item ? ",
+    "cancel": "Cancelar",
+    "title": "Informação",
+    "confirm": "Confirmar"
+  },
+  "invoice": {
+    "titleRevert": "Ter {{ uuid }}",
+    "titleReverted": "Factura (cancelada) {{ uuid }}",
+    "titleReceipt": "Recebido {{ uuid }}",
+    "header": {
+      "sourceInvoice": "Cancelar fatura",
+      "source": {
+        "0": "App móvel",
+        "1": "Website",
+        "2": "Backoffice",
+        "3": "Outros",
+        "label": "Canal : {{ source }}"
+      },
+      "noEstablishment": "Nenhum estabelecimento",
+      "reverseInvoice": "Reembolsado através de ",
+      "date": "Data : {{ date }}",
+      "author": "Criado por : {{ name }}",
+      "clientAuthor": "Membro",
+      "noBillingGroup": "Nenhum grupo de faturação foi associado a esta fatura"
+    },
+    "editor": {
+      "save": "Emissão da fatura",
+      "title": "Recibo",
+      "sumup": "Resumo"
+    },
+    "title": "Fatura {{ uuid }}"
+  },
+  "paymentEngine": {
+    "label": {
+      "0": "Pagamento manual",
+      "1": "Stripe"
+    }
+  },
+  "paymentMethod": {
+    "title": "Meios de pagamento",
+    "add": "Adicionar",
+    "inconsistent": "Método de pagamento não autorizado, por favor reconfigure. O membro pode ter pedido para não autorizar este método de pagamento ou pode ter fundido dois membros. Em ambos os casos, o método de pagamento já não pode ser utilizado.",
+    "isInternalExplain": "Depósito do cliente (manual): todos os meses é criada automaticamente uma dívida na conta do membro.",
+    "label": {
+      "0": "Dinheiro",
+      "1": "Passe",
+      "2": "SEPA",
+      "3": "Cheque",
+      "4": "Controle de férias",
+      "5": "AMEX",
+      "6": "Conflito",
+      "7": "Transferência",
+      "8": "Diversos",
+      "9": "Bancontact",
+      "10": "iDEAL",
+      "11": "Sofort",
+      "12": "EPS",
+      "13": "Giropay",
+      "14": "Depósito dos membros (dívida)",
+      "15": "Cartão (manual)",
+      "16": "Caixas de débito direto"
+    },
+    "isInternalExplainFuturePayments": "A data de vencimento será deduzida automaticamente do depósito do cliente. Se este valor for insuficiente, será criado um depósito negativo.",
+    "detach": {
+      "pm_deleted": "Método de pagamento eliminado",
+      "pm_associated_to_protected_bp": "Impossível : Tem uma subscrição associada a este método de pagamento",
+      "pm_associated_to_registered_ppe": "Impossível : Tem uma subscrição associada a este método de pagamento",
+      "pm_associated_to_pi": "Impossível : Tem uma subscrição associada a este método de pagamento",
+      "last_payment_method": "Impossível eliminar o seu único meio de pagamento"
+    },
+    "copyLink": "Copiar a ligação para adicionar um método de pagamento",
+    "none": "Nenhum meio de pagamento salvo",
+    "addPaymentMethod": "Adicionar um método de pagamento",
+    "select": {
+      "label": "Meios de pagamento"
+    },
+    "edit": "Editar",
+    "manual": "Manual"
+  },
+  "plannedPaymentEvent": {
+    "actions": {
+      "edit": "Editar",
+      "disable": "Configuração",
+      "enable": "Reprogramar",
+      "changeMethod": "Alterar o método de pagamento",
+      "solveInvalidPaymentAttempt": "Regularizar",
+      "registerNow": "Descontar"
+    },
+    "dialog": {
+      "invalidMandate": {
+        "cancel": "Cancelar",
+        "confirm": "Seguinte",
+        "title": "O período de débito direto expirou ou é inválido!",
+        "explainSituation": "O período associado a este método de pagamento expirou. As razões podem ser múltiplas, nomeadamente um número excessivo de pagamentos falhados, uma decisão unilateral do banco, etc. Já não pode utilizar este método de pagamento, pelo que terá de registar um novo método."
+      }
+    },
+    "nextRetryDate": "O pagamento será adiado até {{ d }}",
+    "lockedToday": "O pagamento vence hoje, já não é possível alterar",
+    "registerNowInitialData": "Pagamento inicialmente devido em {{-date}}",
+    "unrecoverableError": "Erro de pagamento."
+  },
+  "invoiceInfoDialog": {
+    "actions": {
+      "show": "Ver a fatura",
+      "close": "Fechar"
+    },
+    "explain": "Um ou mais pagamentos não são efectuados corretamente, o depósito do aderente reflecte o incumprimento do pagamento"
+  },
+  "mandate": {
+    "contentIban": "Ao fornecer o seu IBAN e confirmar o seu pagamento, autoriza a bsport e o Stripe, o nosso sistema de pagamento, a enviar instruções de débito ao seu banco, de acordo com o calendário de pagamentos. Pode pedir um reembolso ao seu banco nos termos do seu contrato com ele. O reembolso deve ser solicitado no prazo de 8 semanas após o primeiro débito.",
+    "contentBacsDebit": "Ao fornecer os seus dados bancários e confirmar o seu pagamento, o utilizador autoriza o bsport e o Stripe a enviar instruções de débito ao seu banco, de acordo com o calendário de pagamento. Pode solicitar um reembolso ao seu banco nos termos do seu contrato com o mesmo. Pode também solicitar ao seu banco que cancele o pagamento de débito direto em qualquer altura.",
+    "name": "Nome e apelido do titular",
+    "email": "Endereço eletrónico do titular",
+    "address_postal_code": "Código de Postal",
+    "address_line_1": "Morada",
+    "country": "País",
+    "state": "Estado",
+    "city": "Cidade",
+    "phone": "Número de telefone",
+    "address_line_2": "Linha de endereço 2"
+  },
+  "invoiceInfo": {
+    "2": "Este recibo de pagamento representa o ajuste do saldo do seu membro.",
+    "3": "Esta fatura é o resultado de uma migração. Por motivos legais, não podemos fornecer um PDF ou anulá-lo."
+  },
+  "invoiceType": {
+    "credit_payment": "Recebido (saldo ajustado)",
+    "return": "Devolver fatura",
+    "reversed": "Factura (cancelada)",
+    "regular": "Factura",
+    "migration": "Migração"
+  },
+  "creditAccountBalance": {
+    "current": "Saldo atual"
+  },
+  "uneditableMessage": {
+    "invoiceFinalizedThusNotEditable": "A fatura foi finalizada, pelo que já não pode ser alterada",
+    "invoiceFromSubscriptionThusNotEditable": "Esta fatura faz parte de uma subscrição e não pode ser editada. Por favor, modifique a subscrição diretamente.",
+    "invoiceRevertedThusNotEditable": "A fatura foi anulada e já não pode ser modificada"
+  },
+  "balance": {
+    "updaterDialog": {
+      "title": "Ajustamento do saldo",
+      "actions": {
+        "cancel": "Cancelar",
+        "submit": "Seguinte"
+      },
+      "topup": "Adicionar",
+      "debt": "Deduzir",
+      "explainTopup": "Um aumento de {{ amount }} {{ currencyDisplay }} será registado no saldo do membro.",
+      "explainDecaissement": "Será registado um pagamento de {{ amount }} {{ currencyDisplay }}.",
+      "withoutPaymentNote": {
+        "warning": "Atenção: não guardamos qualquer registo desta operação. Utilizar apenas para ajustes excecionais.",
+        "label": "Não gerar recibo"
+      },
+      "balanceValueLabel": "Montante",
+      "typeLabel": "Tipo de ajuste"
+    }
+  },
+  "paymentGroup": {
+    "validateRequiresAction": "Confirmar o método de pagamento",
+    "requiresAction": "O banco não aprovou o pagamento (3DSecure)"
+  },
+  "invoiceFuturePaymentsDialog": {
+    "applyForAllFuturePayments": "Aplicar prestações futuras da presente fatura"
+  },
+  "configuration": {
+    "stripeTerminal": {
+      "paymentDialog": {
+        "connectionSuccess": {
+          "cancel": {
+            "cancelExplain2": "Será redireccionado para a escolha efectuada: pagamento no terminal.",
+            "cancelExplain1": "Tem a certeza de que pretende cancelar a operação ?",
+            "title": "Cancelamento",
+            "error": "Ocorreu um erro."
+          },
+          "processing": "O seu pedido está a ser processado",
+          "intent": "A ligação para o terminal foi efectuada. O cliente pode apresentar o seu cartão.",
+          "payment": "A ligação para o terminal foi efectuada. O montante a pagar deve agora ser apresentado."
+        },
+        "minAmountInfo": "O pagamento no terminal não está disponível para compras inferiores a {{amountString}}.",
+        "connectAndPay": "Enviar para o terminal",
+        "amountToPay": "Montante a pagar",
+        "radio": "Pagamento no terminal",
+        "disconnect": {
+          "content": "A ligação perdeu-se. Por favor, tente novamente",
+          "title": "Desconectar"
+        },
+        "paymentFailed": {
+          "explain": {
+            "label": "Motivo do insucesso:"
+          },
+          "content": {
+            "setupIntent": "O método de pagamento não foi guardado.",
+            "paymentIntent": "O pagamento não foi processado."
+          },
+          "title": {
+            "setupIntent": "Falha na operação",
+            "paymentIntent": "Falha no pagamento"
+          },
+          "interac": {
+            "content": "Os cartões Interac não podem ser utilizados para pagamentos recorrentes, nem podem ser guardados. Utilize outro método de pagamento.",
+            "title": "Método de pagamento incompatível"
+          }
+        },
+        "paymentSuccess": {
+          "content": {
+            "wait": "Só mais um momento, estamos a processar os seus dados",
+            "payment": "O pagamento foi processado."
+          },
+          "title": {
+            "setupOnly": "Método de pagamento registado",
+            "setupAndPlan": "Pagamento registado",
+            "payment": "Pagamento aceite"
+          }
+        },
+        "processing": {
+          "help": {
+            "content": "Se o terminal apresentar um erro, pode clicar em cancelar e tentar efetuar um novo pagamento. Poderá querer verificar a sua ligação à Internet no seu computador portátil e no terminal.",
+            "title": "Está a encontrar um problema?"
+          },
+          "inactivity": {
+            "action": "Sim, eu estou aqui",
+            "title": "Ainda estás aqui?",
+            "content": "Detectámos que esta inativo. Ainda quer prosseguir com esta operação? Sem qualquer resposta sua nos próximos 30 segundos, ela será automaticamente cancelada."
+          },
+          "title": "Transação em curso",
+          "content": "Siga as instruções no terminal Stripe",
+          "cancelError": {
+            "generic": {
+              "title": "Ocorreu um erro",
+              "content": "A operação não pode ser cancelada"
+            },
+            "readerBusy": {
+              "title": "O pagamento está sendo processado",
+              "content": "Aguarde até que o pagamento seja concluído."
+            }
+          }
+        },
+        "processingSavePaymentMethod": {
+          "title": "Operação em curso",
+          "content": "Siga as instruções do terminal Stripe",
+          "help": {
+            "title": "Está a deparar-se com um problema?",
+            "content": "Se o terminal apresentar um erro, pode clicar em cancelar e tentar guardar novamente o método de pagamento. Poderá verificar a conexão à Internet no seu computador portátil e no terminal."
+          },
+          "cancelError": {
+            "readerBusy": {
+              "title": "O método de pagamento está a ser guardado",
+              "content": "Aguarde que a operação seja concluída."
+            }
+          }
+        }
+      },
+      "deleteDialog": {
+        "content1": "Tem a certeza de que pretende remover o terminal de pagamento {{label}} ?",
+        "content3": "Se desejar, pode voltar a conectar",
+        "content2": "Deixará de aparecer nos terminais disponíveis para pagamentos.",
+        "title": "Eliminar"
+      },
+      "connectDialog": {
+        "form": {
+          "update": "Modificar",
+          "retry": "Tentar novamente",
+          "continue": "Continuar",
+          "connect": "Conectar",
+          "registrationCodeHelperText": "Indique o código apresentado no seu terminal Stripe POS",
+          "registrationCode": "Código do terminal",
+          "readerLabel": "Nome do terminal"
+        },
+        "error2": "Por favor, tente novamente.",
+        "error1": "O seu terminal de pagamento Stripe não foi conectado.",
+        "success": "O seu terminal de pagamento Stripe foi conectado com sucesso",
+        "loading2": "Por favor, seja paciente.",
+        "loading1": "Estamos a tentar estabelecer a ligação com o terminal.",
+        "mustCreateStripeLocation": "Para o primeiro registo, introduza os dados do estúdio onde o terminal será utilizado.",
+        "title": {
+          "edit": "Alteração",
+          "error": "Falha ao conectar",
+          "success": "Ligação bem sucedida",
+          "connect": "Conectar"
+        }
+      },
+      "addCard": "Adicionar com o terminal   Stripe",
+      "addReader": "Ligar a um terminal",
+      "helperText": "Utilize um terminal de pagamento para pagar as faturas dos seus membros a partir do backoffice. Devido ao uso deste método, pode poupar tempo pois não necessita de pedir os dados bancários. Contacte o seu gestor de conta para obter mais informações.",
+      "title": "Pagamento através do terminal"
+    },
+    "subscription": {
+      "forms": {
+        "disable_pass_on_fail_subscription_payment": {
+          "helperText": "Se o pagamento da subscrição não for efetuado ou for declarado contestado, os passes de aulas e de aulas privadas relativos a esta fatura serão desativados até que a fatura seja liquidada",
+          "label": "Desativar passes se o pagamento falhar."
+        },
+        "nbRetriesSubscriptionPayments": {
+          "helperText": "Entre 0 a 5 tentativas",
+          "label": "Número de tentativas após um pagamento falhado"
+        },
+        "activateSmartRetries": {
+          "helperText": "A bsport tentará automaticamente repetir os pagamentos das subscrições falhadas, na melhor altura possível.",
+          "label": "Ativar Tentativas Inteligentes com os pagamentos falhados"
+        },
+        "revert_bookings_on_fail_subscription_payment": {
+          "helperText": "Se o pagamento da subscrição não for efetuado ou se for declarado contestado, as reservas efetuadas com estes cartões serão anuladas (e o crédito será creditado novamente)",
+          "warning": "Atenção, as reservas não serão recriadas se o pagamento for efetuado com êxito !",
+          "label": "Cancelar as reservas se o pagamento não for efetuado."
+        },
+        "advance_sepa_billing": {
+          "helperText": "Na grande maioria dos casos, o cliente só recebe a informação sobre a transferência 3 dias depois.",
+          "label": "Enviar a ordem de transferência SEPA com 3 dias de antecedência para evitar atrasos que possam causar um défice de tesouraria."
+        }
+      },
+      "title": "Subscrição"
+    },
+    "nf525Button": "Descarregar",
+    "nf525Explain": "A Bsport está a seguir os procedimentos de conformidade. Pode descarregar o nosso certificado oficial aqui.",
+    "nf525": "Certificado",
+    "forms": {
+      "show_company_email_in_invoice": "Mostrar o email da sua empresa nas faturas",
+      "stripe_footer_placeholder": "Sem informações adicionais"
+    },
+    "submit_stripe_footer": "Atualizar",
+    "explainStripeFooter": "Este texto aparecerá na parte inferior das suas faturas em PDF e pode acrescentar todas as informações legais necessárias.",
+    "invoiceGeneral": "Fatura em PDF",
+    "stripe_footer": "Rodapé da fatura"
+  },
+  "revert": {
+    "autoDebitDialog": {
+      "helper": "O estúdio está atualmente em vias de encerrar a sua conta Bsport.\n\nAo clicar em confirmar, a fatura será reembolsada. O seu saldo será debitado por {{refundAmount}} {{ currencyDisplay }}. No entanto, para repor o seu saldo a 0 {{ currencyDisplay }}, a diferença será automaticamente debitada na sua conta bancária indicada em Definições > Empresa.\n\nSe não quiser exceder o seu limite, pode esperar que o saldo aumente.",
+      "title": "Saldo Stripe insuficiente"
+    },
+    "content": {
+      "explain": {
+        "0": "Os pagamentos por cartão / SEPA / etc... serão transferidos diretamente para a conta do cliente. Utilize este método para efetuar um reembolso direto na sequência de um erro.",
+        "1": "Uma nota de crédito será gerada e aumentará o saldo do cliente no mesmo valor. Utilize este método para gerar uma nota de crédito.",
+        "2": "Escolha o seu próprio método de reembolso. Utilize este método para um cheque / transferência manual / reembolso em numerário."
+      },
+      "explainEmptyPayment": "Tem a certeza de que pretende cancelar esta fatura ?",
+      "label": {
+        "0": "Reembolso direto",
+        "1": "Reembolso a crédito (saldo)",
+        "2": "Reembolso manual"
+      }
+    },
+    "warning": {
+      "interac": "Pelo menos um pagamento foi efetuado com um cartão Interac nesta fatura. Os reembolsos diretos não são suportados por estes cartões."
+    },
+    "blockedDialog": {
+      "helper": "O seu saldo Stripe é insuficiente para processar o reembolso. Tente novamente após alguns dias para que os pagamentos possam ser cobrados.",
+      "alert": "Atenção: com este reembolso, irá exceder o limite autorizado de {{ refundBlockingLimit }} {{currencyDisplay}}.",
+      "title": "Saldo Stripe insuficiente"
+    },
+    "dialog": {
+      "title": "Anular fatura",
+      "actions": {
+        "confirm": "Confirmar",
+        "cancel": "Fechar"
+      }
+    }
+  },
+  "actions": {
+    "addFooter": "Editar a nota da fatura",
+    "addCoupon": "Adicionar um cupão",
+    "consumeBalance": "Pagar através do saldo da conta",
+    "finalize": "Finalizar (PDF)",
+    "explainPdfDraft": "A fatura ainda está em desenvolvimento e o pdf não está disponível.",
+    "downloadReceipt": "Recibo do pagamento",
+    "download": "Descarregar a fatura",
+    "equilibrate": "Saldo (sinal)",
+    "addInvoiceItem": "Adicionar à fatura",
+    "save": "Guardar",
+    "backToInvoiceItemEditor": "Comprar",
+    "goToPaymentEditor": "Pagamento",
+    "goToSubscription": "Ver a subscrição",
+    "revert": "Cancelar",
+    "invoiceReverted": "Fatura anulada"
+  },
+  "applyGiftcard": {
+    "actions": {
+      "apply": "Pagamento com  cartão presente",
+      "confirm": "Confirmar",
+      "cancel": "Fechar"
+    },
+    "form": {
+      "usedGiftcard": "cartão presente utilizado",
+      "amountToPay": "Montante pago com cartão presente",
+      "errors": {
+        "errorAmount": "Montante inválido."
+      }
+    },
+    "giftcard": "Cartão presente"
+  },
+  "invoiceItem": {
+    "buyableItemIdentifier": {
+      "1": "Passe de aulas",
+      "2": "Loja",
+      "3": "Crédito",
+      "9": "Passe de Aula Privada",
+      "10": "Pack",
+      "11": "Cartões de presente"
+    },
+    "discount": "Desconto",
+    "voucher": "Desconto: {{ voucher }}",
+    "quantity": "Quantidade",
+    "credit": {
+      "label": "Crédito"
+    },
+    "finalPricePreview": "Pré-visualização total"
+  },
+  "quickbooks": {
+    "send": {
+      "errors": {
+        "931000": "Erro ao autenticar no Quickbooks",
+        "931001": "Erro ao autenticar no Quickbooks",
+        "931002": "Chaves de autenticação expiradas",
+        "931003": "Chaves de autenticação expiradas",
+        "931004": "Não configurou a aplicação QuickBooks",
+        "931100": "Erro ao atualizar as chaves de autenticação",
+        "931101": "Quickbooks não consegue enviar os dados",
+        "932000": "A sua conta já não está autenticada na Bsport",
+        "932001": "A sua conta já não está autenticada na Bsport",
+        "932100": "Não é possível aceder às informações da sua conta Quickbooks",
+        "933000": "O membro associado à fatura não possui as informações necessárias para ser registado no QuickBooks",
+        "933100": "Não foi possível criar o cliente associado ao membro da fatura",
+        "933101": "Não foi possível criar o cliente associado ao membro da fatura",
+        "933102": "Erro ao criar uma fatura no Quickbooks",
+        "933103": "A plataforma QuickBooks suporta várias moedas, por favor especifique o imposto a ser utilizado.",
+        "934000": "A fatura não tem as informações mínimas necessárias para ser criada no Quickbooks",
+        "934001": "Impossível criar uma fatura sem itens associados",
+        "934002": "Não é possível enviar uma fatura cancelada no QuickBooks",
+        "934003": "Não é possível enviar uma fatura não finalizada no QuickBooks",
+        "934004": "Não é possível enviar uma fatura não finalizada no QuickBooks",
+        "934005": "A sua fatura não pode ser enviada para o QuickBooks",
+        "934006": "Esta fatura já foi guardada no QuickBooks",
+        "title": "Erro no envio da fatura"
+      }
+    },
+    "invoice": {
+      "sendToQuickbooks": "Transferir a fatura para QuickBooks",
+      "onQuickbooks": "Transferido"
+    }
+  },
+  "status": {
+    "0": "Sucesso",
+    "1": "Falha",
+    "2": "Em espera",
+    "3": "Cancelado",
+    "4": "Em curso"
+  },
+  "table": {
+    "nested": {
+      "payment": {
+        "header": {
+          "paymentReceived": "Estado",
+          "date": "Data",
+          "price": "Montante",
+          "paymentMethod": "Método de pagamento"
+        },
+        "isEmpty": "Nenhum pagamento",
+        "title": "Pagamento"
+      },
+      "invoiceItem": {
+        "header": {
+          "voucher": "Desconto",
+          "priceExcTax": "Montante (excl. IVA)",
+          "price": "Montante (incl. IVA)",
+          "product": "Nome"
+        },
+        "isEmpty": "Nenhuma compra",
+        "title": "Compras"
+      }
+    },
+    "header": {
+      "quickbooks": "QuickBooks",
+      "pdf": "PDF",
+      "invoiceType": "Tipo",
+      "missing": "Em falta",
+      "amount": "Montante de",
+      "date": "Data da fatura",
+      "id": "Identificador",
+      "member": "Membro"
+    },
+    "actions": {
+      "goToInvoice": "Ver a fatura"
+    }
+  },
+  "section": {
+    "paymentList": {
+      "total": "Total",
+      "isEmpty": "Nenhum método de pagamento registado",
+      "title": "Métodos de pagamento"
+    },
+    "invoiceItemList": {
+      "billing_establishment": "Estabelecimento da fatura",
+      "total": "Total da compra",
+      "isEmpty": "Nenhuma compra",
+      "titleReverse": "Voltar à compra",
+      "title": "Compras",
+      "cannotCreateDiscount": "Você não tem a permissão necessária para adicionar um desconto.",
+      "billingGroup": "Grupo de faturação *"
+    }
+  },
+  "returnPayment": {
+    "modal": {
+      "confirm": "Confirmar",
+      "cancel": "Cancelar",
+      "content": "O pagamento será transferido para a conta bancária do membro e o depósito do mesmo montante será acrescentado à fatura para simbolizar o pagamento.",
+      "title": "Reembolso do cliente"
+    }
+  },
+  "anonymousMember": "Membro anónimo"
+}

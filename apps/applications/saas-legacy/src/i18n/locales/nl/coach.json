@@ -1,0 +1,101 @@
+{
+  "performance": {
+    "title": "Payroll overzicht",
+    "coachName": "Instructeur",
+    "nbBookings": "Reserveringen",
+    "nbOffersTotal": "Sessies",
+    "nbBookingsOverThreshold": "Bonusreserveringen",
+    "pricePerOffer": "Bedrag per sessie",
+    "pricePerAdditionalBooking": "Bedrag per reservering",
+    "calculate": "Bereken",
+    "payment": "Payroll",
+    "durationBookings": "Aantal uren",
+    "totalNetGain": "Nettowinst (totaal)"
+  },
+  "selfNoActivity": "Je account is niet aan een activiteit gekoppeld.",
+  "forms": {
+    "error_email_exists": "Er bestaat al een instructeur met dit e-mailadres. Maak een nieuwe instructeur aan",
+    "delete": {
+      "content": {
+        "canDelete": "Weet je zeker dat je deze instructeur wilt verwijderen? Je zal geen toegang meer tot zijn/haar payroll hebben. Je kunt de instructeur opnieuw toevoegen met zijn/haar e-mailadres.",
+        "cannotDelete": "Je kunt deze instructeur niet verwijderen, omdat er toekomstige sessies gepland zijn!"
+      },
+      "actions": {
+        "confirm": "Verwijderen",
+        "cancel": "Annuleren"
+      },
+      "cancel": "Annuleren",
+      "confirm": "Verwijderen",
+      "title": "Instructeur verwijderen"
+    },
+    "linkByEmail": {
+      "cancel": "Annuleren",
+      "submit": "Bevestigen",
+      "title": "E-mailadres van de instructeur",
+      "emailLabel": "E-mailadres",
+      "emailPlaceHolder": "iemand@email.com",
+      "explain": "Geef het e-mailadres op van de instructeur die je wilt toevoegen. Als we hun gegevens al hebben, maken we hun account automatisch aan."
+    },
+    "update": {
+      "success": "Instructeur bewerkt",
+      "title": "Informatie bewerken",
+      "errors": {
+        "emailAlreadyInUse": "Het ingevoerde e-mailadres bestaat al in de database. U kunt dit e-mailadres alleen aan een instructeur koppelen door een nieuwe instructeur aan te maken."
+      }
+    },
+    "create": {
+      "title": "Nieuwe instructeur",
+      "success": "Instructeur toegevoegd"
+    },
+    "errorDescription": "De opgegeven beschrijving is te lang (max 1.000)",
+    "errorLinkLength": "De opgegeven URL is te lang (max 150)",
+    "errorInvalidURL": "Voer een geldige URL in"
+  },
+  "detail": {
+    "tab": {
+      "calendar": "Agenda",
+      "general": "Profiel"
+    },
+    "coachSpaceInfo": "Zodra de 'Docentenweergave' is geactiveerd, kunnen docenten hun loonlijst bekijken, hun rooster bekijken en hun beschikbaarheid beheren.",
+    "coachSpace": "Instructeursweergave",
+    "noPaymentRule": "Er zijn geen payroll-regels aan deze instructeur toegewezen."
+  },
+  "overrider": "Plaatsvervanger",
+  "overrideSelectorTitle": "Instructeur",
+  "color": "Kleurcode",
+  "showPerformance": "Toon payroll",
+  "showActivities": "Bekijk activiteiten",
+  "showDescription": "Toon beschrijving",
+  "pleaseFill": "Vergeet niet om een instructeur toe te voegen!",
+  "emptyDescription": "Er is geen beschrijving om weer te geven.",
+  "selector": {
+    "label": "Instructeur",
+    "enabled": "Actieve instructeurs",
+    "disabled": "Gearchiveerde instructeurs"
+  },
+  "search": "Zoek een instructeur",
+  "card": {
+    "update": "Bewerken"
+  },
+  "noActivity": "Deze instructeur beheert geen enkele activiteit.",
+  "baseCoach": "Standaard",
+  "addCoach": "Een instructeur toevoegen",
+  "description": "Beschrijving",
+  "coach_override": "Plaatsvervanger",
+  "coach": "Instructeur",
+  "noCoach": "Er zijn nog geen instructeurs geregistreerd",
+  "noCoachs": "In dit onderdeel kun je al je instructeurs toevoegen, beheren, wijzigen en verwijderen.",
+  "inactiveCoaches": "Gearchiveerde instructeurs",
+  "paymentRule": "Payroll",
+  "coachAccess": {
+    "teacher": "Instructeur",
+    "student": "Lid",
+    "info": "Het lijkt erop dat je tevens een Instructeur bij deze studio bent. Wil je nu de Ledenweergave of de Instructeursweergave betreden?",
+    "access": "Toegang"
+  },
+  "numberCoaches": "{{ number }} instructeur(s)",
+  "workingDateSection": "Periode van activiteit in de studio",
+  "dateJoinedCompany": "Startdatum",
+  "dateLeftCompany": "Einddatum",
+  "emptyNotes": "Er zijn geen notities om weer te geven."
+}

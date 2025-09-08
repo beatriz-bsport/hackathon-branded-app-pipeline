@@ -1,0 +1,1000 @@
+{
+  "table": {
+    "noContent": "No hay suscripción"
+  },
+  "recap": {
+    "willBecharged": " va a ser facturada ",
+    "every": " cada ",
+    "month": "mes ",
+    "times": " veces ",
+    "forObject": " para ",
+    "from": "Desde ",
+    "to": " Hasta ",
+    "forATotalOf": "Para un suma de ",
+    "includingFreeTrialOf1": " incluido ",
+    "includingFreeTrialOf2": " no facturado "
+  },
+  "form": {
+    "check": "Comprobar",
+    "submit": "Facturar",
+    "title": "Nueva suscripción",
+    "cancel": "Cancelar",
+    "note": {
+      "label": "Nota"
+    }
+  },
+  "plannedInvoiceStatus": {
+    "pending": "Esperando",
+    "canceled": "Cancelado",
+    "failed": "Pago rechazado por el banco",
+    "succeeded": "Cobrado",
+    "processing": "Transferencia de pago",
+    "reverted": "Cancelado"
+  },
+  "subscriptionStatus": {
+    "pending": "En el proceso de facturación",
+    "canceledOn": "Detenido el ",
+    "hasEnded": "Facturación completada",
+    "isPaused": "Pausa"
+  },
+  "action": {
+    "stop": "Acabar",
+    "stopExplain": "Los próximos serian cancelada y las facturas suprimidas. Si habia abonos o reservas, serian suprimidos.",
+    "revertCurrentExplainHelper": "Si el pago es válido, se creará un crédito, puedes reembolsarlo al cliente ingresando la factura y haciendo clic en \"Reembolsar\". Si el pago hubiera fallado, la deuda será cancelada.",
+    "revertCurrentExplain": "Cancelar la última factura guardada y bloquear el bono",
+    "planStop": "Finalizar"
+  },
+  "parameters": {
+    "parameters": "Parámetros",
+    "subscribeAgain": "Suscribir otra vez",
+    "voucher": "Oferta especial",
+    "trial_nb": "Numero de facturas ofrecidas",
+    "recurrent_voucher": "Descuento por cada mes",
+    "name": "Nombre",
+    "member": "Miembro",
+    "dateCreated": "Fecho de registro",
+    "nbInterval": "Número de pagos recurrentes",
+    "recurrent_price": "Suscripción",
+    "paymentPack": "Bono",
+    "nbMonths": "Número de pagos recurrentes",
+    "dateStart": "Primera facturación",
+    "firstBilling": "Primero pago",
+    "payment_pack": "Bonos",
+    "flat_fee": "Gastos de reserva : {{price_with_currency}}",
+    "status": "Estado",
+    "payment_method": {
+      "0": "Tarjeta de pago",
+      "1": "Transferencia SEPA",
+      "2": "A cuenta",
+      "label": "Método de pago",
+      "paymentOnline": "Pago en línea"
+    },
+    "autoRenew": "Renovación automática",
+    "private_pass": "Tarjeta de cita",
+    "privatePass": "Tarjeta de cita",
+    "note": "Nota",
+    "payment_method_group": {
+      "1": "Tarjeta de pago",
+      "2": "SEPA",
+      "14": "Cuenta interna"
+    },
+    "paymentCombo": "Pack",
+    "payment_combo": "Pack",
+    "contractTermsAccepted": "<0>Términos</0> han sido aceptados en la {{- dateAccepted}}.",
+    "stopNote": "Nota de cancelación",
+    "secondBillingPlanEnabled": "Segundo plan de facturación activado",
+    "source_company": "Comprado en"
+  },
+  "schedule": {
+    "provisionalTitle": "Calendario estimativo",
+    "paymentMethodTitle": "Método de débito"
+  },
+  "mandate": {
+    "content": "Al dar su IBAN y confirmar su pago, autorizas a bsport y Stripe, nuestro sistema de pago, a enviar las instrucciones de débito a su banco de acuerdo con el calendario de pagos. Puedes solicitar un reembolso a su banco de acuerdo con los términos de su contrato con él. Se debe solicitar un reembolso dentro de las 8 semanas posteriores al primer débito.",
+    "email": "Email del titular",
+    "name": "Nombre y apellido del titular",
+    "contentIban": "Al facilitar su IBAN y confirmar su pago, autoriza a bsport y a Stripe, nuestro sistema de pago, a enviar instrucciones de adeudo a su banco de acuerdo con el calendario de pagos. Puede solicitar un reembolso a su banco de acuerdo con los términos de su contrato con su banco. El reembolso debe solicitarse en un plazo de 8 semanas a partir del primer cargo.",
+    "contentBacsDebit": "Al facilitar sus datos bancarios y confirmar el pago, autoriza a bsport y a Stripe, nuestro sistema de pago, a enviar instrucciones de adeudo a su banco de acuerdo con el calendario de pagos. Puede solicitar un reembolso a su banco de acuerdo con los términos de su contrato con su banco. Puede solicitar a su banco que cancele la orden de domiciliación bancaria en cualquier momento.",
+    "accountNumber": "Número de cuenta",
+    "sortCode": "Sort code"
+  },
+  "paymentMethod": {
+    "credit": {
+      "explain": "El miembro será facturado en su depósito interno cada factura. Utiliza este método de pago si (todavía) no tienes acceso a un método de facturación como una tarjeta de pago o una domiciliación bancaria. Puedes actualizar el pago a posteriori."
+    },
+    "bsportCredit": "Anticipo cliente",
+    "card": "Tarjeta de pago",
+    "sepa": "Débito directo SEPA",
+    "bacs_debit": "BACS Direct Debit"
+  },
+  "contract": {
+    "form": {
+      "contract": {
+        "label": "Notas legales",
+        "placeholder": "Ingresa aquí toda la información legal necesaria, en particular en lo que respecta a los procedimientos de reembolso."
+      },
+      "flat_fee": {
+        "helperText": "Esta tarifa se añadirá a la primera factura",
+        "label": "Tarifas de entrada / archivo"
+      },
+      "autoRenewal": {
+        "label": "Renovación tácita",
+        "germanMarketWarning": "Para cumplir la Ley alemana de contratos leales con los consumidores, después de 2 años de suscripción, los nuevos ciclos de suscripción deben ser inferiores a un año. Asegúrese de cumplir estas condiciones."
+      },
+      "managerOnly": {
+        "label": "Invisible para los clientes"
+      },
+      "description": {
+        "label": "Descripción",
+        "placeholder": "Nueva oferta exclusiva limitada"
+      },
+      "recurrent_price": {
+        "label": "Pago recurrente",
+        "infoBox": "Está a punto de cambiar el precio de tu cuota. Sólo se verá afectado el precio de las cuotas recién creadas. El precio de las cuotas existentes y de las cuotas de renovación no cambiará (incluso después de la renovación)."
+      },
+      "nb_interval": {
+        "helperText": "Al menos 2 meses",
+        "label": "Número de facturas",
+        "error": "El número de facturaciones no debe superar 90",
+        "errorForFixedBillingDay": "El número de facturaciones no debe superar 12",
+        "restrictionForFixedBillingDay": "El número de facturaciones debe estar comprendido entre 2 y 12 para la facturación en día fijo."
+      },
+      "name": {
+        "label": "Nombre del contrato"
+      },
+      "title": "Formulario contrato",
+      "object_type": {
+        "paymentPack": "Bonos",
+        "privatePass": "Tarjeta de cita",
+        "label": "Tipo de suscripción",
+        "paymentCombo": "Pack"
+      },
+      "error": {
+        "missingObject": "Este campo es obligatorio",
+        "missingPaymentCombo": "Debe seleccionar un pack",
+        "missingPrivatePass": "Debe seleccionar un tarjeta de citas",
+        "missingPaymentPack": "Debe seleccionar un bono",
+        "moreThanThreeDecimalPrice": "Parece que has introducido más de dos decimales. Por favor, ajuste el importe al céntimo más cercano."
+      },
+      "recurrence_basis": {
+        "intervalName": {
+          "week": "semana",
+          "week_plural": "semanas",
+          "day": "día",
+          "day_plural": "días",
+          "month": "mes",
+          "month_plural": "meses",
+          "year": "año",
+          "year_plural": "años"
+        },
+        "label": "Repite todo",
+        "helperText": " "
+      },
+      "recurrence": {
+        "explain": "La suscripción se facturará cada {{ recurrence_basis }} {{ interval }} sobre una duración total de {{ total_interval_duration }} {{ interval }} y generará {{ nb_interval }} facturas",
+        "section": "Recurrencia"
+      },
+      "interval": {
+        "helperText": "Frecuencia de generación de facturas/tarjetas",
+        "label": "Recurrencia"
+      },
+      "settings": {
+        "title": "Parámetros"
+      },
+      "invoicing": {
+        "invoicing_type_readonly": "No es posible cambiar el tipo de facturación",
+        "fixed_day": {
+          "explain": "Cada factura se facturará el día elegido. El primer pago se prorrateará si es necesario.",
+          "label": "Facturar en un día fijo",
+          "modification_not_apply_to_past": "Está a punto de cambiar el día de facturación de su suscripción. Sólo se verán afectadas las nuevas suscripciones creadas. Las suscripciones existentes y las suscripciones con renovaciones no cambiarán (incluso después de la renovación).",
+          "end_of_month_explain": "Si un mes no tiene {{ month_billing_day }}, la factura se emitirá el último día del mes.",
+          "recurrence_explain": {
+            "month": "La suscripción se facturará cada {{ month_billing_day }} del mes por una duración total de {{ nb_interval }} meses y generará {{ nb_interval }} {{ invoice }}. El primer pago se prorrateará si es necesario."
+          }
+        },
+        "same_day_as_subscription": {
+          "recurrence_explain": {
+            "year": "La suscripción se facturará cada año por una duración total de {{ total_subscription_duration }} {{ time_unit }} {{ time_unit }} y generará {{ nb_interval }} {{ invoice }}. El cliente podrá elegir la fecha de inicio de la suscripción.",
+            "year_plural": "La suscripción se facturará cada {{ recurrence_basis }} años por una duración total de {{ total_subscription_duration }} {{ time_unit }} {{ time_unit }} y generará {{ nb_interval }} {{ invoice }}. El cliente podrá elegir la fecha de inicio de la suscripción.",
+            "month": "La suscripción se facturará cada mes por una duración total de {{ total_subscription_duration }} {{ time_unit }} {{ time_unit }} y generará {{ nb_interval }} {{ invoice }}. El cliente podrá elegir la fecha de inicio de la suscripción.",
+            "month_plural": "La suscripción se facturará cada {{ recurrence_basis }} meses por una duración total de {{ total_subscription_duration }} {{ time_unit }} {{ time_unit }} y generará {{ nb_interval }} {{ invoice }}. El cliente podrá elegir la fecha de inicio de la suscripción.",
+            "week": "La suscripción se facturará cada semana por una duración total de {{ total_subscription_duration }} {{ time_unit }} {{ time_unit }} y generará {{ nb_interval }} {{ invoice }}. El cliente podrá elegir la fecha de inicio de la suscripción.",
+            "week_plural": "La suscripción se facturará cada {{ recurrence_basis }} semanas por una duración total de {{ total_subscription_duration }} {{ time_unit }} {{ time_unit }} y generará {{ nb_interval }} {{ invoice }}. El cliente podrá elegir la fecha de inicio de su suscripción.",
+            "day": "La suscripción se facturará cada día por una duración total de {{ total_subscription_duration }} {{ time_unit }} {{ time_unit }} y generará {{ nb_interval }} {{ invoice }}. El cliente podrá elegir la fecha de inicio de la suscripción.",
+            "day_plural": "La suscripción se facturará cada {{ recurrence_basis }} días por una duración total de {{ total_subscription_duration }} {{ time_unit }} {{ time_unit }} y generará {{ nb_interval }} {{ invoice }}. El cliente podrá elegir la fecha de inicio de su suscripción."
+          },
+          "explain": "El día de facturación dependerá del día de compra del abono.",
+          "label": "Factura el mismo día de la fecha de compra del abono"
+        },
+        "invoice": "factura",
+        "invoice_plural": "facturas",
+        "title": "Facturación"
+      },
+      "price": {
+        "title": "Precio"
+      },
+      "general_info": {
+        "title": "Información general"
+      },
+      "unusableByStaff": {
+        "label": "Invisible para el personal"
+      },
+      "month_billing_day": {
+        "label2": "del mes.",
+        "label1": "Facturar todas las"
+      },
+      "highlightedAsRecommended": {
+        "label": "Marcar como recomendado",
+        "helperText": "Permite a sus clientes ver de un vistazo qué suscripciones se recomiendan actualmente."
+      },
+      "advancedOptions": {
+        "selectTags": "Seleccionar etiquetas",
+        "tag": {
+          "tagGroupDuplicated": "Tenga en cuenta que los artículos seleccionados contienen etiquetas de la misma categoría.",
+          "selectTags": "Seleccionar etiquetas",
+          "tagsOnAcquisitionHelper": "Utilice etiquetas para identificar qué miembro ha pagado la primera factura",
+          "tagsOnAcquisition": "Etiqueta tras la compra"
+        },
+        "title": "Avanzado"
+      },
+      "nbIntervalAfterAutoRenewal": {
+        "secondLabel": "Número de facturas *",
+        "firstLabel": "Cambiar la facturación de la suscripción para los próximos ciclos"
+      },
+      "notEditable": "Este contrato procede de una migración de datos realizada con anterioridad. Algunos campos pueden no ser editables para preservar los datos.",
+      "commitmentPeriod": {
+        "explain": {
+          "year": "Esta suscripción comprometerá al miembro durante {{ commitment_period_value }} año. Los cambios en el periodo de compromiso de la suscripción en la configuración no afectarán a las suscripciones que ya se hayan adquirido.",
+          "year_plural": "Esta suscripción comprometerá al miembro durante {{ commitment_period_value }} años. Los cambios en el periodo de compromiso de la suscripción en la configuración no afectarán a las suscripciones que ya se hayan adquirido.",
+          "month": "Esta suscripción comprometerá al miembro durante {{ commitment_period_value }} mes. Los cambios en el periodo de compromiso de la suscripción en la configuración no afectarán a las suscripciones que ya se hayan adquirido.",
+          "month_plural": "Esta suscripción comprometerá al miembro durante {{ commitment_period_value }} meses. Los cambios en el periodo de compromiso de la suscripción en la configuración no afectarán a las suscripciones que ya se hayan adquirido.",
+          "week": "Esta suscripción comprometerá al miembro durante {{ commitment_period_value }} semana. Los cambios en el periodo de compromiso de la suscripción en la configuración no afectarán a las suscripciones que ya se hayan adquirido.",
+          "week_plural": "Esta suscripción comprometerá al miembro durante {{ commitment_period_value }} semanas. Los cambios en el periodo de compromiso de la suscripción en la configuración no afectarán a las suscripciones que ya se hayan adquirido.",
+          "day": "Esta suscripción comprometerá al miembro durante {{ commitment_period_value }} día. Los cambios en el periodo de compromiso de la suscripción en la configuración no afectarán a las suscripciones que ya se hayan adquirido.",
+          "day_plural": "Esta suscripción comprometerá al miembro durante {{ commitment_period_value }} días. Los cambios en el periodo de compromiso de la suscripción en la configuración no afectarán a las suscripciones que ya se hayan adquirido."
+        },
+        "error": "El periodo de compromiso no puede superar los 90 años.",
+        "helperText": "No olvide comprobar la legislación de su país sobre el derecho de desistimiento en caso de suscripción y añada la información necesaria en sus condiciones generales.",
+        "label": "Período de compromiso"
+      }
+    },
+    "list": {
+      "register": "Suscribir un miembro",
+      "addButton": "Definir un contrato",
+      "isEmpty": "Ninguno contrato disponible",
+      "titleManagerOnly": "Cuotas no disponibles para la venta",
+      "titleCustomerAvailable": "Cuotas disponibles para la venta",
+      "title": "Cuotas",
+      "titleInactive": "Cuotas archivadas"
+    },
+    "actions": {
+      "subscribe": "Suscribir",
+      "iwanttostarton": "Deseo comenzar a facturar en: ",
+      "iAcceptCondition": "Acepto las condiciones anteriores",
+      "create": "Añadir un contrato",
+      "iAcceptGeneralCondition": " Acepto el aviso legal",
+      "alertPastDateSameMonth": "Atención, has elegido una fecha pasada, si la cuota contiene un bono, la validez de éste comenzará en la fecha seleccionada. En el caso de una validez de un mes, su miembro perderá {{lostDays}} días de validez.",
+      "title": "Fecha pasada",
+      "iAcceptContractTerms": "Acepto los <0>términos legales</0>.",
+      "acceptContractTerms": "Aceptar las <0>condiciones generales</0>."
+    },
+    "legal": "Notas legales",
+    "description": "Descripción",
+    "duration": "{{month}} facturas",
+    "registerManager": {
+      "actions": {
+        "cancel": "Cancelar"
+      },
+      "explainCustomSubscriptionForm": "No, quiero definir una suscripción personalizada",
+      "explainChoseContract": "Selecciona un contrato, este último se facturará mensualmente al miembro",
+      "title": "Pago recurrente"
+    },
+    "deleteForm": {
+      "content": "¿Seguro que quieres suprimir este contrato?",
+      "actions": {
+        "confirm": "Suprimir",
+        "cancel": "Cancelar"
+      },
+      "title": "Cancelación contrato"
+    },
+    "paymentPack": "Bono asociado",
+    "no": "No",
+    "yes": "Sí",
+    "privatePass": "Tarjeta de cita asociada",
+    "interval": {
+      "week": "semana",
+      "week_plural": "semanas",
+      "day": "día",
+      "day_plural": "días",
+      "year": "año",
+      "year_plural": "años",
+      "month": "mes",
+      "month_plural": "meses"
+    },
+    "item": {
+      "intervalLabel": {
+        "year": "Cada año",
+        "year_plural": "Cada {{ count }} años",
+        "day": "Cada día",
+        "day_plural": "Cada {{ count }} días",
+        "week": "Cada semana",
+        "week_plural": "Cada {{ count }} meses",
+        "month": "Cada mes",
+        "month_plural": "Cada {{ count }} meses"
+      },
+      "recurrentPriceLabel": "{{ recurrent_price  }}{{ currencyDisplay }}",
+      "identifier": "Membresía"
+    },
+    "frequency": {
+      "month": "mensualmente",
+      "week": "semanal"
+    },
+    "billingFrequency": "Frecuencia de facturación",
+    "paymentCombo": "Paquete asociado",
+    "pastDate": {
+      "cancel": "Cancelar",
+      "validate": "Confirmar",
+      "payment": {
+        "manualInfo": "Las facturas pasadas se indicarán como pagadas manualmente y las futuras se cargarán al método de pago introducido por el miembro.",
+        "registeredMethodPayment": "Cargar al método de pago registrado",
+        "registeredInfo": "Todas las facturas futuras y pasadas se cargarán en un plazo de 24 horas en el método de pago indicado en la suscripción.",
+        "manualPayment": "Pago manual",
+        "pastInvoicesPayment": "Pago de facturas pasadas"
+      },
+      "futureInvoicesPayment": "Pago de facturas futuras",
+      "valuePastInvoicesInputError": "El valor no coincide. Por favor, inténtalo de nuevo",
+      "alertDifferentMonthInput": "Valor de las facturas pasadas",
+      "alertDifferentMonthConfirmAsk": "Estás a punto de cargar {{valuePastInvoicesPrice}} a tu miembro. Para confirmar esta acción escribe {{valuePastInvoices}}",
+      "alertDifferentMonth": "Ten en cuenta que has elegido una fecha en el último mes. Es posible que tu miembro tenga un o varios bonos facturados que ya han caducado.",
+      "alertSameMonth": "Atención, has elegido una fecha pasada, si la cuota contiene un bono, la validez de éste comenzará en la fecha seleccionada. En el caso de una validez de un mes, su miembro perderá {{lostDays}} días de validez.",
+      "title": "Fecha pasada"
+    },
+    "monthBillingDay": "Facturado cada {{ month_billing_day }} del mes",
+    "autoRenewal": "Renovación automática",
+    "nbIntervalAfterAutoRenewal": {
+      "details": {
+        "year": "Tras la renovación, la suscripción se modificará a un plan de {{durationAfterAutoRenewal}} años.",
+        "month": "Tras la renovación, la suscripción se modificará a un plan de {{durationAfterAutoRenewal}} meses.",
+        "week": "Tras la renovación, la suscripción se modificará a un plan de {{durationAfterAutoRenewal}} semanas.",
+        "day": "Tras la renovación, la suscripción se modificará a un plan de {{durationAfterAutoRenewal}} días."
+      },
+      "title": "Segundo plan de facturación"
+    },
+    "durationInfo": {
+      "year": "{{count}} año",
+      "year_plural": "{{count}} años",
+      "month": "{{count}} mes",
+      "month_plural": "{{count}} meses",
+      "week": "{{count}} semana",
+      "week_plural": "{{count}} semanas",
+      "day": "{{count}} día",
+      "day_plural": "{{count}} días"
+    },
+    "autoRenewalInfo": "Renovación automática",
+    "recurrenceInfoFixedDay": "cada {{day}} del mes",
+    "recurrenceInfo": {
+      "year": "al año",
+      "year_plural": "cada {{count}} años",
+      "month": "al mes",
+      "month_plural": "cada {{count}} meses",
+      "week": "A la semana",
+      "week_plural": "cada {{count}} semanas",
+      "day": "al día",
+      "day_plural": "cada {{count}} días"
+    },
+    "commitmentPeriod": {
+      "explain": {
+        "year": "Esta suscripción comprometerá al afiliado durante {{ commitment_period_value }} año.",
+        "year_plural": "Esta suscripción comprometerá al afiliado durante {{ commitment_period_value }} años.",
+        "month": "Esta suscripción comprometerá al afiliado durante {{ commitment_period_value }} mes.",
+        "month_plural": "Esta suscripción comprometerá al afiliado durante {{ commitment_period_value }} meses.",
+        "week": "Esta suscripción comprometerá al miembro durante {{ commitment_period_value }} semana.",
+        "week_plural": "Esta suscripción comprometerá al miembro durante {{ commitment_period_value }} semanas.",
+        "day": "Esta suscripción comprometerá al miembro durante {{ commitment_period_value }} día.",
+        "day_plural": "Esta suscripción comprometerá al miembro durante {{ commitment_period_value }} días."
+      },
+      "label": "Período de compromiso"
+    }
+  },
+  "plannedInvoice": {
+    "priceUpdater": {
+      "submit": "Guardar",
+      "cancel": "Cancelar",
+      "explain": "Solo esta futura factura será modificada",
+      "price": "Nueva cantidad",
+      "title": "Modificar cantidad futura",
+      "updateAll": "Actualizar todos los pagos futuros previstos (antes de la renovación)",
+      "updateRecurrentPrice": "Aplicar este cambio a los pagos generados después de la renovación",
+      "nonNullDiscount": "Esta suscripción incluye actualmente una promoción. Esta promoción no se tendrá en cuenta cuando se actualice el precio.",
+      "nonNullFlatFees": "Esta suscripción incluye actualmente unos gastos de administración de {{ flatFeesAmount }}. {{ currencyDisplay }}. Estos gastos de gestión no se tendrán en cuenta cuando se actualice el precio."
+    },
+    "list": {
+      "titleNext": "Próximos retiros"
+    },
+    "dateUpdater": {
+      "actions": {
+        "submit": "Guardar",
+        "cancel": "Cancelar"
+      },
+      "explain": "Sólo esta futura factura será modificada",
+      "label": "Fecha de recogida",
+      "title": "Modificar la factura futura"
+    }
+  },
+  "pause": {
+    "pausedAt": "{{ days }} días - le {{ date }}",
+    "pausedInterval": "{{start}} → {{ end }} : {{ days }} días",
+    "actions": {
+      "delete": "Cancelar la pausa"
+    },
+    "secondaryLabel": " : {{ note }}",
+    "label": "Pausa de {{- fromDate}} a {{- untilDate}}",
+    "createdAt": "Creada el ",
+    "dialogs": {
+      "form": {
+        "confirm": "Salvar",
+        "information2": "La fecha de caducidad de la tarjeta se prolongará por el número de días de la pausa y la tarjeta seguirá siendo válida durante la misma.",
+        "information": "Las suscripciones se pondrán en pausa desde {{- dateStart}} hasta {{- dateEnd}} incluido. Su próxima facturación se pospondrá en {{count}} días, al igual que todas las facturaciones futuras.",
+        "information_plural": "Las suscripciones se pondrán en pausa desde {{- dateStart}} hasta {{- dateEnd}} incluido. Su próxima facturación se retrasará en {{count}} días, al igual que todas las facturaciones futuras.",
+        "duration": {
+          "warning": "La fecha de finalización no puede ser inferior a la fecha de inicio",
+          "end": "Fecha de inicio (incluida)",
+          "start": "Fecha de inicio (incluida)",
+          "title": "Duración de la pausa"
+        },
+        "causePlaceholder": "Razón *",
+        "titleEdition": "Modificar la pausa",
+        "titleCreation": "Pausa"
+      },
+      "fail": {
+        "comeback": "Volver",
+        "contentUnknownError": "Se ha producido un error imprevisto. Nos disculpamos por las molestias causadas.",
+        "contentCanNotCreateAPauseInThePast": "La pausa no puede comenzar en el pasado.",
+        "contentCanNotEditPauseEndBeforeToday": "La nueva fecha de inicio de la pausa no puede ponerse antes de hoy.",
+        "contentCanNotEditPauseStartWhenHasStarted": "La fecha de inicio de la pausa no puede modificarse una vez iniciada.",
+        "contentSubscriptionWillEndBeforePause": "La suscripción no puede ser pausada durante este período, ya que habrá terminado antes.",
+        "contentCanNotCancelPause": "Como la pausa ya ha comenzado o ha pasado, no se puede cancelar.",
+        "contentInvalidTimedelta": "La pausa debe durar al menos un día.",
+        "contentOverlapPause": "La suscripción {{subscriptionName}} de {{subscriberName}} no se ha podido pausar porque ya hay una pausa programada de {{- dateStart}} a {{- dateEnd}}.",
+        "contentIncomingBill": "La suscripción {{subscriptionName}} de {{subscriberName}} no se ha podido pausar porque una factura en el intervalo de pausa se facturará en 24 horas o tiene un pago en curso. Por favor, cambie la fecha de inicio de la pausa.",
+        "title": "Fallo de la pausa"
+      },
+      "success": {
+        "continue": "Continuar",
+        "content": "La suscripción {{subscriptionName}} de {{subscriberName}} se ha puesto en pausa desde {{- dateStart}} hasta {{- dateEnd}} incluido.",
+        "title": "Pausa de la suscripción"
+      },
+      "delete": {
+        "content": "¿Estás seguro de que quieres desprogramar este pausa?",
+        "title": "Cancelar la pausa"
+      },
+      "common": {
+        "confirm": "Confirmar",
+        "cancel": "Cancelar"
+      }
+    },
+    "eventItems": {
+      "pauseDeleted": "Motivo de la antigua pausa: {{pause_name}}",
+      "pauseCreatedThenDeleted": "Esta pausa ha sido eliminada o modificada.",
+      "pauseCreated": "De {{- dateStart}} a {{- dateEnd}} - Creado en {{- dateCreation}} por {{staffName}}"
+    },
+    "menu": {
+      "change": "Cambiar las fechas",
+      "delete": "Desprogramar"
+    }
+  },
+  "subscription": {
+    "actions": {
+      "switchPaymentMethod": "Modificar el método de pago",
+      "switchPack": "Modificar el bono",
+      "freeze": "Pausar",
+      "advanceTime": "Adelante la factura",
+      "postPone": "Posponer la factura",
+      "changeDate": "Modificar la fecha",
+      "showInvoice": "Ver la factura",
+      "changePrice": "Modificar el precio",
+      "stop": "Acabar después de esta factura",
+      "disableAutoRenew": "Desactivar la auto-renovación",
+      "enableAutoRenew": "Activar la auto-renovación"
+    },
+    "freeze": {
+      "form": {
+        "submit": "Guardar",
+        "cancel": "Cancelar",
+        "explainWarning": "¡Tienes en cuenta que esta operación no es reversible!",
+        "explain": "El próximo pago se retrasará tantos días, lo mismo para futuros bonos",
+        "days": {
+          "label": "Número de días"
+        },
+        "name": {
+          "placeholder": "Vacaciones de Todos los Santos",
+          "label": "Razón"
+        },
+        "title": "Pausa",
+        "explainInvoice": "De qué factura (incluida) quiere aplazar la suscripción?"
+      },
+      "disabledReasons": {
+        "month_billing_day": "No es posible pausar un contrato de día fijo "
+      }
+    },
+    "delete": "Suprimir",
+    "register": "Suscribir",
+    "edit": "Modificar",
+    "switchPack": {
+      "form": {
+        "submit": "Guardar",
+        "cancel": "Cancelar",
+        "warning": "La facturación seguirá siendo la misma, si deseas aumentar / disminuir la cantidad mensual, modifica cada pago mensual por separado.",
+        "explain": "Este bono se facturará en lugar de la anterior en todas las facturas futuras. Las sesiones reservadas con el bono anterior se transferirán al nuevo incluso si no se supone que sea compatible.",
+        "title": "Cambio de bono"
+      }
+    },
+    "pauseSection": "Pausas",
+    "invoicesSection": "Facturas",
+    "actionSection": "Gestionar",
+    "list": {
+      "title": "Suscripción en curso"
+    },
+    "buy": "Comprar",
+    "scheduledStop": {
+      "title": "Programe la terminación de la suscripción",
+      "listItem": "Terminación programada de la suscripción",
+      "summary": "El último pago programado tendrá la fecha {{-date}}, corresponderá a la última tarjeta válida.",
+      "explain": "Elija el último pago de la suscripción.",
+      "notePlaceholder": "Razón"
+    },
+    "invoice": {
+      "label": "Factura {{uuid}} : {{price}}"
+    },
+    "listItem": {
+      "recurrencePriceIs": "Pago periódico de {{ amount }}{{currencyDisplay}}",
+      "nextBillingDate": "Próxima facturación en {{ d }}",
+      "startingAt": "Empieza el {{ d }}"
+    },
+    "switchPrivatePass": {
+      "form": {
+        "explain": "Esta tarjeta de citas se cargará en lugar de la antigua en todas las facturas futuras. Las sesiones reservadas con la antigua tarjeta se transferirán a la nueva aunque ésta no sea supuestamente compatible.",
+        "submit": "Registrar",
+        "title": "Cambio de tarjeta de nombramiento",
+        "warning": "La facturación seguirá siendo la misma, si desea aumentar/disminuir el importe mensual, cambie cada mensualidad por separado.",
+        "cancel": "Cancelar"
+      }
+    },
+    "switchPaymentCombo": {
+      "form": {
+        "title": "Cambio de pack",
+        "warning": "La facturación seguirá siendo la misma, si desea aumentar/disminuir el importe mensual, cambie cada mensualidad por separado.",
+        "submit": "Registrar",
+        "explain": "Este pack se cobrará en lugar del antiguo SÓLO en las facturas generadas después de la renovación de la suscripción",
+        "prewarning": "Si desea modificar futuras facturas ya creadas, debe cancelar esta suscripción.",
+        "cancel": "Cancelar"
+      }
+    },
+    "prorata": {
+      "helperOnSusscribe": "El primer pago se prorratea a {{ priceWithCurrency }} y se cobrará en {{-firstBillingDate}}. Los pagos posteriores se realizarán cada {{ monthBillingDay }} del mes, por un importe de {{ recurrentPrice }}."
+    }
+  },
+  "noContracts": "Las cuotas te permitirán facturar a tus miembros regularmente (mensualmente) por un bono que se vuelve a acreditar cada mes/días/años.",
+  "save": "validar",
+  "cancel": "cancelar",
+  "events": {
+    "billing_plan-update_payment_pack": "Bono modificado",
+    "billing_plan-update_payment_method": "Método de pago modificado",
+    "billing_plan-payment_failure": "Pago rechazado",
+    "billing_plan-payment_success": "Pago exitoso",
+    "billing_plan-payment_dispute": "Litigio",
+    "billing_plan-renew": "Renovación",
+    "billing_plan-stop": "Pagos suspendidos",
+    "billing_plan-create": "Creación",
+    "billing_plan-pause": "Pausa",
+    "list": {
+      "title": "Últimos acontecimientos"
+    },
+    "billing_plan-update_private_pass": "Tarjeta de citas modificada",
+    "billing_plan-update_payment_combo": "Pack modificado",
+    "billing_plan-update": "Suscripción modificada",
+    "billing_plan-pause_deleted": "Pausa cancelada"
+  },
+  "copyLink": "Copiar el enlace a la página de pago",
+  "listItem": {
+    "valid": "Válido",
+    "paused": "En pausa",
+    "expired": "Expirada",
+    "canceled": "Detenida",
+    "subscribedOn": "Suscripción comenzada el {{- date}}",
+    "willSubscribeOn": "La suscripción comenzará el {{- date}}"
+  },
+  "noAssociatedSubscription": "Ninguna suscripción registrada",
+  "associatedSubscriptions": "Cuotas asociadas a este contrato",
+  "status": {
+    "hasEnded": "Terminado",
+    "hasStopped": "Detenido",
+    "hasNotStartedYet": "Aún no ha empezado",
+    "hasStarted": "En proceso",
+    "isPaused": "En pausa"
+  },
+  "scheduledStop": {
+    "unscheduleStop": "Desprogramar la parada",
+    "label": "Parada programada",
+    "stoppedByMember": "Dado de baja por el miembro",
+    "stoppedByManager": "Finalizado por {{ name }}"
+  },
+  "end": {
+    "renew": "Auto-renovación",
+    "noRenew": "Termina la suscripción"
+  },
+  "contractPause": {
+    "form": {
+      "dateFilter": {
+        "label": "Ponga en pausa sólo las cuotas con facturas que se cobran entre dos fechas"
+      },
+      "invalidBillingPlan": "Las siguientes cuotas no pueden pausarse automáticamente",
+      "explainImpossible": "Si un pago está en curso, o se espera que lo esté en las próximas 24 horas, la suscripción no se puede pausar automáticamente",
+      "validBillingPlan": "Las siguientes cuotas quedarán en pausa",
+      "untilDate": {
+        "label": "y el "
+      },
+      "fromDate": {
+        "label": "Facturado entre el "
+      },
+      "advanced": "Avanzado",
+      "days": {
+        "helperText": "Número de días que las cuotas estarán en pausa",
+        "label": "Number of days"
+      },
+      "name": {
+        "placeholder": "Estudio cerrado en día festivo",
+        "label": "Nota"
+      },
+      "warning": "Atención, en algunas cuotas, la pausa no se puede deshacer",
+      "title": "Poner en pausa todas las cuotas",
+      "paymentPackActions": {
+        "disableTillNextInvoice": "Desactivar el bono facturado hasta la próxima facturación",
+        "extendTillNextInvoice": "Ampliar el periodo de validez del bono facturado hasta la siguiente factura",
+        "doNotChange": "No cambiar el bono facturado",
+        "title": "Comportamiento de los bonos"
+      }
+    },
+    "actions": {
+      "previous": "Anteriormente",
+      "verify": "Verificar",
+      "add": "Poner en pausa",
+      "submit": "Poner en pausa",
+      "cancel": "Cancelar"
+    },
+    "section": {
+      "error": "{{count}} la cuota no se ha podido pausar automáticamente",
+      "error_plural": "{{count}} las cuotas no se pueden pausar automáticamente",
+      "success": "{{count}} pausa en la cuota",
+      "success_plural": "{{count}} cuotas en pausa"
+    },
+    "fromUntil": "Sólo si se factura entre {{from}} y {{until}} i incluido",
+    "createdAt": "Creado {{at}}",
+    "title": "Pausar todas las cuotas"
+  },
+  "seeMore": "Ver más",
+  "search": "Buscar un contrato",
+  "notificationToolTip": "Las notificaciones están definidas para esta suscripción",
+  "addNotification": "Añadir una notificación",
+  "notificationForm": {
+    "title": "Norma de notificación",
+    "subtitle": "Suscripción",
+    "warning": "Notifica a tus clientes cuando su suscripción tiene un cambio de estatus : fin de suscripción, inicio de suscripción.",
+    "typeSection": {
+      "title": "Estatus a notificar",
+      "contractStart": "Inicio de la suscripción",
+      "contractEnd": "Fin de la suscripción"
+    },
+    "triggeringEvent": {
+      "title": "Evento desencadenante",
+      "contractCreation": "Creación de la suscripción",
+      "firstBilling": "Primera factura"
+    },
+    "notificationType": {
+      "title": "Tipo de notificación",
+      "sendNotification": "Enviar la notificación",
+      "day": "Día",
+      "day_plural": "Días",
+      "hour": "Hora",
+      "hour_plural": "Horas",
+      "before": "Antes",
+      "after": "Después",
+      "afterSubcriptionCreation": "Después de la creación de la suscripción.",
+      "firstBilling": "La primera factura de la suscripción.",
+      "contractEnd": "El final de la suscripción.",
+      "warningHourFirst": "El número de horas indicado se refiere a la fecha de la primera factura a medianoche",
+      "warningDayFirst": "El número de días indicado se refiere a la fecha de la primera factura a medianoche",
+      "warningDayLast": "El número de días indicado se refiere a la fecha de la última factura a medianoche",
+      "warningHourLast": "El número de horas indicado se refiere a la fecha de la última factura a medianoche"
+    },
+    "sendingMethod": {
+      "title": "Método de envío",
+      "email": "Correo",
+      "notificationPush": "Notificación push"
+    },
+    "emailNotification": {
+      "parameters": "Configuración del correo",
+      "emailToSend": "Correo a enviar"
+    },
+    "notificationPush": {
+      "warning": "Cuidado, las notificaciones push deben utilizarse con parsimonia. Demasiadas notificaciones push pueden llevar a algunos miembros a desinstalar la aplicación.",
+      "parameters": "Configuración de la notificación",
+      "title": "Título",
+      "content": "Contenido",
+      "addTag": "Añadir una etiqueta"
+    },
+    "buttons": {
+      "cancel": "Cancelar",
+      "submit": "Validar"
+    },
+    "smartLists": {
+      "createSmartList": "Crear una smartlist",
+      "smartListHelperInclude": "Enviar un email sólo si el miembro pertenece a una de las siguientes listas",
+      "smartListHelper": "No enviar email si el miembro pertenece a una de las siguientes listas",
+      "advanced": "Avanzado",
+      "warning": "Si no se selecciona una smartlist, se corre el riesgo de notificar a los miembros que ya han comprado otro bono",
+      "smartListSelection": "Elegir listas (opcional)"
+    }
+  },
+  "notification": {
+    "title": "Notificar {{count}} {{periodScale}} {{notificationKind}}",
+    "creation": "Después de la creación",
+    "beforefirstBilling": "Antes de la primera factura",
+    "afterfirstBilling": "Después de la primera factura",
+    "beforeSubscriptionEnd": "Antes del final de la suscripción",
+    "afterSubscriptionEnd": "Después del final de la suscripción",
+    "days": "Día",
+    "days_plural": "Días",
+    "hours": "Hora",
+    "hours_plural": "Horas"
+  },
+  "contractNotification": {
+    "creation": "Al crear la suscripción",
+    "firstBilling": "A la primera factura"
+  },
+  "pauseV2": {
+    "subscriptionPause": {
+      "eventItems": {
+        "pauseDeleted": "Motivo de la antigua pausa: {{pause_name}}",
+        "pauseCreatedThenDeleted": "Esta pausa ha sido eliminada o modificada."
+      },
+      "deleteDialogContent": "¿Estás seguro de que quieres desprogramar este pausa?",
+      "form": {
+        "failureStep": {
+          "contentUnknownError": "Se ha producido un error imprevisto. Nos disculpamos por las molestias causadas.",
+          "contentSubscriptionHasNotStarted": "La pausa no se ha realizado porque el intervalo de fechas de la pausa es anterior al inicio de la suscripción.",
+          "contentCanNotCreateAPauseInThePast": "La pausa no puede comenzar en el pasado.",
+          "contentCanNotEditPauseEndBeforeToday": "La nueva fecha de inicio de la pausa no puede ponerse antes de hoy.",
+          "contentCanNotEditPauseStartWhenHasStarted": "La fecha de inicio de la pausa no puede modificarse una vez iniciada.",
+          "contentSubscriptionWillEndBeforePause": "La suscripción no se puede pausar durante este periodo porque habrá terminado antes o su renovación no se ha ejecutado todavía en este momento.",
+          "contentCanNotCancelPause": "Como la pausa ya ha comenzado o ha pasado, no se puede cancelar.",
+          "contentInvalidTimedelta": "La pausa debe durar al menos un día.",
+          "contentOverlapPause": "La cuota {{- subscriptionName}} de {{- subscriberName }} no se ha podido pausar porque ya hay una pausa programada de {{- fromDate}} a {{- untilDate}}.",
+          "contentIncomingBill": "La cuota {{- subscriptionName}} de {{- subscriberName }} no se ha podido pausar porque se va a cobrar una factura en el intervalo de pausa dentro de 24 horas, o se está pagando una factura futura. Por favor, cambia la fecha de inicio de la pausa.",
+          "title": "Fallo de la pausa"
+        },
+        "successStep": {
+          "content": "La cuota {{- subscriptionName}} de {{- subscriberName }} se ha puesto en pausa desde {{- fromDate}} hasta {{- untilDate}} incluido.",
+          "title": "Pausa de la cuota"
+        },
+        "initStep": {
+          "information2": "La fecha de caducidad de la tarjeta se prolongará por el número de días de la pausa y la tarjeta seguirá siendo válida durante la misma.",
+          "information1": "La cuota estará en pausa desde {{- fromDate}} hasta {{- untilDate}} incluido. La siguiente facturación que siga a la pausa se desplazará en {{count}} día, al igual que todas las facturaciones futuras.",
+          "information1_plural": "La cuota estará en pausa desde {{- fromDate}} hasta {{- untilDate}} incluido. La siguiente facturación que siga a la pausa se desplazará en {{count}} días, al igual que todas las facturaciones futuras.",
+          "titleUpdate": "Modificar la pausa",
+          "titleCreation": "Pausa"
+        }
+      }
+    },
+    "contractPause": {
+      "sections": {
+        "error": "{{count}} suscripción no ha podido ser pausada automáticamente",
+        "error_plural": "{{count}} suscripciones no han podido ser pausadas automáticamente",
+        "success": "{{count}} suscripción pausada",
+        "success_plural": "{{count}} suscripciones pausadas"
+      },
+      "updateNameDialogTitle": "Modificación del motivo de la pausa",
+      "deleteDialogContent": "¿Estás seguro de que quieres desprogramar esta pausa para todas las suscripciones?",
+      "form": {
+        "thirdStep": {
+          "successExplanation": "{{ count }} suscripción se ha puesto en pausa desde {{- fromDate}} hasta {{- untilDate}}, ambos incluidos.",
+          "successExplanation_plural": "{{ count }} suscripciones se han puesto en pausa desde {{- fromDate}} hasta {{- untilDate}}, ambos incluidos.",
+          "title": "Pausa global de la cuota"
+        },
+        "secondStep": {
+          "incompatibleSubscriptions": "Las siguientes suscripciones no han podido ser pausadas por una de las siguientes razones: un pago dentro del intervalo de pausa vence en 24 horas, un pago para una factura futura está en curso, el período seleccionado se superpone con otra pausa ya programada, la cuota no ha comenzado todavía.",
+          "noCompatibleSubscriptions": "Ninguna suscripción puede ser pausada.",
+          "sectionFailure": "Fallo de la pausa ",
+          "sectionSuccess": "Suscripciones pausadas",
+          "title": "Verificación"
+        },
+        "firstStep": {
+          "information2": "La fecha de caducidad de la tarjeta se prolongará por el número de días de la pausa y la tarjeta seguirá siendo válida durante la misma.",
+          "information1": "Las suscripciones estarán en pausa desde {{- fromDate}} hasta {{- untilDate}} incluido. Su próxima facturación se retrasará de {{count}} día, al igual que todas las facturas y tarjetas futuras.",
+          "information1_plural": "Las suscripciones estarán en pausa desde {{- fromDate}} hasta {{- untilDate}} incluido. Su próxima facturación se retrasará de {{count}} días, al igual que todas las facturas y tarjetas futuras.",
+          "titleUpdate": "Modificar la pausa global",
+          "titleCreation": "Poner en pausa todas las cuotas"
+        }
+      },
+      "title": "Pausar todas las cuotas"
+    },
+    "common": {
+      "menu": {
+        "cancelForbidden": "No se puede cancelar una pausa cuya fecha de inicio ya ha pasado.",
+        "changeForbidden": "No se puede editar una pausa que ya ha terminado.",
+        "changeContractForbidden": "No se puede editar una pausa creada a nivel de contrato.",
+        "changeName": "Cambia el motivo",
+        "change": "Cambiar las fechas",
+        "delete": "Desprogramar"
+      },
+      "listItem": {
+        "isUpdated": "Pausa editada",
+        "label": "Pausa de {{- fromDate}} a {{- untilDate}}",
+        "pausedAt": "{{ days }} días - El {{- date }}",
+        "deletedAt": "Desprogramado el {{- dateDeletion}}",
+        "deletedAtBy": "Desprogramado en {{- dateDeletion}} por {{- staffName }}",
+        "createdAt": "Creado el {{- dateCreation}}",
+        "createdAtBy": "Creado el {{- dateCreation}} por {{- staffName }}",
+        "fromToUntil": "Pausa de {{- fromDate}} a {{- untilDate}}"
+      },
+      "deleteDialog": {
+        "title": "Cancelar la pausa"
+      },
+      "form": {
+        "duration": {
+          "warning": "La fecha de finalización no puede ser inferior a la fecha de inicio",
+          "end": "Fecha de finalización (incluida)",
+          "start": "Fecha de inicio (incluida)",
+          "title": "Duración de la pausa"
+        },
+        "reasonPlaceholder": "Razón *"
+      },
+      "actions": {
+        "continue": "Continuar",
+        "save": "Salvar",
+        "goBack": "Volver",
+        "previous": "Anterior",
+        "verify": "Verificar",
+        "pause": "Poner en pausa",
+        "confirm": "Validar",
+        "cancel": "Cancelar"
+      }
+    }
+  },
+  "register": {
+    "dialog": {
+      "info": "Tu suscripción se está registrando, te avisaremos cuando esté lista.",
+      "error": "No se ha podido registrar la suscripción",
+      "success": "Tu suscripción {{- name }} ha sido registrada."
+    }
+  },
+  "billing_plan_status": {
+    "0": "Aún no se ha iniciado",
+    "1": "En curso",
+    "2": "Detenido",
+    "3": "En pausa",
+    "4": "Terminado"
+  },
+  "invisibleForStaffToolTip": "Invisible para el personal",
+  "alreadySubscribed": {
+    "dialog": {
+      "title": "Ya suscrito",
+      "content": "Ya ha adquirido esta suscripción recientemente. Si aún no lo ve, espere unos minutos. No obstante, si desea volver a adquirirla, espere unos minutos e inténtelo de nuevo.",
+      "validate": "Ok"
+    }
+  },
+  "subscriptionNotFound": {
+    "explanation": "Esta suscripción ya no existe. Elija otra o póngase en contacto con el responsable de su estudio.",
+    "title": "Suscripción no encontrada"
+  },
+  "newCheckout": {
+    "error": {
+      "button": {
+        "userRegistration": "Ver mi suscripción",
+        "registerBackground": "Cerrar"
+      },
+      "text": {
+        "userRegistration": "Su suscripción ha sido creada y su método de pago será cargado en breve. Sin embargo, no se ha podido registrar su reserva.",
+        "registerBackground": "No se ha podido crear su suscripción y reserva. No se ha realizado el cargo en el método de pago."
+      },
+      "title": "Se ha producido un error"
+    },
+    "payment": {
+      "tooltip": "Este método de pago se conservará para la facturación de acuerdo con el contrato. No te preocupes, puedes cambiarlo más adelante desde tu cuenta.",
+      "details": "Detalles del pago"
+    },
+    "subscriptionBasketSummary": {
+      "message": "Puede consultar su suscripción en su perfil de miembro",
+      "payNow": "Pagar ahora"
+    },
+    "terms": {
+      "acceptTerms": "Acepto las <0>condiciones legales</0>.",
+      "seeLess": "Ver menos",
+      "seeMore": "Ver más",
+      "title": "Condiciones del contrato"
+    },
+    "subscriptionSummary": {
+      "billingInterval": {
+        "day": "cada día",
+        "day_plural": "cada {{ count }} días",
+        "year": "cada año",
+        "year_plural": "cada {{ count }} años",
+        "week": "cada semana",
+        "week_plural": "cada {{ count }} semanas",
+        "month": "cada mes",
+        "month_plural": "cada {{ count }} meses"
+      },
+      "prorataPriceText": "{{proratedPrice}} a pagar el {{-today}}, luego {{recurrentPrice}} cada {{monthBillingDay}} del mes.",
+      "item": "{{count}} artículo",
+      "item_plural": "{{count}} artículos",
+      "unlimited": "Ilimitado",
+      "credit": "{{count}} crédito",
+      "credit_plural": "{{count}} créditos",
+      "startDate": "Fecha de inicio"
+    },
+    "processingPaymentModal": {
+      "timeEstimation": "Esto puede tardar hasta un minuto",
+      "text": "Espere a que se procese el pago. No abandone ni recargue esta página.",
+      "title": "Pago en curso"
+    },
+    "title": "Suscripción"
+  },
+  "GermanMarketSetSubscriptionAutoRenewalAlert": {
+    "content": "Para cumplir con la Ley alemana de Contratos Justos de los Consumidores, después de 2 años de suscripción, los nuevos ciclos de suscripción deben ser inferiores a un año. ¿Está seguro de que desea continuar?",
+    "title": "Renovación automática"
+  },
+  "germanNbIntervalAlert": "Para cumplir la Ley alemana de Contratos Justos con los Consumidores, el número de facturaciones tiene que ser inferior a 24.",
+  "billingPlanStatus": {
+    "valid": "Válido",
+    "paused": "Pausado",
+    "expired": "Expirado",
+    "canceled": "Terminado"
+  },
+  "filters": {
+    "all": "Todas las suscripciones"
+  },
+  "franchiseUserProfile": {
+    "associatedPassValidity": "Válido para ",
+    "associatedInvoices": "Facturas asociadas",
+    "pleaseSelectASubscription": "Seleccione una suscripción para obtener más detalles"
+  },
+  "contractTemplate": {
+    "form": {
+      "sharedAppointmentPassesSelectorTooltip": "Los estudios que tengan acceso a este pase de cita compartido también tendrán acceso a la suscripción",
+      "sharedPassesSelectorTooltip": "Los estudios que tengan acceso a este pase compartido también tendrán acceso a la suscripción",
+      "title": "Suscripción"
+    },
+    "detailPage": {
+      "sharedStudios": "Compartido con los siguientes estudios:"
+    },
+    "filter": {
+      "associatedPass": "Pase asociado",
+      "productType": "Producto",
+      "appointmentPasses": "Tarjetas de cita",
+      "passes": "Bonos",
+      "studios": "Estudios",
+      "searchPlaceholder": "Buscar una suscripción",
+      "availability": "Disponibilidad",
+      "unavailableForEveryone": "No disponible para todos",
+      "staffOnly": "Sólo staff",
+      "memberOnly": "Sólo miembros",
+      "availableForEveryone": "Disponible para todos",
+      "noFilters": "Todas las suscripciones"
+    },
+    "dialog": {
+      "delete": {
+        "confirm": "Eliminar",
+        "cancel": "Cancelar",
+        "content": "¿Estás seguro de que quieres eliminar la suscripción compartida?",
+        "title": "Eliminar confirmación"
+      }
+    },
+    "icons": {
+      "restore": "Restaurar"
+    },
+    "list": {
+      "isEmpty": "Sin suscripciones compartidas"
+    },
+    "backofficeEditWarning": "La suscripción se compartió a través de la Cuenta Maestra. Ciertos ajustes han sido predefinidos por la Cuenta Maestra y no pueden ser modificados."
+  }
+}

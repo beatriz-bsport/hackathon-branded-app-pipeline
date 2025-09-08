@@ -1,0 +1,148 @@
+{
+  "conditions": {
+    "description": {
+      "warning": "Nota: el programa de recomendación sólo se aplica a los nuevos miembros del estudio o franquicia.",
+      "reward2": "La recompensa se aplicará automáticamente a las próximas cestas del afiliado que la recomiende: no hay condiciones de tiempo ni de importe para su aplicación. También puede aplicarse en varios plazos si el importe de la cesta es inferior a la recompensa.",
+      "reward1": "Si la primera compra (excluidas las suscripciones) se realiza de acuerdo con los términos y condiciones descritos, el miembro recomendado será <1>recompensado con una suma de {{ referringReward }}</1>. Esto podrá obtenerse por cada miembro referido hasta un límite de {{ maxReferralUses }} veces.",
+      "applicationTimeLimit": {
+        "units": {
+          "months": "mes",
+          "months_plural": "meses",
+          "weeks": "semana",
+          "weeks_plural": "semanas",
+          "days": "día",
+          "days_plural": "días"
+        }
+      },
+      "signUp": {
+        "noReduction": "Al utilizar el enlace compartido, el nuevo miembro accederá al formulario de registro para crear una cuenta. Una vez hecho esto, el miembro referido deberá completar su primera cesta de acuerdo con las siguientes condiciones:<1><0>El importe de la cesta es superior a {{ minBasketAmount }}</0><0>Se realiza dentro de {{ applicationTimeLimitIntervals }} {{ applicationTimeLimitUnit }} {{ applicationTimeLimitUnit }} después de que el miembro referido se haya registrado</0></1>.",
+        "reduction": "Al utilizar el enlace compartido, el nuevo miembro accederá al formulario de registro para crear una cuenta. Una vez hecho esto, el miembro referido podrá <1>beneficiarse de un descuento de {{ referredReduction }}</1> en su primera cesta si cumple las siguientes condiciones:<3><0>El importe de la cesta es superior a {{ minBasketAmount }}</0><0>Se realiza dentro de los {{ applicationTimeLimitIntervals }} {{ applicationTimeLimitUnit }} {{ applicationTimeLimitUnit }} después de que el miembro referido se haya registrado</0></3>"
+      },
+      "maxUses": "Cada miembro dispone de un enlace de recomendación personal que puede compartir para obtener una recompensa. Se puede obtener un <1>número máximo de {{ maxReferralUses }} veces</1>."
+    },
+    "title": "Condiciones de uso del enlace de referencia"
+  },
+  "memberInfo": {
+    "warningMaxUsesReached": "Ha alcanzado el número máximo de usos de su enlace de referencia",
+    "seeConditions": "Ver condiciones",
+    "copyLink": "Copie mi enlace de referencia",
+    "forYourFriend": "para su amigo",
+    "forYou": "para ti",
+    "inviteFriend": "Invita a un amigo a inscribirse",
+    "nbRemainingUses": "Número de usos restantes",
+    "referralLink": "Enlace de referencia",
+    "loginToUseYourLink": "Inicie sesión para utilizar su enlace",
+    "thanksForSharing": "Gracias por compartirlo con sus amigos y familiares.",
+    "copyReferralLink": "Copiar enlace de referencia",
+    "yourFriendGets": "Tu amigo recibe",
+    "youGet": "Tú obtienes",
+    "nbUsesLeft": "Número de usos restantes:"
+  },
+  "form": {
+    "submit": "Guardar",
+    "errors": {
+      "required": "Este campo es obligatorio",
+      "url": "Por favor, introduzca una URL válida",
+      "rewardReferring": "La recompensa debe ser superior a 0",
+      "timeLimit": "La demora debe ser superior a 1",
+      "referredAmount": "El descuento debe ser superior a 0",
+      "maximumUses": "El número máximo de usos debe ser superior a 1",
+      "minimumAmount": "El importe mínimo debe ser superior a 0"
+    },
+    "warnings": {
+      "rewardReferring": "Al elegir este valor, no se concederá ninguna recompensa al miembro referente",
+      "referredAmount": "Al elegir este valor, no se aplicará ningún descuento a la compra del miembro referido"
+    },
+    "redirectLink": {
+      "placeholder": "URL de redireccionamiento",
+      "description": "Tras registrarse, el nuevo miembro será redirigido a la página indicada por su URL. Si deja la casilla vacía, será redirigido a la página del Calendario.",
+      "title": "Enlace de redireccionamiento"
+    },
+    "tag": {
+      "description": "Un nuevo miembro que utilice el enlace de recomendación será etiquetado",
+      "title": "Etiqueta"
+    },
+    "rewardReferring": {
+      "label": "Importe de la recompensa",
+      "title": "Recompensa para el miembro referente"
+    },
+    "applicationTimeLimit": {
+      "units": {
+        "month": "Mes",
+        "month_plural": "Meses",
+        "week": "Semana",
+        "week_plural": "Semanas",
+        "day": "Día",
+        "day_plural": "Días"
+      },
+      "title": "Plazo para aplicar el descuento tras la inscripción"
+    },
+    "amountOffReferred": {
+      "amount": {
+        "fieldLabel": "Cantidad",
+        "title": "Cantidad"
+      },
+      "percent": {
+        "fieldLabel": "Porcentaje",
+        "title": "Porcentaje"
+      },
+      "title": "Descuento para el miembro recomendado"
+    },
+    "maximumUses": {
+      "label": "Número máximo de usos"
+    },
+    "minimumBasketAmount": {
+      "description": "Este valor se refiere al precio total de la cesta",
+      "label": "Valor mínimo de la cesta del cliente"
+    },
+    "activateReferral": {
+      "description": "Cada miembro puede compartir este enlace de recomendación con los no miembros. Al utilizarlo, se ofrece un descuento automático al nuevo miembro, así como una recompensa para el miembro que compartió el enlace.",
+      "label": "Activar enlace de referencia"
+    },
+    "title": "Referencia"
+  },
+  "referralErrors": {
+    "33000": {
+      "description": "Este enlace de referencia no está disponible para este estudio.",
+      "title": "Enlace de referencia inutilizable"
+    },
+    "33001": {
+      "description": "El miembro asociado a este enlace de referencia ya no está registrado en el estudio.",
+      "title": "Enlace de referencia inutilizable"
+    },
+    "33002": {
+      "description": "Ya eres miembro de este estudio",
+      "title": "Enlace de referencia inutilizable"
+    },
+    "33003": {
+      "description": "Este enlace de referencia ya no es utilizable.",
+      "title": "Enlace de referencia caducado"
+    },
+    "33004": {
+      "description": "Se ha producido un error al registrar la referencia.",
+      "title": "Error en la referencia"
+    },
+    "33005": {
+      "description": "Se ha producido un error al registrar la referencia.",
+      "title": "Error en la referencia"
+    },
+    "33006": {
+      "description": "El programa de referencia ya no está disponible.",
+      "title": "Referencia caducada"
+    },
+    "33007": {
+      "description": "El programa de referencia ya no está disponible.",
+      "title": "Referencia caducada"
+    },
+    "maxUsesReached": {
+      "description": "Se ha alcanzado el número máximo de usos para este enlace de {{ referringMemberFirstName }}.",
+      "title": "Enlace de referencia inutilizable"
+    },
+    "somethingWentWrong": "Algo ha ido mal, no podemos cargar esta página. Vuelva a intentarlo más tarde",
+    "noProgramAvailable": "Ups, parece que no hay programa de referencia disponible"
+  },
+  "checkoutValidation": {
+    "title": "Patrocinar a un amigo",
+    "explain": "Consigue recompensas compartiendo tu enlace de referencia con tus amigos."
+  }
+}

@@ -1,0 +1,220 @@
+{
+  "backgroundImage": {
+    "dialog": {
+      "explain": "Añada imágenes para que sus miembros puedan personalizar su tarjeta regalo. Al crear su tarjeta, sus miembros podrán elegir una imagen de fondo en la tarjeta de regalo.",
+      "actions": {
+        "close": "Cerrar"
+      },
+      "title": "Imágenes de personalización"
+    }
+  },
+  "form": {
+    "giftcard": {
+      "manager_only": {
+        "label": "Invisible para los clientes"
+      },
+      "unlimited": {
+        "label": "Ilimitado"
+      },
+      "expiration_days": {
+        "helperText": "El periodo de validez comienza en la fecha de activación de la tarjeta regalo",
+        "label": "Duración de la validez en días"
+      },
+      "price": {
+        "helperText": "Definirá el valor de la tarjeta ofrecida",
+        "label": "Precio de venta"
+      },
+      "section": {
+        "parameters": {
+          "title": "Parámetros"
+        }
+      },
+      "description": {
+        "label": "Descripción"
+      },
+      "available_payment_method_identifiers": {
+        "label": "Medios de pago disponibles",
+        "helperText": " "
+      },
+      "name": {
+        "label": "Nombre"
+      },
+      "title": "Tarjeta regalo",
+      "actions": {
+        "submit": "Validar",
+        "cancel": "Cerrar"
+      },
+      "advancedOptions": {
+        "tag": {
+          "selectTags": "Seleccionar etiquetas",
+          "tagsOnAcquisitionHelper": "Utilice etiquetas para identificar qué miembro compró la tarjeta regalo",
+          "tagsOnAcquisition": "Etiqueta tras la compra"
+        },
+        "header": "Avanzado"
+      }
+    },
+    "canNotUpdateBecauseShared": "Esta tarjeta de regalo es una tarjeta compartida por el franquiciador. Ha sido definida por el franquiciador y no puede ser modificada."
+  },
+  "giftcard": {
+    "delete": {
+      "dialog": {
+        "actions": {
+          "close": "Cerrar",
+          "delete": "Borrar"
+        },
+        "content": "¿Estás seguro de que quieres borrar esta tarjeta? Los miembros que ya hayan comprado la tarjeta podrán seguir utilizándola.",
+        "title": "Supresión"
+      }
+    },
+    "detail": {
+      "manager_only": "No está disponible para la venta en línea",
+      "availablePaymentMethods": "Medios de pago disponibles",
+      "expirationDate": "Validez antes de la expiración: {{ expiration_days }} días"
+    },
+    "configurationTitle": "Tarjeta regalo"
+  },
+  "link": {
+    "copyLink": "Copiar el enlace de compra",
+    "activationLink": "Copiar el enlace de activación"
+  },
+  "consumerGiftcard": {
+    "form": {
+      "footer": "La tarjeta regalo se enviará al destinatario a las {{- hour_send }}. Será válida durante {{ expiration_days }} día(s) tras la activación y la cuenta del destinatario se recargará con {{- price }}.",
+      "actions": {
+        "submit": "Añadir a la cesta",
+        "cancel": "Cancelar"
+      },
+      "date_send": {
+        "label": "Fecha de envío del correo electrónico"
+      },
+      "recipients": {
+        "label": "Correo electrónico del destinatario"
+      },
+      "message_content": {
+        "label": "Mensaje personal"
+      },
+      "message_is_from": {
+        "label": "De "
+      },
+      "message_is_for": {
+        "label": "Para "
+      },
+      "name": {
+        "label": "Nombre de la tarjeta"
+      },
+      "footerUnlimited": "La tarjeta se enviará por correo electrónico en {{- date_send }} a {{- hour_send }} a las direcciones indicadas. No contiene fecha de caducidad. La cuenta del destinatario será acreditada con {{- price }} para futuras compras.",
+      "select_image": "Seleccione su imagen de fondo",
+      "hour_send": "Hora de envío",
+      "activationDate": {
+        "helperText": "El destinatario puede utilizar la tarjeta regalo a partir de esta fecha",
+        "label": "Fecha de activación",
+        "errorMaxDate": "Introduzca una fecha válida"
+      },
+      "footerPhysicalUnlimited": "Recibirá por correo electrónico la información necesaria para utilizar la tarjeta regalo y una versión imprimible de su tarjeta en un archivo PDF.",
+      "footerPhysical": "La tarjeta regalo se activará el {{- activation_date }} y será válida hasta el {{- activation_date_until }} ({{ duration }} día(s)). Recibirá por correo electrónico la información necesaria para utilizar la tarjeta regalo y una versión imprimible de su tarjeta en un archivo PDF.",
+      "type": {
+        "option": {
+          "physical": "Código imprimible (PDF)",
+          "digital": "Enlace de activación por correo electrónico"
+        },
+        "label": "Cómo desea enviar la tarjeta regalo"
+      }
+    },
+    "previewPlaceholder": {
+      "message_content": "[Mensaje personalizado]",
+      "message_is_for": "[Nombre del destinatario]",
+      "message_is_from": "[Nombre del comprador]",
+      "name": "[Nombre de la tarjeta]",
+      "giftcard_amount": "[Importe de la tarjeta]"
+    },
+    "sendTo": "Enviar la invitación de vuelta",
+    "notAttributedYet": "No activada",
+    "expiresOn": "Expira el {{- d }}",
+    "willInviteOn": "Invitación a enviar en {{- d }}",
+    "invitedOn": "Enviado el {{- d }}",
+    "value": "Valor",
+    "isFrom": "De ",
+    "isFor": "Para ",
+    "isEmpty": "No hay tarjetas de regalo",
+    "linkedInvoice": "Factura vinculada",
+    "list": {
+      "myGifted": "Tarjetas regalo recibidas",
+      "myPurchases": "Tarjetas regalo compradas"
+    },
+    "invitationForm": {
+      "actions": {
+        "submit": "Enviar",
+        "close": "Cerrar"
+      },
+      "content": "Puedes cambiar los destinatarios de la tarjeta regalo. Tenga en cuenta que sólo puede utilizarlo una persona. Si no ha recibido el correo electrónico, también puede reenviar este enlace de activación:",
+      "title": "Enviar un correo electrónico de invitación",
+      "activationCodeLink": "El correo electrónico de invitación se ha enviado y ya no se puede cambiar, si no ha llegado al destinatario correcto puede reenviar este enlace de activación para ofrecer la tarjeta regalo: "
+    },
+    "activation": {
+      "alreadyActivated": "Esta tarjeta regalo ya ha sido utilizada por otro usuario",
+      "activate": "Activar mi tarjeta regalo",
+      "content3": "Si no está conectado a la cuenta correcta, por favor, cierre la sesión para conectarse a la cuenta correcta. Si esta tarjeta regalo no es para usted, no la canjee.",
+      "content2": "Se añadirá automáticamente como método de pago a su cesta de la compra. Puedes encontrar toda la información sobre tu tarjeta regalo en tu perfil.",
+      "content1": "Tu tarjeta regalo por valor de {{price}} es compatible con todos los productos de nuestra tienda. Esta tarjeta no tiene fecha de caducidad, así que aprovecha!",
+      "subtitle": "Parece que alguien le ha dado una sorpresa.",
+      "title": "¡Alguien quería complacerte!",
+      "content1withDate": "iTu tarjeta regalo {{price}} es compatible con todos los productos de nuestra tienda. Esta tarjeta caduca {{expiration_days }} días después de su activación, así que date un capricho!"
+    },
+    "physicalDetails": {
+      "helperAlert": {
+        "message": "Comparta el código de la tarjeta regalo con el socio para que pueda utilizar el crédito en su próxima compra.",
+        "title": "¿Cómo utilizar la tarjeta regalo?"
+      },
+      "validFrom": "Válido de: {{- from }} a {{- to }}",
+      "code": "Código:",
+      "to": "A",
+      "title": "Tarjeta regalo"
+    },
+    "seeDetails": "Ver detalles"
+  },
+  "list": {
+    "actions": {
+      "create": "Crear una tarjeta regalo",
+      "goToGiftcard": "Ver todas las tarjetas regalo"
+    },
+    "addBackgroundImage": "Añadir imágenes de personalización",
+    "isEmpty": "No hay tarjetas regalo disponibles",
+    "archivedTitle": "Archivado",
+    "unavailableForSaleTitle": "No disponible para la venta",
+    "activeTitle": "Disponible a la venta",
+    "visibility": "No es visible",
+    "explainIfEmpty": "Las tarjetas regalo permiten a sus miembros ofrecer a sus invitados una cantidad para gastar en su estudio.",
+    "unlimited": "Ilimitado",
+    "validity": "Válido {{ duration }} días"
+  },
+  "delete": {
+    "submit": "Confirmar",
+    "cancel": "Cancelar",
+    "content": "¿Realmente quieres archivar esta tarjeta de regalo? Ya no será facturable a través del back office. Puedes reactivarlo más tarde.",
+    "title": "Archivar la tarjeta regalo"
+  },
+  "search": "Buscar una tarjeta regalo",
+  "widget": "Elige las tarjetas regalo",
+  "giftcardTemplate": {
+    "template": {
+      "withoutTax": "Sin IVA",
+      "unlimited": "Ilimitado",
+      "validityDetail": "Válido {{count}} día desde la fecha de la factura",
+      "validityDetail_plural": "Válido {{count}} días desde la fecha de la factura",
+      "validity": "Válido {{count}} día",
+      "validity_plural": "Válido {{count}} días",
+      "deleteDialogContent": "Al desactivar una tarjeta de regalo compartida, los miembros que la tengan sólo podrán utilizarla en el estudio donde la compraron.",
+      "deleteInstanceContent2": "Por último, las tarjetas regalo que se hayan comprado en otros estudios ya no podrán utilizarse en el estudio desactivado, independientemente de cuándo se hayan comprado.",
+      "deleteInstanceContent1": "Al desactivar este estudio de compartir la tarjeta de regalo, todos los miembros que tengan esta tarjeta y la hayan recibido de un miembro que la haya comprado en este estudio podrán seguir utilizándola. Sin embargo, no podrán utilizarla en otros estudios.",
+      "deleteTemplateContent": "By deactivating a shared gift card, members with that card will only be able to use it in the studio where it was purchased."
+    },
+    "listPage": {
+      "fuzzyPlaceholder": "Buscar una tarjeta de regalo",
+      "addButton": "Crear una tarjeta de regalo compartida",
+      "emptyLabel": "No se han registrado tarjetas de regalo compartidas"
+    },
+    "sharedCard": "Compartido por otro franquiciado",
+    "giftcard": "Tarjeta de regalo"
+  },
+  "downloadPDF": "Descargar PDF"
+}

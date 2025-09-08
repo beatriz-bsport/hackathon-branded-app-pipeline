@@ -1,0 +1,947 @@
+{
+  "parameters": {
+    "member": "Mitglied",
+    "name": "Name",
+    "voucher": "Besonderes Angebot",
+    "payment_method": {
+      "0": "Kreditkarte",
+      "1": "SEPA-Überweisung",
+      "2": "mit Guthaben",
+      "label": "Zahlungsmethode",
+      "paymentOnline": "Online-Bezahlung"
+    },
+    "parameters": "Einstellungen",
+    "autoRenew": "Automatische Verlängerung",
+    "payment_pack": "Kurspass",
+    "firstBilling": "Erster Einzug",
+    "dateStart": "Erste Rechnung",
+    "nbMonths": "Anzahl der Monate",
+    "paymentPack": "Kurspass",
+    "nbInterval": "Anzahl der Monate",
+    "dateCreated": "Erstellungsdatum",
+    "status": "Status",
+    "subscribeAgain": "Erneut abonnieren",
+    "trial_nb": "Anzahl der geschenkten Monate",
+    "recurrent_price": "Periodische Zahlung",
+    "flat_fee": "Anmeldegebühren : {{price_with_currency}}",
+    "recurrent_voucher": "Rabatt auf jede Rechnung",
+    "private_pass": "Terminpass",
+    "privatePass": "Terminpass",
+    "note": "Anmerkung",
+    "payment_method_group": {
+      "1": "Kreditkarte",
+      "2": "SEPA",
+      "14": "Guthaben"
+    },
+    "paymentCombo": "Pack",
+    "payment_combo": "Paket",
+    "contractTermsAccepted": "Die <0>Nutzungsbedingungen</0> wurden am {{- dateAccepted}} akzeptiert.",
+    "stopNote": "Hinweis zur Stornierung",
+    "secondBillingPlanEnabled": "Zweiter Abrechnungsplan aktiviert",
+    "source_company": "Gekauft bei"
+  },
+  "paymentMethod": {
+    "card": "Kreditkarte",
+    "bsportCredit": "Anzahlung des Kundens",
+    "sepa": "SEPA-Überweisung",
+    "credit": {
+      "explain": "Verwenden Sie diese Zahlungsmethode für die Rechnungsstellung an Mitglieder, wenn keine direkte Zahlungsmethode, wie z. B. eine Karte oder IBAN, verfügbar ist. Der interne Kontostand des Mitglieds wird in Rechnung gestellt und diese Zahlungsmethode kann später geändert werden."
+    },
+    "bacs_debit": "Bacs-Lastschriftverfahren"
+  },
+  "contract": {
+    "form": {
+      "description": {
+        "label": "Beschreibung",
+        "placeholder": "Neues exklusives Angebot"
+      },
+      "name": {
+        "label": "Name des Abonnements"
+      },
+      "nb_interval": {
+        "label": "Anzahl an Rechnungen",
+        "helperText": "Mindestens 2 Monate",
+        "error": "Die Anzahl der Rechnungen darf 90 nicht überschreiten",
+        "errorForFixedBillingDay": "Die Anzahl der Rechnungen darf 12 nicht überschreiten",
+        "restrictionForFixedBillingDay": "Die Anzahl der Rechnungen muss zwischen 2 und 12 liegen, wenn an einem festen Tag abgerechnet werden soll"
+      },
+      "recurrent_price": {
+        "label": "Wiederkehrende Zahlung",
+        "infoBox": "Sie sind dabei, den Preis Ihres Abonnements zu ändern. Nur der Preis von neu erstellten Abonnements wird davon betroffen sein. Der Preis für laufende Abonnements und für bereits bestehende Abonnements mit Verlängerung wird sich nicht ändern (auch nicht nach einer Verlängerung)."
+      },
+      "managerOnly": {
+        "label": "Für Kunden unsichtbar"
+      },
+      "flat_fee": {
+        "label": "Anmeldegebühren",
+        "helperText": "Diese Gebühr wird der ersten Rechnung hinzugefügt"
+      },
+      "title": "Abonnement-Formular",
+      "contract": {
+        "placeholder": "Gib hier alle erforderlichen rechtlichen Hinweise ein, unter anderem zu den Rückerstattungsverfahren.",
+        "label": "Allgemeine Geschäftsbedingungen"
+      },
+      "autoRenewal": {
+        "label": "Automatische Verlängerung aktivieren",
+        "germanMarketWarning": "Um dem deutschen Gesetz über faire Verbraucherverträge zu entsprechen, müssen die neuen Abonnement-Zyklen nach 2 Jahren Laufzeit weniger als ein Jahr betragen. Bitte stellen Sie sicher, dass Sie diese Bedingungen einhalten."
+      },
+      "object_type": {
+        "paymentPack": "Kurspässe",
+        "label": "Abonnement-Typ",
+        "privatePass": "Terminpass",
+        "paymentCombo": "Pakete"
+      },
+      "error": {
+        "missingObject": "Pflichtfeld",
+        "missingPaymentCombo": "Sie müssen ein Paket auswählen",
+        "missingPrivatePass": "Sie müssen einen Terminpass auswählen",
+        "missingPaymentPack": "Sie müssen einen Pass auswählen",
+        "moreThanThreeDecimalPrice": "Es sieht so aus, als hätten Sie mehr als zwei Dezimalstellen eingegeben. Bitte korrigieren Sie den Betrag auf den nächsten Cent."
+      },
+      "recurrence": {
+        "explain": "Das Abonnement wird alle {{ recurrence_basis }} {{ interval }} über eine Gesamtdauer von {{ total_interval_duration }} {{ interval }} n Rechnung gestellt und generiert {{nb_interval}} Rechnungen",
+        "section": "Wiederholung"
+      },
+      "interval": {
+        "helperText": "Häufigkeit der Rechnungs- / Kartenerstellung",
+        "label": "Wiederholung"
+      },
+      "recurrence_basis": {
+        "intervalName": {
+          "week": "Woche",
+          "week_plural": "Wochen",
+          "day": "Tag",
+          "day_plural": "Tage",
+          "month": "Monat",
+          "month_plural": "Monate",
+          "year": "Jahr",
+          "year_plural": "Jahre"
+        },
+        "label": "Wiederhole jeden",
+        "helperText": " "
+      },
+      "invoicing": {
+        "fixed_day": {
+          "end_of_month_explain": "Wenn ein Monat keinen {{ month_billing_day }} hat, wird die Rechnung am letzten Tag des Monats ausgestellt.",
+          "recurrence_explain": {
+            "month": "Das Abonnement wird an jedem {{ month_billing_day }} des Monats über eine Gesamtdauer von {{ nb_interval }} Monaten in Rechnung gestellt und erzeugt {{ nb_interval }} {{ invoice }}. Die erste Zahlung wird ggf. anteilig berechnet."
+          },
+          "modification_not_apply_to_past": "Sie sind dabei, den Tag der Rechnungsstellung für Ihr Abonnement zu ändern. Nur neu erstellte Abonnements werden davon betroffen sein. Laufende Abonnements und bereits bestehende Abonnements mit Verlängerung werden sich nicht ändern (auch nicht nach einer Verlängerung)",
+          "label": "Rechnung an einem festen Tag",
+          "explain": "Jede Rechnung wird an dem gewählten Tag in Rechnung gestellt. Die erste Zahlung wird wenn nötig anteilig berechnet."
+        },
+        "same_day_as_subscription": {
+          "recurrence_explain": {
+            "week": "Das Abonnement wird wöchentlich über eine Gesamtdauer von {{ total_subscription_duration }} {{ time_unit }} in Rechnung gestellt und erzeugt {{ nb_interval }} {{ invoice }}. Der Kunde kann das Startdatum seines Abonnements wählen.",
+            "week_plural": "Das Abonnement wird alle {{ recurrence_basis }} Wochen über eine Gesamtdauer von {{ total_subscription_duration }} {{ time_unit }} in Rechnung gestellt und generiert {{ nb_interval }} {{ invoice }}. Der Kunde kann das Startdatum seines Abonnements wählen.",
+            "day": "Das Abonnement wird täglich über eine Gesamtdauer von {{ total_subscription_duration }} {{ time_unit }} in Rechnung gestellt und erzeugt {{ nb_interval }} {{ invoice }}. Der Kunde kann das Startdatum seines Abonnements wählen.",
+            "day_plural": "Das Abonnement wird alle {{ recurrence_basis }} Tage über eine Gesamtdauer von {{ total_subscription_duration }} {{ time_unit }} in Rechnung gestellt und erzeugt {{ nb_interval }} {{ invoice }}. Der Kunde kann das Startdatum seines Abonnements wählen.",
+            "month": "Das Abonnement wird monatlich über eine Gesamtdauer von {{ total_subscription_duration }} {{ time_unit }} in Rechnung gestellt und generiert {{ nb_interval }} {{ invoice }}. Der Kunde kann das Startdatum seines Abonnements wählen.",
+            "month_plural": "Das Abonnement wird jeden {{ recurrence_basis }} Monat über eine Gesamtdauer von {{ total_subscription_duration }} {{ time_unit }} in Rechnung gestellt und erzeugt {{ nb_interval }} {{ invoice }}. Der Kunde kann das Startdatum seines Abonnements wählen.",
+            "year": "Das Abonnement wird jährlich über eine Gesamtdauer von {{ total_subscription_duration }} {{ time_unit }} in Rechnung gestellt und erzeugt {{ nb_interval }} {{ invoice }}. Der Kunde kann das Startdatum seines Abonnements wählen.",
+            "year_plural": "Das Abonnement wird alle {{ recurrence_basis }} Jahre über eine Gesamtdauer von {{ total_subscription_duration }} {{ time_unit }} in Rechnung gestellt und erzeugt {{ nb_interval }} {{ invoice }}. Der Kunde kann das Startdatum seines Abonnements wählen."
+          },
+          "explain": "Der Tag der Rechnungsstellung hängt vom Tag des Kaufs des Abonnements ab.",
+          "label": "Am selben Tag wie das Kaufdatum des Abonnements abrechnen"
+        },
+        "invoicing_type_readonly": "Es ist nicht möglich, die Abrechnungsart zu ändern",
+        "title": "Abrechnung",
+        "invoice": "Rechnung",
+        "invoice_plural": "Rechnungen"
+      },
+      "month_billing_day": {
+        "label1": "Rechnungsdatum am",
+        "label2": "des Monats."
+      },
+      "general_info": {
+        "title": "Allgemeine Informationen"
+      },
+      "settings": {
+        "title": "Einstellungen"
+      },
+      "unusableByStaff": {
+        "label": "Unsichtbar für Mitarbeiter"
+      },
+      "price": {
+        "title": "Preis"
+      },
+      "highlightedAsRecommended": {
+        "helperText": "Ermöglicht es Ihren Kunden, auf einen Blick zu sehen, welche Verträge derzeit empfohlen werden.",
+        "label": "Als empfohlen markieren"
+      },
+      "advancedOptions": {
+        "selectTags": "Tags auswählen",
+        "tag": {
+          "tagGroupDuplicated": "Bitte beachten Sie, dass ausgewählte Artikel Tags der gleichen Kategorie enthalten.",
+          "selectTags": "Tags auswählen",
+          "tagsOnAcquisitionHelper": "Mit Tags kannst du Mitglieder markieren, die ihre erste Rechnung beglichen haben, um sie in Zukunft schnell wiederfinden zu können.",
+          "tagsOnAcquisition": "Tag nach dem Kauf"
+        },
+        "title": "Erweitert"
+      },
+      "nbIntervalAfterAutoRenewal": {
+        "secondLabel": "Anzahl der Rechnungen *",
+        "firstLabel": "Abonnementabrechnung für die nächsten Zyklen ändern"
+      },
+      "notEditable": "Dieser Vertrag geht auf eine zuvor abgeschlossene Datenmigration zurück. Einige Felder können möglicherweise nicht bearbeitet werden, um die Daten beizubehalten.",
+      "commitmentPeriod": {
+        "explain": {
+          "year": "Dieses Abonnement verpflichtet Mitglieder für {{ commitment_period_value }} Jahr. Änderungen der Mindestlaufzeit in den Einstellungen wirken sich nicht auf bereits abgeschlossene Abonnements aus.",
+          "year_plural": "Dieses Abonnement verpflichtet Mitglieder für {{ commitment_period_value }} Jahre. Änderungen der Mindestlaufzeit in den Einstellungen wirken sich nicht auf bereits abgeschlossene Abonnements aus.",
+          "month": "Dieses Abonnement verpflichtet Mitglieder für {{ commitment_period_value }} Monat. Änderungen der Mindestlaufzeit in den Einstellungen wirken sich nicht auf bereits abgeschlossene Abonnements aus.",
+          "month_plural": "Dieses Abonnement verpflichtet Mitglieder für {{ commitment_period_value }} Monate. Änderungen der Mindestlaufzeit in den Einstellungen wirken sich nicht auf bereits abgeschlossene Abonnements aus.",
+          "week": "Dieses Abonnement verpflichtet Mitglieder für {{ commitment_period_value }} Woche. Änderungen der Mindestlaufzeit in den Einstellungen wirken sich nicht auf bereits abgeschlossene Abonnements aus.",
+          "week_plural": "Dieses Abonnement verpflichtet Mitglieder für {{ commitment_period_value }} Wochen. Änderungen der Mindestlaufzeit in den Einstellungen wirken sich nicht auf bereits abgeschlossene Abonnements aus.",
+          "day": "Dieses Abonnement verpflichtet Mitglieder für {{ commitment_period_value }} Tag. Änderungen der Mindestlaufzeit in den Einstellungen wirken sich nicht auf bereits abgeschlossene Abonnements aus.",
+          "day_plural": "Dieses Abonnement verpflichtet Mitglieder für {{ commitment_period_value }} Tage. Änderungen der Mindestlaufzeit in den Einstellungen wirken sich nicht auf bereits abgeschlossene Abonnements aus."
+        },
+        "error": "Die Mindestlaufzeit kann 90 nicht überschreiten.",
+        "helperText": "Bitte prüfe die gesetzlichen Bestimmungen deines Landes zum Widerrufsrecht bei Abonnements und nimm die erforderlichen Informationen in deinen Allgemeinen Geschäftsbedingungen (AGB) auf.",
+        "label": "Mindestlaufzeit"
+      }
+    },
+    "description": "Beschreibung",
+    "registerManager": {
+      "title": "Periodische Zahlung",
+      "explainCustomSubscriptionForm": "Personalisiertes Abonnement festlegen",
+      "actions": {
+        "cancel": "Abbrechen"
+      },
+      "explainChoseContract": "Wähle einen Vertrag aus, welcher dem Mitglied monatlich in Rechnung gestellt wird"
+    },
+    "actions": {
+      "iwanttostarton": "Ich möchte mit der Rechnungsstellung am... beginnen : ",
+      "subscribe": "Abonnieren",
+      "create": "Ein Abonnement hinzufügen",
+      "iAcceptCondition": "Ich akzeptiere die oben genannten Bedingungen",
+      "iAcceptGeneralCondition": " Ich akzeptiere den rechtlichen Hinweis",
+      "alertPastDateSameMonth": "Bitte beachten Sie, dass Sie ein vergangenes Datum gewählt haben. Wenn das Abonnement einen Kurspass beinhaltet, beginnt die Gültigkeit des Kurspasses an dem gewählten Datum. Im Falle einer einmonatigen Gültigkeit, verliert ihr Mitglied {{lostDays}} Tage der Gültigkeit.",
+      "title": "Vergangenes Datum",
+      "iAcceptContractTerms": "Ich akzeptiere die <0>Nutzungsbedingungen</0>.",
+      "acceptContractTerms": "Akzeptieren Sie die <0>Allgemeinen Nutzungsbedingungen</0>"
+    },
+    "list": {
+      "title": "Abonnements",
+      "titleCustomerAvailable": "Abonnements zum Verkauf verfügbar",
+      "register": "Ein Mitglied abonnieren",
+      "titleManagerOnly": "Abonnements nicht zum Verkauf verfügbar",
+      "addButton": "Einen Vertrag festlegen",
+      "isEmpty": "Kein verfügbarer Vertrag",
+      "titleInactive": "Archivierte Verträge"
+    },
+    "duration": "{{month}} Rechnungen",
+    "legal": "Allgemeine Geschäftsbedingungen",
+    "deleteForm": {
+      "actions": {
+        "confirm": "Löschen",
+        "cancel": "Abbrechen"
+      },
+      "content": "Willst Du wirklich diesen Vertrag löschen?",
+      "title": "Löschung des Vertrags"
+    },
+    "paymentPack": "Verbundener Kurspass",
+    "no": "Nein",
+    "yes": "Ja",
+    "privatePass": "Zugehöriger Terminpass",
+    "interval": {
+      "week": "Woche",
+      "week_plural": "Wochen",
+      "day": "Tag",
+      "day_plural": "Tage",
+      "year": "Jahr",
+      "year_plural": "Jahre",
+      "month": "Monat",
+      "month_plural": "Monate"
+    },
+    "item": {
+      "intervalLabel": {
+        "year": "Jedes Jahr",
+        "year_plural": "Jede {{ count }} Jahre",
+        "day": "Jeden Tag",
+        "day_plural": "Alle {{ count }} Tage",
+        "week": "Jede Woche",
+        "week_plural": "Jede {{ count }} Wochen",
+        "month": "Jeden Monat",
+        "month_plural": "Jede {{ count }} Monate"
+      },
+      "recurrentPriceLabel": "{{ recurrent_price  }}{{ currencyDisplay }}",
+      "identifier": "Abo"
+    },
+    "billingFrequency": "Häufigkeit der Rechnungsstellung",
+    "frequency": {
+      "month": "monatlich",
+      "week": "wöchentlich"
+    },
+    "paymentCombo": "Zugehöriges Paket",
+    "pastDate": {
+      "payment": {
+        "registeredMethodPayment": "Abbuchung von der registrierten Zahlungsmethode",
+        "registeredInfo": "Alle zukünftigen und vergangenen Rechnungen werden innerhalb von 24 Stunden, von der im Abonnement angegebene Zahlungsmethode, abgebucht.",
+        "pastInvoicesPayment": "Zahlung vergangener Rechnungen",
+        "manualPayment": "Manuelle Zahlung",
+        "manualInfo": "Frühere Rechnungen werden als manuell bezahlt markiert und künftige Rechnungen werden mit der vom Mitglied angegeben Zahlungsmethode b elastet."
+      },
+      "alertDifferentMonth": "Achtung: Sie haben ein Datum in einem Vergangenen Monat gewählt. Ihr Mitglied hat möglicherweise eine oder mehrere abgerechnete Pässe, die dann bereits abgelaufen sind.",
+      "valuePastInvoicesInputError": "Der Wert stimmt nicht überein. Bitte versuchen Sie es erneut",
+      "futureInvoicesPayment": "Zahlung zukünftiger Rechnungen",
+      "alertSameMonth": "Bitte beachten Sie, dass sie ein vergangenes Datum gewählt haben. Wenn das Abonnement einen Kurspass beinhaltet, beginnt die Gültigkeit des Kurspasses an dem gewählten Datum. Im Falle einer einmonatigen Gültigkeit verliert Ihr Mitglied {{lostDays}} Tage an Gültigkeit.",
+      "alertDifferentMonthConfirmAsk": "Sie sind dabei, Ihrem Mitglied {{valuePastInvoicesPrice}} in Rechnung zu stellen. Um diese Aktion zu bestätigen, geben Sie {{valuePastInvoices}} ein",
+      "alertDifferentMonthInput": "Wert vergangener Rechnungen",
+      "validate": "Bestätigen",
+      "title": "Vergangenes Datum",
+      "cancel": "Abbrechen"
+    },
+    "monthBillingDay": "Wird jeden {{ month_billing_day }} des Monats in Rechnung gestellt",
+    "autoRenewal": "Automatische Verlängerung",
+    "nbIntervalAfterAutoRenewal": {
+      "details": {
+        "year": "Nach der Erneuerung wird das Abonnement in einen {{durationAfterAutoRenewal}}-Jahresplan geändert.",
+        "month": "Nach der Erneuerung wird das Abonnement in einen {{durationAfterAutoRenewal}}-Monatsplan geändert.",
+        "week": "Nach der Erneuerung wird das Abonnement in einen {{durationAfterAutoRenewal}}-Wochenplan geändert.",
+        "day": "Nach der Erneuerung wird das Abonnement in einen {{durationAfterAutoRenewal}}-Tagesplan geändert."
+      },
+      "title": "Zweiter Abrechnungsplan"
+    },
+    "durationInfo": {
+      "year": "{{count}} Jahr",
+      "year_plural": "{{count}} Jahre",
+      "month": "{{count}} Monat",
+      "month_plural": "{{count}} Monate",
+      "week": "{{count}} Woche",
+      "week_plural": "{{count}} Wochen",
+      "day": "{{count}} Tag",
+      "day_plural": "{{count}} Tage"
+    },
+    "autoRenewalInfo": "Automatische Erneuerung",
+    "recurrenceInfoFixedDay": "jeden {{day}} des Monats",
+    "recurrenceInfo": {
+      "year": "jährlich",
+      "year_plural": "alle {{count}} Jahre",
+      "month": "monatlich",
+      "month_plural": "alle {{count}} Monate",
+      "week": "wöchentlich",
+      "week_plural": "alle {{count}} Wochen",
+      "day": "täglich",
+      "day_plural": "alle {{count}} Tage"
+    },
+    "commitmentPeriod": {
+      "explain": {
+        "year": "Dieses Abonnement wird das Mitglied für {{ commitment_period_value }} Jahr verpflichten.",
+        "year_plural": "Dieses Abonnement wird das Mitglied für {{ commitment_period_value }} Jahre verpflichten.",
+        "month": "Dieses Abonnement wird das Mitglied für {{ commitment_period_value }} Monat verpflichten.",
+        "month_plural": "Dieses Abonnement wird das Mitglied für {{ commitment_period_value }} Monate verpflichten.",
+        "week": "Dieses Abonnement wird das Mitglied für {{ commitment_period_value }} Woche verpflichten.",
+        "week_plural": "Dieses Abonnement wird das Mitglied für {{ commitment_period_value }} Wochen verpflichten.",
+        "day": "Dieses Abonnement wird das Mitglied für {{ commitment_period_value }} Tag verpflichten.",
+        "day_plural": "Dieses Abonnement wird das Mitglied für {{ commitment_period_value }} Tage verpflichten."
+      },
+      "label": "Mindestlaufzeit"
+    }
+  },
+  "subscription": {
+    "actions": {
+      "switchPaymentMethod": "Die Zahlungsmethode ändern",
+      "freeze": "Pausieren",
+      "switchPack": "Kurspass ändern",
+      "advanceTime": "Diese Rechnung vorziehen",
+      "postPone": "Verschiebe die Rechnung",
+      "changeDate": "Datum ändern",
+      "showInvoice": "Die Rechnung anzeigen",
+      "changePrice": "Ändere den Preis",
+      "stop": "Stoppe nach dieser Rechnung",
+      "disableAutoRenew": "Deaktiviere die automatische Verlängerung",
+      "enableAutoRenew": "Aktiviere die automatische Verlängerung"
+    },
+    "switchPack": {
+      "form": {
+        "explain": "Dieser Pass wird auf allen zukünftigen Rechnungen ersetzt und die Sitzungen des vorherigen Passes werden ebenfalls übertragen.",
+        "title": "Änderungen der Kurspässe",
+        "submit": "Speichern",
+        "warning": "Die Rechnungsstellung bleibt unverändert. Wenn Du den monatlichen Betrag erhöhen/verringern möchtest, ändere jede monatliche Zahlung getrennt.",
+        "cancel": "Abbrechen"
+      }
+    },
+    "pauseSection": "Pausen",
+    "invoicesSection": "Rechnungen",
+    "freeze": {
+      "form": {
+        "title": "Pause",
+        "name": {
+          "label": "Grund",
+          "placeholder": "Gesetzliche Feiertage"
+        },
+        "days": {
+          "label": "Anzahl der Tage"
+        },
+        "explainWarning": "Vorsicht ! Diese Aktion ist unwiderruflich !",
+        "cancel": "Abbrechen",
+        "submit": "Speichern",
+        "explain": "Geben Sie die Anzahl der Tage an, um die die nächsten und zukünftigen Zahlungen aufgeschoben werden sollen.",
+        "explainInvoice": "Ab welcher Rechnung möchtest Du das Abonnement verschieben?"
+      },
+      "disabledReasons": {
+        "month_billing_day": "Es ist nicht möglich, einen Vertrag für einen bestimmten Tag zu pausieren "
+      }
+    },
+    "actionSection": "Verwalten",
+    "list": {
+      "title": "Laufendes Abonnement"
+    },
+    "delete": "Löschen",
+    "register": "Abonnieren",
+    "edit": "Ändern",
+    "buy": "Kaufen",
+    "scheduledStop": {
+      "title": "Dieses Abonnement kündigen",
+      "explain": "Wähle die letzte Zahlung für das Abonnement.",
+      "listItem": "Geplante Kündigung des Abonnements",
+      "summary": "Die letzte Zahlung wird am {{-date}} verarbeitet, was dem letzten gültigen Pass entspricht.",
+      "notePlaceholder": "Grund"
+    },
+    "invoice": {
+      "label": "Rechnung {{uuid}}: {{price}}"
+    },
+    "listItem": {
+      "recurrencePriceIs": "Wiederholung von {{ amount }}{{currencyDisplay}}",
+      "nextBillingDate": "Nächste Abrechnung auf {{ d }}",
+      "startingAt": "Beginnt am {{ d }}"
+    },
+    "switchPrivatePass": {
+      "form": {
+        "cancel": "Abbrechen",
+        "submit": "Registrieren",
+        "warning": "Die Abrechnung bleibt gleich. Wenn Sie den monatlichen Betrag erhöhen/verringern möchten, ändern Sie jede Rate einzeln.",
+        "title": "Terminpass wurde aktualisiert",
+        "explain": "Dieser Terminpass wird auf allen zukünftigen Rechnungen anstelle des alten Passes berechnet. Kurse, die mit des alten Passes gebucht wurden, werden auf den neuen Pass übertragen, auch wenn diese angeblich nicht kompatibel ist."
+      }
+    },
+    "switchPaymentCombo": {
+      "form": {
+        "title": "Pack ändern",
+        "explain": "Dieses Paket wird NUR auf Rechnungen, die nach der Erneuerung des Abonnements erstellt werden, anstelle des alten Pakets in Rechnung gestellt",
+        "warning": "Die Abrechnung bleibt gleich. Wenn Sie den monatlichen Betrag erhöhen/verringern möchten, ändern Sie jede Rate einzeln.",
+        "cancel": "Abbrechen",
+        "submit": "Registrieren",
+        "prewarning": "Wenn Sie bereits erstellte zukünftige Rechnungen ändern möchten, müssen Sie dieses Abonnement aufheben."
+      }
+    },
+    "prorata": {
+      "helperOnSusscribe": "Die erste Zahlung wird anteilig in Höhe von {{ priceWithCurrency }} berechnet und wird am {{-firstBillingDate}} eingezogen. Die folgenden Zahlungen erfolgen an jedem {{ monthBillingDay }} des Monats und belaufen sich auf {{ recurrentPrice }}"
+    }
+  },
+  "table": {
+    "noContent": "Kein gespeichertes Abonnement"
+  },
+  "save": "bestätigen",
+  "cancel": "abbrechen",
+  "events": {
+    "billing_plan-update_payment_pack": "Geänderte Pässe",
+    "billing_plan-update_payment_method": "Zahlungsmethode geändert",
+    "billing_plan-payment_failure": "Zahlung abgelehnt",
+    "billing_plan-payment_success": "Erfolgreiche Zahlung",
+    "billing_plan-payment_dispute": "Streitfall",
+    "billing_plan-renew": "Verlängerung",
+    "billing_plan-stop": "Abonnement beendet von",
+    "billing_plan-create": "Erstellung",
+    "billing_plan-pause": "Pause",
+    "list": {
+      "title": "Neueste Ereignisse"
+    },
+    "billing_plan-update_payment_combo": "Modifiziertes Paket",
+    "billing_plan-update_private_pass": "Geänderter Terminpass",
+    "billing_plan-update": "Abonnement geändert",
+    "billing_plan-pause_deleted": "Pause storniert"
+  },
+  "subscriptionStatus": {
+    "isPaused": "Pause",
+    "hasEnded": "Rechnungsstellung fertig",
+    "pending": "In Bearbeitung",
+    "canceledOn": "Beendet am "
+  },
+  "plannedInvoiceStatus": {
+    "succeeded": "Eingelöst",
+    "failed": "Zahlung abgelehnt",
+    "canceled": "Storniert",
+    "pending": "In Bearbeitung",
+    "processing": "Zahlung wird überwiesen",
+    "reverted": "Storniert"
+  },
+  "plannedInvoice": {
+    "list": {
+      "titleNext": "Nächste automatische Abbuchungen"
+    },
+    "priceUpdater": {
+      "title": "Änderung des zukünftigen Betrags",
+      "price": "Neuer Betrag",
+      "explain": "Nur diese zukünftige Rechnung wird geändert",
+      "cancel": "Abbrechen",
+      "submit": "Speichern",
+      "updateAll": "Aktualisiere alle zukünftigen Zahlungen",
+      "updateRecurrentPrice": "Diese Änderung für Zahlungen anwenden, die nach der Verlängerung generiert werden",
+      "nonNullDiscount": "Dieses Abonnement enthält derzeit einen Coupon. Dieser Coupon wird bei der Aktualisierung des Preises nicht berücksichtigt.",
+      "nonNullFlatFees": "Dieses Abonnement beinhaltet derzeit eine Verwaltungsgebühr von {{ flatFeesAmount }} {{ currencyDisplay }}. Diese Bearbeitungsgebühr wird bei der Aktualisierung des Preises nicht berücksichtigt."
+    },
+    "dateUpdater": {
+      "actions": {
+        "submit": "Speichern",
+        "cancel": "Abbrechen"
+      },
+      "explain": "Nur diese zukünftige Rechnung wird geändert",
+      "label": "Einzugsdatum",
+      "title": "Zukünftige Datumsänderung"
+    }
+  },
+  "recap": {
+    "includingFreeTrialOf2": " nicht in Rechnung gestellt ",
+    "willBecharged": " wird mit ",
+    "every": " jede(n) ",
+    "month": "Monat(e) berechnet ",
+    "times": " Mal(e) ",
+    "forObject": " für ",
+    "from": "Von dem ",
+    "to": " bis ",
+    "forATotalOf": "Für einen Gesamtbetrag von ",
+    "includingFreeTrialOf1": " darunter "
+  },
+  "action": {
+    "stop": "Stoppen",
+    "revertCurrentExplain": "Die letzte gespeicherte Rechnung stornieren und den Kurspass sperren",
+    "revertCurrentExplainHelper": "Wenn die Zahlung gültig ist, wird eine Gutschrift erstellt, die Du dem Kunden zurückerstatten kannst, indem Du die Rechnung eingeben und auf \"Zurückzahlen\" klickst. Wenn die Zahlung fehlgeschlagen ist, wird die Schuld storniert.",
+    "stopExplain": "Die zukünftigen Zahlungen werden storniert und die entsprechenden Rechnungen werden gelöscht. Wenn eine Buchung mit einem Abonnement gebucht wurde, dessen Rechnung storniert wurde, wird diese ebenfalls storniert.",
+    "planStop": "Beenden"
+  },
+  "mandate": {
+    "name": "Name und Vorname des Inhabers",
+    "email": "E-Mail des Inhabers",
+    "content": "Mit der Angabe Deiner IBAN-Nummer und der Bestätigung Deiner Zahlung, erlaubst Du bsport und unser Zahlungssystem Stripe, Deiner Bank entsprechen dem Zahlungszeitplan Abbuchungsaufträge zu senden. Du kannst bei Deiner Bank eine Rückerstattung gemäß den Bedingungen Deines Vertrags mit Deiner Bank beantragen. Eine Rückerstattung muss innerhalb von 8 Wochen nach der ersten Abbuchung beantragt werden.",
+    "contentIban": "Mit der Eingabe Ihrer IBAN und der Bestätigung Ihrer Zahlung ermächtigen Sie bsport und Stripe, unser Zahlungssystem, Abbuchungsaufträge an Ihre Bank gemäß dem Zahlungsplan zu senden. Sie können bei Ihrer Bank eine Erstattung gemäß den Bedingungen Ihres Vertrags mit Ihrer Bank beantragen. Eine Erstattung muss innerhalb von 8 Wochen nach der ersten Abbuchung beantragt werden.",
+    "contentBacsDebit": "Mit der Angabe Ihrer Bankdaten und der Bestätigung Ihrer Zahlung ermächtigen Sie bsport und Stripe, unser Zahlungssystem, Abbuchungsaufträge an Ihre Bank gemäß dem Zahlungsplan zu senden. Sie können von Ihrer Bank eine Erstattung gemäß den Bedingungen Ihres Vertrags mit Ihrer Bank verlangen. Sie können Ihre Bank jederzeit auffordern, das Lastschriftmandat zu widerrufen.",
+    "accountNumber": "Kontonummer",
+    "sortCode": "Sortiercode"
+  },
+  "schedule": {
+    "provisionalTitle": "Vorläufiger Wochenplan",
+    "paymentMethodTitle": "Zahlungsmethode"
+  },
+  "form": {
+    "cancel": "Abbrechen",
+    "check": "Bestätigen",
+    "submit": "In Rechnung stellen",
+    "title": "Neue periodische Zahlung",
+    "note": {
+      "label": "Anmerkung"
+    }
+  },
+  "pause": {
+    "pausedInterval": "{{start}} → {{ end }} : {{ days }} Tage",
+    "pausedAt": "{{ days }} Tage - am {{ date }}",
+    "actions": {
+      "delete": "Lösche die Pause"
+    },
+    "secondaryLabel": " : {{note}}",
+    "label": "Pausiert für {{days}} Tage",
+    "createdAt": "Erstellt am "
+  },
+  "noContracts": "In diesem Modul können Sie Abonnements hinzufügen, um Ihren Mitgliedern täglich, wöchentlich, monatlich oder jährlich automatisch Rechnungen zu stellen.",
+  "copyLink": "Kopiere den Link zur Zahlungsseite",
+  "listItem": {
+    "valid": "Gültig",
+    "paused": "Pause",
+    "expired": "Abgelaufen",
+    "canceled": "Gestoppt",
+    "subscribedOn": "Das Abonnement begann am {{- date}}",
+    "willSubscribeOn": "Das Abonnement beginnt am {{- date}}"
+  },
+  "noAssociatedSubscription": "Kein gespeichertes Abonnement",
+  "associatedSubscriptions": "Mit diesem Vertrag verbundene Abonnements",
+  "status": {
+    "hasStopped": "Pausiert",
+    "hasStarted": "Aktiv",
+    "hasNotStartedYet": "Inaktiv",
+    "hasEnded": "Beendet",
+    "isPaused": "Pausiert"
+  },
+  "scheduledStop": {
+    "unscheduleStop": "Halte den Stop an",
+    "label": "Terminiert",
+    "stoppedByMember": "Durch das Mitglied beendet",
+    "stoppedByManager": "Beendet von {{ name }}"
+  },
+  "end": {
+    "renew": "Automatische Verlängerung",
+    "noRenew": "Ende des Abonnements"
+  },
+  "contractPause": {
+    "form": {
+      "dateFilter": {
+        "label": "Unterbreche nur Abonnements, für die die Rechnung zwischen zwei Daten erstellt wird"
+      },
+      "invalidBillingPlan": "Die folgenden Abonnements können nicht pausiert angehalten werden",
+      "explainImpossible": "Wenn eine Zahlung durchgeführt wird oder innerhalb von 24 Stunden eingezogen wird, kann das Abonnement nicht automatisch pausiert werden",
+      "validBillingPlan": "Nachfolgende Abonnements werden pausiert",
+      "untilDate": {
+        "label": "und "
+      },
+      "fromDate": {
+        "label": "In Rechnung gestellt zwischen "
+      },
+      "advanced": "Erweitert",
+      "days": {
+        "helperText": "Anzahl der Tage, an denen Abonnements pausiert werden",
+        "label": "Anzahl der Tage"
+      },
+      "name": {
+        "label": "Anmerkung",
+        "placeholder": "Studio geschlossen aufgrund von Feiertagen"
+      },
+      "warning": "Bitte beachte, dass bei einigen Abonnements die Pause nicht umkehrbar ist",
+      "title": "Globale Pause",
+      "paymentPackActions": {
+        "disableTillNextInvoice": "Deaktivieren Sie die abgerechnete Karte bis zur nächsten Abrechnung",
+        "extendTillNextInvoice": "Verlängern Sie die Gültigkeitsdauer der fakturierten Karte bis zur nächsten Rechnung",
+        "doNotChange": "Ändern Sie die abgerechnete Karte nicht",
+        "title": "Verhalten der Karte"
+      }
+    },
+    "actions": {
+      "previous": "Bisherige",
+      "verify": "Bestätigen",
+      "add": "Pausieren",
+      "submit": "Pausieren",
+      "cancel": "Abbrechen"
+    },
+    "section": {
+      "error": "{{count}} Abonnement konnte nicht automatisch pausiert werden",
+      "error_plural": "{{count}} Abonnements konnten nicht automatisch pausiert werden",
+      "success": "{{count}} Abonnement wurd pausiert",
+      "success_plural": "{{count}} Abonnements wurden pausiert"
+    },
+    "fromUntil": "Nur wenn die Abrechnung zwischen {{from}} und {{until}} geplant ist",
+    "createdAt": "Erstellt am {{at}}",
+    "title": "Globale Pausen"
+  },
+  "seeMore": "Mehr sehen",
+  "search": "Suche nach einem Abonnement",
+  "pauseV2": {
+    "subscriptionPause": {
+      "form": {
+        "failureStep": {
+          "contentUnknownError": "Es ist ein unvorhergesehener Fehler aufgetreten. Wir entschuldigen uns für die entstandenen Unannehmlichkeiten.",
+          "contentOverlapPause": "Das Abonnement {{- subscriptionName}} von {{- subscriberName }} konnte nicht pausiert werden, da bereits eine Pause von {{- fromDate}} bis {{- untilDate}} vorgesehen ist.",
+          "contentCanNotEditPauseEndBeforeToday": "Der neue Termin für den Beginn der Pause kann erst heute festgelegt werden.",
+          "title": "Pausieren fehlgeschlagen",
+          "contentSubscriptionWillEndBeforePause": "Das Abonnement kann in diesem Zeitraum nicht pausiert werden, da es vorher beendet wurde oder eine Verlängerung zu diesem Zeitpunkt noch nicht durchgeführt wurde.",
+          "contentCanNotCancelPause": "Da die Pause bereits begonnen hat oder schon vorbei ist, kann sie nicht mehr abgesagt werden.",
+          "contentSubscriptionHasNotStarted": "Die Pause wurde nicht durchgeführt, da der Datumsbereich vor dem Beginn des Abonnements liegt.",
+          "contentCanNotEditPauseStartWhenHasStarted": "Der Beginn der Pause kann nicht mehr geändert werden, sobald sie begonnen hat.",
+          "contentIncomingBill": "Das Abonnement {{- subscriptionName}} von {{- subscriberName }} konnte nicht pausiert werden, da eine Rechnung innerhalb des Pausenintervalls innerhalb von 24 Stunden in Rechnung gestellt wird oder eine zukünftige Rechnung bezahlt wird. Bitte ändern Sie das Startdatum der Pause.",
+          "contentCanNotCreateAPauseInThePast": "Die Pause kann nicht in der Vergangenheit beginnen.",
+          "contentInvalidTimedelta": "Die Pause sollte mindestens einen Tag dauern."
+        },
+        "initStep": {
+          "titleCreation": "Pausieren",
+          "information2": "Das Ablaufdatum des Kurspasses wird um die Anzahl der Tage der Pause verlängert. Der Kurspass bleibt während der Pause gültig.",
+          "information1": "Das Abonnement wird von {{- fromDate}} bis einschließlich {{- untilDate}} pausiert. Die nächste Rechnungsstellung nach der Pause wird um {{count}} Tag verschoben. Dasselbe gilt für alle zukünftigen Rechnungsstellungen.",
+          "information1_plural": "Das Abonnement wird von {{- fromDate}} bis einschließlich {{- untilDate}} pausiert. Die nächste Rechnungsstellung nach der Pause wird um {{count}} Tage verschoben. Dasselbe gilt für alle zukünftigen Rechnungsstellungen.",
+          "titleUpdate": "Pause bearbeiten"
+        },
+        "successStep": {
+          "content": "Das {{- subscriptionName}} Abonnement von {{- subscriberName }} wurde von {{- fromDate}} bis einschließlich {{- untilDate}} pausiert.",
+          "title": "Abonnement pausieren"
+        }
+      },
+      "eventItems": {
+        "pauseDeleted": "Begründung der vorherigen Pause: {{pause_name}}",
+        "pauseCreatedThenDeleted": "Diese Pause wurde gelöscht oder geändert."
+      },
+      "deleteDialogContent": "Sind Sie sicher, dass Sie die Pause deaktivieren wollen?"
+    },
+    "contractPause": {
+      "form": {
+        "secondStep": {
+          "incompatibleSubscriptions": "Die folgenden Abonnements konnten aus einem der folgenden Gründe nicht pausiert werden: eine Zahlung innerhalb des Pausenintervalls ist innerhalb von 24 Stunden fällig, eine Zahlung für eine zukünftige Rechnung ist in Arbeit, der ausgewählte Zeitraum überschneidet sich mit einer anderen, bereits geplanten Pause, das Abonnement hat noch nicht begonnen.",
+          "title": "Überprüfung",
+          "sectionFailure": "Pause fehlgeschlagen ",
+          "sectionSuccess": "Pausierte Abonnements",
+          "noCompatibleSubscriptions": "Kein Abonnement kann pausiert werden."
+        },
+        "firstStep": {
+          "information1": "Abonnements werden von {{- fromDate}} bis einschließlich {{- untilDate}} pausiert. Ihre nächste Rechnungsstellung wird um {{count}} Tag verschoben, ebenso alle zukünftigen Rechnungsstellungen und Pässe.",
+          "information1_plural": "Abonnements werden von {{- fromDate}} bis einschließlich {{- untilDate}} pausiert. Ihre nächste Rechnung wird um {{count}} Tage verschoben, ebenso alle zukünftigen Rechnungsstellungen und Pässe.",
+          "titleCreation": "Alle Abonnements pausieren",
+          "titleUpdate": "Allgemeine Pause bearbeiten",
+          "information2": "Das Ablaufdatum des Kurspasses wird um die Anzahl der Tage der Pause verlängert. Der Kurspass bleibt während der Pause gültig."
+        },
+        "thirdStep": {
+          "title": "Allgemeines Pausieren der Abonnements",
+          "successExplanation": "Das Abonnement wurde von {{- fromDate}} bis einschließlich {{- untilDate}} pausiert.",
+          "successExplanation_plural": "{{ count }} Abonnements wurden von {{- fromDate}} bis {{- untilDate}} einschließlich pausiert."
+        }
+      },
+      "deleteDialogContent": "Sind Sie sicher, dass Sie die Pause für alle Abonnements deaktivieren wollen?",
+      "sections": {
+        "success": "{{count}} Abonnement pausiert",
+        "success_plural": "{{count}} Abonnements pausiert",
+        "error": "{{count}} Abonnement konnte nicht automatisch pausiert werden",
+        "error_plural": "{{count}} Abonnements konnte nicht automatisch pausiert werden"
+      },
+      "updateNameDialogTitle": "Änderung der Begründung für die Pause",
+      "title": "Alle Abonnements pausieren"
+    },
+    "common": {
+      "actions": {
+        "previous": "Zurück",
+        "goBack": "Zurück",
+        "confirm": "Bestätigen",
+        "pause": "Pausieren",
+        "cancel": "Stornieren",
+        "verify": "Überprüfen",
+        "save": "Speichern",
+        "continue": "Weiter"
+      },
+      "form": {
+        "duration": {
+          "end": "Enddatum (einschließlich)",
+          "title": "Dauer der Pause",
+          "start": "Startdatum (eingeschlossen)",
+          "warning": "Das Enddatum kann nicht vor dem Startdatum liegen"
+        },
+        "reasonPlaceholder": "Begründung *"
+      },
+      "menu": {
+        "change": "Daten ändern",
+        "changeContractForbidden": "Sie können eine auf Vertragsebene erstellte Pause nicht bearbeiten.",
+        "changeName": "Begründung ändern",
+        "delete": "Deaktivieren",
+        "changeForbidden": "Sie können eine bereits beendete Pause nicht mehr bearbeiten.",
+        "cancelForbidden": "Sie können eine Pause, deren Startdatum bereits überschritten ist, nicht mehr stornieren."
+      },
+      "deleteDialog": {
+        "title": "Pause aufheben"
+      },
+      "listItem": {
+        "createdAtBy": "Erstellt am {{- dateCreation}} von {{- staffName }}",
+        "createdAt": "Erstellt am {{- dateCreation}}",
+        "deletedAtBy": "Storniert am {{- dateDeletion}} von {{- staffName }}",
+        "fromToUntil": "Von {{- fromDate}} bis {{- untilDate}}",
+        "label": "Pause von {{- fromDate}} bis {{- untilDate}}",
+        "deletedAt": "Storniert am {{- dateDeletion}}",
+        "pausedAt": "{{ days }} Tage - Am {{- date}}",
+        "isUpdated": "Bearbeitete Pause"
+      }
+    }
+  },
+  "notificationForm": {
+    "notificationPush": {
+      "content": "Inhalt",
+      "warning": "Achtung: Push-Benachrichtigungen sollten sparsam eingesetzt werden. Zu viele Push-Benachrichtigungen können dazu führen, dass einige Mitglieder die Anwendung deaktivieren.",
+      "parameters": "Einstellungen für Benachrichtigungen",
+      "title": "Titel",
+      "addTag": "Variable hinzufügen"
+    },
+    "subtitle": "Abonnement",
+    "warning": "Benachrichtigen Sie Ihre Mitglieder, wenn ihr Abonnement eine Statusänderung hat: Ende des Abonnements, Beginn des Abonnements.",
+    "title": "Benachrichtigungsregeln",
+    "typeSection": {
+      "contractStart": "Start des Abonnements",
+      "title": "Zu benachrichtigender Status",
+      "contractEnd": "Ende des Abonnemts"
+    },
+    "triggeringEvent": {
+      "contractCreation": "Abonnement erstellen",
+      "title": "Auslösendes Event",
+      "firstBilling": "Erste Rechnung"
+    },
+    "notificationType": {
+      "title": "Benachrichtigungs-Typ",
+      "before": "Vor",
+      "day": "Tag",
+      "day_plural": "Tage",
+      "hour": "Stunde",
+      "hour_plural": "Stunden",
+      "after": "Nach",
+      "contractEnd": "Ende des Abonnements.",
+      "warningDayFirst": "Die angegebene Anzahl von Tagen bezieht sich auf das Datum der ersten Rechnung um Mitternacht",
+      "warningHourFirst": "Die angegebene Stundenzahl bezieht sich auf das Datum der ersten Rechnung um Mitternacht",
+      "warningDayLast": "Die angegebene Annzahl von Tagen bezieht sich auf das Datum der letzten Rechnung um Mitternacht",
+      "warningHourLast": "Die angegeben Stundenzahl bezieht sicht auf das Datum der letzten Rechnung um Mitternacht",
+      "afterSubcriptionCreation": "nach Abschluss des Abonnements.",
+      "firstBilling": "Erste Rechnung des Abonnements."
+    },
+    "smartLists": {
+      "smartListHelper": "Die Benachrichtigung wird nicht gesendet, wenn das Mitglied in einer der folgenden Smartlists enthalten ist",
+      "warning": "Wenn Sie keine Smartlist auswählen, besteht die Gefahr, dass Sie Mitglieder benachrichtigen, die bereits einen anderen Kurspass gekauft haben",
+      "advanced": "Fortgeschritten",
+      "smartListSelection": "(Optional) Smartlist(s) auswählen",
+      "smartListHelperInclude": "Benachrichtigung nur senden, wenn das Mitglied in einer der folgenden Smartlists enthalten ist",
+      "createSmartList": "Smartlist erstellen"
+    },
+    "sendingMethod": {
+      "email": "E-Mail",
+      "notificationPush": "Push-Benachrichtigung",
+      "title": "Versandmethode"
+    },
+    "buttons": {
+      "submit": "Speichern",
+      "cancel": "Stornieren"
+    },
+    "emailNotification": {
+      "parameters": "E-Mail Einstellungen",
+      "emailToSend": "E-Mail zu versenden"
+    }
+  },
+  "alreadySubscribed": {
+    "dialog": {
+      "title": "Bereits abonniert",
+      "validate": "Ok",
+      "content": "Sie haben dieses Abonnement bereits kürzlich erworben. Wenn Sie es noch nicht sehen, warten Sie bitte ein paar Minuten. Wenn Sie es jedoch erneut kaufen möchten, warten Sie bitte ein paar Minuten und versuchen Sie es erneut."
+    }
+  },
+  "register": {
+    "dialog": {
+      "info": "Ihr Abonnement wird gerade registriert. Wir werden Sie informieren, sobald es fertig ist.",
+      "success": "Ihr Abonnement {{- name }} wurde erfolgreich angemeldet.",
+      "error": "Die Anmeldung ist nicht möglich, bitte versuchen Sie es später erneut."
+    }
+  },
+  "invisibleForStaffToolTip": "Unsichtbar für Mitarbeiter",
+  "billing_plan_status": {
+    "0": "Noch nicht begonnen",
+    "1": "In Bearbeitung",
+    "2": "Gestoppt",
+    "3": "Pausiert",
+    "4": "Abgeschlossen"
+  },
+  "notificationToolTip": "Für dieses Abonnement werden Benachrichtigungen festgelegt",
+  "notification": {
+    "beforefirstBilling": "Vor der ersten Rechnung",
+    "afterSubscriptionEnd": "Nach Ende des Abonnements",
+    "title": "Benachrichtigung {{count}} {{periodScale}} {{notificationKind}}",
+    "afterfirstBilling": "Nach der ersten Rechnung",
+    "creation": "Nach Erstellung",
+    "beforeSubscriptionEnd": "Vor Ende des Abonnements",
+    "days": "Tag",
+    "days_plural": "Tage",
+    "hours": "Stunde",
+    "hours_plural": "Stunden"
+  },
+  "contractNotification": {
+    "firstBilling": "Bei der ersten Rechnung",
+    "creation": "Bei Erstellung des Abonnements"
+  },
+  "addNotification": "Benachrichtigung hinzufügen",
+  "subscriptionNotFound": {
+    "explanation": "Dieses Abonnement existiert nicht mehr. Bitte wählen Sie ein anderes oder kontaktieren Sie Ihren Studioleiter.",
+    "title": "Vertrag nicht gefunden"
+  },
+  "newCheckout": {
+    "error": {
+      "button": {
+        "userRegistration": "Mein Abonnement ansehen",
+        "registerBackground": "Schließen"
+      },
+      "text": {
+        "userRegistration": "Ihr Abonnement wurde erstellt und Ihr Zahlungsmittel wird in Kürze belastet. Ihre Buchung konnte jedoch nicht gespeichert werden.",
+        "registerBackground": "Ihr Abonnement und Ihre Buchung konnten nicht erstellt werden. Das Zahlungsmittel wurde nicht belastet."
+      },
+      "title": "Ein Fehler ist aufgetreten"
+    },
+    "payment": {
+      "tooltip": "Dieses Zahlungsmittel wird beibehalten, um vertragsgemäß in Rechnung gestellt zu werden. Machen Sie sich keine Sorgen, Sie können es später über Ihr Konto ändern.",
+      "details": "Zahlungsdetails"
+    },
+    "subscriptionBasketSummary": {
+      "message": "Sie können Ihr Abonnement in Ihrem Mitgliederprofil einsehen",
+      "payNow": "Jetzt bezahlen"
+    },
+    "terms": {
+      "acceptTerms": "Ich akzeptiere die <0>rechtlichen Hinweise</0>.",
+      "seeLess": "Weniger ansehen",
+      "seeMore": "Mehr ansehen",
+      "title": "Vertragsbedingungen"
+    },
+    "subscriptionSummary": {
+      "billingInterval": {
+        "day": "jeden Tag",
+        "day_plural": "alle {{ count }} Tage",
+        "year": "jedes Jahr",
+        "year_plural": "alle {{ count }} Jahre",
+        "week": "jede Woche",
+        "week_plural": "alle {{ count }} Wochen",
+        "month": "jeden Monat",
+        "month_plural": "alle {{count}} Monate"
+      },
+      "prorataPriceText": "{{proratedPrice}} fällig am {{-today}} und dann {{recurrentPrice}} an jedem {{monthBillingDay}} des Monats.",
+      "item": "{{count}} Element",
+      "item_plural": "{{count}} Elemente",
+      "unlimited": "Unbegrenzt",
+      "credit": "{{count}} Credit",
+      "credit_plural": "{{count}} Credits",
+      "startDate": "Startdatum"
+    },
+    "processingPaymentModal": {
+      "timeEstimation": "Dies kann bis zu einer Minute dauern",
+      "text": "Bitte warten Sie, bis die Zahlung erfolgt ist. Verlassen Sie diese Seite nicht und laden Sie sie nicht neu.",
+      "title": "Laufende Zahlung"
+    },
+    "title": "Abonnement"
+  },
+  "GermanMarketSetSubscriptionAutoRenewalAlert": {
+    "content": "Um dem deutschen Gesetz über faire Verbraucherverträge zu entsprechen, müssen die neuen Abonnement-Zyklen nach 2 Jahren Laufzeit kürzer als ein Jahr sein. Sind Sie sicher, dass Sie fortfahren möchten?",
+    "title": "Automatisch erneuern"
+  },
+  "germanNbIntervalAlert": "Um dem deutschen Gesetz über faire Verbraucherverträge zu entsprechen, muss die Anzahl der Abrechnungen weniger als 24 betragen.",
+  "billingPlanStatus": {
+    "valid": "Gültig",
+    "paused": "Pausiert",
+    "expired": "Abgelaufen",
+    "canceled": "Beendet"
+  },
+  "filters": {
+    "all": "Alle Abonnements"
+  },
+  "franchiseUserProfile": {
+    "associatedPassValidity": "Gültig für ",
+    "associatedInvoices": "Assoziierte Rechnungen",
+    "pleaseSelectASubscription": "Wählen Sie ein Abonnement aus, um eine detailliertere Übersicht zu erhalten."
+  },
+  "contractTemplate": {
+    "form": {
+      "sharedAppointmentPassesSelectorTooltip": "Studios, die Zugriff auf diesen gemeinsamen Terminpass haben, haben auch Zugriff auf das Abonnement",
+      "sharedPassesSelectorTooltip": "Studios, die Zugang zu diesem gemeinsamen Pass haben, haben auch Zugang zum Abonnement",
+      "title": "Abonnement"
+    },
+    "detailPage": {
+      "sharedStudios": "Wird mit den folgenden Studios geteilt:"
+    },
+    "filter": {
+      "associatedPass": "Assoziierter Pass",
+      "productType": "Produkt",
+      "appointmentPasses": "Terminpässe",
+      "passes": "Pässe",
+      "studios": "Studios",
+      "searchPlaceholder": "Ein Abonnement suchen",
+      "availability": "Verfügbarkeit",
+      "unavailableForEveryone": "Nicht verfügbar für alle",
+      "staffOnly": "Nur Personal",
+      "memberOnly": "Nur für Mitglieder",
+      "availableForEveryone": "Verfügbar für alle",
+      "noFilters": "Alle Abonnements"
+    },
+    "dialog": {
+      "delete": {
+        "confirm": "Löschen",
+        "cancel": "Abbrechen",
+        "content": "Sind Sie sicher, dass Sie das gemeinsame Abonnement löschen wollen?",
+        "title": "Bestätigung löschen"
+      }
+    },
+    "icons": {
+      "restore": "Wiederherstellen"
+    },
+    "list": {
+      "isEmpty": "Keine gemeinsamen Verträge"
+    },
+    "backofficeEditWarning": "Das Abonnement wird über das Master-Konto geteilt. Bestimmte Einstellungen wurden von diesem Master-Konto vordefiniert und können nicht geändert werden."
+  }
+}

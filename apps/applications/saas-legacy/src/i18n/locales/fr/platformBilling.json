@@ -1,0 +1,127 @@
+{
+  "platformInvoice": {
+    "label": "Facture {{ month }}/{{year}}",
+    "sectionTitle": "Mes factures",
+    "noInvoice": "Aucune facture",
+    "bill": "Régulariser",
+    "status": {
+      "missing_charge": "Aucun paiement tenté",
+      "succeeded": "Paiement réussi",
+      "disputed": "Paiement contesté",
+      "processing": "Paiement en cours",
+      "failed": "Paiement échoué",
+      "cancelled_with_negative_invoice": "Facture annulée par une facture négative",
+      "cancelled_with_credit_note": "Facture annulée par note de crédit",
+      "negative_invoice_cancelling_bad_debt_invoice": "Annulation d'une facture précédente"
+    }
+  },
+  "paymentMethod": {
+    "sectionTitle": "Moyen de paiement",
+    "actions": {
+      "createSepa": "Ajouter un IBAN",
+      "createCard": "Ajouter une carte"
+    },
+    "info": {
+      "content": "Votre abonnement bsport sera débité sur le moyen de paiement indiqué ci dessous. Pour configurer le compte sur lequel les paiements en ligne via bsport seront crédités, cliquez",
+      "link": "ici"
+    }
+  },
+  "upsellPackage": {
+    "billOnce": "{{ price_cts }}",
+    "billRecurrent": "{{ price_cts }} / mois",
+    "knowMore": "En savoir +",
+    "myAddonTitle": "Mes Add-ons",
+    "otherAddonTitle": "Add-ons disponibles",
+    "vod": {
+      "explainBilling": "  +1 {{currencyDisplay }} /client actif"
+    },
+    "sms": {
+      "explainBilling": "{{ price_cts }} / SMS"
+    },
+    "lockDialog": {
+      "31": {
+        "intro": "Débloquer l'accès à Audience",
+        "explain": "Cette fonction est un add-on, veuillez contacter votre gestionnaire de compte pour obtenir plus d'informations."
+      },
+      "33": {
+        "intro": "Découvrez notre nouvelle interface de chat direct avec vos membres.",
+        "explain": "Vous retrouverez ici toutes vos discussions directes, les chat liés à vos séances, ainsi que vos campagnes smartlists. Le chat est compatible avec les SMS, emails et push notification."
+      },
+      "requestAccess": "Demander un accès"
+    },
+    "subscriptionForm": {
+      "commitmentMessage": "Remarque : l'abonnement implique une période d'engagement de 12 mois",
+      "confirmationMessage": "Vous vous êtes inscrit avec succès à {{- name }}",
+      "info": "Contacter le service clientèle",
+      "infoHelper": "Besoin de plus d'informations ?",
+      "confirmHelper": "Veuillez confirmer que vous souhaitez vous abonner à cet add-on",
+      "priceHelper": "Ce prix sera ajouté à votre forfait mensuel.",
+      "title": "S'abonner à l'add-on",
+      "timeConsumingHelper": "L'abonnement à ce produit peut prendre quelques secondes avant d'être traité"
+    },
+    "seeMore": "Voir plus",
+    "billSMS": "{{ price_cts }} / SMS",
+    "audienceLockDialog": {
+      "videoLink": "https://youtu.be/kdLTssiA7bM",
+      "explain": "Cette fonctionnalité est un service additionnel. Contactez votre Account Manager pour en savoir plus.",
+      "goHome": "Retour au calendrier",
+      "showInterest": "Prendre contact",
+      "benefits": [
+        "Réduisez le churn en réengageant vos clients automatiquement",
+        "Augmenter vos revenus en créant des parcours adaptés pour vos meilleurs clients",
+        "Convertir vos prospects grâce à des messages personnalisés envoyés à des moments clés"
+      ],
+      "description": "Les workflows automatisés vous permettent de rester en contact avec vos clients sur plusieurs canaux, afin de :",
+      "title": "Contactez vos clients au bon moment, au bon endroit avec Audience"
+    }
+  },
+  "platformBillingGroup": {
+    "myGroup": "Mon forfait",
+    "soonAvailable": "Bientôt disponible !"
+  },
+  "platformBillingPlan": {
+    "max_coach": {
+      "label": "Jusqu'à {{ max_coach }} professeurs",
+      "help": "Un professeur est décompté à partir de 8 séances mensuelles"
+    },
+    "max_establishment": {
+      "label": "Jusqu'à {{ max_establishment }} établissements",
+      "help": "Un établissement est décompté à partir de 8 séances mensuelles"
+    }
+  },
+  "platformBillingStage": {
+    "monthlyPrice": "{{ price }} / mois",
+    "maxBooking": "Jusqu'à {{ max_booking_per_month }} réservations / mois"
+  },
+  "featureRequest": {
+    "title": "Engageons la conversation",
+    "content": "Nous vous remercions pour votre intérêt. Si vous souhaitez en savoir plus sur cet add-on, nous vous invitons à poser votre question dans notre chat d'assistance personnalisé. Votre gestionnaire de compte sera ravi de vous fournir de plus amples informations.",
+    "close": "Fermer",
+    "interestMessageWithChat": "Merci pour votre intérêt pour ce service additionnel. Votre Account Manager vous contactera prochainement pour vous fournir plus d’informations. En attendant, n’hésitez pas à nous poser vos questions via le chat d’aide.",
+    "header": "À très vite !",
+    "interestMessage": "Merci pour votre intérêt pour ce service ! Votre Account Manager vous contactera prochainement pour vous fournir plus d’informations."
+  },
+  "platformCustomerEntity": {
+    "vatId": {
+      "dialog": {
+        "errorChip": "Numéro de TVA invalide ou absent",
+        "content": "bsport a besoin de votre numéro d'identification TVA (également appelé numéro d'immatriculation à la TVA ou numéro de TVA intracommunautaire) pour le faire figurer sur les factures que nous vous adressons.",
+        "update": "Mettre à jour le numéro de TVA",
+        "hasAttributedVatIdLabel": "Je ne possède pas de numéro de TVA. Si votre entreprise est basée dans l'Union Européenne (hors France), le mécanisme d'autoliquidation ne s'appliquera pas et bsport appliquera les taux de TVA français (20 %).",
+        "actions": {
+          "save": "Enregistrer",
+          "cancel": "Annuler"
+        },
+        "vatIdLabel": "Numéro d'identification TVA",
+        "title": "Numéro d'identification TVA",
+        "invalidFormat": "Format invalide"
+      },
+      "alert": {
+        "description": "bsport a besoin de votre numéro d'identification TVA (également appelé numéro d'immatriculation à la TVA ou numéro de TVA intracommunautaire) pour le faire figurer sur les factures que nous vous adressons.",
+        "title": "Numéro de TVA invalide ou absent",
+        "update": "Mettre à jour le numéro de TVA",
+        "text": "Vous n'avez pas fourni de numéro d'identification TVA, ou celui que vous avez fourni n'est pas valide"
+      }
+    }
+  }
+}

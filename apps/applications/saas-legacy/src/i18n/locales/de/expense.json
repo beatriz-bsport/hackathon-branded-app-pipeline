@@ -1,0 +1,140 @@
+{
+  "form": {
+    "repeat": {
+      "from": "Von",
+      "weekdays": {
+        "third": "dritte",
+        "monday": "Montag",
+        "tuesday": "Dienstag",
+        "wednesday": "Mittwoch",
+        "sunday": "Sonntag",
+        "first": "erste",
+        "second": "zweite",
+        "thursday": "Donnerstag",
+        "saturday": "Samstag",
+        "fourth": "vierte",
+        "friday": "Freitag"
+      },
+      "interval": "Intervall",
+      "count": "Anzahl der Intervalle:",
+      "months": {
+        "january": "Januar",
+        "july": "Juli",
+        "august": "August",
+        "september": "September",
+        "october": "Oktober",
+        "november": "November",
+        "february": "Februar",
+        "march": "März",
+        "april": "April",
+        "may": "Mai",
+        "june": "Juni",
+        "december": "Dezember"
+      },
+      "title": "Intervall",
+      "week": "Woche(n)",
+      "repeatWeek_nb": "Alle {{ nb }} Wochen am",
+      "repeatYear": "Jedes Jahr am",
+      "repeatYear_nb": "Alle {{ nb }} Jahre am",
+      "month": "Monat(e)",
+      "until": "Bis",
+      "year": "Jahr(e)",
+      "day": "Tg",
+      "repeatEvery": "Wiederholt alle",
+      "repeatMonth": "Jeden Monat am",
+      "repeatMonth_nb": "Alle {{ nb }} Monate am",
+      "repeatMonthDay": "Alle",
+      "repeatWeek": "Jede Woche am",
+      "weekdays_pl": {
+        "monday": "Montags",
+        "tuesday": "Dienstags",
+        "wednesday": "Mittwochs",
+        "thursday": "Donnerstags",
+        "friday": "Freitags",
+        "saturday": "Samstags",
+        "sunday": "Sonntags"
+      },
+      "fromDate": "Ab dem",
+      "ends": "Endet nach",
+      "number": "Intervalle:"
+    },
+    "supplier": "Lieferant / Verkäufer",
+    "description": "Titel / Beschreibung",
+    "category": "Kategorie",
+    "staff": "Mitarbeiter",
+    "noStaff": "Kein zugewiesener Mitarbeiter",
+    "amount": "Betrag",
+    "requiredField": "Hier können Sie die Ausgaben für Ihr Studio hinzufügen.",
+    "actions": {
+      "save": "Registrieren",
+      "edit": "Aktualisieren",
+      "cancel": "Abbrechen"
+    },
+    "titleAdd": "Ausgabe hinzufügen",
+    "titleEdit": "Ausgabe bearbeiten",
+    "editChoices": {
+      "editDateDue": "Fälligkeitsdatum bearbeiten",
+      "editDetails": "Details der Ausgabe bearbeiten",
+      "explanation": {
+        "dateDue": "Das Fälligkeitsdatum wird nur für die ausgewählte Ausgabe(n) geändert.",
+        "details": "Die Änderungen werden wahlweise auf die laufenden Ausgaben, zukünftigen Ausgaben oder auf alle Ausgaben angewendet."
+      }
+    },
+    "date_due": "Fälligkeitsdatum"
+  },
+  "filters": {
+    "titleCategory": "Kategorien",
+    "filterSupplier": "Alle Anbieter",
+    "filterCategory": "Alle Kategorien",
+    "noStaff": "Keine zugewiesene Mitarbeiter",
+    "titleSupplier": "Anbieter",
+    "noCategory": "Keine Kategorie",
+    "titleStaff": "Mitarbeiter",
+    "filterStaff": "Der gesamte Mitarbeiterstab",
+    "showFuture": "Zukünftige Ausgaben anzeigen"
+  },
+  "dialogDeleteExpense": {
+    "all": "Alle vergangenen und zukünftigen Ausgaben löschen",
+    "confirm": "Sie werden die Ausgabe von {{amount}} vom {{date_due}} dauerhaft löschen.",
+    "cancel": "Abbrechen",
+    "delete": "Löschen",
+    "current": "Nur diese Ausgabe löschen",
+    "future": "Diese und ähnliche zukünftige Ausgaben löschen",
+    "warning": "Sind Sie sicher, dass Sie diese Ausgabe löschen möchten?"
+  },
+  "dialogEditExpense": {
+    "all": "Alle ähnlichen vergangenen und zukünftigen Ausgaben bearbeiten",
+    "future": "Diese Ausgabe und ähnliche zukünftige Ausgabe bearbeiten",
+    "validate": "Bestätigen",
+    "cancel": "Abbrechen",
+    "current": "Nur diese Ausgabe bearbeiten"
+  },
+  "table": {
+    "yes": "Ja",
+    "header": {
+      "repeat": "Intervall",
+      "date_due": "Fälligkeitsdatum",
+      "staff": "Mitarbeiter",
+      "category": "Kategorie",
+      "amount": "Betrag",
+      "supplier": "Lieferant / Verkäufer",
+      "description": "Titel / Beschreibung",
+      "actions": "Aktionen"
+    },
+    "no": "Nicht"
+  },
+  "create": {
+    "error": "Diese Ausgabe kann nicht erstellt werden",
+    "success": "Die Ausgabe wurde erstellt"
+  },
+  "update": {
+    "error": "Diese Ausgabe kann nicht aktualisiert werden",
+    "success": "Die Ausgabe wurde aktualisiert"
+  },
+  "delete": {
+    "success": "Die Ausgabe wurde erfolgreich entfernt.",
+    "error": "Diese Ausgabe kann nicht gelöscht werden"
+  },
+  "addButton": "Ausgabe hinzufügen",
+  "noExpenses": "Hier können Sie die Ausgaben für Ihr Studio hinzufügen."
+}

@@ -1,0 +1,17 @@
+{
+  "resetPassword": {
+    "title": "Redefinir palavra-passe",
+    "noEmail": "Esse e-mail não existe em nosso banco de dados de membros.",
+    "explain1": "Qual era o endereço de correio eletrónico da conta?",
+    "explain2": "Enviaremos em breve as instruções de redefinição da palavra-passe.",
+    "hasProblem": "Está a ter problemas em reiniciar?",
+    "contactUs": "Contacte-nos através de ",
+    "emailHasBeenSent": "Foi enviada uma mensagem para o correio eletrónico {{email}} para redefinir a sua palavra-passe",
+    "actions": {
+      "cancel": "Cancelar",
+      "reset": "OK",
+      "backToLogin": "Voltar",
+      "confirm": "Confirmar"
+    }
+  }
+}

@@ -1,0 +1,220 @@
+{
+  "myBasket": {
+    "actions": {
+      "payZero": "Meinen Warenkorb bestätigen",
+      "closeBasket": "Weiter einkaufen",
+      "checkoutBasket": "Zahlen"
+    },
+    "title": "Mein Warenkorb",
+    "finalize": {
+      "steps": {
+        "address": "Adresse",
+        "payment": "Rechnungsstellung"
+      }
+    },
+    "isEmpty": "Ihr Warenkorb ist leer.",
+    "featured": "Wir empfehlen",
+    "error": {
+      "invalidBasket": "Dein Warenkorb enthielt Produkte, die nicht mehr zum Verkauf stehen. Es wurde keine Zahlung verzeichnet.",
+      "inconsistentBasket": "Dein Warenkorb wurde geändert. Bitte aktualisiere die Seite, bevor du deine Zahlung bestätigst.\nDir wurde nichts in Rechnung gestellt.",
+      "unavailableSessions": "Einige Sitzungen in deinem Warenkorb sind nicht mehr verfügbar, daher konnten wir deine Reservierung nicht abschließen. Alle nicht-verfügbaren wurden entfernt. Bitte überprüfe deinen Einkaufswagen und versuche es erneut."
+    },
+    "isFinalized": "Ihr Warenkorb wurde validiert",
+    "checkingPaymentStatus": "Bitte warte, wir prüfen den Status deiner Zahlung.",
+    "totalQuantity": "Enthält: {{ qty }} Produkt(e)",
+    "acceptTermsAndFinalize": "Bitte akzeptiere die Allgemeinen Geschäftsbedingungen und schließe deine Buchung ab",
+    "checkAndFinalize": "Bitte überprüfe deinen Warenkorb und schließe deine Buchung ab",
+    "almostDone": "Fast geschafft",
+    "newCheckout": {
+      "isEmpty": "Ihr Warenkorb ist leer!",
+      "isEmptyDescription": "Erkunde den Mitgliederbereich weiter!"
+    },
+    "noBooking": {
+      "acceptTermsAndFinalize": "Bitte akzeptiere die Allgemeinen Geschäftsbedingungen und schließe deinen Warenkorb ab",
+      "checkAndFinalize": "Bitte überprüfe deinen Warenkorb"
+    },
+    "goToMarketplace": "Mitgliederbereich ansehen",
+    "referral": {
+      "hasReachedMaxUses": "Die maximale Anzahl an Verwendungen für den Empfehlungslink wurde erreicht.",
+      "missingAmountBeforeApplication": "Der Mindestkaufbetrag wurde nicht erreicht. Du riskierst, deinen Empfehlungslink zu verlieren. Nur noch {{ missingAmount }}, um vom Rabatt zu profitieren!"
+    },
+    "expressCheckoutTitle": "Express-Zahlung"
+  },
+  "forms": {
+    "delivery": {
+      "actions": {
+        "cancel": "Zurück",
+        "submit": "Weiter"
+      },
+      "first_name": "Vorname",
+      "last_name": "Nachname"
+    }
+  },
+  "paymentIntent": {
+    "isProcessing": "Bitte warte einen Augenblick"
+  },
+  "autoAdd": {
+    "paymentPack": {
+      "locked": "Dieses Produkt ist nicht verfügbar."
+    },
+    "privatePass": {
+      "error": "Dieser Terminpass ist nicht verfügbar"
+    },
+    "paymentCombo": {
+      "locked": "Dieses Paket ist nicht verfügbar"
+    }
+  },
+  "payLater": {
+    "submit": "Im Studio bezahlen",
+    "explain": "Deine Rechnung wird als unbezahlt betrachtet, bis du diese über dein Mitgliedsprofil oder direkt im Studio begleichst."
+  },
+  "or": "oder",
+  "validation": {
+    "sections": {
+      "offerPreBooked": "Aufnahme in die Warteliste für",
+      "title": "Herzlichen Glückwunsch!",
+      "basket": "Mein Warenkorb",
+      "offerBooked": "Meine Buchung",
+      "offerBooked_plural": "Meine Buchungen",
+      "offerNotBookable": "Keine Registrierung möglich",
+      "errorExplain": {
+        "generic": "Der Vorgang konnte nicht durchgeführt werden. Wir bitten dich, es noch einmal zu versuchen.",
+        "guestGeneric": "Es ist ein Problem mit der Reservierung für einen Gast aufgetreten.",
+        "guestOvercomeLimit": "Die Anzahl der für diese Buchung hinzugefügten Gäste überschreitet die zulässige Anzahl.",
+        "guestOffer": "Das Studio hat die Buchungsfunktion für einen Gast für diesen Kurs deaktiviert.",
+        "guestPass": "Das Studio hat die Buchungsfunktion für einen Gast für diesen Kurspass deaktiviert.",
+        "guestNotEnoughSpot": "Es gibt nicht genug Plätze für alle Ihre Gäste.",
+        "guestReachedLimit": "Du hast bereits das Limit für die Buchung eines Gastes im aktuellen Zeitraum erreicht. Es ist nicht mehr möglich, weitere zu buchen.",
+        "guestSettings": "Das Studio hat die Buchungsfunktion für einen Gast deaktiviert.",
+        "genericOfferError": "Wir sind auf ein Problem bei der Verarbeitung deiner Kursbuchung gestoßen. Bitte versuche es zu einem späteren Zeitpunkt erneut oder buche einen anderen Kurs.",
+        "offerOnlyBookingError": "Leider können der ausgewählte Kurs und der ausgewählte Platz derzeit nicht gebucht werden. Wir bitten dich, es erneut zu versuchen."
+      },
+      "error": "Fehler",
+      "recap": "Zusammenfassung",
+      "explain": "Dein Kauf wurde bearbeitet. In Kürze wirst du auch eine Bestätigungs-E-Mail erhalten.",
+      "myGiftcard": "Mein Geschenkgutschein",
+      "myGiftcard_plural": "Meine Geschenkgutscheine",
+      "myProduct": "Mein Produkt",
+      "myProduct_plural": "Meine Produkte",
+      "mySubscription": "Mein Abonnement",
+      "myPack": "Mein Paket",
+      "myPack_plural": "Meine Pakete",
+      "myPass": "Mein Kurspass",
+      "myPass_plural": "Meine Kurspässe",
+      "alert": "Ups! Die Buchung ist fehlgeschlagen.\nWir sind bei der Verarbeitung deiner Kursbuchung auf ein Problem gestoßen. Bitte versuche es zu einem späteren Zeitpunkt erneut oder buche einen anderen Kurs.",
+      "confirmationStatusMessage": {
+        "offerAndPurchaseSuccess": "Herzlichen Glückwunsch! Deine Einkäufe und Buchungen sind bestätigt. Du erhältst in Kürze eine Bestätigungs-E-Mail mit allen Details.",
+        "paymentSuccess": "Herzlichen Glückwunsch! Ihr Kauf wurde bestätigt!",
+        "paymentSuccess_plural": "Herzlichen Glückwunsch! Ihre Käufe wurden bestätigt!",
+        "offerOnlySuccess": "Die Buchung wurde erfolgreich abgeschlossen. Du erhältst in Kürze eine Bestätigungs-E-Mail mit allen Details.",
+        "offerOnlySuccess_plural": "Die Buchungen wurden erfolgreich abgeschlossen. Du erhältst in Kürze eine Bestätigungs-E-Mail mit allen Details.",
+        "offerOnlyGuestSuccess": "Die Buchung wurde abgeschlossen. Du und dein Gast werden in Kürze eine Bestätigungsmail mit allen Details erhalten.",
+        "offersPartiallyConfirmed": "Einige Sitzungen konnten nicht gebucht werden, möglicherweise weil sie ausgebucht wurden oder beim Auschecken abgesagt wurden. Du erhältst in Kürze eine Bestätigungs-E-Mail mit Einzelheiten zu den erfolgreichen Buchungen.",
+        "expressCheckoutPassPurchaseSuccess": "Jetzt, wo du deinen Kurspass hast, ist es Zeit deinen Kurs zu buchen und alle Vorteile zu nutzen."
+      },
+      "confirmationStatusTitle": {
+        "success": {
+          "waitingList": "Du hast dich auf die Warteliste gesetzt",
+          "paymentSuccess": "Zahlung bestätigt!",
+          "offerOnlySuccess": "Viel Spaß beim Kurs!",
+          "offerOnlyGuestSuccess": "Viel Spaß beim Kurs mit deinem Gast!",
+          "expressCheckoutPassPurchaseSuccess": "Glückwunsch! Du hast gerade einen Kurspass gebucht!"
+        },
+        "errors": {
+          "genericOfferError": "Hoppla! Die Buchung ist fehlgeschlagen.",
+          "generic": "Hoppla! Die Zahlung ist fehlgeschlagen."
+        },
+        "warning": {
+          "offersPartiallyConfirmed": "Ihre Buchung ist teilweise bestätigt"
+        }
+      },
+      "offerGuestBooked": "Meine Gastbuchung",
+      "offerGuestBooked_plural": "Meine Gastbuchungen",
+      "unableToBookSession": "Sitzung kann nicht gebucht werden",
+      "unableToBookSession_plural": "Es können keine Sitzungen gebucht werden"
+    },
+    "actions": {
+      "continue": "Meinen Einkauf fortsetzen",
+      "back": "Vorherige",
+      "widgetContinue": "Weiter",
+      "member": "Mitgliederbereich",
+      "confirmPriceNull": "Bestätigen",
+      "payNow": "In Rechnung stellen",
+      "myPasses": "Meine Kurspässe",
+      "myGiftcards": "Meine Geschenkgutschein",
+      "myProducts": "Meine Produkte",
+      "mySubscription": "Mein Abonnement",
+      "retryBookingSession": "Buchung erneut versuchen",
+      "newWorkshop": "Neuer Workshop",
+      "retry": "Erneut versuchen",
+      "myBookings": "Meine Buchungen",
+      "goToCalendar": "Zum Kalender zurückkehren",
+      "backToMyProfile": "Zurück zu meinem Profil",
+      "seeAllPasses": "Alle Kurspässe ansehen",
+      "bookAClass": "Einen Kurs buchen"
+    },
+    "bookingItem": {
+      "bookingItemStatus": {
+        "unpaid": "Unbezahlt",
+        "waitingList": "Warteliste"
+      }
+    }
+  },
+  "expire_in": "Läuft ab in ",
+  "historyTitle": "Warenkorbverlauf",
+  "eventHistory": {
+    "pleaseSelectABasket": "Wähle einen Warenkorb aus, um den Verlauf anzuzeigen",
+    "sectionTitle": "Events"
+  },
+  "events": {
+    "basket-automaticclean": "Warenkorb automatisch leeren",
+    "basket-removeitem": "Aus dem Warenkorb entfernen",
+    "basket-additem": "In den Warenkorb legen",
+    "basket-finalize": "Warenkorb fertig / bezahlt",
+    "basket-created": "Warenkorb erstellt"
+  },
+  "bookerMethod": {
+    "section": {
+      "combo": "Pakete",
+      "pass": "Verfügbare Pässe",
+      "consumerPass": "Meine Pässe"
+    },
+    "actions": {
+      "bookVod": "Das Video freischalten"
+    },
+    "emptyMethod": "Sorry, momentan gibt es keinen Kurspass, der mit diesem Video kompatibel ist. Bitte gehe zu Abonnements, um darauf zuzugreifen."
+  },
+  "internalAccount": {
+    "use": "Mein Guthaben verwenden",
+    "label": "Verfügbarer Betrag : ",
+    "cancel": "Abbrechen",
+    "confirm": "Bestätigen",
+    "useMyInternalAccount": "Mein Guthaben verwenden",
+    "myInternalAccount": "Mein Kontostand",
+    "useAsManager": "Guthaben verwenden"
+  },
+  "payment": {
+    "total": "Gesamtwert (einschließlich aller Steuern)",
+    "taxExcluded": "Zwischensumme (ohne Steuern)",
+    "tax": "Steuern",
+    "flat_fee": "Bearbeitungsgebühr",
+    "globalTotal": "Gesamtbetrag",
+    "internalAccount": "Interner Kontostand",
+    "totalHiddingTax": "Gesamtbetrag",
+    "deliveryFee": "Versandkosten",
+    "title": "Zahlung",
+    "flatFeeSubscription": "Anmeldegebühren",
+    "selectedSession": "Ihre ausgewählten Kurse"
+  },
+  "expiredSpotDialog": {
+    "refresh": "Aktualisieren",
+    "message": "Deine Platzreservierung ist abgelaufen. Du kannst sie erneut auswählen oder dich für eine neue entscheiden.",
+    "title": "Ihre Platzreservierung ist abgelaufen"
+  },
+  "spotSavedFor": "Der ausgewählte Platz wird für {{countdown}} reserviert.",
+  "billingGroup": {
+    "helperText": "Der bevorzugte Standort ist derjenige, an dem du deinen Einkauf einlösen wirst, und wird für die Ausstellung deiner Rechnung verwendet.",
+    "placeholder": "Standort",
+    "title": "Bevorzugter Standort"
+  }
+}

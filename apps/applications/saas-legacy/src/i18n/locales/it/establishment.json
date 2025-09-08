@@ -1,0 +1,275 @@
+{
+  "capacity": {
+    "helperText": "Questo numero sarà utilizzato solo per gestire la disponibilità di questo stabilimento per appuntamenti.",
+    "label": "Capacità della sala",
+    "explain": "Capacità: {{capacity}} posto",
+    "explain_plural": "Capacità: {{capacity}} posti",
+    "placeholder": "."
+  },
+  "forms": {
+    "delete": {
+      "content": {
+        "canDelete": "Sei sicuro di voler cancellare questo stabilimento? Le sessioni esistenti e le prenotazioni passate non saranno modificate. Questa azione non può essere annullata.",
+        "cannotDelete": "Questo stabilimento non può essere cancellato in quanto non sono state annullate e cancellate le prossime sessioni collegate a questo."
+      },
+      "title": "Eliminare uno stabilimento",
+      "actions": {
+        "cancel": "annulla",
+        "confirm": "Rimuovi"
+      }
+    },
+    "update": {
+      "title": "Aggiorna stabilimento"
+    },
+    "create": {
+      "title": "Nuovo stabilimento"
+    },
+    "edit": "Modifica"
+  },
+  "overrider": "Sostituzione",
+  "form": {
+    "new": {
+      "title": "Titolo"
+    }
+  },
+  "card": {
+    "update": "Modifica"
+  },
+  "detail": {
+    "tab": {
+      "calendar": "Calendario",
+      "general": "Generale"
+    }
+  },
+  "establishment": "Stabilimento",
+  "establishment_override": "Stabilimento sostitutivo",
+  "search": "Cerca uno stabilimento",
+  "addButton": "Aggiungi uno stabilimento",
+  "practical_info": {
+    "label": "Accedi alle informazioni",
+    "placeholder": "Codice 1234 porta destra",
+    "helperText": "Queste informazioni verranno visualizzate solo al momento della prenotazione"
+  },
+  "baseEstablishment": "Abituale",
+  "goBackToList": "Ritorna alle strutture",
+  "pleaseFill": "Inserire uno stabilimento",
+  "update": {
+    "imageUploaderRequireEditMessage": "Puoi caricare altre immagini dopo aver aggiunto la tua attività."
+  },
+  "pleaseSelectOne": "Seleziona un club sulla mappa",
+  "offers": "Calendario delle sessioni:",
+  "noMoreOffers": "Nessuna sessione programmata",
+  "cancel": "Annulla",
+  "noEstablishement": "Gestisci le tue sale, la loro localizzazione, il loro riempimento e consulta il calendario qui",
+  "notificationToolTip": "Le notifiche sono impostate per le prenotazioni relative a questa struttura",
+  "list": {
+    "section": {
+      "archived": "Stabilimenti archiviati"
+    }
+  },
+  "spotScheduling": {
+    "delete": {
+      "title": "Elimina la configurazione",
+      "content": "Sei sicuro di volerla eliminare? Questa operazione è irreversibile."
+    },
+    "add": "Aggiungi una disposizione",
+    "subtitle": "Aggiungi una pianificazione dei posti personalizzata al tuo stabilimento, per consentire ai membri di prenotare il loro posto specifico per ogni sessione.",
+    "title": "Gestione dei posti",
+    "untitled": "Senza titolo",
+    "placeCount": "{{count}} posti"
+  },
+  "location": {
+    "country": "Paese",
+    "zip_code": "Codice postale",
+    "city": "Città",
+    "address_line_2": "Indirizzo linea 2",
+    "address_line_1": "Indirizzo linea 1",
+    "address": "Indirizzo",
+    "search_address": "Cercare un indirizzo",
+    "state": "Stato"
+  },
+  "localisation": "Sede",
+  "room": "Stabilimento",
+  "group": {
+    "groupButton": "Raggruppa gli stabilimenti",
+    "addLocalisation": "Aggiungi una sede",
+    "name": " Nome",
+    "actions": "Azioni",
+    "noGroupHelper": "Le sedi permettono di raggruppare diversi indirizzi. Se hai diversi studi in diverse città, puoi raggruppare gli studi della stessa città in un'unica posizione. Sul Area Membri, il widget e l'applicazione personalizzata i tuoi studenti saranno in grado di selezionare la sede a cui sono più interessati per vedere solo i corsi vicino a loro.",
+    "form": {
+      "name": "Nome",
+      "associated_localizations": "Stabilimenti associati",
+      "dialog": {
+        "title": "Sede",
+        "cancel": "Cancella",
+        "save": "Registrare"
+      }
+    },
+    "modal": {
+      "delete": {
+        "title": "Elimina una sede",
+        "content": "Questo stabilimento non apparirà più nei filtri disponibili nel Area Membri, nel widget e nell'applicazione personalizzata.",
+        "cancel": "Cancella",
+        "confirm": "Eliminare"
+      }
+    },
+    "table": {
+      "actions": "Azioni",
+      "establishment": "Stabilimento",
+      "name": "Nome",
+      "noAddress": "Nessun indirizzo è associato a questo gruppo di contabilizzazione",
+      "address": "Indirizzo"
+    }
+  },
+  "billing_group": {
+    "table": {
+      "name": "Nome",
+      "establishment": "Stabilimenti",
+      "actions": "Azioni"
+    },
+    "modal": {
+      "delete": {
+        "confirm": "Cancella",
+        "cancel": "Cancella",
+        "content": "Sei sicuro di voler eliminare questo gruppo di contabilizzazione? Le ricevute future non potranno più essere collegate a questa sede, né essere selezionate dai membri come sede preferita durante l'acquisto online. Prima di cancellare il gruppo di contabilizzazione, assicurati che tutti gli stabilimenti siano collegati ai gruppi di contabilizzazione esistenti",
+        "title": "Eliminare un gruppo di contabilizzazione"
+      }
+    },
+    "form": {
+      "error": {
+        "groupShouldHaveName": "È necessario dare un nome a questo gruppo di contabilizzazione",
+        "groupShouldContainsOneRoom": "Si prega di selezionare almeno uno stabilimento",
+        "groupShouldHaveAddress": "È necessario indicare l'indirizzo di questo gruppo di contabilizzazione"
+      },
+      "dialog": {
+        "save": "Salva",
+        "cancel": "Cancella",
+        "title": "Gruppo di contabilizzazione"
+      },
+      "associated_localizations": "Stabilimenti associati",
+      "name": "Nome",
+      "address": {
+        "helperText": "Inserire l'indirizzo del gruppo di contabilizzazione.",
+        "label": "Indirizzo"
+      },
+      "warning": {
+        "groupHasSeveralLocations": "Nota che gli stabilimenti selezionati non hanno lo stesso indirizzo e potrebbero non far parte della stessa sede"
+      }
+    },
+    "actions": "Azioni",
+    "name": " Nome"
+  },
+  "description": "Descrizione",
+  "favouriteLocation": "Sede preferita",
+  "notification": {
+    "modal": {
+      "content": "Sei sicuro di voler eliminare questa notifica? Questa operazione è definitiva.",
+      "confirm": "Eliminare",
+      "cancel": "Cancella",
+      "title": "Cancellazione della notifica"
+    }
+  },
+  "marketing": {
+    "notification": "Notificazioni"
+  },
+  "roomRequiredIsMissing": "Non hai selezionato uno stabilimento di contabilizzazione.",
+  "roomRequired": "Sala *",
+  "billingGroup": "Gruppo di contabilizzazione",
+  "billingGroupRequired": "Gruppo di contabilizzazione *",
+  "bookkeeping_account": {
+    "helperText": "Gli account possono essere collegati ai prodotti in modo che il numero dell'account e l'aliquota IVA vengano inseriti automaticamente nei report.",
+    "form": {
+      "titleUpdate": "Modifica account",
+      "titleCreate": "Aggiungi account"
+    },
+    "modal": {
+      "delete": {
+        "contentLinked": "Questo account è collegato ai seguenti oggetti; se si desidera eliminarlo, si prega prima di rimuoverlo.",
+        "cancel": "Cancella",
+        "confirm": "Elimina",
+        "content": "Stai per cancellare questo account, sei sicuro di voler procedere?",
+        "title": "Cancellazione"
+      }
+    },
+    "header": "Account",
+    "select_input": {
+      "placeholder": "Lascia vuoto per non applicare l'account",
+      "label": "Numero di contabilità"
+    },
+    "add": "Aggiungi un account",
+    "table": {
+      "actions": "Azioni"
+    },
+    "vat_rate": "Aliquota IVA",
+    "account_name_required": "Nome dell'account *",
+    "account_name": "Nome dell'account",
+    "account_number_required": "Numero dell'account *",
+    "account_number": "Numero dell'account"
+  },
+  "establishmentGroup": {
+    "deleteObject": {
+      "infos": {
+        "widgetsDefault": "I widget Calendario e Workshop possono essere configurati con questa sede, vi preghiamo di non dimenticare di aggiornarli.",
+        "reportsDefault": "La sede verrà cancellata dai rapporti precedenti."
+      },
+      "warnings": {
+        "hasRelatedMarketplaceComponentConfigs": "Le schede calendario e workshop configurate per il Area Membri non visualizzeranno più il calendario della sede.",
+        "hasRelatedMarketingNotifications": "Le notifiche relative a questa sede saranno eliminate.",
+        "exclusiveAssociatedCoaches": "L'insegnante {{- coach_name }} viene avvisato solo quando viene fatta una richiesta di sostituzione per una sessione in questa sede. Eliminando la sede, riceverà quindi le richieste di sostituzione da tutte le sedi.",
+        "exclusiveAssociatedCoaches_plural": "Gli insegnanti {{- coach_name }} vengono avvisati solo quando viene fatta una richiesta di sostituzione per una sessione in questa sede. Eliminandola, riceveranno quindi le richieste di sostituzione da tutte le sedi.",
+        "hasRelatedAssociatedCoaches": "Alcuni insegnanti ricevono una notifica quando viene fatta una richiesta di sostituzione per una sessione in questa sede. Eliminando la sede, non riceveranno più la relativa notifica.",
+        "hasRelatedStaffConfigurations": "Questa sede è utilizzata per il monitoraggio degli accessi da parte di uno o più utenti staff. Eliminando la sede senza selezionarne una nuova, questi non potranno più effettuare il monitoraggio degli accessi."
+      },
+      "errors": {
+        "hasExclusiveMarketplaceComponentConfigs": "Una o più schede del Area Membri sono impostate per visualizzare solo il calendario e gli workshop di questa sede; aggiornarle prima di eliminare la sede."
+      }
+    },
+    "forms": {
+      "delete": {
+        "title": "Elimina una delle sedi"
+      }
+    }
+  },
+  "deleteObject": {
+    "warnings": {
+      "hasRelatedMarketingNotifications": "Le notifiche relative a questo stabilimento saranno eliminate.",
+      "hasRelatedMarketplaceComponentConfigs": "Le schede calendario e workshop configurate per il Area Membri non visualizzeranno più il calendario di questo stabilimento.",
+      "hasRelatedZoomEstablishment": "Questo stabilimento verrà rimosso dall'elenco degli stabilimenti utilizzati per lo streaming in diretta con l'integrazione di Zoom.",
+      "hasRelatedAvailabilitySlots": "Le fasce orarie disponibili dell'orario di questo stabilimento saranno cancellate.",
+      "relatedPaymentPacks": "Il seguente pass {{- pass_name }} non sarà più utilizzabile per questo stabilimento, assicuratevi di informare i vostri clienti.",
+      "relatedPaymentPacks_plural": "I seguenti pacchetti {{- pass_name }} non saranno più utilizzabili per questo stabilimento, assicuratevi di informare i vostri clienti.",
+      "hasRelatedAssociatedCoaches": "Alcuni insegnanti ricevono una notifica quando viene presentata una richiesta di sostituzione per una sessione in questo stabilimento. Eliminando lo stabilimento, non riceveranno più la notifica relativa.",
+      "exclusiveAssociatedCoaches": "L'insegnante {{- coach_name }} viene avvisato solo quando viene fatta una richiesta di sostituzione per una sessione in questo stabilimento. Eliminando lo stabilimento, riceverà quindi le richieste di sostituzione da tutte lo stabilimento.",
+      "exclusiveAssociatedCoaches_plural": "Gli insegnanti {{- coach_name }} sono avvisati solo quando viene fatta una richiesta di sostituzione per una sessione in questo stabilimento. Eliminandolo, riceveranno quindi le richieste di sostituzione da tutti gli altri stabilimenti.",
+      "hasRelatedCoachAvailabilitySlots": "Questo stabilimento verrà rimosso dall'elenco degli stabilimenti disponibili utilizzati nel calendario dei docenti.",
+      "exclusiveCoachAvailabilitySlots": "L'insegnante {{- coach_name }} è indicato come disponibile per questo stabilimento solo per alcune fasce orarie. Eliminando lo stabilimento , queste fasce orarie saranno eliminate.",
+      "exclusiveCoachAvailabilitySlots_plural": "Gli insegnanti {{- coach_name }} sono indicati come disponibili per questo stabilimento solo per alcune fasce orarie. Eliminando lo stabilimento, queste fasce orarie saranno eliminate.",
+      "hasRelatedStaffConfigurations": "Questo stabilimento sarà rimosso dagli stabilimenti utilizzati dgli utenti staff per il monitoraggio degli accessi.",
+      "hasExclusiveStaffConfigurations": "Alcuni utenti Staff sono configurati per monitorare l'accesso dei membri per questo stabilimento. Eliminando lo stabilimento senza selezionarne uno nuovo, non potranno più effettuare il monitoraggio degli accessi.",
+      "exclusivePrivateServices": "L'appuntamento {{- private_service_name }} è configurato per svolgersi solo in questo stabilimento. Eliminando questo stabilimento, l'appuntamento potrà svolgersi ovunque.",
+      "exclusivePrivateServices_plural": "Gli appuntamenti {{- private_service_name }} sono configurati per essere svolti solo in questo stabilimento. Eliminando questo stabilimento, gli appuntamenti potranno svolgersi ovunque.",
+      "hasBillingGroup": "Questo stabilimento sarà anche rimosso dal gruppo di fatturazione {{- establishment_billing_group_name }}."
+    },
+    "infos": {
+      "privateBookingsDefault": "Le sessioni per appuntamenti precedenti non saranno modificate.",
+      "widgetsDefault": "I widget del Calendario e degli Workshop potrebbero essere stati configurati con questo stabilimento; non dimenticate di aggiornarli.",
+      "offersDefault": "Le sessioni, gli workshop e le prenotazioni pregresse non saranno modificate.",
+      "reportsDefault": "Lo stabilimento non verrà cancellato dai report passati."
+    },
+    "errors": {
+      "isIntegratedInPartnership": "Una o più integrazioni utilizzano questo stabilimento.",
+      "hasExclusiveMarketplaceComponentConfigs": "Una o più schede nell'Area Membri sono impostate per visualizzare solo il calendario e gli workshop di questo stabilimento; si prega di aggiornarle prima di eliminare lo stabilimento.",
+      "exclusiveEstablishmentGroups": "La sede {{- establishment_group_name }} contiene solo lo stabilimento che si desidera eliminare; si prega di aggiornare o eliminare questa sede.",
+      "exclusiveEstablishmentGroups_plural": "Le sedi {{- establishment_group_name }} contengono solo lo stabilimento che si desidera eliminare; aggiornare o eliminare queste sedi.",
+      "exclusivePaymentPacks": "Il seguente pacchetto {{- pass_name }} è utilizzabile esclusivamente in questo stabilimento. Si prega di aggiornare le restrizioni prima di cancellare lo stabilimento.",
+      "exclusivePaymentPacks_plural": "I seguenti pacchetti {{- pass_name }} sono utilizzabili solo in questo stabilimento. Aggiornare le restrizioni prima di eliminare lo stabilimento.",
+      "hasExclusiveBillingGroup": "Questo stabilimento è l'ultimo del suo gruppo di fatturazione. Si prega di cancellare o aggiornare il gruppo di fatturazione in questione prima di cancellare questo stabilimento.",
+      "hasUpcomingPrivateBookings": "Alcuni appuntamenti in programma avranno luogo in questo stabilimento. Ti preghiamo di eliminare gli appuntamenti in questione prima di eliminare questo stabilimento.",
+      "hasUpcomingOffers": "Alcune sessioni in programma avranno luogo in questo stabilimento. Ti preghiamo di eliminare le sessioni in questione prima di eliminare questo stabilimento."
+    },
+    "title": {
+      "warning": "Eliminare questo stabilimento avrà la seguenti conseguenze:",
+      "error": "Lo stabilimento non può essere eliminato per le seguenti ragioni:"
+    }
+  }
+}

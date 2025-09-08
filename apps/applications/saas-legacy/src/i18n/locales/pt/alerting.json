@@ -1,0 +1,70 @@
+{
+  "alert_kind": {
+    "1": "Faturação",
+    "2": "Pedidos",
+    "3": "Tarefa",
+    "4": "Marcação a completar",
+    "5": "Informações legais",
+    "6": "aulas privadas não pagas",
+    "7": "Tutoriais",
+    "8": "Substituições tardias",
+    "9": "Caixa de entrada"
+  },
+  "list": {
+    "emptyAlerting": "Nenhuma notificação nova.",
+    "title": "Notificações"
+  },
+  "showMore": "Mostrar mais",
+  "readAll": "Marcar tudo como lido",
+  "unevenInvoice": {
+    "priceDue": "Valor devido: {{ price_due }}.",
+    "pricePayed": "Valor cobrado : {{ price_payed }}.",
+    "title": "Facturas não pagas",
+    "explainUneven": "O pagamento <1>{{ invoice_identifier }}</1> não foi efetuado."
+  },
+  "newOrder": {
+    "title": "Encomenda pendente",
+    "explain": "Pago por <1>{{- name}}</1> na loja.",
+    "price": "Valor: {{ price }}."
+  },
+  "privateBookingIncomplete": {
+    "explain": "A aula privada de <1>{{- name}}</1> não tem professor atribuído.",
+    "date": "Data : {{ date_start }}",
+    "name": "Membro : {{- user_name }}"
+  },
+  "unpaidPrivateBooking": {
+    "credits_due": "{{ credits }} crédito(s) não pago(s)"
+  },
+  "task": {
+    "name": "{{ name }}"
+  },
+  "companyOnboarding": {
+    "verification": {
+      "title": "Gerir o meu negócio",
+      "content": "Estão pendentes vários documentos, tem até dia <1>{{ date }}</1> para consultar a sua conta.",
+      "warning": "Os pagamentos pendentes correm o risco de serem <1>desativados</1> após esta data !"
+    },
+    "payout": {
+      "title": "Dados bancários em falta",
+      "content": "Os pagamentos não podem ser processados devido ao facto de a verificação da conta não ter sido concluída ou ter sido feita de forma incorrecta."
+    },
+    "creation": {
+      "title": "Pagamento online desativado",
+      "content": "Verifique as suas informações legais e bancárias para poder processar pagamentos ONLINE"
+    }
+  },
+  "newTutorialSectionOrLesson": {
+    "newSection": {
+      "title": "Nova secção",
+      "content": "A aula {{- name}} foi adicionada, comece a treinar agora."
+    },
+    "newLesson": {
+      "title": "Nova aula {{- name}}",
+      "content": "Adicionado à secção {{- name}}"
+    }
+  },
+  "lateReplacementRequest": {
+    "title": "Substituição tardia",
+    "content": "solicitou uma substituição para a aula seguinte : {{- activity_name}} - {{-date_start}}"
+  }
+}

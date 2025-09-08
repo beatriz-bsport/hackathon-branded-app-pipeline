@@ -1,0 +1,64 @@
+{
+  "clockinDialog": {
+    "title": "Urenregistratie",
+    "close": "Sluiten",
+    "clockIn": "Inklokken",
+    "clockOut": "Uitklokken",
+    "lastClockIn": "Laatste inkloktijd: {{- date }} om {{ hour }}",
+    "lastClockOut": "Aankomsttijd: ",
+    "subtitleClockIn": "Hoi {{ name }}! Klik op \"Inklokken\" om te beginnen.",
+    "subtitleClockOut": "Je hebt je correct ingeklokt. Klik op \"Uitklokken\" om je dienst af te ronden.",
+    "clockInForOther": "Inklokken voor een medewerker",
+    "subtitleSuccess": "Je agenda is succesvol opgeslagen. Vanaf nu kun je via dit scherm inklokken.",
+    "successClockIn": "Aankomsttijd:",
+    "successClockOut": "Vertrektijd:",
+    "successDuration": "Aantal gewerkte uren:"
+  },
+  "attendanceTable": {
+    "firstname": "Voornaam",
+    "lastname": "Achternaam",
+    "staff": "Medewerker",
+    "email": "E-mail",
+    "lastClockIn": "Laatste tijdregistratie",
+    "status": "Status",
+    "action": "Actie",
+    "role": "Rol",
+    "start": "Uitklokken",
+    "end": "Inklokken",
+    "here": "Aanwezig",
+    "missing": "Afwezig",
+    "createStaff": "Een medewerker toevoegen",
+    "emptyState": "De toegang voor medewerkers is nog niet geconfigureerd. Ga naar Instellingen > Medewerkers en koppel de juiste rollen aan de juiste medewerkers om ook het in- en uitklokken van medewerkers te volgen."
+  },
+  "historyTable": {
+    "staff": "Medewerker",
+    "startingHour": "Starttijd",
+    "endingHour": "Eindtijd",
+    "durationHoursMinutes": "Totale werktijd (in uren en minuten)",
+    "durationHours": "Werktijd (in uren)",
+    "action": "Actie",
+    "download": "Downloaden"
+  },
+  "modal": {
+    "delete": {
+      "title": "Verwijderen",
+      "content": "Waarschuwing! Het in- en uitklokken wordt hierna voor deze medewerker verwijderd. Deze actie is definitief."
+    }
+  },
+  "editModal": {
+    "title": "Roosterwijzigingen",
+    "endingTime": "Eindtijd",
+    "startingTime": "Starttijd",
+    "cancel": "Annuleren",
+    "confirm": "Bevestigen"
+  },
+  "pageTitle": "Urenregistratie",
+  "tabRealTime": "Real-time",
+  "tabHistory": "Geschiedenis",
+  "export": {
+    "dialog": {
+      "message": "De export is klaar om gedownload te worden.",
+      "title": "Geschiedenis exporteren"
+    }
+  }
+}

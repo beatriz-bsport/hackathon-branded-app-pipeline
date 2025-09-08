@@ -1,0 +1,302 @@
+{
+  "paymentMethod": {
+    "0": "Kreditkarte",
+    "1": "Bargeld",
+    "2": "Scheck",
+    "3": "Pass",
+    "4": "Kreditkarte (manuell)",
+    "5": "Urlaubsgutscheine",
+    "6": "AMEX",
+    "7": "Überweisung",
+    "8": "EventBrite",
+    "9": "Internes Konto (Guthaben)",
+    "10": "Automatische Zahlung",
+    "11": "Andere",
+    "12": "Streitfall",
+    "13": "SEPA",
+    "20": "Bancontact",
+    "30": "SOFORT",
+    "40": "iDEAL",
+    "50": "EPS",
+    "60": "Giropay",
+    "70": "Bacs-Lastschriftverfahren",
+    "80": "PayPal",
+    "90": "Twint",
+    "100": "Apple Pay",
+    "110": "Google Pay",
+    "label": "Zahlungsmethode",
+    "disputeWon": "Gewonnen",
+    "onlinePayments": "Online-Zahlungen"
+  },
+  "generalTermsAndConditions": {
+    "close": "Schließen",
+    "iAccept": "Ich akzeptiere die ",
+    "theTermsAndConditions": "Allgemeine Nutzungsbedingungen.",
+    "generalTermsOfUse": " Allgemeine Geschäftsbedingungen",
+    "waiver": "Verzichtserklärung."
+  },
+  "forms": {
+    "paymentIntent": {
+      "pay": "Zahlen"
+    },
+    "credit": {
+      "pay": "Bestätigen",
+      "explain": "Ihr Studio wird über die Abbuchung informiert, Sie bezahlen diese Bestellung vor Ort."
+    },
+    "cancelPayment": "Zurück",
+    "paymentMethod": {
+      "9": "Vor Ort Zahlung",
+      "actions": {
+        "addPaymentMethod": "Eine Zahlungsmethode hinzufügen",
+        "retry": "Erneut versuchen",
+        "collect": "Speichern",
+        "close": "Schließen",
+        "displayPaymentMethod": "Meine Zahlungsmethoden anzeigen",
+        "selectPaymentMethod": "Wählen Sie Ihre Zahlungsmethode",
+        "cancel": "Abbrechen",
+        "addPaymentMethodDenied": "Dieses Mitglied hat derzeit keine solche Zahlungsmethode gespeichert, und Sie haben nicht die Erlaubnis, eine neue hinzuzufügen."
+      },
+      "collect": {
+        "content": "Hier gibst du deine Kreditkartendaten für Abo-Zahlungen ein.",
+        "title": "Kreditkarte hinzufügen",
+        "contentAdd": "Diese Zahlungsmethode wird in Ihrem Konto gespeichert."
+      },
+      "message": {
+        "error": "Diese Zahlungsmethode kann nicht gespeichert werden",
+        "success": "Zahlungsmittel erfolgreich gesichert!"
+      },
+      "mandateRevalidated": {
+        "content": "Die Einzugsermächtigung wird bei der Bank erneut validiert.",
+        "retry": "Erneut versuchen",
+        "success": "Das Abonnement wurde verlängert, und die nächste Lastschrift wird erfolgreich eingezogen.",
+        "collect": "Akzeptieren",
+        "error": "Sie können die Einzugsermächtigung nicht verlängern, wenden Sie sich bitte an Ihre Bank."
+      }
+    },
+    "savePaymentMethod": {
+      "section": "Wählen Sie eine Zahlungsmethode",
+      "label": "Diese Zahlungsmethode speichern",
+      "add": "Zahlungsinformationen",
+      "select": "Zahlungsmethode auswählen"
+    }
+  },
+  "method": {
+    "0": "Karte",
+    "1": "Bargeld",
+    "2": "Check",
+    "3": "Pass",
+    "4": "Karte (manuell)",
+    "5": "Urlaubscheck",
+    "6": "AMEX",
+    "7": "Überweisung",
+    "8": "Eventbrite",
+    "9": "Internes Konto",
+    "10": "Lastschriftverfahren",
+    "11": "Andere",
+    "12": "Rückbuchung",
+    "13": "SEPA",
+    "20": "Bancontact",
+    "30": "Sofort",
+    "40": "iDEAL",
+    "50": "EPS",
+    "60": "Giropay",
+    "70": "Bacs-Lastschriftverfahren",
+    "80": "PayPal",
+    "90": "TWINT",
+    "100": "Apple Pay",
+    "110": "Google Pay",
+    "CREDIT_ACCOUNT": "Internes Konto",
+    "CB": "Kreditkarte",
+    "GIROPAY": "Giropay",
+    "EPS": "EPS",
+    "IDEAL": "iDEAL",
+    "SOFORT": "Sofort",
+    "BANCONTACT": "Bancontact",
+    "SEPA": "SEPA",
+    "CHECK": "Siehe",
+    "CASH": "Bargeld",
+    "BACS_DEBIT": "Bacs-Lastschriftverfahren",
+    "TWINT": "TWINT",
+    "GOOGLE_PAY": "Google Pay",
+    "APPLE_PAY": "Apple Pay"
+  },
+  "paymentComboSectionTitle": "Paket",
+  "hasOneOrMoreOption": "Sie sind bereits auf der Warteliste",
+  "goBack": "Zurück",
+  "bookAnotherOption": "Mich erneut auf die Warteliste einschreiben",
+  "bookAnOption": "Mich auf die Warteliste einschreiben",
+  "explainOption": "Sobald ein Platz frei wird, werden Sie per E-Mail benachrichtigt",
+  "availablePaymentPacks": "Kompatible Kurspässe : ",
+  "actions": {
+    "addThisPaymentItem": "Diese Zahlungsmethode hinzufügen"
+  },
+  "creditAccountBalance": {
+    "current": "Aktuelles Konto"
+  },
+  "paymentNote": {
+    "helperText": "(optional) Zahlungsreferenz",
+    "label": "Anmerkung"
+  },
+  "bankAccount": {
+    "form": {
+      "actions": {
+        "submit": "Bestätigen",
+        "cancel": "Abbrechen"
+      },
+      "accountNumber": {
+        "placeholder": "DE89370400440532013000",
+        "label": "IBAN",
+        "eurSpecific": " (IBAN)"
+      },
+      "invalid": "Ungültige IBAN. Achtung: Die IBAN muss einem Bankkonto im gleichen Land wie Ihr Unternehmen entsprechen",
+      "accountHolderName": {
+        "placeholder": "Paul Müller",
+        "label": "Bankkontoinhaber"
+      },
+      "content": "Mit diesem Konto erhältst du Gutschriften von bsport:",
+      "title": "Bankkonto",
+      "unknownCountry": "Manueller Vorgang für dieses Land, bitte kontaktieren Sie bsport über contact@bsport.io",
+      "routingNumber": {
+        "label": "Routing-Nummer",
+        "placeholder": "000001"
+      },
+      "clearingCode": {
+        "label": "Clearing code"
+      },
+      "branchCode": {
+        "label": "Branch code"
+      },
+      "transitNumber": {
+        "label": "Transit-Nummer",
+        "placeholder": "Transit-Nummer"
+      },
+      "institutionNumber": {
+        "label": "Nummer des Instituts",
+        "placeholder": "Nummer des Instituts"
+      },
+      "bankCode": {
+        "label": "Bank-Code"
+      },
+      "sortCode": {
+        "label": "Sortiercode",
+        "placeholder": "123456"
+      }
+    }
+  },
+  "payment": {
+    "return": "Rückerstattung"
+  },
+  "returnedAmount": "Erstattet: ",
+  "payout": {
+    "isEmptyWarning": "Auszahlungen vor dem 15. März 2021 werden möglicherweise nicht berücksichtigt.",
+    "title": "Deine Auszahlungen",
+    "isEmpty": "Du hast in letzter Zeit keine Auszahlungen erhalten.",
+    "invoice": "Rechnung {{ uuid }}",
+    "seeMore": "Mehr anzeigen",
+    "paymentNb": "{{nb}} Zahlungen",
+    "status": {
+      "0": "In Bearbeitung",
+      "1": "in Bearbeitung",
+      "2": "Erfolgreich",
+      "3": "Gescheitert",
+      "4": "Abgebrochen"
+    },
+    "payoutIsIncludedInOther": "Diese Überweisung wurde in die Überweisung vom {{date}} mit der Kennung {{readable_identifier}} aufgenommen",
+    "payoutAmountFromIncludedPayouts": "davon {{price}} aus vorherigen Auszahlungen",
+    "payoutIsManual": "Dieser Auszahlungstransfer wurde vom bsport-Team manuell ausgelöst, um die Überweisung Ihres Geldes zu beschleunigen. In diesem Fall sind die Details der verbundenen Zahlungen nicht verfügbar. Bitte setzen Sie sich für weitere Informationen mit unserem Team in Verbindung.",
+    "dialog": {
+      "content": "Es gab ein Synchronisationsproblem zwischen Stripe und bsport. Wir können die Details dieser Auszahlung im Moment nicht anzeigen. Sie können jedoch sicher sein, dass der Betrag wie üblich bearbeitet und auf Ihr Bankkonto überwiesen wird. Weitere Informationen über den überwiesenen Betrag können Sie dem Zahlungsbericht entnehmen, der den Zeitraum zwischen dieser und der letzten Auszahlung abdeckt.",
+      "title": "Zahlungssynchronisierungsbenachrichtigung"
+    }
+  },
+  "instalment": {
+    "form": {
+      "recurrence_basis": {
+        "intervalName": {
+          "week": "Woche",
+          "week_plural": "Wochen",
+          "day": "Tag",
+          "day_plural": "Tage",
+          "month": "Monat",
+          "month_plural": "Monate",
+          "year": "Jahr",
+          "year_plural": "Jahre"
+        },
+        "label": "Wiederholen Sie alle",
+        "helperText": " "
+      },
+      "recurrence": {
+        "explain": "Die Zahlung wird über {{ total_interval_duration }} {{ interval }} jedes {{ recurrence_basis }} {{ interval }} verteilt und erzeugt {{ nb_interval }} Zahlungseingänge",
+        "section": "Wiederholung"
+      },
+      "interval": {
+        "helperText": "Häufigkeit der Erstellung von Rechnungen/Karten",
+        "label": "Wiederholung"
+      },
+      "anchor_date": {
+        "helperText": "Die Zahlung wird während des Vormittags eingesammelt",
+        "label": "Erste Zahlung der Rate"
+      },
+      "nb_interval": {
+        "label": "Anzahl der Rechnungen"
+      },
+      "actions": {
+        "close": "Abbrechen",
+        "previous": "Zurück",
+        "next": "Weiter",
+        "submit": "Bestätigen"
+      },
+      "title": {
+        "payment": "Zahlungsmittel",
+        "scheduler": "Zeitleiste"
+      }
+    }
+  },
+  "interval": {
+    "week": "Woche",
+    "week_plural": "Wochen",
+    "day": "Tag",
+    "day_plural": "Tage",
+    "year": "Jahr",
+    "year_plural": "Jahre",
+    "month": "Monat",
+    "month_plural": "Monate"
+  },
+  "subscriptionPaymentDialog": {
+    "error": {
+      "button_text": "Erneut versuchen",
+      "text_status": "Ihr Kauf konnte nicht abgeschlossen werden!",
+      "text_content": "Ihr Kauf konnte nicht abgeschlossen werden. Sie können es noch einmal versuchen oder zu Ihrem Konto zurückkehren.",
+      "title": "Fehler bei der Zahlung",
+      "userSpace": "Mitgliederbereich"
+    },
+    "success": {
+      "button_text": "Weiter",
+      "text_status": "Erfolgreich abgeschlossener Kauf!",
+      "text_content": "Ihr Kauf wurde erfolgreich abgeschlossen. Sie können ab sofort die Details Ihres Abonnements in Ihrem Mitgliederbereich abrufen.",
+      "recap": "Zusammenfassung",
+      "title": "Herzlichen Glückwunsch!",
+      "text_content_funnel": "Ihr Kauf wurde berücksichtigt, klicken Sie auf Weiter, um Ihre Buchung abzuschließen. Der mit Ihrem Abonnement verbundene Pass wurde dem Abschnitt \"Meine Kurspässe\" hinzugefügt. Wählen Sie sie aus, um Ihre Buchung zu tätigen.",
+      "contract": "Meine Mitgliedschaft (Vertrag)"
+    },
+    "title": "Ein Abonnement kaufen"
+  },
+  "disputeStatus": {
+    "1": "Streitfall in Bearbeitung",
+    "2": "Streitfall gewonnen",
+    "3": "Streitfall verloren"
+  },
+  "stripeBalance": {
+    "dialog": {
+      "firstPart": "Bei bsport verwenden wir den Stripe-Service, um alle Ihre Online-Zahlungen zu verwalten. Die Beträge dieser werden bei Stripe gespeichert und dann auf Ihr Konto zurücküberwiesen (Abschnitt \"Meine Zahlungseingänge\").",
+      "secondPart": "Ihr \"verfügbares Saldo\" entspricht also dem Betrag der Online-Zahlungen, der Ihnen noch nicht ausgezahlt wurde.",
+      "thirdPart": "Ihr \"Saldo in Bearbeitung\" entspricht dem Betrag, der auf Ihr verfügbares Saldo eingehen wird.",
+      "alert": "Beachten Sie, dass bei einer direkten Rückerstattung dieses Geld direkt von Ihrem Stripe-Konto abgebucht wird. Dadurch kann es ins Minus rutschen.",
+      "close": "Schließen"
+    },
+    "availableBalance": "Verfügbares Guthaben",
+    "pendingBalance": "Guthaben in Bearbeitung",
+    "title": "Stripe-Saldo",
+    "nullPendingBalanceText": "Keine"
+  }
+}

@@ -1,0 +1,231 @@
+{
+  "paymentIntent": {
+    "isProcessing": "Processing..."
+  },
+  "forms": {
+    "delivery": {
+      "first_name": "First name",
+      "last_name": "Last name",
+      "actions": {
+        "submit": "Next",
+        "cancel": "Back"
+      }
+    }
+  },
+  "autoAdd": {
+    "paymentPack": {
+      "locked": "This product is not available for purchase."
+    },
+    "privatePass": {
+      "error": "This pass for appointments is not available"
+    },
+    "paymentCombo": {
+      "locked": "This pack is not available for purchase"
+    }
+  },
+  "myBasket": {
+    "finalize": {
+      "steps": {
+        "address": "Address",
+        "payment": "Billing"
+      }
+    },
+    "title": "My basket",
+    "isEmpty": "Your basket is empty.",
+    "featured": "Featured",
+    "error": {
+      "invalidBasket": "Your basket contained items which are no longer available. No payment has been processed.",
+      "inconsistentBasket": "Your basket has been modified, please refresh your page before validating your payment.\nYou have not been charged.",
+      "unavailableSessions": "Some sessions in your basket are no longer available, so we couldn't complete your reservation. We've removed the unavailable ones. Please review your basket and try again."
+    },
+    "actions": {
+      "closeBasket": "Continue shopping",
+      "checkoutBasket": "Purchase",
+      "payZero": "Confirm basket"
+    },
+    "isFinalized": "Your basket has been validated.",
+    "checkingPaymentStatus": "Your payment status is being reviewed.",
+    "totalQuantity": "Contains: {{ qty }} product(s)",
+    "checkAndFinalize": "Please check your basket and finalize your booking",
+    "acceptTermsAndFinalize": "Please accept the general terms and conditions and finalize your booking",
+    "almostDone": "Almost done",
+    "goToMarketplace": "See the Member Area",
+    "newCheckout": {
+      "isEmptyDescription": "Continue your exploration of the Member Area!",
+      "isEmpty": "Your basket is empty!"
+    },
+    "noBooking": {
+      "acceptTermsAndFinalize": "Please accept the terms and conditions and complete your basket",
+      "checkAndFinalize": "Please check your basket"
+    },
+    "referral": {
+      "missingAmountBeforeApplication": "The minimum purchase amount has not been reached. You risk losing your referral link. Only {{ missingAmount }} more to be able to enjoy the discount!",
+      "hasReachedMaxUses": "The maximum number of uses for the referral link has been reached."
+    }
+  },
+  "payLater": {
+    "submit": "Pay on site",
+    "explain": "Your invoice will be considered unpaid until you settle it from your member profile, or directly in the studio."
+  },
+  "or": "or",
+  "validation": {
+    "sections": {
+      "offerNotBookable": "Unable to register",
+      "offerPreBooked": "You've joined the waitlist for",
+      "offerBooked": "My booking",
+      "offerBooked_plural": "My bookings",
+      "unableToBookSession": "Unable to book session",
+      "unableToBookSession_plural": "Unable to book sessions",
+      "offerGuestBooked": "My guest booking",
+      "offerGuestBooked_plural": "My guest bookings",
+      "basket": "My basket",
+      "title": "Congratulations!",
+      "errorExplain": {
+        "generic": "The operation could not be performed. We invite you to try again.",
+        "guestGeneric": "A problem occurred with the reservation for a guest.",
+        "guestOvercomeLimit": "The number of guests added for this reservation exceeds the allowed number.",
+        "guestReachedLimit": "You have already reached the reservation limit for one guest for the current period. It is not possible to make any more.",
+        "guestSettings": "Inviting guests isn't available.",
+        "guestOffer": "The studio has disabled the booking for a guest feature for this session.",
+        "guestPass": "The studio has disabled the booking for a guest feature for this pass.",
+        "guestNotEnoughSpot": "There is not enough capacity for all your guests.",
+        "genericOfferError": "We have encountered a problem when processing your session booking. Please try again later or book a different session.",
+        "offerOnlyBookingError": "Sorry, but the selected session and spot cannot be booked at the moment. Please try again."
+      },
+      "error": "Error",
+      "recap": "Summary",
+      "explain": "Your purchase has been processed. Shortly, you'll also receive a confirmation email.",
+      "myGiftcard": "My giftcard",
+      "myGiftcard_plural": "My giftcards",
+      "myProduct": "My product",
+      "myProduct_plural": "My products",
+      "mySubscription": "My subscription",
+      "myPack": "My pack",
+      "myPack_plural": "My packs",
+      "myPass": "My pass",
+      "myPass_plural": "My passes",
+      "alert": "Oops! The booking failed.\nWe've had a problem processing your session booking. Please try again later or book a different session.",
+      "confirmationStatusMessage": {
+        "offerAndPurchaseSuccess": "Congratulations! Your purchases and bookings have been confirmed. You will shortly receive a confirmation e-mail with all the details.",
+        "paymentSuccess": "Congratulations! Your purchase has been confirmed!",
+        "paymentSuccess_plural": "Congratulations! Your purchases are confirmed!",
+        "offerOnlySuccess": "The booking has been made. You will soon receive a confirmation e-mail with all the details.",
+        "offerOnlyGuestSuccess": "The booking has been made. You and your guest will shortly receive a confirmation e-mail with all the details.",
+        "offerOnlySuccess_plural": "The bookings have been made. You will soon receive a confirmation e-mail with all the details.",
+        "offersPartiallyConfirmed": "Some sessions could not be booked, possibly because they filled up or were canceled during checkout. You will receive a confirmation email shortly with details of the successful bookings.",
+        "expressCheckoutPassPurchaseSuccess": "Now that you have your pass, book your class to enjoy all the benefits."
+      },
+      "confirmationStatusTitle": {
+        "success": {
+          "waitingList": "You have registered on the waiting list",
+          "paymentSuccess": "Payment confirmed!",
+          "offerOnlySuccess": "Enjoy the session!",
+          "offerOnlyGuestSuccess": "Enjoy the session with your guest!",
+          "expressCheckoutPassPurchaseSuccess": "Congratulations! You just bought a pass!"
+        },
+        "errors": {
+          "genericOfferError": "Oops! The booking failed.",
+          "generic": "Oops! Payment failed."
+        },
+        "warning": {
+          "offersPartiallyConfirmed": "Your booking is partially confirmed"
+        }
+      }
+    },
+    "actions": {
+      "back": "Go back",
+      "continue": "Continue shopping",
+      "widgetContinue": "Next",
+      "member": "My account",
+      "payNow": "Pay now",
+      "confirmPriceNull": "Confirm",
+      "myPasses": "My passes",
+      "myGiftcards": "My giftcards",
+      "myProducts": "My products",
+      "mySubscription": "My subscription",
+      "retryBookingSession": "Try to book again",
+      "newWorkshop": "New workshop",
+      "retry": "Try again",
+      "myBookings": "My bookings",
+      "goToCalendar": "Back to calendar",
+      "backToMyProfile": "Back to my profile",
+      "bookAClass": "Book a class",
+      "seeAllPasses": "See all passes"
+    },
+    "bookingItem": {
+      "bookingItemStatus": {
+        "unpaid": "Unpaid",
+        "waitingList": "Waiting list"
+      }
+    }
+  },
+  "expire_in": "Expires in ",
+  "spotSavedFor": "Selected spot is saved for: {{countdown}}",
+  "events": {
+    "basket-created": "Basket created",
+    "basket-finalize": "Finalized/paid cart",
+    "basket-additem": "Add to cart",
+    "basket-removeitem": "Remove from basket",
+    "basket-automaticclean": "Automatically clear basket"
+  },
+  "eventHistory": {
+    "sectionTitle": "Events",
+    "pleaseSelectABasket": "Select a basket to see the history"
+  },
+  "historyTitle": "History",
+  "bookerMethod": {
+    "section": {
+      "combo": "Packs",
+      "pass": "Available passes",
+      "consumerPass": "My passes"
+    },
+    "actions": {
+      "bookVod": "Unblock video"
+    },
+    "emptyMethod": "Sorry, at the moment there is no pass compatible with this video. Please go to the subscription section to access it."
+  },
+  "internalAccount": {
+    "confirm": "Confirm",
+    "cancel": "Cancel",
+    "label": "Available amount: ",
+    "use": "Use my internal account balance",
+    "myInternalAccount": "My internal account balance",
+    "useMyInternalAccount": "Use my internal account credit",
+    "useAsManager": "Use the internal account credit",
+    "use_minimal": "Use"
+  },
+  "payment": {
+    "total": "Total (incl. VAT / Sales Tax)",
+    "tax": "VAT / Sales Taxes",
+    "taxExcluded": "Subtotal (excl. VAT / Sales Tax)",
+    "flat_fee": "Enrolment fee",
+    "globalTotal": "Total to pay now",
+    "internalAccount": "My internal account balance",
+    "deliveryFee": "Delivery Fee",
+    "title": "Payment",
+    "totalHiddingTax": "Total to pay now",
+    "flatFeeSubscription": "Application fee",
+    "selectedSession": "Your selected sessions"
+  },
+  "expiredSpotDialog": {
+    "title": "Your spot reservation has expired",
+    "message": "Your spot reservation has expired, you can select it again or choose a different one.",
+    "refresh": "Refresh"
+  },
+  "billingGroup": {
+    "title": "Preferred location",
+    "placeholder": "Location",
+    "helperText": "The preferred location is where you plan to use your purchase most of the time. This information will be used to issue your invoice and for resource allocation purposes only. It does not determine where your purchase can be used."
+  },
+  "passExpressCheckout": {
+    "yourPass": "Your selected pass",
+    "payNow": "Pay now",
+    "errors": {
+      "unavailable": {
+        "title": "Pass no longer available",
+        "description": "Please check to see which passes are currently on offer at your studio.",
+        "goBackButtonLabel": "See available passes"
+      }
+    }
+  }
+}

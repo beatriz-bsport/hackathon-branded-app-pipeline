@@ -1,0 +1,98 @@
+{
+  "metric": {
+    "deleteHeader": "Quer mesmo eliminar esta métrica ?",
+    "deleteContent": "A métrica será permanentemente eliminada.",
+    "title": "Métricas",
+    "form": {
+      "minMax": "O valor mínimo não pode ser inferior ao valor máximo",
+      "default_valueHelperText": "Valor base da métrica",
+      "general": "Geral",
+      "range": "O valor por defeito não se encontra entre os valores mínimo e máximo ",
+      "addMetric": "adicionar uma métrica",
+      "machine": "Identificador de máquina",
+      "minValue": "Valor mínimo",
+      "minValueHelperText": "Valor mínimo da métrica",
+      "color": "Cor",
+      "noMetric": "Não há registos de métricas",
+      "default_value": "Valor por defeito",
+      "maxValueHelperText": "Valor máximo da métrica",
+      "name": "Nome",
+      "maxValue": "Valor máximo"
+    },
+    "statistic": "Estatísticas"
+  },
+  "program": {
+    "form": {
+      "delete": "eliminar programa",
+      "update": "Alterar o programa",
+      "modify": "Editar o programa",
+      "addProgram": "adicionar  um programa",
+      "color": "Cor",
+      "default": "Definir como programa por defeito para todos os novos registados",
+      "name": "Nome do programa",
+      "create": "Criar um programa",
+      "description": "Descrição",
+      "generalInfo": "Informações gerais"
+    },
+    "deleteHeader": "Pretende mesmo eliminar este programa ?",
+    "actions": {
+      "enable": {
+        "error": "Erro ao restaurar o programa",
+        "success": "Programa restaurado"
+      },
+      "disable": {
+        "success": "Programa arquivado",
+        "error": "Erro ao arquivar o programa"
+      },
+      "update": {
+        "success": "Programa alterado",
+        "error": "Erro na alteração do programa"
+      },
+      "create": {
+        "success": "Programa criado",
+        "error": "Erro na criação do programa"
+      }
+    },
+    "selectProgram": "Selecionar um programa",
+    "archived": "Arquivos",
+    "title": "Programas",
+    "infoSelectProgram": "Selecionar um programa para ver os detalhes do mesmo",
+    "member": {
+      "addDate": "Data de inscrição",
+      "title": "Membros",
+      "name": "Nome"
+    },
+    "default": "Programa por defeito",
+    "deleteContent": "Este programa deixará de aparecer nos membros aos quais foi adicionado. Pode recuperá-lo na secção 'Arquivado'.",
+    "detail": "Detalhes do programa",
+    "titleForConsumer": "Os meus programas",
+    "infoNoProgram": "Adicione um programa para os seus membros acompanharem as suas métricas"
+  },
+  "form": {
+    "delete": "Eliminar",
+    "close": "fechar",
+    "cancel": "Cancelar",
+    "save": "Guardar",
+    "validate": "Confirmar",
+    "search": "Pesquisar",
+    "add": "adicionar"
+  },
+  "requiredField": "este campo é obrigatório",
+  "memberProgram": {
+    "actions": {
+      "create": {
+        "error": "Erro ao atribuir o programa ao membro",
+        "success": "Programa associado ao membro",
+        "errorAlreadyExists": "Este membro já participou neste programa"
+      },
+      "disable": {
+        "error": "Erro ao desagregar o programa",
+        "success": "Programa de membros desassociados"
+      }
+    },
+    "deleteContent": "Perderá os valores das métricas do programa para este membro",
+    "infoNoMemberProgram": "Este membro não tem atualmente nenhum programa.",
+    "deleteHeader": "Querem mesmo dissociar este programa deste membro?",
+    "infoNoConsumerProgram": "Se ainda não tem um programa, contacte o seu estúdio para começar a acompanhar o seu desempenho !"
+  }
+}

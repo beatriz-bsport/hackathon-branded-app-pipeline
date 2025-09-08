@@ -1,0 +1,109 @@
+{
+  "companyGroup": {
+    "actions": {
+      "add": "Adicionar uma categoria",
+      "submit": "Confirmar",
+      "cancel": "Cancelar"
+    },
+    "name": {
+      "label": "Nome"
+    },
+    "explain": "As categorias são utilizadas para agrupar as suas permissões sob um nome comum (ex: Estúdio de Lisboa) e será apresentado na aplicação móvel"
+  },
+  "genericProduct": {
+    "list": {
+      "shortMenu": {
+        "delete": "Eliminar",
+        "restore": "Restaurar",
+        "edit": "Editar",
+        "goTo": "Detalhes"
+      },
+      "visibility": "Invisível para os membros",
+      "titleActive": "Disponível para venda",
+      "titleInactive": "Não disponível para venda",
+      "fuzzySearch": "Procurar um passe"
+    },
+    "templateCard": {
+      "shareTemplate": {
+        "categoryName": "Partilhado com os estabelecimentos",
+        "seeAll": "Ver tudo",
+        "closeDialog": "Fechar",
+        "addCompany": "Adicionar um estabelecimento",
+        "emptyCompanyList": "Nenhum estúdio está configurado para aceitar este passe"
+      },
+      "buttons": {
+        "delete": "Eliminar",
+        "update": "Editar"
+      }
+    },
+    "dialogs": {
+      "deleteTemplate": {
+        "title": "Desativação"
+      },
+      "selectCompanies": {
+        "title": "Configurar os meus estabelecimentos",
+        "content1": "Os estabelecimentos seguintes terão automaticamente este passe disponível para venda. Não poderão alterar o preço.",
+        "content2": "Os membros que receberem este passe poderão utilizá-lo em todos os estabelecimentos compatíveis.",
+        "allCompaniesShared": "Já partilhou este passe com todos os estabelecimentos franchisados a que tem acesso."
+      },
+      "deleteTemplateInstance": {
+        "buttonValidate": "Desativar a partilha",
+        "title": "Parar de partilhar"
+      }
+    }
+  },
+  "emails": {
+    "emptyStateDescription": "Selecionar um modelo",
+    "franchiseEmails": "Os meus modelos",
+    "companiesEmails": "Modelos de franshisados",
+    "emptyStateTitle": "Pré-visualização do e-mail",
+    "chooseGroup": "Selecionar um grupo",
+    "searchPlaceholder": "Procurar um modelo",
+    "create": "Criar um modelo",
+    "pageTitle": "Modelo",
+    "franchised": "Franqueado",
+    "groupByPlaceholder": "Agrupar por",
+    "groupBy": "Agrupar por",
+    "copy": "cópia"
+  },
+  "membersList": {
+    "name": "Nome",
+    "franchised": "Franqueados",
+    "see": "Ver",
+    "pageTitle": "Membros",
+    "actions": "Ações"
+  },
+  "companies": {
+    "searchPlaceholder": "Procurar um franchisado",
+    "emptySelect": "Seleccione uma franquia para ver os respectivos detalhes.",
+    "establishment": "Estabelecimentos",
+    "establishmentEmptyState": "Não há estabelecimentos nesta empresa",
+    "membersEmptyState": "Não há membros nesta empresa",
+    "navigateToCompany": "Acesso à conta do franqueado",
+    "members": "Membros",
+    "pageTitle": "Franqueados"
+  },
+  "staff": {
+    "roleTabTitle": "Funções",
+    "explainStaff": "Com o acesso do pessoal da conta principal, seleccione os franchisados que têm acesso às suas equipas e as acções que podem realizar nas mesmas. O acesso de funcionário não permite a ligação à aplicação móvel.",
+    "staffAccountTabTitle": "Contas do staff"
+  },
+  "login": {
+    "disconnect": "Terminar sessão",
+    "signUp": "Inscrever-se",
+    "previous": "Anterior",
+    "connect": "Conectar-me"
+  },
+  "pagination": {
+    "previousPage": "Página anterior",
+    "nextPage": "Página seguinte",
+    "rowPerPage": "Elemento por página",
+    "outOf": "{{from}} - {{to}} sobre {{count}}"
+  },
+  "member": {
+    "franchises": "Franquias",
+    "isVaccinated": "Cartão de saúde válido",
+    "seeMembership": "ver o ficheiro dos membros",
+    "pageTitle": "Membro"
+  }
+}

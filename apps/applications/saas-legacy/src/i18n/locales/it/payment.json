@@ -1,0 +1,302 @@
+{
+  "bookAnOption": "Iscrivimi nella lista di attesa",
+  "availablePaymentPacks": "Pacchetti compatibili: ",
+  "goBack": "Indietro",
+  "hasOneOrMoreOption": "Sei già in lista d'attesa",
+  "paymentComboSectionTitle": "Pacchetto combinato",
+  "forms": {
+    "cancelPayment": "Indietro",
+    "paymentIntent": {
+      "pay": "Paga"
+    },
+    "credit": {
+      "explain": "Il tuo club verrà informato dell'addebito, pagherai questo ordine sul posto",
+      "pay": "Conferma"
+    },
+    "paymentMethod": {
+      "collect": {
+        "content": "Questo metodo di pagamento verrà salvato nel tuo account per la contabilizzazione, in conformità al contratto.",
+        "title": "Aggiungi un metodo di pagamento",
+        "contentAdd": "Questo metodo di pagamento sarà salvato nel suo account."
+      },
+      "actions": {
+        "addPaymentMethod": "Aggiungere un metodo di pagamento",
+        "retry": "Prova di nuovo",
+        "collect": "Salva",
+        "close": "Chiudi",
+        "displayPaymentMethod": "Visualizza i miei metodi di pagamento",
+        "selectPaymentMethod": "Seleziona il tuo metodo di pagamento",
+        "cancel": "Cancella",
+        "addPaymentMethodDenied": "Questo membro non ha attualmente alcun metodo di pagamento salvato di questo tipo e non ha il permesso di aggiungerne uno nuovo."
+      },
+      "message": {
+        "error": "Impossibile registrare questo metodo di pagamento",
+        "success": "Metodo di pagamento salvato con successo!"
+      },
+      "mandateRevalidated": {
+        "retry": "Riprova",
+        "error": "Impossibile rinnovare il mandato di addebito diretto, si prega di contattare la propria banca.",
+        "success": "Il mandato è stato rinnovato, i prossimi addebiti diretti saranno eseguiti con successo.",
+        "content": "Il mandato di addebito diretto sarà riconvalidato con la banca.",
+        "collect": "Accetta"
+      }
+    },
+    "savePaymentMethod": {
+      "section": "Selezionare un metodo di pagamento",
+      "label": "Salva il metodo di pagamento",
+      "select": "Seleziona un metodo di pagamento",
+      "add": "Dettagli del pagamento"
+    }
+  },
+  "paymentMethod": {
+    "0": "Carta",
+    "1": "Contanti",
+    "2": "Assegno bancario",
+    "3": "Pacchetto",
+    "4": "Carta (manuale)",
+    "5": "Buoni vacanze",
+    "6": "AMEX (American Express)",
+    "7": "Bonifico bancario",
+    "8": "EventBrite",
+    "9": "Conto interno (di credito)",
+    "10": "Pagamento automatico",
+    "11": "Altro",
+    "12": "Contenzioso",
+    "13": "SEPA",
+    "20": "Bancontact",
+    "30": "Sofort",
+    "40": "iDEAL",
+    "50": "EPS",
+    "60": "Giropay",
+    "70": "Bacs Direct Debit",
+    "80": "PayPal",
+    "90": "TWINT",
+    "100": "Apple Pay",
+    "110": "Google Pay",
+    "label": "Metodi di pagamento",
+    "disputeWon": "Risolta",
+    "onlinePayments": "Pagamenti online"
+  },
+  "bookAnotherOption": "Iscrivimi nuovamente nella lista di attesa",
+  "method": {
+    "0": "Carta",
+    "1": "Contante",
+    "2": "Check",
+    "3": "Pacchetto",
+    "4": "Carta di credito (manuale)",
+    "5": "Controllo ferie",
+    "6": "AMEX",
+    "7": "Trasferimento",
+    "8": "Event brite",
+    "9": "Credito cliente",
+    "10": "Pagamento automatico",
+    "11": "Altro",
+    "12": "Controversia",
+    "13": "SEPA",
+    "20": "Bancontact",
+    "30": "Sofort",
+    "40": "iDEAL",
+    "50": "EPS",
+    "60": "Giropay",
+    "70": "Bacs Direct Debit",
+    "80": "PayPal",
+    "90": "TWINT",
+    "100": "Apple Pay",
+    "110": "Google Pay",
+    "CREDIT_ACCOUNT": "Credito cliente",
+    "CB": "Carta di credito",
+    "CHECK": "Controlla",
+    "CASH": "Specie",
+    "GIROPAY": "Giropay",
+    "EPS": "EPS",
+    "IDEAL": "iDEAL",
+    "SOFORT": "Sofort",
+    "BANCONTACT": "Bancontact",
+    "SEPA": "SEPA",
+    "BACS_DEBIT": "Bacs Direct Debit",
+    "TWINT": "TWINT",
+    "GOOGLE_PAY": "Google Pay",
+    "APPLE_PAY": "Apple Pay"
+  },
+  "generalTermsAndConditions": {
+    "iAccept": "Accetto le ",
+    "theTermsAndConditions": "termini e condizioni di vendita.",
+    "close": "Chiudi",
+    "generalTermsOfUse": " Condizioni generali di utilizzo",
+    "waiver": "disclaimer"
+  },
+  "explainOption": "Riceverai una notifica via email quando un posto sarà disponibile",
+  "actions": {
+    "addThisPaymentItem": "Aggiungi questo metodo di pagamento"
+  },
+  "creditAccountBalance": {
+    "current": "Acconto presente"
+  },
+  "paymentNote": {
+    "helperText": "(facoltativo) numero, data di incasso...",
+    "label": "Nota"
+  },
+  "bankAccount": {
+    "form": {
+      "actions": {
+        "submit": "Conferma",
+        "cancel": "Annulla"
+      },
+      "accountNumber": {
+        "placeholder": "FR89370400440532013000",
+        "label": "Numero di conto",
+        "eurSpecific": " (IBAN)"
+      },
+      "invalid": "IBAN non valido. Nota: l'IBAN deve corrispondere a un conto bancario domiciliato nello stesso paese della tua azienda",
+      "accountHolderName": {
+        "placeholder": "Jacques Chirac",
+        "label": "Titolare del conto bancario"
+      },
+      "content": "Questo conto bancario verrà utilizzato per trasferire gli importi pagati online tramite bsport.",
+      "title": "Conto bancario",
+      "unknownCountry": "Operazione manuale per questo paese, per favore contatta bsport a contact@bsport.io",
+      "routingNumber": {
+        "usdSpecific": " (ACH routing number)",
+        "placeholder": "000001",
+        "label": "Numero di routing"
+      },
+      "clearingCode": {
+        "label": "Codice di cancellazione"
+      },
+      "branchCode": {
+        "label": "Branch code"
+      },
+      "transitNumber": {
+        "label": "Numero transazione",
+        "placeholder": "numero di transito"
+      },
+      "institutionNumber": {
+        "label": "Numero istituto",
+        "placeholder": "Numero istituto"
+      },
+      "bankCode": {
+        "label": "Bank code"
+      },
+      "sortCode": {
+        "label": "Codice bancario",
+        "placeholder": "123456"
+      }
+    }
+  },
+  "payment": {
+    "return": "Rimborso"
+  },
+  "returnedAmount": "Rimborso ",
+  "payout": {
+    "isEmptyWarning": "NB: alcune collezioni prima del 15 marzo 2021 potrebbero non essere elencate qui sotto.",
+    "isEmpty": "Nessuna raccolta.",
+    "invoice": "Ricevuta {{ uuid }}",
+    "seeMore": "Mostra di più",
+    "paymentNb": "{{nb}} pagamenti",
+    "status": {
+      "0": "In attesa",
+      "1": "In fase di elaborazione",
+      "2": "Pagamento riuscito",
+      "3": "Fallito",
+      "4": "Cancellato"
+    },
+    "title": "Le mie ricevute",
+    "payoutIsManual": "Questo trasferimento è stato avviato manualmente dal team di bsport per velocizzare la ricezione dei tuoi fondi. In questo caso non è disponibile il dettaglio dei pagamenti. Contatta il nostro team se desideri maggiori informazioni.",
+    "payoutAmountFromIncludedPayouts": "inclusi {{price}} da pagamenti precedenti",
+    "payoutIsIncludedInOther": "Questo trasferimento è stato incluso in quello di {{date}} recante l'identificatore {{readable_identifier}}",
+    "dialog": {
+      "content": "Si è verificato un problema di sincronizzazione tra Stripe e bsport. Al momento non siamo in grado di visualizzare i dettagli di questo pagamento. Tuttavia, vi assicuriamo che verrà elaborato e trasferito sul vostro conto bancario come da procedura abituale. Per ottenere maggiori informazioni sull'importo inviato, è possibile consultare il rapporto di pagamento relativo al periodo compreso tra la data di questo pagamento e quello precedente.",
+      "title": "Notifica di sincronizzazione del pagamento"
+    }
+  },
+  "instalment": {
+    "form": {
+      "recurrence_basis": {
+        "intervalName": {
+          "week": "settimana",
+          "week_plural": "settimane",
+          "day": "giorno",
+          "day_plural": "giorni",
+          "month": "mese",
+          "month_plural": "mesi",
+          "year": "un",
+          "year_plural": "anni"
+        },
+        "label": "Ripeti ogni",
+        "helperText": " "
+      },
+      "recurrence": {
+        "explain": "Il pagamento sarà distribuito su {{ total_interval_duration }} {{ interval }} tutti {{ recurrence_basis }} {{ interval }} e genererà {{ nb_interval }} scontrini",
+        "section": "Ricorrenza"
+      },
+      "interval": {
+        "helperText": "Frequenza della generazione della ricevuta / pacchetti",
+        "label": "Ricorrenza"
+      },
+      "anchor_date": {
+        "helperText": "Il pagamento sarà raccolto durante la mattina",
+        "label": "Prima raccolta"
+      },
+      "nb_interval": {
+        "label": "Numero di ricevute"
+      },
+      "actions": {
+        "close": "Chiudere",
+        "previous": "Precedente",
+        "next": "Prossimo",
+        "submit": "Confermare"
+      },
+      "title": {
+        "payment": "Mezzi di pagamento",
+        "scheduler": "Timeline"
+      }
+    }
+  },
+  "interval": {
+    "week": "settimana",
+    "week_plural": "settimane",
+    "day": "giorno",
+    "day_plural": "giorni",
+    "year": "anno",
+    "year_plural": "anni",
+    "month": "mese",
+    "month_plural": "mesi"
+  },
+  "subscriptionPaymentDialog": {
+    "error": {
+      "button_text": "Riprova",
+      "text_status": "Il tuo acquisto non può essere completato!",
+      "text_content": "Il tuo acquisto non può essere completato, puoi riprovare o tornare alla tua area riservata.",
+      "userSpace": "Area membri",
+      "title": "Errore nel pagamento"
+    },
+    "success": {
+      "button_text": "Continua",
+      "text_status": "Acquisto riuscito!",
+      "text_content": "Il tuo acquisto è stato elaborato, ora puoi trovare i dettagli del tuo abbonamento ricorrente nella tua area membri.",
+      "text_content_funnel": "Il tuo acquisto è stato elaborato, clicca su continua per finalizzare la tua prenotazione. Il pacchetto collegato al tuo abbonamento ricorrente è stato aggiunto alla sezione \"I miei pacchetti\", selezionala per prenotare.",
+      "title": "Congratulazioni! Il pagamento è stato elaborato con successo.",
+      "contract": "Il mio abbonamento ricorrente",
+      "recap": "Riassunto"
+    },
+    "title": "Comprare un abbonamento ricorrente"
+  },
+  "disputeStatus": {
+    "1": "Contenzioso in corso",
+    "2": "Controversia risolta",
+    "3": "Controversia persa"
+  },
+  "stripeBalance": {
+    "title": "Saldo Stripe",
+    "dialog": {
+      "firstPart": "In bsport utilizziamo il servizio Stripe per gestire tutti i tuoi pagamenti online. Gli importi vengono conservati su Stripe e poi trasferiti sul tuo account (sezione \"Le mie ricevute\").",
+      "close": "Chiudi",
+      "alert": "Attenzione, quando effettui un rimborso diretto, questo denaro viene addebitato direttamente sul tuo account Stripe. Il che può trasformarlo in negativo.",
+      "secondPart": "Il tuo \"saldo disponibile\" è quindi l'importo dei pagamenti online che non ti è stato ancora versato.",
+      "thirdPart": "Il tuo \"saldo in elaborazione\" è l'importo che arriverà sul tuo saldo disponibile."
+    },
+    "nullPendingBalanceText": "Nullo",
+    "availableBalance": "Saldo disponibile",
+    "pendingBalance": "Saldo in elaborazione"
+  }
+}

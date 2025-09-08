@@ -1,0 +1,107 @@
+{
+  "search": "Rechercher un pack",
+  "pageTitle": {
+    "list": "Packs"
+  },
+  "link": {
+    "copied": "Lien copié",
+    "copyLink": "Copier le lien vers la page de paiement"
+  },
+  "list": {
+    "section": {
+      "unavailableOnline": "Non disponible à la vente",
+      "availableOnline": "Disponible à la vente"
+    },
+    "explainIfEmpty": "Créer ici des packs achetables par les élèves pouvant contenir des cartes de cours, des objets du magasin, etc...",
+    "buttons": {
+      "add": "Créer un pack"
+    }
+  },
+  "form": {
+    "title": "Ajouter un Pack",
+    "maxPurchasePerMember": {
+      "label": "Achat maximum par membre",
+      "helperText": "Laisser vide pour ne pas imposer de limite"
+    },
+    "name": {
+      "label": "Nom"
+    },
+    "description": {
+      "label": "Description"
+    },
+    "price": {
+      "label": "Prix"
+    },
+    "tax": {
+      "label": "TVA"
+    },
+    "manager_only": {
+      "label": "Invisible sur la marketplace"
+    },
+    "new_member_only": {
+      "label": "Uniquement pour les nouveaux clients"
+    },
+    "actions": {
+      "submit": "Enregistrer",
+      "cancel": "Annuler"
+    },
+    "content": "Contenu",
+    "selectorPlaceholder": {
+      "privatePass": "Carte RDV",
+      "paymentPack": "Carte cours collectif",
+      "shopitem": "Magasin",
+      "shopItemExcludingvariant": "Magasin (produits avec variantes exclus)"
+    },
+    "available_payment_method_identifiers": {
+      "label": "Moyens de paiement autorisés",
+      "helperText": "Choisissez au moins un mode de paiement. Si aucun n'est sélectionné, le paiement en ligne sera choisi par défaut."
+    },
+    "error": {
+      "atLeastOneThing": "Vous devez ajouter au moins un élément dans votre pack"
+    },
+    "usePaymentComboTaxOnItems": {
+      "label": "Appliquer une TVA générale à l'ensemble du pack",
+      "helperText": "Par défaut, un taux de TVA sera appliquée à chaque produit. Selectionnez cette option pour appliquer une taxe générale sur le pack. "
+    },
+    "unusableByStaff": {
+      "label": "Invisible pour les professeurs"
+    },
+    "expiration_date": {
+      "label": "Date limite d'achat",
+      "helperText": "Disponible jusqu’au",
+      "tooltip": "Après la date choisie, le pack ne sera plus disponible à l'achat"
+    },
+    "highlightedAsRecommended": {
+      "label": "Marquer comme recommandé",
+      "helperText": "Permet à vos clients de voir d'un coup d'oeil quels packs sont actuellement recommandés."
+    },
+    "advancedOptions": {
+      "tag": {
+        "tagsOnAcquisitionHelper": "Appliquez des tags aux membres qui ont acheté ce pack pour les identifier rapidement à l'avenir.",
+        "tagGroupDuplicated": "Veuillez noter que les articles sélectionnés contiennent des tags de la même catégorie qui ne peuvent pas être appliqués simultanément. Seul le premier de ces tags sera appliqué après achat.",
+        "selectTags": "Sélectionnez des tags",
+        "tagsOnAcquisition": "Appliquez les tags après l'achat"
+      },
+      "header": "Avancé"
+    }
+  },
+  "detail": {
+    "containsNProducts": "Contient {{ n }} produits",
+    "description": "Description",
+    "content": "Contenu",
+    "purchases": "Ventes",
+    "emptyContent": "Ce pack ne contient rien !",
+    "itemCount": "{{ count }} élément",
+    "itemCount_plural": "{{ count }} éléments"
+  },
+  "edit": "Modifier",
+  "delete": {
+    "title": "Suppression du pack",
+    "content": "Voulez-vous vraiment supprimer ce pack ? Cette opération est irréversible, les achats déjà effectués et les paniers en cours ne seront pas affectés.",
+    "cancel": "Annuler",
+    "submit": "Supprimer"
+  },
+  "parameters": {
+    "unusableByStaff": "Invisible pour le staff"
+  }
+}

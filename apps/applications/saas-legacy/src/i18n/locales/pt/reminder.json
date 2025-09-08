@@ -1,0 +1,39 @@
+{
+  "task": {
+    "form": {
+      "task_owner": {
+        "helperText": "Staff a notificar"
+      },
+      "date_due": {
+        "label": "Data de recolha"
+      },
+      "name": {
+        "label": "Título"
+      },
+      "description": {
+        "label": "Mensagem"
+      },
+      "submit": "Confirmar",
+      "close": "Cancelar",
+      "title": "Tarefa"
+    },
+    "actions": {
+      "cancel": "Arquivar",
+      "restart": "Recomeçar",
+      "finish": "Concluído",
+      "addTask": "Agendar uma tarefa"
+    },
+    "author": "Responsável",
+    "owners": "Atribuído a ",
+    "status": {
+      "0": "Corrente",
+      "10": "Concluído",
+      "20": "Cancelar"
+    },
+    "sectionTitle": {
+      "past": "Tarefas arquivadas",
+      "future": "Tarefas programadas",
+      "pending": "Tarefas correntes"
+    }
+  }
+}

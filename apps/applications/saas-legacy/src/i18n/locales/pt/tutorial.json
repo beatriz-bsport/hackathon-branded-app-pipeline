@@ -1,0 +1,55 @@
+{
+  "lessonList": {
+    "share": "Partilhar",
+    "addOn": "Complemento",
+    "missingUpsell": "Se não tiver esta função, contacte o seu gestor de conta.",
+    "start": "Início",
+    "shareLesson": "Partilhar a sessão",
+    "new": "Novo"
+  },
+  "shareDialog": {
+    "infoTextSection": "Partilhar todos os cursos da secção {{- name}} com membros da sua turma que não têm acesso ao separador dos tutoriais. Só poderão navegar nesta secção.",
+    "infoTextLesson": "Partilhar o curso {{- name}} com membros da sua equipa que não têm acesso ao separador dos tutoriais. Eles só poderão navegar nesta disciplina.",
+    "title": "Partilhar",
+    "continueButton": "Continuar"
+  },
+  "menu": {
+    "helpButton": "Encontrar ajuda"
+  },
+  "sectionList": {
+    "shareSection": "Partilhar esta secção",
+    "addOn": "Complemento",
+    "missingUpsell": "Algumas das funcionalidades desta secção não estão disponíveis para si. Contacte o seu gestor de conta.",
+    "new": "Novo"
+  },
+  "welcomeDialog": {
+    "title": "Bem-vindo à Bsport!",
+    "rejectButton": "Quero aprender sozinho",
+    "approveButton": "Vamos embora!",
+    "infoText": "Bem-vindo à sua nova plataforma de gestão. Vamos aprender juntos a descobrir todas as funcionalidades da Bsport para lançar o seu estúdio nas melhores condições possíveis."
+  },
+  "allFinishDialog": {
+    "continueButton": "Continuar",
+    "title": "Terminar!",
+    "infoText": "Muito bem, já completou todos os cursos propostos pela Bsport. Agora conhece a plataforma como a palma da sua mão! Sabe como utilizar todas as funcionalidades básicas e muitas outras estão à espera para o ajudar a desenvolver o seu negócio."
+  },
+  "lessonContent": {
+    "previousLesson": "Anterior",
+    "nextLesson": "Seguinte",
+    "finish": "Secção final"
+  },
+  "menuHeader": {
+    "title": "Bem-vindo ao nosso guia de iniciação.",
+    "infoText": "Aprenda a utilizar todas as funções básicas do Bsport graças aos nossos vários cursos."
+  },
+  "lessonHeader": {
+    "backToList": "Voltar à lista",
+    "addOn": "Complemento",
+    "warning": "Esta funcionalidade é um complemento. Se não tiver esta funcionalidade, contacte o seu gestor de conta."
+  },
+  "sectionFinishDialog": {
+    "infoText": "Concluiu todos os cursos do {{- name}}. Continue a melhorar completando a secção seguinte.",
+    "continueButton": "Continuar",
+    "title": "Parabéns!"
+  }
+}

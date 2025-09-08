@@ -1,0 +1,418 @@
+{
+  "tab": {
+    "webhook": "Webhook",
+    "general": "Algemeen",
+    "broadcast": "Livestreamen",
+    "notificationRule": "Transactionele berichten",
+    "paymentRules": "Payroll",
+    "company": "Onderneming",
+    "invoice": "Facturatie",
+    "waitingList": "Wachtlijst",
+    "shop": "Webshop",
+    "role": "Medewerkers",
+    "personalization": "Personalisering",
+    "active_campaign": "ActiveCampaign",
+    "partnership": "Vennootschap",
+    "coachUserspace": "Instructeursomgeving"
+  },
+  "webhook": {
+    "cancel": "annuleren",
+    "urlHelper": "Voer de URL in waarnaar de payload wordt verzonden,",
+    "modal": {
+      "delete": {
+        "content": "Weet je zeker dat je deze webhook wilt verwijderen, deze actie is definitief",
+        "title": "Webhook verwijderen",
+        "cancel": "annuleren",
+        "confirm": "Bevestigen"
+      }
+    },
+    "event": "Evenement",
+    "selectEvent": "Selecteer een evenement",
+    "url": "URL",
+    "urlPlaceHolder": "http://wwww.google.com",
+    "payload": "Laadvermogen",
+    "submit": "Bevestigen",
+    "createTitle": "[Formulier] Webhook",
+    "add": "Een Webhook toevoegen",
+    "test": "Test"
+  },
+  "active_campaign": {
+    "account": {
+      "helpContent": "De link en de authenticatiemiddel van uw ActiveCampaign-account zijn toegankelijk in uw profielinstellingen door op het tabblad 'Developper' te klikken.",
+      "helpTitle": "Waar vind ik mijn profielgegevens?",
+      "title": "ActiveCampaign | Toegangsinformatie voor de API",
+      "helper": "Waar vind ik deze informatie?",
+      "dialogTitle": "ActiveCampaign | Profielgegevens",
+      "token": "Verificatiesleutel",
+      "error": "Uw gegevens zijn onjuist",
+      "empty": "Voer de URL van je API in"
+    },
+    "webhooks": {
+      "CLIENT_WON": "Maak een gebruikersaccount voor BSPORT Solution aan wanneer een deal als \"WON\" is gemarkeerd",
+      "helpContent": "De onderstaande acties vinden plaats zodra de bijbehorende gebeurtenis plaatsvindt op ActiveCampaign.",
+      "title": "Integreer ActiveCampaign met BSPORT Solution",
+      "CONTACT_TAG": "Maak een gebruikersaccount op bsport aan wanneer een prospect als “WON” is gemarkeerd op ActiveCampaign",
+      "helpTitle": "Hoe werkt synchronisatie?"
+    },
+    "link": {
+      "helpContent": "Leden van de Smartlist ontvangen elke avond een lijst van ActiveCampaign; hun status is dan 'actief'. Leden die de Smartlist hebben verlaten worden ook van de lijst van ActiveCampaign verwijderd; hun status is dan 'onbevestigd'.",
+      "helperForm": "Kies een Smartlist van BSPORT en koppel deze aan een van je lijsten op ActiveCampaign",
+      "helpTitle": "Hoe werkt synchronisatie?",
+      "title": "Informatie vanuit BSPORT Solution",
+      "add": "Een link tussen de Smartlists toevoegen",
+      "dialogTitle": "Wijzig de link van een lijst",
+      "smartListSelection": "Kies een Smartlist",
+      "listActiveCampaignSelection": "Kies een ActiveCampaign-lijst",
+      "noList": "LIJST NIET GEVONDEN",
+      "listItemText": "Stuur leden in de Smartlist \"<1> {{- smartlist }} </2>\" naar de lijst van ActiveCampaign \"<3> {{- list }} </4>\"."
+    },
+    "submit": "Bevestigen",
+    "cancel": "Annuleren"
+  },
+  "pageTitle": "Instellingen",
+  "broadcast": {
+    "is_whereby_integration_enabled": {
+      "label": "Activeer de integratie van BSPORT en Whereby"
+    },
+    "explainDisabled": "Uitgeschakeld: je beheert de links voor je livestreams zelf. Vergeet niet om deze correct te configureren (via Zoom, Google Meet, Teams enz.).",
+    "explainEnabled": "Ingeschakeld: BSPORT beheert de links van je online lessen. Je kunt 1 livestream tegelijk organiseren.",
+    "submit": "Opslaan",
+    "zoom": {
+      "explainValid": "We versturen automatisch de links van Zoom 15 minuten voor het begin van je online evenementen naar je instructeurs en je ingeschreven leden. Controleer of je Zoom Premium hebt, omdat sessies via Zoom Basic tot een lengte van 40 minuten beperkt zijn. Belangrijk! Zoom staat één integratie per licentie toe. Neem contact met onze Klantenservice op voor meer informatie over hoe je meerdere accounts kunt gebruiken.",
+      "enabled": "Activeer de automatische Zoom-integratie",
+      "label": "Zoom configureren",
+      "explainInvalid": "Ongeldig account",
+      "revoke": "Zoom uitschakelen",
+      "establishmentTable": {
+        "headers": {
+          "establishment": "Vestiging",
+          "add": "Toevoegen",
+          "user": "Gebruiker",
+          "type": "Type"
+        },
+        "emptySelect": "Selecteren",
+        "removeAction": "Verwijderen"
+      },
+      "memberType": {
+        "1": "Basis",
+        "2": "Erkend"
+      },
+      "save": "Wijzigingen opslaan",
+      "resetConfirmationDialog": {
+        "title": "Weet u zeker dat u uw groeps-ID opnieuw wilt instellen?",
+        "content": "Al uw vestigingen worden ook gereset."
+      },
+      "multiZoomUserSupport": {
+        "switchLabel": "Multi-zoom gebruikersondersteuning inschakelen",
+        "explain": "Start meerdere livestreams tegelijk door uw bsport-vestigingen te koppelen aan verschillende gebruikers van uw Zoom-account."
+      },
+      "zoomGroupId": "Zoom groep ID",
+      "groupActionButton": {
+        "save": "Opslaan",
+        "reset": "Reset"
+      }
+    },
+    "seeUpsell": "Meer informatie"
+  },
+  "marketplaceSettings": {
+    "createDialog": {
+      "dialogTitle": "Tabblad wijzigen",
+      "noPlaylistError": "Selecteer een afspeellijst",
+      "noServiceError": "Selecteer een type afspraak",
+      "noTitleError": "Voer een titel in",
+      "noComponentTypeError": "Selecteer een onderdeel",
+      "submit": "Bevestig",
+      "cancel": "Annuleer",
+      "inputTitle": "Naam tabblad",
+      "selectPlaylist": "Selecteer een afspeellijst",
+      "selectPrivateService": "Kies een dienst",
+      "selectActivity": "Selecteer een activiteit",
+      "selectEstablishment": "Selecteer een vestiging",
+      "selectCoach": "Kies een instructeur",
+      "selectComponent": "Kies een onderdeel",
+      "showAdvanced": "Toon meer opties",
+      "selectVideo": "Selecteer een video",
+      "selectPrivateServiceGroups": "Kies je categorieën",
+      "selectPrivateServiceTypeDetail": "Mijn afspraken",
+      "selectPrivateServiceTypeList": "Alle afspraken",
+      "selectPrivateServiceType": "Type",
+      "hidePrivatePass": "Geen afspraakkaarten tonen",
+      "hidePaymentPack": "Geen leskaarten tonen",
+      "hidePaymentCombo": "Geen pakketten tonen",
+      "todayOnly": "Toon alleen de sessies van vandaag",
+      "titleCaption": "Maximaal aantal tekens: {{count}} / {{max}}",
+      "hideFilters": "Verberg de zoekbalk en de filters"
+    },
+    "componentType": {
+      "playlist": "Afspeellijsten",
+      "shop": "Webshop",
+      "subscription": "Abonnementen",
+      "vod": "Video On Demand",
+      "pass": "Kaarten",
+      "privateService": "Afspraken",
+      "workshop": "Workshops",
+      "calendar": "Agenda",
+      "newsletter": "Nieuwsbrief",
+      "loginButton": "Inlogknop",
+      "giftcard": "Cadeaubonnen",
+      "paymentPackTemplate": "Gedeelde leskaarten",
+      "calendarV2": "Agenda",
+      "newsletterV2": "Lead-acquisitie",
+      "referral": "Referral",
+      "consumerBooking": "Mijn boekingen",
+      "consumerPass": "Mijn leskaarten",
+      "consumerSpace": "Ledenprofiel"
+    },
+    "preview": "Voorvertoning",
+    "saveButton": "Opslaan",
+    "link": "Open Ledenruimte (u wordt uitgelogd)",
+    "explainMarketplace": "Leden hebben op hun telefoon, computer en tablet toegang tot je Ledenruimte waar je agenda, webshop, lidmaatschappen e.d. te vinden zijn. In dit onderdeel kan de Ledenruimte verder gepersonaliseerd worden.",
+    "addButton": "Een tabblad toevoegen"
+  },
+  "companyOnboarding": {
+    "error": "Je kunt deze informatie niet bewerken."
+  },
+  "paymentMethods": {
+    "methodPaymentBasket": "Eenmalige betalingen",
+    "methodPaymentSubscription": "Doorlopende betalingen",
+    "save": "Opslaan",
+    "methodPaymentSubscriptionError": "Selecteer ten minste één betaalmethode",
+    "methodPaymentSubscriptionHelper": "Selecteer welke betaalmethode(n) je voor abonnementen wilt accepteren:",
+    "methodPaymentBasketHelper": "Selecteer welke betaalmethode(n) je voor eenmalige betalingen wilt accepteren:",
+    "subtitle2": "Als Systeembeheerder of Eigenaar heb je altijd toegang tot alle betaalmethoden.",
+    "subtitle": "Je kunt bepaalde betaalmethoden voor je leden aan- en/of uitzetten.",
+    "title": "Online betalingen",
+    "methodPaymentCardBillingDetails": "Verzoek alle facturen die betaald zijn met betaalkaarten in te zien.",
+    "methodPaymentCardBillingDetailsHelper": "Schakel deze optie in om het aantal betalingen die 3D Secure vereisen te verminderen. Dit omvat sms-bevestigingen, bank-apps en meer. Houd er rekening mee dat deze velden verplicht zijn.",
+    "methodPaymentCardBillingDetailsTitle": "Verzoek alle factuurgegevens in te zien",
+    "DaysBeforeNotificationInputs": {
+      "errors": {
+        "max": "Het aantal dagen kan niet meer dan {{maxDays}} dag(en) zijn",
+        "secondWarningDayBiggerThanFirst": "The tweede melding kan niet eerder zijn dan de eerste melding"
+      },
+      "helpText": "Als je de \"Betalingsmethode vervaldatum herinneringen\" hebt ingeschakeld voor transactiemeldingen bij abonnementen, kun je hier het aantal dagen aanpassen.",
+      "title": "Betalingsmethode vervaldatum herinneringen",
+      "labels": {
+        "daysBeforeSecondNotification": "Tweede melding (dagen vóór vervaldatum)",
+        "daysBeforeFirstNotification": "Eerste melding (dagen vóór vervaldatum)"
+      }
+    }
+  },
+  "billing_group": {
+    "header": "Groepsfacturatie",
+    "helperText": "\"De factureringsgroepen verschijnen op uw rapporten om iedere factuur eenvoudig aan de juiste locatie te koppelen en worden door de leden in het winkelmandje gebruikt om hun voorkeurslocatie te kiezen. Er moet ten minste één facturatiegroep zijn gedefinieerd voor de leden om online aankopen te kunnen doen. Als u meerdere vestigingen heeft die tot dezelfde locatie behoren, kunt u deze groeperen binnen dezelfde factureringsgroep.",
+    "add": "Een groep toevoegen"
+  },
+  "quickbooks": {
+    "confirmDialog": {
+      "text": "Weet je zeker dat je toegang aan BSPORT wilt geven voor deze applicatie?",
+      "title": "QuickBooks verbinding"
+    },
+    "buttonRevoke": "Deactiveer QuickBooks",
+    "buttonReConnect": "Ververs de verbinding",
+    "buttonConnect": "Bij QuickBooks inloggen",
+    "explainEnable": "Upload al je facturen direct naar QuickBooks. Iedere 24 uur zullen de gegevens worden bijgewerkt.",
+    "submit": "Opslaan",
+    "enable": "Activeer de integratie met QuickBooks",
+    "title": "QuickBooks",
+    "tax": {
+      "goToSettingsPage": "Open de QuickBooks configuratiepagina",
+      "alertNonTaxInformation": "Er wordt geen belastinginformatie gesynchroniseerd met uw Quickbooks-platform. Klik op vernieuwen om ze te synchroniseren",
+      "alertUnconfigured": "U hebt geen standaardbelasting ingesteld voor de producten op uw facturen. Deze informatie is verplicht om de juiste belasting te vermelden bij de overdracht van facturen naar uw Quickbooks-platform.",
+      "refresh": "Mijn Quickbooks gegevens verversen",
+      "usedAsTaxCode": "Gebruikt als referentiebelasting",
+      "taxCodeHeaderDescription": "Beschrijving",
+      "taxCodeHeaderName": "Naam",
+      "taxInfoTitle": "QuickBooks Belastinginformatie"
+    }
+  },
+  "mobilePersonalization": {
+    "popup": {
+      "editPopup": {
+        "previewPopup": {
+          "see": "Toon",
+          "title": "Voorvertoning"
+        },
+        "preview": "Voorbeeld",
+        "submit": "Opslaan",
+        "cancel": "Annuleren",
+        "link": "Externe link",
+        "image": "Afbeelding",
+        "name": "Naam",
+        "title": "Pop-up"
+      },
+      "see": "Bekijken",
+      "deleteModal": {
+        "content": "Weet je zeker dat je deze pop-up wilt verwijderen? Deze actie is definitief.",
+        "confirm": "Verwijderen",
+        "cancel": "Annuleren",
+        "title": "Verwijderen"
+      },
+      "action": "Acties",
+      "image": "Afbeelding",
+      "link": "Link",
+      "name": "Naam",
+      "updated": "Bijwerken",
+      "add": "Een pop-up toevoegen",
+      "helperText": "Deze pop-up wordt getoond zodra een lid de gepersonaliseerde app opent. Dit kan worden gebruikt om leden door te verwijzen naar bijvoorbeeld een speciale promotie of een nieuwe activiteit.",
+      "subtitle": "Pop-up"
+    },
+    "externalShopRedirection": {
+      "popupPreview": {
+        "cancel": "Sluiten",
+        "inventory": "Mijn aankopen",
+        "ourOffers": "Ons aanbod",
+        "category": {
+          "giftcard": "Cadeaubonnen",
+          "contract": "Abonnementen",
+          "paymentCombo": "Pakketten",
+          "paymentPack": "Kaarten"
+        },
+        "membershipCard": {
+          "giftcardSubtitle": "Hier staan alle cadeaubonnen die je kunt delen.",
+          "paymentComboSubtitle": "Bekijk alle actuele bundels.",
+          "vodSubtitle": "Bekijk je favoriete video's waar en wanneer je wilt.",
+          "contractSubtitle": "Kies het abonnement dat het beste bij je past.",
+          "paymentPackSubtitle": "Ontdek het gehele aanbod van onze studio.",
+          "mySubscription": "Mijn \nabonnementen",
+          "paymentComboEmpty": "Er zijn geen pakketten om weer te geven.",
+          "contractEmpty": "Er zijn geen abonnementen om weer te geven.",
+          "invoiceEmpty": "Er zijn geen facturen om weer te geven.",
+          "consumerPaymentPackEmpty": "Je bezit nog geen geldige leskaarten om weer te geven.",
+          "privateConsumerPassListEmpty": "Je bezit nog geen geldige afspraakkaarten om weer te geven.",
+          "vod": "Video On Demand",
+          "privatePassListEmpty": "Er zijn geen afspraakkaarten om weer te geven.",
+          "paymentPackEmpty": "Er zijn geen leskaarten om weer te geven.",
+          "invoice": "Mijn facturen",
+          "consumerPaymentPack": "Mijn kaarten",
+          "paymentPack": "Kaarten",
+          "contract": "Abonnementen"
+        },
+        "title": "Voorvertoning"
+      },
+      "deleteModal": {
+        "content": "Weet je zeker dat je deze link wilt verwijderen? Deze actie is definitief.",
+        "confirm": "Verwijderen",
+        "cancel": "Annuleren",
+        "title": "Verwijderen"
+      },
+      "popup": {
+        "submit": "Opslaan",
+        "cancel": "Annuleren",
+        "icon": "Icoon",
+        "link": "Externe link",
+        "name": "Naam",
+        "title": "Externe link"
+      },
+      "action": "Acties",
+      "link": "Link",
+      "name": "Naam",
+      "icon": "Icoon",
+      "preview": "Voorvertoning",
+      "updated": "Bijwerken",
+      "add": "Een link toevoegen",
+      "helperText": "Gebruik externe links in de gepersonaliseerde app om leden door te verwijzen naar externe webpagina's.",
+      "subtitle": "Externe links"
+    },
+    "title": "Gepersonaliseerde app",
+    "customize": {
+      "defaultPage": {
+        "pageContent": {
+          "options": {
+            "profile": "Profiel",
+            "marketplace": "Studio",
+            "home": "Activiteiten (standaard)",
+            "bookings": "Reserveringen",
+            "membership": "Rooster",
+            "studio": "Studio",
+            "activities": "Activiteiten (standaard)",
+            "schedule": "Rooster"
+          },
+          "placeholder": "Selecteer een pagina",
+          "helperText": "Met deze optie kun je de standaardpagina kiezen die gebruikers te zien krijgen als ze de app openen.",
+          "label": "Standaard \"Home-knop\" wijzigen"
+        },
+        "title": "Standaard pagina"
+      },
+      "title": "Personalisatie"
+    }
+  },
+  "company": {
+    "bankAccountSuccess": {
+      "title": "Wijziging van bankgegevens",
+      "content": "Uw bankgegevens zijn goed bijgewerkt. Om op één enkele rekening te worden bijgeschreven en afgeschreven, kunt u ook de betalingsmethode bijwerken waarmee uw Bsport-abonnement wordt afgeschreven.",
+      "note": "Klik op \"Configureren\" om te worden omgeleid."
+    },
+    "bankAccountInfo": {
+      "link": "Hier",
+      "content": "Deze rekening komt overeen met de rekening waarop de online betalingen via Bsport zullen worden gestort. Om het betaalmiddel te configureren waarop uw Bsport-abonnement zal worden afgeschreven, klikt u op",
+      "update": "Bankgegevens bijwerken"
+    },
+    "paypal": {
+      "alert": {
+        "error": {
+          "issue_repeat_onboarding": {
+            "content": "Herhaal het verbindingsproces met dezelfde account om dit probleem op te lossen.",
+            "title": "PayPal-betalingen zijn momenteel uitgeschakeld."
+          },
+          "issue_check_account": {
+            "goToPayPal": "Controleer uw PayPal-account om dit probleem op te lossen.",
+            "content": "PayPal-betalingen zijn momenteel uitgeschakeld.",
+            "title": "Probleem met uw PayPal-rekening."
+          },
+          "requires_more_information": {
+            "goToPayPal": "Controleer anders je PayPal-rekening om dit probleem op te lossen.",
+            "content": "PayPal-betalingen zijn momenteel uitgeschakeld. Als je een nieuwe PayPal-rekening hebt en je zeker weet dat je gegevens kloppen, laat PayPal dan even de tijd om je rekening te valideren. ",
+            "title": "PayPal-rekening ontbrekende informatie of niet gevalideerd."
+          },
+          "primary_email_confirmation": {
+            "goToPayPal": "Controleer uw PayPal-account om dit probleem op te lossen.",
+            "content": "PayPal-betalingen zijn momenteel uitgeschakeld.",
+            "title": "Ontbrekende e-mailbevestiging op je PayPal-account."
+          },
+          "isStatusUnknown": {
+            "goToPayPal": "Als het probleem aanhoudt, controleer dan de status van PayPal-systemen",
+            "content": "Vernieuw de pagina.",
+            "title": "We kunnen PayPal momenteel niet bereiken"
+          }
+        },
+        "rightAccount": {
+          "content": "Het achteraf wijzigen of loskoppelen is een ingewikkeld proces dat beter vermeden kan worden tenzij het absoluut noodzakelijk is.",
+          "title": "Zorg ervoor dat je de juiste account aansluit"
+        }
+      },
+      "dialog": {
+        "error": "Er is een fout opgetreden tijdens het ophalen van de onboarding-link van PayPal",
+        "redirecting": "Ik verwijs u door naar PayPal...",
+        "startConnecting": "Aansluiten",
+        "cancel": "Annuleer",
+        "helper": "Om verbinding te maken, gebruik je je zakelijke account, upgrade je een persoonlijk of Premier-account naar zakelijk of maak je een nieuw zakelijk account aan.",
+        "title": "Verbind uw zakelijke PayPal-rekening"
+      },
+      "connect": "PayPal-rekening aansluiten",
+      "accountEmail": "Account e-mail",
+      "accountName": "Accountnaam",
+      "oneTimePayments": "Eenmalige betalingen doen",
+      "titleWithPayPal": "Met PayPal kunnen uw leden",
+      "linkHelper": "Koppel uw PayPal-bedrijfsrekening zodat uw leden met PayPal kunnen betalen",
+      "status": {
+        "unknown": "Onbekende status",
+        "hasIssues": "Verbindingsproblemen",
+        "notConnected": "Niet aangesloten",
+        "connected": "Aangesloten account"
+      }
+    },
+    "stripe": {
+      "update": "Update Stripe informatie"
+    }
+  },
+  "platformCustomerEntity": {
+    "vatId": {
+      "errorChip": "Ontbrekend geldig BTW-nummer",
+      "update": "BTW-nummer bijwerken",
+      "descriptionPart2": "Als je bedrijf is gevestigd in de EU (met uitzondering van Frankrijk) en een geregistreerd btw-nummer heeft, is het verplicht om de verleggingsregeling toe te passen, zodat er geen btw in rekening wordt gebracht door bsport.",
+      "descriptionPart1": "bsport heeft uw btw-nummer (ook wel btw-registratienummer of intracommunautair btw-nummer genoemd) nodig om het te kunnen vermelden op facturen die wij aan u uitreiken.",
+      "title": "BTW-identificatienummer"
+    }
+  }
+}

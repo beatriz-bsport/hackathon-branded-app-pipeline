@@ -1,0 +1,219 @@
+{
+  "backgroundImage": {
+    "dialog": {
+      "explain": "Aggiungete delle immagini per permettere ai vostri membri di personalizzare la loro gift card. Durante la creazione della loro card i tuoi membri saranno in grado di scegliere un'immagine di sfondo sulla gift card.",
+      "actions": {
+        "close": "chiudere"
+      },
+      "title": "Immagini di personalizzazione"
+    }
+  },
+  "form": {
+    "giftcard": {
+      "manager_only": {
+        "label": "Invisibile ai clienti"
+      },
+      "unlimited": {
+        "label": "Illimitato"
+      },
+      "expiration_days": {
+        "helperText": "Il periodo di validità inizia dalla data di attivazione della gift card.",
+        "label": "Durata della validità in giorni"
+      },
+      "price": {
+        "helperText": "Questo definirà il valore della gift card.",
+        "label": "Prezzo di vendita"
+      },
+      "section": {
+        "parameters": {
+          "title": "Parametri"
+        }
+      },
+      "description": {
+        "label": "Descrizione"
+      },
+      "available_payment_method_identifiers": {
+        "label": "Mezzi di pagamento disponibili",
+        "helperText": " "
+      },
+      "name": {
+        "label": "Nome"
+      },
+      "title": "Gift card",
+      "actions": {
+        "submit": "Convalida",
+        "cancel": "Chiudi"
+      },
+      "advancedOptions": {
+        "tag": {
+          "tagsOnAcquisition": "Tag dopo l'acquisto",
+          "selectTags": "Seleziona tag",
+          "tagsOnAcquisitionHelper": "Utilizza i tag per identificare il membro che ha acquistato la giftcard"
+        },
+        "header": "Avanzate"
+      }
+    },
+    "canNotUpdateBecauseShared": "Questa gift card è condivisa dall'account franchisor. È stata definita dall'account franchisor e non può essere modificata."
+  },
+  "giftcard": {
+    "delete": {
+      "dialog": {
+        "actions": {
+          "close": "Chiudi",
+          "delete": "Elimina"
+        },
+        "content": "Sei sicuro di voler eliminare questa gift card? I membri che la hanno già acquistata potranno ancora utilizzarla.",
+        "title": "Cancellazione"
+      }
+    },
+    "detail": {
+      "manager_only": "Non disponibile per la vendita online",
+      "availablePaymentMethods": "Mezzi di pagamento disponibili",
+      "expirationDate": "Validità prima della scadenza : {{ expiration_days }} giorni"
+    },
+    "configurationTitle": "Gift card"
+  },
+  "link": {
+    "copyLink": "Copia il link di acquisto",
+    "activationLink": "Copia il link di attivazione"
+  },
+  "consumerGiftcard": {
+    "form": {
+      "footer": "La carta regalo verrà inviata al destinatario alle {{- hour_send }}. Sarà valida per {{ expiration_days }} giorni dopo l'attivazione e il conto del destinatario sarà ricaricato con {{- price }}.",
+      "actions": {
+        "submit": "Aggiungi al carrello",
+        "cancel": "Cancella"
+      },
+      "date_send": {
+        "label": "Data di invio dell'e-mail"
+      },
+      "recipients": {
+        "label": "Email del destinatario"
+      },
+      "message_content": {
+        "label": "Messaggio personale"
+      },
+      "message_is_from": {
+        "label": "Da "
+      },
+      "message_is_for": {
+        "label": "Per "
+      },
+      "name": {
+        "label": "Nome della carta"
+      },
+      "footerUnlimited": "La carta sarà inviata via email il {{- date_send }} alle {{- hour_send }} agli indirizzi indicati. Non contiene una data di scadenza. L'account del destinatario sarà accreditato con {{- price }} per gli acquisti futuri.",
+      "select_image": "Seleziona la tua immagine di sfondo",
+      "hour_send": "Tempo di invio",
+      "activationDate": {
+        "helperText": "Il destinatario potrà utilizzare la gift card a partire da questa data",
+        "label": "Data di attivazione",
+        "errorMaxDate": "Inserire una data valida"
+      },
+      "footerPhysicalUnlimited": "Riceverai via email le informazioni necessarie per utilizzare la gift card e una versione stampabile della carta in un file PDF.",
+      "footerPhysical": "La gift card verrà attivata il {{- activation_date }} e sarà valida fino al {{- activation_date_until }} ({{ duration }} giorni). Riceverai via email le informazioni necessarie per utilizzare la gift card e una versione stampabile della carta in un file PDF",
+      "type": {
+        "option": {
+          "physical": "Codice stampabile (PDF)",
+          "digital": "Link di attivazione via email"
+        },
+        "label": "Come vorresti inviare la gift card"
+      }
+    },
+    "previewPlaceholder": {
+      "message_content": "[Messaggio personalizzato]",
+      "message_is_for": "[Nome del destinatario]",
+      "message_is_from": "[Nome dell'acquirente]",
+      "name": "[Nome della carta]",
+      "giftcard_amount": "[Importo della carta]"
+    },
+    "sendTo": "Rispedire l'invito",
+    "notAttributedYet": "Non attivata",
+    "expiresOn": "Scade il {{- d }}",
+    "willInviteOn": "Invito da inviare su {{- d }}",
+    "invitedOn": "Inviato il {{- d }}",
+    "value": "Valore",
+    "isFrom": "Da ",
+    "isFor": "Per l'attenzione di ",
+    "isEmpty": "Nessuna gift card",
+    "linkedInvoice": "Ricevuta collegata",
+    "list": {
+      "myGifted": "Gift card ricevute",
+      "myPurchases": "Gift card acquistate"
+    },
+    "invitationForm": {
+      "actions": {
+        "submit": "inviare",
+        "close": "chiudere"
+      },
+      "content": "Puoi cambiare i destinatari della gift card. Si prega di notare che solo una persona può usarlo. Se l'e-mail non è stata ricevuta si può anche inviare questo link di attivazione:",
+      "title": "Inviare un'e-mail di invito",
+      "activationCodeLink": "L'e-mail di invito è stata inviata e non può più essere modificata, se non ha raggiunto il destinatario giusto puoi inoltrare questo link di attivazione per offrire la gift card: "
+    },
+    "activation": {
+      "alreadyActivated": "Questa gift card è già stata utilizzata da un altro utente",
+      "activate": "Attivare la mia gift card",
+      "content3": "Se non hai effettuato l'accesso all'account corretto, effettua il logout per accedere all'account corretto. Se questa gift card non è per te, per favore non riscattarla.",
+      "content2": "Sarà automaticamente aggiunto come metodo di pagamento al suo carrello. Puoi trovare tutte le informazioni sulla tua gift card sul tuo profilo.",
+      "content1": "La tua gift card del valore di {{price}} è compatibile con tutti i prodotti del nostro shop. Questa card non ha una data di scadenza, buon divertimento!",
+      "subtitle": "Sembra che qualcuno ti abbia fatto una sorpresa.",
+      "title": "Qualcuno ha voluto farti qualcosa di carino!",
+      "content1withDate": "La tua gift card {{price}} è compatibile con tutti i prodotti del nostro shop. Questa card scade {{ expiration_days }} giorni dopo l'attivazione, quindi fatti un regalo!"
+    },
+    "physicalDetails": {
+      "helperAlert": {
+        "message": "Condividi il codice della gift card con il membro, in modo che possa utilizzare il credito per il suo prossimo acquisto.",
+        "title": "Come utilizzare la gift card?"
+      },
+      "validFrom": "Valida dal: {{- from }} al {{- to }}",
+      "code": "Codice:",
+      "to": "Destinatario",
+      "title": "Gift card"
+    },
+    "seeDetails": "Vedi dettagli"
+  },
+  "list": {
+    "actions": {
+      "create": "Creare una gift card",
+      "goToGiftcard": "Vedi tutte le gift card"
+    },
+    "addBackgroundImage": "Aggiungere immagini di personalizzazione",
+    "isEmpty": "Nessuna gift card disponibile",
+    "archivedTitle": "Archiviato",
+    "unavailableForSaleTitle": "Non disponibile per la vendita",
+    "activeTitle": "Disponibile per la vendita",
+    "visibility": "Non visibile",
+    "explainIfEmpty": "Le gift card consentono ai tuoi membri di offrire ai loro ospiti un importo da spendere nel tuo studio.",
+    "unlimited": "Illimitato",
+    "validity": "Valido {{ duration }} giorni"
+  },
+  "delete": {
+    "submit": "Conferma",
+    "cancel": "Cancella",
+    "content": "Vuoi davvero archiviare questa gift card? Non sarà più contabilizzabile tramite il Back Office. Puoi riattivarla più tardi.",
+    "title": "Archiviare la gift card"
+  },
+  "search": "Cerca una gift card",
+  "widget": "Scegliere le gift card",
+  "giftcardTemplate": {
+    "template": {
+      "withoutTax": "Al netto delle imposte",
+      "unlimited": "Illimitato",
+      "validityDetail": "Validità prima della scadenza : {{count}} giorno",
+      "validityDetail_plural": "Validità prima della scadenza : {{count}} giorni",
+      "validity": "Valido {{count}} giorno",
+      "validity_plural": "Valido {{count}} giorni",
+      "deleteInstanceContent2": "Infine, le gift card acquistate negli altri studi non saranno più utilizzabili nello studio disattivato, indipendentemente dalla data di acquisto.",
+      "deleteInstanceContent1": "Disabilitando questo studio dalla condivisione della gift card, tutti i membri che possiedono questa card e l'hanno ricevuta da un membro che la ha acquistata in questo studio potranno comunque utilizzarla. Non potranno invece più utilizzarlo negli altri studi.",
+      "deleteTemplateContent": "Disattivando una gift card condivisa, i membri potranno utilizzarla solo nello studio in cui è stata acquistata."
+    },
+    "listPage": {
+      "fuzzyPlaceholder": "Trova una gift card",
+      "addButton": "Crea una gift card condivisa",
+      "emptyLabel": "Nessuna gift card condivisa registrata"
+    },
+    "sharedCard": "Condiviso da un altro franchisee",
+    "giftcard": "Gift card"
+  },
+  "downloadPDF": "Scarica PDF"
+}

@@ -1,0 +1,294 @@
+{
+  "backofficeMenu": {
+    "calendar": "Agenda",
+    "activity": "Groepsactiviteiten",
+    "dashboard": "Dashboard",
+    "search": "Zoeken",
+    "reporting": "Rapportages",
+    "consumer": {
+      "order": "Mijn bestellingen",
+      "profile": "Mijn profiel",
+      "bookings": "Mijn reserveringen ",
+      "pass": "Leskaarten",
+      "subscriptions": "Mijn abonnementen",
+      "myAccount": "Mijn profiel"
+    },
+    "beta": "Bèta",
+    "coachPerformance": "Payroll",
+    "myShop": "Webshop",
+    "product": "Producten",
+    "coaches": "Instructeurs",
+    "privateService": {
+      "pass": "Afspraakkaarten",
+      "services": "Afspraken",
+      "title": "Afspraken"
+    },
+    "schedule": "Rooster",
+    "alpha": " ",
+    "invoice": "Facturen",
+    "workshopActivities": "Workshops",
+    "order": "Bestellingen",
+    "email_template": "E-mails",
+    "smart_list": "Smartlists",
+    "sequence": "Campagnes",
+    "requestTempPassword": "Tijdelijk wachtwoord",
+    "combo": "Pakketten",
+    "marketing_automation": "Geautomatiseerde marketing",
+    "digital": "Digitaal aanbod",
+    "podcast": "Podcasts",
+    "playlist": "Afspeellijsten",
+    "video": "Videotheek & eBooks",
+    "coupon": "Promoties",
+    "contract": "Abonnementen",
+    "subscription": "Automatische incasso's",
+    "myClub": "Mijn studio",
+    "settings": {
+      "settings": "Instellingen",
+      "active_campaign": "ActiveCampaign",
+      "partnership": "Integraties",
+      "webhook": "Webhook",
+      "personalization": "Personalisering",
+      "role": "Medewerkers",
+      "shop": "Webshop",
+      "waitingList": "Wachtlijst",
+      "invoice": "Facturatie",
+      "company": "Onderneming",
+      "paymentRules": "Payroll",
+      "notificationRule": "Transactionele berichten",
+      "broadcast": "Livestreamen",
+      "general": "Algemeen",
+      "platform_billing": "Bsport Abonnement",
+      "marketplaceSettings": "Ledenruimte-Instellingen",
+      "widget": "Widgets",
+      "paymentMethod": "Betaalmethoden",
+      "forms": "Ledenformulieren",
+      "quickbooks": "QuickBooks",
+      "mobilePersonalization": "Gepersonaliseerde app",
+      "coachUserspace": "Instructeursomgeving",
+      "quicksale": "Kassasysteem",
+      "referral": "Referral"
+    },
+    "pass": "Leskaarten",
+    "goBack": "Terug",
+    "refresh": "Actualiseren",
+    "logoff": "Afmelden",
+    "payment": "Betalingen",
+    "establishment": "Vestigingen",
+    "member": "Leden",
+    "message": "Marketing",
+    "cashBook": {
+      "onSpotPaymentReport": "Toon betaaloverzicht",
+      "save": "Opslaan",
+      "of": "Van",
+      "amount": "Daginkomsten:",
+      "lastUpdated": "Laatste wijziging:",
+      "expectedAmount": "Verwacht bedrag: ",
+      "todayEndAmount": "Kasboek | Eindbedrag van vandaag",
+      "addAmount": "Bedrag dat aan het kasboek moet worden toegevoegd",
+      "todayStartAmount": "Kasboek | Beginbedrag van vandaag",
+      "cashDialogTitle": "Kasboek",
+      "close": "Sluiten",
+      "at": "om"
+    },
+    "marketingNotification": "Meldingen",
+    "custom_form": "Formulieren",
+    "tags": "Tags",
+    "addMemberTooltip": "Een lid toevoegen",
+    "cashBookTooltip": "Kasboek",
+    "redirecting": "Je wordt doorgestuurd naar je pagina",
+    "backToFranchiseWorskpace": "Terug naar Master-Account",
+    "franchiseConnectedAs": "Je bent momenteel als \"{{- name}}\" verbonden.",
+    "giftcard": "Cadeaubonnen",
+    "programs": "Programma's",
+    "expenses": "Uitgaven",
+    "instalmentPayment": "Termijnbetalingen",
+    "coachPayroll": "Payroll",
+    "clockIn": "Urenregistratie",
+    "help": "Hulp",
+    "tutorial": "Handleiding",
+    "tutorialInfo": "Onder \"Handleiding\" staat alle nuttige informatie voor beginners om aan de slag te gaan.",
+    "toggle": {
+      "expand": "Uitbreiden",
+      "shrink": "Inklappen"
+    },
+    "cadences": "Cadences",
+    "replacement": "Vervanging",
+    "inbox": "Inbox",
+    "audience": "{{ audienceCamelCase }}",
+    "backToWebshop": "Terug naar Webshop",
+    "accessMonitoring": "Toegang",
+    "closeTab": "Sluit tabblad",
+    "feedbackBoard": "Feedbackbord"
+  },
+  "deprecatedNavigator": {
+    "close": "Sluiten",
+    "downloadChrome": "Download Google Chrome gratis",
+    "downloadFirefox": "Download Mozilla Firefox gratis",
+    "navigatorError": "Het lijkt erop dat uw webbrowser te oud is om onze services te gebruiken. U kunt fouten tegenkomen. We raden u aan om uw webbrowser up te daten: "
+  },
+  "paymentMethodMissing": {
+    "banner": "Je hebt geen geldige bankgegevens ingevoerd. Klik hier om je betaal- en bankgegevens te controleren en bij te werken om je account te kunnen blijven gebruiken.",
+    "explain": "Je hebt geen geldige bankgegevens ingevoerd. Gelieve je betaal- en bankgegevens controleren en bijwerken om je account te kunnen blijven gebruiken.",
+    "closeModal": "Sluiten"
+  },
+  "franchiseMenu": {
+    "members": "Leden",
+    "franchises": "Studio's",
+    "reporting": "Rapportages",
+    "paymentPack": "Leskaarten",
+    "widget": "Widgets",
+    "settings": "Instellingen",
+    "staff": "Medewerkers",
+    "widgets": "Widgets",
+    "notificationRules": "Transactionele meldingen",
+    "emailTemplates": "E-mails",
+    "products": {
+      "couponTemplates": "Promoties",
+      "privatePassTemplates": "Afspraakkaarten",
+      "paymentPackTemplates": "Leskaarten",
+      "label": "Producten",
+      "giftcardTemplates": "Cadeaubonnen",
+      "shopTemplates": "Webshop",
+      "contractTemplates": "Abonnementen",
+      "universalPassTemplates": "Universele passen"
+    },
+    "tag": "Tags",
+    "marketing": {
+      "tags": "Tags",
+      "emailTemplates": "Emails",
+      "campaigns": "Campagnes",
+      "label": "Marketing"
+    }
+  },
+  "multiSession": {
+    "current": "Huidige sessie",
+    "previous": "Vorige sessie",
+    "manager": "Manager",
+    "franchisor": "Master-Account",
+    "continue": "Met dit account verdergaan",
+    "currentSession": "Je bent momenteel als {{- name }} verbonden.",
+    "restore": "Met het vorige account verdergaan",
+    "previousSession": " Je was als {{- name }} verbonden",
+    "title": " Het lijkt erop dat je meerdere tabbladen tegelijk gebruikt."
+  },
+  "stripeOnboardingPending": {
+    "banner": "Klik hier om de instellingen voor (online) transacties, uitbetalingen en facturatie te voltooien en te activeren."
+  },
+  "tab": {
+    "coach": {
+      "calendar": "Agenda",
+      "general": "Profiel"
+    },
+    "customForm": {
+      "layout": "Personalisatie",
+      "statistics": "Statistieken",
+      "campaign": "Campagne",
+      "general": "Content"
+    },
+    "franchise": {
+      "staff": {
+        "role": "Rollen",
+        "staffAccount": "Medewerkers"
+      }
+    },
+    "replacement": {
+      "disciplineGroup": "Discipline groepen",
+      "management": "Beheer"
+    },
+    "widget": {
+      "customize": "Personalisering",
+      "create": "Algemeen",
+      "customizeCss": "CSS"
+    },
+    "smartList": {
+      "statistic": "Statistieken",
+      "campaign": "Campagnes",
+      "member": "Algemeen"
+    },
+    "member": {
+      "basket": "Winkelmand",
+      "basket_plural": "Winkelmandje ({{number}})",
+      "form": "Formulieren",
+      "form_plural": "Formulieren ({{number}})",
+      "vod": "VOD",
+      "vod_plural": "VOD ({{number}})",
+      "privateConsumerPass": "Afspraakkaart",
+      "privateConsumerPass_plural": "Afspraakkaart ({{number}})",
+      "privateBooking": "Afspraak",
+      "privateBooking_plural": "Afspraak ({{number}})",
+      "payment": "Facturatie",
+      "payment_plural": "Facturatie ({{number}})",
+      "contact": "Contact",
+      "contact_plural": "Contact ({{number}})",
+      "invoices": "Facturen en abonnementen",
+      "invoices_plural": "Facturen en abonnementen ({{number}})",
+      "paymentPack": "Leskaart",
+      "paymentPack_plural": "Leskaart ({{number}})",
+      "giftcard": "Cadeaukaart",
+      "giftcard_plural": "Cadeaukaart ({{number}})",
+      "bookings": "Reserveringen",
+      "bookings_plural": "Reserveringen ({{number}})",
+      "relation": "Relaties",
+      "relation_plural": "Relaties ({{number}})",
+      "info": "Algemeen",
+      "info_plural": "Algemeen ({{number}})",
+      "programs": "Programma's",
+      "programs_plural": "Programma's ({{number}})",
+      "subscription": "Abonnementen"
+    },
+    "clockIn": {
+      "history": "Geschiedenis",
+      "realTime": "Echte tijd"
+    },
+    "service": {
+      "calendar": "Agenda",
+      "general": "Algemeen"
+    },
+    "establishment": {
+      "location": "Locaties",
+      "room": "Vestigingen",
+      "calendar": "Agenda",
+      "general": "Algemeen"
+    },
+    "metaActivity": {
+      "group": "Groepssessies",
+      "pack": "Beschikbare leskaarten",
+      "general": "Algemeen"
+    },
+    "quicksale": {
+      "access": "Toegangsverlening",
+      "configuration": "Categorieën"
+    },
+    "appSettings": {
+      "customize": "Personalisatie",
+      "popups": "Startup pop-up",
+      "links": "Externe links"
+    },
+    "communicationSentGroupConfig": {
+      "campaigns": "Campagnes",
+      "general": "Algemeen"
+    },
+    "accessMonitoring": {
+      "settings": "Instellingen",
+      "perform": "Leden bezoek",
+      "monitor": "Locatie bezoeken"
+    },
+    "settings": {
+      "theme": {
+        "memberProfile": "Ledenrprofiel",
+        "general": "Algemeen"
+      }
+    },
+    "shop": {
+      "settings": "Instellingen",
+      "products": "Producten"
+    },
+    "reporting": {
+      "views": "Jouw zicht",
+      "categories": "Rapportages"
+    }
+  },
+  "logout": "Loguit",
+  "login": "Login",
+  "featureBaseButton": "Een functie of verbetering voorstellen"
+}

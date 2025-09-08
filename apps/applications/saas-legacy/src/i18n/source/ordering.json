@@ -1,0 +1,30 @@
+{
+  "category": {
+    "noCategory": {
+      "name": "No category"
+    },
+    "creationDialog": {
+      "name": "Category name",
+      "titleEdit": "Category",
+      "titleNew": "New category",
+      "edit": "Edit",
+      "create": "Add",
+      "cancel": "Cancel"
+    },
+    "popover": {
+      "delete": "Delete",
+      "edit": "Rename"
+    },
+    "deleteModal": {
+      "title": "Deletion",
+      "cancel": "Cancel",
+      "confirm": "Confirm",
+      "content": "Are you sure that you want to delete this category? All items will be moved to the no category section"
+    },
+    "add": "Add a category",
+    "empty": "This category is empty.",
+    "noAvailable": "There are no matching items for the selected filters to display.",
+    "selector": "Category name"
+  },
+  "disabledItemsTitle": "Archive"
+}

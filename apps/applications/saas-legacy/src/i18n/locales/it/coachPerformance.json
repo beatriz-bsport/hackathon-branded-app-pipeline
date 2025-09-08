@@ -1,0 +1,97 @@
+{
+  "bookingThresholdHelper": "Una sessione verrà conteggiata solo se totalizza questo numero di prenotazioni",
+  "fixedPriceForAdditionalBookingLabel": "Fisso per sessione",
+  "fixedPriceForAdditionalBookingHelper": "Importo fisso pagato per qualsiasi sessione con un numero sufficiente di iscritti",
+  "table": {
+    "downloadAll": "Riepilogo",
+    "download": "Scarica",
+    "downloadPDF": "Scarica (.pdf)",
+    "downloadCSV": "Scarica (.csv)"
+  },
+  "checkboxIncludeABonus": "Includi un bonus sulle prestazioni",
+  "pricePerAdditionalBookingHelper": "Importo donato per qualsiasi prenotazione superiore al limite",
+  "fields": {
+    "base": "Base",
+    "nb_bookings": "Prenotazioni",
+    "name": "Nome della sessione",
+    "date": "Data",
+    "rule": "Regola di retribuzione per la sessione",
+    "bonus": "Bonus",
+    "duration": "Durata",
+    "error": "Sembra che alcuni corsi non abbiano una regola di retribuzione associata. Deve associare una regola di pagamento a questi corsi o associare una regola di pagamento all'allenatore.",
+    "total": "Retribuzione totale",
+    "cancelled_bookings": "Registrazioni cancellate",
+    "confirmed_bookings": "Partecipanti",
+    "unpaid_private_booking": "Gli appuntamenti non sono retribuiti.",
+    "coachName": "Insegnante",
+    "total_on_appointments": "Nomina retributiva",
+    "total_on_sessions": "Remunerazione per le lezioni di gruppo",
+    "nb_appointments": "Numero di appuntamenti",
+    "nb_sessions": "Numero di sessioni",
+    "totalNetGain": "Totale guadagno netto",
+    "netGain": "Guadagno netto",
+    "marginValue": "Contributo marginale",
+    "nb_private_bookings": " ",
+    "noShowsAndLateCancellations": "Assenze (no-show) e cancellazioni tardive",
+    "location": "Sede",
+    "establishment": "Stabilimento"
+  },
+  "bonus": "Bonus",
+  "addBonus": "Aggiungi un bonus",
+  "dateTitle": "Intervallo di date",
+  "remuneration": "Retribuzione",
+  "pricePerOffer": "Importo per sessione",
+  "bookingThresholdLabel": "Regola di attivazione della soglia di prenotazione",
+  "pricePerAdditionalBookingLabel": "Variabile su prenotazione",
+  "cachedData": {
+    "leavePreviewMode": "Uscire dalla modalità preview",
+    "previewModeTitle": "Modalità di preview",
+    "downloadMySavedData": "Scaricare",
+    "enterPreviewMode": "Passa alla modalità anteprima",
+    "unresolvedDaterange": "Fascia di retribuzione non valida",
+    "dateRange": "Remunerazione del {{- startDate }} su  {{- endDate }}",
+    "dateSaved": "Dati generati su {{ date }}",
+    "title": "Dati salvati {{ count }}",
+    "undeterminedOldestUpdate": "Aggiornamento più vecchio non determinato",
+    "oldestUpdate": "Il più vecchio aggiornamento fatto il: {{- date }}"
+  },
+  "export": {
+    "completed": {
+      "message": "Il file di esportazione per gli stipendi degli insegnanti è disponibile. Puoi anche recuperare questi dati nella sezione \"Dati salvati\".",
+      "title": "Esportazione Excel degli stipendi degli insegnanti"
+    },
+    "dialog": {
+      "buttonText": "Confermare",
+      "message": "Esportando i dati potrete generare un excel per la durata selezionata. Anche questi dati saranno memorizzati e potranno essere utilizzati in seguito.",
+      "title": "Esportazione e conservazione dei dati"
+    },
+    "buttonText": "Esporta"
+  },
+  "performance": {
+    "table": {
+      "header": {
+        "nbSessions": "Numero di corsi di gruppo",
+        "coachName": "Insegnante",
+        "confirmedBookings": " "
+      }
+    }
+  },
+  "advancedFilters": {
+    "byCoachPaymentRules": "Filtrare per regole salariali (per gli insegnanti senza gruppi salariali)",
+    "byCoachPaymentruleGroups": "Filtrare per gruppi di remunerazione",
+    "privateserviceCoachPaymentRuleSelector": "Appuntamento",
+    "workshopCoachPaymentRuleSelctor": "Workshops",
+    "sessionCoachPaymentRuleSelctor": "Corsi di gruppo ",
+    "coachPaymentRuleGroupSelector": "Gruppi di remunerazione",
+    "coachSelector": "Seleziona gli insegnanti",
+    "reset": "Azzerare i filtri",
+    "apply": "Applicare i filtri",
+    "header": "Filtri avanzati",
+    "locations": "Sedi",
+    "establishments": "Stabilimenti"
+  },
+  "form": {
+    "ifEmptyAllowAll": "Lasciare vuoto per ignorare questo filtro",
+    "selectEstablishments": "Seleziona stabilimenti"
+  }
+}

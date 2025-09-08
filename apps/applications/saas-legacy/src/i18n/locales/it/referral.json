@@ -1,0 +1,148 @@
+{
+  "conditions": {
+    "description": {
+      "warning": "Attenzione: il programma di sponsorizzazione si applica solo ai nuovi membri dello studio o del franchising.",
+      "reward2": "La ricompensa sarà applicata automaticamente ai prossimi carrelli del membro sponsorizzante: non ci sono condizioni di tempo o di importo per l'applicazione. Può anche essere applicata in più rate se l'importo del carrello è inferiore alla ricompensa.",
+      "reward1": "Se il primo acquisto (esclusi gli abbonamenti ricorrenti) viene effettuato in conformità con i termini e le condizioni descritti, l'utente sponsorizzato sarà <1>ricompensato con un importo pari a {{ referringReward }}</1>. Questa somma può essere ottenuta per ogni utente sponsorizzato fino a un limite di {{ maxReferralUses }} volte.",
+      "applicationTimeLimit": {
+        "units": {
+          "months": "mese",
+          "months_plural": "mesi",
+          "weeks": "settimana",
+          "weeks_plural": "settimane",
+          "days": "giorno",
+          "days_plural": "giorni"
+        }
+      },
+      "signUp": {
+        "noReduction": "Utilizzando il link condiviso, il nuovo membro verrà indirizzato al modulo di registrazione per la creazione di un account. Una volta completata la procedura, il membro indirizzato deve completare il suo primo carrello in conformità alle seguenti condizioni:<1><0>L'importo del carrello è maggiore di {{ minBasketAmount }}</0><0>Eseguito entro {{ applicationTimeLimitIntervals }} {{ applicationTimeLimitUnit }} dopo la registrazione dell'utente segnalato</0></1>",
+        "reduction": "Utilizzando il link condiviso, il nuovo membro verrà indirizzato al modulo di registrazione per la creazione di un account. Una volta completata la procedura, il membro segnalato potrà <1>beneficiare di uno sconto di {{ referredReduction }}</1> sul suo primo carrello, se questo soddisfa le seguenti condizioni:<3><0>L'importo del carrello è maggiore di {{ minBasketAmount }}</0><0>Eseguito entro {{ applicationTimeLimitIntervals }} {{ applicationTimeLimitUnit }} dopo la registrazione dell'utente segnalato</0></3>"
+      },
+      "maxUses": "Ogni membro ha un link di riferimento personale che può essere condiviso per ottenere una ricompensa. Può essere ottenuta un <1>numero massimo di {{ maxReferralUses }} volte</1>."
+    },
+    "title": "Condizioni d'uso per il link di riferimento"
+  },
+  "memberInfo": {
+    "warningMaxUsesReached": "Hai raggiunto il numero massimo di utilizzi per il link di riferimento",
+    "seeConditions": "Vedi condizioni",
+    "copyLink": "Copia il mio link di riferimento",
+    "forYourFriend": "per il tuo amico",
+    "forYou": "per te",
+    "inviteFriend": "Invita un amico a registrarsi",
+    "nbRemainingUses": "Numero di utilizzi rimanenti",
+    "referralLink": "Link di riferimento",
+    "loginToUseYourLink": "Accedi per utilizzare il tuo link",
+    "thanksForSharing": "Grazie per condividere con amici e familiari!",
+    "copyReferralLink": "Copia referral link",
+    "yourFriendGets": "Il tuo amico ottiene",
+    "youGet": "Ottieni",
+    "nbUsesLeft": "Numero di utilizzi rimasti:"
+  },
+  "form": {
+    "submit": "Salva",
+    "errors": {
+      "required": "Questo campo è obbligatorio",
+      "url": "Inserisci un URL valido",
+      "rewardReferring": "La ricompensa deve essere superiore a 0",
+      "timeLimit": "Il tempo limite deve essere superiore ad 1",
+      "referredAmount": "Lo sconto deve essere superiore a 0",
+      "maximumUses": "Il valore massimo di utilizzi deve essere superiore ad 1",
+      "minimumAmount": "Il valore minimo deve essere maggiore di 0"
+    },
+    "warnings": {
+      "rewardReferring": "Scegliendo questo valore, non verrà assegnata alcuna ricompensa al membro che sponsorizza",
+      "referredAmount": "Scegliendo questo valore, Il membro sponsorizzato non riceverà nessuno sconto al momento dell'acquisto"
+    },
+    "redirectLink": {
+      "placeholder": "URL di reindirizzamento",
+      "description": "Dopo la registrazione, il nuovo membro sarà reindirizzato alla pagina indicata dal vostro URL. Se si lascia vuoto, il nuovo membro verrà indirizzato alla schermata del Calendario",
+      "title": "Link di reindirizzamento"
+    },
+    "tag": {
+      "description": "Un nuovo membro ad utilizzare il link di riferimento sarà contrassegnato con un tag",
+      "title": "Tag"
+    },
+    "rewardReferring": {
+      "label": "Ricompensa totale",
+      "title": "Ricompensa per il membro che sponsorizza"
+    },
+    "applicationTimeLimit": {
+      "units": {
+        "month": "Mese",
+        "month_plural": "Mesi",
+        "week": "Settimana",
+        "week_plural": "Settimane",
+        "day": "Giorno",
+        "day_plural": "Giorni"
+      },
+      "title": "Termine per l'applicazione dello sconto dopo la registrazione"
+    },
+    "amountOffReferred": {
+      "amount": {
+        "fieldLabel": "Totale",
+        "title": "Totale"
+      },
+      "percent": {
+        "fieldLabel": "Percentuale",
+        "title": "Percentuale"
+      },
+      "title": "Sconto per il membro sponsorizzato"
+    },
+    "maximumUses": {
+      "label": "Massimo numero di utilizzi"
+    },
+    "minimumBasketAmount": {
+      "description": "Questo valore si riferisce al valore totale del carrello",
+      "label": "Valore minimo del carrello"
+    },
+    "activateReferral": {
+      "description": "Ogni membro può condividere questo link di riferimento con i non membri. Al momento dell'utilizzo, il link offre uno sconto automatico al nuovo membro e una ricompensa per il membro che ha condiviso il link.",
+      "label": "Attiva il link di riferimento"
+    },
+    "title": "Riferimento"
+  },
+  "referralErrors": {
+    "33000": {
+      "description": "Questo referral link non è disponibile per questo studio.",
+      "title": "Referral link non utilizzabile"
+    },
+    "33001": {
+      "description": "Il membro associato a questo referral link non è più registrato allo studio.",
+      "title": "Referral link non utilizzabile"
+    },
+    "33002": {
+      "description": "Sei già un membro di questo studio",
+      "title": "Referral link non utilizzabile"
+    },
+    "33003": {
+      "description": "Questo referral link non è più usabile.",
+      "title": "Referral link scaduto"
+    },
+    "33004": {
+      "description": "Si è verificato un errore durante la registrazione del referral.",
+      "title": "Errore sul referral"
+    },
+    "33005": {
+      "description": "Si è verificato un errore durante la registrazione del referral.",
+      "title": "Errore riguardo il referral"
+    },
+    "33006": {
+      "title": "Referral scaduto",
+      "description": "Il programma referral non è più disponibile."
+    },
+    "33007": {
+      "description": "Il programma referral non è più disponibile.",
+      "title": "Referral scaduto"
+    },
+    "maxUsesReached": {
+      "description": "È stato raggiunto il numero massimo di utilizzi per questo link da parte di {{ referringMemberFirstName }}.",
+      "title": "Referral link inutilizzabile"
+    },
+    "somethingWentWrong": "Qualcosa è andato storto, non siamo in grado di caricare questa pagina. Riprovare più tardi",
+    "noProgramAvailable": "Oops, sembra che non sia disponibile alcun programma di referral"
+  },
+  "checkoutValidation": {
+    "title": "Sponsorizza un amico",
+    "explain": "Ottieni premi condividendo il referral link con i tuoi amici."
+  }
+}

@@ -1,0 +1,817 @@
+{
+  "form": {
+    "paymentPack": {
+      "penalty": {
+        "helperText": "Aplicar penalizações por demasiadas não comparências ou cancelamentos tardios",
+        "label": "Aplicar uma penalidade",
+        "title": "Penalidades",
+        "deleteNoShowDialog": {
+          "text": "Acabaram os passes ilimitados com penalizações por falta de comparência. Desativamos a função \"chamada\", pelo que já não é necessário validar a chamada para cada passe.",
+          "title": "Penalizações eliminadas"
+        },
+        "noShowDialog": {
+          "alert": "Pode definir as condições de não comparência nas configurações de personalização.",
+          "text": "Acabou de criar as penalizações por falta de comparência.  Acabámos de ativar a função \"chamada\", pelo que agora é necessário fazer a chamada para cada disciplina para ativar as penalizações.",
+          "title": "Penalizações por não comparência"
+        },
+        "account": {
+          "helperText": "Será aplicado um depósito de {{value}} para este membro",
+          "label": "Montante do depósito :"
+        },
+        "block": {
+          "helperText": "O passe será bloqueado durante {{nb_days}} dias",
+          "label": "Período de bloqueio do passe (em dias) :"
+        },
+        "kind": {
+          "account": "Criar um depósito para o membro em causa",
+          "block": "Bloquear temporariamente o passe de aulas",
+          "label": "Selecionar o tipo de penalização a aplicar"
+        },
+        "nb_days": "Número de dias :",
+        "nb_cancellations": "Número de cancelamentos :",
+        "explain": "Será aplicada uma penalização se houver {{nb_cancellations}} cancelamentos tardios num período de {{nb_days}} dias.",
+        "penaltyParams": "Configuração das penalizações",
+        "cancellationsCheckbox": "Demasiados cancelamentos fora de tempo",
+        "errorNoPenaltyRule": "Não é possível guardar as alterações, é necessário escolher uma penalização ou desativar penalizações para continuar",
+        "noShowPenaltyTitle": "Penalizações por falta de comparência",
+        "noShowPenaltyAlert": "Para definir quando um membro é considerado ausente (não comparência), vá a Configurações > Personalização",
+        "bothPenaltiesNumber": "Número de cancelamentos e ausências",
+        "penaltyParamsText": "Aplicar a mesma regra para os cancelamentos tardios e as não comparências",
+        "noShowPenaltyNumber": "Número de ausências",
+        "cancellationsPenaltyTitle": "Penalizações por cancelamentos tardios",
+        "titleCheckbox": "Aplicar uma penalização por",
+        "noShowCheckbox": "Demasiadas faltas de comparência",
+        "bothPenaltiesTitle": "Penalizações por cancelamentos tardios e não comparência",
+        "checkbox": "Aplicar uma penalização por demasiados cancelamentos tardios",
+        "bothPenaltiesInfo": "Será aplicada uma penalização se houver {{penalityNumberNoShow}} cancelamento fora de prazo ou não comparência durante um período de {{penalityNumberDay}} dias.",
+        "bothPenaltiesInfo_plural": "Será aplicada uma penalização se houver {{penalityNumberNoShow}} cancelamentos fora de prazo ou não comparências durante um período de {{penalityNumberDay}} dias.",
+        "noShowPenaltyInfo": "Será aplicada uma penalização se houver {{penalityNumberNoShow}} ausência (não comparência) durante um período de {{penalityNumberDay}} dias.",
+        "noShowPenaltyInfo_plural": "Será aplicada uma penalização se houver {{penalityNumberNoShow}} ausências (não comparências) durante um período de {{{penalityNumberDay}} dias."
+      },
+      "delete": {
+        "actions": {
+          "submit": "Eliminar",
+          "cancel": "Cancelar"
+        },
+        "isUsedInCombo": "Atenção ! Este passe de aulas é utilizado num pack, que deixará de estar disponível para venda se o retirar.",
+        "thereAreConsumers": "Atenção! Alguns membros compraram este passe. Se o apagar, continuarão a poder utilizar os créditos restantes. Pode reduzi-los manualmente para zero aqui.\n\nO passe deixará de estar visível.",
+        "askConfirmation": "Atenção! Esta operação é definitiva. O passe deixará de ser visível e ficará indisponível para compra.",
+        "title": "Eliminar o passe:"
+      },
+      "update": {
+        "error": "Passe de aulas: erro durante o funcionamento",
+        "success": "Passe de aula: operação concluída com sucesso"
+      },
+      "noneMeansAll": "Deixar em branco para autorizar tudo",
+      "restrictionsTitle": "Restrições",
+      "establishments": "Sala",
+      "activities": "Atividade",
+      "sports": "Categoria",
+      "actions": {
+        "create": "Guardar",
+        "edit": "Editar",
+        "cancel": "Cancelar",
+        "skip": "Aceder a"
+      },
+      "durationYears": {
+        "helperText": "Adicionado ao número de dias e meses",
+        "label": "Prazo de validade (anos), se aplicável"
+      },
+      "durationMonths": {
+        "helperText": "Adicionado ao número de dias",
+        "label": "Prazo de validade (meses), se aplicável"
+      },
+      "durationDays": {
+        "helperText": "Período em dias durante o qual o passe será válido após a compra ",
+        "label": "Prazo de validade (dias), se aplicável"
+      },
+      "validByDaterange": "Cartão válido para uma determinada data",
+      "validByDuration": "Passe válido N dias após a compra",
+      "generalSettingsTitle": "Geral",
+      "timeSettingsTitle": "Validade do passe",
+      "start_date_method": {
+        "on_attendance": "Começar com a primiera reserva",
+        "on_booking": "Iniciar a primeira reserva",
+        "on_purchase": "Iniciar a faturação"
+      },
+      "helper": {
+        "ending_date": "Fim da validade do passe, deixar vazio para o manter ativo",
+        "starting_date": "Início da validade do passe, deixar em branco para o tornar imediatamente válido"
+      },
+      "managerOnly": "Oculto para os alunos",
+      "expirationDaysBeforeFirstUse": {
+        "helperText": "Se o passe ativo não for utilizado pela primeira vez durante este número de dias, perde a validade",
+        "label": "Expira se não houver reserva inicial"
+      },
+      "startOnFirstUseHelper": "Caso contrário, a faturação começa no dia em que o passe é facturado",
+      "startOnFirstUse": "O período de validade começa no dia da primeira reserva",
+      "onsitePaymentAvailable": "Possibilidade para pagar no estúdio",
+      "newMemberOnly": "Exclusivo para novos alunos",
+      "maxPurchasePerMember": {
+        "helperText": "Deixar em branco para não impor um limite",
+        "label": "Utilização máxima por membro"
+      },
+      "maxBookingPerDay": {
+        "helperText": "Deixar em branco para não impor um limite",
+        "label": "Utilização máxima por dias"
+      },
+      "maxBookingPerWeek": {
+        "helperText": "Deixar em branco para não impor um limite",
+        "label": "Utilização máxima por semana"
+      },
+      "maxBookingPerMonth": {
+        "helperText": "Deixar em branco para não impor um limite",
+        "label": "Utilização máxima por mês"
+      },
+      "credits": {
+        "bewareChange": "Se aumentar o número de créditos, todos os passes existentes serão afectados. O mesmo se aplica se reduzir o número de créditos.",
+        "helperText": "Número de créditos disponíveis",
+        "label": "Crédito"
+      },
+      "theoricalMarginValue": {
+        "helperText": "Utilizado para calcular os salários dos professores, 10{{currency}} significa que uma reserva efectuada com este passe é paga 10{{currency}}. Se estiver vazio ou a 0{{currency}}, a contribuição de um passe será PREÇO/NB_RESERVA",
+        "label": "Contribuição teórica (incl. IVA) (apenas cartão ilimitado)"
+      },
+      "unlimited": "Créditos ilimitados",
+      "priceIncludingTax": {
+        "label": "Preço com IVA",
+        "helperText": "Preço do passe por cliente"
+      },
+      "tax": {
+        "label": "IVA"
+      },
+      "only_vod_access": "Apenas para VOD",
+      "full_vod_access": "Dá acesso ao VOD durante o período de validade",
+      "name": {
+        "helperText": "Nome do passe de aulas",
+        "label": "Nome"
+      },
+      "until": "Até ",
+      "notEditable": "Este mapa de percursos é o resultado de uma migração, pelo que alguns campos não podem ser modificados para respeitar o historial. As atividades/categorias compatíveis podem ainda ser modificadas.",
+      "from": "A partir de ",
+      "universalPass": {
+        "deativatedTags": "Desativado para passes universais",
+        "helperText": "Os passes universais podem ser utilizados para actividades de grupo e aulas privadas. Para cada passe universal, são criados dois passes de reserva para associar o número de créditos. Uma vez adquirido um destes passes, o outro será automaticamente adicionado sem custos adicionais.",
+        "marketplaceLabel": "O passe universal pode ser utilizado para actividades de grupo e aulas privadas",
+        "label": "Passe universal",
+        "warningIsUniversalPass": "Este passe é um passe universal, uma cópia foi criada nos passes por marcação. Todos os campos modificados neste passe serão igualmente modificados no passe duplo (exceto a categoria). O mesmo se aplica às notificações, extensões e alterações de crédito."
+      },
+      "advancedOptions": {
+        "appliesForPayroll": {
+          "helperText": "Por defeito, as sessões são faturadas ao estúdio e incluídas no histórico do professor. Se desativar esta definição, as sessões associadas a este passe deixarão de aparecer no histórico do professor.",
+          "label": "Sessões consideradas no cálculo da remuneração do professor",
+          "header": "Folha de pagamento dos professores"
+        },
+        "tag": {
+          "doNotSelectToAllowAllMembers": "Deixar em branco para autorizar todos os membros",
+          "notAllowedFor": "Não Autorizado para",
+          "notAllowed": "Não Autorizado",
+          "allowedFor": "Autorizado para",
+          "allowed": "Autorizado",
+          "helperText": "Utilize as etiquetas para tornar o passe visível apenas para um grupo desejado de membros no mercado, ferramentas e aplicação. Pode selecionar etiquetas para tornar o passe visível apenas para membros com uma das etiquetas seleccionadas. Ou pode selecionar etiquetas para tornar o passe oculto apenas para os membros que possuam uma das etiquetas seleccionadas. ",
+          "header": "Etiquetas",
+          "tagsOnAcquisitionHelper": "Use etiquetas para identificar qual membro comprou o passe.",
+          "tagsOnAcquisition": "Etiquete após a compra",
+          "selectTags": "Select tags"
+        },
+        "header": "Avançado"
+      },
+      "error": {
+        "start_date_method_type": "Indicar a data de validade do passe"
+      },
+      "category": {
+        "helperText": "Nome da categoria",
+        "label": "Categoria (opcional)"
+      },
+      "highlightedAsRecommended": {
+        "helperText": "Permite que seus clientes vejam rapidamente quais passes são recomendados no momento.",
+        "label": "Marcar como recomendado"
+      }
+    }
+  },
+  "extension": {
+    "options": {
+      "selectNewEndDate": "Definir uma nova data até ficar expirado",
+      "addNumberOfDays": "Prolongar a validade por um determinado número de dias"
+    },
+    "create": {
+      "datePicker": {
+        "label": "Nova data"
+      },
+      "nbDays": {
+        "label": "Número de dias adicionados"
+      },
+      "note": {
+        "label": "Notas"
+      },
+      "warning": "Verificar se a nova data não faz com que esta passagem exceda um novo período fiscal. Se for esse o caso, verifique com o seu contabilista se esta operação é adequada.",
+      "explain": {
+        "newDate": "Nova data : ",
+        "oldDate": "Data anterior : "
+      },
+      "submit": "Criar",
+      "cancel": "Cancelar",
+      "title": "Extender um passe"
+    },
+    "delete": {
+      "confirm": "Confirmar",
+      "cancel": "Cancelar",
+      "explain": "Tem a certeza de que pretende eliminar a extensão da validade ?",
+      "title": "Eliminar a extensão"
+    },
+    "addedOn": "Adicionado em ",
+    "nbDaysAdded": "+{{nb_days}}"
+  },
+  "search": "Procurar um passe",
+  "notification": {
+    "0": {
+      "second": "dias de validade do passe",
+      "first": "Notificar-nos quando "
+    },
+    "1": {
+      "second": "créditos",
+      "first": "Notificar-nos quando"
+    },
+    "2": {
+      "second": "dias",
+      "first": "Notificar-me quando o passe tiver expirado "
+    },
+    "daysPast": {
+      "second": "dias",
+      "first": "Notificar quando o passe estiver expirado"
+    },
+    "daysLeft": {
+      "second": "dia(s) de validade restante(s)",
+      "first": "Notificar quando"
+    },
+    "daysPastLabel": "Notificar quando o passe já estiver expirado há {{day}} dia",
+    "daysPastLabel_plural": "Notificar quando os passes estiverem expirados há {{day}} dias",
+    "daysLeftLabel": "Notificar quando restar {{day}} dia para o passe ficar inválido",
+    "daysLeftLabel_plural": "Notificar quando restarem {{day}} dias para o passe ficar inválido",
+    "creditsLeftOnOfferStart": "{{hours}}h após a sessão",
+    "creditsLeftOnBooking": "{{hours}}h após a reserva",
+    "creditsLeftLabel": "Notificar quando restarem {{count}} crédito",
+    "creditsLeftLabel_plural": "Notificar quando restarem {{credit}} créditos",
+    "creditsLeft": {
+      "second": "créditos",
+      "first": "Notificar-nos quando"
+    },
+    "form": {
+      "creditNotificationType": {
+        "onOfferStart": "Fim da sessão para a qual o número de créditos reservados desceu abaixo do limite definido em cima",
+        "onBooking": "Reserva que coloca o número de créditos abaixo do limiar acima definido"
+      },
+      "chooseTime": {
+        "secondOnOfferStart": "hora(s) após a sessão",
+        "secondOnBooking": "hora(s) após a reserva",
+        "first": "Enviar um e-mail"
+      },
+      "smartListHelperInclude": "Enviar e-mail apenas se o membro pertencer a uma das seguintes listas",
+      "smartListHelper": "Não enviar um e-mail se o membro pertencer a uma das seguintes listas",
+      "warning": "Se não selecionar uma lista inteligente, corre o risco de notificar os membros que já compraram outro passe.",
+      "createSmartList": "Criar uma lista inteligente",
+      "cancel": "Cancelar",
+      "submit": "Confirmar",
+      "hideMail": "Ocultar e-mail",
+      "settingTitle": "Configurações",
+      "showMail": "Ver o e-mail",
+      "smartListSelection": "Selecionar listas (opcional)",
+      "mailSelection": "Selecionar um e-mail",
+      "infoContract": "Os membros que obtiveram este passe como parte de uma subscrição só receberão notificações sobre a subscrição e não sobre o passe. Ao desativar esta opção, passam a receber ambas.",
+      "dontSendIfInContract": "Não enviar quando o passe está numa subscrição",
+      "daysPastType": "Data de expiração",
+      "daysType": "Restantes dias válidos",
+      "creditType": "Créditos restantes",
+      "contractTitle": "Subscrição",
+      "typeTitle": "Tipo de notificação",
+      "pushTitle": "Configuração de notificação",
+      "mailTitle": "E-mail a enviar",
+      "mailSettings": "Definições do e-mail",
+      "selectToShowPreview": "Selecionar um e-mail para pré-visualização",
+      "noMailAvailable": "Não há correio disponível, por favor crie um"
+    },
+    "addButton": "Adicionar uma notificação",
+    "listItem": {
+      "smartListInclude": "Listas incluídas",
+      "smartList": "Listas excluídas",
+      "deleteModal": {
+        "content": "Tem a certeza de que pretende eliminar esta notificação? Esta operação é definitiva",
+        "confirm": "Eliminar",
+        "cancel": "cancelar",
+        "title": "Eliminar a notificação"
+      },
+      "mail": "E-mail "
+    }
+  },
+  "notificationToolTip": "As notificações são definidas para este passe",
+  "noPaymentPack": "Os membros necessitam de um passe válido para reservar as suas actividades de grupo e workshops.",
+  "consumerPaymentPack": {
+    "maxout": {
+      "dialog_message": "Este cartão já atingiu o limite de validade de {{count}} reservas por {{unit}}. Gostaria de reservar com este passe ? ",
+      "dialogTitle": "Limite de reserva atingido",
+      "months": "mês",
+      "weeks": "semana",
+      "days": "dia",
+      "limit_reach": "Limite de reservar por {{unit}} atingidas"
+    },
+    "details": {
+      "actions": {
+        "applyVoucher": "Aplicar desconto",
+        "refund": "Conversão do pagamento inicial"
+      }
+    },
+    "refund": {
+      "actions": {
+        "submit": "Guardar",
+        "cancel": "Cancelar"
+      },
+      "warningSecond": "Se pretender reembolsar o aluno por transferência bancária através do método de pagamento utilizado, anule a fatura e não reembolse o cliente por crédito!",
+      "warningFirst": "Atenção,  esta operação é irreversível (geração de faturas).",
+      "explain": "Selecionar o número de créditos a reembolsar e o valor total a creditar no depósito do membro",
+      "credits": {
+        "label": "Crédito a deduzir"
+      },
+      "note": {
+        "label": "Nota"
+      },
+      "description": "{{ credits }} crédito - {{ note }}",
+      "description_plural": "{{ credits }} créditos - {{ note }}",
+      "price": {
+        "label": "Montante a creditar"
+      },
+      "blockUnlimited": "Bloquear o passe",
+      "title": "Reembolso"
+    },
+    "addExtension": "Adicionar uma extensão"
+  },
+  "scaleCredit": {
+    "actions": {
+      "submit": "Guardar",
+      "cancel": "Cancelar"
+    },
+    "factor": {
+      "label": "Fator"
+    },
+    "scaleUp": "Multiplicar",
+    "scaleDown": "Dividir",
+    "parameterLegend": "Configurações",
+    "explain": "Pode multiplicar os créditos do passe (3/7 x2 torna-se 6/14) ou dividi-los em caso de erro (3/7 ÷2 torna-se 1/3): arredondar para baixo.",
+    "title": "[Formulário] Alterar créditos"
+  },
+  "actions": {
+    "close": "Fechar",
+    "scaleCredit": "Múltiplos créditos",
+    "delete": "Eliminar",
+    "edit": "Editar",
+    "massExtension": "Adicionar uma extensão"
+  },
+  "section": {
+    "massExtension": "Extensões"
+  },
+  "multipleBookingTooltip": "Múltiplas reservas",
+  "filters": {
+    "hasCreditNull": "Sem crédito",
+    "hasCreditLeft": "Com crédito",
+    "isValidToday": "Valida",
+    "isActive": "Ativa",
+    "isExpired": "Expirada",
+    "invoice": "Fatura",
+    "reverted": "Fatura anulada",
+    "notReverted": "Fatura validada",
+    "credits": "Créditos",
+    "expiration": "Validad",
+    "all": "Todos os passes"
+  },
+  "paymentPackTemplate": {
+    "actions": {
+      "create": "Criar um passe partilhado"
+    },
+    "deleteForm": {
+      "actions": {
+        "submit": "Desativar a partilha",
+        "close": "Fechar"
+      },
+      "content": "Ao desativar este passe, os membros que o possuem só o poderão utilizar no estúdio onde o adquiriram.",
+      "title": "Desativar"
+    },
+    "form": {
+      "actions": {
+        "submit": "Guardar",
+        "close": "Fechar"
+      },
+      "submit": "Confirmar",
+      "close": "Fechar",
+      "title": "Passe de aulas partilhado"
+    },
+    "section": {
+      "titleManagerOnly": "Indisponível para venda",
+      "titleAvailable": "Disponível para venda"
+    },
+    "isEmptyExplain": "Os passes partilhados estão disponíveis nos estúdios e permitem que os membros utilizem os seus créditos em qualquer estúdio à sua escolha.",
+    "specification": {
+      "companySharedWithTitle": "Partilhar com os estúdios"
+    },
+    "widget": {
+      "choose": "Escolher passes de aulas partilhados"
+    },
+    "pass": "Passes de aulas"
+  },
+  "paymentPackTemplateInstance": {
+    "actions": {
+      "buy": "Adquirir",
+      "addCompany": "Adicionar um estúdio"
+    },
+    "companyEmpty": "Nenhum estúdio está configurado para aceitar este passe",
+    "deleteForm": {
+      "actions": {
+        "submit": "Desativar a partilha",
+        "close": "Fechar"
+      },
+      "content": "Ao desativar este estúdio da partilha de passes, todos os membros que possuem este passe e o compraram neste estúdio poderão continuar a utilizá-lo. No entanto, deixarão de o poder utilizar noutros estúdios. Por último, os passes comprados noutros estúdios deixarão de poder ser utilizados no estúdio desativado, independentemente da data de compra.",
+      "title": "Desativar"
+    },
+    "form": {
+      "actions": {
+        "submit": "Guardar",
+        "close": "Fechar"
+      },
+      "explain2": "Se um membro comprar este passe num dos estúdios compatíveis, poderá também utilizá-lo nos outros estúdios que definiu.",
+      "explain1": "Os seguintes estúdios terão automaticamente este passe disponível para venda. Não poderão alterar o preço ou o número de créditos.",
+      "title": "Configurar os meus estúdios"
+    },
+    "consumerPaymentPackSharedFromOtherFranchisee": "Partilhado pelo franchisado",
+    "paymentPackSharedFromFranchisor": "Passe franchise",
+    "isFromShareTooltip": "Este passe é partilhado por outro estúdio de franchising"
+  },
+  "details": {
+    "penaltyBlock": "Passe bloqueado por {{nb_days}} dias",
+    "penaltyTitle": "Penalizações aplicadas",
+    "trackModifiedCreditTitle": "Historico dos créditos alterados",
+    "extensionsTitle": "Extensões de validade",
+    "bookingsTitle": "Reembolso associado",
+    "refundTitle": "Reembolso associado",
+    "invoiceTitle": "Fatura associada",
+    "shareAPass": "Partilhar um passe de aulas",
+    "pleaseSelectAPack": "Selecionar um passe para ver detalhes",
+    "penaltyAccount": "Fatura adicional de {{account_value}} {{currencyDisplay }}"
+  },
+  "listItem": {
+    "unusableByStaff": "Oculto para o staff"
+  },
+  "noRestrictionOnActivityType": "Todas as atividades são compatíveis com este passe",
+  "addPaymentPack": {
+    "compatibility": "O seu passe só será compatível com sessões que correspondam a uma das categorias seleccionadas, a um dos locais seleccionados e a uma das atividades seleccionadas.",
+    "expiration_date": {
+      "tooltip": "Após a data selecionada, o passe deixará de estar disponível para venda.",
+      "helperText": "Disponível até",
+      "label": "Data limite de compra"
+    },
+    "allowGuest": "Pode ser reservado para um convidado",
+    "sumNotZero": "o número final de dias não pode ser zero",
+    "only_vod_access": "Restringir a utilização do passe apenas a VOD",
+    "vodAccessCard": "Dar acesso a VOD",
+    "vod": "VOD",
+    "letBlank": "Deixar em branco para autorizar tudo",
+    "activities": "Atividades",
+    "room": "Salas",
+    "categories": "Categorias",
+    "unusableByStaff": "Oculto para staff",
+    "inShopPayment": "Possibilidade de pagar no estúdio",
+    "notForSell": "Oculto para os clientes",
+    "newClientOnly": "Apenas para novos clientes",
+    "maxUseMember": "Máximo de compras por membro",
+    "maxUseMonth": "Máximo de utilizações por mês",
+    "maxUseWeek": "Máximo de utilizações por semana",
+    "maxUseHelper": "Deixar em branco para não impor um limite",
+    "maxUseDay": "Utilizações máximas por dia",
+    "marginalContributionHelperText": "Utilizado para calcular a remuneração dos professores. 10{{ currencyDisplay }} significa que uma reserva efetuada com este passe é remunerada a 10{{ currencyDisplay }}. Se estiver vazio ou for 0{{ currencyDisplay }}, a contribuição de um cartão será PRICE/NB_RESERVATION",
+    "offPeak": {
+      "label": "É possível efetuar reservas para determinados horários",
+      "choice": {
+        "timeSlot": "Horários",
+        "allDay": "Durante todo o dia"
+      },
+      "addGroupTimeSlot": "Adicionar um grupo de intervalos de tempo",
+      "addTimeSlot": "Adicionar um horário"
+    },
+    "validForDuration": {
+      "yearDayNoMonth": "Este passe é válido para {{ duration_year }} anos e {{ duration_day }} dias",
+      "yearNoDay": "Este passe é válido para {{ duration_year }} anos e {{ duration_month }} meses",
+      "month": "Este passe é válido para {{ duration_month }} meses e {{ duration_day }} dias",
+      "monthNoDay": "Este passe é válido para {{ duration_month }} meses",
+      "yearNoDayNoMonth": "Este passe é válido para {{ duration_year }} anos",
+      "day": "Este passe é válido para {{ duration_day }} dias",
+      "year": "Este passe é válido por {{ duration_year }} anos, {{ duration_month }} meses e {{ duration_day }} dias"
+    },
+    "firstBooking": "Na primeira reserva",
+    "beginningDate": "Data de início",
+    "expirationDate": "Expira se não houver uma reserva inicial",
+    "penalityNumberDay": "Número de dias",
+    "atLeastOneDay": "Pelo menos um dia deve ser selecionado",
+    "minusZero": "este campo não pode ser igual a 0",
+    "namePaymentPack": "Nome do passe de aulas",
+    "description": "Descrição",
+    "credit": "Crédito",
+    "availabilityGivenNumber": "Tornar o passe válido apenas durante um determinado número de dias (após a data de compra)",
+    "availabilitySlot": "Tornar este passe válido durante um período de tempo  determinado",
+    "restriction": "Restrições",
+    "packValidity": "Validade do passe",
+    "penalityModeFranchisor": {
+      "prorataNoShow": {
+        "explain": "O depósito de {{ price }} será aplicado proporcionalmente às ausências (não comparências) registadas para cada um dos seus franchisados. Será cobrado um total de {{ price }} ao seu franchise.",
+        "label": "Pro rata, por franqueado, para faltas de comparência"
+      },
+      "buyer": {
+        "explain": "O depósito {{ price }} só será aplicado no franchisado onde o passe foi inicialmente faturado.",
+        "label": "O franqueado que facturou o passe"
+      },
+      "prorata": {
+        "explain": "O depósito {{ price }} será aplicado proporcionalmente ao número de cancelamentos fora de prazo registados por cada um dos seus franchisados. Será cobrado um total de {{ price }} à sua franquia.",
+        "label": "Pro rata, por franqueado, para cancelamentos após o prazo"
+      },
+      "label": "Aplicação do depósito"
+    },
+    "penalityType": "Tipo de penalização a aplicar",
+    "creditWarning": "Se alterar o número de créditos, todos os cartões existentes serão afetados.",
+    "startAfterEnd": "A hora de início deve ser inferior à hora de fim",
+    "numberOfAvailableCredits": "Número de créditos disponíveis",
+    "fromDate": "A partir de",
+    "penalityInfo": "Será aplicada uma penalização se {{penalityNumberCancel}} for cancelado fora do período de dias {{penalityNumberDay}}",
+    "penalityAccountHelper": "Um depósito de {{penalityBlockAccount}}{{ currencyDisplay }} será aplicado a este membro",
+    "penality": "Aplicar uma penalização por demasiados cancelamentos após o prazo",
+    "toDate": "Até",
+    "endBeforeStart": "A data final não pode ser superior à data de início",
+    "monthValidity": "Período de validade em meses",
+    "monthValidityHelper": "Adicionado ao número de dias",
+    "migration": "Este passe de aulas é o resultado de uma migração, pelo que alguns campos não podem ser modificados para respeitar o historial. As atividades/categorias compatíveis podem ainda ser alteradas.",
+    "billing": "Faturação",
+    "penalityNumberCancel": "Número de cancelamentos",
+    "unlimited": "Ilimitado",
+    "franchise": "Este passe é partilhado pela conta do franchisador. Certos elementos foram definidos pela conta do franchisador e não podem ser alterados",
+    "marginalContribution": "Contribuição marginal teórica incl. IVA",
+    "attendance": "Na primeira presença",
+    "name": "Nome",
+    "penalityRule": "Só é possível aplicar uma penalização se o número de créditos for ilimitado",
+    "yearValidityHelper": "Adicionado ao número de meses",
+    "penalityBlockDay": "Período de bloqueio do passe (em dias)",
+    "penalityAccountPrice": "Montante do depósito",
+    "penalityBlockDayHelper": "O passe do membro será bloqueado durante {{penalityBlockDay}} dias",
+    "dayValidity": "Período de validade em dias",
+    "requiredField": "Este campo é obrigatório",
+    "paymentPack": "Passe de aulas",
+    "generalInfo": "Informações gerais",
+    "numberOfCredit": "Número de créditos",
+    "limited": "Limite",
+    "expirationDateHelper": "Se o passe não for utilizado pela primeira vez dentro deste número de dias, perde a validade",
+    "penalityBlock": "Bloquear temporariamente o passe",
+    "penalityAccount": "Criar um depósito para o membro em causa",
+    "yearValidity": "Período de validade em anos"
+  },
+  "incompatibilities": {
+    "2008": "Atividade não compatível",
+    "2009": "Categoria não compatível",
+    "2010": "Estabelecimento não compatível",
+    "2018": "Número de créditos insuficientes",
+    "2019": "O passe está bloqueado",
+    "2020": "As datas são incompatíveis",
+    "2021": "O passe começa a partir da primeira reserva, a ",
+    "2022": "O passe começa a partir da primeira presença, a ",
+    "2023": "O passe expira a",
+    "2027": "O horário é incompatível",
+    "paymentPack": "Passe configurado como incompatível com a atividade em questão :"
+  },
+  "maxoutInfo": {
+    "month": "Passe limitado a {{count}} utilização por mês",
+    "month_plural": "Passe limitado a {{count}} utilizações por mês",
+    "week": "Passe limitado a {{count}} utilização por semana",
+    "week_plural": "Passe limitado a {{count}} utilizações por semana",
+    "day": "Passe limitado a {{count}} utilização por dia",
+    "day_plural": "Passe limitado a {{count}} utilizações por dia"
+  },
+  "previous": "Anterior",
+  "next": "Seguinte",
+  "universalPass": {
+    "restore": {
+      "dialog": {
+        "continue": "Continuar",
+        "text": "Esta passe é universal e a sua cópia também foi desarquivada.",
+        "title": "Desarquivar"
+      }
+    },
+    "delete": {
+      "dialog": {
+        "warningText": "Atenção ! Este passe é um passe universal, se eliminar a cópia do passe este também será eliminado.",
+        "title": "Eliminar o passe"
+      }
+    }
+  },
+  "noUnauthorizedTag": "Sem etiquetas não autorizadas",
+  "noAuthorizedTag": "Nenhuma etiqueta autorizada",
+  "blackList": "Etiquetas não autorizadas",
+  "whiteList": "Etiquetas autorizadas",
+  "activities": "Atividades",
+  "categories": "Categorias",
+  "establishments": "Salas",
+  "accessibility": {
+    "onsitePayment": "Pagamento no local autorizado",
+    "managerOnly": "Oculto para venda",
+    "newMembers": "Apenas para novos membros"
+  },
+  "tags": {
+    "blackList": "{{ count }} etiqueta não autorizada",
+    "blackList_plural": "{{ count }} etiquetas não autorizadas",
+    "whiteList": "{{ count }} etiqueta autorizada",
+    "whiteList_plural": "{{ count }} etiquetas autorizadas"
+  },
+  "full_vod": "Válido para VOD",
+  "seeAll": "Ver tudo",
+  "compatibility": {
+    "and": " e ",
+    "establishments": "{{ count }} sala",
+    "establishments_plural": "{{ count }} salas",
+    "activities": "{{ count }} atividade",
+    "activities_plural": "{{ count }} atividades",
+    "categories": "{{ count }} categoria",
+    "categories_plural": "{{ count }} categorias",
+    "compatible": "Compatível com ",
+    "all": "Compatível com todos os"
+  },
+  "noCategory": {
+    "empty": "Não há passes nesta categoria",
+    "name": "Nenhuma categoria",
+    "help": "Estes passes aparecerão numa categoria sem nome no marketplace"
+  },
+  "category": {
+    "deleteModal": {
+      "confirm": "Confirmar",
+      "cancel": "Cancelar",
+      "content": "Tem a certeza de que pretende eliminar esta categoria? Todos os elementos que contém serão colocados na secção de passes não categorizadas.",
+      "title": "Eliminar"
+    },
+    "popover": {
+      "delete": "Eliminar",
+      "edit": "Alterar o nome"
+    },
+    "form": {
+      "dialog": {
+        "update": "Alterar o nome",
+        "create": "Criar",
+        "cancel": "Cancelar",
+        "helper": "As categorias aparecerão no mercado e na aplicação móvel para os passes disponíveis para venda.",
+        "titleEdit": "Categoria",
+        "titleNew": "Nova categoria",
+        "name": "Nome da categoria"
+      }
+    },
+    "add": "Adicionar uma categoria",
+    "category": "Categorias dos passes de aulas"
+  },
+  "selector": {
+    "noAvailable": "Nenhum passe corresponde à disponibilidade selecionada",
+    "unusableByStaff": "Oculto para staff",
+    "noManagerOnly": "Disponibilidade para venda",
+    "managerOnly": "Oculto para os membros",
+    "filterManagerOnly": "Todas as disponibilidades",
+    "filterCategory": "Todas as categorias",
+    "titleSort": "Ordenar",
+    "titleManagerOnly": "Disponibilidade para venda",
+    "titleCategory": "Categorias",
+    "sorting": {
+      "descendingCredit": "Crédito decrescente",
+      "ascendingCredit": "Crédito crescente",
+      "descendingPrice": "Preço decrescente",
+      "ascendingPrice": "Aumento do preço",
+      "customSort": "Encomenda do membro (marketplace e aplicação)"
+    }
+  },
+  "cardDetails": {
+    "universalPass": "O Passe Universal é compatível com aulas em grupo e particulares.",
+    "packBlocking2": " anuladas fora de prazo durante uma semana",
+    "packBlocking1": " dias de bloqueios após ",
+    "maxPurchasePerMember": "Número máximo de compras : ",
+    "maxBookingPerDay": "Utilizações máximas por dia : ",
+    "maxBookingPerWeek": "Utilizações máximas por semana : ",
+    "maxBookingPerMonth": "Utilizações máximas por mês : "
+  },
+  "detailTitles": {
+    "universalPass": "Passe universal",
+    "vod": "VOD",
+    "restrictions": "Restrições",
+    "tags": "Etiquetas",
+    "accessibility": "Acessibilidade",
+    "compatibilityPaymentPack": "Compatibilidade com as aulas em grupo",
+    "compatibility": "Compatibilidade",
+    "validity": "Validade",
+    "credit_quantity": "Número de créditos",
+    "offPeak": "Horários"
+  },
+  "massExtension": {
+    "listItemNbDays": "+{{nbDays}} dias",
+    "createdAt": "Adicionar {{date}}",
+    "listItemDate": "Expirar entre {{ minDate }} e {{ maxDate }}",
+    "cancel": "Cancelar",
+    "submit": "Confirmar",
+    "title": "Adicionar uma extensão a todos os membros",
+    "maxDate": "Até",
+    "minDate": "Nunca antes de",
+    "dateHelpText": "Prolongar apenas os passes de aulas que expiram entre",
+    "helpText": "Aqui pode extender os passes de aulas para todos os membros. Esta operação é reversível."
+  },
+  "blockedCpp": "Passe bloqueado de {{-blocked_from}} até {{-blocked_until}}",
+  "disabledPacks": {
+    "hide": "Ver passes arquivados",
+    "show": "Ver passes arquivados"
+  },
+  "notificationForm": "Formulário de notificação",
+  "link": {
+    "copyLink": "Copiar o link para a página de pagamento",
+    "copied": "Link copiado"
+  },
+  "reverted": "Fatura anulada",
+  "noConsumerPack": "Nenhuma compra registada",
+  "credit": {
+    "updated": "Créditos atualizados"
+  },
+  "boughtConsumerPaymentPacks": "Inscritos",
+  "anyActivity": "Qualquer atividade",
+  "availableOnFollowingActivities": "Atividades elegíveis : ",
+  "anySport": "Qualquer categoria",
+  "availableOnFollowingEstablishments": "Salas elegíveis : ",
+  "availableOnFollowingSports": "Categorias elegíveis : ",
+  "specifications": {
+    "unlimitedCredits": "Ilimitado",
+    "nbCredits": "{{credits}} crédito",
+    "nbCredits_plural": "{{credits}} créditos"
+  },
+  "ht": "Antes do imposto",
+  "credits": "Crédito",
+  "credits_plural": "Créditos",
+  "unlimitedAndCalculatedMargin": " - Contribuição teórica calculada: preço / nb_reservas ",
+  "unlimitedAndMargin": " - Contribuição teórica de ",
+  "unlimitedPlural": "Ilimitados",
+  "unlimitedCredits": "Ilimitado",
+  "never": "Nunca",
+  "expirationDate": "Expira a",
+  "validUntil": "Válido até",
+  "noPaymentPackSubscribed": "Sem subscrição",
+  "addButton": "Criar um passe",
+  "bookingsLeftThisWeek": "Máximo de reservas por semana",
+  "validTo": " em ",
+  "validFrom": "Válido de ",
+  "validForNdays2": " dias após a compra",
+  "validForNdays1": "Válido ",
+  "validForDuration": {
+    "and": " e ",
+    "attendance": "a partir da primeira presença",
+    "booking": "a partir da primeira reserva",
+    "purchase": "a partir da data da fatura",
+    "years": "{{ count }} ano",
+    "years_plural": "{{ count }} anos",
+    "daysMonths": "{{ duration_months }} meses e{{ duration_days }} dias",
+    "months": "{{ count }} meses",
+    "days": "{{ count }} dia",
+    "days_plural": "{{ count }} dias",
+    "validFor": "para ",
+    "valid": "Válido "
+  },
+  "consumer": {
+    "bookingsThisWeek": "reserva(s) desta semana",
+    "expiresOn": "Expira em ",
+    "isFromDisabledShare": "Participação",
+    "isOwnerOfShares": "Partilhado (passe de aulas)",
+    "isFromShare": "Partilhado a partir de outra conta"
+  },
+  "validityTo": " em ",
+  "validity": "Válido a partir de ",
+  "maxNBookingsByMonth2": " reservas por mês",
+  "maxNBookingsByWeek2": " reservas por semana",
+  "maxNBookingsByWeek1": "Até ",
+  "enableConsumer": "Desbloquear",
+  "disableConsumer": "Bloquear",
+  "disabled": "Desativar",
+  "paymentPackDisabled": {
+    "error": "Impossível eliminar",
+    "success": "Passe de aulas eliminado"
+  },
+  "use": "Utilizar",
+  "isNonCompatible": "incompatível",
+  "subscribeToOffer": "Registo",
+  "orderingAlert": {
+    "text": "Qualquer alteração na ordem das \"Categorias\" apenas afetará a apresentação da página \"Passes de aulas\" do mercado e da aplicação. Esta atualização não afectará qualquer outra secção ou categoria.",
+    "button": "Página de personalização"
+  },
+  "noShowPenalty": {
+    "block": "{{days_blocked}} dias bloqueados depois de {{treshold}} ausências durante un periodo de {{time_window_days}} dias",
+    "account": "Será aplicado um depósito de {{amount}} às ausências {{treshold}} durante um período de {{time_window_days}} dias."
+  },
+  "newMemberOnly": "Disponível exclusivamente para novos membros",
+  "publicPacksTitle": "Passes disponíveis para venda",
+  "only_vod_access": "Disponível exclusivamente para os Videos de Demanda",
+  "privatePacksTitle": "Passes não disponíveis para venda",
+  "disabledPacksTitle": "Passes arquivados",
+  "penalty": {
+    "account": "Será aplicado um depósito de {{account_value}} para {{nb_cancellations}} cancelamentos fora de prazo durante um período de {{nb_days}} dias.",
+    "block": "{{days_blocked}} dias bloqueados após {{nb_cancellations}} cancelamentos fora do prazo durante um período de {{nb_days}} dias",
+    "title": "Política de cancelamento"
+  }
+}

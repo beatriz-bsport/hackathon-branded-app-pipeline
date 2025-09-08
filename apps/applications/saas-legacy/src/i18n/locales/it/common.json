@@ -1,0 +1,104 @@
+{
+  "form": {
+    "duration": {
+      "minute": "Durata in minuti",
+      "minute_plural": "Minuti:",
+      "hour": "Durata in ore",
+      "hour_plural": "Ore:",
+      "day": "Durata in giorni",
+      "day_plural": "Giorni:"
+    },
+    "requiredField": "questo campo è richiesto",
+    "validation": {
+      "number": "Questo campo deve essere un numero."
+    }
+  },
+  "colorPicker": {
+    "noColor": "Nessun colore",
+    "delete": "Cancella",
+    "validate": "Salva"
+  },
+  "text": {
+    "showLessText": "Vedi meno",
+    "showMoreText": "Vedi altro"
+  },
+  "close": "Chiudi",
+  "selector": {
+    "validate": "Convalidare",
+    "unselectAll": "Deseleziona tutti",
+    "selectAll": "Seleziona tutti",
+    "indeterminate": "Seleziona tutto ({{count}} selezionati)"
+  },
+  "cancel": "Annulla",
+  "confirm": "Conferma",
+  "disconnectInfo": "Torna alla pagina di accesso",
+  "disconnect": "Log-out",
+  "activate": "Attivare",
+  "save": "Salva",
+  "requiredField": "questo campo è richiesto",
+  "startAfterEnd": "La data di inizio deve essere inferiore alla data di fine",
+  "endBeforeStart": "La data di fine deve essere maggiore di quella di inizio",
+  "monthly": "Mensile",
+  "weekly": "Settimanale",
+  "showLess": "Mostra meno",
+  "showMore": "Mostra di più ({{count}})",
+  "duration": {
+    "minute": "{{ count }} minuto",
+    "minute_plural": "{{ count }} minuti",
+    "hour": "{{ count }} ora",
+    "hour_plural": "{{ count }} ore",
+    "day": "{{ count }} giorno",
+    "day_plural": "{{ count }} giorni"
+  },
+  "download": "Scaricare",
+  "saveRecord": "Salva",
+  "delete": "Eliminare",
+  "finish": "Terminare",
+  "letsGo": "Andiamo!",
+  "previous": "Precedente",
+  "next": "Seguente",
+  "start": "Iniziare",
+  "card": {
+    "categoryNames": {
+      "restrictions": "Restrizioni",
+      "credits": "Numero di crediti",
+      "vod": "VOD",
+      "accessibility": "Accessibilità",
+      "compatibility": "Compatibilità",
+      "paymentMethods": "Metodi di pagamento disponibili",
+      "validity": "Validità"
+    },
+    "copyLink": "Copia il link"
+  },
+  "params": "Parametri",
+  "ok": "OK",
+  "back": "Indietro",
+  "recommended": "Consigliato",
+  "day": "giorno",
+  "day_plural": "giorni",
+  "subscribe": "Iscriviti",
+  "discard": "Elimina",
+  "no": "No",
+  "yes": "Si",
+  "saveChanges": "Salva modifiche",
+  "none": "Nessuno",
+  "numberRequired": "Questo campo deve essere un numero",
+  "positiveNumber": "Questo campo deve essere maggiore di 0.",
+  "seeMore": "Vedi più",
+  "seeLess": "Vedi meno",
+  "discardChanges": "Scarta le modifiche",
+  "rename": "Rinomina",
+  "send": "Invia",
+  "reset": "Ripristina",
+  "add": "Aggiungi",
+  "more": "Di più",
+  "continue": "Continua",
+  "edit": "Modifica",
+  "preview": "Anteprima",
+  "gender": {
+    "X": "Non binario",
+    "M": "Maschio",
+    "F": "Femmina"
+  },
+  "biweekly": "Bisettimanale"
+}

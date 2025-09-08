@@ -1,0 +1,106 @@
+{
+  "parameters": {
+    "unusableByStaff": "Ocultar para o staff"
+  },
+  "delete": {
+    "submit": "Eliminar",
+    "cancel": "Cancelar",
+    "content": "Deseja mesmo eliminar este pack? Esta operação é irreversível. As compras já efetuadas e o carrinho ativo não serão afectados.",
+    "title": "Remover pack"
+  },
+  "edit": "Editar",
+  "detail": {
+    "emptyContent": "Este pack está vazio !",
+    "purchases": "Vendas",
+    "content": "Conteúdo",
+    "description": "Descrição",
+    "containsNProducts": "Contém {{ n }} produtos",
+    "itemCount": "{{ count }} item",
+    "itemCount_plural": "{{ count }} itens"
+  },
+  "form": {
+    "expiration_date": {
+      "tooltip": "Após a data selecionada, o pack deixará de estar disponível para venda.",
+      "helperText": "Disponível até",
+      "label": "Data limite para efetuar a compra"
+    },
+    "available_payment_method_identifiers": {
+      "helperText": "Selecionar pelo menos um método de pagamento. Se o carrinho tiver artigos com métodos de pagamento incompatíveis, será proposto o pagamento por cartão.",
+      "label": "Meios de pagamento autorizados"
+    },
+    "selectorPlaceholder": {
+      "shopitem": "Loja",
+      "paymentPack": "Passe de aulas",
+      "privatePass": "Passe Marcação"
+    },
+    "content": "Conteúdo",
+    "actions": {
+      "cancel": "Cancelar",
+      "submit": "Guardar"
+    },
+    "new_member_only": {
+      "label": "Apenas para novos membros"
+    },
+    "unusableByStaff": {
+      "label": "Oculto para o staff"
+    },
+    "manager_only": {
+      "label": "Oculto para os clientes"
+    },
+    "usePaymentComboTaxOnItems": {
+      "helperText": "Por defeito, o imposto aplicado a cada item é o indicado no mesmo. Ao selecionar esta opção, pode aplicar um imposto geral.",
+      "label": "Aplicar o IVA para toda a encomenda"
+    },
+    "tax": {
+      "label": "IVA"
+    },
+    "price": {
+      "label": "Preços"
+    },
+    "description": {
+      "label": "Descrição"
+    },
+    "name": {
+      "label": "Nome"
+    },
+    "maxPurchasePerMember": {
+      "helperText": "Deixar em branco para não impor um limite",
+      "label": "Máximo de compras por membro"
+    },
+    "error": {
+      "atLeastOneThing": "Deve acrescentar pelo menos um artigo ao seu pack"
+    },
+    "title": "Pack de formulários",
+    "highlightedAsRecommended": {
+      "helperText": "Permite que seus clientes vejam rapidamente quais pacotes são recomendados no momento.",
+      "label": "Marcar como recomendado"
+    },
+    "advancedOptions": {
+      "tag": {
+        "tagGroupDuplicated": "Tenha em atenção que os artigos seleccionados contêm etiquetas da mesma categoria.",
+        "selectTags": "Selecione etiquetas",
+        "tagsOnAcquisitionHelper": "Use etiquetas para identificar qual membro comprou o pack",
+        "tagsOnAcquisition": "Etiqueta após compra"
+      },
+      "header": "Avançado"
+    }
+  },
+  "list": {
+    "buttons": {
+      "add": "Criar um pack"
+    },
+    "explainIfEmpty": "Aqui pode criar packs que podem ser comprados pelos alunos e que contêm passes de aulas, artigos de loja, etc...",
+    "section": {
+      "availableOnline": "Disponível para venda",
+      "unavailableOnline": "Não disponível para venda"
+    }
+  },
+  "pageTitle": {
+    "list": "Packs"
+  },
+  "search": "Procurar um pack",
+  "link": {
+    "copyLink": "Copiar o link à página de pagamento",
+    "copied": "Link copiado"
+  }
+}

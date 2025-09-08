@@ -1,0 +1,194 @@
+{
+  "metaActivity": "Activité",
+  "workshop": "Atelier",
+  "search": "Chercher une activité",
+  "noActivities": "Les cours collectifs sont des cours dispensés à un groupe. Ici, vous pouvez ajouter, modifier et gérer vos cours collectifs.",
+  "actions": {
+    "addActivity": "Ajouter une activité",
+    "search": "Rechercher une activité"
+  },
+  "navigation": {
+    "goToPaymentPack": "Cartes de cours"
+  },
+  "forms": {
+    "create": {
+      "compatible_packs": {
+        "seeMore": "Voir plus",
+        "createPass": "Créer une carte de cours",
+        "goToActivity": "Aller à l'activité",
+        "passHelperText": "Les cartes de cours suivantes sont compatibles avec l'activité créée :",
+        "noCompatiblePass": "Aucune carte de cours compatible avec cette activité, pensez à en créer un"
+      },
+      "steps": {
+        "activity_form": "Ajouter une activité",
+        "pass_form": "Création d'une carte de cours (optionnel)",
+        "pass_list": "Finaliser",
+        "offer_form": "Création des séances (optionnel)",
+        "workshop_form": "Création de l'atelier"
+      }
+    },
+    "delete": {
+      "title": "Suppression de l'activité",
+      "content": {
+        "canDelete": "Êtes-vous sûr de vouloir supprimer cette activité ? Les séances et réservations passées ne seront pas affectées. Cette opération est définitive.",
+        "cannotDelete": "Des séances sont prévues dans le futur, vérifiez qu'elles ont bien été annulées."
+      },
+      "actions": {
+        "cancel": "Annuler",
+        "confirm": "Supprimer"
+      }
+    },
+    "warning": {
+      "highLastBookingBeforeWarning": "Attention, {{ durationFormatted }} avant le début du cours, plus aucune réservation ne sera possible !",
+      "lowFirsBookingUntilWarning": "Attention, il faut attendre d'être {{ durationFormatted }} avant le début du cours avant de pouvoir faire la toute première réservation !"
+    }
+  },
+  "detail": {
+    "pack": {
+      "noCompatiblePass": "Aucune carte de cours compatible",
+      "consumerPacks": "Carte de cours possédées par les membres",
+      "paymentPacks": "Carte compatibles"
+    },
+    "tab": {
+      "general": "Général",
+      "pack": "Cartes compatibles",
+      "group": "Séances groupées"
+    }
+  },
+  "name": "Nom",
+  "category": "Catégorie",
+  "addOffers": "Ajouter des séances",
+  "offersThisDay": "Séances ce jour :",
+  "description": "Description",
+  "modal": {
+    "delete": {
+      "title": "Suppression de l'activité",
+      "content": "Êtes-vous sûr de vouloir supprimer cette activité ? Les séances et réservations ne seront pas affectées. Cette opération est définitive.",
+      "cancel": "Annuler",
+      "confirm": "Supprimer"
+    }
+  },
+  "settings": {
+    "conditions": "Conditions",
+    "title": "Paramètres",
+    "lastBookingBeforeMinutes": "Jusqu'à {{m}} avant le début de la séance",
+    "lastDiscardBeforeMinutes": "Jusqu'à {{m}} avant le début de la séance",
+    "firstBookingMinutesUntil": "Les réservations sont bloquées avant {{m}} du début de la séance",
+    "autoDiscard": "La séance sera annulée s'il y a {{nb_bookings}} réservation(s) ou moins {{hours}}h avant le début de la séance",
+    "lastDiscardBeforeMinutesFull": "Les annulations sont acceptées jusqu'à {{m}} avant le début de la séance",
+    "lastBookingBeforeMinutesFull": "Dernières réservations possibles jusqu'à {{m}} avant le début de la séance",
+    "lastBookingBeforeMinutesHeader": "Avant le début du cours, dernière réservation possible",
+    "lastDiscardBeforeMinutesHeader": "Avant le début du cours, dernière annulation possible",
+    "firstBookingMinutesUntilHeader": "Les élèves peuvent réserver les séances futures si elles débutent dans moins de",
+    "autoDiscardHeader": "La séance sera annulée si",
+    "restrictionsHeader": "Restrictions personnalisées",
+    "restrictions": " Restriction personnalisée n°{{ count }}",
+    "seeRestrictions": "Voir"
+  },
+  "packsAvailable": "Eligible aux pass :",
+  "reviews": "Avis clients : ",
+  "disabledMetaActivities": "Activités archivées",
+  "edit": "Modifier",
+  "close": "Fermer",
+  "workshopSelect": "Chercher un atelier",
+  "groupedOption": {
+    "modal": {
+      "title": "Séances groupées",
+      "subtitleMetaActivitySelect": "Création d’un groupe de séances",
+      "subtitlePreview": "Prévisualisation de la récurrence",
+      "duplicate": "Dupliquer un groupe",
+      "form": {
+        "subtitle": "Informations générales",
+        "subtitleOffers": "Ajout de séances",
+        "addOffers": "Ajouter une séance",
+        "subtitleSettings": "Paramètres",
+        "subtitleRecurrence": "Récurrence",
+        "name": "Nom",
+        "fullBookingOnly": "Inscription à toutes les séances du groupe",
+        "fullBookingOnlyCaption": "Par défaut vos membres seront inscrits automatiquement à l'ensemble des séances du groupe s'ils s'inscrivent à l'une des séances de celui-ci. En désactivant ce paramètre, vos membres auront la liberté de s'inscrire à tout ou partie des séances du groupe.",
+        "allowBookingAfterStart": "Autoriser l'inscription en cours de route",
+        "allowBookingAfterStartCaption": "Par défaut si un groupe de séance a déjà commencé vos membres ne pourront plus s'y inscrire. En activant cette fonctionnalité vos membres pourront tout de même s'inscrire aux séances restantes.",
+        "marketPlaceAvailable": "Disponible à la réservation (web + app)",
+        "withRecurrence": "Activer la récurrence",
+        "nameCaption": "Nom du groupe de séance",
+        "timeStartHelper": "Sélectionnez la date de la première séance de la copie du groupe. Les autres séances du groupe seront copiées et décalées en fonction de cette date.",
+        "timeStart": "Date de début",
+        "recurrenceCount": "Nombre de répétitions",
+        "recurrenceUntil": "Répéter jusqu’au",
+        "recurrenceUntilHelper": "Merci d'indiquer la date de la dernière séance du dernier cycle.",
+        "recurrenceUntilHelper2": "Les groupes avec une dernière séance après cette date ne seront pas créé.",
+        "preview": "Prévisualiser",
+        "recurrenceNumberPrefix": "Répéter toutes les",
+        "recurrence": "Récurrence",
+        "daily": "Tous les jours",
+        "groupName": "Nom",
+        "uncreatedGroupsTitle": "Groupes non créés",
+        "creationError": "Création impossible",
+        "next": "Suivant",
+        "required": "Au minimun un groupe est nécessaire",
+        "copyRecurrence": "Dupliquer aussi les récurrences futures du groupe",
+        "delete": {
+          "title": "Suppresion",
+          "applyRecursive": "Annuler les autres groupes similaires",
+          "selectGroup": "Annuler les autres groupes similaires",
+          "selectHeader": "Sélectionnez les groupes qui seront modifiées",
+          "firstSession": "Première seance le {{-day}}",
+          "missingOffer": "Aucue offre dans le groupe",
+          "content": "Attention, en supprimant ce groupe toutes les séances à l'intérieur de celui-ci seront annulées. Les élèves inscrits verront leurs réservations annulées. Cette opération est définitive"
+        },
+        "save": "sauvegarder",
+        "back": "Précédent",
+        "submit": "Valider",
+        "impossibleState": "Les paramêtres saisis ne permettent pas de génerer un groupe",
+        "allowGuest": "Compatible avec la réservation pour un invité",
+        "allowGuestUnavailable": "Cette fonctionnalité n'est pas disponible sur les séances groupées.",
+        "spiviWarningHelperText": "Attention, si des séances sont liées à Spivi, leurs copies ne seront pas liées à Spivi.",
+        "syncOnSpivi": "Envoyer sur Spivi"
+      }
+    },
+    "errors": {
+      "offers_length": "Vous n'avez créé qu'une seule séance. Pour pouvoir créer un groupe de séances, ajoutez au moins deux séances. Si vous souhaitez créer une séance unique, vous pouvez le faire directement depuis l'atelier en question ou l'onglet calendrier."
+    },
+    "intervalLabel": {
+      "month": "Tous les mois",
+      "month_plural": "Tous les {{ count }} mois",
+      "week": "Toutes les semaines",
+      "week_plural": "Toutes les {{ count }} semaines",
+      "day": "Tous les jours",
+      "day_plural": "Tous les {{ count }} jours",
+      "year": "Tous les ans",
+      "year_plural": "Tous les {{ count }} ans",
+      "until": {
+        "month": "Tous les mois jusqu'au {{-until}} ",
+        "month_plural": "Tous les {{ count }} mois jusqu'au {{-until}} ",
+        "week": "Toutes les semaines jusqu'au {{-until}} ",
+        "week_plural": "Toutes les {{ count }} semaines jusqu'au {{-until}} ",
+        "day": "Tous les jours jusqu'au {{-until}} ",
+        "day_plural": "Tous les {{ count }} jours jusqu'au {{-until}} ",
+        "year": "Tous les ans jusqu'au {{-until}} ",
+        "year_plural": "Tous les {{ count }} ans jusqu'au {{-until}} "
+      }
+    },
+    "last": "dernier",
+    "helperText": {
+      "month": "Ce groupe commence le {{-day}}, tous les mois",
+      "month_plural": "Ce groupe commence le {{-day}}, tous les {{ count }} mois",
+      "week": "Ce groupe commence le {{-day}}, toutes les semaines",
+      "week_plural": "Ce groupe commence le {{-day}}, toutes les {{ count }} semaines",
+      "day": "Ce groupe est répété tous les jours",
+      "day_plural": "Ce groupe commence est répété tous les {{ count }} jours",
+      "year": "Ce groupe commence {{-day}}, de {{-mont}} tous les ans",
+      "year_plural": "Ce groupe commence {{-day}}, de {{-month}} tous les {{ count }} ans"
+    },
+    "offerDescription": "{{ count }} séances du {{- firstSession }} au {{- lastSession }}",
+    "warning": {
+      "uncreatedGroups": "Attention, certains groupes ne seront pas créés.\nVous pouvez les trouver dans la section \"Groupes non créés\" en bas de cette liste",
+      "groupsWithOutOfTheRangeOffers": "Les groupes de séances ci-dessous ne seront pas créés car ils comportent des séances qui ont lieu dans plus de 3 ans"
+    }
+  },
+  "cancelledOffers": "{{count}} annulations",
+  "warningUSCDialog": {
+    "title": "Politique d'annulation sur USC",
+    "content": "La nouvelle politique d'annulation s'appliquera aux événements futurs. Toutefois, les événements déjà publiés au cours des deux prochaines semaines ne pourront pas être mis à jour."
+  }
+}

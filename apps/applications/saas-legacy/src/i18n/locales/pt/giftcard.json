@@ -1,0 +1,192 @@
+{
+  "search": "Procurar um  cartão presente",
+  "widget": "Escolher Cartões de presente",
+  "giftcardTemplate": {
+    "template": {
+      "validity": "Válido {{count}} dia",
+      "validity_plural": "Válido {{count}} dias",
+      "deleteTemplateContent": "Ao desativar um  cartão presente partilhado, os membros que possuem este passe só o poderão utilizar no estabelecimento onde foi comprado.",
+      "deleteInstanceContent1": "Ao desativar este estabelecimento da partilha de passes de oferta, todos os membros que possuem este passe e o receberam de um membro que comprou o passe neste estabelecimento continuarão a poder utilizá-lo. No entanto, deixarão de o poder utilizar noutros estabelecimentos.",
+      "deleteInstanceContent2": "Por fim, os cartões de presente comprados noutros estabelecimentos deixam de poder ser utilizados no estabelecimento desativado, independentemente da data em que foram compradas.",
+      "unlimited": "Ilimitado",
+      "withoutTax": "Isento de impostos",
+      "validityDetail": "Validade antes da caducidade : {{count}} dia",
+      "validityDetail_plural": "Validade antes da expiração : {{count}} dias"
+    },
+    "listPage": {
+      "emptyLabel": "Não foram registados passes de oferta partilhados",
+      "addButton": "Criar um cartão presente compartilhado",
+      "fuzzyPlaceholder": "Procurar um  cartão presente"
+    },
+    "giftcard": "Cartão presente",
+    "sharedCard": "Partilhado com outro franchisado"
+  },
+  "list": {
+    "explainIfEmpty": "Os Cartões de presente permitem que os seus membros ofereçam aos seus convidados uma quantia em dinheiro para gastar no seu estabelecimento.",
+    "activeTitle": "Cartões de presente Disponíveis",
+    "unavailableForSaleTitle": "Cartões de presente Indisponíveis",
+    "archivedTitle": "Cartões de presentes Arquivados",
+    "isEmpty": "Não existem cartões de presente para apresentar.",
+    "actions": {
+      "goToGiftcard": "Ver todos os Cartões de presente",
+      "create": "Adicionar um cartão presente"
+    },
+    "validity": "Válido {{ duration }} dias",
+    "unlimited": "Ilimitado",
+    "addBackgroundImage": "Adicionar imagens personalizadas",
+    "visibility": "Não visível"
+  },
+  "consumerGiftcard": {
+    "activation": {
+      "activate": "Ativar o meu Cartão-presente",
+      "alreadyActivated": "Este  Cartão-presente já foi utilizado",
+      "title": "Alguém quere-te fazer feliz !",
+      "content1withDate": "O seu cartão de presente{{price}} pode ser utilizado em qualquer um dos nossos produtos. Tenha em atenção que o seu cartão de presente expira em {{ expiration_days }} dia(s) após a ativação. Diverte-te!",
+      "content2": "O cartão de presente será automaticamente adicionado como método de pagamento ao seu cesto. Todas as informações relacionadas com o cartão de presente são guardadas no seu perfil.",
+      "content3": "Se iniciou sessão com a conta incorrecta, pedimos-lhe gentilmente que não valide este cartão de presente e não for destinado a você. Por favor, volte a conectar-se com a conta correcta.",
+      "subtitle": "Parece que alguém o surpreendeu.",
+      "content1": "O seu cartão de presente de {{price}} é compatível com todos os produtos da nossa loja e não tem data de validade. Diverte-te!"
+    },
+    "invitationForm": {
+      "activationCodeLink": "O convite por correio eletrónico foi enviado e já não pode ser editado. Se o destinatário correto não tiver recebido a mensagem, pode enviar este link: ",
+      "title": "Enviar um convite por e-mail",
+      "actions": {
+        "submit": "Enviar",
+        "close": "Fechar"
+      },
+      "content": "Pode alterar os destinatários do Cartão-presente. Se a mensagem do e-mail não tiver sido recebida, pode também enviar esta ligação de ativação:"
+    },
+    "isEmpty": "Não existem cartões de presente para apresentar.",
+    "isFor": "À atenção de ",
+    "value": "Valor",
+    "previewPlaceholder": {
+      "message_is_from": "[Nome do comprador]",
+      "name": "[Nome do passe]",
+      "message_content": "[Mensagem personalizada]",
+      "giftcard_amount": "[Montante do passe]",
+      "message_is_for": "[Nome do destinatário]"
+    },
+    "form": {
+      "hour_send": "Hora do envio",
+      "message_content": {
+        "label": "Mensagem pessoal"
+      },
+      "recipients": {
+        "label": "Endereço de email do destinatário"
+      },
+      "footerUnlimited": "O passe será enviado por e-mail em {{- date_send }} à {{- hour_send }} nos endereços indicados. Não contém um prazo de validade. A conta do destinatário será creditada com {{- price }} para compras futuras.",
+      "name": {
+        "label": "Nome do passe"
+      },
+      "footer": "O cartão presente será enviado para o destinatário às {{- hour_send }} . Será válido durante {{ expiration_days }} dia(s) após a ativação e a conta do destinatário será carregada com{{- price }}",
+      "message_is_for": {
+        "label": "À atenção de "
+      },
+      "select_image": "Seleccione a sua imagem de fundo",
+      "date_send": {
+        "label": "Data de envio da mensagem de e-mail"
+      },
+      "actions": {
+        "submit": "Adicionar ao cesto",
+        "cancel": "Cancelar"
+      },
+      "message_is_from": {
+        "label": "A partir de "
+      }
+    },
+    "list": {
+      "myPurchases": "Cartões de presente comprados",
+      "myGifted": "cartões de presente recebidos"
+    },
+    "expiresOn": "Caduca em {{- d }}",
+    "notAttributedYet": "Não ativado",
+    "sendTo": "Reenviar convite",
+    "linkedInvoice": "Fatura válida",
+    "invitedOn": "Enviado em {{- d }}",
+    "willInviteOn": "Convite a enviar em {{- d }}",
+    "isFrom": "A partir de "
+  },
+  "form": {
+    "giftcard": {
+      "name": {
+        "label": "Nome"
+      },
+      "description": {
+        "label": "Descrição"
+      },
+      "price": {
+        "helperText": "Define o valor do passe oferecido",
+        "label": "Preço de venda"
+      },
+      "expiration_days": {
+        "helperText": "A validade do cartão-presente começa na data de envio do convite.",
+        "label": "Período de validade em dias"
+      },
+      "section": {
+        "parameters": {
+          "title": "Configurações"
+        }
+      },
+      "title": "Cartão-presente",
+      "unlimited": {
+        "label": "Ilimitado"
+      },
+      "manager_only": {
+        "label": "Invisível para os membros"
+      },
+      "actions": {
+        "submit": "Validar",
+        "cancel": "Fechar"
+      },
+      "available_payment_method_identifiers": {
+        "label": "Métodos de pagamento disponíveis"
+      },
+      "advancedOptions": {
+        "tag": {
+          "selectTags": "Selecione etiquetas",
+          "tagsOnAcquisitionHelper": "Use etiquetas para identificar qual membro comprou o vale-presente.",
+          "tagsOnAcquisition": "Etiqueta após compra"
+        },
+        "header": "Avançado"
+      }
+    },
+    "canNotUpdateBecauseShared": "Este Cartão-presente é partilhado pela conta do franchisador. Foi definido pela conta do franchisador e não pode ser modificado."
+  },
+  "backgroundImage": {
+    "dialog": {
+      "explain": "Adicione imagens para permitir que os seus membros personalizem o seu cartão-presente. Ao criar o cartão-presente, os membros poderão escolher uma imagem de fundo para o cartão-presente",
+      "actions": {
+        "close": "Fechar"
+      },
+      "title": "Imagens personalizadas"
+    }
+  },
+  "link": {
+    "copyLink": "Copiar o link da compra",
+    "activationLink": "Copiar o link de ativação"
+  },
+  "delete": {
+    "title": "Arquivar o  cartão presente",
+    "content": "Tem a certeza de que pretende arquivar este cartão presente? Deixará de aparecer no seu Back Office, mas pode reactivá-lo no futuro.",
+    "cancel": "Cancelar",
+    "submit": "Confirmar"
+  },
+  "giftcard": {
+    "configurationTitle": "Cartão-presente",
+    "detail": {
+      "availablePaymentMethods": "Métodos de pagamento disponíveis",
+      "manager_only": "cartões-presente indisponíveis",
+      "expirationDate": "Validade antes de expirar : {{ expiration_days }} dias"
+    },
+    "delete": {
+      "dialog": {
+        "content": "Tens a certeza que quer eliminar este passe ? Os membros que já adquiriram o passe podem continuar a utilizá-lo.",
+        "actions": {
+          "delete": "Eliminar",
+          "close": "Fechar"
+        },
+        "title": "Eliminar"
+      }
+    }
+  }
+}

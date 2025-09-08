@@ -1,0 +1,168 @@
+{
+  "paymentAllInOnce": "Eenmalige betaling",
+  "action": {
+    "edit": {
+      "success": "De configuratie is succesvol gewijzigd",
+      "error": "Fout bij het wijzigen van de configuratie"
+    },
+    "disable": {
+      "success": "De configuratie is succesvol verwijderd",
+      "error": "Fout bij verwijderen van de configuratie"
+    },
+    "create": {
+      "success": "De configuratie is succesvol toegevoegd",
+      "error": "Fout bij toevoegen van de configuratie"
+    }
+  },
+  "list": {
+    "infoNoInstalmentPayment": "In dit onderdeel worden alle termijnbetalingen beheerd. Termijnbetalingen stellen je leden in staat om geselecteerde producten gespreid te betalen.",
+    "addInstalmentPayment": "Een configuratie toevoegen"
+  },
+  "detail": {
+    "duration": "Betalingen worden iedere {{frequency}} {{recurrency}} geïncasseerd voor {{number_of_billing}} {{recurrency_ponderate_by_number_of_billing}}.",
+    "comboAvailable": "{{length}} compatibel pakket",
+    "comboAvailable_plural": "{{length}} compatibele pakketten",
+    "giftcardAvailable": "{{length}} compatibele cadeaubon",
+    "giftcardAvailable_plural": "{{length}} compatibele cadeaubon(nen)",
+    "shopItemAvailable": "{{length}} compatibel webshop-product",
+    "shopItemAvailable_plural": "{{length}} compatibele webshop-producten",
+    "noCompability": "Deze instellingen zijn niet compatibel met termijnbetalingen.",
+    "noConfiguration": "Selecteer een configuratie om meer informatie weer te geven.",
+    "title": "Details",
+    "giftcard": "Cadeaubonnen",
+    "paymentPack": "Leskaarten",
+    "privatePass": "Afspraakkaarten",
+    "shopItem": "Webshop-producten",
+    "combo": "Pakketten",
+    "recurrency": "Interval",
+    "number_of_billing": "Aantal betalingen",
+    "paymentNumber": "{{number_of_billing}} betaling",
+    "paymentNumber_plural": "{{number_of_billing}} betaling(en)",
+    "fee": "Toeslagen",
+    "minimumAmount": "Minimum aankoopbedrag",
+    "compatibility": "Compatibiliteit",
+    "seeAll": "Toon alles",
+    "packAvailableForAll": "Alle compatibele leskaarten",
+    "packAvailable": "{{length}} compatibele leskaart",
+    "packAvailable_plural": "{{length}} compatibele leskaart(en)",
+    "privatePassAvailableForAll": "Alle compatibele afspraakkaarten",
+    "privatePassAvailable": "{{length}} compatibele afspraakkaart(en)",
+    "privatePassAvailable_plural": "{{length}} compatibele afspraakkaart(en)",
+    "comboAvailableForAll": "Alle compatibele pakketten",
+    "giftcardAvailableForALl": "Alle compatibele cadeaubonnen",
+    "shopItemAvailableForALl": "Alle compatibele webshop-producten",
+    "onlyWhenAllAvailable": "Deze optie alleen aanbieden als alle producten in het winkelmandje compatibel zijn",
+    "whenOneAvailable": "Deze optie aanbieden als ten minste één product in het winkelmandje compatibel is"
+  },
+  "form": {
+    "onlyAvailableInfo": "Standaard zullen er géén termijnbetalingen worden aangeboden, mits het gehele winkelmandje van een lid uit compatibele producten bestaat. Zet deze optie uit om termijnbetalingen te activeren als ten minste één product aan de voorwaarden voor termijnbetalingen in een winkelmandje voldoet.",
+    "compabilityInfo": "Selecteer de onderdelen die met termijnbetalingen compatibel zijn. Termijnbetalingen worden vervolgens bij aankoop van deze producten aan leden aangeboden.",
+    "numberOfBilling": "Aantal incasso's",
+    "add": "Een configuratie toevoegen",
+    "search": "Zoeken",
+    "onlyAvailable": "Deze optie alleen aanbieden als alle producten in het winkelmandje compatibel zijn",
+    "minimumAmountHelperText": "Dit is het minimale aankoopbedrag voor termijnbetalingen.",
+    "minimum_amount": "Minimum aankoopbedrag",
+    "advanced": "Geavanceerd",
+    "requiredField": "Dit veld is verplicht.",
+    "cancel": "Annuleren",
+    "save": "Opslaan",
+    "compatibility": "Compatibiliteit",
+    "create": "[Formulier] Termijnbetalingen",
+    "generalInfo": "Algemeen",
+    "name": "Naam",
+    "info": {
+      "startDay": "Betalingen worden elke {{frequency}} dag(en) geïncasseerd",
+      "startWeek": "Betalingen worden elke {{frequency}} week/weken geïncasseerd",
+      "startMonth": "Betalingen worden elke {{frequency}} maand(en) geïncasseerd",
+      "startYear": "Betalingen worden elke {{frequency}} jaar geïncasseerd",
+      "middle": " voor een totaalduur van {{total}} - ",
+      "end": " en dit genereert {{number_of_billing}} incasso.",
+      "end_plural": " en dit genereert {{number_of_billing}} incasso's."
+    },
+    "frequency": {
+      "start": "Herhaal elke"
+    },
+    "fee": "Toeslagen",
+    "feeHelperText": "Toeslagen voor termijnbetalingen worden aan de eerste incasso toegevoegd.",
+    "recurrency": {
+      "title": "Interval",
+      "week": "week/weken",
+      "week_plural": "week/weken",
+      "month": "maand(en)",
+      "month_plural": "maanden",
+      "year": "jaar",
+      "year_plural": "jaar",
+      "day": "dag(en)",
+      "day_plural": "dag(en)",
+      "daily": "Dagelijks",
+      "weekly": "Wekelijks",
+      "montly": "Maandelijks",
+      "annual": "Jaarlijks"
+    },
+    "compability": {
+      "selectPack": "Selecteer een leskaart",
+      "selectPrivatePass": "Selecteer een afspraakkaart",
+      "selectCombo": "Selecteer een pakket",
+      "selectShopItem": "Selecteer een webshop-product",
+      "selectGiftcard": "Selecteer een cadeaubon",
+      "allPass": "Compatibel met alle leskaarten",
+      "pack": "Leskaart",
+      "privateBooking": "Afspraakkaart",
+      "allPrivateBooking": "Compatibel met alle afspraakkaarten",
+      "combo": "Pakket",
+      "allCombo": "Compatibel met alle pakketten",
+      "shopItem": "Webshop-producten",
+      "allShopItem": "Compatibel met alle webshop-producten",
+      "giftcard": "Cadeaubonnen",
+      "allGiftcard": "Compatibel met alle cadeaubonnen"
+    },
+    "customInstalmentAmount": {
+      "label": "Het bedrag van de eerste termijn aanpassen",
+      "type": {
+        "percent": "Percentage",
+        "amount": "Vast bedrag"
+      },
+      "amountHelperText": {
+        "amount": "Bedrag",
+        "percent": "Percentage"
+      }
+    },
+    "partialPaymentRadio": {
+      "disabled": "Termijnbetalingen activeren",
+      "enabled": {
+        "label": "Aanbetalingen activeren",
+        "helperText": "Activeer deze optie op leden eerst een deelbedrag/borg te laten betalen. Het resterende bedrag wordt van leden hun interne rekening (Wallet) afgeschreven."
+      }
+    }
+  },
+  "basket": {
+    "instalmentAmountTitle": "Tijdlijn",
+    "instalmentAmount": "Deadline: ",
+    "fee": "Toeslag: "
+  },
+  "title": "Termijnbetalingen",
+  "deleteDialog": {
+    "title": "Weet je zeker dat je deze configuratie wilt verwijderen?",
+    "content": "Alleen de toekomstige betalingen worden beïnvloed."
+  },
+  "close": "Sluiten",
+  "modify": "Bewerken",
+  "delete": "Verwijderen",
+  "menu": {
+    "secondary": {
+      "allMasculine": "Elke {{frequency}} ",
+      "allFeminine": "Elke {{frequency}} ",
+      "numberOfBilling": "{{number_of_billing}} betaling(en)",
+      "numberOfBilling_plural": "{{number_of_billing}} betaling(en)"
+    }
+  },
+  "validation": {
+    "percentRange": "Het percentage moet tussen 1 en 100 liggen",
+    "amountMin": "Het bedrag moet groter zijn dan 1"
+  },
+  "configurationOption": {
+    "payLater": "Betaal alleen {{amount}}",
+    "payLaterRemainder": "Het restant van het te betalen bedrag ({{remainder}}) wordt afgetrokken van je interne saldo"
+  }
+}

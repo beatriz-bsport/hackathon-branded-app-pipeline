@@ -33,7 +33,7 @@
   "notificationRuleEventDetails": {
     "toast": {
       "create": {
-        "failure": "Failed to update notification rule"
+        "failure": "Failed to create notification rule"
       },
       "update": {
         "failure": "Failed to update notification rule"
@@ -74,10 +74,15 @@
         "noPreview": "No preview available",
         "select": {
           "label": "Email notification",
-          "placeholder": "Select an email template"
+          "placeholder": "Select an email template",
+          "standardBsportTemplatePlaceholder": "Standard bsport template",
+          "alertCommunicationVariableStatus": "There was an issue with the selected template"
         },
         "carbonCopy": {
           "label": "Receive a copy of the email"
+        },
+        "requiredCommunicationVariablesAlert": {
+          "body": "The selected template couldn’t be used because it’s missing required variables. To use a custom template, make sure it includes these variables: "
         }
       },
       "pushNotification": {

@@ -117,18 +117,6 @@ export const TagsPageContent = ({
         }}
         actionsConfig={[
           {
-            id: "next-tag-details",
-            iconLeft: "chevron-down",
-            intent: "default",
-            size: "md",
-            color: "main",
-            onClick: navigateToNextTag,
-            tooltipProps: {
-              label: t("tagsDetails.tooltip.nextSubTag"),
-              placement: "bottom-right",
-            },
-          },
-          {
             id: "previous-tag-details",
             iconLeft: "chevron-up",
             intent: "default",
@@ -137,6 +125,18 @@ export const TagsPageContent = ({
             onClick: navigateToPreviousTag,
             tooltipProps: {
               label: t("tagsDetails.tooltip.previousSubTag"),
+              placement: "bottom-right",
+            },
+          },
+          {
+            id: "next-tag-details",
+            iconLeft: "chevron-down",
+            intent: "default",
+            size: "md",
+            color: "main",
+            onClick: navigateToNextTag,
+            tooltipProps: {
+              label: t("tagsDetails.tooltip.nextSubTag"),
               placement: "bottom-right",
             },
           },

@@ -28,7 +28,6 @@ export const NotificationRulePushNotificationDetails: React.FC<
     updatePushNotificationContentInNotification,
   } = useUpdateNotificationRule({
     notificationEventId: selectedNotificationEventId,
-    notificationEventDetails: selectedNotificationRule?.details,
     onSuccess: () => {
       fetchNotificationRuleEventData();
     },

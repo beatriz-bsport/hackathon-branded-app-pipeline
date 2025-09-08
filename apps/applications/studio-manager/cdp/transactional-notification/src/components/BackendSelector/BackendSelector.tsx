@@ -62,6 +62,10 @@ export type BackendSelectorProps<TParams, TResult> = {
    * Callback fired when an item is selected, receiving the selected item's ID.
    */
   onSelect?: (selectedId: string) => void;
+  /**
+   * Callback fired when the clear action is performed, receiving the cleared item's ID.
+   */
+  onClear?: () => void;
 };
 
 /**
@@ -89,6 +93,7 @@ export const BackendSelector = <
   onSelect,
   defaultValues,
   className,
+  onClear,
 }: BackendSelectorProps<TParams, TResult>) => {
   const { t } = useTranslation("transactionalNotification");
   const [searchInput, setSearchInput] = useState("");
@@ -153,6 +158,10 @@ export const BackendSelector = <
       }}
       onValueChange={(event: string) => {
         setSearchInput(event);
+      }}
+      onClear={() => {
+        setSearchInput("");
+        onClear?.();
       }}
     />
   );

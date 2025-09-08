@@ -43,7 +43,6 @@ export function getFallbackLanguage(language: string): Array<Locale> {
     LANGUAGES.GERMAN,
     LANGUAGES.SPANISH,
     LANGUAGES.PORTUGUESE,
-    LANGUAGES.CZECH,
   ]) {
     if (language.startsWith(locale)) return [locale, ...defaultFallback];
   }

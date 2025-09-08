@@ -1,5 +1,4 @@
 export const LANGUAGES = {
-  DEFAULT: "af",
   FRENCH: "fr",
   ENGLISH: "en",
   ENGLISH_BRITISH: "en-GB",
@@ -9,7 +8,6 @@ export const LANGUAGES = {
   GERMAN: "de",
   ITALIAN: "it",
   CATALAN: "ca",
-  CZECH: "cs",
   PORTUGUESE: "pt",
 } as const;
 
@@ -21,7 +19,6 @@ export const LOCALES = [
   LANGUAGES.GERMAN,
   LANGUAGES.ITALIAN,
   LANGUAGES.PORTUGUESE,
-  LANGUAGES.CZECH,
 ] as const;
 
 // From https://emojipedia.org/fr/drapeaux
@@ -36,7 +33,6 @@ export const FLAG_EMOJIS = {
   [LANGUAGES.ITALIAN]: "🇮🇹",
   [LANGUAGES.CATALAN]: "🇪🇸",
   [LANGUAGES.PORTUGUESE]: "🇵🇹",
-  [LANGUAGES.CZECH]: "🇨🇿",
 };
 
 export const EXTRA_TIMEZONES = {

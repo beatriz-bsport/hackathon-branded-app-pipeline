@@ -6,14 +6,13 @@ import { withTranslation, TFunction } from 'react-i18next';
 
 import withStyles from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
-import ButtonBase from '@material-ui/core/ButtonBase';
 import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Edit';
-import Paper from '@material-ui/core/Paper';
 import TodayIcon from '@material-ui/icons/Today';
 import CheckIcon from '@material-ui/icons/Check';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Alert from '@material-ui/lab/Alert';
+import Card from '@material-ui/core/Card';
 
 import type { PrivateService } from '../../types';
 
@@ -33,14 +32,13 @@ const styles = (theme) => ({
     marginRight: theme.spacing(2),
   },
   row: {
+    cursor: 'pointer',
     display: 'flex',
     alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'flex-start',
     width: '100%',
     padding: theme.spacing(2),
-    backgroundColor: '#F8F8F8',
-    borderRadius: theme.spacing(2),
     marginTop: theme.spacing(1),
   },
   leftColumn: {
@@ -70,7 +68,7 @@ type Props = {
 
 const ResourceConfigurationChecker = withStyles(styles)(
   withTranslation(['privateService'])((props) => (
-    <ButtonBase className={props.classes.row} onClick={props.onClick}>
+    <Card className={props.classes.row} onClick={props.onClick}>
       {props.loading ? (
         <CircularProgress className={props.classes.loading} />
       ) : null}
@@ -117,7 +115,7 @@ const ResourceConfigurationChecker = withStyles(styles)(
           </Typography>
         ) : null}
       </div>
-    </ButtonBase>
+    </Card>
   )),
 );
 
@@ -145,8 +143,8 @@ export const PrivateServiceConfigurationHelper = (props: Props) => {
           )}
       </div>
 
-      <Paper>
-        <ButtonBase
+      <div>
+        <Card
           className={classes.row}
           disabled={
             props.privateService.available_on_partnership &&
@@ -200,7 +198,7 @@ export const PrivateServiceConfigurationHelper = (props: Props) => {
               )
             )}
           </div>
-        </ButtonBase>
+        </Card>
         {privateService.establishments.map((establishment) => {
           const resourceSlotExistState = getResourceSlotsExistState(
             'associated_establishment',
@@ -235,7 +233,7 @@ export const PrivateServiceConfigurationHelper = (props: Props) => {
             />
           );
         })}
-      </Paper>
+      </div>
     </div>
   );
 };

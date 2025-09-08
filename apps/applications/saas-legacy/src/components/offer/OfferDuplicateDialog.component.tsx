@@ -162,9 +162,10 @@ const OfferDuplicateDialog: React.FC<Props> = ({
       isOfferInGroup: Boolean(offer.group),
       isRecurrenceWeekDayDialogOpen: false, // Initialize preview dialog as closed
       calendarSelectedDate: startDate.toISO() || DateTime.now().toISO(),
-      linkNewOffers: true,
+      linkNewOffers: isAlreadyRecurring,
     };
   }, [
+    isAlreadyRecurring,
     lastOfferDate,
     offer.group,
     offer.date_start,
@@ -265,12 +266,14 @@ const OfferDuplicateDialog: React.FC<Props> = ({
                       : t('offer:form.recurrence.regularOffer')}
                   </Alert>
                   <OfferFormDateTime timezone={offer.timezone_name} />
-                  <SwitchField
-                    id="offer-form-recurrence-switch"
-                    label={t('offer:form.recurrence.linkNewOffersLabel')}
-                    name="linkNewOffers"
-                    switchColor="secondary"
-                  />
+                  <div style={{ marginTop: 8 }}>
+                    <SwitchField
+                      id="offer-form-recurrence-switch"
+                      label={t('offer:form.recurrence.linkNewOffersLabel')}
+                      name="linkNewOffers"
+                      switchColor="secondary"
+                    />
+                  </div>
                 </DialogContent>
                 <DialogActions>
                   <Button color="secondary" onClick={onClose}>

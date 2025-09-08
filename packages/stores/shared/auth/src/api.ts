@@ -12,7 +12,7 @@ export type LoginParams = {
 
 export const loginAPI = ({ email, password }: LoginParams): ApiConfig => {
   return [
-    `${API_URL}/authentication/signin/with-login/`,
+    `${API_URL}/authentication/signin/with-jwt-login/`,
     {
       method: "POST",
       body: JSON.stringify({

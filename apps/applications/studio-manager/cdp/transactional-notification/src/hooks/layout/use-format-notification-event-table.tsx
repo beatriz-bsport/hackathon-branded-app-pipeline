@@ -40,10 +40,12 @@ export const useFormatNotificationEventTable = () => {
    * @returns Array of list item props ready for rendering
    */
   const formatNotificationRuleEventTableItems = ({
+    selectedNotificationRule,
     isPushNotificationEnabled,
     items,
     onRowClick,
   }: {
+    selectedNotificationRule: RefinedNotificationRuleEventData | null;
     isPushNotificationEnabled?: boolean;
     items: RefinedNotificationRuleEventData[];
     onRowClick: (row: RefinedNotificationRuleEventData) => void;
@@ -79,6 +81,9 @@ export const useFormatNotificationEventTable = () => {
         is_franchise_owned: isFranchiseOwned,
         is_push_notification_set: isPushNotificationSet,
         onRowClick: () => onRowClick(event),
+        isActive:
+          selectedNotificationRule?.rule.notification_event ===
+          event.rule.notification_event,
       };
     });
   };

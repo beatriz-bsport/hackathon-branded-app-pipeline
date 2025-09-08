@@ -68,6 +68,8 @@ type BaseAutocompleteProps = Omit<
   disabled?: boolean;
   /** Empty the selected value array when clicking, used when you want to display a filterable list of choice not made to be kept */
   clearOnSelect?: boolean;
+  /** Callback function triggered when the textfield clear action is performed */
+  onClear?: () => void;
 };
 
 type MultiSelectAutocompleteProps = BaseAutocompleteProps & {
@@ -110,6 +112,7 @@ const Autocomplete: React.FC<AutocompleteProps> = ({
   onValueChange,
   disabled,
   clearOnSelect = false,
+  onClear,
   ...props
 }) => {
   const textFieldRef = React.useRef<HTMLInputElement | null>(null);
@@ -340,6 +343,7 @@ const Autocomplete: React.FC<AutocompleteProps> = ({
                   setTextFieldValue("");
                   setSearchedValue("");
                   if (onValueChange) onValueChange("");
+                  onClear?.();
                 }}
               />
             );

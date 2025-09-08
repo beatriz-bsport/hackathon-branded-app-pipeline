@@ -80,6 +80,35 @@ export const getIsEmailNotificationDisabled = ({
 };
 
 /**
+ * Determines if email carbon copy should be disabled for a notification rule event.
+ *
+ * This utility function checks multiple conditions that would cause email carbon copy
+ * to be disabled: franchise ownership, disabled checkboxes setting, or presence of
+ * required tags. When any of these conditions are true, the email carbon copy
+ * functionality should typically be disabled in the user interface.
+ *
+ * @param params - Configuration object
+ * @param params.refinedNotificationRuleData - The refined notification rule event data
+ * @returns True if email carbon copy should be disabled, false if they can remain enabled
+ */
+export const getIsEmailCarbonCopyDisabled = ({
+  refinedNotificationRuleData,
+}: {
+  refinedNotificationRuleData: RefinedNotificationRuleEventData;
+}) => {
+  // Check if checkboxes should be disabled
+  const shouldDisableCheckboxes =
+    refinedNotificationRuleData?.settings?.disabled_checkboxes ?? false;
+
+  // Check required tag list for the notification rule
+  const requiredTagList =
+    refinedNotificationRuleData?.rule?.required_tags || [];
+  const hasRequiredTags = requiredTagList.length > 0;
+
+  return shouldDisableCheckboxes || hasRequiredTags;
+};
+
+/**
  * Determines if push notifications should be disabled for a notification rule event.
  *
  * This utility function checks multiple conditions that would cause push notifications

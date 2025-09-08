@@ -1,0 +1,140 @@
+{
+  "filters": {
+    "showFuture": "Show future expenses",
+    "filterStaff": "All staff",
+    "filterSupplier": "All suppliers",
+    "filterCategory": "All categories",
+    "titleStaff": "Staff",
+    "titleSupplier": "Suppliers",
+    "titleCategory": "Categories",
+    "noStaff": "No assigned staff",
+    "noCategory": "No category"
+  },
+  "dialogEditExpense": {
+    "all": "Edit all past and future similar expenses",
+    "future": "Edit this expense and future similar expenses",
+    "current": "Only modify this expense",
+    "validate": "Confirm",
+    "cancel": "Cancel"
+  },
+  "dialogDeleteExpense": {
+    "all": "Delete all past and future expenses",
+    "future": "Delete this and all future expenses",
+    "current": "Only delete this specific expense",
+    "delete": "Delete",
+    "cancel": "Cancel",
+    "confirm": "You're about to permanently this expense ({{amount}} from {{date_due}}).",
+    "warning": "Are you sure that you want to delete this expense?"
+  },
+  "table": {
+    "no": "No",
+    "yes": "Yes",
+    "header": {
+      "actions": "Actions",
+      "repeat": "Interval",
+      "description": "Title / Description",
+      "supplier": "Supplier / Seller",
+      "amount": "Amount",
+      "category": "Category",
+      "staff": "Staff",
+      "date_due": "Due date"
+    }
+  },
+  "update": {
+    "error": "Error when updated this expense",
+    "success": "The expense has been updated"
+  },
+  "create": {
+    "error": "Error when creating this expense",
+    "success": "The expense has been added"
+  },
+  "delete": {
+    "error": "Error when deleting this expense",
+    "success": "This expense has been successfully removed."
+  },
+  "form": {
+    "editChoices": {
+      "explanation": {
+        "details": "The desired modifications will be applied to current, future, and/or all expenses.",
+        "dateDue": "The due date will only be edited for the selected expense(s)."
+      },
+      "editDetails": "Edit expense details",
+      "editDateDue": "Edit due date"
+    },
+    "titleEdit": "Edit an expense",
+    "titleAdd": "Add an expense",
+    "actions": {
+      "edit": "Update",
+      "save": "Save",
+      "cancel": "Cancel"
+    },
+    "repeat": {
+      "number": "Intervals:",
+      "ends": "Ends after",
+      "fromDate": "From the",
+      "until": "Until",
+      "from": "From",
+      "months": {
+        "december": "December",
+        "november": "November",
+        "october": "October",
+        "september": "September",
+        "august": "August",
+        "july": "July",
+        "june": "Jun",
+        "may": "May",
+        "april": "April",
+        "march": "March",
+        "february": "February",
+        "january": "January"
+      },
+      "weekdays_pl": {
+        "sunday": "Sundays",
+        "saturday": "Saturdays",
+        "friday": "Fridays",
+        "thursday": "Thursdays",
+        "wednesday": "Wednesdays",
+        "tuesday": "Tuesdays",
+        "monday": "Mondays"
+      },
+      "weekdays": {
+        "fourth": "4th",
+        "third": "3rd",
+        "second": "2nd",
+        "first": "1st",
+        "sunday": "Sunday",
+        "saturday": "Saturday",
+        "friday": "Friday",
+        "thursday": "Thursday",
+        "wednesday": "Wednesday",
+        "tuesday": "Tuesday",
+        "monday": "Monday"
+      },
+      "count": "Number of intervals:",
+      "interval": "Interval",
+      "repeatYear_nb": "Every {{ nb }} year(s) on the",
+      "repeatYear": "Every year on the",
+      "repeatWeek_nb": "Every {{ nb }} week(s) on the",
+      "repeatWeek": "Every week on the",
+      "repeatMonthDay": "Every",
+      "repeatMonth_nb": "Every {{ nb }} month(s) on the",
+      "repeatMonth": "Every month on the",
+      "repeatEvery": "Repeat every",
+      "day": "Day(s)",
+      "year": "Year(s)",
+      "month": "Month(s)",
+      "week": "Week(s)",
+      "title": "Interval"
+    },
+    "description": "Title / Description",
+    "supplier": "Supplier / Seller",
+    "amount": "Amount",
+    "category": "Category",
+    "noStaff": "No assigned staff",
+    "staff": "Staff",
+    "date_due": "Due date",
+    "requiredField": "This field is mandatory."
+  },
+  "noExpenses": "Add and track your expenses in this report.",
+  "addButton": "Add an expense"
+}

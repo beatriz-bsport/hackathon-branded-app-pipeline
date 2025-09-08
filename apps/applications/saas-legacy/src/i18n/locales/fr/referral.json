@@ -1,0 +1,148 @@
+{
+  "form": {
+    "title": "Parrainage",
+    "activateReferral": {
+      "label": "Activer le lien de parrainage",
+      "description": "Le lien de parrainage comprend une réduction automatique que chaque membre pourra diffuser à d'autres personnes et qui lui permettra également d'être récompensé à chaque utilisation."
+    },
+    "minimumBasketAmount": {
+      "label": "Montant minimum d'achat",
+      "description": "Ce montant concerne le prix de l'ensemble du panier"
+    },
+    "maximumUses": {
+      "label": "Nombre d'utilisations maximum"
+    },
+    "amountOffReferred": {
+      "title": "Réduction pour le membre parrainé",
+      "percent": {
+        "title": "En pourcentage",
+        "fieldLabel": "Pourcentage de réduction"
+      },
+      "amount": {
+        "title": "En valeur",
+        "fieldLabel": "Montant de la réduction"
+      }
+    },
+    "applicationTimeLimit": {
+      "title": "Délai limite d'application de la réduction",
+      "units": {
+        "day": "Jour",
+        "day_plural": "Jours",
+        "week": "Semaine",
+        "week_plural": "Semaines",
+        "month": "Mois",
+        "month_plural": "Mois"
+      }
+    },
+    "rewardReferring": {
+      "title": "Récompense pour le membre parrain",
+      "label": "Montant de la récompense"
+    },
+    "tag": {
+      "title": "Tag",
+      "description": "Si un membre a utilisé le lien il sera alors taggé"
+    },
+    "redirectLink": {
+      "title": "Lien de redirection",
+      "description": "Après son inscription, le nouveau membre sera redirigé vers la page indiquée par votre URL. Si vous laissez la case vide, il sera amené à la page du calendrier",
+      "placeholder": "URL de redirection"
+    },
+    "warnings": {
+      "referredAmount": "En choisissant cette valeur, aucune réduction ne sera appliquée sur l'achat du membre parrainé",
+      "rewardReferring": "En choisissant cette valeur, aucune récompense ne sera accordée au membre parrain"
+    },
+    "errors": {
+      "minimumAmount": "Le montant minimum doit être supérieur à 0",
+      "maximumUses": "Le nombre d'utilisations maximum doit être supérieur à 1",
+      "referredAmount": "La réduction doit être supérieure à 0",
+      "timeLimit": "Le délai doit être supérieur à 1",
+      "rewardReferring": "La récompense doit être supérieure à 0",
+      "url": "Veuillez rentrer un URL valide",
+      "required": "Ce champ est requis"
+    },
+    "submit": "Sauvegarder"
+  },
+  "memberInfo": {
+    "referralLink": "Lien de parrainage",
+    "nbRemainingUses": "Nombre d'utilisations restantes",
+    "inviteFriend": "Invitez un proche à s'inscrire",
+    "forYou": "pour vous",
+    "forYourFriend": "pour votre proche",
+    "copyLink": "Copier mon lien de parrainage",
+    "seeConditions": "Voir les conditions",
+    "warningMaxUsesReached": "Vous avez atteint le maximum d'utilisation de votre lien de parrainage",
+    "loginToUseYourLink": "Connectez-vous pour utiliser votre lien",
+    "thanksForSharing": "Merci d'en faire profiter vos amis et votre famille !",
+    "copyReferralLink": "Copier le lien de parrainage",
+    "yourFriendGets": "Votre ami obtient",
+    "youGet": "Vous obtenez",
+    "nbUsesLeft": "Nombre d'utilisations restantes :"
+  },
+  "conditions": {
+    "title": "Conditions d'utilisation du lien de parrainage",
+    "description": {
+      "maxUses": "Chaque membre possède un lien de parrainage personnel qui peut être partagé dans le but d'obtenir une récompense. Celle-ci pourra être attribuée un <1>nombre maximum de {{ maxReferralUses }} fois</1>.",
+      "signUp": {
+        "reduction": "L'utilisation du lien partagé permet d'accéder au formulaire d'inscription pour que le nouveau membre se crée un compte. Une fois cela fait, le membre parrainé pourra <1>bénéficier d'une réduction de {{ referredReduction }}</1> sur son premier panier si celui-ci respecte les conditions suivantes :<3><0>Le montant du panier est supérieur à {{ minBasketAmount }}</0><0>Il est réalisé dans un délai de {{ applicationTimeLimitIntervals }} {{ applicationTimeLimitUnit }} après l'inscription du membre parrainé</0></3>",
+        "noReduction": "L'utilisation du lien partagé permet d'accéder au formulaire d'inscription pour que le nouveau membre se crée un compte. Une fois cela fait, le membre parrainé devra réaliser son premier panier en respectant les conditions suivantes :<1><0>Le montant du panier est supérieur à {{ minBasketAmount }}</0><0>Il est réalisé dans un délai de {{ applicationTimeLimitIntervals }} {{ applicationTimeLimitUnit }} après l'inscription du membre parrainé</0></1>"
+      },
+      "applicationTimeLimit": {
+        "units": {
+          "days": "jour",
+          "days_plural": "jours",
+          "weeks": "semaine",
+          "weeks_plural": "semaines",
+          "months": "mois",
+          "months_plural": "mois"
+        }
+      },
+      "reward1": "Si le premier achat (hors souscription) est réalisé selon les modalités décrites, le membre parrain se verra <1>récompensé d'une somme de {{ referringReward }}</1>. Elle pourra être obtenue pour chaque membre parrainé dans la limite de {{ maxReferralUses }} fois.",
+      "reward2": "La récompense s'appliquera automatiquement sur ses prochains paniers du membre parrain : sans conditions de temps ou de montant pour l'application. Elle pourra également s'appliquer en plusieurs fois si le montant du panier est inférieur à la récompense.",
+      "warning": "Attention : le parrainage ne fonctionne que pour les nouveaux membres du studio ou de la franchise."
+    }
+  },
+  "referralErrors": {
+    "33000": {
+      "title": "Lien de parrainage inutilisable",
+      "description": "Ce lien de parrainage n'est pas disponible pour ce studio."
+    },
+    "33001": {
+      "title": "Lien de parrainage inutilisable",
+      "description": "Le membre associé à ce lien de parrainage n'est plus inscrit au studio."
+    },
+    "33002": {
+      "title": "Lien de parrainage inutilisable",
+      "description": "Vous êtes déjà membre de ce studio"
+    },
+    "33003": {
+      "description": "Ce lien de parrainage n'est plus utilisable.",
+      "title": "Lien de parrainage expiré"
+    },
+    "33004": {
+      "description": "Une erreur a été rencontrée lors de l'enregistrement du parrainage.",
+      "title": "Erreur parrainage"
+    },
+    "33005": {
+      "description": "Une erreur a été rencontrée lors de l'enregistrement du parrainage.",
+      "title": "Erreur parrainage"
+    },
+    "33006": {
+      "description": "Le programme de parrainage n'est plus disponible.",
+      "title": "Parrainage expiré"
+    },
+    "33007": {
+      "description": "Le programme de parrainage n'est plus disponible.",
+      "title": "Parrainage expiré"
+    },
+    "maxUsesReached": {
+      "description": "{{ referringMemberFirstName }} a atteint le nombre maximum d'utilisations de ce lien.",
+      "title": "Lien de parrainage inutilisable"
+    },
+    "somethingWentWrong": "Un problème est survenu, nous ne sommes pas en mesure de charger cette page. Veuillez réessayer plus tard",
+    "noProgramAvailable": "Oups, il semble qu'il n'y ait pas de programme de parrainage disponible"
+  },
+  "checkoutValidation": {
+    "title": "Parrainer un ami",
+    "explain": "Recevez des récompenses en partageant votre lien de parrainage avec vos amis."
+  }
+}

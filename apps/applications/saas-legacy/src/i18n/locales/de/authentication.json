@@ -1,0 +1,17 @@
+{
+  "resetPassword": {
+    "actions": {
+      "backToLogin": "Zurück",
+      "reset": "OK",
+      "cancel": "Abbrechen",
+      "confirm": "Bestätigen"
+    },
+    "title": "Passwort wiederherstellen",
+    "emailHasBeenSent": "Eine E-Mail wurde an \"{{email}}\" gesendet, um Ihr Passwort wiederherzustellen.",
+    "explain1": "Welche E-Mail verwendest Du zur Anmeldung?",
+    "noEmail": "Diese E-Mail existiert nicht in unserer Mitgliederdatenbank.",
+    "explain2": "Wir senden Ihnen Anweisungen zur Wiederherstellung Ihres Passworts.",
+    "contactUs": "Kontaktiere uns via ",
+    "hasProblem": "Hast du Probleme beim Zurücksetzen deines Passworts?"
+  }
+}

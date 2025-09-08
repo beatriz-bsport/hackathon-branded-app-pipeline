@@ -1,0 +1,8 @@
+{
+  "selector": {
+    "explainConsumer": "Mit <1> bsport Solution</2> haben Sie alle Ihre Informationen in einem einzigen Konto!",
+    "placeholder": "Ein Studio/Raum/Klub/usw. suchen...",
+    "noMatchingCompany": "Kein Ergebnis",
+    "fetchMore": "Mehr sehen"
+  }
+}

@@ -1,0 +1,97 @@
+{
+  "fixedPriceForAdditionalBookingHelper": "Cantidad fija pagada por cualquier sesión con suficientes registrantes",
+  "fixedPriceForAdditionalBookingLabel": "Fijo por sesión",
+  "pricePerAdditionalBookingHelper": "Cantidad donada para todas las reservas por encima del límite",
+  "pricePerAdditionalBookingLabel": "Variable por reserva",
+  "bookingThresholdHelper": "Una sesión solo se contará si totaliza este número de reservas",
+  "bookingThresholdLabel": "Reserva mínima",
+  "checkboxIncludeABonus": "Incluir un bonus de rendimiento",
+  "bonus": "Bonus",
+  "pricePerOffer": "Cantidad por sesión",
+  "remuneration": "Remuneración",
+  "dateTitle": "Rango de fechas",
+  "addBonus": "Añadir una regla",
+  "table": {
+    "downloadAll": "Síntesis",
+    "download": "Descargar",
+    "downloadPDF": "Descargar (PDF)",
+    "downloadCSV": "Descargar (.csv)"
+  },
+  "fields": {
+    "rule": "Normativa sobre la remuneración de la sesión",
+    "date": "Fecha",
+    "name": "Nombre de la sesión",
+    "nb_bookings": "Reservas",
+    "duration": "Duración",
+    "base": "Base",
+    "bonus": "Bonus",
+    "error": "Parece que algunos cursos no tienen una regla de pago asociada. Es necesario asociar una regla de pago con estos cursos o asociar una regla de pago con el entrenador.",
+    "total": "Compensación total",
+    "cancelled_bookings": "Reservas canceladas",
+    "confirmed_bookings": "Participantes",
+    "unpaid_private_booking": "Hay citas que no son remuneradas.",
+    "coachName": "Profesor",
+    "total_on_appointments": "Remuneración de las citas",
+    "total_on_sessions": "Remuneración de las clases colectivas",
+    "nb_appointments": "Número de citas",
+    "nb_sessions": "Número de sesiones",
+    "totalNetGain": "Ganancia neta total",
+    "netGain": "Ganancia neta",
+    "marginValue": "Contribución marginal",
+    "nb_private_bookings": " ",
+    "noShowsAndLateCancellations": "Ausencias y cancelaciones fuera de plazo",
+    "location": "Localización",
+    "establishment": "Establecimiento"
+  },
+  "cachedData": {
+    "leavePreviewMode": "Salir del modo de vista previa",
+    "previewModeTitle": "Modo de vista previa",
+    "downloadMySavedData": "Descargar",
+    "enterPreviewMode": "Cambiar al modo de vista previa",
+    "unresolvedDaterange": "Rango salarial inválido",
+    "dateRange": "Remuneración de {{- startDate }} a {{- endDate }}",
+    "dateSaved": "Datos generados en {{ date }}",
+    "title": "Datos guardados {{ count }}",
+    "undeterminedOldestUpdate": "Actualización más antigua no determinada",
+    "oldestUpdate": "Actualización más antigua hecha en: {{- date }}"
+  },
+  "export": {
+    "completed": {
+      "message": "El archivo de exportación de los salarios de los profesores está disponible. También puede recuperar estos datos en la sección \"Datos guardados\".",
+      "title": "Exportación en Excel de los salarios de los profesores"
+    },
+    "dialog": {
+      "buttonText": "Confirmar",
+      "message": "Al exportar los datos podrá generar un excel para la duración seleccionada. Estos datos también se almacenarán y podrán utilizarse posteriormente.",
+      "title": "Exportación y almacenamiento de datos"
+    },
+    "buttonText": "Exportar"
+  },
+  "performance": {
+    "table": {
+      "header": {
+        "nbSessions": "Número de cursos en grupo",
+        "coachName": "Profesor",
+        "confirmedBookings": " "
+      }
+    }
+  },
+  "advancedFilters": {
+    "byCoachPaymentRules": "Filtrar por reglas de pago (para los profesores sin grupos de pago)",
+    "byCoachPaymentruleGroups": "Filtrar por grupos de remuneración",
+    "privateserviceCoachPaymentRuleSelector": "Citas",
+    "workshopCoachPaymentRuleSelctor": "Talleres",
+    "sessionCoachPaymentRuleSelctor": "Cursos en grupo ",
+    "coachPaymentRuleGroupSelector": "Grupos de remuneración",
+    "coachSelector": "Seleccione los profesores",
+    "reset": "Restablecer filtros",
+    "apply": "Aplicar filtros",
+    "header": "Filtros avanzados",
+    "establishments": "Establecimientos",
+    "locations": "Localizaciones"
+  },
+  "form": {
+    "ifEmptyAllowAll": "Dejar en blanco para ignorar este filtro",
+    "selectEstablishments": "Seleccionar establecimientos"
+  }
+}

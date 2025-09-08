@@ -1,0 +1,77 @@
+{
+  "list": {
+    "title": "Notifications",
+    "emptyAlerting": "Aucune nouvelle notification."
+  },
+  "alert_kind": {
+    "1": "Facturation",
+    "2": "Commande",
+    "3": "Tâche",
+    "4": "RDV à compléter",
+    "5": "Informations légales",
+    "6": "Rendez-vous impayés",
+    "7": "Tutoriels",
+    "8": "Remplacements Tardifs",
+    "9": "Messages reçus"
+  },
+  "showMore": "Voir davantage",
+  "unevenInvoice": {
+    "title": "Facture non-équilibrée",
+    "explainUneven": "La facture <1>{{ invoice_identifier }}</1> n'est pas équilibrée.",
+    "priceDue": "Somme dûe : {{ price_due }}.",
+    "pricePayed": "Somme encaissée : {{ price_payed }}."
+  },
+  "newOrder": {
+    "title": "Commande en attente",
+    "explain": "Payé par <1>{{- name }}</1> sur le magasin.",
+    "price": "Montant : {{ price }}."
+  },
+  "privateBookingIncomplete": {
+    "explain": "Le RDV de <1>{{- name }}</1> n'a pas de professeur désigné.",
+    "date": "Date : {{ date_start }}",
+    "name": "Membre : {{- user_name }}"
+  },
+  "unpaidPrivateBooking": {
+    "credits_due": "Crédits à payer : {{ credits }}"
+  },
+  "task": {
+    "name": "{{ name }}"
+  },
+  "companyOnboarding": {
+    "verification": {
+      "title": "Gestion de mon entreprise",
+      "content": "Plusieurs documents sont en attente, vous avez jusqu'au <1>{{ date }}</1> pour vérifier votre compte.",
+      "warning": "Les paiements en ligne risquent d'être <1>désactivés</1> passée cette date !"
+    },
+    "payout": {
+      "title": "Informations bancaires manquantes",
+      "content": "Nous ne pouvons pas effectuer les versements sur votre compte bancaire car celui-ci est inexistant ou mal configuré."
+    },
+    "creation": {
+      "title": "Paiement en ligne désactivé",
+      "content": "Pour pouvoir encaisser des paiements carte et SEPA, veuillez vérifier vos informations légales"
+    },
+    "paypal": {
+      "issue_repeat_onboarding": "Il y a un problème avec votre compte PayPal. Veuillez répéter la procédure de connexion en utilisant le même compte pour résoudre ce problème.",
+      "issue_check_account": "Il y a un problème avec votre compte PayPal. Veuillez vérifier votre compte PayPal pour résoudre ce problème.",
+      "requires_more_information": "Votre compte PayPal nécessite des informations supplémentaires ou une validation de la part de PayPal. Veuillez vérifier votre compte PayPal pour résoudre ce problème.",
+      "primary_email_confirmation": "L'email de votre compte PayPal doit être confirmé. Veuillez vérifier votre compte PayPal pour résoudre ce problème.",
+      "title": "Les paiements PayPal sont désactivés"
+    }
+  },
+  "readAll": "Marquer tout comme lu",
+  "newTutorialSectionOrLesson": {
+    "newSection": {
+      "title": "Nouvelle Section",
+      "content": "La section {{- name}} a été ajoutée, formez-vous dès maintenant."
+    },
+    "newLesson": {
+      "title": "Nouveau Cours {{- name}}",
+      "content": "Ajouté à la section {{- name}}"
+    }
+  },
+  "lateReplacementRequest": {
+    "title": "Remplacement tardif",
+    "content": "a demandé un remplacement pour la séance suivante : {{- activity_name}} - {{-date_start}}"
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "member": {
+    "archived": "Membros arquivados",
+    "sessions": {
+      "title": "Sessões"
+    },
+    "packs": {
+      "title": "Passes de aulas"
+    },
+    "closeMemberMatch": "Está à procura deste membro ?"
+  },
+  "noResult": "Nenhum resultado",
+  "input": "Pesquisar...",
+  "go_back": "Voltar aos resultados",
+  "actions": {
+    "addMember": "Adicionar um membro"
+  }
+}

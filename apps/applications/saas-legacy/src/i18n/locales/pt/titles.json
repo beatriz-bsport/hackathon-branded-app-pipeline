@@ -1,0 +1,101 @@
+{
+  "workshopActivity": {
+    "workshopActivityCreate": "Criar um workshop",
+    "workshopActivityList": "Workshops",
+    "workshopActivityEditFormSubtitle": "Editar workshop",
+    "workshopActivityFormSubtitle": "Criar um workshop",
+    "workshopActivityFormPage": "Formulário do workshop"
+  },
+  "subscription": {
+    "subscriptions": "Subscrições",
+    "subscriptionCreate": "Criar uma subscrição"
+  },
+  "dashboard": {
+    "dashboard": "Painel Principal",
+    "reportingDashboard": "Relatórios",
+    "marketingDashboard": "Marketing"
+  },
+  "marketplace": {
+    "marketplaceGiftcard": "Cartões de presente",
+    "marketplacePass": "Passes de aulas",
+    "marketplaceCalendar": "Calendário",
+    "marketplaceWorkshop": "Workshops",
+    "marketplaceShop": "Loja"
+  },
+  "establishment": {
+    "establishmentGroupPage": "Localizações",
+    "establishmentFormPage": "Formulário da sala",
+    "establishmentList": "Estabelecimentos"
+  },
+  "privateService": {
+    "serviceList": "Apenas por marcação"
+  },
+  "coupon": {
+    "couponList": "Códigos promocionais",
+    "couponEdit": "Formulário de promoção",
+    "couponCreate": "Formulário de promoção"
+  },
+  "coach": {
+    "coachPerformance": "Política de remuneração {{- name}}",
+    "coachList": "Professores",
+    "coachFormPage": "Formulário do Professor",
+    "allCoachPerformance": "Resumo do professor"
+  },
+  "expense": {
+    "expenseList": "Minhas despesas"
+  },
+  "invoice": {
+    "invoiceEdit": "Editar fatura",
+    "invoiceCreate": "Fatura",
+    "invoiceList": "Os meus movimentos"
+  },
+  "metaActivity": {
+    "metaActivityEditFormSubtitle": "Editar atividade de grupo",
+    "metaActivityFormSubtitle": "Criar uma atividade",
+    "metaActivityList": "Atividades",
+    "metaActivityEditForm": "Formulário da Atividade",
+    "metaActivityFormPage": "Formulário da Atividade"
+  },
+  "member": {
+    "memberFormPage": "Formulário",
+    "mergeMember": "Fundir membro",
+    "members": "Membros",
+    "memberForm": "Adicionar um membro"
+  },
+  "banner": {
+    "franchiseConnection": "Está atualmente ligado a uma das aplicações dos seus franchisados",
+    "networkError": "Não está ligado à Internet",
+    "isStaging": "Marcar uma sessão"
+  },
+  "video": {
+    "videoList": "Biblioteca de vídeos"
+  },
+  "coachUserSpace": {
+    "replacement": "Substituição",
+    "performance": "Remuneração"
+  },
+  "searchResults": "Pesquisar",
+  "offerFormPage": "Crear uma sessão",
+  "replacement": "Substituição",
+  "offerManagement": "Reservas",
+  "shop": "A minha loja",
+  "planning": "Calendário",
+  "settings": "Configurações",
+  "marketing": {
+    "cadence": "Sequência",
+    "notifications": "Notificações",
+    "marketingRule": "Estratégias de marketing",
+    "marketingDashboard": "Página Principal",
+    "audience": "{{ audienceCamelCase }}"
+  },
+  "paymentPack": {
+    "paymentPackList": "Passes de aulas",
+    "paymentPackFormPage": "Formulário do passe de aulas"
+  },
+  "order": {
+    "orderList": "Controlos",
+    "orderDetail": "Detalhe"
+  },
+  "inbox": "Caixa de entrada",
+  "giftcard": "Cartões de presente"
+}

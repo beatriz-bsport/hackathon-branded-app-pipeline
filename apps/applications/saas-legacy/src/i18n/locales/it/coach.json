@@ -1,0 +1,101 @@
+{
+  "selector": {
+    "label": "Insegnante",
+    "disabled": "Insegnante archiviato",
+    "enabled": "Insegnante attivo"
+  },
+  "performance": {
+    "calculate": "Calcola",
+    "pricePerAdditionalBooking": "Importo per prenotazione",
+    "title": "Riepilogo dell'insegnante",
+    "coachName": "Insegnante",
+    "nbBookings": "Prenotazioni",
+    "nbOffersTotal": "Sessioni",
+    "nbBookingsOverThreshold": "Bonus per prenotazione",
+    "pricePerOffer": "Importo per sessione",
+    "payment": "Retribuzione",
+    "durationBookings": "Numero di ore",
+    "totalNetGain": "Totale guadagno netto"
+  },
+  "forms": {
+    "delete": {
+      "title": "Elimina insegnante",
+      "cancel": "Annulla",
+      "content": {
+        "canDelete": "Sei sicuro di voler eliminare questo insegnante? Non avrai più accesso al calcolo della sua remunerazione. Puoi aggiungerlo di nuovo dalla sua email.",
+        "cannotDelete": "Non è possibile eliminare questo insegnante perché sono previste sessioni in futuro!"
+      },
+      "actions": {
+        "cancel": "Annulla",
+        "confirm": "Rimuovi"
+      },
+      "confirm": "Rimuovi"
+    },
+    "linkByEmail": {
+      "title": "Indirizzo email dell'insegnante",
+      "cancel": "Annulla",
+      "emailLabel": "Email",
+      "explain": "Fornisci l'indirizzo email dell'insegnante che desideri aggiungere. Se abbiamo già i loro dati, creeremo automaticamente il loro account.",
+      "emailPlaceHolder": "qualcuno@email.com",
+      "submit": "Conferma"
+    },
+    "update": {
+      "title": "Modifica informazioni",
+      "success": "Insegnante associato con successo",
+      "errors": {
+        "emailAlreadyInUse": "L'email inserita esiste già nel database. Puoi associare questa email a un insegnante solamente creandone uno nuovo."
+      }
+    },
+    "create": {
+      "title": "Nuovo insegnante",
+      "success": "Insegnante creato con successo"
+    },
+    "error_email_exists": "Un insegnante con questa email esiste già, usa il form di creazione insegnante",
+    "errorDescription": "La descrizione fornita è troppo lunga (max 1000)",
+    "errorLinkLength": "L'URL fornito è troppo lungo (max 150)",
+    "errorInvalidURL": "Inserisci un URL valido"
+  },
+  "noCoach": "Non ci sono ancora insegnanti registrati",
+  "coach_override": "Insegnante sostitutivo",
+  "showPerformance": "Retribuire",
+  "showActivities": "Visualizza le attività",
+  "showDescription": "Mostra descrizione",
+  "description": "Descrizione",
+  "pleaseFill": "Si prega di informare un insegnante",
+  "emptyDescription": "Nessuna descrizione fornita",
+  "search": "Trova un insegnante",
+  "detail": {
+    "tab": {
+      "general": "Profilo",
+      "calendar": "Calendario"
+    },
+    "coachSpaceInfo": "Con l'attivazione della 'Vista Insegnante', gli insegnanti possono vedere la propria busta paga, il loro orario e gestire la propria disponibilità.",
+    "coachSpace": "Area insegnanti",
+    "noPaymentRule": "Attenzione, non è stata definita alcuna regola di retribuzione per questo insegnante."
+  },
+  "overrideSelectorTitle": "Insegnante",
+  "color": "Codice colore (appuntamento)",
+  "card": {
+    "update": "Modifica"
+  },
+  "coach": "Insegnante",
+  "baseCoach": "Abituale",
+  "overrider": "Sostituto",
+  "selfNoActivity": "Non sei responsabile di alcuna attività.",
+  "addCoach": "Aggiungi un insegnante",
+  "noActivity": "Questo insegnante non gestisce alcuna attività.",
+  "noCoachs": "Nessun insegnante registrato, gestisci qui i tuoi insegnanti, i collaboratori e la loro retribuzione.",
+  "inactiveCoaches": "Professori archiviati",
+  "paymentRule": "Retribuzione",
+  "coachAccess": {
+    "teacher": "Insegnante",
+    "student": "Membro",
+    "info": "Abbiamo rilevato che lei è un insegnante in questo studio. Vuoi avere accesso alla tua area studenti o alla tua area insegnanti?",
+    "access": "Accesso"
+  },
+  "numberCoaches": "{{ number }} insegnanti",
+  "workingDateSection": "Periodo di attività in studio",
+  "dateJoinedCompany": "Data di inizio",
+  "dateLeftCompany": "Data di fine",
+  "emptyNotes": "Nessuna nota"
+}

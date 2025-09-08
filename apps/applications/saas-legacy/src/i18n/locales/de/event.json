@@ -1,0 +1,28 @@
+{
+  "booking": {
+    "register": {
+      "name": "Neue Buchungen",
+      "description": "Wird bei einer neuen registrierten Buchung ausgelöst"
+    }
+  },
+  "noEvent": {
+    "description": "Beschreibung des Ereignisses"
+  },
+  "list": {
+    "title": {
+      "latestEvents": "Neueste Ereignisse"
+    }
+  },
+  "member": {
+    "register": {
+      "name": "Neues Mitglied",
+      "description": "Wird ausgelöst, wenn auf bsport ein neues Mitglied des Studios hinzugefügt wird"
+    }
+  },
+  "booking_option": {
+    "cancel": {
+      "description": "Wird ausgelöst, wenn das Mitglied oder ein Admin den Platz auf der Warteliste storniert",
+      "name": "Stornierung eines Platzes auf der Warteliste"
+    }
+  }
+}

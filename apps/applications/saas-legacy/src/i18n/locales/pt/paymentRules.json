@@ -1,0 +1,181 @@
+{
+  "save": "Guardar",
+  "base_percent": "Percentagem do valor",
+  "base_price": "Base",
+  "name": "Nome",
+  "add": "Adicionar",
+  "paymentRules": "Regras de remuneração",
+  "rules": "Regras",
+  "pageTitle": "Regras de remuneração",
+  "search": "Procurar um sistema de remuneração (opcional)",
+  "simulate": "Simular",
+  "coach_payment_rule_groups": {
+    "modal": {
+      "delete": {
+        "title": "Eliminar um grupo",
+        "content": "Ao eliminar este grupo, ele será dissociado de todos os professores aos quais está atualmente atribuído",
+        "cancel": "Cancelar",
+        "confirm": "Confirmar"
+      }
+    },
+    "subtitle": {
+      "helper": "Pode agrupar as suas regras de remuneração para atividades, seminários e compromissos. Quando adiciona um professor a um grupo, todas as regras de remuneração do grupo aplicam-se automaticamente a esse professor. Quaisquer alterações ao grupo aplicar-se-ão também a todos os professores do grupo.",
+      "coaches": "Professores associados",
+      "default": "Remunerações por defeito",
+      "specfic_private_slot": "Aulas Privadas"
+    },
+    "session": "Aulas de Grupo",
+    "dissociate": "Personalizar as regras",
+    "dialogTitle": "Grupo de remuneração",
+    "fields": {
+      "activity": "Aulas de grupo",
+      "addPrivateSlot": "Adicionar uma regra",
+      "private_service": "Aulas Privadas",
+      "coach_payment_rule": "Regra de remuneração",
+      "workshop": "Workshops",
+      "private_service_name": "Nome da sessão"
+    },
+    "workshop": "Workshops",
+    "private_service": "Aulas Privadas"
+  },
+  "modal": {
+    "delete": {
+      "title": "Eliminar uma regra",
+      "confirm": "Confirmar",
+      "content": "Ao apagar esta regra, ela será dissociada de todos os professores e sessões aos quais está atualmente atribuída",
+      "cancel": "Cancelar"
+    }
+  },
+  "coach_payment_rules": {
+    "paymentPackPlaceHolder": "Selecionar os passes de aulas",
+    "excludePaymentPack": {
+      "warning": "Se já excluiu os passes de aulas da remuneração através do parâmetro \"Sessões tidas em conta no cálculo da remuneração do professor\", não precisa de as especificar novamente aqui.",
+      "title": "Excluir reservas em determinados passes"
+    },
+    "cancellationBaseHelper": "Ajuda : Ao assinalar esta casa, o autocarro não receberá qualquer remuneração suplementar sobre o valor marginal das reservas anuladas",
+    "Bonuses": {
+      "bonus": "Bónus",
+      "to": "à",
+      "bookingsThresholds": "Reservas (incluíndo terminais)",
+      "forEachBooking": "para cada reserva",
+      "from": "De",
+      "forInterval": "para todo o intervalo",
+      "bonus_rules": "Regras de bónus",
+      "addBonus": "ADICIONAR UMA REGRA DE BÓNUS"
+    },
+    "bonusForEachReservationInInterval": "Adicionar um bónus por cada reserva de intervalo",
+    "Errors": {
+      "invalideIntervals": "Não é permitida a intersecção de intervalos para bónus do mesmo tipo.",
+      "baseRemunerationRequired": "A remuneração de base é um campo obrigatório se tiver assinalado a casa \"Base-Fixa\" acima.",
+      "invalideUpperInterval": "O intervalo superior deve ser um número.",
+      "percentagebaseRemunerationRequired": "O pagamento em percentagem é um campo obrigatório se tiver assinalado a caixa acima.",
+      "invalidCancelledBookingRules": "Se pretender aplicar bonificações diferentes aos alunos ausentes, deve definir pelo menos uma bonificação ou base por percentagem na secção seguinte.",
+      "lowerIntervalTypeError": "O intervalo inferior deve ser um número menor ou igual a 1",
+      "invalidMaximum": "O salário máximo deve ser superior ao salário mínimo",
+      "nameRequired": "O nome é um campo obrigatório.",
+      "invalidCoachPaymentRule": "Deve ser selecionada uma regra de remuneração",
+      "uniqueRuleForPrivateSlot": "Esta marcação aparece várias vezes na lista",
+      "percentagebaseRemunerationTypeError": "A percentagem de pagamento deve ser um número entre 0 e 100.",
+      "invalidMinimum": "A remuneração mínima deve ser superior ou igual ao salário de base fixo",
+      "invalidBonusAmount": "O bónus deve ser maior ou igual a 0,1.",
+      "taxeRateRequired": "O imposto é um campo obrigatório se tiver selecionado a caixa \"Cálculo incluindo imposto\" acima.",
+      "baseRemunerationTypeError": "A remuneração de base deve ser um número positivo.",
+      "privateSlotAlreadySelected": "Já foi definida uma regra de remuneração para esta marcação",
+      "invalidLowerInterval": "O intervalo superior deve ser maior do que o intervalo inferior.",
+      "taxeRateTypeError": "O imposto deve ser um número entre 0 a 100.",
+      "oneRuleRequired": "É necessário definir pelo menos uma regra de remuneração para criar um grupo",
+      "invalidPrivateSlot": "É necessário selecionar uma marcação"
+    },
+    "taxe_rate": "Excluir o IVA do cálculo do valor marginal (percentagem)",
+    "Simulator": {
+      "marginValue": "Valor marginal",
+      "marginalValueOfReservation": "Valor marginal de uma reserva",
+      "and": "e",
+      "cancellations": "ausências ou cancelamentos tardios",
+      "forEachBooking": "por cada reserva",
+      "forConfirmedBookings": "Número de alunos",
+      "forCancelledBookings": "Número de ausências",
+      "bonus": "Total de bónus",
+      "total_payment": "Pagamento final",
+      "numberOfStudent": "Número de alunos",
+      "numberOfCancellations": "Número de ausências ou cancelamentos tardios",
+      "for": "Para",
+      "students": "alunos",
+      "title": "Simulador de remunerações",
+      "student_attended": "Aluno presente",
+      "student_did_not_attend": "Aluno ausente",
+      "which": "Quem tem a despesa",
+      "resultTitle": "Resultado da sua simulação (remuneração do professor)",
+      "helper": "Ajuda : Verifique aqui se a sua regra de remuneração corresponde às suas expectativas"
+    },
+    "set_base_remuneration": "Definição de uma base de remuneração fixa",
+    "base_remuneration": "Base Fixa",
+    "addRemunerationOnCancellation": "Pagar ao professor em caso de anulação tardia ou de ausência",
+    "forCancelledBookings": "Para cancelamentos tardios e não comparências",
+    "percentage_base": "Acrescentar uma percentagem do valor marginal das reservas",
+    "differentRemunerationForCancellation": "Aplicar regras de bónus diferentes para contar os alunos ausentes ou as anulações após o prazo ",
+    "min_remuneration": "Mínimo",
+    "forConfirmedBookings": "Para os alunos que frequentam",
+    "remunerationLimits": "Remunerações limitadas",
+    "max_remuneration": "Máximo",
+    "add_taxe_rate": "Imposto a acrescentar",
+    "base_remuneration_helper": "Este montante será sempre acrescentado ao preço da sessão/marcação",
+    "taxeLongHelper": "Ajuda : Todas as percentagens são calculadas sobre o valor marginal de cada reserva, sem impostos. O imposto adicional é aplicado ao valor marginal, bem como a todas as tarifas fixas e bónus.",
+    "taxeConciseHelper": "A percentagem de bónus, calculada com base no valor marginal, será deduzida do IVA aplicável.",
+    "fixedBonusbyInterval": "Adicionar um bónus fixo por intervalo",
+    "coaches": "Técnicos",
+    "actions": "Ações",
+    "addNewCoachPaymentRule": "Novo parâmetro de remuneração",
+    "calculationMethod": "Método do cálculo",
+    "name": "Nome"
+  },
+  "tabs": {
+    "appointment": "Aulas Privadas",
+    "session": "Aulas de Grupo & Workshops",
+    "groupActivity": "Aulas de Grupo",
+    "workshop": "Workshops",
+    "all": "Todos as modalidades",
+    "groups": "Grupos de remunerações"
+  },
+  "calculation_methods": {
+    "bookings": "Sobre o número de reservas",
+    "margin_value": "Sobre o valor marginal de cada reserva"
+  },
+  "setPaymentRuleSetForCoachFirst": "Em primeiro lugar, atribuir uma regra de remuneração por defeito a este professor.",
+  "select": {
+    "coachPaymentRuleForPrivateService": "Aulas Privadas",
+    "placeholderOverride": "Regra por defeito do treinador",
+    "reset": "Utilizar a regra por defeito do treinador",
+    "coachPaymentRuleForSessions": "Aulas de Grupo",
+    "coachPaymentRuleForWorkshops": "Workshops",
+    "placeholder": "Selecionar uma regra de cálculo",
+    "group": "Grupo de remuneração"
+  },
+  "fabButton": {
+    "addNewForGroupActivity": "Aulas de Grupo",
+    "addNewForWorkshop": "Workshops",
+    "addNewPaymentRuleGroup": "Grupo de remuneração",
+    "addNewForSession": "Aulas de grupo & Workshops",
+    "addNewForRDV": "Aulas Privadas"
+  },
+  "common": {
+    "pick_a_month": "Escolha um mês",
+    "until": "Fim",
+    "from": "Início"
+  },
+  "calculate": "Calcular",
+  "coaches": "Professores",
+  "cancel": "Cancelar",
+  "title": "Regras do professor {{- name}}",
+  "dateTitle": "Intervalo de datas",
+  "label": "Regra de remuneração",
+  "addBonus": "Adicionar uma nova regra",
+  "addNew": "Novo parâmetro de remuneração",
+  "privateSlotLabel": "Aulas Privadas",
+  "pricePerAdditionalBooking": "Bonús por reserva",
+  "bookingThreshold": "Limite de reserva (incl.)",
+  "actions": "Ações",
+  "only_attendant": "Contar apenas os assistentes",
+  "calculation_method": "Método do cálculo",
+  "include_tax": "Cálculo com IVA incluído"
+}

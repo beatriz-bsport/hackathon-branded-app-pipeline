@@ -1,0 +1,110 @@
+{
+  "consumer_payment_pack_links": {
+    "list": {
+      "isEmpty": "Er zijn geen gedeelde leskaarten om weer te geven.",
+      "create": "Een leskaart delen",
+      "title": "Gedeelde leskaarten"
+    },
+    "form": {
+      "create": {
+        "explain": "Deze leskaart wordt door meerdere leden gedeeld. Ieder gekoppeld lid kan de credits gebruiken.",
+        "title": "Een leskaart delen",
+        "previous": "Terug",
+        "submit": "Delen",
+        "linkButton": "Delen",
+        "noConsumerPackToLink": "Er zijn geen deelbare leskaarten om weer te geven.",
+        "cancel": "Annuleren"
+      },
+      "unlink": {
+        "title": "Delen uitzetten",
+        "explain": "Het delen wordt gestopt. De masterkaart blijft wel geldig.",
+        "submit": "Uitzetten",
+        "cancel": "Annuleren"
+      },
+      "relink": {
+        "explain": "Het delen van deze kaart wordt opnieuw geactiveerd.",
+        "cancel": "Annuleren",
+        "title": "Opnieuw delen",
+        "submit": "Delen"
+      }
+    }
+  },
+  "member": {
+    "item": {
+      "edit": "Bewerken",
+      "delete": "Verwijderen"
+    },
+    "form": {
+      "title": "[Formulier] Relatie",
+      "submit": "Opslaan",
+      "src_name": {
+        "placeholder": "Moeder"
+      },
+      "dst_name": {
+        "placeholder": "Zoon"
+      },
+      "cancel": "Annuleren",
+      "is": " is de ",
+      "shareEmail": "Altijd in e-mails cc'en",
+      "parentalLink": "Relatie",
+      "email": "Berichtgeving",
+      "access": "Accounttoegang",
+      "accountInfo": "Door de toegang tot andere accounts te activeren kunnen bepaalde leden als een gekoppeld persoon inloggen.",
+      "autorization": "Geef \"{{- name_1 }}\" toegang tot het account van \"{{- name_2 }}\".",
+      "confirm": "Bevestigen"
+    },
+    "list": {
+      "pleaseSelectOne": "Selecteer een persoon om de gedeelde kaarten te bekijken.",
+      "actions": {
+        "create": "Een relatie toevoegen"
+      },
+      "title": "Relaties",
+      "isEmpty": "Er zijn geen relaties om weer te geven."
+    }
+  },
+  "private_consumer_pass_links": {
+    "form": {
+      "relink": {
+        "cancel": "Annuleer",
+        "submit": "Deel",
+        "explain": "Het delen wordt opnieuw geactiveerd.",
+        "title": "Opnieuw delen"
+      },
+      "unlink": {
+        "cancel": "Annuleer",
+        "submit": "Stop",
+        "explain": "Het delen wordt uitgezet. De master-afspraakkaart is nog steeds bruikbaar.",
+        "title": "Delen uitzetten"
+      },
+      "create": {
+        "noConsumerPackToLink": "Geen deelbare kaarten",
+        "linkButton": "Deel",
+        "submit": "Deel",
+        "previous": "Vorige",
+        "cancel": "Annuleer",
+        "explain": "Deze afspraakkaart wordt door meerdere leden gedeeld. Ieder gekoppeld lid kan de credits gebruiken.",
+        "title": "Afspraakkaart delen"
+      }
+    },
+    "list": {
+      "isEmpty": "Er zijn geen gedeelde afspraakkaarten om weer te geven.",
+      "create": "Een afspraakkaart delen",
+      "title": "Gedeelde afspraakkaarten"
+    }
+  },
+  "relationship": {
+    "delete": {
+      "title": "Relatie verwijderen",
+      "submit": "Verwijderen",
+      "cancel": "Annuleren",
+      "content": "Let op! Deze actie is definitief. Gedeelde kaarten worden niet langer gedeeld.",
+      "whichUser": "Selecteer een account:"
+    }
+  },
+  "connectedAs": {
+    "selectRelation": "Selecteer een persoon",
+    "wichUser": "Selecteer een account:",
+    "info": "Log in op een van de gekoppelde accounts.",
+    "title": "Inloggen als"
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "export": {
+    "dialog": {
+      "title": "Esportare la storia",
+      "message": "La tua esportazione è pronta per essere scaricata."
+    }
+  },
+  "tabHistory": "Storia",
+  "tabRealTime": "In tempo reale",
+  "pageTitle": "Orario del personale",
+  "editModal": {
+    "confirm": "Convalidare",
+    "cancel": "Cancella",
+    "startingTime": "Orario di inizio",
+    "endingTime": "Orario di fine",
+    "title": "Modifiche all'orario"
+  },
+  "modal": {
+    "delete": {
+      "content": "Attenzione, sei sicuro di voler eliminare la fascia oraria per questo personale? Questa operazione è irreversibile.",
+      "title": "Cancellazione"
+    }
+  },
+  "historyTable": {
+    "download": "Scaricare",
+    "action": "Azione",
+    "durationHours": "Ore lavorate (ore)",
+    "durationHoursMinutes": "Ore lavorate (ore e minuti)",
+    "endingHour": "Orario di fine",
+    "startingHour": "Orario di inizio",
+    "staff": "Staff"
+  },
+  "attendanceTable": {
+    "emptyState": "Non hai ancora dato l'accesso al personale. Per definire gli accessi del personale vai su impostazioni e poi su personale o clicca sul pulsante qui sotto. Per seguire gli orari del tuo staff non dimenticare di attivare \"Time clock\" quando crei il loro ruolo.",
+    "createStaff": "creare un accesso per il staff",
+    "missing": "Assente",
+    "here": "Presente",
+    "end": "Iniziare",
+    "start": "Finitura",
+    "role": "Ruolo",
+    "action": "Azione",
+    "status": "Stato",
+    "lastClockIn": "Ultimo punteggio",
+    "email": "Email",
+    "staff": "Staff",
+    "lastname": "Cognome",
+    "firstname": "Nome"
+  },
+  "clockinDialog": {
+    "successDuration": "Numero di ore lavorate:",
+    "successClockOut": "Orario di partenza:",
+    "successClockIn": "Orario di arrivo:",
+    "subtitleSuccess": "Il tuo orario è stato salvato con successo. Puoi iniziare una nuova registrazione la prossima volta che aprirai questa finestra.",
+    "clockInForOther": "orologio per un altro staff",
+    "subtitleClockOut": "Ci siamo ! Per tornare indietro e fermare il conto alla rovescia, clicca su \"Fine\"",
+    "subtitleClockIn": "Buongiorno {{- name }}! Fai clic su \"Clock-in\" per iniziare.",
+    "lastClockOut": "Orario di arrivo: ",
+    "lastClockIn": "Ultimo check-in: {{- date }} - {{ hour }}",
+    "clockOut": "Finitura",
+    "clockIn": "Iniziare",
+    "close": "Chiudere",
+    "title": "Orologio in orologio in uscita"
+  }
+}

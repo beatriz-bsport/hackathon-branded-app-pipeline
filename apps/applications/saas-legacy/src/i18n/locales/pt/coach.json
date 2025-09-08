@@ -1,0 +1,101 @@
+{
+  "workingDateSection": "Período de atividade no estúdio",
+  "dateJoinedCompany": "Data de início",
+  "dateLeftCompany": "Data final",
+  "selector": {
+    "disabled": "Professores arquivados",
+    "label": "Professor",
+    "enabled": "Professores activos"
+  },
+  "search": "Procurar um professor",
+  "forms": {
+    "linkByEmail": {
+      "emailPlaceHolder": "professor@bsport.io",
+      "cancel": "Anular",
+      "submit": "Validar",
+      "title": "Endereço eletrónico do professor",
+      "emailLabel": "Email",
+      "explain": "Se este e-mail já existir no nosso sistema, criaremos automaticamente o professor para si."
+    },
+    "update": {
+      "errors": {
+        "emailAlreadyInUse": "O e-mail introduzido já existe na base de dados. Não é possível associar este e-mail a um novo professor."
+      },
+      "title": "Editar informações",
+      "success": "Professor modificado com sucesso"
+    },
+    "create": {
+      "success": "Professor criado com êxito",
+      "title": "Novo professor"
+    },
+    "delete": {
+      "actions": {
+        "confirm": "Eliminar",
+        "cancel": "Cancelar"
+      },
+      "content": {
+        "canDelete": "Tem a certeza de que quer eliminar este professor? Deixará de ter acesso ao cálculo da sua remuneração. Poderá voltar a adicioná-lo utilizando o seu endereço de e-mail.",
+        "cannotDelete": "Não é possível eliminar este professor porque estão previstas sessões futuras!"
+      },
+      "title": "Eliminar professores",
+      "cancel": "Cancelar",
+      "confirm": "Eliminar"
+    },
+    "error_email_exists": "Já existe um professor com este endereço de email, utilize o formulário de criação de Professor",
+    "errorDescription": "A descrição fornecida é demasiado longa (máx. 500)",
+    "errorLinkLength": "O URL fornecido é demasiado longo (máx. 150)",
+    "errorInvalidURL": "Por favor, introduza um URL válido"
+  },
+  "detail": {
+    "coachSpaceInfo": "Nesta área, o professor pode aceder ao seu resumo de remuneração por sessão e visualizar o seu horário. Pode também adicionar a sua disponibilidade.",
+    "coachSpace": "Área do professor",
+    "tab": {
+      "general": "Perfil",
+      "calendar": "Calendário"
+    },
+    "noPaymentRule": "Atenção, não foram definidas regras de remuneração para este professor."
+  },
+  "coachAccess": {
+    "teacher": "professor/a",
+    "access": "Acesso",
+    "info": "Detectámos que é professor neste estúdio. Deseja aceder à sua área de membro ou à sua área de professor?",
+    "student": "aluno"
+  },
+  "noCoachs": "Sem professores registados, faça aqui a gestão dos seus professores, convidados e respectiva remuneração.",
+  "overrider": "Substituição",
+  "overrideSelectorTitle": "Professor",
+  "coach_override": "Professor substituto",
+  "color": "Código de cores (RDV)",
+  "showPerformance": "Mostrar Payroll",
+  "performance": {
+    "coachName": "Professor",
+    "nbBookings": "Reservas",
+    "nbOffersTotal": "Sessões",
+    "nbBookingsOverThreshold": "Reservas acima do limiar",
+    "pricePerOffer": "Montante por sessão",
+    "pricePerAdditionalBooking": "Montante por marcação",
+    "title": "Descrição do professor",
+    "calculate": "Calcular",
+    "payment": "Remuneração",
+    "durationBookings": "Número de horas",
+    "totalNetGain": "Ganho total líquido"
+  },
+  "selfNoActivity": "Não é responsável por nenhuma atividade.",
+  "card": {
+    "update": "Editar"
+  },
+  "noCoach": "De momento, não há professores registados",
+  "baseCoach": "Habitual",
+  "showActivities": "Mostrar atividades",
+  "showDescription": "Adicionar descrição",
+  "description": "Descrição",
+  "pleaseFill": "Introduzir um professor",
+  "numberCoaches": "{{ number }} professores",
+  "emptyDescription": "Não existe uma descrição disponível.",
+  "emptyNotes": "Sem notas",
+  "addCoach": "Adicionar um professor",
+  "noActivity": "Este professor não gere nenhuma atividade.",
+  "inactiveCoaches": "Professores arquivados",
+  "coach": "Professor",
+  "paymentRule": "Remuneração"
+}

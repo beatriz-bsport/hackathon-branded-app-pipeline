@@ -1,0 +1,135 @@
+{
+  "parameters": {
+    "enabled": "Enabled",
+    "allEstablishment": "All establishments",
+    "add": "Add",
+    "configurationTitle": "Configure your integration",
+    "configurationDescription": "Select how you want your establishments to appear on the ClassPass app.",
+    "establishment": "Establishment",
+    "pleaseChoseEstablishmentMany": "Please select at least one establishment.",
+    "pleaseChoseEstablishment": "Please select an establishment.",
+    "venueIds": "Venue IDs: {{ establishmentIdList }}",
+    "partnerId": "Partner ID: {{ company }}",
+    "establishmentMergedAs": "Merge these establishments",
+    "establishmentMergeMaster": "Merge into this establishment:",
+    "table": {
+      "title": {
+        "groupActivities": "For group activities",
+        "appointments": "For appointments"
+      },
+      "venueIds": "Venue IDs",
+      "establishments": "Establishments"
+    },
+    "drawerTitle": "ClassPass configuration",
+    "description": "To set up your ClassPass integration, contact ClassPass through your partner dashboard. Provide your partner ID and the IDs of the establishments you want to enable on ClassPass. Please note that sessions or appointments at these establishments will not appear on ClassPass until the setup is fully confirmed by ClassPass.",
+    "editButton": "Edit configuration",
+    "companyId": "Your Partner ID is: {{ company }}",
+    "establishmentId": "Your venue IDs are: {{ establishmentIdList }}"
+  },
+  "requestDialog": {
+    "explain": "You've requested the ClassPass integration with BSPORT. Your Account Manager will shortly contact you to validate this request.",
+    "close": "OK"
+  },
+  "actions": {
+    "save": "Save",
+    "requestPartnership": "Enable the integration"
+  },
+  "pageTitle": "Partnership",
+  "configurationType": {
+    "1": {
+      "helperText": "Each establishment will appear as an independent location on ClassPass.",
+      "label": "Independent establishments"
+    },
+    "2": {
+      "helperText": "All merged establishments will appear as a single establishment.",
+      "label": "Merge all establishments"
+    },
+    "3": {
+      "helperText": "Group similar establishments by address.",
+      "label": "Advanced"
+    }
+  },
+  "wellhub": {
+    "title": "Wellhub",
+    "configuration": {
+      "dialog": {
+        "title": {
+          "creation": "Add and link Unit ID with establishment(s)",
+          "edition": "Edit Unit ID",
+          "deletion": "Delete Unit ID"
+        },
+        "field": {
+          "unitId": {
+            "placeholder": "Unit ID number",
+            "error": {
+              "required": "Unit ID is required",
+              "positive": "Unit ID must be a positive number",
+              "unavailable": "Unit ID not available"
+            }
+          },
+          "establishmentIds": {
+            "placeholder": "Link your bsport establishment(s)",
+            "title": "Establishments",
+            "error": {
+              "required": "Please select at least one establishment"
+            }
+          }
+        },
+        "action": {
+          "back": "Back",
+          "cancel": "Cancel",
+          "confirm": "Confirm",
+          "save": "Save"
+        },
+        "unlink": {
+          "title": "You are about to unlink one or several establishments from Wellhub",
+          "text": "Upcoming sessions linked to those establishments will be deleted on Wellhub, and any Wellhub bookings will be lost"
+        }
+      },
+      "panel": {
+        "header": {
+          "subtitle": "Link your sessions on bsport account with Wellhub"
+        },
+        "content": {
+          "title": "Unit ID connection",
+          "helperText": "First, request the integration with bsport on Wellhub's Partners Portal, for each Unit",
+          "table": {
+            "column": {
+              "unit": "Unit ID",
+              "establishments": "Establishments"
+            }
+          }
+        },
+        "footer": {
+          "addUnitButton": "Add Unit ID"
+        }
+      }
+    },
+    "productSelection": {
+      "selector": {
+        "placeholder": "Select a Wellhub product"
+      },
+      "alert": {
+        "title": "Some sessions didn’t sync with Wellhub.",
+        "message": "Please select a Wellhub product to display the sessions and make them bookable for Wellhub users.",
+        "action": "Set up"
+      },
+      "drawer": {
+        "title": "Wellhub product is not linked yet",
+        "description": "Some sessions do not have a Wellhub product linked and won’t be available for bookings by Wellhub users.",
+        "actionRequired": "Select a Wellhub product to link with this session:",
+        "element": "{{ count }} element",
+        "element_plural": "{{ count }} elements",
+        "form": {
+          "label": "These products are offered by your studio on the Wellhub platform. Go to 'Partnership' section in the Partner Portal of your Wellhub account for more information.",
+          "applyToSimilarOffers": "Apply to similar sessions"
+        },
+        "footer": {
+          "back": "Back",
+          "cancel": "Cancel",
+          "save": "Save"
+        }
+      }
+    }
+  }
+}

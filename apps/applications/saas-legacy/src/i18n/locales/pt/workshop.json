@@ -1,0 +1,43 @@
+{
+  "forms": {
+    "delete": {
+      "actions": {
+        "confirm": "Eliminar",
+        "cancel": "Cancelar"
+      },
+      "content": {
+        "canDelete": "Tem a certeza de que pretende cancelar este seminário ? As sessões anteriores e as reservas não serão afetadas. Esta operação é definitiva.",
+        "cannotDelete": "As sessões estão planeadas para o futuro, pelo que deve verificar se foram eliminadas e não apenas anuladas."
+      },
+      "title": "Eliminar um workshop"
+    }
+  },
+  "modal": {
+    "delete": {
+      "confirm": "Eliminar",
+      "content": "Tem a certeza de que pretende cancelar este seminário ? As sessões e as reservas não serão afectadas. Esta operação é definitiva.",
+      "cancel": "Cancelar",
+      "title": "Eliminar workshop"
+    }
+  },
+  "navigation": {
+    "goToPaymentPack": "Passes de aulas"
+  },
+  "search": "Procurar workshop",
+  "noWorkshops": "Gerir os seus workshops aqui. Um workshop é um evento cuja data é fixada antecipadamente.",
+  "tabGroups": "Grupo de sessões",
+  "group": {
+    "pageSize": "Mostrar por:",
+    "backToGroup": "Voltar para os grupos",
+    "emptySearch": "Nenhum grupo corresponde à sua pesquisa",
+    "emptySelect": "Selecionar uma sessão",
+    "emptyState": "Com os grupos de sessões, os seus alunos podem reservar de uma só vez todas as sessões incluídas no grupo. Por exemplo, utilize grupos de sessões para criar workshops introdutórios com várias sessões. "
+  },
+  "disabledWorkshops": "Workshops arquivados",
+  "actions": {
+    "search": "Procurar um workshop",
+    "addWorkshopActivity": "Adicionar workshop",
+    "addWorkshopGroup": "Adicionar um grupo de sessões"
+  },
+  "tabList": "Lista de workshops"
+}

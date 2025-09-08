@@ -1,0 +1,168 @@
+{
+  "detail": {
+    "duration": "Alle {{frequency}} {{recurrency}} während {{number_of_billing}} {{recurrency_ponderate_by_number_of_billing}}",
+    "noConfiguration": "Wählen Sie eine Konfiguration aus, um ihre Details zu sehen",
+    "title": "Details zur Konfiguration",
+    "giftcard": "Gutscheine",
+    "paymentPack": "Kurspässe",
+    "privatePass": "Terminpässe",
+    "shopItem": "Produkte",
+    "combo": "Packs",
+    "recurrency": "Intervall",
+    "number_of_billing": "Anzahl der Zahlungen",
+    "paymentNumber": "{{number_of_billing}} Zahlung",
+    "paymentNumber_plural": "{{number_of_billing}} Zahlungen",
+    "fee": "Feste Kosten",
+    "minimumAmount": "Mindestbetrag des Warenkorbs",
+    "compatibility": "Kompabilität",
+    "seeAll": "alles sehen",
+    "packAvailableForAll": "Alle kompatiblen Kurspässe",
+    "packAvailable": "{{length}} kompatibler Kurspass",
+    "packAvailable_plural": "{{length}} kompatible Kurspässe",
+    "privatePassAvailableForAll": "Alle kompatiblen Terminpässe",
+    "privatePassAvailable": "{{length}} kompatibler Terminpass",
+    "privatePassAvailable_plural": "{{length}} kompatible Terminpässe",
+    "comboAvailableForAll": "Alle kompatiblen Packs",
+    "comboAvailable": "{length}} kompatibles Paket",
+    "comboAvailable_plural": "{{length}} kompatible Pakete",
+    "giftcardAvailableForALl": "Alle kompatiblen Gutscheine",
+    "giftcardAvailable": "{{length}} kompatibler Gutschein",
+    "giftcardAvailable_plural": "{{length}} kompatible Gutscheine",
+    "shopItemAvailableForALl": "Alle kompatiblen Webshop-Produkte",
+    "shopItemAvailable": "{{length}} kompatibles Webshop-Produkt",
+    "shopItemAvailable_plural": "{{length}} kompatible Webshop-Produkte",
+    "onlyWhenAllAvailable": "Nur vorgeschlagen, wenn alle Objekte im Korb kompatibel sind",
+    "whenOneAvailable": "Vorgeschlagen, sobald ein Objekt im Warenkorb kompatibel ist",
+    "noCompability": "Ihre Ratenzahlung ist nicht kompatibel"
+  },
+  "form": {
+    "onlyAvailableInfo": "Standardmäßig wird die Ratenzahlung nicht angeboten, wenn sich mit der Ratenzahlung kompatible Gegenstände im Warenkorb mit inkompatiblen Gegenständen befinden. Wenn Sie diese Funktion deaktivieren, wird die Ratenzahlung trotzdem angeboten, solange sich ein kompatibler Gegenstand im Warenkorb befindet.",
+    "numberOfBilling": "Anzahl der Zahlungseingänge",
+    "add": "eine Konfiguration hinzufügen",
+    "search": "Suche",
+    "onlyAvailable": "Nur vorschlagen, wenn alle Objekte im Korb kompatibel sind",
+    "minimumAmountHelperText": "Bei einem Warenkorb unter diesem Betrag wird keine Ratenzahlung angeboten.",
+    "minimum_amount": "Mindestbetrag des Warenkorbs",
+    "advanced": "Fortgeschrittene",
+    "requiredField": "dieses Feld ist erforderlich",
+    "cancel": "Abbrechen",
+    "save": "Registrieren",
+    "compatibility": "Kompatibilität",
+    "create": "Zahlung in Raten",
+    "generalInfo": "Allgemeine Informationen",
+    "compabilityInfo": "Wählen Sie die Artikel aus, auf die Sie die Ratenzahlung anwenden möchten, sie wird nur mit diesen kompatibel sein. Beim Kauf eines der ausgewählten Artikel wird die Ratenzahlung angeboten.",
+    "name": "Name",
+    "info": {
+      "startDay": "Die Zahlung wird alle {{frequency}} Tage in Rechnung gestellt",
+      "startWeek": "Die Zahlung wird alle {{frequency}} Wochen in Rechnung gestellt",
+      "startMonth": "Die Zahlung wird jeden {{frequency}} Monat in Rechnung gestellt",
+      "startYear": "Die Zahlung wird alle {{frequency}} Jahre in Rechnung gestellt",
+      "middle": " über eine Gesamtdauer von {{total}} ",
+      "end": " und erzeugt {{number_of_billing}} Inkasso",
+      "end_plural": " und erzeugt {{number_of_billing}} Zahlungseingänge"
+    },
+    "frequency": {
+      "start": "Wiederholen Sie alle"
+    },
+    "fee": "Feste Kosten",
+    "feeHelperText": "Gebühren, die vom Mitglied zu zahlen sind, wenn es die Ratenzahlung nutzt, sie werden automatisch zur ersten Zahlung hinzugefügt.",
+    "recurrency": {
+      "title": "Intervall",
+      "week": "Woche",
+      "week_plural": "Wochen",
+      "month": "Monat",
+      "month_plural": "Monate",
+      "year": "an",
+      "year_plural": "Jahre",
+      "day": "Tag",
+      "day_plural": "Tage",
+      "daily": "Täglich",
+      "weekly": "Wöchentlich",
+      "montly": "Monatlich",
+      "annual": "Jährlich"
+    },
+    "compability": {
+      "selectPack": "Kurspass auswählen",
+      "selectPrivatePass": "Terminpässe auswählen",
+      "selectCombo": "Wählen Sie ein Paket aus",
+      "selectShopItem": "Wählen Sie ein Webshop-Produkt aus",
+      "selectGiftcard": "Einen Gutscheine auswählen",
+      "allPass": "Kompatibel mit allen Kurspässen",
+      "pack": "Kurspass",
+      "privateBooking": "Terminpass",
+      "allPrivateBooking": "Kompatibel mit allen Terminpässen",
+      "combo": "Paket",
+      "allCombo": "Mit allen Paketen kompatibel",
+      "shopItem": "Webshop-Produkte",
+      "allShopItem": "Kompatibel mit allen Webshop-Produkten",
+      "giftcard": "Gutscheine",
+      "allGiftcard": "Kompatibel mit allen Gutscheinen"
+    },
+    "customInstalmentAmount": {
+      "label": "die Höhe der ersten Ratenzahlung anpassen",
+      "type": {
+        "amount": "Festgelegter Betrag",
+        "percent": "Als Prozentsatz des gesamten Warenkorbs"
+      },
+      "amountHelperText": {
+        "amount": "Betrag",
+        "percent": "Prozentsatz"
+      }
+    },
+    "partialPaymentRadio": {
+      "enabled": {
+        "label": "Warenkorb teilweise bezahlen",
+        "helperText": "Das Mitglied zahlt zunächst nur einen Teilbetrag seines Warenkorbs, der Restbetrag wird seinem Kontostand gutgeschrieben"
+      },
+      "disabled": "Den gesamten Warenkorb in mehreren Raten bezahlen"
+    }
+  },
+  "paymentAllInOnce": "In einem Mal bezahlen",
+  "basket": {
+    "instalmentAmountTitle": "Zeitplan",
+    "instalmentAmount": "Fälligkeit von ",
+    "fee": "Fixe Kosten : "
+  },
+  "action": {
+    "edit": {
+      "success": "Die Konfiguration wurde erfolgreich geändert",
+      "error": "Fehler beim Ändern der Konfiguration"
+    },
+    "create": {
+      "success": "Die Konfiguration wurde erfolgreich erstellt",
+      "error": "Fehler beim Erstellen der Konfiguration"
+    },
+    "disable": {
+      "success": "Die Konfiguration wurde erfolgreich gelöscht",
+      "error": "Fehler beim Löschen der Konfiguration"
+    }
+  },
+  "list": {
+    "infoNoInstalmentPayment": "Mit der Ratenzahlung können Ihre Mitglieder die Bezahlung ihrer Einkäufe über einen längeren Zeitraum verteilen. Konfigurieren Sie Ihre Ratenzahlungen und auf welche Artikel sie angewendet werden sollen.",
+    "addInstalmentPayment": "eine Konfiguration hinzufügen"
+  },
+  "title": "Zahlung in Raten",
+  "deleteDialog": {
+    "title": "Möchten Sie diese Konfiguration wirklich löschen?",
+    "content": "Nur zukünftige Zahlungen werden davon betroffen sein."
+  },
+  "close": "Schließen",
+  "modify": "Bearbeiten",
+  "delete": "Löschen",
+  "menu": {
+    "secondary": {
+      "allMasculine": "Alle {{frequency}} ",
+      "allFeminine": "Alle {{frequency}} ",
+      "numberOfBilling": "{{number_of_billing}} Inkasso",
+      "numberOfBilling_plural": "{{number_of_billing}} Zahlungseingänge"
+    }
+  },
+  "configurationOption": {
+    "payLater": "Nur {{amount}} bezahlen",
+    "payLaterRemainder": "Der Rest des zu zahlenden Betrags ({{remainder}}) wird von Ihrem internen Guthaben abgezogen"
+  },
+  "validation": {
+    "percentRange": "Der Prozentsatz muss zwischen 1 und 100 liegen",
+    "amountMin": "Der Betrag muss größer als 1 sein"
+  }
+}

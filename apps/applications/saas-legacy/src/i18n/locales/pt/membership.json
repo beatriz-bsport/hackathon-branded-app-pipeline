@@ -1,0 +1,8 @@
+{
+  "selector": {
+    "noMatchingCompany": "Nenhum resultado",
+    "placeholder": "Procurar um estúdio/sala/estabelecimento...",
+    "explainConsumer": "Com <1>bsport</2> desfrute de uma experiência única para reservar todas as suas atividades desportivas. <3/> Apenas com uma conta e uma palavra-passe !",
+    "fetchMore": "Ver mais"
+  }
+}

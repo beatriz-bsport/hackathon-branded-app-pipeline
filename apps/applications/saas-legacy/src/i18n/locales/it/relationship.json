@@ -1,0 +1,110 @@
+{
+  "member": {
+    "form": {
+      "src_name": {
+        "placeholder": "Madre"
+      },
+      "dst_name": {
+        "placeholder": "Figlio"
+      },
+      "submit": "Salva",
+      "cancel": "Annulla",
+      "is": " è ",
+      "title": "Relazione",
+      "shareEmail": "Invia sempre una copia per email",
+      "confirm": "Confermare",
+      "autorization": "Permettere a \"{{- name_1 }}\" di accedere all'account di \"{{- name_2 }}\".",
+      "accountInfo": "L'accesso al conto permette al membro di accedere al conto della sua relazione dal proprio conto.",
+      "access": "Accesso all'account",
+      "email": "Copia dell'e-mail",
+      "parentalLink": "Relazione"
+    },
+    "item": {
+      "edit": "Modifica",
+      "delete": "Rimuovi"
+    },
+    "list": {
+      "title": "Relazioni",
+      "isEmpty": "Nessuna relazione è stata ancora creata",
+      "pleaseSelectOne": "Seleziona una relazione per visualizzare le lezioni condivise.",
+      "actions": {
+        "create": "Aggiungi relazione"
+      }
+    }
+  },
+  "consumer_payment_pack_links": {
+    "list": {
+      "title": "Pacchetti condivisi",
+      "create": "Condividi un pacchetto",
+      "isEmpty": "Nessun pacchetto condiviso da visualizzare."
+    },
+    "form": {
+      "create": {
+        "title": "Condividi un pacchetto",
+        "noConsumerPackToLink": "Non ci sono pacchetti che possono essere condivisi da mostrare.",
+        "explain": "Questo pacchetto sarà condiviso tra i due membri, i crediti possono essere utilizzati dall'uno o dall'altro.",
+        "cancel": "Annulla",
+        "previous": "Indietro",
+        "submit": "Condividi",
+        "linkButton": "Condividi"
+      },
+      "unlink": {
+        "title": "Smetti di condividere",
+        "submit": "Stop",
+        "cancel": "Annulla",
+        "explain": "La condivisione verrà interrotta, ma il pacchetto Master rimarrà utilizzabile."
+      },
+      "relink": {
+        "cancel": "Annulla",
+        "explain": "La condivisione verrà nuovamente attivata.",
+        "submit": "Condividi",
+        "title": "Condividi di nuovo"
+      }
+    }
+  },
+  "private_consumer_pass_links": {
+    "form": {
+      "create": {
+        "explain": "Questo pacchetto sarà condiviso da due membri, entrambi possono usare i crediti.",
+        "noConsumerPackToLink": "Non ci sono pacchetti per appuntamenti che possono essere condivisi per la visualizzazione.",
+        "linkButton": "Condividi",
+        "submit": "Condividi",
+        "previous": "Precedente",
+        "cancel": "Annullare",
+        "title": "Condividi il pacchetto per l'appuntamento"
+      },
+      "relink": {
+        "cancel": "Annulla",
+        "submit": "Condividi",
+        "explain": "La condivisione tra i membri sarà attivata nuovamente.",
+        "title": "Condividi di nuovo"
+      },
+      "unlink": {
+        "cancel": "Annulla",
+        "submit": "Stop",
+        "explain": "La condivisione verrà annullata. Il pacchetto sarà ancora utilizzabile.",
+        "title": "Stop condivisione"
+      }
+    },
+    "list": {
+      "isEmpty": "Non ci sono pacchetti per appuntamenti condivisi da visualizzare.",
+      "create": "Condividi un pacchetto per appuntamenti",
+      "title": "Pacchetti lezioni condivisi"
+    }
+  },
+  "relationship": {
+    "delete": {
+      "content": "Sei sicuro di voler rimuovere questa relazione? I pacchetti condivisi saranno disabilitati immediatamente. Questa azione non può essere annullata.",
+      "cancel": "Cancella",
+      "submit": "Elimina",
+      "title": "Elimina relazione",
+      "whichUser": "A quale account vuoi accedere?"
+    }
+  },
+  "connectedAs": {
+    "title": "Accedi come",
+    "info": "Accedi all'account di uno dei tuoi contatti.",
+    "wichUser": "A quale account vuoi accedere?",
+    "selectRelation": "Seleziona una relazione"
+  }
+}

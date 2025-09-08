@@ -1,0 +1,24 @@
+{
+  "form": {
+    "repeat": {
+      "weekdays_pl": {
+        "sunday": "neděli",
+        "saturday": "Soboty",
+        "friday": "Pátky",
+        "thursday": "Čtvrtky",
+        "wednesday": "Středa",
+        "tuesday": "Úterý",
+        "monday": "Pondělí"
+      },
+      "weekdays": {
+        "sunday": "Neděle",
+        "saturday": "Sobota",
+        "friday": "Pátek",
+        "thursday": "Čtvrtek",
+        "wednesday": "Středa",
+        "tuesday": "Úterý",
+        "monday": "Pondělí"
+      }
+    }
+  }
+}

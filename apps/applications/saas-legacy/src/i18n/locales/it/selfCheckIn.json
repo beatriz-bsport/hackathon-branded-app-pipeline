@@ -1,0 +1,67 @@
+{
+  "offerDetail": {
+    "register": "Iscriviti a questo corso",
+    "activateBarcode": "Scan codice a barre",
+    "emptyList": "Nessun allievo è iscritto a questo corso",
+    "cancelRegistration": "Annulla",
+    "noConsumerPaymentPack": "Per completare questa prenotazione non è necessario possedere un abbonamento valido.",
+    "isFull": "Pieno",
+    "backToOfferList": "Torna alle sessioni",
+    "actions": {
+      "createAccount": "Crea un account",
+      "restartAnalyze": "Ricomincia",
+      "close": "Chiudi"
+    },
+    "noDetectionResult": "Nessun risultato",
+    "activateFaceId": "Face ID"
+  },
+  "memberList": {
+    "checkIn": "Check-in",
+    "checkedIn": "Salvato",
+    "empty": "Nessun allievo è iscritto a questo corso"
+  },
+  "confirmPage": {
+    "headOnIn": "È tutto pronto!",
+    "classLocation": "Per partecipare, recati al seguente stabilimento:",
+    "visitsLeft": "Visite rimanenti",
+    "expires": "Scaduto",
+    "signIn": "Check-in eseguito",
+    "spotUnassigned": "Posto non assegnato",
+    "spotInfo": "Il tuo {{- spotName }} è:"
+  },
+  "signout": {
+    "signout": "Disconnetti",
+    "explain": "Per disconnettersi, inserire la password dell'account del Check-In.",
+    "form": {
+      "password": {
+        "label": "Password"
+      },
+      "username": {
+        "label": "Email"
+      }
+    },
+    "title": "Disconnetti",
+    "passwordError": "Password errata",
+    "cancel": "Annulla"
+  },
+  "offerStatus": {
+    "startIn": "inizia tra ",
+    "inProgress": "è iniziato da",
+    "hasEnded": "Finito da"
+  },
+  "offerList": {
+    "refresh": "Ricarica sessioni",
+    "emptyList": "Nessuna sessione"
+  },
+  "addMember": {
+    "button": "Crea un account"
+  },
+  "filter": {
+    "establishment": "Filtra per stabilimenti"
+  },
+  "authenticationDialog": {
+    "error": "La password inserita non è valida",
+    "description": "Per garantire la sicurezza, si prega di autenticarsi inserendo la password prima di procedere alla modifica dello stabilimento.",
+    "title": "Cambia stabilimento"
+  }
+}

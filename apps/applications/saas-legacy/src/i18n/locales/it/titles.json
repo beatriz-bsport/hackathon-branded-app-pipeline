@@ -1,0 +1,105 @@
+{
+  "metaActivity": {
+    "metaActivityEditForm": "Form attività",
+    "metaActivityFormPage": "Aggiungi un'attività di gruppo",
+    "metaActivityList": "Attività",
+    "metaActivityFormSubtitle": "Imposta un'attività di gruppo, definiscine la durata e aggiungi parametri personalizzati",
+    "metaActivityEditFormSubtitle": "Modifica di un'attività di gruppo"
+  },
+  "member": {
+    "mergeMember": "Accorpa soci",
+    "memberForm": "Aggiungi un membro",
+    "members": "Membri",
+    "memberFormPage": "Form membro"
+  },
+  "coupon": {
+    "couponCreate": "Form della promozione",
+    "couponDetail": "{{name}}",
+    "couponEdit": "Form di promozione",
+    "couponList": "Codici promozionali"
+  },
+  "paymentPack": {
+    "paymentPackList": "Pacchetti",
+    "paymentPackFormPage": "[Form] Pacchetto"
+  },
+  "video": {
+    "videoList": "Videoteca"
+  },
+  "settings": "Impostazioni",
+  "shop": "Il mio shop",
+  "offerManagement": "Prenotazioni",
+  "offerFormPage": "Creazione della sessione",
+  "searchResults": "Ricerca",
+  "marketing": {
+    "marketingDashboard": "Pannello di controllo",
+    "marketingRule": "Strategie di marketing",
+    "notifications": "Notifiche",
+    "cadence": "Cadenza",
+    "audience": "{{ audienceCamelCase }}"
+  },
+  "banner": {
+    "isStaging": "Prendi un appuntamento",
+    "networkError": "Sembra che tu sia offline. Controlla la tua rete internet e riprova.",
+    "franchiseConnection": "Sei attualmente collegato a una delle applicazioni dei tuoi franchisee",
+    "serverConnectionRestored": "Connessione ripristinata. È possibile continuare senza problemi.",
+    "networkConnectionRestored": "Connessione ripristinata!",
+    "serverError": "Abbiamo problemi a caricare i dati. Si prega di attendere mentre ripristiniamo la connessione."
+  },
+  "order": {
+    "orderList": "Ordini",
+    "orderDetail": "Dettagli dell'ordine"
+  },
+  "invoice": {
+    "invoiceList": "Transazioni",
+    "invoiceCreate": "Ricevuta",
+    "invoiceEdit": "Ricevuta"
+  },
+  "coach": {
+    "allCoachPerformance": "Riepilogo dell'insegnante",
+    "coachFormPage": "Form dell'insegnante",
+    "coachPerformance": "Busta paga: {{- name }}",
+    "coachList": "Insegnanti"
+  },
+  "marketplace": {
+    "marketplaceWorkshop": "Workshop",
+    "marketplacePass": "Pacchetti",
+    "marketplaceShop": "Shop",
+    "marketplaceCalendar": "Calendario",
+    "marketplaceGiftcard": "Gift card"
+  },
+  "dashboard": {
+    "marketingDashboard": "Marketing",
+    "reportingDashboard": "Report",
+    "dashboard": "pannello di controllo"
+  },
+  "subscription": {
+    "subscriptionCreate": "Crea un abbonamento ricorrente",
+    "subscriptions": "Abbonamenti ricorrenti"
+  },
+  "workshopActivity": {
+    "workshopActivityList": "Workshop",
+    "workshopActivityCreate": "Crea un workshop",
+    "workshopActivityFormPage": "Form del workshop",
+    "workshopActivityFormSubtitle": "Creazione di un workshop",
+    "workshopActivityEditFormSubtitle": "Modifica di un workshop"
+  },
+  "privateService": {
+    "serviceList": "Su appuntamento"
+  },
+  "establishment": {
+    "establishmentList": "Stabilimenti",
+    "establishmentFormPage": "Aggiungi uno stabilimento",
+    "establishmentGroupPage": "Sedi"
+  },
+  "planning": "Calendario",
+  "expense": {
+    "expenseList": "Spese"
+  },
+  "coachUserSpace": {
+    "performance": "Remunerazione",
+    "replacement": "Sostituzione"
+  },
+  "replacement": "Sostituzione",
+  "inbox": "Posta in arrivo",
+  "giftcard": "Gift card"
+}

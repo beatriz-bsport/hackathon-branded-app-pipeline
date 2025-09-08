@@ -1,0 +1,77 @@
+{
+  "task": {
+    "name": "{{ name }}"
+  },
+  "privateBookingIncomplete": {
+    "name": "Mitglied: {{- user_name }}",
+    "date": "Datum: {{ date_start }}",
+    "explain": "Der Termin von <1>{{- name }}</1> hat keine zugeteilte Lehrkraft."
+  },
+  "unevenInvoice": {
+    "explainUneven": "Diese Rechnung <1>{{ invoice_identifier }}</1> ist nicht ausgeglichen.",
+    "title": "Unbezahlte Rechnungen",
+    "pricePayed": "Gezahlter Betrag: {{price_payed }}.",
+    "priceDue": "Fälliger Betrag: {{ price_due }}."
+  },
+  "alert_kind": {
+    "1": "Rechnungsstellung",
+    "2": "Bestellungen",
+    "3": "Aufträge",
+    "4": "Zu ergänzender Termin",
+    "5": "Rechtliche Informationen",
+    "6": "Unbezahlte Termine",
+    "7": "Tutorials",
+    "8": "Späte Vertretungen",
+    "9": "Empfangene Nachrichten"
+  },
+  "list": {
+    "emptyAlerting": "Keine neue Benachrichtigung.",
+    "title": "Benachrichtigungen"
+  },
+  "showMore": "Mehr anzeigen",
+  "newOrder": {
+    "explain": "Von <1>{{- name }}</1> im Shop bezahlt.",
+    "price": "Betrag: {{ price }}.",
+    "title": "Bestellung in Bearbeitung"
+  },
+  "companyOnboarding": {
+    "creation": {
+      "content": "Um Karten- und SEPA-Zahlungen einziehen zu können, überprüfe bitte deine rechtlichen und banktechnischen Informationen.",
+      "title": "Online-Zahlungen derzeit deaktiviert"
+    },
+    "payout": {
+      "content": "Auszahlungen können nicht durchgeführt werden, weil die Kontoverifizierung nicht oder nicht korrekt durchgeführt wurde.",
+      "title": "Fehlende Bankinformationen"
+    },
+    "verification": {
+      "warning": "Online-Zahlungen können nach diesem Datum <1>deaktiviert</1> werden!",
+      "content": "Mehrere Dokumente müssen noch validiert werden, um Ihr Konto zu verifizieren. Die Frist ist <1>{{date}}</1>.",
+      "title": "Verwaltung meines Unternehmens"
+    },
+    "paypal": {
+      "issue_repeat_onboarding": "Es liegt ein Problem mit deinem PayPal-Konto vor. Bitte wiederhole den Verbindungsvorgang mit demselben Konto, um dieses Problem zu beheben.",
+      "issue_check_account": "Es liegt ein Problem mit deinem PayPal-Konto vor. Bitte überprüfe dein PayPal-Konto, um dieses Problem zu lösen.",
+      "requires_more_information": "Dein PayPal-Konto erfordert zusätzliche Informationen oder eine Bestätigung von PayPal. Bitte überprüfe dein PayPal-Konto, um dieses Problem zu lösen.",
+      "primary_email_confirmation": "Die E-Mail für dein PayPal-Konto muss bestätigt werden. Bitte überprüfe dein PayPal-Konto, um dieses Problem zu lösen.",
+      "title": "PayPal-Zahlungen sind deaktiviert"
+    }
+  },
+  "unpaidPrivateBooking": {
+    "credits_due": "Unbezahlte Credits: {{ credits }}"
+  },
+  "lateReplacementRequest": {
+    "title": "Späte Vertretung",
+    "content": "hat für den folgenden Kurs eine Vertretung beantragt: {{- activity_name}} - {{-date_start}}"
+  },
+  "newTutorialSectionOrLesson": {
+    "newSection": {
+      "title": "Neue Sektion",
+      "content": "Das {{- name}} Tutorial wurde hinzugefügt, bilde dich jetzt weiter."
+    },
+    "newLesson": {
+      "title": "Neuer Kurs {{- name}}",
+      "content": "Zur Sektion {{- name}} hinzugefügt"
+    }
+  },
+  "readAll": "Alle als gelesen markieren"
+}

@@ -1,0 +1,918 @@
+{
+  "consumerPaymentPack": {
+    "refund": {
+      "warning": "Si noti che questa operazione è irreversibile (generazione della fattura).",
+      "description": "Credito {{credits}} - {{note}}",
+      "description_plural": "Crediti {{credits}} - {{note}}",
+      "actions": {
+        "submit": "Salva",
+        "cancel": "Annulla"
+      },
+      "note": {
+        "label": "Nota"
+      },
+      "title": "Rimborso",
+      "price": {
+        "label": "Importo riaccreditato"
+      },
+      "credits": {
+        "label": "Credito da detrarre",
+        "decimalCredit": {
+          "helperText": "{{count}} credito verrà detratto",
+          "helperText_plural": "{{count}} crediti verranno detratti"
+        }
+      },
+      "explain": "Scegli il numero di crediti da rimborsare e il valore totale che verrà accreditato sul deposito del socio",
+      "warningSecond": "Se vuoi rimborsare il cliente tramite bonifico con il metodo di pagamento usato, annulla la contabilizzazione e non rimborsare il credito!",
+      "warningFirst": "Attenzione, questo operazione é irreversibile (generazione di ricevute).",
+      "blockUnlimited": "Bloccare il pacchetto",
+      "error": {
+        "2029": "L'importo del rimborso supera l'importo dell'acquisto. Si prega di riprovare con un importo inferiore.",
+        "2030": "Il numero di crediti da detrarre supera il numero di crediti del pacchetto. Riprovare con un numero inferiore.",
+        "2031": "Si è verificato un errore. Riprovare.",
+        "default": "Si è verificato un errore. Riprovare."
+      }
+    },
+    "addExtension": "Aggiungi un'estensione",
+    "details": {
+      "actions": {
+        "refund": "Trasformazione dell'acconto",
+        "applyVoucher": "Applica sconto"
+      }
+    },
+    "maxout": {
+      "dialog_message": "Attenzione, questo pacchetto ha già raggiunto il limite di {{count}} prenotazione(i) per {{unit}}. Vuoi ancora prenotare con questo pacchetto? ",
+      "dialogTitle": "Limite di prenotazione raggiunto",
+      "months": "mese",
+      "weeks": "settimana",
+      "days": "giorno",
+      "limit_reach": "Limite di prenotazioni per {{unit}} raggiunto"
+    }
+  },
+  "notification": {
+    "0": {
+      "second": "giorni di validità rimanenti del pacchetto",
+      "first": "Notifica quelli rimanenti "
+    },
+    "1": {
+      "second": "crediti",
+      "first": "Notifica quelli rimanenti"
+    },
+    "2": {
+      "second": "giorni",
+      "first": "Notifica quando il pacchetto è scaduto "
+    },
+    "form": {
+      "warning": "Non selezionando alcuna smartlist rischi di avvisare i membri che hanno già acquistato un altro pacchetto!",
+      "creditType": "Crediti rimanenti",
+      "submit": "Conferma",
+      "cancel": "Annulla",
+      "createSmartList": "Crea una smartlist",
+      "mailTitle": "Mail da inviare",
+      "selectToShowPreview": "Seleziona un'email per avere una panoramica",
+      "daysType": "Giorni di validità rimanenti",
+      "daysPastType": "Giorni di scadenza",
+      "mailSelection": "Scegli un'email",
+      "smartListSelection": "Scegli elenchi (opzionale)",
+      "showMail": "Visualizza mail",
+      "smartListHelper": "Non inviare un'email se il membro appartiene a uno dei seguenti elenchi",
+      "smartListHelperInclude": "Invia un'email solo se il socio appartiene a uno dei seguenti elenchi",
+      "noMailAvailable": "Nessuna email disponibile, ricordati di crearne una",
+      "typeTitle": "Tipo di notifica",
+      "settingTitle": "Impostazioni",
+      "hideMail": "Nascondi email",
+      "pushTitle": "Impostazioni di notifica",
+      "mailSettings": "Impostazioni della posta",
+      "creditNotificationType": {
+        "onOfferStart": "Fine della sessione la cui prenotazione aveva portato il numero di crediti al di sotto della soglia sopra definita",
+        "onBooking": "Prenotazione che porti il numero di crediti al di sotto della soglia sopra definita"
+      },
+      "chooseTime": {
+        "secondOnOfferStart": "ora(e) dopo la sessione",
+        "secondOnBooking": "ora(e) dopo la prenotazione",
+        "first": "Inviare una mail"
+      },
+      "infoContract": "I membri che hanno ottenuto questo pacchetto in un abbonamento ricorrente riceveranno notifiche solo sull'abbonamento e non sul pacchetto. Disabilitando questa opzione ne riceveranno entrambe.",
+      "dontSendIfInContract": "Non inviare quando il pacchetto fa parte di un abbonamento ricorrente",
+      "contractTitle": "Abbonamento ricorrente",
+      "notificationNamePlaceholder": "Nome della notifica",
+      "generalTitle": "Generale"
+    },
+    "listItem": {
+      "smartList": "Elenchi esclusi",
+      "deleteModal": {
+        "cancel": "annulla",
+        "confirm": "Rimuovi",
+        "title": "Notifica di soppressione",
+        "content": "Sei sicuro di voler eliminare questa notifica? Questa operazione è definitiva"
+      },
+      "smartListInclude": "Elenchi inclusi",
+      "mail": "Mail "
+    },
+    "addButton": "Aggiungi notifica",
+    "daysPast": {
+      "second": "giorno/i.",
+      "first": "Inviare notifica quando il pacchetto scade"
+    },
+    "daysLeft": {
+      "second": "giorno/i di validità rimanente/i",
+      "first": "Inviare questa notifica quando il pacchetto ha"
+    },
+    "creditsLeft": {
+      "second": "crediti/o restante/i",
+      "first": "Invia un a e-mail quando c'è",
+      "helperText": "Questa notifica viene attivata quando c'è {{count}} credito rimanente",
+      "helperText_plural": "Questa notifica viene attivata quando ci sono {{count}} crediti rimanenti"
+    },
+    "daysPastLabel": "Questa notifica viene inviata quando il pacchetto è scaduto da {{day}} giorno.",
+    "daysPastLabel_plural": "Questa notifica viene inviata quando il pacchetto è scaduto da {{day}} giorni.",
+    "daysLeftLabel": "Notifica quando {{day}} giorno di validità rimangono sul pacchetto.",
+    "daysLeftLabel_plural": "Notifica quando {{day}} giorni di validità rimangono sul pacchetto.",
+    "creditsLeftLabel": "Questa notifica viene inviata quando il pacchetto ha {{count}} credito residuo.",
+    "creditsLeftLabel_plural": "Questa notifica viene inviata quando il pacchetto ha {{count}} crediti residui.",
+    "creditsLeftOnOfferStart": "{{hours}}h dopo la sessione",
+    "creditsLeftOnBooking": "{{hours}}h dopo la prenotazione"
+  },
+  "extension": {
+    "create": {
+      "warning": "Verificare che la nuova data non superi il periodo fiscale di questo pacchetto. In tal caso, verificare con il proprio commercialista la pertinenza di questa operazione.",
+      "title": "Estendi la validità del pacchetto",
+      "cancel": "Annulla",
+      "nbDays": {
+        "label": "Numero di giorni aggiuntivi"
+      },
+      "explain": {
+        "newDate": "Nuova data: ",
+        "oldDate": "Vecchia data: "
+      },
+      "submit": "Creare",
+      "note": {
+        "label": "Annotazioni"
+      },
+      "datePicker": {
+        "label": "Nuova data"
+      }
+    },
+    "nbDaysAdded": "+{{count}} giorno",
+    "nbDaysAdded_plural": "+{{count}} giorni",
+    "addedOn": "Aggiunto il: ",
+    "delete": {
+      "title": "Rimozione dell'estensione",
+      "explain": "Sei sicuro di voler eliminare l'estensione di validità?",
+      "cancel": "Annulla",
+      "confirm": "Conferma"
+    },
+    "options": {
+      "addNumberOfDays": "Estendi la validità aggiungendo un numero di giorni",
+      "selectNewEndDate": "Imposta una nuova data di scadenza"
+    },
+    "seeMore": "Vedi più",
+    "seeLess": "Vedi meno"
+  },
+  "actions": {
+    "edit": "Modifica",
+    "delete": "Archivia",
+    "scaleCredit": "Crediti mult/div",
+    "massExtension": "Aggiungere un'estensione",
+    "close": "Chiudere"
+  },
+  "scaleCredit": {
+    "title": "Variazione totale del credito",
+    "explain": "Puoi moltiplicare il credito sulla carta (3/7 x2 diventa 6/14) o dividerlo in caso di errore (3/7 ÷ 2 diventa 1/3): arrotondato per difetto.",
+    "parameterLegend": "Impostazioni",
+    "factor": {
+      "label": "Fattore"
+    },
+    "actions": {
+      "cancel": "Annulla",
+      "submit": "Salva"
+    },
+    "scaleDown": "Dividere",
+    "scaleUp": "Moltiplicare"
+  },
+  "form": {
+    "paymentPack": {
+      "helper": {
+        "starting_date": "Inizio della validità del pacchetto, lasciare vuoto per renderlo valido immediatamente.",
+        "ending_date": "Fine della validità del pacchetto, lasciare vuoto in modo che rimanga sempre attivo."
+      },
+      "start_date_method": {
+        "on_purchase": "Inizia la contabilizzazione",
+        "on_booking": "Inizia alla prima prenotazione",
+        "on_attendance": "Inizia alla prima presenza"
+      },
+      "noneMeansAll": "Lascia vuoto per consentire tutto",
+      "update": {
+        "success": "Pacchetti: operazione eseguita con successo",
+        "error": "Pacchetti: errore durante l'operazione"
+      },
+      "delete": {
+        "thereAreConsumers": "Attenzione! I membri che hanno acquistato questo pacchetto, se lo elimini, potranno comunque utilizzare i crediti rimanenti. Puoi ridurli manualmente a zero qui.\n\nIl pacchetto non apparirà più nel tuo shop per i nuovi acquirenti.",
+        "actions": {
+          "submit": "Rimuovi",
+          "cancel": "Annulla"
+        },
+        "title": "Elimina il pacchetto:",
+        "askConfirmation": "Attenzione! Questa operazione è definitiva. Il pacchetto non sarà più visibile e non sarà più disponibile per l'acquisto.",
+        "isUsedInCombo": "Attenzione! Questo pacchetto è utilizzato in un pacchetto combinato che non sarà più disponibile per la vendita se lo si elimina."
+      },
+      "startOnFirstUseHelper": "Altrimenti il conto alla rovescia inizia il giorno della contabilizzazione del pacchetto",
+      "expirationDaysBeforeFirstUse": {
+        "label": "Scadenza dalla prenotazione iniziale",
+        "helperText": "Se il pacchetto non viene utilizzato una prima volta entro questo numero di giorni, viene invalidato:"
+      },
+      "managerOnly": "Invisibile ai clienti",
+      "from": "Dal ",
+      "actions": {
+        "edit": "Modifica",
+        "skip": "Salta",
+        "create": "Salva",
+        "cancel": "Annulla",
+        "back": "Indietro",
+        "next": "Seguente",
+        "submit": "Salva"
+      },
+      "name": {
+        "helperText": "Nome del pacchetto",
+        "label": "Nome"
+      },
+      "validByDuration": "Pacchetto valido N giorni dopo l'acquisto",
+      "validByDaterange": "Pacchetto valido in una data specifica",
+      "durationDays": {
+        "label": "Periodo di validità (giorni) se applicabile",
+        "helperText": "Periodo in giorni per i quali il pacchetto sarà valido dopo l'acquisto "
+      },
+      "durationMonths": {
+        "label": "Periodo di validità (giorni) se applicabile",
+        "helperText": "Si aggiunge al numero di giorni"
+      },
+      "durationYears": {
+        "label": "Periodo di validità (anni) se applicabile",
+        "helperText": "Si aggiunge al numero di giorni e mesi"
+      },
+      "timeSettingsTitle": "Validità della carta",
+      "generalSettingsTitle": "Generale",
+      "sports": "Categoria",
+      "activities": "Attività",
+      "establishments": "Stabilimento",
+      "restrictionsTitle": "Restrizioni",
+      "notEditable": "Questo pacchetto è il risultato di una migrazione, alcuni campi non sono modificabili per rispettare la cronologia. Le attività / categorie compatibili rimangono modificabili.",
+      "until": "Fino a ",
+      "tax": {
+        "label": "I.V.A."
+      },
+      "newMemberOnly": "Solo per nuovi clienti",
+      "onsitePaymentAvailable": "Possibilità di pagare in loco",
+      "startOnFirstUse": "Il conteggio di validità inizia il giorno della prima prenotazione",
+      "maxBookingPerWeek": {
+        "helperText": "Lasciare vuoto per non imporre un limite",
+        "label": "Utilizzo massimo per settimana"
+      },
+      "priceIncludingTax": {
+        "helperText": "Prezzo totale di vendita del pacchetto.",
+        "label": "Tutte le tasse sono incluse nel prezzo"
+      },
+      "unlimited": "Crediti illimitati",
+      "theoricalMarginValue": {
+        "label": "Contributo marginale teorico tasse incluse (solo pacchetti illimitati)",
+        "helperText": "Utilizzato per calcolare la remunerazione degli insegnanti, 10{{currency}} significa che una prenotazione effettuata con questo pacchetto è remunerata 10{{currency}}. Se vuoto o 0{{currency}} il contributo di un pacchetto sarà PRICE/NB_RESERVATION."
+      },
+      "credits": {
+        "label": "Credito",
+        "helperText": "Numero di crediti disponibili",
+        "bewareChange": "Se aumenti il numero di crediti, saranno interessate tutti i pacchetti esistenti. Lo stesso se diminuisci il numero di crediti."
+      },
+      "maxPurchasePerMember": {
+        "helperText": "Lasciare vuoto per non imporre un limite",
+        "label": "Acquisto massimo per membro"
+      },
+      "maxBookingPerDay": {
+        "helperText": "Lasciare vuoto per non imporre un limite",
+        "label": "Utilizzo massimo al giorno"
+      },
+      "full_vod_access": "Fornisce accesso al VOD finché è valido",
+      "penalty": {
+        "account": {
+          "helperText": "Un accredito di {{value}} verrà applicato a questo membro",
+          "label": "Accredito:"
+        },
+        "block": {
+          "helperText": "Il pacchetto sarà bloccato per {{nb_days}} giorni",
+          "label": "Periodo di blocco della carta (in giorni) :"
+        },
+        "kind": {
+          "account": "Crea un accredito per il membro interessato",
+          "block": "Blocca temporaneamente il pacchetto",
+          "label": "Seleziona il tipo di penalità da applicare"
+        },
+        "nb_days": "Numero di giorni:",
+        "checkbox": "Applica una penalità in caso di numerose cancellazioni",
+        "nb_cancellations": "Numero di cancellazioni:",
+        "explain": "Sarà applicata una penalità se ci sono {{nb_cancellations}} di cancellazioni tardive oltre un periodo di {{nb_days}} giorni",
+        "title": "Penalità",
+        "bothPenaltiesTitle": "Sanzioni per cancellazioni tardive e assenze (no show)",
+        "titleCheckbox": "Applicare una sanzione per",
+        "cancellationsCheckbox": "Troppe cancellazioni tardive",
+        "errorNoPenaltyRule": "Impossibile salvare le modifiche, devi scegliere una sanzione o disabilitare le saznioni per continuare",
+        "penaltyParams": "Impostazioni per le sanzioni",
+        "penaltyParamsText": "Applicare lo stesso conteggio per cancellazioni tardive e assenze (no show)",
+        "bothPenaltiesInfo": "Verrà applicata una sanzione in caso di {{penalityNumberNoShow}} cancellazione tardiva o assenze (no show) per un periodo di {{penalityNumberDay}} giorni",
+        "bothPenaltiesInfo_plural": "Verrà applicata una saznione in caso di {{penalityNumberNoShow}} cancellazioni tardive o assenze (no show) per un periodo di {{penalityNumberDay}} giorni",
+        "noShowDialog": {
+          "text": "Hai appena creato delle sanzioni sulle assenze (no-show). Abbiamo appena attivato la funzione “appello”, ora devi effettuare l'appello per ogni corso per poter attivare le sanzioni.",
+          "alert": "È possibile impostare le condizioni di assenza (no-show) nelle impostazioni di personalizzazione.",
+          "title": "Sanzioni per le assenze (no show)"
+        },
+        "label": "Applica una sanzione",
+        "helperText": "Applica una penalità ai membri con troppe mancate presentazioni o cancellazioni tardive ",
+        "noShowCheckbox": "Troppe assenze (no show)",
+        "cancellationsPenaltyTitle": "Sanzioni per cancellazione tardiva",
+        "noShowPenaltyTitle": "Sanzioni per assenza (no show)",
+        "noShowPenaltyAlert": "Per definire quando un membro è considerato assente (no show) vai su Impostazioni>Personalizzazione",
+        "noShowPenaltyNumber": "Numero di assenze (no show)",
+        "noShowPenaltyInfo": "Verrà applicata una sanzione in caso di {{penalityNumberNoShow}} assenza (no show) per un periodo di {{penalityNumberDay}} giorni",
+        "noShowPenaltyInfo_plural": "Verrà applicata una sanzione in caso di {{penalityNumberNoShow}} assenze (no show) per un periodo di {{penalityNumberDay}} giorni",
+        "bothPenaltiesNumber": "Numero di cancellazioni e assenze (no show)",
+        "deleteNoShowDialog": {
+          "title": "Sanzioni rimosse",
+          "text": "Non ci sono più pacchetti illimitati che contengono sanzioni sulle assenze (no-show). Abbiamo disattivato la funzione \"appello\", quindi non devi più convalidare l'appello per ogni corso."
+        }
+      },
+      "maxBookingPerMonth": {
+        "helperText": "Lascia vuoto per non imporre un limite",
+        "label": "Utilizzo massimo al mese"
+      },
+      "only_vod_access": "Solo per VOD",
+      "category": {
+        "label": "Categoria (opzionale)",
+        "helperText": "Nome della categoria"
+      },
+      "error": {
+        "start_date_method_type": "Si prega di indicare l'inizio della validità del pacchetto."
+      },
+      "advancedOptions": {
+        "tag": {
+          "doNotSelectToAllowAllMembers": "Lascia questo campo vuoto per renderlo disponibile a tutti i membri.",
+          "notAllowedFor": "Non consentito per",
+          "notAllowed": "Non disponibile",
+          "allowedFor": "Autorizzato per",
+          "allowed": "Disponibile",
+          "helperText": "Utilizza i tag per rendere questo pacchetto disponibile o non disponibile all'acquisto per specifici segmenti della tua clientela.",
+          "header": "Tags",
+          "tagsOnAcquisitionHelper": "Tagga i membri che hanno acquistato questo pacchetto per identificarli rapidamente in futuro.",
+          "tagsOnAcquisition": "Applica i tag dopo l'acquisto",
+          "selectTags": "Seleziona tag"
+        },
+        "header": "Avanzato",
+        "appliesForPayroll": {
+          "label": "Le lezioni acquistate con questo pacchetto sono incluse nella busta paga dell'insegnante",
+          "helperText": "Per impostazione predefinita, le lezioni vengono fatturate allo studio e incluse nella busta paga dell'insegnante. Disattiva questa impostazione per fare in modo che le lezioni associate a questo pacchetto non vengano più visualizzate nella busta paga degli insegnanti.",
+          "header": "Retribuzione dell'insegnante"
+        }
+      },
+      "universalPass": {
+        "deativatedTags": "Disattivato per i pacchetti universali",
+        "helperText": "I pacchetti universali possono essere utilizzati dai membri per prenotare sia attività di gruppo che appuntamenti. Ogni volta che viene acquistato un pacchetto universale, aggiungeremo automaticamente un pacchetto \"gemello\" per gli appuntamenti per condividere i crediti tra i due tipi di pacchetto.",
+        "marketplaceLabel": "Pacchetto universale. Può essere usato per corsi e appuntamenti.",
+        "label": "Pacchetto universale",
+        "warningIsUniversalPass": "I pacchetti per appuntamenti gemelli vengono creati automaticamente per un pacchetto universale. Tutti i campi modificati qui saranno modificati anche sui pacchetti gemelli, tranne le categorie. Questo vale anche per le notifiche, le estensioni di validità e le modifiche del credito."
+      },
+      "highlightedAsRecommended": {
+        "label": "Contrassegna come suggerito",
+        "helperText": "Metti in evidenza questo pascchetto per i tuoi membri, promuovendolo nella sezione \"consigliati\" del processo di prenotazione."
+      },
+      "notification": "Notifiche",
+      "detailsAndRestrictions": "Dettagli e condizioni",
+      "noNotificationsWarning": "Non hai notifiche impostate ancora. Per creare delle nuove notifiche, si prega di andare in <strong>Marketing > Notifiche</strong>"
+    }
+  },
+  "details": {
+    "pleaseSelectAPack": "Seleziona un pacchetto per vedere i dettagli.",
+    "shareAPass": "Condividi un pacchetto",
+    "invoiceTitle": "Ricevuta associata",
+    "refundTitle": "Rimborso associato",
+    "bookingsTitle": "Prenotazioni associate",
+    "extensionsTitle": "Estensioni di validità",
+    "penaltyAccount": "Ulteriori contabilizzazioni di {{account_value}} {{currencyDisplay }}",
+    "penaltyBlock": "Pacchetto bloccato per {{nb_days}} giorno/i.",
+    "penaltyTitle": "Penalità applicate",
+    "trackModifiedCreditTitle": "Storia del credito modificata"
+  },
+  "consumer": {
+    "bookingsThisWeek": "prenotazione(i) questa settimana",
+    "expiresOn": "Scade il ",
+    "isFromShare": "Condiviso da un altro account",
+    "isFromDisabledShare": "Condivisione interrotta",
+    "isOwnerOfShares": "Condiviso (pacchetto della classe principale)"
+  },
+  "validForDuration": {
+    "days": "{{ count }} giorno",
+    "days_plural": "{{ count }} giorni",
+    "months": "{{ count }} mesi",
+    "years": "{{ count }} anno",
+    "years_plural": "{{ count }} anni",
+    "general": "{{duration_days}} giorni validi {{duration_months}} mesi e {{duration_years}} anno",
+    "and": " e ",
+    "attendance": "dalla prima presenza",
+    "booking": "dalla prima prenotazione",
+    "purchase": "Valido dalla data di contabilizzazione",
+    "daysMonths": "{{ duration_months }} mesi e {{ duration_days }} giorni",
+    "validFor": "durante ",
+    "valid": "Valido "
+  },
+  "link": {
+    "copied": "Link copiato",
+    "copyLink": "Copia il link nella pagina di pagamento"
+  },
+  "maxNBookingsByWeek2": " prenotazioni per settimana",
+  "validity": "Valido da ",
+  "notificationToolTip": "Le notifiche sono impostate per questo pacchetto",
+  "noPaymentPackSubscribed": "Nessun pacchetto",
+  "validUntil": "Valido fino a",
+  "noConsumerPack": "Nessun pacchetto registrato.",
+  "reverted": "Ricevuta annullata",
+  "newMemberOnly": "Disponibile solo per i nuovi iscritti",
+  "publicPacksTitle": "Pacchetto disponibile",
+  "privatePacksTitle": "Pacchetto non disponibile",
+  "validForNdays1": "Valido ",
+  "validForNdays2": " giorni dopo l'acquisto",
+  "validTo": " a ",
+  "bookingsLeftThisWeek": "Prenotazione massima per settimana",
+  "addButton": "Crea un pacchetto",
+  "expirationDate": "Scade a",
+  "never": "Mai",
+  "availableOnFollowingEstablishments": "Disponibile nei seguenti stabilimenti: ",
+  "search": "Cerca un pacchetto",
+  "maxNBookingsByWeek1": "Fino a ",
+  "validFrom": "Valido dal ",
+  "subscribeToOffer": "Inscriviti",
+  "use": "Utilizza",
+  "isNonCompatible": "incompatibile",
+  "paymentPackDisabled": {
+    "success": "Pacchetto cancellato",
+    "error": "Impossibile eliminare"
+  },
+  "disabled": "Disabilitato",
+  "disableConsumer": "Bloccare",
+  "enableConsumer": "Sbloccare",
+  "unlimitedCredits": "Illimitato",
+  "credits": "Credito",
+  "credits_plural": "Crediti",
+  "ht": "Senza tassa",
+  "specifications": {
+    "nbCredits": "{{credits}} credito",
+    "nbCredits_plural": "{{credits}} crediti",
+    "unlimitedCredits": "Illimitato",
+    "price": "{{price, price}}"
+  },
+  "availableOnFollowingSports": "Categorie ammissibili: ",
+  "anySport": "Qualsiasi categoria",
+  "availableOnFollowingActivities": "Attività ammissibili: ",
+  "anyActivity": "Qualsiasi attività",
+  "boughtConsumerPaymentPacks": "Iscritti",
+  "noRestrictionOnActivityType": "Tutte le categorie, attività e stabilimenti sono compatibili con questo pacchetto.",
+  "credit": {
+    "updated": "Crediti aggiornati"
+  },
+  "notificationForm": "Form di notifica",
+  "noPaymentPack": "I membri hanno bisogno di un pacchetto valido per registrarsi alle attività o ai workshop.",
+  "disabledPacks": {
+    "hide": "Nascondi i archiviati",
+    "show": "Visualizza i pacchetti archiviati"
+  },
+  "disabledPacksTitle": "Pacchetti archiviati",
+  "filters": {
+    "hasCreditNull": "Senza credito",
+    "hasCreditLeft": "Con credito",
+    "isActive": "Attivo",
+    "isExpired": "Scaduto",
+    "invoice": "Ricevuta",
+    "reverted": "Ricevuta annullata",
+    "notReverted": "Ricevuta valida",
+    "credits": "Credito",
+    "expiration": "Validità",
+    "all": "Tutti i pacchetti",
+    "isValidToday": "Valido",
+    "companyGroupPlaceholder": "Seleziona categorie",
+    "companyGroup": "Categoria",
+    "company": "Studio di acquisto"
+  },
+  "multipleBookingTooltip": "Prenotazioni multiple",
+  "blockedCpp": "Carta bloccata da {{-blocked_from}} a {{-blocked_until}}",
+  "maxNBookingsByMonth2": " prenotazioni per mese",
+  "only_vod_access": "Disponibile solo per VOD",
+  "penalty": {
+    "account": "Un deposito {{account_value}} sarà applicato per le {{nb_cancellations}} cancellazioni fuori tempo su un periodo {{nb_days}}.",
+    "block": "{{days_blocked}} giorni bloccati dopo {{nb_cancellations}} cancellazioni fuori tempo su un periodo di {{nb_days}} giorni",
+    "title": "Politica di cancellazione"
+  },
+  "massExtension": {
+    "listItemNbDays": "+{{ count }} giorno",
+    "listItemNbDays_plural": "+{{ count }} giorni",
+    "createdAt": "Aggiunto il {{date}}",
+    "listItemDate": "Con scadenza tra {{ minDate }} e {{ maxDate }}",
+    "cancel": "Cancella",
+    "submit": "Convalidare",
+    "title": "Estendi la validità",
+    "maxDate": "Entro e non oltre",
+    "minDate": "Al più presto il",
+    "dateHelpText": "Estendere solo i pacchetti che scadono tra il",
+    "helpText": "Questa operazione non può essere annullata",
+    "listItem": {
+      "seeLess": "Vedi meno",
+      "seeMore": "Vedi più"
+    },
+    "error": {
+      "note": "Il numero massimo di caratteri per questo campo è 500",
+      "nbDays": "Inserisci un numero positivo",
+      "maxEndingDate": "Inserisci una data massima valida",
+      "minEndingDate": "Inserisci una data minima valida"
+    },
+    "titleDialog": "Estendi la validità per tutti i membri"
+  },
+  "section": {
+    "massExtension": "Estensione della validità"
+  },
+  "category": {
+    "form": {
+      "dialog": {
+        "titleNew": "Nuova categoria",
+        "name": "Nome della categoria",
+        "titleEdit": "Categoria",
+        "helper": "Le categorie appariranno nel marketplace e sull'applicazione mobile per le carte disponibili alla vendita.",
+        "update": "Rinomina",
+        "create": "Aggiungi",
+        "cancel": "Cancella"
+      }
+    },
+    "add": "Aggiungere una categoria",
+    "popover": {
+      "delete": "Eliminare",
+      "edit": "Rinominare"
+    },
+    "deleteModal": {
+      "title": "Cancellazione",
+      "content": "Sei sicuro di voler eliminare questa categoria? Tutti gli elementi che contiene saranno inseriti nella sezione dei pass non categorizzati",
+      "cancel": "Cancella",
+      "confirm": "Conferma"
+    },
+    "category": "Categorie di pacchetti"
+  },
+  "noCategory": {
+    "empty": "Non ci sono pacchetti associati a questa categoria da visualizzare.",
+    "name": "Nessuna categoria",
+    "help": "Questi pass appariranno in una categoria senza nome nel marketplace"
+  },
+  "noUnauthorizedTag": "Nessuna etichetta non autorizzata",
+  "noAuthorizedTag": "Nessun tag consentito",
+  "blackList": "Targhette non autorizzate",
+  "whiteList": "Targhette autorizzate",
+  "activities": "Attività",
+  "categories": "Categorie",
+  "establishments": "Camere",
+  "accessibility": {
+    "onsitePayment": "Pagamento sul posto consentito",
+    "managerOnly": "Invisibile in vendita",
+    "newMembers": "Solo per i nuovi clienti"
+  },
+  "tags": {
+    "blackList": "{{ count }} tag non autorizzato",
+    "blackList_plural": "{{ count }} tag non autorizzati",
+    "whiteList": "{{ count }} tag consentito",
+    "whiteList_plural": "{{ count }} tag ammessi"
+  },
+  "full_vod": "Valido per VOD",
+  "seeAll": "Vedi tutti",
+  "compatibility": {
+    "and": " e ",
+    "establishments": "{{ count }} sala",
+    "establishments_plural": "{{ count }} sale",
+    "activities": "{{ count }} attività",
+    "activities_plural": "{{ count }} attività",
+    "categories": "{{ count }} categoria",
+    "categories_plural": "{{ count }} categorie",
+    "compatible": "Compatibile con ",
+    "all": "Questo pacchetto è compatibile con tutte le categorie, attività e stabilimenti."
+  },
+  "selector": {
+    "noAvailable": "Nessun pacchetto corrispondente alla disponibilità scelta.",
+    "noManagerOnly": "Visibile nel Marketplace",
+    "managerOnly": "Nascosto ai membri",
+    "filterManagerOnly": "Visibile a tutti",
+    "filterCategory": "Tutte le categorie",
+    "titleSort": "Ordina",
+    "titleManagerOnly": "Visibilità",
+    "titleCategory": "Categorie",
+    "sorting": {
+      "descendingCredit": "Credito decrescente",
+      "ascendingCredit": "Credito crescente",
+      "descendingPrice": "Prezzo decrescente",
+      "ascendingPrice": "Prezzo crescente",
+      "customSort": "Ordine lato client (marketplace e app)"
+    },
+    "unusableByStaff": "Nascosto allo staff"
+  },
+  "cardDetails": {
+    "packBlocking2": " cancellazioni fuori tempo massimo in una settimana",
+    "packBlocking1": " giorni di blocco dopo ",
+    "maxPurchasePerMember": "Numero massimo di acquisti : ",
+    "maxBookingPerDay": "Usi massimi al giorno : ",
+    "maxBookingPerWeek": "Usi massimi per settimana: ",
+    "maxBookingPerMonth": "Usi massimi al mese: ",
+    "universalPass": "Compatibile con i corsi e gli appuntamenti."
+  },
+  "detailTitles": {
+    "vod": "VOD",
+    "restrictions": "Restrizioni",
+    "tags": "Tags",
+    "accessibility": "Accessibilità",
+    "compatibility": "Compatibilità",
+    "validity": "Validità",
+    "credit_quantity": "Numero di crediti",
+    "universalPass": "Pacchetto universale",
+    "compatibilityPaymentPack": "Compatibilità dei corsi di gruppo",
+    "offPeak": "Fasce orarie"
+  },
+  "unlimitedAndCalculatedMargin": " - Input marginale teorico calcolato: prezzo / nb_riserveioni ",
+  "unlimitedAndMargin": " - Contributo marginale teorico di ",
+  "unlimitedPlural": "Illimitato",
+  "validityTo": " su ",
+  "addPaymentPack": {
+    "sumNotZero": "il numero finale di giorni non può essere zero",
+    "only_vod_access": "Limitare l'uso della carta al solo VOD",
+    "vodAccessCard": "Fornisce l'accesso al VOD",
+    "vod": "VOD",
+    "compatibility": "Questo pacchetto sarà compatibile solo con le lezioni, attività, categorie o sedi selezionate.",
+    "letBlank": "Lascia vuoto per non limitare questo pacchetto",
+    "activities": "Attività",
+    "room": "Stabilimenti",
+    "categories": "Categorie",
+    "inShopPayment": "Possibilità di pagare sul posto",
+    "notForSell": "Nascosto ai membri",
+    "newClientOnly": "Visibile solo ai nuovi clienti",
+    "maxUseMember": "Acquisto massimo per membro",
+    "maxUseMonth": "Usi massimi al mese",
+    "maxUseWeek": "Usi massimi per settimana",
+    "maxUseHelper": "Lascia vuoto per non impostare un limite di utilizzo",
+    "maxUseDay": "Usi massimi al giorno",
+    "restriction": "Condizioni",
+    "penalityAccountHelper": "A questo membro verrà applicato un deposito di {{penalityBlockAccount}}{{ currencyDisplay }}",
+    "penalityBlockDayHelper": "Il pacchetto del membro sarà bloccato per {{penalityBlockDay}} giorno/i.",
+    "penalityAccountPrice": "Importo del deposito",
+    "penalityBlockDay": "Tipo di sanzione da applicare",
+    "penalityType": "Tipo di sanzione da applicare",
+    "penalityAccount": "Creare un deposito per il membro interessato",
+    "penalityBlock": "Bloccare temporaneamente il pacchetto",
+    "penalityInfo": "Una penalità sarà applicata se ci sono {{penalityNumberCancel}} cancellazioni fuori tempo massimo in un periodo {{penalityNumberDay}}",
+    "penalityNumberDay": "Numero di giorni",
+    "penalityNumberCancel": "Numero di cancellazioni",
+    "marginalContributionHelperText": "Utilizzato per calcolare il compenso degli insegnanti. 10{{ currencyDisplay }} significa che una prenotazione effettuata con questa carta viene pagata 10{{ currencyDisplay }}. Se vuoto o 0{{ currencyDisplay }} il contributo di una carta sarà PRIX/NB_RESERVATION",
+    "marginalContribution": "Contributo marginale teorico comprensivo di IVA",
+    "expirationDateHelper": "Se il pacchetto non viene utilizzato durante questo periodo, scadrà automaticamente.",
+    "expirationDate": "Numero di giorni prima che il pacchettp scada se non viene utilizzato *",
+    "beginningDate": "Data di inizio",
+    "attendance": "Alla prima presenza",
+    "firstBooking": "Alla prima registrazione",
+    "billing": "Valido dalla data di contabilizzazione",
+    "validForDuration": {
+      "day": "Questo pacchetto sarà valido per {{ duration_day }} giorno/i.",
+      "month": "Questo pacchetto sarà valido per {{ duration_month }} mese/i e {{ duration_day }} giorno/i.",
+      "year": "Questo pacchetto sarà valido per {{ duration_year }} anno/i, {{ duration_month }} mese7i e {{ duration_day }} giorno/i.",
+      "monthNoDay": "Questo pacchetto sarà valido per {{ duration_month }} mese/i.",
+      "yearNoDayNoMonth": "Questo pacchetto sarà valido per {{ duration_year }} anno/i.",
+      "yearDayNoMonth": "Questo pacchetto sarà valido per {{ duration_year }} anno/i e {{ duration_day }} giorno/i.",
+      "yearNoDay": "Questo pacchetto sarà valido per {{ duration_year }} anno/i e {{ duration_month }} mese/i."
+    },
+    "yearValidityHelper": "Aggiunto al numero di giorni e mesi",
+    "monthValidityHelper": "Questo verrà aggiunto al numero di giorni",
+    "yearValidity": "Anni",
+    "monthValidity": "Mesi",
+    "dayValidity": "Giorni",
+    "endBeforeStart": "La data di fine deve essere maggiore della data di inizio",
+    "toDate": "Fino a",
+    "fromDate": "Dal",
+    "availabilitySlot": "Rendi questo pacchetto valido tra date specifiche",
+    "availabilityGivenNumber": "Rendi questo pacchetto valido per un certo numero di giorni dopo l'acquisto",
+    "penalityRule": "Si può applicare una penalità solo se il numero di crediti è illimitato",
+    "penality": "Applicare una penalità per troppe cancellazioni dopo la scadenza",
+    "packValidity": "Validità della carta",
+    "numberOfAvailableCredits": "Numero di crediti disponibili",
+    "credit": "Credito",
+    "unlimited": "Illimitato",
+    "limited": "Limitato",
+    "numberOfCredit": "Numero di crediti",
+    "namePaymentPack": "Nome del pacchetto",
+    "name": "Nome",
+    "generalInfo": "Informazioni generali",
+    "paymentPack": "Pacchetto",
+    "minusZero": "Questo campo non può essere 0",
+    "requiredField": "Questo campo è richiesto",
+    "creditWarning": "Se si cambia il numero di crediti, tutti i pacchetti esistenti saranno interessati.",
+    "migration": "Questo pacchetto proviene da una migrazione di dati precedentemente completata. Alcuni campi potrebbero non essere modificabili per preservare i dati. Le attività/categorie compatibili possono comunque essere modificate.",
+    "franchise": "Il pacchetto è condiviso attraverso l'account master. Alcune impostazioni sono state predefinite da tale Account Master e non possono essere modificate.",
+    "allowGuest": "Compatibile con le prenotazioni per ospiti",
+    "penalityModeFranchisor": {
+      "buyer": {
+        "explain": "Il saldo del conto membro sarà addebitato con {{ price }} solo sul franchisee in cui è stato acquistato il pacchetto.",
+        "label": "Al franchise che ha contabilizzato il pacchetto"
+      },
+      "prorata": {
+        "explain": "Il deposito di {{ price }} verrà applicato proporzionalmente alle cancellazioni fuori orario registrate presso ciascuno dei tuoi affiliati. Verrà addebitato un totale di {{ price }} sulla franchigia.",
+        "label": "In relazione alle cancellazioni tardive in ciascun affiliato"
+      },
+      "label": "Applicazione del deposito",
+      "prorataNoShow": {
+        "label": "Su base proporzionale, per membro, assenze (no show)",
+        "explain": "L'acconto di {{ price }} verrà applicato in proporzione alle assenze (no show) registrate presso ciascuno dei tuoi memrbi. Verrà addebitato un totale di {{ price }} sulla franchigia."
+      }
+    },
+    "unusableByStaff": "Nascosto allo staff",
+    "expiration_date": {
+      "label": "Durata della vendita",
+      "helperText": "Disponibile fino al",
+      "tooltip": "Dopo la data selezionata, il pacchetto non sarà più disponibile per l'acquisto"
+    },
+    "description": "Descrizione",
+    "offPeak": {
+      "addGroupTimeSlot": "Aggiungi un insieme di fasce orarie",
+      "addTimeSlot": "Aggiungi una fascia oraria",
+      "choice": {
+        "allDay": "Tutto il giorno",
+        "timeSlot": "Fasce orarie"
+      },
+      "label": "Limita le prenotazioni a orari specifici"
+    },
+    "atLeastOneDay": "Seleziona almeno un giorno",
+    "startAfterEnd": "L'ora di inizio deve essere inferiore all'ora di fine",
+    "decimalCredit": {
+      "helperText": "Questo pacchetto conterrà {{count}} credito",
+      "helperText_plural": "Questo pacchetto conterrà {{count}} crediti"
+    },
+    "activationWindow": "Imposta periodo di attivazione",
+    "accessControl": {
+      "firstBookingDisclaimer": "Il pacchetto sarà valido a partire dalla prima prenotazione o dal primo check-in, a seconda di quale dei due avvenga per primo. Se il personale effettua il check-in manuale di un membro prima della data della sua prima prenotazione, il pacchetto sarà valido a partire dalla data del primo check-in.",
+      "firstBooking": "Prima prenotazione o check-in"
+    }
+  },
+  "paymentPackTemplate": {
+    "actions": {
+      "create": "Aggiungi un pacchetto condiviso",
+      "createUniversalPass": "Aggiungi un pacchetto universale condiviso"
+    },
+    "deleteForm": {
+      "actions": {
+        "submit": "Archivia",
+        "close": "Chiudi"
+      },
+      "content": "I membri potranno comunque utilizzare il pacchetto presso lo studio in cui lo hanno acquistato. Qualsiasi abbonamento collegato a questo pacchetto rimarrà valido presso lo stesso studio.",
+      "title": "Archivia il pacchetto condiviso"
+    },
+    "form": {
+      "actions": {
+        "submit": "Registra",
+        "close": "Chiudere"
+      },
+      "submit": "Convalidare",
+      "close": "Chiudere",
+      "title": "Pacchetto condiviso",
+      "editConfirmation": {
+        "confirm": "Salva comunque",
+        "cancel": "Cancella",
+        "content": "Le modifiche saranno applicate anche agli abbonamenti collegati a questo pacchetto condiviso. Sei sicuro di voler procedere e salvare le modifiche?",
+        "title": "Conferma della modifica"
+      },
+      "universalPassTooltip": "I pacchetti universali possono essere utilizzati per attività di gruppo e appuntamenti. Per ogni pacchetto universale vengono creati due àcchetti per appuntamenti per collegare il numero di crediti. Una volta acquistato uno di questi pacchetti, l'altro verrà aggiunto automaticamente senza costi aggiuntivi.",
+      "universalPassTitle": "Pacchetto universale condiviso",
+      "notEditable": "Questo pacchetto proviene da una migrazione di dati precedentemente completata. Alcuni campi potrebbero non essere modificabili per preservare i dati."
+    },
+    "section": {
+      "titleManagerOnly": "Non disponibile per la vendita",
+      "titleAvailable": "Disponibile per la vendita",
+      "titleArchived": "Pacchetti archiviati"
+    },
+    "isEmptyExplain": "I pacchetti per le lezioni condivise sono disponibili negli studi di vostra scelta e permettono ai vostri membri di usare i loro crediti in qualsiasi studio voi scegliate.",
+    "specification": {
+      "companySharedWithTitle": "Condiviso con gli studi"
+    },
+    "pass": "Pacchetti",
+    "widget": {
+      "choose": "Scelta dei pacchetti condivisi"
+    },
+    "restoreForm": {
+      "title": "Ripristina pacchetto condiviso",
+      "content": "Il pacchetto condiviso verrà ripristinato e nuovamente condiviso tra gli studi selezionati in precedenza.",
+      "actions": {
+        "close": "Chiudi",
+        "submit": "Ripristina"
+      }
+    }
+  },
+  "paymentPackTemplateInstance": {
+    "actions": {
+      "addCompany": "Aggiungere uno studio",
+      "buy": "Compra"
+    },
+    "companyEmpty": "Nessuno studio è configurato per accettare questo pacchetto",
+    "deleteForm": {
+      "actions": {
+        "submit": "Interrompi la condivisione",
+        "close": "Chiudere"
+      },
+      "content": "Se si interrompe la condivisione con questo studio, i pacchetti acquistati in quello studio saranno ancora validi, ma solo all'interno di quello studio specifico. I pacchetti di altri studi non saranno più validi. Questo vale anche per gli abbonamenti collegati.",
+      "title": "Interrompi la condivisione con uno studio"
+    },
+    "form": {
+      "actions": {
+        "submit": "Registra",
+        "close": "Chiudere"
+      },
+      "explain2": "I membri che hanno acquistato questo pacchetto o un abbonamento collegato, potranno utilizzarlo in tutti i nuovi studi compatibili.",
+      "explain1": "I seguenti studio offriranno automaticamente questo pacchetto, ma non potranno modificarne il prezzo o il numero di crediti.",
+      "title": "Allestire i miei studi"
+    },
+    "consumerPaymentPackSharedFromOtherFranchisee": "Condiviso dal franchisee",
+    "paymentPackSharedFromFranchisor": "Scheda del franchising",
+    "isFromShareTooltip": "Questo pacchetto è condiviso da un altro studio in franchising"
+  },
+  "universalPass": {
+    "restore": {
+      "dialog": {
+        "continue": "Continua",
+        "text": "Questo pacchetto è universale e il suo pacchetto gemello è stato de-archiviato.",
+        "title": "Unarchive"
+      }
+    },
+    "delete": {
+      "dialog": {
+        "warningText": "Attenzione! Questo pacchetto è universale, se lo cancelli anche il suo pacchetto gemello sarà cancellato.",
+        "title": "Elimina il pacchetto"
+      }
+    },
+    "add": {
+      "availabilityGivenNumber": "Valido per un determinato numero di giorni dopo l'acquisto",
+      "helperText": "Il numero di crediti è impostato su limitato",
+      "credit": "Numero di crediti"
+    }
+  },
+  "incompatibilities": {
+    "2008": "Attività non compatibile",
+    "2009": "Categoria non compatibile",
+    "2010": "Stabilimento non compatibile",
+    "2018": "Numero di crediti insufficiente",
+    "2019": "Il pacchetto è bloccato",
+    "2020": "Le date sono incompatibili",
+    "2021": "Il pacchetto inizia con la prima prenotazione, il ",
+    "2022": "Il pacchetto inizia con la prima presenza, il ",
+    "2023": "Il pacchetto è scaduto",
+    "2027": "Fascia oraria incompatibile",
+    "paymentPack": "Pacchetto configurato come incompatibile con l'attività in questione :"
+  },
+  "maxoutInfo": {
+    "day": "Pacchetto limitato a {{count}} utilizzo massimo al giorno",
+    "day_plural": "Pacchetto limitato a {{count}} utilizzi massimi al giorno",
+    "month": "Pacchetto limitato a {{count}} utilizzo massimo al mese",
+    "month_plural": "Pacchetto limitato a {{count}} utilizzi massimi al mese",
+    "week": "Pacchetto limitato a {{count}} utilizzo massimo a settimana",
+    "week_plural": "Pacchetto limitato a {{count}} utilizzi massimi a settimana"
+  },
+  "next": "Successivo",
+  "previous": "Precedente",
+  "listItem": {
+    "unusableByStaff": "Non visibile per lo staff"
+  },
+  "noShowPenalty": {
+    "block": "{{days_blocked}} giorni bloccati dopo {{treshold}} assenze per un periodo di {{time_window_days}} giorni",
+    "account": "Verrà richiesto un acconto di {{amount}} per {{treshold}} assenze per un periodo di {{time_window_days}} giorni."
+  },
+  "orderingAlert": {
+    "button": "Pagina di personalizzazione",
+    "text": "Qualsiasi modifica riguardo le \"Categorie\" avrà effetto solo sulla visualizzazione della pagina \"Pacchetti\" del marketplace e dell'applicazione. Questo aggiornamento non influirà su nessun'altra sezione o categoria."
+  },
+  "universalPaymentPackTemplate": {
+    "restoreForm": {
+      "title": "Ripristina Pacchetto Universale condiviso",
+      "content": "Il pacchetto universale condiviso verrà ripristinato e nuovamente condiviso tra gli studi precedentemente selezionati.",
+      "actions": {
+        "close": "Chiudi",
+        "submit": "Ripristina"
+      }
+    },
+    "deleteForm": {
+      "title": "Archivia Pacchetto Universale condiviso",
+      "content": "I membri potranno comunque utilizzare il pacchetto universale presso lo studio dove lo hanno acquistato. Qualsiasi abbonamento collegato a questo pacchetto universale rimarrà valido presso lo stesso studio.",
+      "actions": {
+        "close": "Chiudi",
+        "submit": "Archivia"
+      }
+    }
+  },
+  "manualActivation": {
+    "replaceActiveStartDateAlert": "Il pacchetto sarà valido a partire da oggi. Se una delle future prenotazioni del membro ricade dopo il periodo di validità aggiornato, le sue prenotazioni rimarranno attive, ma il personale dovrà assisterlo per l'ingresso.",
+    "setActiveStartDate": "Attivando questo pacchetto, la data di attivazione sarà impostata su oggi. Questa azione non può essere annullata.",
+    "replaceActiveStartDate": "Attivando questo pacchetto, la data di attivazione sarà impostata su oggi, sostituendo la precedente data di prima prenotazione. Questa azione non può essere annullata.",
+    "title": "Attivare manualmente questo pacchetto?",
+    "submit": "Attiva Pacchetto",
+    "close": "Chiudi"
+  },
+  "activateManually": "Attiva"
+}

@@ -1,0 +1,43 @@
+{
+  "forms": {
+    "delete": {
+      "content": {
+        "canDelete": "Bist du sicher, dass du dieses Event löschen möchtest? Die Kurse und Buchungen werden nicht davon betroffen. Diese Aktion ist unwiderruflich.",
+        "cannotDelete": "Es stehen noch Kurse für diesen Workshop an. Bitte storniere erst die anstehenden Kurse, bevor du den Workshop löschst."
+      },
+      "actions": {
+        "confirm": "Löschen",
+        "cancel": "Abbrechen"
+      },
+      "title": "Ein Event löschen"
+    }
+  },
+  "modal": {
+    "delete": {
+      "content": "Bist Du sicher, dass Du dieses Event löschen möchtest? Die Kurse und vergangene Buchungen werden nicht davon betroffen.",
+      "confirm": "Löschen",
+      "cancel": "Abbrechen",
+      "title": "Workshop löschen"
+    }
+  },
+  "navigation": {
+    "goToPaymentPack": "Kurspässe"
+  },
+  "actions": {
+    "search": "Workshop suchen",
+    "addWorkshopActivity": "Einen Workshop hinzufügen",
+    "addWorkshopGroup": "Event hinzufügen"
+  },
+  "search": "Workshop suchen",
+  "noWorkshops": "Ein Workshop ist ein Kurs, der einmal stattfindet. Mit diesem Formular erstellst du einen neuen Workshop mit Bedingungen, z. B. wer den Workshop sehen kann und welche Funktionen angeboten werden.",
+  "disabledWorkshops": "Archivierte Workshops",
+  "group": {
+    "emptySelect": "Workshop oder Event auswählen, um mehr Informationen anzuzeigen",
+    "backToGroup": "Zurück zu den Gruppen",
+    "pageSize": "Anzeigen durch:",
+    "emptySearch": "Keine Gruppe entspricht Ihrer Suchanfrage",
+    "emptyState": "Mit Gruppenkursen können deine Mitglieder alle in der Gruppe enthaltenen Kurse auf einmal buchen. Verwende die Gruppenkurse zum Beispiel, um Einführungsworkshops mit mehreren Terminen zu erstellen. "
+  },
+  "tabList": "Workshops",
+  "tabGroups": "Geschlossene Kurse"
+}

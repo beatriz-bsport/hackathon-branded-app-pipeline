@@ -1,0 +1,984 @@
+{
+  "newsletter": {
+    "messages": {
+      "success": "Guardado !",
+      "error": "Imposible guardar su dirección de correo electrónico por el momento"
+    },
+    "form": {
+      "validate": "Envía",
+      "lastName": "Apellido",
+      "firstName": "Nombre",
+      "email": "Dirección de correo electrónico",
+      "title": "Suscríbete al boletín de noticias"
+    },
+    "formV2": {
+      "error": {
+        "invalidEmail": "Introduzca una dirección de correo electrónico válida.",
+        "emailRequired": "Introduzca una dirección de correo electrónico."
+      },
+      "subtitle": "Obtenga ofertas exclusivas y entérese de nuestras últimas novedades",
+      "title": "Suscríbase a nuestro newsletter",
+      "email": "Email",
+      "validate": "Enviar",
+      "successText": "Su suscripción ha sido enviada",
+      "successTitle": "¡Gracias por su interés!"
+    }
+  },
+  "notifications": {
+    "createNotificationFabLabel": "Crear una regla de notificación",
+    "notificationsEmpty": "No existe ninguna notificación para este grupo",
+    "deleteDialogText": "Está seguro de que quiere eliminar esta regla? Esta operación es definitiva",
+    "deleteDialogTitle": "Eliminar la regla",
+    "removeRule": "Eliminar",
+    "editRule": "Editar",
+    "paymentPackKind": {
+      "credit": "Número de créditos",
+      "validity": "Validez del pase"
+    },
+    "groupTitle": {
+      "paymentPack": "Bonos",
+      "privateBooking": "Cita",
+      "booking": "Reservar",
+      "privatePass": "Tarjeta de cita",
+      "birthday": "Cumpleaños",
+      "contract": "Suscripción"
+    },
+    "fabLabels": {
+      "payment_pack": "Bonos",
+      "private_service": "Cita",
+      "establishment": "Establecimiento",
+      "meta_activity": "Actividad",
+      "workshop": "Taller",
+      "private_pass": "Tarjeta de cita",
+      "birthday": "Cumpleaños",
+      "establishmentGroup": "Ubicación",
+      "contract": "Suscripción"
+    },
+    "cancel": "Cancelar",
+    "next": "Siguiente",
+    "paymentPackPlaceholder": "Bono",
+    "selectIdentifierLabel": {
+      "payment_pack": "Seleccionar bonos",
+      "private_service": "Seleccione tarjetas de citas",
+      "establishment": "Seleccione una ubicación",
+      "meta_activity": "Seleccione una actividad",
+      "workshop": "Seleccione un taller",
+      "private_pass": "Seleccione una tarjeta de cita",
+      "establishment_group": "Seleccione una ubicación",
+      "contract": "Selecciona una cuota"
+    },
+    "createNotification": "Formulario de notificación",
+    "selectNotificationRules": "Seleccione una regla para ver los detalles",
+    "stats": {
+      "total_mail_opened": "Número de correos abiertos",
+      "opened_rate": "Tasa de apertura",
+      "total_mail_send": "Número de correos electrónicos enviados"
+    },
+    "mailTitle": "Vista previa del correo electrónico",
+    "mail": "Correo ",
+    "statisticDetails": "Estadísticas",
+    "notificationDetails": "Detalles de la notificación",
+    "notificationPreview": "Vista previa de las notificaciones push",
+    "privatePassPlaceholder": "Tarjeta de citas",
+    "dialogTitle": "Crear una notificación",
+    "listTitle": "Notificaciones",
+    "create": "Crear una notificación",
+    "handleNotification": "Gestión de las notificaciones",
+    "noNotification": "No se ha habilitado ninguna notificación",
+    "contractKind": {
+      "contractStart": "Inicio de la suscripción",
+      "contractEnd": "Fin de la suscripción"
+    },
+    "editPasses": "Editar",
+    "addPasses": "Añadir",
+    "sendingDelay": {
+      "onSession": "{{hours}}h después de la sesión",
+      "justOnSession": "Justo después de la sesión",
+      "onBooking": "{{hours}}h después de la reserva",
+      "justOnBooking": "Justo después de la reserva"
+    },
+    "triggerDescription": {
+      "expiredValidity": "Expirado por {{count}} día",
+      "expiredValidity_plural": "Expirado durante {{count}} días",
+      "todayValidity": "El día de vencimiento",
+      "remainingValidity": "{{count}} día restante antes de la expiración",
+      "remainingValidity_plural": "{{count}} días restantes antes de la expiración",
+      "remainingCredit": "{{count}} crédito restante",
+      "remainingCredit_plural": "{{count}} créditos restantes"
+    },
+    "passSelectionPlaceholder": {
+      "payment_pack": "Bonos",
+      "private_pass": "Tarjetas de citas"
+    },
+    "selectAllPassesToggle": {
+      "private_pass": "Aplicable a todos los pases de cita existentes y futuros",
+      "payment_pack": "Aplicable a todos los bonos existentes y futuros"
+    },
+    "allPassSelected": {
+      "private_pass": "Todas las tarjetas de citas están incluidas",
+      "payment_pack": "Todos los bonos están incluidos"
+    },
+    "allOptionsPlaceholder": {
+      "payment_pack": "Todos los bonos",
+      "private_pass": "Todas las tarjetas de citas"
+    },
+    "notificationTitle": {
+      "expiredValidity": "Notificaciones de caducidad",
+      "remainingValidity": "Notificaciones de validez restante",
+      "remainingCredit": "Notificaciones de crédito restantes"
+    },
+    "passNotificationDeleteDialog": {
+      "warning": {
+        "irreversible": "Esta operación no se puede deshacer.",
+        "sure": "¿Estás seguro de que quieres borrar esta notificación?",
+        "attachedPrivatePasses": "Todavía tiene uno o más pases de cita vinculados a esta notificación",
+        "attachedPaymentPacks": "Todavía tiene uno o más pases vinculados a esta notificación"
+      },
+      "title": "Borrar esta notificación"
+    },
+    "optionalStepInfo": "Este paso es opcional. Puede configurar las notificaciones más adelante. Aquí sólo aparecen las notificaciones que ya ha creado. Para crear nuevas, vaya a Marketing > Notificaciones.",
+    "select": "Seleccionar",
+    "excluded": "Excluído",
+    "included": "Incluído",
+    "smartListTitle": "Smartlist",
+    "pushNotificationTitle": "Notificación push",
+    "preview": "Vista previa",
+    "viewPreview": "Vista previa",
+    "delete": "Eliminar",
+    "save": "Guardar",
+    "primaryText": {
+      "privatePass": {
+        "creditsLeft": {
+          "credits": "para recordar al usuario que le queda 1 crédito en su pase de cita",
+          "credits_plural": "para recordar al usuario que le queda crédito {{credits}} en su pase de cita",
+          "noCredits": "para recordar al usuario que no le queda crédito en su pase de cita"
+        }
+      },
+      "paymentPack": {
+        "creditsLeftOnSessionEnd": {
+          "creditsHours": "1 hora después del final de la sesión para recordar al usuario que le quedan {{credits}} créditos en su pase",
+          "creditsHours_plural": "{{hours}} horas después del final de la sesión para recordar al usuario que le quedan {{credits}} créditos en su pase",
+          "creditsNoHours": "después del final de la sesión para recordar al usuario que le quedan {{credits}} créditos en su pase",
+          "oneCreditHours": "1 hora después del final de la sesión para recordar al usuario que le queda 1 crédito en su pase.",
+          "oneCreditHours_plural": "{{hours}} horas después del final de la sesión para recordar al usuario que le queda 1 crédito en su pase",
+          "oneCreditNoHours": "al final de la sesión para recordar al usuario que le queda 1 crédito en su pase",
+          "noCreditsHours": "1 hora después del final de la sesión para recordar al usuario que no le queda crédito en su pase.",
+          "noCreditsHours_plural": "{{hours}} horas después del final de la sesión para recordar al usuario que no le queda crédito en su pase",
+          "noCreditsNoHours": "al final de la sesión para recordar al usuario que no le queda crédito en su pase"
+        },
+        "creditsLeftOnBooking": {
+          "creditsHours": "1 hora después de una reserva para recordar al usuario que le quedan {{credits}} créditos en su pase",
+          "creditsHours_plural": "{{hours}} horas después de una reserva para recordar al usuario que le quedan {{credits}} créditos en su pase",
+          "creditsNoHours": "después de una reserva para recordar al usuario que le quedan {{credits}} créditos en su pase",
+          "oneCreditHours": "1 hora después de una reserva para recordar al usuario que le queda 1 crédito en su pase",
+          "oneCreditHours_plural": "{{hours}} horas después de una reserva para recordar al usuario que le queda 1 crédito en su pase",
+          "oneCreditNoHours": "después de una reserva para recordar al usuario que le queda 1 crédito en su pase",
+          "noCreditsHours": "1 hora después de una reserva para recordar al usuario que no le queda crédito en su pase",
+          "noCreditsHours_plural": "{{hours}} horas después de una reserva para recordar al usuario que no le queda crédito en su pase",
+          "noCreditsNoHours": "después de una reserva para recordar al usuario que no le queda crédito en su pase"
+        }
+      },
+      "expires": {
+        "days": "1 día antes de la expiración",
+        "days_plural": "{{días}} días antes de la expiración",
+        "noDays": "el día de expiración"
+      },
+      "expired": {
+        "days": "después de 1 día de caducidad",
+        "days_plural": "después de {{días}} días de caducidad"
+      },
+      "smartlist": {
+        "smartListExclude": "Esta notificación no está destinada a esta smartlist: {{smartlist_names}}.",
+        "smartListExclude_plural": "Esta notificación no está destinada a estas smartlists: {{smartlist_names}}.",
+        "smartListInclude": "Esta notificación está destinada a esta smartlist: {{smartlist_names}}.",
+        "smartListInclude_plural": "Esta notificación está destinada a estas smartlists: {{smartlist_names}}."
+      },
+      "send": {
+        "emailAndPush": "Se enviará un correo electrónico y una notificación push",
+        "push": "Se enviará una notificación push",
+        "email": "Se enviará un correo electrónico"
+      }
+    }
+  },
+  "customForm": {
+    "unaccessibleForm": "Este formulario no está disponible actualmente, para volver a su página de perfil haga clic en el botón de abajo.",
+    "field": {
+      "link_to_note_helper": "Al vincular la pregunta a una nota, la respuesta se añadirá automáticamente a una nota en el formulario del afiliado.",
+      "text_size_limit": "La longitud de la respuesta estará limitada a {{count}} caracteres.",
+      "choice_warning": "Todas las opciones guardadas cuando el formulario fue guardado ya no serán editables. Todavía puedes eliminarlas o añadir otras nuevas.",
+      "short_answer": "Respuesta corta",
+      "title": "Título",
+      "select": "Lista desplegable",
+      "signature": "Firma",
+      "tag_group": "Categoría",
+      "link_to_note": "Crear una nota",
+      "tag_name": "Tag",
+      "paragraph": "Párrafo",
+      "long_answer": "Respuesta larga",
+      "radio": "Opción múltiple",
+      "check_box": "Casillas de verificación",
+      "select_placeholder": "Seleccionar",
+      "file": "Adjuntar un archivo",
+      "fileHelper": "Los archivos cargados se añadirán directamente a la sección \"Mis documentos\" del perfil del miembro.",
+      "link_to_tag_popover": "Vincular una etiqueta a esta opción",
+      "isMandatoryOnSignUp": "La pregunta es obligatoria en la inscripción",
+      "waiver": "Exención de responsabilidad",
+      "repeatPassword": "Confirmar",
+      "general_terms_and_conditions": "Condiciones de uso",
+      "country": "País",
+      "city": "Ciudad",
+      "additional_adress": "Dirección adicional",
+      "password": "Contraseña",
+      "phone": "Teléfono",
+      "email": "Dirección de correo electrónico",
+      "vaccination_status": "Estado del pase sanitario COVID-19",
+      "accept_sms": "Aceptar sms",
+      "accept_email": "Aceptar el correo electrónico",
+      "emergency_contact": "Contacto de emergencia",
+      "photo": "Foto de perfil",
+      "zipcode": "Código postal",
+      "gender": "Género",
+      "address_line_2": "Dirección adicional",
+      "address_line_1": "Dirección",
+      "birthday": "Fecha de nacimiento",
+      "last_name": "Apellido",
+      "first_name": "Nombre",
+      "sign_up_question": "Pregunta en el formulario de inscripción",
+      "location": "Ubicación preferida",
+      "state": "Estado",
+      "official_document_id": "Numéro de identidad"
+    },
+    "tab": {
+      "general": "Contenido",
+      "campaign": "Campaña",
+      "statistics": "Estadísticas",
+      "layout": "Personalización"
+    },
+    "title": "Formularios",
+    "CustomFormLink": "Enlace al formulario",
+    "linkHelper": "Para enviar el formulario a sus miembros, pegue el enlace anterior en su correo electrónico. Sólo serán visibles los cambios guardados.",
+    "name": "Nombre",
+    "kind": "Tipo",
+    "mandatory": "Obligatorio",
+    "noCustomForm": "Utilice los formularios para recoger información adicional sobre sus afiliados.",
+    "allFieldDisabled": "Todas las preguntas están archivadas",
+    "actions": {
+      "configure": "Configurar",
+      "statistics": "Estadísticas",
+      "customization": "Personalización"
+    },
+    "customFormField": {
+      "modal": {
+        "disable": {
+          "confirm": "Confirmar",
+          "title": "Borrar un elemento",
+          "cancel": "Cancelar",
+          "content": "Al eliminar este elemento, se colocará en el archivo y dejará de ser visible para sus miembros."
+        },
+        "add": {
+          "title": "Elemento del formulario",
+          "addField": "Añade un ",
+          "confirm": "Confirmar",
+          "select": "Seleccione un elemento",
+          "option": "Añadir una opción",
+          "cancel": "Cancelar"
+        },
+        "error": {
+          "choicesLength": "Debe hacer al menos 2 elecciones",
+          "emptyChoice": "Las opciones no pueden estar vacías",
+          "signupQuestionShouldBeSelected": " Debe seleccionar una pregunta en el formulario de inscripción",
+          "tooShort": "La contraseña debe tener al menos 8 caracteres",
+          "passwordsDontMatch": "Las dos contraseñas no son iguales"
+        },
+        "signature": {
+          "addSignature": "Añadir una firma",
+          "editSignature": "Editar firma",
+          "addSignatureHelper": "Puede dibujar su firma a continuación",
+          "clear": "Borrar firma"
+        }
+      }
+    },
+    "submit": {
+      "dialog": {
+        "title": "¡Recibido! ",
+        "content": "Gracias por dedicar su tiempo a rellenar este formulario.",
+        "confirmButton": "Continuar"
+      },
+      "date_submitted": "Fecha de finalización",
+      "errors": {
+        "requiredSignature": "Por favor, firme el formulario.",
+        "requiredFile": "Adjunte un archivo",
+        "requiredField": "Obligatorio",
+        "invalidEmail": "Correo electrónico no válido",
+        "passwordConfirmationError": "Las contraseñas no son indefinidas",
+        "passwordMinimumRequirementsError": "La contraseña debe contener al menos 6 caracteres",
+        "invalidOfficialDocumentId": "Este campo sólo puede contener números y letras",
+        "membershipIdMaximumLength": "Un ID de miembro no puede tener más de 24 caracteres",
+        "barcodeMaximumLength": "Un código de barras no puede tener más de 16 caracteres"
+      }
+    },
+    "statistics": {
+      "table": {
+        "row": {
+          "no": "No",
+          "yes": "Si"
+        },
+        "column": {
+          "member": "Miembro",
+          "display_count": "Número de aperturas",
+          "last_display_date": "Última apertura",
+          "completed": "Completado"
+        }
+      },
+      "byMember": "Detalles por miembro"
+    },
+    "selectCustomFormFilled": "Seleccione uno de los formularios completados para ver su contenido",
+    "emptyCustomForm": "Este formulario está vacío, puede añadir elementos para configurarlo.",
+    "addFieldLong": "Añadir un elemento",
+    "backToUserSpace": "Perfil",
+    "changesDetected": "Se han hecho cambios. Guarde el formulario para aplicarlo.",
+    "modal": {
+      "delete": {
+        "title": "Archivar un formulario",
+        "cancel": "Cancelar",
+        "confirm": "Confirmar",
+        "content": "Al archivar este formulario se colocará en sus formularios archivados y ya no será accesible para sus miembros."
+      }
+    },
+    "search": "Buscar un formulario",
+    "content": "Contenido del formulario",
+    "preview": "Resumen del formulario",
+    "label": "Etiqueta",
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "send": "Enviar",
+    "selectCustomForm": "Seleccione un formulario para ver los detalles",
+    "noChanges": "Formulario actualizado.",
+    "answerForDisabledField": "Preguntas archivadas",
+    "numberQuestions": "Número de preguntas",
+    "listActions": "Acciones",
+    "disabledCustomForm": "Formularios archivados",
+    "disabledCustomFormField": "Artículos archivados",
+    "addCustomFrom": "Añadir un formulario",
+    "displayRule": {
+      "unSnoozableMinimal": "Obligatorio",
+      "snoozableMinimal": "Puede ser ignorado",
+      "forcedDisplayMinimal": "Visible incluso para los miembros que ya han rellenado el formulario",
+      "unForcedModeMinimal": "No es visible para los miembros que ya han completado el formulario",
+      "forRegisteredMemberMinimal": "{{ count }} días",
+      "forRegisteredMember": "Para los afiliados que llevan más de {{ count }} días",
+      "forNewMember": "Para los nuevos miembros",
+      "form": {
+        "errors": {
+          "timedeltaBeforeDisplayMustBeGraterThanZero": "Este valor debe ser mayor que 0."
+        },
+        "dialog": {
+          "snoozeOptionHelperText": "El formulario se mostrará de nuevo {{count}} horas después de ser ignorado",
+          "snoozeOptionLabel": "Tiempo de repetición (horas)",
+          "force_display": "Forzar la visualización a los miembros que ya han rellenado el formulario previamente",
+          "snoozeOption": "Permitir a los afiliados aplazar la cumplimentación del formulario",
+          "advancedOptions": "Configuración avanzada",
+          "modify": "Editar",
+          "cancel": "Cancelar",
+          "create": "Añadir",
+          "helperTextNewMembers": "El formulario aparecerá como una ventana emergente en el Área de Miembros y el widget después del formulario de registro.",
+          "helperTextRegisteredMembers": "El formulario aparecerá como una ventana emergente en el Área de Miembros y el App móvil para todos los miembros interesados.",
+          "subTitle": "¿A qué miembros quiere dirigirse?",
+          "title": "Normas de visualización"
+        }
+      },
+      "kind": {
+        "connectionHelperText": "Sólo los miembros que se han registrado durante un mínimo de {{count}} días verán esta notificación",
+        "connectionLabel": "Antigüedad de los miembros (días)",
+        "connection": "Miembros ya registrados",
+        "signUpAlreadyExists": " Normativa existente",
+        "signUp": "Los nuevos miembros"
+      },
+      "empty": "No hay normas de notificación para este formulario",
+      "addNewDisplayRule": "Añadir una regla",
+      "header": "Normas de notificación",
+      "snoozeTime": "Reloj de {{ count }} horas",
+      "forbiddenForSignup": "Este formulario no puede asociarse a las normas de notificación"
+    },
+    "disconnect": "Desconectarse",
+    "resetSubmit": "Editar mis respuestas",
+    "allStepsCompleted": "Has completado todos los pasos",
+    "submitLater": "Responder más tarde",
+    "previous": "Vuelta",
+    "next": "Siguiente",
+    "clientForms": {
+      "modify": "editar",
+      "customize": "Personalice",
+      "modification": "Modificación",
+      "signup": "Registro",
+      "preview": "Resumen de mis formularios"
+    },
+    "signUp": {
+      "helperMemberForm": "El formulario de edición es el formulario de la página de perfil de sus miembros. Les permite ver y editar su información. Este formulario también es personalizable.",
+      "helperSignup": "Aquí puede editar el formulario de registro de su estudio. Elige y personaliza las preguntas que debes rellenar para hacerte socio de tu club.",
+      "signupFields": "Preguntas sobre los formularios"
+    },
+    "breakpoints": {
+      "lg": "Pantalla ancha",
+      "md": "Pantalla mediana",
+      "sm": "Pantalla pequeña",
+      "xs": "Móviles"
+    },
+    "signUpInfoModal": {
+      "confirm": "Continuar",
+      "cancel": "Cancelar",
+      "content": "Acaba de hacer obligatorias algunas de las preguntas del formulario de inscripción. Las preguntas obligatorias del formulario de inscripción deben ser editables por sus miembros en su perfil. Por lo tanto, estas preguntas se han añadido automáticamente al formulario de edición y se muestran y pueden editarse. Vaya al formulario de edición para personalizarlo.",
+      "title": "Información"
+    },
+    "changesAreSubmitting": "El formulario se está actualizando.",
+    "editable": "Cambiable",
+    "display": "Ver",
+    "navigateToMemberForm": "Editar el formulario de edición del perfil del cliente",
+    "navigateToSignup": "Editar el formulario de inscripción",
+    "memberFormHelper": "Las preguntas obligatorias del formulario de registro se muestran y se pueden editar por defecto. No se pueden borrar.",
+    "signupFormHelper": "Las preguntas obligatorias del formulario de inscripción deben ser editables por sus miembros en su perfil. Estas preguntas se añadirán automáticamente al formulario de edición del perfil del cliente y se podrán visualizar y editar.",
+    "memberFormTitle": "Formulario de edición del perfil (página de perfil de sus miembros)",
+    "signupFormTitle": "Formulario de inscripción",
+    "editLayoutSubtitle": "Ha modificado un formulario utilizando un diseño personalizado, compruebe aquí, y modifique si es necesario, la vista previa de su formulario en los diferentes tamaños de pantalla",
+    "editLayoutTitle": "Editar el diseño del formulario",
+    "layout": {
+      "layoutUpdating": "Una copia de seguridad está en marcha",
+      "layoutUpTodate": "No hay grabaciones en curso",
+      "saveAndExit": "Guardar y cerrar",
+      "save": "Guardar",
+      "redo": " Volver a aplicar",
+      "reset": "Reiniciar",
+      "undo": "Volver",
+      "editLayout": "Editar el diseño"
+    }
+  },
+  "cadence": {
+    "form": {
+      "event": {
+        "1": "Bono",
+        "2": "Tarjeta de cita",
+        "3": "Actividades",
+        "4": "Presencia Actividad",
+        "5": "Citas previas",
+        "6": "Cancelación de cita",
+        "7": "Creación",
+        "8": "Adicionar a la cesta",
+        "9": "Cesta pagada",
+        "10": "Factura creada",
+        "11": "Creación",
+        "12": "Pausa",
+        "13": "Suspensión",
+        "14": "Renovación",
+        "100": "Compra",
+        "101": "Reserva",
+        "102": "Cesta",
+        "103": "Facturación",
+        "104": "Suscripción",
+        "billing_plan-renew": "Renovación",
+        "billing_plan-stop": "Suspensión",
+        "billing_plan-pause": "Pausa",
+        "billing_plan-create": "Creación",
+        "invoice-create": "Factura creada",
+        "basket-finalize": "Cesta pagada",
+        "basket-additem": "Adicionar a la cesta",
+        "basket-created": "Creación",
+        "private_booking-cancel": "Cancelación de cita",
+        "private_booking-create": "Cita previa",
+        "booking-attendance": "Presencia Actividad",
+        "booking-create": "Actividad",
+        "private_consumer_pass-create": "Pase de cita",
+        "consumer_payment_pack-create": "Bono",
+        "consumer_giftcard-create": "Tarjeta de regalo",
+        "provision_update-create": "Comprar Artículo"
+      },
+      "exit": {
+        "exit_fail_label": "No",
+        "exit_success_label": "Sí",
+        "title": "Salida"
+      },
+      "trigger": {
+        "trigger_timeout_explain_value_selected": "Si el miembro sigue presente en la cadencia después de {{ days }} días, saldrá automáticamente de la cadencia y se considerará como perdido.",
+        "trigger_timeout_select_label": "número máximo de días en la cadencia",
+        "trigger_timeout_title": "Plazo",
+        "select_marketing_actions_helper": "Seleccione una o varias acciones a realizar cuando un miembro está ganado. Esta opción es facultativa.",
+        "marketing_actions": "Acciones marketing",
+        "event_and_smartlist_helper": "Los miembros tendrán que corresponder al acontecimiento y hacer parte de la smartlist para ingresar la cadencia",
+        "or_rule_between_triggers": "O",
+        "and_rule_between_triggers": "Y",
+        "rule_between_triggers": "Regla entre los acontecimientos",
+        "trigger_smartlist_kind_label": "Una smartlist",
+        "had_filtering_on_selected_event": "Filtrar el acontecimiento seleccionado con una smartlist",
+        "trigger_event_kind_label": "Un acontecimiento",
+        "labels": {
+          "exitFail": "La salida de la cadencia como perdido se realiza a través de :",
+          "exitSuccess": "La salida de la cadencia como ganado se realiza a través de :",
+          "step": "El ingreso en este paso se realiza a través de :",
+          "cadence": "El ingreso en la cadencia se realiza a través de :"
+        },
+        "helpers": {
+          "exitFail": "Defina aquí el desencadenante definiendo si un miembro se considerará como perdido y saldrá de la cadencia.",
+          "exitSuccess": "Defina aquí el desencadenante definiendo si un miembro se considerará como ganado y saldrá de la cadencia.",
+          "step": "Defina aquí el desencadenante llevando al próximo paso. Los miembros tendrán que corresponder a los criterios indicados a continuación para pasar al paso siguiente.",
+          "cadence": "Defina aquí los desencadenantes de ingreso a la cadencia. Los miembros habrán de corresponder a los criterios indicados a continuación para ingresar la secuencia marketing."
+        },
+        "title": "Desencadenantes",
+        "event_or_smartlist_helper": "Los miembros tendrán que coincidir con el evento o formar parte de la smartlist para incluirse en la cadencia",
+        "triggerTimeoutDays": "día",
+        "triggerTimeoutDays_plural": "días",
+        "triggerTimeoutLabel": "Activar después de",
+        "selectSmartlist": "Seleccione una smartlist",
+        "selectEvent": "Seleccione un evento",
+        "finnerGrain": {
+          "purchaseLabelTitle": "Artículo/s comprado/s",
+          "specifyItemsToggleLabel": "Especificar artículos"
+        }
+      },
+      "previous": "Anterior",
+      "next": "Siguiente",
+      "lose_step": "Perdido",
+      "win_step": "Ganado",
+      "entry_step": "Ingreso",
+      "modify_name_label": "Modificar el nombre",
+      "cadenceNameLabel": "Nombre de la cadencia",
+      "cadenceStepHelper": "Defina aquí el nombre del paso, aquí podrá ver el estado de los miembros en la cadencia.",
+      "cadenceStepNameLabel": "Nombre del paso",
+      "cadenceStep": "Paso",
+      "updateTitle": "Modificación del nombre de la cadencia",
+      "title": "Crear una cadencia",
+      "addACadence": "Añadir una cadencia",
+      "createCadenceHelper": "Gracias a las cadencias, dirija mejor posible las acciones de marketing que envía a sus miembros según su comportamiento en la plataforma. Crea una sucesión de acciones que sus miembros tienen que cumplir para obtener por ejemplo algunas promociones o tags.",
+      "edit": "Modificar",
+      "submit": "Crear",
+      "cancel": "Cancelar",
+      "error": {
+        "triggerCannotBeEmpty": "Tiene que seleccionar un tipo de ingreso.",
+        "timeoutMustBeStrictPositive": "El plazo debe ser de al menos 1 día.",
+        "maximumConnectedTrigger": "No se pueden configurar más de cinco activadores.",
+        "minimumConnectedTrigger": "Debe seleccionar al menos un activador."
+      },
+      "marketing_action": {
+        "1": "Email",
+        "2": "Mensaje de texto",
+        "3": "Notificación push",
+        "4": "Etiqueta",
+        "5": "Plantilla de email",
+        "form": {
+          "helper": "Seleccione una o varias acciones a realizar cuando un miembro cumpla este paso. Es una opción facultativa.",
+          "reset": "Eliminar",
+          "submit": "Guardar"
+        },
+        "defaultName": "Nombre por defecto",
+        "select_tag": "Seleccionar una etiqueta"
+      },
+      "delete": "Borrar",
+      "updateSubmit": "Validar"
+    },
+    "cadenceIndexHelper": "El orden de las cadencias define el orden de prioridad, si un miembro puede ingresar 2 cadencias diferentes, empezará por la más alta en la lista.",
+    "marketingElement": "Acciones de marketing",
+    "triggerElement": "Factor desencadenante",
+    "cadenceParameters": "Configuración de la cadencia",
+    "exitEditModeLabel": "Salir del modo de edición",
+    "exitEditMode": "Terminar",
+    "editModeLabel": "Cambiar al modo de edición",
+    "editMode": "Modificar",
+    "back": "Atrás",
+    "shutOff": "Pausar",
+    "graph": {
+      "alert": {
+        "switchToEditMode": "Está en modo visualización, haga clic en MODIFICAR para poder modificar la cadencia.",
+        "cadenceIsActive": "Su cadencia está en activa, gracias por pausarla para poder modificarla."
+      },
+      "nodeElement": {
+        "deleteStep": "Eliminar el paso",
+        "cancelOnGoingCreation": "Cancelar la creación",
+        "edgeLabelForNodeCreation": "En proceso de creación",
+        "addElement": "Añadir un desencadenante",
+        "deleteTrigger": "Eliminar el desencadenante"
+      },
+      "tools": {
+        "showDisabledTriggers": "Mostrar los desencadenantes desactivados",
+        "hideDisabledTriggers": "Esconder los desencadenantes desactivados",
+        "hideControls": "Esconder la barra de herramientas",
+        "showControls": "Mostrar la barra de herramientas",
+        "hideMap": "Esconder la minimap",
+        "showMap": "Mostrar la minimap",
+        "centerView": "Enfocar la vista"
+      }
+    },
+    "triggers": {
+      "smartlist": {
+        "label": "Smartlist"
+      },
+      "events": {
+        "label": "Evento",
+        "book_chip": "Reserva",
+        "purchase_chip": "Compra",
+        "billing_plan_chip": "Cuota",
+        "invoice_chip": "Facturación",
+        "basket_chip": "Cesta"
+      },
+      "timeout": {
+        "timout_days_chip": "{{ days }} día",
+        "timout_days_chip_plural": "{{ days }} días",
+        "timeout_days_chip": "{{ count }} día",
+        "timeout_days_chip_plural": "{{ count }} días"
+      },
+      "trigger": "Desencadenante",
+      "exit": "Salida",
+      "start": "Ingreso",
+      "delete": "Borrar",
+      "kinds": {
+        "0": "Evento",
+        "1": "Smartlist",
+        "2": "Evento & Smartlist",
+        "3": "Demora"
+      },
+      "changeKind": "Cambiar a"
+    },
+    "cadenceCard": {
+      "lost": "Salida no exitosa",
+      "win": "Salida con éxito",
+      "outputRules": "Reglas de salida"
+    },
+    "activate": {
+      "dialog": {
+        "cancel": "Cancelar",
+        "firstHelper": "¿Desea iniciar la cadencia?",
+        "title": "Iniciar la cadencia",
+        "secondHelper": "Una vez iniciada ya no podrá modificarla.",
+        "confirmButton": "Iniciar"
+      },
+      "button": "Iniciar",
+      "setupBeforeActivationHelper": "Termine de configurar su cadencia y cree su primera acción marketing para empezar su cadencia."
+    },
+    "archive": {
+      "archivedHeader": "Cadencias archivadas",
+      "dialog": {
+        "confirm": "Seguir",
+        "cancel": "Cancelar",
+        "helper": "Los miembros actualmente en la cadencia saldrán automáticamente. Esta cadencia se archivará, podrá volver a activarla luego.",
+        "beingArchived": "Está a punto de archivar {{ name }}.",
+        "title": "Eliminar una cadencia",
+        "confirmButton": "Archivar"
+      }
+    },
+    "svgText": {
+      "push_notification": "Notificación push",
+      "sms": "Mensaje de texto",
+      "email": "Correo electrónico",
+      "select_event": "Seleccionar un acontecimiento",
+      "action_name": "{ Nombre de la acción marketing }",
+      "marketing_actions": "Acciones de marketing",
+      "triggers": "Desencadenantes"
+    },
+    "howTo": {
+      "set_trigger_destination": "{{ index }}. Redireccionar en una acción marketing",
+      "add_smartlist_filter": "{{ index }}. Filtrar en smartlists",
+      "add_trigger": "{{ index }}. Añadir secciones",
+      "edit_event": "{{ index }}. Modificar el acontecimiento",
+      "add_event": "{{ index }}. Añadir un acontecimiento",
+      "edit_marketing_action": "{{ index }}. Modificar la acción marketing",
+      "add_marketing_action": "{{ index }}. Añadir una acción marketing",
+      "explain": "Modifique los elementos del gráfico haciendo clic en estos elementos o cree vínculos entre los bloques con drag and drop.",
+      "title": "Cómo modificar su cadencia"
+    },
+    "steps": {
+      "actions": {
+        "changeInStep": "Transformar en un paso",
+        "changeInExit": "Convertir en salida",
+        "delete": "Borrar",
+        "addNextStep": "Añadir el paso siguiente",
+        "nextStepTrigger": "Activación de la siguiente etapa",
+        "convertIntoExit": "Convertir en salida",
+        "convertIntoStep": "Convertir en paso",
+        "edit": "Editar"
+      },
+      "defaultName": "Etapa sin título"
+    },
+    "marketingAction": {
+      "addAction": "Añadir una acción"
+    },
+    "bubble": {
+      "previous": "Atrás",
+      "changeInExit": {
+        "title": "Salir",
+        "label": "Considere al miembro como"
+      },
+      "marketingAction": {
+        "label": "Seleccione una acción de marketing",
+        "title": "Acción de marketing"
+      },
+      "entryTrigger": {
+        "helperText": "En primer lugar vamos a decidir cómo sus miembros van a entrar en el {{ workflowLowerCase }}. Seleccione uno o múltiples eventos o smartlists, si el miembro corresponde a uno de ellos, él / ella entrará en el {{ workflowLowerCase }}.",
+        "title": "Criterios de entrada",
+        "addTrigger": "Añadir un activador de entrada",
+        "creationHelper": "Primero decidamos cómo van a entrar sus miembros en el {{ workflowLowerCase }}. Para ello, deberá seleccionar un activador de entrada.  Si selecciona varios activadores, los miembros que correspondan a cualquiera de ellos entrarán en {{ workflowLowerCase }}.",
+        "editionHelper": "Edite los criterios para que sus miembros entren en el {{ workflowLowerCase }}. Si un miembro encaja en alguno de ellos, se unirá al {{ workflowLowerCase }}."
+      },
+      "cancel": "Cancelar",
+      "confirm": "Guardar",
+      "next": "Siguiente",
+      "changeInStep": {
+        "label": "Nombre de la etapa",
+        "default": "Nombre de la etapa"
+      },
+      "step": {
+        "name": "Nombre"
+      },
+      "convertIntoStep": {
+        "label": "Nombre de la etapa",
+        "default": "Etapa sin título"
+      },
+      "convertIntoExit": {
+        "label": "Considerar la salida como",
+        "title": "Salida"
+      },
+      "entryAction": {
+        "title": "Acción de entrada",
+        "helperText": "Establezca qué acciones de marketing se aplicarán cuando un miembro entre en el {{ workflowLowerCase }}.",
+        "addAction": "Añade una acción"
+      },
+      "requiredField": "Este campo es obligatorio para continuar.",
+      "finish": "Terminar",
+      "delete": "Borrar",
+      "lostAction": {
+        "title": "Acción perdida",
+        "helperText": "Decida qué ocurre cuando los miembros abandonan el {{ workflowLowerCase }} como 'Perdidos'. Puede etiquetarlos, enviarles un correo electrónico o elegir cualquier otra acción que se adapte a sus necesidades. También puede optar por no hacer nada; este paso es opcional.",
+        "addAction": "Añadir acción"
+      },
+      "lostTrigger": {
+        "title": "Salida no exitosa",
+        "helperText": "Establezca cuándo se considera que su objetivo no se ha cumplido: defina un límite de tiempo para ello y/o un desencadenante o desencadenantes específicos tras los cuales el miembro saldrá sin éxito de este {{ workflowLowerCase }}.",
+        "addTrigger": "Añadir un activador de salida",
+        "timeout": {
+          "helperText": "El miembro saldrá del {{ workflowLowerCase }} después de este número de días sin importar en qué paso se encuentre.",
+          "label": "Días en {{ workflowLowerCase }}",
+          "title": "Límite de tiempo"
+        }
+      },
+      "wonAction": {
+        "title": "Acción ganada",
+        "helperText": "Decida qué ocurre cuando los miembros abandonan el {{ workflowLowerCase }} como 'Ganado'. Puede etiquetarlos, enviarles un correo electrónico o elegir cualquier otra acción que se adapte a sus necesidades. También puede optar por no hacer nada; este paso es opcional.",
+        "addAction": "Añadir acción"
+      },
+      "wonTrigger": {
+        "title": "Salida con éxito",
+        "helperText": "Establezca el objetivo global de su {{ workflowLowerCase }}. Si un miembro realiza uno de estos activadores de salida, alcanzará el objetivo y saldrá con éxito del {{ workflowLowerCase }} (sin importar el paso en el que se encuentren). Esto le ayudará a realizar un seguimiento de sus métricas de rendimiento.",
+        "addTrigger": "Añadir un activador de salida"
+      }
+    },
+    "dialog": {
+      "do_not_display_anymore": "No mostrar más este mensaje.",
+      "confirm": "Confirmar",
+      "cancel": "Cancelar"
+    },
+    "step": {
+      "convertExit": {
+        "dialog": {
+          "helper": "Los desencadenantes que siguen directamente a este paso se eliminarán. El resto del {{ workflowLowerCase }} se desconectará pero no se eliminará.",
+          "title": "Convertir este paso en una salida"
+        }
+      },
+      "archive": {
+        "dialog": {
+          "helper": "Los desencadenantes directamente vinculados a este paso también se eliminarán. El resto del {{ workflowLowerCase }} se desconectará pero no se eliminará.",
+          "title": "¿Está seguro de que desea eliminar este paso?"
+        }
+      }
+    },
+    "deleteStep": {
+      "dialog": {
+        "confirmButton": "Borrar"
+      }
+    },
+    "converStepToExit": {
+      "dialog": {
+        "confirmButton": "Convertir"
+      }
+    },
+    "pause": {
+      "dialog": {
+        "confirmButton": "Pausa",
+        "helper": "Todas las acciones de los miembros que ocurran durante la pausa no se tendrán en cuenta.",
+        "title": "Pausar {{ workflowLowerCase }}"
+      }
+    },
+    "trigger": {
+      "addTrigger": "Añadir un activador"
+    },
+    "welcome": {
+      "dialog": {
+        "helper": "¡Comencemos a configurar juntos su {{ workflowLowerCase }}! \nEn primer lugar, vamos a definir las reglas para que sus miembros entren en el {{ workflowLowerCase }}. A continuación, decidiremos cuándo sus miembros se consideran 'Ganados' o 'Perdidos' en función de sus acciones.",
+        "title": "¡Bienvenido a {{ audienceCamelCase }}!",
+        "confirm": "Inicio",
+        "return": "Regresar"
+      }
+    },
+    "exit": {
+      "archive": {
+        "dialog": {
+          "helper": "El desencadenante que precede también se eliminará. El resto del {{ workflowLowerCase }} se desconectará pero no se eliminará.",
+          "title": "¿Está seguro de que desea eliminar esta salida?"
+        }
+      }
+    },
+    "deleteExit": {
+      "dialog": {
+        "confirmButton": "Borrar"
+      }
+    }
+  },
+  "audience": {
+    "form": {
+      "trigger": {
+        "helpers": {
+          "workflow": "Defina aquí los desencadenantes para entrar en el {{ workflowLowerCase }}. Los miembros tendrán que coincidir con los criterios enumerados a continuación para iniciar la secuencia de comercialización.",
+          "exitFail": "Defina aquí el desencadenante que hace que un miembro se considere perdido y salga del {{ workflowLowerCase }}.",
+          "exitSuccess": "Defina aquí el desencadenante que hace que un miembro se considere ganador y salga del {{ workflowLowerCase }}."
+        },
+        "event_or_smartlist_helper": "Los miembros tendrán que coincidir con el evento o formar parte de la smartlist para encajar en el {{ workflowLowerCase }}",
+        "trigger_timeout_explain_value_selected": "Si el miembro sigue presente en el {{ workflowLowerCase }} después de {{ days }} días, se eliminará automáticamente del {{ workflowLowerCase }} y se considerará perdido.",
+        "trigger_timeout_select_label": "días máximo en el {{ workflowLowerCase }}",
+        "event_and_smartlist_helper": "Los miembros tendrán que coincidir con el evento y ser parte de la lista inteligente para entrar en el {{ workflowLowerCase }}",
+        "labels": {
+          "workflow": "La entrada en el {{ workflowLowerCase }} se realiza a través de:"
+        },
+        "oneOrMoreFinnerGrainDisabledText": "Un artículo especificado no existe actualmente en su Lista de Productos."
+      },
+      "createAudienceHelper": "Gracias al {{ workflowPluralLowerCase }}, dirija las acciones de marketing que envía a sus miembros en función de su comportamiento en la plataforma. Cree una secuencia de acciones que sus miembros deban completar para obtener determinadas promociones o etiquetas, por ejemplo.",
+      "updateTitle": "Editar el nombre del {{ workflowLowerCase }}",
+      "audienceNameLabel": "Nombre del {{ workflowLowerCase }}",
+      "audienceStepHelper": "Establezca aquí el nombre del paso: aquí es donde podrá ver dónde se encuentran los miembros en el {{ workflowLowerCase }}.",
+      "title": "Crear un {{ workflowLowerCase }}",
+      "addAWorkflow": "Añade un {{ workflowLowerCase }}",
+      "cadenceParameters": "Parámetros {{ workflowLowerCase }}",
+      "multipleVisit": {
+        "helperText": "Si se activa, los miembros que coincidan con los criterios de entrada pueden volver a entrar en el {{ workflowLowerCase }} después de salir.",
+        "isMultipleVisitAllowedLabel": "Los miembros pueden entrar y salir de este {{ workflowLowerCase }} varias veces."
+      },
+      "formTitle": {
+        "updateTitle": "Edite su {{ workflowLowerCase }}",
+        "createTitle": "Crear un {{ workflowLowerCase }}",
+        "updateNameTitle": "Edite el nombre de su {{ workflowLowerCase }}"
+      }
+    },
+    "audienceIndexHelper": "El orden de las {{ workflowPluralLowerCase }} establece el orden de prioridad: si un miembro puede introducir 2 {{ workflowPluralLowerCase }} diferentes al mismo tiempo, empezará por el más alto de la lista.",
+    "graph": {
+      "alert": {
+        "switchToEditMode": "Usted está en el modo de vista, haga clic en EDITAR para editar el {{ workflowLowerCase }}.",
+        "audienceIsActive": "Su {{ workflowLowerCase }} está en curso, por favor, páuselo para modificarlo."
+      }
+    },
+    "activate": {
+      "dialog": {
+        "firstHelper": "¿Desea iniciar el {{ workflowLowerCase }}?",
+        "title": "Inicie el {{ workflowLowerCase }}"
+      },
+      "setupBeforeActivationHelper": "Termine de configurar su {{ workflowLowerCase }} y cree su primera acción de marketing para lanzar su {{ workflowLowerCase }}."
+    },
+    "archive": {
+      "archivedHeader": "Archivado {{ workflowPluralLowerCase }}",
+      "dialog": {
+        "helper": "Los miembros que se encuentren actualmente en el {{ workflowLowerCase }} saldrán automáticamente de él. El {{ workflowLowerCase }} se pondrá en pausa y se archivará, pero podrá reactivarlo fácilmente más tarde.",
+        "title": "¿Está seguro de que desea archivar el {{ workflowLowerCase }}?",
+        "beingArchived": "Está a punto de archivar \"{{- name }}\"."
+      }
+    },
+    "howTo": {
+      "title": "Cómo editar su {{ workflowLowerCase }}"
+    },
+    "block": {
+      "unrecognized": {
+        "dialog": {
+          "helper": "No se encuentra el {{ workflowLowerCase }} al que intenta acceder.",
+          "title": "{{ workflowCamelCase }} no reconocido"
+        }
+      },
+      "archived": {
+        "dialog": {
+          "helper": "El {{ workflowLowerCase }} ya está archivado. Para restaurarlo, vuelva a la página principal y desarchive el {{ workflowLowerCase }} de la lista.",
+          "title": "{{ workflowCamelCase }} archivado"
+        }
+      }
+    },
+    "workflowMetrics": {
+      "cards": {
+        "members": {
+          "title": "Miembros",
+          "description": "Número de miembros que entraron en el {{ workflowLowerCase }}.",
+          "label": "miembro ingresado",
+          "label_plural": "miembros ingresados"
+        },
+        "success": {
+          "title": "Éxito",
+          "description": "Porcentaje de afiliados que salieron con éxito.",
+          "label": "porcentaje de éxito"
+        },
+        "averageTime": {
+          "title": "Tiempo medio",
+          "description": "Periodo medio de tiempo necesario para que un afiliado salga con éxito.",
+          "label": "día de media",
+          "label_plural": "días de media"
+        },
+        "tags": {
+          "title": "Etiquetas",
+          "description": "Número de etiquetas aplicadas a los miembros en el {{ workflowLowerCase }}.",
+          "label": "etiqueta",
+          "label_plural": "etiquetas"
+        }
+      },
+      "communication": {
+        "pushNotif": "Notificaciones Push",
+        "sms": "SMS",
+        "email": "Email",
+        "availableSoon": "Disponible próximamente",
+        "knowMore": "Más información sobre la funcionalidad adicional {{- upsellName }}",
+        "title": "Comunicaciones enviadas"
+      },
+      "openButton": "Abrir {{ workflowLowerCase }}"
+    },
+    "memberTable": {
+      "tableColumnLabel": {
+        "status": "Éxito",
+        "exitDate": "Fecha de salida",
+        "entryDate": "Fecha de ingreso",
+        "currentStep": "Fase actual",
+        "member": "Miembro"
+      },
+      "historicTitle": "Histórico ({{count}})",
+      "title": "Miembros presentes en el {{ workflowLowerCase }} ({{count}})",
+      "searchPlaceHolder": "Buscar..."
+    },
+    "editModal": {
+      "dialog": {
+        "confirm": "Confirmar",
+        "cancel": "Cancelar",
+        "checkboxLabel": "No mostrar más este mensaje.",
+        "helper": "La edición de los activadores puede cambiar la posición de los miembros en diferentes pasos.",
+        "title": "Editar {{ workflowLowerCase }}"
+      }
+    },
+    "listItem": {
+      "toolTip": {
+        "moreActions": "Más acciones de flujo de trabajo"
+      },
+      "labels": {
+        "edit": " Editar {{ workflowLowerCase }} ajustes",
+        "archive": "Archivo {{ workflowLowerCase }}",
+        "open": "Abrir",
+        "notLaunched": "No iniciado",
+        "paused": "En pausa",
+        "active": "Activo",
+        "unarchive": "Desarchivar",
+        "metrics": "Métricas",
+        "invalid": "Problema"
+      },
+      "tooltip": {
+        "moreActions": "Más acciones {{ workflowLowerCase }}"
+      }
+    },
+    "workflow": {
+      "finnerGrainIssues": "Uno o varios artículos especificados ya no están disponibles."
+    }
+  }
+}

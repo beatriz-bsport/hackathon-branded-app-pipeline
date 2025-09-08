@@ -1,0 +1,97 @@
+{
+  "fields": {
+    "bonus": "Bonus",
+    "base": "Flat base",
+    "duration": "Duration",
+    "establishment": "Establishment",
+    "location": "Location",
+    "nb_bookings": "Bookings",
+    "name": "Session name",
+    "date": "Date",
+    "rule": "Payroll rule",
+    "error": "It appears that certain activities are not yet associated to a payroll rule. Please correctly configure your activities and instructors to use the payroll.",
+    "total": "Total payout",
+    "cancelled_bookings": "Cancelled bookings",
+    "noShowsAndLateCancellations": "No shows and late cancellations",
+    "confirmed_bookings": "Attendees",
+    "unpaid_private_booking": "Unpaid appointments.",
+    "coachName": "Teacher",
+    "total_on_appointments": "Remuneration (Appointments)",
+    "total_on_sessions": "Remuneration (Group activities & Workshops)",
+    "nb_appointments": "Number of appointments",
+    "nb_sessions": "Number of sessions",
+    "totalNetGain": "Net gain (total)",
+    "netGain": "Net gain",
+    "marginValue": "Marginal value",
+    "nb_private_bookings": " "
+  },
+  "table": {
+    "downloadAll": "Export payroll",
+    "downloadPDF": "Download (PDF)",
+    "downloadCSV": "Download (CSV)",
+    "download": "Download"
+  },
+  "addBonus": "Add a rule",
+  "dateTitle": "Date range",
+  "remuneration": "Remuneration",
+  "pricePerOffer": "Amount per session",
+  "bonus": "Bonus",
+  "bookingThresholdLabel": "Booking threshold triggering rule",
+  "bookingThresholdHelper": "Every booking over this threshold will add a bonus",
+  "pricePerAdditionalBookingLabel": "Price per booking",
+  "pricePerAdditionalBookingHelper": "Amount given to every booking over threshold",
+  "fixedPriceForAdditionalBookingHelper": "Flat amount per each session with enough bookings",
+  "fixedPriceForAdditionalBookingLabel": "Flat per session",
+  "checkboxIncludeABonus": "Include a performance bonus",
+  "performance": {
+    "table": {
+      "header": {
+        "nbSessions": "Number of group activities",
+        "coachName": "Teacher",
+        "confirmedBookings": " "
+      }
+    }
+  },
+  "cachedData": {
+    "leavePreviewMode": "Exit Preview Mode",
+    "previewModeTitle": "Preview Mode",
+    "downloadMySavedData": "Download",
+    "enterPreviewMode": "Switch to Preview Mode",
+    "unresolvedDaterange": "Invalid payroll rule",
+    "dateRange": "Payroll from {{- startDate }} to {{- endDate }}",
+    "dateSaved": "Generated on: {{ date }}",
+    "title": "Saved data ({{ count }})",
+    "undeterminedOldestUpdate": "No previous updates available",
+    "oldestUpdate": "Last updated on: {{- date }}"
+  },
+  "export": {
+    "completed": {
+      "message": "The export file for the teacher payroll is available. You can retrieve it from the \"Saved Data\" section.",
+      "title": "Export payroll"
+    },
+    "dialog": {
+      "buttonText": "Confirm",
+      "message": "You may export an Excel file for the selected duration. This data will also be used and stored for later.",
+      "title": "Data export and storage"
+    },
+    "buttonText": "Export"
+  },
+  "advancedFilters": {
+    "byCoachPaymentRules": "Filter by payroll rules (for teachers that have no assigned payroll groups)",
+    "byCoachPaymentruleGroups": "Filter by payroll groups",
+    "privateserviceCoachPaymentRuleSelector": "Appointments",
+    "workshopCoachPaymentRuleSelctor": "Workshops",
+    "sessionCoachPaymentRuleSelctor": "Group activities ",
+    "coachPaymentRuleGroupSelector": "Payroll group",
+    "coachSelector": "Select teachers",
+    "reset": "Reset filters",
+    "apply": "Apply filters",
+    "header": "Advanced filters",
+    "locations": "Locations",
+    "establishments": "Establishments"
+  },
+  "form": {
+    "ifEmptyAllowAll": "Ignore this filter by leaving it blank",
+    "selectEstablishments": "Select establishments"
+  }
+}

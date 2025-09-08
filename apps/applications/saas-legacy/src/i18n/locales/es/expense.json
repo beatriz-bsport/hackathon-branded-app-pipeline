@@ -1,0 +1,140 @@
+{
+  "form": {
+    "repeat": {
+      "weekdays": {
+        "saturday": "Sábado",
+        "friday": "Viernes",
+        "monday": "Lunes",
+        "tuesday": "Martes",
+        "wednesday": "Miércoles",
+        "thursday": "Jueves",
+        "sunday": "Domingo",
+        "first": "1º",
+        "second": "2º",
+        "third": "3º",
+        "fourth": "4º"
+      },
+      "repeatYear": "Cada año, el",
+      "repeatYear_nb": "Cada {{ nb }} años, el",
+      "count": "Número de ocurrencias :",
+      "weekdays_pl": {
+        "monday": "Lunes",
+        "tuesday": "Martes",
+        "wednesday": "Miércoles",
+        "thursday": "Jueves",
+        "sunday": "Domingos",
+        "friday": "Viernes",
+        "saturday": "Sábados"
+      },
+      "repeatEvery": "Repetir todos los",
+      "months": {
+        "april": "Abril",
+        "july": "Julio",
+        "august": "Agosto",
+        "may": "Mayo",
+        "june": "Junio",
+        "september": "Septiembre",
+        "october": "Octubre",
+        "november": "Noviembre",
+        "december": "Diciembre",
+        "january": "Enero",
+        "february": "Febrero",
+        "march": "Marzo"
+      },
+      "title": "Recurrencia",
+      "number": "Repeticiones :",
+      "interval": "Intervalo",
+      "repeatWeek_nb": "Cada {{ nb }} semanas, el",
+      "year": "Año(s)",
+      "day": "Día(s)",
+      "week": "Semana(s)",
+      "month": "Mes",
+      "from": "Del",
+      "until": "Al",
+      "repeatMonth": "Cada mes, el",
+      "repeatMonth_nb": "Cada {{ nb }} meses, el",
+      "repeatMonthDay": "Cada",
+      "repeatWeek": "Cada semana, el",
+      "fromDate": "A partir del",
+      "ends": "Termina después de"
+    },
+    "actions": {
+      "save": "Guardar",
+      "edit": "Actualizar",
+      "cancel": "Cancelar"
+    },
+    "titleAdd": "Añadir un gasto",
+    "description": "Título / Descripción",
+    "editChoices": {
+      "editDetails": "Modificar los detalles del gasto",
+      "explanation": {
+        "dateDue": "La fecha de entrega se modificará sólo para el gasto seleccionado.",
+        "details": "Los cambios se aplicarán, según se desee, a los gastos actuales y futuros o a todos los gastos."
+      },
+      "editDateDue": "Cambiar la fecha de entrega"
+    },
+    "titleEdit": "Modificar un gasto",
+    "noStaff": "Sin personal asignado",
+    "category": "Categoría",
+    "amount": "Importe",
+    "supplier": "Proveedor / Vendedor",
+    "requiredField": "Este campo es obligatorio.",
+    "date_due": "Fecha de expiración",
+    "staff": "Staff"
+  },
+  "table": {
+    "header": {
+      "repeat": "Recurrencia",
+      "date_due": "Fecha de expiración",
+      "category": "Categoría",
+      "actions": "Acciones",
+      "supplier": "Proveedor / Vendedor",
+      "amount": "Importe",
+      "description": "Título / Descripción",
+      "staff": "Personal"
+    },
+    "yes": "sí",
+    "no": "no"
+  },
+  "dialogEditExpense": {
+    "current": "Modificar sólo este gasto",
+    "validate": "Validar",
+    "future": "Modificar este gasto y otros similares en el futuro",
+    "all": "Cambiar todos los gastos similares (pasados y futuros)",
+    "cancel": "Cancelar"
+  },
+  "update": {
+    "success": "El gasto se ha actualizado.",
+    "error": "No se puede actualizar este gasto"
+  },
+  "delete": {
+    "error": "Imposible eliminar este gasto",
+    "success": "El gasto ha sido eliminado."
+  },
+  "create": {
+    "error": "Imposible de crear este gasto",
+    "success": "El gasto ha sido creado"
+  },
+  "dialogDeleteExpense": {
+    "delete": "Borrar",
+    "future": "Eliminar este y otros gastos similares en el futuro",
+    "cancel": "Cancelar",
+    "all": "Eliminar todos los gastos similares (pasados y futuros)",
+    "warning": "¿Está seguro de que quiere cancelar este gasto?",
+    "confirm": "Eliminará permanentemente el gasto {{amount}} de la {{date_due}}.",
+    "current": "Borrar sólo este gasto"
+  },
+  "filters": {
+    "titleSupplier": "Proveedores",
+    "titleCategory": "Categorías",
+    "titleStaff": "Personal",
+    "filterCategory": "Todas las categorías",
+    "filterSupplier": "Todos los proveedores",
+    "filterStaff": "Todo el personal",
+    "noCategory": "Sin categoría",
+    "noStaff": "Sin personal asignado",
+    "showFuture": "Gastos futuros"
+  },
+  "addButton": "Añadir un gasto",
+  "noExpenses": "Puede añadir sus gastos de estudio aquí."
+}

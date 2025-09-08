@@ -1,0 +1,64 @@
+{
+  "clockinDialog": {
+    "subtitleSuccess": "Os seus horários foram guardados com sucesso. Da próxima vez que abrir esta janela, pode iniciar um novo check-in.",
+    "subtitleClockOut": "seu registo de entrada foi bem sucedido. Clique em \"Clock-out\" para terminar.",
+    "clockInForOther": "Registar a entrada de outro membro do pessoal",
+    "successClockOut": "Hora de partida:",
+    "successDuration": "Número de horas trabalhadas:",
+    "title": "Relógio de ponto",
+    "close": "Fechar",
+    "clockIn": "Clock-in",
+    "clockOut": "Clock-out",
+    "lastClockOut": "Hora de chegada: ",
+    "lastClockIn": "Última picagem de ponto: {{- date }} - {{ hour }}",
+    "subtitleClockIn": "Bom dia {{- name }}, clique em \"Registar\" para dar entrada.",
+    "successClockIn": "Hora de chegada:"
+  },
+  "attendanceTable": {
+    "emptyState": "Ainda não concedeu acesso ao staff. Para definir o acesso do staff, vá às definições e depois ao staff ou clique no botão abaixo. Para controlar as horas de trabalho do seu staff, não se esqueça de ativar o \"Relógio de ponto\" quando criar a sua função.",
+    "role": "Papel",
+    "start": "Clock-out",
+    "end": "Clock-in",
+    "here": "Present",
+    "firstname": "Nome próprio",
+    "lastname": "Sobrenome",
+    "staff": "Staff",
+    "email": "Email",
+    "lastClockIn": "Última pontuação",
+    "action": "Ação",
+    "missing": "Ausente",
+    "createStaff": "criar um acesso de staff",
+    "status": "Estado"
+  },
+  "editModal": {
+    "startingTime": "Hora de início",
+    "cancel": "Cancelar",
+    "confirm": "Confirmar",
+    "title": "Alterações de horários",
+    "endingTime": "Hora de término"
+  },
+  "historyTable": {
+    "durationHoursMinutes": "Horas trabalhadas (horas e minutos)",
+    "durationHours": "Horas trabalhadas (horas)",
+    "action": "Ação",
+    "download": "Descarregar",
+    "staff": "Staff",
+    "startingHour": "Hora de início",
+    "endingHour": "Hora de saída"
+  },
+  "modal": {
+    "delete": {
+      "title": "Término",
+      "content": "Atenção: tem a certeza de que pretende eliminar a faixa horária deste membro do staff? Esta operação é irreversível."
+    }
+  },
+  "pageTitle": "Horários do Staff",
+  "tabRealTime": "Tempo real",
+  "tabHistory": "Histórico",
+  "export": {
+    "dialog": {
+      "message": "A exportação está pronta para ser descarregada.",
+      "title": "Exportar histórico"
+    }
+  }
+}

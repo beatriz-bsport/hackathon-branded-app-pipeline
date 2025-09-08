@@ -1,0 +1,416 @@
+{
+  "video": {
+    "cantOpenLink": "Broadcast link seems to be broken, please contact your club {{ contact_email }}",
+    "startingSoon": "Your session is starting in {{ minutesLeft }} minutes",
+    "redirectLink": "If you are not automatically redirected, please use this link:",
+    "hasEnded": "This session has ended",
+    "isAutoRefresh": "You will be redirected to the video 10 min before the start of the class",
+    "loadingSoon": "Loading...",
+    "activateVideo": "Connect",
+    "livestream": "Livestream",
+    "description": "Start your online session"
+  },
+  "disabled": "Cancelled",
+  "credit_price": " Credit(s)",
+  "booking": {
+    "confirmed": "Bookings",
+    "fillRate": "Occupancy rate",
+    "waiting": "Waitlist",
+    "comesFromMigration": "This session comes from a migration"
+  },
+  "extraordinaryEstablishment": "(temporary establishments)",
+  "substitute": "Substitute",
+  "calendar": {
+    "duplicateModalTitle": "Duplicate Session",
+    "modifyOffer": "Edit",
+    "deleteOffer": "Cancel",
+    "duplicateOffer": "Duplicate",
+    "filter": "Filter",
+    "today": "Today",
+    "alertSpivi": {
+      "textBooking": "One or more reservations do not meet Spivi's conditions.",
+      "textOffer": "The session didn't meet Spivi's requirements, so it couldn't be synchronized.",
+      "title": "Connection problem with Spivi"
+    }
+  },
+  "manageOffer": "Manage bookings",
+  "forms": {
+    "old_date": "Original:",
+    "new_date": "New:",
+    "delete": {
+      "buttonHardDelete": "Delete"
+    }
+  },
+  "card": {
+    "copyLink": "Copy the direct link to the booking page",
+    "copied": "Link copied"
+  },
+  "offerManagement": {
+    "bookingOrder": {
+      "date": "Sort by: most recent",
+      "lastname": "Sort by: last name",
+      "firstname": "Sort by: first name"
+    },
+    "unevenQuickInvoices": "There are open invoices without any payment methods on this page. Are you sure that you want to quit?"
+  },
+  "massDisabler": {
+    "actions": {
+      "submit": "Confirm",
+      "cancel": "Cancel",
+      "continue": "Continue"
+    },
+    "explainLoading": "Please wait",
+    "explainWarning": "BE CAREFUL this operation is irreversible.",
+    "explain": "Select the date interval over which you wish to cancel your sessions. Members who have booked will be notified by email and their credits automatically refunded to the corresponding pass",
+    "title": "Grouped cancellation",
+    "secondWarningConfirm": "Are you sure you want to continue?",
+    "secondWarning": "By clicking on 'CONFIRM', the sessions included in the interval selected will be canceled and you won't be able to go back.",
+    "warning": "This action can't be undone.",
+    "info": "Select the dates of the sessions that you wish to cancel.",
+    "endDateLabel": "End date",
+    "startDateLabel": "Start date",
+    "sure": "Are you sure that you want to validate this action?",
+    "confirmInfo": "You're about to cancel all {{number_of_deleted_offer}} session(s) between {{start_date}} and {{end_date}}.",
+    "confirmInfo_plural": "You're about to cancel all {{number_of_deleted_offer}} session(s) between {{start_date}} and {{end_date}}.",
+    "confirm": "Save",
+    "iConfirm": "I CONFIRM",
+    "confirmationExplain": "Please write \"I CONFIRM\" in capital letters to confirm.",
+    "success": "Cancellation confirmed",
+    "successInfo": "The deletion of all sessions between {{start_date}} and {{end_date}} has been taken into account.",
+    "warningOfferGroup": "These sessions can't be deleted, because they're associated to an event. Cancel, if necessary, the corresponding event.",
+    "warningOfferGroupTitle": "Valid sessions",
+    "offers": "Non-cancellable sessions",
+    "workshopOnly": "Since you don't have the permission to cancel group activity sessions, this action will only cancel workshop sessions.",
+    "activityOnly": "Since you don't have the permission to cancel workshop sessions, this action will only cancel group activity sessions."
+  },
+  "bookingListEmpty": "There are no bookings to display.",
+  "bookingList": "Bookings",
+  "liveOfferEdit": {
+    "unselectAll": "Unselect all",
+    "selectAll": "Select all",
+    "editSimilarOffers": "Select the sessions that will be modified",
+    "noSimilarOffer": "No similar sessions found. Only this session will be affected.",
+    "selectCancel": "Select the sessions that will be cancelled",
+    "cancelSimilarOffers": "Cancel similar sessions",
+    "selectDelete": "Select the sessions that will be deleted",
+    "deleteSimilarOffers": "Would you like to delete similar sessions?",
+    "selectEdit": "Select the sessions that will be modified",
+    "cancelSimilarOffersGroup": "Cancel other sessions associated to this event",
+    "deleteSimilarOffersGroups": "Do you want to delete future recurrences of the group",
+    "editSimilarOffersGroup": "Also edit this event's future sessions",
+    "editSubteacher": {
+      "propagateToSimilarOffers": {
+        "mode": {
+          "all": "Spread the changes related to the substitute teacher over these sessions",
+          "offersWithSameCoachOverrideOnly": "Keep the current substitute on these sessions"
+        },
+        "warning": "The following similar sessions already have another substitute teacher. What would you like to do?",
+        "checkboxInfo": "By checking this box, the changes applied to the substitute teacher of this session will be applied to all similar sessions. Otherwise they will only be applied to this session.",
+        "checkboxLabel": "Apply the changes on the substitute teacher to the selected sessions"
+      },
+      "title": "Change of substitute teacher"
+    },
+    "select": "Select the sessions that will be modified"
+  },
+  "menu": {
+    "download": "Export",
+    "massDisable": "Grouped cancellation",
+    "hideCancelled": "Hide cancellations",
+    "showCancelled": "Show cancellations",
+    "showWeek": "Weekly view",
+    "showMonth": "Monthly view"
+  },
+  "close": "Close",
+  "deleteImpossibleText": "This session can't be deleted as it has pending bookings.",
+  "deleteImpossibleTitle": "This session can't be deleted",
+  "restoreOffer": "Restore session",
+  "maximumNumberDescription": "The maximum number of bookings ({{effectif}}) has been reached. Are you sure that you want to book in this member? This action will override the initial maximum number of bookings.",
+  "maximumNumber": "Maximum number of bookings",
+  "warningOfferFull": "The maximum number of bookings has been reached.",
+  "tagManagementInfo": "{{authorized}} tag(s) authorized, {{unauthorized}} tag(s) not authorized",
+  "levels": {
+    "modal": {
+      "title": "Custom levels",
+      "name": "Name",
+      "nameCaption": "{{max}} characters max ({{count}}/{{max}})",
+      "color": "Colour code",
+      "cancel": "Cancel",
+      "submit": "Save"
+    },
+    "deleteModal": {
+      "title": "Deleting",
+      "content": "Are you sure you want to remove this level?",
+      "content2": "Sessions that are already associated to this level won't be modified. Future sessions will be edited."
+    },
+    "select": {
+      "add": "Add a level",
+      "title": "Level",
+      "placeholder": "Level"
+    },
+    "customs": "Custom",
+    "delete": "Delete",
+    "edit": "Edit"
+  },
+  "recurrenceIndex": "Recurrence: {{ index }}",
+  "pendingReplacementRequest": "A request for substitution is open",
+  "subTeacherRequestFilter": {
+    "placeholder": "Sub-request",
+    "true": "Sub-request pending",
+    "false": "No sub-request"
+  },
+  "rollCall": {
+    "drawer": {
+      "listMembers": "List of registered members",
+      "info": "Validating the roll call triggers the countdown for no-show penalties.",
+      "rollCall": "Roll call"
+    },
+    "chip": {
+      "notValidatedRollCall": "Roll call not validated",
+      "validatedRollCall": "Roll call validated on {{- date }} {{ time }}"
+    },
+    "dialog": {
+      "savedRollCall": "The call has been saved.",
+      "savedRollCall_plural": "The calls have been saved.",
+      "validatedRollCall": "Validated call",
+      "validatedRollCall_plural": "Validated calls",
+      "confirmationRollCall": "Please note that members marked as absent and holding an unlimited pass subject to penalties will be penalized. Are you sure you want to confirm the call?",
+      "confirmationRollCall_plural": "You are about to validate the call for all the sessions of the day. Please note that members marked as absent and holding an unlimited pass subject to penalties will be penalized. Are you sure you want to confirm all calls?",
+      "validationRollCall": "Validate the call"
+    },
+    "button": {
+      "validationRollCall": "Validate the call",
+      "validationRollCall_plural": "Validate all calls",
+      "validationRollCallZero": "Validate the roll call"
+    },
+    "warningIcon": {
+      "stateChanged": "The status has been changed but not validated",
+      "stateChangedTitle": "Unvalidated status"
+    },
+    "warningText": {
+      "lastValidatedRollCall": "Last validated roll call on {{- date }} {{ time }}",
+      "noRollCallLeft": "All roll calls were validated",
+      "rollCallsLeftToValidate": "{{ number }} roll call requires validation",
+      "rollCallsLeftToValidate_plural": "{{ number }} roll calls require validation",
+      "validatedDate": "Validated on {{- date }} at {{ time }}",
+      "modifiedRollCall": "The roll call has been modified, you must validate it again",
+      "notValidatedRollCall": "The roll call was not validated"
+    },
+    "filter": {
+      "placeholder": "Roll call status",
+      "notValidated": "Roll call not validated",
+      "validated": "Validated roll call"
+    }
+  },
+  "form": {
+    "warnings": {
+      "editOfferInitialCredits": "Older bookings do not take into account changes in credits",
+      "effectif": "Be careful, you are not entering a price. Are you sure of the value?"
+    },
+    "uscWarning": {
+      "title": "Attention: This will cancel the current bookings on USC.",
+      "content": "You will lose all current booking data if you change the date, time, or establishment of this session. Changing these details will create a new session and cancel the current one on USC.",
+      "alertContent": "Changes to this session will cancel the current bookings on USC. Confirm to proceed."
+    },
+    "errors": {
+      "field": {
+        "dateIntervalEnd": "The end date cannot be before the start date",
+        "durationMinute": "The duration of a session must be greater than 0 minutes",
+        "broadcastLink": "The link is wrong. It should start with http:// or https:// and not contain any spaces",
+        "partnerMaxBookingCount": "The number of places here is greater than the number of places in the session",
+        "effectif": "The value is higher than the maximum number of places",
+        "roomBlueprintSpivi": "A room plan must be selected for sessions synchronized with Spivi",
+        "durationMinuteSpivi": "A session on Spivi should last between 20 minutes and 4 hours",
+        "wellhubProductMissing": "This field is required, you must select a product.",
+        "dateIntervalStartBeforeLast": "The start date cannot be before the last recurrence"
+      },
+      "dateTooFar": "Impossible to create sessions taking place in more than 3 years",
+      "dateFormat": "Invalid date format",
+      "minTwo": "The value must be greater than or equal to 2",
+      "minZero": "The value must be greater than or equal to 0",
+      "positiveNumber": "The value must be greater than 0",
+      "required": "Incomplete field"
+    },
+    "dialog": {
+      "createLevel": "Create a level",
+      "recurrencePreview": "Preview"
+    },
+    "forbidden": "You do not have permission to add sessions to this activity. Please contact your manager to obtain the necessary rights.",
+    "section": {
+      "coachOverride": {
+        "info": "If you tick this box, the changes applied to the substitution teacher in this session will be applied to all similar sessions. Otherwise, they will only be applied to this session.",
+        "field": {
+          "isCoachOverridePropagate": "Apply the substitution teacher changes to the selected sessions"
+        },
+        "title": "Change of substitute teacher"
+      },
+      "similarOffers": {
+        "info": "Changes to sessions may make them incompatible with some passes. After the change please take the time to check that they will remain compatible with any changes in establishment / teacher.",
+        "unselectAll": "Deselect all",
+        "selectAll": "Select all",
+        "title": "Select the sessions that will be modified"
+      },
+      "tags": {
+        "placeholder": "Leave blank to allow all members",
+        "field": {
+          "blacklistTags": "Not allowed",
+          "whitelistTags": "Allowed"
+        },
+        "helperText": "Use tags to make the session bookable only to a desired group of members. You select tags to make the session bookable only to members with one of the selected tags. Or you can select tags to make the session unbookable only to members with one of the selected tags.",
+        "title": "Tags"
+      },
+      "settings": {
+        "field": {
+          "isModifyRecursively": "Do you want to modify similar sessions according to these new conditions?",
+          "isNotifyConsumers": "Do you want to inform your customers of this change?",
+          "partnership": {
+            "partnerMaxBookingCount": "Maximum number of bookings from Wellhub and Urban Sports Club combined (the rest of marketplaces are not affected by this setting)",
+            "availableOnPartnership": "On marketplaces (ClassPass, OneFit...)",
+            "enablePartneshipBookings": "Enable marketplace bookings",
+            "title": "Marketplace integrations",
+            "subtitle": "Includes: ClassPass, Urban Sports Club, Gymlib and Wellhub for external bookings.",
+            "uscIntegrationWarning": "Your integration to the Urban Sports Club marketplace is active, any session spanning 2 days or more will not appear.",
+            "uscIntegrationWorkshopWarning": "Workshops are not compatible with the Urban Sports Club marketplace, so this session will not be included.",
+            "wellhubProduct": {
+              "title": "Your available products on Wellhub:",
+              "helperText": "These products are offered by your studio on the Wellhub platform. Go to 'Partnership' section in the Partner Portal of your Wellhub account for more information.",
+              "selectionMissing": "This field is required, you must select a product."
+            }
+          },
+          "allowGuestOffer": "Allow booking for a guest",
+          "isManagerOnly": "Available for booking (web + app)",
+          "syncOfferOnSpivi": "Send to Spivi"
+        },
+        "title": "Settings"
+      },
+      "coach": {
+        "field": {
+          "coachPaymentRule": {
+            "placeholder": "Select a rule",
+            "title": "Payroll rule"
+          },
+          "coachOverride": {
+            "placeholder": "Select a substitute",
+            "title": "Substitute"
+          },
+          "coach": {
+            "placeholder": "Select a teacher",
+            "title": "Teacher"
+          }
+        },
+        "title": "Teacher",
+        "additionalCoaches": {
+          "field": {
+            "placeHolder": "Select additional teachers"
+          },
+          "title": "Additional teacher(s)"
+        }
+      },
+      "dateTime": {
+        "field": {
+          "recurrence": {
+            "previewCount": "{{count}} session will be created",
+            "previewCount_plural": "{{count}} sessions will be created",
+            "preview": "Preview",
+            "option": {
+              "monthly": "Monthly",
+              "weekly": "Weekly",
+              "daily": "Daily"
+            },
+            "placeholder": "Select a recurrence",
+            "title": "Recurrence"
+          },
+          "dateIntervalEnd": "End date",
+          "dateIntervalStart": "Date of the class",
+          "durationMinute": "Duration",
+          "dateIntervalStartTime": "Start time",
+          "wellhubDurationWarning": "Sessions exceeding 200 minutes will be automatically adjusted to a maximum duration of 200 minutes when submitted to Wellhub. Please ensure that your session duration complies with this limit to avoid any discrepancies."
+        },
+        "title": "Time and date"
+      },
+      "credits": {
+        "field": {
+          "creditCount": "Number of credits"
+        },
+        "title": "Credits"
+      },
+      "specificities": {
+        "tooltip": {
+          "roomBlueprint": "Allows your students to book the spot they want in the room",
+          "credits": "Number of pass credits required for booking",
+          "broadcastLink": "The link will be generated automatically for ZOOM by bsport"
+        },
+        "field": {
+          "roomBlueprint": {
+            "placeholder": "Select a plan",
+            "title": "Spot scheduling"
+          },
+          "broadcastLink": "Link to the livestream",
+          "establishment": "Establishment",
+          "credits": "Credits",
+          "decimalCredit": {
+            "helperText": "This session will cost {{count}} credit.",
+            "helperText_plural": "This session will cost {{count}} credits."
+          },
+          "level": "Level",
+          "waitingListMaxSize": "Waiting list",
+          "effectif": "Available slots",
+          "hybridManagementHelper": "You can manage the bookings associated with this twinned session, both in the room and online, by clicking on the icon below to open a new management tab.",
+          "hybridEditHelper": "You are editing an online session linked to an on-site session. In order to modify some information you need to edit the on-site session.",
+          "hybridHelper": "By choosing this option an online session will be created with a default membership of {{ onlineOfferDefaultEffectif }}. You will be able to edit the information of the online offer after it has been created (Broadcast link, membership, price, etc.)",
+          "hybridLabel": "This session is both on site and online.",
+          "hybridSection": "Hybrid session",
+          "metaActivity": "Activity"
+        },
+        "title": "Characteristics"
+      },
+      "nameDescriptionOverride": {
+        "setButton": "Set custom name",
+        "hideButton": "Hide custom name",
+        "showButton": "Show custom name",
+        "name": {
+          "label": "Name",
+          "captionText": "Add a custom name to this session"
+        },
+        "description": {
+          "label": "Description",
+          "captionText": "Add a custom description to this session"
+        }
+      }
+    },
+    "groupedOffer": {
+      "warning": "Be careful this session is part of the  group of sessions {{- name }}"
+    },
+    "recurrence": {
+      "duplicateModalTitle": "Duplicate Session",
+      "regularOffer": "The new session will use the same settings as the duplicated one.",
+      "recurringOffer": "The last session is on {{- date }} at {{- time }}. The new session will start after this date and will use the same settings as the duplicated session.",
+      "hybridOffer": "Duplicating this hybrid session will create both online and on-site sessions. They will use the same settings as the duplicated session.",
+      "linkNewOffersLabel": "Link new offers",
+      "duplicating": "Duplicating",
+      "duplicate": "Duplicate"
+    },
+    "stepper": {
+      "step": {
+        "SETTINGS": "Modification settings",
+        "INFOS": "Session"
+      }
+    }
+  },
+  "isFree": "Free",
+  "numberOfCredits": "{{count}} credit",
+  "numberOfCredits_plural": "{{count}} credits",
+  "onSite": "At the studio",
+  "broadcast": "Videoconferencing",
+  "additionalCoaches": "{{count}} additional teacher",
+  "additionalCoaches_plural": "{{count}} additional teachers",
+  "allCoaches": "{{count}} teachers",
+  "notePad": {
+    "title": "Notes",
+    "placeholder": "Leave a note about this session…",
+    "loading": "Loading…",
+    "modal": {
+      "title": "Unsaved changes",
+      "description": "You have unsaved notes on this page. Do you want to save them before leaving?"
+    }
+  }
+}

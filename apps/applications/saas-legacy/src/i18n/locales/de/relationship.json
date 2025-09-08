@@ -1,0 +1,110 @@
+{
+  "consumer_payment_pack_links": {
+    "form": {
+      "create": {
+        "explain": "Dieser Kurspass wird zwischen den beiden Mitgliedern geteilt. Die Credits können von beiden Mitgliedern verwendet werden.",
+        "previous": "Zurück",
+        "submit": "Gemeinsam benutzen",
+        "cancel": "Abbrechen",
+        "noConsumerPackToLink": "Keine gemeinsam benutzbaren Pässe",
+        "linkButton": "Gemeinsam benutzen",
+        "title": "Gemeinsame Pass-Nutzung"
+      },
+      "unlink": {
+        "submit": "Stoppen",
+        "title": "Ende der gemeinsamen Benutzung",
+        "explain": "Die gemeinsame Benutzung wird beendet. Die Stammkarte bleibt gültig",
+        "cancel": "Abbrechen"
+      },
+      "relink": {
+        "cancel": "Abbrechen",
+        "title": "Erneut gemeinsam benutzen",
+        "explain": "Die gemeinsame Benutzung wird erneut aktiviert.",
+        "submit": "Gemeinsam Benutzen"
+      }
+    },
+    "list": {
+      "create": "Einen Kurspass teilen",
+      "title": "Geteilte Pässe",
+      "isEmpty": "Keine gemeinsame Pass-Nutzung"
+    }
+  },
+  "member": {
+    "form": {
+      "submit": "Speichern",
+      "cancel": "Abbrechen",
+      "title": "Beziehung",
+      "dst_name": {
+        "placeholder": "Sohn"
+      },
+      "src_name": {
+        "placeholder": "Mutter"
+      },
+      "is": " ist ",
+      "shareEmail": "Immer eine Email-Kopie senden",
+      "autorization": "\"{{- name_1 }}\" Zugriff auf das Konto von \"{{- name_2 }}\" erlauben",
+      "accountInfo": "Der Kontozugriff ermöglicht es dem Mitglied, von seinem eigenen Konto aus auf das Konto der Beziehung zuzugreifen.",
+      "access": "Zugang zum Konto",
+      "confirm": "Bestätigen",
+      "email": "Kopieren von E-Mails",
+      "parentalLink": "Verwandtschaftsverhältnis"
+    },
+    "list": {
+      "actions": {
+        "create": "Eine Beziehung hinzufügen"
+      },
+      "pleaseSelectOne": "Wähle eine Beziehung aus, um geteilte Kurspässe anzuzeigen",
+      "isEmpty": "Es gibt noch keine Beziehung",
+      "title": "Beziehungen"
+    },
+    "item": {
+      "delete": "Löschen",
+      "edit": "Ändern"
+    }
+  },
+  "private_consumer_pass_links": {
+    "form": {
+      "relink": {
+        "cancel": "Abbrechen",
+        "submit": "Gemeinsam nutzen",
+        "explain": "Die gemeinsame Benutzung wird erneut aktiviert.",
+        "title": "Erneut gemeinsam benutzen"
+      },
+      "unlink": {
+        "cancel": "Abbrechen",
+        "submit": "Stoppen",
+        "explain": "Die gemeinsame Nutzung wird beendet. Der Terminpass bleibt gültig",
+        "title": "Ende der gemeinsamen Benutzung"
+      },
+      "create": {
+        "noConsumerPackToLink": "Keine gemeinsam benutzbaren Pässe",
+        "linkButton": "Gemeinsam nutzen",
+        "submit": "Gemeinsam nutzen",
+        "previous": "Bisherige",
+        "cancel": "Abbrechen",
+        "explain": "Dieser Kurspass wird zwischen den beiden Mitgliedern geteilt. Die Credits können von Beiden genutzt werden.",
+        "title": "Gemeinsame Terminpassnutzung"
+      }
+    },
+    "list": {
+      "isEmpty": "Keine gemeinsame Terminpassnutzung",
+      "create": "Teile einen Terminpass",
+      "title": "Geteilte Terminpässe"
+    }
+  },
+  "relationship": {
+    "delete": {
+      "title": "Beziehung löschen",
+      "submit": "Löschen",
+      "cancel": "Abbrechen",
+      "content": "Bitte beachte, dass diese Aktion unwiderruflich ist. Freigegebene Pässe werden nicht mehr freigegeben.",
+      "whichUser": "Auf welches Konto möchten Sie zugreifen?"
+    }
+  },
+  "connectedAs": {
+    "title": "Anmelden als",
+    "info": "Melden Sie sich bei einem Ihrer verbundenen Konten an.",
+    "wichUser": "Auf welches Konto möchten Sie zugreifen?",
+    "selectRelation": "Eine Beziehung auswählen"
+  }
+}

@@ -1,0 +1,67 @@
+{
+  "offerDetail": {
+    "actions": {
+      "close": "Fechar",
+      "createAccount": "Criar uma conta",
+      "restartAnalyze": "Recomeçar"
+    },
+    "activateBarcode": "Detetor de cartões",
+    "register": "Reservar",
+    "isFull": "Completo",
+    "emptyList": "Não há alunos registados",
+    "noConsumerPaymentPack": "Não tem um passe de aulas válido !",
+    "noDetectionResult": "Nenhum resultado",
+    "backToOfferList": "Voltar para as sessões",
+    "cancelRegistration": "Cancelar",
+    "activateFaceId": "Reconhecimento facial"
+  },
+  "signout": {
+    "signout": "Desligar",
+    "form": {
+      "username": {
+        "label": "E-mail"
+      },
+      "password": {
+        "label": "Palavra-passe"
+      }
+    },
+    "passwordError": "Palavra-passe errada",
+    "title": "Desativar",
+    "explain": "Para terminar a sessão, introduza a palavra-passe da sua conta Check-in",
+    "cancel": "Cancelar"
+  },
+  "memberList": {
+    "empty": "Não há alunos registados",
+    "checkIn": "Check-in",
+    "checkedIn": "Registado"
+  },
+  "confirmPage": {
+    "signIn": "Registado",
+    "classLocation": "A  sessão decorre em",
+    "expires": "Expirado",
+    "headOnIn": "Está tudo pronto para começar !",
+    "visitsLeft": "Visitas restantes",
+    "spotUnassigned": "Local não atribuído",
+    "spotInfo": "O seu {{- spotName}} é:"
+  },
+  "filter": {
+    "establishment": "Filtrar por local"
+  },
+  "offerList": {
+    "emptyList": "Nenhuma sessão",
+    "refresh": "Recarregar sessões"
+  },
+  "offerStatus": {
+    "inProgress": "começa depois",
+    "startIn": "começa em ",
+    "hasEnded": "Concluído desde"
+  },
+  "addMember": {
+    "button": "Criar uma conta"
+  },
+  "authenticationDialog": {
+    "error": "A palavra-passe introduzida não é válida",
+    "description": "Para garantir a segurança, é favor autenticar a sua identidade introduzindo a sua palavra-passe antes de proceder à mudança de estabelecimento.",
+    "title": "Modificar Estabelecimento"
+  }
+}

@@ -1,0 +1,264 @@
+{
+  "paymentMethodMissing": {
+    "banner": "Não introduziu um método de pagamento para a sua subscrição bsport. Por favor, clique aqui.",
+    "closeModal": "Fechar",
+    "explain": "Não introduziu um método de pagamento válido. Confirme-o para continuar a utilizar a sua subscrição bsport."
+  },
+  "backofficeMenu": {
+    "toggle": {
+      "shrink": "Submeter",
+      "expand": "Acrescentar"
+    },
+    "instalmentPayment": "Opções de pagamento",
+    "programs": "Programas",
+    "settings": {
+      "waitingList": "Lista de espera",
+      "coachUserspace": "Área do professor",
+      "mobilePersonalization": "Personalização da app",
+      "shop": "Loja",
+      "role": "Staff",
+      "paymentRules": "Regras de remuneração",
+      "partnership": "Parceria",
+      "personalization": "Personalização",
+      "settings": "Configurações",
+      "platform_billing": "Subscrição bsport",
+      "notificationRule": "Notificações transaccionais",
+      "webhook": "Alerta",
+      "active_campaign": "Campanha ativa",
+      "forms": "Formulário de adesão",
+      "invoice": "Faturação",
+      "paymentMethod": "Métodos de pagamento",
+      "company": "Empresa",
+      "quicksale": "Área de vendas",
+      "marketplaceSettings": "Configurações Marketplace",
+      "broadcast": "Aula Online",
+      "general": "Geral",
+      "widget": "Widget",
+      "quickbooks": "QuickBooks",
+      "referral": "Referência"
+    },
+    "myClub": "Meu Estúdio",
+    "subscription": "Débitos Diretos",
+    "coupon": "Promoções",
+    "backToFranchiseWorskpace": "Voltar à conta principal",
+    "tutorial": "Tutorial",
+    "cadences": "Sequências",
+    "tutorialInfo": "Pode encontrar o nosso guia de iniciação no separador Tutorial.",
+    "marketingNotification": "Notificações",
+    "contract": "Subscrições",
+    "redirecting": "Será redireccionado para a sua página",
+    "clockIn": "Relógio de ponto",
+    "help": "Ajuda",
+    "tags": "Etiquetas",
+    "franchiseConnectedAs": "Registado como: {{- name}}",
+    "replacement": "Substituição",
+    "giftcard": "Cartões de presente",
+    "combo": "Packs",
+    "pass": "Passes de aulas",
+    "consumer": {
+      "pass": "Passes de aulas",
+      "bookings": "As minhas reservas ",
+      "order": "As minhas encomendas",
+      "myAccount": "A minha conta",
+      "subscriptions": "As minhas subscrições",
+      "profile": "Meu Perfil"
+    },
+    "beta": "beta",
+    "coachPayroll": "Remuneração",
+    "refresh": "Atualizar",
+    "goBack": "Voltar",
+    "marketing_automation": "Marketing Auto",
+    "custom_form": "Formulários",
+    "reporting": "Relatórios",
+    "dashboard": "Painel Principal",
+    "payment": "Faturação",
+    "workshopActivities": "Workshops",
+    "invoice": "Faturas",
+    "digital": "Oferta digital",
+    "search": "Pesquisar",
+    "podcast": "Podcasts",
+    "product": "Produtos",
+    "schedule": "Horários",
+    "privateService": {
+      "title": "Aulas Privadas",
+      "services": "Aulas Privadas",
+      "pass": "Passes de marcação"
+    },
+    "coachPerformance": "Professores",
+    "calendar": "Calendário",
+    "message": "Marketing",
+    "member": "Membros",
+    "establishment": "Estabelecimentos",
+    "logoff": "Logout",
+    "requestTempPassword": "Autorizar o acesso",
+    "order": "Encomendas",
+    "expenses": "Despesas",
+    "coaches": "Professores",
+    "sequence": "Estratégias",
+    "activity": "Aulas de grupo",
+    "smart_list": "Lista inteligente",
+    "email_template": "Emails",
+    "alpha": "em desenvolvimento",
+    "myShop": "Loja",
+    "cashBook": {
+      "expectedAmount": "É suposto ter : ",
+      "save": "Guardar",
+      "amount": "Vencedor do dia :",
+      "addAmount": "Montante a adicionar ao fundo",
+      "todayEndAmount": "Montante no final do dia",
+      "todayStartAmount": "Montante inicial do fundo",
+      "onSpotPaymentReport": "Aceder ao relatório de pagamentos",
+      "of": "De",
+      "lastUpdated": "Última modificação em",
+      "close": "Fechar",
+      "at": "à",
+      "cashDialogTitle": "Livro-razão"
+    },
+    "cashBookTooltip": "Livro-razão",
+    "video": "Vídeo biblioteca",
+    "addMemberTooltip": "Adicionar membro",
+    "inbox": "Caixa de entrada",
+    "playlist": "Listas de reprodução",
+    "audience": "{{ audienceCamelCase }}"
+  },
+  "stripeOnboardingPending": {
+    "banner": "Se não tiver terminado a configuração da faturação, os pagamentos em linha podem ser desactivados."
+  },
+  "franchiseMenu": {
+    "reporting": "Relatórios",
+    "staff": "Staff",
+    "products": {
+      "label": "Produtos",
+      "giftcardTemplates": "Cartões de presente",
+      "couponTemplates": "Promoções",
+      "paymentPackTemplates": "Passes de aulas",
+      "privatePassTemplates": "Passe de marcação"
+    },
+    "widgets": "Ferramentas",
+    "franchises": "Concessionários",
+    "tag": "Etiquetas",
+    "members": "Membros",
+    "emailTemplates": "E-mails",
+    "notificationRules": "Notificações transaccionais",
+    "settings": "Configurações",
+    "marketing": {
+      "tags": "Etiquetas",
+      "emailTemplates": "E-mails",
+      "campaigns": "Campanhas",
+      "label": "Marketing"
+    }
+  },
+  "deprecatedNavigator": {
+    "close": "Fechar",
+    "downloadChrome": "Descarregue gratuitamente o Google Chrome",
+    "downloadFirefox": "Descarregue gratuitamente o Mozilla Firefox",
+    "navigatorError": "Parece que o browser utilizado é demasiado antigo para utilizar os nossos serviços. Recomendamos que descarregue uma versão mais recente, como sugestão : "
+  },
+  "tab": {
+    "establishment": {
+      "location": "Localização",
+      "general": "Geral",
+      "calendar": "Calendário",
+      "room": "Sala"
+    },
+    "smartList": {
+      "member": "Geral",
+      "campaign": "Campanhas",
+      "statistic": "Estatísticas"
+    },
+    "customForm": {
+      "campaign": "Campanha",
+      "statistics": "Estatísticas",
+      "layout": "Personalizar",
+      "general": "Conteúdo"
+    },
+    "member": {
+      "vod": "Vídeos on Demand",
+      "vod_plural": "Vídeos on Demand  ({{number}})",
+      "payment": "Fatura",
+      "payment_plural": "Faturas ({{number}})",
+      "paymentPack": "Passe de aulas",
+      "paymentPack_plural": "Passes de aulas ({{number}})",
+      "programs": "Programação",
+      "programs_plural": "Programações ({{number}})",
+      "info": "Geral",
+      "info_plural": "Gerais ({{number}})",
+      "invoices": "Fatura e Subscrição",
+      "invoices_plural": "Faturas e Subscrições ({{number}})",
+      "privateBooking": "Aula Privada",
+      "privateBooking_plural": "Aulas Privadas ({{number}})",
+      "basket": "Carrinho",
+      "basket_plural": "Carrinho ({{number}})",
+      "form": "Formulário",
+      "form_plural": "Formulários ({{number}})",
+      "relation": "Relacionamento",
+      "relation_plural": "Relacionamentos {{number}}",
+      "contact": "Contato",
+      "contact_plural": "Contatos({{number}})",
+      "bookings": "Reserva",
+      "bookings_plural": "Reservas ({{number}})",
+      "giftcard": "Cartão presente",
+      "giftcard_plural": "Cartões de presente ({{number}})",
+      "privateConsumerPass": "Passe de Aula Privadas",
+      "privateConsumerPass_plural": "Passes de Aula Privada ({{number}})"
+    },
+    "coach": {
+      "calendar": "Calendário",
+      "general": "Perfil"
+    },
+    "metaActivity": {
+      "group": "Sessões de grupo",
+      "pack": "Passes compatíveis",
+      "general": "Geral"
+    },
+    "franchise": {
+      "staff": {
+        "staffAccount": "Contas staff",
+        "role": "Cargo"
+      }
+    },
+    "widget": {
+      "create": "Geral",
+      "customize": "Personalização",
+      "customizeCss": "CSS personalizado"
+    },
+    "replacement": {
+      "management": "Gestão",
+      "disciplineGroup": "Aulas de grupo"
+    },
+    "service": {
+      "calendar": "Calendário",
+      "general": "Geral"
+    },
+    "clockIn": {
+      "realTime": "Tempo real",
+      "history": "Histórico"
+    },
+    "quicksale": {
+      "configuration": "Personalizar categorias",
+      "access": "Criar acesso"
+    },
+    "appSettings": {
+      "customize": "Personalização",
+      "popups": "Pop-up de arranque",
+      "links": "Links externos"
+    },
+    "communicationSentGroupConfig": {
+      "campaigns": "Campanhas",
+      "general": "Geral"
+    }
+  },
+  "multiSession": {
+    "previous": "Sessão anterior",
+    "previousSession": " Estava registado como {{- name}}",
+    "continue": "Continuar nesta sessão",
+    "franchisor": "franchisador",
+    "current": "Sessão atual",
+    "restore": "Recuperar esta sessão",
+    "title": " Parece estar a utilizar vários separadores em simultâneo",
+    "manager": "manager",
+    "currentSession": "Atualmente, tem sessão iniciada como {{- name}}"
+  },
+  "logout": "Terminar sessão",
+  "login": "Iniciar sessão"
+}

@@ -1,0 +1,242 @@
+{
+  "disciplineGroup": {
+    "form": {
+      "allActivities": "Insegna tutte le attività",
+      "workshops": "Workshops",
+      "pickWorkshop": "Scegli un Workshops",
+      "name": "Nome",
+      "nameHelperText": "Nome del gruppo disciplinare",
+      "required": "Questo campo è obbligatorio",
+      "groupTypes": "Classi e categorie:",
+      "activities": "Attività",
+      "pickActivity": "Scegli un'attività",
+      "allWorkshops": "Insegna tutti i Workshops",
+      "categories": "Categorie",
+      "pickCategory": "Scegli una categoria",
+      "allCategories": "Insegna tutte le categorie",
+      "coaches": "Insegnante associato",
+      "close": "Cancella",
+      "submit": "Salva",
+      "coachRequired": "Seleziona almeno un insegnante",
+      "establishmentSelectorError": "Non è possibile specificare contemporaneamente stabilimenti e sedi",
+      "allEstablishments": "Tutti gli stabilimenti",
+      "pickEstablishment": "Lascia vuoto per selezionare tutto",
+      "locations": "Sedi",
+      "establishments": "Stabilimenti"
+    },
+    "add": "Aggiungi un gruppo",
+    "title": "Gruppi disciplinari",
+    "activities": "Attività",
+    "workshops": "Workshops ({{number}})",
+    "categories": "Categorie {{number}}",
+    "coaches": "{{count}} Insegnante",
+    "coaches_plural": "{{count}} Insegnanti",
+    "delete": {
+      "title": "Elimina",
+      "description": "Sei sicuro di voler eliminare il gruppo disciplinare {{- name }}?",
+      "cancel": "Cancella",
+      "confirm": "Conferma"
+    },
+    "all": "Tutto"
+  },
+  "coachAnswers": {
+    "close": "Chiudi",
+    "header": {
+      "teacher": "Insegnante",
+      "answer": "Risposta",
+      "action": "Azione"
+    },
+    "closing_date": "Data di chiusura",
+    "reason": "Motivo della richiesta",
+    "attribute": "Assegna",
+    "noAnswers": "Nessuna risposta per il momento",
+    "confirmation": {
+      "title": "Assegna un insegnante",
+      "description": "Sei sicuro di voler iscrivere {{coach_override}} come supplente al corso di {{coach}}?",
+      "cancel": "Cancella",
+      "confirm": "Conferma"
+    },
+    "success": {
+      "requestSent": "Insegnante assegnato",
+      "description": "L'insegnante è stato sostituito. {{coach}} terrà il corso dal {{-date}} al {{time}}",
+      "close": "Chiudi"
+    },
+    "refuse": {
+      "description": "Sei sicuro di voler rifiutare questa richiesta?",
+      "cancel": "Chiudi",
+      "confirm": "Conferma"
+    }
+  },
+  "requestsLinkedToCancelledOffers": {
+    "buttonLabel": "Apri",
+    "offerHasActiveRequest": {
+      "title": "A questa sessione è collegata una richiesta di sostituzione attiva",
+      "helper": "Vuoi essere reindirizzato alla pagina delle richieste di sostituzione per cancellare le richieste obsolete?"
+    },
+    "title": "Visualizza richieste di sostituzione attive",
+    "description": "Attiva il selettore \"Sessioni annullate\" per visualizzare le richieste di sostituzione associate a sessioni annullate. ",
+    "filterHelper": "Se non appare nessuna sessione, prova a disattivare i filtri e ad ampliare l'intervallo di date.",
+    "cancelledOffersModeTitle": "Sessioni cancellate"
+  },
+  "calendar": {
+    "title": "Il mio calendario",
+    "description": "Trova tutte le tue lezioni di gruppo qui.",
+    "helperTextLimited": "<strong>{{requestsLeft}}</strong> di <strong>{{requestsMax}}</strong> richieste in ritardo rimanenti fino al giorno {{-dateEnd}}. Tutte le richieste di sostituzione effettuate meno di {{count}} giorno della sessione saranno considerate in ritardo.",
+    "helperTextLimited_plural": "<strong>{{requestsLeft}}</strong> di <strong>{{requestsMax}}</strong> richieste in ritardo rimanenti fino al giorno {{-dateEnd}}. Tutte le richieste di sostituzione effettuate entro {{count}} giorni dalla sessione saranno considerate in ritardo.",
+    "helperTextNotLimited": "Tutte le richieste di sostituzione effettuate meno di {{count}} giorno della sessione saranno considerate in ritardo.",
+    "helperTextNotLimited_plural": "Tutte le richieste di sostituzione effettuate entro {{count}} giorni dalla sessione saranno considerate in ritardo."
+  },
+  "requests": {
+    "title": "Le mie richieste",
+    "description": "Trova tutte le tue richieste di sostituzione qui.",
+    "cancel": "Cancella"
+  },
+  "confirmations": {
+    "title": "Conferme",
+    "description": "Sei stato aggiunto come insegnante supplente per i seguenti corsi."
+  },
+  "marketplace": {
+    "title": "Marketplace",
+    "description": "I seguenti corsi richiedono un insegnante supplente. Sei disponibile ?",
+    "filters": "Filtri",
+    "until": "Fino a {{-date}}"
+  },
+  "unavailableReplacement": {
+    "alreadyPassed": "Questo corso è passato",
+    "replacing": "Sei un sostituto in questo corso",
+    "alreadyAskedFor": "Una richiesta è già in corso",
+    "tooEarly": "Le sostituzioni non sono ancora disponibili",
+    "noLateRequestsLeft": "Non è più possibile creare nuove richieste di sostituzione in ritardo",
+    "refusedByManager": "La tua richiesta di sostituzione è stata rifiutata"
+  },
+  "header": {
+    "date": "Data e ora",
+    "name": "Nome della sessione",
+    "level": "Livello",
+    "location": "Stabilimento",
+    "establishment_group": "Sede",
+    "action": "Azione",
+    "reason": "Motivo",
+    "status": "Stato",
+    "teacher": "Insegnante",
+    "teacher_override": "Supplente",
+    "closing_date": "Data di chiusura",
+    "availability": "Disponibile",
+    "request": "Richiesta",
+    "registrations": "Iscrizione",
+    "class": "Sessione"
+  },
+  "requestTableTitles": {
+    "pending": "In corso",
+    "replacementFound": "Supplente trovato",
+    "deniedRequests": "Richiesta rifiutata"
+  },
+  "managerTableTitles": {
+    "pendingRequests": "Richiesta in corso",
+    "replacementHistory": "Storico delle sostituzioni"
+  },
+  "coachAnswer": {
+    "yes": "Si",
+    "ratherNo": "Forse",
+    "no": "No"
+  },
+  "noListItem": {
+    "replacementRequest": "Nessun elemento",
+    "calendar": "Nessun corso in programma in queste date"
+  },
+  "replacementStatus": {
+    "description": {
+      "description": "Gli status ti consentono di sapere dove si trova la tua richiesta.",
+      "pendingForApproval": "in attesa di azione da parte del manager.",
+      "approvedButNoReplacementPropositions": "in attesa di iscrizioni.",
+      "approvedWithReplacementPropositions": "iscrizione in corso.",
+      "offerCancelled": "sessione annullata."
+    },
+    "pendingForApproval": "In attesa di approvazione",
+    "deniedByManager": "Rifiutato",
+    "approvedButNoReplacementPropositions": "Aperta",
+    "approvedWithReplacementPropositions": "In corso",
+    "teacherFound": "Sostituita",
+    "offerCancelled": "Annullato"
+  },
+  "askForReplacement": {
+    "title": "Richiesta di sostituzione",
+    "label": "Motivo dell'assenza",
+    "cancel": "Cancella",
+    "submit": "Invia",
+    "requestSent": "Richiesta inviata",
+    "requestSent_plural": "Richieste inviate",
+    "requestSentDescription": "La tua richiesta di sostituzione è stata presa in considerazione. Vai alla scheda \"Le mie richieste\" per seguirne l'avanzamento.",
+    "requestSentDescription_plural": "Le tue richieste di sostituzione sono state prese in considerazione. Vai alla scheda \"Le mie richieste\" per seguire i loro progressi.",
+    "close": "Chiudi",
+    "lateRequestTypo": "Attenzione, la tua richiesta di sostituzione è in ritardo. Hai {{daysBeforeOffer}} giorni prima dell'inizio del corso per fare la tua richiesta in tempo.",
+    "lateRequestTypo_plural": "Attenzione, alcune delle tue richieste di sostituzione sono in ritardo. Hai {{daysBeforeOffer}} giorni prima dell'inizio del corso per fare la tua richiesta in tempo.",
+    "lateRequestCounterInfo": "<strong>{{requestsLeft}}</strong> il <strong>{{requestsMax}}</strong> richiesta in ritardo rimanente fino al giorno {{-dateEnd}}.",
+    "lateRequestCounterInfo_plural": "<strong>{{requestsLeft}}</strong> di <strong>{{requestsMax}}</strong> richieste in ritardo rimanenti fino al giorno {{-dateEnd}}.",
+    "lateRequestInfo": "La richiesta verrà registrata, tuttavia, assicurati di contattare direttamente il tuo studio per avvisarli il prima possibile.",
+    "lateRequestInfo_plural": "Le richieste verranno registrate, tuttavia, assicurati di contattare direttamente il tuo studio per avvisarle il prima possibile."
+  },
+  "askForClosingDateExtension": {
+    "title": "Data di chiusura",
+    "description": "Le registrazioni per questa richiesta sono state chiuse dal {{closing_date}}. Se non ci sono abbastanza risposte a questa richiesta, puoi comunque posticipare la data di chiusura.",
+    "closing_date": "Data di chiusura",
+    "new_closing_date": "La nuova data di chiusura sarà il {{closing_date}} alle {{time}}",
+    "cancel": "Cancella",
+    "submit": "Conferma",
+    "requestSent": "Richiesta inviata",
+    "requestSentDescription": "L'estensione è stata aggiunta correttamente alla richiesta di sostituzione.",
+    "close": "Chiudi"
+  },
+  "delete": {
+    "title": "Annulla la richiesta",
+    "description": "Sei sicuro di voler annullare questa richiesta?",
+    "cancel": "Cancella",
+    "confirm": "Conferma"
+  },
+  "lateStatus": {
+    "isLate": "In ritardo",
+    "isNotLate": "Nei tempi previsti"
+  },
+  "registrationsStatus": {
+    "areClosed": "Chiudi",
+    "areNotClosed": "Aperto"
+  },
+  "selects": {
+    "lateStatus": "Stato della richiesta",
+    "closedStatus": "Stato della registrazione",
+    "category": "Categoria",
+    "offerCancelled": "Sessione annullata"
+  },
+  "compatibleCoaches": {
+    "title": "Insegnanti compatibili per attività",
+    "compatibleCoaches": "{{count}} insegnante compatibile",
+    "compatibleCoaches_plural": "{{count}} insegnanti compatibili",
+    "nextSlot": "Prossima sessione il {{date}} - {{hour}}",
+    "activities": "Attività",
+    "workshops": "Workshops",
+    "categories": "Categorie"
+  },
+  "coachEdit": {
+    "title": "Sostituzione",
+    "description": "Scegli i tipi di attività svolti dall'insegnante per compilare automaticamente i campi. Se è necessario un sostituto per una lezione, avviseremo l'insegnante via email in anticipo.",
+    "disciplineGroup": "Gruppo di disciplina",
+    "customRules": "Personalizza le regole",
+    "activities": "Attività",
+    "pickActivity": "Seleziona un'attività",
+    "allActivities": "Insegna in tutte le attività",
+    "workshops": "Workshops",
+    "pickWorkshop": "Scegli un workshops",
+    "allWorkshops": "Insegna tutti i workshops",
+    "categories": "Categorie",
+    "pickCategory": "Scegli una categoria",
+    "allCategories": "Insegna tutte le categorie",
+    "allEstablishments": "Tutti gli stabilimenti",
+    "pickEstablishment": "Lascia vuoto per selezionare tutto",
+    "locations": "Sedi",
+    "establishments": "Stabilimenti"
+  },
+  "tooltip": {
+    "seeAnswers": "Consulta l'elenco dei sostituti",
+    "offerCancelled": "Questa sessione è stata cancellata"
+  }
+}

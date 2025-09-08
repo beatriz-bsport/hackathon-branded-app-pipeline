@@ -1,0 +1,144 @@
+{
+  "form": {
+    "group": {
+      "deleteCategory": "Elimina categoria",
+      "delete": {
+        "title": "Rimuovi",
+        "explain": "Attenzione, l'eliminazione di questa categoria interesserà tutti i membri. Questa operazione è irreversibile",
+        "submit": "Rimuovi",
+        "cancel": "Annulla"
+      },
+      "namePlaceholder": "Nome della categoria",
+      "addTagGroup": "Crea una categoria",
+      "edit": "Modificare i tag"
+    },
+    "tag": {
+      "delete": {
+        "title": "Rimuovi",
+        "explain": "Tieni presente che questo tag verrà eliminato da TUTTI i membri. Questa operazione è irreversibile",
+        "submit": "Rimuovi",
+        "cancel": "Annulla"
+      },
+      "namePlaceholder": "Nome del tag",
+      "submit": "Registrare",
+      "name": "Nome dell'etichetta",
+      "color": "Colore",
+      "info": "Se selezioni un'icona, essa apparirà come un badge accanto alla foto del profilo per tutti i membri etichettati con quel tag.",
+      "selectIcon": "Seleziona un'icona",
+      "searchIcon": "Cerca un'icona (ricerca in inglese)",
+      "icon": "Icona (opzionale)"
+    },
+    "filter": {
+      "includeLabel": "Tipo",
+      "include": "Includi tag",
+      "exclude": "Non include il tag",
+      "tagGroupLabel": "Tag (categoria)",
+      "tagLabel": "Tag (valore)",
+      "title": "Filtra",
+      "cancel": "Annulla",
+      "addFilter": "Filtra"
+    }
+  },
+  "panel": {
+    "title": "I miei tag",
+    "noTagAvailable": "Nessun tag creato"
+  },
+  "filter": {
+    "addATagFilter": "Filtra per tag ..."
+  },
+  "tag": {
+    "noTagAttributed": "Seleziona un tag"
+  },
+  "management": {
+    "deleteTagGroupDialog": {
+      "text": "Sei sicuro di voler eliminare questa categoria? Anche tutti i tag della categoria saranno cancellati. ",
+      "title": "Categoria di cancellazione"
+    },
+    "deleteTagDialog": {
+      "title": "Eliminazione dei tag",
+      "text": "Sei sicuro di voler eliminare questo tag? Tutte le regole relative a questo tag saranno cancellate."
+    },
+    "createGroupDialog": {
+      "title": "Categoria",
+      "field": "Nome",
+      "helper": "Crea una categoria per identificare una famiglia di membri. Per esempio \"VIP\", puoi poi creare i tag \"sì\" e \"no\" per indicare se il membro appartiene a questa famiglia."
+    },
+    "tagDetail": {
+      "noTag": "Seleziona un tag per vedere i dettagli"
+    },
+    "tagKind": {
+      "toolbar": "Visualizzazione per",
+      "member": "Membri",
+      "coupon": "Codice promozionale",
+      "smartlist": "Smartlists",
+      "offer": "Sessioni"
+    },
+    "memberDetail": {
+      "memberWithTag": "Membri taggati",
+      "removeTagFromAll": "Rimuovere il tag da tutti",
+      "removeTag": "Untagging",
+      "memberWithoutTag": "Membri non taggati",
+      "addTagToAll": "Aggiungi il tag a tutti",
+      "addTag": "Taggare"
+    },
+    "couponDetail": {
+      "createViaCoupon": "Accesso ai codici promozionali",
+      "title": "Codici promozionali relativi al tag",
+      "whitelist": "Può essere usato dai membri con il tag",
+      "blacklist": "Non utilizzabile dai membri con il tag",
+      "removeTag": "Rimuovere il tag",
+      "empty": "Nessun codice promozionale è collegato al tag {{- tag }}"
+    },
+    "smartlistDetail": {
+      "title": "Regola di etichettatura (Smartlist)",
+      "removeTag": "Elimina",
+      "empty": "Nessuna regola di etichettatura è collegata al tag {{ tag }}",
+      "createViaSmartlist": "Accesso a Smartlists"
+    },
+    "addGroup": "Creare una categoria",
+    "addTag": "Aggiungere un'etichetta",
+    "rename": "Rinominare",
+    "delete": "Elimina",
+    "form": {
+      "groupRename": "Categoria",
+      "tagGroupName": "Nome",
+      "tagGroupEmpty": "Nessun tag in questa categoria"
+    },
+    "cancel": "Cancella",
+    "submit": "Conferma",
+    "tagColumn": {
+      "tag": "Tag",
+      "member_count": "Membri taggati",
+      "smartlist_count": "Regole di etichettatura",
+      "actions": "Azioni ",
+      "offer_count": "Sessioni correlate",
+      "coupon_count": " "
+    },
+    "offerDetail": {
+      "filters": {
+        "options": {
+          "onlyBlack": "Non prenotabile con il tag",
+          "onlyWhite": "Prenotabile con questo tag",
+          "all": "Visualizza tutte le sessioni"
+        },
+        "selectorTitle": "Filtro sui permessi"
+      },
+      "removeTagFromAll": "Rimuovi tutti i tag",
+      "offerWithTag": "Contrassegnato offerte",
+      "detailTable": {
+        "tagInWhiteList": "Prenotabile dai membri con il tag",
+        "tagInBlackList": "Non prenotabile dai membri con il tag"
+      }
+    }
+  },
+  "select": "Seleziona un tag",
+  "memberStatus": "Stato membro : ",
+  "modal": {
+    "confirm": {
+      "title": "Elimina il tag",
+      "text": "Questa sessione è associata a un evento. Stai per eliminare tutti i tag. Sei sicuro di voler continuare?",
+      "submit": "Conferma"
+    }
+  },
+  "tagGroupDuplicated": "Nota che alcuni tag appartengono allo stesso gruppo e non possono essere applicati contemporaneamente. Dopo l'acquisto verrà applicato solo il primo di questi tag."
+}

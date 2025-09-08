@@ -1,0 +1,125 @@
+{
+  "companies": {
+    "pageTitle": "Franquicias",
+    "navigateToCompany": "Acceso a la cuenta del franquiciado",
+    "membersEmptyState": "No hay miembros en esta empresa",
+    "establishmentEmptyState": "No hay instalaciones en esta empresa",
+    "establishment": "Establecimientos",
+    "members": "miembros",
+    "emptySelect": "Seleccione una franquicia para ver los detalles.",
+    "searchPlaceholder": "Buscar un franquiciado",
+    "manageOnStudio": "Gestionar en {{studio_name}}"
+  },
+  "member": {
+    "pageTitle": "Miembro",
+    "seeMembership": "Ver la tarjeta de socio",
+    "isVaccinated": "Pass sanitario válido",
+    "franchises": "franquicia",
+    "seeMemberInCompany": "Mostrar"
+  },
+  "pagination": {
+    "outOf": "{{from}}-{{to}} en {{count}}",
+    "rowPerPage": "Elemento por página",
+    "nextPage": "Página siguiente",
+    "previousPage": "Página anterior"
+  },
+  "membersList": {
+    "pageTitle": "Miembros",
+    "see": "Ver",
+    "actions": "Acciones",
+    "franchised": "Franquiciado",
+    "name": "Nombre"
+  },
+  "emails": {
+    "chooseGroup": "Elegir un grupo",
+    "copy": "copia",
+    "groupByPlaceholder": "Agrupado por",
+    "franchised": "Franquiciado",
+    "groupBy": "Agrupado por",
+    "pageTitle": "Plantilla",
+    "companiesEmails": "Plantillas de franquicia",
+    "create": "Crear un modelo",
+    "franchiseEmails": "Mis plantillas",
+    "emptyStateDescription": "Seleccione una plantilla",
+    "emptyStateTitle": "Vista previa del correo",
+    "searchPlaceholder": "Buscar una plantilla"
+  },
+  "login": {
+    "signUp": "Registrarme",
+    "connect": "Conectarme",
+    "previous": "Vuelta",
+    "disconnect": "Cerrar la sesión"
+  },
+  "companyGroup": {
+    "explain": "Las categorías se utilizan para agrupar sus licencias bajo un nombre común (por ejemplo, Estudios París) y se mostrarán en la aplicación móvil",
+    "actions": {
+      "add": "Añadir una categoría",
+      "submit": "Validar",
+      "cancel": "Cancelar"
+    },
+    "name": {
+      "label": "Nombre"
+    }
+  },
+  "staff": {
+    "explainStaff": "Con el acceso de personal de la cuenta maestra, seleccione qué franquiciados tienen acceso a sus plantillas y qué acciones pueden realizar en ellas. El acceso de personal no permite conectarse a la aplicación móvil.",
+    "roleTabTitle": "Papeles",
+    "staffAccountTabTitle": "Cuentas Staff"
+  },
+  "genericProduct": {
+    "list": {
+      "visibility": "Invisible para los clientes",
+      "shortMenu": {
+        "restore": "Restaurar",
+        "edit": "Modificar",
+        "delete": "Borrar",
+        "goTo": "Detalle"
+      },
+      "fuzzySearch": "Buscar una tarjeta",
+      "titleInactive": "No disponible para la venta",
+      "titleActive": "Disponible para la venta"
+    },
+    "templateCard": {
+      "shareTemplate": {
+        "closeDialog": "Cerrar",
+        "seeAll": "Ver todo",
+        "addCompany": "Añadir un estudio",
+        "emptyCompanyList": "Ningún estudio está configurado para aceptar esta tarjeta",
+        "categoryName": "Compartido con los estudios"
+      },
+      "buttons": {
+        "delete": "Borrar",
+        "update": "Modificar"
+      }
+    },
+    "dialogs": {
+      "deleteTemplateInstance": {
+        "buttonValidate": "Desactivar el uso compartido",
+        "title": "Deja de compartir"
+      },
+      "selectCompanies": {
+        "allCompaniesShared": "Ya has compartido esta tarjeta con todos los estudios franquiciados a los que tienes acceso.",
+        "content2": "Los miembros que reciban esta tarjeta podrán utilizarla en todos los estudios compatibles.",
+        "content1": "Los siguientes estudios tendrán automáticamente esta tarjeta a la venta. No podrán cambiar el precio ni el número de créditos.",
+        "title": "Configurar mis estudios"
+      },
+      "deleteTemplate": {
+        "title": "Desactivación"
+      }
+    }
+  },
+  "search": {
+    "usersTableTitle": "Usuarios",
+    "pageTitle": "Buscar"
+  },
+  "userProfile": {
+    "numberBrands": "{{ number }} categorías",
+    "numberStudios": "{{ number }} estudios de compra",
+    "goToMemberProfile": "Gestionar en {{ purchasing_studio }}",
+    "tagModalPlaceholcer": "Selecciona las etiquetas",
+    "tagModalHelperText": "Etiquetas",
+    "tagModalText": "Las medidas adoptadas sobre las etiquetas se aplicarán al miembro en cada franquiciado",
+    "manageTags": "Gestionar etiquetas",
+    "tagsListTitle": "Etiquetas compartidas"
+  }
+}

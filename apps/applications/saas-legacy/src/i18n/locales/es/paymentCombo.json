@@ -1,0 +1,107 @@
+{
+  "detail": {
+    "purchases": "Ventas",
+    "content": "Contenido",
+    "description": "Descripción",
+    "emptyContent": "¡Este pack no contiene nada!",
+    "containsNProducts": "Contiene {{ n }} productos",
+    "itemCount": "{{ count }} artículo",
+    "itemCount_plural": "{{ count }} artículos"
+  },
+  "form": {
+    "selectorPlaceholder": {
+      "shopitem": "Tienda",
+      "paymentPack": "Bono para clases colectivas",
+      "privatePass": "Tarjeta de cita",
+      "shopItemExcludingvariant": "Tienda web (excluidos los productos con variantes)"
+    },
+    "content": "Contenido",
+    "tax": {
+      "label": "IVA"
+    },
+    "description": {
+      "label": "Descripción"
+    },
+    "available_payment_method_identifiers": {
+      "helperText": "Seleccione al menos un método de pago. Si no se selecciona ninguno, se ofrecerán pagos online por defecto.",
+      "label": "Medios de pago autorizados"
+    },
+    "actions": {
+      "cancel": "Cancelar",
+      "submit": "Guardar"
+    },
+    "manager_only": {
+      "label": "Invisible para los clientes"
+    },
+    "price": {
+      "label": "Precio"
+    },
+    "name": {
+      "label": "Nombre"
+    },
+    "title": "Formulario pack",
+    "new_member_only": {
+      "label": "Sólo para clientes nuevos"
+    },
+    "maxPurchasePerMember": {
+      "helperText": "Dejar vacío para no imponer un límite",
+      "label": "Compra máxima por socio"
+    },
+    "usePaymentComboTaxOnItems": {
+      "helperText": "Por defecto, el impuesto que se aplica a cada objeto es el indicado en el mismo. Al seleccionar esta opción, podrá aplicar un impuesto general al paquete.",
+      "label": "Aplicar un IVA general a todo el paquete"
+    },
+    "error": {
+      "atLeastOneThing": "Debes añadir al menos un artículo a tu pack"
+    },
+    "unusableByStaff": {
+      "label": "Invisible para el personal"
+    },
+    "expiration_date": {
+      "label": "Fecha límite de compra",
+      "helperText": "Disponible hasta el",
+      "tooltip": "Después de la fecha elegida, el paquete ya no estará a la venta para los clientes."
+    },
+    "highlightedAsRecommended": {
+      "label": "Marcar como recomendado",
+      "helperText": "Permite a sus clientes ver rápidamente qué packs se recomiendan actualmente."
+    },
+    "advancedOptions": {
+      "tag": {
+        "tagGroupDuplicated": "Tenga en cuenta que los artículos seleccionados contienen etiquetas de la misma categoría que no pueden aplicarse simultáneamente. Solo se aplicará la primera de estas etiquetas tras la compra.",
+        "selectTags": "Seleccionar etiquetas",
+        "tagsOnAcquisitionHelper": "Utilice etiquetas para identificar qué miembro compró el pack.",
+        "tagsOnAcquisition": "Etiqueta tras la compra"
+      },
+      "header": "Avanzado"
+    }
+  },
+  "list": {
+    "section": {
+      "availableOnline": "Disponible para la venta",
+      "unavailableOnline": "No disponible para la venta"
+    },
+    "buttons": {
+      "add": "Crear un pack"
+    },
+    "explainIfEmpty": "Crear aquí packs que pueden ser comprados por los estudiantes y que pueden contener bonos, artículos de la tienda, etc..."
+  },
+  "link": {
+    "copied": "Enlace copiado",
+    "copyLink": "Copiar el enlace a la página de pago"
+  },
+  "pageTitle": {
+    "list": "Packs"
+  },
+  "delete": {
+    "submit": "Suprimir",
+    "cancel": "Cancelar",
+    "content": "¿Realmente quieres borrar este pack? Esta operación es irreversible, las compras ya realizadas y las cestas actuales no se verán afectadas.",
+    "title": "Supresión del pack"
+  },
+  "edit": "Modificar",
+  "search": "Buscar una manada",
+  "parameters": {
+    "unusableByStaff": "Invisible para el personal"
+  }
+}

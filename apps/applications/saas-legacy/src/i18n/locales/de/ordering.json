@@ -1,0 +1,30 @@
+{
+  "category": {
+    "noCategory": {
+      "name": "Ohne Kategorie"
+    },
+    "creationDialog": {
+      "name": "Name der Kategorie",
+      "titleEdit": "Kategorie",
+      "titleNew": "Neue Kategorie",
+      "edit": "Bearbeiten",
+      "create": "Erstellen",
+      "cancel": "Abbrechen"
+    },
+    "popover": {
+      "delete": "Löschen",
+      "edit": "Umbenennen"
+    },
+    "deleteModal": {
+      "title": "Löschen",
+      "cancel": "Abbrechen",
+      "confirm": "Bestätigen",
+      "content": "Sind Sie sicher, dass Sie diese Kategorie löschen möchten? Alle Elemente, die sie enthält, werden in den Abschnitt ohne Kategorie verschoben"
+    },
+    "add": "Kategorie hinzufügen",
+    "empty": "Diese Kategorie ist leer.",
+    "noAvailable": "Keine Elemente, die den gewählten Filtern entsprechen",
+    "selector": "Name der Kategorie"
+  },
+  "disabledItemsTitle": "Archiv"
+}

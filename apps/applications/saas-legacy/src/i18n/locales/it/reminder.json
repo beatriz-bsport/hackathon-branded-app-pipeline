@@ -1,0 +1,39 @@
+{
+  "task": {
+    "sectionTitle": {
+      "pending": "Attività in corso",
+      "future": "Attività pianificate",
+      "past": "Attività archiviate"
+    },
+    "status": {
+      "0": "In corso",
+      "10": "Completato",
+      "20": "Annullato"
+    },
+    "owners": "Assegnato a ",
+    "author": "Autore",
+    "actions": {
+      "addTask": "Pianifica un'attività",
+      "finish": "Completato",
+      "restart": "Ricomincia",
+      "cancel": "Archivia"
+    },
+    "form": {
+      "title": "Attività",
+      "close": "Annulla",
+      "submit": "Conferma",
+      "description": {
+        "label": "Messaggio"
+      },
+      "name": {
+        "label": "Titolo"
+      },
+      "date_due": {
+        "label": "Data promemoria"
+      },
+      "task_owner": {
+        "helperText": "Personale da notificare"
+      }
+    }
+  }
+}

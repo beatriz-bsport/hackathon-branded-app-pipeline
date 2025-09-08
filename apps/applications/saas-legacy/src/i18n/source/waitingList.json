@@ -1,0 +1,125 @@
+{
+  "switchToEnable": "Reactivate waitlist",
+  "switchToDisable": "Deactivate waitlist",
+  "nbPending": "{{ nbPending }} on the waitlist",
+  "nbConvertible": "{{ nbConvertible }} pending booking confirmation(s)",
+  "form": {
+    "dumb_delay_minutes": {
+      "label": "Simple waitlist",
+      "helper": "A member has X minutes to book before they lose their priority spot on the waitlist."
+    },
+    "smart_delay_percentage": {
+      "label": "Intelligent waitlist",
+      "helper": "A member has X minutes, which equals a Y percentage of the remaining time, before the session begins to complete the booking."
+    },
+    "submit": "Save",
+    "auto_cancellation_type": {
+      "title": "Waitlist management"
+    },
+    "auto_consume_pack": {
+      "helper": "A member that joined the waitlist will be automatically booked in once a spot becomes available. The system will automatically deduct the credits from passes that expire the soonest.",
+      "label": "Automatically book in a member from the waitlist once a spot becomes available and the deduct the credit(s) from a valid pass"
+    },
+    "kick_if_no_pack_when_auto_consume": {
+      "helper": "A member might use his credits on another session while waiting on the waiting list. With this settings activated, if that happens, his slot on waiting list will be automatcially cancelled when it is his turn to register.",
+      "label": "Automatically remove the member from the waiting list if, when his slots becomes available, he does not have a valid pass anymore"
+    },
+    "is_option_blocking": {
+      "helper": "A spot will be saved for members that joined the waitlist until they book.",
+      "label": "Save openings exclusively for members that joined the waitlist"
+    },
+    "autokick_delay": {
+      "helper": "This is the number of notifications a member on a waitlist will receive before they're automatically removed if no response is registered.",
+      "label": "Automatic waitlist removal"
+    },
+    "dynamic": {
+      "0": {
+        "explain": "Each member that joins the waitlist will be ranked. The first person will be notified automatically once a spot becomes available.",
+        "settingsDelay": "Time between recalls",
+        "label": "One by one",
+        "overallExplainSmart": "If a spot becomes available, the student has {{ autokick_delay }} reminders spaced at {{ smart_delay_percentage }}% of the time remaining before the session starts to register. For example, if there are {{ example_hours_before }} hours left before the session, the student has {{ example_computed_delay_one }} minutes to register, and then {{ example_computed_delay_two }} minutes after the first retry, and so on, before the next student is allowed to register.",
+        "overallExplainSimple": "If a spot becomes available, the student has {{ autokick_delay }} reminders spaced {{ dumb_delay_minutes }} minutes apart to book before giving their spot to the next student."
+      },
+      "1": {
+        "explain": "This is an unsorted and unranked waitlist. All members that joined this waitlist will be informed simultaneously once a spot becomes available.",
+        "label": "First come, first served"
+      },
+      "label": "Select your waitlist priority management"
+    },
+    "last_delay_before_auto_consume": {
+      "label": "Do not accept bookings automatically if a session takes place in less than ",
+      "helper": "If the session takes place too soon in the future, the member will not be booked in even if they have a valid pass"
+    },
+    "check_credit": {
+      "helper": "A client will not be able to be added to a waiting list unless he has a pass compatible with the session, and with enough credit",
+      "label": "Ensure the customer has one valid pass compatible with the session, with enough credit"
+    },
+    "display_member_position": {
+      "label": "Display the position in the waiting list"
+    },
+    "errors": {
+      "dumbDelayMinutesError": "Minutes between recalls should be higher than 15",
+      "smartDelayPercentageError": "The percentage needs to be between 10 and 100",
+      "autokickDelayError": "A number is required",
+      "lastDelayBeforeAutoConsumeError": "Minutes should be between 0 and 240"
+    }
+  },
+  "explainWaitingListConf": "Example: a member that joined the waitlist for a session that starts in 3 hours has {{nbMinutesBeforeBookingOptionExpire}} minute(s) to complete their booking before they lose their priority spot on the waitlist.",
+  "dialog": {
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "delete": {
+      "title": "Remove from waitlist",
+      "content": "Are you sure that you want to remove this member from the waitlist? The member will also be notified of this.",
+      "cancel": "Cancel",
+      "confirm": "Delete",
+      "sendEmail": "Send a message of the removal",
+      "contentV2": "Are you sure you want to remove this member from the waitlist?"
+    },
+    "autoBooking": {
+      "error": {
+        "title": "The auto booking has failed",
+        "content": "Members could not be added to the session. Please try again"
+      },
+      "success": {
+        "title": "Members were added to the session successfully"
+      },
+      "info": {
+        "title": "Automatic bookings for valid passes",
+        "content": "Members with valid passes will be automatically booked into the session and will receive a confirmation email. The system will automatically deduct the credits from passes that expire the soonest"
+      },
+      "loading": {
+        "title": "Members are being added to the session",
+        "content": "Please do not refresh the tab or leave this page. This process can take a few seconds to run."
+      },
+      "warning": {
+        "title": "Are you sure?",
+        "content": "By closing the form, the selected member(s) will not be added to the session. If you selected several members and want to unselect this member only, please click on cancel on the member form"
+      },
+      "incomplete": {
+        "title": "Finalize your waitlist",
+        "content": {
+          "registered": "The following members have been registered, as a compatible pass was found:",
+          "unregistered": "The following members could NOT be registered, no compatible pass could be found"
+        },
+        "actions": {
+          "ok": "OK",
+          "bookThem": "Book them manually"
+        }
+      }
+    }
+  },
+  "member": {
+    "detail": {
+      "offerTitle": "Associated session",
+      "registrationSource": "Booking channel",
+      "registeredOn": "Joined on",
+      "title": "Details"
+    },
+    "empty": "There are no waitlists to display.",
+    "delete": "Delete",
+    "addToBook": "Join",
+    "listTitle": "Waitlist",
+    "waitingListPosition": "Waiting list position {{ position }}/{{ size }}"
+  }
+}

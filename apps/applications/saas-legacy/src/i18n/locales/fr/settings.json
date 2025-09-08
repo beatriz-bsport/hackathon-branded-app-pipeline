@@ -1,0 +1,418 @@
+{
+  "pageTitle": "Paramètres",
+  "companyOnboarding": {
+    "error": "Vous ne pouvez pas modifier ces informations"
+  },
+  "tab": {
+    "general": "Général",
+    "broadcast": "Visioconférence",
+    "notificationRule": "Emails transactionnels",
+    "paymentRules": "Règles de rémunération",
+    "company": "Entreprise",
+    "invoice": "Facturation",
+    "waitingList": "Liste d'attente",
+    "shop": "Magasin",
+    "role": "Staff",
+    "personalization": "Personnalisation",
+    "webhook": "Webhook",
+    "partnership": "Partenariat",
+    "active_campaign": "ActiveCampaign",
+    "coachUserspace": "Espace professeur"
+  },
+  "webhook": {
+    "cancel": "annuler",
+    "submit": "valider",
+    "createTitle": "Formulaire Webhook",
+    "add": "Ajouter un webhook",
+    "test": "Tester",
+    "event": "Evènement",
+    "selectEvent": "Sélectionner un évènement",
+    "url": "URL",
+    "urlHelper": "Entrez l'url à laquelle sera envoyée la payload",
+    "urlPlaceHolder": "http://wwww.google.com",
+    "payload": "Payload",
+    "modal": {
+      "delete": {
+        "title": "Suppression du webhook",
+        "cancel": "annuler",
+        "confirm": "Confirmer",
+        "content": "Etes vous sûr de vouloir supprimer ce webhook, cette opération est définitive"
+      }
+    }
+  },
+  "broadcast": {
+    "seeUpsell": "En savoir plus",
+    "is_whereby_integration_enabled": {
+      "label": "Activer l'intégration whereby X bsport"
+    },
+    "explainDisabled": "Désactivé : vous gérez vous-mêmes vos liens de visioconférence à configurer pour chaque séance (via ZOOM, etc...).",
+    "explainEnabled": "Activé : bsport gère vos salles de visioconférence, IMPOSSIBLE d'en réaliser deux en même temps.",
+    "submit": "Enregistrer",
+    "zoom": {
+      "enabled": "Activer l'intégration de ZOOM",
+      "revoke": "Désactiver ZOOM",
+      "label": "Configuration des comptes ZOOM",
+      "explainValid": "Compte valide : Les liens des réunions ZOOM seront créés pour chaque séance 15 minutes avant qu'elles ne démarrent automatiquement. Le professeur recevra un lien pour accueillir la réunion tandis que les inscrits recevront un autre lien pour rejoindre la réunion. Notez que si le compte ZOOM est impayé, la réunion ZOOM est limitée à 40 minutes",
+      "explainInvalid": "Compte invalide",
+      "establishmentTable": {
+        "removeAction": "Supprimer",
+        "emptySelect": "Sélectionner",
+        "headers": {
+          "add": "Ajouter",
+          "type": "Type",
+          "user": "Utilisateur",
+          "establishment": "Établissement"
+        }
+      },
+      "groupActionButton": {
+        "reset": "Réinitialiser",
+        "save": "Enregistrer"
+      },
+      "zoomGroupId": "ID du groupe Zoom",
+      "multiZoomUserSupport": {
+        "explain": "Lancez plusieurs sessions en visio-conférence en simultané en associant vos établissements bsport à différents utilisateurs de votre compte Zoom.",
+        "switchLabel": "Activer le support multi-utilisateurs de Zoom"
+      },
+      "memberType": {
+        "1": "Basique",
+        "2": "Licence"
+      },
+      "resetConfirmationDialog": {
+        "content": "Tous vos établissements seront également réinitialisés.",
+        "title": "Êtes-vous sûr de vouloir réinitialiser l'ID de groupe ?"
+      },
+      "save": "Enregistrer les modifications"
+    }
+  },
+  "active_campaign": {
+    "submit": "Confirmer",
+    "cancel": "Annuler",
+    "account": {
+      "helpTitle": "Où trouver les informations de mon compte ?",
+      "helpContent": "L'url et la clé d'authentification de votre compte ActiveCampaign sont accessibles dans les paramètres de votre compte, en cliquant sur l'onglet 'Développeur'.",
+      "title": "Informations d'accès à votre API ActiveCampaign",
+      "helper": "Où trouver ces informations ?",
+      "dialogTitle": "Informations de mon compte ActiveCampaign",
+      "token": "Clé d'authentification",
+      "error": "Vos informations sont incorrectes",
+      "empty": "Veuillez entrer l'url de votre API"
+    },
+    "webhooks": {
+      "helpTitle": "Comment se déroule la synchronisation ?",
+      "helpContent": "Les actions ci dessous ont lieu dès que l'évènement associé se produit sur ActiveCampaign.",
+      "title": "Intégrer les informations d'ActiveCampaign sur bsport",
+      "CLIENT_WON": "Créer un compte client sur bsport lorsque le prospect est passé en statut 'WON' sur un deal",
+      "CONTACT_TAG": "Créer un compte client sur bsport lorsque le prospect est tagé en 'won' sur ActiveCampaign"
+    },
+    "link": {
+      "helpTitle": "Comment se déroule la synchronisation ?",
+      "helpContent": "Les membres dans la smartlist sont envoyés chaque nuit vers la liste ActiveCampaign, ils apparaissent dessus comme 'actifs'. Les membres sortis de la smartlist sont également enlevés de la liste ActiveCampaign, leur statut est alors 'non-confirmé'.",
+      "title": "Envoi des informations depuis bsport",
+      "add": "Ajouter un lien entre listes",
+      "dialogTitle": "Modifier un lien de listes",
+      "smartListSelection": "Choisir une smartlist",
+      "listActiveCampaignSelection": "Choisir une liste ActiveCampaign",
+      "helperForm": "Choisissez une smartlist de bsport et liez la à l'une de vos listes sur ActiveCampaign",
+      "noList": "LISTE INTROUVABLE",
+      "listItemText": "Envoyer les membres de la smartlist <1>{{- smartlist }}</2> à la liste ActiveCampaign <3>{{- list }}</4>"
+    }
+  },
+  "marketplaceSettings": {
+    "addButton": "Ajouter un onglet",
+    "explainMarketplace": "Vos adhérents peuvent accéder à votre Espace membre (calendrier, magasin, VOD...) en ligne sur ordinateur tablette ou téléphone. Personnalisez votre page ici !",
+    "link": "Accédez à l'Espace membre (vous serez déconnecté)",
+    "saveButton": "Sauvegarder",
+    "preview": "Aperçu",
+    "componentType": {
+      "calendar": "Calendrier",
+      "workshop": "Ateliers",
+      "privateService": "Sur rendez-vous",
+      "pass": "Cartes",
+      "vod": "VOD",
+      "subscription": "Abonnement",
+      "shop": "Magasin",
+      "playlist": "Playlist",
+      "newsletter": "Newsletter",
+      "loginButton": "Bouton login",
+      "giftcard": "Carte cadeau",
+      "paymentPackTemplate": "Carte de cours partagée",
+      "calendarV2": "Calendrier",
+      "newsletterV2": "Acquisition de prospects",
+      "referral": "Parrainage",
+      "consumerBooking": "Mes réservations",
+      "consumerPass": "Mes cartes de cours",
+      "consumerSpace": "Profile du membre"
+    },
+    "createDialog": {
+      "showAdvanced": "Voir plus d'options",
+      "selectComponent": "Choisir un composant",
+      "selectCoach": "Choisir un coach",
+      "selectEstablishment": "Choisir une salle",
+      "selectActivity": "Choisir une activité",
+      "selectPrivateService": "Choisir un service",
+      "selectPrivateServiceType": "Type",
+      "selectPrivateServiceTypeList": "Tous les rendez-vous",
+      "selectPrivateServiceTypeDetail": "Mon rendez-vous",
+      "selectPrivateServiceGroups": "Choisissez vos catégories",
+      "selectVideo": "Choisir une video",
+      "selectPlaylist": "Choisir une playlist",
+      "inputTitle": "Nom de l'onglet",
+      "cancel": "Annuler",
+      "submit": "Valider",
+      "noComponentTypeError": "Veuillez sélectionner un composant",
+      "noTitleError": "Veuillez saisir un titre",
+      "noServiceError": "Veuillez sélectionner un service",
+      "noPlaylistError": "Veuillez sélectionner une playlist",
+      "dialogTitle": "Edition onglet",
+      "hidePaymentPack": "Ne pas afficher les cartes de cours",
+      "hidePrivatePass": "Ne pas afficher les cartes de rendez-vous",
+      "hidePaymentCombo": "Ne pas afficher les packs",
+      "todayOnly": "Vue quotidienne",
+      "hideFilters": "Ne pas afficher la barre de recherche et les filtres",
+      "titleCaption": "{{max}} caractères max ({{count}}/{{max}})"
+    }
+  },
+  "paymentMethods": {
+    "title": "Paiement en ligne",
+    "subtitle": "Vous pouvez activer ou désactiver les moyens de paiements utilisés par vos membres lors de leur paiement en ligne.",
+    "subtitle2": "En tant que manager, vous avez toujours accès à tous les moyens de paiements disponibles.",
+    "methodPaymentBasket": "Paiement ponctuel",
+    "methodPaymentBasketHelper": "Autoriser les paiements du panier d'achat, règlement de la dette et des impayés.. uniquement via :",
+    "methodPaymentSubscription": "Paiement récurrent",
+    "methodPaymentSubscriptionHelper": "Autoriser les paiements des souscriptions (contrats) uniquement via :",
+    "methodPaymentSubscriptionError": "Veuillez choisir au moins une méthode de paiement",
+    "methodPaymentCardBillingDetails": "Demander les coordonnées de facturation pour les paiements par carte.",
+    "methodPaymentCardBillingDetailsHelper": "En activant cette fonctionnalité, vous réduirez le nombre de paiement par carte nécessitant le 3D Secure (validation SMS, applications bancaires, etc.).Attention, ces champs seront obligatoires.",
+    "save": "Enregistrer",
+    "methodPaymentCardBillingDetailsTitle": "Demander les détails complets de facturation",
+    "DaysBeforeNotificationInputs": {
+      "errors": {
+        "max": "Le nombre de jours ne peut être supérieur à {{maxDays}}",
+        "secondWarningDayBiggerThanFirst": "La deuxième notification ne peut pas être supérieure à la première"
+      },
+      "labels": {
+        "daysBeforeSecondNotification": "Deuxième rappel (jours avant la date d'expiration)",
+        "daysBeforeFirstNotification": "Premier rappel (jours avant la date d'expiration)"
+      },
+      "helpText": "Si les emails transactionnels correspondants sont activées pour les abonnements et les paiements échelonnés, vous pouvez décider du nombre de jours avant l'expiration de la méthode de paiement pour envoyer un rappel",
+      "title": "Rappels d'expiration des modes de paiement"
+    }
+  },
+  "billing_group": {
+    "add": "Ajouter un groupe",
+    "helperText": "Les groupes de facturation apparaîtront dans vos rapports pour relier facilement chaque facture au bon endroit et seront utilisés par les membres dans le panier pour choisir leur localisation préférée. Au moins un groupe de facturation doit être défini pour que les membres puissent effectuer des achats en ligne. Si vous avez plusieurs établissements appartenant à la même localisation, vous pouvez les regrouper au sein d'un même groupe de facturation.",
+    "header": "Groupes de facturation"
+  },
+  "quickbooks": {
+    "title": "QuickBooks",
+    "enable": "Activer l'intégration Quickbooks",
+    "submit": "Sauvegarder",
+    "explainEnable": "Transférer toutes vos factures directement sur QuickBooks. Le transfert de factures se fera toutes les 24h.",
+    "buttonConnect": "Se connecter à Quickbooks",
+    "buttonReConnect": "Rafraîchir ma connexion",
+    "buttonRevoke": "Désactiver Quickbooks",
+    "confirmDialog": {
+      "title": "QuickBooks Connection",
+      "text": "Etes-vous sur de vouloir vous autoriser Bsport à accéder à votre application ?"
+    },
+    "tax": {
+      "taxInfoTitle": "Informations de taxes QuickBooks",
+      "taxCodeHeaderName": "Nom",
+      "taxCodeHeaderDescription": "Description",
+      "usedAsTaxCode": "Utilisée en tant que taxe de référence",
+      "refresh": "Rafraichir mes données Quickbooks",
+      "alertUnconfigured": "Vous n'avez pas configuré de taxe par default à appliquer aux produits inclus dans vos factures. Cette information est obligatoire afin de référencer la taxe adaptée lors du transfert de factures sur votre platforme Quickbooks.",
+      "alertNonTaxInformation": "Aucune information de taxe n'est synchronisée avec votre plateforme Quickbooks. Veuillez cliquer sur rafraîchir si après afin de les synchroniser",
+      "goToSettingsPage": "Ouvrir la page de configuration QuickBooks"
+    }
+  },
+  "mobilePersonalization": {
+    "title": "Personnalisation de l'app",
+    "externalShopRedirection": {
+      "subtitle": "Liens externes",
+      "helperText": "Vous pouvez ajouter des liens externes sur l’application pour rediriger vos membres sur votre site internet ou sur une autre plateforme. Les liens apparaitront dans l’onglet achat de l’application mobile.",
+      "add": "Ajouter un lien",
+      "updated": "Mettre a jour",
+      "preview": "Apercu de l'app",
+      "icon": "Icone",
+      "name": "Nom",
+      "link": "Lien",
+      "action": "Actions",
+      "popup": {
+        "title": "Lien externe",
+        "name": "Nom",
+        "link": "Lien de redirection",
+        "icon": "Icône",
+        "cancel": "Annuler",
+        "submit": "Enregister"
+      },
+      "deleteModal": {
+        "title": "Suppresion",
+        "cancel": "Annuler",
+        "confirm": "Supprimer",
+        "content": "Êtes-vous sûr de vouloir supprimer ce lien ? Cette opération est définitive"
+      },
+      "popupPreview": {
+        "title": "Apercu",
+        "membershipCard": {
+          "contract": "Abonnement",
+          "paymentPack": "Cartes de cours",
+          "consumerPaymentPack": "Mes cartes",
+          "invoice": "Mes factures",
+          "paymentPackEmpty": "Aucun pass proposé",
+          "privatePassListEmpty": "Aucun RDV proposé",
+          "consumerPaymentPackEmpty": "Aucun pass possédé",
+          "vod": "Accéder à la VOD",
+          "privateConsumerPassListEmpty": "Aucune carte RDV possédée",
+          "invoiceEmpty": "Aucune facture",
+          "contractEmpty": "Aucun abonnement n'est proposé à la vente",
+          "paymentComboEmpty": "Aucune offre proposée",
+          "mySubscription": "Mes\nabonnements",
+          "paymentPackSubtitle": "Retrouvez ici toutes les cartes de votre studio",
+          "contractSubtitle": "Retrouvez ici toutes les offres d’abonnement de votre studio",
+          "vodSubtitle": "Retrouvez ici toute l’offre de vidéo à la demande de votre studio",
+          "paymentComboSubtitle": "Retrouvez ici toutes les offres promotionnelles de votre studio",
+          "giftcardSubtitle": "Retrouvez ici toutes les cartes-cadeaux de votre studio"
+        },
+        "category": {
+          "paymentPack": "Tous les pass",
+          "paymentCombo": "Offres promotionnelles",
+          "contract": "Abonnements",
+          "giftcard": "Cartes-cadeaux"
+        },
+        "ourOffers": "Nos Offres",
+        "inventory": "Votre inventaire",
+        "cancel": "Fermer"
+      }
+    },
+    "popup": {
+      "subtitle": "Pop-up de démarrage",
+      "helperText": "La pop-up de démarrage apparaitra une fois à l’ouverture de l’application par vos membres. Elle permet de porter l’attention de vos membres sur un événement spéciale (un nouveau cours, une promotion ...) et les redirigera vers la page web souhaitée.",
+      "add": "Ajouter une pop-up",
+      "updated": "Mettre a jour",
+      "name": "Nom",
+      "link": "Lien",
+      "image": "Image",
+      "action": "Action",
+      "deleteModal": {
+        "title": "Suppresion",
+        "cancel": "Annuler",
+        "confirm": "Supprimer",
+        "content": "Êtes-vous sûr de vouloir supprimer cette popup ? Cette opération est définitive"
+      },
+      "see": "Visualiser",
+      "editPopup": {
+        "title": "Pop-up de démarrage",
+        "name": "Nom",
+        "image": "Image",
+        "link": "Lien de redirection",
+        "cancel": "Annuler",
+        "submit": "Enregister",
+        "preview": "Prévisualiser",
+        "previewPopup": {
+          "title": "Apercu",
+          "see": "Voir"
+        }
+      }
+    },
+    "customize": {
+      "defaultPage": {
+        "pageContent": {
+          "options": {
+            "profile": "Profil",
+            "marketplace": "Studio",
+            "home": "Activités (par défaut)",
+            "bookings": "Réservations",
+            "membership": "Emploi du temps",
+            "studio": "Studio",
+            "activities": "Activités (défaut)",
+            "schedule": "Emploi du temps"
+          },
+          "placeholder": "Sélectionner une page",
+          "helperText": "Cette option vous permet de choisir la page par défaut que les utilisateurs verront à l'ouverture de l'application.",
+          "label": "Modifier le \"bouton d'accueil\" par défaut"
+        },
+        "title": "Page par défaut"
+      },
+      "title": "Personnalisation"
+    }
+  },
+  "company": {
+    "bankAccountSuccess": {
+      "title": "Modifications coordonnées bancaires",
+      "content": "Vos informations bancaires ont bien été mises à jour. Pour être crédité et débité sur un seul et même compte, vous pouvez également mettre à jour le moyen de paiement utilisé pour débiter votre abonnement Bsport.",
+      "note": "Cliquez sur \"Configurer\" pour être redirigé."
+    },
+    "bankAccountInfo": {
+      "content": "Ce compte correspond au compte sur lequel seront crédités les paiements en ligne via Bsport. Pour configurer le moyen de paiement sur lequel votre abonnement Bsport sera débité, cliquez",
+      "link": "ici",
+      "update": "Mettre à jour les informations bancaires"
+    },
+    "paypal": {
+      "alert": {
+        "error": {
+          "issue_repeat_onboarding": {
+            "content": "Veuillez répéter la procédure de connexion en utilisant le même compte pour résoudre ce problème.",
+            "title": "Les paiements PayPal sont actuellement désactivés."
+          },
+          "issue_check_account": {
+            "goToPayPal": "Veuillez vérifier votre compte PayPal pour résoudre ce problème.",
+            "content": "Les paiements PayPal sont actuellement désactivés.",
+            "title": "Problème avec votre compte PayPal."
+          },
+          "requires_more_information": {
+            "goToPayPal": "Dans le cas contraire, veuillez vérifier votre compte PayPal pour résoudre ce problème.",
+            "content": "Les paiements PayPal sont actuellement désactivés. Si votre compte PayPal vient d'être créé et que vous êtes certain que vos informations sont exactes, veuillez laisser un peu de temps à PayPal pour valider votre compte. ",
+            "title": "Le compte PayPal contient des informations manquantes ou non validées."
+          },
+          "primary_email_confirmation": {
+            "goToPayPal": "Veuillez vérifier votre compte PayPal pour résoudre ce problème.",
+            "content": "Les paiements PayPal sont actuellement désactivés.",
+            "title": "Confirmation par email manquante sur le compte PayPal."
+          },
+          "isStatusUnknown": {
+            "goToPayPal": "Si le problème persiste, vérifiez l'état des systèmes PayPal",
+            "content": "Veuillez rafraîchir la page.",
+            "title": "Nous sommes actuellement dans l'impossibilité de joindre PayPal"
+          }
+        },
+        "rightAccount": {
+          "content": "Le modifier ou le déconnecter par la suite est un processus complexe qu'il convient d'éviter, sauf en cas de nécessité absolue.",
+          "title": "Assurez-vous que vous connectez le bon compte"
+        }
+      },
+      "dialog": {
+        "error": "Une erreur s'est produite lors de la récupération du lien d'onboarding de PayPal",
+        "redirecting": "Redirection vers PayPal...",
+        "startConnecting": "Commencer à se connecter",
+        "cancel": "Annuler",
+        "helper": "Pour vous connecter, utilisez votre compte professionnel, passez d'un compte personnel à un compte professionnel, ou créez un nouveau compte professionnel.",
+        "title": "Connectez votre compte professionnel PayPal"
+      },
+      "linkHelper": "Liez votre compte PayPal professionnel pour permettre à vos membres d'effectuer des paiements uniques avec PayPal",
+      "connect": "Connecter un compte PayPal",
+      "accountEmail": "Email du compte",
+      "accountName": "Nom du compte",
+      "oneTimePayments": "Effectuer des paiements uniques",
+      "titleWithPayPal": "Avec PayPal, vos membres peuvent",
+      "status": {
+        "unknown": "Statut inconnu",
+        "hasIssues": "Problèmes de connexion",
+        "notConnected": "Non connecté",
+        "connected": "Compte connecté"
+      }
+    },
+    "stripe": {
+      "update": "Mettre à jour les informations Stripe"
+    }
+  },
+  "platformCustomerEntity": {
+    "vatId": {
+      "errorChip": "Numéro de TVA invalide ou absent",
+      "update": "Mettre à jour le numéro de TVA",
+      "descriptionPart2": "Si votre entreprise est basée dans l'Union Européenne (hors France) et possède un numéro de TVA, vous devez le fournir afin que le mécanisme d'autoliquidation s'applique. Cela permet à bsport de ne pas vous facturer la TVA.",
+      "descriptionPart1": "bsport a besoin de votre numéro de TVA (également appelé numéro d'immatriculation à la TVA ou numéro de TVA intracommunautaire) pour le faire figurer sur les factures que nous vous adressons.",
+      "title": "Numéro d'identification TVA"
+    }
+  }
+}

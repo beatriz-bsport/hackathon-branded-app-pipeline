@@ -1,0 +1,155 @@
+{
+  "broadcastChannelWarning": "Your browser version prevents us from running this feature correctly. Please upgrade your browser.",
+  "accessMonitoringTitle": "Access monitoring",
+  "memberEntry": "Member entry",
+  "snackbar": {
+    "message": "<strong>{{- name }}</strong> just checked in.",
+    "G": "Valid",
+    "O": "Warning",
+    "R": "Not valid"
+  },
+  "memberVisit": {
+    "emptyState": {
+      "waitForScan": "Wait for the member to scan their barcode or search their name or barcode manually.",
+      "establishmentsSelectedInRole": "You are monitoring access for <strong>{{- address }} - {{- establishments }}</strong>",
+      "or": "or",
+      "searchMember": "Search members by name or number"
+    },
+    "closeMemberVisit": "Close member page",
+    "refreshMemberVisit": "Refresh status",
+    "warnings": {
+      "hasUnpaidInvoices": "The member has one or several unpaid invoices",
+      "hasNegativeAccountBalance": "The member account balance is negative",
+      "hasUnpaidAppointments": "The member has one or several unpaid appointments",
+      "bookingsInOtherEstablishments": "The member’s booking {{- bookingName}} is scheduled in a different establishment : {{- establishmentName }}",
+      "noPasses": "The member has no active pass with credits left",
+      "passIsDisabled": "The member pass {{- passName }} is currently blocked",
+      "passLinkedToPausedSubscription": "The member's pass {{- passName }} is linked to a paused subscription",
+      "passRestrictedToVod": "The member's pass {{- passName }} is restricted to VOD only",
+      "passRestrictedByOffPeakSchedule": "The member's pass {{- passName }} does not allow entry during this time slot",
+      "passIncompatibleWithEstablishments": "The member's pass {{- passName }} is not compatible with your site",
+      "passIncompatibleWithAppointmentsInEstablishments": "Appointments that can be booked with the member's pass {{- passName }} are not compatible with your site",
+      "numberOfCheckedPasses": "{{- count }} member's pass were checked with no valid result.",
+      "numberOfCheckedPasses_plural": "{{- count }} member's passes were checked with no valid results."
+    }
+  },
+  "liveHistory": {
+    "table": {
+      "refusedEntry": "Refused entry",
+      "entered": "Entered",
+      "entryUnknown": "Specify if member was allowed to enter",
+      "member": "Member",
+      "session": "Visit reason",
+      "time": "Entry",
+      "accessStatus": "Status",
+      "placeholder": {
+        "default": "You haven't registered any visits yet.",
+        "search": "Based on your search, we couldn't find any members who visited today."
+      }
+    },
+    "breadcrumbTitle": "Location visit",
+    "unreadCount": "{{ count }} new visit",
+    "unreadCount_plural": "{{ count }} new visits"
+  },
+  "memberVisitDetails": {
+    "accessStatus": {
+      "green": "Valid",
+      "orange": "Warning",
+      "red": "Not valid"
+    },
+    "title": "Member information",
+    "firstName": "First name:",
+    "lastName": "Last name:",
+    "nextBooking": "Next booking:",
+    "teacherName": "Teacher: {{- coachName}}",
+    "spotName": "Spot: {{- spotName}}",
+    "noSpotAllocated": "No spot allocated",
+    "pass": "Pass:",
+    "photoHasChanged": "Profile picture changed recently",
+    "noPreviousPhoto": "Member doesn't have any previous pictures",
+    "actions": {
+      "seePreviousImages": "See previous",
+      "goToProfile": "Profile",
+      "billMember": "Bill"
+    },
+    "manualEntry": {
+      "description": "Indicate if this member can enter or not",
+      "button": {
+        "refuse": "Refuse entry",
+        "accept": "Allow entry",
+        "entryAllowed": "Entered",
+        "entryRefused": "Entry refused"
+      }
+    },
+    "passExpiration": "Valid until {{- expirationDate }}",
+    "atHome": "At home"
+  },
+  "settings": {
+    "title": "Member entry timeframe",
+    "description": "Set time allowed for member to enter before and after their session starts in a compatible establishment.",
+    "hours": "Hours",
+    "minutes": "Minutes",
+    "afterTitle": "Entry period before session starts",
+    "beforeTitle": "Entry period after session starts",
+    "isStudioWide": "Settings are applied studio-wide.",
+    "errors": {
+      "required": "This field is required",
+      "hours": {
+        "min": "Must be greater than 0",
+        "max": "Must be lower than 24"
+      },
+      "minutes": {
+        "min": "Must be greater than 0",
+        "max": "Must be lower than 60"
+      }
+    }
+  },
+  "modals": {
+    "locationBlocker": {
+      "title": "Location not assigned",
+      "message": "Ask staff with admin rights to assign a location to your staff access.",
+      "description": "Found in Settings > Staff."
+    },
+    "accessStatusChangedSuccess": {
+      "title": "Member status updated",
+      "message": "All issues have been cleared. Member status is updated to valid."
+    },
+    "entryStatusChanged": {
+      "Y": {
+        "title": "Member entered",
+        "message": "Member was allowed to enter with existing warnings.",
+        "description": "You can still address warnings from the Location visit tab."
+      },
+      "close": "Close member page",
+      "stay": "Stay on member page",
+      "N": {
+        "title": "Entry refused",
+        "message": "Member was refused entry.",
+        "description": "You can still address warnings and let them enter from the Location visit tab."
+      }
+    },
+    "memberPhotoHistory": {
+      "title": "Previous pictures",
+      "uploadedOn": "Uploaded {{- date}}",
+      "validateIdentity": "Validate identity"
+    }
+  },
+  "filters": {
+    "accessStatus": {
+      "green": "Valid",
+      "orange": "Warning",
+      "red": "Not valid",
+      "G": "Valid",
+      "O": "Warning",
+      "R": "Not valid"
+    },
+    "entryStatus": {
+      "entered": "Entered",
+      "notEntered": "Not entered",
+      "unknown": "Unknown",
+      "Y": "Entered",
+      "N": "Not entered",
+      "U": "Unknown"
+    }
+  }
+}

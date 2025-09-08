@@ -1,0 +1,91 @@
+{
+  "shortDayIdentifier": "day(s)",
+  "shortMinuteIdentifier": "min",
+  "shortHourIdentifier": "h",
+  "never": "Never",
+  "time": {
+    "weekday": {
+      "sunday": "Sunday",
+      "monday": "Monday",
+      "tuesday": "Tuesday",
+      "wednesday": "Wednesday",
+      "thursday": "Thursday",
+      "friday": "Friday",
+      "satursday": "Saturday"
+    },
+    "monthShort": {
+      "january": "Jan",
+      "february": "Feb",
+      "march": "Mar",
+      "april": "Apr",
+      "may": "May",
+      "june": "Jun",
+      "july": "Jul",
+      "august": "Aug",
+      "september": "Sep",
+      "october": "Oct",
+      "november": "Nov",
+      "december": "Dec"
+    },
+    "month": {
+      "january": "January",
+      "february": "February",
+      "march": "March",
+      "april": "April",
+      "may": "May",
+      "june": "June",
+      "july": "July",
+      "august": "August",
+      "september": "September",
+      "october": "October",
+      "november": "November",
+      "december": "December"
+    },
+    "weekdayNumber": {
+      "0": "Monday",
+      "1": "Tuesday",
+      "2": "Wednesday",
+      "3": "Thursday",
+      "4": "Friday",
+      "5": "Saturday",
+      "6": "Sunday"
+    },
+    "isoWeekdayNumber": {
+      "1": "Monday",
+      "2": "Tuesday",
+      "3": "Wednesday",
+      "4": "Thursday",
+      "5": "Friday",
+      "6": "Saturday",
+      "7": "Sunday"
+    }
+  },
+  "form": {
+    "zeroMinute": "0 min",
+    "quarterHour": "15 min",
+    "twentyMinutes": "20 min",
+    "halfHour": "30 min",
+    "halfAndQuarterHour": "45 min",
+    "oneHour": "1h",
+    "oneHourAndHalf": "1h30",
+    "twoHour": "2h",
+    "threeHour": "3h",
+    "fourHour": "4h",
+    "sixHour": "6h",
+    "eightHour": "8h",
+    "twelveHour": "12h",
+    "oneDay": "1 day",
+    "twoDays": "2 days",
+    "oneWeek": "1 week",
+    "tenDays": "10 days",
+    "twoWeeks": "2 weeks",
+    "oneMonth": "1 month",
+    "never": "Never",
+    "oneHourFifteen": "1h15",
+    "fiftyMinutes": "50 min",
+    "tenMinutes": "10 min"
+  },
+  "longHourIdentifier": "hours",
+  "longMinuteIdentifier": "minutes",
+  "longDayIdentifer": "days"
+}

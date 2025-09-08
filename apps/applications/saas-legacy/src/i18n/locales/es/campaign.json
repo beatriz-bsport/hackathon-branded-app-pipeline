@@ -1,0 +1,48 @@
+{
+  "exportCampaign": "Exportar",
+  "save": "Guardar",
+  "schemaError": {
+    "nonEmptyEmailTemplate": "Elija una plantilla de correo",
+    "nonEmptyBody": "El cuerpo de su correo electrónico está vacío. Por favor, añada contenido antes de continuar.",
+    "nonEmptyToggle": "Seleccione los destinatarios antes de enviar el mensaje.",
+    "nonEmptySmartList": "Seleccione una smartlist"
+  },
+  "smartListOption": "Elige una smartlist",
+  "mail": {
+    "sendButton": "Enviar",
+    "customDomainNotDefined": "No ha definido un dominio personalizado.<1/>Póngase en contacto con nuestro equipo para iniciar el proceso de configuración.",
+    "example": "Ejemplo",
+    "customEmail": "Email personalizado",
+    "franchiseeMail": "Email del franquiciado",
+    "chooseSender": "Seleccione la dirección de correo electrónico que desea utilizar para el envío.",
+    "sendMail": "Enviar un mensaje"
+  },
+  "memberSelectionInfo": "Añade miembros a los destinatarios de tu campaña seleccionando un estudio y, a continuación, eligiendo una de sus smartlists. Si quieres añadir directamente a todos los miembros, también puedes hacer clic en \"Seleccionar a todos los miembros\".",
+  "noCampaign": "Envíe campañas a sus afiliados para mantenerlos al corriente de lo que ocurre en su franquicia.",
+  "historyTitle": "Historial de envíos",
+  "campaign": {
+    "add": "Añadir una campaña"
+  },
+  "memberSelectionTitle": "Selección de miembros",
+  "sendToAllMembers": "Enviar a todos los miembros",
+  "modal": {
+    "delete": {
+      "content": "Esta acción archivará permanentemente la campaña, y todos los datos asociados dejarán de ser accesibles. Está seguro de que desea proceder al archivo?",
+      "confirm": "Confirmar",
+      "cancel": "Cancelar",
+      "title": "Archivar una campaña"
+    }
+  },
+  "search": "Buscar una campaña",
+  "cancel": "Cancelar",
+  "delete": "Borrar",
+  "edit": "Editar",
+  "duplicate": "Duplicar",
+  "detail": {
+    "tab": {
+      "campaign": "Campañas",
+      "general": "General"
+    }
+  },
+  "campaignCreationWarning": "Asegúrese de que el nombre de su campaña es único para evitar problemas."
+}

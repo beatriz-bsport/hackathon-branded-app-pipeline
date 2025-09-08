@@ -1,0 +1,299 @@
+{
+  "graphActions": {
+    "delete": "Eliminar",
+    "edit": "Editar"
+  },
+  "placeholderEmptyValues": {
+    "establishment": "Nenhum estabelecimento",
+    "coach": "Nenhum professor"
+  },
+  "graphDefaultTitles": {
+    "privateBookingTemporal": "Aulas Privadas",
+    "memberTemporal": "Novos membros",
+    "billingPlanTemporal": "Subscrições",
+    "subscriptionTemporalSum": "Quantidade de recibos",
+    "subscriptionTemporalCount": "Número de faturas de subscrição",
+    "bookingTemporal": "Reservas",
+    "bookingQualitative": "Origem das reservas",
+    "paymentTemporal": "Recibos",
+    "invoiceItemTemporal": "Soma de itens faturados",
+    "bookingTimeslots": "Número médio de pessoas"
+  },
+  "dataSourceIdentifiers": {
+    "is_no_show": "Ausente (não compareceu)",
+    "dispute_status": "Estado",
+    "is_unpaid": "Não pago",
+    "total_payments_made": "Número de recibos efetuados",
+    "total_discount": "Redução total",
+    "payout_status": "Estado de transferência",
+    "payout_identifier": "Transferência",
+    "payout_date_created": "Data da transferência",
+    "payment_pack": "Passe de aulas",
+    "private_pass": "Passe de Aula Privadas",
+    "activity": "Atividade",
+    "nb_planned_invoices": "Número total de recibos",
+    "margin_value": "Contribuição marginal incl. IVA",
+    "private_service_name": "Aulas Privadas",
+    "price": "Preço incl. IVA",
+    "contract": "Contrato",
+    "date": "Data de pagamento",
+    "payment_method": "Método de pagamento",
+    "payment_price": "Preço incl. IVA",
+    "payment_date": "Data de pagamento",
+    "accept_sms": "Aceitar SMS",
+    "accept_email": "Aceitar e-mails",
+    "gender": "Género",
+    "billing_establishment": "Localização",
+    "billing_group": "Grupo de faturação",
+    "establishment": "Estabelecimento",
+    "coach": "Professores",
+    "was_refunded": "Reembolsado",
+    "booking_status_code": "Estado da reserva",
+    "plan_status": "Estado da subscrição",
+    "plan_recurrent_price": "Montante do pagamento recorrente",
+    "plan_flat_fee": "Taxas de inscrição",
+    "plan_date_start": "Data da primeira fatura",
+    "plan_date_end": "Data de fim da faturação",
+    "new_member_only": "Oferta para novos membros",
+    "date_created": "Data da reserva",
+    "date_start": "Data da sessão",
+    "attendance": "Presente",
+    "payment_engine": "Tipo de pagamento",
+    "is_workshop": "Workshops",
+    "activity_kind": "Tipo de aulas",
+    "booking_effectif_timeslots": "Número médio de pessoas",
+    "invoiceitem_pk": "Número de itens faturados",
+    "billingplan_pk": "Número de subscrições",
+    "plannedinvoice_pk": "Número de faturas",
+    "payment_pk": "Número de pagamentos",
+    "privatebooking_pk": "Número de Aulas Privadas",
+    "author": "Autor",
+    "invoice_datetime": "Data de emissão da fatura",
+    "total_price": "Montante faturado (incl. IVA)",
+    "total_price_notax": "Montante faturado HT",
+    "staff_commission_amount_notax": "Comissão do staff (excl. IVA)",
+    "staff_commission_amount": "Comissão do staff (incl. IVA)",
+    "franchisor_commission_amount": "Comissão do franqueado (incl. IVA)",
+    "franchisor_commission_amount_notax": "Comissão do franqueado HT",
+    "source_device": "Origem",
+    "last_invoice_status": "Estado do último pagamento",
+    "is_recurrent_booking": "Reservas recorrentes",
+    "booking_pk": "Número de reservas",
+    "member_pk_accumulate": "Número de membros",
+    "member_pk": "Número de novos membros",
+    "date_joined": "Data de inscrição",
+    "contract_name": "Subscrição",
+    "billing_plan_payment_method": "Meios de pagamento",
+    "plan_auto_renewal": "Renovação tácita",
+    "booking_date_created": "Data da reserva"
+  },
+  "graphFormDrawer": {
+    "aggregation": {
+      "sum": "Soma",
+      "max": "Máximo",
+      "min": "Mínimo",
+      "avg": "Média"
+    },
+    "helperText": {
+      "subscriptionPrice": {
+        "sum": "Soma de todos os pagamentos recebidos no âmbito das subscrições.",
+        "min": "Mínimo de todos os pagamentos recebidos pelas subscrições.",
+        "max": "Máximo de todos os pagamentos recebidos pelas subscrições.",
+        "avg": "Média de todos os pagamentos recebidos para subscrições."
+      },
+      "plannedInvoiceCount": "Número de faturas associadas a subscrições.",
+      "dateCreated": "Os dados serão apresentados ao longo do tempo de acordo com a data em que as reservas foram efectuadas.",
+      "dateStart": "Os dados serão representados ao longo do tempo de acordo com a data de início das sessões.",
+      "accumulateMembers": "Evolução do número total de membros.",
+      "booking_effectif_timeslots": "Número médio de sessões por faixa horária.",
+      "subscriptionCount": "Número de facturas geradas pelas subscrições."
+    },
+    "accumulate": {
+      "total": "Acumulado"
+    },
+    "dashboardGraphIdentifier": {
+      "graph_invoice_items": "Compras",
+      "graph_billing_plan": "Subscrições",
+      "graph_subscriptions": "Faturas de subscrições",
+      "graph_payments": "Pagamentos",
+      "graph_bookings": "Reservas",
+      "graph_members": "Novos membros",
+      "graph_private_bookings": "Marcação",
+      "graph_dispute": "Contencioso"
+    },
+    "graphFamily": {
+      "week_timeslots": "Frequência diária e horária",
+      "qualitative": "Repartir",
+      "temporal": "Evolução ao longo do tempo"
+    },
+    "chartComponents": {
+      "timeslots": "Frequência diária e horária",
+      "pie": "Esquema circular",
+      "area": "Esquema da área",
+      "qualitativeBar": "Histograma",
+      "bar": "Histograma"
+    },
+    "placeholders": {
+      "aggregationSelector": "Selecionar uma operação",
+      "dashboardGraphIdentifier": "Selecionar um tipo de dados"
+    },
+    "labels": {
+      "aggregationName": "Agregação",
+      "dividedBy": "Dividido por",
+      "dataToDisplay": "Dados exibidos",
+      "dateFilterField": "Dados sobre a data",
+      "groupByField": "Repartir por",
+      "graphFamily": {
+        "qualitative": "Repartir",
+        "temporal": "Evolução ao longo do tempo"
+      },
+      "title": "Nome"
+    },
+    "sectionTitles": {
+      "filterConfig": "Filtros",
+      "timePeriod": "Período",
+      "graphParams": "Dados",
+      "graphFamily": "Gráfico",
+      "dashboardGraphIdentifier": "Tipo de dados",
+      "general": "Informações gerais"
+    },
+    "title": {
+      "edit": "Alterar um gráfico",
+      "create": "Criar um gráfico"
+    }
+  },
+  "plannedPayment": {
+    "popover": "Soma de todos os pagamentos recebidos a título de subscrições",
+    "caption": "Recibo",
+    "title": "Recibos de subscrição"
+  },
+  "turnover": {
+    "popover": "Soma de todos os pagamentos recebidos indicados nas faturas",
+    "caption": "Recibos",
+    "title": "Recibos"
+  },
+  "nbOffers": "Sessões",
+  "newMembers": "Novos membros",
+  "thisMonth": "Este mês",
+  "thisWeek": "Esta semana",
+  "current_year": "Ano passado",
+  "last_three_months": "Últimos três meses",
+  "current_month": "Mês passado",
+  "current_week": "Última semana",
+  "current_day": "Últimas 24 horas",
+  "noGraphToDisplay": "Nenhum gráfico configurado neste separador. Adicione um aqui.",
+  "tabNameDialog": {
+    "placeholder": "Nome",
+    "titleRename": "Renomear separador",
+    "titleAdd": "Adicionar um novo separador"
+  },
+  "resetModal": {
+    "confirm": "Continuar",
+    "cancel": "Cancelar",
+    "content": "As definições dos vários separadores voltam aos seus valores predefinidos. Deseja continuar ?",
+    "title": "Redefinir configurações"
+  },
+  "save": "Guardar",
+  "showMoreLegend": "+ {{count}} legenda",
+  "showMoreLegend_plural": "+ {{count}} legendas",
+  "addFilter": "Adicionar um filtro",
+  "filterChipLabel": "{{count}} filtro",
+  "filterChipLabel_plural": "{{count}} filtros",
+  "customChart": {
+    "form": {
+      "radio": {
+        "pie": "Diagrama circular",
+        "grid": "Tabela de frequências",
+        "area": "Gráfico de áreas",
+        "bar": "Histograma",
+        "qualitativeInvoiceItem": "Repartir",
+        "temporalPlannedInvoice": "Evolução ao longo do tempo",
+        "temporalPayment": "Evolução ao longo do tempo",
+        "qualitativeBooking": "Repartir",
+        "temporalPrivateBooking": "Evolução ao longo do tempo",
+        "temporalBooking": "Evolução ao longo do tempo",
+        "temporalTimeslotBooking": "Frequências diárias e horárias",
+        "temporalMember": "Evolução ao longo do tempo"
+      },
+      "aggregateHelper": "Por exemplo: apresenta as alterações do número total de membros, em vez do número de novos membros, todos os meses.",
+      "aggregate": "Acumular",
+      "name": "Título do gráfico",
+      "selector": {
+        "privateBooking": "Marcação",
+        "invoice": "Compras",
+        "payment": "Pagamentos",
+        "booking": "Reservas",
+        "member": "Novos membros",
+        "object": {
+          "helperText": "Escolha o que pretende visualizar",
+          "placeholder": "Selecionar um tipo de dados",
+          "isEmpty": "Nenhum dado selecionado"
+        }
+      },
+      "graphComponent": "Representação necessária",
+      "datatype": "Tipo de gráfico",
+      "submit": "Guardar",
+      "cancel": "Cancelar",
+      "title": "Gráfico"
+    },
+    "noResource": "Seleccione o tipo de dados.",
+    "addChart": "Criar um gráfico"
+  },
+  "invoiceItemDropdown": {
+    "contentType": {
+      "1": "Passes de aulas",
+      "2": "Produtos da loja",
+      "6": "Despesas de envio",
+      "7": "Promoção",
+      "9": "Passes de aula privada",
+      "10": "Packs"
+    }
+  },
+  "bookingDropdown": {
+    "source": {
+      "0": "Aplicação",
+      "1": "Web",
+      "2": "Backoffice bsport",
+      "3": "Outros",
+      "4": "Migração de dados"
+    }
+  },
+  "invoiceItems": {
+    "title": "Vendas por tipo de produto"
+  },
+  "bookingSource": {
+    "title": "Origem das reservas"
+  },
+  "noData": "Não há dados a apresentar",
+  "dateFilter": {
+    "quickSelect": "Seleção rápida",
+    "customSelect": "Selecionar um intervalo de datas"
+  },
+  "privateBooking": {
+    "popover": "Número total de aulas privadas reservadas para esta data. É possível filtrar as anulações / reembolsos / ...",
+    "caption": "Aulas Privadas salvas",
+    "title": "Aulas Privadas"
+  },
+  "bookingsWeektimeSlot": {
+    "popover": "Número médio de sessões por faixa horária",
+    "title": "Número de efetivos"
+  },
+  "booking": {
+    "popover": "O número total de reservas para esta data. Pode filtrar os cancelamentos / cancelamentos tardios / ...",
+    "caption": "Reservas registadas",
+    "title": "Reservas"
+  },
+  "billedSubscriptions": {
+    "popover": "O número de faturas associadas a uma subscrição não foram canceladas",
+    "caption": "Subscrições",
+    "title": "Número de subscrições faturadas"
+  },
+  "detailsGraphTitle": "Mais pormenores",
+  "filterByDateTitle": "Filtrar por data",
+  "dateRange": {
+    "end": "Fim",
+    "start": "Iniciar"
+  },
+  "bookings": "Reservas",
+  "pageTitle": "Painel de controlo"
+}

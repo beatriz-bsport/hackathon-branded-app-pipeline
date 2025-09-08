@@ -1,0 +1,294 @@
+{
+  "backofficeMenu": {
+    "sequence": "Strategie",
+    "order": "Ordini",
+    "workshopActivities": "Workshop",
+    "coaches": "Insegnanti",
+    "product": "Prodotti",
+    "coachPerformance": "Insegnanti",
+    "consumer": {
+      "profile": "Il mio profilo",
+      "order": "I miei ordini",
+      "pass": "Pacchetti",
+      "bookings": "Le mie prenotazioni ",
+      "subscriptions": "I miei abbonamenti ricorrenti",
+      "myAccount": "Il mio account"
+    },
+    "activity": "Le mie attività",
+    "beta": "beta",
+    "alpha": "in via di sviluppo",
+    "calendar": "Calendario",
+    "schedule": "Programma",
+    "privateService": {
+      "title": "Su appuntamento",
+      "services": "Su appuntamento",
+      "pass": "Pacchetti per appuntamenti"
+    },
+    "myShop": "Shop",
+    "payment": "Pagamenti",
+    "invoice": "Ricevute",
+    "video": "Videoteca",
+    "playlist": "Playlist",
+    "podcast": "Podcast",
+    "digital": "Offerta digitale",
+    "marketing_automation": "Marketing automatizzato",
+    "combo": "Pacchetti combinati",
+    "requestTempPassword": "Password temporanea",
+    "smart_list": "Smartlist",
+    "email_template": "Email",
+    "reporting": "Report",
+    "search": "Ricerca",
+    "dashboard": "Pannello di controllo",
+    "message": "Marketing",
+    "member": "Membri",
+    "establishment": "Stabilimenti",
+    "goBack": "Indietro",
+    "pass": "Pacchetti",
+    "settings": {
+      "settings": "Impostazioni",
+      "active_campaign": "ActiveCampaign",
+      "partnership": "Partnership",
+      "webhook": "Webhook",
+      "personalization": "Personalizzazione",
+      "role": "Staff",
+      "shop": "Shop",
+      "waitingList": "Lista d'attesa",
+      "invoice": "Contabilizzazione",
+      "company": "Azienda",
+      "paymentRules": "Regole di retribuzione",
+      "notificationRule": "Email transazionali",
+      "broadcast": "Video conferenza",
+      "general": "Generale",
+      "platform_billing": "Abbonamento bsport",
+      "marketplaceSettings": "Impostazioni Area Membri",
+      "widget": "Widget",
+      "paymentMethod": "Modo di pagamento",
+      "forms": "Formulario",
+      "quickbooks": "QuickBooks",
+      "mobilePersonalization": "App brandizzata",
+      "coachUserspace": "Area dell'insegnante",
+      "quicksale": "interfaccia di vendita",
+      "referral": "Riferimento"
+    },
+    "myClub": "Il mio club",
+    "subscription": "Addebiti",
+    "contract": "Abbonamenti ricorrenti",
+    "coupon": "Promozioni",
+    "logoff": "Disconnessione",
+    "refresh": "Ricarica",
+    "cashBook": {
+      "save": "Salva",
+      "at": "a",
+      "of": "di",
+      "onSpotPaymentReport": "Accedi al report dei pagamenti",
+      "amount": "Guadagno della giornata:",
+      "lastUpdated": "Ultima modifica il",
+      "expectedAmount": "Dovresti avere: ",
+      "todayEndAmount": "Importo a fine giornata",
+      "addAmount": "Importo da aggiungere alla cassa",
+      "todayStartAmount": "Importo iniziale nella cassa",
+      "cashDialogTitle": "Registratore di cassa",
+      "close": "chiudi"
+    },
+    "marketingNotification": "Notifiche",
+    "tags": "Tags",
+    "custom_form": "Moduli",
+    "addMemberTooltip": "Aggiungi un membro",
+    "cashBookTooltip": "Libro cassa",
+    "redirecting": "Sarai reindirizzato alla tua pagina",
+    "backToFranchiseWorskpace": "Ritorno al conto principale",
+    "franchiseConnectedAs": "Registrato come:{{- name}}",
+    "giftcard": "Gift card",
+    "programs": "Programmi",
+    "expenses": "Spese",
+    "instalmentPayment": "Modalità di pagamento",
+    "coachPayroll": "Remunerazione",
+    "clockIn": "Orologio in orologio in uscita",
+    "cadences": "Cadenze",
+    "help": "Aiuto",
+    "tutorialInfo": "Trova la nostra guida introduttiva nella scheda Tutorial.",
+    "tutorial": "Tutorial",
+    "replacement": "Sostituzione",
+    "toggle": {
+      "shrink": "Piega",
+      "expand": "Estendi"
+    },
+    "inbox": "Posta in arrivo",
+    "audience": "{{ audienceCamelCase }}",
+    "backToWebshop": "Torna allo shop",
+    "accessMonitoring": "Accesso",
+    "closeTab": "Chiudi la scheda",
+    "feedbackBoard": "Scheda di feedback"
+  },
+  "deprecatedNavigator": {
+    "close": "Chiudi",
+    "downloadChrome": "Download gratuito di Google Chrome",
+    "downloadFirefox": "Scarica Mozilla Firefox gratuitamente",
+    "navigatorError": "Sembra che il tuo browser sia troppo vecchio per utilizzare i nostri servizi. Potresti riscontrare errori, ti consigliamo di scaricare una versione più recente, in particolare: "
+  },
+  "paymentMethodMissing": {
+    "closeModal": "Chiudere",
+    "explain": "Non ha inserito un metodo di pagamento valido, deve confermarlo per continuare ad usare il suo abonnamento Bsport.",
+    "banner": "Non ha inserito nessun metodo di pagamento per il suo abonnamento Bsport. Clicca qui."
+  },
+  "franchiseMenu": {
+    "members": "Membri",
+    "franchises": "Franchisee",
+    "reporting": "Riporta",
+    "paymentPack": "Schede del corso",
+    "widget": "Widget",
+    "settings": "Parametri",
+    "staff": "Staff",
+    "widgets": "Widget",
+    "notificationRules": "Email transazionali",
+    "emailTemplates": "Email",
+    "products": {
+      "couponTemplates": "Promozioni",
+      "giftcardTemplates": "Gift card",
+      "privatePassTemplates": "Pacchetto per appuntamenti",
+      "paymentPackTemplates": "Pacchetti",
+      "label": "Prodotti",
+      "shopTemplates": "Shop",
+      "contractTemplates": "Abbonamenti ricorrenti",
+      "universalPassTemplates": "Pacchetto universale"
+    },
+    "tag": "Tag",
+    "marketing": {
+      "tags": "Tag",
+      "emailTemplates": "Email",
+      "campaigns": "Campagne",
+      "label": "Marketing"
+    }
+  },
+  "multiSession": {
+    "current": "Sessione corrente",
+    "previous": "Sessione precedente",
+    "manager": "manager",
+    "franchisor": "franchisor",
+    "continue": "Continua con questa sessione",
+    "currentSession": "Sei attualmente connesso come: {{- name }}",
+    "restore": "Ripristina questa sessione",
+    "previousSession": " Sei stato connesso come: {{- name }}",
+    "title": " Sembra che tu stia usando diverse schede simultaneamente"
+  },
+  "stripeOnboardingPending": {
+    "banner": "Se non hai completato l'impostazione della contabilizzazione, i pagamenti online potrebbero essere disabilitati. Clicca qui per completare la tua configurazione."
+  },
+  "tab": {
+    "coach": {
+      "calendar": "Calendario",
+      "general": "Profilo"
+    },
+    "member": {
+      "giftcard": "Gift card",
+      "giftcard_plural": "Gift card ({{number}})",
+      "paymentPack": "Pacchetti",
+      "paymentPack_plural": "Pacchetti ({{number}})",
+      "invoices": "Ricevute e abbonamenti ricorrenti",
+      "invoices_plural": "Ricevute e abbonamenti ricorrenti ({{number}})",
+      "contact": "Contatto",
+      "contact_plural": "Contatto ({{number}})",
+      "payment": "Contabilizzazione",
+      "payment_plural": "Contabilizzazione ({{number}})",
+      "privateBooking": "Appuntamento",
+      "privateBooking_plural": "Appuntamento ({{number}})",
+      "privateConsumerPass": "Pacchetti per appuntamento",
+      "privateConsumerPass_plural": "Pacchetti per appuntamento ({{number}})",
+      "vod": "VOD",
+      "vod_plural": "VOD ({{number}})",
+      "form": "Form",
+      "form_plural": "Form ({{number}})",
+      "basket": "Carrello",
+      "basket_plural": "Carrelli ({{number}})",
+      "programs": "Programma",
+      "programs_plural": "Programmi ({{number}})",
+      "info": "Generale",
+      "info_plural": "Generale ({{number}})",
+      "relation": "Relazioni",
+      "relation_plural": "Relazioni ({{number}})",
+      "bookings": "Prenotazioni",
+      "bookings_plural": "Prenotazioni ({{number}})",
+      "subscription": "Abbonamenti ricorrenti"
+    },
+    "smartList": {
+      "member": "Generale",
+      "campaign": "Campagne",
+      "statistic": "Statistica"
+    },
+    "widget": {
+      "create": "Generale",
+      "customize": "Personalizzazione",
+      "customizeCss": "CSS personalizzato"
+    },
+    "replacement": {
+      "management": "Gestione",
+      "disciplineGroup": "Gruppi disciplinari"
+    },
+    "franchise": {
+      "staff": {
+        "staffAccount": "Account dello staff",
+        "role": "Ruoli"
+      }
+    },
+    "customForm": {
+      "general": "Contenuto",
+      "campaign": "Campagna",
+      "statistics": "Statistiche",
+      "layout": "Personalizzazione"
+    },
+    "metaActivity": {
+      "general": "Generale",
+      "pack": "Pacchetti compatibili",
+      "group": "Sessioni di gruppo"
+    },
+    "establishment": {
+      "general": "Generale",
+      "calendar": "Calendario",
+      "room": "Stabilimenti",
+      "location": "Sedi"
+    },
+    "service": {
+      "general": "Generale",
+      "calendar": "Calendario"
+    },
+    "clockIn": {
+      "realTime": "Tempo reale",
+      "history": "Storico"
+    },
+    "quicksale": {
+      "access": "Creazione accesso",
+      "configuration": "Personalizzazione delle categorie"
+    },
+    "appSettings": {
+      "customize": "Personalizzazione",
+      "popups": "Pop-up di avvio",
+      "links": "Link esterno"
+    },
+    "communicationSentGroupConfig": {
+      "campaigns": "Campagne",
+      "general": "Generale"
+    },
+    "accessMonitoring": {
+      "settings": "Impostazioni",
+      "monitor": "Visite in loco",
+      "perform": "Visita dei membri"
+    },
+    "settings": {
+      "theme": {
+        "memberProfile": "Profilo del membro",
+        "general": "Generale"
+      }
+    },
+    "shop": {
+      "settings": "Impostazioni",
+      "products": "Prodotti"
+    },
+    "reporting": {
+      "views": "Visualizzazioni salvate",
+      "categories": "Report"
+    }
+  },
+  "logout": "Logout",
+  "login": "Login",
+  "featureBaseButton": "Suggerire una funzionalità o un miglioramento"
+}

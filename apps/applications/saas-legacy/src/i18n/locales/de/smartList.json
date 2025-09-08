@@ -1,0 +1,801 @@
+{
+  "filters": {
+    "1": {
+      "explanation": "Mitglieder mit einem bestimmten Guthaben auf ihrem Account segmentieren",
+      "third": "{{currencyDisplay}}",
+      "first": "Der Kontostand des Mitglieds beträgt (inklusive unbezahlte Rechnungen)",
+      "name": "Guthaben",
+      "second": " um   ",
+      "between": "und"
+    },
+    "2": {
+      "explanation": "Seine letzte Buchung war vor ...",
+      "second": "Tagen",
+      "first": "Der zuletzt gebuchte Kurs fand vor mehr als ... statt",
+      "name": "Datum des zuletzt gebuchten Kurses"
+    },
+    "5": {
+      "women": "Frauen",
+      "explanation": "Mitglieder nach ihrer Geschlechtsidentität (männlich/weiblich) segmentieren",
+      "men": "Männer",
+      "first": "Nur Segment",
+      "name": "Geschlecht"
+    },
+    "8": {
+      "first": "Besitzt einen Kurspass",
+      "name": "Gültigkeit des Kurspasses",
+      "explanation": "Besitzt den Kurspass X, der verwendbar ist",
+      "second": "verwendbar (mit Credits oder unbegrenzt und nicht abgelaufen)"
+    },
+    "11": {
+      "explanation": "Mitglieder anhand ihrer Tags segmentieren",
+      "name": "Markierungen",
+      "first": "Nach Tags segmentieren"
+    },
+    "14": {
+      "selector": "Produkte auswählen",
+      "fourth": "für die Produkte",
+      "third": "und",
+      "second": "{{ currencyDisplay }} ausgegeben zwischen",
+      "first": "Hat",
+      "name": "Ausgaben",
+      "workshop": "Kurspässe für Workshops",
+      "private_pass": "Privatkurse",
+      "combo": "Package",
+      "pack": "Kurspass",
+      "shop": "Webshop",
+      "explanation": "Hat die Produkte A und B gekauft"
+    },
+    "18": {
+      "explanation": "Mitglieder nach Beitrittsdatum segmentieren (an, vor, nach oder zwischen bestimmten Daten)",
+      "first": "Beitrittsdatum zum Studio",
+      "name": "Anmeldedatum"
+    },
+    "19": {
+      "infoIcon": "Unbegrenzte Kurspässe sind immer eingeschlossen",
+      "expiration": {
+        "first_has_expire": "ist abgelaufen",
+        "first_will_expire": "Ablaufdatum"
+      },
+      "date_bought": {
+        "first": "Kaufdatum"
+      },
+      "credits": {
+        "second": "und",
+        "first": "Credits:",
+        "helperText": "Gefiltert nach {{count}} Credit",
+        "helperText_plural": "Gefiltert nach {{count}} Credits"
+      },
+      "second": "und",
+      "has_not": "Besitzt nicht",
+      "has": "Besitzt",
+      "first": "einer der Kurspässe",
+      "name": "Kurspässe",
+      "explanation": "Mitglieder, die an einem bestimmten Datum einen Kurspass gekauft haben und noch X verbleibende Credits haben, segmentieren",
+      "third": "um"
+    },
+    "20": {
+      "date": {
+        "second": "Tage",
+        "first": "Der Warenkorb wurde aufgegeben"
+      },
+      "third": "{{ currencyDisplay }}",
+      "first": "Der Gesamtwert der Artikel im Warenkorb beträgt",
+      "explanation": "Mitglieder mit Produkten im Warenkorb, ohne abgeschlossene Bestellung segmentieren",
+      "name": "Abgebrochene Warenkörbe",
+      "second": "um",
+      "between": "und"
+    },
+    "21": {
+      "hour": {
+        "third": "Uhr",
+        "second": "Uhr und",
+        "first": "Die Uhrzeit des Kursbeginns liegt zwischen"
+      },
+      "date": {
+        "first": "Das Datum des Kurses ist"
+      },
+      "establishment": {
+        "first": "in"
+      },
+      "activity": {
+        "first": "von"
+      },
+      "second_plural": "Kurs(e)",
+      "second_singular": "Kurs(e)",
+      "first": "Buchte seinen/ihren ",
+      "explanation": "Mitglieder segmentieren, je nach Anzahl an gebuchten Kursen, in welchen Räumen, bei welcher Lehrkraft und welchem Kurspass",
+      "name": "xte Anzahl der Buchungen",
+      "coach": {
+        "first": "mit den Lehrkräften"
+      },
+      "payment_pack": {
+        "first": "mit den Pässen"
+      },
+      "attendance": "mit Status",
+      "level": {
+        "first": "Niveau "
+      },
+      "second_singular_v2": "ter Kurs",
+      "first_v2": "Mitglieder, die ihren Kurs gebucht haben "
+    },
+    "22": {
+      "hour": {
+        "third": "Uhr",
+        "first": "mit einem Kursbeginn zwischen",
+        "second": "Uhr und"
+      },
+      "first": "Buchte",
+      "explanation": "Mitglieder segmentieren, je nach Anzahl an gebuchten Kursen, in welchen Räumen, bei welcher Lehrkraft und welchem Kurspass",
+      "name": "Anzahl der Buchungen",
+      "coach": {
+        "first": "mit den Lehrkräften"
+      },
+      "payment_pack": {
+        "first": "mit den Pässen"
+      },
+      "establishment": {
+        "first": "in den Einrichtungen"
+      },
+      "second": "Kurs(e)",
+      "activity": {
+        "first": "von den Aktivitäten"
+      },
+      "date": {
+        "first": " "
+      },
+      "between": "und",
+      "attendance": "mit Status",
+      "level": {
+        "first": "Niveau"
+      }
+    },
+    "23": {
+      "explanation": "Eine Übersicht über die erste Buchung aller Mitglieder anzeigen",
+      "name": "Erste Buchung"
+    },
+    "24": {
+      "first": "Gab",
+      "second": "{{ currencyDisplay }} für die Produkte",
+      "name": "Kaufhistorie",
+      "workshop": "Kurspass für Workshops",
+      "private_pass": "Privatkurs",
+      "between": "und",
+      "combo": "Package",
+      "pack": "Kurspass",
+      "shop": "Webshop",
+      "explanation": "Mitglieder nach Kauf bestimmter Produkte segmentieren",
+      "date": {
+        "first": "durchgeführte Käufe"
+      }
+    },
+    "25": {
+      "first": "einer der Terminpässe",
+      "name": "Terminpässe",
+      "date_bought": {
+        "first": "Kaufdatum"
+      },
+      "credits": {
+        "first": "Credits:",
+        "second": "und",
+        "helperText": "Gefiltert nach {{count}} Credit",
+        "helperText_plural": "Gefiltert nach {{count}} Credits"
+      },
+      "expiration": {
+        "first_has_expire": "ist abgelaufen",
+        "first_will_expire": "läuft ab"
+      },
+      "third": "um",
+      "second": "und",
+      "has_not": "Verfügt nicht über",
+      "has": "Verfügt über",
+      "explanation": "Mitglieder, die an einem bestimmten Datum einen Terminpass gekauft haben und X verbleibende Credits haben, segmentieren"
+    },
+    "26": {
+      "private_pass": {
+        "first": "mit Terminpass"
+      },
+      "establishment": {
+        "first": "in den Einrichtungen",
+        "third": "Zuhause",
+        "second": "oder"
+      },
+      "between": "und",
+      "hour": {
+        "third": "Uhr",
+        "second": "Uhr und",
+        "first": "beginnt zwischen"
+      },
+      "date": {
+        "first": "statt finden"
+      },
+      "coach": {
+        "first": "mit den Lehrkräften"
+      },
+      "first": "gebucht",
+      "second": "Termin",
+      "explanation": "Mitglieder segmentieren, je nach Anzahl an gebuchten Terminen, in welchen Räumen, bei welcher Lehrkraft und welchem Kurspass",
+      "name": "Anzahl der Termine",
+      "private_service": {
+        "first": "mit den Terminen"
+      }
+    },
+    "27": {
+      "third": "oder",
+      "between": "und",
+      "name": "Gültige Pässe",
+      "first": "Mitglieder mit",
+      "explanation": "Mitglieder mit X gültigen Kurs- oder Terminpässen segmentieren",
+      "second": "gültigen Kurspässen. Inklusive",
+      "info": "Blockierte Kurs- und Terminpässe werden ebenfalls berücksichtigt",
+      "fourth": "insgesamt."
+    },
+    "28": {
+      "numbersComparator": {
+        "payment": {
+          "after": "{{currency}}",
+          "between": "und",
+          "before": "Der Betrag des ersten Einkaufs betrug"
+        }
+      },
+      "filterByDate": {
+        "before": "Nach Datum filtern"
+      },
+      "booleanChoice": {
+        "is_not": "noch nicht abgeschlossen",
+        "is": "abgeschlossen",
+        "before": "Der erste Kauf ist"
+      },
+      "explanation": "Mitglieder mit erstem Kauf zwischen bestimmten Daten segmentieren",
+      "name": "Erstmaliger Kauf"
+    },
+    "29": {
+      "numbersComparator": {
+        "money": {
+          "after": "{{currency}} als Empfehler",
+          "between": "und",
+          "before": "Das Mitglied erhielt"
+        },
+        "referred": {
+          "tooltip": "Mitglieder, die niemanden empfohlen haben, können ebenfalls eingeschlossen werden.",
+          "after": "Mitglieder",
+          "between": "und",
+          "before": "Das Mitglied empfahl"
+        },
+        "reward": {
+          "after": "Belohnungen als Empfehler",
+          "between": "und",
+          "before": "Das Mitglied bekam"
+        }
+      },
+      "name": "Empfehlende",
+      "explanation": "Filtert die Mitglieder, die Mitglieder empfohlen haben"
+    },
+    "30": {
+      "numbersComparator": {
+        "money": {
+          "after": "{{currency}} als ein empfohlenes Mitglied",
+          "between": "und",
+          "before": "Das Mitglied erhielt"
+        }
+      },
+      "booleanChoice": {
+        "after": "ein empfohlenes Mitglied",
+        "is_not": "ist nicht",
+        "is": "ist",
+        "before": "Das Mitglied"
+      },
+      "explanation": " Filtert die Mitglieder, die einen Empfehlungslink zur Anmeldung verwendet haben",
+      "name": "Empfohlenes Mitglied"
+    },
+    "101": {
+      "to": "zu",
+      "first": "Ist",
+      "between": "und",
+      "second": "Jahre (einschließlich)",
+      "explanation": "Mitglieder nach Alter segmentieren",
+      "name": "Alter"
+    },
+    "102": {
+      "hasCompleted": "abgeschlossen",
+      "to": "zu",
+      "date": {
+        "first": "zuletzt abgeschlossen"
+      },
+      "second": "unter",
+      "atLeastOne": "mindestens ein Formular",
+      "none": "kein Formular",
+      "hasCompletedNone": "nicht abgeschlossen",
+      "third": "zu einem Prozentsatz",
+      "all": "alle Formulare",
+      "hasNotCompleted": "nicht abgeschlossen",
+      "between": "und",
+      "name": "Formulare",
+      "explanation": "Mitglieder basierend auf der Anzahl ausgefüllter Formulare an bestimmten Daten segmentieren",
+      "first": "Hat beendet"
+    },
+    "103": {
+      "name": "Einverständnis für Benachrichtigungen",
+      "oneNeeded": "Mindestens eine der aktivierten Bedingungen muss erfüllt sein",
+      "allNeeded": "Alle aktivierten Bedingungen müssen erfüllt sein",
+      "explanation": "Mitglieder mit Einverständnis für SMS oder E-Mail Benachrichtigungen segmentieren",
+      "sms": "um Benachrichtigungen per SMS zu erhalten",
+      "true": "Akzeptieren",
+      "email": "um Benachrichtigungen per E-Mail zu erhalten",
+      "false": "Nicht Akzeptieren",
+      "or": "Oder",
+      "and": "Und"
+    },
+    "104": {
+      "explanation": "Mindestens ein ärztliches Attest hat (oder auch nicht)",
+      "medicalOrNot": "medizinisch oder nicht",
+      "info": "Die so genannten medizinischen Hinweise entsprechen denen, die im Abschnitt \"Ausschreibungen\" auf dem Formular des Mitglieds aufgeführt sind",
+      "medical": "medizinisch",
+      "date": {
+        "first": "die erstellt wurde"
+      },
+      "nonMedical": "nicht medizinisch",
+      "name": "Hinweise",
+      "first": "Hat mindestens einen Hinweis"
+    },
+    "105": {
+      "receiveCopyOfEmail": {
+        "second": "mit einer Kopie an das Mitglied",
+        "false": "wurden nicht gesendet",
+        "true": "wurden auch gesendet",
+        "first": "an die Beziehung gesendeten E-Mails"
+      },
+      "acceptEmail": {
+        "false": "nicht akzeptiert",
+        "true": "akzeptieren",
+        "second": "E-Mails",
+        "first": "die Beziehung"
+      },
+      "explanation": "Mitglieder mit Beziehungen (z. B. Angehörige) oder geteilten Kurspässen segmentieren",
+      "name": "Geteilte Kurspässe",
+      "acceptSms": {
+        "first": "die Beziehung",
+        "second": "SMS",
+        "true": "akzeptieren",
+        "false": "nicht akzeptiert"
+      },
+      "date": {
+        "first": "die Beziehung wurde hergestellt"
+      },
+      "second": "der Beziehungen, die den ausgewählten Filtern entsprechen:",
+      "between": "und",
+      "fourth": "Die Beziehung hat eine Nummer gebucht",
+      "third": "das Mitglied hat mit der Beziehung eine Zahl geteilt",
+      "first": "Hat eine Nummer",
+      "consumerPaymentPacks": "Kurspässe",
+      "to": "zu",
+      "consumerPrivatePasses": "Terminpässe",
+      "validOrNot": "gültig oder nicht",
+      "valid": "gültig",
+      "bookings": "von Gruppenkursen und Terminen dank eines vom Mitglied geteilten Passes",
+      "info": {
+        "consumerPaymentPacks": "\"gültig\" bedeutet, dass der Pass jetzt zur Buchung einer Gruppenstunde verwendet werden kann",
+        "consumerPrivatePasses": "\"gültig\" bedeutet, dass der Pass jetzt zur Buchung eines Termins verwendet werden kann"
+      }
+    },
+    "106": {
+      "true": "Ausgefüllt",
+      "first": "eine Telefonnummer",
+      "false": "nicht ausgefüllt",
+      "name": "Telefonnummer",
+      "explanation": "Mitglieder mit Angabe der Telefonnummer segmentieren"
+    },
+    "107": {
+      "name": "Nutzungsbedingungen",
+      "explanation": "Hat die allgemeinen Nutzungsbedigungen akzeptiert",
+      "first": "Ihre Nutzungsbedingungen",
+      "true": "Hat akzeptiert",
+      "false": "Hat nicht akzeptiert"
+    },
+    "400": {
+      "name": "Passwort",
+      "explanation": "Mitglieder segmentieren, die ein Passwort für ihr bsport Konto festgelegt haben",
+      "explain": "Alle Mitglieder anzeigen, die ein Passwort für Ihr bsport-Konto registriert haben"
+    },
+    "410": {
+      "explanation": "Alle Mitglieder segmentieren, die den Haftungsausschluss akzeptiert haben",
+      "name": "Haftungsfreistellung",
+      "explain": "nach Annahme der Haftungsfreistellung"
+    },
+    "501": {
+      "explanation": "Mitglieder anhand ihrer letzten Buchung eines Kurses segmentieren",
+      "second": "Tagen statt, und keine andere Buchung ist in der Zukunft geplant.",
+      "first": "Der letzte gebucht Kurs fand vor mehr als",
+      "name": "Datum des letzten gebuchten Kurses"
+    },
+    "600": {
+      "expiryDateLabel": "mit einem Ablaufdatum",
+      "owns": "Mit mindestens einer gespeicherten Zahlungsmethode",
+      "does_not_own": "Keine gesicherte Zahlungsmethode vorhanden",
+      "labelFirst": "Nur Teile filtern",
+      "title": "Verfahren zur gesicherten Bezahlung",
+      "explanation": "Mitglieder nach gespeicherter Zahlungsmethode segmentieren",
+      "name": "Zahlungsmittel"
+    },
+    "calendarPicker": {
+      "selectduration": {
+        "4": {
+          "second": "Tagen",
+          "first": "In mehr als"
+        },
+        "5": {
+          "second": "Tagen",
+          "first": "In weniger als"
+        },
+        "6": {
+          "second": "Tagen",
+          "first": "In"
+        },
+        "7": {
+          "third": "Tagen und weniger als",
+          "second": "Tagen",
+          "first": "In mehr als"
+        },
+        "8": {
+          "second": "Tagen",
+          "first": "Vor weniger als"
+        },
+        "9": {
+          "second": "Tagen",
+          "first": "Vor mehr als"
+        },
+        "10": {
+          "second": "Tagen",
+          "first": "Vor "
+        },
+        "11": {
+          "third": "Tagen und weniger als",
+          "second": "Tagen",
+          "first": "Vor mehr als"
+        },
+        "selector": {
+          "4": "In mehr als X Tagen",
+          "5": "In weniger als X Tagen",
+          "6": "In X Tagen",
+          "7": "In mehr als X Tagen und weniger als Y Tagen",
+          "8": "Vor weniger als X Tagen",
+          "9": "Vor mehr als X Tagen",
+          "10": "Vor X Tagen",
+          "11": "Vor mehr als X Tagen und weniger als Y Tagen"
+        }
+      },
+      "text": {
+        "0": {
+          "first": "am oder nach dem"
+        },
+        "1": {
+          "first": "am oder vor dem"
+        },
+        "2": {
+          "second": "und",
+          "first": "zwischen"
+        },
+        "3": {
+          "first": "am"
+        },
+        "4": {
+          "second": "Tagen",
+          "first": "in mehr als"
+        },
+        "5": {
+          "second": "Tagen",
+          "first": "in weniger als"
+        },
+        "6": {
+          "second": "Tagen",
+          "first": "in "
+        },
+        "7": {
+          "third": "Tagen",
+          "second": "Tagen und weniger als",
+          "first": "in mehr als"
+        },
+        "8": {
+          "second": "Tagen",
+          "first": "vor weniger als"
+        },
+        "9": {
+          "second": "Tagen",
+          "first": "es gibt mehr als"
+        },
+        "10": {
+          "second": "Tagen",
+          "first": "vor "
+        },
+        "11": {
+          "third": "Tagen",
+          "second": "Tagen und weniger als",
+          "first": "vor mehr als"
+        }
+      },
+      "select": {
+        "0": "Am oder nach dem",
+        "1": "Am oder vor dem",
+        "2": "Zwischen",
+        "3": "Am"
+      },
+      "dateTitle": "Datum",
+      "durationTitle": "Dauer",
+      "duration": "Tagen"
+    },
+    "isEmpty": "Dieses Segment zeigt alle Mitglieder deines Studios, da keine Parameter ausgewählt wurden.",
+    "undefined": {
+      "fifth": "Kreditpunkte",
+      "fourth": "und besitzt darauf",
+      "third": "und",
+      "second": "zwischen",
+      "first": "Hat die Kurskarte gekauft",
+      "infoIcon": "Unbegrenzte Kurskarten werden nicht nach Kreditpunkten sortiert",
+      "name": "Einkaufsdatum und Kreditpunkte pro Kurskarte"
+    },
+    "durations_comparators": {
+      "1": "weniger als (⩽)",
+      "2": "mehr als (⩾)",
+      "5": "genau",
+      "6": "zwischen"
+    },
+    "classic_comparators": {
+      "1": "niedriger (⩽)",
+      "2": "höher (⩾)",
+      "3": "niedriger (ausgeschlossen)",
+      "4": "höher (ausgeschlossen)",
+      "5": "gleich"
+    },
+    "before": "vor",
+    "after": "nach",
+    "add": "Hinzufügen",
+    "add_filter": "Einen Parameter hinzufügen",
+    "active_filters": "aktive Parameter auf der Smartlist",
+    "all": "Alle",
+    "booking_status": {
+      "booked": "gebucht",
+      "canceled": "storniert"
+    },
+    "comparators": {
+      "1": "weniger als (⩽)",
+      "2": "mehr als (⩾)",
+      "5": "gleich",
+      "6": "zwischen"
+    },
+    "attendanceTrue": "Anwesend",
+    "attendanceFalse": "Abwesend",
+    "attendanceWarning": "Wähle einen Status"
+  },
+  "filterCategory": {
+    "1": "Informationen über das Mitglied",
+    "2": "Kurspässe",
+    "3": "Buchungen",
+    "4": "Zahlungen"
+  },
+  "smart_list": {
+    "createTitle": "Smartlist",
+    "detail": "Details der Smartlist",
+    "add": "Eine Smartlist hinzufügen",
+    "cancel": "Abbrechen",
+    "submit": "Speichern",
+    "name": "Name",
+    "list": {
+      "detailTitle": "Details der Smartlist",
+      "title": "Smartlists"
+    },
+    "actions": {
+      "configure": "Einrichten",
+      "campaign": "Kampagnen"
+    },
+    "description": {
+      "isEmpty": "Keine Beschreibung",
+      "label": "Beschreibung"
+    }
+  },
+  "detail": {
+    "statTitle": "Statistiken",
+    "tab": {
+      "statistic": "Statistik",
+      "member": "Allgemein",
+      "campaign": "Kampagnen"
+    }
+  },
+  "mail": {
+    "noMailAvailable": "Keine verfügbare E-Mail, erstellen Eine neue",
+    "cancel": "Abbrechen",
+    "send": "Senden",
+    "sendMail": "Eine E-Mail senden",
+    "sendMailTitle": "Eine E-Mail senden",
+    "sendSuccess": "Die E-Mail wird gesendet",
+    "sendError": "Fehler bei der Sendung der E-Mail"
+  },
+  "graphs": {
+    "bookingsSegments": {
+      "label": {
+        "0": "Letzter Monat",
+        "1": "Zwischen 1 und 12 Monate",
+        "2": "Mehr als ein Jahr"
+      },
+      "title": "Letzte Buchung"
+    },
+    "expensesSegments": {
+      "label": {
+        "0": "Keine Ausgabe",
+        "1": "Erstes Quartil",
+        "2": "Durchschnitt",
+        "3": "Letztes Quartil"
+      },
+      "title": {
+        "second": "und",
+        "first": "Ausgaben zwischen"
+      }
+    },
+    "bookings": "Buchungen"
+  },
+  "modal": {
+    "delete": {
+      "confirm": "Löschen",
+      "cancel": "Abbrechen",
+      "content": "Bist Du Dir sicher, dass Du diese Smartlist löschen möchtest? Diese Aktion ist unwiderruflich",
+      "title": "Smartlist löschen",
+      "linkedToAFranchiseCommunication": "Diese Smartlist wurde von Ihrem Franchise verwendet und kann nicht gelöscht werden"
+    },
+    "validate": "Bestätigen"
+  },
+  "membersInList": "Mitglieder in der Smartlist :",
+  "exportList": "Exportiere die Smartlist",
+  "selectToShowPreview": "Wähle eine Vorlage aus",
+  "multiSelector": {
+    "coaches": {
+      "warning": "Wähle mindestens eine Lehrkraft aus",
+      "helperAllSelectedText": "Alle Lehrkräfte",
+      "textFieldPlaceholder": "Eine Lehrkraft suchen",
+      "helperSelectedText": "Ausgewählte Lehrkräfte",
+      "helperText": "Lehrkraft auswählen"
+    },
+    "metaActivities": {
+      "warning": "Wähle mindestens eine Aktivität",
+      "helperAllSelectedText": "Alle Aktivitäten",
+      "textFieldPlaceholder": "Eine Aktivität suchen",
+      "helperSelectedText": "Ausgewählte Aktivitäten",
+      "helperText": "Aktivitäten auswählen"
+    },
+    "establishments": {
+      "warning": "Du musst mindestens eine Einrichtung auswählen",
+      "helperAllSelectedText": "Alle Einrichtungen",
+      "textFieldPlaceholder": "Eine Einrichtung suchen",
+      "helperSelectedText": "Ausgewählte Einrichtungen",
+      "helperText": "Einrichtungen auswählen"
+    },
+    "selectNothing": "Alle abwählen",
+    "paymentPacks": {
+      "helperText": "Kurspässe auswählen",
+      "helperSelectedText": "Ausgewählte Kurspässe",
+      "textFieldPlaceholder": "Einen Kurspass suchen",
+      "warning": "Du musst mindestens einen Kurspass auswählen",
+      "helperAllSelectedText": "Alle Kurspässe"
+    },
+    "selectAll": "Alles auswählen",
+    "buyables": {
+      "helperAllSelectedText": "alle Produkte",
+      "textFieldPlaceholder": "Eine Produktkategorie suchen",
+      "helperSelectedText": "ausgewählte Kategorien",
+      "helperText": "Kategorien auswählen"
+    },
+    "privatePass": {
+      "helperAllSelectedText": "Alle Terminpässe",
+      "helperSelectedText": "ausgewählte Terminpässe",
+      "helperText": "Wähle Terminpässe",
+      "warning": "Du musst mindestens einen Terminpass auswählen",
+      "textFieldPlaceholder": "Finde einen Terminpass"
+    },
+    "privateServices": {
+      "warning": "Wählen Sie mindestens einen Termin",
+      "helperAllSelectedText": "alle Termine",
+      "textFieldPlaceholder": "Suche nach einem Termin",
+      "helperSelectedText": "ausgewählte Termine",
+      "helperText": "Termine auswählen"
+    },
+    "level": {
+      "warning": "Wählen Sie mindestens eine Stufe",
+      "select": "ein Niveau auswählen",
+      "advanced": "erweiterte",
+      "intermediary": "Zwischenbericht",
+      "beginner": "Anfänger",
+      "all": "alle Stufen"
+    },
+    "userMarketingNotifications": {
+      "warning": "Aktivieren Sie mindestens eine der beiden Optionen"
+    },
+    "activePasses": {
+      "privatePassHelperText": "keinen Terminpass",
+      "warning": "Wählen Sie mindestens einen Kurspass oder einen Terminpass",
+      "paymentPackHelperText": "kein Kurspass"
+    },
+    "customForms": {
+      "textFieldPlaceholder": "Formular suchen",
+      "helperText": "Formulare auswählen",
+      "helperSelectedText": "ausgewählte Formulare",
+      "warning": "Wählen Sie mindestens ein Formular aus",
+      "helperAllSelectedText": "Alle Formulare"
+    }
+  },
+  "description": "Beschreibung",
+  "mails": "E-Mails",
+  "name": "Name der Liste",
+  "search": "Eine Smartlist suchen",
+  "duplicate": "Duplizieren",
+  "noSmartLists": "Verwende Smartlists, um Deine Mitglieder besser zu sortieren und zu analysieren.",
+  "delete": "Löschen",
+  "edit": "Einrichten",
+  "tag_rules": {
+    "cancel": "Abbrechen",
+    "associated_tag": "Zugehöriges Tag",
+    "create": "Erstelle eine Regel",
+    "tag_on_join_and_untag_on_left": "Markieren, falls ein Mitglied der Smartlist angehört",
+    "type_of_rule": "Regeltyp",
+    "tag_group": "Haupttag",
+    "tag_name": "Sub Tag",
+    "display_tag_rules": "Markierungsregeln anzeigen",
+    "tag_on_left": "Tag, wenn Mitglied die Smartlist verlässt",
+    "tag_on_join": "Markieren, wenn zur Smartlist hinzugefügt wird",
+    "activeSince": "Aktiv seit {{ since }}",
+    "tag": "Tag",
+    "asyncDialog": {
+      "message": "Alle Tags für Mitglieder in dieser Smartlist werden aktualisiert.",
+      "title": "Aktualisierungen der Tag-Regeln "
+    }
+  },
+  "memberBase": {
+    "options": {
+      "0": "Nicht archiviert und archiviert",
+      "1": "Nicht archiviert",
+      "2": "Archiviert"
+    },
+    "helperText": "Wähle, welche Mitglieder du auf dieser Smartlist anzeigen willst:"
+  },
+  "popup": {
+    "sendPopup": "Pop-up senden"
+  },
+  "cadenceListDialog": {
+    "close": "Schließen",
+    "title": "Liste der Kadenzen"
+  },
+  "cadence": {
+    "content": "Wird in der Kadenz verwendet:{{- cadence_name }}",
+    "content_plural": "Verwendet in {{ count }} Kadenzen"
+  },
+  "cannotBeDeletedDialog": {
+    "content": "Sie können diese Smartlist nicht löschen, solange sie in der folgenden Kadenz verwendet wird:",
+    "content_plural": "Sie können diese Smartlist nicht löschen, solange sie in den folgenden Kadenzen verwendet wird:",
+    "cancel": "Schließen",
+    "title": "In einer der Kadenzen verwendet"
+  },
+  "downLoadSavedExport": "Vorherigen Export herunterladen",
+  "generateExport": "Export generieren",
+  "generateHelperText": "Generieren Sie den Export zum Herunterladen der Smartlist",
+  "lastGenerated": "Letzter generierter Export am: {{-date}} {{time}}",
+  "usedInFranchiseCommmunication": "In einer Kampagne von Ihrem Franchise verwendet",
+  "cannotBeDeletedDialogAudience": {
+    "content": "Sie können diese Smartlist nicht löschen, solange sie im folgenden {{ workflowLowerCase }} verwendet wird:",
+    "content_plural": "Sie können diese Smartlist nicht löschen, solange sie in den folgenden {{ workflowPluralLowerCase }} verwendet wird:",
+    "title": "Wird in einem der {{ workflowPluralLowerCase }} verwendet"
+  },
+  "audienceListDialog": {
+    "title": "Liste der {{ workflowPluralLowerCase }}"
+  },
+  "audience": {
+    "content": "Verwendet im {{ workflowLowerCase }}:{{- workflow_name }}",
+    "content_plural": "Verwendet in {{ count }}{{ workflowPluralLowerCase }}"
+  },
+  "downloadReport": "Bericht herunterladen",
+  "generateReport": "Bericht erstellen",
+  "communication": {
+    "scheduled": {
+      "total": "Geplante Nachrichten insgesamt: {{ count }}",
+      "viewAll": "Alle sehen",
+      "isEmpty": "Es sind keine Nachrichten geplant.",
+      "nextScheduledMessage": "Nächste geplante Nachricht"
+    }
+  }
+}

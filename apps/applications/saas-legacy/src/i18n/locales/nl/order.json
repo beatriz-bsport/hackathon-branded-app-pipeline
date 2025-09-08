@@ -1,0 +1,73 @@
+{
+  "deliveryFee": {
+    "forms": {
+      "freeThresholdHelper": "Indien het bedrag van de bestelling dit bedrag overschrijdt, zijn de bezorgkosten gratis",
+      "create": "Verzendkosten toevoegen",
+      "title": "[Formulier] Verzendkosten",
+      "feeLabel": "Verzendkosten",
+      "nameLabel": "Naam",
+      "freeThresholdLabel": "Gratis bezorging vanaf",
+      "onCancel": "Annuleren",
+      "onSubmit": "Opslaan"
+    },
+    "name": "Naam",
+    "fee": "Verzendkosten",
+    "free_threshold": "Gratis vanaf",
+    "offeredAboveAmount": "Gratis bezorging vanaf {{ free_threshold, price }}",
+    "modal": {
+      "delete": {
+        "title": "Verzendkosten verwijderen",
+        "content": "Houd er rekening mee dat deze bewerking definitief is. Voormalige bestellingen die deze vergoeding gebruiken, worden niet gewijzigd.",
+        "cancel": "Annuleren",
+        "confirm": "Verwijderen"
+      }
+    }
+  },
+  "table": {
+    "created_at": "Aangemaakt op",
+    "qty": "Hoeveelheid",
+    "name": "Koper",
+    "state": "Status",
+    "updated_at": "Bijgewerkt op",
+    "actions": "Acties"
+  },
+  "form": {
+    "delivery": {
+      "first_name": "Voornaam",
+      "last_name": "Achternaam"
+    }
+  },
+  "actions": {
+    "flagAsCancelled": "Annuleren",
+    "flagAsOnSiteDelivery": "Afhalen",
+    "flagAsSent": "Verzonden"
+  },
+  "detail": {
+    "section": {
+      "title": "Bestellingsstatus",
+      "deliveryInfo": "Bezorgadres",
+      "productDetail": "Besteloverzicht",
+      "invoice": "Gekoppelde factuur",
+      "member": "Koper"
+    }
+  },
+  "configuration": {
+    "forms": {
+      "onSubmit": "Opslaan"
+    },
+    "noDefaultDeliveryFee": "Geen verzendkosten",
+    "defaultDeliveryFee": "Standaard verzendkosten",
+    "deliveryFee": "Verzendkosten"
+  },
+  "products": {
+    "nbProducts": "artikelen"
+  },
+  "state": {
+    "0": "In afwachting",
+    "700": "Te verwerken",
+    "1100": "Geannuleerd",
+    "1200": "Afhalen",
+    "9000": "Verzonden"
+  },
+  "pageTitle": "Webshop"
+}

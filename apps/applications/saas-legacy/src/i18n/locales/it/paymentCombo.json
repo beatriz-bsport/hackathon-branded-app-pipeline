@@ -1,0 +1,107 @@
+{
+  "link": {
+    "copyLink": "Copia il link nella pagina di pagamento",
+    "copied": "Link copiato"
+  },
+  "list": {
+    "section": {
+      "unavailableOnline": "Non disponibile per la vendita",
+      "availableOnline": "Disponibile alla vendita"
+    },
+    "explainIfEmpty": "Crea qui pacchetti combinati acquistabili dagli alunni che possono contenere pacchetti, oggetti dello shop, ecc ...",
+    "buttons": {
+      "add": "Crea un pacchetto combinato"
+    }
+  },
+  "form": {
+    "available_payment_method_identifiers": {
+      "label": "Mezzi di pagamento autorizzati",
+      "helperText": "Seleziona almeno un metodo di pagamento. Se non è stato selezionato alcun metodo, i pagamenti online saranno proposti come impostazione predefinita."
+    },
+    "manager_only": {
+      "label": "Invisibile ai clienti"
+    },
+    "actions": {
+      "submit": "Salva",
+      "cancel": "Annulla"
+    },
+    "content": "Contenuti",
+    "selectorPlaceholder": {
+      "privatePass": "Pacchetto per appuntamenti",
+      "paymentPack": "Pacchetto",
+      "shopitem": "Shop",
+      "shopItemExcludingvariant": "Shop (prodotti con varianti escluse)"
+    },
+    "title": "[Form] Pacchetti Combinati",
+    "name": {
+      "label": "Nome"
+    },
+    "description": {
+      "label": "Descrizione"
+    },
+    "price": {
+      "label": "Prezzo"
+    },
+    "tax": {
+      "label": "I.V.A."
+    },
+    "new_member_only": {
+      "label": "Solo per i nuovi clienti"
+    },
+    "maxPurchasePerMember": {
+      "helperText": "Lasciare vuoto per non imporre un limite",
+      "label": "Acquisto massimo per membro"
+    },
+    "usePaymentComboTaxOnItems": {
+      "helperText": "Per impostazione predefinita, la tassa applicata a ciascun oggetto è quella indicata sullo stesso. Selezionando questa opzione, potrai applicare una tassa generale sul pacco.",
+      "label": "Applicare un'IVA generale all'intera confezione"
+    },
+    "error": {
+      "atLeastOneThing": "Devi aggiungere almeno un articolo nel tuo pacchetto combinato"
+    },
+    "unusableByStaff": {
+      "label": "Non visibile per lo staff"
+    },
+    "expiration_date": {
+      "label": "Data limite di acquisto",
+      "helperText": "Disponibile fino al",
+      "tooltip": "Dopo la data scelta, il pacchetto combinato non apparirà più in vendita ai clienti."
+    },
+    "highlightedAsRecommended": {
+      "helperText": "Consente ai clienti di vedere rapidamente quali sono i pack attualmente consigliati.",
+      "label": "Contrassegna come suggerito"
+    },
+    "advancedOptions": {
+      "tag": {
+        "tagGroupDuplicated": "Nota che gli articoli selezionati contengono tag della stessa categoria che non possono essere applicati contemporaneamente. Dopo l'acquisto verrà applicato solo il primo di questi tag.",
+        "selectTags": "Seleziona tag",
+        "tagsOnAcquisitionHelper": "Usare i tag per identificare il membro che ha acquistato il pacchetto combinato.",
+        "tagsOnAcquisition": "Tag dopo l'acquisto"
+      },
+      "header": "Avanzate"
+    }
+  },
+  "detail": {
+    "containsNProducts": "Contiene {{n}} prodotti",
+    "description": "Descrizione",
+    "content": "Contenuti",
+    "purchases": "Vendite",
+    "emptyContent": "Questo pacchetto combinato non contiene nulla.",
+    "itemCount": "{{ count }} elemento",
+    "itemCount_plural": "{{ count }} elementi"
+  },
+  "delete": {
+    "content": "Sei sicuro di voler eliminare questo pacchetto combinato? Questa operazione è irreversibile, gli acquisti già effettuati e i prodotti nei carrelli non saranno interessati.",
+    "cancel": "Annulla",
+    "submit": "Rimuovi",
+    "title": "Rimozione del pacchetto combinato"
+  },
+  "pageTitle": {
+    "list": "Pacchetti combinati"
+  },
+  "edit": "Modifica",
+  "search": "Cerca un pack",
+  "parameters": {
+    "unusableByStaff": "Non visibile per lo staff"
+  }
+}

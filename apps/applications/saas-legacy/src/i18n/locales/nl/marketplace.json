@@ -1,0 +1,355 @@
+{
+  "selector": {
+    "coach": {
+      "placeholder": "Instructeur"
+    },
+    "level": {
+      "placeholder": "Niveau"
+    },
+    "establishment": {
+      "placeholder": "Vestiging"
+    },
+    "additionalCoaches": {
+      "placeholder": "Aanvullende instructeur",
+      "placeholder_plural": "Aanvullende instructeurs"
+    }
+  },
+  "warning": {
+    "disconnect": "Afmelden",
+    "backToBackoffice": "Terug naar Back Office",
+    "isManager": "Momenteel ben je met een medewerkersaccount verbonden. Meld je af om de ledenweergave te bekijken of ga terug naar de Back Office."
+  },
+  "workshop": {
+    "noWorkshopAvailable": "Er zijn geen workshops om weer te geven.",
+    "card": {
+      "showMore": "Meer informatie",
+      "book": "Reserveer",
+      "isPast": "Afgelopen",
+      "notAvailable": "Geannuleerd",
+      "duration": "Duur: {{duration}}",
+      "bookOption": "Wachtlijst",
+      "loadMore": "Meer sessies",
+      "bookTitle": "Overzicht"
+    },
+    "warningPartialBooking": "U boekt nu meerdere sessies. U bent echter niet verplicht alle sessies bij te wonen, u kunt de sessies selecteren die u wilt bijwonen.",
+    "warningFullBooking": "Door deze reservering te voltooien sta je ingeschreven bij {{count}} sessie(s).",
+    "confirm": "Bevestigen",
+    "cancel": "Annuleren",
+    "loadMore": "Toon meer",
+    "warningBookingRedirectToFirstOffer": "U bent doorverwezen naar het {{name}} sessiegroep boekingsscherm, de samen te boeken sessies staan vermeld op uw boekingsscherm."
+  },
+  "paymentCombo": {
+    "addToCart": "Aanschaffen"
+  },
+  "calendar": {
+    "registered": "Reservering bevestigd",
+    "close": "Sluiten",
+    "description": "Beschrijving",
+    "conditions": "Voorwaarden",
+    "broadcast": "Online"
+  },
+  "genericCard": {
+    "validForDuration": {
+      "attendance": "Geldig vanaf de eerste aanwezigheid",
+      "booking": "Geldig vanaf de eerste reservering",
+      "purchase": "Geldig vanaf de factuurdatum",
+      "validFromTo": "Geldig van {{duration_date_start}} tot {{duration_date_end}}",
+      "validDaysMonthsYears": "Geldig voor {{duration_years}}, {{ duration_months }} en {{ duration_days }}",
+      "validAnd": "Geldig van {{ first }} - {{ second }}",
+      "validYear": "Geldig voor {{ count }} jaar",
+      "validYear_plural": "Geldig voor {{ count }} jaar",
+      "validMonth": "Geldig voor {{ count }} maand",
+      "validMonth_plural": "Geldig voor {{ count }} maanden",
+      "validDay": "Geldig voor {{ count }} dag",
+      "validDay_plural": "Geldig voor {{ count }} dagen"
+    },
+    "title": {
+      "universalPassMessage": "Een universele kaart van zowel voor groepsactiviteiten en afspraken worden gebruikt.",
+      "autoRenewal": "Automatische verlenging"
+    },
+    "addButton": {
+      "buttonContent": "Toevoegen"
+    },
+    "validity": {
+      "day": "{{count}} dag",
+      "day_plural": "{{count}} dagen",
+      "month": "{{count}} maand",
+      "month_plural": "{{count}} maanden",
+      "year": "{{count}} jaar",
+      "year_plural": "{{count}} jaar"
+    },
+    "details": {
+      "buttonContent": "Details"
+    },
+    "credits": {
+      "unlimited": "Onbeperkt",
+      "availableCredit": "{{count}} credit",
+      "availableCredit_plural": "{{count}} credits"
+    },
+    "price": {
+      "free": "Gratis"
+    }
+  },
+  "genericCardDetails": {
+    "packCard": {
+      "comboItemList": {
+        "hiddenItem": "{{count}} ander element",
+        "hiddenItem_plural": "{{count}} andere elementen",
+        "privatePassItem": "{{count}} afspraakkaart",
+        "privatePassItem_plural": "{{count}} afspraakkaarten",
+        "paymentPackItem": "{{count}} leskaart",
+        "paymentPackItem_plural": "{{count}} leskaarten"
+      }
+    },
+    "includedElements": {
+      "see": "Zie",
+      "penalty": {
+        "penaltyDay": "{{count}} dag",
+        "penaltyDay_plural": "{{count}} dagen",
+        "amount": "{{penalty_amount}} afgetrokken na {{penalty_cancellations}} uit tijd over een periode van {{penalty_days_period}}",
+        "days": "{{penalty_days}} van het blokkeren na {{penalty_cancellations}} buiten de tijd over een {{penalty_days_period}} periode"
+      },
+      "maxPurchasePerMember": "{{count}} aankoop per lid",
+      "maxPurchasePerMember_plural": "{{count}} aankoop per leden",
+      "restrictions": {
+        "maxPerMonth": "Maximaal gebruik per maand: <strong>{{count}}</strong>",
+        "maxPerMonth_plural": "Maximaal gebruik maanden: <strong>{{count}}</strong>",
+        "perMonth": "{{count}} gebruik per maand",
+        "perMonth_plural": "{{count}} gebruik per maanden",
+        "maxPerWeek": "Maximaal gebruik per week: <strong>{{count}}</strong>",
+        "maxPerWeek_plural": "Maximaal gebruik weken: <strong>{{count}}</strong>",
+        "perWeek": "{{count}} gebruik per week",
+        "perWeek_plural": "{{count}} gebruik per weken",
+        "maxPerDay": "Maximaal gebruik per dag: <strong>{{count}}</strong>",
+        "maxPerDay_plural": "Maximaal gebruik dagen: <strong>{{count}}</strong>",
+        "perDay": "{{count}} gebruik per dag",
+        "perDay_plural": "{{count}} gebruik per dagen",
+        "title": "Beperkingen op het gebruik"
+      },
+      "newMemberOnly": "Alleen voor nieuwe leden",
+      "isUniversalPass": "Universele kaart",
+      "compatibleWithEverything": "Compatibel met alle",
+      "onlyVodAccess": "Alleen beschikbaar voor VOD",
+      "fullVodAccess": "VOD-compatibel",
+      "onsitePaymentAvailable": "Betaling ter plaatse mogelijk",
+      "cancellation": "{{count}} annulering",
+      "cancellation_plural": "{{count}} annuleringen",
+      "penaltyNoShow": {
+        "block": "{{days_blocked}} van blokkering na {{threshold}} over een periode van {{time_window_days}}.",
+        "account": "Een storting van {{amount}} zal worden toegepast voor {{threshold}} over een periode van {{time_window_days}}.",
+        "penaltyDay": "{{count}} dag",
+        "penaltyDay_plural": "{{count}} dagen",
+        "threshold": "{{count}} absent",
+        "threshold_plural": "{{count}} absenties"
+      },
+      "offPeakRestrictions": {
+        "title": "Alleen compatibel tussen bepaalde tijden"
+      }
+    },
+    "restrictions": "Restricties",
+    "compatibility": {
+      "packs": {
+        "and": " en ",
+        "categoriesAndActivitiesAndEstablishments": "Compatibel met {{ categories }}, {{ establishments }} en {{ activities }} ",
+        "establishmentsAndActivities": "Compatibel met {{ establishments }} en {{ activities }} ",
+        "categoriesAndEstablishment": "Compatibel met {{ categories }} en {{ establishments }} ",
+        "categoriesAndActivities": "Compatibel met {{ categories }} en {{ activities }} ",
+        "establishments": "Compatibel met {{ count }} vestiging",
+        "establishments_plural": "Compatibel met {{ count }} vestigingen",
+        "activities": "Compatibel met {{ count }} activiteit",
+        "activities_plural": "Compatibel met {{ count }} activiteiten",
+        "categories": "Compatibel met {{ count }} categorie",
+        "categories_plural": "Compatibel met {{ count }} categorieën",
+        "compatible": "Compatibel met ",
+        "all": "Compatibel met alle"
+      },
+      "compatibilityModal": {
+        "establishments": "Vestigingen",
+        "activities": "Activiteiten",
+        "categories": "Categoriën"
+      },
+      "establishments": "{{ count }} vestiging",
+      "establishments_plural": "{{ count }} vestigingen",
+      "activities": "{{ count }} activiteit",
+      "activities_plural": "{{ count }} activiteiten",
+      "categories": "{{ count }} categorie",
+      "categories_plural": "{{ count }} categoriën",
+      "button": {
+        "close": "Sluit"
+      },
+      "allPrivateSlotsAvailables": "Alle soorten sessies",
+      "compatibilities": "Compatibel",
+      "compatible": "Compatibel met {{count}} afspraak",
+      "compatible_plural": "Compatibel met {{count}} afspraken",
+      "none": "Geen afspraak mogelijk"
+    },
+    "credits": {
+      "unlimited": "Onbeperkt",
+      "availableCredit": "{{credits}} credit",
+      "availableCredit_plural": "{{credits}} credits"
+    },
+    "compatibleTimeSlot": "Compatibele tijdsloten"
+  },
+  "packCard": {
+    "comboItemList": {
+      "hiddenItem": "{{count}} ander element",
+      "hiddenItem_plural": "{{count}} andere elementen",
+      "paymentPackItem": "{{count}} leskaart",
+      "paymentPackItem_plural": "{{count}} leskaarten",
+      "privatePassItem": "{{count}} afspraakkaart",
+      "privatePassItem_plural": "{{count}} afspraakkaarten"
+    }
+  },
+  "subscriptionCard": {
+    "invoice": "{{ count }} factuur",
+    "invoice_plural": "{{ count }} facturen",
+    "billingInterval": {
+      "month": "maand",
+      "month_plural": "Elke {{ count }} maanden",
+      "week": "week",
+      "week_plural": "Elke {{ count }} weken",
+      "year": "jaar",
+      "year_plural": "Elke {{ count }} jaren",
+      "day": "dag",
+      "day_plural": "elke {{ count }} dagen"
+    },
+    "fees": "Aanvraagkosten : {{ fees }}",
+    "registerButton": "Abonneren op"
+  },
+  "packCardDetail": {
+    "comboItemList": {
+      "content": "Inhoud"
+    }
+  },
+  "contractCard": {
+    "autoRenewal": "automatische verlenging",
+    "legalContract": "Voorwaarden",
+    "seeMore": "Toon meer",
+    "seeLess": "Zie minder",
+    "registerButton": "Abonneren",
+    "invoice": "{{ count }} Factuur",
+    "invoice_plural": "{{ count }} facturen",
+    "fees": "Inschrijfkosten: {{ fees }}",
+    "billingInterval": {
+      "day": "dag",
+      "day_plural": "Elke {{ count }} dagen",
+      "year": "Jaar",
+      "year_plural": "Elk {{ count }} Jaar",
+      "week": "Week",
+      "week_plural": "Elke {{ count }} weken",
+      "month": "maand",
+      "month_plural": "Elke {{ count }} maanden"
+    },
+    "chooseButton": "Kies"
+  },
+  "pass": {
+    "search": {
+      "goBack": "Terug naar de volledige lijst",
+      "result": "{{count}} resultaat voor \"{{queryText}}\"",
+      "result_plural": "{{count}} resultaten voor \"{{queryText}}\""
+    },
+    "filters": {
+      "placeholder": {
+        "categories": "Categorie",
+        "type": "Type"
+      },
+      "type": {
+        "privatePass": "Afspraakkaarten",
+        "paymentPack": "Leskaarten"
+      },
+      "noCategory": "Zonder categorie"
+    }
+  },
+  "defaultTabTitle": {
+    "workshop": "Workshops",
+    "vod": "Video On Demand",
+    "subscription": "Abonnement",
+    "shop": "Webshop",
+    "privateService": "Afspraken",
+    "playlist": "Afspeellijsten",
+    "pass": "Leskaarten",
+    "giftcard": "Cadeaubonnen",
+    "calendarV2": "Kalender",
+    "calendar": "Kalender"
+  },
+  "passes": {
+    "details": "Details",
+    "buy": "Koop",
+    "search": "Zoeken",
+    "filters": "Filters",
+    "title": "Leskaarten",
+    "drawerTitle": {
+      "tabs": "Selecteer een type kaart"
+    },
+    "tabs": {
+      "appointmentPasses": "Afspraakkaarten",
+      "passes": "Leskaarten",
+      "all": "Alle"
+    },
+    "to": "in",
+    "addToCart": "Aan winkelmandje toevoegen",
+    "close": "Sluit",
+    "detail": {
+      "restriction": {
+        "monthly": "Kan maar {{ amount }} keer per maand worden gebruikt.",
+        "monthly_plural": "Kan maar {{ amount }} keer per maand worden gebruikt.",
+        "weekly": "Kan maar {{ amount }}  keer per week gebruikt worden.",
+        "weekly_plural": "Kan maar {{ amount }} keer per week gebruikt worden.",
+        "daily": "Kan maar {{ amount }} keer per dag gebruikt worden.",
+        "daily_plural": "Kan maar {{ amount }} keer per dag gebruikt worden.",
+        "title": "Beperkingen op het gebruik"
+      },
+      "compatibility": {
+        "labels": {
+          "room": "Vestigingen",
+          "activity": "Activiteiten",
+          "category": "Categorieën"
+        },
+        "contents": {
+          "sessions": "Compatibele sessies: {{ sessionsList }}",
+          "allSessions": "Compatibel met alle sessies",
+          "noAppointments": "Geen compatibele afspraken",
+          "bookingForGuest": "Kan worden gebruikt om <strong>een gast uit te nodigen</strong>",
+          "vod": "Kan worden gebruikt voor <strong>Video's op aanvraag</strong>",
+          "allTimeSlots": "Compatibel met alle tijdsloten",
+          "allCategories": "Compatibel met alle categorieën van de studio",
+          "allRooms": "Compatibel met alle ruimtes van de studio",
+          "allActivities": "Compatibel met alle activiteiten van de studio"
+        },
+        "subtitles": {
+          "sessions": "Compatibele sessies",
+          "timeSlots": "Compatibele tijdsloten",
+          "activity": "Compatibele activiteiten"
+        },
+        "titles": {
+          "main": "Compatibiliteit",
+          "appointment": "Afspraak compatibiliteit",
+          "activity": "Activiteiten compatibiliteit",
+          "studios": "Compatibele studios"
+        }
+      },
+      "description": {
+        "showLess": "Toon minder",
+        "showMore": "Toon meer"
+      },
+      "availability": {
+        "validUntil": "Geldig tot {{ expirationDate }}",
+        "future": "Start op {{ startDate }}",
+        "expired": "Vervallen op {{ expirationDate }}",
+        "suspendedUntil": "Opgeschort tot {{ endDate }}",
+        "suspended": "Opgeschort",
+        "active": "Geldig van {{ startDate }} tot {{ expirationDate }}"
+      },
+      "header": {
+        "onsitePaymentAvailable": "Betaling ter plaatse mogelijk",
+        "fullVodAccess": "VOD-compatibel",
+        "onlyVodAccess": "Alleen beschikbaar voor VOD",
+        "isUniversalPass": "Universele leskaart",
+        "newMemberOnly": "Alleen voor nieuwe leden",
+        "unlimited": "Onbeperkt",
+        "credits": "{{count}} credit",
+        "credits_plural": "{{count}} credits"
+      }
+    }
+  }
+}

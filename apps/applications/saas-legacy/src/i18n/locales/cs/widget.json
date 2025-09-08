@@ -1,0 +1,66 @@
+{
+  "widget": {
+    "components": {
+      "workshopPage": "Stránká workshopu",
+      "activity": "Popup s podrobnostmi o aktivitě",
+      "datePicker": "Výběr data",
+      "bookButton": "Rezervační tlačítko",
+      "groupOfferListItem": "Podrobnosti o skupinové lekce",
+      "cardOffer": "Podrobnosti o lekci (zobrazit kalendář)",
+      "workshopsComponent": "Podrobnosti o workshopu",
+      "offerListItem": "Podrobnosti lekce"
+    },
+    "customCss": {
+      "dialog": {
+        "confirm": "Potvrdit",
+        "cancel": "Zrušit"
+      },
+      "save": "Uložit",
+      "savedChanges": "Poslední úpravy uloženy",
+      "unsavedChanges": "Změny nebyly uloženy"
+    },
+    "cssEditor": {
+      "dialog": {
+        "confirm": "Potvrdit",
+        "cancel": "Zrušit"
+      },
+      "submit": "Uložit",
+      "spacing": "Rozmezi",
+      "backgroundColor": "Barvy pozadí",
+      "colors": "Barvy",
+      "typography": "Typografie"
+    },
+    "groupSessionByPeriod": "Oddělit ráno, odpoledne a večer",
+    "configDialog": {
+      "cancel": "Zavřit",
+      "submit": "Potvrdit"
+    },
+    "variantOption": {
+      "activityName": "Aktivita",
+      "coach": "Instruktor",
+      "time": "Čas"
+    },
+    "codeSource": "Podívat se na kód, který musíte zkopírovat na svůj vlastní web",
+    "copy": "Kopírka",
+    "url": "Odkaz na kalendář",
+    "code": "Widget na vašem webu",
+    "choice": "Vyberte, jak chcete widget zobrazit",
+    "visualisation": "Vizualizace",
+    "widget": "Sdílit kalendář",
+    "displayType": "Typ displeje",
+    "return": "Zpět",
+    "show": "Přehled",
+    "cancel": "Storno",
+    "responsiveDisplay": "Zobrazit",
+    "todayOnly": "Přehled dnešných lekci",
+    "calendarDisplay": "Přehled tydne karty",
+    "listDisplay": "Přehled minulého týdne",
+    "configTitle": "Můj Widget",
+    "containerConfiguration": {
+      "title": "Obecná konfigurace"
+    }
+  },
+  "customizeCss": "Personalizace css",
+  "customize": "Personalizace",
+  "create": "Všeobecné"
+}

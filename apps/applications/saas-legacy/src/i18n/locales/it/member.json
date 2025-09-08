@@ -1,0 +1,442 @@
+{
+  "showNextBooking": "Vedi le prenotazioni future",
+  "forms": {
+    "create": {
+      "success": "Membro aggiunto",
+      "title": "Nuovo membro"
+    },
+    "merge": {
+      "explainCredit": "L'acconto interno del membro verrà trasferito",
+      "explainBookingsAndPassAndInvoiceAndNotes": "I pacchetti, le prenotazioni, le ricevute e le annotazioni verranno trasferite.",
+      "explainTags": "I tag dei membri eliminati non verranno spostati",
+      "submit": "Unisci",
+      "title": "Accorpa membri",
+      "cancel": "Annulla",
+      "seeMemberPage": " Vedi la pagina dei membri",
+      "success": "Soci accorpati",
+      "error": "Impossibile accorpare i membri",
+      "srcMember": "Socio da accorpare (eliminato)",
+      "dstMember": "Membro da tenere",
+      "emailWillBeSend": "Un'e-mail sarà inviata a entrambi gli indirizzi per informare i membri.",
+      "confirmation": {
+        "willNotifyInfo": "Questi profili saranno uniti in tutto il franchising. Questa operazione può richiedere del tempo, ma ti informeremo una volta completata.",
+        "mergeIsPermanentWarning": "L'unione di due membri trasferirà il saldo interno, prenotazioni, pacchetti, note e ricevute. <strong>Questa azione non può essere annullata una volta confermata.</strong>\n\n Solo i tag del membro eliminato non verranno trasferiti. Un messaggio verrà inviato a entrambi gli indirizzi email per avvisare i membri.",
+        "title": "Sei sicuro di voler unire questi membri?",
+        "confirm": "Conferma"
+      }
+    },
+    "error": "Impossibile salvare il membro",
+    "update": {
+      "title": "Modifica informazioni",
+      "success": "Dettagli membro aggiornati con successo"
+    },
+    "phone": {
+      "error": "Numero di telefono non valido"
+    },
+    "needInformationValidation": {
+      "button": {
+        "memberOfCompany": "Completa le mie informazioni",
+        "notMemberYet": "Conferma"
+      },
+      "legend": {
+        "memberOfCompany": "Completare le informazioni richieste per continuare la navigazione.",
+        "notMemberYet": "Vuoi inviare le tue informazioni per la registrazione? "
+      },
+      "subtitle": {
+        "memberOfCompany": "Dicci di più su di te.",
+        "notMemberYet": "Sembra che questa sia la prima volta che ti connetti a questo studio"
+      },
+      "welcome": "Buongiorno {{- firstname }}"
+    },
+    "title": "Informazioni sull'utente",
+    "newMemberOnlyHelperText": "I membri sono considerati \"nuovi\" finché non hanno effettuato un acquisto superiore a 0 €. Nota bene: se un membro acquista un prodotto con uno sconto del 100%, questo verrà comunque conteggiato come un acquisto."
+  },
+  "user": {
+    "existsWithPhone": "Un utente con il numero di telefono {{phonenumber}} esiste già.",
+    "existsWithEmail": "Un utente con l'indirizzo di posta elettronica {{email}} esiste già.",
+    "existsWithPhoneButNotConfirmed": "Esiste già un utente con numero di telefono {{phonenumber}}, ma la sua email ({{email}}) è in attesa di conferma. Registrando questo utente, la sua email verrà automaticamente verificata.",
+    "existsWithEmailButNotConfirmed": "Esiste già un utente con l'indirizzo email {{email}}, ma la sua email è in attesa di conferma. Registrando questo utente, la sua email verrà automaticamente verificata."
+  },
+  "paymentAction": {
+    "toBill": "Acquista",
+    "toSubscribe": "Abbonamenti ricorrenti"
+  },
+  "member": {
+    "existsWithPhone": "Un membro con il numero di telefono {{phonenumber}} esiste già.",
+    "existsWithEmail": "Un membro con l'indirizzo di posta elettronica {{email}} esiste già.",
+    "existsWithPhoneButNotConfirmed": "Esiste già un membro con il numero di telefono {{phonenumber}}, ma la sua email ({{email}}) è in attesa di conferma. Registrando questo membro, la sua email sarà verificata automaticamente.",
+    "existsWithEmailButNotConfirmed": "Esiste già un membro con l'indirizzo email {{email}}, ma la sua email è in attesa di conferma. Registrando questo membro, la sua email sarà verificata automaticamente."
+  },
+  "exists": {
+    "linkUser": "Collega utente",
+    "merge": "Unisci",
+    "goTo": "Vedi membro",
+    "quicksale": "Seleziona questo membro"
+  },
+  "engagement": "Impegno",
+  "memberList": "Elenco dei membri",
+  "cashoutBalance": "Saldo di cassa",
+  "linkDialog": {
+    "title": "Collega un utente esistente",
+    "confirm": "Confermo",
+    "content": "Questo account è stato originariamente utilizzato in un altro club, ora sarà collegato a questo club.",
+    "cancel": "Annulla"
+  },
+  "table": {
+    "show": "Mostra"
+  },
+  "barcode": {
+    "none": "nessuno",
+    "code": "Codice a barre",
+    "display": "Mostra il codice a barre",
+    "label": "Codice a barre"
+  },
+  "nextBooking": "prossimo: ",
+  "note": {
+    "addNote": "Aggiungi una nota",
+    "myNotes": "Le mie note",
+    "noNoteSaved": "Nessuna nota salvata",
+    "healthNotes": "Informazioni di base",
+    "is_medical": "Annotazione essenziale"
+  },
+  "file": {
+    "deleteFileMessage": "Sei sicuro di voler eliminare questo documento?",
+    "confirm": "Conferma",
+    "add": "Aggiungi un documento",
+    "submit": "Inserisci",
+    "nofileSaved": "Nessun documento salvato",
+    "upload_file": "Aggiungi un documento",
+    "name": "Nome",
+    "drop_file": "Trascina e rilascia o fai clic per aggiungere un documento",
+    "cancel": "Annulla",
+    "addButtonBlocked": "Elimina i documenti per aggiungere i nuovi",
+    "deletion": "Rimuovi",
+    "imported": "Documento importato!",
+    "title": "I miei documenti"
+  },
+  "merge": "Unisci",
+  "bornIn": "Nato il ",
+  "memberSince": "Data di registrazione ",
+  "showPreviousBooking": "Vedi le prenotazioni precedenti",
+  "menu": {
+    "invoices": "Ricevute e abbonamenti ricorrenti",
+    "relation": "Connessioni",
+    "paymentPack": "Pacchetti",
+    "info": "Generale",
+    "bookings": "Prenotazioni",
+    "contact": "Contatti",
+    "payment": "Contabilizzazione",
+    "privateBooking": "Appuntamenti",
+    "privateConsumerPass": "Pacchetti per appuntamenti",
+    "vod": "VOD",
+    "form": "Moduli",
+    "giftcard": "Gift card",
+    "programs": "Programmi",
+    "basket": "Cesto"
+  },
+  "addMember": "Aggiungi il profilo di un membro",
+  "name": "Nome",
+  "date_joined": "Data di registrazione",
+  "invoiceTitle": "Ricevute",
+  "subscriptionTitle": "Iscrizioni",
+  "offers_joined": "Numero di sessioni registrate",
+  "pass_owner": "Non valido",
+  "pastBooking": "ultima: ",
+  "regularizeBalance": "Regolarizza",
+  "creditAccountBalance": "Credito residuo del cliente",
+  "showPaymentPack": "Mostra pacchetto",
+  "showInvoices": "Mostra ricevute",
+  "showSubscriptions": "Mostra abbonamenti ricorrenti",
+  "relation": {
+    "pleaseSelectRelation": "Seleziona una relazione per visualizzare i pacchetti condivisi"
+  },
+  "row": {
+    "headers": {
+      "actions": "Azioni",
+      "newsletter_email": "Accettare le e-mail"
+    },
+    "update": "Modifica",
+    "no": "No",
+    "yes": "Si"
+  },
+  "search": {
+    "cancel": "Chiudi",
+    "createMember": "Aggiungi un membro"
+  },
+  "birth": {
+    "unknown_F": "Nato il -",
+    "unknown": "Nato il -",
+    "bornIn_F": "Nato il {{-date}} - {{age}} anni",
+    "bornIn": "Nato il {{-date}} - {{age}} anni"
+  },
+  "memberTermsAccepted": " sono stati accettati il {{- date}}",
+  "termsAndConditions": "Condizioni generali di vendita",
+  "applyBalanceToUnpaidInvoices": "Applica il saldo alle ricevute non pagate",
+  "adjustBalance": "Regola il saldo",
+  "unpaidInvoiceTitle": "Ricevuta non pagata",
+  "unpaidInvoiceTitle_plural": "Ricevute non pagate",
+  "vaccinationStatus": {
+    "unknown": "Stato del pass sanitario sconosciuto",
+    "notDone": "No pass sanitario valido",
+    "done": "Pass sanitario valido"
+  },
+  "noMember": "Non ci sono membri da visualizzare al momento.",
+  "noData": "Non ci sono membri in questa smartlist.",
+  "archive": {
+    "dialog": {
+      "actions": {
+        "confirm": "Confermare",
+        "close": "Chiudere"
+      },
+      "warning": {
+        "0": "Bilancio interno negativo",
+        "1": "Ricevute non pagate",
+        "2": "Abbonamento corrente",
+        "3": "Abbonamento ricorrente con rinnovo automatico in corso",
+        "4": "Prenotazione(i) futura(e) prevista(e)",
+        "5": "Prenotazioni ricorrenti registrate",
+        "6": "Appuntamento(i) programmato(i)",
+        "general": "Abbiamo individuato i seguenti punti, vi consigliamo di regolarizzare il conto di questo cliente prima di archiviarlo:"
+      },
+      "helper_text_2": "Questo membro non apparirà più nella tua lista di membri.",
+      "helper_text_1": "Sei sicuro di voler archiviare questo membro?",
+      "title": "Archiviare un membro"
+    },
+    "archivedMember": "Membro archiviato: {{- name}}"
+  },
+  "termsOfUse": "Condizioni generali d'uso",
+  "archived": "Archiviato",
+  "restoreMember": "Ripristinare",
+  "changeEmailRequest": {
+    "dialog": {
+      "titleMerge": " Fusione di membri",
+      "title": "Cambio di e-mail",
+      "actions": {
+        "confirm": "Conferma",
+        "close": "Cancella"
+      },
+      "cancelHelperText": "Se non vuoi cambiare l'email del membro clicca su \"annulla\".",
+      "securityHelperText": "Per ragioni di sicurezza gli invieremo un'e-mail per confermare questo cambiamento.",
+      "expiryText": "Una volta presentata, la richiesta di modifica scadrà entro 7 giorni",
+      "oldEmail": "Vecchio indirizzo email: {{ email }}",
+      "newEmail": "Nuovo indirizzo email: {{ email }}",
+      "mergeMember": {
+        "unchangedEmail": "Cliccando su conferma il membro {{ new_email }} recupererà le ricevute, le prenotazioni, il saldo e gli acquisti di {{ old_email }}. Il membro {{ old_email }} sarà cancellato. Un'email sarà inviata a entrambi gli indirizzi per informare i membri.",
+        "warning": "Attenzione, si sta cercando di collegare questi due membri del vostro studio:"
+      },
+      "linkMember": {
+        "notIncompany": "L'email {{ new_email }} appartiene a un membro di un altro studio.",
+        "unchangedEmail": "Nel frattempo {{ old_email }} manterrà la sua vecchia email e i membri non saranno collegati.",
+        "warning": "Attenzione, si sta cercando di collegare questi due membri:"
+      },
+      "simpleChange": {
+        "unchangedEmail": "Nel frattempo manterrà la sua vecchia email.",
+        "warning": "Attenzione, hai cambiato l'email di login di questo membro:",
+        "informativeHelperText": "Per vostra informazione vi invieremo un'e-mail per informarvi di questo cambiamento."
+      }
+    },
+    "pendingValidation": "Cambiamento in sospeso: {{ email }}",
+    "memberPage": {
+      "unAuthorizedAccess": {
+        "contactCompany": "Se non siete in grado di soddisfare questa richiesta, contattate direttamente il vostro studio.",
+        "helper": "Non sei autenticato all'account che può accedere a questa applicazione, per favore accedi all'account associato all'email di conferma inviata.",
+        "title": "Accesso non autorizzato"
+      },
+      "generalError": {
+        "contactCompany": "Tuttavia, abbiamo rilevato un errore nella richiesta attuale, quindi per motivi di sicurezza questa richiesta è ora disabilitata. Per rigenerare questa richiesta, o se non sei tu l'autore, contatta direttamente il tuo studio.",
+        "helper": "Lo studio {{- company }} aveva fatto una richiesta per cambiare la tua email di accesso al tuo spazio personale:",
+        "title": "Modifica dell'e-mail di accesso non valida"
+      },
+      "requestingStudio": "Lo studio {{- company }} vorrebbe cambiare la tua email di accesso al tuo spazio personale:",
+      "actions": {
+        "continue": "Continua",
+        "confirmFusion": "Accettare la fusione",
+        "deniedFusion": "Rifiutare la fusione",
+        "cancel": "Mantenere il mio indirizzo",
+        "confirm": "Confermare il mio nuovo indirizzo"
+      },
+      "linkAccount": {
+        "error": {
+          "accepted": {
+            "contactCompany": "Se desiderate cambiare la vostra scelta o se questa richiesta non proviene da voi, contattate il vostro studio.",
+            "helper": "La tua attuale email di accesso è: {{ email }}",
+            "title": "Fusione accettata"
+          },
+          "denied": {
+            "contactCompany": "Se desideri richiedere nuovamente la fusione del tuo conto o se non hai rifiutato la richiesta di fusione, contatta direttamente il tuo studio.",
+            "helper": "Hai già fatto la scelta di rifiutare la richiesta di fusione allo studio {{- company }}, la tua decisione è stata presa in considerazione.",
+            "title": "Fusione rifiutata"
+          }
+        },
+        "submit": {
+          "denied": {
+            "content": "Il tuo account non è stato unito a {{ new_email }}. Il tuo indirizzo di login rimarrà {{ old_email}}.",
+            "title": "Fusione rifiutata"
+          },
+          "accept": {
+            "content": "Il tuo account è stato fuso con l'account {{ old_email }}. Ora sei un membro dello studio {{- company }}. Usa {{ new_email }} per accedere al tuo account.",
+            "title": "Fusione accettata"
+          },
+          "accepted": {
+            "title": "Fusione accettata",
+            "content": "Il tuo account è stato unito con successo all'account {{ old_email }}. Ora sei un membro dello studio {{- company }}. Usa {{ new_email }} per accedere al tuo account."
+          }
+        },
+        "dstUser": {
+          "deniedRequestHelper": "Se non desideri unire questi conti o se non hai avviato questa richiesta, clicca su \"rifiuta l'unione\". Questo eviterà che i conti vengano uniti e non sarai registrato con {{- company }}.",
+          "acceptRequestHelper": "Per accettare la fusione dei conti, clicca su \"accettare la fusione\".",
+          "notMemberYet": "Abbiamo rilevato che non fai ancora parte dello studio {{- company }}. Se accetti di unire i due account, sarai registrato con lo studio {{- company }} e riceverai le informazioni e le prenotazioni dall'account {{ old_email }}. Manterrai i tuoi attuali dettagli di accesso a {{ new_email }}. Da questo indirizzo potrai gestire tutti gli studi a cui sei iscritto.",
+          "requestingStudio": "Lo studio {{- company }} ha richiesto di unire il tuo account {{ new_email }} con l'account {{ old_email }}."
+        },
+        "veto": {
+          "deniedRequestHelper": "Se non desideri unire questi conti o se non hai avviato questa richiesta, clicca su \"rifiuta l'unione\". Questo eviterà che gli account vengano uniti e tu manterrai i tuoi dati di accesso.",
+          "acceptRequestHelper": "Per accettare la fusione dell'account, vai al tuo indirizzo {{ email }} e clicca sul link nell'email che ti abbiamo inviato.",
+          "requestExplanation": "Abbiamo rilevato che l'indirizzo {{ email }} è già in uso presso un altro studio. Lo studio {{- company }} ha richiesto di unire il tuo account con quest'altro account. Se accetti di unire i due account, i tuoi nuovi dettagli di accesso (email e password) saranno per l'account {{ email }}. Sarete in grado di gestire tutti gli studi a cui siete iscritti da un solo indirizzo."
+        },
+        "title": "Unisci il tuo account"
+      },
+      "simpleEmailChange": {
+        "error": {
+          "emailTaken": {
+            "contactCompany": "Tuttavia, nel frattempo è stato creato un account con l'indirizzo {{ email }}. Questa richiesta è ora decaduta. Se l'indirizzo email {{ email }} ti appartiene ma non hai creato l'account associato, contatta direttamente il tuo studio.",
+            "helper": "Lo studio {{- company }} aveva fatto una richiesta per cambiare la tua email di accesso al tuo spazio personale:",
+            "title": "Email di accesso già presa"
+          },
+          "delayExceeded": {
+            "contactCompany": "Se vuoi richiedere di nuovo un cambio di indirizzo di accesso, contatta il tuo studio.",
+            "helper": "Lo studio {{- company }} ti ha inviato una richiesta per confermare un cambio di email di accesso. Il periodo di validità di 7 giorni di questa richiesta è scaduto.",
+            "title": "Cambia la tua email di accesso"
+          },
+          "renewed": {
+            "contactCompany": "Se non riesci a trovare questa nuova applicazione, contatta il tuo studio.",
+            "helper": "Sembra che lo studio {{- company }} ti abbia inviato una richiesta per cambiare il tuo indirizzo di login. Questa vecchia richiesta è scaduta. Per trovare la nuova richiesta, controlla la tua email e lo spam.",
+            "title": "Cambia la tua email di accesso"
+          },
+          "alreadyDenied": {
+            "currentEmail": "La tua attuale email di accesso è: {{ email }}.",
+            "contactCompany": "Se non avete iniziato questo cambiamento o desiderate cambiare la vostra decisione, contattate direttamente il vostro studio.",
+            "helper": "Hai già selezionato un'email di accesso a {{- company }}, la tua decisione è stata presa in considerazione.",
+            "title": "Avete già rifiutato questa richiesta"
+          },
+          "alreadyAccepted": {
+            "currentEmail": "La tua attuale email di accesso è: {{ email }}.",
+            "contactCompany": "Se non avete iniziato questo cambiamento o desiderate cambiare la vostra decisione, contattate direttamente il vostro studio.",
+            "helper": "Hai già selezionato un'email di accesso a {{- company }}, la tua decisione è stata presa in considerazione.",
+            "title": "Hai già convalidato questa richiesta"
+          }
+        },
+        "submit": {
+          "emailPreservedTo": "Il tuo indirizzo di login rimarrà {{ email }}",
+          "emailUpatedTo": "Il tuo indirizzo di login è stato cambiato in {{ email }}. Usa questo indirizzo come nuovo login.",
+          "deniedTitle": "Indirizzo di connessione mantenuto",
+          "acceptedTitle": "Indirizzo di accesso cambiato"
+        },
+        "multipleCompanyHelper": "Il tuo indirizzo e-mail è comune a tutti gli studi che utilizzano la soluzione Bsport. Sarà quindi cambiato per tutti questi studi. Gli studi colpiti saranno i seguenti:",
+        "deniedRequestHelper": "Se questa richiesta non proviene da voi o se non desiderate cambiare il vostro indirizzo, cliccate su \"mantenere il mio indirizzo\"",
+        "acceptRequestHelper": "Se vuoi cambiare il tuo indirizzo con questo nuovo indirizzo e-mail, clicca su \"conferma il mio nuovo indirizzo\".",
+        "title": "Cambia la tua email di accesso"
+      }
+    }
+  },
+  "archiveMember": "Archivio",
+  "actions": "Azioni",
+  "communication": "Comunicazione",
+  "accountBalance": "Saldo",
+  "events": {
+    "member-custom_form_filled": {
+      "filter": "Form profilo modificato",
+      "primaryText": "Il form {{- formName }} di modifica del profilo è stato completato."
+    },
+    "member-vod_bought": {
+      "primaryText": "Il VOD {{- VODName }} è stato acquistato.",
+      "filter": "VOD acquistato"
+    },
+    "member-basket_paid": {
+      "filter": "Carrello pagato",
+      "primaryText": "È stato pagato un carrello di {{ amount }}. "
+    },
+    "member-booking_registered": {
+      "filter": "Prenotazioni",
+      "primaryText": "{{ source }} sessione {{- offerName }} prenotata il {{- offerDate }}.",
+      "sourceManager": "Il manager {{ managerName }}"
+    },
+    "member-giftcard_used": {
+      "primaryText": "La gift card {{- giftcardName }} è stata attivata.",
+      "filter": "Gift card utilizzate"
+    },
+    "member-invoice_paid": {
+      "filter": "Ricevute pagate",
+      "primaryText": "La ricevuta n°{{ invoiceUUID }} è stata pagata per {{ amount }}."
+    },
+    "member-login_successful": {
+      "filter": "Connessione riuscita",
+      "sourceMarketplace": "dal marketplace",
+      "primaryText": "E' stata registrata correttamente la connessione {{ source }}.",
+      "sourceApp": "dall'app"
+    },
+    "member-private_booking_registered": {
+      "primaryText": "{{ source }} ha prenotato l'appuntamento {{- privateServiceName }} - {{- privateSlotName }} da {{- privateServiceDate }}.",
+      "sourceManager": "Il manager {{- managerName }}",
+      "filter": "Appuntamento"
+    },
+    "member-tag_applied": {
+      "filter": "Tag applicati",
+      "primaryText": "Il tag {{- tagName }} è stato applicato."
+    },
+    "member-booking_canceled": {
+      "filter": "Prenotazioni eliminate",
+      "primaryText": "La prenotazione per {{- name }} il {{- date_start }} è stata cancellata."
+    },
+    "member-private_booking_canceled": {
+      "filter": "Appuntamenti eliminati",
+      "primaryText": "L'appuntamento per {{- private_service_name}} - {{- private_slot_name }} il {{- date_start }} è stato cancellato."
+    }
+  },
+  "resetPassword": {
+    "confirmation": "Istruzioni inviate con successo a {{memberEmail}}",
+    "error": "Errore durante l'invio delle istruzioni per la reimpostazione della password",
+    "button": "Reimposta la password",
+    "dialogTitle": "Reimpostazione della password",
+    "dialogContent": "Stai per inviare le istruzioni per reimpostare la password a {{memberEmail}}"
+  },
+  "memberTable": {
+    "error": "Si è verificato un errore"
+  },
+  "membershipNumber": {
+    "value": "N°{{id}}",
+    "label": "Numero membro"
+  },
+  "officialIdNumber": {
+    "value": "N°{{id}}",
+    "label": "Codice fiscale"
+  },
+  "signedUpWithReferral": "Il membro si è iscritto tramite il link di <1>{{- name }}</1>",
+  "email": "Email",
+  "leads": {
+    "dialogs": {
+      "errors": {
+        "71000": "Attendere la finalizzazione dell'importazione in corso",
+        "71001": "Questo file non ha il numero di colonne richiesto, ha {{column_count}} colonne nella riga {{row_count}}",
+        "71002": "Questo file supera il limite massimo di dimensione",
+        "71003": "Impossibile decodificare il file. Assicurarsi che non sia danneggiato o in un formato non supportato",
+        "title": "Sfortunatamente, il processo di importazione è fallito perché:",
+        "unknown": "Si è verificato un errore imprevisto"
+      },
+      "partialSuccess": {
+        "successImportSubtext": "Membri creati",
+        "failedImportSubtext": "Righe errate",
+        "fileName": "fileMembri.csv",
+        "lineTwoMessage": "Per cortesia, trova i 2 file che dettagliano la situazione:",
+        "lineOneMessage": "Tuttavia, gli account per i membri con dati corretti sono stati creati con successo.",
+        "title": "Alcune righe nel file contenevano errori e non sono state elaborate"
+      },
+      "success": "I membri sono stati importati con successo"
+    },
+    "notACSV": {
+      "goToIntercom": " Apri scheda di aiuto",
+      "message": "Il file non è in formato CSV. Per cortesia, consulta la scheda di aiuto per ulteriori informazioni.",
+      "title": "Formato file non supportato"
+    },
+    "import": "Importa contatti"
+  }
+}

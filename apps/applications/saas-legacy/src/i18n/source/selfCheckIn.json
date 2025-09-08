@@ -1,0 +1,67 @@
+{
+  "offerStatus": {
+    "hasEnded": "Has ended since",
+    "startIn": "Starts in ",
+    "inProgress": "Has begun since"
+  },
+  "addMember": {
+    "button": "Create an account"
+  },
+  "offerList": {
+    "refresh": "Refresh",
+    "emptyList": "There are no activities to display."
+  },
+  "filter": {
+    "establishment": "Filter by establishments"
+  },
+  "signout": {
+    "title": "Logout",
+    "explain": "Use the password of this Check-In Tablet's account to log out.",
+    "passwordError": "Invalid password",
+    "cancel": "Cancel",
+    "signout": "Disconnect",
+    "form": {
+      "username": {
+        "label": "Email"
+      },
+      "password": {
+        "label": "Password"
+      }
+    }
+  },
+  "authenticationDialog": {
+    "title": "Change Establishment",
+    "description": "To ensure security, please authenticate your identity by entering your password before proceeding with the establishment change.",
+    "error": "The password you entered is not valid"
+  },
+  "offerDetail": {
+    "emptyList": "There are no bookings to display.",
+    "noConsumerPaymentPack": "You don't own any valid membership to complete this booking.",
+    "backToOfferList": "Return to activities",
+    "cancelRegistration": "Cancel",
+    "isFull": "Full",
+    "register": "Book",
+    "activateBarcode": "Scan barcode",
+    "actions": {
+      "createAccount": "Create an account",
+      "restartAnalyze": "Restart",
+      "close": "Close"
+    },
+    "noDetectionResult": "No result",
+    "activateFaceId": "Face ID"
+  },
+  "memberList": {
+    "checkIn": "Check-in",
+    "checkedIn": "Present",
+    "empty": "There are no bookings to display."
+  },
+  "confirmPage": {
+    "classLocation": "Please go to the following establishment to participate:",
+    "signIn": "Checked in",
+    "expires": "Expires",
+    "headOnIn": "Head on in!",
+    "visitsLeft": "Remaining visits",
+    "spotInfo": "Your {{- spotName }} is:",
+    "spotUnassigned": "Spot unassigned"
+  }
+}

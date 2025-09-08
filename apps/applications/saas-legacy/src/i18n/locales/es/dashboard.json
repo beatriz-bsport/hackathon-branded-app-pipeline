@@ -1,0 +1,326 @@
+{
+  "current_week": "Ultima semana",
+  "current_month": "Ultimo mes",
+  "last_three_months": "Tres ultimos meses",
+  "current_year": "Ultimo año",
+  "thisWeek": "Esta semana",
+  "thisMonth": "Este mes",
+  "newMembers": "Nuevos miembros",
+  "nbOffers": "Sesiones",
+  "pageTitle": "Tablero de mando",
+  "turnover": {
+    "caption": "Ingresos",
+    "popover": "Suma de todos los pagos recibidos que figuran en las facturas",
+    "title": "Volumen de negocios"
+  },
+  "bookings": "Reservas",
+  "dateRange": {
+    "start": "Inicio",
+    "end": "Final"
+  },
+  "filterByDateTitle": "Filtrar por fechas",
+  "detailsGraphTitle": "En detalle",
+  "current_day": "Últimas 24 horas",
+  "bookingsWeektimeSlot": {
+    "title": "Resumen semanal",
+    "popover": "Número medio de sesiones por franja horaria"
+  },
+  "popover": {
+    "bookingsWeektimeSlot": "Número medio de sesiones por franja horaria",
+    "billedSubscriptions": "Número de facturas vinculadas a una suscripción no cancelada",
+    "turnover": "Suma de todos los pagos recibidos en facturas"
+  },
+  "billedSubscriptions": {
+    "title": "Número de cuotas facturadas",
+    "caption": "Cuotas",
+    "popover": "El número de facturas relacionadas con una suscripción no cancelada"
+  },
+  "turnoverTitle": "Colección",
+  "dateFilter": {
+    "customSelect": "Seleccione un rango de fechas",
+    "quickSelect": "Elección rápida"
+  },
+  "noData": "No hay datos para mostrar",
+  "bookingSource": {
+    "title": "Origen de las reservas",
+    "app": "Aplicación",
+    "web": "Web",
+    "saas": "Backoffice bsport",
+    "other": "Otros",
+    "migration": "Migración de datos"
+  },
+  "plannedPayment": {
+    "caption": "Ingresos",
+    "popover": "Suma de todos los pagos recibidos en relación con las cuotas",
+    "title": "Recibos de suscripción"
+  },
+  "invoiceItems": {
+    "title": "Ventas por tipo de producto",
+    "contentType": {
+      "1": "Tarjetas de curso",
+      "2": "Productos de la tienda",
+      "6": "Gastos de envío",
+      "7": "Promoción",
+      "9": "Tarjeta de cita",
+      "10": "Packs"
+    }
+  },
+  "invoiceItemDropdown": {
+    "contentType": {
+      "1": "Bonos",
+      "2": "Productos de la tienda",
+      "6": "Gastos de envío",
+      "7": "Promoción",
+      "9": "Tarjeta de cita",
+      "10": "Packs"
+    }
+  },
+  "bookingDropdown": {
+    "source": {
+      "0": "Aplicación",
+      "1": "Web",
+      "2": "Backoffice bsport",
+      "3": "Área de Miembros",
+      "4": "Migración de datos"
+    }
+  },
+  "resetModal": {
+    "confirm": "Continuar",
+    "cancel": "Cancelar",
+    "content": "Los parámetros de las distintas pestañas volverán a sus valores por defecto, ¿desea continuar?",
+    "title": "Restablecer la configuración"
+  },
+  "save": "Guardar",
+  "customChart": {
+    "form": {
+      "selector": {
+        "object": {
+          "placeholder": "Seleccione un tipo de datos",
+          "isEmpty": "No hay datos seleccionados",
+          "helperText": "Elija lo que quiere ver"
+        },
+        "invoice": "Compras",
+        "payment": "Pagos",
+        "booking": "Reservas",
+        "member": "Nuevos miembros",
+        "privateBooking": "Cita"
+      },
+      "graphComponent": "Representación deseada",
+      "datatype": "Tipo de gráfico",
+      "submit": "Guardar",
+      "cancel": "Cancelar",
+      "title": "Gráfico",
+      "radio": {
+        "pie": "Gráfico de pastel",
+        "grid": "Tabla de frecuencias",
+        "area": "Gráfico de área",
+        "bar": "Histograma",
+        "qualitativeInvoiceItem": "División",
+        "temporalPlannedInvoice": "Evolución en el tiempo",
+        "temporalPayment": "Evolución en el tiempo",
+        "qualitativeBooking": "División",
+        "temporalBooking": "Evolución en el tiempo",
+        "temporalTimeslotBooking": "Frecuencias diarias y horarias",
+        "temporalMember": "Evolución en el tiempo",
+        "temporalPrivateBooking": "Evolución en el tiempo"
+      },
+      "aggregateHelper": "Ej: muestra la evolución del número total de miembros, en lugar del número de nuevos miembros, cada mes.",
+      "aggregate": "Acumular",
+      "name": "Título del gráfico"
+    },
+    "noResource": "Por favor, elija un tipo de datos.",
+    "addChart": "Crear un gráfico"
+  },
+  "booking": {
+    "popover": "El número total de reservas registradas para esa fecha. Puede filtrar las cancelaciones / cancelaciones tardías / ...",
+    "caption": "Reservas guardadas",
+    "title": "Reservas"
+  },
+  "noGraphToDisplay": "No hay gráficos configurados en esta pestaña. Añade uno aquí.",
+  "privateBooking": {
+    "title": "cita",
+    "caption": "Citas registradas",
+    "popover": "El número total de citas registradas para esta fecha. Puede filtrar las cancelaciones / reembolsos / ..."
+  },
+  "tabNameDialog": {
+    "titleAdd": "Añadir una nueva pestaña",
+    "titleRename": "Cambiar el nombre de la pestaña",
+    "placeholder": "Nombre"
+  },
+  "graphDefaultTitles": {
+    "privateBookingTemporal": "Cita",
+    "memberTemporal": "Nuevos miembros",
+    "subscriptionTemporalSum": "Cobro de suscripciones",
+    "subscriptionTemporalCount": "Número de facturas de suscripción",
+    "bookingTemporal": "Reservas",
+    "bookingQualitative": "Origen de las reservas",
+    "bookingTimeslots": "Efectivos medio",
+    "paymentTemporal": "Cobros",
+    "billingPlanTemporal": "Suscripciones",
+    "invoiceItemTemporal": "Suma de los artículos facturados"
+  },
+  "dataSourceIdentifiers": {
+    "activity": "Actividad",
+    "margin_value": "Contribución marginal con IVA incluido",
+    "private_service_name": "Cita",
+    "price": "Precio con IVA",
+    "contract": "Contrato",
+    "date": "Fecha de pago",
+    "payment_method": "Método de pago",
+    "payment_price": "Precio con IVA",
+    "payment_date": "Fecha de pago",
+    "accept_sms": "Acepta SMS",
+    "accept_email": "Acepta correos electrónicos",
+    "gender": "Sexo",
+    "billing_establishment": "Ubicación",
+    "billing_group": "Grupo de facturación",
+    "establishment": "Establecimiento",
+    "coach": "Profesores",
+    "was_refunded": "Reembolsado",
+    "booking_status_code": "Estatus de la reserva",
+    "date_created": "Fecha de reserva",
+    "date_start": "Fecha de la sesión",
+    "attendance": "Presente",
+    "payment_engine": "Tipo de pago",
+    "is_workshop": "Taller",
+    "activity_kind": "Tipo de sesión",
+    "booking_effectif_timeslots": "Efectivos medio",
+    "plannedinvoice_pk": "Número de facturas",
+    "payment_pk": "Número de pagos",
+    "privatebooking_pk": "Número de citas",
+    "source_device": "Origen",
+    "is_recurrent_booking": "Reserva recurrente",
+    "booking_pk": "Número de reservas",
+    "member_pk_accumulate": "Número de miembros",
+    "member_pk": "Número de nuevos miembros",
+    "date_joined": "Fecha de inscripción",
+    "is_unpaid": "No pagado",
+    "payout_status": "Estado de transferencia",
+    "payout_identifier": "Transferencia",
+    "payout_date_created": "Fecha de transferencia",
+    "private_pass": "Tarjeta de cita",
+    "payment_pack": "Bono",
+    "dispute_status": "Estado de litigio",
+    "total_payments_made": "Número de recibos pagados",
+    "total_discount": "Descuento total",
+    "nb_planned_invoices": "Número total de recibos",
+    "plan_status": "Estado de la suscripción",
+    "plan_recurrent_price": "Importe del pago recurrente",
+    "plan_flat_fee": "Cuota de ingreso",
+    "plan_date_start": "Primera fecha de facturación",
+    "plan_date_end": "Fecha final de facturación",
+    "new_member_only": "Oferta para nuevos miembros",
+    "billingplan_pk": "Number of subscriptions",
+    "last_invoice_status": "Estado del último pago",
+    "contract_name": "Suscripción",
+    "billing_plan_payment_method": "Método de pago",
+    "plan_auto_renewal": "Renovación tácita",
+    "is_no_show": "Ausente (no se presenta)",
+    "invoice_date_created": "Fecha de emisión de la factura",
+    "franchisor_commission_amount_notax": "Comisión de franquicia impuesto exc.",
+    "franchisor_commission_amount": "Comisión de franquicia impuesto inc.",
+    "total_price_notax": "Importe total sin impuestos",
+    "total_price": "Importe total impuestos inc.",
+    "author": "Autor",
+    "invoiceitem_pk": "Número de artículos facturados",
+    "staff_commission_amount": "Comisiones del personal incl. IVA",
+    "staff_commission_amount_notax": "Comisión de personal excl. IVA",
+    "invoice_datetime": "Fecha de emisión de la factura",
+    "booking_date_created": "Fecha de reserva",
+    "bookkeeping_account_number": "Número de la cuenta",
+    "bookkeeping_account_name": "Nombre de la cuenta",
+    "billing_group_address": "Dirección",
+    "private_booking_date_created": "Fecha y hora de la reserva",
+    "is_first_visit": "Primera reserva",
+    "product_type": "Tipo de producto",
+    "product": "Producto"
+  },
+  "graphFormDrawer": {
+    "helperText": {
+      "accumulateMembers": "Muestra la evolución del número total de miembros.",
+      "booking_effectif_timeslots": "Efectivos medio de sesiones por franja horaria.",
+      "subscriptionCount": "Número de facturas relacionadas con las suscripciones.",
+      "subscriptionPrice": {
+        "max": "Máximo de todos los pagos recibidos en relación con las cuotas.",
+        "min": "El mínimo de todos los pagos recibidos en relación con las cuotas.",
+        "avg": "Suma de todos los pagos recibidos en relación con las cuotas.",
+        "sum": "Suma de todos los pagos recibidos en relación con las cuotas."
+      },
+      "dateCreated": "Los datos se representarán en el tiempo según la fecha en que se hicieron las reservas.",
+      "dateStart": "Los datos se representarán en el tiempo según la fecha de inicio de las sesiones.",
+      "plannedInvoiceCount": "Número de facturas relacionadas con las cuotas."
+    },
+    "accumulate": {
+      "total": "Acumular"
+    },
+    "dashboardGraphIdentifier": {
+      "graph_subscriptions": "Facturas de suscripciones",
+      "graph_payments": "Pagos",
+      "graph_private_bookings": "Cita",
+      "graph_bookings": "Reservas",
+      "graph_members": "Nuevos miembros",
+      "graph_dispute": "Litigios",
+      "graph_billing_plan": "Suscripciones",
+      "graph_invoice_items": "Compras"
+    },
+    "aggregation": {
+      "max": "Máximo",
+      "min": "Mínimo",
+      "avg": "Promedio",
+      "sum": "Suma"
+    },
+    "graphFamily": {
+      "week_timeslots": "Frecuencias diarias y horarias",
+      "qualitative": "Distribución",
+      "temporal": "Evolución en el tiempo"
+    },
+    "chartComponents": {
+      "timeslots": "Frecuencias diarias y horarias",
+      "pie": "Gráfico de pastel",
+      "area": "Diagrama de áreas",
+      "bar": "Histograma",
+      "qualitativeBar": "Histograma"
+    },
+    "placeholders": {
+      "aggregationSelector": "Elige una operación",
+      "dashboardGraphIdentifier": "Elegir un tipo de datos"
+    },
+    "labels": {
+      "aggregationName": "Cúmulo",
+      "dividedBy": "Dividido por",
+      "dataToDisplay": "Datos mostrados",
+      "dateFilterField": "Datos de la fecha",
+      "groupByField": "Distribuir en",
+      "graphFamily": {
+        "qualitative": "Distribución",
+        "temporal": "Evolución en el tiempo"
+      },
+      "title": "Nombre"
+    },
+    "sectionTitles": {
+      "filterConfig": "Filtros",
+      "timePeriod": "Periodo",
+      "graphParams": "Datos",
+      "graphFamily": "Gráfico",
+      "dashboardGraphIdentifier": "Tipo de datos",
+      "general": "Informaciones generales"
+    },
+    "title": {
+      "edit": "Modificación de un gráfico",
+      "create": "Creación de un gráfico"
+    }
+  },
+  "graphActions": {
+    "delete": "Suprimir",
+    "edit": "Modificar"
+  },
+  "showMoreLegend": "+ {{count}} leyenda",
+  "showMoreLegend_plural": "+ {{count}} leyendas",
+  "addFilter": "Añadir un filtro",
+  "filterChipLabel": "{{count}} filtro",
+  "filterChipLabel_plural": "{{count}} filtros",
+  "placeholderEmptyValues": {
+    "establishment": "Ningún establecimiento",
+    "coach": "Ningún profesor"
+  }
+}

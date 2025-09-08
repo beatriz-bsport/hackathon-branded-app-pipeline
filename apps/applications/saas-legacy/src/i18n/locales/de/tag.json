@@ -1,0 +1,144 @@
+{
+  "filter": {
+    "addATagFilter": "Nach Markierungen sortieren..."
+  },
+  "form": {
+    "tag": {
+      "delete": {
+        "submit": "Löschen",
+        "title": "Löschen",
+        "explain": "Seien Sie vorsichtig! Dieser Tag wird für alle Mitglieder gelöscht. Sind Sie sicher, dass Sie das wollen? Dieser Vorgang ist nicht rückgängig zu machen.",
+        "cancel": "Abbrechen"
+      },
+      "namePlaceholder": "Name der Markierung",
+      "submit": "Speichern",
+      "name": "Name des Tags",
+      "color": "Farbe",
+      "info": "Wenn Sie ein Symbol auswählen, erscheint es als Abzeichen neben dem Profilbild für alle Mitglieder, die mit diesem Tag markiert sind.",
+      "selectIcon": "Wählen Sie ein Symbol",
+      "searchIcon": "Suche nach einem Symbol (Suche auf Englisch)",
+      "icon": "Icon (optional)"
+    },
+    "filter": {
+      "title": "Filter",
+      "includeLabel": "Kategorie",
+      "include": "Enthält die Markierung",
+      "exclude": "Enthält nicht die Markierung",
+      "tagGroupLabel": "Markierung (Kategorie)",
+      "tagLabel": "Markierung (Wert)",
+      "cancel": "Abbrechen",
+      "addFilter": "Sortieren"
+    },
+    "group": {
+      "delete": {
+        "title": "Löschen",
+        "explain": "Achtung: Dieser Haupttag wird für alle Mitglieder gelöscht. Sind Sie sicher, dass Sie fortfahren möchten? Diese Aktion kann nicht rückgängig gemacht werden.",
+        "submit": "Löschen",
+        "cancel": "Abbrechen"
+      },
+      "namePlaceholder": "Haupttag hinzufügen",
+      "addTagGroup": "Haupttag erstellen",
+      "edit": "Markierungen ändern",
+      "deleteCategory": "Haupttag löschen"
+    }
+  },
+  "panel": {
+    "title": "Meine Markierungen",
+    "noTagAvailable": "Keine Sub Tags können angezeigt werden."
+  },
+  "tag": {
+    "noTagAttributed": "Einen Sub Tag auswählen"
+  },
+  "management": {
+    "smartlistDetail": {
+      "createViaSmartlist": "Auf Smartlist zugreifen",
+      "empty": "Keine Tagging-Regel ist mit dem Tag {{ tag }} verknüpft",
+      "removeTag": "Löschen",
+      "title": "Beschriftungsregel (Smart List)"
+    },
+    "couponDetail": {
+      "createViaCoupon": "Greifen Sie auf Aktionscodes zu",
+      "empty": "Es sind keine Gutscheincodes mit dem Tag {{- tag }} verknüpft",
+      "removeTag": "Etikett entfernen",
+      "blacklist": "Nicht verwendbar für markierte Mitglieder",
+      "whitelist": "Kann von Mitgliedern mit dem Tag verwendet werden",
+      "title": "Mit dem Tag verknüpfte Gutscheincodes"
+    },
+    "memberDetail": {
+      "addTag": "Tag hinzufügen",
+      "addTagToAll": "Diesen Sub Tag zu allen Mitgliedern hinzufügen",
+      "memberWithoutTag": "Mitglieder nicht markiert",
+      "removeTag": "Tag aufheben",
+      "removeTagFromAll": "Diesen Sub Tag von allen markierten Mitgliedern entfernen",
+      "memberWithTag": "Getaggte Mitglieder"
+    },
+    "tagKind": {
+      "smartlist": "Smartlists",
+      "coupon": "Rabatt",
+      "member": "Mitglieder",
+      "toolbar": "Anzeigen von",
+      "offer": "Kurse"
+    },
+    "tagDetail": {
+      "noTag": "Wählen Sie einen Sub Tag aus, um eine detailliertere Übersicht zu sehen."
+    },
+    "createGroupDialog": {
+      "helper": "Beispiel: Fügen Sie ein Haupttag mit dem Namen \"VIP\" hinzu, fügen Sie die Sub Tags \"Ja\" und \"Nein\" hinzu, und schon haben Sie eine Übersicht über alle Ihre aktuellen VIPs.",
+      "field": "Name",
+      "title": "Haupttag"
+    },
+    "deleteTagDialog": {
+      "text": "Möchten Sie diesen Sub Tag wirklich entfernen? Alle mit diesem Tag verknüpften Regeln werden entfernt.",
+      "title": "Entfernen von Tags"
+    },
+    "deleteTagGroupDialog": {
+      "text": "Möchten Sie diesen Haupttag wirklich löschen? Alle in der Kategorie enthaltenen Sub Tags werden ebenfalls entfernt. ",
+      "title": "Haupttag löschen"
+    },
+    "tagColumn": {
+      "actions": "Aktionen ",
+      "smartlist_count": "Kennzeichnungsregeln",
+      "member_count": "Getaggte Mitglieder",
+      "tag": "Sub Tag",
+      "offer_count": "Verknüpfte Kurse",
+      "coupon_count": " "
+    },
+    "submit": "Bestätigen",
+    "cancel": "Abbrechen",
+    "form": {
+      "tagGroupEmpty": "Mit diesem Haupttag sind keine Sub Tags verbunden.",
+      "tagGroupName": "Name",
+      "groupRename": "Haupttag"
+    },
+    "delete": "Löschen",
+    "rename": "Umbenennen",
+    "addTag": "Einen Sub Tag hinzufügen",
+    "addGroup": "Einen Haupttag erstellen",
+    "offerDetail": {
+      "detailTable": {
+        "tagInWhiteList": "Buchbar für Mitglieder mit diesem Tag",
+        "tagInBlackList": "Nicht buchbar für Mitglieder mit diesem Tag"
+      },
+      "filters": {
+        "selectorTitle": "Nach Berechtigung filtern",
+        "options": {
+          "all": "Alle Kurse anzeigen",
+          "onlyWhite": "Buchbar mit diesem Tag",
+          "onlyBlack": "Nicht buchbar mit diesem Tag"
+        }
+      },
+      "offerWithTag": "Getaggte Angebote",
+      "removeTagFromAll": "Alle Tags entfernen"
+    }
+  },
+  "select": "Wählen Sie einen Tag",
+  "memberStatus": "Mitgliedsstatus : ",
+  "modal": {
+    "confirm": {
+      "submit": "Bestätigen",
+      "title": "Tag entfernen",
+      "text": "Dieser Kurs ist mit einem Ereignis verbunden. Sie sind dabei, alle Tags zu entfernen. Sind Sie sicher, dass Sie fortfahren möchten?"
+    }
+  },
+  "tagGroupDuplicated": "Bitte beachten Sie, dass einige Tags zur selben Gruppe gehören."
+}

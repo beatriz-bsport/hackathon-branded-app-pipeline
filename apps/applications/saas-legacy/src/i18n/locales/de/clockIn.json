@@ -1,0 +1,64 @@
+{
+  "clockinDialog": {
+    "successClockIn": "Ankunftszeit:",
+    "subtitleSuccess": "Deine Zeiterfassung wurde erfolgreich abgeschlossen. Du kannst eine neue Zeiterfassung starten, wenn du dieses Fenster das nächste Mal öffnest.",
+    "clockInForOther": "für einen anderen Mitarbeiter ausstempeln",
+    "subtitleClockOut": "Jetzt geht es los! Um auszustempeln, klicke bitte auf \"Clock-Out\".",
+    "subtitleClockIn": "Hallo {{- name }}, klicke auf \"Clock-In\", um mit der Zeiterfassung deines Tages zu beginnen.",
+    "lastClockOut": "Ankunftszeit: ",
+    "lastClockIn": "Letzter Clock-In: {{- date }} - {{ hour }}",
+    "clockOut": "Clock-Out",
+    "clockIn": "Clock-In",
+    "close": "Schließen",
+    "title": "Stundenstempel",
+    "successDuration": "Anzahl der gearbeiteten Stunden:",
+    "successClockOut": "Abfahrtzeit:"
+  },
+  "export": {
+    "dialog": {
+      "title": "Export des Verlaufs",
+      "message": "Ihr Export ist bereit zum Herunterladen."
+    }
+  },
+  "tabHistory": "Geschichte",
+  "tabRealTime": "Echtzeit",
+  "pageTitle": "Anwesenheit",
+  "editModal": {
+    "confirm": "Speichern",
+    "cancel": "Abbrechen",
+    "startingTime": "Uhrzeit des Beginns",
+    "endingTime": "Uhrzeit des Endes",
+    "title": "Wochenplanänderung"
+  },
+  "modal": {
+    "delete": {
+      "content": "Achtung! Bist du sicher, dass Du den Zeitslot für diesen Mitarbeiter löschen möchtest? Dieser Vorgang ist unumkehrbar.",
+      "title": "Löschen"
+    }
+  },
+  "historyTable": {
+    "download": "Download",
+    "action": "Aktion",
+    "durationHours": "Geleistete Arbeitsstunden (in Stunden)",
+    "durationHoursMinutes": "Geleistete Arbeitsstunden (in Stunden und Minuten)",
+    "endingHour": "Uhrzeit des Endes",
+    "startingHour": "Uhrzeit des Beginns",
+    "staff": "Mitarbeiter"
+  },
+  "attendanceTable": {
+    "emptyState": "Du hast noch keinen Mitarbeiterzugang vergeben. Um Mitarbeiterzugänge einzurichten, gehe zu Einstellungen und dann Mitarbeiter oder klicke auf die Schaltfläche unten. Um die Arbeitszeiten deiner Mitarbeiter zu verfolgen, vergiss nicht, beim Erstellen der Rolle die Option \"Zeiterfassung\" zu aktivieren.",
+    "createStaff": "Mitarbeiterzugang erstellen",
+    "missing": "Abwesend",
+    "here": "Präsenz",
+    "end": "Clock-In",
+    "start": "Clock-Out",
+    "role": "Rolle",
+    "action": "Aktion",
+    "status": "Status",
+    "lastClockIn": "Letzte Stempelung",
+    "email": "E-Mail",
+    "staff": "Mitarbeiter",
+    "lastname": "Nachname",
+    "firstname": "Vorname"
+  }
+}

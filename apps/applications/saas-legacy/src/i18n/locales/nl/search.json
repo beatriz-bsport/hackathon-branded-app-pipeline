@@ -1,0 +1,18 @@
+{
+  "member": {
+    "packs": {
+      "title": "Leskaarten"
+    },
+    "sessions": {
+      "title": "Sessies"
+    },
+    "closeMemberMatch": "Voorgesteld zoekresultaat",
+    "archived": "Gearchiveerde leden"
+  },
+  "noResult": "Geen resultaat",
+  "go_back": "Ga terug naar de resultaten",
+  "input": "Zoeken...",
+  "actions": {
+    "addMember": "Een lid toevoegen"
+  }
+}

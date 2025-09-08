@@ -1,0 +1,194 @@
+{
+  "settings": {
+    "lastDiscardBeforeMinutes": "Mitglieder können bis zu {{m}} vor Beginn des Kurses kostenlos stornieren.",
+    "lastBookingBeforeMinutes": "Mitglieder können bis zu {{m}} vor Beginn des Kurses buchen.",
+    "title": "Einstellungen",
+    "firstBookingMinutesUntil": "Mitglieder können Kurse für bis zu {{m}} in der Zukunft buchen.",
+    "conditions": "Stornierungsbedingungen",
+    "autoDiscard": "Der Kurs wird abgesagt, wenn es nicht mehr als {{nb_bookings}} Buchung(en) oder weniger {{hours}}h vor Beginn des Kurses gibt.",
+    "firstBookingMinutesUntilHeader": "Öffnung des Buchungsfensters",
+    "lastBookingBeforeMinutesHeader": "Letzte Möglichkeit der Buchung vor Beginn des Kurses",
+    "lastBookingBeforeMinutesFull": "Letzte Buchungen möglich bis {{m}} vor Beginn des Kurses",
+    "restrictionsHeader": "Benutzerdefinierte Einschränkungen",
+    "restrictions": " Benutzerdefinierte Einschränkung: {{ count }}",
+    "seeRestrictions": "Siehe",
+    "lastDiscardBeforeMinutesHeader": "Stornierungsbedingungen",
+    "autoDiscardHeader": "Der Kurs wird storniert, wenn",
+    "lastDiscardBeforeMinutesFull": "Stornierungen sind bis {{m}} vor Beginn des Kurses möglich"
+  },
+  "modal": {
+    "delete": {
+      "confirm": "Löschen",
+      "cancel": "Abbrechen",
+      "content": "Sind Sie sich sicher, dass Sie diese Aktivität löschen möchten? Die Buchungen und Kurse werden nicht geändert. Dieser Vorgang ist nicht rückgängig zu machen.",
+      "title": "Aktivität löschen"
+    }
+  },
+  "addOffers": "Kurse hinzufügen",
+  "category": "Sport",
+  "name": "Name",
+  "detail": {
+    "tab": {
+      "pack": "Kompatible Kurspässe",
+      "general": "Allgemein",
+      "group": "Gruppenkurse"
+    },
+    "pack": {
+      "paymentPacks": "Kompatible Kurspässe",
+      "consumerPacks": "Gekauft von",
+      "noCompatiblePass": "Kein kompatibler Kurspass"
+    }
+  },
+  "forms": {
+    "delete": {
+      "actions": {
+        "confirm": "Löschen",
+        "cancel": "Abbrechen"
+      },
+      "content": {
+        "cannotDelete": "Für diese Aktivität sind weitere Kurse geplant. Prüfen Sie, ob sie abgesagt wurden.",
+        "canDelete": "Wenn du diese Aktivität löschst, ändern sich die Kurse und vergangenen Buchungen nicht. Du kannst die Aktivität nicht wiederherstellen. Aktivität wirklich löschen?"
+      },
+      "title": "Aktivität löschen"
+    },
+    "create": {
+      "steps": {
+        "workshop_form": "Workshop hinzufügen",
+        "offer_form": "Kurse hinzufügen (optional)",
+        "pass_list": "Zusammenfassung",
+        "pass_form": "Kurspass hinzufügen (optional)",
+        "activity_form": "Aktivität erstellen"
+      },
+      "compatible_packs": {
+        "goToActivity": "Zur Aktivität",
+        "createPass": "Einen Kurspass erstellen",
+        "seeMore": "Mehr anzeigen",
+        "noCompatiblePass": "Für diese Aktivität ist kein Kurspass verfügbar. Denken Sie daran einen zu erstellen",
+        "passHelperText": "Diese Pässe sind für die erstellte Aktivität erhältlich:"
+      }
+    },
+    "warning": {
+      "lowFirsBookingUntilWarning": "Bitte beachten Sie, dass Sie bis {{ durationFormatted }} vor dem Beginn des Kurses warten müssen, um die allererste Buchung vornehmen zu können!",
+      "highLastBookingBeforeWarning": "Bitte beachten Sie, dass {{ durationFormatted }} vor Beginn des Kurses keine Reservierungen mehr möglich sind!"
+    }
+  },
+  "navigation": {
+    "goToPaymentPack": "Kurspässe"
+  },
+  "actions": {
+    "search": "Eine Aktivität suchen",
+    "addActivity": "Eine Gruppenaktivität hinzufügen"
+  },
+  "search": "Eine Gruppenaktivität suchen",
+  "metaActivity": "Aktivität",
+  "description": "Beschreibung",
+  "reviews": "Kundenbenachrichtigungen : ",
+  "offersThisDay": "Heutige Kurse:",
+  "packsAvailable": "Verfügbarer Kurspass für diese Aktivität :",
+  "noActivities": "Gruppenaktivitäten sind Kurse für Gruppen. Hier kannst du Gruppenaktivitäten hinzufügen, bearbeiten und verwalten.",
+  "disabledMetaActivities": "Archivierte Gruppenaktivitäten",
+  "workshop": "Workshop",
+  "groupedOption": {
+    "modal": {
+      "form": {
+        "delete": {
+          "content": "Das Löschen dieses Ereignisses führt zur Stornierung aller Buchungen der angemeldeten Mitglieder. Diese Aktion kann nicht rückgängig gemacht werden.",
+          "title": "Unterdrückung",
+          "applyRecursive": "Andere ähnliche Gruppen stornieren",
+          "selectGroup": "Andere ähnliche Gruppen stornieren",
+          "selectHeader": "Wählen Sie die Gruppen, die geändert werden sollen",
+          "firstSession": "Der erste anstehende Kurs ist am: {{-day}}",
+          "missingOffer": "Keine Angebote in der Gruppe"
+        },
+        "submit": "Validieren",
+        "impossibleState": "Die eingegebenen Parameter lassen die Erstellung einer Gruppe nicht zu",
+        "recurrenceNumberPrefix": "Wiederholung alle",
+        "subtitle": "Allgemein",
+        "subtitleOffers": "Kurse",
+        "addOffers": "Kurse hinzufügen",
+        "subtitleSettings": "Einstellungen",
+        "subtitleRecurrence": "Wiederholung",
+        "name": "Name",
+        "fullBookingOnlyCaption": "Standardmäßig werden Ihre Mitglieder automatisch für alle Kurse in dieser Gruppe angemeldet, wenn sie einen der Kurse in der Gruppe buchen. Deaktivieren Sie diese Option, damit Ihre Mitglieder separat auswählen können, für welche Kurse sie sich anmelden möchten.",
+        "allowBookingAfterStartCaption": "Standardmäßig ist es für Mitglieder nicht möglich, sich für Veranstaltungen anzumelden, die bereits begonnen haben. Aktivieren Sie diese Option, um Anmeldungen für die verbleibenden Veranstaltungen zuzulassen.",
+        "marketPlaceAvailable": "Verfügbar zur Buchung (Web+App)",
+        "withRecurrence": "Wiederholung aktivieren",
+        "nameCaption": "Veranstaltungsname",
+        "timeStartHelper": "Wählen Sie das Datum des ersten Kurses dieser Veranstaltung. Alle zukünftigen Kurse werden der Veranstaltung nach diesem Datum zugeordnet.",
+        "timeStart": "Anfangsdatum",
+        "recurrenceCount": "Anzahl der Wiederholungen",
+        "recurrenceUntil": "Wiederholen, bis",
+        "recurrenceUntilHelper": "Bitte geben Sie das Enddatum dieser Veranstaltung an.",
+        "preview": "Vorschau",
+        "recurrence": "Wiederholung",
+        "daily": "Jeden Tag",
+        "groupName": "Name",
+        "uncreatedGroupsTitle": "Gruppen nicht erstellt",
+        "creationError": "Unmöglich zu erstellen",
+        "next": "Weiter",
+        "required": "Mindestens eine Gruppe wird benötigt",
+        "copyRecurrence": "Künftige Gruppenwiederholungen ebenfalls duplizieren",
+        "save": "speichern",
+        "back": "Vorherige",
+        "allowGuest": "Kompatibel mit der Gastbuchungs-Funktion",
+        "allowGuestUnavailable": "Diese Funktion ist für geschlossene Kurse nicht verfügbar.",
+        "allowBookingAfterStart": "Erlaube den Einstieg während des laufenden Kurses",
+        "recurrenceUntilHelper2": "Nach diesem Datum ist es nicht mehr möglich, Kurse hinzuzufügen.",
+        "fullBookingOnly": "Alle Kurse der Gruppe auf einmal buchen",
+        "syncOnSpivi": "An Spivi senden",
+        "spiviWarningHelperText": "Achtung: Wenn Kurse mit Spivi verknüpft sind, werden ihre Kopien nicht mit Spivi verknüpft."
+      },
+      "title": "Geschlossene Kurse",
+      "subtitleMetaActivitySelect": "Konfiguration",
+      "subtitlePreview": "Vorschau der Wiederholung",
+      "duplicate": "Gruppe duplizieren"
+    },
+    "errors": {
+      "offers_length": "Sie haben nur einen Kurs erstellt. Um eine Gruppe von Kursen zu erstellen, müssen Sie mindestens zwei Kurse hinzufügen. Wenn Sie einen einzelnen Kurs erstellen möchten, können Sie dies direkt über den betreffenden Workshop oder den Tab \"Kalender\" tun."
+    },
+    "intervalLabel": {
+      "day": "Jeden Tag",
+      "day_plural": "Alle {{ count }} Tage",
+      "until": {
+        "day": "Täglich bis zum {{-until}} ",
+        "day_plural": "Jeden {{ count }} Tag bis zum {{-until}} ",
+        "year": "Jedes Jahr bis zum {{-until}} ",
+        "year_plural": "Alle {{ count }} Jahre bis zum {{-until}} ",
+        "month": "Jeden Monat bis {{-until}} ",
+        "month_plural": "Jeden Monat von {{ count }} bis {{-until}} ",
+        "week": "Jede Woche bis {{-until}} ",
+        "week_plural": "Alle {{ count }} Wochen bis {{-until}} "
+      },
+      "month": "Jeden Monat",
+      "month_plural": "Alle {{ count }} Monate",
+      "year": "Jedes Jahr",
+      "year_plural": "Alle {{ count }} Jahre",
+      "week": "Jede Woche",
+      "week_plural": "Alle {{ count }} Wochen"
+    },
+    "helperText": {
+      "month": "Diese Veranstaltung beginnt jeden Monat am: {{-day}}",
+      "month_plural": "Diese Veranstaltung beginnt jeden Monat am: {{-day}} für {{ count }} Monat(e)",
+      "week": "Diese Gruppe beginnt am {{-day}}, jede Woche",
+      "week_plural": "Diese Gruppe beginnt am {{-day}}, alle {{ count }} Wochen",
+      "day": "Diese Gruppe wird täglich trainiert",
+      "day_plural": "Diese Gruppe wird alle {{ count }} Tage wiederholt",
+      "year": "Diese Veranstaltung beginnt jedes Jahr am: {{-day}}{{-mont}}",
+      "year_plural": "Diese Veranstaltung beginnt jedes Jahr am: {{-day}}{{-month}} für {{ count }} Jahr(e)"
+    },
+    "last": "letzte",
+    "offerDescription": "{{ count }} Kurs(e) von {{- firstSession }} bis {{- lastSession }}",
+    "warning": {
+      "uncreatedGroups": "Bitte beachten Sie, dass einige Gruppen nicht erstellt werden können. \nSie finden sie im Abschnitt \"Nicht erstellte Gruppen\" am Ende dieser Liste",
+      "groupsWithOutOfTheRangeOffers": "Die folgenden Kursgruppen werden nicht erstellt, da sie Kurse enthalten, die mehr als 3 Jahre entfernt sind"
+    }
+  },
+  "edit": "Bearbeiten",
+  "close": "Schließen",
+  "workshopSelect": "Nach einem Workshop suchen",
+  "cancelledOffers": "{{count}} Stornierungen",
+  "warningUSCDialog": {
+    "title": "Stornierungsbestimmungen für USC",
+    "content": "Die neue Stornierungsbestimmung gilt für zukünftige Veranstaltungen. Veranstaltungen, die in den letzten zwei Wochen veröffentlicht wurden, können jedoch nicht aktualisiert werden."
+  }
+}

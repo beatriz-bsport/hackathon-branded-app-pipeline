@@ -1,0 +1,43 @@
+{
+  "forms": {
+    "delete": {
+      "actions": {
+        "confirm": "Suprimir",
+        "cancel": "Cancelar"
+      },
+      "content": {
+        "cannotDelete": "Sesiones están programadas para el futuro, verifica que están suprimidas y no sólo canceladas.",
+        "canDelete": "¿Estás seguro de que quieres suprimir este taller? Las sesiones y reservas anteriores no se verán afectadas. Esto es definitivo."
+      },
+      "title": "Supresión del taller"
+    }
+  },
+  "modal": {
+    "delete": {
+      "confirm": "Suprimir",
+      "cancel": "Cancelar",
+      "content": "¿Estás seguro de que quieres suprimir este taller? Las sesiones y reservas anteriores no se verán afectadas. Esto es definitivo.",
+      "title": "Supresión del taller"
+    }
+  },
+  "navigation": {
+    "goToPaymentPack": "Bonos"
+  },
+  "actions": {
+    "search": "Buscar un taller",
+    "addWorkshopActivity": "Añadir un taller",
+    "addWorkshopGroup": "Añadir un grupo de sesiones"
+  },
+  "search": "Buscar un taller",
+  "noWorkshops": "Administra tus talleres aquí, un taller es un evento cuya fecha se fija de antemano.",
+  "disabledWorkshops": "Talleres archivados",
+  "tabGroups": "Sesiones de grupo",
+  "tabList": "Lista de talleres",
+  "group": {
+    "emptySearch": "No hay grupos que coincidan con tu búsqueda",
+    "pageSize": "Mostrar por:",
+    "backToGroup": "Volver a los grupos",
+    "emptySelect": "Selecciona una sesión",
+    "emptyState": "Con los grupos de sesiones, tus alumnos pueden reservar todas las sesiones incluidas en el grupo a la vez. Por ejemplo, utiliza los grupos de sesiones para crear talleres introductorios con varias sesiones. "
+  }
+}

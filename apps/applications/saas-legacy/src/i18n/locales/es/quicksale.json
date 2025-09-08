@@ -1,0 +1,236 @@
+{
+  "rolePage": {
+    "noResult": "No se ha creado ningún acceso",
+    "actionColumn": "Acción",
+    "emailColumn": "Email",
+    "staffColumn": "Staff",
+    "submit": "Validar",
+    "cancel": "Cancelar",
+    "password": "Contraseña",
+    "email": "Email",
+    "lastName": "Apellido",
+    "firstName": "Nombre",
+    "modalTitle": "Creación de un acceso a la interfaz de ventas",
+    "addAccess": "Añadir acceso",
+    "subtitle": "Estos accesos permiten al personal acceder a la interfaz de ventas. Es necesario iniciar sesión para poder vender a través de la interfaz.",
+    "title": "Acceso a la interfaz de ventas"
+  },
+  "pageTitle": "Interfaz de ventas",
+  "pageLeavePrompt": {
+    "discard": "Salir sin guardar",
+    "save": "Guardar",
+    "description": "Ten cuidado, no has guardado nada. Estás a punto de perder todos los cambios que has hecho. ¿Quieres guardar tu trabajo?",
+    "title": "Cambios no guardados"
+  },
+  "cardListPage": {
+    "categoryArchivedSnackbar": "La categoría ha sido archivada",
+    "archivedCategories": "Categorías archivadas",
+    "categoryModalSubtitle": "Gama de colores",
+    "categoryModalTitle": "Color de la categoría",
+    "newSection": "Nueva categoría",
+    "addItems": "También puedes añadir objetos haciendo clic en la ficha + de la última posición.",
+    "addSection": "También puede añadir una categoría haciendo clic en la ficha + en la última posición.",
+    "deleteTile": "Borrar la ficha",
+    "archiveSection": "Archivar la categoría",
+    "moveTile": "Mover la ficha",
+    "editColor": "Editar el color",
+    "editName": "Editar el nombre",
+    "editIcon": "Editar el icono",
+    "seeLess": "Ver menos",
+    "seeMore": "Ver más",
+    "possibleActionsFull": "Puedes realizar acciones pasando el ratón por encima de las fichas. Puedes :",
+    "possibleActionsShort": "Puedes realizar acciones pasando el ratón por encima de las fichas...",
+    "save": "Guardar",
+    "preview": "Vista previa"
+  },
+  "objectCard": {
+    "subtitle": {
+      "unlimited": "Ilimitado",
+      "giftcard": "Tarjeta regalo",
+      "subscription": "Cuota",
+      "paymentCombo": "Pack",
+      "shopProduct": "Producto",
+      "privatePass": "Tarjeta de citas",
+      "paymentPack": "Bono",
+      "product": "producto",
+      "product_plural": "productos",
+      "credit": "crédito",
+      "credit_plural": "créditos"
+    },
+    "recurrence": {
+      "year": "cada año",
+      "year_plural": "cada {{ recurrence_basis }} años",
+      "month": "cada mes",
+      "month_plural": "cada {{ recurrence_basis }} meses",
+      "week": "cada semana",
+      "week_plural": "cada {{ recurrence_basis }} semanas",
+      "day": "todos los días",
+      "day_plural": "cada {{ recurrence_basis }} días"
+    }
+  },
+  "itemList": {
+    "additionDrawer": {
+      "withoutCategory": "Sin categoría",
+      "noResult": "Ningún resultado",
+      "unselectAll": "Deseleccionar todo",
+      "selectAll": "Seleccionar todo",
+      "objectType": "Tipo de objeto",
+      "category": "Categoría",
+      "add": "Añadir",
+      "cancel": "Cancelar",
+      "search": "Buscar",
+      "tilesColor": "Color del recuadro",
+      "objectsAddition": "Añadiendo objetos",
+      "objectGroupsSubtitle": "Añadir un grupo de objetos",
+      "simpleObjectsSubtitle": "Añadir objetos",
+      "title": "Interfaz de ventas"
+    },
+    "goBack": "Atras"
+  },
+  "iconSelector": {
+    "searchPlaceholder": "Buscar"
+  },
+  "sectionCard": {
+    "item": "item",
+    "item_plural": "items"
+  },
+  "interface": {
+    "seller": "Vendedor",
+    "authenticationNecessary": "La autenticación de los miembros es necesaria para esta sección.",
+    "anonymousSale": "Venta anónima",
+    "searchAProduct": "Busque un producto",
+    "noResult": "Ningún resultado",
+    "resultsForString": "{{ count }} resultado para {{ searchText }}",
+    "resultsForString_plural": "{{ count }} resultados para {{ searchText }}",
+    "memberModal": {
+      "confirm": "Guardar",
+      "cancel": "Cancelar",
+      "title": "Identificación de miembro"
+    },
+    "ongoingBaskets": {
+      "title": "Cestas en curso",
+      "subText": "Tiene facturas en curso, ciérrelas antes de cerrar la sesión."
+    },
+    "deleteCurrentBasket": {
+      "cancel": "Cancelar",
+      "delete": "Borrar",
+      "title": "Eliminar la cesta actual",
+      "subText": "¿Estás seguro de que quieres borrar la cesta actual?"
+    },
+    "payLater": {
+      "title": "Aplazar",
+      "cancel": "Cancelar",
+      "subText": "Esta cesta ya está parcialmente pagada. Al cerrarlo, aplazará el pago de la parte restante. Encontrará la factura en el backoffice.",
+      "payLater": "Aplazar"
+    },
+    "cannotEdit": {
+      "payment": "Pago",
+      "title": "No es posible editar",
+      "subText": "La cesta ya no se puede modificar porque ya se ha pagado parcialmente."
+    },
+    "scannerMode": {
+      "title": "Modo escáner",
+      "subText": "Escanee los artículos para añadirlos a la cesta.",
+      "done": "Acabado"
+    },
+    "objectAdded": {
+      "title": "Artículo añadido",
+      "subText": "El artículo se ha añadido a la cesta."
+    },
+    "outOfStock": {
+      "title": "Agotado",
+      "subText": "El artículo que intenta añadir a la cesta de la compra está agotado en su establecimiento. ¿Desea añadirlo de todos modos?",
+      "addAnyway": "Añadir de todos modos"
+    },
+    "authenticationRequired": {
+      "title": "Identificación necesaria",
+      "subTextListItem": "El artículo que desea añadir es",
+      "bottomSubText": "Sin la identificación de los miembros, no pueden llevarse a cabo las comprobaciones necesarias.",
+      "identifyMember": "Identificar un miembro",
+      "maxPurchase": {
+        "subText": "El artículo que desea añadir está sujeto a un límite en el número de compras.",
+        "subTextListItem": "Sujeto a un límite en el número de compras"
+      },
+      "tag": {
+        "subText": "El artículo que desea añadir es sólo para miembros con determinadas etiquetas.",
+        "subTextListItem": "Sólo para miembros con determinadas etiquetas"
+      },
+      "newMember": {
+        "subText": "El elemento que desea añadir es sólo para nuevos miembros.",
+        "subTextListItem": "Sólo para miembros nuevos"
+      }
+    },
+    "goBack": "Atras",
+    "totalExcludingTax": "Total antes de impuestos",
+    "taxes": "Impuestos",
+    "totalIncludingTax": "Total",
+    "payment": "Pago",
+    "selectItemToStart": "Haga clic en un artículo para iniciar una cesta.",
+    "cannotAdd": {
+      "title": "No se puede añadir",
+      "subTextListItem": "Lamentablemente no ha sido posible añadir el artículo porque",
+      "newMember": {
+        "subText": "{{ optionalBeginning }} {{- name }} no es un miembro nuevo."
+      },
+      "tag": {
+        "hasTag": "{{ optionalBeginning }} {{- name }} está etiquetado como {{- tagName }}.",
+        "doesNotHaveTag": "{{ optionalBeginning }} {{- name }} no está etiquetado como {{- tagName }}.",
+        "hasTagAndDoesNotHaveTag": "{{ optionalBeginning }} {{- name }} está etiquetado como {{- ownedTagName }} y no está etiquetado como {{- notOwnedTagName }}."
+      }
+    },
+    "itemsRemovedFromBasket": {
+      "title": "Se han eliminado artículos de la cesta",
+      "subText": "Cuando se cambiaba de miembro, algunos artículos que no eran compatibles con el nuevo miembro se eliminaban de la cesta de la compra."
+    }
+  },
+  "checkout": {
+    "paymentSuccess": {
+      "subTextPartialPayment": "El pago ha sido procesado. La factura se ha enviado por correo electrónico. El resto del pago se ha pospuesto: puede realizarse desde el Backoffice o el perfil de cliente.",
+      "title": "Pago aceptado",
+      "subText": "El pago ha sido procesado. La factura se ha enviado por correo electrónico.",
+      "subTextAnonymous": "El pago ha sido procesado.",
+      "printTicket": "Imprimir ticket",
+      "sendByEmail": "Enviar la factura por correo electrónico",
+      "qrCodeTitle": "Descarga tu recibo",
+      "description": "El pago se ha procesado correctamente."
+    },
+    "billingDate": "Fecha de facturación",
+    "priceExcludingTax": "Total antes de impuestos",
+    "tax": "Impuestos",
+    "leftToPay": "Importe pendiente",
+    "leftDue": "Importe pendiente:",
+    "onSpot": "En el centro",
+    "homeDelivery": "Entrega",
+    "firstName": "Nombre",
+    "emailSent": {
+      "printTicket": "Imprimir ticket",
+      "title": "Correo electrónico enviado",
+      "subText": "La factura se ha enviado a la dirección de correo electrónico facilitada."
+    },
+    "noPartialInstalment": {
+      "explanation": "El pago a plazos no es posible cuando se ha modificado el importe total adeudado.",
+      "reset": "Restablecer"
+    },
+    "noAnonymousClientDebt": "Es necesario identificar a un socio en la factura para utilizar el saldo de la cuenta cliente",
+    "internalCredits": "Créditos internos",
+    "priceIncludingTax": "Total",
+    "invoiceFootNote": "Nota a pie de factura",
+    "deliveryFee": "Gastos de envío",
+    "priceRecap": "Resumen",
+    "amountDue": "Total debido",
+    "partialPayment": "Pagado",
+    "lastName": "Apellido",
+    "sendToTerminal": "Enviar al terminal",
+    "cancel": "Cancelar",
+    "validate": "Validar",
+    "payLater": {
+      "title": "Pago aplazado",
+      "subText": "El pago ha sido aplazado: puede realizarse desde el Backoffice o en el perfil del cliente."
+    },
+    "noAnonymousInstalment": {
+      "explanation": "El pago a plazos no es posible cuando la factura es anónima",
+      "identify": "Identificar"
+    },
+    "clientDebt": "Saldo de la cuenta cliente"
+  }
+}

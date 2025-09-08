@@ -1,0 +1,18 @@
+{
+  "input": "Rechercher...",
+  "go_back": "Retourner aux résultats",
+  "noResult": "Aucun résultat",
+  "member": {
+    "sessions": {
+      "title": "Séances"
+    },
+    "packs": {
+      "title": "Cartes de cours"
+    },
+    "archived": "Membres archivés",
+    "closeMemberMatch": "Recherchez-vous ce membre ?"
+  },
+  "actions": {
+    "addMember": "Ajouter un membre"
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "member": {
+    "packs": {
+      "title": "Kurspässe"
+    },
+    "sessions": {
+      "title": "Kurse"
+    },
+    "closeMemberMatch": "Suchen Sie nach diesem Mitglied?",
+    "archived": "Archivierte Mitglieder"
+  },
+  "noResult": "Kein Ergebnis",
+  "go_back": "Zurück zu den Ergebnissen",
+  "input": "Suche...",
+  "actions": {
+    "addMember": "Ein Mitglied hinzufügen"
+  }
+}

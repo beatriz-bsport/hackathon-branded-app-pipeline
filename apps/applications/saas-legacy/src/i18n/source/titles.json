@@ -1,0 +1,110 @@
+{
+  "banner": {
+    "isStaging": "Learn more in an online demo",
+    "networkError": "Looks like you're offline. Please check your internet and try again.",
+    "serverError": "Something went wrong on our end—please wait, or click here to refresh the page.",
+    "networkConnectionRestored": "Connection restored!",
+    "serverConnectionRestored": "Connection restored. You can continue without issues.",
+    "franchiseConnection": "You're currently connected as one of your studios' Sub Accounts."
+  },
+  "member": {
+    "members": "Members",
+    "mergeMember": "Merge member",
+    "memberFormPage": "Member Form",
+    "memberForm": "Add a member"
+  },
+  "invoice": {
+    "invoiceEdit": "Invoice",
+    "invoiceList": "Invoices",
+    "invoiceCreate": "Bill",
+    "invoiceCreatePage": "Create Invoice"
+  },
+  "coach": {
+    "coachList": "Teachers",
+    "coachPerformance": "Payroll: {{- name }}",
+    "coachFormPage": "[Form] Teacher",
+    "allCoachPerformance": "Payroll"
+  },
+  "order": {
+    "orderList": "Orders",
+    "orderDetail": "Order"
+  },
+  "metaActivity": {
+    "metaActivityEditForm": "[Form] Group activity",
+    "metaActivityList": "Activities",
+    "metaActivityFormPage": "Add a Group Activity",
+    "metaActivityEditFormSubtitle": "Edit a group activity",
+    "metaActivityFormSubtitle": "Set up a group activity, define its duration, and add custom conditions",
+    "metaActivity": "Activities"
+  },
+  "coupon": {
+    "couponCreate": "Create coupon",
+    "couponEdit": "Coupon form",
+    "couponList": "Promotions",
+    "couponDetail": "{{name}}"
+  },
+  "establishment": {
+    "establishmentList": "Establishments",
+    "establishmentFormPage": "Add an Establishment",
+    "establishmentGroupPage": "Location"
+  },
+  "marketplace": {
+    "marketplaceShop": "Webshop",
+    "marketplaceWorkshop": "Workshops",
+    "marketplaceCalendar": "Calendar",
+    "marketplacePass": "Passes",
+    "marketplaceGiftcard": "Gift cards"
+  },
+  "dashboard": {
+    "marketingDashboard": "Marketing",
+    "reportingDashboard": "Reporting",
+    "dashboard": "Dashboard",
+    "insights": "Insights"
+  },
+  "subscription": {
+    "subscriptionCreate": "Subscription",
+    "subscriptions": "Subscriptions"
+  },
+  "workshopActivity": {
+    "workshopActivityList": "Workshops",
+    "workshopActivityFormPage": "Add a Workshop",
+    "workshopActivityCreate": "Create workshop",
+    "workshopActivityEditFormSubtitle": "Edit a workshop",
+    "workshopActivityFormSubtitle": "Create a workshop"
+  },
+  "paymentPack": {
+    "paymentPackFormPage": "[Form] Pass",
+    "paymentPackList": "Passes"
+  },
+  "marketing": {
+    "marketingDashboard": "Dashboard",
+    "marketingRule": "Marketing strategy",
+    "notifications": "Notifications",
+    "cadence": "Cadence",
+    "audience": "{{ audienceCamelCase }}"
+  },
+  "planning": "Calendar",
+  "settings": "Settings",
+  "shop": "Webshop",
+  "offerManagement": "Bookings",
+  "offerFormPage": "Add sessions",
+  "searchResults": "Search",
+  "privateService": {
+    "serviceList": "Appointments"
+  },
+  "video": {
+    "videoList": "Videos & eBooks"
+  },
+  "expense": {
+    "expenseList": "Expenses"
+  },
+  "coachUserSpace": {
+    "performance": "Payroll",
+    "replacement": "Substitution"
+  },
+  "replacement": "Substitution",
+  "inbox": "Inbox",
+  "giftcard": "Gift cards",
+  "coachList": "Teachers",
+  "metaActivityFormPage": "Activity form"
+}

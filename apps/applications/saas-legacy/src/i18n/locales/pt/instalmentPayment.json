@@ -1,0 +1,167 @@
+{
+  "delete": "Eliminar",
+  "deleteDialog": {
+    "title": "Pretende mesmo eliminar esta configuração ?",
+    "content": "Apenas os pagamentos futuros serão afetados."
+  },
+  "modify": "Editar",
+  "form": {
+    "compability": {
+      "pack": "Passe de aulas",
+      "allPass": "Compatível com todos os passes de aulas",
+      "selectPack": "Selecionar um passe de aulas",
+      "selectGiftcard": "Selecionar um passe oferta",
+      "shopItem": "Produtos da loja",
+      "selectCombo": "Selecionar um pack",
+      "selectPrivatePass": "Selecionar um passe de aula privada",
+      "selectShopItem": "Selecionar um produto",
+      "allPrivateBooking": "Compatível com todos os passes de aula privada",
+      "privateBooking": "Passe de aula privada",
+      "giftcard": "Cartões de presente",
+      "allGiftcard": "Compatível com todos os cartões de presente",
+      "allShopItem": "Compatível com todos os produtos da loja",
+      "combo": "Pack",
+      "allCombo": "Compatível com todos os packs"
+    },
+    "partialPaymentRadio": {
+      "enabled": {
+        "label": "Pagamento parcial do carrinho",
+        "helperText": "Os membros pagam apenas uma parte do montante total do seu carrinho imediatamente, sendo o restante debitado do seu depósito interno"
+      },
+      "disabled": "Pagar a totalidade do carrinho em várias prestações"
+    },
+    "customInstalmentAmount": {
+      "amountHelperText": {
+        "percent": "Percentagem",
+        "amount": "Montante"
+      },
+      "type": {
+        "amount": "Montante fixo",
+        "percent": "Em percentagem do preço total do carrinho"
+      },
+      "label": "Personalizar um montante na primeira prestação"
+    },
+    "onlyAvailableInfo": "Por defeito, se os artigos compatíveis com o pagamento em prestações estiverem no carrinho com artigos incompatíveis, o pagamento em prestações não será proposto. Se desativar esta função, o pagamento em prestações continuará a ser proposto, desde que exista um artigo compatível no carrinho.",
+    "requiredField": "este campo é obrigatório",
+    "onlyAvailable": "Oferta apenas quando todos os artigos do carrinho são compatíveis",
+    "frequency": {
+      "start": "Repetir todos os"
+    },
+    "name": "Nome",
+    "recurrency": {
+      "day": "dia",
+      "day_plural": "dias",
+      "month": "mês",
+      "week": "semana",
+      "week_plural": "semanas",
+      "title": "Recorrência",
+      "montly": "Mensalmente",
+      "daily": "Diariamente",
+      "annual": "Anualmente",
+      "weekly": "Semanalmente",
+      "year": "ano",
+      "year_plural": "anos"
+    },
+    "advanced": "Avançado",
+    "cancel": "Cancelar",
+    "generalInfo": "Informações gerais",
+    "compabilityInfo": "Seleccione os artigos aos quais pretende aplicar a opção de pagamento em prestações, e esta só será compatível com os mesmos. Quando comprar um dos artigos seleccionados, o pagamento em prestações será proposto.",
+    "info": {
+      "end": " é gerado {{number_of_billing}} recibo",
+      "end_plural": " é gerado {{number_of_billing}} recibos",
+      "middle": " durante um período total de {{total}} ",
+      "startDay": "O pagamento será faturado todos os {{frequency}} dias",
+      "startYear": "O pagamento será faturado todos os {{frequency}} anos",
+      "startMonth": "O pagamento será faturado todos os {{frequency}} meses",
+      "startWeek": "O pagamento será faturado todas as {{frequency}} semanas"
+    },
+    "feeHelperText": "Taxas a pagar pelo membro para utilizar o pagamento em várias prestações; estas serão adicionadas automaticamente ao primeiro pagamento.",
+    "numberOfBilling": "Número de recibos",
+    "fee": "Taxas fixas",
+    "create": "Pagamento às prestações",
+    "add": "adicionar uma configuração",
+    "minimum_amount": "Montante mínimo do carrinho",
+    "save": "Guardar",
+    "compatibility": "Compatibilidade",
+    "minimumAmountHelperText": "Para um carrinho de valor inferior a este montante, não será proposto o pagamento em várias prestações.",
+    "search": "Pesquisar"
+  },
+  "detail": {
+    "packAvailable": "{{length}} passe de aulas compatível",
+    "packAvailable_plural": "{{length}} passes de aulas compatíveis",
+    "packAvailableForAll": "Todos os passes de aulas compatíveis",
+    "paymentPack": "Passes de aulas",
+    "onlyWhenAllAvailable": "Apenas disponível quando todos os artigos do carrinho são compatíveis",
+    "giftcardAvailable": "{{length}} Cartão  de presente compatível",
+    "giftcardAvailable_plural": "{{length}} Cartões  de presente compatíveis",
+    "giftcard": "Cartões de presente",
+    "title": "Detalhes da configuração",
+    "shopItem": "Produtos",
+    "fee": "Taxas fixas",
+    "seeAll": "ver tudo",
+    "compatibility": "Compatibilidade",
+    "duration": "Todos os {{frequency}} {{recurrency}} para {{number_of_billing}} {{recurrency_ponderate_by_number_of_billing}}",
+    "privatePassAvailableForAll": "Todos os passes de AULA PRIVADA compatíveis",
+    "comboAvailableForAll": "Todos os packs compatíveis",
+    "giftcardAvailableForALl": "Todos os Cartões de presente compatíveis",
+    "shopItemAvailableForALl": "Todos os produtos da loja compatíveis",
+    "combo": "Packs",
+    "privatePass": "Passes de Aula Privada",
+    "noCompability": "O seu pagamento em várias prestações não é compatível",
+    "whenOneAvailable": "Sugerido logo que um artigo do carrinho seja compatível",
+    "paymentNumber": "{{number_of_billing}} pagamento",
+    "paymentNumber_plural": "{{number_of_billing}} pagamentos",
+    "privatePassAvailable": "{{length}} passe de aula privada compatível",
+    "privatePassAvailable_plural": "{{length}} passes de aulas privadas compatíveis",
+    "shopItemAvailable": "{{length}} produto da loja compatível",
+    "shopItemAvailable_plural": "{{length}} produtos da loja compatíveis",
+    "minimumAmount": "Montante mínimo do carrinho",
+    "recurrency": "Recorrência",
+    "number_of_billing": "Número de pagamentos",
+    "noConfiguration": "Selecione uma configuração para ver os seus detalhes",
+    "comboAvailable": "{{length}} pack compatível",
+    "comboAvailable_plural": "{{length}} packs compatíveis"
+  },
+  "configurationOption": {
+    "payLaterRemainder": "O restante do montante a pagar ({{remainder}}) será deduzido do seu saldo interno",
+    "payLater": "Apenas pagamento {{amount}}"
+  },
+  "validation": {
+    "amountMin": "O montante deve ser superior a 1",
+    "percentRange": "A percentagem deve estar compreendida entre 1 e 100"
+  },
+  "close": "Fechar",
+  "basket": {
+    "instalmentAmount": "Expiração do ",
+    "instalmentAmountTitle": "Expiração",
+    "fee": "Custos fixos : "
+  },
+  "title": "Pagamento às prestações",
+  "list": {
+    "addInstalmentPayment": "adicionar uma configuração",
+    "infoNoInstalmentPayment": "O pagamento em prestações permite aos seus membros repartir o pagamento da sua compra ao longo de um período de tempo. Configure as suas prestações e os artigos a que se aplicam."
+  },
+  "action": {
+    "disable": {
+      "success": "A configuração foi eliminada",
+      "error": "Erro ao eliminar a configuração"
+    },
+    "edit": {
+      "success": "A configuração foi alterada",
+      "error": "Erro ao alterar a configuração"
+    },
+    "create": {
+      "error": "Erro ao criar a configuração",
+      "success": "A configuração foi criada"
+    }
+  },
+  "paymentAllInOnce": "Pagar de uma só vez",
+  "menu": {
+    "secondary": {
+      "allFeminine": "Todos os {{frequency}} ",
+      "numberOfBilling": "{{number_of_billing}} recibo",
+      "numberOfBilling_plural": "{{number_of_billing}} recibos",
+      "allMasculine": "Todos os {{frequency}} "
+    }
+  }
+}

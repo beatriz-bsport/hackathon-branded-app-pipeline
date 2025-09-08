@@ -1,0 +1,168 @@
+{
+  "paymentAllInOnce": "Pagar de una vez",
+  "action": {
+    "edit": {
+      "success": "La configuración ha sido modificada",
+      "error": "Error al cambiar la configuración"
+    },
+    "create": {
+      "success": "La configuración ha sido creada",
+      "error": "Error al crear la configuración"
+    },
+    "disable": {
+      "success": "La configuración ha sido eliminada",
+      "error": "Error al borrar la configuración"
+    }
+  },
+  "detail": {
+    "whenOneAvailable": "Se propone en cuanto un objeto de la cesta es compatible",
+    "noConfiguration": "Seleccione una configuración para ver sus detalles",
+    "title": "Detalles de la configuración",
+    "giftcard": "Tarjetas de regalo",
+    "paymentPack": "Tarjetas de curso",
+    "privatePass": "Tarjetas de citas",
+    "shopItem": "Productos",
+    "combo": "Packs",
+    "recurrency": "Recurrencia",
+    "duration": "Todas las {{frequency}} {{recurrency}} durante {{number_of_billing}} {{recurrency_ponderate_by_number_of_billing}}",
+    "number_of_billing": "Número de pagos",
+    "paymentNumber": "{{number_of_billing}} pago",
+    "paymentNumber_plural": "{{number_of_billing}} pagos",
+    "fee": "Gastos fijos",
+    "minimumAmount": "Importe mínimo de la cesta",
+    "compatibility": "Compatibilidad",
+    "seeAll": "ver todo",
+    "packAvailableForAll": "Todas las tarjetas de curso compatibles",
+    "packAvailable": "{{length}} tarjeta de curso compatible",
+    "packAvailable_plural": "{{length}} tarjetas de curso compatibles",
+    "privatePassAvailableForAll": "Todas las tarjetas de citas compatibles",
+    "privatePassAvailable": "{{length}} tarjeta de citas compatible",
+    "privatePassAvailable_plural": "{{length}} tarjetas de citas compatibles",
+    "comboAvailableForAll": "Todos los packs compatibles",
+    "comboAvailable": "{{length}} pack compatible",
+    "comboAvailable_plural": "{{length}} packs compatibles",
+    "giftcardAvailableForALl": "Todas las tarjetas de regalo compatibles",
+    "giftcardAvailable": "{{length}} tarjeta de regalo compatible",
+    "giftcardAvailable_plural": "{{length}} tarjetas de regalo compatibles",
+    "shopItemAvailableForALl": "Todos los productos compatibles de la tienda",
+    "shopItemAvailable": "{{length}} producto compatible de la tienda",
+    "shopItemAvailable_plural": "{{length}} productos compatibles de la tienda",
+    "onlyWhenAllAvailable": "Sólo se ofrece cuando todos los artículos de la cesta son compatibles",
+    "noCompability": "Su pago fraccionado no es compatible"
+  },
+  "menu": {
+    "secondary": {
+      "numberOfBilling": "{{number_of_billing}} recogida",
+      "numberOfBilling_plural": "{{number_of_billing}} recogidas",
+      "allMasculine": "Cada {{frequency}} ",
+      "allFeminine": "Cada {{frequency}} "
+    }
+  },
+  "form": {
+    "onlyAvailableInfo": "Por defecto, si hay artículos compatibles en la cesta de la compra junto con artículos incompatibles, no se ofrecerá la función de pago múltiple. Al desactivar esta función, se seguirá proponiendo el pago fraccionado, siempre que haya un artículo compatible en la cesta.",
+    "compabilityInfo": "Seleccione los artículos en los que desea aplicar el pago fraccionado, sólo será compatible con éstos. Cuando compre uno de los artículos seleccionados, se le propondrá el pago fraccionado.",
+    "info": {
+      "startWeek": "El pago se facturará cada {{frequency}} semanas",
+      "middle": " durante un período total de {{total}} ",
+      "end": " y generará {{number_of_billing}} recogida",
+      "end_plural": " y generará {{number_of_billing}} recogidas",
+      "startDay": "El pago se facturará cada {{frequency}} días",
+      "startMonth": "El pago se facturará cada {{frequency}} mes",
+      "startYear": "El pago se facturará cada {{frequency}} años"
+    },
+    "recurrency": {
+      "title": "Recurrencia",
+      "week": "semana",
+      "week_plural": "semanas",
+      "month": "mes",
+      "month_plural": "meses",
+      "year": "año",
+      "year_plural": "años",
+      "day": "día",
+      "day_plural": "días",
+      "daily": "Diario",
+      "weekly": "Semanal",
+      "montly": "Mensual",
+      "annual": "Anual"
+    },
+    "compability": {
+      "selectPack": "Seleccionar una tarjeta de curso",
+      "allPrivateBooking": "Compatible con todas las tarjetas de citas",
+      "selectPrivatePass": "Seleccionar una tarjeta de cita",
+      "selectCombo": "Seleccionar un pack",
+      "selectShopItem": "Seleccionar un producto",
+      "selectGiftcard": "Seleccionar una tarjeta de regalo",
+      "allPass": "Compatible con todas las tarjetas de curso",
+      "pack": "Tarjeta de curso",
+      "privateBooking": "Tarjeta de citas",
+      "combo": "Pack",
+      "allCombo": "Compatible con todos los packs",
+      "shopItem": "Productos de la tienda",
+      "allShopItem": "Compatible con todos los productos de la tienda",
+      "giftcard": "Tarjetas de regalo",
+      "allGiftcard": "Compatible con todas las tarjetas de regalo"
+    },
+    "numberOfBilling": "Número de recogidas",
+    "add": "añadir una configuración",
+    "search": "Buscar",
+    "onlyAvailable": "Ofrecer sólo cuando todos los artículos de la cesta sean compatibles",
+    "minimumAmountHelperText": "Para una cesta inferior a este importe, no se ofrecerá el pago fraccionado.",
+    "minimum_amount": "Importe mínimo de la cesta",
+    "advanced": "Avanzado",
+    "requiredField": "este campo es obligatorio",
+    "cancel": "Cancelar",
+    "save": "Guardar",
+    "compatibility": "Compatibilidad",
+    "create": "Pago fraccionado",
+    "generalInfo": "Información general",
+    "name": "Nombre",
+    "frequency": {
+      "start": "Repetir cada"
+    },
+    "fee": "Gastos fijos",
+    "feeHelperText": "Los gastos que debe pagar el miembro para utilizar el servicio de pago fraccionado, se añadirán automáticamente al primer pago.",
+    "customInstalmentAmount": {
+      "type": {
+        "amount": "Importe fijo",
+        "percent": "En porcentaje del precio total de la cesta"
+      },
+      "label": "Personalizar el importe del primer pago fraccionado",
+      "amountHelperText": {
+        "amount": "Importe",
+        "percent": "Porcentaje"
+      }
+    },
+    "partialPaymentRadio": {
+      "enabled": {
+        "helperText": "El miembro paga inicialmente sólo un importe parcial de su cesta, el importe restante se abonará en el saldo de su cuenta",
+        "label": "Pago parcial de la cesta"
+      },
+      "disabled": "Pague todo el importe de la cesta en varios plazos"
+    }
+  },
+  "list": {
+    "infoNoInstalmentPayment": "El pago fraccionado permite a sus miembros pagar sus compras a lo largo de un periodo de tiempo. Configure sus pagos fraccionados y sobre qué artículos aplicarlos.",
+    "addInstalmentPayment": "añadir una configuración"
+  },
+  "title": "Pago fraccionado",
+  "deleteDialog": {
+    "title": "¿Realmente quiere eliminar esta configuración?",
+    "content": "Sólo se verán afectados los pagos futuros."
+  },
+  "close": "Cerrar",
+  "modify": "Editar",
+  "delete": "Borrar",
+  "basket": {
+    "instalmentAmountTitle": "Línea de tiempo",
+    "instalmentAmount": "Fecha límite de ",
+    "fee": "Gastos fijos : "
+  },
+  "configurationOption": {
+    "payLaterRemainder": "El importe restante de {{ remainder }} se registrará en el saldo de su cuenta",
+    "payLater": "Paga sólo {{ amount }} ahora"
+  },
+  "validation": {
+    "percentRange": "El porcentaje debe estar comprendido entre 1 y 100",
+    "amountMin": "El importe debe ser superior a 1"
+  }
+}

@@ -1,0 +1,275 @@
+{
+  "capacity": {
+    "explain": "Capaciteit: {{capacity}} plaats",
+    "explain_plural": "Capaciteit: {{capacity}} plaatsen",
+    "helperText": "Dit wordt alleen gebruikt om de beschikbaarheid voor afspraken te berekenen.",
+    "label": "Maximale capaciteit",
+    "placeholder": " "
+  },
+  "goBackToList": "Keer terug naar vestigingen",
+  "update": {
+    "imageUploaderRequireEditMessage": "Je kunt meer afbeeldingen uploaden zodra je je vestiging hebt toegevoegd."
+  },
+  "forms": {
+    "delete": {
+      "content": {
+        "canDelete": "Weet je zeker dat je deze vestiging wilt verwijderen? Deze actie is definitief. Eerdere sessies en reserveringen worden niet gewijzigd.",
+        "cannotDelete": "Deze vestiging kan niet verwijderd worden, omdat er sessies in de toekomst gepland zijn. Controleer of deze sessies zijn geannuleerd en verwijder ze."
+      },
+      "title": "Vestiging verwijderen",
+      "actions": {
+        "cancel": "annuleren",
+        "confirm": "Verwijderen"
+      }
+    },
+    "update": {
+      "title": "Informatie bewerken"
+    },
+    "create": {
+      "title": "Nieuwe vestiging"
+    },
+    "edit": "Bewerken"
+  },
+  "baseEstablishment": "Standaard",
+  "overrider": "Plaatsvervanger",
+  "establishment_override": "Plaatsvervangende vestiging",
+  "search": "Zoek een vestiging",
+  "addButton": "Een zaal of vestiging toevoegen",
+  "pleaseSelectOne": "Selecteer een studio op de kaart",
+  "offers": "Agenda van de sessie(s):",
+  "noMoreOffers": "Er zijn geen nog sessies ingepland.",
+  "pleaseFill": "Vergeet niet om een vestiging toe te voegen!",
+  "practical_info": {
+    "label": "Toegangsinformatie",
+    "placeholder": "Code 1234 rechterdeur",
+    "helperText": "Deze informatie wordt tijdens het reserveren weergegeven."
+  },
+  "form": {
+    "new": {
+      "title": "Titel"
+    }
+  },
+  "card": {
+    "update": "Bewerken"
+  },
+  "detail": {
+    "tab": {
+      "general": "Algemeen",
+      "calendar": "Agenda"
+    }
+  },
+  "establishment": "Vestiging",
+  "noEstablishement": "In dit onderdeel kun je de agenda's, informatie, bezetting, adressen en zalen van al je locaties beheren.",
+  "notificationToolTip": "Er zijn meldingen aan deze vestiging gekoppeld.",
+  "list": {
+    "section": {
+      "archived": "Gearchiveerde vestigingen"
+    }
+  },
+  "location": {
+    "country": "Land",
+    "zip_code": "Postcode",
+    "city": "Stad",
+    "address_line_2": "Adresregel 2",
+    "address_line_1": "Adresregel 1",
+    "address": "Adres",
+    "search_address": "Zoek een adres",
+    "state": "Staat"
+  },
+  "spotScheduling": {
+    "untitled": "Ongetiteld",
+    "placeCount": "{{count}} plaats(en)",
+    "delete": {
+      "content": "Weet je zeker dat je deze plattegrond wilt verwijderen? Deze actie is definitief.",
+      "title": "Een plattegrond verwijderen"
+    },
+    "add": "Een plattegrond toevoegen",
+    "subtitle": "Gebruik Spot Scheduling om leden in staat te stellen om hun gewenste plaats in je vestiging te reserveren.",
+    "title": "Spot Scheduling"
+  },
+  "group": {
+    "table": {
+      "name": "Naam",
+      "establishment": "Vestiging",
+      "actions": "Acties",
+      "address": "Adres",
+      "noAddress": "Er is geen adres gekoppeld aan deze factureringsgroep",
+      "multiLocationWebshopEnabled": "Deze factuurgroep kan niet worden verwijderd omdat de functie voor webshops met meerdere locaties is ingeschakeld."
+    },
+    "modal": {
+      "delete": {
+        "confirm": "Verwijder",
+        "cancel": "Annuleer",
+        "title": "Een vestiging verwijderen",
+        "content": "Deze vestiging wordt niet langer weergegeven in de filters van de widgets, Ledenruimte en de mobiele app."
+      }
+    },
+    "form": {
+      "dialog": {
+        "save": "Opslaan",
+        "cancel": "Annuleer",
+        "title": "Locatie"
+      },
+      "associated_localizations": "Gekoppelde vestigingen",
+      "name": "Naam"
+    },
+    "actions": "Acties",
+    "name": " Naam",
+    "addLocalisation": "Een vestiging toevoegen",
+    "groupButton": "Groepeer vestigingen",
+    "noGroupHelper": "Hier kun je meerdere vestigingen op verschillende adressen groeperen. Zo kun je meerdere studio's in verschillende steden hebt, kun je studio's uit dezelfde stad op één locatie groeperen. Je leden kunnen vervolgens op je widgets, app, of Ledenruimte een locatie selecteren om alle lessen bij hun in de buurt te bekijken."
+  },
+  "room": "Vestiging",
+  "localisation": "Locatie",
+  "billing_group": {
+    "table": {
+      "name": "Naam",
+      "establishment": "Vestigingen",
+      "actions": "Acties"
+    },
+    "modal": {
+      "delete": {
+        "confirm": "Verwijderen",
+        "cancel": "Annuleren",
+        "content": "Weet u zeker dat u deze factureringsgroep wilt verwijderen? Toekomstige facturen zullen niet meer aan deze locatie kunnen worden gekoppeld, of door de leden kunnen worden geselecteerd als hun voorkeurslocatie tijdens het doen van een online aankoop. Controleer voordat u de factureringsgroep verwijdert of al uw vestigingen zijn gekoppeld aan bestaande factureringsgroepen",
+        "title": "Een groepsfacturatie verwijderen"
+      }
+    },
+    "form": {
+      "error": {
+        "groupShouldContainsOneRoom": "Selecteer ten minste één vestiging",
+        "groupShouldHaveName": "Voeg een naam toe",
+        "groupShouldHaveAddress": "U moet een adres opgeven voor deze factureringsgroep"
+      },
+      "dialog": {
+        "save": "Opslaan",
+        "cancel": "Annuleren",
+        "title": "Groepsfacturatie"
+      },
+      "associated_localizations": "Gekoppelde vestigingen",
+      "name": "Naam",
+      "address": {
+        "helperText": "Voer het adres in van de factureringsgroep.",
+        "label": "Adres"
+      },
+      "warning": {
+        "groupHasSeveralLocations": "De vestigingen die u heeft geselecteerd, hebben niet hetzelfde adres en maken mogelijk geen deel uit van dezelfde locatie."
+      }
+    },
+    "actions": "Acties",
+    "name": " Naam"
+  },
+  "description": "Omschrijving",
+  "favouriteLocation": "Voorkeurslocatie",
+  "notification": {
+    "modal": {
+      "content": "Weet je zeker dat je deze melding wilt verwijderen? Deze actie is definitief.",
+      "confirm": "Verwijderen",
+      "cancel": "Annuleren",
+      "title": "Melding verwijderen"
+    }
+  },
+  "marketing": {
+    "notification": "Meldingen"
+  },
+  "roomRequiredIsMissing": "U heeft geen factureringsinstelling geselecteerd.",
+  "roomRequired": "Zaal *",
+  "billingGroup": "Facturatiegroep",
+  "billingGroupRequired": "Facturatiegroep *",
+  "bookkeeping_account": {
+    "modal": {
+      "delete": {
+        "cancel": "Annuleren",
+        "confirm": "Verwijderen",
+        "content": "Je staat op het punt dit account te verwijderen. Weet je zeker dat je door wilt gaan?",
+        "title": "Verwijderen",
+        "contentLinked": "Deze account is gekoppeld aan de volgende objecten. Als je deze account wilt verwijderen, verwijder deze dan eerst."
+      }
+    },
+    "header": "Accounts",
+    "table": {
+      "actions": "Acties"
+    },
+    "vat_rate": "btw-percentage",
+    "helperText": "De rekeningen kunnen worden gekoppeld aan producten zodat het rekeningnummer en btw-tarief automatisch worden ingevuld in de rapporten.",
+    "form": {
+      "titleUpdate": "Account bewerken",
+      "titleCreate": "Account toevoegen"
+    },
+    "add": "Account toevoegen",
+    "select_input": {
+      "placeholder": "Leeg laten om account niet toe te passen",
+      "label": "Boekhoudrekening"
+    },
+    "account_name_required": "Account naam *",
+    "account_name": "Account naam",
+    "account_number_required": "Account nummer *",
+    "account_number": "Account nummer"
+  },
+  "deleteObject": {
+    "errors": {
+      "hasUpcomingPrivateBookings": "Sommige komende afspraken vinden plaats in deze vestiging. Annuleer en verwijder ze voordat je deze vestiging verwijdert.",
+      "exclusivePaymentPacks": "De volgende pas {{- pass_name }} is alleen bruikbaar in deze vestiging. Werk de beperkingen bij voordat u de vestiging verwijdert.",
+      "exclusivePaymentPacks_plural": "De volgende passen {{- pass_name }} zijn alleen geldig in deze vestiging. Update hun beperkingen eerst voordat je de vestiging verwijdert.",
+      "exclusiveEstablishmentGroups": "De locatie {{- establishment_group_name }} bevat alleen de vestiging die u wilt verwijderen. Werk deze locatie bij of verwijder deze.",
+      "exclusiveEstablishmentGroups_plural": "De locaties {{- establishment_group_name }} bevatten alleen de vestiging die je wilt verwijderen, bewerk of verwijder deze locaties eerst.",
+      "hasExclusiveMarketplaceComponentConfigs": "Een of meerdere tabbladen op de Ledenruimte zijn ingesteld om alleen de agenda en workshops van deze vestiging weer te geven.",
+      "hasUpcomingOffers": "Sommige komende sessies vinden plaats in deze vestiging. Annuleer en verwijder ze voordat je deze vestiging verwijdert.",
+      "hasExclusiveBillingGroup": "Deze vestiging is de laatste van zijn factureringsgroep. Verwijder deze factureringsgroep of werk deze bij voordat u deze vestiging verwijdert.",
+      "isIntegratedInPartnership": "Een of meerdere integraties gebruiken deze vestiging."
+    },
+    "warnings": {
+      "hasBillingGroup": "Deze vestiging wordt ook verwijderd uit de factureringsgroep {{- establishment_billing_group_name }}.",
+      "exclusivePrivateServices": "De afspraak {{- private_service_name }} is geconfigureerd om alleen in deze vestiging plaats te vinden. Door deze vestiging te verwijderen, kan deze afspraak overal plaatsvinden.",
+      "exclusivePrivateServices_plural": "De afspraken {{- private_service_name }} zijn alleen ingesteld om in deze vestiging plaats te vinden. Door deze instelling te verwijderen, kunnen deze afspraken overal plaatsvinden.",
+      "exclusiveCoachAvailabilitySlots": "De leraar {{- coach_name }} is aangegeven als beschikbaar voor deze vestiging voor slechts enkele tijdsloten. Door de vestiging te verwijderen, worden deze tijdslots verwijderd.",
+      "exclusiveCoachAvailabilitySlots_plural": "De instructeurs {{- coach_name }} zijn aangegeven als alleen beschikbaar voor deze vestiging in bepaalde tijdslots. Door de vestiging te verwijderen, worden deze tijdslots verwijderd.",
+      "exclusiveAssociatedCoaches_plural": "Je leraren {{- coach_name }} krijgt alleen bericht als er een vervangingsverzoek wordt gedaan voor een sessie in deze vestiging. Door de vestiging te verwijderen, ontvangen ze dus vervangingsverzoeken van elke vestiging.",
+      "exclusiveAssociatedCoaches": "Je leraar {{- coach_name }} krijgt alleen bericht als er een vervangingsverzoek wordt gedaan voor een sessie in deze vestiging. Door de vestiging te verwijderen, ontvangen ze dus vervangingsverzoeken van elke vestiging.",
+      "hasExclusiveStaffConfigurations": "Sommige medewerkers zijn geconfigureerd om de toegang van leden alleen voor deze vestiging te controleren. Door de vestiging te verwijderen zonder een nieuwe te selecteren, kunnen ze geen toegangscontrole meer uitvoeren.",
+      "hasRelatedStaffConfigurations": "Deze vestiging wordt verwijderd uit de vestigingen die door personeelsleden worden gebruikt voor toegangscontrole.",
+      "hasRelatedCoachAvailabilitySlots": "Deze vestiging zal verwijderd worden uit de lijst met beschikbare vestigingen die gebruikt worden in de agenda van je docenten.",
+      "hasRelatedAssociatedCoaches": "Sommige leraren krijgen een melding wanneer er een vervangingsverzoek wordt gedaan voor een sessie in deze vestiging. Door de vestiging te verwijderen, ontvangen ze geen meldingen meer.",
+      "relatedPaymentPacks_plural": "De volgende passen {{- pass_name }} zal niet langer bruikbaar zijn voor deze vestiging, zorg ervoor dat u uw klanten hierover informeert.",
+      "relatedPaymentPacks": "De volgende pas {{- pass_name }} zal niet langer bruikbaar zijn voor deze vestiging, zorg ervoor dat u uw klanten hierover informeert.",
+      "hasRelatedAvailabilitySlots": "De beschikbare slots van deze vestiging worden verwijderd.",
+      "hasRelatedZoomEstablishment": "Deze vestiging zal verwijderd worden uit de lijst van vestigingen die gebruikt worden voor live streaming met de Zoom-integratie.",
+      "hasRelatedMarketplaceComponentConfigs": "De kalender- en workshop-tabbladen die zijn geconfigureerd voor Ledenruimte zullen de kalender van deze vestiging niet meer weergeven.",
+      "hasRelatedMarketingNotifications": "Meldingen met betrekking tot deze vestiging worden verwijderd."
+    },
+    "title": {
+      "error": "De vestiging kan niet worden verwijderd om de volgende redenen:",
+      "warning": "Het verwijderen van deze vestiging heeft de volgende gevolgen:"
+    },
+    "infos": {
+      "reportsDefault": "De vestiging wordt niet verwijderd uit eerdere rapporten.",
+      "offersDefault": "Bestaande sessies, workshops en eerdere boekingen worden niet gewijzigd.",
+      "widgetsDefault": "De widgets Agenda en Workshops zijn mogelijk geconfigureerd met deze instelling, vergeet deze niet bij te werken.",
+      "privateBookingsDefault": "Afspraken uit het verleden worden niet gewijzigd."
+    }
+  },
+  "establishmentGroup": {
+    "deleteObject": {
+      "warnings": {
+        "hasRelatedStaffConfigurations": "Deze locatie wordt gebruikt voor toegangscontrole door één of meerdere medewerkers. Door de locatie te verwijderen zonder een nieuwe te selecteren, kunnen zij geen toegangscontrole meer uitvoeren.",
+        "exclusiveAssociatedCoaches_plural": "Je instructerus {{- coach_name }} krijgt alleen bericht als er een vervangingsverzoek wordt gedaan voor een sessie in deze locatie. Door de locatie te verwijderen, zullen ze dus vervangingsverzoeken van elke locatie ontvangen.",
+        "exclusiveAssociatedCoaches": "Je instructeur {{- coach_name }} krijgt alleen bericht als er een vervangingsverzoek wordt gedaan voor een sessie in deze locatie. Door de locatie te verwijderen, zullen ze dus vervangingsverzoeken van elke locatie ontvangen.",
+        "hasRelatedAssociatedCoaches": "Sommige leerkrachten krijgen een melding wanneer er een vervangingsverzoek wordt ingediend voor een sessie op deze locatie. Door de locatie te verwijderen, ontvangen ze geen meldingen meer.",
+        "hasRelatedMarketingNotifications": "Meldingen die aan deze locatie zijn gekoppeld, worden verwijderd.",
+        "hasRelatedMarketplaceComponentConfigs": "De kalender- en workshop-tabbladen die zijn geconfigureerd voor Ledenruimte zullen deze locatiekalender niet meer weergeven."
+      },
+      "errors": {
+        "hasExclusiveMarketplaceComponentConfigs": "Een of meerdere tabbladen op de Ledenruimte zijn ingesteld om alleen de agenda en workshops van deze locatie weer te geven."
+      },
+      "infos": {
+        "reportsDefault": "De locatie wordt verwijderd uit eerdere rapporten.",
+        "widgetsDefault": "Kalender en Workshops widgets kunnen geconfigureerd zijn met deze locatie, vergeet niet om ze bij te werken."
+      }
+    },
+    "forms": {
+      "delete": {
+        "title": "Een locatie verwijderen"
+      }
+    }
+  }
+}

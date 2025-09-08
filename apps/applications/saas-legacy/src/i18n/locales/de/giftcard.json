@@ -1,0 +1,219 @@
+{
+  "backgroundImage": {
+    "dialog": {
+      "explain": "Hier klicken, um ein Bild einzufügen.",
+      "actions": {
+        "close": "Schließen"
+      },
+      "title": "Bilder zur Anpassung"
+    }
+  },
+  "form": {
+    "giftcard": {
+      "manager_only": {
+        "label": "Unsichtbar für die Kunden"
+      },
+      "unlimited": {
+        "label": "Unbegrenzt"
+      },
+      "expiration_days": {
+        "helperText": "Die Gültigkeit der Geschenkkarte beginnt mit dem Versanddatum der Einladung.",
+        "label": "Dauer der Gültigkeit in Tagen"
+      },
+      "price": {
+        "helperText": "Bestimmt den Wert des angebotenen Gutscheins.",
+        "label": "Verkaufspreis"
+      },
+      "section": {
+        "parameters": {
+          "title": "Einstellungen"
+        }
+      },
+      "description": {
+        "label": "Beschreibung"
+      },
+      "available_payment_method_identifiers": {
+        "label": "Verfügbare Zahlungsmethoden",
+        "helperText": " "
+      },
+      "name": {
+        "label": "Name"
+      },
+      "title": "Geschenkgutschein",
+      "actions": {
+        "submit": "Bestätigen",
+        "cancel": "Schließen"
+      },
+      "advancedOptions": {
+        "tag": {
+          "selectTags": "Tags auswählen",
+          "tagsOnAcquisitionHelper": "Mit Tags kannst du Mitglieder markieren, die diesen Geschenkgutschein gekauft haben, um sie in Zukunft schnell wiederfinden zu können.",
+          "tagsOnAcquisition": "Markierung nach dem Kauf"
+        },
+        "header": "Erweitert"
+      }
+    },
+    "canNotUpdateBecauseShared": "Dieser Gutschein wird vom Franchisegeber zur Verfügung gestellt. Sie wurde vom Franchisegeber festgelegt und kann nicht geändert werden."
+  },
+  "giftcard": {
+    "delete": {
+      "dialog": {
+        "actions": {
+          "close": "Schließen",
+          "delete": "Löschen"
+        },
+        "content": "Sind Sie sicher, dass Sie diesen Gutschein löschen wollen? Mitglieder, die diesen bereits erworben haben, können ihn weiterhin nutzen.",
+        "title": "Löschen"
+      }
+    },
+    "detail": {
+      "manager_only": "Kein Online-Verkauf möglich",
+      "availablePaymentMethods": "Verfügbare Zahlungsmethoden",
+      "expirationDate": "Gültigkeitsdauer vor Ablauf: {{ expiration_days }} Tag(e)"
+    },
+    "configurationTitle": "Geschenkgutschein"
+  },
+  "link": {
+    "copyLink": "Kopieren Sie den Kauflink",
+    "activationLink": "Aktivierungslink kopieren"
+  },
+  "consumerGiftcard": {
+    "form": {
+      "footer": "Der Geschenkgutschein wird um {{- hour_send }} an den Empfänger gesendet. Er ist für {{ expiration_days }} Tag(e) nach der Aktivierung gültig und das Konto des Empfängers wird mit {{- price }} aufgeladen.",
+      "actions": {
+        "submit": "Zum Warenkorb hinzufügen",
+        "cancel": "Abbrechen"
+      },
+      "date_send": {
+        "label": "Datum, an dem die E-Mail gesendet wurde"
+      },
+      "recipients": {
+        "label": "E-Mail des Empfängers"
+      },
+      "message_content": {
+        "label": "Persönliche Nachricht"
+      },
+      "message_is_from": {
+        "label": "Von "
+      },
+      "message_is_for": {
+        "label": "Für "
+      },
+      "name": {
+        "label": "Name des Geschenkgutscheins"
+      },
+      "footerUnlimited": "Der Geschenkgutschein wird am {{- date_send }} um {{- hour_send }} per E-Mail an die angegebenen Adressen gesendet. Er enthält kein Verfallsdatum. Dem Konto des Empfängers wird ein Betrag von {{- price }} für zukünftige Einkäufe gutgeschrieben.",
+      "select_image": "Wählen Sie Ihr Hintergrundbild",
+      "hour_send": "Uhrzeit des Versands",
+      "activationDate": {
+        "helperText": "Der Empfänger kann die Geschenkkarte ab dem jeweiligen Datum verwenden",
+        "label": "Aktivierungsdatum",
+        "errorMaxDate": "Bitte gebe ein gültiges Datum an"
+      },
+      "footerPhysicalUnlimited": "Sie erhalten per E-Mail die notwendigen Informationen zur Nutzung der Geschenkkarte sowie eine druckfertige Version Ihrer Karte im PDF-Format.",
+      "footerPhysical": "Die Geschenkkarte wird am {{- activation_date }} aktiviert und ist gültig bis {{- activation_date_until }} ({{ duration }} Tag(e)). Sie erhalten per E-Mail alle notwendigen Informationen zur Nutzung der Geschenkkarte sowie eine druckfertige Version Ihrer Karte als PDF-Datei",
+      "type": {
+        "option": {
+          "physical": "druckfertiger Code (PDF)",
+          "digital": "Aktivierungslink per E-mail"
+        },
+        "label": "Wie möchtest du den Geschenkgutschein erhalten"
+      }
+    },
+    "previewPlaceholder": {
+      "message_content": "[Personalisierte Nachricht]",
+      "message_is_for": "[Name des Empfängers]",
+      "message_is_from": "[Name des Käufers]",
+      "name": "[Name des Gutscheins]",
+      "giftcard_amount": "[Gutscheinbetrag]"
+    },
+    "sendTo": "Einladung erneut versenden",
+    "expiresOn": "Läuft ab am {{- d }}",
+    "notAttributedYet": "Nicht aktiviert",
+    "willInviteOn": "Die Einladung wird am {{- d }} verschickt",
+    "invitedOn": "Am {{- d }} versendet",
+    "value": "Wert",
+    "isFrom": "Von ",
+    "isFor": "Zu Händen von ",
+    "isEmpty": "Keine Gutscheine verfügbar.",
+    "linkedInvoice": "Verknüpfte Rechnung",
+    "list": {
+      "myGifted": "Erhaltene Geschenkgutscheine",
+      "myPurchases": "Gekaufte Geschenkgutscheine"
+    },
+    "invitationForm": {
+      "actions": {
+        "submit": "Senden",
+        "close": "Schließen"
+      },
+      "content": "Sie können den Empfänger des Gutscheins ändern. Beachten Sie, dass nur ein Nutzer ihn verwenden kann. Wenn die E-Mail nicht angekommen ist, können Sie auch den folgenden Aktivierungslink weiterleiten:",
+      "title": "Senden Sie eine Einladungs-E-Mail",
+      "activationCodeLink": "Die Einladungs-E-Mail wurde versandt und kann nicht mehr geändert werden. Sollte sie nicht den richtigen Empfänger erreicht haben, können Sie diesen Aktivierungslink weiterleiten, um die Geschenkkarte anzubieten: "
+    },
+    "activation": {
+      "alreadyActivated": "Dieser Geschenkgutschein wurde bereits von einem anderen Benutzer verwendet.",
+      "activate": "Aktiviere meinen Geschenkgutschein",
+      "content3": "Wenn Sie nicht mit dem richtigen Konto angemeldet sind, melden Sie sich bitte ab und melden Sie sich mit dem richtigen Konto an. Wenn dieser Gutschein nicht für Sie bestimmt ist, lösen Sie ihn bitte nicht ein.",
+      "content2": "Der Gutschein wird automatisch als Zahlungsmethode zu Ihrem Warenkorb hinzugefügt. Alle Informationen zu Ihrem Gutschein finden Sie in Ihrem Profil.",
+      "content1": "Ihr Gutschein im Wert von {{price}} ist mit allen Produkten unseres Shops kompatibel und hat kein Verfallsdatum. Viel Spaß!",
+      "subtitle": "Es scheint, als wolle Sie jemand überraschen.",
+      "title": "Sie haben ein Geschenk erhalten!",
+      "content1withDate": "Ihr {{price}} Gutschein ist mit allen Produkten in unserem Shop kompatibel. Dieser Gutschein verfällt {{expiration_days }} Tage nach der Aktivierung, also gönnen Sie sich was!"
+    },
+    "physicalDetails": {
+      "helperAlert": {
+        "message": "Gib dem Mitglied den Gutschein-Code, damit er/sie das Guthaben bei der nächsten Buchung einlösen kann.",
+        "title": "Wie nutze ich den Gutschein?"
+      },
+      "validFrom": "Gültig vom {{- from }} bis {{- to }}",
+      "code": "Rabattcode:",
+      "to": "für",
+      "title": "Geschenkgutschein"
+    },
+    "seeDetails": "siehe Details"
+  },
+  "list": {
+    "actions": {
+      "create": "Geschenkgutschein hinzufügen",
+      "goToGiftcard": "Alle Geschenkgutscheine anzeigen"
+    },
+    "addBackgroundImage": "Bild hinzufügen",
+    "isEmpty": "Keine Geschenkgutscheine verfügbar.",
+    "archivedTitle": "Archivierte Geschenkgutscheine",
+    "explainIfEmpty": "Gutscheine ermöglichen es Ihren Mitgliedern, Angebote mit ihren Gästen zu teilen und die potenzielle Reichweite Ihres Studios zu erhöhen.",
+    "unavailableForSaleTitle": "Nicht zum Verkauf verfügbar",
+    "activeTitle": "Zum Verkauf verfügbar",
+    "visibility": "Nicht sichtbar",
+    "unlimited": "Unbegrenzt",
+    "validity": "Gültig für {{ duration }} Tag(e)"
+  },
+  "delete": {
+    "submit": "Bestätigen",
+    "cancel": "Abbrechen",
+    "content": "Wollen Sie diesen Gutschein wirklich archivieren? Er wird nicht mehr in Ihrem Backoffice zu sehen sein. Sie können ihn in der Zukunft wieder aktivieren.",
+    "title": "Diesen Gutschein archivieren"
+  },
+  "search": "Gutschein suchen",
+  "widget": "Gutscheine auswählen",
+  "giftcardTemplate": {
+    "template": {
+      "deleteInstanceContent1": "Durch die Deaktivierung dieses Studios für die gemeinsame Nutzung des Gutscheins können alle Mitglieder, die diesen besitzen und ihn von einem Mitglied erhalten haben, das diesen Gutschein in diesem Studio gekauft hat, ihn weiterhin nutzen. Sie können ihn jedoch nicht mehr in anderen Studios verwenden.",
+      "unlimited": "Unbegrenzt",
+      "deleteTemplateContent": "Durch die Deaktivierung eines gemeinsam genutzten Gutscheins können Mitglieder, die diesen besitzen, ihn nur noch in dem Studio nutzen, in dem er gekauft wurde.",
+      "deleteInstanceContent2": "Gutscheine, die in anderen Studios gekauft wurden, sind in dem deaktivierten Studio nicht mehr verwendbar, unabhängig davon, wann sie gekauft wurden.",
+      "validity": "{{count}} Tag gültig",
+      "validity_plural": "{{count}} Tage gültig",
+      "validityDetail": "Verbleibende Gültigkeitsdauer: {{count}} Tag",
+      "validityDetail_plural": "Verbleibende Gültigkeitsdauer: {{count}} Tage",
+      "withoutTax": "Exkl. MwSt./Umsatzsteuer"
+    },
+    "sharedCard": "Von einem anderen Franchisenehmer geteilt",
+    "listPage": {
+      "emptyLabel": "Kein gemeinsamer Gutschein registriert",
+      "addButton": "Einen gemeinsamen Gutschein erstellen",
+      "fuzzyPlaceholder": "Gutschein suchen"
+    },
+    "giftcard": "Gutschein"
+  },
+  "downloadPDF": "PDF herunterladen"
+}

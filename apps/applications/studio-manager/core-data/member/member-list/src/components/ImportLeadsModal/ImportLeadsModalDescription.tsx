@@ -20,8 +20,6 @@ const INTERCOM_HELP_CENTER_ZOHO_IMPORT: Record<Locale, string> = {
   // // Use english documentation when the article does not exist in the current language
   [LANGUAGES.PORTUGUESE]:
     "https://intercom.help/bsport-helpcenter/en/articles/9675215-how-do-i-import-my-leads-from-zoho-crm",
-  [LANGUAGES.CZECH]:
-    "https://intercom.help/bsport-helpcenter/en/articles/9675215-how-do-i-import-my-leads-from-zoho-crm",
 };
 
 export const ImportLeadsModalDescription: React.FC = memo(() => {

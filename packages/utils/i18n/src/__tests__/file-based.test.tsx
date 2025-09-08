@@ -21,7 +21,6 @@ const expectedTranslations: Record<Locale, string> = {
   de: "Haupttitel",
   it: "Titolo principale",
   nl: "Hoofdtitel",
-  cs: "Hlavní nadpis",
   pt: "Título principal",
 };
 

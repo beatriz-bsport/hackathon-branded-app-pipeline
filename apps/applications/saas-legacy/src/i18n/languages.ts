@@ -9,7 +9,6 @@ export const LANGUAGES = {
   GERMAN: 'de',
   ITALIAN: 'it',
   CATALAN: 'ca',
-  CZECH: 'cs',
   PORTUGUESE: 'pt',
   DEBUG: 'cimode',
 } as const;
@@ -23,7 +22,6 @@ export const AVAILABLE_LANGUAGES = [
   LANGUAGES.GERMAN,
   LANGUAGES.ITALIAN,
   LANGUAGES.PORTUGUESE,
-  LANGUAGES.CZECH,
   LANGUAGES.DEBUG,
 ] as const;
 

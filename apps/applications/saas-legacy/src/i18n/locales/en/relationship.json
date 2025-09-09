@@ -1,0 +1,135 @@
+{
+    "member": {
+        "item": {
+            "edit": "",
+            "delete": ""
+        },
+        "list": {
+            "title": "",
+            "isEmpty": "",
+            "pleaseSelectOne": "",
+            "actions": {
+                "create": ""
+            }
+        },
+        "form": {
+            "is": "",
+            "src_name": {
+                "placeholder": ""
+            },
+            "dst_name": {
+                "placeholder": ""
+            },
+            "title": "",
+            "cancel": "",
+            "submit": "",
+            "shareEmail": "",
+            "parentalLink": "",
+            "email": "",
+            "access": "",
+            "accountInfo": "",
+            "autorization": "",
+            "confirm": ""
+        },
+        "messages": {
+            "edit": {
+                "success": ""
+            },
+            "create": {
+                "success": ""
+            },
+            "createOrUpdate": {
+                "error": ""
+            }
+        }
+    },
+    "consumer_payment_pack_links": {
+        "list": {
+            "title": "",
+            "create": "",
+            "isEmpty": ""
+        },
+        "form": {
+            "create": {
+                "title": "",
+                "explain": "",
+                "cancel": "",
+                "previous": "",
+                "submit": "",
+                "noConsumerPackToLink": "",
+                "linkButton": ""
+            },
+            "relink": {
+                "title": "",
+                "explain": "",
+                "submit": "",
+                "cancel": ""
+            },
+            "unlink": {
+                "title": "",
+                "explain": "",
+                "submit": "",
+                "cancel": ""
+            }
+        },
+        "messages": {
+            "create": {
+                "success": "",
+                "error": ""
+            },
+            "unlink": {
+                "success": "",
+                "error": ""
+            },
+            "relink": {
+                "success": "",
+                "error": ""
+            }
+        }
+    },
+    "private_consumer_pass_links": {
+        "form": {
+            "relink": {
+                "cancel": "",
+                "submit": "",
+                "explain": "",
+                "title": ""
+            },
+            "unlink": {
+                "cancel": "",
+                "submit": "",
+                "explain": "",
+                "title": ""
+            },
+            "create": {
+                "noConsumerPackToLink": "",
+                "linkButton": "",
+                "submit": "",
+                "previous": "",
+                "cancel": "",
+                "explain": "",
+                "title": ""
+            }
+        },
+        "list": {
+            "isEmpty": "",
+            "create": "",
+            "title": ""
+        }
+    },
+    "relationship": {
+        "delete": {
+            "title": "",
+            "submit": "",
+            "cancel": "",
+            "content": "",
+            "whichUser": ""
+        }
+    },
+    "connectedAs": {
+        "title": "",
+        "selectRelation": "",
+        "info": "",
+        "wichUser": ""
+    }
+}

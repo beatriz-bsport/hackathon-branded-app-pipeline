@@ -157,6 +157,7 @@ const ExpressPassCheckoutContent: React.FC<ContentProps> = ({
     ],
     currentBasket,
     validateBasket: [{ loading: validateBasketLoading }, validateBasket],
+    fetchBasket: [, fetchBasket],
   } = useBasket();
 
   // Light sign up with basket integration
@@ -175,7 +176,7 @@ const ExpressPassCheckoutContent: React.FC<ContentProps> = ({
         ? async () => {
             const validityResult = await checkPassValidity();
             if (validityResult.isValid) {
-              await addItemToBasketAndFetch();
+              await fetchBasket();
             }
           }
         : undefined,

@@ -1,14 +1,17 @@
 import { exec as execCallback } from "child_process";
+import { existsSync } from "fs";
 import path from "path";
 import { promisify } from "util";
 import { Plugin } from "vite";
 
 const exec = promisify(execCallback);
 
+const I18N_SOURCE_PATH = path.join("i18n", "source");
+
 /**
  * Creates a Vite plugin that watches for changes in translation files and automatically updates translations.
  *
- * This plugin monitors the i18n/translations directory for file changes. When a translation file
+ * This plugin monitors the i18n/source directory for file changes. When a translation file
  * is modified  —after saved—, it automatically runs the 'translation:update' script to regenerate translation assets.
  * This ensures that the application always has the latest translations during development.
  *
@@ -20,13 +23,15 @@ export function translationsWatcher(baseDir: string): Plugin {
     name: "@bsport/translations-watcher-plugin",
     apply: "serve",
     configureServer(server) {
-      // Watch for changes in the i18n/translations directory
-      const translationsDir = path.resolve(baseDir, "src/i18n/translations");
-      server.watcher.add(translationsDir);
+      // Watch for changes in the i18n/source directory
+      const translationsDir = path.resolve(baseDir, "src", I18N_SOURCE_PATH);
+      if (existsSync(translationsDir)) {
+        server.watcher.add(translationsDir);
+      }
 
       server.watcher.on("change", async (filePath) => {
-        // Check if the changed file is in the translations directory
-        if (filePath.includes("i18n/translations")) {
+        // Check if the changed file is in the source directory
+        if (filePath.includes(I18N_SOURCE_PATH)) {
           console.log(
             "\n🌐 Translation file changed:",
             path.relative(baseDir, filePath),

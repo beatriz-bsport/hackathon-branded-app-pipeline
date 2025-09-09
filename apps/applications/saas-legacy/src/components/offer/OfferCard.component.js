@@ -20,6 +20,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import LinkIcon from '@material-ui/icons/Link';
 import LabelIcon from '@material-ui/icons/Label';
 import VisibilityIcon from '@material-ui/icons/Visibility';
+import FileCopyIcon from '@material-ui/icons/FileCopy';
 import IconButton from '@material-ui/core/IconButton';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import Divider from '@material-ui/core/Divider';
@@ -29,19 +30,22 @@ import { BOOKING_SOURCE_MIGRATION } from '@bsport/common/lib/master-data/booking
 
 import { Alert, AlertTitle } from '@material-ui/lab';
 import ObjectLevelPermissionProvider from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
-import { getDeletePermission, getEditPermission } from '#src/libs/offer/utils';
+import {
+  getDeletePermission,
+  getEditPermission,
+  getCreatePermission,
+} from '#src/libs/offer/utils';
 import FreeOfferChip from '#src/libs/offer/components/FreeOfferChip.component';
 import { getRecurrenceTrad } from '#src/libs/group-offer/utils';
-import type { Theme as CompanyTheme } from '#src/libs/theme/types';
 import MemberMinimalListItem from '../../libs/member/components/MemberMinimalListItem.component';
 import Sport from '../../libs/category/components/SCT.component';
 import RedButton from '../button/RedButton.component';
-import type { Offer } from '../../api/types';
 import PaymentPackTagsDialog from '../../libs/payment-packs/components/PaymentPackTagsDialog.component';
 
 import OfferIconHybridIndicator from '../../libs/offer/components/OfferHybridIconIndicator.component';
 import OfferCardStastiticsContainer from '../../libs/offer/components/OfferCardStastisticsContainer.component';
 import OfferDetail from './OfferDetail.component';
+import OfferDuplicateDialog from './OfferDuplicateDialog.container';
 import { getCreditsDividedValue } from '#src/libs/theme/utils';
 
 type Props = {
@@ -63,6 +67,7 @@ type Props = {
   showOfferGender?: boolean,
   onModifyTags?: (offer: Offer) => void,
   companyTheme?: CompanyTheme,
+  onRefreshOffers?: () => void,
 };
 
 type State = {
@@ -75,6 +80,7 @@ export class OfferCard extends Component<Props, State> {
 
     this.state = {
       tagManagementDialog: false,
+      duplicateDialog: false,
     };
   }
 
@@ -210,21 +216,33 @@ export class OfferCard extends Component<Props, State> {
 
     const { available } = offer;
 
+    // For grouped sessions, there is a specific mechanism for duplication
+    // that is accessible from the grouped sessions page.
+    const canBeDuplicated =
+      !offer.group &&
+      !!offer.meta_activity?.customer_enabled &&
+      offer.coach?.disabled !== true &&
+      offer.establishment?.disabled !== true;
+
     if (offer) {
       return (
         <ObjectLevelPermissionProvider
           requiredPermission={[
             'session.activity.allowed_actions.edit',
             'session.activity.allowed_actions.delete',
+            'session.activity.allowed_actions.create',
             'session.workshop.allowed_actions.edit',
             'session.workshop.allowed_actions.delete',
+            'session.workshop.allowed_actions.create',
           ]}
         >
           {([
             hasEditActivityPermission,
             hasDeleteActivityPermission,
+            hasCreateActivityPermission,
             hasEditWorkshopPermission,
             hasDeleteWorkshopPermission,
+            hasCreateWorkshopPermission,
           ]: boolean[]) => (
             <div style={{ width: '100%' }}>
               <PaymentPackTagsDialog
@@ -236,6 +254,15 @@ export class OfferCard extends Component<Props, State> {
                 }}
                 open={this.state.tagManagementDialog}
                 whitelistTags={offer.whitelist_tags}
+              />
+              <OfferDuplicateDialog
+                offer={offer}
+                onClose={() => this.setState({ duplicateDialog: false })}
+                onDuplicate={() => {
+                  this.setState({ duplicateDialog: false });
+                  this.props?.onRefreshOffers();
+                }}
+                open={this.state.duplicateDialog}
               />
               <Paper
                 square
@@ -354,6 +381,24 @@ export class OfferCard extends Component<Props, State> {
                             </Hidden>
                           </Button>
                         )}
+                        {getCreatePermission(
+                          offer,
+                          hasCreateActivityPermission,
+                          hasCreateWorkshopPermission,
+                        ) &&
+                          canBeDuplicated && (
+                            <Button
+                              color="primary"
+                              onClick={() =>
+                                this.setState({ duplicateDialog: true })
+                              }
+                            >
+                              <FileCopyIcon className={classes.iconLeft} />
+                              <Hidden xsDown>
+                                {t('offer:calendar.duplicateOffer')}
+                              </Hidden>
+                            </Button>
+                          )}
                         {getDeletePermission(
                           offer,
                           hasDeleteActivityPermission,

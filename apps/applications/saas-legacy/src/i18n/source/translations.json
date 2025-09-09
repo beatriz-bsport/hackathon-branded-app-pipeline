@@ -7820,8 +7820,10 @@
         "extraordinaryEstablishment": "(temporary establishments)",
         "substitute": "Substitute",
         "calendar": {
+            "duplicateModalTitle": "Duplicate Session",
             "modifyOffer": "Edit",
             "deleteOffer": "Cancel",
+            "duplicateOffer": "Duplicate",
             "filter": "Filter",
             "today": "Today",
             "alertSpivi": {
@@ -8016,7 +8018,8 @@
                     "effectif": "The value is higher than the maximum number of places",
                     "roomBlueprintSpivi": "A room plan must be selected for sessions synchronized with Spivi",
                     "durationMinuteSpivi": "A session on Spivi should last between 20 minutes and 4 hours",
-                    "wellhubProductMissing": "This field is required, you must select a product."
+                    "wellhubProductMissing": "This field is required, you must select a product.",
+                    "dateIntervalStartBeforeLast": "The start date cannot be before the last recurrence"
                 },
                 "dateTooFar": "Impossible to create sessions taking place in more than 3 years",
                 "dateFormat": "Invalid date format",
@@ -8174,6 +8177,15 @@
             },
             "groupedOffer": {
                 "warning": "Be careful this session is part of the group of sessions {{- name }}"
+            },
+            "recurrence": {
+                "duplicateModalTitle": "Duplicate Session",
+                "regularOffer": "The new session will use the same settings as the duplicated one.",
+                "recurringOffer": "The last session is on {{- date }} at {{- time }}. The new session will start after this date and will use the same settings as the duplicated session.",
+                "hybridOffer": "Duplicating this hybrid session will create both online and on-site sessions. They will use the same settings as the duplicated session.",
+                "linkNewOffersLabel": "New sessions will be linked to the ones you’re duplicating, so staff can edit them together and members can book them in one flow",
+                "duplicating": "Duplicating",
+                "duplicate": "Duplicate"
             },
             "stepper": {
                 "step": {
@@ -15250,6 +15262,12 @@
                     }
                 }
             }
+        },
+        "errorBoundary": {
+            "unexpectedError": "Sorry, we ran into an unexpected error while loading the page.",
+            "errorDescription": "We're currently looking into what went wrong. Try reloading the page, or submit a crash report for us to investigate further.",
+            "submitCrashReport": "Submit crash report",
+            "reload": "Reload"
         }
     },
     "shop": {
@@ -16879,6 +16897,8 @@
                     "14100": "You cannot cancel an invoice with Interac payments.",
                     "14101": "You cannot refund a balance adjustment invoice with a credit note.",
                     "14102": "It is impossible to reimburse this invoice.",
+                    "14111": "Refund unavailable. Refunds are disabled for this BO.",
+                    "14112": "Refund unavailable. Current Stripe balance is insufficient.",
                     "35024": "You cannot refund this invoice because your PayPal account does not have enough funds."
                 }
             },

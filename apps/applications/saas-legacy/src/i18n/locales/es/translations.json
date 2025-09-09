@@ -8951,7 +8951,7 @@
                         "position": "Su posición en la lista de espera es {{position}}"
                     },
                     "cancellationPolicy": {
-                        "maxDuration": "Las cancelaciones son posibles sin ningún cargo hasta {{days}} día(s), {{hours}} hora(s) y {{minutes}} minuto(s).",
+                        "maxDuration": "Esta reserva solo se puede cancelar sin coste alguno hasta {{days}} días, {{hours}} horas y {{minutes}} minutos antes.",
                         "noDuration": "Las cancelaciones son siempre posibles sin ningún cargo.",
                         "title": "Política de cancelación"
                     },

@@ -24,8 +24,10 @@ exports.default = {
   extraordinaryEstablishment: '(temporary establishments)',
   substitute: 'Substitute',
   calendar: {
+    duplicateModalTitle: 'Duplicate Session',
     modifyOffer: 'Edit',
     deleteOffer: 'Cancel',
+    duplicateOffer: 'Duplicate',
     filter: 'Filter',
     today: 'Today',
     alertSpivi: {
@@ -247,6 +249,8 @@ exports.default = {
           'A session on Spivi should last between 20 minutes and 4 hours',
         wellhubProductMissing:
           'This field is required, you must select a product.',
+        dateIntervalStartBeforeLast:
+          'The start date cannot be before the last recurrence',
       },
       dateTooFar:
         'Impossible to create sessions taking place in more than 3 years',
@@ -406,6 +410,19 @@ exports.default = {
     groupedOffer: {
       warning:
         'Be careful this session is part of the group of sessions {{- name }}',
+    },
+    recurrence: {
+      duplicateModalTitle: 'Duplicate Session',
+      regularOffer:
+        'The new session will use the same settings as the duplicated one.',
+      recurringOffer:
+        'The last session is on {{- date }} at {{- time }}. The new session will start after this date and will use the same settings as the duplicated session.',
+      hybridOffer:
+        'Duplicating this hybrid session will create both online and on-site sessions. They will use the same settings as the duplicated session.',
+      linkNewOffersLabel:
+        'New sessions will be linked to the ones you’re duplicating, so staff can edit them together and members can book them in one flow',
+      duplicating: 'Duplicating',
+      duplicate: 'Duplicate',
     },
     stepper: { step: { SETTINGS: 'Modification settings', INFOS: 'Session' } },
   },

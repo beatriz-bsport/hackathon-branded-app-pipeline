@@ -34,6 +34,7 @@ export const CommunicationVariableSelector: React.FC<
       id={id}
       items={formattedItems}
       fullWidth={fullWidth}
+      clearOnSelect
       textfieldProps={{
         id: "communication-variable-selector",
         fullWidth: true,

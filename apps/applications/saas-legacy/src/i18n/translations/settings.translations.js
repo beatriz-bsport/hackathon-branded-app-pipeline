@@ -453,4 +453,12 @@ exports.default = {
       },
     },
   },
+  errorBoundary: {
+    unexpectedError:
+      'Sorry, we ran into an unexpected error while loading the page.',
+    errorDescription:
+      "We're currently looking into what went wrong. Try reloading the page, or submit a crash report for us to investigate further.",
+    submitCrashReport: 'Submit crash report',
+    reload: 'Reload',
+  },
 };

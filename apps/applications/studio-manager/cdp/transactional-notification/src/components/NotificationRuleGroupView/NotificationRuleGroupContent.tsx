@@ -1,20 +1,20 @@
 import { DetailDrawer, ListLayout, Table } from "@bsport/kaizen-primitive-core";
 import type { NotificationRuleSettings } from "@bsport/store-cdp-notification-rule";
 
+import { NotificationRuleDetailsContent } from "#src/components/NotificationRuleEventDetail/NotificationRuleDetailsContent";
 import { getTableColumns } from "#src/components/NotificationRuleGroupView/TableConfig";
 import { useDrawerQueryParam } from "#src/hooks/actions/use-drawer-query-params";
 import { useNotificationRuleNavigation } from "#src/hooks/actions/use-notification-rule-navigation";
+import { useTogglePushNotification } from "#src/hooks/api/use-toggle-push-notification";
 import { useUpdateNotificationRuleSettings } from "#src/hooks/api/use-update-notification-rule-settings";
 import { useFormatNotificationEventTable } from "#src/hooks/layout/use-format-notification-event-table";
 import { useAvailableUpsells } from "#src/hooks/layout/use-upsell-blocker";
 import { useTranslation } from "#src/utils/i18n";
 import type { RefinedNotificationRuleEventData } from "#src/utils/types";
 
-import { NotificationRuleDetailsContent } from "../NotificationRuleEventDetail/NotificationRuleDetailsContent";
-
 type NotificationRuleEventTableContentProps = {
-  notificationEventsRefinedData: RefinedNotificationRuleEventData[]; // Replace with actual type
-  notificationRuleSettings: NotificationRuleSettings; // Replace with actual type
+  notificationEventsRefinedData: RefinedNotificationRuleEventData[];
+  notificationRuleSettings: NotificationRuleSettings;
   fetchNotificationRuleEventData: () => void;
 };
 
@@ -25,7 +25,7 @@ export const NotificationRuleTableContent = ({
 }: NotificationRuleEventTableContentProps) => {
   const { t } = useTranslation("transactionalNotification");
   const { openId, openDrawer, closeDrawer } = useDrawerQueryParam();
-  const { pushNotification } = useAvailableUpsells();
+  const { isPushNotificationEnabled } = useAvailableUpsells();
   const {
     formatNotificationRuleEventTableItems,
     getNotificationRuleEventLabel,
@@ -38,6 +38,11 @@ export const NotificationRuleTableContent = ({
   } = useNotificationRuleNavigation({
     refinedNotificationRules: notificationEventsRefinedData,
     baseNotificationEventId: openId ? parseInt(openId, 10) : undefined,
+  });
+  const { togglePushNotification } = useTogglePushNotification({
+    onSuccess: () => {
+      fetchNotificationRuleEventData();
+    },
   });
   const { toggleEmailNotification, toggleEmailCarbonCopy } =
     useUpdateNotificationRuleSettings({
@@ -73,21 +78,29 @@ export const NotificationRuleTableContent = ({
       checked,
     }) => {
       if (communicationMethod === "push_notification") {
-        // Handle push notification logic here if needed
-        return;
+        const notificationEvent = notificationEventsRefinedData.find(
+          (event) => event.rule.notification_event === notificationRuleEventId,
+        );
+        if (!notificationEvent?.details) return;
+        togglePushNotification({
+          checked,
+          notificationEventDetails: notificationEvent.details,
+        });
+      } else if (communicationMethod === "email_notification") {
+        toggleEmailNotification({
+          notificationEventId: notificationRuleEventId,
+          checked,
+        });
       }
-      toggleEmailNotification({
-        notificationEventId: notificationRuleEventId,
-        checked,
-      });
     },
     t,
     permissions: {
-      pushNotification,
+      isPushNotificationEnabled,
     },
   });
 
   const tableRow = formatNotificationRuleEventTableItems({
+    isPushNotificationEnabled,
     items: notificationEventsRefinedData,
     onRowClick: (row) => {
       openDetailDrawer(row.rule.notification_event);

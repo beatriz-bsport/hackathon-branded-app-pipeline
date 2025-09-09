@@ -65,27 +65,33 @@ export const useFilterMaintag = ({ tagGroups }: { tagGroups: TagGroup[] }) => {
 
   const onFilterChange = useCallback(
     (filters: FilterElementState[]) => {
-      const tagGroupFilters = filters.find(
-        (filter) => filter.field === "tagGroup",
-      );
-      if (!tagGroupFilters) {
-        setActiveTagGroupIdFilters({
-          tag_groups_included: [],
-          tag_groups_excluded: [],
-        });
-        return;
+      const includedTagGroupIds = new Set<number>();
+      const excludedTagGroupIds = new Set<number>();
+
+      // Process each filter in the array
+      for (const filter of filters) {
+        if (filter.field === "tagGroup") {
+          // Convert tag names to IDs
+          filter.valueIds.forEach((tagName) => {
+            const tagGroup = tagGroups.find((tg) => tg.name === tagName);
+            if (!tagGroup) return;
+
+            if (filter.filter === FILTER_IS) {
+              includedTagGroupIds.add(tagGroup.id);
+            } else {
+              excludedTagGroupIds.add(tagGroup.id);
+            }
+          });
+        }
       }
-      const tagGroupIds = tagGroupFilters.valueIds
-        .map((tagName) => {
-          const tagGroup = tagGroups.find((tg) => tg.name === tagName);
-          return tagGroup ? tagGroup.id : null;
-        })
-        .filter((id): id is number => id !== null);
-      const isFilter = tagGroupFilters.filter === FILTER_IS;
-      console.log("Selected tag group IDs:", tagGroupIds);
+
+      // Remove duplicates using Set
+      const uniqueIncluded = Array.from(new Set(includedTagGroupIds));
+      const uniqueExcluded = Array.from(new Set(excludedTagGroupIds));
+
       setActiveTagGroupIdFilters({
-        tag_groups_included: isFilter ? tagGroupIds : [],
-        tag_groups_excluded: isFilter ? [] : tagGroupIds,
+        tag_groups_included: uniqueIncluded,
+        tag_groups_excluded: uniqueExcluded,
       });
     },
     [tagGroups],

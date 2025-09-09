@@ -17,7 +17,7 @@ export const baseMenuItemClasses = [
   "transition ease-out duration-long",
   "text-onsurface-action-weak-default",
   // Flex config
-  "flex flex-row items-center",
+  "flex flex-row items-center text-start",
   // Disabled
   "disabled:bg-none",
   "disabled:text-onsurface-disabled",

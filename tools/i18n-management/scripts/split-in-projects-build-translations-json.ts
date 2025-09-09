@@ -1,3 +1,12 @@
+/**
+ * /! HISTORICAL SCRIPT - NOT USED ANYMORE !\
+ *
+ * Context:
+ * To have dynamic discovery of new micro-frontends translations and synchronization with Weblate,
+ * this script was used to split translations from i18n-management/src/locales into all the
+ * revamped internationalized projects.
+ * These files were edited by Weblate.
+ */
 import {
   existsSync,
   mkdirSync,
@@ -10,19 +19,24 @@ import { mergeFiles } from "json-merger";
 import path from "path";
 
 import { LANGUAGES, LOCALES } from "../src";
-import { type ProjectConfig, getInternationalizedApplications } from "./utils";
+import {
+  type ProjectConfig,
+  getInternationalizedApplications,
+  getProjectPrefix,
+} from "./utils";
 
 async function main() {
-  // Step 1 : List all projects with i18n folder
-  const projectList = await getInternationalizedApplications();
+  // Step 1 : List all projects with i18n folder but old structure (aggregated translations in i18n-management)
+  const projectList = (await getInternationalizedApplications()).filter(
+    (proj) => !proj.hasTransifexStructure,
+  );
 
   // Step 2 : Iterate through locales to split the translations to each project
-  console.group("> Build translations files for :");
   LOCALES.forEach((locale: string) => {
-    console.log(`- ${locale}`);
+    console.group(`----- ${locale} -----`);
     splitLocaleTranslationsBetweenProjects({ locale, projectList });
+    console.groupEnd();
   });
-  console.groupEnd();
 }
 
 function splitLocaleTranslationsBetweenProjects({
@@ -69,6 +83,7 @@ function splitLocaleTranslationsBetweenProjects({
       pathToI18n,
       name,
     });
+    console.log(`✅ Successfully uploaded translations for project ${name}`);
   }
 }
 
@@ -110,10 +125,7 @@ function updateProjectTranslations({
 
   // Populate dir with namespaced translations file
   Object.entries(translations).map(([namespaceName, namespaceTranslations]) => {
-    // Add package name as prefix to translation files
-    // to prevent conflict when loading chunks from backend
-    const prefix =
-      name === "@bsport/saas-legacy" ? `` : `${name.split("@bsport/")[1]}_`;
+    const prefix = getProjectPrefix(name);
     const namespaceTranslationsPath = path.resolve(
       pathToCurrentLocaleDir,
       `${prefix}${namespaceName}.json`,

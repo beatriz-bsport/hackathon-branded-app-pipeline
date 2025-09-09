@@ -1,0 +1,643 @@
+{
+    "navigation": {
+        "dashboard": "",
+        "calendar": "",
+        "pack": "",
+        "invoice": "",
+        "subscription": "",
+        "profile": "",
+        "changeMembership": "",
+        "logoff": "",
+        "myVideos": "",
+        "pick_a_language": "",
+        "automaticLanguage": "",
+        "giftcard": "",
+        "statistic": "",
+        "connectedAs": "",
+        "backToRelationMasterSpace": "",
+        "relationConnectedAs": "",
+        "goBack": ""
+    },
+    "pack": {
+        "titlePaymentPack": "",
+        "titlePrivatePack": "",
+        "titleUniversalPack": ""
+    },
+    "booking": {
+        "titleBooking": "",
+        "titlePrivateBooking": "",
+        "showCalendar": "",
+        "discard": "",
+        "bookAgain": "",
+        "accessLive": "",
+        "spotNumber": "",
+        "isUnpaid": "",
+        "noShow": ""
+    },
+    "dashboard": {
+        "favoriteTitle": "",
+        "nextBookingTitle": "",
+        "currentPassTitle": "",
+        "showMore": "",
+        "noBooking": "",
+        "noPackCurrentlyActive": "",
+        "optionTitle": ""
+    },
+    "congratulation": {
+        "cancel": "",
+        "content": ""
+    },
+    "actions": {
+        "goToSubscription": "",
+        "goToPass": "",
+        "goToCalendar": "",
+        "goToHome": ""
+    },
+    "debt": {
+        "explainPayment": "",
+        "titlePaymentDialog": "",
+        "title": "",
+        "regularize": ""
+    },
+    "unsubscriber": {
+        "success": {
+            "title": "",
+            "text": ""
+        },
+        "error": "",
+        "doUnsubscribe": "",
+        "explainAction": {
+            "normal": "",
+            "possessive": ""
+        },
+        "explain": ""
+    },
+    "myVideos": {
+        "title": "",
+        "gotToVOD": ""
+    },
+    "widget": {
+        "noBookingPast": "",
+        "noBookingFuture": "",
+        "pastBooking": "",
+        "futureBooking": ""
+    },
+    "language": {
+        "nl": "",
+        "it": "",
+        "de": "",
+        "es": "",
+        "en-GB": "",
+        "en-US": "",
+        "fr": "",
+        "none": "",
+        "cs": "",
+        "pt": "",
+        "cimode": ""
+    },
+    "subscription": {
+        "isEmpty": ""
+    },
+    "Basket": "",
+    "appbar": {
+        "login": "",
+        "logout": "",
+        "profile": ""
+    },
+    "spivi": {
+        "settingsInfo": "",
+        "settings": "",
+        "settingsTitle": ""
+    },
+    "reworked": {
+        "appbar": {
+            "companyLogo": "",
+            "cart": "",
+            "myAccount": ""
+        },
+        "menu": "",
+        "exploreYourProfile": "",
+        "moreActions": "",
+        "showMore": "",
+        "showLess": "",
+        "placeholderCard": {
+            "myBookings": "",
+            "mySubscriptions": "",
+            "myPasses": ""
+        },
+        "myBookings": {
+            "title": "",
+            "bookASession": "",
+            "chooseBookingType": "",
+            "tab": {
+                "activities": "",
+                "appointments": "",
+                "workshops": ""
+            },
+            "filter": {
+                "upcoming": "",
+                "past": "",
+                "onWaitlist": ""
+            },
+            "listContainer": {
+                "placeholder": {
+                    "pass": {
+                        "active": "",
+                        "future": "",
+                        "expired": ""
+                    },
+                    "activity": {
+                        "past": "",
+                        "future": "",
+                        "waitlist": ""
+                    },
+                    "appointment": {
+                        "past": "",
+                        "future": ""
+                    },
+                    "workshop": {
+                        "past": "",
+                        "future": "",
+                        "waitlist": ""
+                    }
+                }
+            },
+            "consumerBookingCard": {
+                "chip": {
+                    "online": "",
+                    "atHome": "",
+                    "noShow": "",
+                    "status": {
+                        "unpaid": "",
+                        "bookedForAGuest": "",
+                        "cancelled": ""
+                    }
+                },
+                "buttonsLabel": {
+                    "cancel": "",
+                    "more": "",
+                    "seeDetails": "",
+                    "book": "",
+                    "joinOnline": "",
+                    "bookForAGuest": ""
+                },
+                "listItemLabels": {
+                    "waitingList": "",
+                    "spotSchedulingPosition": ""
+                }
+            },
+            "detailsCard": {
+                "drawerTitle": "",
+                "cancelled": {
+                    "title": "",
+                    "cancelledFromMember": "",
+                    "cancelledFromManager": "",
+                    "cancelledFromOffer": "",
+                    "creditsToRefund": "",
+                    "refundWarning": ""
+                },
+                "relatedPass": {
+                    "title": ""
+                },
+                "location": {
+                    "title": ""
+                },
+                "description": {
+                    "title": ""
+                },
+                "cancellationPolicy": {
+                    "title": "",
+                    "noDuration": "",
+                    "maxDuration": ""
+                },
+                "waitlist": {
+                    "position": ""
+                },
+                "teacher": {
+                    "title": "",
+                    "absent": "",
+                    "subtitutedBy": ""
+                },
+                "workshop": {
+                    "title": ""
+                }
+            },
+            "cancelModal": {
+                "title": {
+                    "consumerBooking": "",
+                    "consumerPrivateBooking": "",
+                    "consumerBookingOption": ""
+                },
+                "creditsWillBeRefunded": "",
+                "noRefund": "",
+                "waitlist": "",
+                "group": {
+                    "message": "",
+                    "alert": {
+                        "title": "",
+                        "message": ""
+                    },
+                    "listTitle": ""
+                },
+                "confirm": {
+                    "consumerBooking": "",
+                    "consumerPrivateBooking": "",
+                    "consumerBookingOption": ""
+                }
+            },
+            "calendarDrawer": {
+                "title": "",
+                "subtitle": {
+                    "activity": "",
+                    "appointment": "",
+                    "workshop": ""
+                }
+            },
+            "onlineWarningModal": {
+                "title": "",
+                "subtitle": "",
+                "message": ""
+            },
+            "spotSchedulingModal": {
+                "title": "",
+                "subtitle": ""
+            }
+        },
+        "myPasses": {
+            "title": "",
+            "choosePassType": "",
+            "tab": {
+                "activity": "",
+                "appointment": "",
+                "universal": ""
+            },
+            "filters": {
+                "active": "",
+                "expired": "",
+                "future": ""
+            },
+            "buyANewPass": "",
+            "bookASession": "",
+            "consumerPassCard": {
+                "unlimited": "",
+                "credits": "",
+                "chip": {
+                    "suspended": "",
+                    "shared": "",
+                    "multiStudio": ""
+                },
+                "availability": {
+                    "active": "",
+                    "expired": "",
+                    "future": "",
+                    "expiresIn_plural": "",
+                    "expiresIn": "",
+                    "expiresToday": ""
+                },
+                "buttonsLabel": {
+                    "seeDetails": ""
+                }
+            },
+            "consumerPassDetailsCard": {
+                "header": {
+                    "credits": "",
+                    "unlimited": ""
+                },
+                "availability": {
+                    "active": "",
+                    "suspended": "",
+                    "suspendedUntil": "",
+                    "expired": "",
+                    "future": "",
+                    "validUntil": ""
+                },
+                "description": {
+                    "title": "",
+                    "showMore": "",
+                    "showLess": ""
+                },
+                "compatibility": {
+                    "titles": {
+                        "studios": "",
+                        "activity": "",
+                        "appointment": "",
+                        "main": ""
+                    },
+                    "subtitles": {
+                        "activity": "",
+                        "timeSlots": "",
+                        "sessions": ""
+                    },
+                    "contents": {
+                        "allActivities": "",
+                        "allTimeSlots": "",
+                        "vod": "",
+                        "bookingForGuest": "",
+                        "noAppointments": "",
+                        "allSessions": "",
+                        "sessions": ""
+                    },
+                    "labels": {
+                        "category": "",
+                        "activity": "",
+                        "room": ""
+                    }
+                },
+                "restriction": {
+                    "title": "",
+                    "frequencyDaily": "",
+                    "frequencyWeekly": "",
+                    "frequencyMonthly": ""
+                },
+                "shared": {
+                    "with": "",
+                    "by": ""
+                }
+            }
+        },
+        "mySubscriptions": {
+            "placeholder": {
+                "nonExpired": "",
+                "expired": ""
+            },
+            "title": "",
+            "dateLabel": {
+                "active": "",
+                "future": "",
+                "expired": "",
+                "until": ""
+            },
+            "tab": {
+                "active": "",
+                "future": "",
+                "expired": ""
+            },
+            "download": "",
+            "paymentModalAlert": "",
+            "changePaymentMethod": "",
+            "paymentMethodUpdatedTitle": "",
+            "paymentMethodUpdatedContent": "",
+            "headerButtonsLabel": {
+                "bookASession": "",
+                "getSubscription": "",
+                "backToSubscriptions": ""
+            },
+            "close": "",
+            "consumerSubscriptionCard": {
+                "nextPayment": "",
+                "recurrenceLabelPer": "",
+                "recurrenceLabelEvery": "",
+                "buttonsLabel": {
+                    "seeDetails": "",
+                    "addPaymentMethod": ""
+                },
+                "chipsLabel": {
+                    "isPaused": "",
+                    "missingPaymentMethod": "",
+                    "failedPayment": ""
+                }
+            },
+            "consumerSubscriptionCardDetails": {
+                "drawerTitle": "",
+                "beforeRenewalContractPricePer": "",
+                "beforeRenewalContractPriceEvery": "",
+                "commitmentPeriod": {
+                    "title": "",
+                    "subtitle": "",
+                    "explain": {
+                        "day": "",
+                        "week": "",
+                        "month": "",
+                        "year": ""
+                    },
+                    "modal": {
+                        "explainNotStarted": "",
+                        "explainStarted": "",
+                        "explainNoExpirationDate": "",
+                        "cancel": "",
+                        "confirmationTitle": "",
+                        "confirmationStarted": "",
+                        "confirmationNotStarted": "",
+                        "failedTitle": "",
+                        "failedMessage": "",
+                        "alert": ""
+                    }
+                },
+                "loading": "",
+                "description": "",
+                "terms": "",
+                "termsAccepted": "",
+                "buttonsLabel": {
+                    "see": "",
+                    "add": "",
+                    "change": "",
+                    "unsubscribe": ""
+                },
+                "headerListItemLabels": {
+                    "futurePauses": "",
+                    "nextPayment": "",
+                    "stop": "",
+                    "stopValidDate": "",
+                    "paused": "",
+                    "autoRenewed": "",
+                    "autoRenewalDate": "",
+                    "pauseEndDate": "",
+                    "nextPaymentDate": "",
+                    "joiningFee": ""
+                },
+                "failedPayment": "",
+                "failedPaymentReason": "",
+                "failedPaymentReasonWithRetry": "",
+                "paymentMethod": {
+                    "title": "",
+                    "internal": "",
+                    "sepa_debit": "",
+                    "card": "",
+                    "bacs_debit": "",
+                    "paused": "",
+                    "autoRenewed": "",
+                    "autoRenewalDate": "",
+                    "pauseEndDate": "",
+                    "nextPaymentDate": ""
+                },
+                "billingHistory": "",
+                "emptyInvoices": "",
+                "loadMore": ""
+            }
+        },
+        "myInvoices": {
+            "placeholder": {
+                "unpaid": "",
+                "paid": "",
+                "refunded": ""
+            },
+            "header": {
+                "title": "",
+                "buttons": {
+                    "bookSession": "",
+                    "goBack": ""
+                },
+                "filters": {
+                    "unpaid": "",
+                    "paid": "",
+                    "refunded": ""
+                }
+            },
+            "card": {
+                "download": "",
+                "downloadInvoice": "",
+                "downloadOriginalInvoice": "",
+                "downloadReceipt": "",
+                "downloadRefundedInvoice": "",
+                "downloads": "",
+                "invoice": "",
+                "location": "",
+                "originalInvoice": "",
+                "otherItems": "",
+                "pay": "",
+                "receipt": "",
+                "refundedInvoice": "",
+                "seeDetails": "",
+                "title": "",
+                "chip": {
+                    "cancelled": "",
+                    "dispute": "",
+                    "partiallyPaid": "",
+                    "plannedPayments": "",
+                    "refunded": ""
+                },
+                "amountDue": ""
+            },
+            "detailsCard": {
+                "drawerTitle": "",
+                "dispute": {
+                    "processing": "",
+                    "won": "",
+                    "lost": ""
+                },
+                "download": "",
+                "downloadOriginalInvoice": "",
+                "downloadReceipt": "",
+                "downloadRefundedInvoice": "",
+                "due": "",
+                "noPaymentRegistered": "",
+                "paid": "",
+                "pay": "",
+                "paymentError": "",
+                "paymentErrorWithReason": "",
+                "paymentHistory": "",
+                "placeholder": "",
+                "plannedPayments": "",
+                "products": "",
+                "refunded": "",
+                "retryDate": "",
+                "total": ""
+            },
+            "payment": {
+                "addPaymentMethod": "",
+                "confirm": "",
+                "details": "",
+                "method": "",
+                "myBalance": "",
+                "successMessage": "",
+                "backendProcessingInvoice": "",
+                "title": "",
+                "useBalance": ""
+            }
+        },
+        "myProfile": {
+            "barCode": {
+                "scan": "",
+                "scanInfo": "",
+                "entryBarcode": ""
+            },
+            "detachPayment": {
+                "title": "",
+                "subtitle": ""
+            },
+            "gender": "",
+            "birthday": "",
+            "identityDocument": "",
+            "phone": "",
+            "emergencyNumber": "",
+            "address": "",
+            "notifications": {
+                "title": "",
+                "phoneAllowed": "",
+                "phoneNotAllowed": "",
+                "emailAllowed": "",
+                "emailNotAllowed": "",
+                "manageYourFranchiseMarketingPrefencesLabel": "",
+                "receiveEmailUpdates": "",
+                "receiveSmsUpdates": "",
+                "updatePreferencesLoading": "",
+                "updatePreferencesButton": "",
+                "portal": {
+                    "title": "",
+                    "subtitle": ""
+                }
+            },
+            "spivi": {
+                "title": "",
+                "displayData": "",
+                "drawerTitle": "",
+                "information": ""
+            },
+            "accountBalance": "",
+            "regularizeBalance": "",
+            "membershipId": "",
+            "paymentMethods": {
+                "title": "",
+                "cards": "",
+                "directPayments": "",
+                "empty": "",
+                "paymentMethodLabel": "",
+                "cardItemCaptionText": "",
+                "add": "",
+                "tooltipText": {
+                    "other": "",
+                    "more": ""
+                }
+            },
+            "termsAndConditions": {
+                "title": "",
+                "subtitle": "",
+                "termOfuse": "",
+                "generalTerms": "",
+                "accepted": ""
+            },
+            "header": {
+                "buttons": {
+                    "editProfile": ""
+                },
+                "title": ""
+            },
+            "edition": {
+                "title": ""
+            }
+        },
+        "navigation": {
+            "loggedInAs": "",
+            "switchAccount": "",
+            "exploreYourProfile": "",
+            "myBookings": "",
+            "myPasses": "",
+            "mySubscriptions": "",
+            "myProfile": "",
+            "myGiftCards": "",
+            "myInvoices": "",
+            "myStatistics": "",
+            "myDashboard": "",
+            "myPurchases": "",
+            "myVideosAndEbooks": "",
+            "changeStudio": "",
+            "changeLanguage": "",
+            "logOut": "",
+            "payments": {
+                "title": "",
+                "myInvoices": "",
+                "paymentMethods": ""
+            }
+        }
+    }
+}

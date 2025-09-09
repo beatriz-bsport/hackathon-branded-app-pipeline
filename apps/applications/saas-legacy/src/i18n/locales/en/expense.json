@@ -1,0 +1,140 @@
+{
+    "filters": {
+        "showFuture": "",
+        "filterStaff": "",
+        "filterSupplier": "",
+        "filterCategory": "",
+        "titleStaff": "",
+        "titleSupplier": "",
+        "titleCategory": "",
+        "noStaff": "",
+        "noCategory": ""
+    },
+    "dialogEditExpense": {
+        "all": "",
+        "future": "",
+        "current": "",
+        "validate": "",
+        "cancel": ""
+    },
+    "dialogDeleteExpense": {
+        "all": "",
+        "future": "",
+        "current": "",
+        "delete": "",
+        "cancel": "",
+        "confirm": "",
+        "warning": ""
+    },
+    "table": {
+        "no": "",
+        "yes": "",
+        "header": {
+            "actions": "",
+            "repeat": "",
+            "description": "",
+            "supplier": "",
+            "amount": "",
+            "category": "",
+            "staff": "",
+            "date_due": ""
+        }
+    },
+    "update": {
+        "error": "",
+        "success": ""
+    },
+    "create": {
+        "error": "",
+        "success": ""
+    },
+    "delete": {
+        "error": "",
+        "success": ""
+    },
+    "form": {
+        "editChoices": {
+            "explanation": {
+                "details": "",
+                "dateDue": ""
+            },
+            "editDetails": "",
+            "editDateDue": ""
+        },
+        "titleEdit": "",
+        "titleAdd": "",
+        "actions": {
+            "edit": "",
+            "save": "",
+            "cancel": ""
+        },
+        "repeat": {
+            "number": "",
+            "ends": "",
+            "fromDate": "",
+            "until": "",
+            "from": "",
+            "months": {
+                "december": "",
+                "november": "",
+                "october": "",
+                "september": "",
+                "august": "",
+                "july": "",
+                "june": "",
+                "may": "",
+                "april": "",
+                "march": "",
+                "february": "",
+                "january": ""
+            },
+            "weekdays_pl": {
+                "sunday": "",
+                "saturday": "",
+                "friday": "",
+                "thursday": "",
+                "wednesday": "",
+                "tuesday": "",
+                "monday": ""
+            },
+            "weekdays": {
+                "fourth": "",
+                "third": "",
+                "second": "",
+                "first": "",
+                "sunday": "",
+                "saturday": "",
+                "friday": "",
+                "thursday": "",
+                "wednesday": "",
+                "tuesday": "",
+                "monday": ""
+            },
+            "count": "",
+            "interval": "",
+            "repeatYear_nb": "",
+            "repeatYear": "",
+            "repeatWeek_nb": "",
+            "repeatWeek": "",
+            "repeatMonthDay": "",
+            "repeatMonth_nb": "",
+            "repeatMonth": "",
+            "repeatEvery": "",
+            "day": "",
+            "year": "",
+            "month": "",
+            "week": "",
+            "title": ""
+        },
+        "description": "",
+        "supplier": "",
+        "amount": "",
+        "category": "",
+        "noStaff": "",
+        "staff": "",
+        "date_due": "",
+        "requiredField": ""
+    },
+    "noExpenses": "",
+    "addButton": ""
+}

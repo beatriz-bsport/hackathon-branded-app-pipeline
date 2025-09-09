@@ -1,0 +1,142 @@
+{
+    "form": {
+        "title": "",
+        "activateReferral": {
+            "label": "",
+            "description": ""
+        },
+        "minimumBasketAmount": {
+            "label": "",
+            "description": ""
+        },
+        "maximumUses": {
+            "label": ""
+        },
+        "amountOffReferred": {
+            "title": "",
+            "percent": {
+                "title": "",
+                "fieldLabel": ""
+            },
+            "amount": {
+                "title": "",
+                "fieldLabel": ""
+            }
+        },
+        "applicationTimeLimit": {
+            "title": "",
+            "units": {
+                "day": "",
+                "week": "",
+                "month": ""
+            }
+        },
+        "rewardReferring": {
+            "title": "",
+            "label": ""
+        },
+        "tag": {
+            "title": "",
+            "description": ""
+        },
+        "redirectLink": {
+            "title": "",
+            "description": "",
+            "placeholder": ""
+        },
+        "warnings": {
+            "referredAmount": "",
+            "rewardReferring": ""
+        },
+        "errors": {
+            "minimumAmount": "",
+            "maximumUses": "",
+            "referredAmount": "",
+            "timeLimit": "",
+            "rewardReferring": "",
+            "url": "",
+            "required": ""
+        },
+        "submit": ""
+    },
+    "memberInfo": {
+        "referralLink": "",
+        "nbRemainingUses": "",
+        "nbUsesLeft": "",
+        "inviteFriend": "",
+        "forYou": "",
+        "forYourFriend": "",
+        "youGet": "",
+        "yourFriendGets": "",
+        "copyReferralLink": "",
+        "copyLink": "",
+        "seeConditions": "",
+        "thanksForSharing": "",
+        "loginToUseYourLink": "",
+        "warningMaxUsesReached": ""
+    },
+    "conditions": {
+        "title": "",
+        "description": {
+            "maxUses": "",
+            "signUp": {
+                "reduction": "",
+                "noReduction": ""
+            },
+            "applicationTimeLimit": {
+                "units": {
+                    "days": "",
+                    "weeks": "",
+                    "months": ""
+                }
+            },
+            "reward1": "",
+            "reward2": "",
+            "warning": ""
+        }
+    },
+    "checkoutValidation": {
+        "title": "",
+        "explain": ""
+    },
+    "referralErrors": {
+        "33000": {
+            "title": "",
+            "description": ""
+        },
+        "33001": {
+            "title": "",
+            "description": ""
+        },
+        "33002": {
+            "title": "",
+            "description": ""
+        },
+        "33003": {
+            "title": "",
+            "description": ""
+        },
+        "33004": {
+            "title": "",
+            "description": ""
+        },
+        "33005": {
+            "title": "",
+            "description": ""
+        },
+        "33006": {
+            "title": "",
+            "description": ""
+        },
+        "33007": {
+            "title": "",
+            "description": ""
+        },
+        "maxUsesReached": {
+            "title": "",
+            "description": ""
+        },
+        "noProgramAvailable": "",
+        "somethingWentWrong": ""
+    }
+}

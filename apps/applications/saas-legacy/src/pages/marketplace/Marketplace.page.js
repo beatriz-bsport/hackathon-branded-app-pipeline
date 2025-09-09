@@ -316,7 +316,6 @@ export class MarketPlace extends Component<Props, State> {
 
   redirectToPassExpressCheckout = ({ passType, passId }) => {
     const canRedirect =
-      !['production'].includes(Config.REACT_APP_SENTRY_ENVIRONMENT) &&
       this.props.companyTheme.one_click_checkout_enabled &&
       !this.props.companyTheme.requires_email_confirmation_when_signing_up;
 

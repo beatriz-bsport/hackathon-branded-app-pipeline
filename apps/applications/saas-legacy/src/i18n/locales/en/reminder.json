@@ -1,0 +1,39 @@
+{
+    "task": {
+        "sectionTitle": {
+            "pending": "",
+            "future": "",
+            "past": ""
+        },
+        "status": {
+            "0": "",
+            "10": "",
+            "20": ""
+        },
+        "owners": "",
+        "author": "",
+        "actions": {
+            "addTask": "",
+            "finish": "",
+            "restart": "",
+            "cancel": ""
+        },
+        "form": {
+            "title": "",
+            "close": "",
+            "submit": "",
+            "description": {
+                "label": ""
+            },
+            "name": {
+                "label": ""
+            },
+            "date_due": {
+                "label": ""
+            },
+            "task_owner": {
+                "helperText": ""
+            }
+        }
+    }
+}

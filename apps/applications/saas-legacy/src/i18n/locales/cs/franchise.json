@@ -1,0 +1,125 @@
+{
+    "companies": {
+        "pageTitle": "",
+        "navigateToCompany": "",
+        "membersEmptyState": "",
+        "establishmentEmptyState": "",
+        "establishment": "",
+        "members": "",
+        "manageOnStudio": "",
+        "emptySelect": "",
+        "searchPlaceholder": ""
+    },
+    "member": {
+        "pageTitle": "",
+        "seeMembership": "",
+        "seeMemberInCompany": "",
+        "isVaccinated": "",
+        "franchises": ""
+    },
+    "search": {
+        "pageTitle": "",
+        "usersTableTitle": ""
+    },
+    "pagination": {
+        "outOf": "",
+        "rowPerPage": "",
+        "nextPage": "",
+        "previousPage": ""
+    },
+    "membersList": {
+        "pageTitle": "",
+        "see": "",
+        "actions": "",
+        "franchised": "",
+        "name": ""
+    },
+    "userProfile": {
+        "goToMemberProfile": "",
+        "numberStudios": "",
+        "numberBrands": "",
+        "tagsListTitle": "",
+        "manageTags": "",
+        "tagModalText": "",
+        "tagModalHelperText": "",
+        "tagModalPlaceholcer": ""
+    },
+    "emails": {
+        "chooseGroup": "",
+        "copy": "",
+        "groupByPlaceholder": "",
+        "franchised": "",
+        "groupBy": "",
+        "pageTitle": "",
+        "companiesEmails": "",
+        "create": "",
+        "franchiseEmails": "",
+        "emptyStateDescription": "",
+        "emptyStateTitle": "",
+        "searchPlaceholder": ""
+    },
+    "login": {
+        "signUp": "",
+        "connect": "",
+        "previous": "",
+        "disconnect": ""
+    },
+    "companyGroup": {
+        "explain": "",
+        "actions": {
+            "add": "",
+            "submit": "",
+            "cancel": ""
+        },
+        "name": {
+            "label": ""
+        }
+    },
+    "staff": {
+        "roleTabTitle": "",
+        "explainStaff": "",
+        "staffAccountTabTitle": ""
+    },
+    "genericProduct": {
+        "list": {
+            "visibility": "",
+            "shortMenu": {
+                "restore": "",
+                "edit": "",
+                "delete": "",
+                "goTo": ""
+            },
+            "fuzzySearch": "",
+            "titleInactive": "",
+            "titleActive": ""
+        },
+        "templateCard": {
+            "shareTemplate": {
+                "closeDialog": "",
+                "seeAll": "",
+                "addCompany": "",
+                "emptyCompanyList": "",
+                "categoryName": ""
+            },
+            "buttons": {
+                "delete": "",
+                "update": ""
+            }
+        },
+        "dialogs": {
+            "deleteTemplateInstance": {
+                "buttonValidate": "",
+                "title": ""
+            },
+            "selectCompanies": {
+                "allCompaniesShared": "",
+                "content2": "",
+                "content1": "",
+                "title": ""
+            },
+            "deleteTemplate": {
+                "title": ""
+            }
+        }
+    }
+}

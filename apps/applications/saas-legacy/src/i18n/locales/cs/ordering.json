@@ -1,0 +1,30 @@
+{
+    "category": {
+        "noCategory": {
+            "name": ""
+        },
+        "creationDialog": {
+            "name": "",
+            "titleEdit": "",
+            "titleNew": "",
+            "edit": "",
+            "create": "",
+            "cancel": ""
+        },
+        "popover": {
+            "delete": "",
+            "edit": ""
+        },
+        "deleteModal": {
+            "title": "",
+            "cancel": "",
+            "confirm": "",
+            "content": ""
+        },
+        "add": "",
+        "empty": "",
+        "noAvailable": "",
+        "selector": ""
+    },
+    "disabledItemsTitle": ""
+}

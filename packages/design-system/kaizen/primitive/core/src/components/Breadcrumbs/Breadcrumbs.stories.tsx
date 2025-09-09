@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
 import Breadcrumbs from "./Breadcrumbs";
-import BreadcrumbItem from "./BreadcrumbsItem";
+import { type BreadcrumbItemProps, BreadcrumbsItem } from "./BreadcrumbsItem";
 
 /**
  * Component that show users their current location within a hierarchy of pages or sections.
@@ -30,23 +30,23 @@ export default meta;
 
 type Story = StoryObj<typeof Breadcrumbs>;
 
-const breadcrumbsItems = [
+const breadcrumbsItems: BreadcrumbItemProps[] = [
   {
     id: "breadcrumb-item-1",
-    text: "Breadcrumb-item 1",
-    iconLeft: "arrow-right" as const,
+    text: "With href",
+    iconLeft: "chevron-left" as const,
     href: "#",
   },
   {
     id: "breadcrumb-item-2",
-    text: "Breadcrumb-item 2",
-    href: "#",
+    text: "Clickable",
+    onClick: () => alert("Clicked !"),
     iconLeft: "award-03" as const,
   },
   {
-    text: "Breadcrumb-item 3",
+    text: "Active",
     iconLeft: "bank-note-03" as const,
-    active: true,
+    isActive: true,
   },
 ];
 
@@ -60,10 +60,10 @@ export const ComposableConfiguration: Story = {
   args: {
     BreadcrumbsItems: breadcrumbsItems.map((value, index) => (
       <a key={index} href={value.href}>
-        <BreadcrumbItem
+        <BreadcrumbsItem
           text={value.text}
-          isActive={value.active}
-          icon={value.iconLeft}
+          isActive={value.isActive}
+          iconLeft={value.iconLeft}
         />
       </a>
     )),

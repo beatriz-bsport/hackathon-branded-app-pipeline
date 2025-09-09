@@ -1,5 +1,4 @@
-import { type VariantProps, cva } from "class-variance-authority";
-import classNames from "classnames";
+import { type VariantProps, cva, cx } from "class-variance-authority";
 import mapValues from "lodash/mapValues";
 import React from "react";
 
@@ -42,21 +41,28 @@ export type LinkProps = React.AnchorHTMLAttributes<HTMLAnchorElement> &
     avatarProps?: AvatarProps;
     icon?: IconName;
     isUnderlined?: boolean;
+    onClick?: () => void;
   }>;
 
 const Wrapper = ({
   className,
   href,
   children,
+  onClick,
   ...props
 }: {
   className: string;
   href?: string;
+  onClick?: () => void;
   children: React.ReactNode;
 } & React.AnchorHTMLAttributes<HTMLAnchorElement>) => {
   if (!href) {
     // Render a <div> instead of an <a> to just have the styling
-    return <div className={className}>{children}</div>;
+    return (
+      <div className={className} onClick={onClick}>
+        {children}
+      </div>
+    );
   }
   return (
     <a className={className} href={href} {...props}>
@@ -86,12 +92,16 @@ const Link: React.FC<LinkProps> = ({
   isUnderlined,
   children,
   href,
+  onClick,
   ...props
 }) => {
   return (
     <Wrapper
-      className={classNames(link({ className, color, weight }), "group")}
+      className={cx(link({ className, color, weight }), "group", {
+        "cursor-pointer": !!href || !!onClick,
+      })}
       href={href}
+      onClick={onClick}
       {...props}
     >
       {avatarProps ? (
@@ -100,7 +110,7 @@ const Link: React.FC<LinkProps> = ({
         <Icon icon={icon} className="h-[1em] w-[1em]" />
       ) : null}
       <span
-        className={classNames({
+        className={cx({
           underline: isUnderlined,
           "group-hover:underline": !isUnderlined,
         })}

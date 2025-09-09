@@ -171,7 +171,8 @@
     "videojs-hls-quality-selector": "^1.1.1",
     "videojs-http-source-selector": "^1.1.6",
     "whatwg-fetch": "^2.0.3",
-    "yup": "^0.26.6"
+    "yup": "^0.26.6",
+    "zod": "^3.25.67"
   },
   "devDependencies": {
     "@babel/core": "^7.24.6",

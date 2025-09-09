@@ -22,6 +22,7 @@ import {
 import { AuthenticatedSwitch } from './components/AuthenticatedSwitch';
 import Config from '#src/config';
 import { PassTypes } from '#src/libs/marketplace/types';
+import { withFeatureFlags } from '#src/utils/feature-flag/withFeatureFlags';
 
 const MarketplaceAsManager = asyncComponent(() =>
   import('../marketplace/MarketplaceAsManager.page'),
@@ -74,6 +75,7 @@ type Props = {
   companyId: number,
   theme: CompanyTheme,
   fetchCompanyTheme: (number) => void,
+  showExpressCheckout: boolean,
 };
 
 export class PaymentRouter extends React.Component<Props> {
@@ -86,6 +88,7 @@ export class PaymentRouter extends React.Component<Props> {
 
   getExpressCheckoutRedirect = (passType) => {
     const shouldRedirect =
+      this.props.showExpressCheckout &&
       this.props.theme.one_click_checkout_enabled &&
       !this.props.theme.requires_email_confirmation_when_signing_up;
 
@@ -217,4 +220,5 @@ export default compose(
     }),
     { fetchProfile, fetchCompanyTheme },
   ),
+  withFeatureFlags,
 )(PaymentRouter);

@@ -115,6 +115,7 @@ import { STORAGE_KEY_BSPORT_RELATED_MEMBER_TOKEN } from '../../actions/constants
 import analyticsUtils from '../../components/analytics/analytics';
 import { PassesPageTabNames } from '../../libs/marketplace/types';
 import Config from '#src/config';
+import { withFeatureFlags } from '#src/utils/feature-flag/withFeatureFlags';
 
 const MarketplacePassPage = asyncComponent(() => import('./MarketplacePass'));
 
@@ -191,6 +192,7 @@ type Props = {
   fetchMyControlableMemberList: () => void,
   navigateToRelationAccount: (memberId: number) => void,
   navigateBackToMasterRelation: () => void,
+  showExpressCheckout: boolean,
 } & StateHandlerType;
 
 type State = {
@@ -316,6 +318,7 @@ export class MarketPlace extends Component<Props, State> {
 
   redirectToPassExpressCheckout = ({ passType, passId }) => {
     const canRedirect =
+      this.props.showExpressCheckout &&
       this.props.companyTheme.one_click_checkout_enabled &&
       !this.props.companyTheme.requires_email_confirmation_when_signing_up;
 
@@ -738,4 +741,5 @@ export default compose(
         push(getMarketplaceRoute(companyName, companyId, path)),
   }),
   withStateHandlers(withStateHandlersInit, withStateHandlersSetter),
+  withFeatureFlags,
 )(MarketPlace);

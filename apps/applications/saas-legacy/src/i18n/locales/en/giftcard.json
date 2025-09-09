@@ -1,0 +1,226 @@
+{
+    "downloadPDF": "",
+    "backgroundImage": {
+        "dialog": {
+            "explain": "",
+            "actions": {
+                "close": ""
+            },
+            "title": ""
+        }
+    },
+    "form": {
+        "giftcard": {
+            "manager_only": {
+                "label": ""
+            },
+            "unlimited": {
+                "label": ""
+            },
+            "expiration_days": {
+                "helperText": "",
+                "label": ""
+            },
+            "price": {
+                "helperText": "",
+                "label": ""
+            },
+            "section": {
+                "parameters": {
+                    "title": ""
+                }
+            },
+            "description": {
+                "label": ""
+            },
+            "available_payment_method_identifiers": {
+                "label": "",
+                "helperText": ""
+            },
+            "name": {
+                "label": ""
+            },
+            "title": "",
+            "actions": {
+                "submit": "",
+                "cancel": ""
+            },
+            "advancedOptions": {
+                "header": "",
+                "tag": {
+                    "tagsOnAcquisition": "",
+                    "tagsOnAcquisitionHelper": "",
+                    "selectTags": ""
+                }
+            }
+        },
+        "canNotUpdateBecauseShared": ""
+    },
+    "giftcard": {
+        "delete": {
+            "dialog": {
+                "actions": {
+                    "close": "",
+                    "delete": ""
+                },
+                "content": "",
+                "title": ""
+            }
+        },
+        "detail": {
+            "availablePaymentMethods": "",
+            "expirationDate": "",
+            "manager_only": ""
+        },
+        "configurationTitle": ""
+    },
+    "link": {
+        "copyLink": "",
+        "activationLink": ""
+    },
+    "consumerGiftcard": {
+        "seeDetails": "",
+        "form": {
+            "type": {
+                "label": "",
+                "option": {
+                    "digital": "",
+                    "physical": ""
+                }
+            },
+            "footer": "",
+            "footerPhysical": "",
+            "footerPhysicalUnlimited": "",
+            "actions": {
+                "submit": "",
+                "cancel": ""
+            },
+            "activationDate": {
+                "label": "",
+                "helperText": "",
+                "errorMaxDate": ""
+            },
+            "date_send": {
+                "label": ""
+            },
+            "recipients": {
+                "label": ""
+            },
+            "message_content": {
+                "label": ""
+            },
+            "message_is_from": {
+                "label": ""
+            },
+            "message_is_for": {
+                "label": ""
+            },
+            "name": {
+                "label": ""
+            },
+            "footerUnlimited": "",
+            "select_image": "",
+            "hour_send": "",
+            "advancedOptions": {
+                "tag": {
+                    "tagsOnAcquisition": "",
+                    "tagsOnAcquisitionHelper": "",
+                    "selectTags": ""
+                },
+                "header": ""
+            }
+        },
+        "previewPlaceholder": {
+            "message_content": "",
+            "message_is_for": "",
+            "message_is_from": "",
+            "name": "",
+            "giftcard_amount": ""
+        },
+        "sendTo": "",
+        "notAttributedYet": "",
+        "expiresOn": "",
+        "willInviteOn": "",
+        "invitedOn": "",
+        "value": "",
+        "isFrom": "",
+        "isFor": "",
+        "isEmpty": "",
+        "linkedInvoice": "",
+        "list": {
+            "myGifted": "",
+            "myPurchases": ""
+        },
+        "physicalDetails": {
+            "title": "",
+            "to": "",
+            "code": "",
+            "validFrom": "",
+            "helperAlert": {
+                "title": "",
+                "message": ""
+            }
+        },
+        "invitationForm": {
+            "actions": {
+                "submit": "",
+                "close": ""
+            },
+            "content": "",
+            "title": "",
+            "activationCodeLink": ""
+        },
+        "activation": {
+            "alreadyActivated": "",
+            "activate": "",
+            "content3": "",
+            "content2": "",
+            "content1": "",
+            "subtitle": "",
+            "title": "",
+            "content1withDate": ""
+        }
+    },
+    "list": {
+        "isEmpty": "",
+        "archivedTitle": "",
+        "unavailableForSaleTitle": "",
+        "activeTitle": "",
+        "explainIfEmpty": "",
+        "actions": {
+            "create": "",
+            "goToGiftcard": ""
+        },
+        "addBackgroundImage": "",
+        "visibility": "",
+        "unlimited": "",
+        "validity": ""
+    },
+    "delete": {
+        "submit": "",
+        "cancel": "",
+        "content": "",
+        "title": ""
+    },
+    "search": "",
+    "widget": "",
+    "giftcardTemplate": {
+        "template": {
+            "withoutTax": "",
+            "unlimited": "",
+            "validityDetail": "",
+            "validity": "",
+            "deleteInstanceContent2": "",
+            "deleteInstanceContent1": "",
+            "deleteTemplateContent": "",
+            "deleteDialogContent": ""
+        },
+        "listPage": {
+            "fuzzyPlaceholder": "",
+            "addButton": "",
+            "emptyLabel": ""
+        },
+        "sharedCard": "",
+        "giftcard": ""
+    }
+}

@@ -833,7 +833,7 @@
     "doorAccess": "Toegang tot de deur",
     "activationWindow": "Activeringsvenster instellen",
     "accessControl": {
-      "firstBookingDisclaimer": "De lesekarte is geldig vanaf de eerste reservering of de eerste check-in, afhankelijk van wat het eerst plaatsvindt. Als het personeel een lid handmatig incheckt vóór de datum van de eerste reservering, is de lesekarte geldig vanaf de datum van de eerste check-in.",
+      "firstBookingDisclaimer": "De leskaart is geldig vanaf de eerste reservering of de eerste check-in, afhankelijk van wat het eerst plaatsvindt. Als het personeel een lid handmatig incheckt vóór de datum van de eerste reservering, is de leskaart geldig vanaf de datum van de eerste check-in.",
       "firstBooking": "1e boeking of check-in"
     }
   },
@@ -912,11 +912,11 @@
     }
   },
   "manualActivation": {
-    "setActiveStartDate": "Door deze lesekarte te activeren, wordt de activeringsdatum ingesteld op vandaag. Deze actie kan niet ongedaan worden gemaakt.",
-    "replaceActiveStartDateAlert": "De lesekarte is vanaf vandaag geldig. Als een van de toekomstige reserveringen van het lid na de bijgewerkte geldigheidsperiode valt, blijven hun reserveringen actief, maar moet het personeel helpen bij het binnenkomen.",
-    "replaceActiveStartDate": "Door deze lesekarte te activeren, wordt de activeringsdatum ingesteld op vandaag, ter vervanging van de vorige eerste boekingsdatum. Deze actie kan niet ongedaan worden gemaakt.",
-    "title": "Deze lesekarte handmatig activeren?",
-    "submit": "Leeskaart activeren",
+    "setActiveStartDate": "Door deze leskaart te activeren, wordt de activeringsdatum ingesteld op vandaag. Deze actie kan niet ongedaan worden gemaakt.",
+    "replaceActiveStartDateAlert": "De leskaart is vanaf vandaag geldig. Als een van de toekomstige reserveringen van het lid na de bijgewerkte geldigheidsperiode valt, blijven hun reserveringen actief, maar moet het personeel helpen bij het binnenkomen.",
+    "replaceActiveStartDate": "Door deze leskaart te activeren, wordt de activeringsdatum ingesteld op vandaag, ter vervanging van de vorige eerste boekingsdatum. Deze actie kan niet ongedaan worden gemaakt.",
+    "title": "Deze leskaart handmatig activeren?",
+    "submit": "Leskaart activeren",
     "close": "Sluiten"
   },
   "activateManually": "Activeren"

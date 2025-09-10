@@ -23,6 +23,7 @@ import { AuthenticatedSwitch } from './components/AuthenticatedSwitch';
 import Config from '#src/config';
 import { PassTypes } from '#src/libs/marketplace/types';
 import { withFeatureFlags } from '#src/utils/feature-flag/withFeatureFlags';
+import { requestOptInTrackingB2C as requestOptInTrackingB2CAction } from '#src/components/analytics/actions';
 
 const MarketplaceAsManager = asyncComponent(() =>
   import('../marketplace/MarketplaceAsManager.page'),
@@ -76,6 +77,7 @@ type Props = {
   theme: CompanyTheme,
   fetchCompanyTheme: (number) => void,
   showExpressCheckout: boolean,
+  requestOptInTrackingB2C: () => void,
 };
 
 export class PaymentRouter extends React.Component<Props> {
@@ -84,6 +86,9 @@ export class PaymentRouter extends React.Component<Props> {
       this.props.fetchProfile();
     }
     this.props.fetchCompanyTheme(this.props.companyId);
+
+    // Opt in B2C tracking and opt out B2B tracking
+    this.props.requestOptInTrackingB2C();
   }
 
   getExpressCheckoutRedirect = (passType) => {
@@ -218,7 +223,11 @@ export default compose(
       is_manager: state.auth.is_manager,
       theme: themeSelectors.getTheme(state),
     }),
-    { fetchProfile, fetchCompanyTheme },
+    {
+      fetchProfile,
+      fetchCompanyTheme,
+      requestOptInTrackingB2C: requestOptInTrackingB2CAction,
+    },
   ),
   withFeatureFlags,
 )(PaymentRouter);

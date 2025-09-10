@@ -134,8 +134,8 @@
       "error": "Niet mogelijk om gedeelde kaart te archiveren"
     },
     "manualActivation": {
-      "error": "Er is een probleem opgetreden bij het activeren van de lesekarte. Probeer het opnieuw.",
-      "updated": "Lesekarte succesvol geactiveerd"
+      "error": "Er is een probleem opgetreden bij het activeren van de leskaart. Probeer het opnieuw.",
+      "updated": "Leskaart succesvol geactiveerd"
     }
   },
   "coupon": {

@@ -1007,7 +1007,7 @@
       "close": "Close"
     },
     "createModal": {
-      "create": "Add a recurrent appointment"
+      "create": "Add a recurring appointment"
     },
     "recurrentBookings": "Recurring appointments"
   },

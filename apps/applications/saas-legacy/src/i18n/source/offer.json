@@ -385,7 +385,7 @@
       "regularOffer": "The new session will use the same settings as the duplicated one.",
       "recurringOffer": "The last session is on {{- date }} at {{- time }}. The new session will start after this date and will use the same settings as the duplicated session.",
       "hybridOffer": "Duplicating this hybrid session will create both online and on-site sessions. They will use the same settings as the duplicated session.",
-      "linkNewOffersLabel": "Link new offers",
+      "linkNewOffersLabel": "Link new sessions to the duplicated ones, so you can edit them together and members can book them all at once",
       "duplicating": "Duplicating",
       "duplicate": "Duplicate"
     },

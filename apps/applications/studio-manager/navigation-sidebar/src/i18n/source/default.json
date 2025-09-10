@@ -40,7 +40,7 @@
     },
     "marketing": {
       "title": "Marketing",
-      "memberNotifications": "Member notifications",
+      "marketingNotifications": "Member notifications",
       "emailTemplates": "Email templates",
       "smartlists": "Smartlists",
       "audience": "Audience",

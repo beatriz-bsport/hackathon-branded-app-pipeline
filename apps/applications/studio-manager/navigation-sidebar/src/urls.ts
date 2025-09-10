@@ -27,7 +27,7 @@ export const LEGACY_URLS: Omit<Urls, "payout"> = {
   insights: "/insights",
   invoice: "/invoice",
   member: "/member",
-  memberNotification: "/marketing/notifications",
+  marketingNotification: "/marketing/notifications",
   order: "/order",
   pack: "/combo",
   pass: "/payment-pack",
@@ -92,6 +92,7 @@ export const REVAMP_URLS_DEVELOPMENT = {
   settings_referral: `${SETTINGS_URL}/referral-program`,
   settings_transactionalNotification: `${SETTINGS_URL}/notification-rule`,
   tag: "/tag",
+  marketingNotification: "/marketing/notifications",
 } as const satisfies Partial<Urls>;
 
 export const REVAMP_URLS_PRODUCTION = {

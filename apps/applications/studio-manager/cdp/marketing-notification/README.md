@@ -1,4 +1,4 @@
-# Customer Data Platform | Smartlists | Studio Manager Application
+# Customer Data Platform | Marketing Notification | Studio Manager Application
 
 ## Quickstart
 
@@ -7,13 +7,15 @@
 To run in localhost :
 
 ```sh
-pnpm --filter=@bsport/sm-smartlists dev
+pnpm run dev
 ```
 
 This will run two applications aside :
 
 - The Navigation Sidebar on port 4050, with module federation.
-- The Smartlists application, on the port defined in your `package.json` in `federation.devPort` : 4301.
+- The Marketing Notification application, on the port defined in `package.json` in `federation.devPort` : $PORT.
+
+Go to <http://localhost:$PORT>
 
 ### Build your translations
 

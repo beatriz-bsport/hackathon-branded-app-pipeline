@@ -1,42 +1,4 @@
-<!-- @indication Remove this first part in your own README. The second part can be kept and completed.-->
-
-# Studio Manager Application Template
-
-This template provides a minimal setup to create a new application for bsport's studio managers.
-
-Take a look at our Notion documentation on [How to start a new application](https://www.notion.so/bright-shovel-41b/Quickstart-Create-a-new-application-17e137e4c6408017880efb0d5548df17).
-
-## How to use the template to create a new application
-
-Create your Studio manager application by running the following command :
-
-```sh
-pnpm run -w project:create --template=sm-application
-```
-
-Select `apps/applications/studio-manager` location for your application, and select the adequate folder (`business-domain/product-unit`).
-
-## Setup
-
-1. Define the right `appType` in your `vite.config.ts`. It should be your business domain.
-
-2. Set an available devPort in your `package.json` :
-
-```jsonc
-  "federation": {
-    "devPort": 4099,
-  }
-```
-
-It should belong to the port range defined in `/tools/config/federation/src/config.ts`, and not be used by another application of your business domain.
-
-3. Add your application to the `studio-manager/host` app : port in `package.json`, route in the `Root.tsx`.
-
----
-
-<!-- @indication Replace "BUSINESS_DOMAIN" and "PRODUCT_UNIT" -->
-
-# BUSINESS_DOMAIN | PRODUCT_UNIT | Studio Manager Application
+# Customer Data Platform | Email Template | Studio Manager Application
 
 ## Quickstart
 

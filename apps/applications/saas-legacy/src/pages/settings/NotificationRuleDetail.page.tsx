@@ -9,11 +9,11 @@ import {
   fetchEventTypeList as fetchEventTypeListAction,
   fetchNotificationRuleList as fetchNotificationRuleListAction,
   createOrUpdateNotificationRule as createOrUpdateNotificationRuleAction,
-  deleteNotificationRule as deleteNotificationRuleAction,
   fetchSettingsList as fetchSettingsListAction,
   updateSettings as updateSettingsAction,
   fetchTagList as fetchTagListAction,
   fetchResolvedGenericTags as fetchResolvedGenericTagsAction,
+  deleteNotificationRule as deleteNotificationRuleAction,
 } from '#src/libs/notification-rule/actions';
 import {
   fetchMarketingNotificationList as fetchMarketingNotificationListAction,
@@ -401,12 +401,12 @@ const connector = connect(
     fetchEmailDesignDetail: fetchEmailDesignDetailAction,
     fetchBulkEmailDesignDetail: fetchBulkEmailDesignDetailAction,
     createOrUpdateNotificationRule: createOrUpdateNotificationRuleAction,
-    deleteNotificationRule: deleteNotificationRuleAction,
     fetchSettingsList: fetchSettingsListAction,
     updateSettings: updateSettingsAction,
     fetchMarketingNotificationList: fetchMarketingNotificationListAction,
     createOrUpdateMarketingNotification:
       createOrUpdateMarketingNotificationAction,
+    deleteNotificationRule: deleteNotificationRuleAction,
     deleteMarketingNotification: deleteMarketingNotificationAction,
     fetchTagList: fetchTagListAction,
     fetchResolvedGenericTags: fetchResolvedGenericTagsAction,

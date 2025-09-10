@@ -99,6 +99,7 @@ export const EmailSelector: React.FC<Props> = ({
 
   return (
     <Select<EmailTemplateOption>
+      isClearable
       components={{ Option: EmailOption }}
       isDisabled={disabled}
       menuPlacement="auto"

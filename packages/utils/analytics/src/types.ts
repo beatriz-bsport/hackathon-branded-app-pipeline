@@ -136,6 +136,11 @@ export type AnalyticsAgnosticMethods = {
    * This method is analytics-tools agnostic.
    */
   resetSuperProperties(): void;
+
+  /**
+   * Get the current tracking status
+   */
+  getIsTracking(): boolean;
 };
 
 export type MixpanelConfig = Partial<Config>;

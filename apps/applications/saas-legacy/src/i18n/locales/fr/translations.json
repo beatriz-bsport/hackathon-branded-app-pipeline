@@ -4123,10 +4123,12 @@
                 "reverseInvoice": "Remboursé via ",
                 "source": {
                     "0": "App",
-                    "1": "Web",
+                    "1": "Espace membre",
                     "2": "Backoffice",
                     "3": "Autre",
                     "4": "Migration",
+                    "5": "Aggrégateur",
+                    "6": "Inconnu",
                     "7": "PDV",
                     "label": "Canal : {{ source }}"
                 },

@@ -293,7 +293,7 @@
       "startFromDate": {
         "label": "Start the recurrent booking the "
       },
-      "groupWarning": "Please note that it's not possible to add recurrent bookings for events.",
+      "groupWarning": "Please note that it's not possible to add recurring bookings for events.",
       "permissionWarning": "You do not have the permission to create bookings for this activity",
       "duplicateError": "This rule is already applied to a Recurring Booking. To save, change existing booking rules or adjust parameters.",
       "globalError": "We couldn't save your recurring booking right now. Please try again later."
@@ -323,9 +323,9 @@
     "createModal": {
       "success": "Recurring booking rule saved. We'll set up your bookings now according to your parameters.",
       "info": "Cannot recreate a recurrent booking that already exists",
-      "create": "Add a recurrent booking"
+      "create": "Add a recurring booking"
     },
-    "blockedBookings": "Members can book up to {{days}} days in advance for this activity.\nConsider extending recurrence periods to prevent overcrowding.",
+    "blockedBookings": "Members can book up to {{days}} days in advance for this activity.\nConsider extended recurring bookings to prevent overcrowding.",
     "notifyIfCanceled": "Send a booking cancellation email",
     "cancelRelatedBookings": "Cancel the future bookings already done",
     "notify": "Send a confirmation email when booking the member",

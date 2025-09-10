@@ -37,6 +37,13 @@ const getTranslations = async () => {
     BOOKING_SOURCE_SAAS,
     BOOKING_SOURCE_OTHER,
     BOOKING_SOURCE_MIGRATION,
+    BOOKING_SOURCE_AGGREGATOR,
+    BOOKING_SOURCE_UNKNOWN,
+    BOOKING_SOURCE_QUICKSALE,
+    BOOKING_SOURCE_COMPANY_BRANDED_APP,
+    BOOKING_SOURCE_FRANCHISOR_BRANDED_APP,
+    BOOKING_SOURCE_BSPORT_GENERAL_APP,
+    BOOKING_SOURCE_DJANGO_ADMIN,
   } = BOOKING_SOURCES;
 
   const {
@@ -848,10 +855,16 @@ const getTranslations = async () => {
       },
       source_device: {
         [BOOKING_SOURCE_APP.id]: 'App',
-        [BOOKING_SOURCE_WEB.id]: 'Web',
+        [BOOKING_SOURCE_WEB.id]: 'Member Area',
         [BOOKING_SOURCE_SAAS.id]: 'Bsport Backoffice',
         [BOOKING_SOURCE_OTHER.id]: 'Other',
         [BOOKING_SOURCE_MIGRATION.id]: 'Data migration',
+        [BOOKING_SOURCE_AGGREGATOR.id]: 'Aggregator',
+        [BOOKING_SOURCE_UNKNOWN.id]: 'Unknown',
+        [BOOKING_SOURCE_QUICKSALE.id]: 'Quick sale',
+        [BOOKING_SOURCE_COMPANY_BRANDED_APP.id]: 'Company branded app',
+        [BOOKING_SOURCE_FRANCHISOR_BRANDED_APP.id]: 'Franchisor branded app',
+        [BOOKING_SOURCE_BSPORT_GENERAL_APP.id]: 'Bsport general app',
       },
       payment_method_with_credit_account: {
         [CB.id]: 'Card',

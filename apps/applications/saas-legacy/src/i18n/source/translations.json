@@ -3063,10 +3063,16 @@
         "bookingDropdown": {
             "source": {
                 "0": "App",
-                "1": "Web",
+                "1": "Member Area",
                 "2": "BSPORT Back Office",
                 "3": "Other",
-                "4": "Data migration"
+                "4": "Data migration",
+                "5": "Aggregator",
+                "6": "Unknown",
+                "7": "Quick sale",
+                "8": "Company branded app",
+                "9": "Franchisor branded app",
+                "10": "Bsport general app"
             }
         },
         "resetModal": {
@@ -12904,10 +12910,16 @@
             },
             "source_device": {
                 "0": "App",
-                "1": "Web",
+                "1": "Member Area",
                 "2": "Bsport Backoffice",
                 "3": "Other",
-                "4": "Data migration"
+                "4": "Data migration",
+                "5": "Aggregator",
+                "6": "Unknown",
+                "7": "Quick sale",
+                "8": "Company branded app",
+                "9": "Franchisor branded app",
+                "10": "Bsport general app"
             },
             "payment_method_with_credit_account": {
                 "0": "Card",

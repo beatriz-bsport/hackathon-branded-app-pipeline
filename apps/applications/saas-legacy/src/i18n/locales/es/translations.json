@@ -5923,7 +5923,9 @@
                 "1": "Web",
                 "2": "Backoffice bsport",
                 "3": "Otro",
-                "4": "Migración de datos"
+                "4": "Migración de datos",
+                "5": "Agregador",
+                "6": "Desconocido"
             },
             "payment_method_with_credit_account": {
                 "0": "Tarjeta de pago",

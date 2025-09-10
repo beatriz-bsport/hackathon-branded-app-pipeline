@@ -25,6 +25,7 @@ declare module "sm-navigation-sidebar/urls" {
     settings_referral: string;
     settings_transactionalNotification: string;
     tag: string;
+    marketingNotification: string;
   };
   export const REVAMP_URLS_PRODUCTION: Partial<typeof REVAMP_URLS_DEVELOPMENT>;
   export default REVAMP_URLS_DEVELOPMENT;
@@ -95,6 +96,11 @@ declare module "sm-tag/App" {
 }
 
 declare module "sm-transactional-notification/App" {
+  const App: BaseApp["App"];
+  export default App;
+}
+
+declare module "sm-marketing-notification/App" {
   const App: BaseApp["App"];
   export default App;
 }

@@ -99,6 +99,10 @@
         "devPort": 4305,
         "watchPath": "../cdp/transactional-notification/src/**/*"
       },
+      "sm-marketing-notification": {
+        "devPort": 4306,
+        "watchPath": "../cdp/marketing-notification/src/**/*"
+      },
       "sm-insights": {
         "devPort": 4350,
         "watchPath": "../business-insights/insights/src/**/*"

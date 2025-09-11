@@ -483,6 +483,7 @@ export type ProtectedUrls =
   | '/instalment-payment'
   | '/invoice'
   | '/invoice/bill-member'
+  | '/insights'
   | '/marketing'
   | '/marketing/notifications'
   | '/marketing/rule'

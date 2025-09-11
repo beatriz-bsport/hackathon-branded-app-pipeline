@@ -2,7 +2,10 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { useState } from "react";
 
 import Checkbox from "#src/components/Checkbox";
+import CopyToClipboard from "#src/components/CopyToClipboard";
+import Icon from "#src/components/Icon";
 import List, { type ListItemProps, type ListProps } from "#src/components/List";
+import Popover from "#src/components/Popover";
 
 /**
  * A list component that can contain multiple `Item` components and one `Header` component.<br>
@@ -972,5 +975,90 @@ export const CompactListOfAvatar: Story = {
         ],
       },
     ],
+  },
+};
+
+const sharedConfig: ListItemProps = {
+  id: "placeholder",
+  title: "Playing with fonts is fun",
+  rightTitle: "See here ->",
+  buttons: [
+    {
+      id: "button",
+      label: "A button",
+      size: "md",
+      intent: "flat",
+      color: "default",
+    },
+    {
+      id: "button-in-dropdown",
+      label: "A dropdown",
+      size: "md",
+      intent: "flat",
+      color: "default",
+    },
+  ],
+  dropdownConfig: {
+    visibleActionsDisplayLimit: 1,
+  },
+  chips: [
+    {
+      label: "A chip",
+      type: "weak",
+      color: "default",
+      size: "lg",
+    },
+  ],
+  chipsDirection: "start",
+} as const;
+
+export const WithCustomNode: Story = {
+  name: "List With Custom Node in Items",
+  args: {
+    id: "list-1",
+
+    items: [
+      {
+        ...sharedConfig,
+        id: "list-item-1",
+        customNode: (
+          <Popover>
+            <Popover.Anchor>
+              {({ setIsPopoverOpened }) => (
+                <Icon
+                  icon="info-circle"
+                  size="sm"
+                  onMouseEnter={() => setIsPopoverOpened(true)}
+                  onMouseLeave={() => setIsPopoverOpened(false)}
+                />
+              )}
+            </Popover.Anchor>
+            <Popover.Content placement="bottom-left">
+              {() => <p>Hello world</p>}
+            </Popover.Content>
+          </Popover>
+        ),
+      },
+      {
+        ...sharedConfig,
+        id: "list-item-2",
+        customNode: (
+          <CopyToClipboard
+            color="critical"
+            intent="call-to-action"
+            size="sm"
+            label="Copy me !"
+            value="Hidden value"
+          />
+        ),
+      },
+    ],
+    isSelectable: false,
+    emptyStateProps: {
+      isEmptySearch: false,
+      emptySearchConfig: emptySearchConfig,
+      isEmpty: false,
+      emptyConfig: emptyConfig,
+    },
   },
 };

@@ -1,7 +1,6 @@
 import i18n from 'i18next'; // import Backend from 'i18next-locize-backend';
 import axios from 'axios';
 
-import LanguageDetector from 'i18next-browser-languagedetector';
 import { initReactI18next } from 'react-i18next';
 import HttpBackend from 'i18next-http-backend';
 import { Settings } from 'luxon';
@@ -20,6 +19,7 @@ import {
   LANGUAGE_SWITCHER_ACTION,
   LANGUAGE_SWITCHER_CHANNEL,
 } from './utils/switch-language';
+import { languageDetector, detectorOrder } from './utils/languageDetector';
 
 const backendOptions = {};
 
@@ -56,7 +56,7 @@ if (config.I18N_TRANSLATION_DOMAIN || process.env.NODE_ENV !== 'production') {
 i18n
   .use(initReactI18next)
   // .use(Backend)
-  .use(LanguageDetector)
+  .use(languageDetector)
   .use(HttpBackend)
   .init({
     backend: backendOptions,
@@ -82,7 +82,7 @@ i18n
       return ['en', 'fr', 'af'];
     },
     detection: {
-      order: ['localStorage', 'navigator', 'cookie'],
+      order: detectorOrder,
     },
     load: 'languageOnly',
     // have a common namespace used around the full app

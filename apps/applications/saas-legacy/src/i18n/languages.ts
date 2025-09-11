@@ -1,5 +1,5 @@
 export const LANGUAGES = {
-  DEFAULT: 'af',
+  DEFAULT: 'en',
   FRENCH: 'fr',
   ENGLISH: 'en',
   ENGLISH_BRITISH: 'en-GB',

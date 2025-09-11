@@ -7,6 +7,18 @@
     },
     "failToCreate": "Failed to create a new Pack"
   },
+  "addItemsModal": {
+    "title": "Add items",
+    "buttons": {
+      "cancel": "Cancel",
+      "save": "Save"
+    },
+    "breadcrumbs": {
+      "appointmentPassCategories": "Appointment Pass categories",
+      "passCategories": "Pass categories",
+      "webshopItemCategories": "Webshop Item categories"
+    }
+  },
   "formFields": {
     "name": {
       "label": "Pack name",
@@ -17,6 +29,14 @@
       "label": "Description",
       "helperText": "Limited to {{ maxLength }} characters ({{ length }}/{{ maxLength }})",
       "errorMaxLength": "The description is too long."
+    },
+    "packContent": {
+      "buttons": {
+        "addItem": "Add item",
+        "addPass": "Add pass",
+        "addAppointmentPass": "Add appointment pass",
+        "addWebshopItem": "Add webshop item"
+      }
     },
     "requiredField": "This field is required."
   }

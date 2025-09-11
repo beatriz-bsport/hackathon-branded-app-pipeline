@@ -1,0 +1,57 @@
+[
+  {
+    "id": 74,
+    "name": "Access Control 🔐",
+    "category_ordering": -11
+  },
+  {
+    "id": 73,
+    "name": "Express checkout",
+    "category_ordering": -10
+  },
+  {
+    "id": 63,
+    "name": "<gush",
+    "category_ordering": -9
+  },
+  {
+    "id": 56,
+    "name": "Decimals",
+    "category_ordering": -8
+  },
+  {
+    "id": 41,
+    "name": "Pilates",
+    "category_ordering": -7
+  },
+  {
+    "id": 40,
+    "name": "Pass not subscriptions!",
+    "category_ordering": -6
+  },
+  {
+    "id": 64,
+    "name": "NBF - MultiSession",
+    "category_ordering": -5
+  },
+  {
+    "id": 45,
+    "name": "nouveau but with a vegfds fsdf fe fqdslon gma  fdw",
+    "category_ordering": -4
+  },
+  {
+    "id": 39,
+    "name": "Yoga",
+    "category_ordering": -3
+  },
+  {
+    "id": 43,
+    "name": "Test coupon",
+    "category_ordering": -2
+  },
+  {
+    "id": 42,
+    "name": "VOD",
+    "category_ordering": -1
+  }
+]

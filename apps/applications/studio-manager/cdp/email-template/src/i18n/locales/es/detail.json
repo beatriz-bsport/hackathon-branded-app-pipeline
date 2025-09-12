@@ -1,1 +1,84 @@
-{}
+{
+  "pages": {
+    "detail": "Plantillas de correo"
+  },
+  "breadcrumbs": {
+    "rootPage": "Plantillas de correo",
+    "customPage": "Plantillas personalizadas"
+  },
+  "details": {
+    "defaultTitle": "Plantilla sin título",
+    "state": {
+      "loading": "Cargando tu plantillas..."
+    },
+    "actions": {
+      "saveChanges": "Guarda cambios",
+      "discardChanges": "Descartar"
+    },
+    "hover": {
+      "exportHtml": "Exportar plantillas a HTML",
+      "renameTemplate": "Renombrar plantilla de correo",
+      "moreActions": "Más acciones"
+    },
+    "bsportTemplateInfo": {
+      "title": "plantillas de bsport",
+      "description": {
+        "firstStep": "Si quieres enviar comunicaciones o editar las plantillas en esta sección, es necesario crear una copia de la plantilla deseada. ",
+        "secondStep": "Luego selecciona la copia del correo al enviar una comunicación."
+      },
+      "quit": "Salir"
+    },
+    "renameTemplateModal": {
+      "title": "Renombrar plantilla de correo",
+      "textInput": {
+        "label": "Título de la plantilla",
+        "placeholder": "Título de la Plantilla aquí..."
+      },
+      "confirmButton": "Renombrar",
+      "cancelButton": "Cancelar",
+      "onSuccess": {
+        "title": "Plantillas renombrada",
+        "action": "Deshacer"
+      },
+      "onFailure": {
+        "title": "Ocurrió un error al renombrar tu plantilla."
+      },
+      "errors": {
+        "notProvided": "Esto es obligatorio",
+        "tooLong": "El título es demasiado largo"
+      }
+    }
+  },
+  "saveTemplateAction": {
+    "description": "La página tiene cambios sin guardar.",
+    "success": {
+      "title": "Plantilla de correo guardada"
+    },
+    "error": {
+      "missingFields": "Faltan algunos campos obligatorios",
+      "problemWhileSaving": "Hubo un problema al guardar tus cambios."
+    }
+  },
+  "leaveConfirmationModal": {
+    "description": "¿Estás seguro de que quieres salir de esta página?",
+    "confirmButton": "OK",
+    "cancelButton": "Cancelar"
+  },
+  "templateSubject": {
+    "label": "Asunto del email",
+    "placeholder": "Añade un asunto al correo...",
+    "error": {
+      "notProvided": "Esto es obligatorio",
+      "tooLong": "El asunto es demasiado largo"
+    }
+  },
+  "templateDesign": {
+    "error": {
+      "notProvided": "No se proporcionó diseño de plantilla."
+    }
+  },
+  "templateCategory": {
+    "label": "Categoría",
+    "noCategory": "Sin categoría"
+  }
+}

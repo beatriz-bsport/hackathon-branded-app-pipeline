@@ -76,10 +76,16 @@
   "bookingDropdown": {
     "source": {
       "0": "App",
-      "1": "Web",
-      "2": "BSPORT Back Office",
-      "3": "Member Area",
-      "4": "Data migration"
+      "1": "Member Area",
+      "2": "Back Office",
+      "3": "Other",
+      "4": "Data migration",
+      "5": "Aggregators",
+      "6": "Unknown",
+      "7": "Quick sale",
+      "8": "Branded app (company)",
+      "9": "Branded app (franchisor)",
+      "10": "Bsport app"
     }
   },
   "resetModal": {

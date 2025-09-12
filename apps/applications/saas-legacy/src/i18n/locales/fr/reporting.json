@@ -698,10 +698,16 @@
   "presetValuesByDatatype": {
     "source_device": {
       "0": "Application",
-      "1": "Web",
-      "2": "Backoffice bsport",
+      "1": "Espace membre",
+      "2": "Back Office",
       "3": "Autre",
-      "4": "Migration de données"
+      "4": "Migration de données",
+      "5": "Agrégateurs",
+      "6": "Inconnu",
+      "7": "Vente rapide",
+      "8": "Application de marque (société)",
+      "9": "Application de marque (franchiseur)",
+      "10": "Application Bsport"
     },
     "billing_plan_status": {
       "0": "Pas encore commencé",

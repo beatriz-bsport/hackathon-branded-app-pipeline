@@ -1,0 +1,1200 @@
+{
+  "openCalendar": "Den Kalender ansehen",
+  "bookerModule": {
+    "noPrivateServiceAvailable": "Aktuell keine Termine",
+    "error": "An diesem Datum ist eine Buchung nicht möglich",
+    "title": "Terminbuchung",
+    "cancel": "Abbrechen",
+    "missingResource": {
+      "establishment": "Bitte wähle die Einrichtung aus",
+      "coach": "Bitte wähle die Lehrkraft aus",
+      "service": "Bitte gib einen Termin ein"
+    },
+    "emptySlot": "Keine Verfügbarkeiten",
+    "address": {
+      "helperText": "Gib Deine Adresse ein, um diesen Termin buchen zu können",
+      "submit": "Bestätigen",
+      "label": "Adresse"
+    },
+    "searchSlot": "Einen Slot suchen",
+    "availableSlots": "Verfügbare Slots",
+    "private_pass": {
+      "credits": "{{ credits }} Credit(s)"
+    },
+    "bookingCapabilities": {
+      "emptyConsumerPassList": "Du besitzt keine gültige Karte mit ausreichenden Credits",
+      "emptyPassList": "Keine kompatible Karte, bitte kontaktiere Dein Studio",
+      "compatiblePassTitle": "Kompatible Pässe für diesen Kurs",
+      "compatibleConsumerPassTitle": "Deine gültigen Pässe"
+    },
+    "step": {
+      "date": "Datum",
+      "coach": "Lehrkraft",
+      "privateSlot": "Kurs",
+      "privateService": "Termin",
+      "billing": "Rechnungsstellung",
+      "configuration": "Mein Termin",
+      "rule": "Wiederkehrende Termine"
+    },
+    "sections": {
+      "coach": "Lehrkraft",
+      "privateSlot": "Kurse",
+      "establishment": "Standort"
+    },
+    "preview": {
+      "credit_cost": "{{credit_cost}} Credits"
+    },
+    "buyPass": "{{price, price}}",
+    "useCredit": "Buchen",
+    "notifyMember": {
+      "label": "Eine Bestätigungs-E-Mail senden"
+    },
+    "isAtHome": "Home-Kurs, Deine Adresse wird bei der Buchung abgefragt",
+    "recurrenceRule": {
+      "label": "Vereinbare einen wiederkehrenden Termin"
+    },
+    "confirm": "Bestätigen",
+    "unpaidBooking": {
+      "book": "Buchen",
+      "helper": "Schließen Sie die Buchung ab und kaufen Sie zu einem späteren Zeitpunkt einen Terminpass.",
+      "header": "Später bezahlen",
+      "dialogHelper": "Mit dieser Option buchen Sie Ihren Kurs, ohne ihn sofort zu bezahlen. Bei Ihrem nächsten Kauf einer Karte, die mit diesem Kurs kompatibel ist, wird diese automatisch mit {{ credits }} Guthaben(en) belastet.",
+      "isUnpaid": "Unbezahlte Rechnungen"
+    }
+  },
+  "privateBooking": {
+    "updateTime": {
+      "explainEmail": "Eine E-Mail wird automatisch an den Schüler geschickt, um ihn zu informieren",
+      "cancel": "Abbrechen",
+      "submit": "Speichern",
+      "title": "Änderung des Termins"
+    },
+    "delete": {
+      "explainForceRefund": "Verwendete Credits auf Kurspass zurückerstatten, um eine neue Buchung zu ermöglichen.",
+      "consumer": {
+        "content": {
+          "notDiscardable": "Bist Du Dir sicher, dass Du den Termin stornieren möchtest? Du stornierst nach Ablauf der Stornierungsfrist. Die Credits des Terminpasses verfallen (Allgemeine Nutzungsbedingungen des Studios).",
+          "discardable": "Bist Du Dir sicher, dass Du den Termin stornieren möchtest? Deine Credits werden Deinem Konto gutgeschrieben."
+        },
+        "title": "Buchung stornieren",
+        "cancel": "Abbrechen",
+        "confirm": "Bestätigen"
+      },
+      "title": "Buchung stornieren",
+      "confirm": "Bestätigen",
+      "cancel": "Abbrechen",
+      "explain": "Bist Du Dir sicher, dass Du diese Buchung stornieren möchtest? Diese Aktion ist unwiderruflich.",
+      "explainHardDelete": "Diese Buchung wurde bereits gelöscht. Wenn Du sie löscht, verschwindet sie vollständig aus dem Kalender und Du verlierest den Verlauf. Die Buchung wird erstattet, wenn sie nicht bereits zuvor erstattet wurde. Diese Aktion ist unwiderruflich.",
+      "sendCancellationMail": "{{name}} per E-Mail über die Stornierung des Termins benachrichtigen",
+      "explainWithRestore": "Möchtest du die Buchung wirklich stornieren? Du kannst dies später rückgängig machen.",
+      "hardDeleteTitle": "Kurs löschen",
+      "explainMoreHardDeleteReccurentBooking": "Diese Buchung ist mit einer Regel für wiederkehrende Termine verknüpft. Wenn Sie die Buchung löschen, wird sie vom System neu generiert, damit sie den Kriterien der Regel entspricht. Vermeiden Sie diese Neugenerierung, indem Sie den Status auf \"Storniert\" belassen.",
+      "explainMoreHardDeleteReccurentBookingTitle": "Wiederkehrender Termin"
+    },
+    "detail": {
+      "wasRefunded": "Erstattete Credits auf dem Kurspass",
+      "title": "Buchung",
+      "wasRefundedNo": "Nein",
+      "wasRefundedYes": "Ja",
+      "attachCoach": "Einer Lehrkraft zuordnen",
+      "coach": "Lehrkraft",
+      "address": "Adresse",
+      "passTitle": "Kurspass",
+      "slotTitle": "Kurs",
+      "registeredOn": "Gebucht für den ",
+      "source": "Buchungs-Kanal ",
+      "cancelledOn": "Storniert am ",
+      "unpaidBooking": "Der Kunde hat die Option zum späteren Bezahlen genutzt. {{ credits}} Guthaben werden automatisch beim nächsten Kauf einer RDV-fähigen Karte abgebucht.",
+      "initialDateTime": "Ursprüngliches Datum und Uhrzeit",
+      "cancelled": "Stornieren",
+      "by": "Durch",
+      "coachModifiedBy": "Geändert durch",
+      "emptyHistory": "Kein Verlauf",
+      "dateModified": "Bearbeiten",
+      "restored": "Wiederherstellen",
+      "cancelledByRecurrence": "Stornierung einer wiederkehrenden Buchung",
+      "cancelledByRecurrenceOn": "Stornierung wiederkehrender Buchungen am ",
+      "historyTitle": "Verlauf",
+      "canal": "Kanal",
+      "coachModified": "Bearbeiten",
+      "dateModifiedBy": "Geändert durch",
+      "restoredBy": "Wiederhergestellt durch",
+      "cancelledBy": "Storniert durch",
+      "cancelledByRecurrenceBy": "Storniert durch"
+    },
+    "managerAdd": {
+      "title": "Neue Buchung",
+      "privateConsumerPassNeedRefresh": "Die Liste aktualisieren",
+      "emptyPrivatePass": "Kein kompatibler Terminpass im Besitz",
+      "emptyPrivateConsumerPass": "Keine kompatible Karte im Besitz",
+      "compatiblePrivateConsumerPass": "Terminpass im Besitz:",
+      "compatiblePrivatePass": "Rechnungsstellung eines Terminpasses",
+      "cancel": "Abbrechen",
+      "pleaseSelectCoachAndSlot": "Wähle zunächst die Lehrkraft und den Kurs aus",
+      "coachSelector": {
+        "label": "Lehrkraft"
+      },
+      "address": "Adresse",
+      "nonCompatiblePrivateConsumerPass": "Nicht kompatibel mit den folgenden Terminpässen:",
+      "incompatibilities": {
+        "11107": "Nicht kompatibler Termin",
+        "11108": "Unzureichende Anzahl von Credits",
+        "11109": "Die Karte beginnt mit der ersten Buchung, dem ",
+        "11110": "Die Karte ist abgelaufen",
+        "11111": "Die Daten sind nicht kompatibel",
+        "privateService": "Terminpass als nicht kompatibel mit dem betreffenden Termin konfiguriert:",
+        "close": "Schließen"
+      },
+      "noUncompatiblePassToDisplay": "Kein Terminpass ist nicht kompatibel"
+    },
+    "attachCoach": {
+      "actions": {
+        "title": "Eine Lehrkraft zuordnen",
+        "cancel": "Abbrechen"
+      },
+      "explain": "Wähle eine Lehrkraft aus, um diesen Termin zuzuordnen und sie zum Kalender der Lehrkraft hinzuzufügen",
+      "title": "Zuordnung zur Lehrkraft"
+    },
+    "isCancelled": "Storniert",
+    "hardDelete": "Löschen",
+    "discard": "Den Termin stornieren",
+    "cancel": "Abbrechen",
+    "editTime": "Ändern",
+    "updateCoach": "Eine neue Lehrkraft für diesen Termin auswählen",
+    "isCancelledDate": "Storniert am {{-date}} um {{time}}",
+    "restore": "Den Termin wiederherstellen",
+    "bookings": "Termine",
+    "notRefunded": "Nicht erstattet",
+    "isRefunded": "Erstattet",
+    "isUnpaid": "Ausstehende Zahlung",
+    "bookingIsUnpaid": "Unbezahlte Reservierung",
+    "isCancelledByManagerDate": "Storniert am {{-date}} um {{time}} von {{cancelled_by}}",
+    "isCancelledByManager": "Storniert von {{cancelled_by}}",
+    "incompatibleTagsDialog": {
+      "title": "Informationen",
+      "description": "Bitte beachte, dass dieses Mitglied nicht die erforderlichen Tags für diesen Termin hat. Soll das Mitglied trotzdem angemeldet werden?",
+      "cancel": "Abbrechen",
+      "confirm": "Bestätigen"
+    },
+    "setUnpaid": {
+      "confirm": "Termin rückerstatten",
+      "cancel": "Zurück",
+      "confirmMessage": "Dieser Termin wird als \"unbezahlt\" markiert, sobald er dem Mitglied rückerstattet wurde.",
+      "confirmTitle": "Termin rückerstatten?",
+      "button": "Als \"unbezahlt\" markieren"
+    }
+  },
+  "service": {
+    "configuration": {
+      "explainSetToHasOwnAvailabilitySlots": "Nur auf bestimmten Slots buchbar",
+      "explainSetToHasNotOwnAvailabilitySlots": "Für jeden Slot buchbar, falls die Lehrkraft oder der Raum verfügbar sind",
+      "slot": "Terminart",
+      "changeIsAlwaysAvailable": "Ändern",
+      "isAlwaysAvailable": "{{ resourceName}} kann man buchen, sobald die Lehrkräfte und/oder der Raum verfügbar sind",
+      "hasFutureSlot": "Verfügbarkeitskalender OK",
+      "explainHasOwnAvailabilitySlots": "Klicke auf den Stift, um Buchungen auf bestimmte Uhrzeiten zu beschränken",
+      "title": "Verfügbarkeit pro Stunde",
+      "noCapacity": "Raumkapazität nicht eingerichtet !",
+      "totalCapacity": "Maximale Raumkapazität : {{ capacity}}",
+      "noFutureSlot": "Keine Verfügbarkeit für {{resourceName}} wurde eingetragen! Klicke hier.",
+      "partnership": {
+        "removeAvailabilities": "Um Termine auf ClassPass korrekt anzuzeigen, müssen Sie bestimmte Verfügbarkeiten deaktivieren.",
+        "anySlotNotCompatible": "Aktualisieren Sie die Kurs Einstellungen, um sicherzustellen, dass jedes Buchungsintervall und jede Kapazität mit ClassPass kompatibel ist."
+      }
+    },
+    "form": {
+      "establishmentResourceType": {
+        "isWithoutEstablishment": {
+          "helperText": "Z. B. Livestreams oder Outdoor-Kurse",
+          "label": "Nicht bei der Einrichtung"
+        },
+        "isWithEstablishment": {
+          "helperText": "Eine Buchung ist nur möglich, wenn es genug freie Plätze gibt. ",
+          "label": "Bei einer meiner Einrichtungen",
+          "isEmpty": "Kein Raum eingerichtet !"
+        },
+        "isHomeService": {
+          "helperText": "Bei jeder Buchung bitten wir um eine Adresse. ",
+          "label": "Zu Hause"
+        }
+      },
+      "createButton": "Termin hinzufügen",
+      "delete": {
+        "content": "Bist Du Dir sicher, dass Du diese Terminkategorie löschen möchtest?",
+        "confirm": "Löschen",
+        "cancel": "Abbrechen",
+        "title": "Löschung des Termins"
+      },
+      "name": {
+        "label": "Name des Termins",
+        "placeholder": "z. B. Massage"
+      },
+      "is_without_coach": "Ohne Lehrkraft",
+      "is_home_service": {
+        "helperText": "Für jede Buchung wird eine Adresse verlangt",
+        "label": "Zu Hause"
+      },
+      "addSlot": "Termin-Einstellungen hinzufügen",
+      "addEstablishment": "Ein Raum hinzufügen",
+      "addCoach": "Eine Lehrkraft hinzufügen",
+      "title": "Termin",
+      "use_full_establishment_capacity": {
+        "label": "Mitglieder können eine Einrichtung auswählen",
+        "helperText": "Der ganze Raum wird für den Termin benötigt. Wähle diese Option ab, um mehrere im selben Raum zur gleichen Zeit zuzulassen."
+      },
+      "color": "Farbcode",
+      "coach_capacity_used": {
+        "helperText": "Beispiel: Eine Lehrkraft kann zwei Mitglieder gleichzeitig auf zwei Rechnern betreuen.",
+        "label": "Maximale Anzahl an Terminen, die eine Lehrkraft gleichzeitigen leiten kann",
+        "alertText": "Eine Lehrkraft kann 1, 2, 3, 4, 6, oder 12 Termine gleichzeitig verwalten."
+      },
+      "establishment_consumer_attribution": {
+        "helperText": "Mitglieder können eine Einrichtung während des Buchungsprozess auswählen. Wähle diese Option ab, um die Einrichtung automatisch auszufüllen.",
+        "label": "Mitglieder können eine Einrichtung auswählen"
+      },
+      "coach_consumer_attribution": {
+        "helperText": "Mitglieder können während der Buchung eine Lehrkraft auswählen. Wähle diese Option ab, um eine Lehrkraft automatisch bei der Buchung zuzuweisen.",
+        "label": "Mitglieder können während der Buchung eine Lehrkraft auswählen"
+      },
+      "resourceGroup": {
+        "coach": "Lehrkraft",
+        "establishment": "Standort"
+      },
+      "managerOnly": {
+        "label": "Im Marktplatz ausgeblendet"
+      },
+      "last_discard_minutes": {
+        "helperText": "Wenn die Buchung zu spät storniert wurde, werden die verwendeten Credits nicht erstattet",
+        "label": "Lege den Buchungszeitraum fest "
+      },
+      "actions": {
+        "submit": "Speichern",
+        "cancel": "Abbrechen"
+      },
+      "description": {
+        "label": "Beschreibung der Dienstleistung"
+      },
+      "establishment": {
+        "label": "Raum"
+      },
+      "coach": {
+        "isEmpty": "Keine Lehrkräfte eingeteilt!",
+        "label": "Lehrkraft"
+      },
+      "last_booking_minutes": {
+        "label": "Buchungsfrist für Mitglieder"
+      },
+      "paddingEnd": {
+        "helperText0": "Die Zeitspanne bis zur Verfügbarkeit der Lehrkraft bzw. der Einrichtung nach Ende des Termins.",
+        "helperText": "Im Kalender werden die Lehrkraft und / oder der Raum {{minutes}} nach Ende des Termins erneut als verfügbar markiert",
+        "label": "Zeitpuffer nach Ende des Termins"
+      },
+      "paddingStart": {
+        "helperText0": "Die Zeitspanne, in der die Lehrkraft oder die Einrichtung vor Terminbeginn nicht verfügbar ist.",
+        "helperText": "Im Kalender werden die Lehrkraft und / oder der Raum Minuten vor Beginn des Termins als nicht verfügbar {{minutes}} markiert",
+        "label": "Zeitpuffer vor Beginn des Termins"
+      },
+      "paddingTitle": "Verfügbarkeit",
+      "unpaidBooking": {
+        "label": "\"Später zahlen\" zulassen",
+        "tag": {
+          "helper": "Mit Tags kannst du diesen Termin nur bestimmten Mitgliedergruppen zugänglich machen. Mitglieder mit dem Tag \"Erlaubt\" können buchen und später zahlen. Mitglieder mit dem Tag \"Nicht erlaubt\" müssen während der Buchung bezahlen.",
+          "allowed": "Erlaubt",
+          "notAllowed": "Nicht autorisiert",
+          "doNotSelectToAllowAllMembers": "Leer lassen, um allen Mitgliedern zu erlauben, später zu zahlen.",
+          "header": "Tags"
+        },
+        "helperText": "Wenn diese Option aktiviert ist, können Mitglieder diesen Termin buchen, ohne sofort bezahlen zu müssen. Die Anzahl der Credits für den Termin wird automatisch vom nächsten Terminpass abgebucht.",
+        "title": "Später bezahlen"
+      },
+      "pad_before_booking": {
+        "label": "Überschneidungen der Zeitpuffern zwischen Terminen vermeiden"
+      },
+      "advancedOptions": {
+        "header": "Fortgeschritten",
+        "tag": {
+          "header": "Tags",
+          "helperText": "Mit Tags kannst du diesen Termin nur bestimmten Kunden zugänglich machen.",
+          "allowed": "Erlaubt",
+          "doNotSelectToAllowAllMembers": "Leer lassen, um diese Option allen Mitgliedern zugänglich zu machen.",
+          "notAllowed": "Nicht erlaubt"
+        }
+      },
+      "editConfirmation": {
+        "content": "Wenn ClassPass aktiviert ist, werden bestimmte Zeitfenster deaktiviert. Es wird nur die Verfügbarkeit des Lehrers und der Einrichtung berücksichtigt.",
+        "confirm": "Bestätigen",
+        "cancel": "Mache es später",
+        "alert": "Klicken Sie auf Bestätigen, um die Verfügbarkeitsoption zu deaktivieren.",
+        "title": "Problem mit der ClassPass Integration"
+      },
+      "availableOnPartnership": {
+        "tagsAlert": "Gilt nicht für ClassPass Buchungen.",
+        "buffersAlert": "Um Puffer zu dieser Buchung hinzuzufügen, müssen Sie ClassPass Buchungen ausschließen.",
+        "alert": "Um diese Buchung auf ClassPass korrekt anzuzeigen, müssen einige Einstellungen konfiguriert werden. Wir haben einige Felder automatisch aktualisiert. Bitte überprüfen Sie diese und füllen Sie die erforderlichen Details unten aus.",
+        "label": "Verfügbar auf ClassPass"
+      },
+      "validation": {
+        "zeroValueError": "Sie müssen einen Termin vereinbaren",
+        "availabilityBuffers": "Um Puffer zu dieser Buchung hinzuzufügen, müssen Sie ClassPass-Buchungen ausschließen.",
+        "coachCapacityUsed": "Um mehr als einen Termin zur gleichen Zeit für einen Lehrer hinzuzufügen, deaktivieren Sie die ClassPass-Buchungen.",
+        "oneOption": "Wählen Sie mindestens eine Option aus."
+      },
+      "tooltip": {
+        "oneBookingPerTeacher": "Es kann nur eine Buchung pro Lehrer hinzugefügt werden, während ClassPass-Buchungen erlaubt sind.",
+        "noTeacher": "Sie müssen einen Lehrer zuweisen, wenn ClassPass-Buchungen erlaubt sind."
+      },
+      "settingsTitle": "Bedingungen",
+      "establishmentSelectorTitle": "Lege die Einrichtung(en) für diesen Termin fest:",
+      "coachSelectorTitle": "Lege die Lehrkraft/Lehrkräfte für diesen Termin fest."
+    },
+    "parameters": {
+      "slots": {
+        "isEmpty": "Keine festgelegten Termin-Einstellungen hinterlegt",
+        "explainIsEmpty": "Lege die Termin-Einstellungen fest (Dauer, Kosten)",
+        "title": "Kurs"
+      },
+      "description": "Beschreibung",
+      "establishments": {
+        "is_home_service": "Zu Hause",
+        "is_empty": "Kein Raum",
+        "title": "Einrichtung"
+      },
+      "last_discard_minutes": {
+        "explain": "Die letzte erstattungsfähige Stornierung ist möglich {{ days }} Tag(e) {{ hours }} Std {{ minutes }} Min vor dem Termin"
+      },
+      "coaches": {
+        "is_empty": "Keine Lehrkraft ist erforderlich",
+        "title": "Lehrkraft"
+      },
+      "last_booking_minutes": {
+        "explain": "Die letzte mögliche Buchung ist möglich {{ days }} Tag(e) {{ hours }} Std {{ minutes }} Min vor dem Termin"
+      },
+      "noTags": "Es gibt keine zugelassenen Tags zum Anzeigen.",
+      "whitelistTags": {
+        "title": "Zugelassene Tags"
+      },
+      "blacklistTags": {
+        "title": "Abgelehnte Tags"
+      }
+    },
+    "selector": {
+      "isEmpty": "Keine eingerichtete Terminkategorie",
+      "establishment": {
+        "label": "Raum"
+      },
+      "coach": {
+        "label": "Lehrkraft"
+      },
+      "placeholder": "Einen Termin auswählen"
+    },
+    "detail": {
+      "tab": {
+        "calendar": "Wochenplan",
+        "general": "Allgemein"
+      }
+    },
+    "navigation": {
+      "goToPrivatePass": "Terminpässe"
+    }
+  },
+  "slotSearcher": {
+    "search": "Einen Slot suchen",
+    "searchSlot": "Einen Slot suchen",
+    "emptyDateList": "Keine Slots an diesem Tag verfügbar",
+    "bookableSlots": {
+      "isEmpty": "Keine verfügbare Slots",
+      "title": "Verfügbare Slots"
+    },
+    "selectCoach": "Alle Lehrkräfte",
+    "selectPrivateSlot": "Kurs",
+    "title": "Termin",
+    "groupIdentifier": {
+      "evening": {
+        "interval": "Nach 18 Uhr",
+        "label": "Später Nachmittag"
+      },
+      "afternoon": {
+        "interval": "14 - 18 Uhr",
+        "label": "Nachmittags"
+      },
+      "noon": {
+        "interval": "12 - 14 Uhr",
+        "label": "Mittags"
+      },
+      "morning": {
+        "interval": "Vor 12 Uhr",
+        "label": "Morgens"
+      }
+    },
+    "nbSlot": "{{nbSlot}} Slot",
+    "nbSlot_plural": "{{nbSlot}} Slots",
+    "establishment": "Einrichtung",
+    "coach": "Lehrkraft",
+    "selectService": "Wähle eine Dienstleistung",
+    "selectSession": "Wähle einen Termin",
+    "searchFirstSlot": "Die nächste Verfügbarkeit finden",
+    "emptyState": "Derzeit nicht verfügbar",
+    "previousOffer": "Ein neuer Kurs ist am {{- date }} verfügbar: {{ hour }}",
+    "nextOffer": "Erste Verfügbarkeit: {{- date }} um {{ hour }}",
+    "pickASlot": "Wähle deine verfügbare Zeit"
+  },
+  "availabilitySlot": {
+    "form": {
+      "resourceSelector": {
+        "title": "Änderung eines Slots",
+        "label": "Ändern :",
+        "submit": "Speichern",
+        "cancel": "Abbrechen",
+        "warning": "Diese Lehrkraft ist mit keinem Termin verbunden"
+      }
+    },
+    "private_service": "Dienstleistung",
+    "establishment": "Einrichtung",
+    "coach": "Lehrkraft",
+    "detail": {
+      "openHours": "Wochenpläne",
+      "ok": "OK",
+      "slotBoundaries": "Von {{date_start}} bis {{date_end}}",
+      "availableEverywhere": "Verfügbar in allen Standorten",
+      "dialog": {
+        "title": "Details zur Verfügbarkeit"
+      },
+      "detailEmpty": "Keine Verfügbarkeit auf dem ausgewählten Zeitfenster"
+    },
+    "notAssociatedDialog": {
+      "title": "Keine zugehörigen Termine",
+      "info": "Die Verfügbarkeit wurde gespeichert. Diese Lehrkraft ist jedoch mit keinem Termin verknüpft.\nUm einen neuen Termin mit dieser Lehrkraft zu verknüpfen, verknüpfen Sie sie/ihn mit dem gewünschten Termin auf dem Tab \"Termine\".",
+      "checkbox": "Nicht mehr erinnern",
+      "close": "Schließen"
+    },
+    "notAssociatedWarning": "Achtung, diese Lehrkraft ist mit keinem Termin verbunden. Um einen neuen Termin mit dieser Lehrkraft zu verknüpfen, verknüpfen Sie sie/ihn mit dem gewünschten Termin auf dem Tab \"Termine\".",
+    "specificAvailabilityForm": {
+      "switchLabel": "Nur für bestimmte Standorte hinzufügen",
+      "info": "Standardmäßig wird Ihre Lehrkraft in allen Ihren Einrichtungen als verfügbar angezeigt. Wenn Sie diese Option aktivieren, können Sie auswählen, in welchen Einrichtungen Ihre Lehrkraft für dieses Zeitfenster verfügbar sein soll.",
+      "infoForCoach": "Standardmäßig werden Sie in allen Einrichtungen verfügbar sein. Wenn Sie diese Option aktivieren, können Sie auswählen, in welchen Betrieben Sie für dieses Zeitfenster verfügbar sein werden.",
+      "advanced": "Fortgeschrittene"
+    }
+  },
+  "slot": {
+    "form": {
+      "booking_interval_minutes": {
+        "helperText": "Z.B : 15 bedeutet 15 Minuten, die das Mitglied um 12:00, 12:15, 12:30 usw. reservieren kann. (empfohlen)",
+        "label": "Erweitert: Zeitraum der Buchungsauswahl"
+      },
+      "name": {
+        "label": "Name des Kurses",
+        "placeholder": "Doppelkurs (2 Std)"
+      },
+      "title": "Kurs",
+      "duration_minutes": {
+        "helperText": "Passe die erforderlichen Credits an die Dauer des Kurses an",
+        "label": "Dauer"
+      },
+      "credit": {
+        "helperText": "Anzahl der erforderlichen Credit(s) für eine Buchung",
+        "label": "Anzahl der Credit(s)",
+        "decimalCredit": {
+          "helperText": "Dieser Termin wird {{count}} Credit kosten",
+          "helperText_plural": "Dieser Termin wird {{count}} Credits kosten"
+        }
+      },
+      "submit": "Speichern",
+      "cancel": "Abbrechen",
+      "people_capacity_used": {
+        "label": "Anzahl der Teilnehmer",
+        "helperText": "Wenn ein Raum eingerichtet ist, wird diese Nummer zur Aktualisierung seines Füllstands verwendet"
+      },
+      "pre_selected_choices": "Voreingestellte Zeiten",
+      "durationError": "Ungültige Dauer (zwischen 15 Minuten und 1 Tag)",
+      "error": {
+        "bookingInterval": "Fügen Sie ein von ClassPass zugelassenes Intervall hinzu: 5, 10, 15, 30 oder 60 Minuten.",
+        "peopleCapacityUsed": "Um mehr als eine Person hinzuzufügen, deaktivieren Sie ClassPass-Buchungen."
+      }
+    },
+    "parameters": {
+      "credit": "{{ credit }} Credits"
+    }
+  },
+  "resource": {
+    "datatype": {
+      "private_service": "Allgemein",
+      "associated_coach": "Lehrkraft",
+      "associated_establishment": "Einrichtungen",
+      "coach": "Lehrkraft",
+      "establishment": "Einrichtungen"
+    },
+    "unGroup": "Keine",
+    "groupBy": "Sortieren nach",
+    "form": {
+      "actions": {
+        "submit": "Speichern",
+        "cancel": "Abbrechen"
+      },
+      "color": "Farbcode"
+    },
+    "selector": {
+      "title": "Verfügbarkeiten anzeigen"
+    },
+    "allocationWarning": {
+      "showCalendar": "Kalender anzeigen",
+      "establishment": "Diese Einrichtung ist derzeit nicht verfügbar",
+      "coach": "Diese Lehrkraft ist zu diesem Zeitpunkt nicht verfügbar",
+      "title": "Keine verfügbaren Slots. Nutze die Pfeiltasten um andere Verfügbarkeiten zu finden.",
+      "resource": "Achtung! {{ resource }} ist im Moment nicht verfügbar.\n",
+      "continue": "Sind Sie sicher, dass Sie den Termin verschieben möchten?",
+      "validate": "Bestätigen",
+      "cancel": "Abbrechen",
+      "loading": "Prüfung der Verfügbarkeit"
+    }
+  },
+  "privatePass": {
+    "form": {
+      "credits": {
+        "helperText": "Wähle die Anzahl an Credits in diesem Terminpass",
+        "label": "Anzahl der eingeschlossenen Credits",
+        "decimalCredit": {
+          "helperText": "Dieser Pass enthält {{count}} Credit .",
+          "helperText_plural": "Dieser Pass enthält {{count}} Credits."
+        }
+      },
+      "actions": {
+        "cancel": "Abbrechen",
+        "submit": "Speichern",
+        "next": "Weiter",
+        "back": "Zurück"
+      },
+      "available_payment_method_identifiers": {
+        "helperText": "Wähle mindestens eine Zahlungsmethode aus. Wenn keine ausgewählt ist, wird standardmäßig eine online Zahlung angeboten.",
+        "label": "Zugelassene Zahlungsmethoden",
+        "warning": "Machen Sie Ihre Karte für Mitglieder sichtbar, damit sie die Zahlungsmethoden auswählen können."
+      },
+      "durationYears": {
+        "helperText": "Zusätzlich der Anzahl der Tage und Monate",
+        "label": "Jahre"
+      },
+      "durationMonths": {
+        "helperText": "Zusätzlich der Anzahl der Tage",
+        "label": "Monate"
+      },
+      "durationDays": {
+        "helperText": "Zeitraum in Tagen, für den die Karte nach dem Kauf gültig ist ",
+        "label": "Tage"
+      },
+      "tax": {
+        "label": "Mehrwertsteuer"
+      },
+      "price": {
+        "label": "Preis inkl. MwSt",
+        "helperText": "Gesamtpreis für den Terminpass"
+      },
+      "name": {
+        "label": "Name",
+        "helperText": "Name des Kurspasses"
+      },
+      "managerOnly": {
+        "label": "Nicht zum Kauf verfügbar"
+      },
+      "title": "Terminpass hinzufügen",
+      "full_vod_access": {
+        "label": "Gibt Zugriff zur Mediathek (VOD)"
+      },
+      "expirationDaysBeforeFirstUse": {
+        "label": "Verfall, wenn keine ursprüngliche Buchung",
+        "helperText": "Wenn den Kurspass innerhalb dieser Anzahl von Tagen nicht ein erstes Mal verbraucht wird, wird er ungültig."
+      },
+      "start_date_method": {
+        "on_attendance": "Bei der 1. Anwesenheit",
+        "on_booking": "Bei der 1. Buchung",
+        "on_purchase": "Beginnt mit der Rechnungsstellung"
+      },
+      "new_member_only": {
+        "label": "Nur für neue Mitglieder sichtbar"
+      },
+      "start_date_method_detail": {
+        "on_attendance": " ab der ersten Anwesenheit",
+        "on_booking": " ab der ersten Buchung",
+        "on_purchase": " ab dem Kaufdatum"
+      },
+      "startDate": "Startdatum",
+      "duration": {
+        "and": " und ",
+        "years": "{{ count }} Jahr",
+        "years_plural": "{{ count }} Jahre",
+        "daysMonths": "Monaten {{ duration_months }} und {{ duration_days }} Tage",
+        "months": "{{ count }} Monate",
+        "days": "{{ count }} Tag",
+        "days_plural": "{{ count }} Tage",
+        "valid": "Gültig ",
+        "fullText": "Diese Karte ist gültig für "
+      },
+      "category": "Name der Kategorie",
+      "categoryTitle": {
+        "compatibility": "Kompatible Termine",
+        "validity": "Gültigkeit der Karte",
+        "paymentMeans": "Zahlungsmittel",
+        "info": "Allgemeine Informationen",
+        "compatibilityAppointment": "Kompatibilität für Termine"
+      },
+      "selector": {
+        "privateService": "Einen kompatiblen Termin hinzufügen"
+      },
+      "franchise": "Diese Karte ist eine Karte, die vom Master Account gemeinsam genutzt wird. Einige Elemente wurden vom Master Account festgelegt und können nicht geändert werden",
+      "universalPass": {
+        "helperText": "Universalpässe können zur Buchung von Gruppenkursen UND Terminen verwendet werden. Sobald ein Universalpass gekauft wurde, fügen wir automatisch einen \"Zwilling\" Terminpass hinzu um die Credits zwischen beiden Arten zu teilen.",
+        "warningIsUniversalPass": "Dieser Pass ist ein Universalpass, ein Zwillingspass wurde in den Kurspässen erstellt. Alle Felder, die auf diesem Pass geändert werden, werden auch auf dem Zwillingspass geändert (außer der Kategorie). Dasselbe gilt für Benachrichtigungen, Erweiterungen und Änderungen von Guthaben.",
+        "label": "Universalpass",
+        "deativatedTags": "Deaktiviert für Universalpässe"
+      },
+      "appliesForPayroll": {
+        "helperText": "Kurse werden dem Studio standardmäßig in Rechnung gestellt und in die Lohnabrechnung der Lehrkraft aufgenommen. Deaktiviere diese Einstellung, um sicherzustellen, dass mit diesem Pass verbundene Kurse nicht mehr in der Lohnabrechnung der Lehrkraft angezeigt werden.",
+        "label": "Kurse, die mit diesem Pass gebucht wurden, werden bei der Berechnung der Lohnabrechnung der Lehrkräfte berücksichtigt"
+      },
+      "onBehalfOfTeacher": {
+        "helperText": "Wähle diese Einstellung, um sicherzustellen, dass die Einnahmen aus Terminen, die mit diesem Pass gebucht werden, vollständig an die Lehrkraft ausgezahlt werden. Du findest diese Information in deinen Kaufberichten in der Spalte \"Zahlung vollständig an die Lehrkraft ausgezahlt\". ",
+        "label": "Vollständige Zahlung an die Lehrkraft"
+      },
+      "expiration_date": {
+        "helperText": "Verfügbar bis",
+        "tooltip": "Nach dem gewählten Datum wird der Pass nicht mehr zum Verkauf stehen.",
+        "label": "Dauer des Verkaufs"
+      },
+      "description": {
+        "label": "Beschreibung"
+      },
+      "advancedOptions": {
+        "tag": {
+          "selectTags": "Tags auswählen",
+          "tagsOnAcquisitionHelper": "Mit Tags kannst du Mitglieder markieren, die diesen Pass gekauft haben, um sie in Zukunft schnell wiederfinden zu können.",
+          "tagsOnAcquisition": "Nach dem Kauf Tags anwenden"
+        },
+        "header": "Erweitert"
+      },
+      "notification": "Benachrichtigungen",
+      "detailsAndRestrictions": "Details und Einschränkungen",
+      "notEditable": "Dieser Terminpass stammt aus einer zuvor durchgeführten Datenmigration. Einige Felder können möglicherweise nicht bearbeitet werden, um die Daten beizubehalten."
+    },
+    "parameters": {
+      "nbCredits": "{{ credits }} Credit",
+      "nbCredits_plural": "{{ credits }} Credits",
+      "managerOnly": "Für Kunden unsichtbar",
+      "tax": "Mehrwertsteuer : {{ tax }}%",
+      "price": "{{price, price}}",
+      "unusableByStaff": "Unsichtbar für die Mitarbeiter"
+    },
+    "delete": {
+      "explain": "Sind Sie sicher, dass Sie diese Karte löschen möchten? Personen, die noch Guthaben besitzen, können dieses weiterhin nutzen.",
+      "submit": "Bestätigen",
+      "cancel": "Abbrechen",
+      "title": "Karte löschen",
+      "delete": "Löschen",
+      "warning": "Achtung! Dieser Terminpass wird in einem Paket verwendet, dieses wird nicht mehr zum Verkauf angeboten, wenn Sie diesen Kurspass entfernen."
+    },
+    "compatibleServices": {
+      "title": "Kompatible Termine",
+      "isEmpty": "Wichtige Informationen fehlen",
+      "add": "Hinzufügen",
+      "unusable": "Dieser Terminpass ist aktuell nicht mit irgendeinem Termin kompatibel, da wichtige Informationen fehlen. Fülle die erforderlichen Felder aus und versuche es erneut.   "
+    },
+    "list": {
+      "createButton": "Einen Terminpass erstellen",
+      "isEmpty": "Kein Terminpass",
+      "availableCustomer": "Zum Verkauf stehende Pässe",
+      "managerOnly": "Nicht zum Verkauf verfügbar"
+    },
+    "validForDuration": {
+      "general": "Gültig für {{ duration_days }} Tage, {{ duration_months }} Monat(e) und {{ duration_years }} Jahr(e)",
+      "months": "Gültig für {{ duration_months }} Monat(e)",
+      "years": "Gültig für {{ duration_years }} Jahr(e)",
+      "days": "Gültig für {{ duration_days }} Tage"
+    },
+    "edit": "Ändern",
+    "disabledTitle": "Archivierte Terminpässe",
+    "detailTitles": {
+      "paymentMeans": "Zahlungsmittel",
+      "privateServiceCompatibility": "Kompatible Verabredungen",
+      "vod": "VOD",
+      "accessibility": "Zugänglichkeit",
+      "validity": "Gültigkeit",
+      "credit_quantity": "Anzahl der Credits"
+    },
+    "ht": "Ohne Steuer",
+    "actions": {
+      "forceRegularizeUnpaid": "Ausstehende Zahlungen einziehen"
+    },
+    "listItem": {
+      "unusableByStaff": "Unsichtbar für Mitarbeiter"
+    },
+    "noNotificationsWarning": "Sie haben noch keine Benachrichtigungen eingerichtet. Um eine Benachrichtigung zu erstellen, gehen sie bitte zu <strong>Marketing > Benachrichtigungen</strong>"
+  },
+  "consumerPass": {
+    "current_credits": "{{ current_credits }}/{{credits}} Credits",
+    "detail": {
+      "extensionsTitle": "Gültigkeitsverlängerung",
+      "booking": "Terminbuchungen verbunden",
+      "invoice": "Verbundene Rechnung"
+    },
+    "isReverted": "Rechnung storniert",
+    "expiresOn": "Läuft am {{ date }} ab",
+    "actions": {
+      "addExtension": "Gültigkeitsverlängerung"
+    },
+    "extension": {
+      "create": {
+        "nbDays": {
+          "label": "Anzahl der zusätzlichen Tage"
+        },
+        "note": {
+          "label": "Anmerkungen"
+        },
+        "explain": {
+          "newDate": "Neues Datum : ",
+          "oldDate": "Altes Datum : "
+        },
+        "submit": "Erstellen",
+        "cancel": "Abbrechen",
+        "title": "Verlängerung einer Karte",
+        "warning": "Prüfe, ob das neue Datum nicht dazu führt, dass dieser Kurspass in einer neuen Finanzperiode überschreitet. Wenn dies der Fall ist, erkundige dich bei Deinem Buchhalter, ob dies angemessen ist.",
+        "datePicker": {
+          "label": "Neues Datum"
+        }
+      },
+      "delete": {
+        "confirm": "Bestätigen",
+        "cancel": "Abbrechen",
+        "explain": "Bist Du Dir sicher, dass Du diese Gültigkeitsverlängerung löschen möchtest?",
+        "title": "Verlängerung löschen"
+      },
+      "addedOn": "Hinzugefügt, am ",
+      "nbDaysAdded": "+ {{nb_days}} Tg",
+      "options": {
+        "selectNewEndDate": "Setzen Sie ein neues Enddatum für die Gültigkeit",
+        "addNumberOfDays": "Verlängern Sie die Gültigkeit um eine Anzahl von Tagen"
+      }
+    },
+    "isFromDisabledShare": "Gemeinsame Nutzung beendet",
+    "isOwnerOfShares": "Geteilt (Terminpass)",
+    "isFromShare": "Gemeinsam von einem anderen Konto aus genutzt",
+    "warningShareUniversal": "Bitte teilen Sie die zugehörigen Pässe anstelle des Universalpasses",
+    "isFromShareTooltip": "Dieser Terminpass wurde von einem anderen Franchise-Studio übernommen"
+  },
+  "payment": {
+    "address": {
+      "explain": "Gebe Deine Adresse für den Kurs in deinem Home-Kurs an",
+      "save": "Speichern"
+    }
+  },
+  "privateServiceCompatibility": {
+    "delete": {
+      "submit": "Löschen",
+      "cancel": "Abbrechen",
+      "title": "Kompatible Änderung des Termins",
+      "explain": "Bist Du Dir sicher, dass Du die Regeln für die Verwendung des Kurspasses ändern möchtest? Diese Änderung gilt rückwirkend für bereits registrierte Einkäufe."
+    },
+    "excludedSlots": {
+      "cancel": "Abbrechen",
+      "helperText": "Wähle den Termin aus, für den die Termin-Karte kompatibel ist",
+      "submit": "Speichern",
+      "title": "Kurse: {{ service }}",
+      "isEmpty": "In diesem Termin ist kein Kurstyp konfiguriert!"
+    },
+    "forSlots": "Kompatible Kurse:",
+    "allSlots": "Kompatibel für alle Sessions",
+    "none": " keine"
+  },
+  "selector": {
+    "privateSlot": "Kurs",
+    "privateService": "Einen Termin auswählen",
+    "establishmentPlaceholder": "Alle Standorte",
+    "coachPlaceholder": "Alle Lehrkräfte",
+    "session": "Wähle deinen Sitzungstyp"
+  },
+  "calendar": {
+    "form": {
+      "actions": {
+        "submit": "Speichern",
+        "cancel": "Abbrechen"
+      },
+      "interval": {
+        "explain2": "{{ date_start }} - {{ date_end }}, jeden {{ day }}",
+        "explain1": "Änderung der Verfügbarkeit : "
+      },
+      "explain": "Änderung bis einschließlich:",
+      "title": {
+        "disable": "Eine Verfügbarkeit löschen",
+        "enable": "Eine Verfügbarkeit hinzufügen"
+      }
+    },
+    "toogle": {
+      "showPrivateBookings": "Termine",
+      "showOfferList": "Kurse",
+      "showCustomEvents": "persönlicher Termin",
+      "hideCancelledEvents": "Stornierungen anzeigen",
+      "title": "Filter anzeigen"
+    },
+    "addBooking": "Einen Termin speichern",
+    "selectCoachToModifyAvailability": "Eine Lehrkraft auswählen",
+    "disableRecurrentAvailability": "Regelmäßige Verfügbarkeit löschen",
+    "enableRecurrentAvailability": "Regelmäßige Verfügbarkeit hinzufügen",
+    "disableAvailability": "Verfügbarkeit löschen",
+    "enableAvailability": "An diesem Tag eine Verfügbarkeit hinzufügen",
+    "header": {
+      "threeDaysView": "3 Tage",
+      "dateSelector": "Datumswahl"
+    },
+    "createCustomEvent": "Persönlichen Termin erstellen",
+    "customEvent": {
+      "dateEnd": "Enddatum",
+      "dateStart": "Anfangsdatum"
+    },
+    "showAvailabilityDetails": "Verfügbarkeit"
+  },
+  "privateEstablishment": {
+    "delete": {
+      "submit": "Bestätigen",
+      "cancel": "Abbrechen",
+      "title": "Absage des Raumes",
+      "explain": "Bist Du Dir sicher, dass Du den Ort dieses Termins ändern möchtest? Ohne Einrichtung wird er als Home-Termin betrachtet und die Schüler müssen ihre Adresse eingeben, um die Buchung abzuschließen. Bereits registrierte Buchungen werden davon nicht betroffen."
+    }
+  },
+  "privateCoach": {
+    "delete": {
+      "explain": "Bist Du Dir sicher, dass Du den Termin dieser Lehrkraft löschen möchtest? Er wird für diesen Termin keine Buchungen mehr getätigt werden können. Bereits gespeicherte Buchungen sind davon nicht betroffen.",
+      "title": "Abmeldung der Lehrkraft",
+      "submit": "Bestätigen",
+      "cancel": "Abbrechen"
+    }
+  },
+  "privateService": {
+    "delete": {
+      "confirm": "Löschen",
+      "submit": "Löschen",
+      "cancel": "Abbrechen",
+      "title": "Einen Termin löschen",
+      "explain": "Bist Du Dir sicher, dass Du diesen Termin löschen möchtest? Diese Änderung ist unwiderruflich. Bereits registrierte Buchungen werden nicht davon betroffen."
+    },
+    "padBeforeBooking": {
+      "explain4": "Wenn diese Option nicht aktiviert ist, kann der nächste Termin ab 14:05 Uhr gebucht werden (5 Minuten nach Ende des vorherigen Termins). Die Zeitpuffer können sich in diesem Fall überschneiden.",
+      "explain3": "Wenn diese Option aktiviert ist, kann der nächste Termin ab 14:10 Uhr gebucht werden (5 Minuten nach Ende des vorherigen Termins und 5 Minuten vor Beginn des nächsten Termins). Die Zeitpuffer dürfen sich nicht überschneiden.",
+      "explain2": "Beispiel: Ein Termin ist für 13:00 Uhr gebucht, dauert 1 Stunde und hat einen Zeitpuffer von 5 Minuten sowohl vor als auch nach dem Termin.",
+      "explain1": "Wenn diese Option aktiviert ist, überschneiden sich die Zeitpuffer zwischen dem ersten und zweiten Termin nicht. Das bedeutet, dass zwischen den beiden Terminen ein größerer Zeitabstand besteht, da zwei Zeitpuffer berücksichtigt werden."
+    },
+    "ineligibleService": {
+      "title": "Dieser Termin kann nicht gebucht werden",
+      "description": "Dieser Termin ist nur für eine bestimmte Gruppe von Mitgliedern vorgesehen.",
+      "backToAppointments": "Zurück zu den Terminen"
+    }
+  },
+  "privateSlot": {
+    "delete": {
+      "confirm": "Bestätigen",
+      "cancel": "Abbrechen",
+      "explain": "Bist Du Dir sicher, dass Du diesen Kurs löschen möchtest? Frühere Buchungen sind davon nicht betroffen. Diese Aktion ist unwiderruflich.",
+      "title": "Kurs löschen"
+    },
+    "duration": "{{ minutes }} Minuten"
+  },
+  "color": {
+    "form": {
+      "submit": "Speichern",
+      "cancel": "Abbrechen",
+      "title": "Farbcode der Lehrkraft"
+    }
+  },
+  "pageTitles": {
+    "calendar": "Kalender",
+    "serviceList": "Termine",
+    "passList": "Terminpässe"
+  },
+  "serviceGroup": {
+    "form": {
+      "actions": {
+        "submit": "Speichern",
+        "cancel": "Abbrechen"
+      },
+      "name": {
+        "label": "Name"
+      },
+      "title": "Kategorie"
+    },
+    "selector": {
+      "placeholder": "Kategorie"
+    },
+    "isEmpty": "Kein Termin ist mit dieser Kategorie verbunden",
+    "edit": "Ändern",
+    "delete": "Löschen"
+  },
+  "noPrivatePass": "Die Terminpässe ermöglichen den Mitgliedern, Termine zu vereinbaren. Definiere hier die Preise und Bedingungen.",
+  "noPrivateService": "Hier können Termine hinzugefügt, gemanaged, überarbeitet und gelöscht werden.",
+  "customEvent": {
+    "form": {
+      "name": {
+        "placeholder": "Termin mit der Bank",
+        "label": "Name"
+      },
+      "actions": {
+        "submit": "Speichern",
+        "cancel": "Abbrechen"
+      },
+      "description": {
+        "placeholder": "Frage nach Herrn Müller auf Währinger Str. 1",
+        "label": "Beschreibung"
+      },
+      "coach": {
+        "isEmpty": "Keine Lehrkraft"
+      },
+      "color": "Farbcode",
+      "title": "Persönlicher Termin"
+    },
+    "actions": {
+      "delete": "Löschen"
+    }
+  },
+  "noPrivateConsumerPass": "Kein Mitglied hat diesem Terminpass",
+  "filters": {
+    "hasCreditNull": "Ohne Credits",
+    "hasCreditLeft": "Mit Credits",
+    "isActive": "Aktiv",
+    "isExpired": "Abgelaufen",
+    "invoice": "Rechnung",
+    "reverted": "Rechnung storniert",
+    "notReverted": "Rechnung nicht storniert",
+    "credits": "Credit(s)",
+    "expiration": "Gültigkeit",
+    "all": "Alle Pässe",
+    "isValidToday": "Gültig",
+    "empty": "Alle Terminkarten"
+  },
+  "recurrenceRule": {
+    "item": {
+      "explain": "Jeden {{dayOfWeek}} - {{time}}, {{delayWeek}} Wochen zuvor",
+      "startFrom": "Ab {{ date }}",
+      "allowUnpaid": "Erlaubt unbezahlte Buchungen"
+    },
+    "forms": {
+      "update": {
+        "confirm": "Ändern",
+        "cancel": "Abbrechen",
+        "content": "Das Ändern der Wiederholungsregel führt zur Änderung zukünftiger Termine, die über diese Regel vorgenommen werden.",
+        "title": "Wiederkehrende Terminänderung"
+      },
+      "delete": {
+        "confirm": "Löschen",
+        "cancel": "Abbrechen",
+        "content": "Das Entfernen des wiederkehrenden Termins führt zur Stornierung zukünftiger Termine, die über diese Regel erfasst wurden.",
+        "title": "Entferne einen wiederkehrenden Termin",
+        "content_with_cancellation_option": "Diese Regel zu wiederkehrenden Buchungen wird gelöscht. Möchtest du außerdem alle zukünftigen Buchungen mit dieser Regelung absagen?",
+        "cancelRelatedBookings": "Alle zukünftigen Buchungen mit dieser Regelung stornieren"
+      }
+    },
+    "form": {
+      "notify_member": "Versand einer Bestätigungs-E-Mail, wenn das Mitglied registriert wird",
+      "timeGroup": "Datum des Termins",
+      "configuration": "Buchungen",
+      "title": "Planen Sie eine Wiederholung",
+      "override_availabilities": "Die Buchung vornehmen, auch wenn die Lehrkraft, der Raum oder der Termin nicht verfügbar sind",
+      "allow_unpaid": "Unbezahlte Buchungen zulassen (wenn das Mitglied keinen kompatiblen Terminpass besitzt)"
+    },
+    "actions": {
+      "save": "Speichern",
+      "close": "Schließen"
+    },
+    "createModal": {
+      "create": "Erstelle eine wiederkehrende Buchung"
+    },
+    "recurrentBookings": "Wiederkehrende Termine"
+  },
+  "privateBookingNotification": {
+    "tooltip": "Benachrichtigungen sind für diese Art von Termin aktiv",
+    "listItemPrimary": {
+      "notifyAllEvents": {
+        "cancelledNotRefunded": "Für jede Stornierung nach Ablauf der Frist",
+        "cancelledRefunded": "Für jede erstattete Stornierung",
+        "valid": "Bei jedem Termin"
+      },
+      "cancelledRefunded": "Anzahl der erstatteten Stornierungen: n° {{notify_booking_nb}}",
+      "cancelledNotRefunded": "Anzahl der Stornierungen nach Ablauf der Frist: i n° {{notify_booking_nb}}",
+      "valid": "Terminnummer {{notify_booking_nb}}",
+      "after": "Benachrichtigung {{hours}} Std nach dem Termin",
+      "before": "Benachrichtigung {{hours}} Std vor dem Termin"
+    },
+    "form": {
+      "next": "Weiter",
+      "chooseTime": {
+        "second": {
+          "after": "Stunde (n) nach dem Termin",
+          "before": "Stunde (n) vor Beginn des Termins"
+        },
+        "first": "Eine E-Mail senden",
+        "title": "Einstellungen"
+      },
+      "chooseWhen": {
+        "after": "Sende die E-Mail nach dem von der Benachrichtigung betroffenen Termin an das Mitglied",
+        "before": "Sende die E-Mail vor dem von der Benachrichtigung betroffenen Termin an das Mitglied",
+        "title": "Benachrichtigungstyp",
+        "afterNotification": "Senden der Push-Benachrichtigung an das Mitglied nach dem von der Benachrichtigung betroffenen RDV",
+        "afterNotifications": "Benachrichtigungen an das Mitglied nach dem von der Benachrichtigung betroffenen RDV senden",
+        "afterMail": "Senden Sie die E-Mail an das Mitglied nach dem von der Benachrichtigung betroffenen Termin",
+        "beforeNotification": "Senden Sie die Push-Benachrichtigung an das Mitglied vor dem von der Benachrichtigung betroffenen RDV",
+        "beforeNotifications": "Benachrichtigungen an das Mitglied vor dem von der Benachrichtigung betroffenen RDV senden",
+        "beforeMail": "Senden Sie die E-Mail an das Mitglied vor dem Termin, der von der Benachrichtigung betroffen ist"
+      },
+      "help": {
+        "cancelledNotRefunded": {
+          "notifyAll": "Hilfe: Die Benachrichtigung wird dem Mitglied für jede verspätete Stornierung für diese Art von Termin gesendet",
+          "default": "Hilfe: Die Benachrichtigung wird an das Mitglied gesendet, wenn sie nach Ablauf der Frist n°{{notifyNb}} für diese Art von Termin storniert wird"
+        },
+        "cancelledRefunded": {
+          "notifyAll": "Hilfe: Die Benachrichtigung wird an das Mitglied für jede stornierte Reservierung gesendet, die für diese Art von Termin erstattet wird",
+          "default": "Hilfe: Die Benachrichtigung wird an das Mitglied gesendet, wenn die stornierte Reservierung für diese Art von Termin n ° {{notifyNb}} erstattet wurde"
+        },
+        "valid": {
+          "notifyAll": "Hilfe: Die Benachrichtigung wird dem Mitglied für jede gültige Reservierung für diese Art von Termin gesendet",
+          "default": "Hilfe: Die Benachrichtigung wird an das Mitglied gesendet, wenn die gültige Reservierungsnummer {{notifyNb}} für diese Art von Termin erfolgt ist"
+        }
+      },
+      "notifyAllEvents": "Benachrichtige das Mitglied bei jeder Veranstaltung",
+      "notifyNb": "Benachrichtige das Mitglied während der Veranstaltung Nr.:",
+      "chooseKind": {
+        "cancelledNotRefunded": "Reservierung storniert und nicht erstattet (verspätet)",
+        "cancelledRefunded": "Reservierung storniert und erstattet",
+        "valid": "Gültige Buchung",
+        "title": "Wähle die Art der Buchungen, die Du benachrichtigen möchtest"
+      },
+      "intro": "Du kannst deine Kunden vor oder nach bestimmten Terminen benachrichtigen, abhängig von verschiedenen Kriterien wie der Anzahl der Reservierungen oder Stornierungen.",
+      "title": "Eine Benachrichtigung hinzufügen",
+      "ifKind": {
+        "notRefunded": "Wenn die Buchung nach Ablauf der Frist storniert wurde",
+        "refunded": "Wenn die Buchung rechtzeitig storniert wurde",
+        "valid": "Wenn die Buchung gültig ist"
+      },
+      "subtitle": "Terminpass"
+    }
+  },
+  "marketplace": {
+    "isEmpty": "Keine verfügbaren Termine."
+  },
+  "popup": {
+    "end": "Endzeit",
+    "begin": "Startzeit",
+    "button": "Wochenplan",
+    "validate": "Bestätigen Sie"
+  },
+  "searshAppointmentPass": "Suche nach einer RDV-Karte",
+  "search": "Suche nach einem Termin",
+  "categoryTitle": "Kategorien von Terminpässen",
+  "disabledPacksTitle": "Archivierte Terminpässe",
+  "notification": {
+    "listItem": {
+      "smartListInclude": "Enthaltene Listen",
+      "smartList": "Ausgeschlossene Listen",
+      "deleteModal": {
+        "content": "Sind Sie sicher, dass Sie diese Benachrichtigung löschen möchten? Dieser Vorgang ist endgültig",
+        "confirm": "Löschen",
+        "cancel": "abbrechen",
+        "title": "Unterdrückung der Benachrichtigung"
+      },
+      "mail": "E-Mail "
+    },
+    "addButton": "Eine Benachrichtigung hinzufügen"
+  },
+  "seeAll": "Alles sehen",
+  "privatePassTemplateInstance": {
+    "privatePassSharedFromFranchisor": "Master Account Kurspass",
+    "privateConsumerPassSharedFromOtherFranchisee": "Geteilt von einem Franchisenehmer",
+    "form": {
+      "title": "Meine Studios einrichten",
+      "explain2": "Mitglieder, die diesen Terminpass oder ein damit verbundenes Abonnement erworben haben, können ihn in jedem der neu kompatiblen Studios nutzen.",
+      "actions": {
+        "close": "Schließen",
+        "submit": "Registrieren"
+      },
+      "explain1": "Die folgenden Studios werden diesen Terminpass automatisch anbieten, können aber weder den Preis noch die Guthabenanzahl ändern."
+    },
+    "deleteForm": {
+      "title": "Nicht mehr mit einem Studio teilen",
+      "actions": {
+        "close": "Schließen",
+        "submit": "Nicht mehr teilen"
+      },
+      "content": "Wenn Sie die gemeinsame Nutzung mit diesem Studio beenden, sind die in diesem Studio erworbenen Terminpässe weiterhin gültig, jedoch nur in diesem speziellen Studio. Terminpässe aus anderen Studios sind dort nicht mehr gültig. Dies gilt auch für verknüpfte Abonnements."
+    },
+    "companyEmpty": "Kein Studio ist so konfiguriert, dass es dieser Kurspass akzeptiert",
+    "actions": {
+      "addCompany": "Ein Studio hinzufügen"
+    }
+  },
+  "privatePassTemplate": {
+    "specification": {
+      "companySharedWithTitle": "Gemeinsam mit den Studios:"
+    },
+    "isEmptyExplain": "Sie ermöglichen es Ihren Mitgliedern, ihr Guthaben in den von Ihnen gewählten Studios zu nutzen.",
+    "section": {
+      "titleAvailable": "Zum Verkauf verfügbar",
+      "titleManagerOnly": "Nicht zum Verkauf verfügbar",
+      "titleArchived": "Archivierte Kurspässe"
+    },
+    "form": {
+      "title": "Geteilter Terminpass",
+      "close": "Schließen",
+      "submit": "Bestätigen",
+      "actions": {
+        "close": "Schließen",
+        "submit": "Registrieren"
+      },
+      "editConfirmation": {
+        "confirm": "Trotzdem speichern",
+        "cancel": "Abbrechen",
+        "content": "Ihre Änderungen werden auch auf die mit diesem gemeinsamen Terminpass verbundenen Abonnements angewendet. Sind Sie sicher, dass Sie fortfahren und Ihre Änderungen speichern möchten?",
+        "title": "Bestätigung bearbeiten"
+      }
+    },
+    "deleteForm": {
+      "title": "Gemeinsamen Terminpass archivieren",
+      "actions": {
+        "close": "Schließen",
+        "submit": "Archivieren"
+      },
+      "content": "Die Mitglieder können den Terminpass weiterhin in dem Studio nutzen, in dem sie ihn gekauft haben. Jedes Abonnement, das mit diesem Terminpass verbunden ist, bleibt in diesem Studio gültig."
+    },
+    "actions": {
+      "create": "Erstellen eines geteilten Passes"
+    },
+    "restoreForm": {
+      "title": "Geteilten Terminpass wiederherstellen",
+      "content": "Dieser geteilte Terminpass wird wiederhergestellt und mit den zuvor ausgewählten Studios geteilt.",
+      "actions": {
+        "close": "Schließen",
+        "submit": "Wiederherstellen"
+      }
+    }
+  },
+  "specificAvailabilitiesCalendar": {
+    "infoBoxContent": "Sie befinden sich im Verfügbarkeitsmodus für eine bestimmte Einrichtung. Standardmäßig sind Ihre Lehrkräfte in allen Einrichtungen verfügbar, wenn Sie eine Verfügbarkeit erstellen. Auf dieser Seite können Sie spezifische Verfügbarkeiten für bestimmte Einrichtungen festlegen, damit Ihre Lehrkraft nur in diesen Einrichtungen verfügbar ist. Um eine spezifische Verfügbarkeit zu erstellen, müssen Sie eine allgemeine Verfügbarkeit auf dem Wochenplan Ihrer Lehrkraft erstellen.",
+    "goToRegularCalendar": "Zurück zum Wochenplan",
+    "filters": "Filter",
+    "establishment": "Einrichtung"
+  },
+  "universalPass": {
+    "delete": {
+      "dialog": {
+        "title": "Karte löschen",
+        "warningText": "Achtung! Diese Karte ist ein Universalpass, wenn du ihn löschst, wird auch sein Zwillingspass gelöscht."
+      }
+    }
+  },
+  "openSpecificAvailabilitiesCalendar": "Spezifische Verfügbarkeiten",
+  "forms": {
+    "delete": {
+      "confirm": "Löschen",
+      "actions": {
+        "cancel": "Abbrechen",
+        "confirm": "Löschen"
+      },
+      "cancel": "Abbrechen",
+      "title": "Termin löschen",
+      "content": {
+        "canDelete": "Sind Sie sicher, dass Sie diesen Termin löschen wollen? Diese Änderung ist endgültig. Bereits gespeicherte Buchungen sind davon nicht betroffen."
+      }
+    }
+  }
+}

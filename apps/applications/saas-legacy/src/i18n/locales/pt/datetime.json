@@ -1,0 +1,91 @@
+{
+  "form": {
+    "never": "Nunca",
+    "oneMonth": "1 mês",
+    "twoWeeks": "2 semanas",
+    "tenDays": "10 horas",
+    "oneWeek": "1 semana",
+    "twoDays": "2 dias",
+    "oneDay": "1 dia",
+    "twelveHour": "12h",
+    "eightHour": "8h",
+    "sixHour": "6h",
+    "fourHour": "4h",
+    "threeHour": "3h",
+    "twoHour": "2h",
+    "oneHourAndHalf": "1h30",
+    "oneHourFifteen": "1h15",
+    "oneHour": "1h",
+    "fiftyMinutes": "50 min",
+    "halfAndQuarterHour": "45 min",
+    "halfHour": "30 min",
+    "twentyMinutes": "20 min",
+    "quarterHour": "15 min",
+    "tenMinutes": "10 min",
+    "zeroMinute": "0 min"
+  },
+  "time": {
+    "month": {
+      "december": "Dezembro",
+      "november": "Novembro",
+      "october": "Outubro",
+      "september": "Setembro",
+      "august": "Agosto",
+      "july": "Julho",
+      "june": "Junho",
+      "may": "Maio",
+      "april": "Abril",
+      "march": "Março",
+      "february": "Fevereiro",
+      "january": "Janeiro"
+    },
+    "monthShort": {
+      "december": "Dez",
+      "november": "Nov",
+      "october": "Out",
+      "september": "Set",
+      "august": "Agos",
+      "july": "Jul",
+      "june": "Jun",
+      "april": "Abr",
+      "march": "Mar",
+      "february": "Fev",
+      "january": "Jan",
+      "may": "Maio"
+    },
+    "isoWeekdayNumber": {
+      "1": "Segunda",
+      "2": "Terça",
+      "3": "Quarta",
+      "4": "Quinta",
+      "5": "Sexta",
+      "6": "Sábado",
+      "7": "Domingo"
+    },
+    "weekdayNumber": {
+      "0": "Segunda",
+      "1": "Terça",
+      "2": "Quarta",
+      "3": "Quinta",
+      "4": "Sexta",
+      "5": "Sábado",
+      "6": "Domingo"
+    },
+    "weekday": {
+      "satursday": "Sábado",
+      "friday": "Sexta",
+      "thursday": "Quinta",
+      "wednesday": "Quarta",
+      "tuesday": "Terça",
+      "monday": "Segunda",
+      "sunday": "Domingo"
+    }
+  },
+  "longHourIdentifier": "horas",
+  "shortHourIdentifier": "h",
+  "longMinuteIdentifier": "minutos",
+  "shortMinuteIdentifier": "min",
+  "never": "Nunca",
+  "longDayIdentifer": "dias",
+  "shortDayIdentifier": "d"
+}

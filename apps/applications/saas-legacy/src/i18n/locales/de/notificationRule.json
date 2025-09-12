@@ -1,0 +1,420 @@
+{
+  "eventType": {
+    "3": "Stornierung eines Kurses (Lehrkraft und Mitglied)",
+    "6": "Anmeldung als neues Mitglied (durch Mitglied)",
+    "7": "Buchung per Kurspass",
+    "8": "Buchung + Kauf von Kurspässen",
+    "9": "Buchungsplatz verfügbar",
+    "10": "Ablauf eines Wartelistenplatzes",
+    "12": "Mitglied fügt sich der Warteliste hinzu",
+    "13": "Mitglied entfernt sich von der Warteliste",
+    "14": "Studio entfernt ein Mitglied von der Warteliste",
+    "16": "Kursanpassung (Mitglied)",
+    "17": "Stornierung einer Buchung ohne Credit-Erstattung (Mitglied)",
+    "18": "Stornierung einer Buchung mit Credit-Erstattung (Mitglied)",
+    "19": "Anmeldung neuer Mitglieder (durch Mitarbeiter)",
+    "20": "Anfrage zum Herunterladen einer Rechnung",
+    "21": "Buchungsbestätigung (Mitglied)",
+    "22": "Rechnungsbestätigung",
+    "23": "Abonnement mit internem Guthaben beglichen",
+    "24": "Kauf eines Abos (Mitglied)",
+    "25": "Änderung der Zahlungsmethode",
+    "26": "Abo pausiert",
+    "27": "Abo pausiert oder beendet",
+    "28": "Zahlung erhalten",
+    "29": "Erinnerung \"Onlinekurs in 15 Minuten\" (Mitglieder)",
+    "30": "Gäste-Buchung (einladendes Mitglied)",
+    "31": "Gäste-Buchung (Gast)",
+    "32": "Anmeldung durch One-Click-Buchung (durch Mitglied)",
+    "101": "Erinnerung \"Livestream beginnt in 15 Minuten\" (Lehrkraft)",
+    "102": "Absage eines Kurses (Lehrkraft)",
+    "103": "Kursanpassung (Lehrkraft)",
+    "200": "Erste Erinnerung zu ablaufenden Zahlungsmitteln (Kredit-/Debitkarte) für ein Abo",
+    "201": "Zweite Erinnerung zu ablaufenden Zahlungsmitteln (Kredit-/Debitkarte) für ein Abo",
+    "300": "Mitglied wird wegen nicht fristgerechter Reaktion von der Warteliste entfernt",
+    "301": "Passwort eines Mitglieds zurücksetzen",
+    "302": "E-Mail-Konto-Verifizierung (durch Mitglied)",
+    "303": "Zusammenlegung von zwei Studiokonten",
+    "304": "Aktivierung eines digitalen Gutscheins",
+    "305": "E-Mail-Adressänderung eines Mitglieds durch Backoffice",
+    "308": "Aktivierung einer Geschenkkarte (physisch)",
+    "400": "Stornierung eines Termins ohne Credit-Erstattung (late-cancel) (Lehrkraft)",
+    "401": "Stornierung eines Termins mit Erstattung (Lehrkraft)",
+    "402": "Neuer Termin (Lehrkraft)",
+    "403": "Änderung des Wochenplans (Lehrkraft)",
+    "450": "Stornierung eines Termins ohne Credit-Erstattung (late-cancel) (Mitglied)",
+    "451": "Stornierung eines Termins mit Credit-Erstattung (Mitglied)",
+    "452": "Neuer Termin (Mitglied)",
+    "453": "Änderung des Wochenplans (Mitglied)",
+    "480": "Stornierung wegen mangelnder Verfügbarkeit der Lehrkraft",
+    "481": "Stornierung wegen mangelnder Verfügbarkeit des Mitglieds",
+    "510": "Abo-Zahlung fehlgeschlagen",
+    "515": "Automatische Deaktivierung des Kurspass-Abo",
+    "520": "Die Zahlung eines fehlgeschlagenen Abonnements wird erneut versucht",
+    "530": "Streitfall über die Zahlung eines Abonnements",
+    "601": "Automatische Absage bei Nichterreichung der Teilnehmerzahl (Lehrkraft)",
+    "602": "Automatische Absage bei Nichterreichung der Teilnehmerzahl (Mitglied)",
+    "701": "Nicht fristgerechte Stornierung mit temporärer Sperrung des Kurspasses (Mitglied)",
+    "702": "Nicht fristgerechte Stornierung mit Abzug vom internen Mitgliedskonto (Mitglied)",
+    "703": "Abwesenheit mit temporärer Sperrung des Kurspasses (Mitglied)",
+    "704": "Abwesenheit mit Abzug vom internen Mitgliedskonto (Mitglied)",
+    "705": "Abwesenheit (Lehrkraft und Mitglied)",
+    "801": "Abgesagte Termingruppe",
+    "901": "Vertretungslehrkraft gefunden (Lehrkraft)",
+    "902": "Vertretungsantrag storniert (Vertretung)",
+    "903": "Eine andere Vertretung wurde gefunden (Vertretung)",
+    "904": "Neuer Vertretungsantrag (Vertretung)",
+    "905": "Neuer verspäteter Antrag (Vertretung)",
+    "906": "Abschlussdatum verschoben (Vertretung)",
+    "907": "Vertretung gefunden (Vertretung)",
+    "987": "Versuchte Ratenzahlung",
+    "1001": "Spivi-Konto erstellt (für Mitglieder)",
+    "1002": "Leistung des Spinningkurses",
+    "1003": "Spivi-Konto erstellt (Lehrkraft)",
+    "1101": "Empfehlungs-Rabatt für angeworbenes Mitglied verfügbar",
+    "1102": "Prämie für anwerbendes Mitglied verfügbar",
+    "1200": "Erste Erinnerung zu ablaufenden Zahlungsmitteln (Kredit-/Debitkarten)",
+    "1201": "Zweite Erinnerung zu ablaufenden Zahlungsmitteln (Kredit-/Debitkarten)",
+    "undefined": "Buchung für einen Gast (für Gast)"
+  },
+  "tag": {
+    "BookingOption": {
+      "tags": {
+        "option_expiration_date": "Ablaufdatum für einen Wartelistenplatz",
+        "option_payment_url": "Buchungslink",
+        "address": "Adresse",
+        "establishment_practical_info": "Zutrittsinformationen zur Einrichtung",
+        "establishment": "Einrichtung",
+        "date": "Uhrzeit und Datum",
+        "coach": "Lehrkraft",
+        "activity": "Aktivität",
+        "waiting_list_size": "Größe der Warteliste",
+        "waiting_list_position": "Position auf der Warteliste"
+      },
+      "name": "Warteliste"
+    },
+    "Booking": {
+      "tags": {
+        "ics_calendar_link": "ICS-Kalender-Link",
+        "address": "Adresse",
+        "establishment_practical_info": "Zutrittsinformationen zu der Einrichtung",
+        "establishment": "Einrichtung",
+        "date": "Uhrzeit und Datum",
+        "coach": "Lehrkraft",
+        "activity": "Aktivität",
+        "spot": "Platz",
+        "canceled_grouped_session": "Stornierte Buchungsgruppe"
+      },
+      "name": "Aktivität",
+      "subtitles": {
+        "meta_activity": "Aktivität",
+        "establishment": "Einrichtung",
+        "establishment_group": "Standort",
+        "workshop": "Workshop"
+      }
+    },
+    "BillingPlan": {
+      "tags": {
+        "subscription_flat_fee": "Anmeldegebühren",
+        "subscription_nb_months": "Anzahl der Monate",
+        "subscription_name": "Abonnementname",
+        "subscription_payment_method": "Zahlungsmethode",
+        "subscription_recurrent_price": "Monatlicher Preis",
+        "subscription_nb_days_pause": "Für eine Anzahl von X Tagen pausiert",
+        "subscription_next_invoice_date": "Nächstes Abrechnungsdatum",
+        "subscription_contract_terms_link": "Link für Nutzungsbedingungen",
+        "subscription_duration": "Gesamtdauer",
+        "days_until_payment_method_expiration": "Anzahl der Tage bis zum Ablauf der Zahlungsmethode"
+      },
+      "name": "Abonnements"
+    },
+    "User": {
+      "tags": {
+        "lastname": "Nachname",
+        "firstname": "Vorname",
+        "unsubscribe_link": "Vom Newsletter abmelden",
+        "reset_password_url": "Link zum Zurücksetzen des Passwortes",
+        "email_confirmation_url": "Link zur Bestätigung der E-Mail-Adresse"
+      },
+      "name": "Mitglied"
+    },
+    "ConsumerPaymentPack": {
+      "tags": {
+        "pass_credit_left": "Anzahl der verbleibenden Credits",
+        "pass_expiration": "Enddatum des Kurspasses",
+        "pass_starting_date": "Beginndatum des Kurspasses",
+        "pass_name": "Name des Kurspasses",
+        "pass_price": "Preis des Kurspasses"
+      },
+      "name": "Kurspässe"
+    },
+    "PrivateConsumerPass": {
+      "tags": {
+        "pass_credit_left": "Anzahl der verbleibenden Credits",
+        "pass_expiration": "Ablaufdatum des Terminpasses",
+        "pass_starting_date": "Beginndatum des Terminpasses",
+        "pass_name": "Name des Terminpasses",
+        "pass_price": "Preis des Kurspasses"
+      },
+      "name": "Terminpass"
+    },
+    "PrivateBooking": {
+      "tags": {
+        "establishment_practical_info": "Informationen über den Zutritt zur Einrichtung (optional)",
+        "address": "Adresse",
+        "date": "Uhrzeit und Datum",
+        "coach": "Lehrkraft",
+        "activity": "Aktivität",
+        "establishment": "Einrichtung",
+        "ics_calendar_link": "ICS-Kalender-Link"
+      },
+      "name": "Termin"
+    },
+    "Offer": {
+      "tags": {
+        "address": "Adresse",
+        "establishment_practical_info": "Zutrittsinformationen zu der Einrichtung",
+        "establishment": "Einrichtungen",
+        "date": "Uhrzeit und Datum",
+        "coach": "Lehrkraft",
+        "activity": "Gruppenaktivitäten"
+      },
+      "name": "Kurse"
+    },
+    "Birthday": {
+      "name": "Geburtstag"
+    },
+    "RecurrentRule": {
+      "name": "Wiederkehrende Regelung",
+      "tags": {
+        "activity": "Aktivität",
+        "address": "Adresse",
+        "coach": "Lehrkraft",
+        "date": "Zeit und Datum",
+        "establishment": "Einrichtung",
+        "establishment_practical_info": "Zutrittsinformationen zur Einrichtung",
+        "recurring_booking_fail_reason": "Grund für wiederholte Buchungsfehler"
+      }
+    },
+    "Company": {
+      "name": "Unternehmen",
+      "tags": {
+        "company_logo": "Firmenlogo",
+        "company": "Unternehmensname",
+        "login_url": "URL-Verbindung",
+        "company_scheduleURL": "Wochenplan-URL",
+        "company_instagramURL": "Instagram URL",
+        "company_facebookURL": "Facebook URL",
+        "ios_app_URL": "iOS App URL",
+        "android_app_URL": "Android App URL",
+        "company_info": "Informationen zum Studio",
+        "company_websiteURL": "Webseiten-URL"
+      }
+    },
+    "ReplacementRequest": {
+      "name": "Vertretung",
+      "tags": {
+        "closing_date": "Abschlusstermin",
+        "sub_teacher": "Vertretungslehrkraft"
+      }
+    },
+    "Invoice": {
+      "name": "Rechnung",
+      "tags": {
+        "id": "Rechnungs-ID",
+        "invoice_price": "Rechnungsbetrag",
+        "invoice_sum_up": "Rechnungsübersicht",
+        "invoice_date": "Rechnungsdatum",
+        "invoice_download_link": "Link zum Download",
+        "days_until_payment_method_expiration_planned_payment_event": "Tage vor Verfall der Zahlungsmethode"
+      }
+    },
+    "GiftCard": {
+      "name": "Geschenkgutschein",
+      "tags": {
+        "giftcard_message": "Geschenkgutschein-Nachricht",
+        "activate_giftcard_url": "Link zur Aktivierung des Geschenkgutscheins",
+        "message_is_from": "Mitglied, das den Gutschein versendet",
+        "message_is_for": "Empfänger des Geschenkgutscheins",
+        "giftcard_value": "Geschenkgutscheinwert",
+        "giftcard_name": "Geschenkgutscheinname",
+        "printable_code": "druckfertiger Gutschein-Code",
+        "pdf_link": "PDF-link des Gutscheins",
+        "activation_datetime": "Aktivierungsdatum des Gutschein-Codes"
+      }
+    },
+    "EmailChange": {
+      "tags": {
+        "login_link": "Anmeldelink für persönlichen Bereich",
+        "new_email": "Neue Anmelde-E-Mail",
+        "old_email": "Alte Anmelde-E-Mail",
+        "manage_changing_email_link": "Link zur Verwaltung von E-Mail-Änderungen"
+      },
+      "name": "Account bearbeiten"
+    },
+    "requiredTags": {
+      "message_is_from": "Mitglied, das den Geschenkgutschein versendet",
+      "reset_password_url": "Link zum Zurücksetzen des Passworts",
+      "email_confirmation_url": "Link zur Bestätigung der E-Mail-Adresse",
+      "new_email": "Neue Anmelde-E-Mail",
+      "old_email": "Alte Anmelde-E-Mail",
+      "activate_giftcard_url": "Aktivierungslink für den Geschenkgutschein",
+      "giftcard_message": "Geschenkgutschein-Nachricht",
+      "giftcard_value": "Geschenkgutscheinwert",
+      "manage_changing_email_link": "Link zur Verwaltung von E-Mail-Änderungen",
+      "pdf_link": "Gutschein PDF-Link"
+    },
+    "SpiviPerformance": {
+      "tags": {
+        "total_distance": "Zurückgelegte Distanz",
+        "calories_kJ": "Kalorien in kJ",
+        "calories": "Kalorien",
+        "max_watts": "Maximale Leistung",
+        "maximum_speed": "Maximale Geschwindigkeit",
+        "max_RPM": "Maximale Anzahl an Umdrehungen pro Minute",
+        "max_HR": "Maximale Herzfrequenz",
+        "average_watts": "Durchschnittliche Leistung",
+        "average_speed": "Durchschnittliche Geschwindigkeit",
+        "average_RPM": "Durchschnittliche Anzahl von Umdrehungen pro Minute",
+        "average_HR": "Durchschnittliche Herzfrequenz",
+        "SEP": "Spivi Ecosystem Point"
+      },
+      "name": "Performance"
+    },
+    "GuestInvitation": {
+      "tags": {
+        "lastname_host": "Nachname des einladenden Mitglieds",
+        "firstname_host": "Vorname des einladenden Mitglieds",
+        "lastname_guest": "Nachname des Gasts",
+        "firstname_guest": "Vorname des Gasts"
+      },
+      "name": "Gastbuchung"
+    },
+    "ReferralProgram": {
+      "tags": {
+        "deadline_use_referral": "Gültigkeit der Empfehlungsprämie",
+        "minimum_purchase_referral": "Mindestkaufbetrag",
+        "referring_reward": "Belohnung für den Anwerber",
+        "reduction_purchase_referred": "Rabatt für das empfohlene Mitglied",
+        "registration_date": "Registrierungsdatum des eingeladenen Mitglieds",
+        "referral_link": "Empfehlungslink",
+        "referred_lastname": "Nachname des Empfehlers",
+        "referred_firstname": "Vorname des Empfehlers",
+        "referring_lastname": "Nachname des Empfehlers",
+        "referring_firstname": "Vorname des Empfehlers"
+      },
+      "name": "Empfehlung"
+    }
+  },
+  "emailDesign": {
+    "closePreview": "Schließen",
+    "placeholder": "bsport Standard-Vorlage",
+    "birthdayPlaceholder": "Wählen Sie eine E-Mail um eine Vorschau dieser zu sehen."
+  },
+  "ruleGroup": {
+    "subscription": "Abonnements",
+    "member": "Erstellung eines Mitglieder-Kontos",
+    "private_booking": "Termine",
+    "waiting-list": "Wartelisten",
+    "offer": "Kurse",
+    "booking": "Buchungen",
+    "marketing": "Marketing",
+    "invoice": "Rechnungen",
+    "payment_pack": "Strafen",
+    "recurrent_private_booking": "Wiederkehrende Termine",
+    "replacement_request": "Vertretung",
+    "giftcard": "Geschenkgutscheine",
+    "performance": "Performance",
+    "referral": "Empfehlungen"
+  },
+  "pageTitle": "Transaktions-Benachrichtigungen",
+  "caption": {
+    "event": "Veranstaltung",
+    "emailDesign": "Zu versendende E-Mail",
+    "sendCopy": "Erhalte eine Kopie der E-Mail",
+    "active": "Aktivieren"
+  },
+  "marketingNotification": {
+    "birthday": "Alles Gute Zum Geburtstag!"
+  },
+  "franchiseOwned": "Ihr Master Account bearbeitet derzeit diese Transaktions-E-Mail.",
+  "franchise": {
+    "delete": {
+      "delete": "Löschen",
+      "content": "Sind Sie sicher, dass Sie diese Konfiguration löschen wollen? Die ausgewählten Einstellungen und E-Mail-Vorlagen werden auf ihre ursprünglichen Werte zurückgesetzt.",
+      "title": "Löschen"
+    },
+    "card": {
+      "carbonCopy": "Sie erhalten Kopien der E-Mail",
+      "deactivated": "Deaktiviert",
+      "activated": "Aktiviert",
+      "companies": "Studios",
+      "parameters": "Einstellungen",
+      "template": "Vorlage"
+    },
+    "form": {
+      "error": {
+        "email_design": "Wählen Sie eine Vorlage",
+        "selectCompanies": "Mindestens ein Studio auswählen",
+        "name": "Wählen Sie einen Namen aus"
+      },
+      "save": "Speichern",
+      "cancel": "Abbrechen",
+      "mailSelection": "Wählen Sie eine Vorlage",
+      "receiveCarbonCopySubtitle": "Sie erhalten eine Kopie von jeder gesendeten E-Mail.",
+      "receiveCC": "Sie erhalten Kopien dieser E-Mail",
+      "activateSubtitleDeactivate": "Transaktions-E-Mails sind deaktiviert und sie werden nicht an relevante Mitglieder gesendet",
+      "activateSubtitleActivate": "Die Transaktions-E-Mail ist aktiviert und wird an die relevanten Mitglieder gesendet",
+      "activate": "Aktivieren",
+      "parameters": "Einstellungen",
+      "useFor": "Verwenden für ",
+      "pickTemplate": "Wählen Sie eine Vorlage",
+      "name": "Name",
+      "description": "Die gewählte Vorlage wird für die Transaktions-E-Mail \"{{-name}}\" für alle hier ausgewählten Studios verwendet.",
+      "title": "[Formular] Konfiguration",
+      "restrictedAccess": "Diese Konfiguration wird für Franchisenehmer eingerichtet, auf die Sie keinen Zugriff haben. Einige Felder sind nicht bearbeitbar"
+    },
+    "emptyStateConfiguration": "Fügen Sie eine Benachrichtigung hinzu, um die Verwendung von bestimmten E-Mail-Vorlagen zu erzwingen.",
+    "addConfiguration": "Konfiguration der Benachrichtigung",
+    "emptySelect": "Wählen Sie eine Transaktionsmeldung aus, um anzuzeigen, mit welchen Studios sie geteilt wurde und welche Studios sie verwenden."
+  },
+  "listItem": {
+    "createTransactionnalNotification": "Push-Benachrichtigung einrichten",
+    "modifyTransactionnalNotification": "Push-Benachrichtigung ändern",
+    "sendTransactionnalNotification": "Push-Benachrichtigung senden",
+    "transactionnalNotification": "Push-Benachrichtigung",
+    "mailToSend": "Welche E-Mail möchtest du verschicken?",
+    "copyCarbon": "Kopie der E-Mail erhalten",
+    "sendTransactionnalEmail": "E-Mail-Benachrichtigung aktivieren",
+    "transactionnalEmail": "Transaktions-E-Mail",
+    "infoBoxErrorMessageLastLine": "Stellen Sie sicher, dass Sie sie zu Ihrer Vorlage hinzufügen, damit sie gespeichert werden können",
+    "infoBoxErrorMessageFirstLine": "Diese E-Mail muss die folgenden Variablen enthalten:"
+  },
+  "preview": {
+    "email": "E-Mail",
+    "notification": "Push",
+    "emptyStateNotification": "Um eine Vorschau zu sehen, richten Sie Ihre Push-Benachrichtigung ein",
+    "emptyState": "Um die Vorschauen zu sehen, klicken Sie auf eine der Kategorien",
+    "title": "Übersicht"
+  },
+  "goBackToMenu": "Zurück",
+  "configureNotif": "Einrichten",
+  "countNotification": "Anzahl der aktivierten Push-Benachrichtigungen: {{nbr}}",
+  "countEmail": "Aktivierte E-Mails: {{nbr}}",
+  "countElements": "{{nbr}} Element(e)",
+  "type": {
+    "sendNotification": "Benachrichtigung senden",
+    "bookingConcerned": "der von der Benachrichtigung betroffene Kurs",
+    "days": "Tage",
+    "hours": "Stunden"
+  },
+  "triggeringEvent": {
+    "title": "Auslösendes Ereignis"
+  },
+  "eventTypeHelperText": {
+    "200": "Unter „Zahlungsmethoden“ kannst du bestimmen, wann du Erinnerungen zu ablaufenden Zahlungsmitteln (Kredit-/Debitkarten) schicken möchtest.",
+    "201": "Unter „Zahlungsmethoden“ kannst du bestimmen, wann du Erinnerungen zu ablaufenden Zahlungsmitteln (Kredit-/Debitkarten) schicken möchtest.",
+    "1200": "Sie können die Anzahl der Tage, die bei der Versendung dieser Benachrichtigung berücksichtigt werden, im Abschnitt Zahlungsarten anpassen",
+    "1201": "Sie können die Anzahl der Tage, die bei der Versendung dieser Benachrichtigung berücksichtigt werden, im Abschnitt Zahlungsarten anpassen"
+  }
+}

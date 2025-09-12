@@ -1,0 +1,20 @@
+{
+  "payment": {
+    "paymentMethods": {
+      "HOLIDAY_CHECK": "Stravenky"
+    }
+  },
+  "paymentMethod": {
+    "HOLIDAY_CHECK": "Stravenky"
+  },
+  "time": {
+    "weekday": {
+      "sunday": "Neděle",
+      "friday": "Pátek",
+      "thursday": "Čtvrtek",
+      "wednesday": "Středa",
+      "tuesday": "Úterý",
+      "monday": "Pondělí"
+    }
+  }
+}

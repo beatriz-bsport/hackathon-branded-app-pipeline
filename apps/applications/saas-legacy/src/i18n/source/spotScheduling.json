@@ -1,0 +1,171 @@
+{
+  "toolsMenu": {
+    "door": "Door",
+    "spot": "Spot",
+    "rect": "Square",
+    "line": "Draw",
+    "rotation": "Rotate",
+    "eraser": "Rubber",
+    "advancedTool": "HTML",
+    "cssEditor": "CSS",
+    "copier": "Duplicator",
+    "bsportPreferentialSpots": "Spots for members",
+    "sections": {
+      "custom": "Custom",
+      "elements": "Elements",
+      "place": "Position",
+      "walls": "Walls",
+      "edition": "Edit",
+      "editionHistory": "Edition history",
+      "editionAdvanced": "Advanced edition",
+      "spivi": "Spivi integration",
+      "assets": "Assets",
+      "marketplaces": "Marketplaces"
+    },
+    "title": "Toolbox",
+    "customFill": "Filling",
+    "customStroke": "Lines",
+    "screen": "Screen",
+    "teacher": "Teacher",
+    "undo": "Previous",
+    "redo": "Next",
+    "showGrid": "Show grid",
+    "customIconButton": "Upload custom icons",
+    "customIconLabel": "Icons",
+    "hand": "Hand",
+    "pointer": "Cursor",
+    "addSpotType": "Add a spot type",
+    "helperText": "The teacher's size must be strictly positive",
+    "requiredForSpivi": "Required for Spivi integration",
+    "boxId": "Box ID",
+    "openAssetModal": "Open assets handler",
+    "resize": "Scale"
+  },
+  "placeCount": "{{count}} spot(s)",
+  "roomBlueprints": "Spot Scheduling",
+  "saveError": "Error",
+  "errorLessSpotThanEffectif": "Cannot save. The spot selection must contain more space than the size of the session capacity",
+  "saved": "Saved",
+  "effectifError": "The number of places must be greater than or equal to the size of the session",
+  "searchHelper": "(Optional) Members may use the Spot Scheduling plan to book their preferred spot in the establishment",
+  "search": "Search a plan for Spot Scheduling",
+  "roomBlueprintSelectorTitle": "Choose a plan",
+  "spotSelectorDialog": {
+    "takeSpotError": "The place you selected for this course is no longer available. Please select a new one.",
+    "submit": "Confirm",
+    "cancel": "Cancel",
+    "spot": "Place {{count}}",
+    "title": "Select a spot",
+    "legend": "Legend",
+    "book": "Book: {{prefix}}{{indexType}}{{suffix}}"
+  },
+  "toolbar": {
+    "loadExistingBlueprint": "Load an existing plan",
+    "exit": "Close",
+    "titleLabel": "Name",
+    "save": "Save",
+    "spiviHelperText": "See Spivi spots correspondence",
+    "spivi": "Spivi"
+  },
+  "spotImageDialog": {
+    "actions": {
+      "submit": "Confirm",
+      "cancel": "Cancel"
+    },
+    "imageFormat": "Recommended format: .png, .jpg",
+    "taken": "Book",
+    "free": "Available",
+    "imageUploadButton": "Load an image",
+    "takenImageLabel": "Booked spots",
+    "freeImageLabel": "Available spots",
+    "helper": "You can customize the shape of the locations by importing your own images. For this we need 2 different icons. One to indicate that the location is available, another when it is reserved. Make sure they are the same size and please do not include a number on your icons.",
+    "title": "Customize your locations"
+  },
+  "forms": {
+    "delete": {
+      "actions": {
+        "confirm": "Confirm",
+        "cancel": "Cancel"
+      },
+      "content": {
+        "canDelete": "Are you sure you want to delete this spot? This action is irreversible. It will be deleted and replaced by the default spot on this plan and all others on which it has been added."
+      },
+      "title": "Deletion"
+    }
+  },
+  "spotCreatorForm": {
+    "alertDefaultSpot": "By modifying the default spot, all the default spots present on all the plans will be modified identically",
+    "saved": "Spot saved",
+    "deleted": "Spot deleted",
+    "missImageFree": "You have not loaded the image for the free spot",
+    "missImageTaken": "You have not loaded the image for the reserved spot",
+    "missImageSelected": "You have not loaded the image for the selected spot",
+    "selectedPersonalized": "{{- name }} selected",
+    "selected": "Selected spot",
+    "freePersonalized": "Available: {{- name }}",
+    "takenPersonalized": "Booked: {{- name }}",
+    "taken": "Booked spots",
+    "free": "Available spot",
+    "personalizedExplain": "You can customize the shape of the slots by importing your own images. For this we need 3 different icons. One to indicate that the spot is available, another when it is reserved. Make sure they are the same size and please do not include any numbers on your icons.",
+    "preview": "Previsualization",
+    "generalInfo": "General information",
+    "square": "Square",
+    "triangle": "Triangle",
+    "rectangle": "Rectangle",
+    "circular": "Circle",
+    "personalized": "Customized images",
+    "predefined": "Predefined shapes",
+    "customization": "Customization",
+    "nameCustomization": {
+      "title": "Spot name format",
+      "none": "Only spot number",
+      "prefix": "Spot number with a prefix",
+      "suffix": "Spot number with a suffix"
+    },
+    "prefixError": "The prefix must be a single letter",
+    "prefixExplain": "The character indicated here will appear as a prefix to the spot numbers",
+    "prefix": "Prefix",
+    "suffixError": "The suffix must be a single letter",
+    "suffixExplain": "The character indicated here will appear as a suffix to the spot numbers",
+    "suffix": "Suffix",
+    "nameExplain": "Place type name",
+    "name": "Name",
+    "subtitle": "Creation of a place type",
+    "title": "Spot Scheduling"
+  },
+  "assetUpoadForm": {
+    "description": "You can upload and use images directly from here. Once new images are uploaded they will be available to insert within your map.",
+    "submit": "Submit",
+    "loadMore": "Load more"
+  },
+  "bsportPreferentialGroupForm": {
+    "submit": "Submit",
+    "isPreferentialBsportSpotLabel": "Spot reserved for members in priority. Marketplaces bookings (Classpass, OneFit, etc.) will come last."
+  },
+  "errorAvailableOffersScheduled": "Cannot be saved. This layout cannot be edited since it is used in future sessions.",
+  "spiviDialog": {
+    "spiviIdentifiers": "Spivi IDs",
+    "bsportIdentifiers": "bsport IDs",
+    "spotCorrespondence": "Corresponding spots"
+  },
+  "spotSelector": {
+    "legend": "Legend",
+    "available": "Available",
+    "availableSpot": "Available spot",
+    "availablePersonalizedSpot": "{{- spotName }} available",
+    "unavailable": "Not available",
+    "unavailableSpot": "Spot not available",
+    "unavailablePersonalizedSpot": "{{- spotName }} not available",
+    "seeAll": "See all",
+    "confirm": "Confirm",
+    "goBackToCheckout": "Go back to the checkout",
+    "selectOtherSpot": {
+      "title": "Or select a new spot",
+      "message": "Previous selection will become available for others."
+    }
+  },
+  "cssForm": {
+    "openPreview": "Preview",
+    "helper": "You can add CSS rules for your layout in this section. The entire map is wrapped in a svg with the ID 'svg-canvas-display'. By default, a stylesheet targeting each element on the canvas (such as spots, rectangles, and teachers) is automatically generated. You can observe your changes gradually by clicking the '{{ buttonLabel }}' button."
+  }
+}

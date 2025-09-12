@@ -1,0 +1,67 @@
+{
+  "offerList": {
+    "refresh": "Recargar las sesiones",
+    "emptyList": "Ninguna sesión"
+  },
+  "filter": {
+    "establishment": "Filtrar por lugar"
+  },
+  "addMember": {
+    "button": "Crear una cuenta"
+  },
+  "offerStatus": {
+    "inProgress": "comenzó desde",
+    "startIn": "empieza en ",
+    "hasEnded": "Completado desde"
+  },
+  "confirmPage": {
+    "headOnIn": "Todo está listo !",
+    "signIn": "Registrado",
+    "expires": "Expira",
+    "visitsLeft": "Visitas restantes",
+    "classLocation": "Tu sesión tiene lugar en",
+    "spotUnassigned": "Plaza no asignada",
+    "spotInfo": "Su {{- spotName }} es:"
+  },
+  "memberList": {
+    "empty": "Ningún estudiante inscrito en este curso",
+    "checkedIn": "Guardado",
+    "checkIn": "Check-in"
+  },
+  "offerDetail": {
+    "activateBarcode": "Detector de tarjeta",
+    "register": "Registrarse para este curso",
+    "isFull": "Completo",
+    "cancelRegistration": "Cancelar",
+    "backToOfferList": "Volver a las sesiones",
+    "noConsumerPaymentPack": "¡Ningún bono válido!",
+    "emptyList": "Ningún estudiante inscrito en este curso",
+    "actions": {
+      "createAccount": "Crear una cuenta",
+      "restartAnalyze": "Recomenzar",
+      "close": "Cerrar"
+    },
+    "noDetectionResult": "Ningún resultado",
+    "activateFaceId": "Face ID"
+  },
+  "signout": {
+    "form": {
+      "password": {
+        "label": "Contraseña"
+      },
+      "username": {
+        "label": "Email"
+      }
+    },
+    "signout": "Desconectar",
+    "cancel": "Cancelar",
+    "passwordError": "Contraseña incorrecta",
+    "explain": "Para cerrar sesión, ingresa la contraseña de tu cuenta CheckIn",
+    "title": "Desconectar"
+  },
+  "authenticationDialog": {
+    "error": "La contraseña introducida no es válida",
+    "description": "Para garantizar la seguridad, autentifique su identidad introduciendo su contraseña antes de proceder al cambio de establecimiento.",
+    "title": "Cambiar Establecimiento"
+  }
+}

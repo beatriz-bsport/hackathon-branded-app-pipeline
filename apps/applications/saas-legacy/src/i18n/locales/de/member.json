@@ -1,0 +1,446 @@
+{
+  "exists": {
+    "goTo": "Mitglied ansehen",
+    "merge": "Zusammenlegen",
+    "linkUser": "Benutzer verbinden",
+    "quicksale": "Dieses Mitglied auswählen"
+  },
+  "forms": {
+    "merge": {
+      "seeMemberPage": " Mitgliedsseite ansehen",
+      "submit": "Zusammenlegen",
+      "title": "Mitglieder zusammenlegen",
+      "srcMember": "Dieses Konto wird zusammengelegt und gelöscht",
+      "error": "Es ist unmöglich, diese Mitglieder zusammenzulegen",
+      "success": "Mitglieder zusammengelegt",
+      "dstMember": "Dieses Konto wird gespeichert",
+      "explainCredit": "Der interne Kontostand des Mitglieds wird übertragen",
+      "explainTags": "Tags des gelöschten Mitglieds werden nicht übertragen",
+      "cancel": "Abbrechen",
+      "explainBookingsAndPassAndInvoiceAndNotes": "Kurspässe, Buchungen, Rechnungen und Anmerkungen werden übertragen.",
+      "emailWillBeSend": "An beide Adressen wird eine E-Mail geschickt, um die Mitglieder zu benachrichtigen.",
+      "confirmation": {
+        "willNotifyInfo": "Diese Profile werden in allen Franchisesystemen zusammengeführt. Dieser Vorgang kann einige Zeit in Anspruch nehmen, wir werden Sie benachrichtigen, sobald er abgeschlossen ist.",
+        "title": "Wollen Sie die Mitglieder wirklich zusammenführen?",
+        "mergeIsPermanentWarning": "Bei der Zusammenführung von Mitgliedern werden der interne Saldo, Reservierungen, Pässe, Notizen und Rechnungen übertragen.<strong>Diese Aktion kann nicht mehr rückgängig gemacht werden, sobald sie bestätigt wurde.</strong>\n\nNur die Tags des gelöschten Mitglieds werden nicht übertragen. Es wird eine Nachricht an beide E-Mail-Adressen gesendet, um die Mitglieder zu benachrichtigen.",
+        "confirm": "Bestätigen"
+      }
+    },
+    "update": {
+      "title": "Mitgliedinformationen aktualisiert",
+      "success": "Mitglied erfolgreich aktualisiert"
+    },
+    "create": {
+      "title": "Neues Mitglied",
+      "success": "Mitglied hinzugefügt"
+    },
+    "error": "Es ist unmöglich, dieses Mitglied zu speichern",
+    "phone": {
+      "error": "Ungültige Telefonnummer"
+    },
+    "needInformationValidation": {
+      "legend": {
+        "memberOfCompany": "Um mit dem Browsen fortzufahren, füllen Sie bitte die folgenden Informationen aus.",
+        "notMemberYet": "Haben Sie diese Informationen korrekt ausgefüllt und möchten Sie den Anmeldevorgang abschließen? "
+      },
+      "welcome": "Hallo {{- firstname }}",
+      "subtitle": {
+        "notMemberYet": "Sieht so aus, als würden Sie unser Studio zum ersten Mal besuchen.",
+        "memberOfCompany": "Bitte füllen Sie das folgende Formular aus."
+      },
+      "button": {
+        "memberOfCompany": "Meine Informationen vervollständigen",
+        "notMemberYet": "Weitergabe von Informationen"
+      }
+    },
+    "title": "[Form] Anmeldung",
+    "newMemberOnlyHelperText": "Ein Mitglied gilt als \"neu\", solange kein Kauf von mehr als 0 € getätigt wurde. Kauft ein Mitglied ein Produkt mit 100 % Rabatt, zählt dies als Kauf."
+  },
+  "showSubscriptions": "Abonnements ansehen",
+  "showInvoices": "Rechnungen ansehen",
+  "showPaymentPack": "Kurspass ansehen",
+  "showPreviousBooking": "Bisherige Buchungen ansehen",
+  "showNextBooking": "Zukünftige Buchungen ansehen",
+  "table": {
+    "show": "Anzeigen"
+  },
+  "member": {
+    "existsWithEmail": "Ein Mitglied mit der E-Mail-Adresse {{email}} gibt es bereits.",
+    "existsWithPhone": "Ein Mitglied mit der Telefonnummer {{phonenumber}} existiert bereits.",
+    "existsWithEmailButNotConfirmed": "Ein Benutzer mit der E-Mail-Adresse {{email}} existiert bereits, muss aber noch bestätigt werden. Wenn Sie diesen Benutzer registrieren, wird die E-Mail-Adresse automatisch verifiziert.",
+    "existsWithPhoneButNotConfirmed": "Ein Benutzer mit der Telefonnummer {{phonenumber}} existiert bereits, aber die E-Mail-Adresse ({{email}}) muss noch bestätigt werden. Durch die Registrierung dieses Benutzers wird die E-Mail-Adresse automatisch verifiziert."
+  },
+  "user": {
+    "existsWithEmail": "Einen Benutzer mit der E-Mail-Adresse {{email}} gibt es bereits.",
+    "existsWithPhone": "Ein Benutzer mit der Telefonnummer {{phonenumber}} existiert bereits.",
+    "existsWithEmailButNotConfirmed": "Ein Benutzer mit der E-Mail-Adresse {{email}} existiert bereits, muss aber noch bestätigt werden. Wenn Sie diesen Benutzer registrieren, wird die E-Mail-Adresse automatisch verifiziert.",
+    "existsWithPhoneButNotConfirmed": "Ein Benutzer mit der Telefonnummer {{phonenumber}} existiert bereits, aber die E-Mail-Adresse ({{email}}) muss noch bestätigt werden. Durch die Registrierung dieses Benutzers wird die E-Mail-Adresse automatisch verifiziert."
+  },
+  "menu": {
+    "bookings": "Buchungen",
+    "privateConsumerPass": "Terminpässe",
+    "privateBooking": "Termine",
+    "payment": "Rechnungsstellung",
+    "contact": "Kontakt",
+    "invoices": "Rechnungen & Abonnements",
+    "paymentPack": "Kurspässe",
+    "relation": "Beziehungen",
+    "info": "Allgemein",
+    "vod": "VOD",
+    "form": "Formulare",
+    "giftcard": "Gutschein",
+    "programs": "Programme",
+    "basket": "Warenkorb"
+  },
+  "merge": "Zusammenlegen",
+  "paymentAction": {
+    "toSubscribe": "Abonnieren",
+    "toBill": "In Rechnung stellen"
+  },
+  "row": {
+    "update": "Ändern",
+    "headers": {
+      "actions": "Aktionen",
+      "newsletter_email": "E-Mails akzeptieren"
+    },
+    "no": "Nein",
+    "yes": "Ja"
+  },
+  "relation": {
+    "pleaseSelectRelation": "Wähle eine Beziehung aus, um mehr Informationen zu den geteilten Kurspässe anzuzeigen."
+  },
+  "regularizeBalance": "Zahlung abschließen",
+  "file": {
+    "drop_file": "Klicken Sie hier, um ein Dokument hinzuzufügen.",
+    "name": "Name",
+    "cancel": "Abbrechen",
+    "upload_file": "Dokument hochladen",
+    "nofileSaved": "Kein gespeicherten Dokumente.",
+    "submit": "Hinzufügen",
+    "add": "Ein Dokument hinzufügen",
+    "confirm": "Bestätigen",
+    "deleteFileMessage": "Bist Du Dir sicher, dass Du dieses Dokument löschen möchtest?",
+    "title": "Dokumente",
+    "imported": "Das Dokument wurde erfolgreich hochgeladen.",
+    "deletion": "Löschung",
+    "addButtonBlocked": "Löschen Sie Dokumente, um Neue hinzuzufügen"
+  },
+  "note": {
+    "is_medical": "Wichtige Anmerkung",
+    "healthNotes": "Wichtige Informationen",
+    "myNotes": "Anmerkungen",
+    "addNote": "Eine Anmerkung hinzufügen",
+    "noNoteSaved": "Keine gespeicherten Anmerkungen."
+  },
+  "memberList": "Übersicht",
+  "addMember": "Ein Mitglied hinzufügen",
+  "engagement": "Engagement",
+  "nextBooking": "nächste : ",
+  "memberSince": "Anmeldedatum ",
+  "barcode": {
+    "display": "Barcode anzeigen",
+    "code": "Barcode",
+    "none": "keine",
+    "label": "Barcode"
+  },
+  "bornIn": "Geboren am ",
+  "pass_owner": "Nicht gültig",
+  "subscriptionTitle": "Abonnements",
+  "invoiceTitle": "Rechnungen",
+  "date_joined": "Anmeldedatum",
+  "name": "Name",
+  "linkDialog": {
+    "cancel": "Abbrechen",
+    "confirm": "Ich bestätige",
+    "title": "Einen bereits existierenden Benutzer verbinden",
+    "content": "Dieses Konto wurde ursprünglich in einem anderen Studio erstellt. Es wird nun mit dem derzeitig ausgewählten Studio verbunden."
+  },
+  "cashoutBalance": "Auszahlungssaldo",
+  "creditAccountBalance": "Mitgliedskontostand",
+  "pastBooking": "letzte : ",
+  "offers_joined": "Aktivitäten, an denen teilgenommen wurde",
+  "search": {
+    "cancel": "Schließen",
+    "createMember": "Ein Mitglied hinzufügen"
+  },
+  "birth": {
+    "unknown_F": "Geboren am -",
+    "unknown": "Geboren am -",
+    "bornIn_F": "Geboren am {{-date}} {{age}}",
+    "bornIn": "Geboren am {{-date}} - {{age}} Jahre alt"
+  },
+  "memberTermsAccepted": " wurden am {{- date}} akzeptiert.",
+  "termsAndConditions": "Allgemeine Geschäftsbedingungen",
+  "applyBalanceToUnpaidInvoices": "Kontostand des Mitglieds verwenden, um unbezahlte Rechnungen zu begleichen",
+  "adjustBalance": "Kontostand anpassen",
+  "unpaidInvoiceTitle": "Unbezahlte Rechnung",
+  "unpaidInvoiceTitle_plural": "Unbezahlte Rechnungen",
+  "vaccinationStatus": {
+    "unknown": "Sanitärpassstatus unbekannt",
+    "notDone": "Ich besitze keinen gültigen COVID-19 Sanitätspass",
+    "done": "Ich besitze einen gültigen COVID-19 Sanitätspass"
+  },
+  "archive": {
+    "archivedMember": "Archiviertes Mitglied: {{- name}}",
+    "dialog": {
+      "title": "Mitglied archivieren",
+      "actions": {
+        "confirm": "Bestätigen",
+        "close": "Schließen"
+      },
+      "warning": {
+        "0": "Negativer interner Kontostand",
+        "1": "Unbezahlte Rechnung(en)",
+        "2": "Aktuelles Abonnement",
+        "3": "Abonnement mit laufender automatischer Verlängerung",
+        "4": "Geplante Buchung(en) in der Zukunft",
+        "5": "Registrierte wiederkehrende Reservierung(en)",
+        "6": "Geplante(r) Termin(e)",
+        "general": "Aufgrund der folgenden Kriterien raten wir dir, den internen Kontostand deines Mitglieds zu bereinigen, bevor das Mitglied archiviert wird:"
+      },
+      "helper_text_2": "Dieses Mitglied wird vollständig gelöscht und kann nicht wiederhergestellt werden.",
+      "helper_text_1": "Sicher, dass dieses Mitglied gelöscht werden soll?"
+    }
+  },
+  "termsOfUse": "Die Allgemeinen Geschäftsbedingungen",
+  "archived": "Archiviert",
+  "restoreMember": "Wiederherstellen",
+  "noMember": "Derzeit gibt es keine Mitglieder, die angezeigt werden können.",
+  "noData": "Es gibt keine Mitglieder in dieser Smartlist.",
+  "changeEmailRequest": {
+    "memberPage": {
+      "unAuthorizedAccess": {
+        "contactCompany": "Wenn Sie dieser Bitte nicht nachkommen können, wenden Sie sich bitte direkt an Ihr Studio.",
+        "helper": "Sie sind nicht bei dem Konto angemeldet, das auf diese App zugreifen kann. Bitte melden Sie sich bei dem Konto an, das mit der gesendeten Bestätigungs-E-Mail verbunden ist.",
+        "title": "Unautorisierter Zugriff"
+      },
+      "generalError": {
+        "contactCompany": "Es wurde ein Fehler bei der aktuellen Anfrage festgestellt. Diese Anfrage wurde als Sicherheitsmaßnahme deaktiviert. Bitte wenden Sie sich direkt an das Studio, um diesen Vorgang zu erneuern, wenn Sie nicht der Initiator dieser Anfrage sind.",
+        "helper": "{{- company}} hat Sie aufgefordert, Ihre Anmelde-E-Mail-Adresse für Ihr Konto zu ändern:",
+        "title": "Ungültige Anmelde-E-Mail-Adresse ändern"
+      },
+      "requestingStudio": "{{- company}} hat die Änderung Ihrer Anmelde-E-Mail-Adresse für Ihr Konto beantragt:",
+      "actions": {
+        "continue": "Weiter",
+        "confirmFusion": "Kontozusammenlegung akzeptieren",
+        "deniedFusion": "Kontenzusammenlegung ablehnen",
+        "cancel": "Meine aktuelle E-Mail-Adresse verwenden",
+        "confirm": "Meine neue E-Mail-Adresse bestätigen"
+      },
+      "linkAccount": {
+        "error": {
+          "accepted": {
+            "contactCompany": "Bitte wenden Sie sich direkt an das Studio, wenn Sie Ihre Konten zusammenlegen möchten oder wenn Sie diese Anfrage nicht initiiert haben.",
+            "helper": "Aktuelle Anmelde-E-Mail-Adresse lautet: \"{{ email }}\"",
+            "title": "Zusammenlegung wurde akzeptiert"
+          },
+          "denied": {
+            "contactCompany": "Bitte kontaktieren Sie direkt das Studio, wenn Sie erneut Ihre Konten zusammenlegen möchten.",
+            "helper": "Sie haben den Zusammenlegungsantrag von {{- company}} bereits abgelehnt.",
+            "title": "Zusammenlegung wurde abgelehnt"
+          }
+        },
+        "submit": {
+          "denied": {
+            "content": "Ihr Konto wurde nicht mit \"{{ new_email }}\" zusammengelegt. Bitte verwenden Sie weiterhin Ihre derzeitigen mit \"{{ old_email}}\" verknüpften Anmeldedaten für Ihr Konto.",
+            "title": "Zusammenlegung wurde abgelehnt"
+          },
+          "accept": {
+            "content": "Ihr Konto wurde erfolgreich mit dem Konto {{ old_email }} zusammengeführt. Sie sind nun Mitglied des Studios {{ company }}. Verwenden Sie die Adresse {{ new_email }}, um sich in Ihr Konto einzuloggen.",
+            "title": "Fusion Angenommen"
+          },
+          "accepted": {
+            "title": "Zusammenlegung wurde akzeptiert",
+            "content": "Ihr Konto wurde erfolgreich mit \"{{ old_email }}\" zusammengelegt. Sie wurden bei {{- company }} registriert und können von nun an die mit \"{{ new_email }}\" verbundenen Anmeldedaten verwenden."
+          }
+        },
+        "dstUser": {
+          "deniedRequestHelper": "Bitte wählen Sie \"Kontenzusammenlegung ablehnen\", wenn Sie diese Anfrage nicht bearbeiten möchten oder wenn Sie nicht der Antragsteller sind. Dadurch werden Ihre Konten nicht zusammengelegt und Sie werden nicht bei {{- company }} registriert.",
+          "acceptRequestHelper": "Klicken Sie auf \"Kontozusammenlegung akzeptieren\", um Ihre Konten zusammenzulegen.",
+          "notMemberYet": "Sie haben noch kein Konto bei {{- company }}. Durch die Zusammenlegung der Konten werden alle Informationen von Ihrer vorherigen E-Mail-Adresse (\"{{ old_email }}\") auf Ihre neue E-Mail-Adresse (\"{{ new_email }}\") übertragen. Sie können diese Anmeldedaten für jedes Studio verwenden.",
+          "requestingStudio": "{{- company }} hat darum gebeten, Ihre alte Anmelde-E-Mail-Adresse (\"{{ old_email }}\") mit Ihrer neuen Anmelde-E-Mail-Adresse (\"{{ new_email }}\") zusammenzuführen."
+        },
+        "veto": {
+          "deniedRequestHelper": "Bitte gehen Sie zu Ihrem Konto und klicken Sie auf \"Zusammenlegung ablehnen\", wenn Sie die Konten nicht zusammenlegen möchten oder wenn Sie diese Anfrage nicht gestellt haben. Sie können Ihre aktuellen Anmeldedaten weiter verwenden und verhindern so die Zusammenlegung der Konten.",
+          "acceptRequestHelper": "Bitte melden Sie sich mit {{ email }} an, um die Zusammenlegung Ihrer Konten zu bestätigen.",
+          "requestExplanation": "Diese E-Mail-Adresse \"{{ email }}\" wird bereits von einem anderen Studio verwendet. {{- company }} hat Ihr Konto mit diesem bestehenden Konto beantragt. Wenn Sie die beiden Konten zusammenlegen, können Sie die Anmeldedaten (E-Mail und Passwort) des Kontos verwenden, das mit dem Konto von {{ email }} verbunden ist. Sie können diese Anmeldedaten für jedes Studio verwenden, das unsere Softwarelösung einsetzt."
+        },
+        "title": "Kontos, die zusammengelegt werden"
+      },
+      "simpleEmailChange": {
+        "error": {
+          "emailTaken": {
+            "contactCompany": "Es wurde bereits ein Konto mit \"{{ email }}\" als Anmelde-E-Mail-Adresse erstellt. Bitte wenden Sie sich direkt an das Studio, falls diese E-Mail-Adresse Ihnen gehört, Sie aber kein Konto mit dieser E-Mail-Adresse erstellt haben.",
+            "helper": "{{- company}} hat Sie aufgefordert, die Anmelde-E-Mail-Adresse für Ihr Konto zu ändern:",
+            "title": "Anmelde-E-Mail-Adresse bereits in Verwendung."
+          },
+          "delayExceeded": {
+            "contactCompany": "Wenn Sie erneut eine Änderung Ihrer Anmeldeadresse beantragen möchten, wenden Sie sich bitte an Ihr Studio.",
+            "helper": "Das Studio {{- company}} hatte Ihnen eine Anfrage zur Bestätigung der Änderung Ihrer Anmelde-E-Mail geschickt. Die siebentägige Gültigkeitsdauer dieser Anfrage ist abgelaufen.",
+            "title": "Änderung Ihrer Anmelde-E-Mail-Adresse"
+          },
+          "renewed": {
+            "contactCompany": "Bitte wenden Sie sich direkt an Ihr Studio, wenn Sie die letzte E-Mail zur Validierung der Anfrage nicht erhalten haben oder nicht finden können.",
+            "helper": "Kürzlich hat Ihnen {{- company }} eine Bestätigungs-E-Mail geschickt, um Ihre Anmelde-E-Mail-Adresse zu ändern. Bitte überprüfen Sie Ihren Posteingang und Ihre Spam-Mails auf die neueste Anfrage, da diese nun ungültig ist.",
+            "title": "Änderung Ihrer Anmelde-E-Mail-Adresse"
+          },
+          "alreadyDenied": {
+            "currentEmail": "Aktuelle Anmelde-E-Mail-Adresse: \"{{ email }}\"",
+            "contactCompany": "Wenn Sie diese Änderung nicht selbst herbeigeführt haben oder Ihre Entscheidung ändern möchten, wenden Sie sich bitte direkt an Ihr Studio.",
+            "helper": "Sie haben bereits eine Anmelde-E-Mail-Adresse bei {{- company }} ausgewählt, Ihre Entscheidung wurde berücksichtigt.",
+            "title": "Sie haben diesen Antrag bereits abgelehnt."
+          },
+          "alreadyAccepted": {
+            "currentEmail": "Aktuelle Anmelde-E-Mail-Adresse: \"{{ email }}\"",
+            "contactCompany": "Wenden Sie sich bitte direkt an Ihr Studio, wenn Sie die Anfrage zur Änderung Ihrer Anmelde-E-Mail-Adresse nicht initiiert haben.",
+            "helper": "Sie haben bereits eine Anmelde-E-Mail-Adresse in {{- company }} ausgewählt, Ihre Entscheidung wurde berücksichtigt.",
+            "title": "Sie haben diesen Antrag bereits bestätigt."
+          }
+        },
+        "submit": {
+          "emailPreservedTo": "Ihre Anmelde-E-Mail-Adresse bleibt \"{{ email }}}\".",
+          "emailUpatedTo": "Ihre Anmelde-E-Mail-Adresse wurde zu \"{{ email }}\" geändert.",
+          "deniedTitle": "E-Mail-Adresse bleibt erhalten",
+          "acceptedTitle": "E-Mail-Adresse wurde geändert"
+        },
+        "multipleCompanyHelper": "Diese E-Mail-Adresse wird für alle Ihre Konten verwendet, die mit Studios verbunden sind, die bsport Solution nutzen. Das bedeutet, dass die Änderungen für jedes Studio gelten, bei dem Sie sich angemeldet haben und das mit unserer Softwarelösung verbunden ist. Ihre Anmeldedaten werden bei den folgenden Studios geändert:",
+        "deniedRequestHelper": "Wählen Sie \"Aktuelle E-Mail-Adresse verwenden\", wenn Sie keine Änderungen vornehmen möchten.",
+        "acceptRequestHelper": "Klicken Sie auf \"Meine neue E-Mail-Adresse bestätigen\", um die E-Mail-Änderungsanfrage zu bearbeiten.",
+        "title": "Änderung Ihrer Anmelde-E-Mail-Adresse"
+      }
+    },
+    "dialog": {
+      "actions": {
+        "confirm": "Bestätigen",
+        "close": "Abbrechen"
+      },
+      "cancelHelperText": "Wenn Sie die E-Mail des Mitglieds nicht ändern möchten, klicken Sie auf \"Abbrechen\".",
+      "securityHelperText": "Aus Sicherheitsgründen wird an diese Adresse eine Bestätigungs-E-Mail geschickt.",
+      "expiryText": "Nach dem Absenden wird der Antrag innerhalb von 7 Tagen bearbeitet.",
+      "newEmail": "Neue E-Mail-Adresse: \"{{ email }}\"",
+      "oldEmail": "Vorherige E-Mail-Adresse: \"{{ email }}\"",
+      "mergeMember": {
+        "unchangedEmail": "Nach der Bestätigung werden alle Rechnungen, Buchungen, Salden und Käufe von der vorherigen E-Mail-Adresse (\"{{ old_email }}\") auf die neue E-Mail-Adresse (\"{{ new_email }}\") übertragen. Die vorherige E-Mail-Adresse (\"{{ old_email }}\") wird gelöscht und beide E-Mail-Adressen werden per E-Mail benachrichtigt.",
+        "warning": "Achtung, Sie versuchen, diese beiden Mitglieder Ihres Studios zu verbinden:"
+      },
+      "linkMember": {
+        "notIncompany": "Die E-Mail (\"{{ new_email }}\") gehört einem Mitglied eines anderen Studios.",
+        "unchangedEmail": "In der Zwischenzeit wird die vorherige E-Mail-Adresse (\"{{ old_email }}\") beibehalten.",
+        "warning": "Achtung, Sie versuchen, diese beiden Mitglieder zu verbinden:"
+      },
+      "simpleChange": {
+        "unchangedEmail": "In der Zwischenzeit wird die vorherige E-Mail-Adresse beibehalten.",
+        "warning": "Achtung! Sie haben die Anmelde-E-Mail dieses Mitglieds geändert:",
+        "informativeHelperText": "Die Änderungen werden in einer Mitteilung bekannt gegeben."
+      },
+      "titleMerge": " Mitgliederkonten zusammenlegen",
+      "title": "Änderung der E-Mail-Adresse"
+    },
+    "pendingValidation": "Die Anfrage zur Änderung der E-Mail-Adresse \"{{ email }}\" wird derzeit geprüft."
+  },
+  "archiveMember": "Archivieren",
+  "actions": "Aktionen",
+  "communication": "Kommunikation",
+  "accountBalance": "Saldo",
+  "events": {
+    "member-booking_registered": {
+      "primaryText": "{{ source }} hat den Kurs {{- offerName }} am {{- offerDate }} gebucht.",
+      "filter": "Buchungen",
+      "sourceManager": "Der Manager {{ managerName }}"
+    },
+    "member-basket_paid": {
+      "filter": "Warenkorb bezahlt",
+      "primaryText": "Ein Warenkorb in der Höhe von {{ amount }} wurde bezahlt. "
+    },
+    "member-login_successful": {
+      "filter": "Anmeldungen erfolgreich",
+      "primaryText": "Es wurde eine erfolgreiche Anmeldung {{ source }} registriert.",
+      "sourceApp": "über die mobile App",
+      "sourceMarketplace": "über den Marketplace"
+    },
+    "member-custom_form_filled": {
+      "filter": "Profilformular bearbeitet",
+      "primaryText": "Profilbearbeitungs Formular {{- formName }} wurde ausgefüllt."
+    },
+    "member-giftcard_used": {
+      "filter": "Verwendete Gutscheine",
+      "primaryText": "Der Gutschein {{- giftcardName }} wurde aktiviert."
+    },
+    "member-invoice_paid": {
+      "filter": "Rechnungen bezahlt",
+      "primaryText": "Die Rechnung mit der Nummer {{ invoiceUUID }} in Höhe von {{ amount }} wurde bezahlt."
+    },
+    "member-private_booking_registered": {
+      "filter": "Termin",
+      "primaryText": "{{ source }} hat den Termin {{- privateServiceName }} gebucht. - {{- privateSlotName }} vom {{- privateServiceDate }}.",
+      "sourceManager": "Der Manager {{- managerName }}"
+    },
+    "member-tag_applied": {
+      "filter": "Angewandte Tags",
+      "primaryText": "Das Tag {{- tagName }} wurde angewendet."
+    },
+    "member-vod_bought": {
+      "filter": "VOD gekauft",
+      "primaryText": "VOD {{- VODName }} wurde gekauft."
+    },
+    "member-private_booking_canceled": {
+      "filter": "Terminstornierungen",
+      "primaryText": "Der Termin für {{- private_service_name}}-{{- private_slot_name }} am {{- date_start }} wurde storniert."
+    },
+    "member-booking_canceled": {
+      "filter": "Buchungsstornierungen",
+      "primaryText": "Die Buchung für {{- name }} am {{- date_start }} wurde storniert."
+    },
+    "undefined": {
+      "filter": "Terminabsagen",
+      "primaryText": "Der Termin für {{- private_service_name}}{{- private_slot_name }} am {{- date_start }} wurde abgesagt."
+    }
+  },
+  "resetPassword": {
+    "dialogTitle": "Passwort zurücksetzen",
+    "dialogContent": "Sie sind dabei, die Anweisungen zum Zurücksetzen des Passworts an {{memberEmail}} zu senden",
+    "confirmation": "Anweisungen an {{memberEmail}} gesendet",
+    "button": "Passwort zurücksetzen",
+    "error": "Fehler beim Senden der Anweisungen zum Zurücksetzen des Passworts"
+  },
+  "memberTable": {
+    "error": "Ein Fehler ist aufgetreten"
+  },
+  "membershipNumber": {
+    "value": "Nr.{{id}}",
+    "label": "Mitgliedsnummer"
+  },
+  "officialIdNumber": {
+    "value": "Nr.{{id}}",
+    "label": "Nummer des Ausweisdokuments"
+  },
+  "signedUpWithReferral": "Mitglied hat sich mit dem Empfehlungslink von <1>{{- name }}</1> angemeldet",
+  "email": "E-Mail",
+  "leads": {
+    "dialogs": {
+      "errors": {
+        "71000": "Bitte warten Sie, bis der laufende Import abgeschlossen ist",
+        "71001": "Diese Datei hat leider nicht die erforderliche Anzahl von Spalten, sie hat {{column_count}} Spalten in der Zeile {{row_count}}",
+        "71002": "Diese Datei überschreitet die maximale Größe",
+        "71003": "Leider konnten wir die Datei nicht entschlüsseln. Bitte stelle sicher, dass die Datei nicht beschädigt ist und das Dateiformat unterstützt wird.",
+        "title": "Leider ist der Importvorgang fehlgeschlagen, da:",
+        "unknown": "Ein unerwarteter Fehler ist aufgetreten"
+      },
+      "partialSuccess": {
+        "successImportSubtext": "Erstellte Mitglieder",
+        "failedImportSubtext": "Falsche Zeilen",
+        "fileName": "dateiMitglieder.csv",
+        "lineTwoMessage": "Hier finden Sie die 2 Dateien, in denen die Situation beschrieben wird:",
+        "lineOneMessage": "Die Konten der Mitglieder mit korrekten Daten wurden jedoch korrekt erstellt.",
+        "title": "Einige Zeilen in der Datei enthielten Fehler und konnten nicht verarbeitet werden"
+      },
+      "success": "Die Mitglieder wurden erfolgreich importiert"
+    },
+    "notACSV": {
+      "goToIntercom": " Hilfsblatt öffnen",
+      "message": "Bei der Datei handelt es sich nicht um eine CSV-Datei. Weitere Informationen finden Sie im Hilfeblatt.",
+      "title": "Nicht unterstütztes Dateiformat"
+    },
+    "import": "Potenzielle Kunden importieren"
+  }
+}

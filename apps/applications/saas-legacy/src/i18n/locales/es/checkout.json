@@ -1,0 +1,220 @@
+{
+  "myBasket": {
+    "actions": {
+      "payZero": "Validar mi cesta",
+      "checkoutBasket": "Pagar",
+      "closeBasket": "Seguir comprando"
+    },
+    "error": {
+      "invalidBasket": "Tu cesta contenía artículos que ya no están disponibles para la venta. No se ha registrado ningún pago",
+      "inconsistentBasket": "Tu cesta ha sido modificada, por favor actualiza tu página antes de validar tu pago.\nNo ha sido acusado.",
+      "unavailableSessions": "Algunas sesiones de tu cesta ya no están disponibles, por lo que no hemos podido completar tu reserva. Hemos eliminado las no disponibles. Por favor, revisa tu cesta e inténtalo de nuevo."
+    },
+    "featured": "Nosotros te recomendamos",
+    "isEmpty": "Su cesta está vacía",
+    "title": "Mi cesta",
+    "finalize": {
+      "steps": {
+        "payment": "Facturación",
+        "address": "Dirección"
+      }
+    },
+    "isFinalized": "Su cesta ha sido validada",
+    "checkingPaymentStatus": "Por favor, espere, estamos comprobando el estado de su pago",
+    "totalQuantity": "Contiene elementos {{ qty }}",
+    "acceptTermsAndFinalize": "Por favor, acepte las condiciones generales y finalice su reserva",
+    "checkAndFinalize": "Compruebe su cesta y finalice su reserva",
+    "almostDone": "Última etapa",
+    "goToMarketplace": "Ver el Área de Miembros",
+    "newCheckout": {
+      "isEmptyDescription": "¡Continúe explorando el Área de Miembros!",
+      "isEmpty": "¡Tu cesta está vacía!"
+    },
+    "noBooking": {
+      "acceptTermsAndFinalize": "Por favor, acepte los términos y condiciones y complete su cesta",
+      "checkAndFinalize": "Compruebe su cesta"
+    },
+    "referral": {
+      "hasReachedMaxUses": "Se ha alcanzado el número máximo de usos del enlace de recomendación.",
+      "missingAmountBeforeApplication": "No se ha alcanzado el importe mínimo de compra. Te arriesgas a perder tu enlace de recomendación. ¡Sólo {{ missingAmount }} más para poder disfrutar del descuento!"
+    },
+    "expressCheckoutTitle": "Pago rápido"
+  },
+  "autoAdd": {
+    "paymentPack": {
+      "locked": "Este producto no está disponible."
+    },
+    "privatePass": {
+      "error": "Esta tarjeta de cita no está disponible"
+    },
+    "paymentCombo": {
+      "locked": "Este pack no está disponible"
+    }
+  },
+  "forms": {
+    "delivery": {
+      "actions": {
+        "cancel": "Volver",
+        "submit": "Siguiente"
+      },
+      "last_name": "Apellido",
+      "first_name": "Nombre"
+    }
+  },
+  "paymentIntent": {
+    "isProcessing": "Por favor espera"
+  },
+  "or": "o",
+  "payLater": {
+    "explain": "Su factura se considerará impagada hasta que la liquide desde su perfil de miembro, o directamente en el estudio.",
+    "submit": "Pague in situ"
+  },
+  "validation": {
+    "sections": {
+      "offerNotBookable": "No se puede registrar",
+      "offerPreBooked": "Inscripción en lista de espera",
+      "offerBooked": "Tu reserva",
+      "offerBooked_plural": "Tus reservas",
+      "basket": "Mi cesta",
+      "title": "¡Enhorabuena! Has completado con éxito tu compra",
+      "explain": "Tu transacción ha sido procesada. Te enviaremos un correo electrónico de confirmación.",
+      "recap": "Resumen",
+      "error": "Error",
+      "errorExplain": {
+        "guestOvercomeLimit": "El número de invitados añadidos para esta reserva excede el número permitido.",
+        "guestOffer": "El estudio ha desactivado la función de reserva de invitados para esta sesión.",
+        "generic": "La operación no se ha podido realizar. Por favor, inténtalo de nuevo.",
+        "guestGeneric": "Hubo un problema con la reserva de un invitado.",
+        "guestReachedLimit": "Ya ha alcanzado el límite de reservas para un invitado en el período actual. No es posible hacer más.",
+        "guestSettings": "El estudio ha desactivado la función de reserva de invitados.",
+        "guestPass": "El estudio ha desactivado la función de reserva de invitados para esta tarjeta de curso.",
+        "guestNotEnoughSpot": "No hay suficiente capacidad para todos tus invitados.",
+        "genericOfferError": "Se ha producido un problema al procesar la reserva de su sesión. Vuelva a intentarlo más tarde o reserve otra sesión.",
+        "offerOnlyBookingError": "Lo sentimos, pero la sesión y el lugar seleccionados no pueden reservarse en este momento. Por favor, inténtelo de nuevo."
+      },
+      "myGiftcard": "Mi tarjeta regalos",
+      "myGiftcard_plural": "Mis tarjetas regalo",
+      "myProduct": "Mi producto",
+      "myProduct_plural": "Mis productos",
+      "mySubscription": "Mi suscripción",
+      "myPack": "Mi pack",
+      "myPack_plural": "Mis packs",
+      "myPass": "Mi bono",
+      "myPass_plural": "Mis bonos",
+      "alert": "¡Ups! La reserva ha fallado.\nHemos tenido un problema al procesar la reserva de tu sesión. Vuelve a intentarlo más tarde o reserva otra sesión.",
+      "confirmationStatusMessage": {
+        "offerAndPurchaseSuccess": "¡Enhorabuena! Sus compras y reservas han sido confirmadas. En breve recibirá un correo electrónico de confirmación con todos los detalles.",
+        "paymentSuccess": "¡Enhorabuena! Su compra ha sido confirmada.",
+        "paymentSuccess_plural": "¡Enhorabuena! Sus compras están confirmadas.",
+        "offerOnlySuccess": "La reserva se ha efectuada. En breve recibirá un correo electrónico de confirmación con todos los detalles.",
+        "offerOnlySuccess_plural": "Las reservas se han efectuado. En breve recibirá un correo electrónico de confirmación con todos los detalles.",
+        "offerOnlyGuestSuccess": "La reserva ha sido efectuada. Usted y su invitado recibirán en breve un correo electrónico de confirmación con todos los detalles.",
+        "offersPartiallyConfirmed": "Algunas sesiones no pudieron reservarse, posiblemente porque se llenaron o se cancelaron durante el proceso de pago. En breve recibirá un correo electrónico de confirmación con los detalles de las reservas realizadas.",
+        "expressCheckoutPassPurchaseSuccess": "Ahora que ya tienes tu bono, es hora de reservar tu clase y disfrutar de todos los beneficios."
+      },
+      "confirmationStatusTitle": {
+        "success": {
+          "waitingList": "Se ha registrado en la lista de espera",
+          "paymentSuccess": "¡Pago confirmado!",
+          "offerOnlySuccess": "¡Disfrute de la sesión!",
+          "offerOnlyGuestSuccess": "¡Disfrute de la sesión con su invitado!",
+          "expressCheckoutPassPurchaseSuccess": "¡Felicidades, acabas de comprar un bono!"
+        },
+        "errors": {
+          "genericOfferError": "¡Ups! La reserva ha fallado.",
+          "generic": "¡Ups! Pago fallido."
+        },
+        "warning": {
+          "offersPartiallyConfirmed": "Su reserva está parcialmente confirmada"
+        }
+      },
+      "offerGuestBooked": "Mi reserva para invitados",
+      "offerGuestBooked_plural": "Mis reservas para invitados",
+      "unableToBookSession": "No se puede reservar una sesión",
+      "unableToBookSession_plural": "No se pueden reservar sesiones"
+    },
+    "actions": {
+      "back": "Anteriormente",
+      "continue": "Seguir comprando",
+      "widgetContinue": "Siguiente",
+      "member": "Área de miembro",
+      "confirmPriceNull": "Confirmar",
+      "payNow": "Pagar",
+      "myPasses": "Mis bonos",
+      "myGiftcards": "Mis tarjetas regalo",
+      "myProducts": "Mis productos",
+      "mySubscription": "Mi suscripción",
+      "retryBookingSession": "Intentar reservar de nuevo",
+      "newWorkshop": "Nuevo taller",
+      "retry": "Vuelva a intentarlo",
+      "myBookings": "Mis reservas",
+      "goToCalendar": "Volver al calendario",
+      "backToMyProfile": "Volver a mi perfil",
+      "seeAllPasses": "Ver todo los bonos",
+      "bookAClass": "Reserva una clase"
+    },
+    "bookingItem": {
+      "bookingItemStatus": {
+        "unpaid": "Impagada",
+        "waitingList": "Lista de espera"
+      }
+    }
+  },
+  "expire_in": "Expira en ",
+  "events": {
+    "basket-created": "Cesta creada",
+    "basket-finalize": "Cesta terminada/pagada",
+    "basket-additem": "Añadir a la cesta",
+    "basket-removeitem": "Cómo retirar la cesta",
+    "basket-automaticclean": "Limpieza automática de la cesta"
+  },
+  "eventHistory": {
+    "sectionTitle": "Eventos",
+    "pleaseSelectABasket": "Seleccione una cesta para ver el historial"
+  },
+  "historyTitle": "Historia de la canasta",
+  "bookerMethod": {
+    "section": {
+      "combo": "Paquetes",
+      "pass": "Tarjetas disponibles",
+      "consumerPass": "Mis tarjetas"
+    },
+    "actions": {
+      "bookVod": "Desbloquear el vídeo"
+    },
+    "emptyMethod": "Lo sentimos, por el momento no hay ningún pase compatible con este vídeo. Por favor, diríjase a la sección de suscripción para acceder a él."
+  },
+  "internalAccount": {
+    "useMyInternalAccount": "Utilización de mi saldo",
+    "confirm": "Comfirmar",
+    "label": "Importe disponible : ",
+    "use": "Utilizar mi saldo",
+    "myInternalAccount": "Mi saldo",
+    "cancel": "Cancelar",
+    "useAsManager": "Utilizar el crédito de la cuenta interna"
+  },
+  "payment": {
+    "total": "Total con IVA incluido",
+    "tax": "Tasas",
+    "taxExcluded": "Subtotal excluido",
+    "flat_fee": "Tasa de solicitud",
+    "globalTotal": "Total",
+    "internalAccount": "Saldo de la cuenta del cliente",
+    "totalHiddingTax": "Total",
+    "deliveryFee": "Gastos de envío",
+    "title": "Pago",
+    "flatFeeSubscription": "Tasa de matriculación",
+    "selectedSession": "Sus sesiones seleccionadas"
+  },
+  "expiredSpotDialog": {
+    "refresh": "Actualizar",
+    "message": "Su reserva de plaza ha caducado, puede seleccionarla de nuevo o elegir otra.",
+    "title": "Su reserva de plaza ha caducado"
+  },
+  "spotSavedFor": "El lugar seleccionado se guarda por: {{countdown}}",
+  "billingGroup": {
+    "title": "Ubicación preferida",
+    "placeholder": "Ubicación",
+    "helperText": "La ubicación preferida es aquella en la que tiene previsto utilizar su compra la mayor parte del tiempo. Esta información se utilizará para emitir su factura y únicamente a efectos de asignación de recursos. No determina dónde se puede utilizar su compra."
+  }
+}

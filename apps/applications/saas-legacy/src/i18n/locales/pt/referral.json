@@ -1,0 +1,148 @@
+{
+  "conditions": {
+    "description": {
+      "warning": "Nota: o programa de referência só se aplica a novos membros do estúdio ou da franquia.",
+      "reward2": "A recompensa será automaticamente aplicada aos próximos cestos do membro que referiu: não existem condições de tempo ou de montante relativamente à aplicação. Também pode ser aplicado em várias prestações se o montante do cesto for inferior à recompensa.",
+      "reward1": "Se a primeira compra (excluindo assinaturas) for efectuada de acordo com os termos e condições descritos, o membro que referiu a compra será <1>recompensado com um montante de{{ referringReward }}</1>. pode ser obtido para cada membro referido até um limite de {{ maxReferralUses }} vezes",
+      "applicationTimeLimit": {
+        "units": {
+          "months": "mês",
+          "months_plural": "meses",
+          "weeks": "semana",
+          "weeks_plural": "semanas",
+          "days": "dia",
+          "days_plural": "dias"
+        }
+      },
+      "signUp": {
+        "noReduction": "A utilização do link partilhado levará o novo membro ao formulário de registo para criar uma conta. Uma vez feito isso, o membro referido deve completar o seu primeiro cesto de acordo com as seguintes condições:<1><0>O montante do cesto é superior a{{ minBasketAmount }}</0><0>É efectuado dentro de{{ applicationTimeLimitIntervals }}{{ applicationTimeLimitUnit }}depois de o membro referido se ter registado</0></1>",
+        "reduction": "A utilização do link partilhado levará o novo membro ao formulário de registo para que possa criar uma conta. Uma vez efectuada esta operação, o membro referido poderá <1>beneficiar de um desconto de {{ referredReduction }}</1> no seu primeiro cabaz se este preencher as seguintes condições:<3><0>O montante do cabaz é superior a{{ minBasketAmount }}</0><0>É efectuado dentro de {{ applicationTimeLimitIntervals }}{{ applicationTimeLimitUnit }}depois de o membro referido se ter registado</0></3>"
+      },
+      "maxUses": "Cada membro tem um link de referência pessoal que pode ser partilhado para obter uma recompensa. Pode ser obtido um <1>número máximo de {{ maxReferralUses }} vezes</1>."
+    },
+    "title": "Condições de utilização do link de referência"
+  },
+  "memberInfo": {
+    "warningMaxUsesReached": "Atingiu o número máximo de utilizações do seu link de referência",
+    "seeConditions": "Ver condições",
+    "copyLink": "Copiar a meu link de referência",
+    "forYourFriend": "para seu amigo",
+    "forYou": "Para você",
+    "inviteFriend": "Convidar um amigo para se inscrever",
+    "nbRemainingUses": "Número de utilizações restantes",
+    "referralLink": "Link de referência",
+    "loginToUseYourLink": "Iniciar sessão para utilizar a sua ligação",
+    "thanksForSharing": "Obrigado por partilhar com os seus amigos e familiares!",
+    "copyReferralLink": "Copiar o link de referência",
+    "yourFriendGets": "O teu amigo recebe",
+    "youGet": "Receberá",
+    "nbUsesLeft": "Número de utilizações restantes:"
+  },
+  "form": {
+    "submit": "Guardar",
+    "errors": {
+      "required": "Este campo é obrigatório",
+      "url": "Introduzir um URL válido",
+      "rewardReferring": "A recompensa deve ser superior a 0",
+      "timeLimit": "O atraso deve ser superior a 1",
+      "referredAmount": "O desconto deve ser superior a 0",
+      "maximumUses": "O número máximo de utilizações deve ser superior a 1",
+      "minimumAmount": "O montante mínimo deve ser superior a 0"
+    },
+    "warnings": {
+      "rewardReferring": "Ao selecionar este valor, não será atribuída qualquer recompensa ao membro que referenciou",
+      "referredAmount": "Ao escolher este valor, não será aplicado qualquer desconto na compra do membro referido"
+    },
+    "redirectLink": {
+      "placeholder": "URL de redireccionamento",
+      "description": "Após o registo, o novo membro será redireccionado para a página indicada pelo seu URL. Se deixar a caixa vazia, o novo membro será redireccionado para a página de compra do passe",
+      "title": "Ligação de redireccionamento"
+    },
+    "tag": {
+      "title": "Etiqueta",
+      "description": "Um novo membro que utilize a ligação de referência será etiquetado"
+    },
+    "rewardReferring": {
+      "label": "Montante do prémio",
+      "title": "Recompensa para o membro que referiu"
+    },
+    "applicationTimeLimit": {
+      "units": {
+        "month": "Mês",
+        "month_plural": "Meses",
+        "week": "Semana",
+        "week_plural": "Semanas",
+        "day": "Dia",
+        "day_plural": "Dias"
+      },
+      "title": "Prazo para aplicar o desconto após o registo"
+    },
+    "amountOffReferred": {
+      "amount": {
+        "fieldLabel": "Montante",
+        "title": "Montante"
+      },
+      "percent": {
+        "fieldLabel": "Percentagem",
+        "title": "Percentagem"
+      },
+      "title": "Desconto para o membro referido"
+    },
+    "maximumUses": {
+      "label": "Número máximo de utilizações"
+    },
+    "minimumBasketAmount": {
+      "description": "Este valor refere-se ao preço total do cesto",
+      "label": "Valor mínimo do cesto do cliente"
+    },
+    "activateReferral": {
+      "description": "Cada membro pode partilhar esta ligação de referência com não membros. Após a sua utilização, é concedido um desconto automático ao novo membro, bem como uma recompensa ao membro que partilhou o link",
+      "label": "Ativar o link de referência"
+    },
+    "title": "Referência"
+  },
+  "checkoutValidation": {
+    "title": "Patrocinar um amigo",
+    "explain": "Obtenha recompensas ao partilhar o seu link de referência com os seus amigos."
+  },
+  "referralErrors": {
+    "33000": {
+      "description": "Esta hiperligação de referência não está disponível para este estúdio.",
+      "title": "Ligação de referência inutilizável"
+    },
+    "33001": {
+      "description": "O membro associado a esta ligação de referência já não está registado no estúdio.",
+      "title": "Ligação de referência inutilizável"
+    },
+    "33002": {
+      "description": "Já é membro deste estúdio",
+      "title": "Link de referência inutilizável"
+    },
+    "33003": {
+      "title": "Link de referência expirou",
+      "description": "Este link de referência já não pode ser utilizado."
+    },
+    "33004": {
+      "title": "Erro de referenciação",
+      "description": "Foi encontrado um erro ao registar a referência."
+    },
+    "33005": {
+      "title": "Erro de referenciação",
+      "description": "Foi encontrado um erro ao registar a referência."
+    },
+    "33006": {
+      "title": "Referência expirada",
+      "description": "O programa de referência já não está disponível."
+    },
+    "33007": {
+      "title": "Referência expirada",
+      "description": "O programa de referência já não está disponível."
+    },
+    "maxUsesReached": {
+      "title": "Link de referência inutilizável",
+      "description": "O número máximo de utilizações foi atingido para esta ligação de {{ referringMemberFirstName }}"
+    },
+    "somethingWentWrong": "Algo correu mal, não foi possível carregar esta página. Por favor, tente novamente mais tarde",
+    "noProgramAvailable": "Oops, parece que não há nenhum programa de referência disponível"
+  }
+}

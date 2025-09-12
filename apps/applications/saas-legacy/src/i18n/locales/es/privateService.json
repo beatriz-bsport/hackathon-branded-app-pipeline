@@ -1,0 +1,1190 @@
+{
+  "service": {
+    "form": {
+      "establishment": {
+        "label": "Sala"
+      },
+      "coach": {
+        "isEmpty": "¡Ningún profesor configurado!",
+        "label": "Profesor"
+      },
+      "name": {
+        "placeholder": "Masaje",
+        "label": "Nombre del servicio"
+      },
+      "is_without_coach": "Sin profesor",
+      "is_home_service": {
+        "helperText": "Se solicitará una dirección con cada reserva",
+        "label": "En casa"
+      },
+      "addSlot": "Añadir un tipo sesión",
+      "addEstablishment": "Añadir una sala",
+      "addCoach": "Añadir un profesor",
+      "createButton": "Añadir un tipo de cita",
+      "title": "Cita",
+      "use_full_establishment_capacity": {
+        "helperText": "Desmarca para autorizar simultáneamente varias actividades / citas en la misma sala si la capacidad lo permite",
+        "label": "Requiere toda la sala"
+      },
+      "color": "Código color",
+      "coach_capacity_used": {
+        "helperText": "Ej: un profesor puede monitorizar a dos estudiantes por separado en dos máquinas",
+        "label": "Número máximo de citas simultáneas que un profesor puede gestionar",
+        "alertText": "Un profesor puede gestionar 1, 2, 3, 4, 6 o 12 citas simultáneamente."
+      },
+      "delete": {
+        "confirm": "Suprimir",
+        "cancel": "Cancelar",
+        "content": "¿Estás seguro de que quieres suprimir este tipo de cita?",
+        "title": "Supresión de la cita"
+      },
+      "establishment_consumer_attribution": {
+        "helperText": "El miembro ve y elige el lugar antes de reservar, si no marcado bsport intentará optimizar el llenado de las salas",
+        "label": "Permitir la elección del lugar al reservar"
+      },
+      "coach_consumer_attribution": {
+        "label": "Permitir la elección del profesor al reservar",
+        "helperText": "El miembro ve y elige al profesor antes de reservar. Si no está marcado, tendrás que elegir al profesor después de cada cita"
+      },
+      "resourceGroup": {
+        "coach": "Profesor",
+        "establishment": "Lugar"
+      },
+      "establishmentResourceType": {
+        "isWithEstablishment": {
+          "label": "En uno de tus establecimientos",
+          "helperText": "La reserva solo será posible si la sala tiene suficientes plazas libres",
+          "isEmpty": "¡Ninguna sala configurada!"
+        },
+        "isWithoutEstablishment": {
+          "helperText": "Ej: video / lecciones al aire libre / ...",
+          "label": "Sin lugar predeterminado"
+        },
+        "isHomeService": {
+          "helperText": "Se solicitará una dirección con cada reserva",
+          "label": "En casa"
+        }
+      },
+      "last_discard_minutes": {
+        "label": "Última cancelación reembolsable hasta",
+        "helperText": "Si la reserva se cancela después de la fecha límite, no se reembolsará el crédito"
+      },
+      "managerOnly": {
+        "label": "Invisible para los clientes"
+      },
+      "actions": {
+        "submit": "Guardar",
+        "cancel": "Cancelar"
+      },
+      "description": {
+        "label": "Descripción del servicio"
+      },
+      "last_booking_minutes": {
+        "label": "Antes del inicio de la reunión, última reserva posible"
+      },
+      "paddingTitle": "Gestión de las disponibilidades",
+      "paddingStart": {
+        "label": "Número de minutos antes del comienzo de la cita",
+        "helperText": "En el calendario, el profesor y/o el establecimiento serán marcados como no disponibles {{minutes}} minutos antes del comienzo de la cita",
+        "helperText0": "En el calendario, el profesor y/o el establecimiento se marcarán como no disponibles a la hora de inicio de la cita"
+      },
+      "paddingEnd": {
+        "label": "Número de minutos después del final de la cita",
+        "helperText": "En el calendario, el profesor y/o el establecimiento será marcado como disponible de nuevo {{minutes}} minutos después del final de la cita",
+        "helperText0": "En el calendario, el profesor y/o el establecimiento serán marcados como disponibles de nuevo al final de la cita"
+      },
+      "unpaidBooking": {
+        "title": "Pagar más tarde",
+        "tag": {
+          "allowed": "Autorizado",
+          "header": "Etiquetas",
+          "notAllowed": "No autorizado",
+          "helper": "Utilice las etiquetas para que la reserva sin pagar esté disponible sólo para determinados miembros. Todos los miembros con una de las etiquetas en \"Autorizado\" podrán reservar sin pagar. O todos los miembros con una etiqueta en \"No autorizado\" no podrán reservar sin pagar.",
+          "doNotSelectToAllowAllMembers": "Dejar vacío para permitir a todos los miembros"
+        },
+        "label": "Autorizar la reserva sin pagar",
+        "helperText": "Al activar esta función, sus afiliados podrán reservar esta cita sin tener que comprar/utilizar una tarjeta. El número de créditos de la cita se cargará automáticamente en la siguiente tarjeta compatible comprada."
+      },
+      "pad_before_booking": {
+        "label": "Activar para evitar que se solapen los tiempos de buffer de sesiones con horas de finalización e inicio próximas entre sí."
+      },
+      "advancedOptions": {
+        "header": "Avanzado",
+        "tag": {
+          "header": "Etiquetas",
+          "helperText": "Utilice etiquetas para que la cita sólo pueda ser reservada por un grupo de miembros: puede seleccionar etiquetas para que todas las sesiones de esta cita sólo puedan ser reservadas por miembros con una de las etiquetas seleccionadas, o puede seleccionar etiquetas para que las sesiones de la cita no puedan ser reservadas sólo por miembros con una de las etiquetas seleccionadas.",
+          "allowed": "Autorizado",
+          "doNotSelectToAllowAllMembers": "Deje este campo vacío para permitir a todos los miembros",
+          "notAllowed": "No autorizado"
+        }
+      },
+      "availableOnPartnership": {
+        "tagsAlert": "No aplicable a las reservas ClassPass.",
+        "buffersAlert": "Para añadir buffers a esta reserva, deshabilite las reservas ClassPass.",
+        "alert": "Para mostrar correctamente esta reserva en ClassPass, es necesario configurar algunos parámetros. Hemos actualizado automáticamente algunos campos. Por favor, revise y rellene los datos requeridos a continuación.",
+        "label": "Disponible en ClassPass"
+      },
+      "validation": {
+        "zeroValueError": "Debe programar una cita",
+        "availabilityBuffers": "Para añadir buffers a esta reserva, deshabilite las reservas ClassPass.",
+        "coachCapacityUsed": "Para añadir más de una cita al mismo tiempo para un profesor, deshabilite las reservas de ClassPass.",
+        "oneOption": "Seleccione al menos una opción."
+      },
+      "tooltip": {
+        "oneBookingPerTeacher": "Sólo se puede añadir una reserva por profesor, mientras que las reservas ClassPass están permitidas.",
+        "noTeacher": "Debe asignar un profesor cuando se permiten las reservas ClassPass."
+      },
+      "settingsTitle": "Ajustes",
+      "establishmentSelectorTitle": "Seleccione el establecimiento o establecimientos para esta cita:",
+      "coachSelectorTitle": "Seleccione el profesor o profesores para este cita:",
+      "editConfirmation": {
+        "confirm": "Confirmar",
+        "cancel": "Hazlo más tarde",
+        "alert": "Haga clic en confirmar para desactivar la opción de disponibilidad.",
+        "content": "Cuando se active ClassPass, se desactivarán las franjas horarias de citas específicas. Solo se tendrá en cuenta la disponibilidad del profesor y del establecimiento.",
+        "title": "Problema de integración de ClassPass"
+      }
+    },
+    "configuration": {
+      "noCapacity": "¡Capacidad de la sala no configurada!",
+      "slot": "Tipo de sesión",
+      "changeIsAlwaysAvailable": "Modificar",
+      "isAlwaysAvailable": "{{resourceName}} se puede reservar tan pronto como la sala y/o los profesores estén disponibles",
+      "title": "Disponibilidades horarios",
+      "explainHasOwnAvailabilitySlots": "Haz clic en el lápiz para limitar las reservas a ciertos intervalos de tiempo",
+      "noFutureSlot": "¡No has configurado ninguna disponibilidad para {{resourceName}}! Haz clic aquí.",
+      "totalCapacity": "Capacidad máxima: {{ capacity }}",
+      "hasFutureSlot": "Calendario de disponibilidades futuras OK",
+      "explainSetToHasOwnAvailabilitySlots": "Reservable solo en ciertas plazas",
+      "explainSetToHasNotOwnAvailabilitySlots": "Posibilidad de reservar en cualquier horario si disponibilidad de sala/profesor",
+      "partnership": {
+        "removeAvailabilities": "Para mostrar correctamente las citas en ClassPass, debe desactivar las disponibilidades específicas.",
+        "anySlotNotCompatible": "Actualice los ajustes de la sesión para asegurarse de que cada una tiene un intervalo de reserva y una capacidad compatibles con ClassPass."
+      }
+    },
+    "detail": {
+      "tab": {
+        "calendar": "Calendario",
+        "general": "General"
+      }
+    },
+    "selector": {
+      "coach": {
+        "label": "Profesor"
+      },
+      "isEmpty": "Ningún tipo de cita configurado",
+      "establishment": {
+        "label": "Sala"
+      },
+      "placeholder": "Seleccionar una cita"
+    },
+    "navigation": {
+      "goToPrivatePass": "Tarjetas de cita"
+    },
+    "parameters": {
+      "slots": {
+        "explainIsEmpty": "Definir tipos de sesiones (duración, costo)",
+        "isEmpty": "Ningún tipo de sesión definida",
+        "title": "Sesión"
+      },
+      "coaches": {
+        "title": "Profesor",
+        "is_empty": "No se requiere profesor"
+      },
+      "description": "Descripción",
+      "establishments": {
+        "is_home_service": "En casa",
+        "is_empty": "Ninguna sala",
+        "title": "Lugar"
+      },
+      "last_discard_minutes": {
+        "explain": "La última cancelación reembolsable es posible {{days}} día(s) {{hours}} hora(s) {{minutes}} minuto(s) antes de la cita"
+      },
+      "last_booking_minutes": {
+        "explain": "Última reserva posible {{days}} día(s) {{hours}} hora(s) {{minutes}} minuto(s) antes de la cita"
+      },
+      "noTags": "No hay etiquetas autorizadas para mostrar.",
+      "whitelistTags": {
+        "title": "Etiquetas aprobadas"
+      },
+      "blacklistTags": {
+        "title": "Etiquetas rechazadas"
+      }
+    }
+  },
+  "privatePass": {
+    "form": {
+      "durationDays": {
+        "label": "Duración de la validez en días",
+        "helperText": "Período en días durante el cual la tarjeta será válida después de la compra "
+      },
+      "durationYears": {
+        "label": "Duración de la validez en años",
+        "helperText": "Se suma a la cantidad de días y meses"
+      },
+      "tax": {
+        "label": "IVA"
+      },
+      "actions": {
+        "cancel": "Cancelar",
+        "submit": "Guardar",
+        "next": "Siguiente",
+        "back": "Atrás"
+      },
+      "available_payment_method_identifiers": {
+        "helperText": "Seleccione al menos un método de pago. Si no se selecciona ninguno, se ofrecerán pagos online por defecto.",
+        "label": "Medios de pago autorizados",
+        "warning": "Haga que su tarjeta sea visible para que los clientes puedan seleccionar los métodos de pago."
+      },
+      "durationMonths": {
+        "helperText": "Se suma a la cantidad de días",
+        "label": "Duración de la validez en meses"
+      },
+      "price": {
+        "label": "Precio con IVA",
+        "helperText": "Precio de la tarjeta para el cliente"
+      },
+      "credits": {
+        "helperText": "Cada sesión cuesta un número determinado de créditos",
+        "label": "Número de créditos incluidos",
+        "decimalCredit": {
+          "helperText": "Este pase contendrá {{count}} crédito.",
+          "helperText_plural": "Este pase contendrá {{count}} créditos."
+        }
+      },
+      "name": {
+        "label": "Nombre",
+        "helperText": "Nombre de la tarjeta del curso"
+      },
+      "managerOnly": {
+        "label": "Invisible para los clientes"
+      },
+      "title": "Tarjeta de cita",
+      "full_vod_access": {
+        "label": "Proporciona acceso a VOD"
+      },
+      "expirationDaysBeforeFirstUse": {
+        "helperText": "Si la tarjeta del curso no se utiliza una vez en este número de días, quedará invalidada.",
+        "label": "Caduca si no hay reserva inicial"
+      },
+      "start_date_method": {
+        "on_attendance": "En la primera asistencia",
+        "on_booking": "En la primera reserva",
+        "on_purchase": "A la facturación"
+      },
+      "new_member_only": {
+        "label": "Sólo para clientes nuevos"
+      },
+      "selector": {
+        "privateService": "Añadir una cita compatible"
+      },
+      "start_date_method_detail": {
+        "on_attendance": " de la primera presencia",
+        "on_booking": " de la primera reserva",
+        "on_purchase": " desde la fecha de compra"
+      },
+      "startDate": "Fecha de inicio",
+      "duration": {
+        "and": " y ",
+        "years": "{{ count }} año",
+        "years_plural": "{{ count }} años",
+        "daysMonths": "{{ duration_months }} meses y {{ duration_days }} dias",
+        "months": "{{ count }} meses",
+        "days": "{{ count }} dia",
+        "days_plural": "{{ count }} dias",
+        "valid": "Válido ",
+        "fullText": "Esta tarjeta será válida para "
+      },
+      "category": "Nombre de la categoría",
+      "categoryTitle": {
+        "compatibility": "Compatibilidad",
+        "validity": "Validez de la tarjeta",
+        "paymentMeans": "Medios de pago",
+        "info": "Información general",
+        "compatibilityAppointment": "Compatibilidad con las citas previas"
+      },
+      "franchise": "Esta tarjeta es una tarjeta compartida por la cuenta del franquiciador. Algunos elementos han sido definidos por la cuenta del franquiciador y no son modificables",
+      "universalPass": {
+        "label": "Tarjeta universal",
+        "warningIsUniversalPass": "Este bono es un bono universal, se ha creado un bono gemelo en los bonos de las clases en grupo. Todos los campos modificados en este bono se modificarán también en el bono gemelo (excepto la categoría). Lo mismo ocurre con las notificaciones, las prórrogas y las modificaciones de crédito.",
+        "deativatedTags": "Discapacitado para los bonos universales",
+        "helperText": "Los bonos universales pueden utilizarse para reservar clases en grupo Y citas. Una vez creada la tarjeta de cita, se creará un bono gemelo en los bonos. El número de créditos de ambas tarjetas estará vinculado. Al comprar una de las dos tarjetas, la otra se añadirá automáticamente al socio (sin coste adicional)."
+      },
+      "appliesForPayroll": {
+        "label": "Citas que se tienen en cuenta para calcular la nómina del profesor",
+        "helperText": "Por defecto, las citas se facturan al estudio y se incluyen en el resumen y la nómina del profesor. Si desactiva este ajuste, las citas asociadas a este pase dejarán de aparecer en el resumen del profesor."
+      },
+      "expiration_date": {
+        "tooltip": "Después de la fecha elegida, el paquete ya no estará a la venta para los clientes.",
+        "label": "Fecha límite de compra",
+        "helperText": "Disponible hasta el"
+      },
+      "onBehalfOfTeacher": {
+        "label": "Pago íntegro al profesor",
+        "helperText": "Este ajuste le permite indicar que los ingresos asociados a las citas de este pase se pagarán íntegramente al profesor. Esta información será visible en sus informes de compra (CA) en la columna 'Pago abonado íntegramente al profesor'."
+      },
+      "description": {
+        "label": "Descripción"
+      },
+      "advancedOptions": {
+        "tag": {
+          "selectTags": "Seleccionar etiquetas",
+          "tagsOnAcquisitionHelper": "Utilice etiquetas para identificar qué miembro compró la tarjeta de citas.",
+          "tagsOnAcquisition": "Etiqueta tras la compra"
+        },
+        "header": "Avanzado"
+      },
+      "notification": "Notificaciones",
+      "detailsAndRestrictions": "Detalles y restricciones",
+      "notEditable": "Este pase de citas procede de una migración de datos realizada anteriormente. Es posible que algunos campos no se puedan editar para conservar los datos."
+    },
+    "compatibleServices": {
+      "title": "Citas compatibles",
+      "isEmpty": "No hay citas compatibles",
+      "add": "Añadir",
+      "unusable": "Inutilizable"
+    },
+    "delete": {
+      "submit": "Confirmar",
+      "cancel": "Cancelar",
+      "explain": "¿Estás seguro de que quieres borrar esta tarjeta? Las personas que aún tienen créditos pueden seguir utilizándolos.",
+      "title": "Supresión de la tarjeta",
+      "delete": "Suprimir",
+      "warning": "¡Atención! Esta tarjeta de cita se utiliza en un pack, que dejará de estar disponible para la venta si se retira esta tarjeta de curso."
+    },
+    "parameters": {
+      "managerOnly": "Invisible para los clientes",
+      "tax": "IVA: {{ tax }}%",
+      "price": "{{ price, price}}",
+      "nbCredits": "{{ credits }} crédito",
+      "nbCredits_plural": "{{ credits }} créditos",
+      "unusableByStaff": "Invisible para el personal"
+    },
+    "list": {
+      "createButton": "Crear una tarjeta de cita",
+      "isEmpty": "No hay tarjeta de cita",
+      "availableCustomer": "Disponible para la venta",
+      "managerOnly": "No disponible para la venta"
+    },
+    "validForDuration": {
+      "general": "Válido {{ duration_days }} días {{ duration_months }} meses y {{ duration_years }} año",
+      "years": "Válido {{ duration_years }} año",
+      "months": "Válido {{ duration_months }} meses",
+      "days": "Válido {{ duration_days }} días"
+    },
+    "edit": "Modificar",
+    "disabledTitle": "Tarjetas de citas archivadas",
+    "detailTitles": {
+      "paymentMeans": "Medios de pago",
+      "privateServiceCompatibility": "Citas compatibles",
+      "vod": "VOD",
+      "accessibility": "Accesibilidad",
+      "validity": "Validez",
+      "credit_quantity": "Número de créditos"
+    },
+    "ht": "Sin IVA",
+    "actions": {
+      "forceRegularizeUnpaid": "Cobrar los pagos pendientes"
+    },
+    "listItem": {
+      "unusableByStaff": "Invisible para el personal"
+    },
+    "noNotificationsWarning": "Aún no tienes notificaciones configuradas. Para crear nuevas notificaciones, vaya a <strong>Marketing > Notificaciones.</strong>"
+  },
+  "privateBooking": {
+    "managerAdd": {
+      "privateConsumerPassNeedRefresh": "Actualizar la lista",
+      "coachSelector": {
+        "label": "Profesor"
+      },
+      "address": "Dirección",
+      "title": "Nueva reserva",
+      "emptyPrivatePass": "No se posee una tarjeta compatible",
+      "emptyPrivateConsumerPass": "No se posee una tarjeta compatible",
+      "compatiblePrivateConsumerPass": "Tarjetas de cita de propiedad :",
+      "compatiblePrivatePass": "Facturar una tarjeta de cita",
+      "cancel": "Cancelar",
+      "pleaseSelectCoachAndSlot": "Primero selecciona el profesor y la sesión",
+      "incompatibilities": {
+        "11107": "Cita no compatible",
+        "11108": "Número insuficiente de créditos",
+        "11109": "El pase comienza con la primera reserva, el ",
+        "11110": "La tarjeta ha expirado",
+        "11111": "Las fechas son incompatibles",
+        "close": "Cerrar",
+        "privateService": "Tarjeta configurada como incompatible con la cita en cuestión:"
+      },
+      "noUncompatiblePassToDisplay": "Sin tarjeta de cita no compatible",
+      "nonCompatiblePrivateConsumerPass": "Tarjetas de cita en propiedad no compatibles:"
+    },
+    "delete": {
+      "confirm": "Confirmar",
+      "consumer": {
+        "confirm": "Confirmar",
+        "content": {
+          "notDiscardable": "¿Estás seguro de que quieres cancelar esta cita? Se te ha agotado el tiempo, tus créditos no serán acreditados de nuevo.",
+          "discardable": "¿Estás seguro de que quieres cancelar esta cita? Tus créditos estarán disponibles de nuevo."
+        },
+        "cancel": "Cancelar",
+        "title": "Cancelación reserva"
+      },
+      "cancel": "Cancelar",
+      "explainForceRefund": "Reembolsar el crédito usado en la tarjeta para permitir una nueva reserva.",
+      "explainHardDelete": "Esta reserva ya ha sido cancelada, al borrarla desaparecerá completamente del calendario y perderás la historia. Será devuelta si no ha sido devuelta anteriormente. Esta operación es irreversible.",
+      "explain": "¿Estás seguro de que quieres cancelar esta reserva? Esta operación es irreversible.",
+      "title": "Cancelación reserva",
+      "sendCancellationMail": "Notifica a {{name}} sobre la cancelación de la cita por email",
+      "explainWithRestore": "Estás seguro de que deseas cancelar esta reserva? Puede deshacer esto más tarde.",
+      "explainMoreHardDeleteReccurentBooking": "Esta reserva está vinculada a una regla de citas periódicas. Si elimina esta reserva, el sistema intentará crearla de nuevo. Si no desea que esta reserva se vuelva a generar, no la elimine y deje su estado como cancelado.",
+      "explainMoreHardDeleteReccurentBookingTitle": "Cita recurrente",
+      "hardDeleteTitle": "Supresión de una reserva"
+    },
+    "detail": {
+      "address": "Dirección",
+      "wasRefundedNo": "No",
+      "slotTitle": "Sesión",
+      "title": "Reserva",
+      "attachCoach": "Atribuir a un profesor",
+      "coach": "Profesor",
+      "wasRefundedYes": "Sí",
+      "wasRefunded": "Crédito reembolsado en el bono",
+      "passTitle": "Bono",
+      "source": "Canal de reserva ",
+      "registeredOn": "Reservado el ",
+      "cancelledOn": "Cancelado el ",
+      "unpaidBooking": "El cliente utilizó la opción de pagar más tarde. {{ credits}} Los créditos se cargarán automáticamente en la próxima compra de una tarjeta compatible.",
+      "cancelledByRecurrence": "Anulación de reserva recurrente",
+      "cancelled": "Cancelación",
+      "restored": "Restauración",
+      "dateModified": "Modificación",
+      "coachModified": "Modificación",
+      "canal": "Canal",
+      "initialDateTime": "Fecha y hora inicial",
+      "emptyHistory": "No historial",
+      "historyTitle": "Historial",
+      "by": "Por",
+      "cancelledByRecurrenceOn": "Anulación de la reserva recurrente el ",
+      "cancelledByRecurrenceBy": "Cancelado por",
+      "cancelledBy": "Cancelado por",
+      "restoredBy": "Restaurado por",
+      "dateModifiedBy": "Modificado por",
+      "coachModifiedBy": "Modificado por"
+    },
+    "isCancelled": "Cancelado",
+    "attachCoach": {
+      "actions": {
+        "title": "Atribuir un profesor",
+        "cancel": "Cancelar"
+      },
+      "explain": "Elige un profesor para asignar esta cita y añádelo a tu calendario",
+      "title": "Asignación al profesor"
+    },
+    "hardDelete": "Suprimir",
+    "discard": "Cancelar la cita",
+    "cancel": "Cancelar",
+    "updateTime": {
+      "cancel": "Cancelar",
+      "submit": "Guardar",
+      "explainEmail": "Se enviará automáticamente un email al estudiante para informarle",
+      "title": "Modificar cita"
+    },
+    "editTime": "Modificar",
+    "updateCoach": "Elige un nuevo profesor para esta cita",
+    "isCancelledDate": "Cancelado el {{-date}} a las {{time}}",
+    "restore": "Restaurar la cita",
+    "bookings": "Citas",
+    "notRefunded": "No reembolsado",
+    "isRefunded": "Reembolsado",
+    "bookingIsUnpaid": "Reservas impagadas",
+    "isUnpaid": "No pagado",
+    "isCancelledByManagerDate": "Cancelado el {{-date}} a las {{time}} por {{cancelled_by}}",
+    "isCancelledByManager": "Cancelado por {{cancelled_by}}",
+    "incompatibleTagsDialog": {
+      "description": "Tenga en cuenta que este miembro no tiene las etiquetas necesarias para esta cita. ¿Desea reservar su sitio de todos modos?",
+      "title": "Info",
+      "cancel": "Cancelar",
+      "confirm": "Confirmar"
+    },
+    "setUnpaid": {
+      "confirm": "Reembolsar la cita",
+      "confirmMessage": "Una vez que reembolses esta cita al miembro, se marcará como una cita «pendiente de pago».",
+      "cancel": "Atrás",
+      "confirmTitle": "¿Reembolsar la cita?"
+    }
+  },
+  "consumerPass": {
+    "detail": {
+      "invoice": "Factura vinculada",
+      "extensionsTitle": "Extensión de la validez",
+      "booking": "Reservas citas vinculadas"
+    },
+    "isReverted": "Factura cancelada",
+    "current_credits": "{{ current_credits }}/{{credits}} créditos",
+    "expiresOn": "Expira el {{ date }}",
+    "actions": {
+      "addExtension": "Extender la validez"
+    },
+    "extension": {
+      "create": {
+        "nbDays": {
+          "label": "Número de días adicionales"
+        },
+        "note": {
+          "label": "Notas"
+        },
+        "warning": "Verifica que la nueva fecha no provoque que este pase exceda el nuevo período fiscal. Si este es el caso, verifica con su contador la relevancia de esta operación.",
+        "explain": {
+          "newDate": "Nueva fecha: ",
+          "oldDate": "Fecha antigua: "
+        },
+        "submit": "Crear",
+        "cancel": "Cancelar",
+        "title": "Extension de una tarjeta",
+        "datePicker": {
+          "label": "Nueva fecha"
+        }
+      },
+      "delete": {
+        "confirm": "Confirmar",
+        "cancel": "Cancelar",
+        "explain": "¿Estás seguro de que quieres suprimir la extensión?",
+        "title": "Supresión de la extensión"
+      },
+      "addedOn": "Añadido el ",
+      "nbDaysAdded": "+{{nb_days}}j",
+      "options": {
+        "addNumberOfDays": "Ampliar la validez añadiendo un número de días",
+        "selectNewEndDate": "Fijar una nueva fecha de fin de validez"
+      }
+    },
+    "isFromDisabledShare": "Se ha dejado de compartir",
+    "isOwnerOfShares": "Compartido (tarjeta de cita maestra)",
+    "isFromShare": "Compartido desde otra cuenta",
+    "warningShareUniversal": "Este bono es universal, por favor comparta el bono asociado",
+    "isFromShareTooltip": "Esta tarjeta de cita está compartida con otro estudio de franquicia"
+  },
+  "bookerModule": {
+    "step": {
+      "configuration": "Mi cita",
+      "date": "Fecha",
+      "coach": "Profesor",
+      "privateSlot": "Sesión",
+      "privateService": "Cita",
+      "billing": "Facturación",
+      "rule": "Citas recurrentes"
+    },
+    "sections": {
+      "coach": "Profesor",
+      "privateSlot": "Sesiones",
+      "establishment": "Lugar"
+    },
+    "preview": {
+      "credit_cost": "{{credit_cost}} crédito"
+    },
+    "error": "No se puede reservar en esta fecha",
+    "notifyMember": {
+      "label": "Envía un email de confirmación"
+    },
+    "buyPass": "{{ price, price }}",
+    "private_pass": {
+      "credits": "{{ credits }} crédito"
+    },
+    "useCredit": "Reservar",
+    "bookingCapabilities": {
+      "emptyPassList": "Ninguna tarjeta compatible, por favor contacta a tu club",
+      "compatiblePassTitle": "Tarjetas válidas para esta sesión",
+      "emptyConsumerPassList": "No tienes una tarjeta válida con suficiente crédito",
+      "compatibleConsumerPassTitle": "Tus tarjetas válidas"
+    },
+    "isAtHome": "Lecciones en casa, tu dirección será requerida al reservar",
+    "noPrivateServiceAvailable": "Ninguna cita propuesta",
+    "searchSlot": "Buscar une plaza",
+    "title": "Reserva cita",
+    "cancel": "Cancelar",
+    "missingResource": {
+      "establishment": "Por favor selecciona el lugar",
+      "coach": "Por favor selecciona el profesor",
+      "service": "Por favor selecciona un tipo de cita"
+    },
+    "emptySlot": "Ninguna disponibilidad",
+    "availableSlots": "Plazas disponibles",
+    "address": {
+      "helperText": "Ingresa tu dirección para reservar esta cita",
+      "submit": "Validar",
+      "label": "Dirección"
+    },
+    "recurrenceRule": {
+      "label": "Programe una cita recurrente"
+    },
+    "confirm": "Confirmar",
+    "unpaidBooking": {
+      "book": "Reservar",
+      "header": "Pagar más tarde",
+      "isUnpaid": "No pagado",
+      "dialogHelper": "Con esta opción puedes reservar tu sesión sin tener que pagarla de inmediato. La próxima vez que compre una tarjeta compatible con esta sesión, se le cargarán automáticamente los créditos {{ credits }}.",
+      "helper": "Reservar sin pagar y comprar una tarjeta compatible más tarde."
+    }
+  },
+  "slot": {
+    "form": {
+      "duration_minutes": {
+        "label": "Duración",
+        "helperText": "Adaptación de los créditos necesarios en función de la duración"
+      },
+      "people_capacity_used": {
+        "label": "Número de personas",
+        "helperText": "Si una sala está configurada, este número se usará para actualizar su nivel de llenado"
+      },
+      "booking_interval_minutes": {
+        "label": "Avanzado: intervalo de elección de reserva",
+        "helperText": "Ej: 15 significa 15 minutos que el miembro puede reservar a las 12h, 12h15, 12h30, etc... (recomendado)"
+      },
+      "name": {
+        "label": "Nombre de la sesión",
+        "placeholder": "Sesión doble (2h)"
+      },
+      "title": "Sesión",
+      "submit": "Guardar",
+      "cancel": "Cancelar",
+      "credit": {
+        "helperText": "Número de crédito(s) necesario(s) para una reserva",
+        "label": "Número de crédito(s)",
+        "decimalCredit": {
+          "helperText": "Esta sesión costará {{count}} crédito",
+          "helperText_plural": "Esta sesión costará {{count}} créditos"
+        }
+      },
+      "pre_selected_choices": "Duraciones predefinidas",
+      "durationError": "Duración no válida (entre 10min y 1d)",
+      "error": {
+        "bookingInterval": "Añada un intervalo permitido por ClassPass: 5, 10, 15, 30 o 60 minutos.",
+        "peopleCapacityUsed": "Para añadir más de una persona, desactive las reservas ClassPass."
+      }
+    },
+    "parameters": {
+      "credit": "{{ credit }} crédito"
+    }
+  },
+  "slotSearcher": {
+    "selectCoach": "Todos los profesores",
+    "title": "Cita",
+    "bookableSlots": {
+      "isEmpty": "Ninguna plaza disponible",
+      "title": "Plazas disponibles"
+    },
+    "searchSlot": "Buscar una plaza",
+    "search": "Buscar una plaza",
+    "emptyDateList": "Ninguna plaza disponible hoy",
+    "selectPrivateSlot": "Seleccionar una sesión",
+    "groupIdentifier": {
+      "evening": {
+        "interval": "Después de las 18h",
+        "label": "Al final de la tarde"
+      },
+      "afternoon": {
+        "interval": "14hs - 18hs",
+        "label": "Por la tarde"
+      },
+      "noon": {
+        "interval": "12h-14h",
+        "label": "Mediodía"
+      },
+      "morning": {
+        "interval": "Antes del mediodía",
+        "label": "Mañana"
+      }
+    },
+    "nbSlot": "{{ nbSlot }} franja",
+    "nbSlot_plural": "{{ nbSlot }} franjas",
+    "establishment": "Ubicación",
+    "coach": "Profesor",
+    "selectService": "Elija un servicio",
+    "selectSession": "Elija su sesión",
+    "searchFirstSlot": "Buscar la primera ranura disponible",
+    "nextOffer": "Primera ranura disponible en {{- date }}: {{ hour }}",
+    "previousOffer": "Una sesión más reciente está disponible en {{-date }}: {{ hour }}",
+    "emptyState": "No hay disponibilidad en este momento",
+    "pickASlot": "Seleccione su tiempo disponible"
+  },
+  "privateEstablishment": {
+    "delete": {
+      "submit": "Confirmar",
+      "cancel": "Cancelar",
+      "explain": "¿Estás seguro de que quieres cambiar el lugar de esta cita? Sin escuela se considerará como una cita en casa y los estudiantes tendrán que introducir su dirección para completar la reserva. Las reservas ya hechas no se verán afectadas.",
+      "title": "Cancelación de la sala"
+    }
+  },
+  "privateCoach": {
+    "delete": {
+      "submit": "Confirmar",
+      "cancel": "Cancelar",
+      "explain": "¿Estás seguro de que quieres quitarle la tarea a este profesor? No podrá tomar más reservas en esta cita. Las reservas realizadas no se verán afectadas.",
+      "title": "Baja del profesor"
+    }
+  },
+  "privateSlot": {
+    "delete": {
+      "confirm": "Confirmar",
+      "cancel": "Cancelar",
+      "explain": "¿Estás seguro de que quieres cancelar esta sesión? Las reservas anteriores no se verán afectadas. Esto es definitivo.",
+      "title": "Supresión de la sesión"
+    },
+    "duration": "{{ minutes }} minutos"
+  },
+  "pageTitles": {
+    "calendar": "Calendario",
+    "serviceList": "Sólo con cita previa",
+    "passList": "Tarjetas de cita"
+  },
+  "resource": {
+    "datatype": {
+      "private_service": "General",
+      "associated_coach": "Profesor",
+      "coach": "Profesor",
+      "associated_establishment": "Lugares",
+      "establishment": "Lugares"
+    },
+    "unGroup": "Ninguno",
+    "groupBy": "Agrupar por",
+    "form": {
+      "actions": {
+        "submit": "Guardar",
+        "cancel": "Cancelar"
+      },
+      "color": "Código de colores"
+    },
+    "selector": {
+      "title": "Ver las disponibilidades"
+    },
+    "allocationWarning": {
+      "showCalendar": "Ver el calendario",
+      "establishment": "Esta habitación no está disponible en este momento",
+      "coach": "Este profesor no está disponible en este horario",
+      "cancel": "Cancelar",
+      "validate": "Validar",
+      "continue": "¿Estás seguro de que quieres mover esta cita ?",
+      "resource": "Tenga en cuenta que {{ resource }} no está disponible en esta ranura.\n",
+      "title": "No hay disponibilidad para mostrar. Haga clic en las flechas para buscar otra franja horaria.",
+      "loading": "Comprobación de la disponibilidad de la ranura"
+    }
+  },
+  "serviceGroup": {
+    "form": {
+      "title": "Categoría",
+      "actions": {
+        "submit": "Guardar",
+        "cancel": "Cancelar"
+      },
+      "name": {
+        "label": "Nombre"
+      }
+    },
+    "selector": {
+      "placeholder": "Categoría"
+    },
+    "isEmpty": "Ninguna cita asociada a esta categoría",
+    "edit": "Modificar",
+    "delete": "Suprimir"
+  },
+  "openCalendar": "Ver el calendario",
+  "calendar": {
+    "form": {
+      "interval": {
+        "explain2": "{{ date_start }} - {{ date_end }}, cada {{ day }}",
+        "explain1": "Cambio de la disponibilidad : "
+      },
+      "actions": {
+        "submit": "Guardar",
+        "cancel": "Cancelar"
+      },
+      "explain": "Cambio hasta :",
+      "title": {
+        "disable": "Suprimir una disponibilidad",
+        "enable": "Añadir una disponibilidad"
+      }
+    },
+    "toogle": {
+      "showPrivateBookings": "Citas",
+      "showOfferList": "Cursos de grupo",
+      "showCustomEvents": "Cita personal",
+      "hideCancelledEvents": "Ver cancelaciones",
+      "title": "Mostrar filtros"
+    },
+    "addBooking": "Registrar una cita",
+    "selectCoachToModifyAvailability": "Seleccionar un profesor",
+    "disableRecurrentAvailability": "Suprimir una disponibilidad recurrente",
+    "enableRecurrentAvailability": "Añadir una disponibilidad recurrente",
+    "disableAvailability": "Suprimir la disponibilidad",
+    "enableAvailability": "Añadir una disponibilidad hoy",
+    "header": {
+      "threeDaysView": "3 días",
+      "dateSelector": "Selector de fecha"
+    },
+    "createCustomEvent": "Crea una cita personal",
+    "customEvent": {
+      "dateEnd": "Fecha de finalización",
+      "dateStart": "Fecha de inicio"
+    },
+    "showAvailabilityDetails": "Detalles de disponibilidad"
+  },
+  "privateServiceCompatibility": {
+    "delete": {
+      "submit": "Suprimir",
+      "cancel": "Cancelar",
+      "explain": "¿Estás seguro de que quieres cambiar las reglas para usar el pass? Este cambio es retroactivo para las compras ya realizadas.",
+      "title": "Modificación citas compatibles"
+    },
+    "excludedSlots": {
+      "helperText": "Seleccione las sesiones para las que la tarjeta RDV es compatible",
+      "cancel": "Cancelar",
+      "submit": "Salvar",
+      "title": "Sesiones de {{ service }}",
+      "isEmpty": "No se ha configurado ningún tipo de sesión en esta cita!"
+    },
+    "forSlots": "Sesiones compatibles:",
+    "allSlots": "Compatible con todas las sesiones",
+    "none": " ninguna"
+  },
+  "selector": {
+    "privateSlot": "Seleccionar la sesión",
+    "privateService": "Seleccionar la cita",
+    "establishmentPlaceholder": "Todos los establecimientos",
+    "coachPlaceholder": "Todos los profesores",
+    "session": "Selecciona el tipo de sesión"
+  },
+  "privateService": {
+    "delete": {
+      "confirm": "Suprimir",
+      "submit": "Suprimir",
+      "cancel": "Cancelar",
+      "explain": "¿Estás seguro de que quieres cancelar esta cita? Este cambio es definitivo. Las reservas ya hechas no se verán afectadas.",
+      "title": "Supresión de la cita"
+    },
+    "padBeforeBooking": {
+      "explain4": "NO ACTIVO: Permitirá reservar la siguiente cita a partir de las 14:05 (los 5 minutos posteriores a la finalización de la cita anterior serán los mismos 5 minutos necesarios antes de que comience la siguiente cita). Los tiempos intermedios en este caso pueden solaparse.",
+      "explain3": "SI ESTÁ ACTIVO: Permitirá reservar la siguiente cita a partir de las 14:10 (5 minutos después del final de la cita anterior + 5 minutos antes del inicio de la siguiente). Los tiempos de espera de las citas no pueden solaparse.",
+      "explain2": "Ejemplo: Se ha reservado una cita para las 13:00, dura 1 hora, y tiene un buffer de disponibilidad de 5 minutos establecido antes y después de la cita (por ejemplo, para la limpieza de la habitación).",
+      "explain1": "Si se activa, el búfer de disponibilidad después de la primera cita y el búfer de disponibilidad antes de la segunda cita no se solaparán (habrá un espacio mayor entre dos citas ya que se consideran dos búfers de disponibilidad). Si no se activa, se solapará el búfer de disponibilidad después de la primera cita con el búfer de disponibilidad antes de la segunda cita."
+    },
+    "ineligibleService": {
+      "title": "No es posible reservar esta cita",
+      "description": "Esta cita es sólo para un grupo específico de miembros.",
+      "backToAppointments": "Volver a las citas"
+    }
+  },
+  "payment": {
+    "address": {
+      "save": "Guardar",
+      "explain": "Introduce tu dirección para el curso en casa"
+    }
+  },
+  "color": {
+    "form": {
+      "submit": "Guardar",
+      "cancel": "Cancelar",
+      "title": "Código color del profesor"
+    }
+  },
+  "availabilitySlot": {
+    "form": {
+      "resourceSelector": {
+        "submit": "Guardar",
+        "cancel": "Cancelar",
+        "label": "Modificar para :",
+        "title": "Cambiar franja horaria",
+        "warning": "Este profesor no está asociado a ninguna cita"
+      }
+    },
+    "private_service": "Tipo de cita",
+    "establishment": "Establecimiento",
+    "coach": "Profesor",
+    "detail": {
+      "detailEmpty": "No hay disponibilidad en la franja horaria seleccionada",
+      "dialog": {
+        "title": "Detalles de disponibilidad"
+      },
+      "openHours": "Horarios",
+      "availableEverywhere": "Disponible en todos los establecimientos",
+      "slotBoundaries": "De {{date_start}} a {{date_end}}",
+      "ok": "Ok"
+    },
+    "specificAvailabilityForm": {
+      "advanced": "Avanzado",
+      "infoForCoach": "Por defecto estarás disponible en todos los establecimientos. Al activar esta opción podrás seleccionar los establecimientos en los que estarás disponible para esta franja horaria.",
+      "info": "Por defecto, tu profesor será indicado como disponible en todos tus establecimientos. Al activar esta opción podrás seleccionar en qué establecimientos estará disponible tu profesor para esta franja horaria.",
+      "switchLabel": "Añadir sólo para algunos establecimientos"
+    },
+    "notAssociatedDialog": {
+      "close": "Cerrar",
+      "checkbox": "No me lo vuelvas a recordar",
+      "info": "Se ha guardado la disponibilidad. Sin embargo, este profesor no está asociado a ninguna cita.\nPara vincular una nueva cita con este profesor, asócielo a la cita deseada desde la pestaña Citas.",
+      "title": "No hay citas asociadas"
+    },
+    "notAssociatedWarning": "Tenga en cuenta que este profesor no está asociado a ningún nombramiento. Para registrar una nueva cita con este profesor, asócielo a la cita deseada desde la pestaña Citas."
+  },
+  "noPrivateService": "El miembro puede reservar una cita en la plaza que has elegido.",
+  "noPrivatePass": "Las tarjetas de cita permiten a los miembros hacer una cita, define tus precios y términos aquí.",
+  "customEvent": {
+    "form": {
+      "actions": {
+        "submit": "Guardar",
+        "cancel": "Cancelar"
+      },
+      "description": {
+        "placeholder": "Pregunta por el Sr. Charles en 1 Champs Elysées",
+        "label": "Descripción"
+      },
+      "coach": {
+        "isEmpty": "Ningún profesor"
+      },
+      "color": "Código de colores",
+      "name": {
+        "placeholder": "Cita banca",
+        "label": "Nombre"
+      },
+      "title": "Cita personal"
+    },
+    "actions": {
+      "delete": "Suprimir"
+    }
+  },
+  "noPrivateConsumerPass": "Nadie tiene esta tarjeta de cita",
+  "filters": {
+    "hasCreditNull": "Sin crédito",
+    "hasCreditLeft": "Con crédito",
+    "isActive": "Activa",
+    "isExpired": "Expirada",
+    "invoice": "Factura",
+    "reverted": "Factura cancelada",
+    "notReverted": "Factura no cancelada",
+    "credits": "Crédito",
+    "expiration": "Validez",
+    "all": "Todas las tarjetas",
+    "isValidToday": "Válido",
+    "empty": "Todas las tarjetas de citas"
+  },
+  "recurrenceRule": {
+    "item": {
+      "explain": "Cada {{dayOfWeek}} - {{time}}, {{delayWeek}} semanas antes",
+      "startFrom": "Desde el {{ date }}",
+      "allowUnpaid": "Autoriza las reservas no pagadas"
+    },
+    "forms": {
+      "update": {
+        "confirm": "Modificar",
+        "cancel": "Cancelar",
+        "content": "La modificación de la regla de recurrencia dará lugar a la modificación de las futuras citas realizadas a través de esta regla.",
+        "title": "Modificación de citas recurrentes"
+      },
+      "delete": {
+        "confirm": "Eliminar",
+        "cancel": "Cancelar",
+        "content": "Si no se programan las citas recurrentes, se cancelarán las citas futuras que se registren mediante esta regla.",
+        "title": "Desprogramar una cita recurrente",
+        "cancelRelatedBookings": "Cancelar todas las reservas futura realizadas con la norma",
+        "content_with_cancellation_option": "Esta regla de reserva recurrente será eliminada. ¿Desea también cancelar las futuras reservas realizadas con esta regla?"
+      }
+    },
+    "form": {
+      "notify_member": "Envíe un correo electrónico de confirmación al registrarse como miembro",
+      "timeGroup": "Fecha de la sesión",
+      "configuration": "Reservas",
+      "title": "Programar una recurrencia",
+      "override_availabilities": "Haga la reserva aunque el profesor, la sala o la cita no estén disponibles",
+      "allow_unpaid": "Permitir reservas sin pagar (sin tarjeta compatible retenida)"
+    },
+    "actions": {
+      "save": "Guardar",
+      "close": "Cerrar"
+    },
+    "createModal": {
+      "create": "Crear una reserva recurrente"
+    },
+    "recurrentBookings": "Citas recurrentes"
+  },
+  "privateBookingNotification": {
+    "tooltip": "Las notificaciones están activas para este tipo de cita",
+    "listItemPrimary": {
+      "notifyAllEvents": {
+        "cancelledNotRefunded": "En cada cancelación tardía",
+        "cancelledRefunded": "En cada cancelación reembolsada",
+        "valid": "Para cada cita"
+      },
+      "cancelledRefunded": "Reembolso de la cancelación n°{{notify_booking_nb}}",
+      "cancelledNotRefunded": "Cancelación tardía n°{{notify_booking_nb}}",
+      "valid": "Cita n°{{notify_booking_nb}}",
+      "after": "Notificación {{hours}}h después de la cita",
+      "before": "Notificación {{hours}}h antes de la cita"
+    },
+    "form": {
+      "next": "Siguiente",
+      "chooseTime": {
+        "second": {
+          "after": "hora(s) después de la sesión",
+          "before": "hora(s) antes de la sesión"
+        },
+        "first": "Enviar email",
+        "title": "Parámetros"
+      },
+      "chooseWhen": {
+        "after": "Envía el email al cliente después de la cita",
+        "before": "Envíe el email al cliente antes de la cita",
+        "title": "Tipo de notificación",
+        "afterNotification": "Enviar una notificación push al afiliado después de la cita a la que se refiere la notificación",
+        "afterNotifications": "Enviar notificaciones al afiliado después de la cita a la que se refiere la notificación",
+        "afterMail": "Enviar el correo electrónico al afiliado después de la cita a la que se refiere la notificación",
+        "beforeNotification": "Enviar la notificación push al afiliado antes de la cita a la que se refiere la notificación",
+        "beforeNotifications": "Enviar notificaciones al afiliado antes de la cita para la que se realiza la notificación",
+        "beforeMail": "Enviar el correo electrónico al afiliado antes de la cita a la que se refiere la notificación"
+      },
+      "help": {
+        "cancelledNotRefunded": {
+          "notifyAll": "Ayuda: la notificación se enviará al miembro cada vez que cancele una cita fuera de la fecha límite para este tipo de cita",
+          "default": "Ayuda: la notificación será enviada al miembro cuando se cancele tarde por n°{{notifyNb}} vez, para este tipo de cita"
+        },
+        "cancelledRefunded": {
+          "notifyAll": "Ayuda: Se enviará una notificación al miembro en cada una de sus reservas canceladas reembolsadas por este tipo de cita.",
+          "default": "Ayuda: la notificación será enviada al miembro cuando su reserva cancelada sea devuelta n°{{notifyNb}} para este tipo de cita."
+        },
+        "valid": {
+          "notifyAll": "Ayuda: la notificación se enviará al miembro por cada una de sus reservas válidas para este tipo de cita",
+          "default": "Los miembros reciben esta notificación una vez que han reservado {{notifyNb}} citas válidas."
+        }
+      },
+      "notifyAllEvents": "Notificar al miembro en cada evento",
+      "notifyNb": "Notificar al miembro para el evento n °:",
+      "chooseKind": {
+        "cancelledNotRefunded": "Reserva cancelada con retraso (no reembolsada)",
+        "cancelledRefunded": "Reserva cancelada y reembolsada",
+        "valid": "Reserva válida",
+        "title": "Elija el tipo de cita que desea notificar"
+      },
+      "intro": "Puedes informar a tus clientes antes o/y después de algunas citas, con respecto a algunas reglas como el número de reservas o la cancelación",
+      "title": "Añadir una notificación",
+      "ifKind": {
+        "notRefunded": "Si la cita se ha cancelado con retraso",
+        "refunded": "Si la cita se ha cancelado a tiempo",
+        "valid": "Si la cita es válida"
+      },
+      "subtitle": "Tarjeta de cita"
+    }
+  },
+  "marketplace": {
+    "isEmpty": "No hay cita disponible"
+  },
+  "popup": {
+    "end": "Hora final",
+    "begin": "Hora de inicio",
+    "button": "Horarios",
+    "validate": "Validar"
+  },
+  "searshAppointmentPass": "Buscar una tarjeta RDV",
+  "search": "Buscar de una cita",
+  "categoryTitle": "Categorías de tarjetas de citas",
+  "disabledPacksTitle": "Tarjetas de citas archivadas",
+  "notification": {
+    "listItem": {
+      "smartListInclude": "Listas incluidas",
+      "smartList": "Listas excluidas",
+      "deleteModal": {
+        "content": "¿Estás seguro de que quieres eliminar esta notificación? Esta operación es definitiva",
+        "confirm": "Borrar",
+        "cancel": "cancelar",
+        "title": "Ajouter une notification"
+      },
+      "mail": "Email "
+    },
+    "addButton": "Añadir una notificación"
+  },
+  "seeAll": "Ver todo",
+  "privatePassTemplateInstance": {
+    "privatePassSharedFromFranchisor": "Tarjeta de franquicia",
+    "form": {
+      "explain1": "Los siguientes estudios ofrecerán automáticamente este pase de cita, pero no podrán cambiar su precio ni su número de créditos.",
+      "title": "Configurar mis estudios",
+      "explain2": "Los miembros que hayan adquirido este pase de citas o una suscripción vinculada podrán utilizarlo en cualquiera de los nuevos estudios compatibles.",
+      "actions": {
+        "close": "Cerrar",
+        "submit": "Registrar"
+      }
+    },
+    "deleteForm": {
+      "content": "Si deja de compartir con este estudio, los pases de cita adquiridos en ese estudio seguirán siendo válidos, pero sólo dentro de ese estudio específico. Los pases de cita de otros estudios dejarán de ser válidos allí. Esto también se aplica a las suscripciones vinculadas.",
+      "title": "Dejar de compartir con un estudio",
+      "actions": {
+        "close": "Cerrar",
+        "submit": "Dejar de compartir"
+      }
+    },
+    "privateConsumerPassSharedFromOtherFranchisee": "Compartido por el franquiciado",
+    "companyEmpty": "Ningún estudio está configurado para aceptar esta tarjeta de curso",
+    "actions": {
+      "addCompany": "Añadir un estudio"
+    }
+  },
+  "privatePassTemplate": {
+    "section": {
+      "titleAvailable": "Disponible para la venta",
+      "titleManagerOnly": "No disponible para la venta"
+    },
+    "deleteForm": {
+      "content": "Los miembros podrán seguir utilizando el pase de cita en el estudio donde lo compraron. Cualquier suscripción vinculada a este pase de cita también funcionará únicamente en ese mismo estudio.",
+      "title": "Eliminar pase de cita compartido",
+      "actions": {
+        "close": "Cerrar",
+        "submit": "Eliminar"
+      }
+    },
+    "specification": {
+      "companySharedWithTitle": "Compartido con los estudios:"
+    },
+    "isEmptyExplain": "Los bonos compartidos están disponibles en los estudios de tu elección, y permiten a tus miembros utilizar sus créditos en cualquier estudio que elijan.",
+    "form": {
+      "title": "Tarjeta de curso compartido",
+      "close": "Cerrar",
+      "submit": "Validar",
+      "actions": {
+        "close": "Cerrar",
+        "submit": "Registrar"
+      },
+      "editConfirmation": {
+        "confirm": "Guardar de todos modos",
+        "cancel": "Cancelar",
+        "content": "Sus cambios también se aplicarán a las suscripciones vinculadas a este pase de cita compartido. ¿Está seguro de que desea continuar y guardar los cambios?",
+        "title": "Editar confirmación"
+      }
+    },
+    "actions": {
+      "create": "Crear un mapa compartido"
+    }
+  },
+  "universalPass": {
+    "delete": {
+      "dialog": {
+        "title": "Borrar el bono universal",
+        "warningText": "¡Atención! Al borrar un bono universal también se borrarán sus bonos gemelos."
+      }
+    }
+  },
+  "specificAvailabilitiesCalendar": {
+    "establishment": "Establecimiento",
+    "filters": "Filtros",
+    "infoBoxContent": "Te encuentras en el modo de disponibilidad específico del establecimiento. Por defecto, tus profesores están disponibles en todos los establecimientos cuando creas una disponibilidad. En esta página puede definir disponibilidades específicas para ciertos establecimientos para que tu profesor esté disponible sólo en estos establecimientos. Es necesario crear una disponibilidad general en el horario de tu profesor para crear una disponibilidad específica.",
+    "goToRegularCalendar": "Volver al horario"
+  },
+  "openSpecificAvailabilitiesCalendar": "Disponibilidades específicas",
+  "forms": {
+    "delete": {
+      "content": {
+        "canDelete": "¿Está seguro de que desea suprimir esta cita? Este cambio es definitivo. Las reservas ya realizadas no se verán afectadas."
+      },
+      "title": "Borrar cita previa",
+      "actions": {
+        "cancel": "Cancelar",
+        "confirm": "Borrar"
+      },
+      "cancel": "Cancelar",
+      "confirm": "Borrar"
+    }
+  }
+}

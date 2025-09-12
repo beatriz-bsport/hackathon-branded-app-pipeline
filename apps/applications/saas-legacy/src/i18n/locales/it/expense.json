@@ -1,0 +1,140 @@
+{
+  "dialogEditExpense": {
+    "cancel": "Cancella",
+    "validate": "Convalidare",
+    "future": "Modificare questa e simili spese future",
+    "all": "Cambiare tutte le spese simili (passate e future)",
+    "current": "Modificare solo questa spesa"
+  },
+  "form": {
+    "repeat": {
+      "weekdays": {
+        "first": "1º",
+        "monday": "Lunedì",
+        "tuesday": "Martedì",
+        "wednesday": "Mercoledì",
+        "third": "3º",
+        "sunday": "Domenica",
+        "fourth": "4º",
+        "thursday": "Giovedì",
+        "friday": "Venerdì",
+        "second": "2º",
+        "saturday": "Sabato"
+      },
+      "ends": "Finisce dopo",
+      "number": "Prove :",
+      "title": "Ricorrenza",
+      "week": "Settimana(e)",
+      "month": "Mese",
+      "year": "Anno/i",
+      "day": "Giorno/i",
+      "repeatEvery": "Ripetere tutti i",
+      "repeatMonth": "Ogni mese, il",
+      "repeatMonth_nb": "Ogni {{ nb }} mesi, il",
+      "repeatMonthDay": "Tutti i",
+      "repeatWeek": "Ogni settimana, il",
+      "repeatWeek_nb": "Ogni {{ nb }} settimane, il",
+      "repeatYear": "Ogni anno, il",
+      "repeatYear_nb": "Ogni {{ nb }} anni, il",
+      "interval": "Intervallo",
+      "count": "Numero di occorrenze :",
+      "weekdays_pl": {
+        "monday": "Lunedì",
+        "thursday": "Giovedì",
+        "friday": "Venerdì",
+        "saturday": "Sabato",
+        "sunday": "Domenica",
+        "tuesday": "Martedì",
+        "wednesday": "Mercoledì"
+      },
+      "months": {
+        "march": "Marzo",
+        "april": "Aprile",
+        "january": "Gennaio",
+        "february": "Febbraio",
+        "may": "Maggio",
+        "june": "Giugno",
+        "july": "Luglio",
+        "august": "Agosto",
+        "september": "Settembre",
+        "october": "Ottobre",
+        "november": "Novembre",
+        "december": "Dicembre"
+      },
+      "fromDate": "Dal",
+      "from": "Da",
+      "until": "Su"
+    },
+    "noStaff": "Senza staff assegnato",
+    "supplier": "Fornitore / Venditore",
+    "description": "Titolo / Descrizione",
+    "actions": {
+      "cancel": "Cancella",
+      "save": "Registra",
+      "edit": "Aggiornamento"
+    },
+    "requiredField": "Questo campo è richiesto.",
+    "date_due": "Data di scadenza",
+    "staff": "Staff",
+    "category": "Categoria",
+    "amount": "Importo",
+    "editChoices": {
+      "explanation": {
+        "details": "Le modifiche saranno applicate, come desiderato, alle spese attuali e future o a tutte le spese.",
+        "dateDue": "La data di scadenza sarà cambiata solo per la spesa selezionata."
+      },
+      "editDateDue": "Cambiare la data di scadenza",
+      "editDetails": "Modificare i dettagli della spesa"
+    },
+    "titleEdit": "Modificare una spesa",
+    "titleAdd": "Aggiungere una spesa"
+  },
+  "delete": {
+    "success": "La spesa è stata rimossa.",
+    "error": "Impossibile rimuovere questa spesa"
+  },
+  "create": {
+    "success": "La spesa è stata creata.",
+    "error": "Impossibile creare questa spesa"
+  },
+  "update": {
+    "error": "Impossibile aggiornare questa spesa",
+    "success": "La spesa è stata aggiornata."
+  },
+  "table": {
+    "header": {
+      "date_due": "Data di scadenza",
+      "staff": "Staff",
+      "category": "Categoria",
+      "amount": "Importo",
+      "supplier": "Fornitore / Venditore",
+      "description": "Titolo / Descrizione",
+      "repeat": "Ricorrenza",
+      "actions": "Azioni"
+    },
+    "yes": "sì",
+    "no": "non"
+  },
+  "dialogDeleteExpense": {
+    "all": "Elimina tutte le spese simili (passate e future)",
+    "confirm": "Rimuoverai permanentemente la spesa {{amount}} dalla {{date_due}}.",
+    "delete": "Cancella",
+    "current": "Elimina solo questa spesa",
+    "future": "Elimina questa e simili spese future",
+    "cancel": "Cancella",
+    "warning": "Sei sicuro di voler tagliare questa spesa?"
+  },
+  "filters": {
+    "noStaff": "Senza staff assegnato",
+    "titleCategory": "Categorie",
+    "titleSupplier": "Fornitori",
+    "titleStaff": "Staff",
+    "filterCategory": "Tutte le categorie",
+    "filterStaff": "Tutto lo staff",
+    "showFuture": "Spese future",
+    "filterSupplier": "Tutti i fornitori",
+    "noCategory": "Nessuna categoria"
+  },
+  "noExpenses": "Puoi aggiungere le tue spese di studio qui.",
+  "addButton": "Aggiungere una spesa"
+}

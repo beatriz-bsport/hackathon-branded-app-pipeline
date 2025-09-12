@@ -1,0 +1,168 @@
+{
+  "detail": {
+    "shopItemAvailable": "{{length}} prodotto dello shop compatibile",
+    "shopItemAvailable_plural": "{{length}} prodotti dello shop compatibili",
+    "noConfiguration": "Seleziona una configurazione per vedere i suoi dettagli",
+    "title": "Dettagli della configurazione",
+    "giftcard": "Gift card",
+    "paymentPack": "Pacchetti",
+    "privatePass": "Pacchetti per appuntamenti",
+    "shopItem": "Prodotti",
+    "combo": "Pacchetti combinati",
+    "recurrency": "Ricorrenza",
+    "duration": "Tutti i {{frequency}} {{recurrency}} pendente {{number_of_billing}} {{recurrency_ponderate_by_number_of_billing}}",
+    "number_of_billing": "Numero di pagamenti",
+    "paymentNumber": "{{number_of_billing}} pagamento",
+    "paymentNumber_plural": "{{number_of_billing}} pagamenti",
+    "fee": "Costi fissi",
+    "minimumAmount": "Importo minimo del paniere",
+    "compatibility": "Compatibilità",
+    "seeAll": "vedere tutti",
+    "packAvailableForAll": "Tutte le schede di corso compatibili",
+    "packAvailable": "{{length}} pacchetto compatibile",
+    "packAvailable_plural": "{{length}} pacchetti compatibili",
+    "privatePassAvailableForAll": "Tutti i pacchetti per appuntamenti compatibili",
+    "privatePassAvailable": "{{length}} pacchetto per appuntamenti compatibile",
+    "privatePassAvailable_plural": "{{length}} pacchetti per appuntamenti compatibili",
+    "comboAvailableForAll": "Tutti i pacchetti combinati compatibili",
+    "comboAvailable": "{{length}} pacchetto combinato compatibile",
+    "comboAvailable_plural": "{{length}} pacchetti combinati compatibili",
+    "giftcardAvailableForALl": "Tutte le gift card compatibili",
+    "giftcardAvailable": "{{length}} gift card compatibile",
+    "giftcardAvailable_plural": "{{length}} gift card compatibili",
+    "shopItemAvailableForALl": "Tutti i prodotti dello shop compatibili",
+    "onlyWhenAllAvailable": "Offerto solo quando tutti gli articoli nel carrello sono compatibili",
+    "whenOneAvailable": "Proposto non appena un oggetto nel cestino è compatibile",
+    "noCompability": "Il tuo pagamento a rate non è compatibile"
+  },
+  "paymentAllInOnce": "Paga in una volta sola",
+  "basket": {
+    "instalmentAmountTitle": "Timeline",
+    "instalmentAmount": "Scadenza per ",
+    "fee": "Costi fissi : "
+  },
+  "action": {
+    "edit": {
+      "success": "La configurazione è stata cambiata",
+      "error": "Errore quando si cambia la configurazione"
+    },
+    "create": {
+      "success": "La configurazione è stata creata",
+      "error": "Errore durante la creazione della configurazione"
+    },
+    "disable": {
+      "success": "La configurazione è stata cancellata",
+      "error": "Errore durante la cancellazione della configurazione"
+    }
+  },
+  "list": {
+    "infoNoInstalmentPayment": "Il pagamento a rate permette ai tuoi membri di pagare i loro acquisti in un periodo di tempo. Configura le tue rate e su quali articoli applicarle.",
+    "addInstalmentPayment": "aggiungere una configurazione"
+  },
+  "title": "Pagamento a rate",
+  "deleteDialog": {
+    "title": "Volete davvero rimuovere questa configurazione?",
+    "content": "Solo i pagamenti futuri saranno interessati."
+  },
+  "close": "Chiudere",
+  "modify": "Modifica",
+  "delete": "Elimina",
+  "menu": {
+    "secondary": {
+      "allMasculine": "Tutti i {{frequency}} ",
+      "allFeminine": "Tutti i {{frequency}} ",
+      "numberOfBilling": "{{number_of_billing}} raccolta",
+      "numberOfBilling_plural": "{{number_of_billing}} scontrini"
+    }
+  },
+  "form": {
+    "numberOfBilling": "Numero di collezioni",
+    "add": "aggiungere una configurazione",
+    "search": "Cerca",
+    "onlyAvailableInfo": "Per impostazione predefinita, se ci sono articoli compatibili nel carrello insieme a quelli incompatibili, la funzione multi-pagamento non sarà offerta. Disattivando questa funzione, il pagamento a rate sarà ancora proposto, a condizione che un articolo compatibile sia nel carrello.",
+    "onlyAvailable": "Offerta solo quando tutti gli articoli nel carrello sono compatibili",
+    "minimumAmountHelperText": "Per un paniere inferiore a questo importo, il pagamento in più rate non sarà offerto.",
+    "minimum_amount": "Importo minimo del paniere",
+    "advanced": "Avanzato",
+    "requiredField": "questo campo è richiesto",
+    "cancel": "Cancella",
+    "save": "Registra",
+    "compatibility": "Compatibilità",
+    "create": "Pagamento a rate",
+    "generalInfo": "Informazioni generali",
+    "compabilityInfo": "Selezioni gli articoli sui quali desidera applicare il pagamento a rate, sarà compatibile solo con questi. Quando acquisti uno degli articoli selezionati, ti verrà proposto il pagamento in più rate.",
+    "name": "Nome",
+    "info": {
+      "startDay": "I pagamenti saranno addebitati ogni {{frequency}} giorni",
+      "startWeek": "I pagamenti saranno addebitati ogni {{frequency}} settimane",
+      "startMonth": "I pagamenti saranno addebitati ogni {{frequency}} mese",
+      "startYear": "I pagamenti saranno addebitati ogni {{frequency}} anni",
+      "middle": " per una durata totale di {{total}} ",
+      "end": " e genererà {{number_of_billing}} raccolta",
+      "end_plural": " e genererà {{number_of_billing}} incassi"
+    },
+    "frequency": {
+      "start": "Ripeti ogni"
+    },
+    "fee": "Costi fissi",
+    "feeHelperText": "Tasse da pagare da parte del membro per utilizzare l'opzione di pagamento rateale, queste saranno aggiunte automaticamente al primo pagamento.",
+    "recurrency": {
+      "title": "Ricorrenza",
+      "week": "settimana",
+      "week_plural": "settimane",
+      "month": "mese",
+      "month_plural": "mesi",
+      "year": "anno",
+      "year_plural": "anni",
+      "day": "giorno",
+      "day_plural": "giorni",
+      "daily": "Quotidiano",
+      "weekly": "Settimanale",
+      "montly": "Mensile",
+      "annual": "Annuale"
+    },
+    "compability": {
+      "selectPack": "Selezionare un pacchetto",
+      "selectPrivatePass": "Selezionare un pacchetto per appuntamenti",
+      "selectCombo": "Seleziona un pacchetto combinato",
+      "selectShopItem": "Selezionare un prodotto",
+      "selectGiftcard": "Seleziona una gift card",
+      "allPass": "Compatibile con tutti i pacchetti",
+      "pack": "Pacchetto",
+      "privateBooking": "Pacchetto per appuntamenti",
+      "allPrivateBooking": "Compatibile con tutti i pacchetti per appuntamenti",
+      "combo": "Pacchetto combinato",
+      "allCombo": "Compatibile con tutte le confezioni",
+      "shopItem": "Prodotti nello shop",
+      "allShopItem": "Compatibile con tutti i prodotti dello shop",
+      "giftcard": "Gift card",
+      "allGiftcard": "Compatibile con tutte le gift card"
+    },
+    "customInstalmentAmount": {
+      "label": "Personalizza l'importo della prima rata",
+      "type": {
+        "amount": "Importo fisso",
+        "percent": "In percentuale al prezzo totale del cestino"
+      },
+      "amountHelperText": {
+        "percent": "Percentuale",
+        "amount": "Importo"
+      }
+    },
+    "partialPaymentRadio": {
+      "disabled": "Paga l'intero carrello in più rate",
+      "enabled": {
+        "label": "Pagamento parziale del carrello",
+        "helperText": "Il membro paga immediatamente solo una parte dell'importo totale del suo carrello, il resto verrà addebitato sul suo saldo del conto"
+      }
+    }
+  },
+  "configurationOption": {
+    "payLaterRemainder": "Il resto dell'importo addebitabile {{remainder}} verrà prelevato dal tuo saldo interno",
+    "payLater": "Paga solamente {{amount}}"
+  },
+  "validation": {
+    "percentRange": "La percentuale deve essere compresa tra 1 e 100",
+    "amountMin": "L'importo deve essere maggiore di 1"
+  }
+}

@@ -1,0 +1,105 @@
+{
+  "dashboard": {
+    "marketingDashboard": "Marketing",
+    "dashboard": "Dashboard",
+    "reportingDashboard": "Berichte"
+  },
+  "marketplace": {
+    "marketplacePass": "Kurspässe",
+    "marketplaceCalendar": "Kalender",
+    "marketplaceWorkshop": "Workshops",
+    "marketplaceShop": "Webshop",
+    "marketplaceGiftcard": "Gutscheine"
+  },
+  "establishment": {
+    "establishmentFormPage": "Einrichtung hinzufügen",
+    "establishmentList": "Einrichtungen",
+    "establishmentGroupPage": "Standorte"
+  },
+  "privateService": {
+    "serviceList": "Termine"
+  },
+  "coupon": {
+    "couponList": "Rabatte",
+    "couponDetail": "{{name}}",
+    "couponCreate": "Werbeaktion-Formular",
+    "couponEdit": "Werbeaktion-Formular"
+  },
+  "coach": {
+    "coachFormPage": "Lehrkraft-Formular",
+    "coachList": "Lehrkräfte",
+    "allCoachPerformance": "Lohnabrechnung",
+    "coachPerformance": "Lohnabrechnung: {{- name }}"
+  },
+  "invoice": {
+    "invoiceCreate": "In Rechnung stellen",
+    "invoiceList": "Rechnungen",
+    "invoiceEdit": "Änderung der Rechnung"
+  },
+  "metaActivity": {
+    "metaActivityFormPage": "Gruppenaktivität hinzufügen",
+    "metaActivityEditForm": "Aktivität-Formular",
+    "metaActivityList": "Aktivitäten",
+    "metaActivityFormSubtitle": "Erstelle eine Gruppenaktivität mit Infos und Buchungsbedinungen.",
+    "metaActivityEditFormSubtitle": "Gruppenaktivität bearbeiten"
+  },
+  "order": {
+    "orderDetail": "Details der Bestellung",
+    "orderList": "Bestellungen"
+  },
+  "member": {
+    "memberFormPage": "Mitglied-Formular",
+    "members": "Mitglieder",
+    "memberForm": "Ein Mitglied hinzufügen",
+    "mergeMember": "Mitglied zusammenlegen"
+  },
+  "banner": {
+    "networkError": "Bist du offline? Prüfe bitte deine Internetverbindung und versuche es nochmal.",
+    "isStaging": "Einen Termin vereinbaren",
+    "franchiseConnection": "Sie sind gerade bei einer der Anwendungen Ihrer Franchisenehmer angemeldet",
+    "serverConnectionRestored": "Verbindung wiederhergestellt. Du kannst ohne Probleme fortfahren.",
+    "serverError": "Sorry, bei uns ist etwas schief gelaufen - bitte warte, oder klicke hier um die Seite neu zu laden.",
+    "networkConnectionRestored": "Verbindung wiederhergestellt!"
+  },
+  "video": {
+    "videoList": "Videothek"
+  },
+  "offerManagement": "Buchungen",
+  "paymentPack": {
+    "paymentPackList": "Kurspässe",
+    "paymentPackFormPage": "Kurspass-Formular"
+  },
+  "marketing": {
+    "marketingDashboard": "Dashboard",
+    "marketingRule": "Marketing-Kampagnen",
+    "notifications": "Benachrichtigungen",
+    "cadence": "Kadenz",
+    "audience": "{{ audienceCamelCase }}"
+  },
+  "searchResults": "Suche",
+  "settings": "Einstellungen",
+  "subscription": {
+    "subscriptionCreate": "Ein Abonnement erstellen",
+    "subscriptions": "Abonnements"
+  },
+  "workshopActivity": {
+    "workshopActivityList": "Workshops",
+    "workshopActivityCreate": "Ein Event erstellen",
+    "workshopActivityFormPage": "Workshop-Formular",
+    "workshopActivityEditFormSubtitle": "Workshop bearbeiten",
+    "workshopActivityFormSubtitle": "Workshop erstellen"
+  },
+  "planning": "Kalender",
+  "shop": "Webshop",
+  "offerFormPage": "Erstellung eines Kurses",
+  "expense": {
+    "expenseList": "Ausgaben"
+  },
+  "coachUserSpace": {
+    "performance": "Lohnabrechnung",
+    "replacement": "Vertretung"
+  },
+  "replacement": "Vertretung",
+  "inbox": "Posteingang",
+  "giftcard": "Gutscheine"
+}

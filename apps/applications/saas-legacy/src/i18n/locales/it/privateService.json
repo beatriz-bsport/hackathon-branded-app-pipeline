@@ -1,0 +1,1200 @@
+{
+  "serviceGroup": {
+    "delete": "Rimuovi",
+    "edit": "Modifica",
+    "isEmpty": "Nessun appuntamento associato a questa categoria",
+    "selector": {
+      "placeholder": "Categoria"
+    },
+    "form": {
+      "title": "Categoria",
+      "name": {
+        "label": "Nome"
+      },
+      "actions": {
+        "cancel": "Annulla",
+        "submit": "Salva"
+      }
+    }
+  },
+  "consumerPass": {
+    "current_credits": "{{current_credits}} / {{credits}} crediti",
+    "extension": {
+      "nbDaysAdded": "+ {{nb_days}}",
+      "addedOn": "Aggiungi il ",
+      "delete": {
+        "title": "Rimozione dell'estensione",
+        "explain": "Sei sicuro di voler eliminare l'estensione di validità?",
+        "cancel": "Annulla",
+        "confirm": "Conferma"
+      },
+      "create": {
+        "title": "[Form] Estendi validità",
+        "cancel": "Annulla",
+        "submit": "Creare",
+        "warning": "Verificare che la nuova data non superi il periodo fiscale di questo pacchetto. In tal caso, verificare con il proprio commercialista la pertinenza di questa operazione.",
+        "note": {
+          "label": "Annotazioni"
+        },
+        "nbDays": {
+          "label": "Numero di giorni aggiuntivi"
+        },
+        "explain": {
+          "oldDate": "Vecchia data: ",
+          "newDate": "Nuova data: "
+        },
+        "datePicker": {
+          "label": "Nuova data"
+        }
+      },
+      "options": {
+        "addNumberOfDays": "Estendi la validità aggiungendo un numero di giorni",
+        "selectNewEndDate": "Imposta una nuova data di scadenza"
+      }
+    },
+    "actions": {
+      "addExtension": "Estendi la validità"
+    },
+    "detail": {
+      "booking": "Prenotazioni di appuntamenti collegati",
+      "invoice": "Ricevuta correlata",
+      "extensionsTitle": "Estensione della validità"
+    },
+    "isReverted": "Ricevuta annullata",
+    "expiresOn": "Scade il {{date}}",
+    "isFromDisabledShare": "Condivisione interrotta",
+    "isOwnerOfShares": "Condividere (master card per appuntamenti)",
+    "isFromShare": "Condividere da un altro account",
+    "warningShareUniversal": "Questo pacchetto è universale, si prega di condividere il pacchetto associato",
+    "isFromShareTooltip": "Questo pacchetto per appuntamenti è condiviso da un altro studio in franchising"
+  },
+  "availabilitySlot": {
+    "form": {
+      "resourceSelector": {
+        "title": "Modifica della fascia oraria",
+        "cancel": "Annulla",
+        "label": "Modifica per:",
+        "submit": "Salva",
+        "warning": "Questo/a insegnante non è associato/a ad alcun appuntamento"
+      }
+    },
+    "private_service": "Tipo di appuntamento",
+    "establishment": "Stabilimento",
+    "coach": "Insegnante",
+    "detail": {
+      "detailEmpty": "Nessuna disponibilità nello slot selezionato",
+      "dialog": {
+        "title": "Dettagli sulla disponibilità"
+      },
+      "openHours": "Orario",
+      "availableEverywhere": "Disponibile in tutti gli stabilimenti",
+      "slotBoundaries": "Da {{date_start}} a {{date_end}}",
+      "ok": "Ok"
+    },
+    "specificAvailabilityForm": {
+      "advanced": "Avanzato",
+      "infoForCoach": "Come impostazione predefinita, sarai disponibile in tutti gli stabilimenti. Attivando questa opzione potrai selezionare in quali stabilimenti sarai disponibile per questa fascia oraria.",
+      "info": "Per impostazione predefinita, l'insegnante sarà indicato come disponibile in tutte le vostre sedi. Attivando questa opzione, sarà possibile selezionare in quali stabilimenti l'insegnante sarà disponibile per questa fascia oraria.",
+      "switchLabel": "Aggiungi solo per alcuni stabilimenti"
+    },
+    "notAssociatedDialog": {
+      "info": "La disponibilità è stata registrata. Tuttavia, questo insegnante non è associato ad alcun appuntamento.\n         Per poter collegare un nuovo appuntamento con questo insegnante, associalo all'appuntamento desiderato dalla scheda Appuntamenti.",
+      "close": "Chiudi",
+      "checkbox": "Non ricordarmelo più",
+      "title": "Nessun appuntamento associato"
+    },
+    "notAssociatedWarning": "Attenzione, questo insegnante non è associato ad alcun appuntamento. Per poter collegare un nuovo appuntamento con questo insegnante, associalo all'appuntamento desiderato dalla scheda Appuntamenti."
+  },
+  "resource": {
+    "datatype": {
+      "establishment": "Stabilimenti",
+      "coach": "Insegnante",
+      "associated_establishment": "Stabilimenti",
+      "associated_coach": "Insegnante",
+      "private_service": "Generale"
+    },
+    "groupBy": "Raggruppare per",
+    "unGroup": "Nessuno",
+    "form": {
+      "color": "Codice colore",
+      "actions": {
+        "cancel": "Annulla",
+        "submit": "Salva"
+      }
+    },
+    "selector": {
+      "title": "Verificare la disponibilità"
+    },
+    "allocationWarning": {
+      "showCalendar": "Vedere il calendario",
+      "establishment": "Questo stabilimento non è disponibile in questa fascia oraria.",
+      "coach": "Questo insegnante non è disponibile in questo orario",
+      "cancel": "Cancella",
+      "validate": "Convalidare",
+      "continue": "Sei sicuro di voler spostare questa appuntamento?",
+      "resource": "Si prega di notare che {{ resource }} non è disponibile in questo slot.\n",
+      "title": "Non c'è disponibilità per la presentazione. Fare clic sulle frecce per trovare un'altra fascia oraria.",
+      "loading": "Verifica della disponibilità dello slot"
+    }
+  },
+  "pageTitles": {
+    "passList": "Pacchetti per appuntamenti",
+    "serviceList": "Su appuntamento",
+    "calendar": "Calendario"
+  },
+  "color": {
+    "form": {
+      "submit": "Salva",
+      "title": "Codice colore dell'insegnante",
+      "cancel": "Annulla"
+    }
+  },
+  "payment": {
+    "address": {
+      "explain": "Inserisci il tuo indirizzo per il corso a domicilio",
+      "save": "Salva"
+    }
+  },
+  "privateSlot": {
+    "delete": {
+      "title": "Elimina sessione",
+      "explain": "Sei sicuro di voler eliminare questa sessione? Le prenotazioni passate non saranno interessate. Questa operazione è definitiva.",
+      "cancel": "Annulla",
+      "confirm": "Conferma"
+    },
+    "duration": "{{ minutes }} minuti"
+  },
+  "privateBooking": {
+    "editTime": "Modifica",
+    "updateTime": {
+      "title": "Cambia appuntamento",
+      "submit": "Salva",
+      "cancel": "Annulla",
+      "explainEmail": "Un'email verrà automaticamente inviata all'allievo per avvisarlo"
+    },
+    "cancel": "Annulla",
+    "hardDelete": "Rimuovi",
+    "isCancelled": "Annullato",
+    "detail": {
+      "title": "Prenotazioni",
+      "registeredOn": "Prenotato il ",
+      "wasRefunded": "I crediti verranno rimborsati nel pacchetto.",
+      "wasRefundedYes": "Sì",
+      "wasRefundedNo": "No",
+      "slotTitle": "Allenamento",
+      "passTitle": "Pacchetti per appuntamenti",
+      "address": "Indirizzo",
+      "coach": "Insegnante",
+      "attachCoach": "Assegna un insegnante",
+      "source": "Canale di prenotazione ",
+      "cancelledOn": "Annullare ",
+      "unpaidBooking": "Il cliente ha usato l'opzione di pagare più tardi. {{ credits}} o i crediti saranno automaticamente addebitati sul prossimo acquisto di un pacchetto compatibile.",
+      "cancelledByRecurrenceBy": "Cancellato da",
+      "cancelledBy": "Cancellato da",
+      "restoredBy": "Ripristinato da",
+      "dateModifiedBy": "Modificato da",
+      "coachModifiedBy": "Modificato da",
+      "cancelledByRecurrence": "Cancellazione ricorrente della prenotazione",
+      "cancelled": "Cancellazione",
+      "restored": "Ripristina",
+      "dateModified": "Modifica",
+      "coachModified": "Modifica",
+      "canal": "Canale",
+      "initialDateTime": "Data e ora iniziali",
+      "emptyHistory": "Nessuno storico",
+      "historyTitle": "Storico",
+      "by": "Da",
+      "cancelledByRecurrenceOn": "Cancellazione ricorrente della prenotazione attiva "
+    },
+    "managerAdd": {
+      "compatiblePrivateConsumerPass": "Pacchetti per appuntamenti disponibili",
+      "title": "Nuova prenotazione",
+      "address": "Indirizzo",
+      "coachSelector": {
+        "label": "Insegnante"
+      },
+      "pleaseSelectCoachAndSlot": "Prima seleziona l'insegnante e la sessione",
+      "cancel": "Annulla",
+      "compatiblePrivatePass": "Acquisto rapido",
+      "emptyPrivateConsumerPass": "Nessun pacchetto compatibile posseduta.",
+      "emptyPrivatePass": "Nessun pacchetto per appuntamenti compatibile da mostrare.",
+      "privateConsumerPassNeedRefresh": "Aggiorna l'elenco",
+      "incompatibilities": {
+        "11107": "Appuntamento non compatibile",
+        "11108": "Numero di crediti insufficiente",
+        "11109": "Il pacchetto inizia con la prima prenotazione, il ",
+        "11110": "Il pacchetto è scaduto",
+        "11111": "Le date sono incompatibili",
+        "privateService": "Pacchetto configurato come incompatibile con l'appuntamento in questione :",
+        "close": "Chiudi"
+      },
+      "noUncompatiblePassToDisplay": "Nessun pacchetto per appuntamenti non compatibile",
+      "nonCompatiblePrivateConsumerPass": "Pacchetto per appuntamenti posseduto non compatibile:"
+    },
+    "delete": {
+      "consumer": {
+        "content": {
+          "discardable": "Sei sicuro di voler annullare questo appuntamento? I tuoi crediti saranno di nuovo disponibili.",
+          "notDiscardable": "Sei sicuro di voler annullare questo appuntamento? Sei fuori tempo massimo, i tuoi crediti non verranno accreditati."
+        },
+        "title": "Prenotazione annullata",
+        "cancel": "Annulla",
+        "confirm": "Conferma"
+      },
+      "explainForceRefund": "Rimborsare il credito sul pacchetto utilizzato per consentire una nuova prenotazione.",
+      "cancel": "Annulla",
+      "confirm": "Conferma",
+      "explainHardDelete": "Questa prenotazione è già stata cancellata, eliminandola scompare completamente dal calendario e si perde la cronologia. Verrà rimborsato se non lo è stato in precedenza. Questa operazione è irreversibile.",
+      "title": "Prenotazione annullata",
+      "explain": "Sei sicuro di voler cancellare questa prenotazione? Questa operazione è irreversibile.",
+      "sendCancellationMail": "Notifica {{name}} della cancellazione dell'appuntamento via e-mail",
+      "explainWithRestore": "Sei sicuro di voler annullare questa prenotazione? Potrai annullarla in seguito.",
+      "hardDeleteTitle": "Cancellazione di una prenotazione",
+      "explainMoreHardDeleteReccurentBookingTitle": "Appuntamento ricorrente",
+      "explainMoreHardDeleteReccurentBooking": "Questa prenotazione è collegata a una regola di appuntamento ricorrente. Se elimini questa prenotazione il sistema proverà a crearla di nuovo. Se non desideri che questa prenotazione venga rigenerata, non eliminarla e lascia il suo stato come cancellato."
+    },
+    "attachCoach": {
+      "title": "Affidato all'insegnante",
+      "explain": "Scegli un insegnante per assegnare questo appuntamento e aggiungerlo al suo calendario",
+      "actions": {
+        "cancel": "Annulla",
+        "title": "Assegna un insegnante"
+      }
+    },
+    "discard": "Annulla l'appuntamento",
+    "updateCoach": "Scegli un nuovo insegnante per questo appuntamento",
+    "isCancelledDate": "Annullare {{-date}} alle {{time}}",
+    "restore": "Fissare di nuovo l'appuntamento",
+    "bookings": "Appuntamenti",
+    "notRefunded": "Non rimborsato",
+    "isRefunded": "Rimborsato",
+    "isUnpaid": "Pagamento in sospeso",
+    "bookingIsUnpaid": "Prenotazioni non pagate",
+    "isCancelledByManagerDate": "Annullato il {{-date}} alle {{time}} da {{cancelled_by}}",
+    "isCancelledByManager": "Annullato da {{cancelled_by}}",
+    "incompatibleTagsDialog": {
+      "confirm": "Conferma",
+      "description": "Si prega di notare che questo membro non ha i tag richiesti per questo appuntamento. Si desidera procedere con la prenotazione comunque?",
+      "cancel": "Annulla",
+      "title": "Informazioni"
+    },
+    "setUnpaid": {
+      "confirm": "Segna come non pagato",
+      "cancel": "Indietro",
+      "confirmMessage": "Contrassegnare questa prenotazione come \"non pagata\" restituirà i crediti al pacchetto del membro. La prenotazione rimarrà valida ma risulterà come \"non pagata\" finché tutti i pagamenti in sospeso non verranno saldati.",
+      "confirmTitle": "Segnare come non pagato?",
+      "button": "Segna come non pagato"
+    }
+  },
+  "privateService": {
+    "delete": {
+      "explain": "Sei sicuro di voler eliminare questo appuntamento? Questo cambiamento è definitivo. Le prenotazioni già registrate non saranno interessate.",
+      "title": "Eliminare l'appuntamento",
+      "cancel": "Annulla",
+      "submit": "Rimuovi",
+      "confirm": "Rimuovi"
+    },
+    "padBeforeBooking": {
+      "explain4": "NON ATTIVO: consente di prenotare l'appuntamento successivo a partire dalle 14:05 (i 5 minuti dopo la fine dell'appuntamento precedente saranno gli stessi 5 minuti necessari prima dell'inizio dell'appuntamento successivo). In questo caso, i tempi di attesa possono sovrapporsi.",
+      "explain3": "ATTIVO: consente di prenotare l'appuntamento successivo a partire dalle 14:10 (5 minuti dopo la fine dell'appuntamento precedente + 5 minuti prima dell'inizio di quello successivo). I tempi di attesa degli appuntamenti non possono sovrapporsi.",
+      "explain2": "Esempio: Un appuntamento è stato prenotato per le 13:00, dura 1 ora e si dispone di un buffer di disponibilità di 5 minuti prima e dopo l'appuntamento (ad esempio per la pulizia della stanza).",
+      "explain1": "Se attivata, il buffer di disponibilità dopo il primo appuntamento e il buffer di disponibilità prima del secondo appuntamento non si sovrapporranno (ci sarà uno spazio maggiore tra due appuntamenti, poiché vengono considerati due buffer di disponibilità). Se non è attivata, il buffer di disponibilità dopo il primo appuntamento si sovrapporrà al buffer di disponibilità prima del secondo appuntamento."
+    },
+    "ineligibleService": {
+      "backToAppointments": "Torna agli appuntamenti",
+      "description": "Questo appuntamento è riservato a un gruppo specifico di membri.",
+      "title": "Non è possibile prenotare questo appuntamento"
+    }
+  },
+  "privateCoach": {
+    "delete": {
+      "submit": "Conferma",
+      "cancel": "Annulla",
+      "explain": "Sei sicuro di voler eliminare l'assegnazione a questo insegnante? Non sarai più in grado di prenotare questo appuntamento. Le prenotazioni registrate non saranno interessate.",
+      "title": "Annulla iscrizione dell'insegnante"
+    }
+  },
+  "privateEstablishment": {
+    "delete": {
+      "explain": "Sei sicuro di voler cambiare lo stabilimento di questo appuntamento? Senza uno stabilimento, sarà considerato un appuntamento a domicilio e gli studenti dovranno inserire il loro indirizzo per completare la prenotazione. Le prenotazioni già registrate non saranno interessate.",
+      "submit": "Conferma",
+      "cancel": "Annulla",
+      "title": "Rimuovi lo stabilimento"
+    }
+  },
+  "calendar": {
+    "header": {
+      "threeDaysView": "3 giorni",
+      "dateSelector": "Seleziona la data"
+    },
+    "disableAvailability": "Rimuovi disponibilità",
+    "enableRecurrentAvailability": "Aggiungi disponibilità ricorrente",
+    "disableRecurrentAvailability": "Rimuovi la disponibilità ricorrente",
+    "form": {
+      "actions": {
+        "cancel": "Annulla",
+        "submit": "Salva"
+      },
+      "explain": "Modifica fino a:",
+      "interval": {
+        "explain1": "Modifica della disponibilità: ",
+        "explain2": "{{date_start}} - {{date_end}}, ogni {{day}}"
+      },
+      "title": {
+        "enable": "Aggiungi disponibilità",
+        "disable": "Elimina una disponibilità"
+      }
+    },
+    "selectCoachToModifyAvailability": "Seleziona un insegnante",
+    "addBooking": "Prenota un appuntamento",
+    "toogle": {
+      "showOfferList": "Lezioni di gruppo",
+      "showPrivateBookings": "Appuntamenti",
+      "showCustomEvents": "Appuntamento personale",
+      "hideCancelledEvents": "Visualizza le cancellazioni",
+      "title": "Mostrare i filtri"
+    },
+    "enableAvailability": "Aggiungi disponibilità oggi",
+    "createCustomEvent": "Crea un appuntamento personale",
+    "customEvent": {
+      "dateEnd": "Data di fine",
+      "dateStart": "Data d'inizio"
+    },
+    "showAvailabilityDetails": "Dettagli sulla disponibilità"
+  },
+  "selector": {
+    "privateService": "Seleziona il tuo appuntamento",
+    "privateSlot": "Seleziona la tua sessione",
+    "establishmentPlaceholder": "Tutti gli stabilimenti",
+    "coachPlaceholder": "Tutti gli insegnanti",
+    "session": "Selezionare il tipo di sessione"
+  },
+  "slotSearcher": {
+    "emptyDateList": "Nessuno slot disponibile oggi",
+    "bookableSlots": {
+      "title": "Slot disponibili",
+      "isEmpty": "Nessuno slot disponibile"
+    },
+    "title": "Appuntamento",
+    "selectPrivateSlot": "Seleziona una sessione",
+    "search": "Cerca un orario",
+    "selectCoach": "Tutti gli insegnanti",
+    "searchSlot": "Cerca un orario",
+    "groupIdentifier": {
+      "evening": {
+        "interval": "Dopo 18h",
+        "label": "Tardo pomeriggio"
+      },
+      "afternoon": {
+        "interval": "14h - 18h",
+        "label": "Pomeriggio"
+      },
+      "noon": {
+        "interval": "12h-14h",
+        "label": "Mezzogiorno"
+      },
+      "morning": {
+        "interval": "Tarda mattinata",
+        "label": "Mattina"
+      }
+    },
+    "nbSlot": "{{ nbSlot }} fascia oraria",
+    "nbSlot_plural": "{{ nbSlot }} fasce orarie",
+    "establishment": "Stabilimento",
+    "coach": "Insegnante",
+    "selectService": "Scegli un servizio",
+    "selectSession": "Scegli la tua sessione",
+    "searchFirstSlot": "Cerca il primo slot disponibile",
+    "nextOffer": "Primo slot disponibile il {{- date }} : {{ hour }}",
+    "previousOffer": "Una sessione più recente è disponibile su {{- date }} : {{ hour }}",
+    "emptyState": "Nessuna disponibilità al momento",
+    "pickASlot": "Seleziona il tuo orario di disponibilità"
+  },
+  "slot": {
+    "parameters": {
+      "credit": "{{credit}} crediti"
+    },
+    "form": {
+      "name": {
+        "label": "Nome della sessione",
+        "placeholder": "Doppia sessione (2h)"
+      },
+      "booking_interval_minutes": {
+        "label": "Avanzato: intervallo di scelta della prenotazione",
+        "helperText": "Es: 15 significa 15 minuti che il membro può prenotare alle 12h, 12h15, 12h30, ecc ... (consigliato)"
+      },
+      "people_capacity_used": {
+        "label": "Numero di persone",
+        "helperText": "Questo numero sarà utilizzato per gestire la disponibilità degli stabilimenti."
+      },
+      "duration_minutes": {
+        "helperText": "Adattare i crediti necessari in base alla durata",
+        "label": "Durata"
+      },
+      "cancel": "Annulla",
+      "submit": "Salva",
+      "credit": {
+        "label": "Credito/i",
+        "helperText": "Selezionare il numero di crediti richiesti per prenotare un appuntamento.",
+        "decimalCredit": {
+          "helperText": "Questa sessione costerà {{count}} credito",
+          "helperText_plural": "Questa sessione costerà {{count}} crediti"
+        }
+      },
+      "title": "Allenamento",
+      "pre_selected_choices": "Durate predefinite",
+      "durationError": "Durata non valida (tra 15min e 1g)",
+      "error": {
+        "bookingInterval": "Aggiungi un intervallo consentito da ClassPass: 5, 10, 15, 30 o 60 minuti.",
+        "peopleCapacityUsed": "Per aggiungere più di una persona, non consentire le prenotazioni ClassPass."
+      }
+    }
+  },
+  "bookerModule": {
+    "address": {
+      "label": "Indirizzo",
+      "submit": "Conferma",
+      "helperText": "Inserisci il tuo indirizzo per prenotare questo appuntamento"
+    },
+    "missingResource": {
+      "coach": "Seleziona l'insegnante",
+      "establishment": "Seleziona uno stabilimento",
+      "service": "Seleziona un tipo di appuntamento"
+    },
+    "cancel": "Annulla",
+    "error": "Impossibile prenotare in questa data",
+    "searchSlot": "Cerca un orario",
+    "bookingCapabilities": {
+      "emptyConsumerPassList": "Non hai un pacchetto valido con credito sufficiente",
+      "compatiblePassTitle": "Pacchetti compatibili per questa sessione",
+      "emptyPassList": "Nessun pacchetto compatibile, si prega di contattare il club.",
+      "compatibleConsumerPassTitle": "I miei pacchetti"
+    },
+    "useCredit": "Prenota",
+    "step": {
+      "privateService": "Appuntamento",
+      "privateSlot": "Allenamento",
+      "coach": "Insegnante",
+      "configuration": "Il mio appuntamento",
+      "billing": "Contabilizzazione",
+      "date": "Data",
+      "rule": "Appuntamenti ricorrenti"
+    },
+    "notifyMember": {
+      "label": "Invia un'email di conferma"
+    },
+    "private_pass": {
+      "credits": "{{credits}} crediti"
+    },
+    "buyPass": "{{ price, price }}",
+    "preview": {
+      "credit_cost": "Credito {{credit_cost}}"
+    },
+    "sections": {
+      "establishment": "Stabilimento",
+      "privateSlot": "Sessioni",
+      "coach": "Insegnante"
+    },
+    "noPrivateServiceAvailable": "Nessun appuntamento disponibile",
+    "isAtHome": "Lezioni a domicilio, il tuo indirizzo sarà richiesto al momento della prenotazione",
+    "availableSlots": "Slot disponibili",
+    "emptySlot": "Nessuna disponibilità",
+    "title": "Prenotazione appuntanamento",
+    "recurrenceRule": {
+      "label": "Fissare un appuntamento ricorrente"
+    },
+    "confirm": "Confermare",
+    "unpaidBooking": {
+      "header": "Pagare più tardi",
+      "isUnpaid": "Pagamento in sospeso",
+      "book": "Prenota",
+      "helper": "Prenota senza pagare e compra un pacchetto compatibile più tardi.",
+      "dialogHelper": "Con questa opzione puoi prenotare la tua sessione senza pagare subito. La prossima volta che acquisti un pacchetto compatibile con questa sessione, sarà automaticamente addebitato con {{ credits }} credito/i."
+    }
+  },
+  "privateServiceCompatibility": {
+    "delete": {
+      "cancel": "Annulla",
+      "submit": "Rimuovi",
+      "title": "Modifica dell'appuntamento compatibile:",
+      "explain": "Sei sicuro di voler modificare le regole di utilizzo del pacchetto? Questa modifica è retroattiva per gli acquisti già effettuati."
+    },
+    "excludedSlots": {
+      "helperText": "Selezionare le sessioni per le quali il pacchetto per appuntamenti è compatibile.",
+      "cancel": "Cancella",
+      "submit": "Salva",
+      "title": "Sessioni del {{ service }}",
+      "isEmpty": "Nessun tipo di sessione configurato in questo appuntamento!"
+    },
+    "forSlots": "Sessioni compatibili:",
+    "allSlots": "Compatibile con tutte le sessioni",
+    "none": " no"
+  },
+  "privatePass": {
+    "validForDuration": {
+      "days": "{{duration_days}} giorni validi",
+      "general": "Valido {{ duration_days }} giorni {{ duration_months }} mesi e {{ duration_years }} anni",
+      "years": "Valido {{duration_years}} anni",
+      "months": "{{duration_months}} mesi validi"
+    },
+    "compatibleServices": {
+      "title": "Appuntamenti compatibili",
+      "isEmpty": "Questo pacchetto per appuntamenti non può essere utilizzato per nessun appuntamento, perché la sua compatibilità non è stata configurata correttamente.",
+      "add": "Inserisci",
+      "unusable": "Inutilizzabile"
+    },
+    "form": {
+      "title": "[Form] Pacchetto per appuntamenti",
+      "tax": {
+        "label": "I.V.A."
+      },
+      "durationDays": {
+        "label": "Durata della validità in giorni",
+        "helperText": "Periodo in giorni per i quali la carta sarà valida dopo l'acquisto "
+      },
+      "durationMonths": {
+        "helperText": "Si aggiunge al numero di giorni.",
+        "label": "Durata della validità in mesi"
+      },
+      "available_payment_method_identifiers": {
+        "helperText": "Seleziona almeno un metodo di pagamento. Se non è stato selezionato alcun metodo, i pagamenti online saranno proposti come impostazione predefinita.",
+        "label": "Mezzi di pagamento autorizzati",
+        "warning": "Rendi il tuo pacchetto visibile ai clienti in modo che possano selezionare i metodi di pagamento."
+      },
+      "actions": {
+        "submit": "Salva",
+        "cancel": "Annulla",
+        "next": "Seguente",
+        "back": "Indietro"
+      },
+      "price": {
+        "label": "Prezzo IVA inclusa",
+        "helperText": "Questo è il prezzo di vendita per i membri."
+      },
+      "durationYears": {
+        "label": "Durata della validità in anni",
+        "helperText": "Si aggiunge al numero di giorni e mesi"
+      },
+      "managerOnly": {
+        "label": "Invisibile ai clienti"
+      },
+      "name": {
+        "label": "Nome",
+        "helperText": "Nome del pacchetto"
+      },
+      "credits": {
+        "label": "Numero di crediti inclusi",
+        "helperText": "Ogni sessione costa un certo numero di crediti.",
+        "decimalCredit": {
+          "helperText": "Questo pacchetto conterrà {{count}} credito.",
+          "helperText_plural": "Questo pacchetto conterrà {{count}} crediti."
+        }
+      },
+      "full_vod_access": {
+        "label": "Fornisce l'accesso al VOD"
+      },
+      "expirationDaysBeforeFirstUse": {
+        "helperText": "Il pacchetto per appuntamenti scade automaticamente se non viene effettuata alcuna prenotazione entro un numero di giorni X.",
+        "label": "Data di scadenza automatica:"
+      },
+      "start_date_method": {
+        "on_attendance": "Valido a partire dalla 1ª presenza",
+        "on_booking": "Valido a partire dalla 1ª prenotazione",
+        "on_purchase": "Valido dalla data di contabilizzazione"
+      },
+      "new_member_only": {
+        "label": "Solo per i nuovi clienti"
+      },
+      "start_date_method_detail": {
+        "on_attendance": " dalla prima partecipazione",
+        "on_booking": " dalla prima prenotazione",
+        "on_purchase": " dalla data di acquisto"
+      },
+      "startDate": "Data di inizio",
+      "duration": {
+        "and": " e ",
+        "years": "{{ count }} anno",
+        "years_plural": "{{ count }} anni",
+        "daysMonths": "{{ duration_months }} mesi e {{ duration_days }} giorni",
+        "months": "{{ count }} mesi",
+        "days": "{{ count }} giorno",
+        "days_plural": "{{ count }} giorni",
+        "valid": "Valido ",
+        "fullText": "Questo pacchetto appuntamenti sarà valido per "
+      },
+      "category": "Nome della categoria",
+      "categoryTitle": {
+        "compatibility": "Compatibilità",
+        "validity": "Validità",
+        "paymentMeans": "Informazioni generali",
+        "info": "Informazioni generali",
+        "compatibilityAppointment": "Compatibilità degli appuntamenti"
+      },
+      "selector": {
+        "privateService": "Aggiungere un appuntamento compatibile"
+      },
+      "franchise": "Il pacchetto appuntamenti è condiviso attraverso l'Account Master. Alcune impostazioni sono state predefinite da tale Account Master e non possono essere modificate.",
+      "universalPass": {
+        "deativatedTags": "Disattivare per i pacchetti universali",
+        "helperText": "I pacchetti universali possono essere utilizzati per attività di gruppo e appuntamenti. Per ogni pacchetto universale vengono creati due pacchetti gemelli per collegare il numero di crediti. Una volta acquistato uno di questi pacchetti, l'altro verrà aggiunto automaticamente senza costi aggiuntivi.",
+        "label": "Pacchetto universale",
+        "warningIsUniversalPass": "I pacchetti gemelli vengono creati automaticamente per un pacchetto universale. Tutti i campi modificati qui saranno modificati anche sui pacchetti gemelli, tranne le categorie. Questo vale anche per le notifiche, le estensioni di validità e le modifiche del credito."
+      },
+      "appliesForPayroll": {
+        "helperText": "Di default, gli appuntamenti vengono contabilizzati allo studio e conteggiati nel riepilogo e nel compenso del docente. Disattivando questa impostazione, gli appuntamenti associati a questo pacchetto non appariranno più nel riepilogo del docente.",
+        "label": "Appuntamenti presi in considerazione nel calcolo della retribuzione del docente"
+      },
+      "onBehalfOfTeacher": {
+        "label": "Pagamento interamente trasferito all'insegnante",
+        "helperText": "Questa impostazione consente di indicare che le entrate associate agli appuntamenti di questo pacchetto saranno pagate interamente all'insegnante. Questa informazione sarà visibile nei rapporti di acquisto nella colonna \"Pagamento pagato interamente all'insegnante\"."
+      },
+      "expiration_date": {
+        "tooltip": "Dopo la data selezionata, il pacchetto per appuntamenti non apparirà più in vendita ai clienti.",
+        "helperText": "Disponibile fino al",
+        "label": "Data limite di acquisto"
+      },
+      "description": {
+        "label": "Descrizione"
+      },
+      "advancedOptions": {
+        "tag": {
+          "selectTags": "Seleziona i tag",
+          "tagsOnAcquisitionHelper": "Utilizza i tag per identificare il membro che ha acquistato il pacchetto per appuntamenti.",
+          "tagsOnAcquisition": "Tag dopo l'acquisto"
+        },
+        "header": "Avanzate"
+      },
+      "notification": "Notifiche",
+      "detailsAndRestrictions": "Dettagli e restrizioni",
+      "notEditable": "Questo passaggio di appuntamenti proviene da una migrazione di dati precedentemente completata. Alcuni campi potrebbero non essere modificabili per preservare i dati."
+    },
+    "delete": {
+      "explain": "Sei sicuro di voler eliminare questo pacchetto? Le persone che hanno ancora dei crediti possono ancora usarli.",
+      "cancel": "Annulla",
+      "submit": "Conferma",
+      "title": "Cancella il pacchetto",
+      "delete": "Rimuovi",
+      "warning": "Attenzione! L'eliminazione di questo pacchetto per appuntamenti lo renderà anche non disponibile per l'acquisto dei pacchetti combinati per cui è stato utilizzato."
+    },
+    "list": {
+      "createButton": "Crea un appuntamento",
+      "isEmpty": "Nessun pacchetto per appuntamenti da mostrare.",
+      "availableCustomer": "Disponibile per la vendita",
+      "managerOnly": "Non disponibile per la vendita"
+    },
+    "parameters": {
+      "nbCredits": "{{credits}} credito",
+      "nbCredits_plural": "{{ credits }} crediti",
+      "managerOnly": "Invisibile ai clienti",
+      "price": "{{ price, price}}",
+      "tax": "I.V.A. :{{ tax }}%",
+      "unusableByStaff": "Non visibile per lo staff"
+    },
+    "edit": "Modifica",
+    "disabledTitle": "Pacchetti per appuntamenti archiviati",
+    "detailTitles": {
+      "paymentMeans": "Mezzi di pagamento",
+      "privateServiceCompatibility": "Appuntamenti compatibili",
+      "vod": "VOD",
+      "accessibility": "Accessibilità",
+      "validity": "Validità",
+      "credit_quantity": "Numero di crediti"
+    },
+    "ht": "Tasse escluse",
+    "actions": {
+      "forceRegularizeUnpaid": "Riscuoti i pagamenti in sospeso"
+    },
+    "listItem": {
+      "unusableByStaff": "Non visibile per lo staff"
+    },
+    "noNotificationsWarning": "Non hai notifiche impostate ancora. Per creare delle nuove notifiche, si prega di andare in <strong>Marketing > Notifiche</strong>"
+  },
+  "openCalendar": "Vedi il calendario",
+  "service": {
+    "selector": {
+      "coach": {
+        "label": "Insegnante"
+      },
+      "placeholder": "Seleziona un appuntamento",
+      "isEmpty": "Nessun tipo di appuntamento configurato",
+      "establishment": {
+        "label": "Stabilimento"
+      }
+    },
+    "configuration": {
+      "explainSetToHasNotOwnAvailabilitySlots": "Le disponibilità di tutti gli insegnanti e gli stabilimenti correttamente configurati vengono gestite automaticamente.",
+      "explainSetToHasOwnAvailabilitySlots": "Prenotabile solo in alcuni slot",
+      "explainHasOwnAvailabilitySlots": "Fai clic sulla matita per limitare le prenotazioni a determinate fasce orarie",
+      "hasFutureSlot": "Calendario di disponibilità futura OK",
+      "totalCapacity": "Capacità massima: {{capacity}}",
+      "noFutureSlot": "Non hai configurato alcuna disponibilità per {{resourceName}}! Clicca qui.",
+      "title": "Disponibilità oraria",
+      "isAlwaysAvailable": "{{resourceName}} può essere prenotato, una volta che lo/gli stabilimento/i e/o l'insegnante/i sono disponibili.",
+      "changeIsAlwaysAvailable": "Modifica",
+      "slot": "Tipo di sessione",
+      "noCapacity": "Questo stabilimento non ha una capacità massima.",
+      "partnership": {
+        "removeAvailabilities": "Per visualizzare correttamente gli appuntamenti su ClassPass, è necessario disabilitare le disponibilità specifiche.",
+        "anySlotNotCompatible": "Aggiornare le impostazioni delle sessioni per assicurarsi che ciascuna abbia un intervallo di prenotazione e una capacità compatibili con ClassPass."
+      }
+    },
+    "form": {
+      "managerOnly": {
+        "label": "Invisibile ai clienti"
+      },
+      "last_discard_minutes": {
+        "label": "Ultima cancellazione rimborsabile fino a",
+        "helperText": "Se la prenotazione viene cancellata dopo la scadenza, il credito non verrà rimborsato"
+      },
+      "establishmentResourceType": {
+        "isHomeService": {
+          "label": "A domicilio",
+          "helperText": "Verrà richiesto un indirizzo per ogni prenotazione"
+        },
+        "isWithoutEstablishment": {
+          "label": "Nessuno stabilimento predeterminato",
+          "helperText": "Es: video / lezioni all'aperto / ..."
+        },
+        "isWithEstablishment": {
+          "isEmpty": "Non è stato configurato alcuno stabilimento.",
+          "label": "In uno dei tuoi stabilimenti",
+          "helperText": "Le prenotazioni saranno possibili solo in presenza di un numero sufficiente di posti disponibili."
+        }
+      },
+      "establishment_consumer_attribution": {
+        "label": "Consentire ai membri di scegliere lo stabilimento",
+        "helperText": "I membri vedranno e potranno scegliere uno stabilimento durante il processo di prenotazione. Se non è selezionata, ottimizzeremo automaticamente il riempimento degli stabilimenti."
+      },
+      "coach_capacity_used": {
+        "helperText": "Es: un insegnante può seguire due allievi separatamente su due macchinari",
+        "label": "Numero massimo di appuntamenti simultanei che un insegnante può gestire.",
+        "alertText": "Un docente può gestire contemporaneamente 1, 2, 3, 4, 6 o 12 appuntamenti."
+      },
+      "use_full_establishment_capacity": {
+        "helperText": "Deseleziona per autorizzare contemporaneamente più attività / appuntamenti nella stessa sala se la capacità lo consente",
+        "label": "Richiedi l'intero stabilimento"
+      },
+      "title": "Appuntamento",
+      "createButton": "Aggiungi un tipo di appuntamento",
+      "addCoach": "Aggiungi un insegnante",
+      "is_home_service": {
+        "helperText": "Verrà richiesto un indirizzo per ogni prenotazione",
+        "label": "A domicilio"
+      },
+      "is_without_coach": "Senza insegnante",
+      "name": {
+        "label": "Nome del servizio",
+        "placeholder": "Massaggio"
+      },
+      "coach": {
+        "isEmpty": "Nessun insegnante impostato!",
+        "label": "Insegnante"
+      },
+      "establishment": {
+        "label": "Stabilimento"
+      },
+      "description": {
+        "label": "Descrizione del servizio"
+      },
+      "actions": {
+        "cancel": "Annulla",
+        "submit": "Salva"
+      },
+      "resourceGroup": {
+        "establishment": "Stabilimento",
+        "coach": "Insegnante"
+      },
+      "coach_consumer_attribution": {
+        "helperText": "Il membro vede e sceglie l'insegnante prima di prenotare. Se impostato, dovrai scegliere l'insegnante dopo ogni appuntamento",
+        "label": "Consentire la scelta dell'insegnante al momento della prenotazione"
+      },
+      "addEstablishment": "Aggiungi uno stabilimento",
+      "addSlot": "Aggiungi un tipo di sessione",
+      "delete": {
+        "confirm": "Rimuovi",
+        "title": "Eliminare l'appuntamento",
+        "content": "Sei sicuro di voler eliminare questo tipo di appuntamento?",
+        "cancel": "Annulla"
+      },
+      "color": "Codice colore",
+      "last_booking_minutes": {
+        "label": "Prima dell'inizio dell'appuntamento, ultima prenotazione possibile"
+      },
+      "paddingEnd": {
+        "helperText0": "L'insegnante o gli insegnanti e/o lo stabilimento saranno indicati come disponibili dopo la fine dell'appuntamento.",
+        "helperText": "Gli insegnanti e/o gli stabilimenti saranno indicati come non disponibili per {{minutes}} dopo la fine dell'appuntamento.",
+        "label": "Numero di minuti dopo la fine della sessione"
+      },
+      "paddingStart": {
+        "helperText0": "Gli insegnanti e/o gli stabilimenti saranno indicati come non disponibili all'inizio dell'appuntamento.",
+        "helperText": "Gli insegnanti e/o gli stabilimenti saranno indicati come non disponibili {{minutes}} prima dell'inizio dell'appuntamento.",
+        "label": "Numero di minuti prima dell'inizio dell'appuntamento"
+      },
+      "paddingTitle": "Gestione delle disponibilità",
+      "unpaidBooking": {
+        "tag": {
+          "allowed": "Autorizzato",
+          "notAllowed": "Non consentito",
+          "helper": "Usa i tag per rendere la prenotazione senza pagare disponibile solo a certi membri.  Tutti i membri con uno dei tag in \"Autorizzato\" potranno prenotare senza pagare. Oppure tutti i membri con un tag \"Non autorizzato\" non potranno prenotare senza pagare.",
+          "header": "Tags",
+          "doNotSelectToAllowAllMembers": "Lasciare vuoto per permettere a tutti i membri"
+        },
+        "label": "Autorizza la prenotazione senza pagamento",
+        "title": "Paga più tardi",
+        "helperText": "Attivare questa funzione per consentire ai membri di completare le prenotazioni senza pagamenti diretti. I crediti utilizzati saranno automaticamente detratti da qualsiasi pacchetto per appuntamenti futuro acquistato dai membri."
+      },
+      "pad_before_booking": {
+        "label": "Attiva per evitare la sovrapposizione dei tempi di buffer di sessioni con orari di fine e inizio vicini"
+      },
+      "advancedOptions": {
+        "tag": {
+          "notAllowed": "Non consentito",
+          "doNotSelectToAllowAllMembers": "Lasciare questo campo vuoto per consentire a tutti i membri",
+          "allowed": "Consentito",
+          "helperText": "Usare i tag per rendere l'appuntamento prenotabile solo a un gruppo desiderato di membri: si possono selezionare i tag per rendere tutte le sessioni di questo appuntamento prenotabili solo ai membri con uno dei tag selezionati, oppure si possono selezionare i tag per rendere le sessioni dell'appuntamento non prenotabili solo ai membri con uno dei tag selezionati.",
+          "header": "Tag"
+        },
+        "header": "Avanzate"
+      },
+      "availableOnPartnership": {
+        "tagsAlert": "Non applicabile alle prenotazioni con ClassPass.",
+        "buffersAlert": "Per aggiungere buffer a questa prenotazione, disabilitare le prenotazioni ClassPass.",
+        "alert": "Per visualizzare correttamente questa prenotazione su ClassPass, è necessario configurare alcune impostazioni. Abbiamo aggiornato automaticamente alcuni campi. Si prega di rivedere e compilare i dati richiesti di seguito.",
+        "label": "Disponibile con ClassPass"
+      },
+      "validation": {
+        "zeroValueError": "È necessario programmare un appuntamento",
+        "availabilityBuffers": "Per aggiungere buffer a questa prenotazione, disabilitare le prenotazioni ClassPass.",
+        "coachCapacityUsed": "Per aggiungere più appuntamenti contemporaneamente per un insegnante, non consentire le prenotazioni ClassPass.",
+        "oneOption": "Selezionare almeno un'opzione."
+      },
+      "tooltip": {
+        "oneBookingPerTeacher": "È possibile aggiungere solo una prenotazione per insegnante, quando sono consentite le prenotazioni ClassPass.",
+        "noTeacher": "È necessario assegnare un insegnante quando sono consentite le prenotazioni ClassPass."
+      },
+      "settingsTitle": "Impostazioni",
+      "establishmentSelectorTitle": "Selezionare lo stabilimento o gli stabilimenti per questo appuntamento:",
+      "coachSelectorTitle": "Selezionare l'insegnante o gli insegnanti per questo appuntamento:",
+      "editConfirmation": {
+        "confirm": "Conferma",
+        "cancel": "Fallo più tardi",
+        "alert": "Fare clic su conferma per disattivare l'opzione di disponibilità.",
+        "content": "Quando ClassPass viene attivato, le fasce orarie specifiche vengono disattivate. Verrà presa in considerazione solo la disponibilità dell'insegnante e dello stabilimento.",
+        "title": "Problema di integrazione di ClassPass"
+      }
+    },
+    "parameters": {
+      "description": "Descrizione",
+      "slots": {
+        "isEmpty": "Inizia aggiungendo una sessione.",
+        "explainIsEmpty": "Definire i tipi di sessioni (durata, costo)",
+        "title": "Sessione"
+      },
+      "establishments": {
+        "title": "Stabilimento",
+        "is_empty": "Nessuno stabilimento disponibile.",
+        "is_home_service": "Da casa"
+      },
+      "coaches": {
+        "title": "Insegnante",
+        "is_empty": "Nessun insegnante è richiesto"
+      },
+      "last_discard_minutes": {
+        "explain": "L'ultima cancellazione rimborsabile è possibile {{days}} giorno(i) {{hours}} ora(e) {{minutes}} minuto(i) prima dell'appuntamento"
+      },
+      "last_booking_minutes": {
+        "explain": "Ultima prenotazione possibile {{days}} giorno(i) {{hours}} ora e) {{minutes}} minuto(i) prima dell'appuntamento"
+      },
+      "blacklistTags": {
+        "title": "Tag rifiutati"
+      },
+      "whitelistTags": {
+        "title": "Tag approvati"
+      },
+      "noTags": "Non ci sono tag autorizzati da visualizzare."
+    },
+    "detail": {
+      "tab": {
+        "general": "Generale",
+        "calendar": "Calendario"
+      }
+    },
+    "navigation": {
+      "goToPrivatePass": "Pacchetti per appuntamenti"
+    }
+  },
+  "noPrivateService": "Un appuntamento è prenotabile nello slot che hai scelto, dal membro.",
+  "noPrivatePass": "I membri possono utilizzare i pacchetti per appuntamenti per prenotare appuntamenti (ad esempio, personal training, duo, affitto di sale, massaggi, ecc.) Promemoria: non dimenticate di impostare correttamente la compatibilità di tutti i vostri pacchetti per appuntamenti.",
+  "customEvent": {
+    "form": {
+      "actions": {
+        "submit": "Salva",
+        "cancel": "Annulla"
+      },
+      "description": {
+        "placeholder": "Chiedi al signor Charles agli Champs Elysées n 1",
+        "label": "Descrizione"
+      },
+      "coach": {
+        "isEmpty": "Nessun insegnante"
+      },
+      "color": "Codice colore",
+      "name": {
+        "placeholder": "Appuntamento bancario",
+        "label": "Nome"
+      },
+      "title": "Appuntamento personale"
+    },
+    "actions": {
+      "delete": "Rimuovi"
+    }
+  },
+  "noPrivateConsumerPass": "Non ci sono membri con questo pacchetto per appuntamenti.",
+  "filters": {
+    "hasCreditNull": "Senza credito",
+    "hasCreditLeft": "Con credito",
+    "isActive": "Attivo",
+    "isExpired": "Scaduto",
+    "invoice": "Ricevuta",
+    "reverted": "Ricevuta annullata",
+    "notReverted": "Ricevuta non annullata",
+    "credits": "Credito",
+    "expiration": "Validità",
+    "all": "Tutti i pacchetti",
+    "isValidToday": "Valido",
+    "empty": "Tutti i pacchetti appuntamenti"
+  },
+  "recurrenceRule": {
+    "item": {
+      "explain": "Ogni {{dayOfWeek}} - {{time}}, {{delayWeek}} settimane prima",
+      "startFrom": "Dal {{ date }}",
+      "allowUnpaid": "Autorizza le prenotazioni non pagate"
+    },
+    "forms": {
+      "update": {
+        "confirm": "Modificare",
+        "cancel": "Annullare",
+        "content": "La modifica della regola di ricorrenza comporterà la modifica dei futuri appuntamenti effettuati tramite questa regola.",
+        "title": "Modifica dell'appuntamento ricorrente"
+      },
+      "delete": {
+        "confirm": "Cancella",
+        "cancel": "Annulla",
+        "content": "Non programmare la sessione ricorrente comporterà la cancellazione di future sessioni registrate tramite questa regola.",
+        "title": "Non fissare un appuntamento ricorrente",
+        "cancelRelatedBookings": "Annulla tutte le prenotazioni future effettuate con la regola",
+        "content_with_cancellation_option": "Questa regola di prenotazione ricorrente verrà eliminata. Desideri cancellare anche le prenotazioni future effettuate con questa regola?"
+      }
+    },
+    "form": {
+      "notify_member": "Invia una email di conferma al momento della registrazione",
+      "timeGroup": "Data della sessione",
+      "configuration": "Prenotazioni",
+      "title": "Programmare una ricorrenza",
+      "override_availabilities": "Effettua la prenotazione anche se l'insegnante, lo stabilimento o l'appuntamento non sono disponibili",
+      "allow_unpaid": "Permettere prenotazioni non pagate (nessuna carta compatibile posseduta)"
+    },
+    "actions": {
+      "save": "Salva",
+      "close": "Chiudi"
+    },
+    "createModal": {
+      "create": "Aggiungi una sessione ricorrente"
+    },
+    "recurrentBookings": "Sessioni ricorrenti"
+  },
+  "privateBookingNotification": {
+    "tooltip": "Le notifiche sono attive per questo tipo di sessione",
+    "listItemPrimary": {
+      "notifyAllEvents": {
+        "cancelledNotRefunded": "Per ogni cancellazione tardiva",
+        "cancelledRefunded": "Per ogni cancellazione rimborsata",
+        "valid": "Per ogni sessione"
+      },
+      "cancelledRefunded": "Rimborso cancellazione n°{{notify_booking_nb}}",
+      "cancelledNotRefunded": "Cancellazione tardiva n° {{notify_booking_nb}}",
+      "valid": "Sessione n° {{notify_booking_nb}}",
+      "after": "Notifica {{hours}} h dopo la sessione",
+      "before": "Notifica {{hours}} h prima della sessione"
+    },
+    "form": {
+      "next": "Successivo",
+      "chooseTime": {
+        "second": {
+          "after": "ora/e dopo la sessione",
+          "before": "Ora/e prima della sessione"
+        },
+        "first": "Inviare e mail",
+        "title": "Impostazioni"
+      },
+      "chooseWhen": {
+        "after": "Inviare l'e mail al cliente dopo la sessione",
+        "before": "Inviare una e mail al cliente prima della sessione",
+        "title": "Tipo di notifica",
+        "afterNotification": "Invia una notifica push al membro dopo l'appuntamento interessato dalla notifica",
+        "afterNotifications": "Inviare le notifiche al membro dopo l'appuntamento interessato dalla notifica",
+        "afterMail": "Inviare l'e-mail al membro dopo l'appuntamento interessato dalla notifica",
+        "beforeNotification": "Invia la notifica push al membro prima dell'appuntamento a cui la notifica si riferisce",
+        "beforeNotifications": "Inviare l'email al membro prima dell'appuntamento interessato dalla notifica",
+        "beforeMail": "Inviare l'email al membro prima dell'appuntamento interessato dalla notifica"
+      },
+      "help": {
+        "cancelledNotRefunded": {
+          "notifyAll": "Aiuto: la notifica sarà inviata al membro a ciascuna delle sue cancellazioni oltre il termine per questo tipo di sessione",
+          "default": "Aiuto: la notifica verrà inviata al membro quando viene annullata in ritardo per la data {{notifyNb}}, per questo tipo di appuntamento"
+        },
+        "cancelledRefunded": {
+          "notifyAll": "Aiuto: la notifica sarà inviata all'allievo a ciascuna delle sue prenotazioni cancellate rimborsate per questo tipo di sessione",
+          "default": "Aiuto: la notifica sarà inviata all'allievo al momento della prenotazione annullata rimborsata n°{{notifyNb}} per questo tipo di appuntamento"
+        },
+        "valid": {
+          "notifyAll": "Aiuto: la notifica verrà inviata all'allievo per ogni sua prenotazione convalidata per questo tipo di sessione",
+          "default": "Aiuto: la notifica verrà inviata all'allievo quando viene effettuata la sua prenotazione valida n °{{notifyNb}} per questo tipo di sessione"
+        }
+      },
+      "notifyAllEvents": "Inviare una notifica all'allievo ad ogni evento",
+      "notifyNb": "Lasciare una notifica all'allievo sull'evento n °:",
+      "chooseKind": {
+        "cancelledNotRefunded": "Prenotazione cancellata in ritardo (non rimborsabile)",
+        "cancelledRefunded": "Prenotazione annullata e rimborsata",
+        "valid": "Prenotazione convalidata",
+        "title": "Scegli la sessione su cui vuoi lasciare una notifica"
+      },
+      "intro": "Puoi informare i tuoi clienti prima e/o dopo alcune sessioni, riguardo alcune regole come il numero delle prenotazioni o le cancellazioni.",
+      "title": "Aggiungi una notifica",
+      "ifKind": {
+        "notRefunded": "Se la prenotazione è stata cancellata dopo la scadenza",
+        "refunded": "Se la prenotazione è stata cancellata in tempo",
+        "valid": "Se la prenotazione è valida"
+      },
+      "subtitle": "Pacchetti per appuntamenti"
+    }
+  },
+  "marketplace": {
+    "isEmpty": "Nessun appuntamento registrato."
+  },
+  "popup": {
+    "end": "Tempo di fine",
+    "begin": "Ora di inizio",
+    "button": "Orario",
+    "validate": "Convalidare"
+  },
+  "searshAppointmentPass": "Cercare una scheda RDV",
+  "search": "Cerca un appuntamento",
+  "categoryTitle": "Categorie di pacchetti per appuntamento",
+  "disabledPacksTitle": "Pacchetti per appuntamenti archiviati",
+  "notification": {
+    "listItem": {
+      "smartListInclude": "Smartlist inclusa(e)",
+      "smartList": "Smartlist escluse",
+      "deleteModal": {
+        "content": "Sei sicuro di voler eliminare questa notifica? Questa operazione è definitiva",
+        "confirm": "Elimina",
+        "cancel": "cancella",
+        "title": "Cancellazione notificazione"
+      },
+      "mail": "Email "
+    },
+    "addButton": "Aggiungere una notifica"
+  },
+  "privatePassTemplate": {
+    "isEmptyExplain": "I membri possono acquistare e utilizzare questo pacchetto in qualsiasi studio associato.",
+    "specification": {
+      "companySharedWithTitle": "Shared with the studios:"
+    },
+    "section": {
+      "titleAvailable": "Disponibile per la vendita",
+      "titleManagerOnly": "Non disponibile per la vendita",
+      "titleArchived": "Pacchetti archiviati"
+    },
+    "form": {
+      "title": "[Form] Pacchetto per appuntamenti condiviso",
+      "close": "Chiudere",
+      "submit": "Convalidare",
+      "actions": {
+        "close": "Chiudere",
+        "submit": "Registra"
+      },
+      "editConfirmation": {
+        "confirm": "Salva comunque",
+        "cancel": "Cancella",
+        "content": "Le modifiche saranno applicate anche agli abbonamenti collegati a questo pacchetto per appuntamenti condiviso. Sei sicuro di voler procedere e salvare le modifiche?",
+        "title": "Conferma della modifica"
+      }
+    },
+    "deleteForm": {
+      "title": "Archivia il pacchetto per appuntamenti condiviso",
+      "content": "I membri potranno comunque utilizzare il pacchetto appuntamenti presso lo studio dove lo hanno acquistato. Qualsiasi abbonamento collegato a questo pacchetto appuntamenti rimarrà valido presso lo stesso studio.",
+      "actions": {
+        "close": "Chiudere",
+        "submit": "Archivia"
+      }
+    },
+    "actions": {
+      "create": "Aggiungi un pacchetto condiviso"
+    },
+    "restoreForm": {
+      "title": "Ripristina pacchetto appuntamenti condiviso",
+      "content": "Il pacchetto appuntamenti condiviso verrà ripristinato e nuovamente condiviso tra gli studi precedentemente selezionati.",
+      "actions": {
+        "close": "Chiudi",
+        "submit": "Ripristina"
+      }
+    }
+  },
+  "seeAll": "Vedi tutti",
+  "privatePassTemplateInstance": {
+    "privatePassSharedFromFranchisor": "Pacchetto del franchising",
+    "privateConsumerPassSharedFromOtherFranchisee": "Condiviso dal franchisee",
+    "form": {
+      "title": "Allestire i miei studi",
+      "explain1": "I seguenti studi offriranno automaticamente questo pacchetto per appuntamenti, ma non potranno modificarne il prezzo o il numero di crediti.",
+      "explain2": "I membri che hanno acquistato questo pacchetto per appuntamenti o un abbonamento collegato potranno utilizzarlo in tutti i nuovi studi compatibili.",
+      "actions": {
+        "close": "Chiudi",
+        "submit": "Salva"
+      }
+    },
+    "deleteForm": {
+      "title": "Interrompi la condivisione con uno studio",
+      "content": "Se si interrompe la condivisione con questo studio, i pacchetti per appuntamenti acquistati in quello studio saranno ancora validi, ma solo all'interno di quello studio specifico. I pacchetti per appuntamenti acquistati in altri studi non saranno più validi. Questo vale anche per gli abbonamenti collegati.",
+      "actions": {
+        "close": "Chiudere",
+        "submit": "Interrompi la condivisione"
+      }
+    },
+    "companyEmpty": "Non ci sono studi che offrano questo pacchetto.",
+    "actions": {
+      "addCompany": "Aggiungere uno studio"
+    }
+  },
+  "universalPass": {
+    "delete": {
+      "dialog": {
+        "warningText": "Attenzione! L'eliminazione di un pacchetto universale comporta anche l'eliminazione dei suoi pacchetti gemelli.",
+        "title": "Elimina il pacchetto"
+      }
+    }
+  },
+  "openSpecificAvailabilitiesCalendar": "Disponibilità specifiche",
+  "specificAvailabilitiesCalendar": {
+    "goToRegularCalendar": "Torna al programma",
+    "infoBoxContent": "Sei nella modalità di disponibilità specifica di uno stabilimento. Per impostazione predefinita, i tuoi insegnanti sono disponibili in tutti gli stabilimenti quando crei una disponibilità. In questa pagina, imposta la disponibilità specifica per determinati stabilimenti per rendere disponibile il tuo insegnante solo in questi. È necessario creare una disponibilità generale sull'orario del tuo insegnante per creare una disponibilità specifica.",
+    "filters": "Filtri",
+    "establishment": "Stabilimento"
+  },
+  "forms": {
+    "delete": {
+      "confirm": "Elimina",
+      "cancel": "Cancella",
+      "actions": {
+        "confirm": "Elimina",
+        "cancel": "Cancella"
+      },
+      "title": "Elimina un appuntamento",
+      "content": {
+        "canDelete": "Sei sicuro di voler cancellare questo appuntamento? Questa modifica è definitiva. Le prenotazioni già effettuate non saranno interessate."
+      }
+    }
+  }
+}

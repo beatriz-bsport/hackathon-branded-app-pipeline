@@ -1,0 +1,242 @@
+{
+  "coachEdit": {
+    "allActivities": "Leccionar em todas as atividades",
+    "allWorkshops": "Lecionar em todos os workshops",
+    "pickWorkshop": "Escolher um workshop",
+    "workshops": "Workshops",
+    "pickActivity": "Escolher uma atividade",
+    "activities": "Atividades",
+    "customRules": "Personalizar as regras",
+    "disciplineGroup": "Grupo de aulas",
+    "description": "Indique as aulas que o professor lecciona. Se for feito um pedido de substituição para uma destas aulas, o professor será notificado por e-mail. Se nada for selecionado, o professor não será notificado.",
+    "title": "Substituição",
+    "allEstablishments": "Todos os estabelecimentos",
+    "pickEstablishment": "Deixar em branco para selecionar todos",
+    "locations": "Localizações",
+    "establishments": "Estabelecimentos",
+    "allCategories": "Lecionar em todas as categorias",
+    "pickCategory": "Escolher uma categoria",
+    "categories": "Categorias"
+  },
+  "compatibleCoaches": {
+    "categories": "Categorias",
+    "workshops": "Workshops",
+    "activities": "Atividades",
+    "nextSlot": "Próxima sessão em {{date}} - {{hour}}",
+    "compatibleCoaches": "{{count}} professor compatível",
+    "compatibleCoaches_plural": "{{count}} professores compatíveis",
+    "title": "Professores disponíveis"
+  },
+  "disciplineGroup": {
+    "form": {
+      "establishmentSelectorError": "Não é possível especificar estabelecimentos e localizações ao mesmo tempo",
+      "coachRequired": "Selecionar pelo menos um professor",
+      "submit": "Guardar",
+      "close": "Cancelar",
+      "coaches": "Professores associados",
+      "allEstablishments": "Todos os estabelecimentos",
+      "pickEstablishment": "Deixar em branco para selecionar todos",
+      "locations": "Localizações",
+      "establishments": "Estabelecimentos",
+      "allCategories": "Lecionar em todas as categorias",
+      "pickCategory": "Escolher uma categoria",
+      "categories": "Categorias",
+      "allWorkshops": "Lecionar todos os workshops",
+      "pickWorkshop": "Escolher um workshop",
+      "workshops": "Workshops",
+      "allActivities": "Lecionar todas as atividades",
+      "pickActivity": "Escolher uma atividade",
+      "activities": "Atividades",
+      "groupTypes": "Tipo de aula / categoria",
+      "required": "Este campo é obrigatório",
+      "nameHelperText": "Nome do grupo",
+      "name": "Nome"
+    },
+    "all": "Todos",
+    "delete": {
+      "confirm": "Confirmar",
+      "cancel": "Cancelar",
+      "description": "Tem a certeza de que pretende eliminar o grupo {{- name}} ?",
+      "title": "Eliminar"
+    },
+    "coaches": "{{count}} Professor",
+    "coaches_plural": "{{count}} Professores",
+    "categories": "Categorias ({{number}})",
+    "workshops": "Workshops ({{number}})",
+    "activities": "Atividades ({{number}})",
+    "title": "Grupo de aulas",
+    "add": "Adicionar um grupo"
+  },
+  "selects": {
+    "offerCancelled": "Sessões canceladas",
+    "category": "Categoria",
+    "closedStatus": "Estado das inscrições",
+    "lateStatus": "Estado do pedido"
+  },
+  "coachAnswers": {
+    "refuse": {
+      "confirm": "Confirmar",
+      "cancel": "Fechar",
+      "description": "Tem a certeza de que pretende recusar este pedido?"
+    },
+    "success": {
+      "close": "Fechar",
+      "description": "O professor foi substituído. {{coach}} assegurará a atividade de {{-date}} às {{time}}.",
+      "requestSent": "Professor atribuido"
+    },
+    "confirmation": {
+      "confirm": "Confirmar",
+      "cancel": "Cancelar",
+      "description": "Tem a certeza que pretende registar {{coach_override}} como professor substituto no curso de {{coach}}?",
+      "title": "Atribuir um professor"
+    },
+    "noAnswers": "Ainda sem resposta",
+    "close": "Fechar",
+    "attribute": "Atribuir",
+    "reason": "Motivo do pedido",
+    "closing_date": "Data limite",
+    "header": {
+      "action": "Ação",
+      "answer": "Resposta",
+      "teacher": "Professor"
+    }
+  },
+  "registrationsStatus": {
+    "areNotClosed": "Aberto",
+    "areClosed": "Fechado"
+  },
+  "lateStatus": {
+    "isNotLate": "A tempo",
+    "isLate": "Com atraso"
+  },
+  "delete": {
+    "confirm": "Confirmar",
+    "cancel": "Cancelar",
+    "description": "Tem a certeza de que pretende cancelar este pedido?",
+    "title": "Cancelar pedido"
+  },
+  "askForClosingDateExtension": {
+    "close": "Fechar",
+    "requestSentDescription": "A extensão foi adicionada ao pedido de substituição.",
+    "requestSent": "Pedido enviado",
+    "submit": "Confirmar",
+    "cancel": "Cancelar",
+    "new_closing_date": "A nova data limite será a{{closing_date}} às {{time}}",
+    "closing_date": "Data limite",
+    "description": "As inscrições foram encerradas em {{closing_date}}. Se não houver respostas suficientes, pode adiar a data limite.",
+    "title": "Data limite"
+  },
+  "askForReplacement": {
+    "lateRequestInfo": "O pedido será registado, mas não se esqueça de contactar diretamente o estúdio para o informar assim que possível.",
+    "lateRequestInfo_plural": "Os pedidos serão registados, mas não se esqueça de contactar diretamente o estúdio para o informar assim que possível.",
+    "lateRequestCounterInfo": "<strong>{{requestsLeft}}</strong> em <strong>{{requestsMax}}</strong> pedido tardio restante até {{-dateEnd}}.",
+    "lateRequestCounterInfo_plural": "<strong>{{requestsLeft}}</strong> em <strong>{{requestsMax}}</strong> pedidos tardios restantes até {{-dateEnd}}.",
+    "lateRequestTypo": "O seu pedido de substituição está atrasado. Tem {{daysBeforeOffer}} dias antes do início da atividade para efetuar o seu pedido em tempo útil.",
+    "lateRequestTypo_plural": "O seus pedidos de substituição estão atrasados. Tem {{daysBeforeOffer}} dias antes do início da atividade para efetuar o seu pedido em tempo útil.",
+    "close": "Fechar",
+    "requestSentDescription": "O seu pedido de substituição foi processado. Aceda ao separador \"Os meus pedidos\" para acompanhar o seu estado.",
+    "requestSentDescription_plural": "Os seus pedidos de substituição foram processados. Aceda ao separador \"Os meus pedidos\" para acompanhar os seus estados.",
+    "requestSent": "Pedido enviado",
+    "requestSent_plural": "Pedidos enviados",
+    "submit": "Submeter",
+    "cancel": "Cancelar",
+    "label": "Motivo da ausência",
+    "title": "Pedido de substituição"
+  },
+  "replacementStatus": {
+    "offerCancelled": "Cancelado",
+    "teacherFound": "Substituto",
+    "approvedWithReplacementPropositions": "Ativo",
+    "approvedButNoReplacementPropositions": "Abrir",
+    "deniedByManager": "Recusado",
+    "pendingForApproval": "À espera de validação",
+    "description": {
+      "offerCancelled": "aula cancelada.",
+      "approvedWithReplacementPropositions": "inscrições ativas.",
+      "approvedButNoReplacementPropositions": "à espera de inscrições.",
+      "pendingForApproval": "à espera que o gestor tome medidas.",
+      "description": "A seguinte página mostra-lhe o estado do seu pedido."
+    }
+  },
+  "noListItem": {
+    "calendar": "Não há atividades programados nestas datas",
+    "replacementRequest": "Nenhum elemento"
+  },
+  "coachAnswer": {
+    "no": "Nome",
+    "ratherNo": "Talvez",
+    "yes": "Sim"
+  },
+  "managerTableTitles": {
+    "replacementHistory": "Histórico de substituições",
+    "pendingRequests": "Candidaturas em curso"
+  },
+  "requestTableTitles": {
+    "deniedRequests": "Pedido recusado",
+    "replacementFound": "Encontrada uma substituição",
+    "pending": "Em andamento"
+  },
+  "header": {
+    "class": "Aula",
+    "registrations": "Inscrições",
+    "request": "Pedido",
+    "availability": "Disponível",
+    "closing_date": "Data final",
+    "teacher_override": "Professor substituto",
+    "teacher": "Professor",
+    "status": "Estado",
+    "reason": "Justificação",
+    "action": "Ação",
+    "location": "Local",
+    "level": "Nível",
+    "name": "Nome da aula",
+    "date": "Data e hora",
+    "establishment_group": "Localização"
+  },
+  "unavailableReplacement": {
+    "refusedByManager": "O pedido de substituição foi recusado",
+    "noLateRequestsLeft": "Já não é possível criar novos pedidos de substituição",
+    "tooEarly": "Ainda não existem substitutos disponíveis",
+    "alreadyPassed": "Este passe foi aprovado",
+    "alreadyAskedFor": "Já está um pedido em curso",
+    "replacing": "É um substituto nesta sessão"
+  },
+  "marketplace": {
+    "until": "Até {{-date}}",
+    "filters": "Filtros",
+    "description": "As seguintes atividades precisam de um professor substituto. Está disponível?",
+    "title": "Marketplace"
+  },
+  "confirmations": {
+    "description": "Foi adicionado como professor substituto para as seguintes atividades.",
+    "title": "Confirmações"
+  },
+  "requests": {
+    "cancel": "Cancelar",
+    "description": "Pode encontrar todos os seus pedidos de substituição aqui.",
+    "title": "Os meus pedidos"
+  },
+  "calendar": {
+    "helperTextNotLimited": "Todos os pedidos de substituição efectuados antes {{count}} dia da sessão serão considerados tardios.",
+    "helperTextNotLimited_plural": "Todos os pedidos de substituição efectuados antes {{count}} dias da sessão serão considerados tardios.",
+    "helperTextLimited": "<strong>{{requestsLeft}}</strong> em <strong>{{requestsMax}}</strong> restantes pedidos atrasados até {{-dateEnd}}. Todos os pedidos de substituição efetuados com menos de {{count}} dia antes da sessão, serão considerados atrasados.",
+    "helperTextLimited_plural": "<strong>{{requestsLeft}}</strong> em <strong>{{requestsMax}}</strong> restantes pedidos atrasados até {{-dateEnd}}. Todos os pedidos de substituição efetuados com menos de {{count}} dias antes da sessão, serão considerados atrasados.",
+    "description": "Encontre todas as suas aulas de grupo aqui.",
+    "title": "O meu calendário"
+  },
+  "requestsLinkedToCancelledOffers": {
+    "cancelledOffersModeTitle": "Modo de sessões canceladas",
+    "filterHelper": "Se este alerta persistir e não aparecerem sessões no modo <strong>{{switchLabel}}</strong>, recomendamos que desactive os filtros e alargue o intervalo de datas.",
+    "description": "Para ver estas sessões, active o filtro <strong>{{switchLabel}}</strong> acima",
+    "title": "Os pedidos de substituição ativos estão ligados a sessões canceladas.",
+    "buttonLabel": "Aberto",
+    "offerHasActiveRequest": {
+      "helper": "Gostaria de ser redireccionado para a página de pedidos de substituição para cancelar pedidos antigos ?",
+      "title": "Um pedido de substituição ativo está ligado a esta sessão"
+    }
+  },
+  "tooltip": {
+    "offerCancelled": "Esta sessão foi cancelada",
+    "seeAnswers": "Ver a lista de substituições"
+  }
+}

@@ -1,0 +1,182 @@
+{
+    "metaActivity": "",
+    "search": "",
+    "forms": {
+        "create": {
+            "compatible_packs": {
+                "seeMore": "",
+                "createPass": "",
+                "goToActivity": "",
+                "passHelperText": "",
+                "noCompatiblePass": ""
+            },
+            "steps": {
+                "activity_form": "",
+                "pass_form": "",
+                "pass_list": "",
+                "offer_form": "",
+                "workshop_form": ""
+            }
+        },
+        "delete": {
+            "actions": {
+                "confirm": "",
+                "cancel": ""
+            },
+            "content": {
+                "cannotDelete": "",
+                "canDelete": ""
+            },
+            "title": ""
+        },
+        "warning": {
+            "highLastBookingBeforeWarning": "",
+            "lowFirsBookingUntilWarning": ""
+        }
+    },
+    "detail": {
+        "pack": {
+            "noCompatiblePass": "",
+            "consumerPacks": "",
+            "paymentPacks": ""
+        },
+        "tab": {
+            "general": "",
+            "pack": "",
+            "group": ""
+        }
+    },
+    "name": "",
+    "category": "",
+    "addOffers": "",
+    "offersThisDay": "",
+    "description": "",
+    "settings": {
+        "title": "",
+        "lastBookingBeforeMinutes": "",
+        "lastDiscardBeforeMinutes": "",
+        "firstBookingMinutesUntil": "",
+        "conditions": "",
+        "autoDiscard": "",
+        "firstBookingMinutesUntilHeader": "",
+        "lastDiscardBeforeMinutesHeader": "",
+        "seeRestrictions": "",
+        "restrictions": "",
+        "restrictionsHeader": "",
+        "autoDiscardHeader": "",
+        "lastBookingBeforeMinutesHeader": "",
+        "lastDiscardBeforeMinutesFull": "",
+        "lastBookingBeforeMinutesFull": ""
+    },
+    "modal": {
+        "delete": {
+            "title": "",
+            "content": "",
+            "cancel": "",
+            "confirm": ""
+        }
+    },
+    "packsAvailable": "",
+    "reviews": "",
+    "navigation": {
+        "goToPaymentPack": ""
+    },
+    "actions": {
+        "search": "",
+        "addActivity": ""
+    },
+    "noActivities": "",
+    "disabledMetaActivities": "",
+    "workshop": "",
+    "groupedOption": {
+        "modal": {
+            "form": {
+                "recurrenceNumberPrefix": "",
+                "impossibleState": "",
+                "submit": "",
+                "back": "",
+                "save": "",
+                "delete": {
+                    "content": "",
+                    "missingOffer": "",
+                    "firstSession": "",
+                    "selectHeader": "",
+                    "selectGroup": "",
+                    "applyRecursive": "",
+                    "title": ""
+                },
+                "copyRecurrence": "",
+                "required": "",
+                "next": "",
+                "groupName": "",
+                "daily": "",
+                "recurrence": "",
+                "timeStart": "",
+                "preview": "",
+                "recurrenceUntilHelper2": "",
+                "recurrenceUntilHelper": "",
+                "timeStartHelper": "",
+                "recurrenceUntil": "",
+                "nameCaption": "",
+                "recurrenceCount": "",
+                "withRecurrence": "",
+                "marketPlaceAvailable": "",
+                "allowBookingAfterStartCaption": "",
+                "allowBookingAfterStart": "",
+                "fullBookingOnlyCaption": "",
+                "fullBookingOnly": "",
+                "name": "",
+                "subtitleRecurrence": "",
+                "subtitleSettings": "",
+                "addOffers": "",
+                "subtitleOffers": "",
+                "subtitle": "",
+                "allowGuest": "",
+                "allowGuestUnavailable": "",
+                "creationError": "",
+                "uncreatedGroupsTitle": "",
+                "syncOnSpivi": "",
+                "spiviWarningHelperText": ""
+            },
+            "duplicate": "",
+            "subtitlePreview": "",
+            "subtitleMetaActivitySelect": "",
+            "title": ""
+        },
+        "offerDescription": "",
+        "helperText": {
+            "year": "",
+            "day": "",
+            "week": "",
+            "month": ""
+        },
+        "last": "",
+        "intervalLabel": {
+            "until": {
+                "year": "",
+                "day": "",
+                "week": "",
+                "month": ""
+            },
+            "year": "",
+            "day": "",
+            "week": "",
+            "month": ""
+        },
+        "warning": {
+            "groupsWithOutOfTheRangeOffers": "",
+            "uncreatedGroups": ""
+        },
+        "errors": {
+            "offers_length": ""
+        }
+    },
+    "cancelledOffers": "",
+    "workshopSelect": "",
+    "close": "",
+    "edit": "",
+    "warningUSCDialog": {
+        "title": "",
+        "content": ""
+    }
+}

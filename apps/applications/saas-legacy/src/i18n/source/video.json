@@ -1,0 +1,179 @@
+{
+  "video": {
+    "form": {
+      "coach": {
+        "isEmpty": "No teacher"
+      },
+      "title": "Video form",
+      "submit": "Save",
+      "cancel": "Cancel",
+      "edit": "Edit",
+      "creditPrice": {
+        "label": "Price (in credits)",
+        "helperText": "Leave at 0 if you want the video to be accessible to all your members",
+        "decimalCredit": {
+          "helperText": "This video will cost {{count}} credit. Leave at 0 if you want the video to be accessible to all your members",
+          "helperText_plural": "This video will cost {{count}} credits. Leave at 0 if you want the video to be accessible to all your members"
+        }
+      },
+      "video_label": "Video",
+      "video_source": {
+        "change_popup_text": "Please note that the current video/file will be deleted. Members who purchased the old file will now have the new one.",
+        "change_popup_title": "Change file",
+        "edit_button": "Change file",
+        "uploaded_video": "Uploaded file",
+        "youtube_video": "YouTube video",
+        "title": "File",
+        "vimeo_video": "Vimeo video",
+        "ebook": "eBook"
+      },
+      "confirm": {
+        "button": "Confirm",
+        "unlimitedToRent": "This video will become a rental video instead of a permanent video. All members that (previously) unlocked it will lose access to it, should the validity period have been expired. Are you sure that you want to continue?",
+        "rentToUnlimited": "This video will become a permanent video instead of a rental video. All members that (previously) unlocked it will be able to watch it. Are you sure that you want to continue?",
+        "title": "Availability"
+      }
+    },
+    "upload": {
+      "cancel": "Cancel",
+      "dropHere": "Click here to add a video.",
+      "content": "Drop here or select a video",
+      "title": "Upload a video",
+      "urlInputError": "Please enter the URL",
+      "type": {
+        "youtubeExplain": "You have a Youtube video and want to monetize it via bsport.",
+        "vimeoExplain": "You have a Vimeo video and want to monetize it via bsport.",
+        "vimeo": "Vimeo",
+        "youtube": "Youtube",
+        "ebookExplain": "Upload an eBook (PDF, JPG, or PNG) to make it available for download for your members.",
+        "ebook": "eBooks",
+        "url": "YouTube",
+        "file": "File",
+        "urlExplain": "If you have a video Youtube and want to limit to monetize it via bsport.",
+        "fileExplain": "If you have a video file (mp4,avi,mov...), please use this to upload directly your video on our servers."
+      },
+      "submit": "Save",
+      "minutes": "Minutes",
+      "hours": "Hours",
+      "durationInputError": "Please enter the video's duration",
+      "durationLabel": "Duration",
+      "vimeoUrlInput": "Link to Vimeo",
+      "youtubeUrlInput": "Link to YouTube",
+      "contentEbook": "Click here to upload a file or an image.",
+      "ebookTitle": "Upload an eBook",
+      "urlInputLabel": "Youtube link"
+    },
+    "delete": {
+      "cancel": "Cancel",
+      "confirm": "Confirm",
+      "content": "Are you sure you want to remove this video? This action can't be undone.",
+      "title": "Deletion"
+    },
+    "status": {
+      "processed": "Statistics",
+      "error": "Retry",
+      "processing": "Processing",
+      "submitted": "Draft"
+    },
+    "level": "Level",
+    "description": "Description",
+    "category": "Category",
+    "name": "Title",
+    "bottomActions": {
+      "create": "Add"
+    },
+    "search": {
+      "isEmpty": "There are no videos to display.",
+      "cancel": "Cancel",
+      "placeholder": "Search"
+    },
+    "thumbnailList": {
+      "similarVideoTitle": "Recommended videos",
+      "count": "{{count}} videos",
+      "addVideo": "Add a video"
+    },
+    "player": {
+      "with": "with"
+    },
+    "durationMinute": "{{minute}} min",
+    "showMore": "See more",
+    "filter": {
+      "duration": {
+        "explain": "Between {{min}} and {{max}} min",
+        "all": "Any duration"
+      }
+    },
+    "lock": {
+      "pleaseAuthenticated": "You must login to access this video",
+      "accessDenied": "Please click on the button below to watch this video.",
+      "buyPass": "Purchase a pass",
+      "useConsumerPass": "Unlock access",
+      "accessDeniedEbook": "You don't have access to this eBook."
+    },
+    "creditPrice": "Price (in credits)",
+    "register": {
+      "buyPass": "Purchase a pass",
+      "title": "Play this video",
+      "noPassAvailable": "You don't own a compatible pass yet."
+    },
+    "analytics": {
+      "uploaded": "Video uploaded on {{date}}",
+      "distinctViewers": "Unique views",
+      "viewsLastWeek": "Last 7 days",
+      "totalViews": "Total",
+      "dateCreated": "Put online",
+      "viewTitle": "Viewing",
+      "views": "{{nb_views}} views"
+    },
+    "viewsListTitle": "List of views",
+    "purchaseListTitle": "List of purchases",
+    "viewedOn": "Viewed on: {{-date}} at {{hour}}",
+    "boughtOn": "Purchase made on the {{-date}}",
+    "noVideoView": "No views",
+    "noVideoPurchase": "No purchase recorded",
+    "coverMain": {
+      "alert": "The picture is mandatory"
+    },
+    "manager_only_helper": "The video will not be available for purchase, it will be visible only to managers",
+    "manager_only": "Unavailable for purchase",
+    "duplicate": "Duplicate",
+    "rental": {
+      "forRent": "Video rental",
+      "expired": "Expired",
+      "valid": "Valid",
+      "buyDate": "Purchase time",
+      "expiredDate": "Expired since {{ expiration_date }}",
+      "expirationDate": "Valid until {{ expiration_date }}",
+      "rental_days_helper": "The video will be unlocked for X amount of days.",
+      "duration": "For rent for {{ rental_days }} day(s).",
+      "duration_helper": "Video availability (in days)",
+      "helper": "Videos are unlocked in perpetuity by default. Renting a video will unlock it for a certain number of days.",
+      "label": "Video rental"
+    },
+    "ebook": {
+      "downloadHelper": "{{button}} Click the button to consult your eBook."
+    },
+    "download": "Download"
+  },
+  "playlist": {
+    "bottomActions": {
+      "create": "Add"
+    },
+    "form": {
+      "submit": "Save",
+      "cancel": "Cancel"
+    },
+    "open": "Open",
+    "deleteVideo": "Remove",
+    "description": "Description",
+    "name": "Title",
+    "noVideo": "No video in this playlist",
+    "playlist": "Playlist"
+  },
+  "details": {
+    "pleaseSelectVod": "Select a purchase for a more detailed overview.",
+    "invoiceTitle": "Associated invoice",
+    "consumerPaymentPackTitle": "Used pass",
+    "title": "Details of the video"
+  }
+}

@@ -1,3 +1,4 @@
+@bsport/sm-email-template
 @bsport/sm-custom-form
 @bsport/sm-giftcard
 @bsport/sm-group-activity
@@ -13,3 +14,4 @@
 @bsport/sm-referral-program
 @bsport/sm-tag
 @bsport/sm-transactional-notification
+@bsport/sm-marketing-notification

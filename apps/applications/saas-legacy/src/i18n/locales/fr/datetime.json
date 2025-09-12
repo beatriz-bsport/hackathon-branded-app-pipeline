@@ -1,0 +1,91 @@
+{
+  "shortDayIdentifier": "jour(s)",
+  "never": "Jamais",
+  "shortMinuteIdentifier": "min",
+  "shortHourIdentifier": "h",
+  "time": {
+    "weekday": {
+      "sunday": "Dimanche",
+      "monday": "Lundi",
+      "tuesday": "Mardi",
+      "wednesday": "Mercredi",
+      "thursday": "Jeudi",
+      "friday": "Vendredi",
+      "satursday": "Samedi"
+    },
+    "weekdayNumber": {
+      "0": "Lundi",
+      "1": "Mardi",
+      "2": "Mercredi",
+      "3": "Jeudi",
+      "4": "Vendredi",
+      "5": "Samedi",
+      "6": "Dimanche"
+    },
+    "isoWeekdayNumber": {
+      "1": "Lundi",
+      "2": "Mardi",
+      "3": "Mercredi",
+      "4": "Jeudi",
+      "5": "Vendredi",
+      "6": "Samedi",
+      "7": "Dimanche"
+    },
+    "monthShort": {
+      "january": "Jan",
+      "february": "Fév",
+      "march": "Mar",
+      "april": "Avr",
+      "may": "Mai",
+      "june": "Juin",
+      "july": "Juil",
+      "august": "Août",
+      "september": "Sep",
+      "october": "Oct",
+      "november": "Nov",
+      "december": "Déc"
+    },
+    "month": {
+      "january": "Janvier",
+      "february": "Février",
+      "march": "Mars",
+      "april": "Avril",
+      "may": "Mai",
+      "june": "Juin",
+      "july": "Juillet",
+      "august": "Août",
+      "september": "Septembre",
+      "october": "Octobre",
+      "november": "Novembre",
+      "december": "Décembre"
+    }
+  },
+  "form": {
+    "zeroMinute": "0 min",
+    "quarterHour": "15 min",
+    "twentyMinutes": "20 min",
+    "halfHour": "30 min",
+    "halfAndQuarterHour": "45 min",
+    "fiftyMinutes": "50 min",
+    "oneHour": "1h",
+    "oneHourFifteen": "1h15",
+    "oneHourAndHalf": "1h30",
+    "twoHour": "2h",
+    "threeHour": "3h",
+    "fourHour": "4h",
+    "sixHour": "6h",
+    "eightHour": "8h",
+    "twelveHour": "12h",
+    "oneDay": "1 journée",
+    "twoDays": "2 journées",
+    "oneWeek": "1 semaine",
+    "tenDays": "10 jours",
+    "twoWeeks": "2 semaines",
+    "oneMonth": "1 mois",
+    "never": "Jamais",
+    "tenMinutes": "10 min"
+  },
+  "longDayIdentifer": "jours",
+  "longMinuteIdentifier": "minutes",
+  "longHourIdentifier": "heures"
+}

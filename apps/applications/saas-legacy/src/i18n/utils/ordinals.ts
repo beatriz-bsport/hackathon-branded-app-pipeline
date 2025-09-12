@@ -109,15 +109,6 @@ const NUMERABLE_BY_LOCALE: {
       return '.';
     },
   },
-  [LANGUAGES.CZECH]: {
-    delimiter: {
-      thousands: '.',
-    },
-    getOrdinalSuffix() {
-      // TODO: TBC with Czech speaker
-      return '°';
-    },
-  },
 };
 
 /**

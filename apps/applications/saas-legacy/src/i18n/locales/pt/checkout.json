@@ -1,0 +1,207 @@
+{
+  "bookerMethod": {
+    "emptyMethod": "O estúdio não criou nenhum passe compatível com este vídeo.",
+    "section": {
+      "combo": "Packs",
+      "consumerPass": "Os meus passes",
+      "pass": "Passes disponíveis"
+    },
+    "actions": {
+      "bookVod": "Desbloquear vídeo"
+    }
+  },
+  "payment": {
+    "total": "Total (incl. IVA / imposto sobre vendas)",
+    "globalTotal": "Total a pagar agora",
+    "flat_fee": "Taxas de inscrições",
+    "taxExcluded": "Subtotal (sem IVA / imposto sobre vendas)",
+    "tax": "IVA / Impostos sobre vendas",
+    "internalAccount": "O saldo da minha conta interna",
+    "totalHiddingTax": "Total a pagar agora",
+    "deliveryFee": "Despesas de envio",
+    "title": "Pagamento",
+    "flatFeeSubscription": "Taxa de Inscrição"
+  },
+  "events": {
+    "basket-created": "Cesto criado",
+    "basket-finalize": "Compra finalizada",
+    "basket-additem": "Adicionar ao cesto",
+    "basket-removeitem": "Retirar do carrinho",
+    "basket-automaticclean": "Limpar cesto"
+  },
+  "myBasket": {
+    "totalQuantity": "Contém {{ qty }} elementos",
+    "actions": {
+      "closeBasket": "Continuar a comprar",
+      "checkoutBasket": "Pagar",
+      "payZero": "Confirmar cesto"
+    },
+    "checkingPaymentStatus": "O seu estado de pagamento está a ser revisto.",
+    "finalize": {
+      "steps": {
+        "address": "Endereço",
+        "payment": "Faturação"
+      }
+    },
+    "title": "O meu cesto",
+    "isEmpty": "O cesto está vazio",
+    "isFinalized": "O cesto foi validado",
+    "featured": "Recomendamos",
+    "error": {
+      "invalidBasket": "O seu cesto continha artigos que já não estão disponíveis para venda. Não foi registado qualquer pagamento",
+      "inconsistentBasket": "O seu cesto foi modificado. Actualize a sua página antes de validar o pagamento.\nNão foi debitado."
+    },
+    "acceptTermsAndFinalize": "Por favor, aceite os termos e condições gerais e finalize a sua reserva",
+    "checkAndFinalize": "Por favor, verifique o seu cesto e finalize a sua reserva",
+    "almostDone": "Quase pronto",
+    "noBooking": {
+      "checkAndFinalize": "Verifique o seu cesto",
+      "acceptTermsAndFinalize": "Aceite os termos e condições e complete o seu cesto"
+    },
+    "newCheckout": {
+      "isEmpty": "O seu cesto está vazio!",
+      "isEmptyDescription": "Continue a explorar o marketplace!"
+    },
+    "goToMarketplace": "Ver o mercado",
+    "referral": {
+      "hasReachedMaxUses": "O número máximo de utilizações do link de referência foi atingido.",
+      "missingAmountBeforeApplication": "O montante mínimo de compra não foi atingido. Corre o risco de perder o seu link de referência. Apenas {{ missingAmount }} mais para poder aproveitar o desconto!"
+    }
+  },
+  "validation": {
+    "actions": {
+      "continue": "Continuar a comprar",
+      "member": "A minha conta",
+      "back": "Voltar atrás",
+      "widgetContinue": "Continuar",
+      "confirmPriceNull": "Confirmar ",
+      "payNow": "Pagar agora",
+      "goToCalendar": "Voltar ao calendário",
+      "myBookings": "Minhas Reservas",
+      "retry": "Tentar novamente",
+      "newWorkshop": "Novo Worskhop",
+      "retryBookingSession": "Tentar reservar novamente",
+      "mySubscription": "Minha subscrição",
+      "myProducts": "Meus Produtos",
+      "myGiftcards": "Meus cartões de presente",
+      "myPasses": "Meus Passes",
+      "backToMyProfile": "Voltar ao meu perfil"
+    },
+    "sections": {
+      "errorExplain": {
+        "generic": "Não foi possível efetuar a operação. Por favor, tente novamente.",
+        "guestGeneric": "Surgiu um problema com a inscrição de um convidado.",
+        "guestOvercomeLimit": "O número de convidados adicionado a esta reserva excede o número autorizado.",
+        "guestReachedLimit": "Já atingiu o limite de reservas para um hóspede para o período atual. Não é possível efetuar mais nenhuma reserva.",
+        "guestSettings": "O convite a convidados não está disponível.",
+        "guestOffer": "O estúdio desactivou a reserva de um elemento convidado para esta sessão.",
+        "guestPass": "O estúdio desactivou a reserva de um elemento convidado para este passe.",
+        "guestNotEnoughSpot": "Não há capacidade suficiente para todos os seus convidados.",
+        "offerOnlyBookingError": "Lamentamos, mas a sessão e o local seleccionados não podem ser reservados de momento. Por favor, tente novamente.",
+        "genericOfferError": "Encontrámos um problema ao processar a reserva da sua sessão. Por favor, tente novamente mais tarde ou reserve uma sessão diferente."
+      },
+      "offerBooked": "A minha reserva",
+      "offerBooked_plural": "As minhas reservas",
+      "offerPreBooked": "Entrou na lista de espera para",
+      "offerNotBookable": "Não é possível registar-se",
+      "error": "Erro",
+      "explain": "A sua compra foi processada. Em breve, receberá também um e-mail de confirmação.",
+      "recap": "Resumo",
+      "title": "Parabéns !",
+      "basket": "O meu cesto",
+      "confirmationStatusTitle": {
+        "errors": {
+          "generic": "Ops! O pagamento falhou.",
+          "genericOfferError": "Ops! A reserva falhou."
+        },
+        "success": {
+          "offerOnlySuccess": "Aproveite a sessão!",
+          "paymentSuccess": "Pagamento confirmado!",
+          "waitingList": "Está inscrito na lista de espera",
+          "offerOnlyGuestSuccess": "Desfrute da sessão com o seu convidado!"
+        }
+      },
+      "confirmationStatusMessage": {
+        "offerOnlySuccess": "A reserva foi efectuada. Receberá em breve um e-mail de confirmação com todos os detalhes.",
+        "offerOnlySuccess_plural": "As reservas foram efectuadas. Receberá em breve um e-mail de confirmação com todos os detalhes.",
+        "paymentSuccess": "Parabéns! A sua compra foi confirmada!",
+        "paymentSuccess_plural": "Parabéns! As suas compras estão confirmadas!",
+        "offerAndPurchaseSuccess": "Parabéns! As suas compras e reservas foram confirmadas. Receberá em breve um e-mail de confirmação com todos os datelhes.",
+        "offerOnlyGuestSuccess": "A reserva foi efectuada. Você e o seu convidado receberão em breve um e-mail de confirmação com todos os detalhes"
+      },
+      "alert": "Ops! A reserva falhou.\nTivemos um problema ao processar a reserva da sua sessão. Por favor, tente novamente mais tarde ou marque uma sessão diferente.",
+      "myPass": "Meu passe",
+      "myPass_plural": "Meus passes",
+      "myPack": "Meu Pacote",
+      "myPack_plural": "Meus pacotes",
+      "mySubscription": "Minha subscrição",
+      "myProduct": "Meu produto",
+      "myProduct_plural": "Meus produtos",
+      "myGiftcard": "Meu cartão de oferta",
+      "myGiftcard_plural": "Meus cartões de oferta",
+      "offerGuestBooked": "Minha reserva de convidado",
+      "offerGuestBooked_plural": "Minhas reservas de convidados"
+    },
+    "bookingItem": {
+      "bookingItemStatus": {
+        "waitingList": "Lista de Espera",
+        "unpaid": "Não pago"
+      }
+    }
+  },
+  "internalAccount": {
+    "cancel": "Cancelar",
+    "useMyInternalAccount": "Utilizar o crédito da minha conta interna",
+    "myInternalAccount": "O saldo da minha conta interna",
+    "use": "Utilizar o saldo da minha conta interna",
+    "label": "Montante disponível : ",
+    "confirm": "Confirmar",
+    "useAsManager": "Utilizar o crédito interno da conta"
+  },
+  "historyTitle": "Histórico de compras",
+  "paymentIntent": {
+    "isProcessing": "Processando..."
+  },
+  "forms": {
+    "delivery": {
+      "first_name": "Nome próprio",
+      "last_name": "Sobrenome",
+      "actions": {
+        "submit": "Seguinte",
+        "cancel": "Anterior"
+      }
+    }
+  },
+  "autoAdd": {
+    "paymentPack": {
+      "locked": "Este produto não está disponível para compra."
+    },
+    "privatePass": {
+      "error": "Este passe para marcações não está disponível"
+    },
+    "paymentCombo": {
+      "locked": "Este pack não está disponível"
+    }
+  },
+  "payLater": {
+    "submit": "Pagar mais tarde",
+    "explain": "O seu método de pagamento será solicitado em estúdio antes do início da sessão. Até lá, a sua fatura é considerada como não paga."
+  },
+  "or": "ou",
+  "expire_in": "Expira em ",
+  "eventHistory": {
+    "sectionTitle": "Eventos",
+    "pleaseSelectABasket": "Selecionar para ver histórico"
+  },
+  "expiredSpotDialog": {
+    "refresh": "Atualizar",
+    "message": "A sua reserva de lugar expirou, pode seleccioná-lo novamente ou escolher um diferente.",
+    "title": "A sua reserva de lugar expirou"
+  },
+  "spotSavedFor": "O local selecionado é guardado para: {{countdown}}",
+  "billingGroup": {
+    "title": "Local de preferência",
+    "placeholder": "Localização",
+    "helperText": "O local preferencial é aquele onde você planeja usar sua compra e será utilizado para emitir a sua fatura."
+  }
+}

@@ -1,0 +1,40 @@
+export type Subscription = {
+  id: number;
+  recurrent_price: string;
+  nb_interval: number;
+  payment_pack: number;
+  private_pass: number | null;
+  payment_combo: number | null;
+  name: string;
+  description: string;
+  contract: string;
+  manager_only: boolean;
+  auto_renewal: boolean;
+  disabled: boolean;
+  flat_fee: string;
+  interval: "day" | "week" | "month" | "year";
+  recurrence_basis: number;
+  company: number;
+  tax: number;
+  contract_terms_pdf_link: string;
+  is_usable_by_staff: boolean;
+  month_billing_day: number | null;
+  highlighted_as_recommended: boolean;
+  tags_on_first_billing: number[];
+  member_relation_auto_share: boolean;
+  nb_interval_after_auto_renewal: number | null;
+  contract_template: number | null;
+  editable: boolean;
+  has_mandatory_commitment_period: boolean;
+  commitment_period_value: number;
+  commitment_period_unit: "day" | "week" | "month" | "year";
+};
+
+export type FetchSubscriptionQueryParams = {
+  page?: number;
+  page_size?: number;
+  disabled?: boolean;
+  manager_only?: boolean;
+  is_usable_by_staff?: boolean;
+  id__in?: string;
+};

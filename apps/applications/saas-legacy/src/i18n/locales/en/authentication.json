@@ -1,0 +1,17 @@
+{
+    "resetPassword": {
+        "title": "",
+        "noEmail": "",
+        "explain1": "",
+        "explain2": "",
+        "emailHasBeenSent": "",
+        "actions": {
+            "cancel": "",
+            "reset": "",
+            "backToLogin": "",
+            "confirm": ""
+        },
+        "contactUs": "",
+        "hasProblem": ""
+    }
+}

@@ -1,0 +1,73 @@
+{
+  "state": {
+    "0": "In Bearbeitung",
+    "700": "Zu bearbeiten",
+    "1100": "Storniert",
+    "1200": "Abholung vor Ort",
+    "9000": "Versendet"
+  },
+  "actions": {
+    "flagAsSent": "Versendet",
+    "flagAsOnSiteDelivery": "Abholung vor Ort",
+    "flagAsCancelled": "Abbrechen"
+  },
+  "form": {
+    "delivery": {
+      "last_name": "Nachname",
+      "first_name": "Vorname"
+    }
+  },
+  "table": {
+    "qty": "Menge",
+    "name": "Käufer",
+    "state": "Status",
+    "updated_at": "Aktualisert am",
+    "created_at": "Erstellt am",
+    "actions": "Aktionen"
+  },
+  "products": {
+    "nbProducts": "Produkte"
+  },
+  "detail": {
+    "section": {
+      "title": "Bestellungsstatus :",
+      "deliveryInfo": "Lieferadresse",
+      "productDetail": "Details des Warenkorbs",
+      "invoice": "Verbundene Rechnung",
+      "member": "Käufer"
+    }
+  },
+  "deliveryFee": {
+    "modal": {
+      "delete": {
+        "confirm": "Löschen",
+        "content": "Bitte beachten Sie, dass dieser Vorgang nicht rückgängig gemacht werden kann. Alte Bestellungen, die diese Gebühr verwenden, werden nicht geändert.",
+        "cancel": "Abbrechen",
+        "title": "Versandkosten löschen"
+      }
+    },
+    "forms": {
+      "create": "Versandkosten hinzufügen",
+      "title": "Versandkosten hinzufügen",
+      "feeLabel": "Versandkosten",
+      "nameLabel": "Name",
+      "freeThresholdHelper": "Ab diesem Betrag ist der Versand kostenlos",
+      "freeThresholdLabel": "Kostenlose Lieferung ab",
+      "onCancel": "Abbrechen",
+      "onSubmit": "Speichern"
+    },
+    "free_threshold": "Mindestbetrag für kostenlose Lieferung",
+    "name": "Name",
+    "fee": "Versandkosten",
+    "offeredAboveAmount": "Kostenlose Lieferung ab {{ free_threshold, price }}"
+  },
+  "configuration": {
+    "deliveryFee": "Versandkosten",
+    "noDefaultDeliveryFee": "Keine Versandkosten",
+    "defaultDeliveryFee": "Standard-Versandkosten",
+    "forms": {
+      "onSubmit": "Speichern"
+    }
+  },
+  "pageTitle": "Shop"
+}

@@ -1,10 +1,9 @@
 import { cva } from "class-variance-authority";
 import React, { Fragment } from "react";
 
-import Icon, { type IconName } from "#src/components/Icon";
+import Icon from "#src/components/Icon";
 
-import BreadcrumbsItem from "./BreadcrumbsItem";
-import BreadcrumbItem from "./BreadcrumbsItem";
+import { type BreadcrumbItemProps, BreadcrumbsItem } from "./BreadcrumbsItem";
 
 const defaultClasses = [
   "flex",
@@ -16,13 +15,7 @@ const defaultClasses = [
 const breadcrumbs = cva(defaultClasses);
 
 export type BreadcrumbsProps = React.HTMLAttributes<HTMLElement> & {
-  breadcrumbsItems?: Array<{
-    text: string;
-    iconLeft?: IconName;
-    active?: boolean;
-    href?: string;
-    id?: string;
-  }>;
+  breadcrumbsItems?: Array<BreadcrumbItemProps>;
   BreadcrumbsItems?: Array<React.ReactNode>;
 };
 
@@ -38,7 +31,7 @@ export type BreadcrumbsProps = React.HTMLAttributes<HTMLElement> & {
  * @link https://docs.infra.bsport.io/storybook/kaizen/dev/index.html?path=/docs/components-breadcrumbs--docs
  */
 const Breadcrumbs: React.FC<BreadcrumbsProps> & {
-  Item: typeof BreadcrumbItem;
+  Item: typeof BreadcrumbsItem;
 } = ({
   className,
   breadcrumbsItems,

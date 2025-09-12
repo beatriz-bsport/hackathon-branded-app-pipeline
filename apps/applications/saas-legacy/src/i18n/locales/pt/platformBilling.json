@@ -1,0 +1,84 @@
+{
+  "featureRequest": {
+    "close": "Fechar",
+    "content": "Obrigado pelo seu interesse neste complemento. Se deseja saber mais, convidamo-lo gentilmente a fazer a sua pergunta no nosso chat de suporte personalizado. O seu gerente de conta terá todo o prazer em fornecer-lhe mais informações.",
+    "title": "Vamos começar uma conversa"
+  },
+  "platformBillingStage": {
+    "maxBooking": "Até {{ max_booking_per_month }} reservas / mês",
+    "monthlyPrice": "{{ price }} / mês"
+  },
+  "platformBillingPlan": {
+    "max_establishment": {
+      "help": "Um estabelecimento é contabilizado a partir de 8 sessões mensais",
+      "label": "Até {{ max_establishment }} estabelecimentos"
+    },
+    "max_coach": {
+      "help": "Um professor é creditado com 8 ou mais sessões mensais",
+      "label": "Até {{ max_coach }} professores"
+    }
+  },
+  "platformBillingGroup": {
+    "soonAvailable": "Disponível brevemente !",
+    "myGroup": "A minha encomenda"
+  },
+  "upsellPackage": {
+    "sms": {
+      "explainBilling": "{{ price_cts }} / SMS"
+    },
+    "vod": {
+      "explainBilling": "  +1 {{currencyDisplay }} / cliente ativo"
+    },
+    "otherAddonTitle": "Add-ons disponíveis",
+    "myAddonTitle": "Os meus add-ons",
+    "knowMore": "Mais informações +",
+    "billRecurrent": "{{ price_cts }} / mês",
+    "billOnce": "{{ price_cts }}",
+    "lockDialog": {
+      "31": {
+        "intro": "Desbloquear Audience acesso",
+        "explain": "Esta funcionalidade é um add-on, contacte o seu gestor de conta para obter mais informações."
+      },
+      "33": {
+        "explain": "Você encontrará aqui todas as suas discussões diretas, bate-papos vinculados às suas sessões e suas campanhas de lista inteligente. O bate-papo é compatível com SMS, e-mail e notificações por push.",
+        "intro": "Descubra nossa nova interface de bate-papo direto com seus membros."
+      },
+      "requestAccess": "Solicitar acesso"
+    },
+    "subscriptionForm": {
+      "commitmentMessage": "Nota: A subscrição implica um período de compromisso de 12 meses",
+      "confirmationMessage": "Inscreveu-se com êxito no {{- name }}",
+      "info": "Contactar a assistência ao cliente",
+      "infoHelper": "Precisa de mais informações?",
+      "confirmHelper": "Confirme que pretende subscrever este suplemento",
+      "priceHelper": "Este preço será acrescentado ao seu plano mensal.",
+      "title": "Subscrever  ao add-on"
+    },
+    "seeMore": "Ver mais",
+    "billSMS": "{{ price_cts }}/ SMS"
+  },
+  "paymentMethod": {
+    "info": {
+      "link": "aqui",
+      "content": "A sua subscrição Bsport será debitada no método de pagamento indicado abaixo. Para configurar a conta na qual serão creditados os pagamentos em linha via Bsport, clique em"
+    },
+    "actions": {
+      "createCard": "Adicionar um cartão",
+      "createSepa": "Adicionar um IBAN"
+    },
+    "sectionTitle": "Meios de pagamento"
+  },
+  "platformInvoice": {
+    "status": {
+      "failed": "Falha no pagamento",
+      "processing": "Pagamento contestado",
+      "disputed": "Pagamento contestado",
+      "succeeded": "Pagamento efetuado com sucesso",
+      "missing_charge": "Não foi efetuada qualquer tentativa de pagamento"
+    },
+    "label": "Fatura {{ month }}/{{year}}",
+    "noInvoice": "Nenhuma fatura",
+    "sectionTitle": "Minhas faturas",
+    "bill": "Regularizar"
+  }
+}

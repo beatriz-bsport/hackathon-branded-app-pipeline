@@ -1,0 +1,91 @@
+{
+  "form": {
+    "never": "Nie",
+    "oneMonth": "1 Monat",
+    "twoWeeks": "2 Wochen",
+    "tenDays": "10 Tage",
+    "oneWeek": "1 Woche",
+    "twoDays": "2 Tage",
+    "oneDay": "1 Tag",
+    "twelveHour": "12 Std",
+    "eightHour": "8 Std",
+    "sixHour": "6 Std",
+    "fourHour": "4 Std",
+    "threeHour": "3 Std",
+    "twoHour": "2 Std",
+    "oneHourAndHalf": "1 Std 30 Min",
+    "oneHourFifteen": "1 Std 15 Min",
+    "oneHour": "1 Std",
+    "halfAndQuarterHour": "45 Min",
+    "halfHour": "30 Min",
+    "twentyMinutes": "20 Min",
+    "quarterHour": "15 Min",
+    "zeroMinute": "0 Min",
+    "fiftyMinutes": "50 Min",
+    "tenMinutes": "10 Min"
+  },
+  "time": {
+    "monthShort": {
+      "october": "Okt",
+      "september": "Sep",
+      "august": "Aug",
+      "april": "Apr",
+      "february": "Feb",
+      "january": "Jan",
+      "november": "Nov",
+      "december": "Dez",
+      "july": "Jul",
+      "june": "Jun",
+      "may": "Mai",
+      "march": "Mär"
+    },
+    "weekday": {
+      "satursday": "Samstag",
+      "friday": "Freitag",
+      "thursday": "Donnerstag",
+      "wednesday": "Mittwoch",
+      "tuesday": "Dienstag",
+      "monday": "Montag",
+      "sunday": "Sonntag"
+    },
+    "month": {
+      "january": "Januar",
+      "december": "Dezember",
+      "february": "Februar",
+      "march": "März",
+      "april": "April",
+      "may": "Mai",
+      "june": "Juni",
+      "july": "Juli",
+      "august": "August",
+      "september": "September",
+      "october": "Oktober",
+      "november": "November"
+    },
+    "weekdayNumber": {
+      "0": "Montag",
+      "1": "Dienstag",
+      "2": "Mittwoch",
+      "3": "Donnerstag",
+      "4": "Freitag",
+      "5": "Samstag",
+      "6": "Sonntag"
+    },
+    "isoWeekdayNumber": {
+      "1": "Montag",
+      "2": "Dienstag",
+      "3": "Mittwoch",
+      "4": "Donnerstag",
+      "5": "Freitag",
+      "6": "Samstag",
+      "7": "Sonntag"
+    }
+  },
+  "shortHourIdentifier": "Std.",
+  "shortMinuteIdentifier": "Min.",
+  "shortDayIdentifier": "Tag(e)",
+  "never": "Nie",
+  "longHourIdentifier": "Stunden",
+  "longDayIdentifer": "Tage",
+  "longMinuteIdentifier": "Minuten"
+}

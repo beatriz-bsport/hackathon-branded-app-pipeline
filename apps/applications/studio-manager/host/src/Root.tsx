@@ -41,6 +41,9 @@ const Tag = lazy(() => import("sm-tag/App"));
 const TransactionalNotification = lazy(
   () => import("sm-transactional-notification/App"),
 );
+const MarketingNotification = lazy(
+  () => import("sm-marketing-notification/App"),
+);
 
 // ----- Analytics -----
 const Insights = lazy(() => import("sm-insights/App"));
@@ -92,6 +95,10 @@ export function Root() {
     {
       url: urls.settings_transactionalNotification,
       element: <TransactionalNotification />,
+    },
+    {
+      url: urls.marketingNotification,
+      element: <MarketingNotification />,
     },
 
     /* ----- Analytics ----- */

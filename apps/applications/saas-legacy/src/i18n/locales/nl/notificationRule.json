@@ -1,0 +1,420 @@
+{
+  "eventType": {
+    "3": "Geannuleerde sessies (leden)",
+    "6": "Ledenaccount aangemaakt door lid",
+    "7": "Reservering met leskaarten",
+    "8": "Reservering + aankoop via leskaart",
+    "9": "Een lid heeft zich uitgeschreven van de wachtlijst (boekingsplaats vrijgekomen)",
+    "10": "Verlopen plaats van een lid op de wachtlijst",
+    "12": "Wanneer een lid zich op de wachtlijst inschrijft",
+    "13": "Een lid heeft zichzelf uitgeschreven van de wachtlijst (voor leden)",
+    "14": "Een lid is door de studio van de wachtlijst verwijderd (voor medewerkers)",
+    "16": "Gewijzigde sessies (leden)",
+    "17": "Late-annulering (leden)",
+    "18": "Kosteloze annuleringen (leden)",
+    "19": "Ledenaccount aangemaakt door medewerkers",
+    "20": "Verzoek om factuur te downloaden",
+    "21": "Nieuwe reserveringen (leden)",
+    "22": "Factuurbevestiging",
+    "23": "Abonnement betaald met intern rekeningsaldo",
+    "24": "Wanneer een lid een nieuw abonnement afsluit (voor leden)",
+    "25": "Gewijzigde betaalmethode (voor leden)",
+    "26": "Wanneer het abonnementen van een lid gepauzeerd is (voor leden)",
+    "27": "Wanneer het abonnementen van een lid is afgelopen of beëindigd (voor leden)",
+    "28": "Ontvangen betalingen (voor leden)",
+    "29": "Herinnering 15 minuten voor de online les (leden)",
+    "30": "Gastreserveringen (uitnodiger)",
+    "31": "Gastreserveringen (gast)",
+    "32": "Voor leden ingeschreven via één-klik-boeking (voor leden)",
+    "101": "Herinnering 15 minuten voor de online les (instructeurs)",
+    "102": "Geannuleerde sessies (instructeurs)",
+    "103": "Gewijzigde sessies (instructeurs)",
+    "200": "Verlopende betaalmethode voor een abonnement (1e waarschuwing)",
+    "201": "Verlopende betaalmethode voor een abonnement (2e waarschuwing)",
+    "300": "Wanneer een lid niet tijdig op de wachtlijst antwoordt en hun plaats verliest",
+    "301": "Wachtwoord herstellen",
+    "302": "Registratiebevestiging",
+    "303": "Samenvoeging ledenaccounts",
+    "304": "Digitale cadeaubon activering",
+    "305": "Wijziging e-mailadres vanuit de BackOffice",
+    "308": "Fysieke cadeaubon activering",
+    "400": "Te laat geannuleerde afspraken (voor medewerkers)",
+    "401": "Kosteloze geannuleerde afspraken (voor medewerkers)",
+    "402": "Nieuwe afspraak (voor medewerkers)",
+    "403": "Gewijzigde planning (voor medewerkers)",
+    "450": "Te late geannuleerde afspraken (voor leden)",
+    "451": "Kosteloze geannuleerde afspraken (voor leden)",
+    "452": "Nieuwe afspraak (voor leden)",
+    "453": "Gewijzigde planning (voor leden)",
+    "480": "Terugkerende afspraak is niet gelukt vanwege een gebrek aan beschikbaarheid (docent)",
+    "481": "Terugkerende afspraak is niet gelukt vanwege een gebrek aan beschikbaarheid (leden)",
+    "510": "Wanneer een abonnementsbetaling mislukt",
+    "515": "Wanneer de kaart van een abonnement automatisch gedeactiveerd wordt",
+    "520": "Wanneer een Smart Retry automatisch de abonnementsbetaling opnieuw gaat proberen de betaling te voltooien",
+    "530": "Wanneer een abonnementsbetaling gestorneerd wordt",
+    "601": "Automatische annulering van onderbezette sessies (instructeurs)",
+    "602": "Automatische annulering van onderbezette sessies (leden)",
+    "701": "Te late annulering: geblokkeerde kaart (studenten)",
+    "702": "Sanctie: er is een boete opgelegd (leden)",
+    "703": "Afwezigheid: geblokkeerde kaart (leden)",
+    "704": "Afwezigheid: klantenrekening gedebiteerd (leden)",
+    "705": "Waarschuwing voor afwezigheid",
+    "801": "Afgezegde afspraak groep",
+    "901": "Vervanging gevonden (instructeur)",
+    "902": "Verzoek om vervanging geannuleerd (vervanger)",
+    "903": "Er is een andere vervanger gevonden (vervanger)",
+    "904": "Nieuw verzoek om vervanging (vervanger)",
+    "905": "Nieuw laattijdig verzoek (vervanger)",
+    "906": "Uitgestelde sluitingsdatum (vervanger)",
+    "907": "Vervanging gevonden (substituut)",
+    "987": "Incasseringspoging voor een termijnbetaling",
+    "1001": "Spivi-account aangemaakt (leden)",
+    "1002": "Lesprestaties",
+    "1003": "Spivi-account aangemaakt (instructeurs)",
+    "1101": "Verwijzingsbeloning beschikbaar (doorverwezen lid)",
+    "1102": "Verwijzingsbeloning beschikbaar (verwijzend lid)",
+    "1200": "Betalingsmethode vervaldatum eerste herinnering voor betalingen op afbetaling",
+    "1201": "Betalingsmethode vervaldatum tweede herinnering voor betalingen op afbetaling",
+    "undefined": "Het systeem zal mislukte betalingen van abonnementen opnieuw proberen."
+  },
+  "tag": {
+    "BookingOption": {
+      "tags": {
+        "option_expiration_date": "Vervaldatum van de plaats op de wachtlijst",
+        "option_payment_url": "Reserveerlink",
+        "address": "Adres",
+        "establishment_practical_info": "Toegangsinformatie",
+        "establishment": "Vestiging",
+        "date": "Tijd en datum",
+        "coach": "Instructeur",
+        "activity": "Activiteit",
+        "waiting_list_position": "wachtlijst positie",
+        "waiting_list_size": "wachtlijst grootte"
+      },
+      "name": "Wachtlijst"
+    },
+    "ConsumerPaymentPack": {
+      "tags": {
+        "pass_credit_left": "Resterende credits",
+        "pass_expiration": "Vervaldatum van de leskaart",
+        "pass_starting_date": "Startdatum van de leskaart",
+        "pass_name": "Naam van de leskaart",
+        "pass_price": "Prijs van de leskaart"
+      },
+      "name": "Leskaarten"
+    },
+    "PrivateBooking": {
+      "tags": {
+        "establishment_practical_info": "Toegangsinformatie",
+        "address": "Adres",
+        "date": "Tijd en datum",
+        "coach": "Instructeur",
+        "activity": "Activiteit",
+        "establishment": "Vestiging",
+        "ics_calendar_link": "Kalender ICS-link"
+      },
+      "name": "Afspraken"
+    },
+    "PrivateConsumerPass": {
+      "tags": {
+        "pass_credit_left": "Resterende credits",
+        "pass_expiration": "Vervaldatum van de leskaart",
+        "pass_starting_date": "Startdatum van de leskaart",
+        "pass_name": "Naam van de leskaart",
+        "pass_price": "Prijs van de leskaart"
+      },
+      "name": "Afspraakkaarten"
+    },
+    "Booking": {
+      "tags": {
+        "ics_calendar_link": "Kalender ICS-link",
+        "address": "Adres",
+        "establishment_practical_info": "Toegangsinformatie",
+        "establishment": "Vestiging",
+        "date": "Tijd en datum",
+        "coach": "Instructeur",
+        "activity": "Activiteit",
+        "spot": "Plaats",
+        "canceled_grouped_session": "Geannuleerde reserveringsgroep"
+      },
+      "name": "Activiteit",
+      "subtitles": {
+        "workshop": "Workshop",
+        "establishment_group": "Locatie",
+        "establishment": "Vestiging",
+        "meta_activity": "Activiteit"
+      }
+    },
+    "User": {
+      "tags": {
+        "lastname": "Achternaam",
+        "firstname": "Voornaam",
+        "unsubscribe_link": "Uitschrijven voor de nieuwsbrief",
+        "reset_password_url": "Wachtwoordherstel link",
+        "email_confirmation_url": "E-mail bevestigingslink"
+      },
+      "name": "Lid"
+    },
+    "BillingPlan": {
+      "tags": {
+        "subscription_nb_days_pause": "Pauze: aantal dagen",
+        "subscription_payment_method": "Betaalmethode",
+        "subscription_flat_fee": "Inschrijfkosten",
+        "subscription_nb_months": "Looptijd",
+        "subscription_recurrent_price": "Maandbedrag",
+        "subscription_name": "Abonnementsnaam",
+        "subscription_next_invoice_date": "Eerstvolgende factuurdatum",
+        "subscription_contract_terms_link": "Link voor voorwaarden",
+        "subscription_duration": "Totale duur",
+        "days_until_payment_method_expiration": "Het aantal dagen voordat de betaalmethode verloopt"
+      },
+      "name": "Abonnementen"
+    },
+    "Offer": {
+      "tags": {
+        "address": "Adres",
+        "establishment_practical_info": "Toegangsinformatie",
+        "establishment": "Vestiging",
+        "date": "Tijd en datum",
+        "coach": "Instructeur",
+        "activity": "Groepsactiviteit"
+      },
+      "name": "Sessie"
+    },
+    "Company": {
+      "tags": {
+        "company_websiteURL": "(URL) Website",
+        "company_info": "Bedrijfsgegevens",
+        "android_app_URL": "(URL) Mobiele applicatie Android",
+        "ios_app_URL": "(URL) Mobiele applicatie iOS",
+        "company_facebookURL": "(URL) Facebook",
+        "company_scheduleURL": "(URL) Rooster",
+        "company_instagramURL": "(URL) Instagram",
+        "login_url": "URL-verbinding",
+        "company": "Bedrijfsnaam",
+        "company_logo": "Bedrijfslogo"
+      },
+      "name": "Bedrijf"
+    },
+    "RecurrentRule": {
+      "tags": {
+        "establishment_practical_info": "Toegangsinformatie",
+        "establishment": "Vestiging",
+        "date": "Tijd en datum",
+        "coach": "Instructeur",
+        "address": "Adres",
+        "activity": "Activiteit",
+        "recurring_booking_fail_reason": "Reden voor terugkerende mislukte reserveringen"
+      },
+      "name": "Terugkerende regel"
+    },
+    "Birthday": {
+      "name": "Verjaardag"
+    },
+    "ReplacementRequest": {
+      "tags": {
+        "sub_teacher": "Plaatsvervangende instructeur",
+        "closing_date": "Sluitingsdatum"
+      },
+      "name": "Vervanging"
+    },
+    "Invoice": {
+      "name": "Facturatie",
+      "tags": {
+        "id": "Factuurnummer",
+        "invoice_price": "Factuurbedrag",
+        "invoice_sum_up": "Factuuroverzicht",
+        "invoice_date": "Factuurdatum",
+        "invoice_download_link": "Download link",
+        "days_until_payment_method_expiration_planned_payment_event": "Dagen voor de vervaldatum van de betalingsmethode"
+      }
+    },
+    "GiftCard": {
+      "tags": {
+        "activate_giftcard_url": "Cadeaubon activeringslink",
+        "message_is_from": "Lid dat de cadeaubon verstuurt",
+        "message_is_for": "Ontvanger van de cadeaubon",
+        "giftcard_message": "Gepersonaliseerd bericht van de cadeaubon",
+        "giftcard_value": "Waarde van de cadeaubon",
+        "giftcard_name": "Naam van de cadeaubon",
+        "printable_code": "Cadeaubon printbare code",
+        "pdf_link": "Cadeaubon PDF link",
+        "activation_datetime": "Activeringsdatum cadeaukaart"
+      },
+      "name": "Cadeaubon"
+    },
+    "EmailChange": {
+      "name": "Profielwijziging",
+      "tags": {
+        "new_email": "Nieuwe aanmeldingsmail",
+        "old_email": "Oude aanmeldingsmail",
+        "manage_changing_email_link": "E-mail link voor wijzigingsbeheer",
+        "login_link": "Link naar Mijn profiel"
+      }
+    },
+    "requiredTags": {
+      "reset_password_url": "Wachtwoordherstel link",
+      "email_confirmation_url": "E-mail bevestigingslink",
+      "new_email": "Nieuwe aanmeldingsmail",
+      "old_email": "Oude aanmeldingsmail",
+      "activate_giftcard_url": "Cadeaubon activeringslink",
+      "message_is_from": "Lid dat de cadeaubon verstuurt",
+      "giftcard_message": "Bericht van de cadeaubon",
+      "giftcard_value": "Waarde van de cadeaubon",
+      "manage_changing_email_link": "E-mail link voor wijzigingsbeheer",
+      "pdf_link": "Cadeaubon PDF link"
+    },
+    "SpiviPerformance": {
+      "tags": {
+        "total_distance": "Totale afstand",
+        "calories_kJ": "Calorieën en kJ",
+        "calories": "Calorieën",
+        "max_watts": "Maximaal vermogen",
+        "maximum_speed": "Maximale snelheid",
+        "max_RPM": "Maximum RPM",
+        "max_HR": "Maximale hartslag",
+        "average_watts": "Watt",
+        "average_speed": "Gemiddelde snelheid",
+        "average_RPM": "Gemiddelde RPM",
+        "average_HR": "Gemiddelde hartslag",
+        "SEP": "Spivi Ecosystem Point"
+      },
+      "name": "Prestaties"
+    },
+    "GuestInvitation": {
+      "tags": {
+        "lastname_host": "Achternaam uitnodiger",
+        "firstname_host": "Voornaam uitnodiger",
+        "lastname_guest": "Achternaam gast",
+        "firstname_guest": "Voornaam gast"
+      },
+      "name": "Gastreservering"
+    },
+    "ReferralProgram": {
+      "tags": {
+        "deadline_use_referral": "Geldigheid doorverwijzings-beloning",
+        "minimum_purchase_referral": "Minimum aankoopbedrag",
+        "referring_reward": "Beloning voor de doorverwijzer",
+        "reduction_purchase_referred": "Korting voor het doorverwezen lid",
+        "registration_date": "Inschrijfdatum van doorverwezen persoon",
+        "referred_lastname": "Achternaam (doorverwezen persoon)",
+        "referred_firstname": "Voornaam (doorverwezen persoon)",
+        "referring_lastname": "Achternaam (doorverwijzende persoon)",
+        "referring_firstname": "Voornaam (doorverwijzende persoon)",
+        "referral_link": "Referral-link"
+      },
+      "name": "Referral"
+    }
+  },
+  "emailDesign": {
+    "closePreview": "Sluiten",
+    "placeholder": "Standaardsjabloon van BSPORT",
+    "birthdayPlaceholder": "Selecteer een e-mailsjabloon om de voorvertoning te zien."
+  },
+  "ruleGroup": {
+    "private_booking": "Afspraken",
+    "subscription": "Abonnementen",
+    "waiting-list": "Wachtlijsten",
+    "booking": "Reserveringen",
+    "offer": "Sessies",
+    "member": "Ledenregistratie",
+    "marketing": "Marketing",
+    "invoice": "Facturatie",
+    "payment_pack": "Sancties",
+    "recurrent_private_booking": "Periodieke afspraken",
+    "replacement_request": "Vervanging",
+    "giftcard": "Cadeaubon",
+    "performance": "Prestaties",
+    "referral": "Referral"
+  },
+  "pageTitle": "Transactionele berichten",
+  "caption": {
+    "emailDesign": "Selecteer de te versturen e-mail",
+    "event": "Evenement",
+    "sendCopy": "Ontvang kopieën van deze e-mails",
+    "active": "Activeer"
+  },
+  "marketingNotification": {
+    "birthday": "Van harte gefeliciteerd!"
+  },
+  "franchiseOwned": "Deze transactionele e-mail wordt door het Master-Account beheerd.",
+  "franchise": {
+    "delete": {
+      "delete": "Verwijderen",
+      "content": "Weet je zeker dat je deze configuratie wilt verwijderen? De instellingen en sjablonen zullen worden hersteld.",
+      "title": "Verwijderen"
+    },
+    "card": {
+      "carbonCopy": "Ontvang kopieën van deze e-mails",
+      "deactivated": "Gedeactiveerd",
+      "activated": "Geactiveerd",
+      "companies": "Studio's",
+      "parameters": "Instellingen",
+      "template": "Sjabloon"
+    },
+    "form": {
+      "error": {
+        "email_design": "Selecteer een sjabloon",
+        "selectCompanies": "Selecteer minimaal één studio",
+        "name": "Selecteer een naam"
+      },
+      "save": "Opslaan",
+      "cancel": "Annuleer",
+      "mailSelection": "Selecteer een sjabloon",
+      "receiveCarbonCopySubtitle": "Je ontvangt een kopie van iedere verstuurde e-mail.",
+      "receiveCC": "Ontvang kopieën van deze e-mails",
+      "activateSubtitleDeactivate": "De transactionele e-mail is geactiveerd en wordt niet naar de relevante leden verstuurd.",
+      "activateSubtitleActivate": "De transactionele e-mail is geactiveerd en wordt naar de relevante leden verstuurd.",
+      "activate": "Geactiveerd",
+      "parameters": "Instellingen",
+      "useFor": "Gebruik voor ",
+      "pickTemplate": "Selecteer een sjabloon",
+      "name": "Naam",
+      "description": "De gekozen template zal worden gebruikt voor de transactionele e-mail \" {{-name}}\" voor alle hier geselecteerde franchisenemers.",
+      "title": "[Formulier] Melding",
+      "restrictedAccess": "Deze configuratie is samengesteld door het Master-Account. Sommige velden kunnen daarom niet bewerkt worden."
+    },
+    "emptyStateConfiguration": "Voeg een melding toe om het gebruik van bepaalde sjablonen te forceren.",
+    "addConfiguration": "Meldingen configureren",
+    "emptySelect": "Selecteer een transactionele e-mail om te zien met welke studio's het is gedeeld en om te zien welke studio's er ook gebruik van maken."
+  },
+  "listItem": {
+    "createTransactionnalNotification": "Push-notificatie configureren",
+    "modifyTransactionnalNotification": "Push-notificatie bewerken",
+    "sendTransactionnalNotification": "Een push-notificatie versturen",
+    "transactionnalNotification": "Push-notificatie",
+    "mailToSend": "Selecteer de te versturen e-mail",
+    "copyCarbon": "Ontvang een kopie van deze e-mail",
+    "sendTransactionnalEmail": "Een transactionele e-mail versturen",
+    "transactionnalEmail": "Transactionele e-mail",
+    "infoBoxErrorMessageFirstLine": "Deze mail moet de volgende variabelen bevatten:",
+    "infoBoxErrorMessageLastLine": "Zorg ervoor dat u ze toevoegt aan uw sjabloon zodat u het kunt opslaan"
+  },
+  "preview": {
+    "email": "E-mail",
+    "notification": "Push-notificatie",
+    "emptyStateNotification": "Configureer de push-notificaties om een voorvertoning weer te geven.",
+    "emptyState": "Klik op een categorie om een voorvertoning weer te geven.",
+    "title": "Voorvertoning"
+  },
+  "goBackToMenu": "Terug",
+  "configureNotif": "Configureren",
+  "countNotification": "Aantal geactiveerde push-notificaties: {{nbr}}",
+  "countEmail": "Aantal geactiveerde berichten: {{nbr}}",
+  "countElements": "{{nbr}} element(en)",
+  "triggeringEvent": {
+    "title": "Activerende gebeurtenis"
+  },
+  "type": {
+    "hours": "Uren",
+    "days": "Dagen",
+    "bookingConcerned": "de sessie waarop de melding betrekking heeft",
+    "sendNotification": "De melding verzenden"
+  },
+  "eventTypeHelperText": {
+    "200": "U kunt het aantal dagen aanpassen waarmee rekening wordt gehouden bij het verzenden van deze melding in het gedeelte Betaalmethoden",
+    "201": "U kunt het aantal dagen aanpassen waarmee rekening wordt gehouden bij het verzenden van deze melding in het gedeelte Betaalmethoden",
+    "1200": "U kunt het aantal dagen aanpassen waarmee rekening wordt gehouden bij het verzenden van deze melding in het gedeelte Betaalmethoden",
+    "1201": "U kunt het aantal dagen aanpassen waarmee rekening wordt gehouden bij het verzenden van deze melding in het gedeelte Betaalmethoden"
+  }
+}

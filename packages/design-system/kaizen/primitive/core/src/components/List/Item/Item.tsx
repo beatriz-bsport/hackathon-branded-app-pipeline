@@ -35,6 +35,7 @@ type Props = {
     | [ListItemChipsProps, ListItemChipsProps, ListItemChipsProps]
   >;
   chipsDirection?: "start" | "end";
+  customNode?: React.ReactNode;
   buttons?: WithTooltip<ActionButton[]>;
   dropdownConfig?: ActionsDropdownConfig;
   link?: string;
@@ -69,6 +70,7 @@ const BaseItem: React.FC<
     color,
     chipsDirection,
     buttons,
+    customNode,
     id,
     checkboxState,
     handleChange,
@@ -124,14 +126,19 @@ const BaseItem: React.FC<
           </div>
 
           {/* Right column with actions */}
-          <div className="flex justify-end gap-sm">
+          <div className="flex items-center justify-end gap-sm">
             {chipsDirection === "start" && renderedChips}
+
             {rightTitle && (
               <span className="text-onsurface-default text-body-lg leading-md">
                 {rightTitle}
               </span>
             )}
+
             {chipsDirection === "end" && renderedChips}
+
+            {customNode}
+
             {actions &&
               actions.map((action) => (
                 <ButtonWithTooltip
@@ -144,6 +151,7 @@ const BaseItem: React.FC<
                   label={action?.label}
                 />
               ))}
+
             {dropdownMenuProps && <DropdownMenu {...dropdownMenuProps} />}
           </div>
         </div>
@@ -172,6 +180,7 @@ const BaseItem: React.FC<
  * If provided, the entire item may act as a clickable link.
  * @param props.id The id of the item.
  * @param props.onItemClick Callback triggered when the user is clicking on the item.
+ * @param props.customNode ReactNode to put into the right column
  */
 const Item: React.FC<ListItemProps> = ({
   id,
@@ -192,6 +201,7 @@ const Item: React.FC<ListItemProps> = ({
   dropdownConfig,
   onItemClick,
   compactMode = false,
+  customNode,
   ...props
 }) => {
   const { toggleCheckbox, getCheckboxState } = useCheckboxContext();
@@ -238,6 +248,7 @@ const Item: React.FC<ListItemProps> = ({
         buttons={buttons}
         chips={chips}
         dropdownConfig={dropdownConfig}
+        customNode={customNode}
       />
     </li>
   );

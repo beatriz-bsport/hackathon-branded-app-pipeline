@@ -1,0 +1,228 @@
+{
+  "downloadPDF": "Download PDF",
+  "backgroundImage": {
+    "dialog": {
+      "explain": "Add custom images to enable your members to personalize their giftcards. Members will be able to choose from the custom images you upload here when they create their giftcards. ",
+      "actions": {
+        "close": "Close"
+      },
+      "title": "Custom images"
+    }
+  },
+  "form": {
+    "giftcard": {
+      "manager_only": {
+        "label": "Unavailable for purchase"
+      },
+      "unlimited": {
+        "label": "Unlimited"
+      },
+      "expiration_days": {
+        "helperText": "The giftcard will be valid for this period from the date it's activated.",
+        "label": "Validity in days"
+      },
+      "price": {
+        "helperText": "The total value of the gift card.",
+        "label": "Selling price"
+      },
+      "section": {
+        "parameters": {
+          "title": "Value & Validity"
+        }
+      },
+      "description": {
+        "label": "Description"
+      },
+      "available_payment_method_identifiers": {
+        "label": "Available payment methods",
+        "helperText": " "
+      },
+      "name": {
+        "label": "Name"
+      },
+      "title": "Add a Gift Card",
+      "actions": {
+        "submit": "Confirm",
+        "cancel": "Close"
+      },
+      "advancedOptions": {
+        "header": "Advanced",
+        "tag": {
+          "tagsOnAcquisition": "Apply tags after purchase",
+          "tagsOnAcquisitionHelper": "Tag members who have bought this gift card to quickly identify them in the future.",
+          "selectTags": "Select tags"
+        }
+      }
+    },
+    "canNotUpdateBecauseShared": "This gift card is a shared card by the franchisor. It has been defined by the franchisor and cannot be modified."
+  },
+  "giftcard": {
+    "delete": {
+      "dialog": {
+        "actions": {
+          "close": "Close",
+          "delete": "Delete"
+        },
+        "content": "Are you sure that you want to delete this gift card? Members that previously purchased it, will still be able to use it.",
+        "title": "Delete"
+      }
+    },
+    "detail": {
+      "availablePaymentMethods": "Available payment methods",
+      "expirationDate": "Validity before expiration: {{ expiration_days }} day(s)",
+      "manager_only": "Unavailable gift cards"
+    },
+    "configurationTitle": "Gift card"
+  },
+  "link": {
+    "copyLink": "Copy the direct link to the gift card",
+    "activationLink": "Copy activation link"
+  },
+  "consumerGiftcard": {
+    "seeDetails": "See details",
+    "form": {
+      "type": {
+        "label": "How would you like to send the gift card",
+        "option": {
+          "digital": "Activation link via email",
+          "physical": "Printable code (PDF)"
+        }
+      },
+      "footer": "The gift card will be sent to the recipient at {{- hour_send }}. It’ll be valid for {{ expiration_days }} day(s) after activation and the recipient’s account will be topped up with {{- price }}.",
+      "footerPhysical": "The gift card will be activated on {{- activation_date }} and will be valid until {{- activation_date_until }} ({{ duration }} day(s)). You will receive by e-mail needed informations to use the gift card and a printable version of your card in a PDF file",
+      "footerPhysicalUnlimited": "You will receive by e-mail the needed information to use the gift card and a printable version of your card in a PDF file.",
+      "actions": {
+        "submit": "Add to basket",
+        "cancel": "Cancel"
+      },
+      "activationDate": {
+        "label": "Activation date",
+        "helperText": "The recipient can use the gift card from this date",
+        "errorMaxDate": "Please enter a valid date"
+      },
+      "date_send": {
+        "label": "Date of sending the email"
+      },
+      "recipients": {
+        "label": "Recipient's email"
+      },
+      "message_content": {
+        "label": "Custom message"
+      },
+      "message_is_from": {
+        "label": "From "
+      },
+      "message_is_for": {
+        "label": "To the attention of "
+      },
+      "name": {
+        "label": "Gift card's name"
+      },
+      "footerUnlimited": "The gift card will be sent to the recipient at {{- hour_send }}. It has no expiration date and the receiver's account balance will be topped up with {{- price }} for future purchases.",
+      "select_image": "Select your background image",
+      "hour_send": "Sending time",
+      "advancedOptions": {
+        "tag": {
+          "tagsOnAcquisition": "Tags after purchase",
+          "tagsOnAcquisitionHelper": "Use tags to mark members who have bought this giftcard.",
+          "selectTags": "Select tags"
+        },
+        "header": "Advanced"
+      }
+    },
+    "previewPlaceholder": {
+      "message_content": "[Custom message]",
+      "message_is_for": "[Recipient's name]",
+      "message_is_from": "[Buyer's name]",
+      "name": "[Gift card name]",
+      "giftcard_amount": "[Amount of the giftcard]"
+    },
+    "sendTo": "Resend the invitation",
+    "notAttributedYet": "Not activated",
+    "expiresOn": "Expires on {{- d }}",
+    "willInviteOn": "Invitation will be sent on {{- d }}",
+    "invitedOn": "Sent on {{- d }}",
+    "value": "Value",
+    "isFrom": "From ",
+    "isFor": "For the attention of ",
+    "isEmpty": "There are no gift cards to display.",
+    "linkedInvoice": "Associated invoice",
+    "list": {
+      "myGifted": "Received gift cards",
+      "myPurchases": "Purchased gift cards"
+    },
+    "physicalDetails": {
+      "title": "Gift card",
+      "to": "To",
+      "code": "Code:",
+      "validFrom": "Valid from: {{- from }} to {{- to }}",
+      "helperAlert": {
+        "title": "How to use the gift card?",
+        "message": "Share the gift card code with the member so they can use the credit on their next purchase."
+      }
+    },
+    "invitationForm": {
+      "actions": {
+        "submit": "Send",
+        "close": "Close"
+      },
+      "content": "You can change the recipient of the gift card. Attention: it can only be used by 1 user. You can also send this activation link:",
+      "title": "Send an invitation email",
+      "activationCodeLink": "The invitation email has been sent and can no longer be edited. If the correct recipient didn't receive the message, you can send this link: "
+    },
+    "activation": {
+      "alreadyActivated": "This gift card has already been used.",
+      "activate": "Activate my gift card",
+      "content3": "If you've logged in with the incorrect account, we're kindly requesting you to not validate this gift card if it isn't intended for you. Please reconnect with the correct account.",
+      "content2": "The gift card will automatically be added as a payment method to your basket. All gift card related information is stored in your profile.",
+      "content1": "Your gift card of {{price}} is compatible with all of our store's products and has no expiration date. Enjoy!",
+      "subtitle": "Looks like someone wanted to surprise you.",
+      "title": "You've received a gift!",
+      "content1withDate": "Your {{price}} gift card can be used for any of our products. Please bear in mind that your gift card expires in {{ expiration_days }} day(s) after activation. Enjoy!"
+    }
+  },
+  "list": {
+    "isEmpty": "There are no gift cards to display.",
+    "archivedTitle": "Archived gift cards",
+    "unavailableForSaleTitle": "Unavailable gift cards",
+    "activeTitle": "Available gift cards",
+    "explainIfEmpty": "Gift cards allow your members to share offers with their guests and to increase your studio's potential reach.",
+    "actions": {
+      "create": "Add a gift card",
+      "goToGiftcard": "See all gift cards"
+    },
+    "addBackgroundImage": "Add an image",
+    "visibility": "Unavailable",
+    "unlimited": "Unlimited",
+    "validity": "Valid for {{ duration }} day(s)"
+  },
+  "delete": {
+    "submit": "Confirm",
+    "cancel": "Cancel",
+    "content": "Are you sure that you want to archive this gift card? It won't appear on your Back Office anymore, but you can reactivate it in the future.",
+    "title": "Archive this gift card"
+  },
+  "search": "Search a gift card",
+  "widget": "Choose gift cards",
+  "giftcardTemplate": {
+    "template": {
+      "withoutTax": "Excl. VAT / Sales Tax",
+      "unlimited": "Unlimited",
+      "validityDetail": "Validity before expiration : {{count}} day",
+      "validityDetail_plural": "Validity before expiration : {{count}} days",
+      "validity": "Valid {{count}} day",
+      "validity_plural": "Valid {{count}} days",
+      "deleteInstanceContent2": "Finally, gift cards that were purchased in other studios will no longer be usable in the deactivated studio, regardless of when they were purchased.",
+      "deleteInstanceContent1": "By deactivating this studio from sharing the gift card, all members who have this card and have received it from a member who purchased the card in this studio will still be able to use it. However, they will not be able to use it in other studios.",
+      "deleteTemplateContent": "By deactivating a shared gift card, members with that card will only be able to use it in the studio where it was purchased.",
+      "deleteDialogContent": "By deactivating a shared gift card, members with that pass will only be able to use it in the studio where it was purchased."
+    },
+    "listPage": {
+      "fuzzyPlaceholder": "Search a gift card",
+      "addButton": "Add a shared gift card",
+      "emptyLabel": "No shared gift card registered"
+    },
+    "sharedCard": "Shared from another franchisee",
+    "giftcard": "Gift card"
+  }
+}

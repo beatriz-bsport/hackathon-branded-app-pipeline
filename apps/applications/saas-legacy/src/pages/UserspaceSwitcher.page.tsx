@@ -17,11 +17,9 @@ import { disconnect as disconnectAction } from '../actions/auth.actions';
 import withQueryParams from '../hocs/with-query-params.hoc';
 
 import namespaces from '../i18n/namespaces.json';
-import {
-  identifyAnalyticsB2BWithTheme,
-  optInTrackingAnalyticsB2B,
-  optOutTrackingAnalyticsB2C,
-} from '#src/components/analytics/mixpanel';
+import { identifyAnalyticsB2BWithTheme } from '#src/components/analytics/mixpanel';
+
+import { requestOptInTrackingB2B as requestOptInTrackingB2BAction } from '#src/components/analytics/actions';
 
 // @ts-expect-error
 const ConsumerHome = asyncComponent(() => import('./consumer/Consumer.router'));
@@ -77,8 +75,7 @@ export const UserspaceSwitcher = (props: Props) => {
       (isCoach && companyId && !WidgetUtils.isWidget())
     ) {
       // Activate tracking for B2B and deactivate tracking for B2C
-      optInTrackingAnalyticsB2B();
-      optOutTrackingAnalyticsB2C();
+      props.requestOptInTrackingB2B();
 
       // After configuring the instance, we can setup additional properties
       if (theme) {
@@ -131,6 +128,7 @@ const connector = connect(
   }),
   {
     disconnect: disconnectAction,
+    requestOptInTrackingB2B: requestOptInTrackingB2BAction,
   },
 );
 

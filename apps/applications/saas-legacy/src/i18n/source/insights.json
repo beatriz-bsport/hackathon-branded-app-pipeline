@@ -1,0 +1,14 @@
+{
+  "sections": {
+    "memberInsights": "Member Insights",
+    "financialHealth": "Financial Health"
+  },
+  "trackTrialOffer": {
+    "title": "Track trial offer performance",
+    "description": "Discover more about acquisition, conversion rates and how you can increase the effectiveness of your trial offer."
+  },
+  "monitorRevenue": {
+    "title": "Monitor recurring revenue",
+    "description": "Keep track of trends and understand how to stabilize recurring income streams."
+  }
+}

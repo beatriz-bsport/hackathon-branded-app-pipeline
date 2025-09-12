@@ -1,0 +1,303 @@
+{
+  "generalTermsAndConditions": {
+    "theTermsAndConditions": "de algemene voorwaarden.",
+    "iAccept": "Ik ga akkoord met ",
+    "close": "Sluiten",
+    "generalTermsOfUse": " algemene voorwaarden.",
+    "waiver": "Waiver / Vrijstelling."
+  },
+  "paymentMethod": {
+    "0": "Betaalkaart",
+    "1": "Contant geld",
+    "2": "Cheque",
+    "3": "Kaart",
+    "4": "Betaalkaart (handmatig - pinapparaat)",
+    "5": "Vakantiecheques",
+    "6": "AMEX",
+    "7": "Bankoverschrijving",
+    "8": "EventBrite",
+    "9": "Interne rekening (Wallet)",
+    "10": "Automatische betaling",
+    "11": "Diverse",
+    "12": "Processen",
+    "13": "SEPA",
+    "20": "Bancontact",
+    "30": "Sofort",
+    "40": "iDEAL",
+    "50": "EPS",
+    "60": "Giropay",
+    "70": "Bacs Automatische Incasso",
+    "80": "PayPal",
+    "90": "TWINT",
+    "100": "Apple Pay",
+    "110": "Google Pay",
+    "label": "Betaalmethode",
+    "disputeWon": "Gewonnen",
+    "onlinePayments": "Online betalingen"
+  },
+  "explainOption": "Je ontvangt een e-mail wanneer er een plaats vrij komt",
+  "bookAnotherOption": "Opnieuw op de wachtlijst inschrijven",
+  "bookAnOption": "Op de wachtlijst inschrijven",
+  "hasOneOrMoreOption": "Je staat al op deze wachtlijst",
+  "paymentComboSectionTitle": "Pakketten",
+  "method": {
+    "0": "Betaalkaart",
+    "1": "Contant",
+    "2": "Cheque",
+    "3": "Pass",
+    "4": "Betaalkaart (handmatig - pinapparaat)",
+    "5": "Vakantiecheque",
+    "6": "AMEX",
+    "7": "Bankoverschrijving",
+    "8": "Eventbrite",
+    "9": "Klantenkrediet",
+    "10": "Automatische incasso",
+    "11": "Anders",
+    "12": "Stornering",
+    "13": "SEPA",
+    "20": "Bancontact",
+    "30": "Sofort",
+    "40": "iDEAL",
+    "50": "EPS",
+    "60": "Giropay",
+    "70": "Bacs Automatische Incasso",
+    "80": "PayPal",
+    "90": "TWINT",
+    "100": "Apple Pay",
+    "110": "Google Pay",
+    "CB": "Kaart",
+    "CREDIT_ACCOUNT": "Interne rekening (Wallet)",
+    "GIROPAY": "Giropay",
+    "EPS": "EPS",
+    "IDEAL": "iDEAL",
+    "SOFORT": "Sofort",
+    "BANCONTACT": "Bancontact",
+    "SEPA": "SEPA",
+    "CHECK": "Cheque",
+    "CASH": "Contant",
+    "BACS_DEBIT": "Bacs Automatische Incasso",
+    "TWINT": "TWINT",
+    "GOOGLE_PAY": "Google Pay",
+    "APPLE_PAY": "Apple Pay"
+  },
+  "forms": {
+    "cancelPayment": "Terug",
+    "credit": {
+      "explain": "De studio ontvangt een melding dat je wenst de betaling fysiek te voltooien.",
+      "pay": "Bevestigen"
+    },
+    "paymentIntent": {
+      "pay": "Afrekenen"
+    },
+    "paymentMethod": {
+      "9": "Betaal in de studio",
+      "actions": {
+        "addPaymentMethod": "Betaalmethode toevoegen",
+        "retry": "Opnieuw proberen",
+        "collect": "Opslaan",
+        "close": "Sluiten",
+        "displayPaymentMethod": "Toon mijn betaalmethoden",
+        "selectPaymentMethod": "Selecteer je gewenste betaalmethode",
+        "cancel": "Annuleer",
+        "addPaymentMethodDenied": "Dit lid heeft momenteel geen opgeslagen betaalmethoden van dit type en je hebt geen toestemming om een nieuwe toe te voegen."
+      },
+      "collect": {
+        "content": "Deze betaalmethode wordt in je account conform de overeenkomst toegevoegd.",
+        "title": "Een betaalmethode toevoegen",
+        "contentAdd": "Deze betaalmethode wordt in je account opgeslagen."
+      },
+      "message": {
+        "error": "Deze betaalmethode kon niet worden toegevoegd.",
+        "success": "Deze betaalmethode is succesvol opgeslagen!"
+      },
+      "mandateRevalidated": {
+        "success": "Het mandaat is verlengd en de volgende inzameling zal succesvol zijn.",
+        "content": "Het mandaat voor de automatische incasso zal opnieuw worden gevalideerd bij de bank.",
+        "collect": "Accepteren",
+        "retry": "Probeer het opnieuw",
+        "error": "Kunt u het incasso-mandaat niet verlengen, neem dan contact op met uw bank."
+      }
+    },
+    "savePaymentMethod": {
+      "section": "Selecteer een betaalmethode",
+      "label": "Deze betaalmethode opslaan voor toekomstige betalingen.",
+      "add": "Betaalgegevens",
+      "select": "Selecteer een betaalmethode"
+    }
+  },
+  "goBack": "Terug",
+  "availablePaymentPacks": "Beschikbare leskaarten: ",
+  "actions": {
+    "addThisPaymentItem": "Deze betaalmethode opslaan"
+  },
+  "creditAccountBalance": {
+    "current": "Lopende rekening"
+  },
+  "paymentNote": {
+    "helperText": "(Optioneel) Betalingskenmerk",
+    "label": "Notitie"
+  },
+  "bankAccount": {
+    "form": {
+      "actions": {
+        "submit": "Bevestigen",
+        "cancel": "Annuleren"
+      },
+      "accountNumber": {
+        "placeholder": "NL56INGB0123456789",
+        "label": "Rekeningnummer",
+        "eurSpecific": " (IBAN)"
+      },
+      "invalid": "Let op! Deze IBAN is ongeldig en moet overeenkomen met een bankrekening van het land waarin het bedrijf gevestigd is.",
+      "accountHolderName": {
+        "placeholder": "Jacques Chirac",
+        "label": "Rekeninghouder"
+      },
+      "content": "We gebruiken deze bankrekening om de via BSPORT Solution ontvangen betalingen naar je over te schrijven.",
+      "title": "[Formulier] Betaalgegevens",
+      "unknownCountry": "Dit moet handmatig gecontroleerd worden. Contacteer contact@bsport.io",
+      "routingNumber": {
+        "usdSpecific": " (ACH Routing Number)",
+        "placeholder": "000001",
+        "label": "ABA Routing Number"
+      },
+      "clearingCode": {
+        "label": "Clearing Code"
+      },
+      "branchCode": {
+        "label": "Branch Code"
+      },
+      "transitNumber": {
+        "label": "Transit Number",
+        "placeholder": "Transit Number"
+      },
+      "institutionNumber": {
+        "label": "Institution Number",
+        "placeholder": "Institution Number"
+      },
+      "bankCode": {
+        "label": "Bank Code"
+      },
+      "sortCode": {
+        "label": "Sorteercode",
+        "placeholder": "123456"
+      }
+    }
+  },
+  "payment": {
+    "return": "Terugbetaling"
+  },
+  "returnedAmount": "Terugbetaald: ",
+  "payout": {
+    "isEmptyWarning": "Het is mogelijk dat uitbetalingen van vóór 15 maart 2021 niet worden vermeld.",
+    "isEmpty": "Er zijn nog geen uitbetalingen geregistreerd om weer te geven.",
+    "invoice": "Factuur {{ uuid }}",
+    "seeMore": "Toon meer",
+    "paymentNb": "{{nb}} betaling(en)",
+    "status": {
+      "0": "Gepauzeerd",
+      "1": "Wordt verwerkt",
+      "2": "Succes",
+      "3": "Mislukt",
+      "4": "Geannuleerd"
+    },
+    "title": "Mijn uitbetalingen",
+    "payoutAmountFromIncludedPayouts": "waarvan {{price}} van eerdere uitbetalingen",
+    "payoutIsIncludedInOther": "Deze overschrijving werd opgenomen in de overschrijving van {{date}} met de identificatie {{readable_identifier}}",
+    "payoutIsManual": "Deze uitbetalingsoverdracht is handmatig geactiveerd door het bsport team om de overdracht van uw tegoeden te versnellen. In dit geval zijn de details van de gekoppelde betalingen niet beschikbaar. Neem contact op met ons team voor meer informatie.",
+    "dialog": {
+      "content": "Er is een synchronisatieprobleem opgetreden tussen Stripe en bsport. We kunnen de details van deze uitbetaling op dit moment niet weergeven. Wees er echter van verzekerd dat het volgens de gebruikelijke procedure zal worden verwerkt en naar je bankrekening zal worden overgemaakt. Voor meer informatie over het verzonden bedrag kun je het betalingsrapport raadplegen over de periode tussen de datum van deze uitbetaling en de vorige.",
+      "title": "Betalingssynchronisatie Melding"
+    }
+  },
+  "interval": {
+    "week": "week",
+    "week_plural": "weken",
+    "year": "jaar",
+    "year_plural": "jaar",
+    "day": "dag",
+    "day_plural": "dagen",
+    "month": "maand",
+    "month_plural": "maanden"
+  },
+  "instalment": {
+    "form": {
+      "recurrence_basis": {
+        "intervalName": {
+          "week": "week/weken",
+          "week_plural": "weken",
+          "year": "jaar",
+          "year_plural": "jaar",
+          "month": "maand(en)",
+          "month_plural": "maanden",
+          "day": "dag(en)",
+          "day_plural": "dagen"
+        },
+        "label": "Incasseer ieder(e)",
+        "helperText": " "
+      },
+      "actions": {
+        "next": "Volgende",
+        "submit": "Bevestigen",
+        "previous": "Terug",
+        "close": "Sluiten"
+      },
+      "title": {
+        "scheduler": "Tijdlijn",
+        "payment": "Betaalmethode"
+      },
+      "nb_interval": {
+        "label": "Aantal facturen"
+      },
+      "interval": {
+        "label": "Herhaling",
+        "helperText": "Aantal facturen / kaarten"
+      },
+      "recurrence": {
+        "section": "Herhaling",
+        "explain": "Iedere {{ recurrence_basis }} {{ interval }} wordt een betaling geïncasseerd verspreid over {{ total_interval_duration }} {{ interval }}. In totaal wordt het lid {{ nb_interval }} keer geïncasseerd."
+      },
+      "anchor_date": {
+        "helperText": "De betaling wordt in de loop van de ochtend geïncasseerd.",
+        "label": "Eerste termijn"
+      }
+    }
+  },
+  "subscriptionPaymentDialog": {
+    "error": {
+      "text_content": "Je aankoop kon niet worden voltooid. Probeer het opnieuw of ga naar je profiel.",
+      "button_text": "Opnieuw proberen",
+      "text_status": "Je aankoop kon niet worden verwerkt!",
+      "userSpace": "Mijn profiel",
+      "title": "Fout bij het verwerken van de betaling"
+    },
+    "success": {
+      "text_content": "Je aankoop staat opgeslagen in je profiel.",
+      "button_text": "Verder",
+      "text_status": "Je aankoop is succesvol afgerond!",
+      "title": "Gefeliciteerd! Je betaling is succesvol verwerkt.",
+      "contract": "Mijn abonnement",
+      "recap": "Overzicht",
+      "text_content_funnel": "Je aankoop is succesvol verwerkt. Klik op \"Bevestigen\" om de reservering af te ronden. Ga naar \"Mijn profiel\" > \"Kaarten\" om de aankoop in te zien en te gebruiken."
+    },
+    "title": "Een abonnement aanschaffen"
+  },
+  "disputeStatus": {
+    "1": "Behandeling van geschillen",
+    "2": "Geschil gewonnen",
+    "3": "Geschil verloren"
+  },
+  "stripeBalance": {
+    "title": "Stripe saldo",
+    "dialog": {
+      "firstPart": "BSPORT maakt gebruik van Stripe voor online en offline betalingen, facturatie en meer. Verwerkte betalingen worden veilig bij Stripe opgeslagen en vervolgens naar je gekoppelde rekening overgemaakt (zie Abonnement > Mijn uitbetalingen).",
+      "close": "Sluiten",
+      "secondPart": "Uw \"beschikbare saldo\" komt dus overeen met het bedrag aan online betalingen dat nog niet aan u is uitbetaald.",
+      "thirdPart": "Uw \"saldo in behandeling\" komt overeen met het bedrag dat zal worden toegevoegd aan uw beschikbare saldo.",
+      "alert": "Merk op dat wanneer je een directe terugbetaling doet, dit geld direct van je Stripe rekening wordt gehaald. Hierdoor kan deze negatief worden."
+    },
+    "nullPendingBalanceText": "Geen",
+    "availableBalance": "Beschikbaar saldo",
+    "pendingBalance": "Saldo wordt verwerkt"
+  }
+}

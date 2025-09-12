@@ -1,0 +1,1199 @@
+{
+  "payment": {
+    "address": {
+      "explain": "Vul je adres in voor thuislessen.",
+      "save": "Opslaan"
+    }
+  },
+  "privateSlot": {
+    "delete": {
+      "explain": "Weet je zeker dat je deze sessie wil verwijderen? Deze actie is definitief. Eerdere reserveringen worden niet beïnvloed.",
+      "title": "Sessie verwijderen",
+      "cancel": "Annuleren",
+      "confirm": "Bevestigen"
+    },
+    "duration": "{{ minutes }} min."
+  },
+  "privateBooking": {
+    "managerAdd": {
+      "compatiblePrivateConsumerPass": "Beschikbare afspraakkaarten",
+      "title": "Nieuwe reservering",
+      "address": "Adres",
+      "coachSelector": {
+        "label": "Instructeur"
+      },
+      "pleaseSelectCoachAndSlot": "Selecteer eerst een instructeur en een sessie.",
+      "cancel": "Annuleren",
+      "compatiblePrivatePass": "Factureren",
+      "emptyPrivateConsumerPass": "Dit lid bezit momenteel nog geen compatibele afspraakkaart.",
+      "emptyPrivatePass": "Er zijn geen beschikbare afspraakkaarten om weer te geven.",
+      "privateConsumerPassNeedRefresh": "Verversen",
+      "incompatibilities": {
+        "11107": "Niet compatibele afspraak",
+        "11108": "Onvoldoende credits",
+        "11109": "De kaart begint met de eerste boeking, de ",
+        "11110": "De kaart is verlopen",
+        "11111": "De data zijn niet compatibel",
+        "close": "Sluiten",
+        "privateService": "Deze afspraakkaart is incompatibel met de volgende afspraken:"
+      },
+      "noUncompatiblePassToDisplay": "Er zijn geen beschikbare afspraakkaarten om weer te geven.",
+      "nonCompatiblePrivateConsumerPass": "onbeschikbare afspraakkaarten"
+    },
+    "delete": {
+      "consumer": {
+        "content": {
+          "discardable": "Weet je zeker dat je deze afspraak kosteloos wilt annuleren?",
+          "notDiscardable": "Weet je zeker dat je deze afspraak wil annuleren? Dit is geen kosteloze annulering, omdat het te laat geannuleerd wordt."
+        },
+        "title": "Afspraak annuleren",
+        "cancel": "Annuleren",
+        "confirm": "Bevestigen"
+      },
+      "explainHardDelete": "Deze reservering is al geannuleerd. Als de reservering verwijdert wordt, dan verdwijnt deze ook van je agenda. Het tegoed wordt teruggestort als dit niet al eerder gedaan is. Deze actie is definitief.",
+      "confirm": "Bevestigen",
+      "title": "Afspraak annuleren",
+      "explain": "Weet je zeker dat je deze reservering wilt annuleren? Deze actie is definitief.",
+      "explainForceRefund": "Gebruikte credits terugbetalen om een nieuwe reservering toe te staan.",
+      "cancel": "Annuleren",
+      "sendCancellationMail": "Stuur {{name}} een annuleringsbevestiging.",
+      "explainWithRestore": "Weet je zeker dat je deze reservering wilt annuleren? Je kunt dit later ongedaan maken.",
+      "explainMoreHardDeleteReccurentBooking": "Deze reservering is gekoppeld aan een regel voor periodieke afspraken. Als deze reservering verwijdert wordt, zal het systeem deze opnieuw aanmaken om aan de criteria van de regel te voldoen. Vermijd dit door de status van de reservering op \"Geannuleerd\" te laten.",
+      "explainMoreHardDeleteReccurentBookingTitle": "Periodieke afspraak",
+      "hardDeleteTitle": "Sessie verwijderen"
+    },
+    "editTime": "Bewerken",
+    "updateTime": {
+      "title": "Afspraak wijzigen",
+      "explainEmail": "Leden ontvangen automatisch een e-mail die hem/haar hiervan op de hoogte stelt.",
+      "submit": "Opslaan",
+      "cancel": "Annuleren"
+    },
+    "discard": "Afspraak annuleren",
+    "hardDelete": "Verwijderen",
+    "isCancelled": "Geannuleerd",
+    "detail": {
+      "title": "Reservering",
+      "registeredOn": "Gereserveerd op ",
+      "source": "Gereserveerd via ",
+      "slotTitle": "Afspraak",
+      "passTitle": "Afspraakkaart",
+      "wasRefunded": "De credits worden op de kaart teruggestort.",
+      "wasRefundedYes": "Ja",
+      "wasRefundedNo": "Nee",
+      "address": "Adres",
+      "attachCoach": "Instructeur toewijzen",
+      "coach": "Instructeur",
+      "cancelledOn": "Geannuleerd op ",
+      "unpaidBooking": "Leden kunnen deze optie gebruiken om later te betalen. De {{ credits}} credit(s) die vereist zijn voor dit soort afspraken worden van de eerstvolgende aangeschafte afspraakkaart afgetrokken.",
+      "cancelledByRecurrenceBy": "Geannuleerd door",
+      "cancelledBy": "Geannuleerd door",
+      "restoredBy": "Hersteld door",
+      "dateModifiedBy": "Gewijzigd door",
+      "coachModifiedBy": "Gewijzigd door",
+      "cancelledByRecurrence": "Periodieke reserveringen annuleren",
+      "cancelled": "Annulering",
+      "restored": "Herstellen",
+      "dateModified": "Wijzigen",
+      "coachModified": "Wijzigen",
+      "canal": "Kanaal",
+      "initialDateTime": "Starttijd en startdatum",
+      "emptyHistory": "Er is geen geschiedenis om weer te geven.",
+      "historyTitle": "Geschiedenis",
+      "by": "Door",
+      "cancelledByRecurrenceOn": "Periodieke reservering geannuleerd op "
+    },
+    "cancel": "Annuleren",
+    "attachCoach": {
+      "actions": {
+        "title": "Een instructeur toewijzen",
+        "cancel": "Annuleren"
+      },
+      "explain": "Selecteer een instructeur om deze afspraak aan zijn/haar agenda toe te voegen.",
+      "title": "Toewijzen aan de instructeur"
+    },
+    "updateCoach": "Kies een nieuwe instructeur voor deze afspraak",
+    "isCancelledDate": "Geannuleerd op {{-date}} om {{time}}.",
+    "restore": "De afspraak herstellen",
+    "bookings": "Afspraken",
+    "notRefunded": "Niet terugbetaald",
+    "isRefunded": "Terugbetaald",
+    "isUnpaid": "Openstaande betaling",
+    "bookingIsUnpaid": "Onbetaalde reservering",
+    "isCancelledByManagerDate": "Geannuleerd op {{-date}} om {{time}} door {{cancelled_by}}",
+    "isCancelledByManager": "Geannuleerd door {{cancelled_by}}",
+    "incompatibleTagsDialog": {
+      "title": "Info",
+      "description": "Let op: dit lid heeft niet de vereiste tags voor deze afspraak. Wilt u deze toch inboeken?",
+      "cancel": "Annuleer",
+      "confirm": "Bevestig"
+    },
+    "setUnpaid": {
+      "cancel": "Terug",
+      "confirmMessage": "Zodra je deze afspraak aan het lid vergoed, wordt deze gemarkeerd als een ‘onbetaalde’ afspraak.",
+      "confirmTitle": "Afspraak vergoeden?",
+      "button": "Afspraak vergoeden"
+    }
+  },
+  "privateService": {
+    "delete": {
+      "explain": "Weet je zeker dat je deze afspraak wilt verwijderen? Deze actie is definitief. Geregistreerde reserveringen worden niet beïnvloed.",
+      "title": "Afspraak verwijderen",
+      "cancel": "Annuleren",
+      "submit": "Verwijderen",
+      "confirm": "Verwijderen"
+    },
+    "padBeforeBooking": {
+      "explain4": "[GEDEACTIVEERD] De afspraak is mogelijk en de kamer wordt 15 minuten voor en na de reservering geblokkeerd. De volgende afspraak is mogelijk vanaf 11:30 uur.",
+      "explain3": "[GEACTIVEERD] Afspraak is niet mogelijk. De kamer moet beschikbaar zijn van 9:45 tot 11:15 uur. De volgende afspraak is pas mogelijk om 11:30 uur.",
+      "explain2": "Voorbeeld: de vestiging is van 10:00 tot 11:00 beschikbaar en de afspraak duurt 60 minuten voor de klant, alhoewel je een 15 min. buffer voor én na de afspraak nodig hebt i.v.m. schoonmaak/onderhoud.",
+      "explain1": "Indien geactiveerd, kunnen boekingen alleen worden gemaakt als de kalender beschikbaar is, inclusief de boeking"
+    },
+    "ineligibleService": {
+      "title": "U kunt deze afspraak niet boeken",
+      "description": "Deze afspraak is alleen voor een specifieke groep leden.",
+      "backToAppointments": "Terug naar de afspraken"
+    }
+  },
+  "calendar": {
+    "selectCoachToModifyAvailability": "Selecteer een instructeur",
+    "header": {
+      "threeDaysView": "3 Dagen",
+      "dateSelector": "Datumselectie"
+    },
+    "form": {
+      "interval": {
+        "explain1": "Beschikbaarheid: ",
+        "explain2": "Elke {{ day }} van {{ date_start }} tot {{ date_end }}"
+      },
+      "title": {
+        "disable": "Beschikbaarheid verwijderen",
+        "enable": "Beschikbaarheid toevoegen"
+      },
+      "explain": "Toevoegen tot en met:",
+      "actions": {
+        "cancel": "Annuleren",
+        "submit": "Opslaan"
+      }
+    },
+    "disableAvailability": "Beschikbaarheid verwijderen",
+    "enableRecurrentAvailability": "Terugkerende beschikbaarheid toevoegen",
+    "disableRecurrentAvailability": "Terugkerende beschikbaarheid verwijderen",
+    "addBooking": "Een afspraak inplannen",
+    "toogle": {
+      "showOfferList": "Groepsactiviteiten & Workshops",
+      "showPrivateBookings": "Afspraken",
+      "showCustomEvents": "Taken / Persoonlijke afspraken",
+      "hideCancelledEvents": "Toon annuleringen",
+      "title": "Filter op activiteit"
+    },
+    "enableAvailability": "Beschikbaarheid toevoegen",
+    "createCustomEvent": "Een taak / persoonlijke afspraak toevoegen",
+    "customEvent": {
+      "dateEnd": "Einddatum",
+      "dateStart": "Startdatum"
+    },
+    "showAvailabilityDetails": "Beschikbaarheid"
+  },
+  "slotSearcher": {
+    "selectPrivateSlot": "Sessie",
+    "title": "Afspraak",
+    "searchSlot": "Tijdstip",
+    "search": "Tijdstip",
+    "selectCoach": "Alle instructeurs",
+    "emptyDateList": "Er is geen beschikbaarheid om weer te geven.",
+    "bookableSlots": {
+      "title": "Beschikbare plaatsen",
+      "isEmpty": "Geen beschikbaarheid"
+    },
+    "groupIdentifier": {
+      "evening": {
+        "interval": "Na 18:00",
+        "label": "Avond"
+      },
+      "afternoon": {
+        "interval": "14:00 - 18:00",
+        "label": "Namiddag"
+      },
+      "noon": {
+        "interval": "12:00 - 14:00",
+        "label": "Middag"
+      },
+      "morning": {
+        "label": "Ochtend",
+        "interval": "Voor 12:00"
+      }
+    },
+    "nbSlot": "{{ nbSlot }} plaats",
+    "nbSlot_plural": "{{ nbSlot }} plaatsen",
+    "establishment": "Vestiging",
+    "coach": "Instructeur",
+    "selectService": "Kies een dienst",
+    "selectSession": "Tijdstip",
+    "emptyState": "Er is momenteel geen beschikbaarheid om weer te geven.",
+    "previousOffer": "Beschikbare sessie: {{- date }} om {{ hour }}",
+    "nextOffer": "Eerstvolgende beschikbaarheid: {{- date }} om {{ hour }}",
+    "searchFirstSlot": "Zoek de eerstvolgende beschikbaarheid",
+    "pickASlot": "Selecteer je beschikbare tijd"
+  },
+  "slot": {
+    "parameters": {
+      "credit": "{{ credit }} credits(s)"
+    },
+    "form": {
+      "booking_interval_minutes": {
+        "helperText": "(Aanbevolen) Dit betekent dat leden elke X aantal minuten kunnen schrijven. Voorbeeld: bij 15 min. zien leden 12:00, 12:15, 12:30, enz.",
+        "label": "Geavanceerd: boekingskeuze-interval"
+      },
+      "people_capacity_used": {
+        "helperText": "Dit nummer wordt gebruikt om de capaciteit bij te houden.",
+        "label": "Aantal personen"
+      },
+      "cancel": "Annuleren",
+      "submit": "Opslaan",
+      "title": "Sessie",
+      "name": {
+        "label": "Sessie",
+        "placeholder": "Dubbele sessie (2 uur)"
+      },
+      "credit": {
+        "label": "credit(s)",
+        "helperText": "Dit is het benodigd aantal credits voor een reservering.",
+        "decimalCredit": {
+          "helperText": "Deze sessie kost {{count}} credit",
+          "helperText_plural": "Deze sessie kost {{count}} credits"
+        }
+      },
+      "duration_minutes": {
+        "label": "Duur",
+        "helperText": "Geef aan hoeveel credits nodig zijn om een afspraak te reserveren."
+      },
+      "pre_selected_choices": "Vooraf ingestelde tijden",
+      "durationError": "De duur moet tussen 10 minuten en 1 dag zijn.",
+      "error": {
+        "bookingInterval": "Voeg een interval toe dat is toegestaan door ClassPass: 5, 10, 15, 30 of 60 minuten.",
+        "peopleCapacityUsed": "Als u meer dan één persoon wilt toevoegen, moet u ClassPass-boekingen niet toestaan."
+      }
+    }
+  },
+  "bookerModule": {
+    "missingResource": {
+      "service": "Selecteer een afspraak om de beschikbaarheid te zien.",
+      "coach": "Selecteer een instructeur",
+      "establishment": "Selecteer een vestiging"
+    },
+    "isAtHome": "Een adres is een vereiste voor het reserveren van deze afspraak.",
+    "title": "Reserveer",
+    "address": {
+      "label": "Adres",
+      "submit": "Bevestigen",
+      "helperText": "Voer je adres in om deze afspraak in te plannen."
+    },
+    "availableSlots": "Beschikbare plaatsen",
+    "emptySlot": "Geen beschikbaarheid",
+    "cancel": "Annuleren",
+    "error": "Fout bij het reserveren op deze datum",
+    "searchSlot": "Tijdstip",
+    "noPrivateServiceAvailable": "Er zijn geen afspraken om weer te geven.",
+    "bookingCapabilities": {
+      "compatibleConsumerPassTitle": "Mijn kaarten",
+      "compatiblePassTitle": "Beschikbare kaarten",
+      "emptyPassList": "Er zijn geen beschikbare afspraakkaarten om weer te geven. Contacteer de studio voor meer informatie.",
+      "emptyConsumerPassList": "Schaf een geldige afspraakkaart aan om de reservering de voltooien."
+    },
+    "private_pass": {
+      "credits": "{{ credits}} credit(s)"
+    },
+    "buyPass": "{{ price, price }}",
+    "preview": {
+      "credit_cost": "{{credit_cost}} credits(s)"
+    },
+    "sections": {
+      "establishment": "Vestiging",
+      "privateSlot": "Sessies",
+      "coach": "Instructeur"
+    },
+    "step": {
+      "configuration": "Mijn afspraak",
+      "billing": "Facturatie",
+      "privateService": "[Formulier] Afspraak",
+      "privateSlot": "Sessie",
+      "coach": "Instructeur",
+      "date": "Datum",
+      "rule": "Terugkerende afspraken"
+    },
+    "useCredit": "Reserveer",
+    "notifyMember": {
+      "label": "Een bevestigingsmail versturen"
+    },
+    "recurrenceRule": {
+      "label": "Een terugkerende afspraak toevoegen"
+    },
+    "confirm": "Bevestigen",
+    "unpaidBooking": {
+      "dialogHelper": "Gebruik deze optie om een reservering te voltooien zonder dat daar een directe betaling voor wordt gevraagd. De {{ credits }} credit(s) die vereist zijn voor dit soort afspraken worden van de eerstvolgende aangeschafte afspraakkaart afgetrokken.",
+      "book": "Reserveren",
+      "header": "Onbetaalde reserveringen",
+      "isUnpaid": "Openstaande betaling",
+      "helper": "Voltooi nu de reservering en schaf later een afspraakkaart aan."
+    }
+  },
+  "consumerPass": {
+    "expiresOn": "Verloopt op: {{date}}",
+    "current_credits": "{{current_credits}} / {{credits}} credit(s)",
+    "isReverted": "Geannuleerde factuur",
+    "detail": {
+      "invoice": "Gekoppelde factuur",
+      "booking": "Gekoppelde afspraken",
+      "extensionsTitle": "Geldigheidsverlening"
+    },
+    "actions": {
+      "addExtension": "Geldigheid verlengen"
+    },
+    "extension": {
+      "create": {
+        "nbDays": {
+          "label": "Aantal extra dagen"
+        },
+        "note": {
+          "label": "Notities"
+        },
+        "warning": "Controleer of de nieuwe datum geen nieuwe fiscale periode overschrijdt. Als dit wel het geval is, neem dan contact op met uw boekhouder over deze actie.",
+        "explain": {
+          "newDate": "Nieuwe datum: ",
+          "oldDate": "Oude datum: "
+        },
+        "submit": "Aanmaken",
+        "cancel": "Annuleren",
+        "title": "[Formulier] Geldigheid verlengen",
+        "datePicker": {
+          "label": "Nieuwe datum"
+        }
+      },
+      "delete": {
+        "confirm": "Bevestigen",
+        "cancel": "Annuleren",
+        "explain": "Weet je zeker dat je de geldigheidsverlenging wilt verwijderen?",
+        "title": "Geldigheidsverlenging verwijderen"
+      },
+      "addedOn": "Toegevoegd op ",
+      "nbDaysAdded": "+{{nb_days}} dagen",
+      "options": {
+        "addNumberOfDays": "De geldigheid verlengen door een bepaald aantal dagen toe te voegen",
+        "selectNewEndDate": "Stel een nieuwe vervaldatum in"
+      }
+    },
+    "isFromDisabledShare": "Delen is uitgezet",
+    "isOwnerOfShares": "Gedeeld (mastercard voor afspraken)",
+    "isFromShare": "Deze kaart wordt met een ander account gedeeld.",
+    "warningShareUniversal": "Gelieve de gekoppelde kaarten i.p.v. de universele kaart delen",
+    "isFromShareTooltip": "Deze afsprakenpas wordt gedeeld met een andere franchisestudio"
+  },
+  "privateServiceCompatibility": {
+    "delete": {
+      "explain": "Weet je zeker dat je de gebruiksregels voor deze afspraakkaart wilt wijzigen? Deze wijziging geldt met terugwerkende kracht voor recente aankopen.",
+      "title": "Compatibele afspraken na deze wijziging:",
+      "cancel": "Annuleren",
+      "submit": "Verwijderen"
+    },
+    "excludedSlots": {
+      "helperText": "Selecteer de afspraken waarmee deze afspraakkaart compatibel is.",
+      "cancel": "Annuleer",
+      "submit": "Opslaan",
+      "title": "{{ service }} sessie(s)",
+      "isEmpty": "Configureer de compatibiliteit van deze afspraakkaart met de juiste sessie(s)."
+    },
+    "forSlots": "Compatibele sessies:",
+    "allSlots": "Compatibel met alle sessies",
+    "none": " Geen"
+  },
+  "privatePass": {
+    "validForDuration": {
+      "months": "{{duration_months}} maand(en)",
+      "years": "{{duration_years}} jaar",
+      "general": "Deze afspraakkaart is {{ duration_days }} dag(en), {{ duration_months }} maand(en) en/of {{ duration_years }} jaar lang geldig.",
+      "days": "{{duration_days}} dag(en)"
+    },
+    "form": {
+      "credits": {
+        "label": "Credits",
+        "helperText": "Kies het aantal credits dat in deze pas is inbegrepen",
+        "decimalCredit": {
+          "helperText": "Deze pas zal {{count}} krediet bevatten.",
+          "helperText_plural": "Deze pas zal {{count}} kredieten bevatten."
+        }
+      },
+      "durationDays": {
+        "helperText": "Geldigheidsduur (in dagen) ",
+        "label": "Dagen"
+      },
+      "title": "Een afspraakkaart toevoegen",
+      "managerOnly": {
+        "label": "Niet beschikbaar voor verkoop"
+      },
+      "name": {
+        "label": "Naam",
+        "helperText": "Naam van de afspraakkaart."
+      },
+      "tax": {
+        "label": "Btw"
+      },
+      "durationMonths": {
+        "label": "Maanden",
+        "helperText": "Dit wordt bij het aantal dagen opgeteld."
+      },
+      "durationYears": {
+        "label": "Jaren",
+        "helperText": "Dit wordt bij het aantal dagen en maanden opgeteld."
+      },
+      "available_payment_method_identifiers": {
+        "label": "Geaccepteerde betaalmethoden",
+        "helperText": "Kies ten minste één betaalmethode. Als er geen is geselecteerd, worden online betalingen standaard aangeboden.",
+        "warning": "Maak deze afspraakkaart beschikbaar voor leden om de geaccepteerde betaalmethode(n) in te stellen."
+      },
+      "actions": {
+        "submit": "Opslaan",
+        "cancel": "Annuleren",
+        "next": "Volgende",
+        "back": "Terug"
+      },
+      "price": {
+        "label": "Prijs (incl. btw)",
+        "helperText": "De totale verkoopprijs van de leskaart."
+      },
+      "full_vod_access": {
+        "label": "Activeer toegang tot Video On Demand"
+      },
+      "expirationDaysBeforeFirstUse": {
+        "helperText": "De afspraakkaart vervalt automatisch als het niet binnen X aantal dagen gebruikt wordt.",
+        "label": "Automatische vervaldatum:"
+      },
+      "start_date_method": {
+        "on_attendance": "Geldig vanaf de 1e aanwezigheid",
+        "on_booking": "Geldig vanaf de 1e reservering",
+        "on_purchase": "Geldig vanaf de factuurdatum"
+      },
+      "new_member_only": {
+        "label": "Alleen zichtbaar voor nieuwe leden"
+      },
+      "start_date_method_detail": {
+        "on_attendance": " vanaf de 1e aanwezigheid",
+        "on_booking": " vanaf de 1e reservering",
+        "on_purchase": " vanaf de aankoopdatum"
+      },
+      "startDate": "Startdatum",
+      "duration": {
+        "and": " en ",
+        "years": "{{ count }} jaar",
+        "years_plural": "{{ count }} jaar",
+        "daysMonths": "{{ duration_months }} maand(en) en {{ duration_days }} jaar",
+        "months": "{{ count }} maand(en)",
+        "days": "{{ count }} dag",
+        "days_plural": "{{ count }} dagen",
+        "valid": "Geldig voor ",
+        "fullText": "Deze afspraakkaart is geldig voor "
+      },
+      "category": "Naam van de categorie",
+      "categoryTitle": {
+        "compatibility": "Compatibele afspraken",
+        "validity": "Geldigheid",
+        "paymentMeans": "Betaalmethoden",
+        "info": "Algemeen",
+        "compatibilityAppointment": "Compatibiliteit voor afspraken"
+      },
+      "selector": {
+        "privateService": "Compatibele afspraken toevoegen"
+      },
+      "franchise": "Deze afspraakkaart is gemaakt door het Master-Account. Bepaalde instellingen zijn op groepsniveau ingesteld en kunnen niet worden gewijzigd.",
+      "universalPass": {
+        "deativatedTags": "Deactiveren voor universele kaarten",
+        "helperText": "Universele kaarten kunnen door leden worden gebruikt om zowel groepsactiviteiten als afspraken te boeken. Elke keer dat een universele kaart wordt gekocht, voegen we automatisch een ‘tweeling’-afsprakenkaart toe om de credits tussen de twee kaartsoorten te verdelen.",
+        "label": "Universele kaart",
+        "warningIsUniversalPass": "Gekoppelde leskaarten worden automatisch aangemaakt voor universele kaarten. Alle velden die hier ingesteld zijn kunnen ook op de gekoppelde afspraakkaarten worden gewijzigd m.u.v. de categorieën. Hetzelfde geldt voor de meldingen, geldigheidsverlengingen en creditwijzigingen."
+      },
+      "appliesForPayroll": {
+        "helperText": "Lessen worden standaard gefactureerd aan de studio en opgenomen in de payroll van de docent. Deactiveer deze instelling om ervoor te zorgen dat lessen die aan deze leskaart zijn gekoppeld niet langer in de payroll van docenten verschijnen.",
+        "label": "Lessen die met deze pas worden gekocht, worden opgenomen in de payroll van de docent."
+      },
+      "onBehalfOfTeacher": {
+        "helperText": "Selecteer deze instelling om ervoor te zorgen dat het inkomen dat verband houdt met afspraken op deze pas volledig aan de docent wordt uitbetaald. U kunt deze informatie bekijken in de kolom ‘Betaling volledig aan de docent uitbetaald’ in uw aankooprapporten. ",
+        "label": "Instructeurs volledig uitbetalen"
+      },
+      "expiration_date": {
+        "label": "Duur van de verkoop",
+        "helperText": "Beschikbaar tot",
+        "tooltip": "Na de gekozen datum is de pas niet meer te koop."
+      },
+      "description": {
+        "label": "Beschrijving"
+      },
+      "advancedOptions": {
+        "tag": {
+          "selectTags": "Selecteer tags",
+          "tagsOnAcquisition": "Pas tags toe na aankoop",
+          "tagsOnAcquisitionHelper": "Tag leden die deze pas hebben gekocht, zodat je ze in de toekomst snel kunt herkennen."
+        },
+        "header": "Geavanceerd"
+      },
+      "notification": "Meldingen",
+      "detailsAndRestrictions": "Details en beperkingen",
+      "notEditable": "Deze afspraakkaart is afkomstig van een eerder voltooide datamigratie. Sommige velden zijn mogelijk niet bewerkbaar om de gegevens te behouden."
+    },
+    "delete": {
+      "title": "Afspraakkaart verwijderen",
+      "explain": "Weet je zeker dat je deze afspraakkaart wilt verwijderen? Leden die nog credits hebben kunnen dit nog steeds gebruiken.",
+      "cancel": "Annuleren",
+      "submit": "Bevestigen",
+      "delete": "Verwijderen",
+      "warning": "Waarschuwing! Door deze afspraakkaart te verwijderen wordt het ook onbruikbaar bij de relevante pakketten."
+    },
+    "list": {
+      "createButton": "Een afspraakkaart toevoegen",
+      "isEmpty": "Er zijn geen afspraakkaarten om weer te geven.",
+      "availableCustomer": "Beschikbare afspraakkaarten",
+      "managerOnly": "Onbeschikbare afspraakkaarten"
+    },
+    "parameters": {
+      "nbCredits": "{{ credits}} credit(s)",
+      "nbCredits_plural": "{{ credits }} credits",
+      "price": "{{ price, price}}",
+      "tax": "Btw: {{ tax }}%",
+      "managerOnly": "Onbeschikbaar voor leden",
+      "unusableByStaff": "Onzichtbaar voor het personeel"
+    },
+    "compatibleServices": {
+      "title": "Compatibele afspraken",
+      "add": "Toevoegen",
+      "isEmpty": "Belangrijke informatie ontbreekt",
+      "unusable": "Deze afspraakpas is momenteel niet compatibel voor enige afspraak omdat er belangrijke informatie ontbreekt. Vul de vereiste velden in en probeer het opnieuw.   "
+    },
+    "edit": "Wijzigen",
+    "disabledTitle": "Gearchiveerde afspraakkaarten",
+    "detailTitles": {
+      "paymentMeans": "Betaalmethoden",
+      "privateServiceCompatibility": "Compatibele afspraken",
+      "vod": "Video On Demand",
+      "accessibility": "Toegankelijkheid",
+      "validity": "Geldigheid",
+      "credit_quantity": "Credits"
+    },
+    "ht": "Excl. btw",
+    "actions": {
+      "forceRegularizeUnpaid": "Openstaande betalingen innen"
+    },
+    "listItem": {
+      "unusableByStaff": "Onzichtbaar voor het personeel"
+    },
+    "noNotificationsWarning": "Je hebt nog geen meldingen ingesteld. Ga naar <strong>Marketing > Meldingen</strong> om nieuwe meldingen te maken"
+  },
+  "service": {
+    "form": {
+      "coach_consumer_attribution": {
+        "helperText": "Leden kiezen zelf een instructeur voordat zij reserveren. Indien een lid geen keuze maakt, dan moet een medewerker een instructeur toewijzen.",
+        "label": "Activeer dat leden hun gewenste instructeur kunnen selecteren"
+      },
+      "establishment_consumer_attribution": {
+        "helperText": "Leden kiezen zelf een vestiging voordat zij reserveren. Indien een lid geen keuze maakt, dan zal het systeem automatisch de capaciteit optimaliseren.",
+        "label": "Activeer dat leden hun gewenste vestiging kunnen selecteren"
+      },
+      "name": {
+        "placeholder": "Massage",
+        "label": "Naam"
+      },
+      "managerOnly": {
+        "label": "Onbeschikbaar voor leden"
+      },
+      "last_discard_minutes": {
+        "label": "Selecteer tot wanneer leden kosteloos kunnen annuleren (late-cancel)",
+        "helperText": "Bij te late annuleringen worden credits niet teruggestort."
+      },
+      "establishmentResourceType": {
+        "isHomeService": {
+          "label": "Thuis",
+          "helperText": "Bij elke reservering wordt er naar een adres gevraagd."
+        },
+        "isWithoutEstablishment": {
+          "label": "Zonder vooraf bepaalde locatie",
+          "helperText": "Handig voor buitenactiviteiten of livestreams."
+        },
+        "isWithEstablishment": {
+          "isEmpty": "Er is geen vestiging geconfigureerd.",
+          "label": "Selecteer vestiging(en)",
+          "helperText": "Reserveren is alleen mogelijk als er voldoende vrije plaatsen zijn."
+        }
+      },
+      "resourceGroup": {
+        "coach": "Instructeur",
+        "establishment": "Vestiging"
+      },
+      "coach_capacity_used": {
+        "label": "Selecteer het maximale aantal afspraken dat een instructeur tegelijk kan beheren.",
+        "helperText": "Bijvoorbeeld: een instructeur kan twee leden afzonderlijk begeleiden op twee apparaten.",
+        "alertText": "Een instructeur kan 1, 2, 6 of 12 afspraken tegelijk beheren."
+      },
+      "use_full_establishment_capacity": {
+        "label": "Vereist de gehele vestiging",
+        "helperText": "Activeer Dynamic Resource Management om tegelijkertijd meerdere activiteiten in dezelfde ruimte toe te staan als de capaciteit dit toelaat."
+      },
+      "title": "Afspraak",
+      "createButton": "Een afspraak toevoegen",
+      "addCoach": "Een instructeur toevoegen",
+      "addEstablishment": "Een zaal of vestiging toevoegen",
+      "addSlot": "Een sessie toevoegen",
+      "is_home_service": {
+        "label": "Thuis",
+        "helperText": "Bij elke reservering wordt er naar een adres gevraagd."
+      },
+      "delete": {
+        "title": "De afspraak verwijderen",
+        "content": "Weet je zeker dat je dit type afspraak wilt verwijderen?",
+        "cancel": "Annuleren",
+        "confirm": "Verwijderen"
+      },
+      "color": "Kleurcode",
+      "is_without_coach": "Zonder instructeur",
+      "coach": {
+        "label": "Instructeur",
+        "isEmpty": "Selecteer ten minste één instructeur."
+      },
+      "establishment": {
+        "label": "Vestiging"
+      },
+      "description": {
+        "label": "Beschrijving"
+      },
+      "actions": {
+        "cancel": "Annuleren",
+        "submit": "Opslaan"
+      },
+      "last_booking_minutes": {
+        "label": "Selecteer tot wanneer het mogelijk is om deze afspraak te reserveren"
+      },
+      "paddingStart": {
+        "helperText": "De instructeur en/of vestiging wordt {{minutes}} minuten voor het begin van de afspraak als onbeschikbaar weergegeven.",
+        "helperText0": "De agenda zal aangeven dat de instructeur(s) en/of vestiging(en) onbeschikbaar zijn.",
+        "label": "Buffer (in minuten) voor het begin van de afspraak"
+      },
+      "paddingEnd": {
+        "helperText0": "De agenda zal aangeven dat de instructeur(s) en/of vestiging(en) weer beschikbaar zijn.",
+        "helperText": "De instructeur en/of de vestiging wordt {{minutes}} minuten na het einde van de afspraak als onbeschikbaar weergegeven.",
+        "label": "Buffer (in minuten) na het einde van de afspraak"
+      },
+      "paddingTitle": "Beschikbaarheid",
+      "unpaidBooking": {
+        "helperText": "Activeer deze functie om leden reserveringen te laten voltooien zonder dat daar direct een betaling voor wordt gevraagd. De vereiste credits worden automatisch van later aangeschafte afspraakkaarten afgetrokken.",
+        "tag": {
+          "helper": "Gebruik tags om bepaalde reserveringen alleen voor specifieke segmenten van je ledenbestand beschikbaar te maken. Leden die als \"Goedgekeurd\" getagd zijn kunnen wel onbetaalde reserveringen voltooien en leden die als \"Afgekeurd\" getagd zijn kunnen dat juist niet.",
+          "header": "Tags",
+          "allowed": "Goedgekeurd",
+          "notAllowed": "Afgekeurd",
+          "doNotSelectToAllowAllMembers": "Laat dit veld leeg om geen beperkingen op te leggen."
+        },
+        "title": "Onbetaalde reserveringen",
+        "label": "Accepteer onbetaalde reserveringen"
+      },
+      "pad_before_booking": {
+        "label": "Met terugwerkende kracht activeren voor deze boeking"
+      },
+      "advancedOptions": {
+        "tag": {
+          "helperText": "Gebruik tags om de afspraak alleen boekbaar te maken voor een gewenste groep leden: u kunt tags selecteren om alle sessies van deze afspraak alleen boekbaar te maken voor leden met een van de geselecteerde tags, of u kunt tags selecteren om de sessies van de afspraak alleen niet boekbaar te maken voor leden met een van de geselecteerde tags.",
+          "header": "Tags",
+          "allowed": "Toegestaan",
+          "doNotSelectToAllowAllMembers": "Laat dit veld leeg om alle leden toe te staan",
+          "notAllowed": "Niet toegestaan"
+        },
+        "header": "Geavanceerd"
+      },
+      "availableOnPartnership": {
+        "tagsAlert": "Niet van toepassing op ClassPass boekingen.",
+        "buffersAlert": "Om buffers aan deze boeking toe te voegen, moet je ClassPass boekingen niet toestaan.",
+        "alert": "Om deze boeking correct weer te geven op ClassPass, moeten sommige instellingen worden geconfigureerd. We hebben sommige velden automatisch bijgewerkt. Controleer en vul de vereiste gegevens hieronder in.",
+        "label": "Beschikbaar op ClassPass"
+      },
+      "validation": {
+        "zeroValueError": "U moet één afspraak maken",
+        "availabilityBuffers": "Om buffers aan deze boeking toe te voegen, moet je ClassPass boekingen niet toestaan.",
+        "coachCapacityUsed": "Om meer dan één afspraak op hetzelfde moment toe te voegen voor een docent, moet u ClassPass boekingen niet toestaan.",
+        "oneOption": "Selecteer minstens één optie."
+      },
+      "tooltip": {
+        "oneBookingPerTeacher": "Kan slechts één boeking per leraar toevoegen, terwijl ClassPass-boekingen zijn toegestaan.",
+        "noTeacher": "Moet een leraar toewijzen wanneer ClassPass boekingen zijn toegestaan."
+      },
+      "settingsTitle": "Instellingen",
+      "establishmentSelectorTitle": "Selecteer de vestiging(en) voor deze afspraak:",
+      "coachSelectorTitle": "Selecteer de teacher(s) voor deze afspraak:",
+      "editConfirmation": {
+        "confirm": "Bevestig",
+        "cancel": "Doe het later",
+        "alert": "Klik op bevestigen om de beschikbaarheidsoptie uit te schakelen.",
+        "content": "Wanneer ClassPass wordt geactiveerd, worden specifieke afspraakslots uitgeschakeld. Er wordt alleen rekening gehouden met de beschikbaarheid van de docent en de vestiging.",
+        "title": "Integratieprobleem met ClassPass"
+      }
+    },
+    "parameters": {
+      "establishments": {
+        "is_home_service": "Thuis",
+        "title": "Vestiging",
+        "is_empty": "Geen vestiging beschikbaar."
+      },
+      "slots": {
+        "title": "Sessie",
+        "isEmpty": "Je hebt nog geen sessies toegevoegd.",
+        "explainIsEmpty": "Configureer de verschillende sessies van dit type afspraak, zoals de duur, prijzen en meer."
+      },
+      "description": "Beschrijving",
+      "coaches": {
+        "title": "Instructeur",
+        "is_empty": "Instructeurs zijn optioneel."
+      },
+      "last_discard_minutes": {
+        "explain": "Leden kunnen afspraken tot {{ days }} dag(en), {{ hours }} u. en {{ minutes }} min. voor het begin van de afspraak kosteloos annuleren."
+      },
+      "last_booking_minutes": {
+        "explain": "Leden kunnen tot {{days}} dag(en), {{hours}} u. en {{minutes}} min. voor het begin van de afspraak reserveren."
+      },
+      "noTags": "Er zijn geen geautoriseerde tags om weer te geven.",
+      "whitelistTags": {
+        "title": "Goedgekeurde tags"
+      },
+      "blacklistTags": {
+        "title": "Geweigerde tags"
+      }
+    },
+    "selector": {
+      "isEmpty": "Er zijn geen afspraakcategorieën ingesteld om weer te geven.",
+      "coach": {
+        "label": "Instructeur"
+      },
+      "placeholder": "Selecteer een afspraak",
+      "establishment": {
+        "label": "Vestiging"
+      }
+    },
+    "detail": {
+      "tab": {
+        "general": "Algemeen",
+        "calendar": "Agenda"
+      }
+    },
+    "configuration": {
+      "slot": "Sessies",
+      "explainSetToHasNotOwnAvailabilitySlots": "Het systeem berekent automatisch de beschikbaarheid van de gekoppelde instructeur(s) en vestiging(en).",
+      "explainSetToHasOwnAvailabilitySlots": "Alleen te reserveren in bepaalde periodes",
+      "explainHasOwnAvailabilitySlots": "Klik op het potlood om de beschikbaarheid te wijzigen.",
+      "hasFutureSlot": "De beschikbaarheid is correct geconfigureerd.",
+      "noCapacity": "Er is geen maximale capaciteit ingesteld.",
+      "totalCapacity": "Maximale capaciteit: {{capacity}} lid/leden",
+      "noFutureSlot": "De beschikbaarheid van \"{{resourceName}}\" is nog niet correct ingesteld. Klik hier om de beschikbaarheid te configureren.",
+      "title": "Beschikbaarheid",
+      "isAlwaysAvailable": "\"{{resourceName}}\" kan ingeboekt worden zodra de vestiging(en) en/of de instructeur(s) beschikbaar zijn.",
+      "changeIsAlwaysAvailable": "Bewerken",
+      "partnership": {
+        "removeAvailabilities": "Om afspraken correct weer te geven op ClassPass, moet u specifieke beschikbaarheden uitschakelen.",
+        "anySlotNotCompatible": "Werk de sessie-instellingen bij om ervoor te zorgen dat elke sessie een boekingsinterval en -capaciteit heeft die compatibel zijn met ClassPass."
+      }
+    },
+    "navigation": {
+      "goToPrivatePass": "Afspraakkaarten"
+    }
+  },
+  "serviceGroup": {
+    "form": {
+      "actions": {
+        "cancel": "Annuleren",
+        "submit": "Opslaan"
+      },
+      "title": "Categorie",
+      "name": {
+        "label": "Naam"
+      }
+    },
+    "isEmpty": "Er zijn nog geen afspraken aan deze categorie gekoppeld.",
+    "selector": {
+      "placeholder": "Categorie"
+    },
+    "delete": "Verwijderen",
+    "edit": "Bewerken"
+  },
+  "availabilitySlot": {
+    "form": {
+      "resourceSelector": {
+        "title": "Tijdslot wijzigen",
+        "label": "Bewerken voor:",
+        "cancel": "Annuleren",
+        "submit": "Opslaan",
+        "warning": "Er is geen medewerker aan deze afspraak gekoppeld."
+      }
+    },
+    "private_service": "Afspraak",
+    "establishment": "Vestiging",
+    "coach": "Instructeur",
+    "detail": {
+      "detailEmpty": "Er is geen beschikbaarheid voor het geselecteerde moment.",
+      "dialog": {
+        "title": "Beschikbaarheidsinfo"
+      },
+      "openHours": "Roosters",
+      "availableEverywhere": "Beschikbaar in alle vestigingen",
+      "slotBoundaries": "Van {{date_start}} tot en met {{date_end}}",
+      "ok": "Oké"
+    },
+    "specificAvailabilityForm": {
+      "advanced": "Gevorderd",
+      "info": "Standaard wordt de beschikbaarheid op alle vestigingen toegepast. Activeer deze optie om instructeurs de optie te geven om hun eigen beschikbaarheid per vestiging te beheren.",
+      "infoForCoach": "Standaard wordt je beschikbaarheid voor alle vestigingen toegevoegd. Activeer deze optie om zelf te selecteren op welke vestigingen je beschikbaar bent.",
+      "switchLabel": "Alleen voor geselecteerde vestigingen toevoegen"
+    },
+    "notAssociatedDialog": {
+      "close": "Sluit",
+      "checkbox": "Herinner me er niet meer aan",
+      "info": "De beschikbaarheid is opgelagen, alhoewel er geen instructeur aan deze afspraak gekoppeld is.\nWijs een instructeur toe onder het tabblad Mijn studio > Afspraken.",
+      "title": "Geen bijbehorende afspraken"
+    },
+    "notAssociatedWarning": "Deze instructeur is aan geen enkele afspraak gekoppeld. Wijs een instructeur toe onder het tabblad Mijn studio > Afspraken."
+  },
+  "resource": {
+    "form": {
+      "color": "Kleurcode",
+      "actions": {
+        "cancel": "Annuleren",
+        "submit": "Opslaan"
+      }
+    },
+    "groupBy": "Filter op",
+    "unGroup": "Geen",
+    "datatype": {
+      "establishment": "Vestigingen",
+      "coach": "Instructeurs",
+      "associated_establishment": "Vestigingen",
+      "associated_coach": "Instructeurs",
+      "private_service": "Algemeen"
+    },
+    "selector": {
+      "title": "Filter op beschikbaarheid"
+    },
+    "allocationWarning": {
+      "showCalendar": "Toon agenda",
+      "establishment": "Deze vestiging is niet beschikbaar op dit tijdstip.",
+      "coach": "Deze instructeur is niet beschikbaar op dit tijdstip.",
+      "title": "De komende dagen is er geen beschikbaarheid. Klik op de pijlen voor een beschikbaarheid verder in te toekomst.",
+      "loading": "Beschikbaarheid controleren",
+      "resource": "Waarschuwing! {{ resource }} is niet beschikbaar op dit moment.\n",
+      "continue": "Weet je zeker dat je deze afspraak wilt verplaatsen?",
+      "validate": "Bevestigen",
+      "cancel": "Annuleren"
+    }
+  },
+  "privateCoach": {
+    "delete": {
+      "title": "Instructeur uitschrijven",
+      "explain": "Weet je zeker dat je de opdracht van deze instructeur wilt verwijderen? Deze instructeur kan niet langer voor dit soort afspraken worden ingezet. Bestaande afspraken worden niet gewijzigd.",
+      "cancel": "Annuleren",
+      "submit": "Bevestigen"
+    }
+  },
+  "privateEstablishment": {
+    "delete": {
+      "title": "Vestiging verwijderen",
+      "explain": "Weet je zeker dat je de locatie van deze afspraak wilt wijzigen? Zonder vestiging wordt het beschouwd als een thuisafspraak. Leden moeten hun adres invoeren om de reservering te voltooien. Bestaande reserveringen worden niet gewijzigd.",
+      "cancel": "Annuleren",
+      "submit": "Bevestigen"
+    }
+  },
+  "selector": {
+    "privateService": "Selecteer een afspraak",
+    "privateSlot": "Sessie",
+    "establishmentPlaceholder": "Alle vestigingen",
+    "coachPlaceholder": "Alle instructeurs",
+    "session": "Kies je sessie type"
+  },
+  "openCalendar": "Toon de agenda",
+  "pageTitles": {
+    "passList": "Afspraakkaarten",
+    "serviceList": "Afspraken",
+    "calendar": "Agenda"
+  },
+  "color": {
+    "form": {
+      "title": "Kleurcode van de instructeur",
+      "cancel": "Annuleren",
+      "submit": "Opslaan"
+    }
+  },
+  "noPrivateService": "In dit onderdeel worden alle afspraken beheerd, zoals Personal/Duo Training, massages, zaalverhuur.",
+  "noPrivatePass": "In dit onderdeel worden alle afspraakkaarten beheerd. Leden kunnen afspraakkaarten gebruiken voor de activiteiten die onder \"Mijn studio\" > \"Afspraken\" zijn toegevoegd. Voorbeelden zijn Personal of Duo Training, Massages en Zaalverhuur. Let op! Het is belangrijk om de compatibiliteit per afspraakkaart in te stellen.",
+  "customEvent": {
+    "form": {
+      "actions": {
+        "submit": "Opslaan",
+        "cancel": "Annuleren"
+      },
+      "description": {
+        "placeholder": "Vraag naar mevr. Gach op Bilderdijkstraat 202.",
+        "label": "Beschrijving"
+      },
+      "coach": {
+        "isEmpty": "Zonder instructeur."
+      },
+      "color": "Kleurcode",
+      "name": {
+        "placeholder": "Afspraak met de bank",
+        "label": "Naam"
+      },
+      "title": "Taak / Persoonlijke afspraak"
+    },
+    "actions": {
+      "delete": "Verwijderen"
+    }
+  },
+  "noPrivateConsumerPass": "Er zijn nog geen leden met deze afspraakkaart.",
+  "filters": {
+    "hasCreditNull": "Zonder credits",
+    "hasCreditLeft": "Met credits",
+    "isActive": "Actief",
+    "isExpired": "Verlopen",
+    "invoice": "Factuur",
+    "reverted": "Geannuleerde factuur",
+    "notReverted": "Geldige facturen",
+    "credits": "credit(s)",
+    "expiration": "Geldigheid",
+    "all": "Alle kaarten",
+    "isValidToday": "Geldig",
+    "empty": "Alle afspraakkaarten"
+  },
+  "privateBookingNotification": {
+    "form": {
+      "notifyNb": "Stuur een melding bij reservering:",
+      "next": "Volgende",
+      "chooseTime": {
+        "second": {
+          "after": "uur na het einde van de afspraak.",
+          "before": "uur voor het begin van de afspraak."
+        },
+        "first": "Een melding sturen",
+        "title": "Instellingen"
+      },
+      "chooseWhen": {
+        "after": "Stuur deze melding ná het einde van de afspraak",
+        "before": "Stuur deze melding vóór de afspraak begint",
+        "title": "Evenement",
+        "afterNotification": "Stuur deze push-notificatie nadat de sessie afgelopen is",
+        "afterNotifications": "Stuur deze meldingen nadat de sessie afgelopen is",
+        "afterMail": "Stuur deze melding nadat de sessie afgelopen is",
+        "beforeNotification": "Stuur deze push-notificatie voor het begin van de sessie",
+        "beforeNotifications": "Stuur deze meldingen voor het begin van de sessie",
+        "beforeMail": "Stuur deze e-mail naar het lid voordat de afspraak begint"
+      },
+      "help": {
+        "valid": {
+          "default": "Leden ontvangen deze melding zodra zij {{notifyNb}} geldige reservering(en) voor dit type afspraak hebben gemaakt.",
+          "notifyAll": "Weetje: leden ontvangen deze melding elke keer zij dit type afspraak reserveren."
+        },
+        "cancelledNotRefunded": {
+          "notifyAll": "Leden ontvangen deze melding elke keer zij een afspraak te laat annuleren.",
+          "default": "Weetje: leden ontvangen deze melding als zij deze privéafspraak {{notifyNb}} keer te laat hebben geannuleerd."
+        },
+        "cancelledRefunded": {
+          "default": "Weetje: leden ontvangen deze melding wanneer zij {{notifyNb}} terugbetaalde privéafspraken hebben.",
+          "notifyAll": "Weetje: leden ontvangen deze melding elke keer dit type afspraak geannuleerd en terugbetaald is."
+        }
+      },
+      "notifyAllEvents": "Stuur een melding bij iedere reservering",
+      "chooseKind": {
+        "cancelledNotRefunded": "Geannuleerde en niet-terugbetaalde reservering(en) | Late cancels",
+        "cancelledRefunded": "Geannuleerde en terugbetaalde reservering(en)",
+        "valid": "Geldige reservering",
+        "title": "Selecteer het type reservering dat je wilt contacteren"
+      },
+      "intro": "Je kunt je leden voor of na bepaalde afspraken een melding sturen op basis van verschillende criteria (bijv. het aantal reserveringen/annuleringen).",
+      "title": "Een melding toevoegen",
+      "ifKind": {
+        "notRefunded": "Te late annuleringen",
+        "refunded": "Kosteloze annuleringen",
+        "valid": "Geldige reserveringen"
+      },
+      "subtitle": "Afsprakenkaart"
+    },
+    "tooltip": "Er zijn actieve meldingen voor dit type afspraak.",
+    "listItemPrimary": {
+      "notifyAllEvents": {
+        "cancelledNotRefunded": "Bij elke te late annulering",
+        "cancelledRefunded": "Voor iedere terugbetaalde annulering",
+        "valid": "Bij elke afspraak"
+      },
+      "cancelledRefunded": "Aantal terugbetaalde annuleringen: {{notify_booking_nb}}",
+      "cancelledNotRefunded": "Aantal te late annuleringen: {{notify_booking_nb}}",
+      "valid": "Afspraaknummer {{notify_booking_nb}}",
+      "after": "Stuur deze melding {{hours}}u na het einde van de afspraak.",
+      "before": "Stuur deze melding {{hours}} uur voor het begin van de afspraak."
+    }
+  },
+  "recurrenceRule": {
+    "item": {
+      "explain": "Elke {{dayOfWeek}} om {{time}} - Week: {{delayWeek}}",
+      "startFrom": "Van {{ date }}",
+      "allowUnpaid": "Onbetaalde reserveringen worden geaccepteerd"
+    },
+    "forms": {
+      "update": {
+        "content": "Het wijzigen van deze regel leidt tot aanpassingen in toekomstige afspraken die via deze regel gemaakt zijn.",
+        "confirm": "Wijzig",
+        "cancel": "Annuleer",
+        "title": "Terugkerende afspraak wijzigen"
+      },
+      "delete": {
+        "confirm": "Verwijder",
+        "cancel": "Annuleer",
+        "content": "Het annuleren van de terugkerende afspraak leidt tot de annulering van toekomstige afspraken die via deze regel zijn geregistreerd.",
+        "title": "Terugkerende afspraak annuleren",
+        "cancelRelatedBookings": "Annuleer alle toekomstige boekingen die met de regel zijn gemaakt",
+        "content_with_cancellation_option": "Deze terugkerende boekingsregel wordt verwijderd. Wil je ook toekomstige boekingen die met deze regel zijn gemaakt annuleren?"
+      }
+    },
+    "form": {
+      "title": "[Formulier] Terugkerende afspraak",
+      "notify_member": "Een bevestigingsmail versturen",
+      "timeGroup": "Instellingen",
+      "configuration": "Reserveringen",
+      "override_availabilities": "Maak een reservering, zelfs als de instructeur, de vestiging of de afspraak niet beschikbaar zijn",
+      "allow_unpaid": "Accepteer onbetaalde reserveringen"
+    },
+    "actions": {
+      "save": "Opslaan",
+      "close": "Sluiten"
+    },
+    "createModal": {
+      "create": "Een terugkerende afspraak toevoegen"
+    },
+    "recurrentBookings": "Terugkerende afspraken"
+  },
+  "marketplace": {
+    "isEmpty": "Er zijn geen afspraken om weer te geven."
+  },
+  "popup": {
+    "end": "Eindtijd",
+    "begin": "Starttijd",
+    "button": "Rooster",
+    "validate": "Opslaan"
+  },
+  "searshAppointmentPass": "Zoek een afspraakkaart",
+  "search": "Zoek een afspraak",
+  "categoryTitle": "Afspraakkaart-categorieën",
+  "disabledPacksTitle": "Gearchiveerde afspraakkaarten",
+  "notification": {
+    "addButton": "Een melding toevoegen",
+    "listItem": {
+      "mail": "E-mail ",
+      "deleteModal": {
+        "title": "Een melding verwijderen",
+        "cancel": "Annuleer",
+        "confirm": "Verwijder",
+        "content": "Weet je zeker dat je deze melding wilt verwijderen? Deze actie is definitief."
+      },
+      "smartList": "Uitgesloten Smartlists:",
+      "smartListInclude": "Inbegrepen Smartlists:"
+    }
+  },
+  "privatePassTemplate": {
+    "actions": {
+      "create": "Een gedeelde afspraakkaart toevoegen"
+    },
+    "deleteForm": {
+      "actions": {
+        "submit": "Archiveren",
+        "close": "Sluiten"
+      },
+      "content": "Leden kunnen de afsprakenpas nog steeds gebruiken in de studio waar ze hem gekocht hebben. Abonnementen die aan deze pas zijn gekoppeld, werken ook alleen in diezelfde studio.",
+      "title": "Gedeelde afsprakenkaart archiveren"
+    },
+    "form": {
+      "actions": {
+        "submit": "Opslaan",
+        "close": "Sluiten"
+      },
+      "submit": "Bevestigen",
+      "close": "Sluiten",
+      "title": "[Formulier] Gedeelde afspraakkaart",
+      "editConfirmation": {
+        "confirm": "Sla toch op",
+        "cancel": "Annuleer",
+        "content": "Uw wijzigingen worden ook toegepast op abonnementen die aan deze gedeelde afsprakenpas zijn gekoppeld. Weet u zeker dat u wilt doorgaan en uw wijzigingen wilt opslaan?",
+        "title": "Bevestiging bewerken"
+      }
+    },
+    "section": {
+      "titleManagerOnly": "Niet beschikbaar voor verkoop",
+      "titleAvailable": "Beschikbare afspraakkaarten",
+      "titleArchived": "Gearchiveerde leskaarten"
+    },
+    "isEmptyExplain": "Leden kunnen deze kaarten bij iedere gekoppelde studio aanschaffen en gebruiken.",
+    "specification": {
+      "companySharedWithTitle": "Beschikbaar bij de volgende studio's:"
+    },
+    "restoreForm": {
+      "title": "Gedeelde afsprakenkaart herstellen",
+      "content": "De gedeelde universele leskaart wordt hersteld en opnieuw gedeeld tussen de eerder geselecteerde studio's.",
+      "actions": {
+        "close": "Sluiten",
+        "submit": "Herstellen"
+      }
+    }
+  },
+  "privatePassTemplateInstance": {
+    "actions": {
+      "addCompany": "Een studio toevoegen"
+    },
+    "companyEmpty": "Er zijn geen studio's aan deze kaart gekoppeld.",
+    "deleteForm": {
+      "actions": {
+        "submit": "Delen deactiveren",
+        "close": "Sluiten"
+      },
+      "content": "Als je stopt met het delen met deze studio, zullen de afspraakkaarten die je bij die studio hebt gekocht nog steeds geldig zijn, maar alleen binnen die specifieke studio. Afspraken van andere studio's zullen daar niet langer geldig zijn. Dit geldt ook voor gekoppelde abonnementen.",
+      "title": "Stop met delen met een studio"
+    },
+    "form": {
+      "actions": {
+        "submit": "Opslaan",
+        "close": "Sluiten"
+      },
+      "explain2": "Leden die deze afsprakenpas of een daaraan gekoppeld abonnement hebben gekocht, kunnen deze gebruiken in elk van de nieuwe compatibele studio's.",
+      "explain1": "De volgende studio's bieden deze afspraakpas automatisch aan, maar kunnen de prijs of het tegoednummer niet wijzigen.",
+      "title": "Beschikbaarheid"
+    },
+    "privateConsumerPassSharedFromOtherFranchisee": "Gedeeld met een andere studio",
+    "privatePassSharedFromFranchisor": "Kaart van het Master-Account"
+  },
+  "seeAll": "Toon alles",
+  "universalPass": {
+    "delete": {
+      "dialog": {
+        "warningText": "Waarschuwing! De gekoppelde kaarten worden óók verwijderd.",
+        "title": "Verwijderen"
+      }
+    }
+  },
+  "specificAvailabilitiesCalendar": {
+    "establishment": "Vestiging",
+    "filters": "Filters",
+    "goToRegularCalendar": "Terug naar Rooster",
+    "infoBoxContent": "Je hebt nu de optie om je beschikbaarheid per vestiging beheren. Standaard wordt de beschikbaarheid van instructeurs op alle vestigingen toegepast. Op deze pagina kun je de specifieke beschikbaarheid per vestiging beheren. Het blijft een vereiste om een algemene beschikbaarheid per instructeur aan te maken, voordat een rooster per vestiging aangemaakt kan worden."
+  },
+  "openSpecificAvailabilitiesCalendar": "Beschikbaarheid",
+  "forms": {
+    "delete": {
+      "confirm": "Verwijderen",
+      "cancel": "Annuleren",
+      "actions": {
+        "confirm": "Verwijderen",
+        "cancel": "Annuleren"
+      },
+      "title": "Afspraak verwijderen",
+      "content": {
+        "canDelete": "Weet je zeker dat je deze afspraak wilt verwijderen? Deze actie is definitief. Bestaande reserveringen worden niet verwijderd."
+      }
+    }
+  }
+}

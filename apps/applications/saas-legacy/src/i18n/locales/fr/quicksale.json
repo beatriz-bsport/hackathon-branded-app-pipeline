@@ -1,0 +1,240 @@
+{
+  "interface": {
+    "outOfStock": {
+      "subText": "Cet article est actuellement en rupture de stock, mais vous pouvez quand même l’ajouter au panier.",
+      "title": "Article en rupture de stock",
+      "addAnyway": "Ajouter au panier"
+    },
+    "seller": "Vendeur",
+    "anonymousSale": "Vente sans profil",
+    "searchAProduct": "Rechercher un produit",
+    "noResult": "Aucun résultat",
+    "resultsForString": "{{ count }} résultat pour \"{{ searchText }}\"",
+    "resultsForString_plural": "{{ count }} résultats pour \"{{ searchText }}\"",
+    "goBack": "Retour",
+    "totalExcludingTax": "Total HT",
+    "taxes": "TVA",
+    "totalIncludingTax": "Total",
+    "payment": "Paiement",
+    "selectItemToStart": "Ajoutez un article au panier pour commencer",
+    "memberModal": {
+      "title": "Profil du membre",
+      "confirm": "Sauvegarder",
+      "cancel": "Annuler"
+    },
+    "authenticationNecessary": "L'authentification d'un membre est nécessaire pour cette section.",
+    "ongoingBaskets": {
+      "title": "Paniers ouverts détectés",
+      "subText": "Merci de finaliser ou supprimer vos paniers ouverts pour pouvoir vous déconnecter."
+    },
+    "deleteCurrentBasket": {
+      "title": "Supprimer le panier ?",
+      "subText": "Les articles ajoutés à ce panier ne seront pas enregistrés.",
+      "cancel": "Retour",
+      "delete": "Supprimer"
+    },
+    "payLater": {
+      "title": "Remettre à plus tard",
+      "subText": "Ce panier est déjà partiellement payé. En le fermant, vous remettez le reste du paiement à plus tard. Vous pourrez retrouver la facture sur le backoffice.",
+      "cancel": "Annuler",
+      "payLater": "Remettre à plus tard"
+    },
+    "cannotEdit": {
+      "title": "Modifications impossibles",
+      "subText": "Le panier ne peut plus être modifié car il a déjà été partiellement payé.",
+      "payment": "Paiement"
+    },
+    "scannerMode": {
+      "title": "Mode scanner",
+      "subText": "Scannez des articles pour les ajouter au panier.",
+      "done": "Terminer"
+    },
+    "objectAdded": {
+      "title": "Objet ajouté",
+      "subText": "L'objet a bien été ajouté au panier."
+    },
+    "cannotAdd": {
+      "title": "Ajout impossible",
+      "subTextListItem": "Malheureusement, l'article n'a pas pu être ajouté car",
+      "newMember": {
+        "subText": "{{ optionalBeginning }} {{- name }} n'est pas un nouveau membre."
+      },
+      "tag": {
+        "hasTag": "{{ optionalBeginning }} {{- name }} possède le tag {{- tagName }}.",
+        "doesNotHaveTag": "{{ optionalBeginning }} {{- name }} ne possède pas le tag {{- tagName }}.",
+        "hasTagAndDoesNotHaveTag": "{{ optionalBeginning }} {{- name }} possède le tag {{- ownedTagName }} et ne possède pas le tag {{- notOwnedTagName }}."
+      }
+    },
+    "authenticationRequired": {
+      "title": "Identification nécessaire",
+      "subTextListItem": "L'article que vous souhaitez ajouter est",
+      "bottomSubText": "Sans identification du membre, les vérifications nécessaires ne peuvent être faites.",
+      "identifyMember": "Identifier un membre",
+      "newMember": {
+        "subText": "L'article que vous souhaitez ajouter est réservé aux nouveaux membres.",
+        "subTextListItem": "Réservé aux nouveaux membres"
+      },
+      "maxPurchase": {
+        "subText": "L'article que vous souhaitez ajouter est soumis à une limitation du nombre d'achats.",
+        "subTextListItem": "Soumis à une limitation du nombre d'achats"
+      },
+      "tag": {
+        "subText": "L'article que vous souhaitez ajouter est réservé aux membres possédant certains tags.",
+        "subTextListItem": "Réservé aux membres possédant certains tags"
+      }
+    },
+    "itemsRemovedFromBasket": {
+      "title": "Items retirés du panier",
+      "subText": "Lors du changement de membre, certains items ont été retirés du panier car ils ne sont pas compatibles avec le nouveau membre."
+    },
+    "home": "Accueil"
+  },
+  "objectCard": {
+    "subtitle": {
+      "credit": "crédit",
+      "credit_plural": "crédits",
+      "unlimited": "Illimité",
+      "product": "produit",
+      "product_plural": "produits",
+      "paymentPack": "Carte de cours",
+      "privatePass": "Carte RDV",
+      "shopProduct": "Produit",
+      "paymentCombo": "Pack",
+      "subscription": "Contrat",
+      "giftcard": "Carte cadeau"
+    },
+    "recurrence": {
+      "day": "tous les jours",
+      "day_plural": "tous les {{ recurrence_basis }} jours",
+      "week": "toutes les semaines",
+      "week_plural": "toutes les {{ recurrence_basis }} semaines",
+      "month": "tous les mois",
+      "month_plural": "tous les {{ recurrence_basis }} mois",
+      "year": "tous les ans",
+      "year_plural": "tous les {{ recurrence_basis }} ans"
+    },
+    "startingPrice": "À partir de {{ price }}",
+    "numberOfVariants": "{{ count }} variante",
+    "numberOfVariants_plural": "{{ count }} variantes"
+  },
+  "sectionCard": {
+    "item": "article",
+    "item_plural": "articles"
+  },
+  "iconSelector": {
+    "searchPlaceholder": "Chercher (recherche en anglais)"
+  },
+  "itemList": {
+    "goBack": "Retour",
+    "additionDrawer": {
+      "title": "PDV",
+      "simpleObjectsSubtitle": "Ajouter des produits",
+      "objectGroupsSubtitle": "Ajouter un groupe de produits",
+      "objectsAddition": "Produits",
+      "tilesColor": "Couleur des tuiles",
+      "search": "Rechercher",
+      "cancel": "Annuler",
+      "add": "Ajouter",
+      "category": "Catégorie",
+      "objectType": "Type d'objet",
+      "selectAll": "Tout sélectionner",
+      "unselectAll": "Tout désélectionner",
+      "noResult": "Aucun résultat",
+      "withoutCategory": "Sans catégorie"
+    }
+  },
+  "cardListPage": {
+    "preview": "Prévisualisation",
+    "save": "Sauvegarder",
+    "possibleActionsShort": "Vous pouvez effectuer des actions au survol des tuiles à l'aide de la souris...",
+    "possibleActionsFull": "Survolez les tuiles avec votre souris pour effectuer différentes actions :",
+    "seeMore": "Voir plus",
+    "seeLess": "Voir moins",
+    "editIcon": "Modifier l'icône",
+    "editName": "Modifier le nom",
+    "editColor": "Modifier la couleur",
+    "moveTile": "Déplacer la tuile",
+    "archiveSection": "Archiver la catégorie",
+    "deleteTile": "Supprimer la tuile",
+    "addSection": "Vous pouvez également ajouter une catégorie en cliquant sur la tuile + située en dernière position.",
+    "addItems": "Vous pouvez également ajouter des produits en cliquant sur la tuile + située en dernière position.",
+    "newSection": "Nouvelle catégorie",
+    "categoryModalTitle": "Couleur de la tuile",
+    "categoryModalSubtitle": "Palette de couleur",
+    "archivedCategories": "Catégories archivées",
+    "categoryArchivedSnackbar": "La catégorie a été archivée"
+  },
+  "pageLeavePrompt": {
+    "title": "Sauvegarder vos changements ?",
+    "description": "Attention, vos modifications n’ont pas été sauvegardées.",
+    "save": "Sauvegarder",
+    "discard": "Quitter sans sauvegarder"
+  },
+  "pageTitle": "PDV",
+  "rolePage": {
+    "title": "Accès point de vente",
+    "subtitle": "Ces accès permettent au staff d'accéder à l'interface de vente rapide. Il est nécessaire de se connecter afin de pouvoir vendre via l'interface.",
+    "addAccess": "Ajouter un accès",
+    "modalTitle": "Création d'un accès interface de vente",
+    "firstName": "Prénom",
+    "lastName": "Nom",
+    "email": "Email",
+    "password": "Mot de passe",
+    "cancel": "Annuler",
+    "submit": "Valider",
+    "staffColumn": "Staff",
+    "emailColumn": "Email",
+    "actionColumn": "Action",
+    "noResult": "Aucun accès créé"
+  },
+  "checkout": {
+    "billingDate": "Date de facturation",
+    "priceExcludingTax": "Total HT",
+    "tax": "TVA",
+    "priceIncludingTax": "Total",
+    "invoiceFootNote": "Note de bas de facture",
+    "deliveryFee": "Frais de livraison",
+    "priceRecap": "Récapitulatif",
+    "amountDue": "Total dû",
+    "partialPayment": "Encaissement",
+    "leftToPay": "Reste à payer",
+    "leftDue": "Restant dû :",
+    "onSpot": "Sur place",
+    "homeDelivery": "Livraison",
+    "firstName": "Prénom",
+    "lastName": "Nom",
+    "sendToTerminal": "Envoyer sur le terminal",
+    "cancel": "Annuler",
+    "validate": "Valider",
+    "paymentSuccess": {
+      "title": "Vente réussie",
+      "subText": "Le paiement a bien été pris en compte. La facture a été envoyée par mail.",
+      "subTextAnonymous": "Le paiement a bien été pris en compte.",
+      "subTextPartialPayment": "Le paiement a bien été pris en compte. La facture a été envoyée par mail. Le reste du paiement a été remis à plus tard : il pourra être effectué depuis le Backoffice ou sur le profil client.",
+      "printTicket": "Imprimer le ticket",
+      "sendByEmail": "Envoyer la facture par mail",
+      "description": "Paiement effectué",
+      "qrCodeTitle": "Télécharger le reçu"
+    },
+    "emailSent": {
+      "title": "Email envoyé",
+      "subText": "La facture a bien été envoyée à l'email renseigné.",
+      "printTicket": "Imprimer le ticket"
+    },
+    "payLater": {
+      "title": "Paiement remis à plus tard",
+      "subText": "Le paiement a bien été remis à plus tard : il pourra être effectué depuis le Backoffice ou sur le profil client."
+    },
+    "noAnonymousInstalment": {
+      "explanation": "Il est impossible de payer en plusieurs fois lorsque la facture est anonyme",
+      "identify": "Identifier"
+    },
+    "noPartialInstalment": {
+      "explanation": "Il est impossible de payer en plusieurs fois lorsque le montant total à payer a été modifié.",
+      "reset": "Réinitialiser"
+    },
+    "clientDebt": "Solde client",
+    "noAnonymousClientDebt": "Pour utiliser le solde client, il est nécessaire d'identifier un membre sur la facture",
+    "internalCredits": "Crédits internes"
+  }
+}

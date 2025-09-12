@@ -1,0 +1,200 @@
+{
+  "shopitem": {
+    "action": {
+      "delete": "Eliminar",
+      "edit": "Editar",
+      "addToCard": "Adicionar ao carrinho"
+    },
+    "form": {
+      "title": "Artigo da loja",
+      "error": {
+        "name": "O nome de um produto não pode exceder 200 caracteres",
+        "colorSize": "O nome de uma cor/tamanho não pode exceder 100 caracteres"
+      },
+      "variantHelperText": "Defina variantes se este produto estiver disponível em várias cores e/ou tamanhos. Poderá editar as propriedades de cada variante mais tarde.",
+      "sizes": {
+        "helperText": "Adicionar um tamanho pressionando enter",
+        "title": "Tamanhos"
+      },
+      "colors": {
+        "helperText": "Adicionar uma cor pressionando enter",
+        "title": "Cores"
+      }
+    },
+    "detail": {
+      "enabled": "Sim",
+      "parameters": "Configurações",
+      "disabled": "Não",
+      "provisionHistory": "Evolução do stock",
+      "is_deliverable": "Taxas de envio",
+      "supplier_price": "Preço fornecedor",
+      "marketplace_enabled": "Disponível no marketplace",
+      "onsite_payment_available": "Pagamento no estabelecimento",
+      "title": "Ficha do artigo"
+    },
+    "noDescription": "Nenhuma descrição",
+    "selector": {
+      "placeholder": "Procurar através de um nome ou código de barras"
+    }
+  },
+  "dialog": {
+    "delete": {
+      "explain": "Tem a certeza de que pretende eliminar este artigo da loja ? Esta operação é irreversível e deixará de ter acesso ao histórico das existências.",
+      "confirm": "Eliminar",
+      "title": "Eliminar o {{shopitem.name}}",
+      "cancel": "Cancelar",
+      "warning": "Atenção ! Este artigo é utilizado num pack. O pack deixará de estar disponível para venda se retirar este artigo."
+    }
+  },
+  "link": {
+    "copied": "Link copiado",
+    "copyLink": "Copiar o link para a página de pagamento"
+  },
+  "provision": {
+    "current_stock": "Stock atual :",
+    "noProvisionHistory": "Nenhum histórico de venda",
+    "form": {
+      "quantityLabel": "Unidade(s)",
+      "quantityHelperText": "Unidade a acrescentar/subtrair ao stock",
+      "cancel": "Cancelar",
+      "submit": "Guardar",
+      "title": "Atualização da disposição"
+    },
+    "total_sales": "Número de artigos vendidos :",
+    "action": {
+      "update": "Atualizar o stock"
+    }
+  },
+  "search": "Procurar um produto",
+  "select": {
+    "placeholder": "Artigo da loja"
+  },
+  "shopItemDetail": {
+    "table": {
+      "history": {
+        "invoice": {
+          "seeInvoice": "Ver fatura",
+          "title": "Fatura"
+        },
+        "quantity": "Quantidade",
+        "updateType": {
+          "purchase": "Ordem de compra",
+          "manual": "Ajuste manual",
+          "sale": "Venda",
+          "title": "Tipo de atualização"
+        },
+        "studio": "Estúdio",
+        "variant": "VariantE",
+        "date": "Data"
+      },
+      "settings": {
+        "sku": "SKU",
+        "barcodeTooltip": "Ver código de barras",
+        "barcode": "Código de barras",
+        "requiresDelivery": "Necessita de entrega",
+        "featured": "Em destaque",
+        "sellOnlyOnProvision": "Vender apenas quando houver stock disponível",
+        "paymentMethodsChip": {
+          "onlineInStore": "Online e na loja",
+          "inStore": "Na loja",
+          "online": "Online"
+        },
+        "paymentMethods": "Métodos de pagamento aceites",
+        "availableOnline": "Disponível em linha",
+        "vat": "IVA/imposto sobre vendas",
+        "supplierPrice": "Preço do fornecedor",
+        "supplier": "Fornecedor"
+      },
+      "variants": {
+        "availableOnline": "Disponível em linha",
+        "barcode": "Código de barras",
+        "sku": "SKU",
+        "supplierPrice": "Preço do fornecedor",
+        "price": "Preço",
+        "colorAndSize": "Cor e tamanho",
+        "upload": "Carregar",
+        "image": "Imagem",
+        "action": {
+          "edit": "Editar variante",
+          "add": "Adicionar uma variante"
+        },
+        "placeholder": "Este produto ainda não tem variantes"
+      },
+      "inventory": {
+        "seeInvoice": "Ver fatura",
+        "totalSales": "Vendas totais",
+        "stockAdjustment": "Ajustamento de stocks (+/-)",
+        "currentStock": "Existências actuais",
+        "variants": "Variantes",
+        "action": {
+          "update": "Atualizar o inventário"
+        },
+        "formError": "Os valores de ajuste de estoque devem ser números válidos"
+      }
+    },
+    "tab": {
+      "history": "História",
+      "settings": "Definições",
+      "variants": "Variantes",
+      "inventory": "Inventário"
+    },
+    "deleteModal": {
+      "comboWarning": "Atenção! A eliminação deste produto também o tornará indisponível para compra para os pacotes em que é utilizado.",
+      "message": "Tem a certeza de que pretende eliminar este produto da sua loja virtual? Esta ação não pode ser anulada.",
+      "genericTitle": "Confirmação da eliminação",
+      "title": "Eliminar {{- name}}"
+    },
+    "deleteVariant": "Eliminar variante",
+    "viewBarcode": "Ver código de barras",
+    "copyPaymentPageLink": "Copiar a hiperligação da página de pagamento",
+    "showLess": "Mostrar menos",
+    "showMore": "Mostrar mais",
+    "startingAt": "A partir de",
+    "title": "Detalhes do produto"
+  },
+  "shopList": {
+    "tab": {
+      "settings": {
+        "section": {
+          "suppliers": {
+            "deleteModal": {
+              "message": "Tem a certeza de que pretende eliminar este fornecedor?",
+              "title": "Fornecedor: {{- supplierName }}"
+            },
+            "modal": {
+              "field": {
+                "description": "Notas",
+                "name": "Nome *"
+              },
+              "titleUpdate": "Editar fornecedor",
+              "titleCreate": "Adicionar fornecedor"
+            },
+            "table": {
+              "action": {
+                "delete": "Eliminar",
+                "edit": "Editar"
+              },
+              "addSupplier": "Adicionar fornecedor",
+              "actions": "Acções",
+              "notes": "Notas",
+              "name": "Nome"
+            },
+            "title": "Fornecedores"
+          }
+        },
+        "title": "Configurações"
+      },
+      "products": {
+        "subshopForm": {
+          "field": {
+            "name": "Nome"
+          },
+          "title": "AdIcionar uma categoria"
+        },
+        "title": "Produtos"
+      }
+    }
+  },
+  "variantCount": "{{count}} variante",
+  "variantCount_plural": "{{count}} variantes"
+}

@@ -1,0 +1,1226 @@
+{
+  "coach": {
+    "error": "Kan instructeur niet opslaan",
+    "delete": {
+      "error": "Kan instructeur niet verwijderen",
+      "success": "Instructeur verwijderd"
+    },
+    "linkByEmail": {
+      "success": "Instructeur succesvol gekoppeld"
+    },
+    "error_email_exists": "Er bestaat al een lid met dit e-mailadres. Om deze te koppelen, gebruik het vorige modaal.",
+    "create": {
+      "success": "Instructeur succesvol aangemaakt"
+    },
+    "update": {
+      "success": "Instructeur succesvol aangepast"
+    },
+    "restore": {
+      "error": "Kan instructeur niet herstellen",
+      "success": "Instructeur succesvol hersteld"
+    },
+    "editAccessToCoachSpace": {
+      "error": "Fout bij het wijzigen van de toegangsrechten van de Instructeursweergave"
+    },
+    "errors": {
+      "60002": "Het ingevulde e-mailadres is al gekoppeld aan een medewerkersaccount.",
+      "60003": "Er bestaat al een lid met dit e-mailadres. Gebruik de vorige popup om ze te koppelen.",
+      "60004": "De aangegeven e-mail is al gekoppeld aan een personeels franchise-account."
+    }
+  },
+  "relationship": {
+    "consumer_payment_pack_links": {
+      "unlink": {
+        "error": "Kan delen niet stoppen",
+        "success": "Delen gestopt"
+      },
+      "create": {
+        "success": "Gedeelde leskaart",
+        "error": {
+          "90004": "Deze kaart wordt gedeeld van een andere rekening",
+          "generic": "Kan deze kaart helaas niet delen"
+        }
+      },
+      "relink": {
+        "success": "Delen opgeslagen",
+        "error": "Kan deze leskaart niet delen"
+      }
+    },
+    "edit": {
+      "success": "Relatie gewijzigd"
+    },
+    "create": {
+      "success": "Relatie opgeslagen"
+    },
+    "createOrUpdate": {
+      "error": "Kan relatie niet opslaan"
+    },
+    "private_consumer_pass_links": {
+      "relink": {
+        "error": "Deze afspraakkaart kan niet worden gedeeld",
+        "success": "Kaart wordt gedeeld"
+      },
+      "unlink": {
+        "error": "Het delen kan niet worden gestopt",
+        "success": "Delen gestopt"
+      },
+      "create": {
+        "error": {
+          "90005": "Deze afsprakenkaart wordt gedeeld vanuit een ander account",
+          "generic": "Kan deze afspraak kaart niet delen"
+        },
+        "success": "Gedeelde afspraakkaart"
+      }
+    },
+    "delete": {
+      "error": "Fout bij het verwijderen van de relatie",
+      "success": "Relatie verwijderd"
+    },
+    "error": {
+      "90000": "Ongeldige toegangsrechten voor dit account",
+      "90001": "Ongeldig verzoek",
+      "90002": "Ongeldig lid",
+      "90003": "Ongeldige token"
+    }
+  },
+  "paymentPack": {
+    "createOrUpdate": {
+      "success": "Wijzigingen opgeslagen",
+      "fail": "Fout bij opslaan van deze leskaart"
+    },
+    "credit": {
+      "updated": "Wijzigingen opgeslagen",
+      "error": "Fout bij het opslaan van de wijzigingen"
+    },
+    "paymentPackDisabled": {
+      "error": "Fout bij het deactiveren van de leskaart",
+      "success": "Leskaart geblokkeerd"
+    },
+    "paymentPackEnabled": {
+      "error": "Fout bij het herstellen van de leskaart",
+      "success": "Leskaart succesvol hersteld"
+    },
+    "category": {
+      "delete": {
+        "error": "De categorie kon niet worden verwijderd",
+        "success": "De categorie is verwijderd"
+      },
+      "create": {
+        "error": "De categorie kon niet worden toegevoegd",
+        "success": "Nieuwe categorie succesvol aangemaakt"
+      },
+      "update": {
+        "error": "De categorie kan niet worden bewerkt",
+        "success": "De categorie is succesvol gewijzigd"
+      }
+    },
+    "compatibilitiesUpdate": {
+      "fail": "Fout bij het bijwerken van pascompatibiliteiten"
+    },
+    "universalPaymentPackTemplateRestored": {
+      "success": "Gedeelde universele kaart hersteld",
+      "error": "Niet mogelijk om gedeelde universele kaart te herstellen"
+    },
+    "universalPaymentPackTemplateArchived": {
+      "success": "Gedeelde universele kaart gearchiveerd",
+      "error": "Niet mogelijk om gedeelde kaart te archiveren"
+    },
+    "paymentPackTemplateRestored": {
+      "success": "Gedeelde kaart hersteld",
+      "error": "Niet mogelijk om gedeelde kaart te herstellen"
+    },
+    "paymentPackTemplateArchived": {
+      "success": "Gedeelde kaart gearchiveerd",
+      "error": "Niet mogelijk om gedeelde kaart te archiveren"
+    },
+    "manualActivation": {
+      "error": "Er is een probleem opgetreden bij het activeren van de leskaart. Probeer het opnieuw.",
+      "updated": "Leskaart succesvol geactiveerd"
+    }
+  },
+  "coupon": {
+    "create": {
+      "success": "Kortingscode opgeslagen",
+      "error": "Kan deze kortingscode niet aanmaken"
+    },
+    "delete": {
+      "success": "Promotiecode verwijderd",
+      "error": "Kan deze promotie niet verwijderen"
+    },
+    "update": {
+      "error": "Kan deze kortingscode niet wijzigen",
+      "success": "Kortingscode gewijzigd"
+    },
+    "attachToBasket": {
+      "error": "Ongeldige promotiecode"
+    },
+    "createOrUpdate": {
+      "success": "Promotie opgeslagen",
+      "error": "Fout bij het opslaan van deze promotiecode"
+    },
+    "templateInstance": {
+      "create": {
+        "error": "Fout bij het opslaan en het delen van deze promotie"
+      }
+    },
+    "errors": {
+      "5002": "Promotiecodes die externe goedkeuring vereisen kunnen niet als gebruikt worden gemarkeerd"
+    },
+    "exportCodes": {
+      "error": "Het is niet mogelijk om de geselecteerde promotiecodes te exporteren",
+      "success": "Vouchers exporteren"
+    }
+  },
+  "subscription": {
+    "switchPaymentMethod": {
+      "success": "Betaalmethode geüpdatet",
+      "error": "Kan betaalmethode niet wijzigen"
+    },
+    "switchPack": {
+      "error": "Fout bij het wijzigen van de leskaart",
+      "success": "Leskaart gewijzigd"
+    },
+    "freeze": {
+      "success": "Abonnement gepauzeerd",
+      "alreadyPaused": "Kan een reeds onderbroken abonnement niet onderbreken",
+      "error": "Kan dit abonnement niet pauzeren",
+      "locked": "Kan momenteel niet worden gepauzeerd. Is er een betaling in behandeling?",
+      "deleteSuccess": "Het pauzen is succesvol stopgezet",
+      "deleteFail": "Het is niet mogelijk om een reeds gepauzeerd abonnement te verwijderen"
+    },
+    "updatePrice": {
+      "success": "Bedrag gewijzigd",
+      "error": "Dit bedrag kan niet worden gewijzigd"
+    },
+    "youSubscribed": {
+      "success": "Je bent nu geabonneerd",
+      "error": "Fout bij het inschrijven"
+    },
+    "stop": {
+      "error": "Het abonnement kan momenteel niet worden beëindigd",
+      "warning": "Fout bij het beëindigen van dit abonnement. Is er een betaling in behandeling?",
+      "success": "Het abonnement is beëindigd"
+    },
+    "contract": {
+      "restore": {
+        "error": "Het abonnement kon niet worden hersteld",
+        "success": "Abonnement succesvol hersteld"
+      }
+    },
+    "billNow": {
+      "errors": {
+        "12102": "Momenteel wordt een betaling verwerkt. Controleer later om een nieuwe betaling te registreren."
+      }
+    },
+    "switchPaymentCombo": {
+      "error": "Fout bij het wijzigen van pakket",
+      "success": "Pakket gewijzigd"
+    },
+    "switchPrivatePass": {
+      "error": "Fout bij het wijzigen van de afspraakkaart",
+      "success": "Afspraakkaart gewijzigd"
+    },
+    "switchItemsErrors": {
+      "paymentCombo": {
+        "63003": "Het is niet mogelijk om pakketten van een Master-Account te bewerken"
+      },
+      "privatePass": {
+        "63003": "Het is niet mogelijk om afspraakkaarten van een Master-Account te bewerken"
+      },
+      "paymentPack": {
+        "63003": "Het is niet mogelijk om leskaarten van een Master-Account te bewerken"
+      }
+    },
+    "register": {
+      "error": "Onmogelijk om het abonnement te registreren",
+      "success": "Abonnement succesvol geregistreerd"
+    },
+    "contractTemplate": {
+      "createError": "Abonnement niet aangemaakt",
+      "createSuccess": "Abonnement succesvol aangemaakt",
+      "editError": "Abonnement niet opgeslagen",
+      "editSuccess": "Abonnement succesvol opgeslagen",
+      "restoreError": "Abonnement niet hersteld",
+      "restoreSuccess": "Abonnement succesvol hersteld",
+      "deleteError": "Abonnement niet gearchiveerd",
+      "deleteSuccess": "Abonnement succesvol gearchiveerd"
+    }
+  },
+  "invoice": {
+    "error": "Fout bij het opslaan - Geannuleerd",
+    "update": {
+      "success": "Factuur succesvol bijgewerkt"
+    },
+    "create": {
+      "success": "Factuur succesvol opgeslagen"
+    },
+    "returnPaymentLocked": "Deze terugbetaling kon niet worden voltooid. Weet je zeker dat je Stripe-account voldoende saldo heeft?",
+    "billingEstablishment": {
+      "error": {
+        "unAuthorizedEstablishmentModification": "Alleen Systeembeheerders kunnen de groepsfacturatie wijzigen"
+      }
+    },
+    "sendToQuickbooks": {
+      "errors": {
+        "931000": "Fout bij het verifiëren met QuickBooks",
+        "931001": "Fout bij de verificatie met QuickBooks",
+        "931002": "De verificatie is verlopen",
+        "931003": "De verificatie is verlopen",
+        "931004": "Je hebt je QuickBooks-applicatie nog niet ingesteld",
+        "931100": "Fout bij het bijwerken van de verificatie",
+        "931101": "QuickBooks kan ons niet je data opsturen",
+        "932000": "Je account is niet langer bij BSPORT geverifieerd",
+        "932001": "Je account is niet langer bij BSPORT geverifieerd",
+        "932100": "We hebben geen toegang tot je QuickBooks-gegevens",
+        "933000": "Het lid dat aan deze factuur gekoppeld is beschikt niet over de benodigde informatie om bij QuickBooks te worden geregistreerd",
+        "933100": "Error bij het koppelen van dit lid aan de factuur",
+        "933101": "Error bij het koppelen van dit lid aan de factuur",
+        "933102": "Error bij het aanmaken van de factuur op QuickBooks",
+        "933103": "Uw QuickBooks-platform ondersteunt meerdere valuta, geef aan welke belasting u wilt gebruiken.",
+        "934000": "De factuur bevat niet genoeg informatie om op QuickBooks te kunnen worden opgeslagen",
+        "934001": "Error bij het aanmaken van een factuur zonder producten/items",
+        "934002": "Error bij het versturen van een geannuleerde factuur naar QuickBooks",
+        "934003": "Error bij het versturen van een incomplete factuur naar QuickBooks",
+        "934004": "Error bij het versturen van een onbetaalde factuur naar QuickBooks",
+        "934005": "Je factuur kan niet naar QuickBooks worden verstuurd",
+        "934006": "Deze factuur staat al op QuickBooks",
+        "title": "Error bij het versturen van je factuur"
+      },
+      "error": "Fout bij het overzetten van je facturen naar QuickBooks",
+      "success": "Je facturen zijn naar QuickBooks overgezet"
+    },
+    "applyGiftcard": {
+      "errors": {
+        "12103": "Fout bij het bevestigen van deze betaling met de cadeaubon",
+        "45000": "De activatiecode is fout.",
+        "45001": "Fout bij het bevestigen van deze betaling met de cadeaubon",
+        "45003": "De cadeaubon is gedeactiveerd.",
+        "45006": "De cadeaubon is al geactiveerd",
+        "45007": "Onmogelijk om het lid te vinden die de cadeaubon wil activeren.",
+        "generic": "Niet mogelijk om de cadeaubon te activeren",
+        "undefined": "Onmogelijk om het lid te herkennen dat de cadeaubon wil activeren."
+      },
+      "error": "Fout bij het bevestigen van deze betaling met de cadeaubon",
+      "success": "De betaling met de cadeaubon is bevestigd"
+    },
+    "applyBalance": {
+      "error": "Fout bij het toevoegen van het saldo van je interne rekening (Wallet) op deze factuur",
+      "success": "Het saldo van je interne rekening (Wallet) is op deze factuur toegepast"
+    },
+    "revert": {
+      "errors": {
+        "14100": "Kan een factuur niet annuleren met Interac betalingen.",
+        "14101": "Onmogelijk om terug te betalen door een rekening voor balansaanpassing.",
+        "14102": "Het is niet mogelijk om deze factuur terug te betalen.",
+        "35024": "Je kunt deze factuur niet terugbetalen omdat je PayPal-rekening niet genoeg saldo heeft."
+      }
+    },
+    "generateXml": {
+      "errors": {
+        "14210": "Uw instellingen zijn niet geconfigureerd voor .XML-factuurexport. Neem contact op met uw bsport Account Manager.",
+        "14211": "Het officiële document ID van het lid ontbreekt of is onvolledig",
+        "14212": "Het adres van het lid ontbreekt of is onvolledig",
+        "14213": "Kan het .XML-document niet genereren vanwege wettelijke vereisten. Neem voor meer informatie of vragen contact op met uw bsport Account Manager.",
+        "14214": "Het gegenereerde Zip-bestand is leeg omdat er geen facturen zijn gevonden die van vorige maand moeten worden geëxporteerd",
+        "default": "Er is een fout opgetreden tijdens het genereren van de XML-factuur"
+      },
+      "success": "XML-factuur succesvol gegenereerd"
+    },
+    "receipt": {
+      "genericError": "Er is een fout opgetreden tijdens het genereren van het ontvangstbewijs"
+    }
+  },
+  "link": {
+    "copied": "Link gekopieerd naar klembord"
+  },
+  "paymentRules": {
+    "update": {
+      "success": "Standaardregel gewijzigd",
+      "error": "Fout bij bewerken"
+    },
+    "create": {
+      "error": "Fout bij het aanmaken",
+      "success": "Regel toegevoegd"
+    },
+    "delete": {
+      "error": "Fout bij verwijderen",
+      "success": "Regel verwijderd"
+    }
+  },
+  "email": {
+    "create": {
+      "success": "E-mail aangemaakt",
+      "error": "Deze e-mail kan niet worden opgeslagen"
+    },
+    "update": {
+      "success": "Wijzigingen opgeslagen.",
+      "error": "Kan e-mail niet bewerken"
+    },
+    "delete": {
+      "success": "E-mail verwijderd",
+      "error": "Kan e-mail niet verwijderen"
+    },
+    "duplicate": {
+      "error": "Kan e-mail niet dupliceren",
+      "success": "Dubbele e-mail"
+    }
+  },
+  "establishment": {
+    "delete": {
+      "success": "Vestiging verwijderd",
+      "error": "Deze vestiging kon niet worden verwijderd"
+    },
+    "error": "De vestiging kon niet worden opgeslagen",
+    "create": {
+      "success": "De vestiging is succesvol toegevoegd"
+    },
+    "update": {
+      "success": "De vestiging is succesvol gewijzigd"
+    },
+    "restore": {
+      "error": "De vestiging kan niet worden hersteld",
+      "success": "Vestiging hersteld"
+    }
+  },
+  "member": {
+    "link": {
+      "success": "Account gekoppeld"
+    },
+    "merge": {
+      "success": "Samengevoegde leden",
+      "seeMemberPage": " Zie de ledenpagina",
+      "error": "Kan leden niet samenvoegen",
+      "srcMember": "Lid dat moet worden samengevoegd (verwijderd)",
+      "dstMember": "Lid behouden",
+      "title": "Leden samenvoegen",
+      "submit": "Samenvoegen",
+      "explainCredit": "De interne rekening (Wallet) van het lid wordt overgezet",
+      "explainBookingsAndPassAndInvoiceAndNotes": "De leskaarten, reserveringen, facturen en aantekeningen worden ook gesynchroniseerd.",
+      "explainTags": "Tags van samengevoegde accounts worden niet overgezet.",
+      "cancel": "Annuleren"
+    },
+    "error": "Fout bij het opslaan van de wijzigingen",
+    "create": {
+      "title": "Nieuw lid",
+      "success": "Lid aangemaakt"
+    },
+    "update": {
+      "title": "Informatie bewerken",
+      "success": "Wijzigingen opgeslagen"
+    },
+    "createOrUpdate": {
+      "success": "Wijzigingen opgeslagen",
+      "error": "Fout bij het opslaan van de wijzigingen"
+    },
+    "changeEmailRequest": {
+      "create": {
+        "error": "Fout bij het versturen van de bevestigingsmail",
+        "success": "Er is een bevestigingsmail is verstuurd"
+      }
+    }
+  },
+  "activity": {
+    "create": {
+      "success": "Activiteit opgeslagen",
+      "error": "Kan activiteit niet opslaan"
+    },
+    "update": {
+      "success": "Activiteit bijgewerkt",
+      "error": "Kan activiteit niet bewerken"
+    }
+  },
+  "notificationRule": {
+    "createOrUpdate": {
+      "success": "Succesvol gewijzigd",
+      "error": "Kan niet opslaan",
+      "errorLackRequiredVariables": "Deze sjabloon kon niet worden geregistreerd"
+    },
+    "active": {
+      "enable": "Melding succesvol ingeschakeld",
+      "disable": "Melding succesvol uitgeschakeld",
+      "errorEnable": "Notificatie niet ingeschakeld",
+      "errorDisable": "Mislukte melding uitschakelen"
+    },
+    "editOrAddPass": {
+      "success": "Melding succesvol opgeslagen",
+      "error": "Melding niet opgeslagen"
+    },
+    "delete": {
+      "success": "Melding succesvol verwijderd",
+      "error": "Melding niet verwijderd"
+    },
+    "create": {
+      "success": "Melding succesvol aangemaakt",
+      "error": "Kennisgeving niet aangemaakt",
+      "errorLackRequiredVariables": "Deze sjabloon kon niet worden geregistreerd"
+    }
+  },
+  "role": {
+    "error": {
+      "generic": "Kan deze machtiging niet wijzigen",
+      "errorEmail": "Deze e-mail wordt al gebruikt voor een account van een lid of instructeur",
+      "errorCommission": "De ingevoerde waarde moet tussen 0 en 100 liggen"
+    },
+    "update": {
+      "success": "Machtigingen gewijzigd",
+      "successCommission": "Het commissiepercentage is gewijzigd"
+    },
+    "noMasterControl": {
+      "changeDateCoachUnaivalable": "Deze instructeur is niet beschikbaar voor deze reservering",
+      "changeDateEstablishmentUnaivalable": "Deze vestiging is niet beschikbaar voor deze reservering",
+      "overrideCoachNotAllowed": "Het is niet toegestaan om een reservering met deze instructeur voor deze afspraak te forceren",
+      "overrideEstablishmentNotAllowed": "Het is niet toegestaan om een reservering binnen deze vestiging te forceren",
+      "overbookingNotAllowedInWaitingList": "Het is niet toegestaan om de maximale capaciteit van de wachtlijst te overschrijden",
+      "overbookingNotAllowed": "Het is niet toegestaan om het maximum aantal reserveringen te overschrijden"
+    },
+    "delete": {
+      "error": {
+        "customErrors": {
+          "4700": "Onmogelijk te verwijderen: deze rol is toegewezen aan sommige van je medewerkers"
+        },
+        "genericError": "Er is een fout opgetreden: Deze rol is niet verwijderd"
+      }
+    }
+  },
+  "shop": {
+    "subShop": {
+      "createOrUpdate": {
+        "success": "Categorie aangemaakt",
+        "error": "Kan categorie niet opslaan"
+      },
+      "delete": {
+        "success": "Categorie verwijderd",
+        "error": "De categorie kon niet worden verwijderd"
+      }
+    },
+    "item": {
+      "updateProvisions": {
+        "success": "Voorraad bijgewerkt",
+        "error": "Fout bij het opslaan van de voorraad"
+      },
+      "createOrUpdate": {
+        "success": "Opgeslagen",
+        "error": "Fout bij het opslaan van de wijzigingen"
+      },
+      "delete": {
+        "success": "Item verwijderd",
+        "error": "Fout bij verwijderen"
+      },
+      "duplicate": {
+        "error": "Kan product niet dupliceren",
+        "success": "Product gedupliceerd"
+      },
+      "notFound": "Dit product is niet gevonden. Mogelijk is het gearchiveerd."
+    },
+    "variant": {
+      "error": {
+        "11000": "Kan geen variant(en) maken op een product dat wordt gebruikt in een verpakking",
+        "11001": "Kan geen pakket maken met variantproducten"
+      }
+    },
+    "supplier": {
+      "delete": {
+        "success": "Leverancier succesvol verwijderd",
+        "error": "Fout bij het verwijderen van leverancier"
+      },
+      "update": {
+        "success": "Leverancier succesvol bijgewerkt",
+        "error": "Fout bij het bijwerken van leverancier"
+      },
+      "create": {
+        "success": "Leverancier succesvol aangemaakt",
+        "error": "Fout bij het aanmaken van leverancier"
+      }
+    }
+  },
+  "smartlist": {
+    "create": {
+      "success": "Smartlist toegevoegd",
+      "error": "Smartlist kon niet worden opgeslagen"
+    },
+    "update": {
+      "error": "Smartlist kon niet worden opgeslagen",
+      "success": "Smartlist bijgewerkt"
+    },
+    "delete": {
+      "success": "Smartlist verwijderd",
+      "error": "Smartlist kon niet worden verwijderd"
+    },
+    "duplicate": {
+      "error": "De Smartlist kon niet worden gedupliceerd",
+      "success": "Smartlist gedupliceerd"
+    },
+    "tag_rules": {
+      "limit_reached": "Fout: het is niet mogelijk om meer dan 10 regels te maken. ",
+      "error": "Deze regel kan niet worden geactiveerd",
+      "success": "De automatische regel is geactiveerd"
+    }
+  },
+  "webhook": {
+    "success": "Opgeslagen webhook",
+    "error": "Kan webhook niet opslaan",
+    "testError": "Controleer de URL",
+    "testSuccess": "Geldige url"
+  },
+  "login": {
+    "passwordChangedSuccess": "Wachtwoord aangepast!"
+  },
+  "booking": {
+    "register": {
+      "success": "Reservering opgeslagen"
+    },
+    "delete": {
+      "error": "Reeds begonnen sessies kunnen niet worden geannuleerd"
+    }
+  },
+  "order": {
+    "success": "Uw betaling is opgeslagen"
+  },
+  "communication": {
+    "success": "E-mail wordt verzonden",
+    "error": "Probleem bij het verzenden van de e-mail"
+  },
+  "privateConsumerPass": {
+    "creditUpdate": {
+      "success": "Wijzigingen opgeslagen",
+      "error": "Fout bij het opslaan van de credits"
+    },
+    "incompatibilitiesReasons": {
+      "error": "Er is een fout opgetreden tijdens het laden van de kaart incompatibiliteitsredenen"
+    },
+    "nonCompatible": {
+      "error": "Er is een fout opgetreden bij het laden van niet-compatibele kaarten"
+    }
+  },
+  "playlist": {
+    "video": {
+      "del": {
+        "error": "Kan video niet uit de afspeellijst verwijderen",
+        "success": "Video verwijderd uit afspeellijst"
+      },
+      "add": {
+        "error": "Kan video niet toevoegen",
+        "success": "Video toegevoegd aan afspeellijst"
+      }
+    },
+    "delete": {
+      "error": "Kan afspeellijst niet verwijderen",
+      "success": "Afspeellijst verwijderd"
+    },
+    "createOrUpdate": {
+      "error": "Kan afspeellijst niet opslaan",
+      "success": "Afspeellijst opgeslagen"
+    }
+  },
+  "video": {
+    "delete": {
+      "error": "Kan video niet verwijderen",
+      "success": "Video verwijderd"
+    },
+    "createOrUpdate": {
+      "error": "Kan video niet opslaan",
+      "success": "Video opgeslagen"
+    },
+    "register": {
+      "success": "De video is in de videotheek opgeslagen",
+      "error": "Fout bij het bekijken van deze video"
+    }
+  },
+  "privateBooking": {
+    "attachCoach": {
+      "error": "Kan niet toewijzen aan instructeur",
+      "success": "Afspraak toegewezen aan instructeur"
+    },
+    "updateCoach": {
+      "error": "Instructeur kan niet worden gewijzigd",
+      "success": "De instructeur is gewijzigd"
+    },
+    "restore": {
+      "error": "De afspraak kan niet worden hersteld, omdat de gekoppelde afspraakkaart te weinig credits heeft",
+      "success": "De afspraak is hersteld"
+    },
+    "register": {
+      "error": "Fout bij het reserveren op deze datum",
+      "warning": {
+        "11106": "Deze afspraak is recent gereserveerd"
+      }
+    },
+    "setUnpaid": {
+      "error": "Kan niet als onbetaald markeren",
+      "success": "Gemarkeerd als onbetaald"
+    }
+  },
+  "privatePass": {
+    "del": {
+      "error": "Deze afspraakkaart kan niet verwijderd worden",
+      "success": "Afspraakkaart verwijderd"
+    },
+    "restore": {
+      "error": "Deze afspraakkaart kon niet worden hersteld",
+      "success": "Afspraakkaart hersteld"
+    }
+  },
+  "metaActivity": {
+    "del": {
+      "error": "Kan item niet verwijderen",
+      "success": "Item verwijderd"
+    },
+    "restore": {
+      "error": "Item kan niet hersteld worden",
+      "success": "Item hersteld"
+    }
+  },
+  "memberNote": {
+    "delete": {
+      "error": "Kan notitie niet verwijderen",
+      "success": "Notitie verwijderd"
+    }
+  },
+  "bookingNotification": {
+    "delete": {
+      "error": "Melding kan niet verwijderd worden",
+      "success": "Melding verwijderd"
+    },
+    "createOrUpdate": {
+      "error": "Melding kan niet worden opgeslagen",
+      "success": "Melding opgeslagen"
+    }
+  },
+  "background": {
+    "cannotFetch": "Er is iets misgegaan! Controleer je verbinding en ververs de pagina alsjeblieft",
+    "timeout": "Server reageert niet. Ververs de pagina alsjeblieft",
+    "error": "Er is iets misgegaan! Probeer het later opnieuw alsjeblieft",
+    "success": "Voltooid",
+    "pending": "Wijzigingen verwerken..."
+  },
+  "offer": {
+    "restore": {
+      "error": "Fout bij het herstellen van de sessie",
+      "success": "Sessie hersteld"
+    }
+  },
+  "subscriptionScheduledStop": {
+    "create": {
+      "error": "Fout bij het beëindigen van dit abonnement",
+      "success": "Geplande beëindiging van het abonnement"
+    },
+    "delete": {
+      "success": "De geplande beëindiging van dit abonnement is verwijderd",
+      "error": "De geplande beëindiging van dit abonnement kan niet worden verwijderd"
+    }
+  },
+  "dashboard": {
+    "save": {
+      "error": "Kan de wijzigingen niet opslaan",
+      "success": "Wijzigingen opgeslagen"
+    }
+  },
+  "privateRecurrentRule": {
+    "delete": {
+      "error": "Terugkerende afspraak kon niet worden verwijderd",
+      "success": "Terugkerende afspraak verwijderen"
+    },
+    "createOrUpdate": {
+      "error": "Terugkerende afspraak kon niet worden aangemaakt",
+      "success": "Terugkerende afspraak succesvol aangemaakt",
+      "locked": "Er bestaat al zo'n regel voor terugkerende afspraken"
+    }
+  },
+  "zoom": {
+    "created": {
+      "success": "Zoom-account succesvol gekoppeld",
+      "error": "Fout bij het koppelen van je Zoom-account"
+    },
+    "setGroupId": {
+      "error": "Het is niet mogelijk om deze groep te verbinden. Controleer of het ID correct is en of het beschikbaar is op het Zoom-account dat gekoppeld is aan bsport.",
+      "success": "Zoomgroep succesvol gekoppeld"
+    },
+    "bulkEditZoomEstablishments": {
+      "success": "Wijzigingen zijn opgeslagen"
+    }
+  },
+  "consumerPass": {
+    "success": "Je aankoop of reservering is ontvangen!"
+  },
+  "copied": "Gekopieerd naar je klembord",
+  "contractPause": {
+    "create": {
+      "error": "Het abonnement kan momenteel niet worden gepauzeerd, probeer het later opnieuw"
+    },
+    "updateName": {
+      "error": "Het is niet mogelijk om de naam te wijzigen",
+      "success": "De naam is succesvol gewijzigd"
+    },
+    "delete": {
+      "error": "Fout bij het verwijderen van de pauzering."
+    }
+  },
+  "bookerModule": {
+    "pass": {
+      "nothingAvailable": "Het is niet mogelijk om meerdere sessies tegelijk te reserveren",
+      "changed": "We hebben de juiste kaart voor deze reservering aangevinkt"
+    }
+  },
+  "settings": {
+    "update": {
+      "error": "De wijzigingen kunnen momenteel niet worden opgeslagen",
+      "success": "Instellingen bijgewerkt"
+    }
+  },
+  "paymentMethod": {
+    "detach": {
+      "pm_associated_to_pi": "Je kunt dit niet verwijderen, omdat er een abonnement aan deze betaalmethode is gekoppeld",
+      "pm_associated_to_registered_ppe": "Je kunt dit niet verwijderen, omdat er een abonnement aan deze betaalmethode is gekoppeld",
+      "pm_associated_to_protected_bp": "Je kunt dit niet verwijderen, omdat er een abonnement aan deze betaalmethode is gekoppeld",
+      "last_payment_method": "Je enige betaalmethode kan niet worden verwijderd",
+      "pm_deleted": "Betaalmethode verwijderd"
+    },
+    "errors": {
+      "13000": "Fout bij het verwijderen van de betaalmethode",
+      "13001": "Fout bij het verwijderen van deze betaalmethode",
+      "13002": "Deze betaalmethode is gekoppeld aan toekomstige betalingen",
+      "13003": "Er is een abonnement aan deze betaalmethode gekoppeld",
+      "13004": "Deze betaalmethode is gekoppeld aan toekomstige betalingen"
+    }
+  },
+  "paymentRuleGroups": {
+    "update": {
+      "error": {
+        "generic": "Fout bij het wijzigen",
+        "coachWithPaymentGroup": "Fout bij het wijzigen van een de payroll-regel van een instructeur die in een groep zit"
+      },
+      "success": "Succesvol gewijzigd"
+    },
+    "delete": {
+      "success": "Payroll-regel groep verwijderd",
+      "error": "Fout bij het verwijderen"
+    },
+    "create": {
+      "success": "Payroll-regel groep toegevoegd",
+      "error": "Fout bij het aanmaken"
+    }
+  },
+  "canNotBuyErrorCode": {
+    "1": "Reserveringen voor deze sessie zijn momenteel nog gesloten",
+    "2": "Het is niet meer mogelijk om je voor deze sessie in te schrijven",
+    "3": "De sessie is vol",
+    "4": "Het is niet mogelijk om je voor deze sessie in te schrijven",
+    "5": "Je hebt deze sessie al gereserveerd",
+    "6": "Reserveren is niet mogelijk, omdat de man/vrouw-verhouding ongelijk is",
+    "7": "Reserveren is niet mogelijk, omdat de man/vrouw-verhouding ongelijk is",
+    "9": "Het is niet toegestaan om het maximaal aantal toekomstige reserveringen te overschrijden",
+    "1113": "Dit pakket is alleen beschikbaar voor nieuwe leden",
+    "1114": "Het is niet langer mogelijk om dit pakket te kopen",
+    "1122": "Dit pakket kan niet meer worden gekocht omdat de houdbaarheidsdatum is verstreken",
+    "2002": "Deze leskaart kan alleen door nieuwe leden worden aangeschaft",
+    "2003": "Het is niet langer mogelijk om deze kaart aan te schaffen",
+    "2004": "Het is niet mogelijk om deze kaart te kopen",
+    "2005": "Het is niet mogelijk om deze kaart te kopen",
+    "2006": "Deze kaart is niet geschikt voor een reservering op de gekozen datum",
+    "2007": "Deze kaart is niet compatibel met deze sessie",
+    "2008": "Deze kaart is niet compatibel met deze activiteit",
+    "2009": "Deze kaart is niet compatibel met deze activiteitscategorie",
+    "2010": "Deze kaart is niet compatibel met deze vestiging",
+    "2011": "Deze kaart is alleen compatibel met Video On Demand",
+    "2012": "Deze kaart is niet compatibel met deze sessie",
+    "2014": "Je hebt het maximale aantal reserveringen met deze kaart voor deze dag bereikt",
+    "2015": "Je hebt het maximale aantal reserveringen met deze kaart voor deze week bereikt",
+    "2016": "Je hebt het maximale aantal reserveringen met deze kaart voor deze maand bereikt",
+    "2017": "Je hebt het maximale aantal reserveringen met deze kaart voor dit jaar bereikt",
+    "2025": "Deze kaart kan niet meer worden gekocht omdat de vervaldatum is verstreken",
+    "6002": "De wachtlijst is vol",
+    "6003": "Je staat al op deze wachtlijst",
+    "8001": "De plaats die je hebt gekozen is niet meer beschikbaar",
+    "10001": "Onvoldoende voorraad",
+    "11114": "Deze afsprakenkaart kan niet meer worden gekocht omdat de vervaldatum is verstreken",
+    "15002": "Het artikel is al toegevoegd aan het winkelmandje, even geduld a.u.b.",
+    "23001": "Zonder cursuskaart kunt u niet in de wachtrij voor deze activiteit worden geplaatst",
+    "23002": "U heeft het maximum aantal toekomstige boekingen / wachtlijsten bereikt, u kunt niet meer registreren",
+    "45004": "De cadeaubon is niet meer beschikbaar voor verkoop.",
+    "45005": "De cadeaubon is niet meer beschikbaar voor verkoop.",
+    "85000": "Er is al een boeking in behandeling, even geduld a.u.b",
+    "85101": "Onmogelijk om te boeken. Deze plek is gereserveerd door een ander lid. Probeer het opnieuw door een andere plek te kiezen.",
+    "generic": "Fout bij het reserveren",
+    "undefined": "Het is niet toegestaan om het maximaal aantal toekomstige reserveringen te overschrijden",
+    "addToBasketError": "Kan niet aan winkelmand worden toegevoegd"
+  },
+  "signup": {
+    "failedCreation": "Het is momenteel niet mogelijk om je account aan te maken, probeer het later opnieuw",
+    "emailAlreadyExists": "Dit e-mailadres is al in gebruik.",
+    "changeWorkspaceError": "Fout tijdens het wisselen van account"
+  },
+  "customForm": {
+    "update": {
+      "success": "Formulier is gewijzigd",
+      "error": "Formulier kon niet worden gewijzigd"
+    },
+    "create": {
+      "success": "Formulier is toegevoegd",
+      "error": "Formulier kon niet worden toegevoegd"
+    },
+    "duplicate": {
+      "success": "Formulier is gedupliceerd",
+      "error": "Formulier kon niet worden gedupliceerd"
+    },
+    "disable": {
+      "success": "Formulier is gearchiveerd",
+      "error": "Formulier kon niet worden gedupliceerd"
+    },
+    "restore": {
+      "success": "Formulier is hersteld",
+      "error": "Formulier kon niet worden hersteld"
+    },
+    "customFormField": {
+      "disable": {
+        "success": "Veld is gearchiveerd",
+        "error": "Veld kon niet worden gearchiveerd"
+      },
+      "restore": {
+        "success": "Veld is hersteld",
+        "error": "Veld kon niet worden hersteld"
+      }
+    },
+    "signupViaCustomForm": {
+      "errors": {
+        "84101": "De verplichte velden moeten worden voltooid",
+        "84102": "Dit e-mailadres is al in gebruik.",
+        "84103": "Het opgegeven geslacht is niet geldig",
+        "84104": "Dit telefoonnummer is ongeldig"
+      },
+      "error": "Fout tijdens het inschrijven",
+      "success": "Je hebt je succesvol ingeschreven!"
+    },
+    "upsert": {
+      "errors": {
+        "84006": "Voeg de Waiver / Vrijstelling onder Instellingen > Algemeen toe"
+      }
+    },
+    "customFormStepper": {
+      "error": "Fout bij het opslaan van de antwoorden"
+    }
+  },
+  "establishmentGroup": {
+    "delete": {
+      "error": "De vestiging kon niet worden verwijderd",
+      "success": "De vestiging is succesvol verwijderd"
+    },
+    "update": {
+      "error": "De vestiging kon niet worden gewijzigd",
+      "success": "De vestiging is succesvol gewijzigd"
+    },
+    "create": {
+      "error": "De vestiging kon niet worden toegevoegd",
+      "success": "De vestiging is succesvol toegevoegd"
+    }
+  },
+  "establishmentBillingGroup": {
+    "delete": {
+      "error": "Fout bij het verwijderen van de groepsfacturatie",
+      "success": "De groepsfacturatie is verwijderd"
+    },
+    "update": {
+      "error": "De groepsfacturatie kon niet worden gewijzigd",
+      "success": "De groepsfacturatie is succesvol gewijzigd"
+    },
+    "create": {
+      "error": "Fout bij het toevoegen van de groepsfacturatie",
+      "success": "De nieuwe groepsfacturatie is toegevoegd"
+    }
+  },
+  "customFormDisplayRule": {
+    "customError": {
+      "3": "Het is niet mogelijk om meerdere meldingen tegelijkertijd toe te voegen"
+    },
+    "delete": {
+      "error": "Fout bij het verwijderen van de melding",
+      "success": "De melding is verwijderd"
+    },
+    "update": {
+      "error": "Fout bij het bewerken van de melding",
+      "success": "De melding is gewijzigd"
+    },
+    "create": {
+      "error": "Fout bij het toevoegen van de melding",
+      "success": "De melding is toegevoegd"
+    }
+  },
+  "quickbooks": {
+    "revoke": {
+      "error": "Fout bij het verbinden van je account bij QuickBooks",
+      "success": "Je verbinding met QuickBooks is verbroken"
+    },
+    "create": {
+      "error": "Fout bij het verifiëren van je account bij QuickBooks",
+      "success": "Je account van QuickBooks is geverifieerd"
+    }
+  },
+  "platformBilling": {
+    "payNowInvoice": {
+      "error": "Betaling: geweigerd",
+      "success": "Betaling: succesvol"
+    }
+  },
+  "clientSecret": {
+    "errors": {
+      "12102": "Momenteel wordt een betaling verwerkt. Controleer later om een nieuwe betaling te registreren.",
+      "12909": "Betalingen zijn uitgeschakeld voor deze studio"
+    }
+  },
+  "companyTheme": {
+    "update": {
+      "error": "Fout bij het opslaan van de wijzigingen",
+      "success": "Wijzigingen opgeslagen"
+    },
+    "provincialTax": {
+      "customError": {
+        "80001": "Het provinciale btw-bedrag is niet in je regio beschikbaar"
+      },
+      "error": "Fout bij het opslaan van het provinciale btw-bedrag",
+      "success": "Provinciaal btw-bedrag"
+    }
+  },
+  "clockIn": {
+    "errors": {
+      "96002": "Error bij het opnieuw inklokken van deze medewerker"
+    }
+  },
+  "plannedPayment": {
+    "registerNow": {
+      "error": "Fout bij het verwerken van de betaling",
+      "success": "De betaling is succesvol verwerkt"
+    }
+  },
+  "marketplace": {
+    "update": {
+      "error": "Fout bij het bijwerken van de informatie",
+      "stripeTerminal": {
+        "deleteReader": {
+          "success": "Pinapparaat verwijdered",
+          "error": "Fout bij het verwijderen van dit pinapparaat"
+        }
+      }
+    }
+  },
+  "automatedCampaign": {
+    "17000": "Er is een fout opgetreden",
+    "17101": "Een titel is een vereiste",
+    "17102": "Inhoud voor de e-mail is een vereiste",
+    "17103": "Inhoud voor een sms'je is een vereiste",
+    "17104": "Een titel voor een push-notificatie is een vereiste",
+    "17105": "Inhoud voor een push-notificatie is een vereiste",
+    "170001": "Ongeldig maximum aantal berichten per lid"
+  },
+  "communicationv2": {
+    "error": "Fout bij het versturen van dit bericht",
+    "success": "Communicatie wordt verzonden"
+  },
+  "replacement": {
+    "errors": {
+      "50000": "Deze sessie is al afgelopen",
+      "50007": "Je kunt geen vervangingsverzoeken meer aanmaken, omdat je je limiet hebt overschreden.",
+      "50008": "De sluitingsdatum kan niet worden verschoven na de datum van de sessie.",
+      "50009": "U kunt dit verzoek niet weigeren omdat er al een instructeur is aangewezen.",
+      "50010": "U kunt dit verzoek niet weigeren omdat er al een instructeur is aangewezen.",
+      "50011": "Er is al een instructeur toegewezen aan dit verzoek.",
+      "50012": "Deze instructeur antwoordde dat hij geen vervanger wilde zijn voor deze zitting.",
+      "50013": "Het is niet langer mogelijk om op dit vervangingsverzoek te reageren.",
+      "50015": "Het is niet mogelijk om op je eigen vervangingsverzoeken te reageren.",
+      "50020": "Dit vervangingsverzoek is afgewezen en kan niet worden verwijderd.",
+      "50021": "U kunt niet tegelijkertijd instellingen en locaties opgeven.",
+      "80002": "De waarde \"Aantal dagen verzoek te laat\" moet groter zijn dan de waarde \"Aantal dagen inschrijving gesloten\".",
+      "80003": "Ontbrekende instellingen voor achterstallige aanvragen.",
+      "500001": "Er bestaat al een vervangingsverzoek.",
+      "500004": "Je bent al vervanger voor deze sessie",
+      "undefined": "Dit vervangingsverzoek is afgewezen: onmogelijk te verwijderen"
+    },
+    "cancelReplacementRequest": {
+      "error": "Er is een fout opgetreden bij het verwijderen van het verzoek.",
+      "success": "Dit vervangingsverzoek is verwijderd."
+    },
+    "updateCoachReplacementPreferences": {
+      "error": "Niet mogelijk om de regels op te slaan",
+      "success": "Regels opgeslagen"
+    },
+    "assignDisciplineGroup": {
+      "success": "De disciplinegroep van de instructeur is bijgewerkt"
+    },
+    "disciplineGroup": {
+      "delete": {
+        "error": "Niet mogelijk om deze disciplinegroep te verwijderen",
+        "success": "Disciplinegroep verwijderd"
+      },
+      "update": {
+        "error": "Er is een fout opgetreden bij het bewerken van de disciplinegroep",
+        "success": "Disciplinegroep gewijzigd"
+      },
+      "create": {
+        "error": "Er is een fout opgetreden bij het aanmaken van de disciplinegroep",
+        "success": "Aangemaakte disciplinegroepen"
+      }
+    }
+  },
+  "accessDenied": {
+    "general": {
+      "message": "U heeft geen toegang tot het gevraagde gebied",
+      "title": "Toegang geweigerd"
+    }
+  },
+  "communicationProviderSettings": {
+    "update": {
+      "error": "Kan wijzigingen niet opslaan",
+      "success": "Geregistreerde wijzigingen"
+    }
+  },
+  "refreshInternalAccountPrepaidLines": {
+    "15002": "Er is al een handeling bezig, gelieve even te wachten."
+  },
+  "requestCurrentBasket": {
+    "15002": "Het herstel van de informatie over de winkelmandjes is al aan de gang"
+  },
+  "removeItem": {
+    "15002": "Het artikel wordt reeds uit het winkelmandje verwijderd, even geduld a.u.b.",
+    "15009": "Onmogelijk om dit item te verwijderen: uw mandje wordt nog verwerkt"
+  },
+  "instalmentPayment": {
+    "16000": "Het bedrag van de eerste tranche moet positief zijn",
+    "16001": "Het percentage van het totale bedrag moet tussen 0 en 100 liggen",
+    "16002": "Het aantal kassabonnen moet gelijk zijn aan 1 om de optie \"Gedeeltelijke betaling\" te activeren",
+    "16003": "Het aantal kassabonnen moet groter zijn dan 2 om de optie \"Eerste bedrag aanpassen\" te activeren"
+  },
+  "smartListPopup": {
+    "send": {
+      "error": "Er is een fout opgetreden tijdens het verzenden van uw pop-up."
+    }
+  },
+  "cadence": {
+    "create": {
+      "error": "Fout bij het toevoegen van deze cadence.",
+      "success": "Er is een nieuwe cadens aangemaakt"
+    },
+    "update": {
+      "error": "Fout bij het bewerken van deze cadence.",
+      "success": "Je cadence is bijgewerkt."
+    }
+  },
+  "giftCard": {
+    "notFound": "Deze cadeaubon is niet gevonden en is mogelijk gearchiveerd."
+  },
+  "modifyBasket": {
+    "15004": "Het mandje wordt verwerkt, probeer het over een paar minuten nog eens",
+    "addItemSuccess": "Toegevoegd aan winkelmandje"
+  },
+  "quicksaleConfiguration": {
+    "error": "Fout bij het opslaan van de wijzigingen.",
+    "updated": "Je wijzigingen zijn opgeslagen."
+  },
+  "spivi": {
+    "error": {
+      "21000": "De Spivi-integratie is niet geactiveerd.",
+      "21001": "Er is geen Spot Scheduling-layout geselecteerd.",
+      "21002": "Het geselecteerde Spot Scheduling-layout moet een Box ID hebben voor de Spivi-sessie(s).",
+      "21003": "Spivi-sessies moeten ten minste 20 minuten en maximaal 4 uur duren.",
+      "21004": "Dubbele reserveringen zijn niet mogelijk met de Spivi-integratie."
+    }
+  },
+  "smartlistGetMembers": {
+    "error": "Error bij het herstellen van leden"
+  },
+  "communicationSentGroupConfig": {
+    "duplicate": {
+      "error": "Campagne kan niet worden gedupliceerd",
+      "success": "Campagne gedupliceerd"
+    },
+    "delete": {
+      "error": "De campagne kan niet worden verwijderd",
+      "success": "Campagne verwijderd"
+    },
+    "update": {
+      "error": "De campagne kan niet worden opgeslagen",
+      "success": "Campagne succesvol bijgewerkt"
+    },
+    "create": {
+      "error": "De campagne kan niet worden aangemaakt",
+      "success": "Campagne succesvol aangemaakt"
+    }
+  },
+  "audience": {
+    "create": {
+      "error": "Er is een fout opgetreden bij het maken van de {{ workflowLowerCase }}",
+      "success": "Er is een nieuwe {{ workflowLowerCase }} gemaakt"
+    },
+    "update": {
+      "error": "Er is een fout opgetreden bij het bewerken van de {{ workflowLowerCase }}",
+      "success": "Uw {{ workflowLowerCase }} is bijgewerkt"
+    }
+  },
+  "privateSlot": {
+    "notAvailableForBookingAnymore": "Dit tijdslot is niet langer beschikbaar.",
+    "notCompatibleWithPartnership": "De sessie is niet opgeslagen. Probeer het opnieuw."
+  },
+  "tag": {
+    "error": {
+      "124003": "Deze sub-tag bestaat al",
+      "124004": "Deze hoofd-tag bestaat al"
+    }
+  },
+  "mergeError": {
+    "content": "Probeer het opnieuw of neem contact op met support voor meer informatie",
+    "title": "Het samenvoegen is mislukt"
+  },
+  "mergeSuccess": {
+    "seeMemberProfile": "Bekijk profiel",
+    "content": "Naar beide adressen is een e-mail gestuurd om het lid te informeren",
+    "title": "De samenvoeging is geslaagd"
+  },
+  "bookkeeping_account": {
+    "delete": {
+      "success": "De account is succesvol verwijderd.",
+      "error": "Er is een fout opgetreden tijdens het verwijderen van de account."
+    },
+    "update": {
+      "success": "De wijzigingen zijn succesvol opgeslagen.",
+      "error": "Er is een fout opgetreden tijdens het bijwerken van de account."
+    },
+    "create": {
+      "success": "De account is succesvol aangemaakt.",
+      "error": "Er is een fout opgetreden tijdens het aanmaken van de account."
+    },
+    "errors": {
+      "1": "Er bestaat al een account met deze naam."
+    }
+  },
+  "canNotExecutePaymentAttempt": {
+    "12102": "Je betaling wordt verwerkt, even geduld a.u.b.",
+    "12107": "Je betaling is mislukt, probeer het opnieuw.",
+    "12108": "Je betaling wordt verwerkt, even geduld a.u.b.",
+    "12109": "Je betaling is mislukt, probeer het opnieuw.",
+    "12110": "Uw mandje kwam niet overeen met het bedrag dat u probeerde te betalen, we hebben uw mandje vernieuwd, probeer het opnieuw",
+    "35000": "Uw PayPal-betaling is mislukt. Probeer het opnieuw of gebruik een andere betaalmethode",
+    "35006": "Uw PayPal-rekening kan de betaling niet verwerken. Probeer het opnieuw met een andere rekening",
+    "35012": "Je kaart is verlopen",
+    "35013": "Je betaling is mislukt. Selecteer een andere betaalmethode.",
+    "35015": "Uw PayPal-betaling is mislukt. Probeer het opnieuw of gebruik een andere betaalmethode",
+    "generic": "Je betaling is mislukt, probeer het opnieuw",
+    "failedLoadingPayPalScript": "Er is een fout opgetreden tijdens het laden van PayPal"
+  },
+  "cancelPayPalPaymentAttempt": "Je betalingspoging is geannuleerd. Probeer het opnieuw.",
+  "paypal": {
+    "35009": "Je kunt geen account gebruiken dat al gekoppeld is aan een ander bedrijf.",
+    "onboardingUrlFetchFailed": "Er is een fout opgetreden tijdens het ophalen van de onboarding-link van PayPal",
+    "couldNotReachPayPal": "We konden PayPal niet bereiken. Probeer het later nog eens.",
+    "connectionAttemptSucceeded": "De PayPal-rekening is succesvol aangesloten",
+    "connectionAttemptFailed": "Er is een fout opgetreden tijdens het verbinden met PayPal"
+  },
+  "wellhub": {
+    "configureWebhooks": {
+      "success": "Uw eenheids-ID is succesvol gekoppeld",
+      "error": "Er is een fout opgetreden tijdens de configuratie"
+    }
+  },
+  "privateService": {
+    "notCompatibleWithPartnership": "De afspraak is niet opgeslagen. Probeer het opnieuw."
+  },
+  "oneClickBooking": {
+    "genericError": "We konden je boeking niet voltooien. Controleer je gegevens en probeer het opnieuw."
+  }
+}

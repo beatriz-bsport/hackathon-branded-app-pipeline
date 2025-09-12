@@ -1,0 +1,47 @@
+{
+  "exportCampaign": "Exportar",
+  "save": "Salvar",
+  "schemaError": {
+    "nonEmptyEmailTemplate": "Escolha um modelo de correio eletrônico",
+    "nonEmptyBody": "O corpo de seu e-mail está vazio no momento. Adicione conteúdo antes de continuar.",
+    "nonEmptyToggle": "Selecione os destinatários antes de enviar a mensagem.",
+    "nonEmptySmartList": "Selecione uma lista inteligente"
+  },
+  "smartListOption": "Escolha uma lista inteligente",
+  "mail": {
+    "sendButton": "Enviar",
+    "customDomainNotDefined": "Você não definiu um domínio personalizado. \"Entre em contato com nossa equipe para iniciar o processo de configuração.\"",
+    "example": "Exemplo",
+    "customEmail": "E-mail personalizado",
+    "franchiseeMail": "E-mail do franqueado",
+    "chooseSender": "Selecione o endereço de e-mail que deseja usar para o envio.",
+    "sendMail": "Enviar uma mensagem"
+  },
+  "memberSelectionInfo": "Adicione membros aos destinatários de sua campanha selecionando um estúdio e, em seguida, escolhendo uma de suas listas inteligentes. Se quiser adicionar todos os seus membros diretamente, você também pode clicar em \"Select all members\" (Selecionar todos os membros).",
+  "noCampaign": "Envie campanhas aos seus membros para os manter em contacto com o que se passa no seu franchise.",
+  "historyTitle": "Histórico de correio eletrónico",
+  "campaign": {
+    "add": "Adicionar uma campanha"
+  },
+  "memberSelectionTitle": "Seleção de membros",
+  "sendToAllMembers": "Enviar a todos os membros",
+  "modal": {
+    "delete": {
+      "content": "Essa ação arquivará permanentemente a campanha, e todos os dados associados não estarão mais acessíveis. Tem certeza de que deseja prosseguir com o arquivamento?",
+      "confirm": "Confirmar",
+      "cancel": "Cancelar",
+      "title": "Arquivar uma campanha"
+    }
+  },
+  "search": "Pesquisar uma campanha",
+  "cancel": "Cancelar",
+  "delete": "Excluir",
+  "edit": "Editar",
+  "duplicate": "Duplicado",
+  "detail": {
+    "tab": {
+      "campaign": "Campanhas",
+      "general": "Geral"
+    }
+  }
+}

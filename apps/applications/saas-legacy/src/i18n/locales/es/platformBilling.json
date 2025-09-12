@@ -1,0 +1,127 @@
+{
+  "upsellPackage": {
+    "vod": {
+      "explainBilling": "  +1 {{currencyDisplay }}  /cliente activo"
+    },
+    "billRecurrent": "{{ price_cts }} / mes",
+    "billOnce": "{{ price_cts }}",
+    "otherAddonTitle": "Complementos disponibles",
+    "myAddonTitle": "Mis complementos",
+    "knowMore": "Más información",
+    "sms": {
+      "explainBilling": "{{ price_cts }}"
+    },
+    "lockDialog": {
+      "31": {
+        "intro": "Desbloquear el acceso de la audiencia",
+        "explain": "Esta función es un complemento. Póngase en contacto con su gestor de cuenta para obtener más información."
+      },
+      "33": {
+        "intro": "Descubra nuestra nueva interfaz de chat directo con sus miembros.",
+        "explain": "Aquí encontrarás todas tus conversaciones directas, los chats vinculados a tus sesiones y tus campañas smartlist. El chat es compatible con SMS, correo electrónico y notificaciones push."
+      },
+      "requestAccess": "Solicitar acceso"
+    },
+    "subscriptionForm": {
+      "commitmentMessage": "Nota: La suscripción implica un compromiso de 12 meses.",
+      "confirmationMessage": "Te has suscrito con éxito a {{- name }}",
+      "info": "Contactar con el servicio de atención al cliente",
+      "infoHelper": "¿Necesita más información?",
+      "confirmHelper": "Confirme que desea suscribirse a este suplemento",
+      "priceHelper": "Este precio se añadirá a su plan mensual.",
+      "title": "Suscribirse al suplemento",
+      "timeConsumingHelper": "La suscripción a esta funcionalidad adicional puede tardar unos segundos en procesarse"
+    },
+    "seeMore": "Ver más",
+    "billSMS": "{{ price_cts }} / SMS",
+    "audienceLockDialog": {
+      "goHome": "Volver al calendario",
+      "showInterest": "Ponte en contacto",
+      "explain": "Esta función es un complemento. Póngase en contacto con su gestor de cuentas para obtener más información.",
+      "benefits": [
+        "Fidelizar a los clientes con seguimientos automatizados",
+        "Aumentar los ingresos con experiencias personalizadas para clientes VIP.",
+        "Convertir clientes potenciales con mensajes personalizados en puntos de contacto clave."
+      ],
+      "description": "Los flujos de trabajo automatizados le ayudan a conectar con sus clientes a través de múltiples canales, para que pueda:",
+      "title": "Contacte con sus clientes allí donde se encuentren con Audience.",
+      "videoLink": "https://youtu.be/O1IGJxVLztE"
+    }
+  },
+  "featureRequest": {
+    "close": "Cerrar",
+    "content": "Hemos tomado nota de su interés. ¡Gracias por su interés! Su gestor de cuenta se pondrá en contacto con usted muy pronto con más información.",
+    "title": "Empecemos una conversación",
+    "header": "¡Nos pondremos en contacto contigo!",
+    "interestMessage": "Gracias por su interés en este complemento. Su gestor de cuentas se pondrá en contacto con usted en breve para proporcionarle más información.",
+    "interestMessageWithChat": "Gracias por su interés en este complemento. Su gestor de cuentas se pondrá en contacto con usted en breve para proporcionarle más información. Mientras tanto, podemos responder a cualquier pregunta que tenga a través del chat de ayuda."
+  },
+  "platformBillingStage": {
+    "maxBooking": "Hasta {{ max_booking_per_month }} reservas / mes",
+    "monthlyPrice": "{{ price }} / mes"
+  },
+  "platformBillingPlan": {
+    "max_establishment": {
+      "label": "Hasta {{ max_establishment }} establecimientos",
+      "help": "Un establecimiento se cuenta a partir de 8 sesiones mensuales"
+    },
+    "max_coach": {
+      "help": "Un profesor se cuenta a partir de 8 sesiones mensuales",
+      "label": "Hasta {{ max_coach }} profesores"
+    }
+  },
+  "platformBillingGroup": {
+    "soonAvailable": "Disponible pronto!",
+    "myGroup": "Mi paquete"
+  },
+  "paymentMethod": {
+    "actions": {
+      "createCard": "Añade una tarjeta",
+      "createSepa": "Añade un IBAN"
+    },
+    "sectionTitle": "Método de pago",
+    "info": {
+      "link": "aquí",
+      "content": "Tu suscripción bsport se cargará a la forma de pago indicada a abajo. Para configurar la cuenta en la que se acreditarán los pagos en línea a través de bsport, haga clic"
+    }
+  },
+  "platformInvoice": {
+    "noInvoice": "No hay facturas",
+    "sectionTitle": "Mis facturas",
+    "label": "Factura {{month}} / {{year}}",
+    "status": {
+      "failed": "Pago fallido",
+      "processing": "Pago en curso",
+      "disputed": "Pago impugnado",
+      "succeeded": "Pago satisfactorio",
+      "missing_charge": "No se ha intentado el pago",
+      "cancelled_with_negative_invoice": "Factura anulada por factura negativa",
+      "cancelled_with_credit_note": "Factura anulada por nota de crédito",
+      "negative_invoice_cancelling_bad_debt_invoice": "Cancelar una factura anterior"
+    },
+    "bill": "Regularizar"
+  },
+  "platformCustomerEntity": {
+    "vatId": {
+      "alert": {
+        "update": "Actualizar el Número de Identificación Fiscal (NIF)",
+        "description": "bsport necesita Número de Identificación Fiscal (NIF) (también conocido como número de registro de IVA o número de IVA intracomunitario) para incluirlo en las facturas que le emitamos.",
+        "text": "No ha facilitado un Número de Identificación Fiscal (NIF) o el que ha facilitado no es válido.",
+        "title": "Falta un Número de Identificación Fiscal (NIF)"
+      },
+      "dialog": {
+        "update": "Actualizar el Número de Identificación Fiscal (NIF)",
+        "hasAttributedVatIdLabel": "No tengo un Número de Identificación Fiscal (NIF). Si su empresa está radicada en la UE (excluida Francia), no se aplicará el mecanismo de inversión impositiva y bsport aplicará el tipo de IVA francés (20%).",
+        "vatIdLabel": "Número de Identificación Fiscal (NIF)",
+        "content": "bsport necesita su NIF (también conocido como número de registro de IVA o número de IVA intracomunitario) para incluirlo en las facturas que le emitamos.",
+        "errorChip": "Falta el NIF válido",
+        "title": "Número de Identificación Fiscal (NIF)",
+        "actions": {
+          "save": "Guardar",
+          "cancel": "Cancelar"
+        },
+        "invalidFormat": "Formato no válido"
+      }
+    }
+  }
+}

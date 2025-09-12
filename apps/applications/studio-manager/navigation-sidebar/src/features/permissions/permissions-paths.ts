@@ -30,7 +30,7 @@ export const PERMISSIONS_PATHS: Record<
   insights: [],
   invoice: ["navigationMenu.payments.billings"],
   member: ["navigationMenu.member"],
-  memberNotification: ["navigationMenu.marketing.notifications"],
+  marketingNotification: ["navigationMenu.marketing.notifications"],
   order: ["navigationMenu.payments.orders"],
   pack: ["navigationMenu.products.packs"],
   pass: ["navigationMenu.products.paymentPack"],

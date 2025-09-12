@@ -1,0 +1,48 @@
+{
+  "exportCampaign": "Esporta",
+  "save": "Salva",
+  "schemaError": {
+    "nonEmptyEmailTemplate": "Si prega di selezionare un email modello",
+    "nonEmptyBody": "Il corpo dell'e-mail è attualmente vuoto. Si prega di aggiungere contenuti prima di continuare.",
+    "nonEmptyToggle": "Seleziona i destinatari prima di inviare il messaggio.",
+    "nonEmptySmartList": "Si prega di selezionare una smartlist"
+  },
+  "smartListOption": "Seleziona una smartlist",
+  "mail": {
+    "sendButton": "Invia",
+    "customDomainNotDefined": "Non è stato definito un dominio personalizzato.<1/>Contatta il nostro team per avviare il processo di configurazione.",
+    "example": "Esempio",
+    "customEmail": "Email personalizzata",
+    "franchiseeMail": "Email del franchise",
+    "chooseSender": "Seleziona l'indirizzo e-mail che si desidera utilizzare per l'invio.",
+    "sendMail": "Invia un messaggio"
+  },
+  "memberSelectionInfo": "Per aggiungere i membri ai destinatari della campagna, seleziona uno studio e scegli una delle smartlist. Se si vuole aggiungere direttamente tutti i membri, è possibile cliccare su \"Seleziona tutti i membri\".",
+  "noCampaign": "Invia campagne ai membri per tenerli in contatto con ciò che accade nel franchising.",
+  "historyTitle": "Storico mail",
+  "campaign": {
+    "add": "Crea una campagna"
+  },
+  "memberSelectionTitle": "Selezione dei membri",
+  "sendToAllMembers": "Invia a tutti i membri",
+  "modal": {
+    "delete": {
+      "content": "Questa azione archivierà definitivamente la campagna e tutti i dati associati non saranno più accessibili. Procedere con l'archiviazione?",
+      "confirm": "Conferma",
+      "cancel": "Cancella",
+      "title": "Archivia una campagna"
+    }
+  },
+  "search": "Cerca una campagna",
+  "cancel": "Cancella",
+  "delete": "Elimina",
+  "edit": "Modifica",
+  "duplicate": "Duplicata",
+  "detail": {
+    "tab": {
+      "campaign": "Campagna",
+      "general": "Generale"
+    }
+  },
+  "campaignCreationWarning": "Assicurati che il nome della tua campagna sia unico per evitare eventuali problemi."
+}

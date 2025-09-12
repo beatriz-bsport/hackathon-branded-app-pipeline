@@ -1,0 +1,291 @@
+{
+  "detail": {
+    "seeParameters": "Einstellungen ansehen",
+    "seeVouchers": "Gutscheine ansehen"
+  },
+  "modal": {
+    "delete": {
+      "content": "Bist du sicher, dass Du diesen Werbe-Code löschen möchtest? Du wirst keinen Zugang mehr auf den Nutzungsverlauf haben. Diese Aktion ist unwiderruflich.",
+      "title": "Löschen",
+      "actions": {
+        "cancel": "Abbrechen",
+        "submit": "Löschen"
+      }
+    }
+  },
+  "code": {
+    "addCoupon": {
+      "5004": "Dieser Code kann nur auf einen Artikel angewendet werden.",
+      "5006": "Dieser einmalige Code ist bereits mit einem offenen Warenkorb verbunden",
+      "45009": "Dieser Rabattcode kann nicht auf den aktuellen Warenkorb angewendet werden",
+      "45010": "Die Geschenkkarte wurde deinem Konto hinzugefügt, ist jedoch noch nicht aktiv, da das Aktivierungsdatum noch aussteht",
+      "label": "Werbe-Code & Geschenkkarte",
+      "placeholder": "spezial für die Rückkehr",
+      "cancel": "Abbrechen",
+      "submit": "Bestätigen",
+      "not_found": "Dieser Gutscheincode ist ungültig.",
+      "not_applicable": "Dieser Gutscheincode ist nicht anwendbar.",
+      "apply": "Bewerben",
+      "couponOnlyLabel": "Rabattcode"
+    }
+  },
+  "createCoupon": "Rabatt hinzufügen",
+  "form": {
+    "actions": {
+      "submit": "Bestätigen",
+      "cancel": "Abbrechen"
+    },
+    "applies_to": {
+      "choices": {
+        "1": "Kurspass",
+        "2": "Webshop",
+        "6": "Versandkosten",
+        "9": "Terminpass",
+        "10": "Pakete",
+        "null": "Der ganze Warenkorb",
+        "all": "Der ganze Warenkorb"
+      },
+      "choicesFranchise": {
+        "1": "Geteilte Kurspässe",
+        "2": "Geteilte Webshop-Artikel",
+        "9": "Geteilte Terminpässe"
+      }
+    },
+    "minimum_amount": {
+      "label": "Minimaler Wert des Warenkorbs"
+    },
+    "combinable": {
+      "label": "Kann mit anderen Codes verwendet werden"
+    },
+    "only_on_first_checkout": {
+      "label": "Nur beim ersten Kauf"
+    },
+    "expiration_date": {
+      "label": "Ablaufdatum",
+      "cancel": "Abbrechen",
+      "clear_date": "Kein Ablaufdatum"
+    },
+    "name": {
+      "label": "Name",
+      "helperText": "Dieser Name erscheint auf Rechnungen, wenn der Code genutzt wird"
+    },
+    "code": {
+      "label": "Code",
+      "helperText": "Der Code, der an die betroffenen Mitglieder weitergeleitet wird",
+      "helperTextFranchise": "Der Code, den du an die betroffenen Mitglieder weitergibst. Achte darauf, dass der Code nicht bereits in deinen verschiedenen Studios existiert.",
+      "codeAlreadyInUse": "Dieser Code ist bereits in Gebrauch."
+    },
+    "is_active": {
+      "label": "Aktiv",
+      "helperText": "Ein Code, der nicht aktiv ist, kann von Mitgliedern nicht verwendet werden."
+    },
+    "section": {
+      "advanced": "Fortgeschritten",
+      "voucherConfig": "Rabatt",
+      "availability": "Verfügbarkeit",
+      "usability": "Nutzbarkeit",
+      "applies_to": "Einstellungen",
+      "general": "Allgemein",
+      "subscription": "Abonnement (Vertrag)",
+      "blacklist_tags": "Nicht erlaubt",
+      "whitelist_tags": "Erlaubt",
+      "tags": "Tags",
+      "tagInfo": "Verwenden Tags, um diesen Rabattcode für bestimmte Segmente Ihrer Mitgliederbasis verfügbar oder nicht verfügbar zu machen."
+    },
+    "selectorPlaceholder": {
+      "paymentPack": "Kurspässe auswählen (gültig für alle Pässe, wenn keiner ausgewählt wurde)",
+      "shopitem": "Produkte aus dem Webshop auswählen (gültig für alle Produkte, wenn keins ausgewählt ist)",
+      "privatePass": "Terminpässe auswählen (gültig für alle Pässe, wenn keine ausgewählt ist)",
+      "paymentCombo": "Pakete auswählen (gilt für alle Produkte, wenn keines ausgewählt ist)"
+    },
+    "amount_off": {
+      "label": "Betrag des Rabatts"
+    },
+    "with_expiration_date": {
+      "label": "Mit Ablaufdatum"
+    },
+    "voucher_type": {
+      "percent": "In Prozent",
+      "amount": "Wertmäßig"
+    },
+    "percent_off": {
+      "label": "Prozentsatz des Rabatts"
+    },
+    "usage_per_member": {
+      "label": "Nutzungsbeschränkung pro Kunde"
+    },
+    "usage_total": {
+      "label": "Nutzungsbeschränkung für alle Mitglieder"
+    },
+    "subscription_mode": {
+      "0": "Alle Abrechnungen",
+      "1": "Nur im ersten Monat",
+      "2": "Nur erster Abrechnungszyklus (vor Verlängerung)",
+      "3": "Unbrauchbar"
+    },
+    "tag": {
+      "select": {
+        "error": "Der gleiche Sub Tag kann nicht in beiden Listen vorhanden sein",
+        "empty_tag_list": "Kein Sub Tag ausgewählt",
+        "tag": "Wähle einen Haupttag",
+        "tag_group": "Wähle einen Haupttag"
+      },
+      "tag": "Sub Tag",
+      "tag_group": "Gruppe"
+    },
+    "title": "Gutschein",
+    "alert": "Ein Rabattcode kann von einem Mitglied verwendet werden, um den Preis des Warenkorbs zu verringern. In diesem Formular kannst du komplett einstellen, wie der Code angewendet wird. Du wählst den Code selbst und entscheidest darüber, wie du ihn mit deinen Mitgliedern teilst."
+  },
+  "list": {
+    "inactiveCoupons": "Inaktive oder abgelaufene Werbeaktionen",
+    "activeCoupons": "Aktive Werbeaktionen",
+    "isEmpty": "Du hast aktuell keine Rabatte gespeichert. Füg jetzt deinen ersten Rabatt hinzu.",
+    "expiredActiveCoupons": "Aktive Werbeaktionen abgelaufen"
+  },
+  "card": {
+    "member_use": "Verwendungen pro Mitglied",
+    "expiration": "Ablaufdatum",
+    "no_expiration": "Kein Ablaufdatum",
+    "validity": "Gültigkeit:",
+    "cumulable": "Kumulativ",
+    "no_cumulable": "Nicht kumulativ",
+    "uses": "Verwendungen",
+    "limitation": "Beschränkt auf",
+    "first_buy": "Kann nur beim ersten Kauf verwendet werden",
+    "member_uses": "Verwendungen pro Mitglied.",
+    "blacklist_tags": "[Blacklist] Nicht verfügbar für Mitglieder mit bestimmten Tags:",
+    "whitelist_tags": "[Whitelist} Nur für Mitglieder mit bestimmten Tags verfügbar:",
+    "unallowedFor": "Nicht zugelassen für",
+    "allowedFor": "Zugelassen für"
+  },
+  "noDiscount": "Noch keine Käufe mit dem Code durchgeführt.",
+  "search": "Promo-Code suchen",
+  "reverted": "Rechnung storniert",
+  "couponTemplateInstance": {
+    "companyEmpty": "Kein Studio ist so konfiguriert, dass es diese Aktion annimmt.",
+    "delete": {
+      "explain2": "Du kannst sie später wieder hinzufügen.",
+      "explain1": "Sicher, dass du die Verfügbarkeit des Aktionscodes für ({{- name }}) ändern willst?",
+      "title": "Teilen stoppen"
+    },
+    "create": {
+      "explain2": "Wenn ein Mitglied einen Gutscheincode in einem der kompatiblen Studios anwendet, kann er ihn auch in den anderen von Ihnen festgelegten Studios verwenden.",
+      "explain1": "Die folgenden Studios sind mit den in Ihrem Coupon ausgewählten Produkten kompatibel.",
+      "title": "Meine Studios einrichten"
+    }
+  },
+  "couponTemplate": {
+    "notEditable": "Dieser Coupon ist ein Coupon, der vom Master Account freigegeben wurde. Die Elemente wurden vom Master Account festgelegt und können nicht geändert werden.",
+    "warningDialog": {
+      "content1": "Achtung, du möchtest die Einstellungen für die Anwendung der gemeinsamen Aktionen auf bestimmte Kurs- oder Terminpässe ändern.",
+      "content2": "Dadurch wird die Liste der Studios, mit denen die Aktion geteilt wird, zurückgesetzt.",
+      "content3": "Du kannst wieder auswählen, welche Studios sich diese Aktion teilen.",
+      "title": "Änderungen bestätigen"
+    },
+    "isEmptyExplain": "Keine gespeicherten geteilten Aktionscodes",
+    "actions": {
+      "create": "Einen geteilten Rabatt hinzufügen"
+    },
+    "formDisclaimer": "Wenn du in Zukunft diese Sektion ändern möchtest, um diese Aktion auf eine oder mehrere bestimmte Kurs-/Termin-Pässe anwendbar zu machen, wird die Liste der Studios, die diese Aktion teilen, aus Kompatibilitätsgründen auf Null zurückgesetzt."
+  },
+  "uniqueCodeCoupon": {
+    "form": {
+      "alertInfo": "Gutscheine sind einmalige Codes, die dem Mitglied einen 100%igen Rabatt auf ein bestimmtes Produkt bieten. Diese Codes werden nicht von der Plattform selbst generiert, sondern müssen hier als CSV-Datei hochgeladen werden. Diese Funktion ist besonders nützlich, wenn du mit einem externen Unternehmen wie Groupon eine Werbekampagne durchgeführt hast. In diesem Fall generiert und verkauft Groupon (oder ein ähnliches Unternehmen) die Gutscheine im Namen deines Studios.",
+      "alertWarning": "Gilt nicht für Abonnements",
+      "couponCostForCompany": {
+        "helperText": "Die Einnahmen, die du vom Kampagnenpartner für jeden verkauften Gutschein erhalten. Sie werden bei der Berechnung des Grenzwerts für die Wiederbezahlung der Lehrkräfte sowie in den Berichten verwendet. Bei allen Berechnungen, die den Grenzwert nicht berücksichtigen, wird in den Berichten dieser gegebene Preis ignoriert und diese Aktion als 100% Rabatt behandelt.",
+        "label": "Preis inkl. MwSt"
+      },
+      "usage_per_member": {
+        "label": "Begrenze die Anzahl der Gutscheine, die ein Mitglied kaufen kann",
+        "helperText": "Obergrenze"
+      },
+      "only_on_first_checkout": {
+        "label": "Kann nur für den ersten Kauf genutzt werden"
+      },
+      "fileUploader": {
+        "title": "Einmalige Gutscheine hochladen",
+        "label": "Drag & Drop oder Anklicken, um die Datei auszuwählen",
+        "sizeLimitHelper": "CSV-Datei (maximal 1MB)",
+        "helperText": "Bitte lade eine CSV-Datei mit allen Gutscheincodes in der ersten Spalte hoch, einen Code pro Zeile, ohne Kopfzeile."
+      },
+      "errors": {
+        "5000": "Du darfst keinen Code angeben, der bereits in einem anderen Coupon verwendet wurde.",
+        "5001": "Einige der einmaligen Codes können nicht hinzugefügt werden, da sie bereits registriert wurden.",
+        "5003": "Einige einmalige Codes sind bereits in einem anderen Gutschein gespeichert.",
+        "5004": "Dieser Code kann nur auf einen einzigen Artikel angewendet werden.",
+        "5005": "Dieser Code wird bereits verwendet oder ist derzeit an einen Warenkorb angehängt.",
+        "5006": "Dieser einmalige Code ist bereits mit einem offenen Warenkorb verknüpft",
+        "required": "Dieses Feld ist ein Pflichtfeld",
+        "positiveNumber": "Der Wert muss größer als 0 sein",
+        "expirationDate": {
+          "dateBeforeNow": "Das Verfallsdatum kann nicht vor dem aktuellen Datum liegen.",
+          "format": "Fehler bei der Formatierung des Datums"
+        },
+        "fileUploader": {
+          "fileTooLargeError": "Die Datei ist leider zu groß. Bitte überschreite 1 MB nicht.",
+          "incorrectDataError": "Die Datei enthält keine korrekten Daten.",
+          "notCsvFileError": "Der Dateityp entspricht nicht einer CSV-Datei."
+        },
+        "only_on_objects": "Sie müssen ein Objekt auswählen, auf das Sie die Reduzierung anwenden möchten",
+        "applies_to": "Der Artikel, auf den der Rabatt angewendet werden soll, muss ein Pass, ein Terminpass, ein Paket oder ein Webshop-Artikel sein",
+        "update_mode": "Wenn Sie die für diese Aktion gespeicherten Codes ändern möchten, können Sie die Codes zu den bestehenden hinzufügen oder die bestehenden Codes ersetzen",
+        "codes": {
+          "updateMode": "Sie müssen sich entscheiden, ob Sie die Codes zu den bestehenden hinzufügen oder sie ersetzen wollen",
+          "emptyArray": "Sie müssen mindestens einen Code hinzufügen"
+        },
+        "positiveOrZeroNumber": "Der Wert muss größer als oder gleich 0 sein"
+      },
+      "update": {
+        "replace": "Bestehende Codes ersetzen",
+        "popover": "Nicht verwendete Codes werden gelöscht, verwendete Codes bleiben jedoch erhalten.",
+        "alertInfo": "Es wurde {{count}} Code für diese Aktion registriert, Sie können neue Codes hochladen.",
+        "alertInfo_plural": "Es wurden {{count}} Codes für diese Aktion registriert, Sie können neue Codes hochladen.",
+        "append": "Zu bestehenden Codes hinzufügen"
+      },
+      "selectorPlaceholder": {
+        "privatePass": "Einen Terminpass auswählen",
+        "paymentPack": "Einen Kurspass auswählen",
+        "shopItem": "Einen Artikel aus dem Webshop auswählen",
+        "paymentCombo": "Ein Paket auswählen"
+      }
+    },
+    "voucherCodesDialog": {
+      "header": {
+        "codes": "Codes",
+        "status": "Status"
+      },
+      "selector": {
+        "pending": "Wartet auf externe Validierung",
+        "redeemed": "Als verwendet markieren",
+        "allStatus": "Alle Status",
+        "notUsed": "Nicht verwendet"
+      },
+      "noResult": "Kein Ergebnis",
+      "export": "Exportieren",
+      "searchBar": {
+        "placeHolder": "Einen Code suchen"
+      },
+      "close": "Schließen",
+      "checkBoxes": {
+        "unselectAll": "Nichts auswählen",
+        "selectAll": "Alles auswählen"
+      },
+      "markAsRedeemed": "Als verwendet markieren",
+      "markAsRedeemed_plural": "Als verwendet markieren"
+    }
+  },
+  "couponFilter": {
+    "allType": "Alle Aktionstypen",
+    "title": "Aktionstyp"
+  },
+  "fabLabels": {
+    "discountCode": "Rabattcode",
+    "voucherCodes": "Gutscheine"
+  },
+  "couponType": {
+    "0": "Rabattcode",
+    "3": "Einmaliger Gutschein"
+  },
+  "couponNotFullyAppliedWarning": "Einige Rabatte wurden nicht vollständig angewandt, da sie den ursprünglichen Preis der Artikel überstiegen. Die nicht genutzten Rabattbeträge gehen verloren."
+}

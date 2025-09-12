@@ -198,8 +198,8 @@ export const useNavigationElements = ({
           subItems: [
             {
               id: "member-notifications",
-              label: t("menus.marketing.memberNotifications"),
-              ...navigationUrls.memberNotification,
+              label: t("menus.marketing.marketingNotifications"),
+              ...navigationUrls.marketingNotification,
             },
             {
               id: "email-template",

@@ -1,0 +1,178 @@
+{
+    "video": {
+        "form": {
+            "coach": {
+                "isEmpty": ""
+            },
+            "title": "",
+            "submit": "",
+            "cancel": "",
+            "edit": "",
+            "creditPrice": {
+                "label": "",
+                "helperText": "",
+                "decimalCredit": {
+                    "helperText": ""
+                }
+            },
+            "video_label": "",
+            "video_source": {
+                "change_popup_text": "",
+                "change_popup_title": "",
+                "edit_button": "",
+                "uploaded_video": "",
+                "youtube_video": "",
+                "title": "",
+                "vimeo_video": "",
+                "ebook": ""
+            },
+            "confirm": {
+                "button": "",
+                "unlimitedToRent": "",
+                "rentToUnlimited": "",
+                "title": ""
+            }
+        },
+        "upload": {
+            "cancel": "",
+            "dropHere": "",
+            "content": "",
+            "title": "",
+            "urlInputError": "",
+            "type": {
+                "youtubeExplain": "",
+                "vimeoExplain": "",
+                "vimeo": "",
+                "youtube": "",
+                "ebookExplain": "",
+                "ebook": "",
+                "url": "",
+                "file": "",
+                "urlExplain": "",
+                "fileExplain": ""
+            },
+            "submit": "",
+            "minutes": "",
+            "hours": "",
+            "durationInputError": "",
+            "durationLabel": "",
+            "vimeoUrlInput": "",
+            "youtubeUrlInput": "",
+            "contentEbook": "",
+            "ebookTitle": "",
+            "urlInputLabel": ""
+        },
+        "delete": {
+            "cancel": "",
+            "confirm": "",
+            "content": "",
+            "title": ""
+        },
+        "status": {
+            "processed": "",
+            "error": "",
+            "processing": "",
+            "submitted": ""
+        },
+        "level": "",
+        "description": "",
+        "category": "",
+        "name": "",
+        "bottomActions": {
+            "create": ""
+        },
+        "search": {
+            "isEmpty": "",
+            "cancel": "",
+            "placeholder": ""
+        },
+        "thumbnailList": {
+            "similarVideoTitle": "",
+            "count": "",
+            "addVideo": ""
+        },
+        "player": {
+            "with": ""
+        },
+        "durationMinute": "",
+        "showMore": "",
+        "filter": {
+            "duration": {
+                "explain": "",
+                "all": ""
+            }
+        },
+        "lock": {
+            "pleaseAuthenticated": "",
+            "accessDenied": "",
+            "buyPass": "",
+            "useConsumerPass": "",
+            "accessDeniedEbook": ""
+        },
+        "creditPrice": "",
+        "register": {
+            "buyPass": "",
+            "title": "",
+            "noPassAvailable": ""
+        },
+        "analytics": {
+            "uploaded": "",
+            "distinctViewers": "",
+            "viewsLastWeek": "",
+            "totalViews": "",
+            "dateCreated": "",
+            "viewTitle": "",
+            "views": ""
+        },
+        "viewsListTitle": "",
+        "purchaseListTitle": "",
+        "viewedOn": "",
+        "boughtOn": "",
+        "noVideoView": "",
+        "noVideoPurchase": "",
+        "coverMain": {
+            "alert": ""
+        },
+        "manager_only_helper": "",
+        "manager_only": "",
+        "duplicate": "",
+        "rental": {
+            "forRent": "",
+            "expired": "",
+            "valid": "",
+            "buyDate": "",
+            "expiredDate": "",
+            "expirationDate": "",
+            "rental_days_helper": "",
+            "duration": "",
+            "duration_helper": "",
+            "helper": "",
+            "label": ""
+        },
+        "ebook": {
+            "downloadHelper": ""
+        },
+        "download": ""
+    },
+    "playlist": {
+        "bottomActions": {
+            "create": ""
+        },
+        "form": {
+            "submit": "",
+            "cancel": ""
+        },
+        "open": "",
+        "deleteVideo": "",
+        "description": "",
+        "name": "",
+        "noVideo": "",
+        "playlist": ""
+    },
+    "details": {
+        "pleaseSelectVod": "",
+        "invoiceTitle": "",
+        "consumerPaymentPackTitle": "",
+        "title": ""
+    }
+}

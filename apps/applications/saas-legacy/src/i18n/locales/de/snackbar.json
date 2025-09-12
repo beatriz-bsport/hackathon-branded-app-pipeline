@@ -1,0 +1,1223 @@
+{
+  "establishment": {
+    "update": {
+      "success": "Einrichtung erfolgreich geändert"
+    },
+    "create": {
+      "success": "Einrichtung erfolgreich erstellt"
+    },
+    "error": "Es ist unmöglich, diese Einrichtung zu speichern",
+    "delete": {
+      "error": "Es ist unmöglich, diese Einrichtung zu löschen",
+      "success": "Einrichtung gelöscht"
+    },
+    "restore": {
+      "error": "Diese Einrichtung kann nicht wiederhergestellt werden",
+      "success": "Wiederhergestellte Einrichtungen"
+    }
+  },
+  "coupon": {
+    "attachToBasket": {
+      "error": "Kein kompatibler Werbecode gefunden"
+    },
+    "create": {
+      "success": "Werbecode gespeichert",
+      "error": "Es ist unmöglich, diesen Werbecode zu erstellen"
+    },
+    "update": {
+      "success": "Werbecode geändert",
+      "error": "Es ist unmöglich, diesen Werbecode zu löschen"
+    },
+    "delete": {
+      "success": "Werbecode gelöscht",
+      "error": "Es ist unmöglich, diese Werbeaktion zu löschen"
+    },
+    "createOrUpdate": {
+      "error": "Fehler beim Speichern des Angebots",
+      "success": "Angebot gespeichert"
+    },
+    "templateInstance": {
+      "create": {
+        "error": "Fehler beim Teilen dieses Angebots zwischen Studios"
+      }
+    },
+    "exportCodes": {
+      "error": "Ausgewählte Codes können nicht exportiert werden",
+      "success": "Gutscheine korrekt exportiert"
+    },
+    "errors": {
+      "5002": "Sie können einen Code, der nicht auf externe Validierung wartet, nicht als verwendet markieren"
+    }
+  },
+  "paymentPack": {
+    "createOrUpdate": {
+      "fail": "Fehler beim Speichern der Karte",
+      "success": "Kurspass gespeichert"
+    },
+    "credit": {
+      "error": "Fehler beim Speichern",
+      "updated": "Credits wurden aktualisiert"
+    },
+    "paymentPackDisabled": {
+      "error": "Es ist unmöglich, diese Karte zu sperren",
+      "success": "Kurspass gesperrt"
+    },
+    "paymentPackEnabled": {
+      "error": "Es ist unmöglich, diese Karte wiederherzustellen",
+      "success": "Kurspass wiederhergestellt"
+    },
+    "category": {
+      "delete": {
+        "error": "Kategorie kann nicht gelöscht werden",
+        "success": "Kategorie entfernt"
+      },
+      "create": {
+        "error": "Diese Kategorie kann nicht erstellt werden",
+        "success": "Neue Kategorie erfolgreich erstellt"
+      },
+      "update": {
+        "error": "Kategorie kann nicht bearbeitet werden",
+        "success": "Kategorie erfolgreich geändert"
+      }
+    },
+    "compatibilitiesUpdate": {
+      "fail": "Fehler beim Aktualisieren der Passkompatibilitäten"
+    },
+    "universalPaymentPackTemplateRestored": {
+      "success": "Geteilter Universalpass wiederhergestellt",
+      "error": "Geteilter Universalpass kann nicht wiederhergestellt werden"
+    },
+    "universalPaymentPackTemplateArchived": {
+      "success": "Geteilter Universalpass wurde archiviert",
+      "error": "Geteilter Universalpass kann nicht archiviert werden"
+    },
+    "paymentPackTemplateRestored": {
+      "success": "Geteilter Kurspass wiederhergestellt",
+      "error": "Geteilter Kurspass kann nicht wiederhergestellt werden"
+    },
+    "paymentPackTemplateArchived": {
+      "success": "Geteilter Kurspass wurde archiviert",
+      "error": "Der geteilte Kurspass kann nicht archiviert werden"
+    },
+    "manualActivation": {
+      "error": "Bei der Aktivierung des Kurspass ist ein Fehler aufgetreten, bitte versuche es nochmal.",
+      "updated": "Der Kurspass wurde erfolgreich aktiviert"
+    }
+  },
+  "paymentRules": {
+    "delete": {
+      "success": "Regel gelöscht",
+      "error": "Fehler beim Löschen"
+    },
+    "create": {
+      "success": "Regel hinzugefügt",
+      "error": "Fehler bei der Erstellung"
+    },
+    "update": {
+      "error": "Fehler bei der Änderung",
+      "success": "Standardregel geändert"
+    }
+  },
+  "relationship": {
+    "consumer_payment_pack_links": {
+      "create": {
+        "error": {
+          "90004": "Dieser Pass wird von einem anderen Konto geteilt",
+          "generic": "Nicht möglich diesen Pass zu teilen"
+        },
+        "success": "Karte geteilt"
+      },
+      "unlink": {
+        "success": "Gemeinsame Benutzung beendet",
+        "error": "Es ist unmöglich, diese gemeinsame Benutzung zu beenden"
+      },
+      "relink": {
+        "success": "Gemeinsame Benutzung gespeichert",
+        "error": "Es ist unmöglich, diese Karte gemeinsam zu benutzen"
+      }
+    },
+    "createOrUpdate": {
+      "error": "Es ist unmöglich, diese Beziehung zu speichern"
+    },
+    "create": {
+      "success": "Beziehung gespeichert"
+    },
+    "edit": {
+      "success": "Beziehung geändert"
+    },
+    "private_consumer_pass_links": {
+      "relink": {
+        "error": "Es ist nicht möglich diesenTerminpass zu teilen",
+        "success": "Gemeinsame Nutzung gespeichert"
+      },
+      "unlink": {
+        "error": "Es ist nicht möglich, diese gemeinsame Nutzung zu beenden",
+        "success": "Gemeinsame Nutzung beendet"
+      },
+      "create": {
+        "error": {
+          "90005": "Dieser Terminpass wird von einem anderen Konto geteilt",
+          "generic": "Nicht möglich diesen Terminpass zu teilen"
+        },
+        "success": "Geteilte Terminpässe"
+      }
+    },
+    "delete": {
+      "error": "Diese Beziehung kann nicht gelöscht werden",
+      "success": "Beziehung gelöscht"
+    },
+    "error": {
+      "90000": "Zugriffsrechte auf diese Beziehung verweigert",
+      "90001": "Ungültige Abfrage",
+      "90002": "Das Mitglied wird nicht definiert",
+      "90003": "Ungültiges Token"
+    }
+  },
+  "coach": {
+    "delete": {
+      "error": "Es ist nichjt möglich, die Lehrkraft zu löschen",
+      "success": "Lehrkraft gelöscht"
+    },
+    "update": {
+      "success": "Lehrkraft erfolgreich geändert"
+    },
+    "create": {
+      "success": "Lehrkraft erfolgreich erstellt"
+    },
+    "error": "Es ist nicht möglich, die Lehrkraft zu speichern",
+    "error_email_exists": "Es gibt bereits einen Lehrer mit dieser E-Mail, verwende das Formular zur Erstellung eines Lehrers",
+    "linkByEmail": {
+      "success": "Lehrkraft erfolgreich verbunden"
+    },
+    "restore": {
+      "error": "Es ist nicht möglich, die Lehrkraft wiederherzustellen",
+      "success": "Lehrkraft erfolgreich wiederhergestellt"
+    },
+    "editAccessToCoachSpace": {
+      "error": "Fehler beim Ändern der Zugriffsrechte für den Lehrkräftebereich"
+    },
+    "errors": {
+      "60002": "Die angegebene E-Mail ist bereits mit einem Mitarbeiterkonto verknüpft.",
+      "60003": "Es existiert bereits ein Mitglied mit dieser E-Mail. Um sie zu verknüpfen, verwenden Sie das vorherige Pop-up.",
+      "60004": "Die angegebene E-Mail ist bereits mit einem Franchise-Konto für Mitarbeiter verknüpft."
+    }
+  },
+  "invoice": {
+    "error": "Fehler beim Speichern - Storniert",
+    "create": {
+      "success": "Rechnung gespeichert"
+    },
+    "update": {
+      "success": "Die Rechnung wurde erfolgreich aktualisiert"
+    },
+    "returnPaymentLocked": "Diese Zahlung kann nicht erstattet werden, befindet sich genug Geld auf Ihrem Stripe-Konto?",
+    "billingEstablishment": {
+      "error": {
+        "unAuthorizedEstablishmentModification": "Kann die Abrechnungseinrichtung nicht ändern, nur Administratoren haben das Recht, sie zu ändern"
+      }
+    },
+    "sendToQuickbooks": {
+      "errors": {
+        "931000": "Fehler bei der Authentifizierung in Quickbooks",
+        "931001": "Fehler bei der Authentifizierung in Quickbooks",
+        "931002": "Abgelaufene Authentifizierungsschlüssel",
+        "931003": "Abgelaufene Authentifizierungsschlüssel",
+        "931004": "Sie haben Ihre QuickBooks-Anwendung nicht konfiguriert",
+        "931100": "Fehler beim Aktualisieren von Authentifizierungsschlüsseln",
+        "931101": "Quickbooks ist nicht in der Lage, uns Ihre Daten zu senden",
+        "932000": "Dein Konto bei bsport ist nicht mehr authentifiziert",
+        "932001": "Dein Konto ist bei bsport nicht mehr authentifiziert",
+        "932100": "Sie können nicht auf Ihre Quickbooks-Kontoinformationen zugreifen",
+        "933000": "Das Mitglied, das mit der Rechnung verbunden ist, verfügt nicht über die notwendigen Informationen, um in QuickBooks registriert zu werden",
+        "933100": "Der Kunde, der mit dem Rechnungsmitglied verbunden ist, kann nicht erstellt werden",
+        "933101": "Der Kunde, der mit dem Rechnungsmitglied verbunden ist, kann nicht erstellt werden",
+        "933102": "Fehler beim Erstellen der Rechnung in Quickbooks",
+        "933103": "Ihre QuickBooks-Plattform unterstützt mehrere Währungen, bitte geben Sie an, welche Steuer Sie verwenden möchten.",
+        "934000": "Die Rechnung enthält nicht die Mindestangaben, um in Quickbooks erstellt zu werden",
+        "934001": "Es ist nicht möglich, eine Rechnung ohne zugehörige Artikel zu erstell",
+        "934002": "Stornierte Rechnungen können in QuickBooks nicht gesendet werden",
+        "934003": "Nicht möglich, eine unfertige Rechnung in QuickBooks zu senden",
+        "934004": "Unmöglich, eine unbezahlte Rechnung in QuickBooks zu senden",
+        "934005": "Ihre Rechnung kann nicht an QuickBooks gesendet werden",
+        "934006": "Diese Rechnung ist bereits in QuickBooks registriert",
+        "title": "Fehler beim Versand Ihrer Rechnung"
+      },
+      "error": "Beim Übertragen Ihrer Rechnung an Quickbooks ist ein Fehler aufgetreten",
+      "success": "Ihre Rechnung wurde an Quickbooks übertragen"
+    },
+    "applyGiftcard": {
+      "errors": {
+        "45000": "Der Aktivierungscode ist falsch.",
+        "45001": "Es ist nicht möglich, diese Rechnung mit diesem Gutschein zu begleichen",
+        "45003": "Der Gutschein wurde deaktiviert.",
+        "45006": "Der Gutschein wurde bereits aktiviert",
+        "45007": "Nicht möglich, das Mitglied zu finden, das den Gutschein aktivieren möchte.",
+        "generic": "Aktivierung des Gutscheins nicht möglich"
+      },
+      "success": "Zahlung mit Gutschein bestätigt",
+      "error": "Es ist nicht möglich, den gewünschten Betrag mit diesem Gutschein zu bezahlen"
+    },
+    "applyBalance": {
+      "success": "Der Betrag Ihres Restguthabens wurde auf die Rechnung angewendet.",
+      "error": "Es ist nicht möglich, Ihr Guthaben zur Begleichung dieser Rechnung zu verwenden."
+    },
+    "revert": {
+      "errors": {
+        "14100": "Es ist nicht möglich, eine Rechnung mit Interac-Zahlungen zu stornieren.",
+        "14101": "Sie können eine Restguthabenkorrektur nicht mit einer Gutschrift erstatten.",
+        "14102": "Diese Rechnung kann nicht erstattet werden.",
+        "35024": "Du kannst diese Rechnung nicht erstatten, da auf deinem PayPal-Konto nicht genügend Guthaben vorhanden ist."
+      }
+    },
+    "generateXml": {
+      "errors": {
+        "14210": "Ihre Einstellungen sind nicht für den Export von XML-Rechnungen konfiguriert. Bitte wenden Sie sich an Ihren bsport-Kundenbetreuer.",
+        "14211": "Das offizielle Dokument ID des Mitglieds fehlt oder ist unvollständig",
+        "14212": "Die Adresse des Mitglieds fehlt oder ist unvollständig",
+        "14213": "Die Generierung des XML-Dokuments ist aufgrund gesetzlicher Vorgaben fehlgeschlagen. Für weitere Informationen oder bei Fragen wenden Sie sich bitte an Ihren bsport-Kundenbetreuer.",
+        "14214": "Die generierte Zip-Datei ist leer, da keine zu exportierenden Rechnungen des letzten Monats gefunden wurden.",
+        "default": "Beim Generieren der XML-Rechnung ist ein Fehler aufgetreten"
+      },
+      "success": "XML-Rechnung erfolgreich generiert"
+    },
+    "receipt": {
+      "genericError": "Ein Fehler ist aufgetreten, während die Quittung generiert wurde"
+    }
+  },
+  "member": {
+    "merge": {
+      "seeMemberPage": " Die Mitgliedsseite ansehen",
+      "submit": "Zusammenlegen",
+      "title": "Mitgliedszusammenlegung",
+      "srcMember": "Mitglied, das zusammengelegt werden soll",
+      "error": "Es ist unmöglich, diese Mitglieder zusammenzulegen",
+      "success": "Mitglieder zusammengelegt",
+      "cancel": "Abbrechen",
+      "explainTags": "Markierungen des gelöschten Mitglieds werden nicht übertragen",
+      "dstMember": "Wir werden dieses Konto behalten",
+      "explainBookingsAndPassAndInvoiceAndNotes": "Kurspass, Buchungen, Rechnungen und Anmerkungen werden übertragen.",
+      "explainCredit": "Das interne Konto des Mitglieds wird übertragen"
+    },
+    "create": {
+      "success": "Mitglied erfolgreich erstellt",
+      "title": "Neues Mitglied"
+    },
+    "error": "Es ist unmöglich, dieses Mitglied zu speichern",
+    "link": {
+      "success": "Konto erfolgreich verbunden"
+    },
+    "update": {
+      "title": "Änderung der Informationen",
+      "success": "Mitglied erfolgreich geändert"
+    },
+    "createOrUpdate": {
+      "error": "Fehler beim Speichern",
+      "success": "Informationen gespeichert"
+    },
+    "changeEmailRequest": {
+      "create": {
+        "error": "Kann den Antrag auf E-Mail-Änderung nicht erstellen",
+        "success": "Bestätigungs-E-Mail zur Änderung der E-Mail gesendet"
+      }
+    }
+  },
+  "role": {
+    "error": {
+      "errorEmail": "Diese E-Mail wird bereits für ein Lehrkraft- oder Mitgliedskonto verwendet",
+      "generic": "Es ist unmöglich, dieses Erlaubnis zu ändern",
+      "errorCommission": "Der von Ihnen eingegebene Wert muss zwischen 0 und 100 liegen"
+    },
+    "update": {
+      "success": "Erlaubnisse geändert",
+      "successCommission": "Der Provisionssatz wurde erfolgreich geändert"
+    },
+    "noMasterControl": {
+      "overbookingNotAllowed": "Sie können die maximale Anzahl an Buchungen nicht überschreiten.",
+      "overbookingNotAllowedInWaitingList": "Sie können die maximale Aufnahmekapazität der Warteliste nicht überschreiten.",
+      "overrideEstablishmentNotAllowed": "Sie können keinen Termin in dieser Einrichtung vereinbaren.",
+      "changeDateCoachUnaivalable": "An diesem Datum nicht buchbar: Die Lehrkraft ist nicht verfügbar.",
+      "changeDateEstablishmentUnaivalable": "An diesem Datum ist eine Buchung nicht möglich: Die Einrichtung ist nicht verfügbar.",
+      "overrideCoachNotAllowed": "Sie können keinen Termin mit dieser Lehrkraft vereinbaren."
+    },
+    "delete": {
+      "error": {
+        "customErrors": {
+          "4700": "Unmöglich zu löschen : Diese Rolle ist einigen Ihrer Mitarbeiter zugewiesen"
+        },
+        "genericError": "Es ist ein Fehler aufgetreten: Diese Rolle wurde nicht gelöscht"
+      }
+    }
+  },
+  "privateConsumerPass": {
+    "creditUpdate": {
+      "success": "Credits wurden aktualisiert",
+      "error": "Credits konnten nicht gespeichert werden"
+    },
+    "nonCompatible": {
+      "error": "Beim Laden von nicht kompatiblen Pässen ist ein Fehler aufgetreten"
+    },
+    "incompatibilitiesReasons": {
+      "error": "Beim Laden der Gründe für die Inkompatibilität des Passes ist ein Fehler aufgetreten"
+    }
+  },
+  "email": {
+    "delete": {
+      "error": "Es ist unmöglich, diese E-Mail zu löschen",
+      "success": "Diese E-Mail ist gelöscht"
+    },
+    "update": {
+      "error": "Es ist unmöglich, diese E-Mail zu ändern",
+      "success": "Diese E-Mail wurde geändert"
+    },
+    "create": {
+      "error": "Diese E-Mail kann nicht gespeichert werden",
+      "success": "Erstellte E-Mail"
+    },
+    "duplicate": {
+      "error": "E-Mail kann nicht dupliziert werden",
+      "success": "Duplizierte E-Mail"
+    }
+  },
+  "activity": {
+    "update": {
+      "error": "Es ist nicht möglich, die Aktivität zu aktualisieren",
+      "success": "Die Aktivität wurde aktualisiert"
+    },
+    "create": {
+      "error": "Es ist unmöglich, die Aktivität zu speichern",
+      "success": "Die Aktivität wurde gespeichert"
+    }
+  },
+  "playlist": {
+    "video": {
+      "del": {
+        "error": "Es ist unmöglich, das Video von der Playlist zu entfernen",
+        "success": "Video von der Playlist entfernt"
+      },
+      "add": {
+        "error": "Es ist unmöglich, dieses Video hinzuzufügen",
+        "success": "Video zur Playlist hinzugefügt"
+      }
+    },
+    "delete": {
+      "error": "Es ist unmöglich, die Playlist zu löschen",
+      "success": "Playlist gelöscht"
+    },
+    "createOrUpdate": {
+      "error": "Es ist unmöglich, die Playlist zu speichern",
+      "success": "Playlist erfolgreich gespeichert"
+    }
+  },
+  "video": {
+    "delete": {
+      "error": "Es ist unmöglich, das Video zu löschen",
+      "success": "Video gelöscht"
+    },
+    "createOrUpdate": {
+      "error": "Es ist unmöglich, das Video zu speichern",
+      "success": "Video erfolgreich gespeichert"
+    },
+    "register": {
+      "error": "Es ist nicht möglich dieses Video zu speichern. Bitte versuche es später noch einmal",
+      "success": "Video in Deiner Mediathek gespeichert"
+    }
+  },
+  "privateBooking": {
+    "attachCoach": {
+      "success": "Dem Professor zugeordneter Termin",
+      "error": "Es ist unmöglich, es dem Professor zuzordnen"
+    },
+    "updateCoach": {
+      "error": "Es ist nicht möglich, die Lehrkraft zu ändern",
+      "success": "Die Lehrkraft wurde geändert"
+    },
+    "restore": {
+      "error": "Termin kann nicht wiederhergestellt werden, dieser Terminpass enthält nicht genügend Credits.",
+      "success": "Der Termin wurde wiederhergestellt"
+    },
+    "register": {
+      "warning": {
+        "11106": "Sie haben diesen Slot bereits gebucht"
+      },
+      "error": "Kann für dieses Datum nicht gebucht werden"
+    },
+    "setUnpaid": {
+      "error": "Kann nicht als unbezahlt markieren",
+      "success": "Als unbezahlt markiert"
+    }
+  },
+  "communication": {
+    "error": "Fehler bei der Sendung der E-Mail",
+    "success": "Die E-Mail wird gesendet"
+  },
+  "order": {
+    "success": "Deine Zahlung wurde erfolgreich gespeichert"
+  },
+  "booking": {
+    "register": {
+      "success": "Buchung gespeichert"
+    },
+    "delete": {
+      "error": "Sie können einen bereits begonnenen Kurs nicht abbrechen."
+    }
+  },
+  "login": {
+    "passwordChangedSuccess": "Passwort erfolgreich geändert!"
+  },
+  "webhook": {
+    "testError": "Bitte prüfe die URL",
+    "testSuccess": "Richtige URL",
+    "success": "WebHook gespeichert",
+    "error": "Es ist unmöglich, dieses WebHook zu speichern"
+  },
+  "link": {
+    "copied": "Link in die Zwischenablage kopiert"
+  },
+  "smartlist": {
+    "delete": {
+      "error": "Es ist unmöglich, die Smartlist zu löschen",
+      "success": "Smartlist gelöscht"
+    },
+    "create": {
+      "success": "Smartlist erfolgreich gelöscht",
+      "error": "Es ist unmöglich, die Smartlist zu speichern"
+    },
+    "update": {
+      "success": "Smartlist erfolgreich aktualisiert",
+      "error": "Es ist unmöglich, die Smartlist zu speichern"
+    },
+    "duplicate": {
+      "error": "Die Smarlist kann nicht dupliziert werden",
+      "success": "Smartlist dupliziert"
+    },
+    "tag_rules": {
+      "limit_reached": "Fehler: es ist nicht möglich, mehr als 10 Regeln zu erstellen. ",
+      "error": "Diese Regel kann nicht angewendet werden",
+      "success": "Die automatische Regel wurde gestartet"
+    }
+  },
+  "subscription": {
+    "switchPaymentMethod": {
+      "success": "Zahlungsmethode aktualisiert",
+      "error": "Es ist unmöglich, die Zahlungsmethode zu ändern"
+    },
+    "youSubscribed": {
+      "error": "Fehler beim Abonnement",
+      "success": "Du bist jetzt ein aktiver Abonnent"
+    },
+    "switchPack": {
+      "success": "Zahlungsmethode geändert",
+      "error": "Es ist nicht möglich, den Kurspass zu ändern"
+    },
+    "freeze": {
+      "error": "Es ist unmöglich, dieses Abonnement zu pausieren",
+      "success": "Abonnement pausiert",
+      "alreadyPaused": "Es ist unmöglich, ein Abonnement zu pausieren, das schon pausiert ist",
+      "locked": "Es ist nicht möglich, das Abonnement momentan zu pausieren. Wird eine Zahlung überwiesen?",
+      "deleteSuccess": "Die Pause wurde aufgehoben",
+      "deleteFail": "Eine bereits begonnene Pause kann nicht gelöscht werden."
+    },
+    "updatePrice": {
+      "success": "Betrag aktualisert",
+      "error": "Es ist unmöglich, diesen Betrag zu ändern"
+    },
+    "stop": {
+      "error": "Es ist unmöglich, das Abonnement momentan zu beenden",
+      "warning": "Es ist unmöglich, es zurzeit zu beenden. Wird eine Zahlung überwiesen ?",
+      "success": "Das Abonnement wurde beendet"
+    },
+    "contract": {
+      "restore": {
+        "error": "Vertrag kann nicht wiederhergestellt werden",
+        "success": "Vertrag erfolgreich wiederhergestellt"
+      }
+    },
+    "billNow": {
+      "errors": {
+        "12102": "Eine Zahlung wird bereits bestätigt, kommen Sie später zurück, um eine neue Zahlung zu registrieren."
+      }
+    },
+    "switchPrivatePass": {
+      "success": "Geänderter Terminpass",
+      "error": "Der Terminpass kann nicht bearbeitet werden"
+    },
+    "switchPaymentCombo": {
+      "success": "Modifiziertes Paket",
+      "error": "Das Paket kann nicht bearbeitet werden"
+    },
+    "register": {
+      "error": "Registrierung des Abonnements nicht möglich",
+      "success": "Abonnement erfolgreich registriert"
+    },
+    "switchItemsErrors": {
+      "paymentPack": {
+        "63003": "Nicht möglich: Der Wechsel eines gemeinsamen Passes zwischen Franchisenehmern ist nicht erlaubt"
+      },
+      "privatePass": {
+        "63003": "Nicht möglich: Der Wechsel des gemeinsamen Terminpasses zwischen Franchisenehmern ist nicht erlaubt"
+      },
+      "paymentCombo": {
+        "63003": "Nicht möglich: Wechsel der geteilten Pakete zwischen Franchisenehmern ist nicht erlaubt"
+      }
+    },
+    "contractTemplate": {
+      "createError": "Abonnement konnte nicht erstellt werden",
+      "createSuccess": "Abonnement erfolgreich erstellt",
+      "editError": "Abonnement konnte nicht gespeichert werden",
+      "editSuccess": "Abonnement erfolgreich gespeichert",
+      "restoreError": "Wiederherstellung des Abonnements fehlgeschlagen",
+      "restoreSuccess": "Abonnement erfolgreich wiederhergestellt",
+      "deleteError": "Archivierung des Abonnements fehlgeschlagen",
+      "deleteSuccess": "Abonnement erfolgreich archiviert"
+    }
+  },
+  "notificationRule": {
+    "createOrUpdate": {
+      "success": "Erfolgreich geändert",
+      "error": "Es ist unmöglich, das zu speichern",
+      "errorLackRequiredVariables": "Diese Vorlage konnte nicht gespeichert werden"
+    },
+    "active": {
+      "enable": "Benachrichtigung erfolgreich aktiviert",
+      "disable": "Benachrichtigung erfolgreich deaktiviert",
+      "errorEnable": "Benachrichtigung konnte nicht aktiviert werden",
+      "errorDisable": "Deaktivierung der Benachrichtigung fehlgeschlagen"
+    },
+    "editOrAddPass": {
+      "success": "Benachrichtigung erfolgreich gespeichert",
+      "error": "Benachrichtigung konnte nicht gespeichert werden"
+    },
+    "delete": {
+      "success": "Benachrichtigung erfolgreich gelöscht",
+      "error": "Benachrichtigung konnte nicht gelöscht werden"
+    },
+    "create": {
+      "success": "Benachrichtigung erfolgreich erstellt",
+      "error": "Benachrichtigung konnte nicht erstellt werden",
+      "errorLackRequiredVariables": "Dieses Template konnte leider nicht gespeichert werden"
+    }
+  },
+  "shop": {
+    "item": {
+      "updateProvisions": {
+        "error": "Fehler beim Speichern des Inventares",
+        "success": "Inventar aktualisiert"
+      },
+      "createOrUpdate": {
+        "success": "Gespeichert",
+        "error": "Fehler beim Speichern"
+      },
+      "delete": {
+        "success": "Objekt gelöscht",
+        "error": "Fehler beim Löschen"
+      },
+      "duplicate": {
+        "error": "Es ist unmöglich, dieses Produkt zu duplizieren",
+        "success": "Das Produkt wurde erfolgreich dupliziert"
+      },
+      "notFound": "Dieses Produkt wurde nicht gefunden. Möglicherweise wurde es archiviert."
+    },
+    "subShop": {
+      "createOrUpdate": {
+        "success": "Kategorie erfolgreich geändert",
+        "error": "Es ist unmöglich, diese Kategorie zu speichern"
+      },
+      "delete": {
+        "success": "Kategorie gelöscht",
+        "error": "Es ist unmöglich, die Kategorie zu löschen"
+      }
+    },
+    "variant": {
+      "error": {
+        "11000": "Kann keine Variante(n) für ein in einem Paket verwendeten Produkt erstellen",
+        "11001": "Kann kein Paket mit Variantenprodukten erstellen"
+      }
+    },
+    "supplier": {
+      "delete": {
+        "success": "Lieferant erfolgreich gelöscht",
+        "error": "Fehler beim Löschen des Lieferanten"
+      },
+      "update": {
+        "success": "Lieferant erfolgreich aktualisiert",
+        "error": "Fehler bei der Aktualisierung des Lieferanten"
+      },
+      "create": {
+        "success": "Lieferant erfolgreich erstellt",
+        "error": "Fehler beim Anlegen des Lieferanten"
+      }
+    }
+  },
+  "privatePass": {
+    "del": {
+      "error": "Es ist unmöglich, diesen Terminpass zu löschen",
+      "success": "Terminpass gelöscht"
+    },
+    "restore": {
+      "error": "Es ist unmöglich, diesen Terminpass wiederherzustellen",
+      "success": "Terminpass wiederhergestellt"
+    }
+  },
+  "metaActivity": {
+    "del": {
+      "error": "Es ist unmöglich, dieses Objekt zu löschen",
+      "success": "Objekt gelöscht"
+    },
+    "restore": {
+      "error": "Es ist unmöglich, dieses Objekt wiederherzustellen",
+      "success": "Objekt wiederhergestellt"
+    }
+  },
+  "memberNote": {
+    "delete": {
+      "success": "Die Anmerkung wurde gelöscht",
+      "error": "Es ist unmöglich, diese Anmerkung zu löschen"
+    }
+  },
+  "bookingNotification": {
+    "createOrUpdate": {
+      "error": "Benachrichtigung kann nicht gespeichert werden",
+      "success": "Benachrichtigung erfolgreich gespeichert"
+    },
+    "delete": {
+      "error": "Benachrichtigung kann nicht gelöscht werden",
+      "success": "Benachrichtigung gelöscht"
+    }
+  },
+  "background": {
+    "cannotFetch": "Ein Fehler ist aufgetreten. Überprüfe Deine Verbindung und versuche die Seite zu aktualisieren",
+    "timeout": "Der Server hat zu lange gebraucht, um zu antworten. Versuche die Seite zu aktualisieren",
+    "error": "Ein Fehler ist aufgetreten. Versuche es später erneut",
+    "success": "Fertig",
+    "pending": "in Bearbeitung ... Bitte warten"
+  },
+  "offer": {
+    "restore": {
+      "error": "Dieser Kurs kann nicht wiederhergestellt werden",
+      "success": "Wiederherstellung des Kurses"
+    }
+  },
+  "subscriptionScheduledStop": {
+    "create": {
+      "success": "Geplante Abonnementbeendigung",
+      "error": "Die Kündigung des Abonnements kann nicht programmiert werden"
+    },
+    "delete": {
+      "success": "Die geplante Kündigung des Abonnements wurde entfernt",
+      "error": "Die geplante Kündigung des Abonnements kann nicht entfernt werden"
+    }
+  },
+  "dashboard": {
+    "save": {
+      "error": "Änderungen können nicht gespeichert werden",
+      "success": "Änderungen wurden gespeichert"
+    }
+  },
+  "privateRecurrentRule": {
+    "delete": {
+      "error": "Wiederkehrender Termin kann nicht gelöscht werden",
+      "success": "Wiederkehrender Termin gelöscht"
+    },
+    "createOrUpdate": {
+      "error": "Wiederkehrende Termine können nicht gespeichert werden",
+      "success": "Die Regel für wiederkehrende Termine wurde erfolgreich gespeichert. Wir legen die Buchungen entsprechend der Parameter an.",
+      "locked": "Mit diesen Parametern existiert bereits eine Wiederholungsregel"
+    }
+  },
+  "zoom": {
+    "created": {
+      "error": "Fehler beim Verknüpfen des Zoom-Kontos",
+      "success": "Zoom-Konto erfolgreich verknüpft"
+    },
+    "bulkEditZoomEstablishments": {
+      "success": "Die Änderungen wurden gespeichert"
+    },
+    "setGroupId": {
+      "error": "Es ist nicht möglich, diese Gruppe zu verbinden. Vergewissern Sie sich, dass die ID korrekt ist und dass sie auf dem mit bsport verknüpften Zoom-Konto verfügbar ist.",
+      "success": "Zoom-Gruppe erfolgreich verknüpft"
+    }
+  },
+  "consumerPass": {
+    "success": "Dein Kauf wurde abgeschlossen!"
+  },
+  "copied": "In die Zwischenablage kopiert",
+  "contractPause": {
+    "create": {
+      "error": "Kann zu diesem Zeitpunkt nicht pausieren, versuche es später erneut"
+    },
+    "updateName": {
+      "success": "Der Name der Pause wurde geändert",
+      "error": "Der Name der Pause konnte nicht geändert werden"
+    },
+    "delete": {
+      "error": "Es ist derzeit nicht möglich, die Pause zu deaktivieren."
+    }
+  },
+  "bookerModule": {
+    "pass": {
+      "nothingAvailable": "Mit keinem Pass kannst du diese Kurse gleichzeitig buchen",
+      "changed": "Wir haben den richtigen Pass ausgewählt, um Ihre Buchung abzuschließen"
+    }
+  },
+  "paymentMethod": {
+    "detach": {
+      "pm_associated_to_pi": "Unmöglich: Sie haben ein Abonnement, das mit dieser Zahlungsmethode verknüpft ist",
+      "pm_associated_to_registered_ppe": "Unmöglich: Sie haben ein Abonnement, das mit dieser Zahlungsmethode verknüpft ist",
+      "pm_associated_to_protected_bp": "Unmöglich: Sie haben ein Abonnement, das mit dieser Zahlungsmethode verknüpft ist",
+      "last_payment_method": "Sie können Ihre einzige Zahlungsmethode nicht löschen",
+      "pm_deleted": "Gelöschte Zahlungsmethode"
+    },
+    "errors": {
+      "13000": "Fehler beim Löschen der Zahlungsmethode",
+      "13001": "Fehler beim Löschen der Zahlungsmethode",
+      "13002": "Diese Zahlungsmethode wird für zukünftige Zahlungen verwendet",
+      "13003": "Mit dieser Zahlungsmethode ist ein Abonnement verbunden",
+      "13004": "Diese Zahlungsmethode wird für zukünftige Zahlungen verwendet"
+    }
+  },
+  "settings": {
+    "update": {
+      "error": "Aktualisierung nicht möglich, bitte versuchen Sie es später erneut",
+      "success": "Aktualisierte Parameter"
+    }
+  },
+  "canNotBuyErrorCode": {
+    "1": "Der Kurs ist noch nicht buchbar",
+    "2": "Der Kurs ist nicht mehr buchbar",
+    "3": "Der Kurs ist voll",
+    "4": "Der Kurs ist nicht buchbar",
+    "5": "Sie haben sich bereits für diesen Kurs angemeldet",
+    "6": "Das Ungleichgewicht zwischen den Geschlechtern ist zu groß, Buchung nicht möglich",
+    "7": "Das Ungleichgewicht zwischen den Geschlechtern ist zu groß, Buchung nicht möglich",
+    "9": "Sie versuchen mehr Termine zu buchen, als Ihr Club zulässt",
+    "1113": "Dieses Paket ist nur für neue Mitglieder erhältlich",
+    "1114": "Sie können diese Packung nicht mehr kaufen",
+    "1122": "Dieses Paket kann nicht mehr gekauft werden, da das Gültigkeitsdatum abgelaufen ist",
+    "2002": "Dieser Kurspass ist nur für neue Mitglieder erhältlich",
+    "2003": "Sie können diesen Pass nicht mehr einlösen",
+    "2004": "Dieser Pass ist nicht zum Kauf verfügbar",
+    "2005": "Dieser Pass steht nicht zum Verkauf",
+    "2006": "Dieser Pass ist nicht kompatibel mit einer Buchung zum gewählten Datum",
+    "2007": "Diese Karte ist mit diesem Kurs nicht kompatibel",
+    "2008": "Dieser Pass ist nicht mit dieser Aktivität kompatibel",
+    "2009": "Ce laissez-passer n'est pas compatible avec cette activité",
+    "2010": "Dieser Pass ist mit diesem Ort nicht kompatibel",
+    "2011": "Mit diesem Pass können Sie keine Kurse buchen (nur VOD)",
+    "2012": "Diese Karte ist mit diesem Kurs nicht kompatibel",
+    "2014": "Sie haben die maximale Anzahl von Buchungen für diesen Tag erreicht",
+    "2015": "Sie haben die maximale Anzahl von Buchungen für diese Woche erreicht",
+    "2016": "Sie haben die maximale Anzahl von Buchungen für diesen Monat erreicht",
+    "2017": "Sie haben die maximale Anzahl von Buchungen für dieses Jahr erreicht",
+    "2025": "Dieser Pass kann nicht mehr gekauft werden, da sein Verfallsdatum überschritten wurde",
+    "6002": "Die Warteliste ist voll",
+    "6003": "Sie sind bereits auf der Warteliste",
+    "8001": "Der von Ihnen gewählte Platz ist nicht mehr verfügbar",
+    "10001": "Insuffizienter Bestand",
+    "11114": "Dieser Terminpass kann nicht mehr gekauft werden, da sein Gültigkeitsdatum abgelaufen ist",
+    "15002": "Der Artikel wurde bereits in den Warenkorb hinzugefügt, bitte warten Sie",
+    "23001": "Es ist kein Pass für die Eintragung in die Warteliste verfügbar",
+    "23002": "Sie haben die maximale Anzahl an zukünftigen Buchungen / Wartelistplätzen erreicht, Sie können nicht mehr registrieren",
+    "45004": "Der Gutschein ist nicht mehr zum Kauf verfügbar.",
+    "45005": "Der Gutschein ist nicht mehr erhältlich.",
+    "85000": "Eine Buchung ist bereits im Gange, bitte haben Sie einen Moment Geduld",
+    "85101": "Eine Buchung ist nicht möglich. Dieser Spot wurde bereits von einem anderen Mitglied gebucht. Bitte versuche es erneut, indem du einen anderen Spot auswählst.",
+    "undefined": "Sie versuchen, mehr zukünftige Sitzungen zu buchen, als Ihr Club erlaubt",
+    "generic": "Kann nicht gebucht werden",
+    "addToBasketError": "Kann dem Warenkorb nicht hinzugefügt werden"
+  },
+  "signup": {
+    "emailAlreadyExists": "Diese E-Mail ist bereits in Gebrauch",
+    "failedCreation": "Ihr Konto kann im Moment nicht erstellt werden, bitte versuchen Sie es in ein paar Minuten erneut",
+    "changeWorkspaceError": "Bei der Kontoänderung ist ein Fehler aufgetreten"
+  },
+  "paymentRuleGroups": {
+    "update": {
+      "error": {
+        "coachWithPaymentGroup": "Es ist nicht möglich, die Vergütungsregeln für einen Trainer, der einer Gruppe angehört, zu ändern",
+        "generic": "Fehler bei der Bearbeitung"
+      },
+      "success": "Erfolgreich geänderte Gruppe"
+    },
+    "create": {
+      "error": "Fehler bei der Erstellung",
+      "success": "Erreurs lors de la création"
+    },
+    "delete": {
+      "error": "Fehler bei der Erstellung",
+      "success": "Gruppe gelöscht"
+    }
+  },
+  "customForm": {
+    "customFormField": {
+      "restore": {
+        "error": "Das Element konnte nicht wiederhergestellt werden",
+        "success": "Wiederhergestelltes Element"
+      },
+      "disable": {
+        "error": "Der Artikel kann nicht registriert werden",
+        "success": "Archivierter Artikel"
+      }
+    },
+    "restore": {
+      "error": "Das Formular kann nicht wiederhergestellt werden",
+      "success": "Wiederhergestellte Form"
+    },
+    "disable": {
+      "error": "Formular kann nicht archiviert werden",
+      "success": "Archivierte Form"
+    },
+    "duplicate": {
+      "error": "Das Formular kann nicht vervielfältigt werden",
+      "success": "Doppeltes Formular"
+    },
+    "create": {
+      "error": "Das Formular kann nicht erstellt werden",
+      "success": "Formular erstellt"
+    },
+    "update": {
+      "error": "Kann das Formular nicht bearbeiten",
+      "success": "Geändertes Formular"
+    },
+    "signupViaCustomForm": {
+      "errors": {
+        "84101": "Obligatorische Felder wurden nicht ausgefüllt",
+        "84102": "Diese E-Mail ist bereits in Gebrauch",
+        "84103": "Das angegebene Geschlecht ist nicht gültig",
+        "84104": "Die Rufnummer ist ungültig"
+      },
+      "error": "Fehler bei der Registrierung, bitte versuchen Sie es erneut",
+      "success": "Anmeldung validiert"
+    },
+    "upsert": {
+      "errors": {
+        "84006": "Sie müssen unter Einstellungen > Allgemein einen Haftungsausschluss definieren, um die Frage \"Haftungsausschlüsse\" hinzufügen zu können."
+      }
+    },
+    "customFormStepper": {
+      "error": "Antworten können nicht gespeichert werden."
+    }
+  },
+  "establishmentGroup": {
+    "delete": {
+      "error": "Standort konnte nicht gelöscht werden",
+      "success": "Standort entfernt"
+    },
+    "update": {
+      "error": "Standort kann nicht geändert werden",
+      "success": "Standort geändert"
+    },
+    "create": {
+      "error": "Standort konnte nicht erstellt werden",
+      "success": "Der neue Standort ist erstellt"
+    }
+  },
+  "establishmentBillingGroup": {
+    "delete": {
+      "error": "Die Abrechnungsgruppe kann nicht gelöscht werden",
+      "success": "Fakturierungsgruppe gelöscht"
+    },
+    "update": {
+      "error": "Die Abrechnungsgruppe kann nicht geändert werden",
+      "success": "Abrechnungsgruppe geändert"
+    },
+    "create": {
+      "error": "Die Abrechnungsgruppe kann nicht erstellt werden",
+      "success": "Die neue Abrechnungsgruppe wurde erstellt"
+    }
+  },
+  "customFormDisplayRule": {
+    "customError": {
+      "3": "Die Benachrichtigungsregel kann nicht gelöscht werden"
+    },
+    "delete": {
+      "error": "Die Benachrichtigungsregel kann nicht gelöscht werden",
+      "success": "Benachrichtigungsregel gestrichen"
+    },
+    "update": {
+      "error": "Die Benachrichtigungsregel kann nicht geändert werden",
+      "success": "Geänderte Meldevorschrift"
+    },
+    "create": {
+      "error": "Die Benachrichtigungsregel kann nicht erstellt werden",
+      "success": "Benachrichtigungsregel erstellt"
+    }
+  },
+  "quickbooks": {
+    "revoke": {
+      "error": "Sie können sich nicht von Ihrem Quickbooks-Konto abmelden",
+      "success": "Ihr Quickbooks-Konto ist abgemeldet"
+    },
+    "create": {
+      "error": "Sie können sich nicht bei Ihrem Quickbooks-Konto anmelden",
+      "success": "Ihr Quickbooks-Konto ist jetzt authentifiziert"
+    }
+  },
+  "platformBilling": {
+    "payNowInvoice": {
+      "error": "Zahlung verweigert",
+      "success": "Erfolgreiche Zahlung"
+    }
+  },
+  "clientSecret": {
+    "errors": {
+      "12102": "Eine Zahlung wird bereits bestätigt, kommen Sie später zurück, um eine neue Zahlung zu registrieren.",
+      "12909": "Zahlungen sind für dieses Studio deaktiviert"
+    }
+  },
+  "companyTheme": {
+    "update": {
+      "success": "Gespeicherte Änderungen",
+      "error": "Änderungen können nicht gespeichert werden"
+    },
+    "provincialTax": {
+      "customError": {
+        "80001": "Die Provinzsteuer ist in Ihrem Land nicht verfügbar"
+      },
+      "error": "Fehler bei der Registrierung der Provinzialtaxe",
+      "success": "Registrierte Provinzsteuer"
+    }
+  },
+  "automatedCampaign": {
+    "17000": "Es ist ein Fehler aufgetreten",
+    "17101": "Fehler: Titel erforderlich",
+    "17102": "Fehler: Inhalt der E-Mail ist erforderlich",
+    "17103": "Fehler: SMS-Inhalt erforderlich",
+    "17104": "Fehler: Titel der Meldung erforderlich",
+    "17105": "Fehler: Inhalt der Benachrichtigung erforderlich",
+    "170001": "Fehler: Ungültige Höchstzahl an Sendungen pro Mitglied"
+  },
+  "replacement": {
+    "errors": {
+      "50000": "Der Kurs ist bereits vorbei",
+      "50007": "Sie können diese Vertretungsanfragen nicht stellen, weil Sie nicht genügend ausstehende überfällige Anfragen haben.",
+      "50008": "Der Anmeldeschluss kann nicht über das Datum des Kurses hinaus verschoben werden.",
+      "50009": "Sie können diesen Anfrage nicht ablehnen, da bereits eine Lehrkraft zugewiesen wurde.",
+      "50010": "Sie können diese Anfrage nicht stornieren, da bereits eine Lehrkraft zugewiesen wurde.",
+      "50011": "Für diese Anfrage wurde bereits eine Lehrkraft zugewiesen.",
+      "50012": "Diese Lehrkraft antwortete, dass sie für diesen Kurs nicht einspringen wolle.",
+      "50013": "Sie können nicht mehr auf diese Vertretungsanfrage reagieren.",
+      "50015": "Sie können nicht auf Ihre eigene Vertretungsanfrage reagieren",
+      "50020": "Diese Vertretungsanfrage wurde abgelehnt: Löschen nicht möglich",
+      "50021": "Sie können nicht gleichzeitig Einrichtungen und Standorte angeben.",
+      "80002": "Der Wert \"Anzahl der Tage, an denen die Anfrage verspätet ist\" muss größer sein als der Wert \"Anzahl der Tage, an denen die Anfrage geschlossen ist\".",
+      "80003": "Fehlende Einstellungen für Grenzwerte für verspätete Anfragen.",
+      "500001": "Es liegt bereits eine Vertretungsanfrage vor",
+      "500004": "Sie sind bereits Vertretungskraft diesen Kurs"
+    },
+    "disciplineGroup": {
+      "create": {
+        "success": "Disziplingruppen erstellt",
+        "error": "Beim Erstellen der Disziplingruppen ist ein Fehler aufgetreten"
+      },
+      "delete": {
+        "success": "Disziplingruppe gelöscht",
+        "error": "Es ist nicht möglich diese Disziplingruppe zu löschen"
+      },
+      "update": {
+        "success": "Disziplingruppen bearbeiten",
+        "error": "Beim Bearbeiten der Disziplingruppen ist ein Fehler aufgetreten"
+      }
+    },
+    "assignDisciplineGroup": {
+      "success": "Die Aktivitäten der Lehrkraft wurden aktualisiert "
+    },
+    "updateCoachReplacementPreferences": {
+      "success": "Gespeicherte Regeln",
+      "error": "Regeln können nicht gespeichert werden"
+    },
+    "cancelReplacementRequest": {
+      "error": "Beim Löschen der Anfrage ist ein Fehler aufgetreten.",
+      "success": "Die Anfrage auf Vertretung wurde gelöscht."
+    }
+  },
+  "communicationProviderSettings": {
+    "update": {
+      "error": "Änderungen können nicht gespeichert werden",
+      "success": "Registrierte Änderungen"
+    }
+  },
+  "accessDenied": {
+    "general": {
+      "message": "Sie haben keinen Zugriff auf den gewünschten Bereich",
+      "title": "Zugriff verweigert"
+    }
+  },
+  "plannedPayment": {
+    "registerNow": {
+      "error": "Zahlung kann nicht gespeichert werden",
+      "success": "Zahlung gespeichert"
+    }
+  },
+  "marketplace": {
+    "update": {
+      "stripeTerminal": {
+        "deleteReader": {
+          "success": "Zahlungsterminal gelöscht",
+          "error": "Dieser Zahlungsterminal kann nicht gelöscht werden"
+        }
+      },
+      "error": "Es ist ein Fehler aufgetreten. Bitte überprüfen Sie die angeforderten Einstellungen."
+    }
+  },
+  "communicationv2": {
+    "success": "Benachrichtigung wird gesendet",
+    "error": "Problem beim Senden der Benachrichtigung"
+  },
+  "clockIn": {
+    "errors": {
+      "96002": "Dieser Benutzer ist bereits eingestempelt"
+    }
+  },
+  "refreshInternalAccountPrepaidLines": {
+    "15002": "Ein Vorgang ist bereits im Gange. Bitte warte einen Moment"
+  },
+  "requestCurrentBasket": {
+    "15002": "Das Abrufen der Informationen aus dem Warenkorb ist bereits im Gange"
+  },
+  "removeItem": {
+    "15002": "Der Artikel wird bereits aus dem Warenkorb entfernt, bitte warte",
+    "15009": "Es ist nicht möglich, diesen Artikel zu entfernen: Ihr Warenkorb wird noch bearbeitet"
+  },
+  "smartListPopup": {
+    "send": {
+      "error": "Beim Senden Ihres Pop-ups ist ein Fehler aufgetreten."
+    }
+  },
+  "cadence": {
+    "create": {
+      "error": "Beim Erstellen der Kadenz ist ein Fehler aufgetreten",
+      "success": "Eine neue Kadenz wurde erstellt"
+    },
+    "update": {
+      "error": "Beom Bearbeiten der Kadenz ist ein Fehler aufgetreten",
+      "success": "Ihre Kadenz wurde aktualisiert"
+    }
+  },
+  "instalmentPayment": {
+    "16000": "Der Betrag der ersten Ratenzahlung muss größer als Null sein",
+    "16001": "Der Prozentsatz des Gesamtbetrags muss zwischen 0 und 100 festgelegt werden",
+    "16002": "Die Anzahl der Ratenzahlungen muss gleich 1 sein, um die Option \"Teilzahlung\" zu aktivieren",
+    "16003": "Die Anzahl der Zahlungseingänge muss größer als 2 sein, um die Option 'Ersten Betrag anpassen' zu aktivieren"
+  },
+  "giftCard": {
+    "notFound": "Dieser Gutscheine wurde nicht gefunden. Er wurde möglicherweise archiviert."
+  },
+  "modifyBasket": {
+    "15004": "Der Warenkorb wird gerade bearbeitet, bitte versuchen Sie es in ein paar Minuten erneut",
+    "addItemSuccess": "Produkt zum Warenkorb hinzugefügt"
+  },
+  "quicksaleConfiguration": {
+    "updated": "Gespeicherte Konfiguration",
+    "error": "Beim Speichern ist ein Fehler aufgetreten"
+  },
+  "spivi": {
+    "error": {
+      "21000": "Der Spivi-Upsell ist nicht aktiviert.",
+      "21001": "Es wurde kein Raumplan ausgewählt",
+      "21002": "Der ausgewählte Raumplan muss eine Box-ID haben, damit der Kurs mit Spivi verknüpft werden kann",
+      "21003": "Die mit Spivi verbundenen Kurse sollten zwischen 20min und 4h dauern",
+      "21004": "Die Doppelbuchung ist nicht mit der Spivi-Integration kompatibel"
+    }
+  },
+  "smartlistGetMembers": {
+    "error": "Es ist ein Fehler aufgetreten: Die Mitglieder können nicht abgerufen werden"
+  },
+  "communicationSentGroupConfig": {
+    "duplicate": {
+      "error": "Duplizieren der Kampagne nicht möglich",
+      "success": "Kampagne dupliziert"
+    },
+    "delete": {
+      "error": "Löschen der Kampagne nicht möglich",
+      "success": "Kampagne gelöscht"
+    },
+    "update": {
+      "error": "Speichern der Kampagne nicht möglich",
+      "success": "Kampagne erfolgreich aktualisiert"
+    },
+    "create": {
+      "error": "Erstellung der Kampagne nicht möglich",
+      "success": "Kampagne erfolgreich erstellt"
+    }
+  },
+  "audience": {
+    "create": {
+      "error": "Bei der Erstellung von {{ workflowLowerCase }} ist ein Fehler aufgetreten",
+      "success": "Ein neuer {{ workflowLowerCase }} wurde erstellt"
+    },
+    "update": {
+      "error": "Beim Bearbeiten des {{ workflowLowerCase }} ist ein Fehler aufgetreten",
+      "success": "Ihr {{ workflowLowerCase }} wurde aktualisiert"
+    }
+  },
+  "privateSlot": {
+    "notAvailableForBookingAnymore": "Dieser Platz ist nicht mehr verfügbar.",
+    "notCompatibleWithPartnership": "Der Kurs wurde nicht gespeichert. Bitte versuchen Sie es erneut."
+  },
+  "tag": {
+    "error": {
+      "124003": "Der Name des Untertags wird bereits verwendet",
+      "124004": "Der Hauptname des Tags wird bereits verwendet"
+    }
+  },
+  "mergeError": {
+    "content": "Bitte versuchen Sie es erneut oder kontaktieren Sie den Support für weitere Informationen",
+    "title": "Die Zusammenführung ist fehlgeschlagen"
+  },
+  "mergeSuccess": {
+    "seeMemberProfile": "Siehe Mitgliederprofil",
+    "content": "Eine E-Mail wurde an beide Adressen geschickt, um die Mitglieder zu informieren",
+    "title": "Die Zusammenführung ist erfolgreich verlaufen"
+  },
+  "bookkeeping_account": {
+    "delete": {
+      "success": "Das Konto wurde erfolgreich gelöscht.",
+      "error": "Beim Löschen des Kontos ist ein Fehler aufgetreten."
+    },
+    "update": {
+      "success": "Die Änderungen wurden erfolgreich gespeichert.",
+      "error": "Beim Aktualisieren des Kontos ist ein Fehler aufgetreten."
+    },
+    "create": {
+      "success": "Das Konto wurde erfolgreich erstellt.",
+      "error": "Beim Erstellen des Kontos ist ein Fehler aufgetreten."
+    },
+    "errors": {
+      "1": "Ein Konto mit diesem Namen existiert bereits."
+    }
+  },
+  "paypal": {
+    "35009": "Sie können kein Konto verwenden, das bereits mit einem anderen Anbieter verbunden ist.",
+    "onboardingUrlFetchFailed": "Beim Versuch, den Onboarding-Link von PayPal abzurufen, ist ein Fehler aufgetreten",
+    "couldNotReachPayPal": "Wir konnten PayPal nicht erreichen. Bitte versuchen Sie es später noch einmal.",
+    "connectionAttemptSucceeded": "Das PayPal-Konto wurde erfolgreich verbunden",
+    "connectionAttemptFailed": "Bei der Verbindung zu PayPal ist ein Fehler aufgetreten"
+  },
+  "canNotExecutePaymentAttempt": {
+    "12102": "Ihre Zahlung wird bereits bearbeitet, bitte warten Sie",
+    "12107": "Ihre Zahlung ist fehlgeschlagen, bitte versuchen Sie es erneut.",
+    "12108": "Ihre Zahlung wird bereits bearbeitet, bitte warten Sie",
+    "12109": "Ihre Zahlung ist fehlgeschlagen, bitte versuchen Sie es erneut.",
+    "12110": "Ihr Warenkorb stimmt nicht mit dem Betrag überein, den Sie zu bezahlen versucht haben. Wir haben Ihren Warenkorb aktualisiert, bitte versuchen Sie es erneut",
+    "35000": "Ihre PayPal-Zahlung ist fehlgeschlagen. Bitte versuchen Sie es erneut oder verwenden Sie eine andere Zahlungsmethode",
+    "35006": "Ihr PayPal-Konto kann die Zahlung nicht verarbeiten. Bitte versuchen Sie es erneut mit einem anderen Konto",
+    "35012": "Ihre Karte ist abgelaufen",
+    "35013": "Ihre Zahlung ist fehlgeschlagen, bitte wählen Sie eine andere Zahlungsmethode.",
+    "35015": "Ihre PayPal-Zahlung ist fehlgeschlagen. Bitte versuchen Sie es erneut oder verwenden Sie eine andere Zahlungsmethode",
+    "generic": "Ihre Zahlung ist fehlgeschlagen, bitte versuchen Sie es erneut",
+    "failedLoadingPayPalScript": "Beim Laden von PayPal ist ein Fehler aufgetreten"
+  },
+  "cancelPayPalPaymentAttempt": "Ihr Zahlungsversuch wurde abgebrochen. Bitte versuchen Sie es erneut.",
+  "wellhub": {
+    "configureWebhooks": {
+      "success": "Ihre ID der Einheit wurde erfolgreich verknüpft",
+      "error": "Während der Konfiguration ist ein Fehler aufgetreten"
+    }
+  },
+  "privateService": {
+    "notCompatibleWithPartnership": "Der Termin wurde nicht gespeichert. Bitte versuchen Sie es erneut."
+  },
+  "oneClickBooking": {
+    "genericError": "Wir konnten deine Buchung nicht abschließen. Bitte kontrolliere deine Angaben und versuche es nochmal."
+  }
+}

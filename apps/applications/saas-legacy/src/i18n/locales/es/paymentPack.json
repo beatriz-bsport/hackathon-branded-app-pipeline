@@ -1,0 +1,891 @@
+{
+  "consumer": {
+    "bookingsThisWeek": "reserva(s) esta semana",
+    "expiresOn": "Expira el ",
+    "isFromDisabledShare": "Reparto detenido",
+    "isOwnerOfShares": "Compartido (bono maestro)",
+    "isFromShare": "Compartido desde otra cuenta"
+  },
+  "validity": "Válido desde ",
+  "maxNBookingsByWeek2": " reservas por semana",
+  "maxNBookingsByWeek1": "Hasta ",
+  "enableConsumer": "Desbloquear",
+  "disableConsumer": "Bloquear",
+  "disabled": "Desactivado",
+  "paymentPackDisabled": {
+    "error": "No es posible suprimir",
+    "success": "Bono suprimido"
+  },
+  "isNonCompatible": "incompatible",
+  "use": "Usar",
+  "subscribeToOffer": "Inscribir",
+  "privatePacksTitle": "Tarjetas no disponibles para la venta",
+  "publicPacksTitle": "Tarjetas disponibles para la venta",
+  "newMemberOnly": "Disponible solo para nuevos registrantes",
+  "details": {
+    "extensionsTitle": "Extensiones de validez",
+    "bookingsTitle": "Reservas asociadas",
+    "refundTitle": "Reembolso asociado",
+    "invoiceTitle": "Factura asociada",
+    "shareAPass": "Compartir un bono",
+    "pleaseSelectAPack": "Selecciona una tarjeta para ver el detalle",
+    "trackModifiedCreditTitle": "Historial de creditos modificados",
+    "penaltyBlock": "Tarjeta bloqueada durante {{nb_days}} días",
+    "penaltyAccount": "Facturación adicional de {{account_value}} {{currencyDisplay }}",
+    "penaltyTitle": "Penalizaciones aplicadas"
+  },
+  "form": {
+    "paymentPack": {
+      "delete": {
+        "actions": {
+          "submit": "Suprimir",
+          "cancel": "Cancelar"
+        },
+        "thereAreConsumers": "Atención ! Los miembros han comprado este bono, si lo borras aún podrán usar sus créditos restantes. Puedes reducirlos manualmente a cero aquí. \nEl bono ya no aparecerá en su tienda para nuevos compradores.",
+        "askConfirmation": "Tiene en cuenta que esta operación es final. La tarjeta ya no estará visible y no estará disponible para la compra.",
+        "title": "Supresión de la tarjeta:",
+        "isUsedInCombo": "¡Atención! Esta tarjeta de curso se utiliza en un pack, que ya no estará disponible para la venta si se elimina esta tarjeta de curso."
+      },
+      "update": {
+        "error": "Bono: error durante la operación",
+        "success": "Bono: operación realizada exitosamente"
+      },
+      "noneMeansAll": "Dejar en blanco para permitir todo",
+      "restrictionsTitle": "Restricciones",
+      "establishments": "Establecimiento",
+      "activities": "Actividad",
+      "sports": "Categoría",
+      "actions": {
+        "create": "Guardar",
+        "edit": "Modificar",
+        "cancel": "Cancelar",
+        "skip": "Pasar",
+        "back": "Atrás",
+        "next": "Siguiente",
+        "submit": "Guardar"
+      },
+      "durationYears": {
+        "helperText": "Se suma a la cantidad de días y de meses",
+        "label": "Período de validez (años) si corresponde"
+      },
+      "durationMonths": {
+        "helperText": "Se suma a la cantidad de días",
+        "label": "Período de validez (mes) si corresponde"
+      },
+      "durationDays": {
+        "helperText": "Período en días durante el cual la tarjeta será válida después de la compra ",
+        "label": "Período de validez (días) si corresponde"
+      },
+      "validByDaterange": "Tarjeta válida en una fecha específica",
+      "validByDuration": "Tarjeta válida N días después de la compra",
+      "generalSettingsTitle": "General",
+      "timeSettingsTitle": "Validez de la tarjeta",
+      "start_date_method": {
+        "on_attendance": "Comienza en primera presencia",
+        "on_booking": "Comienza en la primera reserva",
+        "on_purchase": "Comienza con la facturación"
+      },
+      "helper": {
+        "ending_date": "Fin de la validez del pase, déjalo vacío para que permanezca siempre activo",
+        "starting_date": "Comienzo de la validez del pase, déjalo en blanco para que sea válido de inmediato"
+      },
+      "managerOnly": "Invisible para los clientes",
+      "expirationDaysBeforeFirstUse": {
+        "helperText": "Si no se consume el bono por primera vez durante este número de días, se invalida",
+        "label": "Vencimiento si no hay reserva inicial"
+      },
+      "startOnFirstUseHelper": "De lo contrario, la cuenta regresiva comienza el día de la facturación del pase",
+      "startOnFirstUse": "El recuento de validez comienza el día de la primera reserva",
+      "onsitePaymentAvailable": "Posibilidad de pagar en el acto",
+      "newMemberOnly": "Solo para nuevos clientes",
+      "maxBookingPerWeek": {
+        "helperText": "Dejar en blanco para no imponer un límite",
+        "label": "Uso max por semana"
+      },
+      "credits": {
+        "bewareChange": "Si aumenta el número de créditos, todas las tarjetas existentes se verán afectadas. Lo mismo si disminuye la cantidad de créditos.",
+        "helperText": "Cantidad de créditos disponibles",
+        "label": "Crédito"
+      },
+      "theoricalMarginValue": {
+        "helperText": "Utilizado para calcular la remuneración de los profesores, 10{{currency}} significa que una reserva realizada con esta tarjeta se remunera con 10{{currency}}. Si está vacío o es 0{{currency}} la contribución de una tarjeta será PRECIO/NB_RESERVA",
+        "label": "Contribución marginal teórica incluyendo impuestos (tarjeta ilimitada solamente)"
+      },
+      "unlimited": "Créditos ilimitados",
+      "priceIncludingTax": {
+        "label": "Precio con impuestos incluidos",
+        "helperText": "El precio total de venta del pase."
+      },
+      "tax": {
+        "label": "IVA"
+      },
+      "name": {
+        "helperText": "Nombre del bono",
+        "label": "Nombre"
+      },
+      "until": "Hasta ",
+      "notEditable": "Este bono es el resultado de una migración, algunos campos no se pueden modificar para respetar el historial. Las actividades/categorías compatibles siguen siendo modificables.",
+      "from": "Desde ",
+      "maxPurchasePerMember": {
+        "helperText": "Dejar en blanco para no imponer un límite",
+        "label": "Compra máxima por miembro"
+      },
+      "maxBookingPerDay": {
+        "helperText": "Dejar en blanco para no imponer un límite",
+        "label": "Uso máximo por día"
+      },
+      "full_vod_access": "Proporciona acceso a la VOD siempre que sea válido en el tiempo",
+      "maxBookingPerMonth": {
+        "helperText": "Dejar en blanco para no imponer un límite",
+        "label": "Uso máximo por mes"
+      },
+      "penalty": {
+        "account": {
+          "label": "Cargo en la cuenta:",
+          "helperText": "Se aplicará un cargo de {{value}} a este miembro"
+        },
+        "nb_cancellations": "Número de cancelaciones :",
+        "title": "Penalizaciones",
+        "checkbox": "Aplicar una penalización en caso de demasiadas cancelaciones tardías",
+        "explain": "Se aplicará una penalización si hay {{nb_cancellations}} cancelaciones tardías durante un período de {{nb_days}} días",
+        "nb_days": "Número de días:",
+        "kind": {
+          "label": "Seleccione el tipo de penalización a aplicar",
+          "block": "Bloquear temporalmente el bono",
+          "account": "Crear un cargo en la cuenta del miembro involucrado"
+        },
+        "block": {
+          "label": "Período de bloqueo del bono (en días) :",
+          "helperText": "El bono será bloqueado por {{nb_days}} días"
+        },
+        "deleteNoShowDialog": {
+          "text": "Se suprimieron los pases ilimitados con penalización por no presentarse. Hemos desactivado la función \"pasar lista\", por lo que ya no tendrás que pasar lista en cada sesión.",
+          "title": "Penalizaciones suprimidas"
+        },
+        "noShowDialog": {
+          "alert": "Puede establecer las condiciones de no presentarse en los ajustes de personalización.",
+          "text": "Acaba de crear las penalizaciones por no presentarse.  Hemos activado la función \"pasar lista\", ahora debes pasar lista en cada sesión para activar las penalizaciones.",
+          "title": "Penalizaciones por no presentarse"
+        },
+        "bothPenaltiesInfo": "Se aplicará una penalización si hay {{penalityNumberNoShow}} cancelación tardía o \"no se presenta\" dentro de un período de {{penalityNumberDay}} días.",
+        "bothPenaltiesInfo_plural": "Se aplicará una penalización si hay {{penalityNumberNoShow}} cancelaciones tardías o \"no se presenta\" dentro de un período de {{penalityNumberDay}} días.",
+        "bothPenaltiesNumber": "Número de cancelaciones y no se presenta",
+        "noShowPenaltyInfo": "Se aplicará una penalización si hay {{penalityNumberNoShow}} \"no se presenta\" en un período de {{penalityNumberDay}} días.",
+        "noShowPenaltyInfo_plural": "Se aplicará una penalización si hay {{penalityNumberNoShow}} \"no se presenta\" en un período de {{penalityNumberDay}} días.",
+        "noShowPenaltyNumber": "Número de \"no se presenta\"",
+        "noShowPenaltyAlert": "Para definir cuando un miembro es considerado ausente (no se presenta) por favor vaya a Parámetros>Personalización",
+        "penaltyParamsText": "Aplicar el mismo baremo a las anulaciones tardías y a las ausencias (no se presenta)",
+        "penaltyParams": "Parámetros de penalización",
+        "bothPenaltiesTitle": "Penalizaciones por cancelación tardía y no presentarse",
+        "noShowPenaltyTitle": "Penalizaciones por no presentarse",
+        "cancellationsPenaltyTitle": "Penalizaciones por cancelación tardía",
+        "errorNoPenaltyRule": "No puede guardar sus cambios, debe elegir una penalización o desactivar las penalizaciones para continuar",
+        "noShowCheckbox": "Demasiados \"no se presenta\"",
+        "cancellationsCheckbox": "Demasiadas cancelaciones tardías",
+        "titleCheckbox": "Aplicar una penalización por",
+        "helperText": "Aplicar una penalización a los miembros con demasiadas ausencias o cancelaciones tardías. ",
+        "label": "Aplicar una penalización"
+      },
+      "only_vod_access": "Sólo para VOD",
+      "category": {
+        "label": "Categoría (opcional)",
+        "helperText": "Nombre de la categoría"
+      },
+      "error": {
+        "start_date_method_type": "Indique el inicio de la validez de la tarjeta."
+      },
+      "advancedOptions": {
+        "tag": {
+          "doNotSelectToAllowAllMembers": "Deje este campo vacío para que esté disponible para todos los miembros.",
+          "notAllowedFor": "No está permitido para",
+          "notAllowed": "No disponible",
+          "allowedFor": "Autorizado para",
+          "allowed": "Disponible",
+          "helperText": "Utilice etiquetas para que esta oferta esté disponible o no para la compra por parte de determinados segmentos de su base de clientes.",
+          "header": "Etiquetas",
+          "tagsOnAcquisitionHelper": "Etiqueta a los miembros que hayan comprado este pase para identificarlos rápidamente en el futuro.",
+          "tagsOnAcquisition": "Aplicar etiquetas después de la compra",
+          "selectTags": "Seleccionar etiquetas"
+        },
+        "header": "Avanzado",
+        "appliesForPayroll": {
+          "label": "Las clases compradas con este pase se incluyen en la nómina del profesor.",
+          "helperText": "Las clases se facturan al estudio y se incluyen en la nómina del profesor de forma predeterminada. Desactive esta configuración para asegurarse de que las clases asociadas a este pase ya no aparezcan en las nóminas de los profesores.",
+          "header": "Nómina de profesores"
+        }
+      },
+      "universalPass": {
+        "deativatedTags": "Discapacitados para las tarjetas universales",
+        "helperText": "Los pases universales pueden ser utilizados por los miembros para reservar tanto actividades grupales como citas. Cada vez que se compra un pase universal, añadiremos automáticamente un pase de cita «gemelo» para compartir los créditos entre los dos tipos de pases.",
+        "marketplaceLabel": "Tarjeta universal. Se puede utilizar para cursos y citas en grupo.",
+        "label": "Tarjeta universal",
+        "warningIsUniversalPass": "Este bono es un bono universal, se ha creado un bono gemelo en las tarjetas de cita. Todos los campos modificados en este bono se modificarán también en el bono gemelo (excepto la categoría). Lo mismo ocurre con las notificaciones, las prórrogas y las modificaciones de crédito."
+      },
+      "highlightedAsRecommended": {
+        "label": "Marcar como recomendado",
+        "helperText": "Destaque este pase para sus miembros promocionándolo en la sección «recomendado» del proceso de reserva."
+      },
+      "notification": "Notificaciones",
+      "detailsAndRestrictions": "Detalles y condiciones",
+      "noNotificationsWarning": "Aún no tienes notificaciones configuradas. Para crear nuevas notificaciones, vaya a <strong>Marketing > Notificaciones.</strong>"
+    }
+  },
+  "extension": {
+    "create": {
+      "nbDays": {
+        "label": "Número de días adicionales"
+      },
+      "note": {
+        "label": "Notes"
+      },
+      "warning": "Verifica que la nueva fecha no provoque que este pase exceda el nuevo período fiscal. Si este es el caso, verifica con tu contador la relevancia de esta operación.",
+      "explain": {
+        "newDate": "Nueva fecha: ",
+        "oldDate": "Fecha antigua: "
+      },
+      "submit": "Crear",
+      "cancel": "Cancelar",
+      "title": "Ampliar la validez del bono",
+      "datePicker": {
+        "label": "Nueva fecha"
+      }
+    },
+    "delete": {
+      "confirm": "Confirmar",
+      "cancel": "Cancelar",
+      "explain": "¿Estás seguro de que quieres suprimir la extensión?",
+      "title": "Supresión de la extensión"
+    },
+    "addedOn": "Añadido el: ",
+    "nbDaysAdded": "+{{count}} día",
+    "nbDaysAdded_plural": "+{{count}} días",
+    "options": {
+      "addNumberOfDays": "Ampliar la validez añadiendo un número de días",
+      "selectNewEndDate": "Fijar una nueva fecha de fin de validez"
+    },
+    "seeMore": "Ver más",
+    "seeLess": "Ver menos"
+  },
+  "search": "Buscar una tarjeta",
+  "notification": {
+    "0": {
+      "second": "días de validez en la tarjeta",
+      "first": "Notificar cuando se queda "
+    },
+    "1": {
+      "second": "créditos",
+      "first": "Notificar cuando se queda"
+    },
+    "2": {
+      "second": "dias",
+      "first": "Notificar cuando la tarjeta haya expirado desde "
+    },
+    "form": {
+      "smartListHelperInclude": "Envía un email solo si el miembro pertenece a una de las siguientes listas",
+      "smartListHelper": "No envía un email si el miembro pertenece a una de las siguientes listas",
+      "warning": "Al no seleccionar ninguna smartlist, corres el riesgo de notificar a los miembros que ya han comprado otro bono",
+      "createSmartList": "Crear una smartlist",
+      "cancel": "Cancelar",
+      "submit": "Validar",
+      "hideMail": "Esconder el mail",
+      "settingTitle": "Parámetros",
+      "showMail": "Ver email",
+      "smartListSelection": "Elegir listas (opcional)",
+      "mailSelection": "Elegir un email",
+      "daysPastType": "Días de vencimiento",
+      "daysType": "Días de validez restantes",
+      "creditType": "Créditos restantes",
+      "typeTitle": "Tipo de notificación",
+      "mailTitle": "Mail para enviar",
+      "selectToShowPreview": "Selecciona un email para tener su visión general",
+      "noMailAvailable": "Ningún mail disponible, recorda crear uno",
+      "pushTitle": "Configuración de las notificaciones",
+      "mailSettings": "Configuración del correo",
+      "creditNotificationType": {
+        "onOfferStart": "Fin de la sesión en la que la reserva ha hecho que el número de créditos sea inferior al umbral definido anteriormente",
+        "onBooking": "Reserva que hace pasar el número de créditos por debajo del umbral definido anteriormente"
+      },
+      "chooseTime": {
+        "secondOnOfferStart": "hora(s) después de la sesión",
+        "secondOnBooking": "hora(s) después de la reserva",
+        "first": "Enviar un email"
+      },
+      "contractTitle": "Suscripción",
+      "dontSendIfInContract": "No enviar cuando la tarjeta está en una suscripción",
+      "infoContract": "Los miembros que hayan obtenido esta tarjeta como parte de una suscripción sólo recibirán notificaciones sobre la suscripción y no sobre la tarjeta. Desactivando esta opción, recibirán ambos.",
+      "notificationNamePlaceholder": "Nombre de la notificación",
+      "generalTitle": "General"
+    },
+    "addButton": "Añadir una notificación",
+    "listItem": {
+      "smartListInclude": "Listas incluidas",
+      "smartList": "Listas excluidas",
+      "deleteModal": {
+        "content": "¿Estás seguro de que quieres suprimir esta notificación? Esta operación es final",
+        "confirm": "Suprimir",
+        "cancel": "cancelar",
+        "title": "Supresión notificación"
+      },
+      "mail": "Mail "
+    },
+    "daysPast": {
+      "second": "días",
+      "first": "Notificar cuando el pase haya expirado"
+    },
+    "daysLeft": {
+      "second": "días",
+      "first": "Notificar cuando quede"
+    },
+    "creditsLeft": {
+      "second": "créditos restantes",
+      "first": "Envía un email cuando haya",
+      "helperText": "Esta notificación se activa cuando queda {{count}} crédito",
+      "helperText_plural": "Esta notificación se activa cuando quedan {{count}} créditos"
+    },
+    "daysPastLabel": "Notificar cuando el pase ha caducado el {{day}} día",
+    "daysPastLabel_plural": "Notificar cuando el pase ha caducado el {{day}} días",
+    "daysLeftLabel": "Notificar cuando queda {{day}} día de validez del pase",
+    "daysLeftLabel_plural": "Notificar cuando queda {{day}} días de validez del pase",
+    "creditsLeftLabel": "Notificar cuando quedan {{count}} crédito",
+    "creditsLeftLabel_plural": "Notificar cuando quedan {{credit}} créditos",
+    "creditsLeftOnOfferStart": "{{hours}}h después de la sesión",
+    "creditsLeftOnBooking": "{{hours}}h después de la reserva"
+  },
+  "notificationToolTip": "Se han establecido notificaciones para esta tarjeta",
+  "noPaymentPack": "Los bonos permiten a los miembros registrarse a las actividades, es necesario tener un bono para registrarse.",
+  "consumerPaymentPack": {
+    "details": {
+      "actions": {
+        "refund": "Reembolso de créditos al saldo",
+        "applyVoucher": "Devolver dinero al saldo"
+      }
+    },
+    "refund": {
+      "actions": {
+        "submit": "Guardar",
+        "cancel": "Cancelar"
+      },
+      "warning": "Tienes en cuenta que esta operación es irreversible (generación de factura).",
+      "explain": "Elige la cantidad de créditos que se reembolsarán, así como el valor total que se acreditará en el anticipo del miembro",
+      "credits": {
+        "label": "Crédito para deducir",
+        "decimalCredit": {
+          "helperText": "{{count}} crédito será deducido",
+          "helperText_plural": "{{count}} créditos serán deducidos"
+        }
+      },
+      "note": {
+        "label": "Nota"
+      },
+      "description": "{{ credits }} crédito - {{ note }}",
+      "description_plural": "{{ credits }} créditos - {{ note }}",
+      "price": {
+        "label": "Cantidad a acreditar"
+      },
+      "title": "Reembolso",
+      "warningSecond": "Si desea reembolsar al cliente por transferencia con el método de pago utilizado, cancele la facturación y no le reembolse a crédito!",
+      "warningFirst": "Advertencia, esta operación es irreversible (generación de factura).",
+      "blockUnlimited": "Bloquear la tarjeta",
+      "error": {
+        "2029": "El importe del reembolso supera el importe de la compra. Vuelve a intentarlo con un importe inferior.",
+        "2030": "El número de créditos a deducir excede el número de créditos del pase. Vuelva a intentarlo con un número inferior.",
+        "2031": "Se ha producido un error. Por favor, inténtelo de nuevo.",
+        "default": "Se ha producido un error. Por favor, inténtelo de nuevo."
+      }
+    },
+    "addExtension": "Añadir una extensión",
+    "maxout": {
+      "dialog_message": "Atención, este bono ya ha alcanzado su límite de {{count}} reservas por {{unit}}. ¿Aún quiere reservar con este bono? ",
+      "dialogTitle": "Límite de reservas alcanzado",
+      "months": "mes",
+      "weeks": "semana",
+      "days": "día",
+      "limit_reach": "Límite de reservas por {{unit}} alcanzado"
+    }
+  },
+  "scaleCredit": {
+    "actions": {
+      "submit": "Guardar",
+      "cancel": "Cancelar"
+    },
+    "factor": {
+      "label": "Factor"
+    },
+    "scaleUp": "Multiplicar",
+    "scaleDown": "Dividir",
+    "parameterLegend": "Parámetros",
+    "explain": "Puedes multiplicar los créditos en la tarjeta (3/7 x2 se convierte en 6/14) o dividirlos en caso de error (3/7 ÷ 2 se convierte en 1/3): redondeado hacia abajo.",
+    "title": "Modificación del total de crédito"
+  },
+  "actions": {
+    "scaleCredit": "Mult/div créditos",
+    "delete": "Suprimir",
+    "edit": "Modificar",
+    "massExtension": "Extender la validez",
+    "close": "Cerrar"
+  },
+  "notificationForm": "Formulario de notificación",
+  "link": {
+    "copyLink": "Copia el enlace a la página de pago",
+    "copied": "Enlace copiado"
+  },
+  "reverted": "Factura cancelada",
+  "noConsumerPack": "Ninguna compra registrada",
+  "credit": {
+    "updated": "Créditos actualizados"
+  },
+  "noRestrictionOnActivityType": "Todas las actividades son compatibles con esta tarjeta",
+  "boughtConsumerPaymentPacks": "Suscriptores",
+  "anyActivity": "Cualquier actividad",
+  "availableOnFollowingActivities": "Actividades elegibles: ",
+  "anySport": "Cualquier categoría",
+  "availableOnFollowingEstablishments": "Lugares elegibles: ",
+  "availableOnFollowingSports": "Categorías elegibles: ",
+  "specifications": {
+    "price": "{{price, price}}",
+    "unlimitedCredits": "Ilimitado",
+    "nbCredits": "{{credits}} crédito",
+    "nbCredits_plural": "{{credits}} créditos"
+  },
+  "ht": "Sin IVA",
+  "credits": "Crédito",
+  "credits_plural": "Créditos",
+  "unlimitedCredits": "Ilimitado",
+  "never": "Nunca",
+  "expirationDate": "Expira al",
+  "validUntil": "Válido hasta",
+  "noPaymentPackSubscribed": "Sin subscripción",
+  "addButton": "Crear una tarjeta",
+  "bookingsLeftThisWeek": "Reserva máxima por semana",
+  "validTo": " hasta el ",
+  "validFrom": "Válida desde ",
+  "validForNdays2": " días después de la compra",
+  "validForNdays1": "Válido ",
+  "validForDuration": {
+    "general": "Válido {{ duration_days }} días {{ duration_months }} meses y {{ duration_years }} año",
+    "years": "Válido {{ count }} año",
+    "years_plural": "Válido {{ count }} años",
+    "months": "{{ count }} meses",
+    "days": "Válido {{ count }} día",
+    "days_plural": "Válido {{ count }} días",
+    "and": " y ",
+    "attendance": "a partir de la primera presencia",
+    "booking": "a partir de la primera reservación",
+    "purchase": "a partir de la fecha de facturación",
+    "daysMonths": "{{ duration_months }} meses y {{ duration_days }} días",
+    "validFor": "durante ",
+    "valid": "Válido "
+  },
+  "disabledPacks": {
+    "hide": "Ocultar las tarjetas archivadas",
+    "show": "Ver las tarjetas archivadas"
+  },
+  "disabledPacksTitle": "Tarjetas archivadas",
+  "filters": {
+    "hasCreditNull": "Sin crédito",
+    "hasCreditLeft": "Con crédito",
+    "isActive": "Activa",
+    "isExpired": "Expirada",
+    "invoice": "Factura",
+    "reverted": "Factura cancelada",
+    "notReverted": "Factura no cancelada",
+    "credits": "Crédito",
+    "expiration": "Validez",
+    "all": "Todas las tarjetas",
+    "isValidToday": "Válido",
+    "companyGroupPlaceholder": "Selecciona categorías",
+    "companyGroup": "Categorías",
+    "company": "Estudio de la compra"
+  },
+  "multipleBookingTooltip": "Reservas múltiples",
+  "maxNBookingsByMonth2": " reservas por mes",
+  "penalty": {
+    "title": "Política de cancelación",
+    "block": "{{days_blocked}} días bloqueados después de {{nb_cancellations}} cancelaciones fuera de plazo durante un periodo de {{nb_days}} días",
+    "account": "Se aplicará un depósito de {{account_value}} para {{nb_cancellations}} cancelaciones fuera de plazo durante un periodo de {{nb_days}}."
+  },
+  "blockedCpp": "Tarjeta bloqueada de {{-blocked_from}} a {{-blocked_until}}",
+  "only_vod_access": "Disponible sólo para VOD",
+  "massExtension": {
+    "listItemNbDays": "+{{ count }} día",
+    "listItemNbDays_plural": "+{{ count }} días",
+    "createdAt": "Se ha añadido la {{date}}",
+    "listItemDate": "Que expira entre el {{ minDate }} y el {{ maxDate }}",
+    "cancel": "Cancelar",
+    "submit": "Validar",
+    "title": "Ampliar la validez",
+    "maxDate": "El último de los",
+    "minDate": "Lo más pronto que el",
+    "dateHelpText": "Sólo se extienden los bonos que expiran entre el",
+    "helpText": "Esta operación no puede revertirse",
+    "listItem": {
+      "seeLess": "Ver menos",
+      "seeMore": "Ver más"
+    },
+    "error": {
+      "note": "El número máximo de caracteres para este campo es 500",
+      "nbDays": "Introduzca un número positivo",
+      "maxEndingDate": "Introduzca una fecha máxima válida",
+      "minEndingDate": "Introduzca una fecha mínima válida"
+    },
+    "titleDialog": "Ampliar la validez para todos los miembros"
+  },
+  "section": {
+    "massExtension": "Extensión de la validez"
+  },
+  "category": {
+    "form": {
+      "dialog": {
+        "titleNew": "Nueva categoría",
+        "titleEdit": "Categoría",
+        "name": "Nombre de la categoría",
+        "helper": "Las categorías aparecerán en el mercado y en la aplicación móvil para las tarjetas disponibles para la venta.",
+        "update": "Renombrar",
+        "create": "Crear",
+        "cancel": "Cancelar"
+      }
+    },
+    "deleteModal": {
+      "content": "¿Está seguro de que quiere eliminar esta categoría? Todos los artículos que contenga se colocarán en la sección de tarjetas de curso sin categorizar?",
+      "confirm": "Confirmar",
+      "title": "Supresión",
+      "cancel": "Cancelar"
+    },
+    "add": "Añadir una categoría",
+    "popover": {
+      "edit": "Cambiar el nombre de",
+      "delete": "Borrar"
+    },
+    "category": "Categorías de bonos"
+  },
+  "noCategory": {
+    "empty": "No hay tarjetas en esta categoría",
+    "name": "Sin categoría",
+    "help": "Estos pases aparecerán en una categoría sin nombre en el mercado"
+  },
+  "noUnauthorizedTag": "Ningún tag no autorizado",
+  "noAuthorizedTag": "Ningún tag autorizado",
+  "blackList": "Tags no autorizados",
+  "whiteList": "Tags autorizados",
+  "activities": "Actividades",
+  "categories": "Categorías",
+  "establishments": "Salas",
+  "accessibility": {
+    "onsitePayment": "Se permite el pago en el momento",
+    "managerOnly": "Invisible en venta",
+    "newMembers": "Solo para nuevos clientes"
+  },
+  "tags": {
+    "blackList": "{{ count }} tag no autorizado",
+    "blackList_plural": "{{ count }} tag no autorizados",
+    "whiteList": "{{ count }} tag autorizado",
+    "whiteList_plural": "{{ count }} tag autorizados"
+  },
+  "full_vod": "Válido para VOD",
+  "seeAll": "Ver todo",
+  "compatibility": {
+    "and": " y ",
+    "establishments": "{{ count }} sala",
+    "establishments_plural": "{{ count }} salas",
+    "activities": "{{ count }} actividad",
+    "activities_plural": "{{ count }} actividades",
+    "categories": "{{ count }} categoría",
+    "categories_plural": "{{ count }} categorías",
+    "compatible": "Compatible con ",
+    "all": "Compatible con todos los"
+  },
+  "selector": {
+    "noAvailable": "No hay tarjeta correspondiente a la disponibilidad elegida",
+    "noManagerOnly": "Visible para los miembros",
+    "managerOnly": "Oculto para los miembros",
+    "filterManagerOnly": "Visible para todos",
+    "filterCategory": "Todas las categorías",
+    "titleSort": "Ordenar",
+    "titleManagerOnly": "Visibilidad",
+    "titleCategory": "Categorías",
+    "sorting": {
+      "descendingCredit": "Disminución del crédito",
+      "ascendingCredit": "Crecimiento del crédito",
+      "descendingPrice": "Precio descendente",
+      "ascendingPrice": "Aumento del precio",
+      "customSort": "Pedido del lado del cliente (mercado y aplicación)"
+    },
+    "unusableByStaff": "Oculto al personal"
+  },
+  "cardDetails": {
+    "packBlocking2": " cancelaciones fuera de plazo durante una semana",
+    "packBlocking1": " días de bloqueos tras ",
+    "maxPurchasePerMember": "Número máximo de compras : ",
+    "maxBookingPerDay": "Utilizaciones máximum por día ",
+    "maxBookingPerWeek": "Utilización máximum por semana ",
+    "maxBookingPerMonth": "Utilizaciones máximum por mes ",
+    "universalPass": "Compatible con los cursos de grupo y las citas."
+  },
+  "detailTitles": {
+    "vod": "VOD",
+    "restrictions": "Restricciones",
+    "tags": "Tags",
+    "accessibility": "Accesibilidad",
+    "compatibility": "Compatibilidad",
+    "validity": "Validez",
+    "credit_quantity": "Número de créditos",
+    "universalPass": "Tarjeta universal",
+    "compatibilityPaymentPack": "Compatibilidad de los cursos en grupo",
+    "offPeak": "Franjas horarias"
+  },
+  "unlimitedAndCalculatedMargin": " - Contribución marginal teórica calculada: precio / nb_bookings ",
+  "unlimitedAndMargin": " - Contribución marginal teórica de ",
+  "unlimitedPlural": "ilimitados",
+  "validityTo": " al ",
+  "addPaymentPack": {
+    "sumNotZero": "el número final de días no puede ser cero",
+    "only_vod_access": "Restringir el uso de la tarjeta sólo a VOD",
+    "vodAccessCard": "Da acceso a la VOD",
+    "vod": "VOD",
+    "compatibility": "Este pase sólo será compatible con las clases, actividades, categorías o establecimientos seleccionados.",
+    "letBlank": "Deje en blanco para no limitar este pase.",
+    "activities": "Actividades",
+    "room": "Salas",
+    "categories": "Categorías",
+    "inShopPayment": "Permitir el pago presencial",
+    "notForSell": "Oculto para los miembros",
+    "newClientOnly": "Solo visible para los nuevos miembros",
+    "maxUseMember": "Compra máxima por miembro",
+    "maxUseMonth": "Usos máximos por mes",
+    "maxUseWeek": "Usos máximos por semana",
+    "maxUseHelper": "Deje en blanco para no establecer un límite de uso.",
+    "maxUseDay": "Usos máximos por día",
+    "restriction": "Condiciones",
+    "penalityAccountHelper": "Un depósito de {{penalityBlockAccount}}{{ currencyDisplay }} se aplicara para este miembro",
+    "penalityBlockDayHelper": "La tarjeta del socio se bloqueará durante {{penalityBlockDay}} días",
+    "penalityAccountPrice": "Importe de la fianza",
+    "penalityBlockDay": "Periodo de bloqueo de la tarjeta (en días)",
+    "penalityType": "Tipo de sanción a aplicar",
+    "penalityAccount": "Crear un depósito para el miembro en cuestión",
+    "penalityBlock": "Bloquear temporalmente la tarjeta de curso",
+    "penalityInfo": "Se aplicará una penalización {{penalityNumberCancel}} cancelaciones fuera de plazo de en un periodo de {{penalityNumberDay}} días",
+    "penalityNumberDay": "Número de días",
+    "penalityNumberCancel": "Número de cancelaciones",
+    "marginalContributionHelperText": "Se utiliza para calcular la remuneración de los profesores. 10{{ currencyDisplay }} significa que una reserva hecha con esta tarjeta se paga 10{{ currencyDisplay }}. Si está vacía o es 0{{ currencyDisplay }} la contribución de una tarjeta será PRICE/NB_RESERVATION",
+    "marginalContribution": "Contribución marginal teórica, incluido el IVA",
+    "expirationDateHelper": "Si el pase no se ha utilizado durante este periodo, caducará automáticamente.",
+    "expirationDate": "Número de días antes de que caduque el pase si no se utiliza *",
+    "beginningDate": "Fecha de inicio",
+    "attendance": "A la primera presencia",
+    "firstBooking": "A la primera reservación",
+    "billing": "A la facturación",
+    "validForDuration": {
+      "day": "Esta tarjeta será válida durante {{ duration_day }} días",
+      "month": "Esta tarjeta será válida durante {{ duration_month }} meses y {{ duration_day }} días",
+      "year": "Esta tarjeta será válida durante {{ duration_year }} años, {{ duration_month }} meses y {{ duration_day }} días",
+      "monthNoDay": "Esta tarjeta será válida durante {{ duration_month }} meses",
+      "yearNoDayNoMonth": "Esta tarjeta será válida durante {{ duration_year }} años",
+      "yearDayNoMonth": "Esta tarjeta será válida durante {{ duration_year }} años y {{ duration_day }} días",
+      "yearNoDay": "Esta tarjeta será válida durante {{ duration_year }} años y {{ duration_month }} meses"
+    },
+    "yearValidityHelper": "Sumado al número de días y meses",
+    "monthValidityHelper": "Además del número de días",
+    "yearValidity": "Años",
+    "monthValidity": "Meses",
+    "dayValidity": "Días",
+    "endBeforeStart": "La fecha final debe ser mayor que la fecha de inicio",
+    "toDate": "Hasta el",
+    "fromDate": "A partir del",
+    "availabilitySlot": "Hacer que este pase sea válido entre determinadas fechas.",
+    "availabilityGivenNumber": "Hacer que este pase sea válido durante un número determinado de días después de la compra.",
+    "penalityRule": "Sólo se puede aplicar una penalización si el número de créditos es ilimitado",
+    "penality": "Aplicar una penalización por demasiadas cancelaciones después de la fecha límite",
+    "packValidity": "Validez de la tarjeta",
+    "numberOfAvailableCredits": "Número de créditos disponibles",
+    "credit": "Crédito",
+    "unlimited": "Ilimitado",
+    "limited": "Limitado",
+    "numberOfCredit": "Número de créditos",
+    "namePaymentPack": "Nombre del bono",
+    "name": "Nombre",
+    "generalInfo": "Informaciones generales",
+    "paymentPack": "Bono",
+    "minusZero": "este campo no puede ser igual a 0",
+    "requiredField": "Este campo es obligatorio",
+    "creditWarning": "Si cambia el número de créditos, todas las tarjetas existentes se verán afectadas.",
+    "migration": "Este mapa del curso es el resultado de una migración, algunos campos no son editables para respetar el historial. Las actividades/categorías compatibles siguen siendo editables.",
+    "franchise": "Esta tarjeta es una tarjeta compartida por la cuenta del franquiciador. Algunos elementos han sido definidos por la cuenta del franquiciador y no son modificables",
+    "allowGuest": "Compatible con reservas de invitados",
+    "penalityModeFranchisor": {
+      "buyer": {
+        "explain": "El saldo de la cuenta del socio se cargará con {{ price }} sólo en el franquiciado en la que se ha comprado el pase.",
+        "label": "En el franquiciado que facturó el pase"
+      },
+      "label": "Se cargará el saldo en la cuenta del miembro",
+      "prorata": {
+        "label": "En proporción a las cancelaciones tardías en cada franquiciado.",
+        "explain": "El saldo de la cuenta de socio se cargará con {{ price }} en proporción a las cancelaciones tardías registradas en cada franquiciado. Se cargará un importe total de {{ price }} a nivel de franquicia."
+      },
+      "prorataNoShow": {
+        "explain": "La multa de {{ price }} se aplicará proporcionalmente a los no presentados registrados por cada uno de sus franquiciados. Se cobrará un total de {{ price }}.",
+        "label": "Pro rata, por franquiciado, de no presentarse"
+      }
+    },
+    "unusableByStaff": "Oculto al personal",
+    "expiration_date": {
+      "label": "Duración de la venta",
+      "helperText": "Disponible hasta el",
+      "tooltip": "Después de la fecha elegida, el pase no estará disponible para su compra."
+    },
+    "description": "Descripción",
+    "offPeak": {
+      "addGroupTimeSlot": "Añadir un grupo de franjas horarias",
+      "addTimeSlot": "Añadir una franja horaria",
+      "choice": {
+        "allDay": "Todo el día",
+        "timeSlot": "Franjas horarias"
+      },
+      "label": "Restringir las reservas a determinados horarios."
+    },
+    "atLeastOneDay": "Debe seleccionarse al menos un día",
+    "startAfterEnd": "La hora de inicio debe ser inferior a la hora de finalización",
+    "decimalCredit": {
+      "helperText": "Este pase contendrá {{count}} crédito",
+      "helperText_plural": "Este pase contendrá {{count}} créditos"
+    },
+    "activationWindow": "Establecer periodo de activación",
+    "accessControl": {
+      "firstBookingDisclaimer": "El pase será válido a partir de la primera reserva o del primer acceso al hotel, lo que ocurra primero. Si el personal registra manualmente a un miembro antes de la fecha de su primera reserva, el pase será válido a partir de la fecha del primer acceso.",
+      "firstBooking": "Primera reserva o acceso"
+    }
+  },
+  "paymentPackTemplate": {
+    "actions": {
+      "create": "Crear un bono compartido",
+      "createUniversalPass": "Añadir un pase universal compartido"
+    },
+    "deleteForm": {
+      "actions": {
+        "submit": "Eliminar",
+        "close": "Cerrar"
+      },
+      "content": "Los miembros podrán seguir utilizando el pase en el estudio donde lo compraron. Cualquier suscripción vinculada a este pase seguirá siendo válida en ese mismo estudio.",
+      "title": "Eliminar pase compartido"
+    },
+    "form": {
+      "actions": {
+        "submit": "Registrar",
+        "close": "Cerrar"
+      },
+      "submit": "Validar",
+      "close": "Cerrar",
+      "title": "Tarjeta de curso compartido",
+      "editConfirmation": {
+        "confirm": "Guardar de todos modos",
+        "cancel": "Cancelar",
+        "content": "Sus cambios también se aplicarán a las suscripciones vinculadas a este pase compartido. ¿Está seguro de que desea continuar y guardar los cambios?",
+        "title": "Editar confirmación"
+      },
+      "universalPassTooltip": "Los pases universales pueden utilizarse para actividades de grupo y citas. Por cada pase universal se crean pases de cita gemelos para enlazar el número de créditos. Una vez adquirido uno de estos pases, el otro se añadirá automáticamente sin costes adicionales.",
+      "universalPassTitle": "Pase universal compartido",
+      "notEditable": "Este pase procede de una migración de datos realizada anteriormente. Algunos campos pueden no ser editables para preservar los datos."
+    },
+    "section": {
+      "titleManagerOnly": "No disponible para la venta",
+      "titleAvailable": "Disponible para la venta"
+    },
+    "isEmptyExplain": "Los bonos compartidos están disponibles en los estudios de su elección, y permiten a sus miembros utilizar sus créditos en cualquier estudio que elijan.",
+    "specification": {
+      "companySharedWithTitle": "Compartido con los estudios:"
+    },
+    "pass": "Tarjetas de cursos colectivos",
+    "widget": {
+      "choose": "Elegir tarjetas de cursos compartidos"
+    }
+  },
+  "paymentPackTemplateInstance": {
+    "actions": {
+      "addCompany": "Añadir un estudio",
+      "buy": "Comprar"
+    },
+    "companyEmpty": "Ningún estudio está configurado para aceptar esta tarjeta de curso",
+    "deleteForm": {
+      "actions": {
+        "submit": "Dejar de compartir",
+        "close": "Cerrar"
+      },
+      "content": "Si deja de compartir con este estudio, los pases comprados en ese estudio seguirán siendo válidos, pero sólo dentro de ese estudio específico. Los pases de otros estudios dejarán de ser válidos allí. Esto también se aplica a los suscripciones vinculadas.",
+      "title": "Dejar de compartir con un estudio"
+    },
+    "form": {
+      "actions": {
+        "submit": "Registrar",
+        "close": "Cerrar"
+      },
+      "explain2": "Los miembros que hayan adquirido este pase o una suscripción vinculada podrán utilizarlo en cualquiera de los nuevos estudios compatibles",
+      "explain1": "Los siguientes estudios ofrecerán automáticamente este pase, pero no podrán cambiar su precio ni su número de créditos.",
+      "title": "Preparar mis estudios"
+    },
+    "consumerPaymentPackSharedFromOtherFranchisee": "Compartido por el franquiciado",
+    "paymentPackSharedFromFranchisor": "Tarjeta de franquicia",
+    "isFromShareTooltip": "Este bono está compartido con otro estudio de franquicia"
+  },
+  "universalPass": {
+    "restore": {
+      "dialog": {
+        "continue": "Continuar",
+        "text": "Este bono es un bono universal, su bono gemelo también ha sido desarchivado.",
+        "title": "Desarchivar"
+      }
+    },
+    "delete": {
+      "dialog": {
+        "warningText": "Tenga en cuenta. Esta tarjeta es una tarjeta universal, si la borras, su tarjeta gemela también se borrará.",
+        "title": "Eliminación de la tarjeta"
+      }
+    },
+    "add": {
+      "credit": "Número de créditos",
+      "availabilityGivenNumber": "Válido durante un número determinado de días después de la compra",
+      "helperText": "El número de créditos es limitado"
+    }
+  },
+  "maxoutInfo": {
+    "week": "Tarjeta limitada a {{count}} uso máximo por semana",
+    "week_plural": "Tarjeta limitada a {{count}} usos máximos por semana",
+    "day": "Tarjeta limitada a {{count}} uso máximo por día",
+    "day_plural": "Tarjeta limitada a {{count}} usos máximos por día",
+    "month": "Tarjeta limitada a {{count}} uso máximo por mes",
+    "month_plural": "Tarjeta limitada a {{count}} usos máximos por mes"
+  },
+  "previous": "Anterior",
+  "next": "Siguiente",
+  "incompatibilities": {
+    "2008": "Actividad no compatible",
+    "2009": "Categoría no compatible",
+    "2010": "Establecimiento no compatible",
+    "2018": "Número de créditos insuficiente",
+    "2019": "El bono está bloqueado",
+    "2020": "Las fechas son incompatibles",
+    "2021": "El bono comienza con la primera reserva, el ",
+    "2022": "El bono comienza con la primera presencia, el ",
+    "2023": "El bono ha expirado",
+    "2027": "La franja horaria es incompatible",
+    "paymentPack": "Tarjeta configurada como incompatible con esta actividad:"
+  },
+  "listItem": {
+    "unusableByStaff": "Invisible para el personal"
+  },
+  "noShowPenalty": {
+    "account": "Se aplicará una multa de {{amount}} por {{treshold}} no presentarse durante un periodo de {{time_window_days}} días.",
+    "block": "{{days_blocked}} días bloqueados después de {{treshold}} \"no se presenta\" durante un período de {{time_window_days}} días."
+  },
+  "orderingAlert": {
+    "button": "Página de personalización",
+    "text": "Cualquier cambio en el orden de las \"Categorías\" sólo afectará a la visualización de la página \"Bonos\" del marketplace y de la aplicación. Esta actualización no afectará a ninguna otra sección o categoría."
+  },
+  "manualActivation": {
+    "replaceActiveStartDateAlert": "El pase será válido a partir de hoy. Si alguna de las futuras reservas del miembro cae después del período de validez actualizado, sus reservas seguirán activas, pero el personal tendrá que ayudar con la entrada.",
+    "setActiveStartDate": "Al activar este pase, la fecha de activación se establecerá en la fecha de hoy. Esta acción no se puede deshacer.",
+    "replaceActiveStartDate": "Al activar este pase, la fecha de activación se establecerá en la fecha de hoy, sustituyendo la fecha de la primera reserva anterior. Esta acción no se puede deshacer.",
+    "title": "¿Activar manualmente este pase?",
+    "submit": "Activar Pase",
+    "close": "Cerrar"
+  },
+  "activateManually": "Activar"
+}

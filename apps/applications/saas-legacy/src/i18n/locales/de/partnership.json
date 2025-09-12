@@ -1,0 +1,141 @@
+{
+  "actions": {
+    "save": "Speichern",
+    "requestPartnership": "Integration aktivieren"
+  },
+  "parameters": {
+    "allEstablishment": "Alle Einrichtungen",
+    "establishmentId": "Deine Raum-IDs sind : {{ establishmentIdList }}",
+    "enabled": "Aktiv",
+    "companyId": "Deine Klub-ID lautet: {{ company }}",
+    "pleaseChoseEstablishment": "Bitte wählen Sie eine Einrichtung aus.",
+    "add": "Hinzufügen",
+    "establishmentMergeMaster": "Mit dieser Einrichtung zusammenführen :",
+    "establishmentMergedAs": "Diese Einrichtungen zusammenlegen",
+    "partnerId": "PartnerID: {{ company }}",
+    "venueIds": "VenueIDs: {{ establishmentIdList }}",
+    "pleaseChoseEstablishmentMany": "Bitte wählen Sie mindestens eine Einrichtung aus.",
+    "establishment": "Einrichtung",
+    "configurationTitle": "Konfigurieren Sie Ihre Integration",
+    "configurationDescription": "Wähle aus, wie deine Einrichtungen in der ClassPass-App angezeigt werden sollen. Dies ändert nur, wie Gruppenaktivitäten angezeigt werden.",
+    "editButton": "Konfiguration bearbeiten",
+    "description": "Um Ihre ClassPass-Integration einzurichten, kontaktieren Sie ClassPass über Ihr Partner-Dashboard. Geben Sie Ihre Partner-ID sowie die IDs der Einrichtungen an, die Sie auf ClassPass aktivieren möchten. Bitte beachten Sie, dass Kurse oder Termine in dieser Einrichtung erst dann auf ClassPass angezeigt werden, wenn die Einrichtung vollständig von ClassPass bestätigt wurde.",
+    "drawerTitle": "ClassPass-Konfiguration",
+    "table": {
+      "establishments": "Einrichtungen",
+      "venueIds": "Veranstaltungsort IDs",
+      "title": {
+        "appointments": "Für Termine",
+        "groupActivities": "Für Gruppenaktivitäten"
+      }
+    }
+  },
+  "requestDialog": {
+    "close": "Alles klar",
+    "explain": "Die Integration von bsport X ClassPass wurde nun beantragt. Deine Ansprechperson bei bsport wird sich bei dir melden."
+  },
+  "pageTitle": "Partnerschaft",
+  "configurationType": {
+    "1": {
+      "label": "Unabhängige Einrichtungen",
+      "helperText": "Jeder Standort wird in ClassPass als eigenständiger Ort angezeigt."
+    },
+    "2": {
+      "label": "Alle Einrichtungen zusammenlegen",
+      "helperText": "Alle zusammengeführten Einrichtungen werden als ein einziger Standort erscheinen."
+    },
+    "3": {
+      "label": "Fortgeschrittene",
+      "helperText": "Ähnliche Einrichtungen nach Adresse gruppieren."
+    }
+  },
+  "wellhub": {
+    "configuration": {
+      "panel": {
+        "footer": {
+          "addUnitButton": "Einheit ID hinzufügen"
+        },
+        "content": {
+          "table": {
+            "column": {
+              "establishments": "Einrichtungen",
+              "unit": "Einheit ID"
+            }
+          },
+          "helperText": "Beantragen Sie zunächst die Integration mit bsport auf dem Wellhub-Partnerportal für jede Einheit",
+          "title": "Einheiten ID verbindung"
+        },
+        "header": {
+          "subtitle": "Verknüpfen Sie Ihre Kurse auf dem bsport-Konto mit Wellhub"
+        }
+      },
+      "dialog": {
+        "title": {
+          "creation": "Hinzufügen und Verknüpfen der ID Einheiten mit den Einrichtung(en)",
+          "edition": "Einheiten ID bearbeiten",
+          "deletion": "Einheit ID löschen"
+        },
+        "field": {
+          "unitId": {
+            "placeholder": "Einheit ID Nummer",
+            "error": {
+              "required": "Einheit ID ist notwendig",
+              "positive": "Einheit ID muss eine positive Nummer sein",
+              "unavailable": "Einheit ID ist nicht verfügbar"
+            }
+          },
+          "establishmentIds": {
+            "placeholder": "Verknüpfe die bsport-Einrichtung(en)",
+            "title": "Einrichtungen",
+            "error": {
+              "required": "Bitte wählen Sie mindestens eine Einrichtung aus"
+            }
+          }
+        },
+        "action": {
+          "back": "Zurück",
+          "cancel": "Abbrechen",
+          "confirm": "Bestätigen",
+          "save": "Speichern"
+        },
+        "unlink": {
+          "title": "Sie sind dabei, eine oder mehrere Einrichtungen von Wellhub zu trennen",
+          "text": "Anstehende Sitzungen, die mit diesen Einrichtungen verbunden sind, werden auf Wellhub gelöscht, und alle Wellhub-Buchungen gehen verloren"
+        }
+      }
+    },
+    "title": "Wellhub",
+    "snackbar": {
+      "configureWebhooks": {
+        "error": "Während der Konfiguration ist ein Fehler aufgetreten",
+        "success": "Ihr Einheit ID wurde erfolgreich verknüpft"
+      }
+    },
+    "productSelection": {
+      "drawer": {
+        "footer": {
+          "save": "Sichern",
+          "cancel": "Abbrechen",
+          "back": "Zurück"
+        },
+        "form": {
+          "applyToSimilarOffers": "Für ähnliche Kurse anwenden",
+          "label": "Diese Produkte werden von Ihrem Studio auf der Wellhub-Plattform angeboten. Gehen Sie zum Abschnitt „Partnerschaft“ im Partner-Portal Ihres Wellhub-Kontos für weitere Informationen."
+        },
+        "element": "{{ count }} Element",
+        "element_plural": "{{ count }} Elemente",
+        "actionRequired": "Wählen Sie ein Wellhub-Produkt aus, das Sie mit diesem Kurs verknüpfen möchten:",
+        "description": "Einige Kurse sind nicht mit einem Wellhub-Produkt verknüpft und können von Wellhub-Nutzern nicht gebucht werden.",
+        "title": "Wellhub Produkt ist noch nicht verlinkt"
+      },
+      "alert": {
+        "action": "Einrichten",
+        "message": "Bitte wählen Sie ein Wellhub-Produkt aus, um die Kurse anzuzeigen und sie für Wellhub-Benutzer buchbar zu machen.",
+        "title": "Einige Kurse wurden nicht mit Wellhub synchronisiert."
+      },
+      "selector": {
+        "placeholder": "Wählen Sie ein Wellhub-Produkt"
+      }
+    }
+  }
+}

@@ -31,18 +31,30 @@ export type ColumnType =
   | "time";
 
 export type BaseRow = {
+  /** Unique identifier for the row (required for selection and key props) */
   id: string | number;
+  /** Optional URL to make the entire row clickable as a link */
   link?: string;
+  /** Optional color for row indicator (hex code or CSS color name) */
   color?: string;
+  /** Additional CSS classes to apply to the row */
   className?: string;
+  /** Callback function triggered when the row is clicked */
   onRowClick?: () => void;
+  /** Whether the row is active or not (highlighted) */
+  isActive?: boolean;
 };
 
 export type Column<RowType extends BaseRow> = {
+  /** Unique identifier for the column */
   id: string;
+  /** Display text or component for the column header */
   header: React.ReactNode | string;
+  /** The type of data rendering for this column */
   type: ColumnType;
+  /** Whether this column supports sorting (future feature) */
   sortable?: boolean;
+  /** Horizontal alignment of column content */
   align?: "start" | "center" | "end";
 } & (
   | {

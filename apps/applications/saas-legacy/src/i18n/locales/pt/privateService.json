@@ -1,0 +1,1092 @@
+{
+  "calendar": {
+    "enableRecurrentAvailability": "Adicionar uma disponibilidade recorrente",
+    "disableAvailability": "Eliminar disponibilidade",
+    "enableAvailability": "Adicionar disponibilidade neste dia",
+    "header": {
+      "dateSelector": "Selecionar uma data",
+      "threeDaysView": "3 dias"
+    },
+    "form": {
+      "title": {
+        "disable": "Eliminar uma disponibilidade",
+        "enable": "Adicionar uma disponibilidade"
+      },
+      "interval": {
+        "explain2": "{{ date_start }} - {{ date_end }}, todos os {{ day }}",
+        "explain1": "Alteração da disponibilidade : "
+      },
+      "actions": {
+        "submit": "Guardar",
+        "cancel": "Cancelar"
+      },
+      "explain": "Adicionar até:"
+    },
+    "disableRecurrentAvailability": "Eliminar a disponibilidade recorrente",
+    "customEvent": {
+      "dateStart": "Data de início",
+      "dateEnd": "Data de fim"
+    },
+    "toogle": {
+      "showOfferList": "Aulas de grupo & Worskshops",
+      "title": "Ver os filtros",
+      "showPrivateBookings": "Aulas Privadas",
+      "hideCancelledEvents": "Ver os cancelamentos",
+      "showCustomEvents": "Tarefas / Compromissos pessoais"
+    },
+    "selectCoachToModifyAvailability": "Selecionar um professor",
+    "createCustomEvent": "Adicionar uma Tarefa / Compromisso pessoal",
+    "addBooking": "Reservar uma aula privada",
+    "showAvailabilityDetails": "Detalhes das disponibilidades"
+  },
+  "privateEstablishment": {
+    "delete": {
+      "submit": "Confirmar",
+      "cancel": "Cancelar",
+      "explain": "Tem a certeza de que pretende alterar o local? Sem uma sala, será considerada uma marcação ao domicílio e os alunos terão de introduzir a sua morada para completar a reserva. As reservas já efectuadas não serão afetadas.",
+      "title": "Cancelar o registo da sala"
+    }
+  },
+  "privateBookingNotification": {
+    "listItemPrimary": {
+      "notifyAllEvents": {
+        "cancelledRefunded": "Cada cancelamento é reembolsado",
+        "valid": "Em cada marcação",
+        "cancelledNotRefunded": "Em cada cancelamento fora do prazo"
+      },
+      "cancelledRefunded": "Cancelamento reembolsado n° {{notify_booking_nb}}",
+      "valid": "Marcação n° {{notify_booking_nb}}",
+      "before": "Notificar {{hours}}h antes da marcação",
+      "cancelledNotRefunded": "Cancelamento fora de prazo nº {{notify_booking_nb}}",
+      "after": "Notificar {{hours}}h após a marcação"
+    },
+    "form": {
+      "help": {
+        "cancelledRefunded": {
+          "notifyAll": "Ajuda : a notificação será enviada ao aluno por cada reserva cancelada e reembolsada para este tipo de passe",
+          "default": "Ajuda: a notificação será enviada ao membro quando a reserva cancelada for reembolsada n° {{notifyNb}} ,  para este tipo de marcação"
+        },
+        "cancelledNotRefunded": {
+          "default": "Nota : será enviada uma notificação ao membro quando a anulação estiver fora do prazo n° {{notifyNb}} , para este tipo de marcação",
+          "notifyAll": "Nota : será enviada uma notificação aos membros sempre que anularem uma marcação após o prazo"
+        },
+        "valid": {
+          "default": "Nota : será enviada uma notificação aos membros quando efetuarem uma marcação válida {{notifyNb}} para este tipo de marcação",
+          "notifyAll": "Nota : será enviada uma notificação aos membros sempre que efetuarem uma marcação válida para este tipo de marcação"
+        }
+      },
+      "chooseKind": {
+        "cancelledNotRefunded": "Reserva anulada e não reembolsada (após o prazo estipulado)",
+        "cancelledRefunded": "Reserva anulada e reembolsada",
+        "title": "Escolha o tipo de reserva que pretende notificar",
+        "valid": "Reserva válida"
+      },
+      "notifyAllEvents": "Enviar esta notificação a todas as reservas",
+      "chooseTime": {
+        "first": "Enviar um email",
+        "second": {
+          "before": "hora(s) antes da sessão",
+          "after": "hora(s) após a sessão"
+        },
+        "title": "Configurações"
+      },
+      "ifKind": {
+        "notRefunded": "Se a reserva tiver sido cancelada após o prazo",
+        "refunded": "Se a reserva tiver sido cancelada atempadamente",
+        "valid": "Se a reserva for válida"
+      },
+      "chooseWhen": {
+        "beforeMail": "Enviar um email ao membro antes da marcação a que a notificação diz respeito",
+        "afterNotification": "Enviar a notificação push para o membro após a marcação em causa na notificação",
+        "afterNotifications": "Enviar notificações ao membro após a marcação a que a notificação diz respeito",
+        "beforeNotification": "Enviar notificação push para o membro antes da marcação em causa",
+        "title": "Tipo de notificação",
+        "beforeNotifications": "Enviar notificações ao membro antes da marcação a que a notificação se refere",
+        "afterMail": "Enviar um email ao membro após a marcação em causa na notificação"
+      },
+      "next": "Seguinte",
+      "subtitle": "Passe de aula privada",
+      "intro": "Pode enviar automaticamente notificações antes e/ou depois das suas aulas privadas (por exemplo, para marcações, cancelamentos, etc.)",
+      "notifyNb": "Enviar uma notificação para o número de reserva:",
+      "title": "Adicionar uma notificação"
+    },
+    "tooltip": "As notificações estão ativas para este tipo de marcação"
+  },
+  "notification": {
+    "listItem": {
+      "deleteModal": {
+        "content": "Tem a certeza de que pretende eliminar esta notificação ? Esta operação é definitiva",
+        "confirm": "Eliminar",
+        "cancel": "cancelar",
+        "title": "Eliminar notificação"
+      },
+      "mail": "Email ",
+      "smartListInclude": "Listas incluídas",
+      "smartList": "Listas excluídas"
+    },
+    "addButton": "Adicionar uma notificação"
+  },
+  "recurrenceRule": {
+    "forms": {
+      "delete": {
+        "confirm": "Eliminar",
+        "title": "Remarcar uma marcação recorrente",
+        "content": "A eliminação de aulas privadas recorrentes resultará no cancelamento de marcações futuras efectuadas através desta regra.",
+        "cancel": "Cancelar"
+      },
+      "update": {
+        "confirm": "Editar",
+        "content": "A edição desta aula privada recorrente afectará todos os compromissos futuros que tenham sido feitos com esta regra",
+        "title": "Editar uma aula privada recorrente",
+        "cancel": "Cancelar"
+      }
+    },
+    "form": {
+      "configuration": "Reservas",
+      "override_availabilities": "Efetuar uma reserva mesmo que o professor, a sala ou a marcação não estejam disponíveis",
+      "timeGroup": "Data da sessão",
+      "notify_member": "Enviar um email de confirmação quando o membro se regista",
+      "allow_unpaid": "Autorizar as reservas não pagas (não possuí nenhum passe compatível)",
+      "title": "Programar uma recorrência"
+    },
+    "item": {
+      "allowUnpaid": "Autorizar as reservas não pagas",
+      "explain": "Todos os {{dayOfWeek}} - {{time}}, {{delayWeek}} semanas antes",
+      "startFrom": "A partir de {{ date }}"
+    },
+    "recurrentBookings": "Aulas Privadas recorrentes",
+    "createModal": {
+      "create": "Criar uma reserva recorrente"
+    },
+    "actions": {
+      "close": "Fechar",
+      "save": "Guardar"
+    }
+  },
+  "customEvent": {
+    "actions": {
+      "delete": "Eliminar"
+    },
+    "form": {
+      "description": {
+        "label": "Descrição",
+        "placeholder": "Pergunte pelo Sr. Smith na 1 Oxford Street."
+      },
+      "name": {
+        "placeholder": "Consulta no dentista",
+        "label": "Nome"
+      },
+      "title": "Compromisso pessoal",
+      "actions": {
+        "cancel": "Cancelar",
+        "submit": "Guardar"
+      },
+      "color": "Código da cor",
+      "coach": {
+        "isEmpty": "Nenhum professor"
+      }
+    }
+  },
+  "service": {
+    "form": {
+      "delete": {
+        "confirm": "Eliminar",
+        "content": "Tem a certeza de que quer acabar com este tipo de marcação ?",
+        "title": "Eliminar uma marcação",
+        "cancel": "Cancelar"
+      },
+      "pad_before_booking": {
+        "label": "Ter em conta mesmo antes de reservar"
+      },
+      "managerOnly": {
+        "label": "Não é visível para os alunos"
+      },
+      "unpaidBooking": {
+        "tag": {
+          "helper": "Utilize as etiquetas para tornar a reserva sem pagamento disponível apenas para determinados membros.  Todos os membros com uma das etiquetas em \"Autorizado\" poderão efetuar reservas sem pagar. Ou todos os membros que tenham uma das etiquetas em \"Não autorizado\" não poderão efetuar reservas sem pagar.",
+          "allowed": "Autorizado",
+          "notAllowed": "Não Autorizado",
+          "header": "Etiquetas",
+          "doNotSelectToAllowAllMembers": "Deixar em branco para autorizar todos os membros"
+        },
+        "title": "Pagar mais tarde",
+        "helperText": "Ao ativar esta funcionalidade, os seus membros poderão reservar esta marcação sem terem de comprar/utilizar um passe. O número de créditos para a marcação será automaticamente debitado do próximo passe compatível adquirido.",
+        "label": "Autorizar a reserva sem o pagamento"
+      },
+      "establishmentResourceType": {
+        "isHomeService": {
+          "label": "Ao domicílio",
+          "helperText": "Será solicitada uma morada para a reserva"
+        },
+        "isWithEstablishment": {
+          "label": "Numa das salas",
+          "isEmpty": "Nenhuma sala configurada !",
+          "helperText": "As reservas só podem ser efetuadas se houver lugares livres suficientes"
+        },
+        "isWithoutEstablishment": {
+          "label": "Não há pré-determinado",
+          "helperText": "Exemplo: aulas online / aulas ao ar livre / ..."
+        }
+      },
+      "description": {
+        "label": "Descrição do serviço"
+      },
+      "paddingEnd": {
+        "helperText0": "No calendário, o professor e/ou a sala voltarão a ser assinalados como disponíveis no final da marcação",
+        "label": "Número de minutos após o fim da marcação",
+        "helperText": "No calendário, o professor e/ou a sala voltarão a ser assinalados como disponíveis {{minutes}} minutos após o fim da marcação"
+      },
+      "establishment_consumer_attribution": {
+        "label": "Permitir a escolha do local no ato da reserva",
+        "helperText": "O membro vê e escolhe o local antes de efetuar a reserva. Se não estiver selecionado, o bsport tentará otimizar a ocupação das salas"
+      },
+      "use_full_establishment_capacity": {
+        "label": "Requer a sala inteira",
+        "helperText": "Desmarcar para autorizar várias atividades/reuniões em simultâneo na mesma sala, se a capacidade o permitir"
+      },
+      "createButton": "Adicionar um tipo de Marcação",
+      "addEstablishment": "Adicionar uma sala",
+      "coach": {
+        "isEmpty": "Não há nenhum professor atribuído !",
+        "label": "Professor"
+      },
+      "name": {
+        "placeholder": "Massagem",
+        "label": "Nome do serviço"
+      },
+      "coach_capacity_used": {
+        "label": "Número máximo de Aulas Privadas simultâneas que um professor pode gerir",
+        "helperText": "Exemplo: um professor pode monitorizar dois alunos separadamente em duas máquinas",
+        "alertText": "Um professor pode gerir 1, 2, 3, 4, 6 ou 12Aulas Privadas em simultâneo."
+      },
+      "title": "Aulas Privadas",
+      "color": "Código da cor",
+      "last_booking_minutes": {
+        "label": "Antes do início da marcação, última reserva possível"
+      },
+      "paddingTitle": "Gestão da disponibilidade",
+      "paddingStart": {
+        "label": "Número de minutos antes do início da marcação",
+        "helperText": "No calendário, o professor e/ou a sala serão assinalados como indisponíveis {{minutes}} minutos antes do início da marcação",
+        "helperText0": "No calendário, o professor e/ou a sala serão assinalados como indisponíveis à hora de início da marcação"
+      },
+      "resourceGroup": {
+        "coach": "Professor",
+        "establishment": "Local"
+      },
+      "addSlot": "Adicionar um tipo de sessão",
+      "establishment": {
+        "label": "Sala"
+      },
+      "coach_consumer_attribution": {
+        "label": "Permitir a escolha do professor aquando a reserva",
+        "helperText": "O membro vê e escolhe o professor antes de efetuar a marcação. Se não estiver selecionado, terá de escolher o professor após cada marcação"
+      },
+      "addCoach": "Adicionar um professor",
+      "is_home_service": {
+        "label": "Ao domicílio",
+        "helperText": "Será solicitada uma morada para cada reserva"
+      },
+      "is_without_coach": "Sem um professor",
+      "actions": {
+        "cancel": "Cancelar",
+        "submit": "Guardar"
+      },
+      "last_discard_minutes": {
+        "helperText": "Se a reserva for cancelada após o prazo, o crédito não será reembolsado",
+        "label": "Última anulação reembolsável até"
+      }
+    },
+    "configuration": {
+      "changeIsAlwaysAvailable": "Editar",
+      "totalCapacity": "Capacidade máxima : {{ capacity}}",
+      "title": "Disponibilidade",
+      "explainHasOwnAvailabilitySlots": "Clique no lápis para restringir as reservas a determinadas faixas horárias",
+      "hasFutureSlot": "Calendário de disponibilidade futura OK",
+      "noCapacity": "Capacidade da sala não configurada !",
+      "noFutureSlot": "Não foi configurada qualquer disponibilidade para {{resourceName}} ! Por favor, clique aqui.",
+      "isAlwaysAvailable": "{{ resourceName}} pode ser reservado logo que a sala e/ou os professores estejam disponíveis",
+      "explainSetToHasNotOwnAvailabilitySlots": "Pode ser reservado para qualquer horário se houver disponibilidade de professor/sala",
+      "explainSetToHasOwnAvailabilitySlots": "Reservar apenas em determinadas faixas horárias",
+      "slot": "Tipo de sessão"
+    },
+    "selector": {
+      "isEmpty": "Nenhum tipo de marcação configurada",
+      "establishment": {
+        "label": "Sala"
+      },
+      "coach": {
+        "label": "Professor"
+      },
+      "placeholder": "Selecionar uma marcação"
+    },
+    "detail": {
+      "tab": {
+        "general": "Geral",
+        "calendar": "Calendário"
+      }
+    },
+    "navigation": {
+      "goToPrivatePass": "Passes de Marcação"
+    },
+    "parameters": {
+      "slots": {
+        "isEmpty": "Nenhum tipo de sessão definida",
+        "explainIsEmpty": "Definir os tipos de sessões (duração, custo)",
+        "title": "Sessão"
+      },
+      "establishments": {
+        "title": "Local",
+        "is_empty": "Nenhuma sala",
+        "is_home_service": "Ao domicílio"
+      },
+      "last_discard_minutes": {
+        "explain": "O último cancelamento reembolsável é possível em {{ days }} dia(s) {{ hours }} hora(s) {{ minutes }} minuto(s) antes da marcação"
+      },
+      "last_booking_minutes": {
+        "explain": "O último cancelamento reembolsável é possível antes de {{days}} dia(s) {{hours}} hora(s) {{minutes}} minuto(s) antes da marcação"
+      },
+      "description": "Descrição",
+      "coaches": {
+        "title": "Professor",
+        "is_empty": "Não é necessário professor"
+      }
+    }
+  },
+  "privatePass": {
+    "delete": {
+      "explain": "Tem a certeza de que pretende eliminar este passe ? As pessoas que ainda têm créditos continuarão a poder utilizá-los.",
+      "delete": "Eliminar",
+      "warning": "Atenção! Este passe de marcação é utilizado num pack, que deixará de estar disponível para venda se retirar este passe de aulas.",
+      "cancel": "Cancelar",
+      "submit": "Confirmar",
+      "title": "Eliminar o passe"
+    },
+    "edit": "Editar",
+    "form": {
+      "expirationDaysBeforeFirstUse": {
+        "helperText": "Se o passe de aula não for utilizado pela primeira vez dentro deste número de dias, perde a validade.",
+        "label": "Expira se não houver uma reserva inicial"
+      },
+      "name": {
+        "helperText": "Nome do passe de aulas",
+        "label": "Nome"
+      },
+      "universalPass": {
+        "helperText": "Os passes universais podem ser utilizados para actividades de grupo e aulas privadas. Para cada passe universal, são criados passes duplos para associar o número de créditos. Uma vez adquirido um destes passes, o outro será automaticamente adicionado sem custos adicionais.",
+        "warningIsUniversalPass": "Este passe é um passe universal, foi criado um passe igual nos passes de aulas. Todos os campos modificados neste passe serão igualmente modificados no passe \"gémeo\" (exceto a categoria). O mesmo se aplica às notificações, extensões e modificações de crédito.",
+        "label": "Passe universal",
+        "deativatedTags": "Deficientes para passes universais"
+      },
+      "categoryTitle": {
+        "compatibilityAppointment": "Compatibilidade para Aulas Privadas",
+        "paymentMeans": "Métodos de pagamento",
+        "validity": "Validade do passe",
+        "compatibility": "Compatibilidade",
+        "info": "Informações gerais"
+      },
+      "full_vod_access": {
+        "label": "Dar acesso aos Vídeos de Demanda"
+      },
+      "appliesForPayroll": {
+        "helperText": "Por defeito, as aulas privadas são faturadas ao estúdio e incluídas no resumo e na remuneração do professor. Se desativar esta definição, as aulas privadas associadas a este passe deixarão de aparecer no resumo do professor.",
+        "label": "Aulas Privadas tidas em conta no cálculo da remuneração do professor"
+      },
+      "expiration_date": {
+        "helperText": "Disponível até",
+        "label": "Prazo de aquisição",
+        "tooltip": "Uma vez ultrapassada a data escolhida, o passe de marcação deixará de aparecer para venda aos clientes."
+      },
+      "managerOnly": {
+        "label": "Não é visível para os alunos"
+      },
+      "new_member_only": {
+        "label": "Exclusivo para novos membros"
+      },
+      "category": "Nome da categoria",
+      "credits": {
+        "label": "Número de créditos incluídos",
+        "helperText": "Cada sessão custa um determinado número de créditos"
+      },
+      "price": {
+        "label": "Preço incl. IVA",
+        "helperText": "Preço do passe para o aluno"
+      },
+      "durationMonths": {
+        "label": "Duração da validade em meses",
+        "helperText": "Adicionado ao número de dias"
+      },
+      "durationYears": {
+        "label": "Duração da validade em anos",
+        "helperText": "Adicionado ao número de dias e de meses"
+      },
+      "duration": {
+        "fullText": "Este passe será válido para ",
+        "days": "{{ count }} dia",
+        "days_plural": "{{ count }} dias",
+        "months": "{{ count }} mês",
+        "and": " e ",
+        "valid": "Válido ",
+        "years": "{{ count }} ano",
+        "years_plural": "{{ count }} anos",
+        "daysMonths": "{{ duration_months }} mês e {{ duration_days }} dias"
+      },
+      "available_payment_method_identifiers": {
+        "warning": "Torne o seu passe visível para os alunos, para que estes possam selecionar os métodos de pagamento.",
+        "label": "Meios de pagamentos autorizados",
+        "helperText": "Selecionar pelo menos um método de pagamento. Se o cesto do membro contiver artigos com métodos de pagamento incompatíveis, será proposto o pagamento por passe."
+      },
+      "start_date_method": {
+        "on_purchase": "Faturação",
+        "on_booking": "Na 1ª reserva",
+        "on_attendance": "Na 1º presença"
+      },
+      "tax": {
+        "label": "IVA"
+      },
+      "selector": {
+        "privateService": "Adicionar uma marcação compatível"
+      },
+      "durationDays": {
+        "label": "Duração da validade em dias"
+      },
+      "startDate": "Data de início",
+      "actions": {
+        "cancel": "Cancelar",
+        "submit": "Guardar"
+      },
+      "onBehalfOfTeacher": {
+        "helperText": "Esta definição permite-lhe indicar que os rendimentos associados às aulas privadas deste passe serão pagos na totalidade ao professor. Esta informação será visível nos seus relatórios de compra (CA) na coluna \"Pagamento pago na totalidade ao professor\".",
+        "label": "Pagamento integral ao professor"
+      },
+      "start_date_method_detail": {
+        "on_purchase": " a partir da data de aquisição",
+        "on_booking": " a partir da 1º reserva",
+        "on_attendance": " a partir da 1º presença"
+      },
+      "title": "[Formulário] Passe de Aula Privada",
+      "franchise": "Este passe é partilhado pela conta do franchisador. Certos elementos foram definidos pela conta do franchisador e não podem ser alterados",
+      "description": {
+        "label": "Descrição"
+      },
+      "advancedOptions": {
+        "tag": {
+          "selectTags": "Selecione etiquetas",
+          "tagsOnAcquisitionHelper": "Use etiquetas para identificar qual membro comprou o passe para a consulta.",
+          "tagsOnAcquisition": "Etiquete após a compra"
+        },
+        "header": "Avançado"
+      }
+    },
+    "actions": {
+      "forceRegularizeUnpaid": "Regularizar todas os pagamentos pendentes"
+    },
+    "list": {
+      "availableCustomer": "Passes disponíveis para venda",
+      "managerOnly": "Passes não disponíveis para venda",
+      "createButton": "Criar um passe de marcação",
+      "isEmpty": "Nenhum passe de Marcação"
+    },
+    "parameters": {
+      "price": "{{ price, price}}",
+      "nbCredits": "{{ credits }} crédito",
+      "nbCredits_plural": "{{ credits }} créditos",
+      "unusableByStaff": "Não é visível para o staff",
+      "tax": "IVA: {{ tax }}%",
+      "managerOnly": "Não é visível para os alunos"
+    },
+    "compatibleServices": {
+      "unusable": "Não pode ser utilizado",
+      "title": "Aulas Privadas compatíveis",
+      "add": "Adicionar",
+      "isEmpty": "Nenhuma marcação compatível"
+    },
+    "listItem": {
+      "unusableByStaff": "Não visível para o staff"
+    },
+    "ht": "Sem imposto",
+    "validForDuration": {
+      "months": "Valido {{ duration_months }} mês",
+      "years": "Válido {{ duration_years }} ano",
+      "days": "Válido {{ duration_days }} dias",
+      "general": "Válido por {{ duration_days }} dias {{ duration_months }} mês e {{ duration_years }} ano"
+    },
+    "detailTitles": {
+      "credit_quantity": "Número de créditos",
+      "paymentMeans": "Métodos de pagamento",
+      "accessibility": "Acessibilidade",
+      "validity": "Validade",
+      "vod": "Vídeos de Demanda",
+      "privateServiceCompatibility": "Aulas Privadas compatíveis"
+    },
+    "disabledTitle": "Passe de Aulas Privada arquivados"
+  },
+  "privateServiceCompatibility": {
+    "delete": {
+      "submit": "Eliminar",
+      "explain": "Tem a certeza de que pretende alterar as regras de utilização deste passe? Esta alteração afectará todas as compras.",
+      "cancel": "Cancelar",
+      "title": "Aulas Privadas compatíveis depois da modificação"
+    },
+    "allSlots": "Compatível para todas as sessões",
+    "none": " nenhum",
+    "excludedSlots": {
+      "submit": "Guardar",
+      "cancel": "Cancelar",
+      "isEmpty": "Nenhum tipo de sessão configurada nesta marcação!",
+      "helperText": "Selecionar as aulas privadas compatíveis do passe de aula privada.",
+      "title": "Sessões de {{ service }}"
+    },
+    "forSlots": "Sessões compatíveis :"
+  },
+  "consumerPass": {
+    "extension": {
+      "delete": {
+        "explain": "Tem a certeza de que pretende eliminar a extensão da validade ?",
+        "confirm": "Confirmar",
+        "cancel": "Cancelar",
+        "title": "Eliminar a extensão"
+      },
+      "create": {
+        "note": {
+          "label": "Notas"
+        },
+        "cancel": "Cancelar",
+        "explain": {
+          "newDate": "Nova data : ",
+          "oldDate": "Data anterior : "
+        },
+        "warning": "Verificar se a nova data não faz com que esta passagem exceda um novo período fiscal. Se for esse o caso, verifique com o seu contabilista se esta operação é adequada.",
+        "nbDays": {
+          "label": "Número de dias adicionais"
+        },
+        "datePicker": {
+          "label": "Nova data"
+        },
+        "submit": "Criar",
+        "title": "Extensão de um passe"
+      },
+      "addedOn": "Adicionado em ",
+      "options": {
+        "addNumberOfDays": "Prolongar a validade acrescentando um determinado número de dias",
+        "selectNewEndDate": "Definir uma nova data de expiração"
+      },
+      "nbDaysAdded": "+{{nb_days}}d"
+    },
+    "warningShareUniversal": "Este passe é universal, por favor partilhe o passe de aulas associado",
+    "detail": {
+      "booking": "Aulas Privadas Associadas",
+      "extensionsTitle": "Extensões de validade",
+      "invoice": "Fatura associada"
+    },
+    "isReverted": "Fatura cancelada",
+    "isFromDisabledShare": "Parar partilha",
+    "actions": {
+      "addExtension": "Adicionar uma extensão"
+    },
+    "current_credits": "{{ current_credits }}/{{credits}} créditos",
+    "expiresOn": "Expira em {{ date }}",
+    "isFromShare": "Partilhado a partir de outra conta",
+    "isOwnerOfShares": "Partilhado (Master Aula Privada Pass)",
+    "isFromShareTooltip": "Este passe de marcação é partilhado por outro estúdio franchisado"
+  },
+  "privateCoach": {
+    "delete": {
+      "explain": "Tem a certeza de que pretende remover a atribuição deste professor ? O professor deixará de poder aceitar reservas para este passe. As reservas efetuadas não serão afetadas.",
+      "title": "Anular a subscrição de um professor",
+      "submit": "Confirmar",
+      "cancel": "Cancelar"
+    }
+  },
+  "privateService": {
+    "delete": {
+      "confirm": "Eliminar",
+      "submit": "Eliminar",
+      "explain": "Tem a certeza de que pretende eliminar esta marcação ? Esta alteração é definitiva. As reservas já efectuadas não serão afetadas.",
+      "cancel": "Cancelar",
+      "title": "Eliminar a marcação"
+    },
+    "padBeforeBooking": {
+      "explain1": "Se estiver ativado, as reservas só podem ser feitas se o calendário estiver disponível e incluir a reserva",
+      "explain2": "Exemplo: a sala está disponível das 10h00 às 11h00, a sua marcação dura 1 hora, mas precisa de 15 minutos antes e depois da reserva.",
+      "explain4": "NÃO-ATIVO: a marcação será possível e bloqueará a sala 15 minutos antes e depois da reserva. A próxima marcação será possível a partir das 11h30.",
+      "explain3": "ATIVO: não será possível efetuar uma marcação. A sala deve estar disponível das 9h45 às 11h15. A próxima marcação só será possível a partir das 11h30."
+    }
+  },
+  "privateBooking": {
+    "delete": {
+      "explainMoreHardDeleteReccurentBooking": "Esta reserva está ligada a uma regra de marcação recorrente. Se eliminar esta marcação, o sistema tentará criá-la novamente. Se não pretender que esta marcação seja novamente criada, não a elimine e deixe o seu estado como cancelado.",
+      "explainHardDelete": "Esta reserva já foi anulada. Se a eliminar, será completamente apagada do calendário e perderá o histórico. A reserva será reembolsada se ainda não tiver sido anulada. Esta operação é irreversível.",
+      "consumer": {
+        "title": "Cancelar reserva",
+        "confirm": "Confirmar",
+        "content": {
+          "discardable": "Tem a certeza de que pretende cancelar esta marcação ? Os créditos ficarão novamente disponíveis.",
+          "notDiscardable": "Tem a certeza de que pretende cancelar esta marcação ? Não tem tempo e os créditos não serão creditados."
+        },
+        "cancel": "Cancelar"
+      },
+      "explainWithRestore": "Tem a certeza de que pretende cancelar esta reserva ? Pode cancelar esta operação mais tarde.",
+      "title": "Cancelar reserva",
+      "hardDeleteTitle": "Eliminar uma reserva",
+      "explain": "Tem a certeza de que pretende cancelar esta reserva ? Esta operação é irreversível.",
+      "explainForceRefund": "Reembolsar o crédito utilizado no passe para permitir uma nova reserva.",
+      "confirm": "Confirmar",
+      "cancel": "Cancelar",
+      "sendCancellationMail": "Notificar {{name}} do cancelamento da marcação por email",
+      "explainMoreHardDeleteReccurentBookingTitle": "Marcação recorrente"
+    },
+    "hardDelete": "Eliminar",
+    "editTime": "Editar",
+    "notRefunded": "Sem reembolso",
+    "detail": {
+      "cancelledByRecurrenceBy": "Cancelar por",
+      "dateModifiedBy": "Editado por",
+      "canal": "Canal",
+      "coachModifiedBy": "Editado por",
+      "wasRefundedNo": "Não",
+      "coach": "Professor",
+      "cancelledByRecurrenceOn": "Cancelar reserva recurrente em ",
+      "historyTitle": "Histórico",
+      "emptyHistory": "Sem histórico",
+      "coachModified": "Alteração",
+      "cancelledBy": "Cancelar por",
+      "slotTitle": "Sessão",
+      "address": "Morada",
+      "attachCoach": "Atribuir um professor",
+      "cancelledByRecurrence": "Cancelamento das reservas recorrentes",
+      "restoredBy": "Restaurar por",
+      "wasRefundedYes": "Sim",
+      "initialDateTime": "Data e hora inicial",
+      "title": "Reserva",
+      "registeredOn": "Reservado em ",
+      "cancelledOn": "Cancelar em ",
+      "source": "Canal de reservas ",
+      "unpaidBooking": "O aluno optou por efectuar o pagamento mais tarde. {{ credits}} crédito(s) serão automaticamente debitados na próxima vez que comprar um passe compatível.",
+      "by": "Por",
+      "dateModified": "Alteração",
+      "restored": "Restaurar",
+      "cancelled": "Cancelamento",
+      "passTitle": "Passe de aulas",
+      "wasRefunded": "Crédito reembolsado no passe"
+    },
+    "managerAdd": {
+      "incompatibilities": {
+        "11107": "Não compatível",
+        "11108": "Número de créditos insuficientes",
+        "11109": "O passe fica ativo com a primeira reserva, a ",
+        "11110": "O passe está expirado",
+        "11111": "As datas não são compatíveis",
+        "close": "Fechar",
+        "privateService": "Passe configurado como incompatível com a marcação em causa :"
+      },
+      "emptyPrivatePass": "Sem nenhum passe de marcação compatível",
+      "address": "Morada",
+      "title": "Nova reserva",
+      "emptyPrivateConsumerPass": "Sem nenhum passe compatível",
+      "coachSelector": {
+        "label": "Professor"
+      },
+      "pleaseSelectCoachAndSlot": "Primeiro, seleccione o professor e a sessão",
+      "compatiblePrivateConsumerPass": "Data em que os passes foram adquiridos :",
+      "nonCompatiblePrivateConsumerPass": "Não compatível com os passes de aula privada possuídos",
+      "compatiblePrivatePass": "Faturar um passe de marcação",
+      "noUncompatiblePassToDisplay": "Sem passes de aulas privadas  não compatíveis",
+      "cancel": "Cancelar",
+      "privateConsumerPassNeedRefresh": "Atualizar lista"
+    },
+    "isUnpaid": "Não pago",
+    "bookingIsUnpaid": "Reserva não paga",
+    "attachCoach": {
+      "explain": "Escolha um professor a quem atribuir esta marcação e adicione ao seu calendário",
+      "title": "Atribuir ao professor",
+      "actions": {
+        "title": "Atribuir um professor",
+        "cancel": "Cancelar"
+      }
+    },
+    "discard": "Anular a Marcação",
+    "cancel": "Cancelar",
+    "restore": "Restaurar a marcação",
+    "isCancelledByManager": "Anular por {{cancelled_by}}",
+    "isRefunded": "Reembolsar",
+    "isCancelledDate": "Cancelar no {{-date}} às {{time}}",
+    "updateTime": {
+      "title": "Editar Aula Privada",
+      "explainEmail": "Será automaticamente enviado um email para informar o aluno da alteração",
+      "submit": "Guardar",
+      "cancel": "Cancelar"
+    },
+    "bookings": "Aulas Privadas",
+    "updateCoach": "Selecionar um novo professor para essa Aula Privada",
+    "isCancelled": "Cancelar",
+    "isCancelledByManagerDate": "Anular em {{-date}} às {{time}} por {{cancelled_by}}"
+  },
+  "privateSlot": {
+    "delete": {
+      "explain": "Tem a certeza de que pretende eliminar esta sessão ? As reservas anteriores não serão afectadas. Esta operação é definitiva.",
+      "cancel": "Cancelar",
+      "confirm": "Confirmar",
+      "title": "Eliminar a sessão"
+    },
+    "duration": "{{ minutes }} minutos"
+  },
+  "serviceGroup": {
+    "delete": "Eliminar",
+    "edit": "Editar",
+    "isEmpty": "Nenhuma marcação associada a esta categoria",
+    "form": {
+      "actions": {
+        "cancel": "Cancelar",
+        "submit": "Guardar"
+      },
+      "name": {
+        "label": "Nome"
+      },
+      "title": "Categoria"
+    },
+    "selector": {
+      "placeholder": "Categoria"
+    }
+  },
+  "availabilitySlot": {
+    "form": {
+      "resourceSelector": {
+        "label": "Editar:",
+        "cancel": "Cancelar",
+        "title": "Editar faixa horária",
+        "warning": "Este professor não está associado a nenhuma marcação",
+        "submit": "Guardar"
+      }
+    },
+    "specificAvailabilityForm": {
+      "switchLabel": "Acrescentar apenas para determinados estabelecimentos",
+      "info": "Por predefinição, o seu professor será apresentado como disponível em todas as suas escolas. Ao ativar esta opção, pode selecionar as escolas onde o seu professor estará disponível para esta faixa horária.",
+      "advanced": "Avançado",
+      "infoForCoach": "Por defeito, estará disponível em todos os estabelecimentos. Ao ativar esta opção, pode selecionar os estabelecimentos em que estará disponível para esta faixa horária."
+    },
+    "detail": {
+      "availableEverywhere": "Disponível em todas as salas",
+      "dialog": {
+        "title": "Informações sobre a disponibilidade"
+      },
+      "detailEmpty": "Não há disponibilidade na faixa horária selecionada",
+      "slotBoundaries": "De {{date_start}} a {{date_end}}",
+      "openHours": "Horários",
+      "ok": "Ok"
+    },
+    "notAssociatedWarning": "Atenção, este professor não está associado a nenhuma aula privada. Para associar uma nova aula privada a este professor, associe-o à aula privadada pretendida a partir do separador Aulas Privadas.",
+    "private_service": "Tipo de Marcação",
+    "notAssociatedDialog": {
+      "title": "Nenhuma marcação associada",
+      "info": "A disponibilidade foi guardada. No entanto, este professor não está associado a nenhuma Aula privada.\nPara associar uma nova aula privada a este professor, associe-o à aula privada desejada no separador Aulas privadas.",
+      "close": "Fechar",
+      "checkbox": "Não me lembrar de novo"
+    },
+    "coach": "Professor",
+    "establishment": "Localização"
+  },
+  "privatePassTemplateInstance": {
+    "form": {
+      "explain1": "Os estúdios seguintes terão automaticamente este passe disponível para venda. Não poderão alterar o preço ou o número de créditos.",
+      "actions": {
+        "submit": "Registo",
+        "close": "Fechar"
+      },
+      "explain2": "Se um membro comprar este passe num dos estúdios compatíveis, poderá também utilizá-lo nos outros estúdios que definiu.",
+      "title": "Configurar os meus estúdios"
+    },
+    "actions": {
+      "addCompany": "Adicionar um estúdio"
+    },
+    "companyEmpty": "Nenhum estúdio está configurado para aceitar este passe",
+    "deleteForm": {
+      "actions": {
+        "submit": "Desativar a partilha",
+        "close": "Fechar"
+      },
+      "content": "Ao desativar este estúdio da partilha de passes, todos os membros que possuem este passe e o compraram neste estúdio poderão continuar a utilizá-lo. No entanto, deixarão de o poder utilizar noutros estúdios. Por último, os passes comprados noutros estúdios deixarão de poder ser utilizados no estúdio desativado, independentemente da data de compra.",
+      "title": "Desativar"
+    },
+    "privateConsumerPassSharedFromOtherFranchisee": "Partilhado pelo franchisado",
+    "privatePassSharedFromFranchisor": "Passe de franquia"
+  },
+  "filters": {
+    "credits": "Crédito",
+    "expiration": "Validade",
+    "all": "Todos os passes",
+    "hasCreditNull": "Sem crédito",
+    "isExpired": "Expirada",
+    "hasCreditLeft": "Com crédito",
+    "notReverted": "Fatura não cancelada",
+    "reverted": "Fatura cancelada",
+    "isValidToday": "Válida",
+    "invoice": "Fatura",
+    "isActive": "Ativa"
+  },
+  "popup": {
+    "end": "Hora de fim",
+    "begin": "Hora de início",
+    "button": "Horários",
+    "validate": "Confirmar"
+  },
+  "searshAppointmentPass": "Procurar um passe de marcação",
+  "search": "Procurar uma marcação",
+  "privatePassTemplate": {
+    "actions": {
+      "create": "Criar um passe partilhado"
+    },
+    "deleteForm": {
+      "actions": {
+        "submit": "Desativar a partilha",
+        "close": "Fechar"
+      },
+      "content": "Ao desativar um cartão partilhado, os membros que possuem este cartão só o poderão utilizar no estúdio onde o adquiriram.",
+      "title": "Desativar"
+    },
+    "form": {
+      "actions": {
+        "submit": "Guardar",
+        "close": "Fechar"
+      },
+      "submit": "Confirmar",
+      "close": "Fechar",
+      "title": "Passe de aulas partilhado"
+    },
+    "section": {
+      "titleManagerOnly": "Indisponível para venda",
+      "titleAvailable": "Disponível para venda"
+    },
+    "isEmptyExplain": "Os passes de aulas partilhados estão disponíveis nos estúdios da sua escolha e permitem que os membros utilizem os créditos em qualquer estúdio à escolha.",
+    "specification": {
+      "companySharedWithTitle": "Partilhar com os outros estúdios:"
+    }
+  },
+  "seeAll": "Ver tudo",
+  "resource": {
+    "unGroup": "Nenhum",
+    "allocationWarning": {
+      "establishment": "Este sala não está disponível de momento",
+      "continue": "Tem a certeza de que pretende adiar esta marcação ?",
+      "loading": "Verificar a disponibilidade de faixas horárias",
+      "showCalendar": "Ver o calendário",
+      "cancel": "Cancelar",
+      "title": "Não se encontra disponível",
+      "coach": "Este professor não está disponível neste horário",
+      "resource": "Atenção, {{ resource }} não está disponível.\n",
+      "validate": "Confirmar"
+    },
+    "form": {
+      "color": "Código da cor",
+      "actions": {
+        "submit": "Guardar",
+        "cancel": "Cancelar"
+      }
+    },
+    "datatype": {
+      "associated_coach": "Professor",
+      "private_service": "Geral",
+      "associated_establishment": "Sala",
+      "establishment": "Sala",
+      "coach": "Professor"
+    },
+    "selector": {
+      "title": "Ver disponibilidades"
+    },
+    "groupBy": "Agrupar por"
+  },
+  "selector": {
+    "privateSlot": "Selecionar uma sessão",
+    "privateService": "Selecionar uma Aulas Privada"
+  },
+  "pageTitles": {
+    "serviceList": "Apenas por marcação",
+    "calendar": "Calendário",
+    "passList": "Passe de Aula privada"
+  },
+  "payment": {
+    "address": {
+      "explain": "Introduza oa sua morada",
+      "save": "Guardar"
+    }
+  },
+  "slotSearcher": {
+    "selectPrivateSlot": "Selecionar uma sessão",
+    "emptyDateList": "Hoje não existem vagas disponíveis",
+    "selectSession": "Escolher uma sessão",
+    "selectService": "Escolher um serviço",
+    "establishment": "Localização",
+    "previousOffer": "Uma sessão mais recente está disponível em {{- date }} : {{ hour }}",
+    "nextOffer": "Primeira vaga disponível em {{- date }} : {{ hour }}",
+    "searchFirstSlot": "Procurar a primeira vaga disponível",
+    "bookableSlots": {
+      "title": "Vagas disponíveis",
+      "isEmpty": "Não existem horárias disponíveis"
+    },
+    "search": "Procurar uma vaga",
+    "title": "Aula Privada",
+    "selectCoach": "Todos os professores",
+    "searchSlot": "Procurar uma vaga",
+    "emptyState": "Nenhuma disponibilidade até ao momento",
+    "coach": "Professor",
+    "nbSlot": "{{ nbSlot }} vaga",
+    "nbSlot_plural": "{{ nbSlot }} vagas",
+    "groupIdentifier": {
+      "noon": {
+        "interval": "12h - 14h",
+        "label": "Almoço"
+      },
+      "afternoon": {
+        "label": "Tarde",
+        "interval": "14 - 18h"
+      },
+      "evening": {
+        "interval": "Depois das 18h",
+        "label": "Fim de tarde"
+      },
+      "morning": {
+        "label": "De manhã",
+        "interval": "Antes das 12h"
+      }
+    }
+  },
+  "marketplace": {
+    "isEmpty": "Nenhuma marcação proposta"
+  },
+  "noPrivateConsumerPass": "Ninguém tem este passe de marcação",
+  "color": {
+    "form": {
+      "cancel": "Cancelar",
+      "title": "Código da cor do professor",
+      "submit": "Guardar"
+    }
+  },
+  "noPrivatePass": "Os membros podem utilizar os passes de aula privada para reservar (por exemplo, treino pessoal, duos, aluguer de salas, massagens, etc.). Lembrete: não se esqueça de configurar corretamente a compatibilidade de todos os seus passes de aula privada",
+  "noPrivateService": "O membro pode marcar uma consulta para a faixa horária escolhida.",
+  "slot": {
+    "parameters": {
+      "credit": "{{ credit }} crédito"
+    },
+    "form": {
+      "title": "Sessão",
+      "pre_selected_choices": "Horários predefinidos",
+      "name": {
+        "placeholder": "Sessão dupla (2h)",
+        "label": "Nome da sessão"
+      },
+      "credit": {
+        "label": "Número de crédito(s)",
+        "helperText": "Seleccione o número de créditos necessários para marcar uma aula privada"
+      },
+      "durationError": "Duração inválida (entre 10min e 1d)",
+      "people_capacity_used": {
+        "helperText": "Se uma sala estiver configurada, este número será utilizado para atualizar a ocupação da sala",
+        "label": "Número de pessoas"
+      },
+      "duration_minutes": {
+        "label": "Duração",
+        "helperText": "Adaptar os créditos necessários em função da duração"
+      },
+      "booking_interval_minutes": {
+        "label": "Avançar : intervalo de seleção de reserva",
+        "helperText": "Exemplo: 15 significa 15 minutos que o membro pode reservar às 12:00, 12:15, 12:30, etc... (recomendado)"
+      },
+      "cancel": "Cancelar",
+      "submit": "Guardar"
+    }
+  },
+  "bookerModule": {
+    "emptySlot": "Sem disponibilidade",
+    "title": "Reservar uma aula privada",
+    "missingResource": {
+      "establishment": "Selecionar um local",
+      "service": "Selecionar um tipo de marcação",
+      "coach": "Selecionar o professor"
+    },
+    "isAtHome": "Aulas ao domicílio, a sua morada será solicitada aquando a reserva",
+    "address": {
+      "label": "Morada",
+      "helperText": "Introduza o seu endereço para reservar esta marcação",
+      "submit": "Confirmar"
+    },
+    "unpaidBooking": {
+      "helper": "Reserve sem pagar e compre um passe compatível mais tarde.",
+      "header": "Pagar mais tarde",
+      "dialogHelper": "Com esta opção, pode reservar a sua sessão sem a pagar de imediato. Da próxima vez que comprar um passe compatível com esta sessão, este será automaticamente debitado por {{ credits }} crédito(s).",
+      "isUnpaid": "Não pago",
+      "book": "Reservar"
+    },
+    "useCredit": "Reservar",
+    "buyPass": "{{ price, price }}",
+    "sections": {
+      "privateSlot": "Sessões",
+      "establishment": "Local",
+      "coach": "Professor"
+    },
+    "step": {
+      "configuration": "A minha marcação",
+      "privateSlot": "Sessão",
+      "billing": "Faturação",
+      "privateService": "Aulas Privadas",
+      "coach": "Professor",
+      "rule": "Aulas Privadas recorrentes",
+      "date": "Data"
+    },
+    "recurrenceRule": {
+      "label": "Agendar uma aula privada recorrente"
+    },
+    "bookingCapabilities": {
+      "compatiblePassTitle": "Passes válidos para esta sessão",
+      "emptyPassList": "Não há passes compatíveis, contacte o seu estúdio",
+      "compatibleConsumerPassTitle": "Os seus passes válidos",
+      "emptyConsumerPassList": "Não dispõe de um passe válido com crédito suficiente"
+    },
+    "private_pass": {
+      "credits": "{{ credits }} crédito"
+    },
+    "notifyMember": {
+      "label": "Enviar um email de confirmação"
+    },
+    "error": "Impossível reservar nesta data",
+    "searchSlot": "Procurar uma vaga",
+    "confirm": "Confirmar",
+    "cancel": "Cancelar",
+    "noPrivateServiceAvailable": "Não existem aulas privadas a apresentar.",
+    "preview": {
+      "credit_cost": "{{credit_cost}} crédito"
+    },
+    "availableSlots": "Vagas disponíveis"
+  },
+  "specificAvailabilitiesCalendar": {
+    "infoBoxContent": "Está no modo de disponibilidade específico do estabelecimento. Por predefinição, os seus professores estão disponíveis em todas os estabelecimentos quando cria uma disponibilidade. Nesta página, pode definir disponibilidades específicas para determinados estabelecimentos para que o seu professor esteja disponível apenas num local. É necessário criar uma disponibilidade geral no horário do professor para criar uma disponibilidade específica.",
+    "goToRegularCalendar": "Voltar ao horários",
+    "filters": "Filtros",
+    "establishment": "Sala"
+  },
+  "openCalendar": "Ver o calendário",
+  "openSpecificAvailabilitiesCalendar": "Disponibilidades específicas",
+  "categoryTitle": "Categorias de passes de marcação",
+  "universalPass": {
+    "delete": {
+      "dialog": {
+        "warningText": "Atenção ! Este passe é um passe universal, pelo que se o apagar, o seu passe gémeo também será eliminado.",
+        "title": "Eliminar passe"
+      }
+    }
+  },
+  "disabledPacksTitle": "Passes de aula privada arquivados",
+  "forms": {
+    "delete": {
+      "content": {
+        "canDelete": "Tem certeza de que deseja excluir essa marcação? Essa alteração é definitiva. As reservas já feitas não serão afetadas."
+      },
+      "title": "Excluir Marcação",
+      "actions": {
+        "cancel": "Cancelar",
+        "confirm": "Excluir"
+      },
+      "cancel": "Cancelar",
+      "confirm": "Excluir"
+    }
+  }
+}

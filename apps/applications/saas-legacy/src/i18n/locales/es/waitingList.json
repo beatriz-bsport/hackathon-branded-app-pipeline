@@ -1,0 +1,125 @@
+{
+  "dialog": {
+    "delete": {
+      "confirm": "Suprimir",
+      "cancel": "Cancelar",
+      "content": "¿Estás seguro de que quieres suprimir a este miembro de la lista de espera? Serás notificado por email.",
+      "title": "Supresión de la lista de espera",
+      "sendEmail": "Enviar un correo electrónico para cancelar la suscripción",
+      "contentV2": "¿Está seguro de que quiere eliminar a este miembro de la lista de espera?"
+    },
+    "autoBooking": {
+      "warning": {
+        "content": "Al cerrar el formulario, los miembros seleccionados no se añadirán a la sesión. Si ha seleccionado a varios miembros y desea deseleccionar sólo a este miembro, pulse cancelar en el formulario de miembros.",
+        "title": "Está seguro?"
+      },
+      "loading": {
+        "content": "No actualice esta página ni salga de ella. Este proceso puede tardar unos segundos.",
+        "title": "Se añaden miembros a la sesión"
+      },
+      "info": {
+        "content": "Los miembros con bonos válidos serán inscritos automáticamente en la sesión y recibirán un correo electrónico de confirmación. El sistema descontará automáticamente los créditos de los bonos que caduquen antes.",
+        "title": "Reservas automáticas para bonos válidos"
+      },
+      "success": {
+        "title": "Los miembros se añadieron a la sesión con éxito"
+      },
+      "error": {
+        "content": "No se han podido añadir miembros a la sesión. Vuelva a intentarlo",
+        "title": "La reserva automática ha fallado"
+      },
+      "incomplete": {
+        "actions": {
+          "bookThem": "Resérvelos manualmente",
+          "ok": "OK"
+        },
+        "content": {
+          "unregistered": "Los siguientes miembros NO han podido ser registrados, no se ha encontrado ningún pase compatible",
+          "registered": "Se han registrado los siguientes miembros, ya que se ha encontrado un bono compatible:"
+        },
+        "title": "Finalice su lista de espera"
+      }
+    },
+    "confirm": "Confirmar",
+    "cancel": "Cancelar"
+  },
+  "explainWaitingListConf": "Ej: hay 3 horas antes de la sesión, el estudiante tiene {{nbMinutesBeforeBookingOptionExpire}} minutos para confirmar su reserva antes de abandonar su plaza.",
+  "form": {
+    "auto_cancellation_type": {
+      "title": "Gestión de lista de espera"
+    },
+    "submit": "Guardar",
+    "smart_delay_percentage": {
+      "helper": "Si hay una plaza disponible, el estudiante tiene un tiempo proporcional al tiempo restante antes de la sesión.",
+      "label": "Gestión inteligente"
+    },
+    "dumb_delay_minutes": {
+      "helper": "Si hay una plaza disponible, el estudiante tiene N minutos para registrarse, antes de que el siguiente tome su plaza.",
+      "label": "Gestión simple"
+    },
+    "auto_consume_pack": {
+      "helper": "Si el miembro tiene un bono válido cuando hay un lugar disponible, se registra automáticamente y se cobra su bono. El bono que vence antes, y con el menor crédito disponible, se usa como prioridad.",
+      "label": "Debitar automáticamente un bono y registrar el miembro cuando haya un lugar disponible."
+    },
+    "is_option_blocking": {
+      "helper": "Mientras un miembro esté en la lista de espera, se bloqueará un lugar para él mientras espera que se registre.",
+      "label": "Los lugares que quedan disponibles están reservados exclusivamente para las personas en la lista de espera."
+    },
+    "autokick_delay": {
+      "helper": "Número de recordatorios antes de los cuales el miembro se elimina automáticamente de la lista de espera si no hay ninguna acción de su parte",
+      "label": "Retirada automática de la lista de espera"
+    },
+    "dynamic": {
+      "0": {
+        "explain": "Cuando un miembro se registra, se otorga un lugar en la lista de espera. Cuando hay un lugar disponible, el primer miembro de la lista puede registrarse, los demás esperan su turno",
+        "settingsDelay": "Tiempo entre recordatorios",
+        "label": "Cada uno su turno",
+        "overallExplainSmart": "Si queda una plaza libre, el alumno dispone de {{ autokick_delay }} recordatorios en intervalos de {{ smart_delay_percentage }}% del tiempo que falta para que comience la sesión para registrarse. Por ejemplo, si quedan {{ example_hours_before }} horas antes de la sesión, el estudiante tiene {{ example_computed_delay_one }} minutos para registrarse y luego {{ example_computed_delay_two }} minutos después del primer reintento, y así sucesivamente, antes de que el siguiente estudiante pueda registrarse.",
+        "overallExplainSimple": "Si queda una plaza libre, el participante dispone de {{ autokick_delay }} recordatorios en intervalos de {{ dumb_delay_minutes }} minutos para registrarse antes de ceder su plaza al siguiente participante."
+      },
+      "1": {
+        "explain": "La lista de espera no está ordenada. Cuando hay un lugar disponible, todos en la lista reciben un email invitándolos a registrarse al mismo tiempo.",
+        "label": "Primero llegado, primero servido"
+      },
+      "label": "Gestión de prioridades de lista de espera"
+    },
+    "last_delay_before_auto_consume": {
+      "label": "No se aceptan reservas automáticamente si la sesión tiene lugar en menos de ",
+      "helper": "Si la sesión tiene lugar demasiado pronto en el futuro, el socio no será inscrito aunque tenga un bono válido"
+    },
+    "check_credit": {
+      "label": "Asegúrese de que el cliente dispone de un pase válido compatible con la sesión, con crédito suficiente",
+      "helper": "Un cliente no podrá inscribirse en una lista de espera a menos que disponga de un pase compatible con la sesión, y con crédito suficiente"
+    },
+    "display_member_position": {
+      "label": "Mostrar la posición en la lista de espera"
+    },
+    "kick_if_no_pack_when_auto_consume": {
+      "label": "Eliminar automáticamente al miembro de la lista de espera si, cuando sus plazas queden libres, ya no dispone de un pase válido.",
+      "helper": "Un miembro puede utilizar sus créditos en otra sesión mientras espera en la lista de espera. Con esta configuración activada, si eso ocurre, su plaza en la lista de espera se cancelará automáticamente cuando le toque inscribirse."
+    },
+    "errors": {
+      "lastDelayBeforeAutoConsumeError": "Los minutos deben estar entre 0 y 240",
+      "autokickDelayError": "Se requiere un número",
+      "smartDelayPercentageError": "El porcentaje debe estar comprendido entre 10 y 100",
+      "dumbDelayMinutesError": "Los minutos entre retiradas deben ser superiores a 15"
+    }
+  },
+  "nbConvertible": "{{nbConvertible}} en espera de confirmación",
+  "nbPending": "{{nbPending}} en la lista",
+  "switchToDisable": "Reactivar la lista de espera",
+  "switchToEnable": "Reactivar la lista de espera",
+  "member": {
+    "detail": {
+      "offerTitle": "Sesión vinculada",
+      "registrationSource": "Canal de registro",
+      "registeredOn": "Registrado el",
+      "title": "Detalles de la lista de espera"
+    },
+    "empty": "No hay lista de espera para el registro",
+    "delete": "Borrar",
+    "addToBook": "Registrar",
+    "listTitle": "Lista de espera",
+    "waitingListPosition": "Posición en la lista de espera {{ position }}/{ size }}"
+  }
+}

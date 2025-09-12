@@ -1,0 +1,101 @@
+{
+  "coachAccess": {
+    "access": "Accès",
+    "info": "Nous avons détecté que vous êtes professeur dans ce studio. Souhaitez-vous avoir accès à votre espace élève ou à votre espace professeur ?",
+    "student": "élève",
+    "teacher": "professeur"
+  },
+  "noCoachs": "Aucun professeur enregistré, gérez ici vos profs, intervenants, ainsi que leur rémunération.",
+  "detail": {
+    "coachSpace": "Espace professeur",
+    "coachSpaceInfo": "Une fois activé, dans' l'espace professeur les enseignants peuvent voir leur rémunération, consulter leur emploi du temps et gérer leur disponibilité.",
+    "tab": {
+      "general": "Profil",
+      "calendar": "Calendrier"
+    },
+    "noPaymentRule": "Attention: aucune règle de rémunération n'a été définie pour ce professeur. "
+  },
+  "noCoach": "Il n'y a aucun professeur enregistré pour l'instant",
+  "coach": "Professeur",
+  "baseCoach": "Habituel",
+  "overrider": "Remplaçant",
+  "overrideSelectorTitle": "Professeur",
+  "coach_override": "Professeur de remplacement",
+  "color": "Code couleur (RDV)",
+  "showPerformance": "Rémunérer",
+  "showActivities": "Afficher les activités",
+  "showDescription": "Afficher la description",
+  "description": "Description",
+  "pleaseFill": "Veuillez renseigner un professeur",
+  "emptyDescription": "Aucune description fournie",
+  "selector": {
+    "label": "Professeur",
+    "enabled": "Professeurs actifs",
+    "disabled": "Professeurs archivés"
+  },
+  "search": "Rechercher un professeur",
+  "performance": {
+    "title": "Récapitulatif professeur",
+    "coachName": "Professeur",
+    "nbBookings": "Réservations",
+    "nbOffersTotal": "Séances",
+    "nbBookingsOverThreshold": "Réservations bonus",
+    "pricePerOffer": "Montant par séance",
+    "pricePerAdditionalBooking": "Montant par réservation",
+    "calculate": "Calculer",
+    "payment": "Rémunération",
+    "durationBookings": "Nombre d'heures",
+    "totalNetGain": "Total gain net"
+  },
+  "addCoach": "Ajouter un professeur",
+  "noActivity": "Ce professeur ne gère aucune activité.",
+  "selfNoActivity": "Vous n'êtes en charge d'aucune activité.",
+  "card": {
+    "update": "Modifier"
+  },
+  "forms": {
+    "linkByEmail": {
+      "cancel": "Annuler",
+      "submit": "Confirmer",
+      "title": "Adresse email du professeur",
+      "emailLabel": "Email",
+      "explain": "Veuillez fournir l'adresse e-mail du professeur que vous souhaitez ajouter. Si nous avons déjà leurs coordonnées, nous créerons automatiquement leur compte.",
+      "emailPlaceHolder": "exemple@email.fr"
+    },
+    "error_email_exists": "Un professeur avec cet email existe déjà, utilisez le formulaire de création Professeur",
+    "create": {
+      "title": "Nouveau professeur",
+      "success": "Professeur créé avec succès"
+    },
+    "update": {
+      "title": "Edition des informations",
+      "success": "Professeur modifié avec succès",
+      "errors": {
+        "emailAlreadyInUse": "L'email entré existe déjà dans la base de données. Vous pouvez associer cet email à un professeur uniquement en créant un nouveau professeur."
+      }
+    },
+    "delete": {
+      "content": {
+        "canDelete": "Êtes-vous sûr de vouloir supprimer ce professeur ? Vous n'aurez plus accès au calcul de ses rémunérations. Vous pourrez le rajouter de nouveau à partir de son email.",
+        "cannotDelete": "Vous ne pouvez pas supprimer ce professeur car des séances dans le futur sont prévues !"
+      },
+      "title": "Suppression professeur",
+      "actions": {
+        "cancel": "Annuler",
+        "confirm": "Supprimer"
+      },
+      "cancel": "Annuler",
+      "confirm": "Supprimer"
+    },
+    "errorDescription": "La description fournie est trop longue (max 1000)",
+    "errorLinkLength": "L'URL fourni est trop long (max 150)",
+    "errorInvalidURL": "Veuillez rentrer un URL valide"
+  },
+  "inactiveCoaches": "Professeurs archivés",
+  "paymentRule": "Rémunération",
+  "numberCoaches": "{{ number }} professeurs",
+  "workingDateSection": "Période d'activité dans le studio",
+  "dateJoinedCompany": "Date de début",
+  "dateLeftCompany": "Date de fin",
+  "emptyNotes": "Aucune note"
+}

@@ -1,0 +1,182 @@
+{
+  "common": {
+    "from": "Anfang",
+    "until": "Ende",
+    "pick_a_month": "Wählen Sie einen Monat"
+  },
+  "select": {
+    "placeholderOverride": "Standard-Lohnabrechnungsregel für den Coach",
+    "placeholder": "Wähle eine Berechnungsmethode aus",
+    "coachPaymentRuleForPrivateService": "Termine",
+    "coachPaymentRuleForSessions": "Gruppenaktivitäten",
+    "reset": "Standard-Lohnabrechnungsregel der Lehrkraft verwenden",
+    "group": "Lohnabrechnungsgruppe",
+    "coachPaymentRuleForWorkshops": "Workshops"
+  },
+  "addNew": "Neue Gehaltseinrichtung",
+  "cancel": "Abbrechen",
+  "addBonus": "Eine neue Regel hinzufügen",
+  "pricePerAdditionalBooking": "Bonus pro Buchung",
+  "calculation_method": "Berechnungsmethode",
+  "base_price": "Basis",
+  "name": "Name",
+  "save": "Speichern",
+  "add": "Hinzufügen",
+  "rules": "Regeln",
+  "modal": {
+    "delete": {
+      "confirm": "Bestätigen",
+      "cancel": "Abbrechen",
+      "title": "Eine Regel löschen",
+      "content": "Durch die Abschaffung dieser Lohnabrechnungsregel wird sie von allen Lehrkräften und Kursen getrennt, denen sie derzeit zugeordnet ist"
+    }
+  },
+  "setPaymentRuleSetForCoachFirst": "Bitte ordnen Sie diese Lohnabrechnungsregel mindestens einer Lehrkraft zu.",
+  "coaches": "Lehrkräfte",
+  "label": "Lohnabrechnungsregel",
+  "calculate": "Berechnen",
+  "calculation_methods": {
+    "margin_value": "Auf marginalem Wert jeder Buchung",
+    "bookings": "Auf Anzahl der Buchungen"
+  },
+  "dateTitle": "Zeitraum",
+  "actions": "Aktionen",
+  "include_tax": "Berechnung inkl. Mehrwertsteuer",
+  "base_percent": "Prozentsatz des Wertes",
+  "only_attendant": "Beschränkung des Buchungsnachweises auf die anwesenden Schüler",
+  "bookingThreshold": "Buchungsgrenze (ausgeschlossen)",
+  "title": "Lohnausstellung der Lehrkraft {{- name }}",
+  "pageTitle": "Lohnabrechnung",
+  "coach_payment_rules": {
+    "Simulator": {
+      "student_did_not_attend": "Abwesende",
+      "student_attended": "Anwesende",
+      "total_payment": "Abschlusszahlung",
+      "bonus": "Gesamtbonus",
+      "marginValue": "Marginaler Wert",
+      "forCancelledBookings": "Anzahl der Abwesenden",
+      "forConfirmedBookings": "Anzahl der Anwesenden",
+      "forEachBooking": "pro Buchung",
+      "which": "Einnahmen",
+      "cancellations": "Abwesende oder nicht fristgerechte Absagen",
+      "and": "und",
+      "students": "Anwesende",
+      "for": "für",
+      "helper": "Prüfe hier die Regeln deiner Lohnabrechnungen",
+      "resultTitle": "Simulationsergebnis (Gehalt der Lehrkraft)",
+      "title": "Gehaltssimulation",
+      "marginalValueOfReservation": "Marginaler Wert pro Buchung",
+      "numberOfCancellations": "Anzahl der Abwesenden/ nicht fristgerechten Absagen",
+      "numberOfStudent": "Anzahl der Anwesenden"
+    },
+    "Errors": {
+      "invalidCancelledBookingRules": "Wenn Sie unterschiedliche Boni für abwesende Mitglieder anwenden möchten, müssen Sie im folgenden Abschnitt mindestens einen Bonus oder eine Basis pro Prozentsatz definieren.",
+      "lowerIntervalTypeError": "Das untere Intervall muss eine Zahl kleiner oder gleich 1 sein",
+      "taxeRateTypeError": "Die Steuer muss eine Zahl zwischen 0 und 100 sein.",
+      "taxeRateRequired": "Die Steuer ist ein Pflichtfeld, wenn Sie das Feld \"Steuerberechnung\" oben markiert haben.",
+      "percentagebaseRemunerationTypeError": "Die prozentuale Vergütung muss eine Zahl zwischen 0 und 100 sein.",
+      "percentagebaseRemunerationRequired": "Prozentualer Lohn ist ein Pflichtfeld, wenn Sie das obige Feld markiert haben.",
+      "baseRemunerationTypeError": "Der Grundlohn muss eine positive Zahl sein.",
+      "baseRemunerationRequired": "Basic Pay ist ein Pflichtfeld, wenn Sie oben das Feld \"Fixed Base\" markiert haben.",
+      "invalideUpperInterval": "Das obere Intervall muss eine Zahl sein.",
+      "invalideIntervals": "Die Überschneidung von Intervallen für gleichartige Boni ist nicht zulässig.",
+      "invalidLowerInterval": "Das obere Intervall muss größer als das untere Intervall sein.",
+      "invalidBonusAmount": "Der Bonus muss größer oder gleich 0,1 sein.",
+      "invalidMaximum": "Die maximale Vergütung muss höher sein als die Mindestvergütung",
+      "invalidMinimum": "Die Mindestvergütung muss gleich oder höher als die feste Basis sein",
+      "nameRequired": "Der Name ist ein Pflichtfeld.",
+      "invalidCoachPaymentRule": "Es muss ein Lohnabrechnungsregel gewählt werden",
+      "invalidPrivateSlot": "Ein Termin muss ausgewählt werden",
+      "uniqueRuleForPrivateSlot": "Dieser Termin ist mehrfach aufgeführt",
+      "oneRuleRequired": "Sie müssen mindestens eine Lohnabrechnungsregel definieren, um eine Gruppe zu erstellen",
+      "privateSlotAlreadySelected": "Für diesen Termin ist bereits eine Vergütungsregel definiert"
+    },
+    "Bonuses": {
+      "bonus_rules": "Bonusregeln",
+      "forInterval": "für das gesamte Intervall",
+      "forEachBooking": "für jede Reservierung",
+      "bookingsThresholds": "Reservierungen (einschließlich Terminals)",
+      "to": "à",
+      "from": "Von",
+      "addBonus": "EINE BONUSREGEL HINZUFÜGEN",
+      "bonus": "Bonus"
+    },
+    "paymentPackPlaceHolder": "Kurspässe auswählen",
+    "excludePaymentPack": {
+      "title": "Buchungen für bestimmte Pässe ausschließen",
+      "warning": "Wenn Sie mit dem Parameter 'Bei der Lohnabrechnung der Lehrkraft berücksichtigte Kurse' bereits Durchgänge von der Lohnabrechnung ausgeschlossen haben, müssen Sie diese hier nicht erneut angeben."
+    },
+    "bonusForEachReservationInInterval": "Einen Bonus für jede Reservierung im Intervall hinzufügen",
+    "fixedBonusbyInterval": "Fügen Sie einen festen Bonus pro Intervall hinzu",
+    "cancellationBaseHelper": "Hilfe: Durch Ankreuzen dieses Feldes erhält der Coach keine zusätzliche Vergütung auf den Grenzwert der stornierten Buchungen",
+    "taxeLongHelper": "Hilfe: Alle Prozentsätze sind auf den Grenzwert jeder Buchung ohne Steuer berechnet. Die Steuer wird sowohl auf den Grenzwert als auch auf alle Fest- und Bonussätze aufgeschlagen.",
+    "taxeConciseHelper": "Der prozentuale Bonus, der sich aus dem marginalen Wert errechnet, wird von der geltenden Mehrwertsteuer abgezogen.",
+    "add_taxe_rate": "Hinzukommende Steuer",
+    "taxe_rate": "Mehrwertsteuer bei der Berechnung des marginalen Werts ausschließen (Prozentsatz)",
+    "max_remuneration": "Maximum",
+    "min_remuneration": "Minimum",
+    "remunerationLimits": "Vergütungsgrenzen",
+    "differentRemunerationForCancellation": "Andere Beträge für Nicht-Erscheinen und nicht fristgerechte Absagen vergüten ",
+    "addRemunerationOnCancellation": "Lehrkräfte bei Nicht-Erscheinen oder nicht fristgerechten Absagen vergüten",
+    "percentage_base": "Prozentsatz der Buchungsmarge hinzufügen",
+    "base_remuneration_helper": "Die Lehrkräfte erhalten dies immer als Vergütung für ihre Unterrichtseinheit.",
+    "base_remuneration": "Basis fixe",
+    "set_base_remuneration": "Festbetrag pro Kurs definieren",
+    "forCancelledBookings": "Abwesenheiten und Absagen",
+    "forConfirmedBookings": "Teilnahmen",
+    "calculationMethod": "Berechnungsmethode",
+    "actions": "Aktionen",
+    "coaches": "Trainer",
+    "name": "Name",
+    "addNewCoachPaymentRule": "Neue Vergütungsregel"
+  },
+  "tabs": {
+    "all": "Alle Kurse",
+    "appointment": "Termine",
+    "session": "Gruppenaktivitäten & Workshops",
+    "groups": "Lohnabrechnungsgruppe",
+    "groupActivity": "Gruppenkurse",
+    "workshop": "Workshops"
+  },
+  "fabButton": {
+    "addNewForRDV": "Termine",
+    "addNewForSession": "Gruppenaktivitäten & Workshops",
+    "addNewPaymentRuleGroup": "Neue Vergütungsregel",
+    "addNewForGroupActivity": "Gruppenkurse",
+    "addNewForWorkshop": "Workshops"
+  },
+  "paymentRules": "Vergütungsregeln",
+  "search": "Eine Lohnabrechnungsregel anwenden (optional)",
+  "coach_payment_rule_groups": {
+    "subtitle": {
+      "helper": "Sie können Ihre Vergütungsregeln für Tätigkeiten, Workshops und Termine zusammenfassen. Wenn Sie eine Lehrkraft zu einer Gruppe hinzufügen, werden alle Vergütungsregeln der Gruppe automatisch auf die Lehrkraft angewendet. Alle Änderungen an der Gruppe werden auch für alle Lehrkräfte der Gruppe übernommen.",
+      "default": "Standard-Lohnabrechungsregeln",
+      "specfic_private_slot": "Besondere Vergütung für eine Ernennung",
+      "coaches": "Assoziierte Professoren",
+      "removed_coaches": "Entfernte Lehrer"
+    },
+    "workshop": "Workshops",
+    "session": "Gruppenaktivitäten",
+    "fields": {
+      "addPrivateSlot": "Eine Lohnabrechnungsregel hinzufügen",
+      "private_service": "Termine",
+      "coach_payment_rule": "Lohnabrechnungsregel",
+      "private_service_name": "Termin",
+      "activity": "Aktivitäten",
+      "workshop": "Workshops"
+    },
+    "dissociate": "Benutzerdefinierte Lohnabrechnung",
+    "modal": {
+      "delete": {
+        "title": "Eine Gruppe löschen",
+        "cancel": "Abbrechen",
+        "confirm": "Bestätigen Sie",
+        "content": "Wenn Sie diese Gruppe löschen, wird sie von allen Lehrkräften getrennt, denen sie derzeit zugeordnet ist"
+      }
+    },
+    "dialogTitle": "Lohnabrechnungsgruppe",
+    "private_service": "Termine"
+  },
+  "simulate": "Simulieren",
+  "privateSlotLabel": "Termine"
+}

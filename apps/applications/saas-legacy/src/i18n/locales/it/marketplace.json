@@ -1,0 +1,401 @@
+{
+  "selector": {
+    "coach": {
+      "placeholder": "Insegnante"
+    },
+    "level": {
+      "placeholder": "Livello"
+    },
+    "establishment": {
+      "placeholder": "Stabilimento"
+    },
+    "additionalCoaches": {
+      "placeholder": "Insegnante aggiuntivo",
+      "placeholder_plural": "Insegnanti aggiuntivi"
+    }
+  },
+  "warning": {
+    "isManager": "Hai effettuato l'accesso come gestore, per accedere alla vista cliente, esci",
+    "disconnect": "Log-out",
+    "backToBackoffice": "Ritorna al Back Office"
+  },
+  "workshop": {
+    "card": {
+      "book": "Prenota",
+      "bookOption": "Lista d'attesa",
+      "isPast": "Finito",
+      "notAvailable": "Annullato",
+      "duration": "Durata: {{duration}}",
+      "showMore": "Maggiori informazioni",
+      "loadMore": "Più sessioni",
+      "bookTitle": "Prenota una sessione"
+    },
+    "noWorkshopAvailable": "Al momento non è previsto nessun workshop",
+    "warningBookingRedirectToFirstOffer": "Sei stato reindirizzato alla schermata di prenotazione del gruppo di sessioni {{- name }}; le sessioni da prenotare insieme saranno elencate nella schermata di prenotazione.",
+    "warningPartialBooking": "Stai prenotando un gruppo di sessioni. Tuttavia, non sei obbligato a partecipare a tutte le sessioni di questo gruppo. Puoi selezionare le sessioni che desideri.",
+    "warningFullBooking": "Stai prenotando un gruppo di sessioni. Sarai registrato per tutte le {{count}} sessioni di questo gruppo.",
+    "confirm": "Continua",
+    "cancel": "Annulla",
+    "loadMore": "Mostra di piú"
+  },
+  "paymentCombo": {
+    "addToCart": "Aggiungi al carrello",
+    "form": {
+      "manager_only": {
+        "label": "Invisibile ai clienti"
+      },
+      "usePaymentComboTaxOnItems": {
+        "helperText": "Per impostazione predefinita, la tassa applicata a ciascun oggetto è quella indicata sull'oggetto. Selezionando questa opzione, potrai applicare una tassa generale sul pacco.",
+        "label": "Applicare un'IVA generale all'intero pacchetto"
+      },
+      "tax": {
+        "label": "IVA"
+      },
+      "price": {
+        "label": "Prezzo"
+      },
+      "description": {
+        "label": "Descrizione"
+      },
+      "name": {
+        "label": "Nome"
+      },
+      "maxPurchasePerMember": {
+        "helperText": "Lascia vuoto per non imporre un limite",
+        "label": "Acquisto massimo per membro"
+      },
+      "error": {
+        "atLeastOneThing": "Devi aggiungere almeno un articolo nel tuo pacchetto"
+      }
+    },
+    "list": {
+      "buttons": {
+        "add": "Crea un pacchetto"
+      },
+      "explainIfEmpty": "Crea pacchetti acquistabili qui dagli studenti che possano contenere pass, articoli del negozio, ecc.",
+      "section": {
+        "availableOnline": "Disponibile per la vendita",
+        "unavailableOnline": "Non disponibile per la vendita"
+      }
+    },
+    "link": {
+      "copyLink": "Copia il link alla pagina di pagamento",
+      "copied": "Collegamento copiato"
+    },
+    "pageTitle": {
+      "list": "Pacchetti"
+    },
+    "search": "Trova un pacchetto"
+  },
+  "calendar": {
+    "registered": "Già registrato",
+    "close": "Chiudi",
+    "description": "Descrizione",
+    "conditions": "Condizioni",
+    "broadcast": "Online"
+  },
+  "genericCard": {
+    "validForDuration": {
+      "attendance": "Valido a partire dalla prima presenza",
+      "booking": "Valido a partire dalla prima prenotazione",
+      "purchase": "Valido a partire dalla data di contabilizzazione",
+      "validFromTo": "Valido da {{duration_date_start}} a {{duration_date_end}}",
+      "validAnd": "Valido per {{ first }} e {{ second }}",
+      "validDaysMonthsYears": "Valido per {{duration_years}}, {{ duration_months }} e {{ duration_days }}",
+      "validYear": "Valido per {{ count }} anno",
+      "validYear_plural": "Valido per {{ count }} anni",
+      "validMonth": "Valido per {{ count }} mese",
+      "validMonth_plural": "Valido per {{ count }} mesi",
+      "validDay": "Valido per {{ count }} giorno",
+      "validDay_plural": "Valido per {{ count }} giorni"
+    },
+    "addButton": {
+      "buttonContent": "Aggiungi al carrello"
+    },
+    "validity": {
+      "day": "{{count}} giorno",
+      "day_plural": "{{count}} giorni",
+      "month": "{{count}} mese",
+      "month_plural": "{{count}} mesi",
+      "year": "{{count}} anno",
+      "year_plural": "{{count}} anni"
+    },
+    "details": {
+      "buttonContent": "Dettagli"
+    },
+    "credits": {
+      "unlimited": "Illimitato",
+      "availableCredit": "{{credits}} credito",
+      "availableCredit_plural": "{{credits}} crediti"
+    },
+    "title": {
+      "universalPassMessage": "Pacchetto universale, utilizzabile per lezioni di gruppo e appuntamenti",
+      "autoRenewal": "Rinnovo automatico"
+    },
+    "price": {
+      "free": "Gratis"
+    }
+  },
+  "genericCardDetails": {
+    "packCard": {
+      "comboItemList": {
+        "hiddenItem": "{{count}} altro elemento",
+        "hiddenItem_plural": "{{count}} altri elementi",
+        "privatePassItem": "{{count}} pass per appuntamenti",
+        "privatePassItem_plural": "{{count}} pass per appuntamenti",
+        "paymentPackItem": "{{count}} pass",
+        "paymentPackItem_plural": "{{count}} passes"
+      }
+    },
+    "includedElements": {
+      "see": "Vedi",
+      "penalty": {
+        "penaltyDay": "{{count}} giorno",
+        "penaltyDay_plural": "{{count}} giorni",
+        "amount": "{{penalty_amount}} detratti dopo la {{penalty_cancellations}} fuori tempo per un periodo di {{penalty_days_period}}",
+        "days": "{{penalty_days}} di blocco dopo la {{penalty_cancellations}} fuori tempo per un periodo di {{penalty_days_period}}"
+      },
+      "maxPurchasePerMember": "{{count}} acquisto per membro",
+      "maxPurchasePerMember_plural": "{{count}} acquisti per membro",
+      "restrictions": {
+        "perWeek": "{{count}} utilizzo a settimana",
+        "perWeek_plural": "{{count}} utilizzi a settimana",
+        "perDay": "{{count}} utilizzo al giorno",
+        "perDay_plural": "{{count}} utilizzi al giorno",
+        "maxPerWeek": "Utilizzo massimo settimanale: <strong>{{count}}</strong>",
+        "maxPerWeek_plural": "Utilizzi massimi settimanali: <strong>{{count}}</strong>",
+        "perMonth": "{{count}} utilizzo al mese",
+        "perMonth_plural": "{{count}} utilizzi al mese",
+        "maxPerMonth": "Utilizzo massimo mensile: <strong>{{count}}</strong>",
+        "maxPerMonth_plural": "Utilizzi massimi mensili: <strong>{{count}}</strong>",
+        "maxPerDay": "Utilizzo massimo giornaliero: <strong>{{count}}</strong>",
+        "maxPerDay_plural": "Utilizzi massimi giornalieri: <strong>{{count}}</strong>",
+        "title": "Restrizioni d'uso"
+      },
+      "newMemberOnly": "Solo per i nuovi membri",
+      "isUniversalPass": "Pacchetto universale",
+      "compatibleWithEverything": "Compatibile con tutto",
+      "onlyVodAccess": "Disponibile solo per VOD",
+      "fullVodAccess": "Compatibile con VOD",
+      "onsitePaymentAvailable": "Possibilità di pagamento in loco",
+      "cancellation": "{{count}} cancellazione",
+      "cancellation_plural": "{{count}} cancellazioni",
+      "penaltyNoShow": {
+        "block": "{{days_blocked}} di blocco dopo {{threshold}} in un periodo di {{time_window_days}}.",
+        "account": "Un importo di {{amount}} sera applicato per {{threshold}} in un periodo di {{time_window_days}}.",
+        "penaltyDay": "{{count}} giorno",
+        "penaltyDay_plural": "{{count}} giorni",
+        "threshold": "{{count}} assenza",
+        "threshold_plural": "{{count}} assenze"
+      },
+      "offPeakRestrictions": {
+        "title": "Compatibile solamente con alcune fasce orarie"
+      }
+    },
+    "restrictions": "Restrizioni",
+    "compatibility": {
+      "packs": {
+        "and": " e ",
+        "categoriesAndActivitiesAndEstablishments": "Compatibile con {{ categories }}, {{ establishments }} e {{ activities }} ",
+        "establishmentsAndActivities": "Compatibile con {{ establishments }} e {{ activities }} ",
+        "categoriesAndEstablishment": "Compatibile con {{ categories }} e {{ establishments }} ",
+        "categoriesAndActivities": "Compatibile con {{ categories }} e {{ activities }} ",
+        "establishments": "Compatibile con {{ count }} sala",
+        "establishments_plural": "Compatibile con {{ count }} sale",
+        "activities": "Compatibile con {{ count }} attività",
+        "activities_plural": "Compatibile con {{ count }} attività",
+        "categories": "Compatibile con {{ count }} categoria",
+        "categories_plural": "Compatibile con {{ count }} categorie",
+        "compatible": "Compatibile con ",
+        "all": "Compatibile con tutto"
+      },
+      "compatibilityModal": {
+        "establishments": "Sale",
+        "activities": "Attività",
+        "categories": "Categorie"
+      },
+      "establishments": "{{ count }} sala",
+      "establishments_plural": "{{ count }} sale",
+      "activities": "{{ count }} attività",
+      "activities_plural": "{{ count }} attività",
+      "categories": "{{ count }} categoria",
+      "categories_plural": "{{ count }} categorie",
+      "button": {
+        "close": "Chiudi"
+      },
+      "allPrivateSlotsAvailables": "Tutti i tipi di sessioni",
+      "compatibilities": "Compatibilità",
+      "compatible": "Compatibile con {{count}} appuntamento",
+      "compatible_plural": "Compatibile con {{count}} appuntamenti",
+      "none": "Nessun appuntamento compatibile"
+    },
+    "credits": {
+      "unlimited": "Illimitato",
+      "availableCredit": "{{count}} credito",
+      "availableCredit_plural": "{{count}} crediti"
+    },
+    "compatibleTimeSlot": "Fasce orarie compatibili"
+  },
+  "packCard": {
+    "comboItemList": {
+      "paymentPackItem": "{{count}} pacchetto",
+      "paymentPackItem_plural": "{{count}} pacchetti",
+      "privatePassItem": "{{count}} pacchetto per appuntamenti",
+      "privatePassItem_plural": "{{count}} pacchetti per appuntamenti",
+      "hiddenItem": "{{count}} altro elemento...",
+      "hiddenItem_plural": "{{count}} altri elementi..."
+    }
+  },
+  "subscriptionCard": {
+    "billingInterval": {
+      "year": "anno",
+      "year_plural": "tutti i {{ count }} anni",
+      "day": "giorno",
+      "day_plural": "Tutti i {{ count }} giorni",
+      "month": "mese",
+      "month_plural": "tutti i {{ count }} mesi",
+      "week": "settimana",
+      "week_plural": "Tutte le {{ count }} settimane"
+    },
+    "fees": "Spese amministrative: {{ fees }}",
+    "registerButton": "Abbonati",
+    "invoice": "{{ count }} fattura",
+    "invoice_plural": "{{ count }} fatture"
+  },
+  "packCardDetail": {
+    "comboItemList": {
+      "content": "Contenuto"
+    }
+  },
+  "contractCard": {
+    "autoRenewal": "Rinnovo tacito",
+    "legalContract": "Avviso legale",
+    "seeLess": "Vedi meno",
+    "seeMore": "Vedi piú",
+    "registerButton": "Abbonati",
+    "invoice": "{{ count }} ricevuta",
+    "invoice_plural": "{{ count }} ricevute",
+    "fees": "Spese amministrative : {{ fees }}",
+    "billingInterval": {
+      "day": "giorno",
+      "day_plural": "Ogni {{ count }} giorni",
+      "year": "anno",
+      "year_plural": "Ogni {{ count }} anni",
+      "week": "settimana",
+      "week_plural": "Ogni {{ count }} settimane",
+      "month": "mese",
+      "month_plural": "Ogni {{ count }} mesi"
+    },
+    "chooseButton": "Abbonati"
+  },
+  "pass": {
+    "search": {
+      "goBack": "Torna alla lista completa",
+      "result": "{{count}} risultato per \"{{queryText}}\"",
+      "result_plural": "{{count}} risultati per \"{{queryText}}\""
+    },
+    "filters": {
+      "placeholder": {
+        "categories": "Categorie",
+        "type": "TIpo"
+      },
+      "type": {
+        "privatePass": "Pacchetto per appuntamenti",
+        "paymentPack": "Pacchetto"
+      },
+      "noCategory": "Nessuna categoria"
+    }
+  },
+  "defaultTabTitle": {
+    "workshop": "Workshop",
+    "vod": "Video On Demand",
+    "subscription": "Abbonamento ricorrente",
+    "shop": "Shop",
+    "privateService": "Appuntamenti",
+    "playlist": "Playlist",
+    "pass": "Pacchetti",
+    "giftcard": "Gift card",
+    "calendarV2": "Calendario",
+    "calendar": "Calendario"
+  },
+  "passes": {
+    "details": "Dettagli",
+    "buy": "Acquista",
+    "search": "Cerca",
+    "filters": "Filtri",
+    "title": "Pacchetti",
+    "drawerTitle": {
+      "tabs": "Seleziona una tipologia di pacchetto"
+    },
+    "tabs": {
+      "appointmentPasses": "Pacchetti per appuntamenti",
+      "passes": "Pacchetti",
+      "all": "Tutti"
+    },
+    "to": "a",
+    "addToCart": "Aggiungi al carrello",
+    "close": "Chiudi",
+    "detail": {
+      "restriction": {
+        "monthly": "Può essere usato solo {{ amount }} volta al mese.",
+        "monthly_plural": "Può essere usato solo {{ amount }} volte al mese.",
+        "weekly": "Può essere usato solo {{ amount }} volta alla settimana.",
+        "weekly_plural": "Può essere usato solo {{ amount }} volte alla settimana.",
+        "daily": "Può essere usato solo {{ amount }} volta al giorno.",
+        "daily_plural": "Può essere usato solo {{ amount }} volte al giorno.",
+        "title": "Restizioni all'uso"
+      },
+      "compatibility": {
+        "labels": {
+          "room": "Sale",
+          "activity": "Attività",
+          "category": "Categorie"
+        },
+        "contents": {
+          "sessions": "Sessioni compatibili: {{ sessionsList }}",
+          "allSessions": "Compatibile con tutte le sessioni",
+          "noAppointments": "Nessun appuntamento compatibile",
+          "bookingForGuest": "Può essere utilizzato per <strong>Invita un ospite</strong>",
+          "vod": "Può essere utilizzato per i <strong>Video On Demand</strong>",
+          "allTimeSlots": "Compatibile con tutte le fasce orarie",
+          "allCategories": "Compatibile con tutte le categorie dello studio",
+          "allRooms": "Compatibile con tutte le sale dello studio",
+          "allActivities": "Compatibile con tutte le attività dello studio"
+        },
+        "subtitles": {
+          "sessions": "Sessioni compatibili",
+          "timeSlots": "Fasce orarie compatibili",
+          "activity": "Attività compatibili"
+        },
+        "titles": {
+          "main": "Compatibilità",
+          "appointment": "Compatibilità degli appuntamenti",
+          "activity": "Compatibilità delle attività",
+          "studios": "Studi compatibili"
+        }
+      },
+      "description": {
+        "showLess": "Mostra meno",
+        "showMore": "Mostra di più"
+      },
+      "availability": {
+        "validUntil": "Valido fino al {{ expirationDate }}",
+        "future": "Inizia il {{ startDate }}",
+        "expired": "Scaduto il {{ expirationDate }}",
+        "suspendedUntil": "Sospeso fino al {{ endDate }}",
+        "suspended": "Sospeso",
+        "active": "Valido dal {{ startDate }} al {{ expirationDate }}"
+      },
+      "header": {
+        "onsitePaymentAvailable": "Possibilità di pagamento in loco",
+        "fullVodAccess": "Compatibile con VOD",
+        "onlyVodAccess": "Disponibile solo per VOD",
+        "isUniversalPass": "Pacchetto universale",
+        "newMemberOnly": "Solo per i nuovi membri",
+        "unlimited": "Illimitato",
+        "credits": "{{count}} credito",
+        "credits_plural": "{{count}} crediti"
+      }
+    }
+  }
+}

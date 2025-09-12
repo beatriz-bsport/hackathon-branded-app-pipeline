@@ -112,6 +112,7 @@ export const optOutTrackingAnalyticsB2B = () => {
 export const resetAnalyticsB2B = () => {
   analyticsClientB2B.resetIdentity();
   analyticsClientB2B.overloadResetSuperProperties();
+  optOutTrackingAnalyticsB2B();
 };
 
 // ==================== B2C ====================
@@ -162,4 +163,57 @@ export const optInTrackingAnalyticsB2C = () => {
  */
 export const optOutTrackingAnalyticsB2C = () => {
   analyticsClientB2C.optOutTracking();
+};
+
+export const identifyAnalyticsB2CWithMembership = ({
+  userId,
+  memberId,
+  username,
+  companyId,
+  companyName,
+  franchisorId,
+}: {
+  userId: string;
+  memberId: number;
+  username: string;
+  companyId?: number;
+  companyName?: string;
+  franchisorId?: number | null;
+}) => {
+  // For companies in franchise, use ${user_id}_${franchisorId}
+  // https://www.notion.so/bright-shovelx-41b/User-identification-24f137e4c64080be8591e19a9784af7d?source=copy_link#253137e4c640805e998dfadc76e778ff
+  const uniqueMemberId = franchisorId
+    ? `${userId}_${franchisorId}`
+    : String(memberId);
+
+  analyticsClientB2C.overloadAddSuperProperties({
+    member_id: memberId,
+    company_id: companyId,
+    company_name: companyName,
+    franchise_id: franchisorId,
+    source_label: 'web',
+    is_logged_in: true,
+    application: 'saas-legacy',
+  });
+
+  analyticsClientB2C.identify({
+    userId: uniqueMemberId,
+    traits: {
+      username,
+      member_id: memberId,
+      company_id: companyId,
+      franchise_id: franchisorId,
+    },
+  });
+};
+
+/**
+ * Reset B2C Analytics instance (identity and super properties)
+ * Used on logout from the member area
+ */
+export const resetAnalyticsB2C = () => {
+  analyticsClientB2C.resetIdentity();
+  analyticsClientB2C.overloadResetSuperProperties();
+  analyticsClientB2C.resetSuperProperties();
+  optOutTrackingAnalyticsB2C();
 };

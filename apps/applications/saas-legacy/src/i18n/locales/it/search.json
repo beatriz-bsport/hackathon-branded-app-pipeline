@@ -1,0 +1,18 @@
+{
+  "input": "Ricerca...",
+  "go_back": "Ritorna ai risultati",
+  "noResult": "Nessun risultato",
+  "member": {
+    "sessions": {
+      "title": "Sessioni"
+    },
+    "packs": {
+      "title": "Pacchetti"
+    },
+    "closeMemberMatch": "Stai cercando questo membro?",
+    "archived": "Membri archiviati"
+  },
+  "actions": {
+    "addMember": "Aggiungi un membro"
+  }
+}

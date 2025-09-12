@@ -1,0 +1,638 @@
+{
+  "bookingModule": {
+    "section": {
+      "consumerPacks": "My passes",
+      "contracts": "Subscriptions",
+      "paymentPacks": "Available passes",
+      "paymentCombos": "Packs",
+      "contract": "Available subscriptions"
+    },
+    "option": {
+      "isAlreadyOnWaitingList": "You've joined the waitlist. We'll let you know when a spot becomes available.",
+      "isFull": "This session is full. Join the waitlist and we'll let you know when a spot becomes available.",
+      "registerOption": "Join waitlist",
+      "isAlreadyRegistered": "Congrats, your booking has been completed. The session is now full.",
+      "waitingListOpen": "This session is full. Join the waitlist and you'll receive a message once a spot becomes available.",
+      "waitingListLockedByPendingBookings": "Other people are booking, the waiting list is currently unavailable. Please try again in a few minutes to see if a place has become available.",
+      "isBookingLimitReached": "You have already reached your limit of reservations. You will be able to book again when a session has passed or is cancelled."
+    },
+    "offer": {
+      "isDisabled": "This session has been cancelled.",
+      "isTooLate": "Bookings are closed.",
+      "isWaitingListFull": "This session and the waitlist are full.",
+      "isTooSoon": "Bookings open on {{-date}}.",
+      "isAlreadyRegistered": "You've already booked this session.",
+      "blockedByTags": "You don’t have the required membership or access level to book this session."
+    },
+    "groupedSession": {
+      "showMoreButtonText": "Show all sessions ({{totalSessions}})",
+      "showLessButtonText": "Show less",
+      "warningModal": {
+        "title": "Booking a group of sessions",
+        "fullBookingOnly": {
+          "text": "You will be enrolled for all {{sessionsTotal}} sessions in this group"
+        },
+        "partialBooking": {
+          "text": "This activity is part of a group of sessions. You are not required to attend every session in the group, and you can choose which sessions you want to join"
+        }
+      }
+    },
+    "multiSession": {
+      "addSession": {
+        "dialogTitle": "Add a session",
+        "dialogSubtitle": "Select the session that you want to book",
+        "noContent": "No similar sessions has been found.",
+        "selectAll": "Select all",
+        "sessionCount": "{{selectedSessionsCount}} of {{totalSessionsCount}} sessions"
+      },
+      "selectSpot": {
+        "dialogTitle": "Select spot",
+        "dialogTitleWithSteps": "Select spot ({{currentStep}}/{{totalSteps}})",
+        "dialogSubtitle": "Select your spot for the class",
+        "validationButton": "Add session",
+        "validationButton_plural": "Add sessions ({{selectedSessionsCount}})"
+      }
+    },
+    "messages": {
+      "offerLocked": "Error when booking",
+      "maleUnavailable": "The session is no longer available for reservation for men.",
+      "femaleUnavailable": "The session is no longer available for reservation for women."
+    },
+    "hasRegistered": "You've already booked this session.",
+    "recurrent": {
+      "backToRegistererChoice": "Back",
+      "bookMultiple": "Book",
+      "title": "Upcoming sessions",
+      "titleGroupedSessions": "All sessions in this group",
+      "selectAll": "Select all",
+      "unselectAll": "Unselect all"
+    },
+    "isLoading": "Looking for sessions...",
+    "book": {
+      "unknowError": "Error while booking - try again later"
+    },
+    "tags": {
+      "unAuthorized": "You don’t have the required membership or access level to book this session.",
+      "managerDialogWarningDialog": {
+        "confirm": "Confirm",
+        "cancel": "Cancel",
+        "title": "Info",
+        "content": "Please note that this member doesn't have the required tags for this session. Do you want to book them in anyway?"
+      }
+    },
+    "isBookingLimitReached": "You have reached your limit of bookings"
+  },
+  "details": {
+    "pleaseSelectABooking": "Select a booking to display further details.",
+    "title": "Details",
+    "offerTitle": "Associated session",
+    "consumerPaymentPackTitle": "Used pass"
+  },
+  "parameters": {
+    "registeredOn": "Booked on ",
+    "source": "Booked via",
+    "cancelledOn": "Cancelled on: ",
+    "by": "By",
+    "noShow": "No-show "
+  },
+  "source": {
+    "web": "Web",
+    "app": "Mobile app",
+    "saas": "Backoffice",
+    "other": "Other",
+    "migration": "Migration"
+  },
+  "customerView": {
+    "wasRefunded": "Refunded",
+    "cancelled": "Cancelled"
+  },
+  "attend": "Present",
+  "doNotAttend": "Absent",
+  "loading": "Loading",
+  "wasRefunded": "Refunded",
+  "refund": "Refund",
+  "refundDialog": {
+    "title": "Late Cancellation Refund",
+    "content": "This booking was cancelled too late to be automatically refunded. Click \"Refund\" to process a one-time credit refund for this booking.",
+    "titleUnlimitedPaymentPack": "Reset Late Cancellation Count",
+    "contentUnlimitedPaymentPack": "This booking was made with an unlimited pass and was cancelled late. Excessive late cancellations may incur penalties. Click \"Reset\" to remove the late cancellation from the pass records. Note that if a penalty has already been applied, it cannot be removed."
+  },
+  "statusCode": {
+    "cancelledByManager": "Cancelled by manager ({{- cancelled_by }})",
+    "cancelledByConsumer": "Cancelled by customer",
+    "cancelledByOffer": "Session cancelled",
+    "cancelledByOfferDate": "Cancelled by the studio on {{-date}} at {{time}}.",
+    "cancelledByConsumerDate": "Cancelled by customer on the {{-date}} at {{time}}",
+    "cancelledByManagerDate": "Cancelled by manager on the {{-date}} at {{time}} by {{- cancelled_by }}",
+    "cancelledByAnonymousManagerDate": "Cancelled by the studio on {{-date}} at {{time}}",
+    "cancelledByAnonymousManager": "Cancelled by the studio"
+  },
+  "filters": {
+    "notRefunded": "Not refunded",
+    "isRefunded": "Refunded",
+    "refunded": "Refund",
+    "pastBooking": "Past bookings",
+    "futureBooking": "Future bookings",
+    "time": "Bookings over time",
+    "attendance": "Attendance",
+    "cancel": "Cancellation",
+    "consumerCanceled": "Cancelled by member",
+    "managerCanceled": "Cancelled by studio",
+    "canceled": "Session cancelled",
+    "absent": "Absent",
+    "present": "Present",
+    "all": "All bookings",
+    "withoutRecurrentBookings": "Single bookings",
+    "withRecurrentBookings": "Recurrent bookings",
+    "recurrentBooking": "Recurrent booking",
+    "notCancelled": "Not cancelled",
+    "isUnpaid": "Unpaid bookings",
+    "isPaid": "Paid bookings",
+    "paid": "Payment",
+    "coach": "Teacher",
+    "pickCoach": "Search a teacher..."
+  },
+  "creditConsumed": "{{ credit_consumed }} credit",
+  "creditConsumed_plural": "{{credit_consumed}} credits",
+  "actions": {
+    "unregister": "Unregister",
+    "bill": "Bill"
+  },
+  "notification": {
+    "form": {
+      "listItemPrimary": {
+        "cancelledDeprecated": "Cancellation: {{notify_booking_nb}}",
+        "bookingDeprecated": "Booking: {{notify_booking_nb}}",
+        "notRefunded": "Late cancellations: {{notify_booking_nb}}",
+        "refunded": "Refunded cancellations: {{notify_booking_nb}}",
+        "absence": "Absence: {{notify_booking_nb}}",
+        "attendance": "Attendance: {{notify_booking_nb}}",
+        "hour_after": "This notification will be sent {{hours}} hour after the end of the session.",
+        "hour_after_plural": "This notification will be sent {{hours}} hours after the end of the session.",
+        "hour_before": "This notification will be sent {{hours}} hour before the start of the session.",
+        "hour_before_plural": "This notification will be sent {{hours}} hours before the start of the session.",
+        "day_before": "This notification will be sent {{days}} day before the start of the session.",
+        "day_before_plural": "This notification will be sent {{days}} days before the start of the session.",
+        "day_after": "This notification will be sent {{days}} day after the start of the session.",
+        "day_after_plural": "This notification will be sent {{days}} days after the start of the session.",
+        "notifyAllEvents": {
+          "notRefunded": "For every late cancellation",
+          "refunded": "For every refunded cancellation",
+          "absence": "For every absence",
+          "attendance": "For every attendance",
+          "bookingDeprecated": "For every booking"
+        },
+        "birthday": "Send on birthdays"
+      },
+      "cancel": "Cancel",
+      "next": "Next",
+      "submit": "Confirm",
+      "help": {
+        "notRefunded": "This notification will be sent when a member registers {{notify_booking_nb}} late cancellation(s).",
+        "refunded": "This notification will be sent when a member registers {{notify_booking_nb}} refunded cancellation(s).",
+        "absence": "This notification will be sent when a member absents {{notify_booking_nb}} time(s).",
+        "attendance": "This notification will be sent when a member attends {{notify_booking_nb}} time(s).",
+        "allEvents": {
+          "notRefunded": "This notification will be sent every time a member late cancels.",
+          "refunded": "This notification will be sent after every refunded cancellation.",
+          "absence": "This notification will be sent every time a member is absent.",
+          "attendance": "This notification will be sent every time a member is present."
+        }
+      },
+      "chooseKind": {
+        "notRefunded": "Late cancellations",
+        "refunded": "Refunded cancellations",
+        "absence": "Absence",
+        "attendance": "Presence",
+        "title": "Trigger"
+      },
+      "chooseStatus": {
+        "cancelled": "Cancellations (from members)",
+        "valid": "Bookings",
+        "title": "Event"
+      },
+      "chooseTime": {
+        "second_after": "{{ count }} hour after the end of the session.",
+        "second_after_plural": "{{ count }} hours after the end of the session.",
+        "second_before": "{{ count }} hour before the start of the session.",
+        "second_before_plural": "{{ count }} hours before the start of the session.",
+        "first": "Send this notification",
+        "second_after_days": "{{ count }} day after the end of the session",
+        "second_after_days_plural": "{{ count }} days after the end of the session",
+        "second_before_days": "{{ count }} day before the start of the session",
+        "second_before_days_plural": "{{ count }} days before the start of the session"
+      },
+      "sendAfterMail": "Send this notification after the session has ended",
+      "sendBeforeMail": "Send this notification before the start of the session",
+      "eventNb": "Select which booking triggers this notification:",
+      "settingTitle": "Settings",
+      "typeTitle": "Trigger",
+      "explain": "Add an automatic notification to contact relevant member based on the following criteria.",
+      "title": "[Form] Notification",
+      "notifyAllEvents": "Send this notification for every booking or cancellation",
+      "ifKind": {
+        "attendance": "Presence",
+        "notRefunded": "Late cancellations",
+        "refunded": "Timely cancellations",
+        "absence": "Absence"
+      },
+      "bookingNumberFirst": "Booking: 1",
+      "bookingNumberSecond": "Booking: 2",
+      "bookingNumberThird": "Booking: 3",
+      "bookingNumberN": "Booking: {{notify_booking_nb}}",
+      "bookingNumberAll": "Every booking",
+      "addVariable": "Add a variable",
+      "pushHelper": "Use push notifications sparingly, as spamming members may lead to people deleting your app.",
+      "needPushUpsell": "Please activate the push notification Add On to use this feature.",
+      "push": "Push notification",
+      "mail": "Email",
+      "sendingMethod": "Channel",
+      "sendAfterNotifications": "Send these notifications after the session has ended",
+      "sendAfterNotification": "Send this push notification after the session has ended",
+      "sendBeforeNotifications": "Send these notifications before the start of the session",
+      "sendBeforeNotification": "Send this push notification before the start of the session",
+      "createSmartList": "Add a Smartlist",
+      "smartListHelperInclude": "Send an email only if the member belongs to one of the following lists",
+      "smartListHelper": "Do not send mail if the member belongs to one of the following lists",
+      "advanced": "Advanced",
+      "warning": "By not selecting any smartlist you might notify members who have already purchased another pass",
+      "smartListSelection": "(Optional) Select Smartlist(s)",
+      "bookingNumber": "All bookings",
+      "bookingNumber_plural": "1st booking",
+      "bookingNumber_n": "Booking nº{{notify_booking_nb}}"
+    },
+    "addNotification": "Add a notification",
+    "title": "Notification"
+  },
+  "recurrenceRule": {
+    "actions": {
+      "save": "Save",
+      "close": "Close"
+    },
+    "form": {
+      "delayWeek": {
+        "helperText": "Indicate how many weeks in advance the member will be enrolled ({{delayWeek}} weeks maximum)",
+        "label": "Number of weeks"
+      },
+      "metaActivity": {
+        "helperText": "Activity",
+        "label": "Activity"
+      },
+      "minute": {
+        "label": "minute"
+      },
+      "hour": {
+        "label": "hour"
+      },
+      "dayOfWeek": {
+        "label": "Day of the week"
+      },
+      "at": " at ",
+      "timeGroup": "Date of the session",
+      "title": "[Form] Recurring booking",
+      "startFromDate": {
+        "label": "Start the recurrent booking the "
+      },
+      "groupWarning": "Please note that it's not possible to add recurring bookings for events.",
+      "permissionWarning": "You do not have the permission to create bookings for this activity",
+      "duplicateError": "This rule is already applied to a Recurring Booking. To save, change existing booking rules or adjust parameters.",
+      "globalError": "We couldn't save your recurring booking right now. Please try again later."
+    },
+    "offerForm": {
+      "helperText": "It appears that sessions contained in the recurrent booking were canceled before for this member, you can select here the sessions that you’ll allow the system to book again",
+      "unselectAll": "Unselect all",
+      "selectAll": "Select all"
+    },
+    "recurrentRuleBooking": "Recurrent booking",
+    "item": {
+      "explain": "Every {{dayOfWeek}} at {{hour}}:{{minute}} - Week: {{delayWeek}}"
+    },
+    "needConsumerPack": "This member does not have a compatible class pass, it is impossible to schedule a recurrence",
+    "recurrentBookings": "Recurrent bookings",
+    "deleteModal": {
+      "content": "The recurrence rule is going to be deleted, do you wish to also cancel the future bookings already done with this rule?",
+      "title": "Delete recurrence rule",
+      "cancel": "Cancel",
+      "confirm": "Delete",
+      "success": "The recurrent booking has been deleted"
+    },
+    "explain": "The member will always be registered {{ delayWeek }} weeks in advance of class on {{ dayOfWeek}} at {{hour}}:{{minute}}. They will only be registered if they possess a valid pass.",
+    "editModal": {
+      "success": "Recurring booking rule edited. We'll set up your bookings now according to your parameters."
+    },
+    "createModal": {
+      "success": "Recurring booking rule saved. We'll set up your bookings now according to your parameters.",
+      "info": "Cannot recreate a recurrent booking that already exists",
+      "create": "Add a recurring booking"
+    },
+    "blockedBookings": "Members can book up to {{days}} days in advance for this activity.\nConsider extended recurring bookings to prevent overcrowding.",
+    "notifyIfCanceled": "Send a booking cancellation email",
+    "cancelRelatedBookings": "Cancel the future bookings already done",
+    "notify": "Send a confirmation email when booking the member",
+    "showLess": "Show less",
+    "showMore": "Show more ({{count}})"
+  },
+  "memberGraph": {
+    "label": "Reservations",
+    "title": "Summary of reservations"
+  },
+  "offer": {
+    "showMore": "See more",
+    "mainButton": {
+      "registerWaitingList": "Join waitlist",
+      "book": "Book",
+      "numberOfBook": "{{count}} booking",
+      "numberOfBook_plural": "{{count}} bookings"
+    },
+    "bookingsTitle": "Overview",
+    "addSession": "Add sessions",
+    "noPackAvailable": "There is no compatible pass to display for this session.",
+    "noPackAvailable_plural": "There is no compatible pass to display for these sessions. Please book these sessions separately.",
+    "packTitle": "My booking method",
+    "offerStatus": {
+      "waiting_list_status": {
+        "0": "Waitlist",
+        "1": "Closed",
+        "2": "Closed",
+        "3": "Full",
+        "4": "Closed",
+        "5": "Already registered",
+        "6": "Unbalanced male / female ratio",
+        "7": "Unbalanced male / female ratio",
+        "9": "It's not allowed to exceed the maximum amount of future bookings",
+        "6002": "Waitlist: full",
+        "6003": "Waitlist: joined",
+        "6005": "Waiting list",
+        "displayPosition": "Your position in the waitlist is: {{waitlistPosition}}",
+        "displayWaitlistSize": "Your current position in the waitlist is: {{waitlistPosition}}"
+      },
+      "bookable_status": {
+        "0": "Bookings open",
+        "1": "Bookings closed",
+        "2": "Bookings closed",
+        "4": "Session unavailable",
+        "9": "It's not allowed to exceed the maximum amount of future bookings"
+      },
+      "waiting_list": "Waitlist",
+      "book": "Sign up",
+      "blockedByTags": "Invalid tags"
+    },
+    "similarOffer": {
+      "showMore": "See more",
+      "empty": "There are no other sessions to display.",
+      "title": "Book more sessions",
+      "selectAll": "Select all"
+    },
+    "bookingForMe": "Myself",
+    "bookingsTitleFor": "Booking for {{name}}",
+    "bookingFor": "Booking for",
+    "bookingForSubtitle": "Select the person you want to book for",
+    "bookingForAGuest": {
+      "submit": "Book for a guest",
+      "sendInvitation": "Send invitation",
+      "addGuest": "Add a guest",
+      "warningLeveledSession": "This session is reserved for people with the following level: {{level}}. Make sure the person you invite has the expected level.",
+      "addGuestLimit": "You have reached the invitation limit for",
+      "guestLimitReached": {
+        "every_week": "You have reached the invitation limit for this week.",
+        "every_month": "You have reached the invitation limit for this month.",
+        "every_year": "You have reached the invitation limit for this year."
+      },
+      "addGuestNumberLeftSeveral": "You can still invite {{number}} people for",
+      "addGuestNumberLeftOne": "You can invite 1 more person on",
+      "frequencyWeekly": "this week.",
+      "frequencyMonthly": "this month.",
+      "frequencyYearly": "this year.",
+      "frequencyGeneric": "this period.",
+      "addGuestNumberLeftWeek": "You can invite 1 more person this week.",
+      "addGuestNumberLeftWeek_plural": "You can still invite {{count}} people this week.",
+      "addGuestNumberLeftMonth": "You can invite 1 more person this month.",
+      "addGuestNumberLeftMonth_plural": "You can still invite {{count}} people this month.",
+      "addGuestNumberLeftYear": "You can invite 1 more person this year.",
+      "addGuestNumberLeftYear_plural": "You can still invite {{count}} people this year.",
+      "addGuestNumberLeftGeneric": "You can invite 1 more person this period.",
+      "addGuestNumberLeftGeneric_plural": "You can still invite {{count}} people this period.",
+      "warningCustomLeveledSession": "This session has a custom level. Please ensure that your guest(s) meet this session's requirements.",
+      "bookingStatus": {
+        "0": "Invite a friend",
+        "1": "The session is not yet open to bookings",
+        "2": "The session is closed to bookings",
+        "3": "The session is full",
+        "4": "The session is closed to bookings",
+        "guestNotAllowed": "The session is not open to guests"
+      }
+    }
+  },
+  "setSpot": "Assign a spot",
+  "changeSpot": "Change your spot",
+  "noSpotAttributed": "Please allocate a spot",
+  "performanceTracking": {
+    "stat": "Statistics"
+  },
+  "attendanceUpdatedOn": "Updated on {{- d }} at {{- t }}",
+  "guest": {
+    "form": {
+      "dialog": {
+        "title": "Invite a guest",
+        "description": "Bringing a friend or companion along to share the experience? Simply fill in the name and email of your guest, and we will make sure they receive all the necessary details.",
+        "emailWarning": {
+          "title": "No email entered",
+          "description": "You haven't provided an email address for your guest.",
+          "alert": "They won't receive information about this session.",
+          "fieldLabel": "Want to include the email?",
+          "submitLabel": "Continue without",
+          "actions": {
+            "continueWithoutEmail": "Continue without email",
+            "saveAndContinue": "Save and continue"
+          }
+        }
+      },
+      "errors": {
+        "requiredField": "Please fill in this field",
+        "email": "Please enter a valid email address"
+      },
+      "firstname": {
+        "label": "First Name"
+      },
+      "email": {
+        "label": "Email"
+      },
+      "actions": {
+        "addGuest": "Add guest",
+        "close": "Go back",
+        "submit": "Confirm",
+        "limitGuest": "(None of the available passes can be used to add guests)"
+      },
+      "lastname": {
+        "label": "Last Name"
+      }
+    }
+  },
+  "asGuest": "Guest",
+  "unlimited": "Unlimited",
+  "place": "Spot",
+  "noShowChip": {
+    "message": "The member was noted absent after the session",
+    "title": "no-show"
+  },
+  "warning": "Warning",
+  "spivi": {
+    "errorText": "The member does not meet Spivi's requirements, so the booking was not made on Spivi.",
+    "connectionImpossible": "Unable to connect to Spivi",
+    "error": "Connection problem with Spivi"
+  },
+  "newBookingModule": {
+    "filterAll": "All",
+    "cards": {
+      "seeLess": "View less",
+      "seeMore": "View more"
+    },
+    "choosePass": "Choose a pass",
+    "buyPass": "Buy a new pass",
+    "buyNewPass": "Buy a new pass",
+    "myPasses": "My pass",
+    "myPasses_plural": "My passes",
+    "waitingListWarning": "Before registering to the waiting list, make sure that you purchased an appropriate pass, pack or subscription. It is mandatory to be in possession of an active pass, pack or suscription to be guaranteed a spot on the waiting list.",
+    "backToCalendar": "Back to the calendar",
+    "blockedReasons": {
+      "default": {
+        "title": "Booking blocked",
+        "message": "This session is not open to bookings"
+      },
+      "blockedByTags": {
+        "title": "Insufficient rights",
+        "message": "You don’t have the required membership or access level to book this session."
+      },
+      "isAlreadyRegistered": {
+        "title": "Session already booked",
+        "message": "You already registered to this session."
+      },
+      "isTooSoon": {
+        "title": "Available soon",
+        "message": "Booking is currently closed and will open on {{-date}}."
+      },
+      "isTooLate": {
+        "title": "Bookings closed",
+        "message": "Sorry, but the booking window for this session has closed."
+      },
+      "waitingListLockedByPendingBookings": {
+        "title": "Other bookings in progress",
+        "message": "Other people are booking, the waiting list is currently unavailable. Please try again in a few minutes to see if a place has become available."
+      },
+      "isWaitingListFull": {
+        "title": "Full Waitlist",
+        "message": "This session and the waiting list are full.\nPlease try again later."
+      },
+      "isAlreadyOnWaitingList": {
+        "title": "Already on the waiting list",
+        "message": "If you're on the waiting list, we'll let you know by email when a place becomes available."
+      },
+      "waitingListOpen": {
+        "title": "The session is full",
+        "message": "Join the waitlist and you'll receive a message once a spot becomes available."
+      },
+      "noPassAvailable": {
+        "title": "No pass available",
+        "message": "No passes are available to join the waiting list."
+      },
+      "isBookingLimitReached": {
+        "title": "Unable to book",
+        "message": "You have already reached your limit of reservations. You will be able to book again when a session has passed or is cancelled."
+      }
+    },
+    "subscriptions": "Subscriptions",
+    "combos": "Packs",
+    "passes": "Passes",
+    "otherPasses": "Other passes",
+    "multipleSpotSelectionSpotSelectorTitle": "Select spot ({{currentSpot}}/{{totalSpot}})",
+    "spotSelectorTitle": "Choose your spot",
+    "guestSpotSelectorTitle": "Select a spot for your guest",
+    "seeAllProducts": "See all products",
+    "recommended": "Recommended",
+    "reviewAndConfirm": "Review and confirm",
+    "removeFromBasket": {
+      "title": "Remove",
+      "message": "If you remove the pass from the basket, the related bookings will also be removed.",
+      "buttons": {
+        "cancel": "CANCEL",
+        "confirm": "REMOVE"
+      }
+    }
+  },
+  "oneClickBooking": {
+    "checkoutTitle": "Checkout",
+    "alreadyMember": "Already have an account?",
+    "goToLogin": "Log in",
+    "yourBooking": "Your booking",
+    "yourDetails": "Your details",
+    "seeMoreWithLogin": "Log in to explore packs and subscriptions!",
+    "bookableStatus": {
+      "error": "Oops, it seems this booking is not available",
+      "full": {
+        "title": "Session fully booked",
+        "description": "This session just filled up, and we couldn’t complete your booking. <br> Please check the calendar to find another available session."
+      },
+      "locked": {
+        "title": "Session canceled",
+        "description": "This session has been canceled and is no longer available for booking. <br> Please check the calendar for other available sessions."
+      },
+      "closeTooSoon": {
+        "title": "Oops! Too early to book",
+        "description": "This session is not available for booking yet. <br> Please check the calendar to see when bookings open or explore other available sessions."
+      },
+      "closeTooLate": {
+        "title": "Oops! Too late to book",
+        "description": "This session has already started or ended, so booking is no longer possible. <br> Please check the calendar for upcoming sessions."
+      },
+      "unhandled": {
+        "title": "An Unexpected Error Occurred",
+        "description": "We encountered an unexpected error. It's not possible to book this session at the moment."
+      }
+    },
+    "goToCalendar": "Go to the calendar",
+    "bookButtonLabel": "Book now"
+  },
+  "lightSignup": {
+    "form": {
+      "firstName": {
+        "label": "First name"
+      },
+      "lastName": {
+        "label": "Last name"
+      },
+      "email": {
+        "label": "Email"
+      },
+      "phone": {
+        "label": "Phone",
+        "placeholder": "+33612345678"
+      },
+      "acceptEmail": {
+        "label": "I agree to receive promotional emails, including special offers and discounts"
+      },
+      "acceptSms": {
+        "label": "I agree to receive promotional texts, including special offers and discounts"
+      },
+      "acceptTermsAndCondition": {
+        "label": "I accept the General Terms of Use"
+      },
+      "password": {
+        "label": "Create password"
+      },
+      "button": {
+        "label": "Sign up"
+      },
+      "errors": {
+        "requiredField": "This field is required",
+        "email": "Please enter a valid email address",
+        "phone": "Please enter a valid phone number",
+        "global": "An error occurred while signing up",
+        "emailTaken": "Email already exists, you can try logging in with this email",
+        "phoneTaken": "This phone number is already in use by another member",
+        "passwordMinimumRequirements": "Your password must be at least 6 characters long and contain no spaces",
+        "passwordConfirmation": "Passwords must match"
+      }
+    }
+  },
+  "placeNumber": "Place {{count}}"
+}

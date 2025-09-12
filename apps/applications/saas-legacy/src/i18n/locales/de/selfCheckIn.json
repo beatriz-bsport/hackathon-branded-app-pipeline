@@ -1,0 +1,67 @@
+{
+  "memberList": {
+    "empty": "Kein Schüler ist für diesen Kurs angemeldet",
+    "checkedIn": "Gespeichert",
+    "checkIn": "Check In"
+  },
+  "offerDetail": {
+    "emptyList": "Kein Schüler ist für diesen Kurs angemeldet",
+    "register": "Für diesen Kurs anmelden",
+    "isFull": "Voll",
+    "cancelRegistration": "Abbrechen",
+    "backToOfferList": "Zurück zur Kursen",
+    "noConsumerPaymentPack": "Kein gültigefr Kurspass !",
+    "activateBarcode": "Strichcode Scanner",
+    "actions": {
+      "createAccount": "Ein Konto erstellen",
+      "restartAnalyze": "Neu starten",
+      "close": "Schließen"
+    },
+    "noDetectionResult": "Kein Ergebnis",
+    "activateFaceId": "Gesichtserkennung"
+  },
+  "confirmPage": {
+    "headOnIn": "Alles bereit !",
+    "signIn": "Gespeichert",
+    "visitsLeft": "Verbleibende Besuche",
+    "expires": "Läuft ab",
+    "classLocation": "Ihr Kurs findet statt in",
+    "spotUnassigned": "Spot nicht zugewiesen",
+    "spotInfo": "Dein {{- spotName }} ist:"
+  },
+  "signout": {
+    "form": {
+      "password": {
+        "label": "Passwort"
+      },
+      "username": {
+        "label": "E-Mail"
+      }
+    },
+    "signout": "Abmelden",
+    "cancel": "Abbrechen",
+    "passwordError": "Falsches Passwort",
+    "title": "Abmelden",
+    "explain": "Um sich abzumelden, gib bitte das Passwort für Ihr CheckIn-Konto ein"
+  },
+  "offerList": {
+    "emptyList": "Kein Kurs",
+    "refresh": "Kurse aktualisieren"
+  },
+  "filter": {
+    "establishment": "Nach Einrichtung sortieren"
+  },
+  "addMember": {
+    "button": "Ein Konto erstellen"
+  },
+  "offerStatus": {
+    "startIn": "Beginnt in ",
+    "hasEnded": "Fertig seit",
+    "inProgress": "Ongoing seit"
+  },
+  "authenticationDialog": {
+    "error": "Das eingegebene Passwort ist ungültig",
+    "description": "Um Sicherheit zu gewährleisten, bestätigen Sie bitte Ihre Identität, indem Sie Ihr Passwort eingeben, bevor Sie mit der Änderung der Einrichtung fortfahren.",
+    "title": "Einrichtung wechseln"
+  }
+}

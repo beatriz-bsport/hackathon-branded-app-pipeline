@@ -5,6 +5,7 @@ import { Modal } from "@bsport/kaizen-primitive-core";
 import { dataAccessLayer } from "@bsport/sm-backbone";
 import type { PackFormData } from "@bsport/store-buyables-pack";
 
+import { PackFormContent } from "#src/components/PackForm/PackFormContent";
 import { PackFormIdentity } from "#src/components/PackForm/PackFormIdentity";
 import { usePackSchema } from "#src/components/PackForm/schema";
 import { useCreatePack } from "#src/hooks/useCreatePack";
@@ -81,6 +82,7 @@ export const PackCreateModal: React.FC<PackCreateModalProps> = ({
         {...methods}
       >
         <PackFormIdentity fieldIdPrefix={formId} />
+        <PackFormContent fieldIdPrefix={formId} />
       </ControlledForm>
     </Modal>
   );

@@ -1,0 +1,418 @@
+{
+  "active_campaign": {
+    "webhooks": {
+      "CLIENT_WON": "Kundenkonto bei bsport erstellen, wenn ein potenzieller Kunde einen Deal annimmt und dadurch den Status „WON“ erhält",
+      "title": "Kontoerstellung über ActiveCampaign",
+      "helpContent": "Du kannst entscheiden, in welchen Fällen ein Kundenkonto bei bsport über ActiveCampaign erstellt wird.",
+      "helpTitle": "Wie funktioniert die Kontoerstellung?",
+      "CONTACT_TAG": "Kundenkonto bei bsport erstellen, wenn ein potenzieller Kunde bei ActiveCampaign den Status „WON“ erhält"
+    },
+    "account": {
+      "error": "Deine Informationen sind falsch",
+      "dialogTitle": "Deine ActiveCampaign-Kontodaten",
+      "helper": "Wo kann man diese Informationen finden ?",
+      "title": "Deine ActiveCampaign-API",
+      "helpContent": "Unter “Entwickler” findest du den Link und Authentifizierungsschlüssel für dein ActiveCampaign-Konto.",
+      "helpTitle": "Wo finde ich meine ActiveCampaign-Kontodaten?",
+      "token": "Authentifizierungsschlüssel",
+      "empty": "Hier musst du noch deinen API-Link eingeben"
+    },
+    "cancel": "Abbrechen",
+    "submit": "Speichern",
+    "link": {
+      "helperForm": "Wähle eine bsport Smartlist und verbinde sie mit einer Deiner ActiveCampaign-Listen",
+      "dialogTitle": "Eine Beziehung zwischen Listen ändern",
+      "smartListSelection": "Eine Smartlist auswählen",
+      "listActiveCampaignSelection": "Eine ActiveCampaign Liste auswählen",
+      "title": "Abgleich mit bsport",
+      "add": "Abgleich einrichten",
+      "helpTitle": "Wie funktioniert der Abgleich mit bsport?",
+      "helpContent": "Jede Nacht werden Mitglieder in der Smartlist an die ActiveCampaign-Liste geschickt. Diese Mitglieder erscheinen dann als aktiv. Mitglieder, die nicht in der Smartlist sind, werden von der ActiveCampaign-Liste entfernt und erscheinen dann als unbestätigt.",
+      "noList": "KEINE LISTE",
+      "listItemText": "Die Mitglieder der Smartlist <1>{{- smartlist }}</2> an die ActiveCampaign-Liste <3>{{- list }}</4> senden"
+    }
+  },
+  "broadcast": {
+    "submit": "Speichern",
+    "explainEnabled": "Aktiviert: bsport verwaltet Deine Videokonferenzräume. Es ist nicht mögliche zwei Videokonferenzen gleichzeitig zu nutzen.",
+    "explainDisabled": "Deaktiviert: Du verwaltest selbst Deine Videokonferenz-Links, die für jeden Kurs konfiguriert werden müssen (über Zoom, usw.).",
+    "is_whereby_integration_enabled": {
+      "label": "Integration whereby X bsport aktivieren"
+    },
+    "zoom": {
+      "explainInvalid": "Ungültiger Account",
+      "explainValid": "Zoom-Meetings werden automatisch 15 Minuten vor Beginn erstellt. Teilnehmer erhalten 15 Minuten vor dem Termin einen Link. Du brauchst hierfür ein Zoom-Konto. Falls du ein kostenloses Zoom-Konto hast, sind deine Termine auf 40 Minuten begrenzt.",
+      "label": "Zoom-Konten konfigurieren",
+      "enabled": "Aktiviere Zoom-Meetings",
+      "revoke": "Deaktiviere ZOOM",
+      "resetConfirmationDialog": {
+        "content": "Alle Ihre Einrichtungen werden ebenfalls zurückgesetzt.",
+        "title": "Sind Sie sicher, dass Sie Ihre Gruppen-ID zurücksetzen wollen?"
+      },
+      "save": "Änderungen speichern",
+      "memberType": {
+        "1": "Basic",
+        "2": "Lizensiert"
+      },
+      "establishmentTable": {
+        "removeAction": "Entfernen",
+        "emptySelect": "Auswählen",
+        "headers": {
+          "add": "Hinzufügen",
+          "type": "Typ",
+          "user": "Nutzer",
+          "establishment": "Einrichtung"
+        }
+      },
+      "groupActionButton": {
+        "reset": "Zurücksetzen",
+        "save": "Speichern"
+      },
+      "zoomGroupId": "Zoom-Gruppen-ID",
+      "multiZoomUserSupport": {
+        "explain": "Starten Sie mehrere Live-Streams gleichzeitig, indem Sie Ihre bsport-Einrichtungen mit verschiedenen Benutzern Ihres Zoom-Kontos verknüpfen.",
+        "switchLabel": "Aktivieren Sie die Unterstützung für Multi-Zoom-Benutzer"
+      }
+    },
+    "seeUpsell": "Mehr erfahren"
+  },
+  "webhook": {
+    "modal": {
+      "delete": {
+        "confirm": "Bestätigen",
+        "cancel": "abbrechen",
+        "title": "WebHook löschen",
+        "content": "Bist Du sicher, dass Du diesen Webhook löschen möchtest? Diese Aktion ist unwiderruflich"
+      }
+    },
+    "payload": "Payload",
+    "urlPlaceHolder": "http://wwww.google.com",
+    "url": "URL",
+    "selectEvent": "Option wählen",
+    "event": "Ereignis",
+    "test": "Testen",
+    "add": "WebHook hinzufügen",
+    "createTitle": "WebHook hinzufügen",
+    "submit": "Speichern",
+    "cancel": "abbrechen",
+    "urlHelper": "Gib die URL ein, an die die Payload gesendet werden soll"
+  },
+  "tab": {
+    "partnership": "Partnerschaft",
+    "webhook": "WebHook",
+    "personalization": "Personalisierung",
+    "role": "Mitarbeiter",
+    "shop": "Webshop",
+    "active_campaign": "ActiveCampaign",
+    "general": "Allgemein",
+    "waitingList": "Warteliste",
+    "paymentRules": "Lohnabrechnungsregeln für Lehrkräfte",
+    "broadcast": "Videokonferenz",
+    "notificationRule": "Transaktions-E-Mails",
+    "company": "Unternehmen",
+    "invoice": "Rechnungsstellung",
+    "coachUserspace": "Lehrkraftansicht"
+  },
+  "pageTitle": "Einstellungen",
+  "marketplaceSettings": {
+    "createDialog": {
+      "dialogTitle": "Tab bearbeiten",
+      "noPlaylistError": "Eine Playlist auswählen",
+      "noServiceError": "Einen Termintyp auswählen",
+      "noTitleError": "Einen Titel angeben",
+      "noComponentTypeError": "Komponente auswählen",
+      "submit": "Bestätigen",
+      "cancel": "Abbrechen",
+      "inputTitle": "Tab-Name",
+      "selectPlaylist": "Wähle eine Playlist",
+      "selectPrivateService": "Wähle eine Dienstleistung",
+      "selectActivity": "Wähle eine Aktivität",
+      "selectEstablishment": "Wähle eine Einrichtung",
+      "selectCoach": "Wähle eine Lehrkraft",
+      "selectComponent": "Komponente wählen",
+      "showAdvanced": "Weitere Optionen anzeigen",
+      "selectVideo": "Wähle ein Video",
+      "selectPrivateServiceGroups": "Wähle Deine Kategorien",
+      "selectPrivateServiceTypeDetail": "Meine Termine",
+      "selectPrivateServiceTypeList": "Alle Termine",
+      "selectPrivateServiceType": "Typ",
+      "hidePrivatePass": "Terminpässe nicht anzeigen",
+      "hidePaymentCombo": "Pakete nicht anzeigen",
+      "hidePaymentPack": "Kurspässe nicht anzeigen",
+      "todayOnly": "Nur die heutigen Kurse anzeigen",
+      "titleCaption": "max. {{max}} Zeichen ( {{count}} / {{max}} )",
+      "hideFilters": "Suchleiste und Filter nicht anzeigen"
+    },
+    "componentType": {
+      "playlist": "Playlists",
+      "shop": "Webshop",
+      "subscription": "Abonnement",
+      "vod": "Mediathek (VOD)",
+      "pass": "Pässe",
+      "privateService": "Termine",
+      "workshop": "Workshops",
+      "calendar": "Kalender",
+      "newsletter": "Newsletter",
+      "loginButton": "Anmelde-Schaltfläche",
+      "giftcard": "Gutscheine",
+      "paymentPackTemplate": "Geteilte Kurspässe",
+      "calendarV2": "Kalender",
+      "newsletterV2": "Lead-Akquise",
+      "referral": "Empfehlung",
+      "consumerBooking": "Meine Buchungen",
+      "consumerPass": "Meine Karten",
+      "consumerSpace": "Mitgliederprofil"
+    },
+    "preview": "Vorschau",
+    "saveButton": "Speichern",
+    "link": "Logg dich aus und öffne deinen Mitgliederbereich",
+    "explainMarketplace": "Deine Mitglieder haben mit einem PC, Tablet oder Smartphone Online-Zugriff auf deinen Mitgliederbereich. Hier kannst du die Module auswählen, die du in deinem Mitgliederbereich zur Verfügung stellen möchtest.",
+    "addButton": "Einen Tab hinzufügen"
+  },
+  "companyOnboarding": {
+    "error": "Diese Information kann nicht geändert werden"
+  },
+  "paymentMethods": {
+    "save": "Speichern",
+    "methodPaymentSubscriptionError": "Bitte wähle mindestens eine Zahlungsmethode aus",
+    "methodPaymentSubscriptionHelper": "Welche Zahlungsmethoden möchtest du für wiederkehrende Zahlungen (Abos) anbieten?",
+    "methodPaymentSubscription": "Wiederkehrende Zahlungen",
+    "methodPaymentBasketHelper": "Welche Zahlungsmethoden möchtest du für Einmalzahlungen anbieten?",
+    "methodPaymentBasket": "Einmalzahlungen",
+    "subtitle2": "Als Administrator hast du immer Zugriff auf alle verfügbaren Zahlungsmethoden.",
+    "subtitle": "Hier wählst du die Zahlungsmethoden aus, die du deinen Mitgliedern zur Verfügung stellen möchtest.",
+    "title": "Onlinezahlungen",
+    "methodPaymentCardBillingDetails": "Rechnungsangaben bei Kartenzahlung anfordern",
+    "methodPaymentCardBillingDetailsTitle": "Vollständige Rechnungsangaben anfordern",
+    "methodPaymentCardBillingDetailsHelper": "Aktivierst du diese Option, wird das 3D Secure-Verfahren (ein Verfahren, das die Sicherheit bei Online-Kreditkarten-Zahlungen erhöht) seltener angewendet. Hinweis: Es handelt sich hier um Pflichtfelder.",
+    "DaysBeforeNotificationInputs": {
+      "helpText": "Wenn die entsprechenden Transaktionsbenachrichtigungen für Abonnements und Ratenzahlungen aktiviert sind: Wann möchtest du Erinnerungen über ablaufende Zahlungsmittel (Kredit-/Debitkarte) verschicken?",
+      "title": "Erinnerungen für ablaufende Zahlungsmittel (Kredit-/Debitkarte)",
+      "errors": {
+        "max": "Die Anzahl der Tage kann nicht länger sein als 1{{maxDays}}",
+        "secondWarningDayBiggerThanFirst": "Die zweite Benachrichtigung kann nicht mehr Tage enthalten, als die erste Benachrichtigung"
+      },
+      "labels": {
+        "daysBeforeSecondNotification": "Zweite Erinnerung (Tage vor Ablauf der Frist)",
+        "daysBeforeFirstNotification": "Erste Erinnerung (Tage vor Ablauf der Frist)"
+      }
+    }
+  },
+  "billing_group": {
+    "header": "Abrechnungsgruppe",
+    "helperText": "Die Rechnungsgruppen erscheinen in Ihren Berichten, um jede Rechnung leicht mit dem richtigen Ort zu verknüpfen, und werden im Warenkorb von den Mitgliedern verwendet, um ihren bevorzugten Ort auszuwählen. Mindestens eine Rechnungsgruppe muss definiert sein, damit die Mitglieder Online-Einkäufe tätigen können. Wenn Sie mehrere Einrichtungen haben, die zu demselben Standort gehören, können Sie diese in derselben Rechnungsgruppe zusammenfassen",
+    "add": "Gruppe hinzufügen"
+  },
+  "quickbooks": {
+    "confirmDialog": {
+      "text": "Sind Sie sicher, dass Sie bsport den Zugriff auf Ihre App erlauben wollen?",
+      "title": "QuickBooks Verbindung"
+    },
+    "buttonRevoke": "Quickbooks deaktivieren",
+    "buttonReConnect": "Meine Verbindung aktualisieren",
+    "buttonConnect": "Bei Quickbooks anmelden",
+    "explainEnable": "Übertragen Sie alle Ihre Rechnungen direkt in QuickBooks. Die Rechnungen werden alle 24 Stunden übermittel.",
+    "submit": "Speichern Sie",
+    "enable": "Aktivieren Sie die Quickbooks-Integration",
+    "title": "QuickBooks",
+    "tax": {
+      "taxInfoTitle": "QuickBooks Steuerinformationen",
+      "taxCodeHeaderName": "Name",
+      "taxCodeHeaderDescription": "Beschreibung",
+      "usedAsTaxCode": "Als Referenzsteuer verwendet",
+      "refresh": "Meine Quickbooks-Daten aktualisieren",
+      "alertUnconfigured": "Sie haben keine Standardsteuer eingerichtet, die auf die in Ihren Rechnungen enthaltenen Produkte angewendet werden soll. Diese Angabe ist erforderlich, um bei der Übertragung von Rechnungen auf Ihre Quickbooks-Plattform die passende Steuer zu verweisen.",
+      "alertNonTaxInformation": "Es werden keine Steuerinformationen mit Ihrer Quickbooks-Plattform synchronisiert. Bitte klicken Sie auf Aktualisieren, um sie zu synchronisieren",
+      "goToSettingsPage": "Open the QuickBooks configuration page"
+    }
+  },
+  "mobilePersonalization": {
+    "title": "Personalisierte App",
+    "externalShopRedirection": {
+      "subtitle": "Externe Links",
+      "add": "Link hinzufügen",
+      "name": "Name",
+      "link": "Link",
+      "action": "Aktionen",
+      "popup": {
+        "title": "Externer Link",
+        "link": "weitergeleiteter Link",
+        "cancel": "Stornieren",
+        "submit": "Speichern",
+        "name": "Name",
+        "icon": "Symbol"
+      },
+      "popupPreview": {
+        "membershipCard": {
+          "paymentPack": "Kurspässe",
+          "consumerPaymentPack": "Meine Kurspässe",
+          "invoice": "Meine Rechnungen",
+          "contract": "Abonnements",
+          "paymentPackEmpty": "Es werden keine Kurspässe angezeigt.",
+          "privatePassListEmpty": "Es werden keine Terminpässe angezeigt.",
+          "vod": "Video on Demand",
+          "contractEmpty": "Es werden keine Abonnements angezeigt.",
+          "invoiceEmpty": "Es werden keine Rechnungen angezeigt.",
+          "giftcardSubtitle": "Stöbern Sie in unseren Geschenkkarten.",
+          "paymentComboEmpty": "Es sind keine Pakete zu sehen.",
+          "privateConsumerPassListEmpty": "Sie besitzen noch keinen Terminpass.",
+          "mySubscription": "Meine\nAbonnements",
+          "paymentPackSubtitle": "Entdecken Sie das gesamte Angebot dieses Studios.",
+          "contractSubtitle": "Wählen Sie das Abonnement, das am besten zu Ihnen passt.",
+          "consumerPaymentPackEmpty": "Sie besitzen noch keinen Kurspass.",
+          "vodSubtitle": "Sehen Sie sich Ihre Lieblingsvideos überall und jederzeit an.",
+          "paymentComboSubtitle": "Werfen Sie einen Blick auf alle unsere aktuellen Pakete."
+        },
+        "title": "Vorschau",
+        "category": {
+          "contract": "Abonnements",
+          "giftcard": "Gutscheine",
+          "paymentPack": "Alle Pässe",
+          "paymentCombo": "Angebote"
+        },
+        "ourOffers": "Unser Angebot",
+        "cancel": "Schließen",
+        "inventory": "Mein Inventar"
+      },
+      "helperText": "Du kannst der App externe Links hinzufügen, um Mitglieder auf deine Website oder eine andere Seite weiterzuleiten. Diese Links erscheinen im Reiter „Einkauf“ in der App.",
+      "deleteModal": {
+        "title": "Löschen",
+        "confirm": "Löschen",
+        "cancel": "Abbrechen",
+        "content": "Sind Sie sicher, dass Sie diesen Link entfernen möchten? Dieser Vorgang ist nicht rückgängig zu machen"
+      },
+      "updated": "Aktualisieren",
+      "preview": "App-Vorschau",
+      "icon": "Symbol"
+    },
+    "popup": {
+      "subtitle": "Pop-up",
+      "helperText": "Du kannst ein Popup hinzufügen, das einmal erscheint, wenn deine Mitglieder die bsport-App öffnen. Damit erzeugst du Aufmerksamkeit für dein Angebot, z. B. ein neuer Kurs, eine Werbeaktion. Du kannst auch einen Link, z. B. zu deiner Website anbieten.",
+      "updated": "Aktualisieren",
+      "deleteModal": {
+        "cancel": "Stornieren",
+        "content": "Sind Sie sicher, dass Sie dieses Pop-up löschen möchten? Diese Aktion ist endgültig",
+        "confirm": "Löschen bestätigen",
+        "title": "Löschen"
+      },
+      "see": "Vorschau",
+      "editPopup": {
+        "image": "Bild",
+        "preview": "Vorschau",
+        "previewPopup": {
+          "title": "Übersicht",
+          "see": "Siehe"
+        },
+        "title": "Start-Pop-up",
+        "name": "Name Pop-up",
+        "link": "Weiterleitungs-Link",
+        "cancel": "Abbrechen",
+        "submit": "Speichern"
+      },
+      "image": "Bild",
+      "add": "Pop-up hinzufügen",
+      "name": "Popup-Name",
+      "link": "Popup-Link",
+      "action": "Aktion"
+    },
+    "customize": {
+      "defaultPage": {
+        "pageContent": {
+          "options": {
+            "profile": "Profil",
+            "marketplace": "Studio",
+            "home": "Aktivitäten (Standard)",
+            "bookings": "Buchungen",
+            "membership": "Wochenplan",
+            "studio": "Studio",
+            "activities": "Aktivitäten (Standard)",
+            "schedule": "Wochenplan"
+          },
+          "placeholder": "Eine Seite auswählen",
+          "helperText": "Hier kannst du eine Startseite auswählen, die deine Mitglieder zuerst sehen, wenn sie die App öffnen.",
+          "label": "Standard \"Home-Button\" ändern"
+        },
+        "title": "Startseite"
+      },
+      "title": "Personalisierung"
+    }
+  },
+  "company": {
+    "bankAccountSuccess": {
+      "content": "Ihre Bankdaten wurden erfolgreich aktualisiert. Um auf ein und dasselbe Konto gutgeschrieben und abgebucht zu werden, können Sie auch das Zahlungsmethode aktualisieren, mit dem Ihr bsport-Abonnement abgebucht wird.",
+      "title": "Änderungen der Bankdaten",
+      "note": "Klicken Sie auf \"Konfigurieren\", um weitergeleitet zu werden."
+    },
+    "bankAccountInfo": {
+      "content": "Um eine Zahlungsmethode für dein bsport Abo einzurichten, klick bitte:",
+      "link": "hier",
+      "update": "Kontoangaben speichern"
+    },
+    "paypal": {
+      "alert": {
+        "error": {
+          "issue_repeat_onboarding": {
+            "content": "Bitte wiederholen Sie den Verbindungsvorgang unter Verwendung desselben Kontos, um dieses Problem zu beheben.",
+            "title": "PayPal-Zahlungen sind derzeit deaktiviert."
+          },
+          "issue_check_account": {
+            "goToPayPal": "Bitte überprüfen Sie Ihr PayPal-Konto, um dieses Problem zu beheben.",
+            "content": "PayPal-Zahlungen sind derzeit deaktiviert.",
+            "title": "Problem mit Ihrem PayPal-Konto."
+          },
+          "requires_more_information": {
+            "goToPayPal": "Andernfalls überprüfen Sie bitte Ihr PayPal-Konto, um dieses Problem zu lösen.",
+            "content": "PayPal-Zahlungen sind derzeit deaktiviert. Wenn Ihr PayPal-Konto neu erstellt wurde und Sie sicher sind, dass Ihre Angaben korrekt sind, geben Sie PayPal bitte etwas Zeit, um Ihr Konto zu validieren. ",
+            "title": "Für das PayPal-Konto fehlen Informationen oder es wurde nicht bestätigt."
+          },
+          "primary_email_confirmation": {
+            "goToPayPal": "Bitte überprüfe das PayPal-Konto, um dieses Problem zu beheben.",
+            "content": "PayPal-Zahlungen sind derzeit deaktiviert.",
+            "title": "Fehlende E-Mail-Bestätigung auf Ihrem PayPal-Konto."
+          },
+          "isStatusUnknown": {
+            "goToPayPal": "Wenn das Problem weiterhin besteht, überprüfen Sie den Status des PayPal-Systems",
+            "content": "Bitte aktualisiere die Seite.",
+            "title": "Wir können PayPal derzeit nicht erreichen"
+          }
+        },
+        "rightAccount": {
+          "content": "Es ist nicht einfach, diese Verbindung nachträglich anzupassen oder zu trennen.",
+          "title": "Bitte auf das richtige Konto achten"
+        }
+      },
+      "dialog": {
+        "error": "Beim Versuch, den Onboarding-Link von PayPal abzurufen, ist ein Fehler aufgetreten",
+        "redirecting": "Umleitung auf PayPal...",
+        "startConnecting": "Verbindung herstellen",
+        "cancel": "Abbrechen",
+        "helper": "Um eine Verbindung herzustellen, verwenden Sie Ihr Geschäftskonto, erweitern Sie ein Privat- oder Premier-Konto auf ein Geschäftskonto oder erstellen Sie ein neues Geschäftskonto.",
+        "title": "Verbinden Sie Ihr PayPal-Geschäftskonto"
+      },
+      "connect": "PayPal verbinden",
+      "accountEmail": "Konto E-Mail",
+      "accountName": "Kontoname",
+      "oneTimePayments": "Einmalige Zahlungen tätigen",
+      "titleWithPayPal": "Mit PayPal können Ihre Mitglieder",
+      "linkHelper": "Du kannst hier dein PayPal-Geschäftskonto verbinden, damit deine Mitglieder bequem per PayPal zahlen können.",
+      "status": {
+        "unknown": "Unbekannter Status",
+        "hasIssues": "Verbindungsprobleme",
+        "notConnected": "Nicht verbunden",
+        "connected": "Verbundenes Konto"
+      }
+    },
+    "stripe": {
+      "update": "Adresse speichern"
+    }
+  },
+  "platformCustomerEntity": {
+    "vatId": {
+      "errorChip": "Gültige Umsatzsteuer-Identifikationsnummer fehlt",
+      "update": "Umsatzsteuer-Identifikationsnummer aktualisieren",
+      "descriptionPart2": "Wenn dein Unternehmen außerhalb von Frankreich ansässig ist, brauchen wir deine Umsatzsteuer-Identifikationsnummer, um das Reverse-Charge-Verfahren anzuwenden und sicherzustellen, dass wir dir keine Umsatzsteuer in Rechnung stellen.",
+      "descriptionPart1": "Wir brauchen deine Umsatzsteuer-Identifikationsnummer (USt-ID oder USt-IdNr), damit wir sie in deinen Rechnungen angeben können.",
+      "title": "USt-ID"
+    }
+  }
+}

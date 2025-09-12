@@ -1,0 +1,77 @@
+{
+  "modal": {
+    "delete": {
+      "title": "Suppression modèle email",
+      "content": "Si ce template est lié à une configuration d'email transactionnel, elle sera supprimée aussi. Êtes-vous sûr de vouloir supprimer ce modèle d'email ?",
+      "cancel": "Annuler",
+      "confirm": "Supprimer"
+    }
+  },
+  "edit": "Modifier",
+  "delete": "Supprimer",
+  "duplicate": "Dupliquer",
+  "copy": "copie",
+  "search": "Chercher un template",
+  "listTitle": "Mes modèles emails",
+  "editTitle": "édition du modèle",
+  "createTitle": "Création du modèle",
+  "detail": "Informations détaillées",
+  "selectToShowPreview": "Sélectionnez un template",
+  "create": "Créer un modèle",
+  "templateListEmpty": "Aucun modèle, créez votre premier modèle ici.",
+  "modification_date": "Dernière modification le",
+  "subject": "Objet du mail :",
+  "preview": "Aperçu du mail",
+  "no_subject": "Aucun d'objet",
+  "editor": {
+    "title": "Nom du modèle",
+    "save": "Enregistrer",
+    "exportHtml": "Exporter HTML",
+    "subject": "Objet du mail",
+    "cancel": "Annuler",
+    "shareWith": "Partager avec",
+    "shareWithHelper": "Le template ne pourra pas être modifié par les franchisés",
+    "error": {
+      "title": "Veuillez renseigner un nom",
+      "content": "Veuillez introduire du contenu dans le mail",
+      "subject": "Veuillez renseigner un object"
+    },
+    "selectorPlaceholder": "Sélectionner des franchisés",
+    "showRequiredTags": "Voir les variables",
+    "infoBoxTextFirstLine": "Ce mail est relié à l'email transactionnel '{{-names}}'. Certaines variables sont obligatoires.",
+    "alertBoxTextFirstLine": "Ce mail est relié à l'email transactionnel '{{-names}}'. Il doit contenir les variables suivantes : ",
+    "infoBoxTextLastLine": "Assurez-vous de les ajouter à votre template afin de pouvoir l'enregistrer.",
+    "dialogWindowTitle": "Variables obligatoires",
+    "closeButton": "Fermer"
+  },
+  "companieEmails": "Mes templates",
+  "franchiseEmails": "Templates franchise",
+  "leaveAlert": "Voulez-vous vraiment quitter cette page ?",
+  "autoSave": "Sauvegarde automatique",
+  "seeAll": "Voir tous",
+  "allCompanies": "Tous les franchisés",
+  "bsportTemplateEmail": "Templates Bsport",
+  "bsportTemplateEmails": "Templates bsport",
+  "infoBsportTemplateEmails": "Si vous souhaitez envoyer des communications ou éditer les templates de cette section, il est nécessaire de créer une copie du template souhaité. Sélectionnez ensuite la copie de l'email lors de l'envoi d'une communication.",
+  "franchiseEmailsPage": {
+    "filters": {
+      "companySelectPlaceHolder": "Sélectionner un studio"
+    },
+    "informativeAlert": {
+      "bsportDefault": {
+        "description": "Ces templates sont fournis par bsport. Pour les modifier ou les utiliser dans des campagnes, veuillez les dupliquer. Ils apparaîtront dans l'onglet «{{-masterAccountTabName}}»."
+      },
+      "ownedByFranchisee": {
+        "description": "Ces templates ont été créés par vos franchisés à partir de leur backoffice. Vous ne voyez que les templates des studios auxquels vous avez accès. Vous pouvez modifier ces templates. Notez que votre édition aura un impact sur le template source qui peut être utilisé dans les campagnes par le studio concerné."
+      },
+      "ownedByFranchisor": {
+        "description": "Créez des templates que vous pourrez partager avec vos franchisés afin de préserver l'identité de votre marque."
+      }
+    },
+    "tabs": {
+      "bsportDefault": "Templates emails bsport",
+      "ownByFranchisee": "Templates emails franchisés",
+      "ownByFranchisor": "Templates emails franchiseur"
+    }
+  }
+}

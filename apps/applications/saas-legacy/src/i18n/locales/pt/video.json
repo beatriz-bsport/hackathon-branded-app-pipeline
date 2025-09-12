@@ -1,0 +1,172 @@
+{
+  "video": {
+    "delete": {
+      "content": "Tem a certeza de que pretende eliminar esta rota ? Esta operação é irreversível.",
+      "title": "Eliminar",
+      "confirm": "Confirmar",
+      "cancel": "Cancelar"
+    },
+    "form": {
+      "edit": "Editar",
+      "confirm": {
+        "button": "Confirmar",
+        "unlimitedToRent": "Acabou de mudar um vídeo ilimitado para um vídeo de aluguer. Os membros que possuem atualmente o vídeo perderão o acesso ao mesmo se o período de validade especificado tiver expirado. Tem a certeza de que pretende alterar esta definição?",
+        "rentToUnlimited": "Acabou de transformar um vídeo de aluguer num vídeo ilimitado. Todos os membros que já tenham desbloqueado o vídeo (em curso ou expirado) mantê-lo-ão para sempre. Tem a certeza de que pretende alterar esta definição?",
+        "title": "Validação"
+      },
+      "video_label": "Vídeo",
+      "video_source": {
+        "change_popup_text": "Tenha em atenção que o vídeo atual será eliminado. Os membros que compraram o vídeo antigo terão agora acesso ao novo vídeo.",
+        "change_popup_title": "Carregar vídeo",
+        "edit_button": "Alterar vídeo",
+        "ebook": "Ebook",
+        "uploaded_video": "Ficheiro carregado",
+        "vimeo_video": "Vídeo Vimeo",
+        "youtube_video": "Vídeo Youtube",
+        "title": "Vídeo"
+      },
+      "creditPrice": {
+        "helperText": "Sem custo para que o vídeo seja acessível a todos os seus membros",
+        "label": "Custo em crédito"
+      },
+      "coach": {
+        "isEmpty": "Nenhum professor"
+      },
+      "title": "Editar vídeo",
+      "submit": "Registo",
+      "cancel": "Cancelar"
+    },
+    "ebook": {
+      "downloadHelper": "Desbloqueou o seu ebook. Para o visualizar, clique no botão {{button}}"
+    },
+    "download": "Descarregar",
+    "analytics": {
+      "uploaded": "Vídeo carregado em {{date}}",
+      "distinctViewers": "Vistas únicas",
+      "viewsLastWeek": "Últimos 7 dias",
+      "totalViews": "Total",
+      "dateCreated": "Em curso",
+      "viewTitle": "Visualizar",
+      "views": "{{nb_views}} visualizações"
+    },
+    "viewsListTitle": "Lista de visualizações",
+    "purchaseListTitle": "Carrinho de compras",
+    "viewedOn": "Vídeo visualizado em {{-date}} às {{hour}}",
+    "boughtOn": "Comprado em {{-date}}",
+    "noVideoView": "Sem visualizações",
+    "noVideoPurchase": "Nenhuma compra registada",
+    "duplicate": "Duplicar",
+    "register": {
+      "title": "Ativar a reprodução",
+      "buyPass": "Comprar um passe",
+      "noPassAvailable": "Não tem um passe compatível"
+    },
+    "thumbnailList": {
+      "similarVideoTitle": "Vídeos semelhantes",
+      "count": "{{ count }} vídeos",
+      "addVideo": "Adicionar um vídeo"
+    },
+    "search": {
+      "isEmpty": "Não há vídeo :(",
+      "placeholder": "Pesquisar",
+      "cancel": "Cancelar"
+    },
+    "bottomActions": {
+      "create": "Adicionar"
+    },
+    "upload": {
+      "contentEbook": "Carregar aqui ou selecionar um ficheiro/imagem",
+      "type": {
+        "ebook": "Ebooks",
+        "file": "Ficheiro",
+        "fileExplain": "Se tiver um ficheiro vídeo (mp4, avi, mov...), utilize este método para carregar o seu vídeo diretamente para os servidores da bsport.",
+        "vimeo": "Vimeo",
+        "youtubeExplain": "O seu vídeo já está disponível no Youtube, mas pretende rentabilizá-lo utilizando o sistema de cartões bsport.",
+        "youtube": "Youtube",
+        "vimeoExplain": "O seu vídeo já está disponível no Vimeo, mas pretende rentabilizá-lo utilizando o sistema de cartões bsport.",
+        "ebookExplain": "Se tiver um ebook em formato pdf ou de imagem (png, jpg), utilize este método para carregar o seu ebook. Uma vez desbloqueado, os seus membros poderão descarregá-lo."
+      },
+      "youtubeUrlInput": "Ligação do Youtube",
+      "hours": "Horas",
+      "dropHere": "Arraste e largue um vídeo aqui ou clique para navegar no seu computador",
+      "durationLabel": "Duração do vídeo",
+      "durationInputError": "Introduza a duração do vídeo",
+      "minutes": "Minutos",
+      "title": "Carregar um vídeo",
+      "ebookTitle": "Carregar um ebook",
+      "content": "Carregue aqui ou seleccione um vídeo",
+      "submit": "Confirmar",
+      "vimeoUrlInput": "Ligação vimeo",
+      "urlInputError": "Introduzir um URL",
+      "cancel": "Cancelar"
+    },
+    "rental": {
+      "forRent": "Aluguer",
+      "valid": "Em curso",
+      "expirationDate": "Válido até {{ expiration_date }}",
+      "expiredDate": "Expirado em {{ expiration_date }}",
+      "duration_helper": "Validade do vídeo (em dias)",
+      "rental_days_helper": "O vídeo será desbloqueado após o número de dias especificado.",
+      "expired": "Concluído",
+      "label": "Vídeo para aluguer",
+      "helper": "Por predefinição, os vídeos ficam desbloqueados para sempre após a compra. Ao alugar o vídeo, este só pode ser desbloqueado durante um determinado número de dias.",
+      "duration": "Para aluguer para {{ rental_days }} dias",
+      "buyDate": "Hora da compra"
+    },
+    "lock": {
+      "buyPass": "Comprar um cartão",
+      "pleaseAuthenticated": "Não tem acesso a este ebook",
+      "accessDeniedEbook": "Não tem acesso a este ebook",
+      "useConsumerPass": "Desbloquear",
+      "accessDenied": "Não tem acesso a este vídeo"
+    },
+    "name": "Nome",
+    "status": {
+      "processing": "Em curso",
+      "submitted": "Projeto",
+      "error": "Tentar novamente",
+      "processed": "Detalhes"
+    },
+    "filter": {
+      "duration": {
+        "all": "Qualquer duração",
+        "explain": "Entre {{min}} e {{max}} min"
+      }
+    },
+    "showMore": "Ver mais",
+    "durationMinute": "{{ minute }} min",
+    "player": {
+      "with": "com"
+    },
+    "category": "Categoria",
+    "creditPrice": "Custo (crédito)",
+    "coverMain": {
+      "alert": "A imagem é obrigatória"
+    },
+    "description": "Descrição",
+    "level": "Nível",
+    "manager_only": "Não disponível para compra",
+    "manager_only_helper": "O vídeo não estará disponível para compra, mas será visível apenas para os gestores"
+  },
+  "playlist": {
+    "deleteVideo": "Eliminar",
+    "noVideo": "Nenhum vídeo nesta lista de reprodução",
+    "description": "Descrição",
+    "open": "Aberto",
+    "form": {
+      "cancel": "Cancelar",
+      "submit": "Registo"
+    },
+    "playlist": "Percurso",
+    "name": "Nome",
+    "bottomActions": {
+      "create": "Adicionar"
+    }
+  },
+  "details": {
+    "pleaseSelectVod": "Selecionar uma compra para ver os detalhes",
+    "invoiceTitle": "Fatura associada",
+    "consumerPaymentPackTitle": "Passe de aulas utilizado",
+    "title": "Detalhes do vídeo"
+  }
+}

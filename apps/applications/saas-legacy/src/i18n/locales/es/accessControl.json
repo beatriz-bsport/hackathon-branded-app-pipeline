@@ -1,0 +1,155 @@
+{
+  "snackbar": {
+    "R": "Inválido",
+    "O": "Atención",
+    "G": "Válido",
+    "message": "<strong>{{- name }}</strong> acaba de hacer su entrada."
+  },
+  "memberEntry": "Entrada de miembros",
+  "modals": {
+    "entryStatusChanged": {
+      "N": {
+        "description": "Puede seguir gestionando las advertencias y dejar que entren desde la pestaña Visita a la ubicación.",
+        "message": "Se denegó la entrada al miembro.",
+        "title": "Entrada denegada"
+      },
+      "stay": "Cerrar la página de miembro",
+      "close": "Cerrar la página de miembro",
+      "Y": {
+        "description": "Puede seguir gestionando las advertencias desde la pestaña Visita a la ubicación.",
+        "message": "Se permitió la entrada del miembro con advertencias existentes.",
+        "title": "El miembro ha entrado"
+      }
+    },
+    "accessStatusChangedSuccess": {
+      "message": "Todas las incidencias han sido resueltas. El estado del miembro se ha actualizado a válido.",
+      "title": "Estado del miembro actualizado"
+    },
+    "locationBlocker": {
+      "description": "Se encuentra en Ajustes > Personal.",
+      "message": "Pida al personal con derechos de administrador que asigne una ubicación a su acceso de personal.",
+      "title": "Ubicación no asignada"
+    },
+    "memberPhotoHistory": {
+      "validateIdentity": "Validar la identidad",
+      "uploadedOn": "Subido {{- date}}",
+      "title": "Fotos anteriores"
+    }
+  },
+  "memberVisitDetails": {
+    "atHome": "A domicilio",
+    "passExpiration": "Válido hasta {{- expirationDate }}",
+    "manualEntry": {
+      "button": {
+        "entryRefused": "Entrada denegada",
+        "entryAllowed": "Ha entrado",
+        "accept": "Permitir la entrada",
+        "refuse": "Denegar la entrada"
+      },
+      "description": "Indicar si este miembro puede o no entrar"
+    },
+    "actions": {
+      "billMember": "Factura",
+      "goToProfile": "Perfil",
+      "seePreviousImages": "Ver anterior"
+    },
+    "photoHasChanged": "La foto del perfil ha cambiado recientemente",
+    "pass": "Bono:",
+    "spotName": "Plaza: {{- spotName}}",
+    "teacherName": "Profesor: {{- coachName}}",
+    "nextBooking": "Próxima reserva:",
+    "lastName": "Apellido:",
+    "firstName": "Nombre:",
+    "title": "Información del miembro",
+    "accessStatus": {
+      "red": "Inválido",
+      "orange": "Atención",
+      "green": "Válido"
+    },
+    "noPreviousPhoto": "El miembro no tiene fotos anteriores",
+    "noSpotAllocated": "Sin plaza asignada"
+  },
+  "memberVisit": {
+    "warnings": {
+      "numberOfCheckedPasses": "{{- count }} se ha comprobado el bono del miembro sin resultado válido.",
+      "numberOfCheckedPasses_plural": "{{- count }} se han comprobado los bonos del miembro sin resultados válidos.",
+      "passIncompatibleWithAppointmentsInEstablishments": "Las citas que se pueden reservar con el bono del miembro {{- passName }} no son compatibles con tu sitio web.",
+      "passIncompatibleWithEstablishments": "El bono de miembro {{- passName }} no es compatible con su sitio web.",
+      "passRestrictedByOffPeakSchedule": "El bono del miembro {{- passName }} no permite la entrada durante esta franja horaria",
+      "passRestrictedToVod": "El bono del miembro {{- passName }} está restringido sólo a VOD",
+      "passLinkedToPausedSubscription": "El bono del miembro {{- passName }} está vinculado a una suscripción en pausa",
+      "passIsDisabled": "El bono {{- passName }} del miembro está actualmente bloqueado",
+      "noPasses": "Al miembro no le queda ningún bono activo con créditos",
+      "bookingsInOtherEstablishments": "La reserva del miembro {{- bookingName}} está programada en un establecimiento diferente : {{- establishmentName }}",
+      "hasUnpaidAppointments": "El miembro tiene uno o varias citas impagadas",
+      "hasNegativeAccountBalance": "El saldo de la cuenta de miembro es negativo",
+      "hasUnpaidInvoices": "El socio tiene una o varias facturas impagadas"
+    },
+    "refreshMemberVisit": "Actualizar el estado",
+    "closeMemberVisit": "Cerrar la página de miembros",
+    "emptyState": {
+      "searchMember": "Buscar miembros por nombre o número",
+      "or": "o",
+      "establishmentsSelectedInRole": "Estás supervisando el acceso para <strong>{{- address }} - {{- establishments }}</strong>",
+      "waitForScan": "Espere a que el miembro escanee su código de barras o busque su nombre o código de barras manualmente."
+    }
+  },
+  "settings": {
+    "errors": {
+      "minutes": {
+        "max": "Debe ser inferior al 60",
+        "min": "Debe ser mayor que 0"
+      },
+      "hours": {
+        "max": "Debe ser inferior a 24",
+        "min": "Debe ser mayor que 0"
+      },
+      "required": "Este campo es obligatorio"
+    },
+    "isStudioWide": "Los ajustes se aplican a todo el estudio.",
+    "beforeTitle": "Plazo de entrada después del inicio de la sesión",
+    "afterTitle": "Plazo de entrada antes del inicio de la sesión",
+    "minutes": "Minutos",
+    "hours": "Horas",
+    "description": "Fijar el tiempo de entrada de los miembros antes y después del inicio de su sesión en un establecimiento compatible.",
+    "title": "Periodo de entrada de miembros"
+  },
+  "liveHistory": {
+    "breadcrumbTitle": "Ubicación de la visita",
+    "table": {
+      "accessStatus": "Estatus",
+      "time": "Entrada",
+      "session": "Razón de la visita",
+      "member": "Miembro",
+      "entryUnknown": "Especifique si se permitió la entrada del miembro",
+      "entered": "Entró",
+      "refusedEntry": "Entrada denegada",
+      "placeholder": {
+        "search": "Basándonos en tu búsqueda, no hemos podido encontrar ningún miembro que nos haya visitado hoy.",
+        "default": "Todavía no ha registrado ninguna visita."
+      }
+    },
+    "unreadCount": "{{ count }} visita nueva",
+    "unreadCount_plural": "{{ count }} visitas nuevas"
+  },
+  "accessMonitoringTitle": "Control de acceso",
+  "filters": {
+    "entryStatus": {
+      "U": "Desconocido",
+      "N": "No entrado",
+      "Y": "Entrado",
+      "unknown": "Desconocido",
+      "notEntered": "No entrado",
+      "entered": "Entrado"
+    },
+    "accessStatus": {
+      "R": "No válido",
+      "O": "Advertencia",
+      "G": "Válido",
+      "red": "No válido",
+      "orange": "Advertencia",
+      "green": "Válido"
+    }
+  },
+  "broadcastChannelWarning": "La versión de su navegador nos impide ejecutar esta función correctamente. Por favor, actualice su navegador."
+}

@@ -1,0 +1,156 @@
+{
+  "forms": {
+    "delete": {
+      "content": {
+        "canDelete": "Tem a certeza de que pretende eliminar esta espaço ? Esta ação é irreversível. Será eliminada e substituída pelo espaço predefinido neste plano e em todos os outros aos quais foi adicionada."
+      },
+      "actions": {
+        "confirm": "Confirmar",
+        "cancel": "Cancelar"
+      },
+      "title": "Eliminar"
+    }
+  },
+  "spotCreatorForm": {
+    "deleted": "Espaço eliminado",
+    "saved": "Espaço registado",
+    "personalizedExplain": "Pode personalizar a forma dos espaços importando as suas próprias imagens. Para o fazer, precisamos de 3 ícones diferentes. Um para indicar que o espaço está disponível e outro quando está reservado. Certifique-se de que têm o mesmo tamanho e não inclua números nos seus ícones.",
+    "prefixError": "O prefixo deve ser uma única letra",
+    "taken": "Lugar reservado",
+    "circular": "Redondo",
+    "generalInfo": "Informações gerais",
+    "alertDefaultSpot": "Ao alterar o ponto predefinido, todos os pontos predefinidos presentes em todos os disparos serão alterados de forma idêntica",
+    "missImageFree": "Não descarregou a imagem para o lugar livre",
+    "missImageTaken": "Não descarregou a imagem para o lugar reservado",
+    "missImageSelected": "Não descarregou a imagem para o lugar selecionado",
+    "name": "Nome",
+    "nameExplain": "Nome do tipo de local",
+    "prefixExplain": "O caráter aqui indicado aparecerá como os números dos lugares",
+    "prefix": "Prefixo",
+    "predefined": "Formatos pré-definidos",
+    "square": "Quadrado",
+    "selected": "Lugar selecionado",
+    "selectedPersonalized": "{{- name}} selecionado",
+    "preview": "Pré-visualizar",
+    "freePersonalized": "{{- name}} disponível",
+    "title": "Plano da sala",
+    "subtitle": "Criar um tipo de local",
+    "customization": "Personalizar",
+    "personalized": "Imagens personalizadas",
+    "rectangle": "Retangular",
+    "triangle": "Triângulo",
+    "takenPersonalized": "{{- name}} reservado",
+    "free": "Lugar disponível"
+  },
+  "searchHelper": "Ajuda: permite aos seus alunos reservar o espaço que pretendem na sala. Campos não obrigatórios",
+  "spotImageDialog": {
+    "title": "Personalize os seus espaços",
+    "freeImageLabel": "Espaço disponível",
+    "takenImageLabel": "Espaço reservado",
+    "helper": "Pode personalizar a forma dos locais importando as suas próprias imagens. Para o fazer, precisamos de 2 ícones diferentes: Um para indicar que o local está disponível e o outro quando está reservado. Certifique-se de que têm o mesmo tamanho e não inclua números nos seus ícones.",
+    "actions": {
+      "submit": "Confirmar",
+      "cancel": "Anular"
+    },
+    "imageFormat": "Formato recomendado: .png, .jpg",
+    "taken": "Reservado",
+    "free": "Disponível",
+    "imageUploadButton": "Carregar uma imagem"
+  },
+  "toolsMenu": {
+    "requiredForSpivi": "Necessário para a integração com o Spivi",
+    "boxId": "Box ID",
+    "addSpotType": "Adicionar um tipo de lugar",
+    "showGrid": "Apresentar a grelha",
+    "customIconButton": "Descarregar os meus ícones",
+    "customIconLabel": "Ícones de localização",
+    "customFill": "Cor de preenchimento",
+    "customStroke": "Cor da linha",
+    "hand": "Principal",
+    "pointer": "Cursor",
+    "door": "Porta",
+    "screen": "Ecrã",
+    "helperText": "A dimensão do professor deve ser estritamente positiva",
+    "teacher": "Professor",
+    "spot": "Lugar",
+    "rect": "Retangular",
+    "line": "Funcionalidade",
+    "rotation": "Rotação",
+    "redo": "Seguinte",
+    "undo": "Anterior",
+    "eraser": "Apagar",
+    "sections": {
+      "spivi": "Integração Spivi",
+      "custom": "Personalização",
+      "elements": "Elementos",
+      "place": "Localização",
+      "walls": "Paredes",
+      "edition": "Edição",
+      "assets": "Ativos",
+      "editionAdvanced": "Edição avançada",
+      "editionHistory": "Histórico da edição"
+    },
+    "title": "Funcionalidades",
+    "resize": "Escala",
+    "openAssetModal": "Abrir manipulador de ativos",
+    "copier": "Duplicador",
+    "cssEditor": "CSS",
+    "advancedTool": "HTML"
+  },
+  "toolbar": {
+    "exit": "Sair",
+    "titleLabel": "Nome do plano",
+    "save": "Registo",
+    "spiviHelperText": "Ver correspondência com os destaques do Spivi",
+    "spivi": "Spivi",
+    "loadExistingBlueprint": "Carregar um plano existente"
+  },
+  "saved": "Plano de lugares registado",
+  "effectifError": "O número de lugares deve ser igual ou superior ao número de pessoas que participam na sessão",
+  "search": "Encontrar um plano para a programação pontual",
+  "roomBlueprintSelectorTitle": "Escolher um plano",
+  "spotSelectorDialog": {
+    "takeSpotError": "O local que selecionou para este curso já não está disponível. Por favor, selecione um novo.",
+    "legend": "Legenda",
+    "submit": "Confirmar",
+    "cancel": "Cancelar",
+    "book": "Reservar um lugar {{prefix}}{{indexType}}",
+    "spot": "Lugar {{count}}",
+    "title": "Selecionar um lugar"
+  },
+  "spotSelector": {
+    "confirm": "Confirmar",
+    "seeAll": "Ver tudo",
+    "unavailablePersonalizedSpot": "{{- spotName }} indisponível",
+    "unavailableSpot": "Lugar não disponível",
+    "unavailable": "Não está disponível",
+    "availablePersonalizedSpot": "{{- spotName }} disponível",
+    "availableSpot": "Lugar disponível",
+    "available": "Disponível",
+    "legend": "Legenda",
+    "selectOtherSpot": {
+      "message": "A seleção anterior ficará disponível para outros.",
+      "title": "Ou selecionar um novo local"
+    },
+    "goBackToCheckout": "Voltar à caixa de pagamento"
+  },
+  "spiviDialog": {
+    "spiviIdentifiers": "Identificadores Spivi",
+    "bsportIdentifiers": "bsport ID",
+    "spotCorrespondence": "Correspondência entre lugares"
+  },
+  "placeCount": "{{count}} lugares",
+  "roomBlueprints": "Plano da sala",
+  "saveError": "Erro",
+  "errorAvailableOffersScheduled": "Não foi possível guardar. O plano de lugares não pode ser utilizado em sessões futuras para edição.",
+  "errorLessSpotThanEffectif": "Não é possível guardar. O plano de lugares deve conter mais espaço do que o número de pessoas na sessão a que está associado",
+  "cssForm": {
+    "helper": "Você pode adicionar regras CSS para o seu layout nessa seção. O mapa inteiro é agrupado em um svg com o ID \"svg-canvas-display\". Por padrão, uma folha de estilo direcionada a cada elemento na tela (como pontos, retângulos e professores) é gerada automaticamente. Você pode observar suas alterações gradualmente clicando no {{ buttonLabel }} botão '",
+    "openPreview": "Prévia"
+  },
+  "assetUpoadForm": {
+    "loadMore": "Carregar mais",
+    "submit": "Enviar",
+    "description": "Você pode carregar e usar imagens diretamente daqui. Quando novas imagens forem carregadas, elas estarão disponíveis para serem inseridas em seu mapa."
+  }
+}

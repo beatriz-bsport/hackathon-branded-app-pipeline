@@ -47,6 +47,12 @@ export const NotificationRulePushNotificationForm: React.FC<
     },
   });
 
+  // This function handles the insertion of a selected communication variable
+  // into the currently focused input field (title or content) at the cursor position.
+  // It uses the currentInputRef to determine which input is focused and manipulates
+  // the form state accordingly.
+  // It also ensures that the cursor is repositioned correctly after insertion.
+  // The function checks for the validity of the current input type and the presence
   const handleCommunicationVariableSelect = (selectedVariable: string) => {
     // Validate current input type
     if (
@@ -68,7 +74,7 @@ export const NotificationRulePushNotificationForm: React.FC<
     if (!element) return;
 
     // Get current cursor position
-    const currentCursorPos = element.selectionStart || currentInput.length;
+    const currentCursorPos = element.selectionStart ?? currentInput.length;
 
     // Validate cursor position bounds
     if (currentCursorPos < 0 || currentCursorPos > currentInput.length) return;

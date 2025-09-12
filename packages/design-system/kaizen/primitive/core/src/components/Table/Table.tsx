@@ -23,30 +23,27 @@ const defaultClasses = ["table", "table-auto", "w-full", "text-left"] as const;
 const table = cva(defaultClasses);
 
 /**
- * `ColumnType` defines the available types for table columns.
- * You can add new column types here, such as "date", "time", etc.,
- * to extend the functionality of the Table component.
+ * Props for the Table component.
  *
- * - type: "avatar" renders an Avatar component using the value at keyPath (string or object with src/alt), with optional size.
- * - type: "copy" renders a CopyToClipboard button for the value at keyPath. You can pass extra props for the button (e.g., tooltip, toastMessage, etc.).
- * - type: "custom" renders a custom React node using the render(row) function you provide.
- * - type: "date" renders a string value as a formatted date.
- * - type: "datetime" renders a string value as a formatted date and time.
- * - type: "link" renders a link using the value at keyPath, with optional target and label(row) function.
- * - type: "number" renders a number value from keyPath, formatted for the current locale.
- * - type: "price" renders a number value as a formatted price, with optional priceColoring for positive/negative values.
- * - type: "string" renders a string value from keyPath as plain text.
- * - type: "time" renders a string value as a formatted time.
+ * @template RowType - The type of data objects in each table row, extending BaseRow
  */
 export type TableProps<RowType extends BaseRow> =
   TableHTMLAttributes<HTMLTableElement> & {
+    /** Array of column configurations that define how data should be displayed */
     columns: Column<RowType>[];
+    /** Array of data objects to display in table rows */
     rows: RowType[];
+    /** Height variant for table rows */
     rowHeight?: "sm" | "lg";
+    /** Whether rows can be selected with checkboxes */
     selectable?: boolean;
+    /** Whether to show vertical borders between columns */
     withVerticalBorders?: boolean;
+    /** Configuration for pagination functionality */
     paginationProps?: PaginationProps;
+    /** Configuration for empty state display */
     emptyStateProps?: UseEmptyStateProps;
+    /** Configuration for loading state display */
     loadingProps?: UseLoadingStateProps;
   };
 
@@ -170,6 +167,7 @@ const InnerTableWithContext = <RowType extends BaseRow>({
             color={row.color}
             className="contents"
             onRowClick={() => row.onRowClick?.()}
+            isActive={row.isActive}
           />
         ))}
       </div>

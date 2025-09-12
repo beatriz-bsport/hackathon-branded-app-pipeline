@@ -24,9 +24,6 @@ const translationFixtures: Record<Locale, Record<string, string>> = {
   nl: {
     title: "Hoofdtitel",
   },
-  cs: {
-    title: "Hlavní nadpis",
-  },
   pt: {
     title: "Título principal",
   },

@@ -1,0 +1,110 @@
+{
+  "private_consumer_pass_links": {
+    "form": {
+      "unlink": {
+        "submit": "Parar",
+        "explain": "A partilha será interrompida. O cartão principal permanecerá válido",
+        "title": "Parar de partilhar",
+        "cancel": "Cancelar"
+      },
+      "create": {
+        "noConsumerPackToLink": "Sem cartões partilháveis",
+        "linkButton": "Partilhar",
+        "submit": "Partilhar",
+        "previous": "Anterior",
+        "cancel": "Cancelar",
+        "explain": "Este passe será partilhado entre os dois membros e os créditos podem ser utilizados por qualquer um deles.",
+        "title": "Partilhar passes"
+      },
+      "relink": {
+        "cancel": "Cancelar",
+        "submit": "Partilhar",
+        "explain": "A partilha será novamente ativada.",
+        "title": "Partilhar novamente"
+      }
+    },
+    "list": {
+      "isEmpty": "Parar de partilhar passe",
+      "create": "Partilhar um passe",
+      "title": "Passes partilhados"
+    }
+  },
+  "consumer_payment_pack_links": {
+    "form": {
+      "relink": {
+        "cancel": "Cancelar",
+        "submit": "Partilhar",
+        "explain": "A partilha será novamente ativada.",
+        "title": "Partilhar novamente"
+      },
+      "unlink": {
+        "cancel": "Cancelar",
+        "submit": "Parar",
+        "explain": "A partilha será interrompida. O passe principal permanece válido",
+        "title": "Parar de partilhar"
+      },
+      "create": {
+        "noConsumerPackToLink": "Sem passes partilhados",
+        "linkButton": "Partilhar",
+        "submit": "Partilhar",
+        "previous": "Anterior",
+        "cancel": "Cancelar",
+        "explain": "Este passe será partilhado entre os dois membros e os créditos podem ser utilizados por qualquer um deles.",
+        "title": "Partilha de passe"
+      }
+    },
+    "list": {
+      "isEmpty": "Sem partilha de passes",
+      "create": "Partilhar um passe de aulas",
+      "title": "Passes partilhados"
+    }
+  },
+  "member": {
+    "form": {
+      "submit": "Guardar",
+      "cancel": "Cancelar",
+      "title": "[Formulário] Relacionamento",
+      "dst_name": {
+        "placeholder": "Fios"
+      },
+      "src_name": {
+        "placeholder": "Mãe"
+      },
+      "shareEmail": "Enviar sempre uma cópia das mensagens de correio eletrónico destinadas ao relacionamento",
+      "is": " é ",
+      "parentalLink": "Relacionamento",
+      "email": "Cópia do e-mail",
+      "access": "Acesso à conta",
+      "accountInfo": "A partilha de acesso à conta permite que os membros acedam a outras contas às quais estão conectados com um relacionamento.",
+      "autorization": "Autorizar \"{{- name_1}}\" a aceder à conta de 2{{- name_2}}\".",
+      "confirm": "Confirmar"
+    },
+    "list": {
+      "actions": {
+        "create": "Adicionar uma relação"
+      },
+      "pleaseSelectOne": "Seleccione uma relação para ver mais detalhes e ver que passes são partilhados.",
+      "isEmpty": "Não existem relações a apresentar.",
+      "title": "Relacionamentos"
+    },
+    "item": {
+      "delete": "Eliminar",
+      "edit": "Editar"
+    }
+  },
+  "relationship": {
+    "delete": {
+      "whichUser": "Qual a conta a que pretende aceder?",
+      "title": "Eliminar esse relacionamento",
+      "submit": "Eliminar",
+      "cancel": "Cancelar",
+      "content": "Tem a certeza de que pretende remover esta relação? Os passes partilhados serão imediatamente desactivados. Esta ação não pode ser anulada."
+    }
+  },
+  "connectedAs": {
+    "selectRelation": "Selecionar um agregado",
+    "wichUser": "Qual a conta a que pretende aceder?",
+    "info": "Aceder à conta de um dos seus agregados.",
+    "title": "Iniciar sessão como"
+  }
+}

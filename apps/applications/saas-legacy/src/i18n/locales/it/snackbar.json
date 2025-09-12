@@ -1,0 +1,1223 @@
+{
+  "smartlist": {
+    "delete": {
+      "success": "Smartlist cancellata",
+      "error": "Impossibile eliminare la smartlist"
+    },
+    "create": {
+      "success": "Smartlist creata correttamente",
+      "error": "Impossibile salvare la smartlist"
+    },
+    "update": {
+      "error": "Impossibile salvare la smartlist",
+      "success": "Smartlist aggiornata correttamente"
+    },
+    "duplicate": {
+      "error": "Impossibile duplicare la smarlist",
+      "success": "Smartlist duplicata"
+    },
+    "tag_rules": {
+      "limit_reached": "Errore: non è possibile creare più di 10 regole. ",
+      "error": "Impossibile applicare questa regola",
+      "success": "La regola automatica è stata avviata"
+    }
+  },
+  "subscription": {
+    "freeze": {
+      "success": "Abbonamento in pausa",
+      "alreadyPaused": "Impossibile mettere in pausa un abbonamento già in pausa",
+      "error": "Impossibile mettere in pausa questo abbonamento",
+      "locked": "Impossibile mettere in pausa al momento, mettere in attesa un pagamento?",
+      "deleteFail": "Impossibile eliminare una pausa già iniziata.",
+      "deleteSuccess": "La pausa è stata rimossa con successo"
+    },
+    "updatePrice": {
+      "error": "Impossibile modificare questo importo",
+      "success": "Importo aggiornato"
+    },
+    "switchPaymentMethod": {
+      "success": "Metodo di pagamento aggiornato",
+      "error": "Impossibile modificare il metodo di pagamento"
+    },
+    "switchPack": {
+      "error": "Impossibile modificare il pacchetto",
+      "success": "Metodo di pagamento modificato"
+    },
+    "youSubscribed": {
+      "error": "Errore durante l'iscrizione",
+      "success": "Ora sei iscritto"
+    },
+    "stop": {
+      "error": "Impossibile interrompere per il momento",
+      "warning": "Impossibile interrompere per il momento, trasferire un pagamento?",
+      "success": "L'abbonamento è stato interrotto"
+    },
+    "contract": {
+      "restore": {
+        "success": "Contratto ripristinato con successo",
+        "error": "Impossibile ripristinare il contratto"
+      }
+    },
+    "billNow": {
+      "errors": {
+        "12102": "Un pagamento è già stato convalidato, torna più tardi per registrare un nuovo pagamento."
+      }
+    },
+    "switchPrivatePass": {
+      "error": "Impossibile modificare il pacchetto per appuntamenti",
+      "success": "Il pacchetto per appuntamenti è stato modificato"
+    },
+    "switchPaymentCombo": {
+      "success": "Pacchetto combinato modificato",
+      "error": "Impossibile modificare il pacchetto combinato"
+    },
+    "switchItemsErrors": {
+      "paymentPack": {
+        "63003": "Impossibile: la sostituzione di pacchetti condivisi tra franchise non è consentita"
+      },
+      "paymentCombo": {
+        "63003": "Impossibile: La modifica del pacchetto condiviso tra i franchising non è consentita"
+      },
+      "privatePass": {
+        "63003": "Impossibile: il cambio di pacchetto per appuntamenti condiviso tra i franchise non è autorizzato"
+      }
+    },
+    "register": {
+      "error": "Impossibile sottoscrivere l'abbonamento",
+      "success": "Abbonamento ricorrente sottoscritto con successo"
+    },
+    "contractTemplate": {
+      "createError": "Impossibile creare l'abbonamento",
+      "createSuccess": "Abbonamento creato con successo",
+      "editError": "Impossibile salvare l'abbonamento",
+      "editSuccess": "Abbonamento salvato con successo",
+      "restoreError": "Impossibile ripristinare l'abbonamento",
+      "restoreSuccess": "L'abbonamento è stato ripristinato con successo",
+      "deleteError": "Impossibile archiviare l'abbonamento",
+      "deleteSuccess": "L'abbonamento è stato archiviato con successo"
+    }
+  },
+  "webhook": {
+    "success": "Webhook registrato",
+    "error": "Impossibile salvare il webhook",
+    "testSuccess": "URL corretto",
+    "testError": "Si prega di controllare l'URL"
+  },
+  "login": {
+    "passwordChangedSuccess": "Password cambiata con successo!"
+  },
+  "role": {
+    "error": {
+      "errorEmail": "Questa email è già utilizzata per un account allievo o insegnante",
+      "generic": "Non è possibile modificare questa autorizzazione",
+      "errorCommission": "Il valore inserito deve essere compreso tra 0 e 100"
+    },
+    "update": {
+      "success": "Autorizzazioni modificate",
+      "successCommission": "Il tasso di commissione è stato modificato"
+    },
+    "noMasterControl": {
+      "overbookingNotAllowed": "Non puoi superare il numero massimo di prenotazioni.",
+      "overrideCoachNotAllowed": "Non puoi forzare un appuntamento con questo insegnante.",
+      "overbookingNotAllowedInWaitingList": "Non puoi superare la capienza massima della lista d'attesa.",
+      "overrideEstablishmentNotAllowed": "Non puoi forzare un appuntamento in questo stabilimento.",
+      "changeDateEstablishmentUnaivalable": "Impossibile prenotare in questa data: lo stabilimento non è disponibile.",
+      "changeDateCoachUnaivalable": "Impossibile prenotare in questa data: l'insegnante non è libera."
+    },
+    "delete": {
+      "error": {
+        "customErrors": {
+          "4700": "Impossibile da cancellare: questo ruolo è assegnato ad alcuni membri dello staff"
+        },
+        "genericError": "Si è verificato un errore: questo ruolo non è stato cancellato"
+      }
+    }
+  },
+  "booking": {
+    "register": {
+      "success": "Prenotazione salvata"
+    },
+    "delete": {
+      "error": "Non è possibile cancellare una sessione già iniziata."
+    }
+  },
+  "coach": {
+    "delete": {
+      "error": "Impossibile eliminare l'insegnante",
+      "success": "Insegnante cancellato"
+    },
+    "create": {
+      "success": "Insegnante creato con successo"
+    },
+    "error": "Impossibile salvare l'insegnante",
+    "error_email_exists": "Un insegnante con questa email esiste già, usa il modulo di creazione insegnante",
+    "update": {
+      "success": "Insegnante associato con successo"
+    },
+    "linkByEmail": {
+      "success": "Insegnante associato con successo"
+    },
+    "restore": {
+      "error": "Impossibile ripristinare l'insegnante",
+      "success": "Insegnante ripristinato con successo"
+    },
+    "editAccessToCoachSpace": {
+      "error": "Errore durante la modifica dei diritti di accesso all'area insegnanti"
+    },
+    "errors": {
+      "60002": "La mail indicata è già collegata ad un account dello staff.",
+      "60003": "Esiste già un membro con questa email. Per collegarli, usa il popup precedente.",
+      "60004": "L'email indicata è già collegata a un account personale in franchising."
+    }
+  },
+  "relationship": {
+    "edit": {
+      "success": "Relazione modificata"
+    },
+    "create": {
+      "success": "Relazione registrata"
+    },
+    "consumer_payment_pack_links": {
+      "create": {
+        "error": {
+          "90004": "Questo pacchetto è condiviso da un altro account",
+          "generic": "Impossibile condividere questo pacchetto"
+        },
+        "success": "Pacchetto condiviso"
+      },
+      "unlink": {
+        "error": "Impossibile eliminare questa condivisione",
+        "success": "Condividi elimina"
+      },
+      "relink": {
+        "success": "Condivisione registrata",
+        "error": "Impossibile condividere questo pacchetto"
+      }
+    },
+    "createOrUpdate": {
+      "error": "Impossibile salvare la relazione"
+    },
+    "private_consumer_pass_links": {
+      "relink": {
+        "error": "Non è possibile condividere questo pacchetto",
+        "success": "Pacchetto condiviso"
+      },
+      "unlink": {
+        "error": "Impossibile eliminare questa condivisione",
+        "success": "Condivisione bloccata"
+      },
+      "create": {
+        "error": {
+          "90005": "Questo pacchetto per appuntamenti è condiviso da un altro account",
+          "generic": "Impossibile condividere questo pacchetto per appuntamenti"
+        },
+        "success": "Pacchetto per appuntamenti condiviso"
+      }
+    },
+    "delete": {
+      "success": "Eliminare relazione",
+      "error": "Impossibile eliminare questa relazione"
+    },
+    "error": {
+      "90000": "Diritti di accesso a questa relazione negati",
+      "90001": "Richiesta non valida",
+      "90002": "Il membro non è definito",
+      "90003": "Token non valido"
+    }
+  },
+  "paymentRules": {
+    "create": {
+      "error": "Errore durante la creazione",
+      "success": "Regola aggiunta"
+    },
+    "update": {
+      "success": "Regola predefinita modificata",
+      "error": "Errore durante la modifica"
+    },
+    "delete": {
+      "error": "Errore durante l'eliminazione",
+      "success": "Regola eliminata"
+    }
+  },
+  "paymentPack": {
+    "createOrUpdate": {
+      "success": "Pacchetto registrato",
+      "fail": "Errore durante il salvataggio del pacchetto"
+    },
+    "paymentPackDisabled": {
+      "success": "Pacchetto disabilitato",
+      "error": "Impossibile disattivare il pacchetto"
+    },
+    "credit": {
+      "updated": "Crediti aggiornati",
+      "error": "Errore durante il salvataggio"
+    },
+    "paymentPackEnabled": {
+      "error": "Impossibile ripristinare il pacchetto",
+      "success": "Pacchetto ripristinato"
+    },
+    "category": {
+      "create": {
+        "error": "Impossibile creare questa categoria",
+        "success": "Nuova categoria creata con successo"
+      },
+      "delete": {
+        "success": "Categoria cancellata",
+        "error": "Impossibile eliminare la categoria"
+      },
+      "update": {
+        "success": "Categoria modificata con successo",
+        "error": "Impossibile cambiare la categoria"
+      }
+    },
+    "compatibilitiesUpdate": {
+      "fail": "Errore durante l'aggiornamento delle compatibilità dei pacchetti"
+    },
+    "universalPaymentPackTemplateRestored": {
+      "success": "Pacchetto universale condiviso ripristinato",
+      "error": "Impossibile ripristinare il pacchetto universale condiviso"
+    },
+    "universalPaymentPackTemplateArchived": {
+      "success": "Pacchetto universale condiviso archiviato",
+      "error": "Impossibile archiviare il pacchetto universale condiviso"
+    },
+    "paymentPackTemplateRestored": {
+      "success": "Pacchetto condiviso ripristinato",
+      "error": "Impossibile ripristinare il pacchetto condiviso"
+    },
+    "paymentPackTemplateArchived": {
+      "success": "Pacchetto condiviso archiviato",
+      "error": "Impossibile archiviare il pacchetto condiviso"
+    },
+    "manualActivation": {
+      "error": "Si è verificato un problema durante l'attivazione del pacchetto, per favore riprova.",
+      "updated": "Pass attivato con successo"
+    }
+  },
+  "coupon": {
+    "delete": {
+      "success": "Codice promozionale eliminato",
+      "error": "Impossibile eliminare questa promozione"
+    },
+    "update": {
+      "error": "Impossibile modificare questo codice",
+      "success": "Codice promozionale modificato"
+    },
+    "create": {
+      "success": "Codice promozionale registrato",
+      "error": "Impossibile creare questo codice"
+    },
+    "attachToBasket": {
+      "error": "Nessun codice promozionale compatibile trovato"
+    },
+    "createOrUpdate": {
+      "error": "Errore durante la registrazione del codice promozionale",
+      "success": "Codice promozionale registrato"
+    },
+    "templateInstance": {
+      "create": {
+        "error": "Impossibile condividere questa promozione con questi studi"
+      }
+    },
+    "exportCodes": {
+      "success": "Ordini di acquisto esportati correttamente",
+      "error": "Impossibile esportare i codici selezionati"
+    },
+    "errors": {
+      "5002": "Non è possibile contrassegnare come usato un codice che non è in attesa di convalida esterna"
+    }
+  },
+  "email": {
+    "create": {
+      "success": "Email creata",
+      "error": "Impossibile salvare l'email"
+    },
+    "delete": {
+      "error": "Impossibile eliminare l'email",
+      "success": "Email cancellata"
+    },
+    "update": {
+      "success": "Email modificata",
+      "error": "Impossibile modificare l'email"
+    },
+    "duplicate": {
+      "error": "Impossibile duplicare l'email",
+      "success": "Email duplicata"
+    }
+  },
+  "shop": {
+    "item": {
+      "createOrUpdate": {
+        "error": "Errore durante il salvataggio",
+        "success": "Salvato"
+      },
+      "delete": {
+        "success": "Articolo cancellato",
+        "error": "Errore durante l'eliminazione"
+      },
+      "updateProvisions": {
+        "success": "Stock aggiornato",
+        "error": "Errore durante la registrazione dello stock"
+      },
+      "duplicate": {
+        "error": "Impossibile duplicare il prodotto",
+        "success": "Prodotto duplicato con successo"
+      },
+      "notFound": "Questo prodotto non è stato trovato, potrebbe essere stato archiviato."
+    },
+    "subShop": {
+      "createOrUpdate": {
+        "success": "Categoria registrata correttamente",
+        "error": "Impossibile salvare la categoria"
+      },
+      "delete": {
+        "success": "Categoria eliminata",
+        "error": "Impossibile eliminare la categoria"
+      }
+    },
+    "variant": {
+      "error": {
+        "11000": "Impossibile creare varianti su un prodotto utilizzato in un pacchetto combinato",
+        "11001": "Impossibile creare un pacchetto combinato con varianti dei prodotti"
+      }
+    },
+    "supplier": {
+      "delete": {
+        "success": "Fornitore cancellato con successo",
+        "error": "Errore nell'eliminazione del fornitore"
+      },
+      "update": {
+        "success": "Fornitore aggiornato con successo",
+        "error": "Errore nell'aggiornamento del fornitore"
+      },
+      "create": {
+        "success": "Fornitore creato con successo",
+        "error": "Errore nella creazione del fornitore"
+      }
+    }
+  },
+  "invoice": {
+    "create": {
+      "success": "Ricevuta registrata"
+    },
+    "error": "Errore durante la registrazione - Annullato",
+    "update": {
+      "success": "Ricevuta aggiornata correttamente"
+    },
+    "returnPaymentLocked": "Impossibile rimborsare questo pagamento, ci sono abbastanza soldi nel tuo conto Stripe?",
+    "billingEstablishment": {
+      "error": {
+        "unAuthorizedEstablishmentModification": "Impossibile modificare il gruppo di contabilizzazione, solo gli amministratori hanno il diritto di modificarlo"
+      }
+    },
+    "sendToQuickbooks": {
+      "errors": {
+        "931000": "Errore durante l'autenticazione a Quickbooks",
+        "931001": "Errore durante l'autenticazione a Quickbooks",
+        "931002": "Chiavi di autenticazione scadute",
+        "931003": "Chiavi di autenticazione scadute",
+        "931004": "Non hai configurato la tua applicazione QuickBooks",
+        "931100": "Errore durante l'aggiornamento delle chiavi di autenticazione",
+        "931101": "Quickbooks non è in grado di inviarci i tuoi dati",
+        "932000": "Il tuo account non è più autenticato su Bsport",
+        "932001": "Il tuo account non è più autenticato su Bsport",
+        "932100": "Impossibile accedere alle informazioni del tuo conto Quickbooks",
+        "933000": "Il membro associato alla ricevuta non ha le informazioni necessarie per essere registrato su QuickBooks",
+        "933100": "Impossibile creare il cliente associato al membro della ricevuta",
+        "933101": "Impossibile creare il cliente associato al membro della ricevuta",
+        "933102": "Errore durante la creazione della ricevuta in Quickbooks",
+        "933103": "La tua piattaforma QuickBooks supporta più valute, specifica la tassa da utilizzare.",
+        "934000": "La ricevuta non ha le informazioni minime per essere creata in Quickbooks",
+        "934001": "Impossibile creare una ricevuta senza elementi associati",
+        "934002": "Impossibile inviare una ricevuta annullata in QuickBooks",
+        "934003": "Impossibile inviare in QuickBooks una ricevuta incompleta",
+        "934004": "Impossibile inviare in QuickBooks una ricevuta non pagata",
+        "934005": "La tua ricevuta non può essere inviata a QuickBooks",
+        "934006": "Questa ricevuta è già registrata in QuickBooks",
+        "title": "Errore nell'invio della ricevuta"
+      },
+      "error": "Si è verificato un errore durante il trasferimento della ricevuta a Quickbooks",
+      "success": "La tua ricevuta è stata trasferita a Quickbooks"
+    },
+    "applyGiftcard": {
+      "success": "Pagamento con gift card convalidata",
+      "errors": {
+        "45000": "Il codice di attivazione della gift card non è corretto.",
+        "45001": "Impossibile pagare questo conto con questa gift card",
+        "45003": "La gift card è stata disabilitata.",
+        "45006": "La gift card è già stata attivata",
+        "45007": "Impossibile riconoscere il membro che vuole attivare la gift card.",
+        "generic": "Impossibile attivare la gift card"
+      },
+      "error": "Impossibile pagare l'importo richiesto con questa gift card"
+    },
+    "applyBalance": {
+      "success": "Il tuo saldo è stato applicato alla ricevuta.",
+      "error": "Non puoi usare il tuo saldo per pagare questa ricevuta."
+    },
+    "revert": {
+      "errors": {
+        "14100": "Impossibile annullare una ricevuta con pagamenti Interac.",
+        "14101": "Non è possibile rimborsare una ricevuta riguardo la correzione del saldo con una nota di credito.",
+        "14102": "È impossibile rimborsare questa ricevuta.",
+        "35024": "Non puoi rimborsare questa ricevuta perché il tuo conto PayPal non ha fondi sufficienti."
+      }
+    },
+    "generateXml": {
+      "errors": {
+        "14210": "Le impostazioni non sono configurate per l'esportazione delle fatture in formato .XML. Contatta l'Account manager bsport.",
+        "14211": "Il documento d'identità ufficiale del socio è mancante o incompleto.",
+        "14212": "L'indirizzo del membro è mancante o incompleto",
+        "14213": "Impossibile generare il documento .XML a causa dei requisiti legali. Per ulteriori informazioni o domande, contattate l'Account manager bsport.",
+        "14214": "Il file Zip generato è vuoto perché non sono state trovate fatture del mese scorso da esportare",
+        "default": "Si è verificato un errore durante la generazione della fattura XML"
+      },
+      "success": "Fattura XML generata con successo"
+    },
+    "receipt": {
+      "genericError": "Si è verificato un errore durante la generazione della ricevuta"
+    }
+  },
+  "establishment": {
+    "delete": {
+      "success": "Stabilimento cancellato",
+      "error": "Impossibile eliminare questo stabilimento"
+    },
+    "update": {
+      "success": "Stabilimento modificato con successo"
+    },
+    "error": "Impossibile salvare lo stabilimento",
+    "create": {
+      "success": "Stabilimento creato con successo"
+    },
+    "restore": {
+      "error": "Impossibile ripristinare questo stabilimento",
+      "success": "Stabilimento ripristinato"
+    }
+  },
+  "member": {
+    "link": {
+      "success": "Account collegato correttamente"
+    },
+    "merge": {
+      "submit": "Unisci",
+      "success": "Soci accorpati",
+      "srcMember": "Socio da accorpare (eliminato)",
+      "dstMember": "Socio da tenere",
+      "explainBookingsAndPassAndInvoiceAndNotes": "I pacchetti, le prenotazioni, le ricevute e le annotazioni verranno trasferiti.",
+      "seeMemberPage": " Vedi la pagina dei soci",
+      "error": "Impossibile accorpare i soci",
+      "title": "Accorpa soci",
+      "explainCredit": "L'acconto interno del membro verrà trasferito",
+      "explainTags": "I tag dei soci eliminati non verranno spostati",
+      "cancel": "Annulla"
+    },
+    "error": "Impossibile salvare il socio",
+    "update": {
+      "title": "Modifica informazioni",
+      "success": "Membro modificato con successo"
+    },
+    "create": {
+      "success": "Socio creato con successo",
+      "title": "Nuovo membro"
+    },
+    "createOrUpdate": {
+      "error": "Errore durante il salvataggio",
+      "success": "Informazioni registrate"
+    },
+    "changeEmailRequest": {
+      "create": {
+        "error": "Impossibile creare una richiesta di modifica via e-mail",
+        "success": "Email di conferma del cambio di email inviata"
+      }
+    }
+  },
+  "communication": {
+    "success": "Posta inviata",
+    "error": "Problema durante l'invio dell'email"
+  },
+  "privateConsumerPass": {
+    "creditUpdate": {
+      "error": "Impossibile salvare il credito",
+      "success": "Crediti aggiornati"
+    },
+    "nonCompatible": {
+      "error": "Si è verificato un errore durante il caricamento di pacchetti incompatibili"
+    },
+    "incompatibilitiesReasons": {
+      "error": "Si è verificato un errore durante il caricamento dei motivi delle incompatibilità del pass"
+    }
+  },
+  "video": {
+    "createOrUpdate": {
+      "success": "Video registrato correttamente",
+      "error": "Impossibile registrare video"
+    },
+    "delete": {
+      "success": "Video eliminato",
+      "error": "Impossibile eliminare il video"
+    },
+    "register": {
+      "error": "Impossibile salvare questo video, prova di nuovo tra qualche minuto",
+      "success": "Video salvato nella tua libreria"
+    }
+  },
+  "playlist": {
+    "createOrUpdate": {
+      "success": "Playlist salvata correttamente",
+      "error": "Impossibile salvare la playlist"
+    },
+    "video": {
+      "add": {
+        "error": "Impossibile aggiungere video",
+        "success": "Video aggiunto alla playlist"
+      },
+      "del": {
+        "success": "Video rimosso dalla playlist",
+        "error": "Impossibile rimuovere il video dalla playlist"
+      }
+    },
+    "delete": {
+      "success": "Playlist eliminata",
+      "error": "Impossibile eliminare la playlist"
+    }
+  },
+  "link": {
+    "copied": "Link copiato negli appunti"
+  },
+  "activity": {
+    "update": {
+      "error": "Impossibile aggiornare l'attività",
+      "success": "Attività aggiornata"
+    },
+    "create": {
+      "success": "Attività salvata",
+      "error": "Impossibile salvare l'attività"
+    }
+  },
+  "privateBooking": {
+    "attachCoach": {
+      "success": "Appuntamento assegnato all'insegnante",
+      "error": "Impossibile assegnare all'insegnante"
+    },
+    "updateCoach": {
+      "error": "Impossibile modificare l'insegnante",
+      "success": "L'insegnante è stato modificato"
+    },
+    "restore": {
+      "error": "Non è possibile ripristinare l'appuntamento, non ci sono abbastanza crediti su questo pacchetto di appuntamento",
+      "success": "L'appuntamento è stato ripristinato"
+    },
+    "register": {
+      "error": "Impossibile prenotare per questa data",
+      "warning": {
+        "11106": "Hai già prenotato in questa fascia oraria"
+      }
+    },
+    "setUnpaid": {
+      "error": "Impossibile contrassegnare come non pagato",
+      "success": "Contrassegnato come non pagato"
+    }
+  },
+  "order": {
+    "success": "Il tuo pagamento è stato salvato"
+  },
+  "notificationRule": {
+    "createOrUpdate": {
+      "success": "Modificato con successo",
+      "error": "Impossibile salvare",
+      "errorLackRequiredVariables": "Questo modello non può essere salvato"
+    },
+    "active": {
+      "enable": "Notifica attivata con successo",
+      "disable": "Notifica disattivata con successo",
+      "errorEnable": "Impossibile abilitare la notifica",
+      "errorDisable": "Impossibile disattivare la notifica"
+    },
+    "editOrAddPass": {
+      "success": "Notifica salvata con successo",
+      "error": "Impossibile salvare la notifica"
+    },
+    "delete": {
+      "success": "Notifica eliminata con successo",
+      "error": "Non è stato possible eliminare la notifica"
+    },
+    "create": {
+      "success": "Notifica creata con successo",
+      "error": "Impossibile creare una notifica",
+      "errorLackRequiredVariables": "Non è stato possibile salvare questo modello"
+    }
+  },
+  "privatePass": {
+    "del": {
+      "error": "Impossibile eliminare questo pacchetto per appuntamento",
+      "success": "Pacchetto per appuntamento eliminato"
+    },
+    "restore": {
+      "error": "Impossibile ripristinare questo pacchetto per appuntamenti",
+      "success": "Pacchetto per appuntamenti ripristinato"
+    }
+  },
+  "metaActivity": {
+    "del": {
+      "error": "Impossibile eliminare questo elemento",
+      "success": "Articolo cancellato"
+    },
+    "restore": {
+      "error": "Impossibile ripristinare questo elemento",
+      "success": "Articolo ripristinato"
+    }
+  },
+  "memberNote": {
+    "delete": {
+      "error": "Impossibile eliminare la nota",
+      "success": "Annotazione eliminata"
+    }
+  },
+  "bookingNotification": {
+    "delete": {
+      "error": "Impossibile eliminare la notifica",
+      "success": "Notifica eliminata"
+    },
+    "createOrUpdate": {
+      "error": "Impossibile salvare la notifica",
+      "success": "Notifica salvata con successo"
+    }
+  },
+  "background": {
+    "cannotFetch": "Si è verificato un errore. Controlla la connessione e prova ad aggiornare la pagina",
+    "timeout": "Il server ci ha messo troppo a rispondere. Prova ad aggiornare la pagina",
+    "error": "Si è verificato un errore, riprovare più tardi",
+    "success": "Completato",
+    "pending": "In fase di elaborazione..."
+  },
+  "offer": {
+    "restore": {
+      "success": "Sessione restaurata",
+      "error": "Impossibile restaurare la sessione"
+    }
+  },
+  "subscriptionScheduledStop": {
+    "create": {
+      "success": "Risoluzione dell'iscrizione programmata",
+      "error": "Impossibile programmare la risoluzione dell'iscrizione"
+    },
+    "delete": {
+      "success": "La risoluzione programmata dell'iscrizione è stata rimossa",
+      "error": "Impossibile rimuovere la risoluzione programmata dell'iscrizione"
+    }
+  },
+  "dashboard": {
+    "save": {
+      "error": "Impossibile salvare le modifiche",
+      "success": "Le modifiche sono state salvate"
+    }
+  },
+  "privateRecurrentRule": {
+    "delete": {
+      "error": "Impossibile eliminare l'appuntamento ricorrente",
+      "success": "Appuntamento ricorrente eliminato"
+    },
+    "createOrUpdate": {
+      "error": "Impossibile salvare l'appuntamento ricorrente",
+      "success": "Regola di prenotazione ricorrente salvata. Ora imposteremo le tue prenotazioni in base ai parametri che hai specificato.",
+      "locked": "Esiste già una regola di ricorrenza con questi parametri"
+    }
+  },
+  "zoom": {
+    "created": {
+      "error": "Errore durante il collegamento dell'account Zoom",
+      "success": "Account Zoom collegato con successo"
+    },
+    "bulkEditZoomEstablishments": {
+      "success": "Le modifiche sono state salvate"
+    },
+    "setGroupId": {
+      "error": "Impossibile collegare questo gruppo. Assicurarsi che l'ID sia corretto e che sia disponibile sull'account Zoom collegato a bsport.",
+      "success": "Il gruppo Zoom è stato collegato con successo"
+    }
+  },
+  "consumerPass": {
+    "success": "Il tuo acquisto è stato registrato!"
+  },
+  "copied": "Copiato negli appunti",
+  "contractPause": {
+    "create": {
+      "error": "Impossibile mettere in pausa in questo momento, si prega di riprovare più tardi"
+    },
+    "delete": {
+      "error": "Impossibile rimuovere la pausa in questo momento."
+    },
+    "updateName": {
+      "success": "Il nome della pausa è stato cambiato",
+      "error": "Impossibile modificare il nome della pausa"
+    }
+  },
+  "bookerModule": {
+    "pass": {
+      "nothingAvailable": "Nessun pacchetto permette di prenotare queste sessioni allo stesso tempo",
+      "changed": "Abbiamo selezionato il pacchetto corretto per completare la prenotazione"
+    }
+  },
+  "settings": {
+    "update": {
+      "success": "Parametri aggiornati",
+      "error": "Impossibile aggiornare, riprovare più tardi"
+    }
+  },
+  "signup": {
+    "failedCreation": "Impossibile creare il tuo account al momento, riprova tra qualche minuto",
+    "emailAlreadyExists": "Questa email è già usata",
+    "changeWorkspaceError": "Si è verificato un errore nella modifica dell'account"
+  },
+  "paymentMethod": {
+    "detach": {
+      "pm_associated_to_pi": "Impossibile : Hai un abbonamento ricorrente associato a questo metodo di pagamento",
+      "pm_associated_to_registered_ppe": "Impossibile : Hai un abbonamento ricorrente associato a questo metodo di pagamento",
+      "pm_associated_to_protected_bp": "Impossibile : Hai un abbonamento ricorrente associato a questo metodo di pagamento",
+      "last_payment_method": "Impossibile eliminare il tuo unico metodo di pagamento",
+      "pm_deleted": "Metodo di pagamento cancellato"
+    },
+    "errors": {
+      "13000": "Impossibile rimuovere questo metodo di pagamento, riprova più tardi",
+      "13001": "Impossibile rimuovere questo metodo di pagamento, riprova più tardi",
+      "13002": "I pagamenti futuri sono previsti con questo metodo di pagamento",
+      "13003": "Un abbonamento ricorrente è programmato con questo metodo di pagamento",
+      "13004": "I pagamenti futuri sono previsti con questo metodo di pagamento"
+    }
+  },
+  "paymentRuleGroups": {
+    "delete": {
+      "success": "Gruppo cancellato",
+      "error": "Errore nella cancellazione"
+    },
+    "create": {
+      "success": "Gruppo aggiunto",
+      "error": "Errore nella creazione"
+    },
+    "update": {
+      "error": {
+        "coachWithPaymentGroup": "Impossibile di modificare le regole di retribuzione di un insegnante incluso in un gruppo",
+        "generic": "Errore nella modificazione"
+      },
+      "success": "Gruppo modificato con successo"
+    }
+  },
+  "canNotBuyErrorCode": {
+    "1": "La sessione non è ancora aperta per la prenotazione",
+    "2": "La sessione non è più aperta per la prenotazione",
+    "3": "La sessione è piena",
+    "4": "Non si può prenotare la sessione",
+    "5": "Sei già registrato per questa sessione",
+    "6": "Lo squilibrio donne/uomini è troppo importante, prenotazione impossibile",
+    "7": "Lo squilibrio donne/uomini è troppo importante, prenotazione impossibile",
+    "9": "Cerchi di prenotare più sessioni future di quelle consentite dal tuo club",
+    "1113": "Questo pacchetto combinato è disponibile solo per i nuovi membri",
+    "1114": "Non puoi più comprare questo pacchetto combinato",
+    "1122": "Questo pacchetto combinato non può più essere acquistato perché la sua data di scadenza è passata",
+    "2002": "Questo pacchetto è disponibile solo per i nuovi membri",
+    "2003": "Non è più possibile acquistare questo pacchetto",
+    "2004": "Questo pacchetto non è disponibile alla vendita",
+    "2005": "Questo pacchetto non è disponibile alla vendita",
+    "2006": "Questo pacchetto non è compatibile con una prenotazione nella data scelta",
+    "2007": "Questo pacchetto non è compatibile con questa sessione",
+    "2008": "Questo pacchetto non è compatibile con questa attività",
+    "2009": "Questo pacchetto non è compatibile con questa categoria di attività",
+    "2010": "Questo pacchetto non è compatibile con questo stabilimento",
+    "2011": "Questo pacchetto non permette di prenotare sessione (solo VOD)",
+    "2012": "Questo pacchetto non è compatibile con questa sessione",
+    "2014": "Il pacchetto non è più valido per prenotare in quel giorno",
+    "2015": "Il pacchetto non è più valido per prenotare in questa settimana",
+    "2016": "Il pacchetto non è più valido per prenotare in questo mese",
+    "2017": "Il pacchetto non è più valido per prenotare quest'anno",
+    "2025": "Questo pacchetto non può più essere acquistato perché la sua data di scadenza è passata",
+    "6002": "La lista d'attesa è piena",
+    "6003": "Sei già registrato nella lista d'attesa",
+    "8001": "Lo spot che hai scelto non è più disponibile",
+    "10001": "Stock insufficiente",
+    "11114": "Questo pacchetto per appuntamenti non può più essere acquistato perché la sua data di scadenza è passata",
+    "15002": "L'articolo è già stato aggiunto al carrello, attendere",
+    "23001": "Questo pacchetto appuntamento non può più essere acquistato perché la sua data di scadenza è passata",
+    "23002": "Hai raggiunto il numero massimo di prenotazioni future/iscrizioni nella lista d'attesa, dunque non puoi registrarne altre",
+    "45004": "La gift card non è più disponibile per la vendita.",
+    "45005": "La gift card non è più disponibile per la vendita.",
+    "85000": "Una prenotazione è già in corso, attendi qualche istante",
+    "85101": "Impossibile prenotare. Questo posto è stato prenotato da un altro membro. Si prega di riprovare scegliendo un altro punto.",
+    "generic": "Impossibile di prenotare",
+    "undefined": "La tessera non ti permette più di prenotare quest'anno",
+    "addToBasketError": "Impossibile aggiungere al carrello"
+  },
+  "establishmentGroup": {
+    "create": {
+      "success": "La nuova sede è stata creata",
+      "error": "Impossibile creare la sede"
+    },
+    "update": {
+      "success": "Sede modificata",
+      "error": "Impossibile cambiare la sede"
+    },
+    "delete": {
+      "success": "Sede eliminata",
+      "error": "Errore durante l'eliminazione dello stabilimento"
+    }
+  },
+  "customForm": {
+    "update": {
+      "success": "Forma modificata",
+      "error": "Impossibile modificare il form"
+    },
+    "customFormField": {
+      "restore": {
+        "success": "Elemento ripristinato",
+        "error": "Impossibile ripristinare l'elemento"
+      },
+      "disable": {
+        "success": "Elemento archiviato",
+        "error": "Impossibile archiviare l'elemento"
+      }
+    },
+    "create": {
+      "success": "Form creato",
+      "error": "Impossibile creare il form"
+    },
+    "duplicate": {
+      "success": "Form duplicato",
+      "error": "Impossibile duplicare il form"
+    },
+    "disable": {
+      "success": "Form archiviato",
+      "error": "Impossibile archiviare il form"
+    },
+    "restore": {
+      "error": "Impossibile ripristinare il form",
+      "success": "Form ripristinato"
+    },
+    "signupViaCustomForm": {
+      "errors": {
+        "84101": "I campi obbligatori non sono stati compilati",
+        "84102": "Questa e-mail è già in uso",
+        "84103": "Il genere specificato non è valido",
+        "84104": "Il numero di telefono non è valido"
+      },
+      "error": "Errore durante la registrazione, per favore riprova",
+      "success": "Registrazione convalidata"
+    },
+    "upsert": {
+      "errors": {
+        "84006": "Devi definire un disclaimer in Settings > General per poter aggiungere la domanda 'Disclaimers'."
+      }
+    },
+    "customFormStepper": {
+      "error": "Impossibile registrare le risposte."
+    }
+  },
+  "establishmentBillingGroup": {
+    "create": {
+      "error": "Impossibile creare il gruppo di contabilizzazione",
+      "success": "Il nuovo gruppo di contabilizzazione è stato creato"
+    },
+    "update": {
+      "success": "Gruppo di contabilizzazione modificato",
+      "error": "Impossibile cambiare il gruppo di contabilizzazione"
+    },
+    "delete": {
+      "success": "Gruppo di contabilizzazione cancellato",
+      "error": "Impossibile eliminare il gruppo di contabilizzazione"
+    }
+  },
+  "customFormDisplayRule": {
+    "customError": {
+      "3": "Impossibile creare una regola con lo stesso tempo di apparizione"
+    },
+    "delete": {
+      "error": "Impossibile eliminare la regola di notifica",
+      "success": "Regola di notifica cancellata"
+    },
+    "update": {
+      "error": "Impossibile cambiare la regola di notifica",
+      "success": "Regola di notifica modificata"
+    },
+    "create": {
+      "error": "Impossibile creare la regola di notifica",
+      "success": "Regola di notifica creata"
+    }
+  },
+  "quickbooks": {
+    "create": {
+      "error": "Impossibile collegare il tuo account quickbooks",
+      "success": "Il tuo account Quickbooks è ora autenticato"
+    },
+    "revoke": {
+      "success": "Il tuo account Quickbooks è disconnesso",
+      "error": "Impossibile uscire dal tuo account Quickbooks"
+    }
+  },
+  "platformBilling": {
+    "payNowInvoice": {
+      "error": "Pagamento rifiutato",
+      "success": "Pagamento riuscito"
+    }
+  },
+  "clientSecret": {
+    "errors": {
+      "12102": "Un pagamento è già stato convalidato, torna più tardi per registrare un nuovo pagamento.",
+      "12909": "I pagamenti sono disabilitati per questo studio"
+    }
+  },
+  "companyTheme": {
+    "update": {
+      "error": "Impossibile salvare le modifiche",
+      "success": "Modifiche registrate"
+    },
+    "provincialTax": {
+      "customError": {
+        "80001": "La tassa provinciale non è disponibile nel tuo paese"
+      },
+      "error": "Errore di registrazione dell'imposta provinciale",
+      "success": "Imposta provinciale registrata"
+    }
+  },
+  "clockIn": {
+    "errors": {
+      "96002": "Impossibile, questo utente ha già un punteggio"
+    }
+  },
+  "plannedPayment": {
+    "registerNow": {
+      "error": "Impossibile registrare il pagamento",
+      "success": "Pagamento registrato"
+    }
+  },
+  "automatedCampaign": {
+    "17000": "Si è verificato un errore",
+    "17101": "Errore: Titolo obbligatorio",
+    "17102": "Errore: contenuto email obbligatorio",
+    "17103": "Errore: contenuto SMS obbligatorio",
+    "17104": "Errore: Titolo della notifica obbligatorio",
+    "17105": "Errore: Contenuto della notifica obbligatorio",
+    "170001": "Errore: Numero limite non valido di invii per membro"
+  },
+  "communicationv2": {
+    "error": "Problema nell'invio della comunicazione",
+    "success": "La comunicazone sta per essere inviata"
+  },
+  "marketplace": {
+    "update": {
+      "error": "C'è stato un errore. Si prega di verificare i parametri richiesti.",
+      "stripeTerminal": {
+        "deleteReader": {
+          "success": "Terminale di pagamento rimosso",
+          "error": "Impossibile rimuovere questo terminale di pagamento"
+        }
+      }
+    }
+  },
+  "replacement": {
+    "assignDisciplineGroup": {
+      "success": "Il gruppo classe dell'insegnante è stato aggiornato"
+    },
+    "cancelReplacementRequest": {
+      "error": "Si è verificato un errore nell'eliminazione della richiesta.",
+      "success": "La richiesta di sostituzione è stata eliminata."
+    },
+    "errors": {
+      "50000": "Questa sessione è già passata",
+      "50007": "Impossibile creare queste richieste di sostituzione: non hai abbastanza richieste scadute rimanenti.",
+      "50008": "La data di chiusura non può essere spostata oltre la data della sessione.",
+      "50009": "Non puoi rifiutare questa richiesta perché è già stato assegnato un insegnante.",
+      "50010": "Non puoi annullare questa richiesta perché è già stato assegnato un insegnante.",
+      "50011": "Un insegnante è già stato assegnato per questa richiesta.",
+      "50012": "Questo insegnante ha risposto che non voleva essere un sostituto per questa sessione.",
+      "50013": "Non puoi più rispondere a questa richiesta di sostituzione.",
+      "50015": "Non puoi rispondere alla tua richiesta di sostituzione",
+      "50020": "Questa richiesta di sostituzione è stata rifiutata: impossibile eliminarla",
+      "50021": "Non è possibile specificare strutture e sedi contemporaneamente.",
+      "80002": "Il valore 'Numero di giorni di richiesta in ritardo' deve essere maggiore del valore 'Numero di giorni di chiusura delle registrazioni'.",
+      "80003": "Parametri mancanti per i limiti delle richieste in ritardo.",
+      "500001": "Esiste già una richiesta di sostituzione",
+      "500004": "Sei già un sostituto in questa sessione"
+    },
+    "disciplineGroup": {
+      "delete": {
+        "error": "Impossibile eliminare questo gruppo classe",
+        "success": "Gruppo classe eliminato"
+      },
+      "create": {
+        "success": "Gruppo classe creato",
+        "error": "Si è verificato un errore durante la creazione del gruppo classe"
+      },
+      "update": {
+        "success": "Gruppo classe modificato",
+        "error": "Si è verificato un errore durante la modifica del gruppo classe"
+      }
+    },
+    "updateCoachReplacementPreferences": {
+      "success": "Regole salvate",
+      "error": "Impossibile salvare le regole"
+    }
+  },
+  "accessDenied": {
+    "general": {
+      "title": "Accesso negato",
+      "message": "Non puoi accedere allo spazio richiesto"
+    }
+  },
+  "communicationProviderSettings": {
+    "update": {
+      "success": "Modifiche salvate",
+      "error": "Impossibile salvare le modifiche"
+    }
+  },
+  "requestCurrentBasket": {
+    "15002": "Il recupero delle informazioni sul carrello è già in corso"
+  },
+  "refreshInternalAccountPrepaidLines": {
+    "15002": "È già in corso un'operazione, attendere qualche istante"
+  },
+  "removeItem": {
+    "15002": "L'articolo è già in fase di rimozione dal carrello, attendi",
+    "15009": "Impossibile rimuovere questo articolo: il carrello è ancora in fase di elaborazione"
+  },
+  "instalmentPayment": {
+    "16000": "L'importo della prima rata deve essere positivo",
+    "16001": "La percentuale dell'importo totale deve essere compresa tra 0 e 100",
+    "16002": "Il numero di ricevute deve essere uguale a 1 per attivare l'opzione 'Paga parzialmente'",
+    "16003": "Il numero di ricevute deve essere maggiore di 2 per attivare l'opzione 'Personalizza il primo importo'"
+  },
+  "smartListPopup": {
+    "send": {
+      "error": "Si è verificato un errore durante l'invio del pop-up."
+    }
+  },
+  "cadence": {
+    "create": {
+      "error": "Si è verificato un errore durante la creazione della cadenza",
+      "success": "È stata creata una nuova cadenza"
+    },
+    "update": {
+      "error": "Si è verificato un errore durante la modifica della cadenza",
+      "success": "La tua cadenza è stata aggiornata"
+    }
+  },
+  "giftCard": {
+    "notFound": "Questa gift card non è stata trovata, è possibile che sia stata archiviata."
+  },
+  "modifyBasket": {
+    "15004": "Il carrello è in fase di elaborazione, riprova tra qualche minuto",
+    "addItemSuccess": "Prodotto aggiunto al carrello"
+  },
+  "quicksaleConfiguration": {
+    "updated": "Configurazione salvata",
+    "error": "Si è verificato un errore durante il backup"
+  },
+  "spivi": {
+    "error": {
+      "21000": "L'upsell Spivi non è attivato.",
+      "21001": "Nessuna gestione dei posti è stata selezionata",
+      "21002": "La gestione dei posti selezionata deve avere un Box ID per far sì che la sessione si colleghi a Spivi",
+      "21003": "Le sessioni di Spivi devono durare tra i 20 minuti e le 4 ore",
+      "21004": "La doppia prenotazione non è compatibile con l'integrazione Spivi"
+    }
+  },
+  "smartlistGetMembers": {
+    "error": "Si è verificato un errore: i membri non possono essere recuperati"
+  },
+  "communicationSentGroupConfig": {
+    "duplicate": {
+      "error": "Impossibile duplicare la campagna",
+      "success": "Campagna duplicata"
+    },
+    "delete": {
+      "error": "Impossibile eliminare la campagna",
+      "success": "Campagna eliminata"
+    },
+    "update": {
+      "error": "Impossibile salvare la campagna",
+      "success": "Campagna aggiornata con successo"
+    },
+    "create": {
+      "error": "Impossibile creare la campagna",
+      "success": "Campagna creata correttamente"
+    }
+  },
+  "audience": {
+    "update": {
+      "success": "Il tuo {{ workflowLowerCase }} è stato modificato",
+      "error": "Si è verificato un errore durante la modifica del {{ workflowLowerCase }}"
+    },
+    "create": {
+      "error": "Si è verificato un errore nella creazione del {{ workflowLowerCase }}",
+      "success": "È stato creato un nuovo {{ workflowLowerCase }}"
+    }
+  },
+  "privateSlot": {
+    "notAvailableForBookingAnymore": "Questo posto non è più disponibile.",
+    "notCompatibleWithPartnership": "La sessione non è stata salvata. Riprova."
+  },
+  "tag": {
+    "error": {
+      "124003": "Il nome del sotto-tag è già utilizzato",
+      "124004": "Il nome del tag principale è già utilizzato"
+    }
+  },
+  "mergeError": {
+    "content": "Riprova o contatta l'assistenza per ulteriori informazioni",
+    "title": "L'unione è fallita"
+  },
+  "mergeSuccess": {
+    "seeMemberProfile": "Vedi il profilo del membro",
+    "content": "A entrambi gli indirizzi è stata inviata un'e-mail per informare il membro",
+    "title": "L'unione è stata eseguita correttamente"
+  },
+  "bookkeeping_account": {
+    "delete": {
+      "success": "L'account è stato eliminato con successo.",
+      "error": "Si è verificato un errore durante l'eliminazione dell'account."
+    },
+    "update": {
+      "success": "Le modifiche sono state salvate con successo.",
+      "error": "Si è verificato un errore durante l'aggiornamento dell'account."
+    },
+    "create": {
+      "success": "L'account è stato creato con successo.",
+      "error": "Si è verificato un errore durante la creazione dell'account."
+    },
+    "errors": {
+      "1": "Un account con questo nome esiste già."
+    }
+  },
+  "canNotExecutePaymentAttempt": {
+    "12102": "Il pagamento è già in fase di elaborazione, si prega di attendere",
+    "12107": "Il pagamento non è riuscito, riprovare.",
+    "12108": "Il pagamento è già in fase di elaborazione, si prega di attendere",
+    "12109": "Il pagamento non è riuscito, riprovare.",
+    "12110": "Il carrello non corrisponde all'importo che si è cercato di pagare, abbiamo aggiornato il carrello, si prega di provare di nuovo",
+    "35000": "Il pagamento con PayPal non è riuscito, riprovare o utilizzare un altro metodo di pagamento",
+    "35006": "Il conto PayPal non può elaborare il pagamento, riprovare con un altro conto",
+    "35012": "La carta è scaduta",
+    "35013": "Il pagamento non è andato a buon fine, selezionare un altro metodo di pagamento.",
+    "35015": "Il pagamento con PayPal non è riuscito, riprovare o utilizzare un altro metodo di pagamento",
+    "generic": "Il pagamento non è riuscito, riprovare",
+    "failedLoadingPayPalScript": "Si è verificato un errore durante il caricamento di PayPal"
+  },
+  "cancelPayPalPaymentAttempt": "Il tentativo di pagamento è stato annullato. Si prega di procedere nuovamente.",
+  "paypal": {
+    "35009": "Non è possibile utilizzare un conto già collegato a un'altra azienda.",
+    "onboardingUrlFetchFailed": "Si è verificato un errore durante il tentativo di recuperare il link per l'onboarding di PayPal",
+    "couldNotReachPayPal": "Non siamo riusciti a contattare PayPal. Si prega di riprovare più tardi.",
+    "connectionAttemptSucceeded": "Il conto PayPal è stato collegato con successo",
+    "connectionAttemptFailed": "Si è verificato un errore durante la connessione a PayPal"
+  },
+  "wellhub": {
+    "configureWebhooks": {
+      "success": "L'ID dell'unità è stato collegato con successo",
+      "error": "Si è verificato un errore durante la configurazione"
+    }
+  },
+  "privateService": {
+    "notCompatibleWithPartnership": "L'appuntamento non è stato salvato. Riprovare."
+  },
+  "oneClickBooking": {
+    "genericError": "Non è stato possibile completare la prenotazione. Ti preghiamo di rivedere i tuoi dati e di riprovare."
+  }
+}

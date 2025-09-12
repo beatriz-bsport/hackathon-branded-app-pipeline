@@ -1,0 +1,28 @@
+{
+  "list": {
+    "title": {
+      "latestEvents": "Ultimi eventi"
+    }
+  },
+  "member": {
+    "register": {
+      "name": "Nuovo socio",
+      "description": "Viene attivato quando un nuovo socio del club viene aggiunto a bsport"
+    }
+  },
+  "booking": {
+    "register": {
+      "name": "Nuova prenotazione",
+      "description": "Viene attivato quando viene registrata una nuova prenotazione"
+    }
+  },
+  "booking_option": {
+    "cancel": {
+      "description": "Viene attivato quando il membro o un manager elimina un posto dalla lista di attesa",
+      "name": "Annullamento del posto in lista d'attesa"
+    }
+  },
+  "noEvent": {
+    "description": "Descrizione dell'evento"
+  }
+}

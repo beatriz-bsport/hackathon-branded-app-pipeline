@@ -85,9 +85,7 @@ export function _formatAsProjectConfig({
         pathToProject: projectPath,
         pathToI18n: i18nPath,
         pathToPublicLocales: publicLocalesPath,
-        hasTransifexStructure:
-          existsSync(path.resolve(i18nPath, "source")) &&
-          !existsSync(path.resolve(i18nPath, "translations")),
+        hasTransifexStructure: existsSync(path.resolve(i18nPath, "source")),
       };
     }
   } catch (error) {

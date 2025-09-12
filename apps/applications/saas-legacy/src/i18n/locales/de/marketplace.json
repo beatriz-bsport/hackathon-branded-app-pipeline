@@ -1,0 +1,329 @@
+{
+  "workshop": {
+    "card": {
+      "duration": "Dauer : {{duration}}",
+      "notAvailable": "Storniert",
+      "isPast": "Vergangen",
+      "bookOption": "Warteliste",
+      "book": "Buchen",
+      "showMore": "Mehr Informationen",
+      "loadMore": "Mehr Kurse",
+      "bookTitle": "Übersicht"
+    },
+    "noWorkshopAvailable": "Momentan sind keine kommenden Workshops geplant.",
+    "warningBookingRedirectToFirstOffer": "Sie wurden zum Buchungsbildschirm der Gruppe {{- name }}} weitergeleitet. Die gemeinsam zu buchenden Kurse werden auf Ihrem Buchungsbildschirm aufgelistet.",
+    "loadMore": "Mehr dazu",
+    "cancel": "Abbrechen",
+    "confirm": "Weiter",
+    "warningPartialBooking": "Sie buchen eine Gruppe von Kursen. Sie sind jedoch nicht verpflichtet, an allen Kursen dieser Gruppe teilzunehmen. Sie können die Kurse auswählen, an denen Sie teilnehmen möchten.",
+    "warningFullBooking": "Du buchst gerade eine Gruppe von Kursen. Du wirst für alle {{count}} Kurse dieser Einheit angemeldet"
+  },
+  "warning": {
+    "disconnect": "Abmelden",
+    "isManager": "Sie sind mit einem Mitarbeiterkonto angemeldet. Melden Sie sich ab, um die Kundenansicht zu öffnen oder kehren Sie zum Back Office zurück.",
+    "backToBackoffice": "Zum Back Office zurückkehren"
+  },
+  "paymentCombo": {
+    "addToCart": "Zum Warenkorb hinzufügen"
+  },
+  "selector": {
+    "establishment": {
+      "placeholder": "Einrichtung"
+    },
+    "level": {
+      "placeholder": "Niveau"
+    },
+    "coach": {
+      "placeholder": "Lehrkraft"
+    },
+    "additionalCoaches": {
+      "placeholder": "Zusätzliche Lehrkraft",
+      "placeholder_plural": "Zusätzliche Lehrkräfte"
+    }
+  },
+  "calendar": {
+    "registered": "Buchung bestätigt",
+    "broadcast": "Online",
+    "description": "Beschreibung",
+    "conditions": "Konditionen",
+    "close": "Schließen"
+  },
+  "genericCardDetails": {
+    "compatibility": {
+      "establishments": "{{ count }} Raum",
+      "establishments_plural": "{{ count }} Räume",
+      "packs": {
+        "activities": "Kompatibel mit {{ count }} Aktivität",
+        "activities_plural": "Kompatibel mit {{ count }} Aktivitäten",
+        "all": "Kompatibel mit allen",
+        "categoriesAndActivities": "Kompatibel mit {{ categories }} und {{ activities }} ",
+        "categoriesAndEstablishment": "Kompatibel mit {{ categories }} und {{ establishments }} ",
+        "and": " und ",
+        "establishmentsAndActivities": "Kompatibel mit {{ establishments }} und {{ activities }} ",
+        "categoriesAndActivitiesAndEstablishments": "Kompatibel mit {{ categories }}, {{ establishments }} und {{ activities }} ",
+        "compatible": "Kompatibel mit ",
+        "categories": "Kompatibel mit {{ count }} Kategorie",
+        "categories_plural": "Kompatibel mit {{ count }} Kategorien",
+        "establishments": "Kompatibel mit {{ count }} Raum",
+        "establishments_plural": "Kompatibel mit {{ count }} Räumen"
+      },
+      "none": "Keine kompatiblen Termine",
+      "compatible": "Kompatibel mit {{count}} Termin",
+      "compatible_plural": "Kompatibel mit {{count}} Terminen",
+      "compatibilities": "Kompatibilität",
+      "allPrivateSlotsAvailables": "Alle Arten der Kurse",
+      "button": {
+        "close": "Schließen"
+      },
+      "compatibilityModal": {
+        "categories": "Kategorien",
+        "activities": "Aktivitäten",
+        "establishments": "Räume"
+      },
+      "categories": "{{ count }} Kategorie",
+      "categories_plural": "{{ count }} Kategorien",
+      "activities": "{{ count }} Aktivität",
+      "activities_plural": "{{ count }} Aktivitäten"
+    },
+    "includedElements": {
+      "restrictions": {
+        "perDay": "{{count}} Nutzung pro Tag",
+        "perDay_plural": "{{count}} Nutzungen pro Tag",
+        "maxPerDay": "Maximale Nutzung pro Tag : <strong>{{count}}</strong>",
+        "maxPerDay_plural": "Maximale Nutzungen pro Tag : <strong>{{count}}</strong>",
+        "perWeek": "{{count}} Nutzung pro Woche",
+        "perWeek_plural": "{{count}} Nutzungen pro Woche",
+        "maxPerWeek": "Maximale Nutzung pro Woche : <strong>{{count}}</strong>",
+        "maxPerWeek_plural": "Maximale Nutzungen pro Woche : <strong>{{count}}</strong>",
+        "perMonth": "{{count}} Nutzung pro Monat",
+        "perMonth_plural": "{{count}} Nutzungen pro Monat",
+        "maxPerMonth": "Maximale Nutzung pro Monat : <strong>{{count}}</strong>",
+        "maxPerMonth_plural": "Maximale Nutzungen pro Monat : <strong>{{count}}</strong>",
+        "title": "Beschränkungen der Nutzung"
+      },
+      "fullVodAccess": "Kompatibel mit VOD",
+      "isUniversalPass": "Universalpass",
+      "newMemberOnly": "Nur für Neumitglieder",
+      "penalty": {
+        "days": "{{penalty_days}} der Sperrung nach {{penalty_cancellations}} in einer Zeit über einen Zeitraum von {{penalty_days_period}}",
+        "amount": "{{penalty_amount}} wird nach {{penalty_cancellations}} über einen Zeitraum von {{penalty_days_period}} abgezogen",
+        "penaltyDay": "{{count}} Tag",
+        "penaltyDay_plural": "{{count}} Tage"
+      },
+      "maxPurchasePerMember": "{{count}} Kauf pro Mitglied",
+      "maxPurchasePerMember_plural": "{{count}} Käufe pro Mitglied",
+      "onsitePaymentAvailable": "Bezahlung vor Ort möglich",
+      "onlyVodAccess": "Nur für VOD verfügbar",
+      "compatibleWithEverything": "Kompatibel mit Allem",
+      "see": "Siehe",
+      "cancellation": "{{count}} Stornierung",
+      "cancellation_plural": "{{count}} Stornierungen",
+      "penaltyNoShow": {
+        "threshold": "{{count}} Abwesenheit",
+        "threshold_plural": "{{count}} Abwesenheiten",
+        "block": "{{days_blocked}} der Sperrung nach {{threshold}} über einen Zeitraum von {{time_window_days}}.",
+        "account": "Eine Zahlung von {{amount}} wird für {{threshold}} über einen Zeitraum von {{time_window_days}} erhoben.",
+        "penaltyDay": "{{count}} Tag",
+        "penaltyDay_plural": "{{count}} Tage"
+      },
+      "offPeakRestrictions": {
+        "title": "Nur mit bestimmten Zeitfenstern kompatibel"
+      }
+    },
+    "credits": {
+      "unlimited": "Unbegrenzt",
+      "availableCredit": "{{credits}} Credit",
+      "availableCredit_plural": "{{credits}} Credits"
+    },
+    "restrictions": "Beschränkungen",
+    "compatibleTimeSlot": "Kompatible Zeitfenster"
+  },
+  "contractCard": {
+    "chooseButton": "Auswählen",
+    "fees": "Anmeldegebühr: {{ fees }}",
+    "registerButton": "Abonnieren",
+    "seeMore": "Mehr anzeigen",
+    "seeLess": "Weniger anzeigen",
+    "legalContract": "Allgemeine Vertragsbedingungen",
+    "autoRenewal": "Automatische Verlängerung",
+    "billingInterval": {
+      "month": "Monat",
+      "month_plural": "Alle {{ count }} Monate",
+      "week": "Woche",
+      "week_plural": "Alle {{ count }} Wochen",
+      "year": "Jahr",
+      "year_plural": "Alle {{ count }} Jahre",
+      "day": "Tag",
+      "day_plural": "Alle {{ count }} Tage"
+    },
+    "invoice": "{{ count }} Rechnung",
+    "invoice_plural": "{{ count }} Rechnungen"
+  },
+  "genericCard": {
+    "credits": {
+      "availableCredit": "{{credits}} Credit",
+      "availableCredit_plural": "{{credits}} Credits",
+      "unlimited": "Unbegrenzt"
+    },
+    "details": {
+      "buttonContent": "Details"
+    },
+    "addButton": {
+      "buttonContent": "Zum Warenkorb hinzufügen"
+    },
+    "validForDuration": {
+      "validFromTo": "Gültig von {{duration_date_start}} bis {{duration_date_end}}",
+      "attendance": "Gültig ab der ersten Teilnahme",
+      "validDay": "Gültig für {{ count }} Tag",
+      "validDay_plural": "Gültig für {{ count }} Tage",
+      "validMonth": "Gültig für {{ count }} Monat",
+      "validMonth_plural": "Gültig für {{ count }} Monate",
+      "validYear": "Gültig für {{ count }} Jahr",
+      "validYear_plural": "Gültig für {{ count }} Jahre",
+      "validAnd": "Gültig {{ first }} und {{ second }}",
+      "validDaysMonthsYears": "Gültig für {{duration_years}}, {{ duration_months }} und {{ duration_days }}",
+      "purchase": "Gültig ab dem Abrechnungsdatum",
+      "booking": "Gültig ab der ersten Buchung"
+    },
+    "validity": {
+      "year": "{{count}} Jahr",
+      "year_plural": "{{count}} Jahre",
+      "month": "{{count}} Monat",
+      "month_plural": "{{count}} Monate",
+      "day": "{{count}} Tag",
+      "day_plural": "{{count}} Tage"
+    },
+    "title": {
+      "universalPassMessage": "Universalpässe, können für Gruppenaktivitäten und Termine verwendet werden",
+      "autoRenewal": "Automatische Verlängerung"
+    },
+    "price": {
+      "free": "Kostenlos"
+    }
+  },
+  "packCard": {
+    "comboItemList": {
+      "paymentPackItem": "{{count}} Kurspass",
+      "paymentPackItem_plural": "{{count}} Kurspässe",
+      "privatePassItem": "{{count}} Terminpass",
+      "privatePassItem_plural": "{{count}} Terminpässe",
+      "hiddenItem": "{{count}} anderes Element...",
+      "hiddenItem_plural": "{{count}} andere Elemente..."
+    }
+  },
+  "packCardDetail": {
+    "comboItemList": {
+      "content": "Inhalt"
+    }
+  },
+  "pass": {
+    "search": {
+      "goBack": "Zurück zur vollständigen Liste",
+      "result": "{{count}} Suchergebnis für \"{{queryText}}\"",
+      "result_plural": "{{count}} Suchergebnisse für \"{{queryText}}\""
+    },
+    "filters": {
+      "placeholder": {
+        "categories": "Kategorien",
+        "type": "Tippen"
+      },
+      "type": {
+        "privatePass": "Terminpass",
+        "paymentPack": "Kurspass"
+      },
+      "noCategory": "Keine Kategorie"
+    }
+  },
+  "defaultTabTitle": {
+    "workshop": "Workshops",
+    "vod": "Video On Demand",
+    "subscription": "Abonnement",
+    "shop": "Webshop",
+    "privateService": "Termine",
+    "playlist": "Playlists",
+    "pass": "Kurspässe",
+    "giftcard": "Geschenkgutscheine",
+    "calendarV2": "Kalender",
+    "calendar": "Kalender"
+  },
+  "passes": {
+    "details": "Details",
+    "buy": "Kaufen",
+    "search": "Suchen",
+    "filters": "Filter",
+    "title": "Kurspässe",
+    "drawerTitle": {
+      "tabs": "Wähle die Art der Pässe"
+    },
+    "tabs": {
+      "appointmentPasses": "Terminpässe",
+      "passes": "Kurspässe",
+      "all": "Alle"
+    },
+    "to": "nach/zu",
+    "addToCart": "Zum Einkaufswagen hinzufügen",
+    "close": "Schließen",
+    "detail": {
+      "restriction": {
+        "monthly": "Kann nur {{ amount }} Mal pro Monat genutzt werden.",
+        "monthly_plural": "Kann nur {{ amount }} Mal pro Monat genutzt werden.",
+        "weekly": "Kann nur {{ amount }} Mal pro Woche genutzt werden.",
+        "weekly_plural": "Kann nur {{ amount }} Mal pro Woche genutzt werden.",
+        "daily": "Kann nur {{ amount }} Mal pro Tag genutzt werden.",
+        "daily_plural": "Kann nur {{ amount }} Mal pro Tag genutzt werden.",
+        "title": "Nutzungsbeschränkungen"
+      },
+      "compatibility": {
+        "labels": {
+          "room": "Räume",
+          "activity": "Aktivitäten",
+          "category": "Kategorien"
+        },
+        "contents": {
+          "sessions": "Kompatible Termine: {{ sessionsList }}",
+          "allSessions": "Kompatibel mit allen Kursen",
+          "noAppointments": "Keine kompatiblen Termine",
+          "bookingForGuest": "Kann für die <strong>Einladung eines Gastes</strong> genutzt werden",
+          "vod": "Kann für die <strong>Mediathek</strong> genutzt werden",
+          "allTimeSlots": "Kompatibel mit allen Zeiten",
+          "allCategories": "Kompatibel mit allen Kategorien des Studios",
+          "allRooms": "Kompatibel mit allen Räumen des Studios",
+          "allActivities": "Kompatibel mit allen Aktivitäten des Studios"
+        },
+        "subtitles": {
+          "sessions": "Kompatible Kurse",
+          "timeSlots": "Kompatible Zeiten",
+          "activity": "Kompatible Aktivitäten"
+        },
+        "titles": {
+          "main": "Kompatibilität",
+          "appointment": "Kompatibilität mit Terminen",
+          "activity": "Kompatibilität mit Aktivitäten",
+          "studios": "Kompatible Studios"
+        }
+      },
+      "description": {
+        "showLess": "Weniger anzeigen",
+        "showMore": "Mehr anzeigen"
+      },
+      "availability": {
+        "validUntil": "Gültig bis {{ expirationDate }}",
+        "future": "Beginnt am {{ startDate }}",
+        "expired": "Abgelaufen am {{ expirationDate }}",
+        "suspendedUntil": "Ausgesetzt bis {{ endDate }}",
+        "suspended": "Ausgesetzt",
+        "active": "Gültig von {{ startDate }} bis {{ expirationDate }}"
+      },
+      "header": {
+        "onsitePaymentAvailable": "Zahlung vor Ort verfügbar",
+        "fullVodAccess": "Kompatibel mit der Mediathek",
+        "onlyVodAccess": "Nur für die Mediathek verfügbar",
+        "isUniversalPass": "Universeller Kurspass",
+        "newMemberOnly": "Nur für neue Mitglieder",
+        "unlimited": "Unbegrenzt",
+        "credits": "{{count}} Credit",
+        "credits_plural": "{{count}} Credits"
+      }
+    }
+  }
+}

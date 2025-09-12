@@ -100,6 +100,7 @@ export const NotificationRuleTableContent = ({
   });
 
   const tableRow = formatNotificationRuleEventTableItems({
+    selectedNotificationRule,
     isPushNotificationEnabled,
     items: notificationEventsRefinedData,
     onRowClick: (row) => {
@@ -120,18 +121,6 @@ export const NotificationRuleTableContent = ({
         isOpen={!!selectedNotificationRule}
         actionsConfig={[
           {
-            id: "next-tag-details",
-            iconLeft: "chevron-down",
-            intent: "default",
-            size: "md",
-            color: "main",
-            onClick: navigateToNextNotificationRule,
-            tooltipProps: {
-              label: "Next",
-              placement: "bottom-right",
-            },
-          },
-          {
             id: "previous-tag-details",
             iconLeft: "chevron-up",
             intent: "default",
@@ -140,6 +129,18 @@ export const NotificationRuleTableContent = ({
             onClick: navigateToPreviousNotificationRule,
             tooltipProps: {
               label: "Previous",
+              placement: "bottom-right",
+            },
+          },
+          {
+            id: "next-tag-details",
+            iconLeft: "chevron-down",
+            intent: "default",
+            size: "md",
+            color: "main",
+            onClick: navigateToNextNotificationRule,
+            tooltipProps: {
+              label: "Next",
               placement: "bottom-right",
             },
           },

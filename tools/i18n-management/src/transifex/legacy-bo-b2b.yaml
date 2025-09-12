@@ -1,0 +1,14 @@
+filters:
+  - filter_type: dir
+    file_format: KEYVALUEJSON
+    source_language: en
+    source_file_extension: json
+    source_file_dir: apps/applications/saas-legacy/src/i18n/source/
+    translation_files_expression: "apps/applications/saas-legacy/src/i18n/locales/<lang>"
+    ignore_files:
+      - apps/applications/saas-legacy/src/i18n/source/translations.json # Initial concatenated translations file
+      - apps/applications/saas-legacy/src/i18n/source/checkout.json
+      - apps/applications/saas-legacy/src/i18n/source/consumerSpace.json
+      - apps/applications/saas-legacy/src/i18n/source/marketplace.json
+      - apps/applications/saas-legacy/src/i18n/source/membership.json
+      - apps/applications/saas-legacy/src/i18n/source/quicksale.json

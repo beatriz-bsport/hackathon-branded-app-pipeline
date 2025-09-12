@@ -1,0 +1,125 @@
+{
+  "member": {
+    "seeMembership": "Toon ledeninformatie",
+    "pageTitle": "Lid",
+    "isVaccinated": "Ik bezit een geldig coronabewijs",
+    "franchises": "Studio's",
+    "seeMemberInCompany": "Laat zien"
+  },
+  "companies": {
+    "pageTitle": "Studio's",
+    "navigateToCompany": "Inloggen op Sub-Account",
+    "membersEmptyState": "Deze studio heeft geen leden om weer te geven.",
+    "establishmentEmptyState": "Deze studio heeft geen vestigingen om weer te geven.",
+    "establishment": "Vestigingen",
+    "members": "Leden",
+    "emptySelect": "Selecteer een studio om meer informatie te zien.",
+    "searchPlaceholder": "Zoek een studio",
+    "manageOnStudio": "Beheer op {{studio_name}}"
+  },
+  "pagination": {
+    "outOf": "{{from}} - {{to}} / {{count}}",
+    "rowPerPage": "Elementen per pagina",
+    "nextPage": "Volgende pagina",
+    "previousPage": "Vorige pagina"
+  },
+  "membersList": {
+    "pageTitle": "Leden",
+    "see": "Toon",
+    "actions": "Acties",
+    "franchised": "Studio's",
+    "name": "Naam"
+  },
+  "emails": {
+    "chooseGroup": "Selecteer een groep",
+    "copy": "Kopie",
+    "groupByPlaceholder": "Groeperen",
+    "franchised": "Studio",
+    "groupBy": "Groeperen",
+    "pageTitle": "E-mails",
+    "companiesEmails": "[Master-Account E-mailsjablonen",
+    "create": "Een sjabloon toevoegen",
+    "franchiseEmails": "Sjablonen",
+    "emptyStateDescription": "Selecteer een e-mail om de voorvertoning te zien.",
+    "emptyStateTitle": "Voorvertoning",
+    "searchPlaceholder": "Zoek een sjabloon"
+  },
+  "login": {
+    "signUp": "Inschrijven",
+    "connect": "Aanmelden",
+    "previous": "Terug",
+    "disconnect": "Afmelden"
+  },
+  "companyGroup": {
+    "explain": "Categorieën worden gebruikt om meerdere licenties onder één naam te groeperen, zoals \"Noord-Nederland\" of \"Randstad\". Dit wordt ook op de Mobiele Applicatie getoond.",
+    "actions": {
+      "add": "Een categorie toevoegen",
+      "submit": "Bevestigen",
+      "cancel": "Annuleren"
+    },
+    "name": {
+      "label": "Naam"
+    }
+  },
+  "staff": {
+    "roleTabTitle": "Rollen",
+    "staffAccountTabTitle": "Medewerkers",
+    "explainStaff": "Met de medewerkerstoegang van het masteraccount selecteert u welke franchisenemers toegang hebben tot uw personeel en welke acties zij daarin kunnen uitvoeren. Met de mederwerkerstoegang kan geen verbinding worden gemaakt met de mobiele applicatie."
+  },
+  "genericProduct": {
+    "list": {
+      "shortMenu": {
+        "edit": "Bewerken",
+        "delete": "Verwijderen",
+        "goTo": "Detail",
+        "restore": "Herstellen"
+      },
+      "fuzzySearch": "Zoek een kaart",
+      "titleInactive": "Onbeschikbare leskaarten",
+      "titleActive": "Beschikbaar voor verkoop",
+      "visibility": "Niet beschikbaar voor verkoop"
+    },
+    "templateCard": {
+      "shareTemplate": {
+        "closeDialog": "Sluiten",
+        "seeAll": "Zie alle",
+        "addCompany": "Voeg een studio toe",
+        "emptyCompanyList": "Er zijn geen studio's geconfigureerd met deze kaart",
+        "categoryName": "Gedeeld met de volgende studio's"
+      },
+      "buttons": {
+        "delete": "Verwijder",
+        "update": "Wijzig"
+      }
+    },
+    "dialogs": {
+      "deleteTemplateInstance": {
+        "buttonValidate": "Delen uitschakelen",
+        "title": "Stop met delen"
+      },
+      "selectCompanies": {
+        "allCompaniesShared": "Je hebt deze kaart al gedeeld met alle franchise-studio's waartoe je toegang hebt.",
+        "content2": "Leden die deze kaart ontvangen kunnen deze gebruiken in alle compatibele studio's.",
+        "content1": "De volgende studio's zullen deze kaart automatisch aanbieden, maar kunnen de prijs of het aantal credits niet wijzigen.",
+        "title": "Mijn studio's configureren"
+      },
+      "deleteTemplate": {
+        "title": "Deactivatie"
+      }
+    }
+  },
+  "search": {
+    "usersTableTitle": "Gebruikers",
+    "pageTitle": "Zoek"
+  },
+  "userProfile": {
+    "numberBrands": "{{ number }} categorieën",
+    "numberStudios": "{{ number }} betalende studio's",
+    "goToMemberProfile": "Beheer op {{ purchasing_studio }}",
+    "tagModalPlaceholcer": "Selecteer tags",
+    "tagModalHelperText": "Tags",
+    "tagModalText": "Acties op tags worden toegepast op het lid in elke franchisenemer",
+    "manageTags": "Beheer tags",
+    "tagsListTitle": "Gedeelde tags"
+  }
+}

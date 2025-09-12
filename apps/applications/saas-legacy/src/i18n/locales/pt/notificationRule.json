@@ -1,0 +1,391 @@
+{
+  "caption": {
+    "emailDesign": "E-mail a enviar",
+    "active": "Ativo",
+    "sendCopy": "Receber cópia do e-mail",
+    "event": "Evento"
+  },
+  "tag": {
+    "BillingPlan": {
+      "tags": {
+        "subscription_name": "Nome da subscrição",
+        "subscription_flat_fee": "Taxas de inscrição",
+        "subscription_nb_days_pause": "Pausa: número de dias",
+        "subscription_next_invoice_date": "Data da próxima fatura",
+        "subscription_recurrent_price": "Montante mensal deduzido",
+        "subscription_nb_months": "Número de meses",
+        "subscription_payment_method": "Método de pagamento",
+        "subscription_contract_terms_link": "Link para as notas legais",
+        "subscription_duration": "Duração total"
+      },
+      "name": "Subscrição"
+    },
+    "Birthday": {
+      "name": "Aniversário"
+    },
+    "ConsumerPaymentPack": {
+      "tags": {
+        "pass_starting_date": "Data de início do passe",
+        "pass_name": "Nome do passe",
+        "pass_expiration": "Data de fim do passe",
+        "pass_price": "Preço do passe",
+        "pass_credit_left": "Número de créditos restantes"
+      },
+      "name": "Passe de aulas"
+    },
+    "GiftCard": {
+      "tags": {
+        "giftcard_name": "Nome do passe de oferta",
+        "giftcard_value": "Valor do passe de oferta",
+        "message_is_for": "Destinatário do passe de oferta",
+        "giftcard_message": "Mensagem do cartão presente",
+        "activate_giftcard_url": "Link para ativar o passe de oferta",
+        "message_is_from": "Membro que envia o passe de oferta"
+      },
+      "name": "Passe de oferta"
+    },
+    "EmailChange": {
+      "name": "Alteração da conta",
+      "tags": {
+        "new_email": "Novo e-mail de início de sessão",
+        "old_email": "Antigo e-mail de início de sessão",
+        "manage_changing_email_link": "Link de gestão de alterações por correio eletrónico",
+        "login_link": "Link de início de sessão do espaço pessoal"
+      }
+    },
+    "requiredTags": {
+      "reset_password_url": "Link para redefinir a palavra-passe",
+      "activate_giftcard_url": "Link de ativação do passe de oferta",
+      "message_is_from": "Membro que envia o passe de oferta",
+      "manage_changing_email_link": "Link de gestão de alterações por e-mail",
+      "email_confirmation_url": "Link para confirmar e-mail",
+      "new_email": "Novo e-mail de início de sessão",
+      "old_email": "Antigo e-mail de início de sessão",
+      "giftcard_value": "Valor do passe de oferta",
+      "giftcard_message": "Mensagem do passe de oferta"
+    },
+    "BookingOption": {
+      "tags": {
+        "coach": "Professor",
+        "date": "Hora/Data",
+        "establishment_practical_info": "Acesso à sala",
+        "activity": "Atividade",
+        "option_expiration_date": "Data de expiração da lista de espera",
+        "address": "Endereço",
+        "establishment": "Sala",
+        "option_payment_url": "Link de reservas",
+        "waiting_list_size": "Tamanho da lista de espera",
+        "waiting_list_position": "Posição na lista de espera"
+      },
+      "name": "Lista de espera"
+    },
+    "RecurrentRule": {
+      "tags": {
+        "coach": "Professor",
+        "recurring_booking_fail_reason": "Motivo de falha da reserva",
+        "address": "Endereço",
+        "establishment_practical_info": "Acesso à sala",
+        "activity": "Atividade",
+        "date": "Hora/Data",
+        "establishment": "Sala"
+      },
+      "name": "Regra recorrente"
+    },
+    "Booking": {
+      "subtitles": {
+        "establishment_group": "Localização",
+        "meta_activity": "Atividade",
+        "workshop": "Workshop",
+        "establishment": "Sala"
+      },
+      "name": "Atividade",
+      "tags": {
+        "canceled_grouped_session": "Grupo de reserva cancelado",
+        "establishment": "Sala",
+        "address": "Endereço",
+        "spot": "Lugar",
+        "date": "Hora/Data",
+        "activity": "Atividade",
+        "coach": "Professor",
+        "establishment_practical_info": "Acesso à sala",
+        "ics_calendar_link": "Link do calendário ics"
+      }
+    },
+    "Company": {
+      "tags": {
+        "ios_app_URL": "URL da aplicação para iOS",
+        "android_app_URL": "URL da aplicação para android",
+        "company_info": "Informações sobre o estúdio",
+        "company_logo": "Logo da empresa",
+        "company": "Nome da empresa",
+        "login_url": "URL de Login",
+        "company_facebookURL": "URL Facebook",
+        "company_websiteURL": "URL da página web",
+        "company_instagramURL": "URL Instagram",
+        "company_scheduleURL": "URL da planificação"
+      },
+      "name": "Empresa"
+    },
+    "Invoice": {
+      "tags": {
+        "invoice_sum_up": "Resumo da fatura",
+        "id": "Identificador da fatura",
+        "invoice_date": "Data da fatura",
+        "invoice_download_link": "Descarregar a ligação",
+        "invoice_price": "Montante da fatura"
+      },
+      "name": "Faturação"
+    },
+    "Offer": {
+      "name": "Sessão",
+      "tags": {
+        "establishment": "Sala",
+        "establishment_practical_info": "Acesso à sala",
+        "address": "Endereço",
+        "activity": "Aulas de grupo",
+        "coach": "Professor",
+        "date": "Hora/Data"
+      }
+    },
+    "PrivateConsumerPass": {
+      "tags": {
+        "pass_name": "Nome do passe",
+        "pass_starting_date": "Data de início do passe",
+        "pass_expiration": "Data de fim do passe",
+        "pass_price": "Preço do passe",
+        "pass_credit_left": "Número de créditos restantes"
+      },
+      "name": "Passe de marcação"
+    },
+    "PrivateBooking": {
+      "tags": {
+        "coach": "Professor",
+        "date": "Hora/Data",
+        "address": "Endereço",
+        "activity": "Atividade",
+        "establishment": "Sala",
+        "establishment_practical_info": "Acesso à sala",
+        "ics_calendar_link": "Link calendário ics"
+      },
+      "name": "Aulas Privadas"
+    },
+    "ReplacementRequest": {
+      "name": "Substituição",
+      "tags": {
+        "closing_date": "Data limite",
+        "sub_teacher": "Professor substituto"
+      }
+    },
+    "User": {
+      "tags": {
+        "lastname": "Nome do aluno",
+        "firstname": "Nome do aluno",
+        "reset_password_url": "Redefinir a palavra-passe",
+        "email_confirmation_url": "Confirmar e-mail",
+        "unsubscribe_link": "Anular a subscrição da newsletter"
+      },
+      "name": "Aluno"
+    },
+    "SpiviPerformance": {
+      "name": "Performance",
+      "tags": {
+        "maximum_speed": "Velocidade máxima",
+        "calories": "Calorias",
+        "max_watts": "Potência máxima",
+        "SEP": "Ponto do Ecossistema Spivi",
+        "average_HR": "Média da frequência cardíaca",
+        "average_RPM": "Rotações médias por minuto",
+        "average_speed": "Velocidade média",
+        "average_watts": "Potência média",
+        "max_HR": "Frequência cardíaca máxima",
+        "max_RPM": "Rotações máximas por minuto",
+        "calories_kJ": "Calorias em K",
+        "total_distance": "Distância percorrida"
+      }
+    },
+    "GuestInvitation": {
+      "tags": {
+        "lastname_host": "Sobrenome do membro convidado",
+        "firstname_host": "Primeiro nome do membro convidado",
+        "lastname_guest": "Sobrenome do convidado",
+        "firstname_guest": "Nome do convidado"
+      },
+      "name": "Reserva de convidado"
+    },
+    "ReferralProgram": {
+      "tags": {
+        "minimum_purchase_referral": "Importe mínimo de compra",
+        "deadline_use_referral": "Validade do prémio de referência",
+        "referring_reward": "Recompensa para o referenciador",
+        "reduction_purchase_referred": "Desconto para o membro referido"
+      },
+      "name": "Referência"
+    }
+  },
+  "eventType": {
+    "3": "Cancelar sessão (alunos)",
+    "6": "Inscrição de membro (aluno)",
+    "7": "Reserva por passe de oferta",
+    "8": "Reserva + compra de passe em simultâneo",
+    "9": "Está disponível um lugar de reserva",
+    "10": "O lugar na lista de espera expirou para esta ronda.",
+    "12": "Inscrever-me na lista de espera",
+    "13": "Um membro anulou a sua inscrição na lista de espera",
+    "14": "Retirar da lista de espera (manager)",
+    "16": "Sessão alterada (alunos)",
+    "17": "Reserva anulada : crédito não reembolsado (alunos)",
+    "18": "Reserva anulada : crédito reembolsado (alunos)",
+    "19": "Inscrição de um aluno (manager)",
+    "20": "Pedido para descarregar fatura",
+    "21": "Nova reserva (alunos)",
+    "22": "Confirmação da fatura",
+    "24": "Subscrição criada",
+    "25": "Método de pagamento modificado",
+    "26": "Subscrição em pausa",
+    "27": "A subscrição foi interrompida ou cancelada",
+    "28": "Pagamento recebido",
+    "29": "Lembrete da aula online em 15 min (alunos)",
+    "30": "Reserva para um convidado (para membros convidados)",
+    "31": "Reserva para um convidado (para convidado)",
+    "101": "Lembrete da aula online em 15 min (professores)",
+    "102": "Cancelar sessão (professores)",
+    "103": "Sessão alterada (professores)",
+    "300": "Pontapé de saída (não validado a tempo demasiadas vezes)",
+    "301": "Redefinir a palavra-passe do membro",
+    "302": "Validar o email do membro",
+    "303": "Fusão de duas contas de estúdio",
+    "304": "Ativar o passe de oferta",
+    "305": "Alterar o email dos membros a partir do backoffice",
+    "400": "Marcação cancelada - fora de tempo (professor)",
+    "401": "Marcação cancelada - reembolsada (professor)",
+    "402": "Nova marcação (professor)",
+    "403": "Horário alterado (professor)",
+    "450": "Marcação - fora de prazo (aluno)",
+    "451": "Marcação anulada - reembolso  (aluno)",
+    "452": "Nova marcação (aluno)",
+    "453": "Horário alterado (aluno)",
+    "480": "Marcação anulada recorrentemente por falta de disponibilidade (professor)",
+    "481": "Marcação anulada recorrentemente por falta de disponibilidade (alunos)",
+    "510": "O pagamento da subscrição falhou",
+    "515": "Passe de aulas e taxa de subscrição automaticamente desativados",
+    "520": "O pagamento de uma subscrição falhou, será tentado novamente",
+    "530": "Disputa sobre o pagamento de uma subscrição",
+    "601": "Demasiadas poucas reservas N horas antes do início da sessão (professores)",
+    "602": "Demasiadas poucas reservas N horas antes do início da sessão (estudantes)",
+    "701": "Cancelamento após o prazo : passe bloqueado (alunos)",
+    "702": "Cancelamento após o prazo : débito na conta do membro (alunos)",
+    "703": "Ausente : passe bloqueado (alunos)",
+    "704": "Ausente : conta de membro debitada (alunos)",
+    "705": "Advertência de ausência",
+    "801": "Grupo de aulas privadas cancelada",
+    "901": "Substituição encontrada (professor)",
+    "902": "Pedido de substituição anulado (substituto)",
+    "903": "Foi encontrado outro substituto (substituição)",
+    "904": "Novo pedido de substituição (substituto)",
+    "905": "Novo pedido tardio (substituto)",
+    "906": "Data de encerramento prorrogada (substituto)",
+    "907": "Substituição encontrada (substituto)",
+    "987": "Tentativa de cobrança de pagamentos em prestações",
+    "1001": "Conta Spivi criada (alunos)",
+    "1002": "Desempenho da sessão",
+    "1003": "Conta Spivi criada (professores)"
+  },
+  "emailDesign": {
+    "placeholder": "Criado por bsport",
+    "closePreview": "Fechar",
+    "birthdayPlaceholder": "Selecionar um e-mail"
+  },
+  "ruleGroup": {
+    "offer": "Sessão",
+    "private_booking": "Aulas Privadas",
+    "subscription": "Subscrição",
+    "marketing": "Marketing",
+    "invoice": "Faturação",
+    "payment_pack": "Penalizações",
+    "recurrent_private_booking": "Marcação recorrente",
+    "replacement_request": "Substituição",
+    "booking": "Reserva",
+    "waiting-list": "Lista de espera",
+    "giftcard": "Cartões de presente",
+    "member": "Criar uma conta de aluno",
+    "performance": "Performance"
+  },
+  "type": {
+    "sendNotification": "Enviar notificação",
+    "days": "Dias",
+    "bookingConcerned": "a sessão afetada pela notificação",
+    "hours": "Horas"
+  },
+  "pageTitle": "Notificações transaccionais",
+  "franchise": {
+    "delete": {
+      "delete": "Eliminar",
+      "content": "Tem a certeza de que pretende eliminar esta configuração? As definições seleccionadas e os modelos de e-mail voltarão aos seus valores originais.",
+      "title": "Eliminar"
+    },
+    "form": {
+      "restrictedAccess": "Esta configuração é definida para os franchisados aos quais não tem acesso. Alguns campos não podem ser modificados",
+      "pickTemplate": "Escolher um modelo",
+      "name": "Nome",
+      "title": "Configuração",
+      "description": "O modelo escolhido será utilizado para o email transacional \"{{-name}}\" para todos os franchisados selecionados aqui.",
+      "parameters": "Configurações",
+      "useFor": "Utilizar para ",
+      "activate": "Ativado",
+      "receiveCC": "Receber uma cópia da mensagem",
+      "mailSelection": "Selecionar um template",
+      "cancel": "Cancelar",
+      "error": {
+        "name": "Preencher um nome",
+        "email_design": "Selecionar um modelo",
+        "selectCompanies": "Selecionar pelo menos um franchisado"
+      },
+      "save": "Guardar",
+      "activateSubtitleActivate": "O email de transição está ativado e será enviado aos membros",
+      "activateSubtitleDeactivate": "O email de transição está desativado e não será enviado aos membros",
+      "receiveCarbonCopySubtitle": "Receberá uma cópia de cada mensagem eletrónica enviada"
+    },
+    "emptySelect": "Selecione um email transacional para ver quais os franchisados que o partilham e utilizam.",
+    "addConfiguration": "Adicionar uma configuração",
+    "emptyStateConfiguration": "Crie uma configuração para forçar a utilização de modelos de emails para cada um dos seus franchisados.",
+    "card": {
+      "companies": "Franqueados",
+      "template": "Modelo",
+      "parameters": "Configurações",
+      "deactivated": "Desativar",
+      "carbonCopy": "Receber uma cópia da mensagem do email",
+      "activated": "Ativar"
+    }
+  },
+  "listItem": {
+    "modifyTransactionnalNotification": "Editar notificação push",
+    "sendTransactionnalNotification": "Enviar uma notificação push",
+    "transactionnalEmail": "Email transacional",
+    "copyCarbon": "Receber uma cópia da mensagem enviada por email",
+    "createTransactionnalNotification": "configurar a notificação push",
+    "sendTransactionnalEmail": "Enviar um email transacional",
+    "transactionnalNotification": "Notificação push",
+    "infoBoxErrorMessageLastLine": "Certifique-se de que os adiciona ao seu modelo para o poder guardar",
+    "infoBoxErrorMessageFirstLine": "Este email deve conter as seguintes variáveis:",
+    "mailToSend": "Email a enviar"
+  },
+  "marketingNotification": {
+    "birthday": "Email de aniversário"
+  },
+  "triggeringEvent": {
+    "title": "Ato de desencadeamento"
+  },
+  "preview": {
+    "emptyStateNotification": "Para ver a pré-visualização, configure a sua notificação push",
+    "title": "Previsualizar",
+    "emptyState": "Para ver as pré-visualizações, clique numa das categorias",
+    "notification": "Push",
+    "email": "Email"
+  },
+  "franchiseOwned": "O seu franchisador está atualmente a gerir este email transacional",
+  "countElements": "{{nbr}} elementos",
+  "countNotification": "{{nbr}} notificações push ativadas",
+  "countEmail": "{{nbr}} emails transacionais ativos",
+  "configureNotif": "Configurar",
+  "goBackToMenu": "Anterior"
+}

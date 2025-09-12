@@ -1,0 +1,77 @@
+{
+    "modal": {
+        "delete": {
+            "title": "",
+            "content": "",
+            "cancel": "",
+            "confirm": ""
+        }
+    },
+    "copy": "",
+    "duplicate": "",
+    "search": "",
+    "listTitle": "",
+    "editTitle": "",
+    "createTitle": "",
+    "detail": "",
+    "create": "",
+    "modification_date": "",
+    "selectToShowPreview": "",
+    "templateListEmpty": "",
+    "subject": "",
+    "preview": "",
+    "no_subject": "",
+    "editor": {
+        "title": "",
+        "save": "",
+        "subject": "",
+        "cancel": "",
+        "error": {
+            "title": "",
+            "content": "",
+            "subject": ""
+        },
+        "exportHtml": "",
+        "selectorPlaceholder": "",
+        "shareWithHelper": "",
+        "shareWith": "",
+        "infoBoxTextFirstLine": "",
+        "alertBoxTextFirstLine": "",
+        "showRequiredTags": "",
+        "infoBoxTextLastLine": "",
+        "dialogWindowTitle": "",
+        "closeButton": ""
+    },
+    "autoSave": "",
+    "leaveAlert": "",
+    "delete": "",
+    "edit": "",
+    "allCompanies": "",
+    "seeAll": "",
+    "franchiseEmails": "",
+    "franchiseEmailsPage": {
+        "tabs": {
+            "ownByFranchisor": "",
+            "ownByFranchisee": "",
+            "bsportDefault": ""
+        },
+        "informativeAlert": {
+            "ownedByFranchisor": {
+                "description": ""
+            },
+            "ownedByFranchisee": {
+                "description": ""
+            },
+            "bsportDefault": {
+                "description": ""
+            }
+        },
+        "filters": {
+            "companySelectPlaceHolder": ""
+        }
+    },
+    "companieEmails": "",
+    "infoBsportTemplateEmails": "",
+    "bsportTemplateEmails": "",
+    "bsportTemplateEmail": ""
+}

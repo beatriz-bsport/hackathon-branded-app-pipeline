@@ -1,0 +1,1000 @@
+{
+  "contract": {
+    "form": {
+      "flat_fee": {
+        "label": "Inschrijfkosten",
+        "helperText": "De inschrijfkosten worden aan de eerste factuur toegevoegd."
+      },
+      "name": {
+        "label": "Naam"
+      },
+      "nb_interval": {
+        "helperText": "Abonnementen hebben een minimumtermijn van 2 maanden.",
+        "label": "Aantal facturaties",
+        "error": "Het aantal facturen mag niet meer dan 90 bedragen",
+        "errorForFixedBillingDay": "Het aantal facturen mag niet meer dan 12 bedragen",
+        "restrictionForFixedBillingDay": "Het aantal factureringen moet tussen 2 en 12 liggen voor facturering op een vaste dag"
+      },
+      "description": {
+        "placeholder": "Een exclusieve aanbieding",
+        "label": "Beschrijving"
+      },
+      "title": "[Formulier] Abonnement",
+      "contract": {
+        "placeholder": "Vul hier alle relevante juridische informatie en voorwaarden toe, zoals de looptijd, terugbetalingen en meer.",
+        "label": "Voorwaarden"
+      },
+      "managerOnly": {
+        "label": "Onbeschikbaar voor leden"
+      },
+      "autoRenewal": {
+        "label": "Automatisch verlengen activeren",
+        "germanMarketWarning": "Om te voldoen aan de Duitse wet op eerlijke consumentencontracten moeten nieuwe abonnementen na 2 jaar korter zijn dan een jaar. Zorg ervoor dat u zich aan deze voorwaarden houdt."
+      },
+      "recurrent_price": {
+        "label": "Doorlopende betaling",
+        "infoBox": "De gewijzigde prijs wordt alleen toegepast op abonnementen die na het opslaan van deze wijzigingen worden afgesloten. Lopende abonnementen worden niet gewijzigd. Dit geldt ook voor lopende abonnementen die automatisch vernieuwd worden."
+      },
+      "object_type": {
+        "paymentPack": "Leskaarten",
+        "privatePass": "Afspraakkaarten",
+        "label": "Inhoud",
+        "paymentCombo": "Pakketten"
+      },
+      "error": {
+        "missingObject": "Dit veld is verplicht",
+        "missingPaymentCombo": "Selecteer ten minste één pakket",
+        "missingPrivatePass": "Selecteer ten minste één afspraakkaart",
+        "missingPaymentPack": "Selecteer ten minste één leskaart",
+        "moreThanThreeDecimalPrice": "Het lijkt erop dat je meer dan twee cijfers achter de komma hebt ingevoerd. Pas het bedrag aan naar de dichtstbijzijnde cent."
+      },
+      "recurrence_basis": {
+        "helperText": " ",
+        "label": "Dit abonnement wordt ieder(e)",
+        "intervalName": {
+          "week": "week/weken geïncasseerd",
+          "week_plural": "weken geïncasseerd",
+          "day": "dag(en) geïncasseerd",
+          "day_plural": "dagen geïncasseerd",
+          "month": "maand(en) geïncasseerd",
+          "month_plural": "maanden geïncasseerd",
+          "year": "jaar geïncasseerd",
+          "year_plural": "jaar geïncasseerd"
+        }
+      },
+      "recurrence": {
+        "explain": "Dit abonnement wordt iedere {{ recurrence_basis }} {{ interval }} verlengd, heeft een totaalduur van {{ total_interval_duration }} {{ interval }} en leden worden {{ nb_interval }} keer gefactureerd.",
+        "section": "Instellingen"
+      },
+      "interval": {
+        "helperText": "Selecteer hoe vaak de klant in rekening moet worden gebracht.",
+        "label": "Facturatie"
+      },
+      "settings": {
+        "title": "Instellingen"
+      },
+      "invoicing": {
+        "invoicing_type_readonly": "Het is niet mogelijk het facturerings type te wijzigen",
+        "fixed_day": {
+          "explain": "Elke factuur wordt op de gekozen dag gefactureerd. De eerste betaling wordt eventueel pro rata berekend.",
+          "label": "Factureren op een vaste dag",
+          "modification_not_apply_to_past": "Je staat op het punt de factuurdag van dit abonnement te wijzigen. Deze wijzigingen gelden alleen voor nieuwverkochte abonnementen. Bestaande abonnementen worden niet gewijzigd, ook niet als deze automatisch vernieuwd en verlengd worden.",
+          "end_of_month_explain": "Als een maand geen {{ month_billing_day }} heeft, wordt de factuur uitgereikt op de laatste dag van de maand.",
+          "recurrence_explain": {
+            "month": "Het abonnement wordt elke {{ month_billing_day }} van de maand gefactureerd voor een totale duur van {{ nb_interval }} maanden en genereert {{ nb_interval }} {{ invoice }}. De eerste betaling is pro rata indien nodig."
+          }
+        },
+        "same_day_as_subscription": {
+          "recurrence_explain": {
+            "year": "Het abonnement wordt jaarlijks gefactureerd voor een totale duur van {{ total_subscription_duration }} {{ time_unit }} en genereert {{ nb_interval }} {{ invoice }}. De klant zal de startdatum van zijn abonnement kunnen kiezen.",
+            "year_plural": "Het abonnement wordt elke {{ recurrence_basis }} jaar gefactureerd voor een totale duur van {{ total_subscription_duration }} {{ time_unit }} en genereert {{ nb_interval }} {{ invoice }}. De klant kan de begindatum van het abonnement kiezen.",
+            "day": "Het abonnement wordt dagelijks gefactureerd voor een totale duur van {{ total_subscription_duration }} {{ time_unit }} en genereert {{ nb_interval }} {{ invoice }}. De klant kan de begindatum van zijn abonnement kiezen.",
+            "day_plural": "Het abonnement wordt elke {{ recurrence_basis }} dagen gefactureerd voor een totale duur van {{ total_subscription_duration }} {{ time_unit }} en genereert {{ nb_interval }} {{ invoice }}. De klant kan de begindatum van zijn abonnement kiezen.",
+            "week": "Het abonnement wordt elke week gefactureerd voor een totale duur van {{ total_subscription_duration }} {{ time_unit }} en genereert {{ nb_interval }} {{ invoice }}. Klanten kunnen de begindatum van hun abonnement kiezen.",
+            "week_plural": "Het abonnement wordt elke {{ recurrence_basis }} week gefactureerd voor een totale duur van {{ total_subscription_duration }} {{ time_unit }} en genereert {{ nb_interval }} {{ invoice }}. Klanten kunnen de begindatum van hun abonnement kiezen.",
+            "month": "Het abonnement wordt maandelijks gefactureerd voor een totale duur van {{ total_subscription_duration }} {{ time_unit }} en genereert {{ nb_interval }} {{ invoice }}. Klanten kunnen de begindatum van hun abonnement kiezen.",
+            "month_plural": "Het abonnement wordt elke {{ recurrence_basis }} maand gefactureerd voor een totale duur van {{ total_subscription_duration }} {{ time_unit }} en genereert {{ nb_interval }} {{ invoice }}. Klanten kunnen de begindatum van hun abonnement kiezen."
+          },
+          "explain": "De facturatiedatum hangt af van de dag van aankoop van het abonnement.",
+          "label": "Factuur op dezelfde dag als de aankoopdatum van het abonnement"
+        },
+        "invoice": "factuur",
+        "invoice_plural": "facturen",
+        "title": "Facturatie"
+      },
+      "price": {
+        "title": "Prijzen"
+      },
+      "general_info": {
+        "title": "Algemene informatie"
+      },
+      "unusableByStaff": {
+        "label": "Onzichtbaar voor het personeel"
+      },
+      "month_billing_day": {
+        "label2": "van de maand.",
+        "label1": "Alle facturen"
+      },
+      "highlightedAsRecommended": {
+        "label": "Als aanrader markeren",
+        "helperText": "Dit geeft klanten een overzicht van de abonnementen die momenteel worden aangeraden."
+      },
+      "advancedOptions": {
+        "selectTags": "Selecteer tags",
+        "tag": {
+          "selectTags": "Selecteer tags",
+          "tagsOnAcquisition": "Tag ná aankoop",
+          "tagGroupDuplicated": "Houd er rekening mee dat geselecteerde items tags met dezelfde categorie hebben.",
+          "tagsOnAcquisitionHelper": "Gebruik tags om te identificeren welk lid de eerste factuur heeft betaald"
+        },
+        "title": "Geavanceerd"
+      },
+      "nbIntervalAfterAutoRenewal": {
+        "secondLabel": "Aantal rekeningen *",
+        "firstLabel": "Abonnementsfacturering voor volgende cycli wijzigen"
+      },
+      "notEditable": "Dit contract is afkomstig van een eerder voltooide datamigratie. Sommige velden zijn mogelijk niet bewerkbaar om de data te behouden.",
+      "commitmentPeriod": {
+        "explain": {
+          "year": "Dit abonnement verbindt het lid voor {{ commitment_period_value }} jaar. Wijzigingen in de commitmentperiode van het abonnement in de instellingen hebben geen invloed op abonnementen die al zijn aangeschaft.",
+          "year_plural": "Dit abonnement verbindt het lid voor {{ commitment_period_value }} jaar. Wijzigingen in de commitmentperiode van het abonnement in de instellingen hebben geen invloed op abonnementen die al zijn aangeschaft.",
+          "month": "Dit abonnement verbindt het lid voor {{ commitment_period_value }} maand. Wijzigingen in de commitmentperiode van het abonnement in de instellingen hebben geen invloed op abonnementen die al zijn aangeschaft.",
+          "month_plural": "Dit abonnement verbindt het lid voor {{ commitment_period_value }} maanden. Wijzigingen in de commitmentperiode van het abonnement in de instellingen hebben geen invloed op abonnementen die al zijn aangeschaft.",
+          "week": "Dit abonnement verbindt het lid voor {{ commitment_period_value }} een week. Wijzigingen in de commitmentperiode van het abonnement in de instellingen hebben geen invloed op abonnementen die al zijn aangeschaft.",
+          "week_plural": "Dit abonnement verbindt het lid voor {{ commitment_period_value }} weken. Wijzigingen in de commitmentperiode van het abonnement in de instellingen hebben geen invloed op abonnementen die al zijn aangeschaft.",
+          "day": "Dit abonnement zal het lid voor {{ commitment_period_value }} dag vastleggen. Wijzigingen in de commitmentperiode van het abonnement in de instellingen hebben geen invloed op abonnementen die al zijn aangeschaft.",
+          "day_plural": "Dit abonnement verplicht het lid voor {{ commitment_period_value }} dagen. Wijzigingen in de commitmentperiode van het abonnement in de instellingen hebben geen invloed op abonnementen die al zijn aangeschaft."
+        },
+        "error": "De commitmentperiode kan niet langer zijn dan 90.",
+        "helperText": "Vergeet niet om de wetgeving van je land met betrekking tot het herroepingsrecht voor abonnementen te controleren en de vereiste informatie toe te voegen aan je algemene voorwaarden.",
+        "label": "Commitmentperiode"
+      }
+    },
+    "registerManager": {
+      "explainChoseContract": "Selecteer een abonnement dat periodiek gefactureerd wordt.",
+      "title": "[Formulier] Abonneren",
+      "explainCustomSubscriptionForm": "Een gepersonaliseerd abonnement aanmaken",
+      "actions": {
+        "cancel": "Annuleren"
+      }
+    },
+    "duration": "{{month}} facturen",
+    "list": {
+      "isEmpty": "Geen contract beschikbaar",
+      "addButton": "Maak contract aan",
+      "register": "Schrijf een lid in",
+      "title": "Abonnementen",
+      "titleManagerOnly": "Onbeschikbare abonnementen",
+      "titleCustomerAvailable": "Beschikbare abonnementen",
+      "titleInactive": "Gearchiveerde abonnementen"
+    },
+    "description": "Beschrijving",
+    "legal": "Voorwaarden",
+    "actions": {
+      "iAcceptCondition": "Ik ga akkoord met de voorwaarden.",
+      "iwanttostarton": "Gewenste startdatum van dit abonnement: ",
+      "subscribe": "Abonneren",
+      "create": "Een abonnement toevoegen",
+      "iAcceptGeneralCondition": " Ik ga akkoord met de voorwaarden.",
+      "title": "Verstreken datum",
+      "alertPastDateSameMonth": "Attentie: er is een datum in verleden gekozen. Indien dit abonnement een kaart bevat, zal de geselecteerde datum als startdatum van de geldigheid worden gebruikt. Indien het slechts één maand geldig is verliest het lid {{lostDays}} dag(en) van de geldigheid.",
+      "iAcceptContractTerms": "Ik accepteer de <0>voorwaarden</0>.",
+      "acceptContractTerms": "Accepteer de <0>voorwaarden</0>"
+    },
+    "deleteForm": {
+      "actions": {
+        "confirm": "Verwijderen",
+        "cancel": "Annuleren"
+      },
+      "content": "Weet je zeker dat je dit contract wilt verwijderen?",
+      "title": "Verwijder contract"
+    },
+    "paymentPack": "Bijbehorende leskaart",
+    "no": "Nee",
+    "yes": "Ja",
+    "privatePass": "Bijbehorende afspraakkaart",
+    "interval": {
+      "week": "week",
+      "week_plural": "weken",
+      "day": "dag",
+      "day_plural": "dagen",
+      "year": "jaar",
+      "year_plural": "jaar",
+      "month": "maand",
+      "month_plural": "maanden"
+    },
+    "item": {
+      "identifier": "Abonnementen",
+      "intervalLabel": {
+        "year": "Incassering: jaarlijks",
+        "year_plural": "Incassering: iedere {{ count }} jaar",
+        "day": "Incassering: dagelijks",
+        "day_plural": "Incassering: {{ count }} dagen",
+        "week": "Incassering: wekelijks",
+        "week_plural": "Incassering: iedere {{ count }} weken",
+        "month": "Incassering: maandelijks",
+        "month_plural": "Incassering: iedere {{ count }} maanden"
+      },
+      "recurrentPriceLabel": "{{ currencyDisplay }}{{ recurrent_price  }}"
+    },
+    "frequency": {
+      "week": "Wekelijks",
+      "month": "Maandelijks"
+    },
+    "billingFrequency": "Factureringsfrequentie",
+    "paymentCombo": "Bijbehorend pakket",
+    "pastDate": {
+      "alertSameMonth": "Attentie: er is een datum in verleden gekozen. Indien dit abonnement een kaart bevat, zal de geselecteerde datum als startdatum van de geldigheid worden gebruikt. Indien het slechts één maand geldig is verliest het lid {{lostDays}} dag(en) van de geldigheid.",
+      "title": "Verstreken datum",
+      "alertDifferentMonth": "Er is een datum in het verleden gekozen. Je lid heeft wellicht één of meerdere kaarten die al gefactureerd en verlopen zijn.",
+      "alertDifferentMonthConfirmAsk": "Dit lid wordt {{valuePastInvoicesPrice}} in rekening gebracht. Type \"{{valuePastInvoices}}\" om deze actie te bevestigen.",
+      "alertDifferentMonthInput": "Waarde van eerdere facturen",
+      "valuePastInvoicesInputError": "Error: deze waarden komen niet overeen.",
+      "futureInvoicesPayment": "Betaling van toekomstige facturen",
+      "payment": {
+        "pastInvoicesPayment": "Betaling van eerdere facturen",
+        "manualPayment": "Handmatige betaling",
+        "registeredInfo": "Alle toekomstige en eerdere facturen worden binnen 24 uur afgeschreven van de op het abonnement vermelde betaalwijze.",
+        "manualInfo": "Eerdere facturen worden aangegeven als handmatig betaald en toekomstige facturen worden afgeschreven van de door het lid ingevoerde betalingsmethode.",
+        "registeredMethodPayment": "Opgeslagen betaalmethode belasten"
+      },
+      "cancel": "Annuleren",
+      "validate": "Bevestigen"
+    },
+    "monthBillingDay": "Gefactureerd elke {{ month_billing_day }} van de maand",
+    "autoRenewal": "Automatische vernieuwing",
+    "nbIntervalAfterAutoRenewal": {
+      "details": {
+        "year": "Na verlenging wordt het abonnement gewijzigd in een {{durationAfterAutoRenewal}}-jaarabonnement.",
+        "month": "Na verlenging wordt het abonnement gewijzigd in een {{durationAfterAutoRenewal}}-maandenplan.",
+        "week": "Na verlenging wordt het abonnement gewijzigd in een {{durationAfterAutoRenewal}}-weekplan.",
+        "day": "Na verlenging wordt het abonnement gewijzigd in een {{durationAfterAutoRenewal}} dagenabonnement."
+      },
+      "title": "Tweede factureringsplan"
+    },
+    "durationInfo": {
+      "year": "{{count}} jaar",
+      "year_plural": "{{count}} jaren",
+      "month": "{{count}} maand",
+      "month_plural": "{{count}} maanden",
+      "week": "{{count}} week",
+      "week_plural": "{{count}} weken",
+      "day": "{{count}} dag",
+      "day_plural": "{{count}} dagen"
+    },
+    "autoRenewalInfo": "Automatische verlenging",
+    "recurrenceInfoFixedDay": "elke {{day}} van de maand",
+    "recurrenceInfo": {
+      "year": "per jaar",
+      "year_plural": "om de {{count}} jaren",
+      "month": "per maand",
+      "month_plural": "om de {{count}} maanden",
+      "week": "per week",
+      "week_plural": "om de {{count}} weken",
+      "day": "per dag",
+      "day_plural": "om de {{count}} dagen"
+    },
+    "commitmentPeriod": {
+      "explain": {
+        "year": "Dit abonnement verbindt het lid voor {{ commitment_period_value }} jaar.",
+        "year_plural": "Dit abonnement verbindt het lid voor {{ commitment_period_value }} jaren.",
+        "month": "Dit abonnement verbindt het lid voor {{ commitment_period_value }} maand.",
+        "month_plural": "Dit abonnement verbindt het lid voor {{ commitment_period_value }} maanden.",
+        "week": "Dit abonnement zal het lid voor {{ commitment_period_value }} week vastleggen.",
+        "week_plural": "Dit abonnement zal het lid voor {{ commitment_period_value }} weken vastleggen.",
+        "day": "Dit abonnement zal het lid voor {{ commitment_period_value }} dag vastleggen.",
+        "day_plural": "Dit abonnement zal het lid voor {{ commitment_period_value }} dagen vastleggen."
+      },
+      "label": "Commitmentperiode"
+    }
+  },
+  "action": {
+    "revertCurrentExplain": "Annuleer de laatste factuur en blokkeer de leskaart",
+    "revertCurrentExplainHelper": "Als de betaling geldig was, dan zal het lid een tegoed ontvangen. Je kunt het tegoed aan de klant terugbetalen door op \"Terugbetalen\" op de factuur te klikken. De schuld wordt kwijt gescholden indien de betaling mislukte.",
+    "stopExplain": "De volgende betalingen worden geannuleerd en de bijbehorende facturen worden verwijderd. Als een reservering is geregistreerd met een abonnement waarvoor de factuur is geannuleerd, wordt deze ook geannuleerd.",
+    "stop": "Beëindigen",
+    "planStop": "Beëindigen"
+  },
+  "paymentMethod": {
+    "credit": {
+      "explain": "Gebruik de interne rekening (Wallet) voor de facturatie indien er nog geen andere betaalmethode, zoals IBAN of creditcard is toegevoegd. Dit kan later worden gewijzigd."
+    },
+    "sepa": "Automatische incasso (SEPA)",
+    "card": "Betaalkaart",
+    "bsportCredit": "Interne rekening (Wallet)",
+    "bacs_debit": "BACS Directe debiet"
+  },
+  "mandate": {
+    "content": "Door je IBAN op te geven en je betaling te bevestigen geef je BSPORT Solution en Stripe (de betaalprovider) toestemming om de incasso-opdrachten via je bank te verwerken. Indien nodig, kun je via je bank conform hun voorwaarden een stornering binnen 8 weken na de eerste incasso aanvragen.",
+    "name": "Volledige naam",
+    "email": "E-mailadres",
+    "contentIban": "Door uw IBAN op te geven en uw betaling te bevestigen, machtigt u bsport en Stripe, ons betalingssysteem, om debetinstructies naar uw bank te sturen in overeenstemming met het betalingsschema. U kunt een terugbetaling aanvragen bij uw bank in overeenstemming met de voorwaarden van uw contract met uw bank. Een terugbetaling moet binnen 8 weken na de eerste afschrijving worden aangevraagd.",
+    "contentBacsDebit": "Door uw bankgegevens op te geven en uw betaling te bevestigen, machtigt u bsport en Stripe, ons betalingssysteem, om debetinstructies naar uw bank te sturen in overeenstemming met het betalingsschema. U kunt bij uw bank een terugbetaling aanvragen in overeenstemming met de voorwaarden van uw contract met uw bank. U kunt uw bank te allen tijde verzoeken het incasso-mandaat te annuleren.",
+    "accountNumber": "Rekeningnummer",
+    "sortCode": "Sorteercode"
+  },
+  "events": {
+    "list": {
+      "title": "Recente gebeurtenissen"
+    },
+    "billing_plan-pause": "Gepauzeerde betalingen",
+    "billing_plan-create": "Toevoegen",
+    "billing_plan-stop": "Abonnement gestopt door",
+    "billing_plan-renew": "Automatische verlengingen",
+    "billing_plan-payment_dispute": "Gestorneerde betalingen",
+    "billing_plan-payment_success": "Succesvolle betalingen",
+    "billing_plan-payment_failure": "Geweigerde betalingen",
+    "billing_plan-update_payment_method": "Gewijzigde betaalmethoden",
+    "billing_plan-update_payment_pack": "Gewijzigde kaarten",
+    "billing_plan-update_payment_combo": "Gewijzigde pakketten",
+    "billing_plan-update_private_pass": "Gewijzigde afspraakkaarten",
+    "billing_plan-update": "Abonnement bewerken",
+    "billing_plan-pause_deleted": "Pauze stopzetten"
+  },
+  "save": "bevestigen",
+  "table": {
+    "noContent": "Er zijn geen abonnementen om weer te geven."
+  },
+  "subscription": {
+    "list": {
+      "title": "Lopende abonnementen"
+    },
+    "actionSection": "Beheren",
+    "invoicesSection": "Facturen",
+    "pauseSection": "Pauzes",
+    "switchPack": {
+      "form": {
+        "title": "[Formulier] Kaartwijziging",
+        "explain": "De nieuwe kaart wordt voortaan voor toekomstige facturaties gebruikt. Sessies die met de oude leskaart gereserveerd zijn worden overgezet naar de nieuwe kaart, ook als deze niet compatibel zijn.",
+        "warning": "De facturatie blijft hetzelfde. Wijzig iedere betaling apart, indien je het bedrag wenst te veranderen.",
+        "cancel": "Annuleren",
+        "submit": "Opslaan"
+      }
+    },
+    "freeze": {
+      "form": {
+        "explainWarning": "Let op: deze actie is definitief.",
+        "cancel": "Annuleren",
+        "submit": "Opslaan",
+        "title": "[Formulier] Pauzeren",
+        "name": {
+          "label": "Reden",
+          "placeholder": "Vakantiedag"
+        },
+        "days": {
+          "label": "Aantal dagen"
+        },
+        "explain": "Geef aan met hoeveel dagen de eerstvolgende en toekomstige betalingen wordt uitgesteld.",
+        "explainInvoice": "Selecteer vanaf welke factuur je dit abonnement wilt pauzeren:"
+      },
+      "disabledReasons": {
+        "month_billing_day": "Niet in staat om een contract voor een vaste dag te pauzeren "
+      }
+    },
+    "actions": {
+      "switchPaymentMethod": "Betaalmethode wijzigen",
+      "freeze": "Pauzeren",
+      "switchPack": "Kaart wijzigen",
+      "advanceTime": "Factuur vooraf betalen",
+      "postPone": "Factuur uitstellen",
+      "changeDate": "Wijzig de factuurdatum",
+      "showInvoice": "Toon factuur",
+      "changePrice": "Wijzig de prijs",
+      "stop": "Na deze factuur beëindigen",
+      "disableAutoRenew": "Deactiveer automatische verleningen",
+      "enableAutoRenew": "Activeer automatische verleningen"
+    },
+    "delete": "Verwijderen",
+    "register": "Abonneren",
+    "edit": "Bewerken",
+    "buy": "Aanschaffen",
+    "scheduledStop": {
+      "title": "[Formulier] Beëindiging",
+      "explain": "Selecteer de laatste betaling voor dit abonnement:",
+      "summary": "De laatste betaling wordt op {{-date}} verwerkt en dit komt overeen met de laatste kaart.",
+      "listItem": "Geplande beëindiging van dit abonnement",
+      "notePlaceholder": "Reden"
+    },
+    "invoice": {
+      "label": "Factuur: {{uuid}} - {{price}}"
+    },
+    "listItem": {
+      "recurrencePriceIs": "Terugkerende betaling: {{currencyDisplay}}{{ amount }}",
+      "nextBillingDate": "Eerstvolgende facturatie: {{ d }}",
+      "startingAt": "Startdatum: {{ d }}"
+    },
+    "switchPaymentCombo": {
+      "form": {
+        "submit": "Opslaan",
+        "cancel": "Annuleren",
+        "warning": "De facturatie wordt niet gewijzigd. Bewerk alle facturen apart om het bedrag te wijzigen.",
+        "prewarning": "Wijzig dit abonnement om alle toekomstige facturen te wijzigen.",
+        "explain": "Dit nieuwe pakket vervangt alle vorige pakketten op de nieuwe facturen na de automatische verlenging van dit abonnement.",
+        "title": "Het pakket is bijgewerkt"
+      }
+    },
+    "switchPrivatePass": {
+      "form": {
+        "submit": "Opslaan",
+        "cancel": "Annuleren",
+        "warning": "De facturatie wordt niet gewijzigd. Bewerk alle facturen apart om het bedrag te wijzigen.",
+        "explain": "Deze afspraakkaart wordt aan alle toekomstige facturen toegewezen. Alle sessies van de oude afspraakkaart worden ook naar de nieuwe afspraakkaart overgezet.",
+        "title": "De afspraakkaart is bijgewerkt"
+      }
+    },
+    "prorata": {
+      "helperOnSusscribe": "In verband met de pro-rata betaling zal er allereerst {{ priceWithCurrency }} op {{-firstBillingDate}} in rekening worden gebracht. Vervolgens wordt er iedere maandelijks ({{ monthBillingDay }}) een bedrag van {{ recurrentPrice }} geïncasseerd."
+    }
+  },
+  "pause": {
+    "pausedInterval": "{{start}}  →  {{end}} | {{days}} dag(en)",
+    "pausedAt": "{{days}} dagen - {{date}}",
+    "actions": {
+      "delete": "Pauze annuleren"
+    },
+    "secondaryLabel": " : {{ note }}",
+    "label": "Gepauzeerd van {{- fromDate}} tot en met {{- untilDate}}",
+    "createdAt": "Gepauzeerd op: ",
+    "dialogs": {
+      "form": {
+        "confirm": "Opslaan",
+        "duration": {
+          "end": "Eind",
+          "start": "Van",
+          "title": "Duur",
+          "warning": "De einddatum moet ná de startdatum zijn."
+        },
+        "causePlaceholder": "Reden *",
+        "titleEdition": "Pauze bewerken",
+        "titleCreation": "[Formulier] Pauzeren",
+        "information2": "De verlenging van de vervaldatum staat gelijk aan het aantal dagen dat de pauzering duurt.",
+        "information": "Deze abonnementen worden van {{- dateStart}} tot en met {{- dateEnd}} gepauzeerd. De eerstvolgende facturatie(s) worden met {{count}} dag(en) uitgesteld.",
+        "information_plural": "Deze abonnementen worden van {{- dateStart}} tot en met {{- dateEnd}} gepauzeerd. De eerstvolgende facturatie(s) worden met {{count}} dag(en) uitgesteld."
+      },
+      "fail": {
+        "comeback": "Terug",
+        "contentInvalidTimedelta": "De minimumduur van een pauze is 1 dag.",
+        "contentUnknownError": "Er is een onverwachte fout opgetreden. Onze excuses voor het ongemak.",
+        "contentCanNotCreateAPauseInThePast": "De pauzering kan niet in het verleden beginnen.",
+        "contentCanNotEditPauseEndBeforeToday": "De nieuwe startdatum moet ná vandaag zijn.",
+        "contentCanNotEditPauseStartWhenHasStarted": "De startdatum kan niet gewijzigd worden, indien deze datum al verstreken is.",
+        "contentSubscriptionWillEndBeforePause": "Het is niet mogelijk om deze pauzering stop te zetten, omdat het al afgelopen zal zijn.",
+        "contentCanNotCancelPause": "Het is niet mogelijk om reeds begonnen of stopgezette pauzeringen te annuleren.",
+        "contentOverlapPause": "Er is reeds een pauze ({{- dateStart}} t/m {{- dateEnd}}) voor dit abonnement ({{subscriptionName}}) van {{subscriberName}} ingesteld.",
+        "contentIncomingBill": "Dit abonnement ({{subscriptionName}}) van {{subscriberName}} kon niet gepauzeerd worden, omdat recent een betaling wordt verwerkt of binnen 24 uur van pauzering een betaling verwerkt zal worden. Gelieve de data van de pauze wijzigen.",
+        "title": "Fout bij het pauzeren van dit abonnement"
+      },
+      "success": {
+        "continue": "Verder",
+        "content": "Dit abonnement ({{subscriptionName}}) van \"{{subscriberName}}\" is van {{- dateStart}} tot en met {{- dateEnd}} gepauzeerd.",
+        "title": "Dit abonnement is succesvol gepauzeerd"
+      },
+      "delete": {
+        "content": "Weet je zeker dat je de pauze van dit abonnement wilt stopzetten?",
+        "title": "Pauze stopzetten"
+      },
+      "common": {
+        "confirm": "Bevestigen",
+        "cancel": "Annuleren"
+      }
+    },
+    "eventItems": {
+      "pauseDeleted": "Reden: {{pause_name}}",
+      "pauseCreatedThenDeleted": "Deze pauze is stopgezet of bewerkt.",
+      "pauseCreated": "Dit abonnement is door {{staffName}} op {{- dateCreation}} gepauzeerd. De pauze is actief van {{- dateStart}} tot en met {{- dateEnd}}."
+    },
+    "menu": {
+      "delete": "Stopzetten",
+      "change": "Data wijzigen"
+    }
+  },
+  "plannedInvoice": {
+    "priceUpdater": {
+      "title": "[Formulier] Betaalwijziging",
+      "price": "Nieuw bedrag",
+      "explain": "Alleen deze factuur wordt gewijzigd",
+      "cancel": "Annuleren",
+      "submit": "Opslaan",
+      "updateAll": "Wijzig alle toekomstige ingeplande incasseringen tot de automatische verlenging",
+      "updateRecurrentPrice": "Deze wijzigingen ook toepassen op alle incasseringen na de automatische verlenging",
+      "nonNullDiscount": "Dit abonnement bevat momenteel een kortingsbon. Met deze coupon wordt geen rekening gehouden wanneer de prijs wordt bijgewerkt.",
+      "nonNullFlatFees": "Dit abonnement bevat momenteel administratiekosten van {{ flatFeesAmount }} {{ currencyDisplay }}. Deze administratiekosten worden niet in aanmerking genomen wanneer de prijs wordt bijgewerkt."
+    },
+    "list": {
+      "titleNext": "Eerstvolgende incasso's"
+    },
+    "dateUpdater": {
+      "title": "[Formulier] Factuurdatum wijzigen",
+      "actions": {
+        "submit": "Opslaan",
+        "cancel": "Annuleren"
+      },
+      "explain": "Alleen deze factuur wordt gewijzigd.",
+      "label": "Incassodatum"
+    }
+  },
+  "recap": {
+    "every": " per ",
+    "forObject": " voor ",
+    "forATotalOf": "Totaalbedrag: ",
+    "includingFreeTrialOf1": " waaronder ",
+    "month": "maand in rekening gebracht voor een: ",
+    "times": " keer/keren ",
+    "from": "Van ",
+    "willBecharged": " wordt ",
+    "to": " tot ",
+    "includingFreeTrialOf2": " niet gefactureerd "
+  },
+  "parameters": {
+    "autoRenew": "Activeer automatische verlengingen",
+    "status": "Status",
+    "subscribeAgain": "Opnieuw abonneren",
+    "voucher": "Promotie",
+    "recurrent_voucher": "Korting op elke factuur",
+    "name": "Naam",
+    "recurrent_price": "Herhalende betaling",
+    "flat_fee": "Inschrijfkosten : {{price_with_currency}}",
+    "parameters": "Instellingen",
+    "payment_method": {
+      "0": "Betaalkaart",
+      "1": "Automatische incasso (SEPA)",
+      "2": "Interne rekening (Wallet)",
+      "label": "Betaalmethode",
+      "paymentOnline": "Online betaling"
+    },
+    "trial_nb": "Totaal aantal gratis facturen",
+    "member": "Lid",
+    "dateCreated": "Aanmaakdatum",
+    "nbInterval": "Aantal incasso's",
+    "paymentPack": "Leskaart",
+    "nbMonths": "Aantal incasso's",
+    "dateStart": "Eerste factuurdatum",
+    "firstBilling": "Eerste factuur",
+    "payment_pack": "Leskaarten",
+    "private_pass": "Afspraakkaarten",
+    "privatePass": "Afspraakkaart",
+    "note": "Notitie",
+    "payment_method_group": {
+      "1": "Betaalkaart",
+      "2": "SEPA",
+      "14": "Interne rekening (Wallet)"
+    },
+    "paymentCombo": "Pakket",
+    "payment_combo": "Pakket",
+    "contractTermsAccepted": "<0>Voorwaarden</0> zijn geaccepteerd op {{- dateAccepted}}.",
+    "stopNote": "Annulering",
+    "secondBillingPlanEnabled": "Tweede factureringsplan ingeschakeld",
+    "source_company": "Gekocht bij"
+  },
+  "cancel": "annuleren",
+  "plannedInvoiceStatus": {
+    "pending": "In afwachting",
+    "canceled": "Geannuleerd",
+    "failed": "Betaling geweigerd",
+    "succeeded": "Verzilverd",
+    "processing": "Betaling in behandeling",
+    "reverted": "Geannuleerd"
+  },
+  "form": {
+    "check": "Bevestigen",
+    "submit": "Voltooien",
+    "title": "Nieuwe herhalende betaling",
+    "cancel": "Annuleren",
+    "note": {
+      "label": "Notitie"
+    }
+  },
+  "subscriptionStatus": {
+    "pending": "Openstaande factuur",
+    "canceledOn": "Beëindigd op ",
+    "hasEnded": "Facturatie voltooid",
+    "isPaused": "Gepauzeerd"
+  },
+  "schedule": {
+    "provisionalTitle": "Betaaloverzicht",
+    "paymentMethodTitle": "Betaalmethode"
+  },
+  "noContracts": "In dit onderdeel worden alle abonnementen beheerd. Selecteer de incassering (dagelijks, wekelijks, maandelijks ofjaarlijks), bereken eventuele inschrijfkosten en voeg de actuele voorwaarden toe.",
+  "copyLink": "De directe link naar de betaalpagina kopiëren",
+  "listItem": {
+    "valid": "Geldig",
+    "paused": "Gepauzeerd",
+    "expired": "Verlopen",
+    "canceled": "Beëindigd",
+    "subscribedOn": "Startdatum abonnement: {{- date}}",
+    "willSubscribeOn": "Abonnement start op {{- date}}"
+  },
+  "noAssociatedSubscription": "Er zijn nog geen geabonneerde leden om weer te geven.",
+  "associatedSubscriptions": "Geabonneerde leden",
+  "status": {
+    "hasEnded": "Beëindigd",
+    "hasStopped": "Gepauzeerd",
+    "hasNotStartedYet": "Inactief",
+    "hasStarted": "Actief",
+    "isPaused": "Gepauzeerd"
+  },
+  "scheduledStop": {
+    "unscheduleStop": "Beëindigen terugdraaien",
+    "label": "Beëindigd",
+    "stoppedByMember": "Beëindigd door het lid",
+    "stoppedByManager": "Beëindigd door {{ name }}"
+  },
+  "end": {
+    "renew": "Automatische verlenging",
+    "noRenew": "Einde van het abonnement"
+  },
+  "contractPause": {
+    "form": {
+      "invalidBillingPlan": "De volgende abonnementen konden niet automatisch worden gepauzeerd",
+      "validBillingPlan": "De volgende abonnementen worden gepauzeerd",
+      "untilDate": {
+        "label": "en "
+      },
+      "fromDate": {
+        "label": "Facturatie tussen "
+      },
+      "advanced": "Geavanceerd",
+      "days": {
+        "helperText": "De pauze gaat op de dag van de eerstvolgende facturatie van kracht en de toekomstige facturatie wordt met het hierboven aangegeven aantal dagen uitgesteld.",
+        "label": "Aantal dagen"
+      },
+      "name": {
+        "label": "Notitie",
+        "placeholder": "Voorbeeld: gesloten i.v.m. Koningsdag"
+      },
+      "warning": "Let op: sommige abonnementen kunnen na de pauze niet worden herstart.",
+      "title": "[Formulier] Abonnementspauze",
+      "dateFilter": {
+        "label": "Pauzeer alleen abonnementen die tussen deze twee data worden gefactureerd"
+      },
+      "explainImpossible": "Een abonnement kan niet automatisch worden gepauzeerd als er momenteel een betaling wordt uitgevoerd of binnen 24 uur wordt verwacht.",
+      "paymentPackActions": {
+        "title": "Instellingen",
+        "disableTillNextInvoice": "Deactiveer het gefactureerde abonnement tot de eerstvolgende facturatie",
+        "extendTillNextInvoice": "Verleng de geldigheid van de gefactureerde kaart tot de eerstvolgende facturatie",
+        "doNotChange": "De gefactureerde kaart niet wijzigen"
+      }
+    },
+    "actions": {
+      "previous": "Terug",
+      "verify": "Bevestigen",
+      "add": "Pauzeren",
+      "submit": "Pauzeren",
+      "cancel": "Sluiten"
+    },
+    "section": {
+      "error": "Fout bij het automatisch pauzeren van {{count}} abonnement",
+      "error_plural": "Fout bij het automatisch pauzeren van {{count}} abonnementen",
+      "success": "{{count}} gepauzeerd abonnement",
+      "success_plural": "{{count}} gepauzeerde abonnementen"
+    },
+    "fromUntil": "Alleen als de facturatie tussen {{from}} en {{until}} is.",
+    "createdAt": "Aanmaakdatum: {{at}}",
+    "title": "Abonnementspauze"
+  },
+  "seeMore": "Toon meer",
+  "search": "Zoek een abonnement",
+  "notificationToolTip": "Notificaties zijn ingesteld voor dit abonnement",
+  "notificationForm": {
+    "subtitle": "Abonnementen",
+    "warning": "Gebruik deze meldingen om leden te informeren over de status van hun abonnement.",
+    "notificationType": {
+      "firstBilling": "de eerste facturatie voor dit abonnement.",
+      "contractEnd": "Einde abonnement",
+      "warningHourFirst": "Deze melding wordt X uur voor middernacht van de eerste factuurdatum verstuurd.",
+      "title": "Notificatie",
+      "sendNotification": "Verstuur deze melding",
+      "day": "dag(en)",
+      "day_plural": "dagen",
+      "hour": "uur",
+      "hour_plural": "uur",
+      "before": "voor",
+      "after": "na",
+      "afterSubcriptionCreation": "na het afsluiten van het abonnement.",
+      "warningDayFirst": "Deze melding wordt X dag(en) voor middernacht van de eerste factuurdatum verstuurd.",
+      "warningDayLast": "Deze melding wordt X dag(en) na middernacht van de eerste factuurdatum verstuurd.",
+      "warningHourLast": "Deze melding wordt X uur na middernacht van de eerste factuurdatum verstuurd."
+    },
+    "notificationPush": {
+      "warning": "Gebruik push-notificaties spaarzaam. Het spammen van leden met push-notificaties vergroot de kans dat leden de app verwijderen.",
+      "parameters": "Instellingen",
+      "title": "Titel",
+      "content": "Inhoud",
+      "addTag": "Een tag toevoegen"
+    },
+    "title": "[Formulier] Melding",
+    "typeSection": {
+      "title": "Status",
+      "contractStart": "Aanschaf abonnement",
+      "contractEnd": "Einde abonnement"
+    },
+    "triggeringEvent": {
+      "title": "Evenement",
+      "contractCreation": "Bij het afsluiten van het abonnement",
+      "firstBilling": "Rondom de eerste facturatie"
+    },
+    "sendingMethod": {
+      "title": "Communicatiekanaal",
+      "email": "E-mail",
+      "notificationPush": "Push-notificatie"
+    },
+    "emailNotification": {
+      "parameters": "Instellingen",
+      "emailToSend": "Selecteer de te versturen e-mail:"
+    },
+    "buttons": {
+      "cancel": "Annuleren",
+      "submit": "Opslaan"
+    },
+    "smartLists": {
+      "createSmartList": "Een Smartlist toevoegen",
+      "smartListHelperInclude": "Stuur WÉL een melding als een lid tot één van de volgende Smartlists behoort:",
+      "smartListHelper": "Stuur GÉÉN melding als een lid tot één van de volgende Smartlists behoort:",
+      "advanced": "Gevorderd",
+      "warning": "Door geen Smartlist(s) te selecteren of te gebruiken is het mogelijk dat je leden contacteert die recent een kaart hebben gekocht.",
+      "smartListSelection": "(Optioneel) Selecteer Smartlists"
+    }
+  },
+  "notification": {
+    "title": "Verstuur deze melding {{count}} {{periodScale}} {{notificationKind}}.",
+    "creation": "na het afsluiten van dit abonnement",
+    "beforefirstBilling": "voor de eerste facturatie plaatsvindt",
+    "afterfirstBilling": "nadat de eerste facturatie heeft plaatsgevonden",
+    "beforeSubscriptionEnd": "voor de einddatum van het abonnement",
+    "afterSubscriptionEnd": "na de einddatum van het abonnement",
+    "days": "dag(en)",
+    "days_plural": "dagen",
+    "hours": "uur",
+    "hours_plural": "uur"
+  },
+  "addNotification": "Een notificatie toevoegen",
+  "contractNotification": {
+    "creation": "Afsluiting",
+    "firstBilling": "Eerste facturatie"
+  },
+  "pauseV2": {
+    "subscriptionPause": {
+      "form": {
+        "failureStep": {
+          "contentCanNotCancelPause": "Reeds begonnen pauzeringen kunnen niet worden geannuleerd.",
+          "contentInvalidTimedelta": "De duur moet ten minste één dag zijn.",
+          "contentOverlapPause": "Het {{- subscriptionName}} abonnement van {{- subscriberName }} kon niet worden gepauzeerd omdat er al een pauze is gepland van {{- fromDate}} tot {{- untilDate}}.",
+          "title": "Pauzering mislukt",
+          "contentUnknownError": "Er is een onvoorziene fout opgetreden. Onze excuses voor het ongemak.",
+          "contentSubscriptionHasNotStarted": "De pauze is niet voltooid omdat het datumbereik van de pauze vóór de start van het abonnement ligt.",
+          "contentCanNotCreateAPauseInThePast": "De pauze kan niet in het verleden beginnen.",
+          "contentCanNotEditPauseEndBeforeToday": "De nieuwe begindatum van de pauze kan niet eerder dan vandaag worden ingesteld.",
+          "contentCanNotEditPauseStartWhenHasStarted": "De begindatum van de pauze kan niet worden gewijzigd wanneer deze eenmaal is begonnen.",
+          "contentSubscriptionWillEndBeforePause": "Het abonnement kan in deze periode niet worden gepauzeerd omdat het eerder is afgelopen of de verlenging ervan op dat moment nog niet is uitgevoerd.",
+          "contentIncomingBill": "Het {{- subscriptionName}} abonnement van {{- subscriberName }} kon niet worden gepauzeerd omdat een factuur in het pauze-interval binnen 24 uur wordt gefactureerd of een betaling heeft lopen. Wijzig de begindatum van de pauze."
+        },
+        "successStep": {
+          "content": "Het {{- subscriptionName}} abonnement van {{- subscriberName }} is gepauzeerd van {{- fromDate}} tot {{- untilDate}} inbegrepen.",
+          "title": "Abonnement pauzeren"
+        },
+        "initStep": {
+          "titleUpdate": "Pauze wijzigen",
+          "titleCreation": "Gepauzeerd",
+          "information2": "De geldigheidsduur van de leskaart wordt verlengd met het aantal dagen van de pauze en de leskaart blijft geldig tijdens de pauze.",
+          "information1": "Het abonnement wordt gepauzeerd van {{- fromDate}} tot en met {{- untilDate}}. De volgende facturering na de pauze wordt verschoven met {{count}} dag, evenals alle toekomstige factureringen.",
+          "information1_plural": "Het abonnement wordt gepauzeerd van {{- fromDate}} tot en met {{- untilDate}}. De volgende facturering na de pauze wordt verschoven met {{count}} dagen, evenals alle toekomstige factureringen."
+        }
+      },
+      "eventItems": {
+        "pauseDeleted": "Reden voor vorige pauze: {{pause_name}}",
+        "pauseCreatedThenDeleted": "Deze pauze is verwijderd of gewijzigd."
+      },
+      "deleteDialogContent": "Weet je zeker dat je deze pauze wilt stoppen?"
+    },
+    "contractPause": {
+      "sections": {
+        "error": "{{count}} abonnement kon niet worden gepauzeerd",
+        "error_plural": "{{count}} abonnementen konden niet worden gepauzeerd",
+        "success": "{{count}} abonnement gepauzeerd",
+        "success_plural": "{{count}} abonnementen gepauzeerd"
+      },
+      "updateNameDialogTitle": "Reden",
+      "deleteDialogContent": "Weet je zeker dat je de pauzering van al deze abonnementen wilt annuleren?",
+      "form": {
+        "thirdStep": {
+          "successExplanation": "{{ count }} abonnement(en) is/zijn van {{- fromDate}} tot en met {{- untilDate}} gepauzeerd.",
+          "successExplanation_plural": "{{ count }} abonnement(en) is/zijn van {{- fromDate}} tot en met {{- untilDate}} gepauzeerd.",
+          "title": "Algemene pauzering"
+        },
+        "secondStep": {
+          "noCompatibleSubscriptions": "Er zijn geen abonnementen die gepauzeerd kunnen worden.",
+          "sectionFailure": "Pauzering mislukt ",
+          "sectionSuccess": "Gepauzeerde abonnementen",
+          "title": "Bevestiging",
+          "incompatibleSubscriptions": "De volgende abonnementen konden niet worden gepauzeerd om één van de volgende redenen: een betaling binnen het pauze-interval is gepland binnen 24 uur, een betaling voor een toekomstige factuur is in behandeling, de geselecteerde periode overlapt met een andere reeds geplande pauze, het abonnement is nog niet gestart."
+        },
+        "firstStep": {
+          "titleUpdate": "Algemene pauzering wijzigen",
+          "titleCreation": "Alle abonnementen pauzeren",
+          "information2": "De geldigheidsduur van de leskaart wordt verlengd met het aantal dagen van de pauze en de leskaart blijft geldig tijdens de pauze.",
+          "information1": "Abonnementen zullen worden gepauzeerd van {{- fromDate}} tot en met {{- untilDate}}. De volgende facturering zal worden uitgesteld met {{count}} dag, evenals alle toekomstige facturen en leskaarten.",
+          "information1_plural": "Abonnementen worden gepauzeerd van {{- fromDate}} tot en met {{- untilDate}}. De volgende facturering zal worden uitgesteld met {{count}} dagen, evenals alle toekomstige facturen en leskaarten."
+        }
+      },
+      "title": "Alle abonnementen pauzeren"
+    },
+    "common": {
+      "menu": {
+        "cancelForbidden": "De begindatum van een reeds begonnen pauzering kan niet worden gepauzeerd.",
+        "changeForbidden": "Een verlopen pauzering kan niet worden bewerkt.",
+        "changeContractForbidden": "In bulk gepauzeerde abonnementen kunnen niet worden bewerkt.",
+        "changeName": "Reden wijzigen",
+        "change": "Data wijzigen",
+        "delete": "Stopzetten"
+      },
+      "listItem": {
+        "isUpdated": "Bewerkte pauzering",
+        "label": "Gepauzeerd van {{- fromDate}} tot en met {{- untilDate}}",
+        "pausedAt": "{{ days }} dag(en) - Op {{- date}}",
+        "deletedAt": "Pauze is geannuleerd op {{- dateDeletion}}",
+        "deletedAtBy": "Geannuleerd op {{- dateDeletion}} door {{- staffName }}",
+        "createdAt": "Gepauzeerd op {{- dateCreation}}",
+        "createdAtBy": "Gemaakt op {{- dateCreation}} door {{- staffName }}",
+        "fromToUntil": "Gepauzeerd van {{- fromDate}} tot en met {{- untilDate}}"
+      },
+      "deleteDialog": {
+        "title": "Pauzering annuleren"
+      },
+      "form": {
+        "duration": {
+          "warning": "De einddatum moet ná de startdatum zijn.",
+          "end": "Tot en met",
+          "start": "Van",
+          "title": "Duur"
+        },
+        "reasonPlaceholder": "Reden*"
+      },
+      "actions": {
+        "continue": "Verder",
+        "save": "Opslaan",
+        "goBack": "Terug",
+        "previous": "Terug",
+        "verify": "Controleren",
+        "pause": "Abonnement pauzeren",
+        "confirm": "Bevestigen",
+        "cancel": "Annuleren"
+      }
+    }
+  },
+  "register": {
+    "dialog": {
+      "info": "Uw abonnement wordt geregistreerd, wij zullen u informeren wanneer het klaar is.",
+      "error": "Onmogelijk om het abonnement te registreren, probeer het later opnieuw.",
+      "success": "Uw abonnement {{- name }} is succesvol geregistreerd."
+    }
+  },
+  "billing_plan_status": {
+    "0": "Nog niet gestart",
+    "1": "Aan de gang",
+    "2": "Gestopt",
+    "3": "Op pauze",
+    "4": "Afgerond"
+  },
+  "invisibleForStaffToolTip": "Onzichtbaar voor het personeel",
+  "alreadySubscribed": {
+    "dialog": {
+      "title": "Reeds ingeschreven",
+      "content": "Je hebt dit abonnement onlangs al gekocht. Als u het nog niet ziet, wacht dan even. Als u het echter opnieuw wilt kopen, wacht dan een paar minuten en probeer het opnieuw.",
+      "validate": "Ok"
+    }
+  },
+  "subscriptionNotFound": {
+    "explanation": "Dit abonnement is niet meer beschikbaar. Selecteer een ander abonnement of contacteer de onderneming.",
+    "title": "Er zijn geen zoekresultaten voor dit abonnement."
+  },
+  "newCheckout": {
+    "error": {
+      "button": {
+        "userRegistration": "Bekijk mijn abonnement",
+        "registerBackground": "Sluiten"
+      },
+      "text": {
+        "userRegistration": "Je abonnement is aangemaakt en je betaalmethode zal binnenkort worden afgeschreven. Je boeking is echter nog niet geregistreerd.",
+        "registerBackground": "Je inschrijving en boeking konden niet worden aangemaakt. De betaalmethode is niet gedebiteerd."
+      },
+      "title": "Er is een fout opgetreden"
+    },
+    "payment": {
+      "tooltip": "Deze betaalmethode wordt gebruikt voor facturering in overeenstemming met het contract. Maak je geen zorgen, je kunt dit later via je account wijzigen.",
+      "details": "Betalingsgegevens"
+    },
+    "subscriptionBasketSummary": {
+      "message": "Je kunt je abonnement bekijken op je profielpagina",
+      "payNow": "Nu betalen"
+    },
+    "terms": {
+      "acceptTerms": "Ik accepteer de <0>wettelijke voorwaarden</0>.",
+      "seeLess": "Minder zien",
+      "seeMore": "Meer zien",
+      "title": "Contractvoorwaarden"
+    },
+    "subscriptionSummary": {
+      "billingInterval": {
+        "day": "elke dag",
+        "day_plural": "elke {{ count }} dag",
+        "year": "elk jaar",
+        "year_plural": "elke {{ count }} jaar",
+        "week": "elke week",
+        "week_plural": "elke {{ count }} week",
+        "month": "elke maand",
+        "month_plural": "elke {{ count }} maand"
+      },
+      "prorataPriceText": "{{proratedPrice}} verschuldigd op {{-today}}, daarna {{recurrentPrice}}} elke {{monthBillingDay}}} van de maand.",
+      "item": "{{count}} element",
+      "item_plural": "{{count}} elementen",
+      "unlimited": "Onbeperkt",
+      "credit": "{{count}} credit",
+      "credit_plural": "{{count}} credits",
+      "startDate": "Startdatum"
+    },
+    "processingPaymentModal": {
+      "timeEstimation": "Dit kan tot een minuut duren",
+      "text": "Wacht tot de betaling is verwerkt. Verlaat of herlaad deze pagina niet.",
+      "title": "Betaling in uitvoering"
+    },
+    "title": "Abonnement"
+  },
+  "GermanMarketSetSubscriptionAutoRenewalAlert": {
+    "content": "Om te voldoen aan de Duitse wet op eerlijke consumentencontracten moeten nieuwe abonnementscycli na 2 jaar korter zijn dan een jaar. Weet je zeker dat je door wilt gaan?",
+    "title": "Automatische verlenging"
+  },
+  "germanNbIntervalAlert": "Om te voldoen aan de Duitse Fair Consumers Contract Act moet het aantal facturen minder dan 24 zijn.",
+  "billingPlanStatus": {
+    "valid": "Geldig",
+    "paused": "Gepauzeerd",
+    "expired": "Verlopen",
+    "canceled": "Beëindigd"
+  },
+  "filters": {
+    "all": "Alle abonnementen"
+  },
+  "franchiseUserProfile": {
+    "associatedPassValidity": "Geldig voor ",
+    "associatedInvoices": "Bijbehorende facturen",
+    "pleaseSelectASubscription": "Selecteer een abonnement voor een gedetailleerder overzicht."
+  },
+  "contractTemplate": {
+    "form": {
+      "sharedAppointmentPassesSelectorTooltip": "Studio's die toegang hebben tot deze gedeelde afsprakenkaart hebben ook toegang tot het abonnement",
+      "sharedPassesSelectorTooltip": "Studio's die toegang hebben tot deze gedeelde pas, hebben ook toegang tot het abonnement",
+      "title": "Abonnement"
+    },
+    "detailPage": {
+      "sharedStudios": "Gedeeld met de volgende studio's:"
+    },
+    "filter": {
+      "associatedPass": "Bijbehorende pas",
+      "productType": "Product",
+      "appointmentPasses": "Afspraakkaarten",
+      "passes": "Leskaarten",
+      "studios": "Studios",
+      "searchPlaceholder": "Een abonnement zoeken",
+      "availability": "Beschikbaarheid",
+      "unavailableForEveryone": "Niet voor iedereen beschikbaar",
+      "staffOnly": "Alleen voor personeel",
+      "memberOnly": "Leden alleen",
+      "availableForEveryone": "Beschikbaar voor iedereen",
+      "noFilters": "Alle abonnementen"
+    },
+    "dialog": {
+      "delete": {
+        "confirm": "Verwijder",
+        "cancel": "Annuleer",
+        "content": "Weet je zeker dat je het gedeelde abonnement wilt verwijderen?",
+        "title": "Bevestiging verwijderen"
+      }
+    },
+    "icons": {
+      "restore": "Herstel"
+    },
+    "list": {
+      "isEmpty": "Geen gedeelde contracten"
+    },
+    "backofficeEditWarning": "Het abonnement wordt gedeeld via de masteraccount. Bepaalde instellingen zijn vooraf gedefinieerd door de masteraccount en kunnen niet worden gewijzigd."
+  }
+}

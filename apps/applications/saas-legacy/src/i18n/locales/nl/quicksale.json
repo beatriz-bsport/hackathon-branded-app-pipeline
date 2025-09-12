@@ -1,0 +1,236 @@
+{
+  "itemList": {
+    "additionDrawer": {
+      "withoutCategory": "Geen categorie",
+      "noResult": "Geen resultaten",
+      "unselectAll": "Alles deselecteren",
+      "selectAll": "Alles selecteren",
+      "objectType": "Type object",
+      "category": "Categorie",
+      "add": "Toevoegen",
+      "cancel": "Annuleren",
+      "search": "Zoeken",
+      "tilesColor": "Tegelkleur",
+      "objectsAddition": "Objecten toevoegen",
+      "objectGroupsSubtitle": "Een groep objecten toevoegen",
+      "simpleObjectsSubtitle": "Objecten toevoegen",
+      "title": "Kassasysteem"
+    },
+    "goBack": "Terug"
+  },
+  "iconSelector": {
+    "searchPlaceholder": "Zoeken"
+  },
+  "sectionCard": {
+    "item": "artikel",
+    "item_plural": "artikelen"
+  },
+  "objectCard": {
+    "recurrence": {
+      "year": "jaarlijks",
+      "year_plural": "elke {{ recurrence_basis }} jaar",
+      "month": "maandelijks",
+      "month_plural": "elke {{ recurrence_basis }} maand(en)",
+      "week": "wekelijks",
+      "week_plural": "elke {{ recurrence_basis }} weken",
+      "day": "dagelijks",
+      "day_plural": "elke {{ recurrence_basis }} dag(en)"
+    },
+    "subtitle": {
+      "giftcard": "Cadeaubon",
+      "subscription": "Abonnementen",
+      "paymentCombo": "Pakket",
+      "shopProduct": "Product",
+      "privatePass": "Afspraakkaart",
+      "paymentPack": "Leskaart",
+      "product": "product",
+      "product_plural": "producten",
+      "credit": "credit(s)",
+      "credit_plural": "credits",
+      "unlimited": "Onbeperkt"
+    }
+  },
+  "rolePage": {
+    "noResult": "Momenteel zijn nog geen mensen gemachtigd om het kassasysteem te gebruiken.",
+    "actionColumn": "Acties",
+    "emailColumn": "E-mailadres",
+    "staffColumn": "Instructeurs",
+    "submit": "Opslaan",
+    "cancel": "Annuleren",
+    "password": "Wachtwoord",
+    "email": "E-mailadres",
+    "lastName": "Achternaam",
+    "firstName": "Voornaam",
+    "modalTitle": "[Formulier] Toegang kassasysteem",
+    "addAccess": "Toegang toevoegen",
+    "subtitle": "Selecteer hier de medewerkers die toegang hebben tot deze functie. Medewerkers moeten ingelogd zijn om deze optie te kunnen gebruiken.",
+    "title": "Verkooptoegang"
+  },
+  "pageTitle": "Kassasysteem",
+  "pageLeavePrompt": {
+    "discard": "Afsluiten zonder op te slaan",
+    "save": "Opslaan",
+    "description": "Omdat je tussentijds niets hebt opgeslagen sta je op het punt om alle wijzigingen ongedaan te maken. Wil je je wijzigingen opslaan?",
+    "title": "Onopgeslagen wijzigingen"
+  },
+  "cardListPage": {
+    "categoryArchivedSnackbar": "Deze categorie is gearchiveerd.",
+    "archivedCategories": "Gearchiveerde categorieën",
+    "categoryModalSubtitle": "Kleurenpalet",
+    "categoryModalTitle": "Categorie kleur",
+    "newSection": "Nieuwe categorie",
+    "addItems": "Klik op \"+\" om producten binnen een bepaalde tegel toe te voegen.",
+    "addSection": "Klik op \"+\" om een nieuwe tegel toe te voegen.",
+    "deleteTile": "Tegels verwijderen",
+    "archiveSection": "Categorieën archiveren",
+    "moveTile": "Tegels verplaatsen",
+    "editColor": "Kleuren wijzigen",
+    "editName": "Namen wijzigen",
+    "editIcon": "Icoontjes wijzigen",
+    "seeLess": "Toon minder",
+    "seeMore": "Toon meer",
+    "possibleActionsFull": "Je kunt acties uitvoeren door met je muis over de tegels te bewegen, zoals:",
+    "possibleActionsShort": "Je kunt acties uitvoeren door met de muis over de tegels te bewegen.",
+    "save": "Opslaan",
+    "preview": "Voorvertoning"
+  },
+  "interface": {
+    "seller": "Verkoper",
+    "anonymousSale": "Anonieme verkoop",
+    "searchAProduct": "Zoek een product",
+    "noResult": "Geen zoekresultaten",
+    "resultsForString": "Er is {{ count }} zoekresultaat voor \"{{ searchText }}\"",
+    "resultsForString_plural": "Er zijn {{ count }} zoekresultaten voor \"{{ searchText }}\"",
+    "goBack": "Terug",
+    "totalExcludingTax": "Totaal (excl. btw)",
+    "taxes": "Btw",
+    "totalIncludingTax": "Totaal (incl. btw)",
+    "payment": "Betaling",
+    "memberModal": {
+      "confirm": "Bevestigen",
+      "cancel": "Annuleren",
+      "title": "Ledenidentificatie"
+    },
+    "deleteCurrentBasket": {
+      "cancel": "Annuleren",
+      "delete": "Verwijderen",
+      "title": "Openstaande winkelmandjes verwijderen",
+      "subText": "Weet je zeker dat je dit winkelmandje wilt verwijderen?"
+    },
+    "payLater": {
+      "title": "Later betalen",
+      "cancel": "Annuleren",
+      "subText": "Dit winkelmandje is al gedeeltelijk betaald. Door het winkelmandje te sluiten wordt de rest van de betaling uitgesteld. Deze factuur is te vinden in de Back Office.",
+      "payLater": "Uitstellen"
+    },
+    "cannotEdit": {
+      "payment": "Betaling",
+      "title": "Onmogelijke wijzigingen",
+      "subText": "Dit winkelmandje is al gedeeltelijk betaald en kan niet langer worden bewerkt."
+    },
+    "objectAdded": {
+      "title": "Product toegevoegd",
+      "subText": "Het product is aan het winkelmandje toegevoegd."
+    },
+    "outOfStock": {
+      "title": "Geen voorraad",
+      "subText": "Het product dat u probeert toe te voegen aan uw winkelmandje is niet langer op voorraad in uw winkel. Wilt u het toch toevoegen?",
+      "addAnyway": "Toch toevoegen"
+    },
+    "selectItemToStart": "Klik op een product om een winkelmandje aan te maken",
+    "cannotAdd": {
+      "title": "Onmogelijk toe te voegen",
+      "subTextListItem": "Helaas kon het artikel niet worden toegevoegd omdat",
+      "newMember": {
+        "subText": "{{ optionalBeginning }} {{- name }} is geen nieuw lid."
+      },
+      "tag": {
+        "hasTag": "{{ optionalBeginning }} {{- name }} heeft de tag {{- tagName }}.",
+        "doesNotHaveTag": "{{ optionalBeginning }} {{- name }} heeft de tag {{- tagName }} niet.",
+        "hasTagAndDoesNotHaveTag": "{{ optionalBeginning }} {{- name }} heeft de {{- ownedTagName }} tag en heeft niet de {{- notOwnedTagName }} tag."
+      }
+    },
+    "authenticationNecessary": "Leden dienen geverifieerd te worden voor deze sectie.",
+    "ongoingBaskets": {
+      "title": "Openstaande winkelmandjes",
+      "subText": "Sluit ze voordat u de verbinding verbreekt."
+    },
+    "scannerMode": {
+      "title": "Scannermodus",
+      "subText": "Scan items om ze aan je winkelmandje toe te voegen.",
+      "done": "Beëindigen"
+    },
+    "authenticationRequired": {
+      "title": "Identificatie vereist",
+      "subTextListItem": "Het item dat je wilt toevoegen is",
+      "bottomSubText": "Zonder identificatie van het lid kunnen de nodige controles niet worden uitgevoerd.",
+      "identifyMember": "Een lid identificeren",
+      "newMember": {
+        "subText": "Het artikel dat je wilt toevoegen is gereserveerd voor nieuwe leden.",
+        "subTextListItem": "Gereserveerd voor nieuwe leden"
+      },
+      "maxPurchase": {
+        "subText": "Voor het item dat je wilt toevoegen, geldt een limiet voor het aantal aankopen.",
+        "subTextListItem": "Met een limiet op het aantal aankopen"
+      },
+      "tag": {
+        "subText": "Het artikel dat je wilt toevoegen is gereserveerd voor leden met bepaalde tags.",
+        "subTextListItem": "Gereserveerd voor leden met bepaalde tags"
+      }
+    },
+    "itemsRemovedFromBasket": {
+      "title": "Er zijn producten uit het winkelmandje verwijderd",
+      "subText": "Als een nieuw lid lid wordt, worden bepaalde items uit het mandje verwijderd omdat ze niet compatibel zijn met het nieuwe lid."
+    }
+  },
+  "checkout": {
+    "paymentSuccess": {
+      "subText": "De betaling is succesvol voltooid. Zo dadelijk wordt de de factuur per e-mail verstuurd.",
+      "subTextPartialPayment": "De betaling is ontvangen en de factuur is per e-mail verstuurd. Het resterende bedrag kan later worden geïncasseerd via de Back Office.",
+      "title": "Betaling geaccepteerd!",
+      "subTextAnonymous": "De betaling is succesvol voltooid.",
+      "printTicket": "Bon printen",
+      "sendByEmail": "Factuur per e-mail versturen",
+      "qrCodeTitle": "Download ontvangst",
+      "description": "De betaling is succesvol verwerkt."
+    },
+    "payLater": {
+      "subText": "Deze betaling kan later via de Back Office worden voltooid.",
+      "title": "Later betalen"
+    },
+    "billingDate": "Factuurdatum",
+    "priceExcludingTax": "Totaal (excl. btw)",
+    "tax": "Btw",
+    "priceIncludingTax": "Totaal (incl. btw)",
+    "invoiceFootNote": "Voetnoot factuur",
+    "deliveryFee": "Verzendkosten",
+    "priceRecap": "Samenvatting",
+    "leftToPay": "Resterend bedrag",
+    "amountDue": "Verschuldigd bedrag",
+    "partialPayment": "Incassering",
+    "leftDue": "Resterend bedrag:",
+    "onSpot": "Afhalen",
+    "homeDelivery": "Bezorging",
+    "firstName": "Voornaam",
+    "lastName": "Achternaam",
+    "sendToTerminal": "Stripe Terminal",
+    "cancel": "Annuleren",
+    "validate": "Bevestigen",
+    "emailSent": {
+      "title": "E-mail verstuurd",
+      "printTicket": "Bon printen",
+      "subText": "De factuur is verzonden naar het opgegeven e-mailadres."
+    },
+    "noAnonymousInstalment": {
+      "explanation": "Anonieme facturen kunnen niet in termijnen worden betaald",
+      "identify": "Identificatie"
+    },
+    "noPartialInstalment": {
+      "reset": "Herstellen",
+      "explanation": "Het is niet mogelijk om in termijnen te betalen als het totaalbedrag gewijzigd is."
+    },
+    "clientDebt": "Klantsaldo",
+    "noAnonymousClientDebt": "Klantsaldo kan alleen voor bestaande leden worden gebruikt.",
+    "internalCredits": "Interne credits"
+  }
+}

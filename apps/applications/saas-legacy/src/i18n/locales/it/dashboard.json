@@ -1,0 +1,326 @@
+{
+  "thisWeek": "Questa settimana",
+  "thisMonth": "Questo mese",
+  "newMembers": "Nuovi membri",
+  "nbOffers": "Sessioni",
+  "pageTitle": "Pannello di controllo",
+  "turnover": {
+    "title": "Incassi",
+    "caption": "Ricavi",
+    "popover": "Somma di tutti i pagamenti ricevuti contabilizzati"
+  },
+  "bookings": "Prenotazioni",
+  "dateRange": {
+    "start": "Inizio",
+    "end": "Fine"
+  },
+  "filterByDateTitle": "Filtra per data",
+  "detailsGraphTitle": "In dettaglio",
+  "current_week": "La settimana scorsa",
+  "current_month": "Lo scorso mese",
+  "last_three_months": "Ultimi tre mesi",
+  "current_year": "L'anno scorso",
+  "current_day": "Ultime 24 ore",
+  "popover": {
+    "bookingsWeektimeSlot": "Numero medio di sessioni per fascia oraria",
+    "billedSubscriptions": "Numero di fatture relative a un'iscrizione non annullata",
+    "turnover": "Somma di tutti i pagamenti ricevuti nelle fatture"
+  },
+  "bookingsWeektimeSlot": {
+    "title": "Media effettiva",
+    "popover": "Numero medio di sessioni per fascia oraria"
+  },
+  "billedSubscriptions": {
+    "title": "Numero di abbonamenti ricorrenti contabilizzati",
+    "caption": "Iscrizioni",
+    "popover": "Numero di ricevute relative a un'iscrizione non annullata"
+  },
+  "turnoverTitle": "Incasso",
+  "dateFilter": {
+    "customSelect": "Seleziona un intervallo di date",
+    "quickSelect": "Scelta rapida"
+  },
+  "bookingSource": {
+    "title": "Fonte delle prenotazioni",
+    "app": "Applicazione",
+    "web": "Web",
+    "other": "Altro",
+    "migration": "Migrazione di data",
+    "saas": "Backoffice bsport"
+  },
+  "plannedPayment": {
+    "title": "Incasso delle iscrizioni",
+    "caption": "Incasso",
+    "popover": "Somma di tutti i pagamenti ricevuti per le iscrizioni"
+  },
+  "noData": "Nessun dato da visualizzare",
+  "invoiceItems": {
+    "title": "Vendita per tipo di prodotto",
+    "contentType": {
+      "1": "Tessere dei corsi",
+      "2": "Prodotti del negozio",
+      "6": "Costi di spedizione",
+      "7": "Promozione",
+      "9": "Pass per appuntamento",
+      "10": "Pacchetti"
+    }
+  },
+  "customChart": {
+    "form": {
+      "radio": {
+        "pie": "Grafico a torta",
+        "grid": "Tabella della frequenza",
+        "area": "Grafico ad area",
+        "bar": "Istogramma",
+        "qualitativeInvoiceItem": "Divisione",
+        "temporalPlannedInvoice": "Evoluzione nel tempo",
+        "temporalPayment": "Evoluzione nel tempo",
+        "qualitativeBooking": "Divisione",
+        "temporalBooking": "Evoluzione nel tempo",
+        "temporalTimeslotBooking": "Frequenze giornaliere e orarie",
+        "temporalMember": "Evoluzione nel tempo",
+        "temporalPrivateBooking": "Evoluzione nel tempo"
+      },
+      "aggregateHelper": "Es: visualizza l'evoluzione del numero totale di membri, piuttosto che il numero di nuovi membri, ogni mese.",
+      "aggregate": "Raccogli",
+      "name": "Titolo del grafico",
+      "selector": {
+        "invoice": "Acquisti",
+        "payment": "Pagamenti",
+        "booking": "Prenotazioni",
+        "member": "Nuovi membri",
+        "object": {
+          "helperText": "Scegli cosa vuoi vedere",
+          "placeholder": "Seleziona il tipo di data",
+          "isEmpty": "Nessun data selezionato"
+        },
+        "privateBooking": "Appuntamenti"
+      },
+      "graphComponent": "Rappresentazione desiderata",
+      "datatype": "Tipo di grafico",
+      "submit": "Salva",
+      "cancel": "Annulla",
+      "title": "Grafico"
+    },
+    "noResource": "Seleziona il tipo di dato.",
+    "addChart": "Crea un grafico"
+  },
+  "invoiceItemDropdown": {
+    "contentType": {
+      "1": "Pacchetti per le lezioni",
+      "2": "Prodotti",
+      "6": "Costi di spedizione",
+      "7": "Promozioni",
+      "9": "Pacchetti per appuntamenti",
+      "10": "Pacchetti combinati"
+    }
+  },
+  "bookingDropdown": {
+    "source": {
+      "0": "Applicazione",
+      "1": "Web",
+      "2": "Backoffice bsport",
+      "3": "Area Membri",
+      "4": "Trasferimento dati"
+    }
+  },
+  "booking": {
+    "popover": "Il numero totale di prenotazioni registrate per quella data. È possibile filtrare le cancellazioni / cancellazioni tardive/ ...",
+    "caption": "Prenotazioni salvate",
+    "title": "Prenotazioni"
+  },
+  "resetModal": {
+    "confirm": "Continua",
+    "cancel": "Annulla",
+    "content": "Le impostazioni dei vari pacchetti torneranno ai valori predefiniti, vuoi continuare?",
+    "title": "Reset delle impostazioni"
+  },
+  "save": "Salva",
+  "placeholderEmptyValues": {
+    "establishment": "Nessuno stabilimento",
+    "coach": "Nessun insegnante"
+  },
+  "graphDefaultTitles": {
+    "privateBookingTemporal": "Appuntamento",
+    "memberTemporal": "Nuovi membri",
+    "subscriptionTemporalSum": "Incasso sugli abbonamenti ricorrenti",
+    "subscriptionTemporalCount": "Numero di ricevute relative ad abbonamenti ricorrenti contabilizzati",
+    "bookingTemporal": "Prenotazioni",
+    "bookingQualitative": "Origine delle prenotazioni",
+    "paymentTemporal": "Collezioni",
+    "bookingTimeslots": "Numero medio",
+    "billingPlanTemporal": "Abbonamenti ricorrenti",
+    "invoiceItemTemporal": "Somma totale degli articoli contabilizzati"
+  },
+  "dataSourceIdentifiers": {
+    "dispute_status": "Stato delle controversie",
+    "is_unpaid": "Pagamento in sospeso",
+    "payout_status": "Stato della transazione",
+    "payout_identifier": "Transazione",
+    "payout_date_created": "Data di trasferimento",
+    "private_pass": "Pacchetto per appuntamenti",
+    "payment_pack": "Pacchetto",
+    "activity": "Attività",
+    "margin_value": "Contributo marginale tasse incluse",
+    "private_service_name": "Appuntamento",
+    "price": "Prezzo IVA inclusa",
+    "contract": "Contratto",
+    "date": "Data di pagamento",
+    "payment_method": "Metodo di pagamento",
+    "payment_price": "Prezzo IVA inclusa",
+    "payment_date": "Data di pagamento",
+    "accept_sms": "Accetta gli SMS",
+    "accept_email": "Accetta email",
+    "gender": "Sesso",
+    "billing_establishment": "Sede",
+    "billing_group": "Gruppo di contabilizzazione",
+    "establishment": "Stabilimento",
+    "coach": "Insegnante",
+    "was_refunded": "Rimborsato",
+    "booking_status_code": "Stato della prenotazione",
+    "date_created": "Data di prenotazione",
+    "date_start": "Data della sessione",
+    "attendance": "Presente",
+    "payment_engine": "Tipo di pagamento",
+    "is_workshop": "Workshop",
+    "activity_kind": "Tipo di corso",
+    "booking_effectif_timeslots": "Media effettiva",
+    "plannedinvoice_pk": "Numero di ricevute",
+    "payment_pk": "Numero di pagamenti",
+    "privatebooking_pk": "Numero di appuntamenti",
+    "source_device": "Origine",
+    "is_recurrent_booking": "Prenotazione ricorrente",
+    "booking_pk": "Numero di prenotazioni",
+    "member_pk_accumulate": "Numero di membri",
+    "member_pk": "Numero di nuovi membri",
+    "date_joined": "Data di registrazione",
+    "total_payments_made": "Numero di incassi effettuati",
+    "total_discount": "Riduzione totale",
+    "nb_planned_invoices": "Numero di ricevute totali",
+    "plan_status": "Stato dell'abbonamento",
+    "plan_recurrent_price": "Importo del pagamento ricorrente",
+    "plan_flat_fee": "Tasse di iscrizione",
+    "plan_date_start": "Data della prima contabilizzazione",
+    "plan_date_end": "Data di fine contabilizzazione",
+    "new_member_only": "Offerta per nuovi membri",
+    "billingplan_pk": "Numero di abbonamenti ricorrenti",
+    "last_invoice_status": "Stato dell'ultimo pagamento",
+    "contract_name": "Abbonamento ricorrente",
+    "billing_plan_payment_method": "Metodi di pagamento",
+    "plan_auto_renewal": "Rinnovo tacito",
+    "is_no_show": "Assente (no show)",
+    "franchisor_commission_amount": "Commissioni di franchising incluse",
+    "franchisor_commission_amount_notax": "Commissioni di franchising IVA esclusa",
+    "invoice_date_created": "Data di emissione della fattura",
+    "author": "Autore",
+    "invoiceitem_pk": "Numero di oggetti contabilizzati",
+    "total_price_notax": "Importo contabilizzato tasse escluse",
+    "total_price": "Importo contabilizzato tasse incluse",
+    "staff_commission_amount_notax": "Costi provvigionali del personale IVA esclusa",
+    "staff_commission_amount": "Costi delle commissioni del personale IVA inclusa",
+    "invoice_datetime": "Data di emissione della ricevuta",
+    "booking_date_created": "Data della prenotazione",
+    "bookkeeping_account_number": "Numero dell'account",
+    "bookkeeping_account_name": "Nome dell'account",
+    "billing_group_address": "Indirizzo",
+    "private_booking_date_created": "Data e ora della prenotazione",
+    "is_first_visit": "Prima prenotazione",
+    "product_type": "Tipo di prodotto",
+    "product": "Prodotto"
+  },
+  "graphFormDrawer": {
+    "helperText": {
+      "accumulateMembers": "Mostra l'evoluzione del numero totale di membri.",
+      "booking_effectif_timeslots": "Numero medio di sessioni per fascia oraria.",
+      "subscriptionCount": "Numero di ricevute relative agli abbonamenti ricorrenti.",
+      "subscriptionPrice": {
+        "max": "Massimo di tutti i pagamenti ricevuti relativi agli abbonamenti ricorrenti.",
+        "min": "Minimo di tutti i pagamenti ricevuti relativi agli abbonamenti ricorrenti.",
+        "avg": "Media di tutti i pagamenti ricevuti relativi agli abbonamenti ricorrenti.",
+        "sum": "Somma di tutti i pagamenti ricevuti relativi agli abbonamenti ricorrenti."
+      },
+      "plannedInvoiceCount": "Numero di ricevute relative agli abbonamenti ricorrenti.",
+      "dateCreated": "I dati saranno rappresentati nel tempo secondo la data in cui sono state effettuate le prenotazioni.",
+      "dateStart": "I dati saranno rappresentati nel tempo in base alla data di inizio delle sessioni."
+    },
+    "accumulate": {
+      "total": "Accumulare"
+    },
+    "dashboardGraphIdentifier": {
+      "graph_dispute": "Controversie",
+      "graph_subscriptions": "Ricevute di abbonamenti ricorrenti",
+      "graph_payments": "Pagamenti",
+      "graph_private_bookings": "Appuntamenti",
+      "graph_bookings": "Prenotazioni",
+      "graph_members": "Nuovi membri",
+      "graph_billing_plan": "Abbonamenti ricorrenti",
+      "graph_invoice_items": "Acquisti"
+    },
+    "aggregation": {
+      "max": "Massimo",
+      "min": "Minimo",
+      "avg": "Media",
+      "sum": "Totale"
+    },
+    "graphFamily": {
+      "week_timeslots": "Frequenze giornaliere e orarie",
+      "qualitative": "Distribuzione",
+      "temporal": "Evoluzione nel tempo"
+    },
+    "chartComponents": {
+      "timeslots": "Frequenze giornaliere e orarie",
+      "pie": "Grafico circolare",
+      "area": "Grafico ad area",
+      "qualitativeBar": "Istogramma",
+      "bar": "Istogramma"
+    },
+    "placeholders": {
+      "aggregationSelector": "Scegli un'operazione",
+      "dashboardGraphIdentifier": "Scegli un tipo di dati"
+    },
+    "labels": {
+      "aggregationName": "Aggregazione",
+      "dividedBy": "Diviso per",
+      "dataToDisplay": "Dati visualizzati",
+      "dateFilterField": "Dati per la data",
+      "groupByField": "Distribuisci su",
+      "graphFamily": {
+        "qualitative": "Distribuzione",
+        "temporal": "Evoluzione nel tempo"
+      },
+      "title": "Nome"
+    },
+    "sectionTitles": {
+      "filterConfig": "Filtri",
+      "timePeriod": "Periodo",
+      "graphParams": "Dati",
+      "graphFamily": "Grafico",
+      "dashboardGraphIdentifier": "Tipo di dati",
+      "general": "Informazioni generali"
+    },
+    "title": {
+      "edit": "Modifica di un grafico",
+      "create": "Creazione di un grafico"
+    }
+  },
+  "graphActions": {
+    "delete": "Elimina",
+    "edit": "Modifica"
+  },
+  "showMoreLegend": "+ {{count}} legenda",
+  "showMoreLegend_plural": "+ {{count}} legende",
+  "addFilter": "Aggiungi un filtro",
+  "filterChipLabel": "{{count}} filtro",
+  "filterChipLabel_plural": "{{count}} filtri",
+  "privateBooking": {
+    "popover": "Il numero totale di appuntamenti registrati per questa data. Puoi filtrare cancellazioni / rimborsi / ...",
+    "caption": "Appuntamenti registrati",
+    "title": "Appuntamento"
+  },
+  "noGraphToDisplay": "Nessun grafico configurato in questa scheda. Aggiungine uno qui.",
+  "tabNameDialog": {
+    "placeholder": "Nome",
+    "titleRename": "Rinomina scheda",
+    "titleAdd": "Aggiungi una nuova scheda"
+  }
+}

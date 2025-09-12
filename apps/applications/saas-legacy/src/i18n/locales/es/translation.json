@@ -1,0 +1,1225 @@
+{
+  "activityCreated": "Actividad añadida",
+  "activityUpdated": "Actividad modificada",
+  "bookingConfirmed": "Reserva confirmada",
+  "button": {
+    "login": "Conexión"
+  },
+  "companies": {
+    "general": "General",
+    "owner_address": "Dirección del administrador",
+    "address": "Dirección",
+    "bank_details": "Informaciones bancarias",
+    "fields": {
+      "iban": "IBAN bancario",
+      "bank_account_holder": "Titular de la cuenta bancaria"
+    }
+  },
+  "report": {
+    "delete": "Supresión de un informe"
+  },
+  "metaActivity": {
+    "forms": {
+      "create": {
+        "success": "Actividad creada",
+        "error": "Error al registrar actividad"
+      },
+      "autoDiscard": {
+        "hours_before_start": "Hora(s) antes de la sesión :",
+        "min_bookings_nb": "Número de reserva(s):",
+        "emailRecipients": "Si una clase se cancela automáticamente, se enviará un correo electrónico al Propietario, al Administrador y al profesor de la clase, así como a los alumnos.",
+        "explain": "Las clases con {{bookings_nb}} reserva(s) o menos se cancelan {{hours}} hora(s) antes de su comienzo. Se notificará a los socios que se ha cancelado la clase.",
+        "checkbox": "Cancelar automáticamente las clases no reservadas"
+      }
+    },
+    "update": {
+      "imageUploaderRequireEditMessage": "Una vez tu creada tu actividad, puedes añadir más fotografías."
+    },
+    "create": {
+      "success": "Actividad creada"
+    }
+  },
+  "error": {
+    "connectionError": "Error de red"
+  },
+  "hi": "Hola",
+  "pageTitle": {
+    "myAccount": "Mi cuenta"
+  },
+  "paymentMethod": {
+    "CB": "Tarjeta de pago",
+    "CB_MANUAL": "Tarjeta (manual)",
+    "CHECK": "Cheque",
+    "HOLIDAY_CHECK": "Cheque de vacaciones",
+    "CASH": "Efectivo",
+    "EVENT_BRITE": "EventBrite",
+    "AMEX": "AMEX",
+    "BANK_TRANSFER": "Transferancia",
+    "CREDIT_ACCOUNT": "Cuenta interna (crédito)",
+    "SUBSCRIPTION_CB": "Pago automático",
+    "OTHER": "Diverso"
+  },
+  "errors": {
+    "end_before_start": "La fecha de finalización debe ser posterior a la fecha de inicio",
+    "start_after_end": "La fecha de inicio debe ser anterior a la fecha de finalización",
+    "invalidUrl": "URL no válida (formato solicitado: http://www.test.com)",
+    "endBeforeCurrent": "La fecha final debe ser anterior a la fecha actual."
+  },
+  "members": {
+    "form": {
+      "title": "Nuevo miembro"
+    }
+  },
+  "common": {
+    "items": "elementos",
+    "skip": "Pasar",
+    "level": "Nivel",
+    "activePass": "pass actif",
+    "invoices": "Facturas",
+    "download": "Descargar",
+    "description": "Descripción",
+    "hourSmall": "h",
+    "daySmall": "d",
+    "minuteSmall": "min",
+    "export": "Exportar",
+    "generate": "Generar",
+    "tax": "IVA",
+    "uploadOneImage": {
+      "new": "Cargar imagen",
+      "edit": "Arrastrar y soltar o hacer clic aquí para añadir una imagen"
+    },
+    "buy": "Comprar",
+    "establishments": "Lugares",
+    "notes": "Nota",
+    "add": "Añadir",
+    "loading": "Cargando...",
+    "show": "Ver",
+    "delete": "Suprimir",
+    "previous": "Volver",
+    "firstname": "Nombre",
+    "lastname": "Apellido",
+    "save": "Guardar",
+    "saveAndAdd": "Guardar y añadir de nuevo",
+    "booking": "Reserva",
+    "from": "Del",
+    "until": "Hasta",
+    "paymentMethod": "Método de pago",
+    "activity": "Actividad",
+    "datetime": "Sesión",
+    "paymentPack": "Bonos",
+    "amount": "Cantidad",
+    "continue": "Continuar",
+    "credit_s": "Crédito(s)",
+    "NA": "No especificado",
+    "price": "Precio",
+    "priceIncludingTax": "Precio con impuestos incluidos",
+    "sports": "Categorías",
+    "credits": "Créditos",
+    "create": "Crear",
+    "or": "o",
+    "cancel": "Cancelar",
+    "confirm": "Confirmar",
+    "name": "Nombre",
+    "status": "Estado",
+    "ok": "ok",
+    "seeMore": "Mostrar",
+    "coach": "Profesor",
+    "coaches": "Profesores",
+    "company": "Sociedad",
+    "sport": "Categoría",
+    "filterBy": "Filtrar por : ",
+    "edit": "Modificar",
+    "merge": "Fusionar",
+    "activities": "Actividades",
+    "email": "Email",
+    "show_more": "Ver +",
+    "showDetails": "Ver detalles",
+    "yes": "Sí",
+    "no": "No",
+    "sort": "Ordenar",
+    "contact": "Contacto",
+    "members": "Mis usuarios",
+    "transactions": "Mis transacciones",
+    "selected": "Seleccionado(s)",
+    "pass": "Pass",
+    "booking_s": "Sesión(es)",
+    "offers": "Sesiones",
+    "date": "Fecha",
+    "nothing": "Ninguno",
+    "bookings": "Reservas",
+    "places": "Lugares",
+    "male": "Hombre",
+    "female": "Mujer",
+    "otherGender": "Otro",
+    "recipients": "Beneficiarios",
+    "recipient": "Beneficiario",
+    "copySuffix": " (Copia)",
+    "isRefreshing": "Tu interfaz estará lista en un momento",
+    "duplicate": "Duplicar",
+    "restore": "Restaurar",
+    "share": "Compartir",
+    "pickALanguage": "Idioma",
+    "emergencyContact": "En caso de emergencia",
+    "disconnect": "Salir",
+    "vaccinationDontWantToCommunicate": "No desea responder",
+    "vaccinationNotDone": "Sin tarjeta sanitaria válida",
+    "vaccinationDone": "Tarjeta sanitaria válida",
+    "vaccination_status": "Estado del pase sanitario COVID-19",
+    "offerEdition": "Modificar una sesión",
+    "filter": "Filtrar",
+    "selectAnActivity": "Seleccionar una actividad",
+    "offerCreation": "Crear una sesión",
+    "see": "Ver",
+    "information": "Detalles"
+  },
+  "pagination": {
+    "rowPerPage": "Elementos por página",
+    "outOf": " en "
+  },
+  "offer": {
+    "attendant": "presente(s)",
+    "nonAttendant": "ausente(s)",
+    "maxBookingsNb": "lugares",
+    "effectif": "Aforo disponible",
+    "sizeOfWaitingList": "Tamaño de la lista de espera",
+    "offersPendingChange": "Sesiones que serán modificadas :",
+    "offersPendingDelete": "Sesiones que serán suprimidas :",
+    "noPackAvailableForOfferPurchase": "¡Ningún bono compatible con esta sesión!",
+    "noConsumerPackAvailableForPurchase": "¡Ningún bono compatible propiedad de este miembro!",
+    "backToCalendar": "Calendario",
+    "previousOffer": "Sesión previa",
+    "nextOffer": "Próxima sesión",
+    "disabled": "cancelado",
+    "substitute": "Sustituto",
+    "compatiblePacks": "Bonos compatibles",
+    "noCompatiblePacks": "Ningún bono es compatible con esta sesión",
+    "extraordinaryEstablishment": "(lugar temporal)",
+    "addInvoice": "Facturar",
+    "myBookings": "Reservas",
+    "hasntBooked": "No inscrito",
+    "hasBooked": "Registrado",
+    "createBooking": "Registrarse",
+    "reCreateBooking": "Volver a registrarse",
+    "noQuickInvoiceOpened": "Ningún facturación abierta",
+    "myOpenedInvoices": "Factura rápida",
+    "manageOffer": "Gestionar mis reservas",
+    "bill": "Facturar",
+    "noncompatibleConsumerPaymentPacksAre": "Bono(s) poseído(s) no compatible(s)",
+    "broadcast_link": "Enlace de videoconferencia",
+    "createBookingOption": "Lista de espera",
+    "noEmptyDuration": "La duración debe ser estrictamente positiva",
+    "restoreModal": {
+      "explain": "Esta sesión ya no será cancelada y sera abierta de nuevo para tus clientes. Sin embargo, las reservas previamente canceladas no serán restablecidas.",
+      "title": "Restablecer la sesión"
+    },
+    "unpaidInvoices": "Facturas sin pagar",
+    "partner_max_booking_count": "Número máximo de reservas de mercado (sólo OneFit)",
+    "noInConsumerPackAvailableForPurchase": "Este miembro no tiene ninguno bonos incompatible."
+  },
+  "shop": {
+    "supplier_price": "Precio proveedor",
+    "myShop": "Mi tienda",
+    "subShop": {
+      "delete": {
+        "explain": "¿Estás seguro de que quieres suprimir esta categoría? Todos los elementos que contiene también serán suprimidos",
+        "title": "Supresión"
+      }
+    },
+    "ht": "HT",
+    "noProvisionUpdates": "Ningunas existencias"
+  },
+  "form": {
+    "waiting_list_max_size": "Tamaño de la lista de espera",
+    "address": {
+      "streetNumber": "N°",
+      "addressLine1": "Dirección",
+      "addressLine2": "Complemento de dirección",
+      "city": "Ciudad",
+      "country": "País",
+      "zipcode": "Código postal",
+      "state": "Estado"
+    },
+    "login": {
+      "changePasswordTitle": "Modificación de la contraseña",
+      "password": "Contraseña",
+      "confirmPassword": "Confirmar",
+      "passwordTooEasy": "Su contraseña debe tener al menos 6 caracteres e incluir un número y letras",
+      "passwordChangedSuccess": "¡Contraseña modificada exitosamente!",
+      "passwordMismatch": "Las contraseñas no coinciden",
+      "tokenExpired": "Esta página ha caducado, por favor vuelva a solicitar una solicitud de cambio de contraseña",
+      "resetAgainPassword": "Solicitud de restablecimiento"
+    },
+    "shop": {
+      "subShop": {
+        "nameTitle": "Nueva categoría",
+        "namePlaceholder": "Zumos de frutas",
+        "createOrUpdate": {
+          "success": "Categoría registrada exitosamente",
+          "error": "No es posible guardar la categoría"
+        },
+        "delete": {
+          "success": "Categoría suprimida",
+          "error": "No es posible suprimir la categoría"
+        }
+      },
+      "item": {
+        "create": "Añadir un artículo",
+        "unlimitedProvision": "Sin gestión de las existencias",
+        "marketplace_enabled": "Disponible en el marketplace web",
+        "deleteTitle": "Supresión",
+        "deleteExplain": "Tiene en cuenta que esta eliminación es final, ningún cliente podrá comprar este producto, se suprimirán las existencias.",
+        "updateProvisions": {
+          "success": "Existencias actualizadas",
+          "error": "Error al registrar del stock"
+        },
+        "modifyProvisions": "Actualizar las existencias",
+        "updateProvisionExplain": "Ingresa la contribución a tu inventario. Esto se añadirá a tus existencias actuales",
+        "updateProvisionTitle": "Modificación de las existencias",
+        "createOrUpdate": {
+          "success": "Guardado",
+          "error": "Error al guardar"
+        },
+        "delete": {
+          "success": "Elemento suprimido",
+          "error": "Error al suprimir"
+        },
+        "add": "Añadir un elemento",
+        "subtitle": "Subtítulo",
+        "description": "Descripción",
+        "provisions": "Existencias",
+        "name": "Nombre",
+        "price": "Precio",
+        "tva": "IVA",
+        "available_payment_method_identifiers": {
+          "helperText": "Seleccione al menos un método de pago. Si no se selecciona ninguno, se ofrecerán pagos en línea por defecto.",
+          "label": "Medios de pago autorizados"
+        },
+        "sell_only_on_provision": "Oferta en venta SOLO si hay disponibilidad",
+        "onsite_payment_available": "Posibilidad de pagar en el acto",
+        "is_deliverable": "Impone cargos de entrega predeterminados",
+        "featured": "Destacar al validar la cesta",
+        "barcode": "Código de barras",
+        "advancedOptions": {
+          "tag": {
+            "selectTags": "Seleccionar etiquetas",
+            "tagsOnAcquisitionHelper": "Utilizar etiquetas para identificar qué miembro compró el artículo",
+            "tagsOnAcquisition": "Etiqueta tras la compra"
+          },
+          "header": "Avanzado"
+        },
+        "supplier": "Proveedor",
+        "sku": "SKU",
+        "studios": "Estudios"
+      }
+    },
+    "booking": {
+      "delete": {
+        "success": "Reserva suprimida",
+        "error": "Error al suprimir"
+      }
+    },
+    "member": {
+      "rgpd": {
+        "email": "Acepta las notificaciones por email",
+        "sms": "Acepta las notificaciones por SMS"
+      },
+      "createOrUpdate": {
+        "error": "Error al guardar nota",
+        "success": "Nota guardada"
+      },
+      "delete": {
+        "error": "Error al suprimir la nota",
+        "success": "Nota suprimida"
+      },
+      "phone": "Teléfono",
+      "rgpdTitle": "Medio de comunicación aceptado por el miembro (promociones, marketing, smartlist, etc.)",
+      "birthdayYear": "Año de nacimiento",
+      "referenceNumber": "Número de adherente",
+      "referenceNumberHelper": "(opcional) si está vacío, se creará automáticamente un número",
+      "barcodeHelper": "(opcional) usa este código para sus tarjetas de acceso",
+      "barcode": "Código de barras (tarjeta)",
+      "errors": {
+        "accept_email": "Debes aceptar las notificaciones por correo electrónico",
+        "waiver": "Debes aceptar la exención de responsabilidad",
+        "accept_sms": "Debes aceptar las notificaciones por SMS"
+      },
+      "waiver": {
+        "dialog": {
+          "confirm": "Aceptar",
+          "title": " descargo de responsabilidad"
+        },
+        "conditions": " descargo de responsabilidad",
+        "iAccept": "Acepta los términos del "
+      }
+    },
+    "metaActivity": {
+      "cantAddSameName": "¡Ya existe una actividad del mismo nombre!"
+    },
+    "signup": {
+      "typePhone": "Tel. móvil *",
+      "confirmPasswordLabel": "Confirmación",
+      "confirmPassword": "Contraseña",
+      "rgpdTitle": "¿Cómo prefieres que los profesores se comuniquen contigo para cancelaciones/cambios de horario?",
+      "communication": {
+        "email": "por email",
+        "sms": "por SMS"
+      },
+      "signupButton": "Registrar",
+      "iAcceptPrivacyPolicy": "Acepto los ",
+      "privacyPolicy": "Términos de servicio",
+      "emailExistsInDB2": "Iniciar sesión",
+      "emailExistsInDB1": "Este correo ya está registrado porque estás registrado en un club o estudio usando bsport. Puedes utilizar los mismos identificadores.",
+      "fields": {
+        "waiver": "Acepto el descargo de responsabilidad",
+        "general_terms_and_conditions_accepted": "Acepto las condiciones generales de uso",
+        "emergency_contact": "Contacto en caso de emergencia",
+        "city": "Ciudad",
+        "birthday": "Fecha de nacimiento",
+        "phone": "Número de teléfono ",
+        "country": "País",
+        "zipcode": "Código postal",
+        "address_line_2": "Dirección adicional",
+        "address_line_1": "Dirección",
+        "gender": "Sexo",
+        "passwordConfirm": "Confirmar",
+        "password": "Contraseña",
+        "email": "Correo electrónico",
+        "last_name": "Apellido",
+        "first_name": "Nombre",
+        "accept_sms": "Acepto recibir notificaciones por SMS con fines comerciales (promociones, ofertas especiales...)",
+        "accept_email": "Acepto recibir notificaciones por correo electrónico con fines comerciales (promociones, ofertas especiales...)"
+      },
+      "addProfilePicture": "Añadir una foto de perfil",
+      "error": {
+        "passwordConfirm": "Las contraseñas no coinciden",
+        "password": "La contraseña debe contener al menos 6 caracteres"
+      },
+      "addProfilePictureRequiredLabel": "Debes añadir una foto de perfil",
+      "addProfilePictureRequired": "Añadir una foto de perfil *"
+    },
+    "quickInvoice": {
+      "totalPurchase": "Compras",
+      "totalPayment": "Pagos",
+      "paymentDue": "Pago debido"
+    },
+    "invoice": {
+      "dateStartPaymentPack": "Inicio del bono el",
+      "backToInvoiceItemList": "Volver a la lista",
+      "title": "Guardar un pago",
+      "paymentLabel": "Añadir una transacción",
+      "offerHelper": "Esta sesión será acreditada al miembro",
+      "paymentPackHelper": "Este bono será acreditado al miembro",
+      "noPayedObject": "Ninguno",
+      "objectTypeLabel": "Artículo a acreditar",
+      "activityHelper": "Elige la actividad y luego la sesión",
+      "titleUnevenInvoice": "Factura no equilibrada",
+      "explainUnevenInvoice": "El total es {{totalInvoiceItems}} {{ currencyDisplay }} cuando los pagos totales son {{totalPayments}} {{ currencyDisplay }}. La cuenta interna del miembro se acreditará / cargará al saldo."
+    },
+    "payment": {
+      "status": "Estado",
+      "paid": "Pagado",
+      "unpaid": "Esperando",
+      "noPaymentExtraInfo": "Ninguna información adicional",
+      "additionalInformationLabel": "Información",
+      "additionalInformationHelper": "(opcional) número de cheque, fecha de recogida ..."
+    },
+    "offer": {
+      "levelChangeWarning": "Si modificas el nivel del curso, esta modificación será efectiva para todas las sesiones futuras. Por lo tanto, cualquier otra modificación registrada aquí (establecimiento, precio, día de la semana ...) se aplicará a todas las sesiones.",
+      "coachChangeWarning": "Si modificas al profesor, esta modificación será efectiva para todas las sesiones futuras. Si esto no es lo que deseas, usa el campo \"Sustituir\". Por lo tanto, cualquier otra modificación registrada aquí (establecimiento, precio, día de la semana ...) se aplicará a todas las sesiones.",
+      "establishmentChangeWarning": "Si modificas el establecimiento, esta modificación será efectiva para todas las sesiones futuras. Si esto no es lo que deseas, usa el campo \"Establecimiento temporal\". Por lo tanto, cualquier otra modificación registrada aquí (día de la semana, precio, profesor sustituto, profesor ...) se aplicará a todas las sesiones.",
+      "substituteCoachLabel": "Sustituto",
+      "coachLabel": "Profesor",
+      "establishmentLabel": "Establecimiento",
+      "substituteEstablishmentLabel": "Establecimiento (lugar temporal)",
+      "warningPackonEdit": "Los cambios en las sesiones pueden hacerlos incompatibles con ciertos bonos. Después de la modificación, toma el tiempo para verificar que seguirán siendo compatibles con cualquier cambio de lugar/profesor.",
+      "deleteTitle": "Suprimir la sesión",
+      "cancelTitle": "Cancelar la sesión",
+      "changeDate": "Cambiar la hora / fecha",
+      "changeCoach": "Modificar el profesor",
+      "changeEstablishment": "Modificar el lugar",
+      "explainRecursiveOfferDelete": "¿Quieres suprimir TODAS las sesiones similares?",
+      "explainRecursiveOfferEdit": "¿Deseas modificar TODAS las sesiones similares de acuerdo con estas nuevas condiciones?",
+      "explainNotificationOnEdit": "¿Deseas informar a tus clientes de este cambio?",
+      "delete": {
+        "buttonHardDelete": "Suprimir",
+        "explainHardDelete": "¿Suprimir la sesión de la lista? Tiene en cuenta que esto se volverá invisible, ¡esta operación es irreversible! Si la sesión contiene reservas, no se suprimirá.",
+        "explainCreditBack": "Devolver los créditos utilizados a los clientes en su bono",
+        "explainNotify": "Enviar una alerta a los clientes que han reservado",
+        "explainModalities": "Tiene en cuenta que esta modificación es final. Tu sesión ya no será visible para los clientes finales. Todavía podrás acceder a él.",
+        "force": "Borrar incluso si las reservas ya están registradas",
+        "advanced": "Avanzado",
+        "explainForceDanger": "Tenga en cuenta que las reservas se eliminarán de forma permanente. Si no ha devuelto el crédito, perderá todo rastro de su uso. Por favor, compruebe cuidadosamente el estado de sus reservas y bonos antes de eliminarlas.",
+        "explainDeleteLinkedHybridSession": "Anular las sesiones híbridas (sesiones presenciales y en línea)"
+      },
+      "broadcast_link": {
+        "error": "El enlace está mal. Debe comenzar con http:// o https:// y no contener ningún espacio",
+        "explainZoomApp": "El enlace se generará automáticamente a través de ZOOM por bsport"
+      },
+      "explainPartnership": "En marketplaces (ClassPass, OneFit...)",
+      "explainManagerOnly": "Disponible para reservar (web+app)",
+      "advancedOptions": {
+        "tag": {
+          "doNotSelectToAllowAllMembers": "No seleccionar para permitir a todos los miembros",
+          "allowed": "Autorizado",
+          "notAllowed": "No autorizado",
+          "header": "Tags",
+          "helperText": "Utilices tags para que la sesión sea reservable sólo para un grupo deseado de miembros. Si selecciona los tags, la sesión sólo podrá ser reservada por los miembros que tengan uno de los tags seleccionados. O puedes seleccionar tags para que la sesión no sea reservable sólo para los miembros con unos de los tags seleccionados."
+        },
+        "header": "Avanzado"
+      },
+      "explainAllowGuest": "Autorizar la reserva para un invitado",
+      "editingGroup": "Cuidado, esta sesión forma parte del grupo de sesiones {{- name }}"
+    },
+    "paymentPack": {
+      "newMemberOnly": "Uniquement pour les nouveaux clients",
+      "managerOnly": "Invisible pour les clients",
+      "helper": {
+        "name": "Nom de l'abonnement",
+        "price": "Prix pour le client pour l'abonnement",
+        "starting_date": "Début de validité du pass, laisser vide pour le rendre valable immédiatement",
+        "ending_date": "Fin de validité du pass, laisser vide pour qu'il reste toujours actif",
+        "credits": "Nombre de crédits disponibles, laisser vide pour le rendre illimité",
+        "maxBookingPerWeek": "Laisser vide pour ne pas imposer de limite"
+      },
+      "timeSettingsTitle": "Validité de l'abonnement",
+      "generalSettingsTitle": "Général",
+      "validByDuration": "Abonnement valide N jours après achat",
+      "validByDaterange": "Abonnement valide sur un créneau de date précis",
+      "durationDays": "Durée de validité (jours) si applicable",
+      "durationDaysHelperText": "Période en jours pour laquelle l'abonnement sera valide après achat ",
+      "durationMonths": "Durée de validité (mois) si applicable",
+      "durationMonthsHelperText": "S'ajoute au nombre de jours",
+      "durationYears": "Durée de validité (années) si applicable",
+      "durationYearsHelperText": "S'ajoute au nombre de jours et de mois",
+      "restrictionsTitle": "Restrictions",
+      "maxBookingPerWeek": "Utilisation max par semaine",
+      "noneMeansAll": "Laisser vide pour tout autoriser",
+      "update": {
+        "success": "Abonnement: opération effectuée avec succès",
+        "error": "Abonnement : erreur lors de l'opération"
+      },
+      "delete": {
+        "title": "Suppression de l'abonnement :",
+        "askConfirmation": "Attention ! Cette opération est définitive. L'abonnement ne sera plus visible et deviendra indisponible à l'achat.",
+        "thereAreConsumers": "Attention ! Des membres ont acheté cet abonnement, si vous le supprimez ces derniers pourront toujours utiliser leurs crédits restants. Vous pouvez les réduire manuellement à zéro ici.\n\nL'abonnement n'apparaitra plus dans votre magasin pour les nouveaux acheteurs."
+      }
+    },
+    "title": "Título",
+    "specific_info": "Descripción",
+    "pleaseEnterYourSMSCode": "Por favor ingresa el código enviado por SMS",
+    "code": "Código",
+    "signUpTitle": "Inscripción",
+    "SMSSignInTitle": "Conexión SMS",
+    "signInPhoneInstruction": "Ingresa tu número de teléfono, se te enviará un código de confirmación por SMS",
+    "password": "Contraseña",
+    "default_waiting_list_max_size": "Tamaño de la lista de espera",
+    "generateOffers": "Crear las sesiones",
+    "offersWillBeGenerated": "sesiones van a ser creadas",
+    "offerWillBeGenerated": "sesión va a ser creada",
+    "recurrence": "Recurrencia",
+    "notRecurrent": "Sólo una sesión",
+    "weekly": "Semanal",
+    "monthly": "Mensual",
+    "timeSettings": "Horarios y fechas",
+    "firstSessionOn": "Primera sesión el",
+    "firstSessionAt": "a",
+    "lastSession": "Última sesión el",
+    "duration_minute": "Duración",
+    "priceCategory": "Facturación",
+    "credits": "Número de créditos de bono necesarios para reservar",
+    "price": "Precio",
+    "caracteristics": "Características",
+    "effectif": "Aforo disponible",
+    "level": "Nivel",
+    "addingSessionFor": "Creación de sesión para: ",
+    "establishment": "Establecimiento",
+    "coach": "Profesor",
+    "newMember": "Nuevo miembro",
+    "newCoach": "Nuevo profesor",
+    "firstname": "Nombre",
+    "lastname": "Apellido",
+    "gender": "Sexo",
+    "birthdayYear": "Año de nacimiento",
+    "birthday": "Fecha de nacimiento",
+    "clearDate": "Borrar",
+    "phone": "Número de teléfono",
+    "email": "Dirección email",
+    "description": "Descripción",
+    "send": "Guardar",
+    "discard": "Cancelar",
+    "name": "Nombre",
+    "SCT": "Categoría",
+    "default_price": "Precio",
+    "default_credits": "Precio (créditos)",
+    "default_last_booking_minutes": "Última reserva antes",
+    "default_last_discard_minutes": "Última cancelación hasta",
+    "default_duration_minutes": "Duración de la sesión",
+    "newMetaActivity": "Nueva actividad",
+    "zeroMinute": "0 min",
+    "quarterHour": "15 min",
+    "halfHour": "30 min",
+    "halfAndQuarterHour": "45 min",
+    "oneHour": "1h",
+    "oneHourAndHalf": "1h30",
+    "twoHour": "2h",
+    "fourHour": "4h",
+    "sixHour": "6h",
+    "eightHour": "8h",
+    "oneDay": "1 día",
+    "twoDays": "2 días",
+    "oneWeek": "1 semana",
+    "tenDays": "10 días",
+    "twoWeeks": "2 semanas",
+    "never": "Nunca",
+    "twelveHour": "12h",
+    "threeHour": "3h",
+    "oneMonth": "1 mes",
+    "oneHourFifteen": "1h15",
+    "twentyMinutes": "20 min",
+    "credit_price": "Número de créditos necesarios para reservar la clase",
+    "warningCreditChange": "NB: las reservas anteriores no tienen en cuenta los cambios en los créditos",
+    "noAvailableCredit": "Tiene en cuenta que no estás ingresando un precio. ¿Estás seguro del valor?",
+    "explainNoEmailChange": "Cambiar el email evitará que el maestro se conecte, solo él puede modificar su email conectándose a su cuenta bsport",
+    "daily": "Diario",
+    "fifteenMin": "50 min",
+    "interval": {
+      "day": "Diario",
+      "week": "Semana",
+      "year": "Anual",
+      "month": "Mensualmente",
+      "hour": "Por hora"
+    },
+    "modify": "Editar",
+    "completeInformation": "Completar mi información",
+    "emergencyContact": "Contacto de emergencia",
+    "warningAddEmail": "Este correo electrónico ya ha sido añadido.",
+    "emailHelper": "Para añadir varios correos electrónicos, escriba una coma o un espacio después de cada correo.",
+    "partner_max_booking_count": "Número máximo de reservas de mercado (sólo OneFit)",
+    "tenMinutes": "10 minutos",
+    "editGroup": "Modificar este campo directamente en el grupo de sesiones.",
+    "noWaitingList": "Las listas de espera no están disponibles para los grupos de sesiones",
+    "datePicker": {
+      "rangeError": "Imposible crear sesiones que tengan lugar en más de 3 años"
+    },
+    "emailError": "El formato de correo electrónico especificado no es válido.",
+    "noPartnershipIntegration": "Las reservas del Marketplace no están disponibles para las sesiones de grupo",
+    "period": {
+      "year": "Años",
+      "month": "Meses",
+      "week": "Semanas",
+      "day": "Días",
+      "hour": "Horas"
+    },
+    "endWorking": "Fecha final",
+    "notes": "Notas",
+    "notesHelperText": "Las notas son privadas: sólo aparecerán en el Backoffice para los miembros del personal autorizados a modificarlas",
+    "startWorking": "Fecha de inicio",
+    "descriptionHelperText": "La descripción del profesor será visible para los miembros cuando hagan la reserva",
+    "workingDateSection": "Período de actividad en el estudio",
+    "passwordResetConfirmation": {
+      "continue": "Continuar",
+      "subtitle": "Puede hacer clic en \"Continuar\" para volver a iniciar sesión.",
+      "title": "Su contraseña se ha actualizado correctamente"
+    }
+  },
+  "marketing": {
+    "dashboard": "Tablero de mando",
+    "conversionRate": "Tasa de conversión",
+    "sales": "Ventas",
+    "averageBuy": "Cesta mediana",
+    "totalBuy": "Total CA",
+    "action": "Acción",
+    "SMSSent": "SMS enviados",
+    "EmailSent": "Emails enviados",
+    "notificationsSent": "Notificaciones enviadas",
+    "clientsReached": "Clientes afectados",
+    "criterias": "Criterios",
+    "strategy": "Estrategia: ",
+    "estimatedTarget": "Porcentaje de usuarios afectados",
+    "message": "Mensaje",
+    "after": "Después ",
+    "offersMatching": " sesiones similares",
+    "promoTitle": "Oferta de reducción",
+    "promo": "Reducción de ",
+    "noPromo": "Ninguno"
+  },
+  "consumer": {
+    "myPaymentPacks": "Mis bonos",
+    "company": "Club",
+    "help": {
+      "areYouSureCancelBookingOption": "¿Estás seguro de que quieres cancelar tu opción?",
+      "explainCancelBookingOption": "La supresión es final, si volves a tomar una opción en esta sesión, tu lugar en la lista de espera se reiniciará."
+    },
+    "booking": {
+      "cancelBooking": "Cancelar la reserva",
+      "discardBookingTitle": "Cancelar la reserva",
+      "discardPossibleExplain": "¿Estás seguro de que quieres cancelar esta reserva? Tu crédito será usable de nuevo.",
+      "discardImpossibleExplain": "¿Estás seguro de que deseas cancelar esta reserva? Cancela demasiado tarde y tu bono no se volverá a acreditar (términos y condiciones del club).",
+      "confirmBooking": "Confirmar",
+      "waitingSlot": "Esperando",
+      "myFutureBookings": "Próximas sesiones",
+      "myPastBookings": "Mis reservas anteriores",
+      "myOptions": "Reservas en la lista de espera",
+      "noBookingOptions": "Ninguna reserva en la lista de espera",
+      "noFutureBookings": "Ninguna reserva prevista",
+      "noPastBookings": "Ninguna reserva anterior",
+      "cancelOption": "Cancelar",
+      "myPrivateBooking": "Cita",
+      "intro": "Su reserva el {{date}}",
+      "discardGroupPossibleExplain": "Tus créditos volverán a ser utilizables.",
+      "discardGroup3": "Si desea cancelar sólo una sesión del grupo, póngase en contacto con su estudio.",
+      "discardGroup1": "Esta reserva forma parte del grupo de sesiones {{- group }}.",
+      "willNotBeRefund": "Créditos no reembolsados",
+      "willBeRefund": "La sesión del {{-day}} se volverá a acreditar",
+      "discardAllGroup": "Todas las reservas del grupos serán canceladas.",
+      "discardGroupImpossibleExplain": "Cancelas demasiado tarde y no te volverá a acreditar la tarjeta del curso (condiciones del club).",
+      "discardGroup2": "Te le darás de baja automáticamente de todas las sesiones no pasadas del grupo.",
+      "waintingListPositionLabel": "Posición :"
+    },
+    "myPrivatePass": "Mis tarjetas de cita"
+  },
+  "navigation": {
+    "order": "Pedidos",
+    "workshopActivities": "Talleres",
+    "invoice": "Facturas",
+    "alpha": "en desarollo",
+    "coachPerformance": "Profesores",
+    "beta": "beta",
+    "consumer": {
+      "pass": "Bonos",
+      "bookings": "Mis reservas ",
+      "profile": "Mi perfil",
+      "order": "Mis pedidos"
+    },
+    "reporting": "Informes",
+    "search": "Buscar",
+    "dashboard": "Dashboard",
+    "activity": "Mis Actividades",
+    "calendar": "Calendario",
+    "message": "Marketing",
+    "member": "Miembros",
+    "establishment": "Establecimientos",
+    "payment": "Pagos",
+    "logoff": "Cerrar sesión",
+    "goBack": "Volver",
+    "pass": "Bonos",
+    "settings": "Parámetros",
+    "myClub": "Mi Club",
+    "subscription": "Cuotas",
+    "coupon": "Promociones",
+    "refresh": "Actualizar",
+    "sequence": "Estrategias",
+    "combo": "Packs",
+    "digital": "Oferta digital",
+    "podcast": "Podcasts",
+    "video": "Videoteca",
+    "privateService": {
+      "pass": "Tarjetas de cita",
+      "services": "Sólo con cita previa",
+      "title": "Sólo con cita previa"
+    },
+    "schedule": "Horario",
+    "email_template": "Plantillas",
+    "smart_list": "Smartlists",
+    "requestTempPassword": "Permitir el acceso",
+    "marketing_automation": "Marketing Auto",
+    "playlist": "Recorrido",
+    "closeTab": "Cerrar pestaña"
+  },
+  "invoice": {
+    "choseDateTitle": "Fecha de facturación",
+    "reverted": "Cancelado",
+    "revert": "Cancelar factura",
+    "choseDate": "Fecha de facturación",
+    "explainDateChoser": "Por favor, elige la fecha de facturación. Los pagos con tarjeta de pago se cobrarán de inmediato, independientemente de la fecha elegida",
+    "revertImpossibleExplainSubscription": "Esta factura es parte de una suscripción, no puedes cancelar una factura recibida vinculada a una suscripción, pero puedes detener la suscripción",
+    "revertExplainPayment": "Los pagos con tarjeta de pago serán devueltos al anticipo del miembro. Todos los demás métodos de pago serán suprimidos.",
+    "revertExplainCredits": "Los débitos/créditos en la cuenta del miembro se revertirán.",
+    "revertExplainPacks": "Se cancelarán los bonos, así como TODAS las reservas asociadas",
+    "revertExplainShop": "Las compras de la tienda se cancelarán y se restablecerán las existencias.",
+    "invoiceReverted": "Factura cancelada",
+    "finalize": "Finalizar la factura",
+    "explainFinalize": "Atención ! Una factura finalizada ya no se puede modificar, y todos los pagos marcados como pendientes de cobro se considerarán como cobrados. Una vez finalizada la factura, puede exportarla como PDF",
+    "forms": {
+      "update": {
+        "success": "Facture mise à jour avec succès"
+      },
+      "create": {
+        "success": "Facture enregistrée - Membre crédité"
+      },
+      "error": "Erreur lors de l'enregistrement - Annulé"
+    }
+  },
+  "payment": {
+    "credit": "Crédito",
+    "products": "artículos",
+    "invoiceRevertedThusNotEditable": "La factura ha sido cancelada y no se puede cambiar",
+    "topUp": "Crédito",
+    "invoiceFinalizedThusNotEditable": "La factura se ha finalizado y, por lo tanto, ya no se puede modificar",
+    "actions": "Acciones",
+    "bookWithUnlimitedPack": "Reservar",
+    "noCreditLeft": "Crédito insuficiente",
+    "noBookingsLeftOnPack": "Tarjeta agotada para esta semana",
+    "yourBasket": "Tu compra",
+    "availablePaymentPacks": " bonos compatibles",
+    "payWithNCredits1": "Reservar (",
+    "payWithNCredits2": "crédito(s)",
+    "pay": "Pagar",
+    "type": "Type",
+    "amount": "Cantidad",
+    "fullyPaid": "Estado",
+    "consumer": "Client",
+    "paymentDate": "Fecha de compra",
+    "object": "Descripción",
+    "addInvoiceItem": "Añadir a la factura",
+    "addOffer": "Sesión",
+    "addPaymentPack": "Bonos",
+    "updateInvoiceVoucher": "Añadir una rebaja",
+    "voucher": "Rebaja",
+    "total": "TOTAL",
+    "paymentMethodStripe": "Tarjeta de pago",
+    "paymentMethodCheck": "Cheque",
+    "paymentMethodCash": "Efectivo",
+    "invoice": "Factura",
+    "paymentMethod": "Método de pago",
+    "creditAccountBalance": "Cuenta corriente: ",
+    "paymentMethods": {
+      "CB": "Tarjeta de pago",
+      "CB_MANUAL": "Tarjeta (pago con maquina)",
+      "CHECK": "Cheque",
+      "HOLIDAY_CHECK": "Cheque de vacaciones",
+      "CASH": "Efectivo",
+      "EVENT_BRITE": "EventBrite",
+      "AMEX": "AMEX",
+      "BANK_TRANSFER": "Transferancia",
+      "CREDIT_ACCOUNT": "Cuenta interna (crédito)",
+      "SUBSCRIPTION_CB": "Pago previsto",
+      "OTHER": "Diverso",
+      "DISPUTE": "Litigio"
+    },
+    "paymentItemsListTitle": "Pagos registrados",
+    "noPaymentItem": "Ningún pago registrado",
+    "addThisPaymentItem": "Paiement",
+    "status": "Cobrado",
+    "stillUnpaid": "Queda por recoger: ",
+    "isRecurring": "Pago a plazos",
+    "intervalMonth": "Mensual",
+    "intervalWeek": "Semanal",
+    "billingAnchor": "Primer pago",
+    "nbInterval": "Número de muestros",
+    "intervalType": "Frecuencia de pago",
+    "stripePaymentWillBeCashedOutOnInvoiceValidation": "La tarjeta de pago solo se debitará después de guardar la factura",
+    "createInvoice": "Pago",
+    "toBill": "Facturar",
+    "toSubscribe": "Suscribir",
+    "paymentCombo": "Pack",
+    "return": "Reembolsar",
+    "privatePass": "Tarjeta de cita",
+    "payment": "Pago",
+    "goToSubscription": "Ver la suscripción",
+    "invoiceFromSubscriptionThusNotEditable": "Esta factura forma parte de una suscripción y por lo tanto no es editable, por favor, modifica la suscripción directamente",
+    "noBookingsLeftOnPackInMonth": "Pase agotado para este mes"
+  },
+  "paginatedList": {
+    "isEmpty": "No hay datos que mostrar"
+  },
+  "login": {
+    "welcome": "¡Bienvenido!",
+    "signUpConsumer": "¿Aún no tienes cuenta?",
+    "invalidPhone": "Número de teléfono desconocido",
+    "choseYourUserspace": "Yo soy",
+    "loginAsPro": "Un manager",
+    "loginAsConsumer": "Un estudiante",
+    "noAccount": "¿No tienes cuenta todavía? ¡Crea uno aquí!",
+    "password": "Contraseña",
+    "authError": "Email o contraseña incorrectos",
+    "forgottenPassword": "Contraseña olvidada",
+    "error": {
+      "invalidPassword": "La contraseña es inválida",
+      "invalidEmail": "Este email no existe en nuestra base de datos"
+    }
+  },
+  "calendar": {
+    "modifyOffer": "Modificar",
+    "deleteOffer": "Cancelar",
+    "allDay": "día",
+    "previous": "<",
+    "next": ">",
+    "today": "hoy",
+    "month": "mes",
+    "week": "semana",
+    "day": "día",
+    "agenda": "Agenda",
+    "date": "date",
+    "time": "hora",
+    "event": "sesión",
+    "showMore": "+ {{total}} séance(s) supplémentaire(s)",
+    "showMonth": "Visualización mes",
+    "showWeek": "Visualización semana",
+    "pleaseSelectOffer": "Selecciona una sesión para ver los miembros registrados",
+    "canDeleteWithBooking": "Se han registrado reservas (canceladas) o listas de espera, esta sesión no puede ser eliminada."
+  },
+  "activity": {
+    "forms": {
+      "create": {
+        "success": "Activité sauvegardée",
+        "error": "Impossible de sauvegarder l'activité"
+      },
+      "update": {
+        "success": "Activité mise à jour",
+        "error": "Impossible de mettre à jour l'activité"
+      }
+    },
+    "nextSlotAt": "Próxima sesión en ",
+    "settings": "Parámetros",
+    "lastBookingBeforeMinutes": "Seleccione hasta cuándo pueden reservar los miembros antes del inicio de la sesión",
+    "lastDiscardBeforeMinutes": "Seleccione hasta cuándo los miembros pueden cancelar gratuitamente antes del inicio de la sesión",
+    "addOffers": "Añadir sesiones",
+    "addActivity": "Añadir una actividad",
+    "name": "Título",
+    "noNextSlot": "No más sesiones programadas",
+    "grossVolume": "Volumen de negocios (€)",
+    "totalCustomers": "Total reservas",
+    "fillrate": "Relleno promedio",
+    "description": "Descripción",
+    "category": "Categoría",
+    "offersThisDay": "Sesiones de hoy:",
+    "noOfferThisDay": "Sin sesión, selecciona otra fecha en el calendario",
+    "orNcredits1": "(ou ",
+    "orNcredits2": " créditos)",
+    "packsAvailable": "Elegible para pases:",
+    "reviews": "Opinión clientes: ",
+    "explainImage": "Recomendado: 1920x1080 jpeg (fullHD)",
+    "color": "Código de colores",
+    "firstBookingMinutesUntil": "Elija cuánto tiempo antes de la sesión se abre el plazo de reserva",
+    "is_broadcast": "Curso streaming en vivo",
+    "altCoverMain": "Descripción de la imagen para los discapacitados visuales",
+    "autoDiscard": "Cancelación automática",
+    "generalInfo": "Información general",
+    "firstMinutesBookingUntilWarning": "Un valor de cero significa que no se establece ninguna limitación. Las reservas estarán siempre abiertas para las sesiones de esta actividad."
+  },
+  "workshopActivity": {
+    "addWorkshopActivity": "Añadir un taller",
+    "imageUploaderRequireEditMessage": "Una vez tu actividad creada, puedes añadir más fotografías.",
+    "lastBookingBeforeMinutes": "Elija cuánto tiempo antes de la sesión se cierra el plazo de reserva",
+    "lastDiscardBeforeMinutes": "Decide cuánto tiempo antes de la actividad los miembros pueden cancelar gratuitamente",
+    "forms": {
+      "create": {
+        "success": "Taller guardado",
+        "error": "No se puede guardar el taller"
+      },
+      "update": {
+        "success": "Taller actualizado",
+        "error": "No se puede actualizar el taller"
+      }
+    }
+  },
+  "booking": {
+    "wasRefunded": "Crédito reembolsado",
+    "success": "Réservation enregistrée",
+    "revertBookingTitle": "Cancelar el registro",
+    "revertBookingWithInvoiceImpossibleExplain": "Esta reserva ya ha sido pagada por el miembro y no se puede cancelar. Sin embargo, puedes pasar la reserva en \"Ausente\"",
+    "attend": "Presente",
+    "doNotAttend": "Ausente",
+    "discard": "Cancelar",
+    "onWaitingList": "En lista de espera",
+    "onHold": "Esperando",
+    "waitingUserConfirmation": "Esperando la confirmación del cliente",
+    "confirm": "Cobrar",
+    "validated": "Pagado",
+    "pending": "No cobrado",
+    "cancelled": "Cancelado",
+    "cancelBooking": "Cancelar",
+    "noBookingOnThisOffer": "Ninguna reserva registrada para esta sesión por el momento",
+    "last": "Última:",
+    "next": "Próxima:",
+    "fillRate": "Tasa de ocupación",
+    "nb_booking": "Nb de lugares",
+    "status": {
+      "null": "lista de espera",
+      "true": "registrado",
+      "false": "cancelado"
+    },
+    "sources": {
+      "MOB": "Mobíl",
+      "WEB": "Web",
+      "MAN": "Manual"
+    },
+    "lastBooking": "Proxima clase",
+    "waiting": "Lista de espera",
+    "confirmed": "Confirmados",
+    "free": "huecos disponibles",
+    "seeCustomers": "Ver las reservas",
+    "source": "Procedencia",
+    "add": "Inscribir",
+    "revertBookingExplain": {
+      "offerIsNotAvailable": "La reserva será eliminada. La sesión ya ha sido cancelada y los créditos no serán reembolsados si no marcaste \"reembolso\" en el momento de la cancelación",
+      "offerIsAvailable": "¿Está seguro de que quieres eliminar esta reserva? Los créditos utilizados serán acreditados de nuevo.",
+      "offerIsAvailableChoiceRefund": "Estás seguro de que quieres eliminar esta reserva?"
+    },
+    "cancelledFromWaitingList": "Eliminado de la lista de espera",
+    "notifyRevert": "Enviar un email de cancelación",
+    "refundRevert": "Reembolso de los créditos utilizados",
+    "cancellingBookingInGroup": "Cancelar para otras sesiones de este grupo.",
+    "cancellingOtherBookingInGroup": "Cuidado, esta sesión es una sesión de grupo de {{- name }}. Si el miembro tiene otras reservas en este grupo no se verán afectadas.",
+    "waitingListPosition": "En lista de espera {{ posición }}/{ tamaño }}"
+  },
+  "level": {
+    "all": "Todos los niveles",
+    "beginner": "Principiante",
+    "intermediate": "Intermedio",
+    "intermediary": "Intermedio",
+    "advanced": "Avanzado",
+    "noDisplay": "No se muestra el nivel"
+  },
+  "time": {
+    "weekday": {
+      "sunday": "Domingo",
+      "monday": "Lunes",
+      "tuesday": "Martes",
+      "wednesday": "Miercoles",
+      "thursday": "Jueves",
+      "friday": "Viernes",
+      "satursday": "Sabado"
+    },
+    "monthShort": {
+      "january": "Ene",
+      "february": "Feb",
+      "march": "Mar",
+      "april": "Abr",
+      "may": "May",
+      "june": "Jun",
+      "july": "Jul",
+      "august": "Agosto",
+      "september": "Sep",
+      "october": "Oct",
+      "november": "Nov",
+      "december": "Dic"
+    },
+    "month": {
+      "january": "Ene",
+      "february": "Febrero",
+      "march": "Marzo",
+      "april": "Abril",
+      "may": "Mayo",
+      "june": "Junio",
+      "july": "Julio",
+      "august": "Agosto",
+      "september": "Septiembre",
+      "october": "Octubre",
+      "november": "Noviembre",
+      "december": "Deciembre"
+    }
+  },
+  "marketplace": {
+    "substitute": "Sustituto",
+    "substituted": "Ausente",
+    "backToCalendar": "Volver",
+    "showMarketplace": "Ver el calendario de ",
+    "noSessionToday": "No hay clase hoy",
+    "bookButton": {
+      "book": "Reservar",
+      "bookOption": "Lista de espera",
+      "notAvailable": "Cancelada",
+      "isPast": "Pasada",
+      "notBookableYet": "Muy pronto",
+      "alreadyRegistered": "Reservada",
+      "full": "Completo",
+      "popOverTitle": {
+        "notAvailable": "La sesión ha sido cancelada",
+        "notBookableYet": "La sesión aún no está abierta a reservas.",
+        "alreadyRegistered": "Ya ha reservado esta sesión.",
+        "isPast": "Las reservas ya están cerradas",
+        "bookOption": "La sesión está completa, pero hay lista de espera."
+      }
+    },
+    "sessionThisDay": "Clases de este día :",
+    "calendar": "Calendario",
+    "workshop": "Talleres",
+    "shop": {
+      "tabName": "Tienda",
+      "noDescription": "No hay descripción",
+      "addToCard": "Añadir a la cesta",
+      "isEmpty": "No hay productos en la tienda."
+    },
+    "checkout": {
+      "dialog": {
+        "title": "Mi cesta",
+        "cancel": "Volver a la tienda",
+        "goToDelivery": "Continuar",
+        "goToPayment": "Pagar"
+      }
+    },
+    "welcomeTo": "Bienvenido en ",
+    "pass": "Bonos",
+    "buyPack": "Comprar",
+    "selector": {
+      "coach": {
+        "placeholder": "Filtrar por profesores"
+      },
+      "level": {
+        "placeholder": "Filtrar por niveles"
+      },
+      "establishment": {
+        "placeholder": "Filtrar por locales"
+      }
+    },
+    "teacher": "Profesor",
+    "contract": {
+      "tabName": "Suscripción"
+    },
+    "private_service": "Sólo con cita previa",
+    "passListTitle": "Bonos para clases colectivas",
+    "privatePassListTitle": "Tarjetas de cita",
+    "vod": "VOD",
+    "playlist": "Playlist",
+    "book": "Reservar",
+    "cancel": "Cerrar",
+    "bookGroups": "Reserva un grupo de sesiones",
+    "discover": "Descubrir",
+    "from_to": "del {{-from}} hasta el {{-to}}",
+    "offers": "{{ count }} sesiones",
+    "paymentComboListTitle": "Packs"
+  },
+  "appbar": {
+    "title": {
+      "planning": "Calendario",
+      "allCoachPerformance": "Resumen del profesor",
+      "mergeMember": "Fusionar alumnos",
+      "dashboard": "Tablero de mando",
+      "shopManager": "Mi tienda",
+      "coachList": "Profesores",
+      "offerManagement": "Reservas",
+      "metaActivity": "Actividades",
+      "workshopActivityList": "Talleres",
+      "WorkshopActivityFormPage": "Formulario Talleres",
+      "metaActivityEditForm": "Formulario de Actividad",
+      "metaActivityList": "Actividades",
+      "metaActivityFormPage": "Formulario de Actividad",
+      "offerFormPage": "Crear una clase",
+      "coachPerformance": "Pago del profesor",
+      "coachFormPage": "Formulario del profesor",
+      "invoiceFormPage": "Editar factura",
+      "invoiceCreatePage": "Facturar",
+      "invoiceList": "Mis transacciones",
+      "paymentPackFormPage": "Creación bono",
+      "paymentPackList": "Bonos",
+      "members": "Miembros",
+      "member": "Alumno",
+      "memberFormPage": "Formulario del alumno",
+      "establishmentList": "Establecimientos",
+      "establishmentFormPage": "Formulario del establecimiento",
+      "marketingRule": "Estrategias marketing",
+      "subscriptions": "Suscripción",
+      "marketingDashboard": "Marketing",
+      "reportingDashboard": "Informes",
+      "searchResults": "Buscar",
+      "settings": "Parámetros",
+      "orderList": "Pedidos",
+      "orderDetail": "Detalles de las pedidos"
+    }
+  },
+  "countdown": {
+    "hours": "Horas",
+    "minutes": "Minutos",
+    "seconds": "Segundos"
+  },
+  "dayParts": {
+    "morning": "Mañana",
+    "afternoon": "Tarde",
+    "evening": "Noche"
+  },
+  "private_service": "Sólo con cita previa",
+  "offerManagement": {
+    "forms": {
+      "register": {
+        "forceNotify": "Enviar un email de confirmación",
+        "passCompatibleNotOwnedByMember": "Facturación de un nuevo pase",
+        "passOwnedByMember": "Pase(s) propiedad del miembro",
+        "registerToOffer": "Inscripción para la sesión",
+        "doNotConsumeCredit": "No deducir créditos a los miembros para registrarse",
+        "bookSingleInGroup": "Inscribir sólo en esta sesión",
+        "bookMoreInGroup": "Inscribir en otras sesiones de grupo",
+        "groupWarning": "Esta sesión forma parte del grupo de sesiones {{- name }}",
+        "loadingData": "Carga de los datos de reserva",
+        "bookingLimitReached": "Límite de reservas alcanzado"
+      }
+    }
+  },
+  "openSchedule": "Ver el horario",
+  "strategy": {
+    "strategy": "Estrategia",
+    "gym": "Gimnasio Beaulieu",
+    "female": "F",
+    "yoga": "Yoga",
+    "none": "Ninguno",
+    "crossfit": "Crossfit",
+    "offersWithoutMembership": "Sesión(es) sin suscripción",
+    "membership": "Suscripción",
+    "gaveUp": "Abandono desde",
+    "sessions": "sesiones",
+    "location": "Lugar",
+    "gender": "Sexo",
+    "sport": "Deporte"
+  },
+  "blockBooking": "Bloquear la reserva a los bonos nuevos clientes",
+  "languageToolTip": "Disponible en el marketplace web",
+  "visibilityOfIconToolTip": "No visible",
+  "replaceCoach": "Cambiar el profesor",
+  "onlyNewMember": "Bloquear la reserva a los bonos nuevos clientes",
+  "bookingStatistics": {
+    "weekOverview": "Resumen de tu semana",
+    "offerFilteredBookingRecap": "Sesión del {{date}}",
+    "totalBookings": "{{nb}} reserva en total",
+    "totalBookings_plural": "{{nb}} reservas en total",
+    "cancelledBookings": "{{nb}} reserva cancelada",
+    "cancelledBookings_plural": "{{nb}} reservas canceladas",
+    "maintenedBookings": "{{nb}} reserva mantenida",
+    "maintenedBookings_plural": "{{nb}} reservas mantenidas",
+    "keys": {
+      "created": "Reservas mantenidas",
+      "cancelled": "Reservas canceladas",
+      "offers": "Ofertas",
+      "waitingLists": "Listas de espera"
+    },
+    "weekOf": "Semana del {{date}}",
+    "chartsItemLabel": {
+      "numberOfSessions": "Sesiones",
+      "numberOfCancelledBookings": "Reservas canceladas",
+      "numberOfConfirmedBookings": "Reservas confirmadas",
+      "waitingListSize": "En lista de espera"
+    },
+    "totalOffers": "{{ nb_offers }} <0/> sesión total",
+    "totalOffers_plural": "{{ nb_offers }} <0/> sesiones totales",
+    "bookingsTotalCount": "{{nb}} <0/>reserva total",
+    "bookingsTotalCount_plural": "{{nb}} <0/>reservas totales",
+    "bookingsCancelled": "{{nb}} cancelado",
+    "confirmedBookings": "{{nb}} confirmado",
+    "waitingListSize": "{{nb}} en lista de espera"
+  },
+  "metaActivityNotificationToolTip": "Se establecen notificaciones para reservas relacionadas con este artículo",
+  "show_cancelled_offers": "Mostrar sesiones canceladas",
+  "quickInvoiceNoVoucher": "Deja el valor de este campo en 0 si no deseas aplicar un descuento",
+  "quickInvoiceVoucher": "Elige el descuento para aplicar al facturar el próximo pase",
+  "metaActivityCategory": {
+    "sctExplain": "Elija la categoría en la que se mostrará esta actividad en el marketplace y en la aplicación móvil.",
+    "explain": "Estas categorías sólo sirven para ordenar las actividades en el back office como usted desee. No tienen impacto en el lado del cliente"
+  },
+  "restrictions": {
+    "tags": {
+      "mandatory": "Selecciona al menos 1 etiqueta",
+      "header": "Etiquetas seleccionadas",
+      "selectPlaceHolder": "Elegir una etiqueta"
+    },
+    "back": "Anterior",
+    "next": "Siguiente",
+    "personnalizedRestrictionsIndex": "Restricción personalizada n°{{ count }}",
+    "add": "Crear regla personalizada",
+    "personnalizedHelper": "Establezca reglas personalizadas basadas en etiquetas para adaptar la configuración a cada segmento.",
+    "personnalizedHeader": "Condiciones personalizadas",
+    "firstBookingMinutesUntil": "Abrir las reservas",
+    "lastDiscardBeforeMinutes": "Política de cancelación tardía",
+    "lastBookingBeforeMinutes": "Cuando se cierre el plazo de reserva",
+    "header": "Condiciones"
+  }
+}

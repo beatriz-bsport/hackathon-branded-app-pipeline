@@ -1,0 +1,1171 @@
+{
+  "dayParts": {
+    "evening": "Avond",
+    "afternoon": "Middag",
+    "morning": "Ochtend"
+  },
+  "countdown": {
+    "seconds": "Seconden",
+    "minutes": "Minuten",
+    "hours": "Uur"
+  },
+  "appbar": {
+    "title": {
+      "orderDetail": "Besteloverzicht",
+      "orderList": "Bestellingen",
+      "settings": "Instellingen",
+      "searchResults": "Zoeken",
+      "reportingDashboard": "Rapportages",
+      "marketingDashboard": "Marketing",
+      "subscriptions": "Abonnementen",
+      "marketingRule": "Marketingcampagnes",
+      "establishmentFormPage": "[Formulier] Vestiging",
+      "establishmentList": "Vestigingen",
+      "memberFormPage": "[Formulier] Lid",
+      "member": "Lid",
+      "members": "Leden",
+      "paymentPackList": "Leskaarten",
+      "paymentPackFormPage": "Een leskaart toevoegen",
+      "invoiceList": "Facturen",
+      "invoiceCreatePage": "Factureren",
+      "invoiceFormPage": "Factuur",
+      "coachFormPage": "[Formulier] Instructeur",
+      "coachPerformance": "Payroll",
+      "offerFormPage": "Sessies toevoegen",
+      "metaActivityFormPage": "[Formulier] Workshops",
+      "metaActivityList": "Groepsactiviteiten",
+      "metaActivityEditForm": "[Formulier] Groepsactiviteiten",
+      "WorkshopActivityFormPage": "[Formulier] Workshop",
+      "workshopActivityList": "Workshops",
+      "metaActivity": "Groepsactiviteiten",
+      "offerManagement": "Reserveringen",
+      "coachList": "Instructeurs",
+      "shopManager": "Webshop",
+      "dashboard": "Dashboard",
+      "mergeMember": "Leden samenvoegen",
+      "allCoachPerformance": "Payroll",
+      "planning": "Agenda"
+    }
+  },
+  "offerManagement": {
+    "forms": {
+      "register": {
+        "forceNotify": "Een bevestigingsmail versturen",
+        "passCompatibleNotOwnedByMember": "Factureer",
+        "passOwnedByMember": "Beschikbare kaarten",
+        "registerToOffer": "Reservering",
+        "doNotConsumeCredit": "Geen credits voor deze reserveringen aftrekken",
+        "bookMoreInGroup": "Andere evenementen reserveren",
+        "groupWarning": "Deze sessie is onderdeel van het evenement {{- name }}",
+        "bookSingleInGroup": "Alleen voor deze sessie inschrijven",
+        "loadingData": "Reserveringsgegevens laden",
+        "bookingLimitReached": "Reserveringslimiet bereikt"
+      }
+    }
+  },
+  "marketplace": {
+    "selector": {
+      "establishment": {
+        "placeholder": "Filter op vestiging"
+      },
+      "level": {
+        "placeholder": "Filteren op niveau"
+      },
+      "coach": {
+        "placeholder": "Filter op instructeur"
+      }
+    },
+    "buyPack": "Aanschaffen",
+    "private_service": "Afspraken",
+    "pass": "Kaarten",
+    "welcomeTo": "Welkom bij ",
+    "checkout": {
+      "dialog": {
+        "goToPayment": "Afrekenen",
+        "goToDelivery": "Verder",
+        "cancel": "Terug naar de webshop",
+        "title": "Mijn winkelmandje"
+      }
+    },
+    "shop": {
+      "isEmpty": "Momenteel zijn er geen producten in de webshop beschikbaar.",
+      "addToCard": "Winkelmandje",
+      "noDescription": "Er is geen beschrijving om weer te geven.",
+      "tabName": "Webshop"
+    },
+    "contract": {
+      "tabName": "Abonnementen"
+    },
+    "workshop": "Workshops",
+    "calendar": "Agenda",
+    "sessionThisDay": "Sessies van vandaag:",
+    "bookButton": {
+      "isPast": "Afgelopen",
+      "notAvailable": "Geannuleerd",
+      "bookOption": "Wachtlijst",
+      "book": "Reserveer",
+      "notBookableYet": "Binnenkort beschikbaar",
+      "alreadyRegistered": "Gereserveerd",
+      "full": "Vol",
+      "popOverTitle": {
+        "notAvailable": "De sessie is geannuleerd",
+        "notBookableYet": "De sessie kan nog niet worden geboekt.",
+        "alreadyRegistered": "Je hebt deze sessie al geboekt.",
+        "bookOption": "De sessie is vol en er is een wachtlijst.",
+        "isPast": "Reserveringen zijn gesloten"
+      }
+    },
+    "passListTitle": "Leskaarten",
+    "privatePassListTitle": "Afspraakkaarten",
+    "noSessionToday": "Er zijn geen sessies om weer te geven.",
+    "showMarketplace": "Zie het rooster van ",
+    "backToCalendar": "Terug",
+    "teacher": "Instructeur",
+    "substituted": "Afwezig",
+    "substitute": "Plaatsvervanger",
+    "vod": "Video On Demand",
+    "playlist": "Afspeellijsten",
+    "bookGroups": "Evenementen",
+    "book": "Reserveer",
+    "cancel": "Sluiten",
+    "discover": "Ontdek",
+    "from_to": "van {{-from}} tot {{-to}}",
+    "offers": "{{ count }} sessie(s)",
+    "paymentComboListTitle": "Pakketten"
+  },
+  "login": {
+    "error": {
+      "invalidPassword": "Het wachtwoord is ongeldig",
+      "invalidEmail": "Hmm... dit e-mailadres komt ons niet bekend voor."
+    },
+    "forgottenPassword": "Wachtwoord vergeten?",
+    "authError": "Incorrect e-mailadres of wachtwoord",
+    "password": "Wachtwoord",
+    "noAccount": "Account aanmaken",
+    "loginAsConsumer": "Een student",
+    "loginAsPro": "Een manager",
+    "choseYourUserspace": "Ik ben",
+    "invalidPhone": "Onbekend telefoonnummer",
+    "signUpConsumer": "Account aanmaken",
+    "welcome": "Welkom!"
+  },
+  "paginatedList": {
+    "isEmpty": "Er zijn nog geen gegevens om weer te geven."
+  },
+  "payment": {
+    "toSubscribe": "Inschrijven",
+    "toBill": "Factureren",
+    "createInvoice": "Betaling",
+    "stripePaymentWillBeCashedOutOnInvoiceValidation": "De betaalkaart wordt pas belast nadat de factuur is aangemaakt.",
+    "intervalType": "Betalingsfrequentie",
+    "nbInterval": "Aantal incasso's",
+    "billingAnchor": "Eerste betaling",
+    "intervalWeek": "Wekelijks",
+    "intervalMonth": "Maandelijks",
+    "isRecurring": "Betaling in termijnen",
+    "stillUnpaid": "Nog af te rekenen: ",
+    "status": "Verzilverd",
+    "addThisPaymentItem": "Deze betaling toevoegen",
+    "noPaymentItem": "Er is geen betaling geregistreerd.",
+    "paymentItemsListTitle": "Geregistreerde betalingen",
+    "paymentMethods": {
+      "DISPUTE": "Dispuut",
+      "OTHER": "Diverse",
+      "SUBSCRIPTION_CB": "Geplande betaling",
+      "CREDIT_ACCOUNT": "Interne rekening (Wallet)",
+      "BANK_TRANSFER": "Bankoverschrijving",
+      "AMEX": "AMEX",
+      "EVENT_BRITE": "EventBrite",
+      "CASH": "Contant",
+      "HOLIDAY_CHECK": "Vakantiecheques",
+      "CHECK": "Cheque",
+      "CB_MANUAL": "Betaalkaart (handmatig - pinapparaat)",
+      "CB": "Betaalkaart"
+    },
+    "creditAccountBalance": "Saldo interne rekening (Wallet): ",
+    "paymentMethod": "Betalingswijze",
+    "invoice": "Factuur",
+    "paymentMethodCash": "Contant",
+    "paymentMethodCheck": "Cheque",
+    "paymentMethodStripe": "Betaalkaart",
+    "total": "TOTAAL",
+    "voucher": "Korting",
+    "updateInvoiceVoucher": "Promotiecode toevoegen",
+    "addPaymentPack": "Leskaarten",
+    "addOffer": "Sessie",
+    "addInvoiceItem": "Aan factuur toevoegen",
+    "object": "Beschrijving",
+    "paymentDate": "Aankoopdatum",
+    "consumer": "Lid",
+    "fullyPaid": "Status",
+    "amount": "Bedrag",
+    "type": "Type",
+    "pay": "Afrekenen",
+    "payWithNCredits2": "credit(s)",
+    "payWithNCredits1": "Reserveren (",
+    "availablePaymentPacks": " beschikbare leskaarten",
+    "yourBasket": "Jouw aankoop",
+    "noBookingsLeftOnPack": "Deze leskaart kan deze week niet meer worden gebruikt.",
+    "noCreditLeft": "Er zijn niet genoeg geldige credits beschikbaar",
+    "bookWithUnlimitedPack": "Reserveer",
+    "actions": "Acties",
+    "invoiceFinalizedThusNotEditable": "De factuur is nu aangemaakt en kan niet meer worden bewerkt.",
+    "topUp": "Credits",
+    "invoiceRevertedThusNotEditable": "De factuur is geannuleerd en kan niet worden gewijzigd",
+    "products": "artikelen",
+    "paymentCombo": "Pakketten",
+    "return": "Terugbetaling",
+    "privatePass": "Afspraakkaarten",
+    "credit": "Credits",
+    "payment": "Betaling",
+    "goToSubscription": "Zie abonnement",
+    "invoiceFromSubscriptionThusNotEditable": "Deze factuur is aan een abonnement gekoppeld en kan daarom niet worden gewijzigd. Wijzig het abonnement zelf om veranderingen door te voeren.",
+    "noBookingsLeftOnPackInMonth": "Deze leskaart kan deze maand niet meer worden gebruikt."
+  },
+  "invoice": {
+    "explainFinalize": "Let op: een definitieve factuur kan niet meer worden gewijzigd. Alle betalingen die in afwachting van incasso zijn gemarkeerd, worden als geïncasseerd beschouwd. Zodra de factuur is afgerond, kun je deze als een PDF exporteren.",
+    "finalize": "Voltooi de factuur",
+    "invoiceReverted": "Geannuleerde factuur",
+    "revertExplainShop": "Aankopen van de webshop worden geannuleerd en de voorraad wordt gereset.",
+    "revertExplainPacks": "De leskaart en alle gekoppelde reserveringen worden geannuleerd.",
+    "revertExplainCredits": "Het debet/credit op de account van het lid wordt teruggeboekt.",
+    "revertExplainPayment": "Kaartbetalingen worden teruggestort op de rekening van het lid. Alle andere betaalmethoden worden verwijderd.",
+    "revertImpossibleExplainSubscription": "Deze factuur is aan een abonnement gekoppeld. Je kunt een gekoppelde factuur niet annuleren, maar je kunt het abonnement en de laatste betaling wel stopzetten",
+    "explainDateChoser": "Selecteer de factuurdatum:",
+    "choseDate": "Factuurdatum",
+    "revert": "Factuur annuleren",
+    "reverted": "Geannuleerd",
+    "choseDateTitle": "Factuurdatum"
+  },
+  "navigation": {
+    "coupon": "Promoties",
+    "subscription": "Abonnementen",
+    "myClub": "Mijn studio",
+    "settings": "Instellingen",
+    "pass": "Leskaarten",
+    "goBack": "Terug",
+    "refresh": "Vernieuwen",
+    "logoff": "Afmelden",
+    "payment": "Betalingen",
+    "establishment": "Vestigingen",
+    "member": "Leden",
+    "message": "Marketing",
+    "calendar": "Agenda",
+    "activity": "Groepsactiviteiten",
+    "dashboard": "Dashboard",
+    "search": "Zoeken",
+    "reporting": "Rapportages",
+    "consumer": {
+      "order": "Mijn bestellingen",
+      "profile": "Mijn profiel",
+      "bookings": "Mijn reserveringen ",
+      "pass": "Leskaarten"
+    },
+    "beta": "Bèta",
+    "coachPerformance": "Payroll",
+    "privateService": {
+      "pass": "Afspraakkaarten",
+      "services": "Afspraken",
+      "title": "Afspraken"
+    },
+    "schedule": "Rooster",
+    "alpha": "In ontwikkeling",
+    "invoice": "Facturen",
+    "workshopActivities": "Workshops",
+    "order": "Bestellingen",
+    "email_template": "E-mails",
+    "smart_list": "Smartlists",
+    "sequence": "Campagnes",
+    "requestTempPassword": "Toegang verlenen",
+    "combo": "Pakketten",
+    "marketing_automation": "Marketingautomatisering",
+    "digital": "Digitaal aanbod",
+    "podcast": "Podcasts",
+    "playlist": "Afspeellijst",
+    "video": "Videotheek & eBooks",
+    "closeTab": "Tabblad sluiten"
+  },
+  "consumer": {
+    "booking": {
+      "cancelOption": "Annuleren",
+      "noPastBookings": "Er zijn geen vorige reserveringen om weer te geven.",
+      "noFutureBookings": "Er zijn geen reserveringen om weer te geven.",
+      "noBookingOptions": "Er staan geen reserveringen op de wachtlijst.",
+      "myOptions": "Reserveringen op de wachtlijst",
+      "myPastBookings": "Mijn eerdere reserveringen",
+      "myFutureBookings": "Volgende sessies",
+      "waitingSlot": "Afwachten",
+      "confirmBooking": "Bevestigen",
+      "discardImpossibleExplain": "Weet je zeker dat je deze reservering wilt annuleren? Indien ja, klik dan op \"Verwijderen\". Dit is op basis van de annuleringsvoorwaarden een te late annulering.",
+      "discardPossibleExplain": "Weet je zeker dat je deze reservering kosteloos wilt annuleren? Indien ja, klik dan op \"Verwijderen\".",
+      "discardBookingTitle": "Reservering annuleren",
+      "cancelBooking": "Reservering annuleren",
+      "myPrivateBooking": "Afspraken",
+      "intro": "Reservering van {{date}}",
+      "discardGroupImpossibleExplain": "De credits worden niet teruggestort, omdat deze reservering te laat geannuleerd wordt.",
+      "discardGroupPossibleExplain": "De credits worden teruggestort en kunnen opnieuw worden gebruikt.",
+      "willNotBeRefund": "Uitstaande credits",
+      "willBeRefund": "De sessie van {{-day}} wordt terugbetaald",
+      "discardAllGroup": "Reserveringen van dit evenement worden geannuleerd.",
+      "discardGroup3": "Contacteer de studio, indien je wenst om slechts één sessie te annuleren.",
+      "discardGroup2": "Je wordt automatisch afgemeld van alle toekomstige sessies die aan dit evenement gekoppeld zijn.",
+      "discardGroup1": "Deze reservering is onderdeel van \"{{- group }}\".",
+      "waintingListPositionLabel": "Positie :"
+    },
+    "help": {
+      "explainCancelBookingOption": "Deze verwijdering is definitief. Je zult ook je plaats op deze wachtlijst verliezen.",
+      "areYouSureCancelBookingOption": "Weet je zeker dat je dit wilt annuleren?"
+    },
+    "company": "Mijn studio",
+    "myPrivatePass": "Mijn afspraakkaarten",
+    "myPaymentPacks": "Mijn leskaarten"
+  },
+  "marketing": {
+    "noPromo": "Geen",
+    "promo": "Korting: ",
+    "promoTitle": "Aanbieding",
+    "offersMatching": " sessie(s)",
+    "after": "Na ",
+    "message": "Bericht",
+    "estimatedTarget": "Aandeel betrokken leden t.o.v. je totale ledenbestand",
+    "strategy": "Campagne: ",
+    "criterias": "Criteria",
+    "clientsReached": "Gecontacteerde leden",
+    "notificationsSent": "Verzonden meldingen",
+    "EmailSent": "Verzonden e-mails",
+    "SMSSent": "Verzonden sms'jes",
+    "action": "Actie",
+    "totalBuy": "Totale omzet",
+    "averageBuy": "Gem. winkelmandwaarde",
+    "sales": "Verkoop",
+    "conversionRate": "Conversiepercentage",
+    "dashboard": "Campagnes"
+  },
+  "form": {
+    "never": "Nooit",
+    "oneMonth": "1 maand",
+    "twoWeeks": "2 weken",
+    "tenDays": "10 dagen",
+    "oneWeek": "1 week",
+    "twoDays": "2 dagen",
+    "oneDay": "1 dag",
+    "twelveHour": "12u",
+    "eightHour": "8u",
+    "sixHour": "6u",
+    "fourHour": "4u",
+    "threeHour": "3u",
+    "twoHour": "2u",
+    "oneHourAndHalf": "1u:30min.",
+    "oneHourFifteen": "1u:15min.",
+    "oneHour": "1u",
+    "halfAndQuarterHour": "45 min.",
+    "halfHour": "30 min.",
+    "twentyMinutes": "20 min.",
+    "quarterHour": "15 min.",
+    "zeroMinute": "0 min.",
+    "newMetaActivity": "Nieuwe activiteit",
+    "default_duration_minutes": "Duur van de sessie",
+    "default_last_discard_minutes": "Kosteloos annuleren kan tot",
+    "default_last_booking_minutes": "Reserveren is mogelijk tot",
+    "default_credits": "Prijs (in credits)",
+    "default_price": "Prijs",
+    "SCT": "Categorie",
+    "name": "Naam",
+    "discard": "Annuleren",
+    "send": "Opslaan",
+    "description": "Beschrijving",
+    "email": "E-mailadres",
+    "phone": "Telefoonnummer",
+    "clearDate": "Uitwissen",
+    "birthday": "Geboortedatum",
+    "birthdayYear": "Geboortejaar",
+    "gender": "Geslacht",
+    "lastname": "Achternaam",
+    "firstname": "Voornaam",
+    "newCoach": "Nieuwe instructeur",
+    "newMember": "Nieuw lid",
+    "coach": "Instructeur",
+    "establishment": "Vestiging",
+    "addingSessionFor": "Sessies toevoegen voor: ",
+    "level": "Niveau",
+    "effectif": "Beschikbare plaatsen",
+    "caracteristics": "Kenmerken",
+    "price": "Prijs",
+    "credits": "Prijs (in credits)",
+    "priceCategory": "Facturatie",
+    "duration_minute": "Duur",
+    "lastSession": "Einddatum",
+    "firstSessionAt": "in",
+    "firstSessionOn": "Startdatum",
+    "timeSettings": "Tijd en datum",
+    "monthly": "Maandelijks",
+    "weekly": "Wekelijks",
+    "notRecurrent": "Eenmalig",
+    "recurrence": "Frequentie",
+    "offerWillBeGenerated": "sessies worden toegevoegd.",
+    "offersWillBeGenerated": "sessies worden toegevoegd.",
+    "credit_price": "Dit is het benodigd aantal credits voor een reservering.",
+    "generateOffers": "Sessies toevoegen",
+    "default_waiting_list_max_size": "Grootte van de wachtlijst",
+    "password": "Wachtwoord",
+    "signInPhoneInstruction": "Voer je telefoonnummer in. Je ontvangt per sms een bevestigingscode",
+    "SMSSignInTitle": "sms-verbinding",
+    "code": "Promotiecode",
+    "pleaseEnterYourSMSCode": "Voer de per sms verzonden code in",
+    "specific_info": "Beschrijving",
+    "title": "Titel",
+    "offer": {
+      "delete": {
+        "explainModalities": "Let op: deze wijziging is definitief. De sessie zal niet langer zichtbaar voor je leden zijn.",
+        "explainNotify": "Een melding naar alle ingeschreven leden sturen",
+        "explainCreditBack": "credits van de gebruikte kaart terugstorten",
+        "explainHardDelete": "Weet je zeker dat je deze sessie(s) wilt verwijderen? Let op: deze actie is definitief en de verwijderde sessies worden onzichtbaar. Als een sessie reserveringen bevat kan het niet worden verwijderen.",
+        "buttonHardDelete": "Verwijderen",
+        "explainForceDanger": "Waarschuwing: alle reserveringen worden definitief verwijderd. Terugbetaalde credits worden niet getraceerd. Controleer zorgvuldig de status van de reserveringen en producten voordat er iets verwijderd wordt.",
+        "force": "Alle geselecteerde sessies inclusief de bijbehorende reserveringen verwijderen",
+        "advanced": "Geavanceerd",
+        "explainDeleteLinkedHybridSession": "Annuleer hybride sessies (sessies die op locatie en online plaatsvinden)"
+      },
+      "explainNotificationOnEdit": "Ingeboekte leden informeren",
+      "explainRecursiveOfferEdit": "Selecteer vergelijkbare sessies die je wenst te wijzigen",
+      "explainRecursiveOfferDelete": "Wil je alle vergelijkbare sessies verwijderen?",
+      "broadcast_link": {
+        "error": "De link is verkeerd. Het moet beginnen met http:// of https:// en mag geen spaties bevatten",
+        "explainZoomApp": "BSPORT Solution maakt automatisch de link via Zoom aan."
+      },
+      "changeEstablishment": "Wijzig de vestiging",
+      "changeCoach": "Instructeur bewerken",
+      "changeDate": "Wijzig de tijd / datum",
+      "cancelTitle": "Sessies annuleren",
+      "deleteTitle": "Verwijderen",
+      "warningPackonEdit": "Het is mogelijk dat na deze wijziging(en) bepaalde kaarten niet meer compatibel zijn. Vergeet niet om de compatibiliteit van je kaarten voor je vestiging(en)/instructeur(s) te controleren.",
+      "substituteEstablishmentLabel": "Vestiging (tijdelijke plaats)",
+      "establishmentLabel": "Vestiging",
+      "coachLabel": "Instructeur",
+      "substituteCoachLabel": "Plaatsvervanger",
+      "establishmentChangeWarning": "Wanneer de vestiging van de activiteit gewijzigd wordt, geldt deze wijziging voor alle toekomstige sessies. Als je een tijdelijke vestiging wilt gebruiken, gebruik dan het veld \"Tijdelijke vestiging\". Alle andere wijzigingen (instructeur, prijs, etc.) worden vervolgens op alle sessies toegepast.",
+      "coachChangeWarning": "Wanneer de instructeur van de activiteit gewijzigd wordt, geldt deze wijziging voor alle toekomstige sessies. Alle andere wijzigingen (vestiging, prijs, etc.) worden vervolgens op alle sessies toegepast.",
+      "levelChangeWarning": "Wanneer het niveau van de activiteit gewijzigd wordt, geldt deze wijziging voor alle toekomstige sessies. Alle andere wijzigingen (vestiging, prijs, etc.) worden vervolgens op alle sessies toegepast.",
+      "explainPartnership": "MarketPlaces (Onefit, ClassPass, etc.)",
+      "explainManagerOnly": "Accepteer reserveringen (Website + Mobiele App)",
+      "advancedOptions": {
+        "tag": {
+          "notAllowed": "Afgekeurd",
+          "doNotSelectToAllowAllMembers": "Laat dit veld leeg om het voor iedereen beschikbaar te maken.",
+          "allowed": "Goedgekeurd",
+          "helperText": "Gebruik tags om bepaalde sessies alleen voor bepaalde doelgroepen beschikbaar te maken. Selecteer welke tags wel óf niet toegang geven tot de aangegeven activiteiten.",
+          "header": "Tags"
+        },
+        "header": "Geavanceerd"
+      },
+      "editingGroup": "Deze sessie is gekoppeld aan het evenement {{- name }}",
+      "explainAllowGuest": "Activeer de functie voor leden om gasten uit te nodigen"
+    },
+    "payment": {
+      "additionalInformationHelper": "(Optioneel) Betalingskenmerk",
+      "additionalInformationLabel": "Informatie",
+      "noPaymentExtraInfo": "Geen aanvullende informatie",
+      "unpaid": "In afwachting",
+      "paid": "Betaald",
+      "status": "Status"
+    },
+    "invoice": {
+      "explainUnevenInvoice": "Het totaal is {{ currencyDisplay }}{{totalInvoiceItems}} als het totaal aan betalingen {{ currencyDisplay }}{{ totalPayments }} is. De interne rekening van het lid wordt gecrediteerd/gedebiteerd naar balans.",
+      "titleUnevenInvoice": "Openstaande facturen",
+      "activityHelper": "Kies de activiteit en vervolgens de sessie",
+      "objectTypeLabel": "Te verrekenen onderdeel",
+      "noPayedObject": "Geen",
+      "paymentPackHelper": "Deze leskaart wordt toegewezen aan",
+      "offerHelper": "Deze sessie wordt gecrediteerd aan",
+      "paymentLabel": "Een transactie toevoegen",
+      "title": "Een betaling registreren",
+      "backToInvoiceItemList": "Terug",
+      "dateStartPaymentPack": "De startdatum van deze leskaart is:"
+    },
+    "quickInvoice": {
+      "paymentDue": "Openstaande betalingen",
+      "totalPayment": "Betalingen",
+      "totalPurchase": "Aankopen"
+    },
+    "signup": {
+      "privacyPolicy": "Algemene servicevoorwaarden",
+      "iAcceptPrivacyPolicy": "Ik accepteer de ",
+      "signupButton": "Inschrijven",
+      "communication": {
+        "sms": "Sms",
+        "email": "E-mail"
+      },
+      "rgpdTitle": "Welke kanalen wens te gebruiken voor updates betreffende annuleringen, tijdswijzigingen en meer?",
+      "confirmPassword": "Wachtwoord",
+      "confirmPasswordLabel": "Bevestiging",
+      "emailExistsInDB2": "Aanmelden",
+      "emailExistsInDB1": "Je gebruikt dit e-mailadres al bij een andere studio dat BSPORT gebruikt. Je kunt dezelfde inloggegevens blijven gebruiken.",
+      "typePhone": "Mobiel*",
+      "error": {
+        "passwordConfirm": "Deze wachtwoorden komen niet overeen.",
+        "password": "Je wachtwoord moet minimaal 6 tekens bevatten."
+      },
+      "fields": {
+        "accept_sms": "Ik ga ermee akkoord om per sms te worden benaderd voor promotionele doeleinden, zoals promoties en speciale aanbiedingen.",
+        "accept_email": "Ik ga ermee akkoord om per e-mail te worden benaderd voor promotionele doeleinden, zoals promoties en speciale aanbiedingen.",
+        "waiver": "Ik accepteer de Waiver / Vrijstelling.",
+        "general_terms_and_conditions_accepted": "Ik ga akkoord met de algemene voorwaarden.",
+        "emergency_contact": "Contactpersoon voor noodgevallen",
+        "city": "Stad",
+        "birthday": "Geboortedatum",
+        "phone": "Telefoonnummer ",
+        "country": "Land",
+        "zipcode": "Postcode",
+        "address_line_2": "Aanvulling adres",
+        "address_line_1": "Adres",
+        "gender": "Geslacht",
+        "passwordConfirm": "Wachtwoord bevestigen",
+        "password": "Wachtwoord",
+        "email": "E-mailadres",
+        "last_name": "Achternaam",
+        "first_name": "Voornaam"
+      },
+      "addProfilePicture": "Een profielfoto toevoegen",
+      "addProfilePictureRequiredLabel": "Het toevoegen van een profielfoto is een vereiste.",
+      "addProfilePictureRequired": "Een profielfoto toevoegen*"
+    },
+    "metaActivity": {
+      "cantAddSameName": "Er bestaat al een activiteit met dezelfde naam."
+    },
+    "member": {
+      "referenceNumberHelper": "(Optioneel) Een lid krijgt automatisch een lidmaatschapsnummer toegewezen als dit veld leeg is.",
+      "referenceNumber": "Lidmaatschapsnummer",
+      "barcodeHelper": "(Optioneel) Gebruik deze streepjescode als toegangsbewijs.",
+      "barcode": "Streepjescode",
+      "birthdayYear": "Geboortejaar",
+      "rgpdTitle": "Geaccepteerde marketingcommunicatiekanalen:",
+      "phone": "Telefoonnummer",
+      "delete": {
+        "success": "Notitie verwijderd",
+        "error": "Fout bij het verwijderen van notitie"
+      },
+      "createOrUpdate": {
+        "success": "Notitie opgeslagen",
+        "error": "Fout bij het opslaan van de notitie"
+      },
+      "rgpd": {
+        "sms": "Ik ontvang graag relevante sms'jes.",
+        "email": "Ik ontvang graag relevante e-mails."
+      },
+      "errors": {
+        "waiver": "Het is een vereiste dat de Waiver / Vrijstelling geaccepteerd is.",
+        "accept_email": "Het is een vereiste dat e-mailmeldingen geaccepteerd zijn",
+        "accept_sms": "Het is een vereiste dat sms-meldingen geaccepteerd zijn"
+      },
+      "waiver": {
+        "conditions": " de Waiver / Vrijstelling.",
+        "iAccept": "Ik accepteer ",
+        "dialog": {
+          "confirm": "Accepteer",
+          "title": " Waiver / Vrijstelling"
+        }
+      }
+    },
+    "booking": {
+      "delete": {
+        "error": "Verwijderen mislukt",
+        "success": "Reservering verwijderd"
+      }
+    },
+    "shop": {
+      "item": {
+        "tva": "Btw",
+        "price": "Prijs",
+        "name": "Naam",
+        "provisions": "Voorraad",
+        "description": "Beschrijving",
+        "subtitle": "Ondertitel",
+        "add": "Voeg een product toe",
+        "delete": {
+          "error": "Verwijderen mislukt",
+          "success": "Item verwijderd"
+        },
+        "createOrUpdate": {
+          "error": "Fout bij het opslaan van de wijzigingen",
+          "success": "Opgeslagen"
+        },
+        "updateProvisionTitle": "Voorraadwijziging",
+        "updateProvisionExplain": "Actualiseer je huidige voorraad.",
+        "modifyProvisions": "Voorraad bijwerken",
+        "updateProvisions": {
+          "error": "Fout bij het bijwerken van de voorraad",
+          "success": "Voorraad bijgewerkt"
+        },
+        "deleteExplain": "Let op! Deze actie is definitief. Geen enkel lid kan dit product meer kopen en de voorraden worden verwijderd.",
+        "barcode": "Streepjescode",
+        "deleteTitle": "Verwijder",
+        "marketplace_enabled": "Beschikbaar op de webshop",
+        "unlimitedProvision": "Geen voorraadbeheer",
+        "create": "Een product toevoegen",
+        "is_deliverable": "Verzendkosten toevoegen",
+        "featured": "Dit product tijdens het betalen aanraden",
+        "sell_only_on_provision": "Alleen verkopen als er voorraad is",
+        "onsite_payment_available": "Accepteer fysieke betalingen",
+        "available_payment_method_identifiers": {
+          "helperText": "Selecteer ten minste één betaalmethode. Als geen enkele betaalmethode geselecteerd is, dan biedt het systeem standaard een kaartbetaling aan.",
+          "label": "Geaccepteerde betaalmethoden"
+        },
+        "advancedOptions": {
+          "tag": {
+            "tagsOnAcquisition": "Tag ná aankoop",
+            "selectTags": "Selecteer tags",
+            "tagsOnAcquisitionHelper": "Gebruik tags om te identificeren welk lid het item heeft gekocht"
+          },
+          "header": "Geavanceerd"
+        },
+        "supplier": "Leverancier",
+        "sku": "SKU",
+        "studios": "Studios"
+      },
+      "subShop": {
+        "delete": {
+          "error": "Categorie kan niet verwijderd worden",
+          "success": "Categorie verwijderd"
+        },
+        "createOrUpdate": {
+          "error": "Kan categorie niet opslaan",
+          "success": "Categorie succesvol geregistreerd"
+        },
+        "namePlaceholder": "Fruitsap",
+        "nameTitle": "Nieuwe categorie"
+      }
+    },
+    "login": {
+      "passwordMismatch": "Deze wachtwoorden komen niet overeen.",
+      "passwordChangedSuccess": "Wachtwoord succesvol gewijzigd!",
+      "passwordTooEasy": "Je wachtwoord moet uit tenminste 6 tekens en tenminste 1 cijfer en 1 letter bestaan",
+      "confirmPassword": "Bevestigen",
+      "password": "Wachtwoord",
+      "changePasswordTitle": "Wachtwoord wijzigen",
+      "tokenExpired": "Deze pagina is verlopen. Gelieve je wachtwoord herstellen.",
+      "resetAgainPassword": "Herstelaanvraag"
+    },
+    "address": {
+      "zipcode": "Postcode",
+      "country": "Land",
+      "city": "Stad",
+      "addressLine2": "Aanvulling adres",
+      "addressLine1": "Adres",
+      "streetNumber": "Nummer",
+      "state": "Staat"
+    },
+    "waiting_list_max_size": "Grootte van de wachtlijst",
+    "signUpTitle": "Inschrijven",
+    "warningCreditChange": "Oude reserveringen worden niet meegenomen indien het aantal credits wordt gewijzigd.",
+    "noAvailableCredit": "Vergeet geen prijs in te voeren.",
+    "explainNoEmailChange": "Als de e-mail gewijzigd wordt, kan de instructeur geen verbinding meer maken. De instructeur kan zijn/haar e-mail wijzigen door met zijn/haar BSPORT-account in te loggen",
+    "daily": "Dagelijks",
+    "fifteenMin": "50 min.",
+    "interval": {
+      "day": "Dagelijks",
+      "week": "Wekelijks",
+      "year": "Jaarlijks",
+      "month": "Maandelijks",
+      "hour": "Per uur"
+    },
+    "completeInformation": "Voltooi je gegevens",
+    "emergencyContact": "Contactpersoon voor noodgevallen",
+    "modify": "Bewerken",
+    "warningAddEmail": "Deze e-mail is al toegevoegd.",
+    "emailHelper": "Voeg meerdere e-mailadressen toe door ze met een komma te scheiden.",
+    "partner_max_booking_count": "(OneFit) Maximum aantal MarketPlace-reserveringen",
+    "tenMinutes": "10 min",
+    "editGroup": "Wijzig dit veld binnen het evenement.",
+    "noWaitingList": "Wachtlijsten zijn niet beschikbaar voor evenementen.",
+    "datePicker": {
+      "rangeError": "Onmogelijk om sessies te maken die in meer dan 3 jaar plaatsvinden"
+    },
+    "emailError": "Het opgegeven e-mail formaat is ongeldig.",
+    "noPartnershipIntegration": "Marktet place reserveringen zijn niet beschikbaar voor groepssessies",
+    "period": {
+      "year": "Jaren",
+      "month": "Maanden",
+      "week": "Weken",
+      "day": "Dagen",
+      "hour": "Uren"
+    },
+    "descriptionHelperText": "De beschrijving van de instructeur is zichtbaar voor leden wanneer zij een reservering maken.",
+    "notesHelperText": "Deze notities zijn intern en worden alleen aan de gemachtigde medewerkers getoond.",
+    "workingDateSection": "Periode van activiteit in de studio",
+    "endWorking": "Einddatum",
+    "notes": "Notes",
+    "startWorking": "Startdatum",
+    "passwordResetConfirmation": {
+      "continue": "Ga verder",
+      "subtitle": "U kunt op \"Doorgaan\" klikken om opnieuw in te loggen",
+      "title": "Je wachtwoord is succesvol bijgewerkt"
+    }
+  },
+  "shop": {
+    "noProvisionUpdates": "Geen voorraad",
+    "ht": "(excl. btw)",
+    "subShop": {
+      "delete": {
+        "title": "Verwijder",
+        "explain": "Weet je zeker dat je deze categorie wilt verwijderen? Alle bijbehorende onderdelen worden ook verwijderd"
+      }
+    },
+    "myShop": "Mijn winkel",
+    "supplier_price": "Leveranciersprijs"
+  },
+  "offer": {
+    "manageOffer": "Reserveringen beheren",
+    "myOpenedInvoices": "Factureren",
+    "noQuickInvoiceOpened": "Er zijn geen openstaande facturen om weer te geven.",
+    "reCreateBooking": "Schrijf je opnieuw in",
+    "createBookingOption": "Wachtlijst",
+    "bill": "Factureren",
+    "createBooking": "Inschrijven",
+    "hasBooked": "Ingeschreven",
+    "hasntBooked": "Niet ingeschreven",
+    "myBookings": "Reserveringen",
+    "addInvoice": "Factureren",
+    "extraordinaryEstablishment": "(tijdelijke vestiging)",
+    "noCompatiblePacks": "Geen enkele leskaart is compatibel met deze sessie",
+    "compatiblePacks": "Beschikbare kaarten",
+    "substitute": "Plaatsvervanger",
+    "disabled": "geannuleerd",
+    "nextOffer": "Volgende sessie",
+    "previousOffer": "Vorige sessie",
+    "backToCalendar": "Agenda",
+    "noConsumerPackAvailableForPurchase": "Dit lid bezit nog geen beschikbare kaarten.",
+    "noncompatibleConsumerPaymentPacksAre": "Incompatibele leskaarten",
+    "noPackAvailableForOfferPurchase": "Er is nog geen enkele compatibele leskaart voor deze sessie!",
+    "offersPendingDelete": "Te verwijderen sessies:",
+    "offersPendingChange": "Te wijzigen sessies:",
+    "sizeOfWaitingList": "Grootte van de wachtlijst",
+    "broadcast_link": "De link naar de online les",
+    "effectif": "Beschikbare plaatsen",
+    "maxBookingsNb": "plaatsen",
+    "nonAttendant": "afwezig",
+    "attendant": "aanwezig",
+    "noEmptyDuration": "De duur moet positief zijn.",
+    "restoreModal": {
+      "explain": "De annulering van deze sessie wordt hierna ongedaan gemaakt. Leden kunnen vervolgens zich opnieuw inschrijven. Geannuleerde reserveringen worden niet hersteld.",
+      "title": "Herstellen"
+    },
+    "unpaidInvoices": "Openstaande facturen",
+    "partner_max_booking_count": "(OneFit) Maximum aantal MarketPlace-reserveringen",
+    "noInConsumerPackAvailableForPurchase": "Dit lid is niet in bezit van een geldige leskaart en kan de reservering daarom niet voltooien."
+  },
+  "time": {
+    "month": {
+      "december": "December",
+      "november": "November",
+      "october": "Oktober",
+      "september": "September",
+      "august": "Augustus",
+      "july": "Juli",
+      "june": "Juni",
+      "may": "Mei",
+      "april": "April",
+      "march": "Maart",
+      "february": "Februari",
+      "january": "Januari"
+    },
+    "monthShort": {
+      "december": "Dec",
+      "november": "Nov",
+      "october": "Okt",
+      "september": "Sep",
+      "august": "Aug",
+      "july": "Jul",
+      "june": "Jun",
+      "may": "Mei",
+      "april": "Apr",
+      "march": "Mrt",
+      "february": "Feb",
+      "january": "Jan"
+    },
+    "weekday": {
+      "satursday": "Zaterdag",
+      "friday": "Vrijdag",
+      "thursday": "Donderdag",
+      "wednesday": "Woensdag",
+      "tuesday": "Dinsdag",
+      "monday": "Maandag",
+      "sunday": "Zondag"
+    }
+  },
+  "level": {
+    "advanced": "Gevorderd",
+    "intermediary": "Intermediair",
+    "intermediate": "Intermediair",
+    "beginner": "Beginner",
+    "all": "Alle niveaus",
+    "noDisplay": "Zonder niveau"
+  },
+  "booking": {
+    "seeCustomers": "Bekijk reserveringen",
+    "free": "Beschikbare plaats(en)",
+    "confirmed": "Reserveringen",
+    "waiting": "Wachtlijst",
+    "lastBooking": "Volgende les",
+    "sources": {
+      "MAN": "Handleiding",
+      "WEB": "Web",
+      "MOB": "Mobiel"
+    },
+    "source": "Oorsprong",
+    "status": {
+      "false": "geannuleerd",
+      "true": "ingeschreven",
+      "null": "wachtlijst"
+    },
+    "nb_booking": "Aantal beschikbare plaatsen",
+    "fillRate": "Opvulling",
+    "next": "Volgende:",
+    "last": "Vorige:",
+    "noBookingOnThisOffer": "Momentel zijn er geen reserveringen om weer te geven voor deze sessie.",
+    "cancelBooking": "Annuleren",
+    "cancelled": "Geannuleerd",
+    "pending": "Niet geïncasseerd",
+    "validated": "Betaald",
+    "confirm": "Incasseren",
+    "waitingUserConfirmation": "Wachten op bevestiging van het lid",
+    "add": "Inschrijven",
+    "onHold": "Aan het wachten",
+    "onWaitingList": "Actieve wachtlijsten",
+    "discard": "Annuleren",
+    "doNotAttend": "Afwezig",
+    "attend": "Aanwezig",
+    "revertBookingWithInvoiceImpossibleExplain": "Deze reservering is betaald en kan niet worden geannuleerd. Je kunt wel aangeven dat deze persoon \"Afwezig\" is.",
+    "revertBookingExplain": {
+      "offerIsNotAvailable": "De reservering wordt verwijderd. De sessie is al geannuleerd en tegoeden worden niet terugbetaald als je \"teruggave\" niet hebt aangevinkt bij het annuleren.",
+      "offerIsAvailable": "Weet je zeker dat je deze reservering wilt verwijderen? De gebruikte credits worden terug op de gebruikte kaart gestort.",
+      "offerIsAvailableChoiceRefund": "Weet je zeker dat je deze reservering wilt verwijderen?"
+    },
+    "revertBookingTitle": "Annulering",
+    "wasRefunded": "Teruggestorte credits",
+    "cancelledFromWaitingList": "Verwijderd van de wachtlijst",
+    "notifyRevert": "Een annuleringsmail sturen",
+    "refundRevert": "Gebruikte credits terugbetalen",
+    "cancellingBookingInGroup": "Meerdere sessies annuleren",
+    "cancellingOtherBookingInGroup": "Deze sessie is gekoppeld aan het evenement {{- name }}. Andere reserveringen van dit lid voor dit evenement worden niet gewijzigd.",
+    "waitingListPosition": "Positie op de wachtlijst: {{ position }}/{{ size }}"
+  },
+  "workshopActivity": {
+    "forms": {
+      "update": {
+        "error": "Kan de workshop niet wijzigen",
+        "success": "Workshop bijgewerkt"
+      },
+      "create": {
+        "error": "Fout bij het opslaan van de workshop",
+        "success": "Je workshop is opgeslagen"
+      }
+    },
+    "lastDiscardBeforeMinutes": "Selecteer tot wanneer leden kosteloos kunnen annuleren voor het begin van een workshop (late-cancel)",
+    "lastBookingBeforeMinutes": "Selecteer tot wanneer leden zich kunnen inschrijven voor het begin van een workshop",
+    "imageUploaderRequireEditMessage": "Na het aanmaken van een activiteit kun je extra afbeeldingen toevoegen.",
+    "addWorkshopActivity": "Een workshop toevoegen"
+  },
+  "activity": {
+    "reviews": "Ledenbeoordeling: ",
+    "packsAvailable": "Beschikbare kaarten:",
+    "orNcredits2": " (credits)",
+    "orNcredits1": "(of ",
+    "noOfferThisDay": "Er zijn voor deze dag nog geen sessies ingepland. Selecteer een andere datum of begin met het toevoegen van sessies.",
+    "offersThisDay": "Sessie(s) van vandaag:",
+    "category": "Categorie",
+    "description": "Beschrijving",
+    "fillrate": "Gemiddelde bezetting",
+    "totalCustomers": "Totaal aantal reserveringen",
+    "grossVolume": "Omzet",
+    "noNextSlot": "Er zijn geen sessies om weer te geven.",
+    "color": "Kleurcode",
+    "name": "Titel",
+    "addActivity": "Een activiteit toevoegen",
+    "addOffers": "Sessies toevoegen",
+    "lastDiscardBeforeMinutes": "Bepaal hoe lang voor de activiteit leden gratis kunnen annuleren",
+    "lastBookingBeforeMinutes": "Selecteer tot wanneer leden zich kunnen inschrijven voor het begin van een sessie",
+    "is_broadcast": "Dit is een livestream",
+    "settings": "Instellingen",
+    "nextSlotAt": "De eerstvolgende sessie is op: ",
+    "explainImage": "Aanbevolen: 1920 x 1080 .JPG (Full HD)",
+    "firstBookingMinutesUntil": "Kies hoe lang voor de sessie het boekingsvenster wordt geopend",
+    "altCoverMain": "Afbeeldingsbeschrijving",
+    "autoDiscard": "Automatische annulering",
+    "generalInfo": "Algemene informatie",
+    "firstMinutesBookingUntilWarning": "Een waarde van nul betekent dat er geen beperkingen zijn ingesteld. Voor sessies van deze activiteit staan altijd reserveringen open."
+  },
+  "calendar": {
+    "pleaseSelectOffer": "Selecteer een sessie voor meer informatie of dubbelklik op een sessie om de reserveringen te beheren.",
+    "showWeek": "Weekweergave",
+    "showMonth": "Maandweergave",
+    "showMore": "+ {{total}} extra sessie(s)",
+    "event": "sessie",
+    "time": "Uur",
+    "date": "datum",
+    "agenda": "Agenda",
+    "day": "Dag",
+    "week": "Week",
+    "month": "Maand",
+    "today": "Vandaag",
+    "next": ">",
+    "previous": "<",
+    "allDay": "dag",
+    "deleteOffer": "Annuleren",
+    "modifyOffer": "Bewerken",
+    "canDeleteWithBooking": "Reserveringen, annuleringen en wachtlijsten worden verwijderd en kunnen niet worden hersteld."
+  },
+  "pagination": {
+    "outOf": " van ",
+    "rowPerPage": "Elementen per pagina"
+  },
+  "common": {
+    "otherGender": "Diverse",
+    "female": "Vrouw",
+    "male": "Man",
+    "places": "Vestigingen",
+    "bookings": "Reserveringen",
+    "nothing": "Geen",
+    "date": "Datum",
+    "offers": "Sessies",
+    "booking_s": "Sessies",
+    "pass": "Leskaarten",
+    "selected": "Geselecteerd",
+    "transactions": "Facturen",
+    "members": "Mijn gebruikers",
+    "contact": "Contact",
+    "sort": "Sorteren",
+    "no": "Nee",
+    "yes": "Ja",
+    "showDetails": "Details tonen",
+    "show_more": "Toon meer",
+    "email": "E-mail",
+    "activities": "Groepsactiviteiten",
+    "merge": "Samenvoegen",
+    "edit": "Bewerken",
+    "filterBy": "Filteren op: ",
+    "sport": "Categorie",
+    "company": "Bedrijf",
+    "coaches": "Instructeurs",
+    "coach": "Instructeur",
+    "seeMore": "Toon",
+    "ok": "oké",
+    "status": "Status",
+    "recipients": "Ontvangers",
+    "recipient": "Ontvanger",
+    "name": "Naam",
+    "confirm": "Bevestigen",
+    "cancel": "Annuleren",
+    "or": "of",
+    "create": "Aanmaken",
+    "credits": "credit(s)",
+    "sports": "Categorieën",
+    "priceIncludingTax": "Prijs (incl. btw)",
+    "price": "Prijs",
+    "NA": "Niet gespecificeerd",
+    "credit_s": "credits(s)",
+    "continue": "Verder",
+    "amount": "Bedrag",
+    "paymentPack": "Leskaarten",
+    "datetime": "Sessie",
+    "activity": "Activiteit",
+    "paymentMethod": "Betaalmethode",
+    "until": "Tot",
+    "from": "Van",
+    "booking": "Reservering",
+    "saveAndAdd": "Opslaan en opnieuw toevoegen",
+    "save": "Opslaan",
+    "lastname": "Achternaam",
+    "firstname": "Voornaam",
+    "previous": "Terug",
+    "delete": "Verwijderen",
+    "show": "Toon",
+    "loading": "Laden...",
+    "add": "Toevoegen",
+    "notes": "Notities",
+    "establishments": "Vestigingen",
+    "buy": "Aanschaffen",
+    "uploadOneImage": {
+      "edit": "Klik hier om de afbeelding(en) wijzigen",
+      "new": "Afbeelding toevoegen"
+    },
+    "tax": "Btw",
+    "generate": "Aanmaken",
+    "export": "Exporteren",
+    "minuteSmall": "min.",
+    "daySmall": "d",
+    "hourSmall": "u",
+    "description": "Beschrijving",
+    "download": "Downloaden",
+    "invoices": "Facturen",
+    "activePass": "actieve pas",
+    "level": "Niveau",
+    "skip": "Overslaan",
+    "items": "elementen",
+    "copySuffix": " (Kopie)",
+    "isRefreshing": "Je interface is zo klaar",
+    "duplicate": "Dupliceren",
+    "restore": "Herstellen",
+    "share": "Delen",
+    "pickALanguage": "Taal",
+    "emergencyContact": "Contactpersoon voor noodgevallen",
+    "disconnect": "Afmelden",
+    "vaccinationDontWantToCommunicate": "Liever niet antwoorden",
+    "vaccinationNotDone": "Ik bezit geen geldig coronabewijs",
+    "vaccinationDone": "Ik bezit een geldig coronabewijs",
+    "vaccination_status": "Status coronabewijs",
+    "offerEdition": "Sessies bewerken",
+    "offerCreation": "Sessies toevoegen",
+    "selectAnActivity": "Selecteer een activiteit",
+    "filter": "Filter",
+    "see": "Zie",
+    "information": "Details"
+  },
+  "members": {
+    "form": {
+      "title": "Nieuw lid"
+    }
+  },
+  "errors": {
+    "start_after_end": "De startdatum moet vóór de einddatum zijn.",
+    "end_before_start": "De einddatum moet ná de startdatum zijn.",
+    "invalidUrl": "Deze URL is ongeldig (gewenste formaat: http://www.test.nl)",
+    "endBeforeCurrent": "De einddatum moet voor de huidige datum vallen."
+  },
+  "paymentMethod": {
+    "OTHER": "Overige",
+    "SUBSCRIPTION_CB": "Automatische betaling",
+    "CREDIT_ACCOUNT": "Interne rekening (Wallet)",
+    "BANK_TRANSFER": "Bankoverschrijving",
+    "AMEX": "AMEX",
+    "EVENT_BRITE": "EventBrite",
+    "CASH": "Contant",
+    "HOLIDAY_CHECK": "Vakantiecheques",
+    "CHECK": "Cheque",
+    "CB_MANUAL": "Betaalkaart (handmatig - pinapparaat)",
+    "CB": "Online betalingen"
+  },
+  "pageTitle": {
+    "myAccount": "Mijn account"
+  },
+  "hi": "Hallo",
+  "error": {
+    "connectionError": "Netwerkfout"
+  },
+  "companies": {
+    "fields": {
+      "bank_account_holder": "Rekeninghouder",
+      "iban": "IBAN"
+    },
+    "bank_details": "Betaalgegevens",
+    "address": "Adres",
+    "owner_address": "Adres van de eigenaar",
+    "general": "Algemeen"
+  },
+  "metaActivity": {
+    "create": {
+      "success": "Activiteit aangemaakt"
+    },
+    "update": {
+      "imageUploaderRequireEditMessage": "Zodra je activiteit is aangemaakt kun je extra afbeeldingen toevoegen."
+    },
+    "forms": {
+      "create": {
+        "error": "Fout bij het aanmaken van de activiteit",
+        "success": "Activiteit aangemaakt"
+      },
+      "autoDiscard": {
+        "hours_before_start": "Aantal uur voor het begin van de sessie:",
+        "explain": "Lessen met minder dan 1 boeking worden 1 uur voor aanvang geannuleerd. Leden krijgen bericht dat de les is geannuleerd.",
+        "checkbox": "Automatisch ondergeboekte lessen annuleren",
+        "emailRecipients": "Als een klas automatisch geannuleerd wordt, wordt er een e-mail gestuurd naar de eigenaar, beheerder en leraar van de klas en naar de leerlingen.",
+        "min_bookings_nb": "Aantal reserveringen:"
+      }
+    }
+  },
+  "report": {
+    "delete": "Rapport verwijderen"
+  },
+  "private_service": "Afspraken",
+  "openSchedule": "Bekijk de planning",
+  "button": {
+    "login": "Aanmelden"
+  },
+  "bookingConfirmed": "Reservering bevestigd",
+  "activityUpdated": "Activiteit aangepast",
+  "activityCreated": "Activiteit toegevoegd",
+  "strategy": {
+    "strategy": "Campagne",
+    "gym": "Sporthal De Spont",
+    "female": "V",
+    "yoga": "Yoga",
+    "none": "Geen resultaat",
+    "crossfit": "CrossFit",
+    "offersWithoutMembership": "Sessie(s) zonder abonnement",
+    "membership": "Abonnementen",
+    "gaveUp": "Opgezegd sinds",
+    "sessions": "sessies",
+    "location": "Plaats",
+    "gender": "Geslacht",
+    "sport": "Activiteit"
+  },
+  "blockBooking": "Blokkeer de reserveringen van nieuwe leden",
+  "languageToolTip": "Beschikbaar op de webshop",
+  "visibilityOfIconToolTip": "Niet zichtbaar",
+  "onlyNewMember": "Alleen reserveringen van nieuwe leden accepteren",
+  "replaceCoach": "Wijzig de instructeur",
+  "bookingStatistics": {
+    "weekOf": "Week van {{date}}",
+    "keys": {
+      "cancelled": "Geannuleerde reserveringen",
+      "created": "Geldige reserveringen",
+      "offers": "Promo's",
+      "waitingLists": "Wachtlijsten"
+    },
+    "maintenedBookings": "{{nb}} reservering",
+    "maintenedBookings_plural": "{{nb}} reserveringen",
+    "cancelledBookings": "{{nb}} annulering",
+    "cancelledBookings_plural": "{{nb}} annuleringen",
+    "totalBookings": "{{nb}} reservering in totaal",
+    "totalBookings_plural": "{{nb}} reserveringen in totaal",
+    "offerFilteredBookingRecap": "Sessie van {{date}}",
+    "weekOverview": "Weekoverzicht",
+    "chartsItemLabel": {
+      "numberOfSessions": "Sessies",
+      "numberOfCancelledBookings": "Geannuleerde reserveringen",
+      "numberOfConfirmedBookings": "Bevestigde reserveringen",
+      "waitingListSize": "Op de wachtlijst"
+    },
+    "bookingsCancelled": "Geannuleerd: {{nb}}",
+    "confirmedBookings": "Bevestigd: {{nb}}",
+    "totalOffers": "{{ nb_offers }} <0/> totale sessie",
+    "totalOffers_plural": "{{ nb_offers }} <0/> totale sessies",
+    "bookingsTotalCount": "{{nb}} <0/>totale boeking",
+    "bookingsTotalCount_plural": "{{nb}} <0/>totale boekingen",
+    "waitingListSize": "Wachtlijst: {{nb}}"
+  },
+  "show_cancelled_offers": "Toon de geannuleerde sessies",
+  "quickInvoiceNoVoucher": "Laat de waarde van dit veld op 0 staan als je geen korting wilt toepassen",
+  "quickInvoiceVoucher": "Kies de korting die je wenst toe te passen op de facturatie van de volgende kaart",
+  "metaActivityNotificationToolTip": "Er zijn automatische meldingen ingesteld.",
+  "metaActivityCategory": {
+    "explain": "Deze categorieën worden alleen voor het sorteren van groepsactiviteiten aan de achterkant gebruikt om de Managerweergaven naar wens in te richten. Leden ondervinden geen impact van deze wijzigingen.",
+    "sctExplain": "Kies de categorie waaronder deze activiteit wordt weergegeven op de Marktplaats en de Mobiele app."
+  },
+  "restrictions": {
+    "firstBookingMinutesUntil": "Opening reserveringen",
+    "lastBookingBeforeMinutes": "Wanneer het boekingsvenster sluit",
+    "lastDiscardBeforeMinutes": "Voorwaarden voor late annulering",
+    "tags": {
+      "mandatory": "Selecteer minstens één tag",
+      "header": "Geselecteerde tags",
+      "selectPlaceHolder": "Selecteer een tag"
+    },
+    "back": "Terug",
+    "next": "Volgende",
+    "personnalizedRestrictionsIndex": "Gepersonaliseerde beperking: {{ count }}",
+    "add": "Aangepaste regel maken",
+    "personnalizedHelper": "Stel aangepaste, tag-gebaseerde regels in om de instellingen voor elk segment aan te passen.",
+    "personnalizedHeader": "Gepersonaliseerde voorwaarden",
+    "header": "Voorwaarden"
+  }
+}

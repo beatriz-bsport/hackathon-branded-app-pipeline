@@ -1,0 +1,294 @@
+{
+  "backofficeMenu": {
+    "requestTempPassword": "Permitir el acceso",
+    "combo": "Packs",
+    "marketing_automation": "Marketing Auto",
+    "digital": "Oferta digital",
+    "podcast": "Podcasts",
+    "playlist": "Recorrido",
+    "video": "Videoteca",
+    "myShop": "Tienda",
+    "product": "Productos",
+    "coaches": "Profesores",
+    "privateService": {
+      "pass": "Tarjetas de cita",
+      "services": "Sólo con cita previa",
+      "title": "Sólo con cita previa"
+    },
+    "schedule": "Horario",
+    "alpha": "en desarollo",
+    "invoice": "Facturas",
+    "workshopActivities": "Talleres",
+    "order": "Pedidos",
+    "email_template": "Plantillas",
+    "smart_list": "Smartlists",
+    "sequence": "Estrategias",
+    "consumer": {
+      "pass": "Bonos",
+      "order": "Mis pedidos",
+      "profile": "Mi perfil",
+      "bookings": "Mis reservas ",
+      "subscriptions": "Mis cuotas",
+      "myAccount": "Mi cuenta"
+    },
+    "beta": "beta",
+    "coachPerformance": "Profesores",
+    "search": "Buscar",
+    "reporting": "Informes",
+    "coupon": "Promociones",
+    "contract": "Cuotas",
+    "subscription": "Muestreos",
+    "myClub": "Mi Club",
+    "settings": {
+      "settings": "Parámetros",
+      "active_campaign": "ActiveCampaign",
+      "partnership": "Asociación",
+      "webhook": "Webhook",
+      "personalization": "Personalización",
+      "role": "Staff",
+      "shop": "Tienda",
+      "waitingList": "Lista de espera",
+      "invoice": "Facturación",
+      "company": "Empresa",
+      "paymentRules": "Reglas de remuneración",
+      "notificationRule": "Emails transaccionales",
+      "broadcast": "Videoconferencia",
+      "general": "General",
+      "platform_billing": "Suscripción a bsport",
+      "marketplaceSettings": "Parámetros Área de Miembros",
+      "widget": "Widget",
+      "paymentMethod": "Medios de pago",
+      "forms": "Formularios miembros",
+      "quickbooks": "QuickBooks",
+      "mobilePersonalization": "Personalización de la app",
+      "coachUserspace": "Área de profesores",
+      "quicksale": "Interfaz de ventas",
+      "referral": "Referencia"
+    },
+    "pass": "Bonos",
+    "goBack": "Volver",
+    "refresh": "Actualizar",
+    "logoff": "Cerrar sesión",
+    "payment": "Pagos",
+    "establishment": "Establecimientos",
+    "member": "Miembros",
+    "message": "Marketing",
+    "calendar": "Calendario",
+    "activity": "Mis actividades",
+    "dashboard": "Dashboard",
+    "cashBook": {
+      "save": "Guardar",
+      "at": "En",
+      "of": "De",
+      "onSpotPaymentReport": "Acceder al informe de pagos",
+      "amount": "Ganancias del día :",
+      "lastUpdated": "Última modificación el",
+      "expectedAmount": "Deberías tener: ",
+      "todayEndAmount": "Cantidad al final del día",
+      "addAmount": "Cantidad a añadir al libro de caja",
+      "todayStartAmount": "La cantidad inicial en el libro de caja",
+      "cashDialogTitle": "Libro de caja",
+      "close": "Cerrar"
+    },
+    "marketingNotification": "Notificaciones",
+    "custom_form": "Formularios",
+    "tags": "Etiquetas",
+    "addMemberTooltip": "Añadir un miembro",
+    "cashBookTooltip": "Libro de caja",
+    "redirecting": "Será redirigido a su página",
+    "backToFranchiseWorskpace": "Volver a la cuenta principal",
+    "franchiseConnectedAs": "Conectado como: {{- name}}",
+    "giftcard": "Tarjetas de regalo",
+    "programs": "Programas",
+    "expenses": "Gastos",
+    "instalmentPayment": "Modalidades de pago",
+    "coachPayroll": "Remuneración",
+    "clockIn": "Reloj de fichaje",
+    "help": "Ayuda",
+    "tutorialInfo": "Puedes encontrar nuestra Guía de inicio en la pestaña de Tutorial.",
+    "tutorial": "Tutorial",
+    "toggle": {
+      "expand": "Extender",
+      "shrink": "Doblar"
+    },
+    "cadences": "Cadencias",
+    "replacement": "Sustitución",
+    "inbox": "Bandeja de entrada",
+    "audience": "{{ audienceCamelCase }}",
+    "backToWebshop": "Volver a la tienda",
+    "accessMonitoring": "Acceso",
+    "closeTab": "Cerrar pestaña",
+    "feedbackBoard": "Tablón de comentarios"
+  },
+  "deprecatedNavigator": {
+    "close": "Cerrar",
+    "downloadChrome": "Descarga Google Chrome gratis",
+    "downloadFirefox": "Descarga Mozilla Firefox gratis",
+    "navigatorError": "Parece que tu navegador es demasiado viejo para usar nuestros servicios. Puedes encontrar errores, le recomendamos que descargas una versión más reciente, en particular: "
+  },
+  "paymentMethodMissing": {
+    "closeModal": "Cerrar",
+    "explain": "No ha introducido un método de pago válido, por favor, confírmelo para seguir utilizando su suscripción a bsport.",
+    "banner": "No ha introducido un método de pago para su suscripción a bsport. Por favor, haga clic aquí."
+  },
+  "franchiseMenu": {
+    "members": "Miembros",
+    "franchises": "Franquicias",
+    "reporting": "Informes",
+    "paymentPack": "Fichas de cursos",
+    "widget": "Widget",
+    "settings": "Parámetros",
+    "staff": "Staff",
+    "widgets": "Widget",
+    "notificationRules": "Emails transaccionales",
+    "emailTemplates": "Plantillas",
+    "products": {
+      "couponTemplates": "Promociones",
+      "privatePassTemplates": "Tarjetas de cita",
+      "paymentPackTemplates": "Bonos",
+      "label": "Productos",
+      "giftcardTemplates": "Tarjetas de regalo",
+      "shopTemplates": "Tienda online",
+      "contractTemplates": "Suscripciones",
+      "universalPassTemplates": "Pases universales"
+    },
+    "tag": "Etiquetas",
+    "marketing": {
+      "tags": "Etiquetas",
+      "emailTemplates": "Correos",
+      "campaigns": "Campañas",
+      "label": "Marketing"
+    }
+  },
+  "multiSession": {
+    "current": "Sesión actual",
+    "previous": "Sesión anterior",
+    "manager": "gerente",
+    "franchisor": "franquiciador",
+    "continue": "Continúe con esta sesión",
+    "currentSession": "Actualmente está conectado como {{- name }}",
+    "restore": "Restaurar esta sesión",
+    "previousSession": " Has iniciado la sesión como {{- name }}",
+    "title": " Parece que está utilizando varias pestañas simultáneamente"
+  },
+  "stripeOnboardingPending": {
+    "banner": "Si no ha completado la configuración de la facturación, los pagos en línea pueden estar desactivados. Haga clic aquí para completar su configuración."
+  },
+  "tab": {
+    "coach": {
+      "calendar": "Calendario",
+      "general": "Perfil"
+    },
+    "customForm": {
+      "layout": "Personalización",
+      "statistics": "Estadísticas",
+      "campaign": "Campaña",
+      "general": "Contenido"
+    },
+    "franchise": {
+      "staff": {
+        "role": "Roles",
+        "staffAccount": "Cuentas Staff"
+      }
+    },
+    "replacement": {
+      "disciplineGroup": "Grupos de disciplinas",
+      "management": "Gestión"
+    },
+    "widget": {
+      "customize": "Personalización",
+      "create": "General",
+      "customizeCss": "CSS personalizado"
+    },
+    "smartList": {
+      "statistic": "Estadística",
+      "campaign": "Campañas",
+      "member": "General"
+    },
+    "member": {
+      "basket": "Cesta",
+      "basket_plural": "Cestas ({{number}})",
+      "form": "Formularios",
+      "form_plural": "Formularios ({{number}})",
+      "vod": "Videoteca",
+      "vod_plural": "Videoteca ({{number}})",
+      "privateConsumerPass": "Tarjetas de cita",
+      "privateConsumerPass_plural": "Tarjetas de cita ({{number}})",
+      "privateBooking": "Citas",
+      "privateBooking_plural": "Citas ({{number}})",
+      "payment": "Facturación",
+      "payment_plural": "Facturación ({{number}})",
+      "contact": "Contacto",
+      "contact_plural": "Contacto ({{number}})",
+      "invoices": "Facturas y suscripciones",
+      "invoices_plural": "Facturas y suscripciones ({{number}})",
+      "paymentPack": "Bonos",
+      "paymentPack_plural": "Bonos ({{number}})",
+      "giftcard": "Tarjeta regalo",
+      "giftcard_plural": "Tarjeta regalo ({{number}})",
+      "bookings": "Reservas",
+      "bookings_plural": "Reservas ({{number}})",
+      "relation": "Relaciones",
+      "relation_plural": "Relaciones ({{number}})",
+      "info": "General",
+      "info_plural": "General ({{number}})",
+      "programs": "Programa",
+      "programs_plural": "Programas ({{number}})",
+      "subscription": "Suscripciones"
+    },
+    "clockIn": {
+      "history": "Histórico",
+      "realTime": "Tiempo real"
+    },
+    "service": {
+      "calendar": "Calendario",
+      "general": "General"
+    },
+    "establishment": {
+      "location": "Ubicación",
+      "room": "Salas",
+      "calendar": "Calendario",
+      "general": "General"
+    },
+    "metaActivity": {
+      "group": "Sesión de grupo",
+      "pack": "Bonos compatibles",
+      "general": "General"
+    },
+    "quicksale": {
+      "access": "Creación de accesos",
+      "configuration": "Personalización de categorías"
+    },
+    "appSettings": {
+      "customize": "Personalización",
+      "popups": "Ventana emergente de inicio",
+      "links": "Enlaces externos"
+    },
+    "communicationSentGroupConfig": {
+      "campaigns": "Campañas",
+      "general": "General"
+    },
+    "accessMonitoring": {
+      "settings": "Ajustes",
+      "monitor": "Visitas a la ubicación",
+      "perform": "Visita de miembro"
+    },
+    "settings": {
+      "theme": {
+        "memberProfile": "Perfil de miembro",
+        "general": "General"
+      }
+    },
+    "shop": {
+      "settings": "Ajustes",
+      "products": "Productos"
+    },
+    "reporting": {
+      "views": "Tus vistas",
+      "categories": "Reportes"
+    }
+  },
+  "logout": "Cerrar sesión",
+  "login": "Iniciar sesión",
+  "featureBaseButton": "Sugerir una función o mejora"
+}

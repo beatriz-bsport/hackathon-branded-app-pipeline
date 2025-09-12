@@ -1,0 +1,171 @@
+{
+  "toolsMenu": {
+    "customFill": "Color del relleno",
+    "customStroke": "Color de las líneas",
+    "door": "Puerta",
+    "screen": "Pantalla",
+    "teacher": "Profesor",
+    "spot": "Sitio",
+    "rect": "Rectángulo",
+    "line": "Línea",
+    "rotation": "Rotación",
+    "redo": "Siguiente",
+    "undo": "Anterior",
+    "eraser": "Goma",
+    "sections": {
+      "custom": "Personalización",
+      "elements": "Elementos",
+      "place": "Ubicación",
+      "walls": "Paredes",
+      "edition": "Edición",
+      "spivi": "Integración de Spivi",
+      "assets": "Activos",
+      "editionAdvanced": "Edición avanzada",
+      "editionHistory": "Historia de edición",
+      "marketplaces": "Marketplaces"
+    },
+    "title": "Caja de herramientas",
+    "customIconLabel": "Iconos de ubicación",
+    "customIconButton": "Descargar mis iconos",
+    "showGrid": "Mostrar la cuadrícula",
+    "pointer": "Cursor",
+    "hand": "Mano",
+    "addSpotType": "Añadir un tipo de sitio",
+    "helperText": "El tamaño del profesor debe ser estrictamente positivo",
+    "requiredForSpivi": "Necesario para la integración de Spivi",
+    "boxId": "Box ID",
+    "resize": "Escala",
+    "openAssetModal": "Gestor de activos abiertos",
+    "copier": "Duplicador",
+    "cssEditor": "CSS",
+    "advancedTool": "HTML",
+    "bsportPreferentialSpots": "Plazas para miembros"
+  },
+  "spotImageDialog": {
+    "helper": "Puede personalizar la forma de las ranuras importando sus propias imágenes. Para ello necesitamos 2 iconos diferentes. Uno para indicar que el lugar está disponible, otro cuando está reservado. Asegúrese de que son del mismo tamaño y no incluya ningún número en sus iconos.",
+    "free": "Disponible",
+    "title": "Personalice sus ubicaciones",
+    "freeImageLabel": "Sitio disponible",
+    "takenImageLabel": "Sitio reservado",
+    "imageUploadButton": "Subir una imagen",
+    "taken": "Reservado",
+    "imageFormat": "Formato recomendado: .png, .jpg",
+    "actions": {
+      "cancel": "Cancelar",
+      "submit": "Confirmar"
+    }
+  },
+  "toolbar": {
+    "save": "Salvar",
+    "titleLabel": "Nombre del plan",
+    "exit": "Salir",
+    "loadExistingBlueprint": "Cargar un plan existente",
+    "spiviHelperText": "Ver correspondencia de posiciones en Spivi",
+    "spivi": "Spivi"
+  },
+  "spotSelectorDialog": {
+    "title": "Selecciona un sitio",
+    "spot": "Sitio {{count}}",
+    "cancel": "Cancelar",
+    "submit": "Confirmar",
+    "takeSpotError": "El sitio que ha seleccionado para este curso ya no está disponible. Por favor, seleccione uno nuevo.",
+    "legend": "Leyenda",
+    "book": "Reservar el sitio: {{prefix}}{{indexType}}{{suffix}}"
+  },
+  "roomBlueprintSelectorTitle": "Elija un plan",
+  "search": "Encuentre un plan para el spot scheduling",
+  "placeCount": "{{count}} sitios",
+  "effectifError": "El número de asientos debe ser igual o mayor que el número de personas en la sesión",
+  "saved": "Plan de asientos registrado",
+  "searchHelper": "Ayuda: permite a sus alumnos reservar la ubicación que deseen en la sala. Campos no obligatorios",
+  "errorLessSpotThanEffectif": "El ahorro no es posible. El plan de asientos debe contener más espacio que el número de personas de la sesión a la que está asociado",
+  "saveError": "Error",
+  "roomBlueprints": "Plano de la planta",
+  "forms": {
+    "delete": {
+      "actions": {
+        "confirm": "Confirmar",
+        "cancel": "Cancelar"
+      },
+      "content": {
+        "canDelete": "¿Estás seguro de que quieres eliminar este sitio? Esta acción es irreversible. Se eliminará y se sustituirá por el sitio por defecto en este plan y en todos los demás a los que se haya añadido."
+      },
+      "title": "Supresión"
+    }
+  },
+  "spotCreatorForm": {
+    "alertDefaultSpot": "Al modificar el sitio por defecto, todos los sitios por defecto presentes en todos los planos se modificarán de forma idéntica",
+    "deleted": "Sitio eliminado",
+    "saved": "Sitio registrado",
+    "missImageSelected": "No ha cargado la imagen para el sitio seleccionado",
+    "missImageTaken": "No ha cargado la imagen para el sitio reservado",
+    "missImageFree": "No ha cargado la imagen para el sitio libre",
+    "selectedPersonalized": "{{- name }} seleccionado",
+    "selected": "Sitio seleccionado",
+    "takenPersonalized": "{{- name }} reservado",
+    "taken": "Sitio reservado",
+    "freePersonalized": "{{- name }} disponible",
+    "free": "Sitio disponible",
+    "personalizedExplain": "Puedes personalizar la forma de los sitios importando tus propias imágenes. Para ello necesitamos 3 iconos diferentes. Uno para indicar que el sitio está disponible, otro cuando está reservado. Asegúrate de que son del mismo tamaño y no incluyas ningún número en tus iconos.",
+    "preview": "Vista previa",
+    "generalInfo": "Informaciones generales",
+    "square": "Cuadrado",
+    "triangle": "Triángulo",
+    "rectangle": "Rectángulo",
+    "circular": "Círculo",
+    "personalized": "Imágenes personalizadas",
+    "predefined": "Formas predefinidas",
+    "customization": "Personalización",
+    "prefixError": "El prefijo debe ser una sola letra",
+    "prefixExplain": "El carácter indicado aquí aparecerá como prefijo de los números de sitios",
+    "prefix": "Prefijo",
+    "nameExplain": "Nombre del tipo de sitio",
+    "name": "Nombre",
+    "subtitle": "Creación de un tipo de sitio",
+    "title": "Plano del establecimiento",
+    "suffix": "Sufijo",
+    "suffixExplain": "El carácter indicado aquí aparecerá como sufijo de los números de sitio",
+    "suffixError": "El sufijo debe ser una sola letra",
+    "nameCustomization": {
+      "suffix": "Número de sitio con sufijo",
+      "prefix": "Número de sitio con prefijo",
+      "none": "Sólo número de sitio",
+      "title": "Formato del nombre del sitio"
+    }
+  },
+  "errorAvailableOffersScheduled": "No se puede guardar. Esta disposición no puede editarse, ya que se utiliza en futuras sesiones.",
+  "spiviDialog": {
+    "spiviIdentifiers": "Identificadores Spivi",
+    "bsportIdentifiers": "Identificadores bsport",
+    "spotCorrespondence": "Posiciones correspondientes"
+  },
+  "spotSelector": {
+    "legend": "Leyenda",
+    "available": "Disponible",
+    "availableSpot": "Sitio disponible",
+    "availablePersonalizedSpot": "{{- spotName }} disponible",
+    "unavailable": "No disponible",
+    "unavailableSpot": "Sitio no disponible",
+    "unavailablePersonalizedSpot": "{{- spotName }} no disponible",
+    "seeAll": "Ver todo",
+    "confirm": "Confirmar",
+    "selectOtherSpot": {
+      "message": "La selección previa estará disponible para los demás.",
+      "title": "O seleccione un nuevo lugar"
+    },
+    "goBackToCheckout": "Volver a la caja"
+  },
+  "cssForm": {
+    "helper": "Puedes añadir reglas CSS para tu diseño en esta sección. Todo el mapa está envuelto en un svg con el ID 'svg-canvas-display'. Por defecto, se genera automáticamente una hoja de estilos dirigida a cada elemento del lienzo (como puntos, rectángulos y maestros). Puede observar sus cambios gradualmente haciendo clic en el botón '{{ buttonLabel }}'.",
+    "openPreview": "Vista previa"
+  },
+  "assetUpoadForm": {
+    "loadMore": "Cargar más",
+    "submit": "Enviar",
+    "description": "Puede cargar y utilizar imágenes directamente desde aquí. Una vez cargadas las nuevas imágenes, estarán disponibles para insertarlas en el mapa."
+  },
+  "bsportPreferentialGroupForm": {
+    "isPreferentialBsportSpotLabel": "Plaza reservada prioritariamente a los miembros. Las reservas de Marketplaces (Classpass, OneFit, etc.) serán las últimas.",
+    "submit": "Enviar"
+  }
+}

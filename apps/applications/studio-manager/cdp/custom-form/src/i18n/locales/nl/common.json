@@ -1,1 +1,105 @@
-{}
+{
+  "pages": {
+    "active": "Formulieren",
+    "archived": "Gearchiveerde Formulieren",
+    "loading": "Laden..."
+  },
+  "activeList": {
+    "actions": {
+      "addForm": "Maak formulier aan"
+    },
+    "addFormModal": {
+      "title": "Maak nieuw formulier aan",
+      "description": "Geef je nieuwe formulier een naam om te beginnen!",
+      "input": {
+        "label": "Formuliernaam",
+        "placeholder": "Voeg een formuliernaam toe..."
+      },
+      "actions": {
+        "cancel": "Annuleren",
+        "create": "Creëer"
+      },
+      "errors": {
+        "nameTooLong": "De naam is niet geldig, de maximale lengte is {{ maximalLength }} tekens.",
+        "nameTooShort": "De naam is niet geldig, de minimale lengte is {{ minimalLength }} tekens.",
+        "nameRequired": "De naam is niet geldig, je kunt geen lege naam invoeren."
+      }
+    },
+    "archiveModal": {
+      "actions": {
+        "archive": "Archiveer",
+        "cancel": "Terug"
+      },
+      "title": "Archief formulier?",
+      "description": "Leden zullen <b>{{ name }}</b> niet meer zien, maar je kunt er toegang toe krijgen vanuit je archief."
+    },
+    "duplicateModal": {
+      "actions": {
+        "duplicate": "Dupliceren",
+        "cancel": "Terug"
+      },
+      "title": "Formulier dupliceren?",
+      "description": {
+        "verification": "Dupliceren <b>{{ name }}</b>?",
+        "effect": "Je kunt <b>{{ name }}</b> later bewerken."
+      }
+    }
+  },
+  "toasts": {
+    "messageCreated": {
+      "success": "Formulier aangemaakt",
+      "error": "Je formulier kon niet worden aangemaakt"
+    },
+    "messageArchived": {
+      "success": "Formulier gearchiveerd",
+      "error": "Je formulier kon niet worden gearchiveerd"
+    },
+    "messageRestored": {
+      "success": "Formulier hersteld",
+      "error": "Je formulier kon niet worden hersteld"
+    },
+    "messageDuplicated": {
+      "success": "Formulier gedupliceerd",
+      "error": "Je formulier kon niet worden gedupliceerd "
+    },
+    "messageUndone": {
+      "success": "Actie ongedaan gemaakt",
+      "error": "Actie ongedaan maken mislukt"
+    },
+    "actions": {
+      "undo": "Ongedaan maken",
+      "open": "Open"
+    }
+  },
+  "table": {
+    "headers": {
+      "name": "Naam",
+      "questions": "Vragen"
+    },
+    "loading": {
+      "activeList": "Formulieren laden...",
+      "archivedList": "Gearchiveerde formulieren laden..."
+    },
+    "empty": {
+      "activeList": {
+        "title": "Nog geen formulieren om weer te geven",
+        "subtitle": "Maak je eerste formulier om feedback van je leden te krijgen."
+      },
+      "archivedList": {
+        "title": "Nog geen gearchiveerde formulieren",
+        "subtitle": "Alle formulieren die hierheen zijn verplaatst, kunnen worden hersteld."
+      },
+      "search": {
+        "title": "Geen formulieren gevonden",
+        "subtitle": "Probeer het met andere trefwoorden"
+      }
+    },
+    "tooltips": {
+      "archive": "Archief Formulier",
+      "restore": "Herstel formulier",
+      "duplicate": "Formulier dupliceren",
+      "search": "Zoek een formulier",
+      "switchToArchived": "Gearchiveerde formulieren"
+    }
+  }
+}

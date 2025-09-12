@@ -1,0 +1,18 @@
+{
+  "input": "Buscar...",
+  "go_back": "Volver a los resultados",
+  "noResult": "Ningún resultado",
+  "member": {
+    "sessions": {
+      "title": "Sesiones"
+    },
+    "packs": {
+      "title": "Tarjetas de clase"
+    },
+    "closeMemberMatch": "¿Busca a este miembro?",
+    "archived": "Miembros archivados"
+  },
+  "actions": {
+    "addMember": "Añadir un miembro"
+  }
+}

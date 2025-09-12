@@ -1,0 +1,534 @@
+{
+    "table": {
+        "columns": {
+            "member": "",
+            "title": "",
+            "date_created": "",
+            "status": ""
+        }
+    },
+    "mail": {
+        "title": "",
+        "content": "",
+        "success": "",
+        "error": "",
+        "refreshText": "",
+        "noObject": "",
+        "refreshTextPhone": "",
+        "sendSms": "",
+        "hideMail": "",
+        "count": "",
+        "mailSelection": "",
+        "selectToShowPreview": "",
+        "phoneMissing": "",
+        "mailMissing": "",
+        "numberSms": "",
+        "contentSms": "",
+        "selectTemplate": "",
+        "writeMail": "",
+        "dialogTitle": "",
+        "noMailAvailable": "",
+        "showMail": "",
+        "contentNotification": "",
+        "titleNotification": "",
+        "sendNotification": "",
+        "warningConsent2": "",
+        "warningConsent1": "",
+        "titleInterpolated": "",
+        "warningProvider": "",
+        "missing": ""
+    },
+    "recipients": "",
+    "common": {
+        "cancel": "",
+        "submit": "",
+        "refresh": "",
+        "recipient": "",
+        "confirm": "",
+        "close": ""
+    },
+    "dialogReceiverChoice": {
+        "reservation": "",
+        "waitingList": "",
+        "title": "",
+        "canceledReservation": ""
+    },
+    "campaign": {
+        "processing": "",
+        "recipientCount": "",
+        "sentAt": "",
+        "readCount": "",
+        "clickCount": "",
+        "showReport": "",
+        "list": {
+            "showMore": "",
+            "isEmpty": ""
+        },
+        "report": {
+            "totalRead": "",
+            "totalClick": "",
+            "deliveryRate": "",
+            "lastOpen": "",
+            "dateCreated": "",
+            "topLinks": "",
+            "recipientList": "",
+            "noTopLink": "",
+            "exportError": "",
+            "exportCampaign": "",
+            "resentOn": "",
+            "plannedResends": ""
+        },
+        "showMail": "",
+        "kind": {
+            "0": "",
+            "1": "",
+            "2": ""
+        },
+        "unavailableMail": "",
+        "automated": {
+            "deleteDialog": {
+                "content": "",
+                "title": ""
+            },
+            "panel": {
+                "subtitle": {
+                    "onLeft": "",
+                    "onJoin": ""
+                },
+                "add": "",
+                "title": ""
+            },
+            "form": {
+                "frequenceHelper": "",
+                "limitSection": "",
+                "maxCommunicationSentHelperText": {
+                    "0": "",
+                    "1": ""
+                },
+                "subtitles": {
+                    "create": {
+                        "leftSmartList": "",
+                        "joinSmartList": ""
+                    },
+                    "update": {
+                        "leftSmartList": "",
+                        "joinSmartList": ""
+                    }
+                },
+                "unlimited": "",
+                "max_communications_sent_per_member_limit": "",
+                "max_communications_sent_per_member": "",
+                "advancedSection": "",
+                "submit": ""
+            },
+            "activeSince": "",
+            "eventKind": {
+                "0": "",
+                "1": ""
+            },
+            "create": "",
+            "onLeft": "",
+            "onJoin": ""
+        },
+        "automatedTitle": "",
+        "scheduledTitle": "",
+        "manualTitle": "",
+        "exportCampaigns": {
+            "title": "",
+            "dialogTitle": "",
+            "dialogContent": "",
+            "dialogContentSurplus": "",
+            "dialogContentAlternative": "",
+            "dialogButtonGenerateAnyway": ""
+        }
+    },
+    "recipient": {
+        "readCount": "",
+        "clicksCount": "",
+        "showEmail": "",
+        "status": {
+            "0": "",
+            "1": "",
+            "2": "",
+            "3": "",
+            "4": "",
+            "5": "",
+            "-1": ""
+        },
+        "table": {
+            "columns": {
+                "email": "",
+                "readCount": "",
+                "lastRead": "",
+                "clicked": "",
+                "status": ""
+            }
+        },
+        "showSms": "",
+        "showNotification": "",
+        "numberOfRecipientsCompact": "",
+        "numberOfRecipients": "",
+        "isAnswerWarning": ""
+    },
+    "send": {
+        "error": "",
+        "success": ""
+    },
+    "sms": {
+        "warningConsent2": "",
+        "warningConsent1": "",
+        "warningProviderNotVerified": {
+            "title": "",
+            "mainMessage": "",
+            "regulatoryNotice": ""
+        }
+    },
+    "filter": {
+        "choicesLabels": {
+            "0": "",
+            "1": "",
+            "2": "",
+            "3": "",
+            "4": "",
+            "5": "",
+            "6": "",
+            "7": "",
+            "8": "",
+            "9": "",
+            "10": "",
+            "11": "",
+            "12": "",
+            "13": "",
+            "14": "",
+            "15": "",
+            "16": "",
+            "30": "",
+            "31": "",
+            "32": "",
+            "50": "",
+            "51": "",
+            "70": "",
+            "71": ""
+        },
+        "sendParameter": {
+            "placeholder": "",
+            "title": ""
+        },
+        "recipient": {
+            "placeholder": "",
+            "title": ""
+        },
+        "channel": {
+            "placeholder": "",
+            "title": ""
+        },
+        "kind": {
+            "placeholder": "",
+            "title": ""
+        },
+        "numberFilter": "",
+        "dateFilter": {
+            "dateEnd": "",
+            "dateStart": "",
+            "period": "",
+            "title": ""
+        },
+        "filterAction": "",
+        "applyFilter": "",
+        "srcOrDst": {
+            "placeholder": "",
+            "title": ""
+        },
+        "ariaLabel": {
+            "deleteAllFilters": ""
+        }
+    },
+    "dialogInformation": {
+        "status": {
+            "1": "",
+            "4": "",
+            "notReceived": "",
+            "openNo": "",
+            "openYes": ""
+        },
+        "headerOpen": "",
+        "headerStatus": ""
+    },
+    "dialogRecipients": {
+        "noPhone": "",
+        "noMail": "",
+        "warnings": {
+            "full": "",
+            "recipientsNotAllSelected": "",
+            "phoneOrMailMissing": "",
+            "header": ""
+        },
+        "refreshMemberData": ""
+    },
+    "dialogTemplate": {
+        "refreshText": "",
+        "title": ""
+    },
+    "sendMessage": {
+        "icons": {
+            "balise": "",
+            "template": "",
+            "notification": "",
+            "sms": "",
+            "mail": "",
+            "autoResend": "",
+            "messageScheduling": "",
+            "automaticCommunicationLimit": ""
+        },
+        "refresh": "",
+        "sendDisabled": {
+            "missingContent": "",
+            "missingRecipients": "",
+            "missingPhoneInDirectMember": "",
+            "missingEmailInDirectMember": ""
+        },
+        "buttons": {
+            "selectRecipientsMobile": "",
+            "selectRecipients": "",
+            "send": "",
+            "scheduleCommunication": "",
+            "updateScheduled": ""
+        },
+        "textField": {
+            "warningLength": "",
+            "object": "",
+            "title": "",
+            "content": ""
+        },
+        "writeCommunication": "",
+        "warningModalTitle": {
+            "title": ""
+        },
+        "smsCostReminderModal": {
+            "title": "",
+            "content": {
+                "description": "",
+                "effect": ""
+            },
+            "cancel": "",
+            "confirm": ""
+        },
+        "cannotReviewRecipients": {
+            "title": "",
+            "content": {
+                "description": "",
+                "effect": ""
+            },
+            "cancel": "",
+            "confirm": ""
+        },
+        "smsCostWarning": {
+            "title": "",
+            "content": {
+                "description": "",
+                "effect": ""
+            },
+            "cancel": "",
+            "confirm": ""
+        },
+        "membersWontLoad": ""
+    },
+    "resendSection": {
+        "dialogTitle": "",
+        "title": "",
+        "resendCount": {
+            "label": "",
+            "helperText": ""
+        },
+        "resendDelay": {
+            "label": "",
+            "helperText": ""
+        }
+    },
+    "generic": {
+        "history": "",
+        "communication": ""
+    },
+    "thread": {
+        "item": {
+            "year": "",
+            "weeks": "",
+            "days": "",
+            "hours": "",
+            "minutes": "",
+            "unarchive": "",
+            "archive": "",
+            "unmute": "",
+            "mute": "",
+            "removeFavorite": "",
+            "addToFavorite": "",
+            "markAsRead": "",
+            "detail": {
+                "member": "",
+                "smartlist": "",
+                "offer": ""
+            },
+            "filterMessages": "",
+            "noMessage": "",
+            "disableDialog": {
+                "title": "",
+                "firstContent": "",
+                "secondContent": "",
+                "thirdContent": ""
+            }
+        },
+        "kind": {
+            "member": "",
+            "smartlist": "",
+            "offer": ""
+        },
+        "search": "",
+        "filter": {
+            "allThreads": "",
+            "hasNotBeenRead": "",
+            "favorites": "",
+            "muted": "",
+            "disabled": ""
+        },
+        "loadMoreThreads": "",
+        "noThread": {
+            "list": "",
+            "item": {
+                "member": "",
+                "smartlist": "",
+                "offer": ""
+            }
+        },
+        "selectThread": {
+            "title": "",
+            "description": ""
+        },
+        "panel": {
+            "header": "",
+            "tags": "",
+            "member": {
+                "invoices": {
+                    "title": "",
+                    "noUnpaidInvoices": ""
+                },
+                "files": "",
+                "notes": ""
+            },
+            "smartlist": {
+                "memberCount": "",
+                "filters": "",
+                "description": ""
+            },
+            "navigation": {
+                "member": "",
+                "smartlist": "",
+                "offer": ""
+            },
+            "openPanel": "",
+            "closePanel": ""
+        },
+        "emptyThread": {
+            "becauseNeverUsed": "",
+            "becauseOfFilters": ""
+        },
+        "filterOutCommunicationSent": ""
+    },
+    "sentStatus": {
+        "fail": "",
+        "processing": ""
+    },
+    "forms": {
+        "twoWayEmail": {
+            "description": "",
+            "title": ""
+        },
+        "submit": "",
+        "title": ""
+    },
+    "smartListPopup": {
+        "memberListTitle": "",
+        "noSmartListPopup": "",
+        "seeRecipients": "",
+        "see": "",
+        "recipient": "",
+        "recipients": "",
+        "cancelPreview": "",
+        "previewTitle": "",
+        "preview": "",
+        "close": "",
+        "drawerTitle": ""
+    },
+    "createThread": {
+        "close": "",
+        "confirmResourceSelected": "",
+        "title": "",
+        "smartlistPlaceholder": "",
+        "refreshSmartlist": ""
+    },
+    "messageList": {
+        "filterOutCommunicationSent": "",
+        "emptyList": {
+            "becauseOfFilters": "",
+            "becauseNeverUsed": ""
+        }
+    },
+    "sendNowDialog": {
+        "title": "",
+        "content": "",
+        "close": "",
+        "confirm": ""
+    },
+    "scheduled": {
+        "inputLabel": "",
+        "chooseDate": "",
+        "chooseTime": "",
+        "numberOfRecipients": "",
+        "scheduledFor": "",
+        "nextCommunicationScheduled": "",
+        "opened": "",
+        "clicked": "",
+        "edit": "",
+        "delete": "",
+        "show": "",
+        "isEmpty": "",
+        "sectionTitle": "",
+        "sendImmediately": "",
+        "scheduleForLater": "",
+        "when": "",
+        "at": "",
+        "schedule": "",
+        "saveEdition": "",
+        "cancelEdition": "",
+        "deleteMessage": "",
+        "datetimeLimit": "",
+        "nighttimeLimit": "",
+        "dialog": {
+            "title": "",
+            "helperText": "",
+            "separator": "",
+            "submit": "",
+            "close": ""
+        },
+        "tooLateToUpdateDialog": {
+            "title": "",
+            "content": "",
+            "close": ""
+        },
+        "deleteDialog": {
+            "title": "",
+            "content": "",
+            "close": "",
+            "submit": ""
+        },
+        "sendNowDialog": {
+            "title": "",
+            "content": "",
+            "close": "",
+            "confirm": ""
+        }
+    },
+    "accessibilityText": {
+        "expandRow": ""
+    },
+    "communication": ""
+}

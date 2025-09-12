@@ -1,0 +1,91 @@
+{
+  "form": {
+    "quarterHour": "15 min",
+    "zeroMinute": "0 min",
+    "twentyMinutes": "20 min",
+    "halfHour": "30 min",
+    "halfAndQuarterHour": "45 min",
+    "oneHour": "1u",
+    "oneHourFifteen": "1u 15min",
+    "oneHourAndHalf": "1u 30min",
+    "twoHour": "2u",
+    "threeHour": "3u",
+    "fourHour": "4u",
+    "sixHour": "6u",
+    "eightHour": "8u",
+    "twelveHour": "12u",
+    "oneDay": "1 dag",
+    "twoDays": "2 dagen",
+    "oneWeek": "1 week",
+    "tenDays": "10 dagen",
+    "twoWeeks": "2 weken",
+    "oneMonth": "1 maand",
+    "never": "Nooit",
+    "fiftyMinutes": "50 min",
+    "tenMinutes": "10 min"
+  },
+  "never": "Nooit",
+  "shortMinuteIdentifier": "min",
+  "shortHourIdentifier": "u",
+  "time": {
+    "weekday": {
+      "sunday": "Zondag",
+      "monday": "Maandag",
+      "tuesday": "Dinsdag",
+      "wednesday": "Woensdag",
+      "thursday": "Donderdag",
+      "friday": "Vrijdag",
+      "satursday": "Zaterdag"
+    },
+    "monthShort": {
+      "january": "Jan",
+      "february": "Feb",
+      "march": "Mrt",
+      "april": "Apr",
+      "may": "Mei",
+      "june": "Jun",
+      "july": "Jul",
+      "august": "Aug",
+      "september": "Sep",
+      "october": "Okt",
+      "november": "Nov",
+      "december": "Dec"
+    },
+    "month": {
+      "january": "Januari",
+      "april": "April",
+      "may": "Mei",
+      "june": "Juni",
+      "july": "Juli",
+      "august": "Augustus",
+      "september": "September",
+      "october": "Oktober",
+      "november": "November",
+      "december": "December",
+      "february": "Februari",
+      "march": "Maart"
+    },
+    "weekdayNumber": {
+      "0": "Maandag",
+      "1": "Dinsdag",
+      "2": "Woensdag",
+      "3": "Donderdag",
+      "4": "Vrijdag",
+      "5": "Zaterdag",
+      "6": "Zondag"
+    },
+    "isoWeekdayNumber": {
+      "1": "Maandag",
+      "2": "Dinsdag",
+      "3": "Woensdag",
+      "4": "Donderdag",
+      "5": "Vrijdag",
+      "6": "Zaterdag",
+      "7": "Zondag"
+    }
+  },
+  "shortDayIdentifier": "dag(en)",
+  "longHourIdentifier": "uur",
+  "longMinuteIdentifier": "minuten",
+  "longDayIdentifer": "dagen"
+}

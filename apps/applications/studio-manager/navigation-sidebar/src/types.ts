@@ -28,7 +28,7 @@ export type Urls = {
   order: string;
   // Group 5
   // --- Marketing ---
-  memberNotification: string;
+  marketingNotification: string;
   emailTemplate: string;
   smartlist: string;
   audience: string;

@@ -1,0 +1,806 @@
+{
+  "multiSelector": {
+    "establishments": {
+      "textFieldPlaceholder": "Zoek een vestiging",
+      "helperText": "Selecteer vestigingen",
+      "helperSelectedText": "geselecteerde vestiging(en):",
+      "helperAllSelectedText": "alle vestigingen",
+      "warning": "Selecteer minimaal één vestiging"
+    },
+    "selectAll": "Selecteer alles",
+    "selectNothing": "Deselecteer alles",
+    "paymentPacks": {
+      "helperSelectedText": "geselecteerde leskaarten",
+      "textFieldPlaceholder": "Zoek een leskaart",
+      "helperAllSelectedText": "alle leskaarten",
+      "warning": "Selecteer minimaal één leskaart",
+      "helperText": "Selecteer leskaarten"
+    },
+    "metaActivities": {
+      "helperText": "Selecteer activiteiten",
+      "helperSelectedText": "geselecteerde activiteiten",
+      "textFieldPlaceholder": "Zoek een activiteit",
+      "helperAllSelectedText": "Alle activiteiten",
+      "warning": "Selecteer minimaal één activiteit"
+    },
+    "coaches": {
+      "helperText": "Selecteer instructeurs",
+      "helperSelectedText": "geselecteerde instructeurs",
+      "textFieldPlaceholder": "Zoek een instructeur",
+      "helperAllSelectedText": "alle instructeurs",
+      "warning": "Selecteer minimaal één instructeur"
+    },
+    "buyables": {
+      "helperAllSelectedText": "alle producten",
+      "textFieldPlaceholder": "Selecteer een productcategorie",
+      "helperSelectedText": "geselecteerde categorieën",
+      "helperText": "Selecteer categorieën"
+    },
+    "privatePass": {
+      "warning": "Selecteer ten minste één afspraakkaart",
+      "helperAllSelectedText": "alle afspraakkaarten",
+      "textFieldPlaceholder": "Zoek een afspraakkaart",
+      "helperSelectedText": "Geselecteerde afspraakkaarten",
+      "helperText": "Selecteer afspraakkaarten"
+    },
+    "privateServices": {
+      "warning": "Selecteer minimaal één afspraak",
+      "helperAllSelectedText": "Alle afspraken",
+      "textFieldPlaceholder": "Zoek een afspraak",
+      "helperSelectedText": "Geselecteerde afspraken",
+      "helperText": "Selecteer afspraken"
+    },
+    "level": {
+      "allLevels": "alle niveaus",
+      "warning": "Selecteer ten minste één niveau",
+      "beginner": "beginner",
+      "intermediate": "intermediair",
+      "advanced": "gevorderd",
+      "select": "Selecteer een niveau",
+      "intermediary": "intermediair",
+      "all": "alle niveaus"
+    },
+    "activePasses": {
+      "warning": "Selecteer ten minste één leskaart of één afspraakkaart",
+      "paymentPackHelperText": "geen leskaart",
+      "privatePassHelperText": "Er zijn geen afspraakkaarten om te tonen."
+    },
+    "customForms": {
+      "warning": "Selecteer ten minste één formulier",
+      "helperAllSelectedText": "alle formulieren",
+      "textFieldPlaceholder": "Een formulier zoeken",
+      "helperSelectedText": "selecteer de formulieren",
+      "helperText": "selecteer de formulieren"
+    },
+    "userMarketingNotifications": {
+      "warning": "Activeer ten minste één van de twee opties"
+    }
+  },
+  "modal": {
+    "delete": {
+      "content": "Weet je zeker dat je deze Smartlist wilt verwijderen? Deze actie is definitief.",
+      "cancel": "Annuleren",
+      "confirm": "Verwijderen",
+      "title": "Smartlist verwijderen",
+      "linkedToAFranchiseCommunication": "Deze smartlist wordt gebruikt door uw franchise en kan niet worden verwijderd"
+    },
+    "validate": "Bevestigen"
+  },
+  "duplicate": "Dupliceren",
+  "name": "Naam van de Smartlist",
+  "search": "Zoek een Smartlist",
+  "description": "Beschrijving",
+  "graphs": {
+    "bookings": "Reserveringen",
+    "expensesSegments": {
+      "title": {
+        "second": "en",
+        "first": "Uitgaven tussen"
+      },
+      "label": {
+        "0": "Geen uitgaven",
+        "1": "Eerste kwartaal",
+        "2": "Gemiddelde",
+        "3": "Laatste kwartaal"
+      }
+    },
+    "bookingsSegments": {
+      "title": "Sluiting reserveringen",
+      "label": {
+        "0": "Vorige maand",
+        "1": "Tussen 1 en 12 maanden",
+        "2": "Meer dan 1 jaar geleden"
+      }
+    }
+  },
+  "mail": {
+    "sendMailTitle": "Een bericht versturen",
+    "sendMail": "Een bericht versturen",
+    "send": "Verzenden",
+    "noMailAvailable": "Er zijn nog geen e-mailsjablonen aangemaakt en beschikbaar.",
+    "cancel": "Annuleren",
+    "sendError": "De e-mail kon niet worden verstuurd",
+    "sendSuccess": "Versturen..."
+  },
+  "smart_list": {
+    "list": {
+      "title": "Smartlists",
+      "detailTitle": "Details van de Smartlist"
+    },
+    "name": "Naam",
+    "description": {
+      "label": "Beschrijving",
+      "isEmpty": "Er is geen beschrijving om weer te geven."
+    },
+    "submit": "Opslaan",
+    "cancel": "Annuleren",
+    "add": "Een Smartlist toevoegen",
+    "detail": "Details van de Smartlist",
+    "createTitle": "Smartlists",
+    "actions": {
+      "campaign": "Campagnes",
+      "configure": "Configuratie"
+    }
+  },
+  "filterCategory": {
+    "1": "Ledeninformatie",
+    "2": "Kaarten",
+    "3": "Reserveringen",
+    "4": "Betalingen"
+  },
+  "filters": {
+    "1": {
+      "second": " -   ",
+      "third": "{{ currencyDisplay }}",
+      "explanation": "Segmenteer leden met een bepaald bedrag op hun rekening",
+      "first": "Leden met een interne rekening (Wallet) t.w.v.",
+      "name": "Interne rekening (Wallet)",
+      "between": "en"
+    },
+    "2": {
+      "name": "Datum van laatste gereserveerde sessie",
+      "explanation": "Heeft zijn laatste sessie geboekt ...",
+      "first": "De laatste gereserveerde sessie plaats meer dan",
+      "second": "dagen"
+    },
+    "5": {
+      "name": "Geslacht",
+      "first": "Segmenteer alleen",
+      "men": "mannen",
+      "explanation": "Segmenteer leden op basis van of ze zich als man of vrouw identificeren",
+      "women": "vrouwen"
+    },
+    "8": {
+      "first": "Bezit een leskaart",
+      "second": "bruikbaar (met credit of onbeperkt en niet verlopen)",
+      "explanation": "Heeft geldige leskaart X",
+      "name": "Geldigheid"
+    },
+    "11": {
+      "explanation": "Segmenteer leden volgens hun tags",
+      "name": "Tags",
+      "first": "Segmenteren op tags"
+    },
+    "14": {
+      "explanation": "Heeft producten A en B gekocht",
+      "shop": "Webshop",
+      "pack": "Leskaarten",
+      "workshop": "Leskaarten voor workshops",
+      "name": "Uitgaven",
+      "second": "tussen {{ currencyDisplay }}",
+      "first": "Heeft",
+      "third": "en",
+      "fourth": "aan de volgende producten besteed",
+      "selector": "Producten:",
+      "combo": "Pakketten",
+      "private_pass": "Afspraakkaart"
+    },
+    "18": {
+      "name": "Inschrijfdatum",
+      "first": "Lid geworden van je studio op",
+      "explanation": "Segmenteer leden die lid zijn geworden op, na, voor of tussen bepaalde data"
+    },
+    "19": {
+      "name": "Leskaarten",
+      "first": "een of meerdere van de volgende kaarten",
+      "has": "Bezit",
+      "has_not": "Bezit niet",
+      "second": "en",
+      "third": "in",
+      "credits": {
+        "first": "credits(s):",
+        "second": "en",
+        "helperText": "Gefilterd op {{count}} krediet",
+        "helperText_plural": "Gefilterd op {{count}} kredieten"
+      },
+      "expiration": {
+        "first_will_expire": "Vervaldatum:",
+        "first_has_expire": "Verliep op:"
+      },
+      "infoIcon": "Onbeperkte leskaarten zijn altijd inbegrepen",
+      "explanation": "Segmenteer klanten die op een bepaalde datum een leskaart hebben gekocht met X aantal resterende credits",
+      "date_bought": {
+        "first": "Aankoopdatum:"
+      }
+    },
+    "20": {
+      "explanation": "Segmenteer leden die producten in hun winkelwagen hebben maar hun aankoop niet hebben voltooid",
+      "first": "De waarde van de achtergelaten mand is",
+      "second": "in",
+      "third": "{{ currencyDisplay }}",
+      "date": {
+        "first": "Verlaten mand",
+        "second": "dagen"
+      },
+      "name": "Onvoltooide aankopen",
+      "between": "en"
+    },
+    "21": {
+      "name": "Reserveringsnummer",
+      "activity": {
+        "first": "filter op activiteit(en):"
+      },
+      "establishment": {
+        "first": "filter op vestiging"
+      },
+      "date": {
+        "first": "Filter op datum:"
+      },
+      "hour": {
+        "first": "filter op tijd",
+        "second": "uur en",
+        "third": "Uur"
+      },
+      "explanation": "Klanten segmenteren op basis van hoeveel sessies ze hebben geboekt, in welke ruimte, bij welke docent, gekocht met welke pas",
+      "first": "Heeft ",
+      "second_singular": "keer gereserveerd",
+      "second_plural": "keer gereserveerd",
+      "coach": {
+        "first": "instructeur(s):"
+      },
+      "payment_pack": {
+        "first": "kaart(en):"
+      },
+      "attendance": "status:",
+      "level": {
+        "first": "niveau "
+      },
+      "second_singular_v2": "De sessie",
+      "first_v2": "Leden die hun "
+    },
+    "22": {
+      "name": "Aantal reserveringen",
+      "explanation": "Segmenteer leden op het totale aantal sessies dat ze hebben geboekt voor activiteit A, in vestiging B, gekocht met pas C",
+      "first": "Reserveerde",
+      "second": "sessies",
+      "activity": {
+        "first": "activiteit(en):"
+      },
+      "establishment": {
+        "first": "vestiging(en):"
+      },
+      "payment_pack": {
+        "first": "kaart(en):"
+      },
+      "coach": {
+        "first": "instructeur(s):"
+      },
+      "date": {
+        "first": "datum:"
+      },
+      "hour": {
+        "first": "tussen:",
+        "second": "uur en",
+        "third": "Uur"
+      },
+      "between": "en",
+      "attendance": "status:",
+      "level": {
+        "first": "niveau"
+      }
+    },
+    "23": {
+      "explanation": "Toon een overzicht van de eerste reservering van alle leden",
+      "name": "Eerste reservering"
+    },
+    "24": {
+      "date": {
+        "first": "aankoopdatum:"
+      },
+      "second": "{{ currencyDisplay }} voor de producten",
+      "first": "Heeft",
+      "name": "Aankoopgeschiedenis",
+      "workshop": "Leskaarten voor workshops",
+      "private_pass": "Privéles",
+      "between": "en",
+      "combo": "Pakketten",
+      "pack": "Leskaarten",
+      "shop": "Webshop",
+      "explanation": "Klanten segmenteren die bepaalde producten hebben gekocht"
+    },
+    "25": {
+      "third": "om",
+      "expiration": {
+        "first_has_expire": "is verlopen",
+        "first_will_expire": "vervaldatum:"
+      },
+      "date_bought": {
+        "first": "aankoopdatum:"
+      },
+      "credits": {
+        "second": "en",
+        "first": "credit(s):",
+        "helperText": "Gefilterd op {{count}} krediet",
+        "helperText_plural": "Gefilterd op {{count}} kredieten"
+      },
+      "second": "en",
+      "has_not": "Bezit niet",
+      "has": "Bezit",
+      "first": "een van de afspraakkaarten",
+      "name": "Afspraakkaarten",
+      "explanation": "Segmenteer klanten die op een bepaalde datum een afspraakkaart hebben gekocht, met X aantal resterende credits"
+    },
+    "26": {
+      "hour": {
+        "third": "Uur",
+        "first": "tussen:",
+        "second": "uur en"
+      },
+      "date": {
+        "first": "vindt plaats op"
+      },
+      "coach": {
+        "first": "instructeur(s):"
+      },
+      "private_pass": {
+        "first": "Afspraakkaart(en):"
+      },
+      "establishment": {
+        "third": "thuis",
+        "second": "of",
+        "first": "vestiging(en):"
+      },
+      "between": "en",
+      "second": "afspraken gereserveerd",
+      "first": "Gereserveerd",
+      "explanation": "Segmenteer leden op hoeveel afspraken ze hebben geboekt in vestiging A, bij leraar B, gekocht bij pas C",
+      "name": "Aantal afspraken",
+      "private_service": {
+        "first": "Afspraken:"
+      }
+    },
+    "27": {
+      "info": "Er wordt ook rekening gehouden met geblokkeerde leskaarten en geblokkeerde afspraakkaarten",
+      "fourth": "in totaal.",
+      "third": "of",
+      "second": "geldige leskaarten. Inclusief",
+      "between": "en",
+      "first": "Leden die x hebben",
+      "name": "Geldige leskaarten",
+      "explanation": "Segmenteer klanten die X aantal geldige leskaarten of afspraakkaarten hebben"
+    },
+    "28": {
+      "numbersComparator": {
+        "payment": {
+          "after": "{{currency}}",
+          "between": "en",
+          "before": "De waarde van de eerste aankoop was"
+        }
+      },
+      "filterByDate": {
+        "before": "Filter op datum"
+      },
+      "booleanChoice": {
+        "is_not": "nog niet voltooid",
+        "is": "voltooid",
+        "before": "De eerste aankoop is"
+      },
+      "explanation": "Segmenteer leden die hun eerste aankoop hebben gedaan tussen bepaalde data",
+      "name": "Eerste aankoop"
+    },
+    "29": {
+      "numbersComparator": {
+        "money": {
+          "after": "{{currency}} als doorverwijzer",
+          "between": "en",
+          "before": "Het lid kreeg"
+        },
+        "referred": {
+          "tooltip": "Leden die niemand hebben doorverwezen kunnen ook worden toegevoegd",
+          "after": "leden",
+          "between": "en",
+          "before": "Het lid verwees"
+        },
+        "reward": {
+          "after": "beloningen als doorverwijzer",
+          "between": "en",
+          "before": "Het lid kreeg"
+        }
+      },
+      "name": "Doorverwijzers",
+      "explanation": "Filtert de leden die leden hebben doorverwezen"
+    },
+    "30": {
+      "numbersComparator": {
+        "money": {
+          "after": "{{currency}} als een doorverwezen lid",
+          "between": "en",
+          "before": "Het lid kreeg"
+        }
+      },
+      "booleanChoice": {
+        "after": "een doorverwezen lid",
+        "is_not": "is niet",
+        "is": "is",
+        "before": "Het lid"
+      },
+      "explanation": " Filtert de leden die een doorverwijslink hebben gebruikt om zich aan te melden",
+      "name": "Doorverwezen lid"
+    },
+    "101": {
+      "explanation": "Segmenteer leden op basis van hun leeftijd",
+      "second": "jaren (inclusief)",
+      "to": " ",
+      "between": "en",
+      "first": "Heeft een leeftijd",
+      "name": "Leeftijd"
+    },
+    "102": {
+      "date": {
+        "first": "voor het laatst voltooid"
+      },
+      "explanation": "Segmenteer leden op hoeveel formulieren ze hebben ingevuld op bepaalde data",
+      "between": "en",
+      "to": " ",
+      "third": "met een percentage",
+      "second": "onder",
+      "none": "geen formulier",
+      "hasCompletedNone": "Heeft niet voltooid",
+      "all": "alle formulieren",
+      "atLeastOne": "ten minste één formulier",
+      "hasNotCompleted": "Heeft niet voltooid",
+      "hasCompleted": "Heeft voltooid",
+      "name": "Formulieren",
+      "first": "Heeft gecomplete"
+    },
+    "103": {
+      "explanation": "Segmenteer leden die toestemming hebben gegeven voor meldingen per sms of e-mail",
+      "email": "om meldingen per e-mail te ontvangen",
+      "sms": "om meldingen per SMS te ontvangen",
+      "false": "Accepteert niet",
+      "true": "Accepteer",
+      "oneNeeded": "Ten minste één van de geactiveerde voorwaarden moet ingevuld zijn",
+      "allNeeded": "Alle geactiveerde voorwaarden moeten ingevuld zijn",
+      "name": "Toestemming voor meldingen",
+      "or": "Of",
+      "and": "En"
+    },
+    "104": {
+      "explanation": "Heeft ten minste één medische notitie (of niet)",
+      "date": {
+        "first": "die werd aangemaakt"
+      },
+      "info": "De zogenoemde medische notities komen overeen met de sectie \"waarschuwingen\" op het formulier van het lid",
+      "nonMedical": "niet-medisch",
+      "medical": "medisch",
+      "medicalOrNot": "medisch of niet",
+      "first": "Heeft ten minste één notitie",
+      "name": "Informatieve notities"
+    },
+    "105": {
+      "explanation": "Segmenteer leden met relaties (zoals afhankelijke personen) of gedeelde passen",
+      "acceptEmail": {
+        "false": "accepteert geen",
+        "second": "emails",
+        "true": "accepteer",
+        "first": "de relatie"
+      },
+      "acceptSms": {
+        "second": "SMS",
+        "false": "accepteert niet",
+        "true": "accepteer",
+        "first": "de relatie"
+      },
+      "receiveCopyOfEmail": {
+        "second": "met een kopie aan het lid",
+        "false": "worden niet verzonden",
+        "true": "worden ook verzonden",
+        "first": "e-mails die naar de relatie zijn gestuurd"
+      },
+      "info": {
+        "consumerPrivatePasses": "\"geldig\" betekent dat de afspraakkaart nu kan worden gebruikt om een afspraak te maken",
+        "consumerPaymentPacks": "\"geldig\" betekent dat de leskaart nu kan worden gebruikt om een groepsactiviteit te boeken"
+      },
+      "validOrNot": "geldig of niet",
+      "valid": "geldig",
+      "bookings": "van groepsactiviteiten en afspraken dankzij een door het lid gedeelde pas",
+      "consumerPrivatePasses": "afspraakkaarten",
+      "consumerPaymentPacks": "leskaarten",
+      "fourth": "de relatie heeft een aantal ... geboekt",
+      "third": "het lid heeft met de relatie een aantal",
+      "second": "van relaties die de geselecteerde filters respecteren:",
+      "first": "Heeft een nummer",
+      "between": "en",
+      "to": "naar",
+      "date": {
+        "first": "de relatie is tot stand gebracht"
+      },
+      "name": "Gedeelde leskaarten"
+    },
+    "106": {
+      "explanation": "Segmenteer leden die een telefoonnummer hebben opgegeven",
+      "first": "een telefoonnummer",
+      "false": "Niet ingevuld",
+      "true": "Ingevuld",
+      "name": "Telefoonnummer"
+    },
+    "107": {
+      "explanation": "De algemene gebruiksvoorwaarden heeft geaccepteerd",
+      "first": "uw gebruiksvoorwaarden",
+      "false": "Heeft niet geaccepteerd",
+      "true": "Geaccepteerd",
+      "name": "Gebruiksvoorwaarden"
+    },
+    "400": {
+      "explanation": "Segmenteer leden die een wachtwoord hebben geregistreerd bij je bsportaccount",
+      "name": "Wachtwoord",
+      "explain": "Toon een overzicht van alle leden die een wachtwoord bij BSPORT hebben geregistreerd"
+    },
+    "410": {
+      "explanation": "Segmenteer alle leden die je waiver/vrijstelling hebben geaccepteerd",
+      "name": "Waiver / Vrijstelling",
+      "explain": "Toon een overzicht van alle leden Waiver / Vrijstelling hebben geaccepteerd"
+    },
+    "501": {
+      "explanation": "Klanten segmenteren op basis van wanneer ze voor het laatst een les hebben geboekt",
+      "second": "dag(en) geleden en er zijn nog geen toekomstige reserveringen ingepland.",
+      "first": "De laatst reservering was meer dan",
+      "name": "Laatste reservering"
+    },
+    "600": {
+      "expiryDateLabel": "met een vervaldatum",
+      "owns": "Selecteer tenminste één opgeslagen betaalmethode",
+      "does_not_own": "Er zijn geen opgeslagen betaalmethoden om weer te geven",
+      "labelFirst": "Alleen op leden filteren",
+      "title": "Opgeslagen betaalmethoden",
+      "explanation": "Segmenteer leden op basis van wie een betaalmethode heeft opgeslagen of niet",
+      "name": "Betaalmethoden"
+    },
+    "isEmpty": "Dit segment toont al je leden omdat er geen parameters zijn ingesteld.",
+    "calendarPicker": {
+      "text": {
+        "0": {
+          "first": "op of na"
+        },
+        "1": {
+          "first": "op of voor"
+        },
+        "2": {
+          "first": "tussen",
+          "second": "en"
+        },
+        "3": {
+          "first": "de"
+        },
+        "4": {
+          "first": "Over meer dan",
+          "second": "dagen"
+        },
+        "5": {
+          "first": "binnen",
+          "second": "dagen"
+        },
+        "6": {
+          "first": "binnen ",
+          "second": "dagen"
+        },
+        "7": {
+          "first": "over",
+          "second": "dagen en minder dan",
+          "third": "dagen"
+        },
+        "8": {
+          "first": "Minder dan",
+          "second": "dagen"
+        },
+        "9": {
+          "first": "voordat deze",
+          "second": "dagen"
+        },
+        "10": {
+          "second": "dagen",
+          "first": "er zijn "
+        },
+        "11": {
+          "first": "van",
+          "second": "dagen en minder dan",
+          "third": "dagen"
+        }
+      },
+      "selectduration": {
+        "4": {
+          "first": "Over",
+          "second": "dagen"
+        },
+        "5": {
+          "first": "Binnen",
+          "second": "dagen"
+        },
+        "6": {
+          "second": "dagen",
+          "first": "Binnen"
+        },
+        "7": {
+          "first": "Over",
+          "second": "dagen",
+          "third": "dagen en minder dan"
+        },
+        "8": {
+          "first": "Er zijn minder",
+          "second": "dagen"
+        },
+        "9": {
+          "first": "Over",
+          "second": "dagen"
+        },
+        "10": {
+          "first": " ",
+          "second": "dagen geleden"
+        },
+        "11": {
+          "first": "Over meer dan",
+          "second": "dagen",
+          "third": "dagen en minder dan"
+        },
+        "selector": {
+          "4": "Over X dagen",
+          "5": "In minder dan X dagen",
+          "6": "Binnen X dagen",
+          "7": "Binnen X dagen, maar minder dan Y dagen",
+          "8": "Minder dan X dagen geleden",
+          "9": "Meer dan X dagen geleden",
+          "10": "X dagen geleden",
+          "11": "Er zijn meer dan X dagen, maar minder dan Y dagen verstreken"
+        }
+      },
+      "durationTitle": "Duur",
+      "dateTitle": "Datum",
+      "select": {
+        "0": "Op of na",
+        "1": "Op of voor",
+        "2": "Tussen twee data",
+        "3": "Op"
+      },
+      "duration": "dagen"
+    },
+    "booking_status": {
+      "canceled": "geannuleerd",
+      "booked": "gereserveerd"
+    },
+    "all": "Alle",
+    "active_filters": "Actieve parameters op deze Smartlist",
+    "add_filter": "Parameters toevoegen",
+    "add": "Toevoegen",
+    "before": "voor",
+    "after": "na",
+    "classic_comparators": {
+      "1": "lager dan (⩽)",
+      "2": "hoger dan (⩾)",
+      "3": "strikt inferieur",
+      "4": "strikt hoger",
+      "5": "gelijk aan"
+    },
+    "durations_comparators": {
+      "1": "minder dan (⩽)",
+      "2": "meer dan (⩾)",
+      "5": "gelijk aan (=)",
+      "6": "tussen"
+    },
+    "undefined": {
+      "name": "Aankoopdatum en tegoed per leskaart",
+      "infoIcon": "Onbeperkte leskaarten worden niet gefilterd op krediet",
+      "first": "Heeft de cursuskaart gekocht",
+      "second": "tussen de",
+      "third": "en de",
+      "fourth": "en bezit",
+      "fifth": "credits op",
+      "info": "Er wordt ook rekening gehouden met geblokkeerde leskaarten en geblokkeerde afspraakkaarten",
+      "between": "en",
+      "explanation": "Heeft X aantal geldige leskaarten of afspraakkaarten"
+    },
+    "comparators": {
+      "1": "minder dan (⩽)",
+      "2": "meer dan (⩾)",
+      "5": "gelijk aan",
+      "6": "tussen"
+    },
+    "attendanceTrue": "aanwezig",
+    "attendanceFalse": "afwezig",
+    "attendanceWarning": "Kies een status"
+  },
+  "mails": "E-mails",
+  "exportList": "Smartlist exporteren",
+  "membersInList": "Leden in deze Smartlist:",
+  "detail": {
+    "tab": {
+      "campaign": "Campagnes",
+      "statistic": "Statistieken",
+      "member": "Algemeen"
+    },
+    "statTitle": "Statistieken"
+  },
+  "selectToShowPreview": "Selecteer een e-mail om de voorvertoning te zien.",
+  "noSmartLists": "Smartlists zijn specifieke segmenten van je ledenbestand. Door filters toe te voegen kun je direct berichten (e-mails, push-notificaties, sms'jes) naar deze doelgroepen versturen om vervolgens een gedetailleerd inzicht te krijgen in het openingspercentage, klikpercentage, enz. om je klantbehoud te verbeteren en je klantwaarde te verhogen.",
+  "delete": "Verwijderen",
+  "edit": "Configuratie",
+  "tag_rules": {
+    "tag_group": "Hoofd-tag",
+    "tag_name": "Sub-tag",
+    "cancel": "Annuleren",
+    "display_tag_rules": "Automatisch taggen",
+    "associated_tag": "Bijbehorende tag",
+    "create": "Een regel toevoegen",
+    "tag_on_join_and_untag_on_left": "Tag als een lid zich in de Smartlist staat",
+    "type_of_rule": "Type regel",
+    "tag_on_left": "Tag als een lid de Smartlist heeft verlaten",
+    "tag_on_join": "Tag als een lid in de Smartlist is gezet",
+    "activeSince": "Actief sinds {{ since }}.",
+    "asyncDialog": {
+      "message": "Alle tags voor klanten in deze Smartlist worden bijgewerkt.",
+      "title": "Tag-regels bijwerken "
+    },
+    "tag": "Tag"
+  },
+  "memberBase": {
+    "options": {
+      "0": "Gearchiveerde en geldige leden",
+      "1": "Geldige leden",
+      "2": "Gearchiveerde leden"
+    },
+    "helperText": "Kies welke leden je in deze Smartlist wilt weergeven:"
+  },
+  "popup": {
+    "sendPopup": "Stuur een pop-up"
+  },
+  "cadenceListDialog": {
+    "close": "Sluiten",
+    "title": "Lijst"
+  },
+  "cadence": {
+    "content": "Relevante cadence: {{- cadence_name }}",
+    "content_plural": "Deze Smartlist wordt in {{ count }} cadences gebruikt"
+  },
+  "cannotBeDeletedDialog": {
+    "content": "Deze Smartlist kan niet worden verwijderd, omdat het in de volgende cadence gebruikt wordt:",
+    "content_plural": "Deze Smartlist kan niet worden verwijderd, omdat het in de volgende cadences gebruikt wordt:",
+    "cancel": "Sluiten",
+    "title": "Gebruikt bij cadens"
+  },
+  "downLoadSavedExport": "Vorige export downloaden",
+  "lastGenerated": "Laatste export gegenereerd op: {{-date}} {{time}}",
+  "generateHelperText": "Genereer de export om de smartlist te downloaden",
+  "generateExport": "Genereer export",
+  "usedInFranchiseCommmunication": "Gebruikt in een campagne door uw franchise",
+  "audienceListDialog": {
+    "title": "Lijst van de {{ workflowPluralLowerCase }}"
+  },
+  "audience": {
+    "content": "Gebruikt in de {{ workflowLowerCase }}: {{- workflow_name }}",
+    "content_plural": "Gebruikt in {{ count }} {{ workflowPluralLowerCase }}"
+  },
+  "cannotBeDeletedDialogAudience": {
+    "content": "U kunt deze smartlist niet verwijderen zolang deze wordt gebruikt in de volgende {{ workflowLowerCase }}:",
+    "content_plural": "U kunt deze smartlist niet verwijderen zolang deze wordt gebruikt in de volgende {{ workflowPluralLowerCase }}:",
+    "title": "Gebruikt in een van de {{ workflowPluralLowerCase }}"
+  },
+  "downloadReport": "Rapport downloaden",
+  "generateReport": "Rapport genereren",
+  "communication": {
+    "scheduled": {
+      "total": "Totaal geplande berichten: {{ count }}",
+      "viewAll": "Zie alle",
+      "isEmpty": "Er zijn geen berichten gepland.",
+      "nextScheduledMessage": "Volgend gepland bericht"
+    }
+  }
+}

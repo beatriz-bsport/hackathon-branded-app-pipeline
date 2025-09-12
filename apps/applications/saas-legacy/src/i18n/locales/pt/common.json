@@ -1,0 +1,81 @@
+{
+  "text": {
+    "showLessText": "Ver menos",
+    "showMoreText": "Ver mais"
+  },
+  "card": {
+    "categoryNames": {
+      "validity": "Validade",
+      "compatibility": "Compatibilidade",
+      "restrictions": "Restrições",
+      "paymentMethods": "Métodos de pagamento disponíveis",
+      "accessibility": "Acessibilidade",
+      "vod": "VOD",
+      "credits": "Número de créditos"
+    },
+    "copyLink": "Copiar link"
+  },
+  "duration": {
+    "hour": "{{ count }} hora",
+    "hour_plural": "{{ count }} horas",
+    "day": "{{ count }} dia",
+    "day_plural": "{{ count }} dias",
+    "minute": "{{ count }} minuto",
+    "minute_plural": "{{ count }} minutos"
+  },
+  "back": "Anterior",
+  "disconnect": "Terminar sessão",
+  "disconnectInfo": "Regressar à página de início de sessão",
+  "ok": "OK",
+  "form": {
+    "duration": {
+      "hour": "Duração em horas:",
+      "hour_plural": "Horas:",
+      "day": "Duração em dias",
+      "day_plural": "Dias:",
+      "minute": "Duração em minutos",
+      "minute_plural": "Minutos:"
+    },
+    "requiredField": "campo de preenchimento obrigatório"
+  },
+  "colorPicker": {
+    "noColor": "Sem cor",
+    "delete": "Eliminar",
+    "validate": "Guardar"
+  },
+  "showMore": "Ver mais ({{count}})",
+  "showLess": "Mostrar menos",
+  "weekly": "Semanal",
+  "requiredField": "campo a preencher obrigatório",
+  "selector": {
+    "selectAll": "Selecionar tudo",
+    "unselectAll": "Desmarcar tudo",
+    "validate": "Confirmar",
+    "indeterminate": "Selecione todos {{count}} selecionados"
+  },
+  "monthly": "Mensal",
+  "close": "Fechar",
+  "cancel": "Cancelar",
+  "confirm": "Confirmar",
+  "activate": "Ativar",
+  "endBeforeStart": "A data final deve ser superior à data de início",
+  "startAfterEnd": "A data de início deve ser inferior à data de fim",
+  "save": "Guardar",
+  "start": "Início",
+  "next": "Seguinte",
+  "previous": "Anterior",
+  "letsGo": "Vamos começar!",
+  "finish": "Terminar",
+  "delete": "Eliminar",
+  "saveRecord": "Guardar",
+  "download": "Descarregar",
+  "params": "Configurações",
+  "day": "Dia",
+  "day_plural": "Dias",
+  "recommended": "Recomendado",
+  "subscribe": "Subscrever",
+  "discard": "Descartar",
+  "no": "Não",
+  "yes": "Sim",
+  "saveChanges": "Guardar alterações"
+}

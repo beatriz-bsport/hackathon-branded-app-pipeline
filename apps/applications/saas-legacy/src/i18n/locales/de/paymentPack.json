@@ -1,0 +1,922 @@
+{
+  "scaleCredit": {
+    "parameterLegend": "Einstellungen",
+    "explain": "Du kannst die Kreditpunkte der Karte multiplizieren (3/7x2 wird 6/14) oder sie dividieren im Fall eines Fehlers (3/7 ÷2 wird 1/3): abgerundet.",
+    "title": "Änderung des Gesamtkredits",
+    "scaleDown": "Dividieren",
+    "scaleUp": "Vermehrfachen",
+    "factor": {
+      "label": "Faktor"
+    },
+    "actions": {
+      "cancel": "Abbrechen",
+      "submit": "Speichern"
+    }
+  },
+  "actions": {
+    "delete": "Archivieren",
+    "edit": "Ändern",
+    "scaleCredit": "Credits multiplizieren oder dividieren",
+    "massExtension": "Eine Verlängerung hinzufügen",
+    "close": "Schließen"
+  },
+  "details": {
+    "pleaseSelectAPack": "Wähle einen Pass aus, um die Details zu sehen",
+    "extensionsTitle": "Gültigkeitsverlängerungen",
+    "bookingsTitle": "Verbundene Buchungen",
+    "refundTitle": "Verbundene Zurückerstattung",
+    "invoiceTitle": "Verbundene Rechnung",
+    "shareAPass": "Einen Kurspass teilen",
+    "trackModifiedCreditTitle": "Vergangenen Credits-Anpassungen",
+    "penaltyAccount": "Zusätzliche Abrechnung von {{account_value}} {{currencyDisplay}}",
+    "penaltyBlock": "Pass für {{nb_days}} Tage gesperrt",
+    "penaltyTitle": "Strafe angewendet"
+  },
+  "notification": {
+    "0": {
+      "first": "Benachrichtigen, wenn ",
+      "second": "verbleibende Gültigkeitsdauer des Kurspasses"
+    },
+    "1": {
+      "second": "Credits",
+      "first": "Benachrichtigen, wenn es"
+    },
+    "2": {
+      "first": "Benachrichtigen, wenn die Karte seit ",
+      "second": "Tagen abgelaufen ist"
+    },
+    "form": {
+      "showMail": "E-Mail ansehen",
+      "selectToShowPreview": "Wähle eine E-Mail aus, um eine Vorschau davon zu sehen.",
+      "creditType": "Verbleibende Credits",
+      "hideMail": "E-Mail verstecken",
+      "daysPastType": "Ablaufdatum",
+      "noMailAvailable": "Keine verfügbare E-Mail, erstellen eine E-Mail",
+      "daysType": "Verbleibende Gültigkeit",
+      "mailSelection": "E-Mail auswählen",
+      "smartListSelection": "Liste auswählen (optional)",
+      "settingTitle": "Einstellungen",
+      "submit": "Bestätigen",
+      "cancel": "Abbrechen",
+      "createSmartList": "Eine Smartlist erstellen",
+      "warning": "Wenn Du keine Smartlist auswählst, läufst du das Risiko, Mitglieder zu benachrichtigen, die bereits eine anderen Kurspass gekauft haben",
+      "smartListHelper": "Keine E-Mail senden, wenn das Mitglied einer der folgenden Listen angehört",
+      "smartListHelperInclude": "Eine E-Mail senden, nur wenn das Mitglied einer der folgenden Listen angehört",
+      "mailTitle": "E-Mail zum Senden",
+      "typeTitle": "Kategorie der Benachrichtigung",
+      "pushTitle": "Einstellungen für die Benachrichtigung",
+      "mailSettings": "Mail-Einstellungen",
+      "dontSendIfInContract": "Nicht senden, wenn sich die Karte in einem Abonnement befindet",
+      "infoContract": "Mitglieder, die diese Karte in einem Abonnement erhalten haben, erhalten nur Benachrichtigungen über das Abonnement und nicht die Benachrichtigungen über die Karte. Wenn sie diese Option deaktivieren, erhalten sie beide.",
+      "chooseTime": {
+        "secondOnOfferStart": "Stunde(n) nach dem Kurs",
+        "secondOnBooking": "Stunde(n) nach der Buchung",
+        "first": "EIne Benachrichtigung senden"
+      },
+      "contractTitle": "Abonnement",
+      "creditNotificationType": {
+        "onBooking": "Benachrichtigung nach der Buchung senden",
+        "onOfferStart": "Benachrichtigung nach Ende des Kurses senden"
+      },
+      "notificationNamePlaceholder": "Benachrichtigungsname",
+      "generalTitle": "Allgemein"
+    },
+    "listItem": {
+      "deleteModal": {
+        "content": "Bist Du Dir sicher, dass Du diese Benachrichtigung löschen möchtest? Diese Aktion ist unwiderruflich",
+        "title": "Benachrichtigung löschen",
+        "cancel": "abbrechen",
+        "confirm": "Löschen"
+      },
+      "mail": "E-Mail ",
+      "smartList": "Ausgeschlossene Listen",
+      "smartListInclude": "Eingeschlossene Listen"
+    },
+    "addButton": "Eine Benachrichtigung hinzufügen",
+    "daysPast": {
+      "second": "Tage",
+      "first": "Benachrichtigen, wenn die Karte abgelaufen ist"
+    },
+    "daysLeft": {
+      "second": "verbleibende(r) Tag(e) der Gültigkeit",
+      "first": "Benachrichtigen, wenn es"
+    },
+    "creditsLeft": {
+      "second": "Credits verbleiben",
+      "first": "Benachrichtigen, wenn es",
+      "helperText": "Diese Benachrichtigung wird ausgelöst, wenn noch {{count}} Credit vorhanden ist",
+      "helperText_plural": "Diese Benachrichtigung wird ausgelöst, wenn noch {{count}} Credits vorhanden sind"
+    },
+    "daysPastLabel": "Benachrichtigen, wenn die Karte seit {{day}} Tag abgelaufen ist",
+    "daysPastLabel_plural": "Benachrichtigen, wenn die Karte seit {{day}} Tage abgelaufen ist",
+    "daysLeftLabel": "Benachrichtigen, wenn auf der Karte noch {{day}} Gültigkeitstag verbleibt",
+    "daysLeftLabel_plural": "Benachrichtigen, wenn auf der Karte noch {{day}} Gültigkeitstage verbleibt",
+    "creditsLeftLabel": "Benachrichtigen, wenn {{count}} Guthaben verbleibt",
+    "creditsLeftLabel_plural": "Benachrichtigen, wenn {{credit}} Guthaben verbleibt",
+    "creditsLeftOnBooking": "{{hours}}h nach der Buchung",
+    "creditsLeftOnOfferStart": "{{hours}}h nach der Buchung des Kurses"
+  },
+  "link": {
+    "copyLink": "Kopiere den Link zur Zahlungsseite",
+    "copied": "Kopierter Link"
+  },
+  "reverted": "Rechnung storniert",
+  "noConsumerPack": "Keine registrierten Käufe",
+  "form": {
+    "paymentPack": {
+      "validByDaterange": "Der Pass ist für ein bestimmtes Datum gültig",
+      "delete": {
+        "thereAreConsumers": "Achtung! Einige Mitglieder haben diesen Kurspass gekauft. Wenn Du sie archivierst, können diese Mitglieder ihre verbleibenden Credits weiterhin verwenden. Du kannst sie hier manuell auf Null stellen.\n\nDer Pass wird nicht mehr in Deinem Shop für neue Käufer erscheinen.",
+        "actions": {
+          "submit": "Archivieren",
+          "cancel": "Abbrechen"
+        },
+        "title": "Archivieren des Passes:",
+        "askConfirmation": "Achtung ! Diese Aktion ist unwiderruflich. Der Pass wird unsichtbar und nicht mehr zum Verkauf verfügbar werden.",
+        "isUsedInCombo": "Achtung! Dieser Kurspass wird in einem Paket verwendet, das Paket steht nicht mehr zum Verkauf zur Verfügung, wenn Sie diesen Kurspass entfernen."
+      },
+      "credits": {
+        "bewareChange": "Wenn Du die Anzahl der Credits erhöhst, werden alle bestehenden Pässen betroffen. Dasselbe gilt, wenn Du die Anzahl der Credits verringerst.",
+        "helperText": "Anzahl der verfügbaren Credits",
+        "label": "Credits"
+      },
+      "unlimited": "Unbegrenzte Credits",
+      "activities": "Aktivität",
+      "update": {
+        "error": "Kurspass : Vorgang fehlgeschlagen",
+        "success": "Kurspass: Vorgang erfolgreich"
+      },
+      "noneMeansAll": "Leer lassen, um alles zuzulassen",
+      "restrictionsTitle": "Einschränkungen",
+      "establishments": "Einrichtung",
+      "sports": "Kategorie",
+      "actions": {
+        "create": "Speichern",
+        "edit": "Ändern",
+        "skip": "Überspringen",
+        "cancel": "Abbrechen",
+        "back": "Zurück",
+        "next": "Weiter",
+        "submit": "Speichern"
+      },
+      "from": "Von dem ",
+      "notEditable": "Dieser Kurspass ist das Ergebnis einer Migration, einige Felder können nicht geändert werden, um den Verlauf zu beachten. Kompatible Aktivitäten/Kategorien können weiterhin geändert werden.",
+      "until": "Bis ",
+      "tax": {
+        "label": "Mehrwertsteuer"
+      },
+      "priceIncludingTax": {
+        "helperText": "Gesamtverkaufspreis des Kurspasses.",
+        "label": "Preis inkl. Mehrwertsteuer * "
+      },
+      "startOnFirstUseHelper": "Andernfalls beginnt die Abrechnung an dem Tag, an dem der Kurspass in Rechnung gestellt wurde",
+      "name": {
+        "helperText": "Name des Kurspasses",
+        "label": "Name"
+      },
+      "durationYears": {
+        "helperText": "Zusätzlich der Anzahl der Tage und Monate",
+        "label": "Gültigkeitsdauer (Jahre), falls zutreffend"
+      },
+      "theoricalMarginValue": {
+        "label": "Theoretischer marginaler Beitrag einschließlich Steuer (nur bei unbegrenzter Karte)",
+        "helperText": "Wird zur Berechnung der Lehrkraft-Lohnabrechnung verwendet. 10{{currency}} bedeutet, dass eine mit dieser Karte vorgenommene Buchung mit 10{{currency}} vergütet wird. Wenn leer oder 0{{currency}} wird die Einbringung einer Karte PREIS/NB_RESERVATION"
+      },
+      "maxBookingPerWeek": {
+        "label": "Maximale Nutzung pro Woche",
+        "helperText": "Lasse das Feld leer, um keine Einschränkung festzulegen"
+      },
+      "expirationDaysBeforeFirstUse": {
+        "label": "Läuft ab, wenn keine erste Buchung erfolgt",
+        "helperText": "Wenn dieser Kurspass während dieser Anzahl von Tagen nicht ein erstes Mal verwendet wird, wird er für ungültig erklärt"
+      },
+      "managerOnly": "Für Kunden unsichtbar",
+      "helper": {
+        "starting_date": "Anfang der Gültigkeit des Kurspasses, lasse das Feld leer, um ihn sofort gültig zu machen",
+        "ending_date": "Ende der Gültigkeit des Kurspasses, lasse das Feld leer, sodass er immer aktiv bleibt"
+      },
+      "newMemberOnly": "Nur für neue Kunden",
+      "onsitePaymentAvailable": "Zahlungsmöglichkeit vor Ort",
+      "startOnFirstUse": "Die Gültigkeitsabrechnung beginnt am Tag der ersten Buchung",
+      "start_date_method": {
+        "on_purchase": "Beginnt bei der Rechnungsstellung",
+        "on_booking": "Beginnt bei der ersten Buchung",
+        "on_attendance": "Beginnt mit der 1. Anwesenheit"
+      },
+      "timeSettingsTitle": "Gültigkeit des Passes",
+      "durationMonths": {
+        "helperText": "Zusätzlich der Anzahl der Tage",
+        "label": "Gültigkeitsdauer (Monate), falls zutreffend"
+      },
+      "generalSettingsTitle": "Allgemein",
+      "validByDuration": "Pass gültig N Tage nach dem Kauf",
+      "durationDays": {
+        "label": "Gültigkeitsdauer (Tage), falls zutreffend",
+        "helperText": "Zeitraum in Tagen, für den die Karte nach dem Kauf gültig ist "
+      },
+      "maxBookingPerDay": {
+        "label": "Maximale Nutzung pro Tag",
+        "helperText": "Lasse das Feld leer, um keine Begrenzung festzulegen"
+      },
+      "full_vod_access": "Bietet Zugriff auf die Mediathek (VOD) (wenn möglich)",
+      "maxPurchasePerMember": {
+        "helperText": "Lasse das Feld leer, um keine Begrenzung festzulegen",
+        "label": "Maximaler Kauf pro Mitglied"
+      },
+      "maxBookingPerMonth": {
+        "helperText": "Lasse das Feld leer, um keine Begrenzung festzulegen",
+        "label": "Maximale Nutzung pro Monat"
+      },
+      "penalty": {
+        "account": {
+          "helperText": "Eine Anzahlung von {{value}} wird für dieses Mitglied angewendet",
+          "label": "Einzahlungsbetrag:"
+        },
+        "block": {
+          "helperText": "Der Pass wird für {{nb_days}} Tage gesperrt",
+          "label": "Sperrfrist für Pässe (in Tagen):"
+        },
+        "kind": {
+          "account": "Erstelle eine Einzahlung für das betreffende Mitglied",
+          "block": "Blockiere vorübergehend diesen Kurspass",
+          "label": "Wählen Sie die Art der Strafe aus"
+        },
+        "nb_days": "Anzahl der Tage:",
+        "nb_cancellations": "Anzahl der Stornierungen:",
+        "explain": "Bei {{nb_cancellations}} verspäteten Stornierungen über einen Zeitraum von {{nb_days}} Tagen wird eine Strafe erhoben",
+        "checkbox": "Bei zu vielen verspäteten Strafen wird eine Sanktion verhängt",
+        "title": "Strafen",
+        "helperText": "Verhänge eine Strafe bei zu vielen Abwesenheiten oder nicht fristgerechten Stornierungen ",
+        "errorNoPenaltyRule": "Ihre Änderungen können nicht gespeichert werden, Sie müssen eine Strafe auswählen oder die Strafe deaktivieren, um fortfahren zu können",
+        "penaltyParamsText": "Wenden Sie die gleiche Abrechnung für nicht fristgerechte Stornierungen und Abwesenheiten (no show) an",
+        "noShowPenaltyInfo": "Eine Strafe wird verhängt, wenn {{penalityNumberNoShow}} innerhalb eines Zeitraums von {{penalityNumberDay}} Tag nicht erscheint",
+        "noShowPenaltyInfo_plural": "Eine Strafe wird verhängt, wenn {{penalityNumberNoShow}} innerhalb eines Zeitraums von {{penalityNumberDay}} Tagen nicht erscheint",
+        "bothPenaltiesInfo": "Eine Strafe wird erhoben, wenn es {{penalityNumberDay}} nicht fristgerechte Stornierungen oder Abwesenheit (no show) innerhalb eines Zeitraums von {{penalityNumberNoShow}} Tagen gibt",
+        "bothPenaltiesInfo_plural": "Eine Strafe wird erhoben, wenn es {{penalityNumberDay}} nicht fristgerechte Stornierungen oder Abwesenheiten (no show) in einem Zeitraum von {{penalityNumberNoShow}} Tagen gibt",
+        "noShowDialog": {
+          "text": "Sie haben soeben Strafen für Abwesenheit erstellt.  Wir haben die Funktion \"Anwesenheiten\" aktiviert. Sie müssen nun für jeden Kurs einen Namensaufruf durchführen, um die Strafe zu aktivieren.",
+          "title": "Strafen bei Abwesenheit",
+          "alert": "Sie können die Bedingungen für Abwesenheit in den Personalisierungseinstellungen festlegen."
+        },
+        "titleCheckbox": "Anwenden einer Strafe für",
+        "cancellationsCheckbox": "Zu viele nicht fristgerechte Stornierungen",
+        "cancellationsPenaltyTitle": "Strafen für nicht fristgerechte Stornierungen",
+        "noShowPenaltyTitle": "Strafen für Abwesenheit (no show)",
+        "bothPenaltiesTitle": "Strafen für nicht fristgerechte Stornierungen und Abwesenheiten (no show)",
+        "bothPenaltiesNumber": "Anzahl der Stornierungen und Abwesenheiten (no show)",
+        "deleteNoShowDialog": {
+          "title": "Strafen aufgehoben",
+          "text": "Es gibt keine unbegrenzten Pässe mehr mit Strafen für Nicht-Erscheinen. Wir haben die Funktion \"Anwesenheit bestätigen\" deaktiviert, so dass Sie nicht mehr für jede Sitzung die Anwesenheitsbestätigung aufrufen müssen."
+        },
+        "label": "Eine Strafe anwenden",
+        "noShowCheckbox": "Zu viele Abwesenheiten (no show)",
+        "penaltyParams": "Einstellungen Strafen",
+        "noShowPenaltyAlert": "Um festzulegen, wann ein Mitglied als abwesend (no show) gilt, gehen Sie bitte zu Einstellungen>Personalisierung",
+        "noShowPenaltyNumber": "Anzahl der Abwesenheiten (no show)"
+      },
+      "only_vod_access": "Nur für VOD",
+      "error": {
+        "start_date_method_type": "Geben Sie den Beginn der Gültigkeit des Passes an."
+      },
+      "category": {
+        "helperText": "Name der Kategorie",
+        "label": "Kategorie (fakultativ)"
+      },
+      "advancedOptions": {
+        "tag": {
+          "doNotSelectToAllowAllMembers": "Leer lassen, um es allen Mitgliedern zu erlauben",
+          "notAllowedFor": "Nicht erlaubt für",
+          "notAllowed": "Nicht erlaubt",
+          "allowedFor": "Zugelassen für",
+          "allowed": "Erlaubt",
+          "helperText": "Mit Tags kannst du bestimmte Kunden vom Kauf dieses Passes ein- oder ausschließen.",
+          "header": "Tags",
+          "tagsOnAcquisitionHelper": "Mit Tags kannst du Mitglieder markieren, die diesen Pass gekauft haben, um sie in Zukunft schnell wiederfinden zu können.",
+          "tagsOnAcquisition": "Tags nach dem Kauf anwenden",
+          "selectTags": "Tags auswählen"
+        },
+        "header": "Erweiterte Optionen",
+        "appliesForPayroll": {
+          "label": "Kurse, die mit diesem Kurspass gekauft werden, werden in der Lohnabrechnung der Lehrkraft berücksichtigt",
+          "helperText": "Standardmäßig werden die Kurse dem Studio in Rechnung gestellt und standardmäßig in die Lohnabrechnung der Lehrkraft aufgenommen. Wenn du diese Einstellung deaktivierst, erscheinen die mit diesem Kurspass gebuchten Kurse nicht mehr in der Lohnabrechnung der Lehrkraft.",
+          "header": "Gehaltsabrechnung für Lehrer"
+        }
+      },
+      "universalPass": {
+        "helperText": "Mit Universalpässen können Mitglieder sowohl Gruppenaktivitäten als auch Termine buchen. Bei jedem Kauf eines Universalpasses fügen wir automatisch einen Doppel-Terminpass hinzu, um die Credits auf beiden Passarten aufzuteilen.",
+        "marketplaceLabel": "Universell einsetzbarer Pass. Kann für Gruppenkurse und Termine verwendet werden.",
+        "deativatedTags": "Deaktiviert für Universalpässe",
+        "warningIsUniversalPass": "Dieser Pass ist ein Universalpass, ein Zwillingspass wurde in den RDV-Karten erstellt. Alle Felder, die auf diesem Pass geändert werden, werden auch auf dem Zwillingspass geändert (außer der Kategorie). Dasselbe gilt für Benachrichtigungen, Erweiterungen und Änderungen von Guthaben.",
+        "label": "Universalpass"
+      },
+      "highlightedAsRecommended": {
+        "label": "Als empfohlen markieren",
+        "helperText": "Du kannst deine Mitglieder auf diesen Pass aufmerksam machen, in dem du ihn während einer Buchung im Bereich \"Empfohlen\" bewirbst."
+      },
+      "notification": "Benachrichtigungen",
+      "detailsAndRestrictions": "Details und Bedingungen",
+      "noNotificationsWarning": "Sie haben noch keine Benachrichtigungen eingerichtet. Um eine Benachrichtigung zu erstellen, gehen sie bitte zu <strong>Marketing > Benachrichtigungen</strong>"
+    }
+  },
+  "boughtConsumerPaymentPacks": "Abonnenten",
+  "anyActivity": "Alle Aktivitäten",
+  "anySport": "Alle Kategorien",
+  "specifications": {
+    "price": "{{price, price}}",
+    "unlimitedCredits": "Unbegrenzt",
+    "nbCredits": "{{credits}} Credit",
+    "nbCredits_plural": "{{credits}} Credits"
+  },
+  "unlimitedCredits": "Unbegrenzt",
+  "never": "Nie",
+  "expirationDate": "Ablaufdatum",
+  "validUntil": "Gültig bis",
+  "noPaymentPackSubscribed": "Kein Abonnement",
+  "addButton": "Einen Pass erstellen",
+  "validTo": " bis ",
+  "validFrom": "Gültig vom ",
+  "validForNdays1": "Gültig ",
+  "consumer": {
+    "bookingsThisWeek": "Buchung(en) diese Woche",
+    "expiresOn": "Ablaufdatum am ",
+    "isFromDisabledShare": "Gemeinsame Nutzung beendet",
+    "isFromShare": "Gemeinsam von einem anderen Konto aus genutzt",
+    "isOwnerOfShares": "Gemeinsam genutzt (Stammkarte)"
+  },
+  "validity": "Gültig von ",
+  "maxNBookingsByWeek1": "Bis ",
+  "paymentPackDisabled": {
+    "error": "Kann nicht gelöscht werden",
+    "success": "Kurspass gelöscht"
+  },
+  "credit": {
+    "updated": "Deine Änderungen wurden gespeichert"
+  },
+  "credits": "Credit",
+  "credits_plural": "Credits",
+  "consumerPaymentPack": {
+    "refund": {
+      "description": "{{ credits }} Credit - {{ note }}",
+      "description_plural": "{{ credits }} Credits - {{ note }}",
+      "explain": "Wähle die Anzahl der Credits, die du abziehen möchtest (kann 0 sein), und den Betrag, den du als Guthaben erstatten möchtest.",
+      "note": {
+        "label": "Bitte schreib dem Mitglied eine Info dazu."
+      },
+      "warning": "Vorsicht ! Diese Aktion ist unwiderruflich (Erstellung einer Rechnung).",
+      "actions": {
+        "cancel": "Abbrechen",
+        "submit": "Speichern"
+      },
+      "title": "Guthaben erstatten",
+      "price": {
+        "label": "Betrag, den du gutschreiben möchtest"
+      },
+      "credits": {
+        "label": "Credits, die du abziehen möchtest",
+        "decimalCredit": {
+          "helperText": "{{count}} Credit wird abgezogen",
+          "helperText_plural": "{{count}} Credits werden abgezogen"
+        }
+      },
+      "warningSecond": "Möchtest du den Betrag über die ursprüngliche Zahlungsmethode erstatten? Storniere bitte die Rechnung, statt hier den Betrag als Guthaben zu erstatten.",
+      "warningFirst": "Wichtiger Hinweis: Wenn du diese Änderungen speicherst, dann kannst du sie nicht mehr ändern und eine Rechnung wird erstellt.",
+      "blockUnlimited": "Blockiere die Karte",
+      "error": {
+        "2029": "Der angeforderte Erstattungsbetrag übersteigt den ursprünglichen Kaufbetrag. Bitte versuche es mit einem geringeren Betrag erneut.",
+        "2030": "Es können nicht mehr Credits abgezogen werden, als auf dem Pass vorhanden sind. Bitte probiere es mit einer kleineren Anzahl erneut.",
+        "2031": "Das hat nicht geklappt. Bitte versuche es nochmal.",
+        "default": "Das hat nicht geklappt. Bitte versuche es nochmal."
+      }
+    },
+    "addExtension": "Eine Verlängerung hinzufügen",
+    "details": {
+      "actions": {
+        "refund": "Rückerstattung",
+        "applyVoucher": "Rabatt anwenden"
+      }
+    },
+    "maxout": {
+      "dialog_message": "Achtung diese Karte hat bereits ihr Limit von {{count}} Reservierungen pro {{unit}} erreicht. Möchten Sie trotzdem mit dieser Karte buchen? ",
+      "dialogTitle": "Reservierungsgrenze erreicht",
+      "months": "Monat",
+      "weeks": "Woche",
+      "days": "Tag",
+      "limit_reach": "Limit der Reservierungen pro {{unit}} erreicht"
+    }
+  },
+  "noRestrictionOnActivityType": "Alle Aktivitäten sind mit diesem Pass vereinbar",
+  "ht": "Ohne Steuer",
+  "validForDuration": {
+    "general": "Gültig für {{ duration_days }} Tage, {{ duration_months }} Monat(e) und {{ duration_years }} Jahr(e)",
+    "years": "{{ count }} Jahr",
+    "years_plural": "{{ count }} Jahre",
+    "months": "{{ count }} Monat",
+    "days": "{{ count }} Tag",
+    "days_plural": "{{ count }} Tage",
+    "and": " und ",
+    "attendance": "ab der ersten Anwesenheit",
+    "booking": "ab der ersten Buchung",
+    "purchase": "ab dem Rechnungsdatum",
+    "daysMonths": "{{ duration_months }} Monate und {{ duration_days }} Tage",
+    "validFor": "während ",
+    "valid": "Gültig "
+  },
+  "enableConsumer": "Entsperren",
+  "disableConsumer": "Sperren",
+  "disabled": "Deaktiviert",
+  "isNonCompatible": "unvereinbar",
+  "use": "Benutzen",
+  "publicPacksTitle": "Pässe zum Verkauf verfügbar",
+  "subscribeToOffer": "Anmelden",
+  "privatePacksTitle": "Pässe nicht zum Verkauf verfügbar",
+  "newMemberOnly": "Nur für neue Anmelder verfügbar",
+  "maxNBookingsByWeek2": " Buchungen pro Woche",
+  "extension": {
+    "create": {
+      "explain": {
+        "oldDate": "Altes Datum : ",
+        "newDate": "Neues Datum : "
+      },
+      "nbDays": {
+        "label": "Anzahl der zusätzlichen Tage"
+      },
+      "warning": "Bitte prüfen Sie, ob das neue Datum in dasselbe Geschäftsjahr fällt wie das alte. Ist dies nicht der Fall, überprüfen Sie bitte mit Ihrer Buchhaltung, ob dieser Vorgang korrekt ist.",
+      "title": "Verlängerung der Gültigkeit einer Karte",
+      "cancel": "Abbrechen",
+      "submit": "Erstellen",
+      "note": {
+        "label": "Anmerkungen"
+      },
+      "datePicker": {
+        "label": "Neues Datum"
+      }
+    },
+    "addedOn": "Hinzugefügt, am: ",
+    "delete": {
+      "title": "Verlängerung löschen",
+      "explain": "Bist Du Dir sicher, dass Du diese Gültigkeitsverlängerung löschen möchtest?",
+      "cancel": "Abbrechen",
+      "confirm": "Bestätigen"
+    },
+    "nbDaysAdded": "+ {{count}} day Tag(e)",
+    "nbDaysAdded_plural": "+{{count}} days",
+    "options": {
+      "addNumberOfDays": "Gültigkeit durch Hinzufügen einer bestimmten Anzahl von Tagen erweitern",
+      "selectNewEndDate": "Neues Enddatum festlegen"
+    },
+    "seeMore": "Mehr sehen",
+    "seeLess": "Weniger sehen"
+  },
+  "search": "Eine Karte suchen",
+  "notificationToolTip": "Für diese Karte sind Benachrichtigungen definiert",
+  "validForNdays2": " Tage nach dem Kauf",
+  "bookingsLeftThisWeek": "Maximale Buchungen pro Woche",
+  "availableOnFollowingSports": "Wählbare Kategorien : ",
+  "availableOnFollowingEstablishments": "Wählbare Einrichtungen : ",
+  "availableOnFollowingActivities": "Wählbare Aktivitäten : ",
+  "notificationForm": "Benachrichtigungs-Formular",
+  "noPaymentPack": "Kurspässe ermöglichen es den Mitgliedern, sich für Aktivitäten anzumelden; für die Anmeldung ist ein Pass erforderlich.",
+  "disabledPacks": {
+    "hide": "Archivierte Pässe verbergen",
+    "show": "Archivierte Pässe anzeigen"
+  },
+  "disabledPacksTitle": "Archivierte Pässe",
+  "filters": {
+    "hasCreditNull": "Ohne Credits",
+    "hasCreditLeft": "Mit Credits",
+    "isActive": "Aktiv",
+    "isExpired": "Abgelaufen",
+    "invoice": "Rechnung",
+    "reverted": "Rechnung storniert",
+    "notReverted": "Rechnung nicht storniert",
+    "credits": "Credits",
+    "expiration": "Gültigkeit",
+    "all": "Alle Pässe",
+    "isValidToday": "Gültig",
+    "companyGroupPlaceholder": "Kategorien auswählen",
+    "companyGroup": "Kategorie",
+    "company": "Einkaufsstudio"
+  },
+  "multipleBookingTooltip": "Mehrfach-Buchungen",
+  "maxNBookingsByMonth2": " Buchungen pro Monat",
+  "blockedCpp": "Pass von {{-blocked_from}} nach {{-blocked_until}} gesperrt",
+  "penalty": {
+    "account": "Eine Anzahlung von {{account_value}} wird für {{nb_cancellations}} nicht fristgerechte Stornierungen über einen Zeitraum von {{nb_days}} Tagen erhoben.",
+    "block": "{{days_blocked}} Sperrtage nach {{nb_cancellations}} nicht fristgerechten Stornierungen in einem Zeitraum von {{nb_days}} Tagen",
+    "title": "Stornierungsbedingungen"
+  },
+  "only_vod_access": "Nur für VOD verfügbar",
+  "massExtension": {
+    "listItemNbDays": "+ {{nbDays}} Tag",
+    "listItemNbDays_plural": "+{{nbDays}} Tage",
+    "createdAt": "Hinzugefügt am {{date}}",
+    "listItemDate": "Ablaufen zwischen {{minDate}} und {{maxDate}}",
+    "cancel": "Abbrechen",
+    "submit": "Bestätigen",
+    "title": "Gültigkeit verlängern",
+    "maxDate": "Spätestens",
+    "minDate": "Nicht früher als",
+    "dateHelpText": "Verlängere nur Kurspässe, die dazwischen ablaufen",
+    "helpText": "Dieser Vorgang kann nicht rückgängig gemacht werden.",
+    "listItem": {
+      "seeLess": "Weniger sehen",
+      "seeMore": "Mehr sehen"
+    },
+    "error": {
+      "note": "Die maximale Anzahl von Zeichen für dieses Feld beträgt 500",
+      "nbDays": "Bitte gebe eine positive Zahl ein",
+      "maxEndingDate": "Bitte geben Sie ein gültiges maximales Datum ein",
+      "minEndingDate": "Bitte geben Sie ein gültiges Mindestdatum ein"
+    },
+    "titleDialog": "Verlängern Sie die Gültigkeit für alle Mitglieder"
+  },
+  "section": {
+    "massExtension": "Gültigkeitsverlängerung"
+  },
+  "category": {
+    "deleteModal": {
+      "confirm": "Bestätigen Sie",
+      "cancel": "Abbrechen",
+      "content": "Sind Sie sicher, dass Sie diese Kategorie löschen möchten? Alle darin enthaltenen Artikel werden in den Bereich der unsortierten Unterrichtspässen verschoben",
+      "title": "Unterdrückung"
+    },
+    "popover": {
+      "delete": "Löschen",
+      "edit": "Umbenennen"
+    },
+    "form": {
+      "dialog": {
+        "helper": "Kategorien sind eine hilfreiche Möglichkeit, deine Pässe zu organisieren. Diese Namen werden deinen Mitgliedern auf dem Marktplatz und in der mobilen App angezeigt. ",
+        "titleEdit": "Kategorie",
+        "titleNew": "Neue Kategorie",
+        "name": "Name der Kategorie",
+        "cancel": "Abbrechen",
+        "create": "Erstellen",
+        "update": "Umbennen"
+      }
+    },
+    "add": "Eine Kategorie hinzufügen",
+    "category": "Kategorien von Kurspässen"
+  },
+  "noCategory": {
+    "empty": "Keine Pässe in dieser Kategorie",
+    "name": "Keine Kategorie",
+    "help": "Diese Pässe werden in einer unbenannten Kategorie auf dem Marketplace erscheinen."
+  },
+  "noUnauthorizedTag": "Keine unerlaubten Tags",
+  "noAuthorizedTag": "Keine Tags erlaubt",
+  "blackList": "Unerlaubte Tags",
+  "whiteList": "Erlaubte Tags",
+  "activities": "Aktivitäten",
+  "categories": "Kategorien",
+  "establishments": "Räume",
+  "accessibility": {
+    "onsitePayment": "Zahlung vor Ort erlaubt",
+    "managerOnly": "Unsichtbar beim Verkauf",
+    "newMembers": "Nur für Neukunden"
+  },
+  "tags": {
+    "blackList": "{{ count }} unzulässiger Tag",
+    "blackList_plural": "{{ count }} unzulässige Tags",
+    "whiteList": "{{ count }} zulässiger Tag",
+    "whiteList_plural": "{{ count }} zulässige Tags"
+  },
+  "full_vod": "Gültig für VOD",
+  "seeAll": "Alles sehen",
+  "compatibility": {
+    "and": " und ",
+    "establishments": "{{ count }} Raum",
+    "establishments_plural": "{{ count }} Räume",
+    "activities": "{{ count }} Aktivität",
+    "activities_plural": "{{ count }} Aktivitäten",
+    "categories": "{{ count }} Kategorie",
+    "categories_plural": "{{ count }} Kategorien",
+    "compatible": "Kompatibel mit ",
+    "all": "Kompatibel mit allen"
+  },
+  "selector": {
+    "noAvailable": "Kein Pass, der den gewählten Verfügbarkeiten entspricht",
+    "noManagerOnly": "Sichtbar für Mitglieder",
+    "managerOnly": "Für Mitglieder ausgeblendet",
+    "filterManagerOnly": "Für alle sichtbar",
+    "filterCategory": "Alle Kategorien",
+    "titleSort": "Sortieren",
+    "titleManagerOnly": "Sichtbarkeit",
+    "titleCategory": "Kategorien",
+    "sorting": {
+      "descendingCredit": "Abnehmender credit",
+      "ascendingCredit": "credit aufsteigend",
+      "descendingPrice": "Preis aufsteigend",
+      "ascendingPrice": "Preis aufsteigend",
+      "customSort": "Kundenseitiger Auftrag (Marketplace und App)"
+    },
+    "unusableByStaff": "Für Lehrkräfte ausgeblendet"
+  },
+  "cardDetails": {
+    "packBlocking2": " nicht fristgerechte Stornierungen in einer Woche",
+    "packBlocking1": " Tage der Blockaden nach ",
+    "maxPurchasePerMember": "Maximale Anzahl von Einkäufen : ",
+    "maxBookingPerDay": "Maximale Verwendung pro Tag : ",
+    "maxBookingPerWeek": "Maximale Nutzungen pro Woche : ",
+    "maxBookingPerMonth": "Maximale Nutzungen pro Monat : ",
+    "universalPass": "Kompatibel mit Gruppen- und RDV-Kursen."
+  },
+  "detailTitles": {
+    "vod": "VOD",
+    "restrictions": "Einschränkungen",
+    "tags": "Tags",
+    "accessibility": "Zugänglichkeit",
+    "compatibility": "Kompatibilität",
+    "validity": "Gültigkeit",
+    "credit_quantity": "Anzahl der Credits",
+    "compatibilityPaymentPack": "Vereinbarkeit von Gruppenunterricht",
+    "universalPass": "Universalpass",
+    "offPeak": "Zeitfenster"
+  },
+  "unlimitedAndCalculatedMargin": " - Theoretisch berechneter Grenzertrag: Preis / nb_Reservierungen ",
+  "unlimitedAndMargin": " - Theoretischer Grenzertrag von ",
+  "unlimitedPlural": "Unbegrenzt",
+  "validityTo": " unter ",
+  "addPaymentPack": {
+    "sumNotZero": "die endgültige Tageszahl darf nicht null sein",
+    "only_vod_access": "Die Nutzung des Passes ausschließlich auf VOD beschränken",
+    "vodAccessCard": "Gibt Zugriff zur Mediathek (VOD)",
+    "vod": "VOD",
+    "compatibility": "Dieser Kurspass ist nur mit den ausgewählten Kursen, Aktivitäten, Kategorien oder Einrichtungen kompatibel.",
+    "letBlank": "Leer lassen, um alles zu erlauben",
+    "activities": "Aktivitäten",
+    "room": "Einrichtungen",
+    "categories": "Kategorien",
+    "inShopPayment": "Zahlungen vor Ort erlauben",
+    "notForSell": "Für Mitglieder ausgeblendet",
+    "newClientOnly": "Nur neuen Mitgliedern anzeigen",
+    "maxUseMember": "Maximaler Einkauf pro Mitglied",
+    "maxUseMonth": "Maximale Nutzungen pro Monat",
+    "maxUseWeek": "Maximale Nutzungen pro Woche",
+    "maxUseHelper": "Leer lassen, um keine Nutzungsbedingungen festzulegen",
+    "maxUseDay": "Maximale Nutzungen pro Tag",
+    "restriction": "Bedingungen",
+    "penalityAccountHelper": "Der Kontostand der Mitglieder wird mit {{penalityBlockAccount}}{{ currencyDisplay }} belastet.",
+    "penalityBlockDayHelper": "Der Pass des betroffenen Mitglieds wird für {{penalityBlockDay}} Tage gesperrt",
+    "penalityAccountPrice": "Betrag der Anzahlung",
+    "penalityBlockDay": "Sperrfrist für die Karte (in Tagen)",
+    "penalityType": "Art der zu verhängenden Strafe",
+    "penalityAccount": "Kontostand des Mitglieds belasten",
+    "penalityBlock": "Kurspass vorübergehend sperren",
+    "penalityInfo": "Eine Strafe wird erhoben, wenn es {{penalityNumberCancel}} außerterminliche Stornierungen innerhalb eines Zeitraums von {{penalityNumberDay}} Tagen gibt.",
+    "penalityNumberDay": "Anzahl der Tage",
+    "penalityNumberCancel": "Anzahl der Absagen",
+    "marginalContributionHelperText": "Wird verwendet, um die Lohnabrechnung von Lehrkräften zu berechnen. 10{{ currencyDisplay }} bedeutet, dass eine mit diesem Pass vorgenommene Buchung mit 10{{ currencyDisplay }} vergütet wird. Wenn leer oder 0{{ currencyDisplay }}, wird die Einbringung einer Karte PREIS/NB_RESERVATION",
+    "marginalContribution": "Theoretischer marginaler Wert TTC",
+    "expirationDateHelper": "Wird der Pass innerhalb dieser Zeit nicht genutzt, verfällt er automatisch.",
+    "expirationDate": "Anzahl der Tage bis zum Ablauf des Kurspasses bei Nichtnutzung *",
+    "beginningDate": "Startdatum",
+    "attendance": "Bei der ersten Anwesenheit",
+    "firstBooking": "Bei der ersten Buchung",
+    "billing": "Bei der Rechnungsstellung",
+    "validForDuration": {
+      "day": "Dieser Pass wird für {{ duration_day }} Tage gültig sein",
+      "month": "Dieser Pass ist für {{ duration_month }} Monate und {{ duration_day }} Tage gültig",
+      "year": "Dieser Pass wird für {{ duration_year }} Jahre, {{ duration_month }} Monate und {{ duration_day }} Tage gültig sein",
+      "monthNoDay": "Dieser Pass ist für {{ duration_month }} Monate gültig",
+      "yearNoDayNoMonth": "Dieser Pass wird für {{ duration_year }} Jahre gültig sein",
+      "yearDayNoMonth": "Dieser Pass wird für {{ duration_year }} Jahre und {{ duration_day }} Tage gültig sein",
+      "yearNoDay": "Dieser Pass wird für {{ duration_year }} Jahre und {{ duration_month }} Monate gültig sein"
+    },
+    "yearValidityHelper": "Kommt zur Anzahl der Tage hinzu",
+    "monthValidityHelper": "Kommt zur Anzahl der Tage hinzu",
+    "yearValidity": "Jahre",
+    "monthValidity": "Monate",
+    "dayValidity": "Tage",
+    "endBeforeStart": "Das Enddatum muss größer als das Startdatum sein",
+    "toDate": "Bis zum",
+    "fromDate": "Ab dem",
+    "availabilitySlot": "Der Pass ist nur in einem bestimmten Zeitraum gültig",
+    "availabilityGivenNumber": "Der Pass ist nur für eine bestimmte Anzahl von Tagen nach dem Kauf gültig",
+    "penalityRule": "Sie können eine Strafe nur anwenden, wenn die Anzahl der Credits unbegrenzt ist",
+    "penality": "Verhängung einer Strafe bei zu vielen nicht fristgerechten Stornierungen",
+    "packValidity": "Gültigkeit des Passes",
+    "numberOfAvailableCredits": "Anzahl der verfügbaren Credits",
+    "credit": "Credit",
+    "unlimited": "Unbegrenzt",
+    "limited": "Begrenzt",
+    "numberOfCredit": "Anzahl der Credits",
+    "namePaymentPack": "Name des Kurspasses",
+    "name": "Name",
+    "generalInfo": "Allgemeine Informationen",
+    "paymentPack": "Kurspass",
+    "minusZero": "dieses Feld kann ế nicht gleich 0 sein",
+    "requiredField": "Dieses Feld ist erforderlich",
+    "creditWarning": "Wenn Sie die Anzahl der Credits ändern, sind alle bestehenden Karten davon betroffen.",
+    "migration": "Dieser Kurspass stammt aus einer Migration, einige Felder sind nicht bearbeitbar, um die Historie zu respektieren. Kompatible Aktivitäten/Kategorien bleiben bearbeitbar.",
+    "franchise": "Dieser Pass ist eine Karte, die vom Master Account gemeinsam genutzt wird. Einige Elemente wurden vom Master Account festgelegt und können nicht geändert werden",
+    "penalityModeFranchisor": {
+      "buyer": {
+        "explain": "Das Mitgliedskonto wird nur bei dem Franchisenehmer, bei dem der Pass gekauft wurde, mit {{ price }} belastet.",
+        "label": "An den Franchisenehmer, der den Pass abgerechnet hat"
+      },
+      "label": "Mitgliedkontostand wird belastet",
+      "prorata": {
+        "label": "Anteilig pro Franchisenehmer für nicht fristgerechte Stornierungen",
+        "explain": "Der Saldo des Mitgliedskontos wird mit {{ price }} im Verhältnis zu den bei jedem Franchisenehmer registrierten verspäteten Kündigungen belastet. Auf Franchise-Ebene wird ein Gesamtbetrag von {{ price }} berechnet."
+      },
+      "prorataNoShow": {
+        "label": "Anteilig, pro Franchisenehmer, Abwesenheiten (no show)",
+        "explain": "Die Anzahlung von {{ price }} wird anteilig auf die Abwesenheiten (no show) angewendet, die bei jedem Ihrer Franchisenehmer registriert sind. Ein Gesamtbetrag von {{ price }} wird auf Ihr Franchise berechnet."
+      }
+    },
+    "unusableByStaff": "Für Mitarbeitende ausgeblendet",
+    "allowGuest": "Kompatibel mit Gastbuchungen",
+    "expiration_date": {
+      "tooltip": "Nach dem gewählten Datum ist der Pass nicht mehr zum Kauf verfügbar",
+      "label": "Dauer des Verkaufs",
+      "helperText": "Verfügbar bis"
+    },
+    "description": "Beschreibung",
+    "offPeak": {
+      "addGroupTimeSlot": "Hinzufügen einer Slotgruppe",
+      "addTimeSlot": "Zeitfenster hinzufügen",
+      "choice": {
+        "allDay": "Den ganzen Tag",
+        "timeSlot": "Zeitfenster"
+      },
+      "label": "Buchungen auf bestimmte Zeiten beschränken"
+    },
+    "atLeastOneDay": "Es muss mindestens ein Tag ausgewählt werden",
+    "startAfterEnd": "Die Startzeit muss niedriger sein als die Endzeit",
+    "decimalCredit": {
+      "helperText": "Dieser Pass enthält {{count}} Credit",
+      "helperText_plural": "Dieser pass enthält {{count}} Credits"
+    },
+    "enableAccessControl": "Studiozutritt gewähren",
+    "accessControlBetaAlert": "Während dieser beta Phase funktionieren Pass-Restriktionen wie Tags, Nutzungslimits, Locations, Aktivitäten, Kategorien und Zeitslots nicht für den Zutritt durch Türen. \"Beschränkt die Nutzung auf die Mediathek (VOD)\" muss abgewählt bleiben, um Zutritt durch Türen zu ermöglichen.",
+    "accessControlInfo": "Mitglieder mit diesem Pass können Türen des Studios öffnen. Um zu kontrollieren, wann Türen nicht geöffnet werden können, lege eine Zeitregelung auf der Kisi Plattform fest.",
+    "doorAccess": "Zutritt Tür(en)",
+    "accessControl": {
+      "firstBookingDisclaimer": "Der Kurspass ist entweder ab der 1. Buchung oder dem 1. Check-in (Zutritt) gültig, je nachdem, welches Ereignis zuerst eintritt. Wenn Mitarbeiter ein Mitglied manuell vor dem Datum der 1. Buchung einchecken, ist der Pass ab diesem Datum (1. Check-in durch den Mitarbeiter) gültig.",
+      "firstBooking": "1. Buchung oder 1. Check-in (Zutritt)"
+    },
+    "activationWindow": "Aktivierungszeitraum festlegen"
+  },
+  "paymentPackTemplate": {
+    "actions": {
+      "create": "Erstellen eines geteilten Passes",
+      "createUniversalPass": "Einen gemeinsamen Universalpass hinzufügen"
+    },
+    "deleteForm": {
+      "actions": {
+        "submit": "Archivieren",
+        "close": "Schließen"
+      },
+      "content": "Die Mitglieder können den Pass weiterhin in dem Studio nutzen, in dem sie ihn gekauft haben. Jedes Abonnement, das mit diesem Pass verbunden ist, bleibt in demselben Studio gültig.",
+      "title": "Geteilten Kurspass archivieren"
+    },
+    "form": {
+      "actions": {
+        "submit": "Registrieren",
+        "close": "Schließen"
+      },
+      "submit": "Bestätigen",
+      "close": "Schließen",
+      "title": "Geteilter Kurspass",
+      "editConfirmation": {
+        "confirm": "Trotzdem speichern",
+        "cancel": "Abbrechen",
+        "content": "Ihre Veränderungen werden auch auf die mit diesem Pass verbundenen Abonnements angewendet. Sind Sie sicher, dass Sie fortfahren und Ihre Änderungen speichern möchten?",
+        "title": "Bestätigung bearbeiten"
+      },
+      "universalPassTitle": "Gemeinsamer Universalpass",
+      "universalPassTooltip": "Universalpässe können für Gruppenaktivitäten und Termine verwendet werden. Für jeden Universalpass werden zwei Terminpässe erstellt, um die Anzahl der Credits zu verbinden. Sobald einer dieser Pässe gekauft wurde, wird der andere automatisch und ohne zusätzliche Kosten hinzugefügt.",
+      "notEditable": "Dieser Pass stammt aus einer zuvor abgeschlossenen Datenmigration. Einige Felder sind möglicherweise nicht bearbeitbar, um die Daten zu erhalten."
+    },
+    "section": {
+      "titleManagerOnly": "Nicht zum Verkauf verfügbar",
+      "titleAvailable": "Zum Verkauf verfügbar",
+      "titleArchived": "Archivierte Kurspässe"
+    },
+    "isEmptyExplain": "Sie ermöglichen es Ihren Mitgliedern, ihr Guthaben in den von Ihnen gewählten Studios zu nutzen.",
+    "specification": {
+      "companySharedWithTitle": "Gemeinsam mit den Studios:"
+    },
+    "pass": "Pässe für Gruppenkurse",
+    "widget": {
+      "choose": "Wählen Sie die gewünschten Pässe für die Freigabe aus"
+    },
+    "restoreForm": {
+      "content": "Der geteilte Kurspass wird wiederhergestellt und mit den zuvor ausgewählten Studios geteilt.",
+      "title": "Geteilten Kurspass wiederherstellen",
+      "actions": {
+        "close": "Schließen",
+        "submit": "Wiederherstellen"
+      }
+    }
+  },
+  "paymentPackTemplateInstance": {
+    "actions": {
+      "addCompany": "Ein Studio hinzufügen",
+      "buy": "Kaufen"
+    },
+    "companyEmpty": "Kein Studio ist so konfiguriert, dass es dieser Kurspass akzeptiert",
+    "deleteForm": {
+      "actions": {
+        "submit": "Nicht mehr teilen",
+        "close": "Schließen"
+      },
+      "content": "Wenn Sie die gemeinsame Nutzung mit diesem Studio beenden, sind die in diesem Studio erworbenen Pässe weiterhin gültig, jedoch nur in diesem speziellen Studio. Pässe aus anderen Studios sind dort nicht mehr gültig. Dies gilt auch für verknüpfte Abonnements.",
+      "title": "Stoppen der gemeinsamen Nutzung mit einem Studio"
+    },
+    "form": {
+      "actions": {
+        "submit": "Registrieren",
+        "close": "Schließen"
+      },
+      "explain2": "Mitglieder, die diesen Pass oder ein damit verbundenes Abonnement erworben haben, können ihn in jedem der neu kompatiblen Studios nutzen.",
+      "explain1": "Die folgenden Studios bieten diesen Pass automatisch an, können aber weder den Preis noch die Guthabenanzahl ändern.",
+      "title": "Meine Studios konfigurieren"
+    },
+    "consumerPaymentPackSharedFromOtherFranchisee": "Geteilt mit einem Studio",
+    "paymentPackSharedFromFranchisor": "Master Account Kurspass",
+    "isFromShareTooltip": "Dieser Pass wurde von einem anderen Franchise-Studio übernommen"
+  },
+  "universalPass": {
+    "restore": {
+      "dialog": {
+        "continue": "Weiter",
+        "title": "Dearchivieren",
+        "text": "Dieser Pass ist eine Universalpass, sein Zwillingspass wurde ebenfalls entarchiviert."
+      }
+    },
+    "delete": {
+      "dialog": {
+        "title": "Pass löschen",
+        "warningText": "Achtung! Dieser Pass ist eine Universalpass, wenn du ihn löschst, wird auch sein Zwillingspass gelöscht."
+      }
+    },
+    "add": {
+      "credit": "Anzahl der Credits",
+      "helperText": "Die Anzahl der Credits ist auf limitiert eingestellt",
+      "availabilityGivenNumber": "Gültig für eine bestimmte Anzahl von Tagen nach dem Kauf"
+    }
+  },
+  "previous": "Zurück",
+  "listItem": {
+    "unusableByStaff": "Unsichtbar für die Mitarbeiter"
+  },
+  "noShowPenalty": {
+    "block": "{{days_blocked}} Blockierungstage nach {{treshold}} Abwesenheiten in einem Zeitraum von {{time_window_days}} Tagen",
+    "account": "Eine Zahlung von {{amount}} wird für {{treshold}} Abwesenheiten über einen Zeitraum von {{time_window_days}} Tagen erhoben."
+  },
+  "maxoutInfo": {
+    "day": "Karte beschränkt auf {{count}} maximale Nutzung pro Tag",
+    "day_plural": "Pass beschränkt auf {{count}} maximale Nutzungen pro Tag",
+    "week": "Karte beschränkt auf {{count}} maximale Nutzung pro Woche",
+    "week_plural": "Pass beschränkt auf {{count}} maximale Nutzungen pro Woche",
+    "month": "Karte beschränkt auf {{count}} maximale Nutzung pro Monat",
+    "month_plural": "Pass beschränkt auf {{count}} maximale Nutzungen pro Monat"
+  },
+  "incompatibilities": {
+    "2008": "Aktivität nicht kompatibel",
+    "2009": "Kategorie nicht kompatibel",
+    "2010": "Einrichtung nicht kompatibel",
+    "2018": "Unzureichende Anzahl an Credits",
+    "2019": "Die Karte ist gesperrt",
+    "2020": "Die Daten sind nicht kompatibel",
+    "2021": "Die Karte beginnt bei der ersten Buchung, am ",
+    "2022": "Die Karte beginnt bei der ersten Teilnahme, am ",
+    "2023": "Die Karte ist abgelaufen",
+    "2027": "Das Zeitfenster ist nicht kompatibel",
+    "paymentPack": "Karte als inkompatibel mit der betreffenden Aktivität konfiguriert :"
+  },
+  "next": "Weiter",
+  "orderingAlert": {
+    "button": "Seite zur Personalisierung",
+    "text": "Jede Änderung der Reihenfolge der \"Kategorien\" wirkt sich nur auf die Anzeige der Seite \"Kurspässe\" im Marketplace und in der Anwendung aus. Diese Aktualisierung wird keine anderen Abschnitte oder Kategorien beeinflussen."
+  },
+  "universalPaymentPackTemplate": {
+    "restoreForm": {
+      "title": "Geteilten Universalpass wiederherstellen",
+      "content": "Der geteilte Universalpass wird wiederhergestellt und mit den zuvor ausgewählten Studios geteilt.",
+      "actions": {
+        "close": "Schließen",
+        "submit": "Wiederherstellen"
+      }
+    },
+    "deleteForm": {
+      "title": "Geteilten Universalpass archivieren",
+      "content": "Mitglieder werden den Universalpass weiterhin in dem Studio nutzen können, in dem sie ihn erworben haben. Abonnements, die mit dem Universalpass verknüpft sind, bleiben bei diesem selben Studio gültig.",
+      "actions": {
+        "close": "Schließen",
+        "submit": "Archivieren"
+      }
+    }
+  },
+  "manualActivation": {
+    "setActiveStartDate": "Die Aktivierung dieses Kurspass wird das Aktivierungsdatum auf heute festlegen. Diese Aktion kann nicht rückgängig gemacht werden.",
+    "replaceActiveStartDateAlert": "Der Kurspass ist hiermit ab heute gültig. Falls zukünftige Buchungen des Mitglieds nach dem aktualisierten Gültigkeitszeitraum stattfinden, bleiben diese Buchungen aktiv. Das Personal muss jedoch beim Einlass behilflich sein.",
+    "replaceActiveStartDate": "Die Aktivierung dieses Kurspasses setzt das Aktivierungsdatum auf heute und ersetzt das vorherige Datum der ersten Buchung. Diese Aktion kann nicht rückgängig gemacht werden.",
+    "title": "Diesen Kurspass manuell aktivieren?",
+    "submit": "Kurspass aktivieren",
+    "close": "Schließen"
+  },
+  "activateManually": "Aktivieren"
+}

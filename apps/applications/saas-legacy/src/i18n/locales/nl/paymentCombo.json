@@ -1,0 +1,107 @@
+{
+  "delete": {
+    "submit": "Verwijderen",
+    "cancel": "Annuleren",
+    "content": "Weet je zeker dat je dit pakket wilt verwijderen? Deze actie is definitief. Eerder gedane aankopen en de actieve winkelmanden worden niet beïnvloed.",
+    "title": "Pakket verwijderen"
+  },
+  "detail": {
+    "emptyContent": "Dit pakket bevat geen producten om weer te geven.",
+    "purchases": "Verkopen",
+    "content": "Inhoud",
+    "description": "Beschrijving",
+    "containsNProducts": "Bevat {{n}} product(en)",
+    "itemCount": "{{ count }} element",
+    "itemCount_plural": "{{ count }} elementen"
+  },
+  "form": {
+    "available_payment_method_identifiers": {
+      "helperText": "Selecteer ten minste één betaalmethode. Als er geen is geselecteerd, worden online betalingen standaard aangeboden.",
+      "label": "Geaccepteerde betaalmethoden"
+    },
+    "selectorPlaceholder": {
+      "shopitem": "Webshop",
+      "paymentPack": "Leskaarten",
+      "privatePass": "Afspraakkaarten",
+      "shopItemExcludingvariant": "Webshop (producten met varianten uitgesloten)"
+    },
+    "content": "Inhoud",
+    "actions": {
+      "cancel": "Annuleren",
+      "submit": "Opslaan"
+    },
+    "manager_only": {
+      "label": "Onbeschikbaar voor leden"
+    },
+    "tax": {
+      "label": "Btw"
+    },
+    "price": {
+      "label": "Prijs"
+    },
+    "description": {
+      "label": "Beschrijving"
+    },
+    "name": {
+      "label": "Naam"
+    },
+    "title": "[Formulier] Pakket",
+    "new_member_only": {
+      "label": "Maak dit product alleen voor nieuwe leden beschikbaar"
+    },
+    "maxPurchasePerMember": {
+      "helperText": "Laat dit veld leeg om geen limiet in te stellen.",
+      "label": "Maximale aankopen per lid"
+    },
+    "usePaymentComboTaxOnItems": {
+      "helperText": "Standaard wordt een individueel btw-tarief gehanteerd per product. Activeer deze optie om een algemeen btw-tarief te hanteren.",
+      "label": "Een algemeen btw-tarief op dit pakket toepassen"
+    },
+    "error": {
+      "atLeastOneThing": "U moet ten minste één item aan uw pakket toevoegen"
+    },
+    "unusableByStaff": {
+      "label": "Onzichtbaar voor het personeel"
+    },
+    "expiration_date": {
+      "label": "Aankooptermijn",
+      "helperText": "Beschikbaar tot",
+      "tooltip": "Na de gekozen datum zal het pakket niet langer beschikbaar zijn voor verkoop aan klanten."
+    },
+    "highlightedAsRecommended": {
+      "label": "Als aanrader markeren",
+      "helperText": "Dit geeft klanten een overzicht van de pakketten die momenteel worden aangeraden."
+    },
+    "advancedOptions": {
+      "tag": {
+        "selectTags": "Selecteer tags",
+        "tagsOnAcquisition": "Tag ná aankoop",
+        "tagGroupDuplicated": "Houd er rekening mee dat geselecteerde items tags met dezelfde categorie hebben",
+        "tagsOnAcquisitionHelper": "Gebruik tags om te identificeren welk lid het pakket heeft gekocht."
+      },
+      "header": "Geavanceerd"
+    }
+  },
+  "list": {
+    "buttons": {
+      "add": "Een pakket toevoegen"
+    },
+    "explainIfEmpty": "In dit onderdeel worden alle pakketten beheerd. Leden kunnen pakketten aanschaffen die uit meerdere producten bestaan, zoals een \"Starterspakket\" met verschillende leskaarten, afspraakkaarten en/of webshop-producten.",
+    "section": {
+      "availableOnline": "Beschikbare pakketten",
+      "unavailableOnline": "Onbeschikbare pakketten"
+    }
+  },
+  "link": {
+    "copyLink": "De directe link naar de betaalpagina kopiëren",
+    "copied": "Link gekopieerd"
+  },
+  "pageTitle": {
+    "list": "Pakketten"
+  },
+  "edit": "Wijzigen",
+  "search": "Zoek een pakket",
+  "parameters": {
+    "unusableByStaff": "Onzichtbaar voor het personeel"
+  }
+}

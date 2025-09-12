@@ -1,0 +1,77 @@
+{
+  "unevenInvoice": {
+    "pricePayed": "Incassato: {{price_payed }}.",
+    "explainUneven": "La ricevuta<1>{{ invoice_identifier }}</1> non è ancora stata finalizzata.",
+    "title": "Ricevuta irregolare",
+    "priceDue": "Somma dovuta: {{price_due }}."
+  },
+  "privateBookingIncomplete": {
+    "name": "Membro: {{- user_name }}",
+    "explain": "L'appuntamento di <1> {{- name }} </1> non ha un insegnante designato.",
+    "date": "Data: {{date_start}}"
+  },
+  "alert_kind": {
+    "1": "Ricevuta",
+    "2": "Ordini",
+    "3": "Attività",
+    "4": "Appuntamento da completare",
+    "5": "Informazioni legali",
+    "6": "Appuntamenti non pagati",
+    "7": "Tutorial",
+    "8": "Sostituzioni tardive",
+    "9": "Posta in arrivo"
+  },
+  "list": {
+    "title": "Notifiche",
+    "emptyAlerting": "Nessuna nuova notifica."
+  },
+  "newOrder": {
+    "explain": "Pagato da <1> {{- name }} </1> nello store.",
+    "title": "Ordine in attesa",
+    "price": "Importo: {{ price }}."
+  },
+  "showMore": "Vedi di più",
+  "task": {
+    "name": "{{name}}"
+  },
+  "companyOnboarding": {
+    "creation": {
+      "content": "Per essere in grado di raccogliere pagamenti con carta e SEPA, controlla le tue informazioni legali",
+      "title": "Pagamento online disabilitato"
+    },
+    "payout": {
+      "content": "Non possiamo effettuare pagamenti sul tuo conto bancario perché è inesistente o configurato in modo errato.",
+      "title": "Informazioni bancarie mancanti"
+    },
+    "verification": {
+      "warning": "I pagamenti online rischiano di essere <1> disattivati </1> dopo questa data!",
+      "content": "Diversi documenti sono in sospeso, hai tempo fino a <1> {{date}} </1> per verificare il tuo account.",
+      "title": "Gestire la mia attività"
+    },
+    "paypal": {
+      "issue_repeat_onboarding": "Si è verificato un problema con il conto PayPal. Ripetere la procedura di connessione utilizzando lo stesso conto per risolvere il problema.",
+      "issue_check_account": "Si è verificato un problema con il conto PayPal. Si prega di controllare il conto PayPal per risolvere il problema.",
+      "requires_more_information": "Il conto PayPal richiede informazioni aggiuntive o la convalida di PayPal. Si prega di controllare il conto PayPal per risolvere il problema.",
+      "primary_email_confirmation": "L'email del conto PayPal richiede una conferma. Si prega di controllare il conto PayPal per risolvere il problema.",
+      "title": "I pagamenti con PayPal sono disabilitati"
+    }
+  },
+  "unpaidPrivateBooking": {
+    "credits_due": "Crediti da pagare {{ credits }}"
+  },
+  "lateReplacementRequest": {
+    "content": "è richiesta una sostituzione per la seguente sessione: {{- activity_name}} - {{-date_start}}",
+    "title": "Sostituzione tardiva"
+  },
+  "newTutorialSectionOrLesson": {
+    "newLesson": {
+      "content": "Aggiunto alla sezione {{- name}}",
+      "title": "Nuova Classe {{- name}}"
+    },
+    "newSection": {
+      "content": "Il tutorial {{- name}} è stato aggiunto, allenati ora.",
+      "title": "Nuova Sezione"
+    }
+  },
+  "readAll": "Segna come già letto"
+}

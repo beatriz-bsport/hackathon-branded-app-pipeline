@@ -1,0 +1,414 @@
+{
+  "actions": "Ações",
+  "file": {
+    "deleteFileMessage": "Tem a certeza de que pretende eliminar este documento ?",
+    "confirm": "Confirmar",
+    "nofileSaved": "Nenhum documento registado",
+    "upload_file": "Adicionar um documento",
+    "cancel": "Cancelar",
+    "deletion": "Eliminar",
+    "imported": "Documento importado !",
+    "submit": "Adicionar",
+    "name": "Nome",
+    "addButtonBlocked": "Eliminar documentos para adicionar novos",
+    "title": "Documentos",
+    "add": "Adicionar um documento",
+    "drop_file": "Arrastar e largar ou clicar para adicionar um documento"
+  },
+  "menu": {
+    "bookings": "Reservas",
+    "privateConsumerPass": "Passes de Aula Privada",
+    "info": "Geral",
+    "invoices": "Facturas e subscrições",
+    "giftcard": "Cartão presente",
+    "payment": "Faturas",
+    "form": "Formulários",
+    "contact": "Contacto",
+    "programs": "Programas",
+    "paymentPack": "Passes de aulas",
+    "basket": "Carrinho",
+    "vod": "Vídeos on Demand",
+    "relation": "Relacionamentos",
+    "privateBooking": "Aulas Privadas"
+  },
+  "forms": {
+    "needInformationValidation": {
+      "legend": {
+        "notMemberYet": "Gostaria de enviar os dados de registo? ",
+        "memberOfCompany": "Para continuar a utilizar, preencha as informações solicitadas abaixo"
+      },
+      "welcome": "Bom dia {{- firstname }}",
+      "subtitle": {
+        "memberOfCompany": "Conte-nos mais sobre si.",
+        "notMemberYet": "Parece ser a primeira vez que se conecta ao estúdio."
+      },
+      "button": {
+        "notMemberYet": "Transferir informações",
+        "memberOfCompany": "Completar as minhas informações"
+      }
+    },
+    "merge": {
+      "seeMemberPage": " Ver página dos membros",
+      "error": "Impossível fundir membros",
+      "srcMember": "Esta conta será fundida e eliminada",
+      "dstMember": "Membro a manter",
+      "explainBookingsAndPassAndInvoiceAndNotes": "Os passes ativos, as reservas, as faturas e as notas serão transferidos.",
+      "explainCredit": "O depósito interno do membro será transferido",
+      "emailWillBeSend": "Será enviado um e-mail para ambos os endereços para informar os membros.",
+      "title": "Membros fundidos",
+      "success": "Membros fundidos",
+      "explainTags": "As etiquetas de membro eliminadas não serão transferidas",
+      "cancel": "Cancelar",
+      "submit": "Fundir",
+      "confirmation": {
+        "willNotifyInfo": "Estes perfis serão fundidos em toda a franquia. Esta ação pode demorar algum tempo, pelo que o informaremos logo que esteja concluída.",
+        "mergeIsPermanentWarning": "Os membros que se fundem transferem o saldo interno, as reservas, os passes, as notas e as facturas. <strong>Esta ação não pode ser anulada depois de confirmada. </strong>\nApenas as etiquetas atribuídas ao membro eliminado é que não serão transferidas. Será enviada uma mensagem para ambos os endereços de correio eletrónico para notificar os membros.",
+        "title": "Tem a certeza de que pretende fundir membros?",
+        "confirm": "Confirmar"
+      }
+    },
+    "title": "Informação do utilizador",
+    "error": "Não é possível guardar o membro",
+    "phone": {
+      "error": "Número de telemóvel inválido"
+    },
+    "newMemberOnlyHelperText": "Um membro é considerado novo desde que não tenha efectuado uma compra de mais de 0 {{ currency }} na plataforma. Tenha em atenção que qualquer compra de um item de pagamento com uma redução de preço de 100% resultará na perda do estatuto de \"Novo membro\".",
+    "create": {
+      "title": "Novo membro",
+      "success": "Membro criado com sucesso"
+    },
+    "update": {
+      "success": "Membro alterado com sucesso",
+      "title": "Editar informações"
+    }
+  },
+  "paymentAction": {
+    "toSubscribe": "Subscrever",
+    "toBill": "Fatura"
+  },
+  "merge": "Fundir",
+  "accountBalance": "Saldo",
+  "unpaidInvoiceTitle": "Fatura não paga",
+  "unpaidInvoiceTitle_plural": "Faturas não pagas",
+  "relation": {
+    "pleaseSelectRelation": "Seleccione uma relação para ver mais detalhes sobre os passes partilhados."
+  },
+  "row": {
+    "headers": {
+      "actions": "Ações",
+      "newsletter_email": "Aceitar e-mails"
+    },
+    "yes": "Sim",
+    "no": "Não",
+    "update": "Editar"
+  },
+  "adjustBalance": "Ajustar",
+  "table": {
+    "show": "Ver"
+  },
+  "date_joined": "Data da inscrição",
+  "invoiceTitle": "Faturas",
+  "birth": {
+    "unknown_F": "Nasceu em -",
+    "unknown": "Nasceu em -",
+    "bornIn_F": "Nasceu em {{-date}} - {{age}} anos",
+    "bornIn": "Nasceu em {{-date}} - {{age}} anos"
+  },
+  "barcode": {
+    "none": "nenhum",
+    "code": "Código do cartão",
+    "display": "Mostrar código de barras",
+    "label": "Código de barras"
+  },
+  "pastBooking": "último : ",
+  "engagement": "Engagement",
+  "addMember": "Adicionar um membro",
+  "showNextBooking": "Ver reservas futuras",
+  "nextBooking": "próximo : ",
+  "search": {
+    "createMember": "Adicionar um membro",
+    "cancel": "Fechar"
+  },
+  "name": "Nome",
+  "memberList": "Lista de membros",
+  "note": {
+    "noNoteSaved": "Não há notas guardadas",
+    "addNote": "Adicionar uma nota",
+    "myNotes": "Notas",
+    "healthNotes": "Informações importantes",
+    "is_medical": "Nota importante"
+  },
+  "applyBalanceToUnpaidInvoices": "Aplicar o saldo a montantes pendentes",
+  "cashoutBalance": "Pagar",
+  "showPaymentPack": "Ver os passes de aulas",
+  "showInvoices": "Ver faturas",
+  "subscriptionTitle": "Subscrições",
+  "offers_joined": "N.º de sessões registadas",
+  "pass_owner": "Passe válido",
+  "memberSince": "Registado em ",
+  "showPreviousBooking": "Mostrar reservas anteriores",
+  "regularizeBalance": "Regularização",
+  "restoreMember": "Recuperar",
+  "archiveMember": "Arquivar",
+  "archived": "Arquivado",
+  "showSubscriptions": "Ver subscrições",
+  "creditAccountBalance": "Saldo da conta do cliente",
+  "events": {
+    "member-giftcard_used": {
+      "primaryText": "O  cartão presente  {{- giftcardName }} está ativado.",
+      "filter": "Passes de oferta utilizados"
+    },
+    "member-login_successful": {
+      "primaryText": "Foi registada uma ligação {{ source }} bem sucedida.",
+      "sourceApp": "da aplicação",
+      "sourceMarketplace": "do marketplace",
+      "filter": "Conexões bem sucedidas"
+    },
+    "member-tag_applied": {
+      "primaryText": "A etiqueta {{- tagName }} foi aplicada.",
+      "filter": "Etiquetas aplicadas"
+    },
+    "member-invoice_paid": {
+      "primaryText": "A fatura n°{{ invoiceUUID }} foi paga com o montante de {{ amount }}.",
+      "filter": "Faturas pagas"
+    },
+    "member-private_booking_registered": {
+      "primaryText": "{{ source }} reservou uma marcação {{- privateServiceName }} - {{- privateSlotName }} em {{- privateServiceDate }}.",
+      "filter": "Aula Privada",
+      "sourceManager": "O/A gestor/a {{- managerName }}"
+    },
+    "member-basket_paid": {
+      "primaryText": "Um carrinho de {{ amount }} foi pago. ",
+      "filter": "Carrinhos pagos"
+    },
+    "member-vod_bought": {
+      "filter": "Vídeos de Demanda adquiridos",
+      "primaryText": "Os VOD {{- VODName }} adquiridos."
+    },
+    "member-booking_registered": {
+      "sourceManager": "O/A gestor/a {{ managerName }}",
+      "filter": "Reservas",
+      "primaryText": "{{ source }} reservou a sessão {{- offerName }} de {{- offerDate }}."
+    },
+    "member-custom_form_filled": {
+      "primaryText": "O formulário de edição de perfil {{- formName }} foi concluído.",
+      "filter": "Formulário de perfil editado"
+    },
+    "member-private_booking_canceled": {
+      "filter": "Cancelamentos de Aulas Privadas",
+      "primaryText": "O encontro para {{- private_slot_name }}{{- private_service_name}} em {{- date_start }} foi cancelado."
+    },
+    "member-booking_canceled": {
+      "filter": "Cancelamentos de reservas",
+      "primaryText": "A reserva para {{- name }} em {{- date_start }} foi cancelada."
+    },
+    "undefined": {
+      "primaryText": "A marcação para {{- private_service_name}}{{- private_slot_name }} em {{- date_start }}foi cancelado",
+      "filter": "Cancelamento de marcações"
+    }
+  },
+  "member": {
+    "existsWithEmailButNotConfirmed": "Já existe um membro com o endereço de e-mail {{email}} , mas o seu e-mail está a aguardar confirmação. Ao registar este membro, o seu endereço de e-mail será automaticamente verificado.",
+    "existsWithPhoneButNotConfirmed": "Já existe um membro com o número de telemóvel {{phonenumber}} , mas o seu e-mail ({{email}}) está a aguardar confirmação. Ao registar este membro, o seu e-mail será automaticamente verificado.",
+    "existsWithEmail": "Já existe um membro com o endereço de e-mail :  {{email}} .",
+    "existsWithPhone": "Já existe um membro com o número de telemóvel {{phonenumber}} ."
+  },
+  "user": {
+    "existsWithEmail": "Já existe um utilizador com o e-mail :  {{email}} .",
+    "existsWithPhone": "Já existe um utilizador com o número de telemóvel :  {{phonenumber}} .",
+    "existsWithPhoneButNotConfirmed": "Já existe um utilizador com o número de telemóvel {{phonenumber}} , mas o seu e-mail ({{email}}) está a aguardar confirmação. Ao registar este utilizador, o seu e-mail será automaticamente verificado.",
+    "existsWithEmailButNotConfirmed": "Já existe um utilizador com o endereço de e-mail {{email}} , mas o seu e-mail está a aguardar confirmação. Ao registar este utilizador, o seu e-mail será automaticamente verificado."
+  },
+  "exists": {
+    "linkUser": "Link do utilizador",
+    "goTo": "Ver membro",
+    "quicksale": "Selecionar o membro",
+    "merge": "Fusão"
+  },
+  "changeEmailRequest": {
+    "memberPage": {
+      "simpleEmailChange": {
+        "error": {
+          "delayExceeded": {
+            "helper": "O estúdio {{- company}} enviou-lhe um pedido de confirmação para alterar o seu email de inicio de sessão. O período de validade de 7 dias deste pedido expirou.",
+            "contactCompany": "Se desejar solicitar novamente uma alteração do email de inicio de sessão, contacte o seu estúdio.",
+            "title": "Alterar o seu email de início de sessão"
+          },
+          "emailTaken": {
+            "title": "O email de início de sessão já foi utilizado",
+            "helper": "O estúdio {{- company}} fez um pedido para alterar o seu email de início de sessão para o seu espaço pessoal :",
+            "contactCompany": "No entretanto, foi criada uma conta com o endereço {{ email }}. Este pedido caducou. Se o endereço de email {{ email }} lhe pertencer mas não tiver criado a conta associada, contacte diretamente o seu estúdio."
+          },
+          "alreadyAccepted": {
+            "title": "Este pedido já foi validado",
+            "helper": "Já selecionou um email para iniciar sessão na {{- company}}, a sua decisão foi tida em conta.",
+            "contactCompany": "Se não foi você que iniciou esta alteração ou se deseja alterar a sua decisão, contacte diretamente o seu estúdio.",
+            "currentEmail": "O seu email de início de sessão atual é : {{ email }}."
+          },
+          "renewed": {
+            "helper": "Parece que o estúdio {{- company}} enviou um novo pedido para alterar o seu email de inicio de sessão. Este pedido expirou. Para encontrar o novo pedido, verifique os seus emails e o spam.",
+            "contactCompany": "Se não encontrar este novo pedido, contacte o seu estúdio.",
+            "title": "Alterar o seu email de início de sessão"
+          },
+          "alreadyDenied": {
+            "title": "Já recusou este pedido",
+            "contactCompany": "Se não foi você que iniciou esta alteração ou se deseja alterar a sua decisão, contacte diretamente o seu estúdio.",
+            "helper": "Já selecionou um email de inicio de sessão na {{- company}}, a sua decisão foi tida em conta.",
+            "currentEmail": "O seu email de início de sessão atual é : {{ email }}."
+          }
+        },
+        "submit": {
+          "deniedTitle": "Email mantido",
+          "acceptedTitle": "Email alterado",
+          "emailPreservedTo": "O seu email de início de sessão permanecerá {{ email }}",
+          "emailUpatedTo": "O seu email foi alterado para o {{ email }}. Utilize o seu novo email para iniciar sessão."
+        },
+        "deniedRequestHelper": "Se este pedido não tiver sido feito por si ou se não pretender alterar o seu email, clique em \"manter o meu email\"",
+        "acceptRequestHelper": "Se pretender alterar o seu email para este novo endereço de correio eletrónico, clique em \"confirmar o meu novo email\".",
+        "multipleCompanyHelper": "O seu email é comum a todos os estúdios que utilizam a solução Bsport. Por conseguinte, será alterado para todos estes estúdios. Os seguintes estúdios serão afetados:",
+        "title": "Alterar o seu email de início de sessão"
+      },
+      "linkAccount": {
+        "veto": {
+          "acceptRequestHelper": "Para aceitar a fusão de contas, aceda ao seu endereço {{ email }} e clique na hiperligação enviada.",
+          "requestExplanation": "Apercebemo-nos que o endereço {{ email }} já está a ser utilizado por outro estúdio. O estúdio {{- company}} pediu-nos para unir a sua conta com esta outra conta. Se concordar com a fusão das duas contas, os seus novos dados de acesso (e-mail e palavra-passe) serão os da conta {{{ email }}. Poderá gerir todos os estúdios em que está registado a partir de um único endereço.",
+          "deniedRequestHelper": "Se não pretender fundir estas contas ou se não tiver iniciado este pedido, clique em \"recusar a fusão\". Isto evitará que as contas sejam fundidas e manterá os seus dados de acesso."
+        },
+        "dstUser": {
+          "deniedRequestHelper": "Se não pretender fundir estas contas ou se não tiver iniciado este pedido, clique em \"recusar fusão\". Isto impedirá que as contas sejam unidas e o utilizador não será registado na {{- company}}.",
+          "requestingStudio": "{{- company}} solicitou a fusão da conta {{ new_email }} com a conta {{ old_email }}.",
+          "acceptRequestHelper": "Para aceitar a fusão de contas, clique em \"aceitar a fusão de conta\".",
+          "notMemberYet": "Apercebemo-nos que ainda não faz parte do estúdio {{- company}}. Se concordar em fundir as duas contas, será registado no estúdio {{- company}} e recuperará as informações e reservas da conta {{ old_email }}. Manterá os seus dados de início de sessão atuais em {{ new_email }}. Poderá gerir todos os estúdios em que está registado a partir deste email."
+        },
+        "submit": {
+          "denied": {
+            "title": "Fusão recusada",
+            "content": "A sua conta não foi fundida com {{ new_email }}. O seu email de início de sessão continuará a ser {{ old_email}}."
+          },
+          "accepted": {
+            "title": "Fusão Aceita",
+            "content": "A sua conta foi fundida com a conta {{ old_email }}. É agora um membro do estúdio {{- company}}. Utilize o novo email para se conectar."
+          }
+        },
+        "error": {
+          "denied": {
+            "title": "Fusão recusada",
+            "helper": "Já rejeitou o pedido de fusão da {{- company }}",
+            "contactCompany": "Contacte diretamente o estúdio se pretender voltar a fundir as suas contas."
+          },
+          "accepted": {
+            "helper": "O seu e-mail de início de sessão atual é : {{ email }}",
+            "contactCompany": "Contacte diretamente o estúdio se pretender fundir as suas contas ou se não tiver iniciado este pedido.",
+            "title": "A fusão foi aceita"
+          }
+        },
+        "title": "Unir a sua conta"
+      },
+      "actions": {
+        "continue": "Continuar",
+        "confirmFusion": "Aceitar a fusão de contas",
+        "deniedFusion": "Recusar a fusão",
+        "cancel": "Guardar o meu email",
+        "confirm": "Confirmar o meu novo email"
+      },
+      "generalError": {
+        "contactCompany": "Deteta-mos um erro no pedido atual. Por razões de segurança, este pedido foi desativado. Para voltar a gerar este pedido, ou se não for o autor, contacte diretamente o seu estúdio.",
+        "helper": "O estúdio {{- company}} fez um pedido para alterar o seu email de início de sessão para o seu espaço pessoal:",
+        "title": "Alterar um endereço de correio eletrónico de início de sessão inválido"
+      },
+      "unAuthorizedAccess": {
+        "helper": "Não está autenticado na conta que pode aceder a este pedido, por favor ligue-se à conta associada ao email de confirmação enviado.",
+        "contactCompany": "Se não puder atender a este pedido, contacte diretamente o seu estúdio.",
+        "title": "Acesso não autorizado"
+      },
+      "requestingStudio": "{{- company }} solicitou a alteração do endereço eletrónico de início de sessão da sua conta:"
+    },
+    "dialog": {
+      "actions": {
+        "close": "Cancelar",
+        "confirm": "Confirmar"
+      },
+      "cancelHelperText": "Se não pretender alterar o email do membro, clique em \"cancelar\".",
+      "expiryText": "Uma vez apresentado, o pedido de alteração expira no prazo de 7 dias",
+      "newEmail": "Novo email : {{ email }}",
+      "oldEmail": "Email anterior: {{ email }}",
+      "title": "Alteração do email",
+      "securityHelperText": "Por razões de segurança, enviar-lhe-emos um email para confirmar esta alteração.",
+      "mergeMember": {
+        "warning": "Atenção, está a tentar fundir estes dois membros do seu estúdio :",
+        "unchangedEmail": "Ao clicar em confirmar, o membro {{ new_email }} recuperará as faturas, reservas, saldo e compras de {{ old_email }}. O membro {{ old_email }} será eliminado. Será enviada uma mensagem pelo email para ambos os endereços para notificar os membros."
+      },
+      "titleMerge": " Fundir contas de membros",
+      "linkMember": {
+        "unchangedEmail": "Entretanto, {{ old_email }} manterá o seu email antigo e os membros não serão ligados.",
+        "notIncompany": "O email {{ new_email }} pertence a um membro de outro estúdio.",
+        "warning": "Atenção, queres ligar estes dois membros :"
+      },
+      "simpleChange": {
+        "informativeHelperText": "Para sua informação, enviar-lhe-emos um email para o informar desta alteração.",
+        "warning": "Atenção,  está a alterar o email de início de sessão deste membro :",
+        "unchangedEmail": "No entretanto, ele manterá o seu antigo email."
+      }
+    },
+    "pendingValidation": "Alteração pendente: {{ email }}"
+  },
+  "archive": {
+    "archivedMember": "Membro Arquivado : {{- name}}",
+    "dialog": {
+      "warning": {
+        "0": "Saldo interno negativo",
+        "1": "Fatura(s) não paga(s)",
+        "2": "Subscrição atual",
+        "3": "Subscrição com renovação automática ativa",
+        "4": "Reserva(s) futura(s)",
+        "5": "Reserva(s) recorrente(s) registada(s)",
+        "6": "Futura(s) Marcação(ões)",
+        "general": "Identificámos os seguintes pontos e aconselhamo-lo a regularizar a conta deste membro antes de a arquivar:"
+      },
+      "title": "Arquivar membro",
+      "helper_text_2": "Este membro deixará de aparecer na sua lista de membros.",
+      "helper_text_1": "Tem a certeza de que pretende arquivar este membro ?",
+      "actions": {
+        "close": "Fechar",
+        "confirm": "Confirmar"
+      }
+    }
+  },
+  "memberTermsAccepted": " foram aceites em {{- date}}",
+  "termsAndConditions": "Condições gerais de venda",
+  "vaccinationStatus": {
+    "unknown": "Estado do cartão de saúde desconhecido",
+    "notDone": "Não tem cartão de saúde válido",
+    "done": "Cartão de saúde válido"
+  },
+  "termsOfUse": "Condições gerais de utilização",
+  "linkDialog": {
+    "content": "Esta conta foi inicialmente utilizada noutro clube e será agora ligada a um novo clube.",
+    "confirm": "Eu confirmo",
+    "cancel": "Cancelar",
+    "title": "Link do utilizador existente"
+  },
+  "resetPassword": {
+    "confirmation": "Instruções corretamente enviadas para {{memberEmail}}",
+    "error": "Erro ao enviar instruções de reposição da palavra-passe",
+    "dialogTitle": "Redefinir palavra-passe",
+    "button": "Redefinir a palavra-passe",
+    "dialogContent": "Vai enviar instruções de redefinição da palavra-passe para {{memberEmail}}"
+  },
+  "noData": "Não existem membros nesta lista inteligente.",
+  "noMember": "De momento, não há membros para apresentar.",
+  "communication": "Comunicação",
+  "officialIdNumber": {
+    "label": "Número do documento de identidade",
+    "value": "Número {{id}}"
+  },
+  "membershipNumber": {
+    "label": "Número de membro",
+    "value": "Número {{id}}"
+  },
+  "memberTable": {
+    "error": "Ocorreu um erro"
+  },
+  "signedUpWithReferral": "Membro registado com <1>{{- name }}</1>link de referência",
+  "email": "Correio eletrónico"
+}

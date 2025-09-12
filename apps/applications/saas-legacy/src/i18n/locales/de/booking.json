@@ -1,0 +1,639 @@
+{
+  "details": {
+    "pleaseSelectABooking": "Wähle eine Buchung aus, um die Details zu sehen.",
+    "offerTitle": "Verbundener Kurs",
+    "consumerPaymentPackTitle": "Genutzer Kurspass",
+    "title": "Details der Buchung"
+  },
+  "bookingModule": {
+    "option": {
+      "isFull": "Der Kurs ist voll. Du kannst dich auf die Warteliste eintragen. Du wirst per E-Mail benachrichtigt, sobald ein Platz frei wird.",
+      "isAlreadyOnWaitingList": "Du bist auf der Warteliste registriert. Wir werden Dich per E-Mail benachrichtigen, wenn ein Platz frei wird.",
+      "registerOption": "Mich auf die Warteliste setzen lassen",
+      "isAlreadyRegistered": "Herzlichen Glückwunsch, du bist dabei! Der Kurs ist jetzt voll.",
+      "waitingListOpen": "Der Kurs ist voll. Du kannst dich jedoch auf die Warteliste setzen lassen. Wir werden dich per E-Mail benachrichtigen, sobald ein Platz verfügbar ist.",
+      "waitingListLockedByPendingBookings": "Andere Personen buchen gerade, die Warteliste ist derzeit nicht verfügbar. Bitte versuche es in ein paar Minuten erneut, um zu sehen, ob ein Platz frei geworden ist.",
+      "isBookingLimitReached": "Du hast bereits das Limit deiner Reservierungen erreicht. Du kannst wieder buchen, sobald ein Kurs vorbei ist oder storniert wurde."
+    },
+    "offer": {
+      "isDisabled": "Dieser Kurs wurde leider abgesagt.",
+      "isWaitingListFull": "Der Kurs und die Warteliste sind voll.",
+      "isTooLate": "Anmeldungen sind nicht mehr möglich.",
+      "isTooSoon": "Buchungen öffnen am {{-date}}.",
+      "isAlreadyRegistered": "Du bist bereits für diesen Kurs registriert.",
+      "blockedByTags": "Du hast nicht die erforderliche Berechtigung diesen Kurs zu buchen."
+    },
+    "section": {
+      "consumerPacks": "Meine Kurspässe",
+      "paymentPacks": "Kurspass kaufen",
+      "paymentCombos": "Werbeaktionen",
+      "contracts": "Abonnements",
+      "contract": "Abonnieren"
+    },
+    "messages": {
+      "offerLocked": "Fehler beim Buchen",
+      "maleUnavailable": "Der Kurs kann nicht mehr für Männer gebucht werden.",
+      "femaleUnavailable": "Der Kurs kann nicht mehr für Frauen gebucht werden."
+    },
+    "hasRegistered": "Du bist bereits für diesen Kurs angemeldet.",
+    "recurrent": {
+      "backToRegistererChoice": "Zurück",
+      "bookMultiple": "Buchen",
+      "title": "Nächsten Kurse",
+      "titleGroupedSessions": "Alle Kurse dieser Gruppe"
+    },
+    "isLoading": "Kurse werden gesucht...",
+    "book": {
+      "unknowError": "Momentan keine Buchung möglich - Bitte versuche es später erneut"
+    },
+    "tags": {
+      "unAuthorized": "Du hast nicht die erforderliche Berechtigung diesen Kurs zu buchen.",
+      "managerDialogWarningDialog": {
+        "confirm": "Bestätigen",
+        "cancel": "Abbrechen",
+        "content": "Achtung, dieses Mitglied verfügt nicht über die notwendigen Tags, um für diesen Kurs angemeldet zu werden. Möchtest du es trotzdem anmelden?",
+        "title": "Informationen"
+      }
+    },
+    "isBookingLimitReached": "Du hast dein Buchungslimit erreicht",
+    "multiSession": {
+      "selectSpot": {
+        "validationButton": "Kurs hinzufügen{{selectedSessionsCount}}",
+        "validationButton_plural": "Kurse hinzufügen{{selectedSessionsCount}}",
+        "dialogSubtitle": "Wähle deinen Platz für den Kurs",
+        "dialogTitle": "Platz auswählen",
+        "dialogTitleWithSteps": "Platz auswählen{{currentStep}}{{totalSteps}}"
+      },
+      "addSession": {
+        "noContent": "Es wurden keine ähnlichen Kurse gefunden.",
+        "dialogSubtitle": "Wähle den Kurs, den du buchen möchtest",
+        "dialogTitle": "Einen Kurs hinzufügen",
+        "sessionCount": "{{selectedSessionsCount}} von {{totalSessionsCount}} Kurse",
+        "selectAll": "Alle Auswählen"
+      }
+    },
+    "groupedSession": {
+      "warningModal": {
+        "partialBooking": {
+          "text": "Diese Aktivität ist Teil einer Gruppe von Kursen. Du bist nicht verpflichtet, an allen Kursen der Gruppe teilzunehmen, und Du kannst wählen, an welchen Kursen Du teilnehmen möchtest."
+        },
+        "fullBookingOnly": {
+          "text": "Du wirst für alle {{sessionsTotal}} Kurse dieser Gruppe eingeschrieben"
+        },
+        "title": "Buchung einer Gruppe von Kursen"
+      },
+      "showLessButtonText": "Weniger anzeigen",
+      "showMoreButtonText": "Alle Kurse anzeigen {{totalSessions}}"
+    }
+  },
+  "statusCode": {
+    "cancelledByOffer": "Kurs vom Studio abgesagt",
+    "cancelledByConsumer": "Vom Kunden storniert",
+    "cancelledByManager": "Vom Manager storniert ({{- cancelled_by }})",
+    "cancelledByOfferDate": "Kurs vom Studio am {{-date}} um {{time}} abgesagt.",
+    "cancelledByConsumerDate": "Vom Kunden am {{-date}} um {{time}} storniert.",
+    "cancelledByManagerDate": "Am {{-date}} um {{time}} von {{- cancelled_by }} abgesagt.",
+    "cancelledByAnonymousManager": "Annullierung Admin",
+    "cancelledByAnonymousManagerDate": "Vom Studio am {{-date}} um {{time}} abgesagt."
+  },
+  "doNotAttend": "Abwesend",
+  "attend": "Anwesend",
+  "customerView": {
+    "cancelled": "Storniert",
+    "wasRefunded": "Erstattet"
+  },
+  "source": {
+    "other": "Andere",
+    "saas": "Backoffice",
+    "app": "Mobile App",
+    "web": "Web",
+    "migration": "Migration"
+  },
+  "parameters": {
+    "registeredOn": "Gebucht am ",
+    "source": "Gebucht über",
+    "cancelledOn": "Storniert am ",
+    "by": "Durch",
+    "noShow": "Abwesenheit "
+  },
+  "loading": "Es lädt ...",
+  "wasRefunded": "Erstattet",
+  "filters": {
+    "cancel": "Stornierung",
+    "notRefunded": "Nicht erstattet",
+    "isRefunded": "Erstattet",
+    "refunded": "Rückerstattung",
+    "pastBooking": "Vergangene Buchungen",
+    "futureBooking": "Zukünftige Buchungen",
+    "time": "Buchungen im Laufe der Zeit",
+    "attendance": "Anwesenheit",
+    "consumerCanceled": "Vom Mitglied storniert",
+    "managerCanceled": "Vom Studio abgesagt",
+    "canceled": "Kurs storniert",
+    "absent": "Abwesend",
+    "present": "Anwesend",
+    "all": "Alle Buchungen",
+    "withoutRecurrentBookings": "Einmalige Buchungen",
+    "withRecurrentBookings": "Wiederkehrende Buchungen",
+    "recurrentBooking": "Wiederkehrende Buchung",
+    "notCancelled": "Nicht storniert",
+    "pickCoach": "Nach einer Lehrkraft suchen...",
+    "coach": "Lehrkraft",
+    "isUnpaid": "Unbezahlte Buchungen",
+    "isPaid": "Bezahlte Buchungen",
+    "paid": "Zahlung"
+  },
+  "creditConsumed": "{{credit_consumed}} Credit",
+  "creditConsumed_plural": "{{credit_consumed}} Credits",
+  "actions": {
+    "unregister": "Abmelden",
+    "bill": "In Rechnung stellen"
+  },
+  "notification": {
+    "form": {
+      "listItemPrimary": {
+        "after": "Benachrichtigung {{hours}} h nach dem Kurs",
+        "before": "Benachrichtigung {{hours}} h vor Beginn des Kurses",
+        "refunded": "Erstattete Stornierungen: {{notify_booking_nb}}",
+        "cancelledDeprecated": "Stornierungen: {{notify_booking_nb}}",
+        "bookingDeprecated": "Buchungsnummer: {{notify_booking_nb}}",
+        "notRefunded": "Stornierungen nach Ablauf der Frist: {{notify_booking_nb}}",
+        "attendance": "Anwesenheiten: {{notify_booking_nb}}",
+        "absence": "Abwesenheiten: {{notify_booking_nb}}",
+        "notifyAllEvents": {
+          "notRefunded": "Für jede Stornierung nach Ablauf der Frist",
+          "refunded": "Für jede rückerstattete Stornierung",
+          "absence": "Bei jeder Abwesenheit",
+          "attendance": "Bei jeder Anwesenheit",
+          "bookingDeprecated": "Bei jeder Buchungsnummer"
+        },
+        "birthday": "Am Geburtstag senden",
+        "day_after": "Diese Benachrichtigung wird {{days}} Tag nach Anfang des Kurses versendet.",
+        "day_after_plural": "Diese Benachrichtigung wird {{days}} Tage nach Anfang des Kurses versendet.",
+        "day_before": "Diese Benachrichtigung wird {{days}} Tag vor dem Anfang des Kurses versendet.",
+        "day_before_plural": "Diese Benachrichtigung wird {{days}} Tage vor dem Anfang des Kurses versendet.",
+        "hour_before": "Diese Benachrichtigung wird {{hours}} Stunde vor dem Anfang des Kurses versendet.",
+        "hour_before_plural": "Diese Benachrichtigung wird {{hours}} Stunden vor dem Anfang des Kurses versendet.",
+        "hour_after": "Diese Benachrichtigung wird {{hours}} Stunde nach Ende des Kurses versendet.",
+        "hour_after_plural": "Diese Benachrichtigung wird {{hours}} Stunden nach Ende des Kurses versendet."
+      },
+      "chooseKind": {
+        "absence": "Abwesenheit",
+        "attendance": "Anwesenheit",
+        "notRefunded": "Stornierung nach Ablauf der Frist",
+        "refunded": "Rückerstattete Stornierungen",
+        "title": "Auslöser"
+      },
+      "chooseTime": {
+        "second_after": "Stunde nach Ende des Kurses.",
+        "second_after_plural": "Stunden nach Ende des Kurses.",
+        "second_before": "Stunde vor Beginn des Kurses.",
+        "second_before_plural": "Stunden vor Beginn des Kurses.",
+        "first": "Eine E-Mail senden",
+        "second_before_days": "Tag vor dem Beginn des Kurses.",
+        "second_before_days_plural": "Tage vor dem Beginn des Kurses.",
+        "second_after_days": "Stunde nach Ende des Kurses.",
+        "second_after_days_plural": "Stunden nach Ende des Kurses."
+      },
+      "sendAfterMail": "Sende diese Benachrichtigung nach Ende des Kurses",
+      "sendBeforeMail": "Sende diese Benachrichtigung vor dem Anfang eines Kurses",
+      "explain": "Du kannst deine Mitglieder vor oder nach bestimmten Kursen benachrichtigen, abhängig von verschiedenen Kriterien wie der Anzahl der Besuche, Abwesenheiten oder sogar Stornierungen.",
+      "help": {
+        "absence": "Diese Benachrichtigung wird gesendet, wenn ein Mitglied {{notify_booking_nb}} Zeit(en) versäumt.",
+        "attendance": "Diese Benachrichtigung wird gesendet, wenn ein Mitglied an {{notify_booking_nb}} Zeit(en) teilnimmt.",
+        "notRefunded": "Diese Benachrichtigung wird gesendet, wenn ein Mitglied {{notify_booking_nb}} verspätete Stornierung(en) einträgt.",
+        "refunded": "Diese Benachrichtigung wird gesendet, wenn ein Mitglied eine {{notify_booking_nb}} erstattete Stornierung(en) registriert.",
+        "text": "Die Benachrichtigung wird an betreffende Mitglieder gesendet, wenn",
+        "allEvents": {
+          "notRefunded": "Die Benachrichtigung wird dem Mitglied bei jeder Stornierung nach Ablauf der Frist gesendet.",
+          "refunded": "Die Benachrichtigung wird dem Mitglied für jede rückerstattete Stornierung gesendet.",
+          "absence": "Diese Benachrichtigung wird jedes mal bei Abwesenheit an das Mitglied gesendet.",
+          "attendance": "Diese Benachrichtigung wird bei jeder Teilnahme an das Mitglied gesendet."
+        }
+      },
+      "cancel": "Abbrechen",
+      "next": "Weiter",
+      "submit": "Bestätigen",
+      "chooseStatus": {
+        "cancelled": "Stornierung (von Mitgliedern)",
+        "valid": "Buchungen",
+        "title": "Event"
+      },
+      "settingTitle": "Einstellungen",
+      "typeTitle": "Benachrichtigungstyp",
+      "title": "Benachrichtigungs-Formular",
+      "eventNb": "Wähle welche Buchung diese Benachrichtigung auslöst:",
+      "notifyAllEvents": "Benachrichtige das Mitglied bei jeder Veranstaltung",
+      "bookingNumber_n": "{{notify_booking_nb}}. Reservierung",
+      "bookingNumber": "Alle Buchungen",
+      "bookingNumber_plural": "erste Buchung",
+      "ifKind": {
+        "notRefunded": "Wenn die Buchung nach Ablauf der Frist storniert wurde",
+        "refunded": "Wenn die Buchung rechtzeitig storniert wurde",
+        "absence": "Wenn das Mitglied abwesend ist",
+        "attendance": "Wenn das Mitglied anwesend ist"
+      },
+      "bookingNumberN": "{{notify_booking_nb}}. Buchung",
+      "bookingNumberThird": "3. Reservierung",
+      "bookingNumberSecond": "2. Reservierung",
+      "bookingNumberFirst": "1. Reservierung",
+      "bookingNumberAll": "Alle Buchungen",
+      "addVariable": "Variable hinzufügen",
+      "pushHelper": "Achtung, Push-Benachrichtigungen sollten sparsam eingesetzt werden. Zu viele Push-Benachrichtigungen können dazu führen, dass einige Mitglieder die App deinstallieren.",
+      "needPushUpsell": "Bitte aktiviere das Push-Benachrichtigungs-Add-On, um diese Funktion zu nutzen.",
+      "push": "Push-Benachrichtigung",
+      "mail": "E-Mail",
+      "sendingMethod": "Kommunikationskanal",
+      "sendAfterNotifications": "Sende diese Benachrichtigung, nachdem der Kurs, der davon betroffen ist, vorbei ist",
+      "sendAfterNotification": "Sende diese Push-Benachrichtigung, nachdem der davon betroffene Kurs vorbei ist",
+      "sendBeforeNotifications": "Sende diese Benachrichtigung vor dem davon betroffenen Kurs",
+      "sendBeforeNotification": "Sende diese Push-Benachrichtigung vor dem davon betroffenen Kurs",
+      "smartListHelper": "Keine E-Mail senden, wenn das Mitglied zu einer der folgenden Smartlisten gehört",
+      "smartListHelperInclude": "Eine E-Mail nur senden, wenn das Mitglied einer der folgenden Smartlisten angehört",
+      "warning": "Wenn Du keine Smartlist auswählst, besteht die Gefahr, dass du Mitglieder benachrichtigst, die bereits einen anderen Kurspass gekauft haben",
+      "createSmartList": "Eine Smartlist erstellen",
+      "smartListSelection": "Smartliste(n) auswählen (optional)",
+      "advanced": "Fortgeschrittene"
+    },
+    "addNotification": "Eine Benachrichtigung hinzufügen",
+    "title": "Benachrichtigung"
+  },
+  "recurrenceRule": {
+    "deleteModal": {
+      "cancel": "Abbrechen",
+      "confirm": "Löschen",
+      "content": "Soll die wiederkehrende Regel gelöscht werden? Möchtest Du auch die zukünftigen Buchungen, die mit dieser Regel erstellt wurden, stornieren?",
+      "title": "Wiederholungsregel löschen",
+      "success": "Die wiederkehrende Buchung wurde gelöscht"
+    },
+    "explain": "Das Mitglied wird immer {{delayWeek}} Wochen im Voraus für Kurse von {{dayOfWeek}} bis {{hour}}: {{minute}} registriert. Das Mitglied wird nur angemeldet, falls es einen gültigen Terminpass besitzt.",
+    "actions": {
+      "save": "Speichern",
+      "close": "Schließen"
+    },
+    "form": {
+      "delayWeek": {
+        "helperText": "Gibt an, wie viele Wochen im Voraus das Mitglied registriert wird (maximal {{delayWeek}} Wochen)",
+        "label": "Anzahl der Wochen"
+      },
+      "metaActivity": {
+        "helperText": "Aktivität",
+        "label": "Aktivität"
+      },
+      "hour": {
+        "label": "Stunde"
+      },
+      "minute": {
+        "label": "Minute"
+      },
+      "dayOfWeek": {
+        "label": "Wochentag"
+      },
+      "at": " bei ",
+      "timeGroup": "Datum des Kurses",
+      "title": "Plane eine Wiederholung",
+      "startFromDate": {
+        "label": "Beginn der Wiederholung am "
+      },
+      "groupWarning": "Achtung es ist nicht möglich, wiederkehrende Buchungen für Gruppen von Kursen zu erstellen",
+      "permissionWarning": "Du hast keine Erlaubnis Buchungen für diese Aktivität abzuschließen",
+      "globalError": "Wir konnten die wiederkehrende Buchung derzeit nicht speichern. Bitte versuche es später erneut.",
+      "duplicateError": "Diese Regel wird bereits auf eine wiederkehrende Buchung angewendet. Um zu speichern, ändere die bestehende Buchungsregel oder passe die Parameter an."
+    },
+    "recurrentRuleBooking": "Wiederkehrende Buchung",
+    "item": {
+      "explain": "Alle {{dayOfWeek}} - {{hour}}: {{minute}}, {{delayWeek}} Wochen zuvor"
+    },
+    "recurrentBookings": "Wiederkehrende Buchungen",
+    "needConsumerPack": "Dieses Mitglied hat keinen kompatiblen Kurspass. Es ist nicht möglich, eine Wiederholungsregel einzurichten",
+    "createModal": {
+      "create": "Erstelle eine wiederkehrende Buchung",
+      "info": "Eine bereits vorhandene wiederkehrende Buchung kann nicht neu erstellt werden",
+      "success": "Die wiederkehrende Buchung wurde erstellt. Buchungen werden angelegt."
+    },
+    "editModal": {
+      "success": "Die wiederkehrende Buchung wurde geändert. Wir legen die Buchungen entsprechend der Parameter an."
+    },
+    "blockedBookings": "Mitglieder können bis zu {{days}} Tage im Voraus für diese Aktivität buchen. Erwäge eine Verlängerung der Wiederholungszeiträume, um eine Überfüllung zu vermeiden.",
+    "notifyIfCanceled": "Sende eine Stornierungs-E-Mail",
+    "notify": "Sende eine Bestätigungs-E-Mail, wenn ein Mitglied registriert wird",
+    "showLess": "Weniger anzeigen",
+    "showMore": "Mehr anzeigen ({{count}})",
+    "cancelRelatedBookings": "Storniere zukünftige Buchungen, die bereits vorgenommen wurden",
+    "offerForm": {
+      "selectAll": "Alle auswählen",
+      "unselectAll": "Alle abwählen",
+      "helperText": "Es scheint, dass die in der wiederkehrenden Buchung enthaltenen Sitzungen bereits für dieses Mitglied storniert wurden. Du kannst hier die Sitzungen auswählen, die dem System erlauben, sie erneut zu buchen"
+    }
+  },
+  "memberGraph": {
+    "label": "Reservierungen",
+    "title": "Zusammenfassung der Reservierungen"
+  },
+  "offer": {
+    "showMore": "Mehr anzeigen",
+    "mainButton": {
+      "numberOfBook": "{{count}} Buchung",
+      "numberOfBook_plural": "{{count}} Buchungen",
+      "registerWaitingList": "Auf die Warteliste setzen",
+      "book": "Buchen"
+    },
+    "bookingsTitle": "Buchen",
+    "addSession": "Kurs hinzufügen",
+    "noPackAvailable": "Kein Kurspass ist mit diesem Kurs kompatibel!",
+    "noPackAvailable_plural": "Kein Kurspass ist mit dieser Gruppe von Kursen zur gleichen Zeit kompatibel. Du musst dich für diese Kurse separat anmelden.",
+    "packTitle": "Meine Buchungsmethode",
+    "offerStatus": {
+      "waiting_list_status": {
+        "0": "Warteliste",
+        "1": "Abgeschlossene Registrierungen",
+        "2": "Anmeldung abgeschlossen",
+        "3": "Voll",
+        "4": "Abgeschlossene Registrierungen",
+        "5": "Bereits registriert",
+        "6": "Unausgewogenes Verhältnis zwischen Männern und Frauen",
+        "7": "Unausgewogenes Verhältnis zwischen Männern und Frauen",
+        "9": "Du versuchst mehr zukünftige Kurse zu buchen, als dein Studio erlaubt",
+        "6002": "Warteliste: voll",
+        "6003": "Warteliste: beigetreten",
+        "6005": "Warteliste",
+        "displayWaitlistSize": "Dein momentaner Platz in der Warteliste ist: {{waitlistPosition}}",
+        "displayPosition": "Dein Platz in der Warteliste ist: {{waitlistPosition}}"
+      },
+      "bookable_status": {
+        "0": "Anmeldung offen",
+        "1": "Anmeldungen geschlossen",
+        "2": "Anmeldungen geschlossen",
+        "4": "Kurs nicht verfügbar",
+        "9": "Du versuchst mehr zukünftige Kurse zu buchen, als dein Studio erlaubt"
+      },
+      "waiting_list": "Warteliste",
+      "book": "Anmeldung",
+      "blockedByTags": "Unerlaubte Anmeldung"
+    },
+    "similarOffer": {
+      "showMore": "Mehr anzeigen",
+      "empty": "Keine anderen Kurse können angezeigt werden.",
+      "title": "Weitere Kurse buchen",
+      "selectAll": "Alle auswählen"
+    },
+    "bookingForMe": "Mich",
+    "bookingsTitleFor": "Ich buche für {{name}}",
+    "bookingForAGuest": {
+      "addGuestLimit": "Du hast die Einladungsgrenze erreicht für",
+      "addGuestNumberLeftSeveral": "Du kannst noch {{number}} weitere Personen einladen für",
+      "addGuestNumberLeftOne": "Du kannst noch 1 Person einladen für",
+      "frequencyWeekly": "in dieser Woche.",
+      "frequencyMonthly": "in diesem Monat.",
+      "frequencyYearly": "in diesem Jahr.",
+      "frequencyGeneric": "der aktuelle Zeitraum.",
+      "addGuest": "Einen Gast hinzufügen",
+      "warningCustomLeveledSession": "Dieser Kurs hat ein benutzerdefiniertes Niveau. Stelle sicher, dass die Person, die du einlädst, über das erwartete Niveau verfügt.",
+      "warningLeveledSession": "Dieser Kurs ist nur für Personen mit dem Niveau : {{level}}. Stelle sicher, dass die Person, die du einlädst, über das erwartete Niveau verfügt.",
+      "bookingStatus": {
+        "0": "Lade einen Freund ein",
+        "1": "Der Kurs ist noch nicht buchbar",
+        "2": "Der Kurs ist nicht mehr buchbar",
+        "3": "Der Kurs ist ausgebucht",
+        "4": "Der Kurs ist nicht mehr buchbar",
+        "guestNotAllowed": "Der Kurs ist nicht für Gäste zugänglich"
+      },
+      "addGuestNumberLeftGeneric": "Du kannst noch eine weitere Person in diesem Zeitraum einladen.",
+      "addGuestNumberLeftGeneric_plural": "Du kannst noch {{count}} weitere Personen in diesem Zeitraum einladen.",
+      "addGuestNumberLeftYear": "Du kannst noch eine weitere Person dieses Jahr einladen.",
+      "addGuestNumberLeftYear_plural": "Du kannst noch {{count}} weitere Personen dieses Jahr einladen.",
+      "addGuestNumberLeftMonth": "Du kannst noch eine weitere Person diesen Monat einladen.",
+      "addGuestNumberLeftMonth_plural": "Du kannst noch {{count}} weitere Personen diesen Monat einladen.",
+      "addGuestNumberLeftWeek": "Du kannst noch eine weitere Person diese Woche einladen.",
+      "addGuestNumberLeftWeek_plural": "Du kannst noch {{count}} weitere Personen diese Woche einladen.",
+      "guestLimitReached": {
+        "every_year": "Du hast das Einladungslimit für dieses Jahr erreicht.",
+        "every_month": "Du hast das Einladungslimit für diesen Monat erreicht.",
+        "every_week": "Du hast das Einladungslimit für diese Woche erreicht."
+      },
+      "sendInvitation": "Einladung versenden",
+      "submit": "Für einen Gast buchen"
+    },
+    "bookingFor": "Buchung für",
+    "bookingForSubtitle": "Wähle die Person, für die du buchen möchtest"
+  },
+  "placeNumber": "Ort {{count}}",
+  "noSpotAttributed": "Kein Platz zugewiesen",
+  "changeSpot": "Ändere deinen Platz",
+  "setSpot": "Einen Platz zuweisen",
+  "performanceTracking": {
+    "stat": "Statistiken"
+  },
+  "attendanceUpdatedOn": "Aktualisiert am {{- d }} um {{- t }}",
+  "asGuest": "Gast",
+  "guest": {
+    "form": {
+      "actions": {
+        "addGuest": "Einen Gast hinzufügen",
+        "close": "Abbrechen",
+        "submit": "Bestätigen",
+        "limitGuest": "(Kein Kurspass erlaubt das Hinzufügen von Gästen)"
+      },
+      "lastname": {
+        "label": "Nachname"
+      },
+      "firstname": {
+        "label": "Vorname"
+      },
+      "email": {
+        "label": "E-Mail"
+      },
+      "errors": {
+        "email": "Bitte füge eine gültige E-Mail-Adresse ein",
+        "requiredField": "Bitte fülle dieses Feld aus"
+      },
+      "dialog": {
+        "emailWarning": {
+          "actions": {
+            "saveAndContinue": "Speichern und fortfahren",
+            "continueWithoutEmail": "Ohne E-Mail fortfahren"
+          },
+          "description": "Du hast keine E-Mail für deinen Gast angegeben.",
+          "title": "Keine E-Mail angegeben",
+          "submitLabel": "Fortfahren ohne",
+          "fieldLabel": "Möchtest du die E-Mail hinzufügen?",
+          "alert": "Du wirst keine Informationen über diese Sitzung erhalten."
+        },
+        "description": "Du bringst einen Freund/ Partner mit, um das Erlebnis zu teilen? Gib einfach den Namen und die E-Mail-Adresse deines Gastes an und wir versenden alle notwendigen Informationen.",
+        "title": "Lade einen Gast ein"
+      }
+    }
+  },
+  "place": "Platz",
+  "unlimited": "Unbegrenzt",
+  "noShowChip": {
+    "title": "abwesend",
+    "message": "Das Mitglied wurde nach dem Kurs als abwesend vermerkt"
+  },
+  "warning": "Achtung",
+  "spivi": {
+    "errorText": "Das Mitglied erfüllt nicht die Bedingungen von Spivi, daher wurde die Buchung nicht über Spivi getätigt.",
+    "connectionImpossible": "Verbindung zu Spivi nicht möglich",
+    "error": "Probleme bei der Verbindung mit Spivi"
+  },
+  "newBookingModule": {
+    "blockedReasons": {
+      "isTooLate": {
+        "message": "Die Buchungsfrist für diesen Kurs ist leider abgelaufen.",
+        "title": "Frist abgelaufen"
+      },
+      "isTooSoon": {
+        "message": "Die Anmeldungen sind derzeit geschlossen und öffnen am {{-date}}.",
+        "title": "Bald verfügbar"
+      },
+      "isAlreadyRegistered": {
+        "message": "Du bist bereits für diesen Kurs angemeldet.",
+        "title": "Kurs bereits gebucht"
+      },
+      "blockedByTags": {
+        "message": "Sorry, leider kannst du diesen Kurs aktuell nicht buchen. Die Buchungen wurden auf eine bestimmte Zielgruppe begrenzt.",
+        "title": "Unzureichende Rechte"
+      },
+      "default": {
+        "message": "Die Buchung dieses Kurses ist nicht möglich",
+        "title": "Buchung gesperrt"
+      },
+      "waitingListLockedByPendingBookings": {
+        "title": "Andere Buchungen in Bearbeitung",
+        "message": "Andere Personen buchen gerade, die Warteliste ist derzeit nicht verfügbar. Bitte versuche es in ein paar Minuten erneut, um zu sehen, ob ein Platz frei geworden ist."
+      },
+      "isWaitingListFull": {
+        "title": "Warteliste voll",
+        "message": "Dieser Kurs und die Warteliste sind voll. \nBitte versuche es zu einem späteren Zeitpunkt erneut."
+      },
+      "isAlreadyOnWaitingList": {
+        "title": "Bereits auf der Warteliste",
+        "message": "Wenn du auf der Warteliste stehst, wirst du per E-Mail benachrichtigt, sobald ein Platz frei wird."
+      },
+      "waitingListOpen": {
+        "title": "Kurs voll",
+        "message": "Tritt der Warteliste bei und erhalte eine Nachricht, sobald ein Platz frei wird."
+      },
+      "noPassAvailable": {
+        "title": "Keine Kurspässe verfügbar",
+        "message": "Es sind keine Kurspässe verfügbar, um sich auf die Warteliste setzen zu lassen."
+      },
+      "isBookingLimitReached": {
+        "message": "Du hast dein Limit an Buchungen erreicht. Du kannst erneut buchen, wenn ein Kurs vorbei ist oder storniert wurde.",
+        "title": "Buchung nicht möglich"
+      }
+    },
+    "backToCalendar": "Zurück zum Kalender",
+    "waitingListWarning": "Bevor du dich auf die Warteliste setzen lässt, solltest du dich vergewissern, dass du einen geeigneten Kurspass, ein Paket oder einen Vertrag gekauft hast. Ein aktiver Kurspass, ein Paket oder ein Vertrag sind unerlässlich, um deinen Platz auf der Warteliste zu sichern.",
+    "myPasses": "Mein Kurspass",
+    "myPasses_plural": "Meine Kurspässe",
+    "buyNewPass": "Neuen Kurspass kaufen",
+    "buyPass": "Neuen Kurspass kaufen",
+    "choosePass": "Kurspass wählen",
+    "cards": {
+      "seeMore": "Mehr sehen",
+      "seeLess": "Weniger sehen"
+    },
+    "filterAll": "Alle",
+    "subscriptions": "Verträge",
+    "combos": "Pakete",
+    "passes": "Kurspässe",
+    "otherPasses": "Andere Kurspässe",
+    "spotSelectorTitle": "Wähle deinen Platz",
+    "seeAllProducts": "Alle Produkte ansehen",
+    "recommended": "Empfehlungen",
+    "reviewAndConfirm": "Überprüfen und Bestätigen",
+    "guestSpotSelectorTitle": "Wählen einen Platz für deinen Gast",
+    "removeFromBasket": {
+      "buttons": {
+        "confirm": "ENTFERNEN",
+        "cancel": "ABBRECHEN"
+      },
+      "message": "Wenn du den Pass aus dem Korb entfernst, werden auch die zugehörigen Buchungen entfernt.",
+      "title": "Entfernen"
+    },
+    "multipleSpotSelectionSpotSelectorTitle": "Spot auswählen ({{currentSpot}}/{{totalSpot}})"
+  },
+  "refundDialog": {
+    "contentUnlimitedPaymentPack": "Diese Buchung wurde mit einem unbeschränkten Pass vorgenommen und zu spät storniert. Bei zu vielen verspäteten Stornierungen können Strafen fällig werden. Klicke auf „Zurücksetzen“, um die verspätete Stornierung aus den Passeinträgen zu entfernen. Beachte dass bereits verhängte Strafen nicht mehr entfernt werden können.",
+    "titleUnlimitedPaymentPack": "Zählung der zu spät erfolgten Stornierungen zurücksetzen",
+    "content": "Diese Buchung wurde zu spät storniert, um automatisch erstattet zu werden. Klicke auf „Erstattung“, um eine einmalige Rückerstattung für diese Buchung vorzunehmen.",
+    "title": "Erstattung bei verspäteter Stornierung"
+  },
+  "refund": "Erstattung",
+  "oneClickBooking": {
+    "seeMoreWithLogin": "Melde dich an um Pakete und Mitlgliedschaften zu entdecken!",
+    "yourBooking": "Deine Buchung",
+    "goToLogin": "Anmeldung",
+    "alreadyMember": "Du hast bereits einen Account?",
+    "checkoutTitle": "Bezahlen",
+    "bookButtonLabel": "Jetzt buchen",
+    "bookableStatus": {
+      "error": "Hoppla, diese Buchung ist anscheinend nicht verfügbar",
+      "closeTooLate": {
+        "description": "Diese Sitzung hat bereits begonnen oder ist bereits beendet, daher ist eine Buchung nicht mehr möglich. <br> Bitte prüfe den Kalender für kommende Sitzungen.",
+        "title": "Ups! Die Buchung ist leider nicht mehr möglich"
+      },
+      "closeTooSoon": {
+        "description": "Diese Sitzung ist noch nicht zur Buchung verfügbar. <br> Überprüfe den Kalender, um den Buchungszeitpunkt zu erfahren oder sieh dir andere verfügbare Sitzungen an.",
+        "title": "Ups! Es ist noch zu früh, um zu buchen"
+      },
+      "locked": {
+        "description": "Diese Sitzung wurde abgesagt und ist nicht mehr buchbar. <br> Bitte überprüfe den Kalender für andere verfügbare Sitzungen.",
+        "title": "Die Sitzung wurde abgesagt"
+      },
+      "full": {
+        "description": "Leider ist diese Sitzung bereits ausgebucht und wir konnten deine Buchung nicht abschließen. <br> Schau im Kalender nach einer anderen verfügbaren Option.",
+        "title": "Sitzung vollständig ausgebucht"
+      },
+      "unhandled": {
+        "description": "Leider ist ein unerwarteter Fehler aufgetreten. Im Moment ist es nicht möglich, diesen Kurs zu buchen.",
+        "title": "Ein unerwarteter Fehler ist aufgetreten"
+      }
+    },
+    "goToCalendar": "Gehe zum Kalender",
+    "yourDetails": "Deine Angaben"
+  },
+  "lightSignup": {
+    "form": {
+      "errors": {
+        "global": "Bei der Anmeldung ist ein Fehler aufgetreten",
+        "phone": "Bitte gib eine gültige Telefonnummer ein",
+        "email": "Bitte gib eine gültige E-Mail-Adresse ein",
+        "requiredField": "Dieses Feld ist erforderlich",
+        "phoneTaken": "Diese Telefonnummer wird bereits von einem anderen Mitglied verwendet",
+        "emailTaken": "Diese E-mail-Adresse existiert bereits. Du kannst versuchen, dich mit dieser Adresse anzumelden",
+        "passwordConfirmation": "Passwörter müssen übereinstimmen",
+        "passwordMinimumRequirements": "Dein Passwort muss aus mindestens 6 Zeichen bestehen, keine Leerzeichen"
+      },
+      "button": {
+        "label": "Anmelden"
+      },
+      "phone": {
+        "placeholder": "+49612345678",
+        "label": "Telefon"
+      },
+      "email": {
+        "label": "E-mail"
+      },
+      "lastName": {
+        "label": "Nachname"
+      },
+      "firstName": {
+        "label": "Vorname"
+      },
+      "acceptSms": {
+        "label": "Ich bin damit einverstanden, SMS mit Marketinginhalten, inklusive Sonderangeboten und Rabatten zu erhalten."
+      },
+      "acceptTermsAndCondition": {
+        "label": "Ich akzeptiere die allgemeinen Nutzungsbedingungen"
+      },
+      "acceptEmail": {
+        "label": "Ich bin damit einverstanden, E-Mails mit Marketinginhalten, inklusive Sonderangeboten und Rabatten zu erhalten"
+      },
+      "password": {
+        "label": "Passwort anlegen"
+      }
+    }
+  }
+}

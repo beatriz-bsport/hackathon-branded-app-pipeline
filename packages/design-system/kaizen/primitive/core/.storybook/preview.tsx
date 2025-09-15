@@ -30,11 +30,13 @@ const preview: Preview = {
       }, [locale]);
 
       return (
-        <Suspense fallback={<p>Loading translations ...</p>}>
-          <AppI18nextProvider>
-            <Story />
-          </AppI18nextProvider>
-        </Suspense>
+        <React.StrictMode>
+          <Suspense fallback={<p>Loading translations ...</p>}>
+            <AppI18nextProvider>
+              <Story />
+            </AppI18nextProvider>
+          </Suspense>
+        </React.StrictMode>
       );
     },
     withThemeByClassName({

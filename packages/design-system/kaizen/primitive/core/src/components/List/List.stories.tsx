@@ -679,6 +679,52 @@ export const Checkboxes: Story = {
       },
     ],
     isSelectable: true,
+    initialCheckedIds: ["list-item-5", "list-item-3"],
+  },
+};
+
+export const ControlledCheckboxes: StoryObj<typeof List> = {
+  name: "List with controlled checkboxes",
+  args: {
+    id: "list-x",
+    header: {
+      title: "List Title",
+      description: "Helpful description",
+      id: "list-header-x",
+    },
+    items: [
+      {
+        id: "list-item-1",
+        title: "Item n°1",
+      },
+      {
+        id: "list-item-2",
+        title: "Item n°2",
+      },
+      {
+        id: "list-item-3",
+        title: "Item n°3",
+      },
+    ],
+    isSelectable: true,
+  },
+  render: (args) => {
+    const [checkedItems, setCheckedItems] = useState(["list-item-3"]);
+    return (
+      <div>
+        <List
+          {...args}
+          setCheckedIds={setCheckedItems}
+          checkedIds={checkedItems}
+        />
+        <h6>Selected items</h6>
+        <ul>
+          {checkedItems.map((checkedId) => (
+            <li key={checkedId}>{checkedId}</li>
+          ))}
+        </ul>
+      </div>
+    );
   },
 };
 

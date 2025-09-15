@@ -58,7 +58,6 @@
       "helper": "Un membre peut utiliser ses crédits pour une autre séance pendant qu'il attend sur la liste d'attente. Avec ce paramètre activé, si cela se produit, sa place sur la liste d'attente sera automatiquement annulée lorsque ce sera à son tour de s'inscrire."
     },
     "errors": {
-      "lastDelayBeforeAutoConsumeError": "Les minutes doivent être comprises entre 0 et 240",
       "autokickDelayError": "Un nombre est demandé",
       "smartDelayPercentageError": "Le pourcentage doit être compris entre 10 et 100",
       "dumbDelayMinutesError": "Le nombre de minutes entre les rappels doit être supérieur à 15"

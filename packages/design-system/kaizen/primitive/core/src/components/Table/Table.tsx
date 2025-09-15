@@ -1,9 +1,10 @@
 import { cva } from "class-variance-authority";
-import React, { TableHTMLAttributes, useCallback } from "react";
+import { type TableHTMLAttributes, useCallback } from "react";
 
 import type { PaginationProps } from "#src/components/private/Pagination";
 import {
   CheckboxProvider,
+  type CheckboxProviderProps,
   useCheckboxContext,
 } from "#src/contexts/CheckboxContext";
 import useEmptyState, {
@@ -27,7 +28,7 @@ const table = cva(defaultClasses);
  *
  * @template RowType - The type of data objects in each table row, extending BaseRow
  */
-export type TableProps<RowType extends BaseRow> =
+export type TableProps<RowType extends BaseRow> = CheckboxProviderProps &
   TableHTMLAttributes<HTMLTableElement> & {
     /** Array of column configurations that define how data should be displayed */
     columns: Column<RowType>[];
@@ -73,6 +74,9 @@ const Table = <RowType extends BaseRow>({
   paginationProps,
   emptyStateProps,
   loadingProps,
+  initialCheckedIds,
+  checkedIds,
+  setCheckedIds,
   ...props
 }: TableProps<RowType>) => {
   const valueIds = rows?.map((row) => row.id.toString()) ?? [];
@@ -91,7 +95,12 @@ const Table = <RowType extends BaseRow>({
   }
 
   return (
-    <CheckboxProvider valueIds={valueIds}>
+    <CheckboxProvider
+      valueIds={valueIds}
+      initialCheckedIds={initialCheckedIds}
+      checkedIds={checkedIds}
+      setCheckedIds={setCheckedIds}
+    >
       <InnerTableWithContext
         columns={columns}
         rows={rows}

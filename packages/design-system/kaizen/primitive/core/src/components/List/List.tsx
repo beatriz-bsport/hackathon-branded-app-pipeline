@@ -5,6 +5,7 @@ import { ChipProps } from "#src/components/Chip";
 import type { PaginationProps } from "#src/components/private/Pagination";
 import {
   CheckboxProvider,
+  type CheckboxProviderProps,
   useCheckboxContext,
 } from "#src/contexts/CheckboxContext";
 import useEmptyState, {
@@ -110,6 +111,7 @@ export type ListContentProps<T extends { id: string }> = CommonListProps &
 // ListProps has its own props, and also the common/variant props
 export type ListProps<T extends { id: string } = ListItemProps> =
   CommonListProps &
+    CheckboxProviderProps &
     ListVariantProps<T> & {
       className?: string;
       id: string;
@@ -150,6 +152,9 @@ const List = <T extends { id: string }>(props: ListProps<T>) => {
     loadingProps,
     collapsibleProps,
     isSelectable = false,
+    initialCheckedIds,
+    checkedIds,
+    setCheckedIds,
     ...listContentProps
   } = props;
   const valueIds = listContentProps.items?.map((item) => item.id) ?? [];
@@ -166,7 +171,12 @@ const List = <T extends { id: string }>(props: ListProps<T>) => {
       })}
       {...collapsibleProps}
     >
-      <CheckboxProvider valueIds={valueIds}>
+      <CheckboxProvider
+        valueIds={valueIds}
+        initialCheckedIds={initialCheckedIds}
+        checkedIds={checkedIds}
+        setCheckedIds={setCheckedIds}
+      >
         <div className={className} id={id}>
           {!!header && (
             <Collapse.Controller>

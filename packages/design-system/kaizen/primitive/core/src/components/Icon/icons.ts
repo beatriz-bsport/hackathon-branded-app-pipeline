@@ -49,6 +49,7 @@ const icons = {
   "check-circle": React.lazy(
     async () => await import("./assets/check-circle.svg?react"),
   ),
+  check: React.lazy(async () => await import("./assets/check.svg?react")),
   "chevron-down-double": React.lazy(
     async () => await import("./assets/chevron-down-double.svg?react"),
   ),

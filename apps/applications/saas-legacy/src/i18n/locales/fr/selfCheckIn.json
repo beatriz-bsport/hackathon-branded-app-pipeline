@@ -7,12 +7,12 @@
   "addMember": {
     "button": "Créer un compte"
   },
-  "filter": {
-    "establishment": "Filtrer par lieu"
-  },
   "offerList": {
     "refresh": "Recharger les séances",
     "emptyList": "Aucune séance"
+  },
+  "filter": {
+    "establishment": "Filtrer par lieu"
   },
   "signout": {
     "title": "Déconnecter",
@@ -29,6 +29,11 @@
       }
     }
   },
+  "authenticationDialog": {
+    "title": "Modifier l'établissement",
+    "description": "Pour garantir la sécurité, veuillez authentifier votre identité en saisissant votre mot de passe avant de procéder au changement d'établissement.",
+    "error": "Le mot de passe saisi n'est pas valide"
+  },
   "offerDetail": {
     "emptyList": "Aucun élève inscrit à ce cours",
     "noConsumerPaymentPack": "Aucune carte de cours valide !",
@@ -37,13 +42,13 @@
     "isFull": "Complet",
     "register": "M'inscrire à ce cours",
     "activateBarcode": "Détecteur de carte",
-    "activateFaceId": "Face ID",
-    "noDetectionResult": "Aucun résultat",
     "actions": {
-      "close": "Fermer",
+      "createAccount": "Créer un compte",
       "restartAnalyze": "Recommencer",
-      "createAccount": "Créer un compte"
-    }
+      "close": "Fermer"
+    },
+    "noDetectionResult": "Aucun résultat",
+    "activateFaceId": "Face ID"
   },
   "memberList": {
     "checkIn": "Check-in",
@@ -52,16 +57,11 @@
   },
   "confirmPage": {
     "classLocation": "Votre séance se déroule en",
-    "visitsLeft": "Visites restantes",
-    "expires": "Expire",
     "signIn": "Enregistré",
+    "expires": "Expire",
     "headOnIn": "Tout est prêt !",
-    "spotUnassigned": "Spot non attribué",
-    "spotInfo": "Votre {{- spotName }} est :"
-  },
-  "authenticationDialog": {
-    "title": "Modifier l'établissement",
-    "error": "Le mot de passe saisi n'est pas valide",
-    "description": "Pour garantir la sécurité, veuillez authentifier votre identité en saisissant votre mot de passe avant de procéder au changement d'établissement."
+    "visitsLeft": "Visites restantes",
+    "spotInfo": "Votre {{- spotName }} est :",
+    "spotUnassigned": "Spot non attribué"
   }
 }

@@ -170,7 +170,7 @@
     "accountSuccess": "Your Stripe account has been created. You can change this information later in the back office in the company settings.",
     "goToBackoffice": "Click on \"Let's go\" to be redirected to the back office.",
     "bankAccountSuccess": "Your IBAN is validated. You can change this information later in the backoffice in the company settings.",
-    "welcomeTitle": "Welcome to BSPORT!",
+    "welcomeTitle": "Welcome to bsport!",
     "stripeStep": "Stripe configuration",
     "welcomeConfigure": "Set up your account in just {{numberOfSteps}} step!",
     "welcomeConfigure_plural": "Set up your account in just {{numberOfSteps}} steps!",

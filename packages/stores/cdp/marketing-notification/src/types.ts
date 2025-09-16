@@ -97,7 +97,7 @@ export type BookingCreationEventRules = BaseEventRules & {
   hours: number;
   establishment_id: number | null;
   establishment_group_id: number | null;
-  meta_activity_id: number;
+  meta_activity_id: number | null;
   notify_booking_nb: number;
 };
 
@@ -136,4 +136,11 @@ export type SubscriptionEventRules = BaseEventRules & {
   days: number | null;
   hours: number | null;
   contract_id: number;
+};
+
+export type FetchMarketingNotificationsParams = {
+  kind__in?: number[];
+  company?: number;
+  active?: boolean;
+  is_event_based?: boolean;
 };

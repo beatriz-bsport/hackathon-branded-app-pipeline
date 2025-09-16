@@ -1,6 +1,10 @@
 import { type ApiConfig } from "@bsport/store-base";
 
-import { NotificationRuleDetail, NotificationRuleSettings } from "./types";
+import type {
+  DeleteNotificationRuleParams,
+  NotificationRuleDetail,
+  NotificationRuleSettings,
+} from "./types";
 
 const API_URL = "customer-data-platform/v1/notification";
 const RULE_API_URL = API_URL + "/rule";
@@ -61,6 +65,17 @@ export const patchNotificationRuleDetailsAPI = (
     {
       method: "PATCH",
       body: JSON.stringify(params),
+    },
+  ];
+};
+
+export const deleteNotificationRuleDetailsAPI = (
+  params: DeleteNotificationRuleParams,
+): ApiConfig => {
+  return [
+    `${RULE_API_URL}/${params.id}/`,
+    {
+      method: "DELETE",
     },
   ];
 };

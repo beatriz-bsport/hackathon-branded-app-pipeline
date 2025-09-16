@@ -1,7 +1,7 @@
 import {
   Button,
-  Checkbox,
   type GenericTableColumn,
+  ToggleButton,
   Tooltip,
 } from "@bsport/kaizen-primitive-core";
 
@@ -42,31 +42,42 @@ export const getTableColumns = ({
       const tooltipLabel = t(
         "notificationRuleEventDetails.table.tooltip.franchiseOwned",
       );
-      const CheckboxComponent = (
-        <Checkbox
+      const ToggleButtonComponent = (
+        <ToggleButton
+          key={`email-checkbox-action-${row.email_notification_checked ? "checked" : "unchecked"}`}
           id={`email-checkbox-action-${row.id}`}
-          value={row.email_notification_checked ? "checked" : "unchecked"}
+          size="md"
+          checked={row.email_notification_checked}
           disabled={row.email_notification_disabled}
-          onClick={(e: React.MouseEvent) => {
-            e.stopPropagation();
-          }}
-          onChange={(checked: boolean) => {
+          onChange={({ event, checked }) => {
+            event?.stopPropagation();
             checkCommunicationMethodPreferences({
               notificationRuleEventId: row.id,
               communicationMethod: "email_notification",
               checked,
             });
           }}
+          checkedConfig={{
+            label: t(
+              "notificationRuleEventDetails.table.notificationsToggle.activated",
+            ),
+            icon: "check",
+          }}
+          uncheckedConfig={{
+            label: t(
+              "notificationRuleEventDetails.table.notificationsToggle.deactivated",
+            ),
+          }}
         />
       );
       if (row.is_franchise_owned) {
         return (
           <Tooltip placement="bottom" label={tooltipLabel}>
-            {CheckboxComponent}
+            {ToggleButtonComponent}
           </Tooltip>
         );
       }
-      return <div>{CheckboxComponent}</div>;
+      return <div>{ToggleButtonComponent}</div>;
     },
   };
 
@@ -80,30 +91,44 @@ export const getTableColumns = ({
       const tooltipLabel = t(
         "notificationRuleEventDetails.table.tooltip.setPushNotificationBeforeEnabling",
       );
-      const CheckboxComponent = (
-        <Checkbox
+      const ToggleButtonComponent = (
+        <ToggleButton
+          key={`push-notification-checkbox-action-${row.push_notification_checked ? "checked" : "unchecked"}`}
           id={`push-notification-checkbox-action-${row.id}`}
-          value={row.push_notification_checked ? "checked" : "unchecked"}
+          size="md"
+          checked={row.push_notification_checked}
           disabled={
             row.push_notification_disabled || !row.is_push_notification_set
           }
-          onChange={(checked: boolean) => {
+          onChange={({ event, checked }) => {
+            event?.stopPropagation();
             checkCommunicationMethodPreferences({
               notificationRuleEventId: row.id,
               communicationMethod: "push_notification",
               checked,
             });
           }}
+          checkedConfig={{
+            label: t(
+              "notificationRuleEventDetails.table.notificationsToggle.activated",
+            ),
+            icon: "check",
+          }}
+          uncheckedConfig={{
+            label: t(
+              "notificationRuleEventDetails.table.notificationsToggle.deactivated",
+            ),
+          }}
         />
       );
       if (!row.push_notification_disabled && !row.is_push_notification_set) {
         return (
           <Tooltip placement="bottom" label={tooltipLabel}>
-            {CheckboxComponent}
+            {ToggleButtonComponent}
           </Tooltip>
         );
       }
-      return <div>{CheckboxComponent}</div>;
+      return <div>{ToggleButtonComponent}</div>;
     },
   };
 
@@ -120,10 +145,10 @@ export const getTableColumns = ({
 
       const ButtonComponent = (
         <Button
-          label={t("notificationRuleEventDetails.table.actions.preview")}
           color="main"
           intent="default"
           size="md"
+          iconRight="edit-02"
           onClick={() => {
             openPreview(row.id);
           }}

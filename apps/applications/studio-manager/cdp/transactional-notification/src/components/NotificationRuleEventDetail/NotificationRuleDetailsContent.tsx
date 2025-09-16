@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { FC } from "react";
+import type { FC } from "react";
 import { useSearchParams } from "react-router";
 
 import { SegmentedControl, Title } from "@bsport/kaizen-primitive-core";
@@ -8,19 +8,21 @@ import { NotificationRuleEmailNotificationDetails } from "#src/components/Notifi
 import { useFetchNotificationRuleEventGroupDetails } from "#src/hooks/api/use-fetch-notification-rule-event-group-details";
 import { useAvailableUpsells } from "#src/hooks/layout/use-upsell-blocker";
 import { useTranslation } from "#src/utils/i18n";
-import type { RefinedNotificationRuleEventData } from "#src/utils/types";
+import type {
+  RefinedNotificationRuleEventData,
+  ToggleEmailNotificationMethodParams,
+} from "#src/utils/types";
 
 import { NotificationRulePushNotificationDetails } from "./NotificationRulePushNotificationDetails";
 
 type NotificationRuleDetailsContentProps = {
-  eventGroupIdentifier: string;
   selectedNotificationEventId: number;
   selectedNotificationRule: RefinedNotificationRuleEventData | null;
   getNotificationRuleEventLabel: (notificationEventId: number) => string;
-  toggleEmailCarbonCopy: (params: {
-    checked: boolean;
-    notificationEventId: number;
-  }) => void;
+  toggleEmailCarbonCopy: (params: ToggleEmailNotificationMethodParams) => void;
+  toggleEmailNotification: (
+    params: ToggleEmailNotificationMethodParams,
+  ) => void;
 };
 
 type NotificationSegments = "email_notification" | "push_notification";
@@ -32,11 +34,11 @@ function isNotificationSegment(value: string): value is NotificationSegments {
 export const NotificationRuleDetailsContent: FC<
   NotificationRuleDetailsContentProps
 > = ({
-  eventGroupIdentifier,
   selectedNotificationEventId,
   selectedNotificationRule,
   getNotificationRuleEventLabel,
   toggleEmailCarbonCopy,
+  toggleEmailNotification,
 }: NotificationRuleDetailsContentProps) => {
   const [searchParams] = useSearchParams();
   const { isPushNotificationEnabled } = useAvailableUpsells();
@@ -57,7 +59,7 @@ export const NotificationRuleDetailsContent: FC<
 
   const { t } = useTranslation("transactionalNotification");
   const { fetchNotificationRuleEventData } =
-    useFetchNotificationRuleEventGroupDetails({ eventGroupIdentifier });
+    useFetchNotificationRuleEventGroupDetails();
 
   const handleChangeSegmentedControl = (value: string) => {
     if (!isNotificationSegment(value)) return;
@@ -111,6 +113,7 @@ export const NotificationRuleDetailsContent: FC<
             selectedNotificationRule={selectedNotificationRule}
             fetchNotificationRuleEventData={fetchNotificationRuleEventData}
             toggleEmailCarbonCopy={toggleEmailCarbonCopy}
+            toggleEmailNotification={toggleEmailNotification}
           />
         ) : null}
         {!shouldBlockPushNotification &&

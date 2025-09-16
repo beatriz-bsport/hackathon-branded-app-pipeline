@@ -3,6 +3,7 @@ import { Result } from "typescript-result";
 import { type Action, createErrorWithContext } from "@bsport/store-base";
 
 import {
+  deleteNotificationRuleDetailsAPI,
   fetchCommunicationVariablesAPI,
   fetchGenericCommunicationVariablesAPI,
   fetchNotificationRuleDetailListAPI,
@@ -15,6 +16,7 @@ import {
 } from "#src/api";
 import type {
   CommunicationVariable,
+  DeleteNotificationRuleParams,
   GenericCommunicationVariable,
   NotificationRuleDetail,
   NotificationRuleEvent,
@@ -458,6 +460,39 @@ export const updateNotificationRuleDetailsAction: Action<
     (error) =>
       createErrorWithContext(error, {
         message: "Failed to update notification rule details",
+      }),
+  );
+};
+
+/**
+ * Updates notification rule details (configuration) for a specific notification rule.
+ *
+ * This action allows modification of notification rule configuration including
+ * email design, target companies, push notification settings, activation status,
+ * and franchisor carbon copy preferences. The update is performed via PATCH request
+ * and automatically updates the local store state upon success.
+ *
+ * @param fetch - The fetch function for making API calls
+ * @param params - The notification rule detail object with updated values
+ * @param params.id - The notification rule ID (required for updates)
+ * @returns Promise<Result<DeleteNotificationRuleParams, Error>> - A Result containing the updated rule detail
+ * @see NotificationRuleDetail - For complete parameter structure details
+ */
+export const deleteNotificationRuleDetailsAction: Action<
+  DeleteNotificationRuleParams,
+  DeleteNotificationRuleParams
+> = async (fetch, params) => {
+  const [uri, init] = deleteNotificationRuleDetailsAPI(params);
+
+  return Result.try(
+    async () => {
+      await fetch(uri, init);
+
+      return params;
+    },
+    (error) =>
+      createErrorWithContext(error, {
+        message: "Failed to delete notification rule details",
       }),
   );
 };

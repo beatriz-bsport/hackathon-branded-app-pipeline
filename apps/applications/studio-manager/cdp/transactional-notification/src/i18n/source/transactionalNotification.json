@@ -37,6 +37,9 @@
       },
       "update": {
         "failure": "Failed to update notification rule"
+      },
+      "delete": {
+        "failure": "Failed to delete notification rule email template"
       }
     },
     "table": {
@@ -59,9 +62,14 @@
       },
       "actions": {
         "preview": "Preview"
+      },
+      "notificationsToggle": {
+        "deactivated": "Activate",
+        "activated": "Activated"
       }
     },
     "details": {
+      "notificationStatus": "Notification status : ",
       "segmentedControl": {
         "email": "Email",
         "push": "Push"

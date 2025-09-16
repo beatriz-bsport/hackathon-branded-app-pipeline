@@ -5,6 +5,7 @@ import {
 import { useAsync } from "@bsport/use-async";
 
 import { fetch } from "#src/utils/fetch";
+import type { ToggleEmailNotificationMethodParams } from "#src/utils/types";
 
 type UseUpdateNotificationRuleSettingsProps = {
   notificationRuleSettings: NotificationRuleSettings;
@@ -41,10 +42,7 @@ export function useUpdateNotificationRuleSettings({
   const toggleEmailNotification = ({
     checked,
     notificationEventId,
-  }: {
-    checked: boolean;
-    notificationEventId: number;
-  }) => {
+  }: ToggleEmailNotificationMethodParams) => {
     if (!notificationRuleSettings.id || !notificationRuleSettings.company) {
       return;
     }
@@ -64,10 +62,7 @@ export function useUpdateNotificationRuleSettings({
   const toggleEmailCarbonCopy = ({
     checked,
     notificationEventId,
-  }: {
-    checked: boolean;
-    notificationEventId: number;
-  }) => {
+  }: ToggleEmailNotificationMethodParams) => {
     const { id, company, settings } = notificationRuleSettings;
     if (id == null || company == null) {
       return;

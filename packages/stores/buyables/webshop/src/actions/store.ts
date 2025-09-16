@@ -1,39 +1,65 @@
 import { buildById } from "@bsport/store-base";
 
 import { webshopStore } from "#src/store";
-import type { WebshopItem } from "#src/types";
-
-export const updateWebshopItem = (updatedWebshopItem: WebshopItem) => {
-  webshopStore.setState((state) => {
-    if (!updatedWebshopItem) return state;
-
-    const id = updatedWebshopItem.id;
-
-    if (!id) return state;
-
-    return {
-      items: {
-        ...state.items,
-        byId: { ...state.items.byId, [id]: updatedWebshopItem },
-      },
-    };
-  });
-};
+import type { WebshopCategory, WebshopItem } from "#src/types";
 
 export const setWebshopItems = ({
   webshopItems,
   count,
   page,
+  kind,
 }: {
   webshopItems: WebshopItem[];
   count: number;
   page: number;
+  kind: "searched" | "active";
 }) => {
   webshopStore.setState((state) => {
-    return {
+    const sanitizedInstances = webshopItems.filter(
+      (item) => item.id !== null && item.id !== undefined,
+    );
+
+    const updatedState = {
       items: {
-        ids: webshopItems.map((model) => model.id),
-        byId: buildById({ initial: state.items.byId, newItems: webshopItems }),
+        ...state.items,
+        byId: buildById<WebshopItem>({
+          initial: state.items.byId,
+          newItems: sanitizedInstances,
+        }),
+      },
+    };
+
+    updatedState.items[kind] = {
+      ids: sanitizedInstances.map((instance) => instance.id),
+      count,
+      page,
+    };
+
+    return updatedState;
+  });
+};
+
+export const setWebshopCategories = ({
+  webshopCategories,
+  count,
+  page,
+}: {
+  webshopCategories: WebshopCategory[];
+  count: number;
+  page: number;
+}) => {
+  webshopStore.setState((state) => {
+    const sanitizedInstances = webshopCategories.filter(
+      (item) => item.id !== null && item.id !== undefined,
+    );
+
+    return {
+      categories: {
+        ids: sanitizedInstances.map((model) => model.id),
+        byId: buildById<WebshopCategory>({
+          initial: state.categories.byId,
+          newItems: sanitizedInstances,
+        }),
         count,
         page,
       },

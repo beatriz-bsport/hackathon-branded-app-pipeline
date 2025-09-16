@@ -4,32 +4,6 @@
   "nbPending": "{{ nbPending }} sur liste",
   "nbConvertible": "{{ nbConvertible }} en attente de confirmation",
   "form": {
-    "dynamic": {
-      "0": {
-        "label": "Chacun son tour",
-        "settingsDelay": "Délai entre les relances",
-        "explain": "Lorsqu'un membre s'inscrit, une place dans la liste d'attente lui est accordée. Lorsqu'une place est disponible le premier inscrit sur liste peut s'inscrire, les autres attendent leur tour",
-        "overallExplainSimple": "Si une place se libère, l’élève dispose de {{ autokick_delay }} relances espacées de {{ dumb_delay_minutes }} minutes pour s’inscrire avant de laisser sa place à l’élève suivant.",
-        "overallExplainSmart": "Si une place se libère, l’élève dispose de {{ autokick_delay }} relances espacées de {{ smart_delay_percentage }}% du temps restant avant le début de la séance pour s’inscrire. Par exemple, s'il reste {{ example_hours_before }}h avant la séance, il dispose de {{ example_computed_delay_one }} minutes pour s’inscrire puis de {{ example_computed_delay_two }} minutes après la première relance, et ainsi de suite, avant de laisser sa place à l’élève suivant."
-      },
-      "1": {
-        "label": "Premier arrivé premier servi",
-        "explain": "La liste d'attente n'est pas ordonnée. Lorsqu'une place est disponible toutes les personnes sur liste reçoivent au même moment un email les invitant à s'inscrire."
-      },
-      "label": "Gestion des priorité de la liste d'attente"
-    },
-    "autokick_delay": {
-      "label": "Retrait automatique de la liste d'attente",
-      "helper": "Nombre de relances avant lequel le membre est automatiquement retiré de la liste d'attente si aucune action de sa part"
-    },
-    "is_option_blocking": {
-      "label": "Les places laissées disponibles sont réservées exclusivement aux personnes en liste d'attente.",
-      "helper": "Tant qu'un membre est sur liste d'attente, une place est bloquée pour lui en attendant qu'il s'inscrive."
-    },
-    "auto_consume_pack": {
-      "label": "Automatiquement débiter une carte de cours et inscrire le membre lorsqu'une place se libère.",
-      "helper": "Si le membre possède une carte de cours valide lorsqu'une place se libère, il est automatiquement inscrit et sa carte débitée. La carte expirant le plus tôt, et avec le moins de crédit disponible, est utilisée en priorité."
-    },
     "dumb_delay_minutes": {
       "label": "Gestion simple",
       "helper": "Si une place se libère, l'élève dispose de N minutes pour s'inscrire, avant que le prochain ne prenne sa place."
@@ -42,83 +16,109 @@
     "auto_cancellation_type": {
       "title": "Gestion de la liste d'attente"
     },
+    "auto_consume_pack": {
+      "helper": "Si le membre possède une carte de cours valide lorsqu'une place se libère, il est automatiquement inscrit et sa carte débitée. La carte expirant le plus tôt, et avec le moins de crédit disponible, est utilisée en priorité.",
+      "label": "Automatiquement débiter une carte de cours et inscrire le membre lorsqu'une place se libère."
+    },
+    "kick_if_no_pack_when_auto_consume": {
+      "helper": "Un membre peut utiliser ses crédits pour une autre séance pendant qu'il attend sur la liste d'attente. Avec ce paramètre activé, si cela se produit, sa place sur la liste d'attente sera automatiquement annulée lorsque ce sera à son tour de s'inscrire.",
+      "label": "Retirer automatiquement le membre de la liste d'attente si, lorsque son créneau se libère, il n'a plus de carte de cours valide"
+    },
+    "is_option_blocking": {
+      "helper": "Tant qu'un membre est sur liste d'attente, une place est bloquée pour lui en attendant qu'il s'inscrive.",
+      "label": "Les places laissées disponibles sont réservées exclusivement aux personnes en liste d'attente."
+    },
+    "autokick_delay": {
+      "helper": "Nombre de relances avant lequel le membre est automatiquement retiré de la liste d'attente si aucune action de sa part",
+      "label": "Retrait automatique de la liste d'attente"
+    },
+    "dynamic": {
+      "0": {
+        "explain": "Lorsqu'un membre s'inscrit, une place dans la liste d'attente lui est accordée. Lorsqu'une place est disponible le premier inscrit sur liste peut s'inscrire, les autres attendent leur tour",
+        "settingsDelay": "Délai entre les relances",
+        "label": "Chacun son tour",
+        "overallExplainSmart": "Si une place se libère, l’élève dispose de {{ autokick_delay }} relances espacées de {{ smart_delay_percentage }}% du temps restant avant le début de la séance pour s’inscrire. Par exemple, s'il reste {{ example_hours_before }}h avant la séance, il dispose de {{ example_computed_delay_one }} minutes pour s’inscrire puis de {{ example_computed_delay_two }} minutes après la première relance, et ainsi de suite, avant de laisser sa place à l’élève suivant.",
+        "overallExplainSimple": "Si une place se libère, l’élève dispose de {{ autokick_delay }} relances espacées de {{ dumb_delay_minutes }} minutes pour s’inscrire avant de laisser sa place à l’élève suivant."
+      },
+      "1": {
+        "explain": "La liste d'attente n'est pas ordonnée. Lorsqu'une place est disponible toutes les personnes sur liste reçoivent au même moment un email les invitant à s'inscrire.",
+        "label": "Premier arrivé premier servi"
+      },
+      "label": "Gestion des priorité de la liste d'attente"
+    },
     "last_delay_before_auto_consume": {
       "label": "Ne pas auto-inscrire si la séance a lieu dans moins de ",
       "helper": "Si la séance a lieu trop rapidement dans le futur, le membre ne sera pas inscrit même s'il possède une carte de cours valide"
     },
     "check_credit": {
-      "label": "Vérifier que le client a une carte de cours compatible avec la séance et suffisamment créditée",
-      "helper": "Un client ne pourra être ajouté à une file d'attente tant qu'il ne dispose pas d'une carte de cours compatible avec l'offre concernée et étant suffisamment créditée pour effectuer la réservation"
+      "helper": "Un client ne pourra être ajouté à une file d'attente tant qu'il ne dispose pas d'une carte de cours compatible avec l'offre concernée et étant suffisamment créditée pour effectuer la réservation",
+      "label": "Vérifier que le client a une carte de cours compatible avec la séance et suffisamment créditée"
     },
     "display_member_position": {
       "label": "Afficher la position dans la liste d'attente"
     },
-    "kick_if_no_pack_when_auto_consume": {
-      "label": "Retirer automatiquement le membre de la liste d'attente si, lorsque son créneau se libère, il n'a plus de carte de cours valide",
-      "helper": "Un membre peut utiliser ses crédits pour une autre séance pendant qu'il attend sur la liste d'attente. Avec ce paramètre activé, si cela se produit, sa place sur la liste d'attente sera automatiquement annulée lorsque ce sera à son tour de s'inscrire."
-    },
     "errors": {
-      "autokickDelayError": "Un nombre est demandé",
+      "dumbDelayMinutesError": "Le nombre de minutes entre les rappels doit être supérieur à 15",
       "smartDelayPercentageError": "Le pourcentage doit être compris entre 10 et 100",
-      "dumbDelayMinutesError": "Le nombre de minutes entre les rappels doit être supérieur à 15"
+      "autokickDelayError": "Un nombre est demandé"
     }
   },
   "explainWaitingListConf": "ex : Il reste 3h avant la séance, l'élève dispose de {{ nbMinutesBeforeBookingOptionExpire }} minutes pour valider sa réservation avant de laisser sa place.",
   "dialog": {
+    "cancel": "Annuler",
+    "confirm": "Confirmer",
     "delete": {
       "title": "Suppression de la liste d'attente",
       "content": "Êtes-vous sûr de vouloir supprimer ce membre de la liste d'attente ? Il sera notifié par email.",
-      "contentV2": "Êtes-vous sûr de vouloir supprimer ce membre de la liste d'attente ?",
-      "sendEmail": "Envoyer un mail de désinscription",
       "cancel": "Annuler",
-      "confirm": "Supprimer"
+      "confirm": "Supprimer",
+      "sendEmail": "Envoyer un mail de désinscription",
+      "contentV2": "Êtes-vous sûr de vouloir supprimer ce membre de la liste d'attente ?"
     },
     "autoBooking": {
-      "warning": {
-        "content": "En fermant le formulaire, le(s) membre(s) sélectionné(s) ne sera(ont) pas ajouté(s) à la séance. Si vous avez sélectionné plusieurs membres et que vous souhaitez désélectionner ce membre uniquement, veuillez cliquer sur annuler dans le formulaire du membre",
-        "title": "Êtes-vous sûr ?"
-      },
-      "loading": {
-        "content": "Merci de ne pas rafraîchir l'onglet ou de quitter cette page. Ce processus peut prendre quelques secondes.",
-        "title": "Les membres sont ajoutés à la séance"
-      },
-      "info": {
-        "content": "Les membres disposant d'une carte de cours valide seront automatiquement inscrits à la séance et recevront un courriel de confirmation. Le système déduira automatiquement les crédits des cartes de cours qui expirent le plus tôt",
-        "title": "Inscription automatique pour les cartes de cours valides"
+      "error": {
+        "title": "L'inscription automatique a échoué",
+        "content": "Les membres n'ont pas pu être ajoutés à la séance. Veuillez réessayer"
       },
       "success": {
         "title": "Les membres ont été ajoutés à la séance avec succès"
       },
-      "error": {
-        "content": "Les membres n'ont pas pu être ajoutés à la séance. Veuillez réessayer",
-        "title": "L'inscription automatique a échoué"
+      "info": {
+        "title": "Inscription automatique pour les cartes de cours valides",
+        "content": "Les membres disposant d'une carte de cours valide seront automatiquement inscrits à la séance et recevront un courriel de confirmation. Le système déduira automatiquement les crédits des cartes de cours qui expirent le plus tôt"
+      },
+      "loading": {
+        "title": "Les membres sont ajoutés à la séance",
+        "content": "Merci de ne pas rafraîchir l'onglet ou de quitter cette page. Ce processus peut prendre quelques secondes."
+      },
+      "warning": {
+        "title": "Êtes-vous sûr ?",
+        "content": "En fermant le formulaire, le(s) membre(s) sélectionné(s) ne sera(ont) pas ajouté(s) à la séance. Si vous avez sélectionné plusieurs membres et que vous souhaitez désélectionner ce membre uniquement, veuillez cliquer sur annuler dans le formulaire du membre"
       },
       "incomplete": {
-        "actions": {
-          "bookThem": "Inscrire manuellement",
-          "ok": "OK"
-        },
+        "title": "Finaliser votre liste d'attente",
         "content": {
           "registered": "Les membres suivants ont été enregistrés, car une carte de cours compatible a été trouvée :",
           "unregistered": "Les membres suivants n'ont pas pu être enregistrés, aucune carte de cours compatible n'ayant pu être trouvée"
         },
-        "title": "Finaliser votre liste d'attente"
+        "actions": {
+          "ok": "OK",
+          "bookThem": "Inscrire manuellement"
+        }
       }
-    },
-    "confirm": "Confirmer",
-    "cancel": "Annuler"
+    }
   },
   "member": {
-    "listTitle": "Liste d'attente",
-    "addToBook": "Inscrire",
-    "delete": "Supprimer",
-    "empty": "Aucune inscription en liste d'attente",
     "detail": {
-      "title": "Détails liste d'attente",
-      "registeredOn": "Inscrit le",
+      "offerTitle": "Séance liée",
       "registrationSource": "Canal d'inscription",
-      "offerTitle": "Séance liée"
+      "registeredOn": "Inscrit le",
+      "title": "Détails liste d'attente"
     },
+    "empty": "Aucune inscription en liste d'attente",
+    "delete": "Supprimer",
+    "addToBook": "Inscrire",
+    "listTitle": "Liste d'attente",
     "waitingListPosition": "Position en liste d'attente {{ position }}/{{ size }}"
   }
 }

@@ -1,12 +1,6 @@
 import { useCallback, useState } from "react";
 
-export const ITEM_VARIANTS = {
-  pass: "pass",
-  appointmentPass: "appointmentPass",
-  webshopItem: "webshopItem",
-} as const;
-
-export type ItemVariant = keyof typeof ITEM_VARIANTS;
+import type { ItemVariant } from "#src/utils/constants";
 
 export const useAddItemsModal = () => {
   const [selectedVariant, setSelectedVariant] = useState<ItemVariant | null>(

@@ -2,8 +2,9 @@ import React, { type Dispatch, type SetStateAction } from "react";
 
 import { TextField } from "@bsport/kaizen-primitive-core";
 
+import type { ItemVariant } from "#src/utils/constants";
+
 import { PackAddItemsList } from "./PackAddItemsList";
-import type { ItemVariant } from "./constants";
 
 type PackAddItemsSearchSectionProps = {
   fieldIdPrefix: string;

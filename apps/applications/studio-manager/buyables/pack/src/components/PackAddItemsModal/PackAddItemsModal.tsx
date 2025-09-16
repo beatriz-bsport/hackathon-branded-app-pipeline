@@ -2,12 +2,12 @@ import React, { useState } from "react";
 
 import { Modal } from "@bsport/kaizen-primitive-core";
 
-import type { ItemVariant } from "#src/hooks/useAddItemsModal";
+import type { ItemVariant } from "#src/utils/constants";
 import { useTranslation } from "#src/utils/i18n";
+import { useCategories } from "#src/utils/stores-interface";
 
 import { PackAddItemsModalContent } from "./PackAddItemsModalContent";
 import { PackAddItemsSearchSection } from "./PackAddItemsSearchSection";
-import { FIXTURES_CATEGORIES } from "./constants";
 
 type PackAddItemsModalProps = {
   fieldIdPrefix: string;
@@ -31,7 +31,8 @@ export const PackAddItemsModal: React.FC<PackAddItemsModalProps> = ({
 
   const [searchQuery, setSearchQuery] = useState("");
 
-  const categories = variant ? FIXTURES_CATEGORIES[variant] : [];
+  const categoriesByVariant = useCategories();
+  const categories = variant ? categoriesByVariant[variant] : [];
 
   const onClose = () => {
     handleCloseModal();

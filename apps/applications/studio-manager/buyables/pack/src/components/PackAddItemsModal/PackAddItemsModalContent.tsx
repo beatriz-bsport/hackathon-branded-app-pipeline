@@ -2,12 +2,15 @@ import React, { type Dispatch, type SetStateAction } from "react";
 
 import { Breadcrumbs } from "@bsport/kaizen-primitive-core";
 
-import { ITEM_VARIANTS, type ItemVariant } from "#src/hooks/useAddItemsModal";
+import {
+  type Category,
+  ITEM_VARIANTS,
+  type ItemVariant,
+} from "#src/utils/constants";
 import { useTranslation } from "#src/utils/i18n";
 
 import { PackAddItemsCategoryList } from "./PackAddItemsCategoryList";
 import { PackAddItemsList } from "./PackAddItemsList";
-import type { Category } from "./constants";
 
 type PackAddItemsModalContentProps = {
   categories: Category[];

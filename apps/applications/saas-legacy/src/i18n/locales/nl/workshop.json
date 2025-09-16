@@ -1,9 +1,10 @@
 {
+  "search": "Zoek een workshop",
   "modal": {
     "delete": {
-      "cancel": "Annuleren",
       "title": "Verwijder workshop",
       "content": "Weet je zeker dat je dit wilt verwijderen? Sessies en reserveringen worden niet beïnvloed. Deze actie is definitief.",
+      "cancel": "Annuleren",
       "confirm": "Verwijderen"
     }
   },
@@ -13,14 +14,13 @@
         "confirm": "Verwijderen",
         "cancel": "Annuleren"
       },
-      "title": "Verwijder workshop",
       "content": {
-        "canDelete": "Weet je zeker dat je dit wilt verwijderen? Sessies en reserveringen worden niet beïnvloed. Deze actie is definitief.",
-        "cannotDelete": "Er staan toekomstige sessies in het rooster. Controleer of ze worden verwijderd en niet alleen worden geannuleerd."
-      }
+        "cannotDelete": "Er staan toekomstige sessies in het rooster. Controleer of ze worden verwijderd en niet alleen worden geannuleerd.",
+        "canDelete": "Weet je zeker dat je dit wilt verwijderen? Sessies en reserveringen worden niet beïnvloed. Deze actie is definitief."
+      },
+      "title": "Verwijder workshop"
     }
   },
-  "search": "Zoek een workshop",
   "navigation": {
     "goToPaymentPack": "Leskaarten"
   },
@@ -31,13 +31,13 @@
   },
   "noWorkshops": "In dit onderdeel kun je al je workshops toevoegen, beheren, wijzigen en verwijderen.",
   "disabledWorkshops": "Gearchiveerde workshops",
+  "tabGroups": "Groepsessies",
+  "tabList": "Workshops",
   "group": {
     "emptyState": "Evenementen stellen leden in staat om in één keer alle gekoppelde sessies te reserveren en is perfect voor activiteiten, zoals workshops en groepsactiviteiten. ",
     "emptySearch": "Er zijn geen zoekresultaten om weer te geven.",
     "pageSize": "Toon:",
     "backToGroup": "Terug",
     "emptySelect": "Selecteer een workshop of evenement om meer informatie weer te geven."
-  },
-  "tabGroups": "Groepsessies",
-  "tabList": "Workshops"
+  }
 }

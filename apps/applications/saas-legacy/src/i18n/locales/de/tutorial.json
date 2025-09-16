@@ -1,55 +1,55 @@
 {
+  "lessonContent": {
+    "finish": "Abschnitt beenden",
+    "nextLesson": "Nächste",
+    "previousLesson": "Zurück"
+  },
+  "allFinishDialog": {
+    "continueButton": "Weiter",
+    "infoText": "Gut gemacht, Sie haben alle von bsport angebotenen Lektionen absolviert. Sie kennen die Plattform jetzt wie Ihre Westentasche! Sie wissen, wie Sie alle grundlegenden Funktionen nutzen können. Viele weitere warten auf Sie, um Ihnen bei der Entwicklung Ihres Unternehmens zu helfen.",
+    "title": "Abgeschlossen!"
+  },
+  "sectionFinishDialog": {
+    "continueButton": "Weiter",
+    "infoText": "Du hast alle Kurse im Abschnitt {{- name }}  abgeschlossen. Verbessere dich weiter, indem du den nächsten Abschnitt bearbeitest.",
+    "title": "Herzlichen Glückwunsch!"
+  },
   "shareDialog": {
-    "infoTextSection": "Geben Sie alle Stunden im Abschnitt {{- name }} für Ihre Mitarbeiter frei, die keinen Zugriff auf die Registerkarte \"Tutorials\" haben. Sie können dann nur in diesem Abschnitt navigieren.",
+    "continueButton": "Weiter",
     "infoTextLesson": "Geben Sie diesen Kurs {{- name }} an Mitarbeiter weiter, die keinen Zugriff auf die Tutorials haben. Die Empfänger haben exklusiven Zugriff auf diesen Kurs.",
-    "title": "Teilen",
-    "continueButton": "Weiter"
+    "infoTextSection": "Geben Sie alle Stunden im Abschnitt {{- name }} für Ihre Mitarbeiter frei, die keinen Zugriff auf die Registerkarte \"Tutorials\" haben. Sie können dann nur in diesem Abschnitt navigieren.",
+    "title": "Teilen"
   },
-  "menu": {
-    "helpButton": "Hilfe"
-  },
-  "lessonList": {
-    "start": "Starten",
-    "share": "Teilen",
-    "shareLesson": "Lektion teilen",
-    "new": "Neu",
-    "missingUpsell": "Sie verfügen nicht über diese Funktion. Bitte wenden Sie sich an Ihren Kundenbetreuer, um weitere Informationen zu erhalten.",
-    "addOn": "Add-on"
-  },
-  "sectionList": {
-    "shareSection": "Abschnitt teilen",
-    "new": "Neu",
-    "addOn": "Add-on",
-    "missingUpsell": "Einige der Funktionen in diesem Abschnitt stehen Ihnen nicht zur Verfügung. Bitte wenden Sie sich für weitere Informationen an Ihren Kundenbetreuer."
-  },
-  "menuHeader": {
-    "title": "Willkommen bei unserem Handbuch \"Erste Schritte\".",
-    "infoText": "Lernen Sie mit unseren verschiedenen Lektionen, wie Sie alle grundlegenden Funktionen von bsport nutzen können."
+  "welcomeDialog": {
+    "approveButton": "Los geht's!",
+    "rejectButton": "Ich möchte es selbst lernen",
+    "infoText": "Willkommen auf Ihrer neuen Managementplattform. Lassen Sie uns gemeinsam lernen, alle Funktionen von bsport zu entdecken, damit Sie Ihr Studio unter den besten Bedingungen starten können.",
+    "title": "Willkommen bei bsport!"
   },
   "lessonHeader": {
     "warning": "Diese Funktion ist ein Add-on. Sie verfügen nicht über diese Funktion, bitte wenden Sie sich an Ihren Kundenbetreuer.",
     "addOn": "Add-on",
     "backToList": "Zurück zur Liste"
   },
-  "welcomeDialog": {
-    "title": "Willkommen bei bsport!",
-    "infoText": "Willkommen auf Ihrer neuen Managementplattform. Lassen Sie uns gemeinsam lernen, alle Funktionen von bsport zu entdecken, damit Sie Ihr Studio unter den besten Bedingungen starten können.",
-    "rejectButton": "Ich möchte es selbst lernen",
-    "approveButton": "Los geht's!"
+  "menuHeader": {
+    "infoText": "Lernen Sie mit unseren verschiedenen Lektionen, wie Sie alle grundlegenden Funktionen von bsport nutzen können.",
+    "title": "Willkommen bei unserem Handbuch \"Erste Schritte\"."
   },
-  "sectionFinishDialog": {
-    "title": "Herzlichen Glückwunsch!",
-    "continueButton": "Weiter",
-    "infoText": "Du hast alle Kurse im Abschnitt {{- name }}  abgeschlossen. Verbessere dich weiter, indem du den nächsten Abschnitt bearbeitest."
+  "sectionList": {
+    "missingUpsell": "Einige der Funktionen in diesem Abschnitt stehen Ihnen nicht zur Verfügung. Bitte wenden Sie sich für weitere Informationen an Ihren Kundenbetreuer.",
+    "addOn": "Add-on",
+    "new": "Neu",
+    "shareSection": "Abschnitt teilen"
   },
-  "allFinishDialog": {
-    "title": "Abgeschlossen!",
-    "infoText": "Gut gemacht, Sie haben alle von bsport angebotenen Lektionen absolviert. Sie kennen die Plattform jetzt wie Ihre Westentasche! Sie wissen, wie Sie alle grundlegenden Funktionen nutzen können. Viele weitere warten auf Sie, um Ihnen bei der Entwicklung Ihres Unternehmens zu helfen.",
-    "continueButton": "Weiter"
+  "lessonList": {
+    "addOn": "Add-on",
+    "new": "Neu",
+    "shareLesson": "Lektion teilen",
+    "share": "Teilen",
+    "start": "Starten",
+    "missingUpsell": "Sie verfügen nicht über diese Funktion. Bitte wenden Sie sich an Ihren Kundenbetreuer, um weitere Informationen zu erhalten."
   },
-  "lessonContent": {
-    "nextLesson": "Nächste",
-    "finish": "Abschnitt beenden",
-    "previousLesson": "Zurück"
+  "menu": {
+    "helpButton": "Hilfe"
   }
 }

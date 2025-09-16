@@ -494,7 +494,7 @@
   "quickbooks": {
     "confirmDialog": {
       "title": "QuickBooks connection",
-      "text": "Are you sure that you want to allow BSPORT to access your application?"
+      "text": "Are you sure that you want to allow bsport to access your application?"
     },
     "title": "QuickBooks"
   },

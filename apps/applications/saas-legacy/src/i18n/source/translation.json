@@ -844,7 +844,7 @@
     "oneHourFifteen": "1h 15 min",
     "warningCreditChange": "Attention: old bookings won't be taken into account when there's a change in credit.",
     "noAvailableCredit": "Important: you haven't entered a price.",
-    "explainNoEmailChange": "Changing this email will hinder teachers from connecting to their account. Only teachers can modify the email they use for their bsport account.",
+    "explainNoEmailChange": "Changing this email will hinder teachers from connecting to their account. Only teachers can modify the email they use for their BSPORT account.",
     "daily": "Daily",
     "fifteenMin": "50 min",
     "interval": {

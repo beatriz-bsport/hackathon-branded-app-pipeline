@@ -1,14 +1,16 @@
 {
   "text": {
-    "showMoreText": "Mehr anzeigen",
-    "showLessText": "Weniger anzeigen"
+    "showLessText": "Weniger anzeigen",
+    "showMoreText": "Mehr anzeigen"
   },
   "close": "Schließen",
+  "add": "Hinzufügen",
   "colorPicker": {
     "validate": "Speichern",
     "delete": "Löschen",
     "noColor": "Keine Farbe"
   },
+  "positiveNumber": "Dieses Feld muss größer als 0 sein.",
   "form": {
     "duration": {
       "day": "Dauer in Tagen:",
@@ -31,17 +33,44 @@
   },
   "cancel": "Abbrechen",
   "confirm": "Bestätigen",
+  "continue": "Fortfahren",
   "disconnectInfo": "Zurück zur Anmeldeseite",
   "disconnect": "Mich abmelden",
   "activate": "Aktivieren",
   "save": "Speichern",
-  "requiredField": "dieses Feld ist erforderlich",
   "startAfterEnd": "Das Startdatum muss vor dem Enddatum liegen",
   "endBeforeStart": "Das Enddatum kann nicht vor dem Startdatum liegen",
+  "requiredField": "dieses Feld ist erforderlich",
+  "numberRequired": "Dieses Feld muss eine Zahl sein",
   "monthly": "Monatlich",
   "weekly": "Wöchentlich",
+  "biweekly": "Zweimal wöchentlich",
   "showLess": "Weniger anzeigen",
   "showMore": "Mehr anzeigen ({{count}})",
+  "start": "Beginnen",
+  "next": "weiter",
+  "previous": "Vorherige",
+  "letsGo": "Los geht's!",
+  "finish": "Beenden",
+  "subscribe": "Abonnieren",
+  "card": {
+    "categoryNames": {
+      "compatibility": "Kompatibilität",
+      "paymentMethods": "Verfügbare Zahlungsmethoden",
+      "validity": "Gültigkeit",
+      "credits": "Anzahl der Credits",
+      "vod": "Video On-Demand",
+      "accessibility": "Zugänglichkeit",
+      "restrictions": "Einschränkungen"
+    },
+    "copyLink": "Link kopieren"
+  },
+  "saveRecord": "Speichern",
+  "saveChanges": "Änderungen speichern",
+  "rename": "Umbenennen",
+  "delete": "Löschen",
+  "preview": "Vorschau",
+  "edit": "Bearbeiten",
   "duration": {
     "minute": "{{ count }} Minute",
     "minute_plural": "{{ count }} Minuten",
@@ -51,54 +80,25 @@
     "day_plural": "{{ count }} Tage"
   },
   "download": "Download",
-  "saveRecord": "Speichern",
-  "delete": "Löschen",
-  "finish": "Beenden",
-  "letsGo": "Los geht's!",
-  "previous": "Vorherige",
-  "next": "weiter",
-  "start": "Beginnen",
-  "card": {
-    "categoryNames": {
-      "restrictions": "Einschränkungen",
-      "credits": "Anzahl der Credits",
-      "vod": "Video On-Demand",
-      "accessibility": "Zugänglichkeit",
-      "compatibility": "Kompatibilität",
-      "paymentMethods": "Verfügbare Zahlungsmethoden",
-      "validity": "Gültigkeit"
-    },
-    "copyLink": "Link kopieren"
-  },
-  "params": "Einstellungen",
   "ok": "OK",
+  "params": "Einstellungen",
   "back": "Zurück",
   "recommended": "Empfehlung",
   "day": "Tag",
   "day_plural": "Tage",
-  "subscribe": "Abonnieren",
   "discard": "Verwerfen",
-  "no": "Nein",
-  "yes": "Ja",
-  "saveChanges": "Änderungen speichern",
-  "none": "Keine",
-  "numberRequired": "Dieses Feld muss eine Zahl sein",
-  "positiveNumber": "Dieses Feld muss größer als 0 sein.",
-  "seeMore": "Mehr sehen",
-  "seeLess": "Weniger sehen",
   "discardChanges": "Änderungen verwerfen",
-  "rename": "Umbenennen",
+  "yes": "Ja",
+  "no": "Nein",
+  "none": "Keine",
+  "seeLess": "Weniger sehen",
+  "seeMore": "Mehr sehen",
   "send": "Versenden",
   "reset": "Zurücksetzen",
   "more": "Mehr",
-  "add": "Hinzufügen",
-  "continue": "Fortfahren",
-  "edit": "Bearbeiten",
-  "preview": "Vorschau",
   "gender": {
-    "X": "Diverse",
+    "F": "Weiblich",
     "M": "Männlich",
-    "F": "Weiblich"
-  },
-  "biweekly": "Zweimal wöchentlich"
+    "X": "Diverse"
+  }
 }

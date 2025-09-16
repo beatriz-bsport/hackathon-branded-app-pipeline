@@ -1,4 +1,4 @@
-export type PrivateService = {
+export type Appointment = {
   id: number;
   name: string;
   description: string;
@@ -31,12 +31,13 @@ export type PrivateService = {
   available_on_partnership: boolean;
 };
 
-export type FetchPrivateServiceParams = {
+export type FetchAppointmentParams = {
   mine?: boolean;
+  id__in?: number[];
 };
 
-export type SearchPrivateServiceParams = {
+export type SearchAppointmentParams = {
   q: string;
   page?: number;
-  pageSize?: number;
-} & FetchPrivateServiceParams;
+  page_size?: number;
+} & FetchAppointmentParams;

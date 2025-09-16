@@ -2606,7 +2606,7 @@ importers:
         specifier: workspace:*
         version: link:../../../tools/config/eslint-react
 
-  packages/stores/booking/group-activity:
+  packages/stores/booking/appointment:
     dependencies:
       '@bsport/store-base':
         specifier: workspace:*
@@ -2622,7 +2622,7 @@ importers:
         specifier: workspace:*
         version: link:../../../../tools/config/eslint-react
 
-  packages/stores/booking/private-service:
+  packages/stores/booking/group-activity:
     dependencies:
       '@bsport/store-base':
         specifier: workspace:*

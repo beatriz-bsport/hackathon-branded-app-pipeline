@@ -10,7 +10,10 @@ import {
   toggleMarketingNotificationAPI,
   updateMarketingNotificationAPI,
 } from "#src/api";
-import type { MarketingNotification } from "#src/types";
+import type {
+  FetchMarketingNotificationsParams,
+  MarketingNotification,
+} from "#src/types";
 
 import {
   addMarketingNotification,
@@ -26,7 +29,7 @@ import {
  * @param params.kind__in - Comma-separated string of notification kinds to fetch
  */
 export const fetchMarketingNotificationsAction: Action<
-  { kind__in: string },
+  FetchMarketingNotificationsParams,
   MarketingNotification[]
 > = async (fetch, params) => {
   const [uri, init] = fetchMarketingNotificationAPI(params);

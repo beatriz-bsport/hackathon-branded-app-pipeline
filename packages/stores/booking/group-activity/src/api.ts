@@ -12,14 +12,25 @@ const mapGroupActivitiesUrlParams = ({
   page,
   pageSize,
   inCategoryIds,
+  isWorkshop,
   notInCategoryIds,
+  inIdList,
 }: FetchGroupActivitiesParams) => ({
-  customer_enabled: customerEnabled,
-  page: page,
-  page_size: pageSize,
-  is_workshop: false,
-  ...(inCategoryIds ? { sct__in: inCategoryIds } : {}),
-  ...(notInCategoryIds ? { sct__not_in: notInCategoryIds } : {}),
+  ...(customerEnabled !== undefined
+    ? { customer_enabled: customerEnabled }
+    : {}),
+  ...(page !== undefined ? { page: page } : {}),
+  ...(pageSize !== undefined ? { page_size: pageSize } : {}),
+  ...(isWorkshop !== undefined
+    ? { is_workshop: isWorkshop }
+    : { is_workshop: false }),
+  ...(inCategoryIds && inCategoryIds.length > 0
+    ? { sct__in: inCategoryIds }
+    : {}),
+  ...(notInCategoryIds && notInCategoryIds.length > 0
+    ? { sct__not_in: notInCategoryIds }
+    : {}),
+  ...(inIdList && inIdList.length > 0 ? { id__in: inIdList } : {}),
 });
 
 /**

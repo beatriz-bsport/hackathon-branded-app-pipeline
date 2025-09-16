@@ -164,7 +164,7 @@
         "bank_account_holder": "Account holder"
       }
     },
-    "paymentMethodSuccess": "The payment method indicated is valid. You can always change it in the Bsport subscription settings.",
+    "paymentMethodSuccess": "The payment method indicated is valid. You can always change it in the bsport subscription settings.",
     "welcomeDescription": "We are pleased to welcome you to your new platform. Please complete the following steps to get started with the platform.",
     "infoGoingBack": "This can be completed later if you leave this page.",
     "accountSuccess": "Your Stripe account has been created. You can change this information later in the back office in the company settings.",

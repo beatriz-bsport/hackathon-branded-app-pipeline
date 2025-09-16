@@ -1,13 +1,41 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import React, { useState } from "react";
 
-import { IconName } from "#src/components/Icon";
-
+import type { IconName } from "../Icon";
 import ToggleButton from "./ToggleButton";
 
+/**
+ * ToggleButton
+ *
+ * A flexible and accessible toggle button component that represents a binary choice or state switch,
+ * perfect for enabling/disabling features, switching between modes, or controlling application settings.
+ *
+ * ## Features
+ * - Binary state management (on/off, enabled/disabled)
+ * - Dynamic labels and icons that change based on state (unchecked/checked configs)
+ * - Automatic icon display with smart positioning
+ * - Multiple size variants (sm, md)
+ * - Full width option for layout flexibility
+ * - Controlled and uncontrolled modes
+ * - Full accessibility support with ARIA attributes
+ * - Keyboard navigation (Space/Enter to toggle)
+ * - Visual feedback for hover, focus, and disabled states
+ * - Flexible styling with className support
+ *
+ * ## Usage
+ * ```tsx
+ * <ToggleButton
+ *   id="notifications"
+ *   uncheckedConfig={{ label: "Enable Notifications" }}
+ *   checkedConfig={{ label: "Notifications Enabled", icon: "bell-03" }}
+ *   checked={isEnabled}
+ *   onChange={(checked) => setIsEnabled(checked)}
+ * />
+ * ```
+ */
 const meta: Meta<typeof ToggleButton> = {
-  title: "Components/ToggleButton",
   component: ToggleButton,
+  title: "Components/ToggleButton",
   parameters: {
     layout: "centered",
     docs: {
@@ -132,7 +160,8 @@ Each state is configured using a config object with:
 };
 
 export default meta;
-type Story = StoryObj<typeof meta>;
+
+type Story = StoryObj<typeof ToggleButton>;
 
 // Primary story (default)
 export const Primary: Story = {
@@ -160,6 +189,32 @@ export const Primary: Story = {
 
 // Basic usage
 export const Basic: Story = {
+  render: (args) => {
+    const [checked, setChecked] = useState(args.checked || false);
+    return (
+      <div className="flex flex-col gap-lg">
+        <div className="flex flex-col gap-md border-stroke-thin border rounded-md p-md">
+          <h3 className="font-semibold">Basic Toggle Button</h3>
+          <p className="text-sm text-gray-600">
+            Simple toggle button with state management. Click to toggle between
+            enabled/disabled states. Notice how the label changes based on the
+            state.
+          </p>
+          <ToggleButton
+            {...args}
+            checked={checked}
+            onChange={({ checked }) => setChecked(checked)}
+          />
+          <div className="text-sm text-gray-500">
+            Current state:{" "}
+            <code className="bg-gray-100 px-1 rounded">
+              {checked ? "enabled" : "disabled"}
+            </code>
+          </div>
+        </div>
+      </div>
+    );
+  },
   args: {
     id: "basic-toggle",
     checked: false,
@@ -312,7 +367,7 @@ export const WithTooltips: Story = {
   },
 };
 
-// Full width
+// Full width demonstration
 export const FullWidth: Story = {
   render: () => (
     <div style={{ width: "320px" }}>
@@ -451,8 +506,7 @@ export const ControlledVsUncontrolled: Story = {
 // Interactive playground
 export const InteractivePlayground: Story = {
   render: (args) => {
-    const [checked, setChecked] = useState(args.checked || false);
-
+    const [toggleState, setToggleState] = useState(false);
     return (
       <ToggleButton
         {...args}
@@ -460,13 +514,13 @@ export const InteractivePlayground: Story = {
         checkedConfig={args.checkedConfig}
         uncheckedConfig={args.uncheckedConfig}
         id={args.id || "playground-toggle"}
-        checked={checked}
-        onChange={({ checked: newChecked }) => setChecked(newChecked)}
+        checked={toggleState}
+        onChange={({ checked: newChecked }) => setToggleState(newChecked)}
       />
     );
   },
   args: {
-    id: "playground-toggle",
+    id: "primary-toggle",
     checked: false,
     checkedConfig: {
       label: "Active",

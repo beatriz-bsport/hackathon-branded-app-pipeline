@@ -1,32 +1,8 @@
 {
-  "form": {
-    "quarterHour": "15 min",
-    "zeroMinute": "0 min",
-    "twentyMinutes": "20 min",
-    "halfHour": "30 min",
-    "halfAndQuarterHour": "45 min",
-    "oneHour": "1u",
-    "oneHourFifteen": "1u 15min",
-    "oneHourAndHalf": "1u 30min",
-    "twoHour": "2u",
-    "threeHour": "3u",
-    "fourHour": "4u",
-    "sixHour": "6u",
-    "eightHour": "8u",
-    "twelveHour": "12u",
-    "oneDay": "1 dag",
-    "twoDays": "2 dagen",
-    "oneWeek": "1 week",
-    "tenDays": "10 dagen",
-    "twoWeeks": "2 weken",
-    "oneMonth": "1 maand",
-    "never": "Nooit",
-    "fiftyMinutes": "50 min",
-    "tenMinutes": "10 min"
-  },
-  "never": "Nooit",
+  "shortDayIdentifier": "dag(en)",
   "shortMinuteIdentifier": "min",
   "shortHourIdentifier": "u",
+  "never": "Nooit",
   "time": {
     "weekday": {
       "sunday": "Zondag",
@@ -53,6 +29,8 @@
     },
     "month": {
       "january": "Januari",
+      "february": "Februari",
+      "march": "Maart",
       "april": "April",
       "may": "Mei",
       "june": "Juni",
@@ -61,9 +39,7 @@
       "september": "September",
       "october": "Oktober",
       "november": "November",
-      "december": "December",
-      "february": "Februari",
-      "march": "Maart"
+      "december": "December"
     },
     "weekdayNumber": {
       "0": "Maandag",
@@ -84,7 +60,31 @@
       "7": "Zondag"
     }
   },
-  "shortDayIdentifier": "dag(en)",
+  "form": {
+    "zeroMinute": "0 min",
+    "quarterHour": "15 min",
+    "twentyMinutes": "20 min",
+    "halfHour": "30 min",
+    "halfAndQuarterHour": "45 min",
+    "oneHour": "1u",
+    "oneHourAndHalf": "1u 30min",
+    "twoHour": "2u",
+    "threeHour": "3u",
+    "fourHour": "4u",
+    "sixHour": "6u",
+    "eightHour": "8u",
+    "twelveHour": "12u",
+    "oneDay": "1 dag",
+    "twoDays": "2 dagen",
+    "oneWeek": "1 week",
+    "tenDays": "10 dagen",
+    "twoWeeks": "2 weken",
+    "oneMonth": "1 maand",
+    "never": "Nooit",
+    "oneHourFifteen": "1u 15min",
+    "fiftyMinutes": "50 min",
+    "tenMinutes": "10 min"
+  },
   "longHourIdentifier": "uur",
   "longMinuteIdentifier": "minuten",
   "longDayIdentifer": "dagen"

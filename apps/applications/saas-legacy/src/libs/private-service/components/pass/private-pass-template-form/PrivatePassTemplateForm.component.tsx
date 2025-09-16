@@ -2,7 +2,7 @@ import React, { MouseEvent, useCallback } from 'react';
 import * as Yup from 'yup';
 import { useTranslation } from 'react-i18next';
 import { compose } from 'recompose';
-import { Form, withFormik, FormikProps } from 'formik';
+import { Form, withFormik, FormikProps, FormikErrors } from 'formik';
 import { DateTime } from 'luxon';
 
 import { Theme } from '@material-ui/core';
@@ -66,7 +66,6 @@ interface FormikValues {
   expiration_date: DateTime | null;
 }
 type Props = {
-  isSubmitting: boolean;
   onCancel: (ev: MouseEvent) => void;
   values: any;
   initial?: PrivatePassWithCompatibility;
@@ -79,7 +78,7 @@ export const PrivatePassTemplateForm = (props: Props) => {
   }, []);
   const { t } = useTranslation(['privateService']);
   const classes = useStyles();
-  const { isSubmitting } = props;
+  const { isSubmitting, isValid } = props;
   const [editConfirmationDialogOpen, setEditConfirmationDialogOpen] =
     React.useState<boolean>(false);
 
@@ -290,7 +289,7 @@ export const PrivatePassTemplateForm = (props: Props) => {
         </Button>
         <Button
           color="primary"
-          disabled={isSubmitting}
+          disabled={isSubmitting || !isValid}
           onClick={handleAddOrEdit}
           variant="contained"
         >
@@ -380,6 +379,13 @@ const useStyles = makeStyles((theme: Theme) => ({
   inputLabelExpirationDate: { marginTop: theme.spacing(1), fontSize: 12 },
 }));
 
+const MAX_TOTAL_DURATION_IN_DAYS = 50 * 365;
+
+const isInvalidDuration = (days: number, months: number, years: number) => {
+  const totalInDays = days + months * 31 + years * 365;
+  return totalInDays <= 0 || totalInDays > MAX_TOTAL_DURATION_IN_DAYS;
+};
+
 export const PrivatePassSchema = Yup.object().shape({
   name: Yup.string().required(),
   description: Yup.string().nullable(),
@@ -427,7 +433,25 @@ export const PrivatePassTemplateFormikHOC = withFormik<Props, FormikValues>({
     };
   },
   enableReinitialize: true,
+  validateOnMount: true,
   validationSchema: PrivatePassSchema,
+  validate(values) {
+    const errors: FormikErrors<FormikValues> = {};
+    if (
+      isInvalidDuration(
+        values.duration_days,
+        values.duration_months,
+        values.duration_years,
+      )
+    ) {
+      // the error texts are not displayed anywhere,
+      // but it's only used here as a multi field error marker
+      errors.duration_days = 'Invalid';
+      errors.duration_months = 'Invalid';
+      errors.duration_years = 'Invalid';
+    }
+    return errors;
+  },
   // @ts-expect-error
   handleSubmit: (values, { props: { onSubmit, initial }, setSubmitting }) => {
     onSubmit(

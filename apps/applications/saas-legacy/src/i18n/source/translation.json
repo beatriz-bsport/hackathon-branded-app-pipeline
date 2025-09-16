@@ -612,7 +612,7 @@
       "explainRecursiveOfferDelete": "Would you like to delete similar sessions?",
       "broadcast_link": {
         "error": "The link is incorrect - it should start with http:// or https:// and without any spaces.",
-        "explainZoomApp": "BSPORT will automatically generate links through Zoom"
+        "explainZoomApp": "bsport will automatically generate links through Zoom"
       },
       "changeEstablishment": "Edit establishment",
       "changeCoach": "Edit teacher",

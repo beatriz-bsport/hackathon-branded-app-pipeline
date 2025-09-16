@@ -65,18 +65,18 @@
   "memberInfo": {
     "referralLink": "Lien de parrainage",
     "nbRemainingUses": "Nombre d'utilisations restantes",
+    "nbUsesLeft": "Nombre d'utilisations restantes :",
     "inviteFriend": "Invitez un proche à s'inscrire",
     "forYou": "pour vous",
     "forYourFriend": "pour votre proche",
+    "youGet": "Vous obtenez",
+    "yourFriendGets": "Votre ami obtient",
+    "copyReferralLink": "Copier le lien de parrainage",
     "copyLink": "Copier mon lien de parrainage",
     "seeConditions": "Voir les conditions",
-    "warningMaxUsesReached": "Vous avez atteint le maximum d'utilisation de votre lien de parrainage",
-    "loginToUseYourLink": "Connectez-vous pour utiliser votre lien",
     "thanksForSharing": "Merci d'en faire profiter vos amis et votre famille !",
-    "copyReferralLink": "Copier le lien de parrainage",
-    "yourFriendGets": "Votre ami obtient",
-    "youGet": "Vous obtenez",
-    "nbUsesLeft": "Nombre d'utilisations restantes :"
+    "loginToUseYourLink": "Connectez-vous pour utiliser votre lien",
+    "warningMaxUsesReached": "Vous avez atteint le maximum d'utilisation de votre lien de parrainage"
   },
   "conditions": {
     "title": "Conditions d'utilisation du lien de parrainage",
@@ -101,6 +101,10 @@
       "warning": "Attention : le parrainage ne fonctionne que pour les nouveaux membres du studio ou de la franchise."
     }
   },
+  "checkoutValidation": {
+    "title": "Parrainer un ami",
+    "explain": "Recevez des récompenses en partageant votre lien de parrainage avec vos amis."
+  },
   "referralErrors": {
     "33000": {
       "title": "Lien de parrainage inutilisable",
@@ -115,34 +119,30 @@
       "description": "Vous êtes déjà membre de ce studio"
     },
     "33003": {
-      "description": "Ce lien de parrainage n'est plus utilisable.",
-      "title": "Lien de parrainage expiré"
+      "title": "Lien de parrainage expiré",
+      "description": "Ce lien de parrainage n'est plus utilisable."
     },
     "33004": {
-      "description": "Une erreur a été rencontrée lors de l'enregistrement du parrainage.",
-      "title": "Erreur parrainage"
+      "title": "Erreur parrainage",
+      "description": "Une erreur a été rencontrée lors de l'enregistrement du parrainage."
     },
     "33005": {
-      "description": "Une erreur a été rencontrée lors de l'enregistrement du parrainage.",
-      "title": "Erreur parrainage"
+      "title": "Erreur parrainage",
+      "description": "Une erreur a été rencontrée lors de l'enregistrement du parrainage."
     },
     "33006": {
-      "description": "Le programme de parrainage n'est plus disponible.",
-      "title": "Parrainage expiré"
+      "title": "Parrainage expiré",
+      "description": "Le programme de parrainage n'est plus disponible."
     },
     "33007": {
-      "description": "Le programme de parrainage n'est plus disponible.",
-      "title": "Parrainage expiré"
+      "title": "Parrainage expiré",
+      "description": "Le programme de parrainage n'est plus disponible."
     },
     "maxUsesReached": {
-      "description": "{{ referringMemberFirstName }} a atteint le nombre maximum d'utilisations de ce lien.",
-      "title": "Lien de parrainage inutilisable"
+      "title": "Lien de parrainage inutilisable",
+      "description": "{{ referringMemberFirstName }} a atteint le nombre maximum d'utilisations de ce lien."
     },
-    "somethingWentWrong": "Un problème est survenu, nous ne sommes pas en mesure de charger cette page. Veuillez réessayer plus tard",
-    "noProgramAvailable": "Oups, il semble qu'il n'y ait pas de programme de parrainage disponible"
-  },
-  "checkoutValidation": {
-    "title": "Parrainer un ami",
-    "explain": "Recevez des récompenses en partageant votre lien de parrainage avec vos amis."
+    "noProgramAvailable": "Oups, il semble qu'il n'y ait pas de programme de parrainage disponible",
+    "somethingWentWrong": "Un problème est survenu, nous ne sommes pas en mesure de charger cette page. Veuillez réessayer plus tard"
   }
 }

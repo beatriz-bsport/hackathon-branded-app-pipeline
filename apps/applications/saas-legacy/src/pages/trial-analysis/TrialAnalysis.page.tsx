@@ -8,6 +8,7 @@ import { getAuth } from '../../http';
 import { appendSigmaLocale } from '../../utils/sigma';
 import Config from '../../config';
 import ObjectLevelPermissionProvider from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+import { FeatureFlags, useSafeFlag } from '#src/utils/feature-flag';
 
 const useStyles = makeStyles((_theme) => ({
   root: {
@@ -53,6 +54,13 @@ interface TrialAnalysisResponse {
 interface Props extends WithTranslation {}
 
 const TrialAnalysis: React.FC<Props> = (props) => {
+  const isTrialAnalysisEnabled = useSafeFlag(FeatureFlags.TRIAL_ANALYSIS);
+
+  // Redirect to dashboard if feature flag is disabled
+  if (!isTrialAnalysisEnabled) {
+    return <Redirect to="/dashboard" />;
+  }
+
   return (
     <ObjectLevelPermissionProvider requiredPermission="report.Club.subscription.allowed_actions.read">
       {(hasPermission: boolean) => {

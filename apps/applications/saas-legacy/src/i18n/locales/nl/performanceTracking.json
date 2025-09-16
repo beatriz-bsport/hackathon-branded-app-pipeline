@@ -1,23 +1,7 @@
 {
-  "memberProgram": {
-    "deleteContent": "Alle prestatiemetingen van deze leden gaan definitief verloren.",
-    "deleteHeader": "Weet je zeker dat je dit lid van dit programma wilt ontkoppelend?",
-    "infoNoConsumerProgram": "Gelieve de studio te contacteren om prestatiemetingen en programma's te activeren.",
-    "infoNoMemberProgram": "Er zijn geen gekoppelde leden van dit programma om weer te geven.",
-    "actions": {
-      "create": {
-        "error": "Fout bij het linken van dit programma aan dit lid",
-        "success": "Dit programma is succesvol aan dit lid gekoppeld",
-        "errorAlreadyExists": "Dit lid is al aan dit programma gekoppeld."
-      },
-      "disable": {
-        "error": "Fout bij het ontkoppelen van dit programma",
-        "success": "Dit programma is succesvol van dit lid ontkoppeld"
-      }
-    }
-  },
   "metric": {
     "form": {
+      "range": "De standaardwaarde ligt niet tussen de minimale noch de maximale waarde. ",
       "color": "Kleur",
       "maxValueHelperText": "Geef de maximale waarde van deze prestatiemeting aan.",
       "maxValue": "Maximale waarde",
@@ -30,7 +14,6 @@
       "general": "Algemeen",
       "noMetric": "Er zijn geen prestatiemetingen om weer te geven.",
       "addMetric": "Een prestatiemeting toevoegen",
-      "range": "De standaardwaarde ligt niet tussen de minimale noch de maximale waarde. ",
       "minMax": "De minimale waarde kan niet groter zijn dan de maximale waarde."
     },
     "title": "Prestatiemetingen",
@@ -39,6 +22,7 @@
     "deleteHeader": "Weet je zeker dat je deze prestatiemeting wilt verwijderen?"
   },
   "program": {
+    "detail": "Details",
     "member": {
       "name": "Naam",
       "title": "Leden",
@@ -62,7 +46,6 @@
     "deleteContent": "Dit programma zal niet langer zichtbaar zijn voor de leden die het voorheen hebben toegevoegd. Het programma kan onder \"Gearchiveerd\" worden hersteld.",
     "deleteHeader": "Weet je zeker dat je dit programma wilt verwijderen?",
     "infoSelectProgram": "Selecteer een programma voor een gedetailleerd overzicht.",
-    "detail": "Details",
     "selectProgram": "Selecteer een programma",
     "default": "Standaardprogramma",
     "titleForConsumer": "Mijn programma's",
@@ -82,6 +65,23 @@
       "update": {
         "error": "Fout bij het wijzigen van dit programma",
         "success": "Programma gewijzigd"
+      }
+    }
+  },
+  "memberProgram": {
+    "deleteContent": "Alle prestatiemetingen van deze leden gaan definitief verloren.",
+    "deleteHeader": "Weet je zeker dat je dit lid van dit programma wilt ontkoppelend?",
+    "infoNoConsumerProgram": "Gelieve de studio te contacteren om prestatiemetingen en programma's te activeren.",
+    "infoNoMemberProgram": "Er zijn geen gekoppelde leden van dit programma om weer te geven.",
+    "actions": {
+      "create": {
+        "error": "Fout bij het linken van dit programma aan dit lid",
+        "success": "Dit programma is succesvol aan dit lid gekoppeld",
+        "errorAlreadyExists": "Dit lid is al aan dit programma gekoppeld."
+      },
+      "disable": {
+        "error": "Fout bij het ontkoppelen van dit programma",
+        "success": "Dit programma is succesvol van dit lid ontkoppeld"
       }
     }
   },

@@ -1,48 +1,48 @@
 {
-  "exportCampaign": "Exportieren",
-  "save": "Speichern",
-  "schemaError": {
-    "nonEmptyEmailTemplate": "Bitte wähle eine E-Mail-Vorlage",
-    "nonEmptyBody": "Der Inhalt deiner E-Mail ist derzeit leer. Bitte füge Inhalte hinzu, bevor du fortfährst.",
-    "nonEmptyToggle": "Bitte wähle Empfänger bevor du die Nachricht verschickst.",
-    "nonEmptySmartList": "Bitte wähle eine Smartlist"
+  "detail": {
+    "tab": {
+      "general": "Allgemein",
+      "campaign": "Kampagnen"
+    }
   },
-  "smartListOption": "Wähle eine Smartlist",
-  "mail": {
-    "sendButton": "Senden",
-    "customDomainNotDefined": "Du hast keine benutzerdefinierte Domain definiert. <1/>Bitte setze dich mit unserem Team in Verbindung, um den Konfigurationsprozess einzuleiten.",
-    "example": "Beispiel",
-    "customEmail": "Benutzerdefinierte E-Mail",
-    "franchiseeMail": "Franchisenehmer-E-Mail",
-    "chooseSender": "Bitte wähle die E-Mail-Adresse, die du zum Versand nutzen möchtest.",
-    "sendMail": "Nachricht schicken"
+  "duplicate": "Duplikat",
+  "edit": "Bearbeiten",
+  "delete": "Löschen",
+  "cancel": "Abbrechen",
+  "search": "Nach Kampagnen suchen",
+  "modal": {
+    "delete": {
+      "title": "Kampagne archivieren",
+      "cancel": "Abbrechen",
+      "confirm": "Bestätigen",
+      "content": "Diese Aktion wird die Kampagne permanent archivieren und alle verbundenen Daten werden nicht mehr zugänglich sein. Bist du dir sicher, dass du mit dem Archivieren fortfahren willst?"
+    }
   },
-  "memberSelectionInfo": "Füge Mitglieder zu den Empfängern deiner Kampagne hinzu, indem du ein Studio auswählst und dann eine Smartlist auswählst. Wenn du alle deine Mitglieder direkt hinzufügen möchten, kannst du auch auf \"Alle Mitglieder auswählen\" klicken.",
-  "noCampaign": "Verschicke Kampagnen an deine Mitglieder, um sie über Geschehnisse in deinem Franchise auf dem Laufenden zu halten.",
-  "historyTitle": "Versandhistorie",
+  "sendToAllMembers": "An alle Mitglieder senden",
+  "memberSelectionTitle": "Mitgliederauswahl",
   "campaign": {
     "add": "Kampagne hinzufügen"
   },
-  "memberSelectionTitle": "Mitgliederauswahl",
-  "sendToAllMembers": "An alle Mitglieder senden",
-  "modal": {
-    "delete": {
-      "content": "Diese Aktion wird die Kampagne permanent archivieren und alle verbundenen Daten werden nicht mehr zugänglich sein. Bist du dir sicher, dass du mit dem Archivieren fortfahren willst?",
-      "confirm": "Bestätigen",
-      "cancel": "Abbrechen",
-      "title": "Kampagne archivieren"
-    }
+  "historyTitle": "Versandhistorie",
+  "noCampaign": "Verschicke Kampagnen an deine Mitglieder, um sie über Geschehnisse in deinem Franchise auf dem Laufenden zu halten.",
+  "campaignCreationWarning": "Achte darauf, dass der Name deiner Kampagne einzigartig ist, um mögliche Probleme zu verhindern.",
+  "memberSelectionInfo": "Füge Mitglieder zu den Empfängern deiner Kampagne hinzu, indem du ein Studio auswählst und dann eine Smartlist auswählst. Wenn du alle deine Mitglieder direkt hinzufügen möchten, kannst du auch auf \"Alle Mitglieder auswählen\" klicken.",
+  "mail": {
+    "sendMail": "Nachricht schicken",
+    "chooseSender": "Bitte wähle die E-Mail-Adresse, die du zum Versand nutzen möchtest.",
+    "franchiseeMail": "Franchisenehmer-E-Mail",
+    "customEmail": "Benutzerdefinierte E-Mail",
+    "example": "Beispiel",
+    "customDomainNotDefined": "Du hast keine benutzerdefinierte Domain definiert. <1/>Bitte setze dich mit unserem Team in Verbindung, um den Konfigurationsprozess einzuleiten.",
+    "sendButton": "Senden"
   },
-  "search": "Nach Kampagnen suchen",
-  "cancel": "Abbrechen",
-  "delete": "Löschen",
-  "edit": "Bearbeiten",
-  "duplicate": "Duplikat",
-  "detail": {
-    "tab": {
-      "campaign": "Kampagnen",
-      "general": "Allgemein"
-    }
+  "smartListOption": "Wähle eine Smartlist",
+  "schemaError": {
+    "nonEmptySmartList": "Bitte wähle eine Smartlist",
+    "nonEmptyToggle": "Bitte wähle Empfänger bevor du die Nachricht verschickst.",
+    "nonEmptyBody": "Der Inhalt deiner E-Mail ist derzeit leer. Bitte füge Inhalte hinzu, bevor du fortfährst.",
+    "nonEmptyEmailTemplate": "Bitte wähle eine E-Mail-Vorlage"
   },
-  "campaignCreationWarning": "Achte darauf, dass der Name deiner Kampagne einzigartig ist, um mögliche Probleme zu verhindern."
+  "save": "Speichern",
+  "exportCampaign": "Exportieren"
 }

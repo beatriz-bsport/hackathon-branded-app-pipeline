@@ -357,7 +357,7 @@
     },
     "bankAccountInfo": {
       "link": "here",
-      "content": "This account corresponds to the account on which the online payments via Bsport will be credited. To configure the payment method on which your Bsport subscription will be charged, click",
+      "content": "This account corresponds to the account on which the online payments via bsport will be credited. To configure the payment method on which your bsport subscription will be charged, click",
       "update": "Update bank information"
     },
     "bankAccountSuccess": {

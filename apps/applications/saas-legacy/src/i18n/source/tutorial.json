@@ -24,7 +24,7 @@
     "approveButton": "Let's get started!",
     "rejectButton": "I want to learn on my own",
     "infoText": "Welcome to your new management platform. Let's learn together to discover all the features of bsport to launch your studio in the best conditions.",
-    "title": "Welcome to Bsport!"
+    "title": "Welcome to bsport!"
   },
   "lessonHeader": {
     "warning": "Please contact your Account Manager to learn more and activate this additional service.",
@@ -32,7 +32,7 @@
     "backToList": "Back to the list"
   },
   "menuHeader": {
-    "infoText": "Learn how to use all the basic features of Bsport with our different lessons.",
+    "infoText": "Learn how to use all the basic features of bsport with our different lessons.",
     "title": "Welcome to our Getting Started Guide."
   },
   "sectionList": {

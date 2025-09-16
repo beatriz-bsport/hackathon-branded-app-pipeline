@@ -357,12 +357,12 @@
     },
     "bankAccountInfo": {
       "link": "here",
-      "content": "This account corresponds to the account on which the online payments via bsport will be credited. To configure the payment method on which your bsport subscription will be charged, click",
+      "content": "This account corresponds to the account on which the online payments via Bsport will be credited. To configure the payment method on which your Bsport subscription will be charged, click",
       "update": "Update bank information"
     },
     "bankAccountSuccess": {
       "note": "Click on \"Configure\" to be redirected.",
-      "content": "Your banking information was well updated. To be credited and charged on a single account, you can also update the payment method used to charge your Bsport subscription.",
+      "content": "Your banking information was well updated. To be credited and charged on a single account, you can also update the payment method used to charge your bsport subscription.",
       "title": "Change of bank details"
     },
     "paypal": {

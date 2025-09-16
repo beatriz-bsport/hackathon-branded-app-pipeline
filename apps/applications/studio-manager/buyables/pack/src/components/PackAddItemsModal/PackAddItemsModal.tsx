@@ -63,6 +63,7 @@ export const PackAddItemsModal: React.FC<PackAddItemsModalProps> = ({
             fieldIdPrefix={fieldIdPrefix}
             searchQuery={searchQuery}
             setSearchQuery={setSearchQuery}
+            variant={variant}
           />
         ) : null
       }

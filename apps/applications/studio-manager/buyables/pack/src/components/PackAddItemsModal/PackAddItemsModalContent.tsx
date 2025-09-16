@@ -81,10 +81,10 @@ export const PackAddItemsModalContent: React.FC<
             },
           ]}
         />
-        <PackAddItemsList fieldIdPrefix={fieldIdPrefix} />
+        <PackAddItemsList fieldIdPrefix={fieldIdPrefix} variant={variant} />
       </div>
     );
   }
 
-  return <PackAddItemsList fieldIdPrefix={fieldIdPrefix} />;
+  return <PackAddItemsList fieldIdPrefix={fieldIdPrefix} variant={variant} />;
 };

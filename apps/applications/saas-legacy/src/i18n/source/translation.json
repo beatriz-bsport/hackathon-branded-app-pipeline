@@ -277,7 +277,7 @@
     "forms": {
       "update": {
         "error": "Impossible to update activity",
-        "success": "Activity udpated"
+        "success": "Activity updated"
       },
       "create": {
         "error": "Impossible to save activity",

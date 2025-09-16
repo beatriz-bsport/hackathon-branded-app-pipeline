@@ -217,9 +217,19 @@ export function isDateInThePast(date: string) {
  * @param date The date selected for comparison
  * @returns {boolean}
  */
-export function isDateInTheFuture(date: string) {
+export function isDateInTheFuture(date?: string | null) {
   if (!date) return false;
-  return DateTime.fromISO(date) > DateTime.now();
+  return DateTime.fromISO(date) > DateTime.now().endOf('day');
+}
+
+/**
+ * Returns whether the indicated date is today or in the future
+ * @param date The date selected for comparison
+ * @returns {boolean}
+ */
+export function isDateTodayOrInTheFuture(date?: string | null) {
+  if (!date) return false;
+  return DateTime.fromISO(date) >= DateTime.now().startOf('day');
 }
 
 /**

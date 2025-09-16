@@ -1,155 +1,155 @@
 {
-  "snackbar": {
-    "R": "Non valide",
-    "O": "Avertissement",
-    "G": "Valide",
-    "message": "<strong>{{- name }}</strong> vient de se présenter."
-  },
+  "broadcastChannelWarning": "La version de votre navigateur ne nous permet pas d'exécuter cette fonctionnalité correctement. Veuillez mettre à jour votre navigateur.",
+  "accessMonitoringTitle": "Access monitoring",
   "memberEntry": "Entrée membre",
-  "modals": {
-    "accessStatusChangedSuccess": {
-      "message": "Tous les problèmes ont été résolus. Le statut du membre est désormais valide.",
-      "title": "Statut du membre mis à jour"
-    },
-    "entryStatusChanged": {
-      "N": {
-        "description": "Vous pouvez toujours adresser les avertissements et/ou laisser le membre entrer depuis l'onglet Historique des visites.",
-        "message": "L'entrée a été refusée pour ce membre.",
-        "title": "Entrée refusée"
-      },
-      "stay": "Rester sur la page membre",
-      "close": "Fermer la page membre",
-      "Y": {
-        "description": "Vous pouvez toujours adresser des avertissements à partir de l'onglet Historique des visites.",
-        "message": "Le membre a été autorisé à entrer avec les avertissements existants.",
-        "title": "Membre entré"
-      }
-    },
-    "locationBlocker": {
-      "description": "Se trouve dans Paramètres > Staff.",
-      "message": "Demandez au staff ayant un rôle Admin d'assigner une localisation à l'accès staff.",
-      "title": "Pas de localisation assignée"
-    },
-    "memberPhotoHistory": {
-      "validateIdentity": "Valider l'identité",
-      "uploadedOn": "Téléchargée {{- date}}",
-      "title": "Photos antèrieures"
-    }
-  },
-  "memberVisitDetails": {
-    "atHome": "À domicile",
-    "passExpiration": "Valide jusqu'au {{- expirationDate }}",
-    "manualEntry": {
-      "button": {
-        "entryRefused": "Entrée refusée",
-        "entryAllowed": "Entré",
-        "accept": "Autoriser l'entrée",
-        "refuse": "Refuser l'entrée"
-      },
-      "description": "Veuillez indiquer si ce membre peut entrer ou non"
-    },
-    "actions": {
-      "billMember": "Facturer",
-      "goToProfile": "Profil",
-      "seePreviousImages": "Voir plus"
-    },
-    "photoHasChanged": "Photo de profil modifiée récemment",
-    "pass": "Carte :",
-    "spotName": "Emplacement : {{- spotName}}",
-    "teacherName": "Professeur : {{- coachName}}",
-    "nextBooking": "Prochaine réservation :",
-    "lastName": "Nom :",
-    "firstName": "Prénom :",
-    "title": "Information du membre",
-    "accessStatus": {
-      "red": "Non valide",
-      "orange": "Avertissement",
-      "green": "Valide"
-    },
-    "noPreviousPhoto": "Le membre n'a pas de photos antérieures",
-    "noSpotAllocated": "Pas d'emplacement attribué"
+  "snackbar": {
+    "message": "<strong>{{- name }}</strong> vient de se présenter.",
+    "G": "Valide",
+    "O": "Avertissement",
+    "R": "Non valide"
   },
   "memberVisit": {
-    "warnings": {
-      "numberOfCheckedPasses": "{{- count }} carte du membre a été vérifiée sans résultat valide.",
-      "numberOfCheckedPasses_plural": "{{- count }} cartes du membre ont été vérifiées sans résultat valide.",
-      "passIncompatibleWithAppointmentsInEstablishments": "Les rendez-vous qui peuvent être pris avec le pass du membre {{- passName }} ne sont pas compatibles avec votre site",
-      "passIncompatibleWithEstablishments": "La carte du membre {{- passName }} n'est pas compatible avec votre site",
-      "passRestrictedByOffPeakSchedule": "La carte du membre {{- passName }} n'autorise pas l'entrée pendant ce créneau horaire",
-      "passRestrictedToVod": "La carte du membre {{- passName }} est limitée à la VOD seulement",
-      "passLinkedToPausedSubscription": "La carte du membre {{- passName }} est lié à un abonnement en pause",
-      "passIsDisabled": "La carte du membre {{- passName }} est actuellement bloquée",
-      "noPasses": "Le membre n'a pas de carte active avec crédits restants",
-      "bookingsInOtherEstablishments": "La réservation du membre {{- bookingName}} est programmée dans un autre établissement : {{- establishmentName }}",
-      "hasUnpaidAppointments": "Le membre a un ou plusieurs RDV non payés",
-      "hasNegativeAccountBalance": "Le solde du membre est négatif",
-      "hasUnpaidInvoices": "Le membre a une ou plusieurs factures impayées"
-    },
-    "refreshMemberVisit": "Actualiser le statut",
-    "closeMemberVisit": "Fermer la page du membre",
     "emptyState": {
-      "searchMember": "Rechercher des membres par nom ou par numéro",
-      "or": "ou",
+      "waitForScan": "Attendez que le membre scanne son code-barres ou recherchez son nom ou son code-barres manuellement.",
       "establishmentsSelectedInRole": "Vous surveiller l'accès à <strong>{{- address }} - {{- establishments }}</strong>",
-      "waitForScan": "Attendez que le membre scanne son code-barres ou recherchez son nom ou son code-barres manuellement."
+      "or": "ou",
+      "searchMember": "Rechercher des membres par nom ou par numéro"
+    },
+    "closeMemberVisit": "Fermer la page du membre",
+    "refreshMemberVisit": "Actualiser le statut",
+    "warnings": {
+      "hasUnpaidInvoices": "Le membre a une ou plusieurs factures impayées",
+      "hasNegativeAccountBalance": "Le solde du membre est négatif",
+      "hasUnpaidAppointments": "Le membre a un ou plusieurs RDV non payés",
+      "bookingsInOtherEstablishments": "La réservation du membre {{- bookingName}} est programmée dans un autre établissement : {{- establishmentName }}",
+      "noPasses": "Le membre n'a pas de carte active avec crédits restants",
+      "passIsDisabled": "La carte du membre {{- passName }} est actuellement bloquée",
+      "passLinkedToPausedSubscription": "La carte du membre {{- passName }} est lié à un abonnement en pause",
+      "passRestrictedToVod": "La carte du membre {{- passName }} est limitée à la VOD seulement",
+      "passRestrictedByOffPeakSchedule": "La carte du membre {{- passName }} n'autorise pas l'entrée pendant ce créneau horaire",
+      "passIncompatibleWithEstablishments": "La carte du membre {{- passName }} n'est pas compatible avec votre site",
+      "passIncompatibleWithAppointmentsInEstablishments": "Les rendez-vous qui peuvent être pris avec le pass du membre {{- passName }} ne sont pas compatibles avec votre site",
+      "numberOfCheckedPasses": "{{- count }} carte du membre a été vérifiée sans résultat valide.",
+      "numberOfCheckedPasses_plural": "{{- count }} cartes du membre ont été vérifiées sans résultat valide."
     }
   },
+  "liveHistory": {
+    "table": {
+      "refusedEntry": "Entrée refusée",
+      "entered": "Entré",
+      "entryUnknown": "Indiquez si le membre a été autorisé à entrer",
+      "member": "Membre",
+      "session": "Motif de la visite",
+      "time": "Entrée",
+      "accessStatus": "Statut",
+      "placeholder": {
+        "default": "Vous n'avez pas encore enregistré de visites.",
+        "search": "Sur la base de votre recherche, nous n'avons pas trouvé de membres ayant fait une visite aujourd'hui."
+      }
+    },
+    "breadcrumbTitle": "Historique de visite",
+    "unreadCount": "{{ count }} nouvelle visite",
+    "unreadCount_plural": "{{ count }} nouvelles visites"
+  },
+  "memberVisitDetails": {
+    "accessStatus": {
+      "green": "Valide",
+      "orange": "Avertissement",
+      "red": "Non valide"
+    },
+    "title": "Information du membre",
+    "firstName": "Prénom :",
+    "lastName": "Nom :",
+    "nextBooking": "Prochaine réservation :",
+    "teacherName": "Professeur : {{- coachName}}",
+    "spotName": "Emplacement : {{- spotName}}",
+    "noSpotAllocated": "Pas d'emplacement attribué",
+    "pass": "Carte :",
+    "photoHasChanged": "Photo de profil modifiée récemment",
+    "noPreviousPhoto": "Le membre n'a pas de photos antérieures",
+    "actions": {
+      "seePreviousImages": "Voir plus",
+      "goToProfile": "Profil",
+      "billMember": "Facturer"
+    },
+    "manualEntry": {
+      "description": "Veuillez indiquer si ce membre peut entrer ou non",
+      "button": {
+        "refuse": "Refuser l'entrée",
+        "accept": "Autoriser l'entrée",
+        "entryAllowed": "Entré",
+        "entryRefused": "Entrée refusée"
+      }
+    },
+    "passExpiration": "Valide jusqu'au {{- expirationDate }}",
+    "atHome": "À domicile"
+  },
   "settings": {
+    "title": "Période d'entrée des membres",
+    "description": "Indiquer la période de temps autorisant l'entrée des membres avant et après le début de leur séance dans un établissement compatible.",
+    "hours": "Heures",
+    "minutes": "Minutes",
+    "afterTitle": "Période d'entrée avant le début de la session",
+    "beforeTitle": "Période d'entrée après le début de la session",
+    "isStudioWide": "Ces paramètres sont appliqués à l'échelle du studio.",
     "errors": {
-      "minutes": {
-        "max": "Doit être inférieur à 60",
-        "min": "Doit être supérieur à 0"
-      },
+      "required": "Ce champs est requis",
       "hours": {
         "min": "Doit être supérieur à 0",
         "max": "Doit être inférieur à 24"
       },
-      "required": "Ce champs est requis"
-    },
-    "isStudioWide": "Ces paramètres sont appliqués à l'échelle du studio.",
-    "beforeTitle": "Période d'entrée après le début de la session",
-    "afterTitle": "Période d'entrée avant le début de la session",
-    "minutes": "Minutes",
-    "hours": "Heures",
-    "description": "Indiquer la période de temps autorisant l'entrée des membres avant et après le début de leur séance dans un établissement compatible.",
-    "title": "Période d'entrée des membres"
-  },
-  "liveHistory": {
-    "breadcrumbTitle": "Historique de visite",
-    "table": {
-      "accessStatus": "Statut",
-      "time": "Entrée",
-      "session": "Motif de la visite",
-      "member": "Membre",
-      "entryUnknown": "Indiquez si le membre a été autorisé à entrer",
-      "entered": "Entré",
-      "refusedEntry": "Entrée refusée",
-      "placeholder": {
-        "search": "Sur la base de votre recherche, nous n'avons pas trouvé de membres ayant fait une visite aujourd'hui.",
-        "default": "Vous n'avez pas encore enregistré de visites."
+      "minutes": {
+        "min": "Doit être supérieur à 0",
+        "max": "Doit être inférieur à 60"
       }
-    },
-    "unreadCount": "{{ count }} nouvelle visite",
-    "unreadCount_plural": "{{ count }} nouvelles visites"
-  },
-  "accessMonitoringTitle": "Access monitoring",
-  "filters": {
-    "entryStatus": {
-      "U": "Inconnu",
-      "N": "Non entré",
-      "Y": "Entré",
-      "unknown": "Inconnu",
-      "notEntered": "Non entré",
-      "entered": "Entré"
-    },
-    "accessStatus": {
-      "R": "Non valide",
-      "O": "Avertissement",
-      "G": "Valide",
-      "red": "Non valide",
-      "orange": "Avertissement",
-      "green": "Valide"
     }
   },
-  "broadcastChannelWarning": "La version de votre navigateur ne nous permet pas d'exécuter cette fonctionnalité correctement. Veuillez mettre à jour votre navigateur."
+  "modals": {
+    "locationBlocker": {
+      "title": "Pas de localisation assignée",
+      "message": "Demandez au staff ayant un rôle Admin d'assigner une localisation à l'accès staff.",
+      "description": "Se trouve dans Paramètres > Staff."
+    },
+    "accessStatusChangedSuccess": {
+      "title": "Statut du membre mis à jour",
+      "message": "Tous les problèmes ont été résolus. Le statut du membre est désormais valide."
+    },
+    "entryStatusChanged": {
+      "Y": {
+        "title": "Membre entré",
+        "message": "Le membre a été autorisé à entrer avec les avertissements existants.",
+        "description": "Vous pouvez toujours adresser des avertissements à partir de l'onglet Historique des visites."
+      },
+      "close": "Fermer la page membre",
+      "stay": "Rester sur la page membre",
+      "N": {
+        "title": "Entrée refusée",
+        "message": "L'entrée a été refusée pour ce membre.",
+        "description": "Vous pouvez toujours adresser les avertissements et/ou laisser le membre entrer depuis l'onglet Historique des visites."
+      }
+    },
+    "memberPhotoHistory": {
+      "title": "Photos antèrieures",
+      "uploadedOn": "Téléchargée {{- date}}",
+      "validateIdentity": "Valider l'identité"
+    }
+  },
+  "filters": {
+    "accessStatus": {
+      "green": "Valide",
+      "orange": "Avertissement",
+      "red": "Non valide",
+      "G": "Valide",
+      "O": "Avertissement",
+      "R": "Non valide"
+    },
+    "entryStatus": {
+      "entered": "Entré",
+      "notEntered": "Non entré",
+      "unknown": "Inconnu",
+      "Y": "Entré",
+      "N": "Non entré",
+      "U": "Inconnu"
+    }
+  }
 }

@@ -17,6 +17,18 @@
       "appointmentPassCategories": "Appointment Pass categories",
       "passCategories": "Pass categories",
       "webshopItemCategories": "Webshop Item categories"
+    },
+    "items": {
+      "webshopItem": {
+        "size": "Size {{ size }}"
+      },
+      "tooltips": {
+        "credits": "Credits",
+        "price": "Price",
+        "unavailableForMember": "Unavailable",
+        "invisibleToStaff": "Invisible",
+        "category": "Category"
+      }
     }
   },
   "formFields": {

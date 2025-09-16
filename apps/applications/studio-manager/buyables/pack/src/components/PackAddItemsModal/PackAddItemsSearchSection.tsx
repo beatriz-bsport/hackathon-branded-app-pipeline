@@ -3,16 +3,22 @@ import React, { type Dispatch, type SetStateAction } from "react";
 import { TextField } from "@bsport/kaizen-primitive-core";
 
 import { PackAddItemsList } from "./PackAddItemsList";
+import type { ItemVariant } from "./constants";
 
 type PackAddItemsSearchSectionProps = {
   fieldIdPrefix: string;
   searchQuery: string;
   setSearchQuery: Dispatch<SetStateAction<string>>;
+  variant: ItemVariant | null;
 };
 
 export const PackAddItemsSearchSection: React.FC<
   PackAddItemsSearchSectionProps
-> = ({ fieldIdPrefix, searchQuery, setSearchQuery }) => {
+> = ({ fieldIdPrefix, searchQuery, setSearchQuery, variant }) => {
+  if (!variant) {
+    return null;
+  }
+
   return (
     <>
       <TextField
@@ -23,14 +29,20 @@ export const PackAddItemsSearchSection: React.FC<
         fullWidth
         value={searchQuery}
         onChange={(event) => {
+          /** @todo Implement search logic when stores & API are ready */
           setSearchQuery(event.target.value);
         }}
-        onClear={() => setSearchQuery("")}
+        onClear={() => {
+          /** @todo Implement search logic when stores & API are ready */
+          setSearchQuery("");
+        }}
         containerProps={{
           className: "flex-1",
         }}
       />
-      {searchQuery && <PackAddItemsList fieldIdPrefix={fieldIdPrefix} />}
+      {searchQuery && (
+        <PackAddItemsList fieldIdPrefix={fieldIdPrefix} variant={variant} />
+      )}
     </>
   );
 };

@@ -1268,6 +1268,9 @@ importers:
 
   apps/applications/studio-manager/buyables/pack:
     dependencies:
+      '@bsport/currency':
+        specifier: workspace:*
+        version: link:../../../../../packages/utils/currency
       '@bsport/envs':
         specifier: workspace:*
         version: link:../../../../../packages/utils/envs

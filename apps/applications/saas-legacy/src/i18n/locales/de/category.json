@@ -1,8 +1,8 @@
 {
   "sct": {
     "selector": {
-      "label": "Kategorie",
-      "placeholder": "Eine Kategorie suchen"
+      "placeholder": "Eine Kategorie suchen",
+      "label": "Kategorie"
     }
   }
 }

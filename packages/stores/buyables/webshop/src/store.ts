@@ -1,20 +1,33 @@
 import { createStore } from "zustand/vanilla";
 
-import { bindStore } from "@bsport/store-base";
+import { type PaginatedState, bindStore } from "@bsport/store-base";
 
-import type { WebshopItem } from "#src/types";
+import type { WebshopCategory, WebshopItem } from "#src/types";
 
 export interface WebshopState {
   items: {
     byId: { [key: number]: WebshopItem };
-    count: number;
-    ids: number[];
-    page: number;
+    active: Omit<PaginatedState<WebshopItem>, "byId">;
+    searched: Omit<PaginatedState<WebshopItem>, "byId">;
   };
+  categories: PaginatedState<WebshopCategory>;
 }
 
 export const webshopStore = createStore<WebshopState>()(() => ({
   items: {
+    byId: {},
+    active: {
+      count: 0,
+      ids: [],
+      page: 1,
+    },
+    searched: {
+      count: 0,
+      ids: [],
+      page: 1,
+    },
+  },
+  categories: {
     byId: {},
     count: 0,
     ids: [],

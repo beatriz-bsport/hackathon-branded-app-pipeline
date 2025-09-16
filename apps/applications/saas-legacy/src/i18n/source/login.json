@@ -188,7 +188,7 @@
     "companyStripeName": "Stripe account",
     "managerIbanExplain": "Select the bank account on which you'd like to receive the payouts through BSPORT",
     "paymentMethodTitle": "Select your payment method",
-    "paymentMethodExplain": "Select the payment method that you'd like to use for the BSPORT billing",
+    "paymentMethodExplain": "Select the payment method that you'd like to use for the bsport billing",
     "congrats": "Congratulations!",
     "finishExplain": "The configuration is complete. You can now use BSPORT.",
     "needToConfigureStripeInfo": "It's required to add a payment method to settle invoices.",

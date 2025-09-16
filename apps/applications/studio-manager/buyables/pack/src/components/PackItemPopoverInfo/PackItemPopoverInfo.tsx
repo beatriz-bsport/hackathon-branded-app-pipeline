@@ -2,24 +2,33 @@ import React from "react";
 
 import { Body, Chip, Icon, Popover } from "@bsport/kaizen-primitive-core";
 
-type PackAddItemsListItemInfoProps = {
+import { useTranslation } from "#src/utils/i18n";
+
+type PackItemPopoverInfoProps = {
   category?: string;
   credits?: number | null;
   invisible: boolean | null;
   price: string;
   unavailable: boolean;
-  messages: {
-    credits: string;
-    price: string;
-    category: string;
-    invisible: string;
-    unavailable: string;
-  };
 };
 
-export const PackAddItemsListItemInfo: React.FC<
-  PackAddItemsListItemInfoProps
-> = ({ credits, price, category, invisible, unavailable, messages }) => {
+export const PackItemPopoverInfo: React.FC<PackItemPopoverInfoProps> = ({
+  credits,
+  price,
+  category,
+  invisible,
+  unavailable,
+}) => {
+  const { t } = useTranslation("details");
+
+  const messages = {
+    credits: t("addItemsModal.items.tooltips.credits"),
+    price: t("addItemsModal.items.tooltips.price"),
+    category: t("addItemsModal.items.tooltips.category"),
+    unavailable: t("addItemsModal.items.tooltips.unavailableForMember"),
+    invisible: t("addItemsModal.items.tooltips.invisibleToStaff"),
+  };
+
   return (
     <Popover>
       <Popover.Anchor>

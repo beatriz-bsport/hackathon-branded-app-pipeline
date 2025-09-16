@@ -1,33 +1,21 @@
 import React from "react";
 
-import { getCurrencyDisplayWithPrice } from "@bsport/currency";
 import { List, type ListItemProps } from "@bsport/kaizen-primitive-core";
 
+import { PackItemPopoverInfo } from "#src/components/PackItemPopoverInfo";
+import type { ItemVariant } from "#src/utils/constants";
 import { useTranslation } from "#src/utils/i18n";
-
-import { PackAddItemsListItemInfo } from "./PackAddItemsListItemInfo";
+import { useCategoriesById, useItems } from "#src/utils/stores-interface";
 import {
-  type Category,
-  FIXTURES_CATEGORIES,
-  FIXTURES_ITEMS,
-  type ItemVariant,
-} from "./constants";
-import { type FormattedData, formatData } from "./utils";
+  type FormattedData,
+  type VariantAndData,
+  formatData,
+} from "#src/utils/stores-interface";
 
 export type PackAddItemsListProps = {
   fieldIdPrefix: string;
   variant: ItemVariant;
 };
-
-/** @todo Replace by selector once implemented */
-function getCategoriesById(variant: ItemVariant) {
-  const categories = FIXTURES_CATEGORIES[variant];
-  const categoriesBydId = new Map<number, Category>();
-  for (const category of categories) {
-    categoriesBydId.set(category.id, category);
-  }
-  return categoriesBydId;
-}
 
 export const PackAddItemsList: React.FC<PackAddItemsListProps> = ({
   fieldIdPrefix,
@@ -35,28 +23,13 @@ export const PackAddItemsList: React.FC<PackAddItemsListProps> = ({
 }) => {
   const { t } = useTranslation("details");
 
-  /** @todo Retrieve from the adequate store based on the variant */
-  const items = FIXTURES_ITEMS[variant];
-  const categoriesById = getCategoriesById(variant);
+  const items = useItems();
+  const categoriesById = useCategoriesById()[variant];
 
-  // @ts-expect-error Typing will be fixed when retrieving from adequate store
-  const FormattedData = formatData({ variant, data: items });
-
-  const messages = {
-    credits: t("addItemsModal.items.tooltips.credits"),
-    price: t("addItemsModal.items.tooltips.price"),
-    category: t("addItemsModal.items.tooltips.category"),
-    unavailable: t("addItemsModal.items.tooltips.unavailableForMember"),
-    invisible: t("addItemsModal.items.tooltips.invisibleToStaff"),
-  };
+  const params = { variant, data: items[variant] } as VariantAndData;
+  const formattedData = formatData(params);
 
   const getItem = (data: FormattedData): ListItemProps => {
-    const formattedPrice = getCurrencyDisplayWithPrice(
-      typeof data.price === "string"
-        ? parseFloat(data.price)
-        : data.price.parsedValue,
-    );
-
     const columnStart =
       data.variant === "webshopItem"
         ? ({
@@ -76,18 +49,17 @@ export const PackAddItemsList: React.FC<PackAddItemsListProps> = ({
     return {
       id: data.id,
       title: data.name,
-      rightTitle: formattedPrice,
+      rightTitle: data.price,
       ...columnStart,
       customNode: (
-        <PackAddItemsListItemInfo
-          price={formattedPrice}
+        <PackItemPopoverInfo
+          price={data.price}
           credits={data.credits}
           category={
             data.category ? categoriesById.get(data.category)?.name : undefined
           }
           invisible={data.invisible}
           unavailable={data.unavailable}
-          messages={messages}
         />
       ),
       onCheckboxChange: (value) => {
@@ -100,7 +72,7 @@ export const PackAddItemsList: React.FC<PackAddItemsListProps> = ({
   return (
     <List
       id={`${fieldIdPrefix}-items`}
-      items={FormattedData.map(getItem)}
+      items={formattedData.map(getItem)}
       isSelectable
     />
   );

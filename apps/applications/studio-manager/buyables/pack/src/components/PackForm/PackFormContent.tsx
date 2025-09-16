@@ -3,11 +3,8 @@ import React from "react";
 import { Button, DropdownMenu } from "@bsport/kaizen-primitive-core";
 
 import { PackAddItemsModal } from "#src/components/PackAddItemsModal/PackAddItemsModal";
-import {
-  ITEM_VARIANTS,
-  type ItemVariant,
-  useAddItemsModal,
-} from "#src/hooks/useAddItemsModal";
+import { useAddItemsModal } from "#src/hooks/useAddItemsModal";
+import { ITEM_VARIANTS, type ItemVariant } from "#src/utils/constants";
 import { useTranslation } from "#src/utils/i18n";
 
 type PackFormContentProps = {

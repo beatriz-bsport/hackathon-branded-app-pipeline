@@ -1,0 +1,46 @@
+---
+title: Feature Flags Structure (Ichizen Monorepo)
+---
+flowchart TD
+ subgraph s1["Saas-Legacy"]
+        A["FeatureFlagsProvider.tsx"]
+        B["flags.ts"]
+        C["useSafeFlag"]
+        D["Component"]
+  end
+ subgraph subGraph1["Studio Manager"]
+        F["FeatureFlagsProvider.tsx"]
+        G1["app_1/featureFlags.ts"]
+        G2["app_2/featureFlags.ts"]
+        H1["app_1/useFlag"]
+        H2["app_2/useFlag"]
+        J1["app_1/Component"]
+        J2["app_2/Component"]
+  end
+ subgraph Backend["Backend"]
+        K["Unleash local"]
+        M["Unleash cloud"]
+  end
+    A --> C
+    B --> C
+    C --> D
+    L["depending on env"] --> A & F
+    K --> L
+    M --> L
+    F --> G1 & G2
+    G1 --> H1
+    G2 --> H2
+    H1 --> J1
+    H2 --> J2
+    L@{ shape: diam}
+    style A stroke:#AA00FF
+    style B stroke:#E1BEE7
+    style C fill:#E1BEE7
+    style D fill:#C8E6C9,stroke:#333,stroke-width:2px
+    style F stroke:#AA00FF
+    style G1 stroke:#E1BEE7
+    style G2 stroke:#E1BEE7
+    style H1 fill:#E1BEE7,stroke:#333,stroke-width:2px
+    style H2 fill:#E1BEE7,stroke:#333,stroke-width:2px
+    style J1 fill:#C8E6C9
+    style J2 fill:#C8E6C9

@@ -90,18 +90,9 @@ You can always get some help on the command by running
 pnpm run -w api-environment:set -h
 ```
 
-#### Set Feature Flags for revamped application
+#### Feature Flags (Unleash)
 
-Feature flags are configured via CLI, selecting the target Unleash environment (local or remote). From anywhere in the workspace, run:
-
-```sh
-# Local defaults
-pnpm run -w feature-flags-environment:set local
-# Staging (provide proxy and key)
-pnpm run -w feature-flags-environment:set staging
-# Production (provide proxy and key)
-pnpm run -w feature-flags-environment:set production
-```
+See [docs/feature_flags.md](./docs/feature_flags.md) for all details on feature flag setup, usage and CLI.
 
 #### Run a revamped application
 

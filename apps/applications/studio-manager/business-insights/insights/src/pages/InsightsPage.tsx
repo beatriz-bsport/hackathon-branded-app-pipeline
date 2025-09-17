@@ -8,6 +8,7 @@ import {
 } from "@bsport/kaizen-primitive-core";
 
 import { INSIGHT_SECTIONS } from "#src/constants";
+import { InsightFlags, useInsightFlag } from "#src/utils/featureFlags";
 import { useTranslation } from "#src/utils/i18n";
 import {
   createChipForRow,
@@ -32,13 +33,26 @@ const InsightsPage = () => {
   const hasSubscriptionInvoicesPermission =
     useHasSubscriptionInvoicesPermission();
 
+  // Check feature flags
+  const isTrialAnalysisEnabled = useInsightFlag(InsightFlags.TRIAL_ANALYSIS);
+
   const rows = useMemo(() => {
-    const baseRows = createInsightRows(t, hasSubscriptionInvoicesPermission);
+    const baseRows = createInsightRows(
+      t,
+      hasSubscriptionInvoicesPermission,
+      isTrialAnalysisEnabled,
+    );
     const sectionFiltered = filterBySection(baseRows, selected);
     const searchFiltered = filterBySearch(sectionFiltered, searchInput);
 
     return searchFiltered;
-  }, [selected, searchInput, t, hasSubscriptionInvoicesPermission]);
+  }, [
+    selected,
+    searchInput,
+    t,
+    hasSubscriptionInvoicesPermission,
+    isTrialAnalysisEnabled,
+  ]);
 
   const filterConfig: FilterProps = useMemo(() => {
     const fields = {

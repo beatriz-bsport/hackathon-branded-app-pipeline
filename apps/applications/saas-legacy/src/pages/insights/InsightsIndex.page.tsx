@@ -6,6 +6,7 @@ import Divider from '@material-ui/core/Divider';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import { useHistory } from 'react-router-dom';
+import ObjectLevelPermissionProvider from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 import { INSIGHTS_ROUTES } from './constants';
 
 const useStyles = makeStyles((theme) => ({
@@ -54,51 +55,64 @@ const InsightsIndex: React.FC = () => {
   };
 
   return (
-    <div className={classes.pageContainer}>
-      <div className={classes.titleContainer}>
-        <Typography component="h2" variant="h5">
-          {t('sections.memberInsights')}
-        </Typography>
-        <Divider className={classes.divider} />
-        <div className={classes.sectionItemContainer}>
-          <Card className={classes.card} variant="outlined">
-            <CardActionArea
-              className={classes.cardActionArea}
-              onClick={handleGoToReport(INSIGHTS_ROUTES.TRIAL_ANALYSIS)}
-            >
-              <Typography color="textPrimary" variant="body1">
-                {t('trackTrialOffer.title')}
-              </Typography>
-              <Typography color="textSecondary" variant="body2">
-                {t('trackTrialOffer.description')}
-              </Typography>
-            </CardActionArea>
-          </Card>
-        </div>
-      </div>
+    <ObjectLevelPermissionProvider requiredPermission="report.Club.subscription.allowed_actions.read">
+      {(hasSubscriptionReportPermission: boolean) => {
+        // Return empty content if user doesn't have permission to view subscription reports
+        if (!hasSubscriptionReportPermission) {
+          return <div className={classes.pageContainer}></div>;
+        }
 
-      <div className={classes.titleContainer}>
-        <Typography component="h2" variant="h5">
-          {t('sections.financialHealth')}
-        </Typography>
-        <Divider className={classes.divider} />
-        <div className={classes.sectionItemContainer}>
-          <Card className={classes.card} variant="outlined">
-            <CardActionArea
-              className={classes.cardActionArea}
-              onClick={handleGoToReport(INSIGHTS_ROUTES.RECURRING_REVENUE)}
-            >
-              <Typography color="textPrimary" variant="body1">
-                {t('monitorRevenue.title')}
+        return (
+          <div className={classes.pageContainer}>
+            <div className={classes.titleContainer}>
+              <Typography component="h2" variant="h5">
+                {t('sections.memberInsights')}
               </Typography>
-              <Typography color="textSecondary" variant="body2">
-                {t('monitorRevenue.description')}
+              <Divider className={classes.divider} />
+              <div className={classes.sectionItemContainer}>
+                <Card className={classes.card} variant="outlined">
+                  <CardActionArea
+                    className={classes.cardActionArea}
+                    onClick={handleGoToReport(INSIGHTS_ROUTES.TRIAL_ANALYSIS)}
+                  >
+                    <Typography color="textPrimary" variant="body1">
+                      {t('trackTrialOffer.title')}
+                    </Typography>
+                    <Typography color="textSecondary" variant="body2">
+                      {t('trackTrialOffer.description')}
+                    </Typography>
+                  </CardActionArea>
+                </Card>
+              </div>
+            </div>
+
+            <div className={classes.titleContainer}>
+              <Typography component="h2" variant="h5">
+                {t('sections.financialHealth')}
               </Typography>
-            </CardActionArea>
-          </Card>
-        </div>
-      </div>
-    </div>
+              <Divider className={classes.divider} />
+              <div className={classes.sectionItemContainer}>
+                <Card className={classes.card} variant="outlined">
+                  <CardActionArea
+                    className={classes.cardActionArea}
+                    onClick={handleGoToReport(
+                      INSIGHTS_ROUTES.RECURRING_REVENUE,
+                    )}
+                  >
+                    <Typography color="textPrimary" variant="body1">
+                      {t('monitorRevenue.title')}
+                    </Typography>
+                    <Typography color="textSecondary" variant="body2">
+                      {t('monitorRevenue.description')}
+                    </Typography>
+                  </CardActionArea>
+                </Card>
+              </div>
+            </div>
+          </div>
+        );
+      }}
+    </ObjectLevelPermissionProvider>
   );
 };
 

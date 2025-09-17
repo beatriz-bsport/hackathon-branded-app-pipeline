@@ -15,6 +15,7 @@ import {
   filterBySearch,
   filterBySection,
 } from "#src/utils/insightFilters";
+import { useHasSubscriptionInvoicesPermission } from "#src/utils/permissions";
 
 /**
  * Main insights page displaying a list of available business insight dashboards.
@@ -27,13 +28,17 @@ const InsightsPage = () => {
   const [searchInput, setSearchInput] = useState<string>("");
   const filterRef = useRef<{ resetFilters: () => void }>(null);
 
+  // Check permissions to filter available insights
+  const hasSubscriptionInvoicesPermission =
+    useHasSubscriptionInvoicesPermission();
+
   const rows = useMemo(() => {
-    const baseRows = createInsightRows(t);
+    const baseRows = createInsightRows(t, hasSubscriptionInvoicesPermission);
     const sectionFiltered = filterBySection(baseRows, selected);
     const searchFiltered = filterBySearch(sectionFiltered, searchInput);
 
     return searchFiltered;
-  }, [selected, searchInput, t]);
+  }, [selected, searchInput, t, hasSubscriptionInvoicesPermission]);
 
   const filterConfig: FilterProps = useMemo(() => {
     const fields = {

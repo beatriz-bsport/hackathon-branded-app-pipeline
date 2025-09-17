@@ -3,9 +3,11 @@ import { withTranslation, WithTranslation } from 'react-i18next';
 import { Box, CircularProgress } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
 import { makeStyles } from '@material-ui/core/styles';
+import { Redirect } from 'react-router-dom';
 import { getAuth } from '../../http';
 import { appendSigmaLocale } from '../../utils/sigma';
 import Config from '../../config';
+import ObjectLevelPermissionProvider from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 
 const useStyles = makeStyles((_theme) => ({
   root: {
@@ -50,7 +52,20 @@ interface SubscriptionEventsResponse {
 
 interface Props extends WithTranslation {}
 
-const SubscriptionEvents: React.FC<Props> = ({ t: _t }) => {
+const SubscriptionEvents: React.FC<Props> = (props) => {
+  return (
+    <ObjectLevelPermissionProvider requiredPermission="report.Club.subscription.allowed_actions.read">
+      {(hasPermission: boolean) => {
+        if (!hasPermission) {
+          return <Redirect to="/dashboard" />;
+        }
+        return <SubscriptionEventsContent {...props} />;
+      }}
+    </ObjectLevelPermissionProvider>
+  );
+};
+
+const SubscriptionEventsContent: React.FC<Props> = ({ t: _t }) => {
   const classes = useStyles();
   const [iframeUrl, setIframeUrl] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(true);

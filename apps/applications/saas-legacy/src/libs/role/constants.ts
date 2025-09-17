@@ -56,6 +56,7 @@ export const URLS_PERMISSIONS: Record<ProtectedUrls, string[]> = {
   '/instalment-payment': ['navigationMenu.payments.installments'],
   '/invoice': ['navigationMenu.payments.billings'],
   '/invoice/bill-member': ['navigationMenu.payments.billings'],
+  '/insights': ['navigationMenu.reporting'],
   '/marketing': ['navigationMenu.marketing'],
   '/marketing/notifications': ['navigationMenu.marketing.notifications'],
   '/marketing/rule': ['navigationMenu.marketing.notifications'],

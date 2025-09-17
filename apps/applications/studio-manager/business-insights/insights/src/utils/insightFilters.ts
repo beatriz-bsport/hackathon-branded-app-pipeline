@@ -11,8 +11,17 @@ export interface InsightRow {
 
 /**
  * Converts raw insight items to display-ready rows with translations
+ * and filters them based on user permissions
  */
-export const createInsightRows = (t: TFunction): InsightRow[] => {
+export const createInsightRows = (
+  t: TFunction,
+  hasSubscriptionInvoicesPermission: boolean,
+): InsightRow[] => {
+  // Hide all insights if user doesn't have subscription invoices permission
+  if (!hasSubscriptionInvoicesPermission) {
+    return [];
+  }
+
   return INSIGHT_ITEMS.map((item) => ({
     ...item,
     title: t(`items.${item.id}.title`),

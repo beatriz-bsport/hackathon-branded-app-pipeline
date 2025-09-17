@@ -7,6 +7,7 @@ It covers SDK setup, flag definition, usage, local development, and best practic
 - The Unleash SDK is configured via a `FeatureFlagsProvider` at the app root (see [`FeatureFlagsProvider.tsx`](../apps/applications/saas-legacy/src/utils/feature-flag/FeatureFlagsProvider.tsx) for saas-legacy, [`FeatureFlagsProvider.tsx`](../packages/utils/sm-backbone/src/feature-flags/FeatureFlagsProvider.tsx) for Studio Manager).
 - Provider loads user context (`companyId`, `franchiseId`, `userEmail` and bsport `environment`) and enables flag hooks throughout the app.
 - Studio Manager: each app holds its own flag registry for modularity.
+- Feature flag state is managed internally by the Unleash SDK and accessed via hooks (e.g., useFlag).
 
 ## Structure
 
@@ -32,6 +33,7 @@ Configure the backend URL and client key via environment variables and CLI as de
 
 ```ts
 export const FeatureFlags = {
+  ...,
   MY_NEW_FEATURE: "my_new_feature",
 } as const;
 ```
@@ -44,15 +46,15 @@ import { FeatureFlags, useSafeFlag } from "#src/utils/feature-flag";
 const showFeature = useSafeFlag(FeatureFlags.MY_NEW_FEATURE);
 ```
 
+> We have to `useSafeFlag` to avoid raising error if `FlagProvider` fails to load
+
 #### Local Development
 
-- Unleash proxy URL and client key are hardcoded per environment in the deployment/build scripts and in the relevant file under `apps/applications/saas-legacy/envs/` (e.g. `envs/local`, `envs/production`).
-  - No CLI is needed; config is set automatically for each environment (local, staging, production).
-  - To change Unleash backend, update the values in the relevant env file or build script.
+Unleash proxy URL and client key are hardcoded per environment in the deployment/build scripts and in the relevant file under `apps/applications/saas-legacy/envs/` (e.g. `envs/local`, `envs/production`).
 
 ### Studio Manager
 
-- Add to [`featureFlags.ts`](../apps/applications/studio-manager/business-insights/insights/src/featureFlags.ts):
+- Add to [`featureFlags.ts`](../apps/applications/studio-manager/business-insights/insights/src/utils/featureFlags.ts):
 
 ```ts
 import { makeFeatureFlags } from "@bsport/sm-backbone";
@@ -62,12 +64,10 @@ export const { flags, useFlag } = makeFeatureFlags({
 } as const);
 ```
 
-- Feature flag values are dispatched to Redux so components can access them via hooks/selectors.
-
 - Use in components:
 
 ```tsx
-import { flags, useFlag } from "#src/featureFlags";
+import { flags, useFlag } from "#src/utils/featureFlags";
 
 const showFeature = useFlag(flags.MY_NEW_FEATURE);
 ```

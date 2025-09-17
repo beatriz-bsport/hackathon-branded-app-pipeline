@@ -8,7 +8,7 @@ import {
 } from "@bsport/kaizen-primitive-core";
 
 import { INSIGHT_SECTIONS } from "#src/constants";
-import { InsightFlags, useInsightFlag } from "#src/featureFlags";
+import { InsightFlags, useInsightFlag } from "#src/utils/featureFlags";
 import { useTranslation } from "#src/utils/i18n";
 import {
   createChipForRow,

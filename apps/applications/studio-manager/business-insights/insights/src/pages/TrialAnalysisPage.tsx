@@ -3,8 +3,8 @@ import { Navigate } from "react-router";
 import { DashboardIframe } from "#src/components/DashboardIframe";
 import { InsightDetailLayout } from "#src/components/InsightDetailLayout";
 import { DASHBOARD_TYPES } from "#src/constants";
-import { InsightFlags, useInsightFlag } from "#src/featureFlags";
 import { usePresignedUrl } from "#src/hooks/api";
+import { InsightFlags, useInsightFlag } from "#src/utils/featureFlags";
 import { useTranslation } from "#src/utils/i18n";
 import { useHasSubscriptionInvoicesPermission } from "#src/utils/permissions";
 

@@ -21,6 +21,7 @@ export type Membership = {
   vod: boolean;
   websiteURL: string;
   barcode: string;
+  user_id: string;
 };
 
 export type MembershipState = {

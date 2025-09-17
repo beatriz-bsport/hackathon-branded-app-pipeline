@@ -12,6 +12,7 @@ import asyncComponent from '../../AsyncComponent';
 import { RootState } from '../../reducers';
 import namespaces from '../../i18n/namespaces.json';
 import { removeItemInStorage, setItemInStorage } from '#src/utils/storage';
+import { requestOptInTrackingB2C as requestOptInTrackingB2CAction } from '#src/components/analytics/actions';
 
 const MarketplaceResolver = asyncComponent(
   // @ts-expect-error
@@ -38,6 +39,9 @@ export class MarketplaceRouter extends React.Component<Props> {
       BSPORT_REQUEST_FROM_HEADER_STORAGE_LOCATION,
       BsportRequestFromHeaderValue.SAAS_MARKETPLACE_ROUTER,
     );
+
+    // Opt in B2C tracking and opt out B2B tracking
+    this.props.requestOptInTrackingB2C();
   }
 
   componentWillUnmount() {
@@ -71,9 +75,14 @@ export class MarketplaceRouter extends React.Component<Props> {
   }
 }
 
-const connector = connect((state: RootState) => ({
-  is_manager: state.auth.is_manager,
-  is_franchisor: state.auth.is_franchisor,
-}));
+const connector = connect(
+  (state: RootState) => ({
+    is_manager: state.auth.is_manager,
+    is_franchisor: state.auth.is_franchisor,
+  }),
+  {
+    requestOptInTrackingB2C: requestOptInTrackingB2CAction,
+  },
+);
 
 export default withTranslation(namespaces)(connector(MarketplaceRouter));

@@ -42,7 +42,6 @@ type Props = {
     },
     options?: OptionCallback,
   ) => void;
-  onDeleteNotificationRule: (id: number) => void;
 
   event: number;
   rule?: NotificationRule;
@@ -51,7 +50,7 @@ type Props = {
     label: string;
     options: { label: string; value: string }[];
   }[];
-
+  onDeleteNotificationRule: (id: number) => void;
   disabled: boolean;
   sendCompany: boolean;
   disableCheckboxes: boolean;
@@ -72,8 +71,8 @@ export const NotificationRuleListItem = (props: Props) => {
     rule,
     className,
     tags,
-    updateNotification,
     onDeleteNotificationRule,
+    updateNotification,
     showEmailPreviewHTML,
     showEmailPreview,
     onDisable,
@@ -112,14 +111,16 @@ export const NotificationRuleListItem = (props: Props) => {
 
   const handleChangeEmail = useCallback(
     (optionValue: number) => {
-      if (!optionValue) {
+      // emailDesignId can be null when clearing the selection, but as it is an undefined value that is returned we need to turn it to null
+      const emailDesignId = optionValue || null;
+      if (!emailDesignId) {
         return onDeleteNotificationRule(rule.id);
       }
       if (rule?.company) {
         return updateNotification(
           {
             ...rule,
-            email_design: optionValue,
+            email_design: emailDesignId,
           },
           { onError: handleTagsError, onSuccess: hideAlert },
         );
@@ -127,19 +128,12 @@ export const NotificationRuleListItem = (props: Props) => {
       return updateNotification(
         {
           notification_event: event,
-          email_design: optionValue,
+          email_design: emailDesignId,
         },
         { onError: handleTagsError, onSuccess: hideAlert },
       );
     },
-    [
-      onDeleteNotificationRule,
-      updateNotification,
-      handleTagsError,
-      hideAlert,
-      event,
-      rule,
-    ],
+    [updateNotification, handleTagsError, hideAlert, event, rule],
   );
 
   const renderEmailSelector = () => (

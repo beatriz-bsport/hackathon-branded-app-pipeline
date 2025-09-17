@@ -1,0 +1,125 @@
+{
+  "switchToEnable": "Wachtlijst heractiveren",
+  "switchToDisable": "Wachtlijst deactiveren",
+  "nbPending": "{{nbPending}} leden in de wachtlijst",
+  "nbConvertible": "{{nbConvertible}} in afwachting van bevestiging",
+  "form": {
+    "dumb_delay_minutes": {
+      "label": "Eenvoudig beheer",
+      "helper": "Een lid heeft X minuten om de reservering te voltooien voordat zij de voorrangsplaats verliezen."
+    },
+    "smart_delay_percentage": {
+      "label": "Intelligent beheer",
+      "helper": "Een lid heeft een N aantal minuten dat gelijk staat aan X procent van de resterende tijd voor het begin van de sessie."
+    },
+    "submit": "Opslaan",
+    "auto_cancellation_type": {
+      "title": "Wachtlijstbeheer"
+    },
+    "auto_consume_pack": {
+      "helper": "Een lid wordt direct ingeschreven zodra er een plaats vrijkomt indien hij/zij een geldige kaart bezit. Het systeem gebruikt automatisch de kaart dat als eerste vervalt en het minste credit heeft.",
+      "label": "Automatisch de kaart van een lid in rekening brengen zodra er een plaats vrij komt"
+    },
+    "is_option_blocking": {
+      "helper": "Houd een plaats vrij voor leden die op de wachtlijst staan totdat zij reserveren.",
+      "label": "Beschikbare plaatsen reserveren voor leden die op de wachtlijst staan"
+    },
+    "autokick_delay": {
+      "helper": "Dit is het aantal meldingen dat een lid ontvangt voordat ze van de wachtlijst worden verwijderd indien ze geen actie ondernemen.",
+      "label": "Automatische afmelding van de wachtlijst"
+    },
+    "dynamic": {
+      "0": {
+        "explain": "Ieder lid dat zich op de wachtlijst krijgt een plaats. De eerstvolgende op de wachtlijst wordt geïnformeerd zodra er een plaats vrijkomt.",
+        "settingsDelay": "Tijd tussen terugroepacties",
+        "label": "Eén voor één",
+        "overallExplainSmart": "Als er een plaats vrijkomt, krijgen leden {{ autokick_delay }} herinnering(en) met een interval van {{ smart_delay_percentage }}% van de resterende tijd voordat de sessie begint om zich in te schrijven. Bijvoorbeeld, als er nog {{ example_hours_before }} uur over is voor de sessie, hebben leden {{ example_computed_delay_one }} minuten om zich te registreren, en vervolgens {{ example_computed_delay_two }} minuten na de eerste poging, enzovoort, voordat het volgende lid zich kan inschrijven.",
+        "overallExplainSimple": "Als er een plek vrijkomt, heeft de leerling {{ autokick_delay }} herinneringen met een tussenruimte van {{ dumb_delay_minutes }} minuten om te reserveren voordat hij zijn plek aan de volgende leerling geeft."
+      },
+      "1": {
+        "explain": "Dit is een ongesorteerde wachtlijst. Iedereen die zich op de wachtlijst heeft ingeschreven ontvangt tegelijk een bericht zodra er een plaats vrijkomt.",
+        "label": "Wie het eerst komt, het eerst maalt"
+      },
+      "label": "Selecteer het type wachtlijst dat je wilt gebruiken"
+    },
+    "last_delay_before_auto_consume": {
+      "helper": "Als er onvoldoende tijd is voordat de sessie begint wordt het lid niet ingeschreven, ook niet als de persoon een geldige leskaart bezit",
+      "label": "Geen reserveringen accepteren voor sessies die plaatsvinden in minder dan "
+    },
+    "check_credit": {
+      "label": "Controleren of de klant een cursuskaart heeft die compatibel is met het aanbod en voldoende crediet heeft",
+      "helper": "Klanten kunnen pas aan een wachtrij worden toegevoegd als zij een cursuskaart hebben die compatibel is met de betreffende aanbieding en voldoende credits hebben om de boeking te maken"
+    },
+    "display_member_position": {
+      "label": "De positie in de wachtrij weergeven"
+    },
+    "kick_if_no_pack_when_auto_consume": {
+      "label": "Het lid automatisch van de wachtlijst verwijderen als hij geen geldige pas meer heeft wanneer hij aan de beurt is",
+      "helper": "Een lid kan zijn credits gebruiken voor een andere sessie terwijl hij op de wachtlijst staat. Als deze instelling geactiveerd is, wordt zijn plaats op de wachtlijst automatisch geannuleerd als het zijn beurt is om te registreren."
+    },
+    "errors": {
+      "lastDelayBeforeAutoConsumeError": "Minuten moeten tussen 0 en 240 liggen",
+      "autokickDelayError": "Een nummer is vereist",
+      "smartDelayPercentageError": "Het percentage moet tussen 10 en 100 liggen",
+      "dumbDelayMinutesError": "Minuten tussen terugroepacties moeten hoger zijn dan 15"
+    }
+  },
+  "explainWaitingListConf": "Voorbeeld: een lid die op de wachtlijst staat voor een sessie die over 3 uur begint heeft nog {{nbMinutesBeforeBookingOptionExpire}} minuten om de reservering te bevestigen voordat zij hun voorrangsplaats op de wachtlijst verliezen.",
+  "dialog": {
+    "delete": {
+      "title": "Van wachtlijst verwijderen",
+      "content": "Weet je zeker dat je dit lid van de wachtlijst wilt verwijderen? Het lid wordt hier ook van op de hoogte gebracht.",
+      "cancel": "Annuleren",
+      "confirm": "Verwijderen",
+      "sendEmail": "Stuur een afmeldbericht",
+      "contentV2": "Weet je zeker dat je dit lid van de wachtlijst wilt verwijderen?"
+    },
+    "autoBooking": {
+      "loading": {
+        "title": "Leden worden toegevoegd aan de sessie",
+        "content": "Vernieuw het tabblad niet en verlaat deze pagina niet. Dit proces kan een aantal seconden duren"
+      },
+      "info": {
+        "content": "Leden met een geldige pas worden automatisch geboekt voor de sessie en ontvangen een bevestigingsmail. Het systeem zal automatisch de credits aftrekken van de passen die als eerst verlopen",
+        "title": "Automatische boeking voor geldige passen"
+      },
+      "success": {
+        "title": "Leden zijn succesvol toegevoegd aan de sessie"
+      },
+      "error": {
+        "content": "Leden kunnen niet toegevoegd worden aan de sessie. Probeer het nogmaals",
+        "title": "De automatische boeking is mislukt"
+      },
+      "warning": {
+        "content": "Als je het formulier sluit, wordt het geselecteerde lid niet toegevoegd aan de sessie. Als je meerdere leden hebt geselecteerd en alleen dit lid wilt afmelden, klik dan op annuleren op het ledenformulier",
+        "title": "Weet je het zeker?"
+      },
+      "incomplete": {
+        "actions": {
+          "bookThem": "Handmatig boeken",
+          "ok": "Bevestigen"
+        },
+        "content": {
+          "unregistered": "De volgende leden konden NIET worden geregistreerd, omdat er geen compatibele pas kon worden gevonden",
+          "registered": "De volgende leden zijn geregistreerd, omdat er een compatibele pas is gevonden:"
+        },
+        "title": "Voltooi uw wachtlijst"
+      }
+    },
+    "confirm": "Bevestig",
+    "cancel": "Annuleer"
+  },
+  "member": {
+    "detail": {
+      "registrationSource": "Oorsprong van de inschrijving",
+      "offerTitle": "Gekoppelde sessie",
+      "registeredOn": "Ingeschreven op",
+      "title": "Details"
+    },
+    "empty": "Er zijn geen wachtlijsten om weer te geven.",
+    "delete": "Verwijderen",
+    "addToBook": "Inschrijven",
+    "listTitle": "Wachtlijst",
+    "waitingListPosition": "Positie op de wachtlijst: {{ position }}/{{ size }}"
+  }
+}

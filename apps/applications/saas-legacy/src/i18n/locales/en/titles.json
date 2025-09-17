@@ -1,0 +1,110 @@
+{
+    "banner": {
+        "isStaging": "",
+        "networkError": "",
+        "serverError": "",
+        "networkConnectionRestored": "",
+        "serverConnectionRestored": "",
+        "franchiseConnection": ""
+    },
+    "member": {
+        "members": "",
+        "mergeMember": "",
+        "memberFormPage": "",
+        "memberForm": ""
+    },
+    "invoice": {
+        "invoiceEdit": "",
+        "invoiceList": "",
+        "invoiceCreate": "",
+        "invoiceCreatePage": ""
+    },
+    "coach": {
+        "coachList": "",
+        "coachPerformance": "",
+        "coachFormPage": "",
+        "allCoachPerformance": ""
+    },
+    "order": {
+        "orderList": "",
+        "orderDetail": ""
+    },
+    "metaActivity": {
+        "metaActivityEditForm": "",
+        "metaActivityList": "",
+        "metaActivityFormPage": "",
+        "metaActivityEditFormSubtitle": "",
+        "metaActivityFormSubtitle": "",
+        "metaActivity": ""
+    },
+    "coupon": {
+        "couponCreate": "",
+        "couponEdit": "",
+        "couponList": "",
+        "couponDetail": ""
+    },
+    "establishment": {
+        "establishmentList": "",
+        "establishmentFormPage": "",
+        "establishmentGroupPage": ""
+    },
+    "marketplace": {
+        "marketplaceShop": "",
+        "marketplaceWorkshop": "",
+        "marketplaceCalendar": "",
+        "marketplacePass": "",
+        "marketplaceGiftcard": ""
+    },
+    "dashboard": {
+        "marketingDashboard": "",
+        "reportingDashboard": "",
+        "dashboard": "",
+        "insights": ""
+    },
+    "subscription": {
+        "subscriptionCreate": "",
+        "subscriptions": ""
+    },
+    "workshopActivity": {
+        "workshopActivityList": "",
+        "workshopActivityFormPage": "",
+        "workshopActivityCreate": "",
+        "workshopActivityEditFormSubtitle": "",
+        "workshopActivityFormSubtitle": ""
+    },
+    "paymentPack": {
+        "paymentPackFormPage": "",
+        "paymentPackList": ""
+    },
+    "marketing": {
+        "marketingDashboard": "",
+        "marketingRule": "",
+        "notifications": "",
+        "cadence": "",
+        "audience": ""
+    },
+    "planning": "",
+    "settings": "",
+    "shop": "",
+    "offerManagement": "",
+    "offerFormPage": "",
+    "searchResults": "",
+    "privateService": {
+        "serviceList": ""
+    },
+    "video": {
+        "videoList": ""
+    },
+    "expense": {
+        "expenseList": ""
+    },
+    "coachUserSpace": {
+        "performance": "",
+        "replacement": ""
+    },
+    "replacement": "",
+    "inbox": "",
+    "giftcard": "",
+    "coachList": "",
+    "metaActivityFormPage": ""
+}

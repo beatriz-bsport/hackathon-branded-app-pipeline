@@ -1,0 +1,165 @@
+{
+  "@bsport/saas-legacy": [
+    {
+      "eventType": "add_to_cart",
+      "description": "When the user adds a product to their cart",
+      "params": {
+        "product_type": "The type of product being added to the cart",
+        "product_name": "The name of the product being added to the cart",
+        "cart_value": "The total value of the cart after adding the product",
+        "product_price": "The price of the product being added to the cart"
+      }
+    },
+    {
+      "eventType": "appointment_slot_viewed",
+      "description": "When the user views the appointment slot details",
+      "params": {
+        "activity_id": "The unique identifier for the appointment",
+        "activity_name": "The name of the appointment"
+      }
+    },
+    {
+      "eventType": "appointment_viewed",
+      "description": "When the user views the appointment details",
+      "params": {
+        "activity_id": "The unique identifier for the appointment",
+        "activity_name": "The name of the appointment"
+      }
+    },
+    {
+      "eventType": "booking_cancelled",
+      "description": "When the user successfully completes a booking cancellation",
+      "params": {
+        "offer_id": "The unique identifier for the session",
+        "activity_id": "The unique identifier for the activity (group activity, workshop or appointment)",
+        "activity_name": "The name of the activity (group activity, workshop or appointment)",
+        "session_type": "The type of session being cancelled"
+      }
+    },
+    {
+      "eventType": "booking_confirmed",
+      "description": "When the user successfully completes a booking",
+      "params": {
+        "offer_id": "The unique identifier for the session",
+        "activity_id": "The unique identifier for the activity (group activity, workshop or appointment)",
+        "activity_name": "The name of the activity (group activity, workshop or appointment)",
+        "session_type": "The type of session being booked"
+      }
+    },
+    {
+      "eventType": "calendar_viewed",
+      "description": "When the calendar page is displayed to the user",
+      "params": {}
+    },
+    {
+      "eventType": "cart_viewed",
+      "description": "When the user views their cart",
+      "params": {
+        "cart_value": "The total value of the cart when the user views it",
+        "product_quantity": "The number of items in the cart when the user views it"
+      }
+    },
+    {
+      "eventType": "group_activity_session_viewed",
+      "description": "When the user views the group activity details",
+      "params": {
+        "activity_id": "The unique identifier for the group activity",
+        "activity_name": "The name of the group activity",
+        "offer_id": "The unique identifier for the session",
+        "is_waiting_list": "Indicates if the session that the user is viewing is on the waiting list or not",
+        "session_type": "The type of session being viewed"
+      }
+    },
+    {
+      "eventType": "login",
+      "description": "When the user logs in",
+      "params": {}
+    },
+    {
+      "eventType": "login_viewed",
+      "description": "When the login form is displayed to the user",
+      "params": {}
+    },
+    {
+      "eventType": "member_profile_viewed",
+      "description": "When the user views their member profile page",
+      "params": {
+        "page_type": "The type of member profile page being viewed"
+      }
+    },
+    {
+      "eventType": "pass_selection_viewed",
+      "description": "When the user views the pass selection for an appointment",
+      "params": {
+        "offer_id": "The unique identifier for the session",
+        "activity_id": "The unique identifier for the appointment",
+        "activity_name": "The name of the appointment",
+        "session_type": "The type of session being booked"
+      }
+    },
+    {
+      "eventType": "pass_selection_viewed",
+      "description": "When the user views the pass selection for an offer (workshop or group activity)",
+      "params": {
+        "offer_id": "The unique identifier for the session",
+        "activity_id": "The unique identifier for the group activity",
+        "activity_name": "The name of the group activity",
+        "is_waiting_list": "Indicates if the session that the user is viewing is on the waiting list or not",
+        "session_type": "The type of session being booked"
+      }
+    },
+    {
+      "eventType": "payment_viewed",
+      "description": "When the user views the payment module",
+      "params": {
+        "offer_id": "The unique identifier for the session",
+        "activity_id": "The unique identifier for the group activity",
+        "activity_name": "The name of the group activity",
+        "session_type": "The type of session being booked",
+        "product_type": "The type of product being purchased. Can be a pass, a subscription or a pack"
+      }
+    },
+    {
+      "eventType": "purchase_confirmation",
+      "description": "When the user completes a purchase",
+      "params": {
+        "cart_value": "The total value of the cart at the time of purchase",
+        "product_quantity": "The number of items in the cart at the time of purchase"
+      }
+    },
+    {
+      "eventType": "purchase_item",
+      "description": "When the user purchases an item. One event for each item in the cart",
+      "params": {
+        "product_name": "The name of the product being purchased",
+        "product_type": "The type of product being purchased",
+        "product_price": "The price of the product being purchased",
+        "product_quantity": "The quantity of the product being purchased"
+      }
+    },
+    {
+      "eventType": "reset_password_viewed",
+      "description": "When the user lands on the reset password page",
+      "params": {}
+    },
+    {
+      "eventType": "signup",
+      "description": "When the user signs up",
+      "params": {}
+    },
+    {
+      "eventType": "signup_viewed",
+      "description": "When the signup form is displayed to the user",
+      "params": {}
+    },
+    {
+      "eventType": "spot_scheduling_viewed",
+      "description": "When the user views the spot scheduling",
+      "params": {
+        "offer_id": "The unique identifier for the session",
+        "activity_id": "The unique identifier for the group activity",
+        "activity_name": "The name of the group activity"
+      }
+    }
+  ]
+}

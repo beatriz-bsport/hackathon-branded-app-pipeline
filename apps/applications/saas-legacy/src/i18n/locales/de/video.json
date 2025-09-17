@@ -1,0 +1,179 @@
+{
+  "video": {
+    "showMore": "Mehr anzeigen",
+    "description": "Beschreibung",
+    "status": {
+      "processed": "Ansehen",
+      "error": "Noch ein Mal versuchen",
+      "processing": "Ongoing",
+      "submitted": "Video hochladen"
+    },
+    "delete": {
+      "title": "Löschen",
+      "confirm": "Bestätigen",
+      "cancel": "Abbrechen",
+      "content": "Sind Sie sicher, dass Sie diese Strecke löschen möchten? Dieser Vorgang ist unumkehrbar."
+    },
+    "upload": {
+      "title": "Ein Video uploaden",
+      "content": "Video hierher ziehen oder Video zum Hochladen auswählen",
+      "dropHere": "Ziehe hier ein Video per Drag & Drop oder klicke hier, um Deinen Computer zu durchsuchen",
+      "cancel": "Abbrechen",
+      "urlInputError": "Bitte gib eine URL ein",
+      "urlInputLabel": "Youtube-Link",
+      "type": {
+        "url": "Youtube",
+        "file": "Datei",
+        "urlExplain": "Dein Video ist bereits auf Youtube verfügbar und du willst es über das bsport-Kartensystem monetarisieren.",
+        "fileExplain": "Du hast die Videodatei (mp4, avi, mov ...), verwende diese Methode, um Dein Video direkt auf die bsport-Server hochzuladen.",
+        "youtubeExplain": "Ihr Video ist bereits auf Youtube verfügbar, aber Sie möchten es über das bsport Kartensystem monetarisieren.",
+        "youtube": "Youtube",
+        "vimeo": "Vimeo",
+        "vimeoExplain": "Ihr Video ist bereits auf Vimeo verfügbar, aber Sie möchten es über das bsport Kartensystem monetarisieren.",
+        "ebook": "Ebooks",
+        "ebookExplain": "Sie haben ein Ebook im pdf- oder Bildformat (png, jpg), dann verwenden Sie diese Methode, um Ihr Ebook hochzuladen. Sobald es freigeschaltet ist, können Ihre Mitglieder es herunterladen."
+      },
+      "submit": "Bestätigen",
+      "minutes": "Minuten",
+      "hours": "Stunden",
+      "durationInputError": "Bitte geben Sie die Dauer des Videos ein",
+      "durationLabel": "Videodauer",
+      "youtubeUrlInput": "Link zu youtube",
+      "vimeoUrlInput": "Link zu vimeo",
+      "ebookTitle": "Ein ebook hochladen",
+      "contentEbook": "Hier einreichen oder eine Datei/ein Bild auswählen"
+    },
+    "form": {
+      "edit": "Ändern",
+      "cancel": "Abbrechen",
+      "submit": "Speichern",
+      "coach": {
+        "isEmpty": "Keine Lehrkraft"
+      },
+      "title": "Video ändern",
+      "creditPrice": {
+        "helperText": "Bei Null belassen, damit das Video für alle Mitglieder zugänglich ist",
+        "label": "Creditkosten",
+        "decimalCredit": {
+          "helperText": "Dieses Video kostet {{count}} Credit. Belassen Sie es bei 0, wenn das Video für alle Ihre Mitglieder zugänglich sein soll",
+          "helperText_plural": "Dieses Video kostet {{count}} Credits. Belassen Sie es bei 0, wenn das Video für alle Ihre Mitglieder zugänglich sein soll"
+        }
+      },
+      "video_label": "Video",
+      "video_source": {
+        "change_popup_text": "Bitte beachten Sie, dass das aktuelle Video gelöscht wird. Mitglieder, die das alte Video gekauft haben, erhalten nun das neue Video.",
+        "change_popup_title": "Video ändern",
+        "edit_button": "Video ändern",
+        "uploaded_video": "Datei hochgeladen",
+        "youtube_video": "Youtube-Video",
+        "title": "Video",
+        "vimeo_video": "Video Vimeo",
+        "ebook": "Ebook"
+      },
+      "confirm": {
+        "button": "Bestätigen",
+        "unlimitedToRent": "Sie haben gerade ein unbegrenztes Video in ein Mietvideo umgewandelt. Mitglieder, die derzeit über das Video verfügen, verlieren den Zugang zu diesem, wenn die angegebene Gültigkeitsdauer abgelaufen ist. Sind Sie sicher, dass Sie diese Einstellung ändern möchten?",
+        "rentToUnlimited": "Sie haben gerade ein Leihvideo in ein unbegrenztes Video umgewandelt. Alle Mitglieder, die das Video bereits freigeschaltet haben (aktuell oder abgelaufen), behalten es auf Lebenszeit. Sind Sie sicher, dass Sie diese Einstellung ändern möchten?",
+        "title": "Validierung"
+      }
+    },
+    "lock": {
+      "accessDenied": "Jetzt Zugriff erhalten",
+      "pleaseAuthenticated": "Bitte melde Dich an, um das Video zu sehen",
+      "buyPass": "Kaufe eine Karte",
+      "useConsumerPass": "Freischalten",
+      "accessDeniedEbook": "Du hast keinen Zugriff auf dieses eBook."
+    },
+    "player": {
+      "with": "mit"
+    },
+    "filter": {
+      "duration": {
+        "all": "Länge",
+        "explain": "Zwischen {{min}} und {{max}} Min"
+      }
+    },
+    "durationMinute": "{{ minute }} Min",
+    "thumbnailList": {
+      "addVideo": "Ein Video hinzufügen",
+      "count": "{{ count }} Videos",
+      "similarVideoTitle": "Ähnliche Videos"
+    },
+    "search": {
+      "placeholder": "Suchen",
+      "cancel": "Abbrechen",
+      "isEmpty": "Kein Video :("
+    },
+    "bottomActions": {
+      "create": "Hinzufügen"
+    },
+    "name": "Name",
+    "category": "Kategorie",
+    "level": "Level",
+    "creditPrice": "Kosten (Gutschrift)",
+    "register": {
+      "title": "Wiedergabe aktivieren",
+      "buyPass": "Kaufe eine Karte",
+      "noPassAvailable": "Sie haben keine kompatible Karte"
+    },
+    "analytics": {
+      "uploaded": "Video hochgeladen am {{date}}",
+      "distinctViewers": "Einmaliger Aufruf",
+      "viewsLastWeek": "Letzten 7 Tage",
+      "totalViews": "Gesamt",
+      "dateCreated": "Online",
+      "viewTitle": "Anzeigen",
+      "views": "{{nb_views}} Anzeigen"
+    },
+    "viewsListTitle": "Liste der Aufrufe",
+    "purchaseListTitle": "Liste der Käufe",
+    "viewedOn": "Video gesehen am {{-date}} um {{hour}}",
+    "boughtOn": "Kauf erfolgt am {{-date}}",
+    "noVideoPurchase": "Kein Kauf registriert",
+    "noVideoView": "Keine Aufrufe",
+    "coverMain": {
+      "alert": "Bild ist erforderlich"
+    },
+    "manager_only_helper": "Das Video kann nicht gekauft werden, es ist nur für Admins sichtbar",
+    "manager_only": "Nicht zum Kauf verfügbar",
+    "duplicate": "Duplizieren",
+    "rental": {
+      "buyDate": "Uhrzeit des Kaufs",
+      "expiredDate": "Abgelaufen am {{ expiration_date }}",
+      "expirationDate": "Gültig bis {{ expiration_date }}",
+      "expired": "Abgeschlossen",
+      "valid": "In Arbeit",
+      "forRent": "Vermietung",
+      "rental_days_helper": "Das Video wird für die angegebene Anzahl von Tagen freigeschaltet.",
+      "duration": "Zur Miete für {{ rental_days }} Tage",
+      "duration_helper": "Gültigkeit des Videos (in Tagen)",
+      "helper": "Standardmäßig sind Videos nach dem Kauf lebenslang freigeschaltet. Wenn Sie das Video ausleihen, wird es nur für eine bestimmte Anzahl von Tagen freigeschaltet.",
+      "label": "Video zum Ausleihen"
+    },
+    "download": "Download",
+    "ebook": {
+      "downloadHelper": "Sie haben Ihr ebook freigeschaltet. Um es anzusehen, klicken Sie bitte auf die Schaltfläche {{button}}"
+    }
+  },
+  "playlist": {
+    "description": "Beschreibung",
+    "noVideo": "Kein Video in dieser Playlist",
+    "name": "Name",
+    "open": "Öffnen",
+    "form": {
+      "cancel": "Abbrechen",
+      "submit": "Speichern"
+    },
+    "bottomActions": {
+      "create": "Hinzufügen"
+    },
+    "deleteVideo": "Löschen",
+    "playlist": "Playlist"
+  },
+  "details": {
+    "pleaseSelectVod": "Wähle einen Kauf aus, um Details anzuzeigen",
+    "invoiceTitle": "Zugehörige Rechnung",
+    "consumerPaymentPackTitle": "Kurspass verwendet",
+    "title": "Videodetails"
+  }
+}

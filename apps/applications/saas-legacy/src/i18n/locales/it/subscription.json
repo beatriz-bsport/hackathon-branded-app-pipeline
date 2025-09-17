@@ -1,0 +1,947 @@
+{
+  "subscription": {
+    "freeze": {
+      "form": {
+        "explain": "Indicare il numero di giorni con cui verranno posticipati i pagamenti successivi e futuri.",
+        "title": "Metti in pausa",
+        "name": {
+          "label": "Motivo",
+          "placeholder": "Tutti i Santi"
+        },
+        "days": {
+          "label": "Numero di giorni"
+        },
+        "explainWarning": "Si noti che questa operazione non è reversibile!",
+        "cancel": "Annulla",
+        "submit": "Salva",
+        "explainInvoice": "A partire da quale ricevuta (inclusa) si desidera posticipare l'abbonamento?"
+      },
+      "disabledReasons": {
+        "month_billing_day": "Non è possibile sospendere un contratto a giornata fissa "
+      }
+    },
+    "pauseSection": "Pausa",
+    "switchPack": {
+      "form": {
+        "title": "Modifica del pacchetto",
+        "submit": "Salva",
+        "cancel": "Annulla",
+        "warning": "La contabilizzazione rimarrà la stessa, se si desidera aumentare / ridurre l'importo mensile, modificare ogni pagamento mensile separatamente.",
+        "explain": "Questo pacchetto verrà aggiunto su tutte le ricevute future, in sostituzione del precedente. Le sessioni prenotate con il pass precedente saranno trasferite sul nuovo, anche se questo potrebbe non essere compatibile."
+      }
+    },
+    "actions": {
+      "switchPaymentMethod": "Modifica il metodo di pagamento",
+      "freeze": "Mettere in pausa",
+      "switchPack": "Modifica il pacchetto",
+      "advanceTime": "Anticipa la ricevuta",
+      "postPone": "Posticipa la ricevuta",
+      "changeDate": "Cambiare la data",
+      "showInvoice": "Vedere la ricevuta",
+      "changePrice": "Modificare il prezzo",
+      "stop": "Interrompere dopo questa ricevuta",
+      "disableAutoRenew": "Disattivare il rinnovo automatico",
+      "enableAutoRenew": "Abilitare il rinnovo automatico"
+    },
+    "list": {
+      "title": "Abbonamento ricorrente in corso"
+    },
+    "actionSection": "Gestire",
+    "invoicesSection": "Ricevute",
+    "delete": "Rimuovi",
+    "register": "Sottoscrivi",
+    "edit": "Modifica",
+    "buy": "Compra",
+    "scheduledStop": {
+      "summary": "L'ultimo incasso programmato sarà datato al {{-date}}, che corrisponderà all'ultimo pacchetto valido.",
+      "title": "Programma la risoluzione dell'iscrizione",
+      "explain": "Scegli l'ultimo pagamento dell'iscrizione.",
+      "listItem": "Risoluzione dell'iscrizione programmata",
+      "notePlaceholder": "Motivazione"
+    },
+    "invoice": {
+      "label": "Ricevuta {{uuid}} : {{price}}"
+    },
+    "listItem": {
+      "recurrencePriceIs": "Ricorrenza di {{ amount }}{{currencyDisplay}}",
+      "nextBillingDate": "Prossima data: {{ d }}}",
+      "startingAt": "Inizia il {{ d }}"
+    },
+    "switchPrivatePass": {
+      "form": {
+        "cancel": "Cancella",
+        "title": "Cambio del pacchetto per appuntamenti",
+        "explain": "Questo pacchetto per appuntamenti sarà addebitato al posto di quello vecchio su tutte le ricevute future. Le sessioni prenotate con il vecchio pacchetto saranno trasferite al nuovo, anche se il nuovo non dovrebbe essere compatibile.",
+        "warning": "La contabilizzazione rimarrà la stessa, se volete aumentare/diminuire l'importo mensile, cambiate ogni pagamento mensile separatamente.",
+        "submit": "Registra"
+      }
+    },
+    "switchPaymentCombo": {
+      "form": {
+        "submit": "Registra",
+        "title": "Cambiare il pacchetto combinato",
+        "explain": "Questo pacchetto combinato sarà addebitato al posto di quello vecchio unicamente sulle ricevute generate dopo il rinnovo dell'abbonamento ricorrente.",
+        "prewarning": "Se si desidera modificare le ricevute future già create, si deve annullare questo abbonamento ricorrente.",
+        "warning": "La contabilizzazione rimarrà la stessa, se volete aumentare/diminuire l'importo mensile, cambiate ogni pagamento mensile separatamente.",
+        "cancel": "Cancella"
+      }
+    },
+    "prorata": {
+      "helperOnSusscribe": "Il primo pagamento è ripartito proporzionalmente per un importo di {{ priceWithCurrency }} e verrà addebitato il giorno {{-firstBillingDate}}. I pagamenti successivi avverranno ogni {{ monthBillingDay }} del mese e saranno di {{ recurrentPrice }}"
+    }
+  },
+  "paymentMethod": {
+    "credit": {
+      "explain": "Utilizza questo metodo di pagamento per addebitare i membri se non è disponibile un metodo di pagamento diretto, come una carta o un IBAN. Il saldo del conto interno del socio verrà addebitato e questo metodo di pagamento può essere modificato in seguito."
+    },
+    "sepa": "Addebito diretto SEPA",
+    "bsportCredit": "Conto cliente",
+    "card": "Carta di credito",
+    "bacs_debit": "BACS Direct Debit"
+  },
+  "subscriptionStatus": {
+    "isPaused": "In pausa",
+    "pending": "In corso",
+    "canceledOn": "Interrotto il ",
+    "hasEnded": "Contabilizzazione completata"
+  },
+  "parameters": {
+    "parameters": "Impostazioni",
+    "member": "Socio",
+    "nbMonths": "Numero di collezioni",
+    "payment_method": {
+      "0": "Carta di credito",
+      "1": "Bonifici SEPA",
+      "2": "Sul conto",
+      "label": "Metodo di pagamento",
+      "paymentOnline": "Pagamento online"
+    },
+    "name": "Nome",
+    "dateCreated": "Data di creazione",
+    "autoRenew": "Rinnovo automatico",
+    "nbInterval": "Numero di collezioni",
+    "recurrent_price": "Pagamento ricorrente",
+    "flat_fee": "Spese amministrative : {{price_with_currency}}",
+    "paymentPack": "Pacchetto",
+    "dateStart": "Prima contabilizzazione",
+    "firstBilling": "Primo incasso",
+    "payment_pack": "Pacchetto",
+    "status": "Status",
+    "subscribeAgain": "Iscriviti di nuovo",
+    "voucher": "Offerta speciale",
+    "trial_nb": "Numero di ricevute gratuite",
+    "recurrent_voucher": "Sconto su ogni ricevuta",
+    "private_pass": "Pacchetto per appuntamenti",
+    "privatePass": "Pacchetto per appuntamenti",
+    "note": "Nota",
+    "payment_method_group": {
+      "1": "Carta di credito",
+      "2": "SEPA",
+      "14": "Credito"
+    },
+    "paymentCombo": "Pacchetto combinato",
+    "payment_combo": "Confezione",
+    "contractTermsAccepted": "I <0>termini legali</0> sono stati accettati in data {{-dateAccepted}}.",
+    "stopNote": "Nota di cancellazione",
+    "secondBillingPlanEnabled": "Secondo piano di pagamento abilitato",
+    "source_company": "Comprato in"
+  },
+  "contract": {
+    "registerManager": {
+      "explainChoseContract": "Seleziona un abbonamento ricorrente che verrà contablizzato mensilmente",
+      "actions": {
+        "cancel": "Annulla"
+      },
+      "explainCustomSubscriptionForm": "Abbonamento ricorrente personalizzato",
+      "title": "Pagamento ricorrente"
+    },
+    "description": "Descrizione",
+    "actions": {
+      "iwanttostarton": "Data di inizio preferita per l'abbonamento ricorrente: ",
+      "subscribe": "Sottoscrivi",
+      "create": "Crea abbonamento ricorrente",
+      "iAcceptCondition": "Accetto le condizioni di cui sopra",
+      "iAcceptGeneralCondition": " Accetto l'avviso legale",
+      "iAcceptContractTerms": "Accetto i<0>termini legali</0>.",
+      "alertPastDateSameMonth": "Nota che hai scelto una data passata, se l'abbonamento ricorrente contiene un pacchetto, la sua validità inizierà dalla data selezionata. Nel caso di una validità di un mese, il tuo membro perderà {{lostDays}} giorni di validità.",
+      "title": "Data passata",
+      "acceptContractTerms": "Accetta <0>termini e condizioni<0>"
+    },
+    "list": {
+      "title": "Abbonamenti ricorrenti",
+      "addButton": "Definire un contratto",
+      "register": "Iscrivi un membro",
+      "titleCustomerAvailable": "Abbonamenti ricorrenti disponibili per la vendita",
+      "titleManagerOnly": "Abbonamenti ricorrenti non disponibili",
+      "isEmpty": "Nessun abbonamento ricorrente disponibile",
+      "titleInactive": "Abbonamenti ricorrenti archiviati"
+    },
+    "form": {
+      "title": "Form del contratto",
+      "name": {
+        "label": "Nome del contratto"
+      },
+      "nb_interval": {
+        "label": "Numero di ricevute",
+        "helperText": "Almeno 2 mesi",
+        "error": "Il numero di ricevute non deve superare 90",
+        "errorForFixedBillingDay": "Il numero di ricevute non deve superare 12",
+        "restrictionForFixedBillingDay": "Il numero di ricevute deve essere compreso tra 2 e 12 per la contabilizzazione a giorni fissi"
+      },
+      "recurrent_price": {
+        "label": "Pagamento ricorrente",
+        "infoBox": "Stai per modificare il prezzo del tuo abbonamento ricorrente. Verrà influenzato solo il prezzo dei nuovi abbonamenti creati. Il prezzo degli abbonamenti ricorrenti correnti e degli abbonamenti ricorrenti di rinnovo esistenti non cambierà (anche dopo il rinnovo)."
+      },
+      "description": {
+        "placeholder": "Nuova offerta esclusiva limitata",
+        "label": "Descrizione"
+      },
+      "contract": {
+        "label": "Informazioni legali",
+        "placeholder": "Inserire qui tutte le informazioni legali necessarie, in particolare per quanto riguarda le procedure di rimborso."
+      },
+      "managerOnly": {
+        "label": "Invisibile ai clienti"
+      },
+      "flat_fee": {
+        "helperText": "Questa commissione verrà aggiunta alla prima ricevuta",
+        "label": "Quote d'iscrizione"
+      },
+      "autoRenewal": {
+        "label": "Rinnovo tacito",
+        "germanMarketWarning": "Per rispettare la legge tedesca sui contratti equi per i consumatori, dopo 2 anni di abbonamento, i nuovi cicli di abbonamento devono avere una durata inferiore a un anno. Assicuratevi di rispettare queste condizioni."
+      },
+      "object_type": {
+        "paymentPack": "Pacchetti",
+        "privatePass": "Pacchetti per appuntamenti",
+        "label": "Contenuto",
+        "paymentCombo": "Pacchetto combinato"
+      },
+      "error": {
+        "missingObject": "Questo campo è obbligatorio",
+        "missingPaymentCombo": "È necessario selezionare un pacchetto combinato",
+        "missingPrivatePass": "È necessario selezionare un pacchetto per appuntamenti",
+        "missingPaymentPack": "È necessario selezionare un pacchetto",
+        "moreThanThreeDecimalPrice": "Sembra che siano state inserite più di due cifre decimali. Si prega di regolare l'importo al centesimo più vicino."
+      },
+      "recurrence_basis": {
+        "intervalName": {
+          "week": "setimana",
+          "week_plural": "settimane",
+          "day": "giorno",
+          "day_plural": "giorni",
+          "month": "mese",
+          "month_plural": "mesi",
+          "year": "anno",
+          "year_plural": "anni"
+        },
+        "label": "Ripeti ogni",
+        "helperText": " "
+      },
+      "recurrence": {
+        "explain": "L'abbonamento ricorrente sarà contabilizzato ogni {{ recurrence_basis }} {{ interval }} per una durata totale di {{ total_interval_duration }} {{ interval }} e genererà {{ nb_interval }} ricevute",
+        "section": "Ricorrenza"
+      },
+      "interval": {
+        "helperText": "Con quale frequenza verranno addebitati i costi ai clienti?",
+        "label": "Ricorrenza"
+      },
+      "invoicing": {
+        "invoice": "ricevuta",
+        "invoice_plural": "ricevute",
+        "same_day_as_subscription": {
+          "recurrence_explain": {
+            "day": "L'abbonamento ricorrente verrà contabilizzato giornalmente per una durata totale di {{ total_subscription_duration }} {{ time_unit }} e genererà {{ nb_interval }} {{ invoice }}. Il cliente può scegliere la data di inizio del suo abbonamento.",
+            "day_plural": "L'abbonamento ricorrente verrà contabilizzato ogni {{ recurrence_basis }} giorni per una durata totale di {{ total_subscription_duration }} {{ time_unit }} e genererà {{ nb_interval }} {{ invoice }}. Il cliente può scegliere la data di inizio del suo abbonamento.",
+            "week": "L'abbonamento ricorrente verrà contabilizzato settimanalmente per una durata totale di {{ total_subscription_duration }} {{ time_unit }} e genererà {{ nb_interval }} {{ invoice }}. Il cliente può scegliere la data di inizio del suo abbonamento.",
+            "week_plural": "L'abbonamento ricorrente verrà contabilizzato ogni {{ recurrence_basis }} settimane per una durata totale di {{ total_subscription_duration }} {{ time_unit }} e genererà {{ nb_interval }} {{ invoice }}. Il cliente può scegliere la data di inizio del suo abbonamento.",
+            "month": "L'abbonamento ricorrente verrà contabilizzato mensilmente per una durata totale di {{ total_subscription_duration }} {{ time_unit }} e genererà {{ nb_interval }} {{ invoice }}. Il cliente può scegliere la data di inizio del suo abbonamento.",
+            "month_plural": "L'abbonamento ricorrente verrà contabilizzato ogni {{ recurrence_basis }} mesi per una durata totale di {{ total_subscription_duration }} {{ time_unit }} e genererà {{ nb_interval }} {{ invoice }}. Il cliente può scegliere la data di inizio del suo abbonamento.",
+            "year": "L'abbonamento ricorrente verrà contabilizzato ogni anno per una durata totale di {{ total_subscription_duration }} {{ time_unit }} e genererà {{ nb_interval }} {{ invoice }}. Il cliente può scegliere la data di inizio del suo abbonamento.",
+            "year_plural": "L'abbonamento ricorrente verrà contabilizzato ogni {{ recurrence_basis }} anni per una durata totale di {{ total_subscription_duration }} {{ time_unit }} e genererà {{ nb_interval }} {{ invoice }}. Il cliente può scegliere la data di inizio del suo abbonamento."
+          },
+          "label": "Contabilizza lo stesso giorno della data di acquisto dell'abbonamento ricorrente",
+          "explain": "Il giorno di contabilizzazione dipenderà dal giorno in cui è stato acquistato l'abbonamento ricorrente."
+        },
+        "title": "Contabilizzazione",
+        "fixed_day": {
+          "label": "Ricevuta in un giorno fisso",
+          "explain": "Ogni ricevuta sarà emessa il giorno prescelto. Il primo pagamento è pro-rata se necessario.",
+          "modification_not_apply_to_past": "Stai per modificare il giorno di contabilizzazione per il tuo abbonamento ricorrente. Saranno interessati solo i nuovi abbonamenti creati. Gli abbonamenti ricorrenti attuali e quelli già esistenti con rinnovo non subiranno modifiche (anche dopo il rinnovo)",
+          "end_of_month_explain": "Se un mese non include {{ month_billing_day }}, la ricevuta verrà emessa l'ultimo giorno del mese.",
+          "recurrence_explain": {
+            "month": "L'abbonamento ricorrente verrà contabilizzato ogni {{ month_billing_day }} del mese per una durata totale di {{ nb_interval }} mesi e genererà {{ nb_interval }} {{ invoice }}. Il primo pagamento, se necessario, sarà pro-rata."
+          }
+        },
+        "invoicing_type_readonly": "Non è possibile modificare il tipo di contabilizzazione"
+      },
+      "general_info": {
+        "title": "Informazioni generali"
+      },
+      "price": {
+        "title": "Prezzo"
+      },
+      "settings": {
+        "title": "Impostazioni"
+      },
+      "unusableByStaff": {
+        "label": "Non visibile per lo staff"
+      },
+      "month_billing_day": {
+        "label2": "del mese.",
+        "label1": "Contabilizza tutto"
+      },
+      "highlightedAsRecommended": {
+        "label": "Contrassegna come raccomandato",
+        "helperText": "Consente ai clienti di vedere a colpo d'occhio quali sono i contratti attualmente consigliati."
+      },
+      "advancedOptions": {
+        "tag": {
+          "tagGroupDuplicated": "Si noti che gli articoli selezionati contengono tag della stessa categoria.",
+          "selectTags": "Seleziona i tag",
+          "tagsOnAcquisitionHelper": "Utilizza i tag per identificare il membro che ha pagato la prima ricevuta",
+          "tagsOnAcquisition": "Tag dopo l'acquisto"
+        },
+        "selectTags": "Seleziona i tag",
+        "title": "Avanzate"
+      },
+      "nbIntervalAfterAutoRenewal": {
+        "secondLabel": "Numero di ricevute *",
+        "firstLabel": "Modificare la tariffazione dell'abbonamento per i prossimi cicli"
+      },
+      "notEditable": "Questo contratto proviene da una migrazione di dati precedentemente completata. Alcuni campi potrebbero non essere modificabili per preservare i dati.",
+      "commitmentPeriod": {
+        "explain": {
+          "year": "Questo abbonamento vincola il membro per {{ commitment_period_value }} anno. Le modifiche al periodo di vincolo dell'abbonamento nelle impostazioni non influiscono sugli abbonamenti già acquistati.",
+          "year_plural": "Questo abbonamento vincola il membro per {{ commitment_period_value }} anni. Le modifiche al periodo di vincolo dell'abbonamento nelle impostazioni non influiscono sugli abbonamenti già acquistati.",
+          "month": "Questo abbonamento vincola il membro per {{ commitment_period_value }} mese. Le modifiche al periodo di vincolo dell'abbonamento nelle impostazioni non influiscono sugli abbonamenti già acquistati.",
+          "month_plural": "Questo abbonamento vincola il membro per {{ commitment_period_value }} mesi. Le modifiche al periodo di vincolo dell'abbonamento nelle impostazioni non influiscono sugli abbonamenti già acquistati.",
+          "week": "Questo abbonamento vincola il membro per {{ commitment_period_value }} settimana. Le modifiche al periodo di vincolo dell'abbonamento nelle impostazioni non influiscono sugli abbonamenti già acquistati.",
+          "week_plural": "Questo abbonamento vincola il membro per {{ commitment_period_value }} settimane. Le modifiche al periodo di vincolo dell'abbonamento nelle impostazioni non influiscono sugli abbonamenti già acquistati.",
+          "day": "Questo abbonamento vincola il membro per {{ commitment_period_value }} giorno. Le modifiche al periodo di vincolo dell'abbonamento nelle impostazioni non influiscono sugli abbonamenti già acquistati.",
+          "day_plural": "Questo abbonamento vincola il membro per {{ commitment_period_value }} giorni. Le modifiche al periodo di vincolo dell'abbonamento nelle impostazioni non influiscono sugli abbonamenti già acquistati."
+        },
+        "error": "Il periodo di vincolo non può superare 90.",
+        "helperText": "Ricordatevi di verificare le leggi del vostro Paese in merito al diritto di recesso per l'abbonamento e di aggiungere le informazioni necessarie nei vostri termini e condizioni.",
+        "label": "Periodo di vincolo"
+      }
+    },
+    "legal": "Informazioni legali",
+    "duration": "{{month}} ricevute",
+    "deleteForm": {
+      "actions": {
+        "confirm": "Rimuovi",
+        "cancel": "Annulla"
+      },
+      "content": "Sei sicuro di voler eliminare questo contratto ?",
+      "title": "Cancellazione del contratto"
+    },
+    "paymentPack": "Pacchetto associato",
+    "no": "No",
+    "yes": "Sì",
+    "privatePass": "Pacchetto per appuntamenti associato",
+    "interval": {
+      "week": "settimana",
+      "week_plural": "settimane",
+      "day": "giorno",
+      "day_plural": "giorni",
+      "year": "anno",
+      "year_plural": "anni",
+      "month": "mese",
+      "month_plural": "mesi"
+    },
+    "item": {
+      "intervalLabel": {
+        "year": "Ogni anno",
+        "year_plural": "Ogni {{ count }} anni",
+        "day": "Ogni giorni",
+        "day_plural": "Ogni {{ count }} giorno",
+        "week": "Ogni settimana",
+        "week_plural": "Ogni {{ count }} settimana",
+        "month": "Ogni mese",
+        "month_plural": "Ogni {{ count }} mese"
+      },
+      "recurrentPriceLabel": "{{ recurrent_price  }}{{ currencyDisplay }}",
+      "identifier": "Abbonamento ricorrente"
+    },
+    "frequency": {
+      "week": "settimanale",
+      "month": "mensile"
+    },
+    "billingFrequency": "Frequenza di contabilizzazione",
+    "paymentCombo": "Pacchetto combinato associato",
+    "pastDate": {
+      "alertSameMonth": "Nota che hai scelto una data passata, se l'abbonamento ricorrente contiene un pacchetto, la sua validità inizierà dalla data selezionata. Nel caso di una validità di un mese, il tuo membro perderà {{lostDays}} giorni di validità.",
+      "payment": {
+        "manualInfo": "Le ricevute passate saranno indicate come pagate manualmente e quelle future saranno addebitate sul metodo di pagamento inserito dal membro.",
+        "pastInvoicesPayment": "Pagamento di ricevute passate",
+        "manualPayment": "Pagamento manuale",
+        "registeredMethodPayment": "Addebito sul metodo di pagamento registrato",
+        "registeredInfo": "Tutte le ricevute future e passate verranno addebitate entro 24 ore sul mezzo di pagamento indicato sull'abbonamento ricorrente."
+      },
+      "validate": "Conferma",
+      "title": "Data passata",
+      "alertDifferentMonth": "Attenzione, hai scelto una data in un mese passato. Il tuo membro potrebbe avere una o più carte addebitate che sono già scadute.",
+      "alertDifferentMonthConfirmAsk": "Stai per addebitare {{valuePastInvoicesPrice}} al tuo membro. Per confermare questa azione, digita {{valuePastInvoices}}",
+      "alertDifferentMonthInput": "Valore della ricevuta passata",
+      "valuePastInvoicesInputError": "Il valore non corrisponde. Riprova",
+      "futureInvoicesPayment": "Pagamento di ricevute future",
+      "cancel": "Annulla"
+    },
+    "monthBillingDay": "Addebitato ogni {{ month_billing_day }} del mese",
+    "autoRenewal": "Rinnovo automatico",
+    "nbIntervalAfterAutoRenewal": {
+      "details": {
+        "year": "Dopo il rinnovo, l'abbonamento sarà modificato in un piano di {{durationAfterAutoRenewal}} anni.",
+        "month": "Dopo il rinnovo, l'abbonamento sarà modificato in un piano di {{durationAfterAutoRenewal}} mesi.",
+        "week": "Dopo il rinnovo, l'abbonamento sarà modificato in un piano di {{durationAfterAutoRenewal}} settimane.",
+        "day": "Dopo il rinnovo, l'abbonamento sarà modificato in un piano di {{durationAfterAutoRenewal}} giorni."
+      },
+      "title": "Secondo piano di pagamento"
+    },
+    "durationInfo": {
+      "year": "{{count}} anno",
+      "year_plural": "{{count}} anni",
+      "month": "{{count}} mese",
+      "month_plural": "{{count}} mesi",
+      "week": "{{count}} settimana",
+      "week_plural": "{{count}} settimane",
+      "day": "{{count}} giorno",
+      "day_plural": "{{count}} giorni"
+    },
+    "autoRenewalInfo": "Rinnovo automatico",
+    "recurrenceInfoFixedDay": "ogni {{day}} del mese",
+    "recurrenceInfo": {
+      "year": "all'anno",
+      "year_plural": "ogni {{count}} anni",
+      "month": "al mese",
+      "month_plural": "ogni {{count}} mesi",
+      "week": "a settimana",
+      "week_plural": "ogni {{count}} settimane",
+      "day": "al giorno",
+      "day_plural": "ogni {{count}} giorni"
+    },
+    "commitmentPeriod": {
+      "explain": {
+        "year": "Questo abbonamento vincola il membro per {{ commitment_period_value }} anno.",
+        "year_plural": "Questo abbonamento vincola il membro per {{ commitment_period_value }} anni.",
+        "month": "Questo abbonamento vincola il membro per {{ commitment_period_value }} mese.",
+        "month_plural": "Questo abbonamento vincola il membro per {{ commitment_period_value }} mesi.",
+        "week": "Questo abbonamento vincola il membro per {{ commitment_period_value }} settimana.",
+        "week_plural": "Questo abbonamento vincola il membro per {{ commitment_period_value }} settimane.",
+        "day": "Questo abbonamento vincola il membro per {{ commitment_period_value }} giorno.",
+        "day_plural": "Questo abbonamento vincola il membro per {{ commitment_period_value }} giorni."
+      },
+      "label": "Periodo di vincolo"
+    }
+  },
+  "form": {
+    "cancel": "Annulla",
+    "title": "Nuovo pagamento ricorrente",
+    "check": "Verifica",
+    "submit": "Paga ora",
+    "note": {
+      "label": "Nota"
+    }
+  },
+  "events": {
+    "billing_plan-update_payment_pack": "Pacchetti modificato",
+    "billing_plan-update_payment_method": "Metodo di pagamento modificato",
+    "billing_plan-renew": "Rinnovo",
+    "billing_plan-payment_dispute": "Contenzioso",
+    "list": {
+      "title": "Ultimi eventi"
+    },
+    "billing_plan-pause": "Pausa",
+    "billing_plan-create": "Creazione",
+    "billing_plan-stop": "Abbonamento terminato da",
+    "billing_plan-payment_success": "Pagamento andato a buon fine",
+    "billing_plan-payment_failure": "Pagamento rifiutato",
+    "billing_plan-update_private_pass": "Pacchetti per appuntamenti modificato",
+    "billing_plan-update_payment_combo": "Pacchetto combinato modificato",
+    "billing_plan-pause_deleted": "Pausa annullata",
+    "billing_plan-update": "Abbonamento ricorrente modificato"
+  },
+  "save": "convalidare",
+  "recap": {
+    "includingFreeTrialOf1": " di cui ",
+    "willBecharged": " verrà addebitato ",
+    "every": " ogni ",
+    "times": " volta ",
+    "from": "Dal ",
+    "includingFreeTrialOf2": " non ancora addebitate ",
+    "month": "mese ",
+    "forObject": " per ",
+    "to": " fino a ",
+    "forATotalOf": "Per un totale di "
+  },
+  "table": {
+    "noContent": "Nessun abbonamento ricorrente registrato"
+  },
+  "pause": {
+    "pausedAt": "{{days}} giorni - {{date}}",
+    "pausedInterval": "{{start}} → {{end}}: {{days}} giorni",
+    "actions": {
+      "delete": "Resettare la pausa"
+    },
+    "secondaryLabel": " : {{ note }}",
+    "label": "Pausa di {{days}} giorni",
+    "createdAt": "Creato il "
+  },
+  "plannedInvoice": {
+    "list": {
+      "titleNext": "Prossimi prelievi"
+    },
+    "priceUpdater": {
+      "cancel": "Annulla",
+      "submit": "Salva",
+      "explain": "Solo questa ricevuta futura verrà modificata",
+      "title": "Modifica importo futuro",
+      "price": "Nuovo importo",
+      "updateAll": "Aggiornare tutti i pagamenti futuri",
+      "updateRecurrentPrice": "Applica questa modifica per i pagamenti generati dopo il rinnovo",
+      "nonNullDiscount": "Questo abbonamento ricorrente attualmente include un coupon. Questo coupon non verrà preso in considerazione durante l'aggiornamento del prezzo.",
+      "nonNullFlatFees": "Questo abbonamento ricorrente ha attualmente una commissione amministrativa di {{ flatFeesAmount }} {{ currencyDisplay }}. Queste spese amministrative non saranno prese in considerazione durante l'aggiornamento del prezzo."
+    },
+    "dateUpdater": {
+      "actions": {
+        "submit": "Salvare",
+        "cancel": "Annuallare"
+      },
+      "explain": "Solo questa ricevuta futura sarà modificata",
+      "label": "Data di regolamento",
+      "title": "Modificare la data futura"
+    }
+  },
+  "plannedInvoiceStatus": {
+    "pending": "In attesa",
+    "failed": "Pagamento rifiutato",
+    "succeeded": "Incassato",
+    "canceled": "Annullato",
+    "processing": "Pagamento in corso di trasferimento",
+    "reverted": "Cancellato"
+  },
+  "action": {
+    "stopExplain": "I pagamenti successivi verranno annullati e le relative ricevute verranno eliminate. Se una prenotazione è stata registrata con un abbonamento ricorrente, per il quale la ricevuta è stata annullata, verrà annullata.",
+    "revertCurrentExplain": "Annulla l'ultima ricevuta registrata e blocca il pacchetto",
+    "revertCurrentExplainHelper": "Se il pagamento è valido, verrà creato un credito, è possibile rimborsarlo al cliente inserendo la ricevuta e facendo clic su \"Rimborso\". Se il pagamento non è andato a buon fine, il debito verrà cancellato.",
+    "stop": "Stop",
+    "planStop": "Termina"
+  },
+  "cancel": "annulla",
+  "schedule": {
+    "provisionalTitle": "Programma provvisorio",
+    "paymentMethodTitle": "Metodo di addebito"
+  },
+  "mandate": {
+    "name": "Nome e cognome del titolare",
+    "email": "Email del titolare",
+    "content": "Dando il tuo IBAN e confermando il tuo pagamento, autorizzi bsport e Stripe, il nostro sistema di pagamento, a inviare le istruzioni di addebito alla tua banca in conformità con il piano di pagamento. Puoi richiedere un rimborso alla tua banca in base ai termini del contratto con essa. Il rimborso deve essere richiesto entro 8 settimane dal primo addebito.",
+    "contentIban": "Fornendo il tuo IBAN e confermando il pagamento, autorizzi bsport e Stripe, il nostro sistema di pagamento, a inviare istruzioni di addebito alla tua banca in conformità con il programma di pagamento. Puoi richiedere un rimborso alla tua banca secondo i termini del tuo contratto con quest'ultima. Il rimborso deve essere richiesto entro 8 settimane dal primo addebito.",
+    "contentBacsDebit": "Fornendo i tuoi dati bancari e confermando il pagamento, autorizzi bsport e Stripe, il nostro sistema di pagamento, a inviare istruzioni di addebito alla tua banca in conformità con il programma di pagamento. Puoi richiedere un rimborso alla tua banca secondo i termini del tuo contratto con quest'ultima. Puoi chiedere alla tua banca in qualsiasi momento di annullare il mandato di addebito diretto.",
+    "accountNumber": "Numero di conto",
+    "sortCode": "Codice bancario"
+  },
+  "noContracts": "In questo form, puoi aggiungere abbonamenti ricorrenti per addebitare automaticamente i tuoi membri su base giornaliera, settimanale, mensile o annuale.",
+  "copyLink": "Copia il link nella pagina di pagamento",
+  "listItem": {
+    "valid": "Valido",
+    "paused": "In pausa",
+    "expired": "Scaduto",
+    "canceled": "Fermato",
+    "subscribedOn": "L'iscrizione è iniziata il {{- date}}",
+    "willSubscribeOn": "L'abbonamento inizierà il {{- date}}"
+  },
+  "noAssociatedSubscription": "Nessun abbonamento ricorrente registrato.",
+  "associatedSubscriptions": "Abbonamenti ricorrenti associati a questo contratto",
+  "status": {
+    "hasEnded": "Terminato",
+    "hasStopped": "Interrotto",
+    "hasNotStartedYet": "Non ancora iniziato",
+    "hasStarted": "In corso",
+    "isPaused": "In pausa"
+  },
+  "scheduledStop": {
+    "label": "Fermata programmato",
+    "unscheduleStop": "Resettare la fermata",
+    "stoppedByMember": "Terminato dal membro",
+    "stoppedByManager": "Terminato da {{ name }}"
+  },
+  "end": {
+    "renew": "Rinnovo automatico",
+    "noRenew": "Fine della sottoscrizione"
+  },
+  "contractPause": {
+    "title": "Interruzioni globali",
+    "form": {
+      "dateFilter": {
+        "label": "Mettere in pausa solo gli abbonamenti che sono fatturati tra due date"
+      },
+      "invalidBillingPlan": "I seguenti abbonamenti non possono essere messi in pausa automaticamente",
+      "explainImpossible": "Se un pagamento è in corso, o previsto entro 24 ore, l'abbonamento non può essere messo in pausa automaticamente",
+      "validBillingPlan": "I seguenti abbonamenti saranno messi in pausa",
+      "untilDate": {
+        "label": "e el "
+      },
+      "fromDate": {
+        "label": "Fatturato tra "
+      },
+      "advanced": "Avanzato",
+      "days": {
+        "helperText": "Numero di giorni durante i quali gli abbonamenti saranno messi in pausa",
+        "label": "Numero di giorni"
+      },
+      "name": {
+        "placeholder": "Chiusura dello studio",
+        "label": "Nota"
+      },
+      "warning": "Si prega di notare che su alcuni abbonamenti, la pausa non è reversibile",
+      "title": "Pausa globale",
+      "paymentPackActions": {
+        "disableTillNextInvoice": "Disattivare la carta fatturata fino alla prossima fatturazione",
+        "extendTillNextInvoice": "Estendere la validità della tessera fatturata fino alla prossima fattura",
+        "doNotChange": "Non cambiare la carta fatturata",
+        "title": "Comportamento delle tessere"
+      }
+    },
+    "actions": {
+      "previous": "Precedente",
+      "verify": "Controlla",
+      "add": "Pausa",
+      "submit": "Pausa",
+      "cancel": "Cancella"
+    },
+    "section": {
+      "error": "{{count}} l'abbonamento non può essere messo in pausa automaticamente",
+      "error_plural": "{{count}} gli abbonamenti non possono essere messi in pausa automaticamente",
+      "success": "{{count}} pausa di sottoscrizione",
+      "success_plural": "{{count}} abbonamenti in pausa"
+    },
+    "fromUntil": "Solo se fatturati tra {{from}} e {{until}} compreso",
+    "createdAt": "Creato il {{at}}"
+  },
+  "seeMore": "Vedere più",
+  "search": "Cerca un contratto",
+  "notificationForm": {
+    "notificationType": {
+      "day": "Giorno",
+      "day_plural": "Giorni",
+      "afterSubcriptionCreation": "Dopo la creazione dell'abbonamento ricorrente.",
+      "firstBilling": "La prima ricevuta dell'abbonamento ricorrente.",
+      "before": "Prima",
+      "title": "Tipo di notifica",
+      "after": "Dopo",
+      "hour": "Ora",
+      "hour_plural": "Ore",
+      "contractEnd": "Fine dell'abbonamento ricorrente.",
+      "warningDayFirst": "Il numero di giorni indicato è relativo alla data della prima ricevuta a mezzanotte",
+      "warningHourFirst": "Il numero di ore indicato è relativo alla data della prima ricevuta a mezzanotte",
+      "warningDayLast": "Il numero di giorni indicato è relativo alla data dell'ultima ricevuta a mezzanotte",
+      "warningHourLast": "Il numero di ore indicato è relativo alla data dell'ultima ricevuta a mezzanotte"
+    },
+    "smartLists": {
+      "warning": "Non selezionando alcuna smartlist rischi di avvisare i membri che hanno già acquistato un altro pacchetto.",
+      "smartListHelperInclude": "Invia una mail solo se l'iscritto appartiene ad una delle seguenti liste",
+      "smartListSelection": "Scegli liste (facoltativo)",
+      "advanced": "Avanzato",
+      "smartListHelper": "Non inviare mail se l'iscritto appartiene a una delle seguenti liste",
+      "createSmartList": "Crea una smartlist"
+    },
+    "notificationPush": {
+      "warning": "Attenzione, le notifiche push dovrebbero essere usate con parsimonia. Troppe notifiche push potrebbero indurre alcuni membri a disinstallare l'app.",
+      "parameters": "Impostazioni notifiche",
+      "title": "Titolo",
+      "content": "Contenuto",
+      "addTag": "Aggiungi un tag"
+    },
+    "typeSection": {
+      "title": "Stato da notificare",
+      "contractStart": "Inizio dell'abbonamento ricorrente",
+      "contractEnd": "Fine dell'abbonamento ricorrente"
+    },
+    "title": "Regola di notifica",
+    "subtitle": "Abbonamento ricorrente",
+    "warning": "Avvisa i tuoi clienti quando il loro abbonamento ricorrente ha un cambiamento di stato: fine dell'abbonamento, inizio dell'abbonamento.",
+    "triggeringEvent": {
+      "title": "Evento scatenante",
+      "contractCreation": "Creazione dell'abbonamento ricorrente",
+      "firstBilling": "Prima ricevuta"
+    },
+    "sendingMethod": {
+      "title": "Metodo di invio",
+      "email": "Email",
+      "notificationPush": "Notifica push"
+    },
+    "emailNotification": {
+      "parameters": "Impostazioni dell' email",
+      "emailToSend": "Email da inviare"
+    },
+    "buttons": {
+      "cancel": "Annulla",
+      "submit": "Salva"
+    }
+  },
+  "notification": {
+    "days": "Giorno",
+    "days_plural": "Giorni",
+    "hours": "Ora",
+    "hours_plural": "Ore",
+    "title": "Notifica {{count}} {{periodScale}} {{notificationKind}}",
+    "creation": "Dopo la creazione",
+    "beforefirstBilling": "Prima della prima ricevuta",
+    "afterfirstBilling": "Dopo la prima ricevuta",
+    "beforeSubscriptionEnd": "Prima della fine dell'abbonamento ricorrente",
+    "afterSubscriptionEnd": "Dopo la fine dell'abbonamento ricorrente"
+  },
+  "pauseV2": {
+    "contractPause": {
+      "form": {
+        "firstStep": {
+          "information1": "Gli abbonamenti ricorrenti verranno sospesi dal {{- fromDate}} al {{- untilDate}} incluso. La prossima ricevuta sarà posticipata di {{count}} giorno, così come tutte le ricevute e i pacchetti futuri.",
+          "information1_plural": "Gli abbonamenti ricorrenti verranno sospesi dal {{- fromDate}} al {{- untilDate}} incluso. La prossima ricevuta sarà posticipata di {{count}} giorni, così come tutte le ricevute e i pacchetti futuri.",
+          "information2": "La data di scadenza del pacchetto sarà posticipata del numero di giorni di pausa e il pacchetto rimarrà valido durante questo periodo.",
+          "titleCreation": "Interruzione globale",
+          "titleUpdate": "Cambia interruzione globale"
+        },
+        "thirdStep": {
+          "successExplanation": "{{ count }} abbonamento ricorrente è stato messo in pausa con successo dal {{- fromDate}} al {{- untilDate}} incluso.",
+          "successExplanation_plural": "{{ count }} abbonamenti ricorrenti sono stato messi in pausa con successo dal {{- fromDate}} al {{- untilDate}} incluso.",
+          "title": "Pausa globale abbonamento ricorrente"
+        },
+        "secondStep": {
+          "title": "Verifica",
+          "sectionSuccess": "Abbonamenti ricorrenti sospesi",
+          "sectionFailure": "Impossibile mettere in pausa ",
+          "noCompatibleSubscriptions": "Nessun abbonamento ricorrente può essere messo in pausa.",
+          "incompatibleSubscriptions": "I seguenti abbonamenti ricorrenti non possono essere sospesi per uno dei seguenti motivi: un pagamento entro l'intervallo della pausa è programmato entro 24 ore, è in corso un pagamento di una ricevuta futura, il periodo selezionato si sovrappone a un'altra pausa già programmata, l'abbonamento ricorrente non è ancora iniziato."
+        }
+      },
+      "sections": {
+        "success": "{{count}} abbonamento ricorrente messo in pausa",
+        "success_plural": "{{count}} abbonamenti ricorrenti messi in pausa",
+        "error": "{{count}} abbonamento ricorrente non può essere messo in pausa automaticamente",
+        "error_plural": "{{count}} abbonamenti ricorrenti non possono essere messi in pausa automaticamente"
+      },
+      "title": "Interruzione globale",
+      "deleteDialogContent": "Sei sicuro di voler annullare la pianificazione di questa interruzione per tutti gli abbonamenti ricorrenti?",
+      "updateNameDialogTitle": "Cambiare il motivo della pausa"
+    },
+    "common": {
+      "menu": {
+        "changeContractForbidden": "Non è possibile modificare un'interruzione a livello di contratto.",
+        "delete": "Disattiva",
+        "change": "Cambia le date",
+        "changeName": "Cambia il motivo",
+        "changeForbidden": "Non puoi modificare un'interruzione che è già terminata.",
+        "cancelForbidden": "Non puoi annullare una pausa la cui data di inizio è già trascorsa."
+      },
+      "actions": {
+        "cancel": "Cancella",
+        "confirm": "Conferma",
+        "pause": "Pausa",
+        "verify": "Verifica",
+        "previous": "Precedente",
+        "goBack": "Indietro",
+        "save": "Salva",
+        "continue": "Continua"
+      },
+      "form": {
+        "reasonPlaceholder": "Motivo",
+        "duration": {
+          "title": "Durata della pausa",
+          "start": "Data di inizio (inclusa)",
+          "end": "Data di fine (inclusa)",
+          "warning": "La data di fine non può essere precedente alla data di inizio"
+        }
+      },
+      "listItem": {
+        "fromToUntil": "Da {{- fromDate}} a {{- untilDate}}",
+        "createdAtBy": "Creato il {{- dateCreation}} da {{- staffName }}",
+        "createdAt": "Creato il {{- dateCreation}}",
+        "deletedAtBy": "Cancellato il {{- dateDeletion}} da {{- staffName }}",
+        "deletedAt": "Cancellato il {{- dateDeletion}}",
+        "pausedAt": "{{ days }} giorni - Il {{- date}}",
+        "label": "Pausa dal {{- fromDate}} al {{- untilDate}}",
+        "isUpdated": "Pausa modificata"
+      },
+      "deleteDialog": {
+        "title": "Disattiva la pausa"
+      }
+    },
+    "subscriptionPause": {
+      "form": {
+        "initStep": {
+          "information1": "L'abbonamento ricorrente verrà messo in pausa dal {{- fromDate}} al {{- untilDate}} incluso. La successiva ricevuta dopo l'interruzione sarà posticipata di {{count}} giorno, lo stesso per tutte le ricevute future.",
+          "information1_plural": "L'abbonamento ricorrente verrà messo in pausa dal {{- fromDate}} al {{- untilDate}} incluso. La successiva ricevuta dopo l'interruzione sarà posticipata di {{count}} giorni, lo stesso per tutte le ricevute future.",
+          "titleCreation": "Pausa",
+          "titleUpdate": "Modifica pausa",
+          "information2": "La data di scadenza del pacchetto sarà posticipata del numero di giorni di pausa e il pacchetto rimarrà valido durante la pausa."
+        },
+        "successStep": {
+          "content": "L'abbonamento ricorrente {{- subscriptionName}} di {{- subscriberName }} è stato messo in pausa con successo dal {{- fromDate}} al {{- untilDate}} compreso.",
+          "title": "Mettere in pausa l'abbonamento ricorrente"
+        },
+        "failureStep": {
+          "contentIncomingBill": "L'abbonamento ricorrente {{- subscriptionName}} di {{- subscriberName }} non può essere messo in pausa perché una ricevuta nell'intervallo della pausa verrà emessa entro 24 ore o è in corso il pagamento di una ricevuta futura. Si prega di modificare la data di inizio della pausa.",
+          "title": "Impossibile mettere in pausa",
+          "contentOverlapPause": "L'abbonamento ricorrente {{- subscriptionName}} di {{- subscriberName }} non può essere messo in pausa perché è già stata pianificata una pausa dal {{- fromDate}} al {{- untilDate}}.",
+          "contentCanNotEditPauseStartWhenHasStarted": "La data di inizio della pausa non può essere modificata una volta iniziata.",
+          "contentCanNotEditPauseEndBeforeToday": "La nuova data di inizio della pausa non può essere impostata prima di oggi.",
+          "contentCanNotCreateAPauseInThePast": "La pausa non può iniziare nel passato.",
+          "contentSubscriptionHasNotStarted": "La pausa non è stata eseguita perché l'intervallo di date della pausa è precedente all'inizio dell'abbonamento ricorrente.",
+          "contentUnknownError": "Si è verificato un errore imprevisto. Ci scusiamo per il disagio.",
+          "contentInvalidTimedelta": "La pausa deve almeno durare un giorno.",
+          "contentCanNotCancelPause": "La pausa è già iniziata o è già passata, non può essere annullata.",
+          "contentSubscriptionWillEndBeforePause": "L'abbonamento ricorrente non può essere messo in pausa durante questo periodo perché sarà terminato prima o il suo rinnovo non è stato ancora eseguito."
+        }
+      },
+      "eventItems": {
+        "pauseCreatedThenDeleted": "Questa interruzione è stata rimossa o modificata.",
+        "pauseDeleted": "Motivo della pausa passata: {{pause_name}}"
+      },
+      "deleteDialogContent": "Sei sicuro di voler annullare questa pausa?"
+    }
+  },
+  "notificationToolTip": "Le notifiche sono impostate per questo abbonamento ricorrente",
+  "register": {
+    "dialog": {
+      "success": "Il tuo abbonamento ricorrente a {{- name }} è stato registrato con successo.",
+      "error": "Impossibile salvare l'abbonamento ricorrent, si prega di riprovare più tardi.",
+      "info": "Il tuo abbonamento ricorrente è in fase di registrazione, ti avviseremo quando sarà pronto."
+    }
+  },
+  "addNotification": "Aggiungi una notifica",
+  "contractNotification": {
+    "creation": "Alla creazione dell'abbonamento ricorrente",
+    "firstBilling": "Alla prima ricevuta"
+  },
+  "billing_plan_status": {
+    "0": "Non ancora iniziato",
+    "1": "In corso",
+    "2": "Interrotto",
+    "3": "In pausa",
+    "4": "Terminato"
+  },
+  "invisibleForStaffToolTip": "Non visibile per lo staff",
+  "alreadySubscribed": {
+    "dialog": {
+      "content": "Hai già acquistato questo abbonamento ricorrente di recente. Se non lo vedi ancora, attendi qualche minuto. Tuttavia, se desideri acquistarlo di nuovo, attendi qualche minuto e riprova.",
+      "validate": "Ok",
+      "title": "Già iscritto"
+    }
+  },
+  "subscriptionNotFound": {
+    "explanation": "Questo abbonamento ricorrente non esiste più. Sceglierne un altro o contattare il manager dello studio.",
+    "title": "Abbonamento ricorrente non trovato"
+  },
+  "newCheckout": {
+    "error": {
+      "button": {
+        "userRegistration": "Vedi i miei abbonamenti ricorrenti",
+        "registerBackground": "Chiudi"
+      },
+      "text": {
+        "userRegistration": "L'abbonamento ricorrente è stato sottoscritto e il pagamento verrà addebitato a breve. Tuttavia, la prenotazione non è stata registrata.",
+        "registerBackground": "Non è stato possibile sottoscrivere l'abbonamento ricorrente e procedere con la prenotazione. Il metodo di pagamento non è stato addebitato."
+      },
+      "title": "Si è verificato un errore"
+    },
+    "payment": {
+      "tooltip": "Questo metodo di pagamento sarà conservato per la contabilizzazione in conformità con il contratto. Non preoccuparti, potrai cambiarlo in seguito dal tuo account.",
+      "details": "Dettagli del pagamento"
+    },
+    "subscriptionBasketSummary": {
+      "message": "È possibile visualizzare la propria iscrizione nella pagina del profilo",
+      "payNow": "Paga ora"
+    },
+    "terms": {
+      "acceptTerms": "Accetto i <0>termini legali</0>.",
+      "seeLess": "Vedi meno",
+      "seeMore": "Mostra di più",
+      "title": "Termini del contratto"
+    },
+    "subscriptionSummary": {
+      "billingInterval": {
+        "day": "Ogni giorno",
+        "day_plural": "Ogni {{ count }} giorni",
+        "year": "Ogni anno",
+        "year_plural": "Ogni {{ count }} anni",
+        "week": "Ogni settimana",
+        "week_plural": "Ogni {{ count }} settimane",
+        "month": "Ogni mese",
+        "month_plural": "Ogni {{ count }} mesi"
+      },
+      "prorataPriceText": "{{proratedPrice}} da pagare il {{-today}}, poi {{recurrentPrice}} ogni {{monthBillingDay}} del mese.",
+      "item": "{{count}} elemento",
+      "item_plural": "{{count}} elementi",
+      "unlimited": "Illimitati",
+      "credit": "{{count}} credito",
+      "credit_plural": "{{count}} crediti",
+      "startDate": "Data d'inizio"
+    },
+    "processingPaymentModal": {
+      "timeEstimation": "L'operazione può durare fino a un minuto",
+      "text": "Attendere l'elaborazione del pagamento. Non lasciare o ricaricare questa pagina.",
+      "title": "Pagamento in corso"
+    },
+    "title": "Abbonamento ricorrente"
+  },
+  "GermanMarketSetSubscriptionAutoRenewalAlert": {
+    "content": "Per rispettare la legge tedesca sui contratti equi per i consumatori, dopo 2 anni di abbonamento, i nuovi cicli di abbonamento devono avere una durata inferiore a un anno. Sei sicuro di voler continuare?",
+    "title": "Rinnovo automatico"
+  },
+  "germanNbIntervalAlert": "Per conformarsi alla legge tedesca sui contratti equi per i consumatori, il numero di fatture deve essere inferiore a 24.",
+  "billingPlanStatus": {
+    "valid": "Valido",
+    "paused": "In pausa",
+    "expired": "Scaduto",
+    "canceled": "Terminato"
+  },
+  "filters": {
+    "all": "Tutti gli abbonamenti"
+  },
+  "franchiseUserProfile": {
+    "associatedPassValidity": "Valido per ",
+    "associatedInvoices": "Ricevute associate",
+    "pleaseSelectASubscription": "Seleziona un abbonamento per avere una panoramica più dettagliata."
+  },
+  "contractTemplate": {
+    "form": {
+      "sharedAppointmentPassesSelectorTooltip": "Gli studi che hanno accesso a questo pacchetto per appuntamenti condiviso avranno accesso anche all'abbonamento",
+      "sharedPassesSelectorTooltip": "Gli studi che hanno accesso a questo pacchetto condiviso avranno accesso anche all'abbonamento",
+      "title": "Abbonamento ricorrente"
+    },
+    "detailPage": {
+      "sharedStudios": "Condiviso con i seguenti studi:"
+    },
+    "filter": {
+      "associatedPass": "Pacchetto associato",
+      "productType": "Prodotto",
+      "appointmentPasses": "Pacchetti per appuntamento",
+      "passes": "Pacchetti",
+      "studios": "Studio",
+      "searchPlaceholder": "Cerca un abbonamento",
+      "availability": "Disponibilità",
+      "unavailableForEveryone": "Non disponibile per nessuno",
+      "staffOnly": "Solo lo staff",
+      "memberOnly": "Solo i membri",
+      "availableForEveryone": "Disponibile per tutti",
+      "noFilters": "Tutti gli abbonamenti ricorrenti"
+    },
+    "dialog": {
+      "delete": {
+        "confirm": "Elimina",
+        "cancel": "Cancella",
+        "content": "Sei sicuro di voler eliminare l'abbonamento condiviso?",
+        "title": "Conferma di rimozione"
+      }
+    },
+    "icons": {
+      "restore": "Ripristina"
+    },
+    "list": {
+      "isEmpty": "Nessun contratto condiviso"
+    },
+    "backofficeEditWarning": "L'abbonamento è condiviso attraverso il Conto Principale. Alcune impostazioni sono state predefinite da tale Conto e non possono essere modificate."
+  }
+}

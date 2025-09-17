@@ -13,7 +13,7 @@ pnpm run dev
 This will run two applications aside :
 
 - The Navigation Sidebar on port 4050, with module federation.
-- The $MODEL application, on the port defined in `package.json` in `federation.devPort` : $PORT.
+- The Referral Program application, on the port defined in `package.json` in `federation.devPort` : $PORT.
 
 Go to <http://localhost:$PORT>
 

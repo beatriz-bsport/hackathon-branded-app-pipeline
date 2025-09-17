@@ -1,0 +1,250 @@
+{
+    "select": {
+        "placeholder": ""
+    },
+    "link": {
+        "copyLink": "",
+        "copied": ""
+    },
+    "search": "",
+    "dialog": {
+        "delete": {
+            "title": "",
+            "cancel": "",
+            "confirm": "",
+            "explain": "",
+            "warning": ""
+        }
+    },
+    "provision": {
+        "total_sales": "",
+        "current_stock": "",
+        "noProvisionHistory": "",
+        "form": {
+            "title": "",
+            "quantityLabel": "",
+            "quantityHelperText": "",
+            "quantityError": "",
+            "cancel": "",
+            "submit": ""
+        },
+        "action": {
+            "update": ""
+        }
+    },
+    "shopitem": {
+        "noDescription": "",
+        "selector": {
+            "placeholder": ""
+        },
+        "detail": {
+            "enabled": "",
+            "disabled": "",
+            "title": "",
+            "provisionHistory": "",
+            "parameters": "",
+            "supplier_price": "",
+            "marketplace_enabled": "",
+            "is_deliverable": "",
+            "onsite_payment_available": ""
+        },
+        "action": {
+            "edit": "",
+            "addToCard": "",
+            "delete": ""
+        },
+        "form": {
+            "title": "",
+            "colors": {
+                "title": "",
+                "helperText": ""
+            },
+            "sizes": {
+                "title": "",
+                "helperText": ""
+            },
+            "barcodes": {
+                "title": "",
+                "option": {
+                    "inherit": "",
+                    "generate": ""
+                }
+            },
+            "variantHelperText": "",
+            "error": {
+                "name": "",
+                "colorSize": ""
+            }
+        }
+    },
+    "startingAtWithPrice": "",
+    "variantCount": "",
+    "addVariantCount": "",
+    "saveProductWithVariantCount": "",
+    "duplicateVariantWarning": "",
+    "shopList": {
+        "tab": {
+            "products": {
+                "title": "",
+                "addProduct": "",
+                "subshopForm": {
+                    "title": "",
+                    "field": {
+                        "name": ""
+                    }
+                },
+                "franchiseSubshopDialog": {
+                    "inputPlaceholder": "",
+                    "create": "",
+                    "update": "",
+                    "delete": "",
+                    "deleteInfo": "",
+                    "info": ""
+                },
+                "storeOnly": "",
+                "online": "",
+                "emptySubshopList": ""
+            },
+            "settings": {
+                "title": "",
+                "section": {
+                    "suppliers": {
+                        "title": "",
+                        "table": {
+                            "name": "",
+                            "notes": "",
+                            "actions": "",
+                            "addSupplier": "",
+                            "action": {
+                                "showInfos": "",
+                                "edit": "",
+                                "delete": ""
+                            }
+                        },
+                        "modal": {
+                            "titleCreate": "",
+                            "titleUpdate": "",
+                            "field": {
+                                "name": "",
+                                "description": ""
+                            }
+                        },
+                        "detailsModal": {
+                            "title": ""
+                        },
+                        "deleteModal": {
+                            "title": "",
+                            "message": ""
+                        }
+                    },
+                    "supplierPrices": {
+                        "title": "",
+                        "hideSupplierPricesForFranchisees": ""
+                    }
+                }
+            }
+        }
+    },
+    "shopItemDetail": {
+        "title": "",
+        "startingAt": "",
+        "showMore": "",
+        "showLess": "",
+        "copyPaymentPageLink": "",
+        "viewBarcode": "",
+        "barcodeUnicityWarning": "",
+        "deleteModal": {
+            "title": "",
+            "genericTitle": "",
+            "message": "",
+            "comboWarning": ""
+        },
+        "tab": {
+            "inventory": "",
+            "variants": "",
+            "settings": "",
+            "history": ""
+        },
+        "table": {
+            "inventory": {
+                "filterPlaceholder": {
+                    "company": "",
+                    "size": "",
+                    "color": "",
+                    "establishmentBillingGroup": ""
+                },
+                "unsavedChangesModal": {
+                    "title": "",
+                    "inventory": "",
+                    "default": ""
+                },
+                "formError": "",
+                "action": {
+                    "update": ""
+                },
+                "variants": "",
+                "currentStock": "",
+                "companyName": "",
+                "stockAdjustment": "",
+                "totalSales": "",
+                "tooltipForMultiLocationWebshop": ""
+            },
+            "variants": {
+                "formError": {
+                    "price": ""
+                },
+                "formWarning": {
+                    "barcode": ""
+                },
+                "placeholder": "",
+                "action": {
+                    "add": "",
+                    "edit": ""
+                },
+                "image": "",
+                "upload": "",
+                "colorAndSize": "",
+                "price": "",
+                "supplierPrice": "",
+                "sku": "",
+                "barcode": "",
+                "availableOnline": ""
+            },
+            "settings": {
+                "supplier": "",
+                "supplierPrice": "",
+                "vat": "",
+                "vatValue": "",
+                "availableOnline": "",
+                "paymentMethods": "",
+                "paymentMethodsChip": {
+                    "online": "",
+                    "inStore": "",
+                    "onlineInStore": ""
+                },
+                "sellOnlyOnProvision": "",
+                "featured": "",
+                "requiresDelivery": "",
+                "barcode": "",
+                "barcodeTooltip": "",
+                "sku": ""
+            },
+            "history": {
+                "date": "",
+                "variant": "",
+                "studio": "",
+                "updateType": {
+                    "title": "",
+                    "sale": "",
+                    "manual": "",
+                    "purchase": ""
+                },
+                "quantity": "",
+                "invoice": {
+                    "title": "",
+                    "seeInvoice": ""
+                }
+            }
+        }
+    }
+}

@@ -1,1 +1,105 @@
-{}
+{
+  "pages": {
+    "active": "Moduli",
+    "archived": "Moduli Archiviati",
+    "loading": "Caricamento..."
+  },
+  "activeList": {
+    "actions": {
+      "addForm": "Crea modulo"
+    },
+    "addFormModal": {
+      "title": "Crea nuovo modulo",
+      "description": "Dai un nome al tuo nuovo modulo per iniziare!",
+      "input": {
+        "label": "Nome del modulo",
+        "placeholder": "Aggiungi un nome al modulo..."
+      },
+      "actions": {
+        "cancel": "Cancella",
+        "create": "Crea"
+      },
+      "errors": {
+        "nameTooLong": "Il nome non è valido, la lunghezza massima è di {{ maximalLength }} caratteri.",
+        "nameTooShort": "Il nome non è valido, la lunghezza minima è di {{ minimalLength }} caratteri.",
+        "nameRequired": "Il nome non è valido, non puoi inserire un nome vuoto."
+      }
+    },
+    "archiveModal": {
+      "actions": {
+        "archive": "Archivia",
+        "cancel": "Indietro"
+      },
+      "title": "Archiviare il Modulo?",
+      "description": "I Membri non vedranno più <b>{{ name }}</b>, ma puoi accedervi dal tuo archivio."
+    },
+    "duplicateModal": {
+      "actions": {
+        "duplicate": "Duplica",
+        "cancel": "Indietro"
+      },
+      "title": "Duplica Modulo?",
+      "description": {
+        "verification": "Duplicare <b>{{ name }}</b>?",
+        "effect": "Puoi modificare <b>{{ name }}</b> dopo."
+      }
+    }
+  },
+  "toasts": {
+    "messageCreated": {
+      "success": "Modulo creato",
+      "error": "Impossibile creare il modulo"
+    },
+    "messageArchived": {
+      "success": "Modulo archiviato",
+      "error": "Impossibile archiviare il tuo modulo"
+    },
+    "messageRestored": {
+      "success": "Modulo ripristinato",
+      "error": "Impossibile ripristinare il modulo"
+    },
+    "messageDuplicated": {
+      "success": "Modulo duplicato",
+      "error": "Impossibile duplicare il modulo"
+    },
+    "messageUndone": {
+      "success": "Azione annullata",
+      "error": "Impossibile annullare l'azione"
+    },
+    "actions": {
+      "undo": "Annulla",
+      "open": "Apri"
+    }
+  },
+  "table": {
+    "headers": {
+      "name": "Nome",
+      "questions": "Domande"
+    },
+    "loading": {
+      "activeList": "Caricamento dei moduli...",
+      "archivedList": "Caricamento dei moduli archiviati..."
+    },
+    "empty": {
+      "activeList": {
+        "title": "Ancora nessun modulo da visualizzare",
+        "subtitle": "Crea il tuo primo modulo per ottenere feedback dai tuoi Membri."
+      },
+      "archivedList": {
+        "title": "Nessun modulo archiviato ancora",
+        "subtitle": "Qualsiasi modulo spostato qui può essere ripristinato"
+      },
+      "search": {
+        "title": "Nessun modulo trovato",
+        "subtitle": "Prova con parole chiave diverse"
+      }
+    },
+    "tooltips": {
+      "archive": "Archivia Modulo",
+      "restore": "Ripristina Modulo",
+      "duplicate": "Duplica Modulo",
+      "search": "Cerca un modulo",
+      "switchToArchived": "Moduli archiviati"
+    }
+  }
+}

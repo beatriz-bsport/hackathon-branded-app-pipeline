@@ -1,0 +1,503 @@
+{
+  "forms": {
+    "themePersonalization": {
+      "first_name_label": {
+        "helperText": "Ingresa la etiqueta para el nombre",
+        "label": "Etiqueta de nombre",
+        "placeholder": "Etiqueta de nombre"
+      },
+      "names_label_info": "Cambiar la etiqueta de los campos Nombre y Apellido en los formularios de registro",
+      "default_booking_ordering": {
+        "title": "Elegir el orden de clasificación predeterminado para las reservas en la página de actividad",
+        "lastname": "Ordenar alfabéticamente por nombre",
+        "firstname": "Ordenar alfabéticamente por nombre",
+        "date": "Ordenar por fecha de reserva más reciente"
+      },
+      "default_attendance": {
+        "title": "Estatuto predeterminado de una reserva realizada por el cliente",
+        "present": "Miembro presente",
+        "missing": "Miembro ausente"
+      },
+      "calendar": {
+        "police": {
+          "label": "Fuente",
+          "helperText": "Cambiar el estilo de la fuente",
+          "placeholder": "Ingresar el código CSS"
+        },
+        "offerCard": {
+          "helperText": "Cambiar el estilo de los bonos",
+          "label": "Bonos",
+          "placeholder": "Ingresar el código CSS"
+        },
+        "columns": {
+          "helperText": "Cambiar el estilo de las columnas",
+          "label": "Columnas",
+          "placeholder": "Ingresar el código CSS"
+        },
+        "bookButton": {
+          "helperText": "Cambiar el estilo del botón \"reservar\"",
+          "label": "Botón \"reservar\"",
+          "placeholder": "Ingresar el código CSS"
+        },
+        "title": "Ingresa tu propio código CSS para personalizar tu calendario"
+      },
+      "acceptDoubleBooking": "Aceptar la doble reserva",
+      "consumerRegularizeDebt": "El cliente puede regularizar su anticipo en línea",
+      "last_name_label": {
+        "placeholder": "Etiqueta para el apellido",
+        "helperText": "Ingresa la etiqueta para el apellido",
+        "label": "Etiqueta para el apellido"
+      },
+      "offersFilling": "Mostrar el llenado de cursos en el calendario del cliente",
+      "workshopsCustomer": "Mostrar talleres en el calendario del cliente",
+      "cancelledOffersCustomer": "Mostrar sesiones canceladas en el calendario del cliente",
+      "calendarPersonalizationTitle": "Configuración del calendario",
+      "basket_expiration_days": {
+        "alert": "Añada los días de caducidad de la cesta de la compra!",
+        "placeholder": "Días antes de la expiración",
+        "helperText": "Número de días tras los cuales se vaciarán las cestas abandonadas.",
+        "label": "Caducidad de la cesta de la compra"
+      },
+      "cancelledOffersManager": "Por defecto, mostrar las sesiones canceladas en el calendario del administrador",
+      "checkBalance": {
+        "shiftRatio": {
+          "explain": "Si se registran más de {{numberCheck}} reservas en una sesión, no se autorizará ninguna reserva que cree un desequilibrio MUJER/HOMBRE mayor que {{gender_max_shift_for_booking}} personas.",
+          "helperText": "Limitar el desequilibrio MUJER/HOMBRE a {{gender_max_shift_for_booking}} personas",
+          "placeholder": "Desequilibrio máximo autorizado entre hombres y mujeres"
+        },
+        "numberCheck": {
+          "helperText": "Cuando más de {{number}} personas reservan una sesión, cualquier reserva adicional sólo será aceptada si el desequilibrio MUJER/HOMBRE es menor que el siguiente valor.",
+          "placeholder": "Comprobar el desequilibrio MUJER/HOMBRE cuando el número de reservas excede"
+        },
+        "checkbox": "Limitar el desequilibrio MUJER/HOMBRE en las reservas (estudio de baile...)"
+      },
+      "offerBalance": "Controlar el balance Mujer/Hombre en cada sesión",
+      "showGenderOffer": "Mostrar el número de hombres y mujeres que reservan una oferta",
+      "hideCoach": "Ocultar los nombres de los profesores en el calendario del cliente",
+      "maxFutureBooking": {
+        "numberCheck": {
+          "helperText": "El número máximo de sesiones de actividades de grupo que un afiliado puede reservar por adelantado.",
+          "placeholder": "Número máximo"
+        },
+        "label": "Limitar el número de reservas futuras por socio para actividades de grupo"
+      },
+      "hiddenFromMarketplace": "Aparecer en la app de bsport y en el marketplace",
+      "schedule": {
+        "alert": "La hora de inicio del horario debe ser anterior a la hora de finalización",
+        "end": "Hora de finalización",
+        "begin": "Hora de inicio",
+        "title": "Establecimiento del horario"
+      },
+      "coach_can_edit_attendance": "En la aplicación móvil, el profesor puede modificar la asistencia/ausencia",
+      "internalAccountWarning1": "Le recomendamos fuertemente que cree un informe de saldos de clientes antes de habilitar esta función.",
+      "allowConsumerToUseInternalAccount": "El cliente puede utilizar su depósito interno para pagar sus facturas o su cesta",
+      "internalAccountWarning2": "Para crear un informe de saldo de cliente, vaya a la pestaña \"Informes\" y seleccione \"Créditos\" de la categoría \"Pagos\" al crear el nuevo informe.",
+      "goToReports": "Página de informes",
+      "internalAccountWarningTitle": "Cuidado con los saldos actuales de los clientes.",
+      "internalAccountNotusableOnContract": "Este medio de pago no puede utilizarse para las cuotas",
+      "internalAccount": "Saldo del cliente",
+      "hideBuyablePassIfSuperfluous": "Ocultar los bonos, las cuotas y los packs si el socio ya posee un producto compatible",
+      "bookingTitle": "Reserva",
+      "attendanceTitle": "Presencia",
+      "errorURL": "Por favor, introduzca una URL válida antes de guardar el formulario",
+      "hideSessionWithTagsNotEligible": "No mostrar las sesiones a las que el socio no tiene acceso con tags",
+      "hideMemberForCoach": "Ocultar la información de contacto del cliente en el calendario del profesor",
+      "signup": {
+        "urlHelperText": "El afiliado será redirigido a este enlace tras confirmar su correo electrónico. Si no es así, serán redirigidos a su perfil en la marketplace.",
+        "urlError": "Por favor, introduzca una url válida",
+        "urlRedirection": "URL de redirección",
+        "helperText": "Al registrarse, tus miembros recibirán un correo electrónico para confirmar su dirección de correo electrónico, su cuenta no se activará hasta que este correo haya sido confirmado",
+        "label": "Confirmación del correo electrónico en el registro",
+        "title": "Registro",
+        "emailConfirmationAtSignUp": {
+          "label": "Confirmación por correo electrónico al inscribirse",
+          "helperText": "Los clientes recibirán un correo electrónico cuando se registren pidiéndoles que confirmen su dirección de correo electrónico. Su cuenta de miembro no se activará hasta que hagan clic en el enlace del correo electrónico. "
+        }
+      },
+      "coachUserspace": {
+        "requestLimitationPeriods": {
+          "placeholder": "Selecciona un periodo",
+          "year": "Años",
+          "month": "Mes",
+          "week": "Semanas"
+        },
+        "errors": {
+          "restrictionToggles": "Selecciona al menos una opción"
+        },
+        "maxNbRequestPerPeriod": {
+          "recap": {
+            "1": "Cada {{nbPeriods}} semanas tus profesores pueden hacer un máximo de {{nbRequests}} solicitudes fuera de plazo. Una vez superado este número, no podrán realizar más solicitudes tardías hasta el final del periodo.",
+            "2": "Cada {{nbPeriods}} meses tus profesores pueden hacer un máximo de {{nbRequests}} solicitudes fuera de plazo. Una vez superado este número, no podrán realizar más solicitudes tardías hasta el final del periodo.",
+            "3": "Cada {{nbPeriods}} años tus profesores pueden hacer un máximo de {{nbRequests}} solicitudes fuera de plazo. Una vez superado este número, no podrán realizar más solicitudes tardías hasta el final del periodo."
+          },
+          "helperText": "Número máximo de solicitudes tardías"
+        },
+        "isLateReplacementRequestLimited": "Límite de solicitudes tardías",
+        "daysBeforeReplacementClosingAcceptance": {
+          "description": "Tus profesores ya no podrán aceptar ser sustitutos en una clase {{count}} día antes de que comience el curso.",
+          "description_plural": "Tus profesores ya no podrán aceptar ser sustitutos en una clase {{count}} días antes de que comience el curso.",
+          "helperText": "Fecha límite para las inscripciones de sustitución",
+          "placeholder": "Número de días"
+        },
+        "daysBeforeReplacementClosing": {
+          "interval": "Intervalo",
+          "every": "Toda(s) las",
+          "description": "Las solicitudes de sustitución realizadas a partir del {{count}} día anterior al inicio de la clase se considerarán retrasadas.",
+          "description_plural": "Las solicitudes de sustitución efectuadas {{count}} días o más antes del inicio de la clase serán calificadas como tardías.",
+          "helperText": "Cierre de las solicitudes de sustitución",
+          "placeholder": "Número de días"
+        },
+        "daysBeforeRequestIsLate": {
+          "description": "Las solicitudes de sustitución realizadas con menos de {{count}} día de antelación al inicio de la clase serán calificadas como tardías.",
+          "description_plural": "Las solicitudes de sustitución realizadas con menos de {{count}} días de antelación al inicio del curso serán calificadas como tardías.",
+          "helperText": "Solicitud tardía",
+          "placeholder": "Número de días"
+        },
+        "replacementSettings": "Parámetros de sustitución",
+        "enableReplacement": "Sustitución",
+        "enableRemuneration": "Remuneración",
+        "enableSchedule": "Horario",
+        "restrictionsDescription": "Indica a qué pestañas tendrán acceso tus profesores",
+        "restrictions": "Restricciones",
+        "enableDescription": "Al activar esta función, todos tus nuevos profesores tendrán el acceso activado por defecto",
+        "enable": "Activar el área de profesores por defecto",
+        "access": "Acceso",
+        "description": "Personalizar el área de profesores en la web. Ten en cuenta que los ajustes realizados aquí no afectan al área de profesores de la aplicación.",
+        "enableRemunerationDownload": "Permitir a los profesores descargar sus nóminas"
+      },
+      "noShow": {
+        "notAvailable": "La gestión de no presentarse no está disponible. Para activarla, primero debes crear un pase ilimitado con penalizaciones por no presentarse.",
+        "error": "El correo electrónico de notificación de ausencia no puede enviarse después de que se considere que el miembro no se ha presentado.",
+        "sendMailHelpText": "Para activar/desactivar el correo electrónico, vaya a Parámetros> Notificaciones transaccionales> Penalización> Notificación de ausencia",
+        "sendMail": "Enviar un correo electrónico <0/> <1/> después de pasar lista para notificar al socio que se considerará que no se ha presentado si figura como ausente.",
+        "daysBeforeNoShowHelpText": "Este ajuste le permite aplicar penalizaciones a los socios con pase ilimitado que no se presenten.",
+        "daysBeforeNoShow": "Considerar al miembro como (no presentado) <0/> <1/> tras el pase de lista en las sesiones en las que figure como ausente.",
+        "alert": "Estos ajustes sólo se aplican a las penalizaciones por no presentarse en tarjetas ilimitadas. Para activar los siguientes cargos, debe validar la convocatoria para cada curso.",
+        "title": "Ausencia (no se presenta)",
+        "errorValidatedTime": "El tiempo transcurrido antes de que la reserva de un socio se considere como no presentada debe ser superior a 0",
+        "errorEmailTime": "El tiempo transcurrido antes de enviar el correo electrónico para avisar al socio de que su reserva se considerará como no presentada debe ser superior a 0"
+      },
+      "daysFormatSelector": {
+        "oneLetter": "1 letra",
+        "threeLetters": "3 letras",
+        "fullWord": "Palabra entera",
+        "label": "Mostrar formato del día"
+      },
+      "showActivityColor": "Mostrar el color de la actividad",
+      "sessionDatesDisplayOptions": {
+        "onlyShowStartingTime": "Mostrar sólo la hora de inicio",
+        "showDuration": "Mostrar duración",
+        "showEndingTime": "Mostrar hora final",
+        "label": "Opciones de visualización del horario"
+      },
+      "showLevel": "Mostrar el nivel",
+      "showEstablishment": "Mostrar el establecimiento",
+      "coachDisplayOptions": {
+        "showCoachFirstNameWithPicture": "Nombre y foto",
+        "showCoachFullNameWithoutPicture": "Nombre completo sin foto",
+        "onlyShowCoachFirstName": "Sólo el nombre del profesor",
+        "showCoachFullNameWithPicture": "Nombre completo y foto",
+        "label": "Opciones de visualización de la información sobre el profesor"
+      },
+      "acceptDoubleBookingMetaActivity": "Aceptar la doble reserva de actividades",
+      "showFreeSessionLabel": "Indique las sesiones con 0 créditos con la etiqueta GRATUITO",
+      "acceptDoubleBookingWorkshop": "Aceptar reservas dobles para los talleres",
+      "hideBookButton": {
+        "switchLabel": "Ocultar el botón \"{{-bookButtonTranslation}}",
+        "dialogDescription": "Al ocultar el botón \"{{-bookButtonTranslation}}\", puede hacer clic en el pase para reservar la sesión."
+      },
+      "doubleBookingDisabledWithSpivi": "Doble reserva no compatible con la integración de Spivi",
+      "startWeekOnToday": "Inicie la agenda de sus socios en la fecha de hoy si la pantalla está en modo tarjeta vista semana",
+      "showPastSessionsCalendar": "Mostrar sesiones pasadas en el calendario de sus miembros",
+      "maxFutureWorkshop": {
+        "label": "Limitar el número de futuras reservas de talleres por miembro",
+        "numberCheck": {
+          "placeholder": "Máximo",
+          "helperText": "Número máximo de sesiones de taller que un miembro puede reservar por adelantado."
+        }
+      },
+      "waitingListAccountsForMaxFutureBookings": {
+        "helperText": "Si se activa, las reservas futuras incluirán tanto las inscripciones en lista de espera como las reservas reales. Cuando se alcance el límite, un usuario no podrá inscribirse en una lista de espera ni reservar una sesión.",
+        "label": "Incluir las inscripciones en lista de espera en el cómputo de futuras reservas"
+      },
+      "bookingLimitation": "Restricciones globales de reserva",
+      "resetPassword": {
+        "urlError": "Introduzca una URL válida",
+        "urlHelperText": "Deje este campo vacío para redirigir al mercado",
+        "urlRedirection": "URL personalizada",
+        "helperText": "Por defecto, cuando sus miembros restablecen su contraseña, son redirigidos al mercado. Si desea redirigirlos a otro lugar (por ejemplo, a su sitio web), rellene el siguiente campo con la URL deseada.",
+        "title": "Restablecer contraseña"
+      },
+      "memberProfile": {
+        "myProfile": {
+          "showMembershipNumber": "Mostrar número de miembro",
+          "showBarcodeButton": "Mostrar botón de código de barras",
+          "showMemberAccountBalance": "Mostrar saldo de cuenta de miembro",
+          "title": "Mi perfil"
+        }
+      },
+      "displayActivityPrice": "Mostrar el número de créditos",
+      "consumerRegularizeDebtHelper": "Esta función está disponible en el mercado, el botón Easy Connect y el widget de botón de inicio de sesión. Aún no está disponible en la aplicación ni en el widget de perfil de miembro.",
+      "expressCheckout": {
+        "oneClickBooking": {
+          "label": "One-Click Booking (beta)",
+          "helperText": "Los nuevos clientes pueden reservar actividades sin crear primero una cuenta. Esta función no es compatible con las citas ni con la \"confirmación por correo electrónico al registrarse\". Solo se aplica a las actividades que pueden reservarse con un pase \"solo para nuevos socios\"."
+        },
+        "title": "Pago exprés"
+      },
+      "subscriptionPersonalizationTitle": "Suscripción",
+      "displayStopSubscriptionFromMemberSide": {
+        "modal": {
+          "cancel": "Cancelar",
+          "confirm": "Activar ahora",
+          "linkButton": "Revisa la guía",
+          "linkText": "Antes de activarlo, te recomendamos revisar cómo funciona y qué debes tener en cuenta:",
+          "content": "En muchos países, las leyes obligan a los estudios a permitir que los miembros cancelen sus suscripciones por sí mismos. Activar esta función garantiza que cumplas con la normativa local y protege a tu estudio de posibles riesgos legales.",
+          "title": "¿Activar la opción para que los miembros cancelen sus suscripciones?"
+        },
+        "helperText": {
+          "franchisor": "Este cambio se aplicará a todas tus franquicias",
+          "disabled": "Para que se aplique a todas las franquicias, activa esta función desde la Cuenta Maestra.",
+          "lawCompliance": "Si no activas esta función, los miembros no podrán cancelar sus suscripciones por sí mismos y tu estudio podría estar incumpliendo la ley en tu país.",
+          "simple": "Activa esta opción para que los miembros puedan cancelar sus suscripciones por su cuenta. No tendrás control sobre el período de aviso, pero así es más probable que cumplas con las leyes del país donde está tu estudio. Revisa en qué países aplica esto."
+        },
+        "label": "Habilitar la opción para que los miembros cancelen sus suscripciones"
+      }
+    },
+    "submit": "Guardar",
+    "instagramURL": {
+      "placeholder": "https://instagram.com/mon-studio/",
+      "helperText": "Tu página Instagram",
+      "label": "URL Instagram"
+    },
+    "gtmId": {
+      "label": "Google Tag ID",
+      "placeholder": "GTM-XXXXXX"
+    },
+    "general_terms_and_conditions": {
+      "helperText": "Debe ser aceptado para todos los pagos",
+      "label": "Condiciones generales de venta",
+      "placeholder": "Certifico que tengo un certificado médico y lo llevaré a mi estudio"
+    },
+    "facebookURL": {
+      "placeholder": "https://facebook.com/mon-studio/",
+      "helperText": "Tu página Facebook",
+      "label": "URL Facebook"
+    },
+    "scheduleURL": {
+      "placeholder": "https://studio.com/calendar/",
+      "helperText": "Enlace predeterminado del calendario",
+      "label": "URL planificación"
+    },
+    "websiteURL": {
+      "placeholder": "https://studio.com/",
+      "helperText": "Se usa si el cliente hace clic en su logo en particular",
+      "label": "URL website",
+      "errorText": "Esta URL no es válida"
+    },
+    "secondary_color": {
+      "helperText": "Color complementario del tema",
+      "label": "Color secundario"
+    },
+    "primary_color": {
+      "helperText": "Privilegia un color, evita el monocromo",
+      "label": "Color principal"
+    },
+    "cover": {
+      "helperText": "Privilegia las png con fondo transparente",
+      "label": "Logo"
+    },
+    "android_app_url": {
+      "placeholder": "https://play.google.com/store/apps/details?id=com.bsport",
+      "helperText": "Tu aplicación para Android",
+      "label": "URL de la aplicación Android"
+    },
+    "ios_app_url": {
+      "placeholder": "https://apps.apple.com/es/app/id1356621554",
+      "helperText": "Tu aplicación iOS",
+      "label": "URL de la aplicación iOS"
+    },
+    "general_terms_of_use": {
+      "placeholder": "Certifico que soy mayor de 13 años de edad",
+      "helperText": "Para la inscripción se debe aceptar lo siguiente",
+      "label": "Condiciones de uso"
+    },
+    "facebookPixelId": {
+      "placeholder": "ID",
+      "label": "Facebook Pixel Id"
+    },
+    "waiver": {
+      "placeholder": "Certifico que soy mayor de 13 años",
+      "helperText": "Para la inscripción se debe aceptar lo siguiente",
+      "label": "Exención de responsabilidad"
+    },
+    "provincialTax": {
+      "taxHelperText": "Aparecerá en las facturas",
+      "taxValue": "Valor del impuesto",
+      "taxName": "Nombre del impuesto",
+      "info": "Introduzca aquí el nombre y el valor de su impuesto provincial. En todos los productos de la plataforma, indique el impuesto total aplicado (impuesto federal + impuesto provincial). El impuesto federal y provincial aparecerá en las facturas de sus clientes.",
+      "title": "Impuesto provincial"
+    },
+    "acceptGuest": "Autorizar la reserva para un invitado",
+    "allowGuest": {
+      "dialog": {
+        "dialogButtonConfirm": "Confirmar",
+        "dialogButtonCancel": "Cancelar",
+        "dialogContent": "Cuidado, si desactivas esta opción, ya no será posible que tus afiliados reserven para un invitado.",
+        "dialogTitle": "Cuidado"
+      },
+      "frequencies": {
+        "placeholder": "Frecuencia",
+        "text": " veces por ",
+        "year": "Año",
+        "month": "Mes",
+        "week": "Semana"
+      },
+      "title": "Autorizar la reserva para un invitado"
+    },
+    "extra_info": {
+      "label": "Información del estudio"
+    },
+    "warningColorBrightness": {
+      "save": "Guardar",
+      "cancel": "Cancelar",
+      "text": "Uno de los colores seleccionados es muy claro y puede resultar difícil de ver",
+      "title": "Atención",
+      "example": "Ejemplo"
+    },
+    "productsThemePersonalization": {
+      "credits": {
+        "description": "Activar o desactivar la visualización de los créditos de los bonos para los clientes",
+        "label": "Ocultar créditos",
+        "subTitle": "Créditos"
+      },
+      "title": "Productos",
+      "productsOrdering": {
+        "itemNumberCaption": "{{count}} producto",
+        "itemNumberCaption_plural": "{{count}} productos",
+        "description": "Organice sus productos de modo que sean visibles para sus clientes cuando reserven una actividad y necesiten bonos, packs o suscripciones.",
+        "reset": "Restablecer",
+        "label": "Pedido personalizado",
+        "subTitle": "Pedido de productos"
+      }
+    },
+    "checkInPersonalization": {
+      "settings": {
+        "save": "Guardar",
+        "beforeStartTime": "Las sesiones pasadas se siguen mostrando <0/> hora(s) y <1/> minuto(s) después de su hora de inicio"
+      },
+      "title": "Checkin tablet"
+    }
+  },
+  "pageTitles": {
+    "theme": "General",
+    "personalization": "Personalización",
+    "broadcast": "Videoconferencia"
+  },
+  "analytics": {
+    "showAnalyticsInformation": "Ver los eventos que son monitoreados",
+    "eventDesc": "Descripción del evento",
+    "gtmEvent": "Nombre del evento GTM",
+    "fbPixelEvent": "Nombre de evento FB Pixel",
+    "cancel": "Cancelar",
+    "showBasket": "Cuando el usuario muestra su cesta",
+    "showPass": "Cuando el usuario muestra un bono",
+    "addPassToCart": "Cuando el usuario añade un bono a su cesta",
+    "addPackToCart": "Cuando el usuario añade un pack a su cesta",
+    "addPrivatePassToCart": "Cuando el usuario añade una tarjeta de cita a su cesta",
+    "addShopItemToCart": "Cuando el usuario añade un artículo de la tienda a su cesta",
+    "paymentSuccess": "Cuando el usuario haya completado con éxito su pago",
+    "signinShow": "Cuando el usuario aterriza en la página de inicio de sesión",
+    "signupShow": "Cuando el usuario muestra el formulario de registro",
+    "signupSuccess": "Cuando el usuario ha creado una cuenta",
+    "sessionShow": "Cuando el usuario selecciona una sesión",
+    "contractPaymentSuccess": "Cuando el usuario se ha suscrito",
+    "contractShow": "Cuando el usuario muestra una suscripción",
+    "contractPaymentShow": "Cuando el usuario está en la página de pago de una suscripción",
+    "workshopClick": "Cuando el usuario selecciona una fecha para un taller",
+    "bookingSuccess": "Cuando un usuario reserva una sesión (actividades de grupo)",
+    "leadAcquisitionSuccess": "Cuando un usuario envía correctamente el widget de adquisición",
+    "openAnalyticsModalButton": "Conectar herramientas analíticas",
+    "analyticsInformationModal": {
+      "confirm": "VER GUÍA DE CONFIGURACIÓN",
+      "content": "Desbloquee análisis más potentes conectando Google Tag Manager con Google Analytics y Meta Pixel (Facebook Pixel). Acceda a nuestra guía paso a paso para empezar a realizar el seguimiento de las métricas más importantes para su negocio.",
+      "title": "Configure los análisis para conocer mejor sus datos"
+    }
+  },
+  "signUpForm": {
+    "error": "Ha surgido un problema",
+    "success": "Configuración guardada",
+    "save": "Guardar",
+    "editable": "Modificable",
+    "required": "Obligatorio",
+    "show": "Ver",
+    "label": "Etiqueta",
+    "field_identifier": "Campos",
+    "account_modification": "Editar una cuenta",
+    "account_creation": "Crear una cuenta",
+    "title": "Formulario de miembro",
+    "fields": {
+      "waiver": "Exención de responsabilidad",
+      "general_terms_and_conditions_accepted": "Condiciones de uso",
+      "cgu": "Condiciones de uso",
+      "accept_sms": "Aceptar notificaciones por SMS",
+      "accept_email": "Aceptar notificaciones por correo electrónico",
+      "sms_notification": "Aceptar notificaciones por SMS",
+      "email_notification": "Aceptar notificaciones por correo electrónico",
+      "emergency_contact": "Contacto de emergencia",
+      "photo": "Foto del perfil",
+      "profile_picture": "Foto del perfil",
+      "zipcode": "Código postal",
+      "zip_code": "Código postal",
+      "country": "País",
+      "city": "Ciudad",
+      "additionnal_address_info": "Dirección adicional",
+      "address_line_2": "Dirección adicional",
+      "address_line_1": "Dirección",
+      "address": "Dirección",
+      "birthday": "Fecha de nacimiento",
+      "birthdate": "Fecha de nacimiento",
+      "phone": "Teléfono principal",
+      "main_phone": "Teléfono principal",
+      "gender": "Sexo",
+      "email": "Email",
+      "last_name": "Apellidos",
+      "first_name": "Nombre",
+      "vaccination_status": "Estado del pase sanitario COVID-19"
+    },
+    "customQuestionDialog": {
+      "confirm": "Crear un formulario",
+      "cancel": "Cancelar",
+      "content": "Para añadir nuevas preguntas al formulario de registro puede crear un nuevo formulario en la pestaña Marketing > Formularios. Añada sus preguntas y luego adjunte este formulario al formulario de inscripción seleccionando la condición \"Dirigido a nuevos miembros\".",
+      "title": "Preguntas personalizadas"
+    },
+    "addQuestions": "Añadir preguntas",
+    "additionalCustomForm": "Formularios adicionales"
+  },
+  "zoom": {
+    "confirmDialog": {
+      "text": "Si ya ha introducido manualmente los enlaces de videoconferencia en sus sesiones, se eliminarán y se sustituirán por enlaces de zoom generados automáticamente. Las reuniones ya creadas en el calendario de ZOOM tendrán que ser eliminadas manualmente, serán sustituidas por reuniones creadas automáticamente.",
+      "title": "Integración de ZOOM"
+    }
+  },
+  "quickbooks": {
+    "confirmDialog": {
+      "text": "¿Estás seguro de que quieres permitir que Bsport acceda a tu aplicación?",
+      "title": "Conexión con QuickBooks"
+    },
+    "title": "QuickBooks"
+  },
+  "marketingEmail": {
+    "caption": "Las copias de los correos electrónicos transaccionales se enviarán a esta dirección si la configuración está activada",
+    "placeholder": "Correo electrónico",
+    "label": "Correo electrónico de seguimiento"
+  },
+  "provincialTax": {
+    "helperText": "El IVA es inferior o igual al impuesto provincial indicado. Las facturas mostrarán sólo este impuesto sin distinguir entre el impuesto federal y el provincial."
+  },
+  "taxDisplay": {
+    "info": "Al activar esta función, todos los precios del mercado, del widget y de la aplicación se indicarán sin impuestos.",
+    "title": "Visualización de precios",
+    "checkbox": "Mostrar el importe antes de impuestos de los productos"
+  }
+}

@@ -1,0 +1,103 @@
+{
+  "coach": "Profesor",
+  "showPerformance": "Remunerar",
+  "showActivities": "Ver las actividades",
+  "showDescription": "Afficher la descripción",
+  "description": "Descripción",
+  "emptyDescription": "No hay descripción",
+  "performance": {
+    "title": "Resumen del profesor",
+    "nbBookings": "Reservas",
+    "nbOffersTotal": "Sesiones",
+    "nbBookingsOverThreshold": "Bonus por reservas",
+    "pricePerOffer": "Precio fijo por clase",
+    "pricePerAdditionalBooking": "Importe por reservas",
+    "calculate": "Calcular",
+    "payment": "Remuneración",
+    "coachName": "Profesor",
+    "durationBookings": "Número de horas",
+    "totalNetGain": "Ganancia total neta"
+  },
+  "addCoach": "Añadir un profesor",
+  "noActivity": "Este profesor no tiene actividades.",
+  "selfNoActivity": "No tiene actividades.",
+  "card": {
+    "update": "Modificar"
+  },
+  "forms": {
+    "linkByEmail": {
+      "cancel": "Cancelar",
+      "success": "Profesor añadido con éxito",
+      "submit": "Validar",
+      "title": "Dirección de correo electrónico del profesor",
+      "emailLabel": "Correo",
+      "explain": "Escriba el correo del profesor que quieres agregar. Si ya tenemos sus datos, crearemos su cuenta automáticamente.",
+      "emailPlaceHolder": "profesor@bsport.io"
+    },
+    "error": "No es possible guardar el profesor",
+    "error_email_exists": "Si este dirección de correo electrónico del profesor existe en nuestro sistema, utilize el formulario para crear un profesor",
+    "create": {
+      "title": "Nuevo profesor",
+      "success": "Profesor creado con éxito"
+    },
+    "update": {
+      "title": "Editar las informaciones",
+      "success": "Profesor modificado con éxito",
+      "errors": {
+        "emailAlreadyInUse": "El correo electrónico introducido ya existe en la base de datos. Sólo puede asociar este email a un profesor creando un nuevo profesor."
+      }
+    },
+    "delete": {
+      "confirm": "Suprimir",
+      "cancel": "Cancelar",
+      "actions": {
+        "confirm": "Suprimir",
+        "cancel": "Cancelar"
+      },
+      "title": "Supresión profesor",
+      "content": {
+        "cannotDelete": "¡No puedes suprimir a este profesor porque las sesiones en el futuro están planificadas!",
+        "canDelete": "¿Seguro que quieres eliminar a este profesor? Ya no tendrás acceso al cálculo de su remuneración. Puedes añadirlo nuevamente desde su email."
+      }
+    },
+    "errorDescription": "La descripción proporcionada es demasiado larga (máx. 1000)",
+    "errorLinkLength": "La URL proporcionada es demasiado larga (máx. 150)",
+    "errorInvalidURL": "Introduzca una URL válida"
+  },
+  "search": "Buscar un profesor",
+  "selector": {
+    "label": "Profesor",
+    "enabled": "Profesores activos",
+    "disabled": "Profesores archivados"
+  },
+  "pleaseFill": "Por favor informa a un profesor",
+  "color": "Código de color",
+  "coach_override": "Profesor de reemplazo",
+  "overrideSelectorTitle": "Profesor",
+  "overrider": "Sustituto",
+  "baseCoach": "Usual",
+  "noCoach": "Todavía no hay profesores registrados",
+  "detail": {
+    "tab": {
+      "calendar": "Calendario",
+      "general": "Perfil"
+    },
+    "coachSpaceInfo": "En este espacio, su profesor podrá acceder a su resumen de pagos por sesión, así como ver su horario. También pueden añadir su disponibilidad.",
+    "coachSpace": "Área de profesores",
+    "noPaymentRule": "Tenga en cuenta que no se han definido reglas de remuneración para este profesor. "
+  },
+  "noCoachs": "Ninguno profesor guardado, administre a sus profes, colaboradores y su remuneración aquí.",
+  "inactiveCoaches": "Profesores archivados",
+  "paymentRule": "Remuneración",
+  "coachAccess": {
+    "teacher": "profesor",
+    "student": "alumno",
+    "info": "Hemos detectado que usted es profesor en este estudio. ¿Desea acceder a su área de estudiantes o a su área de profesores?",
+    "access": "Acceso"
+  },
+  "numberCoaches": "{{ number }} Profesores",
+  "workingDateSection": "Período de actividad en el estudio",
+  "dateJoinedCompany": "Fecha de inicio",
+  "dateLeftCompany": "Fecha de finalización",
+  "emptyNotes": "Sin notas"
+}

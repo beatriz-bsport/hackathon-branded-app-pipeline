@@ -1,0 +1,16 @@
+{
+  "rolePermissions": {
+    "franchiseMenu": {
+      "widgets": {
+        "_label": "Widgety"
+      }
+    },
+    "navigationMenu": {
+      "settings": {
+        "widgets": {
+          "_label": "Widget"
+        }
+      }
+    }
+  }
+}

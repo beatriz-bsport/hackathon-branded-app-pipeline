@@ -256,5 +256,9 @@ export class AnalyticsClient<
     }
   }
 
+  getIsTracking(): boolean {
+    return this.isTracking;
+  }
+
   //#endregion
 }

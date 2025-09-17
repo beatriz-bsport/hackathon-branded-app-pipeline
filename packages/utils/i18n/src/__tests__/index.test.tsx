@@ -39,11 +39,6 @@ const translations: Record<string, Record<string, Record<string, object>>> = {
         title: "Titolo principale",
       },
     },
-    cs: {
-      main: {
-        title: "Hlavní nadpis",
-      },
-    },
     pt: {
       main: {
         title: "Título principal",
@@ -63,7 +58,6 @@ const expectedTranslations: Record<Locale, string> = {
   nl: getTitle("nl"),
   de: getTitle("de"),
   it: getTitle("it"),
-  cs: getTitle("cs"),
   pt: getTitle("pt"),
 };
 

@@ -1,0 +1,764 @@
+{
+  "tag_rules": {
+    "activeSince": "Ativo desde {{ since }}",
+    "type_of_rule": "Tipo de regra",
+    "tag_name": "Nome da Etiqueta",
+    "asyncDialog": {
+      "title": "Atualizações de regras de Etiquetas ",
+      "message": "Após as suas alterações às regras de Etiquetas na lista inteligente {{ name }}, as etiquetas têm de ser atualizadas. Esta sincronização tem lugar de duas em duas horas."
+    },
+    "tag_on_left": "Etiquetar ao selecionar uma lista inteligente",
+    "display_tag_rules": "Mostrar as regras da Etiqueta",
+    "tag": "Etiqueta",
+    "tag_group": "Nome do grupo",
+    "tag_on_join_and_untag_on_left": "Etiqueta se estiver presente na lista inteligente",
+    "create": "Criar uma regra",
+    "associated_tag": "Etiqueta associada",
+    "tag_on_join": "Etiquetar ao entrar na lista inteligente",
+    "cancel": "Cancelar"
+  },
+  "filters": {
+    "1": {
+      "name": "Débito",
+      "third": "{{ currencyDisplay }}",
+      "first": "O saldo do membro, menos as faturas não pagas, é de",
+      "second": " à   ",
+      "explanation": "A x {{ currencyDisplay }} na sua conta",
+      "between": "e"
+    },
+    "5": {
+      "name": "Género",
+      "men": "homens",
+      "first": "Selecionar apenas os",
+      "explanation": "É uma mulher/um homem",
+      "women": "mulheres"
+    },
+    "8": {
+      "explanation": "Possuí um passe de aulas X utilizável",
+      "first": "Possuí um passe de aulas",
+      "name": "Validade de um passe de aulas",
+      "second": "utilizável (com créditos ou ilimitado e não expirado)"
+    },
+    "11": {
+      "explanation": "Tem as etiquetas A e B",
+      "name": "Etiquetas",
+      "first": "Filtrar com base nas seguintes etiquetas"
+    },
+    "14": {
+      "workshop": "Passe de aulas especial workshop",
+      "pack": "Passe de aulas",
+      "explanation": "Produtos adquiridos A e B",
+      "third": "e a",
+      "first": "Despesa",
+      "fourth": "pelos produtos",
+      "combo": "Pack",
+      "private_pass": "Aulas privadas",
+      "name": "Despesas",
+      "second": "{{ currencyDisplay }} entre a",
+      "shop": "Loja",
+      "selector": "Escolher produtos"
+    },
+    "18": {
+      "first": "Aderiu ao estúdio   ",
+      "name": "Data da inscrição",
+      "explanation": "Aderiu ao estúdio em..."
+    },
+    "19": {
+      "infoIcon": "Os passes de aulas ilimitados serão sempre incluídos",
+      "first": "um dos passes de aulas",
+      "explanation": "Adquiriu um passe de aulas A na data Y, com X créditos",
+      "third": "à",
+      "name": "Passes de aulas",
+      "has_not": "Não possui",
+      "second": "e",
+      "credits": {
+        "first": "créditos:",
+        "second": "e"
+      },
+      "date_bought": {
+        "first": "data de compra"
+      },
+      "expiration": {
+        "first_has_expire": "expirou",
+        "first_will_expire": "expira"
+      },
+      "has": "Próprio"
+    },
+    "20": {
+      "date": {
+        "second": "dias",
+        "first": "Carrinho abandonado"
+      },
+      "name": "Carrinhos abandonados",
+      "explanation": "Abandonou um carrinho no valor de...",
+      "third": "{{ currencyDisplay }}",
+      "between": "e",
+      "first": "Abandonou um carrinho no valor de",
+      "second": "à"
+    },
+    "21": {
+      "payment_pack": {
+        "first": "com passes"
+      },
+      "establishment": {
+        "first": "em"
+      },
+      "activity": {
+        "first": "de"
+      },
+      "second_plural": "a sessão",
+      "second_singular": "primeira sessão",
+      "first": "Reservou ",
+      "explanation": "Reservou a sua Xª sessão da atividade A, na sala B...",
+      "name": "Número de reserva",
+      "level": {
+        "first": "nível "
+      },
+      "attendance": "com o estado",
+      "hour": {
+        "third": "horas",
+        "second": "horas e",
+        "first": "a hora de início da sessão é entre"
+      },
+      "date": {
+        "first": "a data da sessão é"
+      },
+      "coach": {
+        "first": "com os professores"
+      }
+    },
+    "22": {
+      "level": {
+        "first": "de nível"
+      },
+      "attendance": "com o estado",
+      "hour": {
+        "third": "horas",
+        "second": "horas e",
+        "first": "a partir de"
+      },
+      "date": {
+        "first": "a decorrer"
+      },
+      "coach": {
+        "first": "com os professores"
+      },
+      "payment_pack": {
+        "first": "com passes"
+      },
+      "establishment": {
+        "first": "nas salas"
+      },
+      "activity": {
+        "first": "atividades"
+      },
+      "between": "e",
+      "second": "sessões",
+      "first": "Reservado",
+      "explanation": "Reservou X sessões da atividade A, no espaço B, com o passe C...",
+      "name": "Número de reservas"
+    },
+    "23": {
+      "explanation": "Reservou a primeira sessão em...",
+      "name": "Primeira reserva"
+    },
+    "24": {
+      "between": "e",
+      "combo": "Pack",
+      "pack": "Passe de aulas",
+      "shop": "Loja",
+      "explanation": "Produtos comprados A e B",
+      "workshop": "Passe de aulas especial workshop",
+      "private_pass": "Aulas particulares",
+      "name": "Despesas",
+      "first": "Despesa",
+      "second": "{{ currencyDisplay }} para produtos",
+      "date": {
+        "first": "compras efetuadas"
+      }
+    },
+    "25": {
+      "has_not": "Não possuí",
+      "first": "um dos passes de aula privada",
+      "second": "e",
+      "credits": {
+        "second": "e",
+        "first": "créditos:"
+      },
+      "date_bought": {
+        "first": "data de compra"
+      },
+      "explanation": "Adquiriu o passe de marcação A na data Y, com X créditos",
+      "third": "à",
+      "expiration": {
+        "first_will_expire": "expira",
+        "first_has_expire": "expirou"
+      },
+      "name": "Passes de Marcação",
+      "has": "Possuí"
+    },
+    "26": {
+      "private_service": {
+        "first": "para aulas privadas"
+      },
+      "name": "Número de aulas privadas",
+      "explanation": "Marcou X reservas com o professor A, no local B, com o passe de marcação C...",
+      "first": "Reservado",
+      "hour": {
+        "second": "horas e",
+        "first": "a partir de",
+        "third": "horas"
+      },
+      "between": "e",
+      "establishment": {
+        "first": "nas salas",
+        "third": "ao domicílio",
+        "second": "ou"
+      },
+      "date": {
+        "first": "a decorrer"
+      },
+      "coach": {
+        "first": "com os professores"
+      },
+      "second": "aulas privadas",
+      "private_pass": {
+        "first": "com os passes de marcação"
+      }
+    },
+    "27": {
+      "info": "Os passes de aulas e os passes de aula privada bloqueados também são tidos em conta",
+      "second": "passes de aulas ou passes de aula privada válidos atualmente. Entre",
+      "explanation": "X número de passes de aulas o ou de passes de aula privada válidos",
+      "between": "e",
+      "third": "ou",
+      "name": "Passes válidos",
+      "fourth": "(combinado)",
+      "first": "Possuí"
+    },
+    "28": {
+      "numbersComparator": {
+        "payment": {
+          "after": "{{currency}}",
+          "between": "e",
+          "before": "O montante da primeira compra foi de"
+        }
+      },
+      "filterByDate": {
+        "before": "Filtrar por data"
+      },
+      "booleanChoice": {
+        "is_not": "ainda não concluído",
+        "is": "feito",
+        "before": "A primeira compra é"
+      },
+      "explanation": "Filtra os membros com um primeiro cabaz finalizado/pago",
+      "name": "Primeira compra"
+    },
+    "29": {
+      "numbersComparator": {
+        "money": {
+          "after": "{{currency}} como referenciador",
+          "between": "e",
+          "before": "O membro obteve"
+        },
+        "referred": {
+          "tooltip": "Podem também ser incluídos os deputados que não tenham indicado ninguém",
+          "after": "membros",
+          "between": "e",
+          "before": "O membro referiu"
+        },
+        "reward": {
+          "after": "recompensas como referenciador",
+          "between": "e",
+          "before": "O membro obteve"
+        }
+      },
+      "explanation": "Filtra os membros que indicaram membros",
+      "name": "Referenciador"
+    },
+    "30": {
+      "numbersComparator": {
+        "money": {
+          "after": "{{currency}}como membro referenciado",
+          "between": "e",
+          "before": "O membro obteve"
+        }
+      },
+      "booleanChoice": {
+        "after": "um membro referido",
+        "is_not": "não é",
+        "is": "é",
+        "before": "O membro"
+      },
+      "explanation": " Filtra os membros que utilizaram uma ligação de referência para se inscreverem",
+      "name": "Membro indicado"
+    },
+    "101": {
+      "first": "Tem idade",
+      "between": "e",
+      "to": "à",
+      "explanation": "É menos do que/mais do que/exatamente...",
+      "second": "anos (incluídos)",
+      "name": "Idade"
+    },
+    "102": {
+      "between": "e",
+      "to": "à",
+      "hasCompleted": "Completado",
+      "hasNotCompleted": "Não completou",
+      "hasCompletedNone": "Não concluiu",
+      "none": "nenhum formulário",
+      "third": "numa percentagem",
+      "second": "de",
+      "name": "Formulários",
+      "atLeastOne": "pelo menos um formulário",
+      "all": "todos os formulários",
+      "date": {
+        "first": "concluído pela última vez"
+      },
+      "explanation": "Formulários X preenchidos em A% na data B "
+    },
+    "103": {
+      "name": "Notificações",
+      "email": "receber notificações por email",
+      "explanation": "Aceita notificações por SMS/Email",
+      "allNeeded": "Todas as condições ativadas devem ser cumpridas",
+      "true": "Aceitar",
+      "sms": "receber notificações por SMS",
+      "oneNeeded": "Pelo menos uma das condições ativadas deve ser satisfeita",
+      "false": "Não aceita"
+    },
+    "104": {
+      "first": "Possuí pelo menos uma nota",
+      "name": "Notas",
+      "nonMedical": "não médica",
+      "info": "As notas médicas correspondem às que constam da secção \"Informações essenciais\" no perfil do membro",
+      "date": {
+        "first": "que foi criada"
+      },
+      "explanation": "Tem pelo menos uma nota médica (ou não)",
+      "medicalOrNot": "médica ou não médica",
+      "medical": "médica"
+    },
+    "105": {
+      "explanation": "Tem X relacionamentos e Y passes partilhados ou passes de aula privada ou reservas",
+      "info": {
+        "consumerPaymentPacks": "\"válido\" significa que o passe pode agora ser utilizado para reservar uma aula de grupo",
+        "consumerPrivatePasses": "\"válido\" significa que o passe pode agora ser utilizado para reservar uma aula privada"
+      },
+      "consumerPaymentPacks": "de passes de aulas",
+      "third": "o membro partilhou com a relação um número",
+      "fourth": "o relacionamento reservou um número",
+      "valid": "válido",
+      "date": {
+        "first": "Um relacionamento foi estabelecido"
+      },
+      "second": "de relações que respeitam os filtros selecionados:",
+      "consumerPrivatePasses": "de passes de marcação",
+      "name": "Relacionamentos",
+      "receiveCopyOfEmail": {
+        "true": "também são enviados",
+        "second": "com cópia para o membro",
+        "first": "mensagens de correio eletrónico enviadas para a o relacionamento",
+        "false": "não são enviados"
+      },
+      "acceptSms": {
+        "first": "O relacionamento",
+        "false": "não aceitar",
+        "second": "as SMS",
+        "true": "aceitar"
+      },
+      "to": "à",
+      "between": "e",
+      "first": "Possui um número",
+      "bookings": "das actividades e de aulas privadas do grupo graças a um passe partilhado pelo membro",
+      "validOrNot": "válido ou não",
+      "acceptEmail": {
+        "false": "não aceitar",
+        "second": "os emails",
+        "first": "O relacionamento",
+        "true": "aceitar"
+      }
+    },
+    "106": {
+      "explanation": "Introduziu um número de telefone",
+      "first": "um número de telefone",
+      "false": "Não preenchido",
+      "name": "Telemóvel",
+      "true": "A preencher"
+    },
+    "107": {
+      "explanation": "Aceitou os termos e condições gerais de utilização",
+      "first": "termos e condições gerais de utilização",
+      "false": "Não aceite",
+      "true": "Aceite",
+      "name": "Termos e condições de utilização"
+    },
+    "400": {
+      "explanation": "Tem uma palavra-passe na bsport",
+      "name": "Palavra-passe",
+      "explain": "tem uma palavra-passe na bsport"
+    },
+    "410": {
+      "name": "Isenção de responsabilidade",
+      "explanation": "Tendo aceite as declarações de exoneração de responsabilidade",
+      "explain": "que aceitaram as declarações de exoneração de responsabilidade"
+    },
+    "501": {
+      "explanation": "Marcou a sua última sessão...",
+      "second": "dias, e não tem reservas para o futuro.",
+      "first": "A última sessão reservada ocorreu há mais de",
+      "name": "Data da última sessão reservada"
+    },
+    "600": {
+      "expiryDateLabel": "Data de caducidade",
+      "owns": "Com pelo menos um método de pagamento salvo",
+      "does_not_own": "Não tem um método de pagamento salvo",
+      "labelFirst": "Apenas para membros com filtro",
+      "title": "Método de pagamento salvo",
+      "explanation": "Filtrar por método de pagamento guardado e data de caducidade",
+      "name": "Meios de pagamento"
+    },
+    "durations_comparators": {
+      "1": "entre dois (⩽)",
+      "2": "mais de (⩾)",
+      "5": "exatamente",
+      "6": "entre dois"
+    },
+    "comparators": {
+      "1": "inferir (⩽)",
+      "2": "superior (⩾)",
+      "5": "igual",
+      "6": "entre dois"
+    },
+    "after": "após",
+    "before": "antes de",
+    "add": "Adicionar",
+    "add_filter": "Adicionar um filtro",
+    "active_filters": "Filtros activos na lista inteligente",
+    "all": "Todos",
+    "booking_status": {
+      "booked": "reservado",
+      "canceled": "cancelado"
+    },
+    "calendarPicker": {
+      "dateTitle": "Data",
+      "durationTitle": "Duração",
+      "duration": "dias",
+      "selectduration": {
+        "4": {
+          "second": "dias",
+          "first": "Em mais de"
+        },
+        "5": {
+          "second": "dias",
+          "first": "Em menos de"
+        },
+        "6": {
+          "second": "dias",
+          "first": "Em"
+        },
+        "7": {
+          "third": "dias e menos de",
+          "second": "dias",
+          "first": "Em mais de"
+        },
+        "9": {
+          "second": "dias",
+          "first": "Existem mais de"
+        },
+        "10": {
+          "second": "dias",
+          "first": "Existem "
+        },
+        "11": {
+          "third": "dias e menos de",
+          "second": "dias",
+          "first": "Existem mais de"
+        },
+        "selector": {
+          "4": "Em mais de X dias",
+          "6": "Em X dias",
+          "7": "Em mais de X dias e menos de Y dias",
+          "9": "Há mais de X dias",
+          "10": "X dias atrás",
+          "11": "Há mais de X dias e há menos de Y dias"
+        }
+      },
+      "select": {
+        "0": "Em ou após",
+        "1": "Em ou antes de",
+        "2": "Entre duas datas",
+        "3": "A"
+      },
+      "text": {
+        "0": {
+          "first": "em ou após"
+        },
+        "1": {
+          "first": "em ou antes de"
+        },
+        "2": {
+          "second": "e o",
+          "first": "entre os"
+        },
+        "3": {
+          "first": "a"
+        },
+        "4": {
+          "second": "dias",
+          "first": "em mais de"
+        },
+        "5": {
+          "second": "dias",
+          "first": "em menos de"
+        },
+        "6": {
+          "second": "dias",
+          "first": "em "
+        },
+        "7": {
+          "third": "dias",
+          "second": "dias e menos de",
+          "first": "em mais de"
+        },
+        "8": {
+          "second": "dias",
+          "first": "há menos"
+        },
+        "9": {
+          "second": "dias",
+          "first": "existem mais de"
+        },
+        "10": {
+          "second": "dias",
+          "first": "existem "
+        },
+        "11": {
+          "third": "dias",
+          "second": "dias e menos de",
+          "first": "existem mais de"
+        }
+      }
+    },
+    "attendanceWarning": "Selecionar um estado",
+    "attendanceFalse": "ausente",
+    "attendanceTrue": "presente",
+    "isEmpty": "Não foi configurado qualquer filtro, pelo que esta lista inteligente representa a totalidade da base de dados de membros"
+  },
+  "cannotBeDeletedDialog": {
+    "content": "Não é possível eliminar esta lista inteligente desde que seja utilizada na sequência seguinte :",
+    "content_plural": "Não é possível apagar esta lista inteligente desde que seja utilizada nas seguintes sequências :",
+    "title": "Utilizado nas sequências",
+    "cancel": "Fechar"
+  },
+  "modal": {
+    "delete": {
+      "confirm": "Eliminar",
+      "content": "Tem a certeza de que pretende eliminar esta lista inteligente ? Esta operação é definitiva",
+      "cancel": "Cancelar",
+      "title": "Eliminar lista inteligente",
+      "linkedToAFranchiseCommunication": "Essa lista inteligente é usada por sua franquia e não pode ser excluída"
+    },
+    "validate": "Confirmar"
+  },
+  "delete": "Eliminar",
+  "filterCategory": {
+    "1": "Informações do membro",
+    "2": "Passes",
+    "3": "Reservas",
+    "4": "Compras"
+  },
+  "multiSelector": {
+    "activePasses": {
+      "warning": "Selecionar pelos menos um passe",
+      "paymentPackHelperText": "sem passe de aulas",
+      "privatePassHelperText": "Não há passes de aula privada para exibir."
+    },
+    "paymentPacks": {
+      "warning": "Selecionar pelos menos um passe de aulas",
+      "helperAllSelectedText": "todos os passes de aulas",
+      "textFieldPlaceholder": "Procurar um passe de aulas",
+      "helperSelectedText": "passes de aulas selecionados",
+      "helperText": "selecionar passes de aulas"
+    },
+    "userMarketingNotifications": {
+      "warning": "Ativar pelo menos uma das duas opções"
+    },
+    "buyables": {
+      "textFieldPlaceholder": "Procurar uma categoria de produto",
+      "helperText": "selecionar categorias",
+      "helperSelectedText": "categorias selecionadas",
+      "helperAllSelectedText": "todos os produtos"
+    },
+    "privatePass": {
+      "warning": "Selecionar pelo menos um passe de aula privada.",
+      "helperAllSelectedText": "todos os passes de marcação",
+      "textFieldPlaceholder": "Procurar um passe de marcação",
+      "helperText": "selecionar os passes de marcação",
+      "helperSelectedText": "passes de aula privada selecionados"
+    },
+    "metaActivities": {
+      "helperAllSelectedText": "todas as atividades",
+      "helperText": "selecionar as atividades",
+      "warning": "Selecionar pelo menos uma atividade",
+      "helperSelectedText": "atividades selecionadas",
+      "textFieldPlaceholder": "Pesquisar uma atividade"
+    },
+    "establishments": {
+      "textFieldPlaceholder": "Procurar uma sala",
+      "helperAllSelectedText": "todas as salas",
+      "warning": "Selecionar pelo menos uma sala",
+      "helperText": "selecionar salas",
+      "helperSelectedText": "salas selecionadas"
+    },
+    "customForms": {
+      "textFieldPlaceholder": "Procurar um formulário",
+      "helperAllSelectedText": "todos os formulários",
+      "helperSelectedText": "formulários selecionados",
+      "warning": "Selecionar pelo menos um formulário",
+      "helperText": "selecionar formulários"
+    },
+    "coaches": {
+      "helperAllSelectedText": "todos os professores",
+      "warning": "Selecionar pelo menos um professor",
+      "helperSelectedText": "professores selecionados",
+      "textFieldPlaceholder": "Procurar professor",
+      "helperText": "selecionar professores"
+    },
+    "privateServices": {
+      "helperText": "selecionar aulas privadas",
+      "textFieldPlaceholder": "Procurar uma marcação",
+      "warning": "Selecionar pelo menos uma marcação",
+      "helperSelectedText": "aulas privadas selecionadas",
+      "helperAllSelectedText": "todas as aulas privadas"
+    },
+    "level": {
+      "advanced": "avançado",
+      "select": "selecionar um nível",
+      "all": "todos os níveis",
+      "warning": "selecionar pelo menos um nível",
+      "beginner": "iniciante",
+      "intermediary": "intermédio"
+    },
+    "selectAll": "Selecionar tudo",
+    "selectNothing": "Desmarcar tudo"
+  },
+  "generateHelperText": "Gerar a exportação para descarregar a lista inteligente",
+  "membersInList": "Membros da lista inteligente:",
+  "graphs": {
+    "bookings": "Reservas",
+    "expensesSegments": {
+      "title": {
+        "first": "Despesas entre",
+        "second": "e o"
+      },
+      "label": {
+        "0": "Nenhuma despesa",
+        "1": "Primeiro quartil",
+        "2": "Média",
+        "3": "Último quartil"
+      }
+    },
+    "bookingsSegments": {
+      "label": {
+        "0": "Mês passado",
+        "1": "Entre 1 a 12 meses",
+        "2": "Mais de um ano"
+      },
+      "title": "Última reserva"
+    }
+  },
+  "mail": {
+    "send": "Enviar",
+    "sendMailTitle": "Enviar uma comunicação",
+    "sendMail": "Enviar uma comunicação",
+    "cancel": "Cancelar",
+    "noMailAvailable": "Não há um email disponível, por favor crie um",
+    "sendError": "Problema ao enviar a mensagem de correio eletrónico",
+    "sendSuccess": "Email a ser enviado"
+  },
+  "smart_list": {
+    "add": "Adicionar uma lista inteligente",
+    "list": {
+      "detailTitle": "Detalhes da lista inteligente",
+      "title": "Lista Inteligente"
+    },
+    "description": {
+      "isEmpty": "Nenhuma descrição",
+      "label": "Descrição"
+    },
+    "submit": "Guardar",
+    "cancel": "Cancelar",
+    "createTitle": "Lista Inteligente",
+    "actions": {
+      "campaign": "Campanhas",
+      "configure": "Configurar"
+    },
+    "name": "Nome",
+    "detail": "Detalhes da lista inteligente"
+  },
+  "exportList": "Exportar a lista inteligente",
+  "detail": {
+    "tab": {
+      "member": "Geral",
+      "statistic": "Estatísticas",
+      "campaign": "Campanhas"
+    },
+    "statTitle": "Estatísticas"
+  },
+  "downLoadSavedExport": "Descarregar a exportação mais recente",
+  "popup": {
+    "sendPopup": "Enviar uma janela pop-up"
+  },
+  "noSmartLists": "Utilizar as listas inteligentes para filtrar, analisar e conhecer melhor os seus membros.",
+  "selectToShowPreview": "Selecionar um template",
+  "lastGenerated": "Última exportação gerada em : {{-date}} {{time}}",
+  "generateExport": "Gerar exportação",
+  "memberBase": {
+    "options": {
+      "0": "Não arquivado e arquivado",
+      "1": "Não arquivado",
+      "2": "Arquivado"
+    },
+    "helperText": "Esta lista inteligente aplica-se a todos os membros"
+  },
+  "cadenceListDialog": {
+    "close": "Fechar",
+    "title": "Lista de sequências"
+  },
+  "cadence": {
+    "content": "Utilizado na sequência : {{- cadence_name }}",
+    "content_plural": "Utilizado em {{ count }} sequências"
+  },
+  "duplicate": "Duplicar",
+  "mails": "Emails",
+  "search": "Procurar lista inteligente",
+  "description": "Descrição",
+  "edit": "Configurar",
+  "name": "Nome da lista",
+  "usedInFranchiseCommmunication": "Usado em uma campanha por sua franquia",
+  "cannotBeDeletedDialogAudience": {
+    "title": "Utilizado num dos {{ workflowPluralLowerCase }}",
+    "content": "Não é possível apagar esta lista inteligente enquanto for utilizada nos seguintes casos {{ workflowLowerCase }}:",
+    "content_plural": "Não é possível eliminar estas smartlists enquanto forem utilizadas nos seguintes casos {{ workflowPluralLowerCase }}:"
+  },
+  "audienceListDialog": {
+    "title": "Lista do {{ workflowPluralLowerCase }}"
+  },
+  "audience": {
+    "content": "Utilizado no{{ workflowLowerCase }}:{{- workflow_name }}",
+    "content_plural": "Utilizados em {{ count }}{{ workflowPluralLowerCase }}"
+  },
+  "downloadReport": "Descarregar o relatório",
+  "generateReport": "Gerar relatório",
+  "communication": {
+    "scheduled": {
+      "total": "Total de mensagens agendadas: {{ count }}",
+      "viewAll": "Ver tudo",
+      "isEmpty": "Não há mensagens programadas.",
+      "nextScheduledMessage": "Próxima mensagem programada"
+    }
+  }
+}

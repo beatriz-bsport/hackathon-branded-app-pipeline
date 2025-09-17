@@ -1,0 +1,43 @@
+{
+  "actions": {
+    "addWorkshopActivity": "Aggiungi un workshop",
+    "search": "Cerca un workshop",
+    "addWorkshopGroup": "Aggiungi un gruppo di sessioni"
+  },
+  "navigation": {
+    "goToPaymentPack": "Pacchetti"
+  },
+  "modal": {
+    "delete": {
+      "content": "Sei sicuro di voler eliminare questo workshop? Le sessioni e le prenotazioni non saranno interessate. Questa operazione è definitiva.",
+      "cancel": "Annulla",
+      "confirm": "Rimuovi",
+      "title": "Cancellazione del workshop"
+    }
+  },
+  "forms": {
+    "delete": {
+      "content": {
+        "canDelete": "Sei sicuro di voler eliminare questo workshop? Le sessioni e le prenotazioni non saranno interessate. Questa operazione è definitiva.",
+        "cannotDelete": "Le sessioni sono pianificate per il futuro, verifica che vengano eliminate e non solo annullate."
+      },
+      "actions": {
+        "cancel": "Annulla",
+        "confirm": "Rimuovi"
+      },
+      "title": "Cancellazione del workshop"
+    }
+  },
+  "search": "Cerca un workshop",
+  "noWorkshops": "Gestisci qui i tuoi workshop, un workshop è un evento la cui data viene fissata in anticipo.",
+  "disabledWorkshops": "Workshop archiviati",
+  "group": {
+    "emptySelect": "Seleziona una sessione",
+    "backToGroup": "Torna ai gruppi",
+    "pageSize": "Visualizza per:",
+    "emptySearch": "Nessun gruppo corrisponde alla vostra ricerca",
+    "emptyState": "Con i gruppi di sessioni, i tuoi studenti potranno prenotare contemporaneamente tutte le sessioni incluse nel gruppo. Ad esempio, puoi utilizzare i gruppi di sessioni per creare esercitazioni con più sessioni. "
+  },
+  "tabGroups": "Sessioni di gruppo",
+  "tabList": "Elenco dei workshop"
+}

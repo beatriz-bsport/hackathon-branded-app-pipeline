@@ -1,0 +1,286 @@
+{
+  "bankAccount": {
+    "form": {
+      "routingNumber": {
+        "placeholder": "000001",
+        "label": "Número de registo"
+      },
+      "accountHolderName": {
+        "placeholder": "Jacques Chirac",
+        "label": "Titular da conta bancária"
+      },
+      "content": "Esta conta bancária será utilizada para transferir os montantes pagos ativos através do bsport.",
+      "title": "Conta bancária",
+      "accountNumber": {
+        "label": "Número da conta",
+        "placeholder": "PT00500400440532013000"
+      },
+      "institutionNumber": {
+        "label": "Número da instituição",
+        "placeholder": "Número da instituição"
+      },
+      "actions": {
+        "submit": "Confirmar",
+        "cancel": "Cancelar"
+      },
+      "branchCode": {
+        "label": "Código"
+      },
+      "sortCode": {
+        "placeholder": "123456",
+        "label": "Número do banco"
+      },
+      "invalid": "IBAN inválido. Atenção : o IBAN deve corresponder a uma conta bancária domiciliada no mesmo país que a sua empresa",
+      "bankCode": {
+        "label": "Número bancário"
+      },
+      "unknownCountry": "Operação manual para este país, contactar a bsport através de contact@bsport.io",
+      "clearingCode": {
+        "label": "Código de compensação"
+      },
+      "transitNumber": {
+        "label": "Número",
+        "placeholder": "Número"
+      }
+    }
+  },
+  "actions": {
+    "addThisPaymentItem": "Adicionar este método de pagamento"
+  },
+  "paymentMethod": {
+    "0": "Passe",
+    "1": "Dinheiro",
+    "2": "Cheque",
+    "4": "Cartão (manual)",
+    "5": "Vouchers",
+    "6": "AMEX",
+    "7": "Transferência",
+    "8": "EventBrite",
+    "9": "Conta interna (crédito)",
+    "10": "Pagamento automático",
+    "11": "Vários",
+    "12": "Conflito",
+    "13": "SEPA",
+    "20": "Bancontact",
+    "30": "Sofort",
+    "40": "iDEAL",
+    "50": "EPS",
+    "60": "Giropay",
+    "70": "Débito Direto",
+    "disputeWon": "Resolvido",
+    "label": "Meios de pagamento"
+  },
+  "returnedAmount": "Reembolsado: ",
+  "generalTermsAndConditions": {
+    "close": "Fechar",
+    "waiver": "isenção de responsabilidade",
+    "generalTermsOfUse": " termos e condições de utilização",
+    "theTermsAndConditions": "condições gerais de venda.",
+    "iAccept": " "
+  },
+  "forms": {
+    "paymentMethod": {
+      "mandateRevalidated": {
+        "retry": "Tentar novamente",
+        "error": "O pedido de débito direto não pode ser renovado. Contacte o seu banco.",
+        "success": "O pedido foi renovado e os próximos débitos directos serão efectuados com sucesso.",
+        "content": "O débito direto será revalidado com o seu banco.",
+        "collect": "Aceitar"
+      },
+      "actions": {
+        "displayPaymentMethod": "Ver os meus métodos de pagamento",
+        "selectPaymentMethod": "Seleccione o seu método de pagamento",
+        "addPaymentMethod": "Adicionar um método de pagamento",
+        "retry": "Tentar novamente",
+        "collect": "Guardar",
+        "close": "Fechar",
+        "cancel": "Cancelar",
+        "addPaymentMethodDenied": "Este membro não tem atualmente nenhum método de pagamento guardado deste tipo e  você não tem permissão para adicionar um novo."
+      },
+      "collect": {
+        "contentAdd": "Este método de pagamento será guardado na sua conta.",
+        "content": "Este modo de pagamento será guardado na sua conta e facturado em conformidade com a subscrição.",
+        "title": "Adicionar um método de pagamento"
+      },
+      "message": {
+        "error": "Não foi possível guardar este método de pagamento",
+        "success": "Método de pagamento guardado com sucesso!"
+      }
+    },
+    "paymentIntent": {
+      "pay": "Pagar"
+    },
+    "credit": {
+      "pay": "Confirmar",
+      "explain": "O seu estúdio será informado e pagará a encomenda no local."
+    },
+    "savePaymentMethod": {
+      "section": "Selecionar um método de pagamento",
+      "label": "Guardar este método de pagamento",
+      "select": "Selecionar um método de pagamento",
+      "add": "Dados do pagamento"
+    },
+    "cancelPayment": "Anterior"
+  },
+  "method": {
+    "0": "Passe",
+    "1": "Dinheiro",
+    "2": "Cheque",
+    "3": "Passe",
+    "4": "Cartão (manual)",
+    "5": "Vouchers",
+    "6": "AMEX",
+    "7": "Transferir",
+    "8": "Evento brite",
+    "9": "Crédito",
+    "10": "Débito direto",
+    "11": "Outro",
+    "12": "Conflito",
+    "13": "SEPA",
+    "20": "Bancontact",
+    "30": "Sofort",
+    "40": "iDEAL",
+    "50": "EPS",
+    "60": "Giropay",
+    "70": "Débito direto Bacs",
+    "SEPA": "SEPA",
+    "CHECK": "Cheque",
+    "CASH": "Dinheiro",
+    "CREDIT_ACCOUNT": "Crédito",
+    "CB": "Cartão",
+    "BANCONTACT": "Bancontact",
+    "GIROPAY": "Giropay",
+    "EPS": "EPS",
+    "BACS_DEBIT": "Débito direto Bacs",
+    "SOFORT": "Sofort",
+    "IDEAL": "iDEAL"
+  },
+  "paymentComboSectionTitle": "Pack",
+  "creditAccountBalance": {
+    "current": "Depósito atual"
+  },
+  "paymentNote": {
+    "helperText": "(opcional) número do cheque, data do recibo...",
+    "label": "Nota"
+  },
+  "hasOneOrMoreOption": "Já está na lista de espera",
+  "goBack": "Anterior",
+  "availablePaymentPacks": "Passes compatíveis : ",
+  "bookAnOption": "Colocar-me na lista de espera",
+  "bookAnotherOption": "Inscrever-me novamente na lista de espera",
+  "disputeStatus": {
+    "1": "Disputa em procedimento",
+    "2": "Disputa resolvida",
+    "3": "Disputa perdida"
+  },
+  "explainOption": "Será notificado por e-mail quando houver um lugar disponível.",
+  "payment": {
+    "return": "Reembolso"
+  },
+  "instalment": {
+    "form": {
+      "recurrence_basis": {
+        "intervalName": {
+          "week": "semana",
+          "week_plural": "semanas",
+          "day": "dia",
+          "day_plural": "dias",
+          "month": "mês",
+          "month_plural": "meses",
+          "year": "um",
+          "year_plural": "uns"
+        },
+        "label": "Repetir a cada"
+      },
+      "recurrence": {
+        "explain": "O pagamento será repartido por {{ total_interval_duration }} {{ interval }} todos os {{ recurrence_basis }} {{ interval }} e irá gerar {{ nb_interval }} recibos",
+        "section": "Recorrência"
+      },
+      "interval": {
+        "helperText": "Frequência de facturas/passes",
+        "label": "Recorrência"
+      },
+      "anchor_date": {
+        "helperText": "O pagamento será cobrado durante a manhã",
+        "label": "Primeiro recibo"
+      },
+      "nb_interval": {
+        "label": "Número de faturas"
+      },
+      "actions": {
+        "close": "Fechar",
+        "previous": "Anterior",
+        "next": "Seguinte",
+        "submit": "Confirmar"
+      },
+      "title": {
+        "payment": "Meios de pagamento",
+        "scheduler": "Calendário"
+      }
+    }
+  },
+  "interval": {
+    "week": "semana",
+    "week_plural": "semanas",
+    "day": "dia",
+    "day_plural": "dias",
+    "year": "ano",
+    "year_plural": "anos",
+    "month": "mês",
+    "month_plural": "meses"
+  },
+  "subscriptionPaymentDialog": {
+    "success": {
+      "text_content_funnel": "A sua compra foi processada, clique em continuar para finalizar a sua reserva. O passe associado à sua inscrição foi adicionado à secção \"Os meus passes de aulas\". Seleccione-o para efetuar a sua reserva.",
+      "title": "Felicitações !",
+      "button_text": "Continuar",
+      "recap": "Resumo",
+      "contract": "A minha subscrição",
+      "text_content": "A sua compra foi processada e pode agora encontrar os detalhes da sua subscrição na sua área de membro.",
+      "text_status": "Efetuou uma compra com sucesso !"
+    },
+    "error": {
+      "text_content": "A sua compra não pôde ser concluída, pode tentar novamente ou regressar à sua área de membro.",
+      "text_status": "Não foi possível concluir a sua compra !",
+      "button_text": "Tentar novamente",
+      "userSpace": "Espaço do membro",
+      "title": "Erro de pagamento"
+    },
+    "title": "Comprar uma subscrição"
+  },
+  "stripeBalance": {
+    "availableBalance": "Saldo disponível",
+    "dialog": {
+      "firstPart": "Na bsport utilizamos o serviço Stripe para gerir todos os seus pagamentos online. Os montantes destes pagamentos são armazenados no Stripe e depois transferidos para a sua conta (secção \"Os meus recibos\").",
+      "thirdPart": "O seu \"saldo em curso\" corresponde ao montante que será adicionado ao seu saldo disponível.",
+      "alert": "Tenha em atenção que, quando efetua um reembolso direto, este dinheiro é retirado diretamente da sua conta Stripe. Isso pode fazer com que ela fique negativa.",
+      "secondPart": "O seu \"saldo disponível\" corresponde, portanto, ao montante dos pagamentos online que ainda não lhe foi pago.",
+      "close": "Fechar"
+    },
+    "pendingBalance": "Saldo em curso",
+    "nullPendingBalanceText": "Nenhum",
+    "title": "Balanço Stripe"
+  },
+  "payout": {
+    "isEmptyWarning": "NB: alguns recibos antes de 15 de março de 2021 podem não constar da lista abaixo.",
+    "payoutIsIncludedInOther": "Esta transferência foi incluída na transferência de {{date}} com o identificador {{readable_identifier}}",
+    "seeMore": "Ver mais",
+    "status": {
+      "0": "Em espera",
+      "1": "Em curso",
+      "2": "Bem sucedido",
+      "3": "Detido",
+      "4": "Cancelar"
+    },
+    "invoice": "Fatura {{ uuid }}",
+    "isEmpty": "Nenhuma recibo.",
+    "paymentNb": "{{nb}} pagamentos",
+    "payoutAmountFromIncludedPayouts": "dos quais {{price}} de pagamentos anteriores",
+    "payoutIsManual": "Esta transferência foi iniciada manualmente pelas equipas da bsport para acelerar a receção dos seus fundos. Neste caso, os dados de pagamento não estão disponíveis. Contacte as nossa equipas se necessitar de mais informações.",
+    "title": "Os meus recibos",
+    "dialog": {
+      "title": "Notificação de sincronização de pagamentos",
+      "content": "Houve um problema de sincronização entre o Stripe e o bsport. De momento, não nos é possível apresentar os detalhes deste pagamento. No entanto, pode ter a certeza de que será processado e transferido para a sua conta bancária de acordo com o procedimento habitual. Para obter mais informações sobre o montante enviado, pode consultar o relatório de pagamentos que abrange o período entre a data deste pagamento e o anterior."
+    }
+  }
+}

@@ -1,0 +1,1237 @@
+{
+    "bookkeeping_account": {
+        "errors": {
+            "1": ""
+        },
+        "create": {
+            "error": "",
+            "success": ""
+        },
+        "update": {
+            "error": "",
+            "success": ""
+        },
+        "delete": {
+            "error": "",
+            "success": ""
+        }
+    },
+    "communication": {
+        "error": "",
+        "success": ""
+    },
+    "order": {
+        "success": ""
+    },
+    "booking": {
+        "register": {
+            "success": ""
+        },
+        "delete": {
+            "error": ""
+        }
+    },
+    "login": {
+        "passwordChangedSuccess": ""
+    },
+    "webhook": {
+        "testError": "",
+        "testSuccess": "",
+        "error": "",
+        "success": ""
+    },
+    "subscription": {
+        "register": {
+            "success": "",
+            "error": ""
+        },
+        "youSubscribed": {
+            "success": "",
+            "error": ""
+        },
+        "updatePrice": {
+            "error": "",
+            "success": ""
+        },
+        "freeze": {
+            "error": "",
+            "success": "",
+            "locked": "",
+            "deleteSuccess": "",
+            "deleteFail": "",
+            "alreadyPaused": ""
+        },
+        "switchPack": {
+            "error": "",
+            "success": ""
+        },
+        "switchPaymentMethod": {
+            "error": "",
+            "success": ""
+        },
+        "stop": {
+            "error": "",
+            "warning": "",
+            "success": ""
+        },
+        "contract": {
+            "restore": {
+                "success": "",
+                "error": ""
+            }
+        },
+        "billNow": {
+            "errors": {
+                "12102": ""
+            }
+        },
+        "switchPaymentCombo": {
+            "error": "",
+            "success": ""
+        },
+        "switchPrivatePass": {
+            "error": "",
+            "success": ""
+        },
+        "switchItemsErrors": {
+            "paymentCombo": {
+                "63003": ""
+            },
+            "privatePass": {
+                "63003": ""
+            },
+            "paymentPack": {
+                "63003": ""
+            }
+        },
+        "contractTemplate": {
+            "deleteSuccess": "",
+            "deleteError": "",
+            "restoreSuccess": "",
+            "restoreError": "",
+            "editSuccess": "",
+            "editError": "",
+            "createSuccess": "",
+            "createError": ""
+        }
+    },
+    "smartlist": {
+        "delete": {
+            "error": "",
+            "success": ""
+        },
+        "update": {
+            "error": "",
+            "success": ""
+        },
+        "create": {
+            "error": "",
+            "success": ""
+        },
+        "duplicate": {
+            "error": "",
+            "success": ""
+        },
+        "tag_rules": {
+            "limit_reached": "",
+            "error": "",
+            "success": ""
+        }
+    },
+    "shop": {
+        "item": {
+            "delete": {
+                "error": "",
+                "success": ""
+            },
+            "createOrUpdate": {
+                "error": "",
+                "success": ""
+            },
+            "updateProvisions": {
+                "error": "",
+                "success": ""
+            },
+            "duplicate": {
+                "error": "",
+                "success": ""
+            },
+            "notFound": ""
+        },
+        "subShop": {
+            "delete": {
+                "error": "",
+                "success": ""
+            },
+            "createOrUpdate": {
+                "error": "",
+                "success": ""
+            }
+        },
+        "supplier": {
+            "create": {
+                "error": "",
+                "success": ""
+            },
+            "update": {
+                "error": "",
+                "success": ""
+            },
+            "delete": {
+                "error": "",
+                "success": ""
+            }
+        },
+        "variant": {
+            "error": {
+                "11000": "",
+                "11001": ""
+            },
+            "fetchError": ""
+        }
+    },
+    "role": {
+        "error": {
+            "errorEmail": "",
+            "generic": "",
+            "errorCommission": ""
+        },
+        "update": {
+            "success": "",
+            "successCommission": ""
+        },
+        "noMasterControl": {
+            "overrideCoachNotAllowed": "",
+            "changeDateCoachUnaivalable": "",
+            "changeDateEstablishmentUnaivalable": "",
+            "overrideEstablishmentNotAllowed": "",
+            "overbookingNotAllowedInWaitingList": "",
+            "overbookingNotAllowed": ""
+        },
+        "delete": {
+            "error": {
+                "genericError": "",
+                "customErrors": {
+                    "4700": ""
+                }
+            }
+        }
+    },
+    "notificationRule": {
+        "createOrUpdate": {
+            "error": "",
+            "success": "",
+            "errorLackRequiredVariables": ""
+        },
+        "create": {
+            "error": "",
+            "success": "",
+            "errorLackRequiredVariables": ""
+        },
+        "delete": {
+            "error": "",
+            "success": ""
+        },
+        "editOrAddPass": {
+            "error": "",
+            "success": ""
+        },
+        "active": {
+            "errorDisable": "",
+            "errorEnable": "",
+            "disable": "",
+            "enable": ""
+        }
+    },
+    "activity": {
+        "update": {
+            "error": "",
+            "success": ""
+        },
+        "create": {
+            "error": "",
+            "success": ""
+        }
+    },
+    "member": {
+        "link": {
+            "success": ""
+        },
+        "update": {
+            "success": "",
+            "title": ""
+        },
+        "create": {
+            "success": "",
+            "title": ""
+        },
+        "error": "",
+        "merge": {
+            "submit": "",
+            "cancel": "",
+            "explainTags": "",
+            "explainBookingsAndPassAndInvoiceAndNotes": "",
+            "explainCredit": "",
+            "title": "",
+            "dstMember": "",
+            "srcMember": "",
+            "error": "",
+            "seeMemberPage": "",
+            "success": ""
+        },
+        "createOrUpdate": {
+            "error": "",
+            "success": ""
+        },
+        "changeEmailRequest": {
+            "create": {
+                "error": "",
+                "success": ""
+            }
+        }
+    },
+    "mergeSuccess": {
+        "title": "",
+        "content": "",
+        "seeMemberProfile": ""
+    },
+    "mergeError": {
+        "title": "",
+        "content": ""
+    },
+    "establishment": {
+        "update": {
+            "success": ""
+        },
+        "create": {
+            "success": ""
+        },
+        "error": "",
+        "delete": {
+            "error": "",
+            "success": ""
+        },
+        "restore": {
+            "error": "",
+            "success": ""
+        }
+    },
+    "email": {
+        "delete": {
+            "error": "",
+            "success": ""
+        },
+        "update": {
+            "error": "",
+            "success": ""
+        },
+        "create": {
+            "error": "",
+            "success": ""
+        },
+        "duplicate": {
+            "error": "",
+            "success": ""
+        }
+    },
+    "coupon": {
+        "attachToBasket": {
+            "error": ""
+        },
+        "create": {
+            "success": "",
+            "error": ""
+        },
+        "update": {
+            "success": "",
+            "error": ""
+        },
+        "delete": {
+            "success": "",
+            "error": ""
+        },
+        "templateInstance": {
+            "create": {
+                "error": ""
+            }
+        },
+        "createOrUpdate": {
+            "error": "",
+            "success": ""
+        },
+        "exportCodes": {
+            "success": "",
+            "error": ""
+        },
+        "errors": {
+            "5002": ""
+        }
+    },
+    "paymentPack": {
+        "createOrUpdate": {
+            "fail": "",
+            "success": ""
+        },
+        "compatibilitiesUpdate": {
+            "fail": ""
+        },
+        "credit": {
+            "error": "",
+            "updated": ""
+        },
+        "manualActivation": {
+            "updated": "",
+            "error": ""
+        },
+        "paymentPackDisabled": {
+            "error": "",
+            "success": ""
+        },
+        "paymentPackEnabled": {
+            "error": "",
+            "success": ""
+        },
+        "paymentPackTemplateArchived": {
+            "error": "",
+            "success": ""
+        },
+        "paymentPackTemplateRestored": {
+            "error": "",
+            "success": ""
+        },
+        "universalPaymentPackTemplateArchived": {
+            "error": "",
+            "success": ""
+        },
+        "universalPaymentPackTemplateRestored": {
+            "error": "",
+            "success": ""
+        },
+        "category": {
+            "update": {
+                "success": "",
+                "error": ""
+            },
+            "create": {
+                "success": "",
+                "error": ""
+            },
+            "delete": {
+                "success": "",
+                "error": ""
+            }
+        }
+    },
+    "paymentRules": {
+        "delete": {
+            "success": "",
+            "error": ""
+        },
+        "create": {
+            "success": "",
+            "error": ""
+        },
+        "update": {
+            "error": "",
+            "success": ""
+        }
+    },
+    "relationship": {
+        "consumer_payment_pack_links": {
+            "relink": {
+                "error": "",
+                "success": ""
+            },
+            "unlink": {
+                "error": "",
+                "success": ""
+            },
+            "create": {
+                "error": {
+                    "90004": "",
+                    "generic": ""
+                },
+                "success": ""
+            }
+        },
+        "createOrUpdate": {
+            "error": ""
+        },
+        "create": {
+            "success": ""
+        },
+        "edit": {
+            "success": ""
+        },
+        "private_consumer_pass_links": {
+            "relink": {
+                "error": "",
+                "success": ""
+            },
+            "unlink": {
+                "error": "",
+                "success": ""
+            },
+            "create": {
+                "error": {
+                    "90005": "",
+                    "generic": ""
+                },
+                "success": ""
+            }
+        },
+        "delete": {
+            "error": "",
+            "success": ""
+        },
+        "error": {
+            "90000": "",
+            "90001": "",
+            "90002": "",
+            "90003": ""
+        }
+    },
+    "coach": {
+        "delete": {
+            "error": "",
+            "success": ""
+        },
+        "update": {
+            "success": ""
+        },
+        "create": {
+            "success": ""
+        },
+        "error": "",
+        "linkByEmail": {
+            "success": ""
+        },
+        "restore": {
+            "error": "",
+            "success": ""
+        },
+        "editAccessToCoachSpace": {
+            "error": ""
+        },
+        "errors": {
+            "60002": "",
+            "60003": "",
+            "60004": ""
+        },
+        "error_email_exists": ""
+    },
+    "link": {
+        "copied": ""
+    },
+    "privateService": {
+        "notCompatibleWithPartnership": ""
+    },
+    "invoice": {
+        "error": "",
+        "create": {
+            "success": ""
+        },
+        "update": {
+            "success": ""
+        },
+        "returnPaymentLocked": "",
+        "billingEstablishment": {
+            "error": {
+                "unAuthorizedEstablishmentModification": ""
+            }
+        },
+        "sendToQuickbooks": {
+            "errors": {
+                "931000": "",
+                "931001": "",
+                "931002": "",
+                "931003": "",
+                "931004": "",
+                "931100": "",
+                "931101": "",
+                "932000": "",
+                "932001": "",
+                "932100": "",
+                "933000": "",
+                "933100": "",
+                "933101": "",
+                "933102": "",
+                "933103": "",
+                "934000": "",
+                "934001": "",
+                "934002": "",
+                "934003": "",
+                "934004": "",
+                "934005": "",
+                "934006": "",
+                "title": ""
+            },
+            "error": "",
+            "success": ""
+        },
+        "generateXml": {
+            "success": "",
+            "errors": {
+                "14210": "",
+                "14211": "",
+                "14212": "",
+                "14213": "",
+                "14214": "",
+                "default": ""
+            }
+        },
+        "applyGiftcard": {
+            "errors": {
+                "12103": "",
+                "45000": "",
+                "45001": "",
+                "45003": "",
+                "45006": "",
+                "45007": "",
+                "generic": "",
+                "undefined": ""
+            },
+            "error": "",
+            "success": ""
+        },
+        "applyBalance": {
+            "error": "",
+            "success": ""
+        },
+        "revert": {
+            "errors": {
+                "14100": "",
+                "14101": "",
+                "14102": "",
+                "14111": "",
+                "14112": "",
+                "35024": ""
+            }
+        },
+        "receipt": {
+            "genericError": ""
+        }
+    },
+    "privateConsumerPass": {
+        "creditUpdate": {
+            "error": "",
+            "success": ""
+        },
+        "incompatibilitiesReasons": {
+            "error": ""
+        },
+        "nonCompatible": {
+            "error": ""
+        }
+    },
+    "video": {
+        "createOrUpdate": {
+            "success": "",
+            "error": ""
+        },
+        "delete": {
+            "error": "",
+            "success": ""
+        },
+        "register": {
+            "error": "",
+            "success": ""
+        }
+    },
+    "privateBooking": {
+        "attachCoach": {
+            "error": "",
+            "success": ""
+        },
+        "updateCoach": {
+            "error": "",
+            "success": ""
+        },
+        "restore": {
+            "error": "",
+            "success": ""
+        },
+        "register": {
+            "error": "",
+            "warning": {
+                "11106": ""
+            }
+        },
+        "setUnpaid": {
+            "success": "",
+            "error": ""
+        }
+    },
+    "playlist": {
+        "video": {
+            "del": {
+                "error": "",
+                "success": ""
+            },
+            "add": {
+                "error": "",
+                "success": ""
+            }
+        },
+        "delete": {
+            "error": "",
+            "success": ""
+        },
+        "createOrUpdate": {
+            "error": "",
+            "success": ""
+        }
+    },
+    "privatePass": {
+        "del": {
+            "error": "",
+            "success": ""
+        },
+        "restore": {
+            "error": "",
+            "success": ""
+        }
+    },
+    "metaActivity": {
+        "del": {
+            "error": "",
+            "success": ""
+        },
+        "restore": {
+            "error": "",
+            "success": ""
+        }
+    },
+    "memberNote": {
+        "delete": {
+            "success": "",
+            "error": ""
+        }
+    },
+    "bookingNotification": {
+        "delete": {
+            "error": "",
+            "success": ""
+        },
+        "createOrUpdate": {
+            "error": "",
+            "success": ""
+        }
+    },
+    "background": {
+        "cannotFetch": "",
+        "timeout": "",
+        "error": "",
+        "success": "",
+        "pending": ""
+    },
+    "offer": {
+        "restore": {
+            "error": "",
+            "success": ""
+        }
+    },
+    "subscriptionScheduledStop": {
+        "create": {
+            "success": "",
+            "error": ""
+        },
+        "delete": {
+            "success": "",
+            "error": ""
+        }
+    },
+    "tag": {
+        "error": {
+            "124003": "",
+            "124004": ""
+        }
+    },
+    "dashboard": {
+        "save": {
+            "error": "",
+            "success": ""
+        }
+    },
+    "privateRecurrentRule": {
+        "delete": {
+            "error": "",
+            "success": ""
+        },
+        "createOrUpdate": {
+            "success": "",
+            "error": "",
+            "locked": ""
+        }
+    },
+    "zoom": {
+        "created": {
+            "success": "",
+            "error": ""
+        },
+        "setGroupId": {
+            "success": "",
+            "error": ""
+        },
+        "bulkEditZoomEstablishments": {
+            "success": ""
+        }
+    },
+    "consumerPass": {
+        "success": ""
+    },
+    "copied": "",
+    "contractPause": {
+        "create": {
+            "error": ""
+        },
+        "updateName": {
+            "error": "",
+            "success": ""
+        },
+        "delete": {
+            "error": ""
+        }
+    },
+    "bookerModule": {
+        "pass": {
+            "nothingAvailable": "",
+            "changed": ""
+        }
+    },
+    "settings": {
+        "update": {
+            "success": "",
+            "error": ""
+        }
+    },
+    "paymentMethod": {
+        "detach": {
+            "pm_deleted": "",
+            "pm_associated_to_pi": "",
+            "pm_associated_to_registered_ppe": "",
+            "pm_associated_to_protected_bp": "",
+            "last_payment_method": ""
+        },
+        "errors": {
+            "13000": "",
+            "13001": "",
+            "13002": "",
+            "13003": "",
+            "13004": ""
+        }
+    },
+    "signup": {
+        "failedCreation": "",
+        "emailAlreadyExists": "",
+        "changeWorkspaceError": ""
+    },
+    "paymentRuleGroups": {
+        "delete": {
+            "success": "",
+            "error": ""
+        },
+        "create": {
+            "success": "",
+            "error": ""
+        },
+        "update": {
+            "error": {
+                "coachWithPaymentGroup": "",
+                "generic": ""
+            },
+            "success": ""
+        }
+    },
+    "cancelPayPalPaymentAttempt": "",
+    "canNotExecutePaymentAttempt": {
+        "12102": "",
+        "12107": "",
+        "12108": "",
+        "12109": "",
+        "12110": "",
+        "35000": "",
+        "35006": "",
+        "35012": "",
+        "35013": "",
+        "35015": "",
+        "failedLoadingPayPalScript": "",
+        "generic": ""
+    },
+    "canNotBuyErrorCode": {
+        "1": "",
+        "2": "",
+        "3": "",
+        "4": "",
+        "5": "",
+        "6": "",
+        "7": "",
+        "9": "",
+        "1113": "",
+        "1114": "",
+        "1122": "",
+        "2002": "",
+        "2003": "",
+        "2004": "",
+        "2005": "",
+        "2006": "",
+        "2007": "",
+        "2008": "",
+        "2009": "",
+        "2010": "",
+        "2011": "",
+        "2012": "",
+        "2014": "",
+        "2015": "",
+        "2016": "",
+        "2017": "",
+        "2025": "",
+        "6002": "",
+        "6003": "",
+        "8001": "",
+        "10001": "",
+        "11114": "",
+        "15002": "",
+        "23001": "",
+        "23002": "",
+        "45004": "",
+        "45005": "",
+        "85000": "",
+        "85101": "",
+        "addToBasketError": "",
+        "generic": "",
+        "undefined": ""
+    },
+    "customForm": {
+        "update": {
+            "success": "",
+            "error": ""
+        },
+        "create": {
+            "success": "",
+            "error": ""
+        },
+        "duplicate": {
+            "success": "",
+            "error": ""
+        },
+        "disable": {
+            "success": "",
+            "error": ""
+        },
+        "restore": {
+            "success": "",
+            "error": ""
+        },
+        "customFormField": {
+            "disable": {
+                "success": "",
+                "error": ""
+            },
+            "restore": {
+                "success": "",
+                "error": ""
+            }
+        },
+        "upsert": {
+            "errors": {
+                "84006": ""
+            }
+        },
+        "signupViaCustomForm": {
+            "errors": {
+                "84101": "",
+                "84102": "",
+                "84103": "",
+                "84104": ""
+            },
+            "error": "",
+            "success": ""
+        },
+        "customFormStepper": {
+            "error": ""
+        }
+    },
+    "establishmentGroup": {
+        "create": {
+            "success": "",
+            "error": ""
+        },
+        "update": {
+            "success": "",
+            "error": ""
+        },
+        "delete": {
+            "success": "",
+            "error": ""
+        }
+    },
+    "establishmentBillingGroup": {
+        "delete": {
+            "error": "",
+            "success": ""
+        },
+        "update": {
+            "error": "",
+            "success": ""
+        },
+        "create": {
+            "error": "",
+            "success": ""
+        }
+    },
+    "customFormDisplayRule": {
+        "delete": {
+            "error": "",
+            "success": ""
+        },
+        "update": {
+            "error": "",
+            "success": ""
+        },
+        "create": {
+            "error": "",
+            "success": ""
+        },
+        "customError": {
+            "3": ""
+        }
+    },
+    "quickbooks": {
+        "revoke": {
+            "error": "",
+            "success": ""
+        },
+        "create": {
+            "error": "",
+            "success": ""
+        }
+    },
+    "platformBilling": {
+        "payNowInvoice": {
+            "error": "",
+            "success": ""
+        }
+    },
+    "clientSecret": {
+        "errors": {
+            "12102": "",
+            "12909": ""
+        }
+    },
+    "companyTheme": {
+        "update": {
+            "error": "",
+            "success": ""
+        },
+        "provincialTax": {
+            "customError": {
+                "80001": ""
+            },
+            "error": "",
+            "success": ""
+        }
+    },
+    "clockIn": {
+        "errors": {
+            "96002": ""
+        }
+    },
+    "plannedPayment": {
+        "registerNow": {
+            "error": "",
+            "success": ""
+        }
+    },
+    "marketplace": {
+        "update": {
+            "error": "",
+            "stripeTerminal": {
+                "deleteReader": {
+                    "success": "",
+                    "error": ""
+                }
+            }
+        }
+    },
+    "communicationSentGroupConfig": {
+        "create": {
+            "success": "",
+            "error": ""
+        },
+        "update": {
+            "success": "",
+            "error": ""
+        },
+        "delete": {
+            "success": "",
+            "error": ""
+        },
+        "duplicate": {
+            "success": "",
+            "error": ""
+        }
+    },
+    "automatedCampaign": {
+        "17000": "",
+        "17101": "",
+        "17102": "",
+        "17103": "",
+        "17104": "",
+        "17105": "",
+        "170001": ""
+    },
+    "communicationv2": {
+        "error": "",
+        "success": ""
+    },
+    "replacement": {
+        "errors": {
+            "50000": "",
+            "50007": "",
+            "50008": "",
+            "50009": "",
+            "50010": "",
+            "50011": "",
+            "50012": "",
+            "50013": "",
+            "50015": "",
+            "50020": "",
+            "50021": "",
+            "80002": "",
+            "80003": "",
+            "500001": "",
+            "500004": "",
+            "undefined": ""
+        },
+        "cancelReplacementRequest": {
+            "error": "",
+            "success": ""
+        },
+        "updateCoachReplacementPreferences": {
+            "error": "",
+            "success": ""
+        },
+        "assignDisciplineGroup": {
+            "success": ""
+        },
+        "disciplineGroup": {
+            "delete": {
+                "error": "",
+                "success": ""
+            },
+            "create": {
+                "success": "",
+                "error": ""
+            },
+            "update": {
+                "success": "",
+                "error": ""
+            }
+        }
+    },
+    "accessDenied": {
+        "general": {
+            "message": "",
+            "title": ""
+        }
+    },
+    "communicationProviderSettings": {
+        "update": {
+            "error": "",
+            "success": ""
+        }
+    },
+    "requestCurrentBasket": {
+        "15002": ""
+    },
+    "refreshInternalAccountPrepaidLines": {
+        "15002": ""
+    },
+    "removeItem": {
+        "15002": "",
+        "15009": ""
+    },
+    "smartListPopup": {
+        "send": {
+            "error": ""
+        }
+    },
+    "instalmentPayment": {
+        "16000": "",
+        "16001": "",
+        "16002": "",
+        "16003": ""
+    },
+    "cadence": {
+        "create": {
+            "error": "",
+            "success": ""
+        },
+        "update": {
+            "error": "",
+            "success": ""
+        }
+    },
+    "audience": {
+        "create": {
+            "error": "",
+            "success": ""
+        },
+        "update": {
+            "error": "",
+            "success": ""
+        }
+    },
+    "giftCard": {
+        "notFound": ""
+    },
+    "modifyBasket": {
+        "15004": "",
+        "addItemSuccess": ""
+    },
+    "quicksaleConfiguration": {
+        "error": "",
+        "updated": ""
+    },
+    "quicksaleCheckout": {
+        "15010": ""
+    },
+    "spivi": {
+        "error": {
+            "21000": "",
+            "21001": "",
+            "21002": "",
+            "21003": "",
+            "21004": ""
+        }
+    },
+    "smartlistGetMembers": {
+        "error": ""
+    },
+    "privateSlot": {
+        "notCompatibleWithPartnership": "",
+        "notAvailableForBookingAnymore": ""
+    },
+    "paypal": {
+        "35009": "",
+        "connectionAttemptFailed": "",
+        "connectionAttemptSucceeded": "",
+        "couldNotReachPayPal": "",
+        "onboardingUrlFetchFailed": ""
+    },
+    "wellhub": {
+        "configureWebhooks": {
+            "error": "",
+            "success": ""
+        }
+    },
+    "oneClickBooking": {
+        "genericError": ""
+    },
+    "communicationScheduled": {
+        "delete": {
+            "133001": ""
+        }
+    }
+}

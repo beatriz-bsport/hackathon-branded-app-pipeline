@@ -32,6 +32,10 @@ It should belong to the port range defined in `/tools/config/federation/src/conf
 
 3. Add your application to the `studio-manager/host` app : port in `package.json`, route in the `Root.tsx`.
 
+4. You should also update the `studio-manager/host/scripts/apps.txt` file in order to have the new application running when you are running the host app.
+
+5. You should also update in the `studio-manager/navigation-sidebar/src/urls.ts` file the `REVAMP_URLS_DEVELOPMENT` if you want the navigation bar to have the correct url to navigate without enabling the app on Pre-Prod and Prod environement (this is the current feature flagging system we have).
+
 ---
 
 <!-- @indication Replace "BUSINESS_DOMAIN" and "PRODUCT_UNIT" -->

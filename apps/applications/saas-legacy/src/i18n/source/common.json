@@ -1,0 +1,104 @@
+{
+  "text": {
+    "showLessText": "Show less",
+    "showMoreText": "Show more"
+  },
+  "close": "Close",
+  "add": "Add",
+  "colorPicker": {
+    "validate": "Save",
+    "delete": "Clear",
+    "noColor": "No colour"
+  },
+  "positiveNumber": "This field must be greater than 0.",
+  "form": {
+    "duration": {
+      "day": "Duration in days:",
+      "day_plural": "Days:",
+      "hour": "Duration in hours:",
+      "hour_plural": "Hours:",
+      "minute": "Duration in minutes:",
+      "minute_plural": "Minutes:"
+    },
+    "requiredField": "This field is mandatory.",
+    "validation": {
+      "number": "This field must be a number."
+    }
+  },
+  "selector": {
+    "validate": "Confirm",
+    "unselectAll": "Unselect all",
+    "selectAll": "Select all",
+    "indeterminate": "Select all ({{count}} selected)"
+  },
+  "cancel": "Cancel",
+  "confirm": "Confirm",
+  "continue": "Continue",
+  "disconnectInfo": "Return to Login Page",
+  "disconnect": "Logout",
+  "activate": "Activate",
+  "save": "Save",
+  "startAfterEnd": "The start date must be before the end date",
+  "endBeforeStart": "The end date can't be greater than the start date",
+  "requiredField": "this field is required",
+  "numberRequired": "This field must be a number",
+  "monthly": "Monthly",
+  "weekly": "Weekly",
+  "biweekly": "Bi-weekly",
+  "showLess": "Show less",
+  "showMore": "Show more ({{count}})",
+  "start": "Start",
+  "next": "Next",
+  "previous": "Previous",
+  "letsGo": "Let's go!",
+  "finish": "Finish",
+  "subscribe": "Subscribe",
+  "card": {
+    "categoryNames": {
+      "compatibility": "Compatibility",
+      "paymentMethods": "Available payment methods",
+      "validity": "Validity",
+      "credits": "Number of credits",
+      "vod": "Video On Demand",
+      "accessibility": "Accessibility",
+      "restrictions": "Restrictions"
+    },
+    "copyLink": "Copy the link"
+  },
+  "saveRecord": "Save",
+  "saveChanges": "Save changes",
+  "rename": "Rename",
+  "delete": "Delete",
+  "preview": "Preview",
+  "edit": "Edit",
+  "duration": {
+    "minute": "{{ count }} minute",
+    "minute_plural": "{{ count }} minutes",
+    "hour": "{{ count }} hour",
+    "hour_plural": "{{ count }} hours",
+    "day": "{{ count }} day",
+    "day_plural": "{{ count }} days"
+  },
+  "download": "Download",
+  "ok": "OK",
+  "params": "Settings",
+  "back": "Back",
+  "recommended": "Recommended",
+  "day": "day",
+  "day_plural": "days",
+  "discard": "Discard",
+  "discardChanges": "Discard changes",
+  "yes": "Yes",
+  "no": "No",
+  "none": "None",
+  "seeLess": "See less",
+  "seeMore": "See more",
+  "send": "Send",
+  "reset": "Reset",
+  "more": "More",
+  "gender": {
+    "F": "Female",
+    "M": "Male",
+    "X": "Non-binary"
+  }
+}

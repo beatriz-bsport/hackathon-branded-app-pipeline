@@ -1,0 +1,141 @@
+{
+  "parameters": {
+    "companyId": "L'ID del tuo club è: {{ company }}",
+    "establishmentId": "Gli ID delle sale sono: {{establishmentIdList}}",
+    "enabled": "Attivo",
+    "allEstablishment": "Tutti gli stabilimenti",
+    "establishmentMergeMaster": "Entrare in questa istituzione ⬇️",
+    "partnerId": "PartnerID: {{ company }}",
+    "configurationTitle": "Configura la tua integrazione",
+    "pleaseChoseEstablishmentMany": "Seleziona almeno uno stabilimento",
+    "establishmentMergedAs": "Unisci questi stabilimenti",
+    "venueIds": "VenueIDs: {{ establishmentIdList }}",
+    "pleaseChoseEstablishment": "Per favore, seleziona uno stabilimento",
+    "establishment": "Stabilimento",
+    "add": "Aggiungi",
+    "configurationDescription": "Seleziona il modo in cui volete che i vostri stabilimenti appaiano sull'app ClassPass.",
+    "editButton": "Modifica configurazione",
+    "description": "Per impostare l'integrazione con ClassPass, contattate ClassPass attraverso la tua sezione partner. Fornire il l'ID partner e gli ID delle strutture che si vogliono abilitare su ClassPass. Si prega di notare che le sessioni o gli appuntamenti in queste strutture non appariranno su ClassPass fino a quando la configurazione non sarà completamente confermata da ClassPass.",
+    "drawerTitle": "Configurazione ClassPass",
+    "table": {
+      "establishments": "Stabilimenti",
+      "venueIds": "IDs della sede",
+      "title": {
+        "appointments": "Per gli appuntamenti",
+        "groupActivities": "Per le attività"
+      }
+    }
+  },
+  "requestDialog": {
+    "explain": "Hai richiesto l'integrazione di classpass X bsport, il tuo account manager ti contatterà per convalidare questa operazione",
+    "close": "OK"
+  },
+  "actions": {
+    "save": "Salva",
+    "requestPartnership": "Richiedi una partnership"
+  },
+  "pageTitle": "Partnership",
+  "configurationType": {
+    "1": {
+      "label": "Stabilimenti indipendenti",
+      "helperText": "Ogni sede apparirà come sede indipendente su ClassPass."
+    },
+    "2": {
+      "label": "Unisci tutti gli stabilimenti",
+      "helperText": "Tutte le istituzioni appariranno come una sola"
+    },
+    "3": {
+      "label": "Avanzato",
+      "helperText": "Raggruppa stabilimenti simili per indirizzo"
+    }
+  },
+  "wellhub": {
+    "configuration": {
+      "panel": {
+        "footer": {
+          "addUnitButton": "Aggiungi Unità"
+        },
+        "content": {
+          "table": {
+            "column": {
+              "establishments": "Stabilimenti",
+              "unit": "Unità"
+            }
+          },
+          "helperText": "Per prima cosa richiedere l'integrazione con bsport sul Partner Portal di Wellhub, per ogni Unità",
+          "title": "Collegamento Unità"
+        },
+        "header": {
+          "subtitle": "Collega le tue sessioni sull'account bsport con Wellhub"
+        }
+      },
+      "dialog": {
+        "unlink": {
+          "text": "Le prossime sessioni collegate a tali stabilimenti saranno eliminate su Wellhub e le prenotazioni effettuate tramite Wellhub andranno perse",
+          "title": "Stai per scollegare uno o più stabilimenti da Wellhub"
+        },
+        "action": {
+          "save": "Salva",
+          "confirm": "Conferma",
+          "cancel": "Annulla",
+          "back": "Indietro"
+        },
+        "field": {
+          "establishmentIds": {
+            "error": {
+              "required": "Si prega di selezionare almeno uno stabilimento"
+            },
+            "title": "Stabilimenti",
+            "placeholder": "Collegate il/i vostro/i stabilimento/i bsport"
+          },
+          "unitId": {
+            "error": {
+              "unavailable": "ID dell'unità non disponibile",
+              "positive": "L'ID dell'unità deve essere un numero positivo",
+              "required": "È richiesto l'ID dell'unità"
+            },
+            "placeholder": "Numero identificativo dell'unità"
+          }
+        },
+        "title": {
+          "deletion": "Elimina l'ID dell'unità",
+          "edition": "Modifica dell'ID unità",
+          "creation": "Aggiungere e collegare l'ID dell'unità con lo stabilimento (o gli stabilimenti)"
+        }
+      }
+    },
+    "title": "Wellhub",
+    "snackbar": {
+      "configureWebhooks": {
+        "success": "L'ID dell'unità è stato associato con successo",
+        "error": "Si è verificato un errore durante la configurazione"
+      }
+    },
+    "productSelection": {
+      "drawer": {
+        "footer": {
+          "save": "Salva",
+          "cancel": "Cancella",
+          "back": "Indietro"
+        },
+        "form": {
+          "applyToSimilarOffers": "Applica a sessioni simili",
+          "label": "Questi prodotti sono offerti dal vostro studio sulla piattaforma Wellhub. Per maggiori informazioni, visitate la sezione “Partnership” nel Portale Partner del vostro account Wellhub."
+        },
+        "element": "{{ count }} elemento",
+        "element_plural": "{{ count }} elementi",
+        "actionRequired": "Selezionare un prodotto Wellhub da collegare a questa sessione:",
+        "description": "Alcune sessioni non hanno un prodotto Wellhub collegato e non saranno disponibili per le prenotazioni da parte degli utenti Wellhub.",
+        "title": "Il prodotto Wellhub non è ancora collegato"
+      },
+      "alert": {
+        "action": "Impostazioni",
+        "message": "Selezionare un prodotto Wellhub per visualizzare le sessioni e renderle prenotabili per gli utenti Wellhub.",
+        "title": "Alcune sessioni non si sono sincronizzate con Wellhub."
+      },
+      "selector": {
+        "placeholder": "Selezionare un prodotto Wellhub"
+      }
+    }
+  }
+}

@@ -1,0 +1,662 @@
+{
+  "returnPayment": {
+    "modal": {
+      "title": "Terugbetaling aan lid",
+      "content": "De betaling wordt overgemaakt naar de bankrekening van het lid. De credit wordt op de factuur toegevoegd om de terugbetaling weer te geven.",
+      "cancel": "Annuleren",
+      "confirm": "Terugbetalen"
+    }
+  },
+  "configuration": {
+    "stripe_footer": "Voettekst factuur",
+    "explainStripeFooter": "Deze tekst verschijnt onderaan je facturen die men als PDF kan downloaden. Voeg eventueel de juridische kennisgeving toe.",
+    "submit_stripe_footer": "Bijwerken",
+    "forms": {
+      "stripe_footer_placeholder": "Geen aanvullende informatie",
+      "show_company_email_in_invoice": "Toon het zakelijke e-mailadres op alle facturen",
+      "invoicePDFTitlePlaceholder": "Standaard bedrijfsnaam van Stripe onboarding"
+    },
+    "nf525Button": "Downloaden",
+    "nf525Explain": "BSPORT volgt de NF252-nalevingsprocedures. Download hier het officiële bestand.",
+    "nf525": "NF525-certificatie",
+    "subscription": {
+      "forms": {
+        "nbRetriesSubscriptionPayments": {
+          "label": "Aantal mislukte betalingen",
+          "helperText": "Tussen 0 en 5 pogingen"
+        },
+        "activateSmartRetries": {
+          "helperText": "Het systeem zal automatisch mislukte betalingen voor abonnementen opnieuw uitvoeren.",
+          "label": "Activeer Smart Retries voor mislukte betalingen"
+        },
+        "revert_bookings_on_fail_subscription_payment": {
+          "label": "Annuleer de gekoppelde reserveringen als de betaling mislukt",
+          "warning": "Waarschuwing! Geannuleerde reserveringen worden niet hersteld als de betaling vervolgens wel lukt.",
+          "helperText": "Als de betaling voor het abonnement mislukt, worden de reserveringen geannuleerd en de credits zullen worden teruggestort."
+        },
+        "disable_pass_on_fail_subscription_payment": {
+          "label": "Deactiveer abonnementen als de betaling mislukt",
+          "helperText": "Het systeem zal automatisch de kaarten van abonnementen voor mislukte/gedisputeerde betalingen blokkeren tot de betaling is voltooid."
+        },
+        "advance_sepa_billing": {
+          "helperText": "Leden ontvangen de opdracht voor de SEPA-overschrijving veelal 3 dagen later.",
+          "label": "Verstuur de opdracht voor SEPA-overschrijvingen 3 dagen van tevoren om eventuele vertragingen in het banknetwerk op te vangen die invloed op de cashflow kunnen hebben"
+        }
+      },
+      "title": "Abonnementsbetalingen"
+    },
+    "invoiceGeneral": "Facturen",
+    "stripeTerminal": {
+      "deleteDialog": {
+        "content2": "Dit pinapparaat wordt niet langer gebruikt voor fysieke betalingen.",
+        "title": "Verwijderen",
+        "content1": "Weet je zeker dat je dit pinapparaat ({{label}}) wilt verwijderen?",
+        "content3": "Opnieuw verbinden"
+      },
+      "connectDialog": {
+        "loading1": "De pinapparaten van Stripe Terminal dienen te worden verbonden.",
+        "title": {
+          "connect": "Verbinden",
+          "success": "Succesvolle verbinding",
+          "error": "Verbindingsfout",
+          "edit": "Wijzigingen"
+        },
+        "loading2": "Momentje geduld alsjeblieft",
+        "form": {
+          "readerLabel": "Naam pinapparaat",
+          "registrationCode": "Code pinapparaat",
+          "connect": "Verbinden",
+          "continue": "Verder",
+          "retry": "Opnieuw proberen",
+          "update": "Bewerken",
+          "registrationCodeHelperText": "Code invoeren dat op je pinapparaat (Stripe Terminal) wordt weergegeven."
+        },
+        "success": "Dit pinapparaat van Stripe Terminal is succesvol verbonden",
+        "error1": "Dit pinapparaat van Stripe Terminal is niet verbonden",
+        "error2": "Opnieuw proberen",
+        "mustCreateStripeLocation": "Gelieve alle informatie en bedrijfsgegevens doorsturen over waar je het pinapparaat wenst te gebruiken."
+      },
+      "paymentDialog": {
+        "connectAndPay": "Naar pinapparaat versturen",
+        "radio": "Pinapparaat",
+        "amountToPay": "Uitstaand bedrag",
+        "minAmountInfo": "Het minimumbedrag om dit pinapparaat te gebruiken is {{amountString}}.",
+        "connectionSuccess": {
+          "payment": "Dit pinapparaat is verbonden. Het bedrag zal zo dadelijk op het scherm getoond worden.",
+          "intent": "Dit pinapparaat is verbonden. De klant kan de betaalkaart zo dadelijk gebruiken.",
+          "processing": "De aanvraag wordt verwerkt",
+          "cancel": {
+            "title": "Annulering",
+            "cancelExplain1": "Weet je zeker dat je deze handeling wilt annuleren?",
+            "cancelExplain2": "Je wordt doorverwezen naar het geselecteerde pinapparaat.",
+            "error": "Fout bij het annuleren."
+          }
+        },
+        "paymentSuccess": {
+          "title": {
+            "payment": "Betaling geaccepteerd",
+            "setupAndPlan": "Betaling opgeslagen",
+            "setupOnly": "Betaalmethode opgeslagen"
+          },
+          "content": {
+            "payment": "De betaling is verwerkt.",
+            "wait": "Nog even geduld, we verwerken uw gegevens."
+          }
+        },
+        "paymentFailed": {
+          "title": {
+            "paymentIntent": "Betaling mislukt",
+            "setupIntent": "Operatie mislukt"
+          },
+          "content": {
+            "paymentIntent": "Fout bij het verwerken van de betaling.",
+            "setupIntent": "De betaalmethode is niet opgeslagen."
+          },
+          "explain": {
+            "label": "Mislukt:"
+          },
+          "interac": {
+            "content": "Interac-kaarten kunnen niet worden gebruikt voor terugkerende betalingen of worden opgeslagen. Gebruik een andere betaalmethode.",
+            "title": "Incompatibele betaalmiddelen"
+          }
+        },
+        "disconnect": {
+          "title": "Verbreken",
+          "content": "De verbinding is onderbroken. Probeer het opnieuw."
+        },
+        "processing": {
+          "title": "Transactie in behandeling",
+          "content": "Volg de instructies op de Stripe Terminal",
+          "help": {
+            "title": "Ervaar je problemen?",
+            "content": "Als de terminal een foutmelding geeft, kun je op annuleren klikken en opnieuw proberen te betalen. Misschien wil je je internetverbinding controleren op zowel je laptop als je terminal."
+          },
+          "inactivity": {
+            "title": "Ben je er nog?",
+            "content": "We hebben ontdekt dat je inactief bent geweest. Wil je deze werking nog steeds voortzetten? Als je niet binnen de volgende 30 seconden reageert, wordt deze automatisch geannuleerd.",
+            "action": "Ja! Ik ben er"
+          },
+          "cancelError": {
+            "generic": {
+              "title": "Er is een fout opgetreden",
+              "content": "De handeling kan niet worden geannuleerd"
+            },
+            "readerBusy": {
+              "title": "Betaling wordt verwerkt",
+              "content": "Wacht tot de betaling is voltooid."
+            }
+          }
+        },
+        "processingSavePaymentMethod": {
+          "content": "Volg de instructies op de Stripe-terminal",
+          "help": {
+            "content": "Als de terminal een fout weergeeft, kun je op annuleren klikken en de betaalmethode opnieuw proberen op te slaan. Controleer eventueel je internetverbinding op zowel je laptop als je terminal.",
+            "title": "Heb je een probleem?"
+          },
+          "title": "Bezig met bewerking",
+          "cancelError": {
+            "readerBusy": {
+              "title": "De betalingsmethode wordt opgeslagen",
+              "content": "Wacht tot de bewerking is voltooid."
+            }
+          }
+        }
+      },
+      "title": "Pinapparaat",
+      "addReader": "Een pinapparaat verbinden",
+      "addCard": "Pinapparaat (Stripe Terminal) toevoegen",
+      "helperText": "Gebruik pinapparaten om betalingen direct vanuit de Back Office te verwerken en bespaar tijd door al het handmatige werk omtrent fysieke betalingen te vermijden. Gelieve contact opnement met je accountmanager voor meer informatie."
+    },
+    "explainInvoicePDFTitle": "Deze naam verschijnt als de naam van je studio op alle gegenereerde facturen",
+    "invoicePDFEmail": "Factuur e-mailadres",
+    "invoicePDFTitle": "Factuur bedrijfsnaam",
+    "tse": {
+      "documentationLabel": "Procedurele documentatie",
+      "manufacturerLinkLabel": "Certificaat van de TSE-fabrikant",
+      "manufacturer": "Fabrikant: fiskaly GmbH",
+      "version": "Versie van de TSE: v2",
+      "description": "Het is een regelgeving die gericht is op het waarborgen van de veiligheid en integriteit van elektronische kassasystemen. We gebruiken Fiskaly als technisch beveiligingsmiddel (TSE) om manipulatie te voorkomen en ervoor te zorgen dat transactiegegevens veilig en fraudebestendig worden opgeslagen.",
+      "title": "Verordening kaszekerheid (Duitsland)"
+    },
+    "refundsAndDiscount": {
+      "checkbox": {
+        "refundAndCancelJustification": "Vereist rechtvaardiging voor factuurrestituties en annuleringen",
+        "customDiscountJustification": "Vereist rechtvaardiging voor handmatige kortingen"
+      },
+      "info": "Activeer deze opties om medewerkers te verplichten een reden op te geven bij het handmatig toepassen van een korting of het annuleren/terugbetalen van een factuur.",
+      "title": "Terugbetalingen en Kortingen"
+    }
+  },
+  "section": {
+    "paymentList": {
+      "total": "Betaald",
+      "isEmpty": "Er is geen betaalmethode geregistreerd.",
+      "title": "Betaalmethoden"
+    },
+    "invoiceItemList": {
+      "total": "Totaal",
+      "isEmpty": "Er zijn nog geen producten aan deze factuur toevoegen.",
+      "title": "Aankopen",
+      "titleReverse": "Aankoopdetails",
+      "billing_establishment": "Vestiging van facturatie*",
+      "cannotCreateDiscount": "Je hebt niet de vereiste toestemming om een korting toe te voegen.",
+      "billingGroup": "Facturatiegroep *"
+    }
+  },
+  "invoiceItem": {
+    "voucher": "Korting: {{ voucher }}",
+    "quantity": "Aantal",
+    "credit": {
+      "label": "Credit(s)"
+    },
+    "buyableItemIdentifier": {
+      "1": "Leskaarten",
+      "2": "Webshop",
+      "3": "Credits",
+      "9": "Afspraakkaarten",
+      "10": "Pakketten",
+      "11": "Cadeaubonnen",
+      "undefined": "Cadeaubon"
+    },
+    "discount": "Korting",
+    "finalPricePreview": "Voorbeeld totaal",
+    "discountReason": "Reden voor korting",
+    "voucherReason": {
+      "manualWithNoReason": "Handmatige korting",
+      "manual": "Handmatige korting: {{manual_reason}}",
+      "coupon_referring": "Verwijzingskorting: Verwijzend lid",
+      "coupon_referred": "Verwijzingskorting: Verwezen lid",
+      "coupon": "Promotiecode: {{coupon_name}}",
+      "payment_combo": "Pakketkorting"
+    }
+  },
+  "actions": {
+    "finalize": "Afronden (PDF)",
+    "download": "Factuur downloaden (PDF)",
+    "equilibrate": "Saldo (aanbetaling)",
+    "addInvoiceItem": "Aan factuur toevoegen",
+    "save": "Opslaan",
+    "backToInvoiceItemEditor": "Aankoop",
+    "goToPaymentEditor": "Betaling",
+    "goToSubscription": "Toon abonnement",
+    "revert": "Annuleren",
+    "invoiceReverted": "Geannuleerde factuur",
+    "consumeBalance": "Met saldo betalen",
+    "explainPdfDraft": "Deze factuur is nog een concept. De PDF is nog niet beschikbaar.",
+    "addFooter": "Voetnoot wijzigen",
+    "addCoupon": "Een promotiecode toevoegen",
+    "downloadReceipt": "Betalingsbewijs",
+    "downloadXml": "Factuur downloaden (XML)",
+    "downloadXmlBulkState": {
+      "title": "ZIP-bestand",
+      "processing": "We zijn uw Zip-bestand aan het verwerken. Je ontvangt een bericht wanneer het klaar is.",
+      "generate": "genereren",
+      "ready": "Je facturen zijn klaar om gedownload te worden."
+    },
+    "downloadXmlBulk": "Genereer facturen (XML)",
+    "downloadXmlBulkTooltip": "Facturen worden vanaf de laatste maand gegenereerd. Als er al een factuur is gegenereerd, moet deze afzonderlijk worden gedownload."
+  },
+  "uneditableMessage": {
+    "invoiceFinalizedThusNotEditable": "De factuur is nu aangemaakt en kan niet meer worden bewerkt.",
+    "invoiceFromSubscriptionThusNotEditable": "Deze factuur is aan een abonnement gekoppeld en kan daarom niet worden gewijzigd. Wijzig het abonnement zelf om veranderingen door te voeren.",
+    "invoiceRevertedThusNotEditable": "De factuur is geannuleerd en kan niet worden gewijzigd"
+  },
+  "invoice": {
+    "header": {
+      "source": {
+        "0": "App",
+        "1": "Web",
+        "2": "Back Office",
+        "3": "Andere",
+        "4": "Migratie",
+        "label": "Kanaal: {{ source }}"
+      },
+      "clientAuthor": "Lid",
+      "author": "Opgemaakt door: {{ name }}",
+      "date": "Datum: {{ date }}",
+      "reverseInvoice": "Terugbetaald via ",
+      "sourceInvoice": "Factuur annuleren",
+      "noEstablishment": "Zonder vestiging",
+      "noBillingGroup": "Er is geen factureringsgroep gekoppeld aan deze factuur",
+      "reverseInvoicePending": "Restitutie in behandeling via "
+    },
+    "editor": {
+      "title": "Facturatie",
+      "save": "Factureren",
+      "sumup": "Overzicht"
+    },
+    "title": "Factuur {{ uuid }}",
+    "titleRevert": "Bemachtigen {{ uuid }}",
+    "titleReceipt": "Betalingsbewijs: {{ uuid }}",
+    "titleReverted": "Factuur (geannuleerd) {{ uuid }}",
+    "titleRevertPending": "[Pending] Credit {{ uuid }}",
+    "paymentFailedWithMethod": "Betaling mislukt met {{ paymentMethod }}. Probeer het opnieuw.",
+    "paymentFailed": "Betaling mislukt. Probeer het opnieuw."
+  },
+  "creditAccountBalance": {
+    "current": "Huidig saldo"
+  },
+  "invoiceInfoDialog": {
+    "actions": {
+      "close": "Sluiten",
+      "show": "Zie factuur"
+    },
+    "explain": "Eén of meerdere betalingen zijn mislukt. De aanbetaling van het lid geeft aan waar het fout ging."
+  },
+  "paymentPanel": {
+    "fields": {
+      "accountHolderName": {
+        "placeholder": "Jan Alleman",
+        "label": "Rekeninghouder"
+      },
+      "country": {
+        "placeholder": "Nederland",
+        "label": "Land van de bankrekening"
+      },
+      "email": {
+        "placeholder": "jan.alleman@live.nl",
+        "label": "E-mailadres van de rekeninghouder"
+      }
+    },
+    "actions": {
+      "bill": "Incasseren",
+      "saveForLaterAsSEPA": "Deze betaalmethode wordt als een SEPA-mandaat opgeslagen.",
+      "saveForLater": "Deze betaalmethode opslaan",
+      "showInvoice": "Toon factuur",
+      "confirmPayment": "Betaling bevestigen",
+      "payAll": "Betalen",
+      "cancel": "Annuleren",
+      "revert": "Annuleren",
+      "pay": "Betaal factuur",
+      "basketInconsistent": "Je winkelmandje is gewijzigd. Gelieve je pagina verversen voor je de betaling bevestigd.\nEr zijn vooralsnog geen kosten in rekening gebracht.",
+      "billByInstalment": "Termijnbetaling",
+      "paymentLink": "Betaallink",
+      "generatePaymentLink": "Een betaallink genereren",
+      "paymentSecurityInformation": "Je kunt je betaalgegevens en -informatie veilig en versleuteld opslaan voor toekomstige aankopen.",
+      "basketWasInconsistent": "Uw mandje is gewijzigd. Er is niets in rekening gebracht. Probeer de betaling opnieuw uit te voeren."
+    },
+    "sumup": {
+      "amountPaid": "Betaald",
+      "amountRemaining": "Resterend bedrag",
+      "amountDue": "Totaal verschuldigd",
+      "title": "Overzicht",
+      "amountBeingProcessed": "Bedrag in behandeling"
+    },
+    "paymentList": {
+      "isEmpty": "Er is geen betaling geregistreerd.",
+      "titleReverse": "Terugbetaling",
+      "title": "Betalingen"
+    },
+    "date": {
+      "label": "Betaaldatum"
+    },
+    "paymentNote": {
+      "helperText": "(Optioneel) Betalingskenmerk",
+      "label": "Notitie"
+    },
+    "amount": {
+      "label": "Te innen bedrag"
+    },
+    "amountRemaining": "Resterend bedrag: {{ amount }}",
+    "billingMoreThanNeeded": "Als je meer dan het factuurbedrag incasseert, wordt het saldo van het lid met het verschil verhoogd",
+    "errorSecretExplain2": "Als het probleem niet is opgelost, neem dan contact met ons op via dev+payment-intent@bsport.io",
+    "errorSecretExplain1": "Deze betaalmethode is momenteel onbeschikbaar.",
+    "plannedPaymentEvent": {
+      "title": "Geplande betaling",
+      "title_plural": "Geplande betalingen"
+    },
+    "revertReason": "Reden: {{ revertReason }}"
+  },
+  "balance": {
+    "updaterDialog": {
+      "topup": "Credit",
+      "debt": "Debet",
+      "explainTopup": "Het saldo van de interne rekening (Wallet) van dit lid wordt met {{ currencyDisplay }}{{ amount }} verhoogd.",
+      "explainDecaissement": "Het saldo van de interne rekening (Wallet) van dit lid wordt met {{ currencyDisplay }}{{ amount }} verlaagd.",
+      "title": "Saldo wijzigen",
+      "actions": {
+        "cancel": "Annuleren",
+        "submit": "Volgende"
+      },
+      "balanceValueLabel": "Bedrag",
+      "typeLabel": "Type aanpassing",
+      "withoutPaymentNote": {
+        "warning": "Let op! We kunnen deze betaling niet in het systeem registreren. Gebruik dit alleen in bijzondere situaties.",
+        "label": "Geen factuur aanmaken"
+      }
+    }
+  },
+  "revert": {
+    "content": {
+      "explain": {
+        "0": "Card / SEPA / etc. betalingen worden direct naar de rekening van de klant overgemaakt. Gebruik deze methode om een directe terugbetaling te doen na een fout.",
+        "1": "Er wordt een creditnota aangemaakt dat het saldo van het lid zal verhogen. Gebruik deze methode om een creditnota gelijk aan te maken.",
+        "2": "Kies hoe je de vergoeding wilt doen. Gebruik deze methode voor een handmatige terugbetaling, een bankoverschrijving of een cheque."
+      },
+      "label": {
+        "0": "Directe terugbetaling",
+        "1": "Terugstorten op interne rekening (Wallet)",
+        "2": "Handmatige terugbetaling"
+      },
+      "explainEmptyPayment": "Weet je zeker dat je deze factuur wilt annuleren?",
+      "revertReason": "Reden voor annulering"
+    },
+    "dialog": {
+      "title": "Factuur annuleren",
+      "actions": {
+        "confirm": "Bevestigen",
+        "cancel": "Sluiten"
+      }
+    },
+    "warning": {
+      "14100": "Er is ten minste één betaling gedaan met een Interac-kaart op deze factuur. Directe terugbetalingen worden niet ondersteund voor Interac-kaarten.",
+      "14101": "Opmerking: een aanpassing aan het rekeningsaldo kan niet worden terugbetaald met het rekeningsaldo",
+      "14103": "Directe terugbetalingen zijn alleen beschikbaar als ten minste één van de betalingen via een online methode verloopt.",
+      "14106": "Directe terugbetalingen zijn niet mogelijk voor SEPA-betalingen ouder dan 180 dagen.",
+      "interac": "Er is ten minste één betaling gedaan met een Interac-kaart op deze factuur. Directe terugbetalingen worden niet ondersteund voor Interac-kaarten.",
+      "debtAndNewPaymentMethodNotAllowed": "Er is ten minste één betaling in behandeling. Alleen een directe terugbetaling is beschikbaar."
+    },
+    "autoDebitDialog": {
+      "helper": "Je studio is momenteel bezig met het sluiten van hun bsport-account\n\nDe factuur wordt terugbetaald als je op bevestigen klikt. Het resterende saldo op Stripe ter waarde van {{ currencyDisplay }}{{refundAmount}} zal worden teruggestort. Indien je je Stripe-saldo op {{ currencyDisplay }}0 wilt zetten zal het verschil rechtstreeks en automatisch van je betaalgegevens die onder Instellingen > Onderneming staan.\n\nAls je het limiet niet wilt overschrijden, kun je wachten tot je Stripe-saldo weer stijgt. Je kunt je Stripe-saldo live volgen via Instellingen > Abonnement.",
+      "title": "Onvoldoende Stripe saldo"
+    },
+    "blockedDialog": {
+      "title": "Onvoldoende Stripe saldo",
+      "alert": "Waarschuwing: met deze terugbetaling overschrijdt u de toegestane debetlimiet van {{refundBlockingLimit }} {{currencyDisplay}}.",
+      "helper": "Je Stripe-saldo is te laag om een terugbetaling te verwerken. Probeer het gelieve over een paar dagen opnieuw, zodra er meer betalingen verwerkt zijn."
+    },
+    "SEPARefundDialog": {
+      "actions": {
+        "cancel": "Actie annuleren",
+        "confirm": "Terugbetaling"
+      },
+      "alert": "De verwerking van een terugbetaling van een SEPA-betaling kan tot 5 werkdagen in beslag nemen. Zorg ervoor dat uw klant op de hoogte is van het feit dat de terugbetaling wordt uitgevoerd. Houd er rekening mee dat zelfs nadat een SEPA-betaling is terugbetaald, de klant de transactie nog steeds kan betwisten.",
+      "title": "Verwerking van SEPA-terugbetalingen"
+    }
+  },
+  "table": {
+    "nested": {
+      "invoiceItem": {
+        "isEmpty": "Er zijn nog geen producten aan deze factuur toevoegen.",
+        "header": {
+          "voucher": "Korting",
+          "priceExcTax": "Bedrag excl. btw",
+          "price": "Bedrag incl. btw",
+          "product": "Naam"
+        },
+        "title": "Aankopen"
+      },
+      "payment": {
+        "header": {
+          "paymentReceived": "Status",
+          "date": "Datum",
+          "price": "Bedrag",
+          "paymentMethod": "Betaalmethode"
+        },
+        "isEmpty": "Er is geen betaling geregistreerd.",
+        "title": "Betaling"
+      },
+      "export": {
+        "status": {
+          "notGenerated": "Niet gegenereerd",
+          "failWithMessage": "Generatie mislukt: {{- errorMessage }}",
+          "fail": "Generatie mislukt",
+          "success": "Met succes gegenereerd"
+        },
+        "header": {
+          "errorMessage": "Foutmelding",
+          "status": "Status"
+        },
+        "title": "Elektronische factuur (XML)"
+      }
+    },
+    "header": {
+      "missing": "Verschuldigd",
+      "pdf": "PDF",
+      "amount": "Bedrag",
+      "date": "Factuurdatum",
+      "id": "Factuurnummer",
+      "member": "Lid",
+      "invoiceType": "Type",
+      "quickbooks": "QuickBooks"
+    },
+    "actions": {
+      "goToInvoice": "Toon de factuur"
+    }
+  },
+  "paymentMethod": {
+    "label": {
+      "0": "Contant",
+      "1": "Betaalkaart",
+      "2": "SEPA",
+      "3": "Cheque",
+      "4": "Vakantiecheque",
+      "5": "AMEX",
+      "6": "Geschillen",
+      "7": "Bankoverschrijving",
+      "8": "Diverse",
+      "9": "Bancontact",
+      "10": "iDEAL",
+      "11": "Sofort",
+      "12": "EPS",
+      "13": "Giropay",
+      "14": "Interne rekening (Wallet)",
+      "15": "Betaalkaart (handmatig - pinapparaat)",
+      "16": "Bacs Automatische Incasso",
+      "17": "PayPal"
+    },
+    "select": {
+      "label": "Betaalmethode",
+      "orPayUsing": "Of betaal met"
+    },
+    "isInternalExplain": "De interne rekening (Wallet) wordt iedere keer in rekening gebracht.",
+    "add": "Toevoegen",
+    "edit": "Bewerken",
+    "title": "Betaalmethode",
+    "none": "Er is nog geen betaalmethode opgeslagen.",
+    "detach": {
+      "last_payment_method": "Je hebt één geregistreerde betaalmethode, deze kan niet worden verwijderd.",
+      "pm_associated_to_pi": "Je kunt dit niet verwijderen, omdat er een abonnement aan deze betaalmethode is gekoppeld",
+      "pm_associated_to_registered_ppe": "Je kunt dit niet verwijderen, omdat er een abonnement aan deze betaalmethode is gekoppeld",
+      "pm_associated_to_protected_bp": "Je kunt dit niet verwijderen, omdat er een abonnement aan deze betaalmethode is gekoppeld",
+      "pm_deleted": "Betaalmethode verwijderd"
+    },
+    "inconsistent": "Deze betaalmethode is niet meer geldig. Het is mogelijk dat het lid deze betaalmethode heeft gedeactiveerd of dat het profiel met een ander profiel is samengevoegd. In beide gevallen is het niet langer mogelijk om deze betaalmethode te gebruiken.",
+    "isInternalExplainFuturePayments": "De interne rekening (Wallet) van leden wordt automatisch geïncasseerd voor betalingen. De interne rekening (Wallet) wordt negatief, indien er onvoldoende saldo opstaat.",
+    "addPaymentMethod": "Een betaalmethode toevoegen",
+    "copyLink": "Kopieer de directe link naar de betaalmethode",
+    "manual": "Handmatig",
+    "other": "Overig"
+  },
+  "paymentEngine": {
+    "label": {
+      "0": "Handmatige betaling",
+      "1": "Stripe",
+      "2": "Paypal"
+    }
+  },
+  "invoiceInfo": {
+    "2": "Dit betalingsbewijs toont de wijzigingen in het balans van de interne rekening (Wallet) van dit lid.",
+    "3": "Deze factuur is afkomstig van een gegevensoverdracht. Wegens juridische redenen kunnen we geen PDF verstrekken of de factuur annuleren."
+  },
+  "invoiceType": {
+    "reversed": "Factuur (geannuleerd)",
+    "return": "Terugbetaalde factuur",
+    "credit_payment": "Ontvangstbewijs (interne rekening en Wallet gewijzigd)",
+    "migration": "Gegevensoverdracht",
+    "regular": "Factuur"
+  },
+  "plannedPaymentEvent": {
+    "actions": {
+      "edit": "Bewerken",
+      "delete": "Annuleren",
+      "registerNow": "Incasseren",
+      "enable": "Aanzetten",
+      "disable": "Beëindigen",
+      "changeMethod": "Betaalmethode wijzigen",
+      "solveInvalidPaymentAttempt": "Regulariseren"
+    },
+    "nextRetryDate": "Op {{ d }} proberen we opnieuw om de betaling te voltooien.",
+    "lockedToday": "De betaling is vandaag verschuldigd, u kunt deze niet meer wijzigen",
+    "registerNowInitialData": "Betaling van: {{-date}}",
+    "dialog": {
+      "invalidMandate": {
+        "confirm": "Volgende",
+        "cancel": "Annuleren",
+        "explainSituation": "Het aan deze betaalmethode verbonden mandaat is verlopen. Dit kan verschillende oorzaken hebben, te veel mislukte betalingen, een eenzijdige beslissing van de bank, enz. De betaalmethode kan niet meer worden gebruikt en u moet een nieuwe registreren.",
+        "title": "Vervallen of ongeldig incasso-mandaat!"
+      }
+    },
+    "unrecoverableError": "Fout in de betaling."
+  },
+  "mandate": {
+    "content": "Door je IBAN op te geven en je betaling te bevestigen, geef je BSPORT Solution en Stripe (onze betaalprovider) toestemming om de incasso-instructies volgens het betalingsschema naar je bank te sturen. Je kunt bij je bank een terugbetaling aanvragen. Een terugbetaling moet binnen 8 weken na de eerste afschrijving worden aangevraagd.",
+    "email": "E-mailadres van de rekeninghouder",
+    "name": "Volledige naam van de rekeninghouder",
+    "contentBacsDebit": "Door uw bankgegevens op te geven en uw betaling te bevestigen, machtigt u bsport en Stripe, ons betalingssysteem, om debetinstructies naar uw bank te sturen in overeenstemming met het betalingsschema. U kunt bij uw bank een terugbetaling aanvragen in overeenstemming met de voorwaarden van uw contract met uw bank. U kunt uw bank te allen tijde verzoeken het incasso-mandaat te annuleren.",
+    "contentIban": "Door uw IBAN op te geven en uw betaling te bevestigen, machtigt u bsport en Stripe, ons betalingssysteem, om debetinstructies naar uw bank te sturen in overeenstemming met het betalingsschema. U kunt een terugbetaling aanvragen bij uw bank in overeenstemming met de voorwaarden van uw contract met uw bank. Een terugbetaling moet binnen 8 weken na de eerste afschrijving worden aangevraagd.",
+    "address_postal_code": "Postcode",
+    "address_line_1": "Adresregel 1",
+    "address_line_2": "Adresregel 2",
+    "phone": "Telefoonnummer",
+    "city": "Stad",
+    "state": "Staat",
+    "country": "Land"
+  },
+  "paymentGroup": {
+    "requiresAction": "De bank heeft de betaling niet geverifieerd (3DSecure).",
+    "validateRequiresAction": "Bevestig de betaalmethode"
+  },
+  "invoicePaymentPackTagWarningDialog": {
+    "confirm": "Bevestig",
+    "cancel": "Annuleer",
+    "content": "Attentie! Je staat op het punt om een lid in rekening te brengen zonder dat dit lid de juiste tags heeft. Weet je zeker dat je dit doen? ",
+    "title": "Informatie"
+  },
+  "quickbooks": {
+    "send": {
+      "errors": {
+        "931000": "Error bij de authenticatie aan QuickBooks",
+        "931001": "Error bij de authenticatie aan QuickBooks",
+        "931002": "De authenticatie is verlopen",
+        "931003": "De authenticatie is verlopen",
+        "931004": "Je hebt je QuickBooks applicatie nog niet ingesteld",
+        "931100": "Error bij het bijwerken van de authenticatie",
+        "931101": "QuickBooks kan ons niet je data opsturen",
+        "932000": "Je account is niet langer bij BSPORT geverifieerd",
+        "932001": "Je account is niet langer bij BSPORT geverifieerd",
+        "932100": "We hebben geen toegang tot je QuickBooks-gegevens",
+        "933000": "Het lid dat aan deze factuur gekoppeld is beschikt niet over de benodigde informatie om bij QuickBooks te worden geregistreerd",
+        "933100": "Error bij het koppelen van dit lid aan de factuur",
+        "933101": "Error bij het koppelen van dit lid aan de factuur",
+        "933102": "Error bij het aanmaken van de factuur op QuickBooks",
+        "933103": "Uw QuickBooks-platform ondersteunt meerdere valuta, geef aan welke belasting u wilt gebruiken.",
+        "934000": "De factuur bevat niet genoeg informatie om op QuickBooks te kunnen worden opgeslagen",
+        "934001": "Error bij het aanmaken van een factuur zonder producten/items",
+        "934002": "Error bij het versturen van een geannuleerde factuur naar QuickBooks",
+        "934003": "Error bij het versturen van een incomplete factuur naar QuickBooks",
+        "934004": "Error bij het versturen van een onbetaalde factuur naar QuickBooks",
+        "934005": "Je factuur kan niet naar QuickBooks worden verstuurd",
+        "934006": "Deze factuur staat al op QuickBooks",
+        "title": "Error bij het versturen van je factuur"
+      }
+    },
+    "invoice": {
+      "sendToQuickbooks": "De factuur is overgedragen aan QuickBooks",
+      "onQuickbooks": "Overgedragen"
+    }
+  },
+  "applyGiftcard": {
+    "actions": {
+      "confirm": "Bevestigen",
+      "cancel": "Sluiten",
+      "apply": "Betaling met cadeaubon"
+    },
+    "form": {
+      "errors": {
+        "errorAmount": "Ongeldig bedrag."
+      },
+      "usedGiftcard": "Gebruikte cadeaubon",
+      "amountToPay": "Met cadeaubon betaald bedrag",
+      "expiresOn": "Vervalt op {{- date }}",
+      "giftcardCode": "Cadeaubon code",
+      "addGiftcard": "Een cadeaubon toevoegen",
+      "addGiftcardError": "De code van de cadeaubon is onjuist. Controleer en probeer het opnieuw.",
+      "availableGiftcards": "Beschikbare cadeaubonnen",
+      "title": "Betaling met cadeaubon"
+    },
+    "giftcard": "Cadeaubonnen"
+  },
+  "invoiceFuturePaymentsDialog": {
+    "applyForAllFuturePayments": "Toepassen op alle toekomstige betalingen"
+  },
+  "status": {
+    "0": "Succesvol",
+    "1": "Storing",
+    "2": "In de wacht",
+    "3": "Annuleren",
+    "4": "In uitvoering"
+  },
+  "anonymousMember": "Anoniem lid",
+  "sentToFiskaly": "Verzonden naar Fiskaly"
+}

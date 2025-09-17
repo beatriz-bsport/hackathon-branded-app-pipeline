@@ -1,0 +1,99 @@
+{
+  "program": {
+    "actions": {
+      "enable": {
+        "error": "Errore durante il ripristino del programma",
+        "success": "Programma ripristinato"
+      },
+      "update": {
+        "success": "Programma modificato",
+        "error": "Errore durante la modifica del programma"
+      },
+      "create": {
+        "success": "Programma creato",
+        "error": "Errore durante la creazione del programma"
+      },
+      "disable": {
+        "success": "Programma archiviato",
+        "error": "Errore durante l'archiviazione del programma"
+      }
+    },
+    "infoSelectProgram": "Seleziona un programma per vedere i suoi dettagli",
+    "deleteContent": "Questo programma non apparirà più sui membri a cui è stato aggiunto. Puoi recuperarlo dalla sezione 'Archiviato'.",
+    "titleForConsumer": "I miei programmi",
+    "default": "Programma predefinito",
+    "selectProgram": "Selezionare un programma",
+    "detail": "Dettagli del programma",
+    "deleteHeader": "Vuoi davvero eliminare questo programma?",
+    "infoNoProgram": "Aggiungi un programma per i tuoi membri per tracciare le loro metriche",
+    "archived": "Archiviato",
+    "title": "Programmi",
+    "form": {
+      "addProgram": "aggiungere un programma",
+      "delete": "elimina il programma",
+      "modify": "modifica il programma",
+      "create": "Crea un programma",
+      "generalInfo": "Informazioni generali",
+      "name": "Nome del programma",
+      "description": "Descrizione",
+      "color": "Colore",
+      "default": "Impostare come programma predefinito per tutti i nuovi registranti",
+      "update": "Modifica il programma"
+    },
+    "member": {
+      "addDate": "Data di registrazione",
+      "title": "Membri",
+      "name": "Nome"
+    }
+  },
+  "memberProgram": {
+    "infoNoMemberProgram": "Questo membro non ha programmi al momento.",
+    "actions": {
+      "disable": {
+        "success": "Programma arto dissociato",
+        "error": "Errore durante la disaggregazione del programma"
+      },
+      "create": {
+        "success": "Programma associato al membro",
+        "error": "Errore nell'assegnazione del programma al membro",
+        "errorAlreadyExists": "Questo membro è già stato coinvolto in questo programma"
+      }
+    },
+    "infoNoConsumerProgram": "Se non hai ancora un programma, contatta il tuo studio per iniziare a monitorare le tue prestazioni!",
+    "deleteHeader": "Vuoi davvero dissociare questo programma da questo membro?",
+    "deleteContent": "Perderai i valori delle metriche del programma per questo membro"
+  },
+  "requiredField": "questo campo è richiesto",
+  "form": {
+    "cancel": "Cancella",
+    "save": "Registra",
+    "validate": "Convalidare",
+    "search": "Cerca",
+    "delete": "Elimina",
+    "add": "aggiungi",
+    "close": "chiudi"
+  },
+  "metric": {
+    "deleteHeader": "Vuoi davvero rimuovere questa metrica?",
+    "deleteContent": "La metrica sarà cancellata in modo permanente.",
+    "statistic": "Statistiche",
+    "title": "Metrico",
+    "form": {
+      "minMax": "Il valore minimo non può essere inferiore al valore massimo",
+      "range": "Il valore predefinito non è tra il valore minimo e quello massimo ",
+      "addMetric": "aggiungere una metrica",
+      "noMetric": "Nessuna metrica registrata",
+      "general": "Generale",
+      "name": "Nome",
+      "machine": "Identificatore della macchina",
+      "default_value": "Valore predefinito",
+      "default_valueHelperText": "Valore base della metrica. Se vuoto il valore sarà il valore minimo",
+      "minValue": "Valore minimo",
+      "minValueHelperText": "Valore minimo della metrica",
+      "maxValue": "Valore massimo",
+      "maxValueHelperText": "Valore massimo della metrica",
+      "color": "Colore"
+    }
+  },
+  "maxLength200": "Questo campo ha un massimo di 200 caratteri."
+}

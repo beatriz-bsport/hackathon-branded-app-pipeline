@@ -1,0 +1,326 @@
+{
+  "current_month": "Vorige maand",
+  "last_three_months": "Afgelopen 3 maanden",
+  "current_year": "Afgelopen jaar",
+  "thisWeek": "Deze week",
+  "thisMonth": "Deze maand",
+  "newMembers": "Nieuwe leden",
+  "nbOffers": "Sessies",
+  "pageTitle": "Dashboard",
+  "turnover": {
+    "popover": "Som van alle gefactureerde betalingen",
+    "caption": "Omzet",
+    "title": "Omzet"
+  },
+  "bookings": "Reserveringen",
+  "dateRange": {
+    "start": "Begin",
+    "end": "Einde"
+  },
+  "filterByDateTitle": "Filter op datum",
+  "detailsGraphTitle": "Gedetailleerd",
+  "current_week": "Vorige week",
+  "current_day": "Afgelopen 24 uur",
+  "popover": {
+    "bookingsWeektimeSlot": "Gemiddeld aantal sessies per tijdsperiode",
+    "billedSubscriptions": "Het aantal facturen met betrekking tot een niet-uitgeschreven abonnement",
+    "turnover": "Som van alle ontvangen betalingen zoals vermeld op de facturen"
+  },
+  "bookingsWeektimeSlot": {
+    "title": "Bezoekersgemiddelde",
+    "popover": "Gemiddeld aantal reserveringen per tijdslot"
+  },
+  "billedSubscriptions": {
+    "title": "Aantal gefactureerde abonnementen",
+    "caption": "Abonnementen",
+    "popover": "Het aantal facturen voor niet-opgezegde abonnementen"
+  },
+  "turnoverTitle": "Omzet",
+  "dateFilter": {
+    "customSelect": "Kies een datumbereik",
+    "quickSelect": "Snel selecteren"
+  },
+  "plannedPayment": {
+    "popover": "Som van alle betalingen voor abonnementen",
+    "title": "Omzet van de abonnementen",
+    "caption": "Omzet"
+  },
+  "noData": "Er zijn nog geen gegevens om weer te geven.",
+  "bookingSource": {
+    "title": "Bron van de reserveringen",
+    "saas": "BSPORT Back Office",
+    "other": "Anders",
+    "migration": "Gegevensoverdracht",
+    "app": "Toepassing",
+    "web": "Web"
+  },
+  "invoiceItems": {
+    "title": "Verkoop per product",
+    "contentType": {
+      "1": "Cursuskaarten",
+      "2": "Producten",
+      "6": "Verzendkosten",
+      "7": "Promotie",
+      "9": "Afspraakkaarten",
+      "10": "Pakketten"
+    }
+  },
+  "bookingDropdown": {
+    "source": {
+      "0": "App",
+      "1": "Web",
+      "2": "[BSPORT] Back Office",
+      "3": "Ledenruimte",
+      "4": "Gegevensoverdracht"
+    }
+  },
+  "resetModal": {
+    "content": "De instellingen van de verschillende grafieken keren terug naar hun standaardwaarden. Weet je zeker dat je wilt doorgaan?",
+    "confirm": "Opslaan",
+    "cancel": "Annuleren",
+    "title": "Standaardgrafieken herstellen"
+  },
+  "invoiceItemDropdown": {
+    "contentType": {
+      "1": "Leskaarten",
+      "2": "Producten",
+      "6": "Verzendkosten",
+      "7": "Promoties",
+      "9": "Afspraakkaarten",
+      "10": "Pakketten"
+    }
+  },
+  "save": "Opslaan",
+  "customChart": {
+    "form": {
+      "radio": {
+        "qualitativeBooking": "Verdeling",
+        "temporalTimeslotBooking": "Frequentie per dag en per uur",
+        "pie": "Cirkeldiagram",
+        "grid": "Frequentietabel",
+        "area": "Gebiedskaart",
+        "bar": "Kolommendiagram",
+        "qualitativeInvoiceItem": "Verdeling",
+        "temporalPlannedInvoice": "Historische ontwikkeling",
+        "temporalPayment": "Historische ontwikkeling",
+        "temporalBooking": "Historische ontwikkeling",
+        "temporalMember": "Historische ontwikkeling",
+        "temporalPrivateBooking": "Historische ontwikkeling"
+      },
+      "graphComponent": "Gewenste weergave",
+      "aggregateHelper": "Voorbeeld: toont de ontwikkeling van het aantal totale leden i.p.v. het aantal nieuwe leden per maand.",
+      "aggregate": "Accumuleer",
+      "name": "Titel van de grafiek",
+      "selector": {
+        "invoice": "Aankopen",
+        "payment": "Betalingen",
+        "booking": "Reserveringen",
+        "member": "Nieuwe leden",
+        "object": {
+          "helperText": "Selecteer de gegevens die je wilt visualiseren.",
+          "placeholder": "Selecteer de data.",
+          "isEmpty": "Er is geen data geselecteerd."
+        },
+        "privateBooking": "Afspraken"
+      },
+      "datatype": "Type grafiek",
+      "submit": "Opslaan",
+      "cancel": "Annuleer",
+      "title": "Grafiek"
+    },
+    "noResource": "Selecteer de data.",
+    "addChart": "Een grafiek toevoegen"
+  },
+  "booking": {
+    "popover": "Dit is het totaal aantal geregistreerde reserveringen voor de geselecteerde datum/data. Je kunt filteren op annuleringen, te late annuleringen, enz.",
+    "caption": "Geregistreerde reserveringen",
+    "title": "Reserveringen"
+  },
+  "tabNameDialog": {
+    "titleAdd": "Een tabblad toevoegen",
+    "titleRename": "Tabblad hernoemen",
+    "placeholder": "Naam"
+  },
+  "noGraphToDisplay": "Er zijn nog geen grafieken aan dit tabblad toegevoegd om weer te geven.",
+  "privateBooking": {
+    "title": "Afspraken",
+    "caption": "Opgeslagen afspraken",
+    "popover": "Dit geeft het totaal aantal afspraken voor deze datum weer, zoals het aantal annuleringen, terugbetalingen en meer."
+  },
+  "graphFormDrawer": {
+    "labels": {
+      "title": "Naam",
+      "graphFamily": {
+        "temporal": "Historische ontwikkeling",
+        "qualitative": "Verdeling"
+      },
+      "dateFilterField": "Data",
+      "dataToDisplay": "Getoonde gegevens",
+      "dividedBy": "Verdeeld door",
+      "groupByField": "Verdeling",
+      "aggregationName": "Samenvoegen"
+    },
+    "sectionTitles": {
+      "filterConfig": "Filters",
+      "timePeriod": "Periode",
+      "graphParams": "Gegevens",
+      "graphFamily": "Grafiek",
+      "dashboardGraphIdentifier": "Data",
+      "general": "Algemeen"
+    },
+    "title": {
+      "edit": "[Formulier] Grafiek",
+      "create": "[Formulier] Grafiek toevoegen"
+    },
+    "placeholders": {
+      "dashboardGraphIdentifier": "Selecteer de gegevens",
+      "aggregationSelector": "Selecteer een optie"
+    },
+    "chartComponents": {
+      "area": "Vlakdiagram",
+      "pie": "Cirkeldiagram",
+      "timeslots": "Dagelijkse en uurlijkse frequentie",
+      "bar": "Kolommendiagram",
+      "qualitativeBar": "Kolommendiagram"
+    },
+    "graphFamily": {
+      "temporal": "Historische ontwikkeling",
+      "qualitative": "Verdeling",
+      "week_timeslots": "Dagelijkse en uurlijkse frequentie"
+    },
+    "aggregation": {
+      "sum": "Totaal",
+      "avg": "Gemiddelde",
+      "min": "Minimum",
+      "max": "Maximum"
+    },
+    "dashboardGraphIdentifier": {
+      "graph_members": "Nieuwe leden",
+      "graph_bookings": "Reserveringen",
+      "graph_private_bookings": "Afspraken",
+      "graph_payments": "Betalingen",
+      "graph_subscriptions": "Facturen van abonnementen",
+      "graph_dispute": "Geschillen",
+      "graph_billing_plan": "Abonnementen",
+      "graph_invoice_items": "Inkoop"
+    },
+    "accumulate": {
+      "total": "Accumuleer"
+    },
+    "helperText": {
+      "dateStart": "Gegevens worden weergegeven op basis van de begindatum van de sessies.",
+      "dateCreated": "Gegevens worden weergegeven op basis van de begindatum van de sessies en de datum van de reserveringen.",
+      "subscriptionPrice": {
+        "max": "Dit is het maximumbedrag voor alle ontvangen abonnementsbetalingen.",
+        "min": "Dit is het minumumbedrag voor alle ontvangen abonnementsbetalingen.",
+        "avg": "Dit is het gemiddelde voor alle ontvangen abonnementsbetalingen.",
+        "sum": "Dit is het totaalbedrag voor alle ontvangen abonnementsbetalingen."
+      },
+      "subscriptionCount": "Dit is het aantal gefactureerde abonnementen.",
+      "booking_effectif_timeslots": "Dit is de gemiddelde bezetting per sessie per uur.",
+      "accumulateMembers": "Toont de ontwikkeling van het totale aantal leden.",
+      "plannedInvoiceCount": "Dit is het aantal gefactureerde abonnementen."
+    }
+  },
+  "graphActions": {
+    "delete": "Verwijderen",
+    "edit": "Bewerken"
+  },
+  "showMoreLegend": "+ {{count}} legenda",
+  "showMoreLegend_plural": "+ {{count}} legenda's",
+  "addFilter": "Een filter toevoegen",
+  "filterChipLabel": "{{count}} filter",
+  "filterChipLabel_plural": "{{count}} filters",
+  "dataSourceIdentifiers": {
+    "date_joined": "Datum van inschrijving",
+    "member_pk": "Aantal nieuwe leden",
+    "member_pk_accumulate": "Aantal leden",
+    "booking_pk": "Reserveringen",
+    "is_recurrent_booking": "Terugkerende boeking",
+    "source_device": "Oorsprong",
+    "privatebooking_pk": "Aantal afspraken",
+    "payment_pk": "Aantal betalingen",
+    "plannedinvoice_pk": "Aantal facturen",
+    "booking_effectif_timeslots": "Gemiddeld aantal personen",
+    "activity_kind": "Type sessie",
+    "is_workshop": "Workshop",
+    "payment_engine": "Type betaling",
+    "attendance": "Aanwezig",
+    "date_start": "Datum sessie",
+    "date_created": "Boekingsdatum",
+    "booking_status_code": "Boekingsstatus",
+    "was_refunded": "Terugbetaald",
+    "coach": "Leraren",
+    "establishment": "Vestiging",
+    "billing_group": "Facturatiegroep",
+    "billing_establishment": "Locatie",
+    "gender": "Geslacht",
+    "accept_email": "Accepteert emails",
+    "accept_sms": "Sms-berichten accepteren",
+    "payment_date": "Betaaldatum",
+    "payment_price": "Prijs (incl. btw)",
+    "payment_method": "Betaalmethode",
+    "date": "Betaaldatum",
+    "contract": "Abonnementen",
+    "price": "Prijs (incl. btw)",
+    "private_service_name": "Afspraak",
+    "margin_value": "Marginale opbrengst (incl. btw)",
+    "activity": "Activiteit",
+    "is_unpaid": "Onbetaald",
+    "payout_status": "Status",
+    "payout_identifier": "Bankoverschrijving",
+    "payout_date_created": "Overschrijfdatum",
+    "private_pass": "Afspraakkaart",
+    "payment_pack": "Leskaart",
+    "dispute_status": "Status geschil",
+    "total_payments_made": "Aantal uitgevoerde collecties",
+    "total_discount": "Totale vermindering",
+    "nb_planned_invoices": "Totaal aantal collecties",
+    "plan_status": "Abonnementsstatus",
+    "plan_recurrent_price": "Terugkerend betalingsbedrag",
+    "plan_flat_fee": "Inschrijfkosten",
+    "plan_date_start": "Datum eerste factuur",
+    "plan_date_end": "Einddatum factuur",
+    "new_member_only": "Aanbod voor nieuwe leden",
+    "billingplan_pk": "Aantal abonnementen",
+    "last_invoice_status": "Status van de laatste betaling",
+    "contract_name": "Abonnement",
+    "billing_plan_payment_method": "Wijze van betaling",
+    "plan_auto_renewal": "Stilzwijgende vernieuwing",
+    "is_no_show": "Absent (no show)",
+    "franchisor_commission_amount_notax": "Franchisenemer commissie HT",
+    "total_price_notax": "Gefactureerd bedrag excl",
+    "franchisor_commission_amount": "Franchisenemerscommissie (incl. BTW)",
+    "total_price": "Gefactureerd bedrag incl. BTW",
+    "invoice_date_created": "Datum afgifte factuur",
+    "author": "Auteur",
+    "invoiceitem_pk": "Aantal gefactureerde artikelen",
+    "staff_commission_amount": "Personeelscommissie inclusief belasting",
+    "staff_commission_amount_notax": "Personeelscommissie exclusief btw",
+    "invoice_datetime": "Uitgiftedatum factuur",
+    "booking_date_created": "Boeking datum",
+    "bookkeeping_account_number": "Account nummer",
+    "bookkeeping_account_name": "Account naam",
+    "billing_group_address": "Adress",
+    "private_booking_date_created": "Datum en tijd van boeking",
+    "is_first_visit": "Eerste boeking",
+    "product": "Product",
+    "product_type": "Producttype"
+  },
+  "graphDefaultTitles": {
+    "paymentTemporal": "Incasso's",
+    "bookingTimeslots": "Gemiddelde bezetting",
+    "bookingQualitative": "Oorsprong reserveringen",
+    "bookingTemporal": "Reserveringen",
+    "subscriptionTemporalCount": "Aantal gefactureerde abonnementen",
+    "memberTemporal": "Nieuwe leden",
+    "subscriptionTemporalSum": "Abonnementsbetalingen",
+    "privateBookingTemporal": "Afspraken",
+    "billingPlanTemporal": "Abonnementen",
+    "invoiceItemTemporal": "Totaal gefactureerd bedrag"
+  },
+  "placeholderEmptyValues": {
+    "establishment": "Zonder vestiging",
+    "coach": "Zonder instructeur"
+  }
+}

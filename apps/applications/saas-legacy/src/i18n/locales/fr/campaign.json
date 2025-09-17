@@ -1,0 +1,48 @@
+{
+  "exportCampaign": "Exporter",
+  "save": "Enregistrer",
+  "schemaError": {
+    "nonEmptyEmailTemplate": "Veuillez choisir un modèle d'e-mail",
+    "nonEmptyBody": "Le corps de votre courriel est actuellement vide. Veuillez ajouter du contenu avant de continuer.",
+    "nonEmptyToggle": "Veuillez sélectionner les destinataires avant d'envoyer le message.",
+    "nonEmptySmartList": "Veuillez sélectionner une smartlist"
+  },
+  "smartListOption": "Choisir une smartlist",
+  "mail": {
+    "sendButton": "Envoyer",
+    "customDomainNotDefined": "Vous n'avez pas défini de domaine personnalisé. <1/>Veuillez prendre contact avec notre équipe pour lancer le processus de configuration.",
+    "example": "Exemple",
+    "customEmail": "Adresse électronique personnalisée",
+    "franchiseeMail": "Adresse électronique du franchisé",
+    "chooseSender": "Veuillez sélectionner l'adresse électronique que vous souhaitez utiliser pour l'envoi.",
+    "sendMail": "Envoyer un message"
+  },
+  "memberSelectionInfo": "Ajoutez des membres aux destinataires de votre campagne en sélectionnant un studio puis en choisissant l'une de ses smartlists. Si vous souhaitez ajouter directement tous vos membres, vous pouvez également cliquer sur \"Sélectionner tous les membres\".",
+  "noCampaign": "Envoyez des campagnes à vos membres pour les tenir au courant des actualités de votre franchise.",
+  "historyTitle": "Historique des envois",
+  "campaign": {
+    "add": "Ajouter une campagne"
+  },
+  "memberSelectionTitle": "Sélection des membres",
+  "sendToAllMembers": "Envoyer à tous les membres",
+  "modal": {
+    "delete": {
+      "content": "Cette action archivera définitivement la campagne et toutes les données associées ne seront plus accessibles. Êtes-vous sûr de vouloir procéder à l'archivage ?",
+      "confirm": "Confirmer",
+      "cancel": "Annuler",
+      "title": "Archiver une campagne"
+    }
+  },
+  "search": "Rechercher une campagne",
+  "cancel": "Annuler",
+  "delete": "Supprimer",
+  "edit": "Éditer",
+  "duplicate": "Dupliquer",
+  "detail": {
+    "tab": {
+      "campaign": "Campagnes",
+      "general": "Général"
+    }
+  },
+  "campaignCreationWarning": "Assurez-vous que le nom de votre campagne est unique pour éviter tout problème."
+}

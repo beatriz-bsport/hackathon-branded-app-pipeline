@@ -1,0 +1,73 @@
+{
+  "products": {
+    "nbProducts": "items"
+  },
+  "state": {
+    "0": "On hold",
+    "700": "To be processed",
+    "1100": "Cancelled",
+    "1200": "Click & Collect",
+    "9000": "Sent"
+  },
+  "table": {
+    "name": "Buyer",
+    "state": "Status",
+    "updated_at": "Update at",
+    "created_at": "Created at",
+    "qty": "Quantity",
+    "actions": "Actions"
+  },
+  "form": {
+    "delivery": {
+      "first_name": "First name",
+      "last_name": "Last name"
+    }
+  },
+  "actions": {
+    "flagAsCancelled": "Cancel",
+    "flagAsOnSiteDelivery": "Click & Collect",
+    "flagAsSent": "Sent"
+  },
+  "detail": {
+    "section": {
+      "title": "Order",
+      "deliveryInfo": "Delivery address",
+      "productDetail": "Overview",
+      "invoice": "Related invoice",
+      "member": "Buyer"
+    }
+  },
+  "deliveryFee": {
+    "name": "Name",
+    "fee": "Delivery fee",
+    "free_threshold": "Minimum spending for free delivery",
+    "offeredAboveAmount": "Free delivery from {{ free_threshold, price }}",
+    "modal": {
+      "delete": {
+        "title": "Delete delivery fee",
+        "content": "Be careful this operation is not revertable. Old orders using this fee will not be modified.",
+        "cancel": "Cancel",
+        "confirm": "Delete"
+      }
+    },
+    "forms": {
+      "create": "Add a delivery fee",
+      "title": "[Form] Delivery fee",
+      "feeLabel": "Delivery fee",
+      "nameLabel": "Name",
+      "freeThresholdLabel": "Free delivery from",
+      "freeThresholdHelper": "When order price is above this amount delivery is free",
+      "onCancel": "Cancel",
+      "onSubmit": "Save"
+    }
+  },
+  "configuration": {
+    "deliveryFee": "Delivery Fee",
+    "forms": {
+      "onSubmit": "Save"
+    },
+    "noDefaultDeliveryFee": "No delivery fee",
+    "defaultDeliveryFee": "Default delivery fee"
+  },
+  "pageTitle": "Webshop"
+}

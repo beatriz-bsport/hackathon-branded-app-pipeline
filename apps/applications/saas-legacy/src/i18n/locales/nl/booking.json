@@ -1,0 +1,649 @@
+{
+  "bookingModule": {
+    "section": {
+      "consumerPacks": "Mijn kaarten",
+      "contracts": "Abonnementen",
+      "paymentPacks": "Beschikbare kaarten",
+      "paymentCombos": "Pakketten",
+      "contract": "Beschikbare abonnementen"
+    },
+    "option": {
+      "registerOption": "Op de wachtlijst inschrijven",
+      "isAlreadyOnWaitingList": "Je staat op de wachtlijst. We informeren je wanneer er een plaats vrijkomt.",
+      "isFull": "Deze sessie is volgeboekt. Schrijf je op de wachtlijst in en we sturen je een bericht zodra er een plaats vrijkomt.",
+      "isAlreadyRegistered": "Je reservering is voltooid en de sessie is nu vol.",
+      "waitingListOpen": "Deze sessie is vol. Schrijf je in op de wachtlijst en je ontvangt een bericht zodra er een plaats vrijkomt.",
+      "waitingListLockedByPendingBookings": "De wachtlijst is momenteel niet beschikbaar, omdat andere mensen aan het reserveren zijn. Probeer het over een paar minuten opnieuw om te zien of er een plaats beschikbaar is.",
+      "isBookingLimitReached": "U heeft uw limiet voor reserveringen al bereikt. U kunt opnieuw reserveren als een sessie voorbij is of geannuleerd wordt."
+    },
+    "offer": {
+      "isDisabled": "Deze sessie is geannuleerd.",
+      "isTooLate": "De inschrijvingen zijn gesloten.",
+      "isWaitingListFull": "De sessie en de wachtlijst zijn vol.",
+      "isTooSoon": "Reserven kan vanaf {{-date}}.",
+      "isAlreadyRegistered": "Je hebt deze sessie al gereserveerd.",
+      "blockedByTags": "Het is niet mogelijk om deze sessie te boeken zonder de juiste tags."
+    },
+    "messages": {
+      "offerLocked": "Fout bij het inschrijven",
+      "maleUnavailable": "Mannen kunnen zich niet meer inschrijven voor deze sessie.",
+      "femaleUnavailable": "Vrouwen kunnen zich niet meer inschrijven voor deze sessie."
+    },
+    "hasRegistered": "Je hebt deze sessie al gereserveerd.",
+    "recurrent": {
+      "backToRegistererChoice": "Terug",
+      "bookMultiple": "Reserveer",
+      "title": "Toekomstige sessies",
+      "titleGroupedSessions": "Alle sessies in deze groep"
+    },
+    "isLoading": "Zoeken naar sessies...",
+    "book": {
+      "unknowError": "De reservering kon momenteel niet worden voltooid."
+    },
+    "tags": {
+      "unAuthorized": "Het is niet mogelijk om deze sessie te boeken zonder de juiste tags.",
+      "managerDialogWarningDialog": {
+        "confirm": "Bevestigen",
+        "cancel": "Annuleren",
+        "content": "Dit lid bezit niet de juiste tags voor deze sessie. Weet je zeker dat je dit lid alsnog wilt inboeken?",
+        "title": "Informatie"
+      }
+    },
+    "isBookingLimitReached": "Je hebt je reserveringslimiet bereikt",
+    "multiSession": {
+      "selectSpot": {
+        "validationButton": "Voeg sessie toe",
+        "validationButton_plural": "Voeg sessies toe",
+        "dialogSubtitle": "Selecteer je plek voor de klas",
+        "dialogTitle": "Selecteer plaats",
+        "dialogTitleWithSteps": "Selecteer een spot ({{currentStep}}/{{totalSteps}})"
+      },
+      "addSession": {
+        "noContent": "Er zijn geen vergelijkbare sessies gevonden.",
+        "dialogSubtitle": "Selecteer de sessie die je wilt boeken",
+        "dialogTitle": "Voeg een sessie toe",
+        "sessionCount": "{{selectedSessionsCount}} van {{totalSessionsCount}} sessies",
+        "selectAll": "Alles selecteren"
+      }
+    },
+    "groupedSession": {
+      "showLessButtonText": "Toon minder",
+      "showMoreButtonText": "Toon alle sessies ({{totalSessions}})",
+      "warningModal": {
+        "partialBooking": {
+          "text": "Deze activiteit maakt deel uit van een groep sessies. Je bent niet verplicht om elke sessie in de groep bij te wonen en je kunt kiezen aan welke sessies je wilt deelnemen"
+        },
+        "fullBookingOnly": {
+          "text": "Je wordt ingeschreven voor alle {{sessionsTotal}} sessies in deze groep"
+        },
+        "title": "Een groep sessies boeken"
+      }
+    }
+  },
+  "details": {
+    "pleaseSelectABooking": "Selecteer een reservering om meer informatie te zien.",
+    "title": "Details",
+    "offerTitle": "Gekoppelde reservering",
+    "consumerPaymentPackTitle": "Gebruikte kaart"
+  },
+  "source": {
+    "app": "Mobiele app",
+    "web": "Website",
+    "saas": "Back Office",
+    "other": "Overige",
+    "migration": "Gegevensoverdracht"
+  },
+  "customerView": {
+    "wasRefunded": "Terugbetaald",
+    "cancelled": "Geannuleerd"
+  },
+  "doNotAttend": "Afwezig",
+  "loading": "Bezig met laden",
+  "wasRefunded": "Terugbetaald",
+  "statusCode": {
+    "cancelledByOffer": "Sessie geannuleerd door de studio",
+    "cancelledByManager": "Geannuleerd door de studio ({{cancelled_by}})",
+    "cancelledByConsumer": "Geannuleerd (leden)",
+    "cancelledByOfferDate": "De sessie is door de studio op {{-date}} om {{time}} geannuleerd.",
+    "cancelledByConsumerDate": "Door het lid op {{-date}} om {{time}} geannuleerd",
+    "cancelledByManagerDate": "Door {{cancelled_by}} op {{-date}} om {{time}} geannuleerd",
+    "cancelledByAnonymousManagerDate": "Geannuleerd door de studio op {{-date}} om {{time}}",
+    "cancelledByAnonymousManager": "Geannuleerd door de studio"
+  },
+  "attend": "Aanwezig",
+  "parameters": {
+    "registeredOn": "Gereserveerd op ",
+    "source": "Gereserveerd via",
+    "cancelledOn": "Geannuleerd op ",
+    "by": "Door",
+    "noShow": "No-show "
+  },
+  "filters": {
+    "notRefunded": "Niet terugbetaald",
+    "isRefunded": "Terugbetaald",
+    "refunded": "Terugbetalingen",
+    "pastBooking": "Oude reserveringen",
+    "futureBooking": "Toekomstige reserveringen",
+    "time": "Ontwikkeling",
+    "attendance": "Aanwezigheid",
+    "cancel": "Annuleringen",
+    "consumerCanceled": "Geannuleerd (leden)",
+    "managerCanceled": "Geannuleerd (manager)",
+    "canceled": "Sessie geannuleerd",
+    "absent": "Afwezig",
+    "present": "Aanwezig",
+    "all": "Alle reserveringen",
+    "withoutRecurrentBookings": "Eenmalige reserveringen",
+    "withRecurrentBookings": "Terugkerende reserveringen",
+    "recurrentBooking": "Reserveringen",
+    "notCancelled": "Geldig",
+    "isUnpaid": "Onbetaalde reserveringen",
+    "isPaid": "Betaalde reserveringen",
+    "paid": "Betalingen",
+    "pickCoach": "Zoek een instructeur...",
+    "coach": "Instructeur"
+  },
+  "creditConsumed": "{{credit_consumed}} credit(s)",
+  "creditConsumed_plural": "{{credit_consumed}} credits",
+  "actions": {
+    "unregister": "Uitschrijven",
+    "bill": "Factureren"
+  },
+  "notification": {
+    "form": {
+      "listItemPrimary": {
+        "cancellation": "Annulering n° {{notify_booking_nb}}",
+        "attendance": "Aanwezigheid: {{notify_booking_nb}}",
+        "booking": "Reservering n° {{notify_booking_nb}}",
+        "after": "Deze melding wordt {{hours}} uur/uren na het einde van de sessie verstuurd.",
+        "before": "Deze melding wordt {{hours}} uur/uren voor het begin van de sessie verstuurd.",
+        "notRefunded": "Aantal te late annuleringen: {{notify_booking_nb}}",
+        "cancelledDeprecated": "Annulering: {{notify_booking_nb}}",
+        "bookingDeprecated": "Reservering: {{notify_booking_nb}}",
+        "refunded": "Aantal terugbetaalde annuleringen: {{notify_booking_nb}}",
+        "absence": "Afwezigheid: {{notify_booking_nb}}",
+        "notifyAllEvents": {
+          "notRefunded": "Bij iedere te late annulering",
+          "refunded": "Bij iedere terugbetaalde annulering",
+          "attendance": "Bij iedere aanwezigheid",
+          "absence": "Bij iedere afwezigheid",
+          "bookingDeprecated": "Bij iedere reservering"
+        },
+        "birthday": "Op verjaardagen versturen",
+        "day_after": "Deze melding wordt {{days}} dag na de start van de sessie verstuurd.",
+        "day_after_plural": "Deze melding wordt {{days}} dagen na de start van de sessies verstuurd.",
+        "day_before": "Deze melding wordt {{days}} dag voor het begin van de sessie verstuurd.",
+        "day_before_plural": "Deze melding wordt {{days}} dagen voor het begin van de sessies verstuurd.",
+        "hour_before": "Deze melding wordt {{hours}} uur voor het begin van de sessie verstuurd.",
+        "hour_before_plural": "Deze melding wordt {{hours}} uur voor het begin van de sessies verstuurd.",
+        "hour_after": "Deze melding wordt {{hours}} uur na het einde van de sessie verstuurd.",
+        "hour_after_plural": "Deze melding wordt {{hours}} uur na het einde van de sessie verstuurd."
+      },
+      "cancel": "Annuleren",
+      "next": "Volgende",
+      "submit": "Bevestigen",
+      "help": {
+        "cancellation": "zijn/haar annulering van de reservering n° {{notify_booking_nb}}",
+        "attendance": "Deze melding wordt gestuurd wanneer een lid als een lid {{notify_booking_nb}} keer aanwezig is.",
+        "booking": "zijn/haar reservering n° {{notify_booking_nb}}",
+        "text": "Deze melding wordt automatisch verstuurd wanneer een lid",
+        "notRefunded": "Deze melding wordt gestuurd wanneer een lid {{notify_booking_nb}} keer te laat annuleert.",
+        "refunded": "Deze melding wordt gestuurd wanneer een lid {{notify_booking_nb}} teruggestortte annulering(en) heeft.",
+        "absence": "Deze melding wordt gestuurd wanneer een lid {{notify_booking_nb}} keer afwezig is.",
+        "allEvents": {
+          "notRefunded": "Leden ontvangen deze melding iedere keer zij te laat annuleren.",
+          "refunded": "Deze melding wordt bij elke terugbetaalde annulering verstuurd.",
+          "absence": "Deze melding wordt verstuurd elke keer een lid afwezig is.",
+          "attendance": "Deze melding wordt automatisch iedere keer verstuurd wanneer een lid aanwezig."
+        }
+      },
+      "choicesKind": {
+        "cancellation": "Annulering van een reservering door het lid",
+        "attendance": "Aanwezigheid van lid op een sessie",
+        "booking": "Reservering maken"
+      },
+      "chooseKindTitle": "Gebeurtenis die de melding activeert",
+      "chooseTime": {
+        "second_after": "{{ count }} uur na het einde van de sessie.",
+        "second_after_plural": "{{ count }} uur na het einde van de sessie.",
+        "second_before": "{{ count }} uur voor het begin van de sessie.",
+        "second_before_plural": "{{ count }} uur voor het begin van de sessie.",
+        "first": "Verstuur deze melding",
+        "second_after_days": "{{ count }} dag na het einde van de sessie",
+        "second_after_days_plural": "{{ count }} dagen na het einde van de sessie",
+        "second_before_days": "{{ count }} dag voor het begin van de sessie",
+        "second_before_days_plural": "{{ count }} dagen voor het begin van de sessie"
+      },
+      "sendAfterMail": "Stuur deze melding nadat de sessie afgelopen is",
+      "sendBeforeMail": "Stuur deze melding voor het begin van de sessie",
+      "eventNb": "Selecteer welke reservering de melding activeert:",
+      "settingTitle": "Instellingen",
+      "typeTitle": "Evenement",
+      "title": "[Formulier] Melding",
+      "chooseKind": {
+        "notRefunded": "Te late annuleringen",
+        "refunded": "Terugbetaalde annuleringen",
+        "absence": "Afwezigheid",
+        "attendance": "Aanwezigheid",
+        "title": "Activiteit"
+      },
+      "chooseStatus": {
+        "cancelled": "Annuleringen (van leden)",
+        "valid": "Geldige reserveringen",
+        "title": "Evenement"
+      },
+      "explain": "Voeg een melding toe om je leden automatisch te contacteren aan de hand van een aantal criteria.",
+      "notifyAllEvents": "Deze melding bij elke reservering of annulering versturen",
+      "bookingNumber_n": "Reservering: {{notify_booking_nb}}",
+      "bookingNumber": "Alle reserveringen",
+      "bookingNumber_plural": "1e reservering",
+      "ifKind": {
+        "notRefunded": "Te late annuleringen",
+        "refunded": "Te late annulering",
+        "absence": "Afwezigheid",
+        "attendance": "Aanwezigheid"
+      },
+      "bookingNumberFirst": "Reservering: 1",
+      "bookingNumberSecond": "Reservering: 2",
+      "bookingNumberThird": "Reservering: 3",
+      "bookingNumberAll": "Iedere reservering",
+      "bookingNumberN": "Reservering: {{notify_booking_nb}}",
+      "addVariable": "Een variabel toevoegen",
+      "pushHelper": "Gebruik push-notificaties spaarzaam. Het spammen van leden met push-notificaties vergroot de kans dat leden de mobiele app verwijderen.",
+      "needPushUpsell": "Activeer de aanvullende dienst voor push-notificaties om deze functie te gebruiken.",
+      "push": "Push-notificatie",
+      "mail": "E-mail",
+      "sendingMethod": "Communicatiekanaal",
+      "sendAfterNotifications": "Stuur deze melding nadat de sessie afgelopen is",
+      "sendAfterNotification": "Stuur deze push-notificatie nadat de sessie afgelopen is",
+      "sendBeforeNotifications": "Stuur deze meldingen voor het begin van de sessie",
+      "sendBeforeNotification": "Stuur deze push-notificatie voor het begin van de sessie",
+      "createSmartList": "Een Smartlist toevoegen",
+      "smartListHelperInclude": "Stuur WÉL een melding als een lid tot één van de volgende Smartlists behoort:",
+      "smartListHelper": "Stuur GÉÉN melding als een lid tot één van de volgende Smartlists behoort:",
+      "advanced": "Gevorderd",
+      "warning": "Door geen Smartlist(s) te selecteren of te gebruiken is het mogelijk dat je leden contacteert die recent een kaart hebben gekocht!",
+      "smartListSelection": "(Optioneel) Selecteer Smartlists"
+    },
+    "addNotification": "Een melding toevoegen",
+    "title": "Melding"
+  },
+  "recurrenceRule": {
+    "form": {
+      "title": "[Formulier] Periodieke reservering",
+      "delayWeek": {
+        "helperText": "Een lid kan tot maximaal {{delayWeek}} weken in de toekomst worden ingeboekt (maximaal {{delayWeek}} weken)",
+        "label": "Aantal weken"
+      },
+      "metaActivity": {
+        "helperText": "Activiteit",
+        "label": "Activiteit"
+      },
+      "minute": {
+        "label": "Minuut"
+      },
+      "hour": {
+        "label": "Uur"
+      },
+      "dayOfWeek": {
+        "label": "Dag"
+      },
+      "at": " op ",
+      "timeGroup": "Instellingen",
+      "startFromDate": {
+        "label": "Startdatum "
+      },
+      "groupWarning": "Het is niet mogelijk om een periodieke reservering voor evenementen toe te voegen.",
+      "permissionWarning": "U heeft geen toestemming om boekingen te maken voor deze activiteit",
+      "globalError": "Er is een fout opgetreden tijdens het opslaan van de terugkerende boeking.",
+      "duplicateError": "Er bestaat al een terugkerende boeking met dezelfde parameters. Wijzig de regel of controleer de bestaande regels voordat je opslaat."
+    },
+    "deleteModal": {
+      "cancel": "Annuleren",
+      "confirm": "Verwijderen",
+      "content": "Het verwijderen van een periodieke reservering verwijdert ook alle bijbehorende toekomstige reserveringen die aan deze instellingen gekoppeld zijn.",
+      "title": "Periode reservering verwijderen",
+      "success": "De terugkerende reservering is verwijderd"
+    },
+    "item": {
+      "explain": "Iedere {{dayOfWeek}} om {{hour}}:{{minute}} - Week: {{delayWeek}}"
+    },
+    "explain": "Dit lid wordt altijd {{ delayWeek }} weken van tevoren voor sessies op {{ dayOfWeek}} om {{hour}}:{{minute}} ingeschreven. Leden moeten een compatibel en geldige kaart bezitten om te kunnen worden ingeschreven.",
+    "needConsumerPack": "Dit lid bezit niet de juiste leskaart. Het is niet mogelijk om een herhalende reservering in te plannen.",
+    "recurrentBookings": "Periodieke reserveringen",
+    "actions": {
+      "save": "Opslaan",
+      "close": "Sluit"
+    },
+    "recurrentRuleBooking": "Periodieke reservering",
+    "createModal": {
+      "create": "Een terugkerende reservering toevoegen",
+      "info": "Je kunt geen bestaande terugkerende reserveringen dupliceren",
+      "success": "De terugkerende reservering is aangemaakt. Boekingen worden aangemaakt."
+    },
+    "editModal": {
+      "success": "De terugkerende reservering is gewijzigd"
+    },
+    "blockedBookings": "Je leden kunnen zich tot {{days}} dag(en) voor het begin van deze activiteit inschrijven. We raden aan om periodieke reserveringen voor langere tijden toe te staan om overboekingen te voorkomen.",
+    "notifyIfCanceled": "Stuur een annuleringsmail",
+    "notify": "Een bevestigingsmail versturen wanneer een lid zich registreert",
+    "showLess": "Toon minder",
+    "showMore": "Toon meer ({{count}})",
+    "cancelRelatedBookings": "Annuleer toekomstige boekingen die al gedaan zijn",
+    "offerForm": {
+      "selectAll": "Alles selecteren",
+      "unselectAll": "Alles deselecteren",
+      "helperText": "Het lijkt erop dat sessies in de terugkerende boeking eerder zijn geannuleerd voor dit lid, je kunt hier de sessies selecteren die het systeem opnieuw mag boeken"
+    }
+  },
+  "memberGraph": {
+    "label": "Reserveringen",
+    "title": "Overzicht van de reserveringen"
+  },
+  "offer": {
+    "showMore": "Toon meer",
+    "mainButton": {
+      "numberOfBook": "{{count}} reservering",
+      "numberOfBook_plural": "{{count}} reserveringen",
+      "registerWaitingList": "Op de wachtlijst inschrijven",
+      "book": "Reserveer"
+    },
+    "bookingsTitle": "Overzicht",
+    "addSession": "Sessies toevoegen",
+    "noPackAvailable": "Deze sessie heeft geen beschikbare kaarten.",
+    "noPackAvailable_plural": "Deze sessies dienen apart te worden gereserveerd, omdat er geen beschikbare kaarten beschikbaar zijn.",
+    "packTitle": "Mijn reserveringsmethode",
+    "offerStatus": {
+      "waiting_list_status": {
+        "0": "Wachtlijst",
+        "1": "Gesloten",
+        "2": "Afgelopen",
+        "3": "Vol",
+        "4": "Gesloten",
+        "5": "Heeft",
+        "6": "Onevenwichtige man/vrouw-verhouding",
+        "7": "Onevenwichtige man/vrouw-verhouding",
+        "9": "Het is niet toegestaan om het maximaal aantal toekomstige reserveringen te overschrijden.",
+        "6002": "Wachtlijst: vol",
+        "6003": "Ingeschreven op de wachtlijst",
+        "6005": "Wachtlijst",
+        "displayWaitlistSize": "Je huidige positie op de wachtlijst is: {{waitlistPosition}}",
+        "displayPosition": "Je positie op de wachtlijst is: {{waitlistPosition}}"
+      },
+      "bookable_status": {
+        "0": "Open",
+        "1": "Gesloten",
+        "2": "Afgelopen",
+        "4": "Deze sessie is niet beschikbaar",
+        "9": "Het is niet toegestaan om het maximaal aantal toekomstige reserveringen te overschrijden."
+      },
+      "waiting_list": "Wachtlijst",
+      "book": "Aanmelden",
+      "blockedByTags": "Ongeldige tags"
+    },
+    "similarOffer": {
+      "showMore": "Toon meer",
+      "empty": "Er zijn geen andere sessies om weer te geven.",
+      "title": "Reserveren",
+      "selectAll": "Selecteer alles"
+    },
+    "bookingForMe": "Mezelf",
+    "bookingsTitleFor": "Reserveren voor {{name}}",
+    "bookingForAGuest": {
+      "addGuest": "Een gast uitnodigen",
+      "warningLeveledSession": "Deze sessie is exclusief voor leden die aan het volgende niveau voldoen: {{level}}.",
+      "addGuestLimit": "Je hebt het maximaal aantal gasten uitgenodigd voor",
+      "addGuestNumberLeftSeveral": "Je kunt nog {{number}} gast(en) uitnodigen voor",
+      "addGuestNumberLeftOne": "Je kunt 1 of meer gasten uitnodigen voor",
+      "frequencyWeekly": "deze week.",
+      "frequencyMonthly": "deze maand.",
+      "frequencyYearly": "dit jaar.",
+      "frequencyGeneric": "deze periode.",
+      "warningCustomLeveledSession": "Er is een gepersonaliseerd niveau op deze sessie van toepassing. Houd er rekening mee dat je gast(en) ook aan dit niveau voldoen.",
+      "bookingStatus": {
+        "0": "Nodig een vriend uit",
+        "1": "Reserveringen zijn voor alsnog gesloten",
+        "2": "Reserveren is niet langer mogelijk",
+        "3": "De sessie is vol",
+        "4": "Reserveren is niet langer mogelijk",
+        "guestNotAllowed": "De sessie is niet toegankelijk voor gasten"
+      },
+      "addGuestNumberLeftGeneric": "Je kunt deze periode nog 1 persoon uitnodigen.",
+      "addGuestNumberLeftGeneric_plural": "Je kunt deze periode nog steeds {{count}} mensen uitnodigen.",
+      "addGuestNumberLeftYear": "Je mag dit jaar 1 persoon meer uitnodigen.",
+      "addGuestNumberLeftYear_plural": "Je kunt dit jaar nog steeds {{count}} mensen uitnodigen.",
+      "addGuestNumberLeftMonth": "Je kunt deze maand nog 1 persoon uitnodigen.",
+      "addGuestNumberLeftMonth_plural": "Je kunt deze maand nog {{count}} mensen uitnodigen.",
+      "addGuestNumberLeftWeek": "Je kunt deze week nog 1 persoon uitnodigen.",
+      "addGuestNumberLeftWeek_plural": "Je kunt deze week nog {{count}} mensen uitnodigen.",
+      "guestLimitReached": {
+        "every_year": "Je hebt het maximaal aantal gasten uitgenodigd voor dit jaar.",
+        "every_month": "Je hebt het maximaal aantal gasten uitgenodigd voor deze maand.",
+        "every_week": "Je hebt het maximaal aantal gasten uitgenodigd voor deze week."
+      },
+      "sendInvitation": "Uitnodiging versturen",
+      "submit": "Boeken voor een gast"
+    },
+    "bookingFor": "Boeken voor",
+    "bookingForSubtitle": "Selecteer de persoon voor wie je wilt boeken"
+  },
+  "setSpot": "Een plaats toewijzen",
+  "changeSpot": "Plaats wijzigen",
+  "noSpotAttributed": "Geen plaats geselecteerd",
+  "placeNumber": "Plaats {{count}}",
+  "performanceTracking": {
+    "stat": "Statistieken"
+  },
+  "attendanceUpdatedOn": "Bijgewerkt op: {{- d }} om {{- t }}",
+  "asGuest": "Gast",
+  "guest": {
+    "form": {
+      "actions": {
+        "addGuest": "Een gast toevoegen",
+        "close": "Annuleren",
+        "submit": "Bevestigen",
+        "limitGuest": "(De volgende kaarten kunnen niet worden gebruikt om gasten uit te nodigen)"
+      },
+      "lastname": {
+        "label": "Achternaam"
+      },
+      "firstname": {
+        "label": "Voornaam"
+      },
+      "email": {
+        "label": "E-mail"
+      },
+      "errors": {
+        "email": "Voer een geldig e-mailadres in",
+        "requiredField": "Vul dit veld in"
+      },
+      "dialog": {
+        "emailWarning": {
+          "actions": {
+            "saveAndContinue": "Opslaan en doorgaan",
+            "continueWithoutEmail": "Doorgaan zonder e-mail"
+          },
+          "description": "Je hebt geen e-mailadres opgegeven voor je gast.",
+          "title": "Geen e-mail ingevoerd",
+          "submitLabel": "Doorgaan zonder",
+          "fieldLabel": "Wil je de e-mail toevoegen?",
+          "alert": "Ze ontvangen geen informatie over deze sessie."
+        },
+        "description": "Neem je een vriend of metgezel mee om de ervaring te delen? Vul gewoon de naam en het e-mailadres van je gast in en wij zorgen ervoor dat hij of zij alle benodigde informatie ontvangt.",
+        "title": "Nodig een gast uit"
+      }
+    }
+  },
+  "place": "Plaats",
+  "unlimited": "Ongelimiteerd",
+  "noShowChip": {
+    "message": "Het lid werd als afwezig genoteerd na de zitting",
+    "title": "No-show"
+  },
+  "warning": "Waarschuwing",
+  "spivi": {
+    "connectionImpossible": "Het is niet mogelijk om met Spivi te verbinden",
+    "error": "Verbindingsproblemen met Spivi",
+    "errorText": "Dit lid voldoet niet aan de voorwaarden van Spivi. De reservering kon daarom niet worden voltooid."
+  },
+  "newBookingModule": {
+    "otherPasses": "Andere leskaarten",
+    "passes": "Leskaarten",
+    "combos": "Pakketten",
+    "subscriptions": "Abonnementen",
+    "blockedReasons": {
+      "waitingListOpen": {
+        "message": "Schrijf je in op de wachtlijst en je ontvangt een bericht zodra er een plaats vrijkomt.",
+        "title": "Volledige sessie"
+      },
+      "isAlreadyOnWaitingList": {
+        "message": "Als je op de wachtlijst staat, brengen we je per e-mail op de hoogte zodra er een plaats vrijkomt.",
+        "title": "Al op de wachtlijst"
+      },
+      "isWaitingListFull": {
+        "message": "Deze sessie en de wachtlijst zijn vol. \nProbeer het later nog eens.",
+        "title": "Volledige wachtlijst"
+      },
+      "waitingListLockedByPendingBookings": {
+        "message": "Andere mensen zijn op dit moment aan het boeken, de wachtlijst is op dit moment niet beschikbaar. Probeer het over een paar minuten nog eens om te zien of er een plaats beschikbaar is.",
+        "title": "Bestaande reserveringen zijn in behandeling"
+      },
+      "isTooLate": {
+        "message": "Sorry, maar de boekingsperiode voor deze sessie is voorbij.",
+        "title": "Tijdslimiet overschreden"
+      },
+      "isTooSoon": {
+        "message": "De registratie is momenteel gesloten en gaat open op {{-date}}.",
+        "title": "Binnenkort beschikbaar"
+      },
+      "isAlreadyRegistered": {
+        "message": "Je hebt je al ingeschreven voor deze sessie.",
+        "title": "Sessie al geboekt"
+      },
+      "blockedByTags": {
+        "message": "Je hebt niet het vereiste lidmaatschap of toegangsniveau om deze sessie te boeken.",
+        "title": "Onvoldoende rechten"
+      },
+      "default": {
+        "message": "Voor deze sessie zijn geen reserveringen beschikbaar",
+        "title": "Geblokkeerde boeking"
+      },
+      "noPassAvailable": {
+        "title": "Er zijn geen beschikbare leskaarten om weer te geven.",
+        "message": "Er zijn geen beschikbare leskaarten voor deze wachtlijst."
+      },
+      "isBookingLimitReached": {
+        "message": "U heeft uw limiet van reserveringen al bereikt. U kunt opnieuw reserveren als een sessie voorbij is of is geannuleerd.",
+        "title": "Niet in staat om te boeken"
+      }
+    },
+    "backToCalendar": "Terug naar de kalender",
+    "waitingListWarning": "Voordat je op de wachtlijst komt te staan, moet je ervoor zorgen dat je een geschikte leskaart, pakket of abonnement hebt aangeschaft. Het is essentieel om een actieve leskaart, pakket of abonnement te hebben om je plaats op de wachtlijst te garanderen.",
+    "myPasses": "Mijn leskaart",
+    "myPasses_plural": "Mijn leskaarten",
+    "buyNewPass": "Een nieuwe leskaart kopen",
+    "buyPass": "Een leskaart kopen",
+    "choosePass": "Kies een leskaart",
+    "cards": {
+      "seeMore": "Meer zien",
+      "seeLess": "Minder zien"
+    },
+    "filterAll": "Alles",
+    "spotSelectorTitle": "Kies uw plaats",
+    "seeAllProducts": "Toon alle producten",
+    "recommended": "Aanbevolen",
+    "reviewAndConfirm": "Controleren en bevestigen",
+    "guestSpotSelectorTitle": "Selecteer een plekje voor je gast",
+    "removeFromBasket": {
+      "buttons": {
+        "confirm": "VERWIJDER",
+        "cancel": "Annuleer"
+      },
+      "message": "Als je de pas uit het mandje verwijdert, worden de bijbehorende boekingen ook verwijderd.",
+      "title": "Verwijder"
+    },
+    "multipleSpotSelectionSpotSelectorTitle": "Selecteer spot ({{currentSpot}}/{{totalSpot}})"
+  },
+  "refundDialog": {
+    "contentUnlimitedPaymentPack": "Deze boeking is gemaakt met een onbeperkte pas en is te laat geannuleerd. Voor te late annuleringen kunnen boetes worden opgelegd. Klik op “Reset” om de late annulering uit de pasgegevens te verwijderen. Houd er rekening mee dat als er al een boete is opgelegd, deze niet kan worden verwijderd.",
+    "titleUnlimitedPaymentPack": "Aantal late annuleringen resetten",
+    "content": "Deze boeking is te laat geannuleerd om automatisch te worden terugbetaald. Klik op “Restitutie” om een eenmalige creditrestitutie voor deze boeking te verwerken.",
+    "title": "Restitutie bij te late annulering"
+  },
+  "refund": "Refund",
+  "oneClickBooking": {
+    "checkoutTitle": "Afrekenen",
+    "seeMoreWithLogin": "Meld u aan om pakketten en abonnementen te bekijken!",
+    "yourBooking": "Uw reservering",
+    "goToLogin": "Inloggen",
+    "alreadyMember": "Heeft u al een account?",
+    "bookButtonLabel": "Boek nu",
+    "bookableStatus": {
+      "error": "Oeps, het lijkt erop dat deze boeking niet beschikbaar is",
+      "closeTooLate": {
+        "description": "Deze sessie is al begonnen of afgelopen, dus reserveren is niet meer mogelijk. <br> Controleer de kalender voor aankomende sessies.",
+        "title": "Oeps! Te laat om te boeken"
+      },
+      "closeTooSoon": {
+        "description": "Deze sessie is nog niet beschikbaar om te boeken. <br> Controleer de kalender om te zien wanneer de boekingen opengaan of bekijk andere beschikbare sessies.",
+        "title": "Oeps! Te vroeg om te boeken"
+      },
+      "locked": {
+        "description": "Deze sessie is geannuleerd en kan niet meer worden geboekt. <br> Controleer de kalender voor andere beschikbare sessies.",
+        "title": "Sessie geannuleerd"
+      },
+      "full": {
+        "description": "Deze sessie is zojuist volgeboekt en we konden je boeking niet voltooien. <br> Controleer de kalender om een andere beschikbare sessie te vinden.",
+        "title": "Sessie volgeboekt"
+      },
+      "unhandled": {
+        "description": "We zijn een onverwachte fout tegengekomen. Het lijkt momenteel niet mogelijk om deze sessie te boeken.",
+        "title": "Er is een onverwachte fout opgetreden"
+      }
+    },
+    "goToCalendar": "Ga naar de kalender",
+    "yourDetails": "Jouw informatie"
+  },
+  "lightSignup": {
+    "form": {
+      "errors": {
+        "global": "Er is een fout opgetreden bij het aanmelden",
+        "phone": "Vul een geldig telefoonnummer in",
+        "email": "Vul een geldig e-mailadres in",
+        "requiredField": "Dit veld is verplicht",
+        "phoneTaken": "Dit telefoonnummer wordt al gebruikt door een ander lid",
+        "emailTaken": "Het email adres is al in gebruik, u kunt inloggen met dit email adres",
+        "passwordConfirmation": "Wachtwoorden moeten overeenkomen",
+        "passwordMinimumRequirements": "Je wachtwoord moet minstens 6 tekens lang zijn en mag geen spaties bevatten"
+      },
+      "button": {
+        "label": "Inschrijven"
+      },
+      "phone": {
+        "placeholder": "+31612345678",
+        "label": "Telefoonnummer"
+      },
+      "email": {
+        "label": "Email"
+      },
+      "lastName": {
+        "label": "Achternaam"
+      },
+      "firstName": {
+        "label": "Voornaam"
+      },
+      "acceptSms": {
+        "label": "Ik ga akkoord met het ontvangen van promotionele sms-berichten, inclusief speciale aanbiedingen en kortingen"
+      },
+      "acceptTermsAndCondition": {
+        "label": "Ik accepteer de algemene gebruiksvoorwaarden"
+      },
+      "acceptEmail": {
+        "label": "Ik ga akkoord met het ontvangen van promotionele e-mails, inclusief speciale aanbiedingen en kortingen"
+      },
+      "password": {
+        "label": "Mijn wachtwoord aanmaken"
+      }
+    }
+  }
+}

@@ -1,0 +1,140 @@
+{
+  "form": {
+    "repeat": {
+      "months": {
+        "december": "December",
+        "november": "November",
+        "october": "Oktober",
+        "september": "September",
+        "august": "Augustus",
+        "july": "Juli",
+        "june": "Juni",
+        "may": "Mei",
+        "april": "April",
+        "march": "Maart",
+        "february": "Februari",
+        "january": "Januari"
+      },
+      "weekdays_pl": {
+        "sunday": "Zondagen",
+        "saturday": "Zaterdagen",
+        "friday": "Vrijdagen",
+        "thursday": "Donderdagen",
+        "wednesday": "Woensdagen",
+        "tuesday": "Dinsdagen",
+        "monday": "Maandagen"
+      },
+      "weekdays": {
+        "fourth": "4de",
+        "third": "3de",
+        "second": "2de",
+        "first": "1e",
+        "sunday": "Zondag",
+        "saturday": "Zaterdag",
+        "friday": "Vrijdag",
+        "thursday": "Donderdag",
+        "wednesday": "Woensdag",
+        "tuesday": "Dinsdag",
+        "monday": "Maandag"
+      },
+      "count": "Aantal intervallen:",
+      "interval": "Interval",
+      "repeatYear_nb": "Elke {{ nb }} jaar op de",
+      "repeatYear": "Elk jaar op de",
+      "repeatWeek_nb": "Elke {{ nb }} weken op de",
+      "repeatWeek": "Elke week op de",
+      "repeatMonthDay": "Elke",
+      "repeatMonth_nb": "Elke {{ nb }} maand(en) op de",
+      "repeatMonth": "Elke maand op de",
+      "repeatEvery": "Herhaal iedere",
+      "day": "Dag(en)",
+      "month": "Maand(en)",
+      "week": "Week/Weken",
+      "year": "Jaar",
+      "title": "Interval",
+      "ends": "Tot na",
+      "number": "Intervallen:",
+      "fromDate": "Vanaf",
+      "until": "Tot",
+      "from": "Van"
+    },
+    "description": "Titel / Beschrijving",
+    "supplier": "Leverancier / Verkoper",
+    "amount": "Bedrag",
+    "category": "Categorie",
+    "noStaff": "Zonder gekoppelde medewerkers",
+    "staff": "Medewerkers",
+    "date_due": "Vervaldatum",
+    "requiredField": "Dit veld is verplicht.",
+    "editChoices": {
+      "explanation": {
+        "details": "De gewenste wijzigingen worden op de huidige, toekomstige en/of alle uitgaven toegepast.",
+        "dateDue": "De vervaldatum wordt alleen voor de geselecteerde uitgave(n) bijgewerkt."
+      },
+      "editDetails": "Uitgave bewerken",
+      "editDateDue": "Vervaldatum wijzigen"
+    },
+    "titleEdit": "Een uitgave bewerken",
+    "titleAdd": "[Formulier] Uitgave",
+    "actions": {
+      "edit": "Bijwerken",
+      "save": "Opslaan",
+      "cancel": "Annuleren"
+    }
+  },
+  "noExpenses": "In dit overzicht kun je alle uitgaven toevoegen en bijhouden.",
+  "addButton": "Een uitgave toevoegen",
+  "filters": {
+    "showFuture": "Toon toekomstige uitgaven",
+    "filterStaff": "Alle medewerkers",
+    "filterSupplier": "Alle leveranciers",
+    "filterCategory": "Alle categorieën",
+    "titleStaff": "Medewerkers",
+    "titleSupplier": "Leveranciers",
+    "titleCategory": "Categorieën",
+    "noStaff": "Zonder medewerkers",
+    "noCategory": "Naamloze categorie"
+  },
+  "dialogEditExpense": {
+    "all": "Alle oude en toekomstige soortgelijke uitgaven bewerken",
+    "future": "Deze en soortgelijke toekomstige uitgaven bewerken",
+    "current": "Alleen deze uitgave bewerken",
+    "validate": "Bevestigen",
+    "cancel": "Annuleren"
+  },
+  "dialogDeleteExpense": {
+    "all": "Verwijder alle oude en toekomstige uitgaven",
+    "future": "Deze en alle toekomstige uitgaven verwijderen",
+    "current": "Alleen deze uitgave verwijderen",
+    "delete": "Verwijderen",
+    "cancel": "Annuleren",
+    "confirm": "Je staat op het punt deze uitgave permanent te verwijderen ({{amount}} van {{date_due}}).",
+    "warning": "[Formulier] Uitgave verwijderen"
+  },
+  "table": {
+    "no": "Nee",
+    "yes": "Ja",
+    "header": {
+      "actions": "Acties",
+      "repeat": "Interval",
+      "description": "Titel / Beschrijving",
+      "supplier": "Leverancier / Verkoper",
+      "amount": "Bedrag",
+      "category": "Categorie",
+      "staff": "Medewerkers",
+      "date_due": "Vervaldatum"
+    }
+  },
+  "update": {
+    "error": "Fout bij het bijwerken van deze uitgave.",
+    "success": "Deze uitgave is bijgewerkt."
+  },
+  "create": {
+    "error": "Fout bij het toevoegen van deze uitgave",
+    "success": "Deze uitgave is toegevoegd."
+  },
+  "delete": {
+    "error": "Fout bij het verwijderen van deze uitgave",
+    "success": "Deze uitgave is succesvol verwijderd."
+  }
+}

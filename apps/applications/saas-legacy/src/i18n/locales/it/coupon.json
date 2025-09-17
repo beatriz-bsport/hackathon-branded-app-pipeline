@@ -1,0 +1,291 @@
+{
+  "list": {
+    "isEmpty": "Nessun codice promozionale registrato",
+    "inactiveCoupons": "Promozioni inattive",
+    "activeCoupons": "Promozioni attive",
+    "expiredActiveCoupons": "Promozioni attive scadute"
+  },
+  "card": {
+    "validity": "Validità:",
+    "first_buy": "Utilizzabile solo sul primo acquisto",
+    "expiration": "Data di scadenza",
+    "no_expiration": "Nessuna data di scadenza",
+    "cumulable": "Cumulabile",
+    "no_cumulable": "Non cumulabile",
+    "uses": "Utilizzi",
+    "member_uses": "utilizzi per membro",
+    "member_use": "utilizzi per membro",
+    "limitation": "Limitato a",
+    "whitelist_tags": "Disponibile solo per i membri con determinati tag",
+    "blacklist_tags": "Indisponibile per i membri con determinati tag",
+    "unallowedFor": "Non consentito per",
+    "allowedFor": "Autorizzato per"
+  },
+  "modal": {
+    "delete": {
+      "actions": {
+        "cancel": "Annulla",
+        "submit": "Rimuovi"
+      },
+      "title": "Rimuovi",
+      "content": "Sei sicuro di voler eliminare questo codice promozionale? Non avrai più accesso alla cronologia di utilizzo. Questa operazione è definitiva."
+    }
+  },
+  "form": {
+    "section": {
+      "availability": "Disponibilità",
+      "usability": "Utilizzo",
+      "voucherConfig": "Riduzione",
+      "general": "Generale",
+      "applies_to": "Impostazioni",
+      "advanced": "Avanzato",
+      "subscription": "Iscrizione (contratto)",
+      "blacklist_tags": "No - Permesso",
+      "whitelist_tags": "Autorizzato",
+      "tags": "Tag",
+      "tagInfo": "Utilizza i tag per rendere questo coupon disponibile o non disponibile per determinati segmenti della tua base di membri."
+    },
+    "is_active": {
+      "helperText": "Il codice non attivo non può essere utilizzato dai clienti",
+      "label": "Attivo"
+    },
+    "selectorPlaceholder": {
+      "privatePass": "Seleziona i pacchetti per appuntamenti (valido su tutti i pacchetti se nessuno è selezionato)",
+      "paymentPack": "Seleziona i pacchetti (valido su tutte le lezioni se nessun pacchetto è selezionato)",
+      "shopitem": "Seleziona i prodotti dallo shop (valido su tutti i prodotti se nessuno è selezionato)",
+      "paymentCombo": "Seleziona i pacchetti combinati (valido su tutti i prodotti se nessuno è selezionato)"
+    },
+    "name": {
+      "label": "Nome",
+      "helperText": "Il nome inserito in questo campo apparirà sulle ricevute quando il codice promozionale è applicato"
+    },
+    "code": {
+      "label": "Codice",
+      "helperText": "Il codice che invierai ai clienti interessati",
+      "helperTextFranchise": "Il codice che verrà inviato ai clienti interessati. Assicurati che il codice non esista già nei tuoi diversi studi.",
+      "codeAlreadyInUse": "Questo codice è già in uso."
+    },
+    "voucher_type": {
+      "percent": "In percentuale",
+      "amount": "Valore"
+    },
+    "percent_off": {
+      "label": "Percentuale di riduzione"
+    },
+    "amount_off": {
+      "label": "Ammontare dello sconto"
+    },
+    "only_on_first_checkout": {
+      "label": "Solo primo acquisto"
+    },
+    "applies_to": {
+      "choices": {
+        "1": "Pacchetti",
+        "2": "Shop",
+        "6": "Spese di spedizione",
+        "9": "Pacchetto per appuntamenti",
+        "10": "Confezione",
+        "all": "Applica a tutto",
+        "null": "Applica a tutto"
+      },
+      "choicesFranchise": {
+        "1": "Pacchetti condivisi",
+        "2": "Articoli dello shop condivisi",
+        "9": "Pacchetti per appuntamenti condivisi"
+      }
+    },
+    "actions": {
+      "cancel": "Annulla",
+      "submit": "Conferma"
+    },
+    "usage_total": {
+      "label": "Limite d'uso per tutti i membri considerati insieme"
+    },
+    "minimum_amount": {
+      "label": "Importo minimo di acquisto"
+    },
+    "with_expiration_date": {
+      "label": "Con data di scadenza"
+    },
+    "expiration_date": {
+      "clear_date": "Senza scadenza",
+      "cancel": "Annulla",
+      "label": "Data di scadenza"
+    },
+    "combinable": {
+      "label": "Può essere utilizzato con altri codici"
+    },
+    "usage_per_member": {
+      "label": "Limite d'utilizzo per cliente"
+    },
+    "subscription_mode": {
+      "0": "Applica a tutte le ricevute",
+      "1": "Solo primo mese",
+      "2": "Applicare a tutte le ricevute prima del rinnovo automatico",
+      "3": "Non utilizzabile"
+    },
+    "tag": {
+      "select": {
+        "error": "Il stesso tag non può essere presente in entrambe le liste",
+        "empty_tag_list": "Nessun tag selezionato",
+        "tag": "Seleziona un tag",
+        "tag_group": "Scegli un gruppo di tag"
+      },
+      "tag": "Tag",
+      "tag_group": "Gruppo"
+    },
+    "title": "Coupon",
+    "alert": "Un codice sconto può essere utilizzato da un membro per ridurre il prezzo di un carrello. In questo modulo, potete personalizzare completamente il modo in cui il codice viene applicato. Sarete voi stessi a scegliere il codice e sarete voi a decidere come condividerlo con i vostri membri."
+  },
+  "noDiscount": "Nessun acquisto effettuato con il codice",
+  "detail": {
+    "seeParameters": "Visualizza le impostazioni",
+    "seeVouchers": "Vedi i voucher"
+  },
+  "createCoupon": "Aggiungi un codice",
+  "code": {
+    "addCoupon": {
+      "5004": "Questo codice può essere applicato solo a un singolo articolo.",
+      "5006": "Questo codice univoco è già collegato a un carrello aperto",
+      "45009": "Questo codice gift card non può essere applicato a questo carrello",
+      "45010": "La gift card è stata associata al tuo conto, ma non è stato possibile attivarla perché è precedente alla data di attivazione",
+      "label": "Codice promozionale & gift card",
+      "placeholder": "RIENTRO_SPECIALE",
+      "cancel": "Annullare",
+      "submit": "Confermare",
+      "not_found": "Questo codice promozionale non è valido.",
+      "not_applicable": "Questo codice promozionale non è applicabile.",
+      "apply": "Applica",
+      "couponOnlyLabel": "Codice promozionale"
+    }
+  },
+  "search": "Cerca un codice promozionale",
+  "reverted": "Ricevuta annullata",
+  "couponTemplateInstance": {
+    "companyEmpty": "Nessuno studio è configurato per accettare questa promozione",
+    "delete": {
+      "explain2": "Può essere riaggiunto in seguito, se necessario.",
+      "explain1": "Sei sicuro di voler modificare la disponibilità di questa promozione ({{- name }})?",
+      "title": "Interrompere la condivisione"
+    },
+    "create": {
+      "explain2": "I membri possono utilizzare questa promozione in uno qualsiasi degli studi compatibili.",
+      "explain1": "I seguenti studi saranno compatibili con i prodotti selezionati nel coupon.",
+      "title": "Configura i miei studi"
+    }
+  },
+  "couponTemplate": {
+    "notEditable": "Questo coupon è condiviso dal Master Account. Gli elementi sono stati definiti dal Master Account e non possono essere modificati.",
+    "isEmptyExplain": "Nessun codice promozionale condiviso registrato",
+    "actions": {
+      "create": "Aggiungi un codice condiviso"
+    },
+    "warningDialog": {
+      "content3": "Potrai nuovamente scegliere gli studi che condivideranno questa promozione.",
+      "content2": "Questo reinizializzerà l'elenco degli studi in cui verrà condivisa questa promozione.",
+      "content1": "Attenzione, si consiglia di modificare i parametri di applicazione della promozione condivisa su determinati pacchetti o pacchetti per appuntamenti.",
+      "title": "Conferma modifica"
+    },
+    "formDisclaimer": "La disponibilità per tutti gli studi sarà azzerata se si cambiano i prodotti su cui sarà applicabile questa promozione."
+  },
+  "uniqueCodeCoupon": {
+    "form": {
+      "errors": {
+        "5000": "Non è possibile fornire un codice che è già stato utilizzato in un altro coupon.",
+        "5001": "Alcuni codici univoci non possono essere aggiunti perché sono già stati registrati.",
+        "5003": "Alcuni codici univoci sono già registrati in un altro coupon.",
+        "5004": "Questo codice può essere applicato solo a un singolo articolo.",
+        "5005": "Questo codice è già stato utilizzato o è attualmente collegato a un carrello.",
+        "5006": "Questo codice univoco è già collegato a un carrello aperto",
+        "applies_to": "L'articolo su cui applicare lo sconto deve essere un pacchetto, un pacchetto per appuntamenti, un pack o un articolo dello shop",
+        "required": "Questo campo è obbligatorio",
+        "positiveNumber": "Il valore deve essere superiore a 0",
+        "expirationDate": {
+          "dateBeforeNow": "La data di scadenza non può essere precedente alla data corrente.",
+          "format": "Errore nella formattazione della data"
+        },
+        "fileUploader": {
+          "fileTooLargeError": "Il file è troppo grande. Si prega di non superare 1 Mb.",
+          "incorrectDataError": "Il file non contiene i dati corretti.",
+          "notCsvFileError": "Il tipo di file non corrisponde ad un file CSV."
+        },
+        "only_on_objects": "È necessario scegliere un oggetto su cui applicare la riduzione",
+        "update_mode": "Se si desidera modificare i codici registrati per questa promozione, è possibile aggiungere i codici a quelli esistenti o sostituirli",
+        "codes": {
+          "updateMode": "È necessario scegliere se aggiungere i codici a quelli esistenti o sostituirli",
+          "emptyArray": "È necessario aggiungere almeno un codice"
+        },
+        "positiveOrZeroNumber": "Il valore deve essere maggiore o uguale a 0"
+      },
+      "fileUploader": {
+        "title": "Carica i voucher una tantum",
+        "label": "Trascina e rilascia o fai clic per selezionare il file",
+        "sizeLimitHelper": "File CSV (1Mb massimo)",
+        "helperText": "Carica un file CSV con tutti i codici dei voucher nella prima colonna, un codice per riga, senza intestazione."
+      },
+      "alertInfo": "I voucher sono codici unici che offrono al membro uno sconto del 100% su un prodotto specifico. Questi codici non sono generati dalla piattaforma stessa, ma devono essere caricati qui come file CSV. Questa funzione è particolarmente utile se si collabora con un'entità esterna, come Groupon, per gestire una campagna promozionale. In questo caso, Groupon (o simili) genera e vende i buoni per conto dello studio.",
+      "alertWarning": "Non applicabile agli abbonamenti ricorrenti",
+      "couponCostForCompany": {
+        "label": "Prezzo tasse incluse",
+        "helperText": "Entrate ricevute dal partner della campagna per ogni voucher venduto. Esse saranno utilizzate per calcolare il valore marginale per la retribuzione degli insegnanti e per i report. Per qualsiasi calcolo che non tenga conto del valore marginale, i report ignoreranno questo valore e tratteranno questa promozione come uno sconto del 100%."
+      },
+      "usage_per_member": {
+        "label": "Limita il numero di voucher che un membro può acquistare",
+        "helperText": "Limite massimo"
+      },
+      "only_on_first_checkout": {
+        "label": "Può essere utilizzato solo per il primo acquisto"
+      },
+      "update": {
+        "popover": "I codici non utilizzati saranno cancellati, ma quelli usati saranno conservati.",
+        "append": "Aggiungi ai codici esistenti",
+        "replace": "Sostituisci i codici esistenti",
+        "alertInfo": "C'è {{count}} codice registrato per questa promozione, è possibile caricare nuovi codici.",
+        "alertInfo_plural": "Ci sono {{count}} codici registrati per questa promozione, è possibile caricare nuovi codici."
+      },
+      "selectorPlaceholder": {
+        "privatePass": "Seleziona un pacchetto per appuntamenti",
+        "paymentPack": "Seleziona un pacchetto",
+        "shopItem": "Seleziona un prodotto dallo store",
+        "paymentCombo": "Seleziona un pack"
+      }
+    },
+    "voucherCodesDialog": {
+      "close": "Chiudi",
+      "markAsRedeemed": "Segna come utilizzato",
+      "markAsRedeemed_plural": "Segna come utilizzati",
+      "export": "Esporta",
+      "noResult": "Nessun risultato",
+      "searchBar": {
+        "placeHolder": "Cerca un codice"
+      },
+      "checkBoxes": {
+        "unselectAll": "Deseleziona tutto",
+        "selectAll": "Seleziona tutto"
+      },
+      "selector": {
+        "notUsed": "Non utilizzato",
+        "pending": "In attesa di una convalida esterna",
+        "redeemed": "Segnato come utilizzato",
+        "allStatus": "Tutti gli stati"
+      },
+      "header": {
+        "status": "Stato",
+        "codes": "Codici"
+      }
+    }
+  },
+  "couponFilter": {
+    "allType": "Tutti i tipi di promozione",
+    "title": "Tipo di promozione"
+  },
+  "fabLabels": {
+    "discountCode": "Codice sconto",
+    "voucherCodes": "Voucher"
+  },
+  "couponType": {
+    "0": "Codice sconto",
+    "3": "Voucher monouso"
+  },
+  "couponNotFullyAppliedWarning": "Alcuni sconti non sono stati applicati completamente perché superavano il prezzo iniziale degli articoli. Gli importi degli sconti non utilizzati andranno persi."
+}

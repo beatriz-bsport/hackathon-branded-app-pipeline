@@ -1,5 +1,4 @@
 import i18n from "i18next";
-import languageDetector from "i18next-browser-languagedetector";
 import httpBackend from "i18next-http-backend";
 import resourcesToBackend from "i18next-resources-to-backend";
 import { initReactI18next } from "react-i18next";
@@ -11,6 +10,7 @@ import {
   LANGUAGE_SWITCHER_ACTION,
   LANGUAGE_SWITCHER_CHANNEL,
 } from "./constants";
+import { detectorOrder, languageDetector } from "./languageDetector";
 import type { InMemoryTranslationsLoader, InitConfig } from "./types";
 import {
   format,
@@ -112,6 +112,10 @@ export function initI18n({
       // array of allowed languages
       supportedLngs: Object.values(LANGUAGES),
       debug: debug,
+      // language detector options
+      detection: {
+        order: detectorOrder,
+      },
       // string or array of namespaces to load
       ns: (namespaces ?? []).map(namespacePrefixer),
       interpolation: {

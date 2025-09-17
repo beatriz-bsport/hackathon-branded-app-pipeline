@@ -1,0 +1,502 @@
+{
+  "forms": {
+    "gtmId": {
+      "label": "Google Tag ID",
+      "placeholder": "GTM-XXXXXX"
+    },
+    "facebookURL": {
+      "placeholder": "https://facebook.com/mein-studio/",
+      "helperText": "Deine Facebook-Seite",
+      "label": "URL Facebook"
+    },
+    "scheduleURL": {
+      "placeholder": "https://studio.com/wochenplan/",
+      "helperText": "Verwenden Sie dieses Feld für Ihren Wochenplan.",
+      "label": "Link zum Wochenplan"
+    },
+    "websiteURL": {
+      "placeholder": "https://studio.com/",
+      "helperText": "Mitglieder werden dahin weitergeleitet, wenn sie auf das Logo klicken",
+      "label": "Link zu deiner Website",
+      "errorText": "Diese URL ist ungültig"
+    },
+    "secondary_color": {
+      "label": "Sekundäre Farbe",
+      "helperText": "Am besten ist eine Farbe, die gut mit der Primärfarbe kombiniert werden kann"
+    },
+    "primary_color": {
+      "helperText": "Am besten ist eine Farbe, die gut mit anderen Farben kombiniert werden kann",
+      "label": "Hauptfarbe"
+    },
+    "cover": {
+      "label": "Logo",
+      "helperText": "Wähle ein Logo im PNG-Format mit einem durchsichtigen Hintergrund"
+    },
+    "themePersonalization": {
+      "default_booking_ordering": {
+        "lastname": "Alphabetisch nach Nachnamen sortieren",
+        "firstname": "Alphabetisch nach Vornamen sortieren",
+        "title": "Standard-Sortierung für Buchungen unter Aktivitäten",
+        "date": "Nach letzter Buchung sortieren"
+      },
+      "calendar": {
+        "police": {
+          "helperText": "Die Schriftart ändern",
+          "label": "Schriftart",
+          "placeholder": "CSS-Code eingeben"
+        },
+        "offerCard": {
+          "helperText": "Den Stil der Kurspässe ändern",
+          "label": "Kurspässe",
+          "placeholder": "CSS-Code eingeben"
+        },
+        "columns": {
+          "helperText": "Den Stil der Spalten ändern",
+          "label": "Spalten",
+          "placeholder": "CSS-Code eingeben"
+        },
+        "bookButton": {
+          "helperText": "Den Stil der Schaltfläche \"buchen\" ändern",
+          "label": "Schaltfläche \"buchen\"",
+          "placeholder": "CSS-Code eingeben"
+        },
+        "title": "Führe Deinen eigenen CSS-Code ein, um Deinen Kalender zu personalisieren"
+      },
+      "offersFilling": "Anzahl der Kursteilnahmen und übrigen Plätze im Mitgliederkalender anzeigen",
+      "last_name_label": {
+        "helperText": "Gib die Label für den Nachnamen ein",
+        "label": "Label für den Nachnamen",
+        "placeholder": "Label für den Nachnamen"
+      },
+      "first_name_label": {
+        "helperText": "Gib die Label für den Vornamen ein",
+        "label": "Label für den Vornamen",
+        "placeholder": "Label für den Vornamen"
+      },
+      "names_label_info": "Bearbeiten Sie die Felder \"Vorname\" und \"Nachname\" in Ihrem Anmeldeformular",
+      "default_attendance": {
+        "title": "Standardstatus einer Buchung durch ein Mitglied",
+        "missing": "Abwesendes Mitglied",
+        "present": "Anwesendes Mitglied"
+      },
+      "acceptDoubleBooking": "Doppelte Buchung akzeptieren",
+      "consumerRegularizeDebt": "Mitglieder können ihre Rechnungen online bezahlen",
+      "workshopsCustomer": "Workshops im Mitgliederkalender anzeigen",
+      "cancelledOffersCustomer": "Stornierte Stunden im Mitgliederkalender anzeigen",
+      "calendarPersonalizationTitle": "Kalender",
+      "basket_expiration_days": {
+        "alert": "Trage die Ablauftage des Einkaufswagens ein!",
+        "placeholder": "Tage vor Ablauf",
+        "helperText": "Anzahl der Tage, nach denen der Warenkorb automatisch geleert wird",
+        "label": "Ablaufdatum des Warenkorbs anzeigen"
+      },
+      "cancelledOffersManager": "Stornierte Kurse im Adminkalender anzeigen",
+      "checkBalance": {
+        "shiftRatio": {
+          "explain": "Wenn mehr als {{numberCheck}} Buchungen auftreten, wird keine Buchung mehr akzeptiert, durch welche ein Ungleichgewicht entsteht, das größer ist als {{gender_max_shift_for_booking}} Personen.",
+          "helperText": "Beschränke das Verhältnis zwischen Frauen und Männern auf {{gender_max_shift_for_booking}} Personen",
+          "placeholder": "Maximal zulässiges Un-Verhältnis"
+        },
+        "numberCheck": {
+          "helperText": "Wenn mehr als {{number}} Personen einen Kurs buchen, wird eine zusätzliche Buchung nur akzeptiert, wenn das Verhältnis zwischen Frauen und Männern unter dem folgenden Wert liegt.",
+          "placeholder": "Überprüfe das Verhältnis von Frauen und Männern, wenn die Anzahl der Buchungen überschritten wird"
+        },
+        "checkbox": "Anteil der Frauen und Männer soll möglichst ausgewogen sein (z.B. Tanzkurs)"
+      },
+      "offerBalance": "Ausgewogener Anteil Frauen und Männer",
+      "showGenderOffer": "Anzahl der angemeldeten Frauen und Männer anzeigen",
+      "hideCoach": "Infos zur Lehrkraft im Mitgliederkalender ausblenden",
+      "maxFutureBooking": {
+        "numberCheck": {
+          "helperText": "Die maximale Anzahl von Veranstaltungen für Gruppenaktivitäten, die ein Mitglied im Voraus buchen kann.",
+          "placeholder": "Maximale Anzahl"
+        },
+        "label": "Buchungslimit pro Mitglied für Gruppenaktivitäten"
+      },
+      "hiddenFromMarketplace": "Dein Studio in der bsport-App und auf dem Martkplatz anzeigen",
+      "schedule": {
+        "alert": "Die Anfangszeit des Wochenplans sollte vor der Endzeit liegen",
+        "end": "Endzeit",
+        "begin": "Startzeit",
+        "title": "Wochenplan"
+      },
+      "coach_can_edit_attendance": "Lehrkräfte können Mitglieder in der App als anwesend oder abwesend markieren",
+      "internalAccount": "Mitglieder-Guthaben",
+      "internalAccountWarningTitle": "Berücksichtigen Sie die aktuellen internen Kontostände der Mitglieder.",
+      "internalAccountWarning2": "Um einen Bericht über Kundensalden zu erstellen, gehen Sie auf den Tab 'Berichte' und wählen Sie bei der Erstellung des neuen Berichts in der Kategorie 'Zahlungen' 'Credits' aus.",
+      "internalAccountWarning1": "Wir empfehlen dringend, einen Bericht über die internen Kontostände der Mitglieder zu erstellen, bevor Sie diese Funktion aktivieren.",
+      "goToReports": "Seite mit Berichten",
+      "allowConsumerToUseInternalAccount": "Mitglieder können Guthaben in ihrem Konto benutzen, um Artikel in ihrem Warenkorb und/oder ausstehende Rechnungen zu bezahlen.",
+      "internalAccountNotusableOnContract": "Diese Option steht nicht für Verträge zur Verfügung.",
+      "coachUserspace": {
+        "restrictions": "Einschränkungen",
+        "daysBeforeRequestIsLate": {
+          "placeholder": "Anzahl an Tagen",
+          "helperText": "Verspätete Anfrage",
+          "description": "Anfragen auf Vertretungen, die weniger als {{count}} Tag vor Kursbeginn gestellt werden, werden als spät angezeigt.",
+          "description_plural": "Anfragen auf Vertretungen, die weniger als {{count}} Tage vor Kursbeginn gestellt werden, werden als spät angezeigt."
+        },
+        "daysBeforeReplacementClosingAcceptance": {
+          "helperText": "Anmeldeschluss für Vertretungen",
+          "description": "Ihre Lehrkraft können keine Vertretungen mehr an {{count}} Tag vor Kursbeginn akzeptieren.",
+          "description_plural": "Ihre Lehrkräfte können keine Vertretungen mehr an {{count}} Tagen vor Kursbeginn akzeptieren.",
+          "placeholder": "Anzahl an Tagen"
+        },
+        "enableReplacement": "Vertretung",
+        "access": "Zugang",
+        "enableRemuneration": "Lohnabrechnung",
+        "description": "Passe die Lehrkraftansicht im Web an. Bitte beachte, dass die Einstellungen hier keinen Einfluss auf die Ansicht der App durch die Lehrkraft haben.",
+        "isLateReplacementRequestLimited": "Limit für verspätete Anfragen",
+        "enableSchedule": "Wochenplan",
+        "daysBeforeReplacementClosing": {
+          "interval": "Intervall",
+          "description": "Vertretungsanträge, die {{count}} Tag oder mehr vor Beginn des Kurses gestellt werden, werden als spät gekennzeichnet.",
+          "description_plural": "Vertretungsanträge, die {{count}} oder mehr Tage vor Beginn des Kurses gestellt werden, werden als spät gekennzeichnet.",
+          "every": "Alle",
+          "helperText": "Schließung von Anfragen auf Vertretung",
+          "placeholder": "Anzahl an Tagen"
+        },
+        "restrictionsDescription": "Wähle die Reiter aus, auf die deine Lehrkräfte Zugriff haben sollen.",
+        "enable": "Lehrkraftansicht aktivieren",
+        "maxNbRequestPerPeriod": {
+          "recap": {
+            "1": "Jede {{nbPeriods}} Woche können Ihre Lehrkräfte maximal {{nbRequests}} verspätete Anfragen stellen. Sobald diese Zahl überschritten ist, können sie bis zum Ende der Periode keine verspäteten Anfragen mehr stellen.",
+            "2": "In jedem {{nbPeriods}} Monat können Ihre Lehrkräfte maximal {{nbRequests}} verspätete Anfragen stellen. Sobald diese Zahl überschritten ist, können sie bis zum Ende des Zeitraums keine verspäteten Anfragen mehr stellen.",
+            "3": "Alle {{nbPeriods}} Jahre können Ihre Lehrkräfte maximal {{nbRequests}} verspätete Anfragen stellen. Sobald diese Zahl überschritten ist, können sie bis zum Ende des Zeitraums keine verspäteten Anfragen mehr stellen."
+          },
+          "helperText": "Maximale Anzahl an verspäteten Anfragen"
+        },
+        "requestLimitationPeriods": {
+          "week": "Wochen",
+          "month": "Monate",
+          "year": "Jahre",
+          "placeholder": "Zeitraum auswählen"
+        },
+        "errors": {
+          "restrictionToggles": "Bitte wähle mindestens eine Option aus"
+        },
+        "enableDescription": "Wenn du diese Option aktivierst, dann sehen alle Lehrkräfte diese Ansicht standardmäßig.",
+        "replacementSettings": "Vertretungs-Einstellungen",
+        "enableRemunerationDownload": "Lehrkräfte können ihre Lohnabrechnung herunterladen"
+      },
+      "noShow": {
+        "title": "Abwesenheiten (No-Show)",
+        "sendMailHelpText": "Zum Aktivieren/Deaktivieren der E-Mail gehen Sie bitte zu Einstellungen> Transaktionsbenachrichtigungen> Strafen> Abwesenheitsbenachrichtigung",
+        "errorValidatedTime": "Die Zeit, die vergeht, bevor die Buchung eines Mitglieds als Abwesenheit gilt, muss größer als 0 sein",
+        "alert": "Diese Einstellungen gelten nur für Abwesenheiten bei unbegrenzten Pässen. Um die folgenden Zählungen auszulösen, müssen Sie die Zählung für jede Sitzung aufrufen.",
+        "daysBeforeNoShow": "Betrachten Sie das Mitglied als (abwesend) <0/> <1/> nach der Bestätigung der Anwesenheit der Einheiten, in denen es als abwesend aufgeführt wurde.",
+        "sendMail": "Senden Sie nach der Bestätigung der Anwesenheit eine E-Mail <0/> <1/>, um das Mitglied darüber zu informieren, dass es als abwesend gilt, wenn es als abwesend angegeben wurde.",
+        "error": "Die E-Mail zur Benachrichtigung über die Abwesenheit kann nicht mehr gesendet werden, nachdem das Mitglied als abwesend betrachtet wird.",
+        "errorEmailTime": "Die Zeit, die verstrichen ist, bevor die E-Mail mit der Warnung an das Mitglied gesendet wird, dass seine Buchung als \"Abwesenheit\" betrachtet wird, muss größer als 0 sein",
+        "notAvailable": "Du hast aktuell keinen Zugriff auf diese Einstellung. Bitte erstelle zunächst einen unbegrenzten Kurspass mit Abzügen für Abwesenheiten von Mitgliedern.",
+        "daysBeforeNoShowHelpText": "Mit dieser Einstellung können Sie Strafen für Abwesenheit von Mitgliedern mit einem unbegrenzten Pass verhängen."
+      },
+      "bookingTitle": "Buchung",
+      "attendanceTitle": "Anwesenheiten",
+      "hideBuyablePassIfSuperfluous": "Pässe, Abos und Pakete im Buchungsprozess ausblenden, wenn ein Mitglied bereits ein kompatibles Produkt besitzt.",
+      "hideMemberForCoach": "Kontaktdaten für Mitglieder im Lehrkraftkalender ausblenden",
+      "signup": {
+        "urlRedirection": "URL-Weiterleitung",
+        "urlError": "Bitte geben Sie eine gültige URL ein",
+        "helperText": "Um ihr Konto zu aktivieren, müssen Mitglieder den Link in der Bestätigungs-E-Mail klicken.",
+        "urlHelperText": "Das Mitglied wird zu diesem Link weitergeleitet, nachdem es die E-Mail-Adresse bestätigt hat. Falls nicht angegeben, wird es zu dessen Profil auf dem Marketplace weitergeleitet.",
+        "label": "Bestätigungs-E-Mail nach Registrierung senden",
+        "title": "Registrierungen",
+        "emailConfirmationAtSignUp": {
+          "helperText": "Mitglieder erhalten nach der Anmeldung eine Email, in der sie gebeten werden, ihre Email-Adresse zu bestätigen. Der Account wird erst aktiviert, wenn sie auf den Link in der Email klicken. ",
+          "label": "Email-Bestätigung bei Anmeldung"
+        }
+      },
+      "hideSessionWithTagsNotEligible": "Kurse ausblenden, die dem Mitglied aufgrund der Tags nicht zur Verfügung stehen",
+      "errorURL": "Bitte geben Sie eine gültige URL an, bevor Sie das Formular speichern",
+      "daysFormatSelector": {
+        "oneLetter": "Erster Buchstabe",
+        "threeLetters": "Ersten 3 Buchstaben",
+        "fullWord": "Ganzes Wort",
+        "label": "Welches Tagesformat möchtest du verwenden?"
+      },
+      "showActivityColor": "Farbe der Aktivität anzeigen",
+      "sessionDatesDisplayOptions": {
+        "onlyShowStartingTime": "Nur Startzeit",
+        "showDuration": "Dauer",
+        "showEndingTime": "Startzeit und Endzeit",
+        "label": "Welche Infos möchtest du bei der Wochenansicht anzeigen?"
+      },
+      "showLevel": "Infos zum Level anzeigen",
+      "showEstablishment": "Infos zur Einrichtung anzeigen",
+      "coachDisplayOptions": {
+        "showCoachFirstNameWithPicture": "Vorname und Bild",
+        "showCoachFullNameWithoutPicture": "Vorname und Nachname",
+        "onlyShowCoachFirstName": "Vorname",
+        "showCoachFullNameWithPicture": "Vorname, Nachname und Bild",
+        "label": "Welche Infos zur Lehrkraft möchtest du im Mitgliederkalender anzeigen?"
+      },
+      "acceptDoubleBookingMetaActivity": "Mehrfachbuchungen für Aktivitäten erlauben",
+      "acceptDoubleBookingWorkshop": "Mehrfachbuchungen für Workshops erlauben",
+      "showFreeSessionLabel": "Kurse, die keine Credits erfordern, mit FREE kennzeichen",
+      "hideBookButton": {
+        "switchLabel": "Schaltfläche \"{{-bookButtonTranslation}}\" ausblenden",
+        "dialogDescription": "Wenn Sie die Schaltfläche \"{{-bookButtonTranslation}}\" ausblenden, wird die Karte anklickbar, um den Kurs zu buchen."
+      },
+      "doubleBookingDisabledWithSpivi": "Die Doppelbuchung ist nicht mit der Spivi-Integration kompatibel",
+      "startWeekOnToday": "Bei der Wochenansicht fängt der Mitgliederkalender beim aktuellen Tag an",
+      "showPastSessionsCalendar": "Vergangene Kurse im Mitgliederkalender anzeigen",
+      "maxFutureWorkshop": {
+        "label": "Buchungslimit pro Mitglied für Workshops",
+        "numberCheck": {
+          "placeholder": "Maximal",
+          "helperText": "Die maximale Anzahl von Veranstaltungen, die ein Mitglied im Voraus buchen kann."
+        }
+      },
+      "waitingListAccountsForMaxFutureBookings": {
+        "helperText": "Zählt die Warteliste zur Anzahl der Anmeldungen, ist die Teilnahmebegrenzung schneller erreicht und eine Anmeldung nicht mehr möglich (auch nicht für die Warteliste).",
+        "label": "Warteliste zählt zur Anzahl der Anmeldungen"
+      },
+      "bookingLimitation": "Allgemeine Buchungseinstellungen",
+      "resetPassword": {
+        "urlError": "Bitte geben Sie eine gültige URL ein",
+        "urlHelperText": "Lass dieses Feld leer, wenn du deine Mitglieder zum Marktplatz weiterleiten möchtest.",
+        "urlRedirection": "Dein Link zur Weiterleitung",
+        "helperText": "Mitglieder, die ihr Passwort zurücksetzen, werden zum Marktplatz weitergeleitet. Falls du einen anderen Link zur Weiterleitung verwenden möchtest, gib den Link hier ein:",
+        "title": "Passwort zurücksetzen"
+      },
+      "memberProfile": {
+        "myProfile": {
+          "showMembershipNumber": "Mitgliedsnummer anzeigen",
+          "showBarcodeButton": "Barcode anzeigen",
+          "showMemberAccountBalance": "Kontostand des Mitglieds anzeigen",
+          "title": "Dein Profil"
+        }
+      },
+      "displayActivityPrice": "Anzahl der erforderlichen Credits anzeigen",
+      "consumerRegularizeDebtHelper": "Du kannst diese Option im Marktplatz, im Easy Connect-Button und im Login Button-Widget einbinden, aber nicht im App- und Member Profile-Widget.",
+      "expressCheckout": {
+        "title": "Express-Checkout",
+        "oneClickBooking": {
+          "label": "One-Click Booking (beta)",
+          "helperText": "Neue Mitglieder können Aktivitäten buchen, ohne zuvor einen Account anzulegen. Diese Funktion ist nicht mit Terminen oder \"Email-Bestätigung bei Anmeldung\" kompatibel. Es bezieht sich lediglich auf Aktivitäten, die mit einem \"nur neue Mitglieder\" Kurspass gebucht werden können."
+        }
+      },
+      "subscriptionPersonalizationTitle": "Abonnement",
+      "displayStopSubscriptionFromMemberSide": {
+        "modal": {
+          "cancel": "Abbrechen",
+          "confirm": "Jetzt aktivieren",
+          "linkButton": "Lies den Leitfaden durch",
+          "linkText": "Bevor du die Funktion aktivierst, empfehlen wir dir, dich mit ihrer Funktionsweise und den zu erwartenden Ergebnissen vertraut zu machen:",
+          "content": "In vielen Ländern sind Studios gesetzlich verpflichtet, Mitgliedern die Möglichkeit zu geben, ihre Abonnements selbst zu kündigen. Durch die Aktivierung dieser Funktion stellst du sicher, dass du die lokalen Gesetze einhältst und dein Studio vor rechtlichen Risiken schützt.",
+          "title": "Abonnementkündigung für Mitglieder aktivieren?"
+        },
+        "helperText": {
+          "franchisor": "Diese Änderung gilt für alle Franchisenehmer.",
+          "disabled": "Um diese Funktion für alle Franchisenehmer zu aktivieren, aktiviere sie über den Master Account.",
+          "lawCompliance": "Wenn du diese Funktion nicht aktivierst, können Mitglieder ihre Abonnements nicht selbst kündigen, und dein Studio riskiert möglicherweise, gegen die Gesetze deines Landes zu verstoßen.",
+          "simple": "Aktiviere diese Option, damit Mitglieder ihr Abonnement selbst kündigen können. Du hast zwar keine Kontrolle über die Kündigungsfrist für Abonnements, aber es ist wahrscheinlicher, dass du die gesetzlichen Bestimmungen des Landes, in dem dein Studio ansässig ist, einhältst. Bitte überprüfe, in welchen Ländern dies gilt."
+        },
+        "label": "Mitgliedern die Möglichkeit geben, ihre Abonnements zu kündigen"
+      }
+    },
+    "submit": "Speichern",
+    "instagramURL": {
+      "placeholder": "https://instagram.com/mein-studio/",
+      "helperText": "Deine Instagramseite",
+      "label": "URL Instagram"
+    },
+    "general_terms_and_conditions": {
+      "placeholder": "Ich bestätige, dass ich ein ärztliches Attest besitze und es in mein Studio mitbringen werde",
+      "helperText": "Pflichtfeld für die Anmeldung und Zahlung",
+      "label": "Allgemeine Verkaufsbedingungen"
+    },
+    "android_app_url": {
+      "helperText": "Deine Android-App",
+      "label": "URL der Android-App",
+      "placeholder": "https://play.google.com/store/apps/details?id=com.bsport"
+    },
+    "ios_app_url": {
+      "helperText": "Deine iOS-App",
+      "label": "URL der iOS-App",
+      "placeholder": "https://apps.apple.com/de/app/id1356621554"
+    },
+    "general_terms_of_use": {
+      "placeholder": "Ich bestätige, dass ich über 13 Jahre alt bin",
+      "helperText": "Pflichtfeld für jede Registrierung",
+      "label": "Allgemeine Geschäftsbedingungen"
+    },
+    "facebookPixelId": {
+      "placeholder": "ID",
+      "label": "Facebook Pixel ID"
+    },
+    "waiver": {
+      "label": "Verzichtserklärung",
+      "placeholder": "Ich bestätige, dass ich über 13 Jahre alt bin",
+      "helperText": "Pflichtfeld für jede Registrierung"
+    },
+    "provincialTax": {
+      "taxHelperText": "Erscheint auf Rechnungen",
+      "taxValue": "Wert der Steuer",
+      "taxName": "Name der Steuer",
+      "info": "Geben Sie hier den Namen und den Wert Ihrer Provinzsteuer an. Geben Sie bei allen Produkten auf der Plattform die insgesamt angewandte Steuer an (Bundessteuer + Provinzsteuer). Die Bundessteuer und die Provinzsteuer werden auf den Rechnungen Ihrer Kunden angegeben.",
+      "title": "Provinzsteuer"
+    },
+    "allowGuest": {
+      "dialog": {
+        "dialogTitle": "Hinweis",
+        "dialogContent": "Achtung: Wenn Sie diese Option deaktivieren, ist es für Ihre Mitglieder nicht mehr möglich, für einen Gast zu buchen.",
+        "dialogButtonConfirm": "Bestätigen",
+        "dialogButtonCancel": "Abbrechen"
+      },
+      "frequencies": {
+        "week": "Woche",
+        "month": "Monat",
+        "year": "Jahr",
+        "text": " ..mal pro.. ",
+        "placeholder": "Häufigkeit"
+      },
+      "title": "Buchungen für Gäste erlauben"
+    },
+    "extra_info": {
+      "label": "Studio-Informationen"
+    },
+    "warningColorBrightness": {
+      "save": "Speichern",
+      "cancel": "Abbrechen",
+      "text": "Eine der ausgewählten Farben ist sehr hell und könnte schwer zu erkennen sein",
+      "title": "Achtung",
+      "example": "Beispiel"
+    },
+    "productsThemePersonalization": {
+      "credits": {
+        "description": "Aktiviere oder deaktiviere die Anzeige der Kurspässe",
+        "label": "Credits ausblenden",
+        "subTitle": "Credits"
+      },
+      "title": "Produkte",
+      "productsOrdering": {
+        "itemNumberCaption": "{{count}} Produkt",
+        "itemNumberCaption_plural": "{{count}} Produkte",
+        "description": "Wenn du diese Option aktivierst, dann kannst du Pässe, Pakete und Abos anzeigen, die Mitglieder bei Buchung einer Aktivität brauchen.",
+        "reset": "Zurücksetzen",
+        "label": "Personalisierte Anzeige",
+        "subTitle": "Produkt-Reihenfolge"
+      }
+    },
+    "checkInPersonalization": {
+      "settings": {
+        "save": "Speichern",
+        "beforeStartTime": "Vergangene Kurse werden noch <0/> Stunde(n) und <1/> Minute(n) nach ihrer Startzeit angezeigt"
+      },
+      "title": "Check-In Tablet"
+    }
+  },
+  "pageTitles": {
+    "theme": "Allgemein",
+    "personalization": "Personalisierung",
+    "broadcast": "Videokonferenz"
+  },
+  "analytics": {
+    "showAnalyticsInformation": "Zeige Analytics an",
+    "eventDesc": "Beschreibung des Ereignisses",
+    "gtmEvent": "GTM-Event Name",
+    "fbPixelEvent": "FB Pixel Eventname",
+    "cancel": "Abbrechen",
+    "showBasket": "Wenn der Benutzer seinen Warenkorb anzeigt",
+    "showPass": "Wenn der Nutzer auf einen Pass klickt",
+    "addPackToCart": "Wenn der Benutzer eine Paket in den Warenkorb legt",
+    "addPrivatePassToCart": "Wenn der Benutzer eines Terminpasses in den Warenkorb legt",
+    "addShopItemToCart": "Wenn der Benutzer einen Artikel aus dem Webshop in den Warenkorb legt",
+    "paymentSuccess": "Wenn der Benutzer die Zahlung erfolgreich abgeschlossen hat",
+    "signupSuccess": "Wenn der Benutzer ein Konto erstellt hat",
+    "sessionShow": "Wenn der Benutzer einen Kurs auswählt",
+    "contractShow": "Wenn der Benutzer ein Abonnement ansieht",
+    "contractPaymentShow": "Wenn sich der Benutzer auf der Zahlungsseite eines Abonnements befindet",
+    "workshopClick": "Wenn der Benutzer ein Datum aus einem Workshop auswählt",
+    "addPassToCart": "Wenn ein Nutzer einen Pass in seinen Warenkorb legt",
+    "signinShow": "Wenn der Benutzer auf der Anmeldeseite ankommt",
+    "signupShow": "Wenn der Benutzer das Registrierungsformular anzeigt",
+    "contractPaymentSuccess": "Wenn der Benutzer ein Abo abgeschlossen hat",
+    "bookingSuccess": "Wenn ein Benutzer einen Kurs bucht (Gruppenaktivitäten)",
+    "leadAcquisitionSuccess": "Wenn ein Benutzer das Akquise-Widget erfolgreich übermittelt hat",
+    "openAnalyticsModalButton": "Analyse-Tools verbinden",
+    "analyticsInformationModal": {
+      "confirm": "Zur Anleitung",
+      "content": "Mit Analyse-Tools wie Google Tag Manager, Google Analytics and Meta-Pixel gewinnst du wichtige Kennzahlen für dein Studio. Wir bieten dir eine Kurzanleitung zur Einrichtung an.",
+      "title": "Analyse-Tools für mehr Erkenntnisse"
+    }
+  },
+  "signUpForm": {
+    "fields": {
+      "email": "E-Mail",
+      "gender": "Typ",
+      "main_phone": "Haupttelefon",
+      "sms_notification": "SMS-Benachrichtigungen akzeptieren",
+      "accept_email": "E-Mail-Benachrichtigungen akzeptieren",
+      "accept_sms": "Akzeptiert SMS-Benachrichtigungen",
+      "cgu": "Nutzungsbedingungen und Konditionen",
+      "first_name": "Vornamen",
+      "last_name": "Name",
+      "phone": "Haupttelefon",
+      "birthdate": "Datum der Geburt",
+      "birthday": "Datum der Geburt",
+      "address": "Adresse",
+      "address_line_1": "Adresse",
+      "address_line_2": "Zusätzliche Adresse",
+      "additionnal_address_info": "Zusätzliche Adresse",
+      "city": "Stadt",
+      "country": "Land",
+      "zip_code": "Postleitzahl",
+      "zipcode": "Postleitzahl",
+      "profile_picture": "Profilbild",
+      "photo": "Profilbild",
+      "emergency_contact": "Kontakt für Notfälle",
+      "email_notification": "E-Mail-Benachrichtigungen akzeptieren",
+      "general_terms_and_conditions_accepted": "Nutzungsbedingungen und Konditionen",
+      "waiver": "Haftungsfreistellung",
+      "vaccination_status": "Status Sanitärpass COVID-19"
+    },
+    "error": "Es ist ein Problem aufgetreten",
+    "title": "Formulare für Mitglieder",
+    "account_creation": "Ein Konto erstellen",
+    "account_modification": "Ein Konto bearbeiten",
+    "field_identifier": "Felder",
+    "label": "Etikett",
+    "show": "Siehe",
+    "required": "Obligatorisch",
+    "editable": "Veränderbar",
+    "save": "Speichern Sie",
+    "success": "Gespeicherte Konfiguration",
+    "customQuestionDialog": {
+      "confirm": "Ein Formular erstellen",
+      "cancel": "Abbrechen",
+      "content": "Um dem Anmeldeformular neue Fragen hinzuzufügen, können Sie auf dem Tab Marketing > Formulare ein neues Formular erstellen. Fügen Sie Ihre Fragen hinzu und fügen Sie dieses Formular dann dem Anmeldeformular hinzu, indem Sie die Bedingung \"Neue Mitglieder ansprechen\" auswählen.",
+      "title": "Maßgeschneiderte Fragen"
+    },
+    "addQuestions": "Hinzufügen von Fragen",
+    "additionalCustomForm": "Zusätzliche Formulare"
+  },
+  "zoom": {
+    "confirmDialog": {
+      "title": "ZOOM-Integration",
+      "text": "Wenn Sie bereits Videokonferenz-Links manuell in Ihre Kurse eingegeben haben, werden diese gelöscht und durch automatisch generierte Zoom-Links ersetzt. Bereits im ZOOM-Kalender erstellte Meetings müssen manuell gelöscht werden, sie werden durch automatisch erstellte Meetings ersetzt."
+    }
+  },
+  "quickbooks": {
+    "confirmDialog": {
+      "text": "Sind Sie sicher, dass Sie bsport den Zugriff auf Ihre Anwendung erlauben wollen?",
+      "title": "QuickBooks Verbindung"
+    },
+    "title": "QuickBooks"
+  },
+  "marketingEmail": {
+    "caption": "Kopien von Transaktions-E-Mails werden an diese Adresse gesendet, wenn die Einstellung aktiviert ist",
+    "placeholder": "E-Mail",
+    "label": "Follow-Up E-Mail"
+  },
+  "provincialTax": {
+    "helperText": "Die Mehrwertsteuer ist kleiner oder gleich der angegebenen Provinzsteuer. Auf Rechnungen wird nur diese Steuer angegeben, ohne zwischen Bundes- und Provinzsteuer zu unterscheiden."
+  },
+  "taxDisplay": {
+    "info": "Mit dieser Option werden im Marktplatz, im Widget und in der App nur Netto-Preise angezeigt.",
+    "title": "Preise",
+    "checkbox": "Netto-Preise anzeigen"
+  }
+}

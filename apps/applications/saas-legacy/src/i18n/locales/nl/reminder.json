@@ -1,0 +1,39 @@
+{
+  "task": {
+    "form": {
+      "task_owner": {
+        "helperText": "Een medewerker selecteren"
+      },
+      "date_due": {
+        "label": "Herinneringsdatum"
+      },
+      "name": {
+        "label": "Titel"
+      },
+      "description": {
+        "label": "Bericht"
+      },
+      "submit": "Bevestigen",
+      "close": "Annuleren",
+      "title": "Taak"
+    },
+    "actions": {
+      "cancel": "Archiveren",
+      "restart": "Opnieuw",
+      "finish": "Afronden",
+      "addTask": "Een taak toevoegen"
+    },
+    "author": "Auteur",
+    "owners": "Toegewezen aan ",
+    "status": {
+      "0": "Bezig",
+      "10": "Voltooid",
+      "20": "Geannuleerd"
+    },
+    "sectionTitle": {
+      "past": "Gearchiveerde taken",
+      "future": "Geplande taken",
+      "pending": "Openstaande taken"
+    }
+  }
+}

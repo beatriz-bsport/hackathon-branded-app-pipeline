@@ -1,0 +1,107 @@
+{
+  "form": {
+    "selectorPlaceholder": {
+      "paymentPack": "Kurspässe",
+      "privatePass": "Terminpass",
+      "shopitem": "Webshop",
+      "shopItemExcludingvariant": "Webshop (ausgenommen Produkte mit Varianten)"
+    },
+    "content": "Inhalt",
+    "actions": {
+      "cancel": "Abbrechen",
+      "submit": "Speichern"
+    },
+    "manager_only": {
+      "label": "Für Kunden unsichtbar"
+    },
+    "tax": {
+      "label": "Mehrwertsteuer"
+    },
+    "price": {
+      "label": "Preis"
+    },
+    "name": {
+      "label": "Name"
+    },
+    "title": "Package-Formular",
+    "available_payment_method_identifiers": {
+      "helperText": "Wählen Sie mindestens eine Zahlungsmethode aus. Wenn Sie keine auswählen, wird standardmäßig eine Kartenzahlung angeboten.",
+      "label": "Zugelassene Zahlungsmethoden"
+    },
+    "description": {
+      "label": "Beschreibung"
+    },
+    "new_member_only": {
+      "label": "Nur für neue Mitglieder"
+    },
+    "maxPurchasePerMember": {
+      "helperText": "Leer lassen, um keinen Grenzwert zu setzen",
+      "label": "Maximaler Kauf pro Mitglied"
+    },
+    "error": {
+      "atLeastOneThing": "Sie müssen Ihrem Paket mindestens einen Artikel hinzufügen"
+    },
+    "usePaymentComboTaxOnItems": {
+      "helperText": "Standardmäßig wird auf jeden Gegenstand die Steuer angewendet, die auf dem Gegenstand angegeben ist. Wenn Sie diese Option auswählen, können Sie eine allgemeine Steuer auf das Paket anwenden.",
+      "label": "Allgemeine Mehrwertsteuer auf das gesamte Paket anwenden"
+    },
+    "unusableByStaff": {
+      "label": "Unsichtbar für Mitarbeiter"
+    },
+    "expiration_date": {
+      "label": "Frist für den Kauf",
+      "helperText": "Verfügbar bis",
+      "tooltip": "Nach Ablauf des gewählten Datums wird das Paket nicht mehr zum Verkauf für Kunden angezeigt."
+    },
+    "highlightedAsRecommended": {
+      "label": "Als empfohlen markieren",
+      "helperText": "Ermöglicht es Ihren Kunden, auf einen Blick zu sehen, welche Pakete derzeit empfohlen werden."
+    },
+    "advancedOptions": {
+      "tag": {
+        "tagGroupDuplicated": "Bitte beachten Sie, dass ausgewählte Artikel Tags der gleichen Kategorie enthalten.",
+        "selectTags": "Tags auswählen",
+        "tagsOnAcquisitionHelper": "Mit Tags kannst du Mitglieder markieren, die dieses Paket gekauft haben, um sie in Zukunft schnell wiederfinden zu können.",
+        "tagsOnAcquisition": "Tag nach dem Kauf"
+      },
+      "header": "Erweitert"
+    }
+  },
+  "list": {
+    "buttons": {
+      "add": "Ein Paket erstellen"
+    },
+    "explainIfEmpty": "Hier können die Pakete erstellt werden, die von Kunden gekauft werden können und die Kurspässe, Produkte des Webshops, usw. enthalten können...",
+    "section": {
+      "availableOnline": "Zum Verkauf verfügbar",
+      "unavailableOnline": "Nicht zum Verkauf verfügbar"
+    }
+  },
+  "link": {
+    "copyLink": "Kopiere den Link zur Zahlungsseite",
+    "copied": "Kopierter Link"
+  },
+  "pageTitle": {
+    "list": "Pakete"
+  },
+  "delete": {
+    "content": "Bist Du sicher, dass Du dieses Package löschen möchtest? Diese Aktion ist unwiderruflich. Die bereits abgeschlossene Käufe und der aktuelle Warenkorb werden nicht davon betroffen.",
+    "title": "Löschung des Pakets",
+    "submit": "Löschen",
+    "cancel": "Abbrechen"
+  },
+  "detail": {
+    "emptyContent": "Dieses Package ist leer !",
+    "content": "Inhalt",
+    "containsNProducts": "Enthält {{ n }} Produkte",
+    "description": "Beschreibung",
+    "purchases": "Verkäufe",
+    "itemCount": "{{ count }} Element",
+    "itemCount_plural": "{{ count }} Elemente"
+  },
+  "edit": "Ändern",
+  "search": "Suche nach einem Paket",
+  "parameters": {
+    "unusableByStaff": "Unsichtbar für die Mitarbeiter"
+  }
+}

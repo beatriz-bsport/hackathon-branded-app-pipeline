@@ -40,11 +40,15 @@ export const NotificationRuleDetailsContent: FC<
 }: NotificationRuleDetailsContentProps) => {
   const [searchParams] = useSearchParams();
   const { isPushNotificationEnabled } = useAvailableUpsells();
-  const [selectedOption, setSelectedOption] = useState<NotificationSegments>(
-    isPushNotificationEnabled && searchParams.get("notificationType")
-      ? (searchParams.get("notificationType") as NotificationSegments)
-      : "email_notification",
-  );
+  const notificationType = searchParams.get("notificationType");
+  const initialSegment: NotificationSegments =
+    isPushNotificationEnabled &&
+    notificationType &&
+    isNotificationSegment(notificationType)
+      ? notificationType
+      : "email_notification";
+  const [selectedOption, setSelectedOption] =
+    useState<NotificationSegments>(initialSegment);
 
   const shouldBlockPushNotification =
     !isPushNotificationEnabled ||
@@ -65,7 +69,7 @@ export const NotificationRuleDetailsContent: FC<
   }
 
   return (
-    <div className="flex flex-col gap-md">
+    <div className="flex flex-col gap-sm">
       <div className="flex flex-col gap-sm">
         <Title htmlVariant="h3" weight="strong">
           {selectedNotificationRule?.rule?.notification_event
@@ -99,17 +103,15 @@ export const NotificationRuleDetailsContent: FC<
           />
         ) : null}
         {selectedOption === "email_notification" ? (
-          <Title htmlVariant="h4" className="mt-md">
-            <NotificationRuleEmailNotificationDetails
-              emailDesignId={
-                selectedNotificationRule?.details?.email_design ?? null
-              }
-              selectedNotificationEventId={selectedNotificationEventId}
-              selectedNotificationRule={selectedNotificationRule}
-              fetchNotificationRuleEventData={fetchNotificationRuleEventData}
-              toggleEmailCarbonCopy={toggleEmailCarbonCopy}
-            />
-          </Title>
+          <NotificationRuleEmailNotificationDetails
+            emailDesignId={
+              selectedNotificationRule?.details?.email_design ?? null
+            }
+            selectedNotificationEventId={selectedNotificationEventId}
+            selectedNotificationRule={selectedNotificationRule}
+            fetchNotificationRuleEventData={fetchNotificationRuleEventData}
+            toggleEmailCarbonCopy={toggleEmailCarbonCopy}
+          />
         ) : null}
         {!shouldBlockPushNotification &&
         selectedOption === "push_notification" ? (

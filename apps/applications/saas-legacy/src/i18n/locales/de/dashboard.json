@@ -1,0 +1,326 @@
+{
+  "detailsGraphTitle": "Details",
+  "filterByDateTitle": "Sortieren nach: Datum",
+  "dateRange": {
+    "end": "Ende",
+    "start": "Start"
+  },
+  "turnover": {
+    "title": "Umsatz",
+    "caption": "Einnahmen (€)",
+    "popover": "Summe aller auf Rechnungen eingegangenen Zahlungen"
+  },
+  "nbOffers": "Kurse",
+  "newMembers": "Neue Mitglieder",
+  "thisMonth": "Dieser Monat",
+  "thisWeek": "Diese Woche",
+  "current_year": "Letztes Jahr",
+  "last_three_months": "Drei letzten Monate",
+  "current_week": "Letzte Woche",
+  "current_month": "Letzter Monat",
+  "bookings": "Buchungen",
+  "pageTitle": "Dashboard",
+  "current_day": "Letzte 24 Stunden",
+  "turnoverTitle": "Eingegangene Zahlungen",
+  "popover": {
+    "turnover": "Summe aller auf Rechnungen eingegangenen Zahlungen",
+    "bookingsWeektimeSlot": "Durchschnittliche Anzahl von Buchungen pro Zeitfenster",
+    "billedSubscriptions": "Die Anzahl der Rechnungen, die mit einem nicht gekündigten Abonnement verknüpft sind"
+  },
+  "billedSubscriptions": {
+    "title": "Anzahl der in Rechnung gestellten Abonnements",
+    "caption": "Abonnements",
+    "popover": "Die Anzahl der Rechnungen, die mit einem nicht gekündigten Abonnement verknüpft sind"
+  },
+  "bookingsWeektimeSlot": {
+    "title": "Wöchentliche Übersicht",
+    "popover": "Durchschnittliche Anzahl von Kursen pro Zeitfenster"
+  },
+  "dateFilter": {
+    "customSelect": "Wählen Sie einen Datenbereich",
+    "quickSelect": "Schnellauswahl"
+  },
+  "noData": "Keine Daten verfügbar",
+  "plannedPayment": {
+    "caption": "Umsatz",
+    "title": "Umsatz von Abonnements",
+    "popover": "Summe aller Zahlungen für Abonnements"
+  },
+  "bookingSource": {
+    "title": "Herkunft der Buchungen",
+    "app": "Applikation",
+    "web": "Web",
+    "saas": "Bsport Backoffice",
+    "other": "Andere",
+    "migration": "Datenmigration"
+  },
+  "invoiceItems": {
+    "title": "Verkäufe nach Produkttyp",
+    "contentType": {
+      "1": "Kurskarten",
+      "2": "Produkte",
+      "6": "Versandkosten",
+      "7": "Werbeaktion",
+      "9": "Terminkarte",
+      "10": "Packages"
+    }
+  },
+  "invoiceItemDropdown": {
+    "contentType": {
+      "1": "Kurspässe",
+      "2": "Produkte",
+      "6": "Versandkosten",
+      "7": "Werbeaktionen",
+      "9": "Terminpässe",
+      "10": "Pakete"
+    }
+  },
+  "bookingDropdown": {
+    "source": {
+      "0": "App",
+      "1": "Webseite",
+      "2": "bsport Backoffice",
+      "3": "Mitgliederbereich",
+      "4": "Datenmigration"
+    }
+  },
+  "resetModal": {
+    "confirm": "Weiter",
+    "cancel": "Abbrechen",
+    "content": "Die Diagramme werden auf ihre Standardeinstellungen zurückgesetzt. Wenn Sie Tabellen erstellt haben, werden diese gelöscht. Sind Sie sicher, dass Sie fortfahren möchten?",
+    "title": "Einstellungen zurücksetzen"
+  },
+  "save": "Speichern",
+  "customChart": {
+    "form": {
+      "radio": {
+        "pie": "Kreisdiagramm",
+        "grid": "Häufigkeitstabelle",
+        "area": "Flächendiagramm",
+        "bar": "Histogramm",
+        "qualitativeInvoiceItem": "Aufteilung",
+        "temporalPlannedInvoice": "Entwicklung über Zeit",
+        "temporalPayment": "Entwicklung über Zeit",
+        "qualitativeBooking": "Verteilung",
+        "temporalBooking": "Entwicklung über Zeit",
+        "temporalTimeslotBooking": "Tägliche und stündliche Frequenzen",
+        "temporalMember": "Entwicklung über Zeit",
+        "temporalPrivateBooking": "Entwicklung im Laufe der Zeit"
+      },
+      "aggregateHelper": "Beispiel: Zeigt die Entwicklung der Gesamtzahl der Mitglieder anstelle der Anzahl der neuen Mitglieder pro Monat an.",
+      "aggregate": "Zusammenfassen",
+      "name": "Titel",
+      "selector": {
+        "invoice": "Käufe",
+        "payment": "Zahlungen",
+        "booking": "Buchungen",
+        "member": "Neue Mitglieder",
+        "object": {
+          "helperText": "Wählen Sie aus, was angezeigt werden soll.",
+          "placeholder": "Wählen Sie einen Datentyp.",
+          "isEmpty": "Keine Daten ausgewählt."
+        },
+        "privateBooking": "Termine"
+      },
+      "graphComponent": "Gewünschte Darstellung",
+      "datatype": "Art des Diagramms",
+      "submit": "Speichern",
+      "cancel": "Abbrechen",
+      "title": "Diagramm"
+    },
+    "noResource": "Bitte wählen Sie einen Datentyp.",
+    "addChart": "Diagramm hinzufügen"
+  },
+  "booking": {
+    "popover": "Die Gesamtzahl der für dieses Datum erhaltenen Reservierungen. Sie können nach Stornierungen / verspäteten Stornierungen / ... filtern.",
+    "caption": "Bestätigte Buchungen",
+    "title": "Buchungen"
+  },
+  "graphFormDrawer": {
+    "helperText": {
+      "booking_effectif_timeslots": "Durchschnittliche Anzahl der Teilnehmer in den Kursen pro Zeitfenster.",
+      "subscriptionCount": "Anzahl der Rechnungen im Zusammenhang mit den Abonnements.",
+      "subscriptionPrice": {
+        "max": "Maximum aller erhaltenen Zahlungen im Zusammenhang mit den Abonnements.",
+        "min": "Minimum aller erhaltenen Zahlungen im Zusammenhang mit den Abonnements.",
+        "avg": "Durchschnitt aller erhaltenen Zahlungen im Zusammenhang mit den Abonnements.",
+        "sum": "Summe aller erhaltenen Zahlungen im Zusammenhang mit den Abonnements."
+      },
+      "plannedInvoiceCount": "Anzahl der Rechnungen im Zusammenhang mit den Abonnements.",
+      "dateCreated": "Die Daten werden zeitlich nach dem Datum dargestellt, an dem die Buchungen vorgenommen wurden.",
+      "dateStart": "Die Daten werden zeitlich entsprechend dem Startdatum des Kurses dargestellt.",
+      "accumulateMembers": "Zeigt die Entwicklung der Gesamtanzahl der Mitglieder an."
+    },
+    "accumulate": {
+      "total": "Akkumulieren"
+    },
+    "dashboardGraphIdentifier": {
+      "graph_dispute": "Streitigkeiten",
+      "graph_subscriptions": "Rechnungen der Abonnements",
+      "graph_payments": "Zahlungen",
+      "graph_private_bookings": "Termine",
+      "graph_bookings": "Buchungen",
+      "graph_members": "Neue Mitglieder",
+      "graph_billing_plan": "Abonnements",
+      "graph_invoice_items": "Einkäufe"
+    },
+    "aggregation": {
+      "max": "Maximum",
+      "min": "Minimum",
+      "avg": "Durchschnitt",
+      "sum": "Summe"
+    },
+    "graphFamily": {
+      "week_timeslots": "Tägliche und stündliche Frequenzen",
+      "qualitative": "Verteilung",
+      "temporal": "Entwicklung im Laufe der Zeit"
+    },
+    "chartComponents": {
+      "timeslots": "Tägliche und stündliche Frequenzen",
+      "pie": "Kreisdiagramm",
+      "area": "Flächendiagramm",
+      "qualitativeBar": "Histogramm",
+      "bar": "Histogramm"
+    },
+    "placeholders": {
+      "aggregationSelector": "Wählen Sie einen Vorgang",
+      "dashboardGraphIdentifier": "Wählen Sie einen Datentyp"
+    },
+    "labels": {
+      "aggregationName": "Aggregation",
+      "dividedBy": "Geteilt durch",
+      "dataToDisplay": "Angezeigte Daten",
+      "dateFilterField": "Angabe für das Datum",
+      "groupByField": "Verteilen auf",
+      "graphFamily": {
+        "qualitative": "Verteilung",
+        "temporal": "Entwicklung im Laufe der Zeit"
+      },
+      "title": "Name"
+    },
+    "sectionTitles": {
+      "filterConfig": "Filter",
+      "timePeriod": "Zeitraum",
+      "graphParams": "Daten",
+      "graphFamily": "Grafik",
+      "dashboardGraphIdentifier": "Art der Daten",
+      "general": "Allgemeine Informationen"
+    },
+    "title": {
+      "edit": "Bearbeiten einer Grafik",
+      "create": "Erstellen einer Grafik"
+    }
+  },
+  "graphActions": {
+    "delete": "Löschen",
+    "edit": "Bearbeiten"
+  },
+  "showMoreLegend": "+ {{count}} Legende",
+  "showMoreLegend_plural": "+ {{count}} Legenden",
+  "addFilter": "Filter hinzufügen",
+  "filterChipLabel": "{{count}} Filter",
+  "filterChipLabel_plural": "{{count}} Filter",
+  "privateBooking": {
+    "popover": "Die Gesamtzahl der für dieses Datum gespeicherten Termine. Sie können nach Stornierungen / Rückerstattungen / ... filtern.",
+    "caption": "Registrierte Termine",
+    "title": "Termine"
+  },
+  "noGraphToDisplay": "Auf diesem Tab sind keine Graphen konfiguriert. Fügen Sie hier einen hinzu.",
+  "tabNameDialog": {
+    "placeholder": "Name",
+    "titleRename": "Tab umbenennen",
+    "titleAdd": "Einen neuen Tab hinzufügen"
+  },
+  "dataSourceIdentifiers": {
+    "payment_pack": "Kurspässe",
+    "activity": "Aktivität",
+    "private_service_name": "Termin",
+    "price": "Preis inkl. MwSt",
+    "contract": "Vertrag",
+    "date": "Zahlungsdatum",
+    "payment_method": "Zahlungsmethode",
+    "payment_price": "Preis inkl. MwSt",
+    "payment_date": "Zahlungsdatum",
+    "accept_sms": "Akzeptiert SMS",
+    "accept_email": "Akzeptiert E-Mails",
+    "gender": "Geschlecht",
+    "billing_establishment": "Standort",
+    "billing_group": "Abrechnungsgruppe",
+    "coach": "Lehrkäfte",
+    "was_refunded": "Erstattet",
+    "booking_status_code": "Status der Buchung",
+    "date_created": "Datum der Buchung",
+    "date_start": "Datum des Kurses",
+    "attendance": "Anwesend",
+    "payment_engine": "Art der Zahlung",
+    "is_workshop": "Workshop",
+    "activity_kind": "Art des Kurses",
+    "booking_effectif_timeslots": "Durchschnittliche Anzahl",
+    "plannedinvoice_pk": "Anzahl der Rechnungen",
+    "payment_pk": "Anzahl der Zahlungen",
+    "privatebooking_pk": "Anzahl der Termine",
+    "source_device": "Herkunft",
+    "is_recurrent_booking": "Wiederkehrende Buchungen",
+    "booking_pk": "Buchungen",
+    "member_pk_accumulate": "Anzahl der Mitglieder",
+    "member_pk": "Anzahl der neuen Mitglieder",
+    "date_joined": "Datum der Anmeldung",
+    "plan_auto_renewal": "Automatische Verlängerung",
+    "billing_plan_payment_method": "Zahlungsmethode",
+    "last_invoice_status": "Status der letzten Zahlung",
+    "billingplan_pk": "Anzahl der Abonnements",
+    "new_member_only": "Angebot für Neumitglieder",
+    "plan_date_end": "Enddatum der Rechnungsstellung",
+    "plan_date_start": "Erstes Rechnungsdatum",
+    "plan_flat_fee": "Anmeldegebühr",
+    "plan_recurrent_price": "Wiederkehrender Zahlungsbetrag",
+    "private_pass": "Terminpass",
+    "total_payments_made": "Anzahl der getätigten Zahlungseingänge",
+    "is_no_show": "Abwesend",
+    "contract_name": "Abonnement",
+    "payout_identifier": "Überweisung",
+    "payout_status": "Status der Überweisung",
+    "total_discount": "Gesamtrabatt",
+    "plan_status": "Abo-Status",
+    "establishment": "Einrichtung",
+    "nb_planned_invoices": "Anzahl der Zahlungseingänge gesamt",
+    "margin_value": "Marginaler Wert (inkl. MwSt.)",
+    "dispute_status": "Status der Streitfälle",
+    "payout_date_created": "Überweisungsdatum",
+    "is_unpaid": "Unbezahlt",
+    "staff_commission_amount_notax": "Personalprovision ohne MwSt",
+    "staff_commission_amount": "Personalprovisionen inkl. MwSt",
+    "franchisor_commission_amount_notax": "Gebühren für die Franchisenehmerprovision HT",
+    "franchisor_commission_amount": "Franchisenemer commissie HT",
+    "total_price_notax": "Gesamtbetrag ohne MwSt",
+    "total_price": "Gesamtbetrag inkl. MwSt",
+    "invoice_date_created": "Datum der Rechnungsstellung",
+    "author": "Autor",
+    "invoiceitem_pk": "Anzahl der in Rechnung gestellten Artikel",
+    "invoice_datetime": "Ausstellungsdatum der Rechnung",
+    "booking_date_created": "Reservierungsdatum",
+    "bookkeeping_account_number": "Kontonummer",
+    "bookkeeping_account_name": "Name des Kontos",
+    "billing_group_address": "Adresse",
+    "private_booking_date_created": "Datum und Zeit der Buchung",
+    "is_first_visit": "Erste Buchung",
+    "product_type": "Produkttyp",
+    "product": "Produkt"
+  },
+  "graphDefaultTitles": {
+    "paymentTemporal": "Zahlungseingänge",
+    "bookingTimeslots": "Durchschnittliche Mitarbeiterzahl",
+    "bookingQualitative": "Herkunft der Buchungen",
+    "bookingTemporal": "Buchungen",
+    "subscriptionTemporalCount": "Anzahl der Abonnementrechnungen",
+    "billingPlanTemporal": "Abonnements",
+    "memberTemporal": "Neue Mitglieder",
+    "privateBookingTemporal": "Termin",
+    "subscriptionTemporalSum": "Abonnementzahlungen",
+    "invoiceItemTemporal": "Summe der in Rechnung gestellten Posten"
+  },
+  "placeholderEmptyValues": {
+    "coach": "Keine Lehrkraft",
+    "establishment": "Keine Einrichtung"
+  }
+}

@@ -1,0 +1,55 @@
+{
+  "lessonList": {
+    "shareLesson": "Condividi la lezione",
+    "addOn": "Componente aggiuntivo",
+    "new": "Nuovo",
+    "missingUpsell": "Non disponi di questa funzione, contatta il tuo account manager.",
+    "start": "Inizio",
+    "share": "Condividi"
+  },
+  "sectionList": {
+    "addOn": "Componente aggiuntivo",
+    "missingUpsell": "Alcune funzionalità non sono disponibili in questa sezione. Si prega di contattare il gestore dell'account.",
+    "shareSection": "Condividi la sezione",
+    "new": "Nuovo"
+  },
+  "lessonHeader": {
+    "addOn": "Componente aggiuntivo",
+    "backToList": "Torna alla lista",
+    "warning": "Questo è un componente aggiuntivo. Non disponi di questa funzione, contatta il tuo account manager."
+  },
+  "welcomeDialog": {
+    "infoText": "Benvenuto nella tua nuova piattaforma di gestione. Impariamo insieme a scoprire tutte le funzionalità di Bsport per avviare il tuo studio nelle migliori condizioni.",
+    "title": "Benvenuto in Bsport!",
+    "rejectButton": "Voglio imparare da solo",
+    "approveButton": "Andiamo !"
+  },
+  "shareDialog": {
+    "infoTextLesson": "Condividi il corso {{- name }} con i membri del tuo staff che non hanno accesso alla scheda dei tutorial. Saranno in grado di navigare solo all'interno di questo corso.",
+    "title": "Condividi",
+    "infoTextSection": "Condividi tutti i corsi nella sezione {{- name }} con i membri del tuo staff che non hanno accesso alla scheda dei tutorial. Potranno navigare solo all'interno di questa sezione.",
+    "continueButton": "Continua"
+  },
+  "menuHeader": {
+    "title": "Benvenuto nella nostra guida introduttiva.",
+    "infoText": "Scopri come utilizzare tutte le funzionalità di base di Bsport grazie ai nostri diversi corsi."
+  },
+  "sectionFinishDialog": {
+    "title": "Congratulazioni !",
+    "infoText": "Hai completato tutti i corsi nella sezione {{- name }}. Continua a migliorare completando la sezione successiva.",
+    "continueButton": "Continua"
+  },
+  "allFinishDialog": {
+    "title": "Terminato !",
+    "infoText": "Complimenti, hai completato tutti i corsi offerti da Bsport. Ora conosci la piattaforma come il palmo della tua mano! Sai come utilizzare tutte le funzionalità di base, molte altre ti aspettano per aiutarti a sviluppare al meglio il tuo business.",
+    "continueButton": "Contiinua"
+  },
+  "lessonContent": {
+    "previousLesson": "Precedente",
+    "nextLesson": "Prossimo",
+    "finish": "Termina la sezione"
+  },
+  "menu": {
+    "helpButton": "Cerca aiuto"
+  }
+}

@@ -1,0 +1,48 @@
+{
+    "detail": {
+        "tab": {
+            "general": "",
+            "campaign": ""
+        }
+    },
+    "duplicate": "",
+    "edit": "",
+    "delete": "",
+    "cancel": "",
+    "search": "",
+    "modal": {
+        "delete": {
+            "title": "",
+            "cancel": "",
+            "confirm": "",
+            "content": ""
+        }
+    },
+    "sendToAllMembers": "",
+    "memberSelectionTitle": "",
+    "campaign": {
+        "add": ""
+    },
+    "historyTitle": "",
+    "noCampaign": "",
+    "campaignCreationWarning": "",
+    "memberSelectionInfo": "",
+    "mail": {
+        "sendMail": "",
+        "chooseSender": "",
+        "franchiseeMail": "",
+        "customEmail": "",
+        "example": "",
+        "customDomainNotDefined": "",
+        "sendButton": ""
+    },
+    "smartListOption": "",
+    "schemaError": {
+        "nonEmptySmartList": "",
+        "nonEmptyToggle": "",
+        "nonEmptyBody": "",
+        "nonEmptyEmailTemplate": ""
+    },
+    "save": "",
+    "exportCampaign": ""
+}

@@ -1,0 +1,236 @@
+{
+  "itemList": {
+    "additionDrawer": {
+      "withoutCategory": "Keine Kategorie",
+      "noResult": "Kein Ergebnis",
+      "unselectAll": "Alle deselektieren",
+      "selectAll": "Alles auswählen",
+      "simpleObjectsSubtitle": "Objekt hinzufügen",
+      "objectType": "Produkt-Typ",
+      "category": "Kategorie",
+      "add": "Hinzufügen",
+      "cancel": "Abbrechen",
+      "search": "Suche",
+      "tilesColor": "Produkt-Farbe",
+      "objectsAddition": "Objekte hinzufügen",
+      "objectGroupsSubtitle": "Eine Gruppe von Objekten hinzufügen",
+      "title": "Schnittstelle zum Verkauf"
+    },
+    "goBack": "Zurück"
+  },
+  "iconSelector": {
+    "searchPlaceholder": "Suche"
+  },
+  "sectionCard": {
+    "item": "Artikel",
+    "item_plural": "Artikel"
+  },
+  "objectCard": {
+    "recurrence": {
+      "year": "jedes Jahr",
+      "year_plural": "alle {{ recurrence_basis }} Jahre",
+      "month": "jeden Monat",
+      "month_plural": "alle {{ recurrence_basis }} Monate",
+      "week": "jede Woche",
+      "week_plural": "alle {{ recurrence_basis }} Wochen",
+      "day": "jeden Tag",
+      "day_plural": "alle {{ recurrence_basis }} Tage"
+    },
+    "subtitle": {
+      "giftcard": "Gutschein",
+      "subscription": "Vertrag",
+      "paymentCombo": "Paket",
+      "shopProduct": "Produkt",
+      "privatePass": "Terminpass",
+      "paymentPack": "Kurspass",
+      "product": "Produkt",
+      "product_plural": "Produkte",
+      "credit": "Credit",
+      "credit_plural": "Credits",
+      "unlimited": "Unbegrenzt"
+    }
+  },
+  "cardListPage": {
+    "preview": "Vorschau",
+    "save": "Speichern",
+    "editIcon": "Symbol bearbeiten",
+    "editName": "Name bearbeiten",
+    "editColor": "Farbe bearbeiten",
+    "moveTile": "Kachel bewegen",
+    "archiveSection": "Kategorie archivieren",
+    "deleteTile": "Kachel entfernen",
+    "addSection": "Sie können auch eine Kategorie hinzufügen, indem Sie auf die + Kachel an der letzten Stelle klicken.",
+    "addItems": "Sie können auch Gegenstände hinzufügen, indem Sie auf die + Kachel an der letzten Position klicken.",
+    "newSection": "Neue Kategorie",
+    "categoryModalTitle": "Farbe der Kategorie",
+    "categoryModalSubtitle": "Farbpalette",
+    "possibleActionsShort": "Sie können Aktionen ausführen, indem Sie mit der Maus über die Kacheln fahren...",
+    "possibleActionsFull": "Sie können Aktionen ausführen, wenn Sie mit der Maus über die Kacheln fahren. So können Sie :",
+    "seeMore": "Mehr anzeigen",
+    "seeLess": "Weniger anzeigen",
+    "archivedCategories": "Archivierte Kategorien",
+    "categoryArchivedSnackbar": "Kategorie wurde archiviert"
+  },
+  "pageLeavePrompt": {
+    "title": "Änderungen nicht gespeichert",
+    "save": "Speichern",
+    "discard": "Verlassen ohne zu speichern",
+    "description": "Achtung: Sie haben keine Sicherheitskopie erstellt. Sie sind dabei, alle vorgenommenen Änderungen zu verlieren. Möchten Sie Ihre Arbeit sichern?"
+  },
+  "pageTitle": "Verkaufsschnittstelle",
+  "rolePage": {
+    "subtitle": "Diese Zugänge ermöglichen den Mitarbeitern den Zugriff auf die Schnittstelle für den Schnellverkauf. Sie müssen sich einloggen, um über die Schnittstelle verkaufen zu können.",
+    "addAccess": "Zugang hinzufügen",
+    "modalTitle": "Erstellen eines Zugangs zur Verkaufsschnittstelle",
+    "email": "E-Mail",
+    "password": "Passwort",
+    "cancel": "Abbrechen",
+    "submit": "Validieren",
+    "staffColumn": "Mitarbeiter",
+    "emailColumn": "E-Mail",
+    "actionColumn": "Aktion",
+    "noResult": "Kein Zugang erstellt",
+    "title": "Zugang zur Verkaufsstelle",
+    "firstName": "Vorname",
+    "lastName": "Name"
+  },
+  "interface": {
+    "noResult": "Keine Treffer",
+    "goBack": "Rücksendung",
+    "totalExcludingTax": "Gesamt HT",
+    "taxes": "Steuern",
+    "totalIncludingTax": "Gesamt",
+    "payment": "Bezahlung",
+    "selectItemToStart": "Klicke auf ein Objekt, um einen Warenkorb zu beginnen",
+    "memberModal": {
+      "title": "Identifikation des Mitglieds",
+      "confirm": "Registrieren",
+      "cancel": "Abbrechen"
+    },
+    "authenticationNecessary": "Für diesen Abschnitt ist die Authentifizierung eines Mitglieds erforderlich.",
+    "ongoingBaskets": {
+      "title": "Aktuelle Warenkörbe",
+      "subText": "Es laufen Rechnungen, bitte schließen Sie diese, bevor Sie sich abmelden."
+    },
+    "deleteCurrentBasket": {
+      "title": "Aktuellen Warenkorb löschen",
+      "subText": "Sind Sie sicher, dass Sie den aktuellen Warenkorb löschen möchten?",
+      "cancel": "Stornieren",
+      "delete": "Löschen"
+    },
+    "payLater": {
+      "title": "Aufschieben",
+      "cancel": "Abbrechen",
+      "payLater": "Auf später verschieben",
+      "subText": "Dieser Warenkorb ist bereits teilweise bezahlt. Wenn Sie ihn schließen, verschieben Sie den Rest der Zahlung auf später. Sie können die Rechnung im Backoffice wiederfinden."
+    },
+    "cannotEdit": {
+      "title": "Bearbeitung nicht möglich",
+      "payment": "Bezahlung",
+      "subText": "Der Warenkorb kann nicht mehr geändert werden, da er bereits teilweise bezahlt wurde."
+    },
+    "scannerMode": {
+      "title": "Scanner-Modus",
+      "subText": "Scannen Sie Artikel, um sie in den Warenkorb zu legen.",
+      "done": "beenden"
+    },
+    "objectAdded": {
+      "title": "Objekt hinzugefügt",
+      "subText": "Der Gegenstand wurde erfolgreich in den Warenkorb gelegt."
+    },
+    "outOfStock": {
+      "title": "Mehr Bestand",
+      "subText": "Das Produkt, das du in den Warenkorb legen möchtest, ist in deiner Einrichtung nicht mehr vorrätig. Möchtest du es trotzdem hinzufügen?",
+      "addAnyway": "Trotzdem hinzufügen"
+    },
+    "cannotAdd": {
+      "title": "Hinzufügen nicht möglich",
+      "subTextListItem": "Leider konnte der Artikel nicht hinzugefügt werden, weil",
+      "newMember": {
+        "subText": "{{ optionalBeginning }} {{- name }} ist kein neues Mitglied."
+      },
+      "tag": {
+        "hasTag": "{{ optionalBeginning }} {{- name }} besitzt das Tag {{- tagName }}.",
+        "doesNotHaveTag": "{{ optionalBeginning }} {{- name }} besitzt nicht das Tag {{- tagName }}.",
+        "hasTagAndDoesNotHaveTag": "{{ optionalBeginning }} {{- name }} besitzt das Tag {{- ownedTagName }} und besitzt nicht das Tag {{- notOwnedTagName }."
+      }
+    },
+    "authenticationRequired": {
+      "title": "Identifikation erforderlich",
+      "subTextListItem": "Der Artikel, den Sie hinzufügen möchten, ist",
+      "bottomSubText": "Ohne Identifizierung des Mitglieds können die notwendigen Überprüfungen nicht durchgeführt werden.",
+      "identifyMember": "Ein Mitglied identifizieren",
+      "newMember": {
+        "subTextListItem": "Nur für neue Mitglieder",
+        "subText": "Der Artikel, den Sie hinzufügen möchten, ist nur für neue Mitglieder zugänglich."
+      },
+      "maxPurchase": {
+        "subText": "Der Artikel, den Sie hinzufügen möchten, unterliegt einer Beschränkung der Anzahl der Käufe.",
+        "subTextListItem": "Unterliegt einer Beschränkung der Anzahl der Käufe"
+      },
+      "tag": {
+        "subText": "Der Artikel, den Sie hinzufügen möchten, ist für Mitglieder mit bestimmten Tags reserviert.",
+        "subTextListItem": "Nur für Mitglieder mit bestimmten Tags"
+      }
+    },
+    "itemsRemovedFromBasket": {
+      "title": "Aus dem Warenkorb entfernte Artikel",
+      "subText": "Beim Wechsel des Mitglieds wurden einige Artikel aus dem Warenkorb entfernt, da sie nicht mit dem neuen Mitglied kompatibel sind."
+    },
+    "resultsForString": "{{ count }} Ergebnis für \"{{ searchText }}\"",
+    "resultsForString_plural": "{{ count }} Ergebnisse für \"{{ searchText }}\"",
+    "seller": "Verkäufer",
+    "anonymousSale": "Anonymer Verkauf",
+    "searchAProduct": "Ein Produkt suchen"
+  },
+  "checkout": {
+    "leftToPay": "Noch zu zahlen",
+    "leftDue": "Restbetrag :",
+    "paymentSuccess": {
+      "subText": "Die Zahlung wurde erfolgreich berücksichtigt. Die Rechnung wurde per E-Mail versendet.",
+      "subTextAnonymous": "Die Zahlung wurde erfolgreich berücksichtigt.",
+      "subTextPartialPayment": "Die Zahlung wurde erfolgreich berücksichtigt. Die Rechnung wurde per E-Mail versendet. Der Rest der Zahlung wurde zurückgestellt: Sie kann über das Backoffice oder das Kundenprofil erfolgen.",
+      "title": "Bezahlung akzeptiert",
+      "printTicket": "Ticket drucken",
+      "sendByEmail": "Rechnung per E-Mail senden",
+      "qrCodeTitle": "Lade deine Quittung herunter",
+      "description": "Die Zahlung wurde erfolgreich verarbeitet."
+    },
+    "emailSent": {
+      "printTicket": "Ticket drucken",
+      "subText": "Die Rechnung wurde erfolgreich an die angegebene E-Mail-Adresse gesendet.",
+      "title": "E-Mail gesendet"
+    },
+    "payLater": {
+      "title": "Zahlung aufgeschoben",
+      "subText": "Die Zahlung wurde erfolgreich verschoben: Sie kann vom Backoffice aus oder über das Kundenprofil erfolgen."
+    },
+    "noAnonymousInstalment": {
+      "explanation": "Es ist nicht möglich, in Raten zu zahlen, wenn die Rechnung anonym ist",
+      "identify": "Identifizieren"
+    },
+    "tax": "Steuern",
+    "amountDue": "Geschuldeter Gesamtbetrag",
+    "partialPayment": "Bezahlt",
+    "onSpot": "Vor Ort",
+    "noPartialInstalment": {
+      "explanation": "Es ist nicht möglich, in Raten zu zahlen, wenn der zu zahlende Gesamtbetrag geändert wurde.",
+      "reset": "Zurücksetzen"
+    },
+    "noAnonymousClientDebt": "Es ist notwendig, ein Mitglied auf der Rechnung zu identifizieren, um den Saldo des Kontos zu verwenden",
+    "billingDate": "Rechnungsdatum",
+    "priceExcludingTax": "Gesamt ohne MwSt",
+    "priceIncludingTax": "Gesamt",
+    "invoiceFootNote": "Fußnote zur Rechnung",
+    "deliveryFee": "Versandkosten",
+    "priceRecap": "Zusammenfassung",
+    "homeDelivery": "Lieferung",
+    "firstName": "Vorname",
+    "lastName": "Nachname",
+    "sendToTerminal": "An das Terminal senden",
+    "cancel": "Stornieren",
+    "validate": "Bestätigen",
+    "clientDebt": "Kunden-Restguthaben",
+    "internalCredits": "Interne Credits"
+  }
+}

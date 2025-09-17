@@ -1,0 +1,148 @@
+{
+  "form": {
+    "redirectLink": {
+      "title": "Doorverwijslink",
+      "placeholder": "Omleiding URL",
+      "description": "Na registratie wordt het nieuwe lid doorverwezen naar de pagina die wordt aangegeven door je URL. Als je het vakje leeg laat, worden ze doorgestuurd naar de pagina voor het kopen van een pas."
+    },
+    "tag": {
+      "title": "Tag",
+      "description": "Een nieuw lid dat de doorverwijslink gebruikt, wordt getagd"
+    },
+    "applicationTimeLimit": {
+      "units": {
+        "month": "Maand",
+        "month_plural": "Maanden",
+        "week": "Week",
+        "week_plural": "Weken",
+        "day": "Dag",
+        "day_plural": "Dagen"
+      },
+      "title": "Tijdslimiet voor het toepassen van de korting na registratie"
+    },
+    "amountOffReferred": {
+      "amount": {
+        "fieldLabel": "Bedrag",
+        "title": "Bedrag"
+      },
+      "percent": {
+        "fieldLabel": "Percentage",
+        "title": "Percentage"
+      },
+      "title": "Korting voor het doorverwezen lid"
+    },
+    "activateReferral": {
+      "label": "Activeer referral-link",
+      "description": "Elk lid kan deze referral-link delen met niet-leden. Bij gebruik krijgt het nieuwe lid automatisch korting en wordt het lid dat de link deelde beloond."
+    },
+    "errors": {
+      "timeLimit": "De vertraging moet groter zijn dan 1",
+      "referredAmount": "De korting moet hoger zijn dan 0",
+      "maximumUses": "Het maximale aantal toepassingen moet hoger zijn dan 1",
+      "minimumAmount": "Het minimumbedrag moet hoger zijn dan 0",
+      "required": "Dit veld is verplicht",
+      "url": "Voer een geldige URL in",
+      "rewardReferring": "De beloning moet hoger zijn dan 0"
+    },
+    "warnings": {
+      "rewardReferring": "Door deze waarde te kiezen, zal er geen beloning worden toegekend aan het verwijzende lid",
+      "referredAmount": "Als je deze waarde kiest, wordt er geen korting toegepast op de aankoop van het verwezen lid"
+    },
+    "rewardReferring": {
+      "label": "Beloningsbedrag",
+      "title": "Beloning voor het doorverwijzende lid"
+    },
+    "maximumUses": {
+      "label": "Maximaal aantal toepassingen"
+    },
+    "minimumBasketAmount": {
+      "description": "Deze waarde verwijst naar de totale prijs van het mandje",
+      "label": "Minimumwaarde van het mandje"
+    },
+    "title": "Referral",
+    "submit": "Opslaan"
+  },
+  "conditions": {
+    "description": {
+      "warning": "Let op: het doorverwijzingsprogramma geldt alleen voor nieuwe leden van de studio of franchise.",
+      "reward2": "De beloning wordt automatisch toegepast op de volgende mandjes van het verwijzende lid: er zijn geen voorwaarden wat betreft tijd of bedrag. Het kan ook in verschillende termijnen worden toegepast als het bedrag van het mandje lager is dan de beloning.",
+      "reward1": "Als de eerste aankoop (met uitzondering van abonnementen) wordt gedaan in overeenstemming met de beschreven voorwaarden, wordt het verwijzende lid <1>beloond met een bedrag van {{ referringReward }}</1>. Dit kan worden verkregen voor elk verwezen lid tot een limiet van {{ maxReferralUses }} keer.",
+      "applicationTimeLimit": {
+        "units": {
+          "months": "maand",
+          "months_plural": "maanden",
+          "weeks": "week",
+          "weeks_plural": "weken",
+          "days": "dag",
+          "days_plural": "dagen"
+        }
+      },
+      "signUp": {
+        "noReduction": "Via de gedeelde link gaat het nieuwe lid naar het registratieformulier waarmee het een account kan aanmaken. Nadat dit is gebeurd, moet het doorverwezen lid zijn eerste winkelwagen voltooien in overeenstemming met de volgende voorwaarden:<1><0>Het bedrag van de winkelwagen is groter dan {{ minBasketAmount }}</0><0>Het is uitgevoerd binnen {{ applicationTimeLimitIntervals }} {{ applicationTimeLimitUnit }} nadat het verwezen lid zich heeft geregistreerd</0></1>",
+        "reduction": "Als je de gedeelde link gebruikt, gaat het nieuwe lid naar het registratieformulier waarmee hij/zij een account kan aanmaken. Zodra dit is gebeurd, kan het verwezen lid <1>profiteren van een korting van {{ referredReduction }}</1> op zijn eerste winkelwagen als deze voldoet aan de volgende voorwaarden:<3><0>Het bedrag van de winkelwagen is groter dan {{ minBasketAmount }}</0><0>Het is uitgevoerd binnen {{ applicationTimeLimitIntervals }} {{ applicationTimeLimitUnit }} nadat het verwezen lid zich heeft geregistreerd</0></3>. {{ applicationTimeLimitUnit }} nadat het verwezen lid zich heeft geregistreerd</0></3>"
+      },
+      "maxUses": "Elk lid heeft een persoonlijke doorverwijslink die gedeeld kan worden om een beloning te krijgen. Deze kan een <1>maximaal aantal {{ maxReferralUses }} keer</1> worden verkregen."
+    },
+    "title": "Gebruiksvoorwaarden van de doorverwijslink"
+  },
+  "memberInfo": {
+    "warningMaxUsesReached": "Je hebt het maximale aantal keren dat je je doorverwijslink kunt gebruiken bereikt",
+    "seeConditions": "Zie voorwaarden",
+    "copyLink": "Kopieer mijn doorverwijslink",
+    "forYourFriend": "voor je vriend",
+    "forYou": "voor jou",
+    "inviteFriend": "Nodig een vriend uit om zich aan te melden",
+    "nbRemainingUses": "Aantal resterende toepassingen",
+    "referralLink": "Doorverwijslink",
+    "loginToUseYourLink": "Log in om je link te gebruiken",
+    "thanksForSharing": "Bedankt voor het delen met je familie en vrienden!",
+    "copyReferralLink": "Referral-link kopiëren",
+    "yourFriendGets": "Je vriend(in) krijgt",
+    "youGet": "Je hebt",
+    "nbUsesLeft": "Overige gebruiken:"
+  },
+  "referralErrors": {
+    "33000": {
+      "description": "Deze referral-link kan niet bij deze studio gebruikt worden.",
+      "title": "Onbruikbare referral-link"
+    },
+    "33001": {
+      "description": "Het gekoppelde lid aan deze referral-link is niet langer bij deze studio ingeschreven.",
+      "title": "Onbruikbare referral-link"
+    },
+    "33002": {
+      "description": "Je bent al lid bij deze studio",
+      "title": "Onbruikbare referral-link"
+    },
+    "33003": {
+      "description": "Deze referral-link is niet langer bruikbaar.",
+      "title": "Verlopen referral-link"
+    },
+    "33004": {
+      "description": "Fout tijdens het verwerken van deze referral.",
+      "title": "Fout bij referral"
+    },
+    "33005": {
+      "description": "Fout tijdens het verwerken van deze referral.",
+      "title": "Fout bij referral"
+    },
+    "33006": {
+      "description": "Deze referral-programma is niet langer beschikbaar.",
+      "title": "Referral verlopen"
+    },
+    "33007": {
+      "description": "Deze referral-programma is niet langer beschikbaar.",
+      "title": "Referral verlopen"
+    },
+    "maxUsesReached": {
+      "description": "Het maximale gebruiksaantal voor de referral-link van {{ referringMemberFirstName }} is bereikt.",
+      "title": "Onbruikbare referral-link"
+    },
+    "somethingWentWrong": "Er is een fout opgetreden en deze pagina kon niet worden geladen. Probeer het gelieve later opnieuw",
+    "noProgramAvailable": "Helaas lijkt het erop dat er geen referralprogramma beschikbaar is"
+  },
+  "checkoutValidation": {
+    "title": "Sponsor een vriend",
+    "explain": "Ontvang beloningen door je doorverwijslink te delen met je vrienden."
+  }
+}

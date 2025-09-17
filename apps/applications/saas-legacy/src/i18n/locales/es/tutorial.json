@@ -1,0 +1,55 @@
+{
+  "lessonContent": {
+    "finish": "Finalizar la sección",
+    "nextLesson": "Siguiente",
+    "previousLesson": "Anterior"
+  },
+  "allFinishDialog": {
+    "continueButton": "Continuar",
+    "infoText": "Bien hecho, has completado todos las clases ofrecidoas por Bsport. Ahora conoces la plataforma como la palma de tu mano. Ya sabes cómo utilizar todas las funcionalidades básicas, muchas otras te están esperando para ayudarte a desarrollar tu actividad.",
+    "title": "¡Terminado!"
+  },
+  "sectionFinishDialog": {
+    "continueButton": "Continuar",
+    "infoText": "Has completado todos las clases de la sección {{- name }}. Sigue mejorando completando la siguiente sección.",
+    "title": "¡Felicidades!"
+  },
+  "shareDialog": {
+    "continueButton": "Continuar",
+    "infoTextLesson": "Compartir la clase {{- name }} con los miembros de tu personal que no tienen acceso a la pestaña de tutoriales. Sólo podrán navegar dentro de este curso.",
+    "infoTextSection": "Compartir todas las clases de la sección {{- name }} con los miembros de tu personal que no tienen acceso a la pestaña de tutoriales. Sólo podrán navegar dentro de esta sección.",
+    "title": "Compartir"
+  },
+  "welcomeDialog": {
+    "approveButton": "¡Vamos!",
+    "rejectButton": "Quiero aprender por mi cuenta",
+    "infoText": "Bienvenido a tu nueva plataforma de gestión. Aprendamos juntos a descubrir todas las características de Bsport para poner en marcha tu estudio en las mejores condiciones.",
+    "title": "¡Bienvenido a Bsport!"
+  },
+  "lessonHeader": {
+    "warning": "Esta función es un add-on. No dispones de esta funcionalidad, ponte en contacto con el gestor de tu cuenta.",
+    "addOn": "Add-on",
+    "backToList": "Volver a la lista"
+  },
+  "menuHeader": {
+    "infoText": "Aprenda a utilizar todas las funcionalidades básicas de Bsport con nuestras diferentes clases.",
+    "title": "Bienvenido a nuestra Guía de inicio."
+  },
+  "sectionList": {
+    "missingUpsell": "Algunas de las funciones de esta sección no están disponibles para usted. Póngase en contacto con su gestor de cuenta para obtener más información.",
+    "addOn": "Add-on",
+    "new": "Nuevo",
+    "shareSection": "Compartir la sección"
+  },
+  "lessonList": {
+    "addOn": "Add-on",
+    "new": "Nuevo",
+    "shareLesson": "Compartir la clase",
+    "share": "Compartir",
+    "start": "Empezar",
+    "missingUpsell": "Si no dispone de esta función, póngase en contacto con su gestor de cuenta para obtener más información."
+  },
+  "menu": {
+    "helpButton": "Encontrar ayuda"
+  }
+}

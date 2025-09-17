@@ -1,0 +1,144 @@
+{
+  "form": {
+    "group": {
+      "delete": {
+        "explain": "Waarschuwing! Als je een hoofd-tag verwijdert zal dit al je leden beïnvloeden. Deze actie is definitief.",
+        "title": "Verwijderen",
+        "submit": "Verwijderen",
+        "cancel": "Annuleren"
+      },
+      "namePlaceholder": "Hoofd-tag toevoegen",
+      "addTagGroup": "Een hoofd-tag toevoegen",
+      "edit": "Tags bewerken",
+      "deleteCategory": "Hoofd-tag verwijderen"
+    },
+    "tag": {
+      "namePlaceholder": "Subtag",
+      "delete": {
+        "title": "Verwijder",
+        "explain": "Let op: deze tag wordt van ALLE leden verwijderd. Deze actie is definitief",
+        "submit": "Verwijderen",
+        "cancel": "Annuleren"
+      },
+      "submit": "Opslaan",
+      "name": "Sub-tag",
+      "color": "Kleur",
+      "info": "Geselecteerde iconen worden als een badge naast de profielfoto's van getagde leden vertoond.",
+      "selectIcon": "Selecteer een icoon",
+      "searchIcon": "Zoek een icoon",
+      "icon": "(Optioneel) Icoon"
+    },
+    "filter": {
+      "title": "Filters",
+      "includeLabel": "Type",
+      "exclude": "Exclusief tag",
+      "tagGroupLabel": "Tag (categorie)",
+      "tagLabel": "Tag (waarde)",
+      "addFilter": "Filter",
+      "include": "Inclusief tag",
+      "cancel": "Annuleren"
+    }
+  },
+  "panel": {
+    "title": "Tags",
+    "noTagAvailable": "Er zijn nog geen tags om weer te geven."
+  },
+  "filter": {
+    "addATagFilter": "Filter op tag(s)..."
+  },
+  "tag": {
+    "noTagAttributed": "Selecteer een sub-tag"
+  },
+  "management": {
+    "smartlistDetail": {
+      "empty": "Er is geen taggingregel gekoppeld aan de {{ tag }} tag.",
+      "removeTag": "Verwijder",
+      "title": "Tags van Smartlists",
+      "createViaSmartlist": "Open Smartlists"
+    },
+    "couponDetail": {
+      "empty": "Er is geen promotie aan deze tag \"{{- tag }}\" gekoppeld.",
+      "removeTag": "Sub-tag verwijderen",
+      "blacklist": "[Blacklist] Kan niet worden gebruikt door leden met de tag(s):",
+      "whitelist": "[Whitelist] Kan worden gebruikt door leden met de tag(s):",
+      "title": "Gekoppelde promoties aan deze sub-tag",
+      "createViaCoupon": "Open promoties"
+    },
+    "memberDetail": {
+      "addTag": "Sub-tag toevoegen",
+      "addTagToAll": "Deze sub-tag aan alle leden toevoegen",
+      "memberWithoutTag": "Niet-getagde leden",
+      "removeTag": "Sub-tag verwijderen",
+      "removeTagFromAll": "Deze sub-tag van alle leden verwijderen",
+      "memberWithTag": "Getagde leden"
+    },
+    "tagKind": {
+      "smartlist": "Smartlists",
+      "coupon": "Promoties",
+      "member": "Leden",
+      "toolbar": "Toon",
+      "offer": "Sessies"
+    },
+    "tagDetail": {
+      "noTag": "Selecteer een tag voor een gedetailleerd overzicht."
+    },
+    "createGroupDialog": {
+      "helper": "Voorbeeld: maak een hoofd-tag genaamd \"VIP\" met de sub-tags \"Ja\" en \"Nee\". Dit geeft je een overzicht van alle huidige VIPs.",
+      "field": "Naam",
+      "title": "Hoofd-tag"
+    },
+    "deleteTagDialog": {
+      "text": "Weet je zeker dat je deze sub-tag wilt verwijderen? Alle regels die aan deze sub-tag zijn gekoppeld zullen ook worden verwijderd.",
+      "title": "Tags verwijderen"
+    },
+    "deleteTagGroupDialog": {
+      "text": "Weet je zeker dat je deze hoofd-tag wil verwijderen? Alle sub-tags die aan deze hoofd-tag zijn gekoppeld zullen ook worden verwijderd. ",
+      "title": "Hoofd-tag verwijderen"
+    },
+    "tagColumn": {
+      "actions": "Acties ",
+      "smartlist_count": "Tags",
+      "member_count": "Getagde leden",
+      "tag": "Sub-tag",
+      "coupon_count": " ",
+      "offer_count": "Gekoppelde sessies"
+    },
+    "submit": "Bevestig",
+    "cancel": "Annuleer",
+    "form": {
+      "tagGroupEmpty": "Deze hoofd-tag bevat geen sub-tags om weer te geven.",
+      "tagGroupName": "Naam",
+      "groupRename": "Hoofd-tag"
+    },
+    "delete": "Verwijder",
+    "rename": "Hernoem",
+    "addTag": "Een sub-tag toevoegen",
+    "addGroup": "Een hoofd-tag toevoegen",
+    "offerDetail": {
+      "offerWithTag": "Getagde promoties",
+      "filters": {
+        "options": {
+          "onlyBlack": "Niet reserverbaar met deze tag",
+          "onlyWhite": "Reserveerbaar met deze tag",
+          "all": "Toon alle sessies"
+        },
+        "selectorTitle": "Filter op goedkeuring"
+      },
+      "removeTagFromAll": "Alle tags verwijderen",
+      "detailTable": {
+        "tagInWhiteList": "[Whitelist] Kan wel worden gereserveerd door leden met de tag(s)",
+        "tagInBlackList": "[Blacklist] Kan niet worden gereserveerd door leden met de tag(s)"
+      }
+    }
+  },
+  "select": "Selecteer een tag",
+  "memberStatus": "Ledenstatus: ",
+  "modal": {
+    "confirm": {
+      "text": "Deze sessie is gekoppeld aan een evenement. Je staat op het punt om alle tags te verwijderen. Weet je zeker dat door wilt gaan?",
+      "submit": "Bevestigen",
+      "title": "Tag verwijderen"
+    }
+  },
+  "tagGroupDuplicated": "Houd er rekening mee dat sommige tags tot dezelfde groep behoren."
+}

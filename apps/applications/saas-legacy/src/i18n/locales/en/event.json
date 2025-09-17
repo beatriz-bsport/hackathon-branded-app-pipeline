@@ -1,0 +1,28 @@
+{
+    "list": {
+        "title": {
+            "latestEvents": ""
+        }
+    },
+    "member": {
+        "register": {
+            "name": "",
+            "description": ""
+        }
+    },
+    "booking": {
+        "register": {
+            "name": "",
+            "description": ""
+        }
+    },
+    "booking_option": {
+        "cancel": {
+            "name": "",
+            "description": ""
+        }
+    },
+    "noEvent": {
+        "description": ""
+    }
+}

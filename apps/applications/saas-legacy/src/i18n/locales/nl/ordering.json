@@ -1,0 +1,30 @@
+{
+  "category": {
+    "deleteModal": {
+      "content": "Weet je zeker dat je deze categorie wilt verwijderen? Alle bijbehorende onderdelen worden naar de naamloze categorie verplaatst.",
+      "title": "Verwijderen",
+      "cancel": "Annuleren",
+      "confirm": "Bevestigen"
+    },
+    "noCategory": {
+      "name": "Naamloze categorie"
+    },
+    "creationDialog": {
+      "name": "Naam van de categorie",
+      "titleEdit": "Categorie",
+      "titleNew": "Nieuwe categorie",
+      "edit": "Bewerken",
+      "create": "Toevoegen",
+      "cancel": "Annuleren"
+    },
+    "popover": {
+      "delete": "Verwijderen",
+      "edit": "Hernoemen"
+    },
+    "add": "Een categorie toevoegen",
+    "empty": "Deze categorie is leeg.",
+    "noAvailable": "Er zijn geen zoekresultaten voor de geselecteerde filters.",
+    "selector": "Naam van de categorie"
+  },
+  "disabledItemsTitle": "Archief"
+}

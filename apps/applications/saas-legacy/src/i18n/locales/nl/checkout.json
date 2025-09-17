@@ -1,0 +1,219 @@
+{
+  "forms": {
+    "delivery": {
+      "actions": {
+        "submit": "Volgende",
+        "cancel": "Terug"
+      },
+      "first_name": "Voornaam",
+      "last_name": "Achternaam"
+    }
+  },
+  "autoAdd": {
+    "paymentPack": {
+      "locked": "Dit product is niet beschikbaar."
+    },
+    "privatePass": {
+      "error": "Deze afspraakaart is niet beschikbaar"
+    },
+    "paymentCombo": {
+      "locked": "Dit pakket is niet beschikbaar."
+    }
+  },
+  "myBasket": {
+    "finalize": {
+      "steps": {
+        "address": "Adres",
+        "payment": "Facturatie"
+      }
+    },
+    "title": "Mijn winkelmandje",
+    "isEmpty": "Je winkelmandje is nog leeg.",
+    "featured": "Aanbevelingen",
+    "error": {
+      "invalidBasket": "Je winkelmandje bevatte artikelen die niet meer beschikbaar zijn. Er is geen betaling uitgevoerd.",
+      "inconsistentBasket": "Uw winkelmandje is gewijzigd, vernieuw uw pagina voordat u uw betaling bevestigt. \nU bent niet in rekening gebracht.",
+      "unavailableSessions": "Sommige sessies in je winkelmandje zijn niet langer beschikbaar, dus we konden je reservering niet voltooien. We hebben de onbeschikbare sessies verwijderd. Controleer je winkelmandje en probeer het opnieuw."
+    },
+    "actions": {
+      "closeBasket": "Doorgaan",
+      "checkoutBasket": "Afrekenen",
+      "payZero": "Winkelmandje bevestigen"
+    },
+    "isFinalized": "Je winkelmandje is bevestigd.",
+    "checkingPaymentStatus": "We controleren momenteel de status van de betaling.",
+    "totalQuantity": "Inhoud: {{ qty }} product(en)",
+    "acceptTermsAndFinalize": "Accepteer de voorwaarden om je reservering te voltooien",
+    "checkAndFinalize": "Controleer je winkelmandje en voltooi je betaling",
+    "almostDone": "Laatste stap",
+    "goToMarketplace": "Zie Ledenruimte",
+    "newCheckout": {
+      "isEmptyDescription": "Ga door met het verkennen van de Ledenruimte!",
+      "isEmpty": "Je mandje is leeg!"
+    },
+    "noBooking": {
+      "acceptTermsAndFinalize": "Accepteer de algemene voorwaarden en vul uw mandje in",
+      "checkAndFinalize": "Controleer uw winkelmandje"
+    },
+    "referral": {
+      "hasReachedMaxUses": "Het gebruikslimiet van deze referral-link is bereikt.",
+      "missingAmountBeforeApplication": "Je bent slechts {{ missingAmount }} van het minimum bestedingslimiet verwijderd om van je referral-link te kunnen genieten!"
+    },
+    "expressCheckoutTitle": "Snel afrekenen"
+  },
+  "paymentIntent": {
+    "isProcessing": "Laden..."
+  },
+  "payLater": {
+    "explain": "Je wordt in de studio gevraagd om de betaling te voltooien. Tot die tijd wordt de factuur als onbetaald beschouwd.",
+    "submit": "Fysieke betaling"
+  },
+  "or": "of",
+  "expire_in": "Verloopt over ",
+  "validation": {
+    "sections": {
+      "offerBooked": "Mijn reservering",
+      "offerBooked_plural": "Mijn reserveringen",
+      "offerNotBookable": "Het is niet mogelijk om je aan te melden voor",
+      "offerPreBooked": "Je staat op de wachtlijst voor",
+      "basket": "Mijn winkelmandje",
+      "title": "Gefeliciteerd!",
+      "error": "Foutmelding",
+      "recap": "Overzicht",
+      "errorExplain": {
+        "generic": "Deze handeling kon niet worden uitgevoerd. Probeer het later opnieuw.",
+        "guestOvercomeLimit": "Het aantal uitgenodigde gasten overschrijdt het maximaal aantal plaatsen.",
+        "guestGeneric": "Fout bij het inboeken van de gast.",
+        "guestReachedLimit": "Je hebt het limiet voor het uitnodigen van gasten overschreden voor deze periode.",
+        "guestSettings": "Het uitnodigen van gasten is niet beschikbaar.",
+        "guestOffer": "Het uitnodigen van gasten is niet beschikbaar voor deze sessie.",
+        "guestPass": "Het uitnodigen van gasten is niet beschikbaar voor deze kaart.",
+        "guestNotEnoughSpot": "Er is niet genoeg capaciteit voor al uw gasten.",
+        "genericOfferError": "Er is een probleem opgetreden bij het verwerken van uw boeking. Probeer het later nog eens of boek een andere sessie.",
+        "offerOnlyBookingError": "Sorry, maar de geselecteerde sessie en plek kunnen momenteel niet worden geboekt. Probeer het opnieuw."
+      },
+      "explain": "Zo dadelijk ontvang je ook een bevestigingsmail.",
+      "myGiftcard": "Mijn cadeaukaart",
+      "myGiftcard_plural": "Mijn cadeaukaarten",
+      "myProduct": "Mijn product",
+      "myProduct_plural": "Mijn producten",
+      "mySubscription": "Mijn abonnement",
+      "myPack": "Mijn pakket",
+      "myPack_plural": "Mijn pakketten",
+      "myPass": "Mijn cursuskaart",
+      "myPass_plural": "Mijn cursuskaarten",
+      "alert": "Oeps! De boeking is mislukt.\n Er is een probleem opgetreden bij het verwerken van uw boeking. Probeer het later nog eens of boek een andere sessie.",
+      "confirmationStatusMessage": {
+        "offerAndPurchaseSuccess": "Gefeliciteerd! Je aankopen en/of reserveringen zijn bevestigd. Binnenkort ontvang je bevestigingsmail met alle details.",
+        "paymentSuccess": "Gefeliciteerd met uw aankoop! Uw aankoop is bevestigd!",
+        "paymentSuccess_plural": "Gefeliciteerd met uw aankopen! Uw aankopen zijn bevestigd!",
+        "offerOnlySuccess": "Je reservering is bevestigd. Binnenkort ontvang je een bevestigingsmail met alle details.",
+        "offerOnlySuccess_plural": "Je reserveringen zijn bevestigd. Binnenkort ontvang je een bevestigingsmail met alle details.",
+        "offerOnlyGuestSuccess": "De reservering is gemaakt. Jij en je gast ontvangen binnenkort een bevestigingsmail met alle details.",
+        "offersPartiallyConfirmed": "Sommige sessies konden niet worden geboekt, mogelijk omdat ze vol waren of werden geannuleerd tijdens het afrekenen. U ontvangt binnenkort een bevestigingsmail met details over de succesvolle boekingen.",
+        "expressCheckoutPassPurchaseSuccess": "Nu je je pas hebt, is het tijd om je les te boeken en te profiteren van alle voordelen."
+      },
+      "confirmationStatusTitle": {
+        "success": {
+          "waitingList": "Je staat op de wachtlijst",
+          "paymentSuccess": "Betaling bevestigd!",
+          "offerOnlySuccess": "Geniet van de sessie!",
+          "offerOnlyGuestSuccess": "Geniet van de sessie met je gast!"
+        },
+        "errors": {
+          "genericOfferError": "Oeps! De boeking is mislukt.",
+          "generic": "Oeps! Betaling mislukt."
+        },
+        "warning": {
+          "offersPartiallyConfirmed": "Uw boeking is gedeeltelijk bevestigd"
+        }
+      },
+      "offerGuestBooked": "Mijn gastreservering",
+      "offerGuestBooked_plural": "Mijn gastreserveringen",
+      "unableToBookSession": "Het is niet mogelijk om een sessie te boeken",
+      "unableToBookSession_plural": "Het is niet mogelijk om sessies te boeken"
+    },
+    "actions": {
+      "back": "Terug",
+      "continue": "Verder winkelen",
+      "widgetContinue": "Verder",
+      "member": "Mijn profiel",
+      "confirmPriceNull": "Bevestigen",
+      "payNow": "Afrekenen",
+      "myPasses": "Mijn cursuskaarten",
+      "myGiftcards": "Mijn cadeaubonnen",
+      "myProducts": "Mijn aankopen",
+      "mySubscription": "Mijn abonnement",
+      "retryBookingSession": "Probeer opnieuw te boeken",
+      "newWorkshop": "Nieuwe workshop",
+      "retry": "Probeer het opnieuw",
+      "myBookings": "Mijn reserveringen",
+      "goToCalendar": "Terug naar de kalender",
+      "backToMyProfile": "Terug naar profiel",
+      "seeAllPasses": "Toon alle kaarten",
+      "bookAClass": "Een les boeken"
+    },
+    "bookingItem": {
+      "bookingItemStatus": {
+        "unpaid": "Onbetaald",
+        "waitingList": "Wachtlijst"
+      }
+    }
+  },
+  "historyTitle": "Geschiedenis",
+  "eventHistory": {
+    "pleaseSelectABasket": "Selecteer een winkelmandje om de geschiedenis te bekijken",
+    "sectionTitle": "Evenementen"
+  },
+  "events": {
+    "basket-automaticclean": "Winkelmandje automatisch legen",
+    "basket-removeitem": "Uit winkelmandje verwijderen",
+    "basket-additem": "Aan winkelmandje toevoegen",
+    "basket-finalize": "Winkelmandje klaar / betaald",
+    "basket-created": "Winkelmandje is aangemaakt"
+  },
+  "bookerMethod": {
+    "section": {
+      "combo": "Pakketten",
+      "pass": "Beschikbare kaarten",
+      "consumerPass": "Mijn kaarten"
+    },
+    "actions": {
+      "bookVod": "Video ontgrendelen"
+    },
+    "emptyMethod": "Sorry, op dit moment is er geen pas compatibel met deze video. Ga naar het abonnementsgedeelte om er toegang toe te krijgen."
+  },
+  "internalAccount": {
+    "confirm": "Bevestigen",
+    "cancel": "Annuleren",
+    "label": "Beschikbaar bedrag: ",
+    "use": "Mijn interne rekening (Wallet) gebruiken",
+    "myInternalAccount": "Mijn interne rekening (Wallet)",
+    "useMyInternalAccount": "Mijn interne rekening (Wallet) gebruiken",
+    "useAsManager": "Gebruik interne rekening (Wallet)"
+  },
+  "payment": {
+    "total": "Totaal (incl. btw)",
+    "tax": "Btw",
+    "taxExcluded": "Subtotaal (excl. btw)",
+    "flat_fee": "Inschrijfkosten",
+    "globalTotal": "Totaal",
+    "internalAccount": "Interne rekening (Wallet)",
+    "totalHiddingTax": "Totaal",
+    "deliveryFee": "Bezorgkosten",
+    "title": "Betaling",
+    "flatFeeSubscription": "Aanvraagkosten",
+    "selectedSession": "Je geselecteerde sessies"
+  },
+  "expiredSpotDialog": {
+    "refresh": "Hervers",
+    "message": "De reservering van je plek is verlopen, je kunt deze opnieuw selecteren of een andere plek kiezen.",
+    "title": "De reservering van je plek is verlopen"
+  },
+  "spotSavedFor": "Geselecteerde plek is opgeslagen voor: {{countdown}}",
+  "billingGroup": {
+    "title": "Gewenste locatie",
+    "placeholder": "Locatie",
+    "helperText": "De voorkeurslocatie is de locatie waar je van plan bent je aankoop te gebruiken en zal worden gebruikt om je factuur op te stellen."
+  }
+}

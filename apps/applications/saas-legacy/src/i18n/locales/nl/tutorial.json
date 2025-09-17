@@ -1,0 +1,55 @@
+{
+  "lessonContent": {
+    "finish": "Sectie voltooien",
+    "nextLesson": "Volgende",
+    "previousLesson": "Terug"
+  },
+  "allFinishDialog": {
+    "continueButton": "Volgende",
+    "infoText": "Gefeliciteerd! Je hebt alle lessen over de basisfuncties voltooid.",
+    "title": "Voltooid!"
+  },
+  "sectionFinishDialog": {
+    "continueButton": "Verder",
+    "infoText": "Je hebt alle lessen van deze sectie {{- name }} voltooid. Begin met de volgende sectie om meer te leren.",
+    "title": "Voltooid"
+  },
+  "shareDialog": {
+    "continueButton": "Verder",
+    "infoTextLesson": "Deel deze les {{- name }} met de medewerkers die bijvoorbeeld geen toegang tot de handleidingen hebben. Ontvangers hebben exclusief toegang tot deze les.",
+    "infoTextSection": "Deel alle lessen uit {{- name }} met de medewerkers die bijvoorbeeld geen toegang tot de handleidingen hebben. Ontvangers hebben exclusief toegang tot deze sectie.",
+    "title": "Delen"
+  },
+  "welcomeDialog": {
+    "approveButton": "Laten we beginnen!",
+    "rejectButton": "Ik wil het zelf leren",
+    "infoText": "Namens iedereen bij BSPORT wensen we je van harte welkom bij je nieuwe en ultieme hulpmiddelen. Laten we gezamenlijk de basis doornemen om het opstartproces zo soepel mogelijk te laten verlopen.",
+    "title": "Welkom bij BSPORT!"
+  },
+  "lessonHeader": {
+    "warning": "Deze functie is een aanvullende dienst. Contacteer je accountmanager, indien je interesse hebt in het activeren van deze optie.",
+    "addOn": "Aanvullende dienst",
+    "backToList": "Terug"
+  },
+  "menuHeader": {
+    "infoText": "In dit tabblad lichten we alle basisfuncties toe en hoe deze naar wens geconfigureerd kunnen worden.",
+    "title": "Welkom bij onze handleiding."
+  },
+  "sectionList": {
+    "missingUpsell": "Sommige functies in dit gedeelte zijn niet beschikbaar voor u. Neem contact op met uw accountmanager.",
+    "addOn": "Aanvullende dienst",
+    "new": "Nieuw",
+    "shareSection": "Sectie delen"
+  },
+  "lessonList": {
+    "addOn": "Aanvullende dienst",
+    "new": "Nieuw",
+    "shareLesson": "Les delen",
+    "share": "Delen",
+    "start": "Start",
+    "missingUpsell": "Als u deze functie niet heeft, neem dan contact op met uw accountmanager."
+  },
+  "menu": {
+    "helpButton": "Artikelen"
+  }
+}

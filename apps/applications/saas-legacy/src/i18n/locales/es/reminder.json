@@ -1,0 +1,39 @@
+{
+  "task": {
+    "status": {
+      "0": "En curso",
+      "10": "Terminado",
+      "20": "Cancelado"
+    },
+    "form": {
+      "date_due": {
+        "label": "Fecha de recordatorio"
+      },
+      "description": {
+        "label": "Mensaje"
+      },
+      "submit": "Validar",
+      "task_owner": {
+        "helperText": "Staff para notificar"
+      },
+      "name": {
+        "label": "Título"
+      },
+      "close": "Cancelar",
+      "title": "Tarea"
+    },
+    "actions": {
+      "finish": "Terminar",
+      "addTask": "Programar una tarea",
+      "cancel": "Archivar",
+      "restart": "Recomenzar"
+    },
+    "author": "Autor",
+    "sectionTitle": {
+      "past": "Tareas archivadas",
+      "pending": "Tareas en curso",
+      "future": "Tareas planeadas"
+    },
+    "owners": "Atribuido a "
+  }
+}

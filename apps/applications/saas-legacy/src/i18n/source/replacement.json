@@ -1,0 +1,242 @@
+{
+  "header": {
+    "establishment_group": "Location",
+    "location": "Establishment",
+    "class": "Session",
+    "registrations": "Registrations",
+    "request": "Request",
+    "availability": "Available",
+    "closing_date": "Closing date",
+    "teacher_override": "Substitute teacher",
+    "teacher": "Teacher",
+    "status": "Status",
+    "reason": "Reason",
+    "action": "Action",
+    "level": "Level",
+    "name": "Name of the session",
+    "date": "Date and time"
+  },
+  "askForReplacement": {
+    "lateRequestCounterInfo": "<strong>{{requestsLeft}}</strong> on <strong>{{requestsMax}}</strong> remaining late request until {{-dateEnd}}.",
+    "lateRequestCounterInfo_plural": "<strong>{{requestsLeft}}</strong> on <strong>{{requestsMax}}</strong> remaining late requests until {{-dateEnd}}.",
+    "lateRequestInfo": "The request will be registered, but be sure to contact your studio directly to notify them as soon as possible.",
+    "lateRequestInfo_plural": "The requests will be registered, but be sure to contact your studio directly to notify them as soon as possible.",
+    "lateRequestTypo": "Please note, your request for a replacement is late. You have {{daysBeforeOffer}} days before the start of the session to make your request in time.",
+    "lateRequestTypo_plural": "Please note that some of your replacement requests are late. You have {{daysBeforeOffer}} days before the start of the session to make your request in time.",
+    "close": "Close",
+    "requestSentDescription": "Your replacement request has been taken into account. Go to the \"My requests\" tab to follow its evolution.",
+    "requestSentDescription_plural": "Your replacement requests have been taken into account. Go to the \"My requests\" tab to follow their evolution.",
+    "requestSent": "Request sent",
+    "requestSent_plural": "Requests sent",
+    "submit": "Submit",
+    "cancel": "Cancel",
+    "label": "Reason for absence",
+    "title": "Request a substitution"
+  },
+  "calendar": {
+    "helperTextLimited": "<strong>{{requestsLeft}}</strong> on <strong>{{requestsMax}}</strong> remaining late requests until {{-dateEnd}}. All requests for substitutions made within {{count}} day before the start of the session will be considered late.",
+    "helperTextLimited_plural": "<strong>{{requestsLeft}}</strong> on <strong>{{requestsMax}}</strong> remaining late requests until {{-dateEnd}}. All requests for substitutions made within {{count}} days before the start of the session will be considered late.",
+    "helperTextNotLimited": "All requests for substitutions made within {{count}} day before the start of the session will be considered late.",
+    "helperTextNotLimited_plural": "All requests for substitutions made within {{count}} days before the start of the session will be considered late.",
+    "description": "Find here all your group activities.",
+    "title": "My schedule"
+  },
+  "tooltip": {
+    "seeAnswers": "See the list of substitutes",
+    "offerCancelled": "This session has been cancelled"
+  },
+  "coachEdit": {
+    "allCategories": "Teaches all categories",
+    "pickCategory": "Choose a category",
+    "categories": "Categories",
+    "allWorkshops": "Teaches all workshops",
+    "pickWorkshop": "Choose a workshop",
+    "workshops": "Workshops",
+    "allActivities": "Teaches all group activities",
+    "pickActivity": "Choose a group activity",
+    "activities": "Group activities",
+    "customRules": "Customize the rules",
+    "disciplineGroup": "Activity types:",
+    "description": "Choose the activity types taught by the teacher to automatically fill in the fields. If a substitute is needed for a class, we'll email the teacher in advance.",
+    "title": "Substitution",
+    "allEstablishments": "All establishments",
+    "pickEstablishment": "Leave blank to select all",
+    "locations": "Locations",
+    "establishments": "Establishments"
+  },
+  "compatibleCoaches": {
+    "categories": "Categories",
+    "workshops": "Workshops",
+    "activities": "Activities",
+    "nextSlot": "Next session on {{date}} - {{hour}}",
+    "compatibleCoaches": "{{count}} compatible teacher",
+    "compatibleCoaches_plural": "{{count}} compatible teachers",
+    "title": "Available teachers by discipline"
+  },
+  "disciplineGroup": {
+    "form": {
+      "coachRequired": "Please select at least one teacher",
+      "submit": "Save",
+      "close": "Cancel",
+      "coaches": "Associated teachers",
+      "allCategories": "Teaches all categories",
+      "pickCategory": "Choose a category",
+      "categories": "Categories",
+      "allWorkshops": "Teaches all workshops",
+      "pickWorkshop": "Choose a workshop",
+      "workshops": "Workshops",
+      "allActivities": "Teaches all activities",
+      "pickActivity": "Choose an activity",
+      "activities": "Activities",
+      "groupTypes": "Classes and categories",
+      "required": "This field is required",
+      "nameHelperText": "Name of the discipline group",
+      "name": "Name",
+      "establishments": "Establishments",
+      "locations": "Locations",
+      "establishmentSelectorError": "You cannot specify establishments and locations at the same time",
+      "allEstablishments": "All establishments",
+      "pickEstablishment": "Leave blank to select all"
+    },
+    "all": "All",
+    "delete": {
+      "confirm": "Confirm",
+      "cancel": "Cancel",
+      "description": "Are you sure you want to delete the {{- name }} discipline group?",
+      "title": "Delete"
+    },
+    "coaches": "{{count}} Teacher",
+    "coaches_plural": "{{count}} Teachers",
+    "categories": "Categories ({{number}})",
+    "workshops": "Workshops ({{number}})",
+    "activities": "Group activities",
+    "title": "Discipline groups",
+    "add": "Add a group"
+  },
+  "selects": {
+    "category": "Category",
+    "closedStatus": "Status of registrations",
+    "lateStatus": "Status of the request",
+    "offerCancelled": "Cancelled sessions"
+  },
+  "coachAnswers": {
+    "refuse": {
+      "confirm": "Confirm",
+      "cancel": "Close",
+      "description": "Are you sure you want to deny this request?"
+    },
+    "success": {
+      "close": "Close",
+      "description": "The teacher has been replaced. {{coach}} will be taking the session from {{-date}} to {{time}}",
+      "requestSent": "Teacher assigned"
+    },
+    "confirmation": {
+      "confirm": "Confirm",
+      "cancel": "Cancel",
+      "description": "Are you sure you want to register {{coach_override}} as a substitute teacher on {{coach}}'s session?",
+      "title": "Assign a teacher"
+    },
+    "noAnswers": "No answer at the moment",
+    "close": "Close",
+    "attribute": "Assign",
+    "reason": "Reason for the request",
+    "closing_date": "Closing date",
+    "header": {
+      "action": "Action",
+      "answer": "Answer",
+      "teacher": "Teacher"
+    }
+  },
+  "registrationsStatus": {
+    "areNotClosed": "Open",
+    "areClosed": "Closed"
+  },
+  "lateStatus": {
+    "isNotLate": "On track",
+    "isLate": "Late"
+  },
+  "delete": {
+    "confirm": "Confirm",
+    "cancel": "Cancel",
+    "description": "Are you sure you want to cancel this request?",
+    "title": "Cancel the request"
+  },
+  "askForClosingDateExtension": {
+    "close": "Close",
+    "requestSentDescription": "The extension was added to the substitution request.",
+    "requestSent": "Request sent",
+    "submit": "Confirm",
+    "cancel": "Cancel",
+    "new_closing_date": "The new closing date will be {{closing_date}} at {{time}}",
+    "closing_date": "Closing date",
+    "description": "Registration for this application closed on {{closing_date}}. If there are not enough replies to this request, you can still postpone the closing date.",
+    "title": "Closing date"
+  },
+  "replacementStatus": {
+    "teacherFound": "Replaced",
+    "approvedWithReplacementPropositions": "Pending",
+    "approvedButNoReplacementPropositions": "Open",
+    "deniedByManager": "Refused",
+    "pendingForApproval": "Waiting for approval",
+    "description": {
+      "approvedWithReplacementPropositions": "pending registration.",
+      "approvedButNoReplacementPropositions": "waiting for registrations.",
+      "pendingForApproval": "waiting for the manager to take action.",
+      "description": "The statutes allow you to know the status of your request.",
+      "offerCancelled": "session cancelled."
+    },
+    "offerCancelled": "Cancelled"
+  },
+  "noListItem": {
+    "calendar": "No sessions are scheduled on these dates",
+    "replacementRequest": "No substitutions to show"
+  },
+  "coachAnswer": {
+    "no": "No",
+    "ratherNo": "Maybe",
+    "yes": "Yes"
+  },
+  "managerTableTitles": {
+    "replacementHistory": "Substitution history",
+    "pendingRequests": "Pending requests"
+  },
+  "requestTableTitles": {
+    "deniedRequests": "Request denied",
+    "replacementFound": "Substitute found",
+    "pending": "Pending"
+  },
+  "unavailableReplacement": {
+    "refusedByManager": "Your substitution request has been denied",
+    "noLateRequestsLeft": "You can no longer create new late substitution requests",
+    "tooEarly": "Substitutions are not yet available",
+    "alreadyAskedFor": "A request is already in progress",
+    "replacing": "You are a substitute on this session",
+    "alreadyPassed": "This session has passed"
+  },
+  "marketplace": {
+    "until": "Until {{-date}}",
+    "filters": "Filters",
+    "description": "The following sessions need a substitute teacher. Are you available?",
+    "title": "Marketplace"
+  },
+  "confirmations": {
+    "description": "You have been added as a substitute teacher for the following sessions.",
+    "title": "Confirmations"
+  },
+  "requests": {
+    "cancel": "Cancel",
+    "description": "Find all your substitution requests here.",
+    "title": "My requests"
+  },
+  "requestsLinkedToCancelledOffers": {
+    "cancelledOffersModeTitle": "Cancelled sessions",
+    "filterHelper": "If no session appears, try deactivating filters and widening the data range.",
+    "description": "Activate the 'Cancelled sessions' toggle to view substitution requests that are linked to cancelled sessions. ",
+    "title": "View active substitution requests",
+    "buttonLabel": "Open",
+    "offerHasActiveRequest": {
+      "helper": "Do you want to be redirected to the substitution requests page to cancel obsolete requests?",
+      "title": "An active substitution request is linked to this session"
+    }
+  }
+}

@@ -1,0 +1,97 @@
+{
+  "bonus": "Bonus",
+  "remuneration": "Lohn",
+  "addBonus": "Eine Regel hinzufügen",
+  "table": {
+    "download": "Downloaden",
+    "downloadAll": "Lohnabrechnung exportieren",
+    "downloadPDF": "Download (.pdf)",
+    "downloadCSV": "Download (.csv)"
+  },
+  "fields": {
+    "rule": "Lohnabrechnungsregel",
+    "date": "Datum",
+    "name": "Name des Kurses",
+    "duration": "Dauer",
+    "base": "Basis",
+    "bonus": "Bonus",
+    "nb_bookings": "Buchungen",
+    "error": "Es scheint, dass einige Kurse keine zugehörige Lohnabrechnungsregel haben. Bitte konfiguriere deine Aktivitäten und Lehrkräfte korrekt, um die Lohnabrechnung zu nutzen.",
+    "total": "Gesamtvergütung",
+    "cancelled_bookings": "Stornierte Buchungen",
+    "confirmed_bookings": "Teilnehmer",
+    "unpaid_private_booking": "Unbezahlte Termine.",
+    "coachName": "Lehrkraft",
+    "total_on_appointments": "Vergütung (Termine)",
+    "total_on_sessions": "Vergütung (Gruppenaktivitäten & Workshops)",
+    "nb_appointments": "Anzahl der Termine",
+    "nb_sessions": "Anzahl der Kurse",
+    "totalNetGain": "Gesamtnettogewinn",
+    "netGain": "Nettogewinn",
+    "marginValue": "Marginaler Wert",
+    "nb_private_bookings": " ",
+    "noShowsAndLateCancellations": "Abwesenheiten und verspätete Absagen",
+    "location": "Standort",
+    "establishment": "Einrichtung"
+  },
+  "checkboxIncludeABonus": "Einen Leistungsbonus integrieren",
+  "pricePerOffer": "Betrag pro Kurs",
+  "dateTitle": "Zeitraum",
+  "bookingThresholdHelper": "Ein Kurs wird nur dann gezählt, wenn er diese Anzahl von Buchungen erreicht",
+  "bookingThresholdLabel": "Minimale Buchungen",
+  "pricePerAdditionalBookingLabel": "Unterschiedlich nach Buchung",
+  "pricePerAdditionalBookingHelper": "Rückerstattung des Betrags für jede Buchung über dem Limit",
+  "fixedPriceForAdditionalBookingLabel": "Pro Kurs festgelegt",
+  "fixedPriceForAdditionalBookingHelper": "Fixbetrag, der für jeden Kurs mit genügend Teilnehmern ausgezahlt wird",
+  "cachedData": {
+    "leavePreviewMode": "Vorschau-Modus beenden",
+    "previewModeTitle": "Vorschau-Modus",
+    "downloadMySavedData": "Download",
+    "enterPreviewMode": "In den Vorschau-Modus wechseln",
+    "unresolvedDaterange": "Ungültige Lohnabrechnungsregel",
+    "dateRange": "Lohnabrechnung des {{- startDate }} bis {{- endDate }}",
+    "dateSaved": "Daten erzeugt am: {{ date }}",
+    "title": "Gespeicherte Daten ({{ count }})",
+    "undeterminedOldestUpdate": "Keine vorherigen Updates verfügbar",
+    "oldestUpdate": "Letzte Aktualisierung durchgeführt am: {{- date }}"
+  },
+  "export": {
+    "completed": {
+      "message": "Die Exportdatei für die Lehrkraft-Lohnabrechnung ist verfügbar. Du kannst diese Daten auch unter 'Gespeicherte Daten' abrufen.",
+      "title": "Lohnabrechnung exportieren"
+    },
+    "dialog": {
+      "buttonText": "Bestätigen",
+      "message": "Durch den Export der Daten kannst du ein Excel Dokument für die ausgewählte Dauer erstellen. Diese Daten können ebenfalls gespeichert und später verwendet werden.",
+      "title": "Exportieren und Speichern von Daten"
+    },
+    "buttonText": "Exportieren"
+  },
+  "performance": {
+    "table": {
+      "header": {
+        "nbSessions": "Anzahl der Gruppenaktivitäten",
+        "coachName": "Lehrkraft",
+        "confirmedBookings": " "
+      }
+    }
+  },
+  "advancedFilters": {
+    "byCoachPaymentRules": "Nach Lohnabrechnungsregeln filtern (für Lehrkräfte ohne Lohnabrechnungsgruppe)",
+    "byCoachPaymentruleGroups": "Nach Lohnabrechnungsgruppen filtern",
+    "privateserviceCoachPaymentRuleSelector": "Termin",
+    "workshopCoachPaymentRuleSelctor": "Workshops",
+    "sessionCoachPaymentRuleSelctor": "Gruppenaktivitäten ",
+    "coachPaymentRuleGroupSelector": "Lohnabrechnungsgruppen",
+    "coachSelector": "Wähle Lehrkräfte aus",
+    "reset": "Filter zurücksetzen",
+    "apply": "Filter anwenden",
+    "header": "Erweiterte Filter",
+    "establishments": "Einrichtungen",
+    "locations": "Standorte"
+  },
+  "form": {
+    "ifEmptyAllowAll": "Leer lassen, um diesen Filter zu überspringen",
+    "selectEstablishments": "Wähle Einrichtungen"
+  }
+}

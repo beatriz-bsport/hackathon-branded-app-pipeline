@@ -1,0 +1,104 @@
+{
+  "colorPicker": {
+    "noColor": "Geen kleur",
+    "delete": "Verwijderen",
+    "validate": "Opslaan"
+  },
+  "form": {
+    "duration": {
+      "hour": "Duur in uren:",
+      "hour_plural": "Duur in uren:",
+      "day": "Duur in dagen:",
+      "day_plural": "Duur in dagen:",
+      "minute": "Duur in minuten:",
+      "minute_plural": "Duur in minuten:"
+    },
+    "requiredField": "Dit veld is verplicht.",
+    "validation": {
+      "number": "Dit veld moet een getal zijn."
+    }
+  },
+  "text": {
+    "showLessText": "Toon minder",
+    "showMoreText": "Toon meer"
+  },
+  "close": "Sluit",
+  "selector": {
+    "validate": "Bevestigen",
+    "unselectAll": "Deselecteer alles",
+    "selectAll": "Selecteer alles",
+    "indeterminate": "Alles selecteren ({{count}})"
+  },
+  "cancel": "Annuleren",
+  "confirm": "Bevestig",
+  "disconnectInfo": "Terug naar de inlogpagina",
+  "disconnect": "Afmelden",
+  "activate": "Activeren",
+  "save": "Opslaan",
+  "requiredField": "Dit veld is verplicht.",
+  "startAfterEnd": "De startdatum moet vóór de einddatum zijn",
+  "endBeforeStart": "De einddatum moet groter zijn dan de begindatum",
+  "monthly": "Maandelijks",
+  "weekly": "Wekelijks",
+  "showLess": "Toon minder",
+  "showMore": "Toon meer ({{count}})",
+  "start": "Start",
+  "next": "Volgende",
+  "previous": "Terug",
+  "finish": "Afgelopen",
+  "letsGo": "Back Office",
+  "saveRecord": "Opslaan",
+  "delete": "Verwijderen",
+  "card": {
+    "categoryNames": {
+      "restrictions": "Beperkingen",
+      "credits": "Aantal credits",
+      "vod": "Video On Demand",
+      "accessibility": "Toegankelijkheid",
+      "compatibility": "Compatibiliteit",
+      "paymentMethods": "Beschikbare betaalmethoden",
+      "validity": "Geldigheid"
+    },
+    "copyLink": "Kopieer de link"
+  },
+  "duration": {
+    "minute": "{{ count }} minuut",
+    "minute_plural": "{{ count }} minuten",
+    "hour": "{{ count }} uur",
+    "hour_plural": "{{ count }} uren",
+    "day": "{{ count }} dag",
+    "day_plural": "{{ count }} dagen"
+  },
+  "download": "Download",
+  "ok": "OK",
+  "params": "Instellingen",
+  "back": "Terug",
+  "recommended": "Aanbevolen",
+  "day": "dag",
+  "day_plural": "dagen",
+  "subscribe": "Abonneer",
+  "discard": "Weggooien",
+  "no": "Nee",
+  "yes": "Ja",
+  "saveChanges": "Wijzigingen opslaan",
+  "none": "Geen",
+  "numberRequired": "Dit veld moet een nummer zijn",
+  "positiveNumber": "Dit veld moet meer dan 0 zijn.",
+  "seeMore": "Zie meer",
+  "seeLess": "Zie minder",
+  "discardChanges": "Wijzigingen weggooien",
+  "rename": "Hernoem",
+  "send": "Verstuur",
+  "reset": "Reset",
+  "more": "Meer",
+  "add": "Voeg toe",
+  "continue": "Verder",
+  "edit": "Bewerk",
+  "preview": "Voorbeeld",
+  "gender": {
+    "X": "Non-binair",
+    "M": "Man",
+    "F": "Vrouw"
+  },
+  "biweekly": "Tweewekelijks"
+}

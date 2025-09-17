@@ -1,0 +1,277 @@
+{
+  "establishment": "Establecimiento",
+  "addButton": "Añadir un local",
+  "pleaseSelectOne": "Seleccionar su club en el mapa",
+  "offers": "Calendario de las sesiones:",
+  "noMoreOffers": "No hay clases previstas",
+  "goBackToList": "Volver a los locales",
+  "form": {
+    "new": {
+      "title": "Título"
+    }
+  },
+  "card": {
+    "update": "Modificar"
+  },
+  "update": {
+    "imageUploaderRequireEditMessage": "Una vez el local creado, puede añadir más fotografías."
+  },
+  "forms": {
+    "error": "No es posible guardar el local",
+    "create": {
+      "title": "Nuevo local",
+      "success": "Local añadido con éxito"
+    },
+    "update": {
+      "title": "Modificar las informaciones",
+      "success": "Local modificado con éxito"
+    },
+    "delete": {
+      "content": {
+        "cannotDelete": "No se puede eliminar este establecimiento, las sesiones están planificadas en el futuro. Verifica que hayan sido canceladas y luego suprimidas",
+        "canDelete": "¿Estás seguro de que quieres suprimir este establecimiento? Esta operación es irreversible. Las sesiones y reservas anteriores no se verán afectadas"
+      },
+      "actions": {
+        "confirm": "Suprimir",
+        "cancel": "cancelar"
+      },
+      "title": "Supresión establecimiento"
+    },
+    "edit": "Modificar"
+  },
+  "practical_info": {
+    "helperText": "Esta información sólo se mostrará en el momento de la reserva",
+    "placeholder": "Código 1234 puerta derecha",
+    "label": "Información de acceso"
+  },
+  "pleaseFill": "Por favor, informa a un establecimiento",
+  "search": "Buscar un establecimiento",
+  "establishment_override": "Establecimiento de reemplazo",
+  "overrider": "Reemplazo",
+  "baseEstablishment": "Usual",
+  "capacity": {
+    "helperText": "Se usa solo para calcular la disponibilidad de citas",
+    "explain": "Capacidad: {{ capacity }} plaza",
+    "explain_plural": "Capacidad: {{ capacity }} plazas",
+    "label": "Capacidad de la sala",
+    "placeholder": " "
+  },
+  "detail": {
+    "tab": {
+      "calendar": "Calendario",
+      "general": "General"
+    }
+  },
+  "noEstablishement": "Administra tus habitaciones, su ubicación, su llenado y consulta el calendario aquí",
+  "notificationToolTip": "Se establecen notificaciones para reservas relacionadas con este artículo",
+  "list": {
+    "section": {
+      "archived": "Establecimiento archivado"
+    }
+  },
+  "location": {
+    "country": "País",
+    "zip_code": "Código postal",
+    "city": "Ciudad",
+    "address_line_2": "Dirección línea 2",
+    "address_line_1": "Dirección línea 1",
+    "address": "Dirección",
+    "search_address": "Buscar una dirección",
+    "state": "Estado"
+  },
+  "spotScheduling": {
+    "add": "Añadir un plan de asientos",
+    "subtitle": "Se utiliza para la programación puntual. Permite a sus alumnos reservar el lugar que deseen en la sala.",
+    "title": "Plano del establecimiento",
+    "delete": {
+      "title": "Eliminación del plan de asientos",
+      "content": "¿Estás seguro de que quieres eliminar este plano de la sala? Esta operación es irreversible."
+    },
+    "untitled": "sin título",
+    "placeCount": "{{count}} plazas"
+  },
+  "group": {
+    "groupButton": "Agrupación de instituciones",
+    "addLocalisation": "Añadir una ubicación",
+    "name": " Nombre",
+    "actions": "Acciones",
+    "noGroupHelper": "Las ubicaciones permiten agrupar varias direcciones. Si tiene varios estudios en diferentes ciudades, puede agrupar los estudios de la misma ciudad en un solo lugar. En el Área de Miembros, el widget y la aplicación personalizada, sus estudiantes podrán seleccionar la ubicación que más les interese para ver sólo los cursos que estén cerca de ellos.",
+    "form": {
+      "name": "Nombre",
+      "associated_localizations": "Establecimientos asociados",
+      "dialog": {
+        "title": "Ubicación",
+        "cancel": "Cancelar",
+        "save": "Salvar"
+      }
+    },
+    "modal": {
+      "delete": {
+        "content": "Esta ubicación ya no aparecerá en los filtros disponibles en el Área de Miembros, el widget y la aplicación personalizada.",
+        "cancel": "Cancelar",
+        "confirm": "Borrar",
+        "title": "Borrar un establecimiento"
+      }
+    },
+    "table": {
+      "actions": "Acciones",
+      "establishment": "Establecimientos",
+      "name": "Nombre",
+      "noAddress": "No hay ninguna dirección asociada a este grupo de facturación",
+      "address": "Dirección"
+    }
+  },
+  "localisation": "Ubicación",
+  "room": "Establecimiento",
+  "billing_group": {
+    "table": {
+      "name": "Nombre",
+      "establishment": "Establecimientos",
+      "actions": "Acciones"
+    },
+    "modal": {
+      "delete": {
+        "confirm": "Borrar",
+        "cancel": "Cancelar",
+        "content": "¿Está seguro de que desea eliminar este grupo de facturación? Las facturas futuras ya no podrán vincularse a este establecimiento, ni ser seleccionadas por los afiliados como su establecimiento preferido al realizar una compra en línea. Antes de eliminar el grupo de facturación asegúrese de que todos sus establecimientos están vinculados a los grupos de facturación existentes",
+        "title": "Eliminación de un grupo de facturación"
+      }
+    },
+    "form": {
+      "error": {
+        "groupShouldHaveName": "Debe dar un nombre a este grupo de facturación",
+        "groupShouldContainsOneRoom": "Seleccione al menos un establecimiento",
+        "groupShouldHaveAddress": "Debe dar una dirección a este grupo de facturación"
+      },
+      "dialog": {
+        "save": "Registrar",
+        "cancel": "Borrar",
+        "title": "Grupo de facturación"
+      },
+      "associated_localizations": "Establecimientos asociados",
+      "name": "Nombre",
+      "address": {
+        "helperText": "Introduzca la dirección del grupo de facturación.",
+        "label": "Dirección"
+      },
+      "warning": {
+        "groupHasSeveralLocations": "Tenga en cuenta que los establecimientos que ha seleccionado no tienen la misma dirección y pueden no pertenecer a la misma localidad"
+      }
+    },
+    "actions": "acciones",
+    "name": " Nombre"
+  },
+  "description": "Descripción",
+  "favouriteLocation": "Ubicación preferida",
+  "notification": {
+    "modal": {
+      "content": "¿Estás seguro de que quieres eliminar esta notificación? Esta operación es definitiva",
+      "confirm": "Borrar",
+      "cancel": "Cancelar",
+      "title": "Supresión de la notificación"
+    }
+  },
+  "marketing": {
+    "notification": "Notificaciones"
+  },
+  "roomRequiredIsMissing": "No ha seleccionado un establecimiento de facturación.",
+  "roomRequired": "Sala *",
+  "billingGroup": "Grupo de facturación",
+  "billingGroupRequired": "Grupo de facturación *",
+  "bookkeeping_account": {
+    "helperText": "Las cuentas pueden vincularse a productos para que el número de cuenta y el tipo de IVA se rellenen automáticamente en los informes.",
+    "form": {
+      "titleUpdate": "Editar cuenta",
+      "titleCreate": "Añadir una cuenta"
+    },
+    "modal": {
+      "delete": {
+        "contentLinked": "Esta cuenta está vinculada a los siguientes objetos, si desea eliminarla, por favor, elimínela primero.",
+        "cancel": "Cancelar",
+        "confirm": "Borrar",
+        "content": "Estás a punto de eliminar esta cuenta, ¿estás seguro de que quieres hacerlo?",
+        "title": "Eliminación"
+      }
+    },
+    "header": "Cuentas",
+    "add": "Añadir cuenta",
+    "table": {
+      "actions": "Acciones"
+    },
+    "select_input": {
+      "placeholder": "Dejar vacío para no aplicar cuenta",
+      "label": "Cuenta contable"
+    },
+    "vat_rate": "Tipo del IVA",
+    "account_name_required": "Nombre de la cuenta *",
+    "account_name": "Nombre de la cuenta",
+    "account_number_required": "Número de cuenta *",
+    "account_number": "Número de la cuenta"
+  },
+  "establishmentGroup": {
+    "deleteObject": {
+      "infos": {
+        "widgetsDefault": "Los widgets Calendario y Talleres pueden estar configurados con esta ubicación, por favor no olvide actualizarlos.",
+        "reportsDefault": "La ubicación se eliminará de los informes anteriores."
+      },
+      "warnings": {
+        "hasRelatedMarketplaceComponentConfigs": "Las pestañas de calendario y taller configuradas para el Area Membri ya no mostrarán este calendario de ubicación.",
+        "hasRelatedMarketingNotifications": "Las notificaciones vinculadas a esta ubicación se eliminarán.",
+        "exclusiveAssociatedCoaches": "Su profesor {{- coach_name }} sólo recibe una notificación cuando se realiza una solicitud de sustitución para una sesión en esta ubicación. Por lo tanto, al eliminar la ubicación, recibirán solicitudes de sustitución de todas las ubicaciones.",
+        "exclusiveAssociatedCoaches_plural": "Sus profesores {{- coach_name }} sólo reciben una notificación cuando se realiza una solicitud de sustitución para una sesión en esta ubicación. Por lo tanto, al eliminar la ubicación, recibirán solicitudes de sustitución de todas las ubicaciones.",
+        "hasRelatedAssociatedCoaches": "Algunos profesores reciben una notificación cuando se realiza una solicitud de sustitución para una sesión en esta ubicación. Al eliminar la ubicación, dejarán de recibir la notificación correspondiente.",
+        "hasRelatedStaffConfigurations": "Esta ubicación se utiliza para la supervisión de accesos por uno o varios miembros del personal. Al eliminar la ubicación sin seleccionar una nueva, ya no podrán realizar la supervisión de accesos."
+      },
+      "errors": {
+        "hasExclusiveMarketplaceComponentConfigs": "Una o varias pestañas del Área de Miembros están configuradas para mostrar únicamente el calendario y los talleres de esta ubicación, actualízalas antes de eliminar la ubicación."
+      }
+    },
+    "forms": {
+      "delete": {
+        "title": "Eliminar una ubicación"
+      }
+    }
+  },
+  "deleteObject": {
+    "warnings": {
+      "hasRelatedMarketingNotifications": "Las notificaciones relacionadas con este establecimiento se eliminarán.",
+      "hasRelatedMarketplaceComponentConfigs": "Las pestañas de calendario y taller configuradas para el Área de Miembros ya no mostrarán el calendario de este establecimiento.",
+      "hasRelatedZoomEstablishment": "Este establecimiento se eliminará de la lista de establecimientos utilizados para la retransmisión en directo con la integración de Zoom.",
+      "hasRelatedAvailabilitySlots": "Se borrarán las franjas horarias disponibles de este establecimiento.",
+      "relatedPaymentPacks": "El siguiente pase {{- pass_name }} ya no será utilizable para este establecimiento, asegúrese de informar a sus clientes al respecto.",
+      "relatedPaymentPacks_plural": "Los siguientes pases {{- pass_name }} ya no serán utilizables para este establecimiento, asegúrese de informar a sus clientes al respecto.",
+      "hasRelatedAssociatedCoaches": "Algunos profesores reciben una notificación cuando se solicita una sustitución para una sesión en este establecimiento. Al eliminar el establecimiento, dejarán de recibir la notificación correspondiente.",
+      "exclusiveAssociatedCoaches": "Su profesor {{- coach_name }} sólo recibe una notificación cuando se realiza una solicitud de sustitución para una sesión en este establecimiento. Por lo tanto, al eliminar el establecimiento, recibirán solicitudes de sustitución de todos los establecimientos.",
+      "exclusiveAssociatedCoaches_plural": "Sus profesores {{- coach_name }} sólo reciben una notificación cuando se realiza una solicitud de sustitución para una sesión en este establecimiento. Al eliminar el establecimiento, recibirán por tanto solicitudes de sustitución de todos los establecimientos.",
+      "hasRelatedCoachAvailabilitySlots": "Este establecimiento se eliminará de la lista de establecimientos disponibles utilizada en el calendario de sus profesores.",
+      "exclusiveCoachAvailabilitySlots": "Se indica que el profesor {{- coach_name }} está disponible para este establecimiento sólo para algunas franjas horarias. Al eliminar el establecimiento, se eliminarán estas franjas horarias.",
+      "exclusiveCoachAvailabilitySlots_plural": "Los profesores {{- coach_name }} están indicados como disponibles para este establecimiento sólo para algunas franjas horarias. Al eliminar el establecimiento, se eliminarán estas franjas horarias.",
+      "hasRelatedStaffConfigurations": "Este establecimiento se eliminará de los establecimientos utilizados por los funcionarios para la supervisión del acceso.",
+      "hasExclusiveStaffConfigurations": "Algunos miembros del personal están configurados para supervisar el acceso de los miembros sólo para este establecimiento. Al eliminar el establecimiento sin seleccionar uno nuevo, ya no podrán realizar la supervisión del acceso.",
+      "exclusivePrivateServices": "La cita {{- private_service_name }} está configurada para tener lugar sólo en este establecimiento. Al eliminar este establecimiento, esta cita podrá tener lugar en cualquier lugar.",
+      "exclusivePrivateServices_plural": "Las citas {{- private_service_name }} están configuradas para tener lugar únicamente en este establecimiento. Al eliminar este establecimiento, estas citas podrán tener lugar en cualquier lugar.",
+      "hasBillingGroup": "Este establecimiento también se eliminará del grupo de facturación {{- establishment_billing_group_name }}."
+    },
+    "infos": {
+      "privateBookingsDefault": "Las sesiones de citas anteriores no se modificarán.",
+      "widgetsDefault": "Los widgets Calendario y Talleres pueden haber sido configurados con este establecimiento, no olvide actualizarlos.",
+      "offersDefault": "Las sesiones, talleres y reservas anteriores no se modificarán.",
+      "reportsDefault": "El establecimiento no se borrará de los informes anteriores."
+    },
+    "errors": {
+      "isIntegratedInPartnership": "Una o varias integraciones utilizan este establecimiento.",
+      "hasExclusiveMarketplaceComponentConfigs": "Una o varias pestañas del Área de Miembros están configuradas para mostrar únicamente el calendario y los talleres de este establecimiento, actualízalas antes de eliminar el establecimiento.",
+      "exclusiveEstablishmentGroups": "La ubicación {{- establishment_group_name }} sólo contiene el establecimiento que desea eliminar, actualice o elimine esta ubicación.",
+      "exclusiveEstablishmentGroups_plural": "Las ubicaciones {{- establishment_group_name }} sólo contienen el establecimiento que desea eliminar, actualice o elimine estas ubicaciones.",
+      "exclusivePaymentPacks": "El siguiente pase {{- pass_name }} sólo se puede utilizar en este establecimiento. Actualiza sus restricciones antes de eliminar el establecimiento.",
+      "exclusivePaymentPacks_plural": "Los siguientes pases {{- pass_name }} sólo se pueden utilizar en este establecimiento. Actualice sus restricciones antes de eliminar el establecimiento.",
+      "hasExclusiveBillingGroup": "Este establecimiento es el último de su grupo de facturación. Por favor, elimine o actualice este grupo de facturación antes de eliminar este establecimiento.",
+      "hasUpcomingPrivateBookings": "Algunas citas próximas tienen lugar en este establecimiento. Por favor, cancélelas y elimínelas antes de borrar este establecimiento.",
+      "hasUpcomingOffers": "Algunas sesiones próximas tienen lugar en este establecimiento. Cancélalas y elimínalas antes de borrar este establecimiento."
+    },
+    "title": {
+      "warning": "La eliminación de este establecimiento tendrá las siguientes consecuencias:",
+      "error": "El establecimiento no puede suprimirse por los siguientes motivos:"
+    }
+  }
+}

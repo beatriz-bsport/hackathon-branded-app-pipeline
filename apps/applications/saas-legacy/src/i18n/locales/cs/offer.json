@@ -1,0 +1,406 @@
+{
+    "video": {
+        "cantOpenLink": "",
+        "startingSoon": "",
+        "redirectLink": "",
+        "hasEnded": "",
+        "isAutoRefresh": "",
+        "loadingSoon": "",
+        "activateVideo": "",
+        "livestream": "",
+        "description": ""
+    },
+    "disabled": "",
+    "credit_price": "",
+    "booking": {
+        "confirmed": "",
+        "fillRate": "",
+        "waiting": "",
+        "comesFromMigration": ""
+    },
+    "extraordinaryEstablishment": "",
+    "substitute": "",
+    "calendar": {
+        "duplicateModalTitle": "",
+        "modifyOffer": "",
+        "deleteOffer": "",
+        "duplicateOffer": "",
+        "filter": "",
+        "today": "",
+        "alertSpivi": {
+            "textBooking": "",
+            "textOffer": "",
+            "title": ""
+        }
+    },
+    "manageOffer": "",
+    "forms": {
+        "old_date": "",
+        "new_date": "",
+        "delete": {
+            "buttonHardDelete": ""
+        }
+    },
+    "card": {
+        "copyLink": "",
+        "copied": ""
+    },
+    "offerManagement": {
+        "bookingOrder": {
+            "date": "",
+            "lastname": "",
+            "firstname": ""
+        },
+        "unevenQuickInvoices": ""
+    },
+    "massDisabler": {
+        "actions": {
+            "submit": "",
+            "cancel": "",
+            "continue": ""
+        },
+        "explainLoading": "",
+        "explainWarning": "",
+        "explain": "",
+        "title": "",
+        "secondWarningConfirm": "",
+        "secondWarning": "",
+        "warning": "",
+        "info": "",
+        "endDateLabel": "",
+        "startDateLabel": "",
+        "sure": "",
+        "confirmInfo": "",
+        "confirm": "",
+        "iConfirm": "",
+        "confirmationExplain": "",
+        "success": "",
+        "successInfo": "",
+        "warningOfferGroup": "",
+        "warningOfferGroupTitle": "",
+        "offers": "",
+        "workshopOnly": "",
+        "activityOnly": ""
+    },
+    "bookingListEmpty": "",
+    "bookingList": "",
+    "liveOfferEdit": {
+        "unselectAll": "",
+        "selectAll": "",
+        "editSimilarOffers": "",
+        "noSimilarOffer": "",
+        "selectCancel": "",
+        "cancelSimilarOffers": "",
+        "selectDelete": "",
+        "deleteSimilarOffers": "",
+        "selectEdit": "",
+        "cancelSimilarOffersGroup": "",
+        "deleteSimilarOffersGroups": "",
+        "editSimilarOffersGroup": "",
+        "editSubteacher": {
+            "propagateToSimilarOffers": {
+                "mode": {
+                    "all": "",
+                    "offersWithSameCoachOverrideOnly": ""
+                },
+                "warning": "",
+                "checkboxInfo": "",
+                "checkboxLabel": ""
+            },
+            "title": ""
+        },
+        "select": ""
+    },
+    "menu": {
+        "download": "",
+        "massDisable": "",
+        "hideCancelled": "",
+        "showCancelled": "",
+        "showWeek": "",
+        "showMonth": ""
+    },
+    "close": "",
+    "deleteImpossibleText": "",
+    "deleteImpossibleTitle": "",
+    "restoreOffer": "",
+    "maximumNumberDescription": "",
+    "maximumNumber": "",
+    "warningOfferFull": "",
+    "tagManagementInfo": "",
+    "levels": {
+        "modal": {
+            "title": "",
+            "name": "",
+            "nameCaption": "",
+            "color": "",
+            "cancel": "",
+            "submit": ""
+        },
+        "deleteModal": {
+            "title": "",
+            "content": "",
+            "content2": ""
+        },
+        "select": {
+            "add": "",
+            "title": "",
+            "placeholder": ""
+        },
+        "customs": "",
+        "delete": "",
+        "edit": ""
+    },
+    "recurrenceIndex": "",
+    "pendingReplacementRequest": "",
+    "subTeacherRequestFilter": {
+        "placeholder": "",
+        "true": "",
+        "false": ""
+    },
+    "rollCall": {
+        "drawer": {
+            "listMembers": "",
+            "info": "",
+            "rollCall": ""
+        },
+        "chip": {
+            "notValidatedRollCall": "",
+            "validatedRollCall": ""
+        },
+        "dialog": {
+            "savedRollCall": "",
+            "validatedRollCall": "",
+            "confirmationRollCall": "",
+            "validationRollCall": ""
+        },
+        "button": {
+            "validationRollCall": "",
+            "validationRollCallZero": ""
+        },
+        "warningIcon": {
+            "stateChanged": "",
+            "stateChangedTitle": ""
+        },
+        "warningText": {
+            "lastValidatedRollCall": "",
+            "noRollCallLeft": "",
+            "rollCallsLeftToValidate": "",
+            "validatedDate": "",
+            "modifiedRollCall": "",
+            "notValidatedRollCall": ""
+        },
+        "filter": {
+            "placeholder": "",
+            "notValidated": "",
+            "validated": ""
+        }
+    },
+    "form": {
+        "warnings": {
+            "editOfferInitialCredits": "",
+            "effectif": ""
+        },
+        "uscWarning": {
+            "title": "",
+            "content": "",
+            "alertContent": ""
+        },
+        "errors": {
+            "field": {
+                "dateIntervalEnd": "",
+                "durationMinute": "",
+                "broadcastLink": "",
+                "partnerMaxBookingCount": "",
+                "effectif": "",
+                "roomBlueprintSpivi": "",
+                "durationMinuteSpivi": "",
+                "wellhubProductMissing": "",
+                "dateIntervalStartBeforeLast": ""
+            },
+            "dateTooFar": "",
+            "dateFormat": "",
+            "minTwo": "",
+            "minZero": "",
+            "positiveNumber": "",
+            "required": ""
+        },
+        "dialog": {
+            "createLevel": "",
+            "recurrencePreview": ""
+        },
+        "forbidden": "",
+        "section": {
+            "coachOverride": {
+                "info": "",
+                "field": {
+                    "isCoachOverridePropagate": ""
+                },
+                "title": ""
+            },
+            "similarOffers": {
+                "info": "",
+                "unselectAll": "",
+                "selectAll": "",
+                "title": ""
+            },
+            "tags": {
+                "placeholder": "",
+                "field": {
+                    "blacklistTags": "",
+                    "whitelistTags": ""
+                },
+                "helperText": "",
+                "title": ""
+            },
+            "settings": {
+                "field": {
+                    "isModifyRecursively": "",
+                    "isNotifyConsumers": "",
+                    "partnership": {
+                        "partnerMaxBookingCount": "",
+                        "availableOnPartnership": "",
+                        "enablePartneshipBookings": "",
+                        "title": "",
+                        "subtitle": "",
+                        "uscIntegrationWarning": "",
+                        "uscIntegrationWorkshopWarning": "",
+                        "wellhubProduct": {
+                            "title": "",
+                            "helperText": "",
+                            "selectionMissing": ""
+                        }
+                    },
+                    "allowGuestOffer": "",
+                    "isManagerOnly": "",
+                    "syncOfferOnSpivi": ""
+                },
+                "title": ""
+            },
+            "coach": {
+                "field": {
+                    "coachPaymentRule": {
+                        "placeholder": "",
+                        "title": ""
+                    },
+                    "coachOverride": {
+                        "placeholder": "",
+                        "title": ""
+                    },
+                    "coach": {
+                        "placeholder": "",
+                        "title": ""
+                    }
+                },
+                "title": "",
+                "additionalCoaches": {
+                    "field": {
+                        "placeHolder": ""
+                    },
+                    "title": ""
+                }
+            },
+            "dateTime": {
+                "field": {
+                    "recurrence": {
+                        "previewCount": "",
+                        "preview": "",
+                        "option": {
+                            "monthly": "",
+                            "weekly": "",
+                            "daily": ""
+                        },
+                        "placeholder": "",
+                        "title": ""
+                    },
+                    "dateIntervalEnd": "",
+                    "dateIntervalStart": "",
+                    "durationMinute": "",
+                    "dateIntervalStartTime": "",
+                    "wellhubDurationWarning": ""
+                },
+                "title": ""
+            },
+            "credits": {
+                "field": {
+                    "creditCount": ""
+                },
+                "title": ""
+            },
+            "specificities": {
+                "tooltip": {
+                    "roomBlueprint": "",
+                    "credits": "",
+                    "broadcastLink": ""
+                },
+                "field": {
+                    "roomBlueprint": {
+                        "placeholder": "",
+                        "title": ""
+                    },
+                    "broadcastLink": "",
+                    "establishment": "",
+                    "credits": "",
+                    "decimalCredit": {
+                        "helperText": ""
+                    },
+                    "level": "",
+                    "waitingListMaxSize": "",
+                    "effectif": "",
+                    "hybridManagementHelper": "",
+                    "hybridEditHelper": "",
+                    "hybridHelper": "",
+                    "hybridLabel": "",
+                    "hybridSection": "",
+                    "metaActivity": ""
+                },
+                "title": ""
+            },
+            "nameDescriptionOverride": {
+                "setButton": "",
+                "hideButton": "",
+                "showButton": "",
+                "name": {
+                    "label": "",
+                    "captionText": ""
+                },
+                "description": {
+                    "label": "",
+                    "captionText": ""
+                }
+            }
+        },
+        "groupedOffer": {
+            "warning": ""
+        },
+        "recurrence": {
+            "duplicateModalTitle": "",
+            "regularOffer": "",
+            "recurringOffer": "",
+            "hybridOffer": "",
+            "linkNewOffersLabel": "",
+            "duplicating": "",
+            "duplicate": ""
+        },
+        "stepper": {
+            "step": {
+                "SETTINGS": "",
+                "INFOS": ""
+            }
+        }
+    },
+    "isFree": "",
+    "numberOfCredits": "",
+    "onSite": "",
+    "broadcast": "",
+    "additionalCoaches": "",
+    "allCoaches": "",
+    "notePad": {
+        "title": "",
+        "placeholder": "",
+        "loading": "",
+        "modal": {
+            "title": "",
+            "description": ""
+        }
+    }
+}

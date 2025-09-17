@@ -1,0 +1,179 @@
+{
+  "playlist": {
+    "noVideo": "Er staan nog geen video's in deze afspeellijst",
+    "name": "Naam",
+    "description": "Beschrijving",
+    "deleteVideo": "Verwijderen",
+    "open": "Open",
+    "form": {
+      "cancel": "Annuleren",
+      "submit": "Opslaan"
+    },
+    "bottomActions": {
+      "create": "Een afspeellijst toevoegen"
+    },
+    "playlist": "Afspeellijsten"
+  },
+  "video": {
+    "lock": {
+      "accessDenied": "Momenteel heb je nog geen toegang tot deze video.",
+      "pleaseAuthenticated": "Log in om deze video te bekijken.",
+      "buyPass": "Schaf een leskaart aan",
+      "useConsumerPass": "Toegang ontgrendelen",
+      "accessDeniedEbook": "Je hebt geen toegang tot dit eBook."
+    },
+    "filter": {
+      "duration": {
+        "all": "Duur",
+        "explain": "Tussen {{min}} en {{max}} minuten"
+      }
+    },
+    "showMore": "Toon meer",
+    "durationMinute": "{{minute}} min.",
+    "player": {
+      "with": "met"
+    },
+    "thumbnailList": {
+      "addVideo": "Een video toevoegen",
+      "count": "{{count}} video's",
+      "similarVideoTitle": "Aanbevolen video's"
+    },
+    "search": {
+      "cancel": "Annuleren",
+      "isEmpty": "Deze videotheek is leeg.",
+      "placeholder": "Zoeken"
+    },
+    "bottomActions": {
+      "create": "Een video toevoegen"
+    },
+    "name": "Naam",
+    "category": "Categorie",
+    "description": "Beschrijving",
+    "status": {
+      "submitted": "Video uploaden",
+      "processing": "Bezig",
+      "error": "Opnieuw proberen",
+      "processed": "Statistieken"
+    },
+    "delete": {
+      "title": "Verwijderen",
+      "content": "Weet je zeker dat je deze video wilt verwijderen? Deze actie is definitief.",
+      "confirm": "Bevestigen",
+      "cancel": "Annuleren"
+    },
+    "upload": {
+      "title": "Een video uploaden",
+      "dropHere": "Sleep een video hiernaartoe of klik hier om door je bestanden te bladeren",
+      "cancel": "Annuleren",
+      "content": "Upload of selecteer een video",
+      "urlInputError": "Plak hier een link",
+      "urlInputLabel": "De directe link naar je video op YouTube",
+      "type": {
+        "url": "YouTube",
+        "file": "Eigen bestand",
+        "fileExplain": "Gebruik deze optie om je eigen videobestand (MP4, MOV, AVI) op de privéservers van BSPORT te plaatsen.",
+        "urlExplain": "Je video is al beschikbaar op YouTube, maar je wilt een nieuwe inkomstenbron via BSPORT aanboren.",
+        "vimeoExplain": "Gebruik deze optie om de video's die je op Vimeo hebt geplaatst op de beschermde mediaspeler van je BSPORT-account te zetten.",
+        "youtubeExplain": "Gebruik deze optie om de video's die je op YouTube hebt geplaatst op de beschermde mediaspeler van je BSPORT-account te zetten.",
+        "vimeo": "Vimeo",
+        "youtube": "YouTube",
+        "ebookExplain": "Upload een eBook (PDF, JPG of PNG) om het downloadbaar voor leden te maken.",
+        "ebook": "eBooks"
+      },
+      "submit": "Bevestigen",
+      "minutes": "Min.",
+      "hours": "Uur",
+      "durationInputError": "Vermeld de duur van de video",
+      "durationLabel": "Duur",
+      "vimeoUrlInput": "Link naar Vimeo",
+      "youtubeUrlInput": "Link naar YouTube",
+      "contentEbook": "Klik hier om een bestand of foto up te loaden.",
+      "ebookTitle": "Een eBook uploaden"
+    },
+    "form": {
+      "edit": "Bewerken",
+      "cancel": "Annuleren",
+      "submit": "Opslaan",
+      "title": "Wijzig video",
+      "coach": {
+        "isEmpty": "Zonder instructeur"
+      },
+      "creditPrice": {
+        "label": "Prijs (in credits)",
+        "helperText": "Laat dit veld op 0 om de video beschikbaar voor al je leden te maken.",
+        "decimalCredit": {
+          "helperText": "Deze video kost {{count}} credit. Laat op 0 staan als je wilt dat de video toegankelijk is voor al je leden",
+          "helperText_plural": "Deze video kost {{count}} credits. Laat op 0 staan als je wilt dat de video toegankelijk is voor al je leden"
+        }
+      },
+      "video_label": "Video",
+      "video_source": {
+        "change_popup_text": "Het huidige bestand zal worden verwijderd. Leden die het bestaande bestand hebben gekocht, krijgen nu toegang tot de nieuwe versie.",
+        "change_popup_title": "Bestand wijzigen",
+        "edit_button": "Bestand wijzigen",
+        "uploaded_video": "Bestand geüpload",
+        "youtube_video": "YouTube-video",
+        "title": "Bestand",
+        "vimeo_video": "Vimeo-video",
+        "ebook": "eBook"
+      },
+      "confirm": {
+        "button": "Bevestigen",
+        "unlimitedToRent": "Deze video wordt een permanent beschikbare video i.p.v. een huurvideo. Alle leden die het gekocht hebben zullen de toegang verliezen indien de vervaldatum in het verleden ligt. Weet je zeker dat je verder wilt?",
+        "rentToUnlimited": "Deze video wordt een huurvideo i.p.v. een video die permanent beschikbaar is. Alle leden die het (voorheen) gekocht hebben kunnen deze video bekijken. Weet je zeker dat je verder wilt?",
+        "title": "Geldigheidsduur"
+      }
+    },
+    "level": "Niveau",
+    "creditPrice": "Prijs (in credits)",
+    "register": {
+      "buyPass": "Toon kaarten",
+      "title": "Video On Demand",
+      "noPassAvailable": "Je bezit nog geen compatibele kaart."
+    },
+    "analytics": {
+      "dateCreated": "Online beschikbaar maken",
+      "viewTitle": "Weergaven",
+      "uploaded": "Geüpload op {{date}}",
+      "distinctViewers": "Unieke weergaven",
+      "viewsLastWeek": "Aantal weergaven in de afgelopen 7 dagen",
+      "totalViews": "Totaal",
+      "views": "{{nb_views}} keer bekeken"
+    },
+    "purchaseListTitle": "Overzicht van aankopen",
+    "noVideoView": "Deze video is nog niet door iemand bekeken.",
+    "viewsListTitle": "Bekeken door",
+    "viewedOn": "Beken op: {{-date}} om {{hour}}",
+    "boughtOn": "Op {{-date}} aangeschaft",
+    "noVideoPurchase": "Er zijn nog geen aankopen geregistreerd.",
+    "coverMain": {
+      "alert": "Een afbeelding is vereist"
+    },
+    "manager_only_helper": "Maak deze video onbeschikbaar voor leden én alleen zichtbaar voor medewerkers met de juiste bevoegdheden.",
+    "manager_only": "Onbeschikbaar voor leden",
+    "duplicate": "Dupliceren",
+    "rental": {
+      "buyDate": "Aankooptijd",
+      "expiredDate": "Vervallen sinds {{ expiration_date }}",
+      "expirationDate": "Geldig tot {{ expiration_date }}",
+      "expired": "Vervallen",
+      "valid": "Geldig",
+      "forRent": "Videoverhuur",
+      "rental_days_helper": "Deze video zal een X aantal dagen na aankoop beschikbaar zijn.",
+      "duration": "Deze video is voor {{ rental_days }} dag(en) gehuurd.",
+      "duration_helper": "Geldigheidsduur (in dagen)",
+      "helper": "Standaard zijn video's permanent beschikbaar na aankoop. Met videoverhuur kunnen leden video's voor een bepaald aantal dagen bekijken.",
+      "label": "Videoverhuur"
+    },
+    "ebook": {
+      "downloadHelper": "{{button}} Klik op de knop om het eBook raad te plegen."
+    },
+    "download": "Downloaden"
+  },
+  "details": {
+    "pleaseSelectVod": "Selecteer een video om meer informatie te zien.",
+    "invoiceTitle": "Gekoppelde factuur",
+    "consumerPaymentPackTitle": "Gebruikte kaart",
+    "title": "Details"
+  }
+}

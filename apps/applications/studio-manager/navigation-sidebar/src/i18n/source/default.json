@@ -40,7 +40,7 @@
     },
     "marketing": {
       "title": "Marketing",
-      "memberNotifications": "Member notifications",
+      "marketingNotifications": "Member notifications",
       "emailTemplates": "Email templates",
       "smartlists": "Smartlists",
       "audience": "Audience",
@@ -111,8 +111,7 @@
     "dutch": "Dutch",
     "german": "German",
     "italian": "Italian",
-    "portuguese": "Portuguese",
-    "czech": "Czech"
+    "portuguese": "Portuguese"
   },
   "notifications": {
     "title": "Notification center",

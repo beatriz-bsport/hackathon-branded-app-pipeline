@@ -1,4 +1,5 @@
-import { type EmailTemplateSummary } from "@bsport/store-cdp-email-template";
+import type { TextFieldProps } from "@bsport/kaizen-primitive-core";
+import type { EmailTemplateSummary } from "@bsport/store-cdp-email-template";
 
 import { BackendSelector } from "#src/components/BackendSelector/BackendSelector";
 import { useFetchEmailTemplateCategories } from "#src/hooks/api/use-fetch-email-template-categories";
@@ -11,12 +12,14 @@ import { useTranslation } from "#src/utils/i18n";
 type EmailTemplateSelectorProps = {
   disabled?: boolean;
   defaultTemplateId?: number;
-  onSelectTemplate?: (selectedTemplate: EmailTemplateSummary) => void;
+  onSelectTemplate?: (selectedTemplate: EmailTemplateSummary | null) => void;
+  textfieldProps?: Partial<TextFieldProps>;
 };
 
 export const EmailTemplateSelector = ({
   disabled = false,
   defaultTemplateId,
+  textfieldProps,
   onSelectTemplate,
 }: EmailTemplateSelectorProps) => {
   const { t } = useTranslation("transactionalNotification");
@@ -81,6 +84,7 @@ export const EmailTemplateSelector = ({
         placeholder: t(
           "notificationRuleEventDetails.details.emailNotification.select.placeholder",
         ),
+        ...textfieldProps,
       }}
       loadingMessage={t(
         "notificationRuleEventDetails.details.emailTemplateSelector.searchingMessage",
@@ -94,6 +98,11 @@ export const EmailTemplateSelector = ({
         );
         if (selectedTemplate && onSelectTemplate) {
           onSelectTemplate(selectedTemplate);
+        }
+      }}
+      onClear={() => {
+        if (onSelectTemplate) {
+          onSelectTemplate(null);
         }
       }}
     />

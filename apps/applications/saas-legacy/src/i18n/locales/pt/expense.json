@@ -1,0 +1,140 @@
+{
+  "form": {
+    "staff": "Staff",
+    "requiredField": "Este campo é obrigatório.",
+    "date_due": "Data de vencimento",
+    "repeat": {
+      "repeatMonth_nb": "Todos os {{ nb }} mês, o",
+      "title": "Recorrência",
+      "week": "Semana(s)",
+      "month": "Mês",
+      "weekdays_pl": {
+        "saturday": "Sábados",
+        "sunday": "Domingos",
+        "thursday": "Quintas-feiras",
+        "friday": "Sextas-feiras",
+        "monday": "Segundas-feiras",
+        "tuesday": "Terças-feiras",
+        "wednesday": "Quartas-feiras"
+      },
+      "months": {
+        "january": "Janeiro",
+        "may": "Maio",
+        "june": "Junho",
+        "july": "Julho",
+        "august": "Agosto",
+        "september": "Setembro",
+        "december": "Dezembro",
+        "november": "Novembro",
+        "march": "Março",
+        "february": "Fevereiro",
+        "april": "Abril",
+        "october": "Outubro"
+      },
+      "from": "De",
+      "until": "Até",
+      "repeatWeek": "Todas as semanas, o",
+      "fromDate": "A partir de",
+      "ends": "Termina após",
+      "repeatMonthDay": "Todos os",
+      "day": "Dia(s)",
+      "repeatEvery": "Repetir todo(s)",
+      "repeatWeek_nb": "Todos os {{ nb }} semanas, o",
+      "repeatYear": "Todos os anos, o",
+      "repeatYear_nb": "Todos os {{ nb }} anos, o",
+      "interval": "Intervalo",
+      "weekdays": {
+        "tuesday": "Terça-feira",
+        "saturday": "Sábado",
+        "sunday": "Domingo",
+        "second": "segundo",
+        "first": "primeiro",
+        "third": "terceiro",
+        "fourth": "quarto",
+        "monday": "Segunda-feira",
+        "wednesday": "Quarta-feira",
+        "thursday": "Quinta-feira",
+        "friday": "Sexta-feira"
+      },
+      "count": "Número de ocorrências :",
+      "repeatMonth": "Todos os meses, o",
+      "number": "Repetições :",
+      "year": "Ano(s)"
+    },
+    "supplier": "Fornecedor / Vendedor",
+    "description": "Título / Descrição",
+    "titleEdit": "Alterar uma despesa",
+    "editChoices": {
+      "editDateDue": "Alterar a data de vencimento",
+      "editDetails": "Alterar os detalhes das despesas",
+      "explanation": {
+        "dateDue": "A data de vencimento só será alterada para a despesa selecionada.",
+        "details": "As alterações serão aplicadas tanto às despesas actuais e futuras, como a todas as despesas."
+      }
+    },
+    "noStaff": "Não há staff atribuído",
+    "category": "Categoria",
+    "amount": "Montante",
+    "titleAdd": "Adicionar uma despesa",
+    "actions": {
+      "cancel": "Cancelar",
+      "save": "Guardar",
+      "edit": "Atualização"
+    }
+  },
+  "delete": {
+    "error": "Impossível eliminar esta despesa",
+    "success": "A despesa foi eliminada."
+  },
+  "table": {
+    "header": {
+      "category": "Categoria",
+      "amount": "Montante",
+      "supplier": "Fornecedor / Vendedor",
+      "description": "Título / Descrição",
+      "repeat": "Recorrência",
+      "date_due": "Data de vencimento",
+      "actions": "Ações",
+      "staff": "Staff"
+    },
+    "no": "não",
+    "yes": "sim"
+  },
+  "filters": {
+    "filterStaff": "Todo o staff",
+    "filterSupplier": "Todos os fornecedores",
+    "filterCategory": "Todas as categorias",
+    "noStaff": "Não há staff atribuído",
+    "titleCategory": "Categorias",
+    "titleSupplier": "Fornecedores",
+    "showFuture": "Despesas futuras",
+    "noCategory": "Nenhuma categoria",
+    "titleStaff": "Staff"
+  },
+  "dialogEditExpense": {
+    "validate": "Validar",
+    "future": "Alterar esta despesa e outras despesas futuras semelhantes",
+    "all": "Alterar todas as despesas semelhantes (passadas e futuras)",
+    "cancel": "Cancelar",
+    "current": "Alterar apenas esta despesa"
+  },
+  "create": {
+    "error": "Impossível criar esta despesa",
+    "success": "A despesa foi criada."
+  },
+  "update": {
+    "success": "As despesas foram actualizadas.",
+    "error": "Não é possível atualizar esta despesa"
+  },
+  "dialogDeleteExpense": {
+    "warning": "Tem a certeza de que quer eliminar esta despesa?",
+    "confirm": "Irá eliminar definitivamente a despesa de {{amount}} de {{date_due}}.",
+    "cancel": "Cancelar",
+    "delete": "Eliminar",
+    "all": "Eliminar todas as despesas semelhantes (passadas e futuras)",
+    "current": "Eliminar apenas esta despesa",
+    "future": "Eliminar esta e outras despesas futuras semelhantes"
+  },
+  "addButton": "Adicionar uma despesa",
+  "noExpenses": "Pode adicionar as despesas do seu estúdio aqui."
+}

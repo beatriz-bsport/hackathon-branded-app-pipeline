@@ -1,0 +1,48 @@
+{
+  "exportCampaign": "Exporteer",
+  "save": "Opslaan",
+  "schemaError": {
+    "nonEmptyEmailTemplate": "Kies een emailtemplate",
+    "nonEmptyBody": "De body van uw email is momenteel leeg. Voeg inhoud toe voordat u verder gaat.",
+    "nonEmptyToggle": "Selecteer ontvangers voordat u het bericht verzendt.",
+    "nonEmptySmartList": "Selecteer een smartlist"
+  },
+  "smartListOption": "Kies een smartlist",
+  "mail": {
+    "sendButton": "Verstuur",
+    "customDomainNotDefined": "U heeft geen aangepast domein gedefinieerd.<1/>Neem contact op met ons team om het configuratieproces te starten.",
+    "example": "Voorbeeld",
+    "customEmail": "Aangepaste email",
+    "franchiseeMail": "E-mail franchisenemer",
+    "chooseSender": "Selecteer het e-mailadres dat u wilt gebruiken voor het verzenden.",
+    "sendMail": "Stuur een bericht"
+  },
+  "memberSelectionInfo": "Voeg leden toe als ontvangers van uw campagne door een studio te selecteren en vervolgens een van de smartlists te kiezen. Als u al uw leden direct wilt toevoegen, kunt u ook klikken op 'Selecteer alle leden'.",
+  "noCampaign": "Stuur campagnes naar uw leden om ze op de hoogte te houden van wat er in uw franchise gebeurt.",
+  "historyTitle": "Mailing geschiedenis",
+  "campaign": {
+    "add": "Campagne toevoegen"
+  },
+  "memberSelectionTitle": "Selectie leden",
+  "sendToAllMembers": "Verzenden naar alle leden",
+  "modal": {
+    "delete": {
+      "content": "Met deze actie wordt de campagne permanent gearchiveerd en zijn alle bijbehorende gegevens niet meer beschikbaar. Weet u zeker dat u wilt doorgaan met archiveren?",
+      "confirm": "Bevestigen",
+      "cancel": "Annuleer",
+      "title": "Archiveer een campagne"
+    }
+  },
+  "search": "Zoeken naar een campagne",
+  "cancel": "Annuleer",
+  "delete": "Verwijderen",
+  "edit": "Bewerken",
+  "duplicate": "Duplicaat",
+  "detail": {
+    "tab": {
+      "campaign": "Campagnes",
+      "general": "Algemeen"
+    }
+  },
+  "campaignCreationWarning": "Zorg ervoor dat uw campagnenaam uniek is om problemen te voorkomen."
+}

@@ -1,0 +1,669 @@
+{
+  "congratulation": {
+    "cancel": "Sluiten",
+    "content": "Je reservering is bevestigd!"
+  },
+  "actions": {
+    "goToSubscription": "Toon alle abonnementen",
+    "goToPass": "Toon alle kaarten",
+    "goToCalendar": "Toon de agenda",
+    "goToHome": "Toon het gehele aanbod"
+  },
+  "dashboard": {
+    "noBooking": "Er zijn geen reserveringen om weer te geven.",
+    "noPackCurrentlyActive": "Je bezit nog geen kaarten om weer te geven.",
+    "showMore": "Toon meer",
+    "currentPassTitle": "Mijn kaarten",
+    "nextBookingTitle": "Mijn reserveringen",
+    "optionTitle": "Actieve wachtlijsten",
+    "favoriteTitle": "Uitgelicht"
+  },
+  "booking": {
+    "bookAgain": "Opnieuw reserveren",
+    "discard": "Annuleren",
+    "showCalendar": "Toon de agenda",
+    "titlePrivateBooking": "Afspraken",
+    "titleBooking": "Groepsactiviteiten",
+    "accessLive": "Online les openen",
+    "spotNumber": "Plaats: {{count}}",
+    "isUnpaid": "Openstaande betaling",
+    "noShow": "U bent geregistreerd als afwezig voor deze sessie"
+  },
+  "pack": {
+    "titlePrivatePack": "Afspraken",
+    "titlePaymentPack": "Groepsactiviteiten",
+    "titleUniversalPack": "Universeel"
+  },
+  "debt": {
+    "explainPayment": "Dit bedrag wordt aan de studio betaald om je uitstaande schulden te betalen.",
+    "titlePaymentDialog": "Uitstaand bedrag betalen",
+    "title": "Openstaand bedrag:",
+    "regularize": "Betaling afronden"
+  },
+  "navigation": {
+    "changeMembership": "Studio wijzigen",
+    "logoff": "Afmelden",
+    "profile": "Profiel",
+    "subscription": "Abonnementen",
+    "invoice": "Facturen",
+    "pack": "Kaarten",
+    "calendar": "Geschiedenis",
+    "dashboard": "Overzicht",
+    "myVideos": "Video On Demand",
+    "pick_a_language": "Selecteer een taal",
+    "automaticLanguage": "Automatisch de taal detecteren",
+    "giftcard": "Cadeaubonnen",
+    "statistic": "Statistieken",
+    "connectedAs": "Inloggen als",
+    "backToRelationMasterSpace": "Terug naar mijn account",
+    "relationConnectedAs": "Je bent momenteel als \"{{name}}\" verbonden.",
+    "goBack": "Retour"
+  },
+  "unsubscriber": {
+    "success": {
+      "text": "Je hebt je succesvol uitgeschreven. U zult niet langer nieuwsbrieven ontvangen van {{- companyName}}.",
+      "title": "Je hebt afgemeld."
+    },
+    "error": "Fout tijdens het uitschrijven",
+    "doUnsubscribe": "Uitschrijven",
+    "explain": "Weet je zeker dat je je voor alle nieuwsbrieven van deze studio wilt uitschrijven?",
+    "explainAction": {
+      "possessive": "Weet je zeker dat je je wilt afmelden voor de nieuwsbrieven van {{- companyName}}?",
+      "normal": "Weet je zeker dat je je wilt afmelden voor de nieuwsbrieven van {{- companyName}}?"
+    }
+  },
+  "myVideos": {
+    "title": "Mijn video's",
+    "gotToVOD": "Toon alle video's"
+  },
+  "widget": {
+    "noBookingPast": "Hier komt een overzicht van al je vorige reserveringen te staan.",
+    "noBookingFuture": "Je hebt nog geen reserveringen om weer te geven.",
+    "pastBooking": "Geschiedenis",
+    "futureBooking": "Mijn reserveringen"
+  },
+  "language": {
+    "es": "Spaans",
+    "en-GB": "Brits-Engels",
+    "en-US": "Amerikaans-Engels",
+    "fr": "Frans",
+    "nl": "Nederlands",
+    "it": "Italiaans",
+    "de": "Duits",
+    "none": "Automatisch",
+    "cs": "Tsjechisch",
+    "pt": "Portugees",
+    "cimode": "Debug"
+  },
+  "subscription": {
+    "isEmpty": "Er zijn actieve abonnementen om weer te geven."
+  },
+  "Basket": "Mijn winkelmandje",
+  "appbar": {
+    "login": "Aanmelden",
+    "logout": "Afmelden",
+    "profile": "Mijn profiel"
+  },
+  "spivi": {
+    "settingsInfo": "Activeer deze optie om spinning-informatie live tijdens een sessie te tonen, zoals snelheid, verbrande calorieën, etc. Als deze optie gedeactiveerd is wordt de informatie niet live getoond, maar zullen deelnemers een samenvatting per e-mail na het einde van de sessie ontvangen.",
+    "settingsTitle": "Spinning-informatie",
+    "settings": "Mijn data live weergeven"
+  },
+  "reworked": {
+    "myPasses": {
+      "consumerPassCard": {
+        "buttonsLabel": {
+          "seeDetails": "Toon details"
+        },
+        "availability": {
+          "expiresToday": "Laatste dag",
+          "expiresIn": "{{ daysRemaining }} dag(en) over",
+          "expiresIn_plural": "{{ daysRemaining }} dag(en) over",
+          "future": "Startdatum: {{ startDate }}",
+          "expired": "Verlopen op: {{ expirationDate }}",
+          "active": "Verloopdatum: {{ expirationDate }}"
+        },
+        "chip": {
+          "multiStudio": "Meerdere studio's",
+          "shared": "Gedeeld",
+          "suspended": "Opgeschort"
+        },
+        "credits": "{{ creditsLeft }}/{{ totalCredits }} credits",
+        "unlimited": "Ongelimiteerd"
+      },
+      "consumerPassDetailsCard": {
+        "header": {
+          "credits": "{{ creditsLeft }}/{{{ totalCredits }} credits",
+          "unlimited": "Onbeperkt"
+        },
+        "compatibility": {
+          "contents": {
+            "allActivities": "Compatibel met alle activiteiten van de studio",
+            "bookingForGuest": "Kan worden gebruikt om <strong>een gast uit te nodigen</strong>",
+            "allTimeSlots": "Compatibel met alle tijdslots",
+            "vod": "Kan worden gebruikt voor <strong>Video's op aanvraag</strong>",
+            "noAppointments": "Geen compatibele afspraken",
+            "allSessions": "Compatibel met alle sessies",
+            "sessions": "Compatibele sessies: {{ sessionsList }}"
+          },
+          "titles": {
+            "studios": "Compatibele studios",
+            "activity": "Activiteiten compatibiliteit",
+            "appointment": "Afspraak compatibiliteit",
+            "main": "Compatibiliteit"
+          },
+          "subtitles": {
+            "activity": "Compatibele activiteiten",
+            "timeSlots": "Compatibele tijdslots",
+            "sessions": "Compatibele sessies"
+          },
+          "labels": {
+            "category": "Categoriën",
+            "activity": "Activiteiten",
+            "room": "Ruimtes"
+          }
+        },
+        "restriction": {
+          "frequencyDaily": "Kan maar {{ hoeveelheid }} keer per dag gebruikt worden.",
+          "frequencyDaily_plural": "Kan maar {{ hoeveelheid }} keer per dag gebruikt worden.",
+          "title": "Beperkingen op het gebruik",
+          "frequencyWeekly": "Kan alleen {{ amount}} keer per week gebruikt worden.",
+          "frequencyWeekly_plural": "Kan alleen {{ amount}} keer per wekelijks gebruikt worden.",
+          "frequencyMonthly": "Kan slechts {{ amount }} keer per maand worden gebruikt.",
+          "frequencyMonthly_plural": "Kan slechts {{ amount }} keer per maandelijks worden gebruikt."
+        },
+        "availability": {
+          "active": "Geldig van {{ startDate }} tot {{ expirationDate }}",
+          "suspended": "Geschorst",
+          "suspendedUntil": "Opgeschort tot {{ endDate }}",
+          "expired": "Vervallen op {{ expirationDate }}",
+          "future": "Start op {{ startDate }}",
+          "validUntil": "Geldig tot {{ expirationDate }}"
+        },
+        "description": {
+          "title": "Beschrijving",
+          "showMore": "Laat meer zien",
+          "showLess": "Laat minder zien"
+        },
+        "shared": {
+          "with": "Gedeeld met",
+          "by": "Gedeeld door"
+        }
+      },
+      "bookASession": "Boek een sessie",
+      "buyANewPass": "Koop een nieuwe leskaart",
+      "filters": {
+        "future": "Toekomst",
+        "expired": "Verlopen",
+        "active": "Actief"
+      },
+      "tab": {
+        "universal": "Universeel",
+        "appointment": "Afspraken",
+        "activity": "Activiteiten"
+      },
+      "title": "Mijn leskaarten",
+      "choosePassType": "Kies kaart type"
+    },
+    "myBookings": {
+      "spotSchedulingModal": {
+        "subtitle": "Vind je eigen plekje",
+        "title": "Spot Scheduling"
+      },
+      "onlineWarningModal": {
+        "message": "Je kunt vanaf 15 min. voor het begin van de sessie deelnemen.",
+        "subtitle": "De sessie begint om {{- date}} om {{hour}}",
+        "title": "Online activiteiten"
+      },
+      "cancelModal": {
+        "group": {
+          "listTitle": "Reserveringen die geannuleerd worden:",
+          "alert": {
+            "message": "Contacteer de studio als je slechts een enkele reservering wilt annuleren.",
+            "title": "Alle reserveringen voor dit evenement worden geannuleerd"
+          },
+          "message": "Deze reservering is onderdeel van een groepering.\nJe wordt automatisch afgemeld van alle toekomstige sessies die aan dit evenement gerelateerd zijn. De credits worden teruggestort en kunnen opnieuw worden gebruikt."
+        },
+        "noRefund": "Credits van te late annuleringen worden niet teruggestort.",
+        "creditsWillBeRefunded": "{{count}} credit(s) wordt teruggestort.",
+        "creditsWillBeRefunded_plural": "{{count}} credits worden teruggestort.",
+        "title": {
+          "consumerBooking": "Deze sessie annuleren",
+          "consumerPrivateBooking": "Deze afspraak annuleren",
+          "consumerBookingOption": "Annuleer deze wachtlijst"
+        },
+        "waitlist": "Je wordt verwijderd van de wachtlijst.",
+        "confirm": {
+          "consumerBooking": "Annuleer sessie",
+          "consumerPrivateBooking": "Afspraak annuleren",
+          "consumerBookingOption": "Wachtlijst annuleren"
+        }
+      },
+      "detailsCard": {
+        "workshop": {
+          "title": "Gegroepeerd met deze workshop"
+        },
+        "teacher": {
+          "subtitutedBy": "Vervangen door",
+          "absent": "Afwezig",
+          "title": "Instructeur"
+        },
+        "waitlist": {
+          "position": "Mijn positie op de wachtlijst: {{position}}"
+        },
+        "cancellationPolicy": {
+          "maxDuration": "Deze boeking kan alleen gratis worden geannuleerd tot {{days}} dagen, {{hours}} uur en {{minutes}} minuten van tevoren.",
+          "noDuration": "Kosteloos annuleren is altijd mogelijk.",
+          "title": "Annuleringsvoorwaarden"
+        },
+        "description": {
+          "title": "Beschrijving"
+        },
+        "location": {
+          "title": "Plaats"
+        },
+        "relatedPass": {
+          "title": "Gerelateerde leskaart"
+        },
+        "cancelled": {
+          "refundWarning": "Credits worden niet voor te late annuleringen teruggestort",
+          "creditsToRefund": "{{count}} credit(s) worden teruggestort",
+          "creditsToRefund_plural": "{{count}} credits worden teruggestort",
+          "cancelledFromManager": "Geannuleerd door de studio",
+          "cancelledFromMember": "Geannuleerd door mijzelf",
+          "title": "Geannuleerd"
+        },
+        "drawerTitle": "Activiteit"
+      },
+      "consumerBookingCard": {
+        "listItemLabels": {
+          "spotSchedulingPosition": "Plaats ({{ spotSchedulingPosition }})",
+          "waitingList": "Mijn positie op de wachtlijst: {{ waitingListPosition }}"
+        },
+        "buttonsLabel": {
+          "bookForAGuest": "Een gast uitnodigen",
+          "joinOnline": "Online deelnemen",
+          "book": "Reserveer",
+          "seeDetails": "Toon details",
+          "more": "Meer",
+          "cancel": "Annuleren"
+        },
+        "chip": {
+          "status": {
+            "cancelled": "Geannuleerd",
+            "bookedForAGuest": "Een gast uitnodigen",
+            "unpaid": "Onbetaald"
+          },
+          "noShow": "No-show",
+          "atHome": "Thuis",
+          "online": "Online"
+        }
+      },
+      "listContainer": {
+        "placeholder": {
+          "activity": {
+            "future": "Er zijn geen toekomstige groepsactiviteiten om te tonen.",
+            "past": "Er zijn geen activiteiten uit het verleden om te tonen.",
+            "waitlist": "Geen activiteiten op de wachtlijst."
+          },
+          "workshop": {
+            "future": "Er zijn geen toekomstige workshops om te tonen.",
+            "past": "Er zijn geen workshops uit het verleden om te tonen.",
+            "waitlist": "Geen workshops op de wachtlijst."
+          },
+          "appointment": {
+            "past": "Geen afspraken uit het verleden om te laten zien.",
+            "future": "Geen aankomende afspraken gepland."
+          },
+          "pass": {
+            "expired": "Je hebt nog geen verlopen leskaarten.",
+            "future": "Je hebt nog geen leskaarten gekocht.",
+            "active": "Je hebt nog geen leskaarten gekocht."
+          }
+        }
+      },
+      "filter": {
+        "onWaitlist": "Mijn wachtlijsten",
+        "past": "Voltooid",
+        "upcoming": "Eerstvolgend"
+      },
+      "tab": {
+        "workshops": "Workshops",
+        "appointments": "Afspraken",
+        "activities": "Groepsactiviteiten"
+      },
+      "bookASession": "Reserveer een sessie",
+      "title": "Mijn reserveringen",
+      "calendarDrawer": {
+        "subtitle": {
+          "workshop": "Filter je workshops op datum.",
+          "appointment": "Filter uw afspraken op datum.",
+          "activity": "Filter je activiteiten op datum."
+        },
+        "title": "Kies een datum"
+      },
+      "chooseBookingType": "Kies type boeking"
+    },
+    "placeholderCard": {
+      "myBookings": "Selecteer een sessie om meer details weer te geven.",
+      "myPasses": "Kies een pas om meer details te zien",
+      "mySubscriptions": "Kies een abonnement voor meer informatie"
+    },
+    "showLess": "Toon minder",
+    "showMore": "Toon meer",
+    "mySubscriptions": {
+      "consumerSubscriptionCardDetails": {
+        "headerListItemLabels": {
+          "nextPayment": "Volgende betaling",
+          "nextPaymentDate": "op {{- subscriptionNextPaymentDate }}",
+          "autoRenewed": "Automatisch hernieuwd",
+          "paused": "Momenteel gepauzeerd",
+          "pauseEndDate": "tot {{- pauseEndDate }} inbegrepen",
+          "autoRenewalDate": "op {{- autoRenewalDate }} (included)",
+          "joiningFee": "Registratie fee: {{- fees }}",
+          "futurePauses": "Er is een pauze gepland van {{- dateStart }} tot {{- dateEnd }} (included)",
+          "stopValidDate": "Geldig tot {{- expirationDate }} (uitgesloten)",
+          "stop": "Uitgeschreven"
+        },
+        "buttonsLabel": {
+          "see": "Zie",
+          "change": "Wijzigen",
+          "add": "Toevoegen",
+          "unsubscribe": "Uitschrijven"
+        },
+        "termsAccepted": "Geaccepteerd op {{- termsDate }}",
+        "terms": "Voorwaarden",
+        "description": "Beschrijving",
+        "paymentMethod": {
+          "bacs_debit": "BACS Direct Debit: **** **** **** {{ readableIdentifier }}",
+          "card": "Creditcard: **** **** **** {{ readableIdentifier }}",
+          "sepa_debit": "SEPA: **** **** **** {{ readableIdentifier }}",
+          "title": "Betaalmethode",
+          "internal": "Interne rekening: voor elke betaling wordt automatisch een schuld aangemaakt op je interne rekening",
+          "nextPaymentDate": "op {{- subscriptionNextPaymentDate }}",
+          "pauseEndDate": "tot {{- pauseEndDate }} inclusief",
+          "autoRenewalDate": "op {{- autoRenewalDate }} (inclusief)",
+          "autoRenewed": "Automatisch vernieuwd",
+          "paused": "Momenteel gepauzeerd"
+        },
+        "failedPaymentReason": "Reden: {{- note }}. Gelieve contact opnemen met de studio om de betaalachterstand te verwerken.",
+        "failedPayment": "Betaling mislukt",
+        "emptyInvoices": " Geen factuurgeschiedenis te tonen",
+        "billingHistory": "Facturatie geschiedenis",
+        "failedPaymentReasonWithRetry": "Reden: {{- note }}. De betaling wordt opnieuw geprobeerd op {{- nextRetryDate}}",
+        "beforeRenewalContractPriceEvery": "Dan {{ price }} iedere {{ recurrence }}{{ interval }} na {{- date }}",
+        "beforeRenewalContractPricePer": "Dan {{ price }}/{{ interval }} na {{- date }}",
+        "loadMore": "Laad meer",
+        "drawerTitle": "Abonnement",
+        "loading": "We verwerken je verzoek...",
+        "commitmentPeriod": {
+          "modal": {
+            "alert": "Vooraf geboekte sessies onder een abonnement met onbeperkte lessen worden na deze periode geannuleerd en kunnen onderhevig zijn aan een boete voor late annulering.",
+            "failedMessage": "Vernieuw de pagina en probeer het opnieuw.",
+            "failedTitle": "Er ging iets mis",
+            "confirmationNotStarted": "Je kunt het venster sluiten.",
+            "confirmationStarted": "Je kunt blijven profiteren van abonnementsvoordelen tot {{- expiration_date }} (uitgesloten).",
+            "confirmationTitle": "Je hebt je succesvol uitgeschreven",
+            "cancel": "Abonnement behouden",
+            "explainNoExpirationDate": "Je staat op het punt dit abonnement te annuleren. Je abonnementsvoordelen blijven geldig tot het einde van de volgende factureringscyclus.\nWeet je zeker dat je door wilt gaan?",
+            "explainStarted": "Je staat op het punt dit abonnement te annuleren. Je abonnementsvoordelen blijven geldig tot {{- expiration_date }} (uitgesloten).\nWeet je zeker dat je wilt doorgaan?",
+            "explainNotStarted": "Je staat op het punt een abonnement te annuleren dat nog niet is gestart. \nDe eerste factureringscyclus wordt nog in rekening gebracht en je voordelen blijven geldig tot {{- expiration_date }} (uitgesloten).\nWeet je zeker dat je wilt doorgaan?"
+          },
+          "explain": {
+            "year": "Dit abonnement heeft een {{ commitment_period_value }} commitmentperiode van een jaar. Neem voor annuleringen of vragen rechtstreeks contact op met de studio.",
+            "year_plural": "Dit abonnement heeft een {{ commitment_period_value }} jarige commitmentperiode. Neem voor annuleringen of vragen rechtstreeks contact op met de studio.",
+            "month": "Dit abonnement heeft een {{ commitment_period_value }} maandelijkse commitmentperiode. Neem voor annuleringen of vragen rechtstreeks contact op met de studio.",
+            "month_plural": "Dit abonnement heeft een {{ commitment_period_value }} maanden commitmentperiode. Neem voor annuleringen of vragen direct contact op met de studio.",
+            "week": "Dit abonnement heeft een {{ commitment_period_value }} commitmentperiode van een week. Neem voor annuleringen of vragen rechtstreeks contact op met de studio.",
+            "week_plural": "Dit abonnement heeft een {{ commitment_period_value }} weken commitmentperiode. Neem voor annuleringen of vragen direct contact op met de studio.",
+            "day": "Dit abonnement heeft een {{ commitment_period_value }} commitmentperiode van een dag. Neem voor annuleringen of vragen rechtstreeks contact op met de studio.",
+            "day_plural": "Dit abonnement heeft een {{ commitment_period_value }} dagen commitmentperiode. Neem voor annuleringen of vragen direct contact op met de studio."
+          },
+          "subtitle": "Dit abonnement loopt af zonder volgende betalingen na de huidige cyclus.",
+          "title": "Abonnement beheren"
+        }
+      },
+      "consumerSubscriptionCard": {
+        "buttonsLabel": {
+          "seeDetails": "Zie details",
+          "addPaymentMethod": "Een betaalmethode toevoegen"
+        },
+        "recurrenceLabelEvery": "iedere {{ recurrence }} {{ interval }}",
+        "recurrenceLabelPer": "/{{ interval }}",
+        "chipsLabel": {
+          "failedPayment": "Betaling mislukt",
+          "missingPaymentMethod": "Er ontbreekt een betaalmethode",
+          "isPaused": "Gepauzeerd"
+        },
+        "nextPayment": "Volgende betaling: {{- nextPayment }}"
+      },
+      "headerButtonsLabel": {
+        "getSubscription": "Neem een abonnement",
+        "bookASession": "Boek een sessie",
+        "backToSubscriptions": "Terug naar abonnementen"
+      },
+      "tab": {
+        "expired": "Verlopen",
+        "future": "Niet gestart",
+        "active": "Actief"
+      },
+      "title": "Mijn abonnementen",
+      "dateLabel": {
+        "until": " tot {{- date }}",
+        "expired": "Verlopen sinds {{- date }}",
+        "future": "Startdatum: {{- date }}",
+        "active": "Startdatum: {{- date }}"
+      },
+      "close": "Sluit",
+      "paymentMethodUpdatedContent": "Je betaalmethode is succesvol bijgewerkt",
+      "paymentMethodUpdatedTitle": "Betalingsmethode bijgewerkt",
+      "changePaymentMethod": "Betalingsmethode wijzigen",
+      "paymentModalAlert": "Als er geen betaalmethode is opgeslagen, wordt er automatisch een schuld aangemaakt op je interne account voor elke betaling",
+      "download": "Download",
+      "placeholder": {
+        "expired": "Je hebt nog geen verlopen abonnementen.",
+        "nonExpired": "Het lijkt erop dat je geen actieve abonnementen hebt."
+      }
+    },
+    "myInvoices": {
+      "payment": {
+        "useBalance": "Gebruik",
+        "title": "Betaling factuur",
+        "successMessage": "De betaling was succesvol",
+        "myBalance": "Mijn interne rekening balans",
+        "method": "Betaalmethode",
+        "details": "Betaaldetails",
+        "confirm": "Bevestig",
+        "addPaymentMethod": "Voeg betaalmethode toe",
+        "backendProcessingInvoice": "Een klein momentje terwijl we je factuur verwerken..."
+      },
+      "detailsCard": {
+        "total": "Totaal",
+        "retryDate": "De betaling wordt opnieuw geprobeerd op {{ date }}",
+        "refunded": "Geannuleerd",
+        "products": "Mijn producten",
+        "plannedPayments": "Geplande betalingen",
+        "placeholder": "Kies een factuur om de details te bekijken.",
+        "paymentHistory": "Betaal geschiedenis",
+        "paymentErrorWithReason": "Deze betaling is mislukt. Reden: {{- reason }}",
+        "paymentError": "Deze betaling was niet succesvol.",
+        "pay": "Betaal nu",
+        "paid": "Betaald",
+        "noPaymentRegistered": "Er is voorlopig geen geregistreerde betaling.",
+        "due": "Due",
+        "downloadRefundedInvoice": "Terugbetaalde factuur downloaden",
+        "downloadReceipt": "Download ontvangst",
+        "downloadOriginalInvoice": "Download de originele factuur",
+        "download": "Factuur downloaden",
+        "dispute": {
+          "lost": "Verloren",
+          "won": "Gewonnen",
+          "processing": "Verwerking"
+        },
+        "drawerTitle": "Factuur"
+      },
+      "card": {
+        "chip": {
+          "refunded": "Gerefund",
+          "plannedPayments": "Geplande betalingen",
+          "partiallyPaid": "Gedeeltelijk betaald",
+          "dispute": "Geschil",
+          "cancelled": "Geannuleerd"
+        },
+        "title": "Factuur N°{{ identifier }}",
+        "seeDetails": "Zie details",
+        "refundedInvoice": "Terugbetaalde factuur",
+        "receipt": "Ontvangstbewijs",
+        "pay": "Betaal nu",
+        "otherItems": "+{{ count }} item",
+        "originalInvoice": "Originele factuur",
+        "location": "Locatie: {{ name }}",
+        "invoice": "Factuur",
+        "downloads": "Downloads",
+        "downloadRefundedInvoice": "Terugbetaalde factuur downloaden",
+        "downloadReceipt": "Download ontvangst",
+        "downloadOriginalInvoice": "Download de originele factuur",
+        "downloadInvoice": "Download factuur",
+        "download": "Download",
+        "amountDue": "Verschuldigd bedrag: {{- amount}}"
+      },
+      "header": {
+        "filters": {
+          "refunded": "Terugbetaald",
+          "paid": "Betaald",
+          "unpaid": "Onbetaald"
+        },
+        "buttons": {
+          "goBack": "Terug",
+          "bookSession": "Boek een sessie"
+        },
+        "title": "Mijn facturen"
+      },
+      "placeholder": {
+        "refunded": "Je hebt nog geen terugbetaalde facturen.",
+        "paid": "Je hebt nog geen betaalde facturen.",
+        "unpaid": "Goed gedaan, je hebt geen onbetaalde facturen."
+      }
+    },
+    "myProfile": {
+      "termsAndConditions": {
+        "accepted": "Geaccepteerd op {{- dateAccepted}}",
+        "generalTerms": "Algemene voorwaarden",
+        "termOfuse": "Servicevoorwaarden",
+        "subtitle": "Lid sinds {{- dateJoined}}",
+        "title": "Algemene voorwaarden"
+      },
+      "paymentMethods": {
+        "add": "Voeg een betaalmethode toe",
+        "cardItemCaptionText": "Vervalt {{- additionalInfo}}",
+        "paymentMethodLabel": "Stopt met <strong>{{- identifier}}</strong>",
+        "empty": "Zodra je een betaling hebt opgeslagen, wordt deze hier weergegeven.",
+        "directPayments": "Directe betalingen",
+        "cards": "Kaarten",
+        "title": "Opgeslagen betalingsmethoden",
+        "tooltipText": {
+          "more": "Voeg een nieuwe betaalmethode toe en verwijder deze optie als je van netwerk wilt veranderen.",
+          "other": "Anders"
+        }
+      },
+      "membershipId": "Lidmaatschapsnummer",
+      "accountBalance": "Saldo rekening",
+      "spivi": {
+        "information": "Indien geactiveerd, worden je gegevens (snelheid, verbrande calorieën, enz.) in real-time weergegeven tijdens je sessie. Anders ontvang je aan het einde van de sessie een samenvatting per e-mail.",
+        "drawerTitle": "Gegevens weergeven",
+        "displayData": "Mijn gegevens in realtime weergeven",
+        "title": "Gegevens draaien"
+      },
+      "notifications": {
+        "emailNotAllowed": "E-mailmeldingen niet toegestaan",
+        "emailAllowed": "E-mailmeldingen toegestaan",
+        "phoneNotAllowed": "Telefoonmeldingen niet toegestaan",
+        "phoneAllowed": "Telefoonmeldingen toegestaan",
+        "title": "Meldingen",
+        "portal": {
+          "subtitle": "Kies hoe je updates van al je locaties wilt ontvangen",
+          "title": "Voorkeuren voor marketingcommunicatie"
+        },
+        "updatePreferencesButton": "Voorkeuren opslaan",
+        "updatePreferencesLoading": "Besparing",
+        "receiveSmsUpdates": "SMS updates ontvangen",
+        "receiveEmailUpdates": "Updates per e-mail ontvangen",
+        "manageYourFranchiseMarketingPrefencesLabel": "Beheer je marketingvoorkeuren"
+      },
+      "address": "Adres",
+      "emergencyNumber": "Alarmnummer",
+      "phone": "Telefoonnummer",
+      "identityDocument": "Identiteitsbewijs",
+      "birthday": "Verjaardag",
+      "gender": "Geslacht",
+      "detachPayment": {
+        "subtitle": "Vergeet niet dat je betaalmethoden die worden gebruikt in terugkerende betalingen niet kunt verwijderen.",
+        "title": "Betalingsmethode verwijderen"
+      },
+      "barCode": {
+        "entryBarcode": "Barcode invoer",
+        "scanInfo": "Scan deze barcode om de studio binnen te komen of om in te checken voor je les.",
+        "scan": "Scan barcode"
+      },
+      "edition": {
+        "title": "Bewerk jouw profiel"
+      },
+      "header": {
+        "title": "Mijn Profiel",
+        "buttons": {
+          "editProfile": "Bewerk"
+        }
+      },
+      "regularizeBalance": "Saldo rechtzetten"
+    },
+    "moreActions": "Meer acties",
+    "navigation": {
+      "myAccount": {
+        "logOut": "Log uit",
+        "changeLanguage": "Kies taal",
+        "changeStudio": "Verander studio"
+      },
+      "payments": {
+        "paymentMethods": "Betalingsmethoden",
+        "myInvoices": "Mijn facturen",
+        "title": "Betalingen"
+      },
+      "shop": {
+        "myGiftCards": "Mijn kadokaarten",
+        "myPurchases": "Mijn aankopen",
+        "title": "Winkel"
+      },
+      "account": {
+        "myProfile": "Mijn profiel",
+        "mySubscriptions": "Mijn abonnementen",
+        "myPasses": "Mijn leskaarten",
+        "myBookings": "Mijn boekingen",
+        "summary": "Samenvatting",
+        "title": "Account"
+      },
+      "logOut": "Log uit",
+      "changeLanguage": "Verander taal",
+      "changeStudio": "Verander studio",
+      "myPurchases": "Mijn aankopen",
+      "myDashboard": "Mijn dashboard",
+      "myStatistics": "Mijn statistieken",
+      "myInvoices": "Mijn facturen",
+      "myGiftCards": "Mijn kadokaarten",
+      "myProfile": "Mijn profiel",
+      "mySubscriptions": "Mijn abonnementen",
+      "myPasses": "Mijn leskaarten",
+      "myBookings": "Mijn boekingen",
+      "exploreYourProfile": "Verken je profiel",
+      "myVideosAndEbooks": "Mijn video's en eBooks",
+      "switchAccount": "Verander account",
+      "loggedInAs": "U bent momenteel ingelogd als {{ name }}"
+    },
+    "exploreYourProfile": "Verken je profiel.",
+    "appbar": {
+      "myAccount": "Mijn account",
+      "cart": "Winkelwagen",
+      "companyLogo": "Bedrijfslogo"
+    },
+    "menu": "Menu"
+  }
+}

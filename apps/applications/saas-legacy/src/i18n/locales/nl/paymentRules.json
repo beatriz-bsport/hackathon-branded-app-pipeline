@@ -1,0 +1,182 @@
+{
+  "base_percent": "Percentage van de waarde",
+  "only_attendant": "Tot het aantal aanwezige leden beperken",
+  "setPaymentRuleSetForCoachFirst": "Wijs eerst een standaard betalingsregel toe aan deze instructeur.",
+  "modal": {
+    "delete": {
+      "content": "Het verwijderen van deze regel beïnvloedt de payroll van alle gekoppelde instructeurs.",
+      "title": "Een regel verwijderen",
+      "cancel": "Annuleren",
+      "confirm": "Bevestigen"
+    }
+  },
+  "add": "Toevoegen",
+  "base_price": "Vast bedrag",
+  "include_tax": "Incl. btw",
+  "calculation_method": "Rekenmethode",
+  "actions": "Acties",
+  "bookingThreshold": "Aantal reserveringen (incl.)",
+  "pricePerAdditionalBooking": "Bonus per reservering",
+  "select": {
+    "placeholderOverride": "Standaard payroll-regel voor deze instructeur",
+    "placeholder": "Selecteer een Payroll",
+    "coachPaymentRuleForPrivateService": "Afspraken",
+    "coachPaymentRuleForSessions": "Groepsactiviteiten",
+    "reset": "Standaardregel van de instructeur gebruiken",
+    "coachPaymentRuleForWorkshops": "Workshops",
+    "group": "Payroll-regel groep"
+  },
+  "common": {
+    "from": "Begin",
+    "until": "Einde",
+    "pick_a_month": "Selecteer een maand"
+  },
+  "calculate": "Bereken",
+  "title": "Salarisoverzicht van {{- name }}",
+  "label": "Payroll",
+  "dateTitle": "Periode",
+  "coaches": "Instructeurs",
+  "calculation_methods": {
+    "bookings": "Over het aantal reserveringen",
+    "margin_value": "Marginale waarde van elke reservering"
+  },
+  "addBonus": "Een nieuwe regel toevoegen",
+  "cancel": "Annuleren",
+  "addNew": "Een regel voor de payroll toevoegen",
+  "rules": "Regels",
+  "save": "Opslaan",
+  "name": "Naam",
+  "pageTitle": "Payroll",
+  "coach_payment_rules": {
+    "Simulator": {
+      "student_did_not_attend": "Afwezigen",
+      "student_attended": "Aanwezigen",
+      "total_payment": "Laatste betaling",
+      "bonus": "Bonus (totaal)",
+      "marginValue": "Marginale waarde",
+      "forCancelledBookings": "Aantal afwezigen",
+      "forConfirmedBookings": "Aantal aanwezigen",
+      "forEachBooking": "per reservering",
+      "cancellations": "afwezigen en te late annuleringen",
+      "and": "En",
+      "students": "leden",
+      "for": "Voor",
+      "helper": "Controleer hier of je payroll-regels met je verwachtingen overeenkomen.",
+      "resultTitle": "Resultaten",
+      "title": "Simulatie",
+      "which": "Verdiensten",
+      "marginalValueOfReservation": "Marginale waarde per reservering",
+      "numberOfCancellations": "Aantal afwezigen/te late annuleringen",
+      "numberOfStudent": "Aantal leden"
+    },
+    "Errors": {
+      "lowerIntervalTypeError": "Het onderste interval moet gelijk of minder dan 1 zijn.",
+      "taxeRateTypeError": "Het btw-tarief moet een getal tussen 0 en 100 zijn.",
+      "taxeRateRequired": "Het veld \"Btw\" is een verplicht veld als je dit hebt aangevinkt.",
+      "percentagebaseRemunerationTypeError": "De procentuele vergoeding moet een getal 0 en 100 zijn.",
+      "percentagebaseRemunerationRequired": "Het veld \"Percentage\" is een verplicht veld als je dit hebt aangevinkt.",
+      "baseRemunerationTypeError": "Het vaste bedrag moet een positief getal zijn.",
+      "baseRemunerationRequired": "Het veld \"Vast bedrag\" is een verplicht veld als je dit hebt aangevinkt.",
+      "invalideUpperInterval": "De maximale interval moet een getal zijn.",
+      "invalideIntervals": "Intervallen kunnen niet gecombineerd worden.",
+      "invalidLowerInterval": "Het bovenste interval moet groter dan het onderste interval zijn.",
+      "invalidBonusAmount": "De bonus moet gelijk of groter dan 0,1 zijn.",
+      "nameRequired": "Dit veld is verplicht.",
+      "invalidMaximum": "Het maximumtarief moet groter zijn dan het minimumtarief.",
+      "invalidCancelledBookingRules": "Configureer hier minimaal één payroll-regel voor afwezigenen te late annuleringen.",
+      "invalidMinimum": "Het minimumtarief moet groter of gelijk zijn aan het vaste bedrag.",
+      "uniqueRuleForPrivateSlot": "Deze afspraak staat meerdere keren in de lijst",
+      "invalidCoachPaymentRule": "Selecteer een payroll-regel",
+      "invalidPrivateSlot": "Selecteer een afspraak",
+      "oneRuleRequired": "Je moet tenminste één payroll-regel selecteren om een groep te maken.",
+      "privateSlotAlreadySelected": "Er is al een payroll-regel voor deze afspraak ingesteld"
+    },
+    "Bonuses": {
+      "bonus_rules": "Bonusregels",
+      "forEachBooking": "per reservering",
+      "bookingsThresholds": "Reserveringen (incl. interval)",
+      "to": "Tot",
+      "from": "Van",
+      "addBonus": "EEN BONUSREGEL TOEVOEGEN",
+      "bonus": "Bonus",
+      "forInterval": "per interval"
+    },
+    "paymentPackPlaceHolder": "Selecteer leskaarten",
+    "excludePaymentPack": {
+      "title": "Reserveringen op bepaalde kaarten uitsluiten",
+      "warning": "Als je leskaarten al hebt uitgesloten van de beloning met de parameter 'Sessies in rekening gebracht bij berekening leraarsbeloning', dan hoef je ze hier niet opnieuw op te geven."
+    },
+    "bonusForEachReservationInInterval": "Een bonus per reservering toevoegen",
+    "fixedBonusbyInterval": "Een bonus per interval toevoegen",
+    "cancellationBaseHelper": "Vink dit vak aan om geen bonus over de marginale waarde van annuleringen uit te betalen.",
+    "taxeLongHelper": "Alle percentages worden over de marginale waarde per reservering excl. btw berekend. De btw wordt ook op de marginale waarde, vaste bedragen en bonussen toegepast.",
+    "taxeConciseHelper": "Alle percentages worden over de marginale waarde per reservering excl. btw berekend.",
+    "add_taxe_rate": "Btw",
+    "taxe_rate": "Het btw-tarief over de marginale waarde niet in de berekening opnemen",
+    "max_remuneration": "Max.",
+    "min_remuneration": "Min.",
+    "remunerationLimits": "Limiet",
+    "differentRemunerationForCancellation": "Andere payroll-regels voor afwezige leden en te late annuleringen toepassen ",
+    "addRemunerationOnCancellation": "Betaal instructeurs voor afwezigen en te late annuleringen",
+    "percentage_base": "Een percentage over de marginale waarde van de reserveringen toevoegen",
+    "base_remuneration": "Vast bedrag",
+    "forCancelledBookings": "Afwezigen en te late annuleringen",
+    "forConfirmedBookings": "Aanwezigen",
+    "calculationMethod": "Rekenmethode",
+    "actions": "Acties",
+    "coaches": "Instructeurs",
+    "name": "Naam",
+    "addNewCoachPaymentRule": "[Formulier] Payroll-regel",
+    "base_remuneration_helper": "Een vast bedrag wordt altijd standaard toegevoegd.",
+    "set_base_remuneration": "Een vast bedrag per sessie toevoegen"
+  },
+  "tabs": {
+    "all": "Selecteer alles",
+    "appointment": "Afspraken",
+    "session": "Groepsactiviteiten & Workshops",
+    "groups": "Payroll-regel groepen",
+    "groupActivity": "Groepsactiviteiten",
+    "workshop": "Workshops"
+  },
+  "fabButton": {
+    "addNewForRDV": "Afspraken",
+    "addNewForSession": "Groepsactiviteiten & Workshops",
+    "addNewPaymentRuleGroup": "Payroll-regel groep",
+    "addNewForGroupActivity": "Groepslessen",
+    "addNewForWorkshop": "Workshops"
+  },
+  "paymentRules": "Payroll-regels",
+  "coach_payment_rule_groups": {
+    "dissociate": "Payroll personaliseren",
+    "fields": {
+      "private_service": "Afspraken",
+      "workshop": "Workshops",
+      "activity": "Groepsactiviteiten",
+      "private_service_name": "Afspraak",
+      "coach_payment_rule": "Payroll-regel",
+      "addPrivateSlot": "Een payroll-regel toevoegen"
+    },
+    "subtitle": {
+      "coaches": "Gekoppelde instructeur(s)",
+      "specfic_private_slot": "Afspraken",
+      "default": "Standaard payroll-regels",
+      "helper": "Je kunt meerdere payroll-regels aan een groep toevoegen voor je groepsactiviteiten, workshops en afspraken. Zodra je instructeurs toevoegt, zullen alle payroll-regels van deze groep op de geselecteerde instructeurs van toepassing zijn. Elke verandering geldt ook voor iedereen die in de groep zit.",
+      "removed_coaches": "Verwijderde leraren"
+    },
+    "workshop": "Workshops",
+    "session": "Groepsactiviteiten",
+    "private_service": "Afspraken",
+    "dialogTitle": "Payroll-regel groep",
+    "modal": {
+      "delete": {
+        "content": "Alle instructeurs worden ontkoppeld zodra deze groep verwijderd wordt.",
+        "confirm": "Bevestigen",
+        "cancel": "Annuleer",
+        "title": "Groep verwijderen"
+      }
+    }
+  },
+  "search": "(Optioneel) Een payroll-regel toevoegen",
+  "simulate": "Simuleer",
+  "privateSlotLabel": "Afspraken"
+}

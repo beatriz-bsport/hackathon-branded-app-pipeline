@@ -1,0 +1,105 @@
+{
+  "video": {
+    "videoList": "Bibliothèque vidéo"
+  },
+  "banner": {
+    "isStaging": "Prendre RDV",
+    "networkError": "Il semble que vous soyez hors ligne. Veuillez vérifier votre connexion Internet et réessayer.",
+    "franchiseConnection": "Vous êtes actuellement connecté sur une application de vos franchisé",
+    "serverConnectionRestored": "La connexion est rétablie. Vous pouvez continuer sans problème.",
+    "networkConnectionRestored": "Connexion rétablie !",
+    "serverError": "Une erreur s'est produite de notre côté. Veuillez patienter ou cliquez ici pour actualiser la page."
+  },
+  "member": {
+    "memberForm": "Ajouter un membre",
+    "members": "Membres",
+    "mergeMember": "Fusion membre",
+    "memberFormPage": "Formulaire Membre"
+  },
+  "order": {
+    "orderList": "Commandes",
+    "orderDetail": "Détail commande"
+  },
+  "metaActivity": {
+    "metaActivityList": "Activités",
+    "metaActivityEditForm": "Formulaire Activité",
+    "metaActivityFormPage": "Ajouter un cours collectif",
+    "metaActivityFormSubtitle": "Configurer un cours collectif avec les infos et les conditions de réservation",
+    "metaActivityEditFormSubtitle": "Modification d'une activité"
+  },
+  "invoice": {
+    "invoiceList": "Transactions",
+    "invoiceCreate": "Facturer",
+    "invoiceEdit": "Edition facture"
+  },
+  "expense": {
+    "expenseList": "Dépenses"
+  },
+  "coach": {
+    "coachList": "Professeurs",
+    "allCoachPerformance": "Récapitulatif professeur",
+    "coachFormPage": "Formulaire professeur",
+    "coachPerformance": "Règlement du professeur {{- name }}"
+  },
+  "coupon": {
+    "couponCreate": "Formulaire promotion",
+    "couponDetail": "{{name}}",
+    "couponEdit": "Formulaire promotion",
+    "couponList": "Codes promotionnels"
+  },
+  "privateService": {
+    "serviceList": "Sur rendez-vous"
+  },
+  "establishment": {
+    "establishmentList": "Etablissements",
+    "establishmentFormPage": "Ajouter un établissement",
+    "establishmentGroupPage": "Localisations"
+  },
+  "marketplace": {
+    "marketplaceShop": "Magasin",
+    "marketplaceWorkshop": "Ateliers",
+    "marketplaceCalendar": "Calendrier",
+    "marketplacePass": "Cartes de cours",
+    "marketplaceGiftcard": "Cartes cadeaux"
+  },
+  "dashboard": {
+    "marketingDashboard": "Marketing",
+    "reportingDashboard": "Rapports",
+    "dashboard": "Dashboard"
+  },
+  "subscription": {
+    "subscriptionCreate": "Créer une souscription",
+    "subscriptions": "Souscriptions"
+  },
+  "workshopActivity": {
+    "workshopActivityList": "Ateliers",
+    "workshopActivityCreate": "Créer un atelier",
+    "workshopActivityFormPage": "Formulaire ateliers",
+    "workshopActivityFormSubtitle": "Création d'un atelier",
+    "workshopActivityEditFormSubtitle": "Modification d'un atelier"
+  },
+  "paymentPack": {
+    "paymentPackFormPage": "Formulaire carte de cours",
+    "paymentPackList": "Cartes de cours"
+  },
+  "marketing": {
+    "marketingDashboard": "Dashboard",
+    "marketingRule": "Stratégies marketing",
+    "notifications": "Notifications",
+    "cadence": "Cadence",
+    "audience": "{{ audienceCamelCase }}"
+  },
+  "settings": "Paramètres",
+  "planning": "Calendrier",
+  "shop": "Mon magasin",
+  "offerManagement": "Réservations",
+  "offerFormPage": "Création de séance",
+  "searchResults": "Recherche",
+  "coachUserSpace": {
+    "performance": "Rémunération",
+    "replacement": "Remplacement"
+  },
+  "replacement": "Remplacement",
+  "inbox": "Boîte de réception",
+  "giftcard": "Cartes cadeaux"
+}

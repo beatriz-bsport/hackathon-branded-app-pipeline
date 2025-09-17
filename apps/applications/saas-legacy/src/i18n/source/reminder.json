@@ -1,0 +1,39 @@
+{
+  "task": {
+    "sectionTitle": {
+      "pending": "Pending tasks",
+      "future": "Planned tasks",
+      "past": "Archived tasks"
+    },
+    "status": {
+      "0": "Pending",
+      "10": "Finished",
+      "20": "Cancelled"
+    },
+    "owners": "Assigned to ",
+    "author": "Author",
+    "actions": {
+      "addTask": "Add a task",
+      "finish": "Finish",
+      "restart": "Restart",
+      "cancel": "Archive"
+    },
+    "form": {
+      "title": "Task",
+      "close": "Cancel",
+      "submit": "Confirm",
+      "description": {
+        "label": "Message"
+      },
+      "name": {
+        "label": "Title"
+      },
+      "date_due": {
+        "label": "Reminder date"
+      },
+      "task_owner": {
+        "helperText": "Staff that'll be notified"
+      }
+    }
+  }
+}

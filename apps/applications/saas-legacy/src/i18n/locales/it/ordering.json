@@ -1,0 +1,30 @@
+{
+  "category": {
+    "noCategory": {
+      "name": "Nessuna categoria"
+    },
+    "creationDialog": {
+      "name": "Nome della categoria",
+      "titleEdit": "Categoria",
+      "titleNew": "Nuova categoria",
+      "edit": "Modifica",
+      "create": "Creare",
+      "cancel": "Cancella"
+    },
+    "popover": {
+      "delete": "Cancella",
+      "edit": "Rinomina"
+    },
+    "deleteModal": {
+      "title": "Cancellazione",
+      "cancel": "Cancella",
+      "confirm": "Confermare",
+      "content": "Sei sicuro di voler eliminare questa categoria? Tutti gli articoli che contiene saranno messi nella sezione senza categoria"
+    },
+    "add": "Aggiungere una categoria",
+    "empty": "Questa categoria è vuota",
+    "noAvailable": "Nessun articolo corrispondente ai filtri selezionati",
+    "selector": "Nome della categoria"
+  },
+  "disabledItemsTitle": "Archivio"
+}

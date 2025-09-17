@@ -23,7 +23,6 @@ import DE_FLAG from '../input/flags/DE.png';
 import EN_FLAG from '../input/flags/EN.png';
 import US_FLAG from '../input/flags/US.png';
 import PT_FLAG from '../input/flags/PT.png';
-import CZ_FLAG from '../input/flags/CZ.png';
 import ZA_FLAG from '../input/flags/ZA.png';
 import Config from '../../config';
 
@@ -51,7 +50,6 @@ const countryFlag = {
   [LANGUAGES.ITALIAN]: IT_FLAG,
   [LANGUAGES.SPANISH]: ES_FLAG,
   [LANGUAGES.PORTUGUESE]: PT_FLAG,
-  [LANGUAGES.CZECH]: CZ_FLAG,
   [LANGUAGES.DEBUG]: ZA_FLAG,
 };
 

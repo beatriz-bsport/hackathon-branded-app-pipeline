@@ -1,0 +1,105 @@
+{
+  "video": {
+    "videoList": "Videotheek & eBooks"
+  },
+  "banner": {
+    "isStaging": "Kennismakingsgesprek inplannen",
+    "networkError": "Het lijkt erop dat je offline bent. Controleer je internetverbinding en probeer het opnieuw.",
+    "franchiseConnection": "Je bent momenteel met de Sub-Account van een studio verbonden.",
+    "serverConnectionRestored": "Verbinding hersteld. Je kunt zonder problemen doorgaan.",
+    "networkConnectionRestored": "Verbinding hersteld!",
+    "serverError": "We hebben problemen met het laden van je gegevens. Een moment geduld alsjeblieft, we zijn de verbinding aan het herstellen."
+  },
+  "member": {
+    "memberForm": "Een lid toevoegen",
+    "members": "Leden",
+    "mergeMember": "Leden samenvoegen",
+    "memberFormPage": "[Formulier] Lid"
+  },
+  "metaActivity": {
+    "metaActivityEditForm": "[Formulier] Groepsactiviteiten",
+    "metaActivityFormPage": "Een groepsactiviteit toevoegen",
+    "metaActivityList": "Groepsactiviteiten",
+    "metaActivityEditFormSubtitle": "Een groepsactiviteit toevoegen of bewerken.",
+    "metaActivityFormSubtitle": "Een groepsactiviteit opzetten, de duur ervan bepalen en aangepaste parameters toevoegen"
+  },
+  "invoice": {
+    "invoiceList": "Facturen",
+    "invoiceCreate": "Factureren",
+    "invoiceEdit": "Factuur"
+  },
+  "coach": {
+    "coachList": "Instructeurs",
+    "coachFormPage": "[Formulier] Instructeur",
+    "coachPerformance": "Payroll: {{- name }}",
+    "allCoachPerformance": "Payroll"
+  },
+  "coupon": {
+    "couponCreate": "[Formulier] Promotie",
+    "couponEdit": "[Formulier] Promotie",
+    "couponList": "Promoties",
+    "couponDetail": "{{name}}"
+  },
+  "establishment": {
+    "establishmentList": "Vestigingen",
+    "establishmentFormPage": "Een zaal of vestiging toevoegen",
+    "establishmentGroupPage": "Locatie"
+  },
+  "marketplace": {
+    "marketplaceWorkshop": "Workshops",
+    "marketplaceCalendar": "Agenda",
+    "marketplacePass": "Kaarten",
+    "marketplaceShop": "Webshop",
+    "marketplaceGiftcard": "Cadeaubonnen"
+  },
+  "dashboard": {
+    "marketingDashboard": "Marketing",
+    "reportingDashboard": "Rapportages",
+    "dashboard": "Dashboard"
+  },
+  "subscription": {
+    "subscriptionCreate": "Abonneren",
+    "subscriptions": "Automatische incasso's"
+  },
+  "workshopActivity": {
+    "workshopActivityList": "Workshops",
+    "workshopActivityCreate": "Workshop toevoegen",
+    "workshopActivityFormPage": "[Formulier] Workshop",
+    "workshopActivityEditFormSubtitle": "Een workshop bewerken",
+    "workshopActivityFormSubtitle": "Een workshop toevoegen"
+  },
+  "paymentPack": {
+    "paymentPackFormPage": "[Formulier] Leskaart",
+    "paymentPackList": "Leskaarten"
+  },
+  "marketing": {
+    "marketingDashboard": "Campagnes",
+    "marketingRule": "Marketingcampagnes",
+    "notifications": "Meldingen",
+    "cadence": "Cadences",
+    "audience": "{{ audienceCamelCase }}"
+  },
+  "settings": "Instellingen",
+  "shop": "Webshop",
+  "offerManagement": "Reserveringen",
+  "offerFormPage": "Sessies toevoegen",
+  "searchResults": "Zoeken",
+  "planning": "Agenda",
+  "order": {
+    "orderList": "Bestellingen",
+    "orderDetail": "Besteloverzicht"
+  },
+  "privateService": {
+    "serviceList": "Afspraken"
+  },
+  "expense": {
+    "expenseList": "Uitgaven"
+  },
+  "coachUserSpace": {
+    "performance": "Payroll",
+    "replacement": "Vervanging"
+  },
+  "replacement": "Vervanging",
+  "inbox": "Inbox",
+  "giftcard": "Cadeaukaarten"
+}

@@ -1,0 +1,220 @@
+{
+  "payment": {
+    "flat_fee": "Frais de dossier",
+    "taxExcluded": "Sous-total HT",
+    "tax": "Taxes",
+    "total": "Total TTC",
+    "title": "Paiement",
+    "deliveryFee": "Frais de livraison",
+    "flatFeeSubscription": "Frais de dossier",
+    "globalTotal": "Total",
+    "totalHiddingTax": "Total",
+    "internalAccount": "Compte interne",
+    "selectedSession": "Vos séances sélectionnées"
+  },
+  "events": {
+    "basket-created": "Panier créé",
+    "basket-finalize": "Panier finalisé/payé",
+    "basket-additem": "Ajout au panier",
+    "basket-removeitem": "Retrait du panier",
+    "basket-automaticclean": "Nettoyage automatique du panier"
+  },
+  "eventHistory": {
+    "sectionTitle": "Evènements",
+    "pleaseSelectABasket": "Sélectionnez un panier pour voir l'historique"
+  },
+  "historyTitle": "Historique des paniers",
+  "paymentIntent": {
+    "isProcessing": "Veuillez patientez"
+  },
+  "forms": {
+    "delivery": {
+      "first_name": "Prénom",
+      "last_name": "Nom",
+      "actions": {
+        "submit": "Suivant",
+        "cancel": "Précédent"
+      }
+    }
+  },
+  "autoAdd": {
+    "paymentPack": {
+      "locked": "Ce produit n'est pas disponible."
+    },
+    "privatePass": {
+      "error": "Cette carte de rendez-vous n'est pas disponible"
+    },
+    "paymentCombo": {
+      "locked": "Ce pack n'est pas disponible"
+    }
+  },
+  "myBasket": {
+    "checkingPaymentStatus": "Veuillez patienter, nous vérifions le status de votre paiement",
+    "finalize": {
+      "steps": {
+        "address": "Adresse",
+        "payment": "Facturation"
+      }
+    },
+    "title": "Mon panier",
+    "isEmpty": "Votre panier est vide",
+    "isFinalized": "Votre panier a été validé",
+    "featured": "Nous vous recommandons",
+    "error": {
+      "invalidBasket": "Votre panier contenait des éléments qui ne sont plus disponibles à la vente. Aucun paiement n'a été enregistré",
+      "inconsistentBasket": "Votre panier a été modifié, veuillez rafraichir votre page avant de valider votre paiement.\nVous n'avez pas été débité.",
+      "unavailableSessions": "Certaines séances de votre panier n'étant plus disponibles, nous n'avons pas pu terminer votre réservation. Nous avons supprimé celles qui n'étaient pas disponibles. Veuillez revoir votre panier et réessayer."
+    },
+    "totalQuantity": "Contient {{ qty }} éléments",
+    "actions": {
+      "closeBasket": "Continuer mes achats",
+      "checkoutBasket": "Payer",
+      "payZero": "Valider mon panier"
+    },
+    "almostDone": "Dernière étape",
+    "checkAndFinalize": "Veuillez vérifier votre panier et finaliser votre réservation",
+    "acceptTermsAndFinalize": "Veuillez accepter les conditions générales et finaliser votre réservation",
+    "noBooking": {
+      "checkAndFinalize": "Veuillez vérifier votre panier",
+      "acceptTermsAndFinalize": "Veuillez accepter les conditions générales et finaliser votre panier"
+    },
+    "newCheckout": {
+      "isEmpty": "Votre panier est vide !",
+      "isEmptyDescription": "Poursuivez votre exploration de l'espace membre !"
+    },
+    "goToMarketplace": "Voir l'espace membre",
+    "referral": {
+      "hasReachedMaxUses": "Le nombre maximum d'utilisations du lien de parrainage a été atteint.",
+      "missingAmountBeforeApplication": "Le montant minimum d'achat n'a pas été atteint. Vous risquez de perdre votre lien de parrainage. Il suffit de {{ missingAmount }} de plus pour pouvoir bénéficier de la réduction !"
+    },
+    "expressCheckoutTitle": "Paiement express"
+  },
+  "payLater": {
+    "submit": "Payer sur place",
+    "explain": "Votre facture sera considérée comme impayée jusqu'à ce que vous la régliez à partir de votre profil de membre, ou directement au studio."
+  },
+  "or": "ou",
+  "expire_in": "Expire dans ",
+  "bookerMethod": {
+    "emptyMethod": "Désolé, pour le moment il n'y a pas de carte compatible avec cette vidéo. Veuillez vous rendre dans la section abonnement pour y accéder.",
+    "actions": {
+      "bookVod": "Débloquer la vidéo"
+    },
+    "section": {
+      "consumerPass": "Mes cartes",
+      "pass": "Cartes disponibles",
+      "combo": "Packs"
+    }
+  },
+  "validation": {
+    "actions": {
+      "continue": "Continuer mes achats",
+      "member": "Espace Membre",
+      "back": "Précédent",
+      "widgetContinue": "Continuer",
+      "payNow": "Payer",
+      "confirmPriceNull": "Confirmer",
+      "goToCalendar": "Retour au calendrier",
+      "myBookings": "Mes réservations",
+      "retry": "Réessayer",
+      "newWorkshop": "Nouvel atelier",
+      "retryBookingSession": "Réessayer de réserver",
+      "mySubscription": "Mon abonnement",
+      "myProducts": "Mes achats",
+      "myGiftcards": "Mes cartes cadeaux",
+      "myPasses": "Mes cartes de cours",
+      "backToMyProfile": "Retour à mon profil",
+      "seeAllPasses": "Voir toutes les cartes de cours",
+      "bookAClass": "Réserver un cours"
+    },
+    "sections": {
+      "explain": "Votre opération a bien été prise en compte. Nous vous enverrons un mail de confirmation.",
+      "recap": "Récapitulatif",
+      "title": "Félicitations !",
+      "basket": "Mon panier",
+      "offerBooked": "Ma séance",
+      "offerBooked_plural": "Mes séances",
+      "offerPreBooked": "Inscription sur la liste d'attente",
+      "offerNotBookable": "Inscription impossible",
+      "error": "Erreur",
+      "errorExplain": {
+        "generic": "L'opération n'a pas pu être effectuée. Nous vous invitons à réessayer.",
+        "guestGeneric": "Un problème est survenu avec la réservation pour un invité.",
+        "guestOvercomeLimit": "Le nombre d'invités ajoutés pour cette réservation dépasse le nombre autorisé.",
+        "guestReachedLimit": "Vous avez déjà atteint la limite de réservation pour un invité sur la période en cours. Il n'est plus possible d'en faire.",
+        "guestSettings": "Le studio a désactivé la fonctionnalité de réservation pour un invité.",
+        "guestOffer": "Le studio a désactivé la fonctionnalité de réservation pour un invité pour cette session.",
+        "guestPass": "Le studio a désactivé la fonctionnalité de réservation pour un invité pour cette carte de cours.",
+        "guestNotEnoughSpot": "Il n'y a pas assez de places pour tous vos invités.",
+        "offerOnlyBookingError": "Désolé, mais malheureusement, la séance et le spot sélectionnés ne peuvent pas être réservés pour le moment. Nous vous invitons à réessayer.",
+        "genericOfferError": "Nous avons rencontré un problème lors du traitement de votre réservation de séance. Veuillez réessayer ultérieurement ou réserver une séance différente."
+      },
+      "confirmationStatusTitle": {
+        "errors": {
+          "generic": "Oups ! Le paiement a échoué.",
+          "genericOfferError": "Oups ! La réservation a échoué."
+        },
+        "success": {
+          "offerOnlySuccess": "Bonne séance !",
+          "paymentSuccess": "Paiement confirmé !",
+          "waitingList": "Vous vous êtes inscrit sur la liste d'attente",
+          "offerOnlyGuestSuccess": "Profitez de la séance avec votre invité(e) !",
+          "expressCheckoutPassPurchaseSuccess": "Félicitations ! Vous venez d'acheter un pass !"
+        },
+        "warning": {
+          "offersPartiallyConfirmed": "Votre réservation est partiellement confirmée"
+        }
+      },
+      "confirmationStatusMessage": {
+        "offerOnlySuccess": "La réservation a bien été effectuée. Vous recevrez bientôt un e-mail de confirmation avec tous les détails.",
+        "offerOnlySuccess_plural": "Les réservations ont bien été effectuées. Vous recevrez bientôt un e-mail de confirmation avec tous les détails.",
+        "paymentSuccess": "Félicitations ! Votre achat est confirmé !",
+        "paymentSuccess_plural": "Félicitations ! Vos achats sont confirmés !",
+        "offerAndPurchaseSuccess": "Félicitations ! Vos achats et réservations sont confirmés. Vous recevrez sous peu un e-mail de confirmation contenant tous les détails.",
+        "offerOnlyGuestSuccess": "La réservation a été effectuée. Votre invité(e) et vous allez recevoir sous peu un e-mail de confirmation contenant tous les détails.",
+        "offersPartiallyConfirmed": "Certaines séances n'ont pas pu être réservées, potentiellement car elles étaient complètes ou qu'elles ont été annulées pendant votre réservation. Vous recevrez sous peu un email de confirmation contenant les détails des réservations réussies.",
+        "expressCheckoutPassPurchaseSuccess": "Maintenant que vous avez votre pass, il est temps de réserver votre cours et de profiter de tous les avantages."
+      },
+      "alert": "Oups ! La réservation a échoué.\n Nous avons rencontré un problème lors du traitement de votre réservation de séance. Veuillez réessayer ultérieurement ou réserver une séance différente.",
+      "myPass": "Ma carte de cours",
+      "myPass_plural": "Mes cartes de cours",
+      "myPack": "Mon pack",
+      "myPack_plural": "Mes packs",
+      "mySubscription": "Mon abonnement",
+      "myProduct": "Mon produit",
+      "myProduct_plural": "Mes produits",
+      "myGiftcard": "Ma carte cadeau",
+      "myGiftcard_plural": "Mes cartes cadeaux",
+      "offerGuestBooked": "Réservation de mon invité",
+      "offerGuestBooked_plural": "Réservations de mon invité",
+      "unableToBookSession": "Impossible de réserver une séance",
+      "unableToBookSession_plural": "Impossible de réserver des séances"
+    },
+    "bookingItem": {
+      "bookingItemStatus": {
+        "waitingList": "Liste d'attente",
+        "unpaid": "Impayé"
+      }
+    }
+  },
+  "internalAccount": {
+    "useMyInternalAccount": "Utilisation de mon solde",
+    "myInternalAccount": "Mon solde",
+    "use": "Utiliser mon solde",
+    "label": "Montant disponible : ",
+    "cancel": "Annuler",
+    "confirm": "Confirmer",
+    "useAsManager": "Utiliser le solde"
+  },
+  "expiredSpotDialog": {
+    "refresh": "Actualiser",
+    "message": "Votre réservation d'emplacement a expiré, vous pouvez le sélectionner à nouveau ou choisir un autre emplacement.",
+    "title": "Votre réservation d'emplacement a expiré"
+  },
+  "spotSavedFor": "L'emplacement sélectionné est réservé pour : {{countdown}}",
+  "billingGroup": {
+    "title": "Localisation préférée",
+    "placeholder": "Localisation",
+    "helperText": "La localisation préférée est l'endroit où vous prévoyez d'utiliser votre achat la plupart du temps. Cette information sera utilisée pour établir votre facture et à des fins d'allocation des ressources uniquement. Elle ne détermine pas l'endroit où votre achat peut être utilisé."
+  }
+}

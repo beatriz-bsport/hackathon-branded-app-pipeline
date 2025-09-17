@@ -14,19 +14,45 @@ import { useKaizenI18nInstance } from "#src/i18n";
 import TableCell from "./TableCell";
 import { BaseRow, Column } from "./types";
 
+/**
+ * Props for the TableRow component.
+ *
+ * @template RowType - The type of data objects in each table row, extending BaseRow
+ */
 type TableRowProps<RowType extends BaseRow> = {
+  /** The data object for this row */
   row: RowType;
+  /** Unique identifier for this row (stringified row.id) */
   rowId: string;
+  /** Array of column configurations defining how to render each cell */
   columns: Column<RowType>[];
+  /** Whether this table supports row selection */
   selectable?: boolean;
+  /** Callback function triggered when the row's checkbox state changes */
   handleCheckboxChange?: (id: string) => void;
+  /** Whether this row is currently selected */
   selected?: boolean;
+  /** Height variant for this row */
   rowHeight?: "sm" | "lg";
+  /** Whether to display vertical borders between cells */
   withVerticalBorders?: boolean;
+  /** Callback function triggered when the row is clicked */
   onRowClick?: () => void;
+  /** Whether this row is in an active state (highlighted) */
+  isActive?: boolean;
 };
 
-// Type-safe utility to resolve a deep path in an object
+/**
+ * Type-safe utility function to resolve deep object paths.
+ *
+ * Safely extracts values from nested object properties using dot notation.
+ * For example, "user.profile.name" will resolve to obj.user.profile.name.
+ *
+ * @template T - The type of the source object
+ * @param obj - The object to extract the value from
+ * @param path - Dot-separated path to the desired property
+ * @returns The resolved value or undefined if path doesn't exist
+ */
 const resolveDeepPath = <T,>(obj: T, path: string): unknown => {
   return path.split(".").reduce((acc, part) => {
     return acc && (acc as Record<string, unknown>)[part];
@@ -44,6 +70,7 @@ const TableRow = withLink(
     rowHeight = "sm",
     withVerticalBorders = false,
     onRowClick,
+    isActive,
   }: TableRowProps<RowType>): React.ReactElement => {
     const i18nInstance = useKaizenI18nInstance();
     const intlLocale = i18nInstance?.language;
@@ -155,15 +182,14 @@ const TableRow = withLink(
         }),
       [columns, intlLocale, row, rowHeight, selectable, withVerticalBorders],
     );
-
     return (
       <div
         onClick={() => onRowClick?.()}
         className={classNames("relative table-row", {
-          "bg-surface-default hover:bg-surface-action-default-weak-hovered active:bg-surface-action-default-weak-pressed":
-            !selected,
           "bg-surface-action-main-selected-rest hover:bg-surface-action-main-selected-hovered active:bg-surface-action-main-selected-pressed":
-            selected,
+            selected || isActive,
+          "bg-surface-default hover:bg-surface-action-default-weak-hovered active:bg-surface-action-default-weak-pressed":
+            !selected && !isActive,
         })}
       >
         {selectable && (

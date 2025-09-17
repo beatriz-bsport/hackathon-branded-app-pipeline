@@ -1,0 +1,276 @@
+{
+  "capacity": {
+    "explain": "Raumkapazität : {{ capacity }} Platz",
+    "explain_plural": "Raumkapazität : {{ capacity }} Plätze",
+    "label": "Raumkapazität",
+    "helperText": "Wird nur zur Berechnung der Verfügbarkeit für Termine verwendet",
+    "placeholder": " "
+  },
+  "detail": {
+    "tab": {
+      "calendar": "Wochenplan",
+      "general": "Allgemein"
+    }
+  },
+  "forms": {
+    "delete": {
+      "actions": {
+        "cancel": "abbrechen",
+        "confirm": "Löschen"
+      },
+      "title": "Einrichtung löschen",
+      "content": {
+        "canDelete": "Sind Sie sicher, dass Sie diese Einrichtung löschen möchten? Diese Aktion ist unwiderruflich. Vergangene Kurse und bereits registrierte Buchungen sind nicht davon betroffen.",
+        "cannotDelete": "Es ist unmöglich, diese Einrichtung zu löschen, da Kurse in der Zukunft dort geplant sind. Prüfe, ob sie storniert und dann gelöscht wurden"
+      }
+    },
+    "update": {
+      "title": "Änderung der Informationen"
+    },
+    "create": {
+      "title": "Neue Einrichtung"
+    },
+    "edit": "Bearbeiten"
+  },
+  "establishment": "Einrichtung",
+  "baseEstablishment": "Standard",
+  "overrider": "Vertretung",
+  "establishment_override": "Ersatzeinrichtung",
+  "search": "Eine Einrichtung suchen",
+  "addButton": "Einrichtung hinzufügen",
+  "pleaseSelectOne": "Bitte wählen Sie ein Studio auf der Karte aus",
+  "offers": "Kurskalender:",
+  "noMoreOffers": "Kein anderer geplanter Kurs",
+  "goBackToList": "Zurück zur Einrichtungen",
+  "pleaseFill": "Bitte geben Sie eine Einrichtung an",
+  "practical_info": {
+    "label": "Zugangsinformationen",
+    "placeholder": "Code 1234 rechte Tür",
+    "helperText": "Diese Informationen werden nur zum Zeitpunkt der Buchung angezeigt"
+  },
+  "form": {
+    "new": {
+      "title": "Titel"
+    }
+  },
+  "card": {
+    "update": "Speichern"
+  },
+  "update": {
+    "imageUploaderRequireEditMessage": "Nach Erstellung der Einrichtung kannst du weitere Bilder hinzufügen."
+  },
+  "cancel": "Abbrechen",
+  "noEstablishement": "Verwalten Sie hier Ihre Einrichtungen, Ihren Standort, Ihre Auslastung und Ihren Kalender",
+  "notificationToolTip": "Benachrichtigungen sind für Buchungen in dieser Einrichtung aktiviert",
+  "list": {
+    "section": {
+      "archived": "Archivierte Einrichtung"
+    }
+  },
+  "location": {
+    "country": "Land",
+    "zip_code": "PLZ",
+    "city": "Stadt",
+    "address_line_2": "Adresszeile 2",
+    "address_line_1": "Adresszeile 1",
+    "address": "Adresse",
+    "search_address": "Suche nach einer Adresse",
+    "state": "Bundesland"
+  },
+  "spotScheduling": {
+    "delete": {
+      "content": "Sind Sie sicher, dass Sie dieses Platzlayout löschen möchten? Dieser Vorgang ist unumkehrbar.",
+      "title": "Platzlayout löschen"
+    },
+    "title": "Spot Scheduling",
+    "subtitle": "Wird für die Platzreservierung verwendet. Es ermöglicht Ihren Mitgliedern, den von ihnen gewünschten Platz im Raum zu reservieren.",
+    "add": "Ein Platzlayout hinzufügen",
+    "placeCount": "{{count}} Orte",
+    "untitled": "Unbenannt"
+  },
+  "group": {
+    "table": {
+      "name": "Name",
+      "establishment": "Einrichtung",
+      "actions": "Aktion",
+      "noAddress": "Keine Adresse ist mit dieser Rechnungsgruppe verbunden",
+      "address": "Adresse",
+      "multiLocationWebshopEnabled": "Diese Abrechnungsgruppe kann nicht gelöscht werden, weil der Multi-Location Webshop freigeschaltet ist."
+    },
+    "modal": {
+      "delete": {
+        "confirm": "Löschen",
+        "cancel": "Abbrechen",
+        "content": "Diese Einrichtung wird nicht mehr in den verfügbaren Filtern auf dem Mitgliederbereich, im Widget und in der mobilen Marken-App erscheinen.",
+        "title": "Einen Standort löschen"
+      }
+    },
+    "form": {
+      "dialog": {
+        "save": "Speichern",
+        "cancel": "Löschen",
+        "title": "Standort"
+      },
+      "associated_localizations": "Verbundene Einrichtungen",
+      "name": "Name"
+    },
+    "noGroupHelper": "Standorte werden verwendet, um mehrere Adressen zu gruppieren. Wenn Sie mehrere Studios in verschiedenen Städten haben, können Sie Studios aus derselben Stadt an einem Ort gruppieren. Auf den Mitgliederbereich, dem Widget und der personalisierten Anwendung können Ihre Mitglieder den Standort auswählen, der sie am meisten interessiert, um nur die Kurse in ihrer Nähe zu sehen.",
+    "actions": "Aktion",
+    "name": " Name",
+    "addLocalisation": "Raum hinzufügen",
+    "groupButton": "Gruppeneinrichtungen"
+  },
+  "room": "Einrichtung",
+  "localisation": "Standort",
+  "billing_group": {
+    "table": {
+      "name": "Name",
+      "establishment": "Einrichtungen",
+      "actions": "Aktionen"
+    },
+    "modal": {
+      "delete": {
+        "confirm": "Löschen",
+        "cancel": "Abbrechen",
+        "content": "Sind Sie sicher, dass Sie diese Rechnungsgruppe löschen möchten? Künftige Rechnungen können nicht mehr mit diesem Standort verknüpft werden und auch nicht mehr von den Mitgliedern als bevorzugter Standort ausgewählt werden, wenn sie einen Online-Einkauf tätigen. Bevor Sie die Rechnungsgruppe löschen, vergewissern Sie sich bitte, dass alle Ihre Einrichtungen mit bestehenden Rechnungsgruppen verknüpft sind",
+        "title": "Abrechnungsgruppe löschen"
+      }
+    },
+    "form": {
+      "error": {
+        "groupShouldHaveName": "Sie müssen dieser Abrechnungsgruppe einen Namen geben",
+        "groupShouldContainsOneRoom": "Bitte wählen Sie mindestens eine Einrichtung",
+        "groupShouldHaveAddress": "Sie müssen dieser Rechnungsgruppe eine Adresse geben"
+      },
+      "dialog": {
+        "save": "Speichern",
+        "cancel": "Abbrechen",
+        "title": "Abrechnungsgruppe"
+      },
+      "associated_localizations": "Zugehörige Einrichtungen",
+      "name": "Name",
+      "address": {
+        "helperText": "Adresse der Rechnungsgruppe eingeben.",
+        "label": "Adresse"
+      },
+      "warning": {
+        "groupHasSeveralLocations": "Beachten Sie, dass die von Ihnen ausgewählten Einrichtungen nicht dieselbe Adresse haben und möglicherweise nicht zu demselben Standort gehören"
+      }
+    },
+    "actions": "Aktionen",
+    "name": " Name"
+  },
+  "description": "Beschreibung",
+  "favouriteLocation": "Lokalisierungspräferenzen",
+  "notification": {
+    "modal": {
+      "content": "Sind Sie sicher, dass Sie diese Benachrichtigung löschen möchten? Dieser Vorgang ist endgültig.",
+      "confirm": "Löschen",
+      "cancel": "Abbrechen",
+      "title": "Benachrichtigung verweigern"
+    }
+  },
+  "marketing": {
+    "notification": "Benachrichtigungen"
+  },
+  "roomRequired": "Raum *",
+  "roomRequiredIsMissing": "Sie haben keine Abrechnungsstelle ausgewählt.",
+  "billingGroupRequired": "Rechnungsgruppe*",
+  "billingGroup": "Rechnungsgruppe",
+  "bookkeeping_account": {
+    "helperText": "Fügst du hier Buchhaltungskonten hinzu, werden Kontonummer und Mehrwertsteuersatz automatisch in Berichte eingefügt.",
+    "form": {
+      "titleUpdate": "Konto bearbeiten",
+      "titleCreate": "Konto hinzufügen"
+    },
+    "modal": {
+      "delete": {
+        "contentLinked": "Dieses Konto ist mit den folgenden Objekten verknüpft. Wenn Sie es löschen möchten, entfernen Sie es bitte zuerst.",
+        "cancel": "Abbrechen",
+        "confirm": "Löschen",
+        "content": "Sie sind dabei, dieses Konto zu löschen. Sind Sie sicher, dass Sie dies tun wollen?",
+        "title": "Löschung"
+      }
+    },
+    "header": "Buchhaltungskonten",
+    "add": "Bankkonto hinzufügen",
+    "table": {
+      "actions": "Aktionen"
+    },
+    "select_input": {
+      "placeholder": "Leer lassen, um das Konto nicht anzuwenden",
+      "label": "Buchhaltungskonto"
+    },
+    "vat_rate": "MwSt.-Satz",
+    "account_name_required": "Name des Kontos *",
+    "account_name": "Name des Kontos",
+    "account_number_required": "Kontonummer *",
+    "account_number": "Kontonummer"
+  },
+  "deleteObject": {
+    "title": {
+      "error": "Du kannst diese Einrichtung aus folgenden Gründen nicht löschen:",
+      "warning": "Wenn du diese Einrichtung löschst, passiert Folgendes:"
+    },
+    "warnings": {
+      "exclusiveAssociatedCoaches": "Die Lehrkraft {{- coach_name }} wird nur über Vertretungsanfragen für Kurse in dieser Einrichtung benachrichtigt. Wenn du die Einrichtung löschst, erhält diese Lehrkraft Vertretungsanfragen von jeder Einrichtung.",
+      "exclusiveAssociatedCoaches_plural": "Dein(e) Lehrer {{- coach_name }} werden nur benachrichtigt, wenn eine Vertretungsanfrage für einen Kurs in dieser Einrichtung gemacht wird. Wenn du diese Einrichtung löschst, werden sie (deshalb) Vertretungsanfragen von jeder Einrichtung erhalten.",
+      "hasBillingGroup": "Diese Einrichtung wird auch aus der Rechnungsgruppe {{- establishment_billing_group_name }} entfernt.",
+      "exclusivePrivateServices_plural": "Diese Termine {{- private_service_name }} sind so konfiguriert, dass sie nur in dieser Einrichtung stattfinden können. Wenn diese Einrichtung gelöscht wird, können diese Termine überall stattfinden.",
+      "exclusivePrivateServices": "Der Termin {{- private_service_name }} ist so konfiguriert, dass er nur in dieser Einrichtung stattfinden kann. Wenn diese Einrichtung gelöscht wird, kann dieser Termin überall stattfinden.",
+      "hasExclusiveStaffConfigurations": "Einige Mitarbeiter sind so konfiguriert, dass sie den Zutritt der Mitglieder nur für diese Einrichtung überwachen. Wenn diese Einrichtung gelöscht wird, ohne eine neue auszuwählen, können sie keine Zutrittskontrolle mehr durchführen.",
+      "hasRelatedStaffConfigurations": "Diese Einrichtung wird aus den Einrichtungen entfernt, die von den Mitarbeitern für die Zutrittskontrolle verwendet werden.",
+      "exclusiveCoachAvailabilitySlots_plural": "Die Lehrer {{- coach_name }} sind für diese Einrichtung nur für einige Zeitfenster als verfügbar gekennzeichnet. Wenn Sie die Einrichtung löschen, werden diese Zeitfenster gelöscht.",
+      "exclusiveCoachAvailabilitySlots": "Der Lehrer {{- coach_name }} ist für diese Einrichtung nur für einige Zeitfenster als verfügbar gekennzeichnet. Wenn Sie die Einrichtung löschen, werden diese Zeitfenster gelöscht.",
+      "hasRelatedCoachAvailabilitySlots": "Diese Einrichtung wird aus der Liste der verfügbaren Einrichtungen, die im Kalender Ihrer Lehrer angezeigt wird, entfernt.",
+      "hasRelatedAssociatedCoaches": "Einige Lehrkräfte werden benachrichtigt, wenn ein Vertretungsantrag für eine Sitzung in dieser Einrichtung gestellt wird. Wenn die Einrichtung gelöscht wird, erhalten die Lehrkräfte keine Benachrichtigung mehr für diese Einrichtung.",
+      "relatedPaymentPacks_plural": "Die folgenden Pässe {{- pass_name }} können für diese Einrichtung nicht mehr verwendet werden. Bitte informiere die Kunden darüber.",
+      "relatedPaymentPacks": "Der folgende Pass {{- pass_name }} kann für diese Einrichtung nicht mehr verwendet werden. Bitte informiere die Kunden darüber.",
+      "hasRelatedAvailabilitySlots": "Die verfügbaren Zeitfenster im Terminkalender dieser Einrichtung werden gelöscht.",
+      "hasRelatedZoomEstablishment": "Diese Einrichtung wird aus der Liste der Einrichtungen, die für das Live-Streaming mit der Zoom-Integration verwendet werden, entfernt.",
+      "hasRelatedMarketplaceComponentConfigs": "Die Kalender- und Workshop-Registerkarten, die für Ihren Mitgliederbereich konfiguriert sind, zeigen den Kalender dieser Einrichtung nicht mehr an.",
+      "hasRelatedMarketingNotifications": "Meldungen, die sich auf diese Einrichtung beziehen, werden gelöscht."
+    },
+    "errors": {
+      "hasUpcomingOffers": "Es finden noch Kurse in dieser Einrichtung statt. Bitte storniere und lösche erst die anstehenden Kurse, bevor du die Einrichtung löschst.",
+      "hasUpcomingPrivateBookings": "Einige anstehende Termine finden in dieser Einrichtung statt. Bitte storniere und lösche diese, bevor du die Einrichtung löschst.",
+      "hasExclusiveBillingGroup": "Diese Einrichtung ist nur noch die einzige in der Abrechnungsgruppe. Bitte bearbeite oder lösche die Abrechnungsgruppe, bevor du die Einrichtung löschst.",
+      "exclusivePaymentPacks_plural": "Die Pässe {{- pass_name }} können nur in dieser Einrichtung verwendet werden. Bitte bearbeite die Einschränkungen der Pässe, bevor du die Einrichtung löschst.",
+      "exclusivePaymentPacks": "Der Pass {{- pass_name }} kann nur in dieser Einrichtung verwendet werden. Bitte bearbeite die Einschränkungen des Passes, bevor du die Einrichtung löschst.",
+      "exclusiveEstablishmentGroups_plural": "Die Standorte {{- establishment_group_name }} enthalten nur die Einrichtung, die du löschen möchtest. Bitte bearbeite oder lösche erst diese Standorte.",
+      "exclusiveEstablishmentGroups": "Der Standort {{- establishment_group_name }} enthält nur die Einrichtung, die du löschen möchtest. Bitte bearbeite oder lösche erst diesen Standort.",
+      "hasExclusiveMarketplaceComponentConfigs": "Eine oder mehrere Registerkarten auf dem Mitgliederbereich zeigen nur den Kalender und die Workshops dieser Einrichtung an. Bitte bearbeite die Einstellungen der Registerkarten, bevor du die Einrichtung löschst.",
+      "isIntegratedInPartnership": "Eine oder mehrere Integrationen nutzen diese Einrichtung."
+    },
+    "infos": {
+      "reportsDefault": "Die Einrichtung wird nicht aus früheren Berichten gelöscht.",
+      "offersDefault": "Bestehende Sitzungen, Workshops und frühere Buchungen werden nicht geändert.",
+      "widgetsDefault": "Eventuell sind Kalender- und Workshop-Widgets mit dieser Einrichtung verbunden und müssten aktualisiert werden.",
+      "privateBookingsDefault": "Vergangene Terminsitzungen werden nicht geändert."
+    }
+  },
+  "establishmentGroup": {
+    "forms": {
+      "delete": {
+        "title": "Standort löschen"
+      }
+    },
+    "deleteObject": {
+      "errors": {
+        "hasExclusiveMarketplaceComponentConfigs": "Eine oder mehrere Registerkarten auf dem Mitgliederbereich sind so eingestellt, dass sie nur den Kalender und die Workshops dieses Standorts anzeigen. Bitte aktualisiere diese vor der Löschung des Standorts."
+      },
+      "warnings": {
+        "hasRelatedStaffConfigurations": "Dieser Standort wird für die Zutrittskontrolle durch einen oder mehrere Mitarbeiter verwendet. Wenn der Standort gelöscht wird, ohne einen neuen auszuwählen, können die Mitarbeiter keine Zutrittskontrolle mehr durchführen.",
+        "hasRelatedAssociatedCoaches": "Einige Lehrkräfte werden benachrichtigt, wenn eine Vertretungsanfrage für eine Sitzung an diesem Standort erfolgt. Wenn Sie den Ort löschen, erhalten die Lehrkräfte keine Benachrichtigung mehr für diesen Ort.",
+        "exclusiveAssociatedCoaches_plural": "Ihre Lehrkräfte {{- coach_name }} werden nur benachrichtigt, wenn eine Vertretungsanfrage für eine Sitzung an diesem Standort gestellt wird. Wenn der Standort gelöscht wird, erhalten die Lehrkräfte daher Vertretungsanfragen von jedem Standort.",
+        "exclusiveAssociatedCoaches": "Ihre Lehrkraft {{- coach_name }} wird nur benachrichtigt, wenn eine Vertretungsanfrage für eine Sitzung an diesem Standort gestellt wird. Wenn der Standort gelöscht wird, erhalten die Lehrkräfte daher Vertretungsanfragen von jedem Standort.",
+        "hasRelatedMarketingNotifications": "Benachrichtigungen, die mit diesem Standort verknüpft sind, werden gelöscht.",
+        "hasRelatedMarketplaceComponentConfigs": "Die für Ihren Mitgliederbereich konfigurierten Kalender- und Workshop-Registerkarten werden in diesem Standortkalender nicht mehr angezeigt."
+      },
+      "infos": {
+        "reportsDefault": "Dieser Standort wird aus früheren Berichten gelöscht.",
+        "widgetsDefault": "Kalender- und Workshop-Widgets könnten mit diesem Standort konfiguriert sein, bitte vergessen Sie nicht, diese zu aktualisieren."
+      }
+    }
+  }
+}

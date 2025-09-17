@@ -1,4 +1,4 @@
-# CUSTOMER DATA PLATFORM | SMARTLISTS | Studio Manager Application
+# Customer Data Platform | Smartlists | Studio Manager Application
 
 ## Quickstart
 
@@ -13,7 +13,7 @@ pnpm --filter=@bsport/sm-smartlists dev
 This will run two applications aside :
 
 - The Navigation Sidebar on port 4050, with module federation.
-- Your application, on the port defined in your `package.json` in `federation.devPort` : 4301.
+- The Smartlists application, on the port defined in your `package.json` in `federation.devPort` : 4301.
 
 ### Build your translations
 

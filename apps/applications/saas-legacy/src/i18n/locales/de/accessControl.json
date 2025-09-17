@@ -1,0 +1,155 @@
+{
+  "snackbar": {
+    "R": "Nicht gültig",
+    "O": "Warnung",
+    "G": "Gültig",
+    "message": "<strong>{{- name }}</strong> hat gerade eingecheckt."
+  },
+  "memberEntry": "Mitgliedschaft",
+  "modals": {
+    "entryStatusChanged": {
+      "N": {
+        "description": "Du kannst immer noch Warnungen aussprechen und sie über die Registerkarte Standortbesuch eintreten lassen.",
+        "message": "Dem Mitglied wurde der Eintritt verweigert.",
+        "title": "Eintritt verweigert"
+      },
+      "stay": "Auf der Mitgliederseite bleiben",
+      "close": "Mitgliedsseite schließen",
+      "Y": {
+        "description": "Du kannst Warnungen weiterhin über die Registerkarte Standortbesuch ansprechen.",
+        "message": "Dem Mitglied wurde der Zutritt mit bestehenden Warnungen gestattet.",
+        "title": "Mitglied eingetreten"
+      }
+    },
+    "accessStatusChangedSuccess": {
+      "message": "Alle Probleme wurden behoben. Der Mitgliedsstatus wurde auf \"gültig\" aktualisiert.",
+      "title": "Mitgliederstatus aktualisiert"
+    },
+    "locationBlocker": {
+      "description": "Zu finden unter Einstellungen > Mitarbeiter.",
+      "message": "Bitte Mitarbeiter mit Administratorrechten, deinem Mitarbeiterzugang einen Standort zuzuweisen.",
+      "title": "Standort nicht zugewiesen"
+    },
+    "memberPhotoHistory": {
+      "validateIdentity": "Identität bestätigen",
+      "uploadedOn": "Hochgeladen {{- date}}",
+      "title": "Vorherige Bilder"
+    }
+  },
+  "memberVisitDetails": {
+    "atHome": "Zu Hause",
+    "passExpiration": "Gültig bis {{- expirationDate }}",
+    "manualEntry": {
+      "button": {
+        "entryRefused": "Eintritt verweigert",
+        "entryAllowed": "Betreten",
+        "accept": "Eintritt zulassen",
+        "refuse": "Eintritt verweigern"
+      },
+      "description": "Angabe, ob dieses Mitglied eintreten kann oder nicht"
+    },
+    "actions": {
+      "billMember": "Rechnung",
+      "goToProfile": "Profil",
+      "seePreviousImages": "Siehe vorherige"
+    },
+    "photoHasChanged": "Profilbild kürzlich geändert",
+    "pass": "Pass:",
+    "spotName": "Platz: {{- spotName}}",
+    "teacherName": "Lehrer: {{- coachName}}",
+    "nextBooking": "Nächste Buchung:",
+    "lastName": "Nachname:",
+    "firstName": "Vornamen:",
+    "title": "Informationen für Mitglieder",
+    "accessStatus": {
+      "red": "Nicht gültig",
+      "orange": "Warnung",
+      "green": "Gültig"
+    },
+    "noPreviousPhoto": "Mitglied hat keine früheren Bilder",
+    "noSpotAllocated": "Kein Platz zugewiesen"
+  },
+  "memberVisit": {
+    "warnings": {
+      "numberOfCheckedPasses": "{{- count }} Pass des Mitglieds wurde ohne gültiges Ergebnis geprüft.",
+      "numberOfCheckedPasses_plural": "{{- count }} Pässe des Mitglieds wurden ohne gültiges Ergebnis geprüft.",
+      "passIncompatibleWithAppointmentsInEstablishments": "Termine, die mit dem Kurspass {{- passName }} gebucht werden können, sind nicht mit Ihrer Einrichtung kompatibel",
+      "passIncompatibleWithEstablishments": "Der Kurspass {{- passName }} des Mitglieds ist mit Ihrer Einrichtung nicht kompatibel",
+      "passRestrictedByOffPeakSchedule": "Der Kurspass {{- passName }} des Mitglieds erlaubt den Zutritt während dieses Zeitfensters nicht",
+      "passRestrictedToVod": "Der Pass {{- passName }} des Mitglieds ist nur für VOD zugelassen",
+      "passLinkedToPausedSubscription": "Der Pass {{- passName }} des Mitglieds ist mit einem pausierten Abonnement verknüpft",
+      "passIsDisabled": "Der Pass {{- passName }} des Mitglieds ist momentan gesperrt",
+      "noPasses": "Das Mitglied hat keinen aktiven Pass mit Guthaben übrig",
+      "bookingsInOtherEstablishments": "Die Buchung des Mitglieds {{- bookingName}} ist in einer anderen Einrichtung geplant: {{- establishmentName }}",
+      "hasUnpaidAppointments": "Das Mitglied hat einen oder mehrere unbezahlte Termine",
+      "hasNegativeAccountBalance": "Der Kontostand des Mitglieds ist negativ",
+      "hasUnpaidInvoices": "Das Mitglied hat eine oder mehrere unbezahlte Rechnungen"
+    },
+    "refreshMemberVisit": "Status aktualisieren",
+    "closeMemberVisit": "Mitgliedsseite schließen",
+    "emptyState": {
+      "searchMember": "Mitglieder nach Name oder Nummer suchen",
+      "or": "oder",
+      "establishmentsSelectedInRole": "Du überwachst den Zutritt für <strong>{{- address }} - {{- establishments }}</strong>",
+      "waitForScan": "Warte darauf, dass das Mitglied seinen Barcode scannt, oder suche manuell nach dem Namen oder Barcode."
+    }
+  },
+  "settings": {
+    "errors": {
+      "minutes": {
+        "max": "Muss kleiner als 60 sein",
+        "min": "Muss größer als 0 sein"
+      },
+      "hours": {
+        "max": "Muss kleiner als 24 sein",
+        "min": "Muss größer als 0 sein"
+      },
+      "required": "Erforderliches Feld"
+    },
+    "isStudioWide": "Die Einstellungen sind studioübergreifend angewandt.",
+    "minutes": "Minuten",
+    "hours": "Stunden",
+    "description": "Lege die Einlass- und Ausgangszeiten für Mitglieder vor und nach den Sitzungen in einer kompatiblen Einrichtung fest.",
+    "afterTitle": "Aufenthaltsdauer vor dem Start der Sitzung",
+    "beforeTitle": "Aufenthaltsdauer nach dem Start der Sitzung",
+    "title": "Aufenthaltsdauer"
+  },
+  "liveHistory": {
+    "table": {
+      "accessStatus": "Status",
+      "member": "Mitglied",
+      "entryUnknown": "Gebe an, ob das Mitglied beitreten durfte",
+      "time": "Eintritt",
+      "session": "Grund des Besuchs",
+      "entered": "Eingetreten",
+      "refusedEntry": "Eintritt verweigert",
+      "placeholder": {
+        "search": "Aufgrund Ihrer Suche konnten wir keine Mitglieder finden, die heute zu Besuch waren.",
+        "default": "Du hast noch keine Besuche registriert."
+      }
+    },
+    "breadcrumbTitle": "Besuch des Standortes",
+    "unreadCount": "{{ count }} neuer Besuch",
+    "unreadCount_plural": "{{ count }} neue Besuche"
+  },
+  "accessMonitoringTitle": "Zutrittskontrolle",
+  "filters": {
+    "entryStatus": {
+      "U": "Unbekannt",
+      "N": "Nicht eingegeben",
+      "Y": "Eingegeben",
+      "unknown": "Unbekannt",
+      "notEntered": "Nicht eingegeben",
+      "entered": "Eingegeben"
+    },
+    "accessStatus": {
+      "R": "Ungültig",
+      "O": "Warnung",
+      "red": "Ungültig",
+      "G": "Gültig",
+      "orange": "Warnung",
+      "green": "Gültig"
+    }
+  },
+  "broadcastChannelWarning": "Die Browserversion verhindert, dass diese Funktion korrekt ausführen werden kann. Bitte aktualisiere deinen Browser."
+}

@@ -1,0 +1,176 @@
+{
+  "spotScheduling": {
+    "subtitle": "Utilizado para marcação de lugares. Permite aos seus alunos reservar o lugar que pretendem na sala.",
+    "delete": {
+      "content": "Tem a certeza de que pretende eliminar este plano para a sala ? Esta operação é irreversível.",
+      "title": "Eliminar o plano de sala"
+    },
+    "untitled": "Sem título",
+    "placeCount": "{{count}} lugares",
+    "add": "Adicionar um plano de sala",
+    "title": "Plano da sala"
+  },
+  "establishment_override": "Sala de substituição",
+  "overrider": "Substituição",
+  "billing_group": {
+    "modal": {
+      "delete": {
+        "confirm": "Eliminar",
+        "content": "Tem a certeza de que pretende eliminar este grupo de faturação? As futuras facturas deixarão de poder ser associadas a este local, nem ser seleccionadas pelos membros como o seu local preferido quando efectuarem uma compra em linha. Antes de eliminar o grupo de faturação, certifique-se de que todos os seus estabelecimentos estão ligados a grupos de faturação existentes",
+        "cancel": "Cancelar",
+        "title": "Eliminar um grupo de faturação"
+      }
+    },
+    "table": {
+      "name": "Nome",
+      "establishment": "Estabelecimentos",
+      "actions": "Ações"
+    },
+    "form": {
+      "error": {
+        "groupShouldHaveName": "É necessário dar um nome a este grupo de faturação",
+        "groupShouldContainsOneRoom": "Seleccione pelo menos uma sala",
+        "groupShouldHaveAddress": "É necessário indicar um endereço para este grupo de faturação"
+      },
+      "dialog": {
+        "save": "Guardar",
+        "cancel": "Cancelar",
+        "title": "Grupo de faturação"
+      },
+      "associated_localizations": "Salas associadas",
+      "name": "Nome",
+      "address": {
+        "helperText": "Introduza o endereço do grupo de faturação.",
+        "label": "Endereço"
+      },
+      "warning": {
+        "groupHasSeveralLocations": "Note que os estabelecimentos que seleccionou não têm o mesmo endereço e podem não fazer parte do mesmo local"
+      }
+    },
+    "actions": "Ações",
+    "name": " Nome"
+  },
+  "group": {
+    "modal": {
+      "delete": {
+        "confirm": "Eliminar",
+        "title": "Eliminar uma localização",
+        "cancel": "Cancelar",
+        "content": "Esta localização deixará de aparecer nos filtros disponíveis no marketplace, no widget e na aplicação personalizada."
+      }
+    },
+    "table": {
+      "name": "Nome",
+      "establishment": "Estabelecimentos",
+      "actions": "Ações",
+      "noAddress": "Nenhum endereço está associado a este grupo de faturação",
+      "address": "Endereço"
+    },
+    "form": {
+      "dialog": {
+        "save": "Guardar",
+        "cancel": "Eliminar",
+        "title": "Localização"
+      },
+      "associated_localizations": "Salas associadas",
+      "name": "Nome"
+    },
+    "noGroupHelper": "Os locais permitem-lhe agrupar várias moradas. Se tiver vários estúdios em cidades diferentes, pode agrupar os estúdios da mesma cidade num local. No marketplace, no widget e na aplicação personalizada, os seus alunos poderão selecionar o local que mais lhes interessa para que só vejam aulas perto de casa.",
+    "actions": "Ações",
+    "name": " Nome",
+    "addLocalisation": "Adicionar uma localização",
+    "groupButton": "Agrupar estabelecimentos"
+  },
+  "forms": {
+    "delete": {
+      "content": {
+        "cannotDelete": "Esta sala não pode ser eliminada, uma vez que há sessões planeadas para o futuro. Por favor, verifique se foram canceladas e depois retire-as.",
+        "canDelete": "Tem a certeza de pretende eliminar esta sala? Esta operação é irreversível. As sessões e reservas anteriores não serão afectadas"
+      },
+      "actions": {
+        "confirm": "Eliminar",
+        "cancel": "cancelar"
+      },
+      "title": "Eliminar uma sala"
+    },
+    "edit": "Editar",
+    "update": {
+      "title": "Editar informações"
+    },
+    "create": {
+      "title": "Nova sala"
+    }
+  },
+  "notification": {
+    "modal": {
+      "content": "Tem a certeza de que pretende eliminar esta notificação? Esta operação é definitiva",
+      "confirm": "Eliminar",
+      "cancel": "Cancelar",
+      "title": "Eliminar notificação"
+    }
+  },
+  "card": {
+    "update": "Atualizar"
+  },
+  "notificationToolTip": "Foram criadas notificações para as reservas desta sala",
+  "location": {
+    "country": "País",
+    "zip_code": "Código de Postal",
+    "state": "Estado",
+    "city": "Cidade",
+    "address_line_2": "Endereço linha 2",
+    "address_line_1": "Endereço linha 1",
+    "address": "Endereço",
+    "search_address": "Procurar um endereço"
+  },
+  "update": {
+    "imageUploaderRequireEditMessage": "Uma vez criada, pode adicionar imagens adicionais."
+  },
+  "form": {
+    "new": {
+      "title": "Título"
+    }
+  },
+  "practical_info": {
+    "helperText": "Esta informação só será apresentada no momento da reserva",
+    "placeholder": "Código 1234 porta direita",
+    "label": "Informações de acesso"
+  },
+  "pleaseFill": "Introduzir uma sala",
+  "noMoreOffers": "Não há mais sessões agendadas",
+  "offers": "Calendário das sessões:",
+  "noEstablishement": "Aqui pode gerir as salas, perceber a localização, preencher e consultar o calendário",
+  "pleaseSelectOne": "Selecionar um estabelecimento",
+  "addButton": "Adicionar uma sala",
+  "search": "Procurar uma sala",
+  "baseEstablishment": "Habitual",
+  "capacity": {
+    "helperText": "Este número só será utilizado para gerir a disponibilidade deste estabelecimento para aulas privadas.",
+    "explain": "Capacidade: {{ capacity }} lugar",
+    "explain_plural": "Capacidade: {{ capacity }} lugares",
+    "label": "Capacidade da sala"
+  },
+  "roomRequiredIsMissing": "Não seleccionou um estabelecimento de faturação.",
+  "roomRequired": "Sala *",
+  "room": "Sala",
+  "favouriteLocation": "Local de preferência",
+  "localisation": "Localização",
+  "description": "Descrição",
+  "establishment": "Estabelecimento",
+  "detail": {
+    "tab": {
+      "calendar": "Calendário",
+      "general": "Geral"
+    }
+  },
+  "list": {
+    "section": {
+      "archived": "Salas arquivadas"
+    }
+  },
+  "marketing": {
+    "notification": "Notificações"
+  },
+  "billingGroup": "Grupo de faturação",
+  "billingGroupRequired": "Grupo de faturação *"
+}

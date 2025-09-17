@@ -1,0 +1,245 @@
+{
+  "tempPassword": {
+    "title": "Tijdelijk wachtwoord",
+    "close": "Sluiten",
+    "submit": "Aanmaken",
+    "explain": "Dit wachtwoord is geldig tot {{expirationDate}}. Je hoofdwachtwoord is niet gewijzigd.",
+    "explainRequest": "Door een tijdelijk wachtwoord aan te maken kunnen onze medewerkers je beter assisteren, aangezien ze voor maximaal één week met dit tijdelijke wachtwoord met je account kunnen verbinden. Je eigen wachtwoord verandert niet.",
+    "copied": "Wachtwoord gekopieerd",
+    "copy": "Kopieer wachtwoord naar klembord"
+  },
+  "forms": {
+    "password": {
+      "label": "Wachtwoord"
+    }
+  },
+  "actions": {
+    "signin": "Aanmelden",
+    "signup": {
+      "register": "Inschrijven",
+      "noAccount": "Een nieuw account aanmaken",
+      "goBack": "Ga terug"
+    },
+    "forgottenPassword": "Wachtwoord vergeten?"
+  },
+  "error": {
+    "authError": "E-mail of wachtwoord is verkeerd",
+    "invalidEmail": "Hmm... dit e-mailadres komt ons niet bekend voor.",
+    "invalidPassword": "Ongeldig wachtwoord"
+  },
+  "doubleLogin": {
+    "explain": "Je sessie is verlopen. Heb je je tegelijkertijd met twee verschillende accounts aangemeld en weet je zeker of je je andere tabbladen/vensters correct hebt afgesloten?",
+    "disconnect": "Opnieuw inloggen"
+  },
+  "signup": {
+    "title": "Inschrijven",
+    "titleAsResgisterBooking": "Reservering registreren"
+  },
+  "contactUs": "Klik hier om vrijblijvend contact met ons op en om meer te leren over hoe bsport uw onderneming ondersteunt.",
+  "or": " of ",
+  "country": {
+    "ES": "Spanje",
+    "BE": "België",
+    "NL": "Nederland",
+    "IT": "Italië",
+    "DE": "Duitsland",
+    "FR": "Frankrijk",
+    "CH": "Zwitserland",
+    "IE": "Ierland",
+    "AT": "Oostenrijk",
+    "MT": "Malta",
+    "GB": "Verenigd Koninkrijk",
+    "DK": "Denemarken",
+    "FI": "Finland",
+    "SE": "Zweden",
+    "NO": "Noorwegen",
+    "LU": "Luxemburg",
+    "CA": "Canada",
+    "AE": "Verenigde Arabische Emiraten",
+    "SI": "Slovenië",
+    "RO": "Roemenië",
+    "BG": "Bulgarije",
+    "CZ": "Tsjechië",
+    "GR": "Griekenland",
+    "IN": "India",
+    "MY": "Maleisië",
+    "LV": "Letland",
+    "LT": "Litouwen",
+    "NZ": "Nieuw-Zeeland",
+    "SG": "Singapore",
+    "BR": "Brazilië",
+    "PT": "Portugal",
+    "PL": "Polen",
+    "HK": "Hongkong",
+    "AU": "Australië",
+    "SK": "Slowakije",
+    "CY": "Cyprus",
+    "US": "Verenigde Staten van Amerika",
+    "EE": "Estland",
+    "MX": "Mexico",
+    "LI": "Liechtenstein"
+  },
+  "signupCompany": {
+    "form": {
+      "next": "Bevestigen",
+      "previous": "Terug",
+      "country": {
+        "label": "Land"
+      },
+      "password2": {
+        "error": "Deze wachtwoorden komen niet overeen.",
+        "label": "Bevestiging"
+      },
+      "password1": {
+        "label": "Wachtwoord"
+      },
+      "email": {
+        "errorExists": "Deze e-mail is al aan een bestaand account gekoppeld. Kies een ander e-mailadres.",
+        "placeholder": "me@bsport.io",
+        "label": "E-mail"
+      },
+      "name": {
+        "helperText": "Dit is de weergavenaam van je studio voor je leden.",
+        "placeholder": "Yoga Shala",
+        "label": "Handelsnaam"
+      },
+      "title": "Mijn informatie",
+      "timezone": {
+        "label": "Tijdzone"
+      }
+    },
+    "welcome": {
+      "next": "Verder",
+      "content": "BSPORT is een gemeenschap van enthousiastelingen wiens doel het is jou het leven gemakkelijk te maken door ieder aspect van je onderneming te stroomlijnen, te automatiseren en te vereenvoudigen.",
+      "title": "Welkom!"
+    },
+    "confirmation": {
+      "disconnect": "Verbreken",
+      "content": {
+        "help": "Raadpleeg de interne documentatie voor gedetailleerde instructies voor elke stap.",
+        "emailValidation": "E-mail validatie: Voer de administratieve actie uit om het e-mailadres van de klant te valideren.",
+        "upsell": "Upsells: Voeg eventuele upsells toe aan het platform.",
+        "billing": "Platform Facturering: Doe de factureringsinstellingen voor de nieuwe backoffice.",
+        "core": "Het nieuwe backoffice-platform is met succes aangemaakt. Voordat je de toegangsgegevens van de klant verstuurt, moet je er voor zorgen dat de volgende validatiestappen uit de interne documentatie zijn voltooid:",
+        "contactAccountManager": "Accountvalidatie in behandeling. Als u een Studio Manager bent, neem dan contact op met uw bsport-contactpersoon om uw backoffice te activeren."
+      }
+    }
+  },
+  "emailValidation": {
+    "disconnect": "Account veranderen",
+    "goToLogin": "Terug",
+    "linkExpired": "Je validatielink is verlopen",
+    "hasSentAgain": "E-mail verzonden",
+    "sendAgain": "Opnieuw een bevestigingsmail versturen",
+    "success": "Je e-mail is gevalideerd! Je wordt doorverwezen naar je Back Office.",
+    "explain": "Zojuist hebben we je een bevestigingsmail gestuurd. We zijn er bijna!"
+  },
+  "language": {
+    "es": "Spaans",
+    "nl": "Nederlands",
+    "it": "Italiaans",
+    "de": "Duits",
+    "fr": "Frans",
+    "en": "Engels",
+    "pt": "portugees",
+    "cs": "Tsjechisch"
+  },
+  "signin": {
+    "connect": "Meld je aan of maak een account aan om verder te gaan.",
+    "connection": "Aanmelden",
+    "selectYourCurrentEmail": "Selecteer je huidige inloggegevens."
+  },
+  "accountConfiguration": {
+    "bankAccount": {
+      "owner_address": "Adres eigenaar",
+      "address": "Adres",
+      "bank_details": "Rekeningnummer",
+      "general": "Algemeen",
+      "fields": {
+        "iban": "IBAN",
+        "bank_account_holder": "Rekeninghouder"
+      }
+    },
+    "paymentMethodSuccess": "De toegevoege betaalmethode is in goede orde geconfigureerd. Onder Instellingen > Abonnement kan dit later, indien nodig, gewijzigd worden.",
+    "accountSuccess": "Je Stripe-account is in goede orde geconfigureerd. Indien nodig kunnen accountgegevens onder Instellingen > Onderneming gewijzigd worden.",
+    "goToBackoffice": "Klik op \"Back Office\" om terug naar het hoofdscherm te keren.",
+    "bankAccountSuccess": "Je IBAN is in goede orde geconfigureerd. Indien nodig kunnen accountgegevens onder Instellingen > Onderneming gewijzigd worden.",
+    "welcomeTitle": "Welkom bij BSPORT!",
+    "welcomeDescription": "Namens iedereen van ons team heten we je van harte welkom op ons platform. Voltooi de onderstaande stappen en we kunnen van slag.",
+    "stripeStep": "Stripe configureren",
+    "ibanStep": "IBAN",
+    "cardStep": "Betaalmethode",
+    "finishStep": "Voltooid!",
+    "createStripe": "Stripe",
+    "welcomeConfigure": "Binnen {{numberOfSteps}} klik je account configuren!",
+    "welcomeConfigure_plural": "Binnen {{numberOfSteps}} kliks je account configureren!",
+    "configureStripe": "Het is noodzakelijk dat er een Stripe-account aangemaakt wordt om betalingen te verwerken.",
+    "companyName": "Bedrijfsnaam",
+    "companyAdress": "Adres",
+    "configureStripeAction": "Stripe configureren",
+    "stripeConfiguration": "Stripe configureren",
+    "infoGoingBack": "Dit kan later voltooid worden, indien je nu de pagina verlaat.",
+    "companyStripeName": "Stripe-account",
+    "paymentMethodTitle": "Selecteer een betaalmethode",
+    "redirecting": "Doorverwijzen naar Stripe...",
+    "stripeConfigurationExplain": "Je wordt doorverwezen naar Stripe. Zodra dit formulier voltooid is wordt je teruggestuurd naar je BSPORT Back Office.",
+    "managerIbanExplain": "Selecteer op welke rekening je de uitbetalingen vanuit BSPORT wilt ontvangen",
+    "congrats": "Gefeliciteerd!",
+    "paymentMethodExplain": "Selecteer de betaalmethode die je wenst te gebruiken voor de facturatie vanuit BSPORT",
+    "finishExplain": "De configuratie is voltooid. Je kunt nu BSPORT gebruiken.",
+    "needToConfigureStripeInfo": "Het toevoegen van een betaalmethode is een vereiste om facturen te betalen.",
+    "configureMyStripeAccount": "Mijn Stripe-account configureren"
+  },
+  "regularizeInvoice": {
+    "contactSuport": "Contacteer Klantenservice",
+    "actionRegularize": {
+      "dispute": "Bekijk mijn factuur",
+      "fail": "Factuur vereffenen"
+    },
+    "needPaymentMethodContent": {
+      "dispute": "U hebt een of meer betwiste facturen. Neem zo snel mogelijk contact op met uw bank om het geschil te regelen en van de diensten van bsport te blijven genieten. Neem indien nodig contact op met support@bsport.io.",
+      "fail": "U heeft één of meer openstaande facturen. Gelieve uw factuur te vereffenen om van de diensten van Bsport te kunnen blijven genieten."
+    },
+    "needPaymentMethod": {
+      "dispute": "Betwiste factuur",
+      "fail": "Betaling mislukt"
+    }
+  },
+  "needStripe": {
+    "actionRegularize": "Mijn Stripe-account configureren",
+    "info": "Het is een vereiste dat het Stripe-account dat aan dit platform gekoppeld is zo snel mogelijk geconfigureerd wordt. Voltooi deze configuratie om gebruik te kunnen blijven maken van de diensten van BSPORT.",
+    "infoDateBlocked": "Het is een vereiste dat het Stripe-account dat aan dit platform gekoppeld is zo snel mogelijk geconfigureerd wordt. Voltooi deze configuratie vóór {{ dateAccountIsBLockedFormattedLL }} om gebruik te kunnen blijven maken van de diensten van BSPORT.",
+    "stripeAccount": "Stripe-account"
+  },
+  "welcome": {
+    "textExplain": "Gefeliciteerd, uw registratie is voltooid. U kunt nu gaan genieten van uw account en uw eerste sessies boeken.",
+    "begin": "Start",
+    "title": "Welkom bij {{- companyName}}!"
+  },
+  "emailConfirmation": {
+    "dialog": {
+      "close": "Sluiten",
+      "continue": "Doorgaan",
+      "sentAgainExplain": "De bevestigingsmail is zojuist opnieuw verzonden naar uw e-mailadres.",
+      "sentAgain": "E-mail opnieuw verzonden!",
+      "cancel": "Annuleren",
+      "send": "Verzenden",
+      "canBeResent": "Controleer uw spam en laad uw mailbox opnieuw voordat u de bevestigingsmail opnieuw verstuurt. Heeft u niets ontvangen, klik dan op de verzendknop.",
+      "cannotBeResent": "Er is al een e-mail verzonden, als u nog steeds niets heeft ontvangen in {{timeLeftBeforeNewSent}} minuten, probeer het opnieuw. Vergeet niet uw spam te controleren.",
+      "title": "De bevestigingsmail opnieuw versturen"
+    },
+    "helperToSendOnceAgain": "om de bevestigingsmail opnieuw te versturen",
+    "clickHere": "Klik hier",
+    "notReceived": "Heeft u niets ontvangen?",
+    "backToLogin": "Terug naar de inlogpagina",
+    "textExplain": "Er is zojuist een bevestigingsmail verzonden om uw e-mailadres te bevestigen. Om uw registratie te voltooien klikt u op de link om uw account te activeren.",
+    "title": "Uw registratie is geregistreerd"
+  },
+  "referral": {
+    "signUpNow": "Bedankt voor het gebruiken van de referral-link van {{ referringMemberFirstName }}. Registreer je om deze voucher voor je eerste aankoop te gebruiken!"
+  },
+  "disconnectedStatus": {
+    "subtitle": "Je moet ingelogd zijn om toegang te krijgen tot je profiel.",
+    "title": "Het lijkt erop dat je niet bent ingelogd"
+  }
+}

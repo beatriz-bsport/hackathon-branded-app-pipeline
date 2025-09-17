@@ -1,0 +1,219 @@
+{
+  "myBasket": {
+    "featured": "Ti consigliamo",
+    "finalize": {
+      "steps": {
+        "address": "Indirizzo",
+        "payment": "Ricevuta"
+      }
+    },
+    "title": "Carrello",
+    "isEmpty": "Il tuo carrello è vuoto",
+    "actions": {
+      "checkoutBasket": "Pagare",
+      "payZero": "Convalida il mio carrello",
+      "closeBasket": "Continua a fare acquisti"
+    },
+    "error": {
+      "invalidBasket": "Il tuo carrello conteneva articoli che non sono più disponibili per la vendita. Nessun pagamento è stato registrato",
+      "inconsistentBasket": "Il tuo carrello è stato modificato, aggiorna la pagina prima di convalidare il pagamento.\nIl pagamento non ti è stato addebitato.",
+      "unavailableSessions": "Alcune sessioni nel vostro carrello non sono più disponibili, quindi non abbiamo potuto completare la prenotazione. Abbiamo rimosso quelle non disponibili. Si prega di rivedere il carrello e riprovare."
+    },
+    "isFinalized": "Il tuo carrello è stato convalidato",
+    "checkingPaymentStatus": "Attendi per favore, stiamo controllando lo stato del tuo pagamento",
+    "totalQuantity": "Contiene {{ qty }} elementi",
+    "acceptTermsAndFinalize": "Si prega di accettare le condizioni generali e di finalizzare la prenotazione",
+    "checkAndFinalize": "Controlla il carrello e completa la prenotazione",
+    "almostDone": "Quasi finito",
+    "goToMarketplace": "Vai all'Area Membri",
+    "newCheckout": {
+      "isEmptyDescription": "Continua ad esplorare l'Area Membri!",
+      "isEmpty": "Il carrello è vuoto!"
+    },
+    "noBooking": {
+      "acceptTermsAndFinalize": "Accetta i termini e condizioni e rivedi il carrello",
+      "checkAndFinalize": "Rivedi il carrello"
+    },
+    "referral": {
+      "hasReachedMaxUses": "È stato raggiunto il numero massimo di utilizzi per il referral link.",
+      "missingAmountBeforeApplication": "L'importo minimo di acquisto non è stato raggiunto. Si rischia di perdere il proprio referral link. Solo {{ missingAmount }} in più per poter usufruire dello sconto!"
+    },
+    "expressCheckoutTitle": "Express checkout"
+  },
+  "paymentIntent": {
+    "isProcessing": "Attendere prego"
+  },
+  "forms": {
+    "delivery": {
+      "first_name": "Nome",
+      "last_name": "Cognome",
+      "actions": {
+        "submit": "Seguente",
+        "cancel": "Indietro"
+      }
+    }
+  },
+  "autoAdd": {
+    "paymentPack": {
+      "locked": "Questo prodotto non è disponibile."
+    },
+    "privatePass": {
+      "error": "Questo pacchetto per appuntamenti non è disponibile"
+    },
+    "paymentCombo": {
+      "locked": "Questo pacchetto combinato non è disponibile"
+    }
+  },
+  "or": "o",
+  "payLater": {
+    "explain": "La tua ricevuta sarà considerata non pagata finchè non verrà saldata dal tuo profilo, o direttamente in sede.",
+    "submit": "Pagamento in loco"
+  },
+  "validation": {
+    "sections": {
+      "offerNotBookable": "Nessuna registrazione possibile",
+      "offerPreBooked": "Registrazione sulla lista d'attesa",
+      "offerBooked": "La mia prenotazione",
+      "offerBooked_plural": "Le mie prenotazioni",
+      "basket": "Carrello",
+      "title": "Congratulazioni!",
+      "errorExplain": {
+        "guestPass": "Lo studio ha disabilitato la funzionalità di prenotazione per un ospite per questo pacchetto.",
+        "guestOffer": "Lo studio ha disabilitato la possibilità di prenotare per un ospite per questa sessione.",
+        "guestSettings": "Lo studio ha disabilitato la possibilità di prenotare per un ospite.",
+        "guestReachedLimit": "Hai già raggiunto il limite di prenotazioni per un ospite per il periodo corrente. Non è possibile farne altre.",
+        "guestOvercomeLimit": "Il numero di ospiti aggiunti per questa prenotazione supera il massimo consentito.",
+        "guestGeneric": "Si è verificato un problema con la prenotazione per un ospite.",
+        "generic": "L'operazione non può essere eseguita. Si prega di riprovare.",
+        "guestNotEnoughSpot": "Non ci sono abbastanza posti per i tuoi ospiti.",
+        "genericOfferError": "Si è verificato un problema durante l'elaborazione della prenotazione della sessione. Si prega di riprovare più tardi o di prenotare un'altra sessione.",
+        "offerOnlyBookingError": "Siamo spiacenti, ma la sessione e il posto selezionati non possono essere prenotati al momento. Si prega di riprovare."
+      },
+      "error": "Errore",
+      "recap": "Riassunto",
+      "explain": "La tua transazione è stata elaborata. Ti invieremo un'e-mail di conferma.",
+      "myGiftcard": "La mia giftcard",
+      "myGiftcard_plural": "Le mie giftcard",
+      "myProduct": "Il mio prodotto",
+      "myProduct_plural": "I miei prodotti",
+      "mySubscription": "Il mio abbonamento ricorrente",
+      "myPack": "Il mio pack",
+      "myPack_plural": "I miei pack",
+      "myPass": "Il mio pacchetto",
+      "myPass_plural": "I miei pacchetti",
+      "alert": "Oops! La prenotazione non è andata a buon fine.\nSi è verificato un problema nell'elaborazione della prenotazione della sessione. Riprova più tardi o prenota un'altra sessione.",
+      "confirmationStatusMessage": {
+        "offerAndPurchaseSuccess": "Congratulazioni! I tuoi acquisti e le tue prenotazioni sono stati confermati. A breve riceverai un'e-mail di conferma con tutti i dettagli.",
+        "paymentSuccess": "Congratulazioni! Il tuo acquisto è stato confermato!",
+        "paymentSuccess_plural": "Congratulazioni! I tuoi acquisti sono confermati!",
+        "offerOnlySuccess": "La prenotazione è stata effettuata. Riceverai presto un'e-mail di conferma con tutti i dettagli.",
+        "offerOnlySuccess_plural": "Le prenotazioni sono state effettuate. Riceverai presto un'e-mail di conferma con tutti i dettagli.",
+        "offerOnlyGuestSuccess": "La prenotazione è stata effettuata. Tu e il tuo ospite riceverete a breve una email di conferma con tutti i dettagli.",
+        "offersPartiallyConfirmed": "Alcune sessioni non sono state prenotate, probabilmente perché erano al completo o cancellate durante il checkout. Riceverai a breve un'email di conferma con i dettagli delle prenotazioni riuscite.",
+        "expressCheckoutPassPurchaseSuccess": "Ora che hai il tuo pacchetto, è il momento di prenotare la tua lezione e godere di tutti i vantaggi."
+      },
+      "confirmationStatusTitle": {
+        "success": {
+          "waitingList": "Ti sei iscritto alla lista di attesa",
+          "paymentSuccess": "Pagamento confermato!",
+          "offerOnlySuccess": "Goditi la sessione!",
+          "offerOnlyGuestSuccess": "Goditi la sessione con il tuo ospite!"
+        },
+        "errors": {
+          "genericOfferError": "Oops! Prenotazione fallita.",
+          "generic": "Oops! Pagamento fallito."
+        },
+        "warning": {
+          "offersPartiallyConfirmed": "La prenotazione è parzialmente confermata"
+        }
+      },
+      "offerGuestBooked": "La mia prenotazione per gli ospiti",
+      "offerGuestBooked_plural": "Le mie prenotazioni per gli ospiti",
+      "unableToBookSession": "Impossibile prenotare la sessione",
+      "unableToBookSession_plural": "Impossibile prenotare le sessioni"
+    },
+    "actions": {
+      "back": "Precedente",
+      "continue": "Continua lo shopping",
+      "widgetContinue": "Continua",
+      "member": "Area membri",
+      "confirmPriceNull": "Conferma",
+      "payNow": "Paga ora",
+      "myPasses": "I miei pacchetti",
+      "myGiftcards": "Le mie giftcard",
+      "myProducts": "I miei prodotti",
+      "mySubscription": "Il mio abbonamento ricorrente",
+      "retryBookingSession": "Riprova a prenotare",
+      "newWorkshop": "Nuovo workshop",
+      "retry": "RIprova",
+      "myBookings": "Le mie prenotazioni",
+      "goToCalendar": "Ritorna al calendario",
+      "backToMyProfile": "Torna al mio profilo",
+      "seeAllPasses": "Vedi tutti i pacchetti",
+      "bookAClass": "Prenota una classe"
+    },
+    "bookingItem": {
+      "bookingItemStatus": {
+        "unpaid": "Non pagato",
+        "waitingList": "Lista di attesa"
+      }
+    }
+  },
+  "expire_in": "Scade in ",
+  "events": {
+    "basket-created": "Cestino creato",
+    "basket-finalize": "Cestino finito/pagato",
+    "basket-additem": "Aggiungi al carrello",
+    "basket-removeitem": "Rimozione del cestino",
+    "basket-automaticclean": "Pulizia automatica del cestello"
+  },
+  "eventHistory": {
+    "sectionTitle": "Eventi",
+    "pleaseSelectABasket": "Seleziona un cestino per vedere la storia"
+  },
+  "historyTitle": "Storia della cesta",
+  "bookerMethod": {
+    "section": {
+      "combo": "Pacchetti combinati",
+      "pass": "Pacchetti disponibili",
+      "consumerPass": "I miei pacchetti"
+    },
+    "actions": {
+      "bookVod": "Sblocca il video"
+    },
+    "emptyMethod": "Siamo spiacenti, al momento non esiste un pacchetto compatibile con questo video. Per accedere a questo video, si prega di andare alla sezione abbonamenti."
+  },
+  "internalAccount": {
+    "cancel": "Cancella",
+    "confirm": "Confermare",
+    "useMyInternalAccount": "Usa il mio sado cliente",
+    "myInternalAccount": "Il mio saldo cliente",
+    "use": "Usa il mio saldo cliente",
+    "label": "Importo disponibile : ",
+    "useAsManager": "Utilizza il saldo cliente"
+  },
+  "payment": {
+    "total": "Totale IVA inclusa",
+    "tax": "Tasse",
+    "taxExcluded": "Subtotale escluso",
+    "flat_fee": "Tassa d'iscrizione",
+    "globalTotal": "Totale",
+    "internalAccount": "Saldo conto interno",
+    "totalHiddingTax": "Totale",
+    "deliveryFee": "Spese di spedizione",
+    "title": "Pagamento",
+    "flatFeeSubscription": "Tassa d'iscrizione",
+    "selectedSession": "Le tue sessioni selezionate"
+  },
+  "expiredSpotDialog": {
+    "refresh": "Ricarica",
+    "message": "La prenotazione del posto è scaduta, è possibile selezionarlo nuovamente o sceglierne uno diverso.",
+    "title": "La prenotazione del posto è scaduta"
+  },
+  "spotSavedFor": "Il posto selezionato è prenotato per: {{countdown}}",
+  "billingGroup": {
+    "title": "Sede preferita",
+    "placeholder": "Sede",
+    "helperText": "La sede preferita è quella in cui si prevede di utilizzare quanto acquistato per la maggior parte del tempo. Questa informazione verrà utilizzata per la ricevuta e solo per l'assegnazione delle risorse. Non determina il luogo in cui quanto acquistato può essere utilizzato."
+  }
+}

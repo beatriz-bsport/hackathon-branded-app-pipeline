@@ -1,0 +1,8 @@
+{
+  "selector": {
+    "placeholder": "Cerca uno studio o uno stabilimento...",
+    "noMatchingCompany": "Nessun risultato",
+    "explainConsumer": "Con <1> bsport </2> vivi un'esperienza unica per la prenotazione di tutte le tue attività sportive. <3 /> Con un solo account e una password!",
+    "fetchMore": "Mostra di più"
+  }
+}

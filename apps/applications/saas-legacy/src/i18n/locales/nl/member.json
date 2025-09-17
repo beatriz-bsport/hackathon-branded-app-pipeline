@@ -1,0 +1,442 @@
+{
+  "pass_owner": "Geldige leskaart",
+  "bornIn": "Geboren de ",
+  "showPreviousBooking": "Zie eerdere reserveringen",
+  "memberList": "Overzicht",
+  "note": {
+    "addNote": "Een notitie toevoegen",
+    "myNotes": "Notities",
+    "is_medical": "Essentiële informatie",
+    "noNoteSaved": "Er is geen informatie om weer te geven.",
+    "healthNotes": "Alerts"
+  },
+  "file": {
+    "submit": "Toevoegen",
+    "addButtonBlocked": "Verwijder bestaande documenten om nieuwe versies toe te voegen",
+    "deletion": "Verwijderen",
+    "imported": "Document geïmporteerd.",
+    "title": "Documenten",
+    "deleteFileMessage": "Weet je zeker dat je dit document wilt verwijderen?",
+    "confirm": "Bevestigen",
+    "add": "Een document toevoegen",
+    "nofileSaved": "Er zijn nog geen documenten opgeslagen.",
+    "upload_file": "Een bestand toevoegen",
+    "cancel": "Annuleren",
+    "name": "Naam",
+    "drop_file": "Klik hier om een bestand toe te voegen."
+  },
+  "menu": {
+    "info": "Algemeen",
+    "relation": "Relaties",
+    "bookings": "Reserveringen",
+    "payment": "Facturen",
+    "privateBooking": "Afspraken",
+    "privateConsumerPass": "Afspraakkaarten",
+    "paymentPack": "Leskaarten",
+    "invoices": "Facturen en abonnementen",
+    "contact": "Contact",
+    "vod": "Video On Demand",
+    "form": "Formulieren",
+    "giftcard": "Cadeaubonnen",
+    "programs": "Programma's",
+    "basket": "Winkelmandje"
+  },
+  "forms": {
+    "merge": {
+      "explainBookingsAndPassAndInvoiceAndNotes": "De leskaarten, reserveringen, facturen en aantekeningen worden ook gesynchroniseerd.",
+      "explainTags": "Tags van samengevoegde accounts worden niet overgezet.",
+      "cancel": "Annuleren",
+      "submit": "Samenvoegen",
+      "error": "Kan leden niet samenvoegen",
+      "srcMember": "Dit account wordt samengevoegd en verwijderd",
+      "dstMember": "Dit account wordt bewaard",
+      "title": "Leden samenvoegen",
+      "explainCredit": "De waarde van de interne rekening (Wallet) wordt naar het nieuwe account overgezet.",
+      "success": "Leden samengevoegd",
+      "seeMemberPage": " Zie ledenprofiel",
+      "emailWillBeSend": "Beide e-mailadressen worden per e-mail geïnformeerd.",
+      "confirmation": {
+        "willNotifyInfo": "Deze profielen zullen worden samengevoegd voor de hele franchise. Deze actie kan enige tijd in beslag nemen, we zullen je op de hoogte stellen zodra deze is voltooid.",
+        "mergeIsPermanentWarning": "Het samenvoegen van leden zal de waarde van de interne rekeningen, reserveringen, kaarten, noties en facturen overzetten. <strong>Deze actie is definitief en kan na het bevestigen hiervan niet ongedaan worden gemaakt.</strong>\n\nAlleen de Tags van het samengoegde lid worden niet overgezet. Houd rekening mee dat beide e-mailadressen ook een bevestiging ontvangen.",
+        "title": "Weet je zeker dat je leden wilt samenvoegen?",
+        "confirm": "Bevestig"
+      }
+    },
+    "error": "Fout bij het opslaan van de wijzigingen",
+    "create": {
+      "title": "Nieuw lid",
+      "success": "Lid toegevoegd"
+    },
+    "update": {
+      "title": "Informatie bewerken",
+      "success": "Wijzigingen opgeslagen"
+    },
+    "phone": {
+      "error": "Ongeldig telefoonnummer"
+    },
+    "needInformationValidation": {
+      "legend": {
+        "memberOfCompany": "Vul de vereiste informatie in om verder te gaan.",
+        "notMemberYet": "Heb je alles correct ingevuld en ben je klaar om je in te schrijven? "
+      },
+      "button": {
+        "memberOfCompany": "Voltooien",
+        "notMemberYet": "Versturen"
+      },
+      "subtitle": {
+        "memberOfCompany": "We verzoeken je vriendelijk om het volgende formulier te voltooien.",
+        "notMemberYet": "Het lijkt erop dat je voor het eerst naar onze studio gaat."
+      },
+      "welcome": "Hoi, {{firstname}}!"
+    },
+    "title": "[Formulier] Inschrijfformulier",
+    "newMemberOnlyHelperText": "Leden worden als ‘nieuw’ beschouwd zolang ze geen aankoop hebben gedaan van meer dan €0. Let op: als een lid een product koopt met 100% korting, telt dit als een aankoop."
+  },
+  "user": {
+    "existsWithEmail": "Er bestaat al een gebruiker met dit e-mailadres ({{email}}).",
+    "existsWithPhone": "Er bestaat al een gebruiker met dit telefoonnummer {{phonenumber}}.",
+    "existsWithPhoneButNotConfirmed": "Een gebruiker met telefoonnummer {{phonenumber}} bestaat al, maar het e-mailadres ({{email}}) moet nog bevestigd worden. Door deze gebruiker te registreren, wordt het e-mailadres automatisch geverifieerd.",
+    "existsWithEmailButNotConfirmed": "Een gebruiker met het e-mailadres {{email}} bestaat al, maar moet nog bevestigd worden. Door deze gebruiker te registreren wordt het e-mailadres automatisch geverifieerd."
+  },
+  "member": {
+    "existsWithEmail": "Er bestaat al een lid met dit e-mailadres ({{email}}).",
+    "existsWithPhone": "Er bestaat al een lid met dit telefoonnummer ({{phonenumber}}).",
+    "existsWithPhoneButNotConfirmed": "Een gebruiker met telefoonnummer {{phonenumber}} bestaat al, maar het e-mailadres ({{email}}) moet nog bevestigd worden. Door deze gebruiker te registreren, wordt het e-mailadres automatisch geverifieerd.",
+    "existsWithEmailButNotConfirmed": "Een gebruiker met het e-mailadres {{email}} bestaat al, maar moet nog bevestigd worden. Door deze gebruiker te registreren wordt het e-mailadres automatisch geverifieerd."
+  },
+  "exists": {
+    "goTo": "Toon lid",
+    "linkUser": "Leden koppelen",
+    "merge": "Samenvoegen",
+    "quicksale": "Dit lid selecteren"
+  },
+  "linkDialog": {
+    "cancel": "Annuleren",
+    "confirm": "Ik bevestig",
+    "title": "Leden koppelen",
+    "content": "Dit account werd oorspronkelijk gebruikt in een andere studio en wordt nu aan een nieuwe studio gekoppeld."
+  },
+  "name": "Naam",
+  "table": {
+    "show": "Toon"
+  },
+  "date_joined": "Inschrijfdatum",
+  "barcode": {
+    "none": "geen",
+    "code": "Streepjescode",
+    "display": "Toon streepjescode",
+    "label": "Streepjescode"
+  },
+  "memberSince": "Lid sinds ",
+  "showNextBooking": "Zie toekomstige reserveringen",
+  "nextBooking": "volgende: ",
+  "invoiceTitle": "Facturen",
+  "subscriptionTitle": "Abonnementen",
+  "offers_joined": "Aantal geregistreerde sessies",
+  "pastBooking": "laatste: ",
+  "engagement": "Betrokkenheid",
+  "addMember": "Een lid toevoegen",
+  "row": {
+    "headers": {
+      "actions": "Acties",
+      "newsletter_email": "Accepteert emails"
+    },
+    "update": "Bewerken",
+    "no": "Nee",
+    "yes": "Ja"
+  },
+  "paymentAction": {
+    "toBill": "Factureren",
+    "toSubscribe": "Abonneren"
+  },
+  "merge": "Samenvoegen",
+  "regularizeBalance": "Betaling afronden",
+  "cashoutBalance": "Uitbetalen",
+  "creditAccountBalance": "Interne rekening (Wallet)",
+  "showPaymentPack": "Toon leskaarten",
+  "showSubscriptions": "Toon abonnementen",
+  "relation": {
+    "pleaseSelectRelation": "Selecteer een persoon om de gedeelde kaarten te zien."
+  },
+  "showInvoices": "Bekijk facturen",
+  "birth": {
+    "unknown_F": "Geboren op -",
+    "unknown": "Geboren op -",
+    "bornIn_F": "Geboren op {{-date}} ({{age}})",
+    "bornIn": "Geboren op {{-date}} - {{age}} jaar oud"
+  },
+  "search": {
+    "cancel": "Sluiten",
+    "createMember": "Een lid toevoegen"
+  },
+  "memberTermsAccepted": " werden op {{- date}} geaccepteerd.",
+  "termsAndConditions": "De algemene servicevoorwaarden",
+  "applyBalanceToUnpaidInvoices": "Gebruik het saldo van de interne rekening (Wallet) om onbetaalde facturen te betalen",
+  "adjustBalance": "Saldo aanpassen",
+  "unpaidInvoiceTitle": "Onbetaalde factuur",
+  "unpaidInvoiceTitle_plural": "Onbetaalde facturen",
+  "vaccinationStatus": {
+    "unknown": "Onbekende status coronabewijs",
+    "notDone": "Ik bezit geen geldig coronabewijs",
+    "done": "Ik bezit een geldig coronabewijs"
+  },
+  "archive": {
+    "dialog": {
+      "warning": {
+        "0": "Negatieve interne rekening (Wallet)",
+        "1": "Onbetaalde facturen",
+        "2": "Actieve abonnementen",
+        "3": "Lopende abonnementen met automatische verlengingen",
+        "4": "Toekomstige reserveringen",
+        "5": "Terugkerende reserveringen",
+        "6": "Geplande afspraken",
+        "general": "Op basis van de onderstaande punten raden we aan om de interne rekening (Wallet) van dit lid te vereffenen voordat het gearchiveerd wordt:"
+      },
+      "actions": {
+        "confirm": "Bevestigen",
+        "close": "Sluiten"
+      },
+      "helper_text_2": "Dit lid verschijnt niet meer in het ledenbestand.",
+      "helper_text_1": "Weet je zeker dat je dit lid wilt archiveren?",
+      "title": "[Formulier] Profiel archiveren"
+    },
+    "archivedMember": "Gearchiveerd lid: {{name}}"
+  },
+  "archived": "Gearchiveerd",
+  "restoreMember": "Herstellen",
+  "termsOfUse": "De algemene voorwaarden",
+  "noMember": "Er zijn geen leden om weer te geven.",
+  "noData": "Er staan geen leden in deze Smartlist om weer te geven.",
+  "changeEmailRequest": {
+    "dialog": {
+      "simpleChange": {
+        "warning": "Attentie! Het e-mailadres voor het inloggen van dit lid is gewijzigd:",
+        "unchangedEmail": "Het huidige e-mailadres wordt in de tussentijd aangehouden.",
+        "informativeHelperText": "Er wordt ook een melding van deze wijzigingen verstuurd."
+      },
+      "mergeMember": {
+        "warning": "Attentie! Je probeert deze leden van je studio samen te voegen:",
+        "unchangedEmail": "Bevestig om alle facturen, reserveringen, saldo en aankopen van het vorige e-mailadres (\"{{ old_email }}\") over te zetten naar het nieuwe e-mailadres (\"{{ new_email }}\"). Het vorige e-mailadres (\"{{ old_email }}\") wordt verwijderd en beide e-mailadressen ontvangen een bevestigingsmail van deze handeling."
+      },
+      "linkMember": {
+        "warning": "Attentie! Je probeert deze twee leden samen te voegen:",
+        "notIncompany": "Het nieuwe e-mailadres (\"{{ new_email }}\") wordt gebruikt door een ander lid van een andere studio.",
+        "unchangedEmail": "Het vorige e-mailadres (\"{{ old_email }}\") blijft in gebruik en de accounts worden niet samengevoegd."
+      },
+      "actions": {
+        "confirm": "Bevestigen",
+        "close": "Annuleren"
+      },
+      "cancelHelperText": "Klik op \"Annuleren\" om dit verzoek te stoppen.",
+      "securityHelperText": "Om veiligheidsredenen wordt een bevestigingsmail naar je inbox verstuurd.",
+      "expiryText": "Dit verzoek wordt binnen 7 dagen na verzending verwerkt.",
+      "newEmail": "Nieuwe e-mailadres: \"{{ email }}\"",
+      "oldEmail": "Vorige e-mailadres: \"{{ email }}\"",
+      "titleMerge": " Accounts samenvoegen",
+      "title": "E-mailadres wijzigen"
+    },
+    "memberPage": {
+      "linkAccount": {
+        "veto": {
+          "requestExplanation": "Dit e-mailadres (\"{{ email }}\") wordt al door iemand bij een andere studio gebruikt voor het inloggen. {{- company }} verzoekt je om de accounts samen te voegen. Bevestig het samenvoegen om één account voor alle handelingen en studio's te gebruiken. Gebruik de inloggegevens van \"{{ email }}\" om mee te doen bij alle studio's die bij BSPORT Solution zijn aangesloten.",
+          "deniedRequestHelper": "Log in en klik op \"Samenvoeging weigeren\" om dit verzoek te stoppen en om je huidige inloggegevens te behouden.",
+          "acceptRequestHelper": "Gelieve inloggen met \"{{ email }}\" om de samenvoeging van de accounts te bevestigen."
+        },
+        "error": {
+          "accepted": {
+            "contactCompany": "Gelieve direct de studio contacteren indien je dit verzoek wilt stoppen.",
+            "helper": "Huidige e-mailadres voor het inloggen: \"{{ email }}\"",
+            "title": "Samenvoeging geaccepteerd"
+          },
+          "denied": {
+            "contactCompany": "Gelieve direct de studio contacteren indien je opnieuw je accounts wilt samenvoegen.",
+            "helper": "Het verzoek van {{- company }} voor het samenvoegen van de accounts is reeds geweigerd.",
+            "title": "Samenvoeging geweigerd"
+          }
+        },
+        "submit": {
+          "denied": {
+            "content": "Je account is niet met \"{{ new_email }}\" samengevoegd. De inloggegevens van \"{{ old_email}}\" blijven geldig.",
+            "title": "Samenvoeging geweigerd"
+          },
+          "accept": {
+            "content": "Je account is succesvol samengevoegd met \"{{ old_email }}\". Je wordt bij {{- company }} ingeschreven en je kunt de inloggegevens van \"{{ new_email }}\" nu altijd blijven gebruiken.",
+            "title": "Samenvoeging geaccepteerd"
+          },
+          "accepted": {
+            "title": "Samenvoeging geaccepteerd",
+            "content": "Je account is succesvol samengevoegd met \"{{ old_email }}\". Je bent bij {{- company }} ingeschreven en je kunt de inloggegevens van \"{{ new_email }}\" vanaf nu blijven gebruiken."
+          }
+        },
+        "dstUser": {
+          "deniedRequestHelper": "Klik op \"Samenvoeging weigeren\" om dit verzoek te stoppen. De accounts worden niet samengevoegd en je wordt niet ingeschreven bij {{- company }}.",
+          "acceptRequestHelper": "Klik op \"Samenvoeging accepteren\" om dit verzoek te accepteren.",
+          "notMemberYet": "Je hebt nog geen account bij {{- company }}. Bevestig dit verzoek om je accounts samen te voegen en om je ook bij {{- company }} in te schrijven. Vervolgens wordt alle informatie van je vorige e-mailadres (\"{{ old_email }}\") naar je nieuwe e-mailadres voor het inloggen (\"{{ new_email }}\") overgezet.",
+          "requestingStudio": "{{- company }} verzoekt je om je vorige e-mailadres (\"{{ old_email }}\") met je nieuwe e-mailadres (\"{{ new_email }}\") voor het inloggen samen te voegen."
+        },
+        "title": "Accounts samenvoegen"
+      },
+      "simpleEmailChange": {
+        "error": {
+          "alreadyDenied": {
+            "helper": "Je hebt al een e-mailadres voor het inloggen bij {{- company }} geselecteerd.",
+            "currentEmail": "Huidige e-mailadres voor het inloggen: \"{{ email }}\"",
+            "contactCompany": "Gelieve direct de studio contacteren indien je je e-mailadres voor het inloggen niet wilt wijzigen.",
+            "title": "Dit verzoek is reeds geweigerd."
+          },
+          "alreadyAccepted": {
+            "helper": "Je hebt al een e-mailadres voor het inloggen bij {{- company }} geselecteerd.",
+            "currentEmail": "Huidige e-mailadres voor het inloggen: \"{{ email }}\"",
+            "contactCompany": "Gelieve direct de studio contacteren indien je je e-mailadres voor het inloggen niet wilt wijzigen.",
+            "title": "Dit verzoek is reeds gevalideerd."
+          },
+          "emailTaken": {
+            "contactCompany": "Er bestaat al een account dat \"{{ email }}\" als e-mailadres voor het inloggen gebruikt. Gelieve direct de studio voor ondersteuning contacteren indien dit e-mailadres van jou is en als je geen toegang hebt tot het account met dit e-mailadres.",
+            "helper": "{{- company }} verzoekt je om je e-mailadres voor het inloggen van je account te wijzigen:",
+            "title": "Dit e-mailadres is al in gebruik."
+          },
+          "delayExceeded": {
+            "contactCompany": "Gelieve direct de studio contacteren indien je je e-mailadres voor het inloggen opnieuw wilt wijzigen.",
+            "helper": "{{- company }} heeft je een verzoek verstuurd om de wijziging van je e-mailadres voor het inloggen te valideren. Deze verzoeken zijn 7 dagen na ontvangst geldig en is nu verlopen.",
+            "title": "E-mailadres voor het inloggen wijzigen"
+          },
+          "renewed": {
+            "contactCompany": "Gelieve direct de studio contacteren indien je de bevestigingsmail niet hebt ontvangen of niet kunt vinden.",
+            "helper": "Recent heeft {{- company }} een nieuw verzoek verstuurd om je e-mailadres voor het inloggen te valideren. Gelieve je inbox en spam controleren of je het meest recente verzoek hebt ontvangen, omdat dit verzoek verlopen is.",
+            "title": "E-mailadres voor het inloggen wijzigen"
+          }
+        },
+        "submit": {
+          "emailPreservedTo": "Je e-mailadres voor het inloggen blijft \"{{ email }}\".",
+          "emailUpatedTo": "Je e-mailadres voor het inloggen is gewijzigd naar \"{{ email }}\".",
+          "acceptedTitle": "E-mailadres gewijzigd",
+          "deniedTitle": "E-mailadres niet gewijzigd"
+        },
+        "multipleCompanyHelper": "Dit e-mailadres wordt gebruikt voor het inloggen bij alle studio's die gebruik maken van BSPORT Solution. Je inlog wordt gewijzigd voor de volgende studio's:",
+        "deniedRequestHelper": "Klik op \"Huidige e-mailadres behouden\" om geen wijzigingen te verwerken.",
+        "acceptRequestHelper": "Klik op \"Nieuw e-mailadres bevestigen\" om dit verzoek te verwerken.",
+        "title": "E-mailadres voor het inloggen wijzigen"
+      },
+      "unAuthorizedAccess": {
+        "contactCompany": "Gelieve direct de studio contacteren indien je dit verzoek niet kunt voltooien.",
+        "helper": "Je bent niet ingelogd met een account dat toegang heeft tot dit verzoek. Gelieve inloggen met het juiste account dat ook aan de bevestigingsmail is gekoppeld.",
+        "title": "Onbevoegde toegang"
+      },
+      "generalError": {
+        "contactCompany": "Het was niet mogelijk om je huidige verzoek te verwerken i.v.m. een foutmelding. Uit veiligheidsredenen is dit verzoek geannuleerd. Gelieve direct de studio voor ondersteuning contacteren.",
+        "helper": "{{- company }} verzoekt je om je e-mailadres voor het inloggen van je account te wijzigen:",
+        "title": "Ongeldig e-mailadres voor het inloggen wijzigen"
+      },
+      "requestingStudio": "{{- company }} verzoekt je om je e-mailadres voor het inloggen van je account te wijzigen:",
+      "actions": {
+        "continue": "Verder",
+        "confirmFusion": "Samenvoeging accepteren",
+        "deniedFusion": "Samenvoeging weigeren",
+        "cancel": "Huidige e-mailadres behouden",
+        "confirm": "Nieuw e-mailadres bevestigen"
+      }
+    },
+    "pendingValidation": "Het verzoek voor het wijzigen van het e-mailadres \"{{ email }}\" is momenteel in behandeling."
+  },
+  "actions": "Acties",
+  "archiveMember": "Archiveer",
+  "accountBalance": "Saldo",
+  "communication": "Communicatie",
+  "resetPassword": {
+    "dialogTitle": "Wachtwoord herstellen",
+    "confirmation": "Instructies correct verzonden naar {{memberEmail}}",
+    "dialogContent": "Je staat op het punt om de herstelinstructies voor een nieuw wachtwoord naar \"{{memberEmail}}\" te sturen.",
+    "error": "Fout bij het verzenden van wachtwoord reset instructies",
+    "button": "Wachtwoord herstellen"
+  },
+  "events": {
+    "member-login_successful": {
+      "primaryText": "Een succesvolle login {{ source }} is geregistreerd.",
+      "sourceApp": "via de mobiele app",
+      "filter": "Succesvolle verbindingen",
+      "sourceMarketplace": "via de web marketplace"
+    },
+    "member-tag_applied": {
+      "filter": "Tags toegepast",
+      "primaryText": "De {{- tagName }} tag is toegepast."
+    },
+    "member-vod_bought": {
+      "filter": "VOD gekocht",
+      "primaryText": "De VOD {{- VODName }} is gekocht."
+    },
+    "member-private_booking_registered": {
+      "primaryText": "{{ source }} heeft de afspraak {{- privateServiceName }} - {{- privateSlotName }} op {{- privateServiceDate }} geboekt.",
+      "sourceManager": "De manager {{- managerName }}",
+      "filter": "Afspraken"
+    },
+    "member-custom_form_filled": {
+      "filter": "Bewerkt profielformulier",
+      "primaryText": "Het profielbewerkingsformulier {{ formName }} is ingevuld."
+    },
+    "member-invoice_paid": {
+      "primaryText": "Factuurnummer {{ invoiceUUID }} is betaald voor het bedrag van {{ amount }}.",
+      "filter": "Betaalde facturen"
+    },
+    "member-basket_paid": {
+      "filter": "Betaalde winkelmandjes",
+      "primaryText": "Een mandje van {{ amount }} is betaald. "
+    },
+    "member-booking_registered": {
+      "filter": "Reserveringen",
+      "primaryText": "{{ source }} heeft de {{- offerName }} sessie geboekt op {{- offerDate }}.",
+      "sourceManager": "De manager {{ managerName }}"
+    },
+    "member-giftcard_used": {
+      "filter": "Gebruikte cadeaubonnen",
+      "primaryText": "De cadeaubon {{- giftcardName }} is geactiveerd."
+    },
+    "member-private_booking_canceled": {
+      "filter": "Afspraken annuleren",
+      "primaryText": "De afspraak voor {{- private_service_name}} - {{- private_slot_name }} de {{- date_start }} is geannuleerd."
+    },
+    "member-booking_canceled": {
+      "filter": "Geannuleerde reserveringen",
+      "primaryText": "De reservering voor {{- name }} de {{- date_start }} is geannuleerd."
+    }
+  },
+  "memberTable": {
+    "error": "Error"
+  },
+  "membershipNumber": {
+    "value": "ID: {{id}}",
+    "label": "Lidmaatschapsnummer"
+  },
+  "officialIdNumber": {
+    "value": "ID: {{id}}",
+    "label": "Identiteitsbewijsnummer"
+  },
+  "signedUpWithReferral": "Lid heeft zich aangemeld met <1>{{ name }}</1>'s referral-link",
+  "email": "Email",
+  "leads": {
+    "dialogs": {
+      "errors": {
+        "71000": "Gelieve te wachten totdat de huidige import is voltooid",
+        "71001": "Dit bestand heeft niet het vereiste aantal kolommen, het bevat {{column_count}} kolommen in rij {{row_count}}",
+        "71002": "Dit bestand heeft niet het vereiste aantal kolommen",
+        "71003": "Het bestand kon niet worden gedecodeerd. Controleer of het bestand niet beschadigd is of in een niet-ondersteund formaat staat.",
+        "title": "Helaas is het importproces mislukt omdat:",
+        "unknown": "Er is een onverwachte fout opgetreden"
+      },
+      "partialSuccess": {
+        "successImportSubtext": "Aangemaakte leden",
+        "failedImportSubtext": "Ongeldige rijen",
+        "fileName": "fileMembers.csv",
+        "lineTwoMessage": "Zie de 2 bestanden voor details over de situatie:",
+        "lineOneMessage": "De accounts voor leden met correcte gegevens zijn echter succesvol aangemaakt.",
+        "title": "Sommige rijen in het bestand bevatten fouten en konden niet worden verwerkt."
+      },
+      "success": "Leden zijn succesvol geïmporteerd"
+    },
+    "notACSV": {
+      "goToIntercom": " Open hulpsheet",
+      "message": "Het bestand is geen CSV. Raadpleeg de hulpsheet voor meer informatie.",
+      "title": "Ongesupport bestandsformaat"
+    },
+    "import": "Leads importeren"
+  }
+}

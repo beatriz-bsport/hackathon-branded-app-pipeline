@@ -1,0 +1,291 @@
+{
+  "modal": {
+    "delete": {
+      "content": "Weet je zeker dat je deze promotiecode wilt verwijderen? Je zal geen toegang meer tot de gebruiksgeschiedenis hebben. Deze actie is definitief.",
+      "title": "Verwijdering",
+      "actions": {
+        "cancel": "Annuleren",
+        "submit": "Verwijderen"
+      }
+    }
+  },
+  "form": {
+    "applies_to": {
+      "choices": {
+        "1": "Leskaarten",
+        "2": "Webshop",
+        "6": "Verzendkosten",
+        "9": "Afspraakkaarten",
+        "10": "Pakketten",
+        "null": "Volledige winkelmand",
+        "all": "Volledige winkelmand"
+      },
+      "choicesFranchise": {
+        "1": "Gedeelde leskaarten",
+        "2": "Gedeelde webshopitems",
+        "9": "Gedeelde afspraakkaarten"
+      }
+    },
+    "selectorPlaceholder": {
+      "privatePass": "Geldig op alle afspraakkaarten indien je dit veld leeg laat.",
+      "shopitem": "Geldig op alle afspraakkaarten indien je dit veld leeg laat.",
+      "paymentPack": "Geldig op alle afspraakkaarten indien je dit veld leeg laat.",
+      "paymentCombo": "Geldig op alle pakketten indien je dit veld leeg laat."
+    },
+    "section": {
+      "general": "Algemeen",
+      "availability": "Beschikbaarheid",
+      "usability": "Toepassingen",
+      "voucherConfig": "Korting",
+      "applies_to": "Producten",
+      "advanced": "Geavanceerd",
+      "subscription": "Abonnementen",
+      "whitelist_tags": "[Whitelist] Kan alleen worden gebruikt door leden met de tag(s):",
+      "tags": "Tags",
+      "blacklist_tags": "[Blacklist] Kan niet worden gebruikt door leden met de tag(s):",
+      "tagInfo": "Gebruik tags om deze kortingscode beschikbaar of niet beschikbaar te maken voor bepaalde segmenten van uw ledenbestand."
+    },
+    "name": {
+      "label": "Naam",
+      "helperText": "De naam die hier wordt ingevoerd, verschijnt op facturen wanneer de promotiecode wordt toegepast"
+    },
+    "code": {
+      "helperText": "Dit is de code die leden moeten gebruiken om de promotiecode te activeren.",
+      "label": "Promotiecode",
+      "helperTextFranchise": "Dit is de code die leden moeten gebruiken om de promotiecode te activeren. Controleer of deze promotie niet al bij bestaande studio's wordt gebruikt.",
+      "codeAlreadyInUse": "Deze code is al in gebruik."
+    },
+    "voucher_type": {
+      "percent": "Percentage",
+      "amount": "Waarde"
+    },
+    "expiration_date": {
+      "cancel": "Annuleren",
+      "clear_date": "Geen vervaldatum",
+      "label": "Vervaldatum"
+    },
+    "usage_total": {
+      "label": "Gebruikslimiet"
+    },
+    "only_on_first_checkout": {
+      "label": "Deze promotiecode is alleen op de 1e aankoop geldig"
+    },
+    "combinable": {
+      "label": "Deze promotiecode mag met andere codes gecombineerd worden"
+    },
+    "actions": {
+      "cancel": "Annuleren",
+      "submit": "Bevestigen"
+    },
+    "minimum_amount": {
+      "label": "Minimaal aankoopbedrag"
+    },
+    "is_active": {
+      "helperText": "Leden kunnen geen inactieve promotiecodes gebruiken.",
+      "label": "Actief"
+    },
+    "percent_off": {
+      "label": "Kortingspercentage"
+    },
+    "amount_off": {
+      "label": "Kortingsbedrag"
+    },
+    "with_expiration_date": {
+      "label": "Een vervaldatum toevoegen"
+    },
+    "usage_per_member": {
+      "label": "Gebruikslimiet per lid"
+    },
+    "subscription_mode": {
+      "0": "Op alle facturen toepassen",
+      "1": "Alleen op de 1e facturatie toepassen",
+      "2": "Alleen op de facturen die vóór de automatische verlenging plaatsvinden toepassen",
+      "3": "Deze promotiecode op geen enkele facturatie toepassen"
+    },
+    "tag": {
+      "select": {
+        "empty_tag_list": "Geen sub-tag geselecteerd",
+        "tag": "Selecteer een sub-tag",
+        "tag_group": "Kies een hoofd-tag",
+        "error": "Dezelfde tag kan niet in beide lijsten voorkomen"
+      },
+      "tag": "Sub-tag",
+      "tag_group": "Hoofd-tag"
+    },
+    "title": "[Formulier] Promotie",
+    "alert": "Leden kunnen promotiecodes gebruiken om het totaalbedrag van hun winkelmandje te verlagen. Dit formulier beheert de gebruiksvoorwaarden van de promotiecode. Je kunt zelf de instellingen bepalen en hoe je het met je leden wenst te delen."
+  },
+  "list": {
+    "activeCoupons": "Actieve promoties",
+    "isEmpty": "In dit onderdeel kunnen alle promoties worden beheerd.",
+    "inactiveCoupons": "Verlopen promoties",
+    "expiredActiveCoupons": "Actieve acties verlopen"
+  },
+  "detail": {
+    "seeParameters": "Bewerken",
+    "seeVouchers": "Toon vouchers"
+  },
+  "noDiscount": "Deze promotiecode is nog niet gebruikt.",
+  "createCoupon": "Een promotiecode toevoegen",
+  "card": {
+    "no_expiration": "Geen vervaldatum",
+    "validity": "Geldigheid:",
+    "cumulable": "Cumulatief",
+    "no_cumulable": "Niet cumulatief",
+    "uses": "Toepassingen",
+    "first_buy": "Kan alleen bij de 1e aankoop worden gebruikt",
+    "expiration": "Vervaldatum",
+    "member_use": "gebruik per lid.",
+    "member_uses": "gebruik per lid.",
+    "limitation": "Beperkt tot",
+    "blacklist_tags": "[Blacklist] Niet beschikbaar voor leden met de tag(s):",
+    "whitelist_tags": "Alleen beschikbaar voor leden met bepaalde tags:",
+    "allowedFor": "Goedgekeurd voor",
+    "unallowedFor": "Afgekeurd voor"
+  },
+  "code": {
+    "addCoupon": {
+      "5004": "Deze promotiecode kan slechts voor één artikel worden gebruikt.",
+      "5006": "Deze unieke promotiecode is al aan een openstaand winkelmandje gekoppeld",
+      "45009": "Deze cadeaubon code kan niet worden toegepast op deze winkelmand.",
+      "45010": "De cadeaubon is succesvol gekoppeld aan je account, maar kon niet worden geactiveerd omdat het vóór de activatiedatum is.",
+      "label": "Promotiecode & cadeaubon",
+      "placeholder": "PROMOTIECODE",
+      "cancel": "annuleren",
+      "submit": "Bevestigen",
+      "not_applicable": "Deze promotiecode kan niet voor deze aankoop gebruikt worden.",
+      "not_found": "Deze promotiecode is ongeldig.",
+      "apply": "Toepassen",
+      "couponOnlyLabel": "Promotie code"
+    }
+  },
+  "search": "Zoek een promotiecode",
+  "reverted": "Geannuleerde factuur",
+  "couponTemplate": {
+    "formDisclaimer": "De beschikbaarheid voor alle studio's wordt gereset indien je de gekoppelde producten wijzigt.",
+    "notEditable": "Deze promotie is gemaakt door het Master-Account. Bepaalde instellingen zijn op groepsniveau ingesteld en kunnen niet worden gewijzigd.",
+    "isEmptyExplain": "Er zijn geen gedeelde promoties om weer te geven.",
+    "actions": {
+      "create": "Een promotiecode toevoegen"
+    },
+    "warningDialog": {
+      "content3": "Leden die deze kaarten kopen kunnen deze kaarten bij alle gekoppelde studio's gebruiken.",
+      "content2": "De beschikbaarheid wordt opnieuw geïnitialiseerd met deze wijzigingen.",
+      "content1": "Controleer of deze wijzigingen eventueel invloed hebben op de gedeelde leskaarten en afspraakkaarten.",
+      "title": "Wijzigingen bevestigen"
+    }
+  },
+  "couponTemplateInstance": {
+    "companyEmpty": "Er zijn geen studio's aan deze promotie gekoppeld.",
+    "delete": {
+      "explain2": "Het kan later, indien nodig, opnieuw worden toegevoegd.",
+      "explain1": "Weet je zeker dat je de beschikbaarheid van deze promotie ({{name}}) wilt wijzigen?",
+      "title": "Stop delen"
+    },
+    "create": {
+      "explain2": "Leden kunnen deze promotiecode voor de geselecteerde producten bij alle gekoppelde studio's gebruiken.",
+      "explain1": "Leden kunnen deze promotiecode voor de geselecteerde producten bij alle gekoppelde studio's gebruiken.",
+      "title": "Beschikbaarheid"
+    }
+  },
+  "uniqueCodeCoupon": {
+    "form": {
+      "errors": {
+        "5000": "Het is niet mogelijk om een gebruikte promotiecode opnieuw toe te passen.",
+        "5001": "Sommige unieke promotiecodes kunnen niet worden toegevoegd, omdat deze al geregistreerd zijn.",
+        "5003": "Sommige unieke promotiecodes zijn al in gebruik.",
+        "5004": "Deze promotiecode kan slechts voor één artikel worden gebruikt.",
+        "5005": "Deze promotiecode is reeds al gebruikt of is aan een openstaand winkelmandje gekoppeld.",
+        "5006": "Deze unieke promotiecode is reeds aan een openstaand winkelmandje gekoppeld",
+        "fileUploader": {
+          "fileTooLargeError": "Het bestand is te groot. Niet groter dan 1 MB a.u.b.",
+          "incorrectDataError": "Het bestand bevat niet de juiste gegevens.",
+          "notCsvFileError": "Het bestandstype komt niet overeen met een CSV-bestand."
+        },
+        "required": "Dit veld is verplicht",
+        "positiveNumber": "De waarde moet groter zijn dan 0",
+        "expirationDate": {
+          "dateBeforeNow": "De vervaldatum kan niet eerder zijn dan de huidige datum.",
+          "format": "Fout bij het formatteren van datum"
+        },
+        "only_on_objects": "Je moet een object kiezen waarop je de reductie wilt toepassen",
+        "applies_to": "Het artikel waarop de korting wordt toegepast moet een cursuskaart, een afsprakenkaart, een pakket of een artikel in de winkel zijn",
+        "update_mode": "Indien je promotiecodes wenst te wijzigen kun je of bestaande promotiecodes toevoegen of vervangen.",
+        "codes": {
+          "updateMode": "Voeg nieuwe promotiecodes toe of vervang bestaande promotiecodes",
+          "emptyArray": "Er moet ten minste één promotiecode toegevoegd worden"
+        },
+        "positiveOrZeroNumber": "De waarde moet groter dan of gelijk aan 0 zijn"
+      },
+      "alertInfo": "Vouchers zijn unieke codes waarmee het lid 100% korting krijgt op een specifiek product. Deze codes worden niet gegenereerd door het platform zelf, maar moeten hier worden geüpload als een CSV-bestand. Deze functie is vooral handig als je samenwerkt met een externe entiteit zoals Groupon om een promotiecampagne te voeren. In dit geval genereert en verkoopt Groupon (of een vergelijkbare entiteit) de vouchers namens je studio.",
+      "alertWarning": "Niet van toepassing op abonnementen",
+      "couponCostForCompany": {
+        "label": "Prijs TTC",
+        "helperText": "De inkomsten die je ontvangt van de campagnepartner voor elke verkochte voucher. Dit wordt gebruikt om de marginale waarde te berekenen voor de lerarenvergoeding en in de rapporten. Voor elke berekening die geen rekening houdt met de marginale waarde, zullen de rapporten deze gegeven prijs negeren en deze promotie behandelen als een 100% korting."
+      },
+      "usage_per_member": {
+        "label": "Beperk het aantal vouchers dat een lid kan kopen",
+        "helperText": "Maximaal limiet"
+      },
+      "only_on_first_checkout": {
+        "label": "Kan alleen worden gebruikt voor eerste aankopen"
+      },
+      "fileUploader": {
+        "title": "Eenmalige vouchers downloaden",
+        "label": "Sleep of klik om het bestand te selecteren",
+        "sizeLimitHelper": "CSV-bestand (maximaal 1 MB)",
+        "helperText": "Upload een CSV-bestand met alle vouchercodes in de eerste kolom, één code per regel, zonder koptekst."
+      },
+      "update": {
+        "popover": "Terwijl gebruikte promotiecodes bewaard zullen blijven, zullen ongebruikte promotiecodes worden verwijderd.",
+        "replace": "Bestaande promotiecodes vervangen",
+        "append": "Aan bestaande promotiecodes koppelen",
+        "alertInfo": "Er is {{count}} promotiecode hieraan gekoppeld. Je kunt ook nieuwe codes downloaden.",
+        "alertInfo_plural": "Er zijn {{count}} promotiecodes hieraan gekoppeld. Je kunt ook nieuwe codes downloaden."
+      },
+      "selectorPlaceholder": {
+        "privatePass": "Selecteer een afspraakkaart",
+        "paymentPack": "Selecteer een leskaart",
+        "shopItem": "Selecteer een product",
+        "paymentCombo": "Selecteer een pakket"
+      }
+    },
+    "voucherCodesDialog": {
+      "close": "Sluiten",
+      "markAsRedeemed": "Als gebruikt markeren",
+      "markAsRedeemed_plural": "Als gebruikt markeren",
+      "export": "Exporteren",
+      "noResult": "Geen zoekresultaten",
+      "searchBar": {
+        "placeHolder": "Een promotiecode zoeken"
+      },
+      "checkBoxes": {
+        "unselectAll": "Deselecteer alles",
+        "selectAll": "Selecteer alles"
+      },
+      "selector": {
+        "notUsed": "Ongebruikt",
+        "pending": "In afwachting van externe goedkeuring",
+        "redeemed": "Als gebruikt markeren",
+        "allStatus": "Alle statussen"
+      },
+      "header": {
+        "status": "Status",
+        "codes": "Promotiecodes"
+      }
+    }
+  },
+  "couponFilter": {
+    "allType": "Alle promotietypes",
+    "title": "Promotietype"
+  },
+  "fabLabels": {
+    "discountCode": "Kortingscode",
+    "voucherCodes": "Vouchers"
+  },
+  "couponType": {
+    "0": "Kortingscode",
+    "3": "Enkele voucher"
+  },
+  "couponNotFullyAppliedWarning": "Sommige kortingen zijn niet volledig toegepast omdat ze de oorspronkelijke prijzen van de artikelen overschreden. De niet-gebruikte kortingsbedragen zullen vervallen."
+}

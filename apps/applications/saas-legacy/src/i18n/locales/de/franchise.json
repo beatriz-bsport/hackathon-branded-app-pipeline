@@ -1,0 +1,125 @@
+{
+  "companies": {
+    "pageTitle": "Studios",
+    "navigateToCompany": "Anmeldung Franchisenehmer-Konto",
+    "membersEmptyState": "Keine Mitglieder in diesem Studio",
+    "establishmentEmptyState": "Keine Einrichtungen in diesem Studio.",
+    "establishment": "Einrichtungen",
+    "members": "Mitglieder",
+    "emptySelect": "Wählen Sie ein Studio, um mehr Informationen anzuzeigen.",
+    "searchPlaceholder": "Suche nach einem Studio",
+    "manageOnStudio": "Verwalten von {{studio_name}}"
+  },
+  "member": {
+    "pageTitle": "Mitglied",
+    "seeMembership": "Mitgliedinformationen anzeigen",
+    "isVaccinated": "Ich habe einen gültigen COVID-19 Ausweis",
+    "franchises": "Franchises",
+    "seeMemberInCompany": "anzeigen"
+  },
+  "pagination": {
+    "outOf": "{{from}} - {{to}} -{{count}}",
+    "rowPerPage": "Elemente pro Seite",
+    "nextPage": "Nächste Seite",
+    "previousPage": "Vorherige Seite"
+  },
+  "membersList": {
+    "pageTitle": "Mitglieder",
+    "see": "Siehe",
+    "actions": "Aktionen",
+    "franchised": "Studios",
+    "name": "Name"
+  },
+  "emails": {
+    "chooseGroup": "Wählen Sie eine Gruppe",
+    "copy": "kopieren",
+    "groupByPlaceholder": "Gruppieren nach",
+    "franchised": "Studio",
+    "groupBy": "Gruppieren nach",
+    "pageTitle": "Vorlage",
+    "companiesEmails": "[Master Account] E-Mail-Vorlagen",
+    "create": "Eine Vorlage erstellen",
+    "franchiseEmails": "Meine Vorlagen",
+    "emptyStateDescription": "Wählen Sie eine Vorlage, um eine Vorschau zu sehen.",
+    "emptyStateTitle": "Vorschau auf die E-Mail",
+    "searchPlaceholder": "Suche nach einer Vorlage"
+  },
+  "login": {
+    "disconnect": "Abmelden",
+    "previous": "Zurück",
+    "connect": "Anmelden",
+    "signUp": "Anmelden"
+  },
+  "companyGroup": {
+    "explain": "Kategorien dienen dazu, Ihre Lizenzen unter einem gemeinsamen Namen zu gruppieren (z. B. Studios Paris) und werden insbesondere in der mobilen Anwendung angezeigt",
+    "actions": {
+      "add": "Kategorie hinzufügen",
+      "submit": "Bestätigen",
+      "cancel": "Abbrechen"
+    },
+    "name": {
+      "label": "Name"
+    }
+  },
+  "genericProduct": {
+    "dialogs": {
+      "selectCompanies": {
+        "content1": "Die folgenden Studios bieten diese Karte automatisch an, können aber weder den Preis noch die Anzahl der Credits ändern.",
+        "title": "Meine Studios konfigurieren",
+        "content2": "Mitglieder, die diese Karte erhalten, können sie in allen kompatiblen Studios verwenden.",
+        "allCompaniesShared": "Sie haben diese Karte bereits an alle Franchise-Studios weitergegeben, zu denen Sie Zugang haben."
+      },
+      "deleteTemplate": {
+        "title": "Deaktivierung"
+      },
+      "deleteTemplateInstance": {
+        "title": "Nicht mehr teilen",
+        "buttonValidate": "Gemeinsame Nutzung deaktivieren"
+      }
+    },
+    "templateCard": {
+      "buttons": {
+        "delete": "Löschen",
+        "update": "Bearbeiten"
+      },
+      "shareTemplate": {
+        "emptyCompanyList": "Es wurden keine Studios mit dieser Karte konfiguriert",
+        "categoryName": "Mit folgenden Studios geteilt",
+        "seeAll": "Alles anzeigen",
+        "closeDialog": "Schließen",
+        "addCompany": "Studio hinzufügen"
+      }
+    },
+    "list": {
+      "titleActive": "Verfügbar zum Kauf",
+      "titleInactive": "Nicht verfügbar zum Kauf",
+      "fuzzySearch": "Einen Kurspass suchen",
+      "shortMenu": {
+        "goTo": "Detail",
+        "delete": "Löschen",
+        "edit": "Bearbeiten",
+        "restore": "Wiederherstellen"
+      },
+      "visibility": "Nicht verfügbar zum Kauf"
+    }
+  },
+  "staff": {
+    "explainStaff": "Mit dem Mitarbeiterzugang des Master Accounts wählen Sie aus, welche Franchisenehmer Zugriff auf Ihr Personal haben und welche Aktionen sie durchführen können. Der Mitarbeiterzugang erlaubt es nicht, sich mit der mobilen App zu verbinden.",
+    "roleTabTitle": "Aufgaben",
+    "staffAccountTabTitle": "Mitarbeiter-Accounts"
+  },
+  "search": {
+    "usersTableTitle": "Benutzer",
+    "pageTitle": "Suchen"
+  },
+  "userProfile": {
+    "numberBrands": "{{ number }} Kategorien",
+    "numberStudios": "{{ number }} zahlende Studios",
+    "goToMemberProfile": "Verwalten auf {{ purchasing_studio }}",
+    "tagModalPlaceholcer": "Tags auswählen",
+    "tagModalHelperText": "Tags",
+    "tagModalText": "Die an den Tags vorgenommenen Maßnahmen werden auf die Mitglied in jedem Franchisenehmer angewendet",
+    "manageTags": "Tags verwalten",
+    "tagsListTitle": "Geteilte Tags"
+  }
+}

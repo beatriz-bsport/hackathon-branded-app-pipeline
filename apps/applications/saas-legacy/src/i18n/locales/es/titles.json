@@ -1,0 +1,105 @@
+{
+  "searchResults": "Búsqueda",
+  "offerFormPage": "Creación de sesión",
+  "offerManagement": "Reservas",
+  "shop": "Mi tienda",
+  "planning": "Planificación",
+  "settings": "Parámetros",
+  "marketing": {
+    "marketingRule": "Estrategias marketing",
+    "marketingDashboard": "Dashboard",
+    "notifications": "Notificaciones",
+    "cadence": "Cadencia",
+    "audience": "{{ audienceCamelCase }}"
+  },
+  "paymentPack": {
+    "paymentPackList": "Bonos",
+    "paymentPackFormPage": "Formulario bono"
+  },
+  "workshopActivity": {
+    "workshopActivityFormPage": "Formulario talleres",
+    "workshopActivityCreate": "Crear un taller",
+    "workshopActivityList": "Talleres",
+    "workshopActivityEditFormSubtitle": "Modificación de un taller",
+    "workshopActivityFormSubtitle": "Creación de un taller"
+  },
+  "subscription": {
+    "subscriptions": "Cuotas",
+    "subscriptionCreate": "Crear una suscripción"
+  },
+  "dashboard": {
+    "dashboard": "Dashboard",
+    "reportingDashboard": "Informes",
+    "marketingDashboard": "Marketing"
+  },
+  "marketplace": {
+    "marketplacePass": "Bonos",
+    "marketplaceCalendar": "Calendario",
+    "marketplaceWorkshop": "Talleres",
+    "marketplaceShop": "Tienda",
+    "marketplaceGiftcard": "Tarjetas regalo"
+  },
+  "establishment": {
+    "establishmentFormPage": "Formulario establecimiento",
+    "establishmentList": "Establecimientos",
+    "establishmentGroupPage": "Ubicaciones"
+  },
+  "privateService": {
+    "serviceList": "Sólo con cita previa"
+  },
+  "coupon": {
+    "couponList": "Códigos promocionales",
+    "couponEdit": "Formulario promoción",
+    "couponDetail": "{{name}}",
+    "couponCreate": "Formulario promoción"
+  },
+  "coach": {
+    "coachPerformance": "Pago del profesor {{- name }}",
+    "coachFormPage": "Formulario profesor",
+    "allCoachPerformance": "Resumen profesor",
+    "coachList": "Profesores"
+  },
+  "invoice": {
+    "invoiceEdit": "Edición factura",
+    "invoiceCreate": "Facturar",
+    "invoiceList": "Facturas"
+  },
+  "metaActivity": {
+    "metaActivityFormPage": "Añadir una actividad de grupo",
+    "metaActivityEditForm": "Formulario Actividad",
+    "metaActivityList": "Actividades",
+    "metaActivityEditFormSubtitle": "Modificación de una actividad",
+    "metaActivityFormSubtitle": "Configurar una actividad de grupo, definir su duración y añadir parámetros personalizados."
+  },
+  "order": {
+    "orderDetail": "Detalles pedido",
+    "orderList": "Pedidos"
+  },
+  "member": {
+    "memberFormPage": "Formulario Miembro",
+    "mergeMember": "Fusión miembro",
+    "members": "Miembros",
+    "memberForm": "Añadir un miembro"
+  },
+  "banner": {
+    "networkError": "Parece que no estás conectado a Internet. Por favor, comprueba tu conexión e inténtalo de nuevo.",
+    "isStaging": "Pedir cita",
+    "franchiseConnection": "Está conectado a la aplicación de uno de sus franquiciados",
+    "serverConnectionRestored": "Conexión restablecida. Puede continuar sin problemas.",
+    "networkConnectionRestored": "¡Conexión restablecida!",
+    "serverError": "Algo salió mal de nuestra parte. Por favor, espere o haga clic aquí para actualizar la página."
+  },
+  "video": {
+    "videoList": "Videoteca"
+  },
+  "expense": {
+    "expenseList": "Gastos"
+  },
+  "coachUserSpace": {
+    "performance": "Remuneración",
+    "replacement": "Sustitución"
+  },
+  "replacement": "Sustitución",
+  "inbox": "Bandeja de entrada",
+  "giftcard": "Tarjetas regalo"
+}

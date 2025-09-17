@@ -1,0 +1,670 @@
+{
+  "dashboard": {
+    "showMore": "Ver más",
+    "currentPassTitle": "Bonos activos",
+    "nextBookingTitle": "Mis próximas sesiones",
+    "optionTitle": "En lista de espera",
+    "favoriteTitle": "Sugerencia de reserva",
+    "noBooking": "Ninguna próxima sesión",
+    "noPackCurrentlyActive": "Ninguna tarjeta actual válida"
+  },
+  "booking": {
+    "bookAgain": "Reservar de nuevo",
+    "discard": "Cancelar",
+    "showCalendar": "Ver el calendario",
+    "titlePrivateBooking": "Cita",
+    "titleBooking": "Curso de grupo",
+    "accessLive": "Acceder a la clase en vivo",
+    "spotNumber": "Sitio {{count}}",
+    "isUnpaid": "No pagado",
+    "noShow": "Ha sido registrado como ausente en esta sesión"
+  },
+  "pack": {
+    "titlePrivatePack": "Cita",
+    "titlePaymentPack": "Curso de grupo",
+    "titleUniversalPack": "Universal"
+  },
+  "debt": {
+    "explainPayment": "Esta suma se pagará al club para regularizar tu anticipo",
+    "titlePaymentDialog": "Regularización anticipo",
+    "title": "Anticipo debido al club",
+    "regularize": "Regularizar"
+  },
+  "navigation": {
+    "changeMembership": "Cambiar de club",
+    "logoff": "Desconectar",
+    "profile": "Perfil",
+    "subscription": "Suscripciónes",
+    "invoice": "Factura",
+    "pack": "Bonos",
+    "calendar": "Histórico",
+    "dashboard": "Resumen",
+    "myVideos": "Mis videos",
+    "pick_a_language": "Seleccione el idioma",
+    "automaticLanguage": "Detección automática de idiomas",
+    "giftcard": "Tarjetas de regalo",
+    "statistic": "Estadísticas",
+    "relationConnectedAs": "Actualmente conectado como: {{name}}",
+    "backToRelationMasterSpace": "volver a mi cuenta",
+    "connectedAs": "Iniciar sesión como",
+    "goBack": "Atrás"
+  },
+  "actions": {
+    "goToCalendar": "Ver el calendario completo",
+    "goToSubscription": "Ver todas las cuotas",
+    "goToPass": "Ver todos los bonos",
+    "goToHome": "Ver todos los servicios"
+  },
+  "congratulation": {
+    "cancel": "Cerrar",
+    "content": "¡Tu compra ha sido registrada!"
+  },
+  "unsubscriber": {
+    "success": {
+      "text": "Se ha dado de baja correctamente. Ya no recibirá más boletines de {{- companyName}}.",
+      "title": "Has cancelado tu suscripción."
+    },
+    "error": "Error al darse de baja",
+    "doUnsubscribe": "Darme de baja",
+    "explain": "¿Quieres darte de baja de todas las newsletters de tu club?",
+    "explainAction": {
+      "possessive": "¿Está seguro de que desea darse de baja de los boletines de {{- companyName}}?",
+      "normal": "¿Está seguro de que desea darse de baja de los boletines de {{- companyName}}?"
+    }
+  },
+  "myVideos": {
+    "title": "Mis videos",
+    "gotToVOD": "Ver todos los videos"
+  },
+  "widget": {
+    "noBookingPast": "No hay reservas anteriores",
+    "noBookingFuture": "No hay reservas futuras",
+    "pastBooking": "Historia",
+    "futureBooking": "Mis reservas"
+  },
+  "language": {
+    "fr": "Francés",
+    "en-US": "Inglés (EE.UU.)",
+    "en-GB": "Inglés (Reino Unido)",
+    "es": "Español",
+    "de": "Alemán",
+    "it": "Italiano",
+    "nl": "Holandés",
+    "none": "Automático",
+    "cs": "Checo",
+    "pt": "Portugués",
+    "cimode": "Debug"
+  },
+  "subscription": {
+    "isEmpty": "No tienes ninguna suscripción en curso"
+  },
+  "Basket": "Mi cesta",
+  "appbar": {
+    "profile": "Ir a mi perfil",
+    "logout": "Desconexión",
+    "login": "Conexión"
+  },
+  "spivi": {
+    "settingsInfo": "Si esta opción está activada, sus datos (velocidad, calorías quemadas, etc.) se mostrarán en tiempo real durante su sesión. Si desactiva esta opción, sus datos dejarán de mostrarse, pero recibirá su resumen por correo electrónico al final de la sesión.",
+    "settings": "Visualizar mis datos en tiempo real",
+    "settingsTitle": "Datos de spinning"
+  },
+  "reworked": {
+    "myPasses": {
+      "consumerPassCard": {
+        "buttonsLabel": {
+          "seeDetails": "Ver detalles"
+        },
+        "availability": {
+          "expiresToday": "Último día",
+          "expiresIn": "{{ daysRemaining }} día restante",
+          "expiresIn_plural": "Días restantes",
+          "future": "Inicio: {{ startDate }}",
+          "expired": "Caducado: {{ expirationDate }}",
+          "active": "Caduca: {{ expirationDate }}"
+        },
+        "chip": {
+          "multiStudio": "Multi-estudios",
+          "shared": "Compartido",
+          "suspended": "Suspendido"
+        },
+        "credits": "{{ creditsLeft }}/{{ totalCredits }} créditos",
+        "unlimited": "Illimitado"
+      },
+      "consumerPassDetailsCard": {
+        "header": {
+          "credits": "{{ creditsLeft }}/{{ totalCredits }} créditos",
+          "unlimited": "Ilimitado"
+        },
+        "availability": {
+          "active": "Válido del {{ startDate }} al {{ expirationDate }}",
+          "suspended": "Suspendido",
+          "suspendedUntil": "Suspendido hasta {{ endDate }}",
+          "expired": "Expiró el {{ expirationDate }}",
+          "future": "Comienza el {{ startDate }}",
+          "validUntil": "Válido hasta {{ expirationDate }}"
+        },
+        "description": {
+          "title": "Descripción",
+          "showMore": "Ver más",
+          "showLess": "Ver menos"
+        },
+        "compatibility": {
+          "titles": {
+            "studios": "Estudios compatibles",
+            "activity": "Compatibilidad de actividades",
+            "appointment": "Compatibilidad de citas",
+            "main": "Compatibilidad"
+          },
+          "subtitles": {
+            "activity": "Actividades compatibles",
+            "timeSlots": "Franjas horarias compatibles",
+            "sessions": "Sesiones compatibles"
+          },
+          "contents": {
+            "allActivities": "Compatible con todas las actividades del estudio",
+            "allTimeSlots": "Compatible con todas las franjas horarias",
+            "vod": "Puede utilizarse para <strong>Vídeos a la carta</strong>",
+            "bookingForGuest": "Puede utilizarse para <strong>Invitar a un invitado</strong>.",
+            "noAppointments": "No hay citas compatibles",
+            "allSessions": "Compatible con todas las sesiones",
+            "sessions": "Sesiones compatibles: {{ sessionsList }}"
+          },
+          "labels": {
+            "category": "Categorías",
+            "activity": "Actividades",
+            "room": "Salas"
+          }
+        },
+        "restriction": {
+          "title": "Restricciones de uso",
+          "frequencyDaily": "Sólo puede utilizarse {{ amount }} vez al día.",
+          "frequencyDaily_plural": "Sólo puede utilizarse {{ amount }} veces al día.",
+          "frequencyWeekly": "Sólo puede utilizarse {{ amount }} vez por semana.",
+          "frequencyWeekly_plural": "Sólo puede utilizarse {{ amount }} veces por semana.",
+          "frequencyMonthly": "Sólo puede utilizarse {{ amount }} vez al mes.",
+          "frequencyMonthly_plural": "Sólo puede utilizarse {{ amount }} veces al mes."
+        },
+        "shared": {
+          "with": "Compartido con",
+          "by": "Compartido por"
+        }
+      },
+      "bookASession": "Reservar una sesión",
+      "buyANewPass": "Comprar un bono nuevo",
+      "filters": {
+        "future": "Proxímos",
+        "expired": "Expirados",
+        "active": "Activos"
+      },
+      "tab": {
+        "universal": "Universal",
+        "appointment": "Citas",
+        "activity": "Actividades"
+      },
+      "title": "Mis bonos",
+      "choosePassType": "Elija el tipo de bono"
+    },
+    "myBookings": {
+      "spotSchedulingModal": {
+        "subtitle": "Encuentre rápidamente su sitio en clase",
+        "title": "Calendario puntual"
+      },
+      "onlineWarningModal": {
+        "message": "Podrá abrir este enlace 15 minutos antes de la sesión.",
+        "subtitle": "La sesión comenzará el {{- date}} a las {{hour}}",
+        "title": "Actividad en línea"
+      },
+      "cancelModal": {
+        "group": {
+          "listTitle": "Reservas que se cancelarán:",
+          "alert": {
+            "message": "Póngase en contacto con el estudio si desea cancelar una sesión individual.",
+            "title": "Se cancelarán todas las reservas para este acto"
+          },
+          "message": "Esta reserva forma parte de un grupo.\nSe le dará de baja automáticamente de todas las sesiones futuras que estén asociadas a este evento. Los créditos le serán reembolsados y podrá volver a utilizarlos."
+        },
+        "noRefund": "No se reembolsará ningún crédito por cancelación tardía.",
+        "creditsWillBeRefunded": "{{count}} crédito será reembolsado.",
+        "creditsWillBeRefunded_plural": "{{count}} créditos serán reembolsados.",
+        "title": {
+          "consumerBooking": "Cancelar esta sesión",
+          "consumerPrivateBooking": "Cancelar esta cita",
+          "consumerBookingOption": "Cancelar esta lista de espera"
+        },
+        "waitlist": "Será eliminado de la lista de espera.",
+        "confirm": {
+          "consumerBooking": "Cancelar sesión",
+          "consumerPrivateBooking": "Cancelar cita",
+          "consumerBookingOption": "Cancelar lista de espera"
+        }
+      },
+      "detailsCard": {
+        "workshop": {
+          "title": "Agrupados en este taller"
+        },
+        "teacher": {
+          "subtitutedBy": "Sustituido por",
+          "absent": "Ausente",
+          "title": "Profesor"
+        },
+        "waitlist": {
+          "position": "Su posición en la lista de espera es {{position}}"
+        },
+        "cancellationPolicy": {
+          "maxDuration": "Esta reserva solo se puede cancelar sin coste alguno hasta {{days}} días, {{hours}} horas y {{minutes}} minutos antes.",
+          "noDuration": "Las cancelaciones son siempre posibles sin ningún cargo.",
+          "title": "Política de cancelación"
+        },
+        "description": {
+          "title": "Descripción"
+        },
+        "location": {
+          "title": "Localización"
+        },
+        "relatedPass": {
+          "title": "Pase relacionado"
+        },
+        "cancelled": {
+          "refundWarning": "No se reembolsarán los créditos por cancelaciones fuera de plazo",
+          "creditsToRefund": "Se reembolsará {{count}} crédito",
+          "creditsToRefund_plural": "Se reembolsarán {{count}} créditos",
+          "cancelledFromManager": "Cancelado por el manager del estudio",
+          "cancelledFromMember": "Cancelado por usted",
+          "title": "Cancelado",
+          "cancelledFromOffer": "Cancelado por el estudio"
+        },
+        "drawerTitle": "Actividad"
+      },
+      "consumerBookingCard": {
+        "listItemLabels": {
+          "spotSchedulingPosition": "Lugar {{ spotSchedulingPosition }}",
+          "waitingList": "Su posición en la lista de espera es: {{ waitingListPosition }}"
+        },
+        "buttonsLabel": {
+          "bookForAGuest": "Reservar para un invitado",
+          "joinOnline": "Unirse online",
+          "book": "Reservar",
+          "seeDetails": "Ver detalles",
+          "more": "Más",
+          "cancel": "Cancelar"
+        },
+        "chip": {
+          "status": {
+            "cancelled": "Cancelado",
+            "bookedForAGuest": "Reservado para un invitado",
+            "unpaid": "No pagado"
+          },
+          "noShow": "Ausente",
+          "atHome": "En casa",
+          "online": "En línea"
+        }
+      },
+      "listContainer": {
+        "placeholder": {
+          "workshop": {
+            "future": "No hay talleres programados.",
+            "past": "No hay talleres anteriores que mostrar.",
+            "waitlist": "No hay talleres en lista de espera."
+          },
+          "activity": {
+            "future": "No se han programado próximas actividades.",
+            "past": "No hay actividades pasadas que mostrar.",
+            "waitlist": "No hay actividades en lista de espera."
+          },
+          "appointment": {
+            "past": "No hay citas previas que mostrar.",
+            "future": "No hay citas programadas."
+          },
+          "pass": {
+            "expired": "Aún no tiene bonos caducados.",
+            "future": "Parece que aún no has comprado ningún bono.",
+            "active": "Parece que aún no has comprado ningún bono."
+          }
+        }
+      },
+      "filter": {
+        "onWaitlist": "En la lista de espera",
+        "past": "Anteriores",
+        "upcoming": "Próximas"
+      },
+      "tab": {
+        "workshops": "Talleres",
+        "appointments": "Citas",
+        "activities": "Actividades"
+      },
+      "bookASession": "Reservar una sesión",
+      "title": "Mis reservas",
+      "calendarDrawer": {
+        "subtitle": {
+          "workshop": "Filtre sus talleres por fecha.",
+          "appointment": "Filtre sus citas por fecha.",
+          "activity": "Filtra tus actividades por fecha."
+        },
+        "title": "Elija una fecha"
+      },
+      "chooseBookingType": "Elija el tipo de reserva"
+    },
+    "placeholderCard": {
+      "myBookings": "Elija una sesión para ver más detalles",
+      "myPasses": "Elija un bono para ver más detalles",
+      "mySubscriptions": "Elija una suscripción para ver más detalles"
+    },
+    "showLess": "Mostrar menos",
+    "showMore": "Mostrar más",
+    "mySubscriptions": {
+      "consumerSubscriptionCardDetails": {
+        "headerListItemLabels": {
+          "nextPayment": "Próximo pago",
+          "nextPaymentDate": "en {{- subscriptionNextPaymentDate }}",
+          "pauseEndDate": "hasta {{- pauseEndDate }} incluido",
+          "autoRenewalDate": "en {{- autoRenewalDate }} (incluido)",
+          "autoRenewed": "Renovación automática",
+          "paused": "Actualmente en pausa",
+          "joiningFee": "Tasa de inscripción: {{- fees }}",
+          "futurePauses": "Se programa una pausa desde {{- dateStart }} hasta {{- dateEnd }}. (incluido)",
+          "stopValidDate": "Válido hasta {{- expirationDate }} (excluido)",
+          "stop": "Dado/a de baja"
+        },
+        "buttonsLabel": {
+          "see": "Ver",
+          "change": "Cambiar",
+          "add": "Añadir",
+          "unsubscribe": "Cancelar suscripción"
+        },
+        "termsAccepted": "Aceptado el {{- termsDate }}",
+        "terms": "Términos legales",
+        "description": "Descripción",
+        "paymentMethod": {
+          "bacs_debit": "Bacs Direct Debit: **** **** **** {{ readableIdentifier }}",
+          "card": "Tarjeta: **** **** **** {{ readableIdentifier }}",
+          "sepa_debit": "SEPA: **** **** **** {{ readableIdentifier }}",
+          "internal": "Cuenta interna: para cada pago, se crea automáticamente una deuda en su cuenta interna.",
+          "title": "Método de pago",
+          "nextPaymentDate": "en {{- subscriptionNextPaymentDate }}",
+          "pauseEndDate": "hasta {{- pauseEndDate }} incluido",
+          "autoRenewalDate": "en {{- autoRenewalDate }} (incluido)",
+          "autoRenewed": "Renovación automática",
+          "paused": "Actualmente en pausa"
+        },
+        "failedPaymentReason": "Motivo: {{- note }} Póngase en contacto con su estudio para regularizar la situación",
+        "failedPayment": "Pago fallido",
+        "emptyInvoices": " No hay un histórico de facturación que mostrar",
+        "billingHistory": "Histórico de facturación",
+        "failedPaymentReasonWithRetry": "Motivo: {{- note }}. El pago se volverá a intentar en {{- nextRetryDate}}.",
+        "beforeRenewalContractPriceEvery": "Entonces {{ price }} cada {{ recurrence }} {{ interval }} después de {{- date }}",
+        "beforeRenewalContractPricePer": "Entonces {{ price }}/{ interval }} después de {{- date }}",
+        "loadMore": "Cargar más",
+        "drawerTitle": "Suscripción",
+        "loading": "Estamos procesando su solicitud...",
+        "commitmentPeriod": {
+          "modal": {
+            "alert": "Las sesiones reservadas con antelación en el marco de una suscripción con clases ilimitadas se cancelarán después de este periodo y podrán estar sujetas a una tasa por cancelación tardía.",
+            "failedMessage": "Por favor, refresque su página e inténtelo de nuevo.",
+            "failedTitle": "Algo salió mal",
+            "confirmationNotStarted": "Puede cerrar la ventana.",
+            "confirmationStarted": "Puede seguir disfrutando de las ventajas de la suscripción hasta {{- expiration_date }} (excluida).",
+            "confirmationTitle": "Te has dado de baja con éxito",
+            "cancel": "Mantener suscripción",
+            "explainNoExpirationDate": "Está a punto de cancelar esta suscripción. Los beneficios de su suscripción seguirán siendo válidos hasta el final del siguiente ciclo de facturación.\n¿Está seguro de que desea continuar?",
+            "explainStarted": "Está a punto de cancelar esta suscripción. Los beneficios de su suscripción seguirán siendo válidos hasta {{- expiration_date }}. (excluida).\n¿Está seguro de que desea continuar?",
+            "explainNotStarted": "Está a punto de cancelar una suscripción que no ha comenzado. \nSe te seguirá cobrando el primer ciclo de facturación, y tus ventajas seguirán siendo válidas hasta {{- expiration_date }} (excluida).\n¿Está seguro de que desea continuar?"
+          },
+          "explain": {
+            "year": "Esta suscripción tiene un periodo de compromiso de {{ commitment_period_value }} año, para cancelaciones o preguntas, ponte en contacto directamente con el estudio.",
+            "year_plural": "Esta suscripción tiene un periodo de compromiso de {{ commitment_period_value }} años, para cancelaciones o preguntas, ponte en contacto directamente con el estudio.",
+            "month": "Esta suscripción tiene un periodo de compromiso de {{ commitment_period_value }} mes, para cancelaciones o preguntas, ponte en contacto directamente con el estudio.",
+            "month_plural": "Esta suscripción tiene un periodo de compromiso de {{ commitment_period_value }} meses, para cancelaciones o preguntas, ponte en contacto directamente con el estudio.",
+            "week": "Esta suscripción tiene un periodo de compromiso de {{ commitment_period_value }} semana, para cancelaciones o preguntas, ponte en contacto directamente con el estudio.",
+            "week_plural": "Esta suscripción tiene un periodo de compromiso de {{ commitment_period_value }} semanas, para cancelaciones o preguntas, ponte en contacto directamente con el estudio.",
+            "day": "Esta suscripción tiene un periodo de compromiso de {{ commitment_period_value }} días, para cancelaciones o preguntas, ponte en contacto directamente con el estudio.",
+            "day_plural": "Esta suscripción tiene un periodo de compromiso de {{ commitment_period_value }} días, para cancelaciones o preguntas, ponte en contacto directamente con el estudio."
+          },
+          "subtitle": "Esta suscripción está terminando y no habrá más pagos después del ciclo actual.",
+          "title": "Gestionar la suscripción"
+        }
+      },
+      "consumerSubscriptionCard": {
+        "buttonsLabel": {
+          "seeDetails": "Ver detalles",
+          "addPaymentMethod": "Añadir método de pago"
+        },
+        "recurrenceLabelEvery": "cada {{ recurrence }} {{ interval }}",
+        "recurrenceLabelPer": "/{{ interval }}",
+        "chipsLabel": {
+          "failedPayment": "Pago fallido",
+          "missingPaymentMethod": "Falta el método de pago",
+          "isPaused": "En pausa"
+        },
+        "nextPayment": "Próximo pago: {{- nextPayment }}"
+      },
+      "headerButtonsLabel": {
+        "getSubscription": "Obtener una suscripción",
+        "bookASession": "Reserva una sesión",
+        "backToSubscriptions": "Volver a suscripciones"
+      },
+      "tab": {
+        "expired": "Expiradas",
+        "future": "No iniciadas",
+        "active": "Activas"
+      },
+      "title": "Mis suscripciones",
+      "dateLabel": {
+        "until": " hasta {{- date }} (excluido)",
+        "expired": "Caducado desde {{- date }} (excluido)",
+        "future": "Inicia en {{- date }}",
+        "active": "Iniciada el {{- date }}"
+      },
+      "close": "Cerrar",
+      "paymentMethodUpdatedContent": "Su método de pago se ha actualizado correctamente",
+      "paymentMethodUpdatedTitle": "Método de pago actualizado",
+      "changePaymentMethod": "Cambiar el método de pago",
+      "paymentModalAlert": "Si no se guarda ningún método de pago, se creará automáticamente una deuda en su cuenta interna por cada pago.",
+      "download": "Descargar",
+      "placeholder": {
+        "expired": "Aún no tiene suscripciones caducadas.",
+        "nonExpired": "Parece que no tienes ninguna suscripción activa."
+      }
+    },
+    "myInvoices": {
+      "payment": {
+        "useBalance": "Usar",
+        "title": "Pago de la factura",
+        "successMessage": "El pago se ha realizado correctamente",
+        "myBalance": "El saldo de mi cuenta interna",
+        "method": "Método de pago",
+        "details": "Detalles de pago",
+        "confirm": "Confirmar",
+        "addPaymentMethod": "Añadir método de pago",
+        "backendProcessingInvoice": "Por favor, espere un segundo mientras procesamos su factura..."
+      },
+      "detailsCard": {
+        "total": "Total",
+        "retryDate": "El pago se reintentará en {{- date }}",
+        "refunded": "Reembolsada",
+        "products": "Mis productos",
+        "plannedPayments": "Pagos programados",
+        "placeholder": "Seleccione una factura para ver los detalles.",
+        "paymentHistory": "Historial de pagos",
+        "paymentErrorWithReason": "Este pago no se ha realizado correctamente. Motivo: {{- reason }}",
+        "paymentError": "Este pago no se ha realizado correctamente.",
+        "pay": "Pagar ahora",
+        "paid": "Pagada",
+        "noPaymentRegistered": "Por ahora no hay ningún pago registrado.",
+        "due": "Debido",
+        "downloadRefundedInvoice": "Descargar la factura reembolsada",
+        "downloadReceipt": "Descargar recibo",
+        "downloadOriginalInvoice": "Descargar la factura original",
+        "download": "Descargar factura",
+        "dispute": {
+          "lost": "Perdida",
+          "won": "Ganada",
+          "processing": "Procesando"
+        },
+        "drawerTitle": "Factura"
+      },
+      "card": {
+        "chip": {
+          "refunded": "Reembolsada",
+          "plannedPayments": "Pagos programados",
+          "partiallyPaid": "Pagada parcialmente",
+          "dispute": "Disputa",
+          "cancelled": "Cancelada"
+        },
+        "title": "Factura N°{{ identifier }}",
+        "seeDetails": "Ver detalle",
+        "refundedInvoice": "Factura reembolsada",
+        "receipt": "Recibo",
+        "pay": "Pagar ahora",
+        "otherItems": "+{{ count }} artículos",
+        "originalInvoice": "Factura original",
+        "location": "Ubicación: {{ name }}",
+        "invoice": "Factura",
+        "downloads": "Descargas",
+        "downloadRefundedInvoice": "Descargar la factura reembolsada",
+        "downloadReceipt": "Descargar recibo",
+        "downloadOriginalInvoice": "Descargar la factura original",
+        "downloadInvoice": "Descargar factura",
+        "download": "Descargar",
+        "amountDue": "Importe debido: {{- amount}}"
+      },
+      "header": {
+        "filters": {
+          "refunded": "Reembolsadas",
+          "paid": "Pagadas",
+          "unpaid": "Impagadas"
+        },
+        "buttons": {
+          "goBack": "Atrás",
+          "bookSession": "Reservar una sesión"
+        },
+        "title": "Mis facturas"
+      },
+      "placeholder": {
+        "refunded": "Aún no tiene facturas reembolsadas.",
+        "paid": "Aún no tiene facturas pagadas.",
+        "unpaid": "Bien hecho, no tienes ninguna factura impagada."
+      }
+    },
+    "myProfile": {
+      "termsAndConditions": {
+        "accepted": "Aceptado el {{- dateAccepted}}",
+        "generalTerms": "Condiciones generales",
+        "title": "Términos y condiciones",
+        "termOfuse": "Condiciones generales de uso",
+        "subtitle": "Miembro desde {{- dateJoined}}"
+      },
+      "paymentMethods": {
+        "add": "Añadir método de pago",
+        "cardItemCaptionText": "Caduca: {{- additionalInfo}}",
+        "paymentMethodLabel": "Termina en <strong>{{- identifier}}</strong>",
+        "empty": "Una vez que guarde un pago, aparecerá aquí.",
+        "directPayments": "Pagos directos",
+        "cards": "Tarjetas",
+        "title": "Métodos de pago guardados",
+        "tooltipText": {
+          "more": "Añada un nuevo método de pago y elimine éste si desea cambiar de red de tarjetas.",
+          "other": "Otros"
+        }
+      },
+      "membershipId": "Número de miembro",
+      "accountBalance": "Saldo de la cuenta",
+      "spivi": {
+        "information": "Si está activada, sus datos (velocidad, calorías quemadas, etc.) se mostrarán en tiempo real durante la sesión. Si no, recibirás un resumen por correo electrónico al final de la sesión.",
+        "drawerTitle": "Mostrar datos",
+        "displayData": "Visualizar mis datos en tiempo real",
+        "title": "Datos de Spinning"
+      },
+      "notifications": {
+        "emailNotAllowed": "Notificaciones por correo electrónico no permitidas",
+        "emailAllowed": "Notificaciones por correo electrónico permitidas",
+        "phoneNotAllowed": "Notificaciones telefónicas no permitidas",
+        "phoneAllowed": "Notificaciones telefónicas permitidas",
+        "title": "Notificaciones",
+        "portal": {
+          "subtitle": "Elige cómo quieres recibir las actualizaciones de cada una de tus ubicaciones",
+          "title": "Preferencias de comunicaciones de marketing"
+        },
+        "updatePreferencesButton": "Guardar preferencias",
+        "updatePreferencesLoading": "Guardando",
+        "receiveSmsUpdates": "Recibir actualizaciones por SMS",
+        "receiveEmailUpdates": "Recibir actualizaciones por correo electrónico",
+        "manageYourFranchiseMarketingPrefencesLabel": "Gestione sus preferencias de marketing"
+      },
+      "address": "Dirección",
+      "emergencyNumber": "Número de emergencia",
+      "phone": "Número de teléfono",
+      "identityDocument": "Documento de identidad",
+      "birthday": "Cumpleaños",
+      "gender": "Género",
+      "detachPayment": {
+        "subtitle": "Recuerde que no puede eliminar los métodos de pago utilizados en los pagos periódicos.",
+        "title": "Eliminar método de pago"
+      },
+      "barCode": {
+        "entryBarcode": "Código de barras de entrada",
+        "scanInfo": "Escanee este código de barras para entrar en el estudio o registrarse para su clase.",
+        "scan": "Escanear código de barras"
+      },
+      "edition": {
+        "title": "Edita to perfil"
+      },
+      "header": {
+        "title": "Mi Perfil",
+        "buttons": {
+          "editProfile": "Editar"
+        }
+      },
+      "regularizeBalance": "Regularizar el saldo"
+    },
+    "moreActions": "Más acciones",
+    "navigation": {
+      "myAccount": {
+        "logOut": "Cerrar sesión",
+        "changeLanguage": "Cambiar el idioma",
+        "changeStudio": "Cambiar de estudio"
+      },
+      "payments": {
+        "paymentMethods": "Métodos de pago",
+        "myInvoices": "Mis facturas",
+        "title": "Pagos"
+      },
+      "shop": {
+        "myGiftCards": "Mis tarjetas regalo",
+        "myPurchases": "Mis compras",
+        "title": "Tienda"
+      },
+      "account": {
+        "myProfile": "Mi perfil",
+        "mySubscriptions": "Mis suscripciones",
+        "myPasses": "Mis bonos",
+        "myBookings": "Mis reservas",
+        "summary": "Resumen",
+        "title": "Cuenta"
+      },
+      "logOut": "Cerrar sesión",
+      "changeLanguage": "Cambiar idioma",
+      "changeStudio": "Cambiar estudio",
+      "myPurchases": "Mis compras",
+      "myDashboard": "Mi dashboard",
+      "myStatistics": "Mis estadísticas",
+      "myInvoices": "Mis facturas",
+      "myGiftCards": "Mis tarjetas de regalo",
+      "myProfile": "Mi perfil",
+      "mySubscriptions": "Mis suscripciones",
+      "myPasses": "Mis bonos",
+      "myBookings": "Mis reservas",
+      "exploreYourProfile": "Explora tu perfil",
+      "myVideosAndEbooks": "Mis videos & eBooks",
+      "switchAccount": "Cambiar de cuenta",
+      "loggedInAs": "Actualmente estás conectado como {{ name }}"
+    },
+    "exploreYourProfile": "Explora tu perfil.",
+    "appbar": {
+      "myAccount": "Mi cuenta",
+      "cart": "Cesta",
+      "companyLogo": "Logo de la empresa"
+    },
+    "menu": "Menú"
+  }
+}

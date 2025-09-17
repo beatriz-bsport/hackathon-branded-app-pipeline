@@ -1,0 +1,8 @@
+{
+  "selector": {
+    "explainConsumer": "Con <1>bsport</2> disfruta de una experiencia única para reservar todas tus actividades deportivas. <3/> ¡Una sola cuenta y una sola contraseña!",
+    "noMatchingCompany": "Ningún resultado",
+    "placeholder": "Buscar un estudio/sala/club...",
+    "fetchMore": "Ver más"
+  }
+}

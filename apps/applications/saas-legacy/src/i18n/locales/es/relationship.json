@@ -1,0 +1,110 @@
+{
+  "consumer_payment_pack_links": {
+    "list": {
+      "title": "Tarjetas compartidas",
+      "isEmpty": "Ningún reparto de tarjeta",
+      "create": "Compartir un bono"
+    },
+    "form": {
+      "create": {
+        "submit": "Compartir",
+        "previous": "Volver",
+        "cancel": "Cancelar",
+        "explain": "Este bono será compartida entre los dos miembros, los créditos pueden ser utilizados por uno u otro.",
+        "title": "Reparto de tarjeta",
+        "noConsumerPackToLink": "Ninguna tarjeta para compartir",
+        "linkButton": "Compartir"
+      },
+      "relink": {
+        "cancel": "Cancelar",
+        "submit": "Compartir",
+        "explain": "El reparto se activará de nuevo.",
+        "title": "Compartir de nuevo"
+      },
+      "unlink": {
+        "cancel": "Cancelar",
+        "submit": "Acabar",
+        "explain": "Se dejará de compartir. La tarjeta maestra sigue siendo válida",
+        "title": "Dejar de compartir"
+      }
+    }
+  },
+  "member": {
+    "form": {
+      "submit": "Guardar",
+      "title": "Relación",
+      "dst_name": {
+        "placeholder": "Hijo"
+      },
+      "src_name": {
+        "placeholder": "Madre"
+      },
+      "cancel": "Cancelar",
+      "shareEmail": "Siempre envíar una copia por email",
+      "is": " es ",
+      "access": "Acceso a la cuenta",
+      "confirm": "Confirmar",
+      "autorization": "Permitir a {{- name_1 }} acceder a la cuenta de {{- name_2 }}",
+      "accountInfo": "El acceso a la cuenta permite al miembro acceder a la cuenta de su relación desde su propia cuenta.",
+      "email": "Copia del email",
+      "parentalLink": "Relación"
+    },
+    "list": {
+      "title": "Relaciones",
+      "actions": {
+        "create": "Añadir una relación"
+      },
+      "pleaseSelectOne": "Selecciona una relación para ver los bonos compartidos",
+      "isEmpty": "Aún no se ha creado ninguna relación"
+    },
+    "item": {
+      "delete": "Suprimir",
+      "edit": "Modificar"
+    }
+  },
+  "private_consumer_pass_links": {
+    "form": {
+      "relink": {
+        "cancel": "Cancelar",
+        "submit": "Compartir",
+        "explain": "Se volverá a compartir entre los miembros.",
+        "title": "Comparte de nuevo"
+      },
+      "unlink": {
+        "cancel": "Cancelar",
+        "submit": "Parar",
+        "explain": "Se dejará de compartir. El pase maestro seguirá siendo utilizable",
+        "title": "Dejar de compartir"
+      },
+      "create": {
+        "noConsumerPackToLink": "No hay pase compartible",
+        "linkButton": "Compartir",
+        "submit": "Compartir",
+        "previous": "Anterior",
+        "cancel": "Cancelar",
+        "explain": "Esta tarjeta de cita será compartida entre los dos miembros, ambos pueden usar los créditos.",
+        "title": "Compartir la tarjeta de cita"
+      }
+    },
+    "list": {
+      "isEmpty": "No hay tarjeta de cita compartida",
+      "create": "Compartir una tarjeta de cita",
+      "title": "Pase de cita compartido"
+    }
+  },
+  "relationship": {
+    "delete": {
+      "submit": "Suprimir",
+      "content": "Está seguro de que desea eliminar esta relación? Esta operación es definitiva, los pases compartidos actuales ya no serán compartidos.",
+      "cancel": "Cancelar",
+      "title": "Eliminar la relación",
+      "whichUser": "¿A qué cuenta desea acceder?"
+    }
+  },
+  "connectedAs": {
+    "title": "Iniciar sesión como",
+    "info": "Accede a la cuenta de una de tus relaciones.",
+    "wichUser": "¿A qué cuenta desea acceder?",
+    "selectRelation": "Seleccione una relación"
+  }
+}

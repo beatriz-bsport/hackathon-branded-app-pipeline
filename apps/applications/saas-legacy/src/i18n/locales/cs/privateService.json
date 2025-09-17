@@ -1,0 +1,1201 @@
+{
+    "serviceGroup": {
+        "delete": "",
+        "edit": "",
+        "isEmpty": "",
+        "selector": {
+            "placeholder": ""
+        },
+        "form": {
+            "title": "",
+            "name": {
+                "label": ""
+            },
+            "actions": {
+                "cancel": "",
+                "submit": ""
+            }
+        }
+    },
+    "availabilitySlot": {
+        "form": {
+            "resourceSelector": {
+                "title": "",
+                "label": "",
+                "cancel": "",
+                "submit": "",
+                "warning": ""
+            }
+        },
+        "private_service": "",
+        "establishment": "",
+        "coach": "",
+        "detail": {
+            "detailEmpty": "",
+            "dialog": {
+                "title": ""
+            },
+            "openHours": "",
+            "availableEverywhere": "",
+            "slotBoundaries": "",
+            "ok": ""
+        },
+        "specificAvailabilityForm": {
+            "advanced": "",
+            "infoForCoach": "",
+            "info": "",
+            "switchLabel": ""
+        },
+        "notAssociatedDialog": {
+            "close": "",
+            "checkbox": "",
+            "info": "",
+            "title": ""
+        },
+        "notAssociatedWarning": ""
+    },
+    "resource": {
+        "form": {
+            "color": "",
+            "actions": {
+                "cancel": "",
+                "submit": ""
+            }
+        },
+        "groupBy": "",
+        "unGroup": "",
+        "datatype": {
+            "establishment": "",
+            "coach": "",
+            "associated_establishment": "",
+            "associated_coach": "",
+            "private_service": ""
+        },
+        "selector": {
+            "title": ""
+        },
+        "allocationWarning": {
+            "showCalendar": "",
+            "establishment": "",
+            "coach": "",
+            "title": "",
+            "loading": "",
+            "resource": "",
+            "continue": "",
+            "validate": "",
+            "cancel": ""
+        }
+    },
+    "pageTitles": {
+        "passList": "",
+        "serviceList": "",
+        "calendar": ""
+    },
+    "color": {
+        "form": {
+            "title": "",
+            "cancel": "",
+            "submit": ""
+        }
+    },
+    "payment": {
+        "address": {
+            "explain": "",
+            "save": ""
+        }
+    },
+    "privateSlot": {
+        "delete": {
+            "title": "",
+            "explain": "",
+            "cancel": "",
+            "confirm": ""
+        },
+        "duration": ""
+    },
+    "privateBooking": {
+        "cancel": "",
+        "incompatibleTagsDialog": {
+            "title": "",
+            "description": "",
+            "cancel": "",
+            "confirm": ""
+        },
+        "hardDelete": "",
+        "isCancelled": "",
+        "detail": {
+            "title": "",
+            "registeredOn": "",
+            "source": "",
+            "slotTitle": "",
+            "passTitle": "",
+            "wasRefunded": "",
+            "wasRefundedYes": "",
+            "wasRefundedNo": "",
+            "address": "",
+            "attachCoach": "",
+            "coach": "",
+            "cancelledOn": "",
+            "unpaidBooking": "",
+            "cancelledByRecurrenceBy": "",
+            "cancelledBy": "",
+            "restoredBy": "",
+            "dateModifiedBy": "",
+            "coachModifiedBy": "",
+            "cancelledByRecurrence": "",
+            "cancelled": "",
+            "restored": "",
+            "dateModified": "",
+            "coachModified": "",
+            "canal": "",
+            "initialDateTime": "",
+            "emptyHistory": "",
+            "historyTitle": "",
+            "by": "",
+            "cancelledByRecurrenceOn": "",
+            "setUnpaid": "",
+            "setUnpaidBy": "",
+            "setUnpaidOn": ""
+        },
+        "managerAdd": {
+            "title": "",
+            "address": "",
+            "coachSelector": {
+                "label": ""
+            },
+            "pleaseSelectCoachAndSlot": "",
+            "cancel": "",
+            "compatiblePrivatePass": "",
+            "compatiblePrivateConsumerPass": "",
+            "emptyPrivateConsumerPass": "",
+            "emptyPrivatePass": "",
+            "privateConsumerPassNeedRefresh": "",
+            "incompatibilities": {
+                "11107": "",
+                "11108": "",
+                "11109": "",
+                "11110": "",
+                "11111": "",
+                "close": "",
+                "privateService": ""
+            },
+            "noUncompatiblePassToDisplay": "",
+            "nonCompatiblePrivateConsumerPass": ""
+        },
+        "delete": {
+            "title": "",
+            "explain": "",
+            "explainHardDelete": "",
+            "explainForceRefund": "",
+            "cancel": "",
+            "confirm": "",
+            "consumer": {
+                "content": {
+                    "notDiscardable": "",
+                    "discardable": ""
+                },
+                "confirm": "",
+                "cancel": "",
+                "title": ""
+            },
+            "sendCancellationMail": "",
+            "explainWithRestore": "",
+            "explainMoreHardDeleteReccurentBooking": "",
+            "hardDeleteTitle": "",
+            "explainMoreHardDeleteReccurentBookingTitle": ""
+        },
+        "discard": "",
+        "updateTime": {
+            "cancel": "",
+            "submit": "",
+            "explainEmail": "",
+            "title": ""
+        },
+        "editTime": "",
+        "attachCoach": {
+            "actions": {
+                "title": "",
+                "cancel": ""
+            },
+            "explain": "",
+            "title": ""
+        },
+        "updateCoach": "",
+        "isCancelledDate": "",
+        "restore": "",
+        "bookings": "",
+        "notRefunded": "",
+        "isRefunded": "",
+        "isUnpaid": "",
+        "bookingIsUnpaid": "",
+        "isCancelledByManagerDate": "",
+        "isCancelledByManager": "",
+        "setUnpaid": {
+            "button": "",
+            "confirmTitle": "",
+            "confirmMessage": "",
+            "cancel": "",
+            "confirm": ""
+        }
+    },
+    "privateService": {
+        "delete": {
+            "title": "",
+            "explain": "",
+            "cancel": "",
+            "submit": "",
+            "confirm": ""
+        },
+        "padBeforeBooking": {
+            "explain2": "",
+            "explain4": "",
+            "explain3": "",
+            "explain1": ""
+        },
+        "ineligibleService": {
+            "title": "",
+            "description": "",
+            "backToAppointments": ""
+        }
+    },
+    "calendar": {
+        "enableAvailability": "",
+        "disableAvailability": "",
+        "enableRecurrentAvailability": "",
+        "disableRecurrentAvailability": "",
+        "selectCoachToModifyAvailability": "",
+        "addBooking": "",
+        "toogle": {
+            "showOfferList": "",
+            "showPrivateBookings": "",
+            "showCustomEvents": "",
+            "hideCancelledEvents": "",
+            "title": ""
+        },
+        "form": {
+            "title": {
+                "enable": "",
+                "disable": ""
+            },
+            "explain": "",
+            "interval": {
+                "explain1": "",
+                "explain2": ""
+            },
+            "actions": {
+                "cancel": "",
+                "submit": ""
+            }
+        },
+        "header": {
+            "threeDaysView": "",
+            "dateSelector": ""
+        },
+        "createCustomEvent": "",
+        "customEvent": {
+            "dateEnd": "",
+            "dateStart": ""
+        },
+        "showAvailabilityDetails": ""
+    },
+    "selector": {
+        "privateService": "",
+        "privateSlot": "",
+        "session": "",
+        "coachPlaceholder": "",
+        "establishmentPlaceholder": ""
+    },
+    "slotSearcher": {
+        "title": "",
+        "searchSlot": "",
+        "selectPrivateSlot": "",
+        "search": "",
+        "selectCoach": "",
+        "emptyDateList": "",
+        "bookableSlots": {
+            "title": "",
+            "isEmpty": ""
+        },
+        "groupIdentifier": {
+            "evening": {
+                "interval": "",
+                "label": ""
+            },
+            "afternoon": {
+                "interval": "",
+                "label": ""
+            },
+            "noon": {
+                "interval": "",
+                "label": ""
+            },
+            "morning": {
+                "interval": "",
+                "label": ""
+            }
+        },
+        "nbSlot": "",
+        "establishment": "",
+        "coach": "",
+        "selectService": "",
+        "selectSession": "",
+        "emptyState": "",
+        "previousOffer": "",
+        "nextOffer": "",
+        "searchFirstSlot": "",
+        "pickASlot": ""
+    },
+    "slot": {
+        "parameters": {
+            "credit": ""
+        },
+        "form": {
+            "title": "",
+            "name": {
+                "label": "",
+                "placeholder": ""
+            },
+            "people_capacity_used": {
+                "label": "",
+                "helperText": ""
+            },
+            "credit": {
+                "label": "",
+                "helperText": "",
+                "decimalCredit": {
+                    "helperText": ""
+                }
+            },
+            "duration_minutes": {
+                "label": "",
+                "helperText": ""
+            },
+            "cancel": "",
+            "submit": "",
+            "booking_interval_minutes": {
+                "helperText": "",
+                "label": ""
+            },
+            "pre_selected_choices": "",
+            "durationError": "",
+            "error": {
+                "peopleCapacityUsed": "",
+                "bookingInterval": ""
+            }
+        }
+    },
+    "bookerModule": {
+        "address": {
+            "label": "",
+            "helperText": "",
+            "submit": ""
+        },
+        "availableSlots": "",
+        "emptySlot": "",
+        "missingResource": {
+            "service": "",
+            "coach": "",
+            "establishment": ""
+        },
+        "cancel": "",
+        "title": "",
+        "error": "",
+        "searchSlot": "",
+        "noPrivateServiceAvailable": "",
+        "isAtHome": "",
+        "bookingCapabilities": {
+            "compatibleConsumerPassTitle": "",
+            "emptyConsumerPassList": "",
+            "compatiblePassTitle": "",
+            "emptyPassList": ""
+        },
+        "useCredit": "",
+        "private_pass": {
+            "credits": ""
+        },
+        "buyPass": "",
+        "preview": {
+            "credit_cost": ""
+        },
+        "sections": {
+            "establishment": "",
+            "privateSlot": "",
+            "coach": ""
+        },
+        "step": {
+            "configuration": "",
+            "billing": "",
+            "privateService": "",
+            "privateSlot": "",
+            "coach": "",
+            "date": "",
+            "rule": ""
+        },
+        "notifyMember": {
+            "label": ""
+        },
+        "recurrenceRule": {
+            "label": ""
+        },
+        "confirm": "",
+        "unpaidBooking": {
+            "book": "",
+            "helper": "",
+            "header": "",
+            "dialogHelper": "",
+            "isUnpaid": ""
+        }
+    },
+    "consumerPass": {
+        "current_credits": "",
+        "isReverted": "",
+        "detail": {
+            "invoice": "",
+            "booking": "",
+            "extensionsTitle": ""
+        },
+        "expiresOn": "",
+        "actions": {
+            "addExtension": ""
+        },
+        "extension": {
+            "create": {
+                "nbDays": {
+                    "label": ""
+                },
+                "note": {
+                    "label": ""
+                },
+                "warning": "",
+                "explain": {
+                    "newDate": "",
+                    "oldDate": ""
+                },
+                "submit": "",
+                "cancel": "",
+                "title": "",
+                "datePicker": {
+                    "label": ""
+                }
+            },
+            "delete": {
+                "confirm": "",
+                "cancel": "",
+                "explain": "",
+                "title": ""
+            },
+            "addedOn": "",
+            "options": {
+                "selectNewEndDate": "",
+                "addNumberOfDays": ""
+            },
+            "nbDaysAdded": "",
+            "seeLess": "",
+            "seeMore": ""
+        },
+        "isFromDisabledShare": "",
+        "isOwnerOfShares": "",
+        "isFromShare": "",
+        "isFromShareTooltip": "",
+        "warningShareUniversal": ""
+    },
+    "privateServiceCompatibility": {
+        "delete": {
+            "title": "",
+            "explain": "",
+            "cancel": "",
+            "submit": ""
+        },
+        "excludedSlots": {
+            "helperText": "",
+            "cancel": "",
+            "submit": "",
+            "title": "",
+            "isEmpty": ""
+        },
+        "forSlots": "",
+        "allSlots": "",
+        "none": ""
+    },
+    "privatePass": {
+        "noNotificationsWarning": "",
+        "delete": {
+            "title": "",
+            "explain": "",
+            "cancel": "",
+            "submit": "",
+            "delete": "",
+            "warning": ""
+        },
+        "list": {
+            "createButton": "",
+            "isEmpty": "",
+            "availableCustomer": "",
+            "managerOnly": ""
+        },
+        "parameters": {
+            "nbCredits": "",
+            "price": "",
+            "tax": "",
+            "managerOnly": "",
+            "unusableByStaff": ""
+        },
+        "compatibleServices": {
+            "title": "",
+            "add": "",
+            "isEmpty": "",
+            "unusable": ""
+        },
+        "form": {
+            "detailsAndRestrictions": "",
+            "notification": "",
+            "title": "",
+            "managerOnly": {
+                "label": ""
+            },
+            "name": {
+                "label": "",
+                "helperText": ""
+            },
+            "credits": {
+                "label": "",
+                "helperText": "",
+                "decimalCredit": {
+                    "helperText": ""
+                }
+            },
+            "price": {
+                "label": "",
+                "helperText": ""
+            },
+            "tax": {
+                "label": ""
+            },
+            "actions": {
+                "submit": "",
+                "cancel": "",
+                "back": "",
+                "next": ""
+            },
+            "available_payment_method_identifiers": {
+                "helperText": "",
+                "label": "",
+                "warning": ""
+            },
+            "durationYears": {
+                "helperText": "",
+                "label": ""
+            },
+            "durationMonths": {
+                "helperText": "",
+                "label": ""
+            },
+            "durationDays": {
+                "label": "",
+                "helperText": ""
+            },
+            "full_vod_access": {
+                "label": ""
+            },
+            "expirationDaysBeforeFirstUse": {
+                "helperText": "",
+                "label": ""
+            },
+            "start_date_method": {
+                "on_attendance": "",
+                "on_booking": "",
+                "on_purchase": ""
+            },
+            "new_member_only": {
+                "label": ""
+            },
+            "start_date_method_detail": {
+                "on_purchase": "",
+                "on_attendance": "",
+                "on_booking": ""
+            },
+            "duration": {
+                "daysMonths": "",
+                "and": "",
+                "years": "",
+                "months": "",
+                "days": "",
+                "valid": "",
+                "fullText": ""
+            },
+            "startDate": "",
+            "category": "",
+            "categoryTitle": {
+                "compatibility": "",
+                "validity": "",
+                "paymentMeans": "",
+                "info": "",
+                "compatibilityAppointment": ""
+            },
+            "selector": {
+                "privateService": ""
+            },
+            "franchise": "",
+            "universalPass": {
+                "deativatedTags": "",
+                "helperText": "",
+                "label": "",
+                "warningIsUniversalPass": ""
+            },
+            "onBehalfOfTeacher": {
+                "helperText": "",
+                "label": ""
+            },
+            "appliesForPayroll": {
+                "helperText": "",
+                "label": ""
+            },
+            "expiration_date": {
+                "helperText": "",
+                "label": "",
+                "tooltip": ""
+            },
+            "description": {
+                "label": ""
+            },
+            "advancedOptions": {
+                "header": "",
+                "tag": {
+                    "tagsOnAcquisition": "",
+                    "tagsOnAcquisitionHelper": "",
+                    "selectTags": ""
+                }
+            },
+            "notEditable": ""
+        },
+        "validForDuration": {
+            "general": "",
+            "years": "",
+            "months": "",
+            "days": ""
+        },
+        "edit": "",
+        "disabledTitle": "",
+        "detailTitles": {
+            "paymentMeans": "",
+            "privateServiceCompatibility": "",
+            "vod": "",
+            "accessibility": "",
+            "validity": "",
+            "credit_quantity": ""
+        },
+        "ht": "",
+        "actions": {
+            "forceRegularizeUnpaid": ""
+        },
+        "listItem": {
+            "unusableByStaff": ""
+        }
+    },
+    "service": {
+        "selector": {
+            "placeholder": "",
+            "isEmpty": "",
+            "coach": {
+                "label": ""
+            },
+            "establishment": {
+                "label": ""
+            }
+        },
+        "detail": {
+            "tab": {
+                "general": "",
+                "calendar": ""
+            }
+        },
+        "configuration": {
+            "slot": "",
+            "explainSetToHasNotOwnAvailabilitySlots": "",
+            "explainSetToHasOwnAvailabilitySlots": "",
+            "explainHasOwnAvailabilitySlots": "",
+            "hasFutureSlot": "",
+            "noCapacity": "",
+            "totalCapacity": "",
+            "noFutureSlot": "",
+            "title": "",
+            "isAlwaysAvailable": "",
+            "changeIsAlwaysAvailable": "",
+            "partnership": {
+                "anySlotNotCompatible": "",
+                "removeAvailabilities": ""
+            }
+        },
+        "form": {
+            "editConfirmation": {
+                "title": "",
+                "content": "",
+                "alert": "",
+                "cancel": "",
+                "confirm": ""
+            },
+            "establishmentResourceType": {
+                "isHomeService": {
+                    "label": "",
+                    "helperText": ""
+                },
+                "isWithoutEstablishment": {
+                    "label": "",
+                    "helperText": ""
+                },
+                "isWithEstablishment": {
+                    "isEmpty": "",
+                    "label": "",
+                    "helperText": ""
+                }
+            },
+            "resourceGroup": {
+                "establishment": "",
+                "coach": ""
+            },
+            "coach_consumer_attribution": {
+                "label": "",
+                "helperText": ""
+            },
+            "establishment_consumer_attribution": {
+                "label": "",
+                "helperText": ""
+            },
+            "delete": {
+                "title": "",
+                "content": "",
+                "cancel": "",
+                "confirm": ""
+            },
+            "coach_capacity_used": {
+                "label": "",
+                "helperText": "",
+                "alertText": ""
+            },
+            "color": "",
+            "use_full_establishment_capacity": {
+                "label": "",
+                "helperText": ""
+            },
+            "title": "",
+            "createButton": "",
+            "addCoach": "",
+            "addEstablishment": "",
+            "addSlot": "",
+            "is_home_service": {
+                "label": "",
+                "helperText": ""
+            },
+            "is_without_coach": "",
+            "name": {
+                "label": "",
+                "placeholder": ""
+            },
+            "coach": {
+                "label": "",
+                "isEmpty": ""
+            },
+            "establishment": {
+                "label": ""
+            },
+            "description": {
+                "label": ""
+            },
+            "actions": {
+                "cancel": "",
+                "submit": ""
+            },
+            "last_discard_minutes": {
+                "helperText": "",
+                "label": ""
+            },
+            "coachSelectorTitle": "",
+            "establishmentSelectorTitle": "",
+            "settingsTitle": "",
+            "managerOnly": {
+                "label": ""
+            },
+            "last_booking_minutes": {
+                "label": ""
+            },
+            "paddingEnd": {
+                "helperText0": "",
+                "helperText": "",
+                "label": ""
+            },
+            "paddingStart": {
+                "helperText0": "",
+                "helperText": "",
+                "label": ""
+            },
+            "paddingTitle": "",
+            "unpaidBooking": {
+                "title": "",
+                "tag": {
+                    "helper": "",
+                    "header": "",
+                    "allowed": "",
+                    "notAllowed": "",
+                    "doNotSelectToAllowAllMembers": ""
+                },
+                "label": "",
+                "helperText": ""
+            },
+            "pad_before_booking": {
+                "label": ""
+            },
+            "advancedOptions": {
+                "header": "",
+                "tag": {
+                    "header": "",
+                    "helperText": "",
+                    "allowed": "",
+                    "doNotSelectToAllowAllMembers": "",
+                    "notAllowed": ""
+                }
+            },
+            "tooltip": {
+                "noTeacher": "",
+                "oneBookingPerTeacher": ""
+            },
+            "validation": {
+                "oneOption": "",
+                "coachCapacityUsed": "",
+                "availabilityBuffers": "",
+                "zeroValueError": ""
+            },
+            "availableOnPartnership": {
+                "label": "",
+                "alert": "",
+                "buffersAlert": "",
+                "tagsAlert": ""
+            }
+        },
+        "parameters": {
+            "description": "",
+            "coaches": {
+                "title": "",
+                "is_empty": ""
+            },
+            "noTags": "",
+            "whitelistTags": {
+                "title": ""
+            },
+            "blacklistTags": {
+                "title": ""
+            },
+            "establishments": {
+                "title": "",
+                "is_empty": "",
+                "is_home_service": ""
+            },
+            "slots": {
+                "title": "",
+                "isEmpty": "",
+                "explainIsEmpty": ""
+            },
+            "last_discard_minutes": {
+                "explain": ""
+            },
+            "last_booking_minutes": {
+                "explain": ""
+            }
+        },
+        "navigation": {
+            "goToPrivatePass": ""
+        }
+    },
+    "privateEstablishment": {
+        "delete": {
+            "submit": "",
+            "cancel": "",
+            "explain": "",
+            "title": ""
+        }
+    },
+    "privateCoach": {
+        "delete": {
+            "submit": "",
+            "cancel": "",
+            "explain": "",
+            "title": ""
+        }
+    },
+    "openCalendar": "",
+    "noPrivateService": "",
+    "noPrivatePass": "",
+    "customEvent": {
+        "form": {
+            "actions": {
+                "submit": "",
+                "cancel": ""
+            },
+            "description": {
+                "placeholder": "",
+                "label": ""
+            },
+            "coach": {
+                "isEmpty": ""
+            },
+            "color": "",
+            "name": {
+                "placeholder": "",
+                "label": ""
+            },
+            "title": ""
+        },
+        "actions": {
+            "delete": ""
+        }
+    },
+    "noPrivateConsumerPass": "",
+    "filters": {
+        "hasCreditNull": "",
+        "hasCreditLeft": "",
+        "isActive": "",
+        "isExpired": "",
+        "invoice": "",
+        "reverted": "",
+        "notReverted": "",
+        "credits": "",
+        "expiration": "",
+        "all": "",
+        "empty": "",
+        "isValidToday": ""
+    },
+    "recurrenceRule": {
+        "item": {
+            "explain": "",
+            "startFrom": "",
+            "allowUnpaid": ""
+        },
+        "forms": {
+            "update": {
+                "confirm": "",
+                "cancel": "",
+                "content": "",
+                "title": ""
+            },
+            "delete": {
+                "confirm": "",
+                "cancel": "",
+                "content": "",
+                "title": "",
+                "content_with_cancellation_option": "",
+                "cancelRelatedBookings": ""
+            }
+        },
+        "form": {
+            "notify_member": "",
+            "timeGroup": "",
+            "configuration": "",
+            "title": "",
+            "override_availabilities": "",
+            "allow_unpaid": "",
+            "duplicate_error": "",
+            "global_error": ""
+        },
+        "actions": {
+            "save": "",
+            "close": ""
+        },
+        "createModal": {
+            "create": ""
+        },
+        "recurrentBookings": ""
+    },
+    "privateBookingNotification": {
+        "tooltip": "",
+        "listItemPrimary": {
+            "notifyAllEvents": {
+                "cancelledNotRefunded": "",
+                "cancelledRefunded": "",
+                "valid": ""
+            },
+            "cancelledRefunded": "",
+            "cancelledNotRefunded": "",
+            "valid": "",
+            "after": "",
+            "before": ""
+        },
+        "form": {
+            "next": "",
+            "chooseTime": {
+                "second": {
+                    "after": "",
+                    "before": ""
+                },
+                "first": "",
+                "title": ""
+            },
+            "chooseWhen": {
+                "title": "",
+                "afterNotification": "",
+                "afterNotifications": "",
+                "afterMail": "",
+                "beforeNotification": "",
+                "beforeNotifications": "",
+                "beforeMail": "",
+                "after": "",
+                "before": ""
+            },
+            "help": {
+                "cancelledNotRefunded": {
+                    "notifyAll": "",
+                    "default": ""
+                },
+                "cancelledRefunded": {
+                    "notifyAll": "",
+                    "default": ""
+                },
+                "valid": {
+                    "notifyAll": "",
+                    "default": ""
+                }
+            },
+            "notifyAllEvents": "",
+            "notifyNb": "",
+            "chooseKind": {
+                "cancelledNotRefunded": "",
+                "cancelledRefunded": "",
+                "valid": "",
+                "title": ""
+            },
+            "intro": "",
+            "title": "",
+            "ifKind": {
+                "notRefunded": "",
+                "refunded": "",
+                "valid": ""
+            },
+            "subtitle": ""
+        }
+    },
+    "marketplace": {
+        "isEmpty": ""
+    },
+    "search": "",
+    "popup": {
+        "begin": "",
+        "end": "",
+        "button": "",
+        "validate": ""
+    },
+    "searshAppointmentPass": "",
+    "categoryTitle": "",
+    "disabledPacksTitle": "",
+    "notification": {
+        "addButton": "",
+        "listItem": {
+            "mail": "",
+            "deleteModal": {
+                "title": "",
+                "cancel": "",
+                "confirm": "",
+                "content": ""
+            },
+            "smartList": "",
+            "smartListInclude": ""
+        }
+    },
+    "privatePassTemplateInstance": {
+        "deleteForm": {
+            "content": "",
+            "actions": {
+                "submit": "",
+                "close": ""
+            },
+            "title": ""
+        },
+        "form": {
+            "explain2": "",
+            "actions": {
+                "submit": "",
+                "close": ""
+            },
+            "explain1": "",
+            "title": ""
+        },
+        "privateConsumerPassSharedFromOtherFranchisee": "",
+        "actions": {
+            "addCompany": ""
+        },
+        "companyEmpty": "",
+        "privatePassSharedFromFranchisor": ""
+    },
+    "privatePassTemplate": {
+        "actions": {
+            "create": ""
+        },
+        "deleteForm": {
+            "actions": {
+                "submit": "",
+                "close": ""
+            },
+            "content": "",
+            "title": ""
+        },
+        "restoreForm": {
+            "actions": {
+                "submit": "",
+                "close": ""
+            },
+            "content": "",
+            "title": ""
+        },
+        "form": {
+            "actions": {
+                "submit": "",
+                "close": ""
+            },
+            "submit": "",
+            "close": "",
+            "title": "",
+            "editConfirmation": {
+                "title": "",
+                "content": "",
+                "cancel": "",
+                "confirm": ""
+            }
+        },
+        "section": {
+            "titleManagerOnly": "",
+            "titleAvailable": "",
+            "titleArchived": ""
+        },
+        "isEmptyExplain": "",
+        "specification": {
+            "companySharedWithTitle": ""
+        }
+    },
+    "seeAll": "",
+    "universalPass": {
+        "delete": {
+            "dialog": {
+                "warningText": "",
+                "title": ""
+            }
+        }
+    },
+    "specificAvailabilitiesCalendar": {
+        "establishment": "",
+        "filters": "",
+        "infoBoxContent": "",
+        "goToRegularCalendar": ""
+    },
+    "openSpecificAvailabilitiesCalendar": "",
+    "forms": {
+        "delete": {
+            "confirm": "",
+            "cancel": "",
+            "actions": {
+                "confirm": "",
+                "cancel": ""
+            },
+            "title": "",
+            "content": {
+                "canDelete": ""
+            }
+        }
+    }
+}

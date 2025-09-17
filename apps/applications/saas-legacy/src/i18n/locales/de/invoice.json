@@ -1,0 +1,662 @@
+{
+  "configuration": {
+    "submit_stripe_footer": "Speichern",
+    "forms": {
+      "stripe_footer_placeholder": "Keine weitere rechtliche Angabe",
+      "show_company_email_in_invoice": "Anzeige der Kontakt-E-Mail Ihres Unternehmens auf Rechnungen",
+      "invoicePDFTitlePlaceholder": "Name des Unternehmens aus dem Stripe-Onboarding"
+    },
+    "stripe_footer": "Fußzeile für Rechnungen",
+    "explainStripeFooter": "Dieser Text erscheint am Ende deiner Rechnungen und beinhaltet alle relevanten rechtlichen Angaben.",
+    "nf525Button": "NF525-Zertifikat herunterladen",
+    "nf525Explain": "Du kannst das bsport Zertifikat als Nachweis der NF525-Konformität herunterladen. NF525 ist eine französische Norm, die unter anderem vorschreibt, dass Kassensoftware Periodenabschlüsse in bestimmten Ausprägungen durchführen muss.",
+    "nf525": "NF525-Zertifikat",
+    "subscription": {
+      "forms": {
+        "disable_pass_on_fail_subscription_payment": {
+          "helperText": "Diese Option deaktiviert Kurs- und Terminpässe, bis ein Abo bezahlt oder ein Streitfall darüber geklärt wird.",
+          "label": "Pässe deaktivieren, wenn die Zahlung fehlschlägt"
+        },
+        "revert_bookings_on_fail_subscription_payment": {
+          "helperText": "Diese Option storniert Reservierungen, bis ein Abo bezahlt oder ein Streitfall darüber geklärt wird. Credits werden dem Konto wieder gutgeschrieben.",
+          "warning": "Achtung! Reservierungen werden nicht neu erstellt, wenn die Zahlung erfolgreich ist.",
+          "label": "Reservierungen stornieren, wenn die Zahlung fehlschlägt"
+        },
+        "nbRetriesSubscriptionPayments": {
+          "helperText": "Bis zu 5 Versuche sind möglich",
+          "label": "Versuche nach fehlgeschlagener Zahlung"
+        },
+        "activateSmartRetries": {
+          "helperText": "Hier kannst du bestimmen, wie oft fehlgeschlagene Zahlungen wiederholt werden sollen.",
+          "label": "Fehlgeschlagene Zahlungen wiederholen"
+        },
+        "advance_sepa_billing": {
+          "helperText": "Kunden erhalten SEPA-Überweisungsaufträge in der Regel 3 Tage später.",
+          "label": "SEPA-Lastschriften 3 Tage vorher auslösen, um verspätete Zahlungen zu vermeiden."
+        }
+      },
+      "title": "Abo"
+    },
+    "invoiceGeneral": "PDF Rechnungen",
+    "stripeTerminal": {
+      "title": "Zahlungs-Terminals",
+      "paymentDialog": {
+        "connectionSuccess": {
+          "cancel": {
+            "cancelExplain2": "Sie werden zu dem von Ihnen gewählten Zahlungsterminal weitergeleitet.",
+            "cancelExplain1": "Sind Sie sicher, dass Sie den Vorgang abbrechen wollen?",
+            "title": "Stornierung",
+            "error": "Bei der Stornierung ist ein Fehler aufgetreten."
+          },
+          "payment": "Die Verbindung mit dem Terminal wurde hergestellt. Der zu zahlende Betrag sollte nun angezeigt werden.",
+          "intent": "Die Verbindung mit dem Terminal wurde hergestellt. Der Kunde sollte in der Lage sein, seine Karte vorzulegen.",
+          "processing": "Ihr Antrag wird bearbeitet"
+        },
+        "radio": "Zahlungs-Terminal",
+        "amountToPay": "Fälliger Betrag",
+        "connectAndPay": "An den Terminal senden",
+        "paymentSuccess": {
+          "title": {
+            "setupOnly": "Zahlungsmethode gespeichert",
+            "payment": "Zahlung akzeptiert",
+            "setupAndPlan": "Zahlung gespeichert"
+          },
+          "content": {
+            "wait": "Einen Moment bitte. Die Zahlung wird bearbeitet.",
+            "payment": "Die Zahlung wurde bearbeitet."
+          }
+        },
+        "paymentFailed": {
+          "interac": {
+            "title": "Unzulässige Zahlungsmethode",
+            "content": "Interac-Karten können nicht für wiederkehrende Zahlungen verwendet oder gespeichert werden. Bitte verwenden Sie eine alternative Zahlungsmethode."
+          },
+          "explain": {
+            "label": "Grund für das Fehlschlagen :"
+          },
+          "content": {
+            "paymentIntent": "Die Zahlung wurde nicht bearbeitet.",
+            "setupIntent": "Die Zahlungsmethode wurde nicht gespeichert."
+          },
+          "title": {
+            "paymentIntent": "Zahlung fehlgeschlagen",
+            "setupIntent": "Vorgang fehlgeschlagen"
+          }
+        },
+        "minAmountInfo": "Der Mindesteinkaufsbetrag für die Nutzung des Terminals ist {{amountString}}.",
+        "disconnect": {
+          "title": "Trennen",
+          "content": "Die Verbindung wurde unterbrochen. Bitte versuchen Sie es erneut"
+        },
+        "processing": {
+          "help": {
+            "title": "Ist ein Problem aufgetreten?",
+            "content": "Wenn das Terminal eine Fehlermeldung anzeigt, können Sie auf Abbrechen klicken und erneut versuchen zu bezahlen. Überprüfen Sie Ihre Internetverbindung auf Ihrem Laptop und Ihrem Terminal."
+          },
+          "inactivity": {
+            "title": "Sind Sie noch hier?",
+            "content": "Wir haben festgestellt, dass Sie inaktiv waren. Möchten Sie diesen Vorgang immer noch fortsetzen? Wenn Sie innerhalb der nächsten 30 Sekunden keine Antwort geben, wird der Vorgang automatisch abgebrochen.",
+            "action": "Ja! Ich bin hier"
+          },
+          "title": "Transaktion in Bearbeitung",
+          "content": "Bitte folgen Sie den Anweisungen auf dem Stripe-Terminal",
+          "cancelError": {
+            "generic": {
+              "title": "Es ist ein Fehler aufgetreten",
+              "content": "Der Vorgang kann nicht abgebrochen werden"
+            },
+            "readerBusy": {
+              "title": "Zahlung wird verarbeitet",
+              "content": "Bitte warten Sie, bis die Zahlung abgeschlossen ist."
+            }
+          }
+        },
+        "processingSavePaymentMethod": {
+          "title": "Vorgang im Gange",
+          "cancelError": {
+            "readerBusy": {
+              "content": "Bitte warten Sie, bis der Vorgang abgeschlossen ist.",
+              "title": "Die Zahlungsmethode wird gespeichert"
+            }
+          },
+          "content": "Bitte folgen Sie den Anweisungen auf dem Stripe-Terminal",
+          "help": {
+            "title": "Ist ein Problem aufgetreten?",
+            "content": "Wenn der Terminal einen Fehler anzeigt, können Sie auf Abbrechen klicken und versuchen, die Zahlungsmethode erneut zu speichern. Überprüfen Sie die Internetverbindung auf Ihrem Laptop und Ihrem Terminal."
+          }
+        }
+      },
+      "deleteDialog": {
+        "content3": "Erneut verbinden",
+        "title": "Entfernen",
+        "content2": "Dieser Terminal wird nicht mehr für physische Zahlungen erscheinen.",
+        "content1": "Sind Sie sicher, dass Sie diesen Zahlungs-Terminal ({{label}}) entfernen möchten?"
+      },
+      "connectDialog": {
+        "title": {
+          "connect": "Verbinden",
+          "error": "Verbindung fehlgeschlagen",
+          "edit": "Änderungen",
+          "success": "Erfolgreich verbunden"
+        },
+        "mustCreateStripeLocation": "Bei der ersten Anmeldung geben Sie bitte die Daten des Studios an, in dem der Terminal genutzt werden soll.",
+        "loading1": "Wir versuchen, eine Verbindung mit Ihrem Terminal herzustellen.",
+        "loading2": "Bitte warten",
+        "form": {
+          "readerLabel": "Name des Terminals",
+          "registrationCode": "Terminal-Code",
+          "registrationCodeHelperText": "Geben Sie den auf Ihrem PIN-Gerät (Stripe Terminal) angezeigten Code ein",
+          "continue": "Weiter",
+          "connect": "Verbinden",
+          "retry": "Wiederholen",
+          "update": "Bearbeiten"
+        },
+        "error2": "Erneut versuchen",
+        "error1": "Ihr Stripe-Terminal wurde nicht verbunden.",
+        "success": "Ihr Stripe Terminal hat sich erfolgreich verbunden"
+      },
+      "addReader": "Terminal verbinden",
+      "helperText": "Du kannst Terminals verbinden, um Transaktionen direkt vom Backoffice aus durchzuführen. Für weitere Infos kontaktiere bitte deine Ansprechperson bei bsport.",
+      "addCard": "Stripe-Terminal hinzufügen"
+    },
+    "explainInvoicePDFTitle": "Dieser Name erscheint auf allen Rechnungen",
+    "invoicePDFEmail": "E-Mail-Adresse für Rechnungen",
+    "invoicePDFTitle": "Name des Abrechnungsunternehmens",
+    "tse": {
+      "documentationLabel": "Verfahrensdokumentation",
+      "manufacturerLinkLabel": "Zertifikat des TSE Herstellers",
+      "manufacturer": "Hersteller: fiskaly GmbH",
+      "version": "TSE Version: v2",
+      "description": "Ziel dieser Verordnung ist es, die Sicherheit und Integrität elektronischer Kassensystemen zu gewährleisten. \nWir nutzen Fiskaly als technische Sicherheitseinrichtung (TSE), um Manipulation zu verhindern und sicherzustellen, dass Transaktionsdaten sicher gespeichert werden.",
+      "title": "Kassensicherungsverordnung (Deutschland)"
+    },
+    "refundsAndDiscount": {
+      "checkbox": {
+        "refundAndCancelJustification": "Begründung für Stornierungen und Rückerstattungen von Rechnungen anfordern",
+        "customDiscountJustification": "Begründung für manuelle Rabatte anfordern"
+      },
+      "info": "Diese Optionen fordert deine Mitarbeitende dazu auf, einen Grund anzugeben, wenn sie Rabatte anwenden oder eine Rechnung stornieren/rückerstatten.",
+      "title": "Rückerstattungen und Rabatte"
+    }
+  },
+  "returnPayment": {
+    "modal": {
+      "confirm": "Rückerstatten",
+      "cancel": "Abbrechen",
+      "title": "Rückerstattung an Kunden",
+      "content": "Die Zahlung wird auf das Bankkonto des Kunden überwiesen. Eine Anzahlung des gleichen Betrags wird der Rechnung hinzugefügt, um die Zahlung zu repräsentieren."
+    }
+  },
+  "section": {
+    "invoiceItemList": {
+      "total": "Gesamte Einkäufe",
+      "isEmpty": "Bitte beginnen Sie damit Produkte zu dieser Rechnung hinzuzufügen.",
+      "title": "Einkäufe",
+      "titleReverse": "Zusammensetzung des Einkaufs",
+      "billing_establishment": "Einrichtung der Rechnungsstellung*",
+      "cannotCreateDiscount": "Sie verfügen nicht über die notwendigen Rechte, um einen Rabatt hinzuzufügen.",
+      "billingGroup": "Rechnungsgruppe*"
+    },
+    "paymentList": {
+      "total": "Alle Zahlungen",
+      "isEmpty": "Keine registrierte Zahlungsmethode",
+      "title": "Zahlungsmethoden"
+    }
+  },
+  "actions": {
+    "equilibrate": "Ausgleichen (Anzahlung)",
+    "backToInvoiceItemEditor": "Einkauf",
+    "finalize": "Abschließen (PDF)",
+    "download": "Rechnung herunterladen (PDF)",
+    "addInvoiceItem": "Zur Rechnung hinzufügen",
+    "save": "Speichern",
+    "goToPaymentEditor": "Zahlung",
+    "goToSubscription": "Abonnement anzeigen",
+    "revert": "Abbrechen",
+    "invoiceReverted": "Rechnung storniert",
+    "consumeBalance": "Zahle per Restguthaben",
+    "explainPdfDraft": "Die Rechnung ist noch in Entwurfsform, das PDF ist nicht verfügbar.",
+    "addFooter": "Fußnote dieser Rechnung anpassen",
+    "addCoupon": "Promo-Code hinzufügen",
+    "downloadReceipt": "Quittung über die Zahlung",
+    "downloadXml": "Rechnung herunterladen (XML)",
+    "downloadXmlBulkState": {
+      "processing": "Wir verarbeiten Ihre Zip-Datei. Sie werden benachrichtigt, wenn die Bearbeitung abgeschlossen ist.",
+      "generate": "Generieren",
+      "ready": "Ihre Rechnungen stehen zum Download bereit.",
+      "title": "Zip Datei"
+    },
+    "downloadXmlBulkTooltip": "Die Rechnungen werden ab dem letzten Monat erstellt. Wenn eine Rechnung bereits erstellt wurde, muss sie einzeln heruntergeladen werden.",
+    "downloadXmlBulk": "Rechnungen generieren (XML)"
+  },
+  "invoice": {
+    "editor": {
+      "title": "Rechnungsstellung",
+      "save": "Rechnung ausstellen",
+      "sumup": "Zusammenfassung"
+    },
+    "header": {
+      "source": {
+        "0": "App",
+        "1": "Web",
+        "2": "Backoffice",
+        "3": "Divers",
+        "4": "Migration",
+        "label": "Kanal : {{ source }}"
+      },
+      "clientAuthor": "Kunde",
+      "author": "Erstellt von : {{ name }}",
+      "date": "Datum : {{ date }}",
+      "reverseInvoice": "Rückerstattung über ",
+      "sourceInvoice": "Rechnung stornieren",
+      "noEstablishment": "Keine Einrichtung mit dieser Rechnung verbunden",
+      "noBillingGroup": "Keine Rechnungsgruppe wurde dieser Rechnung zugeordnet",
+      "reverseInvoicePending": "Rückerstattung ausstehend über "
+    },
+    "title": "Rechnung {{ uuid }}",
+    "titleRevert": "Credit {{uuid}}",
+    "titleReceipt": "Erhalten {{uuid}}",
+    "titleReverted": "Rechnung (zurückgeschickt) {{uuid}}",
+    "titleRevertPending": "[Ausstehend] Credit {{ uuid }}",
+    "paymentFailedWithMethod": "Die Zahlung mit {{ paymentMethod }} ist fehlgeschlagen. Bitte versuche es nochmal.",
+    "paymentFailed": "Die Zahlung ist fehlgeschlagen. Bitte versuche es noch einmal."
+  },
+  "invoiceItem": {
+    "voucher": "Rabatt: {{ voucher }}",
+    "quantity": "Menge",
+    "credit": {
+      "label": "Credit"
+    },
+    "buyableItemIdentifier": {
+      "1": "Kurspässe",
+      "2": "Webshop",
+      "3": "Credit",
+      "9": "Terminpass",
+      "10": "Pakete",
+      "11": "Gutscheine",
+      "undefined": "Geschenkkarte"
+    },
+    "discount": "Rabatt",
+    "finalPricePreview": "Vorschau zur Gesamtsumme",
+    "discountReason": "Rabatt-Grund",
+    "voucherReason": {
+      "manualWithNoReason": "Manueller Rabatt",
+      "manual": "Manueller Rabatt: {{manual_reason}}",
+      "coupon_referring": "Empfehlungsrabatt: empfehlendes Mitglied",
+      "coupon_referred": "Empfehlungsrabatt: empfohlenes Mitglied",
+      "coupon": "Rabattcode: {{coupon_name}}",
+      "payment_combo": "Paket-Rabatt"
+    }
+  },
+  "uneditableMessage": {
+    "invoiceFinalizedThusNotEditable": "Die Rechnung wurde abgeschlossen und kann deswegen nicht mehr geändert werden",
+    "invoiceFromSubscriptionThusNotEditable": "Diese Rechnung ist Teil eines Abonnements und kann daher nicht bearbeitet werden. Bitte ändern Sie das Abonnement direkt",
+    "invoiceRevertedThusNotEditable": "Die Rechnung wurde storniert und kann nicht mehr geändert werden"
+  },
+  "creditAccountBalance": {
+    "current": "Aktuelles Guthaben"
+  },
+  "invoiceInfoDialog": {
+    "actions": {
+      "close": "Schließen",
+      "show": "Rechnung anzeigen"
+    },
+    "explain": "Eine oder mehrere Zahlungen wurden nicht korrekt vorgenommen, die Anzahlung des Mitglieds spiegelt die nicht erfolgte Zahlung wider"
+  },
+  "revert": {
+    "content": {
+      "label": {
+        "0": "Karte oder Überweisung",
+        "1": "Credits",
+        "2": "Andere Option"
+      },
+      "explain": {
+        "0": "Wähle diese Option aus, um den Rechnungsbetrag per Überweisung oder Karte zu erstatten.",
+        "1": "Wähle diese Option aus, um den Rechnungsbetrag dem Kundenkonto als Gutschrift (Credits) zu erstatten.",
+        "2": "Wähle diese Option aus, um den Rechnungsbetrag, z. B. bar oder per Scheck zu erstatten."
+      },
+      "explainEmptyPayment": "Möchten Sie diese Rechnung wirklich stornieren?",
+      "revertReason": "Bitte gib einen Grund für die Stornierung an"
+    },
+    "dialog": {
+      "actions": {
+        "confirm": "Stornieren",
+        "cancel": "Abbrechen"
+      },
+      "title": "Rechnung stornieren - Wie möchtest du den Rechnungsbetrag erstatten?"
+    },
+    "warning": {
+      "14100": "Mindestens eine Zahlung dieser Rechnung wurde mit einer Interac-Karte getätigt. Direkte Erstattungen sind für Interac-Karten nicht möglich.",
+      "14101": "Hinweis: Eine Anpassung des Kontosaldos kann nicht mit dem Kontosaldo erstattet werden",
+      "14103": "Direkte Erstattungen sind nur möglich, wenn mindestens eine der Zahlungen über ein Online Verfahren erfolgt.",
+      "14106": "Direkte Rückerstattungen sind für SEPA-Zahlungen, die älter als 180 Tage sind, nicht möglich.",
+      "interac": "Mindestens eine Zahlung auf dieser Rechnung wurde mit einer Interac Karte vorgenommen. Direkte Rückerstattungen werden für Interac Karten nicht unterstützt.",
+      "debtAndNewPaymentMethodNotAllowed": "Mindestens eine Zahlung ist noch nicht erfolgt. Es ist nur eine direkte Erstattung möglich."
+    },
+    "autoDebitDialog": {
+      "helper": "Ihr Studio ist gerade dabei, Ihr bsport-Konto zu schließen.\n\nWenn Sie auf Bestätigen klicken, wird die Rechnung erstattet. Ihr Stripe-Guthaben wird mit {{refundAmount}} belastet. {{ currencyDisplay }}. Um Ihr Stripe-Guthaben jedoch auf 0 {{ currencyDisplay }} zurückzusetzen, wird der Differenzbetrag automatisch direkt von Ihrem unter Einstellungen > Unternehmen angegebenen Bankkonto abgebucht.\n\nWenn Sie Ihr Überziehungslimit nicht überschreiten wollen, können Sie warten, bis Ihr Stripe-Saldo wieder steigt.",
+      "title": "Unzureichender Stripe-Saldo"
+    },
+    "blockedDialog": {
+      "title": "Unzureichender Stripe-Saldo",
+      "helper": "Ihr Stripe-Guthaben reicht nicht aus, um die Erstattung zu bearbeiten. Bitte versuchen Sie es in ein paar Tagen erneut, damit die Zahlungen gesammelt werden können.",
+      "alert": "Achtung, mit dieser Rückzahlung überschreiten Sie den zulässigen Überziehungsrahmen von {{ refundBlockingLimit }} {{currencyDisplay}}."
+    },
+    "SEPARefundDialog": {
+      "actions": {
+        "confirm": "Rückerstattung",
+        "cancel": "Aktion abbrechen"
+      },
+      "alert": "Die Bearbeitung einer Erstattung für eine SEPA-Zahlung kann bis zu 5 Werktage dauern. Bitte stellen Sie sicher, dass Ihr Kunde darüber informiert ist, dass die Erstattung in Bearbeitung ist. Beachten Sie, dass der Kunde auch nach der Rückerstattung einer SEPA-Zahlung die Transaktion noch anfechten kann.",
+      "title": "SEPA-Erstattungsbearbeitung"
+    }
+  },
+  "balance": {
+    "updaterDialog": {
+      "explainDecaissement": "Eine Auszahlung von {{amount}} {{currencyDisplay}} wird erfasst.",
+      "typeLabel": "Typ der Anpassung",
+      "title": "Anpassung des Saldos",
+      "actions": {
+        "cancel": "Abbrechen",
+        "submit": "Weiter"
+      },
+      "topup": "Hinzufügen",
+      "debt": "Abziehen",
+      "explainTopup": "Der Kontostand des Mitglieds erhöht sich um: {{ currencyDisplay }}{{ amount }}.",
+      "balanceValueLabel": "Betrag",
+      "withoutPaymentNote": {
+        "warning": "Bitte beachten Sie: Wir werden keine Historie von diesem Vorgang behalten. Nur für außergewöhnliche Anpassungen verwenden.",
+        "label": "Keine Rechnung erstellen"
+      }
+    }
+  },
+  "paymentMethod": {
+    "label": {
+      "0": "Bargeld",
+      "1": "Karte",
+      "2": "SEPA",
+      "3": "Scheck",
+      "4": "Urlaubs-Check",
+      "5": "AMEX",
+      "6": "Streitfall",
+      "7": "Überweisung",
+      "8": "Andere",
+      "9": "Bancontact",
+      "10": "iDEAL",
+      "11": "SOFORT",
+      "12": "EPS",
+      "13": "Giropay",
+      "14": "Guthaben (debit)",
+      "15": "Karte (manuell - Kartenmaschine)",
+      "16": "Bacs-Lastschriftverfahren",
+      "17": "PayPal"
+    },
+    "select": {
+      "label": "Zahlungsmethode",
+      "orPayUsing": "oder zahle mit"
+    },
+    "isInternalExplain": "Kundenzahlung (manuell): Jeden Monat wird automatisch ein Restguthaben auf dem Konto des Mitglieds erstellt.",
+    "add": "Hinzufügen",
+    "edit": "Bearbeiten",
+    "title": "Zahlungsmethode",
+    "none": "Keine Zahlungsmethode gespeichert.",
+    "detach": {
+      "pm_associated_to_pi": "Unmöglich: Sie haben ein Abonnement, das mit dieser Zahlungsmethode verknüpft ist",
+      "pm_associated_to_registered_ppe": "Unmöglich: Sie haben ein Abonnement, das mit dieser Zahlungsmethode verknüpft ist",
+      "pm_associated_to_protected_bp": "Unmöglich: Sie haben ein Abonnement, das mit dieser Zahlungsmethode verknüpft ist",
+      "last_payment_method": "Sie müssen über mindestens eine Zahlungsmethode verfügen",
+      "pm_deleted": "Gelöschte Zahlungsmethode"
+    },
+    "inconsistent": "Diese Zahlungsmethode wurde für ungültig erklärt, bitte konfigurieren Sie sie neu. Der Kunde hat möglicherweise beantragt, seine Karte nicht mehr zu autorisieren, oder Sie haben zwei Mitglieder zusammengelegt. In beiden Fällen ist die Zahlungsmethode nicht mehr verwendbar.",
+    "isInternalExplainFuturePayments": "Das Fälligkeitsdatum wird automatisch von der Kundenanzahlung abgezogen. Wenn diese nicht ausreichend ist, wird eine negative Anzahlung erstellt.",
+    "addPaymentMethod": "Eine Zahlungsmethode hinzufügen",
+    "copyLink": "Link zum Hinzufügen einer Zahlungsmethode kopieren",
+    "manual": "Manuell",
+    "other": "Andere"
+  },
+  "table": {
+    "nested": {
+      "payment": {
+        "header": {
+          "paymentReceived": "Status",
+          "date": "Datum",
+          "price": "Betrag",
+          "paymentMethod": "Zahlungsmethode"
+        },
+        "isEmpty": "Keine Zahlung",
+        "title": "Zahlung"
+      },
+      "invoiceItem": {
+        "header": {
+          "voucher": "Rabatt",
+          "priceExcTax": "Betrag (exkl. Steuern)",
+          "price": "Betrag (inkl. Steuern)",
+          "product": "Name"
+        },
+        "isEmpty": "Bitte beginnen Sie damit Produkte zu dieser Rechnung hinzuzufügen.",
+        "title": "Käufe"
+      },
+      "export": {
+        "status": {
+          "notGenerated": "Nicht generiert",
+          "failWithMessage": "Generation fehlgeschlagen: {{- errorMessage }}",
+          "fail": "Generation fehlgeschlagen",
+          "success": "Erfolgreich generiert"
+        },
+        "header": {
+          "errorMessage": "Fehlermeldung",
+          "status": "Status"
+        },
+        "title": "Elektronische Rechnung (XML)"
+      }
+    },
+    "header": {
+      "pdf": "PDF",
+      "missing": "Fälliger Betrag",
+      "amount": "Gesamtkosten",
+      "date": "Rechnungsdatum",
+      "id": "ID",
+      "member": "Mitglied",
+      "invoiceType": "Typ",
+      "quickbooks": "QuickBooks"
+    },
+    "actions": {
+      "goToInvoice": "Rechnung anzeigen"
+    }
+  },
+  "paymentPanel": {
+    "fields": {
+      "country": {
+        "placeholder": "Frankreich",
+        "label": "Land der Kontoverbindung"
+      },
+      "email": {
+        "placeholder": "max@mustermann.de",
+        "label": "E-Mail des Kontoinhabers"
+      },
+      "accountHolderName": {
+        "placeholder": "Max Mustermann",
+        "label": "Kontoinhaber"
+      }
+    },
+    "paymentList": {
+      "isEmpty": "Keine registrierte Zahlung anzuzeigen.",
+      "titleReverse": "Rückerstattung",
+      "title": "Zahlungen"
+    },
+    "actions": {
+      "saveForLaterAsSEPA": "Das Mandat wird als \"SEPA\" registriert",
+      "saveForLater": "Zahlungsmethode speichern",
+      "showInvoice": "Rechnung anzeigen",
+      "confirmPayment": "Zahlung bestätigen",
+      "payAll": "Kundenschulden begleichen",
+      "cancel": "Abbrechen",
+      "revert": "Stornieren",
+      "pay": "Rechnung bezahlen",
+      "bill": "Einziehen",
+      "basketInconsistent": "Ihr Warenkorb wurde geändert, bitte aktualisieren Sie Ihre Seite, bevor Sie Ihre Zahlung bestätigen.\nSie wurden nicht belastet.",
+      "billByInstalment": "Ratenzahlung",
+      "paymentLink": "Zahlungslink",
+      "generatePaymentLink": "Zahlungslink erstellen",
+      "paymentSecurityInformation": "Sie können Ihre Zahlungsdaten und -informationen für zukünftige Einkäufe sicher und verschlüsselt speichern.",
+      "basketWasInconsistent": "Ihr Warenkorb hat sich geändert. Der Betrag wurde nicht abgebucht. Bitte versuchen Sie die Zahlung erneut."
+    },
+    "sumup": {
+      "amountRemaining": "Ausstehender Betrag",
+      "amountPaid": "Bezahlt",
+      "amountDue": "Gesamt",
+      "title": "Zusammenfassung",
+      "amountBeingProcessed": "Betrag in Bearbeitung"
+    },
+    "date": {
+      "label": "Einzugsdatum"
+    },
+    "paymentNote": {
+      "helperText": "(optional) Schecknummer, Einzugsdatum...",
+      "label": "Notiz"
+    },
+    "amount": {
+      "label": "Einzuziehender Betrag"
+    },
+    "amountRemaining": "Ausstehender Betrag: {{amount}}",
+    "billingMoreThanNeeded": "Wenn mehr als der Rechnungsbetrag eingezogen wird, erhöht sich das Guthaben des Mitglieds um die Differenz",
+    "errorSecretExplain2": "Wenn das Problem nicht behoben werden kann, kontaktieren Sie uns bitte unter dev+payment-intent@bsport.io",
+    "errorSecretExplain1": "Diese Zahlungsmethode ist derzeit nicht verfügbar",
+    "plannedPaymentEvent": {
+      "title": "Geplante Zahlung",
+      "title_plural": "Geplante Zahlungen"
+    },
+    "revertReason": "Grund: {{ revertReason }}"
+  },
+  "paymentEngine": {
+    "label": {
+      "0": "Manuelle Zahlung",
+      "1": "Stripe",
+      "2": "Paypal"
+    }
+  },
+  "invoiceType": {
+    "reversed": "Rechnung (zurückgeschickt)",
+    "return": "Erstattete Rechnung",
+    "credit_payment": "Quittung (Regelungssaldo)",
+    "migration": "Migration",
+    "regular": "Rechnung"
+  },
+  "invoiceInfo": {
+    "2": "Dieser Zahlungsbeleg stellt die Kontostandkorrektur Ihres Mitglieds dar.",
+    "3": "Diese Rechnung ist das Ergebnis einer Migration. Wir können aus rechtlichen Gründen kein PDF davon bereitstellen oder sie stornieren."
+  },
+  "plannedPaymentEvent": {
+    "actions": {
+      "edit": "Bearbeiten",
+      "delete": "Abbrechen",
+      "registerNow": "Jetzt einziehen",
+      "enable": "Termin verschieben",
+      "disable": "stornieren",
+      "changeMethod": "Zahlungsmethode wechseln",
+      "solveInvalidPaymentAttempt": "Regulieren"
+    },
+    "nextRetryDate": "Die Zahlung wird erneut versucht am {{ d }}",
+    "lockedToday": "Die Zahlung ist heute fällig, Sie können sie nicht mehr ändern",
+    "registerNowInitialData": "Ursprünglich Zahlung fällig am {{-date}}",
+    "dialog": {
+      "invalidMandate": {
+        "explainSituation": "Der mit dieser Zahlungsmethode verbundene Auftrag ist ausgelaufen. Dafür kann es verschiedene Gründe geben: zu viele fehlgeschlagene Zahlungen, eine einseitige Entscheidung der Bank, usw. Die Zahlungsmethode kann nicht mehr verwendet werden und Sie müssen eine neue registrieren",
+        "title": "Abgelaufene oder ungültige Lastschriften!",
+        "cancel": "Abbrechen",
+        "confirm": "Weiter"
+      }
+    },
+    "unrecoverableError": "Fehler bei der Zahlung."
+  },
+  "mandate": {
+    "content": "Indem Du Deine IBAN angibst und Deine Zahlung bestätigst, ermächtigst Du bsport und Stripe, unser Zahlungssystem, Lastschriftanweisungen gemäß dem Zahlungsplan an Deine Bank zu senden. Du kannst bei Deiner Bank eine Rückerstattung gemäß den Bedingungen Deiner Bank beantragen. Eine Rückerstattung muss innerhalb von 8 Wochen nach der ersten Abbuchung beantragt werden.",
+    "email": "E-Mail des Inhabers",
+    "name": "Name und Vorname des Inhabers",
+    "contentIban": "Indem Sie Ihre IBAN angeben und Ihre Zahlung bestätigen, ermächtigen Sie bsport und Stripe, unser Zahlungssystem, Abbuchungsaufträge an Ihre Bank gemäß dem Zahlungsplan zu senden. Sie können bei Ihrer Bank eine Erstattung gemäß den Bedingungen Ihres Vertrags mit Ihrer Bank beantragen. Eine Erstattung muss innerhalb von 8 Wochen nach der ersten Abbuchung beantragt werden.",
+    "contentBacsDebit": "Mit der Angabe Ihrer Bankdaten und der Bestätigung Ihrer Zahlung ermächtigen Sie bsport und Stripe, unser Zahlungssystem, Abbuchungsaufträge an Ihre Bank gemäß dem Zahlungsplan zu senden. Sie können von Ihrer Bank eine Erstattung gemäß den Bedingungen Ihres Vertrags mit Ihrer Bank verlangen. Sie können Ihre Bank jederzeit bitten, das Lastschriftmandat zu widerrufen.",
+    "address_postal_code": "Postleitzahl",
+    "address_line_1": "Adresse",
+    "address_line_2": "Ergänzung der Adresse",
+    "phone": "Telefonnummer",
+    "city": "Stadt",
+    "state": "Bundesland",
+    "country": "Land"
+  },
+  "paymentGroup": {
+    "requiresAction": "Die Bank hat die Zahlung nicht authentifiziert (3DSecure)",
+    "validateRequiresAction": "Bestätigen Sie die Zahlungsmethode"
+  },
+  "quickbooks": {
+    "send": {
+      "errors": {
+        "931000": "Fehler bei der Authentifizierung in QuickBooks",
+        "931001": "Fehler bei der Authentifizierung in Quickbooks",
+        "931002": "Abgelaufene Authentifizierungsschlüssel",
+        "931003": "Abgelaufene Authentifizierungsschlüssel",
+        "931004": "Sie haben Ihre QuickBooks-Anwendung nicht konfiguriert",
+        "931100": "Fehler beim Aktualisieren von Authentifizierungsschlüsseln",
+        "931101": "QuickBooks ist nicht in der Lage, uns Ihre Daten zu senden",
+        "932000": "Ihr Konto ist nicht mehr bei bsport authentifiziert",
+        "932001": "Ihr Konto ist nicht mehr bei bsport authentifiziert.",
+        "932100": "Sie können nicht auf Ihre QuickBooks-Kontoinformationen zugreifen",
+        "933000": "Das Mitglied, das mit der Rechnung verbunden ist, verfügt nicht über die notwendigen Informationen, um in QuickBooks registriert zu werden",
+        "933100": "Der Kunde, der mit dem Rechnungsmitglied verbunden ist, kann nicht erstellt werden",
+        "933101": "Der Kunde, der mit dem Rechnungsmitglied verbunden ist, kann nicht erstellt werden",
+        "933102": "Fehler beim Erstellen der Rechnung in QuickBooks",
+        "933103": "Ihre QuickBooks-Plattform unterstützt mehrere Währungen. Bitte geben Sie an, welche Steuer Sie verwenden möchten.",
+        "934000": "Die Rechnung enthält nicht die Mindestangaben, um in QuickBooks erstellt zu werden",
+        "934001": "Es ist nicht möglich, eine Rechnung ohne zugehörige Artikel zu erstellen",
+        "934002": "Stornierte Rechnungen können nicht an QuickBooks gesendet werden",
+        "934003": "Unvollständige Rechnungen können nicht an QuickBooks gesendet werden",
+        "934004": "Es ist unmöglich, eine unbezahlte Rechnung an QuickBooks zu senden",
+        "934005": "Ihre Rechnung kann nicht an QuickBooks gesendet werden",
+        "934006": "Diese Rechnung ist bereits in QuickBooks registriert",
+        "title": "Fehler beim Versand Ihrer Rechnung"
+      }
+    },
+    "invoice": {
+      "sendToQuickbooks": "Übertragen Sie die Rechnung in QuickBooks",
+      "onQuickbooks": "Übertragen"
+    }
+  },
+  "invoicePaymentPackTagWarningDialog": {
+    "confirm": "Bestätigen Sie",
+    "cancel": "Abbrechen",
+    "content": "Vorsicht, Sie versuchen, eine Karte einem Mitglied aufzuladen, das nicht über die für den Kauf erforderlichen Marken verfügt. Wollen Sie ihm diesen Artikel trotzdem in Rechnung stellen? ",
+    "title": "Informationen"
+  },
+  "applyGiftcard": {
+    "form": {
+      "errors": {
+        "errorAmount": "Ungültiger Betrag."
+      },
+      "usedGiftcard": "Verwendeter Gutschein",
+      "amountToPay": "Mit Gutschein bezahlter Betrag",
+      "expiresOn": "Verfällt am:{{- date }}",
+      "giftcardCode": "Gutschein-Code",
+      "addGiftcard": "Gutschein hinzufügen",
+      "addGiftcardError": "Der Gutschein-Code ist nicht korrekt. Bitte überprüfe den Code und versuche es erneut.",
+      "availableGiftcards": "Verfügbare(r) Gutschein(e)",
+      "title": "Bezahlung mit Gutschein"
+    },
+    "actions": {
+      "apply": "Zahlung mit Gutschein",
+      "cancel": "Schließen",
+      "confirm": "Bestätigen"
+    },
+    "giftcard": "Gutschein"
+  },
+  "invoiceFuturePaymentsDialog": {
+    "applyForAllFuturePayments": "Auf zukünftige Ratenzahlungen dieser Rechnung anwenden"
+  },
+  "status": {
+    "0": "Erfolgreich",
+    "1": "Fehlgeschlagen",
+    "2": "Ausstehend",
+    "3": "Abgebrochen",
+    "4": "in Bearbeitung"
+  },
+  "anonymousMember": "Anonymes Mitglied",
+  "sentToFiskaly": "An Fiskaly versandt"
+}

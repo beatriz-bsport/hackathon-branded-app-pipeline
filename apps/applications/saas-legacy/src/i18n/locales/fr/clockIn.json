@@ -1,0 +1,64 @@
+{
+  "clockinDialog": {
+    "title": "Pointeuse horaire",
+    "close": "Fermer",
+    "clockIn": "Commencer",
+    "clockOut": "Terminer",
+    "lastClockIn": "Dernier pointage : {{- date }} - {{ hour }}",
+    "lastClockOut": "Heure d'arrivée : ",
+    "subtitleClockIn": "Bonjour {{- name }} ! Cliquez sur “Commencer” pour débuter le pointage de votre journée.",
+    "subtitleClockOut": "C’est parti ! Pour pointer de nouveau et stopper le décompte d’heure merci de cliquer sur “Terminer”",
+    "clockInForOther": "pointer pour un autre staff",
+    "subtitleSuccess": "Vos horaires ont bien été enregistrés. Vous pourrez commencer un nouveau pointage la prochaine fois que vous ouvrirez cette fenêtre.",
+    "successClockIn": "Heure d'arrivée :",
+    "successClockOut": "Heure de départ :",
+    "successDuration": "Nombre d'heure travaillées :"
+  },
+  "attendanceTable": {
+    "firstname": "Prénom",
+    "lastname": "Nom",
+    "staff": "Staff",
+    "email": "Email",
+    "lastClockIn": "Dernier pointage",
+    "status": "Statut",
+    "action": "Action",
+    "role": "Rôle",
+    "start": "Terminer",
+    "end": "Commencer",
+    "here": "Présent",
+    "missing": "Absent",
+    "createStaff": "créer un accès staff",
+    "emptyState": "Vous n’avez pas encore donnés des accès staff. Pour définir des accès staff rendez vous dans paramètres puis staff ou bien cliquez sur le bouton ci-dessous. Pour suivre les horaires de votre staff n’oubliez pas d’activiter “Pointeuse horaire” au moment de créer leur rôle."
+  },
+  "historyTable": {
+    "staff": "Staff",
+    "startingHour": "Heure de début",
+    "endingHour": "Heure de fin",
+    "durationHoursMinutes": "Heures travaillées (heure et minute)",
+    "durationHours": "Heures travaillées (heure)",
+    "action": "Action",
+    "download": "Télécharger"
+  },
+  "modal": {
+    "delete": {
+      "title": "Suppresion",
+      "content": "Attention, êtes vous sûr de vouloir supprimer le créneau horaire pour ce staff ? Cette opération est irréversible."
+    }
+  },
+  "editModal": {
+    "title": "Modification des horaires",
+    "endingTime": "Heure de fin",
+    "startingTime": "Heure de début",
+    "cancel": "Annuler",
+    "confirm": "Valider"
+  },
+  "pageTitle": "Horaires staff",
+  "tabRealTime": "Temps réel",
+  "tabHistory": "Historique",
+  "export": {
+    "dialog": {
+      "message": "Votre export est prêt à être télécharger.",
+      "title": "Exportation de l'historique"
+    }
+  }
+}

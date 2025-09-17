@@ -1,0 +1,38 @@
+{
+  "actions": {
+    "requestPartnership": "Ativar a integração",
+    "save": "Guardar"
+  },
+  "pageTitle": "Parceria",
+  "parameters": {
+    "partnerId": "ID do parceiro: {{ company }}",
+    "pleaseChoseEstablishmentMany": "Seleccione pelo menos um estabelecimento",
+    "establishment": "Estabelecimento",
+    "allEstablishment": "Todas as salas",
+    "pleaseChoseEstablishment": "Selecionar um estabelecimento",
+    "add": "Adicionar",
+    "establishmentMergeMaster": "Fundir-se com este estabelecimento ⬇️",
+    "venueIds": "IDs do local: {{ establishmentIdList }}",
+    "establishmentMergedAs": "Fusão destes estabelecimentos",
+    "enabled": "Ativo",
+    "configurationTitle": "Configurar a integração"
+  },
+  "requestDialog": {
+    "close": "Compreendido",
+    "explain": "Solicitou a integração da bsport x Classpass. O seu gestor de conta entrará em contacto consigo para validar esta operação"
+  },
+  "configurationType": {
+    "1": {
+      "helperText": "Cada estabelecimento aparecerá como um local independente no ClassPass",
+      "label": "Estabelecimentos independentes"
+    },
+    "2": {
+      "label": "Fusão de todos os estabelecimentos",
+      "helperText": "Todos os estabelecimentos aparecerão como um único estabelecimento"
+    },
+    "3": {
+      "helperText": "Agrupar estabelecimentos semelhantes por endereço",
+      "label": "Avançado"
+    }
+  }
+}

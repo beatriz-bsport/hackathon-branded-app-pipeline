@@ -1,4 +1,4 @@
-# Customer-Data-Platform | Custom Form | Studio Manager Application
+# Customer Data Platform | Custom Form | Studio Manager Application
 
 ## Quickstart
 
@@ -13,7 +13,7 @@ pnpm run dev
 This will run two applications aside :
 
 - The Navigation Sidebar on port 4050, with module federation.
-- The Custom Forms application, on the port defined in `package.json` in `federation.devPort` : 4302.
+- The Custom Form application, on the port defined in `package.json` in `federation.devPort` : 4302.
 
 Go to <http://localhost:4302>
 

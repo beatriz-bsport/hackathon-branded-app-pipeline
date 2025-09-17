@@ -1,0 +1,55 @@
+{
+  "lessonContent": {
+    "finish": "End the section",
+    "nextLesson": "Next",
+    "previousLesson": "Previous"
+  },
+  "allFinishDialog": {
+    "continueButton": "Continue",
+    "infoText": "Well done you have completed all the lessons offered by Bsport. You now know the platform like the back of your hand! You know how to use all the basic features, many others are waiting for you to help you develop your activity.",
+    "title": "Finished!"
+  },
+  "sectionFinishDialog": {
+    "continueButton": "Continue",
+    "infoText": "You have completed all the lessons in {{- name }} section. Continue to improve by completing the next section.",
+    "title": "Congratulations !"
+  },
+  "shareDialog": {
+    "continueButton": "Continue",
+    "infoTextLesson": "Share the {{- name }} lesson with your staff members who do not have access to the tutorials tab. They will only be able to navigate within this lesson.",
+    "infoTextSection": "Share all the lessons in the {{- name }} section with your staff members who do not have access to the tutorials tab. They will only be able to navigate within this section.",
+    "title": "Share"
+  },
+  "welcomeDialog": {
+    "approveButton": "Let's get started!",
+    "rejectButton": "I want to learn on my own",
+    "infoText": "Welcome to your new management platform. Let's learn together to discover all the features of Bsport to launch your studio in the best conditions.",
+    "title": "Welcome to Bsport!"
+  },
+  "lessonHeader": {
+    "warning": "Please contact your Account Manager to learn more and activate this additional service.",
+    "addOn": "Add-on",
+    "backToList": "Back to the list"
+  },
+  "menuHeader": {
+    "infoText": "Learn how to use all the basic features of Bsport with our different lessons.",
+    "title": "Welcome to our Getting Started Guide."
+  },
+  "sectionList": {
+    "missingUpsell": "Some of the features in this section are not available to you, please contact your account manager for more information.",
+    "addOn": "Add-on",
+    "new": "New",
+    "shareSection": "Share the section"
+  },
+  "lessonList": {
+    "addOn": "Add-on",
+    "new": "New",
+    "shareLesson": "Share the lesson",
+    "share": "Share",
+    "start": "Start",
+    "missingUpsell": "You do not have this feature, please contact your account manager for more information."
+  },
+  "menu": {
+    "helpButton": "FAQ"
+  }
+}

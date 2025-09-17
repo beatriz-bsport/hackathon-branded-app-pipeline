@@ -51,11 +51,6 @@ const useLanguageItems = (): DropdownMenuItems => {
       label: t("languages.portuguese"),
       iconLeft: "flag-pt",
     },
-    {
-      id: LANGUAGES.CZECH,
-      label: t("languages.czech"),
-      iconLeft: "flag-cz",
-    },
   ] as const;
 };
 

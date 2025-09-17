@@ -1,0 +1,28 @@
+{
+  "list": {
+    "title": {
+      "latestEvents": "Recente incasso's"
+    }
+  },
+  "member": {
+    "register": {
+      "name": "Nieuw lid",
+      "description": "Wordt geactiveerd wanneer een nieuw lid aan BSPORT wordt toegevoegd"
+    }
+  },
+  "booking": {
+    "register": {
+      "name": "Nieuwe reservering",
+      "description": "Wordt geactiveerd wanneer een nieuwe reservering is geregistreerd"
+    }
+  },
+  "booking_option": {
+    "cancel": {
+      "name": "Van de wachtlijst afmelden",
+      "description": "Wordt geactiveerd wanneer een lid of een manager een plaats op de wachtlijst annuleert"
+    }
+  },
+  "noEvent": {
+    "description": "Beschrijving van het evenement"
+  }
+}

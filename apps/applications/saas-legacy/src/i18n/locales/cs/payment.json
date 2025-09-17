@@ -1,0 +1,298 @@
+{
+    "explainOption": "",
+    "bookAnotherOption": "",
+    "bookAnOption": "",
+    "availablePaymentPacks": "",
+    "goBack": "",
+    "hasOneOrMoreOption": "",
+    "method": {
+        "0": "",
+        "1": "",
+        "2": "",
+        "3": "",
+        "4": "",
+        "5": "",
+        "6": "",
+        "7": "",
+        "8": "",
+        "9": "",
+        "10": "",
+        "11": "",
+        "12": "",
+        "13": "",
+        "20": "",
+        "30": "",
+        "40": "",
+        "50": "",
+        "60": "",
+        "70": "",
+        "80": "",
+        "90": "",
+        "100": "",
+        "110": "",
+        "CB": "",
+        "CREDIT_ACCOUNT": "",
+        "GIROPAY": "",
+        "EPS": "",
+        "IDEAL": "",
+        "SOFORT": "",
+        "BANCONTACT": "",
+        "SEPA": "",
+        "CHECK": "",
+        "CASH": "",
+        "BACS_DEBIT": "",
+        "TWINT": "",
+        "APPLE_PAY": "",
+        "GOOGLE_PAY": ""
+    },
+    "forms": {
+        "cancelPayment": "",
+        "credit": {
+            "explain": "",
+            "pay": ""
+        },
+        "paymentIntent": {
+            "pay": ""
+        },
+        "paymentMethod": {
+            "9": "",
+            "actions": {
+                "addPaymentMethod": "",
+                "addPaymentMethodDenied": "",
+                "retry": "",
+                "collect": "",
+                "close": "",
+                "displayPaymentMethod": "",
+                "selectPaymentMethod": "",
+                "cancel": ""
+            },
+            "collect": {
+                "content": "",
+                "title": "",
+                "contentAdd": ""
+            },
+            "message": {
+                "error": "",
+                "success": ""
+            },
+            "mandateRevalidated": {
+                "retry": "",
+                "error": "",
+                "success": "",
+                "content": "",
+                "collect": ""
+            }
+        },
+        "savePaymentMethod": {
+            "select": "",
+            "label": "",
+            "add": ""
+        }
+    },
+    "generalTermsAndConditions": {
+        "iAccept": "",
+        "theTermsAndConditions": "",
+        "close": "",
+        "generalTermsOfUse": "",
+        "waiver": ""
+    },
+    "paymentComboSectionTitle": "",
+    "paymentMethod": {
+        "0": "",
+        "1": "",
+        "2": "",
+        "3": "",
+        "4": "",
+        "5": "",
+        "6": "",
+        "7": "",
+        "8": "",
+        "9": "",
+        "10": "",
+        "11": "",
+        "12": "",
+        "13": "",
+        "20": "",
+        "30": "",
+        "40": "",
+        "50": "",
+        "60": "",
+        "70": "",
+        "80": "",
+        "90": "",
+        "100": "",
+        "110": "",
+        "label": "",
+        "disputeWon": "",
+        "onlinePayments": ""
+    },
+    "actions": {
+        "addThisPaymentItem": ""
+    },
+    "creditAccountBalance": {
+        "current": ""
+    },
+    "paymentNote": {
+        "helperText": "",
+        "label": ""
+    },
+    "bankAccount": {
+        "form": {
+            "actions": {
+                "submit": "",
+                "cancel": ""
+            },
+            "accountNumber": {
+                "placeholder": "",
+                "label": "",
+                "eurSpecific": ""
+            },
+            "invalid": "",
+            "accountHolderName": {
+                "placeholder": "",
+                "label": ""
+            },
+            "content": "",
+            "title": "",
+            "unknownCountry": "",
+            "routingNumber": {
+                "placeholder": "",
+                "label": "",
+                "usdSpecific": ""
+            },
+            "clearingCode": {
+                "label": ""
+            },
+            "branchCode": {
+                "label": ""
+            },
+            "transitNumber": {
+                "label": "",
+                "placeholder": ""
+            },
+            "institutionNumber": {
+                "label": "",
+                "placeholder": ""
+            },
+            "bankCode": {
+                "label": ""
+            },
+            "sortCode": {
+                "label": "",
+                "placeholder": ""
+            }
+        }
+    },
+    "payment": {
+        "return": ""
+    },
+    "returnedAmount": "",
+    "payout": {
+        "isEmptyWarning": "",
+        "isEmpty": "",
+        "invoice": "",
+        "seeMore": "",
+        "paymentNb": "",
+        "status": {
+            "0": "",
+            "1": "",
+            "2": "",
+            "3": "",
+            "4": ""
+        },
+        "title": "",
+        "payoutAmountFromIncludedPayouts": "",
+        "payoutIsIncludedInOther": "",
+        "payoutIsManual": "",
+        "dialog": {
+            "title": "",
+            "content": ""
+        }
+    },
+    "instalment": {
+        "form": {
+            "recurrence_basis": {
+                "intervalName": {
+                    "week": "",
+                    "day": "",
+                    "month": "",
+                    "year": ""
+                },
+                "label": "",
+                "helperText": ""
+            },
+            "recurrence": {
+                "explain": "",
+                "section": ""
+            },
+            "interval": {
+                "helperText": "",
+                "label": ""
+            },
+            "nb_interval": {
+                "label": ""
+            },
+            "actions": {
+                "close": "",
+                "previous": "",
+                "next": "",
+                "submit": ""
+            },
+            "title": {
+                "payment": "",
+                "scheduler": ""
+            },
+            "anchor_date": {
+                "helperText": "",
+                "label": ""
+            }
+        }
+    },
+    "interval": {
+        "week": "",
+        "day": "",
+        "year": "",
+        "month": ""
+    },
+    "subscriptionPaymentDialog": {
+        "error": {
+            "button_text": "",
+            "text_status": "",
+            "text_content": "",
+            "userSpace": "",
+            "title": ""
+        },
+        "success": {
+            "button_text": "",
+            "text_status": "",
+            "text_content": "",
+            "text_content_funnel": "",
+            "title": "",
+            "contract": "",
+            "recap": ""
+        },
+        "title": ""
+    },
+    "disputeStatus": {
+        "1": "",
+        "2": "",
+        "3": ""
+    },
+    "stripeBalance": {
+        "pendingBalance": "",
+        "availableBalance": "",
+        "nullPendingBalanceText": "",
+        "dialog": {
+            "close": "",
+            "alert": "",
+            "secondPart": "",
+            "thirdPart": "",
+            "firstPart": ""
+        },
+        "title": ""
+    },
+    "setupPaymentError": "",
+    "order": {
+        "success": ""
+    }
+}

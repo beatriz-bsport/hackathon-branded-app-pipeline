@@ -15,6 +15,7 @@ import withThemeProvider from '#src/hocs/company-themifier.hoc';
 import asyncComponent from '../../AsyncComponent.js';
 import { RootState } from '../../reducers';
 import { AuthenticatedSwitch } from './components/AuthenticatedSwitch';
+import { requestOptInTrackingB2C as requestOptInTrackingB2CAction } from '#src/components/analytics/actions';
 
 const MarketplaceAsManager = asyncComponent(
   () =>
@@ -58,6 +59,7 @@ export const NewBookingFlowRouter: React.FC<Props> = ({
   is_manager,
   location,
   theme,
+  requestOptInTrackingB2C,
 }) => {
   useEffect(() => {
     !!companyId && fetchCompanyTheme(companyId);
@@ -68,6 +70,11 @@ export const NewBookingFlowRouter: React.FC<Props> = ({
       fetchProfile();
     }
   }, [authenticated, fetchProfile]);
+
+  useEffect(() => {
+    // Opt in B2C tracking and opt out B2B tracking
+    requestOptInTrackingB2C();
+  }, []);
 
   if (is_manager) {
     return <MarketplaceAsManager />;
@@ -130,7 +137,11 @@ const connector = connect(
     is_manager: state.auth.is_manager,
     theme: themeSelectors.getTheme(state),
   }),
-  { fetchProfile: fetchProfileAction, fetchCompanyTheme },
+  {
+    fetchProfile: fetchProfileAction,
+    fetchCompanyTheme,
+    requestOptInTrackingB2C: requestOptInTrackingB2CAction,
+  },
 );
 
 export default compose(

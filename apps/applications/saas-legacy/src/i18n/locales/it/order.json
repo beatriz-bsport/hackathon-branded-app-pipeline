@@ -1,0 +1,73 @@
+{
+  "actions": {
+    "flagAsCancelled": "Annulla",
+    "flagAsOnSiteDelivery": "Da recuperare sul posto",
+    "flagAsSent": "Spedito"
+  },
+  "configuration": {
+    "noDefaultDeliveryFee": "Nessun costo di spedizione",
+    "defaultDeliveryFee": "Spese di spedizione predefinite",
+    "deliveryFee": "Spese di spedizione",
+    "forms": {
+      "onSubmit": "Salva"
+    }
+  },
+  "products": {
+    "nbProducts": "articoli"
+  },
+  "table": {
+    "updated_at": "Aggiornato",
+    "created_at": "Creato il",
+    "qty": "Quantità",
+    "name": "Cliente",
+    "state": "Status",
+    "actions": "Azioni"
+  },
+  "form": {
+    "delivery": {
+      "first_name": "Nome",
+      "last_name": "Cognome"
+    }
+  },
+  "deliveryFee": {
+    "forms": {
+      "freeThresholdLabel": "Gratuite a partire da",
+      "freeThresholdHelper": "Se l'importo dell'ordine supera tale importo, i costi di spedizione sono gratuiti",
+      "onCancel": "Annulla",
+      "onSubmit": "Salva",
+      "create": "Aggiungi un costo di spedizione",
+      "title": "Form spese di spedizione",
+      "feeLabel": "Spese di spedizione",
+      "nameLabel": "Nome"
+    },
+    "modal": {
+      "delete": {
+        "content": "Attenzione questa operazione è definitiva, i vecchi ordini che includono questa commissione non verranno modificati.",
+        "cancel": "Annulla",
+        "confirm": "Rimuovi",
+        "title": "Elimina un costo di spedizione"
+      }
+    },
+    "name": "Nome",
+    "fee": "Spese di spedizione",
+    "free_threshold": "Gratuite a partire da",
+    "offeredAboveAmount": "Gratuito dopo {{free_threshold, price}} di acquisti"
+  },
+  "state": {
+    "0": "In attesa",
+    "700": "In elaborazione",
+    "1100": "Annullato",
+    "1200": "Da recuperare sul posto",
+    "9000": "Spedito"
+  },
+  "detail": {
+    "section": {
+      "deliveryInfo": "Indirizzo di spedizione",
+      "title": "Stato dell'ordine:",
+      "productDetail": "Dettagli del carrello",
+      "invoice": "Ricevuta correlata",
+      "member": "Cliente"
+    }
+  },
+  "pageTitle": "Shop"
+}

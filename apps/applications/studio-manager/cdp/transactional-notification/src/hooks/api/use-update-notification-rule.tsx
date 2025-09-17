@@ -85,7 +85,7 @@ export function useUpdateNotificationRule({
     emailDesignId,
     notificationEventDetails,
   }: {
-    emailDesignId: number;
+    emailDesignId: number | null;
     notificationEventDetails: NotificationRuleDetail;
   }) => {
     const notificationEventData: NotificationRuleDetail = {

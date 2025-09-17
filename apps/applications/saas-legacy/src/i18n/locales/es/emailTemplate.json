@@ -1,0 +1,77 @@
+{
+  "autoSave": "Copia de seguridad automática",
+  "leaveAlert": "¿Estás seguro de que quieres salir de esta página?",
+  "editor": {
+    "error": {
+      "content": "Por favor ingresa el contenido en el email",
+      "title": "Por favor ingresa un título",
+      "subject": "Por favor, introduzca un objeto"
+    },
+    "cancel": "Cancelar",
+    "subject": "Asunto del email",
+    "save": "Guardar",
+    "title": "Nombre del modelo",
+    "exportHtml": "Exportar HTML",
+    "selectorPlaceholder": "Selección de franquiciados",
+    "shareWithHelper": "La plantilla no puede ser modificada por los franquiciados",
+    "shareWith": "Compartir con",
+    "showRequiredTags": "Ver las variables",
+    "infoBoxTextFirstLine": "Este correo electrónico está vinculado al correo electrónico transaccional '{{-names}}'. Algunas variables son obligatorias.",
+    "alertBoxTextFirstLine": "Este correo electrónico está vinculado al correo electrónico transaccional '{{-names}}'. Debe contener las siguientes variables: ",
+    "infoBoxTextLastLine": "Asegúrate de añadirlos a tu plantilla para poder guardarla.",
+    "dialogWindowTitle": "Variables obligatorias",
+    "closeButton": "Cerrar"
+  },
+  "no_subject": "Ningún objeto",
+  "preview": "Vista previa de correo",
+  "subject": "Asunto del email:",
+  "modification_date": "Última modificación en",
+  "templateListEmpty": "Ningún modelo, crea tu primer modelo aquí.",
+  "create": "Crear un modelo",
+  "selectToShowPreview": "Selecciona un template",
+  "detail": "Informaciones detalladas",
+  "createTitle": "Creación del modelo",
+  "editTitle": "edición de la plantilla",
+  "listTitle": "Mis plantillas de email",
+  "search": "Buscar un template",
+  "copy": "copia",
+  "duplicate": "Duplicar",
+  "delete": "Suprimir",
+  "edit": "Modificar",
+  "modal": {
+    "delete": {
+      "confirm": "Suprimir",
+      "cancel": "Cancelar",
+      "title": "Supresión plantilla email",
+      "content": "Si esta plantilla está vinculada a una configuración de correo electrónico transaccional, también se eliminará. ¿Estás seguro de que quieres eliminar esta plantilla de correo electrónico? Esta operación es definitiva"
+    }
+  },
+  "allCompanies": "Todos los franquiciados",
+  "seeAll": "Ver todo",
+  "franchiseEmails": "Plantillas de franquicia",
+  "companieEmails": "Mis plantillas",
+  "bsportTemplateEmail": "Correos electrónicos de lanzamiento",
+  "infoBsportTemplateEmails": "Si desea enviar comunicaciones o editar las plantillas de esta sección, es necesario crear una copia de la plantilla deseada. A continuación, selecciona la copia del correo electrónico al enviar una comunicación.",
+  "bsportTemplateEmails": "Templates Bsport",
+  "franchiseEmailsPage": {
+    "informativeAlert": {
+      "bsportDefault": {
+        "description": "Estas plantillas son proporcionadas por bsport. Para editarlas o utilizarlas en campañas, duplíquelas. Aparecerán en la pestaña «{{-masterAccountTabName}}»."
+      },
+      "ownedByFranchisee": {
+        "description": "Estas plantillas han sido creadas por sus franquiciados desde su backoffice. Sólo podrá ver las plantillas de los estudios a los que tenga acceso. Puede editar esas plantillas, tenga en cuenta que su edición afectará a la plantilla de origen que puede ser utilizada en campañas por el estudio relacionado."
+      },
+      "ownedByFranchisor": {
+        "description": "Cree plantillas que pueda compartir con sus franquiciados para mantener su identidad de marca."
+      }
+    },
+    "filters": {
+      "companySelectPlaceHolder": "Seleccione un estudio"
+    },
+    "tabs": {
+      "bsportDefault": "Plantillas de bsport",
+      "ownByFranchisee": "Plantillas de estudios",
+      "ownByFranchisor": "Plantillas de Master Account"
+    }
+  }
+}

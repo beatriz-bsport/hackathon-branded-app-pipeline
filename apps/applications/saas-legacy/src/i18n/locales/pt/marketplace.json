@@ -1,0 +1,234 @@
+{
+  "warning": {
+    "isManager": "Para aceder à perspetiva do cliente, é necessário terminar a sessão.",
+    "disconnect": "Terminar sessão",
+    "backToBackoffice": "Gestor Interface"
+  },
+  "pass": {
+    "search": {
+      "result": "{{count}} resultado por \"{{queryText}}\"",
+      "result_plural": "{{count}} resultados por \"{{queryText}}\"",
+      "goBack": "Voltar à lista completa"
+    },
+    "filters": {
+      "type": {
+        "paymentPack": "Passe de aulas",
+        "privatePass": "Passe de Aula Privada"
+      },
+      "noCategory": "Sem categoria",
+      "placeholder": {
+        "type": "Tipo",
+        "categories": "Categorias"
+      }
+    }
+  },
+  "workshop": {
+    "card": {
+      "bookOption": "Lista de espera",
+      "notAvailable": "Cancelado",
+      "loadMore": "Mais sessões",
+      "duration": "Duração: {{duration}}",
+      "bookTitle": "Reservar uma sessão",
+      "showMore": "Mais informações",
+      "book": "Reservar",
+      "isPast": "Histórico"
+    },
+    "warningPartialBooking": "Está a reservar um conjunto de sessões. No entanto, não é obrigatório assistir a todas as sessões deste grupo. Pode selecionar as sessões que desejar.",
+    "warningBookingRedirectToFirstOffer": "Foi redireccionado para o separador de reserva do grupo de sessões {{- name}}. As sessões a reservar em conjunto serão enumeradas no seu separador de reservas.",
+    "loadMore": "Ver mais",
+    "confirm": "Continuar",
+    "warningFullBooking": "Está a reservar um conjunto de sessões. Será inscrito em todas {{count}} sessões.",
+    "noWorkshopAvailable": "De momento, não está previsto nenhum workshop",
+    "cancel": "Cancelar"
+  },
+  "genericCard": {
+    "validForDuration": {
+      "attendance": "Válido a partir da primeira presença",
+      "validYear": "Válido {{ count }} ano",
+      "validYear_plural": "Válido {{ count }} anos",
+      "validMonth": "Válido {{ count }} mês",
+      "validMonth_plural": "Válido {{ count }} meses",
+      "validFromTo": "Válido de {{duration_date_start}} a {{duration_date_end}}",
+      "purchase": "Válido a partir da data da fatura",
+      "booking": "Válido a partir da primeira reserva",
+      "validAnd": "Válido {{ first }} até {{ second }}",
+      "validDaysMonthsYears": "Válido {{duration_years}}, {{ duration_months }} até {{ duration_days }}",
+      "validDay": "Válido {{ count }} dia",
+      "validDay_plural": "Válido {{ count }} dias"
+    },
+    "validity": {
+      "month": "{{count}} mês",
+      "month_plural": "{{count}} meses",
+      "year": "{{count}} ano",
+      "year_plural": "{{count}} anos",
+      "day": "{{count}} dia",
+      "day_plural": "{{count}} dias"
+    },
+    "details": {
+      "buttonContent": "Detalhes"
+    },
+    "addButton": {
+      "buttonContent": "Adicionar ao carrinho"
+    },
+    "credits": {
+      "unlimited": "Ilimitado",
+      "availableCredit": "{{count}} crédito",
+      "availableCredit_plural": "{{count}} créditos"
+    },
+    "title": {
+      "universalPassMessage": "Cartão universal, pode ser utilizado para actividades de grupo e aulas privadas",
+      "autoRenewal": "Renovação automática"
+    }
+  },
+  "selector": {
+    "establishment": {
+      "placeholder": "Sala"
+    },
+    "coach": {
+      "placeholder": "Professor(a)"
+    },
+    "additionalCoaches": {
+      "placeholder": "Professor(a) adicional",
+      "placeholder_plural": "Professores adicionais"
+    },
+    "level": {
+      "placeholder": "Nível"
+    }
+  },
+  "calendar": {
+    "conditions": "Condições",
+    "registered": "Já registado",
+    "description": "Descrição",
+    "broadcast": "Em linha",
+    "close": "Fechar"
+  },
+  "paymentCombo": {
+    "addToCart": "Adicionar ao carrinho"
+  },
+  "genericCardDetails": {
+    "credits": {
+      "unlimited": "Ilimitado",
+      "availableCredit": "{{count}} crédito",
+      "availableCredit_plural": "{{count}} créditos"
+    },
+    "compatibility": {
+      "none": "Não é necessário fazer reserva",
+      "compatibilities": "Compatível",
+      "allPrivateSlotsAvailables": "Todos os tipos de sessões",
+      "establishments": "{{ count }} sala",
+      "establishments_plural": "{{ count }} salas",
+      "packs": {
+        "activities": "Compatível com {{ count }} atividade",
+        "activities_plural": "Compatível com {{ count }} atividades",
+        "categories": "Compatível com {{ count }} categoria",
+        "categories_plural": "Compatível com {{ count }} categorias",
+        "all": "Compatível com todos os",
+        "compatible": "Compatível com ",
+        "establishments": "Compatível com {{ count }} sala",
+        "establishments_plural": "Compatível com {{ count }} salas",
+        "categoriesAndEstablishment": "Compatível com {{ categories }} e {{ establishments }} ",
+        "establishmentsAndActivities": "Compatível com {{ establishments }} e {{ activities }} ",
+        "categoriesAndActivities": "Compatível com {{ categories }} e {{ activities }} ",
+        "and": " e ",
+        "categoriesAndActivitiesAndEstablishments": "Compatível com {{ categories }}, {{ establishments }} e {{ activities }} "
+      },
+      "compatible": "Compatível com {{count}} aula privada",
+      "compatible_plural": "Compatível com {{count}}  aulas privadas",
+      "activities": "{{ count }} atividade",
+      "activities_plural": "{{ count }} atividades",
+      "compatibilityModal": {
+        "activities": "Atividades",
+        "establishments": "Salas",
+        "categories": "Categorias"
+      },
+      "button": {
+        "close": "Fechar"
+      },
+      "categories": "{{ count }} categoria",
+      "categories_plural": "{{ count }} categorias"
+    },
+    "includedElements": {
+      "fullVodAccess": "Compatível com Vídeos on Demand",
+      "penaltyNoShow": {
+        "block": "{{days_blocked}} de multa após {{threshold}} , durante um período de {{time_window_days}} dias.",
+        "threshold": "{{count}} ausência",
+        "threshold_plural": "{{count}} ausências",
+        "account": "Um depósito de {{amount}} será aplicado para {{threshold}} num período de {{time_window_days}} dias.",
+        "penaltyDay": "{{count}} dia",
+        "penaltyDay_plural": "{{count}} dias"
+      },
+      "penalty": {
+        "penaltyDay": "{{count}} dia",
+        "penaltyDay_plural": "{{count}} dias",
+        "days": "{{penalty_days}} de multa após {{penalty_cancellations}} horas de incumprimento de prazo, num período de {{penalty_days_period}}",
+        "amount": "{{penalty_amount}} deduzido após {{penalty_cancellations}} horas de atraso, num período de {{penalty_days_period}}"
+      },
+      "onsitePaymentAvailable": "Pagamento no local disponível",
+      "onlyVodAccess": "Disponível apenas para os Vídeos on Demand",
+      "see": "Ver",
+      "cancellation": "{{count}} cancelamento",
+      "cancellation_plural": "{{count}} cancelamentos",
+      "compatibleWithEverything": "Compatível com todos os",
+      "newMemberOnly": "Apenas para os novos membros",
+      "restrictions": {
+        "title": "Restrições de utilização",
+        "perWeek": "{{count}} utilização por semana",
+        "perWeek_plural": "{{count}} utilizações por semana",
+        "maxPerDay": "Limite de utilização por dia : <strong>{{count}}</strong>",
+        "maxPerDay_plural": "Limite de utilizações por dia : <strong>{{count}}</strong>",
+        "perMonth": "{{count}} utilização por mês",
+        "perMonth_plural": "{{count}} utilizações por mês",
+        "maxPerWeek": "Limite de utilização por semana : <strong>{{count}}</strong>",
+        "maxPerWeek_plural": "Limite de utilizações por semana : <strong>{{count}}</strong>",
+        "perDay": "{{count}} utilização por dia",
+        "perDay_plural": "{{count}} utilizações por dia",
+        "maxPerMonth": "Limite de utilização por mês : <strong>{{count}}</strong>",
+        "maxPerMonth_plural": "Limite de utilizações por mês : <strong>{{count}}</strong>"
+      },
+      "maxPurchasePerMember": "{{count}} compra por membro",
+      "maxPurchasePerMember_plural": "{{count}} compras por membro",
+      "isUniversalPass": "Passe Universal",
+      "offPeakRestrictions": {
+        "title": "Compatível apenas em determinados horários"
+      }
+    },
+    "restrictions": "Restrições",
+    "compatibleTimeSlot": "Criar horários compatíveis"
+  },
+  "packCard": {
+    "comboItemList": {
+      "paymentPackItem": "{{count}} passe de aulas",
+      "paymentPackItem_plural": "{{count}} passes de aulas",
+      "privatePassItem": "{{count}} passe de aula privada",
+      "privatePassItem_plural": "{{count}} passes de aulas privadas",
+      "hiddenItem": "{{count}} outro elemento...",
+      "hiddenItem_plural": "{{count}} outros elementos..."
+    }
+  },
+  "contractCard": {
+    "fees": "Taxa de inscrição : {{ fees }}",
+    "chooseButton": "Selecione",
+    "registerButton": "Subscrever",
+    "seeMore": "Ver mais",
+    "billingInterval": {
+      "week": "semana",
+      "week_plural": "Todas as {{ count }} semanas",
+      "year": "ano",
+      "year_plural": "Todos os {{ count }} anos",
+      "month": "mês",
+      "month_plural": "Todos os {{ count }} meses",
+      "day": "dia",
+      "day_plural": "Todos os {{ count }} dias"
+    },
+    "autoRenewal": "Plano de renovação",
+    "seeLess": "Ver menos",
+    "legalContract": "Informação legal",
+    "invoice": "{{ count }} fatura",
+    "invoice_plural": "{{ count }} faturas"
+  },
+  "packCardDetail": {
+    "comboItemList": {
+      "content": "Conteúdo"
+    }
+  }
+}

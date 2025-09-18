@@ -119,12 +119,8 @@ import {
 import {
   getTrialRemainingDays,
   hasFreeTrial,
-  hasUpsell,
 } from '#src/libs/platform-billing/utils';
-import {
-  UPSELL_IDENTIFIER_PUSH_NOTIFICATION,
-  UPSELL_IDENTIFIER_CADENCE,
-} from '#src/libs/platform-billing/upsell-identifiers';
+import { UPSELL_IDENTIFIER_CADENCE } from '#src/libs/platform-billing/upsell-identifiers';
 import UpsellBlocker from '#src/libs/platform-billing/components/UpsellBlocker.component';
 
 // ===================== EMAIL EDITOR =====================
@@ -156,7 +152,6 @@ import { CADENCE_DETAIL_MAIN_PANEL_ID } from '#src/libs/sequential_marketing/con
 import type { RootState } from '../../reducers';
 import type { OptionCallback } from '../../state/types';
 import type { WithHandlerType } from '../../utils/types';
-import Config from '../../config';
 
 const { trackFormAdd, trackFormSubmitIntent, trackFormSuccess } =
   rudderStackFormTrackingFunctionsRegistry(
@@ -455,11 +450,6 @@ export class CadenceDetailPage extends Component<Props> {
     isChecked && this.props.doNotDisplayWelcomeDialogAnymore();
   };
 
-  isPushNotificationUpsellActive = () =>
-    Config.REACT_APP_SENTRY_ENVIRONMENT === 'production'
-      ? hasUpsell(this.props.featureList, UPSELL_IDENTIFIER_PUSH_NOTIFICATION)
-      : true;
-
   openUpgradeDialogOnBannerClick = () => {
     this.props.setUpgradeTrialDialog(
       AudienceUpgradeTrialDialogType.BANNER_CLICKED,
@@ -633,7 +623,6 @@ export class CadenceDetailPage extends Component<Props> {
                   isDeleteExitDialogHidden={this.props.isDeleteExitDialogHidden}
                   isDeleteStepDialogHidden={this.props.isDeleteStepDialogHidden}
                   isEntryFirstConfiguration={isEntryFirstConfiguration}
-                  isPushNotificationUpsellActive={this.isPushNotificationUpsellActive()}
                   onClickConnectedTrigger={this.handleClickConnectedTrigger}
                   onClickEntryStep={this.props.onClickEntryStep}
                   resetAllSelection={this.resetAllSelection}

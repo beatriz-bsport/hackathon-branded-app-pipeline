@@ -44,7 +44,6 @@ type Props = {
   isDeleteStepDialogHidden: boolean;
   isDeleteExitDialogHidden: boolean;
   isEntryFirstConfiguration: boolean;
-  isPushNotificationUpsellActive: boolean;
   smartlists: Immutable.ImmutableArray<SmartList>;
   convertCadenceStepIntoExit: (
     stepId: number,
@@ -122,7 +121,6 @@ export const CadenceGraphFlow: React.FC<Props> = ({
   isDeleteStepDialogHidden,
   isDeleteExitDialogHidden,
   isEntryFirstConfiguration,
-  isPushNotificationUpsellActive,
   resolvedGenericTags,
   smartlists,
   steps,
@@ -201,7 +199,6 @@ export const CadenceGraphFlow: React.FC<Props> = ({
     isDeleteStepDialogHidden,
     isDeleteExitDialogHidden,
     isConvertStepIntoExitDialogHidden,
-    isPushNotificationUpsellActive,
     convertCadenceExitIntoStep,
     convertCadenceStepIntoExit,
     deleteCadenceStep,

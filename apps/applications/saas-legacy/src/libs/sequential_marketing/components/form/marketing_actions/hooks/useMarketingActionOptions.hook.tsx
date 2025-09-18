@@ -9,22 +9,23 @@ import {
 } from '#src/libs/sequential_marketing/constants';
 import { marketingActionIconDict } from '#src/libs/sequential_marketing/components/helpers/utils';
 import type { MenuAction } from '#src/components/menu/types';
-import Config from '../../../../../../config';
+import { useCommunicationUpsellCheck } from '#src/libs/sequential_marketing/components/graph/hooks/useCommunicationUpsellCheck';
 
 type Props = {
   addMarketingAction: (kind: MarketingActions) => void;
   marketingActionToExclude?: MarketingActions[];
   customColor?: string;
-  isPushNotificationUpsellActive?: boolean;
 };
 
 export const useMarketingActionOptions = ({
   addMarketingAction,
   marketingActionToExclude,
   customColor,
-  isPushNotificationUpsellActive,
 }: Props) => {
   const { t } = useTranslation('marketing');
+
+  const { isPushNotificationUpsellActive, isSmsUpsellActive } =
+    useCommunicationUpsellCheck();
 
   const handleAddMarketingAction = React.useCallback(
     (type: MarketingActions) => () => addMarketingAction?.(type),
@@ -45,7 +46,7 @@ export const useMarketingActionOptions = ({
       isDisabled:
         (marketingActionKind ===
           MarketingActions.CADENCE_MARKETING_ACTION_SMS &&
-          Config.REACT_APP_SENTRY_ENVIRONMENT === 'production') ||
+          !isSmsUpsellActive) ||
         (marketingActionKind ===
           MarketingActions.CADENCE_MARKETING_ACTION_PUSH_NOTIFICATION &&
           !isPushNotificationUpsellActive),

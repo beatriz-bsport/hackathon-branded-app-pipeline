@@ -47,7 +47,6 @@ type FlowProps = {
     stepToEditId: number;
     isDeleteStepDialogHidden: boolean;
     isConvertStepIntoExitDialogHidden: boolean;
-    isPushNotificationUpsellActive: boolean;
     deleteStepMarketingAction: (data: { id: number; stepId: number }) => void;
     doNotDisplayConvertStepIntoExitDialogAnymore: () => void;
     doNotDisplayDeleteStepDialogAnymore: () => void;
@@ -272,7 +271,6 @@ export const InnerStepFlowVersion: React.FC<FlowProps> = ({ data }) => {
           getEmailTemplate={data.getEmailTemplate}
           getTag={data.getTag}
           handleConvertIntoExit={handleOpenConvertIntoExitBubble}
-          isPushNotificationUpsellActive={data.isPushNotificationUpsellActive}
           isSelected={data.isSelected}
           marketingActionList={data.marketingActionList}
           onCardClick={handleClick}

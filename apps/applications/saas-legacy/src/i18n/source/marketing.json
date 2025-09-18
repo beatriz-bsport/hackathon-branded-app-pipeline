@@ -498,11 +498,11 @@
         "timeoutMustBeStrictPositive": "The time limit must be at least 1 day."
       },
       "marketing_action": {
-        "1": "Write an email",
-        "2": "SMS",
-        "3": "Push notification",
-        "4": "Tag",
-        "5": "Select an email template",
+        "1": "Send an email",
+        "2": "Send SMS",
+        "3": "Send push notification",
+        "4": "Add a tag",
+        "5": "Send an email template",
         "form": {
           "helper": "Select one or more actions to perform when a member enters this stage. This option is facultative.",
           "reset": "Delete",
@@ -973,6 +973,20 @@
         "entryDate": "Entry date",
         "exitDate": "Exit date",
         "status": "Success"
+      }
+    },
+    "smsWarning": {
+      "alert": {
+        "title": "SMS costs more than other channels",
+        "content": "The more people who enter the workflow, the higher the cost. Check your contract to see the cost per SMS."
+      },
+      "modal": {
+        "title": "SMS Cost Reminder",
+        "content": "<strong>Sending SMS can cost more than other channels,</strong> depending on how many people enter the workflow. Check your contract to see the cost per SMS.",
+        "actions": {
+          "primary": "Confirm",
+          "secondary": "Cancel"
+        }
       }
     },
     "freeTrial": {

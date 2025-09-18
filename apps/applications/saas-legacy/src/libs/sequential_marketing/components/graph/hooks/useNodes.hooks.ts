@@ -155,7 +155,6 @@ type NodeRendererProps = {
   isDeleteStepDialogHidden: boolean;
   isDeleteExitDialogHidden: boolean;
   isConvertStepIntoExitDialogHidden: boolean;
-  isPushNotificationUpsellActive: boolean;
   convertCadenceExitIntoStep: (
     triggerUuid: string,
     step: {
@@ -228,7 +227,6 @@ export const useNodeElementsRecorder = ({
   isDeleteStepDialogHidden,
   isDeleteExitDialogHidden,
   isConvertStepIntoExitDialogHidden,
-  isPushNotificationUpsellActive,
   convertCadenceExitIntoStep,
   convertCadenceStepIntoExit,
   deleteCadenceStep,
@@ -374,7 +372,6 @@ export const useNodeElementsRecorder = ({
           isFirstConfigurationMode,
           isEntryActionBubbleOpen,
           isEntryFirstConfiguration,
-          isPushNotificationUpsellActive,
           connectedTriggersBubble: {
             smartlists,
             onConfirm: handleConfirmEntryCriteriaBubble,
@@ -410,7 +407,6 @@ export const useNodeElementsRecorder = ({
     cadenceEditMode,
     isEntryActionBubbleOpen,
     isEntryFirstConfiguration,
-    isPushNotificationUpsellActive,
     smartlists,
     storedEntryStep,
     isFirstConfigurationMode,
@@ -591,7 +587,6 @@ export const useNodeElementsRecorder = ({
           stepToEditId,
           isDeleteStepDialogHidden,
           isConvertStepIntoExitDialogHidden,
-          isPushNotificationUpsellActive,
           stepMemberCount: getStepMemberCountActions?.(stepNode?.id),
           addNextStep: handleAddNextStepTrigger(stepNode),
           deleteStepMarketingAction,
@@ -623,7 +618,6 @@ export const useNodeElementsRecorder = ({
   }, [
     cadenceEditMode,
     storedSteps,
-    isPushNotificationUpsellActive,
     isDeleteStepDialogHidden,
     isConvertStepIntoExitDialogHidden,
     stepToEditId,

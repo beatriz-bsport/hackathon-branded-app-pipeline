@@ -4,7 +4,7 @@ import type { ComponentStory, ComponentMeta } from '@storybook/react';
 import NotificationForm, {
   Props as NotificationFormProps,
 } from './NotificationForm';
-import SmsForm, { Props as SmsFormProps } from './SmsForm';
+import SmsForm, { Props as SmsFormProps } from './SMS/SmsForm';
 import TagForm, { Props as TagFormProps } from './TagForm';
 import TemplateEmailForm, {
   Props as TemplateEmailFormProps,

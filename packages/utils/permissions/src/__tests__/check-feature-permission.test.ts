@@ -42,7 +42,14 @@ describe("checkFeaturePermission", () => {
     mockGetEnvironment();
 
     const result = checkFeaturePermission({
-      features: [{ readable_identifier: "feature-a", upsell_identifier: 123 }],
+      features: [
+        {
+          readable_identifier: "feature-a",
+          upsell_identifier: 123,
+          is_free_trial: false,
+          trial_remaining_days: null,
+        },
+      ],
       identifier: undefined,
     });
 
@@ -65,8 +72,18 @@ describe("checkFeaturePermission", () => {
 
     const result = checkFeaturePermission({
       features: [
-        { readable_identifier: "feature-a", upsell_identifier: 123 },
-        { readable_identifier: "feature-b", upsell_identifier: 456 },
+        {
+          readable_identifier: "feature-a",
+          upsell_identifier: 123,
+          is_free_trial: false,
+          trial_remaining_days: null,
+        },
+        {
+          readable_identifier: "feature-b",
+          upsell_identifier: 456,
+          is_free_trial: false,
+          trial_remaining_days: null,
+        },
       ],
       identifier: 123,
     });
@@ -79,8 +96,18 @@ describe("checkFeaturePermission", () => {
 
     const result = checkFeaturePermission({
       features: [
-        { readable_identifier: "feature-a", upsell_identifier: 111 },
-        { readable_identifier: "feature-b", upsell_identifier: 222 },
+        {
+          readable_identifier: "feature-a",
+          upsell_identifier: 111,
+          is_free_trial: false,
+          trial_remaining_days: null,
+        },
+        {
+          readable_identifier: "feature-b",
+          upsell_identifier: 222,
+          is_free_trial: false,
+          trial_remaining_days: null,
+        },
       ],
       identifier: 999,
     });

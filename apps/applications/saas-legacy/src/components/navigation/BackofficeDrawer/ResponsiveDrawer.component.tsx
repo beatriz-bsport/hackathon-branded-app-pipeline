@@ -86,6 +86,7 @@ import LOGO_ASSET from '../../../public/images/banner_lowres.png';
 import { getCurrencyDisplay } from '../../../libs/theme/selectors';
 import { CompanyTheme } from '#src/libs/theme/types';
 import { INSIGHTS_ROUTES } from '#src/pages/insights/constants';
+import type { UpsellSumup } from '#src/libs/company/types';
 
 export const drawerWidth = 260;
 const usePrevious = (value: boolean) => {
@@ -102,10 +103,7 @@ type Props = {
   location: Location;
   companyId: number;
   companyTheme: CompanyTheme;
-  featureList: {
-    upsell_identifier: number;
-    readable_identifier: string;
-  }[];
+  featureList: UpsellSumup[];
   permissions: RolePermission;
   objectLevelPermissions: ObjectLevelPermissions;
   disconnect: () => void;

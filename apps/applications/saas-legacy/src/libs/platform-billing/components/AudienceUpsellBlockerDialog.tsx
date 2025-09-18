@@ -61,7 +61,7 @@ type Props = {
   requestUpsellPackage: (upsellIdentifier: number) => void;
 };
 
-export const AudienceUpsellBlockerDialog = ({
+const AudienceUpsellBlockerDialog = ({
   upsellIdentifier,
   redirectTo,
   requestUpsellPackage,

@@ -11,8 +11,7 @@ import type { Theme, WithStyles } from '@material-ui/core/styles';
 
 import withTitle from '#src/hocs/with-title.hoc';
 import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
-
-import CustomStarIcon from '#src/components/icons/CustomStarIcon.component';
+import { isErrorWithCustomCode } from '#src/libs/utils';
 
 // ================= SEQUENTIAL MARKETING =================
 import {
@@ -44,8 +43,11 @@ import {
   InitialConfigurationStep,
   TriggerKind,
   HEADER_HEIGHT,
+  FREE_TRIAL_BANNER_HEIGHT,
   LOST_OUTPUT_TIMEOUT_TRIGGER_ID,
   DestinationKind,
+  AudienceUpgradeTrialDialogType,
+  ERROR_CADENCE_FREE_TRIAL_QUOTA_REACHED,
 } from '#src/libs/sequential_marketing/constants';
 import {
   getCadenceError,
@@ -64,6 +66,8 @@ import { getHorizontalPositionFromSource } from '#src/libs/sequential_marketing/
 import { isCadenceInitialConfigurationCompleted } from '#src/libs/sequential_marketing/utils';
 import CadenceDetailHeader from '#src/libs/sequential_marketing/components/CadenceDetailHeader.component';
 import CadenceGraphFlow from '#src/libs/sequential_marketing/components/graph/CadenceGraphFlow.component';
+import CadenceFreeTrialBanner from '#src/libs/sequential_marketing/components/banners/CadenceFreeTrialBanner.component';
+import CadenceUpgradeTrialDialog from '#src/libs/sequential_marketing/components/dialogs/CadenceUpgradeTrialDialog.component';
 import CadenceUtilityDialog, {
   DialogVariant,
 } from '#src/libs/sequential_marketing/components/dialogs/DialogUtility';
@@ -112,7 +116,11 @@ import {
 } from '#src/libs/notification-rule/actions';
 
 // =================== PLATFORM BILLING ===================
-import { hasUpsell } from '#src/libs/platform-billing/utils';
+import {
+  getTrialRemainingDays,
+  hasFreeTrial,
+  hasUpsell,
+} from '#src/libs/platform-billing/utils';
 import {
   UPSELL_IDENTIFIER_PUSH_NOTIFICATION,
   UPSELL_IDENTIFIER_CADENCE,
@@ -452,6 +460,61 @@ export class CadenceDetailPage extends Component<Props> {
       ? hasUpsell(this.props.featureList, UPSELL_IDENTIFIER_PUSH_NOTIFICATION)
       : true;
 
+  openUpgradeDialogOnBannerClick = () => {
+    this.props.setUpgradeTrialDialog(
+      AudienceUpgradeTrialDialogType.BANNER_CLICKED,
+    );
+  };
+
+  openUpgradeDialogOnQuotaReached = () => {
+    this.props.setUpgradeTrialDialog(
+      AudienceUpgradeTrialDialogType.QUOTA_REACHED,
+    );
+  };
+
+  closeUpgradeTrialDialog = () => {
+    this.props.setUpgradeTrialDialog(null);
+  };
+
+  handleActivateCadence = (options?: OptionCallback | undefined) => {
+    this.props.activateCadence({
+      onSuccess: () => {
+        options?.onSuccess?.();
+      },
+      onError: (err) => {
+        const isFreeTrialQuotaReached =
+          err &&
+          'response' in err &&
+          isErrorWithCustomCode(err) &&
+          err?.response?.data?.error_code ===
+            ERROR_CADENCE_FREE_TRIAL_QUOTA_REACHED;
+
+        if (isFreeTrialQuotaReached) {
+          this.openUpgradeDialogOnQuotaReached();
+        }
+
+        options?.onError?.();
+      },
+    });
+  };
+  isInFreeTrial = hasFreeTrial(
+    this.props.featureList,
+    UPSELL_IDENTIFIER_CADENCE,
+  );
+
+  trialRemainingDays = getTrialRemainingDays(
+    this.props.featureList,
+    UPSELL_IDENTIFIER_CADENCE,
+  );
+
+  // Calculate the height of the main panel so it fills the remaining viewport space.
+  // We subtract the fixed header height and, if present, the free trial banner height.
+  // This ensures that buttons and other content at the bottom remain visible
+  // and prevents overflow issues that occur with default heights.
+  mainPanelHeight = `calc(100vh - ${HEADER_HEIGHT}px - ${
+    this.isInFreeTrial ? FREE_TRIAL_BANNER_HEIGHT : 0
+  }px)`;
+
   render() {
     const { classes } = this.props;
 
@@ -465,10 +528,7 @@ export class CadenceDetailPage extends Component<Props> {
 
     return (
       <div className={classes.pageContainer} id="cadence-detail-page-container">
-        <UpsellBlocker
-          CustomIconComponent={<CustomStarIcon />}
-          upsellIdentifier={UPSELL_IDENTIFIER_CADENCE}
-        />
+        <UpsellBlocker upsellIdentifier={UPSELL_IDENTIFIER_CADENCE} />
         <ContentWrapper
           cadence={this.props.cadence}
           cadenceId={this.props.cadenceId}
@@ -502,7 +562,7 @@ export class CadenceDetailPage extends Component<Props> {
                     }
                     isPauseDialogHidden={this.props.isPauseDialogHidden}
                     loading={this.props.loading}
-                    onActivate={this.props.activateCadence}
+                    onActivate={this.handleActivateCadence}
                     onEdit={this.props.updateCadenceName}
                     onShutOff={this.props.shutOffCadence}
                     setIsWelcomeDialogOpen={this.props.setIsWelcomeDialogOpen}
@@ -510,7 +570,16 @@ export class CadenceDetailPage extends Component<Props> {
                   />
                 </div>
               </div>
-              <div className={classes.mainPanelContent}>
+              {this.isInFreeTrial && this.trialRemainingDays && (
+                <CadenceFreeTrialBanner
+                  daysRemaining={this.trialRemainingDays}
+                  onUpgradeClick={this.openUpgradeDialogOnBannerClick}
+                />
+              )}
+              <div
+                className={classes.mainPanelContent}
+                style={{ height: this.mainPanelHeight }}
+              >
                 <CadenceGraphFlow
                   cadence={this.props.cadence}
                   cadenceEditMode={this.props.cadenceEditMode}
@@ -599,6 +668,11 @@ export class CadenceDetailPage extends Component<Props> {
           open={this.props.isWelcomeDialogOpen}
           variant={DialogVariant.WELCOME}
         />
+        <CadenceUpgradeTrialDialog
+          closeDialog={this.closeUpgradeTrialDialog}
+          dialogType={this.props.upgradeTrialDialog}
+          isOpen={!!this.props.upgradeTrialDialog}
+        />
       </div>
     );
   }
@@ -621,6 +695,7 @@ type StateHandlerInit = {
   };
   cadenceEditMode: boolean;
   isWelcomeDialogOpen: boolean | null;
+  upgradeTrialDialog: AudienceUpgradeTrialDialogType | null;
 };
 
 const StateHandlersInit: StateHandlerInit = {
@@ -651,6 +726,7 @@ const StateHandlersInit: StateHandlerInit = {
   triggerForEdition: { trigger: null, step: null },
   cadenceEditMode: false,
   isWelcomeDialogOpen: null,
+  upgradeTrialDialog: null,
 };
 
 const StateHandlersSetter = {
@@ -740,6 +816,11 @@ const StateHandlersSetter = {
   setIsWelcomeDialogOpen: () => (isWelcomeDialogOpen: boolean) => ({
     isWelcomeDialogOpen,
   }),
+
+  setUpgradeTrialDialog:
+    () => (upgradeTrialDialog: AudienceUpgradeTrialDialogType | null) => {
+      return { upgradeTrialDialog };
+    },
 };
 
 const mapRefreshAllHandler = {
@@ -812,8 +893,8 @@ const mapWithHandlers = {
           trackFormSuccess(props.cadenceId, { info: 'Audience activated' });
           options?.onSuccess?.();
         },
-        onError: () => {
-          options?.onError?.();
+        onError: (err) => {
+          options?.onError?.(err);
         },
       });
     },
@@ -1301,7 +1382,6 @@ const styles = (theme: Theme) =>
       overflowX: 'hidden',
       overflowY: 'hidden',
       maxHeight: '100%',
-      height: `calc(100vh - ${HEADER_HEIGHT}px)`,
     },
   });
 

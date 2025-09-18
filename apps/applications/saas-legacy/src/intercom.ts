@@ -12,6 +12,7 @@ type IntercomPageName =
   | 'login'
   | 'paymentLink'
   | 'stopSubscriptionOnMemberSide'
+  | 'audienceGuide'
   | 'default';
 
 export const getIntercomLink = (pageName?: IntercomPageName): string => {
@@ -23,6 +24,8 @@ export const getIntercomLink = (pageName?: IntercomPageName): string => {
       return `${baseIntercomUrl}/articles/5621567`;
     case 'stopSubscriptionOnMemberSide':
       return `${baseIntercomUrl}/articles/10730208-how-can-your-members-cancel-their-subscription`;
+    case 'audienceGuide':
+      return `${baseIntercomUrl}/articles/8650458-get-started-with-audience`;
     default:
       return `${baseIntercomUrl}`;
   }

@@ -154,6 +154,7 @@ import { RegularizingVatInformationDialog } from '#src/libs/platform-billing/com
 import { retrieveCommunicationSMSProviderVerification } from '../libs/communication-v2/actions';
 import { AuthState } from '#src/libs/types';
 import WidgetUtils from '#src/libs/widget/WidgetUtils';
+import { UpsellSumup } from '#src/libs/company/types';
 
 const CompanyDetailPage = asyncComponent(() =>
   import('./settings/CompanyDetailPage.page'),
@@ -329,10 +330,7 @@ type Props = {
   t: TFunction,
   fetchCompanyCustomMemberForm: (prams: { company: number }) => void,
   fetchCompanyCustomSignUp: (prams: { company: number }) => void,
-  featureList: Array<{
-    upsell_identifier: number,
-    readable_identifier: string,
-  }>,
+  featureList: Array<UpsellSumup>,
   objectLevelPermissions: ObjectLevelPermissions,
 
   lastClockin: LastClockIn,

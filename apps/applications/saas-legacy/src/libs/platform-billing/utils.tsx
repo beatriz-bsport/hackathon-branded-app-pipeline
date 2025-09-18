@@ -16,6 +16,25 @@ export const hasUpsell = (
   );
 };
 
+export const hasFreeTrial = (
+  featureList: FeatureList,
+  upsellIdentifier: number,
+) => {
+  return !!featureList?.upsell?.find(
+    (f) => f.upsell_identifier === upsellIdentifier && f.is_free_trial,
+  );
+};
+
+export const getTrialRemainingDays = (
+  featureList: FeatureList,
+  upsellIdentifier: number,
+) => {
+  return (
+    featureList?.upsell?.find((f) => f.upsell_identifier === upsellIdentifier)
+      ?.trial_remaining_days || null
+  );
+};
+
 /**
  * The prices saved under attribute `price_cts` are in cents, and have the following rules:
  * - SMS upsell: billed per SMS sent.

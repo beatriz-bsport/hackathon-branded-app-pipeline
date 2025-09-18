@@ -99,6 +99,7 @@ import {
 } from '#src/actions/auth.actions';
 import { useShowRevampedSidebar, NAVIGATION_SIDEBAR_WIDTH } from '#src/revamp';
 import WidgetUtils from '#src/libs/widget/WidgetUtils';
+import type { UpsellSumup } from '#src/libs/company/types';
 
 export const drawerWidth = 260;
 export const drawerIconsOnlyWith = 60;
@@ -146,10 +147,7 @@ export type Props = {
   companyId: number;
   companyName: string;
   stripeOnboardingPending?: boolean;
-  featureList: Array<{
-    upsell_identifier: number;
-    readable_identifier: string;
-  }>;
+  featureList: Array<UpsellSumup>;
   objectLevelPermissions: ObjectLevelPermissions;
   email: string;
   lastClockIn: LastClockIn;

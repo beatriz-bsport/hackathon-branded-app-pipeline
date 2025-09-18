@@ -4,6 +4,8 @@
 export type UpsellSumup = {
   readable_identifier: string;
   upsell_identifier: number;
+  is_free_trial: boolean;
+  trial_remaining_days: number | null;
 };
 
 /**

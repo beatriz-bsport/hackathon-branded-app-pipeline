@@ -9,7 +9,7 @@ import type {
   StepMarketingActions,
   StepMarketingActionsCommunicationSpec,
 } from '#src/libs/sequential_marketing/types';
-import HTMLTagMenuSelector from './components/HTMLTagMenuSelector.component';
+import HTMLTagMenuSelector from '../components/HTMLTagMenuSelector.component';
 
 export type Props = {
   marketingAction: Partial<StepMarketingActions>;

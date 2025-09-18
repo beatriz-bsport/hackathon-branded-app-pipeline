@@ -42,11 +42,6 @@ export default {
       description:
         '(Optional) Boolean abling or not the step to be edited by user.',
     },
-    isPushNotificationUpsellActive: {
-      control: 'boolean',
-      description:
-        '(Optional) Boolean telling if the Push Notification upsell is active for the company of the user.',
-    },
     isSelected: {
       control: 'boolean',
       description:

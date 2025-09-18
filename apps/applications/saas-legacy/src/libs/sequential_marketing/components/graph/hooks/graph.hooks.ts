@@ -36,7 +36,6 @@ type Props = {
   marketingActionEssentials: MarketingActionEssentials;
   initialConfiguration: CadenceInitialConfiguration;
   isConvertStepIntoExitDialogHidden: boolean;
-  isPushNotificationUpsellActive: boolean;
   isDeleteStepDialogHidden: boolean;
   isDeleteExitDialogHidden: boolean;
   isEntryActionBubbleOpen: boolean;
@@ -117,7 +116,6 @@ const useGraph = ({
   isDeleteExitDialogHidden,
   isEntryActionBubbleOpen,
   isEntryFirstConfiguration,
-  isPushNotificationUpsellActive,
   marketingActionEssentials,
   smartlists,
   convertCadenceExitIntoStep,
@@ -201,7 +199,6 @@ const useGraph = ({
       isDeleteStepDialogHidden,
       isDeleteExitDialogHidden,
       isConvertStepIntoExitDialogHidden,
-      isPushNotificationUpsellActive,
       convertCadenceExitIntoStep,
       convertCadenceStepIntoExit,
       deleteCadenceStep,

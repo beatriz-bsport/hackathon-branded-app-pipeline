@@ -152,7 +152,6 @@ const FirstEntryStepFlowConfigurationPopovers: React.FC<Props> = ({
         <EntryActionBubble
           {...data.marketingActionEssentials}
           isInitial
-          isPushNotificationUpsellActive={data.isPushNotificationUpsellActive}
           marketingActions={data.marketingActionList}
           onCancel={handleCancelActionBubble}
           onConfirm={handleConfirmActionBubble}

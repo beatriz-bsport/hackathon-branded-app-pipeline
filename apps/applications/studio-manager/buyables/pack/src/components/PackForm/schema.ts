@@ -23,6 +23,9 @@ export const usePackSchema = () => {
         FIELD_DESCRIPTION_MAX_LENGTH,
         t("formFields.description.errorMaxLength"),
       ),
+    payment_pack_ids: z.array(z.number()),
+    private_pass_ids: z.array(z.number()),
+    shop_item_ids: z.array(z.number()),
   }) satisfies z.ZodType<
     Partial<PackFormData>
   >; /** @todo Remove the Partial when all fields have been added */

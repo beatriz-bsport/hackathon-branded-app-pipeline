@@ -163,6 +163,7 @@ const icons = {
   "message-x-square": React.lazy(
     async () => await import("./assets/message-x-square.svg?react"),
   ),
+  minus: React.lazy(async () => await import("./assets/minus.svg?react")),
   "package-x": React.lazy(
     async () => await import("./assets/package-x.svg?react"),
   ),

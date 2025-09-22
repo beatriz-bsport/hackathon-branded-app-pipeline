@@ -8,6 +8,7 @@ import type { PackFormData } from "@bsport/store-buyables-pack";
 import { PackFormContent } from "#src/components/PackForm/PackFormContent";
 import { PackFormIdentity } from "#src/components/PackForm/PackFormIdentity";
 import { usePackSchema } from "#src/components/PackForm/schema";
+import { useSelectedItemsContext } from "#src/contexts/selectedItemsContext";
 import { useCreatePack } from "#src/hooks/useCreatePack";
 import { LEGACY_URLS } from "#src/urls";
 import { useTranslation } from "#src/utils/i18n";
@@ -22,6 +23,8 @@ export const PackCreateModal: React.FC<PackCreateModalProps> = ({
   onClose,
 }) => {
   const { t } = useTranslation("details");
+
+  const { passes, appointmentPasses, webshopItems } = useSelectedItemsContext();
 
   const companyId = dataAccessLayer.useCompanyTheme()?.company;
 
@@ -48,6 +51,8 @@ export const PackCreateModal: React.FC<PackCreateModalProps> = ({
   });
 
   const formId = `pack-form-create-${useId()}`;
+  const hasSelectedItems =
+    passes.length + appointmentPasses.length + webshopItems.length > 0;
 
   const { handleCreatePack } = useCreatePack({
     onSuccess: (value) => {
@@ -67,7 +72,10 @@ export const PackCreateModal: React.FC<PackCreateModalProps> = ({
         label: t("createModal.buttons.create"),
         type: "submit",
         form: formId,
-        disabled: !methods.formState.isDirty || methods.formState.isSubmitting,
+        disabled:
+          !methods.formState.isDirty ||
+          methods.formState.isSubmitting ||
+          !hasSelectedItems,
       }}
       cancelButton={{
         label: t("createModal.buttons.cancel"),
@@ -77,12 +85,20 @@ export const PackCreateModal: React.FC<PackCreateModalProps> = ({
       <ControlledForm
         id={formId}
         onSubmit={(data) => {
-          handleCreatePack({ ...defaultValues, ...data });
+          handleCreatePack({
+            ...defaultValues,
+            ...data,
+            payment_pack_ids: passes,
+            private_pass_ids: appointmentPasses,
+            shop_item_ids: webshopItems,
+          });
         }}
         {...methods}
       >
-        <PackFormIdentity fieldIdPrefix={formId} />
-        <PackFormContent fieldIdPrefix={formId} />
+        <div className="flex flex-col gap-lg w-full">
+          <PackFormIdentity fieldIdPrefix={formId} />
+          <PackFormContent fieldIdPrefix={formId} />
+        </div>
       </ControlledForm>
     </Modal>
   );

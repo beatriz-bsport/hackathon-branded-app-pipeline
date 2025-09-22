@@ -23,7 +23,7 @@
     "bsportTemplateInfo": {
       "title": "bsport templates",
       "description": {
-        "firstStep": "If you want to send communications or edit the templates in this section, it is necessary to create a copy of the desired template. ",
+        "firstStep": "Duplicate the template that you want to use, then edit and send the copied version to members directly from this page. ",
         "secondStep": "Then select the copy of the email when sending a communication."
       },
       "quit": "Quit"

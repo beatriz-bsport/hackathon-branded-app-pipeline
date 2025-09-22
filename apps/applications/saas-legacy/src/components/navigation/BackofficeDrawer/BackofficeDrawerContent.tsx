@@ -13,6 +13,7 @@ import type { Role } from '#src/libs/role/types';
 import type { ClockInQueryParams } from '#src/libs/clock-in/types';
 import type { TempPasswordState } from '#src/libs/login/types';
 import type { CompanyTheme } from '#src/libs/theme/types';
+import type { UpsellSumup } from '#src/libs/company/types';
 
 export interface BackofficeDrawerContentProps {
   displayLeftMenu: boolean;
@@ -23,7 +24,7 @@ export interface BackofficeDrawerContentProps {
   mobileOpen: boolean;
   companyId: number;
   disconnect: () => void;
-  featureList: any;
+  featureList: UpsellSumup[];
   location: any;
   logo?: string;
   objectLevelPermissions: any;

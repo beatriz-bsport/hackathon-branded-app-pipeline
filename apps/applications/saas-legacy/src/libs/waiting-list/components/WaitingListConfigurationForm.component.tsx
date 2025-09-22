@@ -64,10 +64,7 @@ const WaitingListConfigurationFormValidationSchema = Yup.object().shape({
   kickIfNoPackWhenAutoConsume: Yup.boolean().required(),
   lastDelayBeforeAutoConsume: Yup.number()
     .transform((value: number) => (Number.isNaN(value) ? null : value)) // needed to return the error message instead of NaN error
-    .nullable()
-    .min(0, 'form.errors.lastDelayBeforeAutoConsumeError')
-    .max(60 * 4, 'form.errors.lastDelayBeforeAutoConsumeError')
-    .required('form.errors.lastDelayBeforeAutoConsumeError'),
+    .nullable(),
   smartDelayPercentage: Yup.mixed() // mixed needed because can be a number and null
     .nullable()
     .test(
@@ -307,7 +304,7 @@ const FormikFormWrapper = withFormik<
       dynamic: dynamic.toString(),
       isOptionBlocking,
       kickIfNoPackWhenAutoConsume,
-      lastDelayBeforeAutoConsume,
+      lastDelayBeforeAutoConsume: lastDelayBeforeAutoConsume ?? 0,
       smartDelayPercentage,
     };
   },

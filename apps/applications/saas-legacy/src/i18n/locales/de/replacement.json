@@ -1,242 +1,242 @@
 {
+  "header": {
+    "establishment_group": "Ort",
+    "location": "Ort",
+    "class": "Kurs",
+    "registrations": "Registrierungen",
+    "request": "Anfrage",
+    "availability": "Verfügbar",
+    "closing_date": "Einsendeschluss",
+    "teacher_override": "Vertretungslehrkraft",
+    "teacher": "Lehrkraft",
+    "status": "Status",
+    "reason": "Grund",
+    "action": "Aktion",
+    "level": "Level",
+    "name": "Name des Kurses",
+    "date": "Datum und Uhrzeit"
+  },
+  "askForReplacement": {
+    "lateRequestCounterInfo": "<strong>{{requestsLeft}}</strong> auf <strong>{{requestsMax}}</strong> verbleibende späte Anfrage bis {{-dateEnd}}.",
+    "lateRequestCounterInfo_plural": "<strong>{{requestsLeft}}</strong> auf <strong>{{requestsMax}}</strong> verbleibende späte Anfragen bis {{-dateEnd}}.",
+    "lateRequestInfo": "Die Anfrage wird registriert, aber stellen Sie sicher, dass Sie Ihr Studio direkt kontaktieren, um es so schnell wie möglich zu benachrichtigen.",
+    "lateRequestInfo_plural": "Die Anfragen werden registriert, aber stellen Sie sicher, dass Sie Ihr Studio direkt kontaktieren, um es so schnell wie möglich zu benachrichtigen.",
+    "lateRequestTypo": "Achtung: Ihr Antrag auf einen Ersatztermin verspätet sich. Sie haben {{daysBeforeOffer}} Tage vor Kursbeginn Zeit, um Ihren Antrag rechtzeitig zu stellen.",
+    "lateRequestTypo_plural": "Achtung: Ihr Antrag auf einen Ersatztermin verspätet sich. Sie haben {{daysBeforeOffer}}. Tage vor Kursbeginn Zeit, um Ihren Antrag rechtzeitig zu stellen.",
+    "close": "Schließen",
+    "requestSentDescription": "Ihr Vertretungsantrag wurde berücksichtigt. Gehen Sie auf den Tab \"Meine Anträge\", um die Bearbeitung zu verfolgen.",
+    "requestSentDescription_plural": "Ihre Ersatzanträge wurden berücksichtigt. Gehen Sie auf den Tab \"Meine Anträge\", um die Bearbeitung zu verfolgen.",
+    "requestSent": "Anfrage gesendet",
+    "requestSent_plural": "Anfragen gesendet",
+    "submit": "Absenden",
+    "cancel": "Abbrechen",
+    "label": "Grund der Abwesenheit",
+    "title": "Vertretung anfragen"
+  },
   "calendar": {
     "helperTextLimited": "<strong>{{requestsLeft}}</strong> auf <strong>{{requestsMax}}</strong> verbleibende späte Anfragen bis {{-dateEnd}}. Alle Anträge auf Vertretung, die innerhalb von {{count}} Tag vor Beginn der Session gestellt werden, werden als spät betrachtet.",
     "helperTextLimited_plural": "<strong>{{requestsLeft}}</strong> auf <strong>{{requestsMax}}</strong> verbleibende späte Anfragen bis {{-dateEnd}}. Alle Anträge auf Vertretung, die innerhalb von {{count}} Tagen vor Beginn der Session gestellt werden, werden als spät betrachtet.",
     "helperTextNotLimited": "Alle Anträge auf Vertretung, die innerhalb von {{count}} Tag vor Beginn des Kurses gestellt werden, werden als spät betrachtet.",
     "helperTextNotLimited_plural": "Alle Anträge auf Vertretung, die innerhalb von {{count}} Tagen vor Beginn des Kurses gestellt werden, werden als spät betrachtet.",
-    "title": "Mein Wochenplan",
-    "description": "Hier finden Sie alle Ihre Gruppenaktivitäten."
+    "description": "Hier finden Sie alle Ihre Gruppenaktivitäten.",
+    "title": "Mein Wochenplan"
   },
-  "unavailableReplacement": {
-    "noLateRequestsLeft": "Sie können keine neuen verspäteten Vertretungsanträge mehr erstellen",
-    "alreadyPassed": "Dieser Kurs ist vorbei",
-    "replacing": "Sie sind eine Vertretung für diesen Kurs",
-    "alreadyAskedFor": "Eine Anfrage ist bereits in Bearbeitung",
-    "tooEarly": "Vertretungen sind noch nicht verfügbar",
-    "refusedByManager": "Ihr Vertretungsantrag wurde abgelehnt"
-  },
-  "header": {
-    "teacher_override": "Vertretungslehrkraft",
-    "date": "Datum und Uhrzeit",
-    "name": "Name des Kurses",
-    "level": "Level",
-    "location": "Ort",
-    "establishment_group": "Ort",
-    "action": "Aktion",
-    "reason": "Grund",
-    "status": "Status",
-    "teacher": "Lehrkraft",
-    "closing_date": "Einsendeschluss",
-    "availability": "Verfügbar",
-    "request": "Anfrage",
-    "registrations": "Registrierungen",
-    "class": "Kurs"
-  },
-  "requestTableTitles": {
-    "replacementFound": "Vertretung gefunden",
-    "pending": "In Bearbeitung",
-    "deniedRequests": "Antrag abgelehnt"
-  },
-  "replacementStatus": {
-    "description": {
-      "approvedWithReplacementPropositions": "Anmeldung in Bearbeitung.",
-      "description": "Über die Statistik können Sie den Status Ihrer Anfrage einsehen.",
-      "pendingForApproval": "Erwartung einer Aktion des Managers.",
-      "approvedButNoReplacementPropositions": "auf Anmeldungen warten.",
-      "offerCancelled": "Kurs storniert."
-    },
-    "pendingForApproval": "Warten auf Genehmigung",
-    "deniedByManager": "Abgelehnt",
-    "approvedButNoReplacementPropositions": "Offen",
-    "approvedWithReplacementPropositions": "in Bearbeitung",
-    "teacherFound": "Ersetzt",
-    "offerCancelled": "Storniert"
-  },
-  "askForReplacement": {
-    "requestSentDescription": "Ihr Vertretungsantrag wurde berücksichtigt. Gehen Sie auf den Tab \"Meine Anträge\", um die Bearbeitung zu verfolgen.",
-    "requestSentDescription_plural": "Ihre Ersatzanträge wurden berücksichtigt. Gehen Sie auf den Tab \"Meine Anträge\", um die Bearbeitung zu verfolgen.",
-    "lateRequestTypo": "Achtung: Ihr Antrag auf einen Ersatztermin verspätet sich. Sie haben {{daysBeforeOffer}} Tage vor Kursbeginn Zeit, um Ihren Antrag rechtzeitig zu stellen.",
-    "lateRequestTypo_plural": "Achtung: Ihr Antrag auf einen Ersatztermin verspätet sich. Sie haben {{daysBeforeOffer}}. Tage vor Kursbeginn Zeit, um Ihren Antrag rechtzeitig zu stellen.",
-    "lateRequestCounterInfo": "<strong>{{requestsLeft}}</strong> auf <strong>{{requestsMax}}</strong> verbleibende späte Anfrage bis {{-dateEnd}}.",
-    "lateRequestCounterInfo_plural": "<strong>{{requestsLeft}}</strong> auf <strong>{{requestsMax}}</strong> verbleibende späte Anfragen bis {{-dateEnd}}.",
-    "lateRequestInfo": "Die Anfrage wird registriert, aber stellen Sie sicher, dass Sie Ihr Studio direkt kontaktieren, um es so schnell wie möglich zu benachrichtigen.",
-    "lateRequestInfo_plural": "Die Anfragen werden registriert, aber stellen Sie sicher, dass Sie Ihr Studio direkt kontaktieren, um es so schnell wie möglich zu benachrichtigen.",
-    "title": "Vertretung anfragen",
-    "label": "Grund der Abwesenheit",
-    "cancel": "Abbrechen",
-    "submit": "Absenden",
-    "requestSent": "Anfrage gesendet",
-    "requestSent_plural": "Anfragen gesendet",
-    "close": "Schließen"
-  },
-  "registrationsStatus": {
-    "areClosed": "Vergangen",
-    "areNotClosed": "Geöffnet"
-  },
-  "coachAnswers": {
-    "success": {
-      "description": "Die Lehrkraft wurde ersetzt. {{coach}} wird den Kurs von {{-date}} bis {{time}} übernehmen",
-      "requestSent": "Zugewiesene Lehrkraft",
-      "close": "Schließen"
-    },
-    "closing_date": "Einsendeschluss",
-    "reason": "Grund der Anfrage",
-    "attribute": "zuordnen",
-    "close": "Schließen",
-    "noAnswers": "Bisher keine Antwort",
-    "confirmation": {
-      "title": "Lehrkraft zuordnen",
-      "description": "Sind Sie sicher, dass Sie {{coach_override}} als Vertretungslehrkraft für den Kurs von {{coach}} anmelden möchten?",
-      "cancel": "Abbrechen",
-      "confirm": "Bestätigen"
-    },
-    "refuse": {
-      "description": "Sind Sie sicher, dass Sie diese Anfrage ablehnen wollen?",
-      "cancel": "Schließen",
-      "confirm": "Bestätigen"
-    },
-    "header": {
-      "teacher": "Lehrkraft",
-      "answer": "Antwort",
-      "action": "Aktion"
-    }
-  },
-  "disciplineGroup": {
-    "delete": {
-      "description": "Sind Sie sicher, dass Sie die Disziplingruppe {{- name }} löschen möchten?",
-      "title": "Löschen",
-      "cancel": "Abbrechen",
-      "confirm": "Bestätigen"
-    },
-    "form": {
-      "activities": "Aktivitäten",
-      "allWorkshops": "Unterrichtet alle Workshops",
-      "categories": "Kategorien",
-      "pickCategory": "Kategorie wählen",
-      "allCategories": "Unterrichtet alle Kategorien",
-      "coaches": "Zugehörige Lehrkräfte",
-      "close": "Abbrechen",
-      "submit": "Speichern",
-      "coachRequired": "Bitte wählen Sie mindestens eine Lehrkraft aus",
-      "name": "Name",
-      "nameHelperText": "Name der Disziplingruppe",
-      "required": "Dieses Feld ist erforderlich",
-      "groupTypes": "Kurse und Kategorien",
-      "pickActivity": "Eine Aktivität wählen",
-      "allActivities": "Unterrichtet alle Aktivitäten",
-      "workshops": "Workshops",
-      "pickWorkshop": "Workshop wählen",
-      "establishmentSelectorError": "Sie können nicht gleichzeitig Einrichtungen und Standorte angeben",
-      "allEstablishments": "Alle Einrichtungen",
-      "pickEstablishment": "Leer lassen, um alles zu wählen",
-      "locations": "Standorte",
-      "establishments": "Einrichtungen"
-    },
-    "add": "Eine Gruppe hinzuzufügen",
-    "title": "Disziplingruppen",
-    "activities": "Gruppenaktivitäten",
-    "workshops": "Workshops ({{number}})",
-    "categories": "Kategorien ({{number}})",
-    "coaches": "{{count}} Lehrkraft",
-    "coaches_plural": "{{count}} Lehrkräfte",
-    "all": "Alle"
-  },
-  "requestsLinkedToCancelledOffers": {
-    "offerHasActiveRequest": {
-      "helper": "Möchten Sie auf die Seite mit den Vertretungsanfragen weitergeleitet werden, um veraltete Anfragen zu löschen?",
-      "title": "Ein aktiver Vertretungsantrag ist mit diesem Kurs verbunden"
-    },
-    "description": "Aktiviere die Option „Stornierte Kurse“, um Vertretungsanfragen anzusehen, die mit stornierten Kursen verknüpft sind. ",
-    "cancelledOffersModeTitle": "Stornierte Kurse",
-    "filterHelper": "Falls kein Kurs hier erscheint, deaktiviere deine Filter, um die Auswahl zu erweitern.",
-    "buttonLabel": "Öffnen",
-    "title": "Aktive Vertretungsanfragen ansehen"
-  },
-  "coachAnswer": {
-    "yes": "Ja",
-    "ratherNo": "Vielleicht",
-    "no": "Nein"
-  },
-  "askForClosingDateExtension": {
-    "title": "Einsendeschluss",
-    "description": "Die Registrierung für diesen Antrag wurde am {{closing_date}} geschlossen. Wenn nicht genügend Antworten auf diese Anfrage eingehen, können Sie den Anmeldeschluss immer noch verschieben.",
-    "closing_date": "Einsendeschluss",
-    "new_closing_date": "Der neue Einsendeschluss wird {{closing_date}} um {{time}} sein",
-    "cancel": "Abbrechen",
-    "submit": "bestätigen",
-    "requestSent": "Anfrage gesendet",
-    "close": "Schließen",
-    "requestSentDescription": "Die Verlängerung wurde dem Vertretungsantrag beigefügt."
-  },
-  "requests": {
-    "description": "Hier finden Sie alle Ihre Anfragen auf Vertretung.",
-    "cancel": "Abbrechen",
-    "title": "Meine Anfragen"
-  },
-  "confirmations": {
-    "title": "Bestätigungen",
-    "description": "Sie wurden als Vertretungslehrkraft für die folgenden Kurse hinzugefügt."
-  },
-  "marketplace": {
-    "title": "Marketplace",
-    "description": "Die folgende Kurse benötigen eine Vertretungslehrkraft. Sind Sie verfügbar?",
-    "filters": "Filter",
-    "until": "Bis {{-date}}"
-  },
-  "managerTableTitles": {
-    "pendingRequests": "Anfrage in Bearbeitung",
-    "replacementHistory": "Vertretungsverlauf"
-  },
-  "noListItem": {
-    "calendar": "An diesen Tagen sind keine Kurse geplant",
-    "replacementRequest": "Kein Element"
-  },
-  "selects": {
-    "lateStatus": "Status der Anfrage",
-    "closedStatus": "Status der Anmeldungen",
-    "category": "Kategorie",
-    "offerCancelled": "Stornierte Kurse"
-  },
-  "compatibleCoaches": {
-    "title": "Verfügbare Lehrkräfte nach Aktivität / Fachrichtung",
-    "compatibleCoaches": "{{count}} kompatible Lehrkraft",
-    "compatibleCoaches_plural": "{{count}} kompatible Lehrkräfte",
-    "nextSlot": "Nächster Kurs am {{date}} - {{hour}}",
-    "activities": "Aktivitäten",
-    "workshops": "Workshops",
-    "categories": "Kategorien"
+  "tooltip": {
+    "seeAnswers": "Siehe Liste der Vertretungen",
+    "offerCancelled": "Dieser Kurs wurde storniert"
   },
   "coachEdit": {
-    "title": "Vertretung",
-    "description": "Wähle die Aktivitäten aus, die die Lehrkraft anbietet, um die untenstehenden Felder automatisch auszufüllen. Im Vertretungsfall wird die Lehrkraft per E-Mail benachrichtigt.",
-    "disciplineGroup": "Aktivitäten:",
-    "customRules": "Vorschriften individuell anpassen",
-    "activities": "Gruppenaktivitäten",
-    "pickActivity": "Gruppenaktivität auswählen",
-    "allActivities": "Unterrichtet alle Gruppenaktivitäten",
-    "workshops": "Workshops",
-    "pickWorkshop": "Wählen Sie einen Workshop",
-    "allWorkshops": "Unterrichtet alle Workshops",
-    "categories": "Kategorien",
-    "pickCategory": "Kategorie wählen",
     "allCategories": "Unterrichtet alle Kategorien",
+    "pickCategory": "Kategorie wählen",
+    "categories": "Kategorien",
+    "allWorkshops": "Unterrichtet alle Workshops",
+    "pickWorkshop": "Wählen Sie einen Workshop",
+    "workshops": "Workshops",
+    "allActivities": "Unterrichtet alle Gruppenaktivitäten",
+    "pickActivity": "Gruppenaktivität auswählen",
+    "activities": "Gruppenaktivitäten",
+    "customRules": "Vorschriften individuell anpassen",
+    "disciplineGroup": "Aktivitäten:",
+    "description": "Wähle die Aktivitäten aus, die die Lehrkraft anbietet, um die untenstehenden Felder automatisch auszufüllen. Im Vertretungsfall wird die Lehrkraft per E-Mail benachrichtigt.",
+    "title": "Vertretung",
     "allEstablishments": "Alle Einrichtungen",
     "pickEstablishment": "Leer lassen, um alles auszuwählen",
     "locations": "Standorte",
     "establishments": "Einrichtungen"
   },
-  "delete": {
-    "title": "Anfrage stornieren",
-    "description": "Sind Sie sicher, dass sie diese Anfrage stornieren wollen?",
-    "cancel": "Abbrechen",
-    "confirm": "Bestätigen"
+  "compatibleCoaches": {
+    "categories": "Kategorien",
+    "workshops": "Workshops",
+    "activities": "Aktivitäten",
+    "nextSlot": "Nächster Kurs am {{date}} - {{hour}}",
+    "compatibleCoaches": "{{count}} kompatible Lehrkraft",
+    "compatibleCoaches_plural": "{{count}} kompatible Lehrkräfte",
+    "title": "Verfügbare Lehrkräfte nach Aktivität / Fachrichtung"
+  },
+  "disciplineGroup": {
+    "form": {
+      "coachRequired": "Bitte wählen Sie mindestens eine Lehrkraft aus",
+      "submit": "Speichern",
+      "close": "Abbrechen",
+      "coaches": "Zugehörige Lehrkräfte",
+      "allCategories": "Unterrichtet alle Kategorien",
+      "pickCategory": "Kategorie wählen",
+      "categories": "Kategorien",
+      "allWorkshops": "Unterrichtet alle Workshops",
+      "pickWorkshop": "Workshop wählen",
+      "workshops": "Workshops",
+      "allActivities": "Unterrichtet alle Aktivitäten",
+      "pickActivity": "Eine Aktivität wählen",
+      "activities": "Aktivitäten",
+      "groupTypes": "Kurse und Kategorien",
+      "required": "Dieses Feld ist erforderlich",
+      "nameHelperText": "Name der Disziplingruppe",
+      "name": "Name",
+      "establishments": "Einrichtungen",
+      "locations": "Standorte",
+      "establishmentSelectorError": "Sie können nicht gleichzeitig Einrichtungen und Standorte angeben",
+      "allEstablishments": "Alle Einrichtungen",
+      "pickEstablishment": "Leer lassen, um alles zu wählen"
+    },
+    "all": "Alle",
+    "delete": {
+      "confirm": "Bestätigen",
+      "cancel": "Abbrechen",
+      "description": "Sind Sie sicher, dass Sie die Disziplingruppe {{- name }} löschen möchten?",
+      "title": "Löschen"
+    },
+    "coaches": "{{count}} Lehrkraft",
+    "coaches_plural": "{{count}} Lehrkräfte",
+    "categories": "Kategorien ({{number}})",
+    "workshops": "Workshops ({{number}})",
+    "activities": "Gruppenaktivitäten",
+    "title": "Disziplingruppen",
+    "add": "Eine Gruppe hinzuzufügen"
+  },
+  "selects": {
+    "category": "Kategorie",
+    "closedStatus": "Status der Anmeldungen",
+    "lateStatus": "Status der Anfrage",
+    "offerCancelled": "Stornierte Kurse"
+  },
+  "coachAnswers": {
+    "refuse": {
+      "confirm": "Bestätigen",
+      "cancel": "Schließen",
+      "description": "Sind Sie sicher, dass Sie diese Anfrage ablehnen wollen?"
+    },
+    "success": {
+      "close": "Schließen",
+      "description": "Die Lehrkraft wurde ersetzt. {{coach}} wird den Kurs von {{-date}} bis {{time}} übernehmen",
+      "requestSent": "Zugewiesene Lehrkraft"
+    },
+    "confirmation": {
+      "confirm": "Bestätigen",
+      "cancel": "Abbrechen",
+      "description": "Sind Sie sicher, dass Sie {{coach_override}} als Vertretungslehrkraft für den Kurs von {{coach}} anmelden möchten?",
+      "title": "Lehrkraft zuordnen"
+    },
+    "noAnswers": "Bisher keine Antwort",
+    "close": "Schließen",
+    "attribute": "zuordnen",
+    "reason": "Grund der Anfrage",
+    "closing_date": "Einsendeschluss",
+    "header": {
+      "action": "Aktion",
+      "answer": "Antwort",
+      "teacher": "Lehrkraft"
+    }
+  },
+  "registrationsStatus": {
+    "areNotClosed": "Geöffnet",
+    "areClosed": "Vergangen"
   },
   "lateStatus": {
-    "isLate": "Spät",
-    "isNotLate": "Pünktlich"
+    "isNotLate": "Pünktlich",
+    "isLate": "Spät"
   },
-  "tooltip": {
-    "seeAnswers": "Siehe Liste der Vertretungen",
-    "offerCancelled": "Dieser Kurs wurde storniert"
+  "delete": {
+    "confirm": "Bestätigen",
+    "cancel": "Abbrechen",
+    "description": "Sind Sie sicher, dass sie diese Anfrage stornieren wollen?",
+    "title": "Anfrage stornieren"
+  },
+  "askForClosingDateExtension": {
+    "close": "Schließen",
+    "requestSentDescription": "Die Verlängerung wurde dem Vertretungsantrag beigefügt.",
+    "requestSent": "Anfrage gesendet",
+    "submit": "bestätigen",
+    "cancel": "Abbrechen",
+    "new_closing_date": "Der neue Einsendeschluss wird {{closing_date}} um {{time}} sein",
+    "closing_date": "Einsendeschluss",
+    "description": "Die Registrierung für diesen Antrag wurde am {{closing_date}} geschlossen. Wenn nicht genügend Antworten auf diese Anfrage eingehen, können Sie den Anmeldeschluss immer noch verschieben.",
+    "title": "Einsendeschluss"
+  },
+  "replacementStatus": {
+    "teacherFound": "Ersetzt",
+    "approvedWithReplacementPropositions": "in Bearbeitung",
+    "approvedButNoReplacementPropositions": "Offen",
+    "deniedByManager": "Abgelehnt",
+    "pendingForApproval": "Warten auf Genehmigung",
+    "description": {
+      "approvedWithReplacementPropositions": "Anmeldung in Bearbeitung.",
+      "approvedButNoReplacementPropositions": "auf Anmeldungen warten.",
+      "pendingForApproval": "Erwartung einer Aktion des Managers.",
+      "description": "Über die Statistik können Sie den Status Ihrer Anfrage einsehen.",
+      "offerCancelled": "Kurs storniert."
+    },
+    "offerCancelled": "Storniert"
+  },
+  "noListItem": {
+    "calendar": "An diesen Tagen sind keine Kurse geplant",
+    "replacementRequest": "Kein Element"
+  },
+  "coachAnswer": {
+    "no": "Nein",
+    "ratherNo": "Vielleicht",
+    "yes": "Ja"
+  },
+  "managerTableTitles": {
+    "replacementHistory": "Vertretungsverlauf",
+    "pendingRequests": "Anfrage in Bearbeitung"
+  },
+  "requestTableTitles": {
+    "deniedRequests": "Antrag abgelehnt",
+    "replacementFound": "Vertretung gefunden",
+    "pending": "In Bearbeitung"
+  },
+  "unavailableReplacement": {
+    "refusedByManager": "Ihr Vertretungsantrag wurde abgelehnt",
+    "noLateRequestsLeft": "Sie können keine neuen verspäteten Vertretungsanträge mehr erstellen",
+    "tooEarly": "Vertretungen sind noch nicht verfügbar",
+    "alreadyAskedFor": "Eine Anfrage ist bereits in Bearbeitung",
+    "replacing": "Sie sind eine Vertretung für diesen Kurs",
+    "alreadyPassed": "Dieser Kurs ist vorbei"
+  },
+  "marketplace": {
+    "until": "Bis {{-date}}",
+    "filters": "Filter",
+    "description": "Die folgende Kurse benötigen eine Vertretungslehrkraft. Sind Sie verfügbar?",
+    "title": "Marketplace"
+  },
+  "confirmations": {
+    "description": "Sie wurden als Vertretungslehrkraft für die folgenden Kurse hinzugefügt.",
+    "title": "Bestätigungen"
+  },
+  "requests": {
+    "cancel": "Abbrechen",
+    "description": "Hier finden Sie alle Ihre Anfragen auf Vertretung.",
+    "title": "Meine Anfragen"
+  },
+  "requestsLinkedToCancelledOffers": {
+    "cancelledOffersModeTitle": "Stornierte Kurse",
+    "filterHelper": "Falls kein Kurs hier erscheint, deaktiviere deine Filter, um die Auswahl zu erweitern.",
+    "description": "Aktiviere die Option „Stornierte Kurse“, um Vertretungsanfragen anzusehen, die mit stornierten Kursen verknüpft sind. ",
+    "title": "Aktive Vertretungsanfragen ansehen",
+    "buttonLabel": "Öffnen",
+    "offerHasActiveRequest": {
+      "helper": "Möchten Sie auf die Seite mit den Vertretungsanfragen weitergeleitet werden, um veraltete Anfragen zu löschen?",
+      "title": "Ein aktiver Vertretungsantrag ist mit diesem Kurs verbunden"
+    }
   }
 }

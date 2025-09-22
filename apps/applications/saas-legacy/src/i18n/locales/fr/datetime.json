@@ -1,8 +1,8 @@
 {
   "shortDayIdentifier": "jour(s)",
-  "never": "Jamais",
   "shortMinuteIdentifier": "min",
   "shortHourIdentifier": "h",
+  "never": "Jamais",
   "time": {
     "weekday": {
       "sunday": "Dimanche",
@@ -12,24 +12,6 @@
       "thursday": "Jeudi",
       "friday": "Vendredi",
       "satursday": "Samedi"
-    },
-    "weekdayNumber": {
-      "0": "Lundi",
-      "1": "Mardi",
-      "2": "Mercredi",
-      "3": "Jeudi",
-      "4": "Vendredi",
-      "5": "Samedi",
-      "6": "Dimanche"
-    },
-    "isoWeekdayNumber": {
-      "1": "Lundi",
-      "2": "Mardi",
-      "3": "Mercredi",
-      "4": "Jeudi",
-      "5": "Vendredi",
-      "6": "Samedi",
-      "7": "Dimanche"
     },
     "monthShort": {
       "january": "Jan",
@@ -58,6 +40,24 @@
       "october": "Octobre",
       "november": "Novembre",
       "december": "Décembre"
+    },
+    "weekdayNumber": {
+      "0": "Lundi",
+      "1": "Mardi",
+      "2": "Mercredi",
+      "3": "Jeudi",
+      "4": "Vendredi",
+      "5": "Samedi",
+      "6": "Dimanche"
+    },
+    "isoWeekdayNumber": {
+      "1": "Lundi",
+      "2": "Mardi",
+      "3": "Mercredi",
+      "4": "Jeudi",
+      "5": "Vendredi",
+      "6": "Samedi",
+      "7": "Dimanche"
     }
   },
   "form": {
@@ -66,9 +66,7 @@
     "twentyMinutes": "20 min",
     "halfHour": "30 min",
     "halfAndQuarterHour": "45 min",
-    "fiftyMinutes": "50 min",
     "oneHour": "1h",
-    "oneHourFifteen": "1h15",
     "oneHourAndHalf": "1h30",
     "twoHour": "2h",
     "threeHour": "3h",
@@ -83,9 +81,11 @@
     "twoWeeks": "2 semaines",
     "oneMonth": "1 mois",
     "never": "Jamais",
+    "oneHourFifteen": "1h15",
+    "fiftyMinutes": "50 min",
     "tenMinutes": "10 min"
   },
-  "longDayIdentifer": "jours",
+  "longHourIdentifier": "heures",
   "longMinuteIdentifier": "minutes",
-  "longHourIdentifier": "heures"
+  "longDayIdentifer": "jours"
 }

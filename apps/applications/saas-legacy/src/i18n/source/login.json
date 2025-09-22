@@ -114,7 +114,7 @@
     },
     "welcome": {
       "next": "Continue",
-      "content": "BSPORT is a community of enthusiasts that facilitate, automate, and streamline your studio's day-to-day management.",
+      "content": "bsport is a community of enthusiasts that facilitate, automate, and streamline your studio's day-to-day management.",
       "title": "Welcome!"
     },
     "confirmation": {
@@ -164,7 +164,7 @@
         "bank_account_holder": "Account holder"
       }
     },
-    "paymentMethodSuccess": "The payment method indicated is valid. You can always change it in the Bsport subscription settings.",
+    "paymentMethodSuccess": "The payment method indicated is valid. You can always change it in the bsport subscription settings.",
     "welcomeDescription": "We are pleased to welcome you to your new platform. Please complete the following steps to get started with the platform.",
     "infoGoingBack": "This can be completed later if you leave this page.",
     "accountSuccess": "Your Stripe account has been created. You can change this information later in the back office in the company settings.",
@@ -188,7 +188,7 @@
     "companyStripeName": "Stripe account",
     "managerIbanExplain": "Select the bank account on which you'd like to receive the payouts through BSPORT",
     "paymentMethodTitle": "Select your payment method",
-    "paymentMethodExplain": "Select the payment method that you'd like to use for the BSPORT billing",
+    "paymentMethodExplain": "Select the payment method that you'd like to use for the bsport billing",
     "congrats": "Congratulations!",
     "finishExplain": "The configuration is complete. You can now use BSPORT.",
     "needToConfigureStripeInfo": "It's required to add a payment method to settle invoices.",

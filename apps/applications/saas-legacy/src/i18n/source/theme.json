@@ -112,7 +112,7 @@
         },
         "label": "Limit the amount of future bookings per member for workshops"
       },
-      "hiddenFromMarketplace": "Activate this to display your studio on the general BSPORT app and marketplace",
+      "hiddenFromMarketplace": "Activate this to display your studio on the general bsport app and marketplace",
       "schedule": {
         "alert": "The schedule's start time must be earlier than the end time",
         "end": "End time",
@@ -494,7 +494,7 @@
   "quickbooks": {
     "confirmDialog": {
       "title": "QuickBooks connection",
-      "text": "Are you sure that you want to allow BSPORT to access your application?"
+      "text": "Are you sure that you want to allow bsport to access your application?"
     },
     "title": "QuickBooks"
   },

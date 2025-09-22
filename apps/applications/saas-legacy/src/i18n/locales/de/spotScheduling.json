@@ -1,137 +1,146 @@
 {
   "toolsMenu": {
-    "customFill": "Farbe der Füllung",
-    "customStroke": "Farbe der Linien",
     "door": "Tür",
-    "screen": "Bildschirm",
-    "teacher": "Professor",
     "spot": "Spot",
     "rect": "Rechteck",
     "line": "Merkmal",
     "rotation": "Drehung",
-    "redo": "Weiter",
-    "undo": "Vorherige",
     "eraser": "Radierer",
+    "advancedTool": "HTML",
+    "cssEditor": "CSS",
+    "copier": "Duplikator",
+    "bsportPreferentialSpots": "Plätze für Mitglieder",
     "sections": {
       "custom": "Anpassung",
       "elements": "Elemente",
       "place": "Standort",
       "walls": "Wände",
       "edition": "Ausgabe",
+      "editionHistory": "Historie der Edition",
+      "editionAdvanced": "Fortgeschrittene Edition",
       "spivi": "Spivi-Integration",
       "assets": "Ressourcen",
-      "editionAdvanced": "Fortgeschrittene Edition",
-      "editionHistory": "Historie der Edition",
       "marketplaces": "Marktplätze"
     },
     "title": "Werkzeugkasten",
-    "customIconLabel": "Standort-Symbole",
-    "customIconButton": "Meine Ikonen herunterladen",
-    "pointer": "Cursor",
-    "hand": "Hauptseite",
+    "customFill": "Farbe der Füllung",
+    "customStroke": "Farbe der Linien",
+    "screen": "Bildschirm",
+    "teacher": "Professor",
+    "undo": "Vorherige",
+    "redo": "Weiter",
     "showGrid": "Anzeige des Gitters",
+    "customIconButton": "Meine Ikonen herunterladen",
+    "customIconLabel": "Standort-Symbole",
+    "hand": "Hauptseite",
+    "pointer": "Cursor",
     "addSpotType": "Einen Spot-Typ hinzufügen",
     "helperText": "die Größe des Lehrkraftsymbols muss positiv sein",
     "requiredForSpivi": "Erforderlich für die Spivi-Integration",
     "boxId": "Box ID",
-    "resize": "Skala",
     "openAssetModal": "Umgang mit offenen Ressourcen",
-    "copier": "Duplikator",
-    "cssEditor": "CSS",
-    "advancedTool": "HTML",
-    "bsportPreferentialSpots": "Plätze für Mitglieder"
+    "resize": "Skala"
   },
-  "errorLessSpotThanEffectif": "Sparen ist nicht möglich. Der Platzplan muss mehr Platz bieten als die Anzahl der Teilnehmer des Kurses, zu der er gehört",
+  "placeCount": "{{count}} Orte",
+  "roomBlueprints": "Grundriss",
   "saveError": "Fehler",
-  "spotImageDialog": {
-    "taken": "gebucht",
-    "helper": "Sie können die Form der Steckplätze anpassen, indem Sie Ihre eigenen Bilder importieren. Hierfür benötigen wir 2 verschiedene Symbole. Eine, um anzuzeigen, dass der Ort verfügbar ist, eine weitere, wenn er reserviert ist. Achten Sie darauf, dass sie die gleiche Größe haben, und fügen Sie bitte keine Zahlen auf Ihren Symbolen ein.",
-    "takenImageLabel": "Reservierter Platz",
-    "imageUploadButton": "Ein Bild hochladen",
-    "free": "Verfügbar",
-    "imageFormat": "Empfohlenes Format: .png, .jpg",
-    "actions": {
-      "cancel": "Abbrechen",
-      "submit": "Bestätigen Sie"
-    },
-    "title": "Passen Sie Ihre Standorte an",
-    "freeImageLabel": "Verfügbare Plätze"
+  "errorLessSpotThanEffectif": "Sparen ist nicht möglich. Der Platzplan muss mehr Platz bieten als die Anzahl der Teilnehmer des Kurses, zu der er gehört",
+  "saved": "Eingetragener Sitzplan",
+  "effectifError": "Die Anzahl der Plätze muss gleich oder größer sein als die Anzahl der Kursteilnehmer",
+  "searchHelper": "Hilfe: Ermöglicht es Ihren Schülern, den gewünschten Platz im Raum zu reservieren. Nicht obligatorische Felder",
+  "search": "Finden Sie einen Plan für die Spotterminierung",
+  "roomBlueprintSelectorTitle": "Wählen Sie einen Plan",
+  "spotSelectorDialog": {
+    "takeSpotError": "Der Platz, den Sie für diesen Kurs ausgewählt haben, ist nicht mehr verfügbar. Bitte wählen Sie einen neuen aus.",
+    "submit": "Bestätigen Sie",
+    "cancel": "Abbrechen",
+    "spot": "Ort {{count}}",
+    "title": "Wählen Sie einen Sitzplatz",
+    "legend": "Legende",
+    "book": "Buchung: {{prefix}}{{indexType}}{{suffix}}"
   },
   "toolbar": {
-    "save": "Speichern",
-    "titleLabel": "Name des Plans",
-    "exit": "Schließen",
     "loadExistingBlueprint": "Einen bestehenden Plan laden",
+    "exit": "Schließen",
+    "titleLabel": "Name des Plans",
+    "save": "Speichern",
     "spiviHelperText": "Siehe Übereinstimmung mit Spivi-Spots",
     "spivi": "Spivi"
   },
-  "spotSelectorDialog": {
-    "title": "Wählen Sie einen Sitzplatz",
-    "spot": "Ort {{count}}",
-    "cancel": "Abbrechen",
-    "submit": "Bestätigen Sie",
-    "takeSpotError": "Der Platz, den Sie für diesen Kurs ausgewählt haben, ist nicht mehr verfügbar. Bitte wählen Sie einen neuen aus.",
-    "book": "Buchung: {{prefix}}{{indexType}}{{suffix}}",
-    "legend": "Legende"
-  },
-  "searchHelper": "Hilfe: Ermöglicht es Ihren Schülern, den gewünschten Platz im Raum zu reservieren. Nicht obligatorische Felder",
-  "effectifError": "Die Anzahl der Plätze muss gleich oder größer sein als die Anzahl der Kursteilnehmer",
-  "saved": "Eingetragener Sitzplan",
-  "roomBlueprints": "Grundriss",
-  "placeCount": "{{count}} Orte",
-  "roomBlueprintSelectorTitle": "Wählen Sie einen Plan",
-  "search": "Finden Sie einen Plan für die Spotterminierung",
-  "spotCreatorForm": {
-    "triangle": "Dreieck",
-    "preview": "Vorschau",
-    "missImageSelected": "Sie haben das Bild für den ausgewählten Spot nicht geladen",
-    "personalized": "Personalisierte Bilder",
-    "name": "Name",
-    "customization": "Personalisiserung",
-    "prefixError": "Die Vorwahl darf nur aus einem Buchstaben bestehen",
-    "prefix": "Vorwahl",
-    "deleted": "Spot gelöscht",
-    "missImageFree": "Sie haben das Bild für den freien Spot nicht geladen",
-    "subtitle": "Platz-Typ erstellen",
-    "freePersonalized": "Verfügbar: {{- name }}",
-    "title": "Raumplan",
-    "circular": "Rund",
-    "rectangle": "Rechteck",
-    "square": "Quadrat",
-    "predefined": "Vorgegebene Formen",
-    "selected": "Ausgewählter Spot",
-    "takenPersonalized": "Reserviert: {{- name }}",
-    "generalInfo": "Allgemeine Informationen",
-    "taken": "Reservierter Platz",
-    "saved": "Gespeicherter Spot",
-    "nameExplain": "Name des Platz-typs",
-    "prefixExplain": "Das hier angegebene Zeichen wird als Vorwahl der Platznummern erscheinen",
-    "selectedPersonalized": "{{- name }} ausgewählt",
-    "missImageTaken": "Sie haben das Bild für den gebuchten Spot nicht geladen",
-    "alertDefaultSpot": "Wenn Sie den Standard-spot ändern, werden alle Standard-spots auf allen Plänen identisch geändert",
-    "personalizedExplain": "Sie können die Form der Slots anpassen, indem Sie Ihre eigenen Bilder importieren. Hierfür benötigen wir 3 verschiedene Symbole. Eines zeigt an, dass der Platz frei ist, ein anderes, dass er reserviert ist. Achten Sie darauf, dass sie die gleiche Größe haben, und fügen Sie bitte keine Zahlen in Ihre Icons ein.",
-    "free": "Spot verfügbar",
-    "suffixError": "Die Nachsilbe muss aus einem einzigen Buchstaben bestehen",
-    "nameCustomization": {
-      "suffix": "Platznummer mit einer Nachsilbe",
-      "prefix": "Platznummer mit einem Präfix",
-      "none": "Nur Platznummer",
-      "title": "Format des Platznamens"
+  "spotImageDialog": {
+    "actions": {
+      "submit": "Bestätigen Sie",
+      "cancel": "Abbrechen"
     },
-    "suffixExplain": "Das hier angegebene Zeichen wird als Nachsilbe an die Platznummern angehängt",
-    "suffix": "Nachsilbe"
+    "imageFormat": "Empfohlenes Format: .png, .jpg",
+    "taken": "gebucht",
+    "free": "Verfügbar",
+    "imageUploadButton": "Ein Bild hochladen",
+    "takenImageLabel": "Reservierter Platz",
+    "freeImageLabel": "Verfügbare Plätze",
+    "helper": "Sie können die Form der Steckplätze anpassen, indem Sie Ihre eigenen Bilder importieren. Hierfür benötigen wir 2 verschiedene Symbole. Eine, um anzuzeigen, dass der Ort verfügbar ist, eine weitere, wenn er reserviert ist. Achten Sie darauf, dass sie die gleiche Größe haben, und fügen Sie bitte keine Zahlen auf Ihren Symbolen ein.",
+    "title": "Passen Sie Ihre Standorte an"
   },
   "forms": {
     "delete": {
-      "title": "Löschen",
       "actions": {
         "confirm": "Bestätigen",
         "cancel": "Stornieren"
       },
       "content": {
         "canDelete": "Sind Sie sicher, dass Sie diesen Spot löschen wollen? Diese Aktion ist unwiederruflich. Er wird gelöscht und durch den Standard-Spot auf diesem Plan und allen anderen, auf denen er hinzugefügt wurde, ersetzt."
-      }
+      },
+      "title": "Löschen"
     }
+  },
+  "spotCreatorForm": {
+    "alertDefaultSpot": "Wenn Sie den Standard-spot ändern, werden alle Standard-spots auf allen Plänen identisch geändert",
+    "saved": "Gespeicherter Spot",
+    "deleted": "Spot gelöscht",
+    "missImageFree": "Sie haben das Bild für den freien Spot nicht geladen",
+    "missImageTaken": "Sie haben das Bild für den gebuchten Spot nicht geladen",
+    "missImageSelected": "Sie haben das Bild für den ausgewählten Spot nicht geladen",
+    "selectedPersonalized": "{{- name }} ausgewählt",
+    "selected": "Ausgewählter Spot",
+    "freePersonalized": "Verfügbar: {{- name }}",
+    "takenPersonalized": "Reserviert: {{- name }}",
+    "taken": "Reservierter Platz",
+    "free": "Spot verfügbar",
+    "personalizedExplain": "Sie können die Form der Slots anpassen, indem Sie Ihre eigenen Bilder importieren. Hierfür benötigen wir 3 verschiedene Symbole. Eines zeigt an, dass der Platz frei ist, ein anderes, dass er reserviert ist. Achten Sie darauf, dass sie die gleiche Größe haben, und fügen Sie bitte keine Zahlen in Ihre Icons ein.",
+    "preview": "Vorschau",
+    "generalInfo": "Allgemeine Informationen",
+    "square": "Quadrat",
+    "triangle": "Dreieck",
+    "rectangle": "Rechteck",
+    "circular": "Rund",
+    "personalized": "Personalisierte Bilder",
+    "predefined": "Vorgegebene Formen",
+    "customization": "Personalisiserung",
+    "nameCustomization": {
+      "title": "Format des Platznamens",
+      "none": "Nur Platznummer",
+      "prefix": "Platznummer mit einem Präfix",
+      "suffix": "Platznummer mit einer Nachsilbe"
+    },
+    "prefixError": "Die Vorwahl darf nur aus einem Buchstaben bestehen",
+    "prefixExplain": "Das hier angegebene Zeichen wird als Vorwahl der Platznummern erscheinen",
+    "prefix": "Vorwahl",
+    "suffixError": "Die Nachsilbe muss aus einem einzigen Buchstaben bestehen",
+    "suffixExplain": "Das hier angegebene Zeichen wird als Nachsilbe an die Platznummern angehängt",
+    "suffix": "Nachsilbe",
+    "nameExplain": "Name des Platz-typs",
+    "name": "Name",
+    "subtitle": "Platz-Typ erstellen",
+    "title": "Raumplan"
+  },
+  "assetUpoadForm": {
+    "description": "Sie können Bilder direkt von hier aus hochladen und verwenden. Sobald neue Bilder hochgeladen sind, können Sie sie in Ihre Karte einfügen.",
+    "submit": "Einreichen",
+    "loadMore": "Mehr laden"
+  },
+  "bsportPreferentialGroupForm": {
+    "submit": "Absenden",
+    "isPreferentialBsportSpotLabel": "Platz reserviert für Prioritätsmitglieder. Marktplatzbuchungen (Classpass, OneFit, etc.) kommen zuletzt."
   },
   "errorAvailableOffersScheduled": "Kann nicht gespeichert werden. Dieses Layout kann nicht bearbeitet werden, da es in zukünftigen Kursen verwendet wird.",
   "spiviDialog": {
@@ -149,23 +158,14 @@
     "unavailablePersonalizedSpot": "{{- spotName }} nicht verfügbar",
     "seeAll": "Alle sehen",
     "confirm": "Bestätigen",
+    "goBackToCheckout": "Zum Checkout zurückkehren",
     "selectOtherSpot": {
-      "message": "Die vorherige Platzwahl wird für andere verfügbar.",
-      "title": "Oder einen neuen Platz auswählen"
-    },
-    "goBackToCheckout": "Zum Checkout zurückkehren"
+      "title": "Oder einen neuen Platz auswählen",
+      "message": "Die vorherige Platzwahl wird für andere verfügbar."
+    }
   },
   "cssForm": {
-    "helper": "In diesem Abschnitt können Sie CSS-Regeln für Ihr Layout hinzufügen. Die gesamte Karte ist in eine svg-Datei mit der ID \"svg-canvas-display\" verpackt. Standardmäßig wird für jedes Element auf der Leinwand (wie Punkte, Rechtecke und Lehrkraft) automatisch ein Stylesheet erstellt. Sie können Ihre Änderungen schrittweise beobachten, indem Sie auf die Schaltfläche \"{{ buttonLabel }}\" klicken.",
-    "openPreview": "Voranschau"
-  },
-  "assetUpoadForm": {
-    "loadMore": "Mehr laden",
-    "submit": "Einreichen",
-    "description": "Sie können Bilder direkt von hier aus hochladen und verwenden. Sobald neue Bilder hochgeladen sind, können Sie sie in Ihre Karte einfügen."
-  },
-  "bsportPreferentialGroupForm": {
-    "isPreferentialBsportSpotLabel": "Platz reserviert für Prioritätsmitglieder. Marktplatzbuchungen (Classpass, OneFit, etc.) kommen zuletzt.",
-    "submit": "Absenden"
+    "openPreview": "Voranschau",
+    "helper": "In diesem Abschnitt können Sie CSS-Regeln für Ihr Layout hinzufügen. Die gesamte Karte ist in eine svg-Datei mit der ID \"svg-canvas-display\" verpackt. Standardmäßig wird für jedes Element auf der Leinwand (wie Punkte, Rechtecke und Lehrkraft) automatisch ein Stylesheet erstellt. Sie können Ihre Änderungen schrittweise beobachten, indem Sie auf die Schaltfläche \"{{ buttonLabel }}\" klicken."
   }
 }

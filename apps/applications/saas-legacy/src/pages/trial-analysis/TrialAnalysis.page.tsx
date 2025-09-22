@@ -3,9 +3,12 @@ import { withTranslation, WithTranslation } from 'react-i18next';
 import { Box, CircularProgress } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
 import { makeStyles } from '@material-ui/core/styles';
+import { Redirect } from 'react-router-dom';
 import { getAuth } from '../../http';
 import { appendSigmaLocale } from '../../utils/sigma';
 import Config from '../../config';
+import ObjectLevelPermissionProvider from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+import { FeatureFlags, useSafeFlag } from '#src/utils/feature-flag';
 
 const useStyles = makeStyles((_theme) => ({
   root: {
@@ -50,7 +53,27 @@ interface TrialAnalysisResponse {
 
 interface Props extends WithTranslation {}
 
-const TrialAnalysis: React.FC<Props> = ({ t: _t }) => {
+const TrialAnalysis: React.FC<Props> = (props) => {
+  const isTrialAnalysisEnabled = useSafeFlag(FeatureFlags.TRIAL_ANALYSIS);
+
+  // Redirect to dashboard if feature flag is disabled
+  if (!isTrialAnalysisEnabled) {
+    return <Redirect to="/dashboard" />;
+  }
+
+  return (
+    <ObjectLevelPermissionProvider requiredPermission="report.Club.subscription.allowed_actions.read">
+      {(hasPermission: boolean) => {
+        if (!hasPermission) {
+          return <Redirect to="/dashboard" />;
+        }
+        return <TrialAnalysisContent {...props} />;
+      }}
+    </ObjectLevelPermissionProvider>
+  );
+};
+
+const TrialAnalysisContent: React.FC<Props> = ({ t: _t }) => {
   const classes = useStyles();
   const [iframeUrl, setIframeUrl] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(true);

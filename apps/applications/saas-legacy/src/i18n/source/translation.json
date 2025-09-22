@@ -277,10 +277,10 @@
     "forms": {
       "update": {
         "error": "Impossible to update activity",
-        "success": "Activity udpated"
+        "success": "Activity updated"
       },
       "create": {
-        "error": "Impossible to save activity",
+        "error": "Unable to save activity",
         "success": "Activity saved"
       }
     }
@@ -612,7 +612,7 @@
       "explainRecursiveOfferDelete": "Would you like to delete similar sessions?",
       "broadcast_link": {
         "error": "The link is incorrect - it should start with http:// or https:// and without any spaces.",
-        "explainZoomApp": "BSPORT will automatically generate links through Zoom"
+        "explainZoomApp": "bsport will automatically generate links through Zoom"
       },
       "changeEstablishment": "Edit establishment",
       "changeCoach": "Edit teacher",
@@ -1993,10 +1993,10 @@
     "appbar": {
       "title": {
         "planning": "Planning",
-        "allCoachPerformance": "Coaches payment",
+        "allCoachPerformance": "Teacher's payment",
         "dashboard": "Dashboard",
-        "shopManager": "My Shop",
-        "coachList": "Coach",
+        "shopManager": "Webshop",
+        "coachList": "Teacher",
         "offerManagement": "Bookings",
         "metaActivity": "Activities",
         "metaActivityEditForm": "Edit Activity",

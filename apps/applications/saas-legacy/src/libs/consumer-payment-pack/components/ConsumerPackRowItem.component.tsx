@@ -24,7 +24,11 @@ import withWidth, { isWidthDown } from '@material-ui/core/withWidth';
 import type { Breakpoint } from '@material-ui/core/styles/createBreakpoints';
 import type { Theme } from '@material-ui/core/styles';
 
-import { formatAsDate, isDateInTheFuture } from '#src/utils/datetime';
+import {
+  formatAsDate,
+  isDateInTheFuture,
+  isDateTodayOrInTheFuture,
+} from '#src/utils/datetime';
 import { getSpecificIncompatibilitiesReasons } from '#src/libs/consumer-payment-pack/utils';
 import {
   DialogActionEnum,
@@ -235,6 +239,7 @@ export class ConsumerPackRowItem extends Component<Props, State> {
       !isDateInTheFuture(consumerPack.date_bought) &&
       paymentPack?.grants_door_access &&
       paymentPack?.start_date_method === START_ON_FIRST_BOOKING &&
+      isDateTodayOrInTheFuture(consumerPack.ending_date) &&
       this.props.activateManually;
 
     const manualActivationButton = (

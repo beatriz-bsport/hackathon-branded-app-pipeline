@@ -1,15 +1,22 @@
 {
-  "colorPicker": {
-    "noColor": "Geen kleur",
-    "delete": "Verwijderen",
-    "validate": "Opslaan"
+  "text": {
+    "showLessText": "Toon minder",
+    "showMoreText": "Toon meer"
   },
+  "close": "Sluit",
+  "add": "Voeg toe",
+  "colorPicker": {
+    "validate": "Opslaan",
+    "delete": "Verwijderen",
+    "noColor": "Geen kleur"
+  },
+  "positiveNumber": "Dit veld moet meer dan 0 zijn.",
   "form": {
     "duration": {
-      "hour": "Duur in uren:",
-      "hour_plural": "Duur in uren:",
       "day": "Duur in dagen:",
       "day_plural": "Duur in dagen:",
+      "hour": "Duur in uren:",
+      "hour_plural": "Duur in uren:",
       "minute": "Duur in minuten:",
       "minute_plural": "Duur in minuten:"
     },
@@ -18,11 +25,6 @@
       "number": "Dit veld moet een getal zijn."
     }
   },
-  "text": {
-    "showLessText": "Toon minder",
-    "showMoreText": "Toon meer"
-  },
-  "close": "Sluit",
   "selector": {
     "validate": "Bevestigen",
     "unselectAll": "Deselecteer alles",
@@ -31,36 +33,44 @@
   },
   "cancel": "Annuleren",
   "confirm": "Bevestig",
+  "continue": "Verder",
   "disconnectInfo": "Terug naar de inlogpagina",
   "disconnect": "Afmelden",
   "activate": "Activeren",
   "save": "Opslaan",
-  "requiredField": "Dit veld is verplicht.",
   "startAfterEnd": "De startdatum moet vóór de einddatum zijn",
   "endBeforeStart": "De einddatum moet groter zijn dan de begindatum",
+  "requiredField": "Dit veld is verplicht.",
+  "numberRequired": "Dit veld moet een nummer zijn",
   "monthly": "Maandelijks",
   "weekly": "Wekelijks",
+  "biweekly": "Tweewekelijks",
   "showLess": "Toon minder",
   "showMore": "Toon meer ({{count}})",
   "start": "Start",
   "next": "Volgende",
   "previous": "Terug",
-  "finish": "Afgelopen",
   "letsGo": "Back Office",
-  "saveRecord": "Opslaan",
-  "delete": "Verwijderen",
+  "finish": "Afgelopen",
+  "subscribe": "Abonneer",
   "card": {
     "categoryNames": {
-      "restrictions": "Beperkingen",
+      "compatibility": "Compatibiliteit",
+      "paymentMethods": "Beschikbare betaalmethoden",
+      "validity": "Geldigheid",
       "credits": "Aantal credits",
       "vod": "Video On Demand",
       "accessibility": "Toegankelijkheid",
-      "compatibility": "Compatibiliteit",
-      "paymentMethods": "Beschikbare betaalmethoden",
-      "validity": "Geldigheid"
+      "restrictions": "Beperkingen"
     },
     "copyLink": "Kopieer de link"
   },
+  "saveRecord": "Opslaan",
+  "saveChanges": "Wijzigingen opslaan",
+  "rename": "Hernoem",
+  "delete": "Verwijderen",
+  "preview": "Voorbeeld",
+  "edit": "Bewerk",
   "duration": {
     "minute": "{{ count }} minuut",
     "minute_plural": "{{ count }} minuten",
@@ -76,29 +86,19 @@
   "recommended": "Aanbevolen",
   "day": "dag",
   "day_plural": "dagen",
-  "subscribe": "Abonneer",
   "discard": "Weggooien",
-  "no": "Nee",
-  "yes": "Ja",
-  "saveChanges": "Wijzigingen opslaan",
-  "none": "Geen",
-  "numberRequired": "Dit veld moet een nummer zijn",
-  "positiveNumber": "Dit veld moet meer dan 0 zijn.",
-  "seeMore": "Zie meer",
-  "seeLess": "Zie minder",
   "discardChanges": "Wijzigingen weggooien",
-  "rename": "Hernoem",
+  "yes": "Ja",
+  "no": "Nee",
+  "none": "Geen",
+  "seeLess": "Zie minder",
+  "seeMore": "Zie meer",
   "send": "Verstuur",
   "reset": "Reset",
   "more": "Meer",
-  "add": "Voeg toe",
-  "continue": "Verder",
-  "edit": "Bewerk",
-  "preview": "Voorbeeld",
   "gender": {
-    "X": "Non-binair",
+    "F": "Vrouw",
     "M": "Man",
-    "F": "Vrouw"
-  },
-  "biweekly": "Tweewekelijks"
+    "X": "Non-binair"
+  }
 }

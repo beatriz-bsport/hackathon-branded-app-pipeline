@@ -55,7 +55,6 @@
                 "helper": "Damit können Mitglieder sich nur anmelden, wenn sie in diesem Moment genug Credits haben."
             },
             "errors": {
-                "lastDelayBeforeAutoConsumeError": "Minuten sollten zwischen 0 und 240 liegen",
                 "autokickDelayError": "Eine Nummer ist erforderlich",
                 "smartDelayPercentageError": "Der Prozentsatz muss zwischen 10 und 100 liegen",
                 "dumbDelayMinutesError": "Abstand zwischen den Rückrufen sollte mehr als 15 Minuten betragen"

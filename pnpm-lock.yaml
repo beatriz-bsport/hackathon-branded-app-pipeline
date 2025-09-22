@@ -1115,6 +1115,9 @@ importers:
       '@bsport/kaizen-primitive-core':
         specifier: workspace:*
         version: link:../../../../../packages/design-system/kaizen/primitive/core
+      '@bsport/permissions':
+        specifier: workspace:*
+        version: link:../../../../../packages/utils/permissions
       '@bsport/sm-backbone':
         specifier: workspace:*
         version: link:../../../../../packages/utils/sm-backbone
@@ -1268,6 +1271,9 @@ importers:
 
   apps/applications/studio-manager/buyables/pack:
     dependencies:
+      '@bsport/currency':
+        specifier: workspace:*
+        version: link:../../../../../packages/utils/currency
       '@bsport/envs':
         specifier: workspace:*
         version: link:../../../../../packages/utils/envs
@@ -2606,6 +2612,22 @@ importers:
         specifier: workspace:*
         version: link:../../../tools/config/eslint-react
 
+  packages/stores/booking/appointment:
+    dependencies:
+      '@bsport/store-base':
+        specifier: workspace:*
+        version: link:../../base
+      typescript-result:
+        specifier: ^3.1.1
+        version: 3.1.1
+      zustand:
+        specifier: ^5.0.3
+        version: 5.0.3(@types/react@18.3.23)(immer@9.0.21)(react@19.0.0)(use-sync-external-store@1.4.0(react@19.0.0))
+    devDependencies:
+      '@bsport/config-eslint-react':
+        specifier: workspace:*
+        version: link:../../../../tools/config/eslint-react
+
   packages/stores/booking/group-activity:
     dependencies:
       '@bsport/store-base':
@@ -2622,7 +2644,7 @@ importers:
         specifier: workspace:*
         version: link:../../../../tools/config/eslint-react
 
-  packages/stores/booking/private-service:
+  packages/stores/buyables/appointment-pass:
     dependencies:
       '@bsport/store-base':
         specifier: workspace:*
@@ -2686,7 +2708,39 @@ importers:
         specifier: workspace:*
         version: link:../../../../tools/config/eslint-react
 
+  packages/stores/buyables/pass:
+    dependencies:
+      '@bsport/store-base':
+        specifier: workspace:*
+        version: link:../../base
+      typescript-result:
+        specifier: ^3.1.1
+        version: 3.1.1
+      zustand:
+        specifier: ^5.0.3
+        version: 5.0.3(@types/react@18.3.23)(immer@9.0.21)(react@19.0.0)(use-sync-external-store@1.4.0(react@19.0.0))
+    devDependencies:
+      '@bsport/config-eslint-react':
+        specifier: workspace:*
+        version: link:../../../../tools/config/eslint-react
+
   packages/stores/buyables/subscription:
+    dependencies:
+      '@bsport/store-base':
+        specifier: workspace:*
+        version: link:../../base
+      typescript-result:
+        specifier: ^3.1.1
+        version: 3.1.1
+      zustand:
+        specifier: ^5.0.3
+        version: 5.0.3(@types/react@18.3.23)(immer@9.0.21)(react@19.0.0)(use-sync-external-store@1.4.0(react@19.0.0))
+    devDependencies:
+      '@bsport/config-eslint-react':
+        specifier: workspace:*
+        version: link:../../../../tools/config/eslint-react
+
+  packages/stores/buyables/webshop:
     dependencies:
       '@bsport/store-base':
         specifier: workspace:*
@@ -2850,6 +2904,22 @@ importers:
         version: link:../../../../tools/config/eslint-react
 
   packages/stores/core-data/company-theme:
+    dependencies:
+      '@bsport/store-base':
+        specifier: workspace:*
+        version: link:../../base
+      typescript-result:
+        specifier: ^3.1.1
+        version: 3.1.1
+      zustand:
+        specifier: ^5.0.3
+        version: 5.0.3(@types/react@18.3.23)(immer@9.0.21)(react@19.0.0)(use-sync-external-store@1.4.0(react@19.0.0))
+    devDependencies:
+      '@bsport/config-eslint-react':
+        specifier: workspace:*
+        version: link:../../../../tools/config/eslint-react
+
+  packages/stores/core-data/establishment:
     dependencies:
       '@bsport/store-base':
         specifier: workspace:*
@@ -22063,9 +22133,7 @@ snapshots:
       jest-runner: 24.9.0
       jest-runtime: 24.9.0
     transitivePeerDependencies:
-      - bufferutil
       - supports-color
-      - utf-8-validate
 
   '@jest/test-sequencer@28.1.3':
     dependencies:

@@ -27,7 +27,7 @@ export const PackFormIdentity: React.FC<PackFormIdentityProps> = ({
   const { t } = useTranslation("details");
 
   return (
-    <div className="flex flex-col gap-md">
+    <section className="flex flex-col gap-md">
       <FormField<PackFormData, "name">
         name="name"
         mapProps={({ defaultProps, field, form }) => ({
@@ -66,6 +66,6 @@ export const PackFormIdentity: React.FC<PackFormIdentityProps> = ({
           required
         />
       </FormField>
-    </div>
+    </section>
   );
 };

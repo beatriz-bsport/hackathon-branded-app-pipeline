@@ -498,11 +498,11 @@
         "timeoutMustBeStrictPositive": "The time limit must be at least 1 day."
       },
       "marketing_action": {
-        "1": "Write an email",
-        "2": "SMS",
-        "3": "Push notification",
-        "4": "Tag",
-        "5": "Select an email template",
+        "1": "Send an email",
+        "2": "Send SMS",
+        "3": "Send push notification",
+        "4": "Add a tag",
+        "5": "Send an email template",
         "form": {
           "helper": "Select one or more actions to perform when a member enters this stage. This option is facultative.",
           "reset": "Delete",
@@ -856,7 +856,9 @@
       "cadenceParameters": "{{ workflowLowerCase }} parameters",
       "audienceStepHelper": "Set the name of the step here: this is where you will be able to see where the members are in the {{ workflowLowerCase }}.",
       "addAWorkflow": "Add {{ workflowLowerCase }}",
-      "createAudienceHelper": "Thanks to the {{ workflowPluralLowerCase }}, target the marketing actions you send to your members according to their behavior on the platform. Create a sequence of actions that your members must complete to obtain certain promotions or tags, for example."
+      "openIntercomHelp": "Read guide",
+      "createAudienceHelper": "Thanks to the {{ workflowPluralLowerCase }}, target the marketing actions you send to your members according to their behavior on the platform. Create a sequence of actions that your members must complete to obtain certain promotions or tags, for example.",
+      "emptyAudienceHelper": "Use Audience to build automated {{ workflowPluralLowerCase }} that target customers at each stage of their journey. For example, create a sequence of actions that members must complete to access a certain promotion. Read the guide to find more information on this feature."
     },
     "graph": {
       "alert": {
@@ -971,6 +973,44 @@
         "entryDate": "Entry date",
         "exitDate": "Exit date",
         "status": "Success"
+      }
+    },
+    "smsWarning": {
+      "alert": {
+        "title": "SMS costs more than other channels",
+        "content": "The more people who enter the workflow, the higher the cost. Check your contract to see the cost per SMS."
+      },
+      "modal": {
+        "title": "SMS Cost Reminder",
+        "content": "<strong>Sending SMS can cost more than other channels,</strong> depending on how many people enter the workflow. Check your contract to see the cost per SMS.",
+        "actions": {
+          "primary": "Confirm",
+          "secondary": "Cancel"
+        }
+      }
+    },
+    "freeTrial": {
+      "banner": {
+        "title": "{{ count }} day left in trial",
+        "title_plural": "{{ count }} days left in trial",
+        "button": "Upgrade"
+      },
+      "upgradeDialog": {
+        "benefits": [
+          "Target offers to customers at each stage of their journey",
+          "Create unique customer experiences across multiple channels",
+          "Build unlimited automated {{ workflowPluralLowerCase }} (continue where you left off)"
+        ],
+        "upgrade": "Upgrade",
+        "close": "Close",
+        "bannerClicked": {
+          "title": "Keep growing without limits",
+          "description": "Upgrade now to continue to expand your business with Audience."
+        },
+        "quotaReached": {
+          "title": "You've run out of free {{ workflowPluralLowerCase }}",
+          "description": "You've used up the 3 {{ workflowPluralLowerCase }} included in the free trial. To activate this one upgrade to Audience, or pause an existing {{ workflowLowerCase }}."
+        }
       }
     }
   }

@@ -125,7 +125,6 @@ export const EntryStepFlowVersion: React.FC<FlowProps> = ({ data }) => {
           getSmartlist={data.getSmartlist}
           getTag={data.getTag}
           isFirstConfigurationMode={data.isFirstConfigurationMode}
-          isPushNotificationUpsellActive={data.isPushNotificationUpsellActive}
           isSelected={data.isSelected}
           marketingActionList={data.marketingActionList}
           onCardClick={handleClick}

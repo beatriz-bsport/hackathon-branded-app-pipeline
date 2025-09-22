@@ -20,6 +20,10 @@
       "helper": "Een lid wordt direct ingeschreven zodra er een plaats vrijkomt indien hij/zij een geldige kaart bezit. Het systeem gebruikt automatisch de kaart dat als eerste vervalt en het minste credit heeft.",
       "label": "Automatisch de kaart van een lid in rekening brengen zodra er een plaats vrij komt"
     },
+    "kick_if_no_pack_when_auto_consume": {
+      "helper": "Een lid kan zijn credits gebruiken voor een andere sessie terwijl hij op de wachtlijst staat. Als deze instelling geactiveerd is, wordt zijn plaats op de wachtlijst automatisch geannuleerd als het zijn beurt is om te registreren.",
+      "label": "Het lid automatisch van de wachtlijst verwijderen als hij geen geldige pas meer heeft wanneer hij aan de beurt is"
+    },
     "is_option_blocking": {
       "helper": "Houd een plaats vrij voor leden die op de wachtlijst staan totdat zij reserveren.",
       "label": "Beschikbare plaatsen reserveren voor leden die op de wachtlijst staan"
@@ -43,29 +47,26 @@
       "label": "Selecteer het type wachtlijst dat je wilt gebruiken"
     },
     "last_delay_before_auto_consume": {
-      "helper": "Als er onvoldoende tijd is voordat de sessie begint wordt het lid niet ingeschreven, ook niet als de persoon een geldige leskaart bezit",
-      "label": "Geen reserveringen accepteren voor sessies die plaatsvinden in minder dan "
+      "label": "Geen reserveringen accepteren voor sessies die plaatsvinden in minder dan ",
+      "helper": "Als er onvoldoende tijd is voordat de sessie begint wordt het lid niet ingeschreven, ook niet als de persoon een geldige leskaart bezit"
     },
     "check_credit": {
-      "label": "Controleren of de klant een cursuskaart heeft die compatibel is met het aanbod en voldoende crediet heeft",
-      "helper": "Klanten kunnen pas aan een wachtrij worden toegevoegd als zij een cursuskaart hebben die compatibel is met de betreffende aanbieding en voldoende credits hebben om de boeking te maken"
+      "helper": "Klanten kunnen pas aan een wachtrij worden toegevoegd als zij een cursuskaart hebben die compatibel is met de betreffende aanbieding en voldoende credits hebben om de boeking te maken",
+      "label": "Controleren of de klant een cursuskaart heeft die compatibel is met het aanbod en voldoende crediet heeft"
     },
     "display_member_position": {
       "label": "De positie in de wachtrij weergeven"
     },
-    "kick_if_no_pack_when_auto_consume": {
-      "label": "Het lid automatisch van de wachtlijst verwijderen als hij geen geldige pas meer heeft wanneer hij aan de beurt is",
-      "helper": "Een lid kan zijn credits gebruiken voor een andere sessie terwijl hij op de wachtlijst staat. Als deze instelling geactiveerd is, wordt zijn plaats op de wachtlijst automatisch geannuleerd als het zijn beurt is om te registreren."
-    },
     "errors": {
-      "lastDelayBeforeAutoConsumeError": "Minuten moeten tussen 0 en 240 liggen",
-      "autokickDelayError": "Een nummer is vereist",
+      "dumbDelayMinutesError": "Minuten tussen terugroepacties moeten hoger zijn dan 15",
       "smartDelayPercentageError": "Het percentage moet tussen 10 en 100 liggen",
-      "dumbDelayMinutesError": "Minuten tussen terugroepacties moeten hoger zijn dan 15"
+      "autokickDelayError": "Een nummer is vereist"
     }
   },
   "explainWaitingListConf": "Voorbeeld: een lid die op de wachtlijst staat voor een sessie die over 3 uur begint heeft nog {{nbMinutesBeforeBookingOptionExpire}} minuten om de reservering te bevestigen voordat zij hun voorrangsplaats op de wachtlijst verliezen.",
   "dialog": {
+    "cancel": "Annuleer",
+    "confirm": "Bevestig",
     "delete": {
       "title": "Van wachtlijst verwijderen",
       "content": "Weet je zeker dat je dit lid van de wachtlijst wilt verwijderen? Het lid wordt hier ook van op de hoogte gebracht.",
@@ -75,44 +76,42 @@
       "contentV2": "Weet je zeker dat je dit lid van de wachtlijst wilt verwijderen?"
     },
     "autoBooking": {
-      "loading": {
-        "title": "Leden worden toegevoegd aan de sessie",
-        "content": "Vernieuw het tabblad niet en verlaat deze pagina niet. Dit proces kan een aantal seconden duren"
-      },
-      "info": {
-        "content": "Leden met een geldige pas worden automatisch geboekt voor de sessie en ontvangen een bevestigingsmail. Het systeem zal automatisch de credits aftrekken van de passen die als eerst verlopen",
-        "title": "Automatische boeking voor geldige passen"
+      "error": {
+        "title": "De automatische boeking is mislukt",
+        "content": "Leden kunnen niet toegevoegd worden aan de sessie. Probeer het nogmaals"
       },
       "success": {
         "title": "Leden zijn succesvol toegevoegd aan de sessie"
       },
-      "error": {
-        "content": "Leden kunnen niet toegevoegd worden aan de sessie. Probeer het nogmaals",
-        "title": "De automatische boeking is mislukt"
+      "info": {
+        "title": "Automatische boeking voor geldige passen",
+        "content": "Leden met een geldige pas worden automatisch geboekt voor de sessie en ontvangen een bevestigingsmail. Het systeem zal automatisch de credits aftrekken van de passen die als eerst verlopen"
+      },
+      "loading": {
+        "title": "Leden worden toegevoegd aan de sessie",
+        "content": "Vernieuw het tabblad niet en verlaat deze pagina niet. Dit proces kan een aantal seconden duren"
       },
       "warning": {
-        "content": "Als je het formulier sluit, wordt het geselecteerde lid niet toegevoegd aan de sessie. Als je meerdere leden hebt geselecteerd en alleen dit lid wilt afmelden, klik dan op annuleren op het ledenformulier",
-        "title": "Weet je het zeker?"
+        "title": "Weet je het zeker?",
+        "content": "Als je het formulier sluit, wordt het geselecteerde lid niet toegevoegd aan de sessie. Als je meerdere leden hebt geselecteerd en alleen dit lid wilt afmelden, klik dan op annuleren op het ledenformulier"
       },
       "incomplete": {
-        "actions": {
-          "bookThem": "Handmatig boeken",
-          "ok": "Bevestigen"
-        },
+        "title": "Voltooi uw wachtlijst",
         "content": {
-          "unregistered": "De volgende leden konden NIET worden geregistreerd, omdat er geen compatibele pas kon worden gevonden",
-          "registered": "De volgende leden zijn geregistreerd, omdat er een compatibele pas is gevonden:"
+          "registered": "De volgende leden zijn geregistreerd, omdat er een compatibele pas is gevonden:",
+          "unregistered": "De volgende leden konden NIET worden geregistreerd, omdat er geen compatibele pas kon worden gevonden"
         },
-        "title": "Voltooi uw wachtlijst"
+        "actions": {
+          "ok": "Bevestigen",
+          "bookThem": "Handmatig boeken"
+        }
       }
-    },
-    "confirm": "Bevestig",
-    "cancel": "Annuleer"
+    }
   },
   "member": {
     "detail": {
-      "registrationSource": "Oorsprong van de inschrijving",
       "offerTitle": "Gekoppelde sessie",
+      "registrationSource": "Oorsprong van de inschrijving",
       "registeredOn": "Ingeschreven op",
       "title": "Details"
     },

@@ -27,7 +27,7 @@
     "establishmentId": "Your venue IDs are: {{ establishmentIdList }}"
   },
   "requestDialog": {
-    "explain": "You've requested the ClassPass integration with BSPORT. Your Account Manager will shortly contact you to validate this request.",
+    "explain": "You've requested the ClassPass integration with bsport. Your Account Manager will shortly contact you to validate this request.",
     "close": "OK"
   },
   "actions": {

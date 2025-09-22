@@ -11,7 +11,7 @@ import {
   useAlertingStore,
 } from "@bsport/store-staff-management-alerting";
 
-import { NavFlags, useNavFlag } from "#src/featureFlags";
+import { NavFlags, useNavFlag } from "#src/utils/featureFlags";
 import { useTranslation } from "#src/utils/i18n";
 
 import type { NavigationUrlItem, NavigationUrls } from "./navigation-urls";

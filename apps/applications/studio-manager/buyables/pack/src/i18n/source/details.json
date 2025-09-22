@@ -17,6 +17,22 @@
       "appointmentPassCategories": "Appointment Pass categories",
       "passCategories": "Pass categories",
       "webshopItemCategories": "Webshop Item categories"
+    },
+    "items": {
+      "webshopItem": {
+        "size": "Size {{ size }}"
+      },
+      "tooltips": {
+        "credits": "Credits",
+        "price": "Price",
+        "unavailableForMember": "Unavailable",
+        "invisibleToStaff": "Invisible",
+        "category": "Category"
+      }
+    },
+    "selectedItems": {
+      "show": "Show selected items",
+      "hide": "Hide selected items"
     }
   },
   "formFields": {
@@ -31,6 +47,16 @@
       "errorMaxLength": "The description is too long."
     },
     "packContent": {
+      "title": "Pack contents",
+      "description": "Add a pass, private pass, or webshop item to build your pack.",
+      "card": {
+        "placeholder": "Add at least one item in your pack"
+      },
+      "itemVariants": {
+        "passes": "Passes",
+        "appointmentPasses": "Appointment Passes",
+        "webshopItems": "Webshop items"
+      },
       "buttons": {
         "addItem": "Add item",
         "addPass": "Add pass",

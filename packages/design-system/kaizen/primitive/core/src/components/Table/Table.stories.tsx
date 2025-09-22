@@ -707,3 +707,43 @@ export const RowHeights: StoryObj<typeof Table> = {
     },
   },
 };
+
+export const UncontrolledSelectableTable: StoryObj<typeof Table> = {
+  args: {
+    columns: columns.slice(0, 5) as Column<BaseRow>[],
+    selectable: true,
+    rowHeight: "sm",
+    rows: rows.slice(0, 4),
+    initialCheckedIds: rows
+      .slice(0, 4)
+      .map((row) => row.id)
+      .filter((val, index) => index % 2 === 0),
+  },
+};
+
+export const ControlledSelectableTable: StoryObj<typeof Table> = {
+  args: {
+    columns: columns.slice(0, 5) as Column<BaseRow>[],
+    selectable: true,
+    rowHeight: "sm",
+    rows: rows.slice(0, 4),
+  },
+  render: (args) => {
+    const [checkedItems, setCheckedItems] = useState([rows[0].id]);
+    return (
+      <div>
+        <Table
+          {...args}
+          setCheckedIds={setCheckedItems}
+          checkedIds={checkedItems}
+        />
+        <h6>Selected items</h6>
+        <ul>
+          {checkedItems.map((checkedId) => (
+            <li key={checkedId}>{checkedId}</li>
+          ))}
+        </ul>
+      </div>
+    );
+  },
+};

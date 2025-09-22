@@ -1,39 +1,39 @@
 {
   "task": {
-    "form": {
-      "task_owner": {
-        "helperText": "Een medewerker selecteren"
-      },
-      "date_due": {
-        "label": "Herinneringsdatum"
-      },
-      "name": {
-        "label": "Titel"
-      },
-      "description": {
-        "label": "Bericht"
-      },
-      "submit": "Bevestigen",
-      "close": "Annuleren",
-      "title": "Taak"
+    "sectionTitle": {
+      "pending": "Openstaande taken",
+      "future": "Geplande taken",
+      "past": "Gearchiveerde taken"
     },
-    "actions": {
-      "cancel": "Archiveren",
-      "restart": "Opnieuw",
-      "finish": "Afronden",
-      "addTask": "Een taak toevoegen"
-    },
-    "author": "Auteur",
-    "owners": "Toegewezen aan ",
     "status": {
       "0": "Bezig",
       "10": "Voltooid",
       "20": "Geannuleerd"
     },
-    "sectionTitle": {
-      "past": "Gearchiveerde taken",
-      "future": "Geplande taken",
-      "pending": "Openstaande taken"
+    "owners": "Toegewezen aan ",
+    "author": "Auteur",
+    "actions": {
+      "addTask": "Een taak toevoegen",
+      "finish": "Afronden",
+      "restart": "Opnieuw",
+      "cancel": "Archiveren"
+    },
+    "form": {
+      "title": "Taak",
+      "close": "Annuleren",
+      "submit": "Bevestigen",
+      "description": {
+        "label": "Bericht"
+      },
+      "name": {
+        "label": "Titel"
+      },
+      "date_due": {
+        "label": "Herinneringsdatum"
+      },
+      "task_owner": {
+        "helperText": "Een medewerker selecteren"
+      }
     }
   }
 }

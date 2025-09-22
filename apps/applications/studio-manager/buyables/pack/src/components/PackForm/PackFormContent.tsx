@@ -1,14 +1,20 @@
 import React from "react";
 
-import { Button, DropdownMenu } from "@bsport/kaizen-primitive-core";
-
-import { PackAddItemsModal } from "#src/components/PackAddItemsModal/PackAddItemsModal";
 import {
-  ITEM_VARIANTS,
-  type ItemVariant,
-  useAddItemsModal,
-} from "#src/hooks/useAddItemsModal";
+  Body,
+  Button,
+  Card,
+  DropdownMenu,
+  Title,
+} from "@bsport/kaizen-primitive-core";
+
+import { PackAddItemsModal } from "#src/components/PackAddItemsModal";
+import { useSelectedItemsContext } from "#src/contexts/selectedItemsContext";
+import { useAddItemsModal } from "#src/hooks/useAddItemsModal";
+import { ITEM_VARIANTS, type ItemVariant } from "#src/utils/constants";
 import { useTranslation } from "#src/utils/i18n";
+
+import { PackFormContentItems } from "./PackFormContentItems";
 
 type PackFormContentProps = {
   fieldIdPrefix: string;
@@ -18,6 +24,8 @@ export const PackFormContent: React.FC<PackFormContentProps> = ({
   fieldIdPrefix,
 }) => {
   const { t } = useTranslation("details");
+  const { removeVariantItem, passes, webshopItems, appointmentPasses } =
+    useSelectedItemsContext();
 
   const variantPass = {
     id: ITEM_VARIANTS.pass,
@@ -48,32 +56,48 @@ export const PackFormContent: React.FC<PackFormContentProps> = ({
   } = useAddItemsModal();
 
   return (
-    <>
-      <DropdownMenu
-        items={variantItems}
-        onSelectOption={({ id, setIsPopoverOpened }) => {
-          setSelectedVariant(id as ItemVariant);
-          setIsPopoverOpened(false);
-        }}
-        placement="bottom-right"
-        target={({ setIsPopoverOpened }) => (
-          <Button
-            id={`${fieldIdPrefix}-pack-content-add-item`}
-            intent="default"
-            color="main"
-            size="md"
-            label={t("formFields.packContent.buttons.addItem")}
-            onClick={() => setIsPopoverOpened(true)}
-            iconLeft="plus"
-          />
-        )}
-      />
+    <section>
+      <div className="flex flex-row justify-between w-full items-center">
+        <div className="mb-sm">
+          <Title htmlVariant="h4" weight="strong" className="mb-2xs">
+            {t("formFields.packContent.title")}
+          </Title>
+          <Body color="weak">{t("formFields.packContent.description")}</Body>
+        </div>
+        <DropdownMenu
+          items={variantItems}
+          onSelectOption={({ id, setIsPopoverOpened }) => {
+            setSelectedVariant(id as ItemVariant);
+            setIsPopoverOpened(false);
+          }}
+          placement="bottom-right"
+          target={({ setIsPopoverOpened }) => (
+            <Button
+              id={`${fieldIdPrefix}-pack-content-add-item`}
+              intent="default"
+              color="main"
+              size="md"
+              label={t("formFields.packContent.buttons.addItem")}
+              onClick={() => setIsPopoverOpened(true)}
+              iconLeft="plus"
+            />
+          )}
+        />
+      </div>
+      <Card padding="none">
+        <PackFormContentItems
+          appointmentPasses={appointmentPasses}
+          passes={passes}
+          removeVariantItem={removeVariantItem}
+          webshopItems={webshopItems}
+        />
+      </Card>
       <PackAddItemsModal
         fieldIdPrefix={fieldIdPrefix}
         handleCloseModal={closeAddItemsModal}
         isOpen={isAddItemsModalOpen}
         variant={selectedVariant}
       />
-    </>
+    </section>
   );
 };

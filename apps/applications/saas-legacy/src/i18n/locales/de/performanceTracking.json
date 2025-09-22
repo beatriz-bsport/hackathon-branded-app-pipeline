@@ -1,84 +1,78 @@
 {
-  "requiredField": "dieses Feld ist erforderlich",
-  "form": {
-    "delete": "Löschen",
-    "cancel": "Abbrechen",
-    "save": "Registrieren",
-    "validate": "Bestätigen",
-    "search": "Suche",
-    "add": "hinzufügen",
-    "close": "schließen"
+  "metric": {
+    "form": {
+      "range": "Der Standardwert liegt nicht zwischen dem Minimal- und Maximalwert ",
+      "color": "Farbe",
+      "maxValueHelperText": "Maximaler Wert der Metrik",
+      "maxValue": "Maximaler Wert",
+      "minValueHelperText": "Mindestwert der Metrik",
+      "minValue": "Minimaler Wert",
+      "default_valueHelperText": "Der Basiswert der Metrik. Wenn leer wird der Wert auf den Minimalwert gesetzt",
+      "default_value": "Standardwert",
+      "machine": "Maschinen-ID",
+      "name": "Name",
+      "general": "General",
+      "noMetric": "Keine Metrik gespeichert",
+      "addMetric": "eine Metrik hinzufügen",
+      "minMax": "Der Minimalwert kann nicht kleiner als der Maximalwert sein"
+    },
+    "title": "Metrisch",
+    "statistic": "Statistiken",
+    "deleteContent": "Die Metrik wird endgültig gelöscht.",
+    "deleteHeader": "Möchten Sie diese Metrik wirklich abschaffen?"
   },
   "program": {
+    "detail": "Details zum Programm",
+    "member": {
+      "name": "Name",
+      "title": "Mitglieder",
+      "addDate": "Datum der Anmeldung"
+    },
+    "form": {
+      "default": "Als Standardprogramm für alle Neuanmeldungen festlegen",
+      "color": "Farbe",
+      "description": "Beschreibung",
+      "name": "Name des Programms",
+      "generalInfo": "Allgemeine Informationen",
+      "create": "Erstellen eines Programms",
+      "modify": "das Programm ändern",
+      "delete": "das Programm löschen",
+      "addProgram": "Add a program",
+      "update": "Programm bearbeiten"
+    },
+    "title": "Programme",
+    "archived": "Archiviert",
+    "infoNoProgram": "Add a program for your members to track their metrics",
+    "deleteContent": "Das Programm wird archiviert und nicht mehr für Mitglieder sichtbar sein. Du kannst es aus dem Bereich \"Archiviert\" wiederherstellen. Programm wirklich löschen?",
+    "deleteHeader": "Programm löschen",
+    "infoSelectProgram": "Détails du programme",
+    "selectProgram": "Ein Programm auswählen",
+    "default": "Standardprogramm",
+    "titleForConsumer": "Meine Programme",
     "actions": {
-      "create": {
-        "error": "Fehler beim Erstellen des Programms",
-        "success": "Programm erstellt"
+      "disable": {
+        "error": "Fehler beim Einchecken des Programms",
+        "success": "Archiviertes Programm"
       },
       "enable": {
         "error": "Erreur lors de la restauration du programme",
         "success": "Restauriertes Programm"
       },
-      "update": {
-        "success": "Geändertes Programm",
-        "error": "Fehler beim Ändern des Programms"
+      "create": {
+        "error": "Fehler beim Erstellen des Programms",
+        "success": "Programm erstellt"
       },
-      "disable": {
-        "success": "Archiviertes Programm",
-        "error": "Fehler beim Einchecken des Programms"
+      "update": {
+        "error": "Fehler beim Ändern des Programms",
+        "success": "Geändertes Programm"
       }
-    },
-    "deleteContent": "Das Programm wird archiviert und nicht mehr für Mitglieder sichtbar sein. Du kannst es aus dem Bereich \"Archiviert\" wiederherstellen. Programm wirklich löschen?",
-    "titleForConsumer": "Meine Programme",
-    "default": "Standardprogramm",
-    "selectProgram": "Ein Programm auswählen",
-    "detail": "Details zum Programm",
-    "infoSelectProgram": "Détails du programme",
-    "deleteHeader": "Programm löschen",
-    "infoNoProgram": "Add a program for your members to track their metrics",
-    "archived": "Archiviert",
-    "title": "Programme",
-    "form": {
-      "delete": "das Programm löschen",
-      "modify": "das Programm ändern",
-      "create": "Erstellen eines Programms",
-      "generalInfo": "Allgemeine Informationen",
-      "name": "Name des Programms",
-      "description": "Beschreibung",
-      "color": "Farbe",
-      "default": "Als Standardprogramm für alle Neuanmeldungen festlegen",
-      "addProgram": "Add a program",
-      "update": "Programm bearbeiten"
-    },
-    "member": {
-      "addDate": "Datum der Anmeldung",
-      "title": "Mitglieder",
-      "name": "Name"
     }
   },
-  "metric": {
-    "form": {
-      "minMax": "Der Minimalwert kann nicht kleiner als der Maximalwert sein",
-      "default_valueHelperText": "Der Basiswert der Metrik. Wenn leer wird der Wert auf den Minimalwert gesetzt",
-      "range": "Der Standardwert liegt nicht zwischen dem Minimal- und Maximalwert ",
-      "addMetric": "eine Metrik hinzufügen",
-      "noMetric": "Keine Metrik gespeichert",
-      "general": "General",
-      "name": "Name",
-      "machine": "Maschinen-ID",
-      "default_value": "Standardwert",
-      "minValue": "Minimaler Wert",
-      "minValueHelperText": "Mindestwert der Metrik",
-      "maxValue": "Maximaler Wert",
-      "maxValueHelperText": "Maximaler Wert der Metrik",
-      "color": "Farbe"
-    },
-    "deleteHeader": "Möchten Sie diese Metrik wirklich abschaffen?",
-    "deleteContent": "Die Metrik wird endgültig gelöscht.",
-    "statistic": "Statistiken",
-    "title": "Metrisch"
-  },
   "memberProgram": {
+    "deleteContent": "Sie werden die Werte der Programmmetriken für dieses Mitglied verlieren",
+    "deleteHeader": "Möchten Sie dieses Programm wirklich von diesem Mitglied trennen?",
+    "infoNoConsumerProgram": "Sie haben noch kein Programm, wenden Sie sich an Ihr Studio, um mit der Beobachtung Ihrer Leistungen zu beginnen!",
+    "infoNoMemberProgram": "Dieses Mitglied hat derzeit keine Programme.",
     "actions": {
       "create": {
         "error": "Fehler bei der Zuordnung des Programms zum Mitglied",
@@ -86,14 +80,20 @@
         "errorAlreadyExists": "Dieses Mitglied wurde bereits mit diesem Programm in Verbindung gebracht"
       },
       "disable": {
-        "success": "Vom Mitglied abgekoppeltes Programm",
-        "error": "Fehler beim Auflösen des Programms"
+        "error": "Fehler beim Auflösen des Programms",
+        "success": "Vom Mitglied abgekoppeltes Programm"
       }
-    },
-    "deleteHeader": "Möchten Sie dieses Programm wirklich von diesem Mitglied trennen?",
-    "infoNoMemberProgram": "Dieses Mitglied hat derzeit keine Programme.",
-    "infoNoConsumerProgram": "Sie haben noch kein Programm, wenden Sie sich an Ihr Studio, um mit der Beobachtung Ihrer Leistungen zu beginnen!",
-    "deleteContent": "Sie werden die Werte der Programmmetriken für dieses Mitglied verlieren"
+    }
   },
+  "form": {
+    "close": "schließen",
+    "add": "hinzufügen",
+    "delete": "Löschen",
+    "search": "Suche",
+    "validate": "Bestätigen",
+    "save": "Registrieren",
+    "cancel": "Abbrechen"
+  },
+  "requiredField": "dieses Feld ist erforderlich",
   "maxLength200": "Dieses Feld hat eine maximale Länge von 200 Zeichen."
 }

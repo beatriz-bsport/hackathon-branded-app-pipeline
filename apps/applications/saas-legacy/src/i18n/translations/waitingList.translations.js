@@ -79,7 +79,6 @@ const getTranslations = async () => {
         smartDelayPercentageError:
           'The percentage needs to be between 10 and 100',
         autokickDelayError: 'A number is required',
-        lastDelayBeforeAutoConsumeError: 'Minutes should be between 0 and 240',
       },
     },
     explainWaitingListConf:

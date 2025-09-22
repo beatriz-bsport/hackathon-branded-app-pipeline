@@ -6,7 +6,7 @@
   },
   "allFinishDialog": {
     "continueButton": "Continue",
-    "infoText": "Well done you have completed all the lessons offered by Bsport. You now know the platform like the back of your hand! You know how to use all the basic features, many others are waiting for you to help you develop your activity.",
+    "infoText": "Well done you have completed all the lessons offered by bsport. You now know the platform like the back of your hand! You know how to use all the basic features, many others are waiting for you to help you develop your activity.",
     "title": "Finished!"
   },
   "sectionFinishDialog": {
@@ -23,8 +23,8 @@
   "welcomeDialog": {
     "approveButton": "Let's get started!",
     "rejectButton": "I want to learn on my own",
-    "infoText": "Welcome to your new management platform. Let's learn together to discover all the features of Bsport to launch your studio in the best conditions.",
-    "title": "Welcome to Bsport!"
+    "infoText": "Welcome to your new management platform. Let's learn together to discover all the features of bsport to launch your studio in the best conditions.",
+    "title": "Welcome to bsport!"
   },
   "lessonHeader": {
     "warning": "Please contact your Account Manager to learn more and activate this additional service.",
@@ -32,7 +32,7 @@
     "backToList": "Back to the list"
   },
   "menuHeader": {
-    "infoText": "Learn how to use all the basic features of Bsport with our different lessons.",
+    "infoText": "Learn how to use all the basic features of bsport with our different lessons.",
     "title": "Welcome to our Getting Started Guide."
   },
   "sectionList": {

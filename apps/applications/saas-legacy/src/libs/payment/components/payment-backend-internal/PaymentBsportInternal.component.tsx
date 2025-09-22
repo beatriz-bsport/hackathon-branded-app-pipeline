@@ -1,5 +1,6 @@
 import React, { JSX } from 'react';
 
+import Config from '#src/config';
 import { DateTime } from 'luxon';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
@@ -13,7 +14,10 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import Button from '@material-ui/core/Button';
 import { useTranslation } from 'react-i18next';
 
-import { PAYMENT_GROUP_METHOD_IDENTIFIER_CASH } from '@bsport/common/lib/master-data/payment-group.js';
+import {
+  PAYMENT_GROUP_METHOD_IDENTIFIER_CASH,
+  PAYMENT_GROUP_METHOD_IDENTIFIER_CB_MANUAL,
+} from '@bsport/common/lib/master-data/payment-group.js';
 import PriceInput from '#src/components/input/PriceInput.component';
 import type { InternalPaymentPayload } from '#src/libs/payment/types';
 import DateInput from '../../../../components/input/DateInput.component';
@@ -26,6 +30,7 @@ type Props = {
   paymentMethodChoices: Array<number>;
   amountToPay: string;
   clientSecret: string;
+  companyId?: number;
   onCancel: () => void;
   onProcessing?: (processing: boolean) => void;
   onSuccess: (callback?: () => void) => void;
@@ -44,10 +49,27 @@ type Props = {
   loading?: boolean;
 };
 
+const TNM_PARIS_COMPANY_ID = 4272;
+
+// Added in the context of a specific request from The New Me Paris since most of their manual payments are done by manual card
+const getCompanyIdsToDisplayManualCardAsDefault = () => {
+  switch (Config.REACT_APP_SENTRY_ENVIRONMENT) {
+    case 'production':
+      return [TNM_PARIS_COMPANY_ID];
+    case 'staging':
+      return [94];
+    case 'dev':
+      return [2];
+    default:
+      return [];
+  }
+};
+
 export const PaymentBsportInternal: React.FC<Props> = ({
   paymentMethodChoices,
   amountToPay,
   clientSecret,
+  companyId,
   onCancel,
   onProcessing,
   onSuccess,
@@ -77,9 +99,13 @@ export const PaymentBsportInternal: React.FC<Props> = ({
 
   const [date, setDate] = React.useState(DateTime.now());
 
-  const [paymentMethodSelected, setPaymentMethodSelected] = React.useState(
-    PAYMENT_GROUP_METHOD_IDENTIFIER_CASH,
-  );
+  const defaultPaymentMethod =
+    companyId && getCompanyIdsToDisplayManualCardAsDefault().includes(companyId)
+      ? PAYMENT_GROUP_METHOD_IDENTIFIER_CB_MANUAL
+      : PAYMENT_GROUP_METHOD_IDENTIFIER_CASH;
+
+  const [paymentMethodSelected, setPaymentMethodSelected] =
+    React.useState(defaultPaymentMethod);
 
   const onPaymentMethodSelect = React.useCallback(
     (ev) => setPaymentMethodSelected(parseInt(ev.target.value, 10)),

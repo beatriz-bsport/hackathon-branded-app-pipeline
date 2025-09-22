@@ -39,6 +39,8 @@ export type CompanyWithTheme = Company & {
 export type UpsellSumup = {
   upsell_identifier: number;
   readable_identifier: string;
+  is_free_trial: boolean;
+  trial_remaining_days: number | null;
 };
 
 export type FeatureList = {

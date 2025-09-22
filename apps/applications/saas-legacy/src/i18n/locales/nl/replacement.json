@@ -1,4 +1,46 @@
 {
+  "header": {
+    "establishment_group": "Locatie",
+    "location": "Vestiging",
+    "class": "Sessie",
+    "registrations": "Registraties",
+    "request": "Verzoek",
+    "availability": "Beschikbaar",
+    "closing_date": "Sluitingsdatum",
+    "teacher_override": "Plaatsvervangende instructeur",
+    "teacher": "Instructeur",
+    "status": "Status",
+    "reason": "Reden",
+    "action": "Actie",
+    "level": "Niveau",
+    "name": "Sessie",
+    "date": "Datum en tijd"
+  },
+  "askForReplacement": {
+    "lateRequestCounterInfo": "<strong>{{requestsLeft}}</strong> op <strong>{{requestsMax}}</strong> resterend laat verzoek tot {{-dateEnd}}.",
+    "lateRequestCounterInfo_plural": "<strong>{{requestsLeft}}</strong> op <strong>{{requestsMax}}</strong> resterende late verzoeken tot {{-dateEnd}}.",
+    "lateRequestInfo": "Het verzoek zal worden geregistreerd, maar zorg ervoor dat u rechtstreeks contact opneemt met uw studio om hen zo snel mogelijk op de hoogte te brengen.",
+    "lateRequestInfo_plural": "De verzoeken zullen worden geregistreerd, maar zorg ervoor dat u rechtstreeks contact opneemt met uw studio om hen zo snel mogelijk op de hoogte te brengen.",
+    "lateRequestTypo": "Let op, je verzoek voor een vervanging is laat. Je hebt {{daysBeforeOffer}} dag(en) voor het begin van de sessie om je verzoek op tijd in te dienen.",
+    "lateRequestTypo_plural": "Let op, sommige van uw vervangingsaanvragen zijn laat. Je hebt {{daysBeforeOffer}} dagen voor het begin van de sessie om je verzoek op tijd in te dienen.",
+    "close": "Sluiten",
+    "requestSentDescription": "Je vervangingsverzoek is in behandeling genomen. Ga naar het tabblad \"Mijn aanvragen\" om de voortgang te volgen.",
+    "requestSentDescription_plural": "Je vervangingsverzoeken zijn in behandeling genomen. Ga naar het tabblad \"Mijn aanvragen\" om de voortgang te volgen.",
+    "requestSent": "Verzoek verzonden",
+    "requestSent_plural": "Verzoeken verzonden",
+    "submit": "Indienen",
+    "cancel": "Annuleren",
+    "label": "Reden van afwezigheid",
+    "title": "Vervangingsverzoek"
+  },
+  "calendar": {
+    "helperTextLimited": "<strong>{{requestsLeft}}</strong> op <strong>{{requestsMax}}</strong> resterende laattijdige verzoeken {{-dateEnd}}. Alle aanvragen voor vervangingen die binnen {{count}} dag van de zitting worden gedaan, worden als te laat beschouwd.",
+    "helperTextLimited_plural": "<strong>{{requestsLeft}}</strong> op <strong>{{requestsMax}}</strong> resterende laattijdige verzoeken {{-dateEnd}}. Alle aanvragen voor vervangingen die binnen {{count}} dag(en) van de zitting worden gedaan, worden als te laat beschouwd.",
+    "helperTextNotLimited": "Alle vervangingsverzoeken die binnen {{count}} dag voor het start van de sessie worden gedaan worden als te laat beschouwd.",
+    "helperTextNotLimited_plural": "Alle vervangingsverzoeken die binnen {{count}} dagen voor het start van de sessie worden gedaan worden als te laat beschouwd.",
+    "description": "Hier staan al je ingeroosterde groepsactiviteiten.",
+    "title": "Mijn rooster"
+  },
   "tooltip": {
     "seeAnswers": "Zie de lijst van vervangers",
     "offerCancelled": "Deze sessie is geannuleerd"
@@ -50,11 +92,11 @@
       "required": "Dit veld is verplicht",
       "nameHelperText": "Naam van de disciplinegroep",
       "name": "Naam",
+      "establishments": "Vestigingen",
+      "locations": "Locaties",
       "establishmentSelectorError": "U kunt niet tegelijkertijd vestigingen en locaties opgeven",
       "allEstablishments": "Alle instellingen",
-      "pickEstablishment": "Laat leeg om alles te selecteren",
-      "locations": "Locaties",
-      "establishments": "Vestigingen"
+      "pickEstablishment": "Laat leeg om alles te selecteren"
     },
     "all": "Alle",
     "delete": {
@@ -130,23 +172,6 @@
     "description": "De inschrijving voor deze aanvraag is gesloten op {{closing_date}}. Als er niet genoeg reacties zijn op dit verzoek, kunt u de sluitingsdatum nog verschuiven.",
     "title": "Sluitingsdatum"
   },
-  "askForReplacement": {
-    "lateRequestInfo": "Het verzoek zal worden geregistreerd, maar zorg ervoor dat u rechtstreeks contact opneemt met uw studio om hen zo snel mogelijk op de hoogte te brengen.",
-    "lateRequestInfo_plural": "De verzoeken zullen worden geregistreerd, maar zorg ervoor dat u rechtstreeks contact opneemt met uw studio om hen zo snel mogelijk op de hoogte te brengen.",
-    "lateRequestCounterInfo": "<strong>{{requestsLeft}}</strong> op <strong>{{requestsMax}}</strong> resterend laat verzoek tot {{-dateEnd}}.",
-    "lateRequestCounterInfo_plural": "<strong>{{requestsLeft}}</strong> op <strong>{{requestsMax}}</strong> resterende late verzoeken tot {{-dateEnd}}.",
-    "lateRequestTypo": "Let op, je verzoek voor een vervanging is laat. Je hebt {{daysBeforeOffer}} dag(en) voor het begin van de sessie om je verzoek op tijd in te dienen.",
-    "lateRequestTypo_plural": "Let op, sommige van uw vervangingsaanvragen zijn laat. Je hebt {{daysBeforeOffer}} dagen voor het begin van de sessie om je verzoek op tijd in te dienen.",
-    "close": "Sluiten",
-    "requestSentDescription": "Je vervangingsverzoek is in behandeling genomen. Ga naar het tabblad \"Mijn aanvragen\" om de voortgang te volgen.",
-    "requestSentDescription_plural": "Je vervangingsverzoeken zijn in behandeling genomen. Ga naar het tabblad \"Mijn aanvragen\" om de voortgang te volgen.",
-    "requestSent": "Verzoek verzonden",
-    "requestSent_plural": "Verzoeken verzonden",
-    "submit": "Indienen",
-    "cancel": "Annuleren",
-    "label": "Reden van afwezigheid",
-    "title": "Vervangingsverzoek"
-  },
   "replacementStatus": {
     "teacherFound": "Vervangen",
     "approvedWithReplacementPropositions": "In behandeling",
@@ -180,23 +205,6 @@
     "replacementFound": "Vervanging gevonden",
     "pending": "Openstaande vervangingsverzoeken"
   },
-  "header": {
-    "class": "Sessie",
-    "registrations": "Registraties",
-    "request": "Verzoek",
-    "availability": "Beschikbaar",
-    "closing_date": "Sluitingsdatum",
-    "teacher_override": "Plaatsvervangende instructeur",
-    "teacher": "Instructeur",
-    "status": "Status",
-    "reason": "Reden",
-    "action": "Actie",
-    "establishment_group": "Locatie",
-    "location": "Vestiging",
-    "level": "Niveau",
-    "name": "Sessie",
-    "date": "Datum en tijd"
-  },
   "unavailableReplacement": {
     "refusedByManager": "Je vervangingsverzoek is afgewezen.",
     "noLateRequestsLeft": "Het is niet mogelijk om opnieuw te late vervangingsverzoeken te versturen.",
@@ -219,14 +227,6 @@
     "cancel": "Annuleren",
     "description": "Hier staan al je vervangingsverzoeken.",
     "title": "Mijn verzoeken"
-  },
-  "calendar": {
-    "helperTextNotLimited": "Alle vervangingsverzoeken die binnen {{count}} dag voor het start van de sessie worden gedaan worden als te laat beschouwd.",
-    "helperTextNotLimited_plural": "Alle vervangingsverzoeken die binnen {{count}} dagen voor het start van de sessie worden gedaan worden als te laat beschouwd.",
-    "helperTextLimited": "<strong>{{requestsLeft}}</strong> op <strong>{{requestsMax}}</strong> resterende laattijdige verzoeken {{-dateEnd}}. Alle aanvragen voor vervangingen die binnen {{count}} dag van de zitting worden gedaan, worden als te laat beschouwd.",
-    "helperTextLimited_plural": "<strong>{{requestsLeft}}</strong> op <strong>{{requestsMax}}</strong> resterende laattijdige verzoeken {{-dateEnd}}. Alle aanvragen voor vervangingen die binnen {{count}} dag(en) van de zitting worden gedaan, worden als te laat beschouwd.",
-    "description": "Hier staan al je ingeroosterde groepsactiviteiten.",
-    "title": "Mijn rooster"
   },
   "requestsLinkedToCancelledOffers": {
     "cancelledOffersModeTitle": "Geannuleerde sessies",

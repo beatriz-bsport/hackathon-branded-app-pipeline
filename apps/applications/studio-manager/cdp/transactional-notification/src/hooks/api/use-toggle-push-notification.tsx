@@ -7,6 +7,7 @@ import { useAsync } from "@bsport/use-async";
 
 import { fetch } from "#src/utils/fetch";
 import { useTranslation } from "#src/utils/i18n";
+import type { TogglePushNotificationMethodParams } from "#src/utils/types";
 
 type UseTogglePushNotificationProps = {
   onSuccess?: (notificationRuleDetails: NotificationRuleDetail) => void;
@@ -50,10 +51,7 @@ export function useTogglePushNotification({
   const togglePushNotification = ({
     checked,
     notificationEventDetails,
-  }: {
-    checked: boolean;
-    notificationEventDetails: NotificationRuleDetail;
-  }) => {
+  }: TogglePushNotificationMethodParams) => {
     const notificationEventData: NotificationRuleDetail = {
       ...notificationEventDetails,
       is_notification_push_active: checked,

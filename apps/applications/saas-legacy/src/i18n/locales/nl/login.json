@@ -1,42 +1,46 @@
 {
-  "tempPassword": {
-    "title": "Tijdelijk wachtwoord",
-    "close": "Sluiten",
-    "submit": "Aanmaken",
-    "explain": "Dit wachtwoord is geldig tot {{expirationDate}}. Je hoofdwachtwoord is niet gewijzigd.",
-    "explainRequest": "Door een tijdelijk wachtwoord aan te maken kunnen onze medewerkers je beter assisteren, aangezien ze voor maximaal één week met dit tijdelijke wachtwoord met je account kunnen verbinden. Je eigen wachtwoord verandert niet.",
-    "copied": "Wachtwoord gekopieerd",
-    "copy": "Kopieer wachtwoord naar klembord"
-  },
   "forms": {
     "password": {
       "label": "Wachtwoord"
     }
   },
+  "tempPassword": {
+    "title": "Tijdelijk wachtwoord",
+    "close": "Sluiten",
+    "submit": "Aanmaken",
+    "explainRequest": "Door een tijdelijk wachtwoord aan te maken kunnen onze medewerkers je beter assisteren, aangezien ze voor maximaal één week met dit tijdelijke wachtwoord met je account kunnen verbinden. Je eigen wachtwoord verandert niet.",
+    "explain": "Dit wachtwoord is geldig tot {{expirationDate}}. Je hoofdwachtwoord is niet gewijzigd.",
+    "copied": "Wachtwoord gekopieerd",
+    "copy": "Kopieer wachtwoord naar klembord"
+  },
+  "error": {
+    "invalidPassword": "Ongeldig wachtwoord",
+    "invalidEmail": "Hmm... dit e-mailadres komt ons niet bekend voor.",
+    "authError": "E-mail of wachtwoord is verkeerd"
+  },
   "actions": {
-    "signin": "Aanmelden",
+    "forgottenPassword": "Wachtwoord vergeten?",
     "signup": {
       "register": "Inschrijven",
       "noAccount": "Een nieuw account aanmaken",
       "goBack": "Ga terug"
     },
-    "forgottenPassword": "Wachtwoord vergeten?"
+    "signin": "Aanmelden"
   },
-  "error": {
-    "authError": "E-mail of wachtwoord is verkeerd",
-    "invalidEmail": "Hmm... dit e-mailadres komt ons niet bekend voor.",
-    "invalidPassword": "Ongeldig wachtwoord"
+  "disconnectedStatus": {
+    "title": "Het lijkt erop dat je niet bent ingelogd",
+    "subtitle": "Je moet ingelogd zijn om toegang te krijgen tot je profiel."
   },
-  "doubleLogin": {
-    "explain": "Je sessie is verlopen. Heb je je tegelijkertijd met twee verschillende accounts aangemeld en weet je zeker of je je andere tabbladen/vensters correct hebt afgesloten?",
-    "disconnect": "Opnieuw inloggen"
-  },
+  "or": " of ",
+  "contactUs": "Klik hier om vrijblijvend contact met ons op en om meer te leren over hoe bsport uw onderneming ondersteunt.",
   "signup": {
     "title": "Inschrijven",
     "titleAsResgisterBooking": "Reservering registreren"
   },
-  "contactUs": "Klik hier om vrijblijvend contact met ons op en om meer te leren over hoe bsport uw onderneming ondersteunt.",
-  "or": " of ",
+  "doubleLogin": {
+    "disconnect": "Opnieuw inloggen",
+    "explain": "Je sessie is verlopen. Heb je je tegelijkertijd met twee verschillende accounts aangemeld en weet je zeker of je je andere tabbladen/vensters correct hebt afgesloten?"
+  },
   "country": {
     "ES": "Spanje",
     "BE": "België",
@@ -71,11 +75,11 @@
     "PT": "Portugal",
     "PL": "Polen",
     "HK": "Hongkong",
-    "AU": "Australië",
     "SK": "Slowakije",
-    "CY": "Cyprus",
     "US": "Verenigde Staten van Amerika",
     "EE": "Estland",
+    "AU": "Australië",
+    "CY": "Cyprus",
     "MX": "Mexico",
     "LI": "Liechtenstein"
   },
@@ -114,21 +118,21 @@
       "title": "Welkom!"
     },
     "confirmation": {
-      "disconnect": "Verbreken",
       "content": {
-        "help": "Raadpleeg de interne documentatie voor gedetailleerde instructies voor elke stap.",
-        "emailValidation": "E-mail validatie: Voer de administratieve actie uit om het e-mailadres van de klant te valideren.",
-        "upsell": "Upsells: Voeg eventuele upsells toe aan het platform.",
-        "billing": "Platform Facturering: Doe de factureringsinstellingen voor de nieuwe backoffice.",
+        "contactAccountManager": "Accountvalidatie in behandeling. Als u een Studio Manager bent, neem dan contact op met uw bsport-contactpersoon om uw backoffice te activeren.",
         "core": "Het nieuwe backoffice-platform is met succes aangemaakt. Voordat je de toegangsgegevens van de klant verstuurt, moet je er voor zorgen dat de volgende validatiestappen uit de interne documentatie zijn voltooid:",
-        "contactAccountManager": "Accountvalidatie in behandeling. Als u een Studio Manager bent, neem dan contact op met uw bsport-contactpersoon om uw backoffice te activeren."
-      }
+        "billing": "Platform Facturering: Doe de factureringsinstellingen voor de nieuwe backoffice.",
+        "upsell": "Upsells: Voeg eventuele upsells toe aan het platform.",
+        "emailValidation": "E-mail validatie: Voer de administratieve actie uit om het e-mailadres van de klant te valideren.",
+        "help": "Raadpleeg de interne documentatie voor gedetailleerde instructies voor elke stap."
+      },
+      "disconnect": "Verbreken"
     }
   },
   "emailValidation": {
-    "disconnect": "Account veranderen",
     "goToLogin": "Terug",
     "linkExpired": "Je validatielink is verlopen",
+    "disconnect": "Account veranderen",
     "hasSentAgain": "E-mail verzonden",
     "sendAgain": "Opnieuw een bevestigingsmail versturen",
     "success": "Je e-mail is gevalideerd! Je wordt doorverwezen naar je Back Office.",
@@ -161,31 +165,31 @@
       }
     },
     "paymentMethodSuccess": "De toegevoege betaalmethode is in goede orde geconfigureerd. Onder Instellingen > Abonnement kan dit later, indien nodig, gewijzigd worden.",
+    "welcomeDescription": "Namens iedereen van ons team heten we je van harte welkom op ons platform. Voltooi de onderstaande stappen en we kunnen van slag.",
+    "infoGoingBack": "Dit kan later voltooid worden, indien je nu de pagina verlaat.",
     "accountSuccess": "Je Stripe-account is in goede orde geconfigureerd. Indien nodig kunnen accountgegevens onder Instellingen > Onderneming gewijzigd worden.",
     "goToBackoffice": "Klik op \"Back Office\" om terug naar het hoofdscherm te keren.",
     "bankAccountSuccess": "Je IBAN is in goede orde geconfigureerd. Indien nodig kunnen accountgegevens onder Instellingen > Onderneming gewijzigd worden.",
     "welcomeTitle": "Welkom bij BSPORT!",
-    "welcomeDescription": "Namens iedereen van ons team heten we je van harte welkom op ons platform. Voltooi de onderstaande stappen en we kunnen van slag.",
     "stripeStep": "Stripe configureren",
+    "welcomeConfigure": "Binnen {{numberOfSteps}} klik je account configuren!",
+    "welcomeConfigure_plural": "Binnen {{numberOfSteps}} kliks je account configureren!",
     "ibanStep": "IBAN",
     "cardStep": "Betaalmethode",
     "finishStep": "Voltooid!",
     "createStripe": "Stripe",
-    "welcomeConfigure": "Binnen {{numberOfSteps}} klik je account configuren!",
-    "welcomeConfigure_plural": "Binnen {{numberOfSteps}} kliks je account configureren!",
     "configureStripe": "Het is noodzakelijk dat er een Stripe-account aangemaakt wordt om betalingen te verwerken.",
     "companyName": "Bedrijfsnaam",
     "companyAdress": "Adres",
     "configureStripeAction": "Stripe configureren",
     "stripeConfiguration": "Stripe configureren",
-    "infoGoingBack": "Dit kan later voltooid worden, indien je nu de pagina verlaat.",
-    "companyStripeName": "Stripe-account",
-    "paymentMethodTitle": "Selecteer een betaalmethode",
-    "redirecting": "Doorverwijzen naar Stripe...",
     "stripeConfigurationExplain": "Je wordt doorverwezen naar Stripe. Zodra dit formulier voltooid is wordt je teruggestuurd naar je BSPORT Back Office.",
+    "redirecting": "Doorverwijzen naar Stripe...",
+    "companyStripeName": "Stripe-account",
     "managerIbanExplain": "Selecteer op welke rekening je de uitbetalingen vanuit BSPORT wilt ontvangen",
-    "congrats": "Gefeliciteerd!",
+    "paymentMethodTitle": "Selecteer een betaalmethode",
     "paymentMethodExplain": "Selecteer de betaalmethode die je wenst te gebruiken voor de facturatie vanuit BSPORT",
+    "congrats": "Gefeliciteerd!",
     "finishExplain": "De configuratie is voltooid. Je kunt nu BSPORT gebruiken.",
     "needToConfigureStripeInfo": "Het toevoegen van een betaalmethode is een vereiste om facturen te betalen.",
     "configureMyStripeAccount": "Mijn Stripe-account configureren"
@@ -211,35 +215,31 @@
     "infoDateBlocked": "Het is een vereiste dat het Stripe-account dat aan dit platform gekoppeld is zo snel mogelijk geconfigureerd wordt. Voltooi deze configuratie vóór {{ dateAccountIsBLockedFormattedLL }} om gebruik te kunnen blijven maken van de diensten van BSPORT.",
     "stripeAccount": "Stripe-account"
   },
+  "emailConfirmation": {
+    "textExplain": "Er is zojuist een bevestigingsmail verzonden om uw e-mailadres te bevestigen. Om uw registratie te voltooien klikt u op de link om uw account te activeren.",
+    "dialog": {
+      "sentAgainExplain": "De bevestigingsmail is zojuist opnieuw verzonden naar uw e-mailadres.",
+      "sentAgain": "E-mail opnieuw verzonden!",
+      "cannotBeResent": "Er is al een e-mail verzonden, als u nog steeds niets heeft ontvangen in {{timeLeftBeforeNewSent}} minuten, probeer het opnieuw. Vergeet niet uw spam te controleren.",
+      "canBeResent": "Controleer uw spam en laad uw mailbox opnieuw voordat u de bevestigingsmail opnieuw verstuurt. Heeft u niets ontvangen, klik dan op de verzendknop.",
+      "title": "De bevestigingsmail opnieuw versturen",
+      "close": "Sluiten",
+      "continue": "Doorgaan",
+      "cancel": "Annuleren",
+      "send": "Verzenden"
+    },
+    "helperToSendOnceAgain": "om de bevestigingsmail opnieuw te versturen",
+    "notReceived": "Heeft u niets ontvangen?",
+    "title": "Uw registratie is geregistreerd",
+    "clickHere": "Klik hier",
+    "backToLogin": "Terug naar de inlogpagina"
+  },
   "welcome": {
     "textExplain": "Gefeliciteerd, uw registratie is voltooid. U kunt nu gaan genieten van uw account en uw eerste sessies boeken.",
     "begin": "Start",
     "title": "Welkom bij {{- companyName}}!"
   },
-  "emailConfirmation": {
-    "dialog": {
-      "close": "Sluiten",
-      "continue": "Doorgaan",
-      "sentAgainExplain": "De bevestigingsmail is zojuist opnieuw verzonden naar uw e-mailadres.",
-      "sentAgain": "E-mail opnieuw verzonden!",
-      "cancel": "Annuleren",
-      "send": "Verzenden",
-      "canBeResent": "Controleer uw spam en laad uw mailbox opnieuw voordat u de bevestigingsmail opnieuw verstuurt. Heeft u niets ontvangen, klik dan op de verzendknop.",
-      "cannotBeResent": "Er is al een e-mail verzonden, als u nog steeds niets heeft ontvangen in {{timeLeftBeforeNewSent}} minuten, probeer het opnieuw. Vergeet niet uw spam te controleren.",
-      "title": "De bevestigingsmail opnieuw versturen"
-    },
-    "helperToSendOnceAgain": "om de bevestigingsmail opnieuw te versturen",
-    "clickHere": "Klik hier",
-    "notReceived": "Heeft u niets ontvangen?",
-    "backToLogin": "Terug naar de inlogpagina",
-    "textExplain": "Er is zojuist een bevestigingsmail verzonden om uw e-mailadres te bevestigen. Om uw registratie te voltooien klikt u op de link om uw account te activeren.",
-    "title": "Uw registratie is geregistreerd"
-  },
   "referral": {
     "signUpNow": "Bedankt voor het gebruiken van de referral-link van {{ referringMemberFirstName }}. Registreer je om deze voucher voor je eerste aankoop te gebruiken!"
-  },
-  "disconnectedStatus": {
-    "subtitle": "Je moet ingelogd zijn om toegang te krijgen tot je profiel.",
-    "title": "Het lijkt erop dat je niet bent ingelogd"
   }
 }

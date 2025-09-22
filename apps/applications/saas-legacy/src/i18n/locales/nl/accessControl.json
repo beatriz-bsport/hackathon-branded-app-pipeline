@@ -1,155 +1,155 @@
 {
+  "broadcastChannelWarning": "Door uw browserversie kunnen we deze functie niet correct uitvoeren. Upgrade uw browser.",
+  "accessMonitoringTitle": "Toegangscontrole",
+  "memberEntry": "Lid toetreding",
   "snackbar": {
     "message": "<strong>{{- name }}</strong> checkte zojuist in.",
-    "R": "Niet geldig",
+    "G": "Geldig",
     "O": "Waarschuwing",
-    "G": "Geldig"
-  },
-  "memberEntry": "Lid toetreding",
-  "modals": {
-    "entryStatusChanged": {
-      "stay": "Op ledenprofiel blijven",
-      "close": "Ledenprofiel sluiten",
-      "N": {
-        "description": "Je kunt nog steeds waarschuwingen aanpakken en ze binnenlaten via het tabblad Locatiebezoek.",
-        "message": "Lid werd de toegang geweigerd.",
-        "title": "Toegang geweigerd"
-      },
-      "Y": {
-        "description": "Je kunt waarschuwingen nog steeds aanpakken via het tabblad Locatiebezoek.",
-        "message": "Lid mocht naar binnen met bestaande waarschuwingen.",
-        "title": "Lid ingevoerd"
-      }
-    },
-    "accessStatusChangedSuccess": {
-      "message": "Alle problemen zijn verholpen en de status van het lid is nu 'Geldig'.",
-      "title": "Lidstatus bijgewerkt"
-    },
-    "locationBlocker": {
-      "description": "Te vinden onder Instellingen > Personeel.",
-      "message": "Vraag personeel met beheerdersrechten om een locatie toe te wijzen aan de toegang voor personeel.",
-      "title": "Locatie niet toegewezen"
-    },
-    "memberPhotoHistory": {
-      "validateIdentity": "Identiteit valideren",
-      "uploadedOn": "Uploaded {{- date}}",
-      "title": "Vorige foto's"
-    }
-  },
-  "memberVisitDetails": {
-    "atHome": "Thuis",
-    "passExpiration": "Geldig tot {{- expirationDate }}",
-    "actions": {
-      "billMember": "Factureren",
-      "goToProfile": "Profiel",
-      "seePreviousImages": "Toon vorige profielfoto"
-    },
-    "photoHasChanged": "Deze profielfoto is recent gewijzigd",
-    "pass": "Kaart:",
-    "spotName": "Plek: {{- spotName}}",
-    "teacherName": "Instructeur: {{- coachName}}",
-    "nextBooking": "Eerstvolgende reservering:",
-    "lastName": "Achternaam:",
-    "firstName": "Voornaam:",
-    "title": "Ledeninformatie",
-    "accessStatus": {
-      "red": "Ongeldig",
-      "orange": "Waarschuwing",
-      "green": "Geldig"
-    },
-    "manualEntry": {
-      "button": {
-        "entryRefused": "Toegang geweigerd",
-        "entryAllowed": "Ingevoerd",
-        "accept": "Toegang toestaan",
-        "refuse": "Toegang weigeren"
-      },
-      "description": "Geef aan of dit lid mag binnenkomen of niet"
-    },
-    "noPreviousPhoto": "Lid heeft geen eerdere foto's",
-    "noSpotAllocated": "Geen plaats toegewezen"
+    "R": "Niet geldig"
   },
   "memberVisit": {
+    "emptyState": {
+      "waitForScan": "Wacht tot het lid zijn barcode scant of zoek zijn naam of barcode handmatig.",
+      "establishmentsSelectedInRole": "U controleert de toegang voor <strong>{- adress }} - {{- establishments }}</strong>",
+      "or": "of",
+      "searchMember": "Zoek leden op naam of nummer"
+    },
+    "closeMemberVisit": "Ledenprofiel sluiten",
+    "refreshMemberVisit": "Verversstatus",
     "warnings": {
-      "passIncompatibleWithAppointmentsInEstablishments": "De kaart van dit lid ({{- passName }}) kan niet voor afspraken binnen je vestiging worden gebruikt",
-      "passIncompatibleWithEstablishments": "De kaart van dit lid ({{- passName }}) is niet beschikbaar gesteld voor je vestiging",
-      "passRestrictedByOffPeakSchedule": "De kaart van dit lid ({{- passName }}) kan niet tijdens deze tijden worden gebruikt",
-      "passRestrictedToVod": "De kaart van dit lid ({{- passName }}) kan alleen voor Video on Demand worden gebruikt",
-      "passLinkedToPausedSubscription": "De kaart van dit lid ({{- passName }}) is gekoppeld aan een gepauzeerd abonnement",
-      "passIsDisabled": "De kaart van dit lid is onbeschikbaar ({{- passName }})",
-      "noPasses": "Dit lid heeft geen actieve kaarten of lidmaatschappen met credits",
-      "bookingsInOtherEstablishments": "Deze reservering ({{- bookingName}}) vindt plaats in een andere vestiging ({{- establishmentName }})",
-      "hasUnpaidAppointments": "Dit lid heeft één of meerdere onbetaalde afspraken",
-      "hasNegativeAccountBalance": "Het saldo van dit lid is negatief",
       "hasUnpaidInvoices": "Dit lid heeft één of meerdere openstaande facturen",
+      "hasNegativeAccountBalance": "Het saldo van dit lid is negatief",
+      "hasUnpaidAppointments": "Dit lid heeft één of meerdere onbetaalde afspraken",
+      "bookingsInOtherEstablishments": "Deze reservering ({{- bookingName}}) vindt plaats in een andere vestiging ({{- establishmentName }})",
+      "noPasses": "Dit lid heeft geen actieve kaarten of lidmaatschappen met credits",
+      "passIsDisabled": "De kaart van dit lid is onbeschikbaar ({{- passName }})",
+      "passLinkedToPausedSubscription": "De kaart van dit lid ({{- passName }}) is gekoppeld aan een gepauzeerd abonnement",
+      "passRestrictedToVod": "De kaart van dit lid ({{- passName }}) kan alleen voor Video on Demand worden gebruikt",
+      "passRestrictedByOffPeakSchedule": "De kaart van dit lid ({{- passName }}) kan niet tijdens deze tijden worden gebruikt",
+      "passIncompatibleWithEstablishments": "De kaart van dit lid ({{- passName }}) is niet beschikbaar gesteld voor je vestiging",
+      "passIncompatibleWithAppointmentsInEstablishments": "De kaart van dit lid ({{- passName }}) kan niet voor afspraken binnen je vestiging worden gebruikt",
       "numberOfCheckedPasses": "{{- count }} lid zijn leskaart is gecontroleerd zonder geldig resultaat.",
       "numberOfCheckedPasses_plural": "{{- count }} leden hun leskaart is gecontroleerd zonder geldig resultaat."
-    },
-    "refreshMemberVisit": "Verversstatus",
-    "closeMemberVisit": "Ledenprofiel sluiten",
-    "emptyState": {
-      "or": "of",
-      "searchMember": "Zoek leden op naam of nummer",
-      "establishmentsSelectedInRole": "U controleert de toegang voor <strong>{- adress }} - {{- establishments }}</strong>",
-      "waitForScan": "Wacht tot het lid zijn barcode scant of zoek zijn naam of barcode handmatig."
     }
   },
-  "settings": {
-    "errors": {
-      "minutes": {
-        "max": "Moet lager zijn dan 60",
-        "min": "Moet groter zijn dan 0"
-      },
-      "hours": {
-        "max": "Moet lager zijn dan 24",
-        "min": "Moet groter zijn dan 0"
-      },
-      "required": "Dit veld is verplicht"
-    },
-    "isStudioWide": "Instellingen worden studiobreed toegepast.",
-    "beforeTitle": "Inschrijfperiode na aanvang sessie",
-    "afterTitle": "Inschrijfperiode voor aanvang sessie",
-    "minutes": "Minuten",
-    "hours": "Uren",
-    "description": "Stel de tijd in die leden mogen binnenkomen voor en na het begin van hun sessie in een compatibele vestiging.",
-    "title": "Tijdsbestek voor toetreding van leden"
-  },
   "liveHistory": {
-    "breadcrumbTitle": "Locatie bezoek",
     "table": {
-      "accessStatus": "Status",
-      "time": "Entree",
-      "session": "Bezoek reden",
-      "member": "Lid",
-      "entryUnknown": "Geef aan of het lid naar binnen mocht",
-      "entered": "Ingevoerd",
       "refusedEntry": "Toegang geweigerd",
+      "entered": "Ingevoerd",
+      "entryUnknown": "Geef aan of het lid naar binnen mocht",
+      "member": "Lid",
+      "session": "Bezoek reden",
+      "time": "Entree",
+      "accessStatus": "Status",
       "placeholder": {
-        "search": "Op basis van je zoekopdracht konden we geen leden vinden die vandaag op bezoek zijn geweest.",
-        "default": "Je hebt nog geen bezoeken geregistreerd."
+        "default": "Je hebt nog geen bezoeken geregistreerd.",
+        "search": "Op basis van je zoekopdracht konden we geen leden vinden die vandaag op bezoek zijn geweest."
       }
     },
+    "breadcrumbTitle": "Locatie bezoek",
     "unreadCount": "{{ count }} nieuw bezoek",
     "unreadCount_plural": "{{ count }} Nieuwe bezoeken"
   },
-  "accessMonitoringTitle": "Toegangscontrole",
-  "filters": {
-    "entryStatus": {
-      "U": "Onbekend",
-      "N": "Niet ingevuld",
-      "Y": "Ingevuld",
-      "unknown": "Onbekend",
-      "notEntered": "Niet ingevoerd",
-      "entered": "Ingevoerd"
-    },
+  "memberVisitDetails": {
     "accessStatus": {
-      "R": "Niet geldig",
-      "O": "Waarschuwing",
-      "G": "Geldig",
-      "red": "Niet geldig",
+      "green": "Geldig",
       "orange": "Waarschuwing",
-      "green": "Geldig"
+      "red": "Ongeldig"
+    },
+    "title": "Ledeninformatie",
+    "firstName": "Voornaam:",
+    "lastName": "Achternaam:",
+    "nextBooking": "Eerstvolgende reservering:",
+    "teacherName": "Instructeur: {{- coachName}}",
+    "spotName": "Plek: {{- spotName}}",
+    "noSpotAllocated": "Geen plaats toegewezen",
+    "pass": "Kaart:",
+    "photoHasChanged": "Deze profielfoto is recent gewijzigd",
+    "noPreviousPhoto": "Lid heeft geen eerdere foto's",
+    "actions": {
+      "seePreviousImages": "Toon vorige profielfoto",
+      "goToProfile": "Profiel",
+      "billMember": "Factureren"
+    },
+    "manualEntry": {
+      "description": "Geef aan of dit lid mag binnenkomen of niet",
+      "button": {
+        "refuse": "Toegang weigeren",
+        "accept": "Toegang toestaan",
+        "entryAllowed": "Ingevoerd",
+        "entryRefused": "Toegang geweigerd"
+      }
+    },
+    "passExpiration": "Geldig tot {{- expirationDate }}",
+    "atHome": "Thuis"
+  },
+  "settings": {
+    "title": "Tijdsbestek voor toetreding van leden",
+    "description": "Stel de tijd in die leden mogen binnenkomen voor en na het begin van hun sessie in een compatibele vestiging.",
+    "hours": "Uren",
+    "minutes": "Minuten",
+    "afterTitle": "Inschrijfperiode voor aanvang sessie",
+    "beforeTitle": "Inschrijfperiode na aanvang sessie",
+    "isStudioWide": "Instellingen worden studiobreed toegepast.",
+    "errors": {
+      "required": "Dit veld is verplicht",
+      "hours": {
+        "min": "Moet groter zijn dan 0",
+        "max": "Moet lager zijn dan 24"
+      },
+      "minutes": {
+        "min": "Moet groter zijn dan 0",
+        "max": "Moet lager zijn dan 60"
+      }
     }
   },
-  "broadcastChannelWarning": "Door uw browserversie kunnen we deze functie niet correct uitvoeren. Upgrade uw browser."
+  "modals": {
+    "locationBlocker": {
+      "title": "Locatie niet toegewezen",
+      "message": "Vraag personeel met beheerdersrechten om een locatie toe te wijzen aan de toegang voor personeel.",
+      "description": "Te vinden onder Instellingen > Personeel."
+    },
+    "accessStatusChangedSuccess": {
+      "title": "Lidstatus bijgewerkt",
+      "message": "Alle problemen zijn verholpen en de status van het lid is nu 'Geldig'."
+    },
+    "entryStatusChanged": {
+      "Y": {
+        "title": "Lid ingevoerd",
+        "message": "Lid mocht naar binnen met bestaande waarschuwingen.",
+        "description": "Je kunt waarschuwingen nog steeds aanpakken via het tabblad Locatiebezoek."
+      },
+      "close": "Ledenprofiel sluiten",
+      "stay": "Op ledenprofiel blijven",
+      "N": {
+        "title": "Toegang geweigerd",
+        "message": "Lid werd de toegang geweigerd.",
+        "description": "Je kunt nog steeds waarschuwingen aanpakken en ze binnenlaten via het tabblad Locatiebezoek."
+      }
+    },
+    "memberPhotoHistory": {
+      "title": "Vorige foto's",
+      "uploadedOn": "Uploaded {{- date}}",
+      "validateIdentity": "Identiteit valideren"
+    }
+  },
+  "filters": {
+    "accessStatus": {
+      "green": "Geldig",
+      "orange": "Waarschuwing",
+      "red": "Niet geldig",
+      "G": "Geldig",
+      "O": "Waarschuwing",
+      "R": "Niet geldig"
+    },
+    "entryStatus": {
+      "entered": "Ingevoerd",
+      "notEntered": "Niet ingevoerd",
+      "unknown": "Onbekend",
+      "Y": "Ingevuld",
+      "N": "Niet ingevuld",
+      "U": "Onbekend"
+    }
+  }
 }

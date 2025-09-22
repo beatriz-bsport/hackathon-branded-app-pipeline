@@ -1,8 +1,12 @@
 {
+  "select": {
+    "placeholder": "Product"
+  },
   "link": {
     "copyLink": "De directe link naar de betaalpagina kopiëren",
     "copied": "Link gekopieerd"
   },
+  "search": "Zoek een product",
   "dialog": {
     "delete": {
       "title": "{{ shopitem.name }} verwijderen",
@@ -12,55 +16,6 @@
       "warning": "Waarschuwing! Door dit product te verwijderen wordt het ook onbruikbaar bij de relevante pakketten."
     }
   },
-  "shopitem": {
-    "detail": {
-      "provisionHistory": "Voorraadgeschiedenis",
-      "title": "Productbeschrijving",
-      "parameters": "Informatie",
-      "supplier_price": "Leveranciersprijs",
-      "marketplace_enabled": "Beschikbaar op de webshop",
-      "enabled": "Ja",
-      "disabled": "Nee",
-      "is_deliverable": "Verzendkosten",
-      "onsite_payment_available": "Fysieke betalingen"
-    },
-    "noDescription": "Er is geen beschrijving om weer te geven.",
-    "selector": {
-      "placeholder": "Zoek op naam of streepjescode"
-    },
-    "action": {
-      "edit": "Bewerken",
-      "addToCard": "Winkelmandje",
-      "delete": "Verwijderen"
-    },
-    "form": {
-      "title": "Webshop-product",
-      "error": {
-        "name": "Een productnaam mag niet langer zijn dan 200 tekens",
-        "colorSize": "Een kleur of grootte kan niet meer dan 100 karakters zijn"
-      },
-      "variantHelperText": "Definieer varianten als dit product beschikbaar is in meerdere kleuren en/of maten. Later kun je de eigenschappen van elke variant bewerken.",
-      "sizes": {
-        "helperText": "Voeg een maat toe door op enter te drukken",
-        "title": "Maten"
-      },
-      "colors": {
-        "helperText": "Voeg een kleur toe door op enter te drukken",
-        "title": "Kleuren"
-      },
-      "barcodes": {
-        "option": {
-          "generate": "Genereer nieuwe barcodes",
-          "inherit": "Erven van het basisproduct"
-        },
-        "title": "Barcodes"
-      }
-    }
-  },
-  "select": {
-    "placeholder": "Product"
-  },
-  "search": "Zoek een product",
   "provision": {
     "total_sales": "Aantal verkochte artikelen:",
     "current_stock": "Huidige voorraad",
@@ -69,190 +24,230 @@
       "title": "Voorraadwijziging",
       "quantityLabel": "Aantal",
       "quantityHelperText": "Het aantal toe te voegen of te verwijderen producten.",
+      "quantityError": "Gelieve een geldig aantal invoeren",
       "cancel": "Annuleren",
-      "submit": "Opslaan",
-      "quantityError": "Gelieve een geldig aantal invoeren"
+      "submit": "Opslaan"
     },
     "action": {
       "update": "Voorraad bijwerken"
     }
   },
-  "shopItemDetail": {
-    "table": {
-      "settings": {
-        "paymentMethodsChip": {
-          "onlineInStore": "Online & Winkel",
-          "inStore": "Winkel",
-          "online": "Online"
+  "shopitem": {
+    "noDescription": "Er is geen beschrijving om weer te geven.",
+    "selector": {
+      "placeholder": "Zoek op naam of streepjescode"
+    },
+    "detail": {
+      "enabled": "Ja",
+      "disabled": "Nee",
+      "title": "Productbeschrijving",
+      "provisionHistory": "Voorraadgeschiedenis",
+      "parameters": "Informatie",
+      "supplier_price": "Leveranciersprijs",
+      "marketplace_enabled": "Beschikbaar op de webshop",
+      "is_deliverable": "Verzendkosten",
+      "onsite_payment_available": "Fysieke betalingen"
+    },
+    "action": {
+      "edit": "Bewerken",
+      "addToCard": "Winkelmandje",
+      "delete": "Verwijderen"
+    },
+    "form": {
+      "title": "Webshop-product",
+      "colors": {
+        "title": "Kleuren",
+        "helperText": "Voeg een kleur toe door op enter te drukken"
+      },
+      "sizes": {
+        "title": "Maten",
+        "helperText": "Voeg een maat toe door op enter te drukken"
+      },
+      "barcodes": {
+        "title": "Barcodes",
+        "option": {
+          "inherit": "Erven van het basisproduct",
+          "generate": "Genereer nieuwe barcodes"
+        }
+      },
+      "variantHelperText": "Definieer varianten als dit product beschikbaar is in meerdere kleuren en/of maten. Later kun je de eigenschappen van elke variant bewerken.",
+      "error": {
+        "name": "Een productnaam mag niet langer zijn dan 200 tekens",
+        "colorSize": "Een kleur of grootte kan niet meer dan 100 karakters zijn"
+      }
+    }
+  },
+  "startingAtWithPrice": "Vanaf 1{{price}}",
+  "variantCount": "{{count}} variant",
+  "variantCount_plural": "{{count}} varianten",
+  "addVariantCount": "Variant {{count}} toevoegen",
+  "addVariantCount_plural": "Varianten {{count}} toevoegen",
+  "saveProductWithVariantCount": "Een product opslaan met {{count}} variant",
+  "saveProductWithVariantCount_plural": "Een product opslaan met {{count}} varianten",
+  "duplicateVariantWarning": "Sommige kleur- en maatcombinaties bestaan al en worden niet opnieuw gemaakt",
+  "shopList": {
+    "tab": {
+      "products": {
+        "title": "Producten",
+        "addProduct": "Product toevoegen",
+        "subshopForm": {
+          "title": "Een categorie toevoegen",
+          "field": {
+            "name": "Naam"
+          }
         },
-        "paymentMethods": "Geaccepteerde betaalmethoden",
-        "availableOnline": "Online beschikbaar",
-        "vat": "Btw",
-        "supplierPrice": "Leveranciersprijs",
-        "supplier": "Leverancier",
-        "sku": "SKU",
-        "barcodeTooltip": "Zie barcode",
-        "barcode": "Barcode",
-        "requiresDelivery": "Levering vereist",
-        "featured": "Aanbevolen",
-        "sellOnlyOnProvision": "Verkoop alleen als er voorraad is",
-        "vatValue": "{{vat}}%"
+        "franchiseSubshopDialog": {
+          "inputPlaceholder": "Naam van de categorie",
+          "create": "Voeg categorie toe",
+          "update": "Hernoem catrgorie",
+          "delete": "Categorie verwijderen",
+          "deleteInfo": "Weet je zeker dat je deze categorie wilt verwijderen? Alle bijbehorende elementen worden ook verwijderd.",
+          "info": "De categorieën verschijnen op de marktplaats en in de mobiele applicatie voor items die te koop zijn."
+        },
+        "storeOnly": "Winkel alleen",
+        "online": "Online",
+        "emptySubshopList": "Er zijn nog geen producten gemaakt in deze categorie."
+      },
+      "settings": {
+        "title": "Instellingen",
+        "section": {
+          "suppliers": {
+            "title": "Leveranciers",
+            "table": {
+              "name": "Naam",
+              "notes": "Notities",
+              "actions": "Acties",
+              "addSupplier": "Een leverancier toevoegen",
+              "action": {
+                "showInfos": "Bekijk informatie",
+                "edit": "Bewerken",
+                "delete": "Verwijderen"
+              }
+            },
+            "modal": {
+              "titleCreate": "Een leverancier toevoegen",
+              "titleUpdate": "Leverancier bewerken",
+              "field": {
+                "name": "Naam*",
+                "description": "Notities"
+              }
+            },
+            "detailsModal": {
+              "title": "Leverancier: {{name}}"
+            },
+            "deleteModal": {
+              "title": "Leverancier: {{- supplierName }}",
+              "message": "Weet je zeker dat je deze leverancier wilt verwijderen?"
+            }
+          },
+          "supplierPrices": {
+            "title": "Prijzen leveranciers",
+            "hideSupplierPricesForFranchisees": "Verberg leveranciersprijzen voor de franchise studio's"
+          }
+        }
+      }
+    }
+  },
+  "shopItemDetail": {
+    "title": "Productdetails",
+    "startingAt": "Startend op",
+    "showMore": "Toon meer",
+    "showLess": "Toon minder",
+    "copyPaymentPageLink": "Kopieer de link naar de betaalpagina",
+    "viewBarcode": "Toon barcode",
+    "barcodeUnicityWarning": "De opgegeven barcode is al in gebruik",
+    "deleteModal": {
+      "title": "Verwijder: {{- name }}",
+      "genericTitle": "Bevestig verwijdering",
+      "message": "Weet je zeker dat je dit product van je webshop wilt verwijderen? Deze actie is definitief.",
+      "comboWarning": "Zodra je dit product verwijdert, zal het ook niet langer beschikbaar zijn om gekocht te worden bij bijbehorende pakketten."
+    },
+    "tab": {
+      "inventory": "Voorraad",
+      "variants": "Varianten",
+      "settings": "Instellingen",
+      "history": "Geschiedenis"
+    },
+    "table": {
+      "inventory": {
+        "filterPlaceholder": {
+          "company": "Selecteer studio",
+          "size": "Selecteer maat",
+          "color": "Selecteer kleur",
+          "establishmentBillingGroup": "Selecteer een factureringsgroep"
+        },
+        "unsavedChangesModal": {
+          "title": "Niet-opgeslagen wijzigingen",
+          "inventory": "Wil je, voordat je naar een andere pagina gaat, de inventaris bijwerken op basis van de waarden die zijn ingevoerd in de kolom “Voorraadaanpassing”?",
+          "default": "Wil je je wijzigingen opslaan voordat je naar een andere pagina gaat?"
+        },
+        "formError": "Voorraadswijzigingen moeten valide nummers zijn",
+        "action": {
+          "update": "Voorraad wijzigen"
+        },
+        "variants": "Varianten",
+        "currentStock": "Huidige voorraad",
+        "companyName": "Sudio",
+        "stockAdjustment": "Voorraadaanpassing (+/-)",
+        "totalSales": "Totaal aantal verkopen",
+        "tooltipForMultiLocationWebshop": "Aangezien multilocatie is ingeschakeld voor deze studio, kan de voorraad alleen worden aangepast vanuit het subaccount, niet vanuit het Master-account."
       },
       "variants": {
-        "availableOnline": "Online beschikbaar",
-        "barcode": "Barcode",
-        "sku": "SKU",
-        "supplierPrice": "Leveranciersprijs",
-        "price": "Prijs",
-        "colorAndSize": "Kleur en maat",
-        "upload": "Uploaden",
-        "image": "Afbeelding",
-        "action": {
-          "edit": "Variant wijzigen",
-          "add": "Een variant toevoegen"
-        },
-        "placeholder": "Dit product heeft geen varianten om weer te geven.",
         "formError": {
           "price": "Prijsveldwaarden moeten geldige positieve getallen zijn"
         },
         "formWarning": {
           "barcode": "Sommige streepjescodeveldwaarden zijn al in gebruik"
-        }
-      },
-      "inventory": {
-        "seeInvoice": "Toon factuur",
-        "totalSales": "Totaal aantal verkopen",
-        "stockAdjustment": "Voorraadaanpassing (+/-)",
-        "currentStock": "Huidige voorraad",
-        "variants": "Varianten",
+        },
+        "placeholder": "Dit product heeft geen varianten om weer te geven.",
         "action": {
-          "update": "Voorraad wijzigen"
+          "add": "Een variant toevoegen",
+          "edit": "Variant wijzigen"
         },
-        "formError": "Voorraadswijzigingen moeten valide nummers zijn",
-        "filterPlaceholder": {
-          "color": "Selecteer kleur",
-          "size": "Selecteer maat",
-          "company": "Selecteer studio",
-          "establishmentBillingGroup": "Selecteer een factureringsgroep"
+        "image": "Afbeelding",
+        "upload": "Uploaden",
+        "colorAndSize": "Kleur en maat",
+        "price": "Prijs",
+        "supplierPrice": "Leveranciersprijs",
+        "sku": "SKU",
+        "barcode": "Barcode",
+        "availableOnline": "Online beschikbaar"
+      },
+      "settings": {
+        "supplier": "Leverancier",
+        "supplierPrice": "Leveranciersprijs",
+        "vat": "Btw",
+        "vatValue": "{{vat}}%",
+        "availableOnline": "Online beschikbaar",
+        "paymentMethods": "Geaccepteerde betaalmethoden",
+        "paymentMethodsChip": {
+          "online": "Online",
+          "inStore": "Winkel",
+          "onlineInStore": "Online & Winkel"
         },
-        "unsavedChangesModal": {
-          "default": "Wil je je wijzigingen opslaan voordat je naar een andere pagina gaat?",
-          "inventory": "Wil je, voordat je naar een andere pagina gaat, de inventaris bijwerken op basis van de waarden die zijn ingevoerd in de kolom “Voorraadaanpassing”?",
-          "title": "Niet-opgeslagen wijzigingen"
-        },
-        "companyName": "Sudio",
-        "tooltipForMultiLocationWebshop": "Aangezien multilocatie is ingeschakeld voor deze studio, kan de voorraad alleen worden aangepast vanuit het subaccount, niet vanuit het Master-account."
+        "sellOnlyOnProvision": "Verkoop alleen als er voorraad is",
+        "featured": "Aanbevolen",
+        "requiresDelivery": "Levering vereist",
+        "barcode": "Barcode",
+        "barcodeTooltip": "Zie barcode",
+        "sku": "SKU"
       },
       "history": {
-        "invoice": {
-          "seeInvoice": "Zie factuur",
-          "title": "Factuur"
+        "date": "Datum",
+        "variant": "Variant",
+        "studio": "Studio",
+        "updateType": {
+          "title": "Type van update",
+          "sale": "Verkoop",
+          "manual": "Handmatige aanpassing",
+          "purchase": "Aankooporder"
         },
         "quantity": "Hoeveelheid",
-        "updateType": {
-          "purchase": "Aankooporder",
-          "manual": "Handmatige aanpassing",
-          "sale": "Verkoop",
-          "title": "Type van update"
-        },
-        "studio": "Studio",
-        "variant": "Variant",
-        "date": "Datum"
-      }
-    },
-    "tab": {
-      "history": "Geschiedenis",
-      "settings": "Instellingen",
-      "variants": "Varianten",
-      "inventory": "Voorraad"
-    },
-    "deleteModal": {
-      "comboWarning": "Zodra je dit product verwijdert, zal het ook niet langer beschikbaar zijn om gekocht te worden bij bijbehorende pakketten.",
-      "message": "Weet je zeker dat je dit product van je webshop wilt verwijderen? Deze actie is definitief.",
-      "genericTitle": "Bevestig verwijdering",
-      "title": "Verwijder: {{- name }}"
-    },
-    "viewBarcode": "Toon barcode",
-    "copyPaymentPageLink": "Kopieer de link naar de betaalpagina",
-    "showLess": "Toon minder",
-    "showMore": "Toon meer",
-    "title": "Productdetails",
-    "deleteVariant": "Verwijderd variant",
-    "startingAt": "Startend op",
-    "coverAlt": "Afbeelding voor het product {{ product }}",
-    "barcodeUnicityWarning": "De opgegeven barcode is al in gebruik"
-  },
-  "shopList": {
-    "tab": {
-      "settings": {
-        "section": {
-          "suppliers": {
-            "deleteModal": {
-              "message": "Weet je zeker dat je deze leverancier wilt verwijderen?",
-              "title": "Leverancier: {{- supplierName }}"
-            },
-            "modal": {
-              "field": {
-                "description": "Notities",
-                "name": "Naam*"
-              },
-              "titleUpdate": "Leverancier bewerken",
-              "titleCreate": "Een leverancier toevoegen"
-            },
-            "table": {
-              "action": {
-                "delete": "Verwijderen",
-                "edit": "Bewerken",
-                "showInfos": "Bekijk informatie"
-              },
-              "addSupplier": "Een leverancier toevoegen",
-              "actions": "Acties",
-              "notes": "Notities",
-              "name": "Naam"
-            },
-            "title": "Leveranciers",
-            "detailsModal": {
-              "title": "Leverancier: {{name}}"
-            }
-          },
-          "supplierPrices": {
-            "hideSupplierPricesForFranchisees": "Verberg leveranciersprijzen voor de franchise studio's",
-            "title": "Prijzen leveranciers"
-          }
-        },
-        "title": "Instellingen"
-      },
-      "products": {
-        "subshopForm": {
-          "field": {
-            "name": "Naam"
-          },
-          "title": "Een categorie toevoegen"
-        },
-        "title": "Producten",
-        "emptySubshopList": "Er zijn nog geen producten gemaakt in deze categorie.",
-        "online": "Online",
-        "storeOnly": "Winkel alleen",
-        "franchiseSubshopDialog": {
-          "info": "De categorieën verschijnen op de marktplaats en in de mobiele applicatie voor items die te koop zijn.",
-          "deleteInfo": "Weet je zeker dat je deze categorie wilt verwijderen? Alle bijbehorende elementen worden ook verwijderd.",
-          "delete": "Categorie verwijderen",
-          "update": "Hernoem catrgorie",
-          "create": "Voeg categorie toe",
-          "inputPlaceholder": "Naam van de categorie"
-        },
-        "addProduct": "Product toevoegen"
+        "invoice": {
+          "title": "Factuur",
+          "seeInvoice": "Zie factuur"
+        }
       }
     }
-  },
-  "variantCount": "{{count}} variant",
-  "variantCount_plural": "{{count}} varianten",
-  "duplicateVariantWarning": "Sommige kleur- en maatcombinaties bestaan al en worden niet opnieuw gemaakt",
-  "saveProductWithVariantCount": "Een product opslaan met {{count}} variant",
-  "saveProductWithVariantCount_plural": "Een product opslaan met {{count}} varianten",
-  "saveVariantCount": "Opslaan {{count}} variant",
-  "saveVariantCount_plural": "Opslaan {{count}} varianten",
-  "startingAtWithPrice": "Vanaf 1{{price}}",
-  "addVariantCount": "Variant {{count}} toevoegen",
-  "addVariantCount_plural": "Varianten {{count}} toevoegen"
+  }
 }

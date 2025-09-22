@@ -79,7 +79,7 @@
       "success": "Teacher deleted",
       "error": "Impossible to delete this teacher"
     },
-    "error": "Unable to save coach"
+    "error": "Unable to save teacher"
   },
   "detail": {
     "tab": {

@@ -12,8 +12,8 @@
       "title": "Suppression de {{shopitem.name}}",
       "cancel": "Annuler",
       "confirm": "Supprimer",
-      "warning": "Attention ! Ce produit est utilisé dans un pack, ce pack ne sera plus disponible à la vente si vous supprimez ce produit.",
-      "explain": "Êtes-vous sûr de vouloir supprimer cet élément du magasin ? Cette opération est irréversible, vous n'aurez plus accès à l'historique des stocks."
+      "explain": "Êtes-vous sûr de vouloir supprimer cet élément du magasin ? Cette opération est irréversible, vous n'aurez plus accès à l'historique des stocks.",
+      "warning": "Attention ! Ce produit est utilisé dans un pack, ce pack ne sera plus disponible à la vente si vous supprimez ce produit."
     }
   },
   "provision": {
@@ -24,38 +24,15 @@
       "title": "Modification du stock",
       "quantityLabel": "Unité(s)",
       "quantityHelperText": "Unité à ajouter/soustraire du stock",
+      "quantityError": "Veuillez saisir un numéro valide",
       "cancel": "Annuler",
-      "submit": "Enregistrer",
-      "quantityError": "Veuillez saisir un numéro valide"
+      "submit": "Enregistrer"
     },
     "action": {
       "update": "Actualiser le stock"
     }
   },
   "shopitem": {
-    "form": {
-      "title": "Article magasin",
-      "variantHelperText": "Définissez des variantes si ce produit est disponible en plusieurs couleurs et/ou tailles. Vous pourrez modifier les propriétés de chaque variante ultérieurement.",
-      "error": {
-        "name": "Le nom d'un produit ne peut pas dépasser 200 caractères",
-        "colorSize": "Le nom d'une couleur/taille ne peut pas dépasser 100 caractères"
-      },
-      "sizes": {
-        "helperText": "Ajoutez une taille en appuyant sur la touche Entrée",
-        "title": "Tailles"
-      },
-      "colors": {
-        "helperText": "Ajouter une couleur en appuyant sur la touche Entrée",
-        "title": "Couleurs"
-      },
-      "barcodes": {
-        "option": {
-          "generate": "Générer de nouveaux codes-barres",
-          "inherit": "Hérite du produit de base"
-        },
-        "title": "code-barres"
-      }
-    },
     "noDescription": "Aucune description",
     "selector": {
       "placeholder": "Rechercher par nom ou code-barre"
@@ -75,184 +52,202 @@
       "edit": "Modifier",
       "addToCard": "Ajouter au panier",
       "delete": "Supprimer"
+    },
+    "form": {
+      "title": "Article magasin",
+      "colors": {
+        "title": "Couleurs",
+        "helperText": "Ajouter une couleur en appuyant sur la touche Entrée"
+      },
+      "sizes": {
+        "title": "Tailles",
+        "helperText": "Ajoutez une taille en appuyant sur la touche Entrée"
+      },
+      "barcodes": {
+        "title": "code-barres",
+        "option": {
+          "inherit": "Hérite du produit de base",
+          "generate": "Générer de nouveaux codes-barres"
+        }
+      },
+      "variantHelperText": "Définissez des variantes si ce produit est disponible en plusieurs couleurs et/ou tailles. Vous pourrez modifier les propriétés de chaque variante ultérieurement.",
+      "error": {
+        "name": "Le nom d'un produit ne peut pas dépasser 200 caractères",
+        "colorSize": "Le nom d'une couleur/taille ne peut pas dépasser 100 caractères"
+      }
+    }
+  },
+  "startingAtWithPrice": "À partir de {{price}}",
+  "variantCount": "{{count}} variante",
+  "variantCount_plural": "{{count}} variantes",
+  "addVariantCount": "Ajouter {{count}} variante",
+  "addVariantCount_plural": "Ajouter {{count}} variantes",
+  "saveProductWithVariantCount": "Sauvegarder un produit avec {{count}} variante",
+  "saveProductWithVariantCount_plural": "Sauvegarder un produit avec {{count}} variantes",
+  "duplicateVariantWarning": "Certaines combinaisons de couleurs et de tailles existent déjà et ne seront pas créées à nouveau",
+  "shopList": {
+    "tab": {
+      "products": {
+        "title": "Produits",
+        "addProduct": "Ajouter un produit",
+        "subshopForm": {
+          "title": "Ajouter une catégorie",
+          "field": {
+            "name": "Nom"
+          }
+        },
+        "franchiseSubshopDialog": {
+          "inputPlaceholder": "Nom de la catégorie",
+          "create": "Ajouter une catégorie",
+          "update": "Renommer une catégorie",
+          "delete": "Supprimer une catégorie",
+          "deleteInfo": "Êtes-vous sûr de vouloir supprimer cette catégorie ? Tous les éléments associés seront également supprimés.",
+          "info": "Les catégories apparaîtront sur la marketplace et l'application mobile pour les articles disponibles à la vente."
+        },
+        "storeOnly": "Magasin uniquement",
+        "online": "En ligne",
+        "emptySubshopList": "Il n'y a pas encore de produits créés dans cette catégorie."
+      },
+      "settings": {
+        "title": "Paramètres",
+        "section": {
+          "suppliers": {
+            "title": "Fournisseurs",
+            "table": {
+              "name": "Nom",
+              "notes": "Notes",
+              "actions": "Actions",
+              "addSupplier": "Ajouter un fournisseur",
+              "action": {
+                "showInfos": "Voir les informations",
+                "edit": "Éditer",
+                "delete": "Supprimer"
+              }
+            },
+            "modal": {
+              "titleCreate": "Ajouter un fournisseur",
+              "titleUpdate": "Modifier un fournisseur",
+              "field": {
+                "name": "Nom *",
+                "description": "Notes"
+              }
+            },
+            "detailsModal": {
+              "title": "Fournisseur : "
+            },
+            "deleteModal": {
+              "title": "Fournisseur : {{- supplierName }}",
+              "message": "Êtes-vous sûr de vouloir supprimer ce fournisseur ?"
+            }
+          },
+          "supplierPrices": {
+            "title": "Prix du fournisseur",
+            "hideSupplierPricesForFranchisees": "Cacher les prix des fournisseurs pour les studios de la franchise"
+          }
+        }
+      }
     }
   },
   "shopItemDetail": {
-    "viewBarcode": "Afficher le code barre",
-    "copyPaymentPageLink": "Copier le lien vers la page de paiement",
-    "showLess": "Voir moins",
-    "showMore": "Voir plus",
-    "startingAt": "À partir de",
     "title": "Détails du produit",
+    "startingAt": "À partir de",
+    "showMore": "Voir plus",
+    "showLess": "Voir moins",
+    "copyPaymentPageLink": "Copier le lien vers la page de paiement",
+    "viewBarcode": "Afficher le code barre",
+    "barcodeUnicityWarning": "Le code-barres fourni est déjà utilisé",
+    "deleteModal": {
+      "title": "Suppression - {{- name }}",
+      "genericTitle": "Confirmer la suppression",
+      "message": "Êtes-vous sûr de vouloir supprimer cet élément du magasin ? Cette opération est irréversible.",
+      "comboWarning": "Attention ! Ce produit est utilisé dans un pack, ce pack ne sera plus disponible à la vente si vous supprimez ce produit."
+    },
+    "tab": {
+      "inventory": "Évolution des stocks",
+      "variants": "Variantes",
+      "settings": "Paramètres",
+      "history": "Historique"
+    },
     "table": {
       "inventory": {
-        "variants": "Variantes",
-        "seeInvoice": "Voir la facture",
-        "totalSales": "Nombre d'articles vendus",
-        "stockAdjustment": "Modification des stocks (+/-)",
-        "currentStock": "Stock actuel",
-        "action": {
-          "update": "Mise à jour de l'inventaire"
-        },
-        "formError": "Les valeurs de modification des stocks doivent être des nombres valides",
         "filterPlaceholder": {
-          "color": "Choisir la couleur",
-          "size": "Choisir la taille",
           "company": "Sélectionner un studio",
+          "size": "Choisir la taille",
+          "color": "Choisir la couleur",
           "establishmentBillingGroup": "Sélectionnez un groupe de facturation"
         },
         "unsavedChangesModal": {
-          "default": "Souhaitez-vous enregistrer vos modifications avant de passer à une autre page ?",
+          "title": "Modifications non sauvegardées",
           "inventory": "Avant de passer à une autre page, souhaitez-vous mettre à jour l'inventaire en fonction des valeurs introduites dans la colonne « Modification des stocks » ?",
-          "title": "Modifications non sauvegardées"
+          "default": "Souhaitez-vous enregistrer vos modifications avant de passer à une autre page ?"
         },
+        "formError": "Les valeurs de modification des stocks doivent être des nombres valides",
+        "action": {
+          "update": "Mise à jour de l'inventaire"
+        },
+        "variants": "Variantes",
+        "currentStock": "Stock actuel",
         "companyName": "Studio",
+        "stockAdjustment": "Modification des stocks (+/-)",
+        "totalSales": "Nombre d'articles vendus",
         "tooltipForMultiLocationWebshop": "Étant donné que la fonctionnalité multi-localisation est activée pour ce studio, le stock ne peut être ajusté qu'à partir du sous-compte, et non à partir du Master Account."
       },
-      "history": {
-        "invoice": {
-          "seeInvoice": "Voir la facture",
-          "title": "Facture"
-        },
-        "quantity": "Quantité",
-        "updateType": {
-          "purchase": "Bon de commande",
-          "manual": "Réglage manuel",
-          "sale": "Vente",
-          "title": "Type de mise à jour"
-        },
-        "studio": "Studio",
-        "variant": "Variante",
-        "date": "Date"
-      },
-      "settings": {
-        "sku": "UGS",
-        "barcodeTooltip": "Voir le code barre",
-        "barcode": "Code barre",
-        "requiresDelivery": "Livraison obligatoire",
-        "featured": "Nous vous recommandons",
-        "sellOnlyOnProvision": "Vendre seulement lorsque le stock est suffisant",
-        "paymentMethodsChip": {
-          "onlineInStore": "En ligne et en magasin",
-          "inStore": "En magasin",
-          "online": "En ligne"
-        },
-        "paymentMethods": "Moyens de paiement autorisés",
-        "availableOnline": "Disponible en ligne",
-        "vat": "TVA/Taxe sur la vente",
-        "supplierPrice": "Prix fournisseur",
-        "supplier": "Fournisseur",
-        "vatValue": "{{vat}} %"
-      },
       "variants": {
-        "availableOnline": "Disponible en ligne",
-        "barcode": "Code barre",
-        "sku": "SKU",
-        "supplierPrice": "Prix fournisseur",
-        "price": "Prix",
-        "colorAndSize": "Couleur et taille",
-        "upload": "Charger",
-        "image": "Image",
-        "action": {
-          "edit": "Modifier la variante",
-          "add": "Ajouter une variante"
-        },
-        "placeholder": "Ce produit n'a pas encore de variantes",
         "formError": {
           "price": "Les valeurs du champ Prix doivent être des nombres positifs valides"
         },
         "formWarning": {
           "barcode": "Certaines valeurs du champ de codes-barres sont déjà utilisées"
+        },
+        "placeholder": "Ce produit n'a pas encore de variantes",
+        "action": {
+          "add": "Ajouter une variante",
+          "edit": "Modifier la variante"
+        },
+        "image": "Image",
+        "upload": "Charger",
+        "colorAndSize": "Couleur et taille",
+        "price": "Prix",
+        "supplierPrice": "Prix fournisseur",
+        "sku": "SKU",
+        "barcode": "Code barre",
+        "availableOnline": "Disponible en ligne"
+      },
+      "settings": {
+        "supplier": "Fournisseur",
+        "supplierPrice": "Prix fournisseur",
+        "vat": "TVA/Taxe sur la vente",
+        "vatValue": "{{vat}} %",
+        "availableOnline": "Disponible en ligne",
+        "paymentMethods": "Moyens de paiement autorisés",
+        "paymentMethodsChip": {
+          "online": "En ligne",
+          "inStore": "En magasin",
+          "onlineInStore": "En ligne et en magasin"
+        },
+        "sellOnlyOnProvision": "Vendre seulement lorsque le stock est suffisant",
+        "featured": "Nous vous recommandons",
+        "requiresDelivery": "Livraison obligatoire",
+        "barcode": "Code barre",
+        "barcodeTooltip": "Voir le code barre",
+        "sku": "UGS"
+      },
+      "history": {
+        "date": "Date",
+        "variant": "Variante",
+        "studio": "Studio",
+        "updateType": {
+          "title": "Type de mise à jour",
+          "sale": "Vente",
+          "manual": "Réglage manuel",
+          "purchase": "Bon de commande"
+        },
+        "quantity": "Quantité",
+        "invoice": {
+          "title": "Facture",
+          "seeInvoice": "Voir la facture"
         }
       }
-    },
-    "tab": {
-      "variants": "Variantes",
-      "history": "Historique",
-      "settings": "Paramètres",
-      "inventory": "Évolution des stocks"
-    },
-    "deleteVariant": "Supprimer la variante",
-    "deleteModal": {
-      "comboWarning": "Attention ! Ce produit est utilisé dans un pack, ce pack ne sera plus disponible à la vente si vous supprimez ce produit.",
-      "message": "Êtes-vous sûr de vouloir supprimer cet élément du magasin ? Cette opération est irréversible.",
-      "genericTitle": "Confirmer la suppression",
-      "title": "Suppression - {{- name }}"
-    },
-    "coverAlt": "Image du produit {{ product }}",
-    "barcodeUnicityWarning": "Le code-barres fourni est déjà utilisé"
-  },
-  "shopList": {
-    "tab": {
-      "settings": {
-        "section": {
-          "suppliers": {
-            "deleteModal": {
-              "message": "Êtes-vous sûr de vouloir supprimer ce fournisseur ?",
-              "title": "Fournisseur : {{- supplierName }}"
-            },
-            "modal": {
-              "field": {
-                "description": "Notes",
-                "name": "Nom *"
-              },
-              "titleUpdate": "Modifier un fournisseur",
-              "titleCreate": "Ajouter un fournisseur"
-            },
-            "table": {
-              "action": {
-                "delete": "Supprimer",
-                "edit": "Éditer",
-                "showInfos": "Voir les informations"
-              },
-              "addSupplier": "Ajouter un fournisseur",
-              "actions": "Actions",
-              "notes": "Notes",
-              "name": "Nom"
-            },
-            "title": "Fournisseurs",
-            "detailsModal": {
-              "title": "Fournisseur : "
-            }
-          },
-          "supplierPrices": {
-            "hideSupplierPricesForFranchisees": "Cacher les prix des fournisseurs pour les studios de la franchise",
-            "title": "Prix du fournisseur"
-          }
-        },
-        "title": "Paramètres"
-      },
-      "products": {
-        "subshopForm": {
-          "field": {
-            "name": "Nom"
-          },
-          "title": "Ajouter une catégorie"
-        },
-        "title": "Produits",
-        "emptySubshopList": "Il n'y a pas encore de produits créés dans cette catégorie.",
-        "online": "En ligne",
-        "storeOnly": "Magasin uniquement",
-        "franchiseSubshopDialog": {
-          "info": "Les catégories apparaîtront sur la marketplace et l'application mobile pour les articles disponibles à la vente.",
-          "deleteInfo": "Êtes-vous sûr de vouloir supprimer cette catégorie ? Tous les éléments associés seront également supprimés.",
-          "delete": "Supprimer une catégorie",
-          "update": "Renommer une catégorie",
-          "create": "Ajouter une catégorie",
-          "inputPlaceholder": "Nom de la catégorie"
-        },
-        "addProduct": "Ajouter un produit"
-      }
     }
-  },
-  "variantCount": "{{count}} variante",
-  "variantCount_plural": "{{count}} variantes",
-  "duplicateVariantWarning": "Certaines combinaisons de couleurs et de tailles existent déjà et ne seront pas créées à nouveau",
-  "saveProductWithVariantCount": "Sauvegarder un produit avec {{count}} variante",
-  "saveProductWithVariantCount_plural": "Sauvegarder un produit avec {{count}} variantes",
-  "saveVariantCount": "Sauvegarder {{count}} variante",
-  "saveVariantCount_plural": "Sauvegarder {{count}} variantes",
-  "startingAtWithPrice": "À partir de {{price}}",
-  "addVariantCount": "Ajouter {{count}} variante",
-  "addVariantCount_plural": "Ajouter {{count}} variantes"
+  }
 }

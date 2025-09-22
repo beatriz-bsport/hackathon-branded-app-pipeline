@@ -1,148 +1,148 @@
 {
-  "conditions": {
-    "description": {
-      "warning": "Bitte beachten Sie: Das Empfehlungsprogramm gilt nur für neue Mitglieder des Studios oder des Franchisesystems.",
-      "reward2": "Die Prämie wird automatisch auf die nächsten Warenkörbe des empfehlenden Mitglieds angerechnet: Es gibt keine zeitlichen oder betragsmäßigen Bedingungen für die Anwendung. Die Prämie kann auch in mehreren Raten ausgezahlt werden, wenn der Betrag des Warenkorbs geringer ist als die Prämie.",
-      "reward1": "Wenn der erste Kauf (ausgenommen Abonnements) in Übereinstimmung mit den beschriebenen Bedingungen getätigt wird, wird das empfehlende Mitglied <1>mit einer Summe von {{ referringReward }}</1> belohnt. Dies kann für jedes geworbene Mitglied bis zu einer Grenze von {{ maxReferralUses }} mal erhalten werden.",
-      "applicationTimeLimit": {
-        "units": {
-          "months": "Monat",
-          "months_plural": "Monate",
-          "weeks": "Woche",
-          "weeks_plural": "Wochen",
-          "days": "Tag",
-          "days_plural": "Tage"
-        }
-      },
-      "signUp": {
-        "noReduction": "Über den freigegebenen Link wird das neue Mitglied zum Registrierungsformular weitergeleitet, wo es ein Konto erstellen kann. Sobald dies geschehen ist, muss das geworbene Mitglied seinen ersten Warenkorb gemäß den folgenden Bedingungen abschließen:<1><0>Der Betrag des Warenkorbs ist größer als {{ minBasketAmount }}</0><0>Er wird innerhalb {{ applicationTimeLimitIntervals }} {{ applicationTimeLimitUnit }}, nachdem sich das geworbene Mitglied angemeldet hat abgeschlossen</0></1>",
-        "reduction": "Über den freigegebenen Link wird das neue Mitglied zum Registrierungsformular weitergeleitet, wo es ein Konto erstellen kann. Sobald dies geschehen ist, kann das geworbene Mitglied <1>von einem Rabatt von {{ referredReduction }}</1> auf seinen ersten Warenkorb profitieren, wenn er die folgenden Bedingungen erfüllt:<3><0>Der Betrag des Warenkorbs ist größer als {{ minBasketAmount }}</0><0>Er wird innerhalb von {{ applicationTimeLimitIntervals }} {{ applicationTimeLimitUnit }} durchgeführt, nachdem sich das geworbene Mitglied angemeldet hat</0></3>"
-      },
-      "maxUses": "Jedes Mitglied hat einen persönlichen Empfehlungslink, der weitergegeben werden kann, um eine Prämie zu erhalten. Er kann <1>maximal {{ maxReferralUses }} mal</1> erhalten werden."
-    },
-    "title": "Konditionen für die Nutzung des Empfehlungslinks"
-  },
-  "memberInfo": {
-    "warningMaxUsesReached": "Sie haben die maximale Anzahl von Verwendungen Ihres Empfehlungslinks erreicht",
-    "seeConditions": "Siehe Konditionen",
-    "copyLink": "Kopiere meinen Empfehlungslink",
-    "forYourFriend": "für Ihren Freund",
-    "forYou": "für Sie",
-    "inviteFriend": "Lade einen Freund ein, sich anzumelden",
-    "nbRemainingUses": "Anzahl der verbleibenden Verwendungen",
-    "referralLink": "Empfehlungslink",
-    "loginToUseYourLink": "Anmelden, um den Link zu benutzen",
-    "thanksForSharing": "Vielen Dank für das Teilen an Ihre Freunde und Familie!",
-    "copyReferralLink": "Empfehlungslink kopieren",
-    "yourFriendGets": "Freunde erhalten",
-    "youGet": "Sie erhalten",
-    "nbUsesLeft": "Anzahl der verbleibenden Verwendungen:"
-  },
   "form": {
-    "submit": "Speichern",
-    "errors": {
-      "required": "Dieses Feld ist ein Pflichtfeld",
-      "url": "Bitte geben Sie eine gültige URL ein",
-      "rewardReferring": "Die Prämie muss über 0 liegen",
-      "timeLimit": "Die Verzögerung muss größer als 1 sein",
-      "referredAmount": "Der Rabatt muss über 0 liegen",
-      "maximumUses": "Die maximale Anzahl der Verwendungen muss über 1 liegen",
-      "minimumAmount": "Der Mindestbetrag muss über 0 liegen"
-    },
+    "title": "Empfehlung",
     "activateReferral": {
-      "description": "Mit dieser Funktion können deine Mitglieder Empfehlungslinks mit Nichtmitgliedern teilen. Bei Registrierung erhält das neue Mitglied einen Rabatt und das bestehende Mitglied bekommt eine Prämie.",
-      "label": "Empfehlungslinks erlauben"
+      "label": "Empfehlungslinks erlauben",
+      "description": "Mit dieser Funktion können deine Mitglieder Empfehlungslinks mit Nichtmitgliedern teilen. Bei Registrierung erhält das neue Mitglied einen Rabatt und das bestehende Mitglied bekommt eine Prämie."
+    },
+    "minimumBasketAmount": {
+      "label": "Mindestwert des Warenkorbs",
+      "description": "Dieser Wert bezieht sich auf den Gesamtpreis des Warenkorbs"
+    },
+    "maximumUses": {
+      "label": "Maximale Anzahl von Verwendungen"
+    },
+    "amountOffReferred": {
+      "title": "Rabatt für das geworbene Mitglied",
+      "percent": {
+        "title": "Prozentsatz",
+        "fieldLabel": "Prozentsatz"
+      },
+      "amount": {
+        "title": "Betrag",
+        "fieldLabel": "Betrag"
+      }
+    },
+    "applicationTimeLimit": {
+      "title": "Frist für die Inanspruchnahme des Rabatts nach der Anmeldung",
+      "units": {
+        "day": "Tag",
+        "day_plural": "Tage",
+        "week": "Woche",
+        "week_plural": "Wochen",
+        "month": "Monat",
+        "month_plural": "Monate"
+      }
     },
     "rewardReferring": {
       "title": "Prämie für das werbende Mitglied",
       "label": "Prämienbetrag"
     },
-    "warnings": {
-      "rewardReferring": "Wenn Sie diesen Wert wählen, wird dem werbenden Mitglied keine Prämie gewährt",
-      "referredAmount": "Wenn Sie diesen Wert wählen, wird kein Rabatt auf den Einkauf des geworbenen Mitglieds gewährt"
+    "tag": {
+      "title": "Tag",
+      "description": "Ein neues Mitglied, das den Empfehlungslink benutzt, wird markiert"
     },
     "redirectLink": {
-      "placeholder": "Weiterleitungs-URL",
+      "title": "Link weiterleiten",
       "description": "Nach der Registrierung wird das neue Mitglied zu der Seite weitergeleitet, die du angegeben hast. Wenn du das Feld leer lässt, wird das neue Mitglied auf die Kalenderseite weitergeleitet",
-      "title": "Link weiterleiten"
+      "placeholder": "Weiterleitungs-URL"
     },
-    "tag": {
-      "description": "Ein neues Mitglied, das den Empfehlungslink benutzt, wird markiert",
-      "title": "Tag"
+    "warnings": {
+      "referredAmount": "Wenn Sie diesen Wert wählen, wird kein Rabatt auf den Einkauf des geworbenen Mitglieds gewährt",
+      "rewardReferring": "Wenn Sie diesen Wert wählen, wird dem werbenden Mitglied keine Prämie gewährt"
     },
-    "applicationTimeLimit": {
-      "units": {
-        "month": "Monat",
-        "month_plural": "Monate",
-        "week": "Woche",
-        "week_plural": "Wochen",
-        "day": "Tag",
-        "day_plural": "Tage"
+    "errors": {
+      "minimumAmount": "Der Mindestbetrag muss über 0 liegen",
+      "maximumUses": "Die maximale Anzahl der Verwendungen muss über 1 liegen",
+      "referredAmount": "Der Rabatt muss über 0 liegen",
+      "timeLimit": "Die Verzögerung muss größer als 1 sein",
+      "rewardReferring": "Die Prämie muss über 0 liegen",
+      "url": "Bitte geben Sie eine gültige URL ein",
+      "required": "Dieses Feld ist ein Pflichtfeld"
+    },
+    "submit": "Speichern"
+  },
+  "memberInfo": {
+    "referralLink": "Empfehlungslink",
+    "nbRemainingUses": "Anzahl der verbleibenden Verwendungen",
+    "nbUsesLeft": "Anzahl der verbleibenden Verwendungen:",
+    "inviteFriend": "Lade einen Freund ein, sich anzumelden",
+    "forYou": "für Sie",
+    "forYourFriend": "für Ihren Freund",
+    "youGet": "Sie erhalten",
+    "yourFriendGets": "Freunde erhalten",
+    "copyReferralLink": "Empfehlungslink kopieren",
+    "copyLink": "Kopiere meinen Empfehlungslink",
+    "seeConditions": "Siehe Konditionen",
+    "thanksForSharing": "Vielen Dank für das Teilen an Ihre Freunde und Familie!",
+    "loginToUseYourLink": "Anmelden, um den Link zu benutzen",
+    "warningMaxUsesReached": "Sie haben die maximale Anzahl von Verwendungen Ihres Empfehlungslinks erreicht"
+  },
+  "conditions": {
+    "title": "Konditionen für die Nutzung des Empfehlungslinks",
+    "description": {
+      "maxUses": "Jedes Mitglied hat einen persönlichen Empfehlungslink, der weitergegeben werden kann, um eine Prämie zu erhalten. Er kann <1>maximal {{ maxReferralUses }} mal</1> erhalten werden.",
+      "signUp": {
+        "reduction": "Über den freigegebenen Link wird das neue Mitglied zum Registrierungsformular weitergeleitet, wo es ein Konto erstellen kann. Sobald dies geschehen ist, kann das geworbene Mitglied <1>von einem Rabatt von {{ referredReduction }}</1> auf seinen ersten Warenkorb profitieren, wenn er die folgenden Bedingungen erfüllt:<3><0>Der Betrag des Warenkorbs ist größer als {{ minBasketAmount }}</0><0>Er wird innerhalb von {{ applicationTimeLimitIntervals }} {{ applicationTimeLimitUnit }} durchgeführt, nachdem sich das geworbene Mitglied angemeldet hat</0></3>",
+        "noReduction": "Über den freigegebenen Link wird das neue Mitglied zum Registrierungsformular weitergeleitet, wo es ein Konto erstellen kann. Sobald dies geschehen ist, muss das geworbene Mitglied seinen ersten Warenkorb gemäß den folgenden Bedingungen abschließen:<1><0>Der Betrag des Warenkorbs ist größer als {{ minBasketAmount }}</0><0>Er wird innerhalb {{ applicationTimeLimitIntervals }} {{ applicationTimeLimitUnit }}, nachdem sich das geworbene Mitglied angemeldet hat abgeschlossen</0></1>"
       },
-      "title": "Frist für die Inanspruchnahme des Rabatts nach der Anmeldung"
-    },
-    "amountOffReferred": {
-      "amount": {
-        "fieldLabel": "Betrag",
-        "title": "Betrag"
+      "applicationTimeLimit": {
+        "units": {
+          "days": "Tag",
+          "days_plural": "Tage",
+          "weeks": "Woche",
+          "weeks_plural": "Wochen",
+          "months": "Monat",
+          "months_plural": "Monate"
+        }
       },
-      "percent": {
-        "fieldLabel": "Prozentsatz",
-        "title": "Prozentsatz"
-      },
-      "title": "Rabatt für das geworbene Mitglied"
-    },
-    "maximumUses": {
-      "label": "Maximale Anzahl von Verwendungen"
-    },
-    "minimumBasketAmount": {
-      "description": "Dieser Wert bezieht sich auf den Gesamtpreis des Warenkorbs",
-      "label": "Mindestwert des Warenkorbs"
-    },
-    "title": "Empfehlung"
+      "reward1": "Wenn der erste Kauf (ausgenommen Abonnements) in Übereinstimmung mit den beschriebenen Bedingungen getätigt wird, wird das empfehlende Mitglied <1>mit einer Summe von {{ referringReward }}</1> belohnt. Dies kann für jedes geworbene Mitglied bis zu einer Grenze von {{ maxReferralUses }} mal erhalten werden.",
+      "reward2": "Die Prämie wird automatisch auf die nächsten Warenkörbe des empfehlenden Mitglieds angerechnet: Es gibt keine zeitlichen oder betragsmäßigen Bedingungen für die Anwendung. Die Prämie kann auch in mehreren Raten ausgezahlt werden, wenn der Betrag des Warenkorbs geringer ist als die Prämie.",
+      "warning": "Bitte beachten Sie: Das Empfehlungsprogramm gilt nur für neue Mitglieder des Studios oder des Franchisesystems."
+    }
+  },
+  "checkoutValidation": {
+    "title": "Einen Freund sponsern",
+    "explain": "Sie erhalten Belohnungen, wenn Sie Ihren Empfehlungslink an Ihre Freunde weitergeben."
   },
   "referralErrors": {
     "33000": {
-      "description": "Dieser Empfehlungslink kann nicht für dieses Studio verwendet werden.",
-      "title": "Empfehlungslink kann nicht verwendet werden"
+      "title": "Empfehlungslink kann nicht verwendet werden",
+      "description": "Dieser Empfehlungslink kann nicht für dieses Studio verwendet werden."
     },
     "33001": {
-      "description": "Das Mitglied, das mit diesem Empfehlungslink verbunden ist, ist nicht mehr im Studio registriert.",
-      "title": "Empfehlungslink unbrauchbar"
+      "title": "Empfehlungslink unbrauchbar",
+      "description": "Das Mitglied, das mit diesem Empfehlungslink verbunden ist, ist nicht mehr im Studio registriert."
     },
     "33002": {
-      "description": "Sie sind bereits ein Mitglied in diesem Studio",
-      "title": "Empfehlungslink unbrauchbar"
+      "title": "Empfehlungslink unbrauchbar",
+      "description": "Sie sind bereits ein Mitglied in diesem Studio"
     },
     "33003": {
-      "description": "Dieser Empfehlungslink ist nicht mehr verwendbar.",
-      "title": "Empfehlungslink abgelaufen"
+      "title": "Empfehlungslink abgelaufen",
+      "description": "Dieser Empfehlungslink ist nicht mehr verwendbar."
     },
     "33004": {
-      "description": "Bei der Registrierung der Empfehlung ist ein Fehler aufgetreten.",
-      "title": "Empfehlungsfehler"
+      "title": "Empfehlungsfehler",
+      "description": "Bei der Registrierung der Empfehlung ist ein Fehler aufgetreten."
     },
     "33005": {
-      "description": "Bei der Registrierung der Überweisung ist ein Fehler aufgetreten.",
-      "title": "Empfehlungsfehler"
+      "title": "Empfehlungsfehler",
+      "description": "Bei der Registrierung der Überweisung ist ein Fehler aufgetreten."
     },
     "33006": {
-      "description": "Das Empfehlungsprogramm ist nicht mehr verfügbar.",
-      "title": "Empfehlung abgelaufen"
+      "title": "Empfehlung abgelaufen",
+      "description": "Das Empfehlungsprogramm ist nicht mehr verfügbar."
     },
     "33007": {
-      "description": "Das Empfehlungsprogramm ist nicht mehr verfügbar.",
-      "title": "Empfehlung abgelaufen"
+      "title": "Empfehlung abgelaufen",
+      "description": "Das Empfehlungsprogramm ist nicht mehr verfügbar."
     },
     "maxUsesReached": {
-      "description": "Die maximale Anzahl von Nutzungen wurde für diesen Link von {{ referringMemberFirstName }} erreicht.",
-      "title": "Empfehlungslink unbrauchbar"
+      "title": "Empfehlungslink unbrauchbar",
+      "description": "Die maximale Anzahl von Nutzungen wurde für diesen Link von {{ referringMemberFirstName }} erreicht."
     },
-    "somethingWentWrong": "Es ist etwas schief gelaufen, wir können diese Seite nicht laden. Bitte versuchen Sie es später noch einmal",
-    "noProgramAvailable": "Ups, sieht so aus, als gäbe es kein Weiterempfehlungsprogramm"
-  },
-  "checkoutValidation": {
-    "explain": "Sie erhalten Belohnungen, wenn Sie Ihren Empfehlungslink an Ihre Freunde weitergeben.",
-    "title": "Einen Freund sponsern"
+    "noProgramAvailable": "Ups, sieht so aus, als gäbe es kein Weiterempfehlungsprogramm",
+    "somethingWentWrong": "Es ist etwas schief gelaufen, wir können diese Seite nicht laden. Bitte versuchen Sie es später noch einmal"
   }
 }

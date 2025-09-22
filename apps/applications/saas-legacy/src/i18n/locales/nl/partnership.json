@@ -1,19 +1,10 @@
 {
-  "actions": {
-    "requestPartnership": "Integratie activeren",
-    "save": "Opslaan"
-  },
-  "requestDialog": {
-    "close": "Begrepen",
-    "explain": "Je hebt de integratie van BSPORT Solution en ClassPass aangevraagd. Je accountmanager neemt spoedig contact met je op om deze aanvraag te valideren."
-  },
   "parameters": {
-    "allEstablishment": "Alle vestigingen",
     "enabled": "Actief",
-    "establishmentId": "De IDs van je vestigingen zijn: {{establishmentIdList}}",
-    "companyId": "Je Partner-ID is: {{ company }}",
+    "allEstablishment": "Alle vestigingen",
     "add": "Toevoegen",
     "configurationTitle": "Configureer de integratie",
+    "configurationDescription": "Selecteer hoe je je vestigingen wilt weergeven op de ClassPass app.",
     "establishment": "Vestiging",
     "pleaseChoseEstablishmentMany": "Selecteer ten minste één vestiging.",
     "pleaseChoseEstablishment": "Selecteer een vestiging.",
@@ -21,18 +12,27 @@
     "partnerId": "Partner-ID: {{ company }}",
     "establishmentMergedAs": "Deze vestigingen samenvoegen",
     "establishmentMergeMaster": "Deze vestigingen samenvoegen:",
-    "configurationDescription": "Selecteer hoe je je vestigingen wilt weergeven op de ClassPass app.",
-    "editButton": "Configuratie bewerken",
-    "description": "Om uw ClassPass integratie op te zetten, neemt u contact op met ClassPass via uw partnerdashboard. Geef uw partner ID op en de ID's van de vestigingen die u wilt inschakelen op ClassPass. Houd er rekening mee dat sessies of afspraken bij deze instellingen pas in ClassPass verschijnen als de instelling volledig door ClassPass is bevestigd.",
-    "drawerTitle": "ClassPass configuratie",
     "table": {
-      "establishments": "Vestigingen",
-      "venueIds": "Locatie-id's",
       "title": {
-        "appointments": "Voor afspraken",
-        "groupActivities": "Voor groepsactiviteiten"
-      }
-    }
+        "groupActivities": "Voor groepsactiviteiten",
+        "appointments": "Voor afspraken"
+      },
+      "venueIds": "Locatie-id's",
+      "establishments": "Vestigingen"
+    },
+    "drawerTitle": "ClassPass configuratie",
+    "description": "Om uw ClassPass integratie op te zetten, neemt u contact op met ClassPass via uw partnerdashboard. Geef uw partner ID op en de ID's van de vestigingen die u wilt inschakelen op ClassPass. Houd er rekening mee dat sessies of afspraken bij deze instellingen pas in ClassPass verschijnen als de instelling volledig door ClassPass is bevestigd.",
+    "editButton": "Configuratie bewerken",
+    "companyId": "Je Partner-ID is: {{ company }}",
+    "establishmentId": "De IDs van je vestigingen zijn: {{establishmentIdList}}"
+  },
+  "requestDialog": {
+    "explain": "Je hebt de integratie van BSPORT Solution en ClassPass aangevraagd. Je accountmanager neemt spoedig contact met je op om deze aanvraag te valideren.",
+    "close": "Begrepen"
+  },
+  "actions": {
+    "save": "Opslaan",
+    "requestPartnership": "Integratie activeren"
   },
   "pageTitle": "Integraties",
   "configurationType": {
@@ -50,30 +50,9 @@
     }
   },
   "wellhub": {
+    "title": "Wellhub",
     "configuration": {
-      "panel": {
-        "footer": {
-          "addUnitButton": "Voeg Unit ID toe"
-        },
-        "content": {
-          "table": {
-            "column": {
-              "establishments": "Vestigingen",
-              "unit": "Unit ID"
-            }
-          },
-          "helperText": "Vraag eerst de integratie met bsport aan op Wellhub's Partners Portal, voor elke unit.",
-          "title": "Eenheid ID verbinding"
-        },
-        "header": {
-          "subtitle": "Koppel uw sessies op bsport account met Wellhub"
-        }
-      },
       "dialog": {
-        "unlink": {
-          "title": "U staat op het punt een of meerdere vestigingen te ontkoppelen van Wellhub",
-          "text": "Komende sessies gekoppeld aan deze vestigingen zullen worden verwijderd op Wellhub, en alle Wellhub boekingen zullen verloren gaan"
-        },
         "title": {
           "creation": "Eenheid ID toevoegen en koppelen aan vestiging(en)",
           "edition": "Eenheid-ID bewerken",
@@ -101,40 +80,55 @@
           "cancel": "Annuleer",
           "confirm": "Bevestig",
           "save": "Opslaan"
+        },
+        "unlink": {
+          "title": "U staat op het punt een of meerdere vestigingen te ontkoppelen van Wellhub",
+          "text": "Komende sessies gekoppeld aan deze vestigingen zullen worden verwijderd op Wellhub, en alle Wellhub boekingen zullen verloren gaan"
+        }
+      },
+      "panel": {
+        "header": {
+          "subtitle": "Koppel uw sessies op bsport account met Wellhub"
+        },
+        "content": {
+          "title": "Eenheid ID verbinding",
+          "helperText": "Vraag eerst de integratie met bsport aan op Wellhub's Partners Portal, voor elke unit.",
+          "table": {
+            "column": {
+              "unit": "Unit ID",
+              "establishments": "Vestigingen"
+            }
+          }
+        },
+        "footer": {
+          "addUnitButton": "Voeg Unit ID toe"
         }
       }
     },
-    "title": "Wellhub",
-    "snackbar": {
-      "configureWebhooks": {
-        "error": "Er is een fout opgetreden tijdens de configuratie",
-        "success": "Uw unit ID is succesvol gekoppeld"
-      }
-    },
     "productSelection": {
-      "drawer": {
-        "footer": {
-          "save": "Opslaan",
-          "cancel": "Annuleer",
-          "back": "Terug"
-        },
-        "form": {
-          "applyToSimilarOffers": "Solliciteer op vergelijkbare sessies",
-          "label": "Deze producten worden door jouw studio aangeboden op het Wellhub platform. Ga naar het onderdeel 'Partnerschap' in de Partner Portal van je Wellhub account voor meer informatie."
-        },
-        "element": "{{ count }} element",
-        "element_plural": "{{ count }} elementen",
-        "actionRequired": "Selecteer een Wellhub-product om aan deze sessie te koppelen:",
-        "description": "Aan sommige sessies is geen Wellhub-product gekoppeld en ze zijn niet beschikbaar voor boekingen door Wellhub-gebruikers.",
-        "title": "Wellhub-product is nog niet gekoppeld"
-      },
-      "alert": {
-        "action": "Set up",
-        "message": "Selecteer een Wellhub-product om de sessies weer te geven en boekbaar te maken voor Wellhub-gebruikers.",
-        "title": "Sommige sessies werden niet gesynchroniseerd met Wellhub."
-      },
       "selector": {
         "placeholder": "Selecteer een Wellhub-product"
+      },
+      "alert": {
+        "title": "Sommige sessies werden niet gesynchroniseerd met Wellhub.",
+        "message": "Selecteer een Wellhub-product om de sessies weer te geven en boekbaar te maken voor Wellhub-gebruikers.",
+        "action": "Set up"
+      },
+      "drawer": {
+        "title": "Wellhub-product is nog niet gekoppeld",
+        "description": "Aan sommige sessies is geen Wellhub-product gekoppeld en ze zijn niet beschikbaar voor boekingen door Wellhub-gebruikers.",
+        "actionRequired": "Selecteer een Wellhub-product om aan deze sessie te koppelen:",
+        "element": "{{ count }} element",
+        "element_plural": "{{ count }} elementen",
+        "form": {
+          "label": "Deze producten worden door jouw studio aangeboden op het Wellhub platform. Ga naar het onderdeel 'Partnerschap' in de Partner Portal van je Wellhub account voor meer informatie.",
+          "applyToSimilarOffers": "Solliciteer op vergelijkbare sessies"
+        },
+        "footer": {
+          "back": "Terug",
+          "cancel": "Annuleer",
+          "save": "Opslaan"
+        }
       }
     }
   }

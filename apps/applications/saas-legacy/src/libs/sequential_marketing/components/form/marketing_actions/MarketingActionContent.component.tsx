@@ -6,13 +6,14 @@ import type {
   MarketingActionEssentials,
   StepMarketingActions,
 } from '#src/libs/sequential_marketing/types';
-import { getMarketingActionType } from './utils';
+import { getMarketingActionType } from '#src/libs/sequential_marketing/components/form/marketing_actions/utils';
 
-import NotificationForm from './communication_forms/NotificationForm';
-import SmsForm from './communication_forms/SmsForm';
-import WrittenEmailForm from './communication_forms/WrittenEmailForm';
-import TemplateEmailForm from './communication_forms/TemplateEmailForm';
-import TagForm from './communication_forms/TagForm';
+import NotificationForm from '#src/libs/sequential_marketing/components/form/marketing_actions/communication_forms/NotificationForm';
+import SmsForm from '#src/libs/sequential_marketing/components/form/marketing_actions/communication_forms/SMS/SmsForm';
+import WrittenEmailForm from '#src/libs/sequential_marketing/components/form/marketing_actions/communication_forms/WrittenEmailForm';
+import TemplateEmailForm from '#src/libs/sequential_marketing/components/form/marketing_actions/communication_forms/TemplateEmailForm';
+import TagForm from '#src/libs/sequential_marketing/components/form/marketing_actions/communication_forms/TagForm';
+import SmsCostWarningAlert from '#src/libs/sequential_marketing/components/form/marketing_actions/communication_forms/SMS/SmsCostWarningAlert';
 
 type Props = {
   marketingAction: Partial<StepMarketingActions>;
@@ -48,12 +49,15 @@ const MarketingActionContent: React.FC<Props> = ({
       );
     case MarketingActions.CADENCE_MARKETING_ACTION_SMS:
       return (
-        <SmsForm
-          marketingAction={marketingAction}
-          submit={submit}
-          tagCategories={tagCategories}
-          withoutValidation={withoutValidation}
-        />
+        <div className={classes.smsContainer}>
+          <SmsForm
+            marketingAction={marketingAction}
+            submit={submit}
+            tagCategories={tagCategories}
+            withoutValidation={withoutValidation}
+          />
+          <SmsCostWarningAlert />
+        </div>
       );
     case MarketingActions.CADENCE_MARKETING_ACTION_EMAIL_TEMPLATE:
       return (
@@ -98,6 +102,11 @@ const MarketingActionContent: React.FC<Props> = ({
 const useStyles = makeStyles(() => ({
   tagSelector: {
     width: '100%',
+  },
+  smsContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '32px',
   },
 }));
 

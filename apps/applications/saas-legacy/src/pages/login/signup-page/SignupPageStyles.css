@@ -34,8 +34,8 @@
   transform: translate(-50%, -50%);
   padding: var(--spacing-1);
   width: 100%;
-  /* overflow: auto; */
-  /* height: 92vh; */
+  height: 100%;
+  overflow: auto;
 }
 
 /* @debt(4,4,1):

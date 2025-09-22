@@ -9,7 +9,7 @@
   "details": {
     "defaultTitle": "Untitled template",
     "state": {
-      "loading": "Loading your template..."
+      "loading": "Loading email templates..."
     },
     "actions": {
       "saveChanges": "Save changes",

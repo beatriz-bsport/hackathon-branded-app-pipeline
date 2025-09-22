@@ -65,7 +65,7 @@
     "cancelButton": "Cancelar"
   },
   "templateSubject": {
-    "label": "Asunto del email",
+    "label": "Asunto del correo",
     "placeholder": "Añade un asunto al correo...",
     "error": {
       "notProvided": "Esto es obligatorio",

@@ -1,4 +1,4 @@
-import { CallAction, WidgetApiMessageType } from './types';
+import type { CallAction, WidgetApiMessageType } from './types';
 
 type Registry<T> = Record<WidgetApiMessageType, T>;
 
@@ -13,12 +13,9 @@ export class BridgeAPIActionsRegistry<T> {
 
   // Method to add an entry to the registry
   add(key: WidgetApiMessageType, value: T): void {
-    if (this.has(key)) {
-      throw new Error(
-        `Key ${key} is already bound to a ${this.#_client} action`,
-      );
+    if (!this.has(key)) {
+      this.#_registry[key] = value;
     }
-    this.#_registry[key] = value;
   }
 
   // Method to retrieve an entry from the registry

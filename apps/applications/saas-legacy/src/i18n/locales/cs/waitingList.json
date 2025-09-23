@@ -1,0 +1,124 @@
+{
+    "switchToEnable": "",
+    "switchToDisable": "",
+    "nbPending": "",
+    "nbConvertible": "",
+    "form": {
+        "dumb_delay_minutes": {
+            "label": "",
+            "helper": ""
+        },
+        "smart_delay_percentage": {
+            "label": "",
+            "helper": ""
+        },
+        "submit": "",
+        "auto_cancellation_type": {
+            "title": ""
+        },
+        "auto_consume_pack": {
+            "helper": "",
+            "label": ""
+        },
+        "kick_if_no_pack_when_auto_consume": {
+            "helper": "",
+            "label": ""
+        },
+        "is_option_blocking": {
+            "helper": "",
+            "label": ""
+        },
+        "autokick_delay": {
+            "helper": "",
+            "label": ""
+        },
+        "dynamic": {
+            "0": {
+                "explain": "",
+                "settingsDelay": "",
+                "label": "",
+                "overallExplainSmart": "",
+                "overallExplainSimple": ""
+            },
+            "1": {
+                "explain": "",
+                "label": ""
+            },
+            "label": ""
+        },
+        "last_delay_before_auto_consume": {
+            "label": "",
+            "helper": ""
+        },
+        "check_credit": {
+            "helper": "",
+            "label": ""
+        },
+        "display_member_position": {
+            "label": ""
+        },
+        "errors": {
+            "dumbDelayMinutesError": "",
+            "smartDelayPercentageError": "",
+            "autokickDelayError": ""
+        }
+    },
+    "explainWaitingListConf": "",
+    "dialog": {
+        "cancel": "",
+        "confirm": "",
+        "delete": {
+            "title": "",
+            "content": "",
+            "cancel": "",
+            "confirm": "",
+            "sendEmail": "",
+            "contentV2": ""
+        },
+        "autoBooking": {
+            "error": {
+                "title": "",
+                "content": ""
+            },
+            "success": {
+                "title": ""
+            },
+            "info": {
+                "title": "",
+                "content": ""
+            },
+            "loading": {
+                "title": "",
+                "content": ""
+            },
+            "warning": {
+                "title": "",
+                "content": ""
+            },
+            "incomplete": {
+                "title": "",
+                "content": {
+                    "registered": "",
+                    "unregistered": ""
+                },
+                "actions": {
+                    "ok": "",
+                    "bookThem": ""
+                }
+            }
+        }
+    },
+    "member": {
+        "detail": {
+            "offerTitle": "",
+            "registrationSource": "",
+            "registeredOn": "",
+            "title": ""
+        },
+        "empty": "",
+        "delete": "",
+        "addToBook": "",
+        "listTitle": "",
+        "waitingListPosition": ""
+    }
+}

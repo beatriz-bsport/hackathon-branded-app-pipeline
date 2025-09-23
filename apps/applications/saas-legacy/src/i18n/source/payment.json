@@ -227,7 +227,7 @@
       },
       "recurrence": {
         "explain": "Every {{ recurrence_basis }} {{ interval }}, a payment will be processed for a total of {{ total_interval_duration }} {{ interval }} billings. The member will be billed {{ nb_interval }} times in total.",
-        "section": "Recurrence"
+        "section": "Recurring"
       },
       "interval": {
         "helperText": "Frequency of generated invoices / passes",

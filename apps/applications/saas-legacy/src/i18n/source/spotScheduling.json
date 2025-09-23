@@ -20,7 +20,7 @@
       "editionAdvanced": "Advanced edition",
       "spivi": "Spivi integration",
       "assets": "Assets",
-      "marketplaces": "Marketplaces"
+      "marketplaces": "Aggregators"
     },
     "title": "Toolbox",
     "customFill": "Filling",
@@ -140,7 +140,7 @@
   },
   "bsportPreferentialGroupForm": {
     "submit": "Submit",
-    "isPreferentialBsportSpotLabel": "Spot reserved for members in priority. Marketplaces bookings (Classpass, OneFit, etc.) will come last."
+    "isPreferentialBsportSpotLabel": "Spot reserved for members in priority. Aggregator bookings (Classpass, OneFit, etc.) will come last."
   },
   "errorAvailableOffersScheduled": "Cannot be saved. This layout cannot be edited since it is used in future sessions.",
   "spiviDialog": {

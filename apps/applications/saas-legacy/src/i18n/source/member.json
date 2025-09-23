@@ -405,7 +405,7 @@
       "filter": "Logins successul",
       "primaryText": "A successful login {{ source }} has been registered.",
       "sourceApp": "from the mobile app",
-      "sourceMarketplace": "from the web marketplace"
+      "sourceMarketplace": "from the Member Area"
     },
     "member-private_booking_registered": {
       "primaryText": "{{ source }} has booked appointment {{- privateServiceName }} - {{- privateSlotName }} for {{- privateServiceDate }}.",

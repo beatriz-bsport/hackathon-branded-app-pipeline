@@ -581,7 +581,7 @@
     "monthly": "Monthly",
     "weekly": "Weekly",
     "notRecurrent": "Single session",
-    "recurrence": "Recurrence",
+    "recurrence": "Recurring",
     "offerWillBeGenerated": "session will be added.",
     "offersWillBeGenerated": "sessions will be added.",
     "credit_price": "Required number of credits for a booking",
@@ -627,7 +627,7 @@
       "establishmentChangeWarning": "Editing the establishment will affect all future sessions. You may use the field \"Substitute establishment\", too. All other modifications (teacher, price, etc.) will also be applied to all sessions.",
       "coachChangeWarning": "Editing the teacher will affect all future sessions. You may choose to use the \"Substitute teacher\" field, too.  All other modifications (establishment, price, etc.) will also be applied to all sessions.",
       "levelChangeWarning": "Editing the level will affect all future sessions. All other modifications (establishment, price, etc.) will also be applied to all sessions.",
-      "explainPartnership": "Marketplaces (ClassPass, Onefit, etc.)",
+      "explainPartnership": "Aggregators (ClassPass, Onefit, etc.)",
       "explainManagerOnly": "Open for bookings (Website + Mobile App)",
       "advancedOptions": {
         "tag": {
@@ -859,7 +859,7 @@
     "modify": "Edit",
     "warningAddEmail": "This email has already been added.",
     "emailHelper": "Add multiple emails by separating them with a comma.",
-    "partner_max_booking_count": "(OneFit Exclusive) Maximum number of MarketPlace bookings",
+    "partner_max_booking_count": "(OneFit Exclusive) Maximum number of aggregator bookings",
     "tenMinutes": "10 min",
     "editGroup": "Edit this field directly within the event.",
     "noWaitingList": "Waitlists aren't available for events.",
@@ -867,7 +867,7 @@
       "rangeError": "Impossible to create sessions taking place in more than 3 years"
     },
     "emailError": "The specified email format is invalid.",
-    "noPartnershipIntegration": "Marketplace reservations are not available for group sessions",
+    "noPartnershipIntegration": "Aggregator reservations are not available for group sessions",
     "period": {
       "year": "Years",
       "month": "Months",
@@ -931,7 +931,7 @@
       "title": "Restore session"
     },
     "unpaidInvoices": "Unpaid invoices",
-    "partner_max_booking_count": "(OneFit Exclusive) Maximum number of MarketPlace bookings",
+    "partner_max_booking_count": "(OneFit Exclusive) Maximum number of aggregator bookings",
     "noInConsumerPackAvailableForPurchase": "This member doesn't own any incompatible pass for this booking."
   },
   "pagination": {
@@ -1169,7 +1169,7 @@
   "quickInvoiceVoucher": "Choose the discount that you wish to apply to the billing of the next pass",
   "metaActivityCategory": {
     "explain": "These categories are used to order and sort group activities to your preferred display on the Management View. Members won't be affected by your display decisions.",
-    "sctExplain": "Choose the category that this activity will be displayed under on the Marketplace and Mobile App."
+    "sctExplain": "Choose the category that this activity will be displayed under on the Member Area and Mobile App."
   },
   "restrictions": {
     "personnalizedHelper": "Set custom, tag-based rules to tailor settings for each segment.",
@@ -1328,7 +1328,7 @@
       "EmailSent": "Emails sent",
       "notificationsSent": "Notifications sent",
       "clientsReached": "Clients reached",
-      "criterias": "Criterias",
+      "criterias": "Criteria",
       "strategy": "Strategy : ",
       "estimatedTarget": "Customer share receiving alerts",
       "message": "Message",
@@ -1343,7 +1343,7 @@
       "nonAttendant": "did not attend",
       "maxBookingsNb": "slots",
       "effectif": "Number of customer (max)",
-      "sizeOfWaitingList": "Size of waiting list",
+      "sizeOfWaitingList": "Size of Waitlist",
       "offersPendingChange": "Sessions pending change:",
       "offersPendingDelete": "Sessions pending removal:",
       "noncompatibleConsumerPaymentPacksAre": "Owns the following NON compatible pass :",
@@ -1364,7 +1364,7 @@
       "createBooking": "Register",
       "bill": "Bill",
       "use": "Use",
-      "createBookingOption": "Add on waiting-list",
+      "createBookingOption": "Add to Waitlist",
       "reCreateBooking": "Register again",
       "noQuickInvoiceOpened": "No invoice open",
       "myOpenedInvoices": "Quick invoices",
@@ -1383,9 +1383,9 @@
       "choseDate": "Invoice date",
       "revertExplainPayment": "Credit/debit card payments will be transfered to the credit account of the member. All other payments will be canceled.",
       "revertExplainCredits": "Credit and debit on member account will be reverted.",
-      "revertExplainPacks": "All pass will will be canceled with ALL their bookings.",
+      "revertExplainPacks": "All passes will be canceled along with ALL their bookings.",
       "revertExplainShop": "Purchase made on the store will be canceled and provisions reinitialized",
-      "explainDateChoser": "Please choose the date registered for the billing. Credit/debit card will be charged immediately independantly of the chosen date.",
+      "explainDateChoser": "Please choose the date registered for the billing. Credit/debit card will be charged immediately independently of the chosen date.",
       "revertImpossibleExplainSubscription": "This invoice is part of a subscription plan, if you want to revert it you need to stop the subscription. You can not revert an already billed invoice linked to a subscription",
       "explainFinalize": "Beware ! A finalized invoice is not editable anymore, moreover every payment will be considered as checked-out. Once finalized the invoice will be exportable so you can download it as PDF.",
       "forms": {
@@ -1421,7 +1421,7 @@
         "password": "Password",
         "confirmPassword": "Confirm",
         "passwordTooEasy": "Your password should have at least 6 characters, a letter and a number.",
-        "passwordChangedSuccess": "Password reset successfull !",
+        "passwordChangedSuccess": "Password reset successful!",
         "passwordMismatch": "Password confirmation mismatch",
         "error": {
           "invalidEmail": "This email does not exist in our database",
@@ -1433,7 +1433,7 @@
           "nameTitle": "New category",
           "namePlaceholder": "Juices",
           "createOrUpdate": {
-            "success": "Catégory successfully saved",
+            "success": "Category successfully saved",
             "error": "Impossible to save category"
           },
           "delete": {
@@ -1448,7 +1448,7 @@
           "is_deliverable": "Include delivery fees",
           "create": "Add an item",
           "unlimitedProvision": "No provision management",
-          "marketplace_enabled": "Available on web marketplace",
+          "marketplace_enabled": "Available on Member Area",
           "barcode": "Barcode",
           "updateProvisions": {
             "success": "Provisions updated",
@@ -1507,7 +1507,7 @@
         "rgpdTitle": "Communication accepted by the member (alert cancellation, modification, etc...)",
         "birthdayYear": "Year of birth",
         "referenceNumber": "Membership ID",
-        "referenceNumberHelper": "(optionnal) if empty an ID will be automaticcaly assigned"
+        "referenceNumberHelper": "(optional) if empty an ID will be automatically assigned"
       },
       "metaActivity": {
         "cantAddSameName": "An activity with the same name already exists !"
@@ -1537,18 +1537,18 @@
         "backToInvoiceItemList": "Back to invoice listing",
         "title": "Register a payment",
         "paymentLabel": "Register a payment",
-        "offerHelper": "This session will be add to the account",
+        "offerHelper": "This session will be added to the account",
         "paymentPackHelper": "This pass will be added to the account",
         "noPayedObject": "None",
-        "objectTypeLabel": "Chose the object to be credited",
-        "activityHelper": "Chose the activity then the session"
+        "objectTypeLabel": "Choose the object to be credited",
+        "activityHelper": "Choose the activity then the session"
       },
       "payment": {
         "payment": "Payment",
         "invoiceRevertedThusNotEditable": "Invoice was reverted and is not editable",
         "credit": "Credit",
         "topUp": "Top-up credit",
-        "invoiceFinalizedThusNotEditable": "Invoice was finalized and can not be edited anymore",
+        "invoiceFinalizedThusNotEditable": "Invoice was finalized and cannot be edited anymore",
         "actions": "Actions",
         "status": "Status",
         "paid": "Paid",
@@ -1564,8 +1564,8 @@
         "substituteCoachLabel": "Substitute",
         "coachLabel": "Coach",
         "establishmentLabel": "Establishment",
-        "substituteEstablishmentLabel": "Establishement (exceptional)",
-        "warningPackonEdit": "These change may need you to check the pass, they may not stay compatible with the new sessions.\nThe following packs were compatible with this offer, after application of the change please review them carefully.",
+        "substituteEstablishmentLabel": "Establishment (exceptional)",
+        "warningPackonEdit": "These changes may need you to check the pass, they may not stay compatible with the new sessions.\nThe following packs were compatible with this offer, after application of the change please review them carefully.",
         "deleteTitle": "Delete session",
         "cancelTitle": "Cancel session",
         "changeDate": "Modify date / time",
@@ -1598,7 +1598,7 @@
       "generateOffers": "Create sessions",
       "offersWillBeGenerated": "sessions will be generated",
       "offerWillBeGenerated": "session will be generated",
-      "recurrence": "Recurrence",
+      "recurrence": "Recurring",
       "notRecurrent": "Once",
       "weekly": "Weekly",
       "monthly": "Monthly",
@@ -1610,7 +1610,7 @@
       "priceCategory": "Billing",
       "credits": "Credit (price)",
       "price": "Price",
-      "caracteristics": "Caracteristics",
+      "caracteristics": "Characteristics",
       "effectif": "Mx nb of customers",
       "level": "Level",
       "addingSessionFor": "Session form for: ",
@@ -1752,7 +1752,7 @@
       "paymentMethodCash": "Cash",
       "invoice": "Invoice",
       "paymentMethod": "Payment methods",
-      "creditAccountBalance": "Current accout balance: ",
+      "creditAccountBalance": "Current account balance: ",
       "paymentMethods": {
         "CB": "Credit card",
         "CHECK": "Check",
@@ -1785,13 +1785,13 @@
       "isEmpty": "No data to display"
     },
     "login": {
-      "welcome": "Welcome !",
+      "welcome": "Welcome!",
       "signUpConsumer": "Create an account ?",
       "invalidPhone": "Unknown phone number",
       "choseYourUserspace": "I am",
       "loginAsPro": "A club manager",
       "loginAsConsumer": "An athlete",
-      "noAccount": "No account ? Create one !",
+      "noAccount": "No account? Create one!",
       "password": "Password",
       "authError": "Email and password mismatch",
       "forgottenPassword": "Forgotten password"
@@ -1814,7 +1814,7 @@
     },
     "activity": {
       "nextSlotAt": "Next session: ",
-      "explainImage": "Recommanded: 1920x1080 jpeg (fullHD)",
+      "explainImage": "Recommended: 1920x1080 jpeg (fullHD)",
       "settings": "Parameters",
       "sizeOfWaitingList": "Size of waiting list",
       "lastBookingBeforeMinutes": "Last booking is possible until",
@@ -1852,10 +1852,10 @@
     "booking": {
       "wasRefunded": "Refunded",
       "success": "Booking saved",
-      "revertBookingTitle": "Delete boking",
+      "revertBookingTitle": "Delete booking",
       "revertBookingExplain": {
         "offerIsAvailable": "Are you sure you want to delete this booking ? Used credits will be given back to your member",
-        "offerIsNotAvailable": "Are you sure you want to delete this booking ? This booking will not be refund."
+        "offerIsNotAvailable": "Are you sure you want to delete this booking? This booking will not be refunded."
       },
       "revertBookingWithInvoiceImpossibleExplain": "This booking has already been chased-out and can not be deleted. You can still change its attendance status.",
       "attend": "Attend",
@@ -1888,12 +1888,12 @@
       "sources": {
         "MOB": "Mobile",
         "WEB": "Web",
-        "MAN": "Manuel"
+        "MAN": "Manual"
       },
       "lastBooking": "Last booking"
     },
     "level": {
-      "all": "All level",
+      "all": "All levels",
       "beginner": "Beginner",
       "intermediate": "Intermediate",
       "intermediary": "Intermediate",
@@ -1913,7 +1913,7 @@
         "wednesday": "Wednesday",
         "thursday": "Thursday",
         "friday": "Friday",
-        "satursday": "Satursday"
+        "satursday": "Saturday"
       },
       "monthShort": {
         "january": "Jan",
@@ -1946,10 +1946,10 @@
     },
     "marketplace": {
       "substitute": "Substitute",
-      "substituted": "Can not attend",
-      "backToCalendar": "Back to calendar",
+      "substituted": "Cannot attend",
+      "backToCalendar": "Back to Calendar",
       "privatePassListTitle": "Pass",
-      "passListTitle": "Private lessons pass",
+      "passListTitle": "Appointment pass",
       "workshop": "Workshops",
       "showMarketplace": "Show calendar of ",
       "noSessionToday": "No session",
@@ -2005,8 +2005,8 @@
         "WorkshopActivityFormPage": "Workshop form",
         "metaActivityFormPage": "Activity form",
         "offerFormPage": "Add offers",
-        "coachPerformance": "Coach Perforamce",
-        "coachFormPage": "Coach Form",
+        "coachPerformance": "Teacher Performance",
+        "coachFormPage": "Teacher Form",
         "invoiceFormPage": "Edit Invoice",
         "invoiceCreatePage": "Create Invoice",
         "invoiceList": "My transactions",

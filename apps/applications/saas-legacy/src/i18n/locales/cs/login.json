@@ -1,0 +1,244 @@
+{
+    "forms": {
+        "password": {
+            "label": ""
+        }
+    },
+    "tempPassword": {
+        "title": "",
+        "close": "",
+        "submit": "",
+        "explainRequest": "",
+        "explain": "",
+        "copied": "",
+        "copy": ""
+    },
+    "error": {
+        "invalidPassword": "",
+        "invalidEmail": "",
+        "authError": ""
+    },
+    "actions": {
+        "forgottenPassword": "",
+        "signup": {
+            "register": "",
+            "noAccount": "",
+            "goBack": ""
+        },
+        "signin": ""
+    },
+    "disconnectedStatus": {
+        "title": "",
+        "subtitle": ""
+    },
+    "or": "",
+    "contactUs": "",
+    "signup": {
+        "title": "",
+        "titleAsResgisterBooking": ""
+    },
+    "doubleLogin": {
+        "disconnect": "",
+        "explain": ""
+    },
+    "country": {
+        "ES": "",
+        "BE": "",
+        "NL": "",
+        "IT": "",
+        "DE": "",
+        "FR": "",
+        "CH": "",
+        "IE": "",
+        "AT": "",
+        "MT": "",
+        "GB": "",
+        "DK": "",
+        "FI": "",
+        "SE": "",
+        "NO": "",
+        "LU": "",
+        "CA": "",
+        "AE": "",
+        "SI": "",
+        "RO": "",
+        "BG": "",
+        "CZ": "",
+        "GR": "",
+        "IN": "",
+        "MY": "",
+        "LV": "",
+        "LT": "",
+        "NZ": "",
+        "SG": "",
+        "BR": "",
+        "PT": "",
+        "PL": "",
+        "HK": "",
+        "SK": "",
+        "US": "",
+        "EE": "",
+        "AU": "",
+        "CY": "",
+        "MX": "",
+        "LI": ""
+    },
+    "signupCompany": {
+        "form": {
+            "next": "",
+            "previous": "",
+            "country": {
+                "label": ""
+            },
+            "password2": {
+                "error": "",
+                "label": ""
+            },
+            "password1": {
+                "label": ""
+            },
+            "email": {
+                "errorExists": "",
+                "placeholder": "",
+                "label": ""
+            },
+            "name": {
+                "helperText": "",
+                "placeholder": "",
+                "label": ""
+            },
+            "title": "",
+            "timezone": {
+                "label": ""
+            }
+        },
+        "welcome": {
+            "next": "",
+            "content": "",
+            "title": ""
+        },
+        "confirmation": {
+            "content": {
+                "contactAccountManager": "",
+                "core": "",
+                "billing": "",
+                "upsell": "",
+                "emailValidation": "",
+                "help": ""
+            },
+            "disconnect": ""
+        }
+    },
+    "emailValidation": {
+        "goToLogin": "",
+        "linkExpired": "",
+        "disconnect": "",
+        "hasSentAgain": "",
+        "sendAgain": "",
+        "success": "",
+        "explain": ""
+    },
+    "language": {
+        "es": "",
+        "nl": "",
+        "it": "",
+        "de": "",
+        "fr": "",
+        "en": "",
+        "pt": "",
+        "cs": ""
+    },
+    "signin": {
+        "connect": "",
+        "connection": "",
+        "selectYourCurrentEmail": ""
+    },
+    "accountConfiguration": {
+        "bankAccount": {
+            "owner_address": "",
+            "address": "",
+            "bank_details": "",
+            "general": "",
+            "fields": {
+                "iban": "",
+                "bank_account_holder": ""
+            }
+        },
+        "paymentMethodSuccess": "",
+        "welcomeDescription": "",
+        "infoGoingBack": "",
+        "accountSuccess": "",
+        "goToBackoffice": "",
+        "bankAccountSuccess": "",
+        "welcomeTitle": "",
+        "stripeStep": "",
+        "welcomeConfigure": "",
+        "ibanStep": "",
+        "cardStep": "",
+        "finishStep": "",
+        "createStripe": "",
+        "configureStripe": "",
+        "companyName": "",
+        "companyAdress": "",
+        "configureStripeAction": "",
+        "stripeConfiguration": "",
+        "stripeConfigurationExplain": "",
+        "redirecting": "",
+        "companyStripeName": "",
+        "managerIbanExplain": "",
+        "paymentMethodTitle": "",
+        "paymentMethodExplain": "",
+        "congrats": "",
+        "finishExplain": "",
+        "needToConfigureStripeInfo": "",
+        "configureMyStripeAccount": ""
+    },
+    "regularizeInvoice": {
+        "contactSuport": "",
+        "actionRegularize": {
+            "dispute": "",
+            "fail": ""
+        },
+        "needPaymentMethodContent": {
+            "dispute": "",
+            "fail": ""
+        },
+        "needPaymentMethod": {
+            "dispute": "",
+            "fail": ""
+        }
+    },
+    "needStripe": {
+        "actionRegularize": "",
+        "info": "",
+        "infoDateBlocked": "",
+        "stripeAccount": ""
+    },
+    "emailConfirmation": {
+        "textExplain": "",
+        "dialog": {
+            "sentAgainExplain": "",
+            "sentAgain": "",
+            "cannotBeResent": "",
+            "canBeResent": "",
+            "title": "",
+            "close": "",
+            "continue": "",
+            "cancel": "",
+            "send": ""
+        },
+        "helperToSendOnceAgain": "",
+        "notReceived": "",
+        "title": "",
+        "clickHere": "",
+        "backToLogin": ""
+    },
+    "welcome": {
+        "textExplain": "",
+        "begin": "",
+        "title": ""
+    },
+    "referral": {
+        "signUpNow": ""
+    }
+}

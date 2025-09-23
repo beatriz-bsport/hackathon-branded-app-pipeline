@@ -1,0 +1,43 @@
+{
+    "search": "",
+    "modal": {
+        "delete": {
+            "title": "",
+            "content": "",
+            "cancel": "",
+            "confirm": ""
+        }
+    },
+    "forms": {
+        "delete": {
+            "actions": {
+                "confirm": "",
+                "cancel": ""
+            },
+            "content": {
+                "cannotDelete": "",
+                "canDelete": ""
+            },
+            "title": ""
+        }
+    },
+    "navigation": {
+        "goToPaymentPack": ""
+    },
+    "actions": {
+        "search": "",
+        "addWorkshopActivity": "",
+        "addWorkshopGroup": ""
+    },
+    "noWorkshops": "",
+    "disabledWorkshops": "",
+    "tabGroups": "",
+    "tabList": "",
+    "group": {
+        "emptyState": "",
+        "emptySearch": "",
+        "pageSize": "",
+        "backToGroup": "",
+        "emptySelect": ""
+    }
+}

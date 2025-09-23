@@ -1,0 +1,965 @@
+{
+    "events": {
+        "list": {
+            "title": ""
+        },
+        "billing_plan-pause": "",
+        "billing_plan-pause_deleted": "",
+        "billing_plan-create": "",
+        "billing_plan-stop": "",
+        "billing_plan-renew": "",
+        "billing_plan-payment_dispute": "",
+        "billing_plan-payment_success": "",
+        "billing_plan-payment_failure": "",
+        "billing_plan-update_payment_method": "",
+        "billing_plan-update_payment_pack": "",
+        "billing_plan-update_private_pass": "",
+        "billing_plan-update_payment_combo": "",
+        "billing_plan-update": ""
+    },
+    "table": {
+        "noContent": ""
+    },
+    "subscription": {
+        "list": {
+            "title": ""
+        },
+        "actions": {
+            "switchPaymentMethod": "",
+            "switchPack": "",
+            "freeze": "",
+            "advanceTime": "",
+            "postPone": "",
+            "changeDate": "",
+            "showInvoice": "",
+            "changePrice": "",
+            "stop": "",
+            "disableAutoRenew": "",
+            "enableAutoRenew": ""
+        },
+        "freeze": {
+            "form": {
+                "submit": "",
+                "cancel": "",
+                "explainWarning": "",
+                "explain": "",
+                "days": {
+                    "label": ""
+                },
+                "name": {
+                    "placeholder": "",
+                    "label": ""
+                },
+                "title": "",
+                "explainInvoice": ""
+            },
+            "disabledReasons": {
+                "month_billing_day": ""
+            }
+        },
+        "switchPack": {
+            "form": {
+                "submit": "",
+                "cancel": "",
+                "warning": "",
+                "explain": "",
+                "title": ""
+            }
+        },
+        "pauseSection": "",
+        "invoicesSection": "",
+        "actionSection": "",
+        "delete": "",
+        "register": "",
+        "edit": "",
+        "buy": "",
+        "scheduledStop": {
+            "title": "",
+            "explain": "",
+            "listItem": "",
+            "summary": "",
+            "notePlaceholder": ""
+        },
+        "invoice": {
+            "label": ""
+        },
+        "listItem": {
+            "nextBillingDate": "",
+            "startingAt": "",
+            "recurrencePriceIs": ""
+        },
+        "switchPaymentCombo": {
+            "form": {
+                "submit": "",
+                "cancel": "",
+                "warning": "",
+                "prewarning": "",
+                "explain": "",
+                "title": ""
+            }
+        },
+        "switchPrivatePass": {
+            "form": {
+                "submit": "",
+                "cancel": "",
+                "warning": "",
+                "explain": "",
+                "title": ""
+            }
+        },
+        "prorata": {
+            "helperOnSusscribe": ""
+        }
+    },
+    "contract": {
+        "registerManager": {
+            "title": "",
+            "explainChoseContract": "",
+            "actions": {
+                "cancel": ""
+            },
+            "explainCustomSubscriptionForm": ""
+        },
+        "description": "",
+        "legal": "",
+        "commitmentPeriod": {
+            "label": "",
+            "explain": {
+                "day": "",
+                "week": "",
+                "month": "",
+                "year": ""
+            }
+        },
+        "actions": {
+            "iAcceptCondition": "",
+            "iwanttostarton": "",
+            "subscribe": "",
+            "create": "",
+            "iAcceptGeneralCondition": "",
+            "alertPastDateSameMonth": "",
+            "title": "",
+            "iAcceptContractTerms": "",
+            "acceptContractTerms": ""
+        },
+        "duration": "",
+        "autoRenewal": "",
+        "list": {
+            "title": "",
+            "isEmpty": "",
+            "addButton": "",
+            "register": "",
+            "titleManagerOnly": "",
+            "titleCustomerAvailable": "",
+            "titleInactive": ""
+        },
+        "form": {
+            "title": "",
+            "name": {
+                "label": ""
+            },
+            "nb_interval": {
+                "label": "",
+                "error": "",
+                "errorForFixedBillingDay": "",
+                "restrictionForFixedBillingDay": "",
+                "helperText": ""
+            },
+            "managerOnly": {
+                "label": ""
+            },
+            "autoRenewal": {
+                "label": "",
+                "germanMarketWarning": ""
+            },
+            "nbIntervalAfterAutoRenewal": {
+                "firstLabel": "",
+                "secondLabel": ""
+            },
+            "recurrent_price": {
+                "label": "",
+                "infoBox": ""
+            },
+            "contract": {
+                "label": "",
+                "placeholder": ""
+            },
+            "flat_fee": {
+                "helperText": "",
+                "label": ""
+            },
+            "description": {
+                "label": "",
+                "placeholder": ""
+            },
+            "object_type": {
+                "paymentPack": "",
+                "privatePass": "",
+                "label": "",
+                "paymentCombo": ""
+            },
+            "error": {
+                "missingObject": "",
+                "missingPaymentPack": "",
+                "missingPrivatePass": "",
+                "missingPaymentCombo": "",
+                "moreThanThreeDecimalPrice": ""
+            },
+            "recurrence_basis": {
+                "intervalName": {
+                    "week": "",
+                    "day": "",
+                    "month": "",
+                    "year": ""
+                },
+                "label": "",
+                "helperText": ""
+            },
+            "recurrence": {
+                "explain": "",
+                "section": ""
+            },
+            "interval": {
+                "label": "",
+                "helperText": ""
+            },
+            "settings": {
+                "title": ""
+            },
+            "invoicing": {
+                "invoicing_type_readonly": "",
+                "fixed_day": {
+                    "explain": "",
+                    "label": "",
+                    "modification_not_apply_to_past": "",
+                    "end_of_month_explain": "",
+                    "recurrence_explain": {
+                        "month": ""
+                    }
+                },
+                "same_day_as_subscription": {
+                    "recurrence_explain": {
+                        "year": "",
+                        "month": "",
+                        "day": "",
+                        "week": ""
+                    },
+                    "explain": "",
+                    "label": ""
+                },
+                "invoice": "",
+                "title": ""
+            },
+            "price": {
+                "title": ""
+            },
+            "general_info": {
+                "title": ""
+            },
+            "unusableByStaff": {
+                "label": ""
+            },
+            "month_billing_day": {
+                "label2": "",
+                "label1": ""
+            },
+            "highlightedAsRecommended": {
+                "label": "",
+                "helperText": ""
+            },
+            "advancedOptions": {
+                "title": "",
+                "tag": {
+                    "tagsOnAcquisition": "",
+                    "tagsOnAcquisitionHelper": "",
+                    "selectTags": "",
+                    "tagGroupDuplicated": ""
+                },
+                "selectTags": "",
+                "header": ""
+            },
+            "notEditable": "",
+            "commitmentPeriod": {
+                "label": "",
+                "helperText": "",
+                "error": "",
+                "explain": {
+                    "day": "",
+                    "week": "",
+                    "month": "",
+                    "year": ""
+                }
+            }
+        },
+        "deleteForm": {
+            "actions": {
+                "confirm": "",
+                "cancel": ""
+            },
+            "content": "",
+            "title": ""
+        },
+        "paymentPack": "",
+        "no": "",
+        "yes": "",
+        "privatePass": "",
+        "interval": {
+            "week": "",
+            "day": "",
+            "year": "",
+            "month": ""
+        },
+        "item": {
+            "intervalLabel": {
+                "year": "",
+                "day": "",
+                "week": "",
+                "month": ""
+            },
+            "recurrentPriceLabel": "",
+            "identifier": ""
+        },
+        "frequency": {
+            "week": "",
+            "month": ""
+        },
+        "billingFrequency": "",
+        "paymentCombo": "",
+        "pastDate": {
+            "cancel": "",
+            "validate": "",
+            "payment": {
+                "manualInfo": "",
+                "registeredInfo": "",
+                "manualPayment": "",
+                "pastInvoicesPayment": "",
+                "registeredMethodPayment": ""
+            },
+            "futureInvoicesPayment": "",
+            "valuePastInvoicesInputError": "",
+            "alertDifferentMonthInput": "",
+            "alertDifferentMonthConfirmAsk": "",
+            "alertDifferentMonth": "",
+            "alertSameMonth": "",
+            "title": ""
+        },
+        "monthBillingDay": "",
+        "recurrenceInfo": {
+            "day": "",
+            "week": "",
+            "month": "",
+            "year": ""
+        },
+        "recurrenceInfoFixedDay": "",
+        "autoRenewalInfo": "",
+        "durationInfo": {
+            "day": "",
+            "week": "",
+            "month": "",
+            "year": ""
+        },
+        "nbIntervalAfterAutoRenewal": {
+            "title": "",
+            "details": {
+                "day": "",
+                "week": "",
+                "month": "",
+                "year": ""
+            }
+        }
+    },
+    "germanNbIntervalAlert": "",
+    "GermanMarketSetSubscriptionAutoRenewalAlert": {
+        "title": "",
+        "content": ""
+    },
+    "contractTemplate": {
+        "backofficeEditWarning": "",
+        "list": {
+            "isEmpty": ""
+        },
+        "icons": {
+            "restore": ""
+        },
+        "dialog": {
+            "delete": {
+                "title": "",
+                "content": "",
+                "cancel": "",
+                "confirm": ""
+            }
+        },
+        "filter": {
+            "noFilters": "",
+            "availableForEveryone": "",
+            "memberOnly": "",
+            "staffOnly": "",
+            "unavailableForEveryone": "",
+            "availability": "",
+            "searchPlaceholder": "",
+            "studios": "",
+            "passes": "",
+            "appointmentPasses": "",
+            "productType": "",
+            "associatedPass": ""
+        },
+        "detailPage": {
+            "sharedStudios": ""
+        },
+        "form": {
+            "title": "",
+            "sharedPassesSelectorTooltip": "",
+            "sharedAppointmentPassesSelectorTooltip": ""
+        }
+    },
+    "recap": {
+        "willBecharged": "",
+        "every": "",
+        "month": "",
+        "times": "",
+        "forObject": "",
+        "from": "",
+        "to": "",
+        "forATotalOf": "",
+        "includingFreeTrialOf1": "",
+        "includingFreeTrialOf2": ""
+    },
+    "form": {
+        "check": "",
+        "submit": "",
+        "title": "",
+        "cancel": "",
+        "note": {
+            "label": ""
+        }
+    },
+    "plannedInvoiceStatus": {
+        "pending": "",
+        "canceled": "",
+        "failed": "",
+        "succeeded": "",
+        "processing": "",
+        "reverted": ""
+    },
+    "subscriptionStatus": {
+        "pending": "",
+        "canceledOn": "",
+        "hasEnded": "",
+        "isPaused": ""
+    },
+    "action": {
+        "stop": "",
+        "stopExplain": "",
+        "revertCurrentExplain": "",
+        "revertCurrentExplainHelper": "",
+        "planStop": ""
+    },
+    "parameters": {
+        "parameters": "",
+        "autoRenew": "",
+        "subscribeAgain": "",
+        "voucher": "",
+        "trial_nb": "",
+        "recurrent_voucher": "",
+        "name": "",
+        "member": "",
+        "dateCreated": "",
+        "nbInterval": "",
+        "secondBillingPlanEnabled": "",
+        "recurrent_price": "",
+        "paymentPack": "",
+        "nbMonths": "",
+        "dateStart": "",
+        "firstBilling": "",
+        "payment_pack": "",
+        "flat_fee": "",
+        "status": "",
+        "payment_method": {
+            "0": "",
+            "1": "",
+            "2": "",
+            "label": "",
+            "paymentOnline": ""
+        },
+        "source_company": "",
+        "private_pass": "",
+        "privatePass": "",
+        "note": "",
+        "payment_method_group": {
+            "1": "",
+            "2": "",
+            "14": ""
+        },
+        "paymentCombo": "",
+        "payment_combo": "",
+        "contractTermsAccepted": "",
+        "stopNote": ""
+    },
+    "schedule": {
+        "provisionalTitle": "",
+        "paymentMethodTitle": ""
+    },
+    "paymentMethod": {
+        "sepa": "",
+        "card": "",
+        "credit": {
+            "explain": ""
+        },
+        "bsportCredit": "",
+        "bacs_debit": ""
+    },
+    "mandate": {
+        "name": "",
+        "email": "",
+        "contentIban": "",
+        "contentBacsDebit": "",
+        "accountNumber": "",
+        "sortCode": "",
+        "content": ""
+    },
+    "plannedInvoice": {
+        "priceUpdater": {
+            "submit": "",
+            "cancel": "",
+            "explain": "",
+            "price": "",
+            "title": "",
+            "updateAll": "",
+            "updateRecurrentPrice": "",
+            "nonNullDiscount": "",
+            "nonNullFlatFees": ""
+        },
+        "list": {
+            "titleNext": ""
+        },
+        "dateUpdater": {
+            "title": "",
+            "label": "",
+            "actions": {
+                "submit": "",
+                "cancel": ""
+            },
+            "explain": ""
+        }
+    },
+    "save": "",
+    "cancel": "",
+    "noContracts": "",
+    "copyLink": "",
+    "listItem": {
+        "valid": "",
+        "paused": "",
+        "expired": "",
+        "canceled": "",
+        "subscribedOn": "",
+        "willSubscribeOn": ""
+    },
+    "noAssociatedSubscription": "",
+    "associatedSubscriptions": "",
+    "register": {
+        "dialog": {
+            "success": "",
+            "error": "",
+            "info": ""
+        }
+    },
+    "status": {
+        "hasEnded": "",
+        "hasStopped": "",
+        "hasNotStartedYet": "",
+        "hasStarted": "",
+        "isPaused": ""
+    },
+    "franchiseUserProfile": {
+        "pleaseSelectASubscription": "",
+        "associatedInvoices": "",
+        "associatedPassValidity": ""
+    },
+    "filters": {
+        "all": ""
+    },
+    "billingPlanStatus": {
+        "canceled": "",
+        "expired": "",
+        "paused": "",
+        "valid": ""
+    },
+    "scheduledStop": {
+        "label": "",
+        "unscheduleStop": "",
+        "stoppedByManager": "",
+        "stoppedByMember": ""
+    },
+    "end": {
+        "renew": "",
+        "noRenew": ""
+    },
+    "seeMore": "",
+    "search": "",
+    "notificationToolTip": "",
+    "addNotification": "",
+    "notificationForm": {
+        "title": "",
+        "subtitle": "",
+        "typeSection": {
+            "title": "",
+            "contractStart": "",
+            "contractEnd": ""
+        },
+        "triggeringEvent": {
+            "title": "",
+            "contractCreation": "",
+            "firstBilling": ""
+        },
+        "notificationType": {
+            "title": "",
+            "day": "",
+            "hour": "",
+            "before": "",
+            "after": "",
+            "afterSubcriptionCreation": "",
+            "firstBilling": "",
+            "warningDayFirst": "",
+            "warningDayLast": "",
+            "warningHourLast": "",
+            "contractEnd": "",
+            "warningHourFirst": "",
+            "sendNotification": ""
+        },
+        "sendingMethod": {
+            "title": "",
+            "notificationPush": "",
+            "email": ""
+        },
+        "emailNotification": {
+            "parameters": "",
+            "emailToSend": ""
+        },
+        "notificationPush": {
+            "parameters": "",
+            "title": "",
+            "content": "",
+            "addTag": "",
+            "warning": ""
+        },
+        "buttons": {
+            "cancel": "",
+            "submit": ""
+        },
+        "warning": "",
+        "smartLists": {
+            "createSmartList": "",
+            "smartListHelperInclude": "",
+            "smartListHelper": "",
+            "advanced": "",
+            "warning": "",
+            "smartListSelection": ""
+        }
+    },
+    "notification": {
+        "title": "",
+        "creation": "",
+        "beforefirstBilling": "",
+        "afterfirstBilling": "",
+        "afterSubscriptionEnd": "",
+        "days": "",
+        "hours": "",
+        "beforeSubscriptionEnd": ""
+    },
+    "contractNotification": {
+        "creation": "",
+        "firstBilling": ""
+    },
+    "pauseV2": {
+        "subscriptionPause": {
+            "eventItems": {
+                "pauseDeleted": "",
+                "pauseCreatedThenDeleted": ""
+            },
+            "deleteDialogContent": "",
+            "form": {
+                "failureStep": {
+                    "contentUnknownError": "",
+                    "contentSubscriptionHasNotStarted": "",
+                    "contentCanNotCreateAPauseInThePast": "",
+                    "contentCanNotEditPauseEndBeforeToday": "",
+                    "contentCanNotEditPauseStartWhenHasStarted": "",
+                    "contentSubscriptionWillEndBeforePause": "",
+                    "contentCanNotCancelPause": "",
+                    "contentInvalidTimedelta": "",
+                    "contentOverlapPause": "",
+                    "contentIncomingBill": "",
+                    "title": ""
+                },
+                "successStep": {
+                    "content": "",
+                    "title": ""
+                },
+                "initStep": {
+                    "information2": "",
+                    "information1": "",
+                    "titleUpdate": "",
+                    "titleCreation": ""
+                }
+            }
+        },
+        "contractPause": {
+            "sections": {
+                "error": "",
+                "success": ""
+            },
+            "updateNameDialogTitle": "",
+            "deleteDialogContent": "",
+            "form": {
+                "thirdStep": {
+                    "successExplanation": "",
+                    "title": ""
+                },
+                "secondStep": {
+                    "incompatibleSubscriptions": "",
+                    "noCompatibleSubscriptions": "",
+                    "sectionFailure": "",
+                    "sectionSuccess": "",
+                    "title": ""
+                },
+                "firstStep": {
+                    "information2": "",
+                    "information1": "",
+                    "titleUpdate": "",
+                    "titleCreation": ""
+                }
+            },
+            "title": ""
+        },
+        "common": {
+            "menu": {
+                "cancelForbidden": "",
+                "changeForbidden": "",
+                "changeContractForbidden": "",
+                "changeName": "",
+                "change": "",
+                "delete": ""
+            },
+            "listItem": {
+                "isUpdated": "",
+                "label": "",
+                "pausedAt": "",
+                "deletedAt": "",
+                "deletedAtBy": "",
+                "createdAt": "",
+                "createdAtBy": "",
+                "fromToUntil": ""
+            },
+            "deleteDialog": {
+                "title": ""
+            },
+            "form": {
+                "duration": {
+                    "warning": "",
+                    "end": "",
+                    "start": "",
+                    "title": ""
+                },
+                "reasonPlaceholder": ""
+            },
+            "actions": {
+                "continue": "",
+                "save": "",
+                "goBack": "",
+                "previous": "",
+                "verify": "",
+                "pause": "",
+                "confirm": "",
+                "cancel": ""
+            }
+        }
+    },
+    "billing_plan_status": {
+        "0": "",
+        "1": "",
+        "2": "",
+        "3": "",
+        "4": ""
+    },
+    "invisibleForStaffToolTip": "",
+    "alreadySubscribed": {
+        "dialog": {
+            "title": "",
+            "content": "",
+            "validate": ""
+        }
+    },
+    "subscriptionNotFound": {
+        "explanation": "",
+        "title": ""
+    },
+    "newCheckout": {
+        "error": {
+            "button": {
+                "userRegistration": "",
+                "registerBackground": ""
+            },
+            "text": {
+                "userRegistration": "",
+                "registerBackground": ""
+            },
+            "title": ""
+        },
+        "payment": {
+            "tooltip": "",
+            "details": ""
+        },
+        "subscriptionBasketSummary": {
+            "message": "",
+            "payNow": ""
+        },
+        "terms": {
+            "acceptTerms": "",
+            "seeLess": "",
+            "seeMore": "",
+            "title": ""
+        },
+        "subscriptionSummary": {
+            "billingInterval": {
+                "day": "",
+                "year": "",
+                "week": "",
+                "month": ""
+            },
+            "prorataPriceText": "",
+            "item": "",
+            "unlimited": "",
+            "credit": "",
+            "startDate": ""
+        },
+        "processingPaymentModal": {
+            "timeEstimation": "",
+            "text": "",
+            "title": ""
+        },
+        "title": ""
+    },
+    "pause": {
+        "pausedInterval": "",
+        "pausedAt": "",
+        "actions": {
+            "delete": ""
+        },
+        "secondaryLabel": "",
+        "label": "",
+        "createdAt": "",
+        "dialogs": {
+            "success": {
+                "content": "",
+                "continue": "",
+                "title": ""
+            },
+            "form": {
+                "confirm": "",
+                "information2": "",
+                "information": "",
+                "duration": {
+                    "warning": "",
+                    "end": "",
+                    "start": "",
+                    "title": ""
+                },
+                "causePlaceholder": "",
+                "titleEdition": "",
+                "titleCreation": ""
+            },
+            "fail": {
+                "comeback": "",
+                "contentUnknownError": "",
+                "contentCanNotCreateAPauseInThePast": "",
+                "contentCanNotEditPauseEndBeforeToday": "",
+                "contentCanNotEditPauseStartWhenHasStarted": "",
+                "contentSubscriptionWillEndBeforePause": "",
+                "contentCanNotCancelPause": "",
+                "contentInvalidTimedelta": "",
+                "contentOverlapPause": "",
+                "contentIncomingBill": "",
+                "title": ""
+            },
+            "delete": {
+                "content": "",
+                "title": ""
+            },
+            "common": {
+                "confirm": "",
+                "cancel": ""
+            }
+        },
+        "eventItems": {
+            "pauseDeleted": "",
+            "pauseCreatedThenDeleted": "",
+            "pauseCreated": ""
+        },
+        "menu": {
+            "change": "",
+            "delete": ""
+        }
+    },
+    "messages": {
+        "youSubscribed": {
+            "success": "",
+            "error": ""
+        },
+        "updatePrice": {
+            "error": "",
+            "success": ""
+        },
+        "freeze": {
+            "error": "",
+            "alreadyPaused": "",
+            "success": ""
+        }
+    },
+    "contractPause": {
+        "form": {
+            "dateFilter": {
+                "label": ""
+            },
+            "invalidBillingPlan": "",
+            "explainImpossible": "",
+            "validBillingPlan": "",
+            "untilDate": {
+                "label": ""
+            },
+            "fromDate": {
+                "label": ""
+            },
+            "advanced": "",
+            "days": {
+                "helperText": "",
+                "label": ""
+            },
+            "name": {
+                "label": "",
+                "placeholder": ""
+            },
+            "warning": "",
+            "title": "",
+            "paymentPackActions": {
+                "disableTillNextInvoice": "",
+                "extendTillNextInvoice": "",
+                "doNotChange": "",
+                "title": ""
+            }
+        },
+        "actions": {
+            "verify": "",
+            "add": "",
+            "submit": "",
+            "cancel": "",
+            "previous": ""
+        },
+        "section": {
+            "error": "",
+            "success": ""
+        },
+        "createdAt": "",
+        "title": "",
+        "fromUntil": ""
+    }
+}

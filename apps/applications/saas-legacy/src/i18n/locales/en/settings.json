@@ -1,0 +1,429 @@
+{
+    "pageTitle": "",
+    "tab": {
+        "general": "",
+        "paymentRules": "",
+        "notificationRule": "",
+        "company": "",
+        "broadcast": "",
+        "invoice": "",
+        "waitingList": "",
+        "shop": "",
+        "role": "",
+        "personalization": "",
+        "webhook": "",
+        "partnership": "",
+        "active_campaign": "",
+        "coachUserspace": ""
+    },
+    "webhook": {
+        "cancel": "",
+        "submit": "",
+        "createTitle": "",
+        "add": "",
+        "test": "",
+        "event": "",
+        "url": "",
+        "selectEvent": "",
+        "urlPlaceHolder": "",
+        "payload": "",
+        "urlHelper": "",
+        "modal": {
+            "delete": {
+                "title": "",
+                "cancel": "",
+                "confirm": "",
+                "content": ""
+            }
+        },
+        "messages": {
+            "form": {
+                "success": "",
+                "error": ""
+            }
+        },
+        "testSuccess": "",
+        "testError": ""
+    },
+    "broadcast": {
+        "is_whereby_integration_enabled": {
+            "label": ""
+        },
+        "explainDisabled": "",
+        "explainEnabled": "",
+        "submit": "",
+        "seeUpsell": "",
+        "zoom": {
+            "enabled": "",
+            "label": "",
+            "explainValid": "",
+            "explainInvalid": "",
+            "revoke": "",
+            "multiZoomUserSupport": {
+                "switchLabel": "",
+                "explain": ""
+            },
+            "zoomGroupId": "",
+            "groupActionButton": {
+                "save": "",
+                "reset": ""
+            },
+            "establishmentTable": {
+                "headers": {
+                    "establishment": "",
+                    "user": "",
+                    "type": "",
+                    "add": ""
+                },
+                "emptySelect": "",
+                "removeAction": ""
+            },
+            "memberType": {
+                "1": "",
+                "2": ""
+            },
+            "save": "",
+            "resetConfirmationDialog": {
+                "title": "",
+                "content": ""
+            }
+        }
+    },
+    "active_campaign": {
+        "submit": "",
+        "cancel": "",
+        "account": {
+            "helpTitle": "",
+            "helpContent": "",
+            "title": "",
+            "dialogTitle": "",
+            "token": "",
+            "error": "",
+            "helper": "",
+            "empty": ""
+        },
+        "webhooks": {
+            "helpTitle": "",
+            "helpContent": "",
+            "title": "",
+            "CLIENT_WON": "",
+            "CONTACT_TAG": ""
+        },
+        "link": {
+            "helpTitle": "",
+            "helpContent": "",
+            "title": "",
+            "add": "",
+            "dialogTitle": "",
+            "smartListSelection": "",
+            "listActiveCampaignSelection": "",
+            "helperForm": "",
+            "noList": "",
+            "listItemText": ""
+        }
+    },
+    "marketplaceSettings": {
+        "createDialog": {
+            "dialogTitle": "",
+            "noPlaylistError": "",
+            "noServiceError": "",
+            "noTitleError": "",
+            "noComponentTypeError": "",
+            "submit": "",
+            "cancel": "",
+            "inputTitle": "",
+            "selectPlaylist": "",
+            "selectPrivateService": "",
+            "selectActivity": "",
+            "selectEstablishment": "",
+            "selectCoach": "",
+            "selectComponent": "",
+            "showAdvanced": "",
+            "selectVideo": "",
+            "selectPrivateServiceGroups": "",
+            "selectPrivateServiceTypeDetail": "",
+            "selectPrivateServiceTypeList": "",
+            "selectPrivateServiceType": "",
+            "todayOnly": "",
+            "hidePaymentCombo": "",
+            "hidePrivatePass": "",
+            "hidePaymentPack": "",
+            "titleCaption": "",
+            "hideFilters": ""
+        },
+        "componentType": {
+            "playlist": "",
+            "shop": "",
+            "subscription": "",
+            "vod": "",
+            "pass": "",
+            "privateService": "",
+            "workshop": "",
+            "calendar": "",
+            "newsletter": "",
+            "newsletterV2": "",
+            "loginButton": "",
+            "giftcard": "",
+            "paymentPackTemplate": "",
+            "calendarV2": "",
+            "referral": "",
+            "consumerBooking": "",
+            "consumerPass": "",
+            "consumerSpace": ""
+        },
+        "preview": "",
+        "saveButton": "",
+        "link": "",
+        "explainMarketplace": "",
+        "addButton": ""
+    },
+    "companyOnboarding": {
+        "error": ""
+    },
+    "paymentMethods": {
+        "subtitle2": "",
+        "subtitle": "",
+        "title": "",
+        "save": "",
+        "methodPaymentSubscriptionError": "",
+        "methodPaymentSubscriptionHelper": "",
+        "methodPaymentSubscription": "",
+        "methodPaymentBasketHelper": "",
+        "methodPaymentBasket": "",
+        "methodPaymentCardBillingDetails": "",
+        "methodPaymentCardBillingDetailsTitle": "",
+        "methodPaymentCardBillingDetailsHelper": "",
+        "DaysBeforeNotificationInputs": {
+            "title": "",
+            "helpText": "",
+            "labels": {
+                "daysBeforeFirstNotification": "",
+                "daysBeforeSecondNotification": ""
+            },
+            "errors": {
+                "secondWarningDayBiggerThanFirst": "",
+                "max": ""
+            }
+        }
+    },
+    "billing_group": {
+        "header": "",
+        "helperText": "",
+        "add": ""
+    },
+    "quickbooks": {
+        "confirmDialog": {
+            "text": "",
+            "title": ""
+        },
+        "buttonRevoke": "",
+        "buttonReConnect": "",
+        "buttonConnect": "",
+        "explainEnable": "",
+        "submit": "",
+        "enable": "",
+        "title": "",
+        "tax": {
+            "goToSettingsPage": "",
+            "alertNonTaxInformation": "",
+            "alertUnconfigured": "",
+            "refresh": "",
+            "usedAsTaxCode": "",
+            "taxCodeHeaderDescription": "",
+            "taxCodeHeaderName": "",
+            "taxInfoTitle": ""
+        }
+    },
+    "mobilePersonalization": {
+        "externalShopRedirection": {
+            "popupPreview": {
+                "inventory": "",
+                "ourOffers": "",
+                "category": {
+                    "giftcard": "",
+                    "contract": "",
+                    "paymentCombo": "",
+                    "paymentPack": ""
+                },
+                "membershipCard": {
+                    "giftcardSubtitle": "",
+                    "paymentComboSubtitle": "",
+                    "vodSubtitle": "",
+                    "contractSubtitle": "",
+                    "paymentPackSubtitle": "",
+                    "mySubscription": "",
+                    "paymentComboEmpty": "",
+                    "contractEmpty": "",
+                    "invoiceEmpty": "",
+                    "privatePassListEmpty": "",
+                    "privateConsumerPassListEmpty": "",
+                    "vod": "",
+                    "consumerPaymentPackEmpty": "",
+                    "paymentPackEmpty": "",
+                    "invoice": "",
+                    "consumerPaymentPack": "",
+                    "paymentPack": "",
+                    "contract": ""
+                },
+                "title": "",
+                "cancel": ""
+            },
+            "deleteModal": {
+                "content": "",
+                "confirm": "",
+                "cancel": "",
+                "title": ""
+            },
+            "popup": {
+                "submit": "",
+                "cancel": "",
+                "icon": "",
+                "link": "",
+                "name": "",
+                "title": ""
+            },
+            "action": "",
+            "link": "",
+            "name": "",
+            "icon": "",
+            "preview": "",
+            "updated": "",
+            "add": "",
+            "helperText": "",
+            "subtitle": ""
+        },
+        "title": "",
+        "popup": {
+            "helperText": "",
+            "subtitle": "",
+            "editPopup": {
+                "previewPopup": {
+                    "see": "",
+                    "title": ""
+                },
+                "preview": "",
+                "submit": "",
+                "cancel": "",
+                "link": "",
+                "image": "",
+                "name": "",
+                "title": ""
+            },
+            "see": "",
+            "deleteModal": {
+                "content": "",
+                "confirm": "",
+                "cancel": "",
+                "title": ""
+            },
+            "action": "",
+            "image": "",
+            "link": "",
+            "name": "",
+            "updated": "",
+            "add": ""
+        },
+        "customize": {
+            "title": "",
+            "defaultPage": {
+                "title": "",
+                "pageContent": {
+                    "label": "",
+                    "helperText": "",
+                    "placeholder": "",
+                    "options": {
+                        "schedule": "",
+                        "bookings": "",
+                        "activities": "",
+                        "studio": "",
+                        "profile": ""
+                    }
+                }
+            }
+        }
+    },
+    "platformCustomerEntity": {
+        "vatId": {
+            "title": "",
+            "descriptionPart1": "",
+            "descriptionPart2": "",
+            "update": "",
+            "errorChip": ""
+        }
+    },
+    "company": {
+        "stripe": {
+            "update": ""
+        },
+        "bankAccountInfo": {
+            "link": "",
+            "content": "",
+            "update": ""
+        },
+        "bankAccountSuccess": {
+            "note": "",
+            "content": "",
+            "title": ""
+        },
+        "paypal": {
+            "status": {
+                "connected": "",
+                "notConnected": "",
+                "hasIssues": "",
+                "unknown": ""
+            },
+            "linkHelper": "",
+            "titleWithPayPal": "",
+            "oneTimePayments": "",
+            "accountName": "",
+            "accountEmail": "",
+            "connect": "",
+            "dialog": {
+                "title": "",
+                "helper": "",
+                "cancel": "",
+                "startConnecting": "",
+                "redirecting": "",
+                "error": ""
+            },
+            "alert": {
+                "rightAccount": {
+                    "title": "",
+                    "content": ""
+                },
+                "error": {
+                    "isStatusUnknown": {
+                        "title": "",
+                        "content": "",
+                        "goToPayPal": ""
+                    },
+                    "primary_email_confirmation": {
+                        "title": "",
+                        "content": "",
+                        "goToPayPal": ""
+                    },
+                    "requires_more_information": {
+                        "title": "",
+                        "content": "",
+                        "goToPayPal": ""
+                    },
+                    "issue_check_account": {
+                        "title": "",
+                        "content": "",
+                        "goToPayPal": ""
+                    },
+                    "issue_repeat_onboarding": {
+                        "title": "",
+                        "content": ""
+                    }
+                }
+            }
+        }
+    },
+    "errorBoundary": {
+        "unexpectedError": "",
+        "errorDescription": "",
+        "submitCrashReport": "",
+        "reload": ""
+    }
+}

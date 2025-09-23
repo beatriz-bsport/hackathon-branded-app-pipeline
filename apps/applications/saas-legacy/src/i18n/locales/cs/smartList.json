@@ -1,0 +1,803 @@
+{
+    "duplicate": "",
+    "name": "",
+    "usedInFranchiseCommmunication": "",
+    "search": "",
+    "description": "",
+    "mails": "",
+    "multiSelector": {
+        "selectAll": "",
+        "paymentPacks": {
+            "helperText": "",
+            "helperSelectedText": "",
+            "textFieldPlaceholder": "",
+            "helperAllSelectedText": "",
+            "warning": ""
+        },
+        "metaActivities": {
+            "helperText": "",
+            "helperSelectedText": "",
+            "textFieldPlaceholder": "",
+            "helperAllSelectedText": "",
+            "warning": ""
+        },
+        "selectNothing": "",
+        "establishments": {
+            "helperText": "",
+            "helperSelectedText": "",
+            "textFieldPlaceholder": "",
+            "helperAllSelectedText": "",
+            "warning": ""
+        },
+        "coaches": {
+            "helperText": "",
+            "helperSelectedText": "",
+            "textFieldPlaceholder": "",
+            "helperAllSelectedText": "",
+            "warning": ""
+        },
+        "buyables": {
+            "helperAllSelectedText": "",
+            "textFieldPlaceholder": "",
+            "helperSelectedText": "",
+            "helperText": ""
+        },
+        "privatePass": {
+            "warning": "",
+            "helperAllSelectedText": "",
+            "textFieldPlaceholder": "",
+            "helperSelectedText": "",
+            "helperText": ""
+        },
+        "privateServices": {
+            "warning": "",
+            "helperAllSelectedText": "",
+            "textFieldPlaceholder": "",
+            "helperSelectedText": "",
+            "helperText": ""
+        },
+        "level": {
+            "beginner": "",
+            "advanced": "",
+            "select": "",
+            "warning": "",
+            "intermediary": "",
+            "all": "",
+            "allLevels": "",
+            "intermediate": ""
+        },
+        "activePasses": {
+            "warning": "",
+            "privatePassHelperText": "",
+            "paymentPackHelperText": ""
+        },
+        "customForms": {
+            "warning": "",
+            "helperAllSelectedText": "",
+            "textFieldPlaceholder": "",
+            "helperSelectedText": "",
+            "helperText": ""
+        },
+        "userMarketingNotifications": {
+            "warning": ""
+        }
+    },
+    "selectToShowPreview": "",
+    "exportList": "",
+    "downLoadSavedExport": "",
+    "membersInList": "",
+    "modal": {
+        "delete": {
+            "title": "",
+            "content": "",
+            "cancel": "",
+            "confirm": "",
+            "linkedToAFranchiseCommunication": ""
+        },
+        "validate": ""
+    },
+    "graphs": {
+        "bookings": "",
+        "expensesSegments": {
+            "title": {
+                "first": "",
+                "second": ""
+            },
+            "label": {
+                "0": "",
+                "1": "",
+                "2": "",
+                "3": ""
+            }
+        },
+        "bookingsSegments": {
+            "title": "",
+            "label": {
+                "0": "",
+                "1": "",
+                "2": ""
+            }
+        }
+    },
+    "detail": {
+        "tab": {
+            "member": "",
+            "campaign": "",
+            "statistic": ""
+        },
+        "statTitle": ""
+    },
+    "mail": {
+        "sendMail": "",
+        "sendMailTitle": "",
+        "cancel": "",
+        "send": "",
+        "noMailAvailable": "",
+        "sendSuccess": "",
+        "sendError": ""
+    },
+    "smart_list": {
+        "actions": {
+            "configure": "",
+            "campaign": ""
+        },
+        "list": {
+            "title": "",
+            "detailTitle": ""
+        },
+        "name": "",
+        "description": {
+            "isEmpty": "",
+            "label": ""
+        },
+        "submit": "",
+        "cancel": "",
+        "add": "",
+        "detail": "",
+        "createTitle": "",
+        "card": {
+            "description": ""
+        }
+    },
+    "filterCategory": {
+        "1": "",
+        "2": "",
+        "3": "",
+        "4": ""
+    },
+    "filters": {
+        "1": {
+            "name": "",
+            "first": "",
+            "second": "",
+            "third": "",
+            "explanation": "",
+            "between": ""
+        },
+        "2": {
+            "name": "",
+            "first": "",
+            "second": "",
+            "explanation": ""
+        },
+        "5": {
+            "name": "",
+            "first": "",
+            "men": "",
+            "women": "",
+            "explanation": ""
+        },
+        "8": {
+            "name": "",
+            "first": "",
+            "second": "",
+            "explanation": ""
+        },
+        "11": {
+            "name": "",
+            "first": "",
+            "explanation": ""
+        },
+        "14": {
+            "shop": "",
+            "pack": "",
+            "combo": "",
+            "private_pass": "",
+            "workshop": "",
+            "name": "",
+            "first": "",
+            "second": "",
+            "third": "",
+            "fourth": "",
+            "selector": "",
+            "explanation": ""
+        },
+        "18": {
+            "name": "",
+            "first": "",
+            "explanation": ""
+        },
+        "19": {
+            "name": "",
+            "first": "",
+            "has": "",
+            "has_not": "",
+            "second": "",
+            "third": "",
+            "credits": {
+                "first": "",
+                "second": "",
+                "helperText": ""
+            },
+            "date_bought": {
+                "first": ""
+            },
+            "expiration": {
+                "first_will_expire": "",
+                "first_has_expire": ""
+            },
+            "infoIcon": "",
+            "explanation": ""
+        },
+        "20": {
+            "name": "",
+            "first": "",
+            "second": "",
+            "third": "",
+            "date": {
+                "first": "",
+                "second": ""
+            },
+            "explanation": "",
+            "between": ""
+        },
+        "21": {
+            "name": "",
+            "first": "",
+            "first_v2": "",
+            "second_singular": "",
+            "second_singular_v2": "",
+            "second_plural": "",
+            "activity": {
+                "first": ""
+            },
+            "establishment": {
+                "first": ""
+            },
+            "date": {
+                "first": ""
+            },
+            "hour": {
+                "third": "",
+                "second": "",
+                "first": ""
+            },
+            "explanation": "",
+            "coach": {
+                "first": ""
+            },
+            "payment_pack": {
+                "first": ""
+            },
+            "attendance": "",
+            "level": {
+                "first": ""
+            }
+        },
+        "22": {
+            "name": "",
+            "first": "",
+            "second": "",
+            "activity": {
+                "first": ""
+            },
+            "establishment": {
+                "first": ""
+            },
+            "payment_pack": {
+                "first": ""
+            },
+            "coach": {
+                "first": ""
+            },
+            "hour": {
+                "third": "",
+                "second": "",
+                "first": ""
+            },
+            "date": {
+                "first": ""
+            },
+            "explanation": "",
+            "between": "",
+            "attendance": "",
+            "level": {
+                "first": ""
+            }
+        },
+        "23": {
+            "name": "",
+            "explanation": ""
+        },
+        "24": {
+            "name": "",
+            "workshop": "",
+            "private_pass": "",
+            "between": "",
+            "combo": "",
+            "pack": "",
+            "shop": "",
+            "explanation": "",
+            "date": {
+                "first": ""
+            },
+            "second": "",
+            "first": ""
+        },
+        "25": {
+            "expiration": {
+                "first_has_expire": "",
+                "first_will_expire": ""
+            },
+            "date_bought": {
+                "first": ""
+            },
+            "credits": {
+                "second": "",
+                "first": "",
+                "helperText": ""
+            },
+            "third": "",
+            "second": "",
+            "has_not": "",
+            "has": "",
+            "first": "",
+            "name": "",
+            "explanation": ""
+        },
+        "26": {
+            "hour": {
+                "third": "",
+                "second": "",
+                "first": ""
+            },
+            "date": {
+                "first": ""
+            },
+            "coach": {
+                "first": ""
+            },
+            "private_pass": {
+                "first": ""
+            },
+            "establishment": {
+                "third": "",
+                "second": "",
+                "first": ""
+            },
+            "between": "",
+            "second": "",
+            "first": "",
+            "explanation": "",
+            "name": "",
+            "private_service": {
+                "first": ""
+            }
+        },
+        "27": {
+            "info": "",
+            "fourth": "",
+            "third": "",
+            "second": "",
+            "between": "",
+            "first": "",
+            "name": "",
+            "explanation": ""
+        },
+        "28": {
+            "name": "",
+            "explanation": "",
+            "booleanChoice": {
+                "before": "",
+                "is": "",
+                "is_not": ""
+            },
+            "filterByDate": {
+                "before": ""
+            },
+            "numbersComparator": {
+                "payment": {
+                    "before": "",
+                    "between": "",
+                    "after": ""
+                }
+            }
+        },
+        "29": {
+            "name": "",
+            "explanation": "",
+            "numbersComparator": {
+                "reward": {
+                    "before": "",
+                    "between": "",
+                    "after": ""
+                },
+                "referred": {
+                    "before": "",
+                    "between": "",
+                    "after": "",
+                    "tooltip": ""
+                },
+                "money": {
+                    "before": "",
+                    "between": "",
+                    "after": ""
+                }
+            }
+        },
+        "30": {
+            "name": "",
+            "explanation": "",
+            "booleanChoice": {
+                "before": "",
+                "is": "",
+                "is_not": "",
+                "after": ""
+            },
+            "numbersComparator": {
+                "money": {
+                    "before": "",
+                    "between": "",
+                    "after": ""
+                }
+            }
+        },
+        "101": {
+            "explanation": "",
+            "second": "",
+            "to": "",
+            "between": "",
+            "first": "",
+            "name": ""
+        },
+        "102": {
+            "hasCompletedNone": "",
+            "date": {
+                "first": ""
+            },
+            "explanation": "",
+            "between": "",
+            "to": "",
+            "third": "",
+            "all": "",
+            "atLeastOne": "",
+            "first": "",
+            "second": "",
+            "none": "",
+            "hasNotCompleted": "",
+            "hasCompleted": "",
+            "name": ""
+        },
+        "103": {
+            "explanation": "",
+            "email": "",
+            "sms": "",
+            "false": "",
+            "true": "",
+            "and": "",
+            "or": "",
+            "oneNeeded": "",
+            "allNeeded": "",
+            "name": ""
+        },
+        "104": {
+            "explanation": "",
+            "date": {
+                "first": ""
+            },
+            "info": "",
+            "nonMedical": "",
+            "medical": "",
+            "medicalOrNot": "",
+            "first": "",
+            "name": ""
+        },
+        "105": {
+            "explanation": "",
+            "acceptEmail": {
+                "second": "",
+                "false": "",
+                "true": "",
+                "first": ""
+            },
+            "acceptSms": {
+                "second": "",
+                "false": "",
+                "true": "",
+                "first": ""
+            },
+            "receiveCopyOfEmail": {
+                "second": "",
+                "false": "",
+                "true": "",
+                "first": ""
+            },
+            "info": {
+                "consumerPrivatePasses": "",
+                "consumerPaymentPacks": ""
+            },
+            "validOrNot": "",
+            "valid": "",
+            "bookings": "",
+            "consumerPrivatePasses": "",
+            "consumerPaymentPacks": "",
+            "fourth": "",
+            "third": "",
+            "second": "",
+            "first": "",
+            "between": "",
+            "to": "",
+            "date": {
+                "first": ""
+            },
+            "name": ""
+        },
+        "106": {
+            "explanation": "",
+            "first": "",
+            "true": "",
+            "false": "",
+            "name": ""
+        },
+        "107": {
+            "explanation": "",
+            "first": "",
+            "false": "",
+            "true": "",
+            "name": ""
+        },
+        "400": {
+            "explanation": "",
+            "name": "",
+            "explain": ""
+        },
+        "410": {
+            "explanation": "",
+            "name": "",
+            "explain": ""
+        },
+        "501": {
+            "explanation": "",
+            "second": "",
+            "first": "",
+            "name": ""
+        },
+        "600": {
+            "expiryDateLabel": "",
+            "owns": "",
+            "does_not_own": "",
+            "labelFirst": "",
+            "title": "",
+            "explanation": "",
+            "name": ""
+        },
+        "calendarPicker": {
+            "text": {
+                "0": {
+                    "first": ""
+                },
+                "1": {
+                    "first": ""
+                },
+                "2": {
+                    "first": "",
+                    "second": ""
+                },
+                "3": {
+                    "first": ""
+                },
+                "4": {
+                    "first": "",
+                    "second": ""
+                },
+                "5": {
+                    "first": "",
+                    "second": ""
+                },
+                "6": {
+                    "first": "",
+                    "second": ""
+                },
+                "7": {
+                    "first": "",
+                    "second": "",
+                    "third": ""
+                },
+                "8": {
+                    "first": "",
+                    "second": ""
+                },
+                "9": {
+                    "first": "",
+                    "second": ""
+                },
+                "10": {
+                    "first": "",
+                    "second": ""
+                },
+                "11": {
+                    "first": "",
+                    "second": "",
+                    "third": ""
+                }
+            },
+            "select": {
+                "0": "",
+                "1": "",
+                "2": "",
+                "3": ""
+            },
+            "selectduration": {
+                "4": {
+                    "first": "",
+                    "second": ""
+                },
+                "5": {
+                    "first": "",
+                    "second": ""
+                },
+                "6": {
+                    "first": "",
+                    "second": ""
+                },
+                "7": {
+                    "first": "",
+                    "second": "",
+                    "third": ""
+                },
+                "8": {
+                    "first": "",
+                    "second": ""
+                },
+                "9": {
+                    "first": "",
+                    "second": ""
+                },
+                "10": {
+                    "first": "",
+                    "second": ""
+                },
+                "11": {
+                    "first": "",
+                    "second": "",
+                    "third": ""
+                },
+                "selector": {
+                    "4": "",
+                    "5": "",
+                    "6": "",
+                    "7": "",
+                    "8": "",
+                    "9": "",
+                    "10": "",
+                    "11": ""
+                }
+            },
+            "duration": "",
+            "durationTitle": "",
+            "dateTitle": ""
+        },
+        "booking_status": {
+            "canceled": "",
+            "booked": ""
+        },
+        "active_filters": "",
+        "add_filter": "",
+        "add": "",
+        "before": "",
+        "after": "",
+        "durations_comparators": {
+            "1": "",
+            "2": "",
+            "5": "",
+            "6": ""
+        },
+        "all": "",
+        "isEmpty": "",
+        "comparators": {
+            "1": "",
+            "2": "",
+            "5": "",
+            "6": ""
+        },
+        "attendanceTrue": "",
+        "attendanceFalse": "",
+        "attendanceWarning": "",
+        "classic_comparators": {
+            "1": "",
+            "2": "",
+            "3": "",
+            "4": "",
+            "5": ""
+        },
+        "undefined": {
+            "name": "",
+            "infoIcon": "",
+            "first": "",
+            "second": "",
+            "third": "",
+            "fourth": "",
+            "fifth": "",
+            "info": "",
+            "between": "",
+            "explanation": ""
+        }
+    },
+    "noSmartLists": "",
+    "delete": "",
+    "edit": "",
+    "tag_rules": {
+        "tag_group": "",
+        "tag_name": "",
+        "cancel": "",
+        "display_tag_rules": "",
+        "associated_tag": "",
+        "create": "",
+        "tag_on_left": "",
+        "tag_on_join_and_untag_on_left": "",
+        "tag_on_join": "",
+        "type_of_rule": "",
+        "activeSince": "",
+        "asyncDialog": {
+            "message": "",
+            "title": ""
+        },
+        "tag": ""
+    },
+    "memberBase": {
+        "options": {
+            "0": "",
+            "1": "",
+            "2": ""
+        },
+        "helperText": ""
+    },
+    "popup": {
+        "sendPopup": ""
+    },
+    "cadenceListDialog": {
+        "close": "",
+        "title": ""
+    },
+    "cadence": {
+        "content": ""
+    },
+    "cannotBeDeletedDialog": {
+        "content": "",
+        "cancel": "",
+        "title": ""
+    },
+    "audienceListDialog": {
+        "title": ""
+    },
+    "audience": {
+        "content": ""
+    },
+    "cannotBeDeletedDialogAudience": {
+        "content": "",
+        "title": ""
+    },
+    "generateExport": "",
+    "generateHelperText": "",
+    "lastGenerated": "",
+    "generateReport": "",
+    "downloadReport": "",
+    "communication": {
+        "scheduled": {
+            "nextScheduledMessage": "",
+            "isEmpty": "",
+            "viewAll": "",
+            "total": ""
+        }
+    }
+}

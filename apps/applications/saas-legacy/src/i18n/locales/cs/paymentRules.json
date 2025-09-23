@@ -1,0 +1,194 @@
+{
+    "rules": "",
+    "add": "",
+    "save": "",
+    "name": "",
+    "base_price": "",
+    "base_percent": "",
+    "include_tax": "",
+    "calculation_method": "",
+    "only_attendant": "",
+    "actions": "",
+    "bookingThreshold": "",
+    "pricePerAdditionalBooking": "",
+    "addBonus": "",
+    "cancel": "",
+    "addNew": "",
+    "select": {
+        "placeholder": "",
+        "placeholderOverride": "",
+        "coachPaymentRuleForPrivateService": "",
+        "coachPaymentRuleForSessions": "",
+        "reset": "",
+        "group": "",
+        "coachPaymentRuleForWorkshops": ""
+    },
+    "common": {
+        "from": "",
+        "until": "",
+        "pick_a_month": ""
+    },
+    "calculate": "",
+    "title": "",
+    "label": "",
+    "dateTitle": "",
+    "coaches": "",
+    "setPaymentRuleSetForCoachFirst": "",
+    "modal": {
+        "delete": {
+            "title": "",
+            "cancel": "",
+            "confirm": "",
+            "content": ""
+        }
+    },
+    "calculation_methods": {
+        "bookings": "",
+        "margin_value": ""
+    },
+    "pageTitle": "",
+    "coach_payment_rules": {
+        "Simulator": {
+            "student_did_not_attend": "",
+            "student_attended": "",
+            "total_payment": "",
+            "marginValue": "",
+            "forCancelledBookings": "",
+            "forConfirmedBookings": "",
+            "forEachBooking": "",
+            "cancellations": "",
+            "and": "",
+            "students": "",
+            "for": "",
+            "resultTitle": "",
+            "title": "",
+            "bonus": "",
+            "which": "",
+            "helper": "",
+            "marginalValueOfReservation": "",
+            "numberOfCancellations": "",
+            "numberOfStudent": ""
+        },
+        "Errors": {
+            "lowerIntervalTypeError": "",
+            "taxeRateTypeError": "",
+            "taxeRateRequired": "",
+            "percentagebaseRemunerationRequired": "",
+            "baseRemunerationTypeError": "",
+            "invalideUpperInterval": "",
+            "invalidLowerInterval": "",
+            "invalidBonusAmount": "",
+            "nameRequired": "",
+            "invalideIntervals": "",
+            "invalidMaximum": "",
+            "invalidMinimum": "",
+            "invalidCancelledBookingRules": "",
+            "percentagebaseRemunerationTypeError": "",
+            "baseRemunerationRequired": "",
+            "privateSlotAlreadySelected": "",
+            "uniqueRuleForPrivateSlot": "",
+            "invalidCoachPaymentRule": "",
+            "invalidPrivateSlot": "",
+            "oneRuleRequired": ""
+        },
+        "Bonuses": {
+            "bonus_rules": "",
+            "forEachBooking": "",
+            "to": "",
+            "from": "",
+            "addBonus": "",
+            "bonus": "",
+            "bookingsThresholds": "",
+            "forInterval": ""
+        },
+        "paymentPackPlaceHolder": "",
+        "excludePaymentPack": {
+            "warning": "",
+            "title": ""
+        },
+        "bonusForEachReservationInInterval": "",
+        "fixedBonusbyInterval": "",
+        "cancellationBaseHelper": "",
+        "taxeLongHelper": "",
+        "taxeConciseHelper": "",
+        "add_taxe_rate": "",
+        "taxe_rate": "",
+        "max_remuneration": "",
+        "min_remuneration": "",
+        "remunerationLimits": "",
+        "differentRemunerationForCancellation": "",
+        "addRemunerationOnCancellation": "",
+        "percentage_base": "",
+        "base_remuneration": "",
+        "forCancelledBookings": "",
+        "forConfirmedBookings": "",
+        "calculationMethod": "",
+        "actions": "",
+        "coaches": "",
+        "name": "",
+        "addNewCoachPaymentRule": "",
+        "base_remuneration_helper": "",
+        "set_base_remuneration": ""
+    },
+    "tabs": {
+        "all": "",
+        "appointment": "",
+        "session": "",
+        "groups": "",
+        "workshop": "",
+        "groupActivity": ""
+    },
+    "fabButton": {
+        "addNewForRDV": "",
+        "addNewForSession": "",
+        "addNewPaymentRuleGroup": "",
+        "addNewForWorkshop": "",
+        "addNewForGroupActivity": ""
+    },
+    "paymentRules": "",
+    "coach_payment_rule_groups": {
+        "subtitle": {
+            "helper": "",
+            "coaches": "",
+            "removed_coaches": "",
+            "specfic_private_slot": "",
+            "default": ""
+        },
+        "workshop": "",
+        "session": "",
+        "private_service": "",
+        "dialogTitle": "",
+        "dissociate": "",
+        "modal": {
+            "delete": {
+                "content": "",
+                "confirm": "",
+                "cancel": "",
+                "title": ""
+            }
+        },
+        "fields": {
+            "private_service": "",
+            "workshop": "",
+            "activity": "",
+            "private_service_name": "",
+            "coach_payment_rule": "",
+            "addPrivateSlot": ""
+        }
+    },
+    "search": "",
+    "simulate": "",
+    "privateSlotLabel": "",
+    "update": {
+        "success": "",
+        "error": ""
+    },
+    "create": {
+        "error": "",
+        "success": ""
+    },
+    "delete": {
+        "error": "",
+        "success": ""
+    }
+}

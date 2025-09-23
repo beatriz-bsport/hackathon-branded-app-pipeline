@@ -1,0 +1,67 @@
+{
+    "offerStatus": {
+        "hasEnded": "",
+        "startIn": "",
+        "inProgress": ""
+    },
+    "addMember": {
+        "button": ""
+    },
+    "offerList": {
+        "refresh": "",
+        "emptyList": ""
+    },
+    "filter": {
+        "establishment": ""
+    },
+    "signout": {
+        "title": "",
+        "explain": "",
+        "passwordError": "",
+        "cancel": "",
+        "signout": "",
+        "form": {
+            "username": {
+                "label": ""
+            },
+            "password": {
+                "label": ""
+            }
+        }
+    },
+    "authenticationDialog": {
+        "title": "",
+        "description": "",
+        "error": ""
+    },
+    "offerDetail": {
+        "emptyList": "",
+        "noConsumerPaymentPack": "",
+        "backToOfferList": "",
+        "cancelRegistration": "",
+        "isFull": "",
+        "register": "",
+        "activateBarcode": "",
+        "actions": {
+            "createAccount": "",
+            "restartAnalyze": "",
+            "close": ""
+        },
+        "noDetectionResult": "",
+        "activateFaceId": ""
+    },
+    "memberList": {
+        "checkIn": "",
+        "checkedIn": "",
+        "empty": ""
+    },
+    "confirmPage": {
+        "classLocation": "",
+        "signIn": "",
+        "expires": "",
+        "headOnIn": "",
+        "visitsLeft": "",
+        "spotInfo": "",
+        "spotUnassigned": ""
+    }
+}

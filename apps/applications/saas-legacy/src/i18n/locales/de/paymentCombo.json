@@ -1,35 +1,52 @@
 {
+  "pageTitle": {
+    "list": "Pakete"
+  },
+  "link": {
+    "copied": "Kopierter Link",
+    "copyLink": "Kopiere den Link zur Zahlungsseite"
+  },
+  "list": {
+    "section": {
+      "unavailableOnline": "Nicht zum Verkauf verfügbar",
+      "availableOnline": "Zum Verkauf verfügbar"
+    },
+    "explainIfEmpty": "Hier können die Pakete erstellt werden, die von Kunden gekauft werden können und die Kurspässe, Produkte des Webshops, usw. enthalten können...",
+    "buttons": {
+      "add": "Ein Paket erstellen"
+    }
+  },
   "form": {
-    "selectorPlaceholder": {
-      "paymentPack": "Kurspässe",
-      "privatePass": "Terminpass",
-      "shopitem": "Webshop",
-      "shopItemExcludingvariant": "Webshop (ausgenommen Produkte mit Varianten)"
+    "title": "Package-Formular",
+    "name": {
+      "label": "Name"
     },
-    "content": "Inhalt",
-    "actions": {
-      "cancel": "Abbrechen",
-      "submit": "Speichern"
-    },
-    "manager_only": {
-      "label": "Für Kunden unsichtbar"
-    },
-    "tax": {
-      "label": "Mehrwertsteuer"
+    "description": {
+      "label": "Beschreibung"
     },
     "price": {
       "label": "Preis"
     },
-    "name": {
-      "label": "Name"
+    "tax": {
+      "label": "Mehrwertsteuer"
     },
-    "title": "Package-Formular",
+    "manager_only": {
+      "label": "Für Kunden unsichtbar"
+    },
+    "actions": {
+      "submit": "Speichern",
+      "cancel": "Abbrechen"
+    },
+    "content": "Inhalt",
+    "selectorPlaceholder": {
+      "privatePass": "Terminpass",
+      "paymentPack": "Kurspässe",
+      "shopitem": "Webshop",
+      "shopItemExcludingvariant": "Webshop (ausgenommen Produkte mit Varianten)"
+    },
     "available_payment_method_identifiers": {
       "helperText": "Wählen Sie mindestens eine Zahlungsmethode aus. Wenn Sie keine auswählen, wird standardmäßig eine Kartenzahlung angeboten.",
       "label": "Zugelassene Zahlungsmethoden"
-    },
-    "description": {
-      "label": "Beschreibung"
     },
     "new_member_only": {
       "label": "Nur für neue Mitglieder"
@@ -38,12 +55,12 @@
       "helperText": "Leer lassen, um keinen Grenzwert zu setzen",
       "label": "Maximaler Kauf pro Mitglied"
     },
+    "usePaymentComboTaxOnItems": {
+      "label": "Allgemeine Mehrwertsteuer auf das gesamte Paket anwenden",
+      "helperText": "Standardmäßig wird auf jeden Gegenstand die Steuer angewendet, die auf dem Gegenstand angegeben ist. Wenn Sie diese Option auswählen, können Sie eine allgemeine Steuer auf das Paket anwenden."
+    },
     "error": {
       "atLeastOneThing": "Sie müssen Ihrem Paket mindestens einen Artikel hinzufügen"
-    },
-    "usePaymentComboTaxOnItems": {
-      "helperText": "Standardmäßig wird auf jeden Gegenstand die Steuer angewendet, die auf dem Gegenstand angegeben ist. Wenn Sie diese Option auswählen, können Sie eine allgemeine Steuer auf das Paket anwenden.",
-      "label": "Allgemeine Mehrwertsteuer auf das gesamte Paket anwenden"
     },
     "unusableByStaff": {
       "label": "Unsichtbar für Mitarbeiter"
@@ -58,46 +75,30 @@
       "helperText": "Ermöglicht es Ihren Kunden, auf einen Blick zu sehen, welche Pakete derzeit empfohlen werden."
     },
     "advancedOptions": {
+      "header": "Erweitert",
       "tag": {
-        "tagGroupDuplicated": "Bitte beachten Sie, dass ausgewählte Artikel Tags der gleichen Kategorie enthalten.",
-        "selectTags": "Tags auswählen",
+        "tagsOnAcquisition": "Tag nach dem Kauf",
         "tagsOnAcquisitionHelper": "Mit Tags kannst du Mitglieder markieren, die dieses Paket gekauft haben, um sie in Zukunft schnell wiederfinden zu können.",
-        "tagsOnAcquisition": "Tag nach dem Kauf"
+        "selectTags": "Tags auswählen",
+        "tagGroupDuplicated": "Bitte beachten Sie, dass ausgewählte Artikel Tags der gleichen Kategorie enthalten."
       },
-      "header": "Erweitert"
+      "tagGroupDuplicated": "Bitte beachte, dass ausgewählte Artikel Tags der gleichen Kategorie enthalten"
     }
-  },
-  "list": {
-    "buttons": {
-      "add": "Ein Paket erstellen"
-    },
-    "explainIfEmpty": "Hier können die Pakete erstellt werden, die von Kunden gekauft werden können und die Kurspässe, Produkte des Webshops, usw. enthalten können...",
-    "section": {
-      "availableOnline": "Zum Verkauf verfügbar",
-      "unavailableOnline": "Nicht zum Verkauf verfügbar"
-    }
-  },
-  "link": {
-    "copyLink": "Kopiere den Link zur Zahlungsseite",
-    "copied": "Kopierter Link"
-  },
-  "pageTitle": {
-    "list": "Pakete"
-  },
-  "delete": {
-    "content": "Bist Du sicher, dass Du dieses Package löschen möchtest? Diese Aktion ist unwiderruflich. Die bereits abgeschlossene Käufe und der aktuelle Warenkorb werden nicht davon betroffen.",
-    "title": "Löschung des Pakets",
-    "submit": "Löschen",
-    "cancel": "Abbrechen"
   },
   "detail": {
-    "emptyContent": "Dieses Package ist leer !",
-    "content": "Inhalt",
     "containsNProducts": "Enthält {{ n }} Produkte",
     "description": "Beschreibung",
+    "content": "Inhalt",
     "purchases": "Verkäufe",
+    "emptyContent": "Dieses Package ist leer !",
     "itemCount": "{{ count }} Element",
     "itemCount_plural": "{{ count }} Elemente"
+  },
+  "delete": {
+    "title": "Löschung des Pakets",
+    "content": "Bist Du sicher, dass Du dieses Package löschen möchtest? Diese Aktion ist unwiderruflich. Die bereits abgeschlossene Käufe und der aktuelle Warenkorb werden nicht davon betroffen.",
+    "cancel": "Abbrechen",
+    "submit": "Löschen"
   },
   "edit": "Ändern",
   "search": "Suche nach einem Paket",

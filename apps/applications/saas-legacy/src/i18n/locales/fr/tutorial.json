@@ -1,55 +1,55 @@
 {
-  "menu": {
-    "helpButton": "Trouver de l'aide"
-  },
-  "lessonList": {
-    "start": "Commencer",
-    "share": "Partager",
-    "shareLesson": "Partager la leçon",
-    "new": "Nouveau",
-    "addOn": "Add-on",
-    "missingUpsell": "Vous ne disposez pas de cette fonctionnalité, merci de contacter votre chargé de compte."
-  },
-  "sectionList": {
-    "shareSection": "Partager la section",
-    "new": "Nouveau",
-    "addOn": "Add-on",
-    "missingUpsell": "Vous ne disposez pas de certaines fonctionnalités de cette section. Merci de contacter votre chargé de compte."
-  },
-  "menuHeader": {
-    "title": "Bienvenue sur notre guide de démarrage.",
-    "infoText": "Apprenez à vous servir de toutes les fonctionnalités de base sur Bsport grâce à nos différents cours."
-  },
-  "lessonHeader": {
-    "backToList": "Retour à la liste",
-    "addOn": "Add-on",
-    "warning": "Cette fonctionnalité est un add-on. Vous ne disposez pas de cette fonctionnalité, merci de contacter votre chargé de compte."
-  },
-  "welcomeDialog": {
-    "title": "Bienvenue sur Bsport !",
-    "infoText": "Bienvenue sur votre nouvelle plateforme de gestion. Apprenons ensemble à découvrir toutes les fonctionnalités de Bsport pour lancer votre studio dans les meilleures conditions.",
-    "rejectButton": "Je souhaite apprendre par moi même",
-    "approveButton": "C’est parti !"
-  },
-  "shareDialog": {
-    "title": "Partager",
-    "infoTextSection": "Partager tous les cours de la section {{- name }} avec les membres de votre staff qui n'ont pas d'accès à l'onglet des tutoriels. Ils ne pourront naviguer qu'à l'intérieur de cette section.",
-    "infoTextLesson": "Partager le cours {{- name }} avec les membres de votre staff qui n'ont pas d'accès à l'onglet des tutoriels. Ils ne pourront naviguer qu'à l'intérieur de ce cours.",
-    "continueButton": "Continuer"
-  },
-  "sectionFinishDialog": {
-    "title": "Félicitations !",
-    "infoText": "Vous avez terminé tous les cours de la section {{- name }}. Continuez de vous améliorer en complétant la section suivante.",
-    "continueButton": "Continuer"
+  "lessonContent": {
+    "finish": "Terminer la section",
+    "nextLesson": "Suivant",
+    "previousLesson": "Précédent"
   },
   "allFinishDialog": {
-    "title": "Terminé !",
+    "continueButton": "Continuer",
     "infoText": "Bien joué vous avez terminé tous les cours proposés par Bsport. Vous connaissez désormais la plateforme comme votre poche ! Vous savez utiliser toutes les fonctionnalités de base, bien d'autres vous attendent pour vous aider à développer au mieux votre activité.",
-    "continueButton": "Continuer"
+    "title": "Terminé !"
   },
-  "lessonContent": {
-    "previousLesson": "Précédent",
-    "nextLesson": "Suivant",
-    "finish": "Terminer la section"
+  "sectionFinishDialog": {
+    "continueButton": "Continuer",
+    "infoText": "Vous avez terminé tous les cours de la section {{- name }}. Continuez de vous améliorer en complétant la section suivante.",
+    "title": "Félicitations !"
+  },
+  "shareDialog": {
+    "continueButton": "Continuer",
+    "infoTextLesson": "Partager le cours {{- name }} avec les membres de votre staff qui n'ont pas d'accès à l'onglet des tutoriels. Ils ne pourront naviguer qu'à l'intérieur de ce cours.",
+    "infoTextSection": "Partager tous les cours de la section {{- name }} avec les membres de votre staff qui n'ont pas d'accès à l'onglet des tutoriels. Ils ne pourront naviguer qu'à l'intérieur de cette section.",
+    "title": "Partager"
+  },
+  "welcomeDialog": {
+    "approveButton": "C’est parti !",
+    "rejectButton": "Je souhaite apprendre par moi même",
+    "infoText": "Bienvenue sur votre nouvelle plateforme de gestion. Apprenons ensemble à découvrir toutes les fonctionnalités de Bsport pour lancer votre studio dans les meilleures conditions.",
+    "title": "Bienvenue sur Bsport !"
+  },
+  "lessonHeader": {
+    "warning": "Cette fonctionnalité est un add-on. Vous ne disposez pas de cette fonctionnalité, merci de contacter votre chargé de compte.",
+    "addOn": "Add-on",
+    "backToList": "Retour à la liste"
+  },
+  "menuHeader": {
+    "infoText": "Apprenez à vous servir de toutes les fonctionnalités de base sur Bsport grâce à nos différents cours.",
+    "title": "Bienvenue sur notre guide de démarrage."
+  },
+  "sectionList": {
+    "missingUpsell": "Vous ne disposez pas de certaines fonctionnalités de cette section. Merci de contacter votre chargé de compte.",
+    "addOn": "Add-on",
+    "new": "Nouveau",
+    "shareSection": "Partager la section"
+  },
+  "lessonList": {
+    "addOn": "Add-on",
+    "new": "Nouveau",
+    "shareLesson": "Partager la leçon",
+    "share": "Partager",
+    "start": "Commencer",
+    "missingUpsell": "Vous ne disposez pas de cette fonctionnalité, merci de contacter votre chargé de compte."
+  },
+  "menu": {
+    "helpButton": "Trouver de l'aide"
   }
 }

@@ -1,103 +1,13 @@
 {
-  "playlist": {
-    "noVideo": "Er staan nog geen video's in deze afspeellijst",
-    "name": "Naam",
-    "description": "Beschrijving",
-    "deleteVideo": "Verwijderen",
-    "open": "Open",
-    "form": {
-      "cancel": "Annuleren",
-      "submit": "Opslaan"
-    },
-    "bottomActions": {
-      "create": "Een afspeellijst toevoegen"
-    },
-    "playlist": "Afspeellijsten"
-  },
   "video": {
-    "lock": {
-      "accessDenied": "Momenteel heb je nog geen toegang tot deze video.",
-      "pleaseAuthenticated": "Log in om deze video te bekijken.",
-      "buyPass": "Schaf een leskaart aan",
-      "useConsumerPass": "Toegang ontgrendelen",
-      "accessDeniedEbook": "Je hebt geen toegang tot dit eBook."
-    },
-    "filter": {
-      "duration": {
-        "all": "Duur",
-        "explain": "Tussen {{min}} en {{max}} minuten"
-      }
-    },
-    "showMore": "Toon meer",
-    "durationMinute": "{{minute}} min.",
-    "player": {
-      "with": "met"
-    },
-    "thumbnailList": {
-      "addVideo": "Een video toevoegen",
-      "count": "{{count}} video's",
-      "similarVideoTitle": "Aanbevolen video's"
-    },
-    "search": {
-      "cancel": "Annuleren",
-      "isEmpty": "Deze videotheek is leeg.",
-      "placeholder": "Zoeken"
-    },
-    "bottomActions": {
-      "create": "Een video toevoegen"
-    },
-    "name": "Naam",
-    "category": "Categorie",
-    "description": "Beschrijving",
-    "status": {
-      "submitted": "Video uploaden",
-      "processing": "Bezig",
-      "error": "Opnieuw proberen",
-      "processed": "Statistieken"
-    },
-    "delete": {
-      "title": "Verwijderen",
-      "content": "Weet je zeker dat je deze video wilt verwijderen? Deze actie is definitief.",
-      "confirm": "Bevestigen",
-      "cancel": "Annuleren"
-    },
-    "upload": {
-      "title": "Een video uploaden",
-      "dropHere": "Sleep een video hiernaartoe of klik hier om door je bestanden te bladeren",
-      "cancel": "Annuleren",
-      "content": "Upload of selecteer een video",
-      "urlInputError": "Plak hier een link",
-      "urlInputLabel": "De directe link naar je video op YouTube",
-      "type": {
-        "url": "YouTube",
-        "file": "Eigen bestand",
-        "fileExplain": "Gebruik deze optie om je eigen videobestand (MP4, MOV, AVI) op de privéservers van BSPORT te plaatsen.",
-        "urlExplain": "Je video is al beschikbaar op YouTube, maar je wilt een nieuwe inkomstenbron via BSPORT aanboren.",
-        "vimeoExplain": "Gebruik deze optie om de video's die je op Vimeo hebt geplaatst op de beschermde mediaspeler van je BSPORT-account te zetten.",
-        "youtubeExplain": "Gebruik deze optie om de video's die je op YouTube hebt geplaatst op de beschermde mediaspeler van je BSPORT-account te zetten.",
-        "vimeo": "Vimeo",
-        "youtube": "YouTube",
-        "ebookExplain": "Upload een eBook (PDF, JPG of PNG) om het downloadbaar voor leden te maken.",
-        "ebook": "eBooks"
-      },
-      "submit": "Bevestigen",
-      "minutes": "Min.",
-      "hours": "Uur",
-      "durationInputError": "Vermeld de duur van de video",
-      "durationLabel": "Duur",
-      "vimeoUrlInput": "Link naar Vimeo",
-      "youtubeUrlInput": "Link naar YouTube",
-      "contentEbook": "Klik hier om een bestand of foto up te loaden.",
-      "ebookTitle": "Een eBook uploaden"
-    },
     "form": {
-      "edit": "Bewerken",
-      "cancel": "Annuleren",
-      "submit": "Opslaan",
-      "title": "Wijzig video",
       "coach": {
         "isEmpty": "Zonder instructeur"
       },
+      "title": "Wijzig video",
+      "submit": "Opslaan",
+      "cancel": "Annuleren",
+      "edit": "Bewerken",
       "creditPrice": {
         "label": "Prijs (in credits)",
         "helperText": "Laat dit veld op 0 om de video beschikbaar voor al je leden te maken.",
@@ -124,7 +34,82 @@
         "title": "Geldigheidsduur"
       }
     },
+    "upload": {
+      "cancel": "Annuleren",
+      "dropHere": "Sleep een video hiernaartoe of klik hier om door je bestanden te bladeren",
+      "content": "Upload of selecteer een video",
+      "title": "Een video uploaden",
+      "urlInputError": "Plak hier een link",
+      "type": {
+        "youtubeExplain": "Gebruik deze optie om de video's die je op YouTube hebt geplaatst op de beschermde mediaspeler van je BSPORT-account te zetten.",
+        "vimeoExplain": "Gebruik deze optie om de video's die je op Vimeo hebt geplaatst op de beschermde mediaspeler van je BSPORT-account te zetten.",
+        "vimeo": "Vimeo",
+        "youtube": "YouTube",
+        "ebookExplain": "Upload een eBook (PDF, JPG of PNG) om het downloadbaar voor leden te maken.",
+        "ebook": "eBooks",
+        "url": "YouTube",
+        "file": "Eigen bestand",
+        "urlExplain": "Je video is al beschikbaar op YouTube, maar je wilt een nieuwe inkomstenbron via BSPORT aanboren.",
+        "fileExplain": "Gebruik deze optie om je eigen videobestand (MP4, MOV, AVI) op de privéservers van BSPORT te plaatsen."
+      },
+      "submit": "Bevestigen",
+      "minutes": "Min.",
+      "hours": "Uur",
+      "durationInputError": "Vermeld de duur van de video",
+      "durationLabel": "Duur",
+      "vimeoUrlInput": "Link naar Vimeo",
+      "youtubeUrlInput": "Link naar YouTube",
+      "contentEbook": "Klik hier om een bestand of foto up te loaden.",
+      "ebookTitle": "Een eBook uploaden",
+      "urlInputLabel": "De directe link naar je video op YouTube"
+    },
+    "delete": {
+      "cancel": "Annuleren",
+      "confirm": "Bevestigen",
+      "content": "Weet je zeker dat je deze video wilt verwijderen? Deze actie is definitief.",
+      "title": "Verwijderen"
+    },
+    "status": {
+      "processed": "Statistieken",
+      "error": "Opnieuw proberen",
+      "processing": "Bezig",
+      "submitted": "Video uploaden"
+    },
     "level": "Niveau",
+    "description": "Beschrijving",
+    "category": "Categorie",
+    "name": "Naam",
+    "bottomActions": {
+      "create": "Een video toevoegen"
+    },
+    "search": {
+      "isEmpty": "Deze videotheek is leeg.",
+      "cancel": "Annuleren",
+      "placeholder": "Zoeken"
+    },
+    "thumbnailList": {
+      "similarVideoTitle": "Aanbevolen video's",
+      "count": "{{count}} video's",
+      "addVideo": "Een video toevoegen"
+    },
+    "player": {
+      "with": "met"
+    },
+    "durationMinute": "{{minute}} min.",
+    "showMore": "Toon meer",
+    "filter": {
+      "duration": {
+        "explain": "Tussen {{min}} en {{max}} minuten",
+        "all": "Duur"
+      }
+    },
+    "lock": {
+      "pleaseAuthenticated": "Log in om deze video te bekijken.",
+      "accessDenied": "Momenteel heb je nog geen toegang tot deze video.",
+      "buyPass": "Schaf een leskaart aan",
+      "useConsumerPass": "Toegang ontgrendelen",
+      "accessDeniedEbook": "Je hebt geen toegang tot dit eBook."
+    },
     "creditPrice": "Prijs (in credits)",
     "register": {
       "buyPass": "Toon kaarten",
@@ -132,19 +117,19 @@
       "noPassAvailable": "Je bezit nog geen compatibele kaart."
     },
     "analytics": {
-      "dateCreated": "Online beschikbaar maken",
-      "viewTitle": "Weergaven",
       "uploaded": "Geüpload op {{date}}",
       "distinctViewers": "Unieke weergaven",
       "viewsLastWeek": "Aantal weergaven in de afgelopen 7 dagen",
       "totalViews": "Totaal",
+      "dateCreated": "Online beschikbaar maken",
+      "viewTitle": "Weergaven",
       "views": "{{nb_views}} keer bekeken"
     },
-    "purchaseListTitle": "Overzicht van aankopen",
-    "noVideoView": "Deze video is nog niet door iemand bekeken.",
     "viewsListTitle": "Bekeken door",
+    "purchaseListTitle": "Overzicht van aankopen",
     "viewedOn": "Beken op: {{-date}} om {{hour}}",
     "boughtOn": "Op {{-date}} aangeschaft",
+    "noVideoView": "Deze video is nog niet door iemand bekeken.",
     "noVideoPurchase": "Er zijn nog geen aankopen geregistreerd.",
     "coverMain": {
       "alert": "Een afbeelding is vereist"
@@ -153,12 +138,12 @@
     "manager_only": "Onbeschikbaar voor leden",
     "duplicate": "Dupliceren",
     "rental": {
+      "forRent": "Videoverhuur",
+      "expired": "Vervallen",
+      "valid": "Geldig",
       "buyDate": "Aankooptijd",
       "expiredDate": "Vervallen sinds {{ expiration_date }}",
       "expirationDate": "Geldig tot {{ expiration_date }}",
-      "expired": "Vervallen",
-      "valid": "Geldig",
-      "forRent": "Videoverhuur",
       "rental_days_helper": "Deze video zal een X aantal dagen na aankoop beschikbaar zijn.",
       "duration": "Deze video is voor {{ rental_days }} dag(en) gehuurd.",
       "duration_helper": "Geldigheidsduur (in dagen)",
@@ -169,6 +154,21 @@
       "downloadHelper": "{{button}} Klik op de knop om het eBook raad te plegen."
     },
     "download": "Downloaden"
+  },
+  "playlist": {
+    "bottomActions": {
+      "create": "Een afspeellijst toevoegen"
+    },
+    "form": {
+      "submit": "Opslaan",
+      "cancel": "Annuleren"
+    },
+    "open": "Open",
+    "deleteVideo": "Verwijderen",
+    "description": "Beschrijving",
+    "name": "Naam",
+    "noVideo": "Er staan nog geen video's in deze afspeellijst",
+    "playlist": "Afspeellijsten"
   },
   "details": {
     "pleaseSelectVod": "Selecteer een video om meer informatie te zien.",

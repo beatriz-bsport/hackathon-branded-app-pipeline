@@ -12,7 +12,9 @@ import {
   setCadenceInitialConfiguration as setCadenceInitialConfigurationAPI,
   patchCadenceInitialConfiguration as patchCadenceInitialConfigurationAPI,
 } from '#src/libs/sequential_marketing/api';
+import { ERROR_CADENCE_FREE_TRIAL_QUOTA_REACHED } from '#src/libs/sequential_marketing/constants';
 import { snackbarError, snackbarSuccess } from '#src/libs/snackbar/actions';
+import { isErrorWithCustomCode } from '#src/libs/utils';
 
 import type {
   Cadence,
@@ -143,7 +145,7 @@ export function restoreCadence(id: number, options?: OptionCallback<Cadence>) {
 
 export const activateCadenceActions = {
   isLoading: createAction<boolean>('CADENCE_WIP/ACTIVATE/IS_LOADING'),
-  error: createAction<Error>('CADENCE_WIP/ACTIVATE/ERROR'),
+  error: createAction<Error | null>('CADENCE_WIP/ACTIVATE/ERROR'),
   success: createAction<Cadence>('CADENCE_WIP/ACTIVATE/SUCCESS'),
 };
 
@@ -156,10 +158,19 @@ export function activateCadence(id: number, options?: OptionCallback<Cadence>) {
       const response = await activateCadenceAPI(id);
       dispatch(activateCadenceActions.success(response.data));
       options?.onSuccess?.(response.data);
-    } catch (err) {
+    } catch (err: any) {
+      const isFreeTrialQuotaReached =
+        err &&
+        'response' in err &&
+        isErrorWithCustomCode(err) &&
+        err?.response?.data?.error_code ===
+          ERROR_CADENCE_FREE_TRIAL_QUOTA_REACHED;
+      if (!isFreeTrialQuotaReached) {
+        dispatch(activateCadenceActions.error(err));
+      }
+
       console.error(err);
-      dispatch(activateCadenceActions.error(err));
-      options?.onError?.();
+      options?.onError?.(err);
     }
 
     dispatch(activateCadenceActions.isLoading(false));

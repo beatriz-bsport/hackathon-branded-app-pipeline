@@ -9,11 +9,14 @@ import createStyles from '@material-ui/core/styles/createStyles';
 import withStyles from '@material-ui/core/styles/withStyles';
 import type { Theme, WithStyles } from '@material-ui/core/styles';
 import AddIcon from '@material-ui/icons/Add';
+import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 import Alert from '@material-ui/lab/Alert';
 import Button from '@material-ui/core/Button';
 import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
 import LinearProgress from '@material-ui/core/LinearProgress';
+
 import withTitle from '#src/hocs/with-title.hoc';
+import { openIntercomHelp } from '#src/intercom';
 
 import {
   fetchCadenceList as fetchCadenceListAction,
@@ -46,18 +49,25 @@ import { getMemberListData } from '#src/libs/member/selectors';
 
 import CadenceCreateAndUpdateForm from '#src/libs/sequential_marketing/components/form/CadenceCreateAndUpdateForm.component';
 import CadenceList from '#src/libs/sequential_marketing/components/CadenceList.component';
+import CadenceFreeTrialBanner from '#src/libs/sequential_marketing/components/banners/CadenceFreeTrialBanner.component';
 import CadenceManagerFab from '#src/libs/sequential_marketing/components/CadenceManagerFab.components';
 import CadenceMetrics from '#src/libs/sequential_marketing/components/metrics/CadenceMetrics.component';
+import CadenceUpgradeTrialDialog from '#src/libs/sequential_marketing/components/dialogs/CadenceUpgradeTrialDialog.component';
 import CadenceUtilityDialog, {
   DialogVariant,
 } from '#src/libs/sequential_marketing/components/dialogs/DialogUtility';
+import { DIALOG_CLOSE_DELAY_MS } from '#src/libs/sequential_marketing/constants';
 
 import {
   UPSELL_IDENTIFIER_CADENCE,
   UPSELL_IDENTIFIER_PUSH_NOTIFICATION,
 } from '#src/libs/platform-billing/upsell-identifiers';
+import {
+  getTrialRemainingDays,
+  hasFreeTrial,
+  hasUpsell,
+} from '#src/libs/platform-billing/utils';
 import UpsellBlocker from '#src/libs/platform-billing/components/UpsellBlocker.component';
-import CustomStarIcon from '#src/components/icons/CustomStarIcon.component';
 
 import type {
   Cadence,
@@ -164,7 +174,7 @@ export class CadenceListPage extends React.Component<Props> {
   handleCloseCreationForm = () => {
     this.props.setOpenCreationForm(false);
     // Using a timeout here to avoid resetting the form information before its closing
-    setTimeout(this.handleResetCadenceToEdit, 200);
+    setTimeout(this.handleResetCadenceToEdit, DIALOG_CLOSE_DELAY_MS);
   };
 
   handleCloseCreationFormAndGoToCadencePage = (id: number) => {
@@ -257,9 +267,30 @@ export class CadenceListPage extends React.Component<Props> {
 
   knowMoreOnUpsells = () => this.props.push('/settings/platform-billing/');
 
-  hasNotificationUpsell = this.props.featureList
-    .map((upsellSumUp) => upsellSumUp.upsell_identifier)
-    .includes(UPSELL_IDENTIFIER_PUSH_NOTIFICATION);
+  handleOpenIntercomHelp = () => openIntercomHelp('audienceGuide');
+
+  openUpgradeTrialDialog = () => {
+    this.props.setIsUpgradeTrialDialogOpen(true);
+  };
+
+  handleCloseUpgradeTrialDialog = () => {
+    this.props.setIsUpgradeTrialDialogOpen(false);
+  };
+
+  hasNotificationUpsell = hasUpsell(
+    this.props.featureList,
+    UPSELL_IDENTIFIER_PUSH_NOTIFICATION,
+  );
+
+  isInFreeTrial = hasFreeTrial(
+    this.props.featureList,
+    UPSELL_IDENTIFIER_CADENCE,
+  );
+
+  trialRemainingDays = getTrialRemainingDays(
+    this.props.featureList,
+    UPSELL_IDENTIFIER_CADENCE,
+  );
 
   render() {
     const {
@@ -277,53 +308,77 @@ export class CadenceListPage extends React.Component<Props> {
       (!cadenceArchivedList || cadenceArchivedList?.length === 0)
     ) {
       return (
-        <div className={classes.pageContainer}>
-          <UpsellBlocker
-            CustomIconComponent={<CustomStarIcon />}
-            upsellIdentifier={UPSELL_IDENTIFIER_CADENCE}
-          />
-          <div className={classes.centerVertical}>
-            <Alert
-              classes={{
-                root: classes.alert,
-                outlinedInfo: classes.outlinedInfo,
-                icon: classes.alertIcon,
-              }}
-              className={classes.alert}
-              icon={<ErrorOutlineIcon className={classes.rotate} />}
-              severity="info"
-              variant="outlined"
-            >
-              {t('audience.form.createAudienceHelper')}
-            </Alert>
-            <Button
-              color="secondary"
-              onClick={this.handleOpenCreationForm}
-              variant="outlined"
-            >
-              <AddIcon className={classes.addIcon} />
-              {t('audience.form.addAWorkflow')}
-            </Button>
+        <div className={classes.layoutContainer}>
+          {this.isInFreeTrial && this.trialRemainingDays && (
+            <CadenceFreeTrialBanner
+              daysRemaining={this.trialRemainingDays}
+              onUpgradeClick={this.openUpgradeTrialDialog}
+            />
+          )}
+          <div className={classes.pageContainer}>
+            <UpsellBlocker upsellIdentifier={UPSELL_IDENTIFIER_CADENCE} />
+            <div className={classes.centerVertical}>
+              <Alert
+                classes={{
+                  root: classes.alert,
+                  outlinedInfo: classes.outlinedInfo,
+                  icon: classes.alertIcon,
+                }}
+                className={classes.alert}
+                icon={<ErrorOutlineIcon className={classes.rotate} />}
+                severity="info"
+                variant="outlined"
+              >
+                {t('audience.form.emptyAudienceHelper')}
+              </Alert>
+              <div className={classes.emptyPageButtonsContainer}>
+                <Button
+                  className={classes.emptyPageButton}
+                  color="primary"
+                  onClick={this.handleOpenIntercomHelp}
+                  variant="outlined"
+                >
+                  <HelpOutlineIcon className={classes.buttonIcon} />
+                  {t('audience.form.openIntercomHelp')}
+                </Button>
+                <Button
+                  className={classes.emptyPageButton}
+                  color="primary"
+                  onClick={this.handleOpenCreationForm}
+                  variant="contained"
+                >
+                  <AddIcon className={classes.buttonIcon} />
+                  {t('audience.form.addAWorkflow')}
+                </Button>
+              </div>
+            </div>
+            <CadenceCreateAndUpdateForm
+              displayParametersSection
+              loading={cadenceLoading}
+              onCancel={this.handleCloseCreationForm}
+              onSubmit={this.handleUpsertCadence}
+              open={this.props.openCreationForm}
+            />
+            <CadenceUpgradeTrialDialog
+              closeDialog={this.handleCloseUpgradeTrialDialog}
+              isOpen={this.props.isUpgradeTrialDialogOpen}
+            />
           </div>
-          <CadenceCreateAndUpdateForm
-            displayParametersSection
-            loading={cadenceLoading}
-            onCancel={this.handleCloseCreationForm}
-            onSubmit={this.handleUpsertCadence}
-            open={this.props.openCreationForm}
-          />
         </div>
       );
     }
 
     return (
-      <>
+      <div className={classes.layoutContainer}>
         {cadenceLoading && <LinearProgress />}
-        <div className={classes.pageContainer}>
-          <UpsellBlocker
-            CustomIconComponent={<CustomStarIcon />}
-            upsellIdentifier={UPSELL_IDENTIFIER_CADENCE}
+        {this.isInFreeTrial && this.trialRemainingDays && (
+          <CadenceFreeTrialBanner
+            daysRemaining={this.trialRemainingDays}
+            onUpgradeClick={this.openUpgradeTrialDialog}
           />
+        )}
+        <div className={classes.pageContainer}>
+          <UpsellBlocker upsellIdentifier={UPSELL_IDENTIFIER_CADENCE} />
           <div className={classes.pageColumn}>
             <Alert
               classes={{
@@ -402,8 +457,12 @@ export class CadenceListPage extends React.Component<Props> {
           open={!!cadenceToArchive}
           variant={DialogVariant.ARCHIVE_WORKFLOW}
         />
+        <CadenceUpgradeTrialDialog
+          closeDialog={this.handleCloseUpgradeTrialDialog}
+          isOpen={this.props.isUpgradeTrialDialogOpen}
+        />
         <CadenceManagerFab onAdd={this.handleOpenCreationForm} />
-      </>
+      </div>
     );
   }
 }
@@ -415,6 +474,7 @@ type StateHandlerInit = {
   cadenceToArchive: Cadence | null;
   startDateFilter: string;
   endDateFilter: string;
+  isUpgradeTrialDialogOpen: boolean;
 };
 
 const StateHandlersInit: StateHandlerInit = {
@@ -424,6 +484,7 @@ const StateHandlersInit: StateHandlerInit = {
   cadenceToArchive: null,
   startDateFilter: DateTime.now().minus({ month: 1 }).toISODate(),
   endDateFilter: DateTime.now().toISODate(),
+  isUpgradeTrialDialogOpen: false,
 };
 
 const StateHandlersSetter = {
@@ -445,6 +506,10 @@ const StateHandlersSetter = {
 
   setFilterDates: () => (startDateFilter: string, endDateFilter: string) => {
     return { startDateFilter, endDateFilter };
+  },
+
+  setIsUpgradeTrialDialogOpen: () => (isUpgradeTrialDialogOpen: boolean) => {
+    return { isUpgradeTrialDialogOpen };
   },
 };
 
@@ -632,7 +697,7 @@ const connector = connect(
     membersHistoricLoading: getCadenceMembersHistoricLoading(state),
     membersPresentLoading: getCadenceMembersPresentLoading(state),
     membersById: getMemberListData(state),
-    featureList: state.company.feature.data.upsell,
+    featureList: state.company.feature.data,
     getGlobalMetrics: (cadenceId: number) =>
       getCadenceGlobalMetrics(state, cadenceId),
     getMembersHistoric: (cadenceId: number) =>
@@ -661,11 +726,17 @@ const connector = connect(
 
 const styles = (theme: Theme) =>
   createStyles({
+    layoutContainer: {
+      display: 'flex',
+      flexDirection: 'column',
+      width: '100%',
+      height: '100%',
+    },
     pageContainer: {
       display: 'flex',
       gap: theme.spacing(2),
       width: '100%',
-      height: '100vh',
+      height: '-webkit-fill-available',
       position: 'relative',
       overflow: 'hidden',
       justifyContent: 'center',
@@ -706,6 +777,7 @@ const styles = (theme: Theme) =>
       color: 'black',
     },
     centerVertical: {
+      paddingTop: theme.spacing(11),
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
@@ -716,8 +788,17 @@ const styles = (theme: Theme) =>
       transform: 'rotate(180deg)',
       color: 'black',
     },
-    addIcon: {
+    emptyPageButtonsContainer: {
+      display: 'flex',
+      gap: theme.spacing(2),
+    },
+    emptyPageButton: {
+      minWidth: theme.spacing(23),
+    },
+    buttonIcon: {
       marginRight: theme.spacing(1),
+      width: theme.spacing(2.5),
+      height: theme.spacing(2.5),
     },
     paddingTop: {
       paddingTop: theme.spacing(3),

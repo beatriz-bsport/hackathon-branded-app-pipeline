@@ -1,59 +1,16 @@
 {
   "video": {
-    "showMore": "Mehr anzeigen",
-    "description": "Beschreibung",
-    "status": {
-      "processed": "Ansehen",
-      "error": "Noch ein Mal versuchen",
-      "processing": "Ongoing",
-      "submitted": "Video hochladen"
-    },
-    "delete": {
-      "title": "Löschen",
-      "confirm": "Bestätigen",
-      "cancel": "Abbrechen",
-      "content": "Sind Sie sicher, dass Sie diese Strecke löschen möchten? Dieser Vorgang ist unumkehrbar."
-    },
-    "upload": {
-      "title": "Ein Video uploaden",
-      "content": "Video hierher ziehen oder Video zum Hochladen auswählen",
-      "dropHere": "Ziehe hier ein Video per Drag & Drop oder klicke hier, um Deinen Computer zu durchsuchen",
-      "cancel": "Abbrechen",
-      "urlInputError": "Bitte gib eine URL ein",
-      "urlInputLabel": "Youtube-Link",
-      "type": {
-        "url": "Youtube",
-        "file": "Datei",
-        "urlExplain": "Dein Video ist bereits auf Youtube verfügbar und du willst es über das bsport-Kartensystem monetarisieren.",
-        "fileExplain": "Du hast die Videodatei (mp4, avi, mov ...), verwende diese Methode, um Dein Video direkt auf die bsport-Server hochzuladen.",
-        "youtubeExplain": "Ihr Video ist bereits auf Youtube verfügbar, aber Sie möchten es über das bsport Kartensystem monetarisieren.",
-        "youtube": "Youtube",
-        "vimeo": "Vimeo",
-        "vimeoExplain": "Ihr Video ist bereits auf Vimeo verfügbar, aber Sie möchten es über das bsport Kartensystem monetarisieren.",
-        "ebook": "Ebooks",
-        "ebookExplain": "Sie haben ein Ebook im pdf- oder Bildformat (png, jpg), dann verwenden Sie diese Methode, um Ihr Ebook hochzuladen. Sobald es freigeschaltet ist, können Ihre Mitglieder es herunterladen."
-      },
-      "submit": "Bestätigen",
-      "minutes": "Minuten",
-      "hours": "Stunden",
-      "durationInputError": "Bitte geben Sie die Dauer des Videos ein",
-      "durationLabel": "Videodauer",
-      "youtubeUrlInput": "Link zu youtube",
-      "vimeoUrlInput": "Link zu vimeo",
-      "ebookTitle": "Ein ebook hochladen",
-      "contentEbook": "Hier einreichen oder eine Datei/ein Bild auswählen"
-    },
     "form": {
-      "edit": "Ändern",
-      "cancel": "Abbrechen",
-      "submit": "Speichern",
       "coach": {
         "isEmpty": "Keine Lehrkraft"
       },
       "title": "Video ändern",
+      "submit": "Speichern",
+      "cancel": "Abbrechen",
+      "edit": "Ändern",
       "creditPrice": {
-        "helperText": "Bei Null belassen, damit das Video für alle Mitglieder zugänglich ist",
         "label": "Creditkosten",
+        "helperText": "Bei Null belassen, damit das Video für alle Mitglieder zugänglich ist",
         "decimalCredit": {
           "helperText": "Dieses Video kostet {{count}} Credit. Belassen Sie es bei 0, wenn das Video für alle Ihre Mitglieder zugänglich sein soll",
           "helperText_plural": "Dieses Video kostet {{count}} Credits. Belassen Sie es bei 0, wenn das Video für alle Ihre Mitglieder zugänglich sein soll"
@@ -77,43 +34,86 @@
         "title": "Validierung"
       }
     },
-    "lock": {
-      "accessDenied": "Jetzt Zugriff erhalten",
-      "pleaseAuthenticated": "Bitte melde Dich an, um das Video zu sehen",
-      "buyPass": "Kaufe eine Karte",
-      "useConsumerPass": "Freischalten",
-      "accessDeniedEbook": "Du hast keinen Zugriff auf dieses eBook."
+    "upload": {
+      "cancel": "Abbrechen",
+      "dropHere": "Ziehe hier ein Video per Drag & Drop oder klicke hier, um Deinen Computer zu durchsuchen",
+      "content": "Video hierher ziehen oder Video zum Hochladen auswählen",
+      "title": "Ein Video uploaden",
+      "urlInputError": "Bitte gib eine URL ein",
+      "type": {
+        "youtubeExplain": "Ihr Video ist bereits auf Youtube verfügbar, aber Sie möchten es über das bsport Kartensystem monetarisieren.",
+        "vimeoExplain": "Ihr Video ist bereits auf Vimeo verfügbar, aber Sie möchten es über das bsport Kartensystem monetarisieren.",
+        "vimeo": "Vimeo",
+        "youtube": "Youtube",
+        "ebookExplain": "Sie haben ein Ebook im pdf- oder Bildformat (png, jpg), dann verwenden Sie diese Methode, um Ihr Ebook hochzuladen. Sobald es freigeschaltet ist, können Ihre Mitglieder es herunterladen.",
+        "ebook": "Ebooks",
+        "url": "Youtube",
+        "file": "Datei",
+        "urlExplain": "Dein Video ist bereits auf Youtube verfügbar und du willst es über das bsport-Kartensystem monetarisieren.",
+        "fileExplain": "Du hast die Videodatei (mp4, avi, mov ...), verwende diese Methode, um Dein Video direkt auf die bsport-Server hochzuladen."
+      },
+      "submit": "Bestätigen",
+      "minutes": "Minuten",
+      "hours": "Stunden",
+      "durationInputError": "Bitte geben Sie die Dauer des Videos ein",
+      "durationLabel": "Videodauer",
+      "vimeoUrlInput": "Link zu vimeo",
+      "youtubeUrlInput": "Link zu youtube",
+      "contentEbook": "Hier einreichen oder eine Datei/ein Bild auswählen",
+      "ebookTitle": "Ein ebook hochladen",
+      "urlInputLabel": "Youtube-Link"
+    },
+    "delete": {
+      "cancel": "Abbrechen",
+      "confirm": "Bestätigen",
+      "content": "Sind Sie sicher, dass Sie diese Strecke löschen möchten? Dieser Vorgang ist unumkehrbar.",
+      "title": "Löschen"
+    },
+    "status": {
+      "processed": "Ansehen",
+      "error": "Noch ein Mal versuchen",
+      "processing": "Ongoing",
+      "submitted": "Video hochladen"
+    },
+    "level": "Level",
+    "description": "Beschreibung",
+    "category": "Kategorie",
+    "name": "Name",
+    "bottomActions": {
+      "create": "Hinzufügen"
+    },
+    "search": {
+      "isEmpty": "Kein Video :(",
+      "cancel": "Abbrechen",
+      "placeholder": "Suchen"
+    },
+    "thumbnailList": {
+      "similarVideoTitle": "Ähnliche Videos",
+      "count": "{{ count }} Videos",
+      "addVideo": "Ein Video hinzufügen"
     },
     "player": {
       "with": "mit"
     },
+    "durationMinute": "{{ minute }} Min",
+    "showMore": "Mehr anzeigen",
     "filter": {
       "duration": {
-        "all": "Länge",
-        "explain": "Zwischen {{min}} und {{max}} Min"
+        "explain": "Zwischen {{min}} und {{max}} Min",
+        "all": "Länge"
       }
     },
-    "durationMinute": "{{ minute }} Min",
-    "thumbnailList": {
-      "addVideo": "Ein Video hinzufügen",
-      "count": "{{ count }} Videos",
-      "similarVideoTitle": "Ähnliche Videos"
+    "lock": {
+      "pleaseAuthenticated": "Bitte melde Dich an, um das Video zu sehen",
+      "accessDenied": "Jetzt Zugriff erhalten",
+      "buyPass": "Kaufe eine Karte",
+      "useConsumerPass": "Freischalten",
+      "accessDeniedEbook": "Du hast keinen Zugriff auf dieses eBook."
     },
-    "search": {
-      "placeholder": "Suchen",
-      "cancel": "Abbrechen",
-      "isEmpty": "Kein Video :("
-    },
-    "bottomActions": {
-      "create": "Hinzufügen"
-    },
-    "name": "Name",
-    "category": "Kategorie",
-    "level": "Level",
     "creditPrice": "Kosten (Gutschrift)",
     "register": {
-      "title": "Wiedergabe aktivieren",
       "buyPass": "Kaufe eine Karte",
+      "title": "Wiedergabe aktivieren",
       "noPassAvailable": "Sie haben keine kompatible Karte"
     },
     "analytics": {
@@ -129,8 +129,8 @@
     "purchaseListTitle": "Liste der Käufe",
     "viewedOn": "Video gesehen am {{-date}} um {{hour}}",
     "boughtOn": "Kauf erfolgt am {{-date}}",
-    "noVideoPurchase": "Kein Kauf registriert",
     "noVideoView": "Keine Aufrufe",
+    "noVideoPurchase": "Kein Kauf registriert",
     "coverMain": {
       "alert": "Bild ist erforderlich"
     },
@@ -138,36 +138,36 @@
     "manager_only": "Nicht zum Kauf verfügbar",
     "duplicate": "Duplizieren",
     "rental": {
+      "forRent": "Vermietung",
+      "expired": "Abgeschlossen",
+      "valid": "In Arbeit",
       "buyDate": "Uhrzeit des Kaufs",
       "expiredDate": "Abgelaufen am {{ expiration_date }}",
       "expirationDate": "Gültig bis {{ expiration_date }}",
-      "expired": "Abgeschlossen",
-      "valid": "In Arbeit",
-      "forRent": "Vermietung",
       "rental_days_helper": "Das Video wird für die angegebene Anzahl von Tagen freigeschaltet.",
       "duration": "Zur Miete für {{ rental_days }} Tage",
       "duration_helper": "Gültigkeit des Videos (in Tagen)",
       "helper": "Standardmäßig sind Videos nach dem Kauf lebenslang freigeschaltet. Wenn Sie das Video ausleihen, wird es nur für eine bestimmte Anzahl von Tagen freigeschaltet.",
       "label": "Video zum Ausleihen"
     },
-    "download": "Download",
     "ebook": {
       "downloadHelper": "Sie haben Ihr ebook freigeschaltet. Um es anzusehen, klicken Sie bitte auf die Schaltfläche {{button}}"
-    }
+    },
+    "download": "Download"
   },
   "playlist": {
-    "description": "Beschreibung",
-    "noVideo": "Kein Video in dieser Playlist",
-    "name": "Name",
-    "open": "Öffnen",
-    "form": {
-      "cancel": "Abbrechen",
-      "submit": "Speichern"
-    },
     "bottomActions": {
       "create": "Hinzufügen"
     },
+    "form": {
+      "submit": "Speichern",
+      "cancel": "Abbrechen"
+    },
+    "open": "Öffnen",
     "deleteVideo": "Löschen",
+    "description": "Beschreibung",
+    "name": "Name",
+    "noVideo": "Kein Video in dieser Playlist",
     "playlist": "Playlist"
   },
   "details": {

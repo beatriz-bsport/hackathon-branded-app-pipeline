@@ -1,143 +1,152 @@
 {
   "toolsMenu": {
-    "title": "Boite à outils",
+    "door": "Porte",
+    "spot": "Place",
+    "rect": "Rectangle",
+    "line": "Trait",
+    "rotation": "Rotation",
+    "eraser": "Gomme",
+    "advancedTool": "HTML",
+    "cssEditor": "CSS",
+    "copier": "Duplicateur",
+    "bsportPreferentialSpots": "Emplacements pour les membres",
     "sections": {
-      "edition": "Édition",
-      "walls": "Murs",
-      "place": "Emplacement",
-      "elements": "Éléments",
       "custom": "Personnalisation",
+      "elements": "Éléments",
+      "place": "Emplacement",
+      "walls": "Murs",
+      "edition": "Édition",
+      "editionHistory": "Historique de l'édition",
+      "editionAdvanced": "Édition avancée",
       "spivi": "Intégration Spivi",
       "assets": "Actifs",
-      "editionAdvanced": "Édition avancée",
-      "editionHistory": "Historique de l'édition",
       "marketplaces": "Marketplaces"
     },
-    "eraser": "Gomme",
+    "title": "Boite à outils",
+    "customFill": "Couleur de remplissage",
+    "customStroke": "Couleur des traits",
+    "screen": "Écran",
+    "teacher": "Professeur",
     "undo": "Précédent",
     "redo": "Suivant",
-    "rotation": "Rotation",
-    "line": "Trait",
-    "rect": "Rectangle",
-    "spot": "Place",
-    "teacher": "Professeur",
-    "screen": "Écran",
-    "door": "Porte",
-    "pointer": "Curseur",
-    "hand": "Main",
-    "customStroke": "Couleur des traits",
-    "customFill": "Couleur de remplissage",
-    "customIconLabel": "Icones des emplacements",
-    "customIconButton": "Télécharger mes icones",
     "showGrid": "Afficher la grille",
-    "helperText": "La taille du professeur doit être strictement positive",
+    "customIconButton": "Télécharger mes icones",
+    "customIconLabel": "Icones des emplacements",
+    "hand": "Main",
+    "pointer": "Curseur",
     "addSpotType": "Ajouter un type de place",
-    "boxId": "Box ID",
+    "helperText": "La taille du professeur doit être strictement positive",
     "requiredForSpivi": "Requis pour l'intégration Spivi",
-    "resize": "Échelle",
+    "boxId": "Box ID",
     "openAssetModal": "Ouvrir le gestionnaire d'actifs",
-    "copier": "Duplicateur",
-    "cssEditor": "CSS",
-    "advancedTool": "HTML",
-    "bsportPreferentialSpots": "Emplacements pour les membres"
+    "resize": "Échelle"
   },
-  "spotImageDialog": {
-    "title": "Personnaliser vos emplacements",
-    "helper": "Vous pouvez personnaliser la forme des emplacements en important vos propres images. Pour cela nous avons besoin de 2 icones différentes. Une pour indiquer que l’emplacement est disponible, une autre quand il est réservé. Assurez-vous qu’ils aient la même taille et merci de ne pas inclure de numéro sur vos icones.",
-    "freeImageLabel": "Emplacement disponible",
-    "takenImageLabel": "Emplacement réservé",
-    "imageUploadButton": "Charger une image",
-    "free": "Disponible",
-    "taken": "Réservé",
-    "imageFormat": "Format conseillé : .png, .jpg",
-    "actions": {
-      "cancel": "Annuler",
-      "submit": "Confirmer"
-    }
+  "placeCount": "{{count}} places",
+  "roomBlueprints": "Plan de salle",
+  "saveError": "Erreur",
+  "errorLessSpotThanEffectif": "Sauvegarde impossible. Le plan de salle doit contenir plus de place que l'effectif de la séance auxquelle il est associé",
+  "saved": "Plan de salle enregistré",
+  "effectifError": "Le nombre de place doit être supérieur ou égal à l'effectif de la séance",
+  "searchHelper": "Aide : permet à vos élèves de réserver l'emplacement qu'ils souhaitent dans la salle. Champs non obligatoire",
+  "search": "Chercher un plan pour le spot scheduling",
+  "roomBlueprintSelectorTitle": "Choisir un plan",
+  "spotSelectorDialog": {
+    "takeSpotError": "La place que vous avez sélectionnée pour ce cours n’est plus disponible. Merci d’en sélectionner une nouvelle.",
+    "submit": "Confirmer",
+    "cancel": "Annuler",
+    "spot": "Place {{count}}",
+    "title": "Sélectionnez une place",
+    "legend": "Légende",
+    "book": "Réserver la place {{prefix}}{{indexType}}{{suffix}}"
   },
   "toolbar": {
-    "save": "Enregistrer",
-    "titleLabel": "Nom du plan",
-    "exit": "Quitter",
     "loadExistingBlueprint": "Charger un plan existant",
-    "spivi": "Spivi",
-    "spiviHelperText": "Voir la correspondance avec les spots Spivi"
+    "exit": "Quitter",
+    "titleLabel": "Nom du plan",
+    "save": "Enregistrer",
+    "spiviHelperText": "Voir la correspondance avec les spots Spivi",
+    "spivi": "Spivi"
   },
-  "spotSelectorDialog": {
-    "title": "Sélectionnez une place",
-    "spot": "Place {{count}}",
-    "cancel": "Annuler",
-    "submit": "Confirmer",
-    "takeSpotError": "La place que vous avez sélectionnée pour ce cours n’est plus disponible. Merci d’en sélectionner une nouvelle.",
-    "book": "Réserver la place {{prefix}}{{indexType}}{{suffix}}",
-    "legend": "Légende"
-  },
-  "roomBlueprintSelectorTitle": "Choisir un plan",
-  "search": "Chercher un plan pour le spot scheduling",
-  "searchHelper": "Aide : permet à vos élèves de réserver l'emplacement qu'ils souhaitent dans la salle. Champs non obligatoire",
-  "effectifError": "Le nombre de place doit être supérieur ou égal à l'effectif de la séance",
-  "saved": "Plan de salle enregistré",
-  "errorLessSpotThanEffectif": "Sauvegarde impossible. Le plan de salle doit contenir plus de place que l'effectif de la séance auxquelle il est associé",
-  "saveError": "Erreur",
-  "roomBlueprints": "Plan de salle",
-  "placeCount": "{{count}} places",
-  "errorAvailableOffersScheduled": "Sauvegarde impossible. Le plan de salle ne doit pas être utilisé dans des séances futures pour être édité.",
-  "spotCreatorForm": {
-    "title": "Plan de salle",
-    "subtitle": "Création d'un type de place",
-    "name": "Nom",
-    "nameExplain": "Nom du type de place",
-    "prefix": "Préfixe",
-    "prefixExplain": "Le caractère indiqué ici apparaitra en préfixe des numéros de places",
-    "prefixError": "Le préfixe ne doit être qu'une seule lettre",
-    "customization": "Personnalisation",
-    "predefined": "Formes prédéfinies",
-    "personalized": "Images personnalisées",
-    "circular": "Rond",
-    "rectangle": "Rectangle",
-    "triangle": "Triangle",
-    "square": "Carré",
-    "generalInfo": "Informations générales",
-    "preview": "Prévisualisation",
-    "personalizedExplain": "Vous pouvez personnaliser la forme des emplacements en important vos propres images. Pour cela nous avons besoin de 3 icones différentes. Une pour indiquer que l’emplacement est disponible, une autre quand il est réservé. Assurez vous qu’ils aient la même taille et merci de ne pas inclure de numéro sur vos icones.",
-    "free": "Place disponible",
-    "freePersonalized": "{{- name }} disponible",
-    "taken": "Place réservée",
-    "takenPersonalized": "{{- name }} réservé",
-    "selected": "Place sélectionnée",
-    "selectedPersonalized": "{{- name }} sélectionné",
-    "missImageFree": "Vous n'avez pas chargé l'image pour la place libre",
-    "missImageTaken": "Vous n'avez pas chargé l'image pour la place réservée",
-    "missImageSelected": "Vous n'avez pas chargé l'image pour la place selectionnée",
-    "saved": "Emplacement enregistré",
-    "deleted": "Emplacement supprimé",
-    "alertDefaultSpot": "En modifiant le spot par défaut, tous les spots par défaut présents sur l'ensemble des plans seront alors identiquement modifiés",
-    "suffix": "Suffixe",
-    "suffixExplain": "Le caractère indiqué ici apparaîtra comme suffixe aux numéros d'emplacement",
-    "suffixError": "Le suffixe doit être composé d'une seule lettre",
-    "nameCustomization": {
-      "suffix": "Numéro de l'emplacement avec un suffixe",
-      "prefix": "Numéro de l'emplacement avec un préfixe",
-      "none": "Numéro de l'emplacement seulement",
-      "title": "Format du nom de l'emplacement"
-    }
+  "spotImageDialog": {
+    "actions": {
+      "submit": "Confirmer",
+      "cancel": "Annuler"
+    },
+    "imageFormat": "Format conseillé : .png, .jpg",
+    "taken": "Réservé",
+    "free": "Disponible",
+    "imageUploadButton": "Charger une image",
+    "takenImageLabel": "Emplacement réservé",
+    "freeImageLabel": "Emplacement disponible",
+    "helper": "Vous pouvez personnaliser la forme des emplacements en important vos propres images. Pour cela nous avons besoin de 2 icones différentes. Une pour indiquer que l’emplacement est disponible, une autre quand il est réservé. Assurez-vous qu’ils aient la même taille et merci de ne pas inclure de numéro sur vos icones.",
+    "title": "Personnaliser vos emplacements"
   },
   "forms": {
     "delete": {
-      "title": "Suppression",
+      "actions": {
+        "confirm": "Confirmer",
+        "cancel": "Annuler"
+      },
       "content": {
         "canDelete": "Êtes-vous sûr de vouloir supprimer cet emplacement ? Cette action est irréversible. Il sera supprimé et remplacé par l’emplacement par défaut sur ce plan et tous les autres sur lesquels il a été ajouté."
       },
-      "actions": {
-        "cancel": "Annuler",
-        "confirm": "Confirmer"
-      }
+      "title": "Suppression"
     }
   },
+  "spotCreatorForm": {
+    "alertDefaultSpot": "En modifiant le spot par défaut, tous les spots par défaut présents sur l'ensemble des plans seront alors identiquement modifiés",
+    "saved": "Emplacement enregistré",
+    "deleted": "Emplacement supprimé",
+    "missImageFree": "Vous n'avez pas chargé l'image pour la place libre",
+    "missImageTaken": "Vous n'avez pas chargé l'image pour la place réservée",
+    "missImageSelected": "Vous n'avez pas chargé l'image pour la place selectionnée",
+    "selectedPersonalized": "{{- name }} sélectionné",
+    "selected": "Place sélectionnée",
+    "freePersonalized": "{{- name }} disponible",
+    "takenPersonalized": "{{- name }} réservé",
+    "taken": "Place réservée",
+    "free": "Place disponible",
+    "personalizedExplain": "Vous pouvez personnaliser la forme des emplacements en important vos propres images. Pour cela nous avons besoin de 3 icones différentes. Une pour indiquer que l’emplacement est disponible, une autre quand il est réservé. Assurez vous qu’ils aient la même taille et merci de ne pas inclure de numéro sur vos icones.",
+    "preview": "Prévisualisation",
+    "generalInfo": "Informations générales",
+    "square": "Carré",
+    "triangle": "Triangle",
+    "rectangle": "Rectangle",
+    "circular": "Rond",
+    "personalized": "Images personnalisées",
+    "predefined": "Formes prédéfinies",
+    "customization": "Personnalisation",
+    "nameCustomization": {
+      "title": "Format du nom de l'emplacement",
+      "none": "Numéro de l'emplacement seulement",
+      "prefix": "Numéro de l'emplacement avec un préfixe",
+      "suffix": "Numéro de l'emplacement avec un suffixe"
+    },
+    "prefixError": "Le préfixe ne doit être qu'une seule lettre",
+    "prefixExplain": "Le caractère indiqué ici apparaitra en préfixe des numéros de places",
+    "prefix": "Préfixe",
+    "suffixError": "Le suffixe doit être composé d'une seule lettre",
+    "suffixExplain": "Le caractère indiqué ici apparaîtra comme suffixe aux numéros d'emplacement",
+    "suffix": "Suffixe",
+    "nameExplain": "Nom du type de place",
+    "name": "Nom",
+    "subtitle": "Création d'un type de place",
+    "title": "Plan de salle"
+  },
+  "assetUpoadForm": {
+    "description": "Vous pouvez télécharger et utiliser des images directement à partir d'ici. Une fois les nouvelles images téléchargées, elles seront disponibles pour être insérées dans votre carte.",
+    "submit": "Soumettre",
+    "loadMore": "Plus d'informations"
+  },
+  "bsportPreferentialGroupForm": {
+    "submit": "Soumettre",
+    "isPreferentialBsportSpotLabel": "Les emplacements sont réservés en priorité aux membres. Les réservations sur les marketplaces (Classpass, OneFit, etc.) seront effectuées en dernier."
+  },
+  "errorAvailableOffersScheduled": "Sauvegarde impossible. Le plan de salle ne doit pas être utilisé dans des séances futures pour être édité.",
   "spiviDialog": {
-    "spotCorrespondence": "Correspondance des spots",
+    "spiviIdentifiers": "Identifiants Spivi",
     "bsportIdentifiers": "Identifiants bsport",
-    "spiviIdentifiers": "Identifiants Spivi"
+    "spotCorrespondence": "Correspondance des spots"
   },
   "spotSelector": {
     "legend": "Légende",
@@ -149,23 +158,14 @@
     "unavailablePersonalizedSpot": "{{- spotName }} non disponible",
     "seeAll": "Voir tout",
     "confirm": "Confirmer",
+    "goBackToCheckout": "Finaliser mon achat",
     "selectOtherSpot": {
-      "message": "La sélection précédente sera disponible aux autres membres.",
-      "title": "Ou sélectionnez un nouvel emplacement"
-    },
-    "goBackToCheckout": "Finaliser mon achat"
+      "title": "Ou sélectionnez un nouvel emplacement",
+      "message": "La sélection précédente sera disponible aux autres membres."
+    }
   },
   "cssForm": {
-    "helper": "Vous pouvez ajouter des règles CSS pour votre mise en page dans cette section. La carte entière est enveloppée dans un svg avec l'ID 'svg-canvas-display'. Par défaut, une feuille de style ciblant chaque élément du canevas (tels que les spots, les rectangles et les Professeurs) est automatiquement générée. Vous pouvez observer vos modifications au fur et à mesure en cliquant sur le bouton {{ buttonLabel }} button.",
-    "openPreview": "Aperçu"
-  },
-  "assetUpoadForm": {
-    "loadMore": "Plus d'informations",
-    "submit": "Soumettre",
-    "description": "Vous pouvez télécharger et utiliser des images directement à partir d'ici. Une fois les nouvelles images téléchargées, elles seront disponibles pour être insérées dans votre carte."
-  },
-  "bsportPreferentialGroupForm": {
-    "isPreferentialBsportSpotLabel": "Les emplacements sont réservés en priorité aux membres. Les réservations sur les marketplaces (Classpass, OneFit, etc.) seront effectuées en dernier.",
-    "submit": "Soumettre"
+    "openPreview": "Aperçu",
+    "helper": "Vous pouvez ajouter des règles CSS pour votre mise en page dans cette section. La carte entière est enveloppée dans un svg avec l'ID 'svg-canvas-display'. Par défaut, une feuille de style ciblant chaque élément du canevas (tels que les spots, les rectangles et les Professeurs) est automatiquement générée. Vous pouvez observer vos modifications au fur et à mesure en cliquant sur le bouton {{ buttonLabel }} button."
   }
 }

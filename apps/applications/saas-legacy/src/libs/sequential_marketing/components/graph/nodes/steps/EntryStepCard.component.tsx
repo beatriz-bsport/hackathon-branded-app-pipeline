@@ -28,7 +28,6 @@ type EntryStepHeaderProps = {
 };
 
 type EntryStepContentProps = {
-  isPushNotificationUpsellActive?: boolean;
   marketingActionList?: StepMarketingActions[];
   stepMemberCount?: number;
   getEmailTemplate?: (id: string) => EmailTemplateSummary;
@@ -72,7 +71,6 @@ const EntryStepHeader: React.FC<EntryStepHeaderProps> = React.memo(
 const EntryStepContent: React.FC<EntryStepContentProps> = React.memo(
   ({
     marketingActionList,
-    isPushNotificationUpsellActive,
     editMarketingAction,
     getEmailTemplate,
     getTag,
@@ -86,7 +84,6 @@ const EntryStepContent: React.FC<EntryStepContentProps> = React.memo(
         editMarketingAction={editMarketingAction}
         getEmailTemplate={getEmailTemplate}
         getTag={getTag}
-        isPushNotificationUpsellActive={isPushNotificationUpsellActive}
         marketingActionList={!!marketingActionList && marketingActionList}
       />
     );
@@ -99,7 +96,6 @@ const EntryStepCard: React.FC<EntryStepCardProps> = ({
   isSelected,
   marketingActionList,
   triggerList,
-  isPushNotificationUpsellActive,
   stepMemberCount,
   addMarketingAction,
   addNextStep,
@@ -167,7 +163,6 @@ const EntryStepCard: React.FC<EntryStepCardProps> = ({
             editMarketingAction={editMarketingAction}
             getEmailTemplate={getEmailTemplate}
             getTag={getTag}
-            isPushNotificationUpsellActive={isPushNotificationUpsellActive}
             marketingActionList={marketingActionList}
             onClickNewMarketingAction={
               !isFirstConfigurationMode &&

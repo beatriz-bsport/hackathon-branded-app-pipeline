@@ -1,48 +1,42 @@
 {
+  "table": {
+    "columns": {
+      "member": "Lid",
+      "title": "Overzicht",
+      "date_created": "Datum",
+      "status": "Status"
+    }
+  },
   "mail": {
-    "error": "Fout bij het versturen van dit bericht",
-    "success": "Je bericht is verzonden.",
-    "missing": "Geen e-mail beschikbaar",
-    "content": "Inhoud van de e-mail",
     "title": "Onderwerp van dit bericht",
+    "content": "Inhoud van de e-mail",
+    "success": "Je bericht is verzonden.",
+    "error": "Fout bij het versturen van dit bericht",
     "refreshText": "Ververs de pagina om de wijzigingen in de e-mail te zien.",
     "noObject": "Geen onderwerp",
     "refreshTextPhone": "Ververs de pagina om de wijzigingen te zien.",
     "sendSms": "Sms'je",
     "hideMail": "E-mail verbergen",
     "count": "tekens",
-    "showMail": "E-mail tonen",
     "mailSelection": "Selecteer een e-mailsjabloon",
     "selectToShowPreview": "Selecteer een e-mail om de voorvertoning te zien.",
-    "noMailAvailable": "Nog geen e-mail beschikbaar. Begin met het ontwerpen van je eerste e-mail.",
-    "mailMissing": "Geen e-mailadres om weer te geven.",
     "phoneMissing": "Geen telefoonnummer om weer te geven.",
+    "mailMissing": "Geen e-mailadres om weer te geven.",
     "numberSms": "sms",
     "contentSms": "Inhoud van de sms",
     "selectTemplate": "E-mailsjabloon",
     "writeMail": "E-mail",
     "dialogTitle": "Bericht",
+    "noMailAvailable": "Nog geen e-mail beschikbaar. Begin met het ontwerpen van je eerste e-mail.",
+    "showMail": "E-mail tonen",
     "contentNotification": "Inhoud van de push-notificatie",
     "titleNotification": "Titel",
     "sendNotification": "Push-notificatie",
     "warningConsent2": "Het niet respecteren van de wensen en beslissingen van leden is onwettig. De dienstverlener is ontheven van aansprakelijkheid indien deze functie misbruikt wordt.",
     "warningConsent1": "Belangrijk! Dit lid heeft aangegeven geen promotionele berichten te willen ontvangen. Directe berichten kun je snel en eenvoudig versturen om leden op de hoogte houden, zonder dat daar promotionele doeleinden aan verbonden zijn.",
     "titleInterpolated": "De gebruikte variabelen in dit bericht worden op individuele basis aangepast per ontvanger.",
-    "warningProvider": "Antwoorden op dit bericht worden automatisch naar je inbox gestuurd. Ga naar instellingen - Personalisatie - Chatinstellingen om al je berichten hier te laten verschijnen."
-  },
-  "table": {
-    "columns": {
-      "status": "Status",
-      "date_created": "Datum",
-      "title": "Overzicht",
-      "member": "Lid"
-    }
-  },
-  "dialogReceiverChoice": {
-    "reservation": "Reserveringen",
-    "waitingList": "Wachtlijst",
-    "title": "[Formulier] Ontvangers",
-    "canceledReservation": "Annuleringen"
+    "warningProvider": "Antwoorden op dit bericht worden automatisch naar je inbox gestuurd. Ga naar instellingen - Personalisatie - Chatinstellingen om al je berichten hier te laten verschijnen.",
+    "missing": "Geen e-mail beschikbaar"
   },
   "recipients": "Ontvangers",
   "common": {
@@ -54,8 +48,15 @@
     "confirm": "Bevestigen",
     "close": "Sluiten"
   },
+  "dialogReceiverChoice": {
+    "reservation": "Reserveringen",
+    "waitingList": "Wachtlijst",
+    "title": "[Formulier] Ontvangers",
+    "canceledReservation": "Annuleringen"
+  },
   "campaign": {
-    "showMail": "Toon e-mail",
+    "processing": "Wordt verzonden...",
+    "recipientCount": "Ontvanger(s): {{total_recipients}}",
     "sentAt": "Verzonden op {{ date_created }}",
     "readCount": "Aantal keer geopend",
     "clickCount": "Aantal keer geklikt",
@@ -75,10 +76,10 @@
       "noTopLink": "Er is nog geen informatie om weer te geven.",
       "exportError": "Fout bij het exporteren van de gegevens",
       "exportCampaign": "Campagne exporteren",
-      "plannedResends": "Automatische herverzendingen gepland op:",
-      "resentOn": "Herzonden op:"
+      "resentOn": "Herzonden op:",
+      "plannedResends": "Automatische herverzendingen gepland op:"
     },
-    "recipientCount": "Ontvanger(s): {{total_recipients}}",
+    "showMail": "Toon e-mail",
     "kind": {
       "0": "E-mail",
       "1": "Sms",
@@ -100,26 +101,26 @@
       },
       "form": {
         "frequenceHelper": "Dit bericht wordt bij {{ event_kind }} {{ max }} naar een lid in deze Smartlist verzonden. Na {{ event_kind }} {{ max }} zullen leden geen berichten meer ontvangen. Deze instellingen kunnen onder \"Geavanceerd\" gewijzigd worden.",
-        "subtitles": {
-          "update": {
-            "leftSmartList": "Automatisch de regel wijzigen zodra een lid een Smartlist verlaat.",
-            "joinSmartList": "Voeg automatische berichtgevingen toe zodra een lid in deze Smartlist wordt gezet."
-          },
-          "create": {
-            "leftSmartList": "Maak een automatisch bericht aan voor klanten die deze Smartlist verlaten.",
-            "joinSmartList": "Voeg automatische berichtgevingen toe zodra een lid in deze Smartlist wordt gezet."
-          }
-        },
-        "max_communications_sent_per_member_limit": "Maximum: {{ max }}",
-        "max_communications_sent_per_member": "Aantal keren dat de regel van toepassing is",
-        "advancedSection": "Geavanceerd",
-        "submit": "Bevestigen",
+        "limitSection": "Limiet",
         "maxCommunicationSentHelperText": {
           "0": "Dit bericht wordt telkens verstuurd als een lid het segment binnenkomt. Als een lid het segment verlaat en opnieuw binnenkomt, wordt het bericht opnieuw verzonden. Stel een limiet in op het aantal keer dat hetzelfde lid dit bericht kan zien.",
           "1": "Standaard wordt het bericht verzonden telkens als een lid de smartlist verlaat. Als een lid opnieuw de smartlist betreedt en deze later weer verlaat, dan wordt het bericht opnieuw verstuurd. Pas de instelling aan als u wilt beperken hoe vaak hetzelfde lid het bericht kan ontvangen: één, twee of drie keer."
         },
-        "limitSection": "Limiet",
-        "unlimited": "Ongelimiteerd"
+        "subtitles": {
+          "create": {
+            "leftSmartList": "Maak een automatisch bericht aan voor klanten die deze Smartlist verlaten.",
+            "joinSmartList": "Voeg automatische berichtgevingen toe zodra een lid in deze Smartlist wordt gezet."
+          },
+          "update": {
+            "leftSmartList": "Automatisch de regel wijzigen zodra een lid een Smartlist verlaat.",
+            "joinSmartList": "Voeg automatische berichtgevingen toe zodra een lid in deze Smartlist wordt gezet."
+          }
+        },
+        "unlimited": "Ongelimiteerd",
+        "max_communications_sent_per_member_limit": "Maximum: {{ max }}",
+        "max_communications_sent_per_member": "Aantal keren dat de regel van toepassing is",
+        "advancedSection": "Geavanceerd",
+        "submit": "Bevestigen"
       },
       "activeSince": "Actief sinds: {{-date}}",
       "eventKind": {
@@ -131,17 +132,16 @@
       "onJoin": "Wanneer een lid in een Smartlist gezet wordt"
     },
     "automatedTitle": "Automatische berichtgevingen",
+    "scheduledTitle": "Gepland voor later",
     "manualTitle": "Handmatige berichtgevingen",
-    "processing": "Wordt verzonden...",
     "exportCampaigns": {
-      "dialogButtonGenerateAnyway": "Toch genereren",
-      "dialogContentAlternative": "Je kunt ook op 'toch genereren' klikken om het rapport te genereren zonder het ontvangersblad.",
-      "dialogContentSurplus": "De limiet is overschreden door {{ difference_count }} rijen.",
-      "dialogContent": "Dit rapport heeft ~{{ count }} miljoen rijen met ontvangers en overschrijdt daarmee de xlsx sheet limiet van 1 miljoen. Als u ontvangers wilt opnemen, verlaagt u het datumbereik om het aantal te verlagen.",
+      "title": "Campagnes exporteren",
       "dialogTitle": "Ontvangerslimiet overschreden",
-      "title": "Campagnes exporteren"
-    },
-    "scheduledTitle": "Gepland voor later"
+      "dialogContent": "Dit rapport heeft ~{{ count }} miljoen rijen met ontvangers en overschrijdt daarmee de xlsx sheet limiet van 1 miljoen. Als u ontvangers wilt opnemen, verlaagt u het datumbereik om het aantal te verlagen.",
+      "dialogContentSurplus": "De limiet is overschreden door {{ difference_count }} rijen.",
+      "dialogContentAlternative": "Je kunt ook op 'toch genereren' klikken om het rapport te genereren zonder het ontvangersblad.",
+      "dialogButtonGenerateAnyway": "Toch genereren"
+    }
   },
   "recipient": {
     "readCount": "Aantal keer geopend",
@@ -173,16 +173,16 @@
     "isAnswerWarning": "Let op! Alleen u kunt dit bericht zien"
   },
   "send": {
-    "success": "E-mail wordt verzonden...",
-    "error": "Fout tijdens het versturen"
+    "error": "Fout tijdens het versturen",
+    "success": "E-mail wordt verzonden..."
   },
   "sms": {
     "warningConsent2": "Het niet respecteren van de wensen en beslissingen van leden is onwettig. De dienstverlener is ontheven van aansprakelijkheid indien deze functie misbruikt wordt.",
     "warningConsent1": "Het niet respecteren van de wensen en beslissingen van leden is onwettig. De dienstverlener is ontheven van aansprakelijkheid indien deze functie misbruikt wordt.",
     "warningProviderNotVerified": {
-      "regulatoryNotice": "Voordat je sms-campagnes, automatische berichten of rechtstreekse berichten kunt versturen, moet het nummer worden gevalideerd om te voldoen aan de lokale regelgeving in de VS en Canada.",
+      "title": "SMS verzenden niet beschikbaar",
       "mainMessage": "Het lijkt erop dat het telefoonnummer voor SMS nog niet is gevalideerd.",
-      "title": "SMS verzenden niet beschikbaar"
+      "regulatoryNotice": "Voordat je sms-campagnes, automatische berichten of rechtstreekse berichten kunt versturen, moet het nummer worden gevalideerd om te voldoen aan de lokale regelgeving in de VS en Canada."
     }
   },
   "filter": {
@@ -273,12 +273,15 @@
     "title": "Selecteer een sjabloon"
   },
   "sendMessage": {
-    "buttons": {
-      "selectRecipientsMobile": "Ontvangers",
-      "selectRecipients": "Selecteer de ontvangers",
-      "send": "Versturen",
-      "updateScheduled": "Update",
-      "scheduleCommunication": "Progammeer"
+    "icons": {
+      "balise": "Tags",
+      "template": "E-mailsjabloon",
+      "notification": "Push-notificatie",
+      "sms": "Sms'je",
+      "mail": "E-mail",
+      "autoResend": "Automatisch opnieuw verzenden",
+      "messageScheduling": "Plan het bericht",
+      "automaticCommunicationLimit": "Stel een limiet in"
     },
     "refresh": "Ververs om het nieuwe e-mailsjabloon te zien.",
     "sendDisabled": {
@@ -287,66 +290,69 @@
       "missingPhoneInDirectMember": "Dit lid heeft geen telefoonnummer",
       "missingEmailInDirectMember": "Dit lid heeft geen e-mailadres."
     },
+    "buttons": {
+      "selectRecipientsMobile": "Ontvangers",
+      "selectRecipients": "Selecteer de ontvangers",
+      "send": "Versturen",
+      "scheduleCommunication": "Progammeer",
+      "updateScheduled": "Update"
+    },
     "textField": {
       "warningLength": "Aantal te versturen sms'jes: {{number_sms}}",
       "object": "Onderwerp",
       "title": "Titel",
       "content": "Bericht"
     },
-    "icons": {
-      "template": "E-mailsjabloon",
-      "balise": "Tags",
-      "notification": "Push-notificatie",
-      "sms": "Sms'je",
-      "mail": "E-mail",
-      "autoResend": "Automatisch opnieuw verzenden",
-      "automaticCommunicationLimit": "Stel een limiet in",
-      "messageScheduling": "Plan het bericht"
-    },
     "writeCommunication": "Een bericht maken",
-    "smsCostReminderModal": {
-      "confirm": "Bevestigen",
-      "cancel": "Annuleren",
-      "title": "Herinnering sms-kosten",
-      "content": {
-        "effect": "Je kunt de prijs per sms nakijken in je contract. Weet je zeker dat je deze communicatie wilt versturen?",
-        "description": "SMS versturen naar een grote groep kan duur zijn."
-      }
-    },
-    "membersWontLoad": "Er is momenteel een probleem met het laden van de leden in deze smartlist. Houd er rekening mee dat je geen voorbeeld kunt zien van het aantal leden dat wordt bereikt door deze communicatie.",
-    "smsCostWarning": {
-      "confirm": "Toch verzenden",
-      "cancel": "Annuleren",
-      "content": {
-        "effect": "Kijk je contract na om de kosten per sms te weten te komen.",
-        "description": "SMS kan duurder zijn dan andere verzendmethoden."
-      },
-      "title": "Een sms versturen naar een grote groep?"
-    },
-    "cannotReviewRecipients": {
-      "confirm": "Toch verzenden",
-      "cancel": "Annuleren",
-      "content": {
-        "effect": "Als je je bericht nu verstuurt, wordt het nog steeds verstuurd naar iedereen die voldoet aan je Smartlist-filters.",
-        "description": "We zijn nog bezig met het laden van de volledige lijst met ontvangers."
-      },
-      "title": "Verzenden zonder alle ontvangers te controleren?"
-    },
     "warningModalTitle": {
       "title": "We willen je over een paar dingen informeren voordat je je berichten verstuurt"
+    },
+    "smsCostReminderModal": {
+      "title": "Herinnering sms-kosten",
+      "content": {
+        "description": "SMS versturen naar een grote groep kan duur zijn.",
+        "effect": "Je kunt de prijs per sms nakijken in je contract. Weet je zeker dat je deze communicatie wilt versturen?"
+      },
+      "cancel": "Annuleren",
+      "confirm": "Bevestigen"
+    },
+    "cannotReviewRecipients": {
+      "title": "Verzenden zonder alle ontvangers te controleren?",
+      "content": {
+        "description": "We zijn nog bezig met het laden van de volledige lijst met ontvangers.",
+        "effect": "Als je je bericht nu verstuurt, wordt het nog steeds verstuurd naar iedereen die voldoet aan je Smartlist-filters."
+      },
+      "cancel": "Annuleren",
+      "confirm": "Toch verzenden"
+    },
+    "smsCostWarning": {
+      "title": "Een sms versturen naar een grote groep?",
+      "content": {
+        "description": "SMS kan duurder zijn dan andere verzendmethoden.",
+        "effect": "Kijk je contract na om de kosten per sms te weten te komen."
+      },
+      "cancel": "Annuleren",
+      "confirm": "Toch verzenden"
+    },
+    "membersWontLoad": "Er is momenteel een probleem met het laden van de leden in deze smartlist. Houd er rekening mee dat je geen voorbeeld kunt zien van het aantal leden dat wordt bereikt door deze communicatie."
+  },
+  "resendSection": {
+    "dialogTitle": "Ongelezen e-mail automatisch opnieuw versturen",
+    "title": "Automatisch opnieuw verzenden van ongelezen e-mails",
+    "resendCount": {
+      "label": "Aantal automatische herverzendingen",
+      "helperText": "De e-mail wordt opnieuw verzonden naar alle ontvangers die de e-mail niet hebben geopend. Maximale waarde: 5"
+    },
+    "resendDelay": {
+      "label": "Vertraging voor opnieuw verzenden",
+      "helperText": "Maximale waarde: 180"
     }
   },
-  "communication": "Bericht",
   "generic": {
     "history": "Historie",
     "communication": "Communicatie"
   },
   "thread": {
-    "emptyThread": {
-      "becauseNeverUsed": "Er zijn geen berichten om weer te geven.",
-      "becauseOfFilters": "Geen resultaten die overeenkomen met de filters."
-    },
-    "filterOutCommunicationSent": "De communicatie die je net hebt verzonden wordt verborgen door de actieve filters.",
     "item": {
       "year": "{{count}} j",
       "year_plural": "{{count}} j",
@@ -362,18 +368,18 @@
       "addToFavorite": "Toevoegen aan favorieten",
       "markAsRead": "Markeer als ongelezen",
       "detail": {
-        "offer": "Details sessie",
+        "member": "Ledeninformatie",
         "smartlist": "Smartlist details",
-        "member": "Ledeninformatie"
+        "offer": "Details sessie"
       },
       "filterMessages": "Berichten filteren",
+      "noMessage": "Geen berichten",
       "disableDialog": {
-        "thirdContent": "Gearchiveerde gesprekken worden automatisch herstelt zodra jij of het lid een nieuw bericht versturen.",
-        "secondContent": "Dit gesprek wordt niet langer in je actieve chats getoond. Je kunt het gesprek opnieuw bekijken of openen door op \"Gearchiveerd\" te filteren.",
+        "title": "Gesprek archiveren",
         "firstContent": "Je staat op het punt deze chat te archiveren.",
-        "title": "Gesprek archiveren"
-      },
-      "noMessage": "Geen berichten"
+        "secondContent": "Dit gesprek wordt niet langer in je actieve chats getoond. Je kunt het gesprek opnieuw bekijken of openen door op \"Gearchiveerd\" te filteren.",
+        "thirdContent": "Gearchiveerde gesprekken worden automatisch herstelt zodra jij of het lid een nieuw bericht versturen."
+      }
     },
     "kind": {
       "member": "Leden",
@@ -390,41 +396,46 @@
     },
     "loadMoreThreads": "Meer berichten laden",
     "noThread": {
+      "list": "Geen zoekresultaten.",
       "item": {
-        "offer": "In dit onderdeel vind je meer informatie over gesprekken met je leden vanuit je sessies.",
+        "member": "In dit onderdeel vind je meer informatie over gesprekken met je leden.",
         "smartlist": "In dit onderdeel vind je meer informatie over gesprekken met je leden vanuit je Smartlists.",
-        "member": "In dit onderdeel vind je meer informatie over gesprekken met je leden."
-      },
-      "list": "Geen zoekresultaten."
+        "offer": "In dit onderdeel vind je meer informatie over gesprekken met je leden vanuit je sessies."
+      }
+    },
+    "selectThread": {
+      "title": "Selecteer een gesprek",
+      "description": "Klik op een lid, een Smartlist of een sessie om het bijbehorende gesprek weer te geven."
     },
     "panel": {
-      "navigation": {
-        "offer": "Sessie-details tonen",
-        "smartlist": "Smartlist-details tonen",
-        "member": "Leden-details tonen"
+      "header": "Details",
+      "tags": "Tags",
+      "member": {
+        "invoices": {
+          "title": "Facturen",
+          "noUnpaidInvoices": "Bijgewerkt"
+        },
+        "files": "Documenten",
+        "notes": "Notities"
       },
       "smartlist": {
-        "description": "Beschrijving",
+        "memberCount": "Leden in de smartlist",
         "filters": "Filters",
-        "memberCount": "Leden in de smartlist"
+        "description": "Beschrijving"
       },
-      "member": {
-        "notes": "Notities",
-        "files": "Documenten",
-        "invoices": {
-          "noUnpaidInvoices": "Bijgewerkt",
-          "title": "Facturen"
-        }
+      "navigation": {
+        "member": "Leden-details tonen",
+        "smartlist": "Smartlist-details tonen",
+        "offer": "Sessie-details tonen"
       },
-      "tags": "Tags",
-      "header": "Details",
       "openPanel": "Details tonen",
       "closePanel": "Details verbergen"
     },
-    "selectThread": {
-      "description": "Klik op een lid, een Smartlist of een sessie om het bijbehorende gesprek weer te geven.",
-      "title": "Selecteer een gesprek"
-    }
+    "emptyThread": {
+      "becauseNeverUsed": "Er zijn geen berichten om weer te geven.",
+      "becauseOfFilters": "Geen resultaten die overeenkomen met de filters."
+    },
+    "filterOutCommunicationSent": "De communicatie die je net hebt verzonden wordt verborgen door de actieve filters."
   },
   "sentStatus": {
     "fail": "Er is een fout opgetreden tijdens het verzenden",
@@ -439,102 +450,91 @@
     "title": "Inbox"
   },
   "smartListPopup": {
-    "noSmartListPopup": "Geen opstart pop-up",
     "memberListTitle": "Opstart pop-up",
-    "drawerTitle": "Geschiedenis van start-up pop-ups",
-    "close": "Sluiten",
-    "preview": "Voorbeeld",
-    "previewTitle": "Overzicht",
-    "cancelPreview": "Annuleren",
-    "recipients": "Ontvangers ",
+    "noSmartListPopup": "Geen opstart pop-up",
+    "seeRecipients": "Ontvangers bekijken",
+    "see": "Zie",
     "recipient": "Ontvanger",
     "recipient_plural": "Ontvangers",
-    "see": "Zie",
-    "seeRecipients": "Ontvangers bekijken"
-  },
-  "messageList": {
-    "emptyList": {
-      "becauseNeverUsed": "Geen berichten om te tonen. Klik op het tekstvak hieronder om je eerste bericht te schrijven.",
-      "becauseOfFilters": "Geen resultaten die overeenkomen met filters."
-    },
-    "filterOutCommunicationSent": "De communicatie die je zojuist hebt verzonden, wordt verborgen door de actieve filters."
+    "recipients": "Ontvangers ",
+    "cancelPreview": "Annuleren",
+    "previewTitle": "Overzicht",
+    "preview": "Voorbeeld",
+    "close": "Sluiten",
+    "drawerTitle": "Geschiedenis van start-up pop-ups"
   },
   "createThread": {
-    "confirmResourceSelected": "Bevestigen",
     "close": "Sluiten",
-    "refreshSmartlist": "Ververs de pagina om de nieuwe Smartlists te zien",
+    "confirmResourceSelected": "Bevestigen",
+    "title": "Nieuw bericht",
     "smartlistPlaceholder": "Selecteer een Smartlist",
-    "title": "Nieuw bericht"
+    "refreshSmartlist": "Ververs de pagina om de nieuwe Smartlists te zien"
   },
-  "resendSection": {
-    "resendDelay": {
-      "helperText": "Maximale waarde: 180",
-      "label": "Vertraging voor opnieuw verzenden"
-    },
-    "resendCount": {
-      "helperText": "De e-mail wordt opnieuw verzonden naar alle ontvangers die de e-mail niet hebben geopend. Maximale waarde: 5",
-      "label": "Aantal automatische herverzendingen"
-    },
-    "title": "Automatisch opnieuw verzenden van ongelezen e-mails",
-    "dialogTitle": "Ongelezen e-mail automatisch opnieuw versturen"
-  },
-  "scheduled": {
-    "tooLateToUpdateDialog": {
-      "close": "Terug naar smartlist",
-      "content": "Dit bericht kan niet worden gewijzigd of verwijderd binnen 5 minuten na verzending.",
-      "title": "Je kunt dit bericht niet meer wijzigen of verwijderen."
-    },
-    "dialog": {
-      "close": "Annuleer",
-      "submit": "Bericht inplannen",
-      "separator": "op",
-      "helperText": "Kies het tijdstip waarop je het bericht wilt plannen.",
-      "title": "Een bericht inplannen"
-    },
-    "nighttimeLimit": "Het bericht wordt 's nachts verzonden. Voor betere resultaten raden we aan om marketingberichten overdag te versturen.",
-    "datetimeLimit": "Berichten moeten minstens 5 minuten van tevoren worden ingepland.",
-    "schedule": "Plan",
-    "at": "bij",
-    "when": "Wanneer",
-    "scheduleForLater": "Plan voor later",
-    "sendImmediately": "Onmiddellijk verzenden",
-    "sectionTitle": "Planning van berichten",
-    "isEmpty": "Er zijn geen geplande berichten om weer te geven.",
-    "show": "Laat zien",
-    "delete": "Verwijder",
-    "edit": "Bewerk",
-    "clicked": "Geklikt",
-    "opened": "Geopend",
-    "nextCommunicationScheduled": "Volgend gepland bericht",
-    "scheduledFor": "Gepland voor: {{ datetime }}",
-    "numberOfRecipients": "Ontvanger: {{ count }}",
-    "numberOfRecipients_plural": "Ontvangers: {{ count }}",
-    "sendNowDialog": {
-      "confirm": "Versturen",
-      "close": "Annuleren",
-      "content": "Dit bericht wordt onmiddelijk verstuurd en wordt verwijderd van de lijst met geprogrammeerde berichten.",
-      "title": "Onmiddelijk versturen"
-    },
-    "deleteDialog": {
-      "submit": "Verwijderen",
-      "close": "Annuleren",
-      "content": "Weet je zeker dat je dit bericht wilt verwijderen?",
-      "title": "Dit bericht verwijderen"
-    },
-    "deleteMessage": "Dit bericht verwijderen",
-    "cancelEdition": "Wijzigingen negeren",
-    "saveEdition": "Wijzigingen opslaan",
-    "chooseTime": "Selecteer een tijd",
-    "chooseDate": "Selecteer een datum",
-    "inputLabel": "Kies het tijdstip waarop je het bericht wilt inplannen."
+  "messageList": {
+    "filterOutCommunicationSent": "De communicatie die je zojuist hebt verzonden, wordt verborgen door de actieve filters.",
+    "emptyList": {
+      "becauseOfFilters": "Geen resultaten die overeenkomen met filters.",
+      "becauseNeverUsed": "Geen berichten om te tonen. Klik op het tekstvak hieronder om je eerste bericht te schrijven."
+    }
   },
   "sendNowDialog": {
-    "confirm": "Versturen",
-    "close": "Annuleren",
+    "title": "Onmiddelijk versturen",
     "content": "Dit bericht wordt onmiddelijk verstuurd.",
-    "title": "Onmiddelijk versturen"
+    "close": "Annuleren",
+    "confirm": "Versturen"
+  },
+  "scheduled": {
+    "inputLabel": "Kies het tijdstip waarop je het bericht wilt inplannen.",
+    "chooseDate": "Selecteer een datum",
+    "chooseTime": "Selecteer een tijd",
+    "numberOfRecipients": "Ontvanger: {{ count }}",
+    "numberOfRecipients_plural": "Ontvangers: {{ count }}",
+    "scheduledFor": "Gepland voor: {{ datetime }}",
+    "nextCommunicationScheduled": "Volgend gepland bericht",
+    "opened": "Geopend",
+    "clicked": "Geklikt",
+    "edit": "Bewerk",
+    "delete": "Verwijder",
+    "show": "Laat zien",
+    "isEmpty": "Er zijn geen geplande berichten om weer te geven.",
+    "sectionTitle": "Planning van berichten",
+    "sendImmediately": "Onmiddellijk verzenden",
+    "scheduleForLater": "Plan voor later",
+    "when": "Wanneer",
+    "at": "bij",
+    "schedule": "Plan",
+    "saveEdition": "Wijzigingen opslaan",
+    "cancelEdition": "Wijzigingen negeren",
+    "deleteMessage": "Dit bericht verwijderen",
+    "datetimeLimit": "Berichten moeten minstens 5 minuten van tevoren worden ingepland.",
+    "nighttimeLimit": "Het bericht wordt 's nachts verzonden. Voor betere resultaten raden we aan om marketingberichten overdag te versturen.",
+    "dialog": {
+      "title": "Een bericht inplannen",
+      "helperText": "Kies het tijdstip waarop je het bericht wilt plannen.",
+      "separator": "op",
+      "submit": "Bericht inplannen",
+      "close": "Annuleer"
+    },
+    "tooLateToUpdateDialog": {
+      "title": "Je kunt dit bericht niet meer wijzigen of verwijderen.",
+      "content": "Dit bericht kan niet worden gewijzigd of verwijderd binnen 5 minuten na verzending.",
+      "close": "Terug naar smartlist"
+    },
+    "deleteDialog": {
+      "title": "Dit bericht verwijderen",
+      "content": "Weet je zeker dat je dit bericht wilt verwijderen?",
+      "close": "Annuleren",
+      "submit": "Verwijderen"
+    },
+    "sendNowDialog": {
+      "title": "Onmiddelijk versturen",
+      "content": "Dit bericht wordt onmiddelijk verstuurd en wordt verwijderd van de lijst met geprogrammeerde berichten.",
+      "close": "Annuleren",
+      "confirm": "Versturen"
+    }
   },
   "accessibilityText": {
     "expandRow": "Rij uitbreiden"
-  }
+  },
+  "communication": "Bericht"
 }

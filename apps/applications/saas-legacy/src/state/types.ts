@@ -34,6 +34,7 @@ import { RelationshipState } from '../libs/relationship/types';
 
 import { BackgroundTaskState } from '../libs/background-task/types';
 import { RootState } from '../reducers';
+import type { AxiosError } from 'axios';
 
 export type State = {
   backgroundTask: BackgroundTaskState;
@@ -95,7 +96,7 @@ export type ReworkedPaginationResponse<T> = {
   page_size: number; // The size of the current page
 };
 
-export type OptionCallback<T = void, CustomError = Error> = {
+export type OptionCallback<T = void, CustomError = Error | AxiosError> = {
   onSuccess?: (args?: T) => void;
   onError?: (error?: CustomError) => void;
 };

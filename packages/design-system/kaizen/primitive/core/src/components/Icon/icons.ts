@@ -49,6 +49,7 @@ const icons = {
   "check-circle": React.lazy(
     async () => await import("./assets/check-circle.svg?react"),
   ),
+  check: React.lazy(async () => await import("./assets/check.svg?react")),
   "chevron-down-double": React.lazy(
     async () => await import("./assets/chevron-down-double.svg?react"),
   ),
@@ -162,6 +163,7 @@ const icons = {
   "message-x-square": React.lazy(
     async () => await import("./assets/message-x-square.svg?react"),
   ),
+  minus: React.lazy(async () => await import("./assets/minus.svg?react")),
   "package-x": React.lazy(
     async () => await import("./assets/package-x.svg?react"),
   ),

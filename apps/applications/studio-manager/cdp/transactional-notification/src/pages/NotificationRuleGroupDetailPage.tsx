@@ -6,6 +6,7 @@ import { NotificationRuleTableContent } from "#src/components/NotificationRuleGr
 import { PushNotificationHelper } from "#src/components/NotificationRuleGroupView/PushNotificationHelper";
 import { useFetchNotificationRuleEventGroupDetails } from "#src/hooks/api/use-fetch-notification-rule-event-group-details";
 import { useFormatNotificationGroupList } from "#src/hooks/layout/use-format-notification-group-list";
+import { useRefineNotificationEventData } from "#src/hooks/layout/use-refine-notification-event-data";
 import { useTranslation } from "#src/utils/i18n";
 
 const NotificationRuleGroupDetailPage = () => {
@@ -16,11 +17,16 @@ const NotificationRuleGroupDetailPage = () => {
     notificationRuleEventMapByGroup: {},
   });
   const {
-    notificationEventsRefinedData,
+    notificationRuleDetails,
+    notificationRuleEventMapByGroup,
     notificationRuleSettings,
     fetchNotificationRuleEventData,
-  } = useFetchNotificationRuleEventGroupDetails({
+  } = useFetchNotificationRuleEventGroupDetails();
+  const { notificationEventsRefinedData } = useRefineNotificationEventData({
+    notificationRuleDetails,
     eventGroupIdentifier: rawId,
+    notificationRuleEventMapByGroup,
+    notificationRuleSettings,
   });
 
   return (

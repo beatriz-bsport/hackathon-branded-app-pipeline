@@ -60,8 +60,7 @@
         "errors": {
             "dumbDelayMinutesError": "",
             "smartDelayPercentageError": "",
-            "autokickDelayError": "",
-            "lastDelayBeforeAutoConsumeError": ""
+            "autokickDelayError": ""
         }
     },
     "explainWaitingListConf": "",

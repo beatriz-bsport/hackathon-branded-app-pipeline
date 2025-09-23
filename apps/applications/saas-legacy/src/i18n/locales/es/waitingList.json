@@ -99,7 +99,6 @@
       "helper": "Un miembro puede utilizar sus créditos en otra sesión mientras espera en la lista de espera. Con esta configuración activada, si eso ocurre, su plaza en la lista de espera se cancelará automáticamente cuando le toque inscribirse."
     },
     "errors": {
-      "lastDelayBeforeAutoConsumeError": "Los minutos deben estar entre 0 y 240",
       "autokickDelayError": "Se requiere un número",
       "smartDelayPercentageError": "El porcentaje debe estar comprendido entre 10 y 100",
       "dumbDelayMinutesError": "Los minutos entre retiradas deben ser superiores a 15"

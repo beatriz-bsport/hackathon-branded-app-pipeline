@@ -6,6 +6,7 @@ import { Button, ListLayout } from "@bsport/kaizen-primitive-core";
 import { PackCreateModal } from "#src/components/PackCreateModal";
 import { PackDeleteModal } from "#src/components/PackDeleteModal";
 import { PackTable } from "#src/components/PackTable";
+import { SelectedItemsContextProvider } from "#src/contexts/selectedItemsContext";
 import { useCreateModal } from "#src/hooks/useCreateModal";
 import { useFetchPacks } from "#src/hooks/useFetchPacks";
 import { useSearchPacks } from "#src/hooks/useSearchPacks";
@@ -95,10 +96,12 @@ export const PackListPage: React.FC = () => {
             refreshPageList={fetchPacks}
           />
         )}
-        <PackCreateModal
-          isOpen={isCreateModalOpen}
-          onClose={closeCreateModal}
-        />
+        <SelectedItemsContextProvider>
+          <PackCreateModal
+            isOpen={isCreateModalOpen}
+            onClose={closeCreateModal}
+          />
+        </SelectedItemsContextProvider>
       </ListLayout.Content>
     </ListLayout>
   );

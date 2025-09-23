@@ -1,6 +1,9 @@
 import { type ApiConfig, buildUrlParams } from "@bsport/store-base";
 
-import { MarketingNotification } from "./types";
+import type {
+  FetchMarketingNotificationsParams,
+  MarketingNotification,
+} from "./types";
 
 const API_URL = "customer-data-platform/v1/marketing/marketing_notification";
 
@@ -8,16 +11,10 @@ const API_URL = "customer-data-platform/v1/marketing/marketing_notification";
  * Fetches marketing notifications with optional filtering parameters.
  * Returns a simple array of notifications (no pagination).
  */
-export const fetchMarketingNotificationAPI = (params: {
-  kind__in?: string;
-  company?: number;
-  active?: boolean;
-  is_event_based?: boolean;
-}): ApiConfig => {
-  const filteredParams = Object.fromEntries(
-    Object.entries(params).filter(([, value]) => value !== undefined),
-  );
-  return [`${API_URL}/${buildUrlParams(filteredParams)}`];
+export const fetchMarketingNotificationAPI = (
+  params: FetchMarketingNotificationsParams = {},
+): ApiConfig => {
+  return [`${API_URL}/${buildUrlParams(params)}`];
 };
 
 /**

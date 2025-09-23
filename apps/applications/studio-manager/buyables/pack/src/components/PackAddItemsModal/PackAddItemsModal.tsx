@@ -1,13 +1,15 @@
-import React, { useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 
 import { Modal } from "@bsport/kaizen-primitive-core";
 
-import type { ItemVariant } from "#src/hooks/useAddItemsModal";
+import { useSelectedItemsContext } from "#src/contexts/selectedItemsContext";
+import { ITEM_VARIANTS, type ItemVariant } from "#src/utils/constants";
 import { useTranslation } from "#src/utils/i18n";
+import { useCategories } from "#src/utils/stores-interface";
 
 import { PackAddItemsModalContent } from "./PackAddItemsModalContent";
 import { PackAddItemsSearchSection } from "./PackAddItemsSearchSection";
-import { FIXTURES_CATEGORIES } from "./constants";
+import { PackAddItemsSelection } from "./PackAddItemsSelection";
 
 type PackAddItemsModalProps = {
   fieldIdPrefix: string;
@@ -23,6 +25,14 @@ export const PackAddItemsModal: React.FC<PackAddItemsModalProps> = ({
   variant,
 }) => {
   const { t } = useTranslation("details");
+  const {
+    passes,
+    webshopItems,
+    appointmentPasses,
+    setVariantItems,
+    setPreselectedItems,
+    preselectedItems,
+  } = useSelectedItemsContext();
 
   const [selectedCategory, setSelectedCategory] = useState<{
     id: number;
@@ -31,12 +41,49 @@ export const PackAddItemsModal: React.FC<PackAddItemsModalProps> = ({
 
   const [searchQuery, setSearchQuery] = useState("");
 
-  const categories = variant ? FIXTURES_CATEGORIES[variant] : [];
+  const categoriesByVariant = useCategories();
+  const categories = variant ? categoriesByVariant[variant] : [];
 
-  const onClose = () => {
+  const onClose = useCallback(() => {
     handleCloseModal();
+    setPreselectedItems([]);
     setTimeout(() => setSelectedCategory(null), 100);
-  };
+  }, [handleCloseModal, setPreselectedItems]);
+
+  const onSave = useCallback(() => {
+    if (variant) {
+      setVariantItems({
+        ids: preselectedItems.map((id) => parseInt(id)).filter(Boolean),
+        variant,
+      });
+    }
+    onClose();
+  }, [variant, preselectedItems, setVariantItems, onClose]);
+
+  useEffect(() => {
+    if (isOpen) {
+      switch (variant) {
+        case ITEM_VARIANTS.pass:
+          setPreselectedItems(passes.map((id) => String(id)));
+          return;
+        case ITEM_VARIANTS.appointmentPass:
+          setPreselectedItems(appointmentPasses.map((id) => String(id)));
+          return;
+        case ITEM_VARIANTS.webshopItem:
+          setPreselectedItems(webshopItems.map((id) => String(id)));
+          return;
+        default:
+          return;
+      }
+    }
+  }, [
+    isOpen,
+    variant,
+    passes,
+    webshopItems,
+    appointmentPasses,
+    setPreselectedItems,
+  ]);
 
   return (
     <Modal
@@ -47,13 +94,15 @@ export const PackAddItemsModal: React.FC<PackAddItemsModalProps> = ({
       confirmButton={{
         color: "main",
         label: t("addItemsModal.buttons.save"),
-        disabled: false,
+        onClick: onSave,
       }}
       cancelButton={{
         label: t("addItemsModal.buttons.cancel"),
         onClick: onClose,
       }}
     >
+      {variant && <PackAddItemsSelection variant={variant} />}
+
       {
         /**
          * On the CategoryList view only, show a Search TextField.
@@ -63,6 +112,7 @@ export const PackAddItemsModal: React.FC<PackAddItemsModalProps> = ({
             fieldIdPrefix={fieldIdPrefix}
             searchQuery={searchQuery}
             setSearchQuery={setSearchQuery}
+            variant={variant}
           />
         ) : null
       }

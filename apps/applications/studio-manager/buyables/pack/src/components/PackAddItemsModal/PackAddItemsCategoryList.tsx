@@ -2,7 +2,7 @@ import React, { type Dispatch, type SetStateAction } from "react";
 
 import { List } from "@bsport/kaizen-primitive-core";
 
-import type { Category } from "./constants";
+import type { Category } from "#src/utils/constants";
 
 type PackAddItemsCategoryListProps = {
   categories: Array<Category>;

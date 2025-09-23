@@ -16434,7 +16434,6 @@
                 "helper": "Een lid kan zijn credits gebruiken voor een andere sessie terwijl hij op de wachtlijst staat. Als deze instelling geactiveerd is, wordt zijn plaats op de wachtlijst automatisch geannuleerd als het zijn beurt is om te registreren."
             },
             "errors": {
-                "lastDelayBeforeAutoConsumeError": "Minuten moeten tussen 0 en 240 liggen",
                 "autokickDelayError": "Een nummer is vereist",
                 "smartDelayPercentageError": "Het percentage moet tussen 10 en 100 liggen",
                 "dumbDelayMinutesError": "Minuten tussen terugroepacties moeten hoger zijn dan 15"

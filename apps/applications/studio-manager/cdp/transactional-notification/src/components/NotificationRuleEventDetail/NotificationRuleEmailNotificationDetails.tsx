@@ -1,25 +1,39 @@
 import { useEffect, useMemo, useState } from "react";
 
-import { Alert, Body, Checkbox, Divider } from "@bsport/kaizen-primitive-core";
+import {
+  Alert,
+  Body,
+  Checkbox,
+  Divider,
+  ToggleButton,
+} from "@bsport/kaizen-primitive-core";
 
 import { EmailTemplateSelector } from "#src/components/EmailTemplateSelector/EmailTemplateSelector";
 import { HTMLPreview } from "#src/components/PreviewComponents/HTMLPreview";
+import { useDeleteNotificationRule } from "#src/hooks/api/use-delete-notification-rule";
 import { useFetchEmailTemplateDetails } from "#src/hooks/api/use-fetch-email-template-details";
 import { useFetchResolvedGenericCommunicationVariables } from "#src/hooks/api/use-fetch-resolved-generic-communication-variables";
 import { useUpdateNotificationRule } from "#src/hooks/api/use-update-notification-rule";
 import { useTranslation } from "#src/utils/i18n";
-import { getIsEmailCarbonCopyDisabled } from "#src/utils/notificationRuleDetails";
-import type { RefinedNotificationRuleEventData } from "#src/utils/types";
+import {
+  getIsEmailCarbonCopyDisabled,
+  getIsEmailNotificationChecked,
+  getIsEmailNotificationDisabled,
+} from "#src/utils/notificationRuleDetails";
+import type {
+  RefinedNotificationRuleEventData,
+  ToggleEmailNotificationMethodParams,
+} from "#src/utils/types";
 
 type NotificationRuleEventTableContentProps = {
   emailDesignId: number | null;
   selectedNotificationEventId: number;
   selectedNotificationRule: RefinedNotificationRuleEventData;
   fetchNotificationRuleEventData: () => void;
-  toggleEmailCarbonCopy: (params: {
-    checked: boolean;
-    notificationEventId: number;
-  }) => void;
+  toggleEmailCarbonCopy: (params: ToggleEmailNotificationMethodParams) => void;
+  toggleEmailNotification: (
+    params: ToggleEmailNotificationMethodParams,
+  ) => void;
 };
 
 const EMAIL_TEMPLATE_MISSING_REQUIRED_COMMUNICATION_VARIABLES_ERROR_CODE =
@@ -31,6 +45,7 @@ export const NotificationRuleEmailNotificationDetails = ({
   selectedNotificationRule,
   fetchNotificationRuleEventData,
   toggleEmailCarbonCopy,
+  toggleEmailNotification,
 }: NotificationRuleEventTableContentProps) => {
   const { t } = useTranslation("transactionalNotification");
   const [
@@ -42,12 +57,23 @@ export const NotificationRuleEmailNotificationDetails = ({
   >("unchecked");
   const isEmailNotificationManagedByFranchisor =
     !!selectedNotificationRule?.details?.franchisor;
+  const isEmailNotificationChecked = getIsEmailNotificationChecked({
+    refinedNotificationRuleData: selectedNotificationRule,
+  });
+  const isEmailNotificationDisabled = getIsEmailNotificationDisabled({
+    refinedNotificationRuleData: selectedNotificationRule,
+  });
+
   const { emailTemplateDetail } = useFetchEmailTemplateDetails({
     emailTemplateId: selectedNotificationRule?.details?.email_design ?? null,
   });
   const { genericCommunicationVariables } =
     useFetchResolvedGenericCommunicationVariables();
-
+  const { deleteEmailDesignInNotification } = useDeleteNotificationRule({
+    onSuccess: () => {
+      fetchNotificationRuleEventData();
+    },
+  });
   const { createEmailDesignInNotification, updateEmailDesignInNotification } =
     useUpdateNotificationRule({
       notificationEventId: selectedNotificationEventId,
@@ -96,10 +122,9 @@ export const NotificationRuleEmailNotificationDetails = ({
           defaultTemplateId={emailDesignId ?? undefined}
           onSelectTemplate={(selectedTemplate) => {
             if (!selectedTemplate) {
-              if (selectedNotificationRule!.details) {
-                updateEmailDesignInNotification({
-                  emailDesignId: null,
-                  notificationEventDetails: selectedNotificationRule!.details,
+              if (selectedNotificationRule?.details?.id) {
+                deleteEmailDesignInNotification({
+                  id: selectedNotificationRule.details.id,
                 });
               }
               setDisplayRequiredCommunicationVariablesAlert(false);
@@ -173,6 +198,36 @@ export const NotificationRuleEmailNotificationDetails = ({
               notificationEventId:
                 selectedNotificationRule.rule.notification_event,
             });
+          }}
+        />
+      </div>
+      <Divider orientation="horizontal" weight="thin" />
+      <div className="flex flex-row items-center justify-between">
+        <Body htmlVariant="span" size="lg">
+          {t("notificationRuleEventDetails.details.notificationStatus")}
+        </Body>
+        <ToggleButton
+          key={`push-checkbox-action-${selectedNotificationEventId}-${isEmailNotificationChecked ? "checked" : "unchecked"}`}
+          id={`email-checkbox-action-${selectedNotificationEventId}`}
+          size="md"
+          checked={isEmailNotificationChecked}
+          disabled={isEmailNotificationDisabled}
+          onChange={({ checked }) => {
+            toggleEmailNotification({
+              notificationEventId: selectedNotificationEventId,
+              checked,
+            });
+          }}
+          checkedConfig={{
+            label: t(
+              "notificationRuleEventDetails.table.notificationsToggle.activated",
+            ),
+            icon: "check",
+          }}
+          uncheckedConfig={{
+            label: t(
+              "notificationRuleEventDetails.table.notificationsToggle.deactivated",
+            ),
           }}
         />
       </div>

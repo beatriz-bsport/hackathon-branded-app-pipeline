@@ -41,3 +41,13 @@ export type PushNotificationFormData = {
   title: string;
   content: string;
 };
+
+export type ToggleEmailNotificationMethodParams = {
+  checked: boolean;
+  notificationEventId: number;
+};
+
+export type TogglePushNotificationMethodParams = {
+  checked: boolean;
+  notificationEventDetails: NotificationRuleDetail;
+};

@@ -27,7 +27,7 @@ export const PERMISSIONS_PATHS: Record<
   feedback: [],
   giftcard: ["navigationMenu.products.giftcards"],
   inbox: ["navigationMenu.inbox"],
-  insights: [],
+  insights: ["navigationMenu.reporting"],
   invoice: ["navigationMenu.payments.billings"],
   member: ["navigationMenu.member"],
   marketingNotification: ["navigationMenu.marketing.notifications"],

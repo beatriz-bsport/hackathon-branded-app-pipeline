@@ -36,5 +36,5 @@ export type FetchSubscriptionQueryParams = {
   disabled?: boolean;
   manager_only?: boolean;
   is_usable_by_staff?: boolean;
-  id__in?: string;
+  id__in?: number[];
 };

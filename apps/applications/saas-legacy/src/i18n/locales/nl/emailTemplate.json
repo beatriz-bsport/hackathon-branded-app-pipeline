@@ -1,47 +1,47 @@
 {
-  "editTitle": "E-mail bewerken",
-  "createTitle": "Sjabloon",
   "modal": {
     "delete": {
-      "confirm": "Verwijderen",
       "title": "E-mailsjabloon verwijderen",
       "content": "Dit sjabloon wordt ook verwijderd van de gekoppelde transactionele e-mails. Weet je zeker dat je dit e-mailsjabloon wilt verwijderen?",
-      "cancel": "Annuleren"
+      "cancel": "Annuleren",
+      "confirm": "Verwijderen"
     }
   },
+  "copy": "kopie",
   "duplicate": "Dupliceren",
   "search": "Zoek een sjabloon",
   "listTitle": "E-mails",
+  "editTitle": "E-mail bewerken",
+  "createTitle": "Sjabloon",
   "detail": "Gedetailleerde informatie",
-  "selectToShowPreview": "Selecteer een e-mail om de voorvertoning te zien.",
   "create": "Een sjabloon toevoegen",
-  "templateListEmpty": "In dit onderdeel kun je prachtige, gepersonaliseerde en unieke e-mailsjablonen aanmaken m.b.v. onze Drag-&-Drop Bewerker. Vervolgens kun je deze direct naar leden versturen en aan automatische notificaties koppelen om in contact met je leden te blijven.",
   "modification_date": "Laatste wijziging op",
+  "selectToShowPreview": "Selecteer een e-mail om de voorvertoning te zien.",
+  "templateListEmpty": "In dit onderdeel kun je prachtige, gepersonaliseerde en unieke e-mailsjablonen aanmaken m.b.v. onze Drag-&-Drop Bewerker. Vervolgens kun je deze direct naar leden versturen en aan automatische notificaties koppelen om in contact met je leden te blijven.",
   "subject": "Onderwerp:",
   "preview": "Voorvertoning",
   "no_subject": "Geen onderwerp",
   "editor": {
-    "error": {
-      "content": "Voer inhoud in de e-mail in",
-      "title": "Voer een naam in",
-      "subject": "Voer een sjabloon in"
-    },
     "title": "Naam van de e-mail",
     "save": "Opslaan",
     "subject": "Onderwerp",
     "cancel": "Annuleren",
+    "error": {
+      "title": "Voer een naam in",
+      "content": "Voer inhoud in de e-mail in",
+      "subject": "Voer een sjabloon in"
+    },
     "exportHtml": "Als HTML exporteren",
     "selectorPlaceholder": "Selecteer studio's",
     "shareWithHelper": "De gekoppelde studio's kunnen deze sjablonen niet bewerken.",
     "shareWith": "Delen met",
-    "showRequiredTags": "Zie de variabelen",
     "infoBoxTextFirstLine": "Deze e-mail is gekoppeld aan de transactionele e-mail '{{-names}}'. Sommige variabelen zijn verplicht.",
     "alertBoxTextFirstLine": "Deze e-mail is gekoppeld aan de transactionele e-mail '{{-names}}'. Het moet de volgende variabelen bevatten : ",
+    "showRequiredTags": "Zie de variabelen",
     "infoBoxTextLastLine": "Zorg ervoor dat u ze toevoegt aan uw sjabloon, zodat u het kunt opslaan.",
     "dialogWindowTitle": "Verplichte variabelen",
     "closeButton": "Sluiten"
   },
-  "copy": "kopie",
   "autoSave": "Automatische back-ups maken",
   "leaveAlert": "Weet je zeker dat je deze pagina wilt verlaten?",
   "delete": "Verwijderen",
@@ -49,29 +49,29 @@
   "allCompanies": "Alle studio's",
   "seeAll": "Toon alles",
   "franchiseEmails": "[Master-Account] E-mailsjablonen",
-  "companieEmails": "Sjablonen",
-  "bsportTemplateEmail": "Overstapbericht",
-  "infoBsportTemplateEmails": "Als u meldingen wilt verzenden of de sjablonen in deze sectie wilt bewerken, is het noodzakelijk een kopie van de gewenste sjabloon te maken. Selecteer vervolgens de kopie van de e-mail wanneer u een melding verzendt.",
-  "bsportTemplateEmails": "Bsport Sjablonen",
   "franchiseEmailsPage": {
-    "filters": {
-      "companySelectPlaceHolder": "Selecteer een studio"
+    "tabs": {
+      "ownByFranchisor": "Masteraccountsjablonen",
+      "ownByFranchisee": "Studiosjablonen",
+      "bsportDefault": "bsport sjablonen"
     },
     "informativeAlert": {
-      "bsportDefault": {
-        "description": "Deze sjablonen worden geleverd door bsport. Om ze te bewerken of te gebruiken in campagnes, moet je ze dupliceren. Ze verschijnen in het tabblad “{{-masterAccountTabName}}”."
+      "ownedByFranchisor": {
+        "description": "Maak sjablonen die je kunt delen met je franchisenemers om je merkidentiteit te behouden."
       },
       "ownedByFranchisee": {
         "description": "Deze sjablonen zijn gemaakt door je franchisenemers vanuit hun backoffice. U kunt alleen sjablonen bekijken van studio's waartoe u toegang hebt. U kunt deze sjablonen bewerken. Houd er rekening mee dat uw bewerking invloed heeft op de bronsjabloon die door de betreffende studio in campagnes kan worden gebruikt."
       },
-      "ownedByFranchisor": {
-        "description": "Maak sjablonen die je kunt delen met je franchisenemers om je merkidentiteit te behouden."
+      "bsportDefault": {
+        "description": "Deze sjablonen worden geleverd door bsport. Om ze te bewerken of te gebruiken in campagnes, moet je ze dupliceren. Ze verschijnen in het tabblad “{{-masterAccountTabName}}”."
       }
     },
-    "tabs": {
-      "bsportDefault": "bsport sjablonen",
-      "ownByFranchisee": "Studiosjablonen",
-      "ownByFranchisor": "Masteraccountsjablonen"
+    "filters": {
+      "companySelectPlaceHolder": "Selecteer een studio"
     }
-  }
+  },
+  "companieEmails": "Sjablonen",
+  "infoBsportTemplateEmails": "Als u meldingen wilt verzenden of de sjablonen in deze sectie wilt bewerken, is het noodzakelijk een kopie van de gewenste sjabloon te maken. Selecteer vervolgens de kopie van de e-mail wanneer u een melding verzendt.",
+  "bsportTemplateEmails": "Bsport Sjablonen",
+  "bsportTemplateEmail": "Overstapbericht"
 }

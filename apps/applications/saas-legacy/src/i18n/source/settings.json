@@ -213,7 +213,7 @@
   },
   "quickbooks": {
     "confirmDialog": {
-      "text": "Are you sure that you want to allow BSPORT to access your application?",
+      "text": "Are you sure that you want to allow bsport to access your application?",
       "title": "QuickBook connection"
     },
     "buttonRevoke": "Deactivate QuickBooks",
@@ -362,7 +362,7 @@
     },
     "bankAccountSuccess": {
       "note": "Click on \"Configure\" to be redirected.",
-      "content": "Your banking information was well updated. To be credited and charged on a single account, you can also update the payment method used to charge your Bsport subscription.",
+      "content": "Your banking information was well updated. To be credited and charged on a single account, you can also update the payment method used to charge your bsport subscription.",
       "title": "Change of bank details"
     },
     "paypal": {

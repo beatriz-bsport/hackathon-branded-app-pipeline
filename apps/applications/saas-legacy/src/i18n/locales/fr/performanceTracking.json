@@ -1,99 +1,99 @@
 {
-  "requiredField": "ce champ est requis",
-  "form": {
-    "cancel": "Annuler",
-    "save": "Enregistrer",
-    "validate": "Valider",
-    "search": "Rechercher",
-    "delete": "Supprimer",
-    "add": "ajouter",
-    "close": "fermer"
+  "metric": {
+    "form": {
+      "range": "La valeur par défaut n'est pas entre la valeur minimale et maximale ",
+      "color": "Couleur",
+      "maxValueHelperText": "Valeur maximum de la métrique",
+      "maxValue": "Valeur maximale",
+      "minValueHelperText": "Valeur minimum de la métrique",
+      "minValue": "Valeur minimale",
+      "default_valueHelperText": "Valeur de base de la métrique",
+      "default_value": "Valeur par défaut",
+      "machine": "Identifiant machine",
+      "name": "Nom",
+      "general": "Général",
+      "noMetric": "Aucune métrique enregistrée",
+      "addMetric": "ajouter une métrique",
+      "minMax": "La valeur minimale ne peut être suppérieur à la valeur maximale"
+    },
+    "title": "Métriques",
+    "statistic": "Statistiques",
+    "deleteContent": "La métrique sera supprimée définitivement.",
+    "deleteHeader": "Voulez-vous vraiment supprimer cette métrique ?"
   },
   "program": {
-    "actions": {
-      "update": {
-        "success": "Programme modifié",
-        "error": "Erreur lors de la modification du program"
-      },
-      "create": {
-        "success": "Programme créé",
-        "error": "Erreur lors de la création du program"
-      },
-      "enable": {
-        "success": "Programme restauré",
-        "error": "Erreur lors de la restauration du programme"
-      },
-      "disable": {
-        "success": "Programme archivé",
-        "error": "Erreur lors de l'archivation du programme"
-      }
-    },
-    "titleForConsumer": "Mes programmes",
-    "default": "Programme par défaut",
-    "selectProgram": "Sélectionner un programme",
     "detail": "Détails du programme",
-    "infoSelectProgram": "Sélectionnez un programme pour voir ses détails",
-    "deleteHeader": "Voulez-vous vraiment supprimer ce programme ?",
-    "deleteContent": "Ce programme n'apparaitra plus sur les membres à qui il a été ajouté. Vous pourrez le récupérer dans la section 'Archivés'.",
-    "infoNoProgram": "Ajoutez un programme à vos membres pour suivre l’évolution de leurs métriques",
-    "archived": "Archivés",
-    "title": "Programmes",
+    "member": {
+      "name": "Nom",
+      "title": "Membres",
+      "addDate": "Date d’inscription"
+    },
     "form": {
-      "addProgram": "ajouter un programme",
-      "delete": "supprimer le programme",
-      "modify": "modifier le programme",
-      "create": "Créer un programme",
-      "generalInfo": "Informations générales",
-      "name": "Nom du programme",
-      "description": "Description",
-      "color": "Couleur",
       "default": "Définir comme programme par défaut pour tous les nouveaux inscrits",
+      "color": "Couleur",
+      "description": "Description",
+      "name": "Nom du programme",
+      "generalInfo": "Informations générales",
+      "create": "Créer un programme",
+      "modify": "modifier le programme",
+      "delete": "supprimer le programme",
+      "addProgram": "ajouter un programme",
       "update": "Modifier le programme"
     },
-    "member": {
-      "addDate": "Date d’inscription",
-      "title": "Membres",
-      "name": "Nom"
-    }
-  },
-  "metric": {
-    "deleteHeader": "Voulez-vous vraiment supprimer cette métrique ?",
-    "deleteContent": "La métrique sera supprimée définitivement.",
-    "statistic": "Statistiques",
-    "title": "Métriques",
-    "form": {
-      "minMax": "La valeur minimale ne peut être suppérieur à la valeur maximale",
-      "range": "La valeur par défaut n'est pas entre la valeur minimale et maximale ",
-      "addMetric": "ajouter une métrique",
-      "noMetric": "Aucune métrique enregistrée",
-      "general": "Général",
-      "name": "Nom",
-      "machine": "Identifiant machine",
-      "default_value": "Valeur par défaut",
-      "default_valueHelperText": "Valeur de base de la métrique",
-      "minValue": "Valeur minimale",
-      "minValueHelperText": "Valeur minimum de la métrique",
-      "maxValue": "Valeur maximale",
-      "maxValueHelperText": "Valeur maximum de la métrique",
-      "color": "Couleur"
+    "title": "Programmes",
+    "archived": "Archivés",
+    "infoNoProgram": "Ajoutez un programme à vos membres pour suivre l’évolution de leurs métriques",
+    "deleteContent": "Ce programme n'apparaitra plus sur les membres à qui il a été ajouté. Vous pourrez le récupérer dans la section 'Archivés'.",
+    "deleteHeader": "Voulez-vous vraiment supprimer ce programme ?",
+    "infoSelectProgram": "Sélectionnez un programme pour voir ses détails",
+    "selectProgram": "Sélectionner un programme",
+    "default": "Programme par défaut",
+    "titleForConsumer": "Mes programmes",
+    "actions": {
+      "disable": {
+        "error": "Erreur lors de l'archivation du programme",
+        "success": "Programme archivé"
+      },
+      "enable": {
+        "error": "Erreur lors de la restauration du programme",
+        "success": "Programme restauré"
+      },
+      "create": {
+        "error": "Erreur lors de la création du program",
+        "success": "Programme créé"
+      },
+      "update": {
+        "error": "Erreur lors de la modification du program",
+        "success": "Programme modifié"
+      }
     }
   },
   "memberProgram": {
-    "actions": {
-      "disable": {
-        "success": "Programme dissocié du membre",
-        "error": "Erreur lors de la dissociation du program"
-      },
-      "create": {
-        "success": "Programme associé au membre",
-        "error": "Erreur lors de l'assocation du program au membre",
-        "errorAlreadyExists": "Ce membre a déjà été associé à ce programme"
-      }
-    },
-    "infoNoMemberProgram": "Ce membre ne possède aucun programme pour le moment.",
-    "infoNoConsumerProgram": "Vous n’avez pas encore de programme, contactez votre studio pour commencer à suivre vos performances !",
+    "deleteContent": "Vous perdrez les valeurs des métriques du programme pour ce membre",
     "deleteHeader": "Voulez-vous vraiment dissocier ce programme de ce membre ?",
-    "deleteContent": "Vous perdrez les valeurs des métriques du programme pour ce membre"
+    "infoNoConsumerProgram": "Vous n’avez pas encore de programme, contactez votre studio pour commencer à suivre vos performances !",
+    "infoNoMemberProgram": "Ce membre ne possède aucun programme pour le moment.",
+    "actions": {
+      "create": {
+        "error": "Erreur lors de l'assocation du program au membre",
+        "success": "Programme associé au membre",
+        "errorAlreadyExists": "Ce membre a déjà été associé à ce programme"
+      },
+      "disable": {
+        "error": "Erreur lors de la dissociation du program",
+        "success": "Programme dissocié du membre"
+      }
+    }
   },
+  "form": {
+    "close": "fermer",
+    "add": "ajouter",
+    "delete": "Supprimer",
+    "search": "Rechercher",
+    "validate": "Valider",
+    "save": "Enregistrer",
+    "cancel": "Annuler"
+  },
+  "requiredField": "ce champ est requis",
   "maxLength200": "Ce champ peut contenir jusqu'à 200 caractères."
 }

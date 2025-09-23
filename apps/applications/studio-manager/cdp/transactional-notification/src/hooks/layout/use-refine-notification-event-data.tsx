@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 
-import {
+import type {
   NotificationRuleDetail,
   NotificationRuleEvent,
   NotificationRuleSettings,
@@ -10,7 +10,7 @@ import {
   mergeNotificationRuleDetailsByEvent,
   refineNotificationRuleEventData,
 } from "#src/utils/notificationRuleDetails";
-import { RefinedNotificationRuleEventData } from "#src/utils/types";
+import type { RefinedNotificationRuleEventData } from "#src/utils/types";
 
 export const useRefineNotificationEventData = ({
   notificationRuleDetails,
@@ -56,11 +56,6 @@ export const useRefineNotificationEventData = ({
       notificationRuleSettings,
       currentGroupNotificationEventIds,
     ],
-  );
-
-  console.log(
-    "building notificationEventsRefinedData : ",
-    notificationEventsRefinedData,
   );
 
   return {

@@ -31,6 +31,7 @@ type Props = {
   availablePaymentMethods?: QuicksalePaymentMethod[];
   basket?: Basket;
   clientSecret?: string;
+  companyId: number;
   hasPaymentGroupPriceBeenModified?: boolean;
   instalmentPaymentConfigurationList?: InstalmentPaymentApiWithBasketId[];
   instalmentPaymentSelectedId?: number;
@@ -70,6 +71,7 @@ const QuicksalePaymentInfo: React.FC<Props> = ({
   basket,
   children,
   clientSecret,
+  companyId,
   hasPaymentGroupPriceBeenModified,
   instalmentPaymentConfigurationList,
   instalmentPaymentSelectedId,
@@ -137,6 +139,7 @@ const QuicksalePaymentInfo: React.FC<Props> = ({
           hideAmountToPay
           amountToPay={paymentGroupPriceCts?.toString() ?? ''}
           clientSecret={clientSecret}
+          companyId={companyId}
           customClasses={{
             actionRow: classes.manualPaymentActionRow,
           }}

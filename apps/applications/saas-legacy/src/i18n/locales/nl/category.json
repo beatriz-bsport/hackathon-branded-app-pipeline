@@ -1,8 +1,8 @@
 {
   "sct": {
     "selector": {
-      "label": "Categorie",
-      "placeholder": "Selecteer een categorie"
+      "placeholder": "Selecteer een categorie",
+      "label": "Categorie"
     }
   }
 }

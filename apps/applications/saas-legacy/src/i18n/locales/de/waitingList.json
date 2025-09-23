@@ -1,8 +1,12 @@
 {
+  "switchToEnable": "Die Warteliste wieder einschalten",
+  "switchToDisable": "Die Warteliste deaktivieren",
+  "nbPending": "{{ nbPending }} auf die Liste",
+  "nbConvertible": "{{ nbConvertible }} in Erwartung einer Bestätigung",
   "form": {
     "dumb_delay_minutes": {
-      "helper": "Wenn ein Platz frei wird, hat der Student N Minuten Zeit, um sich anzumelden, bevor der Nächste seinen Platz einnimmt.",
-      "label": "Einfache Intervalle"
+      "label": "Einfache Intervalle",
+      "helper": "Wenn ein Platz frei wird, hat der Student N Minuten Zeit, um sich anzumelden, bevor der Nächste seinen Platz einnimmt."
     },
     "smart_delay_percentage": {
       "label": "Smarte Intervalle",
@@ -12,114 +16,109 @@
     "auto_cancellation_type": {
       "title": "Verwaltung der Warteliste"
     },
-    "dynamic": {
-      "0": {
-        "settingsDelay": "Erinnerungsintervalle",
-        "label": "Nach Rangordnung",
-        "explain": "Wenn sich ein Mitglied anmeldet, erhält es einen Platz auf der Warteliste. Wenn ein Platz frei ist, kann sich die erste Person auf der Liste anmelden, die anderen warten, bis sie an der Reihe sind",
-        "overallExplainSimple": "Wenn ein Platz frei wird, erhält das Mitglied bis zu {{ autokick_delay }} Erinnerungen im Abstand von jeweils {{ dumb_delay_minutes }} Minuten. Falls das Mitglied nicht darauf reagiert, wird der Platz dem nächsten Mitglied auf der Warteliste angeboten.",
-        "overallExplainSmart": "Wenn ein Platz frei wird, hat der Teilnehmer {{ autokick_delay }} Erinnerungen in Abständen von {{ smart_delay_percentage }}% der verbleibenden Zeit vor Beginn des Kurses, um sich anzumelden. Wenn beispielsweise noch {{ example_hours_before }} Stunden bis zum Beginn des Kurses verbleiben, hat der Teilnehmer {{ example_computed_delay_one }} Minuten Zeit, um sich anzumelden, und dann {{ example_computed_delay_two }} Minuten nach dem ersten Wiederholungsversuch usw., bevor sich der nächste Teilnehmer anmelden kann."
-      },
-      "1": {
-        "label": "\"First come, first served\" - Prinzip",
-        "explain": "Diese Warteliste ist unsortiert. Alle auf der Warteliste werden gleichzeitig über freie Plätze informiert."
-      },
-      "label": "Wartelisten-Priorität"
-    },
     "auto_consume_pack": {
       "helper": "Credits werden automatisch von dem Pass abgezogen, der als nächstes abläuft.",
       "label": "Credits automatisch abziehen und das Mitglied anmelden, sobald ein Platz verfügbar ist."
+    },
+    "kick_if_no_pack_when_auto_consume": {
+      "helper": "Damit können Mitglieder sich nur anmelden, wenn sie in diesem Moment genug Credits haben.",
+      "label": "Mitglied automatisch von der Warteliste entfernen, wenn ein Platz frei wird, aber das Mitglied keinen gültigen Kurspass mehr hat."
+    },
+    "is_option_blocking": {
+      "helper": "Plätze bleiben so lange reserviert, bis das Mitglied die Reservierung annimmt oder absagt/storniert.",
+      "label": "Freigewordene Plätze für Mitglieder auf der Warteliste reservieren"
     },
     "autokick_delay": {
       "helper": "Hier bestimmst du, wie oft ein Mitglied daran erinnert wird, dass ein Platz verfügbar ist. Falls das Mitglied nicht auf die Erinnerungen reagiert, wird es automatisch von der Warteliste entfernt.",
       "label": "Warteliste-Erinnerungen"
     },
-    "is_option_blocking": {
-      "helper": "Plätze bleiben so lange reserviert, bis das Mitglied die Reservierung annimmt oder absagt/storniert.",
-      "label": "Freigewordene Plätze für Mitglieder auf der Warteliste reservieren"
+    "dynamic": {
+      "0": {
+        "explain": "Wenn sich ein Mitglied anmeldet, erhält es einen Platz auf der Warteliste. Wenn ein Platz frei ist, kann sich die erste Person auf der Liste anmelden, die anderen warten, bis sie an der Reihe sind",
+        "settingsDelay": "Erinnerungsintervalle",
+        "label": "Nach Rangordnung",
+        "overallExplainSmart": "Wenn ein Platz frei wird, hat der Teilnehmer {{ autokick_delay }} Erinnerungen in Abständen von {{ smart_delay_percentage }}% der verbleibenden Zeit vor Beginn des Kurses, um sich anzumelden. Wenn beispielsweise noch {{ example_hours_before }} Stunden bis zum Beginn des Kurses verbleiben, hat der Teilnehmer {{ example_computed_delay_one }} Minuten Zeit, um sich anzumelden, und dann {{ example_computed_delay_two }} Minuten nach dem ersten Wiederholungsversuch usw., bevor sich der nächste Teilnehmer anmelden kann.",
+        "overallExplainSimple": "Wenn ein Platz frei wird, erhält das Mitglied bis zu {{ autokick_delay }} Erinnerungen im Abstand von jeweils {{ dumb_delay_minutes }} Minuten. Falls das Mitglied nicht darauf reagiert, wird der Platz dem nächsten Mitglied auf der Warteliste angeboten."
+      },
+      "1": {
+        "explain": "Diese Warteliste ist unsortiert. Alle auf der Warteliste werden gleichzeitig über freie Plätze informiert.",
+        "label": "\"First come, first served\" - Prinzip"
+      },
+      "label": "Wartelisten-Priorität"
     },
     "last_delay_before_auto_consume": {
       "label": "Anmeldefrist in Minuten vor Kursanfang: ",
       "helper": "Mitglieder können sich nach dieser Anmeldefrist nicht mehr anmelden, auch wenn sie einen gültigen Kurspass haben."
     },
     "check_credit": {
-      "label": "Mitglied braucht entsprechenden Pass mit ausreichenden Credits",
-      "helper": "Ein Mitglied kann nur dann auf die Warteliste gesetzt werden, wenn es einen mit dem Kurs kompatiblen Pass mit ausreichendem Guthaben besitzt."
+      "helper": "Ein Mitglied kann nur dann auf die Warteliste gesetzt werden, wenn es einen mit dem Kurs kompatiblen Pass mit ausreichendem Guthaben besitzt.",
+      "label": "Mitglied braucht entsprechenden Pass mit ausreichenden Credits"
     },
     "display_member_position": {
       "label": "Platz auf der Warteliste anzeigen"
     },
-    "kick_if_no_pack_when_auto_consume": {
-      "label": "Mitglied automatisch von der Warteliste entfernen, wenn ein Platz frei wird, aber das Mitglied keinen gültigen Kurspass mehr hat.",
-      "helper": "Damit können Mitglieder sich nur anmelden, wenn sie in diesem Moment genug Credits haben."
-    },
     "errors": {
-      "lastDelayBeforeAutoConsumeError": "Minuten sollten zwischen 0 und 240 liegen",
-      "autokickDelayError": "Eine Nummer ist erforderlich",
+      "dumbDelayMinutesError": "Abstand zwischen den Rückrufen sollte mehr als 15 Minuten betragen",
       "smartDelayPercentageError": "Der Prozentsatz muss zwischen 10 und 100 liegen",
-      "dumbDelayMinutesError": "Abstand zwischen den Rückrufen sollte mehr als 15 Minuten betragen"
+      "autokickDelayError": "Eine Nummer ist erforderlich"
     }
   },
   "explainWaitingListConf": "Z.B : Es sind noch drei Stunden bis zum Kursbeginn, der Schüler hat {{ nbMinutesBeforeBookingOptionExpire }} Minuten um seine Reservierung zu bestätigen, bevor er seinen Platz verlässt.",
   "dialog": {
+    "cancel": "Abbrechen",
+    "confirm": "Bestätigen",
     "delete": {
+      "title": "Von der Warteliste entfernen",
       "content": "Sind Sie sicher, dass Sie dieses Mitglied von der Warteliste entfernen möchten? Dieses Mitglied wird per E-Mail benachrichtigt.",
       "cancel": "Abbrechen",
       "confirm": "Löschen",
-      "title": "Von der Warteliste entfernen",
-      "contentV2": "Sind Sie sicher, dass Sie dieses Mitglied von der Warteliste streichen möchten?",
-      "sendEmail": "Senden Sie eine E-Mail zur Entfernung"
+      "sendEmail": "Senden Sie eine E-Mail zur Entfernung",
+      "contentV2": "Sind Sie sicher, dass Sie dieses Mitglied von der Warteliste streichen möchten?"
     },
     "autoBooking": {
-      "warning": {
-        "content": "Wenn Sie dieses Formular schließen, werden die ausgewählten Mitglieder nicht zum Kurs hinzugefügt. Wenn Sie mehrere Mitglieder ausgewählt haben und nur dieses eine Mitglied abwählen wollen, klicken Sie bitte auf Abbrechen auf dem Formular des Mitglieds",
-        "title": "Sind Sie sicher?"
-      },
-      "loading": {
-        "content": "Bitte aktualisieren Sie nicht diese Seite oder verlassen diese. Dieser Prozess kann ein paar Sekunden dauern.",
-        "title": "Mitglieder werden zum Kurs hinzugefügt"
-      },
-      "info": {
-        "content": "Mitglieder mit gültigen Pässen werden automatisch in den Kurs eingebucht und erhalten eine Bestätigungs-E-Mail. Das System wird die Credits automatisch von dem Pass abziehen, der als nächstes abläuft",
-        "title": "Automatische Buchungen für gültige Pässe"
+      "error": {
+        "title": "Die automatische Buchung ist fehlgeschlagen",
+        "content": "Die Mitglieder konnten nicht zum Kurs hinzugefügt werden. Bitte versuchen Sie es erneut"
       },
       "success": {
         "title": "Mitglieder erfolgreich zum Kurs hinzugefügt"
       },
-      "error": {
-        "content": "Die Mitglieder konnten nicht zum Kurs hinzugefügt werden. Bitte versuchen Sie es erneut",
-        "title": "Die automatische Buchung ist fehlgeschlagen"
+      "info": {
+        "title": "Automatische Buchungen für gültige Pässe",
+        "content": "Mitglieder mit gültigen Pässen werden automatisch in den Kurs eingebucht und erhalten eine Bestätigungs-E-Mail. Das System wird die Credits automatisch von dem Pass abziehen, der als nächstes abläuft"
+      },
+      "loading": {
+        "title": "Mitglieder werden zum Kurs hinzugefügt",
+        "content": "Bitte aktualisieren Sie nicht diese Seite oder verlassen diese. Dieser Prozess kann ein paar Sekunden dauern."
+      },
+      "warning": {
+        "title": "Sind Sie sicher?",
+        "content": "Wenn Sie dieses Formular schließen, werden die ausgewählten Mitglieder nicht zum Kurs hinzugefügt. Wenn Sie mehrere Mitglieder ausgewählt haben und nur dieses eine Mitglied abwählen wollen, klicken Sie bitte auf Abbrechen auf dem Formular des Mitglieds"
       },
       "incomplete": {
-        "actions": {
-          "bookThem": "Manuell einbuchen",
-          "ok": "Ok"
-        },
+        "title": "Schließen Sie Ihre Warteliste ab",
         "content": {
-          "unregistered": "Die folgenden Mitglieder konnten NICHT registriert werden, da kein kompatibler Kurspass gefunden werden konnte",
-          "registered": "Die folgenden Mitglieder wurden registriert, da ein kompatibler Kurspass gefunden wurde:"
+          "registered": "Die folgenden Mitglieder wurden registriert, da ein kompatibler Kurspass gefunden wurde:",
+          "unregistered": "Die folgenden Mitglieder konnten NICHT registriert werden, da kein kompatibler Kurspass gefunden werden konnte"
         },
-        "title": "Schließen Sie Ihre Warteliste ab"
+        "actions": {
+          "ok": "Ok",
+          "bookThem": "Manuell einbuchen"
+        }
       }
-    },
-    "confirm": "Bestätigen",
-    "cancel": "Abbrechen"
+    }
   },
-  "nbPending": "{{ nbPending }} auf die Liste",
-  "nbConvertible": "{{ nbConvertible }} in Erwartung einer Bestätigung",
-  "switchToEnable": "Die Warteliste wieder einschalten",
-  "switchToDisable": "Die Warteliste deaktivieren",
   "member": {
-    "delete": "Löschen",
-    "empty": "Keine Anmeldung auf der Warteliste",
     "detail": {
-      "title": "Details zur Warteliste",
-      "registeredOn": "Registriert am",
+      "offerTitle": "Verknüpfter Kurs",
       "registrationSource": "Kanal für die Registrierung",
-      "offerTitle": "Verknüpfter Kurs"
+      "registeredOn": "Registriert am",
+      "title": "Details zur Warteliste"
     },
-    "listTitle": "Warteliste",
+    "empty": "Keine Anmeldung auf der Warteliste",
+    "delete": "Löschen",
     "addToBook": "Register",
+    "listTitle": "Warteliste",
     "waitingListPosition": "Position auf der Warteliste {{ position }}/{{ size }}"
   }
 }

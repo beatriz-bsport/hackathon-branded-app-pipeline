@@ -212,6 +212,7 @@ const QuicksaleCheckout: React.FC<Props> = ({
             availablePaymentMethods={availablePaymentMethods}
             basket={basket}
             clientSecret={clientSecret}
+            companyId={theme.company}
             hasPaymentGroupPriceBeenModified={
               !basket.instalment_payment &&
               paymentGroupPriceCts !==

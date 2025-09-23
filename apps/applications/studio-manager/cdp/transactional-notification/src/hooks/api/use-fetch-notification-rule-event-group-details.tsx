@@ -11,11 +11,6 @@ import { useAsync } from "@bsport/use-async";
 import { useFetchNotificationRuleEvents } from "#src/hooks/api/use-fetch-notification-rule-events";
 import { useFetchNotificationRuleEventSettings } from "#src/hooks/api/use-fetch-notification-rule-events-settings";
 import { fetch } from "#src/utils/fetch";
-import {
-  mergeNotificationRuleDetailsByEvent,
-  refineNotificationRuleEventData,
-} from "#src/utils/notificationRuleDetails";
-import type { RefinedNotificationRuleEventData } from "#src/utils/types";
 
 const _fetchNotificationRuleEventDetails =
   fetchNotificationRuleDetailsAction.bind(null, fetch);
@@ -36,11 +31,7 @@ const _fetchGenericNotificationRuleEventDetails =
  * @param params.eventGroupIdentifier - The identifier of the notification group to fetch details for
  * @returns Object containing loading state, refined data, and fetch function
  */
-export function useFetchNotificationRuleEventGroupDetails({
-  eventGroupIdentifier,
-}: {
-  eventGroupIdentifier: string;
-}) {
+export function useFetchNotificationRuleEventGroupDetails() {
   const { notificationRuleEventMapByGroup, fetchNotificationRuleEvents } =
     useFetchNotificationRuleEvents();
   const { notificationRuleSettings, fetchNotificationRuleEventSettings } =
@@ -63,28 +54,6 @@ export function useFetchNotificationRuleEventGroupDetails({
     selectNotificationRuleDetails(state),
   );
 
-  // Apply merging logic to the notification rule details
-  const mergedNotificationRuleDetails = mergeNotificationRuleDetailsByEvent(
-    notificationRuleDetails,
-  );
-
-  const currentGroupNotificationEventIds =
-    notificationRuleEventMapByGroup[eventGroupIdentifier]?.map(
-      (event) => event.notification_event,
-    ) || [];
-
-  const notificationEventsRefinedData = currentGroupNotificationEventIds
-    .map((eventId) =>
-      refineNotificationRuleEventData({
-        notificationRuleEventId: eventId,
-        eventGroupIdentifier,
-        notificationRuleEventMapByGroup,
-        mergedNotificationRuleDetails,
-        notificationRuleSettings,
-      }),
-    )
-    .filter(Boolean) as RefinedNotificationRuleEventData[];
-
   const fetchNotificationRuleEventData = () => {
     Promise.allSettled([
       fetchNotificationRuleEventDetails(),
@@ -106,9 +75,9 @@ export function useFetchNotificationRuleEventGroupDetails({
 
   return {
     isLoading: isLoading || isLoadingGenericData,
-    notificationEventsRefinedData:
-      notificationEventsRefinedData.filter(Boolean),
+    notificationRuleDetails,
     notificationRuleSettings,
+    notificationRuleEventMapByGroup,
     fetchNotificationRuleEventDetails,
     fetchNotificationRuleEventData,
   };

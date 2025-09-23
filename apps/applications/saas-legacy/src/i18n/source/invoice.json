@@ -348,7 +348,7 @@
       "title": "Insufficient Stripe balance"
     },
     "autoDebitDialog": {
-      "helper": "Your studio is currently in the process of closing your Bsport account.\n\nBy clicking on confirm, the invoice will be refunded. Your Stripe balance will be debited by {{refundAmount}} {{ currencyDisplay }}. However, to reset your Stripe balance to 0 {{ currencyDisplay }} you will be automatically debited for the difference directly from your bank account indicated in Settings > Company.\n\nIf you don't want to exceed your overdraft limit, you can wait for your Stripe balance to rise again.",
+      "helper": "Your studio is currently in the process of closing your bsport account.\n\nBy clicking on confirm, the invoice will be refunded. Your Stripe balance will be debited by {{refundAmount}} {{ currencyDisplay }}. However, to reset your Stripe balance to 0 {{ currencyDisplay }} you will be automatically debited for the difference directly from your bank account indicated in Settings > Company.\n\nIf you don't want to exceed your overdraft limit, you can wait for your Stripe balance to rise again.",
       "title": "Insufficient Stripe balance"
     }
   },
@@ -604,7 +604,7 @@
         "931100": "Error while updating authentication keys",
         "931101": "QuickBooks can't send us your data",
         "932000": "Your account is no longer authenticated on BSPORT",
-        "932001": "Your account is no longer authenticated on BSPORT",
+        "932001": "Your account is no longer authenticated on bsport",
         "932100": "Error while accessing your QuickBooks information",
         "933000": "The member associated to this invoice doesn't have the required information to be registered with QuickBooks",
         "933100": "Error while associating the member to the invoice",

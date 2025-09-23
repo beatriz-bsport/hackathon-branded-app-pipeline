@@ -1,318 +1,208 @@
 {
   "newsletter": {
-    "form": {
-      "title": "Inscrivez-vous à notre newsletter",
-      "email": "Adresse email",
-      "firstName": "Prénom",
-      "lastName": "Nom",
-      "validate": "Valider"
-    },
     "messages": {
-      "error": "Impossible d'enregistrer votre email pour le moment",
-      "success": "C'est enregistré !"
+      "success": "C'est enregistré !",
+      "error": "Impossible d'enregistrer votre email pour le moment"
+    },
+    "form": {
+      "validate": "Valider",
+      "lastName": "Nom",
+      "firstName": "Prénom",
+      "email": "Adresse email",
+      "title": "Inscrivez-vous à notre newsletter"
     },
     "formV2": {
-      "error": {
-        "invalidEmail": "Veuillez saisir une adresse électronique valide.",
-        "emailRequired": "Veuillez saisir une adresse électronique."
-      },
-      "subtitle": "Recevez des offres exclusives et découvrez nos dernières nouvelles.",
-      "title": "S'abonner à notre newsletter",
-      "email": "Email",
       "validate": "Soumettre",
-      "successText": "Votre inscription a été envoyée",
-      "successTitle": "Merci pour votre intérêt !"
+      "email": "Email",
+      "title": "S'abonner à notre newsletter",
+      "subtitle": "Recevez des offres exclusives et découvrez nos dernières nouvelles.",
+      "error": {
+        "emailRequired": "Veuillez saisir une adresse électronique.",
+        "invalidEmail": "Veuillez saisir une adresse électronique valide."
+      },
+      "successTitle": "Merci pour votre intérêt !",
+      "successText": "Votre inscription a été envoyée"
     }
   },
   "notifications": {
-    "noNotification": "Aucune notification activée",
-    "handleNotification": "Gérer les notifications",
-    "create": "Créer une notification",
-    "dialogTitle": "Créer une notification",
-    "listTitle": "Notifications",
-    "selectNotificationRules": "Sélectionnez une règle pour voir les détails",
-    "createNotification": "Formulaire de notification",
-    "selectIdentifierLabel": {
-      "establishment_group": "Sélectionnez une localisation",
-      "meta_activity": "Sélectionnez une activité",
-      "workshop": "Sélectionnez un atelier",
-      "establishment": "Sélectionnez une salle",
-      "private_service": "Sélectionnez des cartes de rendez-vous",
-      "payment_pack": "Sélectionnez des carte de cours",
-      "private_pass": "Sélectionnez une carte de rendez-vous",
-      "contract": "Sélectionnez un abonnement"
-    },
-    "paymentPackPlaceholder": "Carte de cours",
-    "privatePassPlaceholder": "Carte de rendez-vous",
-    "next": "Suivant",
-    "cancel": "Annuler",
-    "fabLabels": {
-      "establishmentGroup": "Localisation",
-      "birthday": "Anniversaire",
-      "meta_activity": "Activité",
-      "workshop": "Ateliers",
-      "establishment": "Salle",
-      "private_service": "Rendez-vous",
-      "payment_pack": "Carte de cours",
-      "private_pass": "Carte de rendez-vous",
-      "contract": "Abonnement"
-    },
-    "groupTitle": {
-      "birthday": "Anniversaire",
-      "booking": "Réservation",
-      "privateBooking": "Rendez-vous",
-      "paymentPack": "Carte de cours",
-      "privatePass": "Carte de rendez-vous",
-      "contract": "Abonnement"
-    },
-    "paymentPackKind": {
-      "validity": "Validité de la carte",
-      "credit": "Nombre de crédits"
-    },
-    "notificationDetails": "Détails de la notification",
-    "statisticDetails": "Statistiques",
-    "notificationPreview": "Apercu de la notification",
-    "editRule": "Modifier",
-    "removeRule": "Supprimer",
-    "deleteDialogTitle": "Supprimer la règle",
-    "deleteDialogText": "Etes vous sûr de vouloir supprimer cette règle ? Cette opération est définitive",
-    "notificationsEmpty": "Aucune notification existante pour ce groupe",
-    "createNotificationFabLabel": "Créer une notification",
-    "mail": "Mail ",
-    "mailTitle": "Aperçu du mail",
-    "stats": {
-      "total_mail_send": "Nombre de mails envoyés",
-      "opened_rate": "Taux d'ouverture",
-      "total_mail_opened": "Nombre de mails ouverts"
-    },
-    "contractKind": {
-      "contractStart": "Début de l’abonnement",
-      "contractEnd": "Fin de l’abonnement"
-    },
-    "editPasses": "Modifier",
-    "addPasses": "Ajouter",
-    "sendingDelay": {
-      "onSession": "{{hours}}h après la séance",
-      "justOnSession": "Juste après la séance",
-      "onBooking": "{{hours}}h après la réservation",
-      "justOnBooking": "Juste après la réservation"
-    },
-    "triggerDescription": {
-      "expiredValidity": "Expiré depuis {{count}} jour",
-      "expiredValidity_plural": "Expiré depuis {{count}} jours",
-      "todayValidity": "Le jour de l'expiration",
-      "remainingValidity": "{{count}} jour restant avant expiration",
-      "remainingValidity_plural": "{{count}} jours restant avant expiration",
-      "remainingCredit": "{{count}} crédit restant",
-      "remainingCredit_plural": "{{count}} crédits restants"
-    },
-    "passSelectionPlaceholder": {
-      "payment_pack": "Cartes de cours",
-      "private_pass": "Cartes de rendez-vous"
-    },
-    "selectAllPassesToggle": {
-      "private_pass": "S'applique à toutes les cartes de cours existantes et futures",
-      "payment_pack": "S'applique à toutes les cartes de cours existantes et futures"
-    },
-    "allPassSelected": {
-      "private_pass": "Toutes les cartes de rendez-vous sont incluses",
-      "payment_pack": "Toutes les cartes de cours sont incluses"
-    },
-    "allOptionsPlaceholder": {
-      "payment_pack": "Toutes les cartes de cours",
-      "private_pass": "Toutes les cartes de rendez-vous"
-    },
-    "notificationTitle": {
-      "expiredValidity": "Notifications d'expiration",
-      "remainingValidity": "Notifications de validité restante",
-      "remainingCredit": "Notifications de crédits restants"
-    },
-    "passNotificationDeleteDialog": {
-      "warning": {
-        "irreversible": "Cette opération ne peut être annulée.",
-        "sure": "Êtes-vous sûr de vouloir supprimer cette notification ?",
-        "attachedPrivatePasses": "Vous avez encore une ou plusieurs cartes de rendez-vous liées à cette notification",
-        "attachedPaymentPacks": "Vous avez encore une ou plusieurs cartes de cours liées à cette notification"
-      },
-      "title": "Supprimer cette notification"
-    },
-    "optionalStepInfo": "Cette étape est facultative. Vous pouvez toujours configurer des notifications ultérieurement. Seules les notifications que vous avez déjà créées sont répertoriées ici. Pour en créer de nouvelles, allez dans Marketing > Notifications.",
-    "select": "Sélectionner",
-    "excluded": "Exclus",
-    "included": "Inclus",
-    "smartListTitle": "Smartlist",
-    "pushNotificationTitle": "Notification push",
-    "preview": "Aperçu",
-    "viewPreview": "Voir l'aperçu",
-    "delete": "Supprimer",
-    "save": "Sauvegarder",
     "primaryText": {
-      "privatePass": {
-        "creditsLeft": {
-          "credits": "pour rappeler à l'utilisateur qu'il lui reste 1 crédit sur sa carte de rendez-vous",
-          "credits_plural": "pour rappeler à l'utilisateur qu'il lui reste {{credits}} crédits sur sa carte de rendez-vous",
-          "noCredits": "pour rappeler à l'utilisateur qu'il ne lui reste plus de crédit sur sa carte de rendez-vous"
-        }
+      "send": {
+        "email": "Un e-mail sera envoyé",
+        "push": "Une notification push sera envoyée",
+        "emailAndPush": "Un courriel et une notification push seront envoyés"
       },
-      "paymentPack": {
-        "creditsLeftOnSessionEnd": {
-          "creditsHours": "1 heure après la fin de la séance pour rappeler à l'utilisateur qu'il lui reste {{credits}} crédits sur sa carte de cours",
-          "creditsHours_plural": "{{hours}} heures après la fin de la séance pour rappeler à l'utilisateur qu'il lui reste {{credits}} crédits sur sa carte de cours",
-          "creditsNoHours": "après la fin de la séance pour rappeler à l'utilisateur qu'il lui reste {{credits}} crédits sur sa carte de cours",
-          "oneCreditHours": "1 heure après la fin de la séance pour rappeler à l'utilisateur qu'il lui reste 1 crédit sur sa carte de cours",
-          "oneCreditHours_plural": "{{hours}} heures après la fin de la séance pour rappeler à l'utilisateur qu'il lui reste 1 crédit sur sa carte de cours",
-          "oneCreditNoHours": "après la fin de la séance pour rappeler à l'utilisateur qu'il lui reste 1 crédit sur sa carte de cours",
-          "noCreditsHours": "1 heure après la fin de la séance pour rappeler à l'utilisateur qu'il ne lui reste plus de crédit sur sa carte de cours",
-          "noCreditsHours_plural": "{{hours}} heures après la fin de la séance pour rappeler à l'utilisateur qu'il ne lui reste plus de crédit sur sa carte de cours",
-          "noCreditsNoHours": "après la fin de la séance pour rappeler à l'utilisateur qu'il ne lui reste plus de crédit sur sa carte de cours"
-        },
-        "creditsLeftOnBooking": {
-          "creditsHours": "1 heure après une réservation pour rappeler à l'utilisateur qu'il lui reste {{credits}} crédits sur sa carte de cours",
-          "creditsHours_plural": "{{hours}} heures après une réservation pour rappeler à l'utilisateur qu'il lui reste {{credits}} crédits sur sa carte de cours",
-          "creditsNoHours": "après une réservation pour rappeler à l'utilisateur qu'il lui reste {{credits}} crédits sur sa carte de cours",
-          "oneCreditHours": "1 heure après une réservation pour rappeler à l'utilisateur qu'il lui reste 1 crédit sur sa carte de cours",
-          "oneCreditHours_plural": "{{hours}} heures après une réservation pour rappeler à l'utilisateur qu'il lui reste 1 crédit sur sa carte de cours",
-          "oneCreditNoHours": "après une réservation pour rappeler à l'utilisateur qu'il lui reste 1 crédit sur sa carte de cours",
-          "noCreditsHours": "1 heure après une réservation pour rappeler à l'utilisateur qu'il ne lui reste plus de crédit sur sa carte de cours",
-          "noCreditsHours_plural": "{{hours}} heures après une réservation pour rappeler à l'utilisateur qu'il ne lui reste plus de crédit sur sa carte de cours",
-          "noCreditsNoHours": "après une réservation pour rappeler à l'utilisateur qu'il ne lui reste plus de crédit sur sa carte de cours"
-        }
-      },
-      "expires": {
-        "days": "1 jour avant l'expiration",
-        "days_plural": "{{days}} jours avant l'expiration",
-        "noDays": "le jour de l'expiration"
+      "smartlist": {
+        "smartListInclude": "Cette notification est destinée à cette smartlist : {{smartlist_names}}.",
+        "smartListInclude_plural": "Cette notification est destinée à ces smartlists : {{smartlist_names}}.",
+        "smartListExclude": "Cette notification n'est pas destinée à cette smartlist : {{smartlist_names}}.",
+        "smartListExclude_plural": "Cette notification n'est pas destinée à ces smartlists : {{smartlist_names}}."
       },
       "expired": {
         "days": "après 1 jour d'expiration",
         "days_plural": "après {{days}} d'expiration"
       },
-      "smartlist": {
-        "smartListExclude": "Cette notification n'est pas destinée à cette smartlist : {{smartlist_names}}.",
-        "smartListExclude_plural": "Cette notification n'est pas destinée à ces smartlists : {{smartlist_names}}.",
-        "smartListInclude": "Cette notification est destinée à cette smartlist : {{smartlist_names}}.",
-        "smartListInclude_plural": "Cette notification est destinée à ces smartlists : {{smartlist_names}}."
+      "expires": {
+        "noDays": "le jour de l'expiration",
+        "days": "1 jour avant l'expiration",
+        "days_plural": "{{days}} jours avant l'expiration"
       },
-      "send": {
-        "emailAndPush": "Un courriel et une notification push seront envoyés",
-        "push": "Une notification push sera envoyée",
-        "email": "Un e-mail sera envoyé"
+      "paymentPack": {
+        "creditsLeftOnBooking": {
+          "noCreditsNoHours": "après une réservation pour rappeler à l'utilisateur qu'il ne lui reste plus de crédit sur sa carte de cours",
+          "noCreditsHours": "1 heure après une réservation pour rappeler à l'utilisateur qu'il ne lui reste plus de crédit sur sa carte de cours",
+          "noCreditsHours_plural": "{{hours}} heures après une réservation pour rappeler à l'utilisateur qu'il ne lui reste plus de crédit sur sa carte de cours",
+          "oneCreditNoHours": "après une réservation pour rappeler à l'utilisateur qu'il lui reste 1 crédit sur sa carte de cours",
+          "oneCreditHours": "1 heure après une réservation pour rappeler à l'utilisateur qu'il lui reste 1 crédit sur sa carte de cours",
+          "oneCreditHours_plural": "{{hours}} heures après une réservation pour rappeler à l'utilisateur qu'il lui reste 1 crédit sur sa carte de cours",
+          "creditsNoHours": "après une réservation pour rappeler à l'utilisateur qu'il lui reste {{credits}} crédits sur sa carte de cours",
+          "creditsHours": "1 heure après une réservation pour rappeler à l'utilisateur qu'il lui reste {{credits}} crédits sur sa carte de cours",
+          "creditsHours_plural": "{{hours}} heures après une réservation pour rappeler à l'utilisateur qu'il lui reste {{credits}} crédits sur sa carte de cours"
+        },
+        "creditsLeftOnSessionEnd": {
+          "noCreditsNoHours": "après la fin de la séance pour rappeler à l'utilisateur qu'il ne lui reste plus de crédit sur sa carte de cours",
+          "noCreditsHours": "1 heure après la fin de la séance pour rappeler à l'utilisateur qu'il ne lui reste plus de crédit sur sa carte de cours",
+          "noCreditsHours_plural": "{{hours}} heures après la fin de la séance pour rappeler à l'utilisateur qu'il ne lui reste plus de crédit sur sa carte de cours",
+          "oneCreditNoHours": "après la fin de la séance pour rappeler à l'utilisateur qu'il lui reste 1 crédit sur sa carte de cours",
+          "oneCreditHours": "1 heure après la fin de la séance pour rappeler à l'utilisateur qu'il lui reste 1 crédit sur sa carte de cours",
+          "oneCreditHours_plural": "{{hours}} heures après la fin de la séance pour rappeler à l'utilisateur qu'il lui reste 1 crédit sur sa carte de cours",
+          "creditsNoHours": "après la fin de la séance pour rappeler à l'utilisateur qu'il lui reste {{credits}} crédits sur sa carte de cours",
+          "creditsHours": "1 heure après la fin de la séance pour rappeler à l'utilisateur qu'il lui reste {{credits}} crédits sur sa carte de cours",
+          "creditsHours_plural": "{{hours}} heures après la fin de la séance pour rappeler à l'utilisateur qu'il lui reste {{credits}} crédits sur sa carte de cours"
+        }
+      },
+      "privatePass": {
+        "creditsLeft": {
+          "noCredits": "pour rappeler à l'utilisateur qu'il ne lui reste plus de crédit sur sa carte de rendez-vous",
+          "credits": "pour rappeler à l'utilisateur qu'il lui reste 1 crédit sur sa carte de rendez-vous",
+          "credits_plural": "pour rappeler à l'utilisateur qu'il lui reste {{credits}} crédits sur sa carte de rendez-vous"
+        }
       }
-    }
-  },
-  "customForm": {
-    "layout": {
-      "editLayout": "Editer l'agencement",
-      "undo": "Retour",
-      "reset": "Réinitialiser",
-      "redo": " Réappliquer",
-      "save": "Sauvegarder",
-      "saveAndExit": "Sauvegarder et Fermer",
-      "layoutUpTodate": "Aucun enregistrement en cours",
-      "layoutUpdating": "Une sauvegarde est en cours"
     },
-    "save": "Sauvegarder",
-    "signupFormTitle": "Formulaire d'inscription",
-    "memberFormTitle": "Formulaire d'édition de profil (page de profil de vos membres)",
-    "signupFormHelper": "Les questions obligatoires du formulaire d’inscription doivent être éditables par vos membres sur leur profil. Ces questions seront ajoutées automatiquement au formulaire d'édition de profil client et sont affichées et modifiables.",
-    "memberFormHelper": "Les questions obligatoires du formulaire d’inscription sont par défaut affichées et modifiables. Elles ne peuvent être supprimées.",
-    "navigateToSignup": "Editer le formulaire d'inscription",
-    "navigateToMemberForm": "Editer le formulaire d'édition de profil client",
-    "editLayoutTitle": "Editer l'agencement du formulaire",
-    "editLayoutSubtitle": "Vous avez modifié un formulaire utilisant un agencement personnalisé, verifiez ici, et modifiez si besoin, l'apercu de vos formulaire sur les différentes tailles d'écran",
-    "title": "Formulaires",
-    "CustomFormLink": "Lien du formulaire",
-    "linkHelper": "Pour envoyer le formulaire à vos membres, collez le lien ci-dessus dans vos mails. Seules les modifications sauvegardées seront visibles.",
-    "search": "Chercher une formulaire",
-    "name": "Nom",
-    "content": "Contenu du formulaire",
-    "preview": "Aperçu du formulaire",
-    "label": "Label",
-    "kind": "Type",
+    "selectNotificationRules": "Sélectionnez une règle pour voir les détails",
+    "createNotificationFabLabel": "Créer une notification",
+    "notificationsEmpty": "Aucune notification existante pour ce groupe",
+    "deleteDialogText": "Etes vous sûr de vouloir supprimer cette règle ? Cette opération est définitive",
+    "deleteDialogTitle": "Supprimer la règle",
+    "removeRule": "Supprimer",
+    "editRule": "Modifier",
+    "paymentPackKind": {
+      "credit": "Nombre de crédits",
+      "validity": "Validité de la carte"
+    },
+    "groupTitle": {
+      "paymentPack": "Carte de cours",
+      "privateBooking": "Rendez-vous",
+      "booking": "Réservation",
+      "privatePass": "Carte de rendez-vous",
+      "birthday": "Anniversaire",
+      "contract": "Abonnement"
+    },
+    "fabLabels": {
+      "private_service": "Rendez-vous",
+      "payment_pack": "Carte de cours",
+      "establishment": "Salle",
+      "meta_activity": "Activité",
+      "workshop": "Ateliers",
+      "private_pass": "Carte de rendez-vous",
+      "birthday": "Anniversaire",
+      "establishmentGroup": "Localisation",
+      "contract": "Abonnement"
+    },
     "cancel": "Annuler",
     "next": "Suivant",
-    "previous": "Retour",
-    "submitLater": "Répondre plus tard",
-    "send": "Envoyer",
-    "mandatory": "Obligatoire",
-    "display": "Afficher",
-    "editable": "Modifiable",
-    "numberQuestions": "Nombre de questions",
-    "listActions": "Actions",
-    "disabledCustomForm": "Formulaires archivés",
-    "disabledCustomFormField": "Eléments archivés",
-    "noCustomForm": "Utilisez les formulaires pour récupérer des informations supplémentaires sur vos membres.",
-    "addCustomFrom": "Ajouter un formulaire",
-    "selectCustomForm": "Sélectionner un formulaire pour en voir les détails",
-    "selectCustomFormFilled": "Sélectionner un des formulaires complétés pour voir son contenu",
-    "emptyCustomForm": "Ce formulaire est vide, vous pouvez ajouter des éléments le configurant.",
-    "addFieldLong": "Ajouter un élement",
-    "unaccessibleForm": "Ce formulaire est actuellement inaccessible, pour retourner sur votre page de profil cliquez sur le boutton ci-dessous.",
-    "backToUserSpace": "Profile",
-    "changesDetected": "Des changements ont été effectués. Sauvegardez le formulaire pour les appliquer.",
-    "noChanges": "Formulaire à jour.",
-    "changesAreSubmitting": "Formulaire en cours de mise à jour.",
-    "answerForDisabledField": "Questions archivées",
-    "allFieldDisabled": "Toutes les questions sont archivées",
-    "allStepsCompleted": "Vous avez complété toutes les étapes",
-    "resetSubmit": "Modifier mes réponses",
-    "disconnect": "Se déconnecter",
-    "actions": {
-      "configure": "Configurer",
-      "statistics": "Statistiques",
-      "customization": "Personnalisation"
-    },
-    "modal": {
-      "delete": {
-        "title": "Archiver un formulaire",
-        "cancel": "Annuler",
-        "confirm": "Confirmer",
-        "content": "En archivant ce formulaire il sera placé dans vos formulaires archivés et ne sera plus accessible pour vos membres."
+    "save": "Sauvegarder",
+    "delete": "Supprimer",
+    "viewPreview": "Voir l'aperçu",
+    "preview": "Aperçu",
+    "pushNotificationTitle": "Notification push",
+    "smartListTitle": "Smartlist",
+    "included": "Inclus",
+    "excluded": "Exclus",
+    "select": "Sélectionner",
+    "optionalStepInfo": "Cette étape est facultative. Vous pouvez toujours configurer des notifications ultérieurement. Seules les notifications que vous avez déjà créées sont répertoriées ici. Pour en créer de nouvelles, allez dans Marketing > Notifications.",
+    "passNotificationDeleteDialog": {
+      "title": "Supprimer cette notification",
+      "warning": {
+        "attachedPaymentPacks": "Vous avez encore une ou plusieurs cartes de cours liées à cette notification",
+        "attachedPrivatePasses": "Vous avez encore une ou plusieurs cartes de rendez-vous liées à cette notification",
+        "sure": "Êtes-vous sûr de vouloir supprimer cette notification ?",
+        "irreversible": "Cette opération ne peut être annulée."
       }
     },
-    "signUpInfoModal": {
-      "title": "Informations",
-      "content": "Vous venez de rendre certaines questions du formulaire d’inscription obligatoires. Les questions obligatoires du formulaire d’inscription doivent être éditables par vos membres sur leur profil. Ces questions ont donc été ajoutées automatiquement au formulaire de modification et sont affichées et modifiables. Rendez-vous sur l’édition du formulaire de modification pour le personnaliser.",
-      "cancel": "Annuler",
-      "confirm": "Continuer"
+    "selectIdentifierLabel": {
+      "payment_pack": "Sélectionnez des carte de cours",
+      "private_service": "Sélectionnez des cartes de rendez-vous",
+      "establishment": "Sélectionnez une salle",
+      "meta_activity": "Sélectionnez une activité",
+      "workshop": "Sélectionnez un atelier",
+      "private_pass": "Sélectionnez une carte de rendez-vous",
+      "establishment_group": "Sélectionnez une localisation",
+      "contract": "Sélectionnez un abonnement"
     },
-    "tab": {
-      "general": "Contenu",
-      "campaign": "Campagne",
-      "statistics": "Statistiques",
-      "layout": "Personnalisation"
+    "createNotification": "Formulaire de notification",
+    "stats": {
+      "total_mail_opened": "Nombre de mails ouverts",
+      "opened_rate": "Taux d'ouverture",
+      "total_mail_send": "Nombre de mails envoyés"
     },
-    "breakpoints": {
-      "xs": "Mobile",
-      "sm": "Petit écran",
-      "md": "Ecran moyen",
-      "lg": "Ecran large"
+    "notificationTitle": {
+      "remainingCredit": "Notifications de crédits restants",
+      "remainingValidity": "Notifications de validité restante",
+      "expiredValidity": "Notifications d'expiration"
     },
+    "mail": "Mail ",
+    "notificationDetails": "Détails de la notification",
+    "mailTitle": "Aperçu du mail",
+    "statisticDetails": "Statistiques",
+    "notificationPreview": "Apercu de la notification",
+    "allOptionsPlaceholder": {
+      "private_pass": "Toutes les cartes de rendez-vous",
+      "payment_pack": "Toutes les cartes de cours"
+    },
+    "allPassSelected": {
+      "payment_pack": "Toutes les cartes de cours sont incluses",
+      "private_pass": "Toutes les cartes de rendez-vous sont incluses"
+    },
+    "selectAllPassesToggle": {
+      "payment_pack": "S'applique à toutes les cartes de cours existantes et futures",
+      "private_pass": "S'applique à toutes les cartes de cours existantes et futures"
+    },
+    "passSelectionPlaceholder": {
+      "private_pass": "Cartes de rendez-vous",
+      "payment_pack": "Cartes de cours"
+    },
+    "dialogTitle": "Créer une notification",
+    "listTitle": "Notifications",
+    "create": "Créer une notification",
+    "handleNotification": "Gérer les notifications",
+    "noNotification": "Aucune notification activée",
+    "contractKind": {
+      "contractStart": "Début de l’abonnement",
+      "contractEnd": "Fin de l’abonnement"
+    },
+    "triggerDescription": {
+      "remainingCredit": "{{count}} crédit restant",
+      "remainingCredit_plural": "{{count}} crédits restants",
+      "remainingValidity": "{{count}} jour restant avant expiration",
+      "remainingValidity_plural": "{{count}} jours restant avant expiration",
+      "todayValidity": "Le jour de l'expiration",
+      "expiredValidity": "Expiré depuis {{count}} jour",
+      "expiredValidity_plural": "Expiré depuis {{count}} jours"
+    },
+    "sendingDelay": {
+      "justOnBooking": "Juste après la réservation",
+      "onBooking": "{{hours}}h après la réservation",
+      "justOnSession": "Juste après la séance",
+      "onSession": "{{hours}}h après la séance"
+    },
+    "addPasses": "Ajouter",
+    "editPasses": "Modifier"
+  },
+  "customForm": {
     "field": {
-      "location": "Localisation préférée",
-      "sign_up_question": "Question du formulaire d'inscription",
-      "first_name": "Prénom",
-      "last_name": "Nom de famille",
-      "birthday": "Date de naissance",
-      "address_line_1": "Adresse",
-      "address_line_2": "Complément d'adresse",
-      "gender": "Sexe",
-      "zipcode": "Code postal",
-      "photo": "Photo de profil",
-      "emergency_contact": "Contact d'urgence",
-      "accept_email": "Accepte email",
-      "accept_sms": "Accepte sms",
-      "vaccination_status": "Status pass sanitaire COVID-19",
-      "title": "Titre",
-      "email": "Adresse email",
-      "phone": "Téléphone",
-      "password": "Mot de passe",
-      "additional_adress": "Complément d'adresse",
-      "city": "Ville",
-      "country": "Pays",
-      "general_terms_and_conditions": "Conditions générales d'utilisation",
-      "repeatPassword": "Confirmer",
       "paragraph": "Paragraphe",
+      "choice_warning": "Toutes les options enregistrées lors de la sauvegarde du formulaire ne seront plus modifiables. Vous pourrez tout de même les supprimer ou en ajouter de nouvelles.",
+      "title": "Titre",
       "short_answer": "Réponse courte",
       "long_answer": "Réponse longue",
       "radio": "Choix multiples",
@@ -328,11 +218,78 @@
       "link_to_tag_popover": "Lier un tag à cette option",
       "tag_group": "Catégorie",
       "tag_name": "Tag",
-      "choice_warning": "Toutes les options enregistrées lors de la sauvegarde du formulaire ne seront plus modifiables. Vous pourrez tout de même les supprimer ou en ajouter de nouvelles.",
-      "waiver": "Décharge de responsabilité",
       "isMandatoryOnSignUp": "La question est obligatoire à l'inscription",
+      "accept_sms": "Accepte sms",
+      "accept_email": "Accepte email",
+      "waiver": "Décharge de responsabilité",
+      "repeatPassword": "Confirmer",
+      "general_terms_and_conditions": "Conditions générales d'utilisation",
+      "country": "Pays",
+      "city": "Ville",
+      "additional_adress": "Complément d'adresse",
+      "password": "Mot de passe",
+      "phone": "Téléphone",
+      "email": "Adresse email",
+      "vaccination_status": "Status pass sanitaire COVID-19",
+      "emergency_contact": "Contact d'urgence",
+      "photo": "Photo de profil",
+      "zipcode": "Code postal",
+      "gender": "Sexe",
+      "address_line_2": "Complément d'adresse",
+      "address_line_1": "Adresse",
+      "birthday": "Date de naissance",
+      "last_name": "Nom de famille",
+      "first_name": "Prénom",
+      "sign_up_question": "Question du formulaire d'inscription",
+      "location": "Localisation préférée",
       "state": "État",
       "official_document_id": "Numéro d'identité"
+    },
+    "title": "Formulaires",
+    "CustomFormLink": "Lien du formulaire",
+    "linkHelper": "Pour envoyer le formulaire à vos membres, collez le lien ci-dessus dans vos mails. Seules les modifications sauvegardées seront visibles.",
+    "search": "Chercher une formulaire",
+    "name": "Nom",
+    "content": "Contenu du formulaire",
+    "preview": "Aperçu du formulaire",
+    "label": "Label",
+    "kind": "Type",
+    "save": "Sauvegarder",
+    "cancel": "Annuler",
+    "send": "Envoyer",
+    "mandatory": "Obligatoire",
+    "numberQuestions": "Nombre de questions",
+    "listActions": "Actions",
+    "disabledCustomForm": "Formulaires archivés",
+    "disabledCustomFormField": "Eléments archivés",
+    "noCustomForm": "Utilisez les formulaires pour récupérer des informations supplémentaires sur vos membres.",
+    "addCustomFrom": "Ajouter un formulaire",
+    "selectCustomForm": "Sélectionner un formulaire pour en voir les détails",
+    "selectCustomFormFilled": "Sélectionner un des formulaires complétés pour voir son contenu",
+    "emptyCustomForm": "Ce formulaire est vide, vous pouvez ajouter des éléments le configurant.",
+    "addFieldLong": "Ajouter un élement",
+    "unaccessibleForm": "Ce formulaire est actuellement inaccessible, pour retourner sur votre page de profil cliquez sur le boutton ci-dessous.",
+    "backToUserSpace": "Profile",
+    "changesDetected": "Des changements ont été effectués. Sauvegardez le formulaire pour les appliquer.",
+    "noChanges": "Formulaire à jour.",
+    "actions": {
+      "configure": "Configurer",
+      "statistics": "Statistiques",
+      "customization": "Personnalisation"
+    },
+    "modal": {
+      "delete": {
+        "title": "Archiver un formulaire",
+        "cancel": "Annuler",
+        "confirm": "Confirmer",
+        "content": "En archivant ce formulaire il sera placé dans vos formulaires archivés et ne sera plus accessible pour vos membres."
+      }
+    },
+    "tab": {
+      "general": "Contenu",
+      "campaign": "Campagne",
+      "statistics": "Statistiques",
+      "layout": "Personnalisation"
     },
     "customFormField": {
       "modal": {
@@ -347,21 +304,21 @@
           "addField": "Ajouter un ",
           "select": "Sélectionner un élément",
           "option": "Ajouter une option",
-          "cancel": "Annuler",
-          "confirm": "Confirmer"
+          "confirm": "Confirmer",
+          "cancel": "Annuler"
         },
         "error": {
           "choicesLength": "Vous devez défnir au moins 2 choix",
           "emptyChoice": "Les choix ne peuvent pas être vides",
-          "passwordsDontMatch": "Les deux mots de passes ne sont pas les mêmes",
+          "signupQuestionShouldBeSelected": " Vous devez sélectionner une question du formulaire d'inscription",
           "tooShort": "Le mot de passe doit être formé d'au moins 8 caractères",
-          "signupQuestionShouldBeSelected": " Vous devez sélectionner une question du formulaire d'inscription"
+          "passwordsDontMatch": "Les deux mots de passes ne sont pas les mêmes"
         },
         "signature": {
           "addSignature": "Ajouter une signature",
           "editSignature": "Editer la signature",
-          "addSignatureHelper": "Vous pouvez dessiner votre signature ci-dessous",
-          "clear": "Effacer la signature"
+          "clear": "Effacer la signature",
+          "addSignatureHelper": "Vous pouvez dessiner votre signature ci-dessous"
         }
       }
     },
@@ -376,12 +333,12 @@
         "requiredField": "Obligatoire",
         "requiredSignature": "Veuillez signer le formulaire.",
         "requiredFile": "Veuillez joindre un fichier",
-        "passwordMinimumRequirementsError": "Le mot de passe doit contenir au moins 6 caratères",
         "passwordConfirmationError": "Les mots de passe ne sont pas identique",
         "invalidEmail": "Email invalide",
+        "passwordMinimumRequirementsError": "Le mot de passe doit contenir au moins 6 caratères",
         "invalidOfficialDocumentId": "Ce champ ne peut contenir que des chiffres et des lettres",
-        "membershipIdMaximumLength": "L'identifiant d'un membre ne peut pas dépasser 24 caractères",
-        "barcodeMaximumLength": "Un code-barres ne peut pas dépasser 16 caractères"
+        "barcodeMaximumLength": "Un code-barres ne peut pas dépasser 16 caractères",
+        "membershipIdMaximumLength": "L'identifiant d'un membre ne peut pas dépasser 24 caractères"
       }
     },
     "statistics": {
@@ -399,211 +356,160 @@
         }
       }
     },
+    "allFieldDisabled": "Toutes les questions sont archivées",
+    "answerForDisabledField": "Questions archivées",
     "displayRule": {
-      "header": "Règles de notifications",
-      "addNewDisplayRule": "Ajouter une règle",
-      "empty": "Aucune règle de notification pour ce formulaire",
-      "forbiddenForSignup": "Ce formulaire ne peut pas être associé à des règles de notifications",
       "kind": {
         "signUp": "Les nouveaux membres",
-        "signUpAlreadyExists": " Règle existante",
-        "connection": "Les membres déjà inscrits",
         "connectionLabel": "Ancienneté du membre (jours)",
+        "connection": "Les membres déjà inscrits",
+        "signUpAlreadyExists": " Règle existante",
         "connectionHelperText": "Seul les membres inscrits depuis un minimum de {{count}} jours verront cette notification"
       },
+      "empty": "Aucune règle de notification pour ce formulaire",
+      "addNewDisplayRule": "Ajouter une règle",
+      "header": "Règles de notifications",
       "form": {
         "dialog": {
-          "title": "Règles d'affichage",
-          "subTitle": "Quels membres voulez-vous cibler ?",
           "helperTextRegisteredMembers": "Le formulaire apparaitra en pop-up sur l'Espace membre et le Mobile App pour tous les membres concernés.",
-          "helperTextNewMembers": "Le formulaire apparaitra en pop-up sur l'Espace membre et le widget à la suite du formulaire d'inscription.",
-          "create": "Ajouter",
-          "cancel": "Annuler",
-          "modify": "Modifier",
-          "advancedOptions": "Paramètres avancés",
-          "snoozeOption": "Autoriser les membres à remettre à plus tard le remplissage du formulaire",
-          "force_display": "Forcer l'affichage aux membres ayant déjà remplie le formulaire précédemment",
+          "subTitle": "Quels membres voulez-vous cibler ?",
+          "title": "Règles d'affichage",
+          "snoozeOptionHelperText": "Le formulaire s'affichera de nouveau {{count}} heures après avoir été ignoré",
           "snoozeOptionLabel": "Durée du snooze (heures)",
-          "snoozeOptionHelperText": "Le formulaire s'affichera de nouveau {{count}} heures après avoir été ignoré"
+          "force_display": "Forcer l'affichage aux membres ayant déjà remplie le formulaire précédemment",
+          "snoozeOption": "Autoriser les membres à remettre à plus tard le remplissage du formulaire",
+          "advancedOptions": "Paramètres avancés",
+          "modify": "Modifier",
+          "cancel": "Annuler",
+          "create": "Ajouter",
+          "helperTextNewMembers": "Le formulaire apparaitra en pop-up sur l'Espace membre et le widget à la suite du formulaire d'inscription."
         },
         "errors": {
           "timedeltaBeforeDisplayMustBeGraterThanZero": "Cette valeur doit être supérieure à 0."
         }
       },
-      "forNewMember": "Pour les nouveaux membres",
-      "forRegisteredMember": "Pour les membres inscrits depuis plus de {{ count }} jours",
       "forRegisteredMemberMinimal": "> {{ count }} jours",
-      "unForcedModeMinimal": "Non-visible par les membres ayant déjà remplie le formulaire",
-      "forcedDisplayMinimal": "Visible même pour les membres ayant déjà remplie le formulaire",
-      "snoozableMinimal": "Peut être ignoré",
+      "forRegisteredMember": "Pour les membres inscrits depuis plus de {{ count }} jours",
+      "forNewMember": "Pour les nouveaux membres",
+      "snoozeTime": "Veille de {{ count }} heures",
       "unSnoozableMinimal": "Obligatoire",
-      "snoozeTime": "Veille de {{ count }} heures"
+      "snoozableMinimal": "Peut être ignoré",
+      "forcedDisplayMinimal": "Visible même pour les membres ayant déjà remplie le formulaire",
+      "unForcedModeMinimal": "Non-visible par les membres ayant déjà remplie le formulaire",
+      "forbiddenForSignup": "Ce formulaire ne peut pas être associé à des règles de notifications"
     },
+    "disconnect": "Se déconnecter",
+    "resetSubmit": "Modifier mes réponses",
+    "allStepsCompleted": "Vous avez complété toutes les étapes",
+    "submitLater": "Répondre plus tard",
+    "previous": "Retour",
+    "next": "Suivant",
+    "navigateToMemberForm": "Editer le formulaire d'édition de profil client",
+    "signupFormHelper": "Les questions obligatoires du formulaire d’inscription doivent être éditables par vos membres sur leur profil. Ces questions seront ajoutées automatiquement au formulaire d'édition de profil client et sont affichées et modifiables.",
     "signUp": {
-      "signupFields": "Questions des formulaires",
+      "helperMemberForm": "Le formulaire de modification est le formulaire présent sur la page de profil de vos membres. Il leur permet de voir et de modifier leurs informations. Ce formulaire est lui aussi personnalisable.",
       "helperSignup": "Vous pouvez modifier ici le formulaire d’inscription de votre studio. Choisissez et personnalisez les questions à remplir pour devenir membre de votre club.",
-      "helperMemberForm": "Le formulaire de modification est le formulaire présent sur la page de profil de vos membres. Il leur permet de voir et de modifier leurs informations. Ce formulaire est lui aussi personnalisable."
+      "signupFields": "Questions des formulaires"
     },
+    "signUpInfoModal": {
+      "content": "Vous venez de rendre certaines questions du formulaire d’inscription obligatoires. Les questions obligatoires du formulaire d’inscription doivent être éditables par vos membres sur leur profil. Ces questions ont donc été ajoutées automatiquement au formulaire de modification et sont affichées et modifiables. Rendez-vous sur l’édition du formulaire de modification pour le personnaliser.",
+      "confirm": "Continuer",
+      "cancel": "Annuler",
+      "title": "Informations"
+    },
+    "memberFormHelper": "Les questions obligatoires du formulaire d’inscription sont par défaut affichées et modifiables. Elles ne peuvent être supprimées.",
     "clientForms": {
-      "preview": "Aperçu de mes formulaires",
-      "signup": "Inscription",
-      "modification": "Modification",
+      "modify": "modifier",
       "customize": "Personnaliser",
-      "modify": "modifier"
+      "modification": "Modification",
+      "signup": "Inscription",
+      "preview": "Aperçu de mes formulaires"
+    },
+    "editable": "Modifiable",
+    "display": "Afficher",
+    "navigateToSignup": "Editer le formulaire d'inscription",
+    "memberFormTitle": "Formulaire d'édition de profil (page de profil de vos membres)",
+    "signupFormTitle": "Formulaire d'inscription",
+    "layout": {
+      "save": "Sauvegarder",
+      "redo": " Réappliquer",
+      "reset": "Réinitialiser",
+      "undo": "Retour",
+      "editLayout": "Editer l'agencement",
+      "layoutUpdating": "Une sauvegarde est en cours",
+      "saveAndExit": "Sauvegarder et Fermer",
+      "layoutUpTodate": "Aucun enregistrement en cours"
+    },
+    "editLayoutTitle": "Editer l'agencement du formulaire",
+    "changesAreSubmitting": "Formulaire en cours de mise à jour.",
+    "editLayoutSubtitle": "Vous avez modifié un formulaire utilisant un agencement personnalisé, verifiez ici, et modifiez si besoin, l'apercu de vos formulaire sur les différentes tailles d'écran",
+    "breakpoints": {
+      "lg": "Ecran large",
+      "md": "Ecran moyen",
+      "sm": "Petit écran",
+      "xs": "Mobile"
     }
   },
   "cadence": {
-    "howTo": {
-      "explain": "Éditez les éléments du graphique en cliquant sur ses éléments ou créer des liens entre les blocs en glissé déposé.",
-      "title": "Comment éditer votre cadence",
-      "add_marketing_action": "{{ index }}. Ajouter une action marketing",
-      "edit_marketing_action": "{{ index }}. Éditer l’action marketing",
-      "add_event": "{{ index }}. Ajouter un événement",
-      "edit_event": "{{ index }}. Éditer l’événement",
-      "add_trigger": "{{ index }}. Ajouter des branches",
-      "add_smartlist_filter": "{{ index }}. Filtrer sur des smartlists",
-      "set_trigger_destination": "{{ index }}. Rediriger vers une action marketing"
-    },
-    "bubble": {
-      "step": {
-        "name": "Nom de l'étape"
-      },
-      "cancel": "Annuler",
-      "confirm": "Sauvegarder",
-      "next": "Suivant",
-      "previous": "Précédent",
-      "changeInExit": {
-        "title": "Sortie",
-        "label": "Considérer le membre comme"
-      },
-      "changeInStep": {
-        "label": "Nom de l'étape",
-        "default": "Nom de l'étape"
-      },
-      "marketingAction": {
-        "title": "Action marketing",
-        "label": "Sélectionnez une action marketing"
-      },
-      "entryTrigger": {
-        "title": "Critères d'entrée",
-        "addTrigger": "Ajouter un déclencheur d'entrée",
-        "helperText": "Tout d'abord, définissez la manière dont vos membres entrerons dans le {{ workflowLowerCase }}. Sélectionnez un ou plusieurs événements ou smartlists et si le membre correspond à l'un d'entre eux, il entrera dans le {{ workflowLowerCase }}.",
-        "creationHelper": "Commençons par décider comment vos membres entrent dans le {{ workflowLowerCase }}. Pour ce faire, vous devez sélectionner un déclencheur d'entrée.  Si vous sélectionnez plusieurs déclencheurs, les membres qui correspondent à l'un d'entre eux entreront dans le {{ workflowLowerCase }}.",
-        "editionHelper": "Modifiez les critères d'entrée de vos membres dans le {{ workflowLowerCase }}. Si un membre correspond à l'un de ces critères, il rejoindra le {{ workflowLowerCase }}."
-      },
-      "convertIntoStep": {
-        "label": "Nom de l'étape",
-        "default": "Étape sans titre"
-      },
-      "convertIntoExit": {
-        "label": "Considérer la sortie comme",
-        "title": "Sortie"
-      },
-      "entryAction": {
-        "title": "Action d'entrée",
-        "helperText": "Définissez la ou les actions marketing à appliquer lorsqu'un membre entre dans le {{ workflowLowerCase }}.",
-        "addAction": "Ajouter une action"
-      },
-      "requiredField": "Ce champ est obligatoire pour continuer.",
-      "finish": "Terminer",
-      "delete": "Supprimer",
-      "lostAction": {
-        "title": "Action perdu",
-        "helperText": "Décidez de ce qu'il se passe lorsque les membres quittent le {{ workflowLowerCase }} avec la mention \"Perdu\". Vous pouvez les taguer, leur envoyer un email, ou choisir une autre action qui vous convient. Vous pouvez également choisir de ne rien faire ; cette étape est facultative.",
-        "addAction": "Ajouter une action"
-      },
-      "lostTrigger": {
-        "title": "Sortie non réussie",
-        "helperText": "Définissez ce qui considère votre objectif comme non atteint : déterminez un délai après lequel le membre sortira sans succès de ce {{ workflowLowerCase }} et/ou un - ou plusieurs - déclencheurs spécifiques.",
-        "addTrigger": "Ajouter un déclencheur de sortie",
-        "timeout": {
-          "helperText": "Le membre quittera le {{ workflowLowerCase }} après ce délai, quelle que soit l'étape à laquelle il se trouve.",
-          "label": "Jours dans le {{ workflowLowerCase }}",
-          "title": "Délai"
-        }
-      },
-      "wonAction": {
-        "title": "Action gagné",
-        "helperText": "Décidez de ce qu'il se passe lorsque les membres quittent le {{ workflowLowerCase }} avec la mention \"Gagné\". Vous pouvez les taguer, leur envoyer un email, ou choisir une autre action qui vous convient. Vous pouvez également choisir de ne rien faire ; cette étape est facultative.",
-        "addAction": "Ajouter une action"
-      },
-      "wonTrigger": {
-        "title": "Sortie réussie",
-        "helperText": "Définissez l'objectif global de votre {{ workflowLowerCase }}. Si un membre effectue le (ou l'un des) déclencheur(s) de sortie sélectionné(s), il atteindra l'objectif et quittera le {{ workflowLowerCase }} avec succès (quelle que soit l'étape à laquelle il se trouve). Cela vous aidera à suivre vos indicateurs de performance.",
-        "addTrigger": "Ajouter un déclencheur de sortie"
-      }
-    },
-    "back": "Retour",
-    "shutOff": "Mettre en pause",
-    "editMode": "Éditer",
-    "editModeLabel": "Passer en mode édition",
-    "exitEditMode": "Terminer",
-    "exitEditModeLabel": "Quitter le mode d'édition",
-    "cadenceParameters": "Paramètres de la cadence",
-    "triggerElement": "Élément déclencheur",
-    "marketingElement": "Actions marketing",
-    "cadenceIndexHelper": "L’ordre des cadences définit l’ordre de priorité, si un membre peut entrer dans 2 cadences différentes, il commencera par la plus haute dans la liste.",
     "form": {
-      "cancel": "Annuler",
-      "submit": "Créer",
-      "updateSubmit": "Valider",
-      "delete": "Supprimer",
-      "edit": "Modifier",
-      "createCadenceHelper": "Grâce aux cadences, ciblez au mieux les actions marketing que vous envoyez à vos membres en fonction de leur comportement sur la plateforme. Créez une séquence d'actions que vos membres doivent remplir pour obtenir par exemple certaines promotions ou certains tags.",
-      "addACadence": "Ajouter une cadence",
-      "title": "Créer une cadence",
       "updateTitle": "Modification du nom de la cadence",
-      "cadenceStep": "Étape",
-      "cadenceStepNameLabel": "Nom de l'étape",
-      "cadenceStepHelper": "Définissez ici le nom de l’étape, c’est ici que vous pourrez voir où en sont les membres dans la cadence.",
-      "cadenceNameLabel": "Nom de la cadence",
-      "modify_name_label": "Modifier le nom",
-      "entry_step": "Entrée",
-      "win_step": "Sortie réussie",
-      "lose_step": "Perdu",
-      "previous": "Précédent",
-      "next": "Suivant",
       "trigger": {
-        "title": "Déclencheurs",
+        "selectEvent": "Sélectionner un événement",
+        "selectSmartlist": "Sélectionner une smartlist",
         "helpers": {
-          "cadence": "Définissez ici les déclencheurs d'entrée de la cadence. Les membres devront correspondre aux critères indiqués ci-dessous pour commencer la séquence marketing.",
-          "step": "Définissez ici le déclencheur amenant à la prochaine étape. Les membres devront correspondre aux critères indiqués ci-dessous pour passer à l’étape suivante.",
+          "exitFail": "Définissez ici le déclencheur définissant qu’un membre sera considéré comme perdu et sortira de la cadence.",
           "exitSuccess": "Définissez ici le déclencheur définissant qu’un membre sera considéré comme gagné et sortira de la cadence.",
-          "exitFail": "Définissez ici le déclencheur définissant qu’un membre sera considéré comme perdu et sortira de la cadence."
+          "step": "Définissez ici le déclencheur amenant à la prochaine étape. Les membres devront correspondre aux critères indiqués ci-dessous pour passer à l’étape suivante.",
+          "cadence": "Définissez ici les déclencheurs d'entrée de la cadence. Les membres devront correspondre aux critères indiqués ci-dessous pour commencer la séquence marketing."
         },
-        "labels": {
-          "cadence": "L’entrée dans la cadence se fait via :",
-          "step": "L'entrée dans cette étape se fait via :",
-          "exitSuccess": "La sortie de la cadence en tant que gagné se fait via :",
-          "exitFail": "La sortie de la cadence en tant que perdu se fait via :"
-        },
-        "trigger_event_kind_label": "Un événement",
-        "had_filtering_on_selected_event": "Filtrer l'événement sélectionné avec une smartlist",
-        "trigger_smartlist_kind_label": "Une smartlist",
-        "rule_between_triggers": "Règle entre les événements",
-        "and_rule_between_triggers": "Et",
-        "or_rule_between_triggers": "Ou",
-        "event_and_smartlist_helper": "Les membres devront correspondre à l'événement et faire partie de la smartlist pour rentrer dans la cadence",
-        "event_or_smartlist_helper": "Les membres devront correspondre à l'événement ou bien faire partie de la smartlist pour rentrer dans la cadence",
-        "marketing_actions": "Actions marketing",
-        "select_marketing_actions_helper": "Sélectionnez une ou plusieurs actions à effectuer quand un membre est gagné. Cette option est facultative.",
-        "trigger_timeout_title": "Limite de temps",
-        "trigger_timeout_select_label": "jours maximum dans la cadence",
-        "trigger_timeout_explain_value_selected": "Si le membre est toujours présent dans la cadence au bout de {{ days }} jours alors il sera automatiquement sorti de celle-ci et considéré comme perdu.",
+        "triggerTimeoutLabel": "Déclencher après",
         "triggerTimeoutDays": "jour.",
         "triggerTimeoutDays_plural": "jours.",
-        "triggerTimeoutLabel": "Déclencher après",
-        "selectSmartlist": "Sélectionner une smartlist",
-        "selectEvent": "Sélectionner un événement",
+        "trigger_timeout_explain_value_selected": "Si le membre est toujours présent dans la cadence au bout de {{ days }} jours alors il sera automatiquement sorti de celle-ci et considéré comme perdu.",
+        "trigger_timeout_select_label": "jours maximum dans la cadence",
+        "trigger_timeout_title": "Limite de temps",
+        "select_marketing_actions_helper": "Sélectionnez une ou plusieurs actions à effectuer quand un membre est gagné. Cette option est facultative.",
+        "marketing_actions": "Actions marketing",
+        "event_and_smartlist_helper": "Les membres devront correspondre à l'événement et faire partie de la smartlist pour rentrer dans la cadence",
+        "or_rule_between_triggers": "Ou",
+        "and_rule_between_triggers": "Et",
+        "rule_between_triggers": "Règle entre les événements",
+        "trigger_smartlist_kind_label": "Une smartlist",
+        "had_filtering_on_selected_event": "Filtrer l'événement sélectionné avec une smartlist",
+        "trigger_event_kind_label": "Un événement",
+        "labels": {
+          "exitFail": "La sortie de la cadence en tant que perdu se fait via :",
+          "exitSuccess": "La sortie de la cadence en tant que gagné se fait via :",
+          "step": "L'entrée dans cette étape se fait via :",
+          "cadence": "L’entrée dans la cadence se fait via :"
+        },
+        "title": "Déclencheurs",
+        "event_or_smartlist_helper": "Les membres devront correspondre à l'événement ou bien faire partie de la smartlist pour rentrer dans la cadence",
         "finnerGrain": {
-          "purchaseLabelTitle": "Objet(s) acheté(s)",
-          "specifyItemsToggleLabel": "Spécifier les objets"
+          "specifyItemsToggleLabel": "Spécifier les objets",
+          "purchaseLabelTitle": "Objet(s) acheté(s)"
         }
       },
-      "exit": {
-        "title": "Sortie",
-        "exit_success_label": "Oui",
-        "exit_fail_label": "Non"
+      "win_step": "Sortie réussie",
+      "error": {
+        "triggerCannotBeEmpty": "Vous devez sélectionner un type d'entrée.",
+        "minimumConnectedTrigger": "Vous devez sélectionner au moins un déclencheur.",
+        "maximumConnectedTrigger": "Vous ne pouvez pas définir plus de cinq déclencheurs.",
+        "timeoutMustBeStrictPositive": "La limite de temps doit être d'au moins 1 jour."
+      },
+      "marketing_action": {
+        "1": "Ecrire un email",
+        "2": "SMS",
+        "3": "Notification push",
+        "4": "Tag",
+        "5": "Sélectionner un template email",
+        "form": {
+          "helper": "Sélectionnez une ou plusieurs actions à effectuer quand un membre entre dans cette étape. Cette option est facultative.",
+          "reset": "Supprimer",
+          "submit": "Valider"
+        },
+        "defaultName": "Nom par défaut",
+        "select_tag": "Sélectionner un tag"
       },
       "event": {
         "1": "Carte de cours",
@@ -625,186 +531,133 @@
         "102": "Panier",
         "103": "Facturation",
         "104": "Souscription",
-        "consumer_payment_pack-create": "Carte de cours",
-        "private_consumer_pass-create": "Carte de Rendez-vous",
-        "booking-create": "Cours collectif",
-        "booking-attendance": "Présence cours collectifs",
-        "private_booking-create": "Rendez-vous",
-        "private_booking-cancel": "Annulation Rendez-vous",
-        "basket-created": "Création",
-        "basket-additem": "Ajout au panier",
-        "basket-finalize": "Panier payé",
-        "invoice-create": "Facture créée",
-        "billing_plan-create": "Création",
-        "billing_plan-pause": "Pause",
-        "billing_plan-stop": "Arrêt",
         "billing_plan-renew": "Renouvellement",
-        "consumer_giftcard-create": "Carte cadeau",
-        "provision_update-create": "Article du magasin"
+        "billing_plan-stop": "Arrêt",
+        "billing_plan-pause": "Pause",
+        "billing_plan-create": "Création",
+        "invoice-create": "Facture créée",
+        "basket-finalize": "Panier payé",
+        "basket-additem": "Ajout au panier",
+        "basket-created": "Création",
+        "private_booking-cancel": "Annulation Rendez-vous",
+        "private_booking-create": "Rendez-vous",
+        "booking-attendance": "Présence cours collectifs",
+        "booking-create": "Cours collectif",
+        "private_consumer_pass-create": "Carte de Rendez-vous",
+        "consumer_payment_pack-create": "Carte de cours",
+        "provision_update-create": "Article du magasin",
+        "consumer_giftcard-create": "Carte cadeau"
       },
-      "marketing_action": {
-        "1": "Ecrire un email",
-        "2": "SMS",
-        "3": "Notification push",
-        "4": "Tag",
-        "5": "Sélectionner un template email",
-        "select_tag": "Sélectionner un tag",
-        "defaultName": "Nom par défaut",
-        "form": {
-          "submit": "Valider",
-          "reset": "Supprimer",
-          "helper": "Sélectionnez une ou plusieurs actions à effectuer quand un membre entre dans cette étape. Cette option est facultative."
-        }
+      "exit": {
+        "exit_fail_label": "Non",
+        "exit_success_label": "Oui",
+        "title": "Sortie"
       },
-      "error": {
-        "triggerCannotBeEmpty": "Vous devez sélectionner un type d'entrée.",
-        "timeoutMustBeStrictPositive": "La limite de temps doit être d'au moins 1 jour.",
-        "maximumConnectedTrigger": "Vous ne pouvez pas définir plus de cinq déclencheurs.",
-        "minimumConnectedTrigger": "Vous devez sélectionner au moins un déclencheur."
-      }
-    },
-    "marketingAction": {
-      "addAction": "Ajouter une action"
+      "next": "Suivant",
+      "previous": "Précédent",
+      "lose_step": "Perdu",
+      "entry_step": "Entrée",
+      "modify_name_label": "Modifier le nom",
+      "cadenceNameLabel": "Nom de la cadence",
+      "cadenceStepHelper": "Définissez ici le nom de l’étape, c’est ici que vous pourrez voir où en sont les membres dans la cadence.",
+      "cadenceStepNameLabel": "Nom de l'étape",
+      "cadenceStep": "Étape",
+      "title": "Créer une cadence",
+      "addACadence": "Ajouter une cadence",
+      "createCadenceHelper": "Grâce aux cadences, ciblez au mieux les actions marketing que vous envoyez à vos membres en fonction de leur comportement sur la plateforme. Créez une séquence d'actions que vos membres doivent remplir pour obtenir par exemple certaines promotions ou certains tags.",
+      "edit": "Modifier",
+      "submit": "Créer",
+      "cancel": "Annuler",
+      "delete": "Supprimer",
+      "updateSubmit": "Valider"
     },
     "svgText": {
-      "triggers": "Déclencheurs",
-      "marketing_actions": "Actions marketing",
       "action_name": "{ Nom de l'action marketing }",
-      "select_event": "Sélectionner un événement",
-      "email": "Email",
+      "push_notification": "Notification Push",
       "sms": "SMS",
-      "push_notification": "Notification Push"
+      "email": "Email",
+      "select_event": "Sélectionner un événement",
+      "marketing_actions": "Actions marketing",
+      "triggers": "Déclencheurs"
     },
-    "archive": {
-      "dialog": {
-        "title": "Suppression d'une cadence",
-        "beingArchived": "Vous êtes sur le point d'archiver {{- name }}.",
-        "helper": "Les membres actuellement dans la cadence en sortiront automatiquement. Cette cadence sera archivée, vous pourrez la réactiver ultérieurement.",
-        "cancel": "Annuler",
-        "confirm": "Continuer",
-        "confirmButton": "Archiver"
+    "graph": {
+      "alert": {
+        "switchToEditMode": "Vous êtes en mode vue, cliquez sur ÉDITER pour pouvoir éditer la cadence.",
+        "cadenceIsActive": "Votre cadence est en cours merci de mettre votre cadence en pause pour pouvoir la modifier."
       },
-      "archivedHeader": "Cadences archivées"
-    },
-    "activate": {
-      "button": "Lancer",
-      "setupBeforeActivationHelper": "Terminez de configurer votre cadence et créez votre première action marketing pour lancer votre cadence.",
-      "dialog": {
-        "title": "Lancer la cadence",
-        "firstHelper": "Voulez-vous lancer la candence ?",
-        "secondHelper": "Vous ne pourrez plus l'éditer tant qu'elle sera lancée.",
-        "cancel": "Annuler",
-        "confirmButton": "Lancer"
+      "nodeElement": {
+        "deleteStep": "Supprimer l'étape",
+        "cancelOnGoingCreation": "Annuler la création",
+        "edgeLabelForNodeCreation": "En cours de création",
+        "addElement": "Ajouter un déclencheur",
+        "deleteTrigger": "Supprimer le déclencheur"
+      },
+      "tools": {
+        "showDisabledTriggers": "Afficher les déclencheurs désactivés",
+        "hideDisabledTriggers": "Cacher les déclencheurs désactivés",
+        "hideControls": "Cacher la barre d'outils",
+        "showControls": "Afficher la barre d'outils",
+        "hideMap": "Cacher la minimap",
+        "showMap": "Afficher la minimap",
+        "centerView": "Centrer la vue"
       }
     },
-    "cadenceCard": {
-      "win": "Sortie réussie",
-      "lost": "Sortie non réussie",
-      "outputRules": "Règles de sortie"
-    },
     "triggers": {
-      "start": "Entrée",
-      "exit": "Sortie",
-      "trigger": "Déclencheur",
-      "timeout": {
-        "timout_days_chip": "{{ days }} jour",
-        "timout_days_chip_plural": "{{ days }} jours",
-        "timeout_days_chip": "{{ count }} jour",
-        "timeout_days_chip_plural": "{{ count }} jours"
+      "smartlist": {
+        "label": "Smartlist"
       },
       "events": {
-        "purchase_chip": "Achat",
+        "label": "Évènement",
         "book_chip": "Réservation",
-        "basket_chip": "Panier",
-        "invoice_chip": "Facturation",
+        "purchase_chip": "Achat",
         "billing_plan_chip": "Souscription",
-        "label": "Évènement"
+        "invoice_chip": "Facturation",
+        "basket_chip": "Panier"
       },
+      "timeout": {
+        "timeout_days_chip": "{{ count }} jour",
+        "timeout_days_chip_plural": "{{ count }} jours",
+        "timout_days_chip": "{{ days }} jour",
+        "timout_days_chip_plural": "{{ days }} jours"
+      },
+      "trigger": "Déclencheur",
+      "exit": "Sortie",
+      "start": "Entrée",
+      "delete": "Supprimer",
+      "changeKind": "Changer en",
       "kinds": {
         "0": "Évènement",
         "1": "Smartlist",
         "2": "Évènement & Smartlist",
         "3": "Délai"
-      },
-      "smartlist": {
-        "label": "Smartlist"
-      },
-      "delete": "Supprimer",
-      "changeKind": "Changer en"
-    },
-    "steps": {
-      "actions": {
-        "delete": "Supprimer",
-        "changeInExit": "Transformer en sortie",
-        "changeInStep": "Transformer en étape",
-        "addNextStep": "Ajouter prochaine étape",
-        "nextStepTrigger": "Déclencheur de l'étape suivante",
-        "convertIntoExit": "Convertir en sortie",
-        "convertIntoStep": "Convertir en étape",
-        "edit": "Éditer"
-      },
-      "defaultName": "Étape sans titre"
-    },
-    "graph": {
-      "tools": {
-        "centerView": "Centrer la vue",
-        "showMap": "Afficher la minimap",
-        "hideMap": "Cacher la minimap",
-        "showControls": "Afficher la barre d'outils",
-        "hideControls": "Cacher la barre d'outils",
-        "hideDisabledTriggers": "Cacher les déclencheurs désactivés",
-        "showDisabledTriggers": "Afficher les déclencheurs désactivés"
-      },
-      "nodeElement": {
-        "addElement": "Ajouter un déclencheur",
-        "edgeLabelForNodeCreation": "En cours de création",
-        "cancelOnGoingCreation": "Annuler la création",
-        "deleteStep": "Supprimer l'étape",
-        "deleteTrigger": "Supprimer le déclencheur"
-      },
-      "alert": {
-        "cadenceIsActive": "Votre cadence est en cours merci de mettre votre cadence en pause pour pouvoir la modifier.",
-        "switchToEditMode": "Vous êtes en mode vue, cliquez sur ÉDITER pour pouvoir éditer la cadence."
       }
     },
-    "dialog": {
-      "do_not_display_anymore": "Ne plus afficher ce message.",
-      "confirm": "Confirmer",
-      "cancel": "Annuler"
+    "cadenceCard": {
+      "lost": "Sortie non réussie",
+      "win": "Sortie réussie",
+      "outputRules": "Règles de sortie"
     },
-    "step": {
-      "convertExit": {
-        "dialog": {
-          "helper": "Les déclencheurs qui suivent directement cette étape seront supprimés. Le reste du {{ workflowLowerCase }} sera déconnecté mais pas supprimé.",
-          "title": "Convertir cette étape en sortie"
-        }
-      },
-      "archive": {
-        "dialog": {
-          "helper": "Les déclencheurs directement liés à cette étape seront également supprimés. Le reste du {{ workflowLowerCase }} sera déconnecté mais pas supprimé.",
-          "title": "Êtes-vous sûr de vouloir supprimer cette étape ?"
-        }
-      }
-    },
-    "deleteStep": {
+    "activate": {
       "dialog": {
-        "confirmButton": "Supprimer"
-      }
+        "cancel": "Annuler",
+        "secondHelper": "Vous ne pourrez plus l'éditer tant qu'elle sera lancée.",
+        "firstHelper": "Voulez-vous lancer la candence ?",
+        "title": "Lancer la cadence",
+        "confirmButton": "Lancer"
+      },
+      "setupBeforeActivationHelper": "Terminez de configurer votre cadence et créez votre première action marketing pour lancer votre cadence.",
+      "button": "Lancer"
     },
-    "converStepToExit": {
+    "archive": {
+      "archivedHeader": "Cadences archivées",
       "dialog": {
-        "confirmButton": "Convertir"
+        "confirm": "Continuer",
+        "cancel": "Annuler",
+        "helper": "Les membres actuellement dans la cadence en sortiront automatiquement. Cette cadence sera archivée, vous pourrez la réactiver ultérieurement.",
+        "beingArchived": "Vous êtes sur le point d'archiver {{- name }}.",
+        "title": "Suppression d'une cadence",
+        "confirmButton": "Archiver"
       }
-    },
-    "pause": {
-      "dialog": {
-        "confirmButton": "Pause",
-        "helper": "Toutes les actions des membres se produisant pendant la pause ne seront pas prises en compte.",
-        "title": "Pauser le {{ workflowLowerCase }}"
-      }
-    },
-    "trigger": {
-      "addTrigger": "Ajouter un déclencheur"
     },
     "welcome": {
       "dialog": {
@@ -814,28 +667,177 @@
         "return": "Annuler"
       }
     },
-    "exit": {
-      "archive": {
-        "dialog": {
-          "helper": "Les déclencheurs qui précèdent cette étape seront supprimés. Le reste du {{ workflowLowerCase }} sera déconnecté mais pas supprimé.",
-          "title": "Êtes-vous sûr de vouloir supprimer cette sortie ?"
-        }
+    "pause": {
+      "dialog": {
+        "title": "Pauser le {{ workflowLowerCase }}",
+        "helper": "Toutes les actions des membres se produisant pendant la pause ne seront pas prises en compte.",
+        "confirmButton": "Pause"
+      }
+    },
+    "converStepToExit": {
+      "dialog": {
+        "confirmButton": "Convertir"
+      }
+    },
+    "deleteStep": {
+      "dialog": {
+        "confirmButton": "Supprimer"
       }
     },
     "deleteExit": {
       "dialog": {
         "confirmButton": "Supprimer"
       }
+    },
+    "howTo": {
+      "set_trigger_destination": "{{ index }}. Rediriger vers une action marketing",
+      "add_smartlist_filter": "{{ index }}. Filtrer sur des smartlists",
+      "add_trigger": "{{ index }}. Ajouter des branches",
+      "edit_event": "{{ index }}. Éditer l’événement",
+      "add_event": "{{ index }}. Ajouter un événement",
+      "edit_marketing_action": "{{ index }}. Éditer l’action marketing",
+      "add_marketing_action": "{{ index }}. Ajouter une action marketing",
+      "explain": "Éditez les éléments du graphique en cliquant sur ses éléments ou créer des liens entre les blocs en glissé déposé.",
+      "title": "Comment éditer votre cadence"
+    },
+    "cadenceIndexHelper": "L’ordre des cadences définit l’ordre de priorité, si un membre peut entrer dans 2 cadences différentes, il commencera par la plus haute dans la liste.",
+    "marketingElement": "Actions marketing",
+    "triggerElement": "Élément déclencheur",
+    "cadenceParameters": "Paramètres de la cadence",
+    "exitEditModeLabel": "Quitter le mode d'édition",
+    "exitEditMode": "Terminer",
+    "editModeLabel": "Passer en mode édition",
+    "editMode": "Éditer",
+    "shutOff": "Mettre en pause",
+    "back": "Retour",
+    "steps": {
+      "defaultName": "Étape sans titre",
+      "actions": {
+        "convertIntoStep": "Convertir en étape",
+        "convertIntoExit": "Convertir en sortie",
+        "delete": "Supprimer",
+        "edit": "Éditer",
+        "addNextStep": "Ajouter prochaine étape",
+        "nextStepTrigger": "Déclencheur de l'étape suivante",
+        "changeInStep": "Transformer en étape",
+        "changeInExit": "Transformer en sortie"
+      }
+    },
+    "marketingAction": {
+      "addAction": "Ajouter une action"
+    },
+    "trigger": {
+      "addTrigger": "Ajouter un déclencheur"
+    },
+    "bubble": {
+      "convertIntoExit": {
+        "title": "Sortie",
+        "label": "Considérer la sortie comme"
+      },
+      "entryTrigger": {
+        "addTrigger": "Ajouter un déclencheur d'entrée",
+        "helperText": "Tout d'abord, définissez la manière dont vos membres entrerons dans le {{ workflowLowerCase }}. Sélectionnez un ou plusieurs événements ou smartlists et si le membre correspond à l'un d'entre eux, il entrera dans le {{ workflowLowerCase }}.",
+        "title": "Critères d'entrée",
+        "editionHelper": "Modifiez les critères d'entrée de vos membres dans le {{ workflowLowerCase }}. Si un membre correspond à l'un de ces critères, il rejoindra le {{ workflowLowerCase }}.",
+        "creationHelper": "Commençons par décider comment vos membres entrent dans le {{ workflowLowerCase }}. Pour ce faire, vous devez sélectionner un déclencheur d'entrée.  Si vous sélectionnez plusieurs déclencheurs, les membres qui correspondent à l'un d'entre eux entreront dans le {{ workflowLowerCase }}."
+      },
+      "entryAction": {
+        "addAction": "Ajouter une action",
+        "helperText": "Définissez la ou les actions marketing à appliquer lorsqu'un membre entre dans le {{ workflowLowerCase }}.",
+        "title": "Action d'entrée"
+      },
+      "wonTrigger": {
+        "addTrigger": "Ajouter un déclencheur de sortie",
+        "helperText": "Définissez l'objectif global de votre {{ workflowLowerCase }}. Si un membre effectue le (ou l'un des) déclencheur(s) de sortie sélectionné(s), il atteindra l'objectif et quittera le {{ workflowLowerCase }} avec succès (quelle que soit l'étape à laquelle il se trouve). Cela vous aidera à suivre vos indicateurs de performance.",
+        "title": "Sortie réussie"
+      },
+      "wonAction": {
+        "addAction": "Ajouter une action",
+        "helperText": "Décidez de ce qu'il se passe lorsque les membres quittent le {{ workflowLowerCase }} avec la mention \"Gagné\". Vous pouvez les taguer, leur envoyer un email, ou choisir une autre action qui vous convient. Vous pouvez également choisir de ne rien faire ; cette étape est facultative.",
+        "title": "Action gagné"
+      },
+      "lostTrigger": {
+        "timeout": {
+          "title": "Délai",
+          "label": "Jours dans le {{ workflowLowerCase }}",
+          "helperText": "Le membre quittera le {{ workflowLowerCase }} après ce délai, quelle que soit l'étape à laquelle il se trouve."
+        },
+        "addTrigger": "Ajouter un déclencheur de sortie",
+        "helperText": "Définissez ce qui considère votre objectif comme non atteint : déterminez un délai après lequel le membre sortira sans succès de ce {{ workflowLowerCase }} et/ou un - ou plusieurs - déclencheurs spécifiques.",
+        "title": "Sortie non réussie"
+      },
+      "lostAction": {
+        "addAction": "Ajouter une action",
+        "helperText": "Décidez de ce qu'il se passe lorsque les membres quittent le {{ workflowLowerCase }} avec la mention \"Perdu\". Vous pouvez les taguer, leur envoyer un email, ou choisir une autre action qui vous convient. Vous pouvez également choisir de ne rien faire ; cette étape est facultative.",
+        "title": "Action perdu"
+      },
+      "convertIntoStep": {
+        "default": "Étape sans titre",
+        "label": "Nom de l'étape"
+      },
+      "marketingAction": {
+        "title": "Action marketing",
+        "label": "Sélectionnez une action marketing"
+      },
+      "delete": "Supprimer",
+      "cancel": "Annuler",
+      "confirm": "Sauvegarder",
+      "previous": "Précédent",
+      "next": "Suivant",
+      "finish": "Terminer",
+      "step": {
+        "name": "Nom de l'étape"
+      },
+      "requiredField": "Ce champ est obligatoire pour continuer.",
+      "changeInExit": {
+        "title": "Sortie",
+        "label": "Considérer le membre comme"
+      },
+      "changeInStep": {
+        "default": "Nom de l'étape",
+        "label": "Nom de l'étape"
+      }
+    },
+    "step": {
+      "archive": {
+        "dialog": {
+          "title": "Êtes-vous sûr de vouloir supprimer cette étape ?",
+          "helper": "Les déclencheurs directement liés à cette étape seront également supprimés. Le reste du {{ workflowLowerCase }} sera déconnecté mais pas supprimé."
+        }
+      },
+      "convertExit": {
+        "dialog": {
+          "title": "Convertir cette étape en sortie",
+          "helper": "Les déclencheurs qui suivent directement cette étape seront supprimés. Le reste du {{ workflowLowerCase }} sera déconnecté mais pas supprimé."
+        }
+      }
+    },
+    "exit": {
+      "archive": {
+        "dialog": {
+          "title": "Êtes-vous sûr de vouloir supprimer cette sortie ?",
+          "helper": "Les déclencheurs qui précèdent cette étape seront supprimés. Le reste du {{ workflowLowerCase }} sera déconnecté mais pas supprimé."
+        }
+      }
+    },
+    "dialog": {
+      "cancel": "Annuler",
+      "confirm": "Confirmer",
+      "do_not_display_anymore": "Ne plus afficher ce message."
     }
   },
   "audience": {
     "form": {
-      "updateTitle": "Modifier le nom du {{ workflowLowerCase }}",
+      "formTitle": {
+        "updateNameTitle": "Modifiez le nom de votre {{ workflowLowerCase }}",
+        "createTitle": "Créer un {{ workflowLowerCase }}",
+        "updateTitle": "Modifiez votre {{ workflowLowerCase }}"
+      },
       "trigger": {
         "helpers": {
+          "exitFail": "Définissez ici le déclencheur qui fera qu'un membre sera considéré comme perdu et sortira du {{ workflowLowerCase }}.",
           "exitSuccess": "Définissez ici le déclencheur qui fera qu'un membre sera considéré comme gagné et sortira du {{ workflowLowerCase }}.",
-          "workflow": "Définissez ici les déclencheurs d'entrée dans le {{ workflowLowerCase }}. Les membres devront répondre à l'un des critères énumérés ci-dessous pour commencer la séquence de marketing.",
-          "exitFail": "Définissez ici le déclencheur qui fera qu'un membre sera considéré comme perdu et sortira du {{ workflowLowerCase }}."
+          "workflow": "Définissez ici les déclencheurs d'entrée dans le {{ workflowLowerCase }}. Les membres devront répondre à l'un des critères énumérés ci-dessous pour commencer la séquence de marketing."
         },
         "trigger_timeout_explain_value_selected": "Si le membre est toujours présent dans le {{ workflowLowerCase }} après {{ days }} jours alors il sera automatiquement retiré du {{ workflowLowerCase }} et considéré comme perdu.",
         "trigger_timeout_select_label": "jours maximum dans le {{ workflowLowerCase }}",
@@ -847,20 +849,14 @@
         "oneOrMoreFinnerGrainDisabledText": "L'un des objets spécifiés n'existe pas dans votre liste de produits."
       },
       "audienceNameLabel": "Nom du {{ workflowLowerCase }}",
-      "audienceStepHelper": "Définissez le nom de l'étape : vous pourrez voir ici le positionnement des membres dans le {{ workflowLowerCase }}.",
-      "title": "Créer un {{ workflowLowerCase }}",
-      "addAWorkflow": "Ajouter un {{ workflowLowerCase }}",
-      "createAudienceHelper": "Grâce aux {{ workflowPluralLowerCase }}, cibler les actions marketing envoyées à vos membres en fonction de leur comportement sur la plateforme. Créez une séquence d'actions que vos membres doivent accomplir pour obtenir certaines promotions ou certains tags, par exemple.",
-      "cadenceParameters": "Paramètres du {{ workflowLowerCase }}",
       "multipleVisit": {
-        "helperText": "Si cette option est activée, les membres qui correspondent aux critères d'entrée peuvent entrer à nouveau dans le {{ workflowLowerCase }} après en être sortis.",
-        "isMultipleVisitAllowedLabel": "Les membres peuvent entrer et sortir de ce {{ workflowLowerCase }} plusieurs fois."
+        "isMultipleVisitAllowedLabel": "Les membres peuvent entrer et sortir de ce {{ workflowLowerCase }} plusieurs fois.",
+        "helperText": "Si cette option est activée, les membres qui correspondent aux critères d'entrée peuvent entrer à nouveau dans le {{ workflowLowerCase }} après en être sortis."
       },
-      "formTitle": {
-        "updateTitle": "Modifiez votre {{ workflowLowerCase }}",
-        "createTitle": "Créer un {{ workflowLowerCase }}",
-        "updateNameTitle": "Modifiez le nom de votre {{ workflowLowerCase }}"
-      }
+      "cadenceParameters": "Paramètres du {{ workflowLowerCase }}",
+      "audienceStepHelper": "Définissez le nom de l'étape : vous pourrez voir ici le positionnement des membres dans le {{ workflowLowerCase }}.",
+      "addAWorkflow": "Ajouter un {{ workflowLowerCase }}",
+      "createAudienceHelper": "Grâce aux {{ workflowPluralLowerCase }}, cibler les actions marketing envoyées à vos membres en fonction de leur comportement sur la plateforme. Créez une séquence d'actions que vos membres doivent accomplir pour obtenir certaines promotions ou certains tags, par exemple."
     },
     "graph": {
       "alert": {
@@ -870,38 +866,42 @@
     },
     "activate": {
       "dialog": {
-        "title": "Lancer le {{ workflowLowerCase }}",
-        "firstHelper": "Voulez vous lancer le {{ workflowLowerCase }} ?"
+        "firstHelper": "Voulez vous lancer le {{ workflowLowerCase }} ?",
+        "title": "Lancer le {{ workflowLowerCase }}"
       },
       "setupBeforeActivationHelper": "Terminez la configuration de votre {{ workflowLowerCase }} et créez votre première action marketing pour lancer votre {{ workflowLowerCase }}."
     },
     "archive": {
       "archivedHeader": "{{ workflowPluralLowerCase }} archivés",
       "dialog": {
+        "beingArchived": "Vous êtes sur le point d'archiver \"{{- name }}\".",
         "helper": "Les membres actuellement dans le {{ workflowLowerCase }} en sortiront automatiquement. Le {{ workflowLowerCase }} sera mis sur pause et archivé mais vous pouvez le réactiver ultérieurement.",
-        "title": "Êtes-vous sûr de vouloir archiver le {{ workflowLowerCase }} ?",
-        "beingArchived": "Vous êtes sur le point d'archiver \"{{- name }}\"."
+        "title": "Êtes-vous sûr de vouloir archiver le {{ workflowLowerCase }} ?"
+      }
+    },
+    "block": {
+      "archived": {
+        "dialog": {
+          "title": "{{ workflowCamelCase }} archivé",
+          "helper": "Le {{ workflowLowerCase }} est maintenant archivé. Pour le restaurer, revenez à la page principale et récupérez le {{ workflowLowerCase }} de la liste."
+        }
+      },
+      "unrecognized": {
+        "dialog": {
+          "title": "{{ workflowCamelCase }} non reconnu",
+          "helper": "Le {{ workflowLowerCase }} auquel vous tentez d'accéder est introuvable."
+        }
       }
     },
     "howTo": {
       "title": "Comment éditer votre {{ workflowLowerCase }}"
     },
-    "audienceIndexHelper": "L'ordre des {{ workflowPluralLowerCase }} détermine la priorité : si un membre peut entrer dans deux {{ workflowPluralLowerCase }} différents en même temps, il commencera par le premier de la liste.",
-    "block": {
-      "unrecognized": {
-        "dialog": {
-          "helper": "Le {{ workflowLowerCase }} auquel vous tentez d'accéder est introuvable.",
-          "title": "{{ workflowCamelCase }} non reconnu"
-        }
-      },
-      "archived": {
-        "dialog": {
-          "helper": "Le {{ workflowLowerCase }} est maintenant archivé. Pour le restaurer, revenez à la page principale et récupérez le {{ workflowLowerCase }} de la liste.",
-          "title": "{{ workflowCamelCase }} archivé"
-        }
-      }
+    "workflow": {
+      "finnerGrainIssues": "Un ou plusieurs objets spécifiés ne sont plus disponibles."
     },
+    "audienceIndexHelper": "L'ordre des {{ workflowPluralLowerCase }} détermine la priorité : si un membre peut entrer dans deux {{ workflowPluralLowerCase }} différents en même temps, il commencera par le premier de la liste.",
     "workflowMetrics": {
+      "openButton": "Ouvrir le {{ workflowLowerCase }}",
       "cards": {
         "members": {
           "title": "Membres",
@@ -928,57 +928,50 @@
         }
       },
       "communication": {
-        "pushNotif": "Notification push",
-        "sms": "SMS",
-        "email": "Email",
-        "availableSoon": "Bientôt disponible",
+        "title": "Communications envoyées",
         "knowMore": "Plus d'informations sur l'upsell {{- upsellName }}",
-        "title": "Communications envoyées"
-      },
-      "openButton": "Ouvrir le {{ workflowLowerCase }}"
-    },
-    "memberTable": {
-      "tableColumnLabel": {
-        "status": "Succès",
-        "exitDate": "Date de sortie",
-        "entryDate": "Date d'entrée",
-        "currentStep": "Étape actuelle",
-        "member": "Membre"
-      },
-      "historicTitle": "Historique ({{count}})",
-      "title": "Membres présents dans le {{ workflowLowerCase }} ({{count}})",
-      "searchPlaceHolder": "Rechercher..."
-    },
-    "editModal": {
-      "dialog": {
-        "confirm": "Confirmer",
-        "cancel": "Annuler",
-        "checkboxLabel": "Ne plus afficher ce message.",
-        "helper": "L'édition des déclencheurs peut modifier la position des membres dans les différentes étapes.",
-        "title": "Éditer le {{ workflowLowerCase }}"
+        "availableSoon": "Bientôt disponible",
+        "email": "Email",
+        "sms": "SMS",
+        "pushNotif": "Notification push"
       }
     },
     "listItem": {
-      "toolTip": {
-        "moreActions": "Plus d'actions sur le workflow"
-      },
       "labels": {
-        "edit": " Modifier les paramètres du {{ workflowLowerCase }}",
-        "archive": "Archiver le {{ workflowLowerCase }}",
-        "open": "Ouvrir",
-        "notLaunched": "Non lancé",
-        "paused": "En pause",
-        "active": "Actif",
-        "unarchive": "Désarchiver",
         "metrics": "Métriques",
-        "invalid": "Problème"
+        "unarchive": "Désarchiver",
+        "active": "Actif",
+        "paused": "En pause",
+        "notLaunched": "Non lancé",
+        "invalid": "Problème",
+        "open": "Ouvrir",
+        "archive": "Archiver le {{ workflowLowerCase }}",
+        "edit": " Modifier les paramètres du {{ workflowLowerCase }}"
       },
       "tooltip": {
         "moreActions": "Plus d'actions"
       }
     },
-    "workflow": {
-      "finnerGrainIssues": "Un ou plusieurs objets spécifiés ne sont plus disponibles."
+    "editModal": {
+      "dialog": {
+        "title": "Éditer le {{ workflowLowerCase }}",
+        "helper": "L'édition des déclencheurs peut modifier la position des membres dans les différentes étapes.",
+        "checkboxLabel": "Ne plus afficher ce message.",
+        "cancel": "Annuler",
+        "confirm": "Confirmer"
+      }
+    },
+    "memberTable": {
+      "searchPlaceHolder": "Rechercher...",
+      "title": "Membres présents dans le {{ workflowLowerCase }} ({{count}})",
+      "historicTitle": "Historique ({{count}})",
+      "tableColumnLabel": {
+        "member": "Membre",
+        "currentStep": "Étape actuelle",
+        "entryDate": "Date d'entrée",
+        "exitDate": "Date de sortie",
+        "status": "Succès"
+      }
     }
   }
 }

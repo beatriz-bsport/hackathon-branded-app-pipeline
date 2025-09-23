@@ -1,1 +1,105 @@
-{}
+{
+  "pages": {
+    "active": "Formularios",
+    "archived": "Formularios archivados",
+    "loading": "Cargando..."
+  },
+  "activeList": {
+    "actions": {
+      "addForm": "Crear formulario"
+    },
+    "addFormModal": {
+      "title": "Crear nuevo formulario",
+      "description": "¡Ponle un nombre a tu nuevo formulario para comenzar!",
+      "input": {
+        "label": "Nombre del formulario",
+        "placeholder": "Añade un nombre al formulario..."
+      },
+      "actions": {
+        "cancel": "Cancelar",
+        "create": "Crear"
+      },
+      "errors": {
+        "nameTooLong": "El nombre no es válido, la longitud máxima es de {{ maximalLength }} caracteres.",
+        "nameTooShort": "El nombre no es válido, la longitud mínima es de {{ minimalLength }} caracteres.",
+        "nameRequired": "El nombre no es válido, no puedes dejarlo vacío."
+      }
+    },
+    "archiveModal": {
+      "actions": {
+        "archive": "Archivar",
+        "cancel": "Atrás"
+      },
+      "title": "¿Archivar formulario?",
+      "description": "Miembros ya no verán <b>{{ name }}</b>, pero puedes acceder a él desde tu archivo."
+    },
+    "duplicateModal": {
+      "actions": {
+        "duplicate": "Duplicar",
+        "cancel": "Atrás"
+      },
+      "title": "¿Duplicar formulario?",
+      "description": {
+        "verification": "¿Duplicar <b>{{ name }}</b>?",
+        "effect": "Puedes editar <b>{{ name }}</b> después."
+      }
+    }
+  },
+  "toasts": {
+    "messageCreated": {
+      "success": "Formulario creado",
+      "error": "No se pudo crear tu formulario"
+    },
+    "messageArchived": {
+      "success": "Formulario archivado",
+      "error": "No se pudo archivar tu formulario"
+    },
+    "messageRestored": {
+      "success": "Formulario restaurado",
+      "error": "No se pudo restaurar tu formulario"
+    },
+    "messageDuplicated": {
+      "success": "Formulario duplicado",
+      "error": "No se pudo duplicar tu formulario"
+    },
+    "messageUndone": {
+      "success": "Acción revertida",
+      "error": "No se pudo revertir la acción"
+    },
+    "actions": {
+      "undo": "Revertir",
+      "open": "Abrir"
+    }
+  },
+  "table": {
+    "headers": {
+      "name": "Nombre",
+      "questions": "Preguntas"
+    },
+    "loading": {
+      "activeList": "Cargando formularios...",
+      "archivedList": "Cargando formularios archivados..."
+    },
+    "empty": {
+      "activeList": {
+        "title": "No hay formularios para mostrar aún",
+        "subtitle": "Crea tu primer formulario para obtener comentarios de tus Miembros."
+      },
+      "archivedList": {
+        "title": "Aún no hay formularios archivados",
+        "subtitle": "Cualquier formulario movido aquí puede ser restaurado"
+      },
+      "search": {
+        "title": "No se encontraron formularios",
+        "subtitle": "Prueba con diferentes palabras clave"
+      }
+    },
+    "tooltips": {
+      "archive": "Formulario de archivo",
+      "restore": "Restaurar formulario",
+      "duplicate": "Duplicar formulario",
+      "search": "Buscar un formulario",
+      "switchToArchived": "Formularios archivados"
+    }
+  }
+}

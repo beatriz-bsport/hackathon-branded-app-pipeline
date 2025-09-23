@@ -1,21 +1,22 @@
 {
   "offerStatus": {
     "hasEnded": "Voltooid sinds",
-    "inProgress": "Reeds begonnen",
-    "startIn": "Begint over "
+    "startIn": "Begint over ",
+    "inProgress": "Reeds begonnen"
   },
   "addMember": {
     "button": "Een account aanmaken"
-  },
-  "filter": {
-    "establishment": "Filter op vestiging"
   },
   "offerList": {
     "refresh": "Verversen",
     "emptyList": "Er zijn geen activiteiten om weer te geven."
   },
+  "filter": {
+    "establishment": "Filter op vestiging"
+  },
   "signout": {
     "title": "Afmelden",
+    "explain": "Voer het wachtwoord van het account van deze Check-in Tablet in om uit te loggen.",
     "passwordError": "Ongeldig wachtwoord",
     "cancel": "Annuleren",
     "signout": "Afmelden",
@@ -26,17 +27,21 @@
       "password": {
         "label": "Wachtwoord"
       }
-    },
-    "explain": "Voer het wachtwoord van het account van deze Check-in Tablet in om uit te loggen."
+    }
+  },
+  "authenticationDialog": {
+    "title": "Wijzigen Vestiging",
+    "description": "Om de veiligheid te garanderen, dient u uw identiteit te verifiëren door uw wachtwoord in te voeren voordat u verdergaat met het wijzigen van de vestiging.",
+    "error": "Het ingevoerde wachtwoord is ongeldig"
   },
   "offerDetail": {
     "emptyList": "Er zijn geen reserveringen om weer te geven.",
     "noConsumerPaymentPack": "Je bezit nog geen geldig lidmaatschap om deze reservering te voltooien.",
     "backToOfferList": "Terug naar activiteiten",
     "cancelRegistration": "Annuleren",
+    "isFull": "Vol",
     "register": "Reserveren",
     "activateBarcode": "Scan streepjescode",
-    "isFull": "Vol",
     "actions": {
       "createAccount": "Een account aanmaken",
       "restartAnalyze": "Herstarten",
@@ -52,16 +57,11 @@
   },
   "confirmPage": {
     "classLocation": "Ga naar de volgende vestiging om deel te nemen:",
-    "expires": "Verlopen",
     "signIn": "Ingecheckt",
+    "expires": "Verlopen",
     "headOnIn": "Gereed!",
     "visitsLeft": "Resterende bezoeken",
-    "spotUnassigned": "Spot niet toegewezen",
-    "spotInfo": "jouw {{- spotName }} is:"
-  },
-  "authenticationDialog": {
-    "error": "Het ingevoerde wachtwoord is ongeldig",
-    "title": "Wijzigen Vestiging",
-    "description": "Om de veiligheid te garanderen, dient u uw identiteit te verifiëren door uw wachtwoord in te voeren voordat u verdergaat met het wijzigen van de vestiging."
+    "spotInfo": "jouw {{- spotName }} is:",
+    "spotUnassigned": "Spot niet toegewezen"
   }
 }

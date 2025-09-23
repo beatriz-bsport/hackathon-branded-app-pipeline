@@ -1,0 +1,1705 @@
+{
+    "userRoles": "",
+    "permissions": "",
+    "forms": {
+        "user": {
+            "create": {
+                "buttonLabel": "",
+                "title": "",
+                "role": {
+                    "selectRole": {
+                        "topLabel": "",
+                        "label": ""
+                    },
+                    "title": "",
+                    "label": ""
+                },
+                "cancel": "",
+                "submit": "",
+                "register": "",
+                "franchisees": {
+                    "warning": "",
+                    "title": ""
+                },
+                "generalInfo": {
+                    "lastName": {
+                        "label": ""
+                    },
+                    "firstName": {
+                        "label": ""
+                    },
+                    "email": {
+                        "label": ""
+                    },
+                    "title": ""
+                },
+                "email": {
+                    "label": ""
+                },
+                "firstName": {
+                    "label": ""
+                },
+                "lastName": {
+                    "label": ""
+                }
+            },
+            "delete": {
+                "title": "",
+                "content": "",
+                "cancel": "",
+                "confirm": ""
+            },
+            "ifEmptySelectAll": "",
+            "warningNoEstablishmentSelected": "",
+            "selectFranchisees": "",
+            "selectFranchiseesDisabled": "",
+            "commissionHeader": "",
+            "commission": "",
+            "advancedSettings": "",
+            "advancedSettingsModal": {
+                "title": "",
+                "teacher": {
+                    "title": "",
+                    "helpText": "",
+                    "subtitle": "",
+                    "placeholder": "",
+                    "allOptionsPlaceholder": "",
+                    "ifEmptySelectAll": ""
+                },
+                "establishmentBillingGroup": {
+                    "title": "",
+                    "helpText": "",
+                    "description": ""
+                },
+                "accessMonitoring": {
+                    "title": "",
+                    "multilocation": {
+                        "helpText": "",
+                        "title": "",
+                        "search": "",
+                        "placeholder": ""
+                    },
+                    "singlelocation": {
+                        "helpText": "",
+                        "title": "",
+                        "search": "",
+                        "placeholder": ""
+                    },
+                    "establishment": {
+                        "title": "",
+                        "allOptionsPlaceholder": "",
+                        "search": "",
+                        "placeholder": ""
+                    }
+                }
+            },
+            "snackbar": {
+                "success": "",
+                "error": "",
+                "errorEmail": ""
+            },
+            "selectCoach": ""
+        },
+        "role": {
+            "delete": {
+                "confirm": "",
+                "cancel": "",
+                "content": "",
+                "title": ""
+            },
+            "create": {
+                "showAdvanced": "",
+                "permissions": "",
+                "description": "",
+                "name": "",
+                "title": "",
+                "buttonCreate": "",
+                "restrictedUrl": "",
+                "restrictedUrlPlaceholder": "",
+                "restrictedUrlExplain": "",
+                "authorizeManagerExplain": "",
+                "authorizeManagerAction": ""
+            },
+            "franchise": {
+                "create": {
+                    "buttons": {
+                        "close": "",
+                        "previous": "",
+                        "next": ""
+                    },
+                    "steps": {
+                        "franchisee": "",
+                        "masterAccount": ""
+                    },
+                    "title": ""
+                }
+            },
+            "failDelete": {
+                "close": "",
+                "content": "",
+                "title": ""
+            }
+        }
+    },
+    "explainStaffDoNot": "",
+    "explainStaffDo": "",
+    "pageTitle": "",
+    "roleDescription": {
+        "0": {
+            "name": "",
+            "description": ""
+        },
+        "1": {
+            "description": "",
+            "name": ""
+        },
+        "2": {
+            "description": "",
+            "name": ""
+        },
+        "3": {
+            "description": "",
+            "name": ""
+        },
+        "4": {
+            "description": "",
+            "name": ""
+        },
+        "5": {
+            "name": "",
+            "description": ""
+        },
+        "-1": {
+            "description": "",
+            "name": ""
+        }
+    },
+    "rolePermissions": {
+        "member": {
+            "retrieve": {
+                "_label": ""
+            },
+            "search": {
+                "_label": ""
+            },
+            "edit": {
+                "_label": ""
+            },
+            "create": {
+                "_label": ""
+            },
+            "_label": ""
+        },
+        "navigationMenu": {
+            "settings": {
+                "_label": "",
+                "generals": {
+                    "_label": ""
+                },
+                "marketplace": {
+                    "_label": ""
+                },
+                "widgets": {
+                    "_label": ""
+                },
+                "staffs": {
+                    "_label": ""
+                },
+                "personalization": {
+                    "_label": ""
+                },
+                "memberForms": {
+                    "_label": ""
+                },
+                "liveStreaming": {
+                    "_label": ""
+                },
+                "transactionnalEmail": {
+                    "_label": ""
+                },
+                "teacherPayrollRules": {
+                    "_label": ""
+                },
+                "paymentMethods": {
+                    "_label": ""
+                },
+                "company": {
+                    "_label": ""
+                },
+                "billing": {
+                    "_label": ""
+                },
+                "waitingList": {
+                    "_label": ""
+                },
+                "webShop": {
+                    "_label": ""
+                },
+                "webHook": {
+                    "_label": ""
+                },
+                "partnership": {
+                    "_label": ""
+                },
+                "quickBooks": {
+                    "_label": ""
+                },
+                "activeCampaign": {
+                    "_label": ""
+                },
+                "subscription": {
+                    "_label": ""
+                },
+                "mobilePersonalization": {
+                    "_label": ""
+                },
+                "coachUserspace": {
+                    "_label": ""
+                },
+                "quicksale": {
+                    "_label": ""
+                },
+                "referral": {
+                    "_label": ""
+                }
+            },
+            "reporting": {
+                "_label": ""
+            },
+            "member": {
+                "_label": ""
+            },
+            "digitalOffer": {
+                "_label": "",
+                "videos": {
+                    "_label": ""
+                },
+                "playlists": {
+                    "_label": ""
+                }
+            },
+            "inbox": {
+                "_label": ""
+            },
+            "marketing": {
+                "_label": "",
+                "templates": {
+                    "_label": ""
+                },
+                "customForms": {
+                    "_label": ""
+                },
+                "smartlists": {
+                    "_label": ""
+                },
+                "notifications": {
+                    "_label": ""
+                },
+                "strategies": {
+                    "_label": ""
+                },
+                "tags": {
+                    "_label": ""
+                },
+                "cadence": {
+                    "_label": ""
+                },
+                "audience": {
+                    "_label": ""
+                }
+            },
+            "payments": {
+                "_label": "",
+                "billings": {
+                    "_label": ""
+                },
+                "directDebits": {
+                    "_label": ""
+                },
+                "orders": {
+                    "_label": ""
+                },
+                "expenses": {
+                    "_label": ""
+                },
+                "installments": {
+                    "_label": ""
+                },
+                "teachers": {
+                    "_label": ""
+                },
+                "clockIn": {
+                    "_label": "",
+                    "selfClockIn": {
+                        "_label": ""
+                    },
+                    "clockInForOther": {
+                        "_label": ""
+                    },
+                    "canAccessHistory": {
+                        "_label": ""
+                    }
+                }
+            },
+            "products": {
+                "_label": "",
+                "paymentPack": {
+                    "_label": ""
+                },
+                "privatePass": {
+                    "_label": ""
+                },
+                "shop": {
+                    "_label": ""
+                },
+                "packs": {
+                    "_label": ""
+                },
+                "giftcards": {
+                    "_label": ""
+                },
+                "promotions": {
+                    "_label": ""
+                },
+                "contracts": {
+                    "_label": ""
+                },
+                "shopReworked": {
+                    "_label": "",
+                    "products": {
+                        "_label": ""
+                    },
+                    "settings": {
+                        "_label": ""
+                    }
+                }
+            },
+            "myClub": {
+                "_label": "",
+                "activities": {
+                    "_label": ""
+                },
+                "workshops": {
+                    "_label": ""
+                },
+                "appointments": {
+                    "_label": ""
+                },
+                "teachers": {
+                    "_label": ""
+                },
+                "establishments": {
+                    "_label": ""
+                },
+                "programs": {
+                    "_label": ""
+                },
+                "replacement": {
+                    "_label": ""
+                }
+            },
+            "schedule": {
+                "_label": ""
+            },
+            "accessMonitoring": {
+                "_label": "",
+                "perform": {
+                    "_label": ""
+                },
+                "monitor": {
+                    "_label": ""
+                },
+                "settings": {
+                    "_label": ""
+                }
+            },
+            "calendar": {
+                "_label": ""
+            },
+            "dashboard": {
+                "_label": ""
+            },
+            "_label": "",
+            "tutorial": {
+                "_label": ""
+            },
+            "search": {
+                "_helper": "",
+                "_label": ""
+            }
+        },
+        "offer": {
+            "edit": {
+                "_label": ""
+            },
+            "delete": {
+                "_label": ""
+            },
+            "create": {
+                "_label": ""
+            },
+            "_label": ""
+        },
+        "search": {
+            "_label": ""
+        },
+        "appbarButtons": {
+            "notificationCenter": {
+                "_label": ""
+            },
+            "ledger": {
+                "_label": ""
+            },
+            "_label": "",
+            "communicationAlerts": {
+                "_label": ""
+            }
+        },
+        "franchiseMenu": {
+            "settings": {
+                "_label": ""
+            },
+            "staff": {
+                "_label": ""
+            },
+            "widgets": {
+                "_label": ""
+            },
+            "reporting": {
+                "_label": ""
+            },
+            "notificationRules": {
+                "_label": ""
+            },
+            "marketing": {
+                "_label": "",
+                "emailTemplates": {
+                    "_label": ""
+                },
+                "campaigns": {
+                    "_label": ""
+                },
+                "tags": {
+                    "_label": ""
+                }
+            },
+            "products": {
+                "couponTemplates": {
+                    "_label": ""
+                },
+                "privatePassTemplates": {
+                    "_label": ""
+                },
+                "paymentPackTemplates": {
+                    "_label": ""
+                },
+                "universalPassTemplates": {
+                    "_label": ""
+                },
+                "contractTemplates": {
+                    "_label": ""
+                },
+                "shopTemplates": {
+                    "_label": ""
+                },
+                "_label": "",
+                "giftcardTemplates": {
+                    "_label": ""
+                }
+            },
+            "members": {
+                "_label": ""
+            },
+            "franchises": {
+                "_label": ""
+            },
+            "_label": "",
+            "emailTemplates": {
+                "_label": ""
+            },
+            "tag": {
+                "_label": ""
+            }
+        },
+        "appbarActions": {
+            "_helper": "",
+            "_label": ""
+        }
+    },
+    "overbookingForbidden": "",
+    "objectLevelPermissions": {
+        "reservation": {
+            "workshop": {
+                "allowed_actions": {
+                    "attendance": {
+                        "_label": ""
+                    },
+                    "removeFromWaitlist": {
+                        "_label": ""
+                    },
+                    "delete": {
+                        "_label": ""
+                    },
+                    "create": {
+                        "_label": ""
+                    },
+                    "addToWaitlist": {
+                        "_label": ""
+                    },
+                    "rollcall": {
+                        "_label": ""
+                    },
+                    "editPerformance": {
+                        "_label": ""
+                    },
+                    "editSpot": {
+                        "_label": ""
+                    },
+                    "refund": {
+                        "_label": ""
+                    }
+                },
+                "_label": ""
+            },
+            "activity": {
+                "allowed_actions": {
+                    "editPerformance": {
+                        "_label": ""
+                    },
+                    "editSpot": {
+                        "_label": ""
+                    },
+                    "attendance": {
+                        "_label": ""
+                    },
+                    "removeFromWaitlist": {
+                        "_label": ""
+                    },
+                    "delete": {
+                        "_label": ""
+                    },
+                    "create": {
+                        "_label": ""
+                    },
+                    "addToWaitlist": {
+                        "_label": ""
+                    },
+                    "rollcall": {
+                        "_label": ""
+                    },
+                    "refund": {
+                        "_label": ""
+                    }
+                },
+                "_label": ""
+            },
+            "_label": "",
+            "privateBooking": {
+                "allowed_actions": {
+                    "editPerformance": {
+                        "_label": ""
+                    },
+                    "cancel": {
+                        "_label": ""
+                    },
+                    "edit": {
+                        "_label": ""
+                    },
+                    "create": {
+                        "_label": ""
+                    }
+                },
+                "_label": ""
+            }
+        },
+        "billing": {
+            "allowed_actions": {
+                "createManualDiscount": {
+                    "_label": ""
+                },
+                "partialRefundAsCredit": {
+                    "_label": ""
+                },
+                "partialRefundAsDiscount": {
+                    "_label": ""
+                },
+                "deletePaymentMethod": {
+                    "_label": ""
+                },
+                "addPaymentMethod": {
+                    "_label": ""
+                },
+                "cancelInvoice": {
+                    "_label": ""
+                },
+                "readPaymentLink": {
+                    "_label": ""
+                },
+                "createInvoice": {
+                    "_label": ""
+                },
+                "readInvoices": {
+                    "_label": ""
+                },
+                "editBalance": {
+                    "_label": ""
+                },
+                "editBalanceWithoutInvoice": {
+                    "_label": ""
+                },
+                "takePayment": {
+                    "_label": ""
+                }
+            },
+            "_label": ""
+        },
+        "member": {
+            "allowed_actions": {
+                "manageNotification": {
+                    "_label": ""
+                },
+                "communication": {
+                    "_label": ""
+                },
+                "readBalance": {
+                    "_label": ""
+                },
+                "accessProfile": {
+                    "_label": ""
+                },
+                "search": {
+                    "_label": ""
+                },
+                "delete": {
+                    "_label": ""
+                },
+                "editInfo": {
+                    "_label": ""
+                },
+                "readInfo": {
+                    "_label": ""
+                },
+                "create": {
+                    "_label": ""
+                }
+            },
+            "_label": ""
+        },
+        "session": {
+            "privateSlot": {
+                "allowed_actions": {
+                    "delete": {
+                        "_label": ""
+                    },
+                    "edit": {
+                        "_label": ""
+                    },
+                    "create": {
+                        "_label": ""
+                    },
+                    "viewNotes": {
+                        "_label": ""
+                    },
+                    "editNotes": {
+                        "_label": ""
+                    }
+                },
+                "_label": ""
+            },
+            "workshop": {
+                "allowed_actions": {
+                    "delete": {
+                        "_label": ""
+                    },
+                    "edit": {
+                        "_label": ""
+                    },
+                    "create": {
+                        "_label": ""
+                    },
+                    "viewNotes": {
+                        "_label": ""
+                    },
+                    "editNotes": {
+                        "_label": ""
+                    }
+                },
+                "_label": ""
+            },
+            "activity": {
+                "allowed_actions": {
+                    "delete": {
+                        "_label": ""
+                    },
+                    "edit": {
+                        "_label": ""
+                    },
+                    "create": {
+                        "_label": ""
+                    },
+                    "viewNotes": {
+                        "_label": ""
+                    },
+                    "editNotes": {
+                        "_label": ""
+                    }
+                },
+                "_label": ""
+            },
+            "_label": ""
+        },
+        "report": {
+            "Club": {
+                "activityByEst": {
+                    "allowed_actions": {
+                        "read": {
+                            "_label": ""
+                        },
+                        "create": {
+                            "_label": ""
+                        },
+                        "edit": {
+                            "_label": ""
+                        },
+                        "delete": {
+                            "_label": ""
+                        }
+                    },
+                    "_label": ""
+                },
+                "activities": {
+                    "allowed_actions": {
+                        "delete": {
+                            "_label": ""
+                        },
+                        "edit": {
+                            "_label": ""
+                        },
+                        "read": {
+                            "_label": ""
+                        },
+                        "create": {
+                            "_label": ""
+                        }
+                    },
+                    "_label": ""
+                },
+                "members": {
+                    "allowed_actions": {
+                        "delete": {
+                            "_label": ""
+                        },
+                        "edit": {
+                            "_label": ""
+                        },
+                        "read": {
+                            "_label": ""
+                        },
+                        "create": {
+                            "_label": ""
+                        }
+                    },
+                    "_label": ""
+                },
+                "members_purchase": {
+                    "allowed_actions": {
+                        "delete": {
+                            "_label": ""
+                        },
+                        "edit": {
+                            "_label": ""
+                        },
+                        "read": {
+                            "_label": ""
+                        },
+                        "create": {
+                            "_label": ""
+                        }
+                    },
+                    "_label": ""
+                },
+                "billing_plan": {
+                    "allowed_actions": {
+                        "delete": {
+                            "_label": ""
+                        },
+                        "edit": {
+                            "_label": ""
+                        },
+                        "read": {
+                            "_label": ""
+                        },
+                        "create": {
+                            "_label": ""
+                        }
+                    },
+                    "_label": ""
+                },
+                "_label": "",
+                "activityByCoach": {
+                    "_label": "",
+                    "allowed_actions": {
+                        "create": {
+                            "_label": ""
+                        },
+                        "read": {
+                            "_label": ""
+                        },
+                        "edit": {
+                            "_label": ""
+                        },
+                        "delete": {
+                            "_label": ""
+                        }
+                    }
+                },
+                "privateService": {
+                    "allowed_actions": {
+                        "read": {
+                            "_label": ""
+                        },
+                        "create": {
+                            "_label": ""
+                        },
+                        "delete": {
+                            "_label": ""
+                        },
+                        "edit": {
+                            "_label": ""
+                        }
+                    },
+                    "_label": ""
+                },
+                "workshop": {
+                    "allowed_actions": {
+                        "edit": {
+                            "_label": ""
+                        },
+                        "create": {
+                            "_label": ""
+                        },
+                        "delete": {
+                            "_label": ""
+                        },
+                        "read": {
+                            "_label": ""
+                        }
+                    },
+                    "_label": ""
+                },
+                "offers": {
+                    "_label": "",
+                    "allowed_actions": {
+                        "create": {
+                            "_label": ""
+                        },
+                        "read": {
+                            "_label": ""
+                        },
+                        "edit": {
+                            "_label": ""
+                        },
+                        "delete": {
+                            "_label": ""
+                        }
+                    }
+                },
+                "subscription": {
+                    "allowed_actions": {
+                        "create": {
+                            "_label": ""
+                        },
+                        "read": {
+                            "_label": ""
+                        },
+                        "delete": {
+                            "_label": ""
+                        },
+                        "edit": {
+                            "_label": ""
+                        }
+                    },
+                    "_label": ""
+                },
+                "referral_grant": {
+                    "allowed_actions": {
+                        "create": {
+                            "_label": ""
+                        },
+                        "read": {
+                            "_label": ""
+                        },
+                        "delete": {
+                            "_label": ""
+                        },
+                        "edit": {
+                            "_label": ""
+                        }
+                    },
+                    "_label": ""
+                },
+                "access_monitoring": {
+                    "allowed_actions": {
+                        "create": {
+                            "_label": ""
+                        },
+                        "read": {
+                            "_label": ""
+                        },
+                        "delete": {
+                            "_label": ""
+                        },
+                        "edit": {
+                            "_label": ""
+                        }
+                    },
+                    "_label": ""
+                }
+            },
+            "Payments": {
+                "video_purchase": {
+                    "allowed_actions": {
+                        "delete": {
+                            "_label": ""
+                        },
+                        "edit": {
+                            "_label": ""
+                        },
+                        "read": {
+                            "_label": ""
+                        },
+                        "create": {
+                            "_label": ""
+                        }
+                    },
+                    "_label": ""
+                },
+                "payment_installments": {
+                    "allowed_actions": {
+                        "delete": {
+                            "_label": ""
+                        },
+                        "edit": {
+                            "_label": ""
+                        },
+                        "read": {
+                            "_label": ""
+                        },
+                        "create": {
+                            "_label": ""
+                        }
+                    },
+                    "_label": ""
+                },
+                "dispute": {
+                    "allowed_actions": {
+                        "delete": {
+                            "_label": ""
+                        },
+                        "edit": {
+                            "_label": ""
+                        },
+                        "read": {
+                            "_label": ""
+                        },
+                        "create": {
+                            "_label": ""
+                        }
+                    },
+                    "_label": ""
+                },
+                "on_spot_payments": {
+                    "allowed_actions": {
+                        "delete": {
+                            "_label": ""
+                        },
+                        "edit": {
+                            "_label": ""
+                        },
+                        "read": {
+                            "_label": ""
+                        },
+                        "create": {
+                            "_label": ""
+                        }
+                    },
+                    "_label": ""
+                },
+                "payment_sumup": {
+                    "allowed_actions": {
+                        "delete": {
+                            "_label": ""
+                        },
+                        "edit": {
+                            "_label": ""
+                        },
+                        "read": {
+                            "_label": ""
+                        },
+                        "create": {
+                            "_label": ""
+                        }
+                    },
+                    "_label": ""
+                },
+                "payments": {
+                    "allowed_actions": {
+                        "delete": {
+                            "_label": ""
+                        },
+                        "edit": {
+                            "_label": ""
+                        },
+                        "read": {
+                            "_label": ""
+                        },
+                        "create": {
+                            "_label": ""
+                        }
+                    },
+                    "_label": ""
+                },
+                "unpaid_invoices": {
+                    "allowed_actions": {
+                        "delete": {
+                            "_label": ""
+                        },
+                        "edit": {
+                            "_label": ""
+                        },
+                        "read": {
+                            "_label": ""
+                        },
+                        "create": {
+                            "_label": ""
+                        }
+                    },
+                    "_label": ""
+                },
+                "invoices": {
+                    "allowed_actions": {
+                        "delete": {
+                            "_label": ""
+                        },
+                        "edit": {
+                            "_label": ""
+                        },
+                        "read": {
+                            "_label": ""
+                        },
+                        "create": {
+                            "_label": ""
+                        }
+                    },
+                    "_label": ""
+                },
+                "expense": {
+                    "allowed_actions": {
+                        "delete": {
+                            "_label": ""
+                        },
+                        "edit": {
+                            "_label": ""
+                        },
+                        "read": {
+                            "_label": ""
+                        },
+                        "create": {
+                            "_label": ""
+                        }
+                    },
+                    "_label": ""
+                },
+                "credit": {
+                    "allowed_actions": {
+                        "delete": {
+                            "_label": ""
+                        },
+                        "edit": {
+                            "_label": ""
+                        },
+                        "read": {
+                            "_label": ""
+                        },
+                        "create": {
+                            "_label": ""
+                        }
+                    },
+                    "_label": ""
+                },
+                "cashbook": {
+                    "allowed_actions": {
+                        "delete": {
+                            "_label": ""
+                        },
+                        "edit": {
+                            "_label": ""
+                        },
+                        "read": {
+                            "_label": ""
+                        },
+                        "create": {
+                            "_label": ""
+                        }
+                    },
+                    "_label": ""
+                },
+                "basket": {
+                    "allowed_actions": {
+                        "delete": {
+                            "_label": ""
+                        },
+                        "edit": {
+                            "_label": ""
+                        },
+                        "read": {
+                            "_label": ""
+                        },
+                        "create": {
+                            "_label": ""
+                        }
+                    },
+                    "_label": ""
+                },
+                "_label": ""
+            },
+            "_label": "",
+            "Products": {
+                "_label": "",
+                "private_cpasses_expired": {
+                    "allowed_actions": {
+                        "edit": {
+                            "_label": ""
+                        },
+                        "create": {
+                            "_label": ""
+                        },
+                        "read": {
+                            "_label": ""
+                        },
+                        "delete": {
+                            "_label": ""
+                        }
+                    },
+                    "_label": ""
+                },
+                "private_cpasses": {
+                    "allowed_actions": {
+                        "create": {
+                            "_label": ""
+                        },
+                        "delete": {
+                            "_label": ""
+                        },
+                        "edit": {
+                            "_label": ""
+                        },
+                        "read": {
+                            "_label": ""
+                        }
+                    },
+                    "_label": ""
+                },
+                "universal_passes": {
+                    "allowed_actions": {
+                        "create": {
+                            "_label": ""
+                        },
+                        "delete": {
+                            "_label": ""
+                        },
+                        "edit": {
+                            "_label": ""
+                        },
+                        "read": {
+                            "_label": ""
+                        }
+                    },
+                    "_label": ""
+                },
+                "giftcard": {
+                    "allowed_actions": {
+                        "read": {
+                            "_label": ""
+                        },
+                        "delete": {
+                            "_label": ""
+                        },
+                        "create": {
+                            "_label": ""
+                        },
+                        "edit": {
+                            "_label": ""
+                        }
+                    },
+                    "_label": ""
+                },
+                "expired_pass": {
+                    "allowed_actions": {
+                        "edit": {
+                            "_label": ""
+                        },
+                        "read": {
+                            "_label": ""
+                        },
+                        "delete": {
+                            "_label": ""
+                        },
+                        "create": {
+                            "_label": ""
+                        }
+                    },
+                    "_label": ""
+                },
+                "consumer_giftcard": {
+                    "allowed_actions": {
+                        "create": {
+                            "_label": ""
+                        },
+                        "read": {
+                            "_label": ""
+                        },
+                        "edit": {
+                            "_label": ""
+                        },
+                        "delete": {
+                            "_label": ""
+                        }
+                    },
+                    "_label": ""
+                },
+                "memberships": {
+                    "allowed_actions": {
+                        "edit": {
+                            "_label": ""
+                        },
+                        "delete": {
+                            "_label": ""
+                        },
+                        "create": {
+                            "_label": ""
+                        },
+                        "read": {
+                            "_label": ""
+                        }
+                    },
+                    "_label": ""
+                },
+                "discount": {
+                    "_label": "",
+                    "allowed_actions": {
+                        "create": {
+                            "_label": ""
+                        },
+                        "delete": {
+                            "_label": ""
+                        },
+                        "read": {
+                            "_label": ""
+                        },
+                        "edit": {
+                            "_label": ""
+                        }
+                    }
+                },
+                "shop": {
+                    "allowed_actions": {
+                        "create": {
+                            "_label": ""
+                        },
+                        "read": {
+                            "_label": ""
+                        },
+                        "edit": {
+                            "_label": ""
+                        },
+                        "delete": {
+                            "_label": ""
+                        }
+                    },
+                    "_label": ""
+                },
+                "video": {
+                    "_label": "",
+                    "allowed_actions": {
+                        "read": {
+                            "_label": ""
+                        },
+                        "edit": {
+                            "_label": ""
+                        },
+                        "delete": {
+                            "_label": ""
+                        },
+                        "create": {
+                            "_label": ""
+                        }
+                    }
+                }
+            },
+            "Bookings": {
+                "first_booking": {
+                    "allowed_actions": {
+                        "create": {
+                            "_label": ""
+                        },
+                        "read": {
+                            "_label": ""
+                        },
+                        "edit": {
+                            "_label": ""
+                        },
+                        "delete": {
+                            "_label": ""
+                        }
+                    },
+                    "_label": ""
+                },
+                "bookings": {
+                    "allowed_actions": {
+                        "read": {
+                            "_label": ""
+                        },
+                        "create": {
+                            "_label": ""
+                        },
+                        "edit": {
+                            "_label": ""
+                        },
+                        "delete": {
+                            "_label": ""
+                        }
+                    },
+                    "_label": ""
+                },
+                "_label": "",
+                "dayBookings": {
+                    "allowed_actions": {
+                        "create": {
+                            "_label": ""
+                        },
+                        "edit": {
+                            "_label": ""
+                        },
+                        "read": {
+                            "_label": ""
+                        },
+                        "delete": {
+                            "_label": ""
+                        }
+                    },
+                    "_label": ""
+                },
+                "first_attendance": {
+                    "allowed_actions": {
+                        "create": {
+                            "_label": ""
+                        },
+                        "edit": {
+                            "_label": ""
+                        },
+                        "read": {
+                            "_label": ""
+                        },
+                        "delete": {
+                            "_label": ""
+                        }
+                    },
+                    "_label": ""
+                },
+                "first_privatebooking": {
+                    "allowed_actions": {
+                        "create": {
+                            "_label": ""
+                        },
+                        "read": {
+                            "_label": ""
+                        },
+                        "delete": {
+                            "_label": ""
+                        },
+                        "edit": {
+                            "_label": ""
+                        }
+                    },
+                    "_label": ""
+                },
+                "private_bookings": {
+                    "_label": "",
+                    "allowed_actions": {
+                        "delete": {
+                            "_label": ""
+                        },
+                        "create": {
+                            "_label": ""
+                        },
+                        "edit": {
+                            "_label": ""
+                        },
+                        "read": {
+                            "_label": ""
+                        }
+                    }
+                },
+                "unpaid_private_bookings": {
+                    "allowed_actions": {
+                        "create": {
+                            "_label": ""
+                        },
+                        "read": {
+                            "_label": ""
+                        },
+                        "delete": {
+                            "_label": ""
+                        },
+                        "edit": {
+                            "_label": ""
+                        }
+                    },
+                    "_label": ""
+                }
+            }
+        },
+        "planning": {
+            "schedule": {
+                "allowed_actions": {
+                    "readAvailabilityDetail": {
+                        "_label": ""
+                    },
+                    "deleteAvailability": {
+                        "_label": ""
+                    },
+                    "createAvailability": {
+                        "_label": ""
+                    }
+                },
+                "_label": ""
+            },
+            "calendar": {
+                "allowed_actions": {
+                    "readWeeklyOverview": {
+                        "_label": ""
+                    },
+                    "readCancellations": {
+                        "_label": ""
+                    },
+                    "bulkCancellation": {
+                        "_label": ""
+                    }
+                },
+                "_label": ""
+            },
+            "_label": ""
+        },
+        "export": {
+            "allowed_actions": {
+                "report": {
+                    "_label": ""
+                },
+                "memberDocument": {
+                    "_label": ""
+                },
+                "smartlist": {
+                    "_label": ""
+                },
+                "attendance": {
+                    "_label": ""
+                },
+                "payroll": {
+                    "_label": ""
+                },
+                "subscription": {
+                    "_label": ""
+                },
+                "invoice": {
+                    "_label": ""
+                },
+                "planning": {
+                    "_label": ""
+                },
+                "smartlist_general_report": {
+                    "_label": ""
+                }
+            },
+            "_label": ""
+        },
+        "product": {
+            "paymentPack": {
+                "_label": "",
+                "allowed_actions": {
+                    "delete": {
+                        "_label": ""
+                    },
+                    "create": {
+                        "_label": ""
+                    },
+                    "edit": {
+                        "_label": ""
+                    },
+                    "manageExtension": {
+                        "_label": ""
+                    },
+                    "manageCredit": {
+                        "_label": ""
+                    },
+                    "compatibility": {
+                        "_label": ""
+                    },
+                    "block": {
+                        "_label": ""
+                    }
+                }
+            },
+            "privatePass": {
+                "allowed_actions": {
+                    "create": {
+                        "_label": ""
+                    },
+                    "edit": {
+                        "_label": ""
+                    },
+                    "delete": {
+                        "_label": ""
+                    },
+                    "manageExtension": {
+                        "_label": ""
+                    },
+                    "manageCredit": {
+                        "_label": ""
+                    },
+                    "compatibility": {
+                        "_label": ""
+                    }
+                },
+                "_label": ""
+            },
+            "_label": "",
+            "contract": {
+                "allowed_actions": {
+                    "createBillingPlan": {
+                        "_label": ""
+                    },
+                    "pause": {
+                        "_label": ""
+                    },
+                    "endBillingPlan": {
+                        "_label": ""
+                    },
+                    "editInvoiceDateBillingPlan": {
+                        "_label": ""
+                    },
+                    "endAfterInvoiceBillingPlan": {
+                        "_label": ""
+                    },
+                    "createCustomBillingPlan": {
+                        "_label": ""
+                    },
+                    "editPassBillingPlan": {
+                        "_label": ""
+                    },
+                    "create": {
+                        "_label": ""
+                    },
+                    "edit": {
+                        "_label": ""
+                    },
+                    "delete": {
+                        "_label": ""
+                    },
+                    "pauseBillingPlan": {
+                        "_label": ""
+                    },
+                    "editInvoicePriceBillingPlan": {
+                        "_label": ""
+                    }
+                },
+                "_label": ""
+            },
+            "shopReworked": {
+                "allowed_actions": {
+                    "create": {
+                        "_label": ""
+                    },
+                    "edit": {
+                        "_label": ""
+                    },
+                    "delete": {
+                        "_label": ""
+                    },
+                    "editInventory": {
+                        "_label": ""
+                    },
+                    "editSettings": {
+                        "_label": ""
+                    }
+                },
+                "_label": ""
+            }
+        },
+        "management": {
+            "activity": {
+                "allowed_actions": {
+                    "edit": {
+                        "_label": ""
+                    },
+                    "create": {
+                        "_label": ""
+                    },
+                    "delete": {
+                        "_label": ""
+                    }
+                },
+                "_label": ""
+            },
+            "workshop": {
+                "allowed_actions": {
+                    "create": {
+                        "_label": ""
+                    },
+                    "delete": {
+                        "_label": ""
+                    },
+                    "edit": {
+                        "_label": ""
+                    }
+                },
+                "_label": ""
+            },
+            "_label": "",
+            "privateService": {
+                "allowed_actions": {
+                    "edit": {
+                        "_label": ""
+                    },
+                    "create": {
+                        "_label": ""
+                    },
+                    "delete": {
+                        "_label": ""
+                    }
+                },
+                "_label": ""
+            },
+            "coach": {
+                "allowed_actions": {
+                    "delete": {
+                        "_label": ""
+                    },
+                    "create": {
+                        "_label": ""
+                    },
+                    "edit": {
+                        "_label": ""
+                    },
+                    "readPayroll": {
+                        "_label": ""
+                    },
+                    "substitution": {
+                        "_label": ""
+                    }
+                },
+                "_label": ""
+            }
+        }
+    }
+}

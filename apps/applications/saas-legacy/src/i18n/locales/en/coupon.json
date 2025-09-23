@@ -1,0 +1,306 @@
+{
+    "list": {
+        "isEmpty": "",
+        "inactiveCoupons": "",
+        "expiredActiveCoupons": "",
+        "activeCoupons": ""
+    },
+    "detail": {
+        "seeParameters": "",
+        "seeVouchers": ""
+    },
+    "card": {
+        "first_buy": "",
+        "expiration": "",
+        "no_expiration": "",
+        "validity": "",
+        "cumulable": "",
+        "no_cumulable": "",
+        "uses": "",
+        "member_uses": "",
+        "member_use": "",
+        "limitation": "",
+        "blacklist_tags": "",
+        "whitelist_tags": "",
+        "allowedFor": "",
+        "unallowedFor": ""
+    },
+    "form": {
+        "selectorPlaceholder": {
+            "privatePass": "",
+            "paymentPack": "",
+            "shopitem": "",
+            "paymentCombo": ""
+        },
+        "section": {
+            "general": "",
+            "availability": "",
+            "usability": "",
+            "voucherConfig": "",
+            "applies_to": "",
+            "advanced": "",
+            "subscription": "",
+            "blacklist_tags": "",
+            "whitelist_tags": "",
+            "tags": "",
+            "tagInfo": ""
+        },
+        "name": {
+            "label": "",
+            "helperText": ""
+        },
+        "code": {
+            "label": "",
+            "helperText": "",
+            "codeAlreadyInUse": "",
+            "helperTextFranchise": ""
+        },
+        "voucher_type": {
+            "percent": "",
+            "amount": ""
+        },
+        "percent_off": {
+            "label": ""
+        },
+        "amount_off": {
+            "label": ""
+        },
+        "is_active": {
+            "label": "",
+            "helperText": ""
+        },
+        "with_expiration_date": {
+            "label": ""
+        },
+        "expiration_date": {
+            "clear_date": "",
+            "cancel": "",
+            "label": ""
+        },
+        "usage_per_member": {
+            "label": ""
+        },
+        "usage_total": {
+            "label": ""
+        },
+        "only_on_first_checkout": {
+            "label": ""
+        },
+        "combinable": {
+            "label": ""
+        },
+        "minimum_amount": {
+            "label": ""
+        },
+        "applies_to": {
+            "choices": {
+                "1": "",
+                "2": "",
+                "6": "",
+                "9": "",
+                "10": "",
+                "all": "",
+                "null": ""
+            },
+            "choicesFranchise": {
+                "1": "",
+                "2": "",
+                "9": ""
+            }
+        },
+        "actions": {
+            "cancel": "",
+            "submit": ""
+        },
+        "subscription_mode": {
+            "0": "",
+            "1": "",
+            "2": "",
+            "3": ""
+        },
+        "tag": {
+            "select": {
+                "error": "",
+                "empty_tag_list": "",
+                "tag": "",
+                "tag_group": ""
+            },
+            "tag": "",
+            "tag_group": ""
+        },
+        "title": "",
+        "alert": ""
+    },
+    "noDiscount": "",
+    "createCoupon": "",
+    "code": {
+        "addCoupon": {
+            "5004": "",
+            "5006": "",
+            "45009": "",
+            "45010": "",
+            "apply": "",
+            "label": "",
+            "couponOnlyLabel": "",
+            "placeholder": "",
+            "cancel": "",
+            "submit": "",
+            "not_found": "",
+            "not_applicable": ""
+        }
+    },
+    "modal": {
+        "delete": {
+            "actions": {
+                "submit": "",
+                "cancel": ""
+            },
+            "content": "",
+            "title": ""
+        }
+    },
+    "search": "",
+    "reverted": "",
+    "couponTemplate": {
+        "formDisclaimer": "",
+        "warningDialog": {
+            "content2": "",
+            "content1": "",
+            "content3": "",
+            "title": ""
+        },
+        "notEditable": "",
+        "isEmptyExplain": "",
+        "actions": {
+            "create": ""
+        }
+    },
+    "couponTemplateInstance": {
+        "create": {
+            "title": "",
+            "explain2": "",
+            "explain1": ""
+        },
+        "companyEmpty": "",
+        "delete": {
+            "explain2": "",
+            "explain1": "",
+            "title": ""
+        }
+    },
+    "uniqueCodeCoupon": {
+        "form": {
+            "alertInfo": "",
+            "alertWarning": "",
+            "couponCostForCompany": {
+                "label": "",
+                "helperText": ""
+            },
+            "usage_per_member": {
+                "label": "",
+                "helperText": ""
+            },
+            "only_on_first_checkout": {
+                "label": ""
+            },
+            "fileUploader": {
+                "title": "",
+                "label": "",
+                "sizeLimitHelper": "",
+                "helperText": ""
+            },
+            "errors": {
+                "5000": "",
+                "5001": "",
+                "5003": "",
+                "5004": "",
+                "5005": "",
+                "5006": "",
+                "required": "",
+                "positiveOrZeroNumber": "",
+                "expirationDate": {
+                    "dateBeforeNow": "",
+                    "format": ""
+                },
+                "fileUploader": {
+                    "fileTooLargeError": "",
+                    "incorrectDataError": "",
+                    "notCsvFileError": ""
+                },
+                "only_on_objects": "",
+                "applies_to": "",
+                "update_mode": "",
+                "codes": {
+                    "updateMode": "",
+                    "emptyArray": ""
+                },
+                "positiveNumber": ""
+            },
+            "update": {
+                "alertInfo": "",
+                "append": "",
+                "replace": "",
+                "popover": ""
+            },
+            "selectorPlaceholder": {
+                "privatePass": "",
+                "paymentPack": "",
+                "shopItem": "",
+                "paymentCombo": ""
+            }
+        },
+        "voucherCodesDialog": {
+            "header": {
+                "codes": "",
+                "status": ""
+            },
+            "selector": {
+                "allStatus": "",
+                "redeemed": "",
+                "pending": "",
+                "notUsed": ""
+            },
+            "checkBoxes": {
+                "selectAll": "",
+                "unselectAll": ""
+            },
+            "searchBar": {
+                "placeHolder": ""
+            },
+            "noResult": "",
+            "close": "",
+            "markAsRedeemed": "",
+            "export": ""
+        }
+    },
+    "couponFilter": {
+        "allType": "",
+        "title": ""
+    },
+    "fabLabels": {
+        "discountCode": "",
+        "voucherCodes": ""
+    },
+    "couponType": {
+        "0": "",
+        "3": ""
+    },
+    "couponNotFullyAppliedWarning": "",
+    "message": {
+        "delete": {
+            "error": "",
+            "success": ""
+        },
+        "update": {
+            "error": "",
+            "success": ""
+        },
+        "create": {
+            "error": "",
+            "success": ""
+        },
+        "attachToBasket": {
+            "error": ""
+        }
+    }
+}

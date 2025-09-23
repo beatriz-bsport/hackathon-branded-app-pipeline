@@ -1,0 +1,107 @@
+{
+    "pageTitle": {
+        "list": ""
+    },
+    "link": {
+        "copied": "",
+        "copyLink": ""
+    },
+    "list": {
+        "section": {
+            "unavailableOnline": "",
+            "availableOnline": ""
+        },
+        "explainIfEmpty": "",
+        "buttons": {
+            "add": ""
+        }
+    },
+    "form": {
+        "title": "",
+        "name": {
+            "label": ""
+        },
+        "description": {
+            "label": ""
+        },
+        "price": {
+            "label": ""
+        },
+        "tax": {
+            "label": ""
+        },
+        "manager_only": {
+            "label": ""
+        },
+        "actions": {
+            "submit": "",
+            "cancel": ""
+        },
+        "content": "",
+        "selectorPlaceholder": {
+            "privatePass": "",
+            "paymentPack": "",
+            "shopitem": "",
+            "shopItemExcludingvariant": ""
+        },
+        "available_payment_method_identifiers": {
+            "helperText": "",
+            "label": ""
+        },
+        "new_member_only": {
+            "label": ""
+        },
+        "maxPurchasePerMember": {
+            "helperText": "",
+            "label": ""
+        },
+        "usePaymentComboTaxOnItems": {
+            "label": "",
+            "helperText": ""
+        },
+        "error": {
+            "atLeastOneThing": ""
+        },
+        "unusableByStaff": {
+            "label": ""
+        },
+        "expiration_date": {
+            "label": "",
+            "helperText": "",
+            "tooltip": ""
+        },
+        "highlightedAsRecommended": {
+            "label": "",
+            "helperText": ""
+        },
+        "advancedOptions": {
+            "header": "",
+            "tag": {
+                "tagsOnAcquisition": "",
+                "tagsOnAcquisitionHelper": "",
+                "selectTags": "",
+                "tagGroupDuplicated": ""
+            },
+            "tagGroupDuplicated": ""
+        }
+    },
+    "detail": {
+        "containsNProducts": "",
+        "description": "",
+        "content": "",
+        "purchases": "",
+        "emptyContent": "",
+        "itemCount": ""
+    },
+    "delete": {
+        "title": "",
+        "content": "",
+        "cancel": "",
+        "submit": ""
+    },
+    "edit": "",
+    "search": "",
+    "parameters": {
+        "unusableByStaff": ""
+    }
+}

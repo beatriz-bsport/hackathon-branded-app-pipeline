@@ -16,7 +16,7 @@
     "description": "You can edit <b>{{name}}</b> after",
     "buttons": {
       "duplicate": "Duplicate",
-      "cancel": "Go back"
+      "cancel": "Back"
     }
   },
   "deleteModal": {
@@ -28,7 +28,7 @@
     "audienceCallToAction": "To delete this Smartlist, go to the Audience page and remove it from the associated workflows.",
     "buttons": {
       "delete": "Delete",
-      "cancel": "Go back"
+      "cancel": "Back"
     }
   },
   "toasts": {
@@ -63,7 +63,7 @@
     "subtitle": "Segment your members by specific criteria with Smartlists. Add a name and description for this Smartlist so you can find it later.",
     "actions": {
       "create": "Save",
-      "cancel": "Go back"
+      "cancel": "Back"
     }
   },
   "editForm": {
@@ -81,7 +81,7 @@
     },
     "actions": {
       "save": "Save",
-      "cancel": "Go back",
+      "cancel": "Back",
       "create": "Create"
     },
     "title": {

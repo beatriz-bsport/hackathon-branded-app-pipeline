@@ -1,0 +1,55 @@
+{
+    "lessonContent": {
+        "finish": "",
+        "nextLesson": "",
+        "previousLesson": ""
+    },
+    "allFinishDialog": {
+        "continueButton": "",
+        "infoText": "",
+        "title": ""
+    },
+    "sectionFinishDialog": {
+        "continueButton": "",
+        "infoText": "",
+        "title": ""
+    },
+    "shareDialog": {
+        "continueButton": "",
+        "infoTextLesson": "",
+        "infoTextSection": "",
+        "title": ""
+    },
+    "welcomeDialog": {
+        "approveButton": "",
+        "rejectButton": "",
+        "infoText": "",
+        "title": ""
+    },
+    "lessonHeader": {
+        "warning": "",
+        "addOn": "",
+        "backToList": ""
+    },
+    "menuHeader": {
+        "infoText": "",
+        "title": ""
+    },
+    "sectionList": {
+        "missingUpsell": "",
+        "addOn": "",
+        "new": "",
+        "shareSection": ""
+    },
+    "lessonList": {
+        "addOn": "",
+        "new": "",
+        "shareLesson": "",
+        "share": "",
+        "start": "",
+        "missingUpsell": ""
+    },
+    "menu": {
+        "helpButton": ""
+    }
+}

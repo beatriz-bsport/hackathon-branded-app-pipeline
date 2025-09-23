@@ -1,0 +1,620 @@
+{
+    "bookingModule": {
+        "section": {
+            "consumerPacks": "",
+            "contracts": "",
+            "paymentPacks": "",
+            "paymentCombos": "",
+            "contract": ""
+        },
+        "option": {
+            "isAlreadyOnWaitingList": "",
+            "isFull": "",
+            "registerOption": "",
+            "isAlreadyRegistered": "",
+            "waitingListOpen": "",
+            "waitingListLockedByPendingBookings": "",
+            "isBookingLimitReached": ""
+        },
+        "offer": {
+            "isDisabled": "",
+            "isTooLate": "",
+            "isWaitingListFull": "",
+            "isTooSoon": "",
+            "isAlreadyRegistered": "",
+            "blockedByTags": ""
+        },
+        "groupedSession": {
+            "showMoreButtonText": "",
+            "showLessButtonText": "",
+            "warningModal": {
+                "title": "",
+                "fullBookingOnly": {
+                    "text": ""
+                },
+                "partialBooking": {
+                    "text": ""
+                }
+            }
+        },
+        "multiSession": {
+            "addSession": {
+                "dialogTitle": "",
+                "dialogSubtitle": "",
+                "noContent": "",
+                "selectAll": "",
+                "sessionCount": ""
+            },
+            "selectSpot": {
+                "dialogTitle": "",
+                "dialogTitleWithSteps": "",
+                "dialogSubtitle": "",
+                "validationButton": ""
+            }
+        },
+        "messages": {
+            "offerLocked": "",
+            "maleUnavailable": "",
+            "femaleUnavailable": ""
+        },
+        "hasRegistered": "",
+        "recurrent": {
+            "backToRegistererChoice": "",
+            "bookMultiple": "",
+            "title": "",
+            "titleGroupedSessions": "",
+            "selectAll": "",
+            "unselectAll": ""
+        },
+        "isLoading": "",
+        "book": {
+            "unknowError": ""
+        },
+        "tags": {
+            "unAuthorized": "",
+            "managerDialogWarningDialog": {
+                "confirm": "",
+                "cancel": "",
+                "title": "",
+                "content": ""
+            }
+        },
+        "isBookingLimitReached": ""
+    },
+    "details": {
+        "pleaseSelectABooking": "",
+        "title": "",
+        "offerTitle": "",
+        "consumerPaymentPackTitle": ""
+    },
+    "parameters": {
+        "registeredOn": "",
+        "source": "",
+        "cancelledOn": "",
+        "by": "",
+        "noShow": ""
+    },
+    "source": {
+        "web": "",
+        "app": "",
+        "saas": "",
+        "other": "",
+        "migration": ""
+    },
+    "customerView": {
+        "wasRefunded": "",
+        "cancelled": ""
+    },
+    "attend": "",
+    "doNotAttend": "",
+    "loading": "",
+    "wasRefunded": "",
+    "refund": "",
+    "refundDialog": {
+        "title": "",
+        "content": "",
+        "titleUnlimitedPaymentPack": "",
+        "contentUnlimitedPaymentPack": ""
+    },
+    "statusCode": {
+        "cancelledByManager": "",
+        "cancelledByConsumer": "",
+        "cancelledByOffer": "",
+        "cancelledByOfferDate": "",
+        "cancelledByConsumerDate": "",
+        "cancelledByManagerDate": "",
+        "cancelledByAnonymousManagerDate": "",
+        "cancelledByAnonymousManager": ""
+    },
+    "filters": {
+        "notRefunded": "",
+        "isRefunded": "",
+        "refunded": "",
+        "pastBooking": "",
+        "futureBooking": "",
+        "time": "",
+        "attendance": "",
+        "cancel": "",
+        "consumerCanceled": "",
+        "managerCanceled": "",
+        "canceled": "",
+        "absent": "",
+        "present": "",
+        "all": "",
+        "withoutRecurrentBookings": "",
+        "withRecurrentBookings": "",
+        "recurrentBooking": "",
+        "notCancelled": "",
+        "isUnpaid": "",
+        "isPaid": "",
+        "paid": "",
+        "coach": "",
+        "pickCoach": ""
+    },
+    "creditConsumed": "",
+    "actions": {
+        "unregister": "",
+        "bill": ""
+    },
+    "notification": {
+        "form": {
+            "listItemPrimary": {
+                "cancelledDeprecated": "",
+                "bookingDeprecated": "",
+                "notRefunded": "",
+                "refunded": "",
+                "absence": "",
+                "attendance": "",
+                "hour_after": "",
+                "hour_before": "",
+                "day_before": "",
+                "day_after": "",
+                "notifyAllEvents": {
+                    "notRefunded": "",
+                    "refunded": "",
+                    "absence": "",
+                    "attendance": "",
+                    "bookingDeprecated": ""
+                },
+                "birthday": ""
+            },
+            "cancel": "",
+            "next": "",
+            "submit": "",
+            "help": {
+                "notRefunded": "",
+                "refunded": "",
+                "absence": "",
+                "attendance": "",
+                "allEvents": {
+                    "notRefunded": "",
+                    "refunded": "",
+                    "absence": "",
+                    "attendance": ""
+                }
+            },
+            "chooseKind": {
+                "notRefunded": "",
+                "refunded": "",
+                "absence": "",
+                "attendance": "",
+                "title": ""
+            },
+            "chooseStatus": {
+                "cancelled": "",
+                "valid": "",
+                "title": ""
+            },
+            "chooseTime": {
+                "second_after": "",
+                "second_before": "",
+                "first": "",
+                "second_after_days": "",
+                "second_before_days": ""
+            },
+            "sendAfterMail": "",
+            "sendBeforeMail": "",
+            "eventNb": "",
+            "settingTitle": "",
+            "typeTitle": "",
+            "explain": "",
+            "title": "",
+            "notifyAllEvents": "",
+            "ifKind": {
+                "attendance": "",
+                "notRefunded": "",
+                "refunded": "",
+                "absence": ""
+            },
+            "bookingNumberFirst": "",
+            "bookingNumberSecond": "",
+            "bookingNumberThird": "",
+            "bookingNumberN": "",
+            "bookingNumberAll": "",
+            "addVariable": "",
+            "pushHelper": "",
+            "needPushUpsell": "",
+            "push": "",
+            "mail": "",
+            "sendingMethod": "",
+            "sendAfterNotifications": "",
+            "sendAfterNotification": "",
+            "sendBeforeNotifications": "",
+            "sendBeforeNotification": "",
+            "createSmartList": "",
+            "smartListHelperInclude": "",
+            "smartListHelper": "",
+            "advanced": "",
+            "warning": "",
+            "smartListSelection": "",
+            "bookingNumber": "",
+            "bookingNumber_n": ""
+        },
+        "addNotification": "",
+        "title": ""
+    },
+    "recurrenceRule": {
+        "actions": {
+            "save": "",
+            "close": ""
+        },
+        "form": {
+            "delayWeek": {
+                "helperText": "",
+                "label": ""
+            },
+            "metaActivity": {
+                "helperText": "",
+                "label": ""
+            },
+            "minute": {
+                "label": ""
+            },
+            "hour": {
+                "label": ""
+            },
+            "dayOfWeek": {
+                "label": ""
+            },
+            "at": "",
+            "timeGroup": "",
+            "title": "",
+            "startFromDate": {
+                "label": ""
+            },
+            "groupWarning": "",
+            "permissionWarning": "",
+            "duplicateError": "",
+            "globalError": ""
+        },
+        "offerForm": {
+            "helperText": "",
+            "unselectAll": "",
+            "selectAll": ""
+        },
+        "recurrentRuleBooking": "",
+        "item": {
+            "explain": ""
+        },
+        "needConsumerPack": "",
+        "recurrentBookings": "",
+        "deleteModal": {
+            "content": "",
+            "title": "",
+            "cancel": "",
+            "confirm": "",
+            "success": ""
+        },
+        "explain": "",
+        "editModal": {
+            "success": ""
+        },
+        "createModal": {
+            "success": "",
+            "info": "",
+            "create": ""
+        },
+        "blockedBookings": "",
+        "notifyIfCanceled": "",
+        "cancelRelatedBookings": "",
+        "notify": "",
+        "showLess": "",
+        "showMore": ""
+    },
+    "memberGraph": {
+        "label": "",
+        "title": ""
+    },
+    "offer": {
+        "showMore": "",
+        "mainButton": {
+            "registerWaitingList": "",
+            "book": "",
+            "numberOfBook": ""
+        },
+        "bookingsTitle": "",
+        "addSession": "",
+        "noPackAvailable": "",
+        "packTitle": "",
+        "offerStatus": {
+            "waiting_list_status": {
+                "0": "",
+                "1": "",
+                "2": "",
+                "3": "",
+                "4": "",
+                "5": "",
+                "6": "",
+                "7": "",
+                "9": "",
+                "6002": "",
+                "6003": "",
+                "6005": "",
+                "displayPosition": "",
+                "displayWaitlistSize": ""
+            },
+            "bookable_status": {
+                "0": "",
+                "1": "",
+                "2": "",
+                "4": "",
+                "9": ""
+            },
+            "waiting_list": "",
+            "book": "",
+            "blockedByTags": ""
+        },
+        "similarOffer": {
+            "showMore": "",
+            "empty": "",
+            "title": "",
+            "selectAll": ""
+        },
+        "bookingForMe": "",
+        "bookingsTitleFor": "",
+        "bookingFor": "",
+        "bookingForSubtitle": "",
+        "bookingForAGuest": {
+            "submit": "",
+            "sendInvitation": "",
+            "addGuest": "",
+            "warningLeveledSession": "",
+            "addGuestLimit": "",
+            "guestLimitReached": {
+                "every_week": "",
+                "every_month": "",
+                "every_year": ""
+            },
+            "addGuestNumberLeftSeveral": "",
+            "addGuestNumberLeftOne": "",
+            "frequencyWeekly": "",
+            "frequencyMonthly": "",
+            "frequencyYearly": "",
+            "frequencyGeneric": "",
+            "addGuestNumberLeftWeek": "",
+            "addGuestNumberLeftMonth": "",
+            "addGuestNumberLeftYear": "",
+            "addGuestNumberLeftGeneric": "",
+            "warningCustomLeveledSession": "",
+            "bookingStatus": {
+                "0": "",
+                "1": "",
+                "2": "",
+                "3": "",
+                "4": "",
+                "guestNotAllowed": ""
+            }
+        }
+    },
+    "setSpot": "",
+    "changeSpot": "",
+    "noSpotAttributed": "",
+    "performanceTracking": {
+        "stat": ""
+    },
+    "attendanceUpdatedOn": "",
+    "guest": {
+        "form": {
+            "dialog": {
+                "title": "",
+                "description": "",
+                "emailWarning": {
+                    "title": "",
+                    "description": "",
+                    "alert": "",
+                    "fieldLabel": "",
+                    "submitLabel": "",
+                    "actions": {
+                        "continueWithoutEmail": "",
+                        "saveAndContinue": ""
+                    }
+                }
+            },
+            "errors": {
+                "requiredField": "",
+                "email": ""
+            },
+            "firstname": {
+                "label": ""
+            },
+            "email": {
+                "label": ""
+            },
+            "actions": {
+                "addGuest": "",
+                "close": "",
+                "submit": "",
+                "limitGuest": ""
+            },
+            "lastname": {
+                "label": ""
+            }
+        }
+    },
+    "asGuest": "",
+    "unlimited": "",
+    "place": "",
+    "noShowChip": {
+        "message": "",
+        "title": ""
+    },
+    "warning": "",
+    "spivi": {
+        "errorText": "",
+        "connectionImpossible": "",
+        "error": ""
+    },
+    "newBookingModule": {
+        "filterAll": "",
+        "cards": {
+            "seeLess": "",
+            "seeMore": ""
+        },
+        "choosePass": "",
+        "buyPass": "",
+        "buyNewPass": "",
+        "myPasses": "",
+        "waitingListWarning": "",
+        "backToCalendar": "",
+        "blockedReasons": {
+            "default": {
+                "title": "",
+                "message": ""
+            },
+            "blockedByTags": {
+                "title": "",
+                "message": ""
+            },
+            "isAlreadyRegistered": {
+                "title": "",
+                "message": ""
+            },
+            "isTooSoon": {
+                "title": "",
+                "message": ""
+            },
+            "isTooLate": {
+                "title": "",
+                "message": ""
+            },
+            "waitingListLockedByPendingBookings": {
+                "title": "",
+                "message": ""
+            },
+            "isWaitingListFull": {
+                "title": "",
+                "message": ""
+            },
+            "isAlreadyOnWaitingList": {
+                "title": "",
+                "message": ""
+            },
+            "waitingListOpen": {
+                "title": "",
+                "message": ""
+            },
+            "noPassAvailable": {
+                "title": "",
+                "message": ""
+            },
+            "isBookingLimitReached": {
+                "title": "",
+                "message": ""
+            }
+        },
+        "subscriptions": "",
+        "combos": "",
+        "passes": "",
+        "otherPasses": "",
+        "multipleSpotSelectionSpotSelectorTitle": "",
+        "spotSelectorTitle": "",
+        "guestSpotSelectorTitle": "",
+        "seeAllProducts": "",
+        "recommended": "",
+        "reviewAndConfirm": "",
+        "removeFromBasket": {
+            "title": "",
+            "message": "",
+            "buttons": {
+                "cancel": "",
+                "confirm": ""
+            }
+        }
+    },
+    "oneClickBooking": {
+        "checkoutTitle": "",
+        "alreadyMember": "",
+        "goToLogin": "",
+        "yourBooking": "",
+        "yourDetails": "",
+        "seeMoreWithLogin": "",
+        "bookableStatus": {
+            "error": "",
+            "full": {
+                "title": "",
+                "description": ""
+            },
+            "locked": {
+                "title": "",
+                "description": ""
+            },
+            "closeTooSoon": {
+                "title": "",
+                "description": ""
+            },
+            "closeTooLate": {
+                "title": "",
+                "description": ""
+            },
+            "unhandled": {
+                "title": "",
+                "description": ""
+            }
+        },
+        "goToCalendar": "",
+        "bookButtonLabel": ""
+    },
+    "lightSignup": {
+        "form": {
+            "firstName": {
+                "label": ""
+            },
+            "lastName": {
+                "label": ""
+            },
+            "email": {
+                "label": ""
+            },
+            "phone": {
+                "label": "",
+                "placeholder": ""
+            },
+            "acceptEmail": {
+                "label": ""
+            },
+            "acceptSms": {
+                "label": ""
+            },
+            "acceptTermsAndCondition": {
+                "label": ""
+            },
+            "password": {
+                "label": ""
+            },
+            "button": {
+                "label": ""
+            },
+            "errors": {
+                "requiredField": "",
+                "email": "",
+                "phone": "",
+                "global": "",
+                "emailTaken": "",
+                "phoneTaken": "",
+                "passwordMinimumRequirements": "",
+                "passwordConfirmation": ""
+            }
+        }
+    },
+    "placeNumber": ""
+}

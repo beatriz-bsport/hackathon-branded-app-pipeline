@@ -1,339 +1,277 @@
 import { BridgeWidgetActions } from '#src/pages/widget/BridgeWidget.page';
 import { bridgeAPIActionsRegistry } from './actionsRegistry';
+import type { WidgetApiMessageType } from './types';
+import { captureException } from '@sentry/react';
 
 const actionsBinder = (actions: BridgeWidgetActions) => {
+  const localKeys = new Set<WidgetApiMessageType>();
+
+  const safeRegister = (key: WidgetApiMessageType, value: any) => {
+    if (localKeys.has(key)) {
+      const error = new Error(
+        `Duplicate key "${key}" detected in a single actionsBinder flow`,
+      );
+      // Don't break the flow
+      captureException(error);
+    } else {
+      localKeys.add(key);
+      bridgeAPIActionsRegistry.register(key, value);
+    }
+  };
+
   // MEMBERSHIP
-  bridgeAPIActionsRegistry.register(
-    'MEMBERSHIP_BY_COMPANY',
-    actions.fetchMembershipByCompany,
-  );
+  safeRegister('MEMBERSHIP_BY_COMPANY', actions.fetchMembershipByCompany);
 
   // MEMBER
-  bridgeAPIActionsRegistry.register('FETCH_MEMBER_BY_ID', actions.fetchMember);
-  bridgeAPIActionsRegistry.register(
-    'RETRIEVE_MY_USER_PROFILE',
-    actions.fetchMyUserProfile,
-  );
+  safeRegister('FETCH_MEMBER_BY_ID', actions.fetchMember);
+  safeRegister('RETRIEVE_MY_USER_PROFILE', actions.fetchMyUserProfile);
 
   // REFERRAL
-  bridgeAPIActionsRegistry.register(
+  safeRegister(
     'FETCH_REFERRAL_PROGRAM_MEMBER_STATUS',
     actions.retrieveReferralMemberStatus,
   );
-  bridgeAPIActionsRegistry.register(
+  safeRegister(
     'FETCH_REFERRAL_PROGRAM_BY_COMPANY',
     actions.retrieveReferralProgramForCompany,
   );
 
   // CONSUMER BOOKING
-  bridgeAPIActionsRegistry.register(
+  safeRegister(
     'FETCH_PAST_BOOKING_AS_MEMBER',
     actions.fetchMyPastBookingAsMember,
   );
-  bridgeAPIActionsRegistry.register(
+  safeRegister(
     'FETCH_FUTURE_BOOKING_AS_MEMBER',
     actions.fetchMyFutureBookingAsMember,
   );
-  bridgeAPIActionsRegistry.register(
+  safeRegister(
     'FETCH_BOOKING_OPTION_AS_MEMBER',
     actions.fetchMyBookingOptionAsMember,
   );
-  bridgeAPIActionsRegistry.register(
+  safeRegister(
     'FETCH_BOOKING_OPTION_WORKSHOP_AS_MEMBER',
     actions.fetchMyBookingOptionWorkshopAsMember,
   );
-  bridgeAPIActionsRegistry.register(
+  safeRegister(
     'FETCH_PAST_PRIVATE_BOOKING_AS_MEMBER',
     actions.fetchMyPastPrivateBookingAsMember,
   );
-  bridgeAPIActionsRegistry.register(
+  safeRegister(
     'FETCH_FUTURE_PRIVATE_BOOKING_AS_MEMBER',
     actions.fetchMyFuturePrivateBookingAsMember,
   );
-  bridgeAPIActionsRegistry.register(
+  safeRegister(
     'FETCH_PAST_BOOKING_WORKSHOP_AS_MEMBER',
     actions.fetchMyPastBookingWorkshopAsMember,
   );
-  bridgeAPIActionsRegistry.register(
+  safeRegister(
     'FETCH_FUTURE_BOOKING_WORKSHOP_AS_MEMBER',
     actions.fetchMyFutureBookingWorkshopAsMember,
   );
-  bridgeAPIActionsRegistry.register(
-    'CANCEL_BOOKING_AS_MEMBER',
-    actions.cancelBookingAsMember,
-  );
-  bridgeAPIActionsRegistry.register(
+  safeRegister('CANCEL_BOOKING_AS_MEMBER', actions.cancelBookingAsMember);
+  safeRegister(
     'CANCEL_PRIVATE_BOOKING_AS_MEMBER',
     actions.cancelPrivateBookingAsMember,
   );
-  bridgeAPIActionsRegistry.register(
+  safeRegister(
     'CANCEL_BOOKING_OPTION_AS_MEMBER',
     actions.cancelBookingOptionAsMember,
   );
 
   // CONSUMER INVOICES
-  bridgeAPIActionsRegistry.register(
+  safeRegister(
     'FETCH_CONSUMER_INVOICES_COMPLEMENTARY',
     actions.fetchConsumerInvoicesComplementary,
   );
-  bridgeAPIActionsRegistry.register(
+  safeRegister(
     'FETCH_CONSUMER_PAID_INVOICES',
     actions.fetchConsumerPaidInvoices,
   );
-  bridgeAPIActionsRegistry.register(
+  safeRegister(
     'FETCH_CONSUMER_REFUNDED_INVOICES',
     actions.fetchConsumerRefundedInvoices,
   );
-  bridgeAPIActionsRegistry.register(
+  safeRegister(
     'FETCH_CONSUMER_UNPAID_INVOICES',
     actions.fetchConsumerUnpaidInvoices,
   );
 
   // CONSUMER SUBSCRIPTIONS
-  bridgeAPIActionsRegistry.register(
+  safeRegister(
     'FETCH_MY_FUTURE_SUBSCRIPTIONS_AS_MEMBER',
     actions.fetchMyFutureSubscriptionsAsMember,
   );
-  bridgeAPIActionsRegistry.register(
+  safeRegister(
     'FETCH_MY_EXPIRED_SUBSCRIPTIONS_AS_MEMBER',
     actions.fetchMyExpiredSubscriptionsAsMember,
   );
-  bridgeAPIActionsRegistry.register(
+  safeRegister(
     'FETCH_MY_ACTIVE_SUBSCRIPTIONS_AS_MEMBER',
     actions.fetchMyActiveSubscriptionsAsMember,
   );
-  bridgeAPIActionsRegistry.register(
+  safeRegister(
     'FETCH_CONSUMER_SUBSCRIPTION_INVOICES_DETAILS',
     actions.fetchConsumerSubscriptionInvoicesDetails,
   );
-  bridgeAPIActionsRegistry.register(
+  safeRegister(
     'FETCH_MY_SUBSCRIPTION_AS_MEMBER',
     actions.fetchMySubscriptionAsMember,
   );
 
   // CONSUMER SPACE
-  bridgeAPIActionsRegistry.register(
-    'RESET_CONSUMER_STATE',
-    actions.resetConsumerState,
-  );
+  safeRegister('RESET_CONSUMER_STATE', actions.resetConsumerState);
 
   // PAYMENT
-  bridgeAPIActionsRegistry.register(
-    'FETCH_PAYMENT_METHOD_LIST',
-    actions.fetchPaymentMethodList,
-  );
-  bridgeAPIActionsRegistry.register(
-    'DETACH_PAYMENT_METHOD',
-    // @ts-expect-error
-    actions.detachPaymentMethod,
-  );
-  bridgeAPIActionsRegistry.register(
-    'FETCH_PAYMENT_GROUP_STATUS',
-    actions.fetchPaymentGroupStatus,
-  );
-  bridgeAPIActionsRegistry.register(
-    'SET_PAYMENT_STATUS',
-    actions.setPaymentStatus,
-  );
-  bridgeAPIActionsRegistry.register(
+  safeRegister('FETCH_PAYMENT_METHOD_LIST', actions.fetchPaymentMethodList);
+  safeRegister('DETACH_PAYMENT_METHOD', actions.detachPaymentMethod);
+  safeRegister('FETCH_PAYMENT_GROUP_STATUS', actions.fetchPaymentGroupStatus);
+  safeRegister('SET_PAYMENT_STATUS', actions.setPaymentStatus);
+  safeRegister(
     'SET_BACKEND_PROCESSING_AFTER_PAYMENT',
     actions.setBackendProcessingAfterPayment,
   );
-  bridgeAPIActionsRegistry.register(
-    'REQUEST_SETUP_INTENT_SECRET',
-    actions.requestSetupIntentSecret,
-  );
+  safeRegister('REQUEST_SETUP_INTENT_SECRET', actions.requestSetupIntentSecret);
 
   // INVOICE
-  bridgeAPIActionsRegistry.register(
-    'FETCH_INVOICE_LIST',
-    actions.fetchInvoiceList,
-  );
-  bridgeAPIActionsRegistry.register(
-    'FETCH_SPECIFIC_INVOICE',
-    actions.fetchSpecificInvoice,
-  );
-  bridgeAPIActionsRegistry.register(
-    'APPLY_BALANCE_TO_INVOICE',
-    actions.applyBalanceToInvoice,
-  );
-  bridgeAPIActionsRegistry.register(
+  safeRegister('FETCH_INVOICE_LIST', actions.fetchInvoiceList);
+  safeRegister('FETCH_SPECIFIC_INVOICE', actions.fetchSpecificInvoice);
+  safeRegister('APPLY_BALANCE_TO_INVOICE', actions.applyBalanceToInvoice);
+  safeRegister(
     'FETCH_INVOICE_CONFIGURATION_AS_MEMBER',
     actions.fetchInvoiceConfigurationAsMember,
   );
-  bridgeAPIActionsRegistry.register(
-    'GET_INVOICE_RECEIPT_URL',
-    actions.getReceiptUrl,
-  );
+  safeRegister('GET_INVOICE_RECEIPT_URL', actions.getReceiptUrl);
 
   // COACH
-  bridgeAPIActionsRegistry.register('FETCH_COACH_BULK', actions.fetchCoachBulk);
+  safeRegister('FETCH_COACH_BULK', actions.fetchCoachBulk);
 
   // GROUP OFFER
-  bridgeAPIActionsRegistry.register(
-    'FETCH_GROUP_OFFER',
-    actions.fetchGroupOffer,
-  );
+  safeRegister('FETCH_GROUP_OFFER', actions.fetchGroupOffer);
 
   // LEVEL
-  bridgeAPIActionsRegistry.register('FETCH_LEVEL_LIST', actions.fetchLevelList);
+  safeRegister('FETCH_LEVEL_LIST', actions.fetchLevelList);
 
   // META-ACTIVITY
-  bridgeAPIActionsRegistry.register(
-    'FETCH_META_ACTIVITY_BULK',
-    actions.fetchMetaActivityBulk,
-  );
+  safeRegister('FETCH_META_ACTIVITY_BULK', actions.fetchMetaActivityBulk);
 
   // OFFER
-  bridgeAPIActionsRegistry.register('FETCH_OFFER_BULK', actions.fetchOfferBulk);
+  safeRegister('FETCH_OFFER_BULK', actions.fetchOfferBulk);
 
   // ESTABLISHMENT
-  bridgeAPIActionsRegistry.register(
-    'FETCH_ESTABLISHMENT_BULK',
-    actions.fetchEstablishmentBulk,
-  );
+  safeRegister('FETCH_ESTABLISHMENT_BULK', actions.fetchEstablishmentBulk);
 
   // CONSUMER PACK
-  bridgeAPIActionsRegistry.register(
-    'FETCH_CONSUMER_PACK_BULK',
-    actions.retrieveConsumerPackBulk,
-  );
+  safeRegister('FETCH_CONSUMER_PACK_BULK', actions.retrieveConsumerPackBulk);
 
   // CUSTOM FORM
-  bridgeAPIActionsRegistry.register(
+  safeRegister(
     'FETCH_COMPANY_CUSTOM_MEMBER_FORM',
     actions.fetchCompanyCustomMemberForm,
   );
-  bridgeAPIActionsRegistry.register(
-    'SUBMIT_CUSTOM_FORM',
-    actions.submitCustomForm,
-  );
+  safeRegister('SUBMIT_CUSTOM_FORM', actions.submitCustomForm);
 
   // PAYMENT PACK
-  bridgeAPIActionsRegistry.register(
-    'FETCH_PAYMENT_PACK_BULK',
-    actions.fetchPaymentPackBulk,
-  );
-  bridgeAPIActionsRegistry.register(
-    'FETCH_ROOM_BLUE_PRINT',
-    actions.fetchRoomBlueprints,
-  );
+  safeRegister('FETCH_PAYMENT_PACK_BULK', actions.fetchPaymentPackBulk);
+  safeRegister('FETCH_ROOM_BLUE_PRINT', actions.fetchRoomBlueprints);
 
   // SPOT-SCHEDULING
-  bridgeAPIActionsRegistry.register(
-    'FETCH_SPOT_FOR_BLUEPRINT',
-    actions.fetchSpotForBlueprint,
-  );
-  bridgeAPIActionsRegistry.register(
-    'ASSETS_FOR_BLUE_PRINT',
-    actions.fetchAssetForBlueprint,
-  );
+  safeRegister('FETCH_SPOT_FOR_BLUEPRINT', actions.fetchSpotForBlueprint);
+  safeRegister('ASSETS_FOR_BLUE_PRINT', actions.fetchAssetForBlueprint);
 
   // SUBSCRIPTION
-  bridgeAPIActionsRegistry.register(
+  safeRegister(
     'DOWNLOAD_PDF_CONTRACT_TERMS_FOR_BILLING_PLAN',
     actions.downloadPDFContractTermsForBillingPlan,
   );
-  bridgeAPIActionsRegistry.register(
+  safeRegister(
     'SWITCH_SUBSCRIPTION_PAYMENT_METHOD',
     actions.switchSubscriptionPaymentMethod,
   );
 
   // PRIVATE SERVICE
-  bridgeAPIActionsRegistry.register(
+  safeRegister(
     'PRIVATE_CONSUMER_PASS_BULK',
     actions.fetchPrivateConsumerPassBulk,
   );
-  bridgeAPIActionsRegistry.register(
-    'PRIVATE_SLOT_BULK',
-    actions.fetchPrivateSlotBulk,
-  );
-  bridgeAPIActionsRegistry.register(
-    'PRIVATE_SERVICE_BULK',
-    actions.fetchPrivateServiceBulk,
-  );
+  safeRegister('PRIVATE_SLOT_BULK', actions.fetchPrivateSlotBulk);
+  safeRegister('PRIVATE_SERVICE_BULK', actions.fetchPrivateServiceBulk);
 
-  bridgeAPIActionsRegistry.register(
-    'FETCH_PASSES_TABS',
-    actions.fetchConsumerPassesTabDisplay,
-  );
+  safeRegister('FETCH_PASSES_TABS', actions.fetchConsumerPassesTabDisplay);
 
-  bridgeAPIActionsRegistry.register(
+  safeRegister(
     'FETCH_ACTIVE_CONSUMER_PAYMENT_PACK_AS_MEMBER',
     actions.fetchMyActiveConsumerPaymentPacksAsMember,
   );
 
-  bridgeAPIActionsRegistry.register(
+  safeRegister(
     'FETCH_ACTIVE_PRIVATE_CONSUMER_PASS_AS_MEMBER',
     actions.fetchMyActivePrivateConsumerPassesAsMember,
   );
 
-  bridgeAPIActionsRegistry.register(
+  safeRegister(
     'FETCH_ACTIVE_UNIVERSAL_PASSES_AS_MEMBER',
     actions.fetchMyActiveUniversalPassesAsMember,
   );
 
-  bridgeAPIActionsRegistry.register(
+  safeRegister(
     'FETCH_EXPIRED_CONSUMER_PAYMENT_PACK_AS_MEMBER',
     actions.fetchMyExpiredConsumerPaymentPacksAsMember,
   );
 
-  bridgeAPIActionsRegistry.register(
+  safeRegister(
     'FETCH_EXPIRED_PRIVATE_CONSUMER_PASS_AS_MEMBER',
     actions.fetchMyExpiredPrivateConsumerPassesAsMember,
   );
 
-  bridgeAPIActionsRegistry.register(
+  safeRegister(
     'FETCH_EXPIRED_UNIVERSAL_PASS_AS_MEMBER',
     actions.fetchMyExpiredUniversalPassesAsMember,
   );
 
-  bridgeAPIActionsRegistry.register(
+  safeRegister(
     'FETCH_FUTURE_CONSUMER_PAYMENT_PACK_AS_MEMBER',
     actions.fetchMyFutureConsumerPaymentPacksAsMember,
   );
 
-  bridgeAPIActionsRegistry.register(
+  safeRegister(
     'FETCH_FUTURE_PRIVATE_CONSUMER_PASS_AS_MEMBER',
     actions.fetchMyFuturePrivateConsumerPassesAsMember,
   );
 
-  bridgeAPIActionsRegistry.register(
+  safeRegister(
     'FETCH_FUTURE_UNIVERSAL_PASS_AS_MEMBER',
     actions.fetchMyFutureUniversalPassesAsMember,
   );
 
-  bridgeAPIActionsRegistry.register(
+  safeRegister(
     'FETCH_RELATED_MEMBERS_NAMES_BY_CONSUMER_PAYMENT_PACK_LINK',
     actions.fetchRelatedMembersNamesByPrivateConsumerPassLinks,
   );
 
-  bridgeAPIActionsRegistry.register(
+  safeRegister(
     'FETCH_RELATED_MEMBERS_NAMES_BY_PRIVATE_CONSUMER_PASS_LINK',
     actions.fetchRelatedMembersNamesByPrivateConsumerPassLinks,
   );
 
-  bridgeAPIActionsRegistry.register(
-    'FETCH_PRIVATE_PASS_BULK',
-    actions.fetchPrivatePassBulk,
-  );
+  safeRegister('FETCH_PRIVATE_PASS_BULK', actions.fetchPrivatePassBulk);
 
-  bridgeAPIActionsRegistry.register(
+  safeRegister(
     'FETCH_PRIVATE_SERVICE_COMPATIBLE_PASS_LIST',
     actions.fetchPrivateServiceCompatiblePassList,
   );
 
-  bridgeAPIActionsRegistry.register(
+  safeRegister(
     'FETCH_COMPANY_WAITLIST_CONFIGURATION',
     actions.fetchCompanyWaitlistConfiguration,
   );
 
-  bridgeAPIActionsRegistry.register(
+  safeRegister(
     'FETCH_CONSUMER_GUEST_NUMBER_ELIGIBLE_LEFT_BY_OFFER_BULK',
     actions.fetchConsumerGuestNumberEligibleLeftByOfferBulk,
   );
 
-  bridgeAPIActionsRegistry.register(
+  safeRegister(
     'FETCH_BOOKING_POSITION_AS_MEMBER_BY_OFFER_IDS',
     actions.fetchMyBookingOptionsPositionAsMemberByOfferIds,
   );

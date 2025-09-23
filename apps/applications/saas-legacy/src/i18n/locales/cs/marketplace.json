@@ -1,0 +1,309 @@
+{
+    "defaultTabTitle": {
+        "calendar": "",
+        "calendarV2": "",
+        "giftcard": "",
+        "pass": "",
+        "playlist": "",
+        "privateService": "",
+        "shop": "",
+        "subscription": "",
+        "vod": "",
+        "workshop": ""
+    },
+    "selector": {
+        "coach": {
+            "placeholder": ""
+        },
+        "level": {
+            "placeholder": ""
+        },
+        "establishment": {
+            "placeholder": ""
+        },
+        "additionalCoaches": {
+            "placeholder": ""
+        }
+    },
+    "paymentCombo": {
+        "addToCart": ""
+    },
+    "warning": {
+        "isManager": "",
+        "disconnect": "",
+        "backToBackoffice": ""
+    },
+    "workshop": {
+        "noWorkshopAvailable": "",
+        "card": {
+            "showMore": "",
+            "book": "",
+            "bookOption": "",
+            "isPast": "",
+            "notAvailable": "",
+            "duration": "",
+            "loadMore": "",
+            "bookTitle": ""
+        },
+        "warningPartialBooking": "",
+        "warningFullBooking": "",
+        "confirm": "",
+        "cancel": "",
+        "loadMore": "",
+        "warningBookingRedirectToFirstOffer": ""
+    },
+    "calendar": {
+        "registered": "",
+        "close": "",
+        "description": "",
+        "conditions": "",
+        "broadcast": ""
+    },
+    "genericCard": {
+        "validForDuration": {
+            "validAnd": "",
+            "attendance": "",
+            "booking": "",
+            "purchase": "",
+            "validFromTo": "",
+            "validDaysMonthsYears": "",
+            "validYear": "",
+            "validMonth": "",
+            "validDay": ""
+        },
+        "addButton": {
+            "buttonContent": ""
+        },
+        "validity": {
+            "day": "",
+            "month": "",
+            "year": ""
+        },
+        "details": {
+            "buttonContent": ""
+        },
+        "credits": {
+            "unlimited": "",
+            "availableCredit": ""
+        },
+        "price": {
+            "free": ""
+        },
+        "title": {
+            "universalPassMessage": "",
+            "autoRenewal": ""
+        }
+    },
+    "genericCardDetails": {
+        "includedElements": {
+            "see": "",
+            "penalty": {
+                "penaltyDay": "",
+                "amount": "",
+                "days": ""
+            },
+            "maxPurchasePerMember": "",
+            "restrictions": {
+                "maxPerMonth": "",
+                "perMonth": "",
+                "maxPerWeek": "",
+                "perWeek": "",
+                "maxPerDay": "",
+                "perDay": "",
+                "title": ""
+            },
+            "newMemberOnly": "",
+            "isUniversalPass": "",
+            "compatibleWithEverything": "",
+            "onlyVodAccess": "",
+            "fullVodAccess": "",
+            "onsitePaymentAvailable": "",
+            "cancellation": "",
+            "penaltyNoShow": {
+                "block": "",
+                "account": "",
+                "penaltyDay": "",
+                "threshold": ""
+            },
+            "offPeakRestrictions": {
+                "title": ""
+            }
+        },
+        "restrictions": "",
+        "compatibility": {
+            "packs": {
+                "and": "",
+                "categoriesAndActivitiesAndEstablishments": "",
+                "establishmentsAndActivities": "",
+                "categoriesAndEstablishment": "",
+                "categoriesAndActivities": "",
+                "establishments": "",
+                "activities": "",
+                "categories": "",
+                "compatible": "",
+                "all": ""
+            },
+            "compatibilityModal": {
+                "establishments": "",
+                "activities": "",
+                "categories": ""
+            },
+            "establishments": "",
+            "activities": "",
+            "categories": "",
+            "button": {
+                "close": ""
+            },
+            "allPrivateSlotsAvailables": "",
+            "compatibilities": "",
+            "compatible": "",
+            "none": ""
+        },
+        "credits": {
+            "unlimited": "",
+            "availableCredit": ""
+        },
+        "compatibleTimeSlot": "",
+        "packCard": {
+            "comboItemList": {
+                "hiddenItem": "",
+                "privatePassItem": "",
+                "paymentPackItem": ""
+            }
+        }
+    },
+    "packCard": {
+        "comboItemList": {
+            "paymentPackItem": "",
+            "privatePassItem": "",
+            "hiddenItem": ""
+        }
+    },
+    "packCardDetail": {
+        "comboItemList": {
+            "content": ""
+        }
+    },
+    "contractCard": {
+        "autoRenewal": "",
+        "legalContract": "",
+        "seeLess": "",
+        "seeMore": "",
+        "registerButton": "",
+        "invoice": "",
+        "fees": "",
+        "billingInterval": {
+            "day": "",
+            "year": "",
+            "week": "",
+            "month": ""
+        },
+        "chooseButton": ""
+    },
+    "pass": {
+        "search": {
+            "goBack": "",
+            "result": ""
+        },
+        "filters": {
+            "placeholder": {
+                "categories": "",
+                "type": ""
+            },
+            "type": {
+                "privatePass": "",
+                "paymentPack": ""
+            },
+            "noCategory": ""
+        }
+    },
+    "passes": {
+        "tabs": {
+            "all": "",
+            "passes": "",
+            "appointmentPasses": ""
+        },
+        "drawerTitle": {
+            "tabs": ""
+        },
+        "detail": {
+            "header": {
+                "credits": "",
+                "unlimited": "",
+                "newMemberOnly": "",
+                "isUniversalPass": "",
+                "onlyVodAccess": "",
+                "fullVodAccess": "",
+                "onsitePaymentAvailable": ""
+            },
+            "availability": {
+                "active": "",
+                "suspended": "",
+                "suspendedUntil": "",
+                "expired": "",
+                "future": "",
+                "validUntil": ""
+            },
+            "description": {
+                "label": "",
+                "showMore": "",
+                "showLess": ""
+            },
+            "compatibility": {
+                "titles": {
+                    "studios": "",
+                    "activity": "",
+                    "appointment": "",
+                    "main": ""
+                },
+                "subtitles": {
+                    "activity": "",
+                    "timeSlots": "",
+                    "sessions": "",
+                    "appointments": ""
+                },
+                "contents": {
+                    "allActivities": "",
+                    "allRooms": "",
+                    "allCategories": "",
+                    "allTimeSlots": "",
+                    "vod": "",
+                    "bookingForGuest": "",
+                    "noAppointments": "",
+                    "allSessions": "",
+                    "sessions": ""
+                },
+                "labels": {
+                    "category": "",
+                    "activity": "",
+                    "room": ""
+                }
+            },
+            "restriction": {
+                "title": "",
+                "daily": "",
+                "weekly": "",
+                "monthly": ""
+            }
+        },
+        "title": "",
+        "filters": "",
+        "search": "",
+        "buy": "",
+        "details": "",
+        "close": "",
+        "addToCart": "",
+        "to": ""
+    },
+    "subscriptionCard": {
+        "billingInterval": {
+            "year": "",
+            "month": "",
+            "week": "",
+            "day": ""
+        },
+        "fees": "",
+        "invoice": "",
+        "registerButton": ""
+    }
+}

@@ -1,0 +1,996 @@
+{
+    "newsletter": {
+        "messages": {
+            "success": "",
+            "error": ""
+        },
+        "form": {
+            "validate": "",
+            "lastName": "",
+            "firstName": "",
+            "email": "",
+            "title": ""
+        },
+        "formV2": {
+            "validate": "",
+            "email": "",
+            "title": "",
+            "subtitle": "",
+            "error": {
+                "emailRequired": "",
+                "invalidEmail": ""
+            },
+            "successTitle": "",
+            "successText": ""
+        }
+    },
+    "notifications": {
+        "primaryText": {
+            "send": {
+                "email": "",
+                "push": "",
+                "emailAndPush": ""
+            },
+            "smartlist": {
+                "smartListInclude": "",
+                "smartListExclude": ""
+            },
+            "expired": {
+                "days": ""
+            },
+            "expires": {
+                "noDays": "",
+                "days": ""
+            },
+            "paymentPack": {
+                "creditsLeftOnBooking": {
+                    "noCreditsNoHours": "",
+                    "noCreditsHours": "",
+                    "oneCreditNoHours": "",
+                    "oneCreditHours": "",
+                    "creditsNoHours": "",
+                    "creditsHours": ""
+                },
+                "creditsLeftOnSessionEnd": {
+                    "noCreditsNoHours": "",
+                    "noCreditsHours": "",
+                    "oneCreditNoHours": "",
+                    "oneCreditHours": "",
+                    "creditsNoHours": "",
+                    "creditsHours": ""
+                }
+            },
+            "privatePass": {
+                "creditsLeft": {
+                    "noCredits": "",
+                    "credits": ""
+                }
+            }
+        },
+        "selectNotificationRules": "",
+        "createNotificationFabLabel": "",
+        "notificationsEmpty": "",
+        "deleteDialogText": "",
+        "deleteDialogTitle": "",
+        "removeRule": "",
+        "editRule": "",
+        "paymentPackKind": {
+            "credit": "",
+            "validity": ""
+        },
+        "groupTitle": {
+            "paymentPack": "",
+            "privateBooking": "",
+            "booking": "",
+            "privatePass": "",
+            "birthday": "",
+            "contract": ""
+        },
+        "fabLabels": {
+            "private_service": "",
+            "payment_pack": "",
+            "establishment": "",
+            "meta_activity": "",
+            "workshop": "",
+            "private_pass": "",
+            "birthday": "",
+            "establishmentGroup": "",
+            "contract": ""
+        },
+        "cancel": "",
+        "next": "",
+        "save": "",
+        "delete": "",
+        "viewPreview": "",
+        "preview": "",
+        "pushNotificationTitle": "",
+        "smartListTitle": "",
+        "included": "",
+        "excluded": "",
+        "select": "",
+        "optionalStepInfo": "",
+        "passNotificationDeleteDialog": {
+            "title": "",
+            "warning": {
+                "attachedPaymentPacks": "",
+                "attachedPrivatePasses": "",
+                "sure": "",
+                "irreversible": ""
+            }
+        },
+        "selectIdentifierLabel": {
+            "payment_pack": "",
+            "private_service": "",
+            "establishment": "",
+            "meta_activity": "",
+            "workshop": "",
+            "private_pass": "",
+            "establishment_group": "",
+            "contract": ""
+        },
+        "createNotification": "",
+        "stats": {
+            "total_mail_opened": "",
+            "opened_rate": "",
+            "total_mail_send": ""
+        },
+        "notificationTitle": {
+            "remainingCredit": "",
+            "remainingValidity": "",
+            "expiredValidity": ""
+        },
+        "mail": "",
+        "notificationDetails": "",
+        "mailTitle": "",
+        "statisticDetails": "",
+        "notificationPreview": "",
+        "allOptionsPlaceholder": {
+            "private_pass": "",
+            "payment_pack": ""
+        },
+        "allPassSelected": {
+            "payment_pack": "",
+            "private_pass": ""
+        },
+        "selectAllPassesToggle": {
+            "payment_pack": "",
+            "private_pass": ""
+        },
+        "passSelectionPlaceholder": {
+            "private_pass": "",
+            "payment_pack": ""
+        },
+        "dialogTitle": "",
+        "listTitle": "",
+        "create": "",
+        "handleNotification": "",
+        "noNotification": "",
+        "contractKind": {
+            "contractStart": "",
+            "contractEnd": ""
+        },
+        "triggerDescription": {
+            "remainingCredit": "",
+            "remainingValidity": "",
+            "todayValidity": "",
+            "expiredValidity": ""
+        },
+        "sendingDelay": {
+            "justOnBooking": "",
+            "onBooking": "",
+            "justOnSession": "",
+            "onSession": ""
+        },
+        "addPasses": "",
+        "editPasses": ""
+    },
+    "customForm": {
+        "field": {
+            "paragraph": "",
+            "choice_warning": "",
+            "title": "",
+            "short_answer": "",
+            "long_answer": "",
+            "radio": "",
+            "check_box": "",
+            "select": "",
+            "select_placeholder": "",
+            "file": "",
+            "fileHelper": "",
+            "link_to_note": "",
+            "link_to_note_helper": "",
+            "text_size_limit": "",
+            "signature": "",
+            "link_to_tag_popover": "",
+            "tag_group": "",
+            "tag_name": "",
+            "isMandatoryOnSignUp": "",
+            "accept_sms": "",
+            "accept_email": "",
+            "waiver": "",
+            "repeatPassword": "",
+            "general_terms_and_conditions": "",
+            "country": "",
+            "city": "",
+            "additional_adress": "",
+            "password": "",
+            "phone": "",
+            "email": "",
+            "vaccination_status": "",
+            "emergency_contact": "",
+            "photo": "",
+            "zipcode": "",
+            "gender": "",
+            "address_line_2": "",
+            "address_line_1": "",
+            "birthday": "",
+            "last_name": "",
+            "first_name": "",
+            "sign_up_question": "",
+            "location": "",
+            "state": "",
+            "official_document_id": ""
+        },
+        "title": "",
+        "CustomFormLink": "",
+        "linkHelper": "",
+        "search": "",
+        "name": "",
+        "content": "",
+        "preview": "",
+        "label": "",
+        "kind": "",
+        "save": "",
+        "cancel": "",
+        "send": "",
+        "mandatory": "",
+        "numberQuestions": "",
+        "listActions": "",
+        "disabledCustomForm": "",
+        "disabledCustomFormField": "",
+        "noCustomForm": "",
+        "addCustomFrom": "",
+        "selectCustomForm": "",
+        "selectCustomFormFilled": "",
+        "emptyCustomForm": "",
+        "addFieldLong": "",
+        "unaccessibleForm": "",
+        "backToUserSpace": "",
+        "changesDetected": "",
+        "noChanges": "",
+        "actions": {
+            "configure": "",
+            "statistics": "",
+            "customization": ""
+        },
+        "modal": {
+            "delete": {
+                "title": "",
+                "cancel": "",
+                "confirm": "",
+                "content": ""
+            }
+        },
+        "tab": {
+            "general": "",
+            "campaign": "",
+            "statistics": "",
+            "layout": ""
+        },
+        "customFormField": {
+            "modal": {
+                "disable": {
+                    "title": "",
+                    "cancel": "",
+                    "confirm": "",
+                    "content": ""
+                },
+                "add": {
+                    "title": "",
+                    "addField": "",
+                    "select": "",
+                    "option": "",
+                    "confirm": "",
+                    "cancel": ""
+                },
+                "error": {
+                    "choicesLength": "",
+                    "emptyChoice": "",
+                    "signupQuestionShouldBeSelected": "",
+                    "tooShort": "",
+                    "passwordsDontMatch": ""
+                },
+                "signature": {
+                    "addSignature": "",
+                    "editSignature": "",
+                    "clear": "",
+                    "addSignatureHelper": ""
+                }
+            }
+        },
+        "submit": {
+            "date_submitted": "",
+            "dialog": {
+                "title": "",
+                "content": "",
+                "confirmButton": ""
+            },
+            "errors": {
+                "requiredField": "",
+                "requiredSignature": "",
+                "requiredFile": "",
+                "passwordConfirmationError": "",
+                "invalidEmail": "",
+                "passwordMinimumRequirementsError": "",
+                "invalidOfficialDocumentId": "",
+                "barcodeMaximumLength": "",
+                "membershipIdMaximumLength": ""
+            }
+        },
+        "statistics": {
+            "byMember": "",
+            "table": {
+                "column": {
+                    "member": "",
+                    "display_count": "",
+                    "last_display_date": "",
+                    "completed": ""
+                },
+                "row": {
+                    "no": "",
+                    "yes": ""
+                }
+            }
+        },
+        "allFieldDisabled": "",
+        "answerForDisabledField": "",
+        "displayRule": {
+            "kind": {
+                "signUp": "",
+                "connectionLabel": "",
+                "connection": "",
+                "signUpAlreadyExists": "",
+                "connectionHelperText": ""
+            },
+            "empty": "",
+            "addNewDisplayRule": "",
+            "header": "",
+            "form": {
+                "dialog": {
+                    "helperTextRegisteredMembers": "",
+                    "subTitle": "",
+                    "title": "",
+                    "snoozeOptionHelperText": "",
+                    "snoozeOptionLabel": "",
+                    "force_display": "",
+                    "snoozeOption": "",
+                    "advancedOptions": "",
+                    "modify": "",
+                    "cancel": "",
+                    "create": "",
+                    "helperTextNewMembers": ""
+                },
+                "errors": {
+                    "timedeltaBeforeDisplayMustBeGraterThanZero": ""
+                }
+            },
+            "forRegisteredMemberMinimal": "",
+            "forRegisteredMember": "",
+            "forNewMember": "",
+            "snoozeTime": "",
+            "unSnoozableMinimal": "",
+            "snoozableMinimal": "",
+            "forcedDisplayMinimal": "",
+            "unForcedModeMinimal": "",
+            "forbiddenForSignup": ""
+        },
+        "disconnect": "",
+        "resetSubmit": "",
+        "allStepsCompleted": "",
+        "submitLater": "",
+        "previous": "",
+        "next": "",
+        "navigateToMemberForm": "",
+        "signupFormHelper": "",
+        "signUp": {
+            "helperMemberForm": "",
+            "helperSignup": "",
+            "signupFields": ""
+        },
+        "signUpInfoModal": {
+            "content": "",
+            "confirm": "",
+            "cancel": "",
+            "title": ""
+        },
+        "memberFormHelper": "",
+        "clientForms": {
+            "modify": "",
+            "customize": "",
+            "modification": "",
+            "signup": "",
+            "preview": ""
+        },
+        "editable": "",
+        "display": "",
+        "navigateToSignup": "",
+        "memberFormTitle": "",
+        "signupFormTitle": "",
+        "layout": {
+            "save": "",
+            "redo": "",
+            "reset": "",
+            "undo": "",
+            "editLayout": "",
+            "layoutUpdating": "",
+            "saveAndExit": "",
+            "layoutUpTodate": ""
+        },
+        "editLayoutTitle": "",
+        "changesAreSubmitting": "",
+        "editLayoutSubtitle": "",
+        "breakpoints": {
+            "lg": "",
+            "md": "",
+            "sm": "",
+            "xs": ""
+        }
+    },
+    "cadence": {
+        "form": {
+            "updateTitle": "",
+            "trigger": {
+                "selectEvent": "",
+                "selectSmartlist": "",
+                "helpers": {
+                    "exitFail": "",
+                    "exitSuccess": "",
+                    "step": "",
+                    "cadence": ""
+                },
+                "triggerTimeoutLabel": "",
+                "triggerTimeoutDays": "",
+                "trigger_timeout_explain_value_selected": "",
+                "trigger_timeout_select_label": "",
+                "trigger_timeout_title": "",
+                "select_marketing_actions_helper": "",
+                "marketing_actions": "",
+                "event_and_smartlist_helper": "",
+                "or_rule_between_triggers": "",
+                "and_rule_between_triggers": "",
+                "rule_between_triggers": "",
+                "trigger_smartlist_kind_label": "",
+                "had_filtering_on_selected_event": "",
+                "trigger_event_kind_label": "",
+                "labels": {
+                    "exitFail": "",
+                    "exitSuccess": "",
+                    "step": "",
+                    "cadence": ""
+                },
+                "title": "",
+                "event_or_smartlist_helper": "",
+                "finnerGrain": {
+                    "specifyItemsToggleLabel": "",
+                    "purchaseLabelTitle": ""
+                }
+            },
+            "win_step": "",
+            "error": {
+                "triggerCannotBeEmpty": "",
+                "minimumConnectedTrigger": "",
+                "maximumConnectedTrigger": "",
+                "timeoutMustBeStrictPositive": ""
+            },
+            "marketing_action": {
+                "1": "",
+                "2": "",
+                "3": "",
+                "4": "",
+                "5": "",
+                "form": {
+                    "helper": "",
+                    "reset": "",
+                    "submit": ""
+                },
+                "defaultName": "",
+                "select_tag": ""
+            },
+            "event": {
+                "1": "",
+                "2": "",
+                "3": "",
+                "4": "",
+                "5": "",
+                "6": "",
+                "7": "",
+                "8": "",
+                "9": "",
+                "10": "",
+                "11": "",
+                "12": "",
+                "13": "",
+                "14": "",
+                "100": "",
+                "101": "",
+                "102": "",
+                "103": "",
+                "104": "",
+                "billing_plan-renew": "",
+                "billing_plan-stop": "",
+                "billing_plan-pause": "",
+                "billing_plan-create": "",
+                "invoice-create": "",
+                "basket-finalize": "",
+                "basket-additem": "",
+                "basket-created": "",
+                "private_booking-cancel": "",
+                "private_booking-create": "",
+                "booking-attendance": "",
+                "booking-create": "",
+                "private_consumer_pass-create": "",
+                "consumer_payment_pack-create": "",
+                "provision_update-create": "",
+                "consumer_giftcard-create": ""
+            },
+            "exit": {
+                "exit_fail_label": "",
+                "exit_success_label": "",
+                "title": ""
+            },
+            "next": "",
+            "previous": "",
+            "lose_step": "",
+            "entry_step": "",
+            "modify_name_label": "",
+            "cadenceNameLabel": "",
+            "cadenceStepHelper": "",
+            "cadenceStepNameLabel": "",
+            "cadenceStep": "",
+            "title": "",
+            "addACadence": "",
+            "createCadenceHelper": "",
+            "edit": "",
+            "submit": "",
+            "cancel": "",
+            "delete": "",
+            "updateSubmit": ""
+        },
+        "svgText": {
+            "action_name": "",
+            "push_notification": "",
+            "sms": "",
+            "email": "",
+            "select_event": "",
+            "marketing_actions": "",
+            "triggers": ""
+        },
+        "graph": {
+            "alert": {
+                "switchToEditMode": "",
+                "cadenceIsActive": ""
+            },
+            "nodeElement": {
+                "deleteStep": "",
+                "cancelOnGoingCreation": "",
+                "edgeLabelForNodeCreation": "",
+                "addElement": "",
+                "deleteTrigger": ""
+            },
+            "tools": {
+                "showDisabledTriggers": "",
+                "hideDisabledTriggers": "",
+                "hideControls": "",
+                "showControls": "",
+                "hideMap": "",
+                "showMap": "",
+                "centerView": ""
+            }
+        },
+        "triggers": {
+            "smartlist": {
+                "label": ""
+            },
+            "events": {
+                "label": "",
+                "book_chip": "",
+                "purchase_chip": "",
+                "billing_plan_chip": "",
+                "invoice_chip": "",
+                "basket_chip": ""
+            },
+            "timeout": {
+                "timeout_days_chip": "",
+                "timout_days_chip": ""
+            },
+            "trigger": "",
+            "exit": "",
+            "start": "",
+            "delete": "",
+            "changeKind": "",
+            "kinds": {
+                "0": "",
+                "1": "",
+                "2": "",
+                "3": ""
+            }
+        },
+        "cadenceCard": {
+            "lost": "",
+            "win": "",
+            "outputRules": ""
+        },
+        "activate": {
+            "dialog": {
+                "cancel": "",
+                "secondHelper": "",
+                "firstHelper": "",
+                "title": "",
+                "confirmButton": ""
+            },
+            "setupBeforeActivationHelper": "",
+            "button": ""
+        },
+        "archive": {
+            "archivedHeader": "",
+            "dialog": {
+                "confirm": "",
+                "cancel": "",
+                "helper": "",
+                "beingArchived": "",
+                "title": "",
+                "confirmButton": ""
+            }
+        },
+        "welcome": {
+            "dialog": {
+                "title": "",
+                "helper": "",
+                "confirm": "",
+                "return": ""
+            }
+        },
+        "pause": {
+            "dialog": {
+                "title": "",
+                "helper": "",
+                "confirmButton": ""
+            }
+        },
+        "converStepToExit": {
+            "dialog": {
+                "confirmButton": ""
+            }
+        },
+        "deleteStep": {
+            "dialog": {
+                "confirmButton": ""
+            }
+        },
+        "deleteExit": {
+            "dialog": {
+                "confirmButton": ""
+            }
+        },
+        "howTo": {
+            "set_trigger_destination": "",
+            "add_smartlist_filter": "",
+            "add_trigger": "",
+            "edit_event": "",
+            "add_event": "",
+            "edit_marketing_action": "",
+            "add_marketing_action": "",
+            "explain": "",
+            "title": ""
+        },
+        "cadenceIndexHelper": "",
+        "marketingElement": "",
+        "triggerElement": "",
+        "cadenceParameters": "",
+        "exitEditModeLabel": "",
+        "exitEditMode": "",
+        "editModeLabel": "",
+        "editMode": "",
+        "shutOff": "",
+        "back": "",
+        "steps": {
+            "defaultName": "",
+            "actions": {
+                "convertIntoStep": "",
+                "convertIntoExit": "",
+                "delete": "",
+                "edit": "",
+                "addNextStep": "",
+                "nextStepTrigger": "",
+                "changeInStep": "",
+                "changeInExit": ""
+            }
+        },
+        "marketingAction": {
+            "addAction": ""
+        },
+        "trigger": {
+            "addTrigger": ""
+        },
+        "bubble": {
+            "convertIntoExit": {
+                "title": "",
+                "label": ""
+            },
+            "entryTrigger": {
+                "addTrigger": "",
+                "helperText": "",
+                "title": "",
+                "editionHelper": "",
+                "creationHelper": ""
+            },
+            "entryAction": {
+                "addAction": "",
+                "helperText": "",
+                "title": ""
+            },
+            "wonTrigger": {
+                "addTrigger": "",
+                "helperText": "",
+                "title": ""
+            },
+            "wonAction": {
+                "addAction": "",
+                "helperText": "",
+                "title": ""
+            },
+            "lostTrigger": {
+                "timeout": {
+                    "title": "",
+                    "label": "",
+                    "helperText": ""
+                },
+                "addTrigger": "",
+                "helperText": "",
+                "title": ""
+            },
+            "lostAction": {
+                "addAction": "",
+                "helperText": "",
+                "title": ""
+            },
+            "convertIntoStep": {
+                "default": "",
+                "label": ""
+            },
+            "marketingAction": {
+                "title": "",
+                "label": ""
+            },
+            "delete": "",
+            "cancel": "",
+            "confirm": "",
+            "previous": "",
+            "next": "",
+            "finish": "",
+            "step": {
+                "name": ""
+            },
+            "requiredField": "",
+            "changeInExit": {
+                "title": "",
+                "label": ""
+            },
+            "changeInStep": {
+                "default": "",
+                "label": ""
+            }
+        },
+        "step": {
+            "archive": {
+                "dialog": {
+                    "title": "",
+                    "helper": ""
+                }
+            },
+            "convertExit": {
+                "dialog": {
+                    "title": "",
+                    "helper": ""
+                }
+            }
+        },
+        "exit": {
+            "archive": {
+                "dialog": {
+                    "title": "",
+                    "helper": ""
+                }
+            }
+        },
+        "dialog": {
+            "cancel": "",
+            "confirm": "",
+            "do_not_display_anymore": ""
+        }
+    },
+    "audience": {
+        "form": {
+            "formTitle": {
+                "updateNameTitle": "",
+                "createTitle": "",
+                "updateTitle": ""
+            },
+            "trigger": {
+                "helpers": {
+                    "exitFail": "",
+                    "exitSuccess": "",
+                    "workflow": ""
+                },
+                "trigger_timeout_explain_value_selected": "",
+                "trigger_timeout_select_label": "",
+                "event_and_smartlist_helper": "",
+                "labels": {
+                    "workflow": ""
+                },
+                "event_or_smartlist_helper": "",
+                "oneOrMoreFinnerGrainDisabledText": ""
+            },
+            "audienceNameLabel": "",
+            "multipleVisit": {
+                "isMultipleVisitAllowedLabel": "",
+                "helperText": ""
+            },
+            "cadenceParameters": "",
+            "audienceStepHelper": "",
+            "addAWorkflow": "",
+            "openIntercomHelp": "",
+            "createAudienceHelper": "",
+            "emptyAudienceHelper": ""
+        },
+        "graph": {
+            "alert": {
+                "switchToEditMode": "",
+                "audienceIsActive": ""
+            }
+        },
+        "activate": {
+            "dialog": {
+                "firstHelper": "",
+                "title": ""
+            },
+            "setupBeforeActivationHelper": ""
+        },
+        "archive": {
+            "archivedHeader": "",
+            "dialog": {
+                "beingArchived": "",
+                "helper": "",
+                "title": ""
+            }
+        },
+        "block": {
+            "archived": {
+                "dialog": {
+                    "title": "",
+                    "helper": ""
+                }
+            },
+            "unrecognized": {
+                "dialog": {
+                    "title": "",
+                    "helper": ""
+                }
+            }
+        },
+        "howTo": {
+            "title": ""
+        },
+        "workflow": {
+            "finnerGrainIssues": ""
+        },
+        "audienceIndexHelper": "",
+        "workflowMetrics": {
+            "openButton": "",
+            "cards": {
+                "members": {
+                    "title": "",
+                    "description": "",
+                    "label": ""
+                },
+                "success": {
+                    "title": "",
+                    "description": "",
+                    "label": ""
+                },
+                "averageTime": {
+                    "title": "",
+                    "description": "",
+                    "label": ""
+                },
+                "tags": {
+                    "title": "",
+                    "description": "",
+                    "label": ""
+                }
+            },
+            "communication": {
+                "title": "",
+                "knowMore": "",
+                "availableSoon": "",
+                "email": "",
+                "sms": "",
+                "pushNotif": ""
+            }
+        },
+        "listItem": {
+            "labels": {
+                "metrics": "",
+                "unarchive": "",
+                "active": "",
+                "paused": "",
+                "notLaunched": "",
+                "invalid": "",
+                "open": "",
+                "archive": "",
+                "edit": ""
+            },
+            "tooltip": {
+                "moreActions": ""
+            }
+        },
+        "editModal": {
+            "dialog": {
+                "title": "",
+                "helper": "",
+                "checkboxLabel": "",
+                "cancel": "",
+                "confirm": ""
+            }
+        },
+        "memberTable": {
+            "searchPlaceHolder": "",
+            "title": "",
+            "historicTitle": "",
+            "tableColumnLabel": {
+                "member": "",
+                "currentStep": "",
+                "entryDate": "",
+                "exitDate": "",
+                "status": ""
+            }
+        },
+        "smsWarning": {
+            "alert": {
+                "title": "",
+                "content": ""
+            },
+            "modal": {
+                "title": "",
+                "content": "",
+                "actions": {
+                    "primary": "",
+                    "secondary": ""
+                }
+            }
+        },
+        "freeTrial": {
+            "banner": {
+                "title": "",
+                "button": ""
+            },
+            "upgradeDialog": {
+                "benefits": [
+                    "",
+                    "",
+                    ""
+                ],
+                "upgrade": "",
+                "close": "",
+                "bannerClicked": {
+                    "title": "",
+                    "description": ""
+                },
+                "quotaReached": {
+                    "title": "",
+                    "description": ""
+                }
+            }
+        }
+    }
+}

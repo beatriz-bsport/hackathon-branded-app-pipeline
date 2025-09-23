@@ -56,7 +56,7 @@
       "title": "Create new email template",
       "description": "Name your template to get started!",
       "confirmButton": "Create",
-      "cancelButton": "Go back",
+      "cancelButton": "Back",
       "textInput": {
         "label": "Template title",
         "placeholder": "Template title here..."
@@ -81,7 +81,7 @@
       "description": "You can edit <b>{{emailTemplateTitle}}</b> after",
       "duplicateEmailTitle": "{{emailTemplateTitle}} - Copy",
       "confirmButton": "Duplicate",
-      "cancelButton": "Go back",
+      "cancelButton": "Back",
       "onSuccess": {
         "title": "Template duplicated",
         "action": "Open"
@@ -94,7 +94,7 @@
       "title": "Delete email template?",
       "description": "Deleting <b>{{emailTemplateTitle}}</b> will also remove it from any transactional emails that it's linked to.",
       "confirmButton": "Delete",
-      "cancelButton": "Go back",
+      "cancelButton": "Back",
       "onSuccess": {
         "title": "Email template deleted",
         "action": "Undo"
@@ -110,7 +110,7 @@
         "placeholder": "Category name here..."
       },
       "confirmButton": "Create",
-      "cancelButton": "Go back",
+      "cancelButton": "Back",
       "onSuccess": {
         "title": "Category created"
       },
@@ -128,7 +128,7 @@
         "placeholder": "Category name here..."
       },
       "confirmButton": "Rename",
-      "cancelButton": "Go back",
+      "cancelButton": "Back",
       "onSuccess": {
         "title": "Category renamed",
         "action": "Undo"
@@ -141,7 +141,7 @@
       "title": "Delete category?",
       "description": "All items listed under <b>{{categoryName}}</b> will be moved to the 'No Category' section.",
       "confirmButton": "Delete",
-      "cancelButton": "Go back",
+      "cancelButton": "Back",
       "onSuccess": {
         "title": "Category deleted",
         "action": "Undo"
@@ -162,7 +162,7 @@
         "placeholder": "Template title here..."
       },
       "confirmButton": "Rename",
-      "cancelButton": "Go back",
+      "cancelButton": "Back",
       "onSuccess": {
         "title": "Template renamed",
         "action": "Undo"

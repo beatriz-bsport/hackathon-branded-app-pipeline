@@ -60,8 +60,8 @@ pnpm run translation:update
 
 There are 3 kinds of translations that depend on the prefix of your source file (a resource):
 
-- resources starting with `v2_b2b_` (e.g. `v2_b2b_{namespace}.json`) are uploaded to our Legacy B2B Transifex project.
-- resources starting with `v2_b2c_` (e.g. `v2_b2c_{namespace}.json`) are uploaded to our Legacy B2C Transifex project.
+- resources starting with `b2b_` (e.g. `b2b_{namespace}.json`) are uploaded to our Legacy B2B Transifex project.
+- resources starting with `b2c_` (e.g. `b2c_{namespace}.json`) are uploaded to our Legacy B2C Transifex project.
 - other resources are uploaded to Weblate.
 
 ---

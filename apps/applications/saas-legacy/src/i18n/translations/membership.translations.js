@@ -1,9 +1,0 @@
-exports.default = {
-  selector: {
-    placeholder: 'Search a studio or an establishment...',
-    noMatchingCompany: 'No results',
-    explainConsumer:
-      "With <1> BSPORT Solution</2> you've got all your information in one single account!",
-    fetchMore: 'Show more',
-  },
-};

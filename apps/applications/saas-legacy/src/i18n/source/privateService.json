@@ -820,7 +820,7 @@
       "establishmentSelectorTitle": "Choose the establishment(s) for this appointment:",
       "settingsTitle": "Conditions",
       "managerOnly": {
-        "label": "Hidden on Marketplace"
+        "label": "Hidden on Member Area"
       },
       "last_booking_minutes": {
         "label": "Choose how long before the class the booking window closes."

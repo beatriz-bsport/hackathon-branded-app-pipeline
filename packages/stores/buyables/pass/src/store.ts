@@ -1,21 +1,44 @@
 import { createStore } from "zustand/vanilla";
 
-import { bindStore } from "@bsport/store-base";
+import { type PaginatedState, bindStore } from "@bsport/store-base";
 
-import type { Pass } from "#src/types";
+import type { Pass, PassCategory } from "#src/types";
 
 export interface PassState {
-  byId: { [key: number]: Pass };
-  count: number;
-  ids: number[];
-  page: number;
+  items: {
+    byId: { [key: number]: Pass };
+    active: Omit<PaginatedState<Pass>, "byId">;
+    archived: Omit<PaginatedState<Pass>, "byId">;
+    searched: Omit<PaginatedState<Pass>, "byId">;
+  };
+  categories: PaginatedState<PassCategory>;
 }
 
 export const passStore = createStore<PassState>()(() => ({
-  byId: {},
-  count: 0,
-  ids: [],
-  page: 1,
+  items: {
+    byId: {},
+    active: {
+      count: 0,
+      page: 1,
+      ids: [],
+    },
+    archived: {
+      count: 0,
+      page: 1,
+      ids: [],
+    },
+    searched: {
+      count: 0,
+      page: 1,
+      ids: [],
+    },
+  },
+  categories: {
+    byId: {},
+    count: 0,
+    page: 1,
+    ids: [],
+  },
 }));
 
 /**

@@ -263,13 +263,13 @@
           "isModifyRecursively": "Do you want to modify similar sessions according to these new conditions?",
           "isNotifyConsumers": "Do you want to inform your customers of this change?",
           "partnership": {
-            "partnerMaxBookingCount": "Maximum number of bookings from Wellhub and Urban Sports Club combined (the rest of marketplaces are not affected by this setting)",
-            "availableOnPartnership": "On marketplaces (ClassPass, OneFit...)",
-            "enablePartneshipBookings": "Enable marketplace bookings",
-            "title": "Marketplace integrations",
+            "partnerMaxBookingCount": "Maximum number of bookings from Wellhub, Wellpass and Urban Sports Club combined (the other aggregators are not affected by this setting)",
+            "availableOnPartnership": "On aggregators (ClassPass, OneFit...)",
+            "enablePartneshipBookings": "Enable aggregator bookings",
+            "title": "Aggregator integrations",
             "subtitle": "Includes: ClassPass, Urban Sports Club, Gymlib and Wellhub for external bookings.",
-            "uscIntegrationWarning": "Your integration to the Urban Sports Club marketplace is active, any session spanning 2 days or more will not appear.",
-            "uscIntegrationWorkshopWarning": "Workshops are not compatible with the Urban Sports Club marketplace, so this session will not be included.",
+            "uscIntegrationWarning": "Your integration to Urban Sports Club is active, any session spanning 2 days or more will not appear.",
+            "uscIntegrationWorkshopWarning": "Workshops are not compatible with Urban Sports Club, so this session will not be included.",
             "wellhubProduct": {
               "title": "Your available products on Wellhub:",
               "helperText": "These products are offered by your studio on the Wellhub platform. Go to 'Partnership' section in the Partner Portal of your Wellhub account for more information.",
@@ -316,8 +316,8 @@
               "weekly": "Weekly",
               "daily": "Daily"
             },
-            "placeholder": "Select a recurrence",
-            "title": "Recurrence"
+            "placeholder": "Select an interval",
+            "title": "Recurring"
           },
           "dateIntervalEnd": "End date",
           "dateIntervalStart": "Date of the class",
@@ -383,9 +383,9 @@
     "recurrence": {
       "duplicateModalTitle": "Duplicate Session",
       "regularOffer": "The new session will use the same settings as the duplicated one.",
-      "recurringOffer": "The last session is on {{- date }} at {{- time }}. The new session will start after this date and will use the same settings as the duplicated session.",
+      "recurringOffer": "The last session is on {{- date }} at {{- time }}. This duplicate session will share the same settings and start after this date.  ",
       "hybridOffer": "Duplicating this hybrid session will create both online and on-site sessions. They will use the same settings as the duplicated session.",
-      "linkNewOffersLabel": "Link new sessions to the duplicated ones, so you can edit them together and members can book them all at once",
+      "linkNewOffersLabel": "Link new sessions to this duplicate so you can edit them all together and enable members to book these sessions all at once  ",
       "duplicating": "Duplicating",
       "duplicate": "Duplicate"
     },

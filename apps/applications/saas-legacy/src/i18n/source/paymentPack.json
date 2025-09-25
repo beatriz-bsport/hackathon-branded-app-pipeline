@@ -572,7 +572,7 @@
     "category": "Pass categories"
   },
   "noCategory": {
-    "help": "These passes will appear in an unnamed category on the marketplace.",
+    "help": "These passes will appear in an unnamed category on the Member Area.",
     "name": "No category",
     "empty": "There are no passes associated with this category to display."
   },
@@ -688,7 +688,7 @@
       "ascendingCredit": "Credits: ascending",
       "descendingPrice": "Price: descending",
       "ascendingPrice": "Price: ascending",
-      "customSort": "Additional orders (MarketPlace and App)"
+      "customSort": "Additional orders (Member Area and App)"
     },
     "unusableByStaff": "Hidden to staff"
   },
@@ -921,7 +921,7 @@
   },
   "orderingAlert": {
     "button": "Customisation page",
-    "text": "Any change to the order of the \"Categories\" will only affect the display of the \"Passes\" page of the marketplace and the application. This update will not affect any other section or category."
+    "text": "Any change to the order of the \"Categories\" will only affect the display of the \"Passes\" page of the Member Area and App. This update will not affect any other section or category."
   },
   "createOrUpdate": {
     "success": "Pass successfully saved",

@@ -21,12 +21,12 @@ This package provides a Zustand store implementation for managing the state rela
 Here's a basic example of how to use the store in your application:
 
 ```tsx
-import { usePassStore, fetchPassesAction, selectPasses } from '@bsport/store-buyables-pass';
+import { usePassStore, fetchPassesAction, selectActivePasses } from '@bsport/store-buyables-pass';
 import fetch from "#src/utils/fetch";
 
 const MyComponent = () => {
     // Retrieve data from the store
-    const passes = usePassStore(selectPasses);
+    const passes = usePassStore(selectActivePasses);
 
     // Inject fetch in the action
     const fetchPasses = useCallback(async () => {
@@ -54,7 +54,7 @@ Contains actions to interact with the Zustand store, such as updating state or t
 
 Exports actions that can be used in your applications to interact with the Pass store.
 
-### api.ts
+### api/\*.ts
 
 Defines the API parameters and functions used by the actions to fetch or manipulate Pass data.
 

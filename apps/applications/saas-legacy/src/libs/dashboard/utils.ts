@@ -197,7 +197,10 @@ const getDisplayPropsForOneGraph = (
     )?.datatype;
 
     let translationKey = null;
-    if (DATATYPE_PRESET_INTEGER_VALUE.includes(groupByDatatype)) {
+    if (
+      DATATYPE_PRESET_INTEGER_VALUE.includes(groupByDatatype) &&
+      groupByDatatype !== 'products'
+    ) {
       translationKey = `reporting:presetValuesByDatatype.${groupByDatatype}`;
     } else if (IDENTIFIER_NEEDING_TRANSLATION_FOR_VALUES.includes(group_by)) {
       translationKey = `reporting:presetValuesByIdentifier.${group_by}`;

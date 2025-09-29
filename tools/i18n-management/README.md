@@ -6,10 +6,11 @@ Refer to our [full Notion documentation](https://www.notion.so/bright-shovel-41b
 
 ## TLDR
 
-This tool does two main things :
+This tool does three main things :
 
 1. provide [a script](./scripts/build-public-locales-files.ts) to **"deploy" translations files** in the public folder of our frontend applications, that can be called with: `pnpm -w translation:update`;
 2. define **Transifex configurations** in [`src/transifex`](./src/transifex/) folder
+3. provide [a script](./scripts/find-unused-keys.ts) to **detect potential unused keys** in your translations files, that can be called with `pnpm -w translation:keys`;
 
 ## Use i18n in an application
 
@@ -74,6 +75,16 @@ Add the following script to your `package.json` application :
   "translation:update": "pnpm run -w translation:update"
 }
 ```
+
+### `translation:keys` script
+
+This script parses a project code as AST to detect unused keys based on some key patterns and static reading: `t("...")`, `i18n.t("...")`, `i18nKey="..."`.
+
+In order to have this working properly, there are some rules to follow:
+
+- don't declare keys outside of a `t` function.
+- it's possible to use dynamic keys, with variables inside them.
+- avoid ternary inside `t` function as well.
 
 ### Use `public/locales/` as source dir to serve translations files
 

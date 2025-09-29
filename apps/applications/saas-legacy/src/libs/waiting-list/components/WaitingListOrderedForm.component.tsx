@@ -150,7 +150,7 @@ const WaitingListOrderedForm: React.FC<Props> = ({
           fullWidth={false}
           helperText={t('form.last_delay_before_auto_consume.helper')}
           InputProps={{
-            inputProps: { min: 0, step: 1, max: 4 * 60 },
+            inputProps: { min: 0, step: 1 },
             endAdornment: <InputAdornment position="end">min</InputAdornment>,
           }}
           label={t('form.last_delay_before_auto_consume.label')}

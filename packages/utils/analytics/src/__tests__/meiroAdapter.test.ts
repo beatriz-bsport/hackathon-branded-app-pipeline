@@ -503,13 +503,12 @@ describe("MeiroAdapter via AnalyticsClient", () => {
       });
     });
 
-    it("should return correct tracking status (AnalyticsClient bug: opt-out state not updated)", () => {
+    it("should return correct tracking status", () => {
       expect(analytics.getIsTracking()).toBe(true);
 
       analytics.optOutTracking();
-      // BUG: AnalyticsClient doesn't update isTracking state when adapter doesn't implement optOutTracking
-      // The isTracking state remains true even after calling optOutTracking
-      expect(analytics.getIsTracking()).toBe(true);
+      // FIXED: AnalyticsClient now correctly updates isTracking state even when adapter doesn't implement optOutTracking
+      expect(analytics.getIsTracking()).toBe(false);
 
       analytics.optInTracking();
       expect(analytics.getIsTracking()).toBe(true);

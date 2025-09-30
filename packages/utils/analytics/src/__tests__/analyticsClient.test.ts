@@ -194,4 +194,33 @@ describe("AnalyticsClient", () => {
     logSpy.mockRestore();
     errorSpy.mockRestore();
   });
+
+  it("modifies isTracking state even when adapter opt methods are undefined", () => {
+    delete mockAdapter.optInTracking;
+    delete mockAdapter.optOutTracking;
+
+    expect(client.getIsTracking()).toBe(true);
+
+    client.optOutTracking();
+    expect(client.getIsTracking()).toBe(false);
+
+    client.optInTracking();
+    expect(client.getIsTracking()).toBe(true);
+  });
+
+  it("modifies isTracking state when adapter opt methods are available", () => {
+    expect(client.getIsTracking()).toBe(true);
+
+    const optOutOptions = {
+      clear_persistence: true,
+      persistence_type: "localStorage",
+    } as const;
+    client.optOutTracking(optOutOptions);
+    expect(client.getIsTracking()).toBe(false);
+    expect(mockAdapter.optOutTracking).toHaveBeenCalledWith(optOutOptions);
+
+    client.optInTracking();
+    expect(client.getIsTracking()).toBe(true);
+    expect(mockAdapter.optInTracking).toHaveBeenCalledWith(undefined);
+  });
 });

@@ -15,7 +15,21 @@
     "venueIds": "IDs do local: {{ establishmentIdList }}",
     "establishmentMergedAs": "Fusão destes estabelecimentos",
     "enabled": "Ativo",
-    "configurationTitle": "Configurar a integração"
+    "configurationTitle": "Configurar a integração",
+    "configurationDescription": "Selecione como pretende que os seus estabelecimentos apareçam na aplicação ClassPass.",
+    "table": {
+      "title": {
+        "groupActivities": "Para actividades de grupo",
+        "appointments": "Para marcações"
+      },
+      "venueIds": "IDs do local",
+      "establishments": "Estabelecimentos"
+    },
+    "drawerTitle": "Configuração do ClassPass",
+    "description": "Para configurar a integração do ClassPass, contacte o ClassPass através do seu painel de parceiros. Forneça seu ID de parceiro e os IDs dos estabelecimentos que deseja ativar no ClassPass. Observe que as sessões ou compromissos nesses estabelecimentos não aparecerão no ClassPass até que a configuração seja totalmente confirmada pelo ClassPass.",
+    "editButton": "Editar configuração",
+    "companyId": "O seu ID de parceiro é: {{empresa }}",
+    "establishmentId": "Os seus IDs de local são: {{ establishmentIdList }}"
   },
   "requestDialog": {
     "close": "Compreendido",
@@ -33,6 +47,89 @@
     "3": {
       "helperText": "Agrupar estabelecimentos semelhantes por endereço",
       "label": "Avançado"
+    }
+  },
+  "wellhub": {
+    "title": "Elevação do veio",
+    "configuration": {
+      "dialog": {
+        "title": {
+          "creation": "Adicionar e ligar o ID da unidade ao(s) estabelecimento(s)",
+          "edition": "Editar ID da unidade",
+          "deletion": "Eliminar ID da unidade"
+        },
+        "field": {
+          "unitId": {
+            "placeholder": "Número de identificação da unidade",
+            "error": {
+              "required": "É necessária a identificação da unidade",
+              "positive": "O ID da unidade deve ser um número positivo",
+              "unavailable": "ID da unidade não disponível"
+            }
+          },
+          "establishmentIds": {
+            "placeholder": "Ligar o(s) seu(s) estabelecimento(s) bsport",
+            "title": "Estabelecimentos",
+            "error": {
+              "required": "Selecione pelo menos um estabelecimento"
+            }
+          }
+        },
+        "action": {
+          "back": "Voltar",
+          "cancel": "Cancelar",
+          "confirm": "Confirmar",
+          "save": "Guardar"
+        },
+        "unlink": {
+          "title": "Está prestes a desvincular um ou vários estabelecimentos do Wellhub",
+          "text": "As próximas sessões associadas a esses estabelecimentos serão eliminadas no Wellhub e quaisquer reservas no Wellhub serão perdidas"
+        }
+      },
+      "panel": {
+        "header": {
+          "subtitle": "Ligar as suas sessões na conta bsport ao Wellhub"
+        },
+        "content": {
+          "title": "Ligação de identificação da unidade",
+          "helperText": "Primeiro, solicite a integração com o bsport no Portal de Parceiros da Wellhub, para cada Unidade",
+          "table": {
+            "column": {
+              "unit": "ID da unidade",
+              "establishments": "Estabelecimentos"
+            }
+          }
+        },
+        "footer": {
+          "addUnitButton": "Adicionar ID da unidade"
+        }
+      }
+    },
+    "productSelection": {
+      "selector": {
+        "placeholder": "Selecionar um produto Wellhub"
+      },
+      "alert": {
+        "title": "Algumas sessões não foram sincronizadas com o Wellhub.",
+        "message": "Selecione um produto Wellhub para apresentar as sessões e torná-las reserváveis para os utilizadores Wellhub.",
+        "action": "Configurar"
+      },
+      "drawer": {
+        "title": "O produto Wellhub ainda não está ligado",
+        "description": "Algumas sessões não têm um produto Wellhub associado e não estarão disponíveis para reservas pelos utilizadores do Wellhub.",
+        "actionRequired": "Selecione um produto Wellhub para associar a esta sessão:",
+        "element": "{{ count }} elemento",
+        "element_plural": "{{ count }} elementos",
+        "form": {
+          "label": "Estes produtos são oferecidos pelo seu estúdio na plataforma Wellhub. Aceda à secção \"Parceria\" no Portal de Parceiros da sua conta Wellhub para obter mais informações.",
+          "applyToSimilarOffers": "Candidatar-se a sessões semelhantes"
+        },
+        "footer": {
+          "back": "Voltar",
+          "cancel": "Cancelar",
+          "save": "Guardar"
+        }
+      }
     }
   }
 }

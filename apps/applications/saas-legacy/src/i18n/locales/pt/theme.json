@@ -116,7 +116,11 @@
         "title": "Inscrição",
         "urlRedirection": "URL de redirecionamento",
         "urlHelperText": "O membro será redireccionado para este link depois de confirmar o seu e-mail. Caso contrário, será redireccionado para o seu perfil no marketplace.",
-        "helperText": "Após o registo, os seus membros receberão uma mensagem de correio eletrónico para confirmar o seu endereço de correio eletrónico. A sua conta não será activada até que esta mensagem seja confirmada"
+        "helperText": "Após o registo, os seus membros receberão uma mensagem de correio eletrónico para confirmar o seu endereço de correio eletrónico. A sua conta não será activada até que esta mensagem seja confirmada",
+        "emailConfirmationAtSignUp": {
+          "label": "Confirmação por correio eletrónico no momento do registo. Esta funcionalidade não é compatível com o Express Checkout.",
+          "helperText": "Os clientes receberão uma mensagem de correio eletrónico quando se inscreverem, pedindo-lhes que confirmem o seu endereço de correio eletrónico. A conta de membro só será activada quando o cliente clicar na hiperligação da mensagem de correio eletrónico."
+        }
       },
       "checkBalance": {
         "shiftRatio": {
@@ -222,7 +226,43 @@
         "urlRedirection": "URL personalizado",
         "helperText": "Por defeito, quando os seus membros redefinem a sua palavra-passe, são redireccionados para o mercado. Se pretender redireccioná-los para outro local (por exemplo, o seu sítio Web), preencha o campo seguinte com o URL pretendido.",
         "title": "Redefinir a palavra-passe"
-      }
+      },
+      "displayActivityPrice": "Mostrar o número de créditos",
+      "displayStopSubscriptionFromMemberSide": {
+        "label": "Permitir que os membros cancelem as suas subscrições",
+        "helperText": {
+          "simple": "Ativar para permitir que os membros cancelem eles próprios a sua subscrição. Embora não tenha controlo sobre o período de aviso prévio das subscrições, é mais provável que esteja em conformidade com a legislação do país onde o seu estúdio está sediado. Verifique em que países isto se aplica.",
+          "lawCompliance": "Se não ativar esta funcionalidade, os membros não poderão cancelar as suas próprias subscrições e o seu estúdio poderá correr o risco de não cumprir a legislação do seu país.",
+          "disabled": "Para aplicar a todos os franchisados, active esta funcionalidade a partir da conta principal.",
+          "franchisor": "Esta alteração aplicar-se-á a todos os seus franchisados."
+        },
+        "modal": {
+          "title": "Ativar o cancelamento da subscrição para os membros?",
+          "content": "Em muitos países, os estúdios são legalmente obrigados a permitir que os membros cancelem as suas subscrições. A ativação desta funcionalidade garante a conformidade com as leis locais e protege o seu estúdio de riscos legais.",
+          "linkText": "Antes de o ativar, recomendamos que reveja o seu funcionamento e o que esperar:",
+          "linkButton": "Rever o guia",
+          "confirm": "Ativar agora",
+          "cancel": "Cancelar"
+        }
+      },
+      "consumerRegularizeDebtHelper": "Esta funcionalidade está disponível na Área de Membros, no botão Easy Connect e no widget do botão de início de sessão. Ainda não está disponível na aplicação e no widget do perfil de membro",
+      "subscriptionPersonalizationTitle": "Assinatura",
+      "memberProfile": {
+        "myProfile": {
+          "title": "O meu perfil",
+          "showMemberAccountBalance": "Mostrar o saldo da conta do membro",
+          "showBarcodeButton": "Mostrar botão de código de barras",
+          "showMembershipNumber": "Mostrar o número de membro"
+        }
+      },
+      "expressCheckout": {
+        "title": "Checkout expresso",
+        "oneClickBooking": {
+          "label": "Reserva com um clique (beta)",
+          "helperText": "Os novos clientes poderão comprar passes sem terem de criar uma conta. Para os passes definidos como \"apenas para novos membros\", os clientes podem comprar um passe e reservar Actividades de Grupo num único fluxo de pagamento."
+        }
+      },
+      "acceptDoubleBooking": "Aceitar reservas duplas"
     },
     "warningColorBrightness": {
       "save": "Guardar",
@@ -346,7 +386,19 @@
         "beforeStartTime": "As sessões anteriores continuam a ser apresentadas <0/> hora(s) e <1/> minuto(s) após a sua hora de início"
       },
       "title": "Tablet de check-in"
-    }
+    },
+    "default_booking_ordering": {
+      "date": "Ordenar por data de reserva mais recente",
+      "firstname": "Ordenar por nome próprio",
+      "lastname": "Ordenar por apelido",
+      "title": "Selecionar a ordem de ordenação predefinida para as suas marcações"
+    },
+    "default_attendance": {
+      "present": "Membro presente",
+      "missing": "Membro em falta",
+      "title": "Estado por defeito de uma reserva efectuada por um membro"
+    },
+    "acceptGuest": "Permitir a reserva para um convidado"
   },
   "marketingEmail": {
     "caption": "As cópias das Notificações transaccionais  serão enviados para este e-mail se o parâmetro estiver ativado.",
@@ -438,7 +490,13 @@
     "eventDesc": "Descrição do evento",
     "showAnalyticsInformation": "Exibir eventos monitorizados",
     "bookingSuccess": "Quando um usuário reserva uma sessão (atividades em grupo)",
-    "leadAcquisitionSuccess": "Quando um utilizador submete com sucesso o widget de aquisição"
+    "leadAcquisitionSuccess": "Quando um utilizador submete com sucesso o widget de aquisição",
+    "analyticsInformationModal": {
+      "title": "Configure a análise para obter melhores informações sobre os seus dados",
+      "content": "Desbloqueie análises mais poderosas ligando o Google Tag Manager ao Google Analytics e ao Meta Pixel (Facebook Pixel). Aceda ao nosso guia passo-a-passo para começar a acompanhar as métricas mais importantes para a sua empresa.",
+      "confirm": "VER GUIA DE CONFIGURAÇÃO"
+    },
+    "openAnalyticsModalButton": "Conectar ferramentas analíticas"
   },
   "pageTitles": {
     "theme": "Geral",
@@ -452,5 +510,10 @@
   },
   "provincialTax": {
     "helperText": "O IVA é inferior ou igual ao imposto provincial indicado. As faturas indicarão apenas este imposto, sem distinguir entre o imposto federal e o provincial."
+  },
+  "general_terms_and_conditions": {
+    "label": "Termos e condições gerais",
+    "helperText": "Deve ser aceite para todos os pagamentos e subscrições",
+    "placeholder": "Certifico que tenho autorização do meu médico para praticar esta atividade."
   }
 }

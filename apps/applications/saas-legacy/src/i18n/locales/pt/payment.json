@@ -3,7 +3,8 @@
     "form": {
       "routingNumber": {
         "placeholder": "000001",
-        "label": "Número de registo"
+        "label": "Número de registo",
+        "usdSpecific": " (Número de registo da ACH)"
       },
       "accountHolderName": {
         "placeholder": "Jacques Chirac",
@@ -13,7 +14,8 @@
       "title": "Conta bancária",
       "accountNumber": {
         "label": "Número da conta",
-        "placeholder": "PT00500400440532013000"
+        "placeholder": "PT00500400440532013000",
+        "eurSpecific": " (IBAN)"
       },
       "institutionNumber": {
         "label": "Número da instituição",
@@ -51,6 +53,7 @@
     "0": "Passe",
     "1": "Dinheiro",
     "2": "Cheque",
+    "3": "Passe",
     "4": "Cartão (manual)",
     "5": "Vouchers",
     "6": "AMEX",
@@ -67,8 +70,13 @@
     "50": "EPS",
     "60": "Giropay",
     "70": "Débito Direto",
+    "80": "PayPal",
+    "90": "TWINT",
+    "100": "Apple Pay",
+    "110": "Google Pay",
     "disputeWon": "Resolvido",
-    "label": "Meios de pagamento"
+    "label": "Meios de pagamento",
+    "onlinePayments": "Pagamentos em linha"
   },
   "returnedAmount": "Reembolsado: ",
   "generalTermsAndConditions": {
@@ -80,6 +88,7 @@
   },
   "forms": {
     "paymentMethod": {
+      "9": "Pagamento no local",
       "mandateRevalidated": {
         "retry": "Tentar novamente",
         "error": "O pedido de débito direto não pode ser renovado. Contacte o seu banco.",
@@ -143,6 +152,10 @@
     "50": "EPS",
     "60": "Giropay",
     "70": "Débito direto Bacs",
+    "80": "PayPal",
+    "90": "TWINT",
+    "100": "Apple Pay",
+    "110": "Google Pay",
     "SEPA": "SEPA",
     "CHECK": "Cheque",
     "CASH": "Dinheiro",
@@ -153,7 +166,10 @@
     "EPS": "EPS",
     "BACS_DEBIT": "Débito direto Bacs",
     "SOFORT": "Sofort",
-    "IDEAL": "iDEAL"
+    "IDEAL": "iDEAL",
+    "TWINT": "TWINT",
+    "APPLE_PAY": "Apple Pay",
+    "GOOGLE_PAY": "Google Pay"
   },
   "paymentComboSectionTitle": "Pack",
   "creditAccountBalance": {
@@ -190,7 +206,8 @@
           "year": "um",
           "year_plural": "uns"
         },
-        "label": "Repetir a cada"
+        "label": "Repetir a cada",
+        "helperText": " "
       },
       "recurrence": {
         "explain": "O pagamento será repartido por {{ total_interval_duration }} {{ interval }} todos os {{ recurrence_basis }} {{ interval }} e irá gerar {{ nb_interval }} recibos",
@@ -282,5 +299,9 @@
       "title": "Notificação de sincronização de pagamentos",
       "content": "Houve um problema de sincronização entre o Stripe e o bsport. De momento, não nos é possível apresentar os detalhes deste pagamento. No entanto, pode ter a certeza de que será processado e transferido para a sua conta bancária de acordo com o procedimento habitual. Para obter mais informações sobre o montante enviado, pode consultar o relatório de pagamentos que abrange o período entre a data deste pagamento e o anterior."
     }
+  },
+  "setupPaymentError": "Ocorreu um erro",
+  "order": {
+    "success": "O seu pagamento foi registado com sucesso"
   }
 }

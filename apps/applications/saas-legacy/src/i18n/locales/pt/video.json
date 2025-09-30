@@ -27,7 +27,11 @@
       },
       "creditPrice": {
         "helperText": "Sem custo para que o vídeo seja acessível a todos os seus membros",
-        "label": "Custo em crédito"
+        "label": "Custo em crédito",
+        "decimalCredit": {
+          "helperText": "Este vídeo custará {{count}} crédito. Deixe em 0 se quiser que o vídeo seja acessível a todos os seus membros",
+          "helperText_plural": "Este vídeo custará {{count}} créditos. Deixe em 0 se quiser que o vídeo seja acessível a todos os seus membros"
+        }
       },
       "coach": {
         "isEmpty": "Nenhum professor"
@@ -84,7 +88,9 @@
         "youtubeExplain": "O seu vídeo já está disponível no Youtube, mas pretende rentabilizá-lo utilizando o sistema de cartões bsport.",
         "youtube": "Youtube",
         "vimeoExplain": "O seu vídeo já está disponível no Vimeo, mas pretende rentabilizá-lo utilizando o sistema de cartões bsport.",
-        "ebookExplain": "Se tiver um ebook em formato pdf ou de imagem (png, jpg), utilize este método para carregar o seu ebook. Uma vez desbloqueado, os seus membros poderão descarregá-lo."
+        "ebookExplain": "Se tiver um ebook em formato pdf ou de imagem (png, jpg), utilize este método para carregar o seu ebook. Uma vez desbloqueado, os seus membros poderão descarregá-lo.",
+        "url": "YouTube",
+        "urlExplain": "Se tem um vídeo no Youtube e quer limitar-se a rentabilizá-lo através da bsport."
       },
       "youtubeUrlInput": "Ligação do Youtube",
       "hours": "Horas",
@@ -98,7 +104,8 @@
       "submit": "Confirmar",
       "vimeoUrlInput": "Ligação vimeo",
       "urlInputError": "Introduzir um URL",
-      "cancel": "Cancelar"
+      "cancel": "Cancelar",
+      "urlInputLabel": "Ligação do Youtube"
     },
     "rental": {
       "forRent": "Aluguer",

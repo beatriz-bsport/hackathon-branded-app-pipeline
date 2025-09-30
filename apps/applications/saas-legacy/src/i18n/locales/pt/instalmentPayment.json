@@ -60,7 +60,8 @@
       "annual": "Anualmente",
       "weekly": "Semanalmente",
       "year": "ano",
-      "year_plural": "anos"
+      "year_plural": "anos",
+      "month_plural": "meses"
     },
     "advanced": "Avançado",
     "cancel": "Cancelar",

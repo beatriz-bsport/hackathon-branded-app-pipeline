@@ -32,7 +32,10 @@
             "continueWithoutEmail": "Continuar sem correio eletrónico"
           },
           "description": "Não forneceu um endereço de correio eletrónico para o seu convidado. Como resultado, ele não receberá informações sobre esta sessão. Tem  certeza?",
-          "title": "Nenhum e-mail introduzido"
+          "title": "Nenhum e-mail introduzido",
+          "alert": "Não receberão informações sobre esta sessão.",
+          "fieldLabel": "Quer incluir o correio eletrónico?",
+          "submitLabel": "Continuar sem"
         },
         "description": "Traz um amigo ou acompanhante para partilhar a experiência? Basta preencher o nome e o e-mail do seu convidado, e nos certificaremos de que ele receba todos os detalhes necessários.",
         "title": "Convida um convidado"
@@ -90,7 +93,9 @@
       "startFromDate": {
         "label": "Iniciar a marcação recorrente do "
       },
-      "permissionWarning": "Não tem autorização para criar reservas para esta atividade"
+      "permissionWarning": "Não tem autorização para criar reservas para esta atividade",
+      "duplicateError": "Esta regra já está aplicada a uma Reserva recorrente. Para guardar, altere as regras de reserva existentes ou ajuste os parâmetros.",
+      "globalError": "Não foi possível guardar a sua reserva recorrente neste momento. Por favor, tente novamente mais tarde."
     },
     "actions": {
       "close": "Fechar",
@@ -100,7 +105,13 @@
     "explain": "O aluno será sempre registado {{ delayWeek }} semanas de antecedência para o {{ dayOfWeek}} à {{hour}}:{{minute}}. Só serão registados se possuírem um passe válido.",
     "recurrentBookings": "Reservas recorrentes",
     "needConsumerPack": "Este membro não tem um passe de classe compatível, é impossível marcar uma recorrência",
-    "recurrentRuleBooking": "Reserva recorrente"
+    "recurrentRuleBooking": "Reserva recorrente",
+    "offerForm": {
+      "helperText": "Aparentemente, as sessões contidas na marcação recorrente foram canceladas anteriormente para este membro. Pode selecionar aqui as sessões que permitirá que o sistema marque novamente",
+      "unselectAll": "Desmarcar tudo",
+      "selectAll": "Selecionar tudo"
+    },
+    "cancelRelatedBookings": "Cancelar as futuras reservas já efectuadas"
   },
   "filters": {
     "all": "Todas as reservas",
@@ -136,7 +147,10 @@
     "recurrent": {
       "title": "Próximas sessões",
       "bookMultiple": "Reservar",
-      "backToRegistererChoice": "Anterior"
+      "backToRegistererChoice": "Anterior",
+      "titleGroupedSessions": "Todas as sessões deste grupo",
+      "selectAll": "Selecionar tudo",
+      "unselectAll": "Desmarcar tudo"
     },
     "section": {
       "consumerPacks": "Meus passes",
@@ -176,7 +190,36 @@
       },
       "unAuthorized": "Não é possível reservar esta sessão sem as etiquetas correctas."
     },
-    "isBookingLimitReached": "Você atingiu o limite se reservas"
+    "isBookingLimitReached": "Você atingiu o limite se reservas",
+    "groupedSession": {
+      "showMoreButtonText": "Mostrar todas as sessões ({{totalSessions}})",
+      "showLessButtonText": "Mostrar menos",
+      "warningModal": {
+        "title": "Marcação de um grupo de sessões",
+        "fullBookingOnly": {
+          "text": "Será inscrito em todas as sessões {{sessionsTotal}} deste grupo"
+        },
+        "partialBooking": {
+          "text": "Esta atividade faz parte de um grupo de sessões. Não é obrigado a assistir a todas as sessões do grupo e pode escolher as sessões em que quer participar"
+        }
+      }
+    },
+    "multiSession": {
+      "addSession": {
+        "dialogTitle": "Adicionar uma sessão",
+        "dialogSubtitle": "Selecione a sessão que pretende reservar",
+        "noContent": "Não foram encontradas sessões semelhantes.",
+        "selectAll": "Selecionar tudo",
+        "sessionCount": "{{selectedSessionsCount}} de {{totalSessionsCount}} sessões"
+      },
+      "selectSpot": {
+        "dialogTitle": "Selecionar local",
+        "dialogTitleWithSteps": "Selecionar ponto ({{currentStep}}/{{totalSteps}})",
+        "dialogSubtitle": "Selecione o seu lugar para a aula",
+        "validationButton": "Adicionar sessão",
+        "validationButton_plural": "Adicionar sessões ({{selectedSessionsCount}})"
+      }
+    }
   },
   "details": {
     "consumerPaymentPackTitle": "Passe usado",
@@ -296,7 +339,10 @@
       "mail": "Email",
       "push": "Notificação push",
       "needPushUpsell": "Ative o Add On de notificação push para utilizar esta funcionalidade.",
-      "addVariable": "Adicionar uma variável"
+      "addVariable": "Adicionar uma variável",
+      "bookingNumber": "Todas as reservas",
+      "bookingNumber_plural": "1ª reserva",
+      "bookingNumber_n": "Reserva nº{{notify_booking_nb}}"
     },
     "title": "Notificação",
     "addNotification": "Adicionar uma notificação"
@@ -315,7 +361,9 @@
         "9": "Não é permitido exceder o valor máximo de reservas futuras",
         "6002": "Lista de espera completa",
         "6003": "Lista de espera: inscrito",
-        "6005": "Lista de espera"
+        "6005": "Lista de espera",
+        "displayPosition": "A sua posição na lista de espera é: {{waitlistPosition}}",
+        "displayWaitlistSize": "A sua posição atual na lista de espera é: {{waitlistPosition}}"
       },
       "bookable_status": {
         "0": "Reservas abertas",
@@ -359,7 +407,9 @@
         "every_year": "Você atingiu o limite de convites para este ano.",
         "every_month": "Você atingiu o limite de convites para este mês.",
         "every_week": "Você atingiu o limite de convites para esta semana."
-      }
+      },
+      "submit": "Reservar para um convidado",
+      "sendInvitation": "Enviar convite"
     },
     "mainButton": {
       "numberOfBook": "{{count}} inscrição",
@@ -381,7 +431,8 @@
     "bookingsTitleFor": "Reserva para{{name}}",
     "bookingForMe": "Eu",
     "showMore": "Ver mais",
-    "bookingFor": "Reserva para"
+    "bookingFor": "Reserva para",
+    "bookingForSubtitle": "Selecione a pessoa para quem pretende fazer a reserva"
   },
   "source": {
     "web": "Site",
@@ -493,6 +544,98 @@
     "reviewAndConfirm": "Revisar e confirmar",
     "recommended": "Recomendado",
     "seeAllProducts": "Ver todos os produtos",
-    "guestSpotSelectorTitle": "Selecione um local para seu convidado"
-  }
+    "guestSpotSelectorTitle": "Selecione um local para seu convidado",
+    "multipleSpotSelectionSpotSelectorTitle": "Selecionar ponto ({{currentSpot}}/{{totalSpot}})",
+    "removeFromBasket": {
+      "title": "Remover",
+      "message": "Se remover o passe do cesto, as reservas relacionadas também serão removidas.",
+      "buttons": {
+        "cancel": "CANCELAR",
+        "confirm": "REMOVER"
+      }
+    }
+  },
+  "refund": "Reembolso",
+  "refundDialog": {
+    "title": "Reembolso de cancelamento tardio",
+    "content": "Esta reserva foi cancelada demasiado tarde para ser automaticamente reembolsada. Clique em \"Reembolsar\" para processar um reembolso de crédito único para esta reserva.",
+    "titleUnlimitedPaymentPack": "Reiniciar a contagem de cancelamentos tardios",
+    "contentUnlimitedPaymentPack": "Esta reserva foi efectuada com um passe ilimitado e foi cancelada tardiamente. Os cancelamentos tardios excessivos podem incorrer em penalizações. Clique em \"Repor\" para remover o cancelamento tardio dos registos do passe. Tenha em atenção que, se já tiver sido aplicada uma penalização, esta não pode ser removida."
+  },
+  "oneClickBooking": {
+    "checkoutTitle": "Finalizar a compra",
+    "alreadyMember": "Já tem uma conta?",
+    "goToLogin": "Iniciar sessão",
+    "yourBooking": "A sua reserva",
+    "yourDetails": "Os seus dados",
+    "seeMoreWithLogin": "Inicie sessão para explorar os pacotes e as subscrições!",
+    "bookableStatus": {
+      "error": "Oops, parece que esta reserva não está disponível",
+      "full": {
+        "title": "Sessão totalmente reservada",
+        "description": "Esta sessão acabou de ficar cheia e não foi possível concluir a sua reserva. <br> Por favor, verifique o calendário para encontrar outra sessão disponível."
+      },
+      "locked": {
+        "title": "Sessão cancelada",
+        "description": "Esta sessão foi cancelada e já não está disponível para reserva. <br> Por favor, verifique o calendário para outras sessões disponíveis."
+      },
+      "closeTooSoon": {
+        "title": "Ops! Demasiado cedo para reservar",
+        "description": "Esta sessão ainda não está disponível para reserva. <br> Por favor, verifique o calendário para ver quando as reservas abrem ou explore outras sessões disponíveis."
+      },
+      "closeTooLate": {
+        "title": "Ops! Demasiado tarde para reservar",
+        "description": "Esta sessão já começou ou terminou, pelo que a reserva já não é possível. <br> Por favor, verifique o calendário para as próximas sessões."
+      },
+      "unhandled": {
+        "title": "Ocorreu um erro inesperado",
+        "description": "Deparámo-nos com um erro inesperado. De momento, não é possível reservar esta sessão."
+      }
+    },
+    "goToCalendar": "Ir para o calendário",
+    "bookButtonLabel": "Reservar agora"
+  },
+  "lightSignup": {
+    "form": {
+      "firstName": {
+        "label": "Nome próprio"
+      },
+      "lastName": {
+        "label": "Apelido"
+      },
+      "email": {
+        "label": "Correio eletrónico"
+      },
+      "phone": {
+        "label": "Telefone",
+        "placeholder": "+33612345678"
+      },
+      "acceptEmail": {
+        "label": "Aceito receber mensagens electrónicas promocionais, incluindo ofertas e descontos especiais"
+      },
+      "acceptSms": {
+        "label": "Aceito receber mensagens de texto promocionais, incluindo ofertas e descontos especiais"
+      },
+      "acceptTermsAndCondition": {
+        "label": "Aceito as Condições Gerais de Utilização"
+      },
+      "password": {
+        "label": "Criar palavra-passe"
+      },
+      "button": {
+        "label": "Inscrever-se"
+      },
+      "errors": {
+        "requiredField": "Este campo é obrigatório",
+        "email": "Introduza um endereço de correio eletrónico válido",
+        "phone": "Introduzir um número de telefone válido",
+        "global": "Ocorreu um erro ao registar-se",
+        "emailTaken": "O e-mail já existe, pode tentar iniciar sessão com este e-mail",
+        "phoneTaken": "Este número de telefone já está a ser utilizado por outro membro",
+        "passwordMinimumRequirements": "A sua palavra-passe deve ter pelo menos 6 caracteres e não conter espaços",
+        "passwordConfirmation": "As palavras-passe devem corresponder"
+      }
+    }
+  },
+  "placeNumber": "Local {{count}}"
 }

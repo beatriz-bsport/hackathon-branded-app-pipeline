@@ -29,7 +29,8 @@
     "basket": "Carrinho",
     "vod": "Vídeos on Demand",
     "relation": "Relacionamentos",
-    "privateBooking": "Aulas Privadas"
+    "privateBooking": "Aulas Privadas",
+    "relations": "Relações"
   },
   "forms": {
     "needInformationValidation": {
@@ -288,6 +289,10 @@
           "accepted": {
             "title": "Fusão Aceita",
             "content": "A sua conta foi fundida com a conta {{ old_email }}. É agora um membro do estúdio {{- company}}. Utilize o novo email para se conectar."
+          },
+          "accept": {
+            "content": "A sua conta foi fundida com sucesso com \"{{ old_email }}\". Foi registado em {{- company }} e pode utilizar os detalhes de início de sessão associados a \"{{ new_email }}\" a partir de agora.",
+            "title": "A fusão foi aceite"
           }
         },
         "error": {
@@ -410,5 +415,39 @@
     "error": "Ocorreu um erro"
   },
   "signedUpWithReferral": "Membro registado com <1>{{- name }}</1>link de referência",
-  "email": "Correio eletrónico"
+  "email": "Correio eletrónico",
+  "leads": {
+    "import": "Importar contactos",
+    "notACSV": {
+      "title": "Formato de ficheiro não suportado",
+      "message": "O ficheiro não é um CSV. Consulte a folha de ajuda para obter mais informações.",
+      "goToIntercom": " Abrir folha de ajuda"
+    },
+    "dialogs": {
+      "success": "Os membros foram importados com sucesso",
+      "partialSuccess": {
+        "title": "Algumas linhas do ficheiro continham erros e não puderam ser processadas",
+        "lineOneMessage": "No entanto, as contas dos membros com os dados corretos foram criadas com êxito.",
+        "lineTwoMessage": "Encontram-se aqui os 2 ficheiros que descrevem a situação:",
+        "fileName": "ficheiroMembros.csv",
+        "failedImportSubtext": "Linhas incorrectas",
+        "successImportSubtext": "Membros criados"
+      },
+      "errors": {
+        "71000": "Aguarde que a importação em curso seja concluída",
+        "71001": "Este ficheiro não tem o número necessário de colunas, tem {{column_count}} colunas na linha {{row_count}}",
+        "71002": "Este ficheiro excede o limite máximo de tamanho",
+        "71003": "Falha ao descodificar o ficheiro. Certifique-se de que o ficheiro não está corrompido ou num formato não suportado",
+        "title": "Infelizmente, o processo de importação falhou porque:",
+        "unknown": "Ocorreu um erro inesperado"
+      }
+    }
+  },
+  "bornIn": "Aniversário",
+  "noNoteSaved": "Nenhuma nota guardada ainda",
+  "previousBooking": "anterior: ",
+  "showNotes": "Notas do programa",
+  "link": {
+    "success": "Membro ligado"
+  }
 }

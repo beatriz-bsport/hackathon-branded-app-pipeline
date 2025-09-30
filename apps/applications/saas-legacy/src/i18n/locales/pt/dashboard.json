@@ -85,7 +85,15 @@
     "contract_name": "Subscrição",
     "billing_plan_payment_method": "Meios de pagamento",
     "plan_auto_renewal": "Renovação tácita",
-    "booking_date_created": "Data da reserva"
+    "booking_date_created": "Data da reserva",
+    "bookkeeping_account_name": "Nome da conta",
+    "bookkeeping_account_number": "Número de conta",
+    "is_first_visit": "Primeira reserva",
+    "private_booking_date_created": "Data e hora da reserva",
+    "billing_group_address": "Endereço",
+    "product": "Produto",
+    "product_type": "Tipo de produto",
+    "invoice_date_created": "Data de emissão da fatura"
   },
   "graphFormDrawer": {
     "aggregation": {
@@ -255,14 +263,33 @@
       "1": "Web",
       "2": "Backoffice bsport",
       "3": "Outros",
-      "4": "Migração de dados"
+      "4": "Migração de dados",
+      "5": "Agregadores",
+      "6": "Desconhecido",
+      "7": "Venda rápida",
+      "8": "Aplicação de marca (empresa)",
+      "9": "Aplicação de marca (franchisador)",
+      "10": "aplicação bsport"
     }
   },
   "invoiceItems": {
-    "title": "Vendas por tipo de produto"
+    "title": "Vendas por tipo de produto",
+    "contentType": {
+      "1": "Passa",
+      "2": "Comprar produtos",
+      "6": "Custos de envio",
+      "7": "Promoção",
+      "9": "Cartão de marcação de consulta",
+      "10": "Embalagens"
+    }
   },
   "bookingSource": {
-    "title": "Origem das reservas"
+    "title": "Origem das reservas",
+    "app": "Aplicação",
+    "web": "Web",
+    "saas": "Backoffice bsport",
+    "other": "Outros",
+    "migration": "Migração de dados"
   },
   "noData": "Não há dados a apresentar",
   "dateFilter": {
@@ -295,5 +322,11 @@
     "start": "Iniciar"
   },
   "bookings": "Reservas",
-  "pageTitle": "Painel de controlo"
+  "pageTitle": "Painel de controlo",
+  "popover": {
+    "bookingsWeektimeSlot": "Número médio de sessões por faixa horária",
+    "billedSubscriptions": "Número de facturas ligadas a uma subscrição não cancelada",
+    "turnover": "Soma de todos os pagamentos recebidos sobre facturas"
+  },
+  "turnoverTitle": "Receitas"
 }

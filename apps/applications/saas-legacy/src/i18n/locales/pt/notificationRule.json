@@ -16,7 +16,8 @@
         "subscription_nb_months": "Número de meses",
         "subscription_payment_method": "Método de pagamento",
         "subscription_contract_terms_link": "Link para as notas legais",
-        "subscription_duration": "Duração total"
+        "subscription_duration": "Duração total",
+        "days_until_payment_method_expiration": "Número de dias até à expiração do método de pagamento"
       },
       "name": "Subscrição"
     },
@@ -40,7 +41,10 @@
         "message_is_for": "Destinatário do passe de oferta",
         "giftcard_message": "Mensagem do cartão presente",
         "activate_giftcard_url": "Link para ativar o passe de oferta",
-        "message_is_from": "Membro que envia o passe de oferta"
+        "message_is_from": "Membro que envia o passe de oferta",
+        "activation_datetime": "Data de ativação do cartão de oferta",
+        "pdf_link": "Cartão de oferta Ligação PDF",
+        "printable_code": "Código para impressão de cartões de oferta"
       },
       "name": "Passe de oferta"
     },
@@ -62,7 +66,8 @@
       "new_email": "Novo e-mail de início de sessão",
       "old_email": "Antigo e-mail de início de sessão",
       "giftcard_value": "Valor do passe de oferta",
-      "giftcard_message": "Mensagem do passe de oferta"
+      "giftcard_message": "Mensagem do passe de oferta",
+      "pdf_link": "Cartão de oferta Ligação PDF"
     },
     "BookingOption": {
       "tags": {
@@ -132,7 +137,8 @@
         "id": "Identificador da fatura",
         "invoice_date": "Data da fatura",
         "invoice_download_link": "Descarregar a ligação",
-        "invoice_price": "Montante da fatura"
+        "invoice_price": "Montante da fatura",
+        "days_until_payment_method_expiration_planned_payment_event": "Dias antes da expiração do método de pagamento"
       },
       "name": "Faturação"
     },
@@ -217,7 +223,13 @@
         "minimum_purchase_referral": "Importe mínimo de compra",
         "deadline_use_referral": "Validade do prémio de referência",
         "referring_reward": "Recompensa para o referenciador",
-        "reduction_purchase_referred": "Desconto para o membro referido"
+        "reduction_purchase_referred": "Desconto para o membro referido",
+        "referring_firstname": "Primeiro nome do referenciador",
+        "referring_lastname": "Apelido do referenciador",
+        "referred_firstname": "Nome próprio",
+        "referred_lastname": "Apelido de referência",
+        "referral_link": "Ligação de referência",
+        "registration_date": "Data de registo do membro referenciado"
       },
       "name": "Referência"
     }
@@ -239,6 +251,7 @@
     "20": "Pedido para descarregar fatura",
     "21": "Nova reserva (alunos)",
     "22": "Confirmação da fatura",
+    "23": "Assinatura paga com o saldo da conta interna",
     "24": "Subscrição criada",
     "25": "Método de pagamento modificado",
     "26": "Subscrição em pausa",
@@ -247,15 +260,19 @@
     "29": "Lembrete da aula online em 15 min (alunos)",
     "30": "Reserva para um convidado (para membros convidados)",
     "31": "Reserva para um convidado (para convidado)",
+    "32": "Para membros inscritos através da reserva com um clique (para membros)",
     "101": "Lembrete da aula online em 15 min (professores)",
     "102": "Cancelar sessão (professores)",
     "103": "Sessão alterada (professores)",
+    "200": "O método de pagamento da subscrição está prestes a expirar (primeiro aviso)",
+    "201": "O método de pagamento da subscrição está prestes a expirar (segundo aviso)",
     "300": "Pontapé de saída (não validado a tempo demasiadas vezes)",
     "301": "Redefinir a palavra-passe do membro",
     "302": "Validar o email do membro",
     "303": "Fusão de duas contas de estúdio",
     "304": "Ativar o passe de oferta",
     "305": "Alterar o email dos membros a partir do backoffice",
+    "308": "Ativação de cartões-presente físicos",
     "400": "Marcação cancelada - fora de tempo (professor)",
     "401": "Marcação cancelada - reembolsada (professor)",
     "402": "Nova marcação (professor)",
@@ -288,7 +305,11 @@
     "987": "Tentativa de cobrança de pagamentos em prestações",
     "1001": "Conta Spivi criada (alunos)",
     "1002": "Desempenho da sessão",
-    "1003": "Conta Spivi criada (professores)"
+    "1003": "Conta Spivi criada (professores)",
+    "1101": "Subsídio de referência disponível (membro referido)",
+    "1102": "Subsídio de referência disponível (membro que refere)",
+    "1200": "Expiração do prazo de validade do método de pagamento primeiro lembrete para pagamentos em prestações",
+    "1201": "Expiração do método de pagamento segundo lembrete para pagamentos em prestações"
   },
   "emailDesign": {
     "placeholder": "Criado por bsport",
@@ -308,7 +329,9 @@
     "waiting-list": "Lista de espera",
     "giftcard": "Cartões de presente",
     "member": "Criar uma conta de aluno",
-    "performance": "Performance"
+    "performance": "Performance",
+    "referral": "Referência",
+    "waitingList": "Lista de espera"
   },
   "type": {
     "sendNotification": "Enviar notificação",
@@ -387,5 +410,17 @@
   "countNotification": "{{nbr}} notificações push ativadas",
   "countEmail": "{{nbr}} emails transacionais ativos",
   "configureNotif": "Configurar",
-  "goBackToMenu": "Anterior"
+  "goBackToMenu": "Anterior",
+  "eventTypeHelperText": {
+    "200": "Pode personalizar o número de dias considerado para o envio desta notificação na secção Formas de pagamento",
+    "201": "Pode personalizar o número de dias considerado para o envio desta notificação na secção Formas de pagamento",
+    "1200": "Pode personalizar o número de dias considerado para o envio desta notificação na secção Formas de pagamento",
+    "1201": "Pode personalizar o número de dias considerado para o envio desta notificação na secção Formas de pagamento"
+  },
+  "messages": {
+    "createOrUpdate": {
+      "success": "Guardado com sucesso",
+      "error": "Impossível de salvar"
+    }
+  }
 }

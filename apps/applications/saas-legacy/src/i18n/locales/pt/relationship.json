@@ -57,6 +57,20 @@
       "isEmpty": "Sem partilha de passes",
       "create": "Partilhar um passe de aulas",
       "title": "Passes partilhados"
+    },
+    "messages": {
+      "create": {
+        "success": "Passe partilhado",
+        "error": "Impossível partilhar este passe"
+      },
+      "unlink": {
+        "success": "Partilha interrompida",
+        "error": "Impossível apagar esta partilha"
+      },
+      "relink": {
+        "success": "Passe partilhado",
+        "error": "Impossível partilhar este passe"
+      }
     }
   },
   "member": {
@@ -90,6 +104,17 @@
     "item": {
       "delete": "Eliminar",
       "edit": "Editar"
+    },
+    "messages": {
+      "edit": {
+        "success": "Relação modificada"
+      },
+      "create": {
+        "success": "Relação guardada"
+      },
+      "createOrUpdate": {
+        "error": "Impossível salvar a relação"
+      }
     }
   },
   "relationship": {

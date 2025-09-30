@@ -51,6 +51,13 @@
     "creation": {
       "title": "Pagamento online desativado",
       "content": "Verifique as suas informações legais e bancárias para poder processar pagamentos ONLINE"
+    },
+    "paypal": {
+      "title": "Os pagamentos PayPal estão desativados",
+      "primary_email_confirmation": "O e-mail da sua conta PayPal requer confirmação. Verifique a sua conta PayPal para resolver este problema.",
+      "requires_more_information": "A sua conta PayPal requer informações adicionais ou validação do PayPal. Verifique a sua conta PayPal para resolver este problema.",
+      "issue_check_account": "Existe um problema com a sua conta PayPal. Verifique a sua conta PayPal para resolver este problema.",
+      "issue_repeat_onboarding": "Existe um problema com a sua conta PayPal. Repita o processo de ligação utilizando a mesma conta para resolver este problema."
     }
   },
   "newTutorialSectionOrLesson": {

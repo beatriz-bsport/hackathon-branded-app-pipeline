@@ -15,6 +15,7 @@ import createCompressor from 'redux-persist-transform-compress';
 import history from './history';
 import networkErrorMiddleWare from './libs/network/redux-middleware';
 import { analyticsMiddleware } from './components/analytics/mixpanel/middleware';
+import { meiroAnalyticsMiddleware } from './components/analytics/meiro/middleware';
 
 import createRootReducer from './reducers/index';
 
@@ -50,6 +51,7 @@ export default function initStore(initialState: Object = {}) {
         routerMiddlewareWithHistory,
         networkErrorMiddleWare,
         analyticsMiddleware,
+        meiroAnalyticsMiddleware,
       ),
     ),
   );

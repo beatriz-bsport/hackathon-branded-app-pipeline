@@ -121,6 +121,8 @@ export class AnalyticsClient<
   }
 
   optInTracking(config?: OptInOptions): DualVoid {
+    this.isTracking = true;
+
     if (!this.analyticsAdapter.optInTracking) {
       if (this.debug) {
         this.debugLog.undefinedOptInTracking();
@@ -133,11 +135,12 @@ export class AnalyticsClient<
       this.debugLog.optInTracking();
     }
 
-    this.isTracking = true;
     return this.analyticsAdapter.optInTracking(config);
   }
 
   optOutTracking(config?: OptOutOptions): DualVoid {
+    this.isTracking = false;
+
     if (!this.analyticsAdapter.optOutTracking) {
       if (this.debug) {
         this.debugLog.undefinedOptOutTracking();
@@ -150,7 +153,6 @@ export class AnalyticsClient<
       this.debugLog.optOutTracking();
     }
 
-    this.isTracking = false;
     return this.analyticsAdapter.optOutTracking(config);
   }
 

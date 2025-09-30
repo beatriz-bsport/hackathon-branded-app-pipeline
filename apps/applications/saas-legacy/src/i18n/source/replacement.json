@@ -217,7 +217,7 @@
     "until": "Until {{-date}}",
     "filters": "Filters",
     "description": "The following sessions need a substitute teacher. Are you available?",
-    "title": "Marketplace"
+    "title": "Member Area"
   },
   "confirmations": {
     "description": "You have been added as a substitute teacher for the following sessions.",

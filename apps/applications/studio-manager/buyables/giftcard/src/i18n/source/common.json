@@ -21,7 +21,7 @@
         "lineTwo": "You can restore this Gift Card at any time from your archive."
       },
       "buttons": {
-        "cancel": "Go back",
+        "cancel": "Back",
         "archive": "Archive"
       }
     },
@@ -31,7 +31,7 @@
         "action": "You can edit '{{ name }}' after."
       },
       "buttons": {
-        "cancel": "Go back",
+        "cancel": "Back",
         "duplicate": "Duplicate"
       }
     }

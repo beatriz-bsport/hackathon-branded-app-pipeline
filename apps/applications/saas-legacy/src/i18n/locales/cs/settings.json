@@ -1,7 +1,0 @@
-{
-  "paymentMethods": {
-    "DaysBeforeNotificationInputs": {
-      "helpText": "If you have the “Payment method expiration reminders” enabled for transactional notifications on subscriptions,  you can customize the number of days here."
-    }
-  }
-}

@@ -1,26 +1,6 @@
 filters:
-  - filter_type: file
+  - filter_type: dynamic
     file_format: KEYVALUEJSON
     source_language: en
-    source_file: apps/applications/saas-legacy/src/i18n/source/checkout.json
-    translation_files_expression: "apps/applications/saas-legacy/src/i18n/locales/<lang>/checkout.json"
-  - filter_type: file
-    file_format: KEYVALUEJSON
-    source_language: en
-    source_file: apps/applications/saas-legacy/src/i18n/source/consumerSpace.json
-    translation_files_expression: "apps/applications/saas-legacy/src/i18n/locales/<lang>/consumerSpace.json"
-  - filter_type: file
-    file_format: KEYVALUEJSON
-    source_language: en
-    source_file: apps/applications/saas-legacy/src/i18n/source/marketplace.json
-    translation_files_expression: "apps/applications/saas-legacy/src/i18n/locales/<lang>/marketplace.json"
-  - filter_type: file
-    file_format: KEYVALUEJSON
-    source_language: en
-    source_file: apps/applications/saas-legacy/src/i18n/source/membership.json
-    translation_files_expression: "apps/applications/saas-legacy/src/i18n/locales/<lang>/membership.json"
-  - filter_type: file
-    file_format: KEYVALUEJSON
-    source_language: en
-    source_file: apps/applications/saas-legacy/src/i18n/source/quicksale.json
-    translation_files_expression: "apps/applications/saas-legacy/src/i18n/locales/<lang>/quicksale.json"
+    source_files_expression: "apps/applications/saas-legacy/src/i18n/source/b2c_<file>.json"
+    translation_files_expression: "apps/applications/saas-legacy/src/i18n/locales/<lang>/b2c_<file>.json"

@@ -311,7 +311,7 @@
     "recurrentBookings": "Recurrent bookings",
     "deleteModal": {
       "content": "The recurrence rule is going to be deleted, do you wish to also cancel the future bookings already done with this rule?",
-      "title": "Delete recurrence rule",
+      "title": "Delete recurring rule",
       "cancel": "Cancel",
       "confirm": "Delete",
       "success": "The recurrent booking has been deleted"

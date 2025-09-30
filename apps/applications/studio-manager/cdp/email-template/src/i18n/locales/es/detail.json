@@ -9,7 +9,7 @@
   "details": {
     "defaultTitle": "Plantilla sin título",
     "state": {
-      "loading": "Cargando tu plantillas..."
+      "loading": "Cargando plantillas de correo..."
     },
     "actions": {
       "saveChanges": "Guarda cambios",
@@ -23,7 +23,7 @@
     "bsportTemplateInfo": {
       "title": "plantillas de bsport",
       "description": {
-        "firstStep": "Si quieres enviar comunicaciones o editar las plantillas en esta sección, es necesario crear una copia de la plantilla deseada. ",
+        "firstStep": "Duplica la plantilla que quieres usar, luego edita y envía la versión copiada a los miembros directamente desde esta página. ",
         "secondStep": "Luego selecciona la copia del correo al enviar una comunicación."
       },
       "quit": "Salir"
@@ -65,7 +65,7 @@
     "cancelButton": "Cancelar"
   },
   "templateSubject": {
-    "label": "Asunto del email",
+    "label": "Asunto del correo",
     "placeholder": "Añade un asunto al correo...",
     "error": {
       "notProvided": "Esto es obligatorio",
@@ -74,7 +74,7 @@
   },
   "templateDesign": {
     "error": {
-      "notProvided": "No se proporcionó diseño de plantilla."
+      "notProvided": "No se proporcionó diseño de plantilla"
     }
   },
   "templateCategory": {

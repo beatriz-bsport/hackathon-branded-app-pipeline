@@ -1,1 +1,84 @@
-{}
+{
+  "pages": {
+    "detail": "Emailsjablonen"
+  },
+  "breadcrumbs": {
+    "rootPage": "Emailsjablonen",
+    "customPage": "Aangepaste sjablonen"
+  },
+  "details": {
+    "defaultTitle": "Naamloos sjabloon",
+    "state": {
+      "loading": "Laden van e-mailsjablonen..."
+    },
+    "actions": {
+      "saveChanges": "Wijzigingen opslaan",
+      "discardChanges": "Verwijderen"
+    },
+    "hover": {
+      "exportHtml": "Exporteer sjabloon naar HTML",
+      "renameTemplate": "Hernoem emailsjabloon",
+      "moreActions": "Meer acties"
+    },
+    "bsportTemplateInfo": {
+      "title": "bsport sjablonen",
+      "description": {
+        "firstStep": "Dupliceer de sjabloon die je wilt gebruiken, bewerk het en stuur de gekopieerde versie direct vanaf deze pagina naar leden. ",
+        "secondStep": "Selecteer vervolgens de kopie van de email bij het verzenden van een communicatie."
+      },
+      "quit": "Stoppen"
+    },
+    "renameTemplateModal": {
+      "title": "Hernoem emailsjabloon",
+      "textInput": {
+        "label": "Sjabloontitel",
+        "placeholder": "Sjabloontitel hier..."
+      },
+      "confirmButton": "Hernoemen",
+      "cancelButton": "Annuleren",
+      "onSuccess": {
+        "title": "Sjabloon hernoemd",
+        "action": "Ongedaan maken"
+      },
+      "onFailure": {
+        "title": "Er is een fout opgetreden bij het hernoemen van je sjabloon."
+      },
+      "errors": {
+        "notProvided": "Dit is verplicht",
+        "tooLong": "De titel is te lang"
+      }
+    }
+  },
+  "saveTemplateAction": {
+    "description": "De pagina heeft niet-opgeslagen wijzigingen.",
+    "success": {
+      "title": "Email sjabloon opgeslagen"
+    },
+    "error": {
+      "missingFields": "Sommige verplichte velden ontbreken",
+      "problemWhileSaving": "Er was een probleem bij het opslaan van je wijzigingen."
+    }
+  },
+  "leaveConfirmationModal": {
+    "description": "Weet je zeker dat je deze pagina wilt verlaten?",
+    "confirmButton": "Oké",
+    "cancelButton": "Annuleren"
+  },
+  "templateSubject": {
+    "label": "Emailonderwerp",
+    "placeholder": "Voeg een emailonderwerp toe...",
+    "error": {
+      "notProvided": "Dit is verplicht",
+      "tooLong": "Het onderwerp is te lang"
+    }
+  },
+  "templateDesign": {
+    "error": {
+      "notProvided": "Geen sjabloonontwerp beschikbaar"
+    }
+  },
+  "templateCategory": {
+    "label": "Categorie",
+    "noCategory": "Geen categorie"
+  }
+}

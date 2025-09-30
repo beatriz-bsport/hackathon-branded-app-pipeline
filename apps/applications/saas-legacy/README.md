@@ -42,18 +42,27 @@ cp envs/staging public/env.js
 
 ### Generate translations
 
+#### Overview
+
 Frontend Internationalization (i18n) is managed with `react-i18next` within the `src/i18n` folder.
 
--`translations/*.translations.js` files : where developers are adding / editing translations keys and english copies. These are the source files.
+-`source/{namespace}.json` files : where developers are adding / editing translations keys and english copies. These are the source files, and they can be edited directly from the Localization tools.
 
-- `source/translations.json` : a JSON concatenation of the source files to interact with Weblate.
-- `locales/{locale}/translations.json` : a JSON edited by Weblate containing copies supported languages.
+- `locales/{locale}/{namespace}.json` files : where translations of other languages are put. They are edited directly from our Localization tools, it is not the role of the developers to fill them.
 
-To see translations on your running local application, `react-i18next` needs to use JSON translations files from your `public/locales` folder. All the process of updating and building and uploading to `public/locales` the latest translations is done with a single script :
+After adding new copies in your source file, you need to serve the files to your local application from the `public/locales` folder. To update the files stored inside this location, please run the following script
 
 ```sh
 pnpm run translation:update
 ```
+
+#### Separation of Concerns
+
+There are 3 kinds of translations that depend on the prefix of your source file (a resource):
+
+- resources starting with `b2b_` (e.g. `b2b_{namespace}.json`) are uploaded to our Legacy B2B Transifex project.
+- resources starting with `b2c_` (e.g. `b2c_{namespace}.json`) are uploaded to our Legacy B2C Transifex project.
+- other resources are uploaded to Weblate.
 
 ---
 

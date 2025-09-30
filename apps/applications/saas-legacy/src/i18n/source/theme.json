@@ -66,7 +66,7 @@
         "title": "Add your own CSS to further personalize your calendar"
       },
       "consumerRegularizeDebt": "Allow members to regularize their outstanding debts with online payments",
-      "consumerRegularizeDebtHelper": "This feature is available on the marketplace, Easy Connect Button and Login Button Widget. It is not yet available on the App and Member Profile widget",
+      "consumerRegularizeDebtHelper": "This feature is available on the Member Area, Easy Connect Button and Login Button Widget. It is not yet available on the App and Member Profile widget",
       "workshopsCustomer": "Show workshops on the calendar of your members",
       "cancelledOffersCustomer": "Show cancelled sessions on the calendar of your members",
       "calendarPersonalizationTitle": "Calendar",
@@ -112,7 +112,7 @@
         },
         "label": "Limit the amount of future bookings per member for workshops"
       },
-      "hiddenFromMarketplace": "Activate this to display your studio on the general bsport app and marketplace",
+      "hiddenFromMarketplace": "Activate this to display your studio on the general bsport app and Member Area",
       "schedule": {
         "alert": "The schedule's start time must be earlier than the end time",
         "end": "End time",
@@ -134,22 +134,22 @@
       "hideSessionWithTagsNotEligible": "Do not display sessions that the member does not have access to with tags",
       "hideMemberForCoach": "Hide customer contact information in the teacher calendar",
       "signup": {
-        "urlHelperText": "The member will be redirected to this link after confirming their email. If not, they will be redirected to their profile on the marketplace.",
+        "urlHelperText": "The member will be redirected to this link after confirming their email. If not, they will be redirected to their profile on the Member Area.",
         "urlError": "Please enter a valid url",
         "urlRedirection": "Redirection URL",
         "helperText": "Upon registration, your members will receive an email to confirm their email address, their account will not be activated until this email has been confirmed",
         "label": "Confirmation email at registration",
         "title": "Registration",
         "emailConfirmationAtSignUp": {
-          "label": "Email confirmation at sign-up",
+          "label": "Email confirmation at sign-up. This feature is not compatible with Express Checkout.",
           "helperText": "Customers will be sent an email when they sign up asking them to confirm their email address. Their member account won't be activated until they click the link in the email. "
         }
       },
       "resetPassword": {
         "title": "Reset password",
-        "helperText": "By default, when your members reset their password, they are redirected to the marketplace. If you wish to redirect them elsewhere (for example your website), please fill in the following field with the wanted URL.",
+        "helperText": "By default, when your members reset their password, they are redirected to the Member Area. If you wish to redirect them elsewhere (for example your website), please fill in the following field with the wanted URL.",
         "urlRedirection": "Custom URL",
-        "urlHelperText": "Leave this field empty to redirect to the marketplace",
+        "urlHelperText": "Leave this field empty to redirect to the Member Area",
         "urlError": "Please enter a valid url"
       },
       "coachUserspace": {
@@ -259,7 +259,7 @@
         "title": "Express Checkout",
         "oneClickBooking": {
           "label": "One-Click Booking (beta)",
-          "helperText": "New customers can book activities without creating an account first. This feature is not compatible with appointments or with 'email confirmation at sign-up'. Only applies to activities which can be booked with a 'new member only' pass."
+          "helperText": "New customers will be able to purchase passes without creating an account first. For passes set as 'new member only', customers can buy a pass and book Group Activities in a single payment flow."
         }
       },
       "acceptDoubleBooking": "Accept double bookings"
@@ -391,7 +391,7 @@
       "date": "Sort by most recent booking date",
       "firstname": "Sort by first name",
       "lastname": "Sort by last name",
-      "title": "Select bookings sort on offer page"
+      "title": "Select the default sorting order for your bookings"
     },
     "default_attendance": {
       "present": "Member present",
@@ -507,13 +507,13 @@
     "helperText": "The VAT / Sales Tax is less than or equal to the indicated Provincial Tax. On invoices, only this tax will be indicated without distinguishing between Federal and Provincial Tax."
   },
   "taxDisplay": {
-    "info": "Activate this option to only display prices excluding VAT / Sales Tax on the Widgets, MarketPlace, and Mobile App.",
+    "info": "Activate this option to only display prices excluding VAT / Sales Tax on the Widgets, Member Area, and Mobile App.",
     "title": "Pricing display",
     "checkbox": "Display products' tax-free amounts"
   },
   "general_terms_and_conditions": {
     "label": "General terms and conditions",
-    "helperText": "Must be accepted for all payment and subscription",
+    "helperText": "Must be accepted for all payments and subscriptions",
     "placeholder": "I certify being allowed by my doctor to practice this activity."
   }
 }

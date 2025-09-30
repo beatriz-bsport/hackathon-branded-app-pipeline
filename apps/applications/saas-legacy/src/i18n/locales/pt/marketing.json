@@ -14,7 +14,9 @@
         "passwordConfirmationError": "As palavras-passe não são encriptadas",
         "requiredSignature": "Por favor, assine o formulário.",
         "requiredFile": "Anexar um ficheiro",
-        "invalidOfficialDocumentId": "Este campo só pode conter números e letras"
+        "invalidOfficialDocumentId": "Este campo só pode conter números e letras",
+        "barcodeMaximumLength": "Um código de barras não pode exceder 16 caracteres",
+        "membershipIdMaximumLength": "Um ID de membro não pode exceder 24 caracteres"
       },
       "date_submitted": "Data de conclusão",
       "dialog": {
@@ -282,7 +284,11 @@
         "triggerTimeoutDays_plural": "dias",
         "triggerTimeoutLabel": "Acionamento após",
         "selectSmartlist": "Selecionar uma lista inteligente",
-        "selectEvent": "Selecionar um evento"
+        "selectEvent": "Selecionar um evento",
+        "finnerGrain": {
+          "specifyItemsToggleLabel": "Especificar itens",
+          "purchaseLabelTitle": "Item/s comprado/s"
+        }
       },
       "delete": "Eliminar",
       "updateTitle": "Alterar o nome da sequência",
@@ -356,7 +362,9 @@
         "private_consumer_pass-create": "Passe de Aula Privada",
         "consumer_payment_pack-create": "Passe de aulas",
         "private_booking-cancel": "Cancelamento de Aula Privada",
-        "private_booking-create": "Aulas privadas"
+        "private_booking-create": "Aulas privadas",
+        "provision_update-create": "Item da loja",
+        "consumer_giftcard-create": "Cartão de oferta"
       },
       "exit": {
         "exit_fail_label": "Perdido",
@@ -683,7 +691,117 @@
     "dialogTitle": "Criar uma notificação",
     "create": "Criar uma notificação",
     "handleNotification": "Gerir as notificações",
-    "noNotification": "Nenhuma notificação ativada"
+    "noNotification": "Nenhuma notificação ativada",
+    "primaryText": {
+      "send": {
+        "email": "Será enviada uma mensagem de correio eletrónico",
+        "push": "Será enviada uma notificação push",
+        "emailAndPush": "Serão enviadas uma mensagem de correio eletrónico e uma notificação push"
+      },
+      "smartlist": {
+        "smartListInclude": "Esta notificação destina-se a esta lista inteligente: {{smartlist_names}}.",
+        "smartListInclude_plural": "Esta notificação destina-se a estas smartlists: {{smartlist_names}}.",
+        "smartListExclude": "Esta notificação não se destina a esta lista inteligente: {{smartlist_names}}.",
+        "smartListExclude_plural": "Esta notificação não se destina a estas smartlists: {{smartlist_names}}."
+      },
+      "expired": {
+        "days": "após 1 dia de expiração",
+        "days_plural": "após {{ days }} dias de expiração"
+      },
+      "expires": {
+        "noDays": "no dia da expiração",
+        "days": "1 dia antes do termo do prazo de validade",
+        "days_plural": "{{ days }} dias antes da expiração"
+      },
+      "paymentPack": {
+        "creditsLeftOnBooking": {
+          "noCreditsNoHours": "após uma reserva, para lembrar ao utilizador que já não tem crédito no seu passe",
+          "noCreditsHours": "1 hora após uma reserva, para lembrar ao utilizador que já não tem crédito no seu passe",
+          "noCreditsHours_plural": "{{hours}} horas após uma reserva para lembrar ao utilizador que já não tem crédito no seu passe",
+          "oneCreditNoHours": "após uma reserva, para lembrar ao utilizador que ainda tem 1 crédito no seu passe",
+          "oneCreditHours": "1 hora após uma reserva, para lembrar ao utilizador que ainda tem 1 crédito no seu passe",
+          "oneCreditHours_plural": "{{hours}} horas após uma reserva para lembrar ao utilizador que ainda tem 1 crédito no seu passe",
+          "creditsNoHours": "após uma reserva, para lembrar ao utilizador que ainda tem {{credits}} créditos no seu passe",
+          "creditsHours": "1 hora após uma reserva para lembrar ao utilizador que ainda tem créditos no seu passe",
+          "creditsHours_plural": "{{hours}} horas depois de uma reserva para lembrar ao utilizador que ainda tem {{credits}} créditos no seu passe"
+        },
+        "creditsLeftOnSessionEnd": {
+          "noCreditsNoHours": "após o fim da sessão para lembrar ao utilizador que já não tem crédito no seu passe",
+          "noCreditsHours": "1 hora após o fim da sessão para lembrar ao utilizador que já não tem crédito no seu passe",
+          "noCreditsHours_plural": "{{hours}} horas após o fim da sessão para lembrar ao utilizador que já não tem crédito no seu passe",
+          "oneCreditNoHours": "após o fim da sessão, para lembrar ao utilizador que ainda tem 1 crédito no seu passe",
+          "oneCreditHours": "1 hora após o fim da sessão para lembrar ao utilizador que ainda tem 1 crédito no seu passe",
+          "oneCreditHours_plural": "{{hours}} horas após o fim da sessão para lembrar ao utilizador que ainda tem 1 crédito no seu passe",
+          "creditsNoHours": "após o fim da sessão para lembrar ao utilizador que ainda tem créditos no seu passe",
+          "creditsHours": "1 hora após o fim da sessão para lembrar ao utilizador que ainda tem créditos no seu passe",
+          "creditsHours_plural": "{{hours}} horas depois de uma reserva para lembrar ao utilizador que ainda tem {{credits}} créditos no seu passe"
+        }
+      },
+      "privatePass": {
+        "creditsLeft": {
+          "noCredits": "para lembrar ao utilizador que já não tem crédito no seu cartão de marcação de consultas",
+          "credits": "para lembrar ao utilizador que lhe resta 1 crédito no seu cartão de marcação de consultas",
+          "credits_plural": "para lembrar ao utilizador que ainda tem {{credits}} de crédito no seu cartão de marcação de consultas"
+        }
+      }
+    },
+    "save": "Guardar",
+    "delete": "Eliminar",
+    "viewPreview": "Ver Pré-visualização",
+    "preview": "Pré-visualização",
+    "pushNotificationTitle": "Notificação push",
+    "smartListTitle": "Lista inteligente",
+    "included": "Incluído",
+    "excluded": "Excluído",
+    "select": "Selecionar",
+    "optionalStepInfo": "Este passo é opcional. Pode continuar a configurar notificações mais tarde. Apenas as notificações que já criou estão listadas aqui. Para criar novas notificações, aceda a Marketing > Notificações.",
+    "passNotificationDeleteDialog": {
+      "title": "Eliminar esta notificação",
+      "warning": {
+        "attachedPaymentPacks": "Ainda tem um ou mais passes associados a esta notificação",
+        "attachedPrivatePasses": "Ainda tem um ou mais passes de marcação associados a esta nota",
+        "sure": "Tem a certeza de que pretende apagar esta notificação?",
+        "irreversible": "Esta operação não pode ser anulada."
+      }
+    },
+    "notificationTitle": {
+      "remainingCredit": "Notificações de crédito remanescentes",
+      "remainingValidity": "Notificações de validade restante",
+      "expiredValidity": "Notificações de expiração"
+    },
+    "allOptionsPlaceholder": {
+      "private_pass": "Todos os passes de marcação",
+      "payment_pack": "Todos os passes"
+    },
+    "allPassSelected": {
+      "payment_pack": "Todos os passes estão incluídos",
+      "private_pass": "Todos os passes de marcação estão incluídos"
+    },
+    "selectAllPassesToggle": {
+      "payment_pack": "Aplicar a todos os passes actuais e futuros",
+      "private_pass": "Aplicável a todos os passes de marcação actuais e futuros"
+    },
+    "passSelectionPlaceholder": {
+      "private_pass": "Passes de marcação",
+      "payment_pack": "Passa"
+    },
+    "triggerDescription": {
+      "remainingCredit": "{{count}} crédito à esquerda",
+      "remainingCredit_plural": "{{ count }} créditos restantes",
+      "remainingValidity": "{{count}} dia restante antes da expiração",
+      "remainingValidity_plural": "{{count}} dias que faltam para a expiração",
+      "todayValidity": "No dia do vencimento",
+      "expiredValidity": "Expirado por {{ count }} dia",
+      "expiredValidity_plural": "Expirado há {{ count }} dias"
+    },
+    "sendingDelay": {
+      "justOnBooking": "Logo após a reserva",
+      "onBooking": "{{hours}}h após a reserva",
+      "justOnSession": "Logo após a sessão",
+      "onSession": "{{hours}}h após a sessão"
+    },
+    "addPasses": "Adicionar",
+    "editPasses": "Editar"
   },
   "newsletter": {
     "messages": {
@@ -724,7 +842,8 @@
         "labels": {
           "workflow": "A entrada no {{ workflowLowerCase }} é efectuada através de :"
         },
-        "event_or_smartlist_helper": "Os membros terão de corresponder ao evento ou fazer parte da lista inteligente para se enquadrarem no {{ workflowLowerCase }}"
+        "event_or_smartlist_helper": "Os membros terão de corresponder ao evento ou fazer parte da lista inteligente para se enquadrarem no {{ workflowLowerCase }}",
+        "oneOrMoreFinnerGrainDisabledText": "Um item especificado não existe atualmente na sua Lista de Produtos."
       },
       "audienceStepHelper": "Defina o nome da etapa aqui: é aqui que poderá ver onde os membros se encontram na {{ workflowLowerCase }}",
       "createAudienceHelper": "Graças ao {{ workflowPluralLowerCase }},direcionar as acções de marketing que envia aos seus membros em função do seu comportamento na plataforma. Crie uma sequência de acções que os seus membros devem realizar para obter determinadas promoções ou etiquetas, por exemplo.",
@@ -741,7 +860,9 @@
         "updateTitle": "Editar o seu {{ workflowLowerCase }}",
         "createTitle": "Criar um{{ workflowLowerCase }}",
         "updateNameTitle": "Edite o nome do seu {{ workflowLowerCase }}"
-      }
+      },
+      "openIntercomHelp": "Ler o guia",
+      "emptyAudienceHelper": "Utilize o Audience para criar {{ workflowPluralLowerCase }} automatizados que visam os clientes em cada fase do seu percurso. Por exemplo, crie uma sequência de acções que os membros devem concluir para aceder a uma determinada promoção. Leia o guia para obter mais informações sobre esta funcionalidade."
     },
     "activate": {
       "setupBeforeActivationHelper": "Termine de configurar o seu {{ workflowLowerCase }} e crie a sua primeira ação de marketing para lançar o seu {{ workflowLowerCase }}.",
@@ -827,7 +948,8 @@
         "notLaunched": "Não lançado",
         "open": "Aberto",
         "archive": "Arquivo {{ workflowLowerCase }}",
-        "edit": " Editar {{ workflowLowerCase }} definições"
+        "edit": " Editar {{ workflowLowerCase }} definições",
+        "invalid": "Questão"
       },
       "tooltip": {
         "moreActions": "Mais acções {{ workflowLowerCase }}"
@@ -852,6 +974,47 @@
         "confirm": "Confirmar",
         "title": "Editar  {{ workflowLowerCase }}",
         "helper": "Os accionadores de edição podem alterar a posição das barras em diferentes etapas."
+      }
+    },
+    "workflow": {
+      "finnerGrainIssues": "Um ou vários artigos especificados já não estão disponíveis."
+    },
+    "smsWarning": {
+      "alert": {
+        "title": "Os SMS custam mais do que outros canais",
+        "content": "Quanto mais pessoas entrarem no fluxo de trabalho, maior será o custo. Consulte o seu contrato para saber o custo por SMS."
+      },
+      "modal": {
+        "title": "Lembrete de custos por SMS",
+        "content": "<strong>O envio de SMS pode custar mais do que outros canais,</strong> dependendo do número de pessoas que entram no fluxo de trabalho. Verifique o seu contrato para ver o custo por SMS.",
+        "actions": {
+          "primary": "Confirmar",
+          "secondary": "Cancel"
+        }
+      }
+    },
+    "freeTrial": {
+      "banner": {
+        "title": "{{ count }} dia restante no julgamento",
+        "title_plural": "{{ count }} dias restantes no julgamento",
+        "button": "Atualização"
+      },
+      "upgradeDialog": {
+        "benefits": {
+          "0": "Direcionar as ofertas para os clientes em cada fase do seu percurso",
+          "1": "Criar experiências únicas para os clientes em vários canais",
+          "2": "Criar um fluxo de trabalho automatizado ilimitado {{ workflowPluralLowerCase }} (continuar de onde parou)"
+        },
+        "upgrade": "Atualização",
+        "close": "Fechar",
+        "bannerClicked": {
+          "title": "Continuar a crescer sem limites",
+          "description": "Actualize agora para continuar a expandir o seu negócio com o Audience."
+        },
+        "quotaReached": {
+          "title": "Ficou sem espaço {{ workflowPluralLowerCase }}",
+          "description": "Já utilizou os 3 {{ workflowPluralLowerCase }} incluídos na avaliação gratuita. Para ativar este, actualize para o Audience ou coloque em pausa um {{ workflowLowerCase }} existente."
+        }
       }
     }
   }

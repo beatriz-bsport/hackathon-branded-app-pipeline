@@ -14,7 +14,8 @@
       "payAll": "Liquidação de dívidas de membros",
       "confirmPayment": "Confirmar o pagamento",
       "paymentSecurityInformation": "Pode guardar o seu método de pagamento com segurança para futuras compras. Os dados são encriptados e armazenados de forma segura.",
-      "saveForLaterAsSEPA": "O pedido será registado como \"SEPA\""
+      "saveForLaterAsSEPA": "O pedido será registado como \"SEPA\"",
+      "basketWasInconsistent": "O seu cesto foi alterado. Não foi cobrado, por favor tente efetuar o pagamento novamente."
     },
     "paymentList": {
       "titleReverse": "Reembolso",
@@ -36,7 +37,7 @@
       }
     },
     "amountRemaining": "Ainda por pagar: {{ amount }}",
-    "errorSecretExplain2": "",
+    "errorSecretExplain2": "Se este problema não for resolvido, contacte-nos através do endereço dev+payment-intent@bsport.io",
     "errorSecretExplain1": "Este método de pagamento não está atualmente disponível.",
     "billingMoreThanNeeded": "Se o montante cobrado for superior ao montante da fatura, o saldo do membro será acrescido na diferença",
     "amount": {
@@ -59,7 +60,8 @@
     "plannedPaymentEvent": {
       "title": "Pagamento programado",
       "title_plural": "Pagamentos programados"
-    }
+    },
+    "revertReason": "Motivo: {{ revertReason }}"
   },
   "invoicePaymentPackTagWarningDialog": {
     "content": "Atenção, está a tentar debitar um passe a um membro que não tem os requisitos necessários para o comprar. Pretende faturar este item ? ",
@@ -78,6 +80,8 @@
         "1": "Website",
         "2": "Backoffice",
         "3": "Outros",
+        "4": "Migração",
+        "7": "POS",
         "label": "Canal : {{ source }}"
       },
       "noEstablishment": "Nenhum estabelecimento",
@@ -85,19 +89,24 @@
       "date": "Data : {{ date }}",
       "author": "Criado por : {{ name }}",
       "clientAuthor": "Membro",
-      "noBillingGroup": "Nenhum grupo de faturação foi associado a esta fatura"
+      "noBillingGroup": "Nenhum grupo de faturação foi associado a esta fatura",
+      "reverseInvoicePending": "Reembolso pendente via"
     },
     "editor": {
       "save": "Emissão da fatura",
       "title": "Recibo",
       "sumup": "Resumo"
     },
-    "title": "Fatura {{ uuid }}"
+    "title": "Fatura {{ uuid }}",
+    "paymentFailed": "O pagamento falhou. Por favor, tente novamente.",
+    "paymentFailedWithMethod": "O pagamento falhou com {{ paymentMethod }}. Por favor, tente novamente.",
+    "titleRevertPending": "[Pendente] Crédito {{ uuid }}"
   },
   "paymentEngine": {
     "label": {
       "0": "Pagamento manual",
-      "1": "Stripe"
+      "1": "Stripe",
+      "2": "PayPal"
     }
   },
   "paymentMethod": {
@@ -122,7 +131,8 @@
       "13": "Giropay",
       "14": "Depósito dos membros (dívida)",
       "15": "Cartão (manual)",
-      "16": "Caixas de débito direto"
+      "16": "Caixas de débito direto",
+      "17": "PayPal"
     },
     "isInternalExplainFuturePayments": "A data de vencimento será deduzida automaticamente do depósito do cliente. Se este valor for insuficiente, será criado um depósito negativo.",
     "detach": {
@@ -139,7 +149,8 @@
       "label": "Meios de pagamento"
     },
     "edit": "Editar",
-    "manual": "Manual"
+    "manual": "Manual",
+    "other": "Outros"
   },
   "plannedPaymentEvent": {
     "actions": {
@@ -148,7 +159,8 @@
       "enable": "Reprogramar",
       "changeMethod": "Alterar o método de pagamento",
       "solveInvalidPaymentAttempt": "Regularizar",
-      "registerNow": "Descontar"
+      "registerNow": "Descontar",
+      "delete": "Cancel"
     },
     "dialog": {
       "invalidMandate": {
@@ -181,7 +193,8 @@
     "state": "Estado",
     "city": "Cidade",
     "phone": "Número de telefone",
-    "address_line_2": "Linha de endereço 2"
+    "address_line_2": "Linha de endereço 2",
+    "content": "Ao completar este pagamento e ao utilizar o seu IBAN, autoriza a BSPORT Solution e a Stripe (o nosso processador de pagamentos) a começar a faturar-lhe todos os pagamentos. Pode solicitar reembolsos através do seu banco e deve fazê-lo no prazo de 8 semanas após o primeiro pagamento."
   },
   "invoiceInfo": {
     "2": "Este recibo de pagamento representa o ajuste do saldo do seu membro.",
@@ -381,12 +394,32 @@
     "nf525": "Certificado",
     "forms": {
       "show_company_email_in_invoice": "Mostrar o email da sua empresa nas faturas",
-      "stripe_footer_placeholder": "Sem informações adicionais"
+      "stripe_footer_placeholder": "Sem informações adicionais",
+      "invoicePDFTitlePlaceholder": "Nome da empresa predefinido do Stripe onboarding"
     },
     "submit_stripe_footer": "Atualizar",
     "explainStripeFooter": "Este texto aparecerá na parte inferior das suas faturas em PDF e pode acrescentar todas as informações legais necessárias.",
     "invoiceGeneral": "Fatura em PDF",
-    "stripe_footer": "Rodapé da fatura"
+    "stripe_footer": "Rodapé da fatura",
+    "invoicePDFTitle": "Nome da empresa de faturação",
+    "invoicePDFEmail": "Endereço de correio eletrónico da fatura",
+    "explainInvoicePDFTitle": "Este nome aparecerá como o nome do seu estúdio em todas as facturas geradas",
+    "refundsAndDiscount": {
+      "title": "Reembolsos e descontos",
+      "info": "Active estas opções para exigir que o pessoal forneça um motivo quando aplicar manualmente um desconto ou cancelar/reembolsar uma fatura.",
+      "checkbox": {
+        "customDiscountJustification": "Exigir justificação para descontos manuais",
+        "refundAndCancelJustification": "Exigir uma justificação para reembolsos e anulações de facturas"
+      }
+    },
+    "tse": {
+      "title": "Kassensicherungsverordnung (Alemanha)",
+      "description": "Trata-se de um regulamento que visa garantir a segurança e a integridade dos sistemas de caixa registadora eletrónica. Utilizamos o Fiskaly como dispositivo técnico de segurança (TSE) para impedir a manipulação e garantir que os dados das transacções são armazenados de forma segura e inviolável.",
+      "version": "Versão das EET: v2",
+      "manufacturer": "Fabricante: bsport",
+      "manufacturerLinkLabel": "Certificado do fabricante das EET",
+      "documentationLabel": "Documentação de procedimentos"
+    }
   },
   "revert": {
     "autoDebitDialog": {
@@ -404,10 +437,16 @@
         "0": "Reembolso direto",
         "1": "Reembolso a crédito (saldo)",
         "2": "Reembolso manual"
-      }
+      },
+      "revertReason": "Motivo da anulação"
     },
     "warning": {
-      "interac": "Pelo menos um pagamento foi efetuado com um cartão Interac nesta fatura. Os reembolsos diretos não são suportados por estes cartões."
+      "14100": "Pelo menos um pagamento foi efectuado com um cartão Interac nesta fatura. Os reembolsos diretos não são suportados para cartões Interac.",
+      "14101": "Nota: um ajustamento do saldo da conta não pode ser reembolsado com o saldo da conta",
+      "14103": "Os reembolsos diretos só estão disponíveis se pelo menos um dos pagamentos utilizar um método em linha.",
+      "14106": "Os reembolsos diretos não são possíveis para pagamentos SEPA com mais de 180 dias.",
+      "interac": "Pelo menos um pagamento foi efetuado com um cartão Interac nesta fatura. Os reembolsos diretos não são suportados por estes cartões.",
+      "debtAndNewPaymentMethodNotAllowed": "Pelo menos um pagamento está pendente. Só está disponível um reembolso direto."
     },
     "blockedDialog": {
       "helper": "O seu saldo Stripe é insuficiente para processar o reembolso. Tente novamente após alguns dias para que os pagamentos possam ser cobrados.",
@@ -419,6 +458,14 @@
       "actions": {
         "confirm": "Confirmar",
         "cancel": "Fechar"
+      }
+    },
+    "SEPARefundDialog": {
+      "title": "Processamento do reembolso SEPA",
+      "alert": "O reembolso de um pagamento SEPA pode demorar até 5 dias úteis a ser processado. Certifique-se de que o seu cliente é informado de que o reembolso está a decorrer. Tenha em atenção que, mesmo depois de um pagamento SEPA ter sido reembolsado, o cliente ainda pode contestar a transação.",
+      "actions": {
+        "confirm": "Emitir reembolso",
+        "cancel": "Cancelar ação"
       }
     }
   },
@@ -437,7 +484,16 @@
     "goToPaymentEditor": "Pagamento",
     "goToSubscription": "Ver a subscrição",
     "revert": "Cancelar",
-    "invoiceReverted": "Fatura anulada"
+    "invoiceReverted": "Fatura anulada",
+    "downloadXml": "Descarregar a fatura (XML)",
+    "downloadXmlBulk": "Gerar facturas (XML)",
+    "downloadXmlBulkTooltip": "As facturas serão geradas a partir do último mês. Se alguma fatura já tiver sido gerada, deve ser descarregada individualmente.",
+    "downloadXmlBulkState": {
+      "title": "Ficheiro Zip",
+      "ready": "As suas facturas estão prontas para serem descarregadas.",
+      "generate": "Gerar",
+      "processing": "Estamos a processar o seu ficheiro Zip. Será notificado quando estiver concluído."
+    }
   },
   "applyGiftcard": {
     "actions": {
@@ -450,7 +506,13 @@
       "amountToPay": "Montante pago com cartão presente",
       "errors": {
         "errorAmount": "Montante inválido."
-      }
+      },
+      "title": "Pagamento por cartão de oferta",
+      "availableGiftcards": "Cartão(ões) de oferta disponível(eis)",
+      "addGiftcardError": "O código deste cartão de oferta está incorreto. Por favor, verifique e tente novamente.",
+      "addGiftcard": "Adicionar cartão de oferta",
+      "giftcardCode": "Código do cartão de oferta",
+      "expiresOn": "Expira em: {{- date }}"
     },
     "giftcard": "Cartão presente"
   },
@@ -461,7 +523,8 @@
       "3": "Crédito",
       "9": "Passe de Aula Privada",
       "10": "Pack",
-      "11": "Cartões de presente"
+      "11": "Cartões de presente",
+      "undefined": "Cartão de oferta"
     },
     "discount": "Desconto",
     "voucher": "Desconto: {{ voucher }}",
@@ -469,7 +532,16 @@
     "credit": {
       "label": "Crédito"
     },
-    "finalPricePreview": "Pré-visualização total"
+    "finalPricePreview": "Pré-visualização total",
+    "voucherReason": {
+      "payment_combo": "Desconto de pacote",
+      "coupon": "Código promocional: {{coupon_name}}",
+      "coupon_referred": "Desconto por recomendação: Membro convidado",
+      "coupon_referring": "Desconto por indicação: Membro de referência",
+      "manual": "Desconto manual: {{manual_reason}}",
+      "manualWithNoReason": "Desconto manual"
+    },
+    "discountReason": "Motivo do desconto"
   },
   "quickbooks": {
     "send": {
@@ -532,6 +604,19 @@
         },
         "isEmpty": "Nenhuma compra",
         "title": "Compras"
+      },
+      "export": {
+        "title": "Fatura eletrónica (XML)",
+        "header": {
+          "status": "Estado",
+          "errorMessage": "Mensagem de erro"
+        },
+        "status": {
+          "success": "Gerado com sucesso",
+          "fail": "Geração falhada",
+          "failWithMessage": "A geração falhou: {{- errorMessage }}",
+          "notGenerated": "Não gerado"
+        }
       }
     },
     "header": {
@@ -572,5 +657,6 @@
       "title": "Reembolso do cliente"
     }
   },
-  "anonymousMember": "Membro anónimo"
+  "anonymousMember": "Membro anónimo",
+  "sentToFiskaly": "Enviado para Fiskaly"
 }

@@ -81,7 +81,8 @@
     "membersEmptyState": "Não há membros nesta empresa",
     "navigateToCompany": "Acesso à conta do franqueado",
     "members": "Membros",
-    "pageTitle": "Franqueados"
+    "pageTitle": "Franqueados",
+    "manageOnStudio": "Gerir em {{studio_name}}"
   },
   "staff": {
     "roleTabTitle": "Funções",
@@ -104,6 +105,21 @@
     "franchises": "Franquias",
     "isVaccinated": "Cartão de saúde válido",
     "seeMembership": "ver o ficheiro dos membros",
-    "pageTitle": "Membro"
+    "pageTitle": "Membro",
+    "seeMemberInCompany": "Mostrar"
+  },
+  "search": {
+    "pageTitle": "Pesquisar",
+    "usersTableTitle": "Utilizadores"
+  },
+  "userProfile": {
+    "goToMemberProfile": "Gerir em {{ purchasing_studio }}",
+    "numberStudios": "{{ number }} estúdios de compras",
+    "numberBrands": "{{ number }} categorias",
+    "tagsListTitle": "Etiquetas partilhadas",
+    "manageTags": "Gerir etiquetas",
+    "tagModalText": "As acções tomadas sobre as etiquetas serão aplicadas ao membro em cada franchisado",
+    "tagModalHelperText": "Etiquetas",
+    "tagModalPlaceholcer": "Selecionar etiquetas"
   }
 }

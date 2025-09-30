@@ -94,5 +94,6 @@
     "infoNoMemberProgram": "Este membro não tem atualmente nenhum programa.",
     "deleteHeader": "Querem mesmo dissociar este programa deste membro?",
     "infoNoConsumerProgram": "Se ainda não tem um programa, contacte o seu estúdio para começar a acompanhar o seu desempenho !"
-  }
+  },
+  "maxLength200": "Este campo tem um máximo de 200 caracteres."
 }

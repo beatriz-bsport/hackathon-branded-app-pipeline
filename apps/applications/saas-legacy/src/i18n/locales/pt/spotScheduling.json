@@ -40,7 +40,16 @@
     "rectangle": "Retangular",
     "triangle": "Triângulo",
     "takenPersonalized": "{{- name}} reservado",
-    "free": "Lugar disponível"
+    "free": "Lugar disponível",
+    "nameCustomization": {
+      "title": "Formato do nome do ponto",
+      "none": "Apenas o número do ponto",
+      "prefix": "Número do ponto com um prefixo",
+      "suffix": "Número do ponto com um sufixo"
+    },
+    "suffixError": "O sufixo deve ser uma única letra",
+    "suffixExplain": "O carácter aqui indicado aparecerá como sufixo dos números de pontos",
+    "suffix": "Sufixo"
   },
   "searchHelper": "Ajuda: permite aos seus alunos reservar o espaço que pretendem na sala. Campos não obrigatórios",
   "spotImageDialog": {
@@ -88,14 +97,16 @@
       "edition": "Edição",
       "assets": "Ativos",
       "editionAdvanced": "Edição avançada",
-      "editionHistory": "Histórico da edição"
+      "editionHistory": "Histórico da edição",
+      "marketplaces": "Agregadores"
     },
     "title": "Funcionalidades",
     "resize": "Escala",
     "openAssetModal": "Abrir manipulador de ativos",
     "copier": "Duplicador",
     "cssEditor": "CSS",
-    "advancedTool": "HTML"
+    "advancedTool": "HTML",
+    "bsportPreferentialSpots": "Lugares para membros"
   },
   "toolbar": {
     "exit": "Sair",
@@ -152,5 +163,9 @@
     "loadMore": "Carregar mais",
     "submit": "Enviar",
     "description": "Você pode carregar e usar imagens diretamente daqui. Quando novas imagens forem carregadas, elas estarão disponíveis para serem inseridas em seu mapa."
+  },
+  "bsportPreferentialGroupForm": {
+    "submit": "Enviar",
+    "isPreferentialBsportSpotLabel": "Lugar reservado aos membros com prioridade. As reservas de agregadores (Classpass, OneFit, etc.) serão efectuadas em último lugar."
   }
 }

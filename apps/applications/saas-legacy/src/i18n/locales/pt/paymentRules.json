@@ -22,7 +22,8 @@
       "helper": "Pode agrupar as suas regras de remuneração para atividades, seminários e compromissos. Quando adiciona um professor a um grupo, todas as regras de remuneração do grupo aplicam-se automaticamente a esse professor. Quaisquer alterações ao grupo aplicar-se-ão também a todos os professores do grupo.",
       "coaches": "Professores associados",
       "default": "Remunerações por defeito",
-      "specfic_private_slot": "Aulas Privadas"
+      "specfic_private_slot": "Aulas Privadas",
+      "removed_coaches": "Professores afastados"
     },
     "session": "Aulas de Grupo",
     "dissociate": "Personalizar as regras",
@@ -177,5 +178,17 @@
   "actions": "Ações",
   "only_attendant": "Contar apenas os assistentes",
   "calculation_method": "Método do cálculo",
-  "include_tax": "Cálculo com IVA incluído"
+  "include_tax": "Cálculo com IVA incluído",
+  "update": {
+    "success": "Configuração de pagamento actualizada",
+    "error": "Erro durante a atualização"
+  },
+  "create": {
+    "error": "Erro durante a criação",
+    "success": "Taxa adicionada"
+  },
+  "delete": {
+    "error": "Erro durante a eliminação",
+    "success": "Taxa removida"
+  }
 }

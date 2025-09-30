@@ -131,7 +131,16 @@
         "privatePass": {
           "_label": "Passes de Aula Privada"
         },
-        "_label": "Produtos"
+        "_label": "Produtos",
+        "shopReworked": {
+          "_label": "Loja virtual",
+          "products": {
+            "_label": "Produtos"
+          },
+          "settings": {
+            "_label": "Definições"
+          }
+        }
       },
       "tutorial": {
         "_label": "Tutorial"
@@ -228,7 +237,17 @@
         "perform": {
           "_label": "Efetuar a monitorização do acesso"
         },
-        "_label": "Monitorização de acesso"
+        "_label": "Monitorização de acesso",
+        "monitor": {
+          "_label": "Aceder ao histórico de visitas de localização"
+        },
+        "settings": {
+          "_label": "Página de definições de acesso"
+        }
+      },
+      "search": {
+        "_helper": "Apenas telemóvel",
+        "_label": "Procurar membros"
       }
     },
     "franchiseMenu": {
@@ -245,6 +264,15 @@
         },
         "privatePassTemplates": {
           "_label": "Passe de marcação"
+        },
+        "universalPassTemplates": {
+          "_label": "Passe universal"
+        },
+        "contractTemplates": {
+          "_label": "Assinaturas"
+        },
+        "shopTemplates": {
+          "_label": "Loja virtual"
         }
       },
       "notificationRules": {
@@ -317,6 +345,10 @@
     },
     "search": {
       "_label": "Pesquisar membros"
+    },
+    "appbarActions": {
+      "_helper": "Para adicionar perfis de membros, processar pagamentos no estúdio, etc.",
+      "_label": "Acções da AppBar"
     }
   },
   "forms": {
@@ -384,7 +416,8 @@
             "topLabel": "Cargo",
             "label": "Selecionar uma função"
           },
-          "title": "Funções"
+          "title": "Funções",
+          "label": "Papel"
         },
         "generalInfo": {
           "lastName": {
@@ -399,7 +432,16 @@
           "title": "Informações gerais"
         },
         "title": "Criar uma conta staff",
-        "buttonLabel": "Adicionar um acesso"
+        "buttonLabel": "Adicionar um acesso",
+        "email": {
+          "label": "Correio eletrónico"
+        },
+        "firstName": {
+          "label": "Nome próprio"
+        },
+        "lastName": {
+          "label": "Apelido"
+        }
       },
       "selectFranchisees": "Seleção de franchisados",
       "advancedSettingsModal": {
@@ -432,11 +474,21 @@
           "helpText": "Esta conta de funcionário só terá acesso ao horário e ao calendário dos professores seleccionados. Todos os professores são seleccionados por predefinição.",
           "title": "Restrições para os professores"
         },
-        "title": "Definições avançadas"
+        "title": "Definições avançadas",
+        "establishmentBillingGroup": {
+          "title": "grupo de faturação *",
+          "helpText": "Todas as vendas efectuadas dentro deste grupo de faturação associado serão facturadas a partir de uma única localização. Isto inclui facturas, relatórios e actualizações do inventário de existências.",
+          "description": "Todas as vendas efectuadas dentro deste grupo de faturação associado serão facturadas a partir de uma única localização. Isto inclui facturas, relatórios e actualizações do inventário de existências."
+        }
       },
       "advancedSettings": "Definições avançadas",
       "commission": "Comissão",
-      "warningNoEstablishmentSelected": "Tem de definir o local a partir do qual o staff irá trabalhar nas Definições avançadas."
+      "warningNoEstablishmentSelected": "Tem de definir o local a partir do qual o staff irá trabalhar nas Definições avançadas.",
+      "snackbar": {
+        "success": "Direitos de acesso modificados",
+        "error": "Impossível alterar os direitos de acesso",
+        "errorEmail": "Este correio eletrónico já é utilizado para uma conta de professor ou de membro"
+      }
     }
   },
   "overbookingForbidden": "Os direitos atribuídos enquanto membro do pessoal não lhe permite ultrapassar o número máximo de reservas.",
@@ -1167,6 +1219,23 @@
               "_label": "Criar"
             }
           }
+        },
+        "access_monitoring": {
+          "allowed_actions": {
+            "create": {
+              "_label": "Criar"
+            },
+            "read": {
+              "_label": "Ver"
+            },
+            "delete": {
+              "_label": "Eliminar"
+            },
+            "edit": {
+              "_label": "Editar"
+            }
+          },
+          "_label": "Monitorização do acesso"
         }
       },
       "_label": "Relatórios"
@@ -1463,7 +1532,27 @@
         },
         "_label": "Passe de aulas"
       },
-      "_label": "Gestão de produtos"
+      "_label": "Gestão de produtos",
+      "shopReworked": {
+        "allowed_actions": {
+          "create": {
+            "_label": "Criar produtos"
+          },
+          "edit": {
+            "_label": "Editar produtos"
+          },
+          "delete": {
+            "_label": "Eliminar produtos"
+          },
+          "editInventory": {
+            "_label": "Atualizar o inventário"
+          },
+          "editSettings": {
+            "_label": "Editar definições"
+          }
+        },
+        "_label": "Loja virtual"
+      }
     },
     "planning": {
       "schedule": {
@@ -1571,6 +1660,9 @@
           },
           "rollcall": {
             "_label": "Confirmar chamada"
+          },
+          "refund": {
+            "_label": "Reembolso"
           }
         },
         "_label": "Gestão dos workshops"
@@ -1600,6 +1692,9 @@
           },
           "rollcall": {
             "_label": "Confirmar a chamada"
+          },
+          "refund": {
+            "_label": "Reembolso de cancelamentos tardios"
           }
         },
         "_label": "Gestão de aulas em grupo"

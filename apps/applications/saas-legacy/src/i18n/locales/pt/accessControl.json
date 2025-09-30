@@ -1,1 +1,155 @@
-{}
+{
+  "broadcastChannelWarning": "A versão do seu browser impede-nos de executar esta funcionalidade corretamente. Actualize o seu browser.",
+  "accessMonitoringTitle": "Monitorização do acesso",
+  "memberEntry": "Entrada de membro",
+  "snackbar": {
+    "message": "O <strong>{{- name }}</strong> acabou de se registar.",
+    "G": "Válido",
+    "O": "Aviso",
+    "R": "Não válido"
+  },
+  "memberVisit": {
+    "emptyState": {
+      "waitForScan": "Aguarde que o membro digitalize o seu código de barras ou procure o seu nome ou código de barras manualmente.",
+      "establishmentsSelectedInRole": "Está a monitorizar o acesso a <strong>{{- address }} - {{- establishments }}</strong>",
+      "or": "ou",
+      "searchMember": "Procurar membros por nome ou número"
+    },
+    "closeMemberVisit": "Fechar página de membro",
+    "refreshMemberVisit": "Atualizar o estado",
+    "warnings": {
+      "hasUnpaidInvoices": "O membro tem uma ou várias facturas por pagar",
+      "hasNegativeAccountBalance": "O saldo da conta do membro é negativo",
+      "hasUnpaidAppointments": "O membro tem um ou vários compromissos não remunerados",
+      "bookingsInOtherEstablishments": "A reserva do membro {{- bookingName}} está agendada num estabelecimento diferente: {{- establishmentName }}",
+      "noPasses": "O membro não tem nenhum passe ativo com créditos restantes",
+      "passIsDisabled": "O passe de membro {{- passName }} está atualmente bloqueado",
+      "passLinkedToPausedSubscription": "O passe do membro {{- passName }} está ligado a uma subscrição em pausa",
+      "passRestrictedToVod": "O passe do membro {{- passName }} é restrito apenas a VOD",
+      "passRestrictedByOffPeakSchedule": "O passe do membro {{- passName }} não permite a entrada durante esta faixa horária",
+      "passIncompatibleWithEstablishments": "O passe do membro {{- passName }} não é compatível com o seu sítio",
+      "passIncompatibleWithAppointmentsInEstablishments": "As marcações que podem ser reservadas com o passe do membro {{- passName }} não são compatíveis com o seu sítio",
+      "numberOfCheckedPasses": "O passe do membro {{- count }} foi verificado sem nenhum resultado válido.",
+      "numberOfCheckedPasses_plural": "Os passes de {{- count}} membros foram verificados sem resultados válidos."
+    }
+  },
+  "liveHistory": {
+    "table": {
+      "refusedEntry": "Recusa de entrada",
+      "entered": "Entrou",
+      "entryUnknown": "Especificar se o membro foi autorizado a entrar",
+      "member": "Membro",
+      "session": "Motivo da visita",
+      "time": "Entrada",
+      "accessStatus": "Estado",
+      "placeholder": {
+        "default": "Ainda não registou nenhuma visita.",
+        "search": "Com base na sua pesquisa, não encontrámos nenhum membro que tenha visitado hoje."
+      }
+    },
+    "breadcrumbTitle": "Visita ao local",
+    "unreadCount": "{{ count }} nova visita",
+    "unreadCount_plural": "{{ count }} novas visitas"
+  },
+  "memberVisitDetails": {
+    "accessStatus": {
+      "green": "Válido",
+      "orange": "Aviso",
+      "red": "Não válido"
+    },
+    "title": "Informações sobre os membros",
+    "firstName": "Nome próprio:",
+    "lastName": "Apelido:",
+    "nextBooking": "Próxima reserva:",
+    "teacherName": "Professor: {{- coachName}}",
+    "spotName": "Local: {{- spotName}}",
+    "noSpotAllocated": "Nenhum lugar atribuído",
+    "pass": "Passar:",
+    "photoHasChanged": "A fotografia de perfil foi alterada recentemente",
+    "noPreviousPhoto": "O membro não tem fotografias anteriores",
+    "actions": {
+      "seePreviousImages": "Ver anterior",
+      "goToProfile": "Perfil",
+      "billMember": "Fatura"
+    },
+    "manualEntry": {
+      "description": "Indicar se este membro pode entrar ou não",
+      "button": {
+        "refuse": "Recusar a entrada",
+        "accept": "Permitir a entrada",
+        "entryAllowed": "Entrou",
+        "entryRefused": "Entrada recusada"
+      }
+    },
+    "passExpiration": "Válido até {{- expirationDate }}",
+    "atHome": "Em casa"
+  },
+  "settings": {
+    "title": "Prazo de inscrição dos membros",
+    "description": "Definir o tempo permitido para o membro entrar antes e depois do início da sua sessão num estabelecimento compatível.",
+    "hours": "Horas",
+    "minutes": "Minutos",
+    "afterTitle": "Período de inscrição antes do início da sessão",
+    "beforeTitle": "Período de inscrição após o início da sessão",
+    "isStudioWide": "As definições são aplicadas em todo o estúdio.",
+    "errors": {
+      "required": "Este campo é obrigatório",
+      "hours": {
+        "min": "Deve ser maior que 0",
+        "max": "Deve ser inferior a 24"
+      },
+      "minutes": {
+        "min": "Deve ser maior que 0",
+        "max": "Deve ser inferior a 60"
+      }
+    }
+  },
+  "modals": {
+    "locationBlocker": {
+      "title": "Local não atribuído",
+      "message": "Peça ao pessoal com direitos de administrador para atribuir uma localização ao acesso do pessoal.",
+      "description": "Encontra-se em Definições > Pessoal."
+    },
+    "accessStatusChangedSuccess": {
+      "title": "Estado do membro atualizado",
+      "message": "Todos os problemas foram resolvidos. O estado do membro foi atualizado para válido."
+    },
+    "entryStatusChanged": {
+      "Y": {
+        "title": "Membro inscrito",
+        "message": "O deputado foi autorizado a entrar com as advertências existentes.",
+        "description": "Continua a ser possível abordar os avisos no separador Visita de localização."
+      },
+      "close": "Fechar página de membro",
+      "stay": "Manter-se na página do membro",
+      "N": {
+        "title": "Entrada recusada",
+        "message": "A entrada do deputado foi recusada.",
+        "description": "Pode ainda endereçar avisos e deixá-los entrar a partir do separador Visita ao local."
+      }
+    },
+    "memberPhotoHistory": {
+      "title": "Fotos anteriores",
+      "uploadedOn": "Carregado {{- date}}",
+      "validateIdentity": "Validar a identidade"
+    }
+  },
+  "filters": {
+    "accessStatus": {
+      "green": "Válido",
+      "orange": "Aviso",
+      "red": "Não válido",
+      "G": "Válido",
+      "O": "Aviso",
+      "R": "Não válido"
+    },
+    "entryStatus": {
+      "entered": "Entrou",
+      "notEntered": "Não introduzido",
+      "unknown": "Desconhecido",
+      "Y": "Entrou",
+      "N": "Não introduzido",
+      "U": "Desconhecido"
+    }
+  }
+}

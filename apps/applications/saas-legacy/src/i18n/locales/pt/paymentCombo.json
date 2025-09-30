@@ -31,7 +31,8 @@
     "selectorPlaceholder": {
       "shopitem": "Loja",
       "paymentPack": "Passe de aulas",
-      "privatePass": "Passe Marcação"
+      "privatePass": "Passe Marcação",
+      "shopItemExcludingvariant": "Loja virtual (produtos com variantes excluídos)"
     },
     "content": "Conteúdo",
     "actions": {
@@ -82,7 +83,8 @@
         "tagsOnAcquisitionHelper": "Use etiquetas para identificar qual membro comprou o pack",
         "tagsOnAcquisition": "Etiqueta após compra"
       },
-      "header": "Avançado"
+      "header": "Avançado",
+      "tagGroupDuplicated": "Note-se que os artigos selecionados contêm etiquetas da mesma categoria"
     }
   },
   "list": {

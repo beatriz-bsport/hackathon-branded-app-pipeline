@@ -64,7 +64,8 @@
         "restrictionForFixedBillingDay": "O número de faturas deve estar compreendido entre 2 e 12 para a faturação num dia fixo",
         "error": "O número de faturas não deve exceder 90",
         "label": "Número de faturas",
-        "errorForFixedBillingDay": "O número de faturas não deve exceder 12"
+        "errorForFixedBillingDay": "O número de faturas não deve exceder 12",
+        "helperText": "O mínimo é de 2 meses"
       },
       "object_type": {
         "paymentPack": "Passe de aulas",
@@ -83,11 +84,16 @@
           "week_plural": "semanas",
           "year": "ano",
           "year_plural": "anos"
-        }
+        },
+        "helperText": " "
       },
       "title": "Formulário da subscrição",
       "error": {
-        "missingObject": "Este campo é obrigatório"
+        "missingObject": "Este campo é obrigatório",
+        "missingPaymentPack": "É necessário selecionar um passe",
+        "missingPrivatePass": "É necessário selecionar um cartão de marcação",
+        "missingPaymentCombo": "É necessário selecionar um pacote",
+        "moreThanThreeDecimalPrice": "Parece que introduziu mais de duas casas decimais. Por favor, ajuste o valor para o cêntimo mais próximo."
       },
       "price": {
         "title": "Preço"
@@ -108,7 +114,8 @@
         "placeholder": "Introduzir aqui todas as informações jurídicas necessárias, nomeadamente no que se refere aos procedimentos de reembolso."
       },
       "autoRenewal": {
-        "label": "Renovação tácita"
+        "label": "Renovação tácita",
+        "germanMarketWarning": "Para estar em conformidade com a lei alemã sobre contratos justos para consumidores, após 2 anos de subscrição, os novos ciclos de subscrição devem ser inferiores a um ano. Por favor, certifique-se de que cumpre estas condições."
       },
       "settings": {
         "title": "Configurações"
@@ -128,7 +135,28 @@
           "tagsOnAcquisitionHelper": "Use etiquetas para identificar qual membro pagou a primeira fatura.",
           "tagsOnAcquisition": "Etiquete após a compra"
         },
-        "title": "Avançado"
+        "title": "Avançado",
+        "header": "Avançado"
+      },
+      "nbIntervalAfterAutoRenewal": {
+        "firstLabel": "Alterar a faturação da subscrição para os ciclos seguintes",
+        "secondLabel": "Número de facturas *"
+      },
+      "notEditable": "Este contrato tem origem numa migração de dados previamente concluída. Alguns campos podem não ser editáveis para preservar os dados.",
+      "commitmentPeriod": {
+        "label": "Período de autorização",
+        "helperText": "Não se esqueça de verificar a legislação do seu país relativa ao direito de retratação da subscrição e de acrescentar as informações necessárias nos seus termos e condições.",
+        "error": "O período de compromisso não pode exceder 90 anos.",
+        "explain": {
+          "day": "Esta subscrição irá comprometer o membro durante {{ commitment_period_value }} dias. As alterações ao período de compromisso da subscrição nas definições não afectarão quaisquer subscrições que já tenham sido compradas.",
+          "day_plural": "Esta subscrição irá comprometer o membro durante {{ commitment_period_value }} dias. As alterações ao período de compromisso da subscrição nas definições não afectarão quaisquer subscrições que já tenham sido compradas.",
+          "week": "Esta subscrição irá comprometer o membro durante {{ commitment_period_value }} semanas. As alterações ao período de compromisso da subscrição nas definições não afectarão quaisquer subscrições que já tenham sido compradas.",
+          "week_plural": "Esta subscrição irá comprometer o membro durante {{ commitment_period_value }} semanas. As alterações ao período de compromisso da subscrição nas definições não afectarão quaisquer subscrições que já tenham sido compradas.",
+          "month": "Esta subscrição irá comprometer o membro durante {{ commitment_period_value }} meses. As alterações ao período de compromisso da subscrição nas definições não afectarão quaisquer subscrições que já tenham sido compradas.",
+          "month_plural": "Esta subscrição irá comprometer o membro durante {{ commitment_period_value }} meses. As alterações ao período de compromisso da subscrição nas definições não afectarão quaisquer subscrições que já tenham sido compradas.",
+          "year": "Esta subscrição irá comprometer o membro durante {{ commitment_period_value }} ano. As alterações ao período de compromisso da subscrição nas definições não afectarão quaisquer subscrições que já tenham sido compradas.",
+          "year_plural": "Esta subscrição compromete o membro durante {{ commitment_period_value }} anos. As alterações ao período de compromisso da subscrição nas definições não afectarão quaisquer subscrições que já tenham sido compradas."
+        }
       }
     },
     "interval": {
@@ -215,7 +243,51 @@
     "yes": "Sim",
     "no": "Não",
     "paymentCombo": "Pack associado",
-    "autoRenewal": "Renovação automática"
+    "autoRenewal": "Renovação automática",
+    "commitmentPeriod": {
+      "label": "Período de autorização",
+      "explain": {
+        "day": "Esta subscrição irá comprometer o membro durante {{ commitment_period_value }} dias.",
+        "day_plural": "Esta subscrição irá comprometer o membro durante {{ commitment_period_value }} dias.",
+        "week": "Esta subscrição irá comprometer o membro durante {{ commitment_period_value }} semanas.",
+        "week_plural": "Esta subscrição irá comprometer o membro durante {{ commitment_period_value }} semanas.",
+        "month": "Esta subscrição irá comprometer o membro durante {{ commitment_period_value }} meses.",
+        "month_plural": "Esta subscrição irá comprometer o membro durante {{ commitment_period_value }} meses.",
+        "year": "Esta subscrição irá comprometer o membro durante {{ commitment_period_value }} ano.",
+        "year_plural": "Esta subscrição irá comprometer o membro durante {{ commitment_period_value }} anos."
+      }
+    },
+    "recurrenceInfo": {
+      "day": "por dia",
+      "day_plural": "a cada {{ count }} dias",
+      "week": "semanal",
+      "week_plural": "a cada {{ count }} semanas",
+      "month": "por mês",
+      "month_plural": "a cada {{ count }} meses",
+      "year": "por ano",
+      "year_plural": "a cada {{ count }} anos"
+    },
+    "recurrenceInfoFixedDay": "todos os {{ days }} do mês",
+    "autoRenewalInfo": "Renovação automática",
+    "durationInfo": {
+      "day": "{{ count }} dia",
+      "day_plural": "{{ count }} dias",
+      "week": "{{ count }} semana",
+      "week_plural": "{{ count }} semanas",
+      "month": "{{ count }} mês",
+      "month_plural": "{{ count }} meses",
+      "year": "{{ count }} ano",
+      "year_plural": "{{ count }} anos"
+    },
+    "nbIntervalAfterAutoRenewal": {
+      "title": "Segundo plano de faturação",
+      "details": {
+        "day": "Após a renovação, a subscrição será modificada para um plano de {{durationAfterAutoRenewal}} dias.",
+        "week": "Após a renovação, a subscrição será modificada para um plano semanal {{durationAfterAutoRenewal}}.",
+        "month": "Após a renovação, a subscrição será modificada para um plano mensal {{durationAfterAutoRenewal}}.",
+        "year": "Após a renovação, a subscrição será modificada para um plano anual {{durationAfterAutoRenewal}}."
+      }
+    }
   },
   "subscription": {
     "delete": "Eliminar",
@@ -432,7 +504,8 @@
       "afterSubcriptionCreation": "Depois da subscrição ser criada.",
       "day": "Dia",
       "day_plural": "Dias",
-      "after": "Depois"
+      "after": "Depois",
+      "sendNotification": "Enviar a notificação"
     },
     "triggeringEvent": {
       "contractCreation": "Criar subscrição",
@@ -554,7 +627,9 @@
     "autoRenew": "Renovação automática",
     "note": "Aviso",
     "stopNote": "Aviso de cancelamento",
-    "contractTermsAccepted": "As <0>mentions légales</0> foram aceites em {{- dateAccepted}}."
+    "contractTermsAccepted": "As <0>mentions légales</0> foram aceites em {{- dateAccepted}}.",
+    "secondBillingPlanEnabled": "Segundo plano de faturação ativado",
+    "source_company": "Comprado em"
   },
   "action": {
     "stopExplain": "Os pagamentos futuros serão anulados e as facturas correspondentes serão eliminadas. Se uma reserva tiver sido registada com uma assinatura cuja fatura tenha sido anulada, esta será igualmente anulada.",
@@ -614,7 +689,8 @@
     "email": "Email do titular",
     "contentIban": "Ao fornecer o seu IBAN e confirmar o pagamento, autoriza a bsport, Stripe e o nosso sistema de pagamento, a enviar instruções de débito ao seu banco, de acordo com o calendário de pagamento. O utilizador pode solicitar um reembolso ao banco, de acordo com as condições do seu contrato com o mesmo. O reembolso deve ser solicitado no prazo de 8 semanas após o primeiro débito.",
     "sortCode": "Código de ordenação",
-    "accountNumber": "Número da conta"
+    "accountNumber": "Número da conta",
+    "content": "Ao fornecer o seu IBAN e ao confirmar este pagamento, está a autorizar o bsport.io e o Stripe, o nosso fornecedor de serviços de pagamento, a enviar instruções ao seu banco para debitar a sua conta e o seu banco a debitar a sua conta de acordo com essas instruções. O utilizador tem direito a um reembolso do seu banco ao abrigo dos termos e condições do seu contrato com o mesmo. O reembolso deve ser solicitado no prazo de 8 semanas a contar da data em que a sua conta foi debitada."
   },
   "search": "Procurar uma subscrição",
   "status": {
@@ -667,7 +743,9 @@
   },
   "scheduledStop": {
     "label": "Terminada",
-    "unscheduleStop": "Desprogramar a paragem"
+    "unscheduleStop": "Desprogramar a paragem",
+    "stoppedByManager": "Terminado por {{ name }}",
+    "stoppedByMember": "Rescindido pelo membro"
   },
   "schedule": {
     "paymentMethodTitle": "Débito",
@@ -687,7 +765,8 @@
     "paused": "Em pausa",
     "subscribedOn": "A subscrição começou em {{- date}}",
     "canceled": "Interrompida",
-    "valid": "Válida"
+    "valid": "Válida",
+    "willSubscribeOn": "A subscrição terá início em {{- date}}"
   },
   "subscriptionStatus": {
     "pending": "Em fase de faturação",
@@ -749,5 +828,189 @@
         "userRegistration": "Veja minha assinatura"
       }
     }
+  },
+  "germanNbIntervalAlert": "Para estar em conformidade com a lei alemã sobre contratos justos para os consumidores, o número de facturas tem de ser inferior a 24.",
+  "GermanMarketSetSubscriptionAutoRenewalAlert": {
+    "title": "Renovação automática",
+    "content": "Para estar em conformidade com a lei alemã sobre contratos justos para consumidores, após 2 anos de subscrição, os novos ciclos de subscrição devem ser inferiores a um ano. Tem a certeza de que pretende continuar?"
+  },
+  "contractTemplate": {
+    "backofficeEditWarning": "A subscrição é partilhada através da Conta Principal. Algumas definições foram predefinidas pela referida conta principal e não podem ser modificadas.",
+    "list": {
+      "isEmpty": "Não há contratos partilhados"
+    },
+    "icons": {
+      "restore": "Restaurar"
+    },
+    "dialog": {
+      "delete": {
+        "title": "Eliminar a confirmação",
+        "content": "Tem a certeza de que pretende eliminar a subscrição partilhada?",
+        "cancel": "Cancel",
+        "confirm": "Eliminar"
+      }
+    },
+    "filter": {
+      "noFilters": "Todas as subscrições",
+      "availableForEveryone": "Disponível para todos",
+      "memberOnly": "Apenas membros",
+      "staffOnly": "Apenas pessoal",
+      "unavailableForEveryone": "Indisponível para todos",
+      "availability": "Disponibilidade",
+      "searchPlaceholder": "Procurar uma subscrição",
+      "studios": "Estúdios",
+      "passes": "Passa",
+      "appointmentPasses": "Passes de marcação",
+      "productType": "Produto",
+      "associatedPass": "Passe associado"
+    },
+    "detailPage": {
+      "sharedStudios": "Partilhado com os seguintes estúdios:"
+    },
+    "form": {
+      "title": "Assinatura",
+      "sharedPassesSelectorTooltip": "Os estúdios que têm acesso a este passe partilhado também terão acesso à subscrição",
+      "sharedAppointmentPassesSelectorTooltip": "Os estúdios que têm acesso a este passe de marcação partilhado também terão acesso à subscrição"
+    }
+  },
+  "franchiseUserProfile": {
+    "pleaseSelectASubscription": "Selecione uma subscrição para obter uma visão geral mais detalhada.",
+    "associatedInvoices": "Facturas associadas",
+    "associatedPassValidity": "Válido para"
+  },
+  "filters": {
+    "all": "Todas as subscrições"
+  },
+  "billingPlanStatus": {
+    "canceled": "Terminado",
+    "expired": "Expirado",
+    "paused": "Em pausa",
+    "valid": "Válido"
+  },
+  "pause": {
+    "pausedInterval": "{{start}} → {{ end }} : {{ days }}  dias",
+    "pausedAt": "{{days}} dia(s) - {{date}}",
+    "actions": {
+      "delete": "Cancelar pausa"
+    },
+    "secondaryLabel": " : {{ note }}",
+    "label": "Pausa de {{- fromDate}} a {{- untilDate}}",
+    "createdAt": "Pausa em",
+    "dialogs": {
+      "success": {
+        "content": "A subscrição {{subscriptionName}} de {{subscriberName}} foi colocada em pausa de {{- dateStart}} a {{- dateEnd}} inclusive.",
+        "continue": "Continuar",
+        "title": "Colocar a subscrição em pausa"
+      },
+      "form": {
+        "confirm": "Guardar",
+        "information2": "A data de validade do passe será prolongada pelo número de dias da pausa e o passe manter-se-á válido durante a pausa.",
+        "information": "As subscrições serão colocadas em pausa de {{- dateStart}} a {{- dateEnd}} inclusive. A sua próxima faturação será adiada por {{count}} dias, bem como todas as futuras facturações.",
+        "information_plural": "As subscrições serão colocadas em pausa de {{- dateStart}} a {{- dateEnd}} inclusive. A sua próxima faturação será atrasada em {{count}} dias, bem como todas as futuras facturações.",
+        "duration": {
+          "warning": "A data final não pode ser anterior à data de início",
+          "end": "Data final (incluída)",
+          "start": "Data de início (incluída)",
+          "title": "Duração da pausa"
+        },
+        "causePlaceholder": "Motivo *",
+        "titleEdition": "Alterar a pausa",
+        "titleCreation": "Em pausa"
+      },
+      "fail": {
+        "comeback": "Voltar",
+        "contentUnknownError": "Ocorreu um erro imprevisto. Pedimos desculpa por qualquer incómodo causado.",
+        "contentCanNotCreateAPauseInThePast": "A pausa não pode começar no passado.",
+        "contentCanNotEditPauseEndBeforeToday": "A nova data de início da pausa não pode ser fixada antes de hoje.",
+        "contentCanNotEditPauseStartWhenHasStarted": "A data de início da pausa não pode ser alterada depois de iniciada.",
+        "contentSubscriptionWillEndBeforePause": "A subscrição não pode ser interrompida durante este período, uma vez que já terá terminado antes.",
+        "contentCanNotCancelPause": "Uma vez que a pausa já começou ou já passou, não pode ser cancelada.",
+        "contentInvalidTimedelta": "A pausa deve durar pelo menos um dia.",
+        "contentOverlapPause": "Não foi possível colocar em pausa a subscrição {{subscriptionName}} de {{subscriberName}} porque já está agendada uma pausa de {{- dateStart}} a {{- dateEnd}}.",
+        "contentIncomingBill": "A subscrição {{subscriptionName}} de {{subscriberName}} não pôde ser colocada em pausa porque uma fatura no intervalo de pausa será cobrada dentro de 24 horas ou tem um pagamento em curso. Por favor, altere a data de início da pausa.",
+        "title": "Falha na pausa"
+      },
+      "delete": {
+        "content": "Tens a certeza que queres desprogramar esta pausa?",
+        "title": "Cancelar a pausa"
+      },
+      "common": {
+        "confirm": "Confirmar",
+        "cancel": "Cancel"
+      }
+    },
+    "eventItems": {
+      "pauseDeleted": "Motivo da pausa anterior: {{pause_name}}",
+      "pauseCreatedThenDeleted": "Esta pausa foi eliminada ou modificada.",
+      "pauseCreated": "De {{- dateStart}} a {{- dateEnd}} - Criado em {{- dateCreation}} por {{staffName}}"
+    },
+    "menu": {
+      "change": "Alterar as datas",
+      "delete": "Desativar"
+    }
+  },
+  "messages": {
+    "youSubscribed": {
+      "success": "A sua inscrição foi efectuada com sucesso",
+      "error": "Erro ao subscrever"
+    },
+    "updatePrice": {
+      "error": "Impossível atualizar este montante",
+      "success": "Montante atualizado"
+    },
+    "freeze": {
+      "error": "Impossível suspender esta subscrição",
+      "alreadyPaused": "Impossível colocar em pausa uma subscrição já colocada em pausa",
+      "success": "Assinatura pausada"
+    }
+  },
+  "contractPause": {
+    "form": {
+      "dateFilter": {
+        "label": "Colocar em pausa apenas as subscrições com facturas cobradas entre duas datas"
+      },
+      "invalidBillingPlan": "As seguintes subscrições não podem ser colocadas em pausa automaticamente",
+      "explainImpossible": "Se estiver a decorrer um pagamento, ou se for esperado dentro de 24 horas, a subscrição não pode ser interrompida automaticamente",
+      "validBillingPlan": "As seguintes subscrições serão colocadas em pausa",
+      "untilDate": {
+        "label": "e o"
+      },
+      "fromDate": {
+        "label": "Facturado entre o"
+      },
+      "advanced": "Avançado",
+      "days": {
+        "helperText": "Número de dias em que as subscrições serão colocadas em pausa",
+        "label": "Número de dias"
+      },
+      "name": {
+        "label": "Nota",
+        "placeholder": "Estúdio fechado no feriado bancário"
+      },
+      "warning": "Atenção, em certas subscrições, a pausa não pode ser anulada",
+      "title": "Pausar todas as subscrições",
+      "paymentPackActions": {
+        "disableTillNextInvoice": "Desativar o pacote facturado até à faturação seguinte",
+        "extendTillNextInvoice": "Prolongar a validade do passe facturado até à fatura seguinte",
+        "doNotChange": "Não alterar o passe que foi facturado",
+        "title": "Definições"
+      }
+    },
+    "actions": {
+      "verify": "Verificar",
+      "add": "Pausa",
+      "submit": "Colocar em pausa",
+      "cancel": "Cancel",
+      "previous": "Anterior"
+    },
+    "section": {
+      "error": "Erro ao colocar a subscrição {{count}} em pausa automaticamente",
+      "error_plural": "Erro ao colocar automaticamente em pausa as subscrições {{count}}",
+      "success": "{{count}} assinatura em pausa",
+      "success_plural": "{{count}} assinaturas em pausa"
+    },
+    "createdAt": "Criado {{at}}",
+    "title": "Pausar todas as subscrições",
+    "fromUntil": "Apenas se for facturado entre {{from}} e {{until}} incluído"
   }
 }

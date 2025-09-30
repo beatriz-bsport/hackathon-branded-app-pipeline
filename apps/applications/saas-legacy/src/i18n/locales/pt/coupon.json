@@ -20,7 +20,8 @@
       "voucherConfig": "Desconto"
     },
     "name": {
-      "label": "Nome"
+      "label": "Nome",
+      "helperText": "O nome introduzido aqui aparecerá nas facturas quando o código promocional for aplicado"
     },
     "is_active": {
       "label": "Activos",
@@ -29,7 +30,8 @@
     "code": {
       "helperText": "O código que transmitirá aos alunos em causa",
       "helperTextFranchise": "O código que irá transmitir aos clientes. Certifique-se de que o código não existe já nos seus diferentes estabelecimentos.",
-      "label": "Código"
+      "label": "Código",
+      "codeAlreadyInUse": "Este código já está a ser utilizado."
     },
     "subscription_mode": {
       "0": "Todas as facturas",
@@ -73,6 +75,7 @@
     "applies_to": {
       "choicesFranchise": {
         "1": "Passes de aulas partilhados",
+        "2": "Itens partilhados da loja virtual",
         "9": "Passes de Aula Privada partilhados"
       },
       "choices": {
@@ -131,7 +134,8 @@
   "list": {
     "isEmpty": "Não há promoções a apresentar.",
     "inactiveCoupons": "Promoções desactivadas ou vencido",
-    "activeCoupons": "Promoções em vigor"
+    "activeCoupons": "Promoções em vigor",
+    "expiredActiveCoupons": "Promoções activas expiradas"
   },
   "noDiscount": "Nenhuma compra foi efectuada com este código",
   "detail": {
@@ -171,13 +175,16 @@
     "addCoupon": {
       "5004": "Este cupão só pode ser aplicado a um único artigo.",
       "5006": "Este cupão já está associado a um carrinho",
+      "45009": "Este código de cartão de oferta não pode ser aplicado a este cesto",
+      "45010": "O cartão oferta foi bem associado à sua conta, mas não pôde ser ativado porque é anterior à data de ativação",
       "not_found": "Este código promocional não é válido.",
       "not_applicable": "Este código promocional não é aplicável.",
       "placeholder": "RESERVA_ESPECIAL",
       "label": "Código promocional",
       "cancel": "cancelar",
       "submit": "Confirmar",
-      "apply": "Aplicar"
+      "apply": "Aplicar",
+      "couponOnlyLabel": "Código promocional"
     }
   },
   "createCoupon": "Adicionar um código",
@@ -213,7 +220,8 @@
         "codes": {
           "emptyArray": "É necessário acrescentar pelo menos um código",
           "updateMode": "É necessário escolher entre acrescentar os códigos aos já existentes ou substituí-los"
-        }
+        },
+        "positiveOrZeroNumber": "O valor deve ser maior ou igual a 0"
       },
       "alertInfo": "Os cupões são códigos únicos que oferecem um desconto de 100% num produto específico para o membro. Estes códigos não são gerados pela própria plataforma, mas devem ser carregados aqui como um ficheiro CSV. Esta funcionalidade é particularmente útil se tiver feito uma parceria com uma entidade externa, como a Groupon, para realizar uma campanha promocional. Neste caso, a Groupon (ou uma entidade semelhante) gera e vende os cupões em nome do seu estúdio.",
       "alertWarning": "Não aplicável às subscrições",
@@ -278,5 +286,23 @@
   "couponType": {
     "0": "Código de desconto",
     "3": "Vale de utilização única"
+  },
+  "couponNotFullyAppliedWarning": "Alguns descontos não foram totalmente aplicados, uma vez que excediam os preços iniciais dos artigos. Os montantes de desconto não utilizados serão perdidos.",
+  "message": {
+    "delete": {
+      "error": "Impossível eliminar este cupão",
+      "success": "Eliminar cupões"
+    },
+    "update": {
+      "error": "Impossível editar este cupão",
+      "success": "Cupão atualizado com sucesso"
+    },
+    "create": {
+      "error": "Impossível criar este cupão",
+      "success": "Cupão guardado com sucesso"
+    },
+    "attachToBasket": {
+      "error": "Não foi encontrado nenhum cupão compatível"
+    }
   }
 }

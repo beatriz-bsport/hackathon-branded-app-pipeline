@@ -139,9 +139,14 @@ export const PaymentStripeGenericElement = forwardRef(
     // This useEffect is required in the new checkout flow, in order to disable the 'Pay Now' button
     // if needed
     useEffect(() => {
-      if (setIsOnlinePaymentDisabled)
-        setIsOnlinePaymentDisabled(isSubmitButtonDisabled);
-    }, [isSubmitButtonDisabled, setIsOnlinePaymentDisabled]);
+      if (!isCheckoutContext && !forceHideConfirmPaymentButton)
+        setIsOnlinePaymentDisabled?.(isSubmitButtonDisabled);
+    }, [
+      forceHideConfirmPaymentButton,
+      isCheckoutContext,
+      isSubmitButtonDisabled,
+      setIsOnlinePaymentDisabled,
+    ]);
 
     const handleSubmit = useCallback(
       async (event: React.FormEvent<HTMLFormElement>) => {

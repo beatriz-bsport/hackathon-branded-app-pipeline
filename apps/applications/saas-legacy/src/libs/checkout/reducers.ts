@@ -177,7 +177,7 @@ export default handleActions<Immutable.Immutable<CheckoutState>, any>(
       state,
       { payload }: { payload: boolean },
     ) => {
-      return state.setIn(['basket', 'updating'], payload);
+      return state.setIn(['basket', 'current', 'updating'], payload);
     },
     [assignInstalmentPaymentActions.error.toString()]: (
       state,

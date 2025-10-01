@@ -1,6 +1,10 @@
 import { TFunction } from 'i18next';
 import { DAILY, MONTHLY, WEEKLY } from './constants';
-import { InstalmentPayment } from './types';
+import {
+  CustomFirstInstalmentType,
+  type InstalmentPayment,
+  type InstalmentPaymentApiWithBasketId,
+} from './types';
 
 export const generateRecurrencyString = (
   t: TFunction,
@@ -165,3 +169,42 @@ export const identifyCompability = (instalmentPayment: InstalmentPayment) => {
       !instalmentPayment.is_available_on_all_shop_item,
   );
 };
+
+// @debt(4, 2, 3): Potential side effects in the installment calculation logic if business rules change
+// Calculate the amount for each instalment except the last one, rounded down
+/**
+ * Computes the first instalment amount for a given instalment payment configuration and basket price.
+ * Mirrors the logic in BasketInstalmentPaymentOption.
+ */
+export function getFirstInstalmentAmount(
+  instalmentPayment: InstalmentPaymentApiWithBasketId,
+  basketPrice: number,
+): string {
+  const {
+    number_of_billing,
+    custom_first_instalment_amount,
+    custom_first_instalment_enabled,
+    custom_first_instalment_percent,
+    custom_first_instalment_type,
+    partial_payment_enabled,
+  } = instalmentPayment;
+
+  // TODO: FIX TYPING, custom_first_instalment_amount is a string
+  const customFirstInstalmentAmountAsNumber = Number.parseFloat(
+    // @ts-expect-error
+    custom_first_instalment_amount,
+  );
+
+  const hasCustomFirstPayment =
+    custom_first_instalment_enabled || partial_payment_enabled;
+
+  if (!hasCustomFirstPayment)
+    return (Math.trunc((basketPrice / number_of_billing) * 100) / 100).toFixed(
+      2,
+    );
+  if (custom_first_instalment_type === CustomFirstInstalmentType.AMOUNT)
+    return (customFirstInstalmentAmountAsNumber || 0).toFixed(2);
+  return (((custom_first_instalment_percent || 0) / 100) * basketPrice).toFixed(
+    2,
+  );
+}

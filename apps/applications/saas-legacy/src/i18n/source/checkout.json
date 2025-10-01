@@ -61,7 +61,8 @@
     "referral": {
       "missingAmountBeforeApplication": "The minimum purchase amount has not been reached. You risk losing your referral link. Only {{ missingAmount }} more to be able to enjoy the discount!",
       "hasReachedMaxUses": "The maximum number of uses for the referral link has been reached."
-    }
+    },
+    "expressCheckoutTitle": "Express checkout"
   },
   "payLater": {
     "submit": "Pay on site",
@@ -138,6 +139,7 @@
       "widgetContinue": "Next",
       "member": "My account",
       "payNow": "Pay now",
+      "payAmountNow": "Pay {{ amount }} now",
       "confirmPriceNull": "Confirm",
       "myPasses": "My passes",
       "myGiftcards": "My giftcards",
@@ -203,7 +205,7 @@
     "internalAccount": "My internal account balance",
     "deliveryFee": "Delivery Fee",
     "title": "Payment",
-    "totalHiddingTax": "Total to pay now",
+    "totalHiddingTax": "Total",
     "flatFeeSubscription": "Application fee",
     "selectedSession": "Your selected sessions"
   },

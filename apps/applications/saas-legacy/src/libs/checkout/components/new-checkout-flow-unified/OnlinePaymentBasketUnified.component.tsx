@@ -3,33 +3,41 @@ import React, {
   useCallback,
   useEffect,
   useImperativeHandle,
+  useMemo,
+  useState,
 } from 'react';
+import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core';
 
 import { PaymentMethodCardSelector } from '#src/libs/payment/components/PaymentMethodCardSelector.component';
 import InstalmentPaymentSelector from '#src/libs/instalment-payment-configuration/components/InstalmentPaymentSelector.component';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import PaymentStripeRevamped from '#src/libs/payment/payment-module-revamped/payment-backend-stripe/PaymentStripeRevamped.component';
+import StripeExpressCheckoutElement from './StripeExpressCheckoutElement.component';
 import CheckoutBillingGroupSelector from '#src/libs/marketplace/components/@Basket/CheckoutBillingGroupSelector.component';
 import PaymentPaypal from '#src/libs/payment/components/paypal/PaymentPaypal.component';
 import AcceptTermsAndConditions from '#src/libs/payment/components/AcceptTermsAndConditions.component';
 
-import { useBasketPaymentStatusTracker } from './hooks/useBasketPaymentStatusTracker';
-import { useBasketPaymentLocalState } from './hooks/useBasketPaymentLocalState';
-import { useBasket } from './hooks/useBasket';
-import { useCompanyPaymentSettings } from './hooks/useCompanyPaymentSettings';
-import { useMember } from './hooks/useMember';
-import { usePayment } from './hooks/usePayment';
-import { usePaymentMethod } from './hooks/usePaymentMethod';
+import { useBasketPaymentContext } from '#src/libs/checkout/components/new-checkout-flow-unified/BasketPaymentContext';
+import { useBasketPaymentStatusTracker } from '#src/libs/payment/payment-module-revamped/basket-payment/hooks/useBasketPaymentStatusTracker';
+import { useBasketPaymentLocalStateUnified } from './hooks/useBasketPaymentLocalStateUnified';
+import { useBasket } from '#src/libs/payment/payment-module-revamped/basket-payment/hooks/useBasket';
+import { useCompanyPaymentSettings } from '#src/libs/payment/payment-module-revamped/basket-payment/hooks/useCompanyPaymentSettings';
+import { useMember } from '#src/libs/payment/payment-module-revamped/basket-payment/hooks/useMember';
+import { usePayment } from '#src/libs/payment/payment-module-revamped/basket-payment/hooks/usePayment';
+import { usePaymentMethod } from '#src/libs/payment/payment-module-revamped/basket-payment/hooks/usePaymentMethod';
 import { useMemberPaymentMethodListProvider } from '#src/libs/payment/payment-module-revamped/hooks/useMemberPaymentMethodListProvider';
 
+import { OnlinePaymentBasketRef } from '#src/libs/checkout/components/new-checkout-flow-unified/types';
 import type { StripePaymentElementConfig } from '#src/libs/company/types';
 import { TermsAndConditionType } from '#src/libs/payment/types';
 
 import {
   PAYMENT_ENGINE_PAYPAL,
   PAYMENT_ENGINE_STRIPE,
+  PAYMENT_GROUP_METHOD_IDENTIFIER_APPLE_PAY,
   PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
+  PAYMENT_GROUP_METHOD_IDENTIFIER_GOOGLE_PAY,
   PAYMENT_GROUP_METHOD_IDENTIFIER_PAYPAL_WALLET,
   PAYMENT_GROUP_METHOD_IDENTIFIER_TWINT,
   PAYMENT_INTENT_STATUS_CANCELED,
@@ -38,11 +46,13 @@ import {
   PAYMENT_INTENT_STATUS_PROCESSING,
   PAYMENT_INTENT_STATUS_SUCCESS,
 } from '@bsport/common/lib/master-data/payment-group';
+import WidgetUtils from '#src/libs/widget/WidgetUtils';
 
 type Props = {
   basketId: string;
   companyId: number;
   hideConfirmPaymentButton?: boolean;
+  showAcceptTermsAndConditions?: boolean;
   payerContext: {
     memberId: number;
     fromApp?: boolean;
@@ -55,12 +65,13 @@ type Props = {
   ref?: React.Ref<any>;
 };
 
-export const OnlinePaymentBasket: React.FC<Props> = forwardRef(
+export const OnlinePaymentBasketUnified: React.FC<Props> = forwardRef(
   (
     {
       basketId,
       companyId,
       hideConfirmPaymentButton,
+      showAcceptTermsAndConditions,
       payerContext: { memberId, fromApp, termsAndConditionsAccepted },
       stripePaymentElementConfig,
       onCancelPaymentBeforeConfirming,
@@ -70,8 +81,9 @@ export const OnlinePaymentBasket: React.FC<Props> = forwardRef(
     ref,
   ) => {
     const classes = useStyles();
+    const { t } = useTranslation(['invoice']);
 
-    const paymentRef = React.useRef(null);
+    const paymentRef = React.useRef<OnlinePaymentBasketRef>(null);
 
     const {
       basketTotalPriceCts,
@@ -104,11 +116,9 @@ export const OnlinePaymentBasket: React.FC<Props> = forwardRef(
       handleFetchPaymentGroupStatus,
       handleSetPaymentProcessing,
       instalmentPaymentConfigurations,
-      instalmentPaymentSelectedId,
       isClientSecretLoading,
       paymentGroupId,
       paymentGroupPriceCts,
-      selectInstalmentPayment,
       useInternalAccount,
       handleFetchInstalmentPaymentByBasket,
       getClientSecret,
@@ -121,32 +131,58 @@ export const OnlinePaymentBasket: React.FC<Props> = forwardRef(
 
     const {
       selectedPaymentEngine,
-      selectedEstablishmentBillingGroup,
-      isEstablishmentBillingGroupSelected,
-      setIsEstablishmentBillingGroupSelected,
-      setSelectedEstablishmentBillingGroup,
-      areTermsAndConditionsAccepted,
-      setAreTermsAndConditionsAccepted,
       setIsOnlinePaymentDisabled,
       isOnlinePaymentDisabled,
       setSelectedPaymentEngine,
-    } = useBasketPaymentLocalState();
+    } = useBasketPaymentLocalStateUnified();
 
     const { isPaymentProcessing, isSettingUpPayment } =
       useBasketPaymentStatusTracker(basketId, memberId);
 
     const { handleFetchMemberPaymentMethodList } =
-      useMemberPaymentMethodListProvider(memberId);
+      useMemberPaymentMethodListProvider({ memberId });
 
-    const [paymentMethodSelected, setPaymentMethodSelected] = React.useState(
+    const {
+      termsAccepted,
+      setTermsAccepted,
+      instalmentPaymentSelectedId,
+      setInstalmentPaymentSelectedId,
+      isEstablishmentBillingGroupSelected,
+      setIsEstablishmentBillingGroupSelected,
+      selectedEstablishmentBillingGroup,
+      setSelectedEstablishmentBillingGroup,
+    } = useBasketPaymentContext();
+
+    const [paymentMethodSelected, setPaymentMethodSelected] = useState(
       PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
     );
+
+    const [
+      availableExpressCheckoutMethods,
+      setAvailableExpressCheckoutMethods,
+    ] = useState<boolean | null>(null);
 
     const isOnlinePaymentLoading =
       !basketTotalPriceCts || !clientSecret || isSettingUpPayment;
 
-    const isTotalPriceNull = !(
-      (basketTotalPriceCts || 0) - (basketTotalPricePrepaidLinesCts || 0)
+    const showStripeExpressCheckout = useMemo(
+      () =>
+        selectedPaymentEngine === PAYMENT_ENGINE_STRIPE &&
+        !!clientSecret &&
+        !WidgetUtils.isWidget() &&
+        (paymentMethodAvailableBasket?.includes(
+          PAYMENT_GROUP_METHOD_IDENTIFIER_APPLE_PAY,
+        ) ||
+          paymentMethodAvailableBasket?.includes(
+            PAYMENT_GROUP_METHOD_IDENTIFIER_GOOGLE_PAY,
+          )) &&
+        availableExpressCheckoutMethods !== false,
+      [
+        availableExpressCheckoutMethods,
+        clientSecret,
+        paymentMethodAvailableBasket,
+        selectedPaymentEngine,
+      ],
     );
 
     const handleSelectPaymentMethod = useCallback(
@@ -161,9 +197,9 @@ export const OnlinePaymentBasket: React.FC<Props> = forwardRef(
       [setSelectedPaymentEngine],
     );
 
-    const handleAcceptTermsandConditions = useCallback(
-      (accepted: boolean) => setAreTermsAndConditionsAccepted(accepted),
-      [setAreTermsAndConditionsAccepted],
+    const handleAcceptTermsAndConditions = useCallback(
+      (accepted: boolean) => setTermsAccepted(accepted),
+      [setTermsAccepted],
     );
 
     /**
@@ -185,22 +221,29 @@ export const OnlinePaymentBasket: React.FC<Props> = forwardRef(
       [],
     );
 
-    const onSuccessfulPayment = useCallback(() => {
+    const onSuccessfulPayment = useCallback(async (): Promise<void> => {
       // wrap retry fetchPaymentGroupStatus
-      !!paymentGroupId &&
-        handleFetchPaymentGroupStatus({
-          paymentGroupId,
-          options: {
-            onSuccess: (paymentIntentStatus) => {
-              if (hasBackendProcessedPayment(paymentIntentStatus as number)) {
-                setTimeout(onConfirmPaymentSuccess, 2000);
-              } else {
-                // retry
-                setTimeout(onSuccessfulPayment, 1000);
-              }
+      return new Promise((resolve) => {
+        !!paymentGroupId &&
+          handleFetchPaymentGroupStatus({
+            paymentGroupId,
+            options: {
+              onSuccess: (paymentIntentStatus) => {
+                if (hasBackendProcessedPayment(paymentIntentStatus as number)) {
+                  setTimeout(() => {
+                    onConfirmPaymentSuccess();
+                    resolve();
+                  }, 2000);
+                } else {
+                  // retry
+                  setTimeout(() => {
+                    onSuccessfulPayment().then(resolve);
+                  }, 1000);
+                }
+              },
             },
-          },
-        });
+          });
+      });
     }, [
       onConfirmPaymentSuccess,
       hasBackendProcessedPayment,
@@ -208,51 +251,57 @@ export const OnlinePaymentBasket: React.FC<Props> = forwardRef(
       handleFetchPaymentGroupStatus,
     ]);
 
+    const handleExpressCheckoutError = useCallback(() => {
+      invalidatePendingBookingsIfNecessary();
+      onConfirmPaymentError?.();
+    }, [invalidatePendingBookingsIfNecessary, onConfirmPaymentError]);
+
+    const handleExpressCheckoutReady = useCallback(
+      (event: {
+        availablePaymentMethods?: { applePay: boolean; googlePay: boolean };
+      }) => {
+        const hasAvailableMethods =
+          event.availablePaymentMethods &&
+          (event.availablePaymentMethods.applePay ||
+            event.availablePaymentMethods.googlePay);
+        setAvailableExpressCheckoutMethods(!!hasAvailableMethods);
+      },
+      [],
+    );
+
     useEffect(() => {
       handleFetchCompanyThemeWithEstablishmentBillingGroups();
       handleFetchBasket();
       handleFetchInstalmentPaymentByBasket();
-      getClientSecret(selectedPaymentEngine);
       handleFetchMemberPaymentMethodList();
     }, []);
 
     // This useEffect is mandatory in the new checkout flow, since if this condition is not
     // fullfilled no Stripe PaymentMethodForm component is mounted yet and so we don't want the
     // Pay button to be active
-    React.useEffect(() => {
+    useEffect(() => {
       setIsOnlinePaymentDisabled(isOnlinePaymentLoading);
     }, [isOnlinePaymentLoading, setIsOnlinePaymentDisabled]);
 
     useImperativeHandle(
       ref,
-      () => {
-        return {
-          onPaymentConfirm: (event: React.MouseEvent<HTMLElement>) => {
-            if (isTotalPriceNull) {
-              submitUnpaidBasket();
-            } else {
-              !!event && paymentRef?.current?.onPaymentConfirm(event);
-            }
-          },
-          onPayLaterSubmit: submitUnpaidBasket,
-          onPayPalCreateOrder: paymentRef?.current?.onPayPalCreateOrder,
-          onPayPalApprove: paymentRef?.current?.onPayPalApprove,
-          onPayPalCancel: paymentRef?.current?.onPayPalCancel,
-          onPayPalError: paymentRef?.current?.onPayPalError,
-          paymentEngine: selectedPaymentEngine,
-          paymentMethodSelected,
-          isOnlinePaymentDisabled: isOnlinePaymentDisabled,
-          isEstablishmentBillingGroupSelected:
-            isEstablishmentBillingGroupSelected,
-          selectedEstablishmentBillingGroup: selectedEstablishmentBillingGroup,
-        };
-      },
-      [
-        selectedPaymentEngine,
+      () => ({
+        onPaymentConfirm: (event: React.MouseEvent<HTMLElement>) =>
+          event && paymentRef?.current?.onPaymentConfirm?.(event),
+        onPayLaterSubmit: () =>
+          submitUnpaidBasket({ onSuccess: () => onConfirmPaymentSuccess() }),
+        onPayPalCreateOrder: paymentRef?.current?.onPayPalCreateOrder,
+        onPayPalApprove: paymentRef?.current?.onPayPalApprove,
+        onPayPalCancel: paymentRef?.current?.onPayPalCancel,
+        onPayPalError: paymentRef?.current?.onPayPalError,
+        paymentEngine: selectedPaymentEngine,
         isOnlinePaymentDisabled,
-        isEstablishmentBillingGroupSelected,
-        selectedEstablishmentBillingGroup,
-        paymentMethodSelected,
+      }),
+      [
+        isOnlinePaymentDisabled,
+        onConfirmPaymentSuccess,
+        selectedPaymentEngine,
+        submitUnpaidBasket,
       ],
     );
 
@@ -262,14 +311,63 @@ export const OnlinePaymentBasket: React.FC<Props> = forwardRef(
 
     return (
       <div className={classes.container}>
+        <div className={classes.billingGroupSelector}>
+          {!!establishmentBillingGroups && (
+            <CheckoutBillingGroupSelector
+              enableMultiLocalization={isMultiLocalizationEnabled}
+              establishmentBillingGroups={establishmentBillingGroups}
+              selectedEstablishmentBillingGroup={
+                selectedEstablishmentBillingGroup
+              }
+              setIsEstablishmentBillingGroupSelected={
+                setIsEstablishmentBillingGroupSelected
+              }
+              setSelectedEstablishmentBillingGroup={
+                setSelectedEstablishmentBillingGroup as any
+              }
+            />
+          )}
+          {showAcceptTermsAndConditions &&
+            generalTermsAndConditions &&
+            !fromApp && (
+              <AcceptTermsAndConditions
+                accepted={termsAccepted}
+                onChecked={handleAcceptTermsAndConditions}
+                termsAndConditions={generalTermsAndConditions}
+                type={TermsAndConditionType.TERMS_AND_CONDITIONS}
+              />
+            )}
+        </div>
+
+        {showStripeExpressCheckout && (
+          <div className={classes.expressCheckoutContainer}>
+            <StripeExpressCheckoutElement
+              basketTotalPriceCts={basketTotalPriceCts}
+              clientSecret={clientSecret}
+              disabled={
+                (!termsAccepted && !!generalTermsAndConditions?.length) ||
+                !isEstablishmentBillingGroupSelected
+              }
+              onError={handleExpressCheckoutError}
+              onLoadError={() => setAvailableExpressCheckoutMethods(false)}
+              onReady={handleExpressCheckoutReady}
+              onSuccessfulPayment={onSuccessfulPayment}
+              stripePaymentElementConfig={stripePaymentElementConfig}
+            />
+          </div>
+        )}
+
         <PaymentMethodCardSelector
           paymentMethodChoices={paymentMethodAvailableBasket}
           paymentMethodSelected={paymentMethodSelected}
           paymentProcessing={isPaymentProcessing}
           selectPaymentMethod={handleSelectPaymentMethod}
+          {...(showStripeExpressCheckout
+            ? { title: t('paymentMethod.select.orPayUsing') }
+            : {})}
         />
         {!!instalmentPaymentConfigurations?.length &&
-          !!selectInstalmentPayment &&
+          !!setInstalmentPaymentSelectedId &&
           selectedPaymentEngine !== PAYMENT_ENGINE_PAYPAL &&
           paymentMethodSelected !== PAYMENT_GROUP_METHOD_IDENTIFIER_TWINT && (
             <InstalmentPaymentSelector
@@ -283,7 +381,10 @@ export const OnlinePaymentBasket: React.FC<Props> = forwardRef(
               instalmentPaymentConfigurationSelectedId={
                 instalmentPaymentSelectedId as number
               }
-              onSelectInstalmentPayment={selectInstalmentPayment}
+              onSelectInstalmentPayment={(id, options) => {
+                setInstalmentPaymentSelectedId(id);
+                options?.onSuccess?.();
+              }}
               paymentProcessing={isPaymentProcessing}
             />
           )}
@@ -316,7 +417,9 @@ export const OnlinePaymentBasket: React.FC<Props> = forwardRef(
                 }
                 forceHideConfirmPaymentButton={hideConfirmPaymentButton}
                 fromApp={fromApp}
-                instalmentPaymentSelectedId={instalmentPaymentSelectedId}
+                instalmentPaymentSelectedId={
+                  instalmentPaymentSelectedId ?? undefined
+                }
                 invalidatePendingBookingsIfNecessary={
                   invalidatePendingBookingsIfNecessary
                 }
@@ -339,46 +442,20 @@ export const OnlinePaymentBasket: React.FC<Props> = forwardRef(
                 sepaDefaultName={sepaDefaultName}
                 setIsOnlinePaymentDisabled={setIsOnlinePaymentDisabled}
                 setPaymentProcessing={handleSetPaymentProcessing}
+                setTermsAndConditionsAccepted={setTermsAccepted}
                 stripePaymentElementConfig={stripePaymentElementConfig}
+                termsAndConditions={generalTermsAndConditions}
                 termsAndConditionsAccepted={
                   hideConfirmPaymentButton
                     ? termsAndConditionsAccepted
-                    : areTermsAndConditionsAccepted
+                    : termsAccepted
                 }
                 useInternalAccount={useInternalAccount}
-              >
-                <div className={classes.billingGroupSelector}>
-                  {!!establishmentBillingGroups && (
-                    <CheckoutBillingGroupSelector
-                      enableMultiLocalization={isMultiLocalizationEnabled}
-                      establishmentBillingGroups={establishmentBillingGroups}
-                      selectedEstablishmentBillingGroup={
-                        selectedEstablishmentBillingGroup
-                      }
-                      setIsEstablishmentBillingGroupSelected={
-                        setIsEstablishmentBillingGroupSelected
-                      }
-                      setSelectedEstablishmentBillingGroup={
-                        setSelectedEstablishmentBillingGroup
-                      }
-                    />
-                  )}
-                </div>
-              </PaymentStripeRevamped>
+              />
             )}
             {selectedPaymentEngine === PAYMENT_ENGINE_PAYPAL && (
               <PaymentPaypal
                 ref={paymentRef}
-                acceptTermsAndConditionsElement={
-                  generalTermsAndConditions ? (
-                    <AcceptTermsAndConditions
-                      accepted={areTermsAndConditionsAccepted}
-                      onChecked={handleAcceptTermsandConditions}
-                      termsAndConditions={generalTermsAndConditions}
-                      type={TermsAndConditionType.TERMS_AND_CONDITIONS}
-                    />
-                  ) : null
-                }
                 allowConsumerToUseInternalAccount={
                   isConsumerAllowedToUseInternalAccount
                 }
@@ -401,27 +478,9 @@ export const OnlinePaymentBasket: React.FC<Props> = forwardRef(
                 paymentGroupId={paymentGroupId}
                 paymentProcessing={isPaymentProcessing}
                 setPaymentProcessing={handleSetPaymentProcessing}
-                termsAndConditionsAccepted={areTermsAndConditionsAccepted}
+                termsAndConditionsAccepted={termsAccepted}
                 useInternalAccount={useInternalAccount}
-              >
-                <div className={classes.billingGroupSelector}>
-                  {!!establishmentBillingGroups && (
-                    <CheckoutBillingGroupSelector
-                      enableMultiLocalization={isMultiLocalizationEnabled}
-                      establishmentBillingGroups={establishmentBillingGroups}
-                      selectedEstablishmentBillingGroup={
-                        selectedEstablishmentBillingGroup
-                      }
-                      setIsEstablishmentBillingGroupSelected={
-                        setIsEstablishmentBillingGroupSelected
-                      }
-                      setSelectedEstablishmentBillingGroup={
-                        setSelectedEstablishmentBillingGroup
-                      }
-                    />
-                  )}
-                </div>
-              </PaymentPaypal>
+              />
             )}
           </div>
         )}
@@ -452,5 +511,9 @@ const useStyles = makeStyles((theme) => ({
   billingGroupSelector: {
     paddingTop: theme.spacing(2),
     paddingBottom: theme.spacing(2),
+  },
+  expressCheckoutContainer: {
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(2),
   },
 }));

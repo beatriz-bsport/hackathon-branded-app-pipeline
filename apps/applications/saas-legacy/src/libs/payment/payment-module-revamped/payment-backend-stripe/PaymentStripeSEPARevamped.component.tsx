@@ -28,10 +28,10 @@ import Button from '@material-ui/core/Button';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import Checkbox from '@material-ui/core/Checkbox';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import LinearProgress from '@material-ui/core/LinearProgress';
 import Typography from '@material-ui/core/Typography';
 
 import Alert from '#Fabrique/Alert';
-import LinearProgress from '#Fabrique/LinearProgress';
 
 import { PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA } from '@bsport/common/lib/master-data/payment-group.js';
 
@@ -67,7 +67,6 @@ type PaymentStripeSEPAProps = {
   customClasses?: { [className: string]: string };
   detachPaymentMethod: (paymentMetodId: string) => void;
   detachPaymentMethodLoading: boolean;
-  forceButtonDisplay?: boolean;
   forceDisabled?: boolean;
   forceHideConfirmPaymentButton?: boolean;
   forceSave?: boolean;
@@ -109,7 +108,6 @@ export const PaymentStripeSEPARevamped = forwardRef(
       customClasses,
       detachPaymentMethod,
       detachPaymentMethodLoading,
-      forceButtonDisplay,
       forceDisabled,
       forceHideConfirmPaymentButton,
       forceSave,
@@ -203,9 +201,14 @@ export const PaymentStripeSEPARevamped = forwardRef(
     // This useEffect is required in the new checkout flow, in order to disable the 'Pay Now' button
     // if needed
     useEffect(() => {
-      if (setIsOnlinePaymentDisabled)
-        setIsOnlinePaymentDisabled(isSubmitButtonDisabled);
-    }, [isSubmitButtonDisabled, setIsOnlinePaymentDisabled]);
+      if (!isCheckoutContext && !forceHideConfirmPaymentButton)
+        setIsOnlinePaymentDisabled?.(isSubmitButtonDisabled);
+    }, [
+      forceHideConfirmPaymentButton,
+      isCheckoutContext,
+      isSubmitButtonDisabled,
+      setIsOnlinePaymentDisabled,
+    ]);
 
     const handleSubmit = useCallback(
       async (event: React.FormEvent<HTMLFormElement>) => {
@@ -558,48 +561,44 @@ export const PaymentStripeSEPARevamped = forwardRef(
               </>
             )}
             {children ?? null}
-            {(!isCheckoutContext || forceButtonDisplay) &&
-              !forceHideConfirmPaymentButton && (
-                <>
-                  {AcceptTermsAndConditionsComponent && (
-                    <div
-                      className={clsx(
-                        classes.conditions,
-                        customClasses?.conditions,
-                      )}
-                    >
-                      {AcceptTermsAndConditionsComponent}
-                    </div>
-                  )}
+            {!isCheckoutContext && !forceHideConfirmPaymentButton && (
+              <>
+                {AcceptTermsAndConditionsComponent && (
                   <div
                     className={clsx(
-                      classes.actionRow,
-                      customClasses?.actionRow,
+                      classes.conditions,
+                      customClasses?.conditions,
                     )}
                   >
-                    {processing ? (
-                      <CircularProgress />
-                    ) : (
-                      <React.Fragment>
-                        <Button
-                          color="primary"
-                          disabled={isSubmitButtonDisabled}
-                          type="submit"
-                          variant="contained"
-                        >
-                          {t('invoice:paymentPanel.actions.confirmPayment')}
-                        </Button>
-                        <Button
-                          disabled={loading || processing}
-                          onClick={onCancel}
-                        >
-                          {t('paymentPanel.actions.cancel')}
-                        </Button>
-                      </React.Fragment>
-                    )}
+                    {AcceptTermsAndConditionsComponent}
                   </div>
-                </>
-              )}
+                )}
+                <div
+                  className={clsx(classes.actionRow, customClasses?.actionRow)}
+                >
+                  {processing ? (
+                    <CircularProgress />
+                  ) : (
+                    <React.Fragment>
+                      <Button
+                        color="primary"
+                        disabled={isSubmitButtonDisabled}
+                        type="submit"
+                        variant="contained"
+                      >
+                        {t('invoice:paymentPanel.actions.confirmPayment')}
+                      </Button>
+                      <Button
+                        disabled={loading || processing}
+                        onClick={onCancel}
+                      >
+                        {t('paymentPanel.actions.cancel')}
+                      </Button>
+                    </React.Fragment>
+                  )}
+                </div>
+              </>
+            )}
           </>
         )}
       </form>

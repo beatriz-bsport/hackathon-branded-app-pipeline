@@ -1,0 +1,252 @@
+import React, { useCallback, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import clsx from 'clsx';
+import i18n from 'i18next';
+import {
+  CircularProgress,
+  Divider,
+  makeStyles,
+  Typography,
+  useMediaQuery,
+  useTheme,
+} from '@material-ui/core';
+import {
+  Elements,
+  ExpressCheckoutElement,
+  useElements,
+  useStripe,
+} from '@stripe/react-stripe-js';
+import {
+  loadStripe,
+  type StripeElementLocale,
+  StripeExpressCheckoutElementClickEvent,
+} from '@stripe/stripe-js';
+import { getCurrencyCode, getStripePkKey } from '#src/libs/theme/selectors';
+import { getLocaleFromLanguage } from '#src/utils/language';
+import { useBasketPaymentContext } from './BasketPaymentContext';
+import type { StripePaymentElementConfig } from '#src/libs/company/types';
+
+type StripeExpressCheckoutElementProps = {
+  basketTotalPriceCts: number;
+  clientSecret: string;
+  disabled?: boolean;
+  onError?: () => void;
+  onLoadError?: () => void;
+  onReady?: (event: {
+    availablePaymentMethods?: { applePay: boolean; googlePay: boolean };
+  }) => void;
+  onSuccessfulPayment: () => Promise<void>;
+  stripePaymentElementConfig: StripePaymentElementConfig;
+};
+
+type StripeExpressCheckoutElementInnerProps = Omit<
+  StripeExpressCheckoutElementProps,
+  'basketTotalPriceCts' | 'stripePaymentElementConfig'
+>;
+
+const StripeExpressCheckoutElementInner: React.FC<
+  StripeExpressCheckoutElementInnerProps
+> = ({
+  clientSecret,
+  disabled,
+  onError,
+  onLoadError,
+  onReady,
+  onSuccessfulPayment,
+}) => {
+  const classes = useStyles();
+  const { t } = useTranslation('checkout');
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('xs'));
+  const [wallets, setWallets] = useState<{
+    applePay?: boolean;
+    googlePay?: boolean;
+  }>({});
+  const stripe = useStripe();
+  const elements = useElements();
+
+  const { isExpressPayLoading, setIsExpressPayLoading } =
+    useBasketPaymentContext();
+
+  const [isSuccessfulPayment, setIsSuccessfulPayment] = useState(false);
+
+  const onlyOneWallet =
+    [wallets.applePay, wallets.googlePay].filter(Boolean).length === 1;
+
+  const handleClick = useCallback(
+    (e: StripeExpressCheckoutElementClickEvent) => {
+      // The ExpressCheckoutElement does not natively support a disabled state. (as of SDK v3.7.0 from 2025-05)
+      // The user can still navigate through Tab key and press Enter/Space to trigger the click event as it's an iframe
+      // inside a shadow DOM, so we need to handle the disabled state manually here.
+      // This ensures that if the component is disabled,the promise is rejected and no payment sheet is opened
+      // For non-native browsers, the modal may still open, but the user won't be able to proceed with the payment
+      if (disabled) {
+        setIsExpressPayLoading(false);
+        e.reject();
+      } else {
+        setIsExpressPayLoading(true);
+        e.resolve();
+      }
+    },
+    [disabled, setIsExpressPayLoading],
+  );
+
+  const handleConfirm = useCallback(async () => {
+    if (!stripe || !elements) return;
+
+    setIsExpressPayLoading(true);
+    const { error } = await stripe.confirmPayment({
+      elements,
+      clientSecret,
+      redirect: 'if_required',
+      confirmParams: { return_url: window.location.href },
+    });
+
+    if (error) {
+      console.error('Stripe confirmation error:', error);
+      setIsExpressPayLoading(false);
+      onError?.();
+      return;
+    }
+
+    try {
+      await onSuccessfulPayment();
+      setIsSuccessfulPayment(true);
+    } catch (err) {
+      console.error('Express checkout post-confirm failure:', err);
+      setIsExpressPayLoading(false);
+      onError?.();
+    }
+  }, [
+    stripe,
+    elements,
+    setIsExpressPayLoading,
+    clientSecret,
+    onError,
+    onSuccessfulPayment,
+  ]);
+
+  const handleCancel = useCallback(() => {
+    setIsExpressPayLoading(false);
+  }, [setIsExpressPayLoading]);
+
+  const handleLoadError = useCallback(() => {
+    setIsExpressPayLoading(false);
+    onLoadError?.();
+  }, [setIsExpressPayLoading, onLoadError]);
+
+  return (
+    <>
+      <Typography className={classes.title} variant="h6">
+        {t('myBasket.expressCheckoutTitle')}
+      </Typography>
+      {!isSuccessfulPayment ? (
+        <div
+          aria-disabled={disabled || undefined}
+          className={clsx(classes.checkoutContainer, {
+            [classes.singleWallet]: onlyOneWallet && !isMobile,
+            [classes.disabled]: disabled || isExpressPayLoading,
+          })}
+          tabIndex={disabled ? -1 : undefined}
+        >
+          <ExpressCheckoutElement
+            onCancel={handleCancel}
+            onClick={handleClick}
+            onConfirm={handleConfirm}
+            onLoadError={handleLoadError}
+            onReady={(event) => {
+              setWallets(event.availablePaymentMethods ?? {});
+              onReady?.(event);
+            }}
+            options={{
+              paymentMethods: { applePay: 'always', googlePay: 'always' },
+              paymentMethodOrder: ['applePay', 'googlePay'],
+            }}
+          />
+        </div>
+      ) : (
+        <CircularProgress />
+      )}
+      <Divider className={classes.divider} />
+    </>
+  );
+};
+
+const StripeExpressCheckoutElement: React.FC<
+  StripeExpressCheckoutElementProps
+> = (props) => {
+  const {
+    basketTotalPriceCts,
+    clientSecret,
+    disabled,
+    onError,
+    onLoadError,
+    onReady,
+    onSuccessfulPayment,
+    stripePaymentElementConfig,
+  } = props;
+
+  const stripePromise = loadStripe(getStripePkKey());
+  const currency = getCurrencyCode();
+
+  const { language } = i18n;
+  const elementLocale = getLocaleFromLanguage(language);
+
+  return (
+    <Elements
+      options={{
+        mode: 'payment',
+        amount: basketTotalPriceCts,
+        currency,
+        ...(!stripePaymentElementConfig.isDefaultForRegion &&
+        stripePaymentElementConfig.stripeId
+          ? { onBehalfOf: stripePaymentElementConfig.stripeId }
+          : {}),
+        locale: (elementLocale?.replace('_', '-') ||
+          language) as StripeElementLocale,
+        // MANDATORY: For a US account, paying with Apple Pay or Google Pay will get this error:
+        // "Payment details were collected through Stripe Elements using automatic payment methods and cannot be confirmed
+        // through the API configured with payment_method_types."
+        // When creating the PaymentIntent in the backend, we use payment_method_types depending on the account country
+        // and a US account does not consider Apple Pay or Google Pay as a "card" payment method but as a wallet.
+        // Setting it here overrides all PaymentIntent settings and makes it work.
+        // See `paymentMethodTypes` in: https://docs.stripe.com/js/elements_object/create_without_intent#stripe_elements_no_intent-options
+        paymentMethodTypes: ['card'],
+      }}
+      stripe={stripePromise}
+    >
+      <StripeExpressCheckoutElementInner
+        {...{
+          clientSecret,
+          disabled,
+          onError,
+          onLoadError,
+          onReady,
+          onSuccessfulPayment,
+        }}
+      />
+    </Elements>
+  );
+};
+
+const useStyles = makeStyles((theme) => ({
+  title: { marginBottom: theme.spacing(1) },
+  divider: {
+    marginTop: theme.spacing(4),
+    marginBottom: theme.spacing(4),
+  },
+  checkoutContainer: {
+    width: '100%',
+  },
+  singleWallet: {
+    maxWidth: 300,
+  },
+  disabled: {
+    pointerEvents: 'none',
+    cursor: 'not-allowed',
+    opacity: 0.5,
+    userSelect: 'none',
+  },
+}));
+
+export default StripeExpressCheckoutElement;

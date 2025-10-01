@@ -65,34 +65,47 @@ type CustomTooltipProps = {
   payload: ContentPayload[],
 };
 
-const translationMapping = {
-  sessions: {
-    label: 'bookingStatistics.chartsItemLabel.numberOfSessions',
-    payloadKey: 'bookingStatistics.keys.offers',
-  },
-  confirmedBookings: {
-    label: 'bookingStatistics.chartsItemLabel.numberOfConfirmedBookings',
-    payloadKey: 'bookingStatistics.keys.created',
-  },
-  cancelledBookings: {
-    label: 'bookingStatistics.chartsItemLabel.numberOfCancelledBookings',
-    payloadKey: 'bookingStatistics.keys.cancelled',
-  },
-  waitingList: {
-    label: 'bookingStatistics.chartsItemLabel.waitingListSize',
-    payloadKey: 'bookingStatistics.keys.waitingLists',
-  },
-};
-
 const getToolTipRowLabel = (
   payload: ContentPayload[],
   type: 'sessions' | 'confirmedBookings' | 'cancelledBookings' | 'waitingList',
   t: TFunction,
-) =>
-  `${t(translationMapping[`${type}`].label)}: ${
-    payload[0].payload[`${t(`${translationMapping[`${type}`].payloadKey}`)}`]
-  }`;
+) => {
+  let labelMessage: string = '';
+  let keyMessage: string = '';
 
+  switch (type) {
+    case 'sessions':
+      labelMessage = t('bookingStatistics.chartsItemLabel.numberOfSessions');
+      keyMessage = t('bookingStatistics.keys.offers');
+      break;
+
+    case 'confirmedBookings':
+      labelMessage = t(
+        'bookingStatistics.chartsItemLabel.numberOfConfirmedBookings',
+      );
+      keyMessage = t('bookingStatistics.keys.created');
+      break;
+
+    case 'cancelledBookings':
+      labelMessage = t(
+        'bookingStatistics.chartsItemLabel.numberOfCancelledBookings',
+      );
+      keyMessage = t('bookingStatistics.keys.cancelled');
+      break;
+
+    case 'waitingList':
+      labelMessage = t('bookingStatistics.chartsItemLabel.waitingListSize');
+      keyMessage = t('bookingStatistics.keys.waitingLists');
+      break;
+
+    default:
+      break;
+  }
+
+  const value = payload[0].payload[keyMessage];
+
+  return `${labelMessage}: ${value}`;
+};
 const CustomTooltip: React.FC<CustomTooltipProps> = React.memo(
   ({ active, payload }: CustomTooltipProps) => {
     const { t } = useTranslation('translation');

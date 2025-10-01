@@ -1658,6 +1658,23 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
         !isRegistered ||
         this.props.theme.accept_double_booking)
     ) {
+      const spotInfo = {
+        currentSpot: currentNumberOfOfferBeingSelected,
+        totalSpot: this.state.totalNumberOfOfferInSpotSelection,
+      };
+
+      let spotMessage: string = '';
+      if (this.getIsGuestBooking()) {
+        spotMessage = t('newBookingModule.guestSpotSelectorTitle', spotInfo);
+      } else if (this.state.offerGroupData && this.state.offerGroupData.id) {
+        spotMessage = t(
+          'newBookingModule.multipleSpotSelectionSpotSelectorTitle',
+          spotInfo,
+        );
+      } else {
+        spotMessage = t('newBookingModule.spotSelectorTitle', spotInfo);
+      }
+
       return (
         <div className="bs-new-offer-booking-page--spot-selector">
           <div className="bs-new-offer-booking__spot-selector__container">
@@ -1672,18 +1689,7 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
                 <ArrowBack className="bs-new-offer-booking__consumer-payment-packs__arrow-icon" />
               </Button>
               <div className="bs-new-offer-booking__spot-selector__header__text">
-                {t(
-                  this.getIsGuestBooking()
-                    ? 'newBookingModule.guestSpotSelectorTitle'
-                    : this.state.offerGroupData && this.state.offerGroupData.id
-                    ? 'newBookingModule.multipleSpotSelectionSpotSelectorTitle'
-                    : 'newBookingModule.spotSelectorTitle',
-                  {
-                    currentSpot: currentNumberOfOfferBeingSelected,
-                    totalSpot: this.state.totalNumberOfOfferInSpotSelection,
-                  },
-                  //add a custom title when selecting a session from a grouped offer
-                )}
+                {spotMessage}
               </div>
             </div>
             <div className="bs-new-offer-booking__spot-selector__blueprint">

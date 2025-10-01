@@ -250,7 +250,7 @@
       "consumerRegularizeDebtHelper": "Questa funzione è disponibile sul Marketplace, sul pulsante Easy Connect e sul widget Pulsante di accesso. Non è ancora disponibile sull'App e sul widget Profilo del membro",
       "expressCheckout": {
         "oneClickBooking": {
-          "label": "One-Click Booking (beta)",
+          "label": "Attiva il checkout rapido (beta)",
           "helperText": "I nuovi clienti possono prenotare le attività senza creare prima un account. Questa funzione non è compatibile con gli appuntamenti o con la “conferma via e-mail all'iscrizione”. Si applica solo alle attività che possono essere prenotate con un pacchetto “solo per nuovi membri”."
         },
         "title": "Express Checkout"

@@ -1,8 +1,8 @@
 {
-  "name": "@bsport/store-booking-private-service",
+  "name": "@bsport/store-booking-appointment",
   "version": "0.0.0",
   "private": true,
-  "description": "Private Service Store",
+  "description": "Appointment Store",
   "license": "UNLICENSED",
   "author": "Théo Steffanetti <theo.steffanetti@bsport.io>",
   "type": "module",

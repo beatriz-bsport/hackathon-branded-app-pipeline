@@ -29,6 +29,13 @@
   "devDependencies": {
     "@bsport/config-eslint-react": "workspace:*",
     "@bsport/config-federation": "workspace:*",
+    "@bsport/store-booking-appointment": "workspace:*",
+    "@bsport/store-booking-group-activity": "workspace:*",
+    "@bsport/store-buyables-appointment-pass": "workspace:*",
+    "@bsport/store-buyables-subscription": "workspace:*",
+    "@bsport/store-cdp-marketing-notification": "workspace:*",
+    "@bsport/store-core-data-establishment": "workspace:*",
+    "@bsport/use-async": "workspace:*",
     "autoprefixer": "^10.4.20",
     "postcss": "^8.4.49",
     "tailwindcss": "^3.4.14",

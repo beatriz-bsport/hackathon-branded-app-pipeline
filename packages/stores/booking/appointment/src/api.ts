@@ -2,7 +2,7 @@ import { type ApiConfig, buildUrlParams } from "@bsport/store-base";
 
 import type { FetchAppointmentParams, SearchAppointmentParams } from "./types";
 
-const API_URL = "book/v1/private_service/";
+const API_URL = "book/v1/private_service";
 
 export const fetchAppointmentsAPI = (
   params: FetchAppointmentParams,

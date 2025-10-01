@@ -258,7 +258,7 @@
       "expressCheckout": {
         "title": "Checkout expresso",
         "oneClickBooking": {
-          "label": "Reserva com um clique (beta)",
+          "label": "Ativar checkout expresso (beta)",
           "helperText": "Os novos clientes poderão comprar passes sem terem de criar uma conta. Para os passes definidos como \"apenas para novos membros\", os clientes podem comprar um passe e reservar Actividades de Grupo num único fluxo de pagamento."
         }
       },

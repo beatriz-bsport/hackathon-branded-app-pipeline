@@ -8,6 +8,7 @@
     "format:check": "prettier --check '**/*.{ts,tsx,js,jsx,cjs,mjs}'",
     "project:find-unused-keys": "tsx ./scripts/find-unused-keys.ts",
     "project:transform": "tsx ./scripts/transform-project-structure.ts",
+    "project:translate-missing-strings": "tsx ./scripts/translate-missing-strings.ts",
     "translation:migrate": "tsx ./scripts/import-legacy-translations.ts",
     "translation:update": "tsx ./scripts/build-public-locales-files.ts"
   },

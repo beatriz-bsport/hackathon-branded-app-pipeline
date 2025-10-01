@@ -1,0 +1,84 @@
+{
+  "pages": {
+    "detail": "Modelos de e-mail"
+  },
+  "breadcrumbs": {
+    "rootPage": "Modelos de e-mail",
+    "customPage": "Modelos personalizados"
+  },
+  "details": {
+    "defaultTitle": "Modelos sem título",
+    "state": {
+      "loading": "Carregando modelos de e-mail..."
+    },
+    "actions": {
+      "saveChanges": "Salvar alterações",
+      "discardChanges": "Descartar"
+    },
+    "hover": {
+      "exportHtml": "Exportar modelos para HTML",
+      "renameTemplate": "Renomear modelos de e-mail",
+      "moreActions": "Mais ações"
+    },
+    "bsportTemplateInfo": {
+      "title": "modelos bsport",
+      "description": {
+        "firstStep": "Duplique o modelo que você deseja usar, depois edite e envie a versão copiada para os Membros diretamente desta página. ",
+        "secondStep": "Em seguida, selecione a cópia do e-mail ao enviar uma comunicação."
+      },
+      "quit": "Sair"
+    },
+    "renameTemplateModal": {
+      "title": "Renomear modelos de e-mail",
+      "textInput": {
+        "label": "Título do Modelos",
+        "placeholder": "Adicione um título ao modelo"
+      },
+      "confirmButton": "Renomear",
+      "cancelButton": "Cancelar",
+      "onSuccess": {
+        "title": "Modelos renomeado",
+        "action": "Desfazer"
+      },
+      "onFailure": {
+        "title": "Ocorreu um erro ao renomear seus modelos."
+      },
+      "errors": {
+        "notProvided": "Isso é obrigatório",
+        "tooLong": "O título é muito longo"
+      }
+    }
+  },
+  "saveTemplateAction": {
+    "description": "Esta página tem alterações não salvas.",
+    "success": {
+      "title": "E-mail modelos salvo"
+    },
+    "error": {
+      "missingFields": "Alguns campos obrigatórios estão faltando",
+      "problemWhileSaving": "Houve um problema ao salvar suas alterações."
+    }
+  },
+  "leaveConfirmationModal": {
+    "description": "Tem certeza de que deseja sair desta página?",
+    "confirmButton": "OK",
+    "cancelButton": "Cancelar"
+  },
+  "templateSubject": {
+    "label": "Assunto do e-mail",
+    "placeholder": "Adicione um assunto ao e-mail",
+    "error": {
+      "notProvided": "Isso é obrigatório",
+      "tooLong": "O assunto é muito longo"
+    }
+  },
+  "templateDesign": {
+    "error": {
+      "notProvided": "Nenhum design de template fornecido"
+    }
+  },
+  "templateCategory": {
+    "label": "Categoria",
+    "noCategory": "Selecione uma categoria"
+  }
+}

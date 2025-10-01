@@ -32,7 +32,7 @@
       "title": "Hernoem emailsjabloon",
       "textInput": {
         "label": "Sjabloontitel",
-        "placeholder": "Sjabloontitel hier..."
+        "placeholder": "Voeg een sjabloontitel toe"
       },
       "confirmButton": "Hernoemen",
       "cancelButton": "Annuleren",
@@ -50,7 +50,7 @@
     }
   },
   "saveTemplateAction": {
-    "description": "De pagina heeft niet-opgeslagen wijzigingen.",
+    "description": "Deze pagina heeft niet-opgeslagen wijzigingen.",
     "success": {
       "title": "Email sjabloon opgeslagen"
     },
@@ -66,7 +66,7 @@
   },
   "templateSubject": {
     "label": "Emailonderwerp",
-    "placeholder": "Voeg een emailonderwerp toe...",
+    "placeholder": "Voeg een emailonderwerp toe",
     "error": {
       "notProvided": "Dit is verplicht",
       "tooLong": "Het onderwerp is te lang"
@@ -79,6 +79,6 @@
   },
   "templateCategory": {
     "label": "Categorie",
-    "noCategory": "Geen categorie"
+    "noCategory": "Selecteer een categorie"
   }
 }

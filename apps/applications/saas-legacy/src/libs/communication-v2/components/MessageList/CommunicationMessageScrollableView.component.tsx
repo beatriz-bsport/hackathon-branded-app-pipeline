@@ -94,11 +94,9 @@ const CommunicationMessageScrollableView = (props: Props) => {
       )}
       {!loadingMessageList && sortedMessageList.length === 0 && (
         <Typography className={classes.emptyLabel} variant="subtitle1">
-          {t(
-            `thread.emptyThread.${
-              props.hasActiveFilters ? 'becauseOfFilters' : 'becauseNeverUsed'
-            }`,
-          )}
+          {props.hasActiveFilters
+            ? t('thread.emptyThread.becauseOfFilters')
+            : t('thread.emptyThread.becauseNeverUsed')}
         </Typography>
       )}
     </div>

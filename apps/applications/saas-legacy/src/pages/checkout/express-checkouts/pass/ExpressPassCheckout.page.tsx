@@ -369,10 +369,7 @@ const ExpressPassCheckoutContent: React.FC<ContentProps> = ({
     return <Redirect to={passPreCheckoutUrl} />;
   }
 
-  if (
-    !!passCardData?.paymentPackData?.paymentPack?.whitelist_tags?.length ||
-    !!passCardData?.paymentPackData?.paymentPack?.blacklist_tags?.length
-  ) {
+  if (!!passCardData?.paymentPackData?.paymentPack?.whitelist_tags?.length) {
     return <Redirect to={loginToPaymentPackUrl} />;
   }
 

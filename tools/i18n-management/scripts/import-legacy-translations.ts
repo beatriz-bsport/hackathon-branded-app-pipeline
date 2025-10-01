@@ -12,6 +12,7 @@ import {
   type KeyValuePair,
   type ProjectConfig,
   type Translations,
+  addValueToTranslations,
   getAppNamespaces,
   getFlattenKeyValuePairs,
   getNamespacesTranslations,
@@ -100,67 +101,6 @@ function checkInterpolationSchema(
   return sourceVariables.every((variable) =>
     targetVariables.includes(variable),
   );
-}
-
-/**
- * Add a value to the translations object at the specified key path.
- * If any part of the key path does not exist, it will be created.
- *
- * @param translations Object containing all current translations.
- * @param key Path where to add the new value, in flattened key format (e.g., "myTranslation.special.nested.key").
- * @param value New value to be added at the specified key path.
- *
- * @returns Nothing, as the changes are made in place
- *
- * @example
- * const translations = {
- *  key1: {
- *    nestedKey1: "Hello !",
- *    nestedKey2: {
- *      item1: "Bonjour !",
- *      item2: "Hola !",
- *    }
- *  };
- *
- * addValueToTranslations({ translations, key: "key1.nestedKey3.item1", value: "Goodbye !" });
- * // Update translations in place, which looks like
- * translations = {
- *  key1: {
- *    nestedKey1: "Hello !",
- *    nestedKey2: {
- *      item1: "Bonjour !",
- *      item2: "Hola !",
- *    },
- *    nestedKey3: {
- *      item1: "Goodbye !",
- *    },
- *  };
- */
-function addValueToTranslations({
-  translations,
-  key,
-  value,
-}: {
-  translations: Record<string, any>;
-  key: string;
-  value: string;
-}): void {
-  const keys = key.split(".");
-  let currentLevel = translations;
-
-  keys.forEach((part, index) => {
-    const src = currentLevel[part];
-    if (index === keys.length - 1) {
-      // If it's the last part of the key, assign the value
-      currentLevel[part] = value;
-    } else {
-      // Otherwise, ensure the nested object exists
-      if (!currentLevel[part]) {
-        currentLevel[part] = {};
-      }
-      currentLevel = currentLevel[part];
-    }
-  });
 }
 
 async function main({

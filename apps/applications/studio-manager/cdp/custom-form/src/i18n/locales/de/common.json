@@ -1,1 +1,105 @@
-{}
+{
+  "pages": {
+    "active": "Formulare",
+    "archived": "Archivierte Formulare",
+    "loading": "Wird geladen..."
+  },
+  "activeList": {
+    "actions": {
+      "addForm": "Formular erstellen"
+    },
+    "addFormModal": {
+      "title": "Erstelle neues Formular",
+      "description": "Benenne dein neues Formular, um loszulegen!",
+      "input": {
+        "label": "Formularname",
+        "placeholder": "Füge einen Formularnamen hinzu..."
+      },
+      "actions": {
+        "cancel": "Abbrechen",
+        "create": "Erstellen"
+      },
+      "errors": {
+        "nameTooLong": "Der Name ist ungültig, die maximale Länge beträgt {{ maximalLength }} Zeichen.",
+        "nameTooShort": "Der Name ist ungültig, die Mindestlänge beträgt {{ minimalLength }} Zeichen.",
+        "nameRequired": "Der Name ist ungültig, du kannst keinen leeren Namen eingeben."
+      }
+    },
+    "archiveModal": {
+      "actions": {
+        "archive": "Archivieren",
+        "cancel": "Zurück"
+      },
+      "title": "Archivformular?",
+      "description": "Mitglieder werden <b>{{ name }}</b> nicht mehr sehen, aber du kannst darauf in deinem Archiv zugreifen."
+    },
+    "duplicateModal": {
+      "actions": {
+        "duplicate": "Duplizieren",
+        "cancel": "Zurück"
+      },
+      "title": "Formular duplizieren?",
+      "description": {
+        "verification": "Duplizieren <b>{{ name }}</b> ?",
+        "effect": "Du kannst <b>{{ name }}</b> danach bearbeiten."
+      }
+    }
+  },
+  "toasts": {
+    "messageCreated": {
+      "success": "Formular erstellt",
+      "error": "Fehler beim Erstellen deines Formulars"
+    },
+    "messageArchived": {
+      "success": "Formular archiviert",
+      "error": "Fehler beim Archivieren deines Formulars"
+    },
+    "messageRestored": {
+      "success": "Formular wiederhergestellt",
+      "error": "Fehler beim Wiederherstellen deines Formulars"
+    },
+    "messageDuplicated": {
+      "success": "Form dupliziert",
+      "error": "Fehler beim Duplizieren deines Formulars"
+    },
+    "messageUndone": {
+      "success": "Aktion rückgängig gemacht",
+      "error": "Fehler beim Rückgängigmachen der Aktion"
+    },
+    "actions": {
+      "undo": "Rückgängig",
+      "open": "Offen"
+    }
+  },
+  "table": {
+    "headers": {
+      "name": "Name",
+      "questions": "Fragen"
+    },
+    "loading": {
+      "activeList": "Formulare werden geladen...",
+      "archivedList": "Lade archivierte Formulare..."
+    },
+    "empty": {
+      "activeList": {
+        "title": "Noch keine Formulare zum Anzeigen",
+        "subtitle": "Erstelle dein erstes Formular, um Feedback von deinen Mitgliedern zu erhalten."
+      },
+      "archivedList": {
+        "title": "Noch keine archivierten Formulare",
+        "subtitle": "Formulare, die hier verschoben wurden, können wiederhergestellt werden."
+      },
+      "search": {
+        "title": "Keine Formulare gefunden",
+        "subtitle": "Versuche es mit anderen Stichwörtern"
+      }
+    },
+    "tooltips": {
+      "archive": "Archivformular",
+      "restore": "Formular wiederherstellen",
+      "duplicate": "Formular duplizieren",
+      "search": "Suche nach einem Formular",
+      "switchToArchived": "Archivierte Formulare"
+    }
+  }
+}

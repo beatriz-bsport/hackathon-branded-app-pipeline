@@ -3,11 +3,15 @@ import React, { useId } from "react";
 import { ControlledForm, useFormController } from "@bsport/form";
 import { Modal } from "@bsport/kaizen-primitive-core";
 import { dataAccessLayer } from "@bsport/sm-backbone";
-import type { PackFormData } from "@bsport/store-buyables-pack";
 
 import { PackFormContent } from "#src/components/PackForm/PackFormContent";
 import { PackFormIdentity } from "#src/components/PackForm/PackFormIdentity";
-import { usePackSchema } from "#src/components/PackForm/schema";
+import { PackFormPricing } from "#src/components/PackForm/PackFormPricing";
+import {
+  DEFAULT_FORM_DATA,
+  type PackFormSchema,
+  usePackSchema,
+} from "#src/components/PackForm/schema";
 import { useSelectedItemsContext } from "#src/contexts/selectedItemsContext";
 import { useCreatePack } from "#src/hooks/useCreatePack";
 import { LEGACY_URLS } from "#src/urls";
@@ -28,23 +32,14 @@ export const PackCreateModal: React.FC<PackCreateModalProps> = ({
 
   const companyId = dataAccessLayer.useCompanyTheme()?.company;
 
-  const defaultValues: PackFormData = {
-    description: "",
-    name: "",
+  const defaultValues = {
+    ...DEFAULT_FORM_DATA,
     company: companyId ?? 0,
-    available: true,
-    is_usable_by_staff: true,
-    manager_only: false,
-    payment_pack_ids: [],
-    private_pass_ids: [],
-    shop_item_ids: [],
-    price: 0,
-    tax: 0,
   };
 
   const packSchema = usePackSchema();
 
-  const methods = useFormController({
+  const methods = useFormController<PackFormSchema>({
     mode: "onBlur",
     schema: packSchema,
     defaultValues,
@@ -60,6 +55,8 @@ export const PackCreateModal: React.FC<PackCreateModalProps> = ({
       window.location.assign(LEGACY_URLS.PACK_DETAILS(value.id));
     },
   });
+
+  if (!companyId) return null;
 
   return (
     <Modal
@@ -85,19 +82,21 @@ export const PackCreateModal: React.FC<PackCreateModalProps> = ({
       <ControlledForm
         id={formId}
         onSubmit={(data) => {
-          handleCreatePack({
+          const finalData = {
             ...defaultValues,
             ...data,
             payment_pack_ids: passes,
             private_pass_ids: appointmentPasses,
             shop_item_ids: webshopItems,
-          });
+          };
+          handleCreatePack(finalData);
         }}
         {...methods}
       >
         <div className="flex flex-col gap-lg w-full">
           <PackFormIdentity fieldIdPrefix={formId} />
           <PackFormContent fieldIdPrefix={formId} />
+          <PackFormPricing fieldIdPrefix={formId} methods={methods} />
         </div>
       </ControlledForm>
     </Modal>

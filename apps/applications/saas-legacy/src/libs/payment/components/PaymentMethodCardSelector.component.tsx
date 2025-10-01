@@ -1,30 +1,36 @@
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import FormControl from '@material-ui/core/FormControl';
-import { Theme, makeStyles } from '@material-ui/core/styles';
+import { makeStyles, Theme } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import clsx from 'clsx';
 import Typography from '@material-ui/core/Typography';
 import ButtonBase from '@material-ui/core/ButtonBase';
-import CheckoutContext from '../../../pages/checkout/basket/CheckoutContext';
+import CheckoutContext from '#src/pages/checkout/basket/CheckoutContext';
 
 import PaymentMethodIcon from './PaymentMethodIcon.component';
+import {
+  PAYMENT_GROUP_METHOD_IDENTIFIER_APPLE_PAY,
+  PAYMENT_GROUP_METHOD_IDENTIFIER_GOOGLE_PAY,
+} from '@bsport/common/lib/master-data/payment-group';
 
 type Props = {
-  paymentMethodSelected: number;
-  paymentMethodChoices: Array<number>;
-  selectPaymentMethod: (paymentMethod: number) => void;
-  paymentProcessing?: boolean;
   customClasses?: { [className: string]: string };
+  paymentMethodChoices: Array<number>;
+  paymentMethodSelected: number;
+  paymentProcessing?: boolean;
+  selectPaymentMethod: (paymentMethod: number) => void;
+  title?: string;
   withoutPaymentMethodPadding?: boolean;
 };
 
 export const PaymentMethodCardSelector = ({
+  customClasses,
   paymentMethodChoices,
   paymentMethodSelected,
-  selectPaymentMethod,
   paymentProcessing,
-  customClasses,
+  selectPaymentMethod,
+  title,
   withoutPaymentMethodPadding,
 }: Props) => {
   const { t } = useTranslation('invoice');
@@ -47,25 +53,34 @@ export const PaymentMethodCardSelector = ({
         id="payment-method-select-label"
         variant="h6"
       >
-        {t('paymentMethod.select.label')}
+        {title ?? t('paymentMethod.select.label')}
       </Typography>
       <div className={clsx(classes.row, customClasses?.row)}>
-        {paymentMethodChoices.map((pm) => (
-          <ButtonBase
-            key={`${pm}`}
-            disabled={paymentProcessing}
-            onClick={() => handleClick(pm)}
-          >
-            <Paper
-              className={clsx(classes.paper, customClasses?.paper, {
-                [classes.selected]: paymentMethodSelected === pm,
-                [customClasses?.selected]: paymentMethodSelected === pm,
-              })}
+        {paymentMethodChoices
+          ?.filter(
+            (pm) =>
+              /* Apple Pay and Google Pay are rendered in the Express Checkout element */
+              ![
+                PAYMENT_GROUP_METHOD_IDENTIFIER_APPLE_PAY,
+                PAYMENT_GROUP_METHOD_IDENTIFIER_GOOGLE_PAY,
+              ].includes(pm),
+          )
+          ?.map((pm) => (
+            <ButtonBase
+              key={`${pm}`}
+              disabled={paymentProcessing}
+              onClick={() => handleClick(pm)}
             >
-              <PaymentMethodIcon paymentMethod={pm} />
-            </Paper>
-          </ButtonBase>
-        ))}
+              <Paper
+                className={clsx(classes.paper, customClasses?.paper, {
+                  [classes.selected]: paymentMethodSelected === pm,
+                  [customClasses?.selected]: paymentMethodSelected === pm,
+                })}
+              >
+                <PaymentMethodIcon paymentMethod={pm} />
+              </Paper>
+            </ButtonBase>
+          ))}
       </div>
     </FormControl>
   );

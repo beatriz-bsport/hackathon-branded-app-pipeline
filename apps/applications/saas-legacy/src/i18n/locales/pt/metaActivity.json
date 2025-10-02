@@ -186,5 +186,9 @@
   "metaActivity": "Atividade",
   "offersThisDay": "Sessões para hoje :",
   "workshop": "Workshop",
-  "name": "Nome"
+  "name": "Nome",
+  "warningUSCDialog": {
+    "title": "Política de cancelamento na USC",
+    "content": "A nova política de cancelamento aplicar-se-á a eventos futuros. No entanto, os eventos já publicados nas próximas duas semanas não podem ser actualizados."
+  }
 }

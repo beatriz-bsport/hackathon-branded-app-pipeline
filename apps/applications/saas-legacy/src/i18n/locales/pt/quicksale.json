@@ -43,7 +43,10 @@
       "year_plural": "todos os {{ recurrence_basis }} anos",
       "week": "todas as semanas",
       "week_plural": "todas as {{ recurrence_basis }} semanas"
-    }
+    },
+    "startingPrice": "A partir de {{ preço }}",
+    "numberOfVariants": "{{ count }} variante",
+    "numberOfVariants_plural": "{{ count }} variantes"
   },
   "rolePage": {
     "noResult": "Nenhum acesso criado",
@@ -75,7 +78,9 @@
       "printTicket": "Descarregar o recibo",
       "sendByEmail": "Enviar a fatura por email",
       "subText": "O pagamento foi processado. A fatura foi enviada por email.",
-      "subTextAnonymous": "O pagamento já foi processado."
+      "subTextAnonymous": "O pagamento já foi processado.",
+      "description": "Pagamento processado",
+      "qrCodeTitle": "Recibo de transferência"
     },
     "homeDelivery": "Entrega",
     "firstName": "Apelido",
@@ -222,7 +227,8 @@
     "objectAdded": {
       "subText": "O artigo foi adicionado ao carrinho.",
       "title": "Artigo adicionado"
-    }
+    },
+    "home": "Início"
   },
   "sectionCard": {
     "item": "artigo",

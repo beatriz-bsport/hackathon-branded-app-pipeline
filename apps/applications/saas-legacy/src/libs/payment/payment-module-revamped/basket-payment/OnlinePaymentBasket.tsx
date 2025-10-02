@@ -339,9 +339,7 @@ export const OnlinePaymentBasket: React.FC<Props> = forwardRef(
                 sepaDefaultName={sepaDefaultName}
                 setIsOnlinePaymentDisabled={setIsOnlinePaymentDisabled}
                 setPaymentProcessing={handleSetPaymentProcessing}
-                setTermsAndConditionsAccepted={setAreTermsAndConditionsAccepted}
                 stripePaymentElementConfig={stripePaymentElementConfig}
-                termsAndConditions={generalTermsAndConditions}
                 termsAndConditionsAccepted={
                   hideConfirmPaymentButton
                     ? termsAndConditionsAccepted

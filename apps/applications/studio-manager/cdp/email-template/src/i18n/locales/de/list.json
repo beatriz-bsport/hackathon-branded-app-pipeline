@@ -1,1 +1,175 @@
-{}
+{
+  "pages": {
+    "active": "E-Mail-Vorlagen",
+    "archived": "Archivierte E-Mail-Vorlagen"
+  },
+  "tabs": {
+    "customTemplates": "Benutzerdefinierte Vorlagen",
+    "masterTemplates": "Mastervorlagen",
+    "bsportTemplates": "bsport Vorlagen"
+  },
+  "filters": {
+    "filterButton": {
+      "label": "Filter"
+    },
+    "displayButton": {
+      "label": "Anzeigen"
+    },
+    "status": "Status"
+  },
+  "templateList": {
+    "loading": "Lade E-Mail-Vorlagen...",
+    "emptyPage": {
+      "title": "Du hast noch keine benutzerdefinierten Vorlagen erstellt!",
+      "description": "Erstelle deine erste benutzerdefinierte Vorlage, um personalisierte E-Mails an deine Mitglieder zu senden."
+    },
+    "emptyCategory": {
+      "description": "Erstelle eine benutzerdefinierte Vorlage für diese Kategorie, um personalisierte E-Mails an Mitglieder zu senden."
+    },
+    "noCategory": "Keine Kategorie ({{emailTemplateCount}})"
+  },
+  "activeList": {
+    "actions": {
+      "addCategory": "Kategorie hinzufügen",
+      "addTemplate": "Vorlage erstellen",
+      "delete": "Löschen",
+      "duplicate": "Duplizieren",
+      "preview": "Vorschau",
+      "rename": "Umbenennen",
+      "undo": {
+        "success": "Aktion rückgängig gemacht",
+        "error": "Ein Fehler ist aufgetreten, während die Aktion rückgängig gemacht wurde."
+      }
+    },
+    "hover": {
+      "preview": "Vorschau Vorlage",
+      "duplicate": "Vorlage duplizieren",
+      "delete": "Vorlage löschen",
+      "moreActions": "Weitere Aktionen"
+    },
+    "bsportTemplateInfo": {
+      "title": "bsport-Vorlagen",
+      "description": "Dupliziere die Vorlage, die du verwenden möchtest, bearbeite sie und sende die kopierte Version direkt von dieser Seite an die Mitglieder.",
+      "quit": "Beenden"
+    },
+    "createTemplateModal": {
+      "title": "Erstelle neue E-Mail-Vorlage",
+      "description": "Benenne deine Vorlage, um loszulegen!",
+      "confirmButton": "Erstellen",
+      "cancelButton": "Zurück",
+      "textInput": {
+        "label": "Vorlagentitel",
+        "placeholder": "Vorlagentitel hier..."
+      },
+      "onSuccess": {
+        "title": "Vorlage erstellt",
+        "action": "Öffnen"
+      },
+      "onFailure": {
+        "title": "Beim Erstellen deiner E-Mail-Vorlage ist ein Fehler aufgetreten."
+      },
+      "errors": {
+        "name": "Kann keine Vorlage erstellen: Vorlagenname ungültig"
+      }
+    },
+    "previewEmailTemplateModal": {
+      "confirmButton": "Bearbeiten",
+      "cancelButton": "Schließen"
+    },
+    "duplicateTemplateModal": {
+      "title": "Vorlage duplizieren?",
+      "description": "Du kannst <b>{{emailTemplateTitle}}</b> danach bearbeiten.",
+      "duplicateEmailTitle": "{{emailTemplateTitle}} - Kopie",
+      "confirmButton": "Duplizieren",
+      "cancelButton": "Zurück",
+      "onSuccess": {
+        "title": "Vorlage dupliziert",
+        "action": "Öffnen"
+      },
+      "onFailure": {
+        "title": "Beim Duplizieren deiner E-Mail-Vorlage ist ein Fehler aufgetreten."
+      }
+    },
+    "deleteTemplateModal": {
+      "title": "E-Mail-Vorlage löschen?",
+      "description": "Das Löschen von <b>{{emailTemplateTitle}}</b> entfernt es auch aus allen verknüpften Transaktions-E-Mails.",
+      "confirmButton": "Löschen",
+      "cancelButton": "Zurück",
+      "onSuccess": {
+        "title": "E-Mail-Vorlage gelöscht",
+        "action": "Rückgängig machen"
+      },
+      "onFailure": {
+        "title": "Beim Löschen deiner E-Mail-Vorlage ist ein Fehler aufgetreten."
+      }
+    },
+    "createCategoryModal": {
+      "title": "Erstelle eine neue Kategorie",
+      "textInput": {
+        "label": "Kategoriename",
+        "placeholder": "Kategoriename hier..."
+      },
+      "confirmButton": "Erstellen",
+      "cancelButton": "Zurück",
+      "onSuccess": {
+        "title": "Kategorie erstellt"
+      },
+      "onFailure": {
+        "title": "Beim Erstellen deiner Kategorie ist ein Fehler aufgetreten."
+      },
+      "errors": {
+        "name": "Kann die Kategorie nicht erstellen: Kategoriename ungültig"
+      }
+    },
+    "renameCategoryModal": {
+      "title": "Kategorie umbenennen",
+      "textInput": {
+        "label": "Kategoriename",
+        "placeholder": "Kategoriename hier..."
+      },
+      "confirmButton": "Umbenennen",
+      "cancelButton": "Zurück",
+      "onSuccess": {
+        "title": "Kategorie umbenannt",
+        "action": "Rückgängig machen"
+      },
+      "onFailure": {
+        "title": "Beim Umbenennen deiner Kategorie ist ein Fehler aufgetreten."
+      }
+    },
+    "deleteCategoryModal": {
+      "title": "Kategorie löschen?",
+      "description": "Alle unter <b>{{categoryName}}</b> aufgeführten Elemente werden in den Abschnitt 'Keine Kategorie' verschoben.",
+      "confirmButton": "Löschen",
+      "cancelButton": "Zurück",
+      "onSuccess": {
+        "title": "Kategorie gelöscht",
+        "action": "Rückgängig machen"
+      },
+      "onFailure": {
+        "title": "Beim Löschen deiner Kategorie ist ein Fehler aufgetreten."
+      }
+    },
+    "restoreEmailTemplateAction": {
+      "onFailure": {
+        "title": "Ein Fehler ist aufgetreten, als deine E-Mail-Vorlage wiederhergestellt wurde."
+      }
+    },
+    "renameTemplateModal": {
+      "title": "E-Mail-Vorlage umbenennen",
+      "textInput": {
+        "label": "Vorlagentitel",
+        "placeholder": "Vorlage Titel hier..."
+      },
+      "confirmButton": "Umbenennen",
+      "cancelButton": "Zurück",
+      "onSuccess": {
+        "title": "Vorlage umbenannt",
+        "action": "Rückgängig machen"
+      },
+      "onFailure": {
+        "title": "Beim Umbenennen deiner Vorlage ist ein Fehler aufgetreten."
+      }
+    }
+  }
+}

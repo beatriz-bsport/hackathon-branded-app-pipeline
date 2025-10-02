@@ -78,6 +78,9 @@
     "title": {
       "universalPassMessage": "Cartão universal, pode ser utilizado para actividades de grupo e aulas privadas",
       "autoRenewal": "Renovação automática"
+    },
+    "price": {
+      "free": "Grátis"
     }
   },
   "selector": {
@@ -193,7 +196,17 @@
       }
     },
     "restrictions": "Restrições",
-    "compatibleTimeSlot": "Criar horários compatíveis"
+    "compatibleTimeSlot": "Criar horários compatíveis",
+    "packCard": {
+      "comboItemList": {
+        "hiddenItem": "{{count}} outro elemento",
+        "hiddenItem_plural": "{Outros elementos",
+        "privatePassItem": "{Passagem de nomeação",
+        "privatePassItem_plural": "{Passes de nomeação",
+        "paymentPackItem": "{{ count }} passar",
+        "paymentPackItem_plural": "{Passes"
+      }
+    }
   },
   "packCard": {
     "comboItemList": {
@@ -230,5 +243,115 @@
     "comboItemList": {
       "content": "Conteúdo"
     }
+  },
+  "defaultTabTitle": {
+    "calendar": "Calendário",
+    "calendarV2": "Calendário",
+    "giftcard": "Cartões de oferta",
+    "pass": "Passa",
+    "playlist": "Listas de reprodução",
+    "privateService": "Nomeações",
+    "shop": "Loja virtual",
+    "subscription": "Assinatura",
+    "vod": "Vídeo a pedido",
+    "workshop": "Workshops"
+  },
+  "passes": {
+    "tabs": {
+      "all": "Todos",
+      "passes": "Passa",
+      "appointmentPasses": "Passes de marcação"
+    },
+    "drawerTitle": {
+      "tabs": "Selecionar um tipo de passe"
+    },
+    "detail": {
+      "header": {
+        "credits": "{{ count }} crédito",
+        "credits_plural": "{{ count }} créditos",
+        "unlimited": "Ilimitado",
+        "newMemberOnly": "Apenas para novos membros",
+        "isUniversalPass": "Passe universal",
+        "onlyVodAccess": "Disponível apenas para VOD",
+        "fullVodAccess": "Compatível com VOD",
+        "onsitePaymentAvailable": "Pagamento no local disponível"
+      },
+      "availability": {
+        "active": "Válido de {{ startDate }} a {{ expirationDate }}",
+        "suspended": "Suspenso",
+        "suspendedUntil": "Suspenso até {{ endDate }}",
+        "expired": "Expirou em {{ expirationDate }}",
+        "future": "Começa em {{ startDate }}",
+        "validUntil": "Válido até {{ expirationDate }}"
+      },
+      "description": {
+        "label": "Descrição",
+        "showMore": "Mostrar mais",
+        "showLess": "Mostrar menos"
+      },
+      "compatibility": {
+        "titles": {
+          "studios": "Estúdios compatíveis",
+          "activity": "Compatibilidade das actividades",
+          "appointment": "Compatibilidade das marcações",
+          "main": "Compatibilidade"
+        },
+        "subtitles": {
+          "activity": "Actividades compatíveis",
+          "timeSlots": "Faixas horárias compatíveis",
+          "sessions": "Compatível com a sessão",
+          "appointments": "Compromissos compatíveis"
+        },
+        "contents": {
+          "allActivities": "Compatível com todas as actividades do estúdio",
+          "allRooms": "Compatível com todas as divisões do estúdio",
+          "allCategories": "Compatível com todas as categorias do estúdio",
+          "allTimeSlots": "Compatível com todas as faixas horárias",
+          "vod": "Pode ser utilizado para <strong>Vídeos a pedido</strong>",
+          "bookingForGuest": "Pode ser utilizado para <strong>convidar um convidado</strong>",
+          "noAppointments": "Não há marcações compatíveis",
+          "allSessions": "Compatível com todas as sessões",
+          "sessions": "Sessões compatíveis: {{ sessionsList }}"
+        },
+        "labels": {
+          "category": "Categorias",
+          "activity": "Actividades",
+          "room": "Quartos"
+        }
+      },
+      "restriction": {
+        "title": "Restrições de utilização",
+        "daily": "Só pode ser utilizado {{ quantidade }} vezes por dia.",
+        "daily_plural": "Só pode ser utilizado {{ quantidade }} vezes por dia.",
+        "weekly": "Só pode ser utilizado {{ quantidade }} vezes por semana.",
+        "weekly_plural": "Só pode ser utilizado {{ quantidade }} vezes por semana.",
+        "monthly": "Só pode ser utilizado {{ quantidade }} vezes por mês.",
+        "monthly_plural": "Só pode ser utilizado {{ quantidade }} vezes por mês."
+      }
+    },
+    "title": "Passa",
+    "filters": "Filtros",
+    "search": "Pesquisar",
+    "buy": "Comprar",
+    "details": "Detalhes",
+    "close": "Fechar",
+    "addToCart": "Adicionar ao carrinho",
+    "to": "para"
+  },
+  "subscriptionCard": {
+    "billingInterval": {
+      "year": "ano",
+      "year_plural": "A cada {{ count }} anos",
+      "month": "mês",
+      "month_plural": "A cada {{ count }} meses",
+      "week": "semana",
+      "week_plural": "Cada {{ count }} semanas",
+      "day": "dia",
+      "day_plural": "A cada {{ count }} dias"
+    },
+    "fees": "Taxa de adesão : {{taxas }}",
+    "invoice": "{{ count }} fatura",
+    "invoice_plural": "{Facturas",
+    "registerButton": "Subscrever"
   }
 }

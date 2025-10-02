@@ -240,7 +240,7 @@
       "consumerRegularizeDebtHelper": "Esta función está disponible en el mercado, el botón Easy Connect y el widget de botón de inicio de sesión. Aún no está disponible en la aplicación ni en el widget de perfil de miembro.",
       "expressCheckout": {
         "oneClickBooking": {
-          "label": "One-Click Booking (beta)",
+          "label": "Activar Pago rápido (beta)",
           "helperText": "Los nuevos clientes pueden reservar actividades sin crear primero una cuenta. Esta función no es compatible con las citas ni con la \"confirmación por correo electrónico al registrarse\". Solo se aplica a las actividades que pueden reservarse con un pase \"solo para nuevos socios\"."
         },
         "title": "Pago exprés"

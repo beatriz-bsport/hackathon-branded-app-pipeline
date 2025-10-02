@@ -1,37 +1,84 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
+  <head>
+    <title>Embeddable Widgets</title>
+    <style>
+      body {
+        min-height: 100vh;
+        background-color: #fafafa;
+        padding: 24px;
+      }
 
-<head>
-  <title>Embeddable Widget</title>
-</head>
+      .container {
+        border-radius: 24px;
+        background-color: white;
+        padding: 12px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1),
+          0 2px 4px -2px rgb(0 0 0 / 0.1);
+      }
 
-<body style="width: 100%; height: 100%; background-color: #fafafa;">
-  <div style="margin-left: 0px; display: flex; flex-direction: column; align-items: center; padding: 20px">
-    <p>Here is the widget</p>
-    <div id="bsport-widget-716947"></div>
-    <p style="background: red;">Here is some text below the widget</p>
+      .widget {
+        width: 100%;
+      }
+    </style>
+  </head>
 
-    <div style="height: 100px; width: 100px; background-color: red">
-      <p>Some random element in the website of the studio trying to break stuff</p>
-    </div>
-    <div>
-      <script src="http://localhost:9000/widget.js"></script>
+  <body>
+    <script src="http://localhost:9000/widget.js"></script>
+    <h1>Widget page</h1>
+    <p>
+      Provide to the BsportWidget mount functions the adequate configuration.
+      You don't need to set parentElement; it maps to an existing div.
+    </p>
+    <p>
+      There are two widgets to test multiple widgets usage at the same time.
+    </p>
+
+    <hr />
+
+    <h3>1st Widget</h3>
+    <div class="container">
+      <div id="bsport-widget-1" class="widget"></div>
       <script>
-          BsportWidget.mount({
-              "parentElement": "bsport-widget-716947",
-              "companyId": 331,
-              "franchiseId": null,
-              "dialogMode": 1,
-              "widgetType": "giftcard",
-              "showFab": false,
-              "fullScreenPopup": false,
-              "config": {
-                  "vod": {}
-              }
-          })
+        BsportWidget.mount({
+          parentElement: 'bsport-widget-1',
+          companyId: 2,
+          franchiseId: null,
+          dialogMode: 1,
+          widgetType: 'loginButton',
+          showFab: false,
+          fullScreenPopup: false,
+          styles: undefined,
+          config: {
+            loginButton: { openMemberProfile: true },
+          },
+        });
       </script>
     </div>
-  </div>
-</body>
 
+    <hr />
+
+    <h3>2nd Widget</h3>
+    <div class="container">
+      <div id="bsport-widget-2" class="widget"></div>
+      <script>
+        BsportWidget.mount({
+          parentElement: 'bsport-widget-2',
+          companyId: 2,
+          franchiseId: null,
+          dialogMode: 1,
+          widgetType: 'calendar',
+          showFab: false,
+          fullScreenPopup: false,
+          styles: undefined,
+          config: {
+            calendar: {},
+          },
+        });
+      </script>
+    </div>
+  </body>
 </html>

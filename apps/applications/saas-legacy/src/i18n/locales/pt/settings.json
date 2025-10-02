@@ -15,7 +15,10 @@
       "calendar": "Calendário",
       "paymentPackTemplate": "Passe de aulas partilhado",
       "newsletterV2": "Aquisição de contactos",
-      "referral": "Referência"
+      "referral": "Referência",
+      "consumerBooking": "As minhas reservas",
+      "consumerPass": "Os meus passes",
+      "consumerSpace": "Perfil de membro"
     },
     "preview": "Previsualizar",
     "saveButton": "Guardar",
@@ -147,7 +150,15 @@
     "add": "Adicionar um webhook",
     "createTitle": "Formulário Webhook",
     "submit": "confirmar",
-    "cancel": "cancelar"
+    "cancel": "cancelar",
+    "messages": {
+      "form": {
+        "success": "Webhook subscrito",
+        "error": "Impossível subscrever o webhook"
+      }
+    },
+    "testSuccess": "Url correto",
+    "testError": "Verificar o URL"
   },
   "tab": {
     "coachUserspace": "Área do professor",
@@ -263,7 +274,10 @@
             "marketplace": "Estúdio",
             "home": "Actividades (predefinição)",
             "bookings": "Reservas",
-            "membership": "Cronograma"
+            "membership": "Cronograma",
+            "schedule": "Horário",
+            "activities": "Actividades (predefinição)",
+            "studio": "Estúdio"
           },
           "placeholder": "Selecionar uma página",
           "helperText": "Esta opção permite-lhe escolher a página predefinida que os utilizadores verão ao abrir a aplicação."
@@ -291,18 +305,85 @@
     "methodPaymentCardBillingDetailsTitle": "Solicitar detalhes completos de faturamento",
     "methodPaymentCardBillingDetails": "Solicitar detalhes de faturamento para pagamentos com cartão.",
     "DaysBeforeNotificationInputs": {
-      "helpText": "If you have the “Payment method expiration reminders” enabled for transactional notifications on subscriptions,  you can customize the number of days here."
+      "helpText": "If you have the “Payment method expiration reminders” enabled for transactional notifications on subscriptions,  you can customize the number of days here.",
+      "title": "Lembretes de expiração do método de pagamento",
+      "labels": {
+        "daysBeforeFirstNotification": "Primeiro aviso (dias antes da data de expiração)",
+        "daysBeforeSecondNotification": "Segundo aviso (dias antes da data de expiração)"
+      },
+      "errors": {
+        "secondWarningDayBiggerThanFirst": "A segunda notificação não pode ser superior à primeira",
+        "max": "O número de dias não pode ser superior a {{maxDays}}"
+      }
     }
   },
   "company": {
     "bankAccountInfo": {
       "link": "aqui",
-      "content": "Esta é a conta em que serão creditados os pagamentos em linha através do Bsport. Para configurar o método de pagamento em que será debitada a sua subscrição Bsport, clique em"
+      "content": "Esta é a conta em que serão creditados os pagamentos em linha através do Bsport. Para configurar o método de pagamento em que será debitada a sua subscrição Bsport, clique em",
+      "update": "Atualizar informações bancárias"
     },
     "bankAccountSuccess": {
       "title": "Alteração dos dados bancários",
       "content": "Os seus dados bancários foram atualizados. Para ser creditado e debitado na mesma conta, pode também atualizar o método de pagamento utilizado para debitar a sua subscrição.",
       "note": "Clique em \"Configurar\" para ser redireccionado."
+    },
+    "stripe": {
+      "update": "Atualizar informações do Stripe"
+    },
+    "paypal": {
+      "status": {
+        "connected": "Conta ligada",
+        "notConnected": "Não ligado",
+        "hasIssues": "Problemas de ligação",
+        "unknown": "Estado desconhecido"
+      },
+      "linkHelper": "Vincule sua conta comercial do PayPal para permitir que seus membros façam pagamentos únicos com o PayPal",
+      "titleWithPayPal": "Com o PayPal, os seus membros podem",
+      "oneTimePayments": "Efetuar pagamentos únicos",
+      "accountName": "Nome da conta",
+      "accountEmail": "E-mail da conta",
+      "connect": "Ligar a conta PayPal",
+      "dialog": {
+        "title": "Conectar sua conta comercial do PayPal",
+        "helper": "Para se ligar, utilize a sua conta Business, actualize uma conta Pessoal ou Premier para Business ou crie uma nova conta Business.",
+        "cancel": "Cancel",
+        "startConnecting": "Iniciar a ligação",
+        "redirecting": "Redireccionando-o para o PayPal...",
+        "error": "Ocorreu um erro ao tentar recuperar a ligação de integração do PayPal"
+      },
+      "alert": {
+        "rightAccount": {
+          "title": "Certifique-se de que está a ligar a conta correta",
+          "content": "Alterar ou desligar posteriormente é um processo complexo que deve ser evitado, exceto se for absolutamente necessário."
+        },
+        "error": {
+          "isStatusUnknown": {
+            "title": "Atualmente, não é possível contactar o PayPal",
+            "content": "Actualize a página.",
+            "goToPayPal": "Se o problema persistir, verifique o estado dos sistemas PayPal"
+          },
+          "primary_email_confirmation": {
+            "title": "Falta de confirmação por correio eletrónico na sua conta PayPal.",
+            "content": "Os pagamentos por PayPal estão atualmente desactivados.",
+            "goToPayPal": "Verifique a sua conta PayPal para resolver este problema."
+          },
+          "requires_more_information": {
+            "title": "Conta PayPal sem informações ou não validada.",
+            "content": "Os pagamentos por PayPal estão atualmente desactivados. Se a sua conta PayPal foi criada recentemente e tem a certeza de que as suas informações estão corretas, aguarde algum tempo para que o PayPal valide a sua conta.",
+            "goToPayPal": "Caso contrário, verifique a sua conta PayPal para resolver este problema."
+          },
+          "issue_check_account": {
+            "title": "Problema com a sua conta PayPal.",
+            "content": "Os pagamentos por PayPal estão atualmente desactivados.",
+            "goToPayPal": "Verifique a sua conta PayPal para resolver este problema."
+          },
+          "issue_repeat_onboarding": {
+            "title": "Os pagamentos por PayPal estão atualmente desactivados.",
+            "content": "Repita o progresso da ligação utilizando a mesma conta para resolver este problema."
+          }
+        }
+      }
     }
   },
   "quickbooks": {
@@ -332,5 +413,20 @@
     "header": "Grupos de faturação",
     "helperText": "\"Os grupos de faturação aparecerão nos seus relatórios para ligar facilmente cada fatura à localização correcta e serão utilizados no cesto pelos membros para escolherem a sua localização preferida. Pelo menos um grupo de faturação deve ser definido para que os membros possam efetuar compras online. Se tiver vários estabelecimentos pertencentes à mesma localização, pode agrupá-los no mesmo grupo de faturação",
     "add": "Adicionar um grupo"
+  },
+  "platformCustomerEntity": {
+    "vatId": {
+      "title": "Número de identificação para efeitos de IVA",
+      "descriptionPart1": "A bsport necessita do seu número de IVA (também conhecido como número de registo de IVA ou número de IVA intracomunitário) para o incluir nas facturas que lhe emitimos.",
+      "descriptionPart2": "Se a sua empresa estiver sediada na UE (excluindo a França) e tiver um número de IVA registado, é obrigatório aplicar o mecanismo de autoliquidação, garantindo que o IVA não é cobrado pela bsport.",
+      "update": "Atualizar o número de IVA",
+      "errorChip": "Número de IVA válido em falta"
+    }
+  },
+  "errorBoundary": {
+    "unexpectedError": "Lamentamos, mas deparámo-nos com um erro inesperado ao carregar a página.",
+    "errorDescription": "Estamos atualmente a investigar o que correu mal. Tente recarregar a página ou envie um relatório de falha para que possamos investigar melhor.",
+    "submitCrashReport": "Apresentar relatório de acidente",
+    "reload": "Recarregar"
   }
 }

@@ -98,7 +98,7 @@ export function _formatAsProjectConfig({
  * @param dirPath Path to the directory containing the JSON files
  * @returns JSON as an object
  */
-function _joinDirJsonTranslations(dirPath: string) {
+export function joinDirJsonTranslations(dirPath: string) {
   if (!existsSync(dirPath)) {
     console.warn(`⚠️  Can not recognize path ${dirPath}`);
     return {};
@@ -352,6 +352,70 @@ export function getFlattenKeyValuePairs(
 }
 
 /**
+ * Add a value to the translations object at the specified key path.
+ * If any part of the key path does not exist, it will be created.
+ *
+ * @param translations Object containing all current translations.
+ * @param key Path where to add the new value, in flattened key format (e.g., "myTranslation.special.nested.key").
+ * @param value New value to be added at the specified key path.
+ *
+ * @returns Nothing, as the changes are made in place
+ *
+ * @example
+ * const translations = {
+ *  key1: {
+ *    nestedKey1: "Hello !",
+ *    nestedKey2: {
+ *      item1: "Bonjour !",
+ *      item2: "Hola !",
+ *    }
+ *  };
+ *
+ * addValueToTranslations({ translations, key: "key1.nestedKey3.item1", value: "Goodbye !" });
+ * // Update translations in place, which looks like
+ * translations = {
+ *  key1: {
+ *    nestedKey1: "Hello !",
+ *    nestedKey2: {
+ *      item1: "Bonjour !",
+ *      item2: "Hola !",
+ *    },
+ *    nestedKey3: {
+ *      item1: "Goodbye !",
+ *    },
+ *  };
+ */
+export function addValueToTranslations({
+  translations,
+  key,
+  value,
+}: {
+  translations: Record<string, any>;
+  key: string;
+  value: string;
+}): void {
+  const keys = key.split(".");
+  let currentLevel = translations;
+
+  keys.forEach((part, index) => {
+    const isLast = index === keys.length - 1;
+    if (isLast) {
+      // If it's the last part of the key, assign the value
+      currentLevel[part] = value;
+    } else {
+      const existing = currentLevel[part];
+
+      // If existing is missing or not an object (e.g. an old string → reset as {})
+      if (!existing || typeof existing !== "object") {
+        currentLevel[part] = {};
+      }
+
+      currentLevel = currentLevel[part];
+    }
+  });
+}
+
+/**
  * Retrieve a unique JSON object containing all source translations of a project
  * @param project Config of the project to analyze
  */
@@ -375,7 +439,7 @@ export function getSourceTranslations(project: ProjectConfig): Translations {
   if (project.hasTransifexStructure) {
     // Structure: i18n/source/{namespace}.json
     const sourceDir = path.resolve(project.pathToI18n, "source");
-    return _joinDirJsonTranslations(sourceDir);
+    return joinDirJsonTranslations(sourceDir);
   } else {
     // Structure: i18n/locales/en/translations.json
     const sourcePath = path.resolve(

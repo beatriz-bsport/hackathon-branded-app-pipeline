@@ -1,3 +1,170 @@
 {
-  "helloName": "Hello {{ name }} !"
+  "page": {
+    "title": "Marketing notifications",
+    "emptyState": {
+      "title": "No notifications yet",
+      "description": "Set up an automation to send notifications to your members.",
+      "primaryAction": "Add automation"
+    }
+  },
+  "filters": {
+    "label": "Notification type"
+  },
+  "table": {
+    "headers": {
+      "notificationType": "Trigger type",
+      "triggerCondition": "Automation",
+      "communicationChannel": "Channel"
+    },
+    "toggleNotification": {
+      "enabled": "Activated",
+      "disabled": "Activate",
+      "broken": "Resolve issue"
+    },
+    "notificationType": {
+      "location": "Location",
+      "groupActivity": "Group Activity",
+      "workshop": "Workshop",
+      "establishment": "Establishment",
+      "privateService": "Appointment",
+      "privatePass": "Appointment Pass",
+      "paymentPack": "Pass",
+      "subscription": "Subscription",
+      "birthday": "Birthday",
+      "metaActivity": "Booking"
+    },
+    "notificationState": {
+      "enabled": "Activated",
+      "disabled": "Activate",
+      "broken": "Resolve issue"
+    },
+    "actions": {
+      "preview": "Open notification",
+      "edit": "Edit",
+      "delete": "Delete"
+    },
+    "brokenEmailTooltip": "The email template has been deleted and is preventing this automation from running",
+    "triggerType": {
+      "booking": {
+        "attended": {
+          "present": {
+            "any": "Any booking attended in {{entityName}}",
+            "afterX_one": "After {{bookingCount}} booking attended in {{entityName}}",
+            "afterX_other": "After {{bookingCount}} bookings attended in {{entityName}}"
+          },
+          "absent": {
+            "any": "Any booking cancelled in {{entityName}}",
+            "afterX_one": "After {{bookingCount}} booking cancelled in {{entityName}}",
+            "afterX_other": "After {{bookingCount}} bookings cancelled in {{entityName}}"
+          }
+        },
+        "cancelled": {
+          "onTime": {
+            "any": "Any booking cancelled on time in {{entityName}}",
+            "afterX_one": "After {{bookingCount}} booking cancelled on time in {{entityName}}",
+            "afterX_other": "After {{bookingCount}} bookings cancelled on time in {{entityName}}"
+          },
+          "tooLate": {
+            "any": "Any booking cancelled late in {{entityName}}",
+            "afterX_one": "After {{bookingCount}} booking cancelled late in {{entityName}}",
+            "afterX_other": "After {{bookingCount}} bookings cancelled late in {{entityName}}"
+          }
+        }
+      },
+      "subscription": {
+        "started": "Start of {{subscriptionName}}",
+        "ended": "End of {{subscriptionName}}"
+      },
+      "passes": {
+        "credit_one": "{{creditsNumber}} credit remaining in {{passName}}",
+        "credit_other": "{{creditsNumber}} credits remaining in {{passName}}",
+        "validity_one": "{{validDaysNumber}} valid day remaining in {{passName}}",
+        "validity_other": "{{validDaysNumber}} valid days remaining in {{passName}}",
+        "expired_one": "{{daysExpiredNumber}} day expired in {{passName}}",
+        "expired_other": "{{daysExpiredNumber}} days expired in {{passName}}"
+      },
+      "birthday": "Member birthday"
+    },
+    "triggerTiming": {
+      "booking": {
+        "before": {
+          "day_one": "Sent {{timeValue}} day before the session",
+          "day_other": "Sent {{timeValue}} days before the session",
+          "hour_one": "Sent {{timeValue}} hour before the session",
+          "hour_other": "Sent {{timeValue}} hours before the session"
+        },
+        "after": {
+          "day_one": "Sent {{timeValue}} day after the session",
+          "day_other": "Sent {{timeValue}} days after the session",
+          "hour_one": "Sent {{timeValue}} hour after the session",
+          "hour_other": "Sent {{timeValue}} hours after the session"
+        }
+      },
+      "subscription": {
+        "creation": {
+          "before": {
+            "day_one": "Sent {{timeValue}} day before subscription creation",
+            "day_other": "Sent {{timeValue}} days before subscription creation",
+            "hour_one": "Sent {{timeValue}} hour before subscription creation",
+            "hour_other": "Sent {{timeValue}} hours before subscription creation"
+          },
+          "after": {
+            "day_one": "Sent {{timeValue}} day after subscription creation",
+            "day_other": "Sent {{timeValue}} days after subscription creation",
+            "hour_one": "Sent {{timeValue}} hour after subscription creation",
+            "hour_other": "Sent {{timeValue}} hours after subscription creation"
+          }
+        },
+        "firstBilling": {
+          "before": {
+            "day_one": "Sent {{timeValue}} day before subscription first invoice",
+            "day_other": "Sent {{timeValue}} days before subscription first invoice",
+            "hour_one": "Sent {{timeValue}} hour before subscription first invoice",
+            "hour_other": "Sent {{timeValue}} hours before subscription first invoice"
+          },
+          "after": {
+            "day_one": "Sent {{timeValue}} day after subscription first invoice",
+            "day_other": "Sent {{timeValue}} days after subscription first invoice",
+            "hour_one": "Sent {{timeValue}} hour after subscription first invoice",
+            "hour_other": "Sent {{timeValue}} hours after subscription first invoice"
+          }
+        },
+        "end": {
+          "before": {
+            "day_one": "Sent {{timeValue}} day before subscription ends",
+            "day_other": "Sent {{timeValue}} days before subscription ends",
+            "hour_one": "Sent {{timeValue}} hour before subscription ends",
+            "hour_other": "Sent {{timeValue}} hours before subscription ends"
+          },
+          "after": {
+            "day_one": "Sent {{timeValue}} day after subscription ends",
+            "day_other": "Sent {{timeValue}} days after subscription ends",
+            "hour_one": "Sent {{timeValue}} hour after subscription ends",
+            "hour_other": "Sent {{timeValue}} hours after subscription ends"
+          }
+        }
+      },
+      "passes": {
+        "expired": {
+          "day_one": "Sent {{timeValue}} day after pass expiration",
+          "day_other": "Sent {{timeValue}} days after pass expiration"
+        },
+        "validity": {
+          "day_one": "Sent {{timeValue}} day of validity left",
+          "day_other": "Sent {{timeValue}} days of validity left"
+        },
+        "credits": {
+          "booking": {
+            "hour_one": "Sent {{timeValue}} hour after booking of session",
+            "hour_other": "Sent {{timeValue}} hours after booking of session"
+          },
+          "end": {
+            "hour_one": "Sent {{timeValue}} hour after end of session",
+            "hour_other": "Sent {{timeValue}} hours after end of session"
+          }
+        }
+      }
+    },
+    "birthday": "Sent on their registered date of birth"
+  }
 }

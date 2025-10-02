@@ -6,8 +6,10 @@ type PackItem = {
   tax: string;
 };
 
-// Backend model : PaymentCombo
-// Backend serializer : PaymentComboSerializer
+/**
+ * Backend model: PaymentCombo
+ * Backend serializer: PaymentComboSerializer
+ */
 export type Pack = {
   id: number;
   name: string;
@@ -34,17 +36,26 @@ export type Pack = {
   bookkeeping_account: number | undefined | null;
 };
 
-export type PackFormData = {
-  id?: number;
-  name: string;
-  description: string;
-  manager_only: boolean;
-  price: number;
-  tax: number;
-  company: number;
-  available: boolean;
-  payment_pack_ids: number[];
-  shop_item_ids: number[];
-  private_pass_ids: number[];
-  is_usable_by_staff: boolean;
-};
+export type PackFormData = Pick<
+  Pack,
+  | "name"
+  | "description"
+  | "manager_only"
+  | "company"
+  | "available"
+  | "is_usable_by_staff"
+  | "use_payment_combo_tax_on_items"
+  | "expiration_date"
+  | "max_purchase_per_member"
+  | "available_payment_method_identifiers"
+  | "highlighted_as_recommended"
+  | "new_member_only"
+  | "tags_on_consumer_item_creation"
+> &
+  Partial<Pick<Pack, "id">> & {
+    payment_pack_ids: number[];
+    shop_item_ids: number[];
+    private_pass_ids: number[];
+    price: number;
+    tax: number;
+  };

@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 
 import { compose } from 'recompose';
 import { connect, ConnectedProps } from 'react-redux';
-import { Switch, Route } from 'react-router';
+import { Route, Switch } from 'react-router';
 import { fetchCompanyTheme } from '#src/libs/theme/actions';
 import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
 
@@ -12,10 +12,12 @@ import { getOneClickBookingUrl } from '#src/libs/marketplace/routing-utils';
 import { fetchProfile as fetchProfileAction } from '#src/libs/consumer-space/actions';
 import withThemeProvider from '#src/hocs/company-themifier.hoc';
 // @ts-expect-error
-import asyncComponent from '../../AsyncComponent.js';
-import { RootState } from '../../reducers';
+import asyncComponent from '#src/AsyncComponent.js';
+import { RootState } from '#src/reducers';
 import { AuthenticatedSwitch } from './components/AuthenticatedSwitch';
 import { requestOptInTrackingB2C as requestOptInTrackingB2CAction } from '#src/components/analytics/actions';
+import { useSafeFlag } from '#src/utils/feature-flag/flagWrapper';
+import { FeatureFlags } from '#src/utils/feature-flag/flags';
 
 const MarketplaceAsManager = asyncComponent(
   () =>
@@ -37,6 +39,11 @@ const BoutiqueBookerModule = asyncComponent(
 
 // @ts-expect-error
 const BasketPage = asyncComponent(() => import('./basket/Basket.page'));
+const MemberAreaBasketUnifiedPage = asyncComponent(
+  // @ts-expect-error
+  () => import('./basket/MemberAreaBasketUnified.page'),
+);
+
 const BoutiqueContractCheckout = asyncComponent(
   () => import('./BoutiqueContractCheckout.page'),
 );
@@ -75,6 +82,10 @@ export const NewBookingFlowRouter: React.FC<Props> = ({
     // Opt in B2C tracking and opt out B2B tracking
     requestOptInTrackingB2C();
   }, []);
+
+  const showMemberAreaBasketUnified = useSafeFlag(
+    FeatureFlags.MEMBER_AREA_BASKET_UNIFIED,
+  );
 
   if (is_manager) {
     return <MarketplaceAsManager />;
@@ -118,7 +129,9 @@ export const NewBookingFlowRouter: React.FC<Props> = ({
                 : undefined,
           },
           {
-            component: BasketPage,
+            component: showMemberAreaBasketUnified
+              ? MemberAreaBasketUnifiedPage
+              : BasketPage,
             path: '/checkout-s/:companyId',
           },
           {

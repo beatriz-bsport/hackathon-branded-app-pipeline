@@ -273,7 +273,7 @@
       "expressCheckout": {
         "title": "Express-Checkout",
         "oneClickBooking": {
-          "label": "One-Click Booking (beta)",
+          "label": "Express Checkout (beta) aktivieren",
           "helperText": "Neue Mitglieder können Aktivitäten buchen, ohne zuvor einen Account anzulegen. Diese Funktion ist nicht mit Terminen oder \"Email-Bestätigung bei Anmeldung\" kompatibel. Es bezieht sich lediglich auf Aktivitäten, die mit einem \"nur neue Mitglieder\" Kurspass gebucht werden können."
         }
       },

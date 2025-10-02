@@ -64,6 +64,31 @@
         "addWebshopItem": "Add webshop item"
       }
     },
+    "pricingSection": {
+      "title": "Pricing",
+      "price": {
+        "label": "Price",
+        "helperText": "Total value of items in this pack: {{ amount }}"
+      },
+      "taxToggle": {
+        "label": "VAT/Sales Tax rate",
+        "description": "Apply a single VAT/Sales Tax rate to the whole Pack",
+        "helperText": "The VAT/Sales Tax rate will be set for all the products included in this Pack"
+      },
+      "maxPurchaseToggle": {
+        "label": "Max. per member",
+        "description": "Add a maximum amount of purchases per member"
+      },
+      "paymentMethod": {
+        "label": "Payment method",
+        "helperText": "Choose at least one payment method",
+        "checkboxes": {
+          "onlinePayments": "Accept online payments (default)",
+          "onsitePayments": "Accept on-site payments"
+        },
+        "errorMissingPaymentMethod": "Select a payment method"
+      }
+    },
     "requiredField": "This field is required."
   }
 }

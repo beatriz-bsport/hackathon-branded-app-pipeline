@@ -6,7 +6,9 @@
   "scripts": {
     "format": "prettier --write '**/*.{ts,tsx,js,jsx,cjs,mjs,scss,css,json,md,mdx,html,svg}'",
     "format:check": "prettier --check '**/*.{ts,tsx,js,jsx,cjs,mjs}'",
+    "project:find-unused-keys": "tsx ./scripts/find-unused-keys.ts",
     "project:transform": "tsx ./scripts/transform-project-structure.ts",
+    "project:translate-missing-strings": "tsx ./scripts/translate-missing-strings.ts",
     "translation:migrate": "tsx ./scripts/import-legacy-translations.ts",
     "translation:update": "tsx ./scripts/build-public-locales-files.ts"
   },
@@ -15,9 +17,13 @@
     "fs-extra": "^11.2.0"
   },
   "devDependencies": {
+    "@babel/parser": "^7.28.3",
+    "@babel/traverse": "^7.28.3",
     "@inquirer/prompts": "^7.3.3",
+    "@types/babel__traverse": "^7.28.0",
     "@types/fs-extra": "^11.0.1",
     "commander": "^9.3.0",
+    "glob": "^11.0.3",
     "inquirer-select-pro": "1.0.0-alpha.9",
     "json-beautify": "^1.1.1",
     "json-merger": "^2.0.0",

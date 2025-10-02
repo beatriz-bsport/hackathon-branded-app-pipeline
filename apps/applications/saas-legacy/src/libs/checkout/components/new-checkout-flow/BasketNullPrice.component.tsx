@@ -83,13 +83,14 @@ export const BasketNullPrice: React.FC<BasketNullPriceProps> = ({
   const { t } = useTranslation('checkout');
   const classes = useStyles();
 
-  const acceptTermsAndFinalizeTransKey = basketHasOffers
-    ? 'myBasket.acceptTermsAndFinalize'
-    : 'myBasket.noBooking.acceptTermsAndFinalize';
+  const acceptTermsAndFinalizeMessage = basketHasOffers
+    ? t('myBasket.acceptTermsAndFinalize')
+    : t('myBasket.noBooking.acceptTermsAndFinalize');
 
-  const checkAndFinalizeTransKey = basketHasOffers
-    ? 'myBasket.checkAndFinalize'
-    : 'myBasket.noBooking.checkAndFinalize';
+  const checkAndFinalizeMessage = basketHasOffers
+    ? t('myBasket.checkAndFinalize')
+    : t('myBasket.noBooking.checkAndFinalize');
+
   return enableMultiLocalization ? (
     <CompactLayout
       enableMultiLocalization={enableMultiLocalization}
@@ -107,8 +108,8 @@ export const BasketNullPrice: React.FC<BasketNullPriceProps> = ({
       </Typography>
       <Typography className={classes.subtitle} variant="body1">
         {areTermsAndConditionsAccepted
-          ? t(checkAndFinalizeTransKey)
-          : t(acceptTermsAndFinalizeTransKey)}
+          ? checkAndFinalizeMessage
+          : acceptTermsAndFinalizeMessage}
       </Typography>
     </CompactLayout>
   ) : (
@@ -118,8 +119,8 @@ export const BasketNullPrice: React.FC<BasketNullPriceProps> = ({
       </Typography>
       <Typography className={classes.subtitle} variant="body1">
         {areTermsAndConditionsAccepted
-          ? t(checkAndFinalizeTransKey)
-          : t(acceptTermsAndFinalizeTransKey)}
+          ? checkAndFinalizeMessage
+          : acceptTermsAndFinalizeMessage}
       </Typography>
     </CenteredLayout>
   );

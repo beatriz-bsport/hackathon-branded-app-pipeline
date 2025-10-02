@@ -18,7 +18,11 @@
           "hybridManagementHelper": "Pode gerir as reservas associadas a esta sessão geminada, tanto na sala como online, clicando no ícone abaixo para abrir um novo separador de gestão.",
           "level": "Nível",
           "hybridSection": "Sessão híbrida",
-          "metaActivity": "Atividade"
+          "metaActivity": "Atividade",
+          "decimalCredit": {
+            "helperText": "Esta sessão custará {{count}} créditos.",
+            "helperText_plural": "Esta sessão custará {{count}} créditos."
+          }
         },
         "title": "Características",
         "tooltip": {
@@ -37,7 +41,14 @@
             "availableOnPartnership": "No marketplace (ClassPass, OneFit...)",
             "partnerMaxBookingCount": "Número máximo de reservas pelo marketplace (apenas para o OneFit + Urban Sports Club)",
             "uscIntegrationWorkshopWarning": "Uma vez que os workshops não são compatíveis com o marketplace do Urban Sports Club, esta sessão não será incluída.",
-            "uscIntegrationWarning": "A inclusão no mercado do Urban Sports Club está ativa, mas qualquer sessão com duração igual ou superior a 2 dias não aparecerá."
+            "uscIntegrationWarning": "A inclusão no mercado do Urban Sports Club está ativa, mas qualquer sessão com duração igual ou superior a 2 dias não aparecerá.",
+            "enablePartneshipBookings": "Ativar as reservas do agregador",
+            "subtitle": "Inclui: ClassPass, Urban Sports Club, Gymlib e Wellhub para reservas externas.",
+            "wellhubProduct": {
+              "title": "Os seus produtos disponíveis no Wellhub:",
+              "helperText": "Estes produtos são oferecidos pelo seu estúdio na plataforma Wellhub. Aceda à secção \"Parceria\" no Portal de Parceiros da sua conta Wellhub para obter mais informações.",
+              "selectionMissing": "Este campo é obrigatório, tem de selecionar um produto."
+            }
           },
           "isNotifyConsumers": "Gostaria de informar os seus alunos sobre esta alteração ?",
           "syncOfferOnSpivi": "Enviar para Spivi"
@@ -105,7 +116,8 @@
           "dateIntervalStart": "Data da aula",
           "dateIntervalEnd": "Data de fim",
           "dateIntervalStartTime": "Hora de início",
-          "durationMinute": "Duração"
+          "durationMinute": "Duração",
+          "wellhubDurationWarning": "As sessões que excedam 200 minutos serão automaticamente ajustadas para uma duração máxima de 200 minutos quando enviadas para o Wellhub. Certifique-se de que a duração da sua sessão está em conformidade com este limite para evitar discrepâncias."
         },
         "title": "Horas e data"
       },
@@ -153,7 +165,9 @@
         "durationMinute": "A duração de uma sessão deve ser superior a 0 minutos",
         "dateIntervalEnd": "A data final não pode ser anterior à data de início",
         "broadcastLink": "A ligação está incorrecta. Deve começar por http:// ou https:// e não deve conter espaços",
-        "durationMinuteSpivi": "Uma sessão de Spivi deve durar entre 20 minutos a 4 horas"
+        "durationMinuteSpivi": "Uma sessão de Spivi deve durar entre 20 minutos a 4 horas",
+        "wellhubProductMissing": "Este campo é obrigatório, tem de selecionar um produto.",
+        "dateIntervalStartBeforeLast": "A data de início não pode ser anterior à última recorrência"
       },
       "positiveNumber": "O valor deve ser superior a 0",
       "dateTooFar": "Impossível criar sessões que decorram em mais de 3 anos",
@@ -164,7 +178,21 @@
       "effectif": "Tenha em atenção que não está a introduzir um preço. Tem a certeza do valor ?",
       "editOfferInitialCredits": "As reservas mais antigas não têm em conta a alteração dos créditos"
     },
-    "forbidden": "Não tem autorização para adicionar sessões a esta atividade. Contacte o seu gestor para obter os direitos necessários."
+    "forbidden": "Não tem autorização para adicionar sessões a esta atividade. Contacte o seu gestor para obter os direitos necessários.",
+    "uscWarning": {
+      "title": "Atenção: Esta ação cancelará as reservas actuais na USC.",
+      "content": "Perderá todos os dados de reserva actuais se alterar a data, hora ou estabelecimento desta sessão. A alteração destes detalhes criará uma nova sessão e cancelará a atual na USC.",
+      "alertContent": "As alterações a esta sessão anularão as reservas actuais na USC. Confirmar para prosseguir."
+    },
+    "recurrence": {
+      "duplicateModalTitle": "Sessão duplicada",
+      "regularOffer": "A nova sessão utilizará as mesmas definições que a sessão duplicada.",
+      "recurringOffer": "A última sessão foi efectuada em {{- date }} a {{- time }}. Esta sessão duplicada partilhará as mesmas definições e terá início após esta data.  ",
+      "hybridOffer": "A duplicação desta sessão híbrida criará sessões online e no local. Estas utilizarão as mesmas definições que a sessão duplicada.",
+      "linkNewOffersLabel": "Ligar novas sessões a este duplicado para poder editá-las todas em conjunto e permitir que os membros reservem essas sessões todas de uma só vez",
+      "duplicating": "Duplicação",
+      "duplicate": "Duplicado"
+    }
   },
   "rollCall": {
     "filter": {
@@ -263,7 +291,8 @@
     "deleteSimilarOffersGroups": "Pretende eliminar futuras recorrências do grupo",
     "deleteSimilarOffers": "Pretende eliminar sessões semelhantes?",
     "editSimilarOffersGroup": "Editar também as sessões futuras deste evento",
-    "editSimilarOffers": "Selecionar as sessões que serão modificadas"
+    "editSimilarOffers": "Selecionar as sessões que serão modificadas",
+    "select": "Selecionar as sessões que serão modificadas"
   },
   "bookingListEmpty": "Nenhuma reserva",
   "bookingList": "Reservas",
@@ -335,7 +364,9 @@
     "today": "Hoje",
     "filter": "Filtrar",
     "deleteOffer": "Cancelar",
-    "modifyOffer": "Edit"
+    "modifyOffer": "Edit",
+    "duplicateModalTitle": "Sessão duplicada",
+    "duplicateOffer": "Duplicado"
   },
   "substitute": "Substituição",
   "extraordinaryEstablishment": "(localização temporária)",
@@ -379,5 +410,7 @@
     },
     "title": "Notas",
     "loading": "Carregando…"
-  }
+  },
+  "numberOfCredits": "{{ count }} crédito",
+  "numberOfCredits_plural": "{{ count }} créditos"
 }

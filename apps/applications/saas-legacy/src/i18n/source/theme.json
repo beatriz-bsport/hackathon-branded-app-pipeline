@@ -258,7 +258,7 @@
       "expressCheckout": {
         "title": "Express Checkout",
         "oneClickBooking": {
-          "label": "One-Click Booking (beta)",
+          "label": "Enable Express Checkout (beta)",
           "helperText": "New customers will be able to purchase passes without creating an account first. For passes set as 'new member only', customers can buy a pass and book Group Activities in a single payment flow."
         }
       },

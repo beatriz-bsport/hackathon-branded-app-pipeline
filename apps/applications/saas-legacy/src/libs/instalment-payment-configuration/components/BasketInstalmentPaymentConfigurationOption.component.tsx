@@ -13,11 +13,9 @@ import {
   MONTHLY,
   WEEKLY,
 } from '#src/libs/instalment-payment-configuration/constants';
-import {
-  CustomFirstInstalmentType,
-  InstalmentPaymentApiWithBasketId,
-} from '#src/libs/instalment-payment-configuration/types';
+import type { InstalmentPaymentApiWithBasketId } from '#src/libs/instalment-payment-configuration/types';
 import InstalmentPaymentMultiplyIcon from './InstalmentPaymentConfigurationMultiplyIcon.component';
+import { getFirstInstalmentAmount } from '../utils';
 
 type Props = {
   checked: boolean;
@@ -45,22 +43,8 @@ export const BasketInstalmentPaymentOption: React.FC<Props> = ({
     checked,
     isCheckoutContext,
   });
-  const {
-    recurrency,
-    frequency,
-    number_of_billing,
-    custom_first_instalment_amount,
-    custom_first_instalment_enabled,
-    custom_first_instalment_percent,
-    custom_first_instalment_type,
-    partial_payment_enabled,
-  } = instalmentPayment;
-
-  // TODO: FIX TYPING, custom_first_instalment_amount is a string
-  const customFirstInstalmentAmountAsNumber = Number.parseFloat(
-    // @ts-expect-error
-    custom_first_instalment_amount,
-  );
+  const { recurrency, frequency, number_of_billing, partial_payment_enabled } =
+    instalmentPayment;
 
   const calculateInstallmentDate = useCallback(
     (quantityToAdd: number) => {
@@ -88,31 +72,10 @@ export const BasketInstalmentPaymentOption: React.FC<Props> = ({
       );
   }, [frequency, calculateInstallmentDate, number_of_billing]);
 
-  // @debt(4, 2, 3): Potential side effects in the installment calculation logic if business rules change
-  // Calculate the amount for each instalment except the last one, rounded down
-  const firstInstalmentAmount = useMemo(() => {
-    const hasCustomfirstPayment =
-      custom_first_instalment_enabled || partial_payment_enabled;
-
-    if (!hasCustomfirstPayment)
-      return (
-        Math.trunc((basketPrice / number_of_billing) * 100) / 100
-      ).toFixed(2);
-    if (custom_first_instalment_type === CustomFirstInstalmentType.AMOUNT)
-      return (customFirstInstalmentAmountAsNumber || 0).toFixed(2);
-    return (
-      ((custom_first_instalment_percent || 0) / 100) *
-      basketPrice
-    ).toFixed(2);
-  }, [
-    customFirstInstalmentAmountAsNumber,
-    custom_first_instalment_enabled,
-    custom_first_instalment_percent,
-    custom_first_instalment_type,
-    partial_payment_enabled,
-    basketPrice,
-    number_of_billing,
-  ]);
+  const firstInstalmentAmount = useMemo(
+    () => getFirstInstalmentAmount(instalmentPayment, basketPrice),
+    [instalmentPayment, basketPrice],
+  );
 
   // Adjust the last instalment to cover the remaining balance
   const lastInstalmentAmount = useMemo(() => {

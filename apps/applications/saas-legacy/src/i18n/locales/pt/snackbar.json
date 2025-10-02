@@ -60,7 +60,18 @@
       "deleteFail": "Não é possível eliminar uma pausa que já tenha sido iniciada.",
       "error": "Não é possível colocar em pausa esta subscrição",
       "locked": "Não é possível colocar em pausa neste momento, há algum pagamento pendente?",
-      "success": "Subscrição em pausa"
+      "success": "Subscrição em pausa",
+      "alreadyPaused": "Impossível colocar em pausa uma subscrição já colocada em pausa"
+    },
+    "contractTemplate": {
+      "deleteSuccess": "Assinatura arquivada com sucesso",
+      "deleteError": "Falha ao arquivar a subscrição",
+      "restoreSuccess": "Assinatura restaurada com sucesso",
+      "restoreError": "Falha ao restaurar a subscrição",
+      "editSuccess": "Subscrição guardada com sucesso",
+      "editError": "Falha ao guardar a subscrição",
+      "createSuccess": "Assinatura criada com sucesso",
+      "createError": "Falha ao criar a subscrição"
     }
   },
   "automatedCampaign": {
@@ -124,6 +135,27 @@
         "error": "Impossível guardar esta categoria",
         "success": "Categoria registada com sucesso"
       }
+    },
+    "supplier": {
+      "create": {
+        "error": "Erro ao criar fornecedor",
+        "success": "Fornecedor criado com sucesso"
+      },
+      "update": {
+        "error": "Erro ao atualizar o fornecedor",
+        "success": "Fornecedor atualizado com sucesso"
+      },
+      "delete": {
+        "error": "Erro ao eliminar o fornecedor",
+        "success": "Fornecedor eliminado com êxito"
+      }
+    },
+    "variant": {
+      "error": {
+        "11000": "Não é possível criar variante(s) num produto utilizado numa embalagem",
+        "11001": "Não é possível criar um pacote com produtos variantes"
+      },
+      "fetchError": "Erro ao procurar variantes"
     }
   },
   "role": {
@@ -273,6 +305,25 @@
       "errorLackRequiredVariables": "Não foi possível guardar este modelo",
       "error": "Não é possível registar",
       "success": "Alterado com sucesso"
+    },
+    "create": {
+      "error": "Falha ao criar a notificação",
+      "success": "Notificação criada com sucesso",
+      "errorLackRequiredVariables": "Não foi possível registar este modelo"
+    },
+    "delete": {
+      "error": "Falha ao eliminar a notificação",
+      "success": "Notificação eliminada com sucesso"
+    },
+    "editOrAddPass": {
+      "error": "Falha ao guardar a notificação",
+      "success": "Notificação guardada com sucesso"
+    },
+    "active": {
+      "errorDisable": "Falha ao desativar a notificação",
+      "errorEnable": "Falha ao ativar a notificação",
+      "disable": "Notificação desactivada com sucesso",
+      "enable": "Notificação activada com sucesso"
     }
   },
   "activity": {
@@ -362,7 +413,9 @@
     "45005": "O passe de oferta já não está disponível para venda.",
     "85000": "Já está a decorrer uma reserva, pedimos que aguarde um momento",
     "85101": "Impossível reservar, este lugar está a ser reservado por outro membro. Por favor, tente novamente e selecione outro lugar.",
-    "generic": "Impossível de reservar"
+    "generic": "Impossível de reservar",
+    "addToBasketError": "Não é possível adicionar ao cesto",
+    "undefined": "O seu passe foi completamente utilizado para este ano"
   },
   "spivi": {
     "error": {
@@ -389,7 +442,8 @@
       "80002": "O valor \"Número de dias de atraso de registo\" deve ser superior ao valor \"Número de dias de encerramento do registo\".",
       "80003": "Falta Configurações para os limites dos pedidos tardios.",
       "500001": "Já existe um pedido de substituição",
-      "500004": "Já é um substituto para esta sessão"
+      "500004": "Já é um substituto para esta sessão",
+      "undefined": "Este pedido de substituição foi rejeitado: impossível eliminá-lo"
     },
     "cancelReplacementRequest": {
       "success": "O pedido de substituição foi eliminado.",
@@ -663,6 +717,29 @@
     "credit": {
       "updated": "Créditos atualizados",
       "error": "Erro de registo"
+    },
+    "compatibilitiesUpdate": {
+      "fail": "Erro ao atualizar as compatibilidades de passes"
+    },
+    "manualActivation": {
+      "updated": "Passe ativado com sucesso",
+      "error": "Houve um problema ao ativar o passe, por favor tente novamente."
+    },
+    "paymentPackTemplateArchived": {
+      "error": "Impossível arquivar o passe partilhado",
+      "success": "Passe partilhado arquivado"
+    },
+    "paymentPackTemplateRestored": {
+      "error": "Impossível restaurar o passe partilhado",
+      "success": "Restabelecimento do passe partilhado"
+    },
+    "universalPaymentPackTemplateArchived": {
+      "error": "Impossível arquivar o passe universal partilhado",
+      "success": "Passe universal partilhado arquivado"
+    },
+    "universalPaymentPackTemplateRestored": {
+      "error": "Impossível restaurar o passe universal partilhado",
+      "success": "Restabelecimento do passe universal partilhado"
     }
   },
   "paymentMethod": {
@@ -707,7 +784,8 @@
     },
     "editAccessToCoachSpace": {
       "error": "Erro ao editar o acesso e os direitos da Vista do Professor"
-    }
+    },
+    "error_email_exists": "Já existe um membro com este e-mail. Para os associar, utilize o modal anterior."
   },
   "customForm": {
     "update": {
@@ -846,7 +924,10 @@
       "errors": {
         "14100": "Não é possível cancelar uma fatura com pagamentos Interac.",
         "14101": "Impossível de reembolsar com uma fatura de regularização de saldos.",
-        "14102": "Não é possível reembolsar esta fatura."
+        "14102": "Não é possível reembolsar esta fatura.",
+        "14111": "Reembolso indisponível. Os reembolsos estão desactivados para esta BO.",
+        "14112": "Reembolso indisponível. O saldo atual do Stripe é insuficiente.",
+        "35024": "Não é possível reembolsar esta fatura porque a sua conta PayPal não tem fundos suficientes."
       }
     },
     "create": {
@@ -855,17 +936,33 @@
     "applyGiftcard": {
       "error": "Impossível pagar o montante solicitado com este passe de oferta",
       "errors": {
+        "12103": "Erro ao validar este pagamento por cartão de oferta",
         "45000": "O código de ativação do passe não está correto.",
         "45001": "Impossível pagar esta conta com este passe de oferta",
         "45003": "O passe de oferta foi desativado.",
         "45006": "O passe de oferta já foi ativado",
         "45007": "Não é possível reconhecer o membro que pretende ativar o passe.",
-        "generic": "Não é possível ativar o passe de oferta"
+        "generic": "Não é possível ativar o passe de oferta",
+        "undefined": "Impossível reconhecer o membro que pretende ativar o cartão presente."
       },
       "success": "Pagamento do passe de oferta validado"
     },
     "returnPaymentLocked": "Este pagamento não pode ser reembolsado. Há dinheiro suficiente na sua conta Stripe?",
-    "error": "Erro de registo - Cancelado"
+    "error": "Erro de registo - Cancelado",
+    "generateXml": {
+      "success": "Fatura XML gerada com sucesso",
+      "errors": {
+        "14210": "As suas definições não estão configuradas para a exportação de facturas em .XML. Contacte o seu gestor de conta bsport.",
+        "14211": "O documento oficial de identificação do membro está em falta ou incompleto",
+        "14212": "O endereço do membro está em falta ou incompleto",
+        "14213": "Falha ao gerar o documento .XML devido a requisitos legais. Para mais informações ou quaisquer questões, contacte o seu gestor de conta bsport.",
+        "14214": "O ficheiro Zip gerado está vazio porque não foram encontradas facturas a exportar do mês passado",
+        "default": "Ocorreu um erro ao gerar a fatura XML"
+      }
+    },
+    "receipt": {
+      "genericError": "Ocorreu um erro ao gerar o recibo"
+    }
   },
   "quicksaleConfiguration": {
     "error": "Ocorreu um erro durante a cópia de segurança",
@@ -930,7 +1027,8 @@
   },
   "clientSecret": {
     "errors": {
-      "12102": "O seu pagamento está em processo de validação. Volte mais tarde para registar um novo pagamento."
+      "12102": "O seu pagamento está em processo de validação. Volte mais tarde para registar um novo pagamento.",
+      "12909": "Os pagamentos estão desactivados para este estúdio"
     }
   },
   "quickbooks": {
@@ -996,10 +1094,12 @@
     "15002": "As informações já estão a ser recuperadas"
   },
   "removeItem": {
-    "15002": "O artigo já está a ser retirado do carrinho, por favor aguarde"
+    "15002": "O artigo já está a ser retirado do carrinho, por favor aguarde",
+    "15009": "Impossível remover este artigo: o seu cesto ainda está a ser processado"
   },
   "modifyBasket": {
-    "15004": "O carrinho está a ser processado, por favor tente novamente dentro de alguns minutos"
+    "15004": "O carrinho está a ser processado, por favor tente novamente dentro de alguns minutos",
+    "addItemSuccess": "Produto adicionado ao carrinho"
   },
   "copied": "Copiado para a área de transferência",
   "zoom": {
@@ -1057,7 +1157,8 @@
     }
   },
   "privateSlot": {
-    "notAvailableForBookingAnymore": "Esta faixa horária já não está disponível."
+    "notAvailableForBookingAnymore": "Esta faixa horária já não está disponível.",
+    "notCompatibleWithPartnership": "A sessão não foi guardada. Por favor, tente novamente."
   },
   "tag": {
     "error": {
@@ -1073,5 +1174,64 @@
     "seeMemberProfile": "Ver o perfil do membro",
     "content": "Foi enviada uma mensagem eletrónica para ambos os endereços para notificar o membro",
     "title": "A fusão foi bem-sucedida"
+  },
+  "bookkeeping_account": {
+    "errors": {
+      "1": "Já existe uma conta com este nome."
+    },
+    "create": {
+      "error": "Ocorreu um erro ao criar a conta.",
+      "success": "A conta foi criada com sucesso."
+    },
+    "update": {
+      "error": "Ocorreu um erro ao atualizar a conta.",
+      "success": "As alterações foram guardadas com sucesso."
+    },
+    "delete": {
+      "error": "Ocorreu um erro ao eliminar a conta.",
+      "success": "A conta foi eliminada com êxito."
+    }
+  },
+  "privateService": {
+    "notCompatibleWithPartnership": "O compromisso não foi guardado. Por favor, tente novamente."
+  },
+  "cancelPayPalPaymentAttempt": "A sua tentativa de pagamento foi cancelada. Por favor, proceda novamente.",
+  "canNotExecutePaymentAttempt": {
+    "12102": "O seu pagamento já está a ser processado, aguarde",
+    "12107": "O seu pagamento falhou, tente novamente.",
+    "12108": "O seu pagamento já está a ser processado, aguarde",
+    "12109": "O seu pagamento falhou, tente novamente.",
+    "12110": "O seu cesto não corresponde ao montante que tentou pagar, actualizámos o seu cesto, tente novamente",
+    "35000": "O seu pagamento PayPal falhou, tente novamente ou utilize outro método de pagamento",
+    "35006": "A sua conta PayPal não pode processar o pagamento, tente novamente com uma conta diferente",
+    "35012": "O seu cartão está caducado",
+    "35013": "O seu pagamento falhou, selecione outro método de pagamento.",
+    "35015": "O seu pagamento PayPal falhou, tente novamente ou utilize outro método de pagamento",
+    "failedLoadingPayPalScript": "Ocorreu um erro ao carregar o PayPal",
+    "generic": "O seu pagamento falhou, tente novamente"
+  },
+  "quicksaleCheckout": {
+    "15010": "O cesto já não está disponível"
+  },
+  "paypal": {
+    "35009": "Não é possível utilizar uma conta que já esteja ligada a outra empresa.",
+    "connectionAttemptFailed": "Ocorreu um erro durante a ligação ao PayPal",
+    "connectionAttemptSucceeded": "A conta PayPal foi ligada com sucesso",
+    "couldNotReachPayPal": "Não foi possível contactar o PayPal. Por favor, tente novamente mais tarde.",
+    "onboardingUrlFetchFailed": "Ocorreu um erro ao tentar recuperar a ligação de integração do PayPal"
+  },
+  "wellhub": {
+    "configureWebhooks": {
+      "error": "Ocorreu um erro durante a configuração",
+      "success": "A sua ID de unidade foi associada com sucesso"
+    }
+  },
+  "oneClickBooking": {
+    "genericError": "Não foi possível concluir a sua reserva. Por favor, reveja os seus dados e tente novamente."
+  },
+  "communicationScheduled": {
+    "delete": {
+      "133001": "Esta campanha programada está a ser processada ou já foi enviada."
+    }
   }
 }

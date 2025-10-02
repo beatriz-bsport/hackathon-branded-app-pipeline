@@ -19,6 +19,13 @@
       "colors": {
         "helperText": "Adicionar uma cor pressionando enter",
         "title": "Cores"
+      },
+      "barcodes": {
+        "title": "Códigos de barras",
+        "option": {
+          "inherit": "Herdar do produto de base",
+          "generate": "Gerar novos códigos de barras"
+        }
       }
     },
     "detail": {
@@ -58,7 +65,8 @@
       "quantityHelperText": "Unidade a acrescentar/subtrair ao stock",
       "cancel": "Cancelar",
       "submit": "Guardar",
-      "title": "Atualização da disposição"
+      "title": "Atualização da stock",
+      "quantityError": "Introduza um número válido"
     },
     "total_sales": "Número de artigos vendidos :",
     "action": {
@@ -103,7 +111,8 @@
         "availableOnline": "Disponível em linha",
         "vat": "IVA/imposto sobre vendas",
         "supplierPrice": "Preço do fornecedor",
-        "supplier": "Fornecedor"
+        "supplier": "Fornecedor",
+        "vatValue": "{{vat}} %"
       },
       "variants": {
         "availableOnline": "Disponível em linha",
@@ -118,7 +127,13 @@
           "edit": "Editar variante",
           "add": "Adicionar uma variante"
         },
-        "placeholder": "Este produto ainda não tem variantes"
+        "placeholder": "Este produto ainda não tem variantes",
+        "formError": {
+          "price": "Os valores do campo Preço devem ser números positivos válidos"
+        },
+        "formWarning": {
+          "barcode": "Alguns valores de campos de códigos de barras já estão a ser utilizados"
+        }
       },
       "inventory": {
         "seeInvoice": "Ver fatura",
@@ -129,7 +144,20 @@
         "action": {
           "update": "Atualizar o inventário"
         },
-        "formError": "Os valores de ajuste de estoque devem ser números válidos"
+        "formError": "Os valores de ajuste de estoque devem ser números válidos",
+        "filterPlaceholder": {
+          "company": "Selecionar estúdio",
+          "size": "Selecionar tamanho",
+          "color": "Selecionar cor",
+          "establishmentBillingGroup": "Selecionar um grupo de faturação"
+        },
+        "unsavedChangesModal": {
+          "title": "Alterações não guardadas",
+          "inventory": "Antes de passar para outra página, pretende atualizar o inventário com base nos valores introduzidos na coluna \"Ajustamento de existências\"?",
+          "default": "Pretende guardar as suas alterações antes de passar para outra página?"
+        },
+        "companyName": "Estúdio",
+        "tooltipForMultiLocationWebshop": "Uma vez que a multilocalização está activada para este estúdio, o stock só pode ser ajustado a partir da subconta e não da conta principal."
       }
     },
     "tab": {
@@ -150,7 +178,8 @@
     "showLess": "Mostrar menos",
     "showMore": "Mostrar mais",
     "startingAt": "A partir de",
-    "title": "Detalhes do produto"
+    "title": "Detalhes do produto",
+    "barcodeUnicityWarning": "O código de barras fornecido já está a ser utilizado"
   },
   "shopList": {
     "tab": {
@@ -172,14 +201,22 @@
             "table": {
               "action": {
                 "delete": "Eliminar",
-                "edit": "Editar"
+                "edit": "Editar",
+                "showInfos": "Ver informações"
               },
               "addSupplier": "Adicionar fornecedor",
               "actions": "Acções",
               "notes": "Notas",
               "name": "Nome"
             },
-            "title": "Fornecedores"
+            "title": "Fornecedores",
+            "detailsModal": {
+              "title": "Beg:"
+            }
+          },
+          "supplierPrices": {
+            "title": "Preços dos fornecedores",
+            "hideSupplierPricesForFranchisees": "Ocultar os preços dos fornecedores para os estúdios de franquia"
           }
         },
         "title": "Configurações"
@@ -191,10 +228,28 @@
           },
           "title": "AdIcionar uma categoria"
         },
-        "title": "Produtos"
+        "title": "Produtos",
+        "addProduct": "Adicionar produto",
+        "franchiseSubshopDialog": {
+          "inputPlaceholder": "Nome da categoria",
+          "create": "Adicionar categoria",
+          "update": "Mudar o nome da categoria",
+          "delete": "Eliminar a categoria",
+          "deleteInfo": "Tem a certeza de que pretende eliminar esta categoria? Todos os elementos associados serão também eliminados.",
+          "info": "As categorias aparecerão na Área de Membros e na aplicação para os artigos disponíveis para venda."
+        },
+        "storeOnly": "Armazenar apenas",
+        "online": "Em linha",
+        "emptySubshopList": "Ainda não existem produtos criados nesta categoria."
       }
     }
   },
   "variantCount": "{{count}} variante",
-  "variantCount_plural": "{{count}} variantes"
+  "variantCount_plural": "{{count}} variantes",
+  "startingAtWithPrice": "A partir de {{price}}",
+  "addVariantCount": "Adicionar {{count}} variante",
+  "addVariantCount_plural": "Adicionar {{count}} variantes",
+  "saveProductWithVariantCount": "Guardar um produto com a variante {{count}}",
+  "saveProductWithVariantCount_plural": "Guardar um produto com {{count}} variantes",
+  "duplicateVariantWarning": "Algumas combinações de cores e tamanhos já existem e não voltarão a ser criadas"
 }

@@ -154,6 +154,21 @@ type OwnProps = {
 
 type Props = Partial<OwnProps> & FormikProps<FormikValues>;
 
+const idToFunnelConfigMap: Record<string, [number, null]> = {
+  [PAYMENT_PACK_BOOKING_FUNNEL_NO_CATEGORY_STRING_ID]: [
+    PAYMENT_PACK_BOOKING_FUNNEL_IDENTIFIER,
+    null,
+  ],
+  [PAYMENT_COMBO_BOOKING_FUNNEL_STRING_ID]: [
+    PAYMENT_COMBO_BOOKING_FUNNEL_IDENTIFIER,
+    null,
+  ],
+  [CONTRACT_BOOKING_FUNNEL_STRING_ID]: [
+    CONTRACT_BOOKING_FUNNEL_IDENTIFIER,
+    null,
+  ],
+};
+
 const ProductsOrderingPersonalizeForm: React.FC<Props> = ({
   isSubmitting,
   isValid,
@@ -177,14 +192,24 @@ const ProductsOrderingPersonalizeForm: React.FC<Props> = ({
     (pricingOption) => {
       switch (pricingOption[0]) {
         case PAYMENT_PACK_BOOKING_FUNNEL_IDENTIFIER:
-          return pricingOption[1]
-            ? {
-                id: pricingOption[1].toString(),
-                categoryName: paymentPackCategories[pricingOption[1]].name,
-              }
-            : {
-                id: PAYMENT_PACK_BOOKING_FUNNEL_NO_CATEGORY_STRING_ID,
-              };
+          const categoryId = pricingOption[1];
+
+          if (!categoryId) {
+            // Return the "No category" identifier
+            return { id: PAYMENT_PACK_BOOKING_FUNNEL_NO_CATEGORY_STRING_ID };
+          }
+
+          const category = paymentPackCategories?.[categoryId];
+
+          if (!category) {
+            // Means that the category is not existing in the paymentPackCategories store (e.g. might have been deleted)
+            return null;
+          }
+
+          return {
+            id: String(categoryId),
+            categoryName: category.name,
+          };
         case PAYMENT_COMBO_BOOKING_FUNNEL_IDENTIFIER:
           return { id: PAYMENT_COMBO_BOOKING_FUNNEL_STRING_ID };
         case CONTRACT_BOOKING_FUNNEL_IDENTIFIER:
@@ -206,33 +231,29 @@ const ProductsOrderingPersonalizeForm: React.FC<Props> = ({
         PAYMENT_PACK_BOOKING_FUNNEL_IDENTIFIER,
       ].includes(pricingOption[0]),
     )
-    .map(computePricingOptionItem);
+    .map(computePricingOptionItem)
+    .filter((item) => !!item);
 
   const formatToPricingOptionOrdening: (
     pricingOptionItemList: { id: string; categoryName?: string }[],
-  ) => number[][] = useCallback((pricingOptionItemList) => {
-    return pricingOptionItemList.map((pricingOptionItem) => {
-      if (
-        pricingOptionItem.id ===
-        PAYMENT_PACK_BOOKING_FUNNEL_NO_CATEGORY_STRING_ID
-      ) {
-        return [PAYMENT_PACK_BOOKING_FUNNEL_IDENTIFIER, null];
-      }
-      if (pricingOptionItem.id === PAYMENT_COMBO_BOOKING_FUNNEL_STRING_ID) {
-        return [PAYMENT_COMBO_BOOKING_FUNNEL_IDENTIFIER, null];
-      }
-      if (pricingOptionItem.id === CONTRACT_BOOKING_FUNNEL_STRING_ID) {
-        return [CONTRACT_BOOKING_FUNNEL_IDENTIFIER, null];
-      }
-      if (/^[0-9]+$/.test(pricingOptionItem.id)) {
-        return [
-          PAYMENT_PACK_BOOKING_FUNNEL_IDENTIFIER,
-          parseInt(pricingOptionItem.id),
-        ];
-      }
-      return null;
-    });
-  }, []);
+  ) => Array<null | [number, null | number]> = useCallback(
+    (pricingOptionItemList) => {
+      return pricingOptionItemList.map((pricingOptionItem) => {
+        const itemId = pricingOptionItem.id;
+
+        if (itemId in idToFunnelConfigMap) {
+          return idToFunnelConfigMap[itemId];
+        }
+
+        if (/^[0-9]+$/.test(itemId)) {
+          return [PAYMENT_PACK_BOOKING_FUNNEL_IDENTIFIER, parseInt(itemId, 10)];
+        }
+
+        return null;
+      });
+    },
+    [],
+  );
 
   const handleDragEnd = useCallback(
     (event: DragEndEvent) => {
@@ -243,12 +264,11 @@ const ProductsOrderingPersonalizeForm: React.FC<Props> = ({
 
         const currentOrderPricingOptionItems = [...itemsSortableContext];
 
-        const oldIndex = currentOrderPricingOptionItems
-          .map((pricingOptionItem) => pricingOptionItem.id)
-          .indexOf(activeItemStringId);
-        const newIndex = currentOrderPricingOptionItems
-          .map((pricingOptionItem) => pricingOptionItem.id)
-          .indexOf(overItemStringId);
+        const currentOrderIds = currentOrderPricingOptionItems.map(
+          (pricingOptionItem) => pricingOptionItem.id,
+        );
+        const oldIndex = currentOrderIds.indexOf(activeItemStringId);
+        const newIndex = currentOrderIds.indexOf(overItemStringId);
 
         const newCurrentOrderPricingOptionItems = arrayMove(
           currentOrderPricingOptionItems,

@@ -84,7 +84,6 @@ type Props = {
     options?: OptionCallback<unknown, number>,
   ) => void;
   detachPaymentMethodLoading: boolean;
-  forceButtonDisplay?: boolean;
   forceDisabled?: boolean;
   forceHideConfirmPaymentButton?: boolean;
   forceSave?: boolean;
@@ -128,7 +127,6 @@ const PaymentStripeCardRevamped = forwardRef(
       customClasses,
       detachPaymentMethod,
       detachPaymentMethodLoading,
-      forceButtonDisplay,
       forceDisabled,
       forceHideConfirmPaymentButton,
       forceSave,
@@ -320,9 +318,14 @@ const PaymentStripeCardRevamped = forwardRef(
     // This useEffect is required in the new checkout flow, in order to disable the 'Pay Now' button
     // if needed
     useEffect(() => {
-      if (setIsOnlinePaymentDisabled)
-        setIsOnlinePaymentDisabled(isSubmitButtonDisabled);
-    }, [isSubmitButtonDisabled, setIsOnlinePaymentDisabled]);
+      if (!isCheckoutContext && !forceHideConfirmPaymentButton)
+        setIsOnlinePaymentDisabled?.(isSubmitButtonDisabled);
+    }, [
+      forceHideConfirmPaymentButton,
+      isCheckoutContext,
+      isSubmitButtonDisabled,
+      setIsOnlinePaymentDisabled,
+    ]);
 
     const handleSubmit = useCallback(
       async (event: React.FormEvent<HTMLFormElement>) => {
@@ -733,49 +736,45 @@ const PaymentStripeCardRevamped = forwardRef(
               </>
             )}
             {children ?? null}
-            {(!isCheckoutContext || forceButtonDisplay) &&
-              !forceHideConfirmPaymentButton && (
-                <>
-                  {AcceptTermsAndConditionsComponent && (
-                    <div
-                      className={clsx(
-                        classes.conditionRow,
-                        customClasses?.conditionRow,
-                      )}
-                    >
-                      {AcceptTermsAndConditionsComponent}
-                    </div>
-                  )}
+            {!isCheckoutContext && !forceHideConfirmPaymentButton && (
+              <>
+                {AcceptTermsAndConditionsComponent && (
                   <div
                     className={clsx(
-                      classes.actionRow,
-                      customClasses?.actionRow,
+                      classes.conditionRow,
+                      customClasses?.conditionRow,
                     )}
                   >
-                    {processing ? (
-                      <CircularProgress />
-                    ) : (
-                      <React.Fragment>
-                        <Button
-                          color="primary"
-                          disabled={isSubmitButtonDisabled}
-                          type="submit"
-                          variant="contained"
-                        >
-                          {t('paymentPanel.actions.confirmPayment')}
-                        </Button>
-                        {onCancel ? (
-                          <Button disabled={processing} onClick={onCancel}>
-                            {t('paymentPanel.actions.cancel')}
-                          </Button>
-                        ) : (
-                          <div />
-                        )}
-                      </React.Fragment>
-                    )}
+                    {AcceptTermsAndConditionsComponent}
                   </div>
-                </>
-              )}
+                )}
+                <div
+                  className={clsx(classes.actionRow, customClasses?.actionRow)}
+                >
+                  {processing ? (
+                    <CircularProgress />
+                  ) : (
+                    <React.Fragment>
+                      <Button
+                        color="primary"
+                        disabled={isSubmitButtonDisabled}
+                        type="submit"
+                        variant="contained"
+                      >
+                        {t('paymentPanel.actions.confirmPayment')}
+                      </Button>
+                      {onCancel ? (
+                        <Button disabled={processing} onClick={onCancel}>
+                          {t('paymentPanel.actions.cancel')}
+                        </Button>
+                      ) : (
+                        <div />
+                      )}
+                    </React.Fragment>
+                  )}
+                </div>
+              </>
+            )}
           </>
         )}
       </form>

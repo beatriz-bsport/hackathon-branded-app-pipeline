@@ -23,6 +23,10 @@ export {
 export { default as Button, type ButtonProps } from "./components/Button";
 export { default as Card, type CardProps } from "./components/Card";
 export { default as Checkbox, type CheckboxProps } from "./components/Checkbox";
+export {
+  default as CheckboxGroup,
+  type CheckboxGroupProps,
+} from "./components/CheckboxGroup";
 export { default as Chip, type ChipProps } from "./components/Chip";
 export { default as Collapse, type CollapseProps } from "./components/Collapse";
 export {

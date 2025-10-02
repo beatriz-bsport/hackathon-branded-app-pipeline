@@ -92,7 +92,8 @@
       "label": "Gestão inteligente"
     },
     "dumb_delay_minutes": {
-      "label": "Gestão simples"
+      "label": "Gestão simples",
+      "helper": "Um membro tem X minutos para reservar antes de perder o seu lugar prioritário na lista de espera."
     },
     "auto_consume_pack": {
       "helper": "Se o membro tiver um passe de aulas válido, quando houver um lugar disponível, é automaticamente inscrito e o seu passe é debitado. O passe com a data de expiração mais antiga e com menos crédito disponível é utilizado em primeiro lugar.",
@@ -108,6 +109,11 @@
     "kick_if_no_pack_when_auto_consume": {
       "label": "Retirar automaticamente o membro da lista de espera se, quando as suas faixas horárias ficarem disponíveis, já não tiver um passe válido",
       "helper": "Um membro pode utilizar os seus créditos noutra sessão enquanto aguarda na lista de espera. Com esta definição activada, se isso acontecer, a sua vaga na lista de espera será automaticamente cancelada quando for a sua vez de se inscrever."
+    },
+    "errors": {
+      "dumbDelayMinutesError": "Os minutos entre recolhas devem ser superiores a 15",
+      "smartDelayPercentageError": "A percentagem deve situar-se entre 10 e 100",
+      "autokickDelayError": "É necessário um número"
     }
   },
   "switchToDisable": "Desativar a lista de espera",

@@ -14,6 +14,11 @@
     "deploy": "npm run build && gh-pages -d dist",
     "lint-broken": "eslint ./src",
     "start": "NODE_ENV=development NODE_OPTIONS=--openssl-legacy-provider webpack serve --config webpack.config.js",
+    "start:local": "DEST_CONFIG=local pnpm run start",
+    "start:mix": "DEST_CONFIG=local-fe-dev-be pnpm run start",
+    "start:dev": "DEST_CONFIG=dev pnpm run start",
+    "start:staging": "DEST_CONFIG=staging pnpm run start",
+    "start:production": "DEST_CONFIG=production pnpm run start",
     "test": "jest",
     "test-update-snapshots": "jest --updateSnapshot"
   },

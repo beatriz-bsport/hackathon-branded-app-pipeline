@@ -11,7 +11,8 @@
       "unlimited": "Ilimitado",
       "withoutTax": "Isento de impostos",
       "validityDetail": "Validade antes da caducidade : {{count}} dia",
-      "validityDetail_plural": "Validade antes da expiração : {{count}} dias"
+      "validityDetail_plural": "Validade antes da expiração : {{count}} dias",
+      "deleteDialogContent": "Ao desativar um cartão de oferta partilhado, os membros com esse passe só poderão utilizá-lo no estúdio onde foi comprado."
     },
     "listPage": {
       "emptyLabel": "Não foram registados passes de oferta partilhados",
@@ -92,6 +93,28 @@
       },
       "message_is_from": {
         "label": "A partir de "
+      },
+      "type": {
+        "label": "Como gostaria de enviar o cartão oferta",
+        "option": {
+          "digital": "Ligação de ativação por correio eletrónico",
+          "physical": "Código para impressão (PDF)"
+        }
+      },
+      "footerPhysical": "O cartão oferta será ativado em {{- activation_date }} e será válido até {{- activation_date_until }} ({{ duration }} dia(s)). Receberá por correio eletrónico as informações necessárias para utilizar o cartão de oferta e uma versão para impressão do seu cartão num ficheiro PDF",
+      "footerPhysicalUnlimited": "Receberá por correio eletrónico as informações necessárias para utilizar o cartão-presente e uma versão para impressão do seu cartão num ficheiro PDF.",
+      "activationDate": {
+        "label": "Data de ativação",
+        "helperText": "O destinatário pode utilizar o cartão de oferta a partir desta data",
+        "errorMaxDate": "Introduzir uma data válida"
+      },
+      "advancedOptions": {
+        "tag": {
+          "tagsOnAcquisition": "Etiquetas após a compra",
+          "tagsOnAcquisitionHelper": "Utilize etiquetas para marcar os membros que compraram este cartão de oferta.",
+          "selectTags": "Selecionar etiquetas"
+        },
+        "header": "Avançado"
       }
     },
     "list": {
@@ -104,7 +127,18 @@
     "linkedInvoice": "Fatura válida",
     "invitedOn": "Enviado em {{- d }}",
     "willInviteOn": "Convite a enviar em {{- d }}",
-    "isFrom": "A partir de "
+    "isFrom": "A partir de ",
+    "seeDetails": "Ver detalhes",
+    "physicalDetails": {
+      "title": "Cartão de oferta",
+      "to": "Para",
+      "code": "Código:",
+      "validFrom": "Válido de: {{- from }} a {{- to }}",
+      "helperAlert": {
+        "title": "Como utilizar o cartão de oferta?",
+        "message": "Partilhe o código do cartão de oferta com o membro para que este possa utilizar o crédito na sua próxima compra."
+      }
+    }
   },
   "form": {
     "giftcard": {
@@ -139,7 +173,8 @@
         "cancel": "Fechar"
       },
       "available_payment_method_identifiers": {
-        "label": "Métodos de pagamento disponíveis"
+        "label": "Métodos de pagamento disponíveis",
+        "helperText": " "
       },
       "advancedOptions": {
         "tag": {
@@ -188,5 +223,6 @@
         "title": "Eliminar"
       }
     }
-  }
+  },
+  "downloadPDF": "Descarregar PDF"
 }

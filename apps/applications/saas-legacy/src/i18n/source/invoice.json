@@ -507,7 +507,8 @@
       "17": "PayPal"
     },
     "select": {
-      "label": "Payment method"
+      "label": "Payment method",
+      "orPayUsing": "Or pay using"
     },
     "isInternalExplain": "The account balance will be automatically charged if no payment method has been added.",
     "add": "Add",

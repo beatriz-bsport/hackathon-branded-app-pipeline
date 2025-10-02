@@ -101,7 +101,7 @@
   },
   "revampCard": {
     "betaFeedbackLink": "Beta feedback",
-    "goBackToOldUi": "Return to old design"
+    "goBackToOldUi": "Switch to old design"
   },
   "languages": {
     "french": "French",
@@ -111,7 +111,8 @@
     "dutch": "Dutch",
     "german": "German",
     "italian": "Italian",
-    "portuguese": "Portuguese"
+    "portuguese": "Portuguese",
+    "debug": "Debug (cimode)"
   },
   "notifications": {
     "title": "Notification center",

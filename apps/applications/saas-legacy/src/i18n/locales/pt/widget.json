@@ -100,7 +100,12 @@
         "unauthenticated": "Não autenticado",
         "loading": "Carregamento",
         "authenticated": "Autenticado",
-        "unknownError": "Erro desconhecido"
+        "unknownError": "Erro desconhecido",
+        "unpaid": "Não pago",
+        "paid": "Pago",
+        "refunded": "Reembolsado",
+        "Collapsable": "Desmontável",
+        "NotCollapsable": "Não rebatível"
       },
       "title": {
         "paymentMethodType": "Modo de pagamento",
@@ -235,7 +240,13 @@
         "isReferralProgramAvailable": "Tem um programa de referência disponível",
         "state": "Estado",
         "showSuccessText": "Mostrar o texto de confirmação",
-        "showSuccessTitle": "Mostrar título de confirmação"
+        "showSuccessTitle": "Mostrar título de confirmação",
+        "invoiceType": "Tipo de fatura",
+        "isMultilocationEnabled": "Exibir o local de faturação",
+        "isCollapsable": "Tipo de título",
+        "acceptEmail": "Aceitar correio eletrónico",
+        "acceptSms": "Aceitar sms",
+        "hidePaginationControls": "Ocultar controlos de paginação"
       },
       "configurationTitle": "Variações",
       "confirmationMessageComponentAlert": "Este componente gere principalmente os estados da reserva e do pagamento. Para personalizar o seu aspeto, recomendamos a utilização dos seus componentes de raiz localizados na secção comum",
@@ -245,7 +256,8 @@
       "marketplaceCheckoutItemListPrivatePass": "Este componente é uma lista de itens de checkout com passes privados. Para afinar os passes individuais {{component_name}} pode utilizar a secção dedicada localizada em {{page}} no editor.",
       "marketplaceProductItemListAlert": "Este componente é uma lista de artigos de produtos. Para ajustar os {{component_name}} pode utilizar a secção dedicada no editor.",
       "selector": "Este componente é composto por uma etiqueta, uma entrada e um texto de legenda. Para personalizar o {{component_name}} recomendamos a utilização do seu componente de raiz",
-      "authenticationTextField": "Este componente utiliza um componente de campo de texto. Para ajustar o {{component_name}} pode utilizar a secção específica localizada em {{page}}no editor."
+      "authenticationTextField": "Este componente utiliza um componente de campo de texto. Para ajustar o {{component_name}} pode utilizar a secção específica localizada em {{page}}no editor.",
+      "consumerReferralCard": "Este componente utiliza um componente de detalhes de Referências. Para afinar o {{component_name}} individual, pode utilizar a secção dedicada localizada em {{page}} no editor."
     },
     "components": {
       "contractTermsModal": "Pop-up com a menções legais da subscrição",
@@ -380,7 +392,22 @@
       "consumer_subscription_details_card": "Cartão de dados de subscrição do consumidor",
       "consumer_subscription_card": "Cartão de subscrição do consumidor",
       "fabrique_big_icon": "Ícone grande",
-      "referral_details": "Dados de referência"
+      "referral_details": "Dados de referência",
+      "authentication_disconnected_status": "Estado desconectado",
+      "fabrique_title": "Título",
+      "fabrique_tooltip": "Dica de ferramenta",
+      "fabrique_submenu": "Submenu",
+      "fabrique_pagination": "Paginação",
+      "consumer_invoice_card": "Cartão de faturação (para o membro)",
+      "consumer_invoice_details_card": "Cartão de dados da fatura (para o membro)",
+      "consumer_terms_and_conditions": "Cartão de termos e condições do consumidor",
+      "consumer_saved_payment_methods_card": "Consumidores poupados métodos de pagamento cartão",
+      "consumer_summary_card": "Cartão de resumo do consumidor",
+      "consumer_referral_card": "Cartão de referência do consumidor",
+      "bookingBlockedReason": "Não é possível efetuar a reserva",
+      "bookingButton": "Botão de reserva",
+      "activityCardDialog": "Detalhes da atividade (pop in)",
+      "activityCard": "Detalhes da atividade"
     },
     "cssEditor": {
       "reset": "reposto",
@@ -503,7 +530,8 @@
       "unsavedChanges": "Não foram registadas quaisquer alterações",
       "element": "Elemento",
       "preview": "Pré-visualização - {{-name}}",
-      "CSS": "CSS"
+      "CSS": "CSS",
+      "tooltipHover": "Passar o rato para mostrar a dica de ferramenta"
     },
     "newsletterV2": {
       "showSubtitle": "Mostrar subtítulo",
@@ -520,7 +548,23 @@
       "successText": "Texto de confirmação",
       "showSuccessTitle": "Mostrar o título de confirmação",
       "successTitle": "Confirmação do título"
-    }
+    },
+    "disconnectedStatusConfigTitle": "Configuração do estado desconectado",
+    "loginButton": {
+      "openMemberProfile": "Abrir o perfil de membro quando o utilizador inicia sessão"
+    },
+    "consumerSpace": {
+      "hideNavigation": "Ocultar elementos de navegação",
+      "defaultPage": "Página predefinida",
+      "page": {
+        "consumerBooking": "As minhas reservas",
+        "consumerPass": "Os meus passes",
+        "consumerInvoice": "As minhas facturas",
+        "consumerProfile": "O meu perfil",
+        "consumerSubscription": "As minhas subscrições"
+      }
+    },
+    "hideWidgets": "Ocultar todos os widgets para utilizadores não registados"
   },
   "customizeCss": "Personalização css",
   "customize": "Personalização",

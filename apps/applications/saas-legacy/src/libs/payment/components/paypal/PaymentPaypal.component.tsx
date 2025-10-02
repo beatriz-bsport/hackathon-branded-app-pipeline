@@ -47,7 +47,6 @@ type Props = {
       onSuccess: () => void;
     },
   ) => Promise<void>;
-  forceButtonDisplay?: boolean;
   forceDisabled?: boolean;
   forceHideConfirmPaymentButton?: boolean;
   fromApp?: boolean;
@@ -80,7 +79,6 @@ const PaymentPaypal = forwardRef(
       creditAccountBalance,
       customClasses,
       executePaymentAttempt,
-      forceButtonDisplay,
       forceDisabled,
       forceHideConfirmPaymentButton,
       fromApp,
@@ -221,48 +219,44 @@ const PaymentPaypal = forwardRef(
               </>
             )}
             {children ?? null}
-            {(!isCheckoutContext || forceButtonDisplay) &&
-              !forceHideConfirmPaymentButton && (
-                <>
-                  {acceptTermsAndConditionsElement && (
-                    <div
-                      className={clsx(
-                        classes.conditions,
-                        customClasses?.conditions,
-                      )}
-                    >
-                      {acceptTermsAndConditionsElement}
-                    </div>
-                  )}
+            {!isCheckoutContext && !forceHideConfirmPaymentButton && (
+              <>
+                {acceptTermsAndConditionsElement && (
                   <div
                     className={clsx(
-                      classes.actionRow,
-                      customClasses?.actionRow,
+                      classes.conditions,
+                      customClasses?.conditions,
                     )}
                   >
-                    {clientSecretLoading ? (
-                      <CircularProgress />
-                    ) : (
-                      <div className={classes.paypalButton}>
-                        <PayPalScriptProvider
-                          options={getPayPalScriptProviderOptions(clientSecret)}
-                        >
-                          <PayPalPaymentButton
-                            createOrder={createOrder}
-                            isDisabled={isSubmitButtonDisabled}
-                            onApprove={onApprove}
-                            onCancel={onPayPalCancel}
-                            onError={onPayPalError}
-                          />
-                        </PayPalScriptProvider>
-                      </div>
-                    )}
-                    <Button disabled={loading} onClick={onCancel}>
-                      {t('paymentPanel.actions.cancel')}
-                    </Button>
+                    {acceptTermsAndConditionsElement}
                   </div>
-                </>
-              )}
+                )}
+                <div
+                  className={clsx(classes.actionRow, customClasses?.actionRow)}
+                >
+                  {clientSecretLoading ? (
+                    <CircularProgress />
+                  ) : (
+                    <div className={classes.paypalButton}>
+                      <PayPalScriptProvider
+                        options={getPayPalScriptProviderOptions(clientSecret)}
+                      >
+                        <PayPalPaymentButton
+                          createOrder={createOrder}
+                          isDisabled={isSubmitButtonDisabled}
+                          onApprove={onApprove}
+                          onCancel={onPayPalCancel}
+                          onError={onPayPalError}
+                        />
+                      </PayPalScriptProvider>
+                    </div>
+                  )}
+                  <Button disabled={loading} onClick={onCancel}>
+                    {t('paymentPanel.actions.cancel')}
+                  </Button>
+                </div>
+              </>
+            )}
           </>
         )}
       </>

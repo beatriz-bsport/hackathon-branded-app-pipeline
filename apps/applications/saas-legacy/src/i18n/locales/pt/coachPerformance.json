@@ -22,7 +22,8 @@
     "totalNetGain": "Ganho líquido total",
     "noShowsAndLateCancellations": "Não comparência e cancelamentos tardios",
     "location": "Localização",
-    "establishment": "Estabelecimento"
+    "establishment": "Estabelecimento",
+    "nb_private_bookings": " "
   },
   "advancedFilters": {
     "apply": "Aplicar filtros",
@@ -66,7 +67,8 @@
     "table": {
       "header": {
         "nbSessions": "Número de aulas em grupo",
-        "coachName": "Professor"
+        "coachName": "Professor",
+        "confirmedBookings": " "
       }
     }
   },
@@ -79,7 +81,8 @@
   "table": {
     "downloadCSV": "Descarregar (.csv)",
     "downloadPDF": "Descarregar (.pdf)",
-    "downloadAll": "Resumo"
+    "downloadAll": "Resumo",
+    "download": "Descarregar"
   },
   "addBonus": "Adicionar uma regra",
   "dateTitle": "Periodo de intervalo",

@@ -21,26 +21,6 @@ type DialogText = {
   submit: string;
 };
 
-const paymentPackTemplateTexts = {
-  title: 'paymentPackTemplate.restoreForm.title',
-  content: 'paymentPackTemplate.restoreForm.content',
-  close: 'paymentPackTemplate.restoreForm.actions.close',
-  submit: 'paymentPackTemplate.restoreForm.actions.submit',
-};
-const universalPaymentPackTemplateTexts = {
-  title: 'universalPaymentPackTemplate.restoreForm.title',
-  content: 'universalPaymentPackTemplate.restoreForm.content',
-  close: 'universalPaymentPackTemplate.restoreForm.actions.close',
-  submit: 'universalPaymentPackTemplate.restoreForm.actions.submit',
-};
-
-const getTexts = (isUniversal?: boolean): DialogText => {
-  if (isUniversal) {
-    return universalPaymentPackTemplateTexts;
-  }
-  return paymentPackTemplateTexts;
-};
-
 const PaymentPackTemplateRestoreDialog: React.FC<Props> = ({
   onClose,
   onSubmit,
@@ -49,15 +29,27 @@ const PaymentPackTemplateRestoreDialog: React.FC<Props> = ({
 }) => {
   const { t } = useTranslation('paymentPack');
 
-  const texts = getTexts(isUniversal);
+  const texts: DialogText = isUniversal
+    ? {
+        title: t('universalPaymentPackTemplate.restoreForm.title'),
+        content: t('universalPaymentPackTemplate.restoreForm.content'),
+        close: t('universalPaymentPackTemplate.restoreForm.actions.close'),
+        submit: t('universalPaymentPackTemplate.restoreForm.actions.submit'),
+      }
+    : {
+        title: t('paymentPackTemplate.restoreForm.title'),
+        content: t('paymentPackTemplate.restoreForm.content'),
+        close: t('paymentPackTemplate.restoreForm.actions.close'),
+        submit: t('paymentPackTemplate.restoreForm.actions.submit'),
+      };
 
   return (
     <Dialog onClose={onClose} open={!!open}>
-      <DialogTitle>{t(texts.title)}</DialogTitle>
-      <DialogContent>{t(texts.content)}</DialogContent>
+      <DialogTitle>{texts.title}</DialogTitle>
+      <DialogContent>{texts.content}</DialogContent>
       <DialogActions>
-        <Button onClick={onClose}>{t(texts.close)}</Button>
-        <RedButton onClick={onSubmit}>{t(texts.submit)}</RedButton>
+        <Button onClick={onClose}>{texts.close}</Button>
+        <RedButton onClick={onSubmit}>{texts.submit}</RedButton>
       </DialogActions>
     </Dialog>
   );

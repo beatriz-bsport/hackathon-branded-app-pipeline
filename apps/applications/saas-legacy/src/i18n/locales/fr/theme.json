@@ -261,7 +261,7 @@
       "expressCheckout": {
         "oneClickBooking": {
           "helperText": "Les nouveaux clients peuvent réserver des activités sans créer de compte au préalable. Cette fonctionnalité n’est pas compatible avec les rendez-vous ni avec la confirmation de l’adresse e-mail lors de l’inscription. Elle s’applique uniquement aux activités pouvant être réservées avec une carte de cours réservée aux nouveaux membres.",
-          "label": "One-Click Booking (beta)"
+          "label": "Activer le paiement express (beta)"
         },
         "title": "Réservation rapide"
       },

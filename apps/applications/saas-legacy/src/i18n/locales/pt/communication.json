@@ -27,7 +27,8 @@
     "sendNotification": "Notificação push",
     "titleNotification": "Título",
     "warningConsent1": "Atenção! Este membro desactivou a opção de enviar e-mails promocionais. As mensagens de e-mail directas são uma forma rápida e fácil de falar com os seus membros. Não devem ser utilizadas para fins publicitários ou promocionais.",
-    "warningProvider": "Tenha em atenção que as respostas dos membros a esta mensagem não aparecerão na plataforma, mas diretamente na sua caixa e-mail. Para que todas elas apareçam aqui, altere a definição de comunicação na página Definições/Personalização."
+    "warningProvider": "Tenha em atenção que as respostas dos membros a esta mensagem não aparecerão na plataforma, mas diretamente na sua caixa e-mail. Para que todas elas apareçam aqui, altere a definição de comunicação na página Definições/Personalização.",
+    "missing": "Correio eletrónico em falta"
   },
   "recipients": "Beneficiário",
   "campaign": {
@@ -132,7 +133,8 @@
       "2": "Recusado",
       "3": "Em espera",
       "4": "Recebido",
-      "5": "Erro"
+      "5": "Erro",
+      "-1": "Desconhecido"
     },
     "table": {
       "columns": {
@@ -172,6 +174,13 @@
       "0": "Email",
       "1": "SMS",
       "2": "Notificação push",
+      "3": "Sessão",
+      "4": "Notificação",
+      "5": "Lista inteligente",
+      "6": "Mensagem direta",
+      "7": "Reservas",
+      "8": "Cancelamentos",
+      "9": "Lista de espera",
       "10": "Sessão",
       "11": "Mensagem direta",
       "12": "Lista inteligente",
@@ -208,6 +217,9 @@
     "channel": {
       "title": "Canais",
       "placeholder": "Selecionar um tipo de canal"
+    },
+    "ariaLabel": {
+      "deleteAllFilters": "Eliminar todos os filtros"
     }
   },
   "dialogInformation": {
@@ -239,12 +251,16 @@
       "sms": "SMS",
       "notification": "Notificação push",
       "template": "Modelo de email",
-      "autoResend": "Reenvios automáticos"
+      "autoResend": "Reenvios automáticos",
+      "messageScheduling": "Programar a mensagem",
+      "automaticCommunicationLimit": "Definir um limite"
     },
     "buttons": {
       "send": "Enviar",
       "selectRecipients": "Selecionar destinatários",
-      "selectRecipientsMobile": "dest."
+      "selectRecipientsMobile": "dest.",
+      "scheduleCommunication": "Horário",
+      "updateScheduled": "Atualização"
     },
     "sendDisabled": {
       "missingRecipients": "Primeiro, escolha os destinatários",
@@ -263,10 +279,34 @@
     "smsCostReminderModal": {
       "confirm": "Confirmar",
       "cancel": "Cancelar",
-      "content": "O envio de SMS para um grande grupo de membros pode ser custoso. Pode verificar o preço por SMS no seu contrato. Tem a certeza de que pretende enviar esta comunicação?",
+      "content": {
+        "description": "O envio de SMS para um grande grupo de membros pode ser dispendioso.",
+        "effect": "Pode consultar o preço por SMS no seu contrato. Tem a certeza de que pretende enviar esta comunicação?"
+      },
       "title": "Lembrete de custos por SMS"
     },
-    "membersWontLoad": "Estamos atualmente a encontrar um problema ao carregar os membros desta lista inteligente. Tenha em atenção que não será possível pré-visualizar o número de membros que serão contactados por esta comunicação."
+    "membersWontLoad": "Estamos atualmente a encontrar um problema ao carregar os membros desta lista inteligente. Tenha em atenção que não será possível pré-visualizar o número de membros que serão contactados por esta comunicação.",
+    "warningModalTitle": {
+      "title": "Queremos informá-lo de alguns aspectos antes de enviar as comunicações"
+    },
+    "cannotReviewRecipients": {
+      "title": "Enviar sem rever todos os destinatários?",
+      "content": {
+        "description": "Ainda estamos a carregar a lista completa dos destinatários.",
+        "effect": "Se enviar a sua mensagem agora, esta continuará a ser enviada para todos os que correspondem aos filtros da sua lista inteligente."
+      },
+      "cancel": "Cancelar",
+      "confirm": "Enviar de qualquer forma"
+    },
+    "smsCostWarning": {
+      "title": "Enviar um SMS para um grupo grande?",
+      "content": {
+        "description": "Os SMS podem ser mais caros do que outros canais.",
+        "effect": "Consulte o seu contrato para saber o custo por SMS."
+      },
+      "cancel": "Cancelar",
+      "confirm": "Enviar na mesma"
+    }
   },
   "common": {
     "confirm": "Confirmar",
@@ -289,7 +329,12 @@
   },
   "sms": {
     "warningConsent2": "Não respeitar a decisão do seu membro seria ilegal. A Bsport não se responsabiliza por qualquer utilização indevida de SMS directos.",
-    "warningConsent1": "Atenção! O membro desactivou a opção de envio de mensagens de texto promocionais. As mensagens SMS directas são uma forma rápida e fácil de falar com os seus membros. Não devem ser utilizadas para fins publicitários ou promocionais."
+    "warningConsent1": "Atenção! O membro desactivou a opção de envio de mensagens de texto promocionais. As mensagens SMS directas são uma forma rápida e fácil de falar com os seus membros. Não devem ser utilizadas para fins publicitários ou promocionais.",
+    "warningProviderNotVerified": {
+      "title": "Envio de SMS indisponível",
+      "mainMessage": "Parece que o número de telefone para SMS ainda não foi validado.",
+      "regulatoryNotice": "Antes de poder enviar campanhas SMS, comunicações automáticas ou mensagens diretas, o número tem de ser validado para cumprir os regulamentos locais nos EUA e no Canadá."
+    }
   },
   "smartListPopup": {
     "previewTitle": "Previsualizar",
@@ -479,12 +524,17 @@
     "cancelEdition": "Descartar alterações",
     "saveEdition": "Guardar alterações",
     "chooseTime": "Escolher uma altura",
-    "chooseDate": "Escolher uma data"
+    "chooseDate": "Escolher uma data",
+    "inputLabel": "Escolha quando pretende agendar a mensagem."
   },
   "sendNowDialog": {
     "confirm": "Enviar",
     "close": "Cancelar",
     "content": "A mensagem será enviada imediatamente.",
     "title": "Enviar imediatamente"
-  }
+  },
+  "accessibilityText": {
+    "expandRow": "Expandir linha"
+  },
+  "communication": "Comunicações"
 }

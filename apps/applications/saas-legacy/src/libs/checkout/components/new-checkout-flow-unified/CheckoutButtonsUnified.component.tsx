@@ -11,14 +11,12 @@ import { makeStyles, Theme } from '@material-ui/core/styles';
 import { isWidthDown } from '@material-ui/core/withWidth';
 
 import PopOver from '#src/components/Popover';
-import { PAYMENT_ENGINE_PAYPAL } from '@bsport/common/lib/master-data/payment-group.js';
 import { SUBMIT_BUTTONS } from '#src/libs/checkout/types';
 import { useWidth } from '#src/hooks/useWidth';
 import { PayPalScriptProvider } from '@paypal/react-paypal-js';
 import PayPalPaymentButton from '#src/libs/payment/components/paypal/PayPalPaymentButton.component';
 import { getPayPalScriptProviderOptions } from '#src/libs/payment/utils';
 import { usePaymentBasketButtonsUnified } from './hooks/usePaymentBasketButtonsUnified';
-import { useBasketPaymentLocalStateUnified } from '#src/libs/checkout/components/new-checkout-flow-unified/hooks/useBasketPaymentLocalStateUnified';
 import { useBasketPaymentStoreData } from '#src/libs/payment/payment-module-revamped/basket-payment/hooks/useBasketPaymentStoreData';
 import { useBasketPaymentContext } from '#src/libs/checkout/components/new-checkout-flow-unified/BasketPaymentContext';
 import { useCompanyPaymentSettings } from '#src/libs/payment/payment-module-revamped/basket-payment/hooks/useCompanyPaymentSettings';
@@ -60,8 +58,6 @@ export const CheckoutButtonsUnified: React.FC<CheckoutButtonsProps> = ({
   const { generalTermsAndConditions } = useCompanyPaymentSettings(
     paymentContext.companyId,
   );
-
-  const { selectedPaymentEngine } = useBasketPaymentLocalStateUnified();
 
   const { instalmentPaymentConfigurations } = useBasketPaymentStoreData(
     paymentContext.basketId,
@@ -117,10 +113,7 @@ export const CheckoutButtonsUnified: React.FC<CheckoutButtonsProps> = ({
           if (button.id === SUBMIT_BUTTONS.PAYPAL_BUTTON.id) {
             return (
               <div key={button.id} className={classes.paypalButton}>
-                {/* If clientSecretLoading, we cannot display PayPalPaymentButton since it needs PayPalScriptProvider which itself needs the clientSecret. Also
-                The value may not sync fast enough when switching between payment methods, so we can't load the element if the clientSecret is a Stripe one */}
-                {isClientSecretLoading ||
-                selectedPaymentEngine !== PAYMENT_ENGINE_PAYPAL ? (
+                {isClientSecretLoading ? (
                   <CircularProgress />
                 ) : (
                   <PayPalScriptProvider

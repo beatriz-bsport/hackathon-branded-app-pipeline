@@ -93,6 +93,8 @@ describe("MeiroAdapter via AnalyticsClient", () => {
       expect(mockDocument.createElement).toHaveBeenCalledWith("script");
       expect(mockMeiroEvents.init).toHaveBeenCalledWith({
         domain: "meiro.staging.bsport.io",
+        endpoint:
+          "https://meiro.staging.bsport.io/api/v1/collect/f8c214b5-2f7f-4b0a-8ce7-216928b13f1f",
       });
     });
 
@@ -104,6 +106,8 @@ describe("MeiroAdapter via AnalyticsClient", () => {
 
       expect(mockMeiroEvents.init).toHaveBeenCalledWith({
         domain: "meiro.production.bsport.io",
+        endpoint:
+          "https://meiro.production.bsport.io/api/v1/collect/f8c214b5-2f7f-4b0a-8ce7-216928b13f1f",
       });
     });
 
@@ -124,6 +128,8 @@ describe("MeiroAdapter via AnalyticsClient", () => {
 
       expect(mockMeiroEvents.init).toHaveBeenCalledWith({
         domain: "custom.meiro.com",
+        endpoint:
+          "https://custom.meiro.com/api/v1/collect/f8c214b5-2f7f-4b0a-8ce7-216928b13f1f",
         external_id: "user-123",
         sync: {
           ga_cid: true,
@@ -155,6 +161,8 @@ describe("MeiroAdapter via AnalyticsClient", () => {
 
       expect(mockMeiroEvents.init).toHaveBeenCalledWith({
         domain: "meiro.staging.bsport.io",
+        endpoint:
+          "https://meiro.staging.bsport.io/api/v1/collect/f8c214b5-2f7f-4b0a-8ce7-216928b13f1f",
       });
     });
   });

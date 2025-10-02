@@ -62,7 +62,7 @@ export class MeiroAdapter implements AnalyticsAdapter<MeiroConfig> {
 
         reject(new Error("Failed to load Meiro SDK"));
       };
-      script.src = `//${domain}/sdk/`;
+      script.src = `https://${domain}/sdk-script.min.js`;
       script.async = true;
 
       document.head.appendChild(script);
@@ -98,8 +98,11 @@ export class MeiroAdapter implements AnalyticsAdapter<MeiroConfig> {
     const defaultDomain =
       env === "production" ? MEIRO_DOMAIN_PRODUCTION : MEIRO_DOMAIN_STAGING;
     const domain = config.domain || defaultDomain;
+    const endpoint =
+      config.endpoint ||
+      `https://${domain}/api/v1/collect/f8c214b5-2f7f-4b0a-8ce7-216928b13f1f`;
 
-    const initConfig = { ...meiroConfig, domain };
+    const initConfig = { ...meiroConfig, domain, endpoint };
 
     if (this.debugMode) {
       console.log(

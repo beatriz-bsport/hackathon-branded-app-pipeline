@@ -76,7 +76,7 @@
     "savePaymentMethod": {
       "section": "Wählen Sie eine Zahlungsmethode",
       "label": "Diese Zahlungsmethode speichern",
-      "add": "Zahlungsinformationen",
+      "add": "Zahlungsdaten",
       "select": "Zahlungsmethode auswählen"
     }
   },

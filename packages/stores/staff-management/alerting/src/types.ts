@@ -98,7 +98,16 @@ export type CompanyOnboardingAlertData =
       payment_engine_identifier: typeof PAYMENT_ENGINE_PAYPAL;
     };
 
-type LanguagesCodes = "en" | "es" | "fr" | "de" | "it" | "pt" | "nl" | "cs";
+type LanguagesCodes =
+  | "en"
+  | "es"
+  | "fr"
+  | "de"
+  | "it"
+  | "pt"
+  | "nl"
+  | "cs"
+  | "cimode";
 export interface TutorialSectionOrLessonAlertData
   extends Record<string, unknown> {
   section_names: Record<LanguagesCodes, string>;

@@ -22,6 +22,7 @@ const expectedTranslations: Record<Locale, string> = {
   it: "Titolo principale",
   nl: "Hoofdtitel",
   pt: "Título principal",
+  cimode: "title",
 };
 
 describe("i18n with file-based translations", () => {

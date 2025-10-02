@@ -27,6 +27,9 @@ const translationFixtures: Record<Locale, Record<string, string>> = {
   pt: {
     title: "Título principal",
   },
+  cimode: {
+    title: "title",
+  },
 };
 
 export const handlers = [

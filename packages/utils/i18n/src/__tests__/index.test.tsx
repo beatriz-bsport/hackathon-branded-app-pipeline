@@ -44,6 +44,11 @@ const translations: Record<string, Record<string, Record<string, object>>> = {
         title: "Título principal",
       },
     },
+    cimode: {
+      main: {
+        title: "main.title",
+      },
+    },
   },
 };
 
@@ -59,6 +64,7 @@ const expectedTranslations: Record<Locale, string> = {
   de: getTitle("de"),
   it: getTitle("it"),
   pt: getTitle("pt"),
+  cimode: getTitle("cimode"),
 };
 
 describe("i18n", () => {

@@ -4,7 +4,7 @@ import { Body, Link } from "@bsport/kaizen-primitive-core";
 
 import { LANGUAGES, type Locale, Trans, useTranslation } from "#src/utils/i18n";
 
-const INTERCOM_HELP_CENTER_ZOHO_IMPORT: Record<Locale, string> = {
+const INTERCOM_HELP_CENTER_ZOHO_IMPORT: Partial<Record<Locale, string>> = {
   [LANGUAGES.ENGLISH]:
     "https://intercom.help/bsport-helpcenter/en/articles/9675215-how-do-i-import-my-leads-from-zoho-crm",
   [LANGUAGES.FRENCH]:

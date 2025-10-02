@@ -9,6 +9,7 @@ export const LANGUAGES = {
   ITALIAN: "it",
   CATALAN: "ca",
   PORTUGUESE: "pt",
+  DEBUG: "cimode",
 } as const;
 
 export const LOCALES = [
@@ -19,6 +20,7 @@ export const LOCALES = [
   LANGUAGES.GERMAN,
   LANGUAGES.ITALIAN,
   LANGUAGES.PORTUGUESE,
+  LANGUAGES.DEBUG,
 ] as const;
 
 // From https://emojipedia.org/fr/drapeaux
@@ -33,6 +35,7 @@ export const FLAG_EMOJIS = {
   [LANGUAGES.ITALIAN]: "🇮🇹",
   [LANGUAGES.CATALAN]: "🇪🇸",
   [LANGUAGES.PORTUGUESE]: "🇵🇹",
+  [LANGUAGES.DEBUG]: "🏳️",
 };
 
 export const EXTRA_TIMEZONES = {

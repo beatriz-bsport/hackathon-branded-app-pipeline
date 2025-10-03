@@ -76,7 +76,12 @@ const EmptyState: FC<EmptyStateProps> = ({
         name={variant === "no-results-found" ? "no-search" : "empty"}
       />
       {finalTitle && (
-        <Title htmlVariant="h3" weight="stronger" color="weak">
+        <Title
+          htmlVariant="h3"
+          weight="stronger"
+          color="weak"
+          className="text-center"
+        >
           {finalTitle}
         </Title>
       )}

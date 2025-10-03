@@ -21,9 +21,7 @@ const mapGroupActivitiesUrlParams = ({
     : {}),
   ...(page !== undefined ? { page: page } : {}),
   ...(pageSize !== undefined ? { page_size: pageSize } : {}),
-  ...(isWorkshop !== undefined
-    ? { is_workshop: isWorkshop }
-    : { is_workshop: false }),
+  ...(isWorkshop !== undefined ? { is_workshop: isWorkshop } : {}),
   ...(inCategoryIds && inCategoryIds.length > 0
     ? { sct__in: inCategoryIds }
     : {}),
@@ -42,6 +40,33 @@ const mapGroupActivitiesUrlParams = ({
  * @param params.pageSize - The number of items per page (by default 10).
  */
 export const fetchGroupActivitiesAPI = (
+  params: FetchGroupActivitiesParams,
+): ApiConfig => {
+  const paramsWithNoWorkshop = {
+    ...params,
+    isWorkshop: false,
+  };
+  return [
+    `${API_URL}/${buildUrlParams(mapGroupActivitiesUrlParams(paramsWithNoWorkshop))}`,
+  ];
+};
+
+/**
+ * Fetches a paginated list of group activities and workshops based on the provided parameters.
+ *
+ * @param params - The parameters for fetching group activities.
+ * @param params.customerEnabled - Whether customer-related activities should be included.
+ * @param params.page - The current page number (by default 1).
+ * @param params.pageSize - The number of items per page (by default 10).
+ * @param params.inCategoryIds - List of category IDs to filter the group activities/workshops.
+ * Only group activities/workshops belonging to these categories will be included.
+ * @param params.notInCategoryIds - List of category IDs to exclude from the group activities/workshops.
+ * Group activities/workshops belonging to these categories will be excluded.
+ * @param params.inIdList - List of specific group activity/workshop IDs to include in the results.
+ * Only group activities/workshops with these IDs will be included.
+ * If undefined or empty, no filtering by IDs will be applied.
+ */
+export const fetchGroupActivitiesAndWorkshopsAPI = (
   params: FetchGroupActivitiesParams,
 ): ApiConfig => {
   return [`${API_URL}/${buildUrlParams(mapGroupActivitiesUrlParams(params))}`];

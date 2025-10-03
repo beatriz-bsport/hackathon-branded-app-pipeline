@@ -32,6 +32,7 @@
     "@bsport/store-booking-appointment": "workspace:*",
     "@bsport/store-booking-group-activity": "workspace:*",
     "@bsport/store-buyables-appointment-pass": "workspace:*",
+    "@bsport/store-buyables-pass": "workspace:*",
     "@bsport/store-buyables-subscription": "workspace:*",
     "@bsport/store-cdp-marketing-notification": "workspace:*",
     "@bsport/store-core-data-establishment": "workspace:*",

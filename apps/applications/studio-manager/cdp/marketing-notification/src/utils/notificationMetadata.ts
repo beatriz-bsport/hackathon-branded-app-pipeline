@@ -8,7 +8,7 @@ import {
   isMarketingNotificationPrivatePassCreditsType,
   isMarketingNotificationPrivatePassTimeType,
   isMarketingNotificationSubscriptionType,
-} from "./typesGuards";
+} from "#src/utils/typesGuards";
 
 /**
  * Extracts meta activity IDs from booking notifications

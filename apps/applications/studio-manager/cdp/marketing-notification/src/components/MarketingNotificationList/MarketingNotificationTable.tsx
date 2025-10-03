@@ -1,17 +1,19 @@
 import { Table } from "@bsport/kaizen-primitive-core";
 
+import { getTableColumns } from "#src/components/MarketingNotificationList/MarketingNotificationTableConfig";
 import { useFetchMarketingNotificationList } from "#src/hooks/api/use-fetch-marketing-notification-list";
+import { useGetMarketingNotificationDependenciesData } from "#src/hooks/api/use-get-marketing-notification-dependencies-data";
 import { useFormatMarketingNotificationTableRow } from "#src/hooks/layout/use-format-marketing-notification-table-row";
 import { useTranslation } from "#src/utils/i18n";
 
-import { getTableColumns } from "./MarketingNotificationTableConfig";
-
 export const MarketingNotificationTable = () => {
   const { t } = useTranslation("marketingNotificationList");
-  const { marketingNotificationsList, groupActivityMapById } =
-    useFetchMarketingNotificationList();
+  const { marketingNotificationsList } = useFetchMarketingNotificationList();
+  const { groupActivitiesById } = useGetMarketingNotificationDependenciesData();
   const { formatMarketingNotificationForTable } =
-    useFormatMarketingNotificationTableRow({ groupActivityMapById });
+    useFormatMarketingNotificationTableRow({
+      groupActivitiesById,
+    });
 
   const tableColumns = getTableColumns({
     t,
@@ -36,7 +38,6 @@ export const MarketingNotificationTable = () => {
   const tableRows = formatMarketingNotificationForTable({
     marketingNotificationList: marketingNotificationsList,
   });
-  console.log("marketingNotificationsList : ", tableRows);
 
   return (
     <div>

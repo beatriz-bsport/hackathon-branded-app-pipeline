@@ -1515,6 +1515,9 @@ importers:
       '@bsport/store-buyables-appointment-pass':
         specifier: workspace:*
         version: link:../../../../../packages/stores/buyables/appointment-pass
+      '@bsport/store-buyables-pass':
+        specifier: workspace:*
+        version: link:../../../../../packages/stores/buyables/pass
       '@bsport/store-buyables-subscription':
         specifier: workspace:*
         version: link:../../../../../packages/stores/buyables/subscription

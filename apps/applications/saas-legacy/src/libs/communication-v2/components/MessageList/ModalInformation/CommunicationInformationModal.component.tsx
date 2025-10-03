@@ -29,6 +29,7 @@ import {
   useRecipientInformation,
 } from '#src/libs/communication-v2/hooks/useRecipientsInformations.hooks';
 import { useCommunicationContext } from '#src/libs/communication-v2/context/CommunicationDrawer.context';
+import { COMMUNICATION_KIND_PUSH_NOTIFICATION } from '@bsport/common/lib/master-data/communication-kind';
 
 export type Props = {
   contextInformation?: string;
@@ -115,6 +116,12 @@ export const CommunicationInformationModal: React.FC<Props> = ({
     date_created || '',
   ).toFormat('D - t')}`;
 
+  // We do not want to display the "Open" column for push notifications
+  // because this communication method does not support this feature yet (see ticket CDP-963 on Linear)
+  const shouldDisplayOpenStatus =
+    selectedCommunication?.communication?.kind !==
+    COMMUNICATION_KIND_PUSH_NOTIFICATION;
+
   return (
     <CommunicationWrapperDialog
       buttonCancelText={t('common.close')}
@@ -163,14 +170,16 @@ export const CommunicationInformationModal: React.FC<Props> = ({
                   {t('dialogInformation.headerStatus')}
                 </Typography>
               </TableCell>
-              <TableCell
-                align="center"
-                className={classes.tableContainerWithoutBorderBottom}
-              >
-                <Typography className={classes.boldTypo} variant="body1">
-                  {t('dialogInformation.headerOpen')}
-                </Typography>
-              </TableCell>
+              {shouldDisplayOpenStatus ? (
+                <TableCell
+                  align="center"
+                  className={classes.tableContainerWithoutBorderBottom}
+                >
+                  <Typography className={classes.boldTypo} variant="body1">
+                    {t('dialogInformation.headerOpen')}
+                  </Typography>
+                </TableCell>
+              ) : null}
             </TableRow>
           </TableHead>
           {!loadingRecipientList && (
@@ -207,14 +216,16 @@ export const CommunicationInformationModal: React.FC<Props> = ({
                         statusNumber={recipient.status}
                       />
                     </TableCell>
-                    <TableCell
-                      align="center"
-                      className={classes.tableContainerWithoutBorderBottom}
-                    >
-                      <CommunicationInformationOpenChip
-                        openStatus={recipient.read_count > 0}
-                      />
-                    </TableCell>
+                    {shouldDisplayOpenStatus ? (
+                      <TableCell
+                        align="center"
+                        className={classes.tableContainerWithoutBorderBottom}
+                      >
+                        <CommunicationInformationOpenChip
+                          openStatus={recipient.read_count > 0}
+                        />
+                      </TableCell>
+                    ) : null}
                   </TableRow>
                 ))
               )}

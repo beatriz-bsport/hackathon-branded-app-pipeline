@@ -160,21 +160,22 @@
           "day_other": "Sent {{count}} days after pass expiration"
         },
         "validity": {
-          "day_one": "Sent {{count}} day of validity left",
-          "day_other": "Sent {{count}} days of validity left"
+          "day_one": "Sent upon reaching {{count}} day of validity left",
+          "day_other": "Sent upon reaching {{count}} days of validity left"
         },
         "credits": {
           "booking": {
-            "hour_one": "Sent {{count}} hour after booking of session",
-            "hour_other": "Sent {{count}} hours after booking of session"
+            "hour_one": "Sent {{count}} hour after the booking of a session",
+            "hour_other": "Sent {{count}} hours after the booking of a session"
           },
           "end": {
-            "hour_one": "Sent {{count}} hour after end of session",
-            "hour_other": "Sent {{count}} hours after end of session"
-          }
+            "hour_one": "Sent {{count}} hour after the end of a session",
+            "hour_other": "Sent {{count}} hours after the end of a session"
+          },
+          "appointmentPass": "Sent upon automation trigger"
         }
-      }
-    },
-    "birthday": "Sent on their registered date of birth"
+      },
+      "birthday": "Sent on their registered date of birth"
+    }
   }
 }

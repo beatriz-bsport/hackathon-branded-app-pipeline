@@ -77,7 +77,7 @@ export type RefinedNotificationType =
   | "unknown";
 
 export type TriggerTimingConfig = {
-  unit: "hours" | "days";
+  unit: "hour" | "day" | "credit";
   duration: number;
   beforeOrAfter: "before" | "after";
 };

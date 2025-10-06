@@ -45,7 +45,8 @@ export const useFormatMarketingNotificationTableRow = ({
 }: {
   groupActivitiesById: Record<number, MetaActivity>;
 }) => {
-  const { formatNotificationTriggerName } = useFormatNotificationTriggerName();
+  const { formatNotificationTriggerName, formatNotificationTriggerTiming } =
+    useFormatNotificationTriggerName();
 
   const getMarketingNotificationType = ({
     kind,
@@ -115,7 +116,10 @@ export const useFormatMarketingNotificationTableRow = ({
           marketingNotification: notification,
           triggerType: notificationType,
         }),
-        triggerDate: "Trigger date", // To be implemented in future PR
+        triggerDate: formatNotificationTriggerTiming({
+          marketingNotification: notification,
+          triggerType: notificationType,
+        }),
         isEmailNotificationSet: notification.email_design !== null,
         isEmailNotificationBroken: notification.id % 5 === 0, // Temporary logic to simulate broken email notification
         isPushNotificationSet:

@@ -10,11 +10,25 @@ import {
   useGeneratePassesTriggerType,
   useGenerateSubscriptionTriggerType,
 } from "#src/utils/marketingNotificationTriggerCondition";
+import {
+  useGenerateBookingTriggerTiming,
+  useGeneratePassesTriggerTiming,
+  useGenerateSubscriptionTriggerTiming,
+} from "#src/utils/notificationTriggerTiming";
 import { isBookingEventRules } from "#src/utils/typeGuards";
 import {
   NOTIFICATION_TYPE_TO_REFINED_TYPE,
   type NotificationType,
 } from "#src/utils/types";
+import {
+  isMarketingNotificationBookingType,
+  isMarketingNotificationPaymentPackCreditsType,
+  isMarketingNotificationPaymentPackTimeType,
+  isMarketingNotificationPrivateBookingType,
+  isMarketingNotificationPrivatePassCreditsType,
+  isMarketingNotificationPrivatePassTimeType,
+  isMarketingNotificationSubscriptionType,
+} from "#src/utils/typesGuards";
 
 export const useFormatNotificationTriggerName = () => {
   const { t } = useTranslation("marketingNotificationList");
@@ -22,6 +36,12 @@ export const useFormatNotificationTriggerName = () => {
   const { getPassesTriggerTypeTranslation } = useGeneratePassesTriggerType();
   const { getSubscriptionTriggerTypeTranslation } =
     useGenerateSubscriptionTriggerType();
+  const { getBookingTriggerTimingTranslation } =
+    useGenerateBookingTriggerTiming();
+  const { getPassesTriggerTimingTranslation } =
+    useGeneratePassesTriggerTiming();
+  const { getSubscriptionTriggerTimingTranslation } =
+    useGenerateSubscriptionTriggerTiming();
 
   const {
     groupActivitiesById,
@@ -89,7 +109,68 @@ export const useFormatNotificationTriggerName = () => {
     }
   };
 
+  /**
+   * Main function to format notification trigger timing
+   */
+  const formatNotificationTriggerTiming = ({
+    triggerType,
+    marketingNotification,
+  }: {
+    triggerType: NotificationType;
+    marketingNotification: MarketingNotification;
+  }): string => {
+    // Get refined trigger type
+    const refinedTriggerType = NOTIFICATION_TYPE_TO_REFINED_TYPE[triggerType];
+
+    // Generate trigger type translation based on refined type
+    switch (refinedTriggerType) {
+      case NOTIFICATION_BASE_TYPE.birthday:
+        return t("table.triggerTiming.birthday");
+
+      case NOTIFICATION_BASE_TYPE.booking: {
+        if (
+          isMarketingNotificationBookingType(marketingNotification) ||
+          isMarketingNotificationPrivateBookingType(marketingNotification)
+        ) {
+          return getBookingTriggerTimingTranslation(marketingNotification);
+        }
+
+        return "";
+      }
+
+      case NOTIFICATION_BASE_TYPE.passes: {
+        if (
+          isMarketingNotificationPaymentPackCreditsType(
+            marketingNotification,
+          ) ||
+          isMarketingNotificationPrivatePassCreditsType(
+            marketingNotification,
+          ) ||
+          isMarketingNotificationPrivatePassTimeType(marketingNotification) ||
+          isMarketingNotificationPaymentPackTimeType(marketingNotification)
+        ) {
+          return getPassesTriggerTimingTranslation(marketingNotification);
+        }
+
+        return "";
+      }
+
+      case NOTIFICATION_BASE_TYPE.subscription: {
+        if (isMarketingNotificationSubscriptionType(marketingNotification)) {
+          return getSubscriptionTriggerTimingTranslation(marketingNotification);
+        }
+
+        return "";
+      }
+
+      case NOTIFICATION_BASE_TYPE.unknown:
+      default:
+        return "";
+    }
+  };
+
   return {
     formatNotificationTriggerName,
+    formatNotificationTriggerTiming,
   };
 };

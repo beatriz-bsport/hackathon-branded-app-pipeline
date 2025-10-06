@@ -138,6 +138,7 @@ export type PrivateConsumerPassCreditsEventRules = BaseEventRules & {
   credits_left: number;
   hours: number;
   disabled_if_in_contract: boolean;
+  kind: 0 | 1; // COUNTDOWN_ON_BOOKING, COUNTDOWN_ON_OFFER_START
 };
 
 export type SubscriptionEventRules = BaseEventRules & {

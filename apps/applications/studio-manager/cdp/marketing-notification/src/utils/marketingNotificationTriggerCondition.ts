@@ -26,7 +26,6 @@ import {
   SUBSCRIPTION_NOTIFICATION_END,
   SUBSCRIPTION_NOTIFICATION_FIRST_BILLING,
   TRIGGER_KINDS,
-  type TriggerTimingConfig,
 } from "#src/utils/types";
 
 /**
@@ -154,63 +153,6 @@ const findEntityName = (
     default:
       return "";
   }
-};
-
-/**
- * Extracts timing configuration from marketing notification event rules.
- *
- * This function parses the event rules to determine when a notification should be triggered
- * relative to an event (hours/days before or after). It handles different timing fields
- * like 'hours', 'days', and 'days_left'.
- *
- * @param notification - The marketing notification object containing event rules with timing data
- * @returns Timing configuration object with unit, duration, and direction, or null if no timing found
- */
-const extractTimingConfig = (
-  notification: MarketingNotification,
-): TriggerTimingConfig | null => {
-  const { event_rules } = notification;
-
-  if (
-    "hours" in event_rules &&
-    typeof event_rules.hours === "number" &&
-    event_rules.hours !== 0
-  ) {
-    const hours = event_rules.hours;
-    return {
-      unit: "hours",
-      duration: Math.abs(hours),
-      beforeOrAfter: hours >= 0 ? "after" : "before",
-    };
-  }
-
-  if (
-    "days" in event_rules &&
-    typeof event_rules.days === "number" &&
-    event_rules.days !== 0
-  ) {
-    const days = event_rules.days;
-    return {
-      unit: "days",
-      duration: Math.abs(days),
-      beforeOrAfter: days >= 0 ? "after" : "before",
-    };
-  }
-
-  if (
-    "days_left" in event_rules &&
-    typeof event_rules.days_left === "number" &&
-    event_rules.days_left !== 0
-  ) {
-    const days = event_rules.days_left;
-    return {
-      unit: "days",
-      duration: Math.abs(days),
-      beforeOrAfter: days >= 0 ? "after" : "before",
-    };
-  }
-
-  return null;
 };
 
 /**
@@ -462,7 +404,6 @@ const useGeneratePassesTriggerType = () => {
 export {
   extractEntityId,
   findEntityName,
-  extractTimingConfig,
   useGenerateBookingTriggerType,
   useGenerateSubscriptionTriggerType,
   useGeneratePassesTriggerType,

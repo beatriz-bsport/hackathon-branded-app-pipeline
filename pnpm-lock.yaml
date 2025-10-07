@@ -1274,6 +1274,9 @@ importers:
       '@bsport/currency':
         specifier: workspace:*
         version: link:../../../../../packages/utils/currency
+      '@bsport/datetime-manipulation':
+        specifier: workspace:*
+        version: link:../../../../../packages/utils/datetime/manipulation
       '@bsport/envs':
         specifier: workspace:*
         version: link:../../../../../packages/utils/envs

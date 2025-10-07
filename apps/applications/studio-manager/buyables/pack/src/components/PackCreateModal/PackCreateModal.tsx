@@ -7,6 +7,7 @@ import { dataAccessLayer } from "@bsport/sm-backbone";
 import { PackFormContent } from "#src/components/PackForm/PackFormContent";
 import { PackFormIdentity } from "#src/components/PackForm/PackFormIdentity";
 import { PackFormPricing } from "#src/components/PackForm/PackFormPricing";
+import { PackFormVisibility } from "#src/components/PackForm/PackFormVisibility";
 import {
   DEFAULT_FORM_DATA,
   type PackFormSchema,
@@ -97,6 +98,7 @@ export const PackCreateModal: React.FC<PackCreateModalProps> = ({
           <PackFormIdentity fieldIdPrefix={formId} />
           <PackFormContent fieldIdPrefix={formId} />
           <PackFormPricing fieldIdPrefix={formId} methods={methods} />
+          <PackFormVisibility fieldIdPrefix={formId} methods={methods} />
         </div>
       </ControlledForm>
     </Modal>

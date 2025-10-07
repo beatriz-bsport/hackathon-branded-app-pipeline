@@ -26,6 +26,11 @@ import {
   useSubscriptionStore,
 } from "@bsport/store-buyables-subscription";
 import {
+  type EmailTemplateSummary,
+  selectAllEmailTemplateSummaries,
+  useEmailTemplateStore,
+} from "@bsport/store-cdp-email-template";
+import {
   type Establishment,
   selectEstablishments,
   useEstablishmentStore,
@@ -53,6 +58,10 @@ export const useGetMarketingNotificationDependenciesData = () => {
   );
 
   const passes = usePassStore((state) => selectActivePasses(state));
+
+  const emailTemplateSummaries = useEmailTemplateStore((state) =>
+    selectAllEmailTemplateSummaries(state),
+  );
 
   const groupActivitiesById = useMemo(
     () =>
@@ -126,6 +135,18 @@ export const useGetMarketingNotificationDependenciesData = () => {
     [passes],
   );
 
+  const emailTemplatesById = useMemo(
+    () =>
+      emailTemplateSummaries.reduce(
+        (acc, template) => {
+          acc[template.id] = template;
+          return acc;
+        },
+        {} as Record<number, EmailTemplateSummary>,
+      ),
+    [emailTemplateSummaries],
+  );
+
   return {
     groupActivitiesById,
     appointmentsById,
@@ -133,5 +154,6 @@ export const useGetMarketingNotificationDependenciesData = () => {
     appointmentPassesById,
     subscriptionsById,
     passesById,
+    emailTemplatesById,
   };
 };

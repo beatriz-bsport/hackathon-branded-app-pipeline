@@ -37,28 +37,26 @@ import {
  * @param notification - The marketing notification object containing event rules
  * @returns The extracted entity ID, or null if no relevant ID is found
  */
-const extractEntityId = (
-  notification: MarketingNotification,
-): number | null => {
+const extractEntityId = (notification: MarketingNotification): number[] => {
   const { event_rules } = notification;
 
   if (hasMetaActivityId(event_rules)) {
-    return event_rules.meta_activity_id;
+    return [event_rules.meta_activity_id];
   }
 
   if (hasEstablishmentId(event_rules)) {
-    return event_rules.establishment_id;
+    return [event_rules.establishment_id];
   }
 
   if (
     "establishment_group_id" in event_rules &&
     event_rules.establishment_group_id
   ) {
-    return event_rules.establishment_group_id;
+    return [event_rules.establishment_group_id];
   }
 
   if (hasPrivateServiceId(event_rules)) {
-    return event_rules.private_service_id;
+    return [event_rules.private_service_id];
   }
 
   if (
@@ -66,7 +64,7 @@ const extractEntityId = (
     Array.isArray(event_rules.payment_pack_ids) &&
     event_rules.payment_pack_ids.length > 0
   ) {
-    return event_rules.payment_pack_ids[0];
+    return event_rules.payment_pack_ids;
   }
 
   if (
@@ -74,14 +72,14 @@ const extractEntityId = (
     Array.isArray(event_rules.private_pass_ids) &&
     event_rules.private_pass_ids.length > 0
   ) {
-    return event_rules.private_pass_ids[0];
+    return event_rules.private_pass_ids;
   }
 
   if ("contract_id" in event_rules && event_rules.contract_id) {
-    return event_rules.contract_id;
+    return [event_rules.contract_id];
   }
 
-  return null;
+  return [];
 };
 
 /**
@@ -97,7 +95,7 @@ const extractEntityId = (
  */
 const findEntityName = (
   triggerType: NotificationType,
-  entityId: number | null,
+  entityIds: number[],
   entities: {
     groupActivitiesById: Record<number, MetaActivity>;
     establishmentsById: Record<number, Establishment>;
@@ -107,7 +105,7 @@ const findEntityName = (
     passesById: Record<number, Pass>;
   },
 ): string => {
-  if (!entityId) return "";
+  if (!entityIds || entityIds.length === 0) return "";
 
   const {
     groupActivitiesById,
@@ -121,32 +119,42 @@ const findEntityName = (
   switch (triggerType) {
     case NOTIFICATION_ADVANCED_TYPE.workshop:
     case NOTIFICATION_ADVANCED_TYPE.groupActivity: {
-      const activity = groupActivitiesById[entityId];
+      const activity = groupActivitiesById[entityIds[0]];
       return activity?.name ?? NOTIFICATION_ADVANCED_TYPE.groupActivity;
     }
 
     case NOTIFICATION_ADVANCED_TYPE.location: {
-      const location = establishmentsById[entityId];
+      const location = establishmentsById[entityIds[0]];
       return location?.title ?? NOTIFICATION_ADVANCED_TYPE.location;
     }
 
     case NOTIFICATION_ADVANCED_TYPE.privateService: {
-      const appointment = appointmentsById[entityId];
+      const appointment = appointmentsById[entityIds[0]];
       return appointment?.name ?? NOTIFICATION_ADVANCED_TYPE.privateService;
     }
 
     case NOTIFICATION_ADVANCED_TYPE.paymentPack: {
-      const pass = passesById[entityId];
-      return pass?.name ?? NOTIFICATION_ADVANCED_TYPE.paymentPack;
+      const passesList = entityIds
+        .map((id) => passesById[id])
+        .filter((pass): pass is Pass => pass !== undefined);
+      return passesList.length > 0
+        ? passesList.map((_pass) => _pass.name).join(", ")
+        : "paymentPack";
     }
 
     case NOTIFICATION_ADVANCED_TYPE.privatePass: {
-      const pass = appointmentPassesById[entityId];
-      return pass?.name ?? NOTIFICATION_ADVANCED_TYPE.privatePass;
+      const appointmentPassesList = entityIds
+        .map((id) => appointmentPassesById[id])
+        .filter((pass): pass is AppointmentPass => pass !== undefined);
+      return appointmentPassesList.length > 0
+        ? appointmentPassesList
+            .map((_appointmentPass) => _appointmentPass.name)
+            .join(", ")
+        : "appointmentPass";
     }
 
     case NOTIFICATION_ADVANCED_TYPE.subscription: {
-      const subscription = subscriptionsById[entityId];
+      const subscription = subscriptionsById[entityIds[0]];
       return subscription?.name ?? NOTIFICATION_ADVANCED_TYPE.subscription;
     }
 

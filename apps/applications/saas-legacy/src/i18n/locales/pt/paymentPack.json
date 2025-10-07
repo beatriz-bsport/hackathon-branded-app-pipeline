@@ -71,7 +71,10 @@
         "create": "Guardar",
         "edit": "Editar",
         "cancel": "Cancelar",
-        "skip": "Aceder a"
+        "skip": "Aceder a",
+        "submit": "Guardar",
+        "next": "Seguinte",
+        "back": "Voltar"
       },
       "durationYears": {
         "helperText": "Adicionado ao número de dias e meses",
@@ -186,6 +189,13 @@
       "highlightedAsRecommended": {
         "helperText": "Permite que seus clientes vejam rapidamente quais passes são recomendados no momento.",
         "label": "Marcar como recomendado"
+      },
+      "noNotificationsWarning": "Ainda não tem notificações configuradas. Para criar novas notificações, aceda a <strong>Marketing > Notificações.</strong>",
+      "detailsAndRestrictions": "Detalhes e condições",
+      "notification": "Notificações",
+      "price": {
+        "label": "Preço incl. impostos",
+        "helperText": "Preço por utilizador para o pacote completo"
       }
     }
   },
@@ -220,7 +230,10 @@
       "title": "Eliminar a extensão"
     },
     "addedOn": "Adicionado em ",
-    "nbDaysAdded": "+{{nb_days}}"
+    "nbDaysAdded": "+{{count}}",
+    "nbDaysAdded_plural": "+{{count}} dias",
+    "seeLess": "Ver menos",
+    "seeMore": "Ver mais"
   },
   "search": "Procurar um passe",
   "notification": {
@@ -254,7 +267,9 @@
     "creditsLeftLabel_plural": "Notificar quando restarem {{credit}} créditos",
     "creditsLeft": {
       "second": "créditos",
-      "first": "Notificar-nos quando"
+      "first": "Notificar-nos quando",
+      "helperText": "Esta notificação será activada quando houver {{count}} crédito restante",
+      "helperText_plural": "Esta notificação será activada quando houver {{count}} créditos restantes"
     },
     "form": {
       "creditNotificationType": {
@@ -288,7 +303,9 @@
       "mailTitle": "E-mail a enviar",
       "mailSettings": "Definições do e-mail",
       "selectToShowPreview": "Selecionar um e-mail para pré-visualização",
-      "noMailAvailable": "Não há correio disponível, por favor crie um"
+      "noMailAvailable": "Não há correio disponível, por favor crie um",
+      "generalTitle": "Geral",
+      "notificationNamePlaceholder": "Nome da notificação"
     },
     "addButton": "Adicionar uma notificação",
     "listItem": {
@@ -329,7 +346,11 @@
       "warningFirst": "Atenção,  esta operação é irreversível (geração de faturas).",
       "explain": "Selecionar o número de créditos a reembolsar e o valor total a creditar no depósito do membro",
       "credits": {
-        "label": "Crédito a deduzir"
+        "label": "Crédito a deduzir",
+        "decimalCredit": {
+          "helperText": "Este passe conterá {{count}} crédito",
+          "helperText_plural": "Este passe conterá {{count}} créditos"
+        }
       },
       "note": {
         "label": "Nota"
@@ -340,7 +361,14 @@
         "label": "Montante a creditar"
       },
       "blockUnlimited": "Bloquear o passe",
-      "title": "Reembolso"
+      "title": "Reembolso",
+      "error": {
+        "2029": "O montante do reembolso excede o montante da compra. Por favor, tente novamente com um montante inferior.",
+        "2030": "O número de créditos a deduzir excede o número de créditos do passe. Por favor, tente novamente com um número inferior.",
+        "2031": "Ocorreu um erro. Por favor, tente novamente.",
+        "default": "Ocorreu um erro. Por favor, tente novamente."
+      },
+      "warning": "Note-se que esta operação é irreversível (geração de facturas)."
     },
     "addExtension": "Adicionar uma extensão"
   },
@@ -380,11 +408,15 @@
     "notReverted": "Fatura validada",
     "credits": "Créditos",
     "expiration": "Validad",
-    "all": "Todos os passes"
+    "all": "Todos os passes",
+    "company": "Estúdio de compras",
+    "companyGroup": "Categoria",
+    "companyGroupPlaceholder": "Selecionar categorias"
   },
   "paymentPackTemplate": {
     "actions": {
-      "create": "Criar um passe partilhado"
+      "create": "Criar um passe partilhado",
+      "createUniversalPass": "Adicionar um passe universal partilhado"
     },
     "deleteForm": {
       "actions": {
@@ -401,11 +433,21 @@
       },
       "submit": "Confirmar",
       "close": "Fechar",
-      "title": "Passe de aulas partilhado"
+      "title": "Passe de aulas partilhado",
+      "notEditable": "Este passe é originário de uma migração de dados previamente concluída. Alguns campos podem não ser editáveis para preservar os dados.",
+      "universalPassTitle": "Passe universal partilhado",
+      "universalPassTooltip": "Os passes universais podem ser utilizados para actividades de grupo e marcações. Para cada passe universal, são criados dois passes de marcação para associar o número de créditos. Uma vez adquirido um destes passes, o outro será automaticamente adicionado sem custos adicionais.",
+      "editConfirmation": {
+        "title": "Editar confirmação",
+        "content": "As suas alterações também serão aplicadas às subscrições associadas a este passe partilhado. Tem a certeza de que pretende prosseguir e guardar as suas edições?",
+        "cancel": "Cancel",
+        "confirm": "Guardar na mesma"
+      }
     },
     "section": {
       "titleManagerOnly": "Indisponível para venda",
-      "titleAvailable": "Disponível para venda"
+      "titleAvailable": "Disponível para venda",
+      "titleArchived": "Passes arquivados"
     },
     "isEmptyExplain": "Os passes partilhados estão disponíveis nos estúdios e permitem que os membros utilizem os seus créditos em qualquer estúdio à sua escolha.",
     "specification": {
@@ -414,7 +456,15 @@
     "widget": {
       "choose": "Escolher passes de aulas partilhados"
     },
-    "pass": "Passes de aulas"
+    "pass": "Passes de aulas",
+    "restoreForm": {
+      "actions": {
+        "submit": "Restaurar",
+        "close": "Fechar"
+      },
+      "content": "O passe partilhado será restaurado e partilhado novamente entre os estúdios previamente selecionados.",
+      "title": "Restaurar o passe partilhado"
+    }
   },
   "paymentPackTemplateInstance": {
     "actions": {
@@ -565,7 +615,20 @@
     "expirationDateHelper": "Se o passe não for utilizado pela primeira vez dentro deste número de dias, perde a validade",
     "penalityBlock": "Bloquear temporariamente o passe",
     "penalityAccount": "Criar um depósito para o membro em causa",
-    "yearValidity": "Período de validade em anos"
+    "yearValidity": "Período de validade em anos",
+    "accessControl": {
+      "firstBooking": "1ª reserva ou check-in",
+      "firstBookingDisclaimer": "O passe é válido a partir da 1.ª reserva ou do 1.º registo, consoante o que ocorrer primeiro. Se os colaboradores efectuarem manualmente o check-in de um membro antes da data da sua 1ª reserva, o passe será válido a partir da data do 1º check-in."
+    },
+    "doorAccess": "Por acesso",
+    "accessControlInfo": "Os membros com este passe podem desbloquear as portas do estúdio. Para controlar quando as portas não podem ser acedidas, defina regras de tempo na plataforma Kisi.",
+    "accessControlBetaAlert": "Durante esta versão beta, as restrições de passe como etiquetas, limites de utilização, localizações, actividades, categorias e intervalos de tempo não se aplicam ao acesso por porta. A opção \"Restringir a utilização a vídeo a pedido\" tem de estar desativada para que o acesso por porta funcione.",
+    "enableAccessControl": "Conceder acesso ao estúdio",
+    "activationWindow": "Definir janela de ativação",
+    "decimalCredit": {
+      "helperText": "Este passe conterá o crédito {{count}}",
+      "helperText_plural": "Este passe conterá {{count}} créditos"
+    }
   },
   "incompatibilities": {
     "2008": "Atividade não compatível",
@@ -603,6 +666,11 @@
         "warningText": "Atenção ! Este passe é um passe universal, se eliminar a cópia do passe este também será eliminado.",
         "title": "Eliminar o passe"
       }
+    },
+    "add": {
+      "credit": "Número de créditos",
+      "helperText": "O número de créditos está definido como limitado",
+      "availabilityGivenNumber": "Válido durante um determinado número de dias após a compra"
     }
   },
   "noUnauthorizedTag": "Sem etiquetas não autorizadas",
@@ -715,7 +783,19 @@
     "maxDate": "Até",
     "minDate": "Nunca antes de",
     "dateHelpText": "Prolongar apenas os passes de aulas que expiram entre",
-    "helpText": "Aqui pode extender os passes de aulas para todos os membros. Esta operação é reversível."
+    "helpText": "Aqui pode extender os passes de aulas para todos os membros. Esta operação é reversível.",
+    "listItemNbDays_plural": "+{{ count }} dias",
+    "titleDialog": "Prolongar a validade para todos os membros",
+    "error": {
+      "minEndingDate": "Introduza uma data mínima válida",
+      "maxEndingDate": "Introduza uma data máxima válida",
+      "nbDays": "Introduza um número positivo",
+      "note": "O número máximo de caracteres para este campo é 500"
+    },
+    "listItem": {
+      "seeMore": "Ver mais",
+      "seeLess": "Ver menos"
+    }
   },
   "blockedCpp": "Passe bloqueado de {{-blocked_from}} até {{-blocked_until}}",
   "disabledPacks": {
@@ -741,7 +821,8 @@
   "specifications": {
     "unlimitedCredits": "Ilimitado",
     "nbCredits": "{{credits}} crédito",
-    "nbCredits_plural": "{{credits}} créditos"
+    "nbCredits_plural": "{{credits}} créditos",
+    "price": "{{ price, price }}"
   },
   "ht": "Antes do imposto",
   "credits": "Crédito",
@@ -772,7 +853,8 @@
     "days": "{{ count }} dia",
     "days_plural": "{{ count }} dias",
     "validFor": "para ",
-    "valid": "Válido "
+    "valid": "Válido ",
+    "general": "Válido para {{ duration_days }} dia(s), {{ duration_months }} mês(es), e/ou {{ duration_years }} ano(s)."
   },
   "consumer": {
     "bookingsThisWeek": "reserva(s) desta semana",
@@ -813,5 +895,36 @@
     "account": "Será aplicado um depósito de {{account_value}} para {{nb_cancellations}} cancelamentos fora de prazo durante um período de {{nb_days}} dias.",
     "block": "{{days_blocked}} dias bloqueados após {{nb_cancellations}} cancelamentos fora do prazo durante um período de {{nb_days}} dias",
     "title": "Política de cancelamento"
+  },
+  "activateManually": "Ativar",
+  "manualActivation": {
+    "close": "Fechar",
+    "submit": "Ativar passe",
+    "title": "Ativar manualmente este passe?",
+    "replaceActiveStartDate": "A ativação deste passe definirá a data de ativação para hoje, substituindo a anterior data da primeira reserva. Esta ação não pode ser anulada.",
+    "setActiveStartDate": "A ativação deste passe definirá a data de ativação para hoje. Esta ação não pode ser anulada.",
+    "replaceActiveStartDateAlert": "O passe é agora válido a partir de hoje. Se alguma das futuras reservas do membro for posterior ao período de validade atualizado, as suas reservas continuarão activas, mas o pessoal terá de ajudar na entrada."
+  },
+  "universalPaymentPackTemplate": {
+    "deleteForm": {
+      "actions": {
+        "submit": "Arquivar",
+        "close": "Fechar"
+      },
+      "content": "Os membros continuarão a poder utilizar o passe universal no estúdio onde o compraram. Qualquer subscrição associada a este passe universal continuará a ser válida nesse mesmo estúdio.",
+      "title": "Arquivar passe universal partilhado"
+    },
+    "restoreForm": {
+      "actions": {
+        "submit": "Restaurar",
+        "close": "Fechar"
+      },
+      "content": "O passe universal partilhado será restaurado e partilhado novamente entre os estúdios previamente selecionados.",
+      "title": "Restaurar o passe universal partilhado"
+    }
+  },
+  "createOrUpdate": {
+    "success": "Passe guardado com sucesso",
+    "fail": "Erro: o passe não foi guardado"
   }
 }

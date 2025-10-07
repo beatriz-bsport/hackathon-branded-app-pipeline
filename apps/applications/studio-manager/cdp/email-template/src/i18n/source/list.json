@@ -5,7 +5,7 @@
   },
   "tabs": {
     "customTemplates": "Custom templates",
-    "masterTemplates": "Master templates",
+    "masterTemplates": "Default templates",
     "bsportTemplates": "bsport templates"
   },
   "filters": {

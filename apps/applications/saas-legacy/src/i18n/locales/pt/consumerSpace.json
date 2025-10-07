@@ -25,8 +25,15 @@
   "unsubscriber": {
     "explain": "Gostaria de cancelar a subscrição das newsletters do seu estabelecimento?",
     "error": "Erro ao cancelar a subscrição",
-    "success": "Você Anulou a sua inscrição.",
-    "doUnsubscribe": "Cancelar a subscrição"
+    "success": {
+      "title": "Anulou a sua inscrição.",
+      "text": "A sua subscrição foi anulada com sucesso. Deixará de receber newsletters de {{- companyName}}."
+    },
+    "doUnsubscribe": "Cancelar a subscrição",
+    "explainAction": {
+      "normal": "Tem a certeza de que pretende cancelar a subscrição das newsletters da {{- companyName}}?",
+      "possessive": "Tem a certeza de que pretende cancelar a subscrição das newsletters da {{- companyName}}?"
+    }
   },
   "navigation": {
     "giftcard": "Cartões-presente",
@@ -57,7 +64,8 @@
     "en-US": "Inglês (Estados Unidos)",
     "pt": "Português",
     "cs": "Checo",
-    "it": "Italiano"
+    "it": "Italiano",
+    "cimode": "Depurar"
   },
   "Basket": "O meu cesto",
   "appbar": {
@@ -263,8 +271,10 @@
           "creditsToRefund_plural": "{{count}}créditos serão reembolsados",
           "cancelledFromManager": "Cancelado pelo diretor do estúdio",
           "cancelledFromMember": "Cancelado por você",
-          "title": "Cancelado"
-        }
+          "title": "Cancelado",
+          "cancelledFromOffer": "Cancelado pelo estúdio"
+        },
+        "drawerTitle": "Atividade"
       },
       "consumerBookingCard": {
         "listItemLabels": {
@@ -352,12 +362,15 @@
           "autoRenewed": "Renovação automática",
           "paused": "Atualmente em pausa",
           "joiningFee": "Taxa de adesão: {{- fees }}",
-          "futurePauses": "Uma pausa é agendada de{{- dateStart }} a {{- dateEnd }} (inclusive)"
+          "futurePauses": "Uma pausa é agendada de{{- dateStart }} a {{- dateEnd }} (inclusive)",
+          "stop": "Não subscrito",
+          "stopValidDate": "Válido até {{- expirationDate }} (excluído)"
         },
         "buttonsLabel": {
           "see": "Ver",
           "change": "Alterar",
-          "add": "Adicionar"
+          "add": "Adicionar",
+          "unsubscribe": "Cancelar a subscrição"
         },
         "termsAccepted": "Aceito em{{- termsDate }}",
         "terms": "Termos",
@@ -380,7 +393,36 @@
         "billingHistory": "Histórico de faturação",
         "failedPaymentReasonWithRetry": "Motivo: {{- note }}O pagamento será tentado novamente em  {{- nextRetryDate}}",
         "beforeRenewalContractPriceEvery": "Então{{ price }} cada {{ recurrence }}{{ interval }} após{{- date }}",
-        "beforeRenewalContractPricePer": "Então{{ price }}{{ interval }} após {{- date }}"
+        "beforeRenewalContractPricePer": "Então{{ price }}{{ interval }} após {{- date }}",
+        "drawerTitle": "Assinatura",
+        "commitmentPeriod": {
+          "title": "Gerir a subscrição",
+          "subtitle": "Esta subscrição está a terminar, não havendo mais pagamentos seguintes",
+          "explain": {
+            "day": "Esta subscrição tem um período de compromisso de {{ commitment_period_value }} dias. Para cancelamentos ou questões, contacte diretamente o estúdio.",
+            "day_plural": "Esta subscrição tem um período de compromisso de {{ commitment_period_value }} dias. Para cancelamentos ou questões, contacte diretamente o estúdio.",
+            "week": "Esta subscrição tem um período de compromisso de {{ commitment_period_value }} semanas. Para cancelamentos ou questões, contacte diretamente o estúdio.",
+            "week_plural": "Esta subscrição tem um período de compromisso de {{ commitment_period_value }} semanas. Para cancelamentos ou questões, contacte diretamente o estúdio.",
+            "month": "Esta subscrição tem um período de compromisso de {{ commitment_period_value }} meses. Para cancelamentos ou questões, contacte diretamente o estúdio.",
+            "month_plural": "Esta subscrição tem um período de compromisso de {{ commitment_period_value }} meses. Para cancelamentos ou questões, contacte diretamente o estúdio.",
+            "year": "Esta subscrição tem um período de compromisso de {{ commitment_period_value }} ano, para cancelamentos ou questões, contacte diretamente o estúdio.",
+            "year_plural": "Esta subscrição tem um período de compromisso de {{ commitment_period_value }} anos. Para cancelamentos ou questões, contacte diretamente o estúdio."
+          },
+          "modal": {
+            "explainNotStarted": "Está prestes a cancelar uma subscrição que ainda não começou.\nAinda lhe será cobrado o primeiro ciclo de faturação e os seus benefícios permanecerão válidos até {{- expiration_date }} (excluída).\nTem a certeza de que pretende continuar?",
+            "explainStarted": "Está prestes a cancelar esta subscrição. Os benefícios da sua subscrição permanecerão válidos até {{- expiration_date }} (excluída).\nTem a certeza de que pretende continuar?",
+            "explainNoExpirationDate": "Está prestes a cancelar esta subscrição. Os benefícios da sua subscrição permanecerão válidos até ao final do próximo ciclo de faturação.\nTem a certeza de que pretende continuar?",
+            "cancel": "Manter a subscrição",
+            "confirmationTitle": "Cancelou a sua inscrição com sucesso",
+            "confirmationStarted": "Pode continuar a usufruir dos benefícios da subscrição até {{- expiration_date }} (excluída).",
+            "confirmationNotStarted": "Pode fechar o modal.",
+            "failedTitle": "Algo correu mal",
+            "failedMessage": "Actualize a sua página e tente novamente.",
+            "alert": "As sessões pré-reservadas efectuadas ao abrigo de uma subscrição com aulas ilimitadas serão canceladas após este período e poderão estar sujeitas a uma taxa de cancelamento tardio."
+          }
+        },
+        "loading": "Estamos a processar o seu pedido...",
+        "loadMore": "Carregar mais"
       },
       "consumerSubscriptionCard": {
         "buttonsLabel": {
@@ -422,6 +464,188 @@
       "placeholder": {
         "expired": "Ainda não tem nenhuma subscrição expirada.",
         "nonExpired": "Parece que não tem nenhuma subscrição ativa."
+      }
+    },
+    "appbar": {
+      "companyLogo": "Logótipo da empresa",
+      "cart": "Carrinho",
+      "myAccount": "A minha conta"
+    },
+    "menu": "Menu",
+    "exploreYourProfile": "Explorar o seu perfil.",
+    "moreActions": "Mais acções",
+    "myInvoices": {
+      "placeholder": {
+        "unpaid": "Muito bem, não tem facturas por pagar.",
+        "paid": "Ainda não tem facturas pagas.",
+        "refunded": "Ainda não tem facturas reembolsadas."
+      },
+      "header": {
+        "title": "As minhas facturas",
+        "buttons": {
+          "bookSession": "Marcar uma sessão",
+          "goBack": "Voltar"
+        },
+        "filters": {
+          "unpaid": "Não pago",
+          "paid": "Pago",
+          "refunded": "Reembolsado"
+        }
+      },
+      "card": {
+        "download": "Descarregar",
+        "downloadInvoice": "Descarregar fatura",
+        "downloadOriginalInvoice": "Descarregar a fatura original",
+        "downloadReceipt": "Recibo de transferência",
+        "downloadRefundedInvoice": "Descarregar a fatura reembolsada",
+        "downloads": "Transferências",
+        "invoice": "Fatura",
+        "location": "Localização: {{ name }}",
+        "originalInvoice": "Fatura original",
+        "otherItems": "+{{ count }} itens",
+        "pay": "Pagar agora",
+        "receipt": "Recibo",
+        "refundedInvoice": "Fatura reembolsada",
+        "seeDetails": "Ver detalhes",
+        "title": "Fatura n.º{{ identifier }}",
+        "chip": {
+          "cancelled": "Cancelado",
+          "dispute": "Litígio",
+          "partiallyPaid": "Parcialmente pago",
+          "plannedPayments": "Pagamentos planeados",
+          "refunded": "Reembolsado"
+        },
+        "amountDue": "Montante devido: {{- amount}}"
+      },
+      "detailsCard": {
+        "drawerTitle": "Fatura",
+        "dispute": {
+          "processing": "Processamento",
+          "won": "Ganhou",
+          "lost": "Perdido"
+        },
+        "download": "Descarregar fatura",
+        "downloadOriginalInvoice": "Descarregar a fatura original",
+        "downloadReceipt": "Recibo de transferência",
+        "downloadRefundedInvoice": "Descarregar a fatura reembolsada",
+        "due": "Devido",
+        "noPaymentRegistered": "Por enquanto, não há pagamento registado.",
+        "paid": "Pago",
+        "pay": "Pagar agora",
+        "paymentError": "Este pagamento não foi bem sucedido.",
+        "paymentErrorWithReason": "Este pagamento não foi bem sucedido. Motivo: {{- reason }}",
+        "paymentHistory": "Histórico de pagamentos",
+        "placeholder": "Selecione uma fatura para ver os detalhes.",
+        "plannedPayments": "Pagamentos planeados",
+        "products": "Os meus produtos",
+        "refunded": "Reembolsado",
+        "retryDate": "O pagamento será tentado novamente em {{- date }}",
+        "total": "Total"
+      },
+      "payment": {
+        "addPaymentMethod": "Adicionar método de pagamento",
+        "confirm": "Confirmar",
+        "details": "Detalhes do pagamento",
+        "method": "Método de pagamento",
+        "myBalance": "O saldo da minha conta interna",
+        "successMessage": "O pagamento foi efectuado com êxito",
+        "backendProcessingInvoice": "Aguarde um segundo enquanto processamos a sua fatura...",
+        "title": "Pagamento de facturas",
+        "useBalance": "Utilização"
+      }
+    },
+    "myProfile": {
+      "barCode": {
+        "scan": "Ler código de barras",
+        "scanInfo": "Digitalize este código de barras para entrar no estúdio ou para efetuar o check-in para a sua aula.",
+        "entryBarcode": "Código de barras de entrada"
+      },
+      "detachPayment": {
+        "title": "Eliminar o método de pagamento",
+        "subtitle": "Não se esqueça de que não pode eliminar os métodos de pagamento utilizados nos pagamentos recorrentes."
+      },
+      "gender": "Género",
+      "birthday": "Aniversário",
+      "identityDocument": "Documento de identidade",
+      "phone": "Número de telefone",
+      "emergencyNumber": "Número de emergência",
+      "address": "Endereço",
+      "notifications": {
+        "title": "Notificações",
+        "phoneAllowed": "Notificações telefónicas permitidas",
+        "phoneNotAllowed": "Notificações telefónicas não permitidas",
+        "emailAllowed": "Notificações por correio eletrónico permitidas",
+        "emailNotAllowed": "Notificações por correio eletrónico não permitidas",
+        "manageYourFranchiseMarketingPrefencesLabel": "Gerir as suas preferências de marketing",
+        "receiveEmailUpdates": "Receber actualizações por correio eletrónico",
+        "receiveSmsUpdates": "Receber actualizações por SMS",
+        "updatePreferencesLoading": "Poupança",
+        "updatePreferencesButton": "Guardar preferências",
+        "portal": {
+          "title": "Preferências de comunicação de marketing",
+          "subtitle": "Escolha como gostaria de receber actualizações de cada um dos seus locais"
+        }
+      },
+      "spivi": {
+        "title": "Dados de rotação",
+        "displayData": "Apresentar os meus dados em tempo real",
+        "drawerTitle": "Exibir dados",
+        "information": "Se estiver ativado, os seus dados (velocidade, calorias queimadas, etc.) serão visualizados em tempo real durante a sua sessão. Em qualquer caso, receberá um resumo por correio eletrónico no final da sessão."
+      },
+      "accountBalance": "Saldo da conta",
+      "regularizeBalance": "Regularizar o saldo",
+      "membershipId": "Número de membro",
+      "paymentMethods": {
+        "title": "Métodos de pagamento guardados",
+        "cards": "Cartões",
+        "directPayments": "Pagamentos diretos",
+        "empty": "Quando guardar um pagamento, este aparecerá aqui.",
+        "paymentMethodLabel": "Termina com <strong>{{- identifier}}</strong>",
+        "cardItemCaptionText": "Expira: {{- additionalInfo}}",
+        "add": "Adicionar método de pagamento",
+        "tooltipText": {
+          "other": "Outros",
+          "more": "Adicione um novo método de pagamento e elimine este se quiser mudar a rede de cartões."
+        }
+      },
+      "termsAndConditions": {
+        "title": "Termos e condições",
+        "subtitle": "Membro desde {{- dateJoined}}",
+        "termOfuse": "Termos de utilização",
+        "generalTerms": "Termos gerais",
+        "accepted": "Aceite em {{- dateAccepted}}"
+      },
+      "header": {
+        "buttons": {
+          "editProfile": "Editar"
+        },
+        "title": "O meu perfil"
+      },
+      "edition": {
+        "title": "Editar o seu perfil"
+      }
+    },
+    "navigation": {
+      "loggedInAs": "Atualmente, tem sessão iniciada como {{ name }}",
+      "switchAccount": "Mudar de conta",
+      "exploreYourProfile": "Explorar o seu perfil",
+      "myBookings": "As minhas reservas",
+      "myPasses": "Os meus passes",
+      "mySubscriptions": "As minhas subscrições",
+      "myProfile": "O meu perfil",
+      "myGiftCards": "Os meus cartões de oferta",
+      "myInvoices": "As minhas facturas",
+      "myStatistics": "As minhas estatísticas",
+      "myDashboard": "O meu painel de controlo",
+      "myPurchases": "As minhas compras",
+      "myVideosAndEbooks": "Os meus vídeos e livros electrónicos",
+      "changeStudio": "Mudar de estúdio",
+      "changeLanguage": "Alterar a língua",
+      "logOut": "Terminar sessão",
+      "payments": {
+        "title": "Pagamentos",
+        "myInvoices": "As minhas facturas",
+        "paymentMethods": "Métodos de pagamento"
       }
     }
   }

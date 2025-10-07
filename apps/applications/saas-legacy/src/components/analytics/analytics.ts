@@ -1,6 +1,7 @@
 import { DateTime } from 'luxon';
 
 import type { AnalyticsBasket } from '#src/libs/checkout/types';
+import { track as trackMeiro } from './meiro';
 import type {
   AnalyticsInterractWithLoginPayload,
   AnalyticsLeadAcquisitionPayload,
@@ -93,6 +94,7 @@ const analyticsUtils = {
     };
     analyticsUtils.trackGTM('view_item', gtmPayload);
     analyticsUtils.trackMetaPixel('ViewItem', metaPixelPayload);
+    trackMeiro('view_item', gtmPayload);
   },
 
   addItemToCart: (item: CartItem) => {
@@ -127,6 +129,7 @@ const analyticsUtils = {
     };
     analyticsUtils.trackGTM('add_to_cart', gtmPayload);
     analyticsUtils.trackMetaPixel('AddToCart', metaPixelPayload);
+    trackMeiro('add_to_cart', gtmPayload);
   },
 
   removeItemFromCart: (item: CartItem) => {
@@ -163,6 +166,7 @@ const analyticsUtils = {
     };
     analyticsUtils.trackGTM('remove_from_cart', gtmPayload);
     analyticsUtils.trackMetaPixel('RemoveFromCart', metaPixelPayload);
+    trackMeiro('remove_from_cart', gtmPayload);
   },
 
   viewCart: (payload: AnalyticsBasket) => {
@@ -194,6 +198,7 @@ const analyticsUtils = {
 
     analyticsUtils.trackGTM('view_cart', gtmPayload);
     analyticsUtils.trackMetaPixel('ViewCart', metaPixelPayload);
+    trackMeiro('view_cart', gtmPayload);
   },
 
   beginCheckout: (payload: AnalyticsBasket) => {
@@ -225,6 +230,7 @@ const analyticsUtils = {
 
     analyticsUtils.trackGTM('begin_checkout', gtmPayload);
     analyticsUtils.trackMetaPixel('InitiateCheckout', metaPixelPayload);
+    trackMeiro('begin_checkout', gtmPayload);
   },
 
   onPaymentSuccess: (payload: AnalyticsBasket) => {
@@ -258,6 +264,7 @@ const analyticsUtils = {
 
     analyticsUtils.trackGTM('purchase', gtmPayload);
     analyticsUtils.trackMetaPixel('Purchase', metaPixelPayload);
+    trackMeiro('purchase', gtmPayload);
   },
 
   // Workshop - Session events
@@ -285,6 +292,7 @@ const analyticsUtils = {
 
     analyticsUtils.trackGTM('bsport:calendar:session-show', gtmPayload);
     analyticsUtils.trackMetaPixel('BsportSessionShow', metaPixelPayload);
+    trackMeiro('bsport_calendar_session_show', gtmPayload);
   },
 
   onGoToSessionBooking: (session: SessionItem) => {
@@ -310,6 +318,7 @@ const analyticsUtils = {
 
     analyticsUtils.trackGTM('bsport:session:go-to-booking', gtmPayload);
     analyticsUtils.trackMetaPixel('BsportGoToBooking', metaPixelPayload);
+    trackMeiro('bsport_session_go_to_booking', gtmPayload);
   },
 
   onShowWorkshopBooking: (session: SessionItem) => {
@@ -336,6 +345,7 @@ const analyticsUtils = {
 
     analyticsUtils.trackGTM('bsport:workshop:show', gtmPayload);
     analyticsUtils.trackMetaPixel('BsportWorkshopShow', metaPixelPayload);
+    trackMeiro('bsport_workshop_show', gtmPayload);
   },
 
   onGoToWorkshopBooking: (session: SessionItem) => {
@@ -364,6 +374,7 @@ const analyticsUtils = {
       'BsportWorkshopGoToBooking',
       metaPixelPayload,
     );
+    trackMeiro('bsport_workshop_go_to_booking', gtmPayload);
   },
 
   onAddSessionToBookingList: (payload: Offer_FULL) => {
@@ -376,6 +387,7 @@ const analyticsUtils = {
     };
     analyticsUtils.trackGTM('bsport:booking:add-session', analyticsPayload);
     analyticsUtils.trackMetaPixel('BsportBookingAddSession', analyticsPayload);
+    trackMeiro('bsport_booking_add_session', analyticsPayload);
   },
 
   onRemoveSessionFromBookingList: (payload: Offer_FULL) => {
@@ -391,11 +403,13 @@ const analyticsUtils = {
       'BsportBookingRemoveSession',
       analyticsPayload,
     );
+    trackMeiro('bsport_booking_remove_session', analyticsPayload);
   },
 
   onSessionBookingSuccess: (payload: BookingSuccess) => {
     analyticsUtils.trackGTM('bsport:booking:success', payload);
     analyticsUtils.trackMetaPixel('BsportBookingSuccess', payload);
+    trackMeiro('bsport_booking_success', payload);
   },
 
   // Contract events
@@ -430,6 +444,7 @@ const analyticsUtils = {
 
     analyticsUtils.trackGTM('begin_checkout', gtmPayload);
     analyticsUtils.trackMetaPixel('InitiateCheckout', metaPixelPayload);
+    trackMeiro('begin_checkout', gtmPayload);
   },
 
   onContractPaymentSuccess: (payload: Contract) => {
@@ -463,6 +478,7 @@ const analyticsUtils = {
 
     analyticsUtils.trackGTM('purchase', gtmPayload);
     analyticsUtils.trackMetaPixel('Purchase', metaPixelPayload);
+    trackMeiro('purchase', gtmPayload);
   },
 
   // Lead acquisition events
@@ -481,6 +497,7 @@ const analyticsUtils = {
     };
     analyticsUtils.trackGTM('bsport:lead-acquisition:success', gtmPayload);
     analyticsUtils.trackMetaPixel('LeadAcquisitionSuccess', metaPixelPayload);
+    trackMeiro('bsport_lead_acquisition_success', gtmPayload);
   },
 
   // Signup - Signin events
@@ -488,11 +505,13 @@ const analyticsUtils = {
   onShowSignup: () => {
     analyticsUtils.trackGTM('bsport:signup:show');
     analyticsUtils.trackMetaPixel('BsportSignupShow');
+    trackMeiro('bsport_signup_show');
   },
 
   onShowSignin: () => {
     analyticsUtils.trackGTM('bsport:signin:show');
     analyticsUtils.trackMetaPixel('BsportSigninShow');
+    trackMeiro('bsport_signin_show');
   },
 
   onSigninSuccess: (payload: { email: string }) => {
@@ -507,6 +526,7 @@ const analyticsUtils = {
     };
     analyticsUtils.trackGTM('login', gtmPayload);
     analyticsUtils.trackMetaPixel('Login', metaPixelPayload);
+    trackMeiro('login', gtmPayload);
   },
 
   onSignupSuccess: (payload: { email: string }) => {
@@ -521,6 +541,7 @@ const analyticsUtils = {
     };
     analyticsUtils.trackGTM('sign_up', gtmPayload);
     analyticsUtils.trackMetaPixel('SignUp', metaPixelPayload);
+    trackMeiro('sign_up', gtmPayload);
   },
 };
 

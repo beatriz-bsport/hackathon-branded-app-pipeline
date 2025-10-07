@@ -1,3 +1,4 @@
+import { getEnv } from "@bsport/envs";
 import { LANGUAGES, type Locale, switchLanguage } from "@bsport/i18n";
 import {
   DropdownMenu,
@@ -9,8 +10,8 @@ import { i18nInstance, useTranslation } from "#src/utils/i18n";
 
 const useLanguageItems = (): DropdownMenuItems => {
   const { t } = useTranslation("default");
-
-  return [
+  const env = getEnv();
+  const productionLanguages: DropdownMenuItems = [
     {
       id: LANGUAGES.FRENCH,
       label: t("languages.french"),
@@ -51,7 +52,18 @@ const useLanguageItems = (): DropdownMenuItems => {
       label: t("languages.portuguese"),
       iconLeft: "flag-pt",
     },
-  ] as const;
+  ];
+
+  if (env !== "production") {
+    const debugLanguage = {
+      id: LANGUAGES.DEBUG,
+      label: t("languages.debug"),
+      iconLeft: "help-circle",
+    } as const;
+    productionLanguages.push(debugLanguage);
+  }
+
+  return productionLanguages;
 };
 
 /**

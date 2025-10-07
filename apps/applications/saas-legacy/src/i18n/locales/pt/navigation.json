@@ -119,7 +119,15 @@
     "addMemberTooltip": "Adicionar membro",
     "inbox": "Caixa de entrada",
     "playlist": "Listas de reprodução",
-    "audience": "{{ audienceCamelCase }}"
+    "audience": "{{ audienceCamelCase }}",
+    "accessMonitoring": "Acesso",
+    "closeTab": "Fechar separador",
+    "backToWebshop": "Voltar à loja virtual",
+    "feedbackBoard": "Quadro de comentários",
+    "enableRevampedBackoffice": "Nova IU",
+    "insights": {
+      "insights": "Conhecimentos"
+    }
   },
   "stripeOnboardingPending": {
     "banner": "Se não tiver terminado a configuração da faturação, os pagamentos em linha podem ser desactivados."
@@ -132,7 +140,10 @@
       "giftcardTemplates": "Cartões de presente",
       "couponTemplates": "Promoções",
       "paymentPackTemplates": "Passes de aulas",
-      "privatePassTemplates": "Passe de marcação"
+      "privatePassTemplates": "Passe de marcação",
+      "universalPassTemplates": "Passes universais",
+      "shopTemplates": "Loja virtual",
+      "contractTemplates": "Assinaturas"
     },
     "widgets": "Ferramentas",
     "franchises": "Concessionários",
@@ -146,7 +157,9 @@
       "emailTemplates": "E-mails",
       "campaigns": "Campanhas",
       "label": "Marketing"
-    }
+    },
+    "paymentPack": "Passa",
+    "widget": "Widgets"
   },
   "deprecatedNavigator": {
     "close": "Fechar",
@@ -200,7 +213,8 @@
       "giftcard": "Cartão presente",
       "giftcard_plural": "Cartões de presente ({{number}})",
       "privateConsumerPass": "Passe de Aula Privadas",
-      "privateConsumerPass_plural": "Passes de Aula Privada ({{number}})"
+      "privateConsumerPass_plural": "Passes de Aula Privada ({{number}})",
+      "subscription": "Assinaturas"
     },
     "coach": {
       "calendar": "Calendário",
@@ -246,6 +260,29 @@
     "communicationSentGroupConfig": {
       "campaigns": "Campanhas",
       "general": "Geral"
+    },
+    "accessMonitoring": {
+      "perform": "Visita dos membros",
+      "monitor": "Visitas de localização",
+      "settings": "Definições"
+    },
+    "shop": {
+      "products": "Produtos",
+      "settings": "Definições"
+    },
+    "settings": {
+      "theme": {
+        "general": "Geral",
+        "memberProfile": "Perfil de membro"
+      }
+    },
+    "reporting": {
+      "categories": "Relatórios",
+      "views": "A sua opinião"
+    },
+    "insights": {
+      "franchise": "Franquia",
+      "company": "Empresa"
     }
   },
   "multiSession": {
@@ -260,5 +297,6 @@
     "currentSession": "Atualmente, tem sessão iniciada como {{- name}}"
   },
   "logout": "Terminar sessão",
-  "login": "Iniciar sessão"
+  "login": "Iniciar sessão",
+  "featureBaseButton": "Sugerir uma caraterística ou melhoria"
 }

@@ -1,1 +1,105 @@
-{}
+{
+  "pages": {
+    "active": "Formulaires",
+    "archived": "Formulaires archivés",
+    "loading": "Chargement..."
+  },
+  "activeList": {
+    "actions": {
+      "addForm": "Créer un formulaire"
+    },
+    "addFormModal": {
+      "title": "Créer un nouveau formulaire",
+      "description": "Nommez votre nouveau formulaire pour commencer !",
+      "input": {
+        "label": "Nom du formulaire",
+        "placeholder": "Ajoutez un nom de formulaire..."
+      },
+      "actions": {
+        "cancel": "Annuler",
+        "create": "Créer"
+      },
+      "errors": {
+        "nameTooLong": "Le nom n'est pas valide, la longueur maximale est de {{ maximalLength }} caractères.",
+        "nameTooShort": "Le nom n'est pas valide, la longueur minimale est de {{ minimalLength }} caractère.",
+        "nameRequired": "Le nom n'est pas valide, vous ne pouvez pas entrer un nom vide."
+      }
+    },
+    "archiveModal": {
+      "actions": {
+        "archive": "Archiver",
+        "cancel": "Retour"
+      },
+      "title": "Archiver le formulaire ?",
+      "description": "Les Membres ne verront plus <b>{{ name }}</b>, mais vous pouvez y accéder depuis votre archive."
+    },
+    "duplicateModal": {
+      "actions": {
+        "duplicate": "Dupliquer",
+        "cancel": "Retour"
+      },
+      "title": "Dupliquer le formulaire ?",
+      "description": {
+        "verification": "Dupliquer <b>{{ name }}</b> ?",
+        "effect": "Vous pouvez modifier <b>{{ name }}</b> après."
+      }
+    }
+  },
+  "toasts": {
+    "messageCreated": {
+      "success": "Formulaire créé",
+      "error": "Échec de la création de votre formulaire"
+    },
+    "messageArchived": {
+      "success": "Formulaire archivé",
+      "error": "Échec de l'archivage de votre formulaire"
+    },
+    "messageRestored": {
+      "success": "Formulaire restauré",
+      "error": "Échec de la restauration de votre formulaire"
+    },
+    "messageDuplicated": {
+      "success": "Formulaire dupliqué",
+      "error": "Échec de la duplication de votre formulaire"
+    },
+    "messageUndone": {
+      "success": "Action annulée",
+      "error": "Échec de l'annulation de l'action"
+    },
+    "actions": {
+      "undo": "Annuler",
+      "open": "Ouverte"
+    }
+  },
+  "table": {
+    "headers": {
+      "name": "Nom",
+      "questions": "Questions"
+    },
+    "loading": {
+      "activeList": "Chargement des formulaires...",
+      "archivedList": "Chargement des formulaires archivés..."
+    },
+    "empty": {
+      "activeList": {
+        "title": "Aucun formulaire à afficher pour le moment",
+        "subtitle": "Créez votre premier formulaire pour obtenir des retours de vos membres."
+      },
+      "archivedList": {
+        "title": "Aucun formulaire archivé pour le moment",
+        "subtitle": "Les formulaires déplacés ici peuvent être restaurés"
+      },
+      "search": {
+        "title": "Aucun formulaire trouvé",
+        "subtitle": "Essayez avec d'autres mots-clés"
+      }
+    },
+    "tooltips": {
+      "archive": "Formulaire d'archivage",
+      "restore": "Restaurer le formulaire",
+      "duplicate": "Dupliquer le formulaire",
+      "search": "Rechercher un formulaire",
+      "switchToArchived": "Formulaires archivés"
+    }
+  }
+}

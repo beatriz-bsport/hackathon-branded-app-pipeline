@@ -26,6 +26,12 @@
       "explanation": "A x {{ currencyDisplay }} na sua conta",
       "between": "e"
     },
+    "2": {
+      "name": "Última reserva",
+      "first": "A última reserva foi antes de",
+      "second": "dias",
+      "explanation": "Marcou a sua última sessão, há..."
+    },
     "5": {
       "name": "Género",
       "men": "homens",
@@ -73,7 +79,9 @@
       "second": "e",
       "credits": {
         "first": "créditos:",
-        "second": "e"
+        "second": "e",
+        "helperText": "Filtrado em {{count}} crédito",
+        "helperText_plural": "Filtrado em {{count}} créditos"
       },
       "date_bought": {
         "first": "data de compra"
@@ -125,7 +133,9 @@
       },
       "coach": {
         "first": "com os professores"
-      }
+      },
+      "first_v2": "Os membros que reservaram a sua",
+      "second_singular_v2": "sessão"
     },
     "22": {
       "level": {
@@ -183,7 +193,9 @@
       "second": "e",
       "credits": {
         "second": "e",
-        "first": "créditos:"
+        "first": "créditos:",
+        "helperText": "Filtrado em {{count}} crédito",
+        "helperText_plural": "Filtrado em {{count}} créditos"
       },
       "date_bought": {
         "first": "data de compra"
@@ -317,7 +329,8 @@
       "date": {
         "first": "concluído pela última vez"
       },
-      "explanation": "Formulários X preenchidos em A% na data B "
+      "explanation": "Formulários X preenchidos em A% na data B ",
+      "first": "Completou"
     },
     "103": {
       "name": "Notificações",
@@ -327,7 +340,9 @@
       "true": "Aceitar",
       "sms": "receber notificações por SMS",
       "oneNeeded": "Pelo menos uma das condições ativadas deve ser satisfeita",
-      "false": "Não aceita"
+      "false": "Não aceita",
+      "and": "E",
+      "or": "Ou"
     },
     "104": {
       "first": "Possuí pelo menos uma nota",
@@ -464,6 +479,10 @@
           "second": "dias",
           "first": "Em mais de"
         },
+        "8": {
+          "first": "Há menos de",
+          "second": "dias atrás ou menos"
+        },
         "9": {
           "second": "dias",
           "first": "Existem mais de"
@@ -479,8 +498,10 @@
         },
         "selector": {
           "4": "Em mais de X dias",
+          "5": "Em menos de X dias",
           "6": "Em X dias",
           "7": "Em mais de X dias e menos de Y dias",
+          "8": "Há menos de X dias",
           "9": "Há mais de X dias",
           "10": "X dias atrás",
           "11": "Há mais de X dias e há menos de Y dias"
@@ -545,7 +566,26 @@
     "attendanceWarning": "Selecionar um estado",
     "attendanceFalse": "ausente",
     "attendanceTrue": "presente",
-    "isEmpty": "Não foi configurado qualquer filtro, pelo que esta lista inteligente representa a totalidade da base de dados de membros"
+    "isEmpty": "Não foi configurado qualquer filtro, pelo que esta lista inteligente representa a totalidade da base de dados de membros",
+    "classic_comparators": {
+      "1": "inferior (⩽)",
+      "2": "maior (⩾)",
+      "3": "estritamente inferior",
+      "4": "estritamente maior",
+      "5": "igual"
+    },
+    "undefined": {
+      "name": "Data de compra e créditos por passe",
+      "infoIcon": "Os passes ilimitados não são filtrados a crédito",
+      "first": "Comprou o passe",
+      "second": "entre",
+      "third": "e",
+      "fourth": "e tem",
+      "fifth": "créditos sobre ele",
+      "info": "Os passes bloqueados e os passes de marcação bloqueados também são tidos em conta",
+      "between": "e",
+      "explanation": "Tem um número X de passes válidos ou passes de marcação"
+    }
   },
   "cannotBeDeletedDialog": {
     "content": "Não é possível eliminar esta lista inteligente desde que seja utilizada na sequência seguinte :",
@@ -640,7 +680,9 @@
       "all": "todos os níveis",
       "warning": "selecionar pelo menos um nível",
       "beginner": "iniciante",
-      "intermediary": "intermédio"
+      "intermediary": "intermédio",
+      "allLevels": "todos os níveis",
+      "intermediate": "intermediário"
     },
     "selectAll": "Selecionar tudo",
     "selectNothing": "Desmarcar tudo"
@@ -697,7 +739,10 @@
       "configure": "Configurar"
     },
     "name": "Nome",
-    "detail": "Detalhes da lista inteligente"
+    "detail": "Detalhes da lista inteligente",
+    "card": {
+      "description": "Descrição"
+    }
   },
   "exportList": "Exportar a lista inteligente",
   "detail": {

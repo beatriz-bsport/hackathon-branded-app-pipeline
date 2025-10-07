@@ -240,7 +240,7 @@
       "consumerRegularizeDebtHelper": "Deze functie is beschikbaar op de marketplace, Easy Connect Button en Login Button Widget. Het is nog niet beschikbaar op de App en Leden Profiel widget.\"",
       "expressCheckout": {
         "oneClickBooking": {
-          "label": "One-Click Booking (beta)",
+          "label": "Express Checkout (beta) activeren",
           "helperText": "Nieuwe klanten kunnen activiteiten boeken zonder eerst een account aan te maken. Deze functie is niet compatibel met afspraken of met ‘bevestiging per e-mail bij aanmelding’. Geldt alleen voor activiteiten die geboekt kunnen worden met een ‘nieuwe ledenpas’."
         },
         "title": "Snel afrekenen"

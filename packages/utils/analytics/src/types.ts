@@ -16,8 +16,11 @@ export type Serializable =
 
 export type Properties = Record<string, Serializable>;
 
-export type AnalyticsEvent = Properties & {
-  eventType: string;
+export type AnalyticsEvent<
+  EventName = string,
+  Payload = Properties,
+> = Payload & {
+  eventType: EventName;
 };
 
 /** Augment your type config using the generic T type (extensibility) */
@@ -146,6 +149,67 @@ export type AnalyticsAgnosticMethods = {
 export type MixpanelConfig = Partial<Config>;
 export type MixpanelOptInOptions = Partial<InTrackingOptions>;
 export type MixpanelOptOutOptions = Partial<OutTrackingOptions>;
+
+// Meiro SDK Types
+export interface MeiroConfig {
+  protocol?: string;
+  domain: string;
+  path?: string;
+  endpoint?: string;
+  external_id?: string | Record<string, Serializable>;
+  identifiers?: {
+    user_id?: boolean;
+    session_id?: boolean;
+  };
+  the_trade_desk?: {
+    pid: string;
+    gdpr?: 0 | 1;
+    gdpr_consent?: string;
+  };
+  google_pixel?: {
+    google_nid: string;
+  };
+  cross_domain_whitelist?: string[];
+  storage_persistence?: "lifetime" | "session";
+  custom_headers?: Record<string, string>;
+  sync?: {
+    ga_cid?: boolean;
+    fb_cid?: boolean;
+  };
+  outbound_link_tracking?: {
+    enabled: boolean;
+    domains_blacklist?: string[];
+  };
+}
+
+// Reference: https://docs.meiro.io/books/meiro-events/page/meiro-events-sdk-public-interface
+export interface MeiroEvents {
+  init(config: MeiroConfig | string): void;
+  getUserId(): string | null;
+  getSessionId(): string | null;
+  track(
+    eventType: string,
+    eventPayload?: Record<string, unknown>,
+    bannerId?: string,
+  ): Promise<void>;
+  resetIdentity(): void;
+  updateConfig(config: MeiroConfig): void;
+  evaluateWebBanners(): void;
+  getWebBannerId(): string | null;
+  getWebBannerName(): string | null;
+  closePopUpWebBanner(options?: { minimize?: boolean }): void;
+  goToWebBannerUrl(url: string, bannerId: string): void;
+  getWebBannerHttpResponses(
+    bannerId: string,
+  ): Array<{ url: string; data: unknown }>;
+  showPopUpWebBanner(bannerId: string): void;
+}
+
+declare global {
+  interface Window {
+    MeiroEvents: MeiroEvents;
+  }
+}
 
 export type AnalyticsClientInterface<
   ExtraConfig = MixpanelConfig,

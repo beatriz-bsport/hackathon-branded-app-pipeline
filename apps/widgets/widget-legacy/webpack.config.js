@@ -8,6 +8,22 @@ const path = require('path');
 
 const devMode = process.env.NODE_ENV !== 'production';
 
+const getConfig = () => {
+  const configOverride = process.env.DEST_CONFIG;
+  if (
+    configOverride &&
+    ['local', 'dev', 'production', 'staging', 'local-fe-dev-be'].includes(
+      configOverride,
+    )
+  ) {
+    return `./config.${configOverride}`;
+  }
+  if (devMode) {
+    return './config.local';
+  }
+  return './config.production';
+};
+
 const publicPath = devMode
   ? 'http://localhost:9000/'
   : `https://${process.env.CDN_DOMAIN}/scripts/`;
@@ -16,12 +32,7 @@ const publicDir = path.join(__dirname, 'public');
 
 module.exports = {
   mode: process.env.NODE_ENV || 'development',
-  entry: [
-    devMode
-      ? require.resolve('./config.local')
-      : require.resolve('./config.production'),
-    './src/index.tsx',
-  ],
+  entry: [require.resolve(getConfig()), './src/index.tsx'],
   output: {
     path: distDir,
     filename: 'widget.js',

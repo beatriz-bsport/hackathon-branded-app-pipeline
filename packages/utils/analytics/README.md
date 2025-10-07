@@ -118,6 +118,113 @@ analytics.reset(); // or analytics.clearSuperProperties();
 
 You might need to use a different tool than Mixpanel browser for your analytics desires. Though, you still need to use the `AnalyticsClient` to ensure consistent usage over our frontend codebases.
 
+### Using Meiro Analytics
+
+We provide a built-in `MeiroAdapter` for Meiro Events SDK integration:
+
+```tsx
+import {
+  AnalyticsClient,
+  type AnalyticsClientInterface,
+  MeiroAdapter,
+} from "@bsport/analytics";
+
+const meiroAdapter = new MeiroAdapter();
+const analytics: AnalyticsClientInterface = new AnalyticsClient({
+  adapter: meiroAdapter,
+});
+
+analytics.configure({
+  domain: "meiro.staging.bsport.io", // or your production domain
+  env: "staging", // or "production"
+  external_id: "your-external-id", // string format
+  // OR use object format for multiple IDs:
+  // external_id: { ga: "ga_client_id", app_cid: "site_client_id" },
+  sync: {
+    ga_cid: true,
+    fb_cid: true,
+  },
+  outbound_link_tracking: {
+    enabled: true,
+    domains_blacklist: ["example.com"],
+  },
+});
+
+// Enable debug logging for development
+analytics.setDebugMode(true);
+
+// Use super properties for session-scoped data (privacy-safe, memory-only)
+analytics.addSuperProperties({
+  app_version: "2.1.0",
+  user_plan: "premium",
+  feature_flags: { new_dashboard: true },
+});
+
+// Use normally with the same API
+analytics.track(buttonClickedEvent({ kind: "Add Teacher" }));
+analytics.identify({ userId: "123", traits: { email: "user@example.com" } });
+```
+
+#### Meiro Enhanced Features
+
+**External ID Flexibility**
+The `external_id` field supports both string and object formats:
+
+```tsx
+// String format (simple)
+analytics.configure({ external_id: "user123" });
+
+// Object format (multiple identifiers)
+analytics.configure({
+  external_id: {
+    ga: "GA1.1.123456789.1234567890",
+    app_cid: "site_client_id_456",
+    custom_id: "my_internal_id",
+  },
+});
+```
+
+**Privacy-Safe Super Properties**
+Super properties are stored in memory only (no localStorage/sessionStorage) for GDPR compliance:
+
+```tsx
+// Add properties that persist for the session
+analytics.addSuperProperties({
+  app_version: "2.1.0",
+  user_segment: "premium",
+  ab_test_variant: "version_a",
+});
+
+// All subsequent events automatically include these properties
+analytics.track(buttonClickedEvent({ kind: "signup" }));
+// Sent as: { event_type: "button_clicked", kind: "signup", app_version: "2.1.0", user_segment: "premium", ab_test_variant: "version_a" }
+
+// Remove specific properties
+analytics.removeSuperProperties(["ab_test_variant"]);
+
+// Clear all super properties
+analytics.resetSuperProperties();
+```
+
+**Debug Logging**
+Enable detailed console logging for development and troubleshooting:
+
+```tsx
+// Enable debug mode to see detailed logs
+analytics.setDebugMode(true);
+
+// Now all operations are logged:
+// [Meiro Debug] Configure called with config: {...}
+// [Meiro Debug] Loading Meiro SDK script from domain: meiro.staging.bsport.io
+// [Meiro Debug] Track event called: {...}
+// [Meiro Debug] Adding super properties: {...}
+
+// Disable when not needed
+analytics.setDebugMode(false);
+```
+
+### Custom Adapter Implementation
+
 When creating your `AnalyticsClient` object, you can provide an `adapter` that follows the `AnalyticsAdapter` interface.
 
 ```tsx
@@ -143,18 +250,23 @@ const customAdapter: AnalyticsAdapter = {
 const analytics: AnalyticsClientInterface = new AnalyticsClient({ adapter: customAdapter });
 
 analytics.configure({...});
+
 ```
 
-You can use two tools at the same time, they will be isolated one from the other :
+You can use multiple tools at the same time, they will be isolated one from the other :
 
 ```tsx
 const analyticsWithMixpanel: AnalyticsClientInterface = new AnalyticsClient();
+
+const analyticsWithMeiro: AnalyticsClientInterface = new AnalyticsClient({
+  adapter: new MeiroAdapter(),
+});
 
 const analyticsWithOtherTool: AnalyticsClientInterface = new AnalyticsClient({
   adapter: customAdapter,
 });
 
-analyticsWithOtherTool.configure({}); // It won't have side effects on analyticsWithMixpanel
+analyticsWithMeiro.configure({ domain: "meiro.staging.bsport.io" }); // Won't affect other instances
 ```
 
 ## :warning: Singleton Considerations
@@ -199,3 +311,7 @@ Options:
 - Document where configure is called — calling it multiple times with different tokens can lead to unclear behavior.
 - For multi-scope apps (B2B/B2C), consider multiple named Mixpanel instances for clarity and safety (incoming).
 - Always reset the Mixpanel client on logout if switching to a radically different user or scope.
+
+```
+
+```

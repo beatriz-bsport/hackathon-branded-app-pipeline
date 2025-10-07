@@ -36,7 +36,9 @@
     "activities": "As atividades que aparecem são dentro do intervalo de datas selecionado.",
     "referral_grant": "Os links do patrocínio são filtrados de acordo com a data de criação do membro patrocinado",
     "invoicesAccrualMethodLink": "https://intercom.help/bsport-helpcenter/articles/8320705",
-    "invoicesAccrualMethod": "Este relatório apresenta as compras com base no método de contabilidade de exercício  Ou seja, as transferências de dinheiro para o saldo da conta interna e as compras de cartões de oferta não estão incluídas. <0>Veja a nossa folha de ajuda para mais informações.</0> Para acompanhar as compras de cartões de oferta, utilize o {{ purchasedGiftcardReport }} relatório"
+    "invoicesAccrualMethod": "Este relatório apresenta as compras com base no método de contabilidade de exercício  Ou seja, as transferências de dinheiro para o saldo da conta interna e as compras de cartões de oferta não estão incluídas. <0>Veja a nossa folha de ajuda para mais informações.</0> Para acompanhar as compras de cartões de oferta, utilize o {{ purchasedGiftcardReport }} relatório",
+    "access_monitoring": "As visitas são filtradas com base na data e hora em que ocorreram.",
+    "decimalCredit": "Os valores dos créditos apresentados nos relatórios não estão divididos por {{creditFactor}}, não se esqueça de dividir estas colunas para análise posterior."
   },
   "franchiseWarning": {
     "part1": "Devido à grande quantidade de dados, pode demorar uns minutos a gerar o relatório.",
@@ -84,7 +86,9 @@
     "category": "Categoria",
     "description": "Descrição",
     "name": "Nome",
-    "title": "Novo relatório"
+    "title": "Novo relatório",
+    "saveAndGenerate": "Guardar e gerar",
+    "columms": "Colunas"
   },
   "report": {
     "delete_message": "Tem a certeza de que pretende eliminar  {{- name}} ?"
@@ -108,12 +112,73 @@
     "3": "Cancelado",
     "4": "Processando",
     "": [
-      "Cancelar"
+      "Cancelar",
+      "Cancelado",
+      "Cancelado",
+      "Cancelado",
+      "Cancelado",
+      "Cancelado",
+      "Cancelado",
+      "Cancelado",
+      "Cancelado",
+      "Cancelado",
+      "Cancelado",
+      "Cancelado",
+      "Cancelado",
+      "Cancelado",
+      "Cancelado",
+      "Cancelado",
+      "Cancelado",
+      "Cancelado",
+      "Cancelado",
+      "Cancelado",
+      "Cancelado",
+      "Cancelado",
+      "Cancelado",
+      "Cancelado",
+      "Cancelado",
+      "Cancelado",
+      "Cancelado",
+      "Cancelado",
+      "Cancelado",
+      "Cancelado",
+      "Cancelado",
+      "Cancelado",
+      "Cancelado",
+      "Cancelado",
+      "Cancelado",
+      "Cancelado",
+      "Cancelado",
+      "Cancelado",
+      "Cancelado",
+      "Cancelado",
+      "Cancelado",
+      "Cancelado",
+      "Cancelado",
+      "Cancelado",
+      "Cancelado",
+      "Cancelado",
+      "Cancelado",
+      "Cancelado",
+      "Cancelado",
+      "Cancelado",
+      "Cancelado",
+      "Cancelado",
+      "Cancelado",
+      "Cancelado",
+      "Cancelado",
+      "Cancelado",
+      "Cancelado",
+      "Cancelado",
+      "Cancelado",
+      "Cancelado",
+      "Cancelado"
     ]
   },
   "payment_method_with_credit_account": {
     "0": "Cartão",
     "9": "Crédito do cliente",
+    "10": "Pagamento automático",
     "13": "SEPA",
     "70": "Débito Direto"
   },
@@ -139,7 +204,11 @@
     "sepa": "SEPA",
     "cash": "Dinheiro",
     "bacs_debit": "Débito Direto",
-    "holiday_check": "Verificação de férias"
+    "holiday_check": "Verificação de férias",
+    "paypal_wallet": "Carteira PayPal",
+    "twint": "TWINT",
+    "apple_pay": "Apple Pay",
+    "google_pay": "Google Pay"
   },
   "no": "Não",
   "yes": "Sim",
@@ -203,7 +272,11 @@
       "information": "Informações gerais",
       "name": "Nome",
       "title": "Ver filtro",
-      "shortColumnError": "A coluna correspondente não é exibida"
+      "shortColumnError": "A coluna correspondente não é exibida",
+      "decimalCredit": {
+        "helperText": "Deve introduzir aqui um valor inteiro. Lembre-se de que o valor dos créditos apresentado nos relatórios não é dividido por {{creditFactor}}",
+        "filterViewHelperText": "Para os filtros relacionados com os créditos, é necessário introduzir um valor inteiro. É de recordar que o valor dos créditos apresentado nos relatórios não é dividido pelo {{creditFactor}}"
+      }
     },
     "deleteModal": {
       "content": "Tem a certeza de que pretende eliminar este filtro ? Esta ação é irreversível.",
@@ -517,7 +590,47 @@
     "margin_value_excluding_sales_tax": "Valor marginal (sem IVA / imposto sobre vendas)",
     "billing_group_address": "Endereço",
     "is_first_visit": "Primeira reserva",
-    "is_from_billing_plan": "A partir da subscrição"
+    "is_from_billing_plan": "A partir da subscrição",
+    "studio_address_franchise_only": "Localização/Endereço",
+    "product_types": "Tipos de produtos",
+    "voucher_reason": "Motivo do desconto",
+    "subtitle": "Subtítulo",
+    "color": "Cor",
+    "size": "Tamanho",
+    "stock_keeping_unit": "SKU",
+    "supplier_name": "Fornecedor",
+    "barcode": "Código de barras",
+    "cost_of_sale": "Custo de venda",
+    "cost_of_stock": "Custo das existências (data final)",
+    "gross_profit": "Lucro bruto",
+    "total_rows": "Total de linhas",
+    "on_the_fly_bsport_fee": "Taxas de transação PayPal",
+    "second_billing_plan": "Segundo plano de faturação",
+    "amount_upcoming_cts": "Montante a receber",
+    "payment_method_paypal_wallet": "Carteira PayPal",
+    "payment_method_twint": "TWINT",
+    "payment_method_apple_pay": "Apple Pay",
+    "payment_method_google_pay": "Google Pay",
+    "incremental_identifier": "Número",
+    "bookkeeping_account_number": "Número de conta",
+    "bookkeeping_account_name": "Nome da conta",
+    "product_categories": "Categorias de produtos",
+    "member_first_name": "Nome próprio",
+    "member_last_name": "Apelido",
+    "member_email": "Correio eletrónico",
+    "member_phonenumber": "Telefone",
+    "member_gender": "Sexo",
+    "member_membership_id": "ID do membro",
+    "visit_date": "Data da visita",
+    "visit_time": "Hora da visita",
+    "location": "Localização",
+    "establishments_names": "Estabelecimento",
+    "visit_reason": "Motivo da visita",
+    "initial_status": "Estado da autorização",
+    "updated_status": "Estado atualizado",
+    "admission": "Admissão",
+    "kind": "Tipo",
+    "billing_date_start": "Primeira data de faturação"
   },
   "categories": {
     "activityByCoach": "Atividades e workshops por professor",
@@ -563,7 +676,8 @@
     "members": "Novos membros",
     "on_spot_payments": "Pagamentos no local",
     "dispute": "Conflito no pagamento",
-    "referral_grant": "Referência"
+    "referral_grant": "Referência",
+    "access_monitoring": "Monitorização do acesso"
   },
   "header": {
     "save": "Guardar",
@@ -578,7 +692,11 @@
       "month": "Último mês",
       "week": "Semana passada",
       "today": "Hoje",
-      "allDay": "Todo o dia"
+      "allDay": "Todo o dia",
+      "yesterday": "Ontem",
+      "week_to_date": "Semana até à data",
+      "month_to_date": "Mês até à data",
+      "year_to_date": "Acumulado do ano"
     },
     "rapidChoice": "Seleção rápida",
     "end": "Fim",
@@ -596,16 +714,29 @@
     "toInTimeContext": "Para",
     "fromInTimeContext": "De",
     "toInDateContext": "Para",
-    "fromInDateContext": "De"
+    "fromInDateContext": "De",
+    "quickDateSelector": {
+      "week_to_date": "Semana até à data",
+      "month_to_date": "Mês até à data",
+      "year_to_date": "Acumulado do ano",
+      "last_week": "Semana passada",
+      "last_month": "Mês passado",
+      "last_year": "Ano passado",
+      "today": "Hoje",
+      "yesterday": "Ontem",
+      "custom": "Personalizado"
+    }
   },
   "presetValuesByDatatype": {
     "payment_engine": {
       "0": "Pagamento manual",
-      "1": "Pagamento Online"
+      "1": "Pagamento Online",
+      "2": "PayPal"
     },
     "payment_method_with_credit_account": {
       "0": "Passe",
       "9": "Crédito do cliente",
+      "10": "Pagamento automático",
       "13": "SEPA"
     },
     "payment_method": {
@@ -627,7 +758,10 @@
       "30": "Sofort",
       "40": "iDEAL",
       "50": "EPS",
-      "60": "Giropay"
+      "60": "Giropay",
+      "90": "TWINT",
+      "100": "Apple Pay",
+      "110": "Google Pay"
     },
     "booking_status_code": {
       "0": "Não cancelado",
@@ -640,14 +774,33 @@
       "1": "Em curso",
       "2": "Interrompido",
       "3": "Em pausa",
-      "4": "Concluído"
+      "4": "Concluído",
+      "5": "Extinto (Membro)"
     },
     "source_device": {
       "0": "Aplicação",
       "1": "Site",
       "2": "Backoffice bsport",
       "3": "Autor",
-      "4": "Migração de dados"
+      "4": "Migração de dados",
+      "5": "Agregadores",
+      "6": "Desconhecido",
+      "7": "Venda rápida",
+      "8": "Aplicação de marca (empresa)",
+      "9": "Aplicação de marca (franchisador)",
+      "10": "aplicação bsport"
+    },
+    "product_type": {
+      "payment_pack": "Passa",
+      "shop_item": "Artigos da loja virtual",
+      "top_up": "Recargas",
+      "payment_combo": "Embalagens",
+      "private_pass": "Passes de marcação",
+      "fee": "Taxas",
+      "refund": "Créditos reembolsados",
+      "booking": "Reservas",
+      "coupon": "Promoções",
+      "giftcard": "Cartões de oferta"
     }
   },
   "datatype": {
@@ -706,5 +859,151 @@
     "total": "Total"
   },
   "search": "Procurar um relatório",
-  "readPermissionDenied": "Acesso recusado"
+  "readPermissionDenied": "Acesso recusado",
+  "groupedColumns": {
+    "member": "Membro",
+    "referring_member": "Membro de referência",
+    "referred_member": "Membro indicado",
+    "src_member": "Comprador",
+    "dst_member": "Beneficiário"
+  },
+  "descriptions": {
+    "dayBookings": "Analisar as tendências e as taxas de participação, acompanhando as reservas de actividades de grupo para cada dia.",
+    "privateService": "Analisar o desempenho das marcações com o número de marcações e cancelamentos.",
+    "activityByCoach": "Acompanhar o desempenho das actividades e workshops por professor. Melhorar as atribuições dos professores e o sucesso do programa.",
+    "activityByEst": "Acompanhar o desempenho das actividades e dos seminários por estabelecimento. Melhorar a afetação de recursos para cada estabelecimento.",
+    "workshop": "Avaliar o desempenho dos workshops. Analisar os dados para melhorar as ofertas e aumentar a participação.",
+    "activities": "Aceder aos detalhes de cada atividade. Acompanhe a assiduidade e o desempenho para melhorar a oferta de programas.",
+    "first_privatebooking": "Acompanhe os primeiros visitantes e as marcações com melhor desempenho com uma lista detalhada da primeira marcação para cada membro.",
+    "first_attendance": "Monitorizar a participação inicial nas actividades de grupo. Acompanhar o envolvimento e otimizar as estratégias de integração para melhorar a retenção de membros.",
+    "first_booking": "Acompanhe os primeiros visitantes e as turmas com melhor desempenho com uma lista detalhada da primeira reserva de atividade de grupo para cada membro.",
+    "subscription": "Acompanhe os detalhes de faturação da assinatura para garantir pagamentos precisos e atempados.",
+    "discount": "Otimizar as estratégias de marketing e aumentar as vendas através da análise do impacto das promoções.",
+    "private_bookings": "Aceda a informações pormenorizadas sobre as marcações e melhore a eficiência do agendamento.",
+    "shop": "Otimizar as estratégias de inventário e de vendas através do acompanhamento das vendas, das receitas geradas e dos níveis de stock.",
+    "private_cpasses": "Ver os passes de marcação activos e a sua utilização. Acompanhe as marcações e os créditos restantes para gerir eficazmente os passes de marcação.",
+    "payment_sumup": "Monitorizar todos os detalhes e métodos de pagamento, tanto em linha como fora de linha.",
+    "credit": "Ver rapidamente os saldos das contas dos membros. Comunicar eficazmente com os membros sobre as suas quotas e créditos.",
+    "basket": "Ver uma lista de itens pendentes do cesto, fornecendo informações sobre o que os membros estão a considerar comprar.",
+    "memberships": "Ver os passes activos e a sua utilização. Acompanhe as reservas e os créditos restantes para gerir os passes de forma eficiente.",
+    "invoices": "Acompanhe o histórico de transacções e analise os detalhes de faturação.",
+    "payments": "Aceder a informações detalhadas de cada transação com o estado e os produtos vendidos.",
+    "bookings": "Optimize a programação analisando o estado das reservas, a assiduidade e a utilização dos membros.",
+    "offers": "Otimizar a programação e a utilização de recursos através da compreensão da dinâmica das marcações das sessões.",
+    "members": "Aceder aos dados dos novos membros para compreender as suas preferências e melhorar a experiência e a fidelidade dos membros.",
+    "cashbook": "Controlar os saldos diários para uma gestão financeira rigorosa.",
+    "on_spot_payments": "Acompanhar os pagamentos no estúdio com os detalhes das transacções e monitorizar as vendas para melhorar a oferta de produtos.",
+    "video": "Analise o desempenho do VOD, como visualizações, preço e estado do aluguer, para informar a sua estratégia de conteúdos.",
+    "unpaid_invoices": "Acompanhe as facturas não pagas para melhorar a cobrança de pagamentos.",
+    "video_purchase": "Monitorize as vendas, acompanhando todos os vídeos comprados e os respectivos detalhes, e optimize as ofertas de vídeo.",
+    "giftcard": "Monitorizar as vendas e os resgates para melhorar as ofertas de cartões-presente e maximizar as receitas.",
+    "consumer_giftcard": "Gerir e acompanhar as compras de cartões de oferta, incluindo detalhes dos compradores e destinatários.",
+    "payment_installments": "Acompanhe o estado dos pagamentos de prestações e veja os pormenores, incluindo datas de vencimento, preços e produtos.",
+    "unpaid_private_bookings": "Acompanhar as marcações não pagas para melhorar a cobrança de pagamentos e o acompanhamento dos membros.",
+    "expense": "Acompanhe as despesas da loja virtual e dos fornecedores. Obtenha informações sobre os padrões de despesa para melhorar a eficiência dos custos.",
+    "expired_pass": "Identificar os passes caducados com créditos não utilizados.",
+    "private_cpasses_expired": "Identificar passes de marcação expirados com créditos não utilizados.",
+    "universal_passes": "Ver os passes universais activos e a sua utilização. Acompanhe as reservas e os créditos restantes para gerir eficazmente os passes universais.",
+    "franchise_shared_pass": "Ver e comparar em quais dos seus estúdios foram comprados e utilizados passes partilhados.",
+    "dispute": "Monitorizar o estado e os detalhes do litígio.",
+    "billing_plan": "Monitorizar o estado das subscrições, as datas de renovação e as receitas recorrentes.",
+    "members_purchase": "Acompanhe todas as compras e detalhes dos artigos comprados pelos membros. Obtenha informações para otimizar as ofertas de produtos.",
+    "referral_grant": "Aumente o envolvimento dos membros acompanhando os membros referidos e os que referem, incluindo datas de utilização e produtos comprados.",
+    "access_monitoring": "Acompanhe o acesso dos membros às suas instalações com registos de entrada e alertas de estado."
+  },
+  "invalidFilter": {
+    "user": "Não é possível aplicar este filtro porque um dos membros selecionados já não existe. Repor o filtro para corrigir o erro"
+  },
+  "incompatibleFilter": {
+    "product": "Os filtros de produtos não são compatíveis entre si"
+  },
+  "pageTitle": "Todos os relatórios",
+  "pageSearchPlaceholder": "Nome do relatório de pesquisa",
+  "viewPageSearchPlaceholder": "Nome da vista de pesquisa",
+  "pageSearchEmpty": "Não conseguimos encontrar nenhum relatório desta pesquisa",
+  "versionSwitcher": {
+    "title": "Estamos a mudar a sua experiência com a ferramenta Relatórios.",
+    "content": "Actualizámos a organização dos relatórios. Agora, pode filtrar cada relatório dentro da sua categoria como diferentes <1>Vistas</1>. Esta alteração tornar-se-á permanente para todos no dia 30 de outubro. Se tiver algum comentário, deixe-o no <2>Quadro de comentários</2>.",
+    "fromOldToNew": "Mudar para a nova versão",
+    "fromNewToOld": "Voltar à versão anterior",
+    "dialog": {
+      "title": "Mudar para a versão antiga",
+      "firstContentText": "A ferramenta de relatórios será actualizada para todos no dia 1 de outubro. Todas as alterações futuras da versão antiga não serão aplicadas à nova versão.",
+      "secondContentText": "Tens a certeza de que queres voltar a mudar?",
+      "confirm": "Mudar para a versão antiga"
+    }
+  },
+  "snackbar": {
+    "createSuccess": "A sua vista foi criada",
+    "createError": "Ocorreu um erro ao criar a sua vista",
+    "updateSuccess": "A sua vista foi actualizada",
+    "updateError": "Ocorreu um erro ao atualizar a sua vista",
+    "deleteSuccess": "A sua vista foi eliminada",
+    "deleteError": "Ocorreu um erro ao eliminar a sua vista"
+  },
+  "reportDetailHeader": {
+    "currentView": "Vista atual:",
+    "addView": "Adicionar vista",
+    "emptyAdvancedFilters": "Não foram aplicados filtros avançados a esta vista.",
+    "invalidAdvancedFilter": "O filtro avançado {{ count }} é inválido. Editar a vista para corrigir o erro.",
+    "invalidAdvancedFilter_plural": "{Os filtros avançados são inválidos. Editar a vista para corrigir o erro.",
+    "advancedFiltersApplied": "{Filtro avançado aplicado",
+    "advancedFiltersApplied_plural": "{Filtros avançados aplicados",
+    "cannotDeleteDefaultView": "A vista predefinida não pode ser eliminada."
+  },
+  "reportEditLabel": "Editar vista",
+  "reportNameLabel": "Ver nome",
+  "reportDetailDrawer": {
+    "advancedFilterTitle": "Filtros avançados",
+    "advancedFilterSubtitle": "Filtrar os dados mostrados nesta vista para a tabela do relatório.",
+    "emptyAdvancedFilters": "Ainda não foram aplicados filtros a esta vista.",
+    "displayedColumnsTitle": "Colunas apresentadas",
+    "displayedColumnsSubtitle": "Selecione as colunas que pretende apresentar nesta vista para a sua tabela de relatório.",
+    "columnIdentifiersError": "É necessário selecionar pelo menos 1 coluna",
+    "filterNotApplied": "Os filtros marcados não serão aplicados porque as colunas correspondentes estão desactivadas."
+  },
+  "reportCreateModal": {
+    "title": "Adicionar uma vista",
+    "content": "Pode ajustar filtros e colunas para cada vista após a sua criação.",
+    "inputLabel": "Ver nome",
+    "error": "É necessário um nome para a vista",
+    "maxLength": "Um nome pode ter um máximo de 200 caracteres.",
+    "nameAlreadyUsed": "O nome já está a ser utilizado"
+  },
+  "reportDeleteModal": {
+    "title": "Tem a certeza de que pretende apagar esta vista",
+    "confirm": "Eliminar vista",
+    "content": "A configuração do filtro perde-se."
+  },
+  "reportDetailContent": {
+    "title": "Filtros de data e rápidos",
+    "tableTitle": "Relatório pormenorizado",
+    "addQuickFilter": "Adicionar um filtro rápido",
+    "goBack": "Voltar a todos os relatórios",
+    "notFound": "O relatório não foi encontrado",
+    "tableTotalElements": "Número de linhas : {{ total }}"
+  },
+  "reportHasNotBeenGenerated": "Gerar relatório para ver os dados",
+  "reportNoResults": "Sem resultados",
+  "accessOldUIWithNewVersionEnabled": "Tentou aceder à interface antiga enquanto a nova versão estava activada, por favor volte a mudar de interface",
+  "tooltips": {
+    "addView": "Criar diferentes versões do relatório com novos filtros, datas e colunas de dados",
+    "editView": "Filtros avançados",
+    "deleteView": "Eliminar vista"
+  },
+  "viewTab": {
+    "allViews": "Todos os pontos de vista",
+    "noCustomViews": "Ainda não criou nenhuma vista personalizada. Pode fazê-lo a partir de qualquer página de relatório",
+    "searchBar": {
+      "placeholder": "Procurar um nome de vista"
+    }
+  },
+  "reportFilter": {
+    "title": "Filtrar em ...",
+    "lastCreated": "Última criação",
+    "firstCreated": "Primeira criação",
+    "lastUpdated": "Última atualização",
+    "alphabeticalOrder": "Alfabética (A a Z)",
+    "reverseAlphabeticalOrder": "Alfabética (Z a A)"
+  }
 }

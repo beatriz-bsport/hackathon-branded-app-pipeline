@@ -51,5 +51,27 @@
   "listTitle": "Os meus modelos de e-mail",
   "search": "Procurar um modelo",
   "copy": "copiar",
-  "duplicate": "Duplicar"
+  "duplicate": "Duplicar",
+  "franchiseEmailsPage": {
+    "tabs": {
+      "ownByFranchisor": "Modelos de conta principal",
+      "ownByFranchisee": "Modelos de estúdios",
+      "bsportDefault": "modelos bsport"
+    },
+    "informativeAlert": {
+      "ownedByFranchisor": {
+        "description": "Crie modelos que possa partilhar com os seus franchisados para manter a identidade da sua marca."
+      },
+      "ownedByFranchisee": {
+        "description": "Estes modelos foram criados pelos seus franchisados a partir do seu backoffice. Só pode ver os modelos dos estúdios a que tem acesso. Pode editar esses modelos, tendo em conta que a sua edição terá impacto no modelo de origem que pode ser utilizado em campanhas pelo estúdio relacionado."
+      },
+      "bsportDefault": {
+        "description": "Estes modelos são fornecidos pela bsport. Para os editar ou utilizar em campanhas, duplique-os. Aparecerão no separador \"{{-masterAccountTabName}}\"."
+      }
+    },
+    "filters": {
+      "companySelectPlaceHolder": "Selecionar um estúdio"
+    }
+  },
+  "bsportTemplateEmail": "Modelos bsport"
 }

@@ -20,7 +20,8 @@
     "totalHiddingTax": "Total a pagar agora",
     "deliveryFee": "Despesas de envio",
     "title": "Pagamento",
-    "flatFeeSubscription": "Taxa de Inscrição"
+    "flatFeeSubscription": "Taxa de Inscrição",
+    "selectedSession": "As suas sessões selecionadas"
   },
   "events": {
     "basket-created": "Cesto criado",
@@ -49,7 +50,8 @@
     "featured": "Recomendamos",
     "error": {
       "invalidBasket": "O seu cesto continha artigos que já não estão disponíveis para venda. Não foi registado qualquer pagamento",
-      "inconsistentBasket": "O seu cesto foi modificado. Actualize a sua página antes de validar o pagamento.\nNão foi debitado."
+      "inconsistentBasket": "O seu cesto foi modificado. Actualize a sua página antes de validar o pagamento.\nNão foi debitado.",
+      "unavailableSessions": "Algumas sessões do seu cesto já não estão disponíveis, pelo que não foi possível concluir a sua reserva. Removemos as que não estavam disponíveis. Por favor, reveja o seu cesto e tente novamente."
     },
     "acceptTermsAndFinalize": "Por favor, aceite os termos e condições gerais e finalize a sua reserva",
     "checkAndFinalize": "Por favor, verifique o seu cesto e finalize a sua reserva",
@@ -85,7 +87,9 @@
       "myProducts": "Meus Produtos",
       "myGiftcards": "Meus cartões de presente",
       "myPasses": "Meus Passes",
-      "backToMyProfile": "Voltar ao meu perfil"
+      "backToMyProfile": "Voltar ao meu perfil",
+      "bookAClass": "Marcar uma aula",
+      "seeAllPasses": "Ver todos os passes"
     },
     "sections": {
       "errorExplain": {
@@ -118,7 +122,11 @@
           "offerOnlySuccess": "Aproveite a sessão!",
           "paymentSuccess": "Pagamento confirmado!",
           "waitingList": "Está inscrito na lista de espera",
-          "offerOnlyGuestSuccess": "Desfrute da sessão com o seu convidado!"
+          "offerOnlyGuestSuccess": "Desfrute da sessão com o seu convidado!",
+          "expressCheckoutPassPurchaseSuccess": "Parabéns! Acabou de comprar um passe!"
+        },
+        "warning": {
+          "offersPartiallyConfirmed": "A sua reserva está parcialmente confirmada"
         }
       },
       "confirmationStatusMessage": {
@@ -127,7 +135,9 @@
         "paymentSuccess": "Parabéns! A sua compra foi confirmada!",
         "paymentSuccess_plural": "Parabéns! As suas compras estão confirmadas!",
         "offerAndPurchaseSuccess": "Parabéns! As suas compras e reservas foram confirmadas. Receberá em breve um e-mail de confirmação com todos os datelhes.",
-        "offerOnlyGuestSuccess": "A reserva foi efectuada. Você e o seu convidado receberão em breve um e-mail de confirmação com todos os detalhes"
+        "offerOnlyGuestSuccess": "A reserva foi efectuada. Você e o seu convidado receberão em breve um e-mail de confirmação com todos os detalhes.",
+        "offersPartiallyConfirmed": "Algumas sessões não puderam ser reservadas, possivelmente porque estavam cheias ou foram canceladas durante o checkout. Receberá em breve uma mensagem de correio eletrónico de confirmação com os detalhes das reservas bem sucedidas.",
+        "expressCheckoutPassPurchaseSuccess": "Agora que tem o seu passe, reserve a sua aula para usufruir de todas as vantagens."
       },
       "alert": "Ops! A reserva falhou.\nTivemos um problema ao processar a reserva da sua sessão. Por favor, tente novamente mais tarde ou marque uma sessão diferente.",
       "myPass": "Meu passe",
@@ -140,7 +150,9 @@
       "myGiftcard": "Meu cartão de oferta",
       "myGiftcard_plural": "Meus cartões de oferta",
       "offerGuestBooked": "Minha reserva de convidado",
-      "offerGuestBooked_plural": "Minhas reservas de convidados"
+      "offerGuestBooked_plural": "Minhas reservas de convidados",
+      "unableToBookSession": "Não é possível reservar a sessão",
+      "unableToBookSession_plural": "Não é possível marcar sessões"
     },
     "bookingItem": {
       "bookingItemStatus": {
@@ -156,7 +168,8 @@
     "use": "Utilizar o saldo da minha conta interna",
     "label": "Montante disponível : ",
     "confirm": "Confirmar",
-    "useAsManager": "Utilizar o crédito interno da conta"
+    "useAsManager": "Utilizar o crédito interno da conta",
+    "use_minimal": "Utilização"
   },
   "historyTitle": "Histórico de compras",
   "paymentIntent": {
@@ -203,5 +216,16 @@
     "title": "Local de preferência",
     "placeholder": "Localização",
     "helperText": "O local preferencial é aquele onde você planeja usar sua compra e será utilizado para emitir a sua fatura."
+  },
+  "passExpressCheckout": {
+    "yourPass": "O passe selecionado",
+    "payNow": "Pagar agora",
+    "errors": {
+      "unavailable": {
+        "title": "O passe já não está disponível",
+        "description": "Verifique quais os passes atualmente disponíveis no seu estúdio.",
+        "goBackButtonLabel": "Ver passes disponíveis"
+      }
+    }
   }
 }

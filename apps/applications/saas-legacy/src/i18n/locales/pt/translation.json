@@ -116,7 +116,8 @@
     "next": "Próximo:",
     "confirm": "Dinheiro",
     "pending": "Pendente",
-    "waitingListPosition": "Em lista de espera {{ position }}/{{ size }}"
+    "waitingListPosition": "Em lista de espera {{ position }}/{{ size }}",
+    "success": "Reserva guardada"
   },
   "consumer": {
     "booking": {
@@ -263,7 +264,8 @@
           "header": "Avançado"
         },
         "supplier": "Fornecedor",
-        "sku": "SKU"
+        "sku": "SKU",
+        "studios": "Estúdios"
       }
     },
     "notesHelperText": "As notas são privadas : só aparecerão no Backoffice para os membros do staff autorizados a editá-las",
@@ -757,7 +759,8 @@
     "vaccinationDone": "Cartão de saúde válido",
     "vaccination_status": "Estado do passe sanitário COVID-19",
     "see": "Ver",
-    "pickALanguage": "Idioma"
+    "pickALanguage": "Idioma",
+    "activePass": "passe ativo"
   },
   "members": {
     "form": {
@@ -887,7 +890,16 @@
     "invoiceReverted": "Fatura anulada",
     "finalize": "Finalizar",
     "choseDateTitle": "Data de faturação",
-    "reverted": "Cancelar"
+    "reverted": "Cancelar",
+    "forms": {
+      "error": "Erro ao guardar - Cancelado",
+      "create": {
+        "success": "Fatura guardada"
+      },
+      "update": {
+        "success": "Fatura actualizada com sucesso"
+      }
+    }
   },
   "navigation": {
     "pass": "Passe de aulas",
@@ -934,7 +946,8 @@
     "myClub": "Meu Estúdio",
     "subscription": "Subscrições",
     "coupon": "Promoções",
-    "order": "Encomendas"
+    "order": "Encomendas",
+    "closeTab": "Fechar separador"
   },
   "time": {
     "month": {
@@ -1022,7 +1035,17 @@
     "noOfferThisDay": "Sem sessão, selecionar outra data do calendário",
     "orNcredits2": " créditos)",
     "packsAvailable": "Elegível para :",
-    "reviews": "Comentários: "
+    "reviews": "Comentários: ",
+    "forms": {
+      "update": {
+        "error": "Impossível atualizar a atividade",
+        "success": "Atividade actualizada"
+      },
+      "create": {
+        "error": "Não é possível guardar a atividade",
+        "success": "Atividade guardada"
+      }
+    }
   },
   "login": {
     "loginAsPro": "Um gestor",

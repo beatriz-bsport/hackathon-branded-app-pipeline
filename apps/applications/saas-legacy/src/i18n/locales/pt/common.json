@@ -36,7 +36,10 @@
       "minute": "Duração em minutos",
       "minute_plural": "Minutos:"
     },
-    "requiredField": "campo de preenchimento obrigatório"
+    "requiredField": "campo de preenchimento obrigatório",
+    "validation": {
+      "number": "Este campo deve ser um número."
+    }
   },
   "colorPicker": {
     "noColor": "Sem cor",
@@ -77,5 +80,25 @@
   "discard": "Descartar",
   "no": "Não",
   "yes": "Sim",
-  "saveChanges": "Guardar alterações"
+  "saveChanges": "Guardar alterações",
+  "add": "Adicionar",
+  "positiveNumber": "Este campo tem de ser superior a 0.",
+  "continue": "Continuar",
+  "numberRequired": "Este campo deve ser um número",
+  "biweekly": "Quinzenal",
+  "rename": "Mudar o nome",
+  "preview": "Pré-visualização",
+  "edit": "Editar",
+  "discardChanges": "Rejeitar alterações",
+  "none": "Nenhum",
+  "seeLess": "Ver menos",
+  "seeMore": "Ver mais",
+  "send": "Enviar",
+  "reset": "Reiniciar",
+  "more": "Mais",
+  "gender": {
+    "F": "Feminino",
+    "M": "Masculino",
+    "X": "Não binário"
+  }
 }

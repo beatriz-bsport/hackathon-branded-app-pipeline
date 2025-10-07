@@ -13,7 +13,8 @@
   "dashboard": {
     "dashboard": "Painel Principal",
     "reportingDashboard": "Relatórios",
-    "marketingDashboard": "Marketing"
+    "marketingDashboard": "Marketing",
+    "insights": "Conhecimentos"
   },
   "marketplace": {
     "marketplaceGiftcard": "Cartões de presente",
@@ -33,7 +34,8 @@
   "coupon": {
     "couponList": "Códigos promocionais",
     "couponEdit": "Formulário de promoção",
-    "couponCreate": "Formulário de promoção"
+    "couponCreate": "Formulário de promoção",
+    "couponDetail": "{{name}}"
   },
   "coach": {
     "coachPerformance": "Política de remuneração {{- name}}",
@@ -47,14 +49,16 @@
   "invoice": {
     "invoiceEdit": "Editar fatura",
     "invoiceCreate": "Fatura",
-    "invoiceList": "Os meus movimentos"
+    "invoiceList": "Os meus movimentos",
+    "invoiceCreatePage": "Criar fatura"
   },
   "metaActivity": {
     "metaActivityEditFormSubtitle": "Editar atividade de grupo",
     "metaActivityFormSubtitle": "Criar uma atividade",
     "metaActivityList": "Atividades",
     "metaActivityEditForm": "Formulário da Atividade",
-    "metaActivityFormPage": "Formulário da Atividade"
+    "metaActivityFormPage": "Formulário da Atividade",
+    "metaActivity": "Actividades"
   },
   "member": {
     "memberFormPage": "Formulário",
@@ -65,7 +69,10 @@
   "banner": {
     "franchiseConnection": "Está atualmente ligado a uma das aplicações dos seus franchisados",
     "networkError": "Não está ligado à Internet",
-    "isStaging": "Marcar uma sessão"
+    "isStaging": "Marcar uma sessão",
+    "serverError": "Algo correu mal no nosso lado - por favor aguarde, ou clique aqui para atualizar a página.",
+    "networkConnectionRestored": "Ligação restabelecida!",
+    "serverConnectionRestored": "Ligação restabelecida. Pode continuar sem problemas."
   },
   "video": {
     "videoList": "Biblioteca de vídeos"
@@ -97,5 +104,7 @@
     "orderDetail": "Detalhe"
   },
   "inbox": "Caixa de entrada",
-  "giftcard": "Cartões de presente"
+  "giftcard": "Cartões de presente",
+  "coachList": "Professores",
+  "metaActivityFormPage": "Formulário de atividade"
 }

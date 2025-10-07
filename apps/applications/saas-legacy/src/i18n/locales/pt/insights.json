@@ -1,1 +1,14 @@
-{}
+{
+  "sections": {
+    "memberInsights": "Informações sobre os membros",
+    "financialHealth": "Saúde financeira"
+  },
+  "trackTrialOffer": {
+    "title": "Acompanhar o desempenho da oferta experimental",
+    "description": "Saiba mais sobre aquisição, taxas de conversão e como pode aumentar a eficácia da sua oferta de avaliação."
+  },
+  "monitorRevenue": {
+    "title": "Monitorizar as receitas recorrentes",
+    "description": "Acompanhar as tendências e compreender como estabilizar os fluxos de rendimento recorrentes."
+  }
+}

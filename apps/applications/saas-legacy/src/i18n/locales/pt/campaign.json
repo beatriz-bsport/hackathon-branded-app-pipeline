@@ -43,5 +43,6 @@
       "campaign": "Campanhas",
       "general": "Geral"
     }
-  }
+  },
+  "campaignCreationWarning": "Certifique-se de que o nome da sua campanha é único para evitar quaisquer problemas."
 }

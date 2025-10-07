@@ -18,7 +18,7 @@ window.runtimeBsport.env.REACT_APP_STRIPE_PK_KEY =
   'pk_test_lFB5CxcyTCaQcS00MiE1ebEO';
 window.runtimeBsport.env.REACT_APP_GOOGLE_MAPS_API_KEY = 'NA';
 window.runtimeBsport.env.REACT_APP_SENTRY_DSN = '';
-window.runtimeBsport.env.I18N_TRANSLATION_DOMAIN = 'http://localhost:3000/';
+window.runtimeBsport.env.I18N_TRANSLATION_DOMAIN = 'http://localhost:3000';
 window.runtimeBsport.env.PUBLIC_URL = 'http://localhost:3000';
 
 window.runtime.env.REACT_APP_BASE_URI_BUSINESS_INSIGHTS_V0 =

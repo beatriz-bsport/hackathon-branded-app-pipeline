@@ -15,24 +15,11 @@ type Props = {
   isUniversal?: boolean;
 };
 
-const paymentPackTemplateTexts = {
-  title: 'paymentPackTemplate.deleteForm.title',
-  content: 'paymentPackTemplate.deleteForm.content',
-  close: 'paymentPackTemplate.deleteForm.actions.close',
-  submit: 'paymentPackTemplate.deleteForm.actions.submit',
-};
-const universalPaymentPackTemplateTexts = {
-  title: 'universalPaymentPackTemplate.deleteForm.title',
-  content: 'universalPaymentPackTemplate.deleteForm.content',
-  close: 'universalPaymentPackTemplate.deleteForm.actions.close',
-  submit: 'universalPaymentPackTemplate.deleteForm.actions.submit',
-};
-
-const getTexts = (isUniversal?: boolean) => {
-  if (isUniversal) {
-    return universalPaymentPackTemplateTexts;
-  }
-  return paymentPackTemplateTexts;
+type PaymentPackTexts = {
+  title: string;
+  content: string;
+  close: string;
+  submit: string;
 };
 
 const PaymentPackTemplateDeleteDialog: React.FC<Props> = ({
@@ -43,16 +30,28 @@ const PaymentPackTemplateDeleteDialog: React.FC<Props> = ({
 }) => {
   const { t } = useTranslation('paymentPack');
 
-  const texts = getTexts(isUniversal);
+  const texts: PaymentPackTexts = isUniversal
+    ? {
+        close: t('universalPaymentPackTemplate.deleteForm.actions.close'),
+        content: t('universalPaymentPackTemplate.deleteForm.content'),
+        submit: t('universalPaymentPackTemplate.deleteForm.actions.submit'),
+        title: t('universalPaymentPackTemplate.deleteForm.title'),
+      }
+    : {
+        close: t('paymentPackTemplate.deleteForm.actions.close'),
+        content: t('paymentPackTemplate.deleteForm.content'),
+        submit: t('paymentPackTemplate.deleteForm.actions.submit'),
+        title: t('paymentPackTemplate.deleteForm.title'),
+      };
 
   return (
     <Dialog onClose={onClose} open={!!open}>
-      <DialogTitle>{t(texts.title)}</DialogTitle>
-      <DialogContent>{t(texts.content)}</DialogContent>
+      <DialogTitle>{texts.title}</DialogTitle>
+      <DialogContent>{texts.content}</DialogContent>
       <DialogActions>
-        <Button onClick={onClose}>{t(texts.close)}</Button>
+        <Button onClick={onClose}>{texts.close}</Button>
         <RedButton delayBeforeActivation={VALIDATION_DELAY} onClick={onSubmit}>
-          {t(texts.submit)}
+          {texts.submit}
         </RedButton>
       </DialogActions>
     </Dialog>

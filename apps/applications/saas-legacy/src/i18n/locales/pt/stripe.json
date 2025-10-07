@@ -17,7 +17,8 @@
     "insufficient_funds": "O seu cartão não tem fundos suficientes.",
     "incorrect_cvc": "O código de segurança é inválido.",
     "incorrect_number": "O número do cartão é inválido.",
-    "card_not_supported": "O seu cartão não foi reconhecido."
+    "card_not_supported": "O seu cartão não foi reconhecido.",
+    "none": " "
   },
   "errors": {
     "payment_intent_authentication_failure": "O pagamento foi recusado pelo seu banco.",
@@ -47,7 +48,8 @@
     "invalid_bank_account_routing_number": "O código fornecido é inválido.",
     "terminal_reader_timeout": "Ocorreu um timeout no envio deste comando para o leitor.",
     "terminal_reader_busy": "O leitor está atualmente ocupado a processar outro pedido ou a efetuar uma atualização.",
-    "terminal_reader_offline": "O leitor está atualmente offline. Certifique-se de que o leitor está ligado e conectado à Internet antes de tentar novamente o seu pedido."
+    "terminal_reader_offline": "O leitor está atualmente offline. Certifique-se de que o leitor está ligado e conectado à Internet antes de tentar novamente o seu pedido.",
+    "none": " "
   },
   "error_code": {
     "unknown": "Erro de rede, tente novamente dentro de alguns instantes",
@@ -65,6 +67,7 @@
     "invalid_expiry_year": "A data do seu cartão está inválida.",
     "invalid_expiry_year_past": "A data de validade do seu cartão está expirada.",
     "incomplete_expiry": "A data de expiração do cartão está incompleta.",
-    "incomplete_number": "O número do cartão está incompleto."
+    "incomplete_number": "O número do cartão está incompleto.",
+    "none": " "
   }
 }

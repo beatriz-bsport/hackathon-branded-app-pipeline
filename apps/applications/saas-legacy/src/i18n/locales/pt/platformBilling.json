@@ -2,7 +2,10 @@
   "featureRequest": {
     "close": "Fechar",
     "content": "Obrigado pelo seu interesse neste complemento. Se deseja saber mais, convidamo-lo gentilmente a fazer a sua pergunta no nosso chat de suporte personalizado. O seu gerente de conta terá todo o prazer em fornecer-lhe mais informações.",
-    "title": "Vamos começar uma conversa"
+    "title": "Vamos começar uma conversa",
+    "interestMessageWithChat": "Obrigado pelo seu interesse neste suplemento. O seu gestor de conta entrará em contacto consigo em breve para lhe dar mais informações. Entretanto, podemos responder a quaisquer perguntas que tenha através do chat de ajuda.",
+    "interestMessage": "Obrigado pelo seu interesse neste suplemento. O seu gestor de conta entrará em contacto consigo em breve para lhe dar mais informações.",
+    "header": "Nós entraremos em contacto!"
   },
   "platformBillingStage": {
     "maxBooking": "Até {{ max_booking_per_month }} reservas / mês",
@@ -52,10 +55,24 @@
       "infoHelper": "Precisa de mais informações?",
       "confirmHelper": "Confirme que pretende subscrever este suplemento",
       "priceHelper": "Este preço será acrescentado ao seu plano mensal.",
-      "title": "Subscrever  ao add-on"
+      "title": "Subscrever  ao add-on",
+      "timeConsumingHelper": "A subscrição deste upsell pode demorar alguns segundos a ser processada"
     },
     "seeMore": "Ver mais",
-    "billSMS": "{{ price_cts }}/ SMS"
+    "billSMS": "{{ price_cts }}/ SMS",
+    "audienceLockDialog": {
+      "title": "Vá ao encontro dos seus clientes onde eles estão com o Audience",
+      "videoLink": "https://www.youtube.com/watch?v=VanGWUIAzTE&t=88s&ab_channel=bsport",
+      "description": "Os fluxos de trabalho automatizados ajudam-no a ligar-se aos seus clientes através de múltiplos canais, para que possa:",
+      "benefits": {
+        "0": "Converta os clientes potenciais com mensagens personalizadas nos principais pontos de contacto",
+        "1": "Aumente as receitas com percursos de cliente personalizados para clientes VIP",
+        "2": "Reter clientes com acompanhamentos automatizados"
+      },
+      "explain": "Esta funcionalidade é um complemento. Contacte o seu gestor de conta para obter mais informações.",
+      "showInterest": "Entrar em contacto",
+      "goHome": "Voltar ao calendário"
+    }
   },
   "paymentMethod": {
     "info": {
@@ -74,11 +91,37 @@
       "processing": "Pagamento contestado",
       "disputed": "Pagamento contestado",
       "succeeded": "Pagamento efetuado com sucesso",
-      "missing_charge": "Não foi efetuada qualquer tentativa de pagamento"
+      "missing_charge": "Não foi efetuada qualquer tentativa de pagamento",
+      "cancelled_with_credit_note": "Fatura anulada por nota de crédito",
+      "cancelled_with_negative_invoice": "Fatura anulada por fatura negativa",
+      "negative_invoice_cancelling_bad_debt_invoice": "Anular uma fatura anterior"
     },
     "label": "Fatura {{ month }}/{{year}}",
     "noInvoice": "Nenhuma fatura",
     "sectionTitle": "Minhas faturas",
     "bill": "Regularizar"
+  },
+  "platformCustomerEntity": {
+    "vatId": {
+      "dialog": {
+        "title": "Número de identificação para efeitos de IVA",
+        "errorChip": "Número de IVA válido em falta",
+        "invalidFormat": "Formato inválido",
+        "content": "bsport requer o seu número de IVA (também conhecido como número de registo de IVA ou número de IVA intracomunitário) para o incluir nas facturas que lhe emitimos.",
+        "vatIdLabel": "Número de identificação para efeitos de IVA",
+        "hasAttributedVatIdLabel": "Não tenho um número de IVA registado. Se a sua empresa estiver sediada na UE (exceto em França), o mecanismo de autoliquidação não será aplicável e a bsport cobrará a taxa de IVA francesa (20%).",
+        "update": "Atualizar o número de IVA",
+        "actions": {
+          "cancel": "Cancel",
+          "save": "Guardar"
+        }
+      },
+      "alert": {
+        "title": "Número de IVA válido em falta",
+        "text": "Não forneceu um número de IVA ou o número que forneceu não é válido",
+        "description": "bsport requer o seu número de IVA (também conhecido como número de registo de IVA ou número de IVA intracomunitário) para o incluir nas facturas que lhe emitimos.",
+        "update": "Atualizar o número de IVA"
+      }
+    }
   }
 }

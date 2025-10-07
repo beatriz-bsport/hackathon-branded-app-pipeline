@@ -125,6 +125,17 @@
       "next": "Continuar",
       "content": "A bsport reúne profissionais cujo objetivo é simplificar as ferramentas de IT e dar-lhe uma melhor compreensão da sua comunidade.",
       "title": "Bem-vindo !"
+    },
+    "confirmation": {
+      "content": {
+        "contactAccountManager": "Validação de conta pendente. Se é um gestor de estúdio, contacte o seu contacto bsport para ativar o seu Back Office.",
+        "core": "A nova plataforma de backoffice foi criada com sucesso. No entanto, antes de enviar as credenciais de acesso do cliente, certifique-se de que as seguintes etapas de validação da documentação interna estão concluídas:",
+        "billing": "Faturação da plataforma: Criar a configuração de faturação para o novo backoffice.",
+        "upsell": "Upsells: Adicione quaisquer upsells aplicáveis à plataforma.",
+        "emailValidation": "Validação do correio eletrónico: Executar a ação administrativa para validar o endereço de e-mail do cliente.",
+        "help": "Consulte a documentação interna para obter instruções pormenorizadas sobre cada passo."
+      },
+      "disconnect": "Desligar"
     }
   },
   "actions": {
@@ -181,7 +192,8 @@
     "submit": "Criar"
   },
   "signup": {
-    "title": "Inscrição"
+    "title": "Inscrição",
+    "titleAsResgisterBooking": "Registar a sua reserva"
   },
   "emailConfirmation": {
     "backToLogin": "Voltar à página de início de sessão",
@@ -225,5 +237,9 @@
   "contactUs": "É um gestor de estúdio interessado na nossa solução?\nContacte-nos.",
   "referral": {
     "signUpNow": "Obrigado por utilizar a ligação de referência de {{ referringMemberFirstName }} Registe-se agora para resgatar um vale especial no seu primeiro cesto!"
+  },
+  "disconnectedStatus": {
+    "title": "Parece que não tem sessão iniciada",
+    "subtitle": "É necessário iniciar sessão para aceder ao seu perfil."
   }
 }

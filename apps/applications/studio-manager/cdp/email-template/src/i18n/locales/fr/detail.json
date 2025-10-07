@@ -1,1 +1,84 @@
-{}
+{
+  "pages": {
+    "detail": "Modèles d'email"
+  },
+  "breadcrumbs": {
+    "rootPage": "Modèles d'email",
+    "customPage": "Modèles personnalisés"
+  },
+  "details": {
+    "defaultTitle": "Modèles sans titre",
+    "state": {
+      "loading": "Chargement des modèles d'email..."
+    },
+    "actions": {
+      "saveChanges": "Enregistrer les modifications",
+      "discardChanges": "Annuler"
+    },
+    "hover": {
+      "exportHtml": "Exporter le modèle en HTML",
+      "renameTemplate": "Enregistrer",
+      "moreActions": "Plus d'options"
+    },
+    "bsportTemplateInfo": {
+      "title": "Modèles bsport",
+      "description": {
+        "firstStep": "Dupliquez le modèle que vous souhaitez utiliser, puis modifiez et envoyez la version copiée aux membres directement depuis cette page. ",
+        "secondStep": "Ensuite, sélectionnez la copie de l'email lors de l'envoi d'une communication."
+      },
+      "quit": "Quitter"
+    },
+    "renameTemplateModal": {
+      "title": "Renommer le modèle d'email",
+      "textInput": {
+        "label": "Nom du modèle",
+        "placeholder": "Ajouter un nom du modèle"
+      },
+      "confirmButton": "Renommer",
+      "cancelButton": "Annuler",
+      "onSuccess": {
+        "title": "Modèle renommé",
+        "action": "Annuler"
+      },
+      "onFailure": {
+        "title": "Une erreur s'est produite lors du renommage de votre modèle."
+      },
+      "errors": {
+        "notProvided": "Veuillez remplir ce champ.",
+        "tooLong": "Le titre est trop long"
+      }
+    }
+  },
+  "saveTemplateAction": {
+    "description": "Cette page contient des modifications non enregistrées.",
+    "success": {
+      "title": "Modèle d'email enregistré"
+    },
+    "error": {
+      "missingFields": "Certains champs obligatoires sont manquants",
+      "problemWhileSaving": "Il y a eu un problème lors de l'enregistrement de vos modifications."
+    }
+  },
+  "leaveConfirmationModal": {
+    "description": "Êtes-vous sûr de vouloir quitter cette page ?",
+    "confirmButton": "OK",
+    "cancelButton": "Annuler"
+  },
+  "templateSubject": {
+    "label": "Objet de l'email",
+    "placeholder": "Ajouter un objet d'email",
+    "error": {
+      "notProvided": "Veuillez remplir ce champ.",
+      "tooLong": "Le sujet est trop long"
+    }
+  },
+  "templateDesign": {
+    "error": {
+      "notProvided": "Aucun modèle de conception fourni"
+    }
+  },
+  "templateCategory": {
+    "label": "Catégorie",
+    "noCategory": "Sélectionner une catégorie"
+  }
+}

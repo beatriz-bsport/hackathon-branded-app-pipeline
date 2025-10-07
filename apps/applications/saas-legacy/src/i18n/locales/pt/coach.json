@@ -5,7 +5,10 @@
   "selector": {
     "disabled": "Professores arquivados",
     "label": "Professor",
-    "enabled": "Professores activos"
+    "enabled": "Professores activos",
+    "coach": {
+      "label": "Professor"
+    }
   },
   "search": "Procurar um professor",
   "forms": {
@@ -15,7 +18,8 @@
       "submit": "Validar",
       "title": "Endereço eletrónico do professor",
       "emailLabel": "Email",
-      "explain": "Se este e-mail já existir no nosso sistema, criaremos automaticamente o professor para si."
+      "explain": "Se este e-mail já existir no nosso sistema, criaremos automaticamente o professor para si.",
+      "success": "O professor conseguiu ligar"
     },
     "update": {
       "errors": {
@@ -39,12 +43,15 @@
       },
       "title": "Eliminar professores",
       "cancel": "Cancelar",
-      "confirm": "Eliminar"
+      "confirm": "Eliminar",
+      "success": "Professor eliminado",
+      "error": "Não é possível apagar este professor"
     },
     "error_email_exists": "Já existe um professor com este endereço de email, utilize o formulário de criação de Professor",
     "errorDescription": "A descrição fornecida é demasiado longa (máx. 500)",
     "errorLinkLength": "O URL fornecido é demasiado longo (máx. 150)",
-    "errorInvalidURL": "Por favor, introduza um URL válido"
+    "errorInvalidURL": "Por favor, introduza um URL válido",
+    "error": "Não é possível guardar o professor"
   },
   "detail": {
     "coachSpaceInfo": "Nesta área, o professor pode aceder ao seu resumo de remuneração por sessão e visualizar o seu horário. Pode também adicionar a sua disponibilidade.",

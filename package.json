@@ -43,6 +43,8 @@
     "test:coverage": "vitest run --coverage",
     "test:ui": "vitest --ui",
     "test:watch": "vitest",
+    "translation:fillup": "pnpm --filter=@bsport/i18n-management project:translate-missing-strings",
+    "translation:keys": "pnpm --filter=@bsport/i18n-management project:find-unused-keys",
     "translation:migrate": "pnpm exec nx translation:migrate @bsport/i18n-management",
     "translation:project:transform": "pnpm --filter=@bsport/i18n-management project:transform",
     "translation:update": "pnpm --silent --filter=@bsport/i18n-management translation:update",

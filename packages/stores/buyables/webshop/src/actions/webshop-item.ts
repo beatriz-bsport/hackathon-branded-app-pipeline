@@ -8,12 +8,14 @@ import type {
 import { DEFAULT_PAGE, createErrorWithContext } from "@bsport/store-base";
 
 import {
-  type FetchWebshopItemsParams,
-  type SearchWebshopItemsParams,
   fetchWebshopItemsAPI,
   searchWebshopItemsAPI,
 } from "#src/api/webshop-item";
-import type { WebshopItem } from "#src/types";
+import type {
+  FetchWebshopItemsParams,
+  SearchWebshopItemsParams,
+  WebshopItem,
+} from "#src/types";
 
 import { setWebshopItems } from "./store";
 

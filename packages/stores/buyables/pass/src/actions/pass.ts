@@ -7,13 +7,8 @@ import type {
   SearchResponse,
 } from "@bsport/store-base";
 
-import {
-  type FetchPassesParams,
-  type SearchPassesParams,
-  fetchPassesAPI,
-  searchPassesAPI,
-} from "#src/api/pass";
-import type { Pass } from "#src/types";
+import { fetchPassesAPI, searchPassesAPI } from "#src/api/pass";
+import type { FetchPassesParams, Pass, SearchPassesParams } from "#src/types";
 
 import { setPasses } from "./store";
 

@@ -1,3 +1,7 @@
+/**
+ * Model: PaymentPack
+ * Serializer: PaymentPackSerializer
+ */
 export type Pass = {
   id: number;
   name: string;
@@ -68,6 +72,10 @@ export type Pass = {
   grants_door_access: boolean;
 };
 
+/**
+ * Model: PaymentPackCategory
+ * Serializer: PaymentPackCategorySerializer
+ */
 export type PassCategory = {
   id: number;
   name: string;

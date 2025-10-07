@@ -2,7 +2,7 @@ import { useCallback } from "react";
 
 import { fetchAppointmentsAction } from "@bsport/store-booking-appointment";
 import { fetchGroupActivitiesAndWorkshopsAction } from "@bsport/store-booking-group-activity";
-import { fetchPaginatedAppointmentPassListAction } from "@bsport/store-buyables-appointment-pass";
+import { fetchAppointmentPassesAction } from "@bsport/store-buyables-appointment-pass";
 import { fetchPassesAction } from "@bsport/store-buyables-pass";
 import { fetchSubscriptionsAction } from "@bsport/store-buyables-subscription";
 import { fetchEstablishmentsAction } from "@bsport/store-core-data-establishment";
@@ -16,8 +16,10 @@ const fetchActivitiesBinded = fetchGroupActivitiesAndWorkshopsAction.bind(
 );
 const fetchAppointmentsBinded = fetchAppointmentsAction.bind(null, fetch);
 const fetchEstablishmentsBinded = fetchEstablishmentsAction.bind(null, fetch);
-const fetchPaginatedAppointmentPassesBinded =
-  fetchPaginatedAppointmentPassListAction.bind(null, fetch);
+const fetchPaginatedAppointmentPassesBinded = fetchAppointmentPassesAction.bind(
+  null,
+  fetch,
+);
 const fetchSubscriptionsBinded = fetchSubscriptionsAction.bind(null, fetch);
 const fetchPassesBinded = fetchPassesAction.bind(null, fetch);
 

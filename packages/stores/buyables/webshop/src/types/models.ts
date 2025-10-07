@@ -1,3 +1,7 @@
+/**
+ * Model: ShopItem
+ * Serializer: ShopItemSerializer
+ */
 export type WebshopItem = {
   id: number;
   price: string;
@@ -38,12 +42,16 @@ export type WebshopItem = {
   variant_ids: number[];
 };
 
-export interface CompanyDetails {
+interface CompanyDetails {
   id: number;
   name: string;
   is_multi_location_webshop_enabled: boolean;
 }
 
+/**
+ * Model: SubShop
+ * Serializer: SubShopSerializer
+ */
 export type WebshopCategory = {
   id: number;
   name: string;

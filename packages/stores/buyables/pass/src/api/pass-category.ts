@@ -5,17 +5,11 @@ import {
   buildUrlParams,
 } from "@bsport/store-base";
 
+import type { FetchPassCategoriesParams } from "#src/types";
+
 import { API_URL } from "./constants";
 
 const PASS_CATEGORY_API_URL = `${API_URL}/payment-pack-category`;
-
-export type FetchPassCategoriesParams = {
-  /** Number of items per page (for pagination). */
-  page_size?: number;
-
-  /** Page number of the results (for pagination). */
-  page?: number;
-};
 
 export const fetchPassCategoriesAPI = (
   params?: FetchPassCategoriesParams,

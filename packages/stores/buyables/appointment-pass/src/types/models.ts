@@ -1,3 +1,7 @@
+/**
+ * Model: PrivatePass
+ * Serializer: PrivatePassSerializer
+ */
 export type AppointmentPass = {
   name: string;
   id: number;
@@ -33,12 +37,13 @@ export type AppointmentPass = {
   linked_payment_pack_template_instance: number | null;
 };
 
-export type FetchAppointmentPassParams = {
-  page?: number;
-  page_size?: number;
-  id__in?: number[];
+/**
+ * Model: PrivatePassCategory
+ * Serializer: PrivatePassCategorySerializer
+ */
+export type AppointmentPassCategory = {
+  id: number;
+  name: string;
+  company_id: number;
+  category_ordering: number;
 };
-
-export type SearchAppointmentPassParams = {
-  q: string;
-} & FetchAppointmentPassParams;

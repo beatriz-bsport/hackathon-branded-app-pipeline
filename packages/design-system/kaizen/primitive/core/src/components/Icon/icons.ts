@@ -74,6 +74,9 @@ const icons = {
   "chevron-up": React.lazy(
     async () => await import("./assets/chevron-up.svg?react"),
   ),
+  "circle-solid": React.lazy(
+    async () => await import("./assets/circle-solid.svg?react"),
+  ),
   circle: React.lazy(async () => await import("./assets/circle.svg?react")),
   "clock-stopwatch": React.lazy(
     async () => await import("./assets/clock-stopwatch.svg?react"),

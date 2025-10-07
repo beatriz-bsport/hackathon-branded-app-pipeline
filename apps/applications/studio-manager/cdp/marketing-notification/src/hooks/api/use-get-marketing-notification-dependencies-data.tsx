@@ -12,7 +12,7 @@ import {
 } from "@bsport/store-booking-group-activity";
 import {
   type AppointmentPass,
-  selectAppointmentPassesList,
+  selectAppointmentPasses,
   useAppointmentPassStore,
 } from "@bsport/store-buyables-appointment-pass";
 import {
@@ -45,7 +45,7 @@ export const useGetMarketingNotificationDependenciesData = () => {
   );
 
   const appointmentPasses = useAppointmentPassStore((state) =>
-    selectAppointmentPassesList(state),
+    selectAppointmentPasses(state),
   );
 
   const subscriptions = useSubscriptionStore((state) =>

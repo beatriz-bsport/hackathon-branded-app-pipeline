@@ -5,17 +5,11 @@ import {
   buildUrlParams,
 } from "@bsport/store-base";
 
+import type { FetchWebshopCategoriesParams } from "#src/types";
+
 import { API_URL } from "./constants";
 
 const CATEGORY_API_URL = `${API_URL}/subshop`;
-
-export type FetchWebshopCategoriesParams = {
-  /** Page number of the results (for pagination). */
-  page?: number;
-
-  /** Number of items per page (for pagination). */
-  page_size?: number;
-};
 
 export const fetchWebshopCategoriesAPI = (
   params: FetchWebshopCategoriesParams,

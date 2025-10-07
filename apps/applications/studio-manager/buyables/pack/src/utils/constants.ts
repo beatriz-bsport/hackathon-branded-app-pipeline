@@ -4,6 +4,8 @@ export const ITEM_VARIANTS = {
   webshopItem: "webshopItem",
 } as const;
 
+export const NO_CATEGORY_ID = -1;
+
 export type ItemVariant = keyof typeof ITEM_VARIANTS;
 
 export type Category = {

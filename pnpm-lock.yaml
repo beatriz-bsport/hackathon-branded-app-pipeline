@@ -1295,9 +1295,18 @@ importers:
       '@bsport/sm-backbone':
         specifier: workspace:*
         version: link:../../../../../packages/utils/sm-backbone
+      '@bsport/store-buyables-appointment-pass':
+        specifier: workspace:*
+        version: link:../../../../../packages/stores/buyables/appointment-pass
       '@bsport/store-buyables-pack':
         specifier: workspace:*
         version: link:../../../../../packages/stores/buyables/pack
+      '@bsport/store-buyables-pass':
+        specifier: workspace:*
+        version: link:../../../../../packages/stores/buyables/pass
+      '@bsport/store-buyables-webshop':
+        specifier: workspace:*
+        version: link:../../../../../packages/stores/buyables/webshop
       '@bsport/use-async':
         specifier: workspace:*
         version: link:../../../../../packages/hooks/use-async

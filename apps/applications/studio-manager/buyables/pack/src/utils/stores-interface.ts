@@ -6,75 +6,110 @@
  * - appointment-pass
  */
 import { getCurrencyDisplayWithPrice } from "@bsport/currency";
-
-import { ITEM_VARIANTS } from "./constants";
 import {
   type AppointmentPass,
-  useSelectAppointmentPassById,
-  useSelectAppointmentPassCategories,
-  useSelectAppointmentPassCategoryById,
-  useSelectAppointmentPasses,
-} from "./temp-store/appointment-pass";
+  selectAppointmentPassCategories,
+  selectAppointmentPassCategoriesById,
+  selectAppointmentPassCategoriesCount,
+  selectAppointmentPasses,
+  selectAppointmentPassesById,
+  selectAppointmentPassesCount,
+  selectAppointmentPassesSearched,
+  useAppointmentPassStore,
+} from "@bsport/store-buyables-appointment-pass";
+import "@bsport/store-buyables-pass";
 import {
   type Pass,
-  useSelectPassById,
-  useSelectPassCategories,
-  useSelectPassCategoryById,
-  useSelectPasses,
-} from "./temp-store/pass";
+  selectActivePasses,
+  selectActivePassesCount,
+  selectPassCategories,
+  selectPassCategoriesById,
+  selectPassCategoriesCount,
+  selectPassesById,
+  selectSearchedPasses,
+  usePassStore,
+} from "@bsport/store-buyables-pass";
 import {
   type WebshopItem,
-  useSelectWebshopCategories,
-  useSelectWebshopCategoryById,
-  useSelectWebshopItemById,
-  useSelectWebshopItems,
-} from "./temp-store/webshop";
+  selectActiveWebshopItems,
+  selectActiveWebshopItemsCount,
+  selectSearchedWebshopItems,
+  selectWebshopCategories,
+  selectWebshopCategoriesById,
+  selectWebshopCategoriesCount,
+  selectWebshopItemsById,
+  useWebshopStore,
+} from "@bsport/store-buyables-webshop";
+
+import { ITEM_VARIANTS } from "./constants";
 
 export const useItems = () => {
-  const passes = useSelectPasses();
-  const appointmentPasses = useSelectAppointmentPasses();
-  const webshopItems = useSelectWebshopItems();
-
   return {
-    [ITEM_VARIANTS.pass]: passes as Pass[],
-    [ITEM_VARIANTS.appointmentPass]: appointmentPasses as AppointmentPass[],
-    [ITEM_VARIANTS.webshopItem]: webshopItems as WebshopItem[],
+    [ITEM_VARIANTS.pass]: usePassStore(selectActivePasses),
+    [ITEM_VARIANTS.appointmentPass]: useAppointmentPassStore(
+      selectAppointmentPasses,
+    ),
+    [ITEM_VARIANTS.webshopItem]: useWebshopStore(selectActiveWebshopItems),
+  } as const;
+};
+
+export const useItemsCount = () => {
+  return {
+    [ITEM_VARIANTS.pass]: usePassStore(selectActivePassesCount),
+    [ITEM_VARIANTS.appointmentPass]: useAppointmentPassStore(
+      selectAppointmentPassesCount,
+    ),
+    [ITEM_VARIANTS.webshopItem]: useWebshopStore(selectActiveWebshopItemsCount),
+  } as const;
+};
+
+export const useSearchedItems = () => {
+  return {
+    [ITEM_VARIANTS.pass]: usePassStore(selectSearchedPasses),
+    [ITEM_VARIANTS.appointmentPass]: useAppointmentPassStore(
+      selectAppointmentPassesSearched,
+    ),
+    [ITEM_VARIANTS.webshopItem]: useWebshopStore(selectSearchedWebshopItems),
   } as const;
 };
 
 export const useItemsById = () => {
-  const passById = useSelectPassById();
-  const apppintmentPassById = useSelectAppointmentPassById();
-  const webshopItemById = useSelectWebshopItemById();
-
   return {
-    [ITEM_VARIANTS.pass]: passById,
-    [ITEM_VARIANTS.appointmentPass]: apppintmentPassById,
-    [ITEM_VARIANTS.webshopItem]: webshopItemById,
+    [ITEM_VARIANTS.pass]: usePassStore(selectPassesById),
+    [ITEM_VARIANTS.appointmentPass]: useAppointmentPassStore(
+      selectAppointmentPassesById,
+    ),
+    [ITEM_VARIANTS.webshopItem]: useWebshopStore(selectWebshopItemsById),
   } as const;
 };
 
 export const useCategories = () => {
-  const passCategories = useSelectPassCategories();
-  const apppintmentPassCategories = useSelectAppointmentPassCategories();
-  const webshopCategories = useSelectWebshopCategories();
-
   return {
-    [ITEM_VARIANTS.pass]: passCategories,
-    [ITEM_VARIANTS.appointmentPass]: apppintmentPassCategories,
-    [ITEM_VARIANTS.webshopItem]: webshopCategories,
+    [ITEM_VARIANTS.pass]: usePassStore(selectPassCategories),
+    [ITEM_VARIANTS.appointmentPass]: useAppointmentPassStore(
+      selectAppointmentPassCategories,
+    ),
+    [ITEM_VARIANTS.webshopItem]: useWebshopStore(selectWebshopCategories),
   } as const;
 };
 
 export const useCategoriesById = () => {
-  const passCategoryById = useSelectPassCategoryById();
-  const apppintmentPassCategoryById = useSelectAppointmentPassCategoryById();
-  const webshopCategoryItemById = useSelectWebshopCategoryById();
-
   return {
-    [ITEM_VARIANTS.pass]: passCategoryById,
-    [ITEM_VARIANTS.appointmentPass]: apppintmentPassCategoryById,
-    [ITEM_VARIANTS.webshopItem]: webshopCategoryItemById,
+    [ITEM_VARIANTS.pass]: usePassStore(selectPassCategoriesById),
+    [ITEM_VARIANTS.appointmentPass]: useAppointmentPassStore(
+      selectAppointmentPassCategoriesById,
+    ),
+    [ITEM_VARIANTS.webshopItem]: useWebshopStore(selectWebshopCategoriesById),
+  } as const;
+};
+
+export const useCategoriesCount = () => {
+  return {
+    [ITEM_VARIANTS.pass]: usePassStore(selectPassCategoriesCount),
+    [ITEM_VARIANTS.appointmentPass]: useAppointmentPassStore(
+      selectAppointmentPassCategoriesCount,
+    ),
+    [ITEM_VARIANTS.webshopItem]: useWebshopStore(selectWebshopCategoriesCount),
   } as const;
 };
 
@@ -151,7 +186,10 @@ function formatPassData(data: Pass) {
     // Shared variables
     id: String(id),
     name,
-    price: getCurrencyDisplayWithPrice(price.parsedValue),
+    price:
+      typeof price === "number"
+        ? getCurrencyDisplayWithPrice(price)
+        : getCurrencyDisplayWithPrice(price.parsedValue),
     credits,
     category,
     archived: disabled,

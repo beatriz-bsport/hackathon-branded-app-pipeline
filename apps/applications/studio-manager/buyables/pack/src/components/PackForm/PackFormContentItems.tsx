@@ -69,7 +69,7 @@ const VariantList = ({
   // Retrieve raw items from the store and transform them into readable objects
   const items = ids
     .map((id) => {
-      return itemsById.get(id);
+      return itemsById[id];
     })
     .filter((item) => !!item);
 

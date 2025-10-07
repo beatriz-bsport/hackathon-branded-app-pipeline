@@ -1,23 +1,49 @@
 import React, { type Dispatch, type SetStateAction } from "react";
 
 import { List } from "@bsport/kaizen-primitive-core";
+import { DEFAULT_PAGE } from "@bsport/use-pagination-query-params";
 
-import type { Category } from "#src/utils/constants";
+import { type Category, NO_CATEGORY_ID } from "#src/utils/constants";
+import { useTranslation } from "#src/utils/i18n";
 
-type PackAddItemsCategoryListProps = {
+export type PackAddItemsCategoryListProps = {
   categories: Array<Category>;
   fieldIdPrefix: string;
   setSelectedCategory: Dispatch<SetStateAction<Category | null>>;
+  categoriesPagination: {
+    page: number;
+    pageSize: number;
+    setPage: (nextPage: number) => void;
+    setPageSize: (nextPageSize: number) => void;
+    isLoading: boolean;
+    count: number;
+  };
 };
 
 export const PackAddItemsCategoryList: React.FC<
   PackAddItemsCategoryListProps
-> = ({ categories, fieldIdPrefix, setSelectedCategory }) => {
+> = ({
+  categories,
+  fieldIdPrefix,
+  setSelectedCategory,
+  categoriesPagination,
+}) => {
+  const { t } = useTranslation("details");
   const listId = `${fieldIdPrefix}-add-items-category-list`;
 
-  if (categories.length === 0) return null;
+  /** Add a "No Category" category on top of the 1st page of the list */
+  const noCategoryItem = {
+    id: NO_CATEGORY_ID,
+    category_ordering: -10000,
+    name: t("addItemsModal.noCategories"),
+  };
 
-  const orderedCategories = categories.slice().sort((cat1, cat2) => {
+  const displayedCategories =
+    categoriesPagination.page === DEFAULT_PAGE
+      ? [noCategoryItem, ...categories]
+      : categories;
+
+  const orderedCategories = displayedCategories.slice().sort((cat1, cat2) => {
     const ordering1 = cat1.category_ordering;
     const ordering2 = cat2.category_ordering;
     if (typeof ordering1 === "number" && typeof ordering2 === "number")
@@ -31,7 +57,14 @@ export const PackAddItemsCategoryList: React.FC<
     <List
       id={listId}
       loadingProps={{
-        isLoading: false,
+        isLoading: categoriesPagination.isLoading,
+      }}
+      paginationProps={{
+        currentPage: categoriesPagination.page,
+        rowsPerPage: categoriesPagination.pageSize,
+        totalItems: categoriesPagination.count,
+        onPageChange: categoriesPagination.setPage,
+        onRowsPerPageChange: categoriesPagination.setPageSize,
       }}
       items={orderedCategories.map((category) => {
         const { id, name } = category;

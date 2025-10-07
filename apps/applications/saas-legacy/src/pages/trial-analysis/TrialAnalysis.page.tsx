@@ -73,7 +73,7 @@ const TrialAnalysis: React.FC<Props> = (props) => {
   );
 };
 
-const TrialAnalysisContent: React.FC<Props> = ({ t: _t }) => {
+const TrialAnalysisContent: React.FC<Props> = ({ t: _t, i18n }) => {
   const classes = useStyles();
   const [iframeUrl, setIframeUrl] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(true);
@@ -89,7 +89,7 @@ const TrialAnalysisContent: React.FC<Props> = ({ t: _t }) => {
         );
         data = response.data as TrialAnalysisResponse;
         if (data.presigned_url) {
-          setIframeUrl(appendSigmaLocale(data.presigned_url));
+          setIframeUrl(appendSigmaLocale(data.presigned_url, i18n.language));
         } else {
           setError('Unable to load dashboard. Please refresh the page.');
         }
@@ -102,7 +102,7 @@ const TrialAnalysisContent: React.FC<Props> = ({ t: _t }) => {
     };
 
     fetchTrialAnalysisUrl();
-  }, []);
+  }, [i18n.language]);
 
   const title = 'Trial Analysis';
 

@@ -65,7 +65,7 @@ const SubscriptionEvents: React.FC<Props> = (props) => {
   );
 };
 
-const SubscriptionEventsContent: React.FC<Props> = ({ t: _t }) => {
+const SubscriptionEventsContent: React.FC<Props> = ({ t: _t, i18n }) => {
   const classes = useStyles();
   const [iframeUrl, setIframeUrl] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(true);
@@ -81,7 +81,7 @@ const SubscriptionEventsContent: React.FC<Props> = ({ t: _t }) => {
         );
         data = response.data as SubscriptionEventsResponse;
         if (data.presigned_url) {
-          setIframeUrl(appendSigmaLocale(data.presigned_url));
+          setIframeUrl(appendSigmaLocale(data.presigned_url, i18n.language));
         } else {
           setError('Unable to load dashboard. Please refresh the page.');
         }
@@ -94,7 +94,7 @@ const SubscriptionEventsContent: React.FC<Props> = ({ t: _t }) => {
     };
 
     fetchSubscriptionEventsUrl();
-  }, []);
+  }, [i18n.language]);
 
   const title = `Subscription Events`;
 

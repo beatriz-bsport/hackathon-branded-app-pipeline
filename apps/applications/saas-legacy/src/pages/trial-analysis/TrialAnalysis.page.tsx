@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { withTranslation, WithTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import { Box, CircularProgress } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
 import { makeStyles } from '@material-ui/core/styles';
@@ -51,9 +51,7 @@ interface TrialAnalysisResponse {
   embed_url?: string;
 }
 
-interface Props extends WithTranslation {}
-
-const TrialAnalysis: React.FC<Props> = (props) => {
+const TrialAnalysis: React.FC = () => {
   const isTrialAnalysisEnabled = useSafeFlag(FeatureFlags.TRIAL_ANALYSIS);
 
   // Redirect to dashboard if feature flag is disabled
@@ -67,13 +65,14 @@ const TrialAnalysis: React.FC<Props> = (props) => {
         if (!hasPermission) {
           return <Redirect to="/dashboard" />;
         }
-        return <TrialAnalysisContent {...props} />;
+        return <TrialAnalysisContent />;
       }}
     </ObjectLevelPermissionProvider>
   );
 };
 
-const TrialAnalysisContent: React.FC<Props> = ({ t: _t, i18n }) => {
+const TrialAnalysisContent: React.FC = () => {
+  const { i18n } = useTranslation();
   const classes = useStyles();
   const [iframeUrl, setIframeUrl] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(true);
@@ -131,4 +130,4 @@ const TrialAnalysisContent: React.FC<Props> = ({ t: _t, i18n }) => {
   );
 };
 
-export default withTranslation(['trial-analysis'])(TrialAnalysis);
+export default TrialAnalysis;

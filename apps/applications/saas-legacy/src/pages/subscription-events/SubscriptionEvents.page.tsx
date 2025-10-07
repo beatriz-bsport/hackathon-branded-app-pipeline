@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { withTranslation, WithTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import { Box, CircularProgress } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
 import { makeStyles } from '@material-ui/core/styles';
@@ -50,22 +50,21 @@ interface SubscriptionEventsResponse {
   embed_url?: string;
 }
 
-interface Props extends WithTranslation {}
-
-const SubscriptionEvents: React.FC<Props> = (props) => {
+const SubscriptionEvents: React.FC = () => {
   return (
     <ObjectLevelPermissionProvider requiredPermission="report.Club.subscription.allowed_actions.read">
       {(hasPermission: boolean) => {
         if (!hasPermission) {
           return <Redirect to="/dashboard" />;
         }
-        return <SubscriptionEventsContent {...props} />;
+        return <SubscriptionEventsContent />;
       }}
     </ObjectLevelPermissionProvider>
   );
 };
 
-const SubscriptionEventsContent: React.FC<Props> = ({ t: _t, i18n }) => {
+const SubscriptionEventsContent: React.FC = () => {
+  const { i18n } = useTranslation();
   const classes = useStyles();
   const [iframeUrl, setIframeUrl] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(true);
@@ -123,4 +122,4 @@ const SubscriptionEventsContent: React.FC<Props> = ({ t: _t, i18n }) => {
   );
 };
 
-export default withTranslation(['subscription-events'])(SubscriptionEvents);
+export default SubscriptionEvents;

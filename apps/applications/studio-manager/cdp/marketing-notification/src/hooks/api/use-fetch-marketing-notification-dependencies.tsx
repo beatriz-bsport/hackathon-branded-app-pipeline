@@ -10,6 +10,8 @@ import { useAsync } from "@bsport/use-async";
 
 import { fetch } from "#src/utils/fetch";
 
+import { useFetchEmailTemplateSummaries } from "./use-fetch-email-template-summaries";
+
 const fetchActivitiesBinded = fetchGroupActivitiesAndWorkshopsAction.bind(
   null,
   fetch,
@@ -32,6 +34,8 @@ const fetchPassesBinded = fetchPassesAction.bind(null, fetch);
  * @return Object containing ID-to-entity maps for each dependency type and a fetch function
  */
 export function useFetchMarketingNotificationDependencies() {
+  const { handleFetchEmailTemplateSummaries } =
+    useFetchEmailTemplateSummaries();
   const [, fetchActivities] = useAsync<typeof fetchActivitiesBinded>({
     asyncFn: fetchActivitiesBinded,
   });
@@ -66,6 +70,7 @@ export function useFetchMarketingNotificationDependencies() {
       privatePassIds,
       paymentPackIds,
       subscriptionIds,
+      emailTemplateIds,
     }: {
       groupActivityIds: number[];
       establishmentIds: number[];
@@ -73,6 +78,7 @@ export function useFetchMarketingNotificationDependencies() {
       privatePassIds: number[];
       paymentPackIds: number[];
       subscriptionIds: number[];
+      emailTemplateIds: number[];
     }) => {
       Promise.allSettled([
         fetchActivities({
@@ -99,6 +105,7 @@ export function useFetchMarketingNotificationDependencies() {
           page: 1,
           page_size: paymentPackIds.length,
         }),
+        handleFetchEmailTemplateSummaries({ emailTemplateIds }),
       ]);
     },
     [
@@ -108,6 +115,7 @@ export function useFetchMarketingNotificationDependencies() {
       fetchPaginatedAppointmentPasses,
       fetchSubscriptions,
       fetchPasses,
+      handleFetchEmailTemplateSummaries,
     ],
   );
 

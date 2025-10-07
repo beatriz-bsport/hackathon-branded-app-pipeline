@@ -1509,6 +1509,9 @@ importers:
       '@bsport/config-federation':
         specifier: workspace:*
         version: link:../../../../../tools/config/federation
+      '@bsport/permissions':
+        specifier: workspace:*
+        version: link:../../../../../packages/utils/permissions
       '@bsport/store-booking-appointment':
         specifier: workspace:*
         version: link:../../../../../packages/stores/booking/appointment
@@ -1524,6 +1527,9 @@ importers:
       '@bsport/store-buyables-subscription':
         specifier: workspace:*
         version: link:../../../../../packages/stores/buyables/subscription
+      '@bsport/store-cdp-email-template':
+        specifier: workspace:*
+        version: link:../../../../../packages/stores/cdp/email-template
       '@bsport/store-cdp-marketing-notification':
         specifier: workspace:*
         version: link:../../../../../packages/stores/cdp/marketing-notification

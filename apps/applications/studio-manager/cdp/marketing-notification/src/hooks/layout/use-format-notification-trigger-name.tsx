@@ -63,8 +63,8 @@ export const useFormatNotificationTriggerName = () => {
     marketingNotification: MarketingNotification;
   }): string => {
     // Extract entity information
-    const entityId = extractEntityId(marketingNotification);
-    const entityName = findEntityName(triggerType, entityId, {
+    const entityIds = extractEntityId(marketingNotification);
+    const entityName = findEntityName(triggerType, entityIds, {
       groupActivitiesById,
       establishmentsById,
       appointmentsById,

@@ -142,6 +142,24 @@ export const extractSubscriptionIds = (
 };
 
 /**
+ * Extracts email template IDs (email_design) from notifications
+ */
+export const extractEmailTemplateIds = (
+  notifications: MarketingNotification[],
+): number[] => {
+  const ids = new Set<number>();
+
+  for (const notification of notifications) {
+    const { email_design } = notification;
+    if (email_design) {
+      ids.add(email_design);
+    }
+  }
+
+  return Array.from(ids);
+};
+
+/**
  * Extracts all relevant IDs from notifications in one pass
  */
 export const extractAllNotificationIds = (
@@ -154,5 +172,6 @@ export const extractAllNotificationIds = (
     paymentPackIds: extractPaymentPackIds(notifications),
     privatePassIds: extractPrivatePassIds(notifications),
     subscriptionIds: extractSubscriptionIds(notifications),
+    emailTemplateIds: extractEmailTemplateIds(notifications),
   };
 };

@@ -50,6 +50,7 @@ export function useFetchMarketingNotificationList() {
         privatePassIds,
         paymentPackIds,
         subscriptionIds,
+        emailTemplateIds,
       } = extractAllNotificationIds(value);
 
       // Fetch dependencies with extracted IDs
@@ -60,6 +61,7 @@ export function useFetchMarketingNotificationList() {
         privatePassIds: Array.from(privatePassIds),
         subscriptionIds: Array.from(subscriptionIds),
         paymentPackIds: Array.from(paymentPackIds),
+        emailTemplateIds: Array.from(emailTemplateIds),
       });
     },
   });

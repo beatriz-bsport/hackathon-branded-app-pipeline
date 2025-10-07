@@ -1,4 +1,5 @@
 import type { MetaActivity } from "@bsport/store-booking-group-activity";
+import type { EmailTemplateSummary } from "@bsport/store-cdp-email-template";
 import type {
   BookingCreationEventRules,
   MarketingNotification,
@@ -42,8 +43,12 @@ const isMarketingNotificationGroupActivityType = (
 
 export const useFormatMarketingNotificationTableRow = ({
   groupActivitiesById,
+  canToggleNotification,
+  emailTemplatesById,
 }: {
+  emailTemplatesById: Record<number, EmailTemplateSummary>;
   groupActivitiesById: Record<number, MetaActivity>;
+  canToggleNotification: boolean;
 }) => {
   const { formatNotificationTriggerName, formatNotificationTriggerTiming } =
     useFormatNotificationTriggerName();
@@ -109,6 +114,9 @@ export const useFormatMarketingNotificationTableRow = ({
         kind: notification.kind,
         eventRules: notification.event_rules,
       });
+      const isEmailTemplateValid =
+        typeof notification.email_design === "number" &&
+        notification.email_design in emailTemplatesById;
       return {
         id: notification.id,
         notificationType,
@@ -121,12 +129,12 @@ export const useFormatMarketingNotificationTableRow = ({
           triggerType: notificationType,
         }),
         isEmailNotificationSet: notification.email_design !== null,
-        isEmailNotificationBroken: notification.id % 5 === 0, // Temporary logic to simulate broken email notification
+        isEmailNotificationBroken: !isEmailTemplateValid,
         isPushNotificationSet:
           notification.push_notification_title !== "" &&
           notification.push_notification_content !== "",
         isNotificationActive: notification.active,
-        isAbleToUpdateNotification: notification.id % 3 === 0, // Temporary logic to simulate permission
+        isAbleToUpdateNotification: canToggleNotification,
       };
     });
 

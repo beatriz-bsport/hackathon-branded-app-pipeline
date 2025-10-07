@@ -33,7 +33,8 @@
     "selectedItems": {
       "show": "Show selected items",
       "hide": "Hide selected items"
-    }
+    },
+    "noCategories": "No category"
   },
   "formFields": {
     "name": {

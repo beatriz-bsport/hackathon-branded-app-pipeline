@@ -1,78 +1,93 @@
 {
-  "giftcardTable": {
-    "loading": "Cargando tarjetas de regalo",
-    "tooltips": {
-      "unavailable": "No se puede comprar en el marketplace",
-      "shared": "Elemento creado por la master account",
-      "restore": "Desarchivar tarjeta de regalo",
-      "duplicate": "Duplicar tarjeta de regalo",
-      "archive": "Archivar tarjeta de regalo"
+  "pages": {
+    "list": "Tarjetas de regalo",
+    "archivedList": "Archivo de tarjetas de regalo"
+  },
+  "listPage": {
+    "header": {
+      "buttons": {
+        "addGiftcard": "Añadir tarjeta de regalo",
+        "openBankImage": "Biblioteca de imágenes para tarjetas de regalo"
+      }
     },
-    "values": {
-      "expireInXDays": "{{ expiration }} días",
-      "unlimited": "Ilimitada",
-      "shared": "Compartida",
-      "unavailable": "No disponible"
+    "empty": {
+      "title": "Aún no hay tarjetas de regalo",
+      "subtitle": "Crea Tarjetas de regalo para que los miembros las compartan con amigos y familiares"
     },
-    "headers": {
-      "price": "Precio",
-      "validity": "Validez",
-      "name": "Nombre"
+    "archiveModal": {
+      "title": "Archivar tarjeta de regalo",
+      "description": {
+        "lineOne": "'{{ name }}' ya no será visible para miembros, pero las compras actuales o anteriores no se verán afectadas.",
+        "lineTwo": "Puedes restaurar esta Tarjeta de regalo en cualquier momento desde tu archivo."
+      },
+      "buttons": {
+        "cancel": "Volver",
+        "archive": "Archivar"
+      }
+    },
+    "duplicateModal": {
+      "title": "¿Duplicar tarjeta de regalo?",
+      "description": {
+        "action": "Puedes editar '{{ name }}' una vez duplicado."
+      },
+      "buttons": {
+        "cancel": "Volver",
+        "duplicate": "Duplicar"
+      }
     }
   },
   "archivedListPage": {
-    "toasts": {
-      "actionUndo": "Deshacer",
-      "messageUnarchived": "'{{ name }}' ha sido desarchivada"
-    },
     "empty": {
       "title": "No hay tarjetas de regalo archivadas"
     }
   },
-  "listPage": {
-    "duplicateModal": {
-      "toasts": {
-        "actionOpen": "Abrir",
-        "messageDuplicated": "'{{ name }}' ha sido duplicada"
-      },
-      "buttons": {
-        "duplicate": "Duplicar",
-        "cancel": "Cancelar"
-      },
-      "description": {
-        "effect": "Después podrás modificar los datos de la tarjeta de regalo.",
-        "action": "¿Quieres duplicar '{{ name }}'?"
-      },
-      "title": "Duplicar tarjeta de regalo"
+  "toasts": {
+    "successMessages": {
+      "restoreGiftcard": "Tarjeta de regalo restaurada",
+      "archiveGiftcard": "Tarjeta de regalo archivada",
+      "duplicateGiftcard": "Tarjeta de regalo duplicada",
+      "deleteGiftcardImage": "Imagen de tarjeta de regalo eliminada",
+      "undoAction": "Acción deshecha"
     },
-    "archiveModal": {
-      "toasts": {
-        "actionUndo": "Deshacer",
-        "messageArchived": "'{{ name }}' ha sido archivado"
-      },
-      "buttons": {
-        "archive": "Archivar",
-        "cancel": "Cancelar"
-      },
-      "description": {
-        "effect": "Los miembros que la hayan comprado anteriormente podrán seguir utilizándola. Puedes desarchivar esta tarjeta de regalo en cualquier momento.",
-        "action": "¿Quieres archivar '{{ name }}' ?"
-      },
-      "title": "Archivar tarjeta de regalo"
+    "errorMessages": {
+      "restoreGiftcard": "No se puede restaurar la tarjeta de regalo, por favor intenta de nuevo",
+      "archiveGiftcard": "No se puede archivar la Tarjeta De Regalo, por favor intenta de nuevo",
+      "duplicateGiftcard": "No se puede duplicar la tarjeta de regalo, por favor intenta de nuevo",
+      "undoAction": "No se puede deshacer la acción, por favor intenta de nuevo",
+      "deleteGiftcardImage": "No se puede eliminar la imagen de la Tarjeta De Regalo, por favor intenta de nuevo"
     },
-    "empty": {
-      "subtitle": "Crea tarjetas de regalo y deja que tus miembros las regalen a sus seres queridos",
-      "title": "Aún no hay tarjetas de regalo"
-    },
-    "header": {
-      "buttons": {
-        "addGiftcard": "Añadir tarjeta de regalo",
-        "openBankImage": "Banco de imágenes de tarjetas de regalo"
-      }
+    "actions": {
+      "undo": "Deshacer",
+      "open": "Abrir",
+      "close": "Cerrar"
     }
   },
-  "pages": {
-    "archivedList": "Tarjetas regalo archivadas",
-    "list": "Tarjetas regalo"
+  "giftcardTable": {
+    "headers": {
+      "name": "Nombre",
+      "validity": "Validez",
+      "price": "Precio"
+    },
+    "values": {
+      "unavailable": "Oculta",
+      "shared": "Visible",
+      "unlimited": "Ilimitada",
+      "expireInXDays": "{{ expiration }} días"
+    },
+    "tooltips": {
+      "archive": "Archivar tarjeta de regalo",
+      "duplicate": "Duplicar tarjeta de regalo",
+      "restore": "Desarchivar tarjeta de regalo",
+      "shared": "Elemento creado desde la cuenta de administrador",
+      "unavailable": "Invisible en el Área de miembros"
+    },
+    "loading": "Cargando tarjetas de regalo"
+  },
+  "imageUploadModal": {
+    "title": "Biblioteca de imágenes",
+    "uploadButton": "Subir imagen",
+    "description": "Agrega imágenes personalizadas a tu biblioteca para que los miembros puedan personalizar sus Tarjetas de regalo. ",
+    "selectImage": "Selecciona una imagen para previsualizarla en el diseño de las Tarjetas de regalo",
+    "emptyList": "Aún no hay imágenes personalizadas"
   }
 }

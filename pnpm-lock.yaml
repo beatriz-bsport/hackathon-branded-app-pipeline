@@ -1307,6 +1307,9 @@ importers:
       '@bsport/store-buyables-webshop':
         specifier: workspace:*
         version: link:../../../../../packages/stores/buyables/webshop
+      '@bsport/store-cdp-tag':
+        specifier: workspace:*
+        version: link:../../../../../packages/stores/cdp/tag
       '@bsport/use-async':
         specifier: workspace:*
         version: link:../../../../../packages/hooks/use-async

@@ -4,6 +4,7 @@
  * - webshop
  * - pass
  * - appointment-pass
+ * Additionally, it provides a hook to retrieve tags information
  */
 import { getCurrencyDisplayWithPrice } from "@bsport/currency";
 import {
@@ -40,6 +41,12 @@ import {
   selectWebshopItemsById,
   useWebshopStore,
 } from "@bsport/store-buyables-webshop";
+import {
+  selectTagGroups,
+  selectTagMappedByTagId,
+  selectTags,
+  useTagStore,
+} from "@bsport/store-cdp-tag";
 
 import { ITEM_VARIANTS } from "./constants";
 
@@ -111,6 +118,13 @@ export const useCategoriesCount = () => {
     ),
     [ITEM_VARIANTS.webshopItem]: useWebshopStore(selectWebshopCategoriesCount),
   } as const;
+};
+
+export const useTags = () => {
+  const tags = useTagStore(selectTags);
+  const tagGroups = useTagStore(selectTagGroups);
+  const tagIdToTagMap = useTagStore(selectTagMappedByTagId);
+  return { tags, tagGroups, tagIdToTagMap };
 };
 
 export { AppointmentPass, Pass, WebshopItem };

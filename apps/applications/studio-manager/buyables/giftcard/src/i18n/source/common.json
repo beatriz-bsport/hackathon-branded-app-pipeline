@@ -78,7 +78,7 @@
       "archive": "Archive Gift Card",
       "duplicate": "Duplicate Gift Card",
       "restore": "Restore Gift Card",
-      "shared": "Item created by master account",
+      "shared": "Item created from Admin Account",
       "unavailable": "Not visible in the Member Area"
     },
     "loading": "Loading Gift Cards"

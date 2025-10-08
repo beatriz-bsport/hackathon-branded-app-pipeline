@@ -1,0 +1,93 @@
+{
+  "pages": {
+    "list": "Cartões de Presente",
+    "archivedList": "Arquivo de Cartões-presente"
+  },
+  "listPage": {
+    "header": {
+      "buttons": {
+        "addGiftcard": "Adicionar Cartão-presente",
+        "openBankImage": "Biblioteca de imagens"
+      }
+    },
+    "empty": {
+      "title": "Ainda não há Cartões-presente",
+      "subtitle": "Crie Cartões-presente para os Membros compartilharem com amigos e familiares"
+    },
+    "archiveModal": {
+      "title": "Arquivar Cartão-presente?",
+      "description": {
+        "lineOne": "'{{ name }}' não estará mais visível para os membros, mas as compras atuais ou anteriores não serão afetadas.",
+        "lineTwo": "Você pode restaurar este cartão-presente a qualquer momento do seu arquivo."
+      },
+      "buttons": {
+        "cancel": "Anterior",
+        "archive": "Arquivar"
+      }
+    },
+    "duplicateModal": {
+      "title": "Duplicar Cartão-presente?",
+      "description": {
+        "action": "Você pode editar '{{ nome }}' uma vez duplicado."
+      },
+      "buttons": {
+        "cancel": "Anterior",
+        "duplicate": "Duplicar"
+      }
+    }
+  },
+  "archivedListPage": {
+    "empty": {
+      "title": "Sem Cartões-presente arquivados"
+    }
+  },
+  "toasts": {
+    "successMessages": {
+      "restoreGiftcard": "Cartão-presente restaurado",
+      "archiveGiftcard": "Cartão-presente arquivado",
+      "duplicateGiftcard": "Cartão-presente duplicado",
+      "deleteGiftcardImage": "Imagem do Cartão-presente excluída",
+      "undoAction": "Ação desfeita"
+    },
+    "errorMessages": {
+      "restoreGiftcard": "Não foi possível restaurar o Cartão-presente, por favor, tente novamente",
+      "archiveGiftcard": "Não foi possível arquivar o Cartão-presente, por favor, tente novamente",
+      "duplicateGiftcard": "Não foi possível duplicar o Cartão-presente, por favor, tente novamente",
+      "undoAction": "Não foi possível desfazer a ação, por favor tente novamente",
+      "deleteGiftcardImage": "Não foi possível excluir a imagem do Cartão-presente, por favor, tente novamente"
+    },
+    "actions": {
+      "undo": "Desfazer",
+      "open": "Aberto",
+      "close": "Fechar"
+    }
+  },
+  "giftcardTable": {
+    "headers": {
+      "name": "Nome",
+      "validity": "Validade",
+      "price": "Preço"
+    },
+    "values": {
+      "unavailable": "Oculto",
+      "shared": "Visível",
+      "unlimited": "Ilimitado",
+      "expireInXDays": "{{ expiration }} dias"
+    },
+    "tooltips": {
+      "archive": "Arquivar Cartão-presente",
+      "duplicate": "Duplicar Cartão-presente",
+      "restore": "Restaurar Cartão-presente",
+      "shared": "Item criado a partir da Conta de Administrador",
+      "unavailable": "Não visível na Área de Membro"
+    },
+    "loading": "Carregando Cartões De Presente"
+  },
+  "imageUploadModal": {
+    "title": "Biblioteca de imagens",
+    "uploadButton": "Carregar imagem",
+    "description": "Adicione imagens personalizadas à sua biblioteca para que seus membros possam personalizar seus Cartões De Presente. ",
+    "selectImage": "Selecione uma imagem para visualizá-la no design do Cartão-presente",
+    "emptyList": "Ainda não há imagens personalizadas"
+  }
+}

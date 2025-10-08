@@ -10,7 +10,7 @@
     "hints": {
       "amount": "Value",
       "buyer": "From",
-      "recipient": "For the attention of"
+      "recipient": "To"
     }
   }
 }

@@ -66,5 +66,10 @@
     "tooltip": {
       "close": "Close"
     }
+  },
+  "sidebar": {
+    "ariaLabel": "Primary navigation",
+    "openMenu": "Open navigation menu",
+    "closeMenu": "Close navigation menu"
   }
 }

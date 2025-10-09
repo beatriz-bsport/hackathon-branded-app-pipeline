@@ -11,6 +11,7 @@ const API_V1_URI_FS = Config.REACT_APP_BASE_URI_FINANCIAL_SERVICES_V1;
 const API_V1_URI_CDP = Config.REACT_APP_BASE_URI_CDP_V1;
 const API_V0_URI_CDP = Config.REACT_APP_BASE_URI_CDP_V0;
 const API_V1_URI_CORE = Config.REACT_APP_BASE_URI_CORE_V1;
+const API_V1_URI_COMMUNICATE = Config.REACT_APP_BASE_URI_COMMUNICATE_V1;
 
 const typeToURIMap: Record<SearchObjectType, Array<string>> = {
   coach_payment_rules: ['coach_payment_rules', API_V1_URI_FS],
@@ -77,7 +78,7 @@ const typeToURIMap: Record<SearchObjectType, Array<string>> = {
   ],
   communication_sent_group_config: [
     'communication/communication-sent-group-config',
-    API_V1_URI_CDP,
+    API_V1_URI_COMMUNICATE,
   ],
 };
 

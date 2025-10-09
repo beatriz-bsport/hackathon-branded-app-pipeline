@@ -1,0 +1,16 @@
+{
+  "giftcardPreview": {
+    "placeholders": {
+      "amount": "[Importo del Buono Regalo]",
+      "buyer": "[Nome dell'acquirente]",
+      "message": "[Messaggio personalizzato]",
+      "name": "[Nome del Buono regalo]",
+      "recipient": "[Nome del beneficiario]"
+    },
+    "hints": {
+      "amount": "Valore",
+      "buyer": "Da",
+      "recipient": "a"
+    }
+  }
+}

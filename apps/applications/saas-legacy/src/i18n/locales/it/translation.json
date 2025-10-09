@@ -19,7 +19,7 @@
       "autoDiscard": {
         "hours_before_start": "Ora(e) prima della sessione:",
         "min_bookings_nb": "Numero di prenotazione(i):",
-        "explain": "Le classi con meno di {{bookings_nb}} prenotazione/i vengono annullate {{hours}} ora/e prima dell'inizio. I membri riceveranno una notifica dell'annullamento del corso.",
+        "explain": "Le classi con {{bookings_nb}} prenotazione/i o meno vengono annullate {{hours}} ora/e prima dell'inizio. I membri riceveranno una notifica dell'annullamento del corso.",
         "emailRecipients": "Se una classe viene annullata in automatico, verrà inviata un'email al proprietario, all'amministratore e all'insegnante, oltre che agli studenti.",
         "checkbox": "Annulla automaticamente le lezioni con poche prenotazioni"
       }

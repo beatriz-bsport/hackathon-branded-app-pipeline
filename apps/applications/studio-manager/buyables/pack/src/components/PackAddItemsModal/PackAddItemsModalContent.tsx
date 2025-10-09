@@ -1,29 +1,39 @@
-import React, { type Dispatch, type SetStateAction } from "react";
+import React from "react";
 
 import { Breadcrumbs } from "@bsport/kaizen-primitive-core";
 
+import { useFetchItems } from "#src/hooks/useFetchItems";
 import {
   type Category,
   ITEM_VARIANTS,
   type ItemVariant,
 } from "#src/utils/constants";
 import { useTranslation } from "#src/utils/i18n";
+import {
+  type VariantAndData,
+  useItems,
+  useItemsCount,
+} from "#src/utils/stores-interface";
 
-import { PackAddItemsCategoryList } from "./PackAddItemsCategoryList";
+import {
+  PackAddItemsCategoryList,
+  type PackAddItemsCategoryListProps,
+} from "./PackAddItemsCategoryList";
 import { PackAddItemsList } from "./PackAddItemsList";
 
 type PackAddItemsModalContentProps = {
-  categories: Category[];
   fieldIdPrefix: string;
   selectedCategory: Category | null;
-  setSelectedCategory: Dispatch<SetStateAction<Category | null>>;
-  variant: ItemVariant | null;
-};
-
+  variant: ItemVariant;
+} & Pick<
+  PackAddItemsCategoryListProps,
+  "categories" | "categoriesPagination" | "setSelectedCategory"
+>;
 export const PackAddItemsModalContent: React.FC<
   PackAddItemsModalContentProps
 > = ({
   categories,
+  categoriesPagination,
   fieldIdPrefix,
   selectedCategory,
   setSelectedCategory,
@@ -31,11 +41,20 @@ export const PackAddItemsModalContent: React.FC<
 }) => {
   const { t } = useTranslation("details");
 
-  if (!variant) {
-    return null;
-  }
+  const { isLoading, ...itemsPagination } = useFetchItems({
+    variant,
+    categoryId: selectedCategory?.id,
+  });
+  const itemsByVariant = useItems();
+  const itemsCountByVariant = useItemsCount();
 
   const hasCategories = categories.length > 0;
+  const params = { data: itemsByVariant[variant], variant } as VariantAndData;
+  const listConfig = {
+    ...itemsPagination,
+    isLoading: itemsByVariant[variant].length === 0 && isLoading,
+    total: itemsCountByVariant[variant],
+  };
 
   /**
    * 3 cases, depending on categories length and selected category
@@ -51,6 +70,7 @@ export const PackAddItemsModalContent: React.FC<
           setSelectedCategory={setSelectedCategory}
           categories={categories}
           fieldIdPrefix={fieldIdPrefix}
+          categoriesPagination={categoriesPagination}
         />
       </>
     );
@@ -84,10 +104,20 @@ export const PackAddItemsModalContent: React.FC<
             },
           ]}
         />
-        <PackAddItemsList fieldIdPrefix={fieldIdPrefix} variant={variant} />
+        <PackAddItemsList
+          fieldIdPrefix={fieldIdPrefix}
+          listConfig={listConfig}
+          {...params}
+        />
       </div>
     );
   }
 
-  return <PackAddItemsList fieldIdPrefix={fieldIdPrefix} variant={variant} />;
+  return (
+    <PackAddItemsList
+      fieldIdPrefix={fieldIdPrefix}
+      listConfig={listConfig}
+      {...params}
+    />
+  );
 };

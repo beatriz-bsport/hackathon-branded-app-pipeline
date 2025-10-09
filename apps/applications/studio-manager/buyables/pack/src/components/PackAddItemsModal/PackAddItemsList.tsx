@@ -4,33 +4,51 @@ import { List } from "@bsport/kaizen-primitive-core";
 
 import { useSelectedItemsContext } from "#src/contexts/selectedItemsContext";
 import { useGetListItemConfig } from "#src/hooks/useGetListItemConfig";
-import type { ItemVariant } from "#src/utils/constants";
-import { useItems } from "#src/utils/stores-interface";
 import { type VariantAndData, formatData } from "#src/utils/stores-interface";
 
-export type PackAddItemsListProps = {
+type PackAddItemsListProps = {
   fieldIdPrefix: string;
-  variant: ItemVariant;
-};
+  listConfig: {
+    page: number;
+    pageSize?: number;
+    setPage?: (nextPage: number) => void;
+    setPageSize?: (nextPageSize: number) => void;
+    total: number;
+    isLoading: boolean;
+  };
+} & VariantAndData;
 
 export const PackAddItemsList: React.FC<PackAddItemsListProps> = ({
   fieldIdPrefix,
+  listConfig,
   variant,
+  data,
 }) => {
-  const { preselectedItems, setPreselectedItems } = useSelectedItemsContext();
+  const {
+    preselectedItems,
+    setPreselectedItems,
+    removePreselectedItem,
+    addPreselectedItem,
+  } = useSelectedItemsContext();
 
   const getItem = useGetListItemConfig({
     variant,
     getExtraConfig: (data) => {
       return {
         rightTitle: data.price,
+        onItemClick: () => {
+          if (preselectedItems.includes(data.id)) {
+            removePreselectedItem({ id: data.id });
+          } else {
+            addPreselectedItem({ id: data.id });
+          }
+        },
+        className: "hover:cursor-pointer",
       };
     },
   });
 
-  const itemsByVariant = useItems();
-
-  const params = { variant, data: itemsByVariant[variant] } as VariantAndData;
+  const params = { variant, data } as VariantAndData;
   const formattedData = formatData(params);
 
   return (
@@ -40,6 +58,17 @@ export const PackAddItemsList: React.FC<PackAddItemsListProps> = ({
       isSelectable
       checkedIds={preselectedItems.map((id) => String(id))}
       setCheckedIds={setPreselectedItems}
+      loadingProps={{
+        isLoading: listConfig.isLoading,
+      }}
+      paginationProps={{
+        currentPage: listConfig.page,
+        rowsPerPage: listConfig.pageSize,
+        totalItems: listConfig.total,
+        onPageChange: listConfig.setPage,
+        onRowsPerPageChange: listConfig.setPageSize,
+        showRowsPerPageSelector: false,
+      }}
     />
   );
 };

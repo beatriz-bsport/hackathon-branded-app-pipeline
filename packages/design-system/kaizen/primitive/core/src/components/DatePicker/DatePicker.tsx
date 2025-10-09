@@ -14,7 +14,10 @@ import { type ShortcutItem } from "./Shortcuts";
 
 export type SelectedDate = Date | [Date | null, Date | null] | null;
 
-export type DatePickerProps = React.HTMLAttributes<HTMLDivElement> & {
+export type DatePickerProps = Omit<
+  React.HTMLAttributes<HTMLDivElement>,
+  "onSelect"
+> & {
   id: string;
   mode: "single" | "range";
   displayAs: "popover" | "modal";
@@ -26,6 +29,10 @@ export type DatePickerProps = React.HTMLAttributes<HTMLDivElement> & {
   calendarYears?: number[];
   disableDate?: (date: Date) => boolean;
   shortcuts?: ShortcutItem[];
+  popoverClassNames?: {
+    container?: string;
+    content?: string;
+  };
 };
 
 /**
@@ -42,6 +49,7 @@ export type DatePickerProps = React.HTMLAttributes<HTMLDivElement> & {
  * @param props.calendarYears The number of years to display in the calendar, defaults to 10.
  * @param props.disableDate A comparison function to disable specific dates in the calendar.
  * @param props.shortcuts An array of shortcut items to display in the date picker.
+ * @param props.popoverClassNames Custom classes to provide to the popover container and content
  * @link https://docs.infra.bsport.io/storybook/kaizen/dev/index.html?path=/docs/components-datepicker--docs
  */
 const DatePicker: React.FC<DatePickerProps> = ({
@@ -56,6 +64,8 @@ const DatePicker: React.FC<DatePickerProps> = ({
   calendarYears,
   disableDate,
   shortcuts,
+  popoverClassNames = {},
+  onSelect,
   ...props
 }) => {
   const i18nInstance = useKaizenI18nInstance();
@@ -96,6 +106,9 @@ const DatePicker: React.FC<DatePickerProps> = ({
   const handleCalendarSelect = (date: SelectedDate) => {
     setSelectedDate(date);
     setIsManuallySelected(true);
+    if (!Array.isArray(date)) {
+      onSelect?.(date);
+    }
   };
 
   const handleShortcutSelect = (shortcutLabel: string) => {
@@ -121,7 +134,7 @@ const DatePicker: React.FC<DatePickerProps> = ({
 
   if (displayAs === "popover")
     return (
-      <Popover>
+      <Popover className={popoverClassNames.container ?? ""}>
         <Popover.Anchor>
           {({ setIsPopoverOpened }) => {
             if (mode === "range" || Array.isArray(selectedDate)) {
@@ -157,13 +170,16 @@ const DatePicker: React.FC<DatePickerProps> = ({
               <DateInputField
                 id={id}
                 selectedDate={selectedDate}
-                onDateChange={setSelectedDate}
+                onDateChange={(date) => {
+                  setSelectedDate(date);
+                  onSelect?.(date);
+                }}
                 onClick={() => setIsPopoverOpened(true)}
               />
             );
           }}
         </Popover.Anchor>
-        <Popover.Content>
+        <Popover.Content className={popoverClassNames.content ?? ""}>
           {() => (
             <DatePickerContent
               className={className}

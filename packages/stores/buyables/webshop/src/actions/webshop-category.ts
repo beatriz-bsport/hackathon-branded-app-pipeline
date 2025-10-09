@@ -3,11 +3,8 @@ import { Result } from "typescript-result";
 import type { Action, PaginatedResponse } from "@bsport/store-base";
 import { createErrorWithContext } from "@bsport/store-base";
 
-import {
-  type FetchWebshopCategoriesParams,
-  fetchWebshopCategoriesAPI,
-} from "#src/api/webshop-category";
-import type { WebshopCategory } from "#src/types";
+import { fetchWebshopCategoriesAPI } from "#src/api/webshop-category";
+import type { FetchWebshopCategoriesParams, WebshopCategory } from "#src/types";
 
 import { setWebshopCategories } from "./store";
 

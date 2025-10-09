@@ -526,7 +526,7 @@
   "form": {
     "cancel": "Abbrechen",
     "check": "Bestätigen",
-    "submit": "In Rechnung stellen",
+    "submit": "Jetzt bezahlen",
     "title": "Neue periodische Zahlung",
     "note": {
       "label": "Anmerkung"

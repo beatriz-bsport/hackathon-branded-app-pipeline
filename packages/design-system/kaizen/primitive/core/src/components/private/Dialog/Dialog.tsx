@@ -1,8 +1,9 @@
 import { cva, cx } from "class-variance-authority";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 
 import useEscapeKeydownListener from "#src/hooks/escape-keydown-listener.hook";
+import { useFocusManagement } from "#src/hooks/use-focus-management";
 
 import { useDocumentOverflow } from "./use-document-overflow";
 
@@ -55,9 +56,7 @@ const Dialog: React.FC<DialogProps> = ({
   const [isMounted, setIsMounted] = useState(false);
 
   const { setOverflowHidden, resetOverflow } = useDocumentOverflow();
-
-  const dialogRef = useRef<HTMLDivElement | null>(null);
-  const previousFocusRef = useRef<HTMLElement | null>(null);
+  const dialogRef = useFocusManagement<HTMLDivElement>(open && isVisible);
 
   const handleClose = () => {
     // Trigger CSS transition by changing the isVisible state
@@ -93,15 +92,9 @@ const Dialog: React.FC<DialogProps> = ({
     if (open) {
       setIsMounted(true);
       setIsVisible(true);
-
-      previousFocusRef.current = document.activeElement as HTMLElement;
-      previousFocusRef.current?.blur();
-      dialogRef.current?.focus();
-
       setOverflowHidden();
     } else {
       handleClose();
-      previousFocusRef.current?.focus();
     }
   }, [open]);
 

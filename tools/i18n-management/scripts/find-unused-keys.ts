@@ -186,12 +186,23 @@ async function main({ project }: { project?: string }) {
         return false;
       }
 
-      // 2. Plural case, if it ends with _plural we check if the singular form is used
-      if (
-        k.endsWith("_plural") &&
-        exactUsed.includes(k.slice(0, k.length - "_plural".length))
-      ) {
-        return false;
+      // 2. Plural case, if it ends with a plural form we check if the root form is used
+      const PLURAL_FORMS = [
+        "_plural", // v3 support
+        "_zero",
+        "_one",
+        "_two",
+        "_few",
+        "_many",
+        "_other",
+      ];
+      for (const pluralForm of PLURAL_FORMS) {
+        if (
+          k.endsWith(pluralForm) &&
+          exactUsed.includes(k.slice(0, k.length - pluralForm.length))
+        ) {
+          return false;
+        }
       }
 
       // 3. Wildcard match: does key start with any wildcard prefix?

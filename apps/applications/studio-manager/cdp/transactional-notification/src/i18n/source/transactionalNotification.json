@@ -53,7 +53,7 @@
           "title": "Push notifications",
           "message": "You can start enabling a push notification after you’ve set it up."
         },
-        "franchiseOwned": "The Master Account directly manages this transactional notification.",
+        "franchiseOwned": "The Admin Account directly manages this transactional notification.",
         "setPushNotificationBeforeEnabling": "Set up your push notification before enabling it."
       },
       "helper": {

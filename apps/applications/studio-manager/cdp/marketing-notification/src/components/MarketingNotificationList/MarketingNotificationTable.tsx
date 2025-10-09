@@ -1,17 +1,33 @@
 import { Table } from "@bsport/kaizen-primitive-core";
 
+import { getTableColumns } from "#src/components/MarketingNotificationList/MarketingNotificationTableConfig";
 import { useFetchMarketingNotificationList } from "#src/hooks/api/use-fetch-marketing-notification-list";
+import { useGetMarketingNotificationDependenciesData } from "#src/hooks/api/use-get-marketing-notification-dependencies-data";
+import { useToggleMarketingNotification } from "#src/hooks/api/use-toggle-marketing-notification";
 import { useFormatMarketingNotificationTableRow } from "#src/hooks/layout/use-format-marketing-notification-table-row";
+import { usePermissionsChecker } from "#src/hooks/permissions/use-permissions-checker";
+import { useUpsellChecker } from "#src/hooks/permissions/use-upsell-checker";
 import { useTranslation } from "#src/utils/i18n";
-
-import { getTableColumns } from "./MarketingNotificationTableConfig";
 
 export const MarketingNotificationTable = () => {
   const { t } = useTranslation("marketingNotificationList");
-  const { marketingNotificationsList, groupActivityMapById } =
-    useFetchMarketingNotificationList();
+
+  const { marketingNotificationsList } = useFetchMarketingNotificationList();
+  const { groupActivitiesById, emailTemplatesById } =
+    useGetMarketingNotificationDependenciesData();
+
+  const { handleToggleMarketingNotification } =
+    useToggleMarketingNotification();
+
+  const { isUserMarketingNotificationManager } = usePermissionsChecker();
+  const { isPushNotificationUpsellActivated } = useUpsellChecker();
+
   const { formatMarketingNotificationForTable } =
-    useFormatMarketingNotificationTableRow({ groupActivityMapById });
+    useFormatMarketingNotificationTableRow({
+      groupActivitiesById,
+      emailTemplatesById,
+      canToggleNotification: isUserMarketingNotificationManager,
+    });
 
   const tableColumns = getTableColumns({
     t,
@@ -24,19 +40,16 @@ export const MarketingNotificationTable = () => {
     deleteNotification: () => {
       console.log("delete notification");
     },
-    toggleMarketingNotification: () => {
-      console.log("toggle marketing notification");
-    },
+    toggleMarketingNotification: handleToggleMarketingNotification,
     permissions: {
-      isPushNotificationEnabled: true,
-      isUserMarketingNotificationManager: true,
+      isPushNotificationEnabled: isPushNotificationUpsellActivated,
+      isUserMarketingNotificationManager,
     },
   });
 
   const tableRows = formatMarketingNotificationForTable({
     marketingNotificationList: marketingNotificationsList,
   });
-  console.log("marketingNotificationsList : ", tableRows);
 
   return (
     <div>

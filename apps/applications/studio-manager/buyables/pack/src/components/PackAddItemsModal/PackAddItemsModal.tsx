@@ -1,11 +1,13 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { Modal } from "@bsport/kaizen-primitive-core";
 
 import { useSelectedItemsContext } from "#src/contexts/selectedItemsContext";
+import { useFetchItemsCategories } from "#src/hooks/useFetchItemsCategories";
+import { useSearchItems } from "#src/hooks/useSearchItems";
 import { ITEM_VARIANTS, type ItemVariant } from "#src/utils/constants";
 import { useTranslation } from "#src/utils/i18n";
-import { useCategories } from "#src/utils/stores-interface";
+import { useCategories, useCategoriesCount } from "#src/utils/stores-interface";
 
 import { PackAddItemsModalContent } from "./PackAddItemsModalContent";
 import { PackAddItemsSearchSection } from "./PackAddItemsSearchSection";
@@ -39,18 +41,22 @@ export const PackAddItemsModal: React.FC<PackAddItemsModalProps> = ({
     name: string;
   } | null>(null);
 
-  const [searchQuery, setSearchQuery] = useState("");
+  const { isSearching, queryString, setQueryString } = useSearchItems({
+    variant: variant,
+  });
 
+  const categoriesPaginationParams = useFetchItemsCategories({ variant });
   const categoriesByVariant = useCategories();
-  const categories = variant ? categoriesByVariant[variant] : [];
+  const categoriesCountByVariant = useCategoriesCount();
 
-  const onClose = useCallback(() => {
+  const onClose = () => {
     handleCloseModal();
     setPreselectedItems([]);
+    setQueryString("");
     setTimeout(() => setSelectedCategory(null), 100);
-  }, [handleCloseModal, setPreselectedItems]);
+  };
 
-  const onSave = useCallback(() => {
+  const onSave = () => {
     if (variant) {
       setVariantItems({
         ids: preselectedItems.map((id) => parseInt(id)).filter(Boolean),
@@ -58,7 +64,7 @@ export const PackAddItemsModal: React.FC<PackAddItemsModalProps> = ({
       });
     }
     onClose();
-  }, [variant, preselectedItems, setVariantItems, onClose]);
+  };
 
   useEffect(() => {
     if (isOpen) {
@@ -85,6 +91,15 @@ export const PackAddItemsModal: React.FC<PackAddItemsModalProps> = ({
     setPreselectedItems,
   ]);
 
+  if (!variant) return null;
+
+  const categories = categoriesByVariant[variant];
+  const categoriesCount = categoriesCountByVariant[variant];
+  const categoriesPagination = {
+    ...categoriesPaginationParams,
+    count: categoriesCount,
+  };
+
   return (
     <Modal
       open={isOpen}
@@ -101,7 +116,7 @@ export const PackAddItemsModal: React.FC<PackAddItemsModalProps> = ({
         onClick: onClose,
       }}
     >
-      {variant && <PackAddItemsSelection variant={variant} />}
+      <PackAddItemsSelection variant={variant} />
 
       {
         /**
@@ -110,9 +125,10 @@ export const PackAddItemsModal: React.FC<PackAddItemsModalProps> = ({
         categories.length > 0 && !selectedCategory ? (
           <PackAddItemsSearchSection
             fieldIdPrefix={fieldIdPrefix}
-            searchQuery={searchQuery}
-            setSearchQuery={setSearchQuery}
+            searchQuery={queryString}
+            setSearchQuery={setQueryString}
             variant={variant}
+            isSearching={isSearching}
           />
         ) : null
       }
@@ -123,9 +139,10 @@ export const PackAddItemsModal: React.FC<PackAddItemsModalProps> = ({
          * display of a List of items. In other cases, the ModalContent
          * handles categories and items per categories.
          */
-        !searchQuery && (
+        !queryString && (
           <PackAddItemsModalContent
             categories={categories}
+            categoriesPagination={categoriesPagination}
             fieldIdPrefix={fieldIdPrefix}
             selectedCategory={selectedCategory}
             setSelectedCategory={setSelectedCategory}

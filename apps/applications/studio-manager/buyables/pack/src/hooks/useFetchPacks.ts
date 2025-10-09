@@ -30,7 +30,7 @@ export const useFetchPacks = ({ searchInput }: { searchInput: string }) => {
   const count = usePackStore(selectCount);
 
   // Paginated fetch
-  const _fetchPacks = useCallback(async () => {
+  const handleFetchPacks = useCallback(async () => {
     return fetchPacksAction(fetch, {
       page: currentPage,
       page_size: currentPageSize,
@@ -38,15 +38,15 @@ export const useFetchPacks = ({ searchInput }: { searchInput: string }) => {
   }, [currentPage, currentPageSize]);
 
   const [{ isLoading: isLoadingPage }, fetchPacks] = useAsync<
-    typeof _fetchPacks
+    typeof handleFetchPacks
   >({
-    asyncFn: _fetchPacks,
-    dependencies: [_fetchPacks],
+    asyncFn: handleFetchPacks,
+    dependencies: [handleFetchPacks],
     onFailure: console.error,
   });
 
   // Fuzzy fetch
-  const _fuzzySearchPacks = useCallback(async () => {
+  const handleFuzzySearchPacks = useCallback(async () => {
     return fuzzySearchPacksAction(fetch, {
       page_size: DEFAULT_SEARCH_SIZE,
       queryString: searchInput,
@@ -54,10 +54,10 @@ export const useFetchPacks = ({ searchInput }: { searchInput: string }) => {
   }, [searchInput]);
 
   const [{ isLoading: isLoadingFuzzy }, fuzzySearchPacks] = useAsync<
-    typeof _fuzzySearchPacks
+    typeof handleFuzzySearchPacks
   >({
-    asyncFn: _fuzzySearchPacks,
-    dependencies: [_fuzzySearchPacks],
+    asyncFn: handleFuzzySearchPacks,
+    dependencies: [handleFuzzySearchPacks],
     onFailure: console.error,
   });
 

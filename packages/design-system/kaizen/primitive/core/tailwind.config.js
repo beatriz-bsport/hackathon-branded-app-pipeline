@@ -23,6 +23,22 @@ export default {
             transform: "translateX(100%)",
           },
         },
+        "slide-in-left": {
+          from: {
+            transform: "translateX(-100%)",
+          },
+          to: {
+            transform: "translateX(0)",
+          },
+        },
+        "slide-out-left": {
+          from: {
+            transform: "translateX(0)",
+          },
+          to: {
+            transform: "translateX(-100%)",
+          },
+        },
         "slide-in-bottom": {
           from: {
             transform: "translateY(100%)",
@@ -45,6 +61,8 @@ export default {
         "slide-out-bottom": "slide-out-bottom 0.3s ease-in-out",
         "slide-in-right": "slide-in-right 0.3s ease-in-out",
         "slide-out-right": "slide-out-right 0.3s ease-in-out",
+        "slide-in-left": "slide-in-left 0.3s ease-in-out forwards",
+        "slide-out-left": "slide-out-left 0.3s ease-in-out forwards",
       },
     },
   },

@@ -160,6 +160,7 @@ export {
   default as SegmentedControl,
   type SegmentedControlProps,
 } from "./components/SegmentedControl";
+export { default as Sidebar, type SidebarProps } from "./components/Sidebar";
 export {
   default as SortableList,
   type SortableListHeaderProps,

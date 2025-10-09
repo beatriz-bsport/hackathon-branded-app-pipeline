@@ -105,6 +105,8 @@ export const REVAMP_URLS_PRODUCTION = {
   order: "/order",
   pack: "/pack",
   smartlist: "/smartlist",
+  settings_referral: `${SETTINGS_URL}/referral-program`,
+  tag: "/tag",
   teacher: "/teacher",
 } satisfies Partial<typeof REVAMP_URLS_DEVELOPMENT>; // Ensure that it's a subset of REVAMP_URLS_DEVELOPMENT
 

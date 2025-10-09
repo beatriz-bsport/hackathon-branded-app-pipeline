@@ -31,19 +31,21 @@ const BasketPaymentContext = createContext<BasketPaymentContextType | null>(
 
 type BasketPaymentProviderProps = {
   children: ReactNode;
+  basketId?: string;
   initialTermsAccepted?: boolean;
   initialInstalmentPaymentSelectedId?: number | null;
 };
 
 export const BasketPaymentProvider: React.FC<BasketPaymentProviderProps> = ({
   children,
+  basketId,
   initialTermsAccepted = false,
   initialInstalmentPaymentSelectedId = null,
 }) => {
   const {
     isEstablishmentBillingGroupSelected: _isEstablishmentBillingGroupSelected,
     selectedEstablishmentBillingGroup: _selectedEstablishmentBillingGroup,
-  } = useBasketPaymentLocalStateUnified();
+  } = useBasketPaymentLocalStateUnified(basketId);
 
   const [termsAccepted, setTermsAccepted] = useState(initialTermsAccepted);
   const [instalmentPaymentSelectedId, setInstalmentPaymentSelectedId] =
@@ -91,9 +93,18 @@ export const BasketPaymentProvider: React.FC<BasketPaymentProviderProps> = ({
 export const useBasketPaymentContext = (): BasketPaymentContextType => {
   const context = useContext(BasketPaymentContext);
   if (!context) {
-    throw new Error(
-      'useBasketPaymentContext must be used within a BasketPaymentProvider',
-    );
+    return {
+      termsAccepted: false,
+      setTermsAccepted: () => {},
+      instalmentPaymentSelectedId: null,
+      setInstalmentPaymentSelectedId: () => {},
+      isEstablishmentBillingGroupSelected: false,
+      setIsEstablishmentBillingGroupSelected: () => {},
+      selectedEstablishmentBillingGroup: null,
+      setSelectedEstablishmentBillingGroup: () => {},
+      isExpressPayLoading: false,
+      setIsExpressPayLoading: () => {},
+    };
   }
   return context;
 };

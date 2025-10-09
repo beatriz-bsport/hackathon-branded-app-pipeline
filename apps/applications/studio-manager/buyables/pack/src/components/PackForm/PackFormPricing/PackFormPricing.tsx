@@ -41,7 +41,10 @@ export const PackFormPricing: React.FC<PackFormPricingProps> = ({
         methods={methods}
       />
 
-      <PackFormPricingPaymentMethods fieldIdPrefix={fieldIdPrefix} />
+      <PackFormPricingPaymentMethods
+        fieldIdPrefix={fieldIdPrefix}
+        methods={methods}
+      />
     </section>
   );
 };

@@ -36,5 +36,5 @@ export const selectWebshopCategories = (state: WebshopState) => {
 export const selectWebshopCategory = (state: WebshopState, id: number) =>
   state.categories.byId[id];
 
-export const selectCountCategories = (state: WebshopState) =>
+export const selectWebshopCategoriesCount = (state: WebshopState) =>
   state.categories.count;

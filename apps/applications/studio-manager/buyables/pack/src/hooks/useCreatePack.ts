@@ -1,13 +1,11 @@
 import { toast } from "@bsport/kaizen-primitive-core";
-import {
-  type Pack,
-  type PackFormData,
-  createPackAction,
-} from "@bsport/store-buyables-pack";
+import { type Pack, createPackAction } from "@bsport/store-buyables-pack";
 import { useAsync } from "@bsport/use-async";
 
 import { fetch } from "#src/utils/fetch";
 import { useTranslation } from "#src/utils/i18n";
+
+const createPackBinded = createPackAction.bind(null, fetch);
 
 export const useCreatePack = ({
   onSuccess,
@@ -16,12 +14,8 @@ export const useCreatePack = ({
 }) => {
   const { t } = useTranslation("details");
 
-  const _handleCreatePack = async (data: PackFormData) => {
-    return createPackAction(fetch, data);
-  };
-
-  const [{ isLoading }, handleCreatePack] = useAsync<typeof _handleCreatePack>({
-    asyncFn: _handleCreatePack,
+  const [{ isLoading }, handleCreatePack] = useAsync<typeof createPackBinded>({
+    asyncFn: createPackBinded,
     onSuccess: ({ value }) => {
       onSuccess(value);
     },

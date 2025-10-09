@@ -1,8 +1,13 @@
-import React, { type Dispatch, type SetStateAction } from "react";
+import React, { type Dispatch, type SetStateAction, useState } from "react";
 
 import { TextField } from "@bsport/kaizen-primitive-core";
+import { DEFAULT_PAGE } from "@bsport/use-pagination-query-params";
 
 import type { ItemVariant } from "#src/utils/constants";
+import {
+  type VariantAndData,
+  useSearchedItems,
+} from "#src/utils/stores-interface";
 
 import { PackAddItemsList } from "./PackAddItemsList";
 
@@ -10,16 +15,16 @@ type PackAddItemsSearchSectionProps = {
   fieldIdPrefix: string;
   searchQuery: string;
   setSearchQuery: Dispatch<SetStateAction<string>>;
-  variant: ItemVariant | null;
+  variant: ItemVariant;
+  isSearching: boolean;
 };
 
 export const PackAddItemsSearchSection: React.FC<
   PackAddItemsSearchSectionProps
-> = ({ fieldIdPrefix, searchQuery, setSearchQuery, variant }) => {
-  if (!variant) {
-    return null;
-  }
-
+> = ({ fieldIdPrefix, searchQuery, setSearchQuery, variant, isSearching }) => {
+  const itemsByVariant = useSearchedItems();
+  const params = { data: itemsByVariant[variant], variant } as VariantAndData;
+  const [syncQueryString, setSyncQueryString] = useState("");
   return (
     <>
       <TextField
@@ -28,13 +33,14 @@ export const PackAddItemsSearchSection: React.FC<
         iconLeft="search-refraction"
         autoFocus
         fullWidth
-        value={searchQuery}
+        value={syncQueryString}
         onChange={(event) => {
-          /** @todo Implement search logic when stores & API are ready */
-          setSearchQuery(event.target.value);
+          const nextText = event.target.value;
+          setSyncQueryString(nextText);
+          setSearchQuery(nextText);
         }}
         onClear={() => {
-          /** @todo Implement search logic when stores & API are ready */
+          setSyncQueryString("");
           setSearchQuery("");
         }}
         containerProps={{
@@ -42,7 +48,16 @@ export const PackAddItemsSearchSection: React.FC<
         }}
       />
       {searchQuery && (
-        <PackAddItemsList fieldIdPrefix={fieldIdPrefix} variant={variant} />
+        <PackAddItemsList
+          fieldIdPrefix={fieldIdPrefix}
+          listConfig={{
+            isLoading: isSearching,
+            page: DEFAULT_PAGE,
+            pageSize: params.data.length,
+            total: params.data.length,
+          }}
+          {...params}
+        />
       )}
     </>
   );

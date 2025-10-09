@@ -56,11 +56,25 @@ export const getTableColumns = ({
     align: "start",
     render: (row) => {
       return (
-        <div className="flex flex-col gap-xs">
-          <Body htmlVariant="p" size="md" color="default" weight="strong">
-            {row.triggerType}
-          </Body>
-          <Body htmlVariant="p" size="sm" color="default" weight="weak">
+        <div className="flex flex-col gap-xs max-w-[500px]">
+          <Tooltip placement="bottom" label={row.triggerType}>
+            <Body
+              className="overflow-hidden text-ellipsis"
+              htmlVariant="p"
+              size="md"
+              color="default"
+              weight="strong"
+            >
+              {row.triggerType}
+            </Body>
+          </Tooltip>
+          <Body
+            className="overflow-hidden text-ellipsis"
+            htmlVariant="p"
+            size="sm"
+            color="default"
+            weight="weak"
+          >
             {row.triggerDate}
           </Body>
         </div>

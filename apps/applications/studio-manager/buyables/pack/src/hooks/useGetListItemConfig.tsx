@@ -44,7 +44,7 @@ export const useGetListItemConfig = ({
           price={data.price}
           credits={data.credits}
           category={
-            data.category ? categoriesById.get(data.category)?.name : undefined
+            data.category ? categoriesById[data.category]?.name : undefined
           }
           invisible={data.invisible}
           unavailable={data.unavailable}

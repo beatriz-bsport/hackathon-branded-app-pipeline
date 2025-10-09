@@ -1,1 +1,16 @@
-{}
+{
+  "giftcardPreview": {
+    "placeholders": {
+      "amount": "[Montant de la Carte Cadeaux]",
+      "buyer": "[Nom acheteur]",
+      "message": "[Message personnalisé]",
+      "name": "[Carte Cadeaux name]",
+      "recipient": "[Nom destinataire]"
+    },
+    "hints": {
+      "amount": "Valeur",
+      "buyer": "Acheté par",
+      "recipient": "Pour"
+    }
+  }
+}

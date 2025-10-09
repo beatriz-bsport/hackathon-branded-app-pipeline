@@ -28,10 +28,7 @@ import { ConsumerGiftcardKind } from '@bsport/common/lib/master-data/giftcard.js
 import { Alert } from '@material-ui/lab';
 import { formatAsDate } from '#src/utils/datetime';
 
-const ACTIVATION_DATE_MAX_DATE = formatAsDate(
-  DateTime.now().plus({ months: 2 }).toISO(),
-);
-
+const ACTIVATION_DATE_MAX_DATE = DateTime.now().plus({ months: 2 });
 const INTIAL_ACTIVATION_DATE = DateTime.now().startOf('day');
 
 type Props = FormikProps<Omit<GiftcardFormValues, 'force'>> & {

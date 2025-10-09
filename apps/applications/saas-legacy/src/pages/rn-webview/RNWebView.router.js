@@ -6,21 +6,27 @@ import { BsportRequestFromHeaderValue } from '../../constants';
 import useSaasRouterTracker from '../../hooks/useSaasRouterTracker';
 import AddPaymentMethod from './AddPaymentMethodWebview';
 import BasketPaymentIntent from './BasketPaymentIntent.page';
+import BasketPaymentIntentAPGP from './BasketPaymentIntentAPGP.page';
 import ContractPayment from './ContractPayment.page';
 import SubscriptionPaymentMethod from './SubscriptionPaymentMethod';
 import SpotSchedulingSelector from './SpotSchedulingSelector.page';
 import namespaces from '../../i18n/namespaces.json';
 import { InvoicePayment } from './InvoicePayment.page';
+import { FeatureFlags, useSafeFlag } from '../../utils/feature-flag';
 
 const RNWebView = () => {
   useTranslation(namespaces);
   useSaasRouterTracker(BsportRequestFromHeaderValue.SAAS_RN_WEBVIEW);
 
+  const showWebviewBasketAPGP = useSafeFlag(FeatureFlags.WEBVIEW_BASKET_AP_GP);
+
   return (
     <Switch>
       <Route
         exact
-        component={BasketPaymentIntent}
+        component={
+          showWebviewBasketAPGP ? BasketPaymentIntentAPGP : BasketPaymentIntent
+        }
         path="/rn-webview/payment-intent/:basketId/"
       />
       <Route

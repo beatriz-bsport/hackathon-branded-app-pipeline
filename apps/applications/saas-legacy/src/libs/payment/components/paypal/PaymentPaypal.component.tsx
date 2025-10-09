@@ -1,4 +1,4 @@
-import React, { useImperativeHandle, forwardRef } from 'react';
+import React, { forwardRef, useImperativeHandle } from 'react';
 import { PayPalScriptProvider } from '@paypal/react-paypal-js';
 // eslint-disable-next-line bsport/no-redux-in-component
 import { connect } from 'react-redux';
@@ -224,6 +224,7 @@ const PaymentPaypal = forwardRef(
                 {acceptTermsAndConditionsElement && (
                   <div
                     className={clsx(
+                      classes.flexRow,
                       classes.conditions,
                       customClasses?.conditions,
                     )}
@@ -232,12 +233,23 @@ const PaymentPaypal = forwardRef(
                   </div>
                 )}
                 <div
-                  className={clsx(classes.actionRow, customClasses?.actionRow)}
+                  className={clsx(
+                    classes.flexRow,
+                    onCancel ? classes.actionRow : classes.actionRowCentered,
+                    customClasses?.actionRow,
+                  )}
                 >
                   {clientSecretLoading ? (
                     <CircularProgress />
                   ) : (
-                    <div className={classes.paypalButton}>
+                    <div
+                      className={clsx(
+                        classes.paypalButtonBase,
+                        onCancel
+                          ? classes.paypalButton
+                          : classes.paypalButtonFullWidth,
+                      )}
+                    >
                       <PayPalScriptProvider
                         options={getPayPalScriptProviderOptions(clientSecret)}
                       >
@@ -251,9 +263,13 @@ const PaymentPaypal = forwardRef(
                       </PayPalScriptProvider>
                     </div>
                   )}
-                  <Button disabled={loading} onClick={onCancel}>
-                    {t('paymentPanel.actions.cancel')}
-                  </Button>
+                  {onCancel ? (
+                    <Button disabled={loading} onClick={onCancel}>
+                      {t('paymentPanel.actions.cancel')}
+                    </Button>
+                  ) : (
+                    <div />
+                  )}
                 </div>
               </>
             )}
@@ -268,23 +284,29 @@ const useStyles = makeStyles((theme) => ({
   paddingTop1: {
     paddingTop: theme.spacing(1),
   },
-  paypalButton: {
-    width: theme.spacing(25),
+  paypalButtonBase: {
     height: theme.spacing(5),
   },
-  actionRow: {
+  paypalButton: {
+    width: theme.spacing(25),
+  },
+  paypalButtonFullWidth: {
+    width: '100%',
+  },
+  flexRow: {
     display: 'flex',
     flexDirection: 'row',
-    alignItems: 'alignItems',
-    justifyContent: 'space-between',
+    alignItems: 'center',
     marginTop: theme.spacing(2),
   },
-  conditions: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'alignItems',
+  actionRow: {
     justifyContent: 'space-between',
-    marginTop: theme.spacing(2),
+  },
+  actionRowCentered: {
+    justifyContent: 'center',
+  },
+  conditions: {
+    justifyContent: 'space-between',
     marginLeft: theme.spacing(1.5),
   },
 }));

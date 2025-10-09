@@ -1,21 +1,25 @@
 import { createStore } from "zustand/vanilla";
 
-import { bindStore } from "@bsport/store-base";
+import { PaginatedState, bindStore } from "@bsport/store-base";
 
-import type { Communication } from "#src/types";
+import type { CampaignSummary, CommunicationSent } from "#src/types/models";
 
 export interface CommunicationState {
-  byId: { [key: number]: Communication };
-  count: number;
-  ids: number[];
-  page: number;
+  campaignSummaries: {
+    [objectType: string]: {
+      [objectId: string]: CampaignSummary;
+    };
+  };
+  communications: {
+    [objectType: string]: {
+      [objectId: string]: PaginatedState<CommunicationSent>;
+    };
+  };
 }
 
 export const communicationStore = createStore<CommunicationState>()(() => ({
-  byId: {},
-  count: 0,
-  ids: [],
-  page: 1,
+  campaignSummaries: {},
+  communications: {},
 }));
 
 export const useCommunicationStore = bindStore(communicationStore);

@@ -39,7 +39,7 @@
           "partnership": {
             "title": "Marketplace",
             "availableOnPartnership": "No marketplace (ClassPass, OneFit...)",
-            "partnerMaxBookingCount": "Número máximo de reservas pelo marketplace (apenas para o OneFit + Urban Sports Club)",
+            "partnerMaxBookingCount": "Número máximo de reservas pelo marketplace (apenas para Wellhub + Urban Sports Club)",
             "uscIntegrationWorkshopWarning": "Uma vez que os workshops não são compatíveis com o marketplace do Urban Sports Club, esta sessão não será incluída.",
             "uscIntegrationWarning": "A inclusão no mercado do Urban Sports Club está ativa, mas qualquer sessão com duração igual ou superior a 2 dias não aparecerá.",
             "enablePartneshipBookings": "Ativar as reservas do agregador",

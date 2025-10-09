@@ -4,10 +4,18 @@ variables:
   AWS_REGION: eu-west-3
   REGISTRY_ENDPOINT: 672633452901.dkr.ecr.eu-west-3.amazonaws.com
   REGISTRY_NAME: bsport/bsport-ichizen-builder
+  PNPM_HOME: "/builds/bsport/ichizen/.pnpm"
+
+cache:
+  key:
+    files:
+      - pnpm-lock.yaml
+  paths:
+    - .pnpm/store
+  policy: pull-push
 
 stages:
   - init
-  - prepare-builder
   - merge-request-open
   - analyze
   - deploy-feature-branch
@@ -15,9 +23,8 @@ stages:
   - post-deploy
 
 include:
+  - local: "/tools/ci/common.yml"
   - local: "/tools/ci/validate-mr-title.yml"
-  - local: "/tools/ci/utilities.yml"
-  - local: "/tools/ci/prepare-builder.yml"
   - local: "/tools/ci/merge-request-open.yml"
   - local: "/tools/ci/analyze.yml"
   - local: "/tools/ci/deploy-feature-branch.yml"

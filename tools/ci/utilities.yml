@@ -1,4 +1,0 @@
-.before-script-install-node-modules:
-  before_script:
-    - chmod +x ./tools/ci/setup-ci.sh
-    - ./tools/ci/setup-ci.sh

@@ -7,18 +7,18 @@
     "header": {
       "buttons": {
         "addGiftcard": "Añadir tarjeta de regalo",
-        "openBankImage": "Biblioteca de imágenes para tarjetas de regalo"
+        "openBankImage": "Biblioteca de imágenes"
       }
     },
     "empty": {
       "title": "Aún no hay tarjetas de regalo",
-      "subtitle": "Crea Tarjetas de regalo para que los miembros las compartan con amigos y familiares"
+      "subtitle": "Crea tarjetas de regalo para que los miembros las compartan con amigos y familiares"
     },
     "archiveModal": {
       "title": "Archivar tarjeta de regalo",
       "description": {
         "lineOne": "'{{ name }}' ya no será visible para miembros, pero las compras actuales o anteriores no se verán afectadas.",
-        "lineTwo": "Puedes restaurar esta Tarjeta de regalo en cualquier momento desde tu archivo."
+        "lineTwo": "Puedes restaurar esta tarjeta de regalo en cualquier momento desde tu archivo."
       },
       "buttons": {
         "cancel": "Volver",
@@ -54,7 +54,7 @@
       "archiveGiftcard": "No se puede archivar la Tarjeta De Regalo, por favor intenta de nuevo",
       "duplicateGiftcard": "No se puede duplicar la tarjeta de regalo, por favor intenta de nuevo",
       "undoAction": "No se puede deshacer la acción, por favor intenta de nuevo",
-      "deleteGiftcardImage": "No se puede eliminar la imagen de la Tarjeta De Regalo, por favor intenta de nuevo"
+      "deleteGiftcardImage": "No se puede eliminar la imagen de la tarjeta de regalo, por favor intenta de nuevo"
     },
     "actions": {
       "undo": "Deshacer",
@@ -86,7 +86,7 @@
   "imageUploadModal": {
     "title": "Biblioteca de imágenes",
     "uploadButton": "Subir imagen",
-    "description": "Agrega imágenes personalizadas a tu biblioteca para que los miembros puedan personalizar sus Tarjetas de regalo. ",
+    "description": "Agrega imágenes personalizadas a tu biblioteca para que los miembros puedan personalizar sus tarjetas de regalo. ",
     "selectImage": "Selecciona una imagen para previsualizarla en el diseño de las Tarjetas de regalo",
     "emptyList": "Aún no hay imágenes personalizadas"
   }

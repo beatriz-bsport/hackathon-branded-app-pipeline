@@ -25,7 +25,7 @@
         "isNot": "Is not"
       },
       "duplicate": {
-        "title": "Duplicate activity",
+        "title": "Duplicate Group Activity",
         "modalContent": "Duplicate <strong>{{groupActivityName}}</strong>?<br/> You can edit the gift card details afterwards.",
         "cancel": "Cancel",
         "confirm": "Duplicate"
@@ -38,30 +38,30 @@
         "confirm": "Archive"
       },
       "emptyState": {
-        "title": "No group activities yet",
-        "body": "Create group activities and let your members attend sessions"
+        "title": "No Group Activities yet",
+        "body": "Create your first Group Activity for your members to book. "
       },
       "emptySearchState": {
-        "title": "No group activities found",
+        "title": "No Group Activities found, adjust filters and try again",
         "subtitle": "Try searching with different keywords",
         "action": "Clear Filters"
       }
     },
     "archived": {
-      "unarchive": "Unarchive activity",
+      "unarchive": "Restore Group Activity",
       "emptyState": {
-        "title": "No archived group activities yet"
+        "title": "You haven't archived any Group Activities yet"
       }
     },
     "actions": {
       "archive": "Archive",
-      "unarchive": "Unarchive",
+      "unarchive": "Restore",
       "duplicate": "Duplicate"
     },
     "header": {
-      "groupActivities": "Group activities",
-      "archivedGroupActivities": "Archived group activities",
-      "add": "Add group activity",
+      "groupActivities": "Group Activities",
+      "archivedGroupActivities": "Group Activities archive",
+      "add": "Add Group Activity",
       "filter": "Filter",
       "display": {
         "title": "Display",
@@ -70,12 +70,12 @@
         "reset": "Reset",
         "save": "Save"
       },
-      "archivedActivities": "Archived activities"
+      "archivedActivities": "Group Activity archive"
     },
     "toasts": {
-      "duplication": "{{groupActivityName}} has been duplicated",
-      "archive": "{{groupActivityName}} has been archived",
-      "unarchive": "{{groupActivityName}} has been unarchived",
+      "duplication": "{{groupActivityName}} duplicated",
+      "archive": "{{groupActivityName}} archived",
+      "unarchive": "{{groupActivityName}} restored",
       "open": "Open",
       "undo": "Undo"
     }

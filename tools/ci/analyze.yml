@@ -1,12 +1,10 @@
 Analyze:
-  image: ${REGISTRY_ENDPOINT}/${REGISTRY_NAME}:${CI_COMMIT_REF_SLUG}
   stage: analyze
+  before_script: !reference [.pnpm-setup, before_script]
   interruptible: true
   tags:
     - build-frontend
     - cluster:bsport-tooling
-  extends:
-    - .before-script-install-node-modules
   rules:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
   script:

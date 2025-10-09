@@ -1,13 +1,11 @@
 .Deploy Base:
-  image: ${REGISTRY_ENDPOINT}/${REGISTRY_NAME}:${CI_COMMIT_REF_SLUG}
   stage: deploy
+  before_script: !reference [.pnpm-setup, before_script]
   tags:
     - build-frontend
     - cluster:bsport-tooling
   variables:
     VITE_RELEASE_SHA: $CI_COMMIT_SHORT_SHA
-  extends:
-    - .before-script-install-node-modules
   rules:
     - if: $CI_PIPELINE_SOURCE == "schedule"
       when: never

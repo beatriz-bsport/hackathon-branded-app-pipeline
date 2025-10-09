@@ -1,18 +1,17 @@
-Merge Request Open:
-  image: ${REGISTRY_ENDPOINT}/${REGISTRY_NAME}:${CI_COMMIT_REF_SLUG}
+"Merge Request Open":
   stage: merge-request-open
+  before_script: !reference [.pnpm-setup, before_script]
   interruptible: true
-
   tags:
     - build-frontend
     - cluster:bsport-tooling
-
-  extends:
-    - .before-script-install-node-modules
-
   rules:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
-
   script:
+    - echo "Debug pnpm store path"
+    - pnpm store path
+    - echo "Debug checking cache directory"
+    - ls -la .pnpm/store/v10/ || echo "No store directory found"
     - git fetch origin $CI_MERGE_REQUEST_TARGET_BRANCH_NAME
+    - echo "Running nx affected command for merge request validation..."
     - pnpm exec nx affected --target=ci:merge-request:open --base=origin/$CI_MERGE_REQUEST_TARGET_BRANCH_NAME

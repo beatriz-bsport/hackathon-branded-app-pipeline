@@ -91,30 +91,31 @@ const ConsumerSubscriptionCommitmentPeriodContent: React.FC<Props> = ({
     );
   }
 
+  let commitmentPeriodText: string = '';
+
+  if (hasSubscriptionStarted) {
+    if (!!subscriptionForecastedExpirationDate) {
+      commitmentPeriodText = t(
+        'reworked.mySubscriptions.consumerSubscriptionCardDetails.commitmentPeriod.modal.explainStarted',
+        {
+          expiration_date: formatAsDate(subscriptionForecastedExpirationDate),
+        },
+      );
+    } else {
+      commitmentPeriodText = t(
+        'reworked.mySubscriptions.consumerSubscriptionCardDetails.commitmentPeriod.modal.explainNoExpirationDate',
+      );
+    }
+  } else {
+    commitmentPeriodText = t(
+      'reworked.mySubscriptions.consumerSubscriptionCardDetails.commitmentPeriod.modal.explainNotStarted',
+    );
+  }
+
   return (
     <div className="bs-consumer__subscription__modal-dialog__content__commitment-period">
       <Typography align="left" variant="body-lg">
-        {!!subscriptionForecastedExpirationDate
-          ? hasSubscriptionStarted
-            ? t(
-                'reworked.mySubscriptions.consumerSubscriptionCardDetails.commitmentPeriod.modal.explainStarted',
-                {
-                  expiration_date: formatAsDate(
-                    subscriptionForecastedExpirationDate,
-                  ),
-                },
-              )
-            : t(
-                'reworked.mySubscriptions.consumerSubscriptionCardDetails.commitmentPeriod.modal.explainNotStarted',
-                {
-                  expiration_date: formatAsDate(
-                    subscriptionForecastedExpirationDate,
-                  ),
-                },
-              )
-          : t(
-              'reworked.mySubscriptions.consumerSubscriptionCardDetails.commitmentPeriod.modal.explainNoExpirationDate',
-            )}
+        {commitmentPeriodText}
       </Typography>
       <Alert
         key="commitment-period-alert"

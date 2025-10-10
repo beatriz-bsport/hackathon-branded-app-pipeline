@@ -30,6 +30,7 @@ import {
   getSubtitleCardDetailsDate,
   informationBasedOnCouponApplied,
 } from '#src/libs/consumer-space/components/reworked/@MySubscriptions/utils';
+import { FeatureFlags, useSafeFlag } from '#src/utils/feature-flag';
 
 import './styles.css';
 import { TFunction } from 'i18next';
@@ -134,6 +135,10 @@ export const ConsumerSubscriptionsListContainer: React.FC<Props> = ({
 }) => {
   const { t } = useTranslation('consumerSpace');
 
+  const isStopSubscriptionFromMemberSideFeatureEnabled = useSafeFlag(
+    FeatureFlags.STOP_SUBSCRIPTION_FROM_MEMBER_SIDE,
+  );
+
   const selectedSubscriptionPauseEndDate = useMemo(
     () =>
       formatAsDate(
@@ -175,9 +180,14 @@ export const ConsumerSubscriptionsListContainer: React.FC<Props> = ({
     () =>
       getCommitmentPeriodDisplay(
         selectedSubscription,
-        !!displayStopSubscriptionFromMemberSide,
+        !!displayStopSubscriptionFromMemberSide &&
+          isStopSubscriptionFromMemberSideFeatureEnabled,
       ),
-    [displayStopSubscriptionFromMemberSide, selectedSubscription],
+    [
+      displayStopSubscriptionFromMemberSide,
+      selectedSubscription,
+      isStopSubscriptionFromMemberSideFeatureEnabled,
+    ],
   );
 
   return (

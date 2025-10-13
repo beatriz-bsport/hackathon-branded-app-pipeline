@@ -80,6 +80,7 @@ export function fetchAccessLevel(
       is_franchisor: Boolean,
     }) => ThunkAction,
     onDone?: () => void,
+    onSuccess?: (response: unknown) => void,
   },
 ) {
   return async (dispatch: Dispatch) => {
@@ -165,6 +166,7 @@ export function fetchAccessLevel(
           username,
         },
       );
+      options?.onSuccess?.(response.data);
       if (options && options?.goNext) {
         options.goNext({ is_franchisor, is_manager });
       } else if (options && options.company) {
@@ -251,6 +253,7 @@ export function requestLogin(
     }) => ThunkAction,
     onDone?: () => void,
     onError?: () => void,
+    onSuccess?: (response: unknown) => void,
   },
   noStorageClearOnError?: boolean,
 ) {

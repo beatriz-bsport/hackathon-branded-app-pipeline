@@ -49,6 +49,12 @@ import { buildUrlParams, parseQueryString } from '../../../http';
 import type { Dispatch, OptionCallback } from '../../../state/types';
 
 import analyticsUtils from '#src/components/analytics/analytics';
+import { analyticsClientB2C } from '#src/components/analytics/mixpanel';
+
+import {
+  trackSignUpEvent,
+  trackSignupViewedEvent,
+} from '#src/events/authentication/trackers';
 
 import './SignupPageStyles.css';
 
@@ -101,10 +107,13 @@ export class SignupPage extends Component<Props> {
       );
       analyticsUtils.onShowSignup();
     }
+    analyticsClientB2C.track(trackSignupViewedEvent({}));
   }
 
   componentDidUpdate(prevProps: Props) {
-    if (!prevProps.theme && this.props.theme?.id) analyticsUtils.onShowSignup();
+    if (!prevProps.theme && this.props.theme?.id) {
+      analyticsUtils.onShowSignup();
+    }
   }
 
   submitCustomForm = (formdata: FormData, options?: OptionCallback) => {
@@ -124,6 +133,7 @@ export class SignupPage extends Component<Props> {
           } else {
             if (this.props.membership && this.props.theme?.id)
               analyticsUtils.onSignupSuccess(this.props.loginInformations);
+            analyticsClientB2C.track(trackSignUpEvent({}));
             options?.onSuccess?.();
           }
         },

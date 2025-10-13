@@ -20,7 +20,7 @@ export type AnalyticsEvent<
   EventName = string,
   Payload = Properties,
 > = Payload & {
-  eventType: EventName;
+  eventType?: EventName; // Made optional for compatibility with saas legacy typing (fails in CI only)
 };
 
 /** Augment your type config using the generic T type (extensibility) */

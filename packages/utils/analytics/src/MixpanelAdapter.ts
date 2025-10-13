@@ -77,6 +77,13 @@ export class MixpanelAdapter implements AnalyticsAdapter {
     if (!this.checkIsInitialized()) return;
 
     const { eventType, ...properties } = event;
+
+    // Ensure eventType is present (should always be due to Zod defaults)
+    if (!eventType) {
+      console.warn("[Mixpanel] Event missing eventType, skipping track");
+      return;
+    }
+
     this.instance.track(eventType, properties);
   }
 

@@ -355,7 +355,8 @@ export const OnlinePaymentBasketUnified: React.FC<Props> = forwardRef(
               clientSecret={clientSecret}
               disabled={
                 (!termsAccepted && !!generalTermsAndConditions?.length) ||
-                !isEstablishmentBillingGroupSelected
+                (!isEstablishmentBillingGroupSelected &&
+                  !!establishmentBillingGroups?.length)
               }
               onError={handleExpressCheckoutError}
               onLoadError={() => setAvailableExpressCheckoutMethods(false)}

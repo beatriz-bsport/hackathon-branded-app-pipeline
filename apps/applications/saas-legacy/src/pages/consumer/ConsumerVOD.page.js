@@ -33,6 +33,8 @@ import { getMarketplaceRoute } from '../../libs/marketplace/routing-utils';
 import VideoItemList from '../../libs/video/components/VideoItemList.component';
 import { VideoPurchase, Video } from '../../libs/video/types';
 import { OptionCallback } from '../../state/types';
+import { trackMemberProfileViewedEvent } from '#src/events/member-profile/trackers';
+import { analyticsClientB2C } from '#src/components/analytics/mixpanel';
 
 type Props = {
   fetchVideoList: (options?: OptionCallback) => void,
@@ -66,6 +68,9 @@ class ConsumerVOD extends React.PureComponent<Props> {
         ),
     });
     this.props.fetchAssociatedCoachesList({ company: this.props.companyId });
+    analyticsClientB2C.track(
+      trackMemberProfileViewedEvent({ page_type: 'vod' }),
+    );
   }
 
   onCLickGoToVod = () => {

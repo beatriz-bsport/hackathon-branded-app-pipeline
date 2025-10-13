@@ -13,7 +13,7 @@ export const NavigationSidebarContainer: FC<
         "h-screen w-[240px] py-md",
         "shrink-0 flex flex-col",
         "shadow-inner shadow-action-default-rest",
-        "bg-surface-page-navigation ",
+        "bg-surface-page-navigation",
         className,
       ].join(" ")}
     >

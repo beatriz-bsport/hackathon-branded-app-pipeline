@@ -243,6 +243,9 @@ const icons = {
   "user-plus-01": React.lazy(
     async () => await import("./assets/user-plus-01.svg?react"),
   ),
+  "user-search": React.lazy(
+    async () => await import("./assets/user-search.svg?react"),
+  ),
   "video-recorder": React.lazy(
     async () => await import("./assets/video-recorder.svg?react"),
   ),

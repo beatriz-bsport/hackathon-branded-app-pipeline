@@ -5,6 +5,7 @@ import {
   Card,
   KaizenI18nProvider,
   NavigationMenu,
+  Sidebar,
   i18nNamespacePrefix,
   i18nNamespaces,
   inMemoryTranslationsLoader,
@@ -26,6 +27,7 @@ import {
   SearchMemberModal,
   useSearchMemberModal,
 } from "#src/components/SearchMemberModal";
+import { SearchMemberTopbarButton } from "#src/components/SearchMemberTopbarButton";
 import {
   TemporaryPasswordDialog,
   useTemporaryPasswordDialog,
@@ -193,8 +195,8 @@ const NavigationSidebarContent = ({
   } = companyTheme ?? {};
   const user = dataAccessLayer.useUserAccess();
 
-  return (
-    <NavigationSidebarContainer>
+  const sidebarContent = (
+    <>
       <NavigationSidebarHeader
         avatarUrl={companyLogo}
         label={companyName ?? ""}
@@ -299,7 +301,23 @@ const NavigationSidebarContent = ({
         navigate={navigate}
         navigateInContext={navigateInContext}
       />
-    </NavigationSidebarContainer>
+    </>
+  );
+
+  // Use responsive Sidebar for Studio Manager apps (isBridged = false)
+  // Use simple NavigationSidebarContainer for saas-legacy (isBridged = true)
+  if (isBridged) {
+    return (
+      <NavigationSidebarContainer>{sidebarContent}</NavigationSidebarContainer>
+    );
+  }
+
+  return (
+    <Sidebar
+      topbarSlot={<SearchMemberTopbarButton onClick={openSearchMemberModal} />}
+    >
+      {sidebarContent}
+    </Sidebar>
   );
 };
 
@@ -311,13 +329,6 @@ const { i18nInstance: kaizenI18nInstance } = instanciateAppI18n({
 });
 
 const NavigationSidebar = (props: NavigationSidebarProps) => {
-  if (props.isLoadingData) {
-    return (
-      <NavigationSidebarContainer className="navigation-sidebar-container-fallback">
-        <div className="h-screen" />
-      </NavigationSidebarContainer>
-    );
-  }
   return (
     <KaizenI18nProvider kaizenI18nInstance={kaizenI18nInstance}>
       <AppI18nextProvider>

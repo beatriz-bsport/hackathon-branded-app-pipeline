@@ -78,7 +78,7 @@ export const AppWrapper: React.FC<AppWrapperProps> = ({
       <ThemeProvider>
         <KaizenI18nProvider kaizenI18nInstance={kaizenI18nInstance}>
           <FeatureFlagsProvider>
-            <div className="bg-surface-page text-onsurface-default min-h-screen">
+            <>
               <DevTools
                 i18nInstance={kaizenI18nInstance}
                 onLogoutCallback={
@@ -86,7 +86,7 @@ export const AppWrapper: React.FC<AppWrapperProps> = ({
                 }
               />
               <RoutesWrapper {...routesWrapperProps}>{children}</RoutesWrapper>
-            </div>
+            </>
           </FeatureFlagsProvider>
         </KaizenI18nProvider>
       </ThemeProvider>

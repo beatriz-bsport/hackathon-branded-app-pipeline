@@ -4,9 +4,11 @@ import { ControlledForm, useFormController } from "@bsport/form";
 import { Modal } from "@bsport/kaizen-primitive-core";
 import { dataAccessLayer } from "@bsport/sm-backbone";
 
+import { PackFormAdvanced } from "#src/components/PackForm/PackFormAdvanced";
 import { PackFormContent } from "#src/components/PackForm/PackFormContent";
 import { PackFormIdentity } from "#src/components/PackForm/PackFormIdentity";
 import { PackFormPricing } from "#src/components/PackForm/PackFormPricing";
+import { PackFormVisibility } from "#src/components/PackForm/PackFormVisibility";
 import {
   DEFAULT_FORM_DATA,
   type PackFormSchema,
@@ -97,6 +99,8 @@ export const PackCreateModal: React.FC<PackCreateModalProps> = ({
           <PackFormIdentity fieldIdPrefix={formId} />
           <PackFormContent fieldIdPrefix={formId} />
           <PackFormPricing fieldIdPrefix={formId} methods={methods} />
+          <PackFormVisibility fieldIdPrefix={formId} methods={methods} />
+          <PackFormAdvanced fieldIdPrefix={formId} />
         </div>
       </ControlledForm>
     </Modal>

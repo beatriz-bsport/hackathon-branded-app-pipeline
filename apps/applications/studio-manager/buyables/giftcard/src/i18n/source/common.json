@@ -1,7 +1,7 @@
 {
   "pages": {
     "list": "Gift Cards",
-    "archivedList": "Archived Gift Cards"
+    "archivedList": "Gift Cards archive"
   },
   "listPage": {
     "header": {
@@ -12,12 +12,12 @@
     },
     "empty": {
       "title": "No Gift Cards yet",
-      "subtitle": "Create Gift Cards and let your members gift it to their loved ones"
+      "subtitle": "Create Gift Cards for members to share with friends and family"
     },
     "archiveModal": {
       "title": "Archive Gift Card?",
       "description": {
-        "lineOne": "Members won't see '{{ name }}' anymore and current or previous purchases won't be affected.",
+        "lineOne": "'{{ name }}' won't be visible to members any more but current or previous purchases won't be affected.",
         "lineTwo": "You can restore this Gift Card at any time from your archive."
       },
       "buttons": {
@@ -28,7 +28,7 @@
     "duplicateModal": {
       "title": "Duplicate Gift Card?",
       "description": {
-        "action": "You can edit '{{ name }}' after."
+        "action": "You can edit '{{ name }}' once duplicated."
       },
       "buttons": {
         "cancel": "Back",
@@ -50,11 +50,11 @@
       "undoAction": "Action undone"
     },
     "errorMessages": {
-      "restoreGiftcard": "Failed to restore Gift Card",
-      "archiveGiftcard": "Failed to archive Gift Card",
-      "duplicateGiftcard": "Failed to duplicate Gift Card",
-      "undoAction": "Failed to undo action",
-      "deleteGiftcardImage": "Failed to delete Gift Card image"
+      "restoreGiftcard": "Unable to restore Gift Card, please try again",
+      "archiveGiftcard": "Unable to archive Gift Card, please try again",
+      "duplicateGiftcard": "Unable to duplicate Gift Card, please try again",
+      "undoAction": "Unable to undo action, please try again",
+      "deleteGiftcardImage": "Unable to delete Gift Card image, please try again"
     },
     "actions": {
       "undo": "Undo",
@@ -70,7 +70,7 @@
     },
     "values": {
       "unavailable": "Hidden",
-      "shared": "Shared",
+      "shared": "Visible",
       "unlimited": "Unlimited",
       "expireInXDays": "{{ expiration }} days"
     },
@@ -78,7 +78,7 @@
       "archive": "Archive Gift Card",
       "duplicate": "Duplicate Gift Card",
       "restore": "Restore Gift Card",
-      "shared": "Item created by master account",
+      "shared": "Item created from Admin Account",
       "unavailable": "Not visible in the Member Area"
     },
     "loading": "Loading Gift Cards"
@@ -86,7 +86,7 @@
   "imageUploadModal": {
     "title": "Image library",
     "uploadButton": "Upload image",
-    "description": "Add custom images so your members can personalize their Gift Cards for their customers. Members will be able to choose from your image library when creating Gift Cards.",
+    "description": "Add custom images to your library so your members can personalize their Gift Cards. ",
     "selectImage": "Select an image to preview it in the Gift Card design",
     "emptyList": "No custom images yet"
   }

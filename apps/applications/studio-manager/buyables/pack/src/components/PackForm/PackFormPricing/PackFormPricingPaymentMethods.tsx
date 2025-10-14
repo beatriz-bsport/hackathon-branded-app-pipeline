@@ -1,7 +1,9 @@
 import React from "react";
 
-import { FormField } from "@bsport/form";
+import { FormField, useFormController } from "@bsport/form";
 import {
+  Alert,
+  Body,
   CheckboxGroup,
   type CheckboxGroupProps,
 } from "@bsport/kaizen-primitive-core";
@@ -9,16 +11,32 @@ import type { PackFormData } from "@bsport/store-buyables-pack";
 
 import { useTranslation } from "#src/utils/i18n";
 
-import { PAYMENT_METHOD_IDENTIFIERS } from "../schema";
+import { PAYMENT_METHOD_IDENTIFIERS, type PackFormSchema } from "../schema";
 
 type PackFormPricingPaymentMethodsProps = {
   fieldIdPrefix: string;
+  methods: ReturnType<typeof useFormController<PackFormSchema>>;
 };
 
 export const PackFormPricingPaymentMethods: React.FC<
   PackFormPricingPaymentMethodsProps
-> = ({ fieldIdPrefix }) => {
+> = ({ fieldIdPrefix, methods }) => {
   const { t } = useTranslation("details");
+
+  const isHidden = methods.watch("manager_only");
+
+  if (isHidden) {
+    return (
+      <>
+        <Body size="md" htmlVariant="p">
+          {t("formFields.pricingSection.paymentMethod.label")}
+        </Body>
+        <Alert status="info">
+          {t("formFields.pricingSection.paymentMethod.alertVisibilityHidden")}
+        </Alert>
+      </>
+    );
+  }
 
   return (
     <FormField<

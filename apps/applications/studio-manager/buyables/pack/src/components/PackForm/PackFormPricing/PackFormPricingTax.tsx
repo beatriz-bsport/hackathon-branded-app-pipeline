@@ -35,7 +35,7 @@ export const PackFormPricingTax: React.FC<PackFormPricingTaxProps> = ({
         name="use_payment_combo_tax_on_items"
         mapProps={({ defaultProps, field }) => {
           // eslint-disable-next-line @typescript-eslint/no-unused-vars
-          const { statusText, ...otherDefaultProps } = defaultProps;
+          const { statusText: _, ...otherDefaultProps } = defaultProps;
           return {
             ...otherDefaultProps,
             // Required to avoid conflict with typing of Toggle.value

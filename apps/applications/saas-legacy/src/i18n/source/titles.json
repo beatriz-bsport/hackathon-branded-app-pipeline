@@ -59,7 +59,7 @@
     "marketingDashboard": "Marketing",
     "reportingDashboard": "Reporting",
     "dashboard": "Dashboard",
-    "insights": "Insights"
+    "insights": "Monitor subscriptions performance"
   },
   "subscription": {
     "subscriptionCreate": "Subscription",

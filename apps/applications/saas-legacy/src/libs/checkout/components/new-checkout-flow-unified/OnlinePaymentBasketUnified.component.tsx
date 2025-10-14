@@ -12,13 +12,15 @@ import { makeStyles } from '@material-ui/core';
 import { PaymentMethodCardSelector } from '#src/libs/payment/components/PaymentMethodCardSelector.component';
 import InstalmentPaymentSelector from '#src/libs/instalment-payment-configuration/components/InstalmentPaymentSelector.component';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import PaymentStripeRevamped from '#src/libs/payment/payment-module-revamped/payment-backend-stripe/PaymentStripeRevamped.component';
+// TODO: FEATURE FLAG WEBVIEW_BASKET_AP_GP - Duplicated file to remove when the feature is validated
+import PaymentStripeRevamped from '#src/libs/payment/payment-module-revamped/payment-backend-stripe/APGP/PaymentStripeRevamped.component';
 import StripeExpressCheckoutElement from './StripeExpressCheckoutElement.component';
 import CheckoutBillingGroupSelector from '#src/libs/marketplace/components/@Basket/CheckoutBillingGroupSelector.component';
 import PaymentPaypal from '#src/libs/payment/components/paypal/PaymentPaypal.component';
 import AcceptTermsAndConditions from '#src/libs/payment/components/AcceptTermsAndConditions.component';
 
 import { useBasketPaymentContext } from '#src/libs/checkout/components/new-checkout-flow-unified/BasketPaymentContext';
+import { useBasketPaymentActions } from '#src/libs/payment/payment-module-revamped/basket-payment/hooks/useBasketPaymentActions';
 import { useBasketPaymentStatusTracker } from '#src/libs/payment/payment-module-revamped/basket-payment/hooks/useBasketPaymentStatusTracker';
 import { useBasketPaymentLocalStateUnified } from './hooks/useBasketPaymentLocalStateUnified';
 import { useBasket } from '#src/libs/payment/payment-module-revamped/basket-payment/hooks/useBasket';
@@ -134,13 +136,19 @@ export const OnlinePaymentBasketUnified: React.FC<Props> = forwardRef(
       setIsOnlinePaymentDisabled,
       isOnlinePaymentDisabled,
       setSelectedPaymentEngine,
-    } = useBasketPaymentLocalStateUnified();
+    } = useBasketPaymentLocalStateUnified(basketId);
 
-    const { isPaymentProcessing, isSettingUpPayment } =
+    const { isPaymentProcessing, isSettingUpPayment, hasPaymentSucceeded } =
       useBasketPaymentStatusTracker(basketId, memberId);
 
     const { handleFetchMemberPaymentMethodList } =
       useMemberPaymentMethodListProvider({ memberId });
+
+    const { handleAssignInstalmentPayment } = useBasketPaymentActions(
+      basketId,
+      companyId,
+      memberId,
+    );
 
     const {
       termsAccepted,
@@ -151,6 +159,7 @@ export const OnlinePaymentBasketUnified: React.FC<Props> = forwardRef(
       setIsEstablishmentBillingGroupSelected,
       selectedEstablishmentBillingGroup,
       setSelectedEstablishmentBillingGroup,
+      isExpressPayLoading,
     } = useBasketPaymentContext();
 
     const [paymentMethodSelected, setPaymentMethodSelected] = useState(
@@ -418,9 +427,8 @@ export const OnlinePaymentBasketUnified: React.FC<Props> = forwardRef(
                 }
                 forceHideConfirmPaymentButton={hideConfirmPaymentButton}
                 fromApp={fromApp}
-                instalmentPaymentSelectedId={
-                  instalmentPaymentSelectedId ?? undefined
-                }
+                handleAssignInstalmentPayment={handleAssignInstalmentPayment}
+                instalmentPaymentSelectedId={instalmentPaymentSelectedId}
                 invalidatePendingBookingsIfNecessary={
                   invalidatePendingBookingsIfNecessary
                 }
@@ -430,7 +438,11 @@ export const OnlinePaymentBasketUnified: React.FC<Props> = forwardRef(
                 loading={
                   isPaymentProcessing ||
                   isSettingUpPayment ||
-                  isCompanyThemeLoading
+                  isCompanyThemeLoading ||
+                  isBasketLoading ||
+                  isCurrentBasketProcessing ||
+                  hasPaymentSucceeded ||
+                  isExpressPayLoading
                 }
                 memberId={memberId}
                 onCancel={onCancelPaymentBeforeConfirming}

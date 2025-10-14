@@ -1,8 +1,8 @@
 import { createStore } from "zustand/vanilla";
 
-import { bindStore } from "@bsport/store-base";
+import { type PaginatedState, bindStore } from "@bsport/store-base";
 
-import type { AppointmentPass } from "#src/types";
+import type { AppointmentPass, AppointmentPassCategory } from "#src/types";
 
 export interface AppointmentPassState {
   byId: { [key: number]: AppointmentPass };
@@ -16,6 +16,7 @@ export interface AppointmentPassState {
     count: number;
     page: number;
   };
+  categories: PaginatedState<AppointmentPassCategory>;
 }
 
 export const appointmentPassStore = createStore<AppointmentPassState>()(() => ({
@@ -29,6 +30,12 @@ export const appointmentPassStore = createStore<AppointmentPassState>()(() => ({
     ids: [],
     count: 0,
     page: 1,
+  },
+  categories: {
+    byId: {},
+    count: 0,
+    page: 1,
+    ids: [],
   },
 }));
 

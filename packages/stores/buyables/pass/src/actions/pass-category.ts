@@ -3,11 +3,8 @@ import { Result } from "typescript-result";
 import { createErrorWithContext } from "@bsport/store-base";
 import type { Action, PaginatedResponse } from "@bsport/store-base";
 
-import {
-  type FetchPassCategoriesParams,
-  fetchPassCategoriesAPI,
-} from "#src/api/pass-category";
-import type { PassCategory } from "#src/types";
+import { fetchPassCategoriesAPI } from "#src/api/pass-category";
+import type { FetchPassCategoriesParams, PassCategory } from "#src/types";
 
 import { setPassCategories } from "./store";
 

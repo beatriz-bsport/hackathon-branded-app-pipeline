@@ -7,6 +7,7 @@ import {
 } from "@bsport/store-cdp-marketing-notification";
 import { useAsync } from "@bsport/use-async";
 
+import { useFetchMarketingNotificationDependencies } from "#src/hooks/api/use-fetch-marketing-notification-dependencies";
 import { fetch } from "#src/utils/fetch";
 import { extractAllNotificationIds } from "#src/utils/notificationMetadata";
 import {
@@ -21,12 +22,8 @@ import {
   SUBSCRIPTION_NOTIFICATION_FIRST_BILLING,
 } from "#src/utils/types";
 
-import { useFetchMarketingNotificationDependencies } from "./use-fetch-marketing-notification-dependencies";
-
-const _fetchMarketingNotificationList = fetchMarketingNotificationsAction.bind(
-  null,
-  fetch,
-);
+const fetchMarketingNotificationListBinded =
+  fetchMarketingNotificationsAction.bind(null, fetch);
 
 /**
  * Hook for fetching marketing notifications.
@@ -38,18 +35,12 @@ const _fetchMarketingNotificationList = fetchMarketingNotificationsAction.bind(
  * @returns Object containing loading state, fetch function, and marketing notifications from the store
  */
 export function useFetchMarketingNotificationList() {
-  const {
-    fetchMarketingNotificationDependencies,
-    groupActivityMapById,
-    appointmentMapById,
-    establishmentMapById,
-    appointmentPassMapById,
-    subscriptionMapById,
-  } = useFetchMarketingNotificationDependencies();
+  const { fetchMarketingNotificationDependencies } =
+    useFetchMarketingNotificationDependencies();
   const [{ isLoading }, fetchMarketingNotificationList] = useAsync<
-    typeof _fetchMarketingNotificationList
+    typeof fetchMarketingNotificationListBinded
   >({
-    asyncFn: _fetchMarketingNotificationList,
+    asyncFn: fetchMarketingNotificationListBinded,
     onSuccess: ({ value }) => {
       // Extract all relevant IDs using type-safe utility functions
       const {
@@ -57,7 +48,9 @@ export function useFetchMarketingNotificationList() {
         metaActivityIds,
         privateServiceIds,
         privatePassIds,
+        paymentPackIds,
         subscriptionIds,
+        emailTemplateIds,
       } = extractAllNotificationIds(value);
 
       // Fetch dependencies with extracted IDs
@@ -67,6 +60,8 @@ export function useFetchMarketingNotificationList() {
         privateServiceIds: Array.from(privateServiceIds),
         privatePassIds: Array.from(privatePassIds),
         subscriptionIds: Array.from(subscriptionIds),
+        paymentPackIds: Array.from(paymentPackIds),
+        emailTemplateIds: Array.from(emailTemplateIds),
       });
     },
   });
@@ -94,11 +89,6 @@ export function useFetchMarketingNotificationList() {
   return {
     isLoading,
     marketingNotificationsList,
-    groupActivityMapById,
-    appointmentMapById,
-    establishmentMapById,
-    appointmentPassMapById,
-    subscriptionMapById,
     fetchMarketingNotificationList,
   };
 }

@@ -338,7 +338,10 @@ const OneClickBookingModule: React.FC<Props> = ({
     return <Redirect to={offerBookerUrl} />;
   }
 
-  if (bookableStatusState?.value?.shouldRedirect) {
+  if (
+    bookableStatusState?.value?.shouldRedirect ||
+    !!offerState?.value?.offer?.group
+  ) {
     return <Redirect to={loginToBookerUrl} />;
   }
 

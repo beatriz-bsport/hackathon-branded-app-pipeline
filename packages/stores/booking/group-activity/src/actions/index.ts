@@ -7,6 +7,7 @@ import {
   checkCanArchiveGroupActivityAPI,
   duplicateGroupActivityAPI,
   fetchGroupActivitiesAPI,
+  fetchGroupActivitiesAndWorkshopsAPI,
   searchGroupActivitiesAPI,
   unarchiveGroupActivityAPI,
 } from "#src/api";
@@ -41,6 +42,31 @@ export const fetchGroupActivitiesAction: Action<
       return data;
     },
     (error) => new Error("Failed to fetch group activities", { cause: error }),
+  );
+};
+
+export const fetchGroupActivitiesAndWorkshopsAction: Action<
+  Omit<FetchGroupActivitiesParams, "isWorkshop">,
+  PaginatedResponse<MetaActivity>
+> = async (fetch, params) => {
+  const [uri, init] = fetchGroupActivitiesAndWorkshopsAPI(params);
+
+  return Result.try(
+    async () => {
+      const { data } = await fetch(uri, init);
+
+      setGroupActivities({
+        groupActivities: data.results,
+        count: data.count,
+        page: data.page,
+      });
+
+      return data;
+    },
+    (error) =>
+      new Error("Failed to fetch group activities and workshops", {
+        cause: error,
+      }),
   );
 };
 

@@ -1,0 +1,105 @@
+{
+  "pages": {
+    "active": "Formulários",
+    "archived": "Formulários Arquivados",
+    "loading": "Carregando..."
+  },
+  "activeList": {
+    "actions": {
+      "addForm": "Criar formulário"
+    },
+    "addFormModal": {
+      "title": "Criar novo formulário",
+      "description": "Dê um nome ao seu novo formulário para começar!",
+      "input": {
+        "label": "Nome do formulário",
+        "placeholder": "Adicione um nome ao formulário..."
+      },
+      "actions": {
+        "cancel": "Cancelar",
+        "create": "Criar"
+      },
+      "errors": {
+        "nameTooLong": "O nome não é válido, o comprimento máximo é de {{ maximalLength }} caracteres.",
+        "nameTooShort": "O nome não é válido, o comprimento mínimo é de {{ minimalLength }} caractere.",
+        "nameRequired": "O nome não é válido, você não pode inserir um nome vazio."
+      }
+    },
+    "archiveModal": {
+      "actions": {
+        "archive": "Arquivar",
+        "cancel": "Voltar"
+      },
+      "title": "Arquivar formulário?",
+      "description": "Membros não verão mais <b>{{ name }}</b>, mas você pode acessá-lo no seu arquivo."
+    },
+    "duplicateModal": {
+      "actions": {
+        "duplicate": "Duplicar",
+        "cancel": "Voltar"
+      },
+      "title": "Duplicar formulário?",
+      "description": {
+        "verification": "Duplicar <b>{{ name }}</b>?",
+        "effect": "Você pode editar <b>{{ name }}</b> depois."
+      }
+    }
+  },
+  "toasts": {
+    "messageCreated": {
+      "success": "Formulário criado",
+      "error": "Falha ao criar seu formulário"
+    },
+    "messageArchived": {
+      "success": "Formulário arquivado",
+      "error": "Falha ao arquivar seu formulário"
+    },
+    "messageRestored": {
+      "success": "Formulário restaurado",
+      "error": "Falha ao restaurar seu formulário"
+    },
+    "messageDuplicated": {
+      "success": "Formulário duplicado",
+      "error": "Falha ao duplicar seu formulário"
+    },
+    "messageUndone": {
+      "success": "Ação desfeita",
+      "error": "Falha ao desfazer ação"
+    },
+    "actions": {
+      "undo": "Desfazer",
+      "open": "Aberto"
+    }
+  },
+  "table": {
+    "headers": {
+      "name": "Nome",
+      "questions": "Perguntas"
+    },
+    "loading": {
+      "activeList": "Carregando formulários...",
+      "archivedList": "Carregando formulários arquivados..."
+    },
+    "empty": {
+      "activeList": {
+        "title": "Nenhum formulário por exibir",
+        "subtitle": "Crie seu primeiro formulário para obter feedback dos seus Membros."
+      },
+      "archivedList": {
+        "title": "Nenhum formulário arquivado",
+        "subtitle": "Qualquer formulário movido para cá pode ser restaurado"
+      },
+      "search": {
+        "title": "Nenhum formulário encontrado",
+        "subtitle": "Tente com palavras-chave diferentes"
+      }
+    },
+    "tooltips": {
+      "archive": "Formulário Arquivado",
+      "restore": "Restaurar Formulário",
+      "duplicate": "Duplicar Formulário",
+      "search": "Procure um formulário",
+      "switchToArchived": "Formulários arquivados"
+    }
+  }
+}

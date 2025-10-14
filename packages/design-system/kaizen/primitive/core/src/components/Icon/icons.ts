@@ -74,6 +74,9 @@ const icons = {
   "chevron-up": React.lazy(
     async () => await import("./assets/chevron-up.svg?react"),
   ),
+  "circle-solid": React.lazy(
+    async () => await import("./assets/circle-solid.svg?react"),
+  ),
   circle: React.lazy(async () => await import("./assets/circle.svg?react")),
   "clock-stopwatch": React.lazy(
     async () => await import("./assets/clock-stopwatch.svg?react"),
@@ -129,6 +132,9 @@ const icons = {
   "image-x": React.lazy(async () => await import("./assets/image-x.svg?react")),
   "info-circle": React.lazy(
     async () => await import("./assets/info-circle.svg?react"),
+  ),
+  "layout-left": React.lazy(
+    async () => await import("./assets/layout-left.svg?react"),
   ),
   "link-external-02": React.lazy(
     async () => await import("./assets/link-external-02.svg?react"),

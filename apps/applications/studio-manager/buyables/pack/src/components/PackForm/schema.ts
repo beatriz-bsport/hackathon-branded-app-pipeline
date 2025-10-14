@@ -39,12 +39,17 @@ export const DEFAULT_FORM_DATA: Omit<PackFormData, "company"> = {
 } satisfies Omit<PackFormData, "company">;
 
 /** @todo Remove the Partial when all fields have been added */
-export type PackFormSchema = z.ZodType<Partial<PackFormData>>;
+export type PackFormSchema = z.ZodType<PackFormData>;
 
 export const usePackSchema = () => {
   const { t } = useTranslation("details");
 
   return z.object({
+    // Default values
+    available: z.boolean(),
+    company: z.number().nonnegative(),
+
+    // Identity section
     name: z
       .string()
       .min(TEXTFIELD_MIN_LENGTH, t("formFields.requiredField"))
@@ -56,9 +61,13 @@ export const usePackSchema = () => {
         FIELD_DESCRIPTION_MAX_LENGTH,
         t("formFields.description.errorMaxLength"),
       ),
+
+    // Content section
     payment_pack_ids: z.array(z.number()),
     private_pass_ids: z.array(z.number()),
     shop_item_ids: z.array(z.number()),
+
+    // Pricing section
     price: z.coerce.number().min(FIELD_PRICE_MINIMUM),
     tax: z.coerce
       .number()
@@ -68,12 +77,22 @@ export const usePackSchema = () => {
       .number()
       .min(FIELD_MAX_NB_PURCHASE_MINIMUM)
       .nullable(),
-    use_payment_combo_tax_on_items: z.boolean().default(false),
+    use_payment_combo_tax_on_items: z.boolean(),
     available_payment_method_identifiers: z
       .array(z.coerce.number())
       .min(
         1,
         t("formFields.pricingSection.paymentMethod.errorMissingPaymentMethod"),
       ),
+
+    // Visibility section
+    expiration_date: z.string().nullable(),
+    highlighted_as_recommended: z.boolean(),
+    new_member_only: z.boolean(),
+    is_usable_by_staff: z.boolean(),
+    manager_only: z.boolean(),
+
+    // Tags section
+    tags_on_consumer_item_creation: z.array(z.number()),
   }) satisfies PackFormSchema;
 };

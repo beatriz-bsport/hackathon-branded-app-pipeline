@@ -29,7 +29,7 @@ export const PackAddItemsSelection: React.FC<PackAddItemsSelectionProps> = ({
 
   if (preselectedItems.length === 0) return null;
   const selectedItems = preselectedItems
-    .map((id) => parseInt(id) && itemsById.get(parseInt(id)))
+    .map((id) => parseInt(id) && itemsById[parseInt(id)])
     .filter((item) => !!item);
 
   const hideItemsMessage = t("addItemsModal.selectedItems.hide");

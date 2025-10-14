@@ -28,7 +28,10 @@ import PaymentPackFormAccessControl from './PaymentPackFormAccessControl.compone
 import FeatureListProvider from '#src/libs/company/hocs/feature-list-provider.hoc.js';
 import { FeatureList } from '#src/libs/company/types';
 import { hasUpsell } from '#src/libs/platform-billing/utils';
-import { UPSELL_IDENTIFIER_KISI_INTEGRATION } from '#src/libs/platform-billing/upsell-identifiers';
+import {
+  UPSELL_IDENTIFIER_ACCESS_MONITORING,
+  UPSELL_IDENTIFIER_KISI_INTEGRATION,
+} from '#src/libs/platform-billing/upsell-identifiers';
 
 type Props = {
   initial: PaymentPack<PrivatePass>;
@@ -85,16 +88,22 @@ const PaymentPackFormDetailsAndRestrictionsStep = ({
       </div>
       <Divider className={classes.divider} />
       <FeatureListProvider featureList={['paymentPackAccessControl']}>
-        {(featureList: FeatureList) =>
-          hasUpsell(featureList, UPSELL_IDENTIFIER_KISI_INTEGRATION) &&
-          !initial?.template_instance && (
-            <>
-              <div className={classes.formContainer}>
-                <PaymentPackFormAccessControl />
-              </div>
-            </>
-          )
-        }
+        {(featureList: FeatureList) => {
+          const hasAccessControlUpsell =
+            hasUpsell(featureList, UPSELL_IDENTIFIER_KISI_INTEGRATION) ||
+            hasUpsell(featureList, UPSELL_IDENTIFIER_ACCESS_MONITORING);
+
+          return (
+            !initial?.template_instance &&
+            hasAccessControlUpsell && (
+              <>
+                <div className={classes.formContainer}>
+                  <PaymentPackFormAccessControl />
+                </div>
+              </>
+            )
+          );
+        }}
       </FeatureListProvider>
       <Divider className={classes.divider} />
       <div className={classes.formContainer}>

@@ -105,9 +105,13 @@ export const useFormatMarketingNotificationTableRow = ({
   };
 
   const formatMarketingNotificationForTable = ({
+    selectedMarketingNotificationId,
     marketingNotificationList,
+    onRowClick,
   }: {
+    selectedMarketingNotificationId: number | null;
     marketingNotificationList: MarketingNotification[];
+    onRowClick: (notificationId: number) => void;
   }): MarketingNotificationTableRowData[] =>
     marketingNotificationList.map((notification) => {
       const notificationType = getMarketingNotificationType({
@@ -135,6 +139,8 @@ export const useFormatMarketingNotificationTableRow = ({
           notification.push_notification_content !== "",
         isNotificationActive: notification.active,
         isAbleToUpdateNotification: canToggleNotification,
+        onRowClick: () => onRowClick?.(notification.id),
+        isActive: notification.id === selectedMarketingNotificationId,
       };
     });
 

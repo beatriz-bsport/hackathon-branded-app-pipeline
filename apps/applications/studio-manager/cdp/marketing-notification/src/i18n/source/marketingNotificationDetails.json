@@ -1,0 +1,10 @@
+{
+  "drawer": {
+    "overview": "Overview",
+    "segmentedControl": {
+      "performance": "Performance",
+      "trigger": "Trigger",
+      "content": "Content"
+    }
+  }
+}

@@ -1,18 +1,18 @@
 import {
   Body,
-  Button,
   Chip,
   type GenericTableColumn,
-  Popover,
-  ToggleButton,
   Tooltip,
 } from "@bsport/kaizen-primitive-core";
 
-import type { TFunction } from "#src/utils/i18n";
+import { NotificationToggle } from "#src/components/Common/NotificationToggle";
+import { type TFunction } from "#src/utils/i18n";
 import type {
   MarketingNotificationTableRowData,
   MarketingNotificationTableRowParams,
 } from "#src/utils/types";
+
+import { NotificationActionsMenu } from "../Common/NotificationActionsMenu";
 
 type TableColumn = GenericTableColumn<MarketingNotificationTableRowData>;
 
@@ -23,7 +23,6 @@ export const getTableColumns = ({
   openPreview,
   editNotification,
   deleteNotification,
-  toggleMarketingNotification,
   t,
   permissions,
 }: MarketingNotificationTableRowParams & {
@@ -41,7 +40,6 @@ export const getTableColumns = ({
           size="lg"
           type="weak"
           color="default"
-          // @ts-expect-error: dynamic keys badly supported
           label={t(`table.notificationType.${row.notificationType}`)}
         />
       );
@@ -136,36 +134,15 @@ export const getTableColumns = ({
     type: "custom",
     align: "center",
     render: (row) => {
-      if (row.isEmailNotificationBroken) {
-        return (
-          <Body size="md" weight="strong" htmlVariant="p" color="critical">
-            {t("table.notificationState.broken")}
-          </Body>
-        );
-      }
       return (
-        <ToggleButton
-          id={`marketing-notification-checkbox-action-${row.id}`}
-          size="md"
-          checked={row.isNotificationActive}
+        <NotificationToggle
+          isActive={row.isNotificationActive}
           disabled={
             !permissions.isUserMarketingNotificationManager ||
             !row.isAbleToUpdateNotification
           }
-          onChange={({ event, checked }) => {
-            event.stopPropagation();
-            toggleMarketingNotification({
-              notificationId: row.id,
-              checked,
-            });
-          }}
-          checkedConfig={{
-            label: t("table.notificationState.enabled"),
-            icon: "check",
-          }}
-          uncheckedConfig={{
-            label: t("table.notificationState.disabled"),
-          }}
+          notificationId={row.id}
+          isEmailNotificationBroken={row.isEmailNotificationBroken}
         />
       );
     },
@@ -179,57 +156,12 @@ export const getTableColumns = ({
     align: "end",
     render: (row) => {
       return (
-        <Popover>
-          <Popover.Anchor>
-            {({ setIsPopoverOpened }) => (
-              <Button
-                color="default"
-                intent="flat"
-                size="md"
-                iconLeft="dots-vertical"
-                onClick={() => {
-                  setIsPopoverOpened((opened) => !opened);
-                }}
-              />
-            )}
-          </Popover.Anchor>
-          <Popover.Content placement="bottom-right">
-            {() => (
-              <div className="flex flex-col gap-sm">
-                <Button
-                  intent="flat"
-                  color="default"
-                  size="md"
-                  iconLeft="eye"
-                  label={t("table.actions.preview")}
-                  onClick={() => {
-                    openPreview(row.id);
-                  }}
-                />
-                <Button
-                  intent="flat"
-                  color="default"
-                  size="md"
-                  iconLeft="edit-02"
-                  label={t("table.actions.edit")}
-                  onClick={() => {
-                    editNotification(row.id);
-                  }}
-                />
-                <Button
-                  intent="flat"
-                  color="default"
-                  size="md"
-                  iconLeft="trash-01"
-                  label={t("table.actions.delete")}
-                  onClick={() => {
-                    deleteNotification(row.id);
-                  }}
-                />
-              </div>
-            )}
-          </Popover.Content>
-        </Popover>
+        <NotificationActionsMenu
+          onPreview={openPreview}
+          onEdit={editNotification}
+          onDelete={deleteNotification}
+          notificationId={row.id}
+        />
       );
     },
   };

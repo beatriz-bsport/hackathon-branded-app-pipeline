@@ -278,6 +278,13 @@ const SegmentedControl: React.FC<SegmentedControlProps> = ({
   // Determine current active value
   const activeValue = value !== undefined ? value : selectedValue;
 
+  const removeUrlQueryParam = useCallback(() => {
+    if (typeof window === "undefined" || !urlQueryParamName) return;
+    const url = new URL(window.location.href);
+    url.searchParams.delete(urlQueryParamName);
+    window.history.replaceState(null, "", url.toString());
+  }, [urlQueryParamName]);
+
   // Update URL query parameter when selection changes
   const updateUrlQuery = useCallback(
     (newValue: string) => {
@@ -434,6 +441,12 @@ const SegmentedControl: React.FC<SegmentedControlProps> = ({
       );
     }
   }, [options]);
+
+  useEffect(() => {
+    return () => {
+      removeUrlQueryParam();
+    };
+  }, []);
 
   return (
     <div

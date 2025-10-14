@@ -14,6 +14,9 @@ export const PRODUCT_TYPES = {
   privatePass: 'private-pass',
   giftCard: 'gift-card',
   shopItem: 'shop-item',
+  coupon: 'coupon',
+  credit: 'credit',
+  fee: 'fee',
 } as const;
 
 export const MEMBER_PROFILE_PAGE_TYPES = {

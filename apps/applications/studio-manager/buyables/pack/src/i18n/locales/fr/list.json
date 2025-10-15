@@ -1,1 +1,49 @@
-{}
+{
+  "title": "Packs",
+  "actions": {
+    "addAPack": "Ajouter un pack"
+  },
+  "table": {
+    "loading": "Chargement des packs...",
+    "emptyList": {
+      "title": "Aucun pack ajouté pour le moment",
+      "subtitle": "Ajoutez un Pack pour combiner vos produits et Passes en une seule offre. "
+    },
+    "headers": {
+      "name": "Nom",
+      "visibility": "Visibilité",
+      "numberOfProducts": "articles",
+      "price": "Prix"
+    },
+    "tooltips": {
+      "unavailableForUsers": "Ce pack ne sera pas affiché dans l'espace membre",
+      "invisibleForStaff": "Ce pack ne sera pas affiché aux membres du personnel",
+      "availableForALimitedTime": "Ce pack ne sera affiché que pour une durée limitée",
+      "archive": "Supprimer le Pack"
+    }
+  },
+  "deleteModal": {
+    "title": "Supprimer le Pack ?",
+    "description": {
+      "effect": "Si vous supprimez {{ name }}, les achats actuels ou précédents ne seront pas affectés.",
+      "canNotBeUndone": "Cette action est irréversible."
+    },
+    "actions": {
+      "cancel": "Fermer",
+      "delete": "Supprimer"
+    }
+  },
+  "toasts": {
+    "messageDelete": {
+      "success": "Pack supprimé",
+      "error": "Échec de la suppression du pack"
+    },
+    "messageUndo": {
+      "success": "Action annulée",
+      "error": "Échec de l'annulation de l'action"
+    },
+    "actions": {
+      "undo": "Annuler"
+    }
+  }
+}

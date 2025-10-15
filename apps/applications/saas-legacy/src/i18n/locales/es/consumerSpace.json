@@ -408,7 +408,7 @@
             "cancel": "Mantener suscripción",
             "explainNoExpirationDate": "Está a punto de cancelar esta suscripción. Los beneficios de su suscripción seguirán siendo válidos hasta el final del siguiente ciclo de facturación.\n¿Está seguro de que desea continuar?",
             "explainStarted": "Está a punto de cancelar esta suscripción. Los beneficios de su suscripción seguirán siendo válidos hasta {{- expiration_date }}. (excluida).\n¿Está seguro de que desea continuar?",
-            "explainNotStarted": "Está a punto de cancelar una suscripción que no ha comenzado. \nSe te seguirá cobrando el primer ciclo de facturación, y tus ventajas seguirán siendo válidas hasta {{- expiration_date }} (excluida).\n¿Está seguro de que desea continuar?"
+            "explainNotStarted": "Esta suscripción aún no ha comenzado. Si la cancelas ahora, no se te cobrará nada."
           },
           "explain": {
             "year": "Esta suscripción tiene un periodo de compromiso de {{ commitment_period_value }} año, para cancelaciones o preguntas, ponte en contacto directamente con el estudio.",

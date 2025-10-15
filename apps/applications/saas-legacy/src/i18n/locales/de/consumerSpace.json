@@ -407,7 +407,7 @@
             "cancel": "Abonnement behalten",
             "explainNoExpirationDate": "Du kündigst dieses Abonnement. Die Vorteile deines Abonnements bleiben bis zum Ende des nächsten Zahlungszyklus gültig.\nSicher, dass du fortfahren möchtest?",
             "explainStarted": "Du kündigst dieses Abonnement. Die Vorteile deines Abonnements bleiben bis {{- expiration_date }} (ausgenommen) gültig.\nSicher, dass du fortfahren möchtest?",
-            "explainNotStarted": "Dieses Abonnement hat noch nicht begonnen. Wenn Sie es jetzt kündigen, fallen keine Kosten an."
+            "explainNotStarted": "Dieses Abonnement hat noch nicht begonnen. Wenn du es jetzt kündigst, fallen keine Kosten an."
           },
           "explain": {
             "year": "Dieses Abonnement hat eine Mindestlaufzeit von {{ commitment_period_value }} Jahr. Bei Kündigungen oder Fragen wende dich bitte direkt an das Studio.",

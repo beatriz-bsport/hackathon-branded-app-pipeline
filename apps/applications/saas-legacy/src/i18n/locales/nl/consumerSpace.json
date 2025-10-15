@@ -118,7 +118,7 @@
         "availability": {
           "expiresToday": "Laatste dag",
           "expiresIn": "{{ daysRemaining }} dag(en) over",
-          "expiresIn_plural": "{{ daysRemaining }} dag(en) over",
+          "expiresIn_plural": "{{ daysRemaining }} dagen resterend",
           "future": "Startdatum: {{ startDate }}",
           "expired": "Verlopen op: {{ expirationDate }}",
           "active": "Verloopdatum: {{ expirationDate }}"
@@ -271,7 +271,8 @@
           "creditsToRefund_plural": "{{count}} credits worden teruggestort",
           "cancelledFromManager": "Geannuleerd door de studio",
           "cancelledFromMember": "Geannuleerd door mijzelf",
-          "title": "Geannuleerd"
+          "title": "Geannuleerd",
+          "cancelledFromOffer": "Geannuleerd door de studio"
         },
         "drawerTitle": "Activiteit"
       },

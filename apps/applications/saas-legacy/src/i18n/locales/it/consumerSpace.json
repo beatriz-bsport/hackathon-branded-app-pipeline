@@ -421,7 +421,7 @@
             "cancel": "Mantenere l'abbonamento ricorrente",
             "explainNoExpirationDate": "Si sta per annullare l'abbonamento. I vantaggi dell'abbonamento rimarranno validi fino alla fine del prossimo ciclo di fatturazione.\nSei sicuro di voler continuare?",
             "explainStarted": "Si sta per annullare l'abbonamento. I vantaggi dell'abbonamento rimarranno validi fino a {{- expiration_date }} (esclusa).\nSei sicuro di voler continuare?",
-            "explainNotStarted": "Si sta per annullare un abbonamento ricorrente non ancora iniziato. \nVerrà comunque addebitato il primo ciclo di fatturazione e i vantaggi rimarranno validi fino a {{- expiration_date }} (esclusa).\nSei sicuro di voler continuare?"
+            "explainNotStarted": "Questo abbonamento non è ancora iniziato. Se lo annulli ora, non ti verrà addebitato alcun costo."
           },
           "explain": {
             "year": "Questo abbonamento ha un periodo di vincolo di {{ commitment_period_value }} anno; per cancellazioni o domande, contattare direttamente lo studio.",

@@ -10,6 +10,7 @@ import { useTranslation } from "#src/utils/i18n";
 
 import { NotificationActionsMenu } from "../Common/NotificationActionsMenu";
 import { NotificationToggle } from "../Common/NotificationToggle";
+import { MarketingNotificationPerformanceDetails } from "./Performance/MarketingNotificationPerformanceDetails";
 
 const SEGMENTED_CONTROL_QUERY_PARAM = "notificationDetailView";
 
@@ -107,7 +108,7 @@ export const MarketingNotificationDetailsContent: React.FC<
         onChangeValue={handleChangeSegmentedControl}
       />
       {selectedOption === "performance" ? (
-        <div className="mt-md">Performance content</div>
+        <MarketingNotificationPerformanceDetails notification={notification} />
       ) : selectedOption === "trigger" ? (
         <div className="mt-md">Trigger content</div>
       ) : (

@@ -16,12 +16,25 @@ export const setCampaignSummary = ({
   communicationStore.setState((state) => {
     const stringifiedKey = String(objectType);
     const stringifiedObjectId = String(objectId);
+
+    // For now we are calculating email opening rate here
+    // as we don't have a backend way to do it
+    // We might want to move this logic to the backend later and there is a ticket to monitor this :
+    // https://linear.app/bsport/issue/CDP-1013/communication-update-campaign-summary-endpoint-to-compute-some-stats
+    const emailOpeningRate =
+      campaignSummary.total_recipients > 0
+        ? (campaignSummary.total_read / campaignSummary.total_recipients) * 100
+        : 0;
+
     return {
       campaignSummaries: {
         ...state.campaignSummaries,
         [stringifiedKey]: {
           ...state.campaignSummaries[stringifiedKey],
-          [stringifiedObjectId]: campaignSummary,
+          [stringifiedObjectId]: {
+            ...campaignSummary,
+            emailOpeningRate,
+          },
         },
       },
     };

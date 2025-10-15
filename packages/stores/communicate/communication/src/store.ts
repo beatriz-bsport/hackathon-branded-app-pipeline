@@ -2,12 +2,15 @@ import { createStore } from "zustand/vanilla";
 
 import { PaginatedState, bindStore } from "@bsport/store-base";
 
-import type { CampaignSummary, CommunicationSent } from "#src/types/models";
+import type {
+  CampaignSummaryState,
+  CommunicationSent,
+} from "#src/types/models";
 
 export interface CommunicationState {
   campaignSummaries: {
     [objectType: string]: {
-      [objectId: string]: CampaignSummary;
+      [objectId: string]: CampaignSummaryState;
     };
   };
   communications: {

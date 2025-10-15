@@ -37,6 +37,7 @@
     "@bsport/store-buyables-subscription": "workspace:*",
     "@bsport/store-cdp-email-template": "workspace:*",
     "@bsport/store-cdp-marketing-notification": "workspace:*",
+    "@bsport/store-communicate-communication": "workspace:*",
     "@bsport/store-core-data-establishment": "workspace:*",
     "@bsport/use-async": "workspace:*",
     "autoprefixer": "^10.4.20",

@@ -185,6 +185,10 @@ export type CampaignSummary = {
   total_click: number;
 };
 
+export type CampaignSummaryState = CampaignSummary & {
+  emailOpeningRate: number;
+};
+
 // Main response types
 export type CommunicationSentListResponse =
   PaginatedResponse<CommunicationSent>;

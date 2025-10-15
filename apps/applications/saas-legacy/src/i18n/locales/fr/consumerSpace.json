@@ -407,7 +407,7 @@
             "confirmationTitle": "Vous vous êtes désinscrit avec succès",
             "cancel": "Garder l'abonnement",
             "explainNoExpirationDate": "Vous êtes sur le point de résilier votre abonnement. Les avantages de votre abonnement resteront valables jusqu'à la fin du prochain cycle de facturation.\nEtes-vous sûr de vouloir continuer ?",
-            "explainNotStarted": "Vous êtes sur le point d'annuler un abonnement qui n'a pas encore commencé. \nÊtes-vous sûr de vouloir continuer ?",
+            "explainNotStarted": "Cet abonnement n'a pas encore commencé. Si vous l'annulez maintenant, vous ne serez pas facturé.",
             "explainStarted": "Vous êtes sur le point d'annuler cet abonnement. Les avantages de votre abonnement resteront valables jusqu'au {{- expiration_date }} (exclu).\nÊtes-vous sûr de vouloir continuer ?"
           },
           "explain": {

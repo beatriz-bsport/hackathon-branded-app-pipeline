@@ -1,4 +1,15 @@
 {
+  "pages": {
+    "insights": {
+      "title": "Insights"
+    },
+    "recurringRevenue": {
+      "title": "Monitor Subscriptions Performance"
+    },
+    "trialAnalysis": {
+      "title": "Track trial offer performance"
+    }
+  },
   "sections": {
     "memberInsights": "Member Insights",
     "financialHealth": "Financial Health"

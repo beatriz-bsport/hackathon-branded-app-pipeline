@@ -11,18 +11,38 @@ import { INSIGHTS_ROUTES, INSIGHTS_TRANSLATION_NAMESPACES } from './constants';
 
 type Props = {};
 
+// Wrap each component with its specific title
+const InsightsIndexWithTitle = compose(
+  withTranslation(INSIGHTS_TRANSLATION_NAMESPACES),
+  withTitle(({ t }) => t('insights:pages.insights.title')),
+)(InsightsIndex);
+
+const TrialAnalysisWithTitle = compose(
+  withTranslation(INSIGHTS_TRANSLATION_NAMESPACES),
+  withTitle(({ t }) => t('insights:pages.trialAnalysis.title')),
+)(TrialAnalysis);
+
+const SubscriptionEventsWithTitle = compose(
+  withTranslation(INSIGHTS_TRANSLATION_NAMESPACES),
+  withTitle(({ t }) => t('insights:pages.recurringRevenue.title')),
+)(SubscriptionEvents);
+
 const InsightsRouter: React.FC<Props> = () => {
   return (
     <Switch>
-      <Route exact component={InsightsIndex} path={INSIGHTS_ROUTES.INDEX} />
       <Route
         exact
-        component={TrialAnalysis}
+        component={InsightsIndexWithTitle}
+        path={INSIGHTS_ROUTES.INDEX}
+      />
+      <Route
+        exact
+        component={TrialAnalysisWithTitle}
         path={INSIGHTS_ROUTES.TRIAL_ANALYSIS}
       />
       <Route
         exact
-        component={SubscriptionEvents}
+        component={SubscriptionEventsWithTitle}
         path={INSIGHTS_ROUTES.RECURRING_REVENUE}
       />
       <Redirect to={INSIGHTS_ROUTES.INDEX} />
@@ -30,7 +50,4 @@ const InsightsRouter: React.FC<Props> = () => {
   );
 };
 
-export default compose(
-  withTranslation(INSIGHTS_TRANSLATION_NAMESPACES),
-  withTitle(({ t }) => t('titles:dashboard.insights')),
-)(InsightsRouter);
+export default InsightsRouter;

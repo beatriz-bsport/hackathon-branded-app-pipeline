@@ -58,6 +58,7 @@ type Props = {
   upsellPackage: UpsellPackage;
   onKnowMore?: (upsellIdentifier: number) => void;
   handleSubscribe?: (upsellPackage: UpsellPackage) => void;
+  isUsingBundledPricing?: boolean;
 };
 
 const useStyles = makeStyles((theme) => ({
@@ -150,9 +151,16 @@ const createUpsellPackageComponent = memoize(
     (props: Props) => {
       const classes = useStyles();
       const { t } = useTranslation('platformBilling');
-      const { upsellPackage, onKnowMore, handleSubscribe } = props;
+      const {
+        upsellPackage,
+        onKnowMore,
+        handleSubscribe,
+        isUsingBundledPricing,
+      } = props;
       const canSubscribe =
-        !!handleSubscribe && upsellPackage.subscribe_from_backoffice;
+        !!handleSubscribe &&
+        upsellPackage.subscribe_from_backoffice &&
+        !isUsingBundledPricing;
       const UpsellCustomIcon =
         MAP_UPSELL_IDENTIFIER_TO_ICON_COMPONENT[upsellIdentifier];
 
@@ -180,7 +188,7 @@ const createUpsellPackageComponent = memoize(
           </div>
           <div className={classes.bottomContainer}>
             <Typography variant="h6">
-              {getUpsellPriceString(upsellPackage, t)}
+              {!isUsingBundledPricing && getUpsellPriceString(upsellPackage, t)}
             </Typography>
             <div className={classes.buttonContainer}>
               {onKnowMore && !canSubscribe && (

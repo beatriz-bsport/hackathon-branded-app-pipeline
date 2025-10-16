@@ -23,6 +23,7 @@ const UpsellPackageList = React.memo(
     upsellPackageList: UpsellPackage[];
     onKnowMore?: (upsellIdentifier: number) => void;
     handleSubscribe?: (upsellPackage: UpsellPackage) => void;
+    is_using_bundled_pricing?: boolean;
   }) => {
     const classes = useStyles();
     return (
@@ -44,6 +45,7 @@ const UpsellPackageList = React.memo(
               >
                 <UpsellPackageComponent
                   handleSubscribe={props.handleSubscribe}
+                  isUsingBundledPricing={props.is_using_bundled_pricing}
                   onKnowMore={props.onKnowMore}
                   upsellPackage={up}
                 />
@@ -105,7 +107,12 @@ export const CompanyPlatformBillinGroupDetail: React.FC<Props> = ({
             {t('upsellPackage.myAddonTitle')}
           </Typography>
           <Divider className={classes.sectionDivider} />
-          <UpsellPackageList upsellPackageList={subscribedUpsellPackages} />
+          <UpsellPackageList
+            is_using_bundled_pricing={
+              platformSubscription.is_using_bundled_pricing
+            }
+            upsellPackageList={subscribedUpsellPackages}
+          />
         </React.Fragment>
       )}
       {nonSubscribedUpsellPackages?.length > 0 && (
@@ -116,30 +123,39 @@ export const CompanyPlatformBillinGroupDetail: React.FC<Props> = ({
           <Divider className={classes.sectionDivider} />
           <UpsellPackageList
             handleSubscribe={handleSubscribe}
+            is_using_bundled_pricing={
+              platformSubscription.is_using_bundled_pricing
+            }
             onKnowMore={onKnowMore}
             upsellPackageList={nonSubscribedUpsellPackagesToShow}
           />
         </React.Fragment>
       )}
-      <Typography className={classes.upsellSection} variant="h5">
-        {t('platformBillingGroup.myGroup')}
-      </Typography>
-      <Divider className={classes.sectionDivider} />
-      <PlatformBillingPlanGroupCard
-        couponCts={platformSubscription.coupon_cts}
-        currentPlatformBillingPlanId={
-          platformSubscription &&
-          platformSubscription.current_platform_billing_plan &&
-          platformSubscription.current_platform_billing_plan.id
-        }
-        currentPlatformBillingStageId={
-          platformSubscription &&
-          platformSubscription.current_platform_billing_stage &&
-          platformSubscription.current_platform_billing_stage.id
-        }
-        defaultCurrencyDisplay={platformSubscription?.default_currency_display}
-        platformBillingGroup={platformBillingGroup}
-      />
+      {!platformSubscription.is_using_bundled_pricing && (
+        <>
+          <Typography className={classes.upsellSection} variant="h5">
+            {t('platformBillingGroup.myGroup')}
+          </Typography>
+          <Divider className={classes.sectionDivider} />
+          <PlatformBillingPlanGroupCard
+            couponCts={platformSubscription.coupon_cts}
+            currentPlatformBillingPlanId={
+              platformSubscription &&
+              platformSubscription.current_platform_billing_plan &&
+              platformSubscription.current_platform_billing_plan.id
+            }
+            currentPlatformBillingStageId={
+              platformSubscription &&
+              platformSubscription.current_platform_billing_stage &&
+              platformSubscription.current_platform_billing_stage.id
+            }
+            defaultCurrencyDisplay={
+              platformSubscription?.default_currency_display
+            }
+            platformBillingGroup={platformBillingGroup}
+          />
+        </>
+      )}
     </>
   );
 };

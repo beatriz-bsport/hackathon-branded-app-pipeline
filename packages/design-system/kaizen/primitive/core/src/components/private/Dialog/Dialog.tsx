@@ -18,9 +18,9 @@ const defaultClasses = [
 
 const variants = {
   size: {
-    sm: "w-component-modal-min-sm",
-    md: "w-component-modal-min-md",
-    lg: "w-component-modal-min-lg",
+    sm: "w-[90%] sm:w-component-modal-min-sm",
+    md: "w-[90%] md:w-component-modal-min-md",
+    lg: "w-[90%] lg:w-component-modal-min-lg",
   },
   isVisible: {
     true: "opacity-100 pointer-events-auto scale-100",

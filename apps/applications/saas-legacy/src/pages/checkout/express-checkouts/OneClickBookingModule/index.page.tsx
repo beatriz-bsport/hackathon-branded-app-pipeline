@@ -69,6 +69,8 @@ import {
   LightSignupUpdateResult,
 } from '#src/pages/checkout/express-checkouts/hooks/useLightSignUpOperations';
 
+import { AlreadyMemberSection } from '#src/pages/checkout/express-checkouts/components/AlreadyMemberSection';
+
 import './index.css';
 
 enum RedirectStatus {
@@ -395,15 +397,7 @@ const OneClickBookingModule: React.FC<Props> = ({
           {t('booking:oneClickBooking.checkoutTitle')}
         </Typography>
         <div className="bs-oneclick-booking__already-member--mobile">
-          {t('booking:oneClickBooking.alreadyMember')}
-          <ButtonV2
-            color="primary"
-            href={loginToBookerUrl}
-            size="small"
-            variant="text"
-          >
-            {t('booking:oneClickBooking.goToLogin')}
-          </ButtonV2>
+          <AlreadyMemberSection loginUrl={loginToBookerUrl} />
         </div>
         <OneClickCheckoutSkeleton isLoading={offerState.loading} />
         {offer && (
@@ -465,9 +459,9 @@ const OneClickBookingModule: React.FC<Props> = ({
             <div className="bs-oneclick-booking__divider" />
 
             <div className="bs-oneclick-booking__light-signup-form">
-              <Typography variant={TypographyVariant.TITLE_SM}>
-                {t('booking:oneClickBooking.yourDetails')}
-              </Typography>
+              <div className="bs-oneclick-booking__already-member--desktop">
+                <AlreadyMemberSection loginUrl={loginToBookerUrl} />
+              </div>
               <LightSignupForm />
               {shouldDisplayOnlinePayment && (
                 <OnlinePaymentBasket
@@ -487,17 +481,7 @@ const OneClickBookingModule: React.FC<Props> = ({
                   }}
                 />
               )}
-              <div className="bs-oneclick-booking__already-member--desktop">
-                {t('booking:oneClickBooking.alreadyMember')}
-                <ButtonV2
-                  color="primary"
-                  href={loginToBookerUrl}
-                  size="small"
-                  variant="text"
-                >
-                  {t('booking:oneClickBooking.goToLogin')}
-                </ButtonV2>
-              </div>
+
               {isSelectedPaymentPackFree ? (
                 <div className="bs-oneclick-booking__book-button-container">
                   <ButtonV2

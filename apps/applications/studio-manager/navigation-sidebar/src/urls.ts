@@ -1,10 +1,10 @@
-import type { Urls } from "./types";
+import type { LegacyUrls, Urls } from "./types";
 
 const SETTINGS_URL = "/settings";
 
 export const HELP_CENTER = "https://intercom.help/bsport-helpcenter/";
 
-export const LEGACY_URLS: Omit<Urls, "payout"> = {
+export const LEGACY_URLS: LegacyUrls = {
   accessMonitoring: "/access-monitoring",
   accessMonitoring_monitor: "/access-monitoring/monitor",
   accessMonitoring_perform: "/access-monitoring/perform",
@@ -83,6 +83,7 @@ export const REVAMP_URLS_DEVELOPMENT = {
   customForm: "/custom-form",
   emailTemplate: "/email-template",
   giftcard: "/giftcard",
+  homepage: "/",
   invoice: "/invoice",
   member: "/member",
   order: "/order",
@@ -100,6 +101,7 @@ export const REVAMP_URLS_PRODUCTION = {
   customForm: "/custom-form",
   emailTemplate: "/email-template",
   giftcard: "/giftcard",
+  homepage: REVAMP_URLS_DEVELOPMENT.homepage,
   invoice: "/invoice",
   member: "/member",
   order: "/order",
@@ -110,28 +112,32 @@ export const REVAMP_URLS_PRODUCTION = {
   teacher: "/teacher",
 } satisfies Partial<typeof REVAMP_URLS_DEVELOPMENT>; // Ensure that it's a subset of REVAMP_URLS_DEVELOPMENT
 
+const REVAMP_ONLY_URLS = [REVAMP_URLS_DEVELOPMENT.homepage, "payout"];
+
+/**
+ * When disabling the revamp, we redirect the user to the corresponding legacy page.
+ * Thus, we need a map of revamp urls to the corresponding legacy urls, if they exist.
+ */
 export const MAP_REVAMP_DEVELOPMENT_TO_LEGACY_URLS = new Map();
 for (const [key, url] of Object.entries(REVAMP_URLS_DEVELOPMENT)) {
-  if (key === "payout") {
-    // Future-proofing: payout will be added to REVAMP_URLS later
-    MAP_REVAMP_DEVELOPMENT_TO_LEGACY_URLS.set(url, "/"); // Default location
+  if (REVAMP_ONLY_URLS.includes(key)) {
+    MAP_REVAMP_DEVELOPMENT_TO_LEGACY_URLS.set(url, "/");
   } else {
     MAP_REVAMP_DEVELOPMENT_TO_LEGACY_URLS.set(
       url,
-      LEGACY_URLS[key as keyof Omit<Urls, "payout">],
+      LEGACY_URLS[key as keyof LegacyUrls],
     );
   }
 }
 
 export const MAP_REVAMP_PRODUCTION_TO_LEGACY_URLS = new Map();
 for (const [key, url] of Object.entries(REVAMP_URLS_PRODUCTION)) {
-  if (key === "payout") {
-    // Future-proofing: payout will be added to REVAMP_URLS later
-    MAP_REVAMP_PRODUCTION_TO_LEGACY_URLS.set(url, "/"); // Default location
+  if (REVAMP_ONLY_URLS.includes(key)) {
+    MAP_REVAMP_PRODUCTION_TO_LEGACY_URLS.set(url, "/");
   } else {
     MAP_REVAMP_PRODUCTION_TO_LEGACY_URLS.set(
       url,
-      LEGACY_URLS[key as keyof Omit<Urls, "payout">],
+      LEGACY_URLS[key as keyof LegacyUrls],
     );
   }
 }

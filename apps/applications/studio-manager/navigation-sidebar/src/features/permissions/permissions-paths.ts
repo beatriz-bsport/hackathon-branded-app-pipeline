@@ -26,6 +26,7 @@ export const PERMISSIONS_PATHS: Record<
   expense: ["navigationMenu.payments.expenses"],
   feedback: [],
   giftcard: ["navigationMenu.products.giftcards"],
+  homepage: [],
   inbox: ["navigationMenu.inbox"],
   insights: ["navigationMenu.reporting"],
   invoice: ["navigationMenu.payments.billings"],

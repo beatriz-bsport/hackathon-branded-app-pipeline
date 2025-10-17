@@ -16,6 +16,7 @@ declare module "sm-navigation-sidebar/urls" {
     customForm: string;
     emailTemplate: string;
     giftcard: string;
+    homepage: string;
     invoice: string;
     member: string;
     order: string;
@@ -105,8 +106,13 @@ declare module "sm-marketing-notification/App" {
   export default App;
 }
 
-// ----- Analytics -----
+// ----- Business Insights -----
 declare module "sm-insights/App" {
+  const App: BaseApp["App"];
+  export default App;
+}
+
+declare module "sm-homepage/App" {
   const App: BaseApp["App"];
   export default App;
 }

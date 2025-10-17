@@ -2,6 +2,7 @@ export type Urls = {
   // Group 1
   inbox: string;
   // Group 2
+  homepage: string;
   calendar: string;
   schedule: string;
   accessMonitoring: string; // Root path for the Access Monitoring Application
@@ -90,3 +91,5 @@ export type Urls = {
   playlist: string; // Tab on video app
   substitution: string;
 };
+
+export type LegacyUrls = Omit<Urls, "payout" | "homepage">;

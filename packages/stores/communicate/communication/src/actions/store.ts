@@ -1,8 +1,12 @@
-import { buildById } from "@bsport/store-base";
+import { PaginatedState, buildById } from "@bsport/store-base";
 
 import { CommunicationObjectKey } from "#src/constants";
 import { communicationStore } from "#src/store";
-import type { CampaignSummary, CommunicationSent } from "#src/types";
+import type {
+  CampaignSummary,
+  CommunicationRecipient,
+  CommunicationSent,
+} from "#src/types";
 
 export const setCampaignSummary = ({
   campaignSummary,
@@ -89,6 +93,61 @@ export const setCommunicationSentList = ({
             count,
             ids: newData.map((item) => item.id),
           },
+        },
+      },
+    };
+  });
+};
+
+/**
+ * Fills the Zustand store with recipients data,
+ * grouping recipients by their member id and assigning this record to each communication_sent id.
+ * This endpoint is pretty special because we can provide a list of recipients for multiple communication_sent ids at once.
+ * We don't group by objectType and objectId here because recipients are always fetched by communication_sent ids.
+ *
+ * @param recipients - The array of recipients
+ */
+export const setRecipientsList = ({
+  recipients,
+  page,
+  count,
+}: {
+  recipients: CommunicationRecipient[];
+  page: number;
+  count: number;
+}) => {
+  communicationStore.setState((state) => {
+    // Group recipients by communication_sent id
+    const recipientsByCommunicationSent = recipients.reduce<
+      Record<number, PaginatedState<CommunicationRecipient>>
+    >((acc, recipient) => {
+      const commSentId = recipient.communication_sent;
+      const recipientId = recipient.id;
+
+      const existing = acc[commSentId] ?? {
+        byId: {},
+        ids: [],
+        page,
+        count,
+      };
+
+      acc[commSentId] = {
+        ...existing,
+        byId: {
+          ...existing.byId,
+          [recipientId]: recipient,
+        },
+        ids: [...existing.ids, recipientId],
+      };
+      return acc;
+    }, {});
+
+    return {
+      communications: {
+        ...state.communications,
+        recipients: {
+          ...state.communications.recipients,
+          ...recipientsByCommunicationSent,
         },
       },
     };

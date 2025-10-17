@@ -1,5 +1,6 @@
-// #region Communication Sent
 import { CommunicationObjectKey } from "#src/constants";
+
+// #region Campaign Summary
 
 export type FetchCommunicationSentCampaignSummaryPayload = {
   /** Type of campaign to fetch the summary of statistics from. */
@@ -8,6 +9,10 @@ export type FetchCommunicationSentCampaignSummaryPayload = {
   /** Id of the campaign to fetch the data from. */
   value: number;
 };
+
+// #endregion
+
+// #region Communication Sent
 
 /**
  * Parameters for fetching sent communications.
@@ -75,6 +80,35 @@ export type FetchCommunicationSentParams = {
 
   /** If true, exclude member information from the results. */
   without_member_info?: boolean;
+};
+
+// #endregion
+
+// #region Communication Recipients
+
+export type FetchCommunicationRecipientFilters = {
+  // Direct field filters
+  member?: number;
+  has_been_read?: boolean;
+  is_answer?: boolean;
+
+  // Custom filters
+  campaign?: string; // campaign_id (UUID string)
+  smartlist?: number; // smartlist_id from metadata
+  communication_sent?: number; // communication_sent ID
+  communication_sent_group_id?: number;
+
+  // Array filters
+  id__in?: number[]; // Multiple recipient IDs
+  member_id__in?: number[]; // Multiple member IDs
+  campaign__in?: string; // Comma-separated campaign IDs
+
+  // Special filters
+  offer_with_selected_categories?: string; // Offer ID for category filtering
+
+  // Pagination
+  page?: number;
+  page_size?: number;
 };
 
 // #endregion

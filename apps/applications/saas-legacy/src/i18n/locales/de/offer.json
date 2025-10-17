@@ -41,7 +41,9 @@
       "textBooking": "Eine oder mehrere Buchungen erfüllen nicht die Bedingungen von Spivi.",
       "textOffer": "Der Kurs erfüllte nicht die Spivi-Bedingungen, daher konnte er nicht synchronisiert werden.",
       "title": "Probleme bei der Verbindung mit Spivi"
-    }
+    },
+    "duplicateOffer": "Duplizieren",
+    "duplicateModalTitle": "Sitzung duplizieren"
   },
   "disabled": "Storniert",
   "extraordinaryEstablishment": "(provisorische Einrichtung)",
@@ -208,7 +210,8 @@
         "effectif": "Der Wert ist höher als die maximale Anzahl von Plätzen",
         "roomBlueprintSpivi": "Für mit Spivi synchronisierte Kurse muss ein Raumplan ausgewählt werden",
         "durationMinuteSpivi": "Die Dauer eines Kurses auf Spivi sollte zwischen 20 Minuten und 4 Stunden betragen",
-        "wellhubProductMissing": "Dieses Feld ist erforderlich, Sie müssen ein Produkt auswählen."
+        "wellhubProductMissing": "Dieses Feld ist erforderlich, Sie müssen ein Produkt auswählen.",
+        "dateIntervalStartBeforeLast": "Das Startdatum darf nicht vor dem letzten Wiederholungstermin liegen"
       },
       "dateTooFar": "Es ist nicht möglich, Kurse zu erstellen, die in mehr als 3 Jahren stattfinden",
       "dateFormat": "Ungültiges Datumsformat",
@@ -377,6 +380,15 @@
       "alertContent": "Änderungen an diesem Kurs führen zur Stornierung der aktuellen Buchungen bei USC. Bestätigen Sie, um fortzufahren.",
       "content": "Sie verlieren alle aktuellen Buchungsdaten, wenn Sie das Datum, die Uhrzeit oder die Einrichtung dieses Kurses ändern. Wenn Sie diese Angaben ändern, wird eine neuer Kurs erstellt und der aktuelle Kurs bei USC storniert.",
       "title": "Achtung: Dadurch werden die laufenden Buchungen auf USC storniert."
+    },
+    "recurrence": {
+      "regularOffer": "Die neue Sitzung verwendet dieselben Einstellungen wie die duplizierte.",
+      "duplicateModalTitle": "Sitzung duplizieren",
+      "duplicate": "Duplizieren",
+      "duplicating": "Duplizieren",
+      "linkNewOffersLabel": "Verknüpfen Sie neue Sitzungen mit diesem Duplikat, damit Sie sie gemeinsam bearbeiten können und Mitglieder diese Sitzungen auf einmal buchen können",
+      "hybridOffer": "Durch das Duplizieren dieser Hybrid-Sitzung werden sowohl Online- als auch Vor-Ort-Sitzungen erstellt. Diese verwenden dieselben Einstellungen wie die duplizierte Sitzung.",
+      "recurringOffer": "Die letzte Sitzung findet am {{- date }} um {{- time }} statt. Die duplizierte Sitzung hat dieselben Einstellungen und beginnt nach diesem Datum.  "
     }
   },
   "broadcast": "Videokonferenzen",

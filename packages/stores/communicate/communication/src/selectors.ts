@@ -63,3 +63,22 @@ export const selectCommunicationSentList = ({
   }
   return paginatedState.byId;
 };
+
+/**
+ * Selector to get recipients for a specific communication sent by its ID
+ */
+export const selectRecipientsByCommunicationSentId = ({
+  state,
+  communicationSentId,
+}: {
+  state: CommunicationState;
+  communicationSentId: number;
+}) => {
+  const { recipients } = state;
+
+  const recipientsByCommunicationId = recipients?.[communicationSentId];
+  if (!recipientsByCommunicationId) {
+    return undefined;
+  }
+  return recipientsByCommunicationId;
+};

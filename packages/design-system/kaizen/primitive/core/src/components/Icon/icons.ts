@@ -126,6 +126,7 @@ const icons = {
   "help-circle": React.lazy(
     async () => await import("./assets/help-circle.svg?react"),
   ),
+  "home-03": React.lazy(async () => await import("./assets/home-03.svg?react")),
   "image-03": React.lazy(
     async () => await import("./assets/image-03.svg?react"),
   ),

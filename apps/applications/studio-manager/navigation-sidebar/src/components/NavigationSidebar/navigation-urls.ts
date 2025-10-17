@@ -1,7 +1,7 @@
 import { getEnv } from "@bsport/envs";
 
 import { PERMISSIONS_PATHS } from "#src/features/permissions/permissions-paths";
-import type { Urls } from "#src/types";
+import type { LegacyUrls, Urls } from "#src/types";
 import {
   LEGACY_URLS,
   REVAMP_URLS_DEVELOPMENT,
@@ -38,8 +38,7 @@ function generateEntries({
         revamped,
         urlKey: entry[0] as keyof Urls,
         // Need in all cases the legacyUrl to check restricted paths
-        legacyUrl:
-          LEGACY_URLS[entry[0] as keyof Omit<Urls, "payout">] ?? undefined,
+        legacyUrl: LEGACY_URLS[entry[0] as keyof LegacyUrls] ?? undefined,
         requiredPermissions: PERMISSIONS_PATHS[entry[0] as keyof Urls],
       },
     ];

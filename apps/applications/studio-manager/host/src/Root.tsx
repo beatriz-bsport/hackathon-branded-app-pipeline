@@ -16,6 +16,7 @@ import { AppWrapper } from "@bsport/sm-backbone";
 import { dataAccessLayer } from "@bsport/sm-backbone";
 
 import { analyticsClient, debugActive } from "#src/utils/analytics";
+import { NavFlags, useNavFlag } from "#src/utils/featureFlags";
 
 // ----- Booking -----
 const GroupActivities = lazy(() => import("sm-group-activity/App"));
@@ -45,8 +46,9 @@ const MarketingNotification = lazy(
   () => import("sm-marketing-notification/App"),
 );
 
-// ----- Analytics -----
+// ----- Business Insights -----
 const Insights = lazy(() => import("sm-insights/App"));
+const Homepage = lazy(() => import("sm-homepage/App"));
 
 // ----- Common -----
 const NavigationSidebar = lazy(
@@ -54,20 +56,89 @@ const NavigationSidebar = lazy(
 );
 
 const basename = __HOST__.__BASENAME__;
+const env = getEnv();
 
 const loginUrl = import.meta.env.PROD
   ? `${window.location.origin}/login`
   : undefined;
 
+type RouteConfig = {
+  url?: string;
+  element: ReactNode;
+  hidden?: boolean;
+};
+
 export function Root() {
-  const env = getEnv();
+  useEffect(() => {
+    // Init analytics tool only once
+    analyticsClient.configure({
+      env: env === "production" ? "production" : "dev",
+      debug: debugActive, // Mixpanel debug mode
+      track_pageview: "url-with-path-and-query-string",
+    });
+  }, []);
+
+  useEffect(() => {
+    setBsportRequestFrom(BSPORT_REQUEST_FROM_HEADER_VALUES.backoffice);
+  }, []);
+
+  return (
+    <AppWrapper
+      basename={basename}
+      NavigationApp={NavigationSidebar}
+      navigationProps={{
+        onLogoutCallback: () => {
+          analyticsClient.resetIdentity();
+          analyticsClient.overloadResetSuperProperties(); // Analytics tool level super properties
+        },
+      }}
+      loginUrl={loginUrl}
+    >
+      <AuthenticatedRoutes />
+    </AppWrapper>
+  );
+}
+
+const AuthenticatedRoutes = () => {
+  const user = dataAccessLayer.useUserAccess();
+  const companyTheme = dataAccessLayer.useCompanyTheme();
+
+  useEffect(() => {
+    if (user?.id) {
+      const { id, role: company_role, franchise_role, username } = user;
+      analyticsClient.identify({
+        userId: String(id),
+        traits: {
+          username,
+          franchise_role,
+          company_role,
+          company_id: companyTheme?.company,
+          franchise_id: companyTheme?.franchisor,
+        },
+      });
+    }
+  }, [user, companyTheme]);
+
+  useEffect(() => {
+    if (companyTheme) {
+      analyticsClient.overloadAddSuperProperties({
+        company_id: companyTheme?.company,
+        company_name: companyTheme?.company_name,
+        franchise_id: companyTheme?.franchisor,
+        source_label: "web",
+        is_logged_in: true,
+      });
+    }
+  }, [companyTheme]);
 
   const urls =
     env === "staging" || env === "production"
       ? REVAMP_URLS_PRODUCTION
       : REVAMP_URLS_DEVELOPMENT;
 
-  const routes_configs: Array<{ url?: string; element: ReactNode }> = [
+  const isHomepageEnabled = useNavFlag(NavFlags.HOMEPAGE);
+
+  const routesConfigs: RouteConfig[] = [
     /* ----- Booking ----- */
     { url: urls.activity, element: <GroupActivities /> },
 
@@ -101,96 +172,37 @@ export function Root() {
       element: <MarketingNotification />,
     },
 
-    /* ----- Analytics ----- */
+    /* ----- Business Insights ----- */
     { url: urls.insights, element: <Insights /> },
+    {
+      url: urls.homepage,
+      element: <Homepage />,
+      hidden: !isHomepageEnabled,
+    },
   ];
-
-  useEffect(() => {
-    // Init analytics tool only once
-    analyticsClient.configure({
-      env: env === "production" ? "production" : "dev",
-      debug: debugActive, // Mixpanel debug mode
-      track_pageview: "url-with-path-and-query-string",
-    });
-  }, [env]);
-
-  useEffect(() => {
-    setBsportRequestFrom(BSPORT_REQUEST_FROM_HEADER_VALUES.backoffice);
-  }, []);
-
-  return (
-    <AppWrapper
-      basename={basename}
-      NavigationApp={NavigationSidebar}
-      navigationProps={{
-        onLogoutCallback: () => {
-          analyticsClient.resetIdentity();
-          analyticsClient.overloadResetSuperProperties(); // Analytics tool level super properties
-        },
-      }}
-      loginUrl={loginUrl}
-    >
-      <AuthenticatedRoutes routes={routes_configs} />
-    </AppWrapper>
-  );
-}
-
-const AuthenticatedRoutes = ({
-  routes,
-}: {
-  routes: Array<{ url?: string; element: ReactNode }>;
-}) => {
-  const user = dataAccessLayer.useUserAccess();
-  const companyTheme = dataAccessLayer.useCompanyTheme();
-
-  useEffect(() => {
-    if (user?.id) {
-      const { id, role: company_role, franchise_role, username } = user;
-      analyticsClient.identify({
-        userId: String(id),
-        traits: {
-          username,
-          franchise_role,
-          company_role,
-          company_id: companyTheme?.company,
-          franchise_id: companyTheme?.franchisor,
-        },
-      });
-    }
-  }, [user, companyTheme]);
-
-  useEffect(() => {
-    if (companyTheme) {
-      analyticsClient.overloadAddSuperProperties({
-        company_id: companyTheme?.company,
-        company_name: companyTheme?.company_name,
-        franchise_id: companyTheme?.franchisor,
-        source_label: "web",
-        is_logged_in: true,
-      });
-    }
-  }, [companyTheme]);
 
   return (
     <Routes>
-      <Route
-        path="/"
-        element={
-          <div className="flex flex-col justify-center h-screen items-center flex-1">
-            <Title
-              htmlVariant="h1"
-              color="positive"
-              weight="strong"
-              className="animate-bounce"
-            >
-              Welcome to our revamped backoffice !
-            </Title>
-          </div>
-        }
-      />
+      {!isHomepageEnabled && (
+        <Route
+          path="/"
+          element={
+            <div className="flex flex-col justify-center h-screen items-center flex-1">
+              <Title
+                htmlVariant="h1"
+                color="positive"
+                weight="strong"
+                className="animate-bounce"
+              >
+                Welcome to our revamped backoffice !
+              </Title>
+            </div>
+          }
+        />
+      )}
 
-      {routes
-        .filter((config) => !!config.url)
+      {routesConfigs
+        .filter((config) => !!config.url && !config.hidden)
         .map((config) => (
           <Route
             key={`route-${config.url}`}

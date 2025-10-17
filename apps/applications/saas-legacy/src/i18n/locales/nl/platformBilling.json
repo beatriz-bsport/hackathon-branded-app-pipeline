@@ -114,7 +114,7 @@
           "cancel": "Annuleer"
         },
         "update": "BTW-nummer bijwerken",
-        "hasAttributedVatIdLabel": "Ik heb geen btw-nummer. Als uw bedrijf is gevestigd in de EU (met uitzondering van Frankrijk), is de verleggingsregeling niet van toepassing en brengt bsport het Franse btw-tarief (20%) in rekening.",
+        "hasAttributedVatIdLabel": "Ik heb geen btw-nummer. Als uw bedrijf is gevestigd in de EU (met uitzondering van Frankrijk), is de verleggingsregeling niet van toepassing en brengt bsport het lokale btw-tarief in rekening.",
         "vatIdLabel": "BTW-identificatienummer",
         "content": "bsport heeft uw btw-nummer (ook wel btw-registratienummer of intracommunautair btw-nummer genoemd) nodig om het te kunnen vermelden op facturen die wij aan u uitreiken.",
         "invalidFormat": "Ongeldig formaat",

@@ -115,6 +115,8 @@ import {
   trackPurchaseItem,
 } from '#src/events/purchase/trackers';
 
+import { trackPaymentViewedInBasket } from '#src/events/booking/utils';
+
 import { getCheckoutItemType } from '#src/events/purchase/utils.ts';
 
 export class MemberAreaBasketUnifiedPage extends React.Component<MemberAreaBasketUnifiedPageProps> {
@@ -127,6 +129,7 @@ export class MemberAreaBasketUnifiedPage extends React.Component<MemberAreaBaske
     paymentEngine: PAYMENT_ENGINE_STRIPE,
     nextPaymentIntentStatusCheckSeconds: 1.5,
     hasTrackedCartViewedEvent: false,
+    hasTrackedPaymentViewed: false,
   };
 
   UNSAFE_componentWillMount() {
@@ -246,6 +249,21 @@ export class MemberAreaBasketUnifiedPage extends React.Component<MemberAreaBaske
         }),
       );
       this.setState({ hasTrackedCartViewedEvent: true });
+    }
+
+    if (
+      !!this.props.basket &&
+      !!this.props.basketOffers?.length &&
+      !this.props.loading &&
+      !this.state.hasTrackedPaymentViewed
+    ) {
+      trackPaymentViewedInBasket({
+        basket: this.props.basket,
+        basketOffers: this.props.basketOffers,
+        onTrackingSuccess: () => {
+          this.setState({ hasTrackedPaymentViewed: true });
+        },
+      });
     }
   }
 

@@ -120,6 +120,8 @@ import type { OfferBookingValidation } from '#src/components/analytics/types';
 import analyticsUtils from '#src/components/analytics/analytics';
 
 import './BoutiqueContractCheckout.css';
+import { analyticsClientB2C } from '#src/components/analytics/mixpanel';
+import { trackPaymentViewedEvent } from '#src/events/booking/trackers';
 
 type RouterProps = {
   companyId: number;
@@ -177,6 +179,7 @@ type State = {
   userRegistrationserverErrorOccured: boolean;
   isEstablishmentBillingGroupSelected: boolean;
   selectedEstablishmentBillingGroup?: EstablishmentBillingGroup;
+  hasTrackedPaymentViewedEvent: boolean;
 };
 
 export class BoutiqueContractCheckout extends React.Component<Props, State> {
@@ -197,6 +200,7 @@ export class BoutiqueContractCheckout extends React.Component<Props, State> {
       userRegistrationserverErrorOccured: false,
       selectedEstablishmentBillingGroup: null,
       isEstablishmentBillingGroupSelected: true,
+      hasTrackedPaymentViewedEvent: false,
     };
   }
 
@@ -295,6 +299,25 @@ export class BoutiqueContractCheckout extends React.Component<Props, State> {
           this.props.establishmentBillingGroupLoading,
       },
     );
+    if (
+      !!this.props.offer &&
+      !this.props.offerLoading &&
+      !this.props.metaActivityLoading &&
+      !this.state.hasTrackedPaymentViewedEvent
+    ) {
+      analyticsClientB2C.track(
+        trackPaymentViewedEvent({
+          activity_id: this.props.offer.activity,
+          activity_name: this.props.offer.meta_activity?.name || '',
+          offer_id: this.props.offer.id,
+          session_type: this.props.offer.meta_activity?.is_workshop
+            ? 'workshop'
+            : 'group-activity',
+          product_type: 'subscription',
+        }),
+      );
+      this.setState({ hasTrackedPaymentViewedEvent: true });
+    }
   }
 
   setSelectedSavedPaymentMethodId = (
@@ -784,6 +807,8 @@ const mapStateToProps = (
   ),
   establishmentBillingGroupLoading:
     state.establishment.establishmentBillingGroup.loading,
+  offerLoading: state.offer.retrieve.loading,
+  metaActivityLoading: state.metaActivity.loading,
 });
 
 const mapDispatchToProps = {

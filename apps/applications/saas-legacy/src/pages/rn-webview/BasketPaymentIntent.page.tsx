@@ -103,6 +103,7 @@ import {
   PAYMENT_PACK_CAN_NOT_BOOK_ALL_OFFERS,
 } from '#src/libs/checkout/constants';
 import Alert from '@material-ui/lab/Alert';
+import { trackPaymentViewedInBasket } from '#src/events/booking/utils';
 
 const OnlinePayment = asyncComponent(
   () => import('../../libs/payment/components/OnlinePayment.component'),
@@ -154,6 +155,7 @@ type State = {
   hideEstablishmentBillingGroupSelector: boolean;
   stripePromise: StripeInit | null;
   paymentEngine: number;
+  hasTrackedPaymentViewed: boolean;
 };
 
 export class BasketPaymentIntent extends React.Component<Props, State> {
@@ -171,6 +173,7 @@ export class BasketPaymentIntent extends React.Component<Props, State> {
       hideEstablishmentBillingGroupSelector: false,
       stripePromise: null,
       paymentEngine: PAYMENT_ENGINE_STRIPE,
+      hasTrackedPaymentViewed: false,
     };
   }
 
@@ -284,6 +287,20 @@ export class BasketPaymentIntent extends React.Component<Props, State> {
           basketOffers: this.props.basketOffers,
         },
       );
+    }
+    if (
+      !!this.props.basket &&
+      !!this.props.basketOffers?.length &&
+      !this.props.loading &&
+      !this.state.hasTrackedPaymentViewed
+    ) {
+      trackPaymentViewedInBasket({
+        basket: this.props.basket,
+        basketOffers: this.props.basketOffers,
+        onTrackingSuccess: () => {
+          this.setState({ hasTrackedPaymentViewed: true });
+        },
+      });
     }
   }
 

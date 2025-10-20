@@ -388,7 +388,7 @@
       "duplicating": "Duplicando",
       "linkNewOffersLabel": "Vincula nuevas sesiones a este duplicado para que puedas editarlas juntas y los miembros puedan reservarlas todas a la vez",
       "hybridOffer": "Al duplicar esta sesión híbrida, se crearán sesiones tanto en línea como presenciales. Estas utilizarán la misma configuración que la sesión duplicada.",
-      "recurringOffer": "La última sesión es el {{- date }} a las{{- time }}. La sesión duplicada compartirá la misma configuración y comenzará después de esta fecha.  "
+      "recurringOffer": "La última sesión es el {{- date }} a las {{- time }}. La sesión duplicada compartirá la misma configuración y comenzará después de esta fecha.  "
     }
   },
   "isFree": "Gratis",

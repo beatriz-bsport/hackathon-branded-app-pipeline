@@ -3,6 +3,7 @@ import { useNavigate } from "react-router";
 import { REVAMP_URLS_DEVELOPMENT } from "sm-navigation-sidebar/urls";
 
 import { Banner } from "#src/components/Banner";
+import { getAssetUrl } from "#src/utils/assets";
 import { NavFlags, useNavFlag } from "#src/utils/featureFlags";
 import { useTranslation } from "#src/utils/i18n";
 
@@ -24,7 +25,7 @@ export const InsightsBanner: FC = () => {
       ctaLabel={t("banner.insights.ctaLabel")}
       description={t("banner.insights.description")}
       identifier="insights"
-      image={`${__HOMEPAGE__.__APPLICATION_BASE_URL__}/assets/insights-banner.svg`}
+      image={getAssetUrl("insights-banner.svg")}
       onCTAClick={() => navigate(insightsUrl)}
       title={t("banner.insights.title")}
     />

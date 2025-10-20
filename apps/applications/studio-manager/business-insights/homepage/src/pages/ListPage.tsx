@@ -3,6 +3,7 @@ import type { FC } from "react";
 import { ListLayout } from "@bsport/kaizen-primitive-core";
 
 import { InsightsBanner } from "#src/components/BannerInstances/InsightsBanner";
+import { ExploreSection } from "#src/components/ExploreSection";
 import { Header } from "#src/components/Header";
 import { useTranslation } from "#src/utils/i18n";
 
@@ -14,6 +15,7 @@ const ListPage: FC = () => {
       <ListLayout.Content className="py-md px-lg gap-xl flex flex-col">
         <Header />
         <InsightsBanner />
+        <ExploreSection />
       </ListLayout.Content>
     </ListLayout>
   );

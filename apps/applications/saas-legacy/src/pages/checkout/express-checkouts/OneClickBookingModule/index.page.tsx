@@ -68,6 +68,8 @@ import {
   LightSignupCreateResult,
   LightSignupUpdateResult,
 } from '#src/pages/checkout/express-checkouts/hooks/useLightSignUpOperations';
+import { trackPaymentViewedEvent } from '#src/events/booking/trackers';
+import { analyticsClientB2C } from '#src/components/analytics/mixpanel';
 
 import { AlreadyMemberSection } from '#src/pages/checkout/express-checkouts/components/AlreadyMemberSection';
 
@@ -333,6 +335,19 @@ const OneClickBookingModule: React.FC<Props> = ({
     !!memberId &&
     !!basket?.total_price_cts &&
     !userRegistrationLoading;
+
+  useEffect(() => {
+    if (!shouldDisplayOnlinePayment || !offer) return;
+    analyticsClientB2C.track(
+      trackPaymentViewedEvent({
+        activity_id: offer.activity,
+        activity_name: metaActivity?.name || '',
+        offer_id: offer.id,
+        session_type: metaActivity?.is_workshop ? 'workshop' : 'group-activity',
+        product_type: 'pass',
+      }),
+    );
+  }, [shouldDisplayOnlinePayment, offer, metaActivity]);
 
   // @debt(4, 2, 2) This works because we do not set the authenticated state in the redux store
   // when we are on the one click booking page (we are just storing the token in the local storage)

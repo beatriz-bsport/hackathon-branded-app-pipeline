@@ -5,6 +5,8 @@ import { ListLayout } from "@bsport/kaizen-primitive-core";
 import { InsightsBanner } from "#src/components/BannerInstances/InsightsBanner";
 import { ExploreSection } from "#src/components/ExploreSection";
 import { Header } from "#src/components/Header";
+import { InsightsPanel } from "#src/components/InsightsPanel";
+import { KeyMetrics } from "#src/components/KeyMetrics";
 import { UpcomingActivities } from "#src/components/UpcomingActivities";
 import { useTranslation } from "#src/utils/i18n";
 
@@ -16,7 +18,9 @@ const ListPage: FC = () => {
       <ListLayout.Content className="py-md px-lg gap-xl flex flex-col">
         <Header />
         <InsightsBanner />
+        <KeyMetrics />
         <UpcomingActivities />
+        <InsightsPanel />
         <ExploreSection />
       </ListLayout.Content>
     </ListLayout>

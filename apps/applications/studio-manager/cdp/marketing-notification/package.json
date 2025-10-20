@@ -29,6 +29,7 @@
   "devDependencies": {
     "@bsport/config-eslint-react": "workspace:*",
     "@bsport/config-federation": "workspace:*",
+    "@bsport/datetime-formatting": "workspace:*",
     "@bsport/permissions": "workspace:*",
     "@bsport/store-booking-appointment": "workspace:*",
     "@bsport/store-booking-group-activity": "workspace:*",
@@ -40,6 +41,7 @@
     "@bsport/store-communicate-communication": "workspace:*",
     "@bsport/store-core-data-establishment": "workspace:*",
     "@bsport/use-async": "workspace:*",
+    "@bsport/use-pagination-query-params": "workspace:*",
     "autoprefixer": "^10.4.20",
     "postcss": "^8.4.49",
     "tailwindcss": "^3.4.14",

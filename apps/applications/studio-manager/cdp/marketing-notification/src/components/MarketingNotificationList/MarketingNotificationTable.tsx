@@ -1,4 +1,7 @@
+import { useSearchParams } from "react-router";
+
 import { DetailDrawer, Table } from "@bsport/kaizen-primitive-core";
+import { deletePaginationQueryParams } from "@bsport/use-pagination-query-params";
 
 import { getTableColumns } from "#src/components/MarketingNotificationList/MarketingNotificationTableConfig";
 import { useDrawerQueryParam } from "#src/hooks/actions/use-drawer-query-params";
@@ -14,8 +17,8 @@ import { useTranslation } from "#src/utils/i18n";
 import { MarketingNotificationDetailsContent } from "../MarketingNotificationDetails/MarketingNotificationDetailsContent";
 
 export const MarketingNotificationTable = () => {
+  const [, setSearchParams] = useSearchParams();
   const { t } = useTranslation("marketingNotificationList");
-
   const { marketingNotificationsList } = useFetchMarketingNotificationList();
   const { groupActivitiesById, emailTemplatesById } =
     useGetMarketingNotificationDependenciesData();
@@ -36,6 +39,7 @@ export const MarketingNotificationTable = () => {
     marketingNotification: marketingNotificationsList,
     onNavigate: (notificationEventId: number) => {
       if (notificationEventId.toString() !== openId) {
+        deletePaginationQueryParams(setSearchParams);
         openDrawer(notificationEventId);
       } else {
         closeDrawer();

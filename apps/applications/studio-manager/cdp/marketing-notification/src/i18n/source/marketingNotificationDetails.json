@@ -1,4 +1,5 @@
 {
+  "noData": "N/A",
   "drawer": {
     "overview": "Overview",
     "segmentedControl": {
@@ -35,6 +36,10 @@
             "failed": {
               "label": "Failed",
               "description": "Could not be delivered"
+            },
+            "noData": {
+              "label": "N/A",
+              "description": "Issue while retrieving communication data"
             }
           }
         },
@@ -43,6 +48,12 @@
             "date": "Date",
             "recipient": "Recipient",
             "status": "Status"
+          },
+          "recipients": {
+            "forwardedToRelationships": "Forwarded to {{count}} relationships"
+          },
+          "tooltip": {
+            "relatedMember": "Counted in total emails sents statistics"
           }
         },
         "status": {

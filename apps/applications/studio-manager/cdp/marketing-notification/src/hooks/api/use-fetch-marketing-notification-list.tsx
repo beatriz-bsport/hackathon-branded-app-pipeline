@@ -22,7 +22,7 @@ import {
   SUBSCRIPTION_NOTIFICATION_FIRST_BILLING,
 } from "#src/utils/types";
 
-const fetchMarketingNotificationListBinded =
+const fetchMarketingNotificationListBound =
   fetchMarketingNotificationsAction.bind(null, fetch);
 
 /**
@@ -38,9 +38,9 @@ export function useFetchMarketingNotificationList() {
   const { fetchMarketingNotificationDependencies } =
     useFetchMarketingNotificationDependencies();
   const [{ isLoading }, fetchMarketingNotificationList] = useAsync<
-    typeof fetchMarketingNotificationListBinded
+    typeof fetchMarketingNotificationListBound
   >({
-    asyncFn: fetchMarketingNotificationListBinded,
+    asyncFn: fetchMarketingNotificationListBound,
     onSuccess: ({ value }) => {
       // Extract all relevant IDs using type-safe utility functions
       const {

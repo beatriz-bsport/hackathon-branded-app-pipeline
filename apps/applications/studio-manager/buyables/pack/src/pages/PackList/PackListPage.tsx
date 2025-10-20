@@ -24,8 +24,8 @@ export const PackListPage: React.FC = () => {
   const env = getEnv();
 
   const onAddPackClick = () => {
-    if (env === "local") {
-      // WIP - Display Create modal only on local development
+    if (env === "local" || env === "dev") {
+      // WIP - Display Create modal only on local or dev
       openCreateModal();
     } else {
       // Use window history to navigate to legacy backoffice

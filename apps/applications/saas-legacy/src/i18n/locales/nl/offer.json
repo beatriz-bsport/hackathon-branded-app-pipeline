@@ -252,7 +252,7 @@
           "isModifyRecursively": "Wil je soortgelijke sessies wijzigen aan de aan hand van de nieuwe informatie?",
           "isNotifyConsumers": "Wil je ingeboekte leden over deze wijzigingen informeren?",
           "partnership": {
-            "partnerMaxBookingCount": "Maximale boekingen (alleen Wellhub & Urban Sports Club).",
+            "partnerMaxBookingCount": "Maximale boekingen van Wellhub en Urban Sports Club samengevoegd (de andere market places worden niet getroffen)",
             "availableOnPartnership": "Op marketplaces (ClassPass, OneFit...)",
             "title": "Marketplace integraties",
             "uscIntegrationWorkshopWarning": "Workshops zijn niet compatibel met Urban Sports Club en worden daarom ook niet getoond.",
@@ -262,7 +262,7 @@
               "helperText": "Deze producten worden door jouw studio aangeboden op het Wellhub platform. Ga naar het onderdeel 'Partnerschap' in de Partner Portal van je Wellhub account voor meer informatie.",
               "title": "Uw beschikbare producten op Wellhub:"
             },
-            "subtitle": "Inclusief: ClassPass, Urban Sports Club, Gymlib en Wellhub voor externe boekingen.",
+            "subtitle": "Inclusief: ClassPass, Urban Sports Club, Gymlib en Wellpass voor externe boekingen.",
             "enablePartneshipBookings": "Boekingen op de marktplaats mogelijk maken"
           },
           "allowGuestOffer": "De reservering voor een gast autoriseren",
@@ -305,7 +305,7 @@
               "weekly": "Wekelijks",
               "daily": "Dagelijks"
             },
-            "placeholder": "Selecteer een herhaling",
+            "placeholder": "Selecteer een interval",
             "title": "Herhaling"
           },
           "dateIntervalEnd": "Einddatum",

@@ -1,3 +1,5 @@
+import plugin from "tailwindcss/plugin";
+
 import THEME from "@bsport/kaizen-tokens/src/tailwind.theme.json";
 
 /** @type {import("tailwindcss").Config} */
@@ -6,6 +8,17 @@ export default {
   theme: {
     ...THEME,
     extend: {
+      height: {
+        "layout-mobile-header": "var(--kz-topbar-height)",
+        "layout-content-mobile": "calc(100vh - var(--kz-topbar-height))",
+        "layout-content-desktop": "100vh",
+      },
+      width: {
+        "layout-sidebar": "var(--kz-sidebar-width)",
+      },
+      spacing: {
+        "layout-mobile-sidebar-offset": "var(--kz-topbar-height)",
+      },
       keyframes: {
         "slide-in-right": {
           from: {
@@ -68,4 +81,14 @@ export default {
   },
   content: ["./src/**/*.{js,ts,jsx,tsx}"],
   darkMode: "selector",
+  plugins: [
+    plugin(({ addBase }) => {
+      addBase({
+        ":root": {
+          "--kz-topbar-height": "56px",
+          "--kz-sidebar-width": "300px",
+        },
+      });
+    }),
+  ],
 };

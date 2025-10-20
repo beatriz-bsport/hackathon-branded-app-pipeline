@@ -28,7 +28,9 @@
       "textBooking": "Eén of meerdere reserveringen voldoen niet aan de Spivi-voorwaarden.",
       "title": "Verbindingsproblemen met Spivi",
       "textOffer": "De sessie voldoet niet aan de voorwaarden van Spivi. De informatie kon daarom niet gesynchroniseerd worden."
-    }
+    },
+    "duplicateOffer": "Dupliceren",
+    "duplicateModalTitle": "Sessie dupliceren"
   },
   "forms": {
     "old_date": "Origineel:",
@@ -208,7 +210,8 @@
         "effectif": "De waarde is hoger dan het maximum aantal plaatsen",
         "durationMinuteSpivi": "Een Spivi-sessie moet tussen 20 minuten en 4 uur zijn.",
         "roomBlueprintSpivi": "Er moet een Spot Scheduling-layout voor de synchronisatie met Spivi geselecteerd worden",
-        "wellhubProductMissing": "Dit veld is verplicht, je moet een product selecteren."
+        "wellhubProductMissing": "Dit veld is verplicht, je moet een product selecteren.",
+        "dateIntervalStartBeforeLast": "De startdatum mag niet vóór de laatste herhaling liggen"
       },
       "dateTooFar": "Onmogelijk om sessies te maken die in meer dan 3 jaar plaatsvinden",
       "dateFormat": "Ongeldig datumformaat",
@@ -377,6 +380,15 @@
       "alertContent": "Wijzigingen aan deze sessie annuleren de huidige boekingen op USC. Bevestigen om door te gaan.",
       "content": "Je verliest alle huidige boekingsgegevens als je de datum, tijd of instelling van deze sessie wijzigt. Als u deze gegevens wijzigt, wordt er een nieuwe sessie aangemaakt en wordt de huidige sessie op USC geannuleerd.",
       "title": "Let op: Hierdoor worden de huidige boekingen op USC geannuleerd."
+    },
+    "recurrence": {
+      "regularOffer": "De nieuwe sessie gebruikt dezelfde instellingen als de gedupliceerde sessie.",
+      "duplicateModalTitle": "Sessie dupliceren",
+      "duplicate": "Dupliceren",
+      "duplicating": "Dupliceren",
+      "linkNewOffersLabel": "Koppel nieuwe sessies aan dit duplicaat, zodat u ze samen kunt bewerken en leden deze sessies in één keer kunnen boeken",
+      "hybridOffer": "Door deze hybride sessie te dupliceren, worden zowel online als on-site sessies aangemaakt. Deze gebruiken dezelfde instellingen als de gedupliceerde sessie.",
+      "recurringOffer": "De laatste sessie is op {{- date }} at om {{- time }}. De dubbele sessie heeft dezelfde instellingen en begint na deze datum.  "
     }
   },
   "isFree": "Gratis",

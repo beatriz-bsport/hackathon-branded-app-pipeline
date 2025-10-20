@@ -27,6 +27,14 @@ export type MarketingNotificationTableRowData = {
   isAbleToUpdateNotification: boolean;
 };
 
+export type MarketingNotificationRecipientsTableRowData = {
+  id: number;
+  communicationKind: number;
+  dateSent: string;
+  recipientIdentity: string;
+  status: number;
+};
+
 export const BIRTHDAY_NOTIFICATION = 0;
 export const PRIVATE_BOOKING_CREATION_NOTIFICATION = 1;
 export const BOOKING_CREATION_NOTIFICATION = 2;

@@ -115,7 +115,7 @@
           "cancel": "Abbrechen"
         },
         "update": "USt-IdNr. aktualisieren",
-        "hasAttributedVatIdLabel": "Ich habe keine registrierte Umsatzsteuer-Identifikationsnummer. Wenn dein Unternehmen in der EU (außerhalb von Frankreich) ansässig ist, wird das Reverse-Charge-Verfahren nicht angewendet und bsport wird die französischen Mehrwertsteuersätze (20%) berechnen.",
+        "hasAttributedVatIdLabel": "Ich habe keine registrierte Umsatzsteuer-Identifikationsnummer. Wenn dein Unternehmen in der EU (außerhalb von Frankreich) ansässig ist, wird das Reverse-Charge-Verfahren nicht angewendet und bsport wird den lokalen Mehrwertsteuersatz berechnen.",
         "vatIdLabel": "Umsatzsteuer-Identifikationsnummer",
         "content": "bsport benötigt deine Umsatzsteuer-Identifikationsnummer (auch bekannt als USt-IdNr. oder innergemeinschaftliche USt-IdNr.), um sie auf den Rechnungen, die wir dir ausstellen, anzugeben.",
         "invalidFormat": "Ungültiges Format",

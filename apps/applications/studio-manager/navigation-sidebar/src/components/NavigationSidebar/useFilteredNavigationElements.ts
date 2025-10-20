@@ -57,7 +57,9 @@ export const useFilteredNavigationElements = (
 
       // Filter out sub-items that don't have permissions
       const visibleSubItems = item.subItems.filter(
-        (subItem) => !subItem.href || !!elementsPermissions.get(subItem.id),
+        (subItem) =>
+          (!subItem.href || !!elementsPermissions.get(subItem.id)) &&
+          !subItem.hidden,
       ) as NavigationSidebarSubItem[];
 
       return {
@@ -77,6 +79,8 @@ export const useFilteredNavigationElements = (
      * @returns True if the item should be visible, false otherwise
      */
     const isItemVisible = (item: NavigationSidebarItem): boolean => {
+      if (item.hidden) return false;
+
       if (item.subItems && item.subItems.length > 0) {
         return item.subItems.some(
           (subItem) => !subItem.href || !!elementsPermissions.get(subItem.id),

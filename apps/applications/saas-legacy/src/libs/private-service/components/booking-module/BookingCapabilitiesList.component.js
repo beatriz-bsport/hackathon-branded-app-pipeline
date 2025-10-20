@@ -1,5 +1,5 @@
 // @flow
-import React from 'react';
+import React, { useEffect } from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { compose } from 'recompose';
 import List from '@material-ui/core/List';
@@ -11,6 +11,9 @@ import { withTranslation, TFunction } from 'react-i18next';
 import PrivateConsumerPassBookerListItem from './PrivateConsumerPassBookerListItem.component';
 import UnPrivateConsumerPassBookerListItem from './UnpaidPrivateConsumerPassBookerListItem.component';
 import PrivatePassBookerListItem from './PrivatePassBookerListItem.component';
+import { trackPassSelectionForAppointmentViewedEvent } from '#src/events/booking/trackers';
+import { analyticsClientB2C } from '#src/components/analytics/mixpanel';
+
 import type {
   PrivateConsumerPass,
   PrivatePassCategoryWithPasses,
@@ -28,13 +31,36 @@ type Props = {
   privateSlotCredit?: number,
   isExcludingTax?: boolean,
   hideCredits?: boolean,
+  trackingParams: {
+    activity_id: number,
+    activity_name: string,
+    offer_id: number,
+    session_type: string,
+  } | null,
 };
 
 export const BookingCapabilities = (props: Props) => {
-  const { t, classes, loading, privateConsumerPassList, hideCredits } = props;
+  const {
+    t,
+    classes,
+    loading,
+    privateConsumerPassList,
+    hideCredits,
+    trackingParams,
+  } = props;
+
+  useEffect(() => {
+    if (!loading && !!trackingParams) {
+      analyticsClientB2C.track(
+        trackPassSelectionForAppointmentViewedEvent(trackingParams),
+      );
+    }
+  }, [loading, trackingParams?.activity_id]);
+
   if (loading) {
     return <LinearProgress />;
   }
+
   return (
     <div>
       <div className={classes.section}>

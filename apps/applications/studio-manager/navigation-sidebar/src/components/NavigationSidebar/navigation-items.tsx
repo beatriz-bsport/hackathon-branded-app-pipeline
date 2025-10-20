@@ -21,18 +21,32 @@ export type MenuSet = "default" | "settings";
 export type NavigationSidebarSubItem = Omit<NavigationMenuItem, "subItems"> &
   NavigationUrlItem & {
     onClick?: () => void;
+    hidden?: boolean;
   };
 
 export type NavigationSidebarItem = NavigationMenuItem &
   Partial<NavigationUrlItem> & {
     subItems?: NavigationSidebarSubItem[];
     onClick?: () => void;
+    hidden?: boolean;
   };
 
 export type NavigationElement =
   | NavigationSidebarItem
   | NavigationMenuGroup
   | NavigationMenuDivider;
+
+const BadgeNew: React.FC = () => {
+  const { t } = useTranslation("default");
+
+  return (
+    <Badge
+      size="sm"
+      color="main"
+      text={t("common.new", { defaultValue: "New" })}
+    />
+  );
+};
 
 export const useNavigationElements = ({
   menuSet = "default",
@@ -50,7 +64,8 @@ export const useNavigationElements = ({
   const totalAlertsCount = useAlertingStore(selectAllAlertsCount);
 
   // Feature flags
-  const embeddedBIEnabled = useNavFlag(NavFlags.INSIGHTS_PAGE);
+  const isAnalyticsEnabled = useNavFlag(NavFlags.INSIGHTS_PAGE);
+  const isHomepageEnabled = useNavFlag(NavFlags.HOMEPAGE);
 
   const navigationItems: Record<MenuSet, NavigationElement[]> = useMemo(() => {
     return {
@@ -81,6 +96,14 @@ export const useNavigationElements = ({
         },
         {
           type: "divider",
+        },
+        {
+          icon: "home-03",
+          id: "home",
+          label: t("menus.home"),
+          hidden: !isHomepageEnabled,
+          endSlot: <BadgeNew />,
+          ...navigationUrls.homepage,
         },
         {
           icon: "bar-line-chart",
@@ -230,32 +253,23 @@ export const useNavigationElements = ({
           icon: "bar-chart-10",
           id: "analytics",
           label: t("menus.analytics.title"),
-          endSlot: embeddedBIEnabled ? (
+          endSlot: isAnalyticsEnabled ? (
             <Indicator size="sm" color="main" position="top" />
           ) : undefined,
-          subItems: (() => {
-            const items: NavigationSidebarSubItem[] = [];
-            if (embeddedBIEnabled) {
-              items.push({
-                id: "insights",
-                label: t("menus.analytics.insights"),
-                ...navigationUrls.insights,
-                endSlot: (
-                  <Badge
-                    size="sm"
-                    color="main"
-                    text={t("common.new", { defaultValue: "New" })}
-                  />
-                ),
-              });
-            }
-            items.push({
+          subItems: [
+            {
+              id: "insights",
+              label: t("menus.analytics.insights"),
+              ...navigationUrls.insights,
+              hidden: !isAnalyticsEnabled,
+              endSlot: <BadgeNew />,
+            },
+            {
               id: "reports",
               label: t("menus.analytics.reports"),
               ...navigationUrls.reporting,
-            });
-            return items;
-          })(),
+            },
+          ],
         },
         {
           type: "divider",
@@ -449,7 +463,8 @@ export const useNavigationElements = ({
     navigationUrls,
     t,
     totalAlertsCount,
-    embeddedBIEnabled,
+    isAnalyticsEnabled,
+    isHomepageEnabled,
   ]);
 
   return navigationItems[menuSet];

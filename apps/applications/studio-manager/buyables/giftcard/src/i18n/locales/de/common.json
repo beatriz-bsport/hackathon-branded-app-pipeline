@@ -1,0 +1,93 @@
+{
+  "pages": {
+    "list": "Geschenkgutscheine",
+    "archivedList": "Archiv für Geschenkgutscheine"
+  },
+  "listPage": {
+    "header": {
+      "buttons": {
+        "addGiftcard": "Geschenkgutschein hinzufügen",
+        "openBankImage": "Bilderbibliothek"
+      }
+    },
+    "empty": {
+      "title": "Derzeit keine Geschenkgutscheine",
+      "subtitle": "Erstelle Geschenkgutscheine, die Mitglieder mit Freunden und Familie teilen können."
+    },
+    "archiveModal": {
+      "title": "Geschenkgutschein archivieren?",
+      "description": {
+        "lineOne": "'{{ name }}' wird für Mitglieder nicht mehr sichtbar sein, aber aktuelle oder frühere Käufe werden nicht beeinträchtigt.",
+        "lineTwo": "Du kannst diesen Geschenkgutschein jederzeit aus deinem Archiv wiederherstellen."
+      },
+      "buttons": {
+        "cancel": "Zurück",
+        "archive": "Archivieren"
+      }
+    },
+    "duplicateModal": {
+      "title": "Geschenkgutschein duplizieren?",
+      "description": {
+        "action": "Du kannst '{{ name }}' bearbeiten, sobald es dupliziert wurde."
+      },
+      "buttons": {
+        "cancel": "Zurück",
+        "duplicate": "Duplizieren"
+      }
+    }
+  },
+  "archivedListPage": {
+    "empty": {
+      "title": "Keine archivierten Geschenkgutscheine"
+    }
+  },
+  "toasts": {
+    "successMessages": {
+      "restoreGiftcard": "Geschenkgutschein wiederhergestellt",
+      "archiveGiftcard": "Geschenkgutschein archiviert",
+      "duplicateGiftcard": "Geschenkgutschein dupliziert",
+      "deleteGiftcardImage": "Geschenkgutscheinbild gelöscht",
+      "undoAction": "Geschenkgutschein wiederhergestellt"
+    },
+    "errorMessages": {
+      "restoreGiftcard": "Geschenkgutschein kann nicht wiederhergestellt werden, bitte versuche es erneut.",
+      "archiveGiftcard": "Der Geschenkgutschein wurde nicht archiviert. Bitte versuche es nochmal.",
+      "duplicateGiftcard": "Der Geschenkgutschein wurde nicht dupliziert. Bitte versuche es nochmal.",
+      "undoAction": "Aktion kann nicht rückgängig gemacht werden, bitte versuche es erneut.",
+      "deleteGiftcardImage": "Das Bild für den Geschenkgutschein wurde nicht gelöscht. Bitte versuche es nochmal."
+    },
+    "actions": {
+      "undo": "Wiederherstellen",
+      "open": "Öffnen",
+      "close": "Schließen"
+    }
+  },
+  "giftcardTable": {
+    "headers": {
+      "name": "Name",
+      "validity": "Gültigkeit",
+      "price": "Preis"
+    },
+    "values": {
+      "unavailable": "Ausgeblendet",
+      "shared": "Sichtbar",
+      "unlimited": "Unbegrenzt",
+      "expireInXDays": "{{ expiration }} Tage"
+    },
+    "tooltips": {
+      "archive": "Geschenkgutschein archivieren",
+      "duplicate": "Geschenkgutschein duplizieren",
+      "restore": "Geschenkgutschein wiederherstellen",
+      "shared": "Element wurde vom Hauptkonto erstellt",
+      "unavailable": "Ausgeblendet im Mitgliederbereich"
+    },
+    "loading": "Geschenkgutscheine werden geladen ..."
+  },
+  "imageUploadModal": {
+    "title": "Bilderbibliothek",
+    "uploadButton": "Bild hochladen",
+    "description": "Füge benutzerdefinierte Bilder zu deiner Bibliothek hinzu, damit deine Mitglieder ihre Geschenkgutscheine personalisieren können. ",
+    "selectImage": "Wähle ein Bild aus, um es in der Geschenkgutschein-Vorschau anzuzeigen.",
+    "emptyList": "Derzeit keine eigenen Bilder"
+  }
+}

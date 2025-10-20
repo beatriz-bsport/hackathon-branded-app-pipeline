@@ -4,6 +4,7 @@ import { Navigate, Outlet, useLocation } from "react-router";
 import { getAuthToken } from "@bsport/local-storage-auth-token";
 
 import { fetchSharedData } from "#src/api";
+import { SidebarLayout } from "#src/components/SidebarLayout";
 
 type NavigationSidebarProps = {
   navigate?: (to: string) => void;
@@ -55,10 +56,10 @@ export const AuthWrapper: FC<AuthWrapperProps> = ({
   }
 
   return (
-    <div className="flex">
+    <div className="min-h-screen md:flex bg-surface-page text-onsurface-default">
       <Suspense
         fallback={
-          <div className="h-screen w-[240px] bg-surface-page-navigation" />
+          <div className="h-screen w-layout-sidebar bg-surface-page-navigation" />
         }
       >
         {NavigationApp ? <NavigationApp {...navigationProps} /> : undefined}
@@ -67,7 +68,10 @@ export const AuthWrapper: FC<AuthWrapperProps> = ({
       {/** react-router will map Route.Element to Outlet
        * https://reactrouter.com/start/library/routing#nested-routes
        */}
-      <Outlet />
+
+      <SidebarLayout>
+        <Outlet />
+      </SidebarLayout>
     </div>
   );
 };

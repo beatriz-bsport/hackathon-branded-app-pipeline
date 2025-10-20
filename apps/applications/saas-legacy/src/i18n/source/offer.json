@@ -383,9 +383,9 @@
     "recurrence": {
       "duplicateModalTitle": "Duplicate Session",
       "regularOffer": "The new session will use the same settings as the duplicated one.",
-      "recurringOffer": "The last session is on {{- date }} at {{- time }}. This duplicate session will share the same settings and start after this date.  ",
+      "recurringOffer": "The last session is on {{- date }} at {{- time }}. The duplicated session will share the same settings and start after this date.  ",
       "hybridOffer": "Duplicating this hybrid session will create both online and on-site sessions. They will use the same settings as the duplicated session.",
-      "linkNewOffersLabel": "Link new sessions to this duplicate so you can edit them all together and enable members to book these sessions all at once  ",
+      "linkNewOffersLabel": "Link new sessions to this duplicate so you can edit them together and members can book these sessions all at once",
       "duplicating": "Duplicating",
       "duplicate": "Duplicate"
     },

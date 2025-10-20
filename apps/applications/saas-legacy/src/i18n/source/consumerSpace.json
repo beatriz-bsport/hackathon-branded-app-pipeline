@@ -420,7 +420,7 @@
             "year_plural": "This subscription has a {{ commitment_period_value }} years commitment period, for cancellations or questions, please directly contact the studio."
           },
           "modal": {
-            "explainNotStarted": "You are about to cancel a subscription that hasn't started. \nYou'll still be charged for the first billing cycle, and your benefits will remain valid until {{- expiration_date }} (excluded).\nAre you sure you want to continue?",
+            "explainNotStarted": "This subscription hasn't started yet. If you cancel it now, you won't be charged.",
             "explainStarted": "You are about to cancel this subscription. Your subscription benefits will remain valid until {{- expiration_date }} (excluded).\nAre you sure you want to continue?",
             "explainNoExpirationDate": "You are about to cancel this subscription. Your subscription benefits will remain valid until the end of the next billing cycle.\nAre you sure you want to continue?",
             "cancel": "Keep subscription",

@@ -1,0 +1,16 @@
+{
+  "giftcardPreview": {
+    "placeholders": {
+      "amount": "[Betrag des Geschenkgutscheins]",
+      "buyer": "[Kaufende Person]",
+      "message": "[Benutzerdefinierte Nachricht]",
+      "name": "[Name des Geschenkgutscheins]",
+      "recipient": "[Empfangende Person]"
+    },
+    "hints": {
+      "amount": "Wert",
+      "buyer": "Von",
+      "recipient": "An"
+    }
+  }
+}

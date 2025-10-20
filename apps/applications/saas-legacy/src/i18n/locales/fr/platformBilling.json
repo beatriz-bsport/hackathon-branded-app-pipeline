@@ -107,7 +107,7 @@
         "errorChip": "Numéro de TVA invalide ou absent",
         "content": "bsport a besoin de votre numéro d'identification TVA (également appelé numéro d'immatriculation à la TVA ou numéro de TVA intracommunautaire) pour le faire figurer sur les factures que nous vous adressons.",
         "update": "Mettre à jour le numéro de TVA",
-        "hasAttributedVatIdLabel": "Je ne possède pas de numéro de TVA. Si votre entreprise est basée dans l'Union Européenne (hors France), le mécanisme d'autoliquidation ne s'appliquera pas et bsport appliquera les taux de TVA français (20 %).",
+        "hasAttributedVatIdLabel": "Je ne possède pas de numéro de TVA. Si votre entreprise est basée dans l'Union Européenne (hors France), le mécanisme d'autoliquidation ne s'appliquera pas et bsport appliquera le taux de TVA local.",
         "actions": {
           "save": "Enregistrer",
           "cancel": "Annuler"

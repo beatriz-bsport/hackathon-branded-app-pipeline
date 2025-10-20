@@ -27,7 +27,7 @@
   },
   "detailsLayout": {
     "confirmation": {
-      "title": "The page has unsaved changes.",
+      "title": "This page has unsaved changes.",
       "discard": "Discard",
       "save": "Save changes"
     }

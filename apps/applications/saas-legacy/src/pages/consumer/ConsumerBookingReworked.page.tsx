@@ -94,6 +94,8 @@ import { getMarketplaceSettingsConfig } from '#src/libs/marketplace/selectors';
 import { ConsumerSpaceContextEnum } from '#src/libs/consumer-space/constants';
 
 import type { OptionCallback, PaginatedResponse } from '#src/state/types';
+import { trackMemberProfileViewedEvent } from '#src/events/member-profile/trackers';
+import { analyticsClientB2C } from '#src/components/analytics/mixpanel';
 
 type OwnProps = {};
 type ParamsProps = {
@@ -122,6 +124,9 @@ export class ConsumerBooking extends React.Component<Props, State> {
     this.fetchSoonestPrivateBookings();
     this.fetchSoonestWorkshopBookings();
     this.props.fetchCompanyWaitlistConfiguration(this.props.companyId);
+    analyticsClientB2C.track(
+      trackMemberProfileViewedEvent({ page_type: 'booking' }),
+    );
   }
 
   componentDidUpdate(prevProps: Props) {

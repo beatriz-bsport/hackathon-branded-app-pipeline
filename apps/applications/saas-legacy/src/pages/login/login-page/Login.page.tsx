@@ -36,6 +36,11 @@ import { requestLogin, disconnect } from '#src/actions/auth.actions';
 import { parseQueryString } from '#src/http';
 import type { Dispatch } from '#src/state/types';
 import analyticsUtils from '#src/components/analytics/analytics';
+import {
+  trackLoginEvent,
+  trackLoginViewedEvent,
+} from '#src/events/authentication/trackers';
+import { analyticsClientB2C } from '#src/components/analytics/mixpanel';
 
 type OwnProps = {
   location: {
@@ -79,6 +84,7 @@ type Props = OwnProps &
 
 export class ConsumerLoginPage extends Component<Props> {
   componentDidMount() {
+    analyticsClientB2C.track(trackLoginViewedEvent({}));
     if (this.props.membership) {
       if (this.props.theme?.id) {
         analyticsUtils.onShowSignin();
@@ -95,7 +101,9 @@ export class ConsumerLoginPage extends Component<Props> {
   }
 
   componentDidUpdate(prevProps: Props) {
-    if (!prevProps.theme && this.props.theme?.id) analyticsUtils.onShowSignin();
+    if (!prevProps.theme && this.props.theme?.id) {
+      analyticsUtils.onShowSignin();
+    }
   }
 
   onRequestSignup = () => {
@@ -218,6 +226,17 @@ export class ConsumerLoginPage extends Component<Props> {
 function mapDispatchToProps(dispatch: Dispatch, props: OwnProps) {
   const search = ((props && props.location) || {}).search || '';
   const opts = {
+    onSuccess: ({
+      is_franchisor,
+      is_manager,
+    }: {
+      is_franchisor: boolean;
+      is_manager: boolean;
+    }) => {
+      if (!is_manager && !is_franchisor) {
+        analyticsClientB2C.track(trackLoginEvent({}));
+      }
+    },
     goNext: ({ is_franchisor }: { is_franchisor: boolean }) => {
       if (!is_franchisor) {
         const { next, franchisor } = parseQueryString(search);

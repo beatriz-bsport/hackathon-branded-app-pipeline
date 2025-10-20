@@ -409,7 +409,7 @@
             "year_plural": "Esta subscrição tem um período de compromisso de {{ commitment_period_value }} anos. Para cancelamentos ou questões, contacte diretamente o estúdio."
           },
           "modal": {
-            "explainNotStarted": "Está prestes a cancelar uma subscrição que ainda não começou.\nAinda lhe será cobrado o primeiro ciclo de faturação e os seus benefícios permanecerão válidos até {{- expiration_date }} (excluída).\nTem a certeza de que pretende continuar?",
+            "explainNotStarted": "Esta subscrição ainda não começou. Se cancelar agora, não será cobrado.",
             "explainStarted": "Está prestes a cancelar esta subscrição. Os benefícios da sua subscrição permanecerão válidos até {{- expiration_date }} (excluída).\nTem a certeza de que pretende continuar?",
             "explainNoExpirationDate": "Está prestes a cancelar esta subscrição. Os benefícios da sua subscrição permanecerão válidos até ao final do próximo ciclo de faturação.\nTem a certeza de que pretende continuar?",
             "cancel": "Manter a subscrição",

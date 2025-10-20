@@ -14,6 +14,7 @@ import {
   getSubtitleCardDetailsDate,
   informationBasedOnCouponApplied,
 } from '#src/libs/consumer-space/components/reworked/@MySubscriptions/utils';
+import { FeatureFlags, useSafeFlag } from '#src/utils/feature-flag';
 
 import type {
   CommitmentPeriodDisplayReturnedValues,
@@ -71,6 +72,10 @@ const ConsumerSubscriptionDetailsDrawer: React.FC<Props> = ({
 }) => {
   const { t } = useTranslation(['consumerSpace', 'common']);
 
+  const isStopSubscriptionFromMemberSideFeatureEnabled = useSafeFlag(
+    FeatureFlags.STOP_SUBSCRIPTION_FROM_MEMBER_SIDE,
+  );
+
   const selectedSubscriptionPauseEndDate = useMemo(
     () =>
       formatAsDate(
@@ -97,9 +102,14 @@ const ConsumerSubscriptionDetailsDrawer: React.FC<Props> = ({
       () =>
         getCommitmentPeriodDisplay(
           selectedSubscription,
-          !!displayStopSubscriptionFromMemberSide,
+          !!displayStopSubscriptionFromMemberSide &&
+            isStopSubscriptionFromMemberSideFeatureEnabled,
         ),
-      [selectedSubscription, displayStopSubscriptionFromMemberSide],
+      [
+        selectedSubscription,
+        displayStopSubscriptionFromMemberSide,
+        isStopSubscriptionFromMemberSideFeatureEnabled,
+      ],
     );
 
   return (

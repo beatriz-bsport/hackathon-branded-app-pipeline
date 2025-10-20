@@ -1,1 +1,49 @@
-{}
+{
+  "title": "Pacchetti combinati",
+  "actions": {
+    "addAPack": "Aggiungi un pacchetto"
+  },
+  "table": {
+    "loading": "Caricamento pacchetti...",
+    "emptyList": {
+      "title": "Nessun pacchetto aggiunto ancora",
+      "subtitle": "Aggiungi un Pacchetto per combinare i tuoi prodotti e Pass con un'unica offerta. "
+    },
+    "headers": {
+      "name": "Nome",
+      "visibility": "Visibilità",
+      "numberOfProducts": "articoli",
+      "price": "Prezzo"
+    },
+    "tooltips": {
+      "unavailableForUsers": "Questo pacchetto combinato non verrà mostrato nell'area membri",
+      "invisibleForStaff": "Questo pacchetto combinato non verrà mostrato ai membri dello staff",
+      "availableForALimitedTime": "Questo pacchetto combinato sarà mostrato solo per un tempo limitato",
+      "archive": "Elimina pacchetto combinato"
+    }
+  },
+  "deleteModal": {
+    "title": "Eliminare questo pacchetto combinato?",
+    "description": {
+      "effect": "Se elimini {{ name }}, gli acquisti attuali o precedenti non saranno influenzati.",
+      "canNotBeUndone": "Questa azione non può essere annullata."
+    },
+    "actions": {
+      "cancel": "Indietro",
+      "delete": "Elimina"
+    }
+  },
+  "toasts": {
+    "messageDelete": {
+      "success": "Pacchetto combinato eliminato",
+      "error": "Impossibile eliminare il Pacchetto combinato"
+    },
+    "messageUndo": {
+      "success": "Azione annullata",
+      "error": "Impossibile annullare l'azione"
+    },
+    "actions": {
+      "undo": "Annulla"
+    }
+  }
+}

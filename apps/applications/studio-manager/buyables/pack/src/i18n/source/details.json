@@ -1,6 +1,6 @@
 {
   "createModal": {
-    "title": "Create a new pack",
+    "title": "Create a new Pack",
     "buttons": {
       "create": "Create",
       "cancel": "Cancel"
@@ -16,7 +16,7 @@
     "breadcrumbs": {
       "appointmentPassCategories": "Appointment Pass categories",
       "passCategories": "Pass categories",
-      "webshopItemCategories": "Webshop Item categories"
+      "webshopItemCategories": "Product categories"
     },
     "items": {
       "webshopItem": {
@@ -49,9 +49,9 @@
     },
     "packContent": {
       "title": "Pack contents",
-      "description": "Add a pass, private pass, or webshop item to build your pack.",
+      "description": "Add a Pass, Appointment Pass, or product to build your pack.",
       "card": {
-        "placeholder": "Add at least one item in your pack"
+        "placeholder": "Add at least one item in your Pack"
       },
       "itemVariants": {
         "passes": "Passes",
@@ -60,16 +60,16 @@
       },
       "buttons": {
         "addItem": "Add item",
-        "addPass": "Add pass",
-        "addAppointmentPass": "Add appointment pass",
-        "addWebshopItem": "Add webshop item"
+        "addPass": "Add Pass",
+        "addAppointmentPass": "Add Appointment Pass",
+        "addWebshopItem": "Add product"
       }
     },
     "advancedSection": {
       "title": "Advanced",
       "tagsSelector": {
         "title": "Tag(s) after purchase",
-        "helperText": "Tip: Add tags to identify which member bought this pack.",
+        "helperText": "Add tags to identify which member bought this Pack.",
         "placeholder": "Add tags..."
       }
     },
@@ -82,7 +82,7 @@
       "taxToggle": {
         "label": "VAT/Sales Tax rate",
         "description": "Apply a single VAT/Sales Tax rate to the whole Pack",
-        "helperText": "The VAT/Sales Tax rate will be set for all the products included in this Pack",
+        "helperText": "The VAT/Sales Tax rate will be set for all the items included in this Pack",
         "errorMissingRate": "Add a rate or deactivate this option to continue"
       },
       "maxPurchaseToggle": {
@@ -94,27 +94,27 @@
         "label": "Payment method",
         "helperText": "Choose at least one payment method",
         "checkboxes": {
-          "onlinePayments": "Accept online payments (default)",
-          "onsitePayments": "Accept on-site payments"
+          "onlinePayments": "Online payments (default)",
+          "onsitePayments": "On-site payments"
         },
-        "alertVisibilityHidden": "Hidden packs can still be shared with members using a link and paid for via online payment.",
+        "alertVisibilityHidden": "Hidden Packs can still be shared with members using a link and paid for via online payment.",
         "errorMissingPaymentMethod": "Select a payment method"
       }
     },
     "visibilitySection": {
       "title": "Visibility",
       "visibilitySelector": {
-        "label": "Select the visibility of this pack",
+        "label": "Select the visibility of this Pack",
         "options": {
           "visible": {
             "shortTitle": "Visible",
-            "fullTitle": "Visible on Member Portal",
-            "description": "Your pack will be displayed on the Member Portal for your members to buy."
+            "fullTitle": "Visible on Member Area",
+            "description": "Your pack will be displayed on the Member Area for your members to buy."
           },
           "hidden": {
             "shortTitle": "Hidden",
-            "fullTitle": "Hidden on Member Portal",
-            "description": "Your pack won't be displayed on the Member Portal but can be shared with a link or purchased via the BackOffice."
+            "fullTitle": "Hidden on Member Area",
+            "description": "Your pack won't be displayed on the Member Area but can be shared with a link or purchased via the BackOffice."
           }
         }
       },
@@ -133,7 +133,7 @@
           },
           "newMembersOnly": {
             "label": "Only available to new members",
-            "helperText": "Members are considered 'new' as long as they haven't made a purchase greater than {{ minimalCurrency }}. Even if a member buys a product with a 100% discount, this will still count as a purchase."
+            "helperText": "Members are 'new' as long as they haven't bought an item with a value more than {{ minimalCurrency }}. Even if a member buys an item with a 100% discount, this still counts as a purchase."
           },
           "hideFromStaff": {
             "label": "Hide from staff members",

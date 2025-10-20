@@ -125,7 +125,7 @@ const NavigationSidebarHeader = ({
         )}
       />
       <Button
-        className="shrink-0"
+        className="shrink-0 hidden md:inline-flex"
         intent="default"
         size="md"
         color="main"

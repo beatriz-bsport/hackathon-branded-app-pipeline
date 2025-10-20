@@ -49,6 +49,7 @@ import {
   shouldNotRetrieveSecret,
   hasRedirectionFailed,
   shouldCheckPaymentStatus,
+  getBasketItemCount,
 } from '#src/libs/checkout/utils';
 import { fetchMembership } from '#src/libs/membership/actions';
 import { CouponErrorCodes } from '#src/libs/coupon/constants';
@@ -125,6 +126,13 @@ import {
   PAYMENT_COMBO_CAN_NOT_BOOK_ALL_OFFERS,
 } from '#src/libs/checkout/constants';
 import { getBookedSessionListDataFromBasket } from '#src/components/analytics/utils';
+import { analyticsClientB2C } from '#src/components/analytics/mixpanel';
+import {
+  trackCartViewed,
+  trackPurchaseConfirmation,
+  trackPurchaseItem,
+} from '#src/events/purchase/trackers';
+import { getCheckoutItemType } from '#src/events/purchase/utils.ts';
 
 type Props = {
   basket: ?Basket,
@@ -219,6 +227,7 @@ export class BasketPage extends React.Component<Props> {
     nextPaymentIntentStatusCheckSeconds: 1.5,
     isEstablishmentBillingGroupSelected: true,
     selectedEstablishmentBillingGroup: null,
+    hasTrackedCartViewedEvent: false,
   };
 
   setSelectedEstablishmentBillingGroup = (
@@ -320,6 +329,22 @@ export class BasketPage extends React.Component<Props> {
       this.props.basket.total_price_cts
     ) {
       this.getSecret(this.state.paymentEngine);
+    }
+
+    if (
+      !this.state.hasTrackedCartViewedEvent &&
+      !!this.props.basket &&
+      !this.props.loading
+    ) {
+      analyticsClientB2C.track(
+        trackCartViewed({
+          cart_value: Number(this.props.basket.total_price ?? '0'),
+          product_quantity: getBasketItemCount(
+            this.props.basket.checkout_items ?? [],
+          ),
+        }),
+      );
+      this.setState({ hasTrackedCartViewedEvent: true });
     }
 
     loadDefaultEstablishmentBillingGroup(
@@ -891,6 +916,22 @@ export default compose(
               });
           }
           analyticsUtils.onPaymentSuccess(basket);
+          analyticsClientB2C.track(
+            trackPurchaseConfirmation({
+              cart_value: Number(basket.total_price ?? '0'),
+              product_quantity: getBasketItemCount(basket.checkout_items ?? []),
+            }),
+          );
+          (basket.checkout_items ?? []).map((item) =>
+            analyticsClientB2C.track(
+              trackPurchaseItem({
+                product_name: item.name || '',
+                product_type: getCheckoutItemType(item),
+                product_price: Number(item.unit_price),
+                product_quantity: item.quantity,
+              }),
+            ),
+          );
         }
         const urlParams = queryParams.basket_redirection
           ? { basket: queryParams.basket_redirection }

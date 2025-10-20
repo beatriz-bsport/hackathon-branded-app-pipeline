@@ -1,3 +1,13 @@
 {
-  "pageTitle": "Home"
+  "pageTitle": "Home",
+  "header": {
+    "title": "Welcome back"
+  },
+  "banner": {
+    "insights": {
+      "title": "New Insights feature",
+      "description": "Get smarter, faster decisions with real-time insights.",
+      "ctaLabel": "Explore now"
+    }
+  }
 }

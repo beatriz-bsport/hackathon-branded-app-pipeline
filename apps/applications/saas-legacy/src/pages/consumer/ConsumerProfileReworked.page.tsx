@@ -61,6 +61,8 @@ import {
   getTheReferralProgram,
 } from '#src/libs/referral/selectors';
 import type { CompanyTheme } from '#src/libs/theme/types';
+import { trackMemberProfileViewedEvent } from '#src/events/member-profile/trackers';
+import { analyticsClientB2C } from '#src/components/analytics/mixpanel';
 
 type OwnProps = {
   membership: Membership;
@@ -77,6 +79,9 @@ type Props = OwnProps & ConnectedProps<typeof connector>;
 
 class ConsumerProfileReworked extends React.Component<Props> {
   componentDidMount() {
+    analyticsClientB2C.track(
+      trackMemberProfileViewedEvent({ page_type: 'profile' }),
+    );
     if (!!this.props.membership?.id || !!this.props.companyId) {
       this.fetchMember();
       this.fetchMemberPaymentMethod();

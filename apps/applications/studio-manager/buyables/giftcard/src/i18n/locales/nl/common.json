@@ -1,0 +1,93 @@
+{
+  "pages": {
+    "list": "Cadeaubonnen ",
+    "archivedList": "Archief cadeaubonnen"
+  },
+  "listPage": {
+    "header": {
+      "buttons": {
+        "addGiftcard": "Cadeaubon toevoegen",
+        "openBankImage": "Afbeeldingenbibliotheek"
+      }
+    },
+    "empty": {
+      "title": "Nog geen cadeaubon",
+      "subtitle": "Maak cadeaubonnen die leden kunnen delen met vrienden en familie"
+    },
+    "archiveModal": {
+      "title": "Cadeaubon archiveren?",
+      "description": {
+        "lineOne": "'{{ name }}' is niet meer zichtbaar voor leden maar huidige of eerdere aankopen worden niet beïnvloed.",
+        "lineTwo": "Je kunt deze cadeaubon op elk moment uit je archief herstellen."
+      },
+      "buttons": {
+        "cancel": "Terug",
+        "archive": "Archiveren"
+      }
+    },
+    "duplicateModal": {
+      "title": "Dupliceer cadeaubon?",
+      "description": {
+        "action": "Je kunt '{{ name }}' bewerken zodra deze is gedupliceerd."
+      },
+      "buttons": {
+        "cancel": "Terug",
+        "duplicate": "Dupliceren"
+      }
+    }
+  },
+  "archivedListPage": {
+    "empty": {
+      "title": "Geen gearchiveerde kadokaarte"
+    }
+  },
+  "toasts": {
+    "successMessages": {
+      "restoreGiftcard": "Kadokaart hersteld",
+      "archiveGiftcard": "Kadokaart gearchiveerd",
+      "duplicateGiftcard": "Kadokaarten gedupliceerd",
+      "deleteGiftcardImage": "Kadokaarten afbeelding verwijderd",
+      "undoAction": "Actie ongedaan gemaakt"
+    },
+    "errorMessages": {
+      "restoreGiftcard": "Kan cadeaubon niet herstellen, probeer het opnieuw.",
+      "archiveGiftcard": "Kan cadeaubon niet archiveren, probeer het opnieuw.",
+      "duplicateGiftcard": "Kan cadeaubon niet dupliceren, probeer het opnieuw.",
+      "undoAction": "Kan actie niet ongedaan maken, probeer het opnieuw.",
+      "deleteGiftcardImage": "Kan de afbeelding van de Kadokaarten niet verwijderen, probeer het opnieuw."
+    },
+    "actions": {
+      "undo": "Ongedaan maken",
+      "open": "Open",
+      "close": "Sluiten"
+    }
+  },
+  "giftcardTable": {
+    "headers": {
+      "name": "Naam",
+      "validity": "Geldigheidsduur",
+      "price": "Prijs"
+    },
+    "values": {
+      "unavailable": "Verborgen",
+      "shared": "Zichtbaar",
+      "unlimited": "Onbeperkt",
+      "expireInXDays": "{{ expiration }} dagen"
+    },
+    "tooltips": {
+      "archive": "Archive Kadokaarten",
+      "duplicate": "Dupliceer cadeaubon",
+      "restore": "Herstel Kadokaarten",
+      "shared": "Item aangemaakt vanuit Admin Account",
+      "unavailable": "Niet zichtbaar in de Ledenruimte"
+    },
+    "loading": "Cadeaubon laden"
+  },
+  "imageUploadModal": {
+    "title": "Afbeeldingenbibliotheek",
+    "uploadButton": "Afbeelding uploaden",
+    "description": "Voeg aangepaste afbeeldingen toe aan je bibliotheek zodat je leden hun Kadokaarten kunnen personaliseren. ",
+    "selectImage": "Kies een afbeelding om deze in het cadeaubonontwerp te bekijken",
+    "emptyList": "Nog geen eigen afbeeldingen"
+  }
+}

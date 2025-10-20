@@ -118,7 +118,7 @@
         "availability": {
           "expiresToday": "Laatste dag",
           "expiresIn": "{{ daysRemaining }} dag(en) over",
-          "expiresIn_plural": "{{ daysRemaining }} dag(en) over",
+          "expiresIn_plural": "{{ daysRemaining }} dagen resterend",
           "future": "Startdatum: {{ startDate }}",
           "expired": "Verlopen op: {{ expirationDate }}",
           "active": "Verloopdatum: {{ expirationDate }}"
@@ -271,7 +271,8 @@
           "creditsToRefund_plural": "{{count}} credits worden teruggestort",
           "cancelledFromManager": "Geannuleerd door de studio",
           "cancelledFromMember": "Geannuleerd door mijzelf",
-          "title": "Geannuleerd"
+          "title": "Geannuleerd",
+          "cancelledFromOffer": "Geannuleerd door de studio"
         },
         "drawerTitle": "Activiteit"
       },
@@ -407,7 +408,7 @@
             "cancel": "Abonnement behouden",
             "explainNoExpirationDate": "Je staat op het punt dit abonnement te annuleren. Je abonnementsvoordelen blijven geldig tot het einde van de volgende factureringscyclus.\nWeet je zeker dat je door wilt gaan?",
             "explainStarted": "Je staat op het punt dit abonnement te annuleren. Je abonnementsvoordelen blijven geldig tot {{- expiration_date }} (uitgesloten).\nWeet je zeker dat je wilt doorgaan?",
-            "explainNotStarted": "Je staat op het punt een abonnement te annuleren dat nog niet is gestart. \nDe eerste factureringscyclus wordt nog in rekening gebracht en je voordelen blijven geldig tot {{- expiration_date }} (uitgesloten).\nWeet je zeker dat je wilt doorgaan?"
+            "explainNotStarted": "Dit abonnement is nog niet gestart. Als u het nu opzegt, worden er geen kosten in rekening gebracht."
           },
           "explain": {
             "year": "Dit abonnement heeft een {{ commitment_period_value }} commitmentperiode van een jaar. Neem voor annuleringen of vragen rechtstreeks contact op met de studio.",

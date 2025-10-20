@@ -77,6 +77,8 @@ import {
 import type { ConsumerPaymentPackREST } from '#src/libs/consumer-payment-pack/types';
 import type { PrivateConsumerPassREST } from '#src/libs/private-service/types';
 import { UniversalPassREST } from '#src/libs/universal-pass/types';
+import { trackMemberProfileViewedEvent } from '#src/events/member-profile/trackers';
+import { analyticsClientB2C } from '#src/components/analytics/mixpanel';
 
 export class ConsumerPassReworked extends React.Component<
   ConnectedProps<typeof connector>
@@ -93,6 +95,9 @@ export class ConsumerPassReworked extends React.Component<
       this.props.fetchSCTs({
         member: this.props.membership.id,
       });
+    analyticsClientB2C.track(
+      trackMemberProfileViewedEvent({ page_type: 'pass' }),
+    );
   }
 
   componentDidUpdate(prevProps: ConnectedProps<typeof connector>) {

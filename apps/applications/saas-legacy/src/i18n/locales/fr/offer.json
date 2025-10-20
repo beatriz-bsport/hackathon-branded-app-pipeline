@@ -32,7 +32,9 @@
       "title": "Problème de connexion avec Spivi",
       "textOffer": "La séance ne remplit pas les conditions de Spivi, par conséquent elle n'a pas pu être synchronisée.",
       "textBooking": "Une ou plusieurs réservations ne répondent pas aux conditions de Spivi."
-    }
+    },
+    "duplicateOffer": "Dupliquer",
+    "duplicateModalTitle": "Dupliquer la séance"
   },
   "manageOffer": "Gérer mes réservations",
   "restoreOffer": "Restaurer la séance",
@@ -370,7 +372,8 @@
         "durationMinuteSpivi": "La durée d'une séance sur Spivi doit être comprise entre 20 minutes et 4 heures",
         "dateIntervalEnd": "La date de fin ne peut pas être avant la date de début",
         "roomBlueprintSpivi": "Un plan de salle doit être sélectionné pour les séances synchronisées avec Spivi",
-        "wellhubProductMissing": "Ce champ est obligatoire, vous devez sélectionner un produit."
+        "wellhubProductMissing": "Ce champ est obligatoire, vous devez sélectionner un produit.",
+        "dateIntervalStartBeforeLast": "La date de début ne peut pas être antérieure à la dernière récurrence"
       }
     },
     "warnings": {
@@ -382,6 +385,15 @@
       "alertContent": "Les modifications apportées à cette séance annuleront les réservations en cours sur USC. Confirmez pour continuer.",
       "content": "Toutes les données de réservation actuelles seront perdues si vous modifiez la date, l'heure ou l'établissement de cette séance. La modification de ces détails entraînera l'annulation de la séance en cours sur USC et la création d'une nouvelle séance.",
       "title": "Attention : Cette opération annulera les réservations en cours sur USC."
+    },
+    "recurrence": {
+      "regularOffer": "La nouvelle séance utilisera les mêmes paramètres que la séance dupliquée.",
+      "duplicateModalTitle": "Dupliquer la séance",
+      "duplicate": "Dupliquer",
+      "duplicating": "Duplication",
+      "linkNewOffersLabel": "Liez les nouvelles sessions à ce double afin de pouvoir les modifier ensemble et permettre aux membres de réserver ces sessions en une seule fois",
+      "hybridOffer": "La duplication de cette session hybride créera à la fois des sessions en ligne et sur site. Elles utiliseront les mêmes paramètres que la session dupliquée.",
+      "recurringOffer": "La dernière session aura lieu le  {{- date }} à {{- time }}. La session dupliquée partagera les mêmes paramètres et débutera après cette date.  "
     }
   },
   "subTeacherRequestFilter": {

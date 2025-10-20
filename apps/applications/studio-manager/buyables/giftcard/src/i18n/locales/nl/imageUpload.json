@@ -1,0 +1,16 @@
+{
+  "giftcardPreview": {
+    "placeholders": {
+      "amount": "[Bedrag van de Kadokaarte]",
+      "buyer": "[Naam van de koper]",
+      "message": "[Aangepaste boodschap]",
+      "name": "[Kadokaarte name]",
+      "recipient": "[Naam van de ontvanger]"
+    },
+    "hints": {
+      "amount": "Waarde",
+      "buyer": "Van",
+      "recipient": "Naar"
+    }
+  }
+}

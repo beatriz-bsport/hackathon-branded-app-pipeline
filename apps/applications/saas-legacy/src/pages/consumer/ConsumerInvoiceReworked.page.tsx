@@ -56,6 +56,8 @@ import type { WithHandlerType } from '#src/utils/types';
 import type { OptionCallback, PaginatedResponse } from '#src/state/types';
 import withQueryParamsToProps from '#src/hocs/query-params-to-props.hoc';
 import ConsumerInvoiceContextProvider from '#src/libs/consumer-space/components/reworked/@MyInvoices/ConsumerInvoiceContext';
+import { trackMemberProfileViewedEvent } from '#src/events/member-profile/trackers';
+import { analyticsClientB2C } from '#src/components/analytics/mixpanel';
 
 type OwnProps = {
   membership: Membership;
@@ -98,6 +100,9 @@ class ConsumerInvoiceReworked extends React.Component<Props, State> {
   componentDidMount() {
     this.props.fetchConsumerInvoices(this.state.selectedFilter);
     this.props.fetchPaymentMethodList();
+    analyticsClientB2C.track(
+      trackMemberProfileViewedEvent({ page_type: 'invoice' }),
+    );
   }
 
   changeSelectedFilter = (selectedFilter: InvoicesFiltersEnum) => {

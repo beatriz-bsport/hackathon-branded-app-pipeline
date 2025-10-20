@@ -1,11 +1,84 @@
+import { CommunicationObjectKey } from "./constants";
 import type { CommunicationState } from "./store";
 
-export const selectCommunications = (state: CommunicationState) => {
-  const { ids, byId } = state;
-  return ids.map((id) => byId[id]);
+export const selectCommunicationSentCampaignSummaryById = ({
+  state,
+  objectType,
+  objectId,
+}: {
+  state: CommunicationState;
+  objectType: CommunicationObjectKey;
+  objectId: number;
+}) => {
+  const { campaignSummaries } = state;
+  const stringifiedKey = String(objectType);
+  const stringifiedCampaignId = String(objectId);
+
+  const campaignSummaryByKey = campaignSummaries[stringifiedKey];
+  if (!campaignSummaryByKey) {
+    return undefined;
+  }
+  return campaignSummaryByKey[stringifiedCampaignId];
 };
 
-export const selectCommunication = (state: CommunicationState, id: number) =>
-  state.byId[id];
+export const selectContextCampaignSummariesMap = ({
+  state,
+  objectType,
+}: {
+  state: CommunicationState;
+  objectType: CommunicationObjectKey;
+}) => {
+  const { campaignSummaries } = state;
+  const campaignSummaryByKey = campaignSummaries[objectType];
+  if (!campaignSummaryByKey) {
+    return undefined;
+  }
 
-export const selectCount = (state: CommunicationState) => state.count;
+  return campaignSummaryByKey;
+};
+
+/**
+ * Selector to get communication sent list for a specific key and campaign ID
+ *
+ **/
+export const selectCommunicationSentList = ({
+  state,
+  objectType,
+  objectId,
+}: {
+  state: CommunicationState;
+  objectType: CommunicationObjectKey;
+  objectId: number | string;
+}) => {
+  const { communications } = state;
+  const stringifiedKey = String(objectType);
+  const stringifiedCampaignId = String(objectId);
+  const communicationSentByKey = communications[stringifiedKey];
+  if (!communicationSentByKey) {
+    return {};
+  }
+  const paginatedState = communicationSentByKey[stringifiedCampaignId];
+  if (!paginatedState) {
+    return {};
+  }
+  return paginatedState.byId;
+};
+
+/**
+ * Selector to get recipients for a specific communication sent by its ID
+ */
+export const selectRecipientsByCommunicationSentId = ({
+  state,
+  communicationSentId,
+}: {
+  state: CommunicationState;
+  communicationSentId: number;
+}) => {
+  const { recipients } = state;
+
+  const recipientsByCommunicationId = recipients?.[communicationSentId];
+  if (!recipientsByCommunicationId) {
+    return undefined;
+  }
+  return recipientsByCommunicationId;
+};

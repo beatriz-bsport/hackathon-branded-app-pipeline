@@ -108,6 +108,8 @@ import type {
 import { WithHandlerType } from '../../utils/types';
 import { RootState } from '../../reducers';
 import analyticsUtils from '#src/components/analytics/analytics';
+import { trackCalendarViewedEvent } from '#src/events/booking/trackers';
+import { analyticsClientB2C } from '#src/components/analytics/mixpanel';
 
 export type OwnProps = {
   companyId: number;
@@ -392,6 +394,7 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
     this.props.calendarRefContainer &&
       this.props.containerWidth &&
       this.fetchData();
+    analyticsClientB2C.track(trackCalendarViewedEvent({}));
   }
 
   componentDidUpdate(prevProps: Props, prevState: State) {

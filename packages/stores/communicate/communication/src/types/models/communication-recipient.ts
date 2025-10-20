@@ -1,12 +1,3 @@
-// Member information in recipient
-interface Member {
-  id: number;
-  first_name: string;
-  last_name: string;
-  email: string;
-  // Additional member fields from serializer
-}
-
 // Statistics from metadata or DynamoDB
 interface RecipientStatistics {
   read?: string; // ISO datetime of first read
@@ -16,10 +7,14 @@ interface RecipientStatistics {
   // Other statistics fields
 }
 
-// Individual Communication Recipient
+/**
+ * Model CommunicationRecipient
+ * Serializer: CommunicationRecipientSerializer
+ */
 export type CommunicationRecipient = {
   id: number;
-  member: Member;
+  member: number;
+  email: string;
   communication_sent: number;
   recipient_raw_address: string;
   status: string; // "delivered", "bounced", "failed", etc.
@@ -27,6 +22,7 @@ export type CommunicationRecipient = {
   is_answer: boolean;
   last_read?: string | null; // ISO datetime
   date_created: string; // ISO datetime
+  read_count: number;
 
   // Annotated fields
   statistics?: RecipientStatistics;

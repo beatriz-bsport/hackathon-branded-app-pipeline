@@ -31,8 +31,11 @@ export type MarketingNotificationRecipientsTableRowData = {
   id: number;
   communicationKind: number;
   dateSent: string;
+  hourSent: string;
   recipientIdentity: string;
   status: number;
+  isNotificationRead: boolean;
+  recipientsRelationshipsCount?: number;
 };
 
 export const BIRTHDAY_NOTIFICATION = 0;

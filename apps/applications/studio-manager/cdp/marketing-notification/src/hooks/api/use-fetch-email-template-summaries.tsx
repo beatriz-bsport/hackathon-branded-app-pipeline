@@ -5,7 +5,7 @@ import { useAsync } from "@bsport/use-async";
 
 import { fetch } from "#src/utils/fetch";
 
-const fetchEmailTemplateSummariesBinded =
+const fetchEmailTemplateSummariesBound =
   fetchAllEmailTemplateSummariesAction.bind(null, fetch);
 
 /**
@@ -19,9 +19,9 @@ const fetchEmailTemplateSummariesBinded =
  */
 export function useFetchEmailTemplateSummaries() {
   const [, fetchEmailTemplateSummaries] = useAsync<
-    typeof fetchEmailTemplateSummariesBinded
+    typeof fetchEmailTemplateSummariesBound
   >({
-    asyncFn: fetchEmailTemplateSummariesBinded,
+    asyncFn: fetchEmailTemplateSummariesBound,
   });
 
   /**

@@ -8,22 +8,21 @@ import { fetchSubscriptionsAction } from "@bsport/store-buyables-subscription";
 import { fetchEstablishmentsAction } from "@bsport/store-core-data-establishment";
 import { useAsync } from "@bsport/use-async";
 
+import { useFetchEmailTemplateSummaries } from "#src/hooks/api/use-fetch-email-template-summaries";
 import { fetch } from "#src/utils/fetch";
 
-import { useFetchEmailTemplateSummaries } from "./use-fetch-email-template-summaries";
-
-const fetchActivitiesBinded = fetchGroupActivitiesAndWorkshopsAction.bind(
+const fetchActivitiesBound = fetchGroupActivitiesAndWorkshopsAction.bind(
   null,
   fetch,
 );
-const fetchAppointmentsBinded = fetchAppointmentsAction.bind(null, fetch);
-const fetchEstablishmentsBinded = fetchEstablishmentsAction.bind(null, fetch);
-const fetchPaginatedAppointmentPassesBinded = fetchAppointmentPassesAction.bind(
+const fetchAppointmentsBound = fetchAppointmentsAction.bind(null, fetch);
+const fetchEstablishmentsBound = fetchEstablishmentsAction.bind(null, fetch);
+const fetchPaginatedAppointmentPassesBound = fetchAppointmentPassesAction.bind(
   null,
   fetch,
 );
-const fetchSubscriptionsBinded = fetchSubscriptionsAction.bind(null, fetch);
-const fetchPassesBinded = fetchPassesAction.bind(null, fetch);
+const fetchSubscriptionsBound = fetchSubscriptionsAction.bind(null, fetch);
+const fetchPassesBound = fetchPassesAction.bind(null, fetch);
 
 /**
  * Hook for fetching marketing notification dependencies.
@@ -36,30 +35,30 @@ const fetchPassesBinded = fetchPassesAction.bind(null, fetch);
 export function useFetchMarketingNotificationDependencies() {
   const { handleFetchEmailTemplateSummaries } =
     useFetchEmailTemplateSummaries();
-  const [, fetchActivities] = useAsync<typeof fetchActivitiesBinded>({
-    asyncFn: fetchActivitiesBinded,
+  const [, fetchActivities] = useAsync<typeof fetchActivitiesBound>({
+    asyncFn: fetchActivitiesBound,
   });
 
-  const [, fetchAppointments] = useAsync<typeof fetchAppointmentsBinded>({
-    asyncFn: fetchAppointmentsBinded,
+  const [, fetchAppointments] = useAsync<typeof fetchAppointmentsBound>({
+    asyncFn: fetchAppointmentsBound,
   });
 
-  const [, fetchEstablishments] = useAsync<typeof fetchEstablishmentsBinded>({
-    asyncFn: fetchEstablishmentsBinded,
+  const [, fetchEstablishments] = useAsync<typeof fetchEstablishmentsBound>({
+    asyncFn: fetchEstablishmentsBound,
   });
 
   const [, fetchPaginatedAppointmentPasses] = useAsync<
-    typeof fetchPaginatedAppointmentPassesBinded
+    typeof fetchPaginatedAppointmentPassesBound
   >({
-    asyncFn: fetchPaginatedAppointmentPassesBinded,
+    asyncFn: fetchPaginatedAppointmentPassesBound,
   });
 
-  const [, fetchSubscriptions] = useAsync<typeof fetchSubscriptionsBinded>({
-    asyncFn: fetchSubscriptionsBinded,
+  const [, fetchSubscriptions] = useAsync<typeof fetchSubscriptionsBound>({
+    asyncFn: fetchSubscriptionsBound,
   });
 
-  const [, fetchPasses] = useAsync<typeof fetchPassesBinded>({
-    asyncFn: fetchPassesBinded,
+  const [, fetchPasses] = useAsync<typeof fetchPassesBound>({
+    asyncFn: fetchPassesBound,
   });
 
   const fetchMarketingNotificationDependencies = useCallback(

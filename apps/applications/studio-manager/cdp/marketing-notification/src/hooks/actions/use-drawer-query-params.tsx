@@ -1,5 +1,7 @@
 import { useSearchParams } from "react-router";
 
+import { deletePaginationQueryParams } from "@bsport/use-pagination-query-params";
+
 export function useDrawerQueryParam(paramName = "notificationId") {
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -16,6 +18,8 @@ export function useDrawerQueryParam(paramName = "notificationId") {
     const next = new URLSearchParams(searchParams);
     next.delete(paramName);
     setSearchParams(next, { replace: false });
+
+    deletePaginationQueryParams(setSearchParams);
   };
 
   return { openId, openDrawer, closeDrawer };

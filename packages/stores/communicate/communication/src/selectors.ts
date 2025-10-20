@@ -55,13 +55,39 @@ export const selectCommunicationSentList = ({
   const stringifiedCampaignId = String(objectId);
   const communicationSentByKey = communications[stringifiedKey];
   if (!communicationSentByKey) {
-    return {};
+    return [];
   }
   const paginatedState = communicationSentByKey[stringifiedCampaignId];
   if (!paginatedState) {
-    return {};
+    return [];
   }
-  return paginatedState.byId;
+  const { byId, ids } = paginatedState;
+
+  return ids.filter((id: number) => id in byId).map((id: number) => byId[id]);
+};
+
+/**
+ * Selector to get communication sent list for a specific key and campaign ID
+ *
+ **/
+export const selectCommunicationSentListCount = ({
+  state,
+  objectType,
+  objectId,
+}: {
+  state: CommunicationState;
+  objectType: CommunicationObjectKey;
+  objectId: number | string;
+}) => {
+  const { communications } = state;
+  const stringifiedKey = String(objectType);
+  const stringifiedCampaignId = String(objectId);
+  const communicationSentByKey = communications[stringifiedKey];
+  if (!communicationSentByKey) {
+    return 0;
+  }
+  const paginatedState = communicationSentByKey?.[stringifiedCampaignId];
+  return paginatedState?.count ?? 0;
 };
 
 /**
@@ -76,9 +102,26 @@ export const selectRecipientsByCommunicationSentId = ({
 }) => {
   const { recipients } = state;
 
-  const recipientsByCommunicationId = recipients?.[communicationSentId];
-  if (!recipientsByCommunicationId) {
-    return undefined;
-  }
-  return recipientsByCommunicationId;
+  return recipients?.[communicationSentId];
+};
+
+/**
+ * Selector to get recipients for a specific communication sent by its ID
+ */
+export const selectRecipients = (state: CommunicationState) => {
+  const { recipients } = state;
+
+  return recipients;
+};
+
+/**
+ * Selector to get recipients for a specific communication sent by its ID
+ */
+export const selectRecipientsCount = (
+  state: CommunicationState,
+  communicationSentId: number,
+) => {
+  const { recipients } = state;
+
+  return recipients?.[communicationSentId]?.count || 0;
 };

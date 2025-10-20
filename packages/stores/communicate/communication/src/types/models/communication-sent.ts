@@ -120,6 +120,9 @@ export interface PushNotificationCommunication extends CommunicationSentBase {
 /**
  * Discriminated union type for all communication types
  * TypeScript will narrow the type based on the 'kind' field
+ *
+ * Legacy CommunicationSent type for backwards compatibility
+ * Serializer: CommunicationSentSerializer
  */
 export type CommunicationSent =
   | EmailCommunication

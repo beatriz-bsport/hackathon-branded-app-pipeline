@@ -9,5 +9,21 @@
       "description": "Get smarter, faster decisions with real-time insights.",
       "ctaLabel": "Explore now"
     }
+  },
+  "exploreSection": {
+    "exploreThePlatform": {
+      "title": "Explore the platform",
+      "productUpdatesCard": {
+        "title": "Product updates",
+        "description": "Explore all product updates and improvements"
+      }
+    },
+    "advices": {
+      "title": "bsport advice",
+      "latestNewsCard": {
+        "title": "Latest from bsport",
+        "description": "Discover the latest news and trends in the industry"
+      }
+    }
   }
 }

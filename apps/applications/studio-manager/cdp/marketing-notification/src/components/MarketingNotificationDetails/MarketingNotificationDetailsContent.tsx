@@ -13,6 +13,8 @@ import { useGetMarketingNotificationDependenciesData } from "#src/hooks/api/use-
 import { usePermissionsChecker } from "#src/hooks/permissions/use-permissions-checker";
 import { useTranslation } from "#src/utils/i18n";
 
+import { MarketingNotificationContentDetails } from "./Content/MarketingNotificationContentDetails";
+
 const SEGMENTED_CONTROL_QUERY_PARAM = "notificationDetailView";
 
 type NotificationSegments = "performance" | "trigger" | "content";
@@ -114,7 +116,7 @@ export const MarketingNotificationDetailsContent: React.FC<
       ) : selectedOption === "trigger" ? (
         <MarketingNotificationTriggerDetails notification={notification} />
       ) : (
-        <div className="mt-md">Content content</div>
+        <MarketingNotificationContentDetails notification={notification} />
       )}
     </div>
   );

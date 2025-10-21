@@ -1,1 +1,93 @@
-{}
+{
+  "pages": {
+    "list": "Cartes cadeaux",
+    "archivedList": "Archive des cartes cadeaux"
+  },
+  "listPage": {
+    "header": {
+      "buttons": {
+        "addGiftcard": "Ajouter une carte cadeau",
+        "openBankImage": "Bibliothèque d'images"
+      }
+    },
+    "empty": {
+      "title": "Pas encore de cartes cadeaux",
+      "subtitle": "Créez des cartes cadeaux afin que les membres puissent les partager avec leurs amis et leur famille"
+    },
+    "archiveModal": {
+      "title": "Archiver la Carte Cadeau ?",
+      "description": {
+        "lineOne": "'{{ name }}' ne sera plus visible pour les membres, mais les achats actuels ou précédents ne seront pas affectés.",
+        "lineTwo": "Vous pouvez restaurer cette Carte Cadeau à tout moment depuis votre archive."
+      },
+      "buttons": {
+        "cancel": "Précédent",
+        "archive": "Archiver"
+      }
+    },
+    "duplicateModal": {
+      "title": "Dupliquer cette carte cadeau ?",
+      "description": {
+        "action": "Vous pouvez modifier '{{ name }}' une fois dupliqué."
+      },
+      "buttons": {
+        "cancel": "Précédent",
+        "duplicate": "Dupliquer"
+      }
+    }
+  },
+  "archivedListPage": {
+    "empty": {
+      "title": "Aucune carte cadeau archivée"
+    }
+  },
+  "toasts": {
+    "successMessages": {
+      "restoreGiftcard": "Carte Cadeaux restaurée",
+      "archiveGiftcard": "Carte Cadeaux archivée",
+      "duplicateGiftcard": "Carte cadeau dupliquée",
+      "deleteGiftcardImage": "Image de la carte cadeau supprimée",
+      "undoAction": "Action annulée"
+    },
+    "errorMessages": {
+      "restoreGiftcard": "Impossible de restaurer la Carte Cadeaux, veuillez réessayer.",
+      "archiveGiftcard": "Impossible d'archiver la Carte Cadeaux, veuillez réessayer",
+      "duplicateGiftcard": "Impossible de dupliquer la Carte Cadeaux, veuillez réessayer",
+      "undoAction": "Impossible d'annuler l'action, veuillez réessayer",
+      "deleteGiftcardImage": "Impossible de supprimer l'image de la Carte Cadeaux, veuillez réessayer."
+    },
+    "actions": {
+      "undo": "Annuler",
+      "open": "Ouvrir",
+      "close": "Fermer"
+    }
+  },
+  "giftcardTable": {
+    "headers": {
+      "name": "Nom",
+      "validity": "Validité",
+      "price": "Prix"
+    },
+    "values": {
+      "unavailable": "Caché",
+      "shared": "Visible",
+      "unlimited": "Illimité",
+      "expireInXDays": "{{ expiration }} jours"
+    },
+    "tooltips": {
+      "archive": "Archiver les Cartes Cadeaux",
+      "duplicate": "Dupliquer cette carte cadeau",
+      "restore": "Restaurer cette carte cadeau",
+      "shared": "Élément créé à partir du compte principal",
+      "unavailable": "Non visible dans l'Espace Membre"
+    },
+    "loading": "Chargement des Cartes cadeaux"
+  },
+  "imageUploadModal": {
+    "title": "Bibliothèque d'images",
+    "uploadButton": "Télécharger l'image",
+    "description": "Ajoutez des images personnalisées à votre bibliothèque pour que vos membres puissent personnaliser leurs Cartes Cadeaux. ",
+    "selectImage": "Sélectionnez une image pour la prévisualiser dans le design des cartes cadeaux",
+    "emptyList": "Pas encore d'images personnalisées"
+  }
+}

@@ -27,6 +27,7 @@ import { useBasketPaymentContext } from './BasketPaymentContext';
 import type { StripePaymentElementConfig } from '#src/libs/company/types';
 
 type StripeExpressCheckoutElementProps = {
+  allowedWallets?: { applePay: boolean; googlePay: boolean };
   basketTotalPriceCts: number;
   clientSecret: string;
   disabled?: boolean;
@@ -42,7 +43,10 @@ type StripeExpressCheckoutElementProps = {
 type StripeExpressCheckoutElementInnerProps = Omit<
   StripeExpressCheckoutElementProps,
   'basketTotalPriceCts' | 'stripePaymentElementConfig'
->;
+> & {
+  paymentMethods: Record<string, 'always' | 'never'>;
+  paymentMethodOrder: string[];
+};
 
 const StripeExpressCheckoutElementInner: React.FC<
   StripeExpressCheckoutElementInnerProps
@@ -53,6 +57,8 @@ const StripeExpressCheckoutElementInner: React.FC<
   onLoadError,
   onReady,
   onSuccessfulPayment,
+  paymentMethods,
+  paymentMethodOrder,
 }) => {
   const classes = useStyles();
   const { t } = useTranslation('checkout');
@@ -159,8 +165,8 @@ const StripeExpressCheckoutElementInner: React.FC<
               onReady?.(event);
             }}
             options={{
-              paymentMethods: { applePay: 'always', googlePay: 'always' },
-              paymentMethodOrder: ['applePay', 'googlePay'],
+              paymentMethods,
+              paymentMethodOrder,
             }}
           />
         </div>
@@ -176,6 +182,7 @@ const StripeExpressCheckoutElement: React.FC<
   StripeExpressCheckoutElementProps
 > = (props) => {
   const {
+    allowedWallets = { applePay: false, googlePay: false },
     basketTotalPriceCts,
     clientSecret,
     disabled,
@@ -191,6 +198,21 @@ const StripeExpressCheckoutElement: React.FC<
 
   const { language } = i18n;
   const elementLocale = getLocaleFromLanguage(language);
+
+  const paymentMethods: Record<string, 'always' | 'never'> = {};
+  const paymentMethodOrder: string[] = [];
+  if (allowedWallets.applePay) {
+    paymentMethods.applePay = 'always';
+    paymentMethodOrder.push('applePay');
+  } else {
+    paymentMethods.applePay = 'never';
+  }
+  if (allowedWallets.googlePay) {
+    paymentMethods.googlePay = 'always';
+    paymentMethodOrder.push('googlePay');
+  } else {
+    paymentMethods.googlePay = 'never';
+  }
 
   return (
     <Elements
@@ -223,6 +245,8 @@ const StripeExpressCheckoutElement: React.FC<
           onLoadError,
           onReady,
           onSuccessfulPayment,
+          paymentMethodOrder,
+          paymentMethods,
         }}
       />
     </Elements>

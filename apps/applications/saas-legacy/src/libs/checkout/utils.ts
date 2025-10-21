@@ -510,3 +510,6 @@ export const removeQueryParamsFromUrl = (paramsToRemove: string[]): void => {
     );
   }
 };
+
+export const getBasketItemCount = (checkoutItems: CheckoutItem[]) =>
+  checkoutItems.reduce((acc, item) => acc + item.quantity, 0);

@@ -17,7 +17,9 @@
       "textBooking": "Una o varias reservas no cumplen las condiciones de Spivi.",
       "textOffer": "La sesión no cumplía los requisitos de Spivi, por lo que no pudo sincronizarse.",
       "title": "Problema de conexión con Spivi"
-    }
+    },
+    "duplicateOffer": "Duplicar",
+    "duplicateModalTitle": "Duplicar sesión"
   },
   "manageOffer": "Gestionar las reservas",
   "forms": {
@@ -208,7 +210,8 @@
         "effectif": "El valor es superior al número máximo de plazas",
         "roomBlueprintSpivi": "Debe seleccionarse un plano de la sala para las sesiones sincronizadas con Spivi",
         "durationMinuteSpivi": "Una sesión en Spivi debe durar entre 20 minutos y 4 horas",
-        "wellhubProductMissing": "Este campo es obligatorio, debe seleccionar un producto."
+        "wellhubProductMissing": "Este campo es obligatorio, debe seleccionar un producto.",
+        "dateIntervalStartBeforeLast": "La fecha de inicio no puede ser anterior a la última recurrencia"
       },
       "dateTooFar": "Imposible crear sesiones que tengan lugar en más de 3 años",
       "dateFormat": "Formato de fecha inválido",
@@ -377,6 +380,15 @@
       "alertContent": "Los cambios en esta sesión cancelarán las reservas actuales en USC. Confirme para continuar.",
       "content": "Perderá todos los datos de reserva actuales si cambia la fecha, la hora o el establecimiento de esta sesión. Al cambiar estos datos se creará una nueva sesión y se cancelará la actual en USC.",
       "title": "Atención: Esto cancelará las reservas actuales en USC."
+    },
+    "recurrence": {
+      "regularOffer": "La nueva sesión usará la misma configuración que la sesión duplicada.",
+      "duplicateModalTitle": "Duplicar sesión",
+      "duplicate": "Duplicar",
+      "duplicating": "Duplicando",
+      "linkNewOffersLabel": "Vincula nuevas sesiones a este duplicado para que puedas editarlas juntas y los miembros puedan reservarlas todas a la vez",
+      "hybridOffer": "Al duplicar esta sesión híbrida, se crearán sesiones tanto en línea como presenciales. Estas utilizarán la misma configuración que la sesión duplicada.",
+      "recurringOffer": "La última sesión es el {{- date }} a las{{- time }}. La sesión duplicada compartirá la misma configuración y comenzará después de esta fecha.  "
     }
   },
   "isFree": "Gratis",

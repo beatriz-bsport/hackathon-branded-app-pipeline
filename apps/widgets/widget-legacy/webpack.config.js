@@ -25,7 +25,7 @@ const getConfig = () => {
 };
 
 const publicPath = devMode
-  ? 'http://localhost:9000/'
+  ? 'http://localhost:3100/'
   : `https://${process.env.CDN_DOMAIN}/scripts/`;
 const distDir = path.join(__dirname, 'dist');
 const publicDir = path.join(__dirname, 'public');
@@ -44,7 +44,7 @@ module.exports = {
   },
   devServer: {
     static: publicDir,
-    port: 9000,
+    port: 3100,
   },
   resolve: {
     fallback: {

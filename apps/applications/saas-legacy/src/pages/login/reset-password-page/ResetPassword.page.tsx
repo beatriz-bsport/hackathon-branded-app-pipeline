@@ -11,6 +11,8 @@ import { resetPassword } from '../../../actions/auth.actions';
 import { retrieveCompanyCssConfiguration as retrieveCompanyCssConfigurationAction } from '../../../libs/exportable-components/actions';
 
 import type { RootState } from '../../../reducers';
+import { trackResetPasswordViewedEvent } from '#src/events/authentication/trackers';
+import { analyticsClientB2C } from '#src/components/analytics/mixpanel';
 
 type LocationProps = { location: Location };
 
@@ -59,6 +61,7 @@ export class ResetPassword extends Component<Props, State> {
         parseInt(this.props.membership),
       );
     }
+    analyticsClientB2C.track(trackResetPasswordViewedEvent({}));
   }
 
   updateEmail = (event: React.ChangeEvent<HTMLInputElement>) => {

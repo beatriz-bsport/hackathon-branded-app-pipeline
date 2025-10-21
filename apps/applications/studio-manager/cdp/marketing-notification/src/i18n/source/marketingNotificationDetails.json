@@ -1,0 +1,56 @@
+{
+  "drawer": {
+    "overview": "Overview",
+    "segmentedControl": {
+      "performance": "Performance",
+      "trigger": "Trigger",
+      "content": "Content"
+    },
+    "performance": {
+      "emails": {
+        "title": "Emails",
+        "totalEmailsSent": "Total Emails Sent",
+        "recipientsTotal_one": "({{count}} member)",
+        "recipientsTotal_other": "({{count}} members)",
+        "openRate": "Open Rate"
+      },
+      "allNotifications": {
+        "title": "All notifications",
+        "noCommunications": {
+          "title": "No communications were sent",
+          "description": "There is no reached recipients to display for this notification yet."
+        },
+        "helper": {
+          "title": "Performance Status",
+          "content": "This summary shows the performance of both emails and push notifications by displaying their status.",
+          "status": {
+            "sent": {
+              "label": "Sent",
+              "description": "Delivered successfully"
+            },
+            "opened": {
+              "label": "Opened",
+              "description": "Recipient opened the notification"
+            },
+            "failed": {
+              "label": "Failed",
+              "description": "Could not be delivered"
+            }
+          }
+        },
+        "table": {
+          "header": {
+            "date": "Date",
+            "recipient": "Recipient",
+            "status": "Status"
+          }
+        },
+        "status": {
+          "sent": "Sent",
+          "opened": "Opened",
+          "failed": "Failed"
+        }
+      }
+    }
+  }
+}

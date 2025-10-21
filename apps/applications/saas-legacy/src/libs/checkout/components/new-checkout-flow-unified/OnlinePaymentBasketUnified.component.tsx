@@ -318,6 +318,17 @@ export const OnlinePaymentBasketUnified: React.FC<Props> = forwardRef(
       getClientSecret(selectedPaymentEngine);
     }, [selectedPaymentEngine]);
 
+    const allowedWallets = {
+      applePay:
+        paymentMethodAvailableBasket?.includes(
+          PAYMENT_GROUP_METHOD_IDENTIFIER_APPLE_PAY,
+        ) ?? false,
+      googlePay:
+        paymentMethodAvailableBasket?.includes(
+          PAYMENT_GROUP_METHOD_IDENTIFIER_GOOGLE_PAY,
+        ) ?? false,
+    };
+
     return (
       <div className={classes.container}>
         <div className={classes.billingGroupSelector}>
@@ -351,6 +362,7 @@ export const OnlinePaymentBasketUnified: React.FC<Props> = forwardRef(
         {showStripeExpressCheckout && (
           <div className={classes.expressCheckoutContainer}>
             <StripeExpressCheckoutElement
+              allowedWallets={allowedWallets}
               basketTotalPriceCts={basketTotalPriceCts}
               clientSecret={clientSecret}
               disabled={

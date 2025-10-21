@@ -48,7 +48,9 @@
       "textOffer": "La sessione non soddisfa i requisiti di Spivi, quindi non può essere sinconizzata.",
       "textBooking": "Una o più prenotazioni non soddisfano le condizioni di Spivi.",
       "title": "Problema di connessione con Spivi"
-    }
+    },
+    "duplicateOffer": "Duplica",
+    "duplicateModalTitle": "Duplica sessione"
   },
   "manageOffer": "Gestisci le mie prenotazioni",
   "massDisabler": {
@@ -208,7 +210,8 @@
         "effectif": "Il valore è maggiore del numero massimo di posti",
         "roomBlueprintSpivi": "Devi selezionare una gestione dei posti per le sessioni sincornizzate con Spivi",
         "durationMinuteSpivi": "Una sessione di Spivi deve durare tra i 20 minuti e le 4 ore",
-        "wellhubProductMissing": "Questo campo è obbligatorio, è necessario selezionare un prodotto."
+        "wellhubProductMissing": "Questo campo è obbligatorio, è necessario selezionare un prodotto.",
+        "dateIntervalStartBeforeLast": "La data di inizio non può essere precedente all’ultima ricorrenza"
       },
       "dateTooFar": "Impossibile creare sessioni che si svolgono tra più di 3 anni",
       "dateFormat": "Formato data non valido",
@@ -377,6 +380,15 @@
       "alertContent": "Le modifiche a questa sessione annulleranno le prenotazioni in corso su USC. Confermare per procedere.",
       "content": "Se si modificano la data, l'ora o lo stabilimento di questa sessione, si perderanno tutti i dati di prenotazione attuali. La modifica di questi dettagli creerà una nuova sessione e annullerà quella attuale su USC.",
       "title": "Attenzione: In questo modo si annulleranno le prenotazioni in corso su USC."
+    },
+    "recurrence": {
+      "regularOffer": "La nuova sessione utilizzerà le stesse impostazioni di quella duplicata.",
+      "duplicateModalTitle": "Duplica sessione",
+      "duplicate": "Duplica",
+      "duplicating": "Duplicazione",
+      "linkNewOffersLabel": "Collega le nuove sessioni a questo duplicato in modo da poterle modificare insieme e consentire ai membri di prenotarle tutte in una volta sola",
+      "hybridOffer": "Duplicando questa sessione ibrida si creeranno sia sessioni online che in loco. Queste utilizzeranno le stesse impostazioni della sessione duplicata.",
+      "recurringOffer": "L'ultima sessione è prevista per {{- date }} alle {{- time }}. La sessione duplicata avrà le stesse impostazioni e inizierà dopo questa data.  "
     }
   },
   "isFree": "Gratis",

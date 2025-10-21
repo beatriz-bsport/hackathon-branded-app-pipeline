@@ -1,1 +1,49 @@
-{}
+{
+  "title": "Pakete",
+  "actions": {
+    "addAPack": "Füge ein Paket hinzu"
+  },
+  "table": {
+    "loading": "Lade Pakete...",
+    "emptyList": {
+      "title": "Derzeit keine Pakete",
+      "subtitle": "Füge ein Paket hinzu, um deine Produkte und Pässe zu einem einzigen Angebot zu kombinieren. "
+    },
+    "headers": {
+      "name": "Name",
+      "visibility": "Sichtbarkeit",
+      "numberOfProducts": "Produkte",
+      "price": "Preis"
+    },
+    "tooltips": {
+      "unavailableForUsers": "Dieses Paket wird im Mitgliederbereich nicht angezeigt.",
+      "invisibleForStaff": "Dieses Paket ist nicht für Mitarbeiter sichtbar",
+      "availableForALimitedTime": "Dieses Paket wird nur für eine begrenzte Zeit angezeigt.",
+      "archive": "Paket löschen"
+    }
+  },
+  "deleteModal": {
+    "title": "Paket löschen?",
+    "description": {
+      "effect": "Wenn du {{ name }} löschst, werden aktuelle oder frühere Käufe nicht beeinflusst.",
+      "canNotBeUndone": "Diese Aktion kann nicht rückgängig gemacht werden."
+    },
+    "actions": {
+      "cancel": "Schließen",
+      "delete": "Löschen"
+    }
+  },
+  "toasts": {
+    "messageDelete": {
+      "success": "Pakete gelöscht",
+      "error": "Fehler beim Löschen des Pakets"
+    },
+    "messageUndo": {
+      "success": "Aktion rückgängig gemacht",
+      "error": "Paket nicht wiederhergestellt"
+    },
+    "actions": {
+      "undo": "Wiederherstellen"
+    }
+  }
+}

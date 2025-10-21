@@ -25,7 +25,6 @@ describe("generateEvent", () => {
 
   it("keeps provided eventType if explicitly given", () => {
     const result = buttonClickedEvent({
-      // @ts-expect-error Dev is not authorized to provide eventType normally
       eventType: "custom_event",
       kind: "secondary",
     });

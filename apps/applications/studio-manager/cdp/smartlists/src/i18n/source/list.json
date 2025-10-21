@@ -55,7 +55,7 @@
   },
   "inlineActions": {
     "duplicate": "Duplicate Smartlist",
-    "edit": "Change name or description",
+    "edit": "Rename",
     "delete": "Delete Smartlist"
   },
   "createForm": {

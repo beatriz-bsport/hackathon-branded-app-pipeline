@@ -1,4 +1,15 @@
 {
+  "pages": {
+    "insights": {
+      "title": "Insights"
+    },
+    "recurringRevenue": {
+      "title": "Monitor Subscriptions Performance"
+    },
+    "trialAnalysis": {
+      "title": "Track trial offer performance"
+    }
+  },
   "sections": {
     "memberInsights": "Member Insights",
     "financialHealth": "Financial Health"
@@ -8,7 +19,7 @@
     "description": "Discover more about acquisition, conversion rates and how you can increase the effectiveness of your trial offer."
   },
   "monitorRevenue": {
-    "title": "Monitor subscriptions performance",
+    "title": "Monitor Subscriptions Performance",
     "description": "Track subscriptions health, analyse recurring revenue, and spot risks or opportunities"
   }
 }

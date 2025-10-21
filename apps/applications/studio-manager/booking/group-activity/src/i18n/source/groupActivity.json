@@ -25,43 +25,43 @@
         "isNot": "Is not"
       },
       "duplicate": {
-        "title": "Duplicate activity",
+        "title": "Duplicate Group Activity",
         "modalContent": "Duplicate <strong>{{groupActivityName}}</strong>?<br/> You can edit the gift card details afterwards.",
         "cancel": "Cancel",
         "confirm": "Duplicate"
       },
       "archive": {
-        "title": "Archive activity",
+        "title": "Archive Group Activity?",
         "modalContent": "Do you want to archive <strong>{{groupActivityName}}</strong> activity? The sessions and past bookings won't be modified.<br/> You can unarchive the activity at any time.",
-        "cantArchive": "There are upcoming sessions planned for this activity. Check if they have been cancelled.",
+        "cantArchive": "Members won't see {{groupActivityname}} anymore but you can restore it from your archive at any time. ",
         "cancel": "Cancel",
         "confirm": "Archive"
       },
       "emptyState": {
-        "title": "No group activities yet",
-        "body": "Create group activities and let your members attend sessions"
+        "title": "No Group Activities yet",
+        "body": "Create your first Group Activity for your members to book. "
       },
       "emptySearchState": {
-        "title": "No group activities found",
+        "title": "No Group Activities found, adjust filters and try again",
         "subtitle": "Try searching with different keywords",
         "action": "Clear Filters"
       }
     },
     "archived": {
-      "unarchive": "Unarchive activity",
+      "unarchive": "Restore Group Activity",
       "emptyState": {
-        "title": "No archived group activities yet"
+        "title": "You haven't archived any Group Activities yet"
       }
     },
     "actions": {
       "archive": "Archive",
-      "unarchive": "Unarchive",
+      "unarchive": "Restore",
       "duplicate": "Duplicate"
     },
     "header": {
-      "groupActivities": "Group activities",
-      "archivedGroupActivities": "Archived group activities",
-      "add": "Add group activity",
+      "groupActivities": "Group Activities",
+      "archivedGroupActivities": "Group Activities archive",
+      "add": "Add Group Activity",
       "filter": "Filter",
       "display": {
         "title": "Display",
@@ -70,12 +70,12 @@
         "reset": "Reset",
         "save": "Save"
       },
-      "archivedActivities": "Archived activities"
+      "archivedActivities": "Group Activity archive"
     },
     "toasts": {
-      "duplication": "{{groupActivityName}} has been duplicated",
-      "archive": "{{groupActivityName}} has been archived",
-      "unarchive": "{{groupActivityName}} has been unarchived",
+      "duplication": "{{groupActivityName}} duplicated",
+      "archive": "{{groupActivityName}} archived",
+      "unarchive": "{{groupActivityName}} restored",
       "open": "Open",
       "undo": "Undo"
     }

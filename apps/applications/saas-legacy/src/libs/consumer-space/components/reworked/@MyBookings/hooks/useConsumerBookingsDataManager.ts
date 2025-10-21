@@ -47,6 +47,8 @@ import { getUserZone } from '#src/utils/datetime';
 import WidgetUtils from '#src/libs/widget/WidgetUtils';
 import Config from '#src/config';
 import type { OptionCallback, PaginatedResponse } from '#src/state/types';
+import { analyticsClientB2C } from '#src/components/analytics/mixpanel';
+import { trackBookingCancelledEvent } from '#src/events/booking/trackers';
 
 /** Provides all of the necessary data and fetch handlers for consumer booking page */
 export default function useConsumerBookingsDataManager({
@@ -692,7 +694,22 @@ export default function useConsumerBookingsDataManager({
       if (privateBookingId) {
         cancelPrivateBooking(
           { privateBookingId, force_refund: isRefundingCredit },
-          optionCallback,
+          {
+            ...optionCallback,
+            onSuccess: () => {
+              if (selectedPrivateBookingForCancelation) {
+                analyticsClientB2C.track(
+                  trackBookingCancelledEvent({
+                    activity_id: selectedPrivateBookingForCancelation.id,
+                    activity_name: selectedPrivateBookingForCancelation.name,
+                    offer_id: selectedPrivateBookingForCancelation.id,
+                    session_type: 'appointment',
+                  }),
+                );
+              }
+              optionCallback?.onSuccess?.();
+            },
+          },
         );
       }
       if (bookingOptionId) {
@@ -706,6 +723,7 @@ export default function useConsumerBookingsDataManager({
       handleSetSelectedTab,
       handleToggleCancelBookingModal,
       selectedTab,
+      selectedPrivateBookingForCancelation,
     ],
   );
 

@@ -77,6 +77,11 @@ import {
   getSlotsByDateLoading,
 } from '#src/libs/private-service/selectors/availability-slot';
 import { useTranslation } from 'react-i18next';
+import { analyticsClientB2C } from '#src/components/analytics/mixpanel';
+import {
+  trackAppointmentSlotViewedEvent,
+  trackAppointmentViewedEvent,
+} from '#src/events/booking/trackers';
 
 type PropsFromWidget = {
   companyId: string;
@@ -338,6 +343,25 @@ const SlotSelectorPage: React.FC<PageProps> = ({
       onSelectPrivateSlot(privateService.slots[0]);
     }
   }, [privateService, onSelectPrivateSlot]);
+
+  useEffect(() => {
+    if (showSessions && isFetchSuccessful && !!privateService) {
+      analyticsClientB2C.track(
+        trackAppointmentViewedEvent({
+          activity_id: privateService.id,
+          activity_name: privateService.name,
+        }),
+      );
+      if (!!privateService?.slots?.length) {
+        analyticsClientB2C.track(
+          trackAppointmentSlotViewedEvent({
+            activity_id: privateService.id,
+            activity_name: privateService.name,
+          }),
+        );
+      }
+    }
+  }, [isFetchSuccessful]);
 
   return (
     <div className={classes.pageContainer}>

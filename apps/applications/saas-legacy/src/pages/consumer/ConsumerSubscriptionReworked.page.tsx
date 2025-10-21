@@ -52,6 +52,8 @@ import type { OptionCallback, PaginatedResponse } from '#src/state/types';
 import type { RootState } from '../../reducers';
 import type { WithHandlerType } from '../../utils/types';
 import { ConsumerSpaceContextEnum } from '#src/libs/consumer-space/constants';
+import { trackMemberProfileViewedEvent } from '#src/events/member-profile/trackers';
+import { analyticsClientB2C } from '#src/components/analytics/mixpanel';
 
 type OwnProps = {
   // eslint-disable-next-line react/no-unused-prop-types
@@ -91,6 +93,9 @@ export class ConsumerSubscription extends React.Component<Props> {
     this.props.fetchExpiredSubscriptionsList();
     this.props.fetchInvoiceConfiguration();
     this.props.fetchPaymentMethodList();
+    analyticsClientB2C.track(
+      trackMemberProfileViewedEvent({ page_type: 'subscription' }),
+    );
   }
 
   render() {

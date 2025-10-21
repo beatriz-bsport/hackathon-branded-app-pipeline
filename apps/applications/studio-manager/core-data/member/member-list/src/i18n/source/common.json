@@ -36,8 +36,8 @@
     "archiveModal": {
       "title": "Archive member",
       "description": {
-        "action": "Are you sure that you want to archive <strong>{{ name }}</strong> ?",
-        "effect": "They will no longer be active but can be restored any time from your archive."
+        "action": "Once you archive 1 {{ name }} 1, they will no longer be active. ",
+        "effect": "They can be restored any time from your archive."
       },
       "alertIrregularity": {
         "adviseRegularization": "Based on the following criteria, we advise that you regularize your member's internal account balance before the member is archived:",

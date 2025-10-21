@@ -52,6 +52,7 @@ import { useLightSignUpOperations } from '../hooks/useLightSignUpOperations';
 import { OneClickCheckoutSkeleton } from '#src/pages/checkout/express-checkouts/components/OneClickCheckoutSkeleton';
 import Loader from '#src/pages/checkout/express-checkouts/components/Loader';
 import { usePassCard } from './hooks/usePassCard';
+import { AlreadyMemberSection } from '../components/AlreadyMemberSection';
 import { useBasket } from './hooks/useBasket';
 import useCheckPassValidity from './hooks/useCheckPassValidity';
 import {
@@ -390,17 +391,7 @@ const ExpressPassCheckoutContent: React.FC<ContentProps> = ({
           </Typography>
         </div>
         <div className="bs-express-pass-checkout__already-member--mobile">
-          <Typography variant={TypographyVariant.TITLE_SM}>
-            {t('booking:oneClickBooking.alreadyMember')}
-          </Typography>
-          <ButtonV2
-            color="primary"
-            href={loginToPaymentPackUrl}
-            size="sm"
-            variant="outlined"
-          >
-            {t('booking:oneClickBooking.goToLogin')}
-          </ButtonV2>
+          <AlreadyMemberSection loginUrl={loginToPaymentPackUrl} />
         </div>
         <OneClickCheckoutSkeleton isLoading={!hasData} />
         {hasData && (
@@ -416,17 +407,7 @@ const ExpressPassCheckoutContent: React.FC<ContentProps> = ({
             <div className="bs-express-pass-checkout__divider--mobile" />
             <div className="bs-express-pass-checkout__light-signup-form">
               <div className="bs-express-pass-checkout__already-member--desktop">
-                <Typography variant={TypographyVariant.TITLE_SM}>
-                  {t('booking:oneClickBooking.alreadyMember')}
-                </Typography>
-                <ButtonV2
-                  color="primary"
-                  href={loginToPaymentPackUrl}
-                  size="sm"
-                  variant="outlined"
-                >
-                  {t('booking:oneClickBooking.goToLogin')}
-                </ButtonV2>
+                <AlreadyMemberSection loginUrl={loginToPaymentPackUrl} />
               </div>
               <div className="bs-express-pass-checkout__divider--desktop" />
               <LightSignupForm />

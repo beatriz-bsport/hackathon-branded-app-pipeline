@@ -106,6 +106,10 @@
       "sm-insights": {
         "devPort": 4350,
         "watchPath": "../business-insights/insights/src/**/*"
+      },
+      "sm-homepage": {
+        "devPort": 4399,
+        "watchPath": "../business-insights/homepage/src/**/*"
       }
     }
   }

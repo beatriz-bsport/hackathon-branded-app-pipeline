@@ -1,4 +1,4 @@
-import { type VariantProps, cva } from "class-variance-authority";
+import { type VariantProps, cva, cx } from "class-variance-authority";
 import React, { useEffect, useId, useState } from "react";
 import { createPortal, flushSync } from "react-dom";
 
@@ -9,32 +9,48 @@ import { useFocusManagement } from "#src/hooks/use-focus-management";
 import { useMatchMedia } from "#src/hooks/use-match-media";
 import { useKaizenI18nInstance, useTranslation } from "#src/i18n";
 
-// padding bottom|top + icon button height + border
-const MOBILE_HEADER_HEIGHT = 2 * 12 + 32 + 1;
-
 const defaultClasses = [
-  "h-screen w-[300px] py-md",
-  "shrink-0 flex flex-col",
-  "shadow-inner shadow-action-default-rest",
+  "w-layout-sidebar py-md",
+  "shrink-0",
+  "shadow-lg",
+  "border-r-stroke-default border-r-stroke-thin",
   "bg-surface-page-navigation",
   "will-change-transform",
 ] as const;
 
 const variants = {
-  display: {
-    desktop: "hidden md:flex",
-    mobile: "fixed left-0",
+  platform: {
+    desktop: "hidden md:flex md:flex-col md:h-screen",
+    mobile:
+      "flex flex-col fixed left-0 top-layout-mobile-sidebar-offset h-layout-content-mobile",
   },
-  animation: {
-    "slide-in": "animate-slide-in-left",
-    "slide-out": "animate-slide-out-left",
-    none: "",
+  state: {
+    open: "animate-slide-in-left",
+    closed: "animate-slide-out-left",
   },
 } as const;
 
-const sidebar = cva(defaultClasses, { variants });
+const sidebar = cva(defaultClasses, {
+  variants,
+  compoundVariants: [
+    {
+      platform: "desktop",
+      state: "open",
+      class: "!animate-none",
+    },
+    {
+      platform: "desktop",
+      state: "closed",
+      class: "!animate-none",
+    },
+  ],
+  defaultVariants: {
+    platform: "desktop",
+    state: "open",
+  },
+});
 
-type InternalVariants = "display" | "animation";
+type InternalVariants = "platform" | "state";
 type VariantSidebarProps = Omit<VariantProps<typeof sidebar>, InternalVariants>;
 
 export type SidebarProps = React.HTMLAttributes<HTMLDivElement> &
@@ -43,6 +59,7 @@ export type SidebarProps = React.HTMLAttributes<HTMLDivElement> &
     className?: string;
     ariaLabel?: string;
     withPortal?: boolean;
+    topbarSlot?: React.ReactNode;
   };
 
 type MobileOverlayProps = {
@@ -74,20 +91,10 @@ const MobileOverlay: React.FC<MobileOverlayProps> = ({
     return null;
   }
 
-  const mobilePanelStyle: React.CSSProperties = {
-    top: MOBILE_HEADER_HEIGHT,
-    height: `calc(100vh - ${MOBILE_HEADER_HEIGHT}px)`,
-  };
-
-  const backdropStyle: React.CSSProperties = {
-    top: MOBILE_HEADER_HEIGHT,
-  };
-
   const content = (
     <>
       <div
-        className="fixed left-0 right-0 bottom-0 bg-black/20"
-        style={backdropStyle}
+        className="fixed left-0 right-0 bottom-0 top-layout-mobile-sidebar-offset bg-black/20"
         onClick={onBackdropClick}
         aria-hidden="true"
       />
@@ -96,11 +103,10 @@ const MobileOverlay: React.FC<MobileOverlayProps> = ({
         ref={containerRef as React.RefObject<HTMLElement>}
         className={sidebar({
           className,
-          display: "mobile",
-          animation: isOpen ? "slide-in" : "slide-out",
+          platform: "mobile",
+          state: isOpen ? "open" : "closed",
         })}
         onAnimationEnd={onAnimationEnd}
-        style={mobilePanelStyle}
         role="navigation"
         aria-label={ariaLabel}
         tabIndex={-1}
@@ -118,6 +124,7 @@ const Sidebar: React.FC<SidebarProps> = ({
   className = "",
   ariaLabel,
   withPortal = true,
+  topbarSlot,
   ...props
 }) => {
   const i18nInstance = useKaizenI18nInstance();
@@ -178,7 +185,7 @@ const Sidebar: React.FC<SidebarProps> = ({
   return (
     <>
       <aside
-        className={sidebar({ className, display: "desktop" })}
+        className={sidebar({ className })}
         role="navigation"
         aria-label={resolvedAriaLabel}
         {...props}
@@ -188,8 +195,12 @@ const Sidebar: React.FC<SidebarProps> = ({
 
       <div className="md:hidden">
         <div
-          className="p-sm bg-surface-page-navigation border-b-stroke-thin border-b-[var(--kz-color-shadow-weak)] border-solid"
-          style={{ height: MOBILE_HEADER_HEIGHT, boxSizing: "border-box" }}
+          className={cx(
+            "p-sm h-layout-mobile-header box-border",
+            "bg-surface-page-navigation",
+            "flex items-center justify-between",
+            "border-b-stroke-thin border-b-stroke-weak",
+          )}
         >
           <Button
             intent="default"
@@ -203,6 +214,7 @@ const Sidebar: React.FC<SidebarProps> = ({
             aria-expanded={isMobileMenuOpen}
             aria-controls={sidebarId}
           />
+          {topbarSlot}
         </div>
 
         {!isDesktop && (

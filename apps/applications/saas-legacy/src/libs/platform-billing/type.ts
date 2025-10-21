@@ -86,4 +86,5 @@ export type PlatformSubscription = {
   maximum_platform_billing_stage: number;
   coupon_cts: number;
   default_currency_display: string;
+  is_using_bundled_pricing: boolean;
 };

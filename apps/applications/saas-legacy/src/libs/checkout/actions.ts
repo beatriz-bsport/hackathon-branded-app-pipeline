@@ -56,6 +56,7 @@ import type {
 } from './types';
 // @ts-expect-error
 import { COMPANY_EVENTS } from './event.utils';
+import { trackAddToCartEvent } from '#src/events/purchase/utils';
 
 export const currentBasket = {
   error: createAction<Error>('CHECKOUT_BASKET/CURRENT/ERROR'),
@@ -248,6 +249,10 @@ export function addItemToBasket(
       dispatch(currentBasket.success(response.data));
       if (!hideSnackbarSuccess)
         dispatch(snackbarSuccess('modifyBasket.addItemSuccess'));
+      trackAddToCartEvent({
+        basket: response.data,
+        buyableItemId: data?.buyable_item_id,
+      });
       if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (error) {
       dispatch(currentBasket.error(error));

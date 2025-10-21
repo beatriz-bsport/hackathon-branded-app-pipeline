@@ -1,8 +1,8 @@
 import { type ApiConfig, buildUrlParams } from "@bsport/store-base";
 
-const API_URL = "communicate/v1";
+const API_URL = "book/v1/offer";
 
-export const fetchCommunicationAPI = (params: {
+export const fetchSessionsAPI = (params: {
   page: number;
   page_size: number;
 }): ApiConfig => {

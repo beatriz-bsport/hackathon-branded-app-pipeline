@@ -119,7 +119,6 @@ export const CadenceGlobalMetricsProgressList: React.FC<Props> = ({
       {
         label: t('audience.workflowMetrics.communication.sms'),
         count: smsCount,
-        displayUpsellAvailableSoon: true,
         disabled: true,
       },
       {

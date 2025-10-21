@@ -18,6 +18,7 @@ import {
   BUYABLE_ITEM_PRIVATE_PASS,
 } from '@bsport/common/lib/master-data/buyable-items';
 import { FlowTypes } from '#src/libs/checkout/constants';
+import { trackAddToCartEvent } from '#src/events/purchase/utils';
 
 export const useBasket = () => {
   const { companyId, passId, passType } = usePassCardDataContext();
@@ -79,6 +80,10 @@ export const useBasket = () => {
         params,
       );
       setCurrentBasket(updatedBasket);
+      trackAddToCartEvent({
+        basket: updatedBasket,
+        buyableItemId: checkoutItemData.buyable_item_id,
+      });
       return updatedBasket;
     },
     [companyId, passId, passType],

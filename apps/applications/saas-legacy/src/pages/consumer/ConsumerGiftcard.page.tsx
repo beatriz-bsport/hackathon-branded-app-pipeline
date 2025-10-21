@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { compose, withHandlers } from 'recompose';
 import Typography from '@material-ui/core/Typography';
@@ -44,6 +44,8 @@ import { OptionCallback } from '../../state/types';
 import { RootState } from '../../reducers';
 import { ConsumerGiftcardKind } from '@bsport/common/lib/master-data/giftcard.js';
 import ConsumerPrintableGiftcardDetails from '#src/libs/giftcard/components/ConsumerPrintableGiftcardDetails.components';
+import { trackMemberProfileViewedEvent } from '#src/events/member-profile/trackers';
+import { analyticsClientB2C } from '#src/components/analytics/mixpanel';
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -111,6 +113,12 @@ export const ConsumerGiftcardPage = (props: Props) => {
     () => setConsumerPrintableGiftcardSelected(null),
     [],
   );
+
+  useEffect(() => {
+    analyticsClientB2C.track(
+      trackMemberProfileViewedEvent({ page_type: 'giftcard' }),
+    );
+  }, []);
 
   return (
     <PageContentContainer contentClassName="bs-consumer-pass-page__root">

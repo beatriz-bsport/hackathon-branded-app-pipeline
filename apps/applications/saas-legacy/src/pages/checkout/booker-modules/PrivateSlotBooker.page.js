@@ -71,6 +71,7 @@ import type {
   PrivateConsumerPass,
   PrivatePassCategoryWithPasses,
   PrivateService,
+  PrivateBooking,
 } from '../../../libs/private-service/types';
 import type { OptionCallback } from '#src/state/types.ts';
 import type { Basket } from '../../../libs/checkout/types';
@@ -79,6 +80,8 @@ import { getPrivatePassByCategoryWithPasses } from '../../../libs/private-servic
 import { borderRadius } from 'react-select/lib/theme';
 import { LabelOff } from '@material-ui/icons';
 import { getMarketplaceRoute } from '../../../libs/marketplace/routing-utils';
+import { analyticsClientB2C } from '#src/components/analytics/mixpanel';
+import { trackBookingConfirmedEvent } from '#src/events/booking/trackers';
 
 type Props = {
   privateServiceId: number,
@@ -110,7 +113,10 @@ type Props = {
 
   registerPrivateBooking: (
     params: any,
-    options?: { onSuccess?: () => void, onError?: () => void },
+    options?: {
+      onSuccess?: (privateBooking: PrivateBooking) => void,
+      onError?: () => void,
+    },
     asConsumer: boolean,
   ) => void,
 
@@ -149,11 +155,13 @@ type Props = {
 
 type State = {
   address?: string,
+  hastrackedPassSelectionForAppointmentViewed: boolean,
 };
 
 export class PrivateSlotPayment extends React.Component<Props, State> {
   state = {
     address: '',
+    hastrackedPassSelectionForAppointmentViewed: false,
   };
 
   componentDidMount() {
@@ -203,10 +211,18 @@ export class PrivateSlotPayment extends React.Component<Props, State> {
         unpaid,
       },
       {
-        onSuccess: () => {
+        onSuccess: (privateBooking) => {
           if (WidgetUtils.isWidget()) {
             WidgetUtils.paymentSuccess();
           }
+          analyticsClientB2C.track(
+            trackBookingConfirmedEvent({
+              activity_id: privateBooking.private_service,
+              activity_name: privateBooking.name,
+              offer_id: privateBooking.private_service,
+              session_type: 'appointment',
+            }),
+          );
 
           this.props.goToConsumerHome(this.props.company);
           this.setState({ processing: false });
@@ -259,6 +275,22 @@ export class PrivateSlotPayment extends React.Component<Props, State> {
     this.props.push(
       getMarketplaceRoute('_', this.props.company, 'private-service'),
     );
+  };
+
+  getTrackingParams = () => {
+    if (
+      !this.props.privateService?.name ||
+      !this.props.privateServiceId ||
+      this.state.hastrackedPassSelectionForAppointmentViewed
+    )
+      return null;
+    this.setState({ hastrackedPassSelectionForAppointmentViewed: true });
+    return {
+      activity_id: this.props.privateServiceId,
+      activity_name: this.props.privateService?.name || '',
+      offer_id: this.props.privateServiceId,
+      session_type: 'appointment',
+    };
   };
 
   render() {
@@ -351,6 +383,7 @@ export class PrivateSlotPayment extends React.Component<Props, State> {
                     (cat) => cat.passes.length,
                   )}
                   privateSlotCredit={this.props.privateSlot?.credit}
+                  trackingParams={this.getTrackingParams()}
                 />
               )}
             </div>

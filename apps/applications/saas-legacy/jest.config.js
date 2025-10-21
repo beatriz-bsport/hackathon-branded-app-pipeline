@@ -71,7 +71,7 @@ module.exports = {
           PUBLIC_URL: 'http://localhost:3000',
           REACT_APP_RECAPTCHA_V3: '6LeC6rIZAAAAAJSN0DVqzOF3cYXwQcXgp8rKX9cf',
           REACT_APP_RECAPTCHA_V2: '6Lds67IZAAAAAFaPGpfl_ALgtV2t6Re63MBtCshi',
-          REACT_APP_CDN_DOMAIN: 'localhost:9000',
+          REACT_APP_CDN_DOMAIN: 'localhost:3100',
           I18N_TRANSLATION_DOMAIN: '',
         },
       },

@@ -1262,9 +1262,20 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
       },
     });
 
-    const availableConsumerPacks = this.getAvailableConsumerPack().filter(
-      (consumerPack) => consumerPack.exceedsBookingMaxout === false,
-    );
+    const availableConsumerPacks = Array.from(this.getAvailableConsumerPack())
+      .filter(
+        // We filter out the consumer payment packs that have reached their booking maxout
+        (consumerPack) => consumerPack.exceedsBookingMaxout === false,
+      )
+      .sort((packA, packB) => {
+        // Sort by ending date, packs without ending date at the end
+        if (!packA.ending_date) return 1;
+        if (!packB.ending_date) return -1;
+        return (
+          new Date(packA.ending_date).getTime() -
+          new Date(packB.ending_date).getTime()
+        );
+      });
 
     this.setState({
       // @ts-expect-error inconsistency between common and saas PaymentPack types

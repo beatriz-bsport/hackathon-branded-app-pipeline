@@ -1,42 +1,42 @@
 {
   "title": "Packs",
   "actions": {
-    "addAPack": "Add a pack"
+    "addAPack": "Add a Pack"
   },
   "table": {
-    "loading": "Loading packs...",
+    "loading": "Loading Packs...",
     "emptyList": {
-      "title": "No packs yet",
-      "subtitle": "Bundle your products, passes, and appointments into a single offer."
+      "title": "No Packs added yet",
+      "subtitle": "Add a Pack to combine your products and Passes into a single offer. "
     },
     "headers": {
       "name": "Name",
       "visibility": "Visibility",
-      "numberOfProducts": "Products",
+      "numberOfProducts": "Items",
       "price": "Price"
     },
     "tooltips": {
-      "unavailableForUsers": "This product won't be shown on the Marketplace",
-      "invisibleForStaff": "This product won't be shown to staff members",
-      "availableForALimitedTime": "This product will only be shown for a limited time",
+      "unavailableForUsers": "This Pack won't be shown on the Member Area",
+      "invisibleForStaff": "This Pack won't be shown to staff members",
+      "availableForALimitedTime": "This Pack will only be shown for a limited time",
       "archive": "Delete Pack"
     }
   },
   "deleteModal": {
-    "title": "Delete Pack ?",
+    "title": "Delete Pack?",
     "description": {
-      "effect": "If you delete {{ name }}, current or previous purchases won't be affected.",
+      "effect": "Deleting {{ name }} will not affect current or previous purchases",
       "canNotBeUndone": "This action cannot be undone."
     },
     "actions": {
-      "cancel": "Cancel",
+      "cancel": "Back",
       "delete": "Delete"
     }
   },
   "toasts": {
     "messageDelete": {
       "success": "Pack deleted",
-      "error": "Failed to delete pack"
+      "error": "Failed to delete Pack"
     },
     "messageUndo": {
       "success": "Action undone",

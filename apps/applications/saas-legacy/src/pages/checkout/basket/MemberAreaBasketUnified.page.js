@@ -42,6 +42,7 @@ import {
   removeQueryParamsFromUrl,
   shouldCheckPaymentStatus,
   shouldNotRetrieveSecret,
+  getBasketItemCount,
 } from '#src/libs/checkout/utils';
 import {
   detachPaymentMethod,
@@ -107,6 +108,14 @@ import type {
   OptionCallback,
   OptionCallBackWithKeyedCallbacks,
 } from '#src/state/types';
+import { analyticsClientB2C } from '#src/components/analytics/mixpanel';
+import {
+  trackCartViewed,
+  trackPurchaseConfirmation,
+  trackPurchaseItem,
+} from '#src/events/purchase/trackers';
+
+import { getCheckoutItemType } from '#src/events/purchase/utils.ts';
 
 export class MemberAreaBasketUnifiedPage extends React.Component<MemberAreaBasketUnifiedPageProps> {
   state = {
@@ -117,6 +126,7 @@ export class MemberAreaBasketUnifiedPage extends React.Component<MemberAreaBaske
     clientSecretLoading: false,
     paymentEngine: PAYMENT_ENGINE_STRIPE,
     nextPaymentIntentStatusCheckSeconds: 1.5,
+    hasTrackedCartViewedEvent: false,
   };
 
   UNSAFE_componentWillMount() {
@@ -203,6 +213,7 @@ export class MemberAreaBasketUnifiedPage extends React.Component<MemberAreaBaske
     if (this.props.basket && !prevProps.basket) {
       this.props.fetchInstalmentPaymentByBasket(this.props.basket.id);
       analyticsUtils.viewCart(this.props.basket);
+
       if (this.props.basket.total_price_cts) {
         this.getSecret(this.state.paymentEngine);
       }
@@ -219,6 +230,22 @@ export class MemberAreaBasketUnifiedPage extends React.Component<MemberAreaBaske
       this.props.basket.total_price_cts
     ) {
       this.getSecret(this.state.paymentEngine);
+    }
+
+    if (
+      !this.state.hasTrackedCartViewedEvent &&
+      !!this.props.basket &&
+      !this.props.loading
+    ) {
+      analyticsClientB2C.track(
+        trackCartViewed({
+          cart_value: Number(this.props.basket.total_price ?? '0'),
+          product_quantity: getBasketItemCount(
+            this.props.basket.checkout_items ?? [],
+          ),
+        }),
+      );
+      this.setState({ hasTrackedCartViewedEvent: true });
     }
   }
 
@@ -665,6 +692,22 @@ export default compose(
               });
           }
           analyticsUtils.onPaymentSuccess(basket);
+          analyticsClientB2C.track(
+            trackPurchaseConfirmation({
+              cart_value: Number(basket.total_price ?? '0'),
+              product_quantity: getBasketItemCount(basket.checkout_items ?? []),
+            }),
+          );
+          (basket.checkout_items ?? []).map((item) =>
+            analyticsClientB2C.track(
+              trackPurchaseItem({
+                product_name: item.name || '',
+                product_type: getCheckoutItemType(item),
+                product_price: Number(item.unit_price),
+                product_quantity: item.quantity,
+              }),
+            ),
+          );
         }
         const urlParams = queryParams.basket_redirection
           ? { basket: queryParams.basket_redirection }

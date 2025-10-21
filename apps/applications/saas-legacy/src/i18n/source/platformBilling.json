@@ -34,7 +34,7 @@
         "invalidFormat": "Invalid format",
         "content": "bsport requires your VAT number (also known as a VAT registration number or intracommunity VAT number) to include it on invoices we issue to you.",
         "vatIdLabel": "VAT identification number",
-        "hasAttributedVatIdLabel": "I do not have a registered VAT number. If your business is based in the EU (excluding France), the reverse-charge mechanism will not apply and bsport will charge French VAT rates (20%).",
+        "hasAttributedVatIdLabel": "I do not have a registered VAT number. If your business is based in the EU (excluding France), the reverse-charge mechanism will not apply and bsport will charge the local VAT rate.",
         "update": "Update VAT number",
         "actions": {
           "cancel": "Cancel",

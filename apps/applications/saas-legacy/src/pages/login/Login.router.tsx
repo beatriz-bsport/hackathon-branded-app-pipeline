@@ -41,6 +41,7 @@ import {
   BsportRequestFromHeaderValue,
 } from '../../constants';
 
+import { requestOptInTrackingB2C as requestOptInTrackingB2CAction } from '#src/components/analytics/actions';
 import './LoginRouterStyles.css';
 /* Some of these pages were reworked to be CSS Only, some were not. Here is which ones and why:
 
@@ -106,10 +107,12 @@ type Props = {
     state: string;
   };
   simplifyUI?: boolean;
+  requestOptInTrackingB2C: () => void;
 };
 
 export class LoginRouter extends React.Component<Props> {
   componentDidMount() {
+    this.props.requestOptInTrackingB2C();
     setItemInStorage(
       'session',
       BSPORT_REQUEST_FROM_HEADER_STORAGE_LOCATION,
@@ -258,6 +261,7 @@ export default compose<any, Props>(
       disconnect,
       fetchCompanyCustomSignUp,
       fetchFranchiseTheme,
+      requestOptInTrackingB2C: requestOptInTrackingB2CAction,
     },
   ),
   withThemeProvider,

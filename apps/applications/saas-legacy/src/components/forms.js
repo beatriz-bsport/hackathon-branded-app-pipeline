@@ -70,11 +70,16 @@ export const AlertError = withTranslation([])(
 
     return (
       <ErrorMessage {...props}>
-        {(message) => (
-          <Typography className={classes.alertError} variant="body2">
-            {t(message)}
-          </Typography>
-        )}
+        {(message) => {
+          const filteredMessage = Array.isArray(message)
+            ? message.filter((msg) => !!msg)
+            : message || '';
+          return (
+            <Typography className={classes.alertError} variant="body2">
+              {t(filteredMessage)}
+            </Typography>
+          );
+        }}
       </ErrorMessage>
     );
   }),

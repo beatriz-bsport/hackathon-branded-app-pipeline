@@ -43,7 +43,7 @@
       "title": "Probleme bei der Verbindung mit Spivi"
     },
     "duplicateOffer": "Duplizieren",
-    "duplicateModalTitle": "Sitzung duplizieren"
+    "duplicateModalTitle": "Kurs duplizieren"
   },
   "disabled": "Storniert",
   "extraordinaryEstablishment": "(provisorische Einrichtung)",
@@ -383,10 +383,10 @@
     },
     "recurrence": {
       "regularOffer": "Die neue Sitzung verwendet dieselben Einstellungen wie die duplizierte.",
-      "duplicateModalTitle": "Sitzung duplizieren",
+      "duplicateModalTitle": "Kurs duplizieren",
       "duplicate": "Duplizieren",
       "duplicating": "Duplizieren",
-      "linkNewOffersLabel": "Verknüpfen Sie neue Sitzungen mit diesem Duplikat, damit Sie sie gemeinsam bearbeiten können und Mitglieder diese Sitzungen auf einmal buchen können",
+      "linkNewOffersLabel": "Verknüpfe neue Sitzungen mit diesem Duplikat, damit du sie gemeinsam bearbeiten kannst und Mitglieder diese Sitzungen auf einmal buchen können.",
       "hybridOffer": "Durch das Duplizieren dieser Hybrid-Sitzung werden sowohl Online- als auch Vor-Ort-Sitzungen erstellt. Diese verwenden dieselben Einstellungen wie die duplizierte Sitzung.",
       "recurringOffer": "Die letzte Sitzung findet am {{- date }} um {{- time }} statt. Die duplizierte Sitzung hat dieselben Einstellungen und beginnt nach diesem Datum.  "
     }

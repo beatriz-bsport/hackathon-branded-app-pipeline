@@ -7,6 +7,18 @@
       "trigger": "Trigger",
       "content": "Content"
     },
+    "trigger": {
+      "title": "Notification Rule",
+      "content": {
+        "triggeredBy": "Condition",
+        "triggeredWhen": "Delivery timing",
+        "smartlist": {
+          "excluding": "Do not send to members in these smartlists",
+          "including": "Only send to members in these smartlists",
+          "noSmartlistsFiltering": "None"
+        }
+      }
+    },
     "performance": {
       "emails": {
         "title": "Emails",

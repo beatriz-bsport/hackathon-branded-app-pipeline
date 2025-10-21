@@ -31,6 +31,10 @@ import {
   useEmailTemplateStore,
 } from "@bsport/store-cdp-email-template";
 import {
+  selectAllMappedSmartlists,
+  useSmartlistStore,
+} from "@bsport/store-cdp-smartlist";
+import {
   type Establishment,
   selectEstablishments,
   useEstablishmentStore,
@@ -61,6 +65,10 @@ export const useGetMarketingNotificationDependenciesData = () => {
 
   const emailTemplateSummaries = useEmailTemplateStore((state) =>
     selectAllEmailTemplateSummaries(state),
+  );
+
+  const smartlistsById = useSmartlistStore((state) =>
+    selectAllMappedSmartlists(state),
   );
 
   const groupActivitiesById = useMemo(
@@ -155,5 +163,6 @@ export const useGetMarketingNotificationDependenciesData = () => {
     subscriptionsById,
     passesById,
     emailTemplatesById,
+    smartlistsById,
   };
 };

@@ -11,15 +11,10 @@ import {
   useGroupActivityStore,
 } from "@bsport/store-booking-group-activity";
 import {
-  type AppointmentPass,
-  selectAppointmentPasses,
+  selectAppointmentPassesById,
   useAppointmentPassStore,
 } from "@bsport/store-buyables-appointment-pass";
-import {
-  type Pass,
-  selectActivePasses,
-  usePassStore,
-} from "@bsport/store-buyables-pass";
+import { selectPassesById, usePassStore } from "@bsport/store-buyables-pass";
 import {
   type Subscription,
   selectAllSubscriptions,
@@ -41,35 +36,25 @@ import {
 } from "@bsport/store-core-data-establishment";
 
 export const useGetMarketingNotificationDependenciesData = () => {
-  const groupActivities = useGroupActivityStore((state) =>
-    selectGroupActivities(state),
+  const groupActivities = useGroupActivityStore(selectGroupActivities);
+
+  const appointments = useAppointmentStore(selectAllAppointments);
+
+  const establishments = useEstablishmentStore(selectEstablishments);
+
+  const appointmentPassesById = useAppointmentPassStore(
+    selectAppointmentPassesById,
   );
 
-  const appointments = useAppointmentStore((state) =>
-    selectAllAppointments(state),
+  const subscriptions = useSubscriptionStore(selectAllSubscriptions);
+
+  const passesById = usePassStore(selectPassesById);
+
+  const emailTemplateSummaries = useEmailTemplateStore(
+    selectAllEmailTemplateSummaries,
   );
 
-  const establishments = useEstablishmentStore((state) =>
-    selectEstablishments(state),
-  );
-
-  const appointmentPasses = useAppointmentPassStore((state) =>
-    selectAppointmentPasses(state),
-  );
-
-  const subscriptions = useSubscriptionStore((state) =>
-    selectAllSubscriptions(state),
-  );
-
-  const passes = usePassStore((state) => selectActivePasses(state));
-
-  const emailTemplateSummaries = useEmailTemplateStore((state) =>
-    selectAllEmailTemplateSummaries(state),
-  );
-
-  const smartlistsById = useSmartlistStore((state) =>
-    selectAllMappedSmartlists(state),
-  );
+  const smartlistsById = useSmartlistStore(selectAllMappedSmartlists);
 
   const groupActivitiesById = useMemo(
     () =>
@@ -107,18 +92,6 @@ export const useGetMarketingNotificationDependenciesData = () => {
     [establishments],
   );
 
-  const appointmentPassesById = useMemo(
-    () =>
-      appointmentPasses.reduce(
-        (acc, appointmentPass) => {
-          acc[appointmentPass.id] = appointmentPass;
-          return acc;
-        },
-        {} as Record<number, AppointmentPass>,
-      ),
-    [appointmentPasses],
-  );
-
   const subscriptionsById = useMemo(
     () =>
       subscriptions.reduce(
@@ -129,18 +102,6 @@ export const useGetMarketingNotificationDependenciesData = () => {
         {} as Record<number, Subscription>,
       ),
     [subscriptions],
-  );
-
-  const passesById = useMemo(
-    () =>
-      passes.reduce(
-        (acc, pass) => {
-          acc[pass.id] = pass;
-          return acc;
-        },
-        {} as Record<number, Pass>,
-      ),
-    [passes],
   );
 
   const emailTemplatesById = useMemo(

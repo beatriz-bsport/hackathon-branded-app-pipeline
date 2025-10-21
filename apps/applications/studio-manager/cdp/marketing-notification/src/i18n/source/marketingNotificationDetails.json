@@ -16,6 +16,19 @@
           "excluding": "Do not send to members in these smartlists",
           "including": "Only send to members in these smartlists",
           "noSmartlistsFiltering": "None"
+        },
+        "passes": {
+          "title": "Associated Passes",
+          "credits_one": "{{count}} credit",
+          "credits_other": "{{count}} credits",
+          "allIncluded": {
+            "title": "All passes included",
+            "description": "This notification will be triggered for every passes."
+          },
+          "emptyList": {
+            "title": "No passes included",
+            "description": "You can update this notification to add passes to trigger."
+          }
         }
       }
     },

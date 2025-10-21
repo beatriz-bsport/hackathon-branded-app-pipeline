@@ -1582,6 +1582,9 @@ importers:
       '@bsport/config-federation':
         specifier: workspace:*
         version: link:../../../../../tools/config/federation
+      '@bsport/currency':
+        specifier: workspace:*
+        version: link:../../../../../packages/utils/currency
       '@bsport/datetime-formatting':
         specifier: workspace:*
         version: link:../../../../../packages/utils/datetime-formatting

@@ -121,3 +121,10 @@ export const NOTIFICATION_TYPE_TO_REFINED_TYPE: Record<
   subscription: "subscription",
   unknown: "unknown",
 };
+
+export type PassListItemData = {
+  id: number;
+  name: string;
+  credits: number | null;
+  price: string;
+};

@@ -18,7 +18,7 @@ const fetchEmailTemplateSummariesBound =
  * @returns Object containing the fetch function for email template summaries
  */
 export function useFetchEmailTemplateSummaries() {
-  const [, fetchEmailTemplateSummaries] = useAsync<
+  const [{ isLoading }, fetchEmailTemplateSummaries] = useAsync<
     typeof fetchEmailTemplateSummariesBound
   >({
     asyncFn: fetchEmailTemplateSummariesBound,
@@ -39,5 +39,6 @@ export function useFetchEmailTemplateSummaries() {
 
   return {
     handleFetchEmailTemplateSummaries,
+    isEmailTemplateSummariesLoading: isLoading,
   };
 }

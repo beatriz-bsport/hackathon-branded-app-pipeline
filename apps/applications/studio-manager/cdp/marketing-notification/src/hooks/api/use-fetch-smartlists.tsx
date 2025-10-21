@@ -3,7 +3,7 @@ import { useAsync } from "@bsport/use-async";
 
 import { fetch } from "#src/utils/fetch";
 
-const fetchSmartlistsBinded = fetchSmartlistsAction.bind(null, fetch);
+const fetchSmartlistsBound = fetchSmartlistsAction.bind(null, fetch);
 
 /**
  * Hook for fetching smartlists data.
@@ -16,8 +16,10 @@ const fetchSmartlistsBinded = fetchSmartlistsAction.bind(null, fetch);
  * @returns Object containing the fetch function for smartlists
  */
 export function useFetchSmartlists() {
-  const [, fetchSmartlists] = useAsync<typeof fetchSmartlistsBinded>({
-    asyncFn: fetchSmartlistsBinded,
+  const [{ isLoading }, fetchSmartlists] = useAsync<
+    typeof fetchSmartlistsBound
+  >({
+    asyncFn: fetchSmartlistsBound,
   });
 
   /**
@@ -37,5 +39,5 @@ export function useFetchSmartlists() {
     });
   };
 
-  return { handleFetchSmartlists };
+  return { handleFetchSmartlists, isSmartlistsLoading: isLoading };
 }

@@ -29,6 +29,7 @@
   "devDependencies": {
     "@bsport/config-eslint-react": "workspace:*",
     "@bsport/config-federation": "workspace:*",
+    "@bsport/currency": "workspace:*",
     "@bsport/datetime-formatting": "workspace:*",
     "@bsport/permissions": "workspace:*",
     "@bsport/store-booking-appointment": "workspace:*",

@@ -11,6 +11,8 @@ import { useAsync } from "@bsport/use-async";
 import { useFetchEmailTemplateSummaries } from "#src/hooks/api/use-fetch-email-template-summaries";
 import { fetch } from "#src/utils/fetch";
 
+import { useFetchSmartlists } from "./use-fetch-smartlists";
+
 const fetchActivitiesBound = fetchGroupActivitiesAndWorkshopsAction.bind(
   null,
   fetch,
@@ -33,6 +35,7 @@ const fetchPassesBound = fetchPassesAction.bind(null, fetch);
  * @return Object containing ID-to-entity maps for each dependency type and a fetch function
  */
 export function useFetchMarketingNotificationDependencies() {
+  const { handleFetchSmartlists } = useFetchSmartlists();
   const { handleFetchEmailTemplateSummaries } =
     useFetchEmailTemplateSummaries();
   const [, fetchActivities] = useAsync<typeof fetchActivitiesBound>({
@@ -70,6 +73,7 @@ export function useFetchMarketingNotificationDependencies() {
       paymentPackIds,
       subscriptionIds,
       emailTemplateIds,
+      smartlistIds,
     }: {
       groupActivityIds: number[];
       establishmentIds: number[];
@@ -78,6 +82,7 @@ export function useFetchMarketingNotificationDependencies() {
       paymentPackIds: number[];
       subscriptionIds: number[];
       emailTemplateIds: number[];
+      smartlistIds: number[];
     }) => {
       Promise.allSettled([
         fetchActivities({
@@ -105,6 +110,7 @@ export function useFetchMarketingNotificationDependencies() {
           page_size: paymentPackIds.length,
         }),
         handleFetchEmailTemplateSummaries({ emailTemplateIds }),
+        handleFetchSmartlists({ smartlistIds }),
       ]);
     },
     [
@@ -115,6 +121,7 @@ export function useFetchMarketingNotificationDependencies() {
       fetchSubscriptions,
       fetchPasses,
       handleFetchEmailTemplateSummaries,
+      handleFetchSmartlists,
     ],
   );
 

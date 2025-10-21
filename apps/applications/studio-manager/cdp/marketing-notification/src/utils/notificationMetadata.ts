@@ -160,6 +160,28 @@ export const extractEmailTemplateIds = (
 };
 
 /**
+ * Extracts email template IDs (email_design) from notifications
+ */
+export const extractSmartlistIds = (
+  notifications: MarketingNotification[],
+): number[] => {
+  const ids = new Set<number>();
+
+  for (const notification of notifications) {
+    const { smartlist_exclude, smartlist_include } = notification.event_rules;
+    if (Array.isArray(smartlist_include)) {
+      smartlist_include.forEach((id) => ids.add(id));
+    }
+    if (Array.isArray(smartlist_exclude)) {
+      smartlist_exclude.forEach((id) => ids.add(id));
+    }
+  }
+
+  // Set ensures uniqueness, so Array.from(ids) will only have unique values
+  return Array.from(ids);
+};
+
+/**
  * Extracts all relevant IDs from notifications in one pass
  */
 export const extractAllNotificationIds = (
@@ -173,5 +195,6 @@ export const extractAllNotificationIds = (
     privatePassIds: extractPrivatePassIds(notifications),
     subscriptionIds: extractSubscriptionIds(notifications),
     emailTemplateIds: extractEmailTemplateIds(notifications),
+    smartlistIds: extractSmartlistIds(notifications),
   };
 };

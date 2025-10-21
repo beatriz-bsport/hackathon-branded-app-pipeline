@@ -1594,6 +1594,9 @@ importers:
       '@bsport/store-cdp-marketing-notification':
         specifier: workspace:*
         version: link:../../../../../packages/stores/cdp/marketing-notification
+      '@bsport/store-cdp-smartlist':
+        specifier: workspace:*
+        version: link:../../../../../packages/stores/cdp/smartlist
       '@bsport/store-communicate-communication':
         specifier: workspace:*
         version: link:../../../../../packages/stores/communicate/communication

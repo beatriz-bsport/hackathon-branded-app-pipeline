@@ -11,6 +11,7 @@ import { useTranslation } from "#src/utils/i18n";
 import { NotificationActionsMenu } from "../Common/NotificationActionsMenu";
 import { NotificationToggle } from "../Common/NotificationToggle";
 import { MarketingNotificationPerformanceDetails } from "./Performance/MarketingNotificationPerformanceDetails";
+import { MarketingNotificationTriggerDetails } from "./Trigger/MarketingNotificationTriggerDetails";
 
 const SEGMENTED_CONTROL_QUERY_PARAM = "notificationDetailView";
 
@@ -110,7 +111,7 @@ export const MarketingNotificationDetailsContent: React.FC<
       {selectedOption === "performance" ? (
         <MarketingNotificationPerformanceDetails notification={notification} />
       ) : selectedOption === "trigger" ? (
-        <div className="mt-md">Trigger content</div>
+        <MarketingNotificationTriggerDetails notification={notification} />
       ) : (
         <div className="mt-md">Content content</div>
       )}

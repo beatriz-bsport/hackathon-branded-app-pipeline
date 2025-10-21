@@ -25,6 +25,10 @@ import type {
 
 import { resetFuzzySearch, setPaginationData, setSmartlists } from "./store";
 
+export type SmartlistOptions = {
+  id__in?: number[];
+};
+
 export type FetchSmartlistsParams = {
   page: number;
   page_size: number;
@@ -49,7 +53,7 @@ function hasSearch(
  */
 export const fetchSmartlistsAction = async (
   fetch: Fetch<Smartlist[] | SmartlistSearchResult>,
-  params: FetchSmartlistsParams,
+  params: FetchSmartlistsParams & SmartlistOptions,
 ) => {
   const currentState = smartlistStore.getState();
   const count = selectCount(currentState);
@@ -92,10 +96,10 @@ export const fetchSmartlistsAction = async (
 };
 
 export const fetchAllSmartlistsAction: Action<
-  FetchSmartlistsParams,
+  FetchSmartlistsParams & SmartlistOptions,
   Smartlist[]
 > = async (fetch, params) => {
-  const [uri, init] = fetchSmartlistsAPI();
+  const [uri, init] = fetchSmartlistsAPI(params);
 
   return Result.try(
     async () => {
@@ -115,7 +119,7 @@ export const fetchAllSmartlistsAction: Action<
 };
 
 export const fetchSearchSmartlistsAction: Action<
-  Required<FetchSmartlistsParams>,
+  Required<FetchSmartlistsParams> & SmartlistOptions,
   SmartlistSearchResult
 > = async (fetch, params) => {
   const [uri, init] = fetchSearchSmartlistsAPI(params);

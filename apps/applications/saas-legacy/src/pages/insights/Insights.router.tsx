@@ -14,17 +14,17 @@ type Props = {};
 // Wrap each component with its specific title
 const InsightsIndexWithTitle = compose(
   withTranslation(INSIGHTS_TRANSLATION_NAMESPACES),
-  withTitle(({ t }) => t('insights:pages.insights.title')),
+  withTitle(({ t }) => t('b2b_insights:pages.insights.title')),
 )(InsightsIndex);
 
 const TrialAnalysisWithTitle = compose(
   withTranslation(INSIGHTS_TRANSLATION_NAMESPACES),
-  withTitle(({ t }) => t('insights:pages.trialAnalysis.title')),
+  withTitle(({ t }) => t('b2b_insights:pages.trialAnalysis.title')),
 )(TrialAnalysis);
 
 const SubscriptionEventsWithTitle = compose(
   withTranslation(INSIGHTS_TRANSLATION_NAMESPACES),
-  withTitle(({ t }) => t('insights:pages.recurringRevenue.title')),
+  withTitle(({ t }) => t('b2b_insights:pages.recurringRevenue.title')),
 )(SubscriptionEvents);
 
 const InsightsRouter: React.FC<Props> = () => {

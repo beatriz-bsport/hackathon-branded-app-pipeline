@@ -9,5 +9,10 @@ export const useCompanyData = () => {
   const companyData = dataAccessLayer.useCompanyTheme();
   const companyTimezone = companyData?.timezone_name || DEFAULT_TIMEZONE;
   const userLocale = i18nInstance.language || DEFAULT_LOCALE;
-  return { companyTimezone, userLocale };
+  const companyName = companyData?.company_name || "";
+  return {
+    companyTimezone,
+    companyName,
+    userLocale,
+  };
 };

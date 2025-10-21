@@ -7,6 +7,16 @@
       "trigger": "Trigger",
       "content": "Content"
     },
+    "content": {
+      "email": {
+        "title": "Email Preview",
+        "noPreview": "Set-up your email and preview here"
+      },
+      "push": {
+        "title": "Push Notification Preview",
+        "noPreview": "Set-up your push notification and preview here"
+      }
+    },
     "trigger": {
       "title": "Notification Rule",
       "content": {

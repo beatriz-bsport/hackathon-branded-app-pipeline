@@ -1566,6 +1566,9 @@ importers:
       '@bsport/sm-backbone':
         specifier: workspace:*
         version: link:../../../../../packages/utils/sm-backbone
+      dompurify:
+        specifier: ^3.2.6
+        version: 3.2.6
       react:
         specifier: ^19.0.0
         version: 19.0.0
@@ -33852,7 +33855,9 @@ snapshots:
       pretty-format: 24.9.0
       throat: 4.1.0
     transitivePeerDependencies:
+      - bufferutil
       - supports-color
+      - utf-8-validate
 
   jest-junit@14.0.1:
     dependencies:

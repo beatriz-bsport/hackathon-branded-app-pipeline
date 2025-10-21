@@ -1,3 +1,5 @@
+import { getIsoDateString } from "@bsport/datetime-manipulation";
+
 import { LANGUAGES } from "#src/utils/i18n";
 
 const BLOG_LANGUAGES: string[] = [
@@ -19,3 +21,8 @@ export const PUBLIC_URLS = {
     return `https://pro.bsport.io/${finalLanguage}/blog`;
   },
 };
+
+export const LEGACY_URLS = {
+  CALENDAR_OFFER: ({ date, sessionId }: { date: Date; sessionId: number }) =>
+    `/calendar/${getIsoDateString(date).replaceAll("-", "/")}/${sessionId}`,
+} as const;

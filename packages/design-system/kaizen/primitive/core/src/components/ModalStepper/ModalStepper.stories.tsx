@@ -98,7 +98,7 @@ type Story = StoryObj<ModalStepperProps>;
 const steps: StepConfig[] = [
   {
     label: "Step 1",
-    icon: "check-circle",
+    icon: "check-circle-solid",
     content: (
       <div className="flex flex-col gap-md">
         <Body htmlVariant="p" size="md">
@@ -216,7 +216,7 @@ export const Basic: Story = {
 const stepsWithValidation: StepConfig[] = [
   {
     label: "Step 1",
-    icon: "check-circle",
+    icon: "check-circle-solid",
     content: (
       <div className="flex flex-col gap-md">
         <Body htmlVariant="p" size="md">
@@ -471,7 +471,7 @@ export const ModalStepForm: Story = {
           </div>
         ),
         validate: () => selectedOption.length > 0,
-        icon: (currentStep === 0 ? "circle" : "check-circle") as IconName,
+        icon: (currentStep === 0 ? "circle" : "check-circle-solid") as IconName,
       },
       {
         label: "Confirmation",
@@ -487,7 +487,7 @@ export const ModalStepForm: Story = {
           </div>
         ),
         validate: () => checked,
-        icon: (currentStep <= 1 ? "circle" : "check-circle") as IconName,
+        icon: (currentStep <= 1 ? "circle" : "check-circle-solid") as IconName,
       },
       {
         label: "Finish the flow",

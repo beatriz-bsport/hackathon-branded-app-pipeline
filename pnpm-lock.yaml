@@ -1106,6 +1106,9 @@ importers:
 
   apps/applications/studio-manager/business-insights/homepage:
     dependencies:
+      '@bsport/datetime-manipulation':
+        specifier: workspace:*
+        version: link:../../../../../packages/utils/datetime/manipulation
       '@bsport/envs':
         specifier: workspace:*
         version: link:../../../../../packages/utils/envs
@@ -1121,6 +1124,18 @@ importers:
       '@bsport/sm-backbone':
         specifier: workspace:*
         version: link:../../../../../packages/utils/sm-backbone
+      '@bsport/store-booking-session':
+        specifier: workspace:*
+        version: link:../../../../../packages/stores/booking/session
+      '@bsport/store-booking-substitution':
+        specifier: workspace:*
+        version: link:../../../../../packages/stores/booking/substitution
+      '@bsport/store-core-data-teacher':
+        specifier: workspace:*
+        version: link:../../../../../packages/stores/core-data/teacher
+      '@bsport/use-async':
+        specifier: workspace:*
+        version: link:../../../../../packages/hooks/use-async
       react:
         specifier: ^19.0.0
         version: 19.0.0
@@ -33834,9 +33849,7 @@ snapshots:
       pretty-format: 24.9.0
       throat: 4.1.0
     transitivePeerDependencies:
-      - bufferutil
       - supports-color
-      - utf-8-validate
 
   jest-junit@14.0.1:
     dependencies:

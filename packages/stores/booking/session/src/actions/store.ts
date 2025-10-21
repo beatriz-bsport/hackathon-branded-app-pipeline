@@ -1,12 +1,12 @@
 import { sessionStore } from "#src/store";
-import type { Session } from "#src/types";
+import type { ManagerSession } from "#src/types";
 
-export const setSessions = ({
+export const setManagerSessions = ({
   sessions,
   count,
   page,
 }: {
-  sessions: Session[];
+  sessions: ManagerSession[];
   count: number;
   page: number;
 }) => {
@@ -16,11 +16,11 @@ export const setSessions = ({
         acc[session.id] = session;
         return acc;
       },
-      { ...state.sessions.byId },
+      { ...state.managerSessions.byId },
     );
 
     return {
-      sessions: {
+      managerSessions: {
         ids: sessions.map((session) => session.id),
         byId,
         count,

@@ -10,6 +10,29 @@
       "ctaLabel": "Explore now"
     }
   },
+  "upcomingActivitiesPanel": {
+    "title": "Today's upcoming activities",
+    "emptyList": "No upcoming activities",
+    "teacher": {
+      "helperText": "Teacher"
+    },
+    "replacement": {
+      "helperText": "Replacement",
+      "errorMissingReplacement": "Replacement required"
+    },
+    "rates": {
+      "badge": {
+        "waitingCount": "{{ count }} waiting"
+      },
+      "tooltip": {
+        "classIsFull": "This class is full",
+        "hasEmptySpots_one": "This class has {{ count }} spot left",
+        "hasEmptySpots_other": "This class has {{ count }} spots left",
+        "hasEmptySpotsForWaitlist_one": "This class has {{ count }} spot left for waiting list",
+        "hasEmptySpotsForWaitlist_other": "This class has {{ count }} spots left for waiting list"
+      }
+    }
+  },
   "exploreSection": {
     "exploreThePlatform": {
       "title": "Explore the platform",

@@ -46,6 +46,8 @@ export type TableProps<RowType extends BaseRow> = CheckboxProviderProps &
     emptyStateProps?: UseEmptyStateProps;
     /** Configuration for loading state display */
     loadingProps?: UseLoadingStateProps;
+    /** Whether to display a Table without header */
+    hideHeader?: boolean;
   };
 
 /**
@@ -77,6 +79,7 @@ const Table = <RowType extends BaseRow>({
   initialCheckedIds,
   checkedIds,
   setCheckedIds,
+  hideHeader = false,
   ...props
 }: TableProps<RowType>) => {
   const valueIds = rows?.map((row) => row.id.toString()) ?? [];
@@ -108,6 +111,7 @@ const Table = <RowType extends BaseRow>({
         selectable={selectable}
         withVerticalBorders={withVerticalBorders}
         className={className}
+        hideHeader={hideHeader}
         {...props}
       />
       {renderedPagination}
@@ -122,6 +126,7 @@ const InnerTableWithContext = <RowType extends BaseRow>({
   rowHeight = "sm",
   selectable,
   withVerticalBorders,
+  hideHeader,
   ...props
 }: TableProps<RowType>) => {
   const {
@@ -152,14 +157,16 @@ const InnerTableWithContext = <RowType extends BaseRow>({
       aria-labelledby="table"
       role="table"
     >
-      <TableHeader
-        columns={columns}
-        selectable={selectable}
-        areAllSelected={areAllSelected}
-        areSomeSelected={areSomeSelected}
-        handleSelectAllChange={handleSelectAllChange}
-        withVerticalBorders={withVerticalBorders}
-      />
+      {!hideHeader && (
+        <TableHeader
+          columns={columns}
+          selectable={selectable}
+          areAllSelected={areAllSelected}
+          areSomeSelected={areSomeSelected}
+          handleSelectAllChange={handleSelectAllChange}
+          withVerticalBorders={withVerticalBorders}
+        />
+      )}
       <div className="table-row-group" role="rowgroup">
         {rows.map((row) => (
           <TableRow

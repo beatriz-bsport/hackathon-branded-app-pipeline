@@ -35,7 +35,7 @@ const fetchMarketingNotificationListBound =
  * @returns Object containing loading state, fetch function, and marketing notifications from the store
  */
 export function useFetchMarketingNotificationList() {
-  const { fetchMarketingNotificationDependencies } =
+  const { fetchMarketingNotificationDependencies, areDependenciesLoading } =
     useFetchMarketingNotificationDependencies();
   const [{ isLoading }, fetchMarketingNotificationList] = useAsync<
     typeof fetchMarketingNotificationListBound
@@ -52,24 +52,27 @@ export function useFetchMarketingNotificationList() {
         subscriptionIds,
         emailTemplateIds,
         smartlistIds,
-      } = extractAllNotificationIds(value);
+      } = extractAllNotificationIds({
+        notifications: value,
+        extractAllPassIds: false,
+      });
 
       // Fetch dependencies with extracted IDs
       fetchMarketingNotificationDependencies({
-        establishmentIds: Array.from(establishmentIds),
-        groupActivityIds: Array.from(metaActivityIds),
-        privateServiceIds: Array.from(privateServiceIds),
-        privatePassIds: Array.from(privatePassIds),
-        subscriptionIds: Array.from(subscriptionIds),
-        paymentPackIds: Array.from(paymentPackIds),
-        emailTemplateIds: Array.from(emailTemplateIds),
-        smartlistIds: Array.from(smartlistIds),
+        establishmentIds: establishmentIds,
+        groupActivityIds: metaActivityIds,
+        privateServiceIds: privateServiceIds,
+        privatePassIds: privatePassIds,
+        subscriptionIds: subscriptionIds,
+        paymentPackIds: paymentPackIds,
+        emailTemplateIds: emailTemplateIds,
+        smartlistIds: smartlistIds,
       });
     },
   });
 
-  const marketingNotificationsList = useMarketingNotificationStore((state) =>
-    selectMarketingNotificationList(state),
+  const marketingNotificationsList = useMarketingNotificationStore(
+    selectMarketingNotificationList,
   );
 
   useEffect(() => {
@@ -89,7 +92,7 @@ export function useFetchMarketingNotificationList() {
   }, [fetchMarketingNotificationList]);
 
   return {
-    isLoading,
+    isLoading: isLoading || areDependenciesLoading,
     marketingNotificationsList,
     fetchMarketingNotificationList,
   };

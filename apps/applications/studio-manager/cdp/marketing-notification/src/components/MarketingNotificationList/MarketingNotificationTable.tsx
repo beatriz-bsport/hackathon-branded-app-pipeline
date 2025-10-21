@@ -3,6 +3,7 @@ import { useSearchParams } from "react-router";
 import { DetailDrawer, Table } from "@bsport/kaizen-primitive-core";
 import { deletePaginationQueryParams } from "@bsport/use-pagination-query-params";
 
+import { MarketingNotificationDetailsContent } from "#src/components/MarketingNotificationDetails/MarketingNotificationDetailsContent";
 import { getTableColumns } from "#src/components/MarketingNotificationList/MarketingNotificationTableConfig";
 import { useDrawerQueryParam } from "#src/hooks/actions/use-drawer-query-params";
 import { useMarketingNotificationNavigation } from "#src/hooks/actions/use-marketing-notification-navigation";
@@ -14,12 +15,11 @@ import { usePermissionsChecker } from "#src/hooks/permissions/use-permissions-ch
 import { useUpsellChecker } from "#src/hooks/permissions/use-upsell-checker";
 import { useTranslation } from "#src/utils/i18n";
 
-import { MarketingNotificationDetailsContent } from "../MarketingNotificationDetails/MarketingNotificationDetailsContent";
-
 export const MarketingNotificationTable = () => {
   const [, setSearchParams] = useSearchParams();
   const { t } = useTranslation("marketingNotificationList");
-  const { marketingNotificationsList } = useFetchMarketingNotificationList();
+  const { marketingNotificationsList, isLoading } =
+    useFetchMarketingNotificationList();
   const { groupActivitiesById, emailTemplatesById } =
     useGetMarketingNotificationDependenciesData();
 
@@ -93,8 +93,13 @@ export const MarketingNotificationTable = () => {
   });
 
   return (
-    <div>
-      <Table columns={tableColumns} rowHeight="lg" rows={tableRows} />
+    <div className="h-full">
+      <Table
+        columns={tableColumns}
+        rowHeight="lg"
+        rows={tableRows}
+        loadingProps={{ isLoading, message: t("loading") }}
+      />
       <DetailDrawer
         className="w-[650px]"
         id="marketing-notification-detail-drawer"

@@ -2,16 +2,15 @@ import { useCallback } from "react";
 
 import { fetchAppointmentsAction } from "@bsport/store-booking-appointment";
 import { fetchGroupActivitiesAndWorkshopsAction } from "@bsport/store-booking-group-activity";
-import { fetchAppointmentPassesAction } from "@bsport/store-buyables-appointment-pass";
-import { fetchPassesAction } from "@bsport/store-buyables-pass";
 import { fetchSubscriptionsAction } from "@bsport/store-buyables-subscription";
 import { fetchEstablishmentsAction } from "@bsport/store-core-data-establishment";
 import { useAsync } from "@bsport/use-async";
 
+import { useFetchAppointmentPasses } from "#src/hooks/api/use-fetch-appointment-passes";
 import { useFetchEmailTemplateSummaries } from "#src/hooks/api/use-fetch-email-template-summaries";
+import { useFetchPasses } from "#src/hooks/api/use-fetch-passes";
+import { useFetchSmartlists } from "#src/hooks/api/use-fetch-smartlists";
 import { fetch } from "#src/utils/fetch";
-
-import { useFetchSmartlists } from "./use-fetch-smartlists";
 
 const fetchActivitiesBound = fetchGroupActivitiesAndWorkshopsAction.bind(
   null,
@@ -19,12 +18,7 @@ const fetchActivitiesBound = fetchGroupActivitiesAndWorkshopsAction.bind(
 );
 const fetchAppointmentsBound = fetchAppointmentsAction.bind(null, fetch);
 const fetchEstablishmentsBound = fetchEstablishmentsAction.bind(null, fetch);
-const fetchPaginatedAppointmentPassesBound = fetchAppointmentPassesAction.bind(
-  null,
-  fetch,
-);
 const fetchSubscriptionsBound = fetchSubscriptionsAction.bind(null, fetch);
-const fetchPassesBound = fetchPassesAction.bind(null, fetch);
 
 /**
  * Hook for fetching marketing notification dependencies.
@@ -35,9 +29,12 @@ const fetchPassesBound = fetchPassesAction.bind(null, fetch);
  * @return Object containing ID-to-entity maps for each dependency type and a fetch function
  */
 export function useFetchMarketingNotificationDependencies() {
-  const { handleFetchSmartlists } = useFetchSmartlists();
-  const { handleFetchEmailTemplateSummaries } =
+  const { handleFetchSmartlists, isSmartlistsLoading } = useFetchSmartlists();
+  const { handleFetchEmailTemplateSummaries, isEmailTemplateSummariesLoading } =
     useFetchEmailTemplateSummaries();
+  const { handleFetchPasses, isPassesLoading } = useFetchPasses();
+  const { handleFetchAppointmentPasses, isAppointmentPassesLoading } =
+    useFetchAppointmentPasses();
   const [, fetchActivities] = useAsync<typeof fetchActivitiesBound>({
     asyncFn: fetchActivitiesBound,
   });
@@ -50,18 +47,8 @@ export function useFetchMarketingNotificationDependencies() {
     asyncFn: fetchEstablishmentsBound,
   });
 
-  const [, fetchPaginatedAppointmentPasses] = useAsync<
-    typeof fetchPaginatedAppointmentPassesBound
-  >({
-    asyncFn: fetchPaginatedAppointmentPassesBound,
-  });
-
   const [, fetchSubscriptions] = useAsync<typeof fetchSubscriptionsBound>({
     asyncFn: fetchSubscriptionsBound,
-  });
-
-  const [, fetchPasses] = useAsync<typeof fetchPassesBound>({
-    asyncFn: fetchPassesBound,
   });
 
   const fetchMarketingNotificationDependencies = useCallback(
@@ -96,7 +83,7 @@ export function useFetchMarketingNotificationDependencies() {
         fetchEstablishments({
           id__in: establishmentIds,
         }),
-        fetchPaginatedAppointmentPasses({
+        handleFetchAppointmentPasses({
           id__in: privatePassIds,
           page: 1,
           page_size: privatePassIds.length,
@@ -104,7 +91,7 @@ export function useFetchMarketingNotificationDependencies() {
         fetchSubscriptions({
           id__in: subscriptionIds,
         }),
-        fetchPasses({
+        handleFetchPasses({
           id__in: paymentPackIds,
           page: 1,
           page_size: paymentPackIds.length,
@@ -117,15 +104,20 @@ export function useFetchMarketingNotificationDependencies() {
       fetchActivities,
       fetchAppointments,
       fetchEstablishments,
-      fetchPaginatedAppointmentPasses,
       fetchSubscriptions,
-      fetchPasses,
+      handleFetchPasses,
       handleFetchEmailTemplateSummaries,
       handleFetchSmartlists,
+      handleFetchAppointmentPasses,
     ],
   );
 
   return {
+    areDependenciesLoading:
+      isPassesLoading ||
+      isSmartlistsLoading ||
+      isEmailTemplateSummariesLoading ||
+      isAppointmentPassesLoading,
     fetchMarketingNotificationDependencies,
   };
 }

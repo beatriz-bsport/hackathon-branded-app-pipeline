@@ -4,13 +4,14 @@ import { loadRemote, init } from '@module-federation/runtime';
 import { useHistory } from 'react-router-dom';
 import { clsx } from 'clsx';
 import { resetAnalyticsB2B } from '#src/components/analytics/mixpanel';
+import { REVAMPED_BO_DOMAIN } from './constants';
 
 import './compat-drawer.css';
 
 const isDev = process.env.NODE_ENV === 'development';
 const entry = isDev
   ? 'http://localhost:4050/remoteEntry.js'
-  : '/studio/apps/navigation-sidebar/remoteEntry.js';
+  : `${REVAMPED_BO_DOMAIN}/apps/navigation-sidebar/remoteEntry.js`;
 
 init({
   name: 'saas-legacy',

@@ -15,7 +15,7 @@ const ListPage: FC = () => {
   return (
     <ListLayout>
       <ListLayout.Header pageTitle={t("pageTitle")} />
-      <ListLayout.Content className="py-md px-lg gap-xl flex flex-col">
+      <ListLayout.Content className="pt-md pb-xl px-lg gap-xl flex flex-col">
         <section className="flex flex-col gap-lg">
           <Header />
           <InsightsBanner />

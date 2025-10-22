@@ -15,7 +15,7 @@ type TableHeaderProps<RowType extends BaseRow> = {
   /** Array of column configurations defining header content and alignment */
   columns: Column<RowType>[];
   /** Whether the table supports row selection with checkboxes */
-  selectable?: boolean;
+  selectable: boolean;
   /** Whether all rows are currently selected */
   areAllSelected?: boolean;
   /** Whether some (but not all) rows are currently selected */
@@ -23,7 +23,8 @@ type TableHeaderProps<RowType extends BaseRow> = {
   /** Callback function triggered when the "select all" checkbox is toggled */
   handleSelectAllChange?: () => void;
   /** Whether to display vertical borders between header cells */
-  withVerticalBorders?: boolean;
+  withVerticalBorders: boolean;
+  withHorizontalDivider: boolean;
 };
 
 /**
@@ -56,11 +57,12 @@ type TableHeaderProps<RowType extends BaseRow> = {
 
 const TableHeader = <RowType extends BaseRow>({
   columns,
-  selectable = false,
+  selectable,
   areAllSelected = false,
   areSomeSelected = false,
   handleSelectAllChange,
-  withVerticalBorders = false,
+  withVerticalBorders,
+  withHorizontalDivider,
 }: TableHeaderProps<RowType>): React.ReactElement => {
   const selectAllValue = useMemo(
     () =>
@@ -79,6 +81,7 @@ const TableHeader = <RowType extends BaseRow>({
           <TableCell
             isHeader
             withVerticalBorders={withVerticalBorders}
+            withHorizontalDivider={withHorizontalDivider}
             rowHeight="sm"
             align="center"
           >
@@ -94,6 +97,7 @@ const TableHeader = <RowType extends BaseRow>({
             key={col.id}
             isHeader
             withVerticalBorders={withVerticalBorders}
+            withHorizontalDivider={withHorizontalDivider}
             rowHeight="sm"
             align={col.align}
             className={col.type === "copy" ? "px-md" : ""}

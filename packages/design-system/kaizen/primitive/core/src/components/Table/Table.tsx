@@ -38,6 +38,8 @@ export type TableProps<RowType extends BaseRow> = CheckboxProviderProps &
     rowHeight?: "sm" | "lg";
     /** Whether rows can be selected with checkboxes */
     selectable?: boolean;
+    /** Whether to display a divider between rows */
+    withHorizontalDivider?: boolean;
     /** Whether to show vertical borders between columns */
     withVerticalBorders?: boolean;
     /** Configuration for pagination functionality */
@@ -64,6 +66,7 @@ export type TableProps<RowType extends BaseRow> = CheckboxProviderProps &
  * @param props.rowHeight Height of the row. Can be "sm" or "lg".
  * @param props.selectable Boolean to define if the table integrates with checkboxes.
  * @param props.withVerticalBorders Boolean to define if the table has vertical borders.
+ * @param props.withHorizontalDivider Boolean to define it the table has dividers between rows. Default to true.
  * @link https://docs.infra.bsport.io/storybook/kaizen/main/index.html?path=/docs/components-table--docs
  */
 const Table = <RowType extends BaseRow>({
@@ -73,6 +76,7 @@ const Table = <RowType extends BaseRow>({
   rowHeight = "sm",
   selectable = false,
   withVerticalBorders = false,
+  withHorizontalDivider = true,
   paginationProps,
   emptyStateProps,
   loadingProps,
@@ -110,7 +114,8 @@ const Table = <RowType extends BaseRow>({
         rowHeight={rowHeight}
         selectable={selectable}
         withVerticalBorders={withVerticalBorders}
-        className={className}
+        withHorizontalDivider={withHorizontalDivider}
+        className={className ?? ""}
         hideHeader={hideHeader}
         {...props}
       />
@@ -119,16 +124,25 @@ const Table = <RowType extends BaseRow>({
   );
 };
 
+type ParamsWithDefaultValues =
+  | "withHorizontalDivider"
+  | "withVerticalBorders"
+  | "rowHeight"
+  | "selectable"
+  | "hideHeader";
+
 const InnerTableWithContext = <RowType extends BaseRow>({
   className,
   columns,
   rows,
-  rowHeight = "sm",
+  rowHeight,
   selectable,
   withVerticalBorders,
+  withHorizontalDivider,
   hideHeader,
   ...props
-}: TableProps<RowType>) => {
+}: Omit<TableProps<RowType>, ParamsWithDefaultValues> &
+  Required<Pick<TableProps<RowType>, ParamsWithDefaultValues>>) => {
   const {
     areAllSelected,
     areSomeSelected,
@@ -164,6 +178,7 @@ const InnerTableWithContext = <RowType extends BaseRow>({
           areAllSelected={areAllSelected}
           areSomeSelected={areSomeSelected}
           handleSelectAllChange={handleSelectAllChange}
+          withHorizontalDivider={withHorizontalDivider}
           withVerticalBorders={withVerticalBorders}
         />
       )}
@@ -178,6 +193,7 @@ const InnerTableWithContext = <RowType extends BaseRow>({
             handleCheckboxChange={handleCheckboxChange}
             selected={selectedValues.includes(row.id.toString())}
             rowHeight={rowHeight}
+            withHorizontalDivider={withHorizontalDivider}
             withVerticalBorders={withVerticalBorders}
             link={row.link}
             color={row.color}

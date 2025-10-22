@@ -1,3 +1,5 @@
+import { DATETIME_FORMATS, formatDateTime } from "@bsport/datetime-formatting";
+
 import { LEGACY_URLS } from "#src/urls";
 import { useTranslation } from "#src/utils/i18n";
 import { useSessionsWithTeacher } from "#src/utils/stores-interface";
@@ -12,13 +14,10 @@ export const useUpcomingActivitiesRows = (): Array<TableRowData> => {
   return sessions.map((session) => {
     return {
       id: session.id,
-      activityDate: new Date(session.date_start).toLocaleDateString(
-        [i18n.language],
-        {
-          hour: "numeric",
-          minute: "numeric",
-          day: "numeric",
-        },
+      activityDate: formatDateTime(
+        session.date_start,
+        DATETIME_FORMATS.TIME_SIMPLE,
+        { locale: i18n.language },
       ),
       activityName: session.name,
       teacherName: session.teacher?.name ?? "",

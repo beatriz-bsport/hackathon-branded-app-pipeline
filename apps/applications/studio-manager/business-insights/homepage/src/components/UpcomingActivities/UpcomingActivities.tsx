@@ -42,8 +42,16 @@ export const UpcomingActivities: React.FC = () => {
   }, [fetchManagerSessions, fetchSubstitutionRequests]);
 
   return (
-    <HomepageSection title={t("upcomingActivitiesPanel.title")}>
-      <Card elevated padding="default" className="overflow-x-scroll mt-md">
+    <HomepageSection
+      title={t("upcomingClassesPanel.title")}
+      className="-mt-[12px]"
+    >
+      <Card
+        elevated
+        padding="none"
+        className="overflow-scroll mt-md max-h-[370px] min-h-[var(--card-min-height)]"
+        style={{ "--card-min-height": "100px" }}
+      >
         <Table
           columns={columns}
           rows={rows}
@@ -51,7 +59,7 @@ export const UpcomingActivities: React.FC = () => {
           emptyStateProps={{
             isEmpty: rows.length === 0,
             emptyConfig: {
-              title: t("upcomingActivitiesPanel.emptyList"),
+              title: t("upcomingClassesPanel.emptyList"),
             },
           }}
           loadingProps={{
@@ -59,8 +67,9 @@ export const UpcomingActivities: React.FC = () => {
               isLoadingSessions ||
               isLoadingTeachers ||
               isLoadingSubstitutionRequests,
+            className: "h-[var(--card-min-height)]",
           }}
-          hideHeader
+          withHorizontalDivider={false}
         />
       </Card>
     </HomepageSection>

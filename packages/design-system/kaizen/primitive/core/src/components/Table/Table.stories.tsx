@@ -106,6 +106,16 @@ const meta: Meta<typeof Table> = {
         category: "Selection",
       },
     },
+    withHorizontalDivider: {
+      control: { type: "boolean" },
+      description:
+        "Display dividers between rows for better visual separation.",
+      table: {
+        type: { summary: "boolean" },
+        defaultValue: { summary: "true" },
+        category: "Styling",
+      },
+    },
     withVerticalBorders: {
       control: { type: "boolean" },
       description:
@@ -327,6 +337,7 @@ export const Primary: StoryObj<typeof Table> = {
     rowHeight: "sm",
     selectable: true,
     withVerticalBorders: true,
+    withHorizontalDivider: true,
     emptyStateProps: {
       isEmptySearch: false,
       emptySearchConfig: emptySearchConfig,

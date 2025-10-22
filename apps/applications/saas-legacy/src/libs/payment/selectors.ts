@@ -111,6 +111,15 @@ export const getStripePayoutList = createSelector(
   (ids, data) => (ids ?? []).map((id) => data[id]).filter((payout) => !!payout),
 );
 
+export const getStripeDomainRegistrationLoading = (state: RootState) =>
+  state.paymentBackend.stripeDomainRegistration.loading;
+
+export const getStripeDomainRegistrationIsRegistered = (state: RootState) =>
+  state.paymentBackend.stripeDomainRegistration.isRegistered;
+
+export const getStripeDomainRegistrationError = (state: RootState) =>
+  state.paymentBackend.stripeDomainRegistration.error;
+
 // -------------- Bookkeeping Accounts --------------
 
 const __getBookkeepingAccountList = (state: RootState) =>

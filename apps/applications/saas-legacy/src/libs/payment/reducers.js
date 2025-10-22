@@ -21,6 +21,7 @@ import {
   deleteBookkeepingAccountActions,
   getLinkedProductNamesActions,
   createPaymentAttemptActions,
+  checkStripeDomainActions,
 } from './actions';
 
 const initialState = Immutable({
@@ -93,6 +94,11 @@ const initialState = Immutable({
     loading: false,
     error: null,
     linkedProductNames: [],
+  },
+  stripeDomainRegistration: {
+    loading: false,
+    error: null,
+    isRegistered: null,
   },
 });
 
@@ -360,6 +366,18 @@ export default handleActions(
     },
     [getLinkedProductNamesActions.error]: (state, { payload }) => {
       return state.setIn(['bookkeepingAccounts', 'error'], payload);
+    },
+    [checkStripeDomainActions.success]: (state, { payload }) => {
+      return state.setIn(
+        ['stripeDomainRegistration', 'isRegistered'],
+        payload.is_registered,
+      );
+    },
+    [checkStripeDomainActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['stripeDomainRegistration', 'loading'], payload);
+    },
+    [checkStripeDomainActions.error]: (state, { payload }) => {
+      return state.setIn(['stripeDomainRegistration', 'error'], payload);
     },
   },
   initialState,

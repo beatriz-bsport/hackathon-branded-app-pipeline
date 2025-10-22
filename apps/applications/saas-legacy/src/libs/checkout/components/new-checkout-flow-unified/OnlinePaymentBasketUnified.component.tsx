@@ -3,7 +3,6 @@ import React, {
   useCallback,
   useEffect,
   useImperativeHandle,
-  useMemo,
   useState,
 } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -48,7 +47,6 @@ import {
   PAYMENT_INTENT_STATUS_PROCESSING,
   PAYMENT_INTENT_STATUS_SUCCESS,
 } from '@bsport/common/lib/master-data/payment-group';
-import WidgetUtils from '#src/libs/widget/WidgetUtils';
 
 type Props = {
   basketId: string;
@@ -128,8 +126,16 @@ export const OnlinePaymentBasketUnified: React.FC<Props> = forwardRef(
       invalidatePendingBookingsIfNecessary,
     } = usePayment(basketId, companyId, memberId);
 
-    const { detachPaymentMethod, isDetachPaymentMethodLoading } =
-      usePaymentMethod(basketId, companyId, memberId);
+    const {
+      detachPaymentMethod,
+      isDetachPaymentMethodLoading,
+      isStripeDomainRegistrationLoading,
+      setAvailableExpressCheckoutMethods,
+      showStripeExpressCheckout,
+    } = usePaymentMethod(basketId, companyId, memberId, {
+      clientSecret,
+      paymentMethodAvailableBasket,
+    });
 
     const {
       selectedPaymentEngine,
@@ -166,33 +172,11 @@ export const OnlinePaymentBasketUnified: React.FC<Props> = forwardRef(
       PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
     );
 
-    const [
-      availableExpressCheckoutMethods,
-      setAvailableExpressCheckoutMethods,
-    ] = useState<boolean | null>(null);
-
     const isOnlinePaymentLoading =
-      !basketTotalPriceCts || !clientSecret || isSettingUpPayment;
-
-    const showStripeExpressCheckout = useMemo(
-      () =>
-        selectedPaymentEngine === PAYMENT_ENGINE_STRIPE &&
-        !!clientSecret &&
-        !WidgetUtils.isWidget() &&
-        (paymentMethodAvailableBasket?.includes(
-          PAYMENT_GROUP_METHOD_IDENTIFIER_APPLE_PAY,
-        ) ||
-          paymentMethodAvailableBasket?.includes(
-            PAYMENT_GROUP_METHOD_IDENTIFIER_GOOGLE_PAY,
-          )) &&
-        availableExpressCheckoutMethods !== false,
-      [
-        availableExpressCheckoutMethods,
-        clientSecret,
-        paymentMethodAvailableBasket,
-        selectedPaymentEngine,
-      ],
-    );
+      !basketTotalPriceCts ||
+      !clientSecret ||
+      isSettingUpPayment ||
+      isStripeDomainRegistrationLoading;
 
     const isPaymentLoading =
       isPaymentProcessing ||

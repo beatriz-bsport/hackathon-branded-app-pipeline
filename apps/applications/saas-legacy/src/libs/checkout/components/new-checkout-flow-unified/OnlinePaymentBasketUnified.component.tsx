@@ -194,6 +194,21 @@ export const OnlinePaymentBasketUnified: React.FC<Props> = forwardRef(
       ],
     );
 
+    const isPaymentLoading =
+      isPaymentProcessing ||
+      isSettingUpPayment ||
+      isCompanyThemeLoading ||
+      isBasketLoading ||
+      isCurrentBasketProcessing ||
+      hasPaymentSucceeded ||
+      isExpressPayLoading;
+
+    const isExpressCheckoutDisabled =
+      (!termsAccepted && !!generalTermsAndConditions?.length) ||
+      (!isEstablishmentBillingGroupSelected &&
+        !!establishmentBillingGroups?.length) ||
+      isPaymentLoading;
+
     const handleSelectPaymentMethod = useCallback(
       (paymentMethod: number) => {
         if (paymentMethod === PAYMENT_GROUP_METHOD_IDENTIFIER_PAYPAL_WALLET) {
@@ -363,13 +378,11 @@ export const OnlinePaymentBasketUnified: React.FC<Props> = forwardRef(
           <div className={classes.expressCheckoutContainer}>
             <StripeExpressCheckoutElement
               allowedWallets={allowedWallets}
-              basketTotalPriceCts={basketTotalPriceCts}
-              clientSecret={clientSecret}
-              disabled={
-                (!termsAccepted && !!generalTermsAndConditions?.length) ||
-                (!isEstablishmentBillingGroupSelected &&
-                  !!establishmentBillingGroups?.length)
+              basketTotalPriceCts={
+                basketTotalPriceCts - (basketTotalPricePrepaidLinesCts || 0)
               }
+              clientSecret={clientSecret}
+              disabled={isExpressCheckoutDisabled}
               onError={handleExpressCheckoutError}
               onLoadError={() => setAvailableExpressCheckoutMethods(false)}
               onReady={handleExpressCheckoutReady}
@@ -447,15 +460,7 @@ export const OnlinePaymentBasketUnified: React.FC<Props> = forwardRef(
                 isEstablishmentBillingGroupSelected={
                   isEstablishmentBillingGroupSelected
                 }
-                loading={
-                  isPaymentProcessing ||
-                  isSettingUpPayment ||
-                  isCompanyThemeLoading ||
-                  isBasketLoading ||
-                  isCurrentBasketProcessing ||
-                  hasPaymentSucceeded ||
-                  isExpressPayLoading
-                }
+                loading={isPaymentLoading}
                 memberId={memberId}
                 onCancel={onCancelPaymentBeforeConfirming}
                 onError={onConfirmPaymentError}

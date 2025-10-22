@@ -78,7 +78,8 @@
       "tags": {
         "subscription_name": "Subscription name",
         "subscription_recurrent_price": "Monthly price",
-        "subscription_nb_months": "Number of months",
+        "subscription_nb_months": "Number of bills (deprecated)",
+        "subscription_nb_bills": "Number of bills",
         "subscription_duration": "Total duration",
         "subscription_flat_fee": "Joining fee",
         "subscription_payment_method": "Payment method",

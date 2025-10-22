@@ -1,7 +1,6 @@
 import type { FC } from "react";
 
-import { Title } from "@bsport/kaizen-primitive-core";
-
+import { HomepageSection } from "#src/components/HomepageSection";
 import { PUBLIC_URLS } from "#src/urls";
 import { getAssetUrl } from "#src/utils/assets";
 import { useTranslation } from "#src/utils/i18n";
@@ -12,17 +11,17 @@ export const ExploreSection: FC = () => {
   const { t, i18n } = useTranslation("default");
 
   return (
-    <section
+    <div
       className={[
-        "flex justify-start items-stretch gap-md",
-        "max-lg:flex-col",
-        "lg:flex-row",
+        "flex justify-start items-stretch",
+        "max-lg:flex-col max-lg:gap-xl",
+        "lg:flex-row lg:gap-md",
       ].join(" ")}
     >
-      <div className="flex-1">
-        <Title htmlVariant="h2" weight="strong" className="mb-md">
-          {t("exploreSection.exploreThePlatform.title")}
-        </Title>
+      <HomepageSection
+        title={t("exploreSection.exploreThePlatform.title")}
+        className="flex-1"
+      >
         <ExploreCard
           link={PUBLIC_URLS.PRODUCT_UPDATES}
           imageUrl={getAssetUrl("logo-bsport.png")}
@@ -33,19 +32,19 @@ export const ExploreSection: FC = () => {
             "exploreSection.exploreThePlatform.productUpdatesCard.description",
           )}
         />
-      </div>
+      </HomepageSection>
 
-      <div className="flex-1">
-        <Title htmlVariant="h2" weight="strong" className="mb-md">
-          {t("exploreSection.advices.title")}
-        </Title>
+      <HomepageSection
+        title={t("exploreSection.advices.title")}
+        className="flex-1"
+      >
         <ExploreCard
           link={PUBLIC_URLS.BLOG(i18n.language)}
           imageUrl={getAssetUrl("logo-blog.png")}
           title={t("exploreSection.advices.latestNewsCard.title")}
           description={t("exploreSection.advices.latestNewsCard.description")}
         />
-      </div>
-    </section>
+      </HomepageSection>
+    </div>
   );
 };

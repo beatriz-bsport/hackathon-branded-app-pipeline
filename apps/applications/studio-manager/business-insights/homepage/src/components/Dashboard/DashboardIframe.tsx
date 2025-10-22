@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { type FC, useEffect, useMemo, useRef, useState } from "react";
 
 import { useTranslation } from "#src/utils/i18n";
 
@@ -6,7 +6,7 @@ interface DashboardIframeProps {
   src: string;
   title: string;
   minHeight?: number;
-  left_translate?: number;
+  leftTranslate?: number;
 }
 
 // https://help.sigmacomputing.com/docs/manage-workbook-localization#supported-languages-and-locales
@@ -44,12 +44,12 @@ const coerceSigmaLocale = (languageCode: string): string => {
  * Automatically appends the current locale to the Sigma embed URL using `:lng`.
  * Dynamically adjusts height based on Sigma's workbook:pageheight:onchange event.
  */
-export const DashboardIframe = ({
+export const DashboardIframe: FC<DashboardIframeProps> = ({
   src,
   title,
   minHeight = 400,
-  left_translate = 0,
-}: DashboardIframeProps) => {
+  leftTranslate = 0,
+}) => {
   const { i18n } = useTranslation();
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const [iframeHeight, setIframeHeight] = useState(minHeight);
@@ -99,8 +99,8 @@ export const DashboardIframe = ({
       className="w-full border-0"
       style={{
         height: iframeHeight,
-        transform: `translate(${left_translate}px, 0px)`,
-        width: `calc(100% + ${2 * Math.abs(left_translate)}px)`,
+        transform: `translate(${leftTranslate}px, 0px)`,
+        width: `calc(100% + ${2 * Math.abs(leftTranslate)}px)`,
       }}
       title={title}
       allowFullScreen

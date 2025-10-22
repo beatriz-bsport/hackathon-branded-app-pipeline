@@ -2,10 +2,11 @@ import type { FC } from "react";
 import { useNavigate } from "react-router";
 import { REVAMP_URLS_DEVELOPMENT } from "sm-navigation-sidebar/urls";
 
-import { Banner } from "#src/components/Banner";
 import { getAssetUrl } from "#src/utils/assets";
 import { NavFlags, useNavFlag } from "#src/utils/featureFlags";
 import { useTranslation } from "#src/utils/i18n";
+
+import { Banner } from "./Banner";
 
 export const InsightsBanner: FC = () => {
   const { t } = useTranslation("default");

@@ -54,7 +54,7 @@ export const Banner: FC<BannerProps> = ({
   return (
     <div
       className={[
-        "rounded-md flex flex-col w-full items-start p-md",
+        "rounded-xl flex flex-col w-full items-start p-md",
         "bg-no-repeat bg-cover",
         "bg-[image:var(--bg-url)]",
       ].join(" ")}

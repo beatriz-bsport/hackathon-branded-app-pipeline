@@ -1,7 +1,8 @@
 {
   "pageTitle": "Home",
   "header": {
-    "title": "Welcome back"
+    "title": "Welcome back, {{ username }}",
+    "titleWithoutName": "Welcome back"
   },
   "banner": {
     "insights": {
@@ -10,15 +11,21 @@
       "ctaLabel": "Explore now"
     }
   },
-  "upcomingActivitiesPanel": {
-    "title": "Today's upcoming activities",
-    "emptyList": "No upcoming activities",
+  "upcomingClassesPanel": {
+    "title": "Upcoming Classes",
+    "headers": {
+      "class": "Class",
+      "teacher": "Teacher",
+      "teacherSubstitution": "Substitution",
+      "classFillRate": "Fill rate"
+    },
+    "emptyList": "No upcoming classes",
     "teacher": {
       "helperText": "Teacher"
     },
-    "replacement": {
-      "helperText": "Replacement",
-      "errorMissingReplacement": "Replacement required"
+    "substitution": {
+      "helperText": "Substitution",
+      "errorMissingReplacement": "Substitution required"
     },
     "rates": {
       "badge": {
@@ -26,23 +33,23 @@
       },
       "tooltip": {
         "classIsFull": "This class is full",
-        "hasEmptySpots_one": "This class has {{ count }} spot left",
-        "hasEmptySpots_other": "This class has {{ count }} spots left",
-        "hasEmptySpotsForWaitlist_one": "This class has {{ count }} spot left for waiting list",
-        "hasEmptySpotsForWaitlist_other": "This class has {{ count }} spots left for waiting list"
+        "hasEmptySpots_one": "{{ count }} spot left",
+        "hasEmptySpots_other": "{{ count }} spots left",
+        "hasEmptySpotsForWaitlist_one": "{{ count }} spot left on Waitlist",
+        "hasEmptySpotsForWaitlist_other": "{{ count }} spots left on Waitlist"
       }
     }
   },
   "exploreSection": {
     "exploreThePlatform": {
-      "title": "Explore the platform",
+      "title": "Explore the Platform",
       "productUpdatesCard": {
         "title": "Product updates",
         "description": "Explore all product updates and improvements"
       }
     },
     "advices": {
-      "title": "bsport advice",
+      "title": "bsport Advice",
       "latestNewsCard": {
         "title": "Latest from bsport",
         "description": "Discover the latest news and trends in the industry"
@@ -50,7 +57,7 @@
     }
   },
   "keyMetrics": {
-    "title": "Key metrics",
+    "title": "Key Metrics",
     "unavailable": "Metrics are currently unavailable"
   },
   "insightsPanel": {

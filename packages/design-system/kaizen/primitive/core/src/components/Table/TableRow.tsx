@@ -27,15 +27,17 @@ type TableRowProps<RowType extends BaseRow> = {
   /** Array of column configurations defining how to render each cell */
   columns: Column<RowType>[];
   /** Whether this table supports row selection */
-  selectable?: boolean;
+  selectable: boolean;
   /** Callback function triggered when the row's checkbox state changes */
   handleCheckboxChange?: (id: string) => void;
   /** Whether this row is currently selected */
   selected?: boolean;
   /** Height variant for this row */
-  rowHeight?: "sm" | "lg";
+  rowHeight: "sm" | "lg";
+  /** Whether to display an horizontal divider under the row */
+  withHorizontalDivider: boolean;
   /** Whether to display vertical borders between cells */
-  withVerticalBorders?: boolean;
+  withVerticalBorders: boolean;
   /** Callback function triggered when the row is clicked */
   onRowClick?: () => void;
   /** Whether this row is in an active state (highlighted) */
@@ -64,11 +66,12 @@ const TableRow = withLink(
     row,
     rowId,
     columns,
-    selectable = false,
+    selectable,
     handleCheckboxChange,
     selected = false,
-    rowHeight = "sm",
-    withVerticalBorders = false,
+    rowHeight,
+    withVerticalBorders,
+    withHorizontalDivider,
     onRowClick,
     isActive,
   }: TableRowProps<RowType>): React.ReactElement => {
@@ -165,6 +168,7 @@ const TableRow = withLink(
             <TableCell
               key={col.id}
               withVerticalBorders={withVerticalBorders}
+              withHorizontalDivider={withHorizontalDivider}
               rowHeight={rowHeight}
               align={col.align}
             >
@@ -180,7 +184,15 @@ const TableRow = withLink(
             </TableCell>
           );
         }),
-      [columns, intlLocale, row, rowHeight, selectable, withVerticalBorders],
+      [
+        columns,
+        intlLocale,
+        row,
+        rowHeight,
+        selectable,
+        withVerticalBorders,
+        withHorizontalDivider,
+      ],
     );
     return (
       <div
@@ -195,6 +207,7 @@ const TableRow = withLink(
         {selectable && (
           <TableCell
             withVerticalBorders={withVerticalBorders}
+            withHorizontalDivider={withHorizontalDivider}
             rowHeight={rowHeight}
             align="center"
           >

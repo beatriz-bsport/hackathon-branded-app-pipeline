@@ -44,7 +44,7 @@ export const useUpcomingActivitiesColumns = ({
     id: "homepage-activities-name",
     type: "custom",
     align: "start",
-    header: "",
+    header: t("upcomingClassesPanel.headers.class"),
     render: (row) => {
       return (
         <BodyWithSubtext text={row.activityName} subtext={row.activityDate} />
@@ -56,12 +56,12 @@ export const useUpcomingActivitiesColumns = ({
     id: "homepage-activities-teacher",
     type: "custom",
     align: "start",
-    header: "",
+    header: t("upcomingClassesPanel.headers.teacher"),
     render: (row) => {
       return (
         <BodyWithSubtext
           text={row.teacherName}
-          subtext={t("upcomingActivitiesPanel.teacher.helperText")}
+          subtext={t("upcomingClassesPanel.teacher.helperText")}
         />
       );
     },
@@ -71,7 +71,7 @@ export const useUpcomingActivitiesColumns = ({
     id: "homepage-activities-substitute",
     type: "custom",
     align: "start",
-    header: "",
+    header: t("upcomingClassesPanel.headers.teacherSubstitution"),
     render: (row) => {
       const { teacherSubstituteName, teacherSubstituteRequired } = row;
 
@@ -79,13 +79,13 @@ export const useUpcomingActivitiesColumns = ({
 
       const hasErrorStatus = !teacherSubstituteName;
       const text = hasErrorStatus
-        ? t("upcomingActivitiesPanel.replacement.errorMissingReplacement")
+        ? t("upcomingClassesPanel.substitution.errorMissingReplacement")
         : teacherSubstituteName;
 
       return (
         <BodyWithSubtext
           text={text}
-          subtext={t("upcomingActivitiesPanel.replacement.helperText")}
+          subtext={t("upcomingClassesPanel.substitution.helperText")}
           hasErrorStatus={hasErrorStatus}
         />
       );
@@ -96,7 +96,7 @@ export const useUpcomingActivitiesColumns = ({
     id: "homepage-activities-fill-rate",
     type: "custom",
     align: "center",
-    header: "",
+    header: t("upcomingClassesPanel.headers.classFillRate"),
     render: (row) => {
       const rate = row.fillRate;
       const hasPeopleInWaitingList =
@@ -124,7 +124,7 @@ export const useUpcomingActivitiesColumns = ({
        * If yes, display the number of people waiting
        */
       const label = hasPeopleInWaitingList
-        ? t("upcomingActivitiesPanel.rates.badge.waitingCount", {
+        ? t("upcomingClassesPanel.rates.badge.waitingCount", {
             count: row.waitingListCount,
           })
         : `${rate}%`;
@@ -134,16 +134,16 @@ export const useUpcomingActivitiesColumns = ({
        */
       let tooltip: string = "";
       if (rate === RATE_FULL) {
-        tooltip = t("upcomingActivitiesPanel.rates.tooltip.classIsFull");
+        tooltip = t("upcomingClassesPanel.rates.tooltip.classIsFull");
       } else {
         const waitlistSpotsMessage = t(
           // @ts-expect-error Can not detect plural for now
-          "upcomingActivitiesPanel.rates.tooltip.hasEmptySpotsForWaitlist",
+          "upcomingClassesPanel.rates.tooltip.hasEmptySpotsForWaitlist",
           { count: row.emptySpotsCount },
         ) as string;
         const emptySpotsMessage = t(
           // @ts-expect-error Can not detect plural for now
-          "upcomingActivitiesPanel.rates.tooltip.hasEmptySpots",
+          "upcomingClassesPanel.rates.tooltip.hasEmptySpots",
           { count: row.emptySpotsCount },
         ) as string;
         tooltip = hasPeopleInWaitingList

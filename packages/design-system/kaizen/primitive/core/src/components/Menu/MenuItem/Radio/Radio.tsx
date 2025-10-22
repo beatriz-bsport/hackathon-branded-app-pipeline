@@ -114,10 +114,8 @@ const Radio: React.FC<RadioProps> = ({
     [description, id],
   );
 
-  const handleMenuItemClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleMenuItemClick = () => {
     if (!disabled) {
-      event.stopPropagation();
-      event.preventDefault();
       inputRef.current?.click();
     }
   };
@@ -128,6 +126,7 @@ const Radio: React.FC<RadioProps> = ({
       onClick={handleMenuItemClick}
       tabIndex={0}
       role="radio"
+      type="button"
     >
       <Indicator disabled={disabled} />
       <input

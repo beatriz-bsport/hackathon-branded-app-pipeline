@@ -1,8 +1,11 @@
 import { cva, cx } from "class-variance-authority";
-import React from "react";
+import { type FC, useEffect } from "react";
 
 import Body from "#src/components/Body";
+import DropdownMenu from "#src/components/DropdownMenu";
 import Icon, { type IconName } from "#src/components/Icon";
+
+import { useTabsContext } from "./TabsContext";
 
 const tabsItemContainer = cva(["py-xs"], {
   variants: {
@@ -47,7 +50,7 @@ export type TabsItemProps = {
   orientation?: "vertical" | "horizontal";
 };
 
-export const TabsItem: React.FC<TabsItemProps> = ({
+export const TabsItem: FC<TabsItemProps> = ({
   disabled = false,
   icon,
   id,
@@ -56,13 +59,38 @@ export const TabsItem: React.FC<TabsItemProps> = ({
   onClick,
   orientation = "horizontal",
 }) => {
+  const context = useTabsContext();
+  const isResponsive = context?.isResponsive ?? false;
+
+  useEffect(() => {
+    if (disabled) {
+      return;
+    }
+
+    if (isActive && context.activeTab !== id) {
+      context.setActiveTabData({ id, label, icon });
+    }
+  }, [isActive, id, disabled]);
+
+  if (isResponsive) {
+    return (
+      <DropdownMenu.Item id={id} icon={icon} disabled={disabled}>
+        {label}
+      </DropdownMenu.Item>
+    );
+  }
+
   return (
     <div
       className={tabsItemContainer({ isActive, disabled, orientation })}
       aria-selected={isActive}
       tabIndex={isActive ? 0 : -1}
       role="tab"
-      onClick={onClick}
+      onClick={() => {
+        if (disabled) return;
+        onClick?.();
+        context.setActiveTabData({ id, label, icon });
+      }}
       id={id}
     >
       <div

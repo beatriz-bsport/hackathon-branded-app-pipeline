@@ -13,6 +13,7 @@ import type { ReportConfiguration } from '#src/libs/reporting/common/types';
 import { snackbarError, snackbarSuccess } from '../snackbar/actions';
 import { monitorBackgroundTask } from '../background-task/actions';
 import {
+  checkStripePaymentMethodDomainRegistration as checkStripePaymentMethodDomainRegistrationAPI,
   createBookkeepingAccount as createBookkeepingAccountAPI,
   createPaymentAttempt as createPaymentAttemptAPI,
   createPaymentAttemptWebview as createPaymentAttemptWebviewAPI,
@@ -588,6 +589,41 @@ export function fetchStripePayoutList(
       options?.onError?.(err);
     }
     dispatch(listStripePayoutActions.isLoading(false));
+  };
+}
+
+export const checkStripeDomainActions = {
+  isLoading: createAction<boolean>('STRIPE_DOMAIN/CHECK/LOADING'),
+  error: createAction<Error | null>('STRIPE_DOMAIN/CHECK/ERROR'),
+  success: createAction<{ is_registered: boolean }>(
+    'STRIPE_DOMAIN/CHECK/SUCCESS',
+  ),
+};
+
+// Future actions for domain management:
+// export const listStripeDomainActions = { ... }  // STRIPE_DOMAIN/LIST/*
+// export const registerStripeDomainActions = { ... }  // STRIPE_DOMAIN/REGISTER/*
+
+export function checkStripePaymentMethodDomainRegistration(
+  companyId: number,
+  options?: OptionCallback<{ is_registered: boolean }>,
+): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    dispatch(checkStripeDomainActions.isLoading(true));
+    dispatch(checkStripeDomainActions.error(null));
+    try {
+      const response = await checkStripePaymentMethodDomainRegistrationAPI(
+        companyId,
+      );
+      dispatch(checkStripeDomainActions.success(response.data));
+      options?.onSuccess?.(response.data);
+    } catch (err) {
+      console.error(err);
+      dispatch(checkStripeDomainActions.error(err));
+      options?.onError?.(err);
+    } finally {
+      dispatch(checkStripeDomainActions.isLoading(false));
+    }
   };
 }
 

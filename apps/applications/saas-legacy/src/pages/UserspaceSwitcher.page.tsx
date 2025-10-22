@@ -18,8 +18,9 @@ import withQueryParams from '../hocs/with-query-params.hoc';
 
 import namespaces from '../i18n/namespaces.json';
 import { identifyAnalyticsB2BWithTheme } from '#src/components/analytics/mixpanel';
-
 import { requestOptInTrackingB2B as requestOptInTrackingB2BAction } from '#src/components/analytics/actions';
+
+import { useRouteToHomepage } from '#src/revamp';
 
 // @ts-expect-error
 const ConsumerHome = asyncComponent(() => import('./consumer/Consumer.router'));
@@ -46,6 +47,7 @@ export const UserspaceSwitcher = (props: Props) => {
     disconnect,
     companyId,
     has_completed_account_configuration_on_boarding,
+    hasEnabledRevampedBO,
     theme,
   } = props;
   useTranslation(namespaces);
@@ -88,6 +90,18 @@ export const UserspaceSwitcher = (props: Props) => {
     }
   }, [authenticated, isFranchisor, isManager, isCoach, companyId, theme]);
 
+  const { navigateToHomepage, shouldNavigateToHomepage } = useRouteToHomepage({
+    revampedBoEnabledForUser: hasEnabledRevampedBO,
+    revampedBoEnabledInTheme: !!theme?.revamped_backoffice_enabled,
+  });
+
+  useEffect(() => {
+    if (isManager && shouldNavigateToHomepage) {
+      navigateToHomepage();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isManager, shouldNavigateToHomepage]);
+
   if (!authenticated) {
     return <Redirect to="/login" />;
   }
@@ -125,6 +139,7 @@ const connector = connect(
       state.auth.has_completed_account_configuration_on_boarding,
     email_confirmed: state.auth.email_confirmed,
     theme: state.theme.theme,
+    hasEnabledRevampedBO: state.auth.has_enabled_revamped_backoffice,
   }),
   {
     disconnect: disconnectAction,

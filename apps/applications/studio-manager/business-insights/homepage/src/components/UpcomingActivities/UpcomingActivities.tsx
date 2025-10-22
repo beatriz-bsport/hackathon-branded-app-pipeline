@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
 
-import { Card, Table, Title } from "@bsport/kaizen-primitive-core";
+import { Card, Table } from "@bsport/kaizen-primitive-core";
 
+import { HomepageSection } from "#src/components/HomepageSection";
 import { useFetchSessions } from "#src/hooks/useFetchSessions";
 import { useFetchSubstitutionRequests } from "#src/hooks/useFetchSubstitutionRequests";
 import { useFetchTeachers } from "#src/hooks/useFetchTeachers";
@@ -41,11 +42,8 @@ export const UpcomingActivities: React.FC = () => {
   }, [fetchManagerSessions, fetchSubstitutionRequests]);
 
   return (
-    <section>
-      <Title htmlVariant="h2" weight="strong" className="mb-md">
-        {t("upcomingActivitiesPanel.title")}
-      </Title>
-      <Card elevated padding="default" className="overflow-x-scroll">
+    <HomepageSection title={t("upcomingActivitiesPanel.title")}>
+      <Card elevated padding="default" className="overflow-x-scroll mt-md">
         <Table
           columns={columns}
           rows={rows}
@@ -65,6 +63,6 @@ export const UpcomingActivities: React.FC = () => {
           hideHeader
         />
       </Card>
-    </section>
+    </HomepageSection>
   );
 };

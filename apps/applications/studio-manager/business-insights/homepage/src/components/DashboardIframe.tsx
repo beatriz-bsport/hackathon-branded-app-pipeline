@@ -6,6 +6,7 @@ interface DashboardIframeProps {
   src: string;
   title: string;
   minHeight?: number;
+  left_translate?: number;
 }
 
 // https://help.sigmacomputing.com/docs/manage-workbook-localization#supported-languages-and-locales
@@ -47,6 +48,7 @@ export const DashboardIframe = ({
   src,
   title,
   minHeight = 400,
+  left_translate = 0,
 }: DashboardIframeProps) => {
   const { i18n } = useTranslation();
   const iframeRef = useRef<HTMLIFrameElement>(null);
@@ -78,8 +80,7 @@ export const DashboardIframe = ({
         event.data.type === "workbook:pageheight:onchange" &&
         typeof event.data.pageHeight === "number"
       ) {
-        // Add some padding for safety (20px)
-        const newHeight = Math.max(event.data.pageHeight + 20, minHeight);
+        const newHeight = Math.max(event.data.pageHeight, minHeight);
         setIframeHeight(newHeight);
       }
     };
@@ -96,7 +97,11 @@ export const DashboardIframe = ({
       ref={iframeRef}
       src={localizedSrc}
       className="w-full border-0"
-      style={{ height: iframeHeight }}
+      style={{
+        height: iframeHeight,
+        transform: `translate(${left_translate}px, 0px)`,
+        width: `calc(100% + ${2 * Math.abs(left_translate)}px)`,
+      }}
       title={title}
       allowFullScreen
       loading="lazy"

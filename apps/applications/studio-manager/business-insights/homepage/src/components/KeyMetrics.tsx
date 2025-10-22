@@ -1,6 +1,6 @@
 import type { FC } from "react";
 
-import { Body, Loader, Title } from "@bsport/kaizen-primitive-core";
+import { Body, Loader } from "@bsport/kaizen-primitive-core";
 
 import { DashboardIframe } from "#src/components/DashboardIframe";
 import { DASHBOARD_TYPES } from "#src/constants";
@@ -25,10 +25,7 @@ export const KeyMetrics: FC = () => {
 
   return (
     <div className="flex flex-col">
-      <Title htmlVariant="h2" weight="strong" className="mb">
-        {t("keyMetrics.title")}
-      </Title>
-      <div className="w-full rounded-lg overflow-hidden">
+      <div className="w-full overflow-hidden rounded-lg m-0 p-0">
         {isLoading ? (
           <div className="w-full h-full flex items-center justify-center min-h-[285px]">
             <Loader size="xl" />
@@ -38,6 +35,7 @@ export const KeyMetrics: FC = () => {
             src={iframeUrl}
             title={t("keyMetrics.title")}
             minHeight={285}
+            left_translate={-12}
           />
         ) : (
           <div className="w-full h-full flex items-center justify-center min-h-[285px]">

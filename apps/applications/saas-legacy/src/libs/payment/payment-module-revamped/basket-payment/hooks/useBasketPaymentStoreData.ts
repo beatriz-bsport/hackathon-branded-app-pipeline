@@ -72,10 +72,13 @@ export const useBasketPaymentStoreData = (
     checkout_items: basketCheckoutItems,
     available_payment_methods: availablePaymentMethods,
     need_address: needAddress,
+    company: companyId,
   } = useSelector((state: RootState) => getBasket(state, basketId)) ?? {};
 
   const creditAccountBalance = useSelector((state: RootState) =>
-    getUsableCreditAccountBalance(state, memberId),
+    companyId !== undefined
+      ? getUsableCreditAccountBalance(state, companyId)
+      : null,
   );
 
   const { loading: isDetachPaymentMethodLoading } =

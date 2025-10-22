@@ -3,13 +3,17 @@ import React, { useEffect, useState } from "react";
 
 import Body from "#src/components/Body";
 import Button from "#src/components/Button";
-import type { DialogSize } from "#src/components/private/Dialog";
+import type {
+  DialogPosition,
+  DialogSize,
+} from "#src/components/private/Dialog";
 
 import Modal, { ModalProps } from "./Modal";
 import { footerDirections } from "./constants";
 
 // Define sizes for the storybook controls
 const sizeOptions: DialogSize[] = ["sm", "md", "lg"];
+const positionOptions: DialogPosition[] = ["centered", "bottom"];
 
 /**
  * A dialog box that appears on top of the main content, requiring the user to
@@ -42,6 +46,11 @@ const meta: Meta<typeof Modal> = {
       options: footerDirections,
       control: { type: "inline-radio" },
       table: { defaultValue: { summary: "row" } },
+    },
+    position: {
+      options: positionOptions,
+      control: { type: "inline-radio" },
+      table: { defaultValue: { summary: "centered" } },
     },
     onClose: {
       table: { type: { summary: "function", detail: "() => void" } },

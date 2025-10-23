@@ -25,6 +25,11 @@ export type LightSignupFormValues = {
   acceptTermsAndConditions: boolean;
 };
 
+function hasCountryIndicator(phoneNumber: string): boolean {
+  const trimmed = phoneNumber.trim();
+  return trimmed.startsWith('+');
+}
+
 const LightSignupForm = () => {
   const { t } = useTranslation('booking');
 
@@ -69,7 +74,7 @@ const LightSignupForm = () => {
         <TextField
           isFullWidth
           id="light-signup-phone"
-          inputId="light-signup-last-name-input"
+          inputId="light-signup-phone-input"
           label={t('lightSignup.form.phone.label')}
           name="phone"
           placeholder={t('lightSignup.form.phone.placeholder')}
@@ -119,6 +124,11 @@ const lightSignupFormValidationSchema = Yup.object().shape({
     .required('booking:lightSignup.form.errors.requiredField'),
   phone: Yup.string()
     .nullable()
+    .test(
+      'has-country-indicator',
+      'booking:lightSignup.form.errors.phoneCountryIndicator',
+      (value) => !value || hasCountryIndicator(value),
+    )
     .test(
       'is-phone',
       'booking:lightSignup.form.errors.phone',

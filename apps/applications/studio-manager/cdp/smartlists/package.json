@@ -29,8 +29,8 @@
     "@bsport/use-debounce": "workspace:*",
     "@bsport/use-pagination-query-params": "workspace:*",
     "@hookform/resolvers": "^5.1.1",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
     "react-hook-form": "^7.58.0",
     "react-router": "^7.2.0",
     "zod": "^3.25.64"

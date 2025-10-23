@@ -1,4 +1,4 @@
-import type { ComponentProps, ReactNode } from "react";
+import type { ComponentProps, JSX, ReactNode } from "react";
 
 import Menu from "#src/components/Menu";
 import Popover from "#src/components/Popover";

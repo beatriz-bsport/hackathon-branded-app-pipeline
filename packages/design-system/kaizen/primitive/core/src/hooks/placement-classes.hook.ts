@@ -280,8 +280,8 @@ const contentFitsNaturally = (
  */
 const useAbsolutePlacementStyles = (
   placement: Placement,
-  anchorRef: React.RefObject<HTMLElement> | null,
-  contentRef: React.RefObject<HTMLElement> | null,
+  anchorRef: React.RefObject<HTMLElement | null> | null,
+  contentRef: React.RefObject<HTMLElement | null> | null,
   isVisible: boolean,
 ) => {
   // State for the computed positioning styles

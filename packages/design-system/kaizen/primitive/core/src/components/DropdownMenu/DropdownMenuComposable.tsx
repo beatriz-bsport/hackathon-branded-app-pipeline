@@ -1,4 +1,4 @@
-import { useCallback, useRef, useState } from "react";
+import { type JSX, useCallback, useRef, useState } from "react";
 
 import Popover from "#src/components/Popover";
 

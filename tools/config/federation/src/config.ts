@@ -249,11 +249,11 @@ export const getConfig = (config: {
     shared: {
       react: {
         singleton: true,
-        requiredVersion: packageJson.dependencies["react"] ?? "19.0.0",
+        requiredVersion: packageJson.dependencies["react"] ?? "19.2.0",
       },
       "react-dom": {
         singleton: true,
-        requiredVersion: packageJson.dependencies["react-dom"] ?? "19.0.0",
+        requiredVersion: packageJson.dependencies["react-dom"] ?? "19.2.0",
       },
       "react-router": {
         singleton: true,

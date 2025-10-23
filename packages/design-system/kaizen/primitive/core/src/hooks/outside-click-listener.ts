@@ -8,7 +8,7 @@ import { RefObject, useEffect, useRef } from "react";
  * @param open Whether the component is open and should be watching for clicks.
  */
 const useOutsideClickListener = (
-  ref: RefObject<HTMLElement>,
+  ref: RefObject<HTMLElement | null>,
   onClose: () => void,
   open: boolean,
 ) => {

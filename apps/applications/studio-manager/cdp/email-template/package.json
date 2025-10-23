@@ -30,8 +30,8 @@
     "@bsport/use-pagination-query-params": "workspace:*",
     "clsx": "^2.1.1",
     "dompurify": "^3.2.6",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
     "react-email-editor": "1.7.11",
     "react-router": "^7.2.0"
   },

@@ -34,8 +34,8 @@ describe("getConfig", () => {
   const mockPackageJson: ConfigInput["packageJson"] = {
     name: "@bsport/sm-navigation-sidebar",
     dependencies: {
-      react: "^18.0.0",
-      "react-dom": "^18.0.0",
+      react: "^19.2.0",
+      "react-dom": "^19.2.0",
     },
     federation: {
       devPort: 4000,
@@ -123,11 +123,11 @@ describe("getConfig", () => {
       shared: {
         react: {
           singleton: true,
-          requiredVersion: "^18.0.0",
+          requiredVersion: "^19.2.0",
         },
         "react-dom": {
           singleton: true,
-          requiredVersion: "^18.0.0",
+          requiredVersion: "^19.2.0",
         },
         "react-router": {
           singleton: true,

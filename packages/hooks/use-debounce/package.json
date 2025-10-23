@@ -29,7 +29,7 @@
     "lint:fix": "eslint --fix ."
   },
   "dependencies": {
-    "react": "^19.0.0"
+    "react": "^19.2.0"
   },
   "devDependencies": {
     "@bsport/config-eslint-react": "workspace:*"

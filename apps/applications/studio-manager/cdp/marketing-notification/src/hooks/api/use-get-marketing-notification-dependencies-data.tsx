@@ -6,8 +6,8 @@ import {
   useAppointmentStore,
 } from "@bsport/store-booking-appointment";
 import {
-  type MetaActivity,
-  selectGroupActivities,
+  selectGroupActivitiesMappedById,
+  selectSearchedGroupActivities,
   useGroupActivityStore,
 } from "@bsport/store-booking-group-activity";
 import {
@@ -36,7 +36,13 @@ import {
 } from "@bsport/store-core-data-establishment";
 
 export const useGetMarketingNotificationDependenciesData = () => {
-  const groupActivities = useGroupActivityStore(selectGroupActivities);
+  const groupActivitiesById = useGroupActivityStore(
+    selectGroupActivitiesMappedById,
+  );
+
+  const searchedGroupActivities = useGroupActivityStore(
+    selectSearchedGroupActivities,
+  );
 
   const appointments = useAppointmentStore(selectAllAppointments);
 
@@ -55,18 +61,6 @@ export const useGetMarketingNotificationDependenciesData = () => {
   );
 
   const smartlistsById = useSmartlistStore(selectAllMappedSmartlists);
-
-  const groupActivitiesById = useMemo(
-    () =>
-      groupActivities.reduce(
-        (acc, activity) => {
-          acc[activity.id] = activity;
-          return acc;
-        },
-        {} as Record<number, MetaActivity>,
-      ),
-    [groupActivities],
-  );
 
   const appointmentsById = useMemo(
     () =>
@@ -117,6 +111,7 @@ export const useGetMarketingNotificationDependenciesData = () => {
   );
 
   return {
+    searchedGroupActivities,
     groupActivitiesById,
     appointmentsById,
     establishmentsById,

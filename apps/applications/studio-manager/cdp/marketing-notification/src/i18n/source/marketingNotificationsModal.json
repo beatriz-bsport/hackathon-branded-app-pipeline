@@ -1,0 +1,47 @@
+{
+  "title": {
+    "create": "Create a notification",
+    "edit": "Edit notification"
+  },
+  "steps": {
+    "label": {
+      "triggerType": "Trigger Type",
+      "notificationRules": "Set up automation",
+      "content": "Choose channels"
+    },
+    "triggerType": {
+      "title": "Select the trigger that starts the automation",
+      "notificationType": {
+        "label": "Notification Type",
+        "choices": {
+          "groupActivity": "Group Activity",
+          "location": "Location",
+          "establishment": "Establishment",
+          "workshop": "Workshop",
+          "privateService": "Appointment",
+          "paymentPack": "Pass",
+          "privatePass": "Appointment Pass",
+          "subscription": "Subscription",
+          "birthday": "Birthday"
+        }
+      },
+      "selectors": {
+        "groupActivity": {
+          "label": "Associated Group Activity",
+          "placeholder": "Select associated group activity",
+          "loading": "Searching group activities..."
+        },
+        "workshop": {
+          "label": "Associated Workshop",
+          "placeholder": "Select associated workshop",
+          "loading": "Searching workshops..."
+        },
+        "allActivities": {
+          "label": "All Activities",
+          "placeholder": "Select any activity",
+          "loading": "Searching activities..."
+        }
+      }
+    }
+  }
+}

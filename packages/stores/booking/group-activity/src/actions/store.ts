@@ -1,3 +1,5 @@
+import { buildById } from "@bsport/store-base";
+
 import { groupActivityStore } from "#src/store";
 import type { MetaActivity } from "#src/types";
 
@@ -8,7 +10,10 @@ export const updateGroupActivity = (updatedGroupActivity: MetaActivity) => {
     if (!id) return state;
 
     return {
-      byId: { ...state.byId, [id]: updatedGroupActivity },
+      groupActivity: {
+        ...state.groupActivity,
+        byId: { ...state.groupActivity.byId, [id]: updatedGroupActivity },
+      },
     };
   });
 };
@@ -20,11 +25,14 @@ export const setInterrogate = ({
   canDestroy: boolean;
   offers: number[];
 }) => {
-  groupActivityStore.setState(() => {
+  groupActivityStore.setState((state) => {
     return {
-      interrogate: {
-        canDestroy,
-        offers,
+      groupActivity: {
+        ...state.groupActivity,
+        interrogate: {
+          canDestroy,
+          offers,
+        },
       },
     };
   });
@@ -34,22 +42,32 @@ export const setGroupActivities = ({
   groupActivities,
   count,
   page,
+  search,
 }: {
   groupActivities: MetaActivity[];
   count: number;
   page: number;
+  search?: boolean;
 }) => {
   groupActivityStore.setState((state) => {
-    const byId = groupActivities.reduce((acc, groupActivity) => {
-      acc[groupActivity.id] = groupActivity;
-      return acc;
-    }, state.byId);
+    const byId = buildById<MetaActivity>({
+      initial: state.groupActivity.byId,
+      newItems: groupActivities,
+    });
 
     return {
-      ids: groupActivities.map((groupActivity) => groupActivity.id),
-      byId,
-      count,
-      page,
+      groupActivity: {
+        ...state.groupActivity,
+        ids: search
+          ? []
+          : groupActivities.map((groupActivity) => groupActivity.id),
+        searchedIds: search
+          ? groupActivities.map((groupActivity) => groupActivity.id)
+          : [],
+        byId,
+        count,
+        page,
+      },
     };
   });
 };

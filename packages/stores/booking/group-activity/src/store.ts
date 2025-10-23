@@ -1,30 +1,32 @@
 import { createStore } from "zustand/vanilla";
 
-import { bindStore } from "@bsport/store-base";
+import { PaginatedState, bindStore } from "@bsport/store-base";
 
 import type { MetaActivity } from "#src/types";
 
 /** @indication Example of a paginated state */
 
 export interface GroupActivityState {
-  byId: { [key: number]: MetaActivity };
-  count: number;
-  ids: number[];
-  page: number;
-  interrogate: {
-    canDestroy: boolean;
-    offers: number[];
+  groupActivity: PaginatedState<MetaActivity> & {
+    searchedIds: number[];
+    interrogate: {
+      canDestroy: boolean;
+      offers: number[];
+    };
   };
 }
 
 export const groupActivityStore = createStore<GroupActivityState>()(() => ({
-  byId: {},
-  count: 0,
-  ids: [],
-  page: 1,
-  interrogate: {
-    canDestroy: true,
-    offers: [],
+  groupActivity: {
+    byId: {},
+    count: 0,
+    ids: [],
+    searchedIds: [],
+    page: 1,
+    interrogate: {
+      canDestroy: true,
+      offers: [],
+    },
   },
 }));
 

@@ -1560,6 +1560,9 @@ importers:
       '@bsport/fetch':
         specifier: workspace:*
         version: link:../../../../../packages/utils/fetch
+      '@bsport/form':
+        specifier: workspace:*
+        version: link:../../../../../packages/utils/form
       '@bsport/i18n':
         specifier: workspace:*
         version: link:../../../../../packages/utils/i18n
@@ -1581,6 +1584,12 @@ importers:
       react-router:
         specifier: ^7.2.0
         version: 7.2.0(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+      typescript-result:
+        specifier: ^3.1.1
+        version: 3.1.1
+      zod:
+        specifier: ^3.25.64
+        version: 3.25.67
     devDependencies:
       '@bsport/config-eslint-react':
         specifier: workspace:*

@@ -1,23 +1,20 @@
 import { useCallback } from "react";
 
 import { fetchAppointmentsAction } from "@bsport/store-booking-appointment";
-import { fetchGroupActivitiesAndWorkshopsAction } from "@bsport/store-booking-group-activity";
 import { fetchSubscriptionsAction } from "@bsport/store-buyables-subscription";
 import { fetchEstablishmentsAction } from "@bsport/store-core-data-establishment";
 import { useAsync } from "@bsport/use-async";
 
 import { useFetchAppointmentPasses } from "#src/hooks/api/use-fetch-appointment-passes";
 import { useFetchEmailTemplateSummaries } from "#src/hooks/api/use-fetch-email-template-summaries";
+import { useFetchGroupActivities } from "#src/hooks/api/use-fetch-group-activities";
 import { useFetchPasses } from "#src/hooks/api/use-fetch-passes";
 import { useFetchSmartlists } from "#src/hooks/api/use-fetch-smartlists";
 import { fetch } from "#src/utils/fetch";
 
-const fetchActivitiesBound = fetchGroupActivitiesAndWorkshopsAction.bind(
-  null,
-  fetch,
-);
 const fetchAppointmentsBound = fetchAppointmentsAction.bind(null, fetch);
 const fetchEstablishmentsBound = fetchEstablishmentsAction.bind(null, fetch);
+
 const fetchSubscriptionsBound = fetchSubscriptionsAction.bind(null, fetch);
 
 /**
@@ -33,12 +30,10 @@ export function useFetchMarketingNotificationDependencies() {
   const { handleFetchEmailTemplateSummaries, isEmailTemplateSummariesLoading } =
     useFetchEmailTemplateSummaries();
   const { handleFetchPasses, isPassesLoading } = useFetchPasses();
+  const { handleFetchGroupActivities, isGroupActivitiesLoading } =
+    useFetchGroupActivities();
   const { handleFetchAppointmentPasses, isAppointmentPassesLoading } =
     useFetchAppointmentPasses();
-  const [, fetchActivities] = useAsync<typeof fetchActivitiesBound>({
-    asyncFn: fetchActivitiesBound,
-  });
-
   const [, fetchAppointments] = useAsync<typeof fetchAppointmentsBound>({
     asyncFn: fetchAppointmentsBound,
   });
@@ -72,7 +67,7 @@ export function useFetchMarketingNotificationDependencies() {
       smartlistIds: number[];
     }) => {
       Promise.allSettled([
-        fetchActivities({
+        handleFetchGroupActivities({
           inIdList: groupActivityIds,
           page: 1,
           pageSize: groupActivityIds.length,
@@ -101,7 +96,6 @@ export function useFetchMarketingNotificationDependencies() {
       ]);
     },
     [
-      fetchActivities,
       fetchAppointments,
       fetchEstablishments,
       fetchSubscriptions,
@@ -109,6 +103,7 @@ export function useFetchMarketingNotificationDependencies() {
       handleFetchEmailTemplateSummaries,
       handleFetchSmartlists,
       handleFetchAppointmentPasses,
+      handleFetchGroupActivities,
     ],
   );
 
@@ -117,7 +112,8 @@ export function useFetchMarketingNotificationDependencies() {
       isPassesLoading ||
       isSmartlistsLoading ||
       isEmailTemplateSummariesLoading ||
-      isAppointmentPassesLoading,
+      isAppointmentPassesLoading ||
+      isGroupActivitiesLoading,
     fetchMarketingNotificationDependencies,
   };
 }

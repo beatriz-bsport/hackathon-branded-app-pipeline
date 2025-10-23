@@ -17,10 +17,10 @@ type PaymentStepProps = {
   checkItemsBasket: (basketId: string) => boolean;
   clientSecret: string | null;
   companyId: number;
-  createPendingBookingsIfNecessary?: (data?: {
+  createPendingBookingsAndBlockBasket?: (data?: {
     payment_group_method_identifier?: number;
   }) => void;
-  invalidatePendingBookingsIfNecessary?: () => void;
+  invalidatePendingBookingsAndUnblockBasket?: () => void;
   creditAccountBalance?: number;
   detachPaymentMethod: (paymentMethodId: string) => void;
   detachPaymentMethodLoading: boolean;
@@ -78,12 +78,12 @@ export const PaymentStep: React.FC<PaymentStepProps> = forwardRef(
       checkItemsBasket,
       clientSecret,
       companyId,
-      createPendingBookingsIfNecessary,
+      createPendingBookingsAndBlockBasket,
       creditAccountBalance,
       detachPaymentMethod,
       detachPaymentMethodLoading,
       instalmentPaymentConfigurationList,
-      invalidatePendingBookingsIfNecessary,
+      invalidatePendingBookingsAndUnblockBasket,
       isEstablishmentBillingGroupSelected,
       isOnlinePaymentAvailable,
       isPayLaterAvailable,
@@ -205,7 +205,9 @@ export const PaymentStep: React.FC<PaymentStepProps> = forwardRef(
             clientSecret={clientSecret}
             clientSecretLoading={clientSecretLoading}
             companyId={companyId}
-            createPendingBookingsIfNecessary={createPendingBookingsIfNecessary}
+            createPendingBookingsAndBlockBasket={
+              createPendingBookingsAndBlockBasket
+            }
             creditAccountBalance={creditAccountBalance}
             detachPaymentMethod={detachPaymentMethod}
             detachPaymentMethodLoading={detachPaymentMethodLoading}
@@ -215,8 +217,8 @@ export const PaymentStep: React.FC<PaymentStepProps> = forwardRef(
               instalmentPaymentConfigurationList
             }
             instalmentPaymentSelectedId={basket?.instalment_payment}
-            invalidatePendingBookingsIfNecessary={
-              invalidatePendingBookingsIfNecessary
+            invalidatePendingBookingsAndUnblockBasket={
+              invalidatePendingBookingsAndUnblockBasket
             }
             isEstablishmentBillingGroupSelected={
               isEstablishmentBillingGroupSelected

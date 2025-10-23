@@ -191,12 +191,6 @@ export const updatePaymentGroupPriceCts = async (
   );
 };
 
-export const blockPendingBasket = async (basketId: string) => {
-  return postAuth(
-    `${API_V1_URI}/checkout/basket/${basketId}/block_pending_basket/`,
-  );
-};
-
 export const verifyPriceBasket = async (basketId: string) => {
   return postAuth(`${API_V1_URI}/checkout/basket/${basketId}/verify_price/`);
 };
@@ -280,19 +274,21 @@ export const executePaymentAttemptWebview = ({
   );
 };
 
-export const createPendingBookings = async (
+export const createPendingBookingsAndBlockBasket = async (
   basketId: string,
   data: { payment_group_method_identifier?: number } = {},
 ) => {
   return postAuth(
-    `${API_V1_URI}/checkout/basket/${basketId}/create_pending_bookings/`,
+    `${API_V1_URI}/checkout/basket/${basketId}/create_pending_bookings_and_block_basket/`,
     data,
   );
 };
 
-export const invalidatePendingBookings = async (basketId: string) => {
+export const invalidatePendingBookingsAndUnblockBasket = async (
+  basketId: string,
+) => {
   return postAuth(
-    `${API_V1_URI}/checkout/basket/${basketId}/invalidate_pending_bookings/`,
+    `${API_V1_URI}/checkout/basket/${basketId}/invalidate_pending_bookings_and_unblock_basket/`,
   );
 };
 

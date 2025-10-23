@@ -1,7 +1,8 @@
 import {
-  createPendingBookings,
-  invalidatePendingBookings,
+  createPendingBookingsAndBlockBasket as createPendingBookingsAndBlockBasketAPI,
+  invalidatePendingBookingsAndUnblockBasket as invalidatePendingBookingsAndUnblockBasketAPI,
 } from '#src/libs/payment/payment-module-revamped/api';
+
 import { useBasketPaymentStoreData } from './useBasketPaymentStoreData';
 
 import type { Basket } from '#src/libs/checkout/types';
@@ -10,7 +11,7 @@ import type {
   InstalmentPaymentApiWithBasketId,
 } from '#src/libs/instalment-payment-configuration/types';
 import type { OptionCallback } from '#src/state/types';
-import { useCallback, useMemo } from 'react';
+import { useCallback } from 'react';
 import {
   useBasketPaymentLocalState,
   type PaymentEngine,
@@ -25,10 +26,10 @@ import { updateDefaultEstablishmentBillingGroup } from '#src/libs/member/actions
 
 type UsePayment = {
   clientSecret: string;
-  createPendingBookingsIfNecessary: (data?: {
+  createPendingBookingsAndBlockBasket: (data?: {
     payment_group_method_identifier?: number;
   }) => void;
-  invalidatePendingBookingsIfNecessary: () => void;
+  invalidatePendingBookingsAndUnblockBasket: () => void;
   getClientSecret: (paymentEngine: PaymentEngine) => void;
   instalmentPaymentConfigurations: InstalmentPaymentApiWithBasketId[];
   instalmentPaymentSelectedId: number | undefined;
@@ -80,7 +81,6 @@ export const usePayment = (
   }>();
 
   const {
-    basketCheckoutItems,
     instalmentPaymentConfigurations,
     instalmentPaymentSelectedId,
     clientSecret,
@@ -104,43 +104,33 @@ export const usePayment = (
   const { selectedPaymentEngine, selectedEstablishmentBillingGroup } =
     useBasketPaymentLocalState();
 
-  const basketHasOfferData = useMemo(() => {
-    return (
-      basketId &&
-      (basketCheckoutItems ?? []).some(
-        ({ extra_data }) =>
-          !!extra_data?.offers_data && extra_data.offers_data.length > 0,
-      )
-    );
-  }, [basketCheckoutItems, basketId]);
-
   /**
-   * Creates pending bookings based on the basket data.
+   * Creates pending bookings and blocks the basket based on the basket data.
    *
    * @param {Object} data - Data containing payment group method identifier.
    * @param {number} [data.payment_group_method_identifier] - The payment group method identifier.
    */
-  const createPendingBookingsIfNecessary = useCallback(
+  const createPendingBookingsAndBlockBasket = useCallback(
     (data?: { payment_group_method_identifier?: number }) => {
-      if (!basketHasOfferData || !data) return;
+      if (!basketId || !data) return;
 
-      createPendingBookings({ basketId, data }).catch((error) =>
-        console.error(error),
+      createPendingBookingsAndBlockBasketAPI({ basketId, data }).catch(
+        (error) => console.error(error),
       );
     },
-    [basketId, basketHasOfferData],
+    [basketId],
   );
 
   /**
-   * Invalidates pending bookings based on the basket data.
+   * Invalidates pending bookings and unblocks the basket based on the basket data.
    */
-  const invalidatePendingBookingsIfNecessary = useCallback(() => {
-    if (!basketHasOfferData) return;
+  const invalidatePendingBookingsAndUnblockBasket = useCallback(() => {
+    if (!basketId) return;
 
-    invalidatePendingBookings({ basketId }).catch((error) =>
+    invalidatePendingBookingsAndUnblockBasketAPI({ basketId }).catch((error) =>
       console.error(error),
     );
-  }, [basketId, basketHasOfferData]);
+  }, [basketId]);
 
   const getClientSecret = useCallback(
     (paymentEngine: PaymentEngine) => {
@@ -251,8 +241,8 @@ export const usePayment = (
 
   return {
     clientSecret,
-    createPendingBookingsIfNecessary,
-    invalidatePendingBookingsIfNecessary,
+    createPendingBookingsAndBlockBasket,
+    invalidatePendingBookingsAndUnblockBasket,
     getClientSecret,
     instalmentPaymentConfigurations,
     instalmentPaymentSelectedId,

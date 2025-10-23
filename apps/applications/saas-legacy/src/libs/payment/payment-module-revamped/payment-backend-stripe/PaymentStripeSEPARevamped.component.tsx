@@ -37,10 +37,7 @@ import { PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA } from '@bsport/common/lib/master-
 
 import { STRIPE_SEPA_ERROR_CODES } from '#src/libs/payment/constants';
 
-import {
-  blockPendingBasket as blockPendingBasketAPI,
-  verifyPriceBasket as verifyPriceBasketAPI,
-} from '#src/libs/payment/api';
+import { verifyPriceBasket as verifyPriceBasketAPI } from '#src/libs/payment/api';
 import { confirmStripePayment as confirmStripePaymentAction } from '#src/libs/payment/payment-module-revamped/actions';
 
 import CheckoutContext from '#src/pages/checkout/basket/CheckoutContext';
@@ -61,7 +58,7 @@ type PaymentStripeSEPAProps = {
   clientSecret: string;
   companyCountry?: string;
   creditAccountBalance?: number | null;
-  createPendingBookingsIfNecessary?: (data?: {
+  createPendingBookingsAndBlockBasket?: (data?: {
     payment_group_method_identifier?: number;
   }) => void;
   customClasses?: { [className: string]: string };
@@ -72,7 +69,7 @@ type PaymentStripeSEPAProps = {
   forceSave?: boolean;
   hasAddPaymentMethodPermission?: boolean;
   hideSaveForLater?: boolean;
-  invalidatePendingBookingsIfNecessary?: () => void;
+  invalidatePendingBookingsAndUnblockBasket?: () => void;
   isEstablishmentBillingGroupSelected?: boolean;
   loading?: boolean;
   memberId?: number;
@@ -103,7 +100,7 @@ export const PaymentStripeSEPARevamped = forwardRef(
       children,
       clientSecret,
       companyCountry,
-      createPendingBookingsIfNecessary,
+      createPendingBookingsAndBlockBasket,
       creditAccountBalance,
       customClasses,
       detachPaymentMethod,
@@ -113,7 +110,7 @@ export const PaymentStripeSEPARevamped = forwardRef(
       forceSave,
       hasAddPaymentMethodPermission = true,
       hideSaveForLater,
-      invalidatePendingBookingsIfNecessary,
+      invalidatePendingBookingsAndUnblockBasket,
       isEstablishmentBillingGroupSelected,
       loading,
       memberId,
@@ -253,7 +250,7 @@ export const PaymentStripeSEPARevamped = forwardRef(
           }
         }
 
-        createPendingBookingsIfNecessary?.({
+        createPendingBookingsAndBlockBasket?.({
           payment_group_method_identifier: PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA,
         });
 
@@ -297,18 +294,10 @@ export const PaymentStripeSEPARevamped = forwardRef(
               onPaymentError: (err) => {
                 setError(err);
                 setPaymentPageProcessing(false);
-                invalidatePendingBookingsIfNecessary?.();
+                invalidatePendingBookingsAndUnblockBasket?.();
                 onError?.();
               },
               onPaymentSuccess: async () => {
-                if (basketId) {
-                  try {
-                    await blockPendingBasketAPI(basketId);
-                  } catch (err) {
-                    console.error(err);
-                  }
-                }
-
                 onSuccess(() => setPaymentPageProcessing(false));
               },
             },
@@ -320,11 +309,11 @@ export const PaymentStripeSEPARevamped = forwardRef(
         basketTotalPriceCts,
         checkItemsBasket,
         clientSecret,
-        createPendingBookingsIfNecessary,
+        createPendingBookingsAndBlockBasket,
         dispatch,
         elements,
         forceSave,
-        invalidatePendingBookingsIfNecessary,
+        invalidatePendingBookingsAndUnblockBasket,
         isAddingPaymentMethod,
         onError,
         onSuccess,

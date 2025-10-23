@@ -596,6 +596,7 @@ export function confirmStripePayment(
       // Only confirmPayment works with PaymentElement; the others require specific data.
       // When confirming with a saved payment method, we do not use the PaymentElement so we need to use confirmCardPayment or confirmSepaDebitPayment.
       let result;
+
       if (args.shouldConfirmCardPayment) {
         result = await args.stripe.confirmCardPayment(args.clientSecret, {
           payment_method: args.paymentMethodSelected || {

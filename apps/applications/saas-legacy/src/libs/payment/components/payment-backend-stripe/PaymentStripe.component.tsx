@@ -53,7 +53,7 @@ type PaymentStripeProps = {
   children?: React.ReactNode;
   clientSecret: string;
   companyId: number;
-  createPendingBookingsIfNecessary?: (data?: {
+  createPendingBookingsAndBlockBasket?: (data?: {
     payment_group_method_identifier?: number;
   }) => void;
   creditAccountBalance?: number | null;
@@ -62,7 +62,7 @@ type PaymentStripeProps = {
   forceHideConfirmPaymentButton?: boolean;
   fromApp?: boolean;
   instalmentPaymentSelectedId?: number;
-  invalidatePendingBookingsIfNecessary?: () => void;
+  invalidatePendingBookingsAndUnblockBasket?: () => void;
   isEstablishmentBillingGroupSelected?: boolean;
   loading: boolean;
   memberId: number;
@@ -131,14 +131,14 @@ const PaymentStripe: React.FC<
       children,
       clientSecret,
       companyId,
-      createPendingBookingsIfNecessary,
+      createPendingBookingsAndBlockBasket,
       creditAccountBalance,
       detachPaymentMethod,
       detachPaymentMethodLoading,
       forceHideConfirmPaymentButton,
       fromApp,
       instalmentPaymentSelectedId,
-      invalidatePendingBookingsIfNecessary,
+      invalidatePendingBookingsAndUnblockBasket,
       isEstablishmentBillingGroupSelected = true,
       loading,
       memberId,
@@ -258,8 +258,8 @@ const PaymentStripe: React.FC<
               clientSecret={clientSecret}
               companyCountry={companyCountry}
               companyId={companyId}
-              createPendingBookingsIfNecessary={
-                createPendingBookingsIfNecessary
+              createPendingBookingsAndBlockBasket={
+                createPendingBookingsAndBlockBasket
               }
               creditAccountBalance={creditAccountBalance}
               detachPaymentMethod={detachPaymentMethod}
@@ -268,8 +268,8 @@ const PaymentStripe: React.FC<
               forceSave={forceSaveForInstalments}
               fromApp={fromApp}
               hasAddPaymentMethodPermission={hasAddPaymentMethodPermission}
-              invalidatePendingBookingsIfNecessary={
-                invalidatePendingBookingsIfNecessary
+              invalidatePendingBookingsAndUnblockBasket={
+                invalidatePendingBookingsAndUnblockBasket
               }
               isEstablishmentBillingGroupSelected={
                 isEstablishmentBillingGroupSelected

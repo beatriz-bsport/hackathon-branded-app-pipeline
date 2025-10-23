@@ -31,7 +31,7 @@ export const usePassListByPassType = ({
       page: currentPage,
       page_size: currentPageSize,
       setPageSettings,
-      paymentPassesIds: passIds,
+      paymentPassesIds: passType === "payment" ? passIds : undefined,
     });
   const {
     appointmentPassesById,
@@ -40,7 +40,7 @@ export const usePassListByPassType = ({
     page: currentPage,
     page_size: currentPageSize,
     setPageSettings,
-    appointmentPassesIds: passIds,
+    appointmentPassesIds: passType === "appointment" ? passIds : undefined,
   });
 
   return {

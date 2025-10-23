@@ -6,6 +6,9 @@
       "title": "No notifications yet",
       "description": "Set up an automation to send notifications to your members.",
       "primaryAction": "Add automation"
+    },
+    "actions": {
+      "createNotificationButton": "Add notification"
     }
   },
   "filters": {

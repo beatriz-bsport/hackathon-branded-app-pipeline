@@ -1,7 +1,4 @@
-import { useSearchParams } from "react-router";
-
 import { DetailDrawer, Table } from "@bsport/kaizen-primitive-core";
-import { deletePaginationQueryParams } from "@bsport/use-pagination-query-params";
 
 import { MarketingNotificationDetailsContent } from "#src/components/MarketingNotificationDetails/MarketingNotificationDetailsContent";
 import { getTableColumns } from "#src/components/MarketingNotificationList/MarketingNotificationTableConfig";
@@ -16,7 +13,6 @@ import { useUpsellChecker } from "#src/hooks/permissions/use-upsell-checker";
 import { useTranslation } from "#src/utils/i18n";
 
 export const MarketingNotificationTable = () => {
-  const [, setSearchParams] = useSearchParams();
   const { t } = useTranslation("marketingNotificationList");
   const { marketingNotificationsList, isLoading } =
     useFetchMarketingNotificationList();
@@ -38,11 +34,11 @@ export const MarketingNotificationTable = () => {
     baseNotificationEventId: openId ? parseInt(openId, 10) : undefined,
     marketingNotification: marketingNotificationsList,
     onNavigate: (notificationEventId: number) => {
-      if (notificationEventId.toString() !== openId) {
-        deletePaginationQueryParams(setSearchParams);
+      if (notificationEventId !== selectedMarketingNotification?.id) {
         openDrawer(notificationEventId);
       } else {
         closeDrawer();
+        setSelectedMarketingNotification(null);
       }
     },
   });
@@ -66,8 +62,8 @@ export const MarketingNotificationTable = () => {
     if (!marketingNotification) {
       return;
     }
-    openDrawer(notificationId);
     setSelectedMarketingNotification(marketingNotification);
+    openDrawer(notificationId);
   };
 
   const tableColumns = getTableColumns({
@@ -106,6 +102,7 @@ export const MarketingNotificationTable = () => {
         isOpen={!!selectedMarketingNotification}
         onClose={() => {
           setSelectedMarketingNotification(null);
+          closeDrawer();
         }}
         actionsConfig={[
           {

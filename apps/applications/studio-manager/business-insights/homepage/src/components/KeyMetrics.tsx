@@ -1,5 +1,6 @@
 import type { FC } from "react";
 
+import { HomepageSection } from "#src/components/HomepageSection";
 import { DASHBOARD_TYPES } from "#src/constants";
 import { usePresignedUrl } from "#src/hooks";
 import { useTranslation } from "#src/utils/i18n";
@@ -23,7 +24,7 @@ export const KeyMetrics: FC = () => {
   }
 
   return (
-    <section>
+    <HomepageSection title={t("keyMetrics.title")} noGap>
       <Dashboard
         errorMessage={t("keyMetrics.unavailable")}
         iframeLeftTranslate={-12}
@@ -32,6 +33,6 @@ export const KeyMetrics: FC = () => {
         iframeUrl={iframeUrl}
         isLoading={isLoading}
       />
-    </section>
+    </HomepageSection>
   );
 };

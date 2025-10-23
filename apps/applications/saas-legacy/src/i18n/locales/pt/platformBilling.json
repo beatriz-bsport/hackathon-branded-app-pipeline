@@ -64,11 +64,11 @@
       "title": "Vá ao encontro dos seus clientes onde eles estão com o Audience",
       "videoLink": "https://www.youtube.com/watch?v=VanGWUIAzTE&t=88s&ab_channel=bsport",
       "description": "Os fluxos de trabalho automatizados ajudam-no a ligar-se aos seus clientes através de múltiplos canais, para que possa:",
-      "benefits": {
-        "0": "Converta os clientes potenciais com mensagens personalizadas nos principais pontos de contacto",
-        "1": "Aumente as receitas com percursos de cliente personalizados para clientes VIP",
-        "2": "Reter clientes com acompanhamentos automatizados"
-      },
+      "benefits": [
+        "Converta os clientes potenciais com mensagens personalizadas nos principais pontos de contacto",
+        "Aumente as receitas com percursos de cliente personalizados para clientes VIP",
+        "Reter clientes com acompanhamentos automatizados"
+      ],
       "explain": "Esta funcionalidade é um complemento. Contacte o seu gestor de conta para obter mais informações.",
       "showInterest": "Entrar em contacto",
       "goHome": "Voltar ao calendário"

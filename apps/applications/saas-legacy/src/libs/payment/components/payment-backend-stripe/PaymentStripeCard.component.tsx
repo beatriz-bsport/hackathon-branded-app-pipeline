@@ -48,7 +48,6 @@ import UseInternalAccountForm from '#src/libs/payment/components/UseInternalAcco
 import PaymentMethodList from '#src/libs/payment/components/payment-method-list/PaymentMethodList.component';
 
 import {
-  blockPendingBasket as blockPendingBasketAPI,
   fetchPaymentMethodList as fetchPaymentMethodListAPI,
   updatePaymentMethodBillingDetails as updatePaymentMethodBillingDetailsAPI,
   verifyPriceBasket as verifyPriceBasketAPI,
@@ -76,7 +75,7 @@ type Props = {
   clientSecret: string;
   companyCountry?: string;
   companyId?: number;
-  createPendingBookingsIfNecessary?: (data?: {
+  createPendingBookingsAndBlockBasket?: (data?: {
     payment_group_method_identifier?: number;
   }) => void;
   creditAccountBalance?: number | null;
@@ -91,7 +90,7 @@ type Props = {
   forceSave?: boolean;
   hasAddPaymentMethodPermission?: boolean;
   hideSaveForLater?: boolean;
-  invalidatePendingBookingsIfNecessary?: () => void;
+  invalidatePendingBookingsAndUnblockBasket?: () => void;
   isEstablishmentBillingGroupSelected?: boolean;
   loading?: boolean;
   memberId: number;
@@ -124,7 +123,7 @@ const PaymentStripeCard = forwardRef(
       clientSecret,
       companyCountry,
       companyId,
-      createPendingBookingsIfNecessary,
+      createPendingBookingsAndBlockBasket,
       creditAccountBalance,
       customClasses,
       detachPaymentMethod,
@@ -134,7 +133,7 @@ const PaymentStripeCard = forwardRef(
       forceSave,
       hasAddPaymentMethodPermission = true,
       hideSaveForLater,
-      invalidatePendingBookingsIfNecessary,
+      invalidatePendingBookingsAndUnblockBasket,
       isEstablishmentBillingGroupSelected,
       loading,
       memberId,
@@ -366,8 +365,10 @@ const PaymentStripeCard = forwardRef(
             return;
           }
         }
+
         try {
-          createPendingBookingsIfNecessary?.({
+          // Little race-window condition here as we just fire-and-forget the API call
+          createPendingBookingsAndBlockBasket?.({
             payment_group_method_identifier: PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
           });
 
@@ -417,18 +418,10 @@ const PaymentStripeCard = forwardRef(
                 onPaymentError: (err) => {
                   setError(err);
                   setPaymentPageProcessing(false);
-                  invalidatePendingBookingsIfNecessary?.();
+                  invalidatePendingBookingsAndUnblockBasket?.();
                   onError?.();
                 },
                 onPaymentSuccess: async (paymentIntent) => {
-                  if (basketId) {
-                    try {
-                      await blockPendingBasketAPI(basketId);
-                    } catch (err) {
-                      console.error(err);
-                    }
-                  }
-
                   if (paymentIntent.status === 'succeeded' && onSuccess) {
                     onSuccess(() => setPaymentPageProcessing(false));
                   }
@@ -449,11 +442,11 @@ const PaymentStripeCard = forwardRef(
         checkItemsBasket,
         clientSecret,
         companyId,
-        createPendingBookingsIfNecessary,
+        createPendingBookingsAndBlockBasket,
         dispatch,
         elements,
         forceSave,
-        invalidatePendingBookingsIfNecessary,
+        invalidatePendingBookingsAndUnblockBasket,
         isAddingPaymentMethod,
         memberId,
         onError,

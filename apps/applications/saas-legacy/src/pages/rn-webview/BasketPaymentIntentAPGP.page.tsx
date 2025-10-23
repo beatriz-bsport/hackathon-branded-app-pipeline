@@ -51,8 +51,8 @@ import {
 
 import {
   checkItemsBasket as checkItemsBasketAPI,
-  createPendingBookings as createPendingBookingsAPI,
-  invalidatePendingBookings as invalidatePendingBookingsAPI,
+  createPendingBookingsAndBlockBasket as createPendingBookingsAndBlockBasketAPI,
+  invalidatePendingBookingsAndUnblockBasket as invalidatePendingBookingsAndUnblockBasketAPI,
   verifyPriceBasket as verifyPriceBasketAPI,
 } from '#src/libs/payment/api';
 import { validateUnpaid as validateUnpaidAPI } from '#src/libs/checkout/api';
@@ -413,32 +413,19 @@ export class BasketPaymentIntent extends React.Component<Props, State> {
       }
     });
   };
-
-  hasOfferData = () => {
-    return (
-      this.props.basket &&
-      (this.props.basket.checkout_items ?? []).some(
-        (checkoutItem) =>
-          (checkoutItem?.extra_data?.offers_data?.length ?? 0) > 0,
-      )
-    );
-  };
-
-  createPendingBookingsIfNecessary = (
+  createPendingBookingsAndBlockBasket = (
     data: { payment_group_method_identifier?: number } = {},
   ) => {
-    if (!this.hasOfferData()) return;
-
-    createPendingBookingsAPI(this.props.basket.id, data).catch((error) =>
-      console.error(error),
+    if (!this.props.basket) return;
+    createPendingBookingsAndBlockBasketAPI(this.props.basket.id, data).catch(
+      (error) => console.error(error),
     );
   };
 
-  invalidatePendingBookingsIfNecessary = () => {
-    if (!this.hasOfferData()) return;
-
-    invalidatePendingBookingsAPI(this.props.basket.id).catch((error) =>
-      console.error(error),
+  invalidatePendingBookingsAndUnblockBasket = () => {
+    if (!this.props.basket) return;
+    invalidatePendingBookingsAndUnblockBasketAPI(this.props.basket.id).catch(
+      (error) => console.error(error),
     );
   };
 

@@ -35,10 +35,10 @@ type CheckoutStepsProps = {
   clientSecretLoading: boolean;
   companyCountry?: string;
   companyId: number;
-  createPendingBookingsIfNecessary?: (data?: {
+  createPendingBookingsAndBlockBasket?: (data?: {
     payment_group_method_identifier?: number;
   }) => void;
-  invalidatePendingBookingsIfNecessary?: () => void;
+  invalidatePendingBookingsAndUnblockBasket?: () => void;
   creditAccountBalance?: number | null;
   currentStep: StepType;
   detachPaymentMethod: (pm_id: string) => void;
@@ -100,7 +100,7 @@ export const CheckoutSteps: React.FC<CheckoutStepsProps> = forwardRef(
       companyCountry,
       companyId,
       updateMemberBillingGroup,
-      createPendingBookingsIfNecessary,
+      createPendingBookingsAndBlockBasket,
       creditAccountBalance,
       currentStep,
       detachPaymentMethod,
@@ -108,7 +108,7 @@ export const CheckoutSteps: React.FC<CheckoutStepsProps> = forwardRef(
       enableMultiLocalization,
       establishmentBillingGroups,
       instalmentPaymentConfigurationList,
-      invalidatePendingBookingsIfNecessary,
+      invalidatePendingBookingsAndUnblockBasket,
       isEstablishmentBillingGroupSelected,
       isOnlinePaymentAvailable,
       isPayLaterAvailable,
@@ -211,8 +211,8 @@ export const CheckoutSteps: React.FC<CheckoutStepsProps> = forwardRef(
                 clientSecret={clientSecret}
                 clientSecretLoading={clientSecretLoading}
                 companyId={companyId}
-                createPendingBookingsIfNecessary={
-                  createPendingBookingsIfNecessary
+                createPendingBookingsAndBlockBasket={
+                  createPendingBookingsAndBlockBasket
                 }
                 creditAccountBalance={creditAccountBalance}
                 detachPaymentMethod={detachPaymentMethod}
@@ -222,8 +222,8 @@ export const CheckoutSteps: React.FC<CheckoutStepsProps> = forwardRef(
                 instalmentPaymentConfigurationList={
                   instalmentPaymentConfigurationList
                 }
-                invalidatePendingBookingsIfNecessary={
-                  invalidatePendingBookingsIfNecessary
+                invalidatePendingBookingsAndUnblockBasket={
+                  invalidatePendingBookingsAndUnblockBasket
                 }
                 isEstablishmentBillingGroupSelected={
                   isEstablishmentBillingGroupSelected
@@ -284,8 +284,8 @@ export const CheckoutSteps: React.FC<CheckoutStepsProps> = forwardRef(
       clientSecretLoading,
       companyCountry,
       companyId,
-      createPendingBookingsIfNecessary,
-      invalidatePendingBookingsIfNecessary,
+      createPendingBookingsAndBlockBasket,
+      invalidatePendingBookingsAndUnblockBasket,
       creditAccountBalance,
       currentStep.id,
       detachPaymentMethod,

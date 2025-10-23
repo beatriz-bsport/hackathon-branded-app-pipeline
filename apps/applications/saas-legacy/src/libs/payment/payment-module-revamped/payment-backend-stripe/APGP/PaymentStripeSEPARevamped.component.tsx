@@ -53,7 +53,7 @@ type PaymentStripeSEPAProps = {
   clientSecret: string;
   companyCountry?: string;
   creditAccountBalance?: number | null;
-  createPendingBookingsIfNecessary?: (data?: {
+  createPendingBookingsAndBlockBasket?: (data?: {
     payment_group_method_identifier?: number;
   }) => void;
   customClasses?: { [className: string]: string };
@@ -69,7 +69,7 @@ type PaymentStripeSEPAProps = {
   hasAddPaymentMethodPermission?: boolean;
   hideSaveForLater?: boolean;
   instalmentPaymentSelectedId?: number;
-  invalidatePendingBookingsIfNecessary?: () => void;
+  invalidatePendingBookingsAndUnblockBasket?: () => void;
   isEstablishmentBillingGroupSelected?: boolean;
   loading?: boolean;
   memberId?: number;
@@ -100,7 +100,7 @@ export const PaymentStripeSEPARevamped = forwardRef(
       children,
       clientSecret,
       companyCountry,
-      createPendingBookingsIfNecessary,
+      createPendingBookingsAndBlockBasket,
       creditAccountBalance,
       customClasses,
       detachPaymentMethod,
@@ -112,7 +112,7 @@ export const PaymentStripeSEPARevamped = forwardRef(
       hasAddPaymentMethodPermission = true,
       hideSaveForLater,
       instalmentPaymentSelectedId,
-      invalidatePendingBookingsIfNecessary,
+      invalidatePendingBookingsAndUnblockBasket,
       isEstablishmentBillingGroupSelected,
       loading,
       memberId,
@@ -208,12 +208,12 @@ export const PaymentStripeSEPARevamped = forwardRef(
       basketTotalPriceCts,
       checkItemsBasket,
       clientSecret,
-      createPendingBookingsIfNecessary,
+      createPendingBookingsAndBlockBasket,
       elements,
       forceSave,
       instalmentPaymentSelectedId,
       handleAssignInstalmentPayment,
-      invalidatePendingBookingsIfNecessary,
+      invalidatePendingBookingsAndUnblockBasket,
       onError,
       onSuccess,
       paymentGroupId,

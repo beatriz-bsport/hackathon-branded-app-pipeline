@@ -1,5 +1,5 @@
 import { type ReactNode, lazy, useEffect } from "react";
-import { Route, Routes } from "react-router";
+import { Navigate, Route, Routes } from "react-router";
 // Import urls from the navigation sidebar
 import {
   REVAMP_URLS_DEVELOPMENT,
@@ -210,6 +210,8 @@ const AuthenticatedRoutes = () => {
             element={config.element}
           />
         ))}
+
+      <Route element={<Navigate to="/" />} path="*" />
     </Routes>
   );
 };

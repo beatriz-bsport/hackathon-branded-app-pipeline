@@ -101,6 +101,9 @@ import type { LightSignupFormValues } from '#src/pages/checkout/express-checkout
 // @ts-expect-error
 import { requestLogin as requestLoginAction } from '#src/actions/auth.actions';
 
+import { analyticsClientB2C } from '#src/components/analytics/mixpanel';
+import { trackBookingConfirmedEvent } from '#src/events/booking/trackers';
+
 import './styles.css';
 
 type QueryParams = {
@@ -239,6 +242,18 @@ export class ConfirmationCheckout extends React.PureComponent<Props, State> {
     // this.props.offerBookedList.forEach((offerBooked) => {
     //   Analytics.bookingSuccess(offerBooked);
     // });
+    this.props.offerBookedList.forEach((offerBooked) => {
+      analyticsClientB2C.track(
+        trackBookingConfirmedEvent({
+          activity_id: offerBooked.meta_activity.id,
+          activity_name: offerBooked.meta_activity.name,
+          offer_id: offerBooked.id,
+          session_type: offerBooked.meta_activity.is_workshop
+            ? 'workshop'
+            : 'group-activity',
+        }),
+      );
+    });
   };
 
   fetchOfferData = () => {

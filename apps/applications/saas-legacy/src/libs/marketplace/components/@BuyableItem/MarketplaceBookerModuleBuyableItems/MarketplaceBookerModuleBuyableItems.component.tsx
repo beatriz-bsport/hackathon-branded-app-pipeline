@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { useTranslation } from 'react-i18next';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
@@ -19,6 +19,9 @@ import type {
   BuyableItemIdentifier,
 } from '#src/libs/booker-module/types';
 import { MarketplaceBookerModuleBuyableItemsSkeleton } from '.';
+
+import { trackPassSelectionForOfferViewedEvent } from '#src/events/booking/trackers';
+import { analyticsClientB2C } from '#src/components/analytics/mixpanel';
 
 import './styles.css';
 
@@ -43,6 +46,13 @@ export type Props = {
   ) => void;
   onClickAll?: () => void;
   bookingConfirmButtonComponent?: React.ReactElement;
+  trackingParams: {
+    activity_id: number;
+    activity_name: string;
+    is_waiting_list: boolean;
+    offer_id: number;
+    session_type: 'workshop' | 'group-activity';
+  } | null;
 };
 
 const MarketplaceBookerModuleBuyableItems: React.FC<Props> = ({
@@ -61,8 +71,12 @@ const MarketplaceBookerModuleBuyableItems: React.FC<Props> = ({
   onClickBuyableItem,
   onClickAll,
   bookingConfirmButtonComponent,
+  trackingParams,
 }) => {
   const { t } = useTranslation('booking');
+
+  const [hasTrackedPassSelectionViewed, setHasTrackedPassSelectionViewed] =
+    useState(false);
 
   const isDisplayBuyableItems = React.useMemo(() => {
     return (
@@ -83,6 +97,15 @@ const MarketplaceBookerModuleBuyableItems: React.FC<Props> = ({
         : 'bs-marketplace-filter-buyable-item-category--hidden ',
     };
   }, [isDisplayBuyableItems]);
+
+  useEffect(() => {
+    if (!isLoading && !!trackingParams && !hasTrackedPassSelectionViewed) {
+      analyticsClientB2C.track(
+        trackPassSelectionForOfferViewedEvent(trackingParams),
+      );
+      setHasTrackedPassSelectionViewed(true);
+    }
+  }, [isLoading, trackingParams, hasTrackedPassSelectionViewed]);
 
   if (isLoading) {
     return <MarketplaceBookerModuleBuyableItemsSkeleton />;

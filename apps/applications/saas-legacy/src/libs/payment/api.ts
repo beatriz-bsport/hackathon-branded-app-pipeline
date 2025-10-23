@@ -313,6 +313,15 @@ export const fetchStripePayoutList = async (params: {
   );
 };
 
+export const checkStripePaymentMethodDomainRegistration = async (
+  company_id: number,
+): Promise<AxiosResponse<{ is_registered: boolean }>> => {
+  return postAuth<{ is_registered: boolean }>(
+    `${API_V1_URI}/payment_backend/stripe/stripe-payment-method-domain/check_domain_registration/`,
+    { company_id },
+  );
+};
+
 // -------------- Bookkeeping Accounts --------------
 
 export const fetchBookkeepingAccountList = (

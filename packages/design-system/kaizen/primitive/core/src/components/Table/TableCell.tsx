@@ -9,9 +9,11 @@ export type TableCellProps = {
   /** The content to display within the cell */
   children: ReactNode;
   /** Height variant for the cell */
-  rowHeight?: "sm" | "lg";
+  rowHeight: "sm" | "lg";
+  /** Whether to display an horizontal border on the bottom side of the cell */
+  withHorizontalDivider: boolean;
   /** Whether to display a vertical border on the right side */
-  withVerticalBorders?: boolean;
+  withVerticalBorders: boolean;
   /** Whether this cell is a header cell (affects font weight) */
   isHeader?: boolean;
   /** Horizontal alignment of cell content */
@@ -50,40 +52,49 @@ export type TableCellProps = {
  * @see {@link TableHeader} Header component that uses header cells
  */
 
-const tableCell = cva(
-  "table-cell align-middle whitespace-nowrap p-xs border-b-stroke-thin border-b-stroke-weak",
-  {
-    variants: {
-      rowHeight: {
-        sm: "h-component-list-item-min",
-        lg: "h-2xl",
-      },
-      withVerticalBorders: {
-        true: "border-r-stroke-thin border-r-stroke-weak",
-        false: "",
-      },
-      isHeader: {
-        true: "font-[700]",
-        false: "",
-      },
+const tableCell = cva("table-cell align-middle whitespace-nowrap p-xs", {
+  variants: {
+    rowHeight: {
+      sm: "h-component-list-item-min",
+      lg: "h-2xl",
     },
-    defaultVariants: {
-      rowHeight: "sm",
-      withVerticalBorders: false,
+    withVerticalBorders: {
+      true: "border-r-stroke-thin border-r-stroke-weak",
+      false: "",
+    },
+    withHorizontalDivider: {
+      true: "border-b-stroke-thin border-b-stroke-weak",
+      false: "",
+    },
+    isHeader: {
+      true: "font-[700]",
+      false: "",
     },
   },
-);
+  defaultVariants: {
+    rowHeight: "sm",
+    withVerticalBorders: false,
+  },
+});
 
 const TableCell: React.FC<TableCellProps> = ({
   children,
-  rowHeight = "sm",
-  withVerticalBorders = false,
+  rowHeight,
+  withVerticalBorders,
+  withHorizontalDivider,
   isHeader = false,
   align = "start",
   className,
 }) => {
   return (
-    <div className={tableCell({ rowHeight, withVerticalBorders, isHeader })}>
+    <div
+      className={tableCell({
+        rowHeight,
+        withVerticalBorders,
+        withHorizontalDivider,
+        isHeader,
+      })}
+    >
       <div
         className={classNames(
           "flex",

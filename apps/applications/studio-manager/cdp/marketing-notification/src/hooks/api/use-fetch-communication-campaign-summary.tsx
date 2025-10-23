@@ -9,7 +9,7 @@ import { useAsync } from "@bsport/use-async";
 
 import { fetch } from "#src/utils/fetch";
 
-const fetchCommunicationCampaignSummaryActionBinded =
+const fetchCommunicationCampaignSummaryActionBound =
   fetchCommunicationSentCampaignSummaryAction.bind(null, fetch);
 
 /**
@@ -28,9 +28,9 @@ export function useFetchCommunicationCampaignSummary({
   communicationObjectId?: number;
 }) {
   const [, fetchCommunicationCampaignSummary] = useAsync<
-    typeof fetchCommunicationCampaignSummaryActionBinded
+    typeof fetchCommunicationCampaignSummaryActionBound
   >({
-    asyncFn: fetchCommunicationCampaignSummaryActionBinded,
+    asyncFn: fetchCommunicationCampaignSummaryActionBound,
   });
 
   const communicationCampaignSummary = useCommunicationStore((state) =>

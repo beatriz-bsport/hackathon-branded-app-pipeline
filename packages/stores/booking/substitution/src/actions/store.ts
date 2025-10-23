@@ -3,8 +3,12 @@ import type { SubstitutionRequest } from "#src/types";
 
 export const setSubstitutionRequests = ({
   items,
+  count,
+  page,
 }: {
   items: SubstitutionRequest[];
+  count: number;
+  page: number;
 }) => {
   substitutionStore.setState((state) => {
     const byId = items.reduce(
@@ -19,6 +23,8 @@ export const setSubstitutionRequests = ({
       requests: {
         byId,
         ids: items.map((request) => request.id),
+        count,
+        page,
       },
     };
   });

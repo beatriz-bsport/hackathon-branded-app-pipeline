@@ -155,6 +155,7 @@ import { retrieveCommunicationSMSProviderVerification } from '../libs/communicat
 import { AuthState } from '#src/libs/types';
 import WidgetUtils from '#src/libs/widget/WidgetUtils';
 import { UpsellSumup } from '#src/libs/company/types';
+import { useRouteToHomepage } from '#src/revamp';
 
 const CompanyDetailPage = asyncComponent(() =>
   import('./settings/CompanyDetailPage.page'),
@@ -391,11 +392,17 @@ type Props = {
   ) => void,
   userAuthState: AuthState,
   retrieveCommunicationSMSProviderVerification: () => void,
+  hasEnabledRevampedBO: boolean,
 };
 
 const DELAY_BETWEEN_ALERTS = 10 * 60000;
 
 const BackofficeRoute = withSentryErrorReporting((props) => {
+  const { shouldFallbackToHomepage, navigateToHomepage } = useRouteToHomepage({
+    revampedBoEnabledForUser: props.revampedBoEnabledForUser,
+    revampedBoEnabledInTheme: props.revampedBoEnabledInTheme,
+  });
+
   if (props.blockBackofficeToPayPlatformBilling) {
     return (
       <Switch>
@@ -431,7 +438,7 @@ const BackofficeRoute = withSentryErrorReporting((props) => {
         <Redirect from="/shop" to="/shop/products" />
       )}
       <Route component={OfferManagement} path="/offer/:id" />
-      <Route exact component={PlanningRouter} path="/calendar" />
+      <Route component={PlanningRouter} path="/calendar" />
       <Route component={Schedule} path="/schedule" />
       <Route exact component={OfferFormPage} path="/add-offers/:id" />
       <Route component={Coach} path="/coach" />
@@ -475,7 +482,12 @@ const BackofficeRoute = withSentryErrorReporting((props) => {
       <Route component={AccessMonitoring} path="/access-monitoring/:tab" />
       {(Config.REACT_APP_SENTRY_ENVIRONMENT !== 'production' ||
         props.vodEnabled) && <Route component={VodRouter} path="/vod" />}
-      <Route component={PlanningRouter} path="/" />
+
+      {shouldFallbackToHomepage ? (
+        <Route component={navigateToHomepage} path="*" />
+      ) : (
+        <Route component={PlanningRouter} path="/" />
+      )}
     </Switch>
   );
 });
@@ -948,6 +960,10 @@ export class Backoffice extends Component<Props, State> {
                       this.props.platformSubscriptionPaymentStatus?.action ===
                       BLOCK_BACKOFFICE
                     }
+                    revampedBoEnabledForUser={this.props.hasEnabledRevampedBO}
+                    revampedBoEnabledInTheme={
+                      !!this.props.theme?.revamped_backoffice_enabled
+                    }
                     theme={this.props.theme}
                     vodEnabled={this.props.theme?.vod ?? null}
                   />
@@ -1111,6 +1127,7 @@ export default compose(
         state.platformBilling.platformCustomerEntity?.loading,
       stripeAccountStatus: state.company.stripeAccountStatus.data,
       establishmentsSelectedInRole: getEstablishmentsSelectedInRole(state),
+      hasEnabledRevampedBO: state.auth.has_enabled_revamped_backoffice,
     }),
     {
       fetchBatchUnreadAnswersCounts: fetchBatchUnreadAnswersCountsAction,

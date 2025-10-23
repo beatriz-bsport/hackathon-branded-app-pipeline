@@ -14,6 +14,18 @@ export type DateTime = LuxonDateTime;
  */
 export type Duration = LuxonDuration;
 
+export type DurationLike = {
+  year?: number;
+  quarter?: number;
+  month?: number;
+  week?: number;
+  day?: number;
+  hour?: number;
+  minute?: number;
+  second?: number;
+  millisecond?: number;
+};
+
 export type Unit =
   | "years"
   | "months"

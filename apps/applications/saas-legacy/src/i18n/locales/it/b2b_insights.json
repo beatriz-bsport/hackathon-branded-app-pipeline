@@ -1,0 +1,25 @@
+{
+  "pages": {
+    "insights": {
+      "title": "Approfondimenti"
+    },
+    "recurringRevenue": {
+      "title": "Monitorare le prestazioni degli abbonamenti"
+    },
+    "trialAnalysis": {
+      "title": "Monitorare le Prestazioni di Acquisizione dei Membri"
+    }
+  },
+  "sections": {
+    "memberInsights": "Panoramica sui membri",
+    "financialHealth": "Salute Finanziaria"
+  },
+  "trackTrialOffer": {
+    "title": "Monitora le prestazioni delle offerte di prova",
+    "description": "Scopri di più su acquisizione, tassi di conversione e come aumentare l'efficacia della tua offerta di prova."
+  },
+  "monitorRevenue": {
+    "title": "Monitorare le prestazioni degli abbonamenti",
+    "description": "Monitora lo stato degli abbonamenti, analizza i ricavi ricorrenti e individua rischi o opportunità"
+  }
+}

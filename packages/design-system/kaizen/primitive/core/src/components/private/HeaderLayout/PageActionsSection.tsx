@@ -80,7 +80,7 @@ const PageActionsSection: React.FC<PageActionsSectionProps> = ({
       </div>
       {pageTabs && (
         <div className="flex flex-row justify-between items-center">
-          <Tabs {...pageTabs} orientation="horizontal" className="pt-xs" />
+          <Tabs {...pageTabs} orientation="horizontal" className="sm:pt-xs" />
           <CustomActionsSection
             callToActionButton={callToActionButton}
             endGroupActions={endGroupActions}

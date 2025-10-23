@@ -46,6 +46,9 @@ const icons = {
     async () => await import("./assets/building-02.svg?react"),
   ),
   calendar: React.lazy(async () => await import("./assets/calendar.svg?react")),
+  "check-circle-solid": React.lazy(
+    async () => await import("./assets/check-circle-solid.svg?react"),
+  ),
   "check-circle": React.lazy(
     async () => await import("./assets/check-circle.svg?react"),
   ),
@@ -84,6 +87,9 @@ const icons = {
   clock: React.lazy(async () => await import("./assets/clock.svg?react")),
   "coins-stacked-01": React.lazy(
     async () => await import("./assets/coins-stacked-01.svg?react"),
+  ),
+  "contrast-02": React.lazy(
+    async () => await import("./assets/contrast-02.svg?react"),
   ),
   "copy-03": React.lazy(async () => await import("./assets/copy-03.svg?react")),
   "copy-07": React.lazy(async () => await import("./assets/copy-07.svg?react")),
@@ -235,6 +241,7 @@ const icons = {
     async () => await import("./assets/upload-cloud-02.svg?react"),
   ),
   "user-01": React.lazy(async () => await import("./assets/user-01.svg?react")),
+  "user-02": React.lazy(async () => await import("./assets/user-02.svg?react")),
   "user-edit": React.lazy(
     async () => await import("./assets/user-edit.svg?react"),
   ),

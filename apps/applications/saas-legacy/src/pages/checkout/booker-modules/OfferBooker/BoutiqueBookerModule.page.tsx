@@ -1658,6 +1658,25 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
         !selectedOffersIds.includes(similarOrGroupedOffer.id),
     );
 
+    const getTrackingParams: () => {
+      activity_id: number;
+      activity_name: string;
+      is_waiting_list: boolean;
+      offer_id: number;
+      session_type: 'workshop' | 'group-activity';
+    } | null = () => {
+      if (!this.props.offer || !this.props.offer.meta_activity) return null;
+      return {
+        activity_id: this.props.offer.activity,
+        activity_name: this.props.offer.meta_activity.name,
+        is_waiting_list: this.props.offer.full,
+        offer_id: this.props.offerId,
+        session_type: this.props.offer.meta_activity.is_workshop
+          ? 'workshop'
+          : 'group-activity',
+      };
+    };
+
     if (
       this.state.isSpotSelectorOpen &&
       !this.props.assetForBlueprintLoading &&
@@ -1975,6 +1994,7 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
                       this.state.selectedBuyableItemCategory
                     }
                     selectedItem={this.state.selectedItem}
+                    trackingParams={getTrackingParams()}
                   />
                 </>
               )}

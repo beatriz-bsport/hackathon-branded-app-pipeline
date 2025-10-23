@@ -2,6 +2,7 @@ import { Result } from "typescript-result";
 
 import {
   type Action,
+  DEFAULT_PAGE,
   type PaginatedResponse,
   createErrorWithContext,
 } from "@bsport/store-base";
@@ -9,7 +10,7 @@ import {
 import { fetchCommunicationRecipientsAPI } from "#src/api/communication-recipient";
 import type {
   CommunicationRecipient,
-  FetchCommunicationRecipientFilters,
+  FetchCommunicationRecipientParams,
 } from "#src/types";
 
 import { setRecipientsList } from "./store";
@@ -21,7 +22,7 @@ import { setRecipientsList } from "./store";
  * @returns A Result containing a paginated response of CommunicationRecipient objects.
  */
 export const fetchCommunicationRecipientsAction: Action<
-  FetchCommunicationRecipientFilters,
+  FetchCommunicationRecipientParams,
   PaginatedResponse<CommunicationRecipient>
 > = async (fetch, params) => {
   const [uri, init] = fetchCommunicationRecipientsAPI(params);
@@ -32,7 +33,7 @@ export const fetchCommunicationRecipientsAction: Action<
 
       setRecipientsList({
         recipients: data.results,
-        page: params.page ?? 1,
+        page: params.page ?? DEFAULT_PAGE,
         count: data.count,
       });
 

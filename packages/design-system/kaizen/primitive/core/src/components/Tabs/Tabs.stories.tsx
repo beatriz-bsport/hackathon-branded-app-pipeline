@@ -156,3 +156,21 @@ export const TabsWithComposition: Story = {
     );
   },
 };
+
+export const TabsWithDisabledResponsive: Story = {
+  name: "Tabs with responsive disabled",
+  args: {
+    tabs,
+    orientation: "horizontal",
+    defaultValue: "tab-2",
+    disableResponsive: true,
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Use `disableResponsive` prop to opt-out of responsive behavior and always show regular tabs, even on mobile.",
+      },
+    },
+  },
+};

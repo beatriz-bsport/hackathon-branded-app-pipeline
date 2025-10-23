@@ -2,17 +2,17 @@ import { createStore } from "zustand/vanilla";
 
 import { type PaginatedState, bindStore } from "@bsport/store-base";
 
-import type { Session } from "#src/types";
+import type { ManagerSession } from "#src/types";
 
 export interface SessionState {
-  sessions: PaginatedState<Session>;
+  managerSessions: PaginatedState<ManagerSession>;
 }
 
 export const sessionStore = createStore<SessionState>()(() => ({
-  sessions: {
+  managerSessions: {
     byId: {},
-    count: 0,
     ids: [],
+    count: 0,
     page: 1,
   },
 }));

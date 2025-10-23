@@ -1,4 +1,4 @@
-import { PaginatedState, buildById } from "@bsport/store-base";
+import { type PaginatedState, buildById } from "@bsport/store-base";
 
 import { CommunicationObjectKey } from "#src/constants";
 import { communicationStore } from "#src/store";
@@ -122,33 +122,38 @@ export const setRecipientsList = ({
       Record<number, PaginatedState<CommunicationRecipient>>
     >((acc, recipient) => {
       const commSentId = recipient.communication_sent;
-      const recipientId = recipient.id;
+      const recipientId = recipient.member;
 
-      const existing = acc[commSentId] ?? {
+      // Get existing paginated state for this communication_sent id, or initialize
+      const existingState = state.recipients?.[commSentId] || {
         byId: {},
-        ids: [],
         page,
         count,
+        ids: [],
       };
 
+      // Merge new recipient into byId
+      const newById = {
+        ...existingState.byId,
+        [recipientId]: recipient,
+      };
+
+      // Merge ids, avoiding duplicates
+      const newIds = Array.from(new Set([...existingState.ids, recipientId]));
+
       acc[commSentId] = {
-        ...existing,
-        byId: {
-          ...existing.byId,
-          [recipientId]: recipient,
-        },
-        ids: [...existing.ids, recipientId],
+        byId: newById,
+        page,
+        count,
+        ids: newIds,
       };
       return acc;
     }, {});
 
     return {
-      communications: {
-        ...state.communications,
-        recipients: {
-          ...state.communications.recipients,
-          ...recipientsByCommunicationSent,
-        },
+      recipients: {
+        ...state.recipients,
+        ...recipientsByCommunicationSent,
       },
     };
   });

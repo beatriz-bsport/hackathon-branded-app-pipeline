@@ -386,7 +386,7 @@
       "duplicateModalTitle": "Duplica sessione",
       "duplicate": "Duplica",
       "duplicating": "Duplicazione",
-      "linkNewOffersLabel": "Collega le nuove sessioni a questo duplicato in modo da poterle modificare insieme e consentire ai membri di prenotarle tutte in una volta sola",
+      "linkNewOffersLabel": "Collega le nuove sessioni a questo duplicato in modo da poterle modificare insieme e consentire ai membri di prenotarle tutte in una sola volta",
       "hybridOffer": "Duplicando questa sessione ibrida si creeranno sia sessioni online che in loco. Queste utilizzeranno le stesse impostazioni della sessione duplicata.",
       "recurringOffer": "L'ultima sessione è prevista per {{- date }} alle {{- time }}. La sessione duplicata avrà le stesse impostazioni e inizierà dopo questa data.  "
     }

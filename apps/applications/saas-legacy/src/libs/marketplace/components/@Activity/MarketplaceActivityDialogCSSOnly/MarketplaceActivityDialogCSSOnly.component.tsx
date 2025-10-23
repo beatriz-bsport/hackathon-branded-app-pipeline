@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import withMobileDialog from '@material-ui/core/withMobileDialog';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -15,6 +15,8 @@ import WidgetUtils from '#src/libs/widget/WidgetUtils';
 import WidgetPortalSlidingContainer from '#src/libs/widget/components/PortalContainer';
 import MarketplaceActivityV2 from '../MarketplaceActivityCSSOnly';
 
+import { analyticsClientB2C } from '#src/components/analytics/mixpanel';
+import { trackGroupActivitySessionViewedEvent } from '#src/events/booking/trackers';
 import './MarketplaceActivityDialogCSSOnly.css';
 
 export type Props = {
@@ -37,7 +39,7 @@ export type Props = {
 };
 
 export function MarketplaceActivityDialog(props: Props) {
-  const { onClose, offer, isCustomCssPreview } = props;
+  const { onClose, offer, isCustomCssPreview, metaActivities, open } = props;
   const paperProps = {
     style: {
       margin: '10px',
@@ -49,6 +51,23 @@ export function MarketplaceActivityDialog(props: Props) {
   const useWidgetSlidingPortal =
     WidgetUtils.isWidget() &&
     WidgetUtils.getDialogMode() === DIALOG_MODE_DEACTIVATED;
+
+  useEffect(() => {
+    if (!open || !offer || !metaActivities) return;
+
+    analyticsClientB2C.track(
+      trackGroupActivitySessionViewedEvent({
+        activity_id: offer.activity,
+        activity_name: metaActivities[offer.meta_activity]?.name || '',
+        offer_id: offer.id,
+        is_waiting_list: offer.full,
+        session_type: metaActivities[offer.meta_activity]?.is_workshop
+          ? 'workshop'
+          : 'group-activity',
+      }),
+    );
+  }, [open, offer, metaActivities]);
+
   if (useWidgetSlidingPortal) {
     return (
       <WidgetPortalSlidingContainer isOpen={props.open}>

@@ -1,0 +1,43 @@
+{
+  "name": "@bsport/datetime-formatting",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Datetime Formatting",
+  "license": "UNLICENSED",
+  "author": "Théo Steffanetti <theo.steffanetti@bsport.io>",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./build/lib.d.ts",
+      "import": "./build/lib.es.js",
+      "default": "./build/lib.es.js"
+    }
+  },
+  "main": "build/lib.es.js",
+  "module": "build/lib.es.js",
+  "types": "build/lib.d.ts",
+  "files": [
+    "build"
+  ],
+  "scripts": {
+    "build": "vite build",
+    "ci:compile": "tsc",
+    "dev": "vite build --watch",
+    "format": "prettier --write '**/*.{ts,tsx,js,jsx,cjs,mjs,scss,css,json,md,mdx,html,svg}'",
+    "format:check": "prettier --check '**/*.{ts,tsx,js,jsx,cjs,mjs}'",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix ."
+  },
+  "dependencies": {
+    "luxon": "^3.4.4"
+  },
+  "devDependencies": {
+    "@bsport/config-eslint-react": "workspace:*",
+    "@types/luxon": "^3.4.2"
+  },
+  "nx": {
+    "tags": [
+      "postinstall"
+    ]
+  }
+}

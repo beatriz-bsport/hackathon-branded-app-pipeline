@@ -370,3 +370,39 @@ export const WithTooltipAroundSearch: Story = {
     },
   },
 };
+
+export const TabsWithCTAs: Story = {
+  name: "Tabs with CTAs",
+  args: {
+    pageTitle: "Email templates",
+    pageTabs: {
+      tabs: [
+        { id: "custom", label: "Custom templates" },
+        { id: "default", label: "Default templates" },
+        { id: "bsport", label: "bsport templates" },
+      ],
+      orientation: "horizontal" as const,
+      defaultValue: "Custom templates",
+    },
+    endGroupActions: [
+      <Button
+        key="add-category-btn"
+        intent="default"
+        color="main"
+        size="md"
+        iconLeft="plus"
+        label="Add category"
+      />,
+    ],
+    callToActionButton: (
+      <Button
+        key="create-template-btn"
+        intent="call-to-action"
+        color="main"
+        size="md"
+        iconLeft="plus"
+        label="Create template"
+      />
+    ),
+  },
+};

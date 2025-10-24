@@ -979,6 +979,44 @@
     },
     "workflow": {
       "finnerGrainIssues": "Uno o più articoli specificati non sono più disponibili."
+    },
+    "freeTrial": {
+      "upgradeDialog": {
+        "quotaReached": {
+          "description": "Hai utilizzato i 3 {{ workflowPluralLowerCase }} inclusi nella versione di prova gratuita. Per attivarne uno nuovo, esegui l’upgrade a Audience o metti in pausa un {{ workflowLowerCase }} esistente.",
+          "title": "Hai esaurito i {{ workflowPluralLowerCase }} gratuiti"
+        },
+        "bannerClicked": {
+          "description": "Esegui l’upgrade ora per continuare a far crescere la tua attività con Audience.",
+          "title": "Continua a crescere senza limiti"
+        },
+        "close": "Chiudi",
+        "upgrade": "Aggiorna",
+        "benefits": [
+          "Crea {{ workflowPluralLowerCase }} automatizzati illimitati",
+          "Crea esperienze clienti uniche su più canali",
+          "Offri promozioni mirate ai clienti in ogni fase del loro percorso"
+        ]
+      },
+      "banner": {
+        "button": "Aggiorna",
+        "title": "{{ count }} giorno rimanente nella versione di prova",
+        "title_plural": "{{ count }} giorni rimanenti nella versione di prova"
+      }
+    },
+    "smsWarning": {
+      "modal": {
+        "actions": {
+          "secondary": "Annulla",
+          "primary": "Conferma"
+        },
+        "content": "<strong>L’invio di SMS può costare più degli altri canali,</strong> a seconda del numero di persone che entrano nel flusso di lavoro. Controlla il tuo contratto per conoscere il costo per SMS.",
+        "title": "Promemoria sul costo degli SMS"
+      },
+      "alert": {
+        "content": "Più persone entrano nel flusso di lavoro, più aumenta il costo. Controlla il tuo contratto per conoscere il costo per SMS.",
+        "title": "Gli SMS costano più degli altri canali"
+      }
     }
   }
 }

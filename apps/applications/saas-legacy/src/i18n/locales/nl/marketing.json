@@ -972,6 +972,44 @@
         "exitDate": "Uitvoerdatum",
         "status": "Status"
       }
+    },
+    "freeTrial": {
+      "upgradeDialog": {
+        "quotaReached": {
+          "description": "Je hebt de 3 {{ workflowPluralLowerCase }} uit de gratis proefperiode gebruikt. Om deze te activeren, voer een upgrade uit naar Audience of pauzeer een bestaande {{ workflowLowerCase }}.",
+          "title": "Je hebt geen gratis {{ workflowPluralLowerCase }} meer"
+        },
+        "bannerClicked": {
+          "description": "Upgrade nu om je bedrijf verder te laten groeien met Audience.",
+          "title": "Blijf groeien zonder grenzen"
+        },
+        "close": "Sluiten",
+        "upgrade": "Upgrade",
+        "benefits": [
+          "Bouw onbeperkte geautomatiseerde {{ workflowPluralLowerCase }}",
+          "Creëer unieke klantervaringen via meerdere kanalen",
+          "Richt aanbiedingen op klanten in elke fase van hun journey"
+        ]
+      },
+      "banner": {
+        "button": "Upgrade",
+        "title": "{{ count }} dag over in proefperiode",
+        "title_plural": "{{ count }} dagen over in proefperiode"
+      }
+    },
+    "smsWarning": {
+      "modal": {
+        "actions": {
+          "secondary": "Annuleren",
+          "primary": "Bevestigen"
+        },
+        "content": "<strong>Het versturen van sms-berichten kan duurder zijn dan andere kanalen,</strong> afhankelijk van hoeveel mensen in de workflow komen. Controleer je contract om de kosten per sms te zien.",
+        "title": "Herinnering aan sms-kosten"
+      },
+      "alert": {
+        "content": "Hoe meer mensen in de workflow komen, hoe hoger de kosten. Controleer je contract om de kosten per sms te zien.",
+        "title": "Sms-berichten zijn duurder dan andere kanalen"
+      }
     }
   }
 }

@@ -49,6 +49,11 @@ import './custom.scss';
 import i18n, { LANGUAGES } from '../../../i18n';
 import type { AvailabilitySlot, PrivateBooking } from '../types';
 import RecurrentAvailabilityFormDialog from './RecurrentAvailabilityFormDialog.component';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+import { getAuthToken } from '../../../http';
+import Config from '../../../config';
+import SyncCalendarDialog from './sync-calendar/SyncCalendarDialog.tsx';
 
 const EVENT_DEFAULT_COLOR = '#8fdf82';
 const ZOOM_LEVEL_FALLBACK = 0.5;
@@ -110,6 +115,14 @@ const styles = (theme) => ({
     fontSize: 22,
   },
   leftIcon: { marginRight: theme.spacing(1) },
+  syncButtonContainer: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+    marginBottom: theme.spacing(2),
+  },
+  syncButton: {
+    marginRight: theme.spacing(1),
+  },
 });
 
 const availabilitySlotAsEvent = (resourceDatatypeView) => (slot) => {
@@ -742,6 +755,31 @@ export class PrivateCalendar extends React.PureComponent<Props, State> {
     return <div style={{ display: 'none' }} />;
   };
 
+  handleSyncCalendarClick = (event: React.MouseEvent<HTMLElement>) => {
+    this.setState({ syncCalendarAnchorEl: event.currentTarget });
+  };
+
+  handleSyncCalendarClose = () => {
+    this.setState({ syncCalendarAnchorEl: null });
+  };
+
+  handleOutlookCalendarSubscription = () => {
+    const calendarUrl = this.props.calendarSyncUrl;
+    const outlookCalendarUrl = `https://outlook.office.com/calendar/0/addfromweb?url=${calendarUrl}`;
+
+    window.open(outlookCalendarUrl, '_blank');
+    this.handleSyncCalendarClose();
+  };
+
+  handleOtherCalendarsClick = () => {
+    this.setState({ otherCalendarsModalOpen: true });
+    this.handleSyncCalendarClose();
+  };
+
+  handleOtherCalendarsModalClose = () => {
+    this.setState({ otherCalendarsModalOpen: false });
+  };
+
   getCustomButtons = memoize(() =>
     Immutable({
       zoomIn: {
@@ -756,17 +794,26 @@ export class PrivateCalendar extends React.PureComponent<Props, State> {
         text: this.props.t('calendar.header.dateSelector'),
         click: this.openDatePicker,
       },
+      calendarSync: {
+        text: this.props.t('calendar.header.syncCalendar.button'),
+        click: this.handleSyncCalendarClick,
+      },
     }),
   );
 
   getHeaderToolbar = () => {
     // no need to memoize : non-nested object
+
+    const right = this.props.resourceDatatypeView
+      ? 'datePicker zoomOut,zoomIn resourceTimeGridDay,resourceTimeGridThreeDays,resourceTimeGridWeek'
+      : 'datePicker zoomOut,zoomIn timeGridDay,timeGridWeek,dayGridMonth';
+    const rightHeader = !!this.props.calendarSyncUrl
+      ? `calendarSync ${right}`
+      : right;
     return {
       left: 'prev,next today',
       center: isWidthUp('sm', this.props.width) ? 'title' : '',
-      right: this.props.resourceDatatypeView
-        ? 'datePicker zoomOut,zoomIn resourceTimeGridDay,resourceTimeGridThreeDays,resourceTimeGridWeek'
-        : 'datePicker zoomOut,zoomIn timeGridDay,timeGridWeek,dayGridMonth',
+      right: rightHeader,
     };
   };
 
@@ -847,6 +894,30 @@ export class PrivateCalendar extends React.PureComponent<Props, State> {
               value={null}
             />
           </MuiPickersUtilsProvider>
+          <div className={classes.syncButtonContainer}>
+            <Menu
+              keepMounted
+              anchorEl={this.state.syncCalendarAnchorEl}
+              anchorOrigin={{
+                horizontal: 'center',
+                vertical: 'bottom',
+              }}
+              getContentAnchorEl={null}
+              onClose={this.handleSyncCalendarClose}
+              open={Boolean(this.state.syncCalendarAnchorEl)}
+              transformOrigin={{
+                horizontal: 'center',
+                vertical: 'top',
+              }}
+            >
+              <MenuItem onClick={this.handleOutlookCalendarSubscription}>
+                {this.props.t('calendar.header.syncCalendar.outlook')}
+              </MenuItem>
+              <MenuItem onClick={this.handleOtherCalendarsClick}>
+                {this.props.t('calendar.header.syncCalendar.otherCalendars')}
+              </MenuItem>
+            </Menu>
+          </div>
         </div>
         <FullCalendar
           ref={this.calendarRef}
@@ -981,6 +1052,13 @@ export class PrivateCalendar extends React.PureComponent<Props, State> {
           <SlotDetailDialog
             detailByResourceType={this.state.availabilityDetailData}
             onLeave={() => this.setState({ availabilityDetailData: null })}
+          />
+        )}
+        {this.props.calendarSyncUrl && (
+          <SyncCalendarDialog
+            calendarUrl={this.props.calendarSyncUrl}
+            onClose={this.handleOtherCalendarsModalClose}
+            open={this.state.otherCalendarsModalOpen}
           />
         )}
       </div>

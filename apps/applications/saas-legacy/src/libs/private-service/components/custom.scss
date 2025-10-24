@@ -128,4 +128,9 @@ i.UnPaid {
   @media (min-width: 600px) {
     display: flex;
   }
+
+  .fc-calendarSync-button {
+    background-color: transparent;
+    color: #2c3e50;
+  }
 }

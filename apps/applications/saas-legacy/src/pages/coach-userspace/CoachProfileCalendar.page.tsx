@@ -60,6 +60,8 @@ import { getCustomEventList } from '#src/libs/private-service/selectors/custom-e
 import { WithHandlerType } from '../../utils/types';
 import { RootState } from '../../reducers';
 import { OptionCallback } from '../../state/types';
+import { getAuthToken } from '#src/http';
+import Config from '#src/config';
 
 type Period = { start: string; end: string };
 type withStateType = {
@@ -235,6 +237,11 @@ export class CoachPrivateCalendar extends React.Component<Props, State> {
     );
   };
 
+  getCalendarSubscriptionUrl = () => {
+    const authToken = getAuthToken();
+    return `${Config.REACT_APP_BASE_URI_BOOK_V1}/booking/calendar-for-teacher/${authToken}/booking-feed.ics`;
+  };
+
   disableCoachAvailabilitySlot = (
     data: { date_start: string; date_end: string },
     options: {
@@ -272,6 +279,7 @@ export class CoachPrivateCalendar extends React.Component<Props, State> {
             showOfferListToogle
             showPrivateBookingToogle
             availabilitySlots={this.props.availabilitySlots}
+            calendarSyncUrl={this.getCalendarSubscriptionUrl()}
             companyTheme={this.props.companyTheme}
             customEventList={this.props.customEventList}
             disableResourceAvailabilitySlot={this.disableCoachAvailabilitySlot}

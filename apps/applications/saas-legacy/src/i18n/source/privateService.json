@@ -289,14 +289,32 @@
     },
     "header": {
       "threeDaysView": "3 Days",
-      "dateSelector": "Date picker"
+      "dateSelector": "Date picker",
+      "syncCalendar": {
+        "button": "Sync calendar",
+        "outlook": "Outlook",
+        "otherCalendars": "Other calendars"
+      }
     },
     "createCustomEvent": "Add a task / personal appointment",
     "customEvent": {
       "dateEnd": "End date",
       "dateStart": "Start date"
     },
-    "showAvailabilityDetails": "Availability details"
+    "showAvailabilityDetails": "Availability details",
+    "syncCalendarDialog": {
+      "title": "Sync your Calendar with bsport",
+      "description": "Get updates about your classes in every establishment by syncing your personal calendar with the Back Office. Copy and paste the URL below into either Google or Apple Calendar to get started.",
+      "instructionsTitle": "How to set up:",
+      "google": {
+        "title": "Google: ",
+        "instructions": "Settings → Add calendar → From URL → Paste URL"
+      },
+      "apple": {
+        "title": "Apple: ",
+        "instructions": "File → New Calendar Subscription → Paste URL"
+      }
+    }
   },
   "selector": {
     "privateService": "Select an appointment",

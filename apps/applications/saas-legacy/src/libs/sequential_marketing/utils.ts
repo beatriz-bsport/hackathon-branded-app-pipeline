@@ -13,7 +13,6 @@ import {
   DestinationStatus,
   TriggerIdentifier,
 } from '#src/libs/sequential_marketing/constants';
-import Config from '../../config';
 import { CADENCE_FINNER_GRAIN_ALLOWED_EVENTS_LIST } from './constants/event';
 
 export const isCadenceInitialConfigurationCompleted = (
@@ -93,19 +92,6 @@ export const updatedSourceStepWithDisabledConnectedTrigger = (
       ) ?? []),
     ],
   };
-};
-
-/** Checks if sequential marketing is authorized for a given company.
- *
- * @param {number} companyId - The ID of the company.
- * @param {boolean} hasUpsell - Indicates whether the company has the upsell ot not.
- * @returns {boolean} True if sequential marketing is authorized, otherwise false.
- */
-export const isSequentialMarketingAuthorized = (
-  companyId: number,
-  hasUpsell: boolean,
-) => {
-  return Config.REACT_APP_SENTRY_ENVIRONMENT !== 'production' || hasUpsell;
 };
 
 export const rectToBox = ({ x, y, width, height }: Rect): Box => ({

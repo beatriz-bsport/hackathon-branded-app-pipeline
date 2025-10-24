@@ -43,7 +43,6 @@ import SmartListEditDialog from '../../libs/smart-list/components/SmartListFormD
 import type { OptionCallback } from '../../state/types';
 import SmartListCard from '../../libs/smart-list/components/SmartlistCard.component';
 import IsEmptyList from '../../components/navigation/IsEmptyList.component';
-import { isSequentialMarketingAuthorized } from '../../libs/sequential_marketing/utils';
 import type {
   Cadence,
   CadenceQueryParams,
@@ -154,10 +153,6 @@ export class SmartListList extends Component<Props, State> {
     smartlists.map((smartlist) => {
       return {
         label: smartlist.name,
-        isSequentialMarketingAuthorized: isSequentialMarketingAuthorized(
-          this.props.company_id,
-          this.props.hasSequentialMarketingUpsell,
-        ),
         onClick: (id) => {
           this.selected(id);
         },
@@ -190,12 +185,7 @@ export class SmartListList extends Component<Props, State> {
     });
 
   handleDeleteSmartlist = () => {
-    if (
-      isSequentialMarketingAuthorized(
-        this.props.company_id,
-        this.props.hasSequentialMarketingUpsell,
-      )
-    ) {
+    if (this.props.hasSequentialMarketingUpsell) {
       this.fetchCadences(this.state.smartlistIdToDelete);
     } else {
       this.props.smartListDelete(this.state.smartlistIdToDelete, {
@@ -249,9 +239,7 @@ export class SmartListList extends Component<Props, State> {
             {smartlists.length > 0 ? (
               <div className={this.props.classes.search}>
                 <ObjectSearchComponent
-                  components={{
-                    Option,
-                  }}
+                  components={{ Option }}
                   optionsFormatter={this.smartlistOptionsFormatter}
                   placeholder={this.props.t('search')}
                   searchedObjectType="smart_list"
@@ -327,10 +315,7 @@ export class SmartListList extends Component<Props, State> {
             ),
           }}
         />
-        {isSequentialMarketingAuthorized(
-          this.props.company_id,
-          this.props.hasSequentialMarketingUpsell,
-        ) && (
+        {this.props.hasSequentialMarketingUpsell && (
           <SmartlistCannotBeDeletedDialog
             cadences={this.props.getCadences(this.state.smartlistIdToDelete)}
             onCancel={this.handleCancelIsSmartlistCannotBeDeletedDialogOpen}

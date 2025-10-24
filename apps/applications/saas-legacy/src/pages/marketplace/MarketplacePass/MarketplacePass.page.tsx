@@ -264,9 +264,11 @@ export class MarketPlacePassPage extends Component<Props, State> {
     this.props.fetchPrivatePassAsConsumerList(this.props.companyId);
     this.props.fetchAllPaymentPackCategory(this.props.companyId);
     this.props.fetchAllPrivatePassCategory(this.props.companyId);
-    this.props.fetchMemberTagList(this.props.companyId);
     this.props.fetchMarketplacePrivateServices(this.props.companyId);
     this.props.fetchMarketplacePrivateSlots(this.props.companyId);
+    if (this.props.authenticated) {
+      this.props.fetchMemberTagList(this.props.companyId);
+    }
   };
 
   setAvailableCategories = () => {

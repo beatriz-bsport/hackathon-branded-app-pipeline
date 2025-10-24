@@ -979,6 +979,44 @@
     },
     "workflow": {
       "finnerGrainIssues": "Uno o varios artículos especificados ya no están disponibles."
+    },
+    "freeTrial": {
+      "upgradeDialog": {
+        "quotaReached": {
+          "description": "Has usado los 3 {{ workflowPluralLowerCase }} incluidos en la prueba gratuita. Para activar este, actualiza a Audience o pausa un {{ workflowLowerCase }} existente.",
+          "title": "Te has quedado sin {{ workflowPluralLowerCase }} gratuitos"
+        },
+        "bannerClicked": {
+          "description": "Actualiza ahora para seguir haciendo crecer tu negocio con Audience.",
+          "title": "Sigue creciendo sin límites"
+        },
+        "close": "Cerrar",
+        "upgrade": "Actualizar",
+        "benefits": [
+          "Crea {{ workflowPluralLowerCase }} automáticos ilimitados",
+          "Crea experiencias únicas para tus clientes en varios canales",
+          "Dirige ofertas a los clientes en cada etapa de su recorrido"
+        ]
+      },
+      "banner": {
+        "button": "Actualizar",
+        "title": "Queda {{ count }} día de prueba",
+        "title_plural": "Quedan {{ count }} días de prueba"
+      }
+    },
+    "smsWarning": {
+      "modal": {
+        "actions": {
+          "secondary": "Cancelar",
+          "primary": "Confirmar"
+        },
+        "content": "<strong>Enviar SMS puede costar más que otros canales,</strong> según cuántas personas entren en el flujo de trabajo. Consulta tu contrato para ver el coste por SMS.",
+        "title": "Recordatorio del coste de los SMS"
+      },
+      "alert": {
+        "content": "Cuantas más personas entren en el flujo de trabajo, mayor será el coste. Consulta tu contrato para ver el coste por SMS.",
+        "title": "Los SMS cuestan más que otros canales"
+      }
     }
   }
 }

@@ -1000,11 +1000,11 @@
         "button": "Atualização"
       },
       "upgradeDialog": {
-        "benefits": {
-          "0": "Direcionar as ofertas para os clientes em cada fase do seu percurso",
-          "1": "Criar experiências únicas para os clientes em vários canais",
-          "2": "Criar um fluxo de trabalho automatizado ilimitado {{ workflowPluralLowerCase }} (continuar de onde parou)"
-        },
+        "benefits": [
+          "Crie {{ workflowPluralLowerCase }} automáticos ilimitados",
+          "Crie experiências únicas para os seus clientes em vários canais",
+          "Direcione ofertas aos clientes em cada fase do seu percurso"
+        ],
         "upgrade": "Atualização",
         "close": "Fechar",
         "bannerClicked": {

@@ -115,7 +115,7 @@
       },
       "groupActionButton": {
         "reset": "Reiniciar",
-        "save": "Salvar"
+        "save": "Guardar"
       },
       "zoomGroupId": "ID do grupo de zoom",
       "multiZoomUserSupport": {

@@ -117,7 +117,7 @@
     "noGroupHelper": "Standorte werden verwendet, um mehrere Adressen zu gruppieren. Wenn Sie mehrere Studios in verschiedenen Städten haben, können Sie Studios aus derselben Stadt an einem Ort gruppieren. Auf den Mitgliederbereich, dem Widget und der personalisierten Anwendung können Ihre Mitglieder den Standort auswählen, der sie am meisten interessiert, um nur die Kurse in ihrer Nähe zu sehen.",
     "actions": "Aktion",
     "name": " Name",
-    "addLocalisation": "Raum hinzufügen",
+    "addLocalisation": "Standort hinzufügen",
     "groupButton": "Gruppeneinrichtungen"
   },
   "room": "Einrichtung",

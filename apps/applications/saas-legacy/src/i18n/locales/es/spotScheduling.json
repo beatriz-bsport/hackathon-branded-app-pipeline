@@ -56,7 +56,7 @@
     }
   },
   "toolbar": {
-    "save": "Salvar",
+    "save": "Guardar",
     "titleLabel": "Nombre del plan",
     "exit": "Salir",
     "loadExistingBlueprint": "Cargar un plan existente",

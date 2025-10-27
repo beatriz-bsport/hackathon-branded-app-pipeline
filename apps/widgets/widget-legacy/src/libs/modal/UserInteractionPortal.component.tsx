@@ -106,6 +106,7 @@ const UserInteractionModal: React.FC<UserInteractionModalProps> = ({
               'bsport-user-interaction-modal__iframe',
             )}
             src={url}
+            allow="payment"
           />
         </div>
       </>
@@ -189,6 +190,7 @@ class UserInteractionPortal extends React.PureComponent<Props> {
                 ? { scrolling: 'no' }
                 : {})}
               src={this.props.url}
+              allow="payment"
             />
           </WidgetPortalSlidingContainer>
         );

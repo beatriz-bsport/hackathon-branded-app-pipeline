@@ -6,6 +6,7 @@ import { AppointmentSelector } from "#src/components/MarketingNotificationEditio
 import { EstablishmentGroupSelector } from "#src/components/MarketingNotificationEdition/TriggerTypeSelector/EstablishmentGroupSelector";
 import { LocationSelector } from "#src/components/MarketingNotificationEdition/TriggerTypeSelector/LocationSelector";
 import { MetaActivitySelector } from "#src/components/MarketingNotificationEdition/TriggerTypeSelector/MetaActivitySelector";
+import { SubscriptionSelector } from "#src/components/MarketingNotificationEdition/TriggerTypeSelector/SubscriptionSelector";
 import { NOTIFICATION_ADVANCED_TYPE } from "#src/utils/constants";
 import { useTranslation } from "#src/utils/i18n";
 import type { NotificationType } from "#src/utils/types";
@@ -78,7 +79,7 @@ const TRIGGER_CONFIG: TriggerTypeSelectorConfig[] = [
   {
     type: NOTIFICATION_ADVANCED_TYPE.subscription,
     translationKey: "subscription",
-    hasSelector: false,
+    hasSelector: true,
   },
   {
     type: NOTIFICATION_ADVANCED_TYPE.birthday,
@@ -255,6 +256,25 @@ export const TriggerTypeSelector = ({
           if (appointmentId) {
             onSelectTriggerType?.({
               objectIds: [appointmentId],
+              triggerType: selectedConfig.type,
+            });
+          }
+        }}
+      />
+    );
+  }
+
+  if (
+    selectedConfig.hasSelector &&
+    selectedConfig.type === NOTIFICATION_ADVANCED_TYPE.subscription
+  ) {
+    return (
+      <SubscriptionSelector
+        onSelectSubscription={(subscription) => {
+          const subscriptionId = subscription?.id;
+          if (subscriptionId) {
+            onSelectTriggerType?.({
+              objectIds: [subscriptionId],
               triggerType: selectedConfig.type,
             });
           }

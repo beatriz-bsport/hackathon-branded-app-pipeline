@@ -16,8 +16,8 @@ import {
 } from "@bsport/store-buyables-appointment-pass";
 import { selectPassesById, usePassStore } from "@bsport/store-buyables-pass";
 import {
-  type Subscription,
-  selectAllSubscriptions,
+  selectAllSubscriptionMappedById,
+  selectFuzzySearchedSubscriptions,
   useSubscriptionStore,
 } from "@bsport/store-buyables-subscription";
 import {
@@ -66,7 +66,13 @@ export const useGetMarketingNotificationDependenciesData = () => {
     selectAppointmentPassesById,
   );
 
-  const subscriptions = useSubscriptionStore(selectAllSubscriptions);
+  const subscriptionsById = useSubscriptionStore(
+    selectAllSubscriptionMappedById,
+  );
+
+  const searchedSubscriptions = useSubscriptionStore(
+    selectFuzzySearchedSubscriptions,
+  );
 
   const passesById = usePassStore(selectPassesById);
 
@@ -75,18 +81,6 @@ export const useGetMarketingNotificationDependenciesData = () => {
   );
 
   const smartlistsById = useSmartlistStore(selectAllMappedSmartlists);
-
-  const subscriptionsById = useMemo(
-    () =>
-      subscriptions.reduce(
-        (acc, subscription) => {
-          acc[subscription.id] = subscription;
-          return acc;
-        },
-        {} as Record<number, Subscription>,
-      ),
-    [subscriptions],
-  );
 
   const emailTemplatesById = useMemo(
     () =>
@@ -101,18 +95,19 @@ export const useGetMarketingNotificationDependenciesData = () => {
   );
 
   return {
-    searchedGroupActivities,
     searchedAppointments,
-    groupActivitiesById,
-    appointmentsById,
-    searchedLocations,
-    locationsById,
-    establishmentsById,
     searchedEstablishments,
+    searchedGroupActivities,
+    searchedLocations,
+    searchedSubscriptions,
+    appointmentsById,
     appointmentPassesById,
-    subscriptionsById,
-    passesById,
     emailTemplatesById,
+    establishmentsById,
+    groupActivitiesById,
+    locationsById,
+    passesById,
     smartlistsById,
+    subscriptionsById,
   };
 };

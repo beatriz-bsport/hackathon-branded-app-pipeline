@@ -40,6 +40,11 @@
           "label": "All Activities",
           "placeholder": "Select any activity",
           "loading": "Searching activities..."
+        },
+        "location": {
+          "label": "Associated Location",
+          "placeholder": "Select associated location",
+          "loading": "Searching locations..."
         }
       }
     }

@@ -1,4 +1,4 @@
-export type * from "./types";
+export type * from "./types/index";
 export { useEstablishmentStore, establishmentStore } from "./store";
-export * from "./selectors";
-export * from "./actions";
+export * from "./selectors/index";
+export * from "./actions/index";

@@ -30,8 +30,9 @@ import {
   useSmartlistStore,
 } from "@bsport/store-cdp-smartlist";
 import {
-  type Establishment,
-  selectEstablishments,
+  selectEstablishmentGroupMappedById,
+  selectEstablishmentMappedById,
+  selectSearchedEstablishments,
   useEstablishmentStore,
 } from "@bsport/store-core-data-establishment";
 
@@ -46,7 +47,17 @@ export const useGetMarketingNotificationDependenciesData = () => {
 
   const appointments = useAppointmentStore(selectAllAppointments);
 
-  const establishments = useEstablishmentStore(selectEstablishments);
+  const searchedEstablishments = useEstablishmentStore(
+    selectSearchedEstablishments,
+  );
+
+  const establishmentsById = useEstablishmentStore(
+    selectEstablishmentMappedById,
+  );
+
+  const establishmentGroupsById = useEstablishmentStore(
+    selectEstablishmentGroupMappedById,
+  );
 
   const appointmentPassesById = useAppointmentPassStore(
     selectAppointmentPassesById,
@@ -72,18 +83,6 @@ export const useGetMarketingNotificationDependenciesData = () => {
         {} as Record<number, Appointment>,
       ),
     [appointments],
-  );
-
-  const establishmentsById = useMemo(
-    () =>
-      establishments.reduce(
-        (acc, establishment) => {
-          acc[establishment.id] = establishment;
-          return acc;
-        },
-        {} as Record<number, Establishment>,
-      ),
-    [establishments],
   );
 
   const subscriptionsById = useMemo(
@@ -114,7 +113,9 @@ export const useGetMarketingNotificationDependenciesData = () => {
     searchedGroupActivities,
     groupActivitiesById,
     appointmentsById,
-    establishmentsById,
+    searchedLocations: searchedEstablishments,
+    locationsById: establishmentsById,
+    establishmentsById: establishmentGroupsById,
     appointmentPassesById,
     subscriptionsById,
     passesById,

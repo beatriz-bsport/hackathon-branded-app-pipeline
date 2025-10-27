@@ -540,7 +540,30 @@
     },
     "secondaryLabel": " : {{note}}",
     "label": "Pausiert für {{days}} Tage",
-    "createdAt": "Erstellt am "
+    "createdAt": "Erstellt am ",
+    "dialogs": {
+      "fail": {
+        "contentCanNotEditPauseEndBeforeToday": "Das neue Startdatum der Pause darf nicht vor dem heutigen Tag liegen.",
+        "contentCanNotCreateAPauseInThePast": "Die Pause kann nicht in der Vergangenheit beginnen.",
+        "contentUnknownError": "Ein unerwarteter Fehler ist aufgetreten. Wir entschuldigen uns für die Unannehmlichkeiten.",
+        "comeback": "Zurück"
+      },
+      "form": {
+        "titleCreation": "Pausiert",
+        "titleEdition": "Pause ändern",
+        "causePlaceholder": "Grund *",
+        "duration": {
+          "title": "Dauer der Pause",
+          "start": "Startdatum (einschließlich)",
+          "end": "Enddatum (einschließlich)",
+          "warning": "Das Enddatum darf nicht vor dem Startdatum liegen"
+        },
+        "information": "Das Abonnement wird vom {{- dateStart}} bis einschließlich {{- dateEnd}} pausiert. Die nächste Abrechnung wird um {{count}} Tage verschoben, ebenso alle zukünftigen Abrechnungen.",
+        "information_plural": "Die Abonnements werden vom {{- dateStart}} bis einschließlich {{- dateEnd}} pausiert. Ihre nächste Abrechnung wird um {{count}} Tage verschoben, ebenso alle zukünftigen Abrechnungen.",
+        "information2": "Das Ablaufdatum des Kurspässe wird um die Anzahl der Pausentage verlängert, und der Kurspass bleibt während der Pause gültig.",
+        "confirm": "Speichern"
+      }
+    }
   },
   "noContracts": "In diesem Modul können Sie Abonnements hinzufügen, um Ihren Mitgliedern täglich, wöchentlich, monatlich oder jährlich automatisch Rechnungen zu stellen.",
   "copyLink": "Kopiere den Link zur Zahlungsseite",

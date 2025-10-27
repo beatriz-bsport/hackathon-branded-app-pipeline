@@ -1,6 +1,5 @@
 import { useCallback } from "react";
 
-import { fetchAppointmentsAction } from "@bsport/store-booking-appointment";
 import { fetchSubscriptionsAction } from "@bsport/store-buyables-subscription";
 import { useAsync } from "@bsport/use-async";
 
@@ -12,9 +11,8 @@ import { useFetchPasses } from "#src/hooks/api/use-fetch-passes";
 import { useFetchSmartlists } from "#src/hooks/api/use-fetch-smartlists";
 import { fetch } from "#src/utils/fetch";
 
+import { useFetchAppointments } from "./use-fetch-appointment";
 import { useFetchEstablishments } from "./use-fetch-establishments";
-
-const fetchAppointmentsBound = fetchAppointmentsAction.bind(null, fetch);
 
 const fetchSubscriptionsBound = fetchSubscriptionsAction.bind(null, fetch);
 
@@ -38,9 +36,8 @@ export function useFetchMarketingNotificationDependencies() {
   const { handleFetchLocations, isLocationsLoading } = useFetchLocations();
   const { handleFetchEstablishments, isEstablishmentsLoading } =
     useFetchEstablishments();
-  const [, fetchAppointments] = useAsync<typeof fetchAppointmentsBound>({
-    asyncFn: fetchAppointmentsBound,
-  });
+  const { handleFetchAppointments, isAppointmentsLoading } =
+    useFetchAppointments();
 
   const [, fetchSubscriptions] = useAsync<typeof fetchSubscriptionsBound>({
     asyncFn: fetchSubscriptionsBound,
@@ -74,7 +71,7 @@ export function useFetchMarketingNotificationDependencies() {
           page: 1,
           pageSize: groupActivityIds.length,
         }),
-        fetchAppointments({
+        handleFetchAppointments({
           id__in: privateServiceIds,
         }),
         handleFetchLocations({
@@ -101,7 +98,7 @@ export function useFetchMarketingNotificationDependencies() {
       ]);
     },
     [
-      fetchAppointments,
+      handleFetchAppointments,
       fetchSubscriptions,
       handleFetchLocations,
       handleFetchPasses,
@@ -121,7 +118,8 @@ export function useFetchMarketingNotificationDependencies() {
       isAppointmentPassesLoading ||
       isGroupActivitiesLoading ||
       isLocationsLoading ||
-      isEstablishmentsLoading,
+      isEstablishmentsLoading ||
+      isAppointmentsLoading,
     fetchMarketingNotificationDependencies,
   };
 }

@@ -1,28 +1,34 @@
 import { buildById } from "@bsport/store-base";
 
 import { establishmentStore } from "#src/store";
-import type { Establishment } from "#src/types";
+import type { Establishment, EstablishmentGroup } from "#src/types";
 
 export const setEstablishments = ({
   establishments,
   count,
   page,
+  search,
 }: {
   establishments: Establishment[];
   count: number;
   page: number;
+  search?: boolean;
 }) => {
   establishmentStore.setState((state) => {
     if (!establishments) return state;
     const sanitizedEstablishments = establishments.filter(Boolean);
 
+    const newItems = buildById<Establishment>({
+      initial: state.establishment.byId,
+      newItems: sanitizedEstablishments,
+    });
     return {
-      byId: buildById({
-        initial: state.byId,
-        newItems: sanitizedEstablishments,
-      }),
-      list: {
-        ids: sanitizedEstablishments.map((model) => model.id),
+      establishment: {
+        byId: newItems,
+        ids: search ? [] : sanitizedEstablishments.map((model) => model.id),
+        searchedIds: search
+          ? sanitizedEstablishments.map((model) => model.id)
+          : [],
         count,
         page,
       },
@@ -30,27 +36,35 @@ export const setEstablishments = ({
   });
 };
 
-export const setSearchedEstablishments = ({
-  establishments,
+export const setEstablishmentGroups = ({
+  establishmentGroups,
   count,
   page,
+  search,
 }: {
-  establishments: Establishment[];
+  establishmentGroups: EstablishmentGroup[];
   count: number;
   page: number;
+  search?: boolean;
 }) => {
   establishmentStore.setState((state) => {
-    if (!establishments) return state;
-    const sanitizedEstablishments = establishments.filter(Boolean);
+    if (!establishmentGroups) return state;
+    const sanitizedEstablishmentGroups = establishmentGroups.filter(Boolean);
+    const newItems = buildById<EstablishmentGroup>({
+      initial: state.establishmentGroup.byId,
+      newItems: sanitizedEstablishmentGroups,
+    });
 
     return {
-      byId: buildById({
-        initial: state.byId,
-        newItems: sanitizedEstablishments,
-      }),
-      search: {
+      establishmentGroup: {
+        byId: newItems,
+        ids: search
+          ? []
+          : sanitizedEstablishmentGroups.map((model) => model.id),
+        searchedIds: search
+          ? sanitizedEstablishmentGroups.map((model) => model.id)
+          : [],
         count,
-        ids: sanitizedEstablishments.map((model) => model.id),
         page,
       },
     };

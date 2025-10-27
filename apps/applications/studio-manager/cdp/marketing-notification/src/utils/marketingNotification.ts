@@ -21,10 +21,16 @@ const isMarketingNotificationEstablishmentType = (
   eventRules: MarketingNotification["event_rules"],
 ): eventRules is BookingCreationEventRules => {
   return (
-    ("establishment_id" in eventRules &&
-      eventRules.establishment_id !== null) ||
-    ("establishment_group_id" in eventRules &&
-      eventRules.establishment_group_id !== null)
+    "establishment_group_id" in eventRules &&
+    eventRules.establishment_group_id !== null
+  );
+};
+
+const isMarketingNotificationLocationType = (
+  eventRules: MarketingNotification["event_rules"],
+): eventRules is BookingCreationEventRules => {
+  return (
+    "establishment_id" in eventRules && eventRules.establishment_id !== null
   );
 };
 
@@ -70,6 +76,8 @@ const getMarketingNotificationType = ({
 
   if (kind === BOOKING_CREATION_NOTIFICATION) {
     if (isMarketingNotificationEstablishmentType(eventRules))
+      return NOTIFICATION_ADVANCED_TYPE.establishment;
+    if (isMarketingNotificationLocationType(eventRules))
       return NOTIFICATION_ADVANCED_TYPE.location;
 
     if (isMarketingNotificationGroupActivityType(eventRules)) {

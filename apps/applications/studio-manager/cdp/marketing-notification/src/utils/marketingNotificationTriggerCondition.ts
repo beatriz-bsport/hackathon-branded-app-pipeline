@@ -7,7 +7,10 @@ import type {
   BookingCreationEventRules,
   MarketingNotification,
 } from "@bsport/store-cdp-marketing-notification";
-import type { Establishment } from "@bsport/store-core-data-establishment";
+import type {
+  Establishment,
+  EstablishmentGroup,
+} from "@bsport/store-core-data-establishment";
 
 import { NOTIFICATION_ADVANCED_TYPE } from "#src/utils/constants";
 import { useTranslation } from "#src/utils/i18n";
@@ -98,11 +101,12 @@ const findEntityName = (
   entityIds: number[],
   entities: {
     groupActivitiesById: Record<number, MetaActivity>;
-    establishmentsById: Record<number, Establishment>;
+    establishmentsById: Record<number, EstablishmentGroup>;
     appointmentsById: Record<number, Appointment>;
     appointmentPassesById: Record<number, AppointmentPass>;
     subscriptionsById: Record<number, Subscription>;
     passesById: Record<number, Pass>;
+    locationsById: Record<number, Establishment>;
   },
 ): string => {
   if (!entityIds || entityIds.length === 0) return "";
@@ -110,6 +114,7 @@ const findEntityName = (
   const {
     groupActivitiesById,
     establishmentsById,
+    locationsById,
     appointmentsById,
     appointmentPassesById,
     subscriptionsById,
@@ -124,8 +129,15 @@ const findEntityName = (
     }
 
     case NOTIFICATION_ADVANCED_TYPE.location: {
-      const location = establishmentsById[entityIds[0]];
+      const location = locationsById?.[entityIds[0]];
       return location?.title ?? NOTIFICATION_ADVANCED_TYPE.location;
+    }
+
+    case NOTIFICATION_ADVANCED_TYPE.establishment: {
+      const establishment = establishmentsById?.[entityIds[0]];
+      console.log("establishmentsById", establishmentsById);
+      console.log("entityIds", entityIds);
+      return establishment?.name ?? NOTIFICATION_ADVANCED_TYPE.establishment;
     }
 
     case NOTIFICATION_ADVANCED_TYPE.privateService: {

@@ -2,6 +2,7 @@ import { useMemo, useState } from "react";
 
 import { Select, Title } from "@bsport/kaizen-primitive-core";
 
+import { LocationSelector } from "#src/components/MarketingNotificationEdition/TriggerTypeSelector/LocationSelector";
 import { MetaActivitySelector } from "#src/components/MarketingNotificationEdition/TriggerTypeSelector/MetaActivitySelector";
 import { NOTIFICATION_ADVANCED_TYPE } from "#src/utils/constants";
 import { useTranslation } from "#src/utils/i18n";
@@ -195,6 +196,25 @@ export const TriggerTypeSelector = ({
           if (metaActivityId) {
             onSelectTriggerType?.({
               objectIds: [metaActivityId],
+              triggerType: selectedConfig.type,
+            });
+          }
+        }}
+      />
+    );
+  }
+
+  if (
+    selectedConfig.hasSelector &&
+    selectedConfig.type === NOTIFICATION_ADVANCED_TYPE.location
+  ) {
+    return (
+      <LocationSelector
+        onSelectLocation={(location) => {
+          const locationId = location?.id;
+          if (locationId) {
+            onSelectTriggerType?.({
+              objectIds: [locationId],
               triggerType: selectedConfig.type,
             });
           }

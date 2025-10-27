@@ -3,18 +3,18 @@ import { type ApiConfig, buildUrlParams } from "@bsport/store-base";
 import type {
   FetchEstablishmentParams,
   SearchEstablishmentParams,
-} from "./types";
+} from "#src/types";
 
-const API_URL = "core-data/v1/establishment";
+const ESTABLISHMENT_API_URL = "core-data/v1/establishment";
 
 export const fetchEstablishmentsAPI = (
   params: FetchEstablishmentParams = {},
 ): ApiConfig => {
-  return [`${API_URL}/${buildUrlParams(params)}`];
+  return [`${ESTABLISHMENT_API_URL}/${buildUrlParams(params)}`];
 };
 
 export const searchEstablishmentsAPI = (
   params: SearchEstablishmentParams,
 ): ApiConfig => {
-  return [`${API_URL}/search/${buildUrlParams(params)}`];
+  return [`${ESTABLISHMENT_API_URL}/search/${buildUrlParams(params)}`];
 };

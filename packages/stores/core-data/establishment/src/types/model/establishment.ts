@@ -19,6 +19,8 @@ export type EstablishmentEasyAccess = {
   name: string;
 };
 
+// Model : Etablissement
+// Serializer : EstablishmentSerializer
 export type Establishment = {
   id: number;
   title: string;
@@ -36,14 +38,4 @@ export type Establishment = {
   establishment_billing_group_id: number | null;
   wellhub_gym: string;
   usc_location_id: number | null;
-};
-
-export type FetchEstablishmentParams = {
-  page?: number;
-  page_size?: number;
-  id__in?: number[];
-};
-
-export type SearchEstablishmentParams = FetchEstablishmentParams & {
-  q: string;
 };

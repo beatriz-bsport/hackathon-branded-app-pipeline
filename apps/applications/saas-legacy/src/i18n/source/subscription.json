@@ -908,7 +908,7 @@
         "information": "Subscriptions will be paused from {{- dateStart}} to {{- dateEnd}} included. Their next billing will be postponed by {{count}} days, as well as all future billings.",
         "information_plural": "Subscriptions will be paused from {{- dateStart}} to {{- dateEnd}} included. Their next billing will be delayed by {{count}} days, as well as all future billings.",
         "duration": {
-          "warning": "The end date cannot be earlier than the start date",
+          "warning": "The end date cannot be before the start date",
           "end": "End date (included)",
           "start": "Start date (included)",
           "title": "Duration of the pause"
@@ -921,7 +921,7 @@
         "comeback": "Back",
         "contentUnknownError": "An unforeseen error has occurred. We apologise for any inconvenience caused.",
         "contentCanNotCreateAPauseInThePast": "The pause cannot start in the past.",
-        "contentCanNotEditPauseEndBeforeToday": "The new start date for the break cannot be set before today.",
+        "contentCanNotEditPauseEndBeforeToday": "The new start date for the pause cannot be set before today.",
         "contentCanNotEditPauseStartWhenHasStarted": "The start date of the pause cannot be changed once it has begun.",
         "contentSubscriptionWillEndBeforePause": "The subscription cannot be paused during this period as it will have ended before.",
         "contentCanNotCancelPause": "As the pause has already started or has already passed, it cannot be cancelled.",

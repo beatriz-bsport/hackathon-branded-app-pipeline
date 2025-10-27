@@ -16,6 +16,7 @@ import {
   buildUrlParams,
   deleteAuth,
   getAuth,
+  getAuthToken,
   patchAuth,
   post,
   postAuth,
@@ -312,9 +313,24 @@ export const fetchStripePayoutList = async (params: {
 export const checkStripePaymentMethodDomainRegistration = async (
   company_id: number,
 ): Promise<AxiosResponse<{ is_registered: boolean }>> => {
-  return postAuth<{ is_registered: boolean }>(
+  const token = getAuthToken();
+  if (!token) {
+    throw new Error(
+      'Authentication token is required for domain registration check',
+    );
+  }
+  if (!document.referrer) {
+    throw new Error(
+      'Document referrer is required for domain registration check',
+    );
+  }
+  return post<{ is_registered: boolean }>(
     `${API_V1_URI}/payment_backend/stripe/stripe-payment-method-domain/check_domain_registration/`,
     { company_id },
+    {
+      'X-React-Referrer': document.referrer,
+      Authorization: `Token ${token}`,
+    },
   );
 };
 

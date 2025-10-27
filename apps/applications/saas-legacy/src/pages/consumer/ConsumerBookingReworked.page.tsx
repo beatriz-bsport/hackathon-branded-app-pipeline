@@ -422,6 +422,9 @@ export class ConsumerBooking extends React.Component<Props, State> {
         {
           onSuccess: (data) => {
             this.fetchAssociatedBookingsObjects(data.results);
+            this.props.fetchConsumerGuestNumberEligibleLeftByOfferBulk(
+              data.results.map((booking) => booking.offer),
+            );
             options?.onSuccess && options.onSuccess(data);
           },
           onError: (error) => options?.onError && options.onError(error),

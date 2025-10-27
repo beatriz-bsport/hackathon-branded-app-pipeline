@@ -13,6 +13,12 @@ export const selectAllSubscriptions = (
 ): Subscription[] => Object.values(state.subscriptions.byId);
 
 /**
+ * Selects all subscriptions mapped by id from the normalized store.
+ */
+export const selectAllSubscriptionMappedById = (state: SubscriptionState) =>
+  state.subscriptions.byId;
+
+/**
  * Selects subscriptions in their flat order as stored.
  */
 export const selectSubscriptionsInOrder = (

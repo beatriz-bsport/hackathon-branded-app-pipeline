@@ -55,6 +55,11 @@
           "label": "Associated Establishment",
           "placeholder": "Select associated establishment",
           "loading": "Searching establishments..."
+        },
+        "subscription": {
+          "label": "Associated Subscription",
+          "placeholder": "Select associated subscription",
+          "loading": "Searching subscriptions..."
         }
       }
     }

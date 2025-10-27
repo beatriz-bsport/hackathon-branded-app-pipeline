@@ -252,9 +252,9 @@
           "isModifyRecursively": "Möchten Sie ähnliche Kurse gemäß dieser neuen Bedingungen ändern?",
           "isNotifyConsumers": "Möchten Sie Ihre Kunden über diese Änderung informieren?",
           "partnership": {
-            "partnerMaxBookingCount": "Maximale Anzahl von Buchungen von Wellhub und Urban Sports Club zusammen (die übrigen Marktplätze sind von dieser Einstellung nicht betroffen).",
-            "availableOnPartnership": "Über die Marketplaces (ClassPass, OneFit...)",
-            "title": "Marktplatz",
+            "partnerMaxBookingCount": "Maximale Anzahl an Buchungen von Wellhub und Urban Sports Club zusammen (die anderen Aggregatoren sind von dieser Einstellung nicht betroffen)",
+            "availableOnPartnership": "Über Aggregatoren (ClassPass, OneFit...)",
+            "title": "Aggregator-Integrationen",
             "uscIntegrationWarning": "Ihre Integration mit dem Urban Sports Club Marketplace ist aktiv. Alle Kurse, die 2 oder mehr Tage lang sind, werden nicht angezeigt.",
             "uscIntegrationWorkshopWarning": "Workshops sind nicht mit dem Urban Sports Club Marketplace kompatibel, also wir dieser Kurs nicht eingeschlossen.",
             "wellhubProduct": {
@@ -262,8 +262,8 @@
               "helperText": "Diese Produkte werden von Ihrem Studio auf der Wellhub-Plattform angeboten. Gehen Sie zum Abschnitt „Partnerschaft“ im Partner-Portal Ihres Wellhub-Kontos für weitere Informationen.",
               "title": "Ihre verfügbaren Produkte auf Wellhub:"
             },
-            "subtitle": "Einschließlich: ClassPass, Urban Sports Club, Gymlib und Wellhub für externe Buchungen.",
-            "enablePartneshipBookings": "Marktplatz-Buchungen ermöglichen"
+            "subtitle": "Einschließlich: ClassPass, Urban Sports Club, Wellpass und Wellhub für externe Buchungen.",
+            "enablePartneshipBookings": "Aggregator-Buchungen ermöglichen"
           },
           "allowGuestOffer": "Buchung für einen Gast zulassen",
           "isManagerOnly": "Verfügbar zur Buchung (Web + App)",

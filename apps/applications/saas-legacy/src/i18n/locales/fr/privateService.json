@@ -919,7 +919,7 @@
       "title": "Rendez-vous",
       "createButton": "Ajouter un rendez-vous",
       "addCoach": "Ajouter un professeur",
-      "addEstablishment": "Ajouter une salle",
+      "addEstablishment": "Ajouter un établissement",
       "addSlot": "Ajouter un type séance",
       "is_home_service": {
         "label": "A domicile",

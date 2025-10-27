@@ -1,6 +1,6 @@
 {
   "exportCampaign": "Exportar",
-  "save": "Salvar",
+  "save": "Guardar",
   "schemaError": {
     "nonEmptyEmailTemplate": "Escolha um modelo de correio eletrônico",
     "nonEmptyBody": "O corpo de seu e-mail está vazio no momento. Adicione conteúdo antes de continuar.",

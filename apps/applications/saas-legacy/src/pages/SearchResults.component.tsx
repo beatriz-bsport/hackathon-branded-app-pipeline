@@ -37,8 +37,11 @@ import withTitle from '#src/hocs/with-title.hoc';
 import MemberMinimalListItem from '#src/libs/member/components/MemberMinimalListItem.component';
 import { searchArchived as searchArchivedMembers } from '#src/libs/member/actions';
 import { checkMemberInEstablishment as checkMemberInEstablishmentAction } from '#src/libs/access-control/actions';
-import { hasUpsell } from '#src/libs/platform-billing/utils';
-import { UPSELL_IDENTIFIER_ACCESS_MONITORING } from '#src/libs/platform-billing/upsell-identifiers';
+import { hasAnyUpsell } from '#src/libs/platform-billing/utils';
+import {
+  UPSELL_IDENTIFIER_ACCESS_MONITORING,
+  UPSELL_IDENTIFIER_KISI_INTEGRATION,
+} from '#src/libs/platform-billing/upsell-identifiers';
 import { getEstablishmentsSelectedInRole } from '#src/libs/establishment/selectors';
 import { withSendToBroadcastChannel } from '#src/libs/broadcast-channel/hocs';
 import type { MemberVisitREST } from '#src/libs/access-control/types';
@@ -247,8 +250,10 @@ export class SearchResults extends React.Component<Props, State> {
 
   hideAccessMonitoringButton =
     // @ts-expect-error
-    !hasUpsell(this.props.featureList, UPSELL_IDENTIFIER_ACCESS_MONITORING) ||
-    !this.props.permissions?.navigationMenu?.accessMonitoring?.perform;
+    !hasAnyUpsell(this.props.featureList, [
+      UPSELL_IDENTIFIER_ACCESS_MONITORING,
+      UPSELL_IDENTIFIER_KISI_INTEGRATION,
+    ]) || !this.props.permissions?.navigationMenu?.accessMonitoring?.perform;
 
   disableAccessMonitoringButton =
     // @ts-expect-error

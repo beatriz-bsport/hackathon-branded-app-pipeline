@@ -55,7 +55,7 @@ import { useSafeFlag, FeatureFlags } from '#src/utils/feature-flag';
 
 import SwitchHorizontalIcon from '#src/components/icons/SwitchHorizontalIcon.component';
 import TutorialIconWithAlertings from '#src/libs/platform-tutorial/components/TutorialIconWithAlertings.component';
-
+import { hasAnyUpsell } from '#src/libs/platform-billing/utils';
 import {
   checkRequiredPermissions,
   hasUpsellIdentifier,
@@ -70,6 +70,7 @@ import {
   UPSELL_IDENTIFIER_CADENCE,
   UPSELL_IDENTIFIER_QUICKBOOKS,
   UPSELL_IDENTIFIER_ACCESS_MONITORING,
+  UPSELL_IDENTIFIER_KISI_INTEGRATION,
 } from '#src/libs/platform-billing/upsell-identifiers';
 
 import Config from '#src/config';
@@ -208,11 +209,10 @@ const ResponsiveDrawer: React.FC<Props> = ({
 
   const accessMonitoringItem = React.useMemo(() => {
     if (
-      !hasUpsellIdentifier(
+      !hasAnyUpsell({ upsell: featureList }, [
         UPSELL_IDENTIFIER_ACCESS_MONITORING,
-        featureList,
-        true,
-      )
+        UPSELL_IDENTIFIER_KISI_INTEGRATION,
+      ])
     ) {
       return [];
     }

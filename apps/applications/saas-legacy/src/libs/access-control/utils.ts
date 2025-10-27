@@ -1,8 +1,11 @@
 import type { TFunction } from 'i18next';
 import type { ImmutableArray, ImmutableObject } from 'seamless-immutable';
-import { UPSELL_IDENTIFIER_ACCESS_MONITORING } from '#src/libs/platform-billing/upsell-identifiers';
+import {
+  UPSELL_IDENTIFIER_ACCESS_MONITORING,
+  UPSELL_IDENTIFIER_KISI_INTEGRATION,
+} from '#src/libs/platform-billing/upsell-identifiers';
 
-import { hasUpsell } from '#src/libs/platform-billing/utils';
+import { hasAnyUpsell } from '#src/libs/platform-billing/utils';
 
 import type { RolePermission } from '#src/libs/role/types';
 import type { UpsellSumup } from '#src/libs/company/types';
@@ -25,7 +28,10 @@ export const staffMemberCanPerformAccessMonitoring = (
   establishmentsSelectedInRole: number[],
 ) => {
   return (
-    hasUpsell({ upsell: featureList }, UPSELL_IDENTIFIER_ACCESS_MONITORING) &&
+    hasAnyUpsell({ upsell: featureList }, [
+      UPSELL_IDENTIFIER_ACCESS_MONITORING,
+      UPSELL_IDENTIFIER_KISI_INTEGRATION,
+    ]) &&
     permissions?.navigationMenu?.accessMonitoring?.perform &&
     !!establishmentsSelectedInRole?.length
   );

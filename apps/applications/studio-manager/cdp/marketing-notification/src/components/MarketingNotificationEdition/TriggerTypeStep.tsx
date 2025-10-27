@@ -2,6 +2,7 @@ import { useMemo, useState } from "react";
 
 import { Select, Title } from "@bsport/kaizen-primitive-core";
 
+import { AppointmentSelector } from "#src/components/MarketingNotificationEdition/TriggerTypeSelector/AppointmentSelector";
 import { EstablishmentGroupSelector } from "#src/components/MarketingNotificationEdition/TriggerTypeSelector/EstablishmentGroupSelector";
 import { LocationSelector } from "#src/components/MarketingNotificationEdition/TriggerTypeSelector/LocationSelector";
 import { MetaActivitySelector } from "#src/components/MarketingNotificationEdition/TriggerTypeSelector/MetaActivitySelector";
@@ -52,17 +53,17 @@ const TRIGGER_CONFIG: TriggerTypeSelectorConfig[] = [
   {
     type: NOTIFICATION_ADVANCED_TYPE.establishment,
     translationKey: "establishment",
-    hasSelector: false,
+    hasSelector: true,
   },
   {
     type: NOTIFICATION_ADVANCED_TYPE.location,
     translationKey: "location",
-    hasSelector: false,
+    hasSelector: true,
   },
   {
     type: NOTIFICATION_ADVANCED_TYPE.privateService,
     translationKey: "privateService",
-    hasSelector: false,
+    hasSelector: true,
   },
   {
     type: NOTIFICATION_ADVANCED_TYPE.paymentPack,
@@ -235,6 +236,25 @@ export const TriggerTypeSelector = ({
           if (establishmentId) {
             onSelectTriggerType?.({
               objectIds: [establishmentId],
+              triggerType: selectedConfig.type,
+            });
+          }
+        }}
+      />
+    );
+  }
+
+  if (
+    selectedConfig.hasSelector &&
+    selectedConfig.type === NOTIFICATION_ADVANCED_TYPE.privateService
+  ) {
+    return (
+      <AppointmentSelector
+        onSelectAppointment={(appointment) => {
+          const appointmentId = appointment?.id;
+          if (appointmentId) {
+            onSelectTriggerType?.({
+              objectIds: [appointmentId],
               triggerType: selectedConfig.type,
             });
           }

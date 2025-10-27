@@ -26,6 +26,11 @@
         }
       },
       "selectors": {
+        "appointment": {
+          "label": "Associated Appointment",
+          "placeholder": "Select associated appointment",
+          "loading": "Searching appointments..."
+        },
         "groupActivity": {
           "label": "Associated Group Activity",
           "placeholder": "Select associated group activity",

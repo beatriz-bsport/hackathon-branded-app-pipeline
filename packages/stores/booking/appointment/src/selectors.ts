@@ -5,6 +5,9 @@ export const selectAllAppointments = (state: AppointmentState) => {
   return Object.values(byId);
 };
 
+export const selectAllAppointmentMappedById = (state: AppointmentState) =>
+  state.byId;
+
 export const selectAppointmentList = (state: AppointmentState) => {
   const { list, byId } = state;
   return list.ids.map((id) => byId[id]);

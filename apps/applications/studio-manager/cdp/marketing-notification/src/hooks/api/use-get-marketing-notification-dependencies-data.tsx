@@ -1,8 +1,8 @@
 import { useMemo } from "react";
 
 import {
-  type Appointment,
-  selectAllAppointments,
+  selectAllAppointmentMappedById,
+  selectSearchedAppointment,
   useAppointmentStore,
 } from "@bsport/store-booking-appointment";
 import {
@@ -46,7 +46,9 @@ export const useGetMarketingNotificationDependenciesData = () => {
     selectSearchedGroupActivities,
   );
 
-  const appointments = useAppointmentStore(selectAllAppointments);
+  const appointmentsById = useAppointmentStore(selectAllAppointmentMappedById);
+
+  const searchedAppointments = useAppointmentStore(selectSearchedAppointment);
 
   const searchedLocations = useEstablishmentStore(selectSearchedEstablishments);
 
@@ -74,18 +76,6 @@ export const useGetMarketingNotificationDependenciesData = () => {
 
   const smartlistsById = useSmartlistStore(selectAllMappedSmartlists);
 
-  const appointmentsById = useMemo(
-    () =>
-      appointments.reduce(
-        (acc, appointment) => {
-          acc[appointment.id] = appointment;
-          return acc;
-        },
-        {} as Record<number, Appointment>,
-      ),
-    [appointments],
-  );
-
   const subscriptionsById = useMemo(
     () =>
       subscriptions.reduce(
@@ -112,6 +102,7 @@ export const useGetMarketingNotificationDependenciesData = () => {
 
   return {
     searchedGroupActivities,
+    searchedAppointments,
     groupActivitiesById,
     appointmentsById,
     searchedLocations,

@@ -1,1 +1,5 @@
-["marketingNotificationList", "marketingNotificationDetails"]
+[
+  "marketingNotificationList",
+  "marketingNotificationDetails",
+  "marketingNotificationModal"
+]

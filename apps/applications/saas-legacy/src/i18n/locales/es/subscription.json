@@ -432,19 +432,19 @@
     "createdAt": "Creada el ",
     "dialogs": {
       "form": {
-        "confirm": "Salvar",
+        "confirm": "Guardar",
         "information2": "La fecha de caducidad de la tarjeta se prolongará por el número de días de la pausa y la tarjeta seguirá siendo válida durante la misma.",
         "information": "Las suscripciones se pondrán en pausa desde {{- dateStart}} hasta {{- dateEnd}} incluido. Su próxima facturación se pospondrá en {{count}} días, al igual que todas las facturaciones futuras.",
         "information_plural": "Las suscripciones se pondrán en pausa desde {{- dateStart}} hasta {{- dateEnd}} incluido. Su próxima facturación se retrasará en {{count}} días, al igual que todas las facturaciones futuras.",
         "duration": {
           "warning": "La fecha de finalización no puede ser inferior a la fecha de inicio",
-          "end": "Fecha de inicio (incluida)",
+          "end": "Fecha de finalización (incluida)",
           "start": "Fecha de inicio (incluida)",
           "title": "Duración de la pausa"
         },
-        "causePlaceholder": "Razón *",
+        "causePlaceholder": "Motivo *",
         "titleEdition": "Modificar la pausa",
-        "titleCreation": "Pausa"
+        "titleCreation": "Pausado"
       },
       "fail": {
         "comeback": "Volver",
@@ -851,7 +851,7 @@
       },
       "actions": {
         "continue": "Continuar",
-        "save": "Salvar",
+        "save": "Guardar",
         "goBack": "Volver",
         "previous": "Anterior",
         "verify": "Verificar",

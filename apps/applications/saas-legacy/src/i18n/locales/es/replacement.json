@@ -96,7 +96,7 @@
     "add": "Añadir un grupo",
     "form": {
       "coachRequired": "Selecciona al menos un profesor",
-      "submit": "Salvar",
+      "submit": "Guardar",
       "close": "Cancelar",
       "coaches": "Profesores asociados",
       "allCategories": "Enseña todas las categorías",

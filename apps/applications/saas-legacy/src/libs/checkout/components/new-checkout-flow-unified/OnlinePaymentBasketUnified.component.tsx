@@ -193,21 +193,6 @@ export const OnlinePaymentBasketUnified: React.FC<Props> = forwardRef(
         !!establishmentBillingGroups?.length) ||
       isPaymentLoading;
 
-    const isPaymentLoading =
-      isPaymentProcessing ||
-      isSettingUpPayment ||
-      isCompanyThemeLoading ||
-      isBasketLoading ||
-      isCurrentBasketProcessing ||
-      hasPaymentSucceeded ||
-      isExpressPayLoading;
-
-    const isExpressCheckoutDisabled =
-      (!termsAccepted && !!generalTermsAndConditions?.length) ||
-      (!isEstablishmentBillingGroupSelected &&
-        !!establishmentBillingGroups?.length) ||
-      isPaymentLoading;
-
     const handleSelectPaymentMethod = useCallback(
       (paymentMethod: number) => {
         if (paymentMethod === PAYMENT_GROUP_METHOD_IDENTIFIER_PAYPAL_WALLET) {

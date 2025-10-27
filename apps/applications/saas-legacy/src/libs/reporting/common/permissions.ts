@@ -2,7 +2,10 @@ import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-catego
 
 import type { UpsellSumup } from '#src/libs/company/types';
 import { hasUpsellIdentifier } from '#src/libs/role/utils';
-import { UPSELL_IDENTIFIER_ACCESS_MONITORING } from '#src/libs/platform-billing/upsell-identifiers';
+import {
+  UPSELL_IDENTIFIER_ACCESS_MONITORING,
+  UPSELL_IDENTIFIER_KISI_INTEGRATION,
+} from '#src/libs/platform-billing/upsell-identifiers';
 
 /**
  * Checks whether the report should be displayed based on the upsells the studio has.
@@ -17,10 +20,17 @@ export const filter_reports_by_upsells = (
 ) => {
   switch (reportCategory) {
     case ReportCategoryEnum.ACCESS_MONITORING:
-      return hasUpsellIdentifier(
-        UPSELL_IDENTIFIER_ACCESS_MONITORING,
-        subscribedUpsells,
-        true,
+      return (
+        hasUpsellIdentifier(
+          UPSELL_IDENTIFIER_ACCESS_MONITORING,
+          subscribedUpsells,
+          true,
+        ) ||
+        hasUpsellIdentifier(
+          UPSELL_IDENTIFIER_KISI_INTEGRATION,
+          subscribedUpsells,
+          true,
+        )
       );
 
     default:

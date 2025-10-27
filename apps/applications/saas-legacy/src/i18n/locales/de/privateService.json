@@ -239,7 +239,7 @@
       "addCoach": "Eine Lehrkraft hinzufügen",
       "title": "Termin",
       "use_full_establishment_capacity": {
-        "label": "Mitglieder können eine Einrichtung auswählen",
+        "label": "Die gesamte Einrichtung wird benötigt",
         "helperText": "Der ganze Raum wird für den Termin benötigt. Wähle diese Option ab, um mehrere im selben Raum zur gleichen Zeit zuzulassen."
       },
       "color": "Farbcode",

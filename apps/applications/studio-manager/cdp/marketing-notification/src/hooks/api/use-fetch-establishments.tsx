@@ -1,5 +1,5 @@
 import {
-  type FetchEstablishmentParams,
+  type FetchEstablishmentGroupQueryParams,
   fetchEstablishmentGroupsAction,
   searchEstablishmentGroupsAction,
 } from "@bsport/store-core-data-establishment";
@@ -18,13 +18,15 @@ export const useFetchEstablishments = () => {
       asyncFn: fetchEstablishmentsBound,
     });
 
-  const handleFetchEstablishments = (params: FetchEstablishmentParams) => {
+  const handleFetchEstablishments = (
+    params: FetchEstablishmentGroupQueryParams,
+  ) => {
     fetchEstablishments(params);
   };
 
   const handleSearchEstablishments = async (
     query: string,
-    params?: FetchEstablishmentParams,
+    params?: FetchEstablishmentGroupQueryParams,
   ) => {
     return await searchEstablishmentGroupsAction(fetch, {
       q: query,

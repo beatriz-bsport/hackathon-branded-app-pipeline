@@ -12,6 +12,7 @@ export type FetchEstablishmentGroupQueryParams = {
 
   // Ordering
   ordering?: string;
+  id__in?: number[];
 };
 
 // URL search params (string representation)

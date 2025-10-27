@@ -32,6 +32,7 @@ import {
 import {
   selectEstablishmentGroupMappedById,
   selectEstablishmentMappedById,
+  selectSearchedEstablishmentGroups,
   selectSearchedEstablishments,
   useEstablishmentStore,
 } from "@bsport/store-core-data-establishment";
@@ -47,15 +48,15 @@ export const useGetMarketingNotificationDependenciesData = () => {
 
   const appointments = useAppointmentStore(selectAllAppointments);
 
+  const searchedLocations = useEstablishmentStore(selectSearchedEstablishments);
+
+  const locationsById = useEstablishmentStore(selectEstablishmentMappedById);
+
   const searchedEstablishments = useEstablishmentStore(
-    selectSearchedEstablishments,
+    selectSearchedEstablishmentGroups,
   );
 
   const establishmentsById = useEstablishmentStore(
-    selectEstablishmentMappedById,
-  );
-
-  const establishmentGroupsById = useEstablishmentStore(
     selectEstablishmentGroupMappedById,
   );
 
@@ -113,9 +114,10 @@ export const useGetMarketingNotificationDependenciesData = () => {
     searchedGroupActivities,
     groupActivitiesById,
     appointmentsById,
-    searchedLocations: searchedEstablishments,
-    locationsById: establishmentsById,
-    establishmentsById: establishmentGroupsById,
+    searchedLocations,
+    locationsById,
+    establishmentsById,
+    searchedEstablishments,
     appointmentPassesById,
     subscriptionsById,
     passesById,

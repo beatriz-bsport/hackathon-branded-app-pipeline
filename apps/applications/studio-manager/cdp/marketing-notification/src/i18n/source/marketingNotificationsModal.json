@@ -45,6 +45,11 @@
           "label": "Associated Location",
           "placeholder": "Select associated location",
           "loading": "Searching locations..."
+        },
+        "establishment": {
+          "label": "Associated Establishment",
+          "placeholder": "Select associated establishment",
+          "loading": "Searching establishments..."
         }
       }
     }

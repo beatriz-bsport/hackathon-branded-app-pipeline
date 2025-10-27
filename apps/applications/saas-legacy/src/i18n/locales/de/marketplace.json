@@ -225,7 +225,7 @@
     "filters": {
       "placeholder": {
         "categories": "Kategorien",
-        "type": "Tippen"
+        "type": "Typ"
       },
       "type": {
         "privatePass": "Terminpass",

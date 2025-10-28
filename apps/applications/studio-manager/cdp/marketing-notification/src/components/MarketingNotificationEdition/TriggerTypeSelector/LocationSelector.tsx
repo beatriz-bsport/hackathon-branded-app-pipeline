@@ -10,12 +10,14 @@ import { useGetMarketingNotificationDependenciesData } from "#src/hooks/api/use-
 import { useTranslation } from "#src/utils/i18n";
 
 type LocationSelectorProps = {
+  defaultValues: number[];
   disabled?: boolean;
   onSelectLocation?: (selectedLocation: Establishment | null) => void;
   textfieldProps?: Partial<TextFieldProps>;
 };
 
 export const LocationSelector = ({
+  defaultValues,
   disabled = false,
   textfieldProps,
   onSelectLocation,
@@ -32,6 +34,8 @@ export const LocationSelector = ({
     }));
   };
 
+  const defaultValueAsString = defaultValues.map(String);
+
   return (
     <BackendSelector<FetchEstablishmentParams, Establishment>
       className="w-full"
@@ -45,6 +49,7 @@ export const LocationSelector = ({
           }),
         data: searchedLocations,
       }}
+      defaultValues={defaultValueAsString}
       optionsFormatter={(results) => groupLocations(results)}
       textfieldProps={{
         id: "location-selector-textfield",

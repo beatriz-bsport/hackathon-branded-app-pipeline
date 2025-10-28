@@ -10,12 +10,14 @@ import { useGetMarketingNotificationDependenciesData } from "#src/hooks/api/use-
 import { useTranslation } from "#src/utils/i18n";
 
 type SubscriptionSelectorProps = {
+  defaultValues: number[];
   disabled?: boolean;
   onSelectSubscription?: (selectedSubscription: Subscription | null) => void;
   textfieldProps?: Partial<TextFieldProps>;
 };
 
 export const SubscriptionSelector = ({
+  defaultValues,
   disabled = false,
   textfieldProps,
   onSelectSubscription,
@@ -33,6 +35,8 @@ export const SubscriptionSelector = ({
     }));
   };
 
+  const defaultValueAsString = defaultValues.map(String);
+
   return (
     <BackendSelector<FetchSubscriptionQueryParams, Subscription>
       className="w-full"
@@ -47,6 +51,7 @@ export const SubscriptionSelector = ({
         data: searchedSubscriptions,
       }}
       optionsFormatter={(results) => groupSubscriptions(results)}
+      defaultValues={defaultValueAsString}
       textfieldProps={{
         id: "subscription-selector-textfield",
         label: t("steps.triggerType.selectors.subscription.label"),

@@ -11,9 +11,11 @@ type PassSelectorProps = {
   disabled?: boolean;
   onSelectPasses?: (selectedPasses: Pass[]) => void;
   textfieldProps?: Partial<TextFieldProps>;
+  defaultValues: number[];
 };
 
 export const PassSelector = ({
+  defaultValues,
   disabled = false,
   textfieldProps,
   onSelectPasses,
@@ -31,6 +33,8 @@ export const PassSelector = ({
     }));
   };
 
+  const defaultValueAsString = defaultValues.map(String);
+
   return (
     <BackendSelector<FetchPassesParams, Pass>
       multiSelect
@@ -45,6 +49,7 @@ export const PassSelector = ({
           }),
         data: searchedPasses,
       }}
+      defaultValues={defaultValueAsString}
       optionsFormatter={(results) => groupPasses(results)}
       textfieldProps={{
         id: "pass-selector-textfield",

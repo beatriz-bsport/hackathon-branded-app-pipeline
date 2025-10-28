@@ -10,12 +10,14 @@ import { useGetMarketingNotificationDependenciesData } from "#src/hooks/api/use-
 import { useTranslation } from "#src/utils/i18n";
 
 type AppointmentSelectorProps = {
+  defaultValues: number[];
   disabled?: boolean;
   onSelectAppointment?: (selectedAppointment: Appointment | null) => void;
   textfieldProps?: Partial<TextFieldProps>;
 };
 
 export const AppointmentSelector = ({
+  defaultValues,
   disabled = false,
   textfieldProps,
   onSelectAppointment,
@@ -33,6 +35,8 @@ export const AppointmentSelector = ({
     }));
   };
 
+  const defaultValueAsString = defaultValues.map(String);
+
   return (
     <BackendSelector<SearchAppointmentParams, Appointment>
       className="w-full"
@@ -47,6 +51,7 @@ export const AppointmentSelector = ({
           }),
         data: searchedAppointments,
       }}
+      defaultValues={defaultValueAsString}
       optionsFormatter={(results) => groupAppointments(results)}
       textfieldProps={{
         id: "appointment-selector-textfield",

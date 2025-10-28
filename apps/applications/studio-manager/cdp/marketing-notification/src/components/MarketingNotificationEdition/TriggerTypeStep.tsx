@@ -1,13 +1,25 @@
 import { useMemo, useState } from "react";
 
-import { Select, Title } from "@bsport/kaizen-primitive-core";
+import { ControlledForm, ControlledFormProps, FormField } from "@bsport/form";
+import { Select, SelectProps, Title } from "@bsport/kaizen-primitive-core";
 
-import { TriggerTypeSelector } from "#src/components/MarketingNotificationEdition/TriggerTypeSelector/TriggerTypeSelector";
+import {
+  TriggerTypeSelector,
+  TriggerTypeSelectorProps,
+} from "#src/components/MarketingNotificationEdition/TriggerTypeSelector/TriggerTypeSelector";
 import { NOTIFICATION_ADVANCED_TYPE } from "#src/utils/constants";
 import { useTranslation } from "#src/utils/i18n";
-import type { NotificationType } from "#src/utils/types";
+import { TriggerTypeValidationFormData } from "#src/utils/schemas/types";
+import type {
+  NotificationType,
+  SelectableNotificationType,
+  TriggerTypeSelectorConfig,
+} from "#src/utils/types";
 
-type TriggerTypeStepProps = {
+type TriggerTypeStepProps = Omit<
+  ControlledFormProps<TriggerTypeValidationFormData>,
+  "onSubmit" | "children"
+> & {
   onSelectTriggerType?: ({
     triggerType,
     objectIds,
@@ -15,21 +27,6 @@ type TriggerTypeStepProps = {
     triggerType: NotificationType;
     objectIds: number[];
   }) => void;
-};
-
-type ExcludedNotificationTypesFromSelector =
-  | "unknown"
-  | "unknown_groupActivity";
-
-type SelectableNotificationType = Exclude<
-  NotificationType,
-  ExcludedNotificationTypesFromSelector
->;
-
-export type TriggerTypeSelectorConfig = {
-  type: SelectableNotificationType;
-  translationKey: string;
-  mode?: "groupActivity" | "workshop" | "all";
 };
 
 // Centralized configuration
@@ -76,13 +73,13 @@ const TRIGGER_CONFIG: TriggerTypeSelectorConfig[] = [
 
 export const TriggerTypeStep = ({
   onSelectTriggerType,
+  ...methods
 }: TriggerTypeStepProps) => {
   const { t } = useTranslation("marketingNotificationsModal");
   const [selectedTriggerType, setSelectedTriggerType] =
     useState<SelectableNotificationType>(
       NOTIFICATION_ADVANCED_TYPE.groupActivity,
     );
-
   // Memoized computations
   const { selectOptions, translationToTypeMap, selectedConfig } =
     useMemo(() => {
@@ -125,6 +122,8 @@ export const TriggerTypeStep = ({
   const handleTriggerSelect = (translationLabel: string) => {
     const triggerType = translationToTypeMap[translationLabel];
     setSelectedTriggerType(triggerType);
+    methods.setValue("notificationType", triggerType, { shouldValidate: true });
+    methods.trigger("itemIds");
   };
 
   const currentLabel = selectedConfig
@@ -140,18 +139,59 @@ export const TriggerTypeStep = ({
   return (
     <div className="flex flex-col gap-md w-full">
       <Title htmlVariant="h3">{t("steps.triggerType.title")}</Title>
-      <Select
-        fullWidth
-        label={t("steps.triggerType.notificationType.label")}
-        id="notification-trigger-type-select"
-        value={currentLabel}
-        items={selectOptions}
-        onSelect={handleTriggerSelect}
-      />
-      <TriggerTypeSelector
-        selectedConfig={selectedConfig}
-        onSelectTriggerType={onSelectTriggerType}
-      />
+      <ControlledForm
+        id="trigger-type-validation-form"
+        onSubmit={(data: TriggerTypeValidationFormData) => console.log(data)}
+        {...methods}
+      >
+        <FormField<
+          TriggerTypeValidationFormData,
+          "notificationType",
+          SelectProps
+        >
+          name="notificationType"
+          mapProps={({ defaultProps, fieldState }) => ({
+            ...defaultProps,
+            value: currentLabel,
+            errorText: fieldState.error?.message,
+            status: fieldState.error?.message ? "critical" : "default",
+          })}
+        >
+          <Select
+            fullWidth
+            label={t("steps.triggerType.notificationType.label")}
+            id="notification-trigger-type-select"
+            value={currentLabel}
+            items={selectOptions}
+            onSelect={handleTriggerSelect}
+          />
+        </FormField>
+        <FormField<
+          TriggerTypeValidationFormData,
+          "itemIds",
+          TriggerTypeSelectorProps
+        >
+          name="itemIds"
+          mapProps={({ defaultProps, field }) => ({
+            ...defaultProps,
+            key: field.value?.join("-"),
+            selectedValues: field.value,
+          })}
+        >
+          <TriggerTypeSelector
+            selectedConfig={selectedConfig}
+            onSelectTriggerType={onSelectTriggerType}
+            textfieldProps={{
+              id: "item-ids-selector-textfield",
+              status: methods.formState.errors.itemIds ? "error" : "default",
+              helperText: methods.formState.errors.itemIds
+                ? methods.formState.errors.itemIds.message
+                : undefined,
+              onBlur: () => methods.trigger("itemIds"),
+            }}
+          />
+        </FormField>
+      </ControlledForm>
     </div>
   );
 };

@@ -63,9 +63,6 @@ export const useFormatNotificationTriggerName = () => {
     triggerType: NotificationType;
     marketingNotification: MarketingNotification;
   }): string => {
-    // Extract entity information
-    console.log("1 - locationsById", locationsById);
-    console.log("1 - establishmentsById", establishmentsById);
     const entityIds = extractEntityId(marketingNotification);
     const entityName = findEntityName(triggerType, entityIds, {
       groupActivitiesById,

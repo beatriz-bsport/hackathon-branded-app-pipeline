@@ -14,7 +14,11 @@ import {
   selectAppointmentPassesById,
   useAppointmentPassStore,
 } from "@bsport/store-buyables-appointment-pass";
-import { selectPassesById, usePassStore } from "@bsport/store-buyables-pass";
+import {
+  selectPassesById,
+  selectSearchedPasses,
+  usePassStore,
+} from "@bsport/store-buyables-pass";
 import {
   selectAllSubscriptionMappedById,
   selectFuzzySearchedSubscriptions,
@@ -76,6 +80,8 @@ export const useGetMarketingNotificationDependenciesData = () => {
 
   const passesById = usePassStore(selectPassesById);
 
+  const searchedPasses = usePassStore(selectSearchedPasses);
+
   const emailTemplateSummaries = useEmailTemplateStore(
     selectAllEmailTemplateSummaries,
   );
@@ -99,6 +105,7 @@ export const useGetMarketingNotificationDependenciesData = () => {
     searchedEstablishments,
     searchedGroupActivities,
     searchedLocations,
+    searchedPasses,
     searchedSubscriptions,
     appointmentsById,
     appointmentPassesById,

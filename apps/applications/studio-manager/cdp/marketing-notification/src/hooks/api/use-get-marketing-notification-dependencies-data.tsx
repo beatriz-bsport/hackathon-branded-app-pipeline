@@ -12,6 +12,7 @@ import {
 } from "@bsport/store-booking-group-activity";
 import {
   selectAppointmentPassesById,
+  selectAppointmentPassesSearched,
   useAppointmentPassStore,
 } from "@bsport/store-buyables-appointment-pass";
 import {
@@ -70,6 +71,10 @@ export const useGetMarketingNotificationDependenciesData = () => {
     selectAppointmentPassesById,
   );
 
+  const searchedAppointmentPasses = useAppointmentPassStore(
+    selectAppointmentPassesSearched,
+  );
+
   const subscriptionsById = useSubscriptionStore(
     selectAllSubscriptionMappedById,
   );
@@ -102,6 +107,7 @@ export const useGetMarketingNotificationDependenciesData = () => {
 
   return {
     searchedAppointments,
+    searchedAppointmentPasses,
     searchedEstablishments,
     searchedGroupActivities,
     searchedLocations,

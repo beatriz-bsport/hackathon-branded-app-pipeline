@@ -1,6 +1,7 @@
 import type { TextFieldProps } from "@bsport/kaizen-primitive-core";
 import type { FetchPassesParams, Pass } from "@bsport/store-buyables-pass";
 
+import { handleSelectSingleOrMultipleItems } from "#src/components/BackendSelector";
 import { BackendSelector } from "#src/components/BackendSelector/BackendSelector";
 import { useFetchPasses } from "#src/hooks/api/use-fetch-passes";
 import { useGetMarketingNotificationDependenciesData } from "#src/hooks/api/use-get-marketing-notification-dependencies-data";
@@ -21,34 +22,6 @@ export const PassSelector = ({
   const { searchedPasses, passesById } =
     useGetMarketingNotificationDependenciesData();
   const { handleSearchPasses } = useFetchPasses();
-
-  const handleSelectPasses = (selectedValues: string | string[]) => {
-    if (!onSelectPasses || !selectedValues) {
-      return;
-    }
-    const isSelectedValuesArray =
-      selectedValues && Array.isArray(selectedValues);
-    const isSelectedValuesString =
-      selectedValues && typeof selectedValues === "string";
-    if (isSelectedValuesArray) {
-      const passArray: Pass[] = [];
-      selectedValues.forEach((passId) => {
-        const parsedPassId = parseInt(passId);
-        if (!isNaN(parsedPassId)) {
-          passArray.push(passesById[parsedPassId]);
-        }
-      });
-      onSelectPasses(passArray || []);
-    }
-    if (isSelectedValuesString) {
-      const passArray: Pass[] = [];
-      const parsedPassId = parseInt(selectedValues);
-      if (!isNaN(parsedPassId)) {
-        passArray.push(passesById[parsedPassId]);
-      }
-      onSelectPasses(passArray || []);
-    }
-  };
 
   // Format passes for the autocomplete options
   const groupPasses = (results: Pass[]) => {
@@ -81,7 +54,13 @@ export const PassSelector = ({
         ...textfieldProps,
       }}
       loadingMessage={t("steps.triggerType.selectors.pass.loading")}
-      onSelect={handleSelectPasses}
+      onSelect={(selectedItems) =>
+        handleSelectSingleOrMultipleItems<Pass>({
+          onSelectItems: onSelectPasses,
+          selectedItems,
+          itemsById: passesById,
+        })
+      }
       onClear={() => {
         if (onSelectPasses) {
           onSelectPasses([]);

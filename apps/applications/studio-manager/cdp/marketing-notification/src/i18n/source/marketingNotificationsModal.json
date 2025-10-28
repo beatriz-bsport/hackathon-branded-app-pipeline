@@ -65,6 +65,11 @@
           "label": "Associated Pass",
           "placeholder": "Select associated pass",
           "loading": "Searching passes..."
+        },
+        "appointmentPass": {
+          "label": "Associated Appointment pass",
+          "placeholder": "Select associated appointment pass",
+          "loading": "Searching appointment passes..."
         }
       }
     }

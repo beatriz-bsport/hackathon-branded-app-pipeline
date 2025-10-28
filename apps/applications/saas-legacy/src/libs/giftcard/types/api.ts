@@ -1,17 +1,27 @@
 import type { DateTime } from 'luxon';
 import type { ConsumerGiftcardKind } from '@bsport/common/lib/master-data/giftcard.js';
 import type { PaginationFilterParams } from '#src/libs/types';
+import type { Giftcard } from './models';
 
-export type GiftcardDataAPI = {
-  cover: string;
-  amount_gifted: number;
-  available_payment_method_identifiers: Array<number>;
-  description: string;
-  expiration_days: number | null;
-  name: string;
-  price: number;
-  tags_on_consumer_item_creation: Array<number>;
-};
+/**
+ * Keys that will be injected in the form-data
+ */
+type GiftcardDataAPIParams = Pick<
+  Giftcard,
+  | 'name'
+  | 'description'
+  | 'manager_only'
+  | 'expiration_days'
+  | 'bookkeeping_account'
+  | 'cover'
+  | 'available_payment_method_identifiers'
+  | 'tags_on_consumer_item_creation'
+  | 'price'
+>;
+
+export type GiftcardDataAPIKeys = keyof GiftcardDataAPIParams;
+
+export type GiftcardDataAPI = FormData;
 
 export type GiftcardFormValues = {
   activation_datetime: DateTime | null;

@@ -49,7 +49,7 @@ import {
   getGiftcardListUnavailableForSale,
   getGiftcardListInactive,
 } from '../../libs/giftcard/selectors';
-import GiftcardFormDrawer from '../../libs/giftcard/components/GiftcardFormDrawer.component';
+import { GiftcardFormDrawer } from '#src/libs/giftcard/components/GiftcardFormDrawer';
 import BottomActionButtons from '../../components/button/BottomActionsButton.component';
 import GiftcardList from '../../libs/giftcard/components/GiftcardList.component';
 import DividerLoader from '../../components/DividerLoader.component';
@@ -168,6 +168,13 @@ export class GiftcardListPage extends Component<Props, State> {
   handleCloseDeleteModal = () => this.setState({ giftcardIdToDelete: null });
 
   handleDeleteGiftCard = () => {
+    if (!this.state.giftcardIdToDelete) {
+      console.warn(
+        '[Giftcard] Could not delete giftcard. giftcardIdToDelete is undefined',
+      );
+      return;
+    }
+
     this.props.deleteGiftcard(this.state.giftcardIdToDelete, {
       onSuccess: () => {
         this.setState({ giftcardIdToDelete: null });
@@ -313,7 +320,7 @@ export class GiftcardListPage extends Component<Props, State> {
           onClose={this.props.closeForms}
           onSubmit={this.props.createOrUpdate}
           open={!!this.props.queryParams?.isCreateFormOpen}
-          // @ts-expect-error
+          // @ts-expect-error Keep it for ci:compile script to succeed
           tagList={this.props.allTagsWithTagGroup}
         />
         <GiftcardFormDrawer
@@ -323,7 +330,7 @@ export class GiftcardListPage extends Component<Props, State> {
           onClose={this.props.closeForms}
           onSubmit={this.props.createOrUpdate}
           open={!!this.props.giftcardToEdit}
-          // @ts-expect-error
+          // @ts-expect-error Keep it for ci:compile script to succeed
           tagList={this.props.allTagsWithTagGroup}
         />
         {this.props.queryParams.isBackgroundImageUploaderOpen && (

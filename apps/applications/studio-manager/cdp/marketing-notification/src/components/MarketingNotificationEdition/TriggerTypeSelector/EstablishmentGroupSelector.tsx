@@ -10,6 +10,7 @@ import { useGetMarketingNotificationDependenciesData } from "#src/hooks/api/use-
 import { useTranslation } from "#src/utils/i18n";
 
 type EstablishmentGroupSelectorProps = {
+  defaultValues: number[];
   disabled?: boolean;
   onSelectEstablishmentGroup?: (
     selectedGroup: EstablishmentGroup | null,
@@ -18,6 +19,7 @@ type EstablishmentGroupSelectorProps = {
 };
 
 export const EstablishmentGroupSelector = ({
+  defaultValues,
   disabled = false,
   textfieldProps,
   onSelectEstablishmentGroup,
@@ -35,6 +37,8 @@ export const EstablishmentGroupSelector = ({
     }));
   };
 
+  const defaultValueAsString = defaultValues.map(String);
+
   return (
     <BackendSelector<FetchEstablishmentGroupQueryParams, EstablishmentGroup>
       className="w-full"
@@ -48,6 +52,7 @@ export const EstablishmentGroupSelector = ({
           }),
         data: searchedEstablishments,
       }}
+      defaultValues={defaultValueAsString}
       optionsFormatter={(results) => groupEstablishments(results)}
       textfieldProps={{
         id: "establishment-group-selector-textfield",

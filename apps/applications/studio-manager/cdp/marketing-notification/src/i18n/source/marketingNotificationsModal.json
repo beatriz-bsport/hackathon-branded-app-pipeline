@@ -70,6 +70,10 @@
           "label": "Associated Appointment pass",
           "placeholder": "Select associated appointment pass",
           "loading": "Searching appointment passes..."
+        },
+        "errors": {
+          "notEmpty": "You have to select an item.",
+          "atLeastOne": "You have to select at least 1 item."
         }
       }
     }

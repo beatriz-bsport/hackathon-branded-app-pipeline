@@ -1,6 +1,10 @@
+import { useFormController } from "@bsport/form";
 import { ModalStepper } from "@bsport/kaizen-primitive-core";
 
+import { NOTIFICATION_ADVANCED_TYPE } from "#src/utils/constants";
 import { useTranslation } from "#src/utils/i18n";
+import { triggerTypeValidationProgramSchema } from "#src/utils/schemas/triggerTypeValidation";
+import type { TriggerTypeValidationFormData } from "#src/utils/schemas/types";
 
 import { TriggerTypeStep } from "./TriggerTypeStep";
 
@@ -14,6 +18,18 @@ export const EditMarketingNotificationModal = ({
   onClose,
 }: EditMarketingNotificationModalProps) => {
   const { t } = useTranslation("marketingNotificationsModal");
+
+  const defaultValues: TriggerTypeValidationFormData = {
+    itemIds: [],
+    notificationType: NOTIFICATION_ADVANCED_TYPE.groupActivity,
+  };
+
+  const methods = useFormController({
+    mode: "onBlur",
+    schema: triggerTypeValidationProgramSchema,
+    defaultValues,
+  });
+
   return (
     <ModalStepper
       open={isOpen}
@@ -24,7 +40,12 @@ export const EditMarketingNotificationModal = ({
           label: t("steps.label.triggerType"),
           content: (
             <TriggerTypeStep
-              onSelectTriggerType={(params) => console.log(params)}
+              {...methods}
+              onSelectTriggerType={(params) => {
+                methods.setValue("itemIds", params.objectIds, {
+                  shouldValidate: true,
+                });
+              }}
             />
           ),
         },
@@ -41,6 +62,7 @@ export const EditMarketingNotificationModal = ({
       confirmButton={{
         label: "Create",
         color: "main",
+        disabled: !methods.formState.isValid,
         onClick: () => {
           // Handle create notification logic here
         },

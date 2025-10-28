@@ -130,3 +130,18 @@ export type PassListItemData = {
   credits: number | null;
   price: string;
 };
+
+type ExcludedNotificationTypesFromSelector =
+  | "unknown"
+  | "unknown_groupActivity";
+
+export type SelectableNotificationType = Exclude<
+  NotificationType,
+  ExcludedNotificationTypesFromSelector
+>;
+
+export type TriggerTypeSelectorConfig = {
+  type: SelectableNotificationType;
+  translationKey: string;
+  mode?: "groupActivity" | "workshop" | "all";
+};

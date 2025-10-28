@@ -11,12 +11,14 @@ import { useGetMarketingNotificationDependenciesData } from "#src/hooks/api/use-
 import { useTranslation } from "#src/utils/i18n";
 
 type AppointmentPassSelectorProps = {
+  defaultValues: number[];
   disabled?: boolean;
   onSelectAppointmentPasses?: (selectedPasses: AppointmentPass[]) => void;
   textfieldProps?: Partial<TextFieldProps>;
 };
 
 export const AppointmentPassSelector = ({
+  defaultValues,
   disabled = false,
   textfieldProps,
   onSelectAppointmentPasses,
@@ -34,6 +36,8 @@ export const AppointmentPassSelector = ({
     }));
   };
 
+  const defaultValueAsString = defaultValues.map(String);
+
   return (
     <BackendSelector<FetchAppointmentPassesParams, AppointmentPass>
       multiSelect
@@ -48,6 +52,7 @@ export const AppointmentPassSelector = ({
           }),
         data: searchedAppointmentPasses,
       }}
+      defaultValues={defaultValueAsString}
       optionsFormatter={(results) => groupAppoinmentPasses(results)}
       textfieldProps={{
         id: "pass-selector-textfield",

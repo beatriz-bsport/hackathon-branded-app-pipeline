@@ -14,9 +14,11 @@ type GroupActivitySelectorProps = {
   onSelectActivity?: (selectedActivity: MetaActivity | null) => void;
   textfieldProps?: Partial<TextFieldProps>;
   mode: "groupActivity" | "workshop" | "all";
+  defaultValues: number[];
 };
 
 export const MetaActivitySelector = ({
+  defaultValues,
   disabled = false,
   textfieldProps,
   mode,
@@ -67,6 +69,8 @@ export const MetaActivitySelector = ({
     };
   };
 
+  const defaultValueAsString = defaultValues.map(String);
+
   const translations = getTranslations();
 
   return (
@@ -85,12 +89,13 @@ export const MetaActivitySelector = ({
       }}
       optionsFormatter={(results) => groupMetaActivities(results)}
       textfieldProps={{
+        ...textfieldProps,
         id: "group-activity-selector-textfield",
         label: translations.label,
         placeholder: translations.placeholder,
         iconRight: "chevron-down",
-        ...textfieldProps,
       }}
+      defaultValues={defaultValueAsString}
       loadingMessage={translations.loading}
       onSelect={(selected) => {
         if (onSelectActivity && selected) {

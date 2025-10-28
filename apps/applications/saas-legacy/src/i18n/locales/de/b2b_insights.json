@@ -1,0 +1,25 @@
+{
+  "pages": {
+    "insights": {
+      "title": "Erkenntnisse"
+    },
+    "recurringRevenue": {
+      "title": "Abo-Statistiken"
+    },
+    "trialAnalysis": {
+      "title": "Mitglieder-Statistiken"
+    }
+  },
+  "sections": {
+    "memberInsights": "Mitglieder-Erkenntnisse",
+    "financialHealth": "Finanzielle Gesundheit"
+  },
+  "trackTrialOffer": {
+    "title": "Leistung des Testangebots verfolgen",
+    "description": "Erfahre mehr über Neuanmeldungen, Konversionsraten und wie du dein Testangebot optimieren kannst."
+  },
+  "monitorRevenue": {
+    "title": "Abo-Leistung verfolgen",
+    "description": "Verfolge deine Abo-Kennzahlen, analysiere wiederkehrende Einnahmen und entdecke Risiken und Chancen."
+  }
+}

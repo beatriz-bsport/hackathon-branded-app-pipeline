@@ -29,3 +29,23 @@ export const getValidPageSize = (pageSize: number): number => {
     Math.abs(curr - pageSize) < Math.abs(prev - pageSize) ? curr : prev,
   );
 };
+
+/**
+ * Removes pagination-related query parameters ("page" and "page_size") from the current URL search parameters.
+ *
+ * @param setSearchParams - A function to update the URL search parameters. It accepts either a new `URLSearchParams` object
+ * or a function that receives the previous `URLSearchParams` and returns the updated one. An optional options object can be provided
+ * to specify if the navigation should replace the current entry in the history stack.
+ */
+export const deletePaginationQueryParams = (
+  setSearchParams: (
+    nextInit: URLSearchParams | ((prev: URLSearchParams) => URLSearchParams),
+    options?: { replace?: boolean },
+  ) => void,
+) => {
+  setSearchParams((prev) => {
+    prev.delete("page");
+    prev.delete("page_size");
+    return prev;
+  });
+};

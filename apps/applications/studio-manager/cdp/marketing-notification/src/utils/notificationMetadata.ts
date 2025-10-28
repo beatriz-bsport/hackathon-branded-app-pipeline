@@ -78,9 +78,13 @@ export const extractPrivateServiceIds = (
 /**
  * Extracts payment pack IDs from payment pack notifications
  */
-export const extractPaymentPackIds = (
-  notifications: MarketingNotification[],
-): number[] => {
+export const extractPaymentPackIds = ({
+  notifications,
+  extractAllPassIds,
+}: {
+  notifications: MarketingNotification[];
+  extractAllPassIds?: boolean;
+}): number[] => {
   const ids = new Set<number>();
 
   for (const notification of notifications) {
@@ -90,7 +94,11 @@ export const extractPaymentPackIds = (
     ) {
       const { payment_pack_ids } = notification.event_rules;
       if (Array.isArray(payment_pack_ids) && payment_pack_ids.length > 0) {
-        payment_pack_ids.forEach((id) => ids.add(id));
+        if (extractAllPassIds) {
+          payment_pack_ids.forEach((id) => ids.add(id));
+        } else {
+          ids.add(payment_pack_ids[0]);
+        }
       }
     }
   }
@@ -101,9 +109,13 @@ export const extractPaymentPackIds = (
 /**
  * Extracts private pass IDs from private pass notifications
  */
-export const extractPrivatePassIds = (
-  notifications: MarketingNotification[],
-): number[] => {
+export const extractPrivatePassIds = ({
+  notifications,
+  extractAllPassIds,
+}: {
+  notifications: MarketingNotification[];
+  extractAllPassIds?: boolean;
+}): number[] => {
   const ids = new Set<number>();
 
   for (const notification of notifications) {
@@ -113,7 +125,11 @@ export const extractPrivatePassIds = (
     ) {
       const { private_pass_ids } = notification.event_rules;
       if (Array.isArray(private_pass_ids) && private_pass_ids.length > 0) {
-        private_pass_ids.forEach((id) => ids.add(id));
+        if (extractAllPassIds) {
+          private_pass_ids.forEach((id) => ids.add(id));
+        } else {
+          ids.add(private_pass_ids[0]);
+        }
       }
     }
   }
@@ -160,18 +176,45 @@ export const extractEmailTemplateIds = (
 };
 
 /**
+ * Extracts email template IDs (email_design) from notifications
+ */
+export const extractSmartlistIds = (
+  notifications: MarketingNotification[],
+): number[] => {
+  const ids = new Set<number>();
+
+  for (const notification of notifications) {
+    const { smartlist_exclude, smartlist_include } = notification.event_rules;
+    if (Array.isArray(smartlist_include)) {
+      smartlist_include.forEach((id) => ids.add(id));
+    }
+    if (Array.isArray(smartlist_exclude)) {
+      smartlist_exclude.forEach((id) => ids.add(id));
+    }
+  }
+
+  // Set ensures uniqueness, so Array.from(ids) will only have unique values
+  return Array.from(ids);
+};
+
+/**
  * Extracts all relevant IDs from notifications in one pass
  */
-export const extractAllNotificationIds = (
-  notifications: MarketingNotification[],
-) => {
+export const extractAllNotificationIds = ({
+  notifications,
+  extractAllPassIds,
+}: {
+  notifications: MarketingNotification[];
+  extractAllPassIds: boolean;
+}) => {
   return {
     establishmentIds: extractEstablishmentIds(notifications),
     metaActivityIds: extractMetaActivityIds(notifications),
     privateServiceIds: extractPrivateServiceIds(notifications),
-    paymentPackIds: extractPaymentPackIds(notifications),
-    privatePassIds: extractPrivatePassIds(notifications),
+    paymentPackIds: extractPaymentPackIds({ notifications, extractAllPassIds }),
+    privatePassIds: extractPrivatePassIds({ notifications, extractAllPassIds }),
     subscriptionIds: extractSubscriptionIds(notifications),
     emailTemplateIds: extractEmailTemplateIds(notifications),
+    smartlistIds: extractSmartlistIds(notifications),
   };
 };

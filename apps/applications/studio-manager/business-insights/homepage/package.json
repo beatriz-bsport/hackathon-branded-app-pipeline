@@ -18,11 +18,17 @@
     "translation:update": "pnpm run -w translation:update"
   },
   "dependencies": {
+    "@bsport/datetime-formatting": "workspace:*",
+    "@bsport/datetime-manipulation": "workspace:*",
     "@bsport/envs": "workspace:*",
     "@bsport/fetch": "workspace:*",
     "@bsport/i18n": "workspace:*",
     "@bsport/kaizen-primitive-core": "workspace:*",
     "@bsport/sm-backbone": "workspace:*",
+    "@bsport/store-booking-session": "workspace:*",
+    "@bsport/store-booking-substitution": "workspace:*",
+    "@bsport/store-core-data-teacher": "workspace:*",
+    "@bsport/use-async": "workspace:*",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-router": "^7.2.0"

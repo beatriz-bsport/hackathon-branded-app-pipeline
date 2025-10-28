@@ -2,7 +2,15 @@ import { type VariantProps, cva } from "class-variance-authority";
 import mapValues from "lodash/mapValues";
 import React, { AnchorHTMLAttributes, useState } from "react";
 
+import { useMatchMedia } from "#src/hooks/use-match-media";
+
+import {
+  type ActiveTabData,
+  TabsContext,
+  TabsContextValue,
+} from "./TabsContext";
 import { TabsItem, type TabsItemProps } from "./TabsItem";
+import { TabsResponsive } from "./TabsResponsive";
 
 const defaultClasses = [
   "flex",
@@ -27,23 +35,30 @@ export const orientations = mapValues(
 
 const tabsVariants = cva(defaultClasses, { variants });
 
+/**
+ * Represents a tab configuration in the array-based (non-composable) API.
+ * Combines TabsItem props with anchor element attributes for navigation.
+ */
+export type TabConfig = Omit<TabsItemProps, "orientation"> &
+  AnchorHTMLAttributes<HTMLAnchorElement>;
+
 export type TabsProps = React.HTMLAttributes<HTMLDivElement> &
   VariantProps<typeof tabsVariants> & {
-    tabs?: Array<
-      Omit<TabsItemProps, "orientation"> &
-        AnchorHTMLAttributes<HTMLAnchorElement>
-    >;
+    tabs?: Array<TabConfig>;
     TabsItems?: Array<React.ReactNode>;
     orientation: "horizontal" | "vertical";
     defaultValue?: string;
     value?: string;
     onValueChange?: (id: string) => void;
+    disableResponsive?: boolean;
   };
 
 /**
- * A component that renders a set of TabsItem in two different ways
- * - with composition : provide an array of TabsItem through TabsItems prop
- * - with object declaration : provide an array of configs through tabs prop
+ * A component that renders a set of TabsItem in two different ways:
+ * - with composition: provide an array of TabsItem through TabsItems prop
+ * - with object declaration: provide an array of configs through tabs prop
+ *
+ * Automatically switches to a dropdown menu on mobile (below "sm" breakpoint) for better UX.
  *
  * @param props.tabs The tabs to render with object declaration API.
  * @param props.TabsItems TabItems to render with composable API.
@@ -51,6 +66,7 @@ export type TabsProps = React.HTMLAttributes<HTMLDivElement> &
  * @param props.defaultValue [Optional] Initial selected tab. To be used if you don't need to control the state.
  * @param props.value [Optional] Currently selected tab. If `undefined`, will use `defaultValue`. Should be used with `onValueChange`.
  * @param props.onValueChange [Optional] Callback to set the selected tab.
+ * @param props.disableResponsive [Optional] If true, disables responsive behavior and always shows regular tabs.
  * @link https://docs.infra.bsport.io/storybook/kaizen/dev/index.html?path=/docs/components-tabs--docs
  */
 const Tabs: React.FC<TabsProps> & { Item: typeof TabsItem } = ({
@@ -61,10 +77,13 @@ const Tabs: React.FC<TabsProps> & { Item: typeof TabsItem } = ({
   tabs = [],
   TabsItems = [],
   value,
+  disableResponsive = false,
   ...props
 }: TabsProps) => {
-  // Internal state to manage the active tab
-  const [_activeTab, _setActiveTab] = useState(defaultValue);
+  const [activeTab, setActiveTab] = useState(defaultValue);
+  const [activeTabData, setActiveTabData] =
+    useState<Omit<ActiveTabData, "id">>();
+  const isAboveSm = useMatchMedia("sm");
 
   if (!tabs?.length && !TabsItems?.length) {
     console.warn(
@@ -78,18 +97,19 @@ const Tabs: React.FC<TabsProps> & { Item: typeof TabsItem } = ({
     );
   }
 
+  // Switch to dropdown menu on mobile (below "sm" breakpoint) unless explicitly disabled
+  const shouldUseResponsive = !disableResponsive && !isAboveSm;
+
+  const isExternal = value && onValueChange;
+  const currentActiveTab = isExternal ? value : activeTab;
+  const currentSetActiveTab = isExternal ? onValueChange : setActiveTab;
+
   let tabsItems: Array<React.ReactNode>;
-  if (TabsItems?.length > 0) {
-    // Composable API - Use TabItems
+  const isComposableAPI = TabsItems?.length > 0;
+
+  if (isComposableAPI) {
     tabsItems = TabsItems;
   } else {
-    // Object Declaration API - Use tabs
-
-    // Use the adequate state manager for the selected tab
-    const useExternal = value && onValueChange;
-    const activeTab = useExternal ? value : _activeTab;
-    const setActiveTab = useExternal ? onValueChange : _setActiveTab;
-
     const getHandleTabClick =
       ({
         id,
@@ -102,14 +122,11 @@ const Tabs: React.FC<TabsProps> & { Item: typeof TabsItem } = ({
       }) =>
       () => {
         if (!disabled) {
-          // Update the internal or external state
-          setActiveTab(id);
-          // Additional callback
+          currentSetActiveTab(id);
           onClick?.();
         }
       };
 
-    // Create an array of TabItem
     tabsItems = tabs.map(
       ({ id, icon, disabled, isActive, label, onClick, ...otherProps }) => (
         <a key={id} {...otherProps}>
@@ -117,7 +134,7 @@ const Tabs: React.FC<TabsProps> & { Item: typeof TabsItem } = ({
             id={id}
             icon={icon}
             disabled={disabled}
-            isActive={isActive ?? id === activeTab}
+            isActive={isActive ?? id === currentActiveTab}
             label={label}
             orientation={orientation}
             onClick={getHandleTabClick({ id, disabled, onClick })}
@@ -127,10 +144,37 @@ const Tabs: React.FC<TabsProps> & { Item: typeof TabsItem } = ({
     );
   }
 
+  const contextValue: TabsContextValue = {
+    isResponsive: shouldUseResponsive,
+    activeTab: currentActiveTab,
+    setActiveTab: currentSetActiveTab,
+    activeTabData,
+    setActiveTabData: ({ id, ...others }) => {
+      setActiveTab(id);
+      setActiveTabData(others);
+    },
+    orientation,
+  };
+
+  if (shouldUseResponsive) {
+    return (
+      <TabsContext.Provider value={contextValue}>
+        <TabsResponsive
+          className={className}
+          TabsItems={tabsItems}
+          activeTab={currentActiveTab}
+          setActiveTab={currentSetActiveTab}
+        />
+      </TabsContext.Provider>
+    );
+  }
+
   return (
-    <div className={tabsVariants({ className, orientation })} {...props}>
-      {tabsItems}
-    </div>
+    <TabsContext.Provider value={contextValue}>
+      <div className={tabsVariants({ className, orientation })} {...props}>
+        {tabsItems}
+      </div>
+    </TabsContext.Provider>
   );
 };
 

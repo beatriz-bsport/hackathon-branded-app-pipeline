@@ -1,5 +1,6 @@
 import { type ApiConfig, buildUrlParams } from "@bsport/store-base";
 
+import { FetchSmartlistsParams } from "./actions";
 import type {
   CreateSmartlistParams,
   EditSmartlistParams,
@@ -9,8 +10,11 @@ import type {
 const API_URL = "api/v1/smartlist";
 const CDP_API_URL = "customer-data-platform/v1/smartlist";
 
-export const fetchSmartlistsAPI = (): ApiConfig => {
-  return [`${API_URL}/group/`];
+export const fetchSmartlistsAPI = (
+  params?: FetchSmartlistsParams,
+): ApiConfig => {
+  const urlParams = params ? buildUrlParams(params) : "";
+  return [`${API_URL}/group/${urlParams}`];
 };
 
 export const fetchSearchSmartlistsAPI = (params: {

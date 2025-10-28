@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 import { DateTime } from 'luxon';
 import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
@@ -28,6 +28,9 @@ import BookerModuleOfferSummary from '#src/libs/marketplace/components/@Offer/Bo
 import Countdown from '#src/components/time/CountDown.component';
 import type { MetaActivity } from '#src/libs/meta-activity/types';
 import type { OptionCallback } from '../../../../../state/types';
+
+import { trackSpotSchedulingViewedEvent } from '#src/events/booking/trackers';
+import { analyticsClientB2C } from '#src/components/analytics/mixpanel';
 
 import './styles.css';
 
@@ -124,6 +127,8 @@ type Props = {
 
 const MarketplaceSpotSelector: React.FC<Props> = (props) => {
   const { t } = useTranslation('spotScheduling');
+  const hasTrackedSpotSchedulingViewed = useRef(false);
+
   const theme = useTheme();
   const isMobile = useMediaQuery(
     theme.breakpoints.down(MARKETPLACE_BREAKPOINT.SM),
@@ -131,6 +136,25 @@ const MarketplaceSpotSelector: React.FC<Props> = (props) => {
 
   const { offer, fetchOfferStatus, updateSpotForOffer, closeSpotSelector } =
     props;
+
+  const metaActivityToTrack =
+    typeof props.offer.meta_activity === 'object' &&
+    props.offer.meta_activity !== null
+      ? props.offer.meta_activity
+      : props.metaActivity;
+
+  useEffect(() => {
+    if (!hasTrackedSpotSchedulingViewed.current) {
+      analyticsClientB2C.track(
+        trackSpotSchedulingViewedEvent({
+          activity_id: props.offer.activity,
+          activity_name: metaActivityToTrack?.name || '',
+          offer_id: props.offer.id,
+        }),
+      );
+      hasTrackedSpotSchedulingViewed.current = true;
+    }
+  }, [props.offer, metaActivityToTrack]);
 
   const onSelectSpot = useCallback(
     (spot: number) => {

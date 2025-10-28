@@ -1,10 +1,46 @@
 {
+  "noData": "N/A",
   "drawer": {
     "overview": "Overview",
     "segmentedControl": {
       "performance": "Performance",
       "trigger": "Trigger",
       "content": "Content"
+    },
+    "content": {
+      "email": {
+        "title": "Email Preview",
+        "noPreview": "Set-up your email and preview here"
+      },
+      "push": {
+        "title": "Push Notification Preview",
+        "noPreview": "Set-up your push notification and preview here"
+      }
+    },
+    "trigger": {
+      "title": "Notification Rule",
+      "content": {
+        "triggeredBy": "Condition",
+        "triggeredWhen": "Delivery timing",
+        "smartlist": {
+          "excluding": "Do not send to members in these smartlists",
+          "including": "Only send to members in these smartlists",
+          "noSmartlistsFiltering": "None"
+        },
+        "passes": {
+          "title": "Associated Passes",
+          "credits_one": "{{count}} credit",
+          "credits_other": "{{count}} credits",
+          "allIncluded": {
+            "title": "All passes included",
+            "description": "This notification will be triggered for every passes."
+          },
+          "emptyList": {
+            "title": "No passes included",
+            "description": "You can update this notification to add passes to trigger."
+          }
+        }
+      }
     },
     "performance": {
       "emails": {
@@ -35,6 +71,10 @@
             "failed": {
               "label": "Failed",
               "description": "Could not be delivered"
+            },
+            "noData": {
+              "label": "N/A",
+              "description": "Issue while retrieving communication data"
             }
           }
         },
@@ -43,6 +83,12 @@
             "date": "Date",
             "recipient": "Recipient",
             "status": "Status"
+          },
+          "recipients": {
+            "forwardedToRelationships": "Forwarded to {{count}} relationships"
+          },
+          "tooltip": {
+            "relatedMember": "Counted in total emails sents statistics"
           }
         },
         "status": {

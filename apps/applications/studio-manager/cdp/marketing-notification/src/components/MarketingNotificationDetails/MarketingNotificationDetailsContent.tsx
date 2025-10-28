@@ -3,14 +3,17 @@ import { useSearchParams } from "react-router";
 
 import { SegmentedControl, Title } from "@bsport/kaizen-primitive-core";
 import { MarketingNotification } from "@bsport/store-cdp-marketing-notification";
+import { deletePaginationQueryParams } from "@bsport/use-pagination-query-params";
 
+import { NotificationActionsMenu } from "#src/components/Common/NotificationActionsMenu";
+import { NotificationToggle } from "#src/components/Common/NotificationToggle";
+import { MarketingNotificationPerformanceDetails } from "#src/components/MarketingNotificationDetails/Performance/MarketingNotificationPerformanceDetails";
+import { MarketingNotificationTriggerDetails } from "#src/components/MarketingNotificationDetails/Trigger/MarketingNotificationTriggerDetails";
 import { useGetMarketingNotificationDependenciesData } from "#src/hooks/api/use-get-marketing-notification-dependencies-data";
 import { usePermissionsChecker } from "#src/hooks/permissions/use-permissions-checker";
 import { useTranslation } from "#src/utils/i18n";
 
-import { NotificationActionsMenu } from "../Common/NotificationActionsMenu";
-import { NotificationToggle } from "../Common/NotificationToggle";
-import { MarketingNotificationPerformanceDetails } from "./Performance/MarketingNotificationPerformanceDetails";
+import { MarketingNotificationContentDetails } from "./Content/MarketingNotificationContentDetails";
 
 const SEGMENTED_CONTROL_QUERY_PARAM = "notificationDetailView";
 
@@ -31,7 +34,7 @@ export const MarketingNotificationDetailsContent: React.FC<
     "marketingNotificationList",
     "marketingNotificationDetails",
   ]);
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const [currentSearchParam, setCurrentSearchParam] = useState(
     searchParams.get(SEGMENTED_CONTROL_QUERY_PARAM),
   );
@@ -46,6 +49,7 @@ export const MarketingNotificationDetailsContent: React.FC<
 
   const handleChangeSegmentedControl = (value: string) => {
     if (!isNotificationSegment(value)) return;
+    deletePaginationQueryParams(setSearchParams);
     setSelectedOption(value);
     setCurrentSearchParam(value);
   };
@@ -110,9 +114,9 @@ export const MarketingNotificationDetailsContent: React.FC<
       {selectedOption === "performance" ? (
         <MarketingNotificationPerformanceDetails notification={notification} />
       ) : selectedOption === "trigger" ? (
-        <div className="mt-md">Trigger content</div>
+        <MarketingNotificationTriggerDetails notification={notification} />
       ) : (
-        <div className="mt-md">Content content</div>
+        <MarketingNotificationContentDetails notification={notification} />
       )}
     </div>
   );

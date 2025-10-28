@@ -48,7 +48,7 @@ const useStyles = makeStyles((theme) => ({
 
 const InsightsIndex: React.FC = () => {
   const classes = useStyles();
-  const { t } = useTranslation(['insights']);
+  const { t } = useTranslation(['b2b_insights']);
   const history = useHistory();
   const isTrialAnalysisEnabled = useSafeFlag(FeatureFlags.TRIAL_ANALYSIS);
 

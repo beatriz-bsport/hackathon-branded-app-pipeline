@@ -1,25 +1,30 @@
 import { Result } from "typescript-result";
 
-import type { Action } from "@bsport/store-base";
+import type { Action, PaginatedResponse } from "@bsport/store-base";
 import { createErrorWithContext } from "@bsport/store-base";
 
 import { fetchSubstitutionRequestsAPI } from "#src/api";
-import type { SubstitutionRequest } from "#src/types";
+import type {
+  FetchSubstitutionRequestsParams,
+  SubstitutionRequest,
+} from "#src/types";
 
 import { setSubstitutionRequests } from "./store";
 
 export const fetchSubstitutionRequestsAction: Action<
-  void,
-  SubstitutionRequest[]
-> = async (fetch) => {
-  const [uri, init] = fetchSubstitutionRequestsAPI();
+  FetchSubstitutionRequestsParams,
+  PaginatedResponse<SubstitutionRequest>
+> = async (fetch, params) => {
+  const [uri, init] = fetchSubstitutionRequestsAPI(params);
 
   return Result.try(
     async () => {
       const { data } = await fetch(uri, init);
 
       setSubstitutionRequests({
-        items: data,
+        items: data.results,
+        page: data.page,
+        count: data.count,
       });
 
       return data;
@@ -27,6 +32,7 @@ export const fetchSubstitutionRequestsAction: Action<
     (error) =>
       createErrorWithContext(error, {
         message: "Failed to fetch substitution requests",
+        params,
       }),
   );
 };

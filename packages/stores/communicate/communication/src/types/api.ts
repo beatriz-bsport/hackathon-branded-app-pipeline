@@ -86,7 +86,7 @@ export type FetchCommunicationSentParams = {
 
 // #region Communication Recipients
 
-export type FetchCommunicationRecipientFilters = {
+export type FetchCommunicationRecipientParams = {
   // Direct field filters
   member?: number;
   has_been_read?: boolean;

@@ -31,8 +31,11 @@ export type MarketingNotificationRecipientsTableRowData = {
   id: number;
   communicationKind: number;
   dateSent: string;
+  hourSent: string;
   recipientIdentity: string;
   status: number;
+  isNotificationRead: boolean;
+  recipientsRelationshipsCount?: number;
 };
 
 export const BIRTHDAY_NOTIFICATION = 0;
@@ -117,4 +120,11 @@ export const NOTIFICATION_TYPE_TO_REFINED_TYPE: Record<
   privatePass: "passes",
   subscription: "subscription",
   unknown: "unknown",
+};
+
+export type PassListItemData = {
+  id: number;
+  name: string;
+  credits: number | null;
+  price: string;
 };

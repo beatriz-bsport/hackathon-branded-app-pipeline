@@ -5,7 +5,7 @@ export const INSIGHTS_ROUTES = {
 } as const;
 
 export const INSIGHTS_TRANSLATION_NAMESPACES = [
-  'insights',
+  'b2b_insights',
   'titles',
   'trial-analysis',
   'subscription-events',

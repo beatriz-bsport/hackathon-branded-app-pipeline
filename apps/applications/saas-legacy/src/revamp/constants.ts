@@ -1,1 +1,2 @@
 export const NAVIGATION_SIDEBAR_WIDTH = 240;
+export const REVAMPED_BO_DOMAIN = '/studio';

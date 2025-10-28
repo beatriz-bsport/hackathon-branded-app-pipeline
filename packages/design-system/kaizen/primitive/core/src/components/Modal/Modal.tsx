@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import { type FC } from "react";
 
 import Body from "#src/components/Body";
 import Button from "#src/components/Button";
@@ -7,7 +7,10 @@ import type {
   ConfirmButtonProps,
 } from "#src/components/ModalStepper/types";
 import Title from "#src/components/Title";
-import Dialog, { type DialogSize } from "#src/components/private/Dialog";
+import Dialog, {
+  type DialogPosition,
+  type DialogSize,
+} from "#src/components/private/Dialog";
 
 import Footer from "./Footer";
 import type { FooterDirection } from "./types";
@@ -18,6 +21,7 @@ export type ModalProps = React.HTMLAttributes<HTMLDivElement> & {
   title: string;
   description?: React.ReactNode;
   footerDirection?: FooterDirection;
+  position?: DialogPosition;
   onClose?: () => void;
   onCloseButtonClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
   onClickOutside?: (event: React.MouseEvent<HTMLDivElement>) => void;
@@ -36,6 +40,7 @@ export type ModalProps = React.HTMLAttributes<HTMLDivElement> & {
  * @param props.title Title of the modal.
  * @param props.description Description below the title. Can be a string or a ReactNode.
  * @param props.footerDirection Direction of the footer.
+ * @param props.position Position of the modal. Can be "centered" or "bottom". Defaults to "centered".
  * @param props.onClose Function to call when the modal is closed.
  * @param props.onCloseButtonClick Function to call when the cross button is clicked.
  * @param props.onClickOutside Function to call when the modal is clicked outside.
@@ -44,13 +49,14 @@ export type ModalProps = React.HTMLAttributes<HTMLDivElement> & {
  * @param props.children Content in the middle of the modal.
  * @link https://docs.infra.bsport.io/storybook/kaizen/main/index.html?path=/docs/components-modal--docs
  */
-const Modal: React.FC<ModalProps> = ({
+const Modal: FC<ModalProps> = ({
   className,
   open,
   size,
   title,
   description,
   footerDirection = "row",
+  position = "centered",
   onClose,
   onCloseButtonClick,
   onClickOutside,
@@ -59,22 +65,22 @@ const Modal: React.FC<ModalProps> = ({
   children,
   ...props
 }) => {
-  const handleClose = useCallback(() => {
+  const handleClose = () => {
     onClose?.();
-  }, [onClose]);
+  };
 
-  const handleCloseButtonClick = useCallback(
-    (event: React.MouseEvent<HTMLButtonElement>) => {
-      onCloseButtonClick?.(event);
-      handleClose();
-    },
-    [onCloseButtonClick, handleClose],
-  );
+  const handleCloseButtonClick = (
+    event: React.MouseEvent<HTMLButtonElement>,
+  ) => {
+    onCloseButtonClick?.(event);
+    handleClose();
+  };
 
   return (
     <Dialog
       open={open}
       size={size}
+      position={position}
       onClose={onClose}
       onClickOutside={onClickOutside}
       className={className}

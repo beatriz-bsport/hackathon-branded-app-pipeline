@@ -38,6 +38,8 @@ export type TableProps<RowType extends BaseRow> = CheckboxProviderProps &
     rowHeight?: "sm" | "lg";
     /** Whether rows can be selected with checkboxes */
     selectable?: boolean;
+    /** Whether to display a divider between rows */
+    withHorizontalDivider?: boolean;
     /** Whether to show vertical borders between columns */
     withVerticalBorders?: boolean;
     /** Configuration for pagination functionality */
@@ -46,6 +48,8 @@ export type TableProps<RowType extends BaseRow> = CheckboxProviderProps &
     emptyStateProps?: UseEmptyStateProps;
     /** Configuration for loading state display */
     loadingProps?: UseLoadingStateProps;
+    /** Whether to display a Table without header */
+    hideHeader?: boolean;
   };
 
 /**
@@ -62,6 +66,7 @@ export type TableProps<RowType extends BaseRow> = CheckboxProviderProps &
  * @param props.rowHeight Height of the row. Can be "sm" or "lg".
  * @param props.selectable Boolean to define if the table integrates with checkboxes.
  * @param props.withVerticalBorders Boolean to define if the table has vertical borders.
+ * @param props.withHorizontalDivider Boolean to define it the table has dividers between rows. Default to true.
  * @link https://docs.infra.bsport.io/storybook/kaizen/main/index.html?path=/docs/components-table--docs
  */
 const Table = <RowType extends BaseRow>({
@@ -71,12 +76,14 @@ const Table = <RowType extends BaseRow>({
   rowHeight = "sm",
   selectable = false,
   withVerticalBorders = false,
+  withHorizontalDivider = true,
   paginationProps,
   emptyStateProps,
   loadingProps,
   initialCheckedIds,
   checkedIds,
   setCheckedIds,
+  hideHeader = false,
   ...props
 }: TableProps<RowType>) => {
   const valueIds = rows?.map((row) => row.id.toString()) ?? [];
@@ -107,7 +114,9 @@ const Table = <RowType extends BaseRow>({
         rowHeight={rowHeight}
         selectable={selectable}
         withVerticalBorders={withVerticalBorders}
-        className={className}
+        withHorizontalDivider={withHorizontalDivider}
+        className={className ?? ""}
+        hideHeader={hideHeader}
         {...props}
       />
       {renderedPagination}
@@ -115,15 +124,25 @@ const Table = <RowType extends BaseRow>({
   );
 };
 
+type ParamsWithDefaultValues =
+  | "withHorizontalDivider"
+  | "withVerticalBorders"
+  | "rowHeight"
+  | "selectable"
+  | "hideHeader";
+
 const InnerTableWithContext = <RowType extends BaseRow>({
   className,
   columns,
   rows,
-  rowHeight = "sm",
+  rowHeight,
   selectable,
   withVerticalBorders,
+  withHorizontalDivider,
+  hideHeader,
   ...props
-}: TableProps<RowType>) => {
+}: Omit<TableProps<RowType>, ParamsWithDefaultValues> &
+  Required<Pick<TableProps<RowType>, ParamsWithDefaultValues>>) => {
   const {
     areAllSelected,
     areSomeSelected,
@@ -152,14 +171,17 @@ const InnerTableWithContext = <RowType extends BaseRow>({
       aria-labelledby="table"
       role="table"
     >
-      <TableHeader
-        columns={columns}
-        selectable={selectable}
-        areAllSelected={areAllSelected}
-        areSomeSelected={areSomeSelected}
-        handleSelectAllChange={handleSelectAllChange}
-        withVerticalBorders={withVerticalBorders}
-      />
+      {!hideHeader && (
+        <TableHeader
+          columns={columns}
+          selectable={selectable}
+          areAllSelected={areAllSelected}
+          areSomeSelected={areSomeSelected}
+          handleSelectAllChange={handleSelectAllChange}
+          withHorizontalDivider={withHorizontalDivider}
+          withVerticalBorders={withVerticalBorders}
+        />
+      )}
       <div className="table-row-group" role="rowgroup">
         {rows.map((row) => (
           <TableRow
@@ -171,6 +193,7 @@ const InnerTableWithContext = <RowType extends BaseRow>({
             handleCheckboxChange={handleCheckboxChange}
             selected={selectedValues.includes(row.id.toString())}
             rowHeight={rowHeight}
+            withHorizontalDivider={withHorizontalDivider}
             withVerticalBorders={withVerticalBorders}
             link={row.link}
             color={row.color}

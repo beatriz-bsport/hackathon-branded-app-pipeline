@@ -132,6 +132,7 @@ import {
   trackPurchaseConfirmation,
   trackPurchaseItem,
 } from '#src/events/purchase/trackers';
+import { trackPaymentViewedInBasket } from '#src/events/booking/utils';
 import { getCheckoutItemType } from '#src/events/purchase/utils.ts';
 
 type Props = {
@@ -228,6 +229,7 @@ export class BasketPage extends React.Component<Props> {
     isEstablishmentBillingGroupSelected: true,
     selectedEstablishmentBillingGroup: null,
     hasTrackedCartViewedEvent: false,
+    hasTrackedPaymentViewed: false,
   };
 
   setSelectedEstablishmentBillingGroup = (
@@ -329,6 +331,21 @@ export class BasketPage extends React.Component<Props> {
       this.props.basket.total_price_cts
     ) {
       this.getSecret(this.state.paymentEngine);
+    }
+
+    if (
+      !!this.props.basket &&
+      !!this.props.basketOffers?.length &&
+      !this.props.loading &&
+      !this.state.hasTrackedPaymentViewed
+    ) {
+      trackPaymentViewedInBasket({
+        basket: this.props.basket,
+        basketOffers: this.props.basketOffers,
+        onTrackingSuccess: () => {
+          this.setState({ hasTrackedPaymentViewed: true });
+        },
+      });
     }
 
     if (

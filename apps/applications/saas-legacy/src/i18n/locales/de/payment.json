@@ -58,7 +58,7 @@
       },
       "collect": {
         "content": "Hier gibst du deine Kreditkartendaten für Abo-Zahlungen ein.",
-        "title": "Kreditkarte hinzufügen",
+        "title": "Lastschriftverfahren hinzufügen",
         "contentAdd": "Diese Zahlungsmethode wird in Ihrem Konto gespeichert."
       },
       "message": {

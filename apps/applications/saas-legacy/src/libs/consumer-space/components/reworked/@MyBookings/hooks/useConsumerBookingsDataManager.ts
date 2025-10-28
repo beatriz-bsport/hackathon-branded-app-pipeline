@@ -688,7 +688,25 @@ export default function useConsumerBookingsDataManager({
       if (bookingId) {
         cancelBooking(
           { bookingId, force_refund: isRefundingCredit },
-          optionCallback,
+          {
+            ...optionCallback,
+            onSuccess: () => {
+              if (selectedBookingForCancelation) {
+                analyticsClientB2C.track(
+                  trackBookingCancelledEvent({
+                    activity_id: selectedBookingForCancelation.offer.activity,
+                    activity_name: selectedBookingForCancelation.name,
+                    offer_id: selectedBookingForCancelation.offer.id,
+                    session_type:
+                      selectedTab === BookingTabEnum.WORKSHOP
+                        ? 'workshop'
+                        : 'group-activity',
+                  }),
+                );
+              }
+              optionCallback?.onSuccess?.();
+            },
+          },
         );
       }
       if (privateBookingId) {
@@ -724,6 +742,7 @@ export default function useConsumerBookingsDataManager({
       handleToggleCancelBookingModal,
       selectedTab,
       selectedPrivateBookingForCancelation,
+      selectedBookingForCancelation,
     ],
   );
 

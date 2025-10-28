@@ -1,4 +1,5 @@
 {
+  "loading": "Loading marketing notifications ...",
   "page": {
     "title": "Marketing notifications",
     "emptyState": {
@@ -82,7 +83,8 @@
           "validity_one": "{{count}} valid day remaining in {{entityName}}",
           "validity_other": "{{count}} valid days remaining in {{entityName}}",
           "expired_one": "{{count}} day expired in {{entityName}}",
-          "expired_other": "{{count}} days expired in {{entityName}}"
+          "expired_other": "{{count}} days expired in {{entityName}}",
+          "severalPass": "and other passes ..."
         },
         "all": {
           "credit_one": "{{count}} credit remaining in all passes",

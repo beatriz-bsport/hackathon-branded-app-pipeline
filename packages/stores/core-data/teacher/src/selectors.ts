@@ -19,3 +19,5 @@ export const selectTeacher = (state: TeacherState, id: number) =>
   state.byId[id];
 
 export const selectCount = (state: TeacherState) => state.count;
+
+export const selectTeachersById = (state: TeacherState) => state.byId;

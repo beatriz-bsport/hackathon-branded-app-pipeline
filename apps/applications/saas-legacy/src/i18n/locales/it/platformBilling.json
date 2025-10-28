@@ -115,7 +115,7 @@
           "cancel": "Cancella"
         },
         "update": "Aggiorna il numero di partita IVA",
-        "hasAttributedVatIdLabel": "Non possiedo un numero di partita IVA registrato. Se la tua azienda si trova nell'UE (esclusa la Francia), il meccanismo di inversione contabile non si applicherà e bsport addebiterà le aliquote IVA francesi (20%).",
+        "hasAttributedVatIdLabel": "Non ho una partita IVA registrata. Se la tua attività ha sede nell'UE (esclusa la Francia), il meccanismo di inversione contabile non si applicherà e bsport addebiterà l'aliquota IVA locale.",
         "vatIdLabel": "Numero di partita IVA",
         "content": "bsport richiede il tuo numero di partita IVA per includerlo nelle fatture che emettiamo per te.",
         "invalidFormat": "Formato non valido",

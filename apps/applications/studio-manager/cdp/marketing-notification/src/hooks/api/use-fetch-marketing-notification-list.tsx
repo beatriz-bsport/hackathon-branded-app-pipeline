@@ -22,7 +22,7 @@ import {
   SUBSCRIPTION_NOTIFICATION_FIRST_BILLING,
 } from "#src/utils/types";
 
-const fetchMarketingNotificationListBinded =
+const fetchMarketingNotificationListBound =
   fetchMarketingNotificationsAction.bind(null, fetch);
 
 /**
@@ -35,12 +35,12 @@ const fetchMarketingNotificationListBinded =
  * @returns Object containing loading state, fetch function, and marketing notifications from the store
  */
 export function useFetchMarketingNotificationList() {
-  const { fetchMarketingNotificationDependencies } =
+  const { fetchMarketingNotificationDependencies, areDependenciesLoading } =
     useFetchMarketingNotificationDependencies();
   const [{ isLoading }, fetchMarketingNotificationList] = useAsync<
-    typeof fetchMarketingNotificationListBinded
+    typeof fetchMarketingNotificationListBound
   >({
-    asyncFn: fetchMarketingNotificationListBinded,
+    asyncFn: fetchMarketingNotificationListBound,
     onSuccess: ({ value }) => {
       // Extract all relevant IDs using type-safe utility functions
       const {
@@ -51,23 +51,28 @@ export function useFetchMarketingNotificationList() {
         paymentPackIds,
         subscriptionIds,
         emailTemplateIds,
-      } = extractAllNotificationIds(value);
+        smartlistIds,
+      } = extractAllNotificationIds({
+        notifications: value,
+        extractAllPassIds: false,
+      });
 
       // Fetch dependencies with extracted IDs
       fetchMarketingNotificationDependencies({
-        establishmentIds: Array.from(establishmentIds),
-        groupActivityIds: Array.from(metaActivityIds),
-        privateServiceIds: Array.from(privateServiceIds),
-        privatePassIds: Array.from(privatePassIds),
-        subscriptionIds: Array.from(subscriptionIds),
-        paymentPackIds: Array.from(paymentPackIds),
-        emailTemplateIds: Array.from(emailTemplateIds),
+        establishmentIds: establishmentIds,
+        groupActivityIds: metaActivityIds,
+        privateServiceIds: privateServiceIds,
+        privatePassIds: privatePassIds,
+        subscriptionIds: subscriptionIds,
+        paymentPackIds: paymentPackIds,
+        emailTemplateIds: emailTemplateIds,
+        smartlistIds: smartlistIds,
       });
     },
   });
 
-  const marketingNotificationsList = useMarketingNotificationStore((state) =>
-    selectMarketingNotificationList(state),
+  const marketingNotificationsList = useMarketingNotificationStore(
+    selectMarketingNotificationList,
   );
 
   useEffect(() => {
@@ -87,7 +92,7 @@ export function useFetchMarketingNotificationList() {
   }, [fetchMarketingNotificationList]);
 
   return {
-    isLoading,
+    isLoading: isLoading || areDependenciesLoading,
     marketingNotificationsList,
     fetchMarketingNotificationList,
   };

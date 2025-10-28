@@ -22,6 +22,7 @@
     "@bsport/i18n": "workspace:*",
     "@bsport/kaizen-primitive-core": "workspace:*",
     "@bsport/sm-backbone": "workspace:*",
+    "dompurify": "^3.2.6",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-router": "^7.2.0"
@@ -29,6 +30,8 @@
   "devDependencies": {
     "@bsport/config-eslint-react": "workspace:*",
     "@bsport/config-federation": "workspace:*",
+    "@bsport/currency": "workspace:*",
+    "@bsport/datetime-formatting": "workspace:*",
     "@bsport/permissions": "workspace:*",
     "@bsport/store-booking-appointment": "workspace:*",
     "@bsport/store-booking-group-activity": "workspace:*",
@@ -37,9 +40,11 @@
     "@bsport/store-buyables-subscription": "workspace:*",
     "@bsport/store-cdp-email-template": "workspace:*",
     "@bsport/store-cdp-marketing-notification": "workspace:*",
+    "@bsport/store-cdp-smartlist": "workspace:*",
     "@bsport/store-communicate-communication": "workspace:*",
     "@bsport/store-core-data-establishment": "workspace:*",
     "@bsport/use-async": "workspace:*",
+    "@bsport/use-pagination-query-params": "workspace:*",
     "autoprefixer": "^10.4.20",
     "postcss": "^8.4.49",
     "tailwindcss": "^3.4.14",

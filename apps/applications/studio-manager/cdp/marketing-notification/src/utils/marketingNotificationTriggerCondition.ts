@@ -134,23 +134,15 @@ const findEntityName = (
     }
 
     case NOTIFICATION_ADVANCED_TYPE.paymentPack: {
-      const passesList = entityIds
-        .map((id) => passesById[id])
-        .filter((pass): pass is Pass => pass !== undefined);
-      return passesList.length > 0
-        ? passesList.map((_pass) => _pass.name).join(", ")
-        : "paymentPack";
+      const firstPass = passesById[entityIds[0]];
+      return firstPass?.name ?? NOTIFICATION_ADVANCED_TYPE.paymentPack;
     }
 
     case NOTIFICATION_ADVANCED_TYPE.privatePass: {
-      const appointmentPassesList = entityIds
-        .map((id) => appointmentPassesById[id])
-        .filter((pass): pass is AppointmentPass => pass !== undefined);
-      return appointmentPassesList.length > 0
-        ? appointmentPassesList
-            .map((_appointmentPass) => _appointmentPass.name)
-            .join(", ")
-        : "appointmentPass";
+      const firstAppointmentPass = appointmentPassesById[entityIds[0]];
+      return (
+        firstAppointmentPass?.name ?? NOTIFICATION_ADVANCED_TYPE.privatePass
+      );
     }
 
     case NOTIFICATION_ADVANCED_TYPE.subscription: {
@@ -303,6 +295,21 @@ const useGeneratePassesTriggerType = () => {
   ): string => {
     const { kind, event_rules } = notification;
 
+    // We check if there is more than one pass to adapt the translation (several passes)
+    const hasMoreThanOnePass =
+      "private_pass_ids" in event_rules && event_rules.private_pass_ids
+        ? event_rules.private_pass_ids.length > 1
+        : "payment_pack_ids" in event_rules && event_rules.payment_pack_ids
+          ? event_rules.payment_pack_ids.length > 1
+          : false;
+
+    // We check if the rule is applied to all passes or just specific ones
+    const shouldApplyToAllPasses =
+      ("contains_all_private_passes" in event_rules &&
+        event_rules.contains_all_private_passes) ||
+      ("contains_all_payment_packs" in event_rules &&
+        event_rules.contains_all_payment_packs);
+
     switch (kind) {
       case CONSUMER_PAYMENT_PACK_NOTIFICATION_CREDIT:
       case PRIVATE_CONSUMER_PASS_NOTIFICATION_CREDIT: {
@@ -312,12 +319,7 @@ const useGeneratePassesTriggerType = () => {
           typeof event_rules.credits_left === "number"
         ) {
           // Allow us to know if the rule is applied to every pass or just specific ones
-          if (
-            ("contains_all_private_passes" in event_rules &&
-              event_rules.contains_all_private_passes) ||
-            ("contains_all_payment_packs" in event_rules &&
-              event_rules.contains_all_payment_packs)
-          ) {
+          if (shouldApplyToAllPasses) {
             return String(
               // @ts-expect-error bad plural management
               t("table.triggerType.passes.all.credit", {
@@ -326,13 +328,19 @@ const useGeneratePassesTriggerType = () => {
             );
           } else {
             // If it's not applied to all, we then provide the first pass name found
-            return String(
+            const translation = `${t(
               // @ts-expect-error bad plural management
-              t("table.triggerType.passes.finnerGraining.credit", {
+              "table.triggerType.passes.finnerGraining.credit",
+              {
                 count: event_rules.credits_left,
                 entityName,
-              }),
-            );
+              },
+            )} ${
+              hasMoreThanOnePass
+                ? t("table.triggerType.passes.finnerGraining.severalPass")
+                : ""
+            }`;
+            return String(translation);
           }
         }
         return "";
@@ -349,12 +357,7 @@ const useGeneratePassesTriggerType = () => {
           // If daysLeft is positive or zero, this means the trigger is applied on pass validity
           if (daysLeft >= 0) {
             // Allow us to know if the rule is applied to every pass or just specific ones
-            if (
-              ("contains_all_private_passes" in event_rules &&
-                event_rules.contains_all_private_passes) ||
-              ("contains_all_payment_packs" in event_rules &&
-                event_rules.contains_all_payment_packs)
-            ) {
+            if (shouldApplyToAllPasses) {
               return String(
                 // @ts-expect-error bad plural management
                 t("table.triggerType.passes.all.validity", {
@@ -362,23 +365,24 @@ const useGeneratePassesTriggerType = () => {
                 }),
               );
             } else {
-              return String(
+              const translation = `${t(
                 // @ts-expect-error bad plural management
-                t("table.triggerType.passes.finnerGraining.validity", {
+                "table.triggerType.passes.finnerGraining.validity",
+                {
                   count: daysLeft,
                   entityName,
-                }),
-              );
+                },
+              )} ${
+                hasMoreThanOnePass
+                  ? t("table.triggerType.passes.finnerGraining.severalPass")
+                  : ""
+              }`;
+              return String(translation);
             }
             // If daysLeft is negative, this means the trigger is applied on pass expiration
           } else {
             // Allow us to know if the rule is applied to every pass or just specific ones
-            if (
-              ("contains_all_private_passes" in event_rules &&
-                event_rules.contains_all_private_passes) ||
-              ("contains_all_payment_packs" in event_rules &&
-                event_rules.contains_all_payment_packs)
-            ) {
+            if (shouldApplyToAllPasses) {
               return String(
                 // @ts-expect-error bad plural management
                 t("table.triggerType.passes.all.expired", {
@@ -386,13 +390,20 @@ const useGeneratePassesTriggerType = () => {
                 }),
               );
             } else {
-              return String(
+              // If it's not applied to all, we then provide the first pass name found
+              const translation = `${t(
                 // @ts-expect-error bad plural management
-                t("table.triggerType.passes.finnerGraining.expired", {
+                "table.triggerType.passes.finnerGraining.expired",
+                {
                   count: Math.abs(daysLeft),
                   entityName,
-                }),
-              );
+                },
+              )} ${
+                hasMoreThanOnePass
+                  ? t("table.triggerType.passes.finnerGraining.severalPass")
+                  : ""
+              }`;
+              return String(translation);
             }
           }
         }

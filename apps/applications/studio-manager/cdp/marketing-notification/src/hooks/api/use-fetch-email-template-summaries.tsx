@@ -5,7 +5,7 @@ import { useAsync } from "@bsport/use-async";
 
 import { fetch } from "#src/utils/fetch";
 
-const fetchEmailTemplateSummariesBinded =
+const fetchEmailTemplateSummariesBound =
   fetchAllEmailTemplateSummariesAction.bind(null, fetch);
 
 /**
@@ -18,10 +18,10 @@ const fetchEmailTemplateSummariesBinded =
  * @returns Object containing the fetch function for email template summaries
  */
 export function useFetchEmailTemplateSummaries() {
-  const [, fetchEmailTemplateSummaries] = useAsync<
-    typeof fetchEmailTemplateSummariesBinded
+  const [{ isLoading }, fetchEmailTemplateSummaries] = useAsync<
+    typeof fetchEmailTemplateSummariesBound
   >({
-    asyncFn: fetchEmailTemplateSummariesBinded,
+    asyncFn: fetchEmailTemplateSummariesBound,
   });
 
   /**
@@ -39,5 +39,6 @@ export function useFetchEmailTemplateSummaries() {
 
   return {
     handleFetchEmailTemplateSummaries,
+    isEmailTemplateSummariesLoading: isLoading,
   };
 }

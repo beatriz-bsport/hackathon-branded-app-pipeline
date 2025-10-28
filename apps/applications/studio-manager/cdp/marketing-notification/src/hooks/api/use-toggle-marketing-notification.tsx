@@ -5,8 +5,10 @@ import { useAsync } from "@bsport/use-async";
 
 import { fetch } from "#src/utils/fetch";
 
-const toggleMarketingNotificationBinded =
-  toggleMarketingNotificationAction.bind(null, fetch);
+const toggleMarketingNotificationBound = toggleMarketingNotificationAction.bind(
+  null,
+  fetch,
+);
 
 /**
  * Hook for toggling marketing notification active state.
@@ -18,9 +20,9 @@ const toggleMarketingNotificationBinded =
  */
 export function useToggleMarketingNotification() {
   const [, toggleMarketingNotification] = useAsync<
-    typeof toggleMarketingNotificationBinded
+    typeof toggleMarketingNotificationBound
   >({
-    asyncFn: toggleMarketingNotificationBinded,
+    asyncFn: toggleMarketingNotificationBound,
   });
 
   /**

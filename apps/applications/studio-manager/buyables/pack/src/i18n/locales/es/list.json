@@ -1,1 +1,49 @@
-{}
+{
+  "title": "Packs",
+  "actions": {
+    "addAPack": "Añadir un pack"
+  },
+  "table": {
+    "loading": "Cargando paquetes...",
+    "emptyList": {
+      "title": "Aún no se han añadido packs",
+      "subtitle": "Añade un Pack para combinar tus productos y Pases en una sola oferta. "
+    },
+    "headers": {
+      "name": "Nombre",
+      "visibility": "Visibilidad",
+      "numberOfProducts": "artículos",
+      "price": "Precio"
+    },
+    "tooltips": {
+      "unavailableForUsers": "Este paquete no se mostrará en el área de miembros",
+      "invisibleForStaff": "Este paquete no se mostrará a los miembros del personal",
+      "availableForALimitedTime": "Este pack solo se mostrará por un tiempo limitado",
+      "archive": "Eliminar Paquete"
+    }
+  },
+  "deleteModal": {
+    "title": "¿Eliminar Paquete?",
+    "description": {
+      "effect": "Si eliminas {{ name }}, las compras actuales o anteriores no se verán afectadas.",
+      "canNotBeUndone": "Esta acción no se puede deshacer."
+    },
+    "actions": {
+      "cancel": "Atrás",
+      "delete": "Eliminar"
+    }
+  },
+  "toasts": {
+    "messageDelete": {
+      "success": "Paquete eliminado",
+      "error": "No se pudo eliminar el pack"
+    },
+    "messageUndo": {
+      "success": "Acción deshecha",
+      "error": "No se pudo deshacer la acción"
+    },
+    "actions": {
+      "undo": "Deshacer"
+    }
+  }
+}

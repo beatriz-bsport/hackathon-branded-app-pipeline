@@ -117,7 +117,6 @@ export interface CompanyTheme {
   mobile_app_default_page: string;
   use_company_email_sender_address_for_reset_password: boolean;
   checkin_tablet_visible_session_cutoff_minute: number;
-  has_limited_access_to_sequential_marketing: boolean;
   first_warning_payment_method_expiration_days: number;
   second_warning_payment_method_expiration_days: number;
   earliest_hour_to_send_communications: number;

@@ -10,7 +10,7 @@ import { withTranslation, WithTranslation } from 'react-i18next';
 import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
 import { push } from 'connected-react-router';
-import GiftcardFormDrawer from '#src/libs/giftcard/components/GiftcardFormDrawer.component';
+import { GiftcardFormDrawer } from '#src/libs/giftcard/components/GiftcardFormDrawer';
 
 import { fetchMemberBulkById as fetchMemberBulkByIdAction } from '#src/libs/member/actions';
 // @ts-expect-error

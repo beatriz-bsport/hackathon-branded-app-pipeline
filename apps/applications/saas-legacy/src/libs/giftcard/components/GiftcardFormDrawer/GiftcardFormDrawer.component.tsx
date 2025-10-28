@@ -1,48 +1,39 @@
 import React from 'react';
-import { compose } from 'recompose';
 import { useTranslation } from 'react-i18next';
 import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
-
 import { makeStyles, Theme } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
-import { Form, FormikProps } from 'formik';
+import { Form } from 'formik';
+
 import { SegmentAnalyticsFormObjectIdentifier } from '#src/components/analytics/segment';
 import GenericResponsiveDrawer from '#src/components/genericDrawer/GenericResponsiveDrawer.component';
-import { rudderStackFormTrackingFunctionsRegistry } from '#src/components/analytics/rudderstack/utils';
-import { Tag, TagGroup } from '#src/libs/tag/types';
-import type { BookkeepingAccount } from '#src/libs/payment/types';
-import { GiftcardDataAPI, Giftcard, GiftcardTemplate } from '../types';
-import { OptionCallback } from '../../../state/types';
-import GiftcardForm, { GiftcardFormFieldHOC } from './GiftcardForm.component';
 
-const { trackFormSubmitIntent, trackFormCancel } =
-  rudderStackFormTrackingFunctionsRegistry(
-    SegmentAnalyticsFormObjectIdentifier.Giftcard,
-  );
+import { GiftcardForm } from './GiftcardForm.component';
+import { GiftcardFormHOC } from './GiftcardFormHOC';
+import { trackFormSubmitIntent, trackFormCancel } from './trackers';
+import type { GiftcardFormDrawerProps } from './types';
 
-type OwnProps = {
-  open: boolean;
-  onSubmit: (
-    data: GiftcardDataAPI,
-    options: OptionCallback<Giftcard | GiftcardTemplate>,
-  ) => void;
-  onClose: () => void;
-  initial?: Giftcard | GiftcardTemplate;
-  tagList?: Array<Tag<TagGroup>>;
-  bookkeepingAccounts?: BookkeepingAccount[];
-  bookkeepingAccountById?: Record<number, BookkeepingAccount>;
-};
-type Props = OwnProps & FormikProps<GiftcardDataAPI>;
-
-const GiftcardFormDrawer = (props: Props) => {
+const GiftcardFormDrawer = (props: GiftcardFormDrawerProps) => {
   const { t } = useTranslation('giftcard');
   const classes = useStyles();
-  // @ts-expect-error
-  const isSharedGiftcard = !!props.initial?.is_shared_giftcard;
+
+  const isSharedGiftcard =
+    props.initial && 'is_shared_giftcard' in props.initial
+      ? props.initial.is_shared_giftcard
+      : false;
+
+  const handleClose = () => {
+    // Reset Formik errors and status
+    props.setErrors({});
+    props.setStatus(undefined);
+
+    props.onClose();
+  };
+
   return (
     <GenericResponsiveDrawer
-      onClose={props.onClose}
+      onClose={handleClose}
       open={props.open}
       subtitle={props.initial?.name}
       title={t('form.giftcard.title')}
@@ -59,11 +50,13 @@ const GiftcardFormDrawer = (props: Props) => {
           {t('form.canNotUpdateBecauseShared')}
         </Alert>
       )}
+
       <Form>
         <GiftcardForm
           {...props}
           disabledSharedGiftcardUpdate={isSharedGiftcard}
         />
+
         <DialogActions>
           <Button
             onClick={() => {
@@ -100,4 +93,4 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-export default compose<any, OwnProps>(GiftcardFormFieldHOC)(GiftcardFormDrawer);
+export default GiftcardFormHOC(GiftcardFormDrawer);

@@ -1,10 +1,8 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles, Theme } from '@material-ui/core/styles';
-import { withFormik, useFormikContext } from 'formik';
+import { useFormikContext } from 'formik';
 import { ButtonBase } from '@material-ui/core';
-import * as Yup from 'yup';
-import { CB } from '@bsport/common/lib/master-data/payment-methods.js';
 import Collapse from '@material-ui/core/Collapse';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
@@ -23,32 +21,23 @@ import {
 import PaymentMethodSelectorField from '#src/libs/payment/components/PaymentMethodSelectorField.component';
 // @ts-expect-error
 import ImageField from '#src/components/forms/ImageField.component';
-import { rudderStackFormTrackingFunctionsRegistry } from '#src/components/analytics/rudderstack/utils';
-import { SegmentAnalyticsFormObjectIdentifier } from '#src/components/analytics/segment';
 import { Tag, TagGroup } from '#src/libs/tag/types';
 import TagSelector from '#src/libs/tag/components/TagSelector.selector';
 import { useHasTagsSameGroup } from '#src/libs/tag/components/hooks';
 import TagGroupDuplicatedAlert from '#src/libs/tag/components/TagGroupDuplicatedAlert.component';
 import BookkeepingAccountSelector from '#src/libs/payment/components/BookkeepingAccountSelector';
-import type { BookkeepingAccount } from '#src/libs/payment/types';
-import { OptionCallback } from '../../../state/types';
-import { Giftcard, GiftcardTemplate } from '../types';
 
-type Props = {
-  values: any;
-  initial?: Giftcard | GiftcardTemplate;
+import type { GiftcardFormDrawerProps } from './types';
+
+type GiftcardFormProps = GiftcardFormDrawerProps & {
   disabledSharedGiftcardUpdate?: boolean;
-  tagList?: Array<Tag<TagGroup>>;
-  bookkeepingAccounts?: BookkeepingAccount[];
-  bookkeepingAccountById?: Record<number, BookkeepingAccount>;
 };
 
-const { trackFormAdd, trackFormSuccess } =
-  rudderStackFormTrackingFunctionsRegistry(
-    SegmentAnalyticsFormObjectIdentifier.Giftcard,
-  );
-const GiftcardForm = (props: Props) => {
+import { trackFormAdd } from './trackers';
+
+export const GiftcardForm: React.FC<GiftcardFormProps> = (props) => {
   const { t } = useTranslation(['giftcard']);
+
   const classes = useStyles();
   React.useEffect(() => {
     trackFormAdd(props.initial?.id);
@@ -61,7 +50,7 @@ const GiftcardForm = (props: Props) => {
 
   const hasTagsSameGroup = useHasTagsSameGroup({
     selectedTagsIds: props.values?.tags_on_consumer_item_creation,
-    tagsWithGroup: props.tagList,
+    tagsWithGroup: props.tagList ?? [],
   });
 
   const onChangeTagsOnAcquisition = React.useCallback(
@@ -95,6 +84,7 @@ const GiftcardForm = (props: Props) => {
   return (
     <div className={classes.container}>
       <ImageField disabled={props.disabledSharedGiftcardUpdate} name="cover" />
+
       <TextField
         required
         className={classes.fullwidth}
@@ -102,6 +92,7 @@ const GiftcardForm = (props: Props) => {
         label={t('form.giftcard.name.label')}
         name="name"
       />
+
       <TextField
         multiline
         required
@@ -111,6 +102,7 @@ const GiftcardForm = (props: Props) => {
         name="description"
         variant="outlined"
       />
+
       <fieldset className={classes.parameterContainer}>
         <legend>{t('form.giftcard.section.parameters.title')}</legend>
         <PriceField
@@ -119,6 +111,7 @@ const GiftcardForm = (props: Props) => {
           label={t('form.giftcard.price.label')}
           name="price"
         />
+
         <Collapse in={!props.values.unlimited}>
           <IntegerField
             required
@@ -134,17 +127,19 @@ const GiftcardForm = (props: Props) => {
           name="unlimited"
         />
         <BookkeepingAccountSelector
-          bookkeepingAccountById={props.bookkeepingAccountById}
-          bookkeepingAccounts={props.bookkeepingAccounts}
+          bookkeepingAccountById={props.bookkeepingAccountById ?? {}}
+          bookkeepingAccounts={props.bookkeepingAccounts ?? []}
           selectedBookkeepingAccountId={props.values.bookkeeping_account}
           setFieldValue={setBookkeepingAccount}
         />
       </fieldset>
+
       <SwitchField
         disabled={props.disabledSharedGiftcardUpdate}
         label={t('form.giftcard.manager_only.label')}
         name="manager_only"
       />
+
       <PaymentMethodSelectorField
         asFieldset
         disabled={
@@ -251,113 +246,3 @@ const useStyles = makeStyles((theme: Theme) => ({
     color: '#000',
   },
 }));
-
-export default GiftcardForm;
-
-export const GiftcardSchema = Yup.object().shape({
-  name: Yup.string().required(),
-  cover: Yup.object().nullable(),
-  description: Yup.string().required(),
-  price: Yup.number().required().min(1),
-  manager_only: Yup.boolean(),
-  unlimited: Yup.boolean(),
-  available_payment_method_identifiers: Yup.array().of(Yup.number()),
-  expiration_days: Yup.number().nullable().min(1),
-  tags_on_consumer_item_creation: Yup.array().of(Yup.number().integer()),
-  bookkeeping_account: Yup.number().nullable(),
-});
-
-type WithFormikProps = {
-  onError?: () => void;
-  onSuccess?: () => void;
-  onSubmit: (data: FormData, options: OptionCallback) => void;
-};
-
-type MergedProps = WithFormikProps & Props;
-
-export const GiftcardFormFieldHOC = withFormik<MergedProps, any>({
-  mapPropsToValues: ({ initial }) => {
-    if (!initial) {
-      return {
-        name: '',
-        cover: '',
-        description: '',
-        price: 1,
-        manager_only: false,
-        unlimited: false,
-        expiration_days: 30,
-        available_payment_method_identifiers: [CB.id],
-        tags_on_consumer_item_creation: [],
-      };
-    }
-    return {
-      ...initial,
-      unlimited: !initial.expiration_days,
-      expiration_days: initial.expiration_days || 30,
-      tags_on_consumer_item_creation:
-        initial.tags_on_consumer_item_creation || [],
-    };
-  },
-  validationSchema: GiftcardSchema,
-  enableReinitialize: true,
-  handleSubmit: (
-    values,
-    {
-      props,
-      setSubmitting,
-    }: {
-      props: MergedProps;
-      setSubmitting: (state: boolean) => void;
-    },
-  ) => {
-    const keys = [
-      'description',
-      'name',
-      'price',
-      'manager_only',
-      'expiration_days',
-    ];
-    const { cover } = values;
-    const formData = new FormData();
-    if (values.bookkeeping_account) {
-      formData.append('bookkeeping_account', values.bookkeeping_account);
-    }
-    if (typeof cover !== 'string' && !!cover) {
-      formData.append('cover', cover);
-    }
-    keys.forEach((key) => {
-      if (key === 'expiration_days') {
-        if (values.unlimited) {
-          formData.append(key, '');
-        } else {
-          formData.append(key, values.expiration_days);
-        }
-      } else {
-        formData.append(key, values[key]);
-      }
-    });
-    formData.append(
-      'available_payment_method_identifiers[]',
-      JSON.stringify(values.available_payment_method_identifiers),
-    );
-    formData.append(
-      'tags_on_consumer_item_creation[]',
-      JSON.stringify(values.tags_on_consumer_item_creation),
-    );
-    props.onSubmit(formData, {
-      onSuccess: () => {
-        trackFormSuccess(props.initial?.id);
-        if (props.onSuccess && typeof props.onSuccess === 'function')
-          props.onSuccess();
-        setSubmitting(false);
-      },
-      onError: () => {
-        if (props.onError && typeof props.onError === 'function')
-          props.onError();
-        setSubmitting(false);
-      },
-    });
-  },
-});
-
-export const GiftcardFormComposed = GiftcardFormFieldHOC(GiftcardForm);

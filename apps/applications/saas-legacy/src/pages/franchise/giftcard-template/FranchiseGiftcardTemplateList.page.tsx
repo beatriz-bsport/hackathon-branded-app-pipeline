@@ -23,7 +23,7 @@ import {
   fetchGiftcardTemplateList as fetchGiftcardTemplateListAction,
   createOrUpdateGiftcardTemplate as createOrUpdateGiftcardTemplateAction,
 } from '#src/libs/giftcard/actions';
-import GiftcardFormDrawer from '#src/libs/giftcard/components/GiftcardFormDrawer.component';
+import { GiftcardFormDrawer } from '#src/libs/giftcard/components/GiftcardFormDrawer';
 import FranchiseGenericProductDoubleList from '#src/libs/franchise/components/generic-product/template-list/FranchiseGenericProductDoubleList.component';
 import { GiftcardTemplate, GiftcardDataAPI } from '#src/libs/giftcard/types';
 import { FranchiseCompany } from '#src/libs/franchise/types';

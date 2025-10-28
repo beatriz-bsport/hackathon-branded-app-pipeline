@@ -5,11 +5,12 @@ import { WithFranchiseCompanies } from '#src/libs/franchise/types';
 import { generateRandomInt } from '../../utils/factories';
 import {
   ConsumerGiftcard,
-  Giftcard,
+  GiftcardV2,
   GiftcardRecipient,
   GiftcardBackgroundImage,
-  GiftcardTemplate,
+  GiftcardTemplateV2,
 } from './types';
+import { GIFTCARD_TYPES } from './constants';
 
 const NAMES: Array<string> = [
   '10 EUR giftcard',
@@ -92,7 +93,9 @@ export function giftcard_recipient_factory(
   });
 }
 
-export function giftcard_factory(num_el: number): Array<Giftcard> {
+export function giftcard_factory(
+  num_el: number,
+): Array<GiftcardV2<typeof GIFTCARD_TYPES.FIXED>> {
   const GIFTCARD_IDS: Array<number> = [...Array(num_el).keys()];
   return GIFTCARD_IDS.map((id) => {
     return {
@@ -108,6 +111,13 @@ export function giftcard_factory(num_el: number): Array<Giftcard> {
       disabled: false,
       company: generateRandomInt(20) + 1,
       amount_gifted: generateRandomInt(100).toString(),
+      bookkeeping_account: null,
+      is_shared_giftcard: false,
+      tags_on_consumer_item_creation: [],
+      card_type: GIFTCARD_TYPES.FIXED,
+      max_price: null,
+      min_price: null,
+      date_updated: null,
     };
   });
 }
@@ -154,10 +164,10 @@ export function giftcard_background_image_factory(
 export function GiftcardTemplateListFactory(
   num_el: number,
   manager_only?: boolean,
-): Array<WithFranchiseCompanies<GiftcardTemplate>> {
+): Array<WithFranchiseCompanies<GiftcardTemplateV2>> {
   const GIFTCARD_IDS: Array<number> = [...Array(num_el).keys()];
   return GIFTCARD_IDS.map((id) => {
-    const item: WithFranchiseCompanies<GiftcardTemplate> = {
+    const item: WithFranchiseCompanies<GiftcardTemplateV2> = {
       id: id + 1,
       franchisor: 1,
       cover: random_choice(COVERS),
@@ -166,7 +176,7 @@ export function GiftcardTemplateListFactory(
       expiration_days: generateRandomInt(100),
       price: random_choice(PRICES),
       available_payment_method_identifiers: [CB.id],
-      manager_only,
+      manager_only: !!manager_only,
       disabled: false,
       amount_gifted: generateRandomInt(100).toString(),
       // @ts-expect-error

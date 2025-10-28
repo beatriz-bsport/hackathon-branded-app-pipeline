@@ -209,10 +209,10 @@
         "notAvailable": "No-show management is not available. To activate it you must first create an unlimited pass with no-show penalties.",
         "error": "The absence notification email cannot be sent after the member is considered a no show.",
         "sendMailHelpText": "To enable/disable the email please go to Settings> Transactional notifications> Penalty> Notification of absence",
-        "sendMail": "Send an email <0/> <1/> after the roll call to notify the member that they will be considered a no show if they are listed as absent.",
+        "sendMail": "Send an email <0/> <1/>  hours after roll call to warn members who are marked as absent that they will be considered a no-show unless a valid reason is given. ",
         "daysBeforeNoShowHelpText": "This setting allows you to apply penalties on the no shows of members with an unlimited pass.",
         "daysBeforeNoShow": "Consider the member as (no-show) <0/> <1/> after the roll call on sessions where they are listed as absent.",
-        "alert": "These settings only apply to no-show penalties on unlimited passes. To trigger the following counts, you must call the roll for each session.",
+        "alert": "These settings only apply to no-show penalties on unlimited passes. To enable the following conditions, roll call must be completed for each session.",
         "title": "No show"
       },
       "daysFormatSelector": {

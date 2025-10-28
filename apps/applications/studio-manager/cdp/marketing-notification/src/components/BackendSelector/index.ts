@@ -7,3 +7,4 @@ export type {
   UseSearchConfig,
 } from "./use-generic-search";
 export * from "./types";
+export * from "./utils";

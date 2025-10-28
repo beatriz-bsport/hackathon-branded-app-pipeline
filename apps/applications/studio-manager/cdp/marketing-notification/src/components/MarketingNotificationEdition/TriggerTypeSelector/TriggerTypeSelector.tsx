@@ -1,3 +1,4 @@
+import { AppointmentPassSelector } from "#src/components/MarketingNotificationEdition/TriggerTypeSelector/AppointmentPassSelector";
 import { AppointmentSelector } from "#src/components/MarketingNotificationEdition/TriggerTypeSelector/AppointmentSelector";
 import { EstablishmentGroupSelector } from "#src/components/MarketingNotificationEdition/TriggerTypeSelector/EstablishmentGroupSelector";
 import { LocationSelector } from "#src/components/MarketingNotificationEdition/TriggerTypeSelector/LocationSelector";
@@ -7,6 +8,14 @@ import { SubscriptionSelector } from "#src/components/MarketingNotificationEditi
 import type { TriggerTypeSelectorConfig } from "#src/components/MarketingNotificationEdition/TriggerTypeStep";
 import { NOTIFICATION_ADVANCED_TYPE } from "#src/utils/constants";
 import type { NotificationType } from "#src/utils/types";
+
+function isTriggerSelectorConfigMetaActivityType(
+  config: TriggerTypeSelectorConfig,
+): config is TriggerTypeSelectorConfig & {
+  mode: "workshop" | "all" | "groupActivity";
+} {
+  return "mode" in config && !!config.mode;
+}
 
 export const TriggerTypeSelector = ({
   selectedConfig,
@@ -24,14 +33,16 @@ export const TriggerTypeSelector = ({
   if (!selectedConfig) return null;
 
   if (
-    selectedConfig.hasSelector &&
-    "mode" in selectedConfig &&
-    (selectedConfig.mode === "workshop" ||
-      selectedConfig.mode === "groupActivity")
+    selectedConfig.type === NOTIFICATION_ADVANCED_TYPE.workshop ||
+    selectedConfig.type === NOTIFICATION_ADVANCED_TYPE.groupActivity
   ) {
     return (
       <MetaActivitySelector
-        mode={selectedConfig.mode}
+        mode={
+          isTriggerSelectorConfigMetaActivityType(selectedConfig)
+            ? selectedConfig.mode
+            : "all"
+        }
         onSelectActivity={(metaActivity) => {
           const metaActivityId = metaActivity?.id;
           if (metaActivityId) {
@@ -45,10 +56,7 @@ export const TriggerTypeSelector = ({
     );
   }
 
-  if (
-    selectedConfig.hasSelector &&
-    selectedConfig.type === NOTIFICATION_ADVANCED_TYPE.location
-  ) {
+  if (selectedConfig.type === NOTIFICATION_ADVANCED_TYPE.location) {
     return (
       <LocationSelector
         onSelectLocation={(location) => {
@@ -64,10 +72,7 @@ export const TriggerTypeSelector = ({
     );
   }
 
-  if (
-    selectedConfig.hasSelector &&
-    selectedConfig.type === NOTIFICATION_ADVANCED_TYPE.establishment
-  ) {
+  if (selectedConfig.type === NOTIFICATION_ADVANCED_TYPE.establishment) {
     return (
       <EstablishmentGroupSelector
         onSelectEstablishmentGroup={(establishment) => {
@@ -83,10 +88,7 @@ export const TriggerTypeSelector = ({
     );
   }
 
-  if (
-    selectedConfig.hasSelector &&
-    selectedConfig.type === NOTIFICATION_ADVANCED_TYPE.privateService
-  ) {
+  if (selectedConfig.type === NOTIFICATION_ADVANCED_TYPE.privateService) {
     return (
       <AppointmentSelector
         onSelectAppointment={(appointment) => {
@@ -102,10 +104,7 @@ export const TriggerTypeSelector = ({
     );
   }
 
-  if (
-    selectedConfig.hasSelector &&
-    selectedConfig.type === NOTIFICATION_ADVANCED_TYPE.subscription
-  ) {
+  if (selectedConfig.type === NOTIFICATION_ADVANCED_TYPE.subscription) {
     return (
       <SubscriptionSelector
         onSelectSubscription={(subscription) => {
@@ -121,10 +120,7 @@ export const TriggerTypeSelector = ({
     );
   }
 
-  if (
-    selectedConfig.hasSelector &&
-    selectedConfig.type === NOTIFICATION_ADVANCED_TYPE.paymentPack
-  ) {
+  if (selectedConfig.type === NOTIFICATION_ADVANCED_TYPE.paymentPack) {
     return (
       <PassSelector
         onSelectPasses={(passes) => {
@@ -139,5 +135,20 @@ export const TriggerTypeSelector = ({
     );
   }
 
-  return <p>{selectedConfig.translationKey} Placeholder</p>;
+  if (selectedConfig.type === NOTIFICATION_ADVANCED_TYPE.privatePass) {
+    return (
+      <AppointmentPassSelector
+        onSelectAppointmentPasses={(passes) => {
+          if (passes?.length > 0) {
+            onSelectTriggerType?.({
+              objectIds: passes.map((pass) => pass.id),
+              triggerType: selectedConfig.type,
+            });
+          }
+        }}
+      />
+    );
+  }
+
+  return null;
 };

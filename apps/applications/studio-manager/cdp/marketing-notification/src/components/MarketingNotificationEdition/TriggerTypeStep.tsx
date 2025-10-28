@@ -29,7 +29,6 @@ type SelectableNotificationType = Exclude<
 export type TriggerTypeSelectorConfig = {
   type: SelectableNotificationType;
   translationKey: string;
-  hasSelector: boolean;
   mode?: "groupActivity" | "workshop" | "all";
 };
 
@@ -38,49 +37,40 @@ const TRIGGER_CONFIG: TriggerTypeSelectorConfig[] = [
   {
     type: NOTIFICATION_ADVANCED_TYPE.groupActivity,
     translationKey: "groupActivity",
-    hasSelector: true, // temporary
     mode: "groupActivity" as const,
   },
   {
     type: NOTIFICATION_ADVANCED_TYPE.workshop,
     translationKey: "workshop",
-    hasSelector: true,
     mode: "workshop" as const,
   },
   {
     type: NOTIFICATION_ADVANCED_TYPE.establishment,
     translationKey: "establishment",
-    hasSelector: true,
   },
   {
     type: NOTIFICATION_ADVANCED_TYPE.location,
     translationKey: "location",
-    hasSelector: true,
   },
   {
     type: NOTIFICATION_ADVANCED_TYPE.privateService,
     translationKey: "privateService",
-    hasSelector: true,
   },
   {
     type: NOTIFICATION_ADVANCED_TYPE.paymentPack,
     translationKey: "paymentPack",
-    hasSelector: true,
   },
   {
     type: NOTIFICATION_ADVANCED_TYPE.privatePass,
     translationKey: "privatePass",
-    hasSelector: false,
   },
   {
     type: NOTIFICATION_ADVANCED_TYPE.subscription,
     translationKey: "subscription",
-    hasSelector: true,
   },
   {
     type: NOTIFICATION_ADVANCED_TYPE.birthday,
     translationKey: "birthday",
-    hasSelector: false,
   },
 ] as const;
 

@@ -214,9 +214,6 @@ export class PlatformBillingSetting extends React.Component<Props, State> {
   render() {
     const { loading, classes } = this.props;
 
-    const hasLimitedAccessToAudience: boolean =
-      this.props.theme.has_limited_access_to_sequential_marketing;
-
     const isOnlinePaymentEnabled: boolean =
       this.props.theme.online_payment_enabled;
 
@@ -272,7 +269,6 @@ export class PlatformBillingSetting extends React.Component<Props, State> {
         />
         <CompanyPlatformBillinGroupDetail
           handleSubscribe={this.handleOpenSubscriptionForm}
-          hasLimitedAccessToAudience={hasLimitedAccessToAudience}
           nonSubscribedUpsellPackages={this.props.nonSubscribedUpsellPackages}
           onKnowMore={handleRequestUpsellInPage}
           platformSubscription={this.props.platformSubscription}

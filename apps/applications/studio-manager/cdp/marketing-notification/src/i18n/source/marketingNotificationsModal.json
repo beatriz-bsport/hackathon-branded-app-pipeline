@@ -60,6 +60,11 @@
           "label": "Associated Subscription",
           "placeholder": "Select associated subscription",
           "loading": "Searching subscriptions..."
+        },
+        "pass": {
+          "label": "Associated Pass",
+          "placeholder": "Select associated pass",
+          "loading": "Searching passes..."
         }
       }
     }

@@ -135,8 +135,6 @@ const findEntityName = (
 
     case NOTIFICATION_ADVANCED_TYPE.establishment: {
       const establishment = establishmentsById?.[entityIds[0]];
-      console.log("establishmentsById", establishmentsById);
-      console.log("entityIds", entityIds);
       return establishment?.name ?? NOTIFICATION_ADVANCED_TYPE.establishment;
     }
 

@@ -6,6 +6,8 @@ import {
   type TextFieldProps,
 } from "@bsport/kaizen-primitive-core";
 
+import { useTranslation } from "#src/utils/i18n";
+
 import type { SearchResultItem } from "./types";
 import { type StoreSearchConfig, useGenericSearch } from "./use-generic-search";
 
@@ -59,11 +61,17 @@ export type BackendSelectorProps<TParams, TResult> = {
   /**
    * Callback fired when an item is selected, receiving the selected item's ID.
    */
-  onSelect?: (selectedId: string) => void;
+  onSelect?: (selectedId: string | string[]) => void;
+
   /**
    * Callback fired when the clear action is performed, receiving the cleared item's ID.
    */
   onClear?: () => void;
+
+  /**
+   * Boolean to be able to transform the backend selector from a single item selecotr into a multi selector
+   */
+  multiSelect?: boolean;
 };
 
 /**
@@ -92,7 +100,9 @@ export const BackendSelector = <
   defaultValues,
   className,
   onClear,
+  multiSelect = false,
 }: BackendSelectorProps<TParams, TResult>) => {
+  const { t } = useTranslation("marketingNotificationList");
   const [searchInput, setSearchInput] = useState("");
 
   // Use the generic search hook
@@ -128,33 +138,50 @@ export const BackendSelector = <
     return <div className={className}>Loading...</div>; // Placeholder while hydrating
   }
 
+  const autocompleteProps: AutocompleteProps = {
+    fullWidth: true,
+    clearOnSelect: true,
+    className: className,
+    disabled: disabled,
+    searchMode: "remote",
+    popoverPlacement: "bottom-right",
+    textfieldProps: {
+      id: "backend-selector-textfield",
+      ...textfieldProps,
+    },
+    defaultSelectedIds: defaultValues ? defaultValues : [],
+    items: itemsList,
+    loadingProps: {
+      isLoading: isLoading && !isHydrating,
+      message: loadingMessage || t("searching"),
+    },
+    onValueChange: (event: string) => {
+      setSearchInput(event);
+    },
+    onClear: () => {
+      setSearchInput("");
+      onClear?.();
+    },
+  };
+
+  if (multiSelect) {
+    return (
+      <Autocomplete
+        {...autocompleteProps}
+        multiSelect={true}
+        onSelect={(value) => {
+          onSelect?.(value);
+        }}
+      />
+    );
+  }
+
   return (
     <Autocomplete
-      fullWidth
-      clearOnSelect
-      className={className}
-      disabled={disabled}
-      searchMode="remote"
-      popoverPlacement="bottom-right"
-      textfieldProps={{
-        id: "backend-selector-textfield",
-        ...textfieldProps,
-      }}
-      defaultSelectedIds={defaultValues ? defaultValues : []}
-      items={itemsList}
-      loadingProps={{
-        isLoading: isLoading && !isHydrating,
-        message: loadingMessage || "Searching...",
-      }}
-      onSelect={(value: string) => {
+      {...autocompleteProps}
+      multiSelect={false}
+      onSelect={(value) => {
         onSelect?.(value);
-      }}
-      onValueChange={(event: string) => {
-        setSearchInput(event);
-      }}
-      onClear={() => {
-        setSearchInput("");
-        onClear?.();
       }}
     />
   );

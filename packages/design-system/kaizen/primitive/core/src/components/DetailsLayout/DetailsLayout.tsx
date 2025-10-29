@@ -23,7 +23,6 @@ import {
   useLayoutContext,
 } from "./LayoutProvider";
 
-const MAX_CONTENT_WIDTH = 920;
 const SIDE_PANEL_WIDTH = 320;
 
 export type DetailsLayoutProps = HTMLAttributes<HTMLDivElement> & {
@@ -118,6 +117,9 @@ const detailsLayoutContent = cva([
   "[grid-area:content]",
   "p-md",
   "overflow-y-scroll",
+  "m-[0_auto]",
+  "w-full",
+  "max-w-component-content-centered",
 ]);
 
 type DetailsLayoutContentProps = PropsWithChildren<
@@ -136,9 +138,7 @@ const DetailsLayoutContent: FC<DetailsLayoutContentProps> = ({
 }) => {
   return (
     <div className={detailsLayoutContent({ className })} {...htmlProps}>
-      <div className={`p-md w-full max-w-[${MAX_CONTENT_WIDTH}px] m-[0_auto]`}>
-        {children}
-      </div>
+      {children}
     </div>
   );
 };

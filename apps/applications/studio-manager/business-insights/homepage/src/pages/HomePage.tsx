@@ -1,6 +1,6 @@
 import type { FC } from "react";
 
-import { ListLayout } from "@bsport/kaizen-primitive-core";
+import { DetailsLayout } from "@bsport/kaizen-primitive-core";
 
 import { InsightsBanner } from "#src/components/Banner";
 import { ExploreSection } from "#src/components/ExploreSection";
@@ -13,9 +13,9 @@ import { useTranslation } from "#src/utils/i18n";
 const ListPage: FC = () => {
   const { t } = useTranslation("default");
   return (
-    <ListLayout>
-      <ListLayout.Header pageTitle={t("pageTitle")} />
-      <ListLayout.Content className="pt-md pb-xl px-lg gap-xl flex flex-col">
+    <DetailsLayout>
+      <DetailsLayout.Header pageTitle={t("pageTitle")} />
+      <DetailsLayout.Content className="pt-md pb-xl px-lg gap-xl flex flex-col">
         <section className="flex flex-col gap-lg">
           <Header />
           <InsightsBanner />
@@ -24,8 +24,8 @@ const ListPage: FC = () => {
         <UpcomingActivities />
         <InsightsPanel />
         <ExploreSection />
-      </ListLayout.Content>
-    </ListLayout>
+      </DetailsLayout.Content>
+    </DetailsLayout>
   );
 };
 

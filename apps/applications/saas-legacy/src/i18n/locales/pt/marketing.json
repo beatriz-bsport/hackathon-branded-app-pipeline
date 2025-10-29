@@ -550,8 +550,8 @@
         "helperText": "Definir o que é considerado uma falha, o membro será marcado como \"Perdido\" ao sair do {{ workflowLowerCase }}. Também define o tempo máximo que um membro pode estar presente no {{ workflowLowerCase }}",
         "addTrigger": "Adicionar um acionador de saída",
         "timeout": {
-          "helperText": "Se um membro ainda estiver presente neste  {{ workflowLowerCase }} após o Limite de tempo selecionado, o membro será considerado como \"Perdido\".",
-          "label": "Dias no {{ workflowLowerCase }}",
+          "helperText": "Os membros sairão do {{ workflowLowerCase }} se não houver progresso após esse número de dias",
+          "label": "Dias inativos no {{ workflowLowerCase }}",
           "title": "Tempo limite"
         }
       },

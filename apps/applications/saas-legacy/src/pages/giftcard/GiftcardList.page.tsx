@@ -2,23 +2,31 @@ import React, { Component } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { push as pushAction } from 'connected-react-router';
 import { compose, withHandlers } from 'recompose';
-
-import { WithStyles, createStyles, withStyles, Theme } from '@material-ui/core';
-
 import { withTranslation, WithTranslation } from 'react-i18next';
 import { TFunction } from 'i18next';
 
+import { WithStyles, createStyles, withStyles, Theme } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
-
 import Collapse from '@material-ui/core/Collapse';
 import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import Divider from '@material-ui/core/Divider';
-import type { OptionPropsWithData } from '#src/libs/fuzzy-search/types';
 
+import withTitle from '#src/hocs/with-title.hoc';
+// @ts-expect-error
+import withQueryParams from '#src/hocs/with-query-params.hoc';
+import type { RootState } from '#src/reducers';
+import type { OptionCallback } from '#src/state/types';
+
+import IsEmptyList from '#src/components/navigation/IsEmptyList.component';
+import BackofficeLinearProgressComponent from '#src/components/navigation/BackofficeLinearProgress.component';
+import BottomActionButtons from '#src/components/button/BottomActionsButton.component';
+import DividerLoader from '#src/components/DividerLoader.component';
+
+import type { OptionPropsWithData } from '#src/libs/fuzzy-search/types';
 import { getAllTagsWithTagGroup } from '#src/libs/tag/selectors';
 import { fetchTags } from '#src/libs/tag/actions';
 import { fetchBookkeepingAccountList as fetchBookkeepingAccountListAction } from '#src/libs/payment/actions';
@@ -27,12 +35,6 @@ import {
   getBookkeepingAccountById,
 } from '#src/libs/payment/selectors';
 import { IS_BOOKKEEPING_ACOUNT_FEATURE_ENABLED } from '#src/libs/payment/constants';
-import withTitle from '../../hocs/with-title.hoc';
-import IsEmptyList from '../../components/navigation/IsEmptyList.component';
-import BackofficeLinearProgressComponent from '../../components/navigation/BackofficeLinearProgress.component';
-// @ts-expect-error
-import withQueryParams from '../../hocs/with-query-params.hoc';
-import { RootState } from '../../reducers';
 import {
   fetchGiftcardList as fetchGiftcardListAction,
   createOrUpdateGiftcard as createOrUpdateGiftcardAction,
@@ -42,28 +44,24 @@ import {
   fetchGiftcardBackgroundImageList,
   restoreGiftcard,
   makeGiftcardCopy as makeGiftcardCopyAction,
-} from '../../libs/giftcard/actions';
+} from '#src/libs/giftcard/actions';
 import {
   getGiftcardBackgroundImageList,
   getGiftcardListActive,
   getGiftcardListUnavailableForSale,
   getGiftcardListInactive,
-} from '../../libs/giftcard/selectors';
+} from '#src/libs/giftcard/selectors';
 import { GiftcardFormDrawer } from '#src/libs/giftcard/components/GiftcardFormDrawer';
-import BottomActionButtons from '../../components/button/BottomActionsButton.component';
-import GiftcardList from '../../libs/giftcard/components/GiftcardList.component';
-import DividerLoader from '../../components/DividerLoader.component';
-import GiftcardBackgroundImageUploader from '../../libs/giftcard/components/GiftcardBackgroundImageUploader.component';
-
-import {
+import GiftcardList from '#src/libs/giftcard/components/GiftcardList.component';
+import GiftcardBackgroundImageUploader from '#src/libs/giftcard/components/GiftcardBackgroundImageUploader.component';
+import type {
   ConsumerGiftcard,
   Giftcard,
   GiftcardBackgroundImage,
-} from '../../libs/giftcard/types';
-import { OptionCallback } from '../../state/types';
-import GiftcardListItem from '../../libs/giftcard/components/GiftcardListItem.component';
-import ObjectSearchComponent from '#src/libs/fuzzy-search/components/ObjectSearch.component';
+} from '#src/libs/giftcard/types';
+import GiftcardListItem from '#src/libs/giftcard/components/GiftcardListItem.component';
 import GiftcardListDeleteDialog from '#src/libs/giftcard/components/GiftcardListDeleteDialog.component';
+import ObjectSearchComponent from '#src/libs/fuzzy-search/components/ObjectSearch.component';
 import {
   withObjectSearch,
   WithObjectSearch,

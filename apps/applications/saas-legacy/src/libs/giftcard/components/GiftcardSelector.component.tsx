@@ -5,7 +5,7 @@ import GiftcardListItem from './GiftcardListItem.component';
 // @ts-expect-error
 import Selector from '../../../components/Selector.component';
 
-import { Giftcard } from '../types';
+import type { Giftcard } from '../types';
 
 type Props = {
   classes: any;

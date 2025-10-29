@@ -4,10 +4,12 @@ import Paper from '@material-ui/core/Paper';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Typography from '@material-ui/core/Typography';
-import InvoiceListItem from '../../invoice/InvoiceListItem.component';
+
+import type { Invoice } from '#src/libs/invoice/types';
+import InvoiceListItem from '#src/libs/invoice/InvoiceListItem.component';
+
 import GiftcardListItem from './GiftcardListItem.component';
-import { ConsumerGiftcard, WithGiftcard } from '../types';
-import { Invoice } from '../../invoice/types';
+import type { ConsumerGiftcard, WithGiftcard } from '../types';
 
 type Props = {
   consumerGiftcard: WithGiftcard<ConsumerGiftcard> | null;

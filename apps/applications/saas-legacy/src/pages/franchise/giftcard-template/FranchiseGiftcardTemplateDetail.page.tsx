@@ -21,7 +21,7 @@ import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
 import { getPaymentMethodsConcatenatedString } from '#src/libs/payment/utils';
 
 // --------- GIFTCARD ---------
-import {
+import type {
   GiftcardTemplate,
   ConsumerGiftcard,
   GiftcardDataAPI,
@@ -60,6 +60,7 @@ import routerParamsToProps from '../../../hocs/router-params-to-props.hoc';
 import withTitle from '../../../hocs/with-title.hoc';
 import { WithHandlerType } from '../../../utils/types';
 import { openNewWindowToImpersonate } from '#src/utils/windows';
+import { GIFTCARD_TYPES } from '#src/libs/giftcard/constants';
 
 type OwnProps = {
   giftcardTemplateId: number;
@@ -115,33 +116,55 @@ export class GiftcardDetailPage extends Component<Props> {
     deleteTemplateInstanceContents: string[];
     companiesInTemplate: FranchiseCompany[];
   } => {
-    const { description, price, companies, name } = this.props.giftcardTemplate;
+    const t = this.props.t;
+    const { description, price, card_type, companies, name } =
+      this.props.giftcardTemplate;
 
     const categories = {
-      validity: this.props.t('giftcardTemplate.template.validityDetail', {
+      validity: t('giftcardTemplate.template.validityDetail', {
         count: this.props.giftcardTemplate.expiration_days,
+        ns: 'giftcard',
       }),
       paymentMethods: getPaymentMethodsConcatenatedString(
         this.props.giftcardTemplate?.available_payment_method_identifiers,
-        this.props.t,
+        t,
       ),
     };
 
+    const { displayedPrice, displayedTaxFreePrice } =
+      card_type === GIFTCARD_TYPES.CUSTOM || !price
+        ? {
+            displayedPrice: t('giftcardFreeAmount.customAmount', {
+              ns: 'b2b_giftcard',
+            }),
+            displayedTaxFreePrice: '',
+          }
+        : {
+            displayedPrice: getCurrencyDisplayWithPrice(price),
+            displayedTaxFreePrice: `${getCurrencyDisplayWithPrice(price)} ${t(
+              'giftcardTemplate.template.withoutTax',
+              { ns: 'giftcard' },
+            )}`,
+          };
+
     return {
       headerLeftPrimary: name,
-      headerRightPrimary: getCurrencyDisplayWithPrice(price),
-      headerRightSecondary: `${getCurrencyDisplayWithPrice(
-        price,
-      )} ${this.props.t('giftcardTemplate.template.withoutTax')}`,
+      headerRightPrimary: displayedPrice,
+      headerRightSecondary: displayedTaxFreePrice,
       categories,
       description,
-      deleteTemplateContent: this.props.t(
+      deleteTemplateContent: t(
         'giftcardTemplate.template.deleteTemplateContent',
+        { ns: 'giftcard' },
       ),
       companiesInTemplate: companies,
       deleteTemplateInstanceContents: [
-        this.props.t('giftcardTemplate.template.deleteInstanceContent1'),
-        this.props.t('giftcardTemplate.template.deleteInstanceContent2'),
+        t('giftcardTemplate.template.deleteInstanceContent1', {
+          ns: 'giftcard',
+        }),
+        t('giftcardTemplate.template.deleteInstanceContent2', {
+          ns: 'giftcard',
+        }),
       ],
     };
   };
@@ -202,7 +225,7 @@ export class GiftcardDetailPage extends Component<Props> {
               renderEmpty={() => (
                 <div className={classes.emptyContainer}>
                   <Typography color="textSecondary" variant="caption">
-                    {t('giftcard:consumerGiftcard.isEmpty')}
+                    {t('giftcard:consumerGiftcard.isEmpty', { ns: 'giftcard' })}
                   </Typography>
                   <Divider />
                 </div>
@@ -310,7 +333,7 @@ const withStateHandlersSetter = {
 };
 
 export default compose(
-  withTranslation(['giftcard', 'payment']),
+  withTranslation(['giftcard', 'b2b_giftcard', 'payment']),
   routerParamsToProps({ giftcardTemplateId: 'giftcardTemplateId:number' }),
   connector,
   withStateHandlers(withStateHandlersInit, withStateHandlersSetter),

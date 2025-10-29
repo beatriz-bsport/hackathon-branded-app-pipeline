@@ -1,7 +1,7 @@
 import { createSelector } from 'reselect';
 import memoize from 'memoize-one';
 import { RootState } from '../../reducers';
-import {
+import type {
   Giftcard,
   ConsumerGiftcard,
   GiftcardBackgroundImage,

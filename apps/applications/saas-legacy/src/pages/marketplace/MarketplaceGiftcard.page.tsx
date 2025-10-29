@@ -19,9 +19,9 @@ import { fetchGiftcardList } from '../../libs/giftcard/actions';
 import MarketplaceGiftcardItem from '../../libs/giftcard/components/GiftcardMarketplace.component';
 import { getCurrentBasket } from '../../libs/checkout/selectors';
 
-import { RootState } from '../../reducers';
-import { Giftcard } from '../../libs/giftcard/types';
-import { CompanyTheme } from '#src/libs/theme/types';
+import type { RootState } from '../../reducers';
+import type { Giftcard } from '#src/libs/giftcard/types';
+import type { CompanyTheme } from '#src/libs/theme/types';
 
 const styles = (theme: Theme) =>
   createStyles({

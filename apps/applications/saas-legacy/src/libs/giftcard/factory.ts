@@ -5,10 +5,10 @@ import { WithFranchiseCompanies } from '#src/libs/franchise/types';
 import { generateRandomInt } from '../../utils/factories';
 import {
   ConsumerGiftcard,
-  GiftcardV2,
+  Giftcard,
   GiftcardRecipient,
   GiftcardBackgroundImage,
-  GiftcardTemplateV2,
+  GiftcardTemplate,
 } from './types';
 import { GIFTCARD_TYPES } from './constants';
 
@@ -95,7 +95,7 @@ export function giftcard_recipient_factory(
 
 export function giftcard_factory(
   num_el: number,
-): Array<GiftcardV2<typeof GIFTCARD_TYPES.FIXED>> {
+): Array<Giftcard<typeof GIFTCARD_TYPES.FIXED>> {
   const GIFTCARD_IDS: Array<number> = [...Array(num_el).keys()];
   return GIFTCARD_IDS.map((id) => {
     return {
@@ -164,10 +164,10 @@ export function giftcard_background_image_factory(
 export function GiftcardTemplateListFactory(
   num_el: number,
   manager_only?: boolean,
-): Array<WithFranchiseCompanies<GiftcardTemplateV2>> {
+): Array<WithFranchiseCompanies<GiftcardTemplate>> {
   const GIFTCARD_IDS: Array<number> = [...Array(num_el).keys()];
   return GIFTCARD_IDS.map((id) => {
-    const item: WithFranchiseCompanies<GiftcardTemplateV2> = {
+    const item: WithFranchiseCompanies<GiftcardTemplate> = {
       id: id + 1,
       franchisor: 1,
       cover: random_choice(COVERS),

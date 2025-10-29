@@ -25,7 +25,7 @@ import {
   PrivateService,
   PrivateServiceGroup,
 } from '../../../private-service/types';
-import { Giftcard } from '../../../giftcard/types';
+import type { Giftcard } from '#src/libs/giftcard/types';
 import ExportableComponentSelector from '../../../exportable-components/components/ExportableComponentSelector.component';
 import {
   getDefaultConfigByIdentifier,

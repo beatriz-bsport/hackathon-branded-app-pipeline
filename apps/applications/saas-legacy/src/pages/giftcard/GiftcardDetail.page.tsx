@@ -15,7 +15,7 @@ import { GiftcardFormDrawer } from '#src/libs/giftcard/components/GiftcardFormDr
 import GiftcardDeleteDialog from '#src/libs/giftcard/components/GiftcardDeleteDialog.component';
 import BottomActionsButton from '#src/components/button/BottomActionsButton.component';
 import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
-import {
+import type {
   Giftcard,
   ConsumerGiftcard,
   GiftcardDataAPI,

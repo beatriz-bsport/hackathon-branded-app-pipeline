@@ -34,7 +34,7 @@ import {
   createGiftcardTemplateInstances as createGiftcardTemplateInstancesAPI,
   deleteGiftcardTemplateInstance as deleteGiftcardTemplateInstanceAPI,
 } from './api';
-import {
+import type {
   ConsumerGiftcard,
   ConsumerGiftcardFilterParams,
   Giftcard,

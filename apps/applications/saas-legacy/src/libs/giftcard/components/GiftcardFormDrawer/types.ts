@@ -9,7 +9,7 @@ import type { Giftcard, GiftcardTemplate, GiftcardDataAPI } from '../../types';
 export type OuterProps = {
   open: boolean;
   onClose: () => void;
-  initial?: Giftcard | GiftcardTemplate;
+  initial?: Giftcard | GiftcardTemplate | null;
   tagList?: Array<Tag<TagGroup>>;
   bookkeepingAccounts?: BookkeepingAccount[];
   bookkeepingAccountById?: Record<number, BookkeepingAccount>;
@@ -29,7 +29,7 @@ export type GiftcardFormValues = {
   available_payment_method_identifiers: number[];
   expiration_days: number | null;
   tags_on_consumer_item_creation: number[];
-  bookkeeping_account?: number;
+  bookkeeping_account?: number | null;
   is_shared_giftcard?: boolean | null;
 };
 

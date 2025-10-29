@@ -37,16 +37,22 @@ export const GiftcardFormHOC = withFormik<OuterProps, GiftcardFormValues>({
         expiration_days: 30,
         available_payment_method_identifiers: [CB.id],
         tags_on_consumer_item_creation: [],
+        bookkeeping_account: null,
+        is_shared_giftcard: false,
       };
     }
 
     return {
+      // Default data that are in Giftcard but not in GiftcardTemplate
+      bookkeeping_account: null,
+      tags_on_consumer_item_creation: [],
+      is_shared_giftcard: false,
+      // Override with values of the initial object
       ...initial,
+      // Transform data to fit Form usage
       price: initial.price ? Number(initial.price) : 1,
       unlimited: !initial.expiration_days,
       expiration_days: initial.expiration_days || 30,
-      tags_on_consumer_item_creation:
-        initial.tags_on_consumer_item_creation || [],
     };
   },
   validationSchema: GiftcardSchema,

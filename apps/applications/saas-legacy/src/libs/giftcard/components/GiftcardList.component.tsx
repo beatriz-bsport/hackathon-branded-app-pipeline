@@ -1,6 +1,6 @@
 import { List, Paper } from '@material-ui/core';
 import React from 'react';
-import { Giftcard } from '../types';
+import type { Giftcard } from '../types';
 import GiftcardListItem from './GiftcardListItem.component';
 
 type Props = {

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { type FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
@@ -13,7 +13,9 @@ import ObjectLevelPermissionWrapper from '#src/libs/role/permission-utils/Object
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 import TypographyMultiline from '../../../components/typo/TypographyMultiline.component';
 import AvailablePaymentMethodList from '../../payment/components/AvailablePaymentMethodList.component';
-import { Giftcard } from '../types';
+
+import type { Giftcard } from '../types';
+import { GIFTCARD_TYPES } from '../constants';
 
 type Props = {
   giftcard: Giftcard;
@@ -21,13 +23,22 @@ type Props = {
   snackbarSuccess: (msg: string) => void;
 };
 
-const GiftcardCardDetail = (props: Props) => {
-  const { t } = useTranslation(['giftcard']);
+const GiftcardCardDetail: FC<Props> = ({
+  giftcard,
+  noCover,
+  snackbarSuccess,
+}) => {
+  const { t } = useTranslation(['giftcard', 'b2b_giftcard']);
   const classes = useStyles();
-  const { giftcard } = props;
+
+  const displayedPrice =
+    giftcard.card_type === GIFTCARD_TYPES.CUSTOM || !giftcard.price
+      ? t('giftcardFreeAmount.customAmount', { ns: 'b2b_giftcard' })
+      : getCurrencyDisplayWithPrice(giftcard.price);
+
   return (
     <div className={classes.container}>
-      {giftcard.cover && !props.noCover ? (
+      {giftcard.cover && !noCover ? (
         <img
           alt={giftcard.name}
           className={classes.cover}
@@ -38,7 +49,7 @@ const GiftcardCardDetail = (props: Props) => {
         <div className={classes.titleRow}>
           <Typography variant="h4">{giftcard.name}</Typography>
           <Typography color="primary" variant="h5">
-            {getCurrencyDisplayWithPrice(giftcard.price)}
+            {displayedPrice}
           </Typography>
         </div>
         <ObjectLevelPermissionWrapper
@@ -51,13 +62,11 @@ const GiftcardCardDetail = (props: Props) => {
             <ButtonBase
               className={classes.link}
               id="button_pass_copy"
-              onClick={() =>
-                props.snackbarSuccess && props.snackbarSuccess('link.copied')
-              }
+              onClick={() => snackbarSuccess?.('link.copied')}
             >
               <LinkIcon />
               <Typography className={classes.linkTypo}>
-                {t('link.copyLink')}
+                {t('link.copyLink', { ns: 'giftcard' })}
               </Typography>
             </ButtonBase>
           </CopyToClipboard>
@@ -73,6 +82,7 @@ const GiftcardCardDetail = (props: Props) => {
             <Typography variant="body2">
               {t('giftcard.detail.expirationDate', {
                 expiration_days: giftcard.expiration_days,
+                ns: 'giftcard',
               })}
             </Typography>
           </div>
@@ -81,13 +91,13 @@ const GiftcardCardDetail = (props: Props) => {
           <div className={classes.row}>
             <VisibilityOffIcon className={classes.iconLeft} />
             <Typography variant="body2">
-              {t('giftcard.detail.manager_only')}
+              {t('giftcard.detail.manager_only', { ns: 'giftcard' })}
             </Typography>
           </div>
         )}
         <div className={classes.paymentMethodContainer}>
           <Typography color="textSecondary" variant="body2">
-            {t('giftcard.detail.availablePaymentMethods')}
+            {t('giftcard.detail.availablePaymentMethods', { ns: 'giftcard' })}
           </Typography>
           <AvailablePaymentMethodList
             available_payment_method_identifiers={

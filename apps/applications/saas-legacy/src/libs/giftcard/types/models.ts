@@ -41,7 +41,6 @@ type GiftcardBase = {
   disabled: boolean;
   expiration_days: number | null;
   id: number;
-  is_shared_giftcard: boolean;
   manager_only: boolean;
   name: string;
 };
@@ -52,14 +51,13 @@ type GiftcardBase = {
  * Typing for a Custom Amount Giftcard: `Giftcard<typeof GIFTCARD_TYPES.CUSTOM>` or `Giftcard<"Free Amount">`
  *
  * Typing for a Fixed Amount Giftcard: `Giftcard<typeof GIFTCARD_TYPES.FIXED>` or `Giftcard<"Fixed">`
- *
- * @todo Remove V2 when all usages of legacy Giftcard have been removed
  */
-export type GiftcardV2<T extends GiftcardType | undefined = undefined> = {
+export type Giftcard<T extends GiftcardType | undefined = undefined> = {
   company: number;
   bookkeeping_account: number | null;
   tags_on_consumer_item_creation: Array<number>;
-  date_updated: string | null;
+  date_updated?: string | null;
+  is_shared_giftcard: boolean;
 } & GiftcardBase &
   GiftcardVariants<T>;
 
@@ -69,48 +67,12 @@ export type GiftcardV2<T extends GiftcardType | undefined = undefined> = {
  * Typing for a Custom Amount GiftcardTemplate: `GiftcardTemplate<typeof GIFTCARD_TYPES.CUSTOM>` or `GiftcardTemplate<"Free Amount">`
  *
  * Typing for a Fixed Amount GiftcardTemplate: `GiftcardTemplate<typeof GIFTCARD_TYPES.FIXED>` or `GiftcardTemplate<"Fixed">`
- *
- * @todo Remove V2 when all usages of legacy GiftcardTemplate have been removed
  */
-export type GiftcardTemplateV2<T extends GiftcardType | undefined = undefined> =
-  {
-    franchisor: number;
-    companies: number[];
-  } & GiftcardBase &
-    GiftcardVariants<T>;
-
-export type Giftcard = {
-  id: number;
-  name: string;
-  description: string;
-  cover: string;
-  cover_thumbnail: string;
-  expiration_days: number | null;
-  price: string; // sent as decimal from backend, thus as a string: "4.54" to avoid round error
-  available_payment_method_identifiers: Array<number>; // check bsport-commons payment-methods.ts
-  manager_only: boolean;
-  disabled: boolean;
-  company: number;
-  amount_gifted: string; // decimal price
-  is_shared_giftcard?: boolean;
-  tags_on_consumer_item_creation?: Array<number>;
-  bookkeeping_account?: number;
-};
-
-export type GiftcardTemplate = {
-  id: number;
+export type GiftcardTemplate<T extends GiftcardType | undefined = undefined> = {
   franchisor: number;
-  name: string;
-  description: string;
-  expiration_days: number | null;
-  price: string; // sent as decimal from backend, thus as a string: "4.54" to avoid round error
-  available_payment_method_identifiers: Array<number>; // check bsport-commons payment-methods.ts
-  manager_only: boolean;
-  amount_gifted: string; // decimal price
-  companies: Array<number>;
-  cover: string;
-  tags_on_consumer_item_creation?: Array<number>;
-};
+  companies: number[];
+} & GiftcardBase &
+  GiftcardVariants<T>;
 
 export type GiftcardBackgroundImage = {
   id: number;

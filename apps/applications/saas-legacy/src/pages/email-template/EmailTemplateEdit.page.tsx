@@ -47,11 +47,19 @@ type OwnProps = {
   create: number;
 };
 
+type State = {
+  shouldBlockNavigation: boolean;
+};
+
 type Props = OwnProps &
   ReturnType<typeof mapStateToProps> &
   typeof mapDispatchToProps;
 
 export class MarketingEmail extends Component<Props> {
+  state: State = {
+    shouldBlockNavigation: false,
+  };
+
   UNSAFE_componentWillMount() {
     if (this.props.hasBeenLoadedOnce) {
       window.location.reload();
@@ -64,6 +72,12 @@ export class MarketingEmail extends Component<Props> {
   componentDidMount() {
     // check if the page fully loaded
     // to improve later
+    const emailTemplateId = this.props.id;
+    if (emailTemplateId === undefined || isNaN(emailTemplateId)) {
+      this.props.goToList();
+      return;
+    }
+    this.setState({ shouldBlockNavigation: true });
     if (!this.props.hasBeenLoadedOnce) trackFormAdd(this.props.id);
     this.props.emailTemplateComplete(this.props.id);
     this.props.fetchTagList();
@@ -155,6 +169,7 @@ export class MarketingEmail extends Component<Props> {
             }
             requiredTags={this.props.requiredTags}
             saveEmail={this.onSave}
+            shouldBlockNavigation={this.state.shouldBlockNavigation}
             showLeftMenuAction={context.showLeftMenuAction}
             tags={this.props.tagCategories}
           />

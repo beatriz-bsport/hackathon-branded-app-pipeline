@@ -63,10 +63,20 @@ const FranchiseEmailEditor = (props: Props) => {
     requiredTags,
     relatedNotificationRuleEvents,
   } = props;
+  const [shouldBlockNavigation, setShouldBlockNavigation] =
+    React.useState(false);
 
   useEffect(() => {
     fetchFranchise();
   }, [fetchFranchise]);
+
+  useEffect(() => {
+    if (id === undefined || isNaN(id)) {
+      goToList();
+      return;
+    }
+    setShouldBlockNavigation(true);
+  }, [goToList, id]);
 
   useEffect(() => {
     emailTemplateComplete(id);
@@ -171,6 +181,7 @@ const FranchiseEmailEditor = (props: Props) => {
             relatedNotificationRuleEvents={relatedNotificationRuleEvents}
             requiredTags={requiredTags}
             saveEmail={onSave}
+            shouldBlockNavigation={shouldBlockNavigation}
             showLeftMenuAction={context.showLeftMenuAction}
             tags={tagCategories}
           />

@@ -161,6 +161,7 @@ export type EmailEditorPanelProps = {
   hideLeftMenuAction: () => void;
   saveEmail: (params: SaveEmailsParameters) => void;
   showLeftMenuAction: () => void;
+  shouldBlockNavigation?: boolean;
 };
 
 const EmailEditorPanel: React.FC<EmailEditorPanelProps> = ({
@@ -181,12 +182,15 @@ const EmailEditorPanel: React.FC<EmailEditorPanelProps> = ({
   emailTemplateCategories,
   requiredTags = [],
   relatedNotificationRuleEvents = [],
+  shouldBlockNavigation,
 }) => {
   const [intervalId, setIntervalId] = useState<NodeJS.Timeout | null>(null);
   const [title, setTitle] = useState(emailToEdit?.title ?? '');
   const [subject, setSubject] = useState(emailToEdit?.subject ?? '');
   const [autoSave, setAutoSave] = useState(requiredTags.length === 0);
-  const [notReadyToLeave, setNotReadyToLeave] = useState(true);
+  const [notReadyToLeave, setNotReadyToLeave] = useState(
+    shouldBlockNavigation ?? true,
+  );
   const companyList = React.useMemo(() => {
     return (
       companies?.reduce<Record<number, FranchiseCompany>>((acc, company) => {

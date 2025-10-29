@@ -759,8 +759,8 @@
       "lostTrigger": {
         "timeout": {
           "title": "Délai",
-          "label": "Jours dans le {{ workflowLowerCase }}",
-          "helperText": "Le membre quittera le {{ workflowLowerCase }} après ce délai, quelle que soit l'étape à laquelle il se trouve."
+          "label": "Jours d'inactivité dans le {{ workflowLowerCase }}",
+          "helperText": "Les membres quitteront le {{ workflowLowerCase }} si aucun progrès n'est réalisé après ce nombre de jours"
         },
         "addTrigger": "Ajouter un déclencheur de sortie",
         "helperText": "Définissez ce qui considère votre objectif comme non atteint : déterminez un délai après lequel le membre sortira sans succès de ce {{ workflowLowerCase }} et/ou un - ou plusieurs - déclencheurs spécifiques.",

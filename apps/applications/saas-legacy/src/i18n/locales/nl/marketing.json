@@ -759,8 +759,8 @@
       "lostTrigger": {
         "timeout": {
           "title": "Tijdslimiet",
-          "label": "Dagen in de {{ workflowLowerCase }}",
-          "helperText": "Als een lid nog steeds aanwezig is in deze {{ workflowLowerCase }} na de geselecteerde tijdslimiet, wordt het lid beschouwd als 'Verloren'."
+          "label": "Dagen inactief in de {{ workflowLowerCase }}",
+          "helperText": "Leden zullen de {{ workflowLowerCase }} verlaten als er na dit aantal dagen geen vooruitgang is geboekt"
         },
         "addTrigger": "Een uitgangstrigger toevoegen",
         "helperText": "Definieer wat wordt beschouwd als een mislukking, het lid wordt gemarkeerd als 'Verloren' bij het verlaten van de {{ workflowLowerCase }}. Stel ook de maximale tijd in dat een lid aanwezig kan zijn in {{ workflowLowerCase }}.",

@@ -9,6 +9,7 @@ import type {
   PaymentGroup,
   PaymentMethod,
   StripeBalance,
+  StripePaymentMethodDomain,
   StripePayout,
 } from '#src/libs/payment/types';
 import type { BillingDetails } from '#src/libs/marketplace/types';
@@ -331,6 +332,23 @@ export const checkStripePaymentMethodDomainRegistration = async (
       'X-React-Referrer': document.referrer,
       Authorization: `Token ${token}`,
     },
+  );
+};
+
+export const fetchStripePaymentMethodDomains = async (): Promise<
+  AxiosResponse<StripePaymentMethodDomain[]>
+> => {
+  return getAuth<StripePaymentMethodDomain[]>(
+    `${API_V1_URI}/payment_backend/stripe/stripe-payment-method-domain/`,
+  );
+};
+
+export const registerStripePaymentMethodDomain = async (
+  domain_name: string,
+): Promise<AxiosResponse<StripePaymentMethodDomain>> => {
+  return postAuth<StripePaymentMethodDomain>(
+    `${API_V1_URI}/payment_backend/stripe/stripe-payment-method-domain/`,
+    { domain_name },
   );
 };
 

@@ -5,23 +5,25 @@ import Immutable from 'seamless-immutable';
 import uniq from 'lodash/uniq';
 
 import {
-  listSavedPaymentMethodListActions,
+  checkStripeDomainActions,
+  createBookkeepingAccountActions,
+  createPaymentAttemptActions,
+  deleteBookkeepingAccountActions,
+  detachPaymentMethodActions,
   fetchPaymentGroupStatusActions,
-  onSpotPaymentReportActions,
+  getLinkedProductNamesActions,
+  incrementalListPayoutActions,
+  listBookkeepingAccountActions,
   listPaymentGroupActions,
   listPayoutActions,
-  incrementalListPayoutActions,
-  detachPaymentMethodActions,
+  listSavedPaymentMethodListActions,
+  listStripeDomainActions,
+  listStripePayoutActions,
+  onSpotPaymentReportActions,
+  registerStripeDomainActions,
   stripeBalanceActions,
   submitInternalPaymentInBackgroundActions,
-  listStripePayoutActions,
-  listBookkeepingAccountActions,
-  createBookkeepingAccountActions,
   updateBookkeepingAccountActions,
-  deleteBookkeepingAccountActions,
-  getLinkedProductNamesActions,
-  createPaymentAttemptActions,
-  checkStripeDomainActions,
 } from './actions';
 
 const initialState = Immutable({
@@ -95,7 +97,13 @@ const initialState = Immutable({
     error: null,
     linkedProductNames: [],
   },
-  stripeDomainRegistration: {
+  stripeDomainList: {
+    loading: false,
+    error: null,
+    items: [],
+    registerError: null,
+  },
+  stripeDomainCheck: {
     loading: false,
     error: null,
     isRegistered: null,
@@ -367,17 +375,46 @@ export default handleActions(
     [getLinkedProductNamesActions.error]: (state, { payload }) => {
       return state.setIn(['bookkeepingAccounts', 'error'], payload);
     },
-    [checkStripeDomainActions.success]: (state, { payload }) => {
-      return state.setIn(
-        ['stripeDomainRegistration', 'isRegistered'],
-        payload.is_registered,
-      );
+    [listStripeDomainActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['stripeDomainList', 'loading'], payload);
     },
+    [listStripeDomainActions.error]: (state, { payload }) => {
+      return state.setIn(['stripeDomainList', 'error'], payload);
+    },
+    [listStripeDomainActions.success]: (state, { payload }) => {
+      return state.setIn(['stripeDomainList', 'items'], payload.results);
+    },
+
+    [registerStripeDomainActions.isLoading]: (state, { payload }) => {
+      return payload
+        ? state
+            .setIn(['stripeDomainList', 'loading'], payload)
+            .setIn(['stripeDomainList', 'registerError'], null)
+        : state.setIn(['stripeDomainList', 'loading'], payload);
+    },
+    [registerStripeDomainActions.error]: (state, { payload }) => {
+      return state.setIn(['stripeDomainList', 'registerError'], payload);
+    },
+    [registerStripeDomainActions.success]: (state, { payload }) => {
+      return state
+        .setIn(
+          ['stripeDomainList', 'items'],
+          [...state.stripeDomainList.items, payload],
+        )
+        .setIn(['stripeDomainList', 'registerError'], null);
+    },
+
     [checkStripeDomainActions.isLoading]: (state, { payload }) => {
-      return state.setIn(['stripeDomainRegistration', 'loading'], payload);
+      return state.setIn(['stripeDomainCheck', 'loading'], payload);
     },
     [checkStripeDomainActions.error]: (state, { payload }) => {
-      return state.setIn(['stripeDomainRegistration', 'error'], payload);
+      return state.setIn(['stripeDomainCheck', 'error'], payload);
+    },
+    [checkStripeDomainActions.success]: (state, { payload }) => {
+      return state.setIn(
+        ['stripeDomainCheck', 'isRegistered'],
+        payload.is_registered,
+      );
     },
   },
   initialState,

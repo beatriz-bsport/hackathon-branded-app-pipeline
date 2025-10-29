@@ -223,3 +223,22 @@ export type UpdatePaymentIntentArgs = {
 export type UpdatePaymentIntentResult = {
   client_secret: string;
 };
+
+export type StripePaymentMethodDomain = {
+  id: number;
+  pk: number;
+  stripe_company: number;
+  company: number;
+  payment_provider_id: string;
+  status: string;
+  domain_name: string;
+  created_at: string;
+  updated_at: string;
+};
+
+export type StripeDomainListState = {
+  loading: boolean;
+  error: Error | null;
+  items: StripePaymentMethodDomain[];
+  registerError: Error | null;
+};

@@ -1,26 +1,31 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
-import { withStyles, Theme, Paper } from '@material-ui/core';
+import { Paper, Theme, withStyles } from '@material-ui/core';
 
 import {
-  NOTIFICATION_PAYMENT_METHOD_EXPIRED_FIRST_WARNING,
-  NOTIFICATION_PAYMENT_METHOD_EXPIRED_SECOND_WARNING,
   NOTIFICATION_INSTALMENT_PAYMENT_PAYMENT_METHOD_ABOUT_TO_EXPIRE_FIRST_WARNING,
   NOTIFICATION_INSTALMENT_PAYMENT_PAYMENT_METHOD_ABOUT_TO_EXPIRE_SECOND_WARNING,
+  NOTIFICATION_PAYMENT_METHOD_EXPIRED_FIRST_WARNING,
+  NOTIFICATION_PAYMENT_METHOD_EXPIRED_SECOND_WARNING,
 } from '@bsport/common/lib/master-data/notification-rule-events.js';
-import { MaterialStyleType } from '../../utils/types';
-import { RootState } from '../../reducers';
+import { MaterialStyleType } from '#src/utils/types';
+import { RootState } from '#src/reducers';
 import BackofficeLinearProgress from '#src/components/navigation/BackofficeLinearProgress.component';
 import {
-  updateCompanyTheme,
   fetchCompanyTheme as fetchCompanyThemeAction,
+  updateCompanyTheme,
 } from '#src/libs/theme/actions';
 import { snackbarError, snackbarSuccess } from '#src/libs/snackbar/actions';
 import type { PaymentMethodsFormValues } from '#src/libs/settings/components/PaymentMethodsForm/PaymentMethodsForm.component';
 import PaymentMethodsForm from '#src/libs/settings/components/PaymentMethodsForm';
 
 import { fetchSettingsList as fetchSettingsListAction } from '#src/libs/notification-rule/actions';
+import {
+  fetchStripePaymentMethodDomains as fetchStripePaymentMethodDomainsAction,
+  registerStripePaymentMethodDomain as registerStripePaymentMethodDomainAction,
+} from '#src/libs/payment/actions';
+import { getStripeDomainListState } from '#src/libs/payment/selectors';
 import type { NotificationRuleSettingsData } from '#src/libs/notification-rule/types';
 
 type Props = ReturnType<typeof mapStateToProps> &
@@ -39,9 +44,14 @@ class PaymentMethodSettings extends React.PureComponent<Props> {
     });
   };
 
+  onRegisterStripeDomain = (domainName: string, onSuccess?: () => void) => {
+    this.props.registerStripePaymentMethodDomain(domainName, { onSuccess });
+  };
+
   componentDidMount(): void {
     this.props.fetchSettingsList();
     this.props.fetchCompanyTheme();
+    this.props.fetchStripePaymentMethodDomains();
   }
 
   /**
@@ -116,6 +126,7 @@ class PaymentMethodSettings extends React.PureComponent<Props> {
             first_warning_payment_method_expiration_days={parseInt(
               this.props.theme.first_warning_payment_method_expiration_days,
             )}
+            onRegisterStripeDomain={this.onRegisterStripeDomain}
             onSubmit={this.onSubmit}
             payment_method_available={this.props.theme.payment_method_available}
             payment_method_available_basket={payment_method_available_basket}
@@ -128,6 +139,7 @@ class PaymentMethodSettings extends React.PureComponent<Props> {
             second_warning_payment_method_expiration_days={parseInt(
               this.props.theme.second_warning_payment_method_expiration_days,
             )}
+            stripeDomainList={this.props.stripeDomainList}
             updateLoading={this.props.updateLoading}
           />
         </Paper>
@@ -150,6 +162,7 @@ const styles = (theme: Theme) => ({
 const mapStateToProps = (state: RootState) => ({
   theme: state.theme.theme,
   loading: state.theme.loading,
+  stripeDomainList: getStripeDomainListState(state),
   updateLoading: state.theme.createOrUpdate.loading,
   settingsData: state.notificationRule.settings.data,
 });
@@ -160,6 +173,8 @@ const mapDispatchToProps = {
   snackbarError,
   fetchSettingsList: fetchSettingsListAction,
   fetchCompanyTheme: fetchCompanyThemeAction,
+  fetchStripePaymentMethodDomains: fetchStripePaymentMethodDomainsAction,
+  registerStripePaymentMethodDomain: registerStripePaymentMethodDomainAction,
 };
 
 export default compose(

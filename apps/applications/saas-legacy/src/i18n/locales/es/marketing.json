@@ -751,8 +751,8 @@
         "helperText": "Establezca cuándo se considera que su objetivo no se ha cumplido: defina un límite de tiempo para ello y/o un desencadenante o desencadenantes específicos tras los cuales el miembro saldrá sin éxito de este {{ workflowLowerCase }}.",
         "addTrigger": "Añadir un activador de salida",
         "timeout": {
-          "helperText": "El miembro saldrá del {{ workflowLowerCase }} después de este número de días sin importar en qué paso se encuentre.",
-          "label": "Días en {{ workflowLowerCase }}",
+          "helperText": "Los miembros saldrán del {{ workflowLowerCase }} si no se produce ningún avance tras este número de días",
+          "label": "Días inactivo en {{ workflowLowerCase }}",
           "title": "Límite de tiempo"
         }
       },

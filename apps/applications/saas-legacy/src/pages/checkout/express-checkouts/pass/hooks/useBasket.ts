@@ -19,9 +19,13 @@ import {
 } from '@bsport/common/lib/master-data/buyable-items';
 import { FlowTypes } from '#src/libs/checkout/constants';
 import { trackAddToCartEvent } from '#src/events/purchase/utils';
+import { parseQueryString } from '#src/http';
 
 export const useBasket = () => {
   const { companyId, passId, passType } = usePassCardDataContext();
+
+  const { force } = parseQueryString(window.location.href);
+
   const [currentBasket, setCurrentBasket] = useState<Basket | undefined>();
 
   const [fetchBasketState, fetchBasket] = useAsyncFn(async () => {
@@ -71,6 +75,7 @@ export const useBasket = () => {
         quantity: 1,
         extra_data: {
           flow: FlowTypes.ONE_CLICK_CHECKOUT,
+          ...(force && { force }),
         },
       };
 

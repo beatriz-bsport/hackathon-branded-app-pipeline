@@ -3,6 +3,7 @@ import { DateTime } from 'luxon';
 import { PassTypes } from '#src/libs/marketplace/types';
 import type { PassCardData } from '#src/pages/checkout/express-checkouts/pass/context/PassCardDataContext';
 import { useFetchPassData } from './useFetchPassData';
+import { parseQueryString } from '#src/http';
 
 export const PASS_ERROR_INVALID = 'PASS_INVALID';
 
@@ -17,6 +18,8 @@ type PassValidityResponse = {
 const checkPassValidity = (
   passCardData: PassCardData,
 ): PassValidityResponse => {
+  const { force } = parseQueryString(window.location.href);
+
   if (passCardData.passType === PassTypes.PAYMENTPACK) {
     const paymentPack = passCardData.paymentPackData?.paymentPack;
 
@@ -40,7 +43,7 @@ const checkPassValidity = (
     if (
       !paymentPack ||
       paymentPack.disabled ||
-      paymentPack.manager_only ||
+      (paymentPack.manager_only && force !== 'true') ||
       isPassOutdated
     ) {
       return {
@@ -52,7 +55,11 @@ const checkPassValidity = (
   } else {
     const privatePass = passCardData.privatePassData?.privatePass;
 
-    if (!privatePass || !privatePass.available || privatePass.manager_only) {
+    if (
+      !privatePass ||
+      !privatePass.available ||
+      (privatePass.manager_only && force !== 'true')
+    ) {
       return {
         isValid: false,
         shouldDisplayErrorPage: true,

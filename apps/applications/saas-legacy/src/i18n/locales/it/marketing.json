@@ -746,8 +746,8 @@
         "helperText": "Stabilire quando l'obiettivo è considerato non raggiunto: definire un limite di tempo e/o uno o più trigger specifici dopo i quali il membro uscirà senza successo da questo {{ workflowLowerCase }}.",
         "addTrigger": "Aggiungi un evento di uscita dal flusso",
         "timeout": {
-          "helperText": "Il membro uscirà dal {{ workflowLowerCase }} dopo questo numero di giorni, indipendentemente dalla fase in cui si trova.",
-          "label": "Giorni nel {{ workflowLowerCase }}",
+          "helperText": "I membri usciranno dal {{ workflowLowerCase }} se non si registrano progressi dopo questo numero di giorni",
+          "label": "Giorni di inattività in {{ workflowLowerCase }}",
           "title": "Tempo limite"
         }
       },

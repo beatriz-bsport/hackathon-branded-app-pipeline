@@ -759,8 +759,8 @@
       "lostTrigger": {
         "timeout": {
           "title": "Zeitlimit",
-          "label": "Tage im {{ workflowLowerCase }}",
-          "helperText": "Hier legst du fest, nach wieviel Tagen ein laufender Workflow für ein Mitglied beendet wird."
+          "label": "Tage inaktiv in {{ workflowLowerCase }}",
+          "helperText": "Mitglieder verlassen den {{ workflowLowerCase }} , wenn nach dieser Anzahl von Tagen keine Fortschritte erzielt wurden"
         },
         "addTrigger": "Ausgangsauslöser hinzufügen",
         "helperText": "Hier legst du fest, wann ein Kriterium als \"nicht erfolgreich\" abgeschlossen gilt.",

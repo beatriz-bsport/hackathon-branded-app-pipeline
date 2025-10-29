@@ -352,7 +352,11 @@
         },
         "row": {
           "no": "No",
-          "yes": "Yes"
+          "yes": "Yes",
+          "no_display_date": "Invalid Data"
+        },
+        "tooltip": {
+          "no_display_date": "Some data is missing or invalid."
         }
       }
     },

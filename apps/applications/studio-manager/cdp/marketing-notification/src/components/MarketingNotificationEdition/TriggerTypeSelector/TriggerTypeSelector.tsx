@@ -136,7 +136,7 @@ export const TriggerTypeSelector = ({
         defaultValues={selectedValues}
         onSelectPasses={(passes) => {
           onSelectTriggerType?.({
-            objectIds: (passes || []).map((pass) => pass.id),
+            objectIds: passes.map((pass) => pass?.id),
             triggerType: selectedConfig.type,
           });
         }}
@@ -151,7 +151,7 @@ export const TriggerTypeSelector = ({
         defaultValues={selectedValues}
         onSelectAppointmentPasses={(passes) => {
           onSelectTriggerType?.({
-            objectIds: (passes || []).map((pass) => pass.id),
+            objectIds: passes.map((pass) => pass?.id),
             triggerType: selectedConfig.type,
           });
         }}

@@ -149,7 +149,8 @@ export const BackendSelector = <
       id: "backend-selector-textfield",
       ...textfieldProps,
     },
-    defaultSelectedIds: defaultValues ? defaultValues : [],
+    debounceValue: 500,
+    defaultSelectedIds: defaultValues,
     items: itemsList,
     loadingProps: {
       isLoading: isLoading && !isHydrating,

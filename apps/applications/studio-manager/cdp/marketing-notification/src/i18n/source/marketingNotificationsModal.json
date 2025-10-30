@@ -76,6 +76,38 @@
           "atLeastOne": "You have to select at least 1 item."
         }
       }
+    },
+    "notificationRules": {
+      "title": "Set up an automation",
+      "booking": {
+        "actionLabel": "Send this notification when a member",
+        "actions": {
+          "makesBooking": "Makes a booking",
+          "makesCancellation": "Makes a cancellation"
+        },
+        "statusLabel": {
+          "attendance": "Send this notification when members are marked as",
+          "cancellation": "Send this notification when cancellation was"
+        },
+        "statusOptions": {
+          "present": "Present",
+          "absent": "Absent",
+          "refunded": "Refunded",
+          "tooLate": "Too late to be refunded"
+        },
+        "occurrenceLabel": "Send this notification when",
+        "occurrences": {
+          "anyBooking": "A member makes any booking",
+          "specificAmount": "A member reaches a specific amount of bookings"
+        },
+        "amountSuffix": "Bookings",
+        "alerts": {
+          "present": "Your settings are configured to mark members as present by default",
+          "absent": "Your settings are configured to mark members as absent by default",
+          "refunded": "Your settings are configured to mark members as refunded by default",
+          "tooLate": "Your settings are configured to mark members as too late to be refunded by default"
+        }
+      }
     }
   }
 }

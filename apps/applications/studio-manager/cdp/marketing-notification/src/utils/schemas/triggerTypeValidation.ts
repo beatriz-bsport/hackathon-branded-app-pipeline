@@ -6,7 +6,7 @@ import { NOTIFICATION_ADVANCED_TYPE } from "../constants";
 import { i18nInstance } from "../i18n";
 import type { TriggerTypeValidationFormData } from "./types";
 
-export const triggerTypeValidationProgramSchema = z
+export const triggerTypeValidationFormSchema = z
   .object({
     itemIds: z.array(z.number()).optional(),
     notificationType: z.custom<SelectableNotificationType>(),
@@ -42,6 +42,6 @@ export const triggerTypeValidationProgramSchema = z
     }
   }) satisfies z.ZodType<TriggerTypeValidationFormData>;
 
-export type ReferralProgramFormSchema = z.infer<
-  typeof triggerTypeValidationProgramSchema
+export type TriggerTypeValidationFormSchema = z.infer<
+  typeof triggerTypeValidationFormSchema
 >;

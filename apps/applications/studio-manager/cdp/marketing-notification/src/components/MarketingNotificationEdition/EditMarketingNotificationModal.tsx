@@ -3,10 +3,11 @@ import { ModalStepper } from "@bsport/kaizen-primitive-core";
 
 import { NOTIFICATION_ADVANCED_TYPE } from "#src/utils/constants";
 import { useTranslation } from "#src/utils/i18n";
-import { triggerTypeValidationProgramSchema } from "#src/utils/schemas/triggerTypeValidation";
+import { triggerTypeValidationFormSchema } from "#src/utils/schemas/triggerTypeValidation";
 import type { TriggerTypeValidationFormData } from "#src/utils/schemas/types";
 
-import { TriggerTypeStep } from "./TriggerTypeStep";
+import { TriggerConditionStep } from "./NotificationTriggerForms/TriggerConditionStep";
+import { TriggerTypeStep } from "./TriggerTypeSelector/TriggerTypeStep";
 
 type EditMarketingNotificationModalProps = {
   isOpen: boolean;
@@ -26,7 +27,7 @@ export const EditMarketingNotificationModal = ({
 
   const methods = useFormController({
     mode: "onBlur",
-    schema: triggerTypeValidationProgramSchema,
+    schema: triggerTypeValidationFormSchema,
     defaultValues,
   });
 
@@ -36,6 +37,15 @@ export const EditMarketingNotificationModal = ({
       title={t("title.create")}
       size="lg"
       steps={[
+        {
+          label: t("steps.label.notificationRules"),
+          content: (
+            <TriggerConditionStep
+              notificationType={"groupActivity"}
+              itemIds={[9]}
+            />
+          ),
+        },
         {
           label: t("steps.label.triggerType"),
           content: (
@@ -48,10 +58,6 @@ export const EditMarketingNotificationModal = ({
               }}
             />
           ),
-        },
-        {
-          label: t("steps.label.notificationRules"),
-          content: <>Automation Step</>,
         },
         {
           label: t("steps.label.content"),

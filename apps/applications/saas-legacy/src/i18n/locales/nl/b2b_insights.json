@@ -1,1 +1,25 @@
-{}
+{
+  "pages": {
+    "insights": {
+      "title": "Inzichten"
+    },
+    "recurringRevenue": {
+      "title": "Prestaties van abonnementen monitoren"
+    },
+    "trialAnalysis": {
+      "title": "Monitor de prestaties van ledenwerving"
+    }
+  },
+  "sections": {
+    "memberInsights": "Leden Inzichten",
+    "financialHealth": "Financiële Gezondheid"
+  },
+  "trackTrialOffer": {
+    "title": "Volg de prestaties van het proefaanbod",
+    "description": "Ontdek meer over acquisitie, conversieratio's en hoe je de effectiviteit van je proefaanbod kunt verhogen."
+  },
+  "monitorRevenue": {
+    "title": "Prestaties van abonnementen monitoren",
+    "description": "Volg de gezondheid van abonnementen, analyseer terugkerende inkomsten en identificeer risico's of kansen"
+  }
+}

@@ -42,8 +42,11 @@ import {
   getEnabledEstablishmentBillingGroups,
 } from '#src/libs/establishment/selectors';
 import { getTheme } from '#src/libs/theme/selectors';
-import { hasUpsell } from '#src/libs/platform-billing/utils';
-import { UPSELL_IDENTIFIER_ACCESS_MONITORING } from '#src/libs/platform-billing/upsell-identifiers';
+import { hasAnyUpsell } from '#src/libs/platform-billing/utils';
+import {
+  UPSELL_IDENTIFIER_ACCESS_MONITORING,
+  UPSELL_IDENTIFIER_KISI_INTEGRATION,
+} from '#src/libs/platform-billing/upsell-identifiers';
 import { MaterialStyleType } from '../../utils/types';
 import { RootState } from '../../reducers';
 import withTitle from '../../hocs/with-title.hoc';
@@ -90,7 +93,10 @@ export class RoleConfiguration extends React.Component<ConnectedProps, State> {
       });
     }
     if (
-      hasUpsell(this.props.featureList, UPSELL_IDENTIFIER_ACCESS_MONITORING)
+      hasAnyUpsell(this.props.featureList, [
+        UPSELL_IDENTIFIER_ACCESS_MONITORING,
+        UPSELL_IDENTIFIER_KISI_INTEGRATION,
+      ])
     ) {
       this.props.fetchEstablishments();
     }
@@ -139,10 +145,10 @@ export class RoleConfiguration extends React.Component<ConnectedProps, State> {
             }
             establishmentList={this.props.establishmentList}
             establishmentListLoading={this.props.establishmentListLoading}
-            hasAccessMonitoringUpsell={hasUpsell(
-              this.props.featureList,
+            hasAccessMonitoringUpsell={hasAnyUpsell(this.props.featureList, [
               UPSELL_IDENTIFIER_ACCESS_MONITORING,
-            )}
+              UPSELL_IDENTIFIER_KISI_INTEGRATION,
+            ])}
             hasMultiLocationUpsell={this.props.theme?.enable_multi_localization}
             hasOwnerPermission={hasOwnerPermission}
             openCreateStaffDialog={this.state.openCreateStaffDialog}

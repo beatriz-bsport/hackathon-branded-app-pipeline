@@ -50,7 +50,6 @@ import UseInternalAccountForm from '#src/libs/payment/components/UseInternalAcco
 import PaymentMethodList from '#src/libs/payment/components/payment-method-list/PaymentMethodList.component';
 
 import {
-  blockPendingBasket as blockPendingBasketAPI,
   updatePaymentMethodBillingDetails as updatePaymentMethodBillingDetailsAPI,
   verifyPriceBasket as verifyPriceBasketAPI,
 } from '#src/libs/payment/api';
@@ -74,7 +73,7 @@ type Props = {
   clientSecret: string;
   companyCountry?: string;
   companyId?: number;
-  createPendingBookingsIfNecessary?: (data?: {
+  createPendingBookingsAndBlockBasket?: (data?: {
     payment_group_method_identifier?: number;
   }) => void;
   creditAccountBalance?: number | null;
@@ -89,7 +88,7 @@ type Props = {
   forceSave?: boolean;
   hasAddPaymentMethodPermission?: boolean;
   hideSaveForLater?: boolean;
-  invalidatePendingBookingsIfNecessary?: () => void;
+  invalidatePendingBookingsAndUnblockBasket?: () => void;
   isEstablishmentBillingGroupSelected?: boolean;
   loading?: boolean;
   memberId: number;
@@ -123,7 +122,7 @@ const PaymentStripeCardRevamped = forwardRef(
       companyCountry,
       companyId,
       creditAccountBalance,
-      createPendingBookingsIfNecessary,
+      createPendingBookingsAndBlockBasket,
       customClasses,
       detachPaymentMethod,
       detachPaymentMethodLoading,
@@ -132,7 +131,7 @@ const PaymentStripeCardRevamped = forwardRef(
       forceSave,
       hasAddPaymentMethodPermission = true,
       hideSaveForLater,
-      invalidatePendingBookingsIfNecessary,
+      invalidatePendingBookingsAndUnblockBasket,
       isEstablishmentBillingGroupSelected,
       loading,
       memberId,
@@ -370,7 +369,7 @@ const PaymentStripeCardRevamped = forwardRef(
           }
         }
         try {
-          createPendingBookingsIfNecessary?.({
+          createPendingBookingsAndBlockBasket?.({
             payment_group_method_identifier: PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
           });
 
@@ -420,18 +419,10 @@ const PaymentStripeCardRevamped = forwardRef(
                 onPaymentError: (err) => {
                   setError(err);
                   setPaymentPageProcessing(false);
-                  invalidatePendingBookingsIfNecessary?.();
+                  invalidatePendingBookingsAndUnblockBasket?.();
                   onError?.();
                 },
                 onPaymentSuccess: async (paymentIntent) => {
-                  if (basketId) {
-                    try {
-                      await blockPendingBasketAPI(basketId);
-                    } catch (err) {
-                      console.error(err);
-                    }
-                  }
-
                   if (paymentIntent.status === 'succeeded' && onSuccess) {
                     onSuccess(() => setPaymentPageProcessing(false));
                   }
@@ -452,11 +443,11 @@ const PaymentStripeCardRevamped = forwardRef(
         checkItemsBasket,
         clientSecret,
         companyId,
-        createPendingBookingsIfNecessary,
+        createPendingBookingsAndBlockBasket,
         dispatch,
         elements,
         forceSave,
-        invalidatePendingBookingsIfNecessary,
+        invalidatePendingBookingsAndUnblockBasket,
         isAddingPaymentMethod,
         memberId,
         onError,

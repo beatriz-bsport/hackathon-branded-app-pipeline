@@ -57,7 +57,7 @@
         "content": "Tenga en cuenta que va a restablecer todos los campos ya personalizados.",
         "title": "Restablecer la configuración"
       },
-      "submit": "Salvar",
+      "submit": "Guardar",
       "selectAlert": "Por el momento, la personalización de los widgets sólo está disponible para los talleres, el calendario, las suscripciones y los pases.",
       "preview": "Preview",
       "spacingHelper": "El espaciado se basa en múltiplos de {{base}}px",

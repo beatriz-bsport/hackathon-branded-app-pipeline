@@ -16,8 +16,6 @@ import type { PlatformSubscription } from '../type';
 
 import PlatformBillingPlanGroupCard from './PlatformBillingPlanGroupCard.component';
 
-import { UPSELL_IDENTIFIER_CADENCE } from '../upsell-identifiers';
-
 const UpsellPackageList = React.memo(
   (props: {
     upsellPackageList: UpsellPackage[];
@@ -63,7 +61,6 @@ type Props = {
   platformSubscription: PlatformSubscription;
   subscribedUpsellPackages: UpsellPackage[];
   nonSubscribedUpsellPackages: UpsellPackage[];
-  hasLimitedAccessToAudience: boolean;
 };
 
 export const CompanyPlatformBillinGroupDetail: React.FC<Props> = ({
@@ -72,7 +69,6 @@ export const CompanyPlatformBillinGroupDetail: React.FC<Props> = ({
   platformSubscription,
   subscribedUpsellPackages,
   nonSubscribedUpsellPackages,
-  hasLimitedAccessToAudience,
 }) => {
   const classes = useStyles();
   const { t } = useTranslation(['platformBilling']);
@@ -82,12 +78,10 @@ export const CompanyPlatformBillinGroupDetail: React.FC<Props> = ({
       (nonSubscribedUpsellPackages ?? []).filter(
         (upsellPackage: UpsellPackage) =>
           !upsellPackage.hidden &&
-          ((hasLimitedAccessToAudience &&
-            upsellPackage.upsell_identifier === UPSELL_IDENTIFIER_CADENCE) ||
-            !BETA_UPSELL_IDS.includes(upsellPackage.upsell_identifier)) &&
+          !BETA_UPSELL_IDS.includes(upsellPackage.upsell_identifier) &&
           !UNSUBSCRIBABLE_UPSELL_IDS.includes(upsellPackage.upsell_identifier),
       ) ?? [],
-    [nonSubscribedUpsellPackages, hasLimitedAccessToAudience],
+    [nonSubscribedUpsellPackages],
   );
 
   if (!platformSubscription) {

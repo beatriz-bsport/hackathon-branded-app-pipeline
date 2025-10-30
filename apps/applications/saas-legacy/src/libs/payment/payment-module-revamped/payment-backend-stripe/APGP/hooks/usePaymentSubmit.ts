@@ -10,10 +10,7 @@ import {
   PAYMENT_GROUP_METHOD_IDENTIFIER_TWINT,
 } from '@bsport/common/lib/master-data/payment-group.js';
 
-import {
-  blockPendingBasket as blockPendingBasketAPI,
-  verifyPriceBasket as verifyPriceBasketAPI,
-} from '#src/libs/payment/api';
+import { verifyPriceBasket as verifyPriceBasketAPI } from '#src/libs/payment/api';
 import { confirmStripePayment as confirmStripePaymentAction } from '#src/libs/payment/payment-module-revamped/actions';
 import type { BillingDetails } from '#src/libs/marketplace/types';
 import { AxiosResponse } from 'axios';
@@ -90,7 +87,7 @@ type UsePaymentSubmitParams = {
   basketTotalPriceCts?: number;
   checkItemsBasket: (basketId: string) => Promise<boolean>;
   clientSecret: string;
-  createPendingBookingsIfNecessary?: (data?: {
+  createPendingBookingsAndBlockBasket?: (data?: {
     payment_group_method_identifier?: number;
   }) => void;
   elements: StripeElements | null;
@@ -100,7 +97,7 @@ type UsePaymentSubmitParams = {
     instalmentPayment: number | null,
     options?: any,
   ) => void;
-  invalidatePendingBookingsIfNecessary?: () => void;
+  invalidatePendingBookingsAndUnblockBasket?: () => void;
   onError?: () => void;
   onSuccess?: (callback: () => void) => void;
   paymentGroupId: number;
@@ -132,12 +129,12 @@ export const usePaymentSubmit = ({
   basketTotalPriceCts,
   checkItemsBasket,
   clientSecret,
-  createPendingBookingsIfNecessary,
+  createPendingBookingsAndBlockBasket,
   elements,
   forceSave,
   instalmentPaymentSelectedId,
   handleAssignInstalmentPayment,
-  invalidatePendingBookingsIfNecessary,
+  invalidatePendingBookingsAndUnblockBasket,
   onError,
   onSuccess,
   paymentGroupId,
@@ -190,7 +187,7 @@ export const usePaymentSubmit = ({
     if (!isBasketValid) return;
 
     try {
-      createPendingBookingsIfNecessary?.({
+      createPendingBookingsAndBlockBasket?.({
         payment_group_method_identifier:
           paymentMethodData.payment_group_method_identifier,
       });
@@ -301,18 +298,10 @@ export const usePaymentSubmit = ({
           onPaymentError: (err) => {
             setError(err);
             setPaymentPageProcessing(false);
-            invalidatePendingBookingsIfNecessary?.();
+            invalidatePendingBookingsAndUnblockBasket?.();
             onError?.();
           },
           onPaymentSuccess: async (paymentIntent) => {
-            if (basketId) {
-              try {
-                await blockPendingBasketAPI(basketId);
-              } catch (err) {
-                console.error(err);
-              }
-            }
-
             // Payment success handling varies by payment type:
             // - SEPA: Always call onSuccess (payment is still pending)
             // - Card: Only call onSuccess if payment succeeded
@@ -336,11 +325,11 @@ export const usePaymentSubmit = ({
   }, [
     basketId,
     clientSecret,
-    createPendingBookingsIfNecessary,
+    createPendingBookingsAndBlockBasket,
     dispatch,
     elements,
     forceSave,
-    invalidatePendingBookingsIfNecessary,
+    invalidatePendingBookingsAndUnblockBasket,
     onError,
     onSuccess,
     paymentGroupId,

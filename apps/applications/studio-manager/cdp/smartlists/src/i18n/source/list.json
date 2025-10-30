@@ -8,8 +8,8 @@
   },
   "emptySearch": {
     "title": "No results found",
-    "subtitle": "No Smartlists match your search.\nTry clearing it to see more results",
-    "clearFilters": "Clear search"
+    "subtitle": "No Smartlists match your search.\nTry clearing filters to see more results",
+    "clearFilters": "Clear filters"
   },
   "duplicateModal": {
     "title": "Duplicate Smartlist?",
@@ -21,11 +21,11 @@
   },
   "deleteModal": {
     "title": "Delete Smartlist?",
-    "description": "Do you want to delete <b>{{name}}</b>?",
+    "description": "STRING TO BE DELETED - IGNORE",
     "warning": "If you delete <b>{{name}}</b>, any scheduled messages or automatic tagging will be cancelled but previously tagged members won't be affected.",
     "audienceWarning": "Smartlists used in Audience workflows can't be deleted. ",
     "cannotBeDeleted": "This Smartlist is currently being used in Audience workflows and can't be deleted on this page.",
-    "audienceCallToAction": "To delete this Smartlist, go to the Audience page and remove it from the associated workflows.",
+    "audienceCallToAction": "To delete this Smartlist, go to Audience and remove it from associated workflows.",
     "buttons": {
       "delete": "Delete",
       "cancel": "Back"
@@ -42,14 +42,14 @@
       "actionUndone": "Action undone"
     },
     "error": {
-      "duplicateFailed": "Something went wrong while duplicating the Smartlist. Please try again.",
-      "updateFailed": "Something went wrong while updating the Smartlist. Please try again.",
-      "createFailed": "Something went wrong while creating the Smartlist. Please try again.",
-      "deleteFailed": "Something went wrong while deleting the Smartlist. Please try again.",
+      "duplicateFailed": "Unable to duplicate Smartlist, please try again",
+      "updateFailed": "Unable to update Smartlist, please try again",
+      "createFailed": "Unable to create Smartlist, please try again",
+      "deleteFailed": "Unable to delete Smartlist, please try again",
       "deleteError": {
-        "101000": "Smartlist deletion failed. Please try again.",
-        "101001": "This Smartlist cannot be deleted because it's being used in active communication groups.",
-        "101002": "This Smartlist cannot be deleted because it's being used in active cadences."
+        "101000": "Unable to duplicate Smartlist, please try again",
+        "101001": "Unable to delete Smartlist as currently in use in communication ",
+        "101002": "DUPLICATE - IGNORE"
       }
     }
   },
@@ -72,11 +72,11 @@
         "label": "Name",
         "placeholder": "e.g. Members who paid via Stripe",
         "required": "Give your Smartlist a name so you can find it later",
-        "maxLength": "Smartlist name is too long, please keep it under 200 characters"
+        "maxLength": "Name too long, must be under 200 characters"
       },
       "description": {
         "label": "Description",
-        "placeholder": "e.g. Members who have paid using Stripe payment"
+        "placeholder": "e.g. Members who paid via Stripe"
       }
     },
     "actions": {

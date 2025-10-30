@@ -82,6 +82,7 @@ const { trackFormAdd, trackFormCancel, trackFormSuccess } =
 
 type OwnProps = {
   goToEdit: (id: number) => void;
+  goToList: () => void;
   emailTemplateDelete: (id: number, options?: OptionCallback) => void;
   emailTemplateDetail: (id: number) => void;
   emailTemplateDuplicate: (props: {
@@ -164,17 +165,33 @@ export class MarketingEmail extends Component<Props, State> {
   };
 
   componentDidMount() {
+    const emailTemplateId = this.props.id;
     this.props.emailTemplatesSummaries();
     this.props.fetchAllEmailTemplateCategory(this.props.company_id);
-    if (this.props.id) {
-      this.props.emailTemplateDetail(this.props.id);
+    if (emailTemplateId === undefined) {
+      return;
+    }
+    if (isNaN(emailTemplateId)) {
+      this.props.goToList();
+      return;
+    }
+    if (emailTemplateId) {
+      this.props.emailTemplateDetail(emailTemplateId);
     }
     this.props.fetchResolvedGenericTags();
   }
 
   componentDidUpdate(prevProps: Readonly<Props>) {
-    if (this.props.id !== prevProps.id) {
-      this.props.emailTemplateDetail(this.props.id);
+    const emailTemplateId = this.props.id;
+    if (emailTemplateId === undefined) {
+      return;
+    }
+    if (isNaN(emailTemplateId)) {
+      this.props.goToList();
+      return;
+    }
+    if (emailTemplateId !== prevProps.id) {
+      this.props.emailTemplateDetail(emailTemplateId);
     }
   }
 
@@ -577,6 +594,7 @@ export default compose(
       emailTemplateDelete,
       goToEdit: (id: number) => push(`/email-template/${id}/edit`),
       goToCreate: () => push('/email-template/create'),
+      goToList: () => push('/email-template'),
       selectTemplate: (id: number) => push(`/email-template/${id}`),
 
       fetchAllEmailTemplateCategory,

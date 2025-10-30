@@ -1,3 +1,5 @@
+import React from 'react';
+import { useTranslation } from 'react-i18next';
 import {
   Avatar,
   ListItem,
@@ -11,13 +13,13 @@ import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import RestoreFromTrashIcon from '@material-ui/icons/RestoreFromTrash';
-import React from 'react';
-import { useTranslation } from 'react-i18next';
 
-import ListItemResponsiveAction from '../../../components/button/ListItemResponsiveAction.component';
-import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
-import { Giftcard } from '../types';
-import { OptionCallback } from '../../../state/types';
+import ListItemResponsiveAction from '#src/components/button/ListItemResponsiveAction.component';
+import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
+import type { OptionCallback } from '#src/state/types';
+
+import { GIFTCARD_TYPES } from '../constants';
+import type { Giftcard } from '../types';
 
 type Props = {
   giftcard: Giftcard;
@@ -45,7 +47,20 @@ export default function GiftcardListItem(props: Props) {
     selected,
     isFocused,
   } = props;
-  const { t } = useTranslation('giftcard');
+
+  const { t } = useTranslation(['giftcard', 'b2b_giftcard']);
+
+  const managerOnlyTooltip = t('list.visibility', { ns: 'giftcard' });
+
+  const expirationMessage = giftcard.expiration_days
+    ? t('list.validity', { ns: 'giftcard', duration: giftcard.expiration_days })
+    : t('list.unlimited', { ns: 'giftcard' });
+
+  const priceMessage =
+    giftcard.card_type === GIFTCARD_TYPES.CUSTOM || !giftcard.price
+      ? t('giftcardFreeAmount.customAmount', { ns: 'b2b_giftcard' })
+      : getCurrencyDisplayWithPrice(giftcard.price);
+
   return (
     <>
       <ListItem
@@ -58,46 +73,45 @@ export default function GiftcardListItem(props: Props) {
         style={isFocused ? { backgroundColor: '#EFEFEF' } : {}}
       >
         <ListItemAvatar>
-          <Avatar alt="" src={giftcard.cover} />
+          <Avatar alt={giftcard.name} src={giftcard.cover} />
         </ListItemAvatar>
+
         <ListItemText
           primary={giftcard.name}
-          secondary={`${getCurrencyDisplayWithPrice(giftcard.price)} - ${
-            giftcard.expiration_days
-              ? t('list.validity', { duration: giftcard.expiration_days })
-              : t('list.unlimited')
-          }`}
+          secondary={`${priceMessage} - ${expirationMessage}`}
         />
+
         {giftcard.manager_only ? (
-          <Tooltip title={t('list.visibility')}>
+          <Tooltip title={managerOnlyTooltip}>
             <ListItemIcon>
               <VisibilityOffIcon />
             </ListItemIcon>
           </Tooltip>
         ) : null}
+
         <ListItemResponsiveAction
           actions={[
             {
               icon: FileCopyIcon,
               label: 'duplicate',
               color: 'primary',
-              onClick: onDuplicate ? () => onDuplicate(giftcard.id) : null,
+              onClick: onDuplicate ? () => onDuplicate(giftcard.id) : undefined,
             },
             {
               icon: EditIcon,
               label: 'edit',
               color: 'primary',
-              onClick: onEdit ? () => onEdit(giftcard.id) : null,
+              onClick: onEdit ? () => onEdit(giftcard.id) : undefined,
             },
             {
               icon: DeleteIcon,
               label: 'delete',
-              onClick: onRemove ? () => onRemove(giftcard.id) : null,
+              onClick: onRemove ? () => onRemove(giftcard.id) : undefined,
             },
             {
               icon: RestoreFromTrashIcon,
               label: 'restore',
-              onClick: onRestore ? () => onRestore(giftcard.id) : null,
+              onClick: onRestore ? () => onRestore(giftcard.id) : undefined,
             },
           ]}
         />

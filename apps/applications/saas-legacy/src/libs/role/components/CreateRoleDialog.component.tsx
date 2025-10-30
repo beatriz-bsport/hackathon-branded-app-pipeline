@@ -32,8 +32,11 @@ import {
 } from '#src/libs/role/constants';
 
 import type { FeatureList } from '#src/libs/company/types';
-import { hasUpsell } from '#src/libs/platform-billing/utils';
-import { UPSELL_IDENTIFIER_ACCESS_MONITORING } from '#src/libs/platform-billing/upsell-identifiers';
+import { hasAnyUpsell } from '#src/libs/platform-billing/utils';
+import {
+  UPSELL_IDENTIFIER_ACCESS_MONITORING,
+  UPSELL_IDENTIFIER_KISI_INTEGRATION,
+} from '#src/libs/platform-billing/upsell-identifiers';
 import type {
   RolePermission,
   Role,
@@ -90,7 +93,10 @@ const hideAccessMonitoring = (
   if (isFranchisor) {
     return true;
   }
-  return !hasUpsell(featureList, UPSELL_IDENTIFIER_ACCESS_MONITORING);
+  return !hasAnyUpsell(featureList, [
+    UPSELL_IDENTIFIER_ACCESS_MONITORING,
+    UPSELL_IDENTIFIER_KISI_INTEGRATION,
+  ]);
 };
 
 /**
@@ -109,7 +115,10 @@ const hideAccessMonitoringStudioOnly = (
   if (isFranchisor) {
     return false;
   }
-  return !hasUpsell(featureList, UPSELL_IDENTIFIER_ACCESS_MONITORING);
+  return !hasAnyUpsell(featureList, [
+    UPSELL_IDENTIFIER_ACCESS_MONITORING,
+    UPSELL_IDENTIFIER_KISI_INTEGRATION,
+  ]);
 };
 
 const getDefaultPermissions = (

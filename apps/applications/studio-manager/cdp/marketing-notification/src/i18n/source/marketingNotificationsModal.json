@@ -1,0 +1,113 @@
+{
+  "title": {
+    "create": "Create a notification",
+    "edit": "Edit notification"
+  },
+  "steps": {
+    "label": {
+      "triggerType": "Trigger Type",
+      "notificationRules": "Set up automation",
+      "content": "Choose channels"
+    },
+    "triggerType": {
+      "title": "Select the trigger that starts the automation",
+      "notificationType": {
+        "label": "Notification Type",
+        "choices": {
+          "groupActivity": "Group Activity",
+          "location": "Location",
+          "establishment": "Establishment",
+          "workshop": "Workshop",
+          "privateService": "Appointment",
+          "paymentPack": "Pass",
+          "privatePass": "Appointment Pass",
+          "subscription": "Subscription",
+          "birthday": "Birthday"
+        }
+      },
+      "selectors": {
+        "appointment": {
+          "label": "Associated Appointment",
+          "placeholder": "Select associated appointment",
+          "loading": "Searching appointments..."
+        },
+        "groupActivity": {
+          "label": "Associated Group Activity",
+          "placeholder": "Select associated group activity",
+          "loading": "Searching group activities..."
+        },
+        "workshop": {
+          "label": "Associated Workshop",
+          "placeholder": "Select associated workshop",
+          "loading": "Searching workshops..."
+        },
+        "allActivities": {
+          "label": "All Activities",
+          "placeholder": "Select any activity",
+          "loading": "Searching activities..."
+        },
+        "location": {
+          "label": "Associated Location",
+          "placeholder": "Select associated location",
+          "loading": "Searching locations..."
+        },
+        "establishment": {
+          "label": "Associated Establishment",
+          "placeholder": "Select associated establishment",
+          "loading": "Searching establishments..."
+        },
+        "subscription": {
+          "label": "Associated Subscription",
+          "placeholder": "Select associated subscription",
+          "loading": "Searching subscriptions..."
+        },
+        "pass": {
+          "label": "Associated Pass",
+          "placeholder": "Select associated pass",
+          "loading": "Searching passes..."
+        },
+        "appointmentPass": {
+          "label": "Associated Appointment pass",
+          "placeholder": "Select associated appointment pass",
+          "loading": "Searching appointment passes..."
+        },
+        "errors": {
+          "notEmpty": "You have to select an item.",
+          "atLeastOne": "You have to select at least 1 item."
+        }
+      }
+    },
+    "notificationRules": {
+      "title": "Set up an automation",
+      "booking": {
+        "actionLabel": "Send this notification when a member",
+        "actions": {
+          "makesBooking": "Makes a booking",
+          "makesCancellation": "Makes a cancellation"
+        },
+        "statusLabel": {
+          "attendance": "Send this notification when members are marked as",
+          "cancellation": "Send this notification when cancellation was"
+        },
+        "statusOptions": {
+          "present": "Present",
+          "absent": "Absent",
+          "refunded": "Refunded",
+          "tooLate": "Too late to be refunded"
+        },
+        "occurrenceLabel": "Send this notification when",
+        "occurrences": {
+          "anyBooking": "A member makes any booking",
+          "specificAmount": "A member reaches a specific amount of bookings"
+        },
+        "amountSuffix": "Bookings",
+        "alerts": {
+          "present": "Your settings are configured to mark members as present by default",
+          "absent": "Your settings are configured to mark members as absent by default",
+          "refunded": "Your settings are configured to mark members as refunded by default",
+          "tooLate": "Your settings are configured to mark members as too late to be refunded by default"
+        }
+      }
+    }
+  }
+}

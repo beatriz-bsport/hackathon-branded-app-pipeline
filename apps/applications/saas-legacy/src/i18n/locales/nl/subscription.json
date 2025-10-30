@@ -439,14 +439,14 @@
       "form": {
         "confirm": "Opslaan",
         "duration": {
-          "end": "Eind",
-          "start": "Van",
-          "title": "Duur",
+          "end": "Einddatum (inclusief)",
+          "start": "Startdatum (inclusief)",
+          "title": "Duur van de pauze",
           "warning": "De einddatum moet ná de startdatum zijn."
         },
         "causePlaceholder": "Reden *",
-        "titleEdition": "Pauze bewerken",
-        "titleCreation": "[Formulier] Pauzeren",
+        "titleEdition": "Pauze aanpassen",
+        "titleCreation": "Gepauzeerd",
         "information2": "De verlenging van de vervaldatum staat gelijk aan het aantal dagen dat de pauzering duurt.",
         "information": "Deze abonnementen worden van {{- dateStart}} tot en met {{- dateEnd}} gepauzeerd. De eerstvolgende facturatie(s) worden met {{count}} dag(en) uitgesteld.",
         "information_plural": "Deze abonnementen worden van {{- dateStart}} tot en met {{- dateEnd}} gepauzeerd. De eerstvolgende facturatie(s) worden met {{count}} dag(en) uitgesteld."

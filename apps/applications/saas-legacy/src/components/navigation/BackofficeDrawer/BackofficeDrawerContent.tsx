@@ -140,9 +140,6 @@ const BackofficeDrawerContent: React.FC<BackofficeDrawerContentProps> = ({
               disconnect={disconnect}
               enableRevampedBackoffice={enableRevampedBackoffice}
               featureList={featureList}
-              hasLimitedAccesToAudience={
-                theme?.has_limited_access_to_sequential_marketing
-              }
               iconsOnly={drawerIconsOnly}
               location={location}
               logo={logo}
@@ -171,9 +168,6 @@ const BackofficeDrawerContent: React.FC<BackofficeDrawerContentProps> = ({
               enableRevampedBackoffice={enableRevampedBackoffice}
               featureList={featureList}
               handleUserSetDrawerIconsOnly={handleUserSetDrawerIconsOnly}
-              hasLimitedAccesToAudience={
-                theme?.has_limited_access_to_sequential_marketing
-              }
               iconsOnly={drawerIconsOnly}
               location={location}
               logo={logo}
@@ -208,9 +202,6 @@ const BackofficeDrawerContent: React.FC<BackofficeDrawerContentProps> = ({
           disconnect={disconnect}
           enableRevampedBackoffice={enableRevampedBackoffice}
           featureList={featureList}
-          hasLimitedAccesToAudience={
-            theme?.has_limited_access_to_sequential_marketing
-          }
           iconsOnly={drawerIconsOnly}
           location={location}
           logo={logo}

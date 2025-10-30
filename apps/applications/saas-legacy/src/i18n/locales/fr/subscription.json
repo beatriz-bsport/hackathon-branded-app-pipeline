@@ -135,6 +135,29 @@
     "secondaryLabel": " : {{ note }}",
     "actions": {
       "delete": "Déprogrammer la pause"
+    },
+    "dialogs": {
+      "fail": {
+        "contentCanNotEditPauseEndBeforeToday": "La nouvelle date de début de la pause ne peut pas être antérieure à aujourd’hui.",
+        "contentCanNotCreateAPauseInThePast": "La pause ne peut pas commencer dans le passé.",
+        "contentUnknownError": "Une erreur imprévue s’est produite. Nous vous prions de nous excuser pour la gêne occasionnée.",
+        "comeback": "Retour"
+      },
+      "form": {
+        "titleCreation": "Suspendu",
+        "titleEdition": "Modifier la pause",
+        "causePlaceholder": "Motif *",
+        "duration": {
+          "title": "Durée de la pause",
+          "start": "Date de début (incluse)",
+          "end": "Date de fin (incluse)",
+          "warning": "La date de fin ne peut pas être antérieure à la date de début"
+        },
+        "information": "L’abonnement sera suspendu du {{- dateStart}} au {{- dateEnd}} inclus. La prochaine facturation sera reportée de {{count}} jours, ainsi que toutes les facturations suivantes.",
+        "information_plural": "Les abonnements seront suspendus du {{- dateStart}} au {{- dateEnd}} inclus. Leur prochaine facturation sera reportée de {{count}} jours, ainsi que toutes les facturations suivantes.",
+        "information2": "La date d’expiration du Carte de cours sera prolongée du nombre de jours de la pause, et le Carte de cours restera valide pendant la pause.",
+        "confirm": "Enregistrer"
+      }
     }
   },
   "plannedInvoice": {

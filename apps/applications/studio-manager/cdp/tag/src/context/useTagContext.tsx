@@ -69,7 +69,9 @@ export const TagsPageProvider: React.FC<TagsPageProviderProps> = ({
     number | null
   >(null);
   const [totalImpactedMembers, setTotalImpactedMembers] = useState<number>(0);
-  const onBatchUpdateMemberTagSuccessCallback = useRef<() => void>();
+  const onBatchUpdateMemberTagSuccessCallback = useRef<
+    (() => void) | undefined
+  >(() => {});
 
   const handleCreateTagGroup = () => {
     setPageCurrentAction("create-tag-group");

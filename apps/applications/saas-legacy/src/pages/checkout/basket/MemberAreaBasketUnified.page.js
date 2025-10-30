@@ -49,9 +49,9 @@ import {
   fetchPaymentMethodList,
 } from '#src/libs/payment/actions';
 import {
-  createPendingBookings as createPendingBookingsAPI,
+  createPendingBookingsAndBlockBasket as createPendingBookingsAndBlockBasketAPI,
   getPaymentGroupStatus as getPaymentGroupStatusAPI,
-  invalidatePendingBookings as invalidatePendingBookingsAPI,
+  invalidatePendingBookingsAndUnblockBasket as invalidatePendingBookingsAndUnblockBasketAPI,
 } from '#src/libs/payment/api';
 import {
   USER_REGISTRATION_RESPONSE_LOCAL_STORAGE_KEY,
@@ -363,31 +363,19 @@ export class MemberAreaBasketUnifiedPage extends React.Component<MemberAreaBaske
       true,
     );
   };
-
-  hasOfferData = () => {
-    return (
-      this.props.basket &&
-      (this.props.basket.checkout_items ?? []).some(
-        (checkoutItem) => checkoutItem?.extra_data?.offers_data?.length > 0,
-      )
-    );
-  };
-
-  createPendingBookingsIfNecessary = (
+  createPendingBookingsAndBlockBasket = (
     data: { payment_group_method_identifier?: number } = {},
   ) => {
-    if (!this.hasOfferData()) return;
+    if (!basketId || !data) return;
 
-    createPendingBookingsAPI(this.props.basket.id, data).catch((error) =>
-      console.error(error),
+    createPendingBookingsAndBlockBasketAPI(this.props.basket.id, data).catch(
+      (error) => console.error(error),
     );
   };
 
-  invalidatePendingBookingsIfNecessary = () => {
-    if (!this.hasOfferData()) return;
-
-    invalidatePendingBookingsAPI(this.props.basket.id).catch((error) =>
-      console.error(error),
+  invalidatePendingBookingsAndUnblockBasket = () => {
+    invalidatePendingBookingsAndUnblockBasketAPI(this.props.basket.id).catch(
+      (error) => console.error(error),
     );
   };
 
@@ -440,8 +428,8 @@ export class MemberAreaBasketUnifiedPage extends React.Component<MemberAreaBaske
                     this.props.theme.force_billing_details_on_cards
                   }
                   companyId={this.props.companyId}
-                  createPendingBookingsIfNecessary={
-                    this.createPendingBookingsIfNecessary
+                  createPendingBookingsAndBlockBasket={
+                    this.createPendingBookingsAndBlockBasket
                   }
                   creditAccountBalance={this.props.creditAccountBalance}
                   detachPaymentMethod={this.props.detachPaymentMethod}
@@ -458,8 +446,8 @@ export class MemberAreaBasketUnifiedPage extends React.Component<MemberAreaBaske
                   instalmentPaymentConfigurationList={this.props.instalmentPaymentConfigurationList.filter(
                     (ipc) => ipc.basketId === this.props.basket?.id,
                   )}
-                  invalidatePendingBookingsIfNecessary={
-                    this.invalidatePendingBookingsIfNecessary
+                  invalidatePendingBookingsAndUnblockBasket={
+                    this.invalidatePendingBookingsAndUnblockBasket
                   }
                   isExcludingTax={
                     this.props.theme.is_tax_excluded_in_marketplace

@@ -486,7 +486,30 @@
     },
     "secondaryLabel": " : {{ note }}",
     "label": "Pausa di {{days}} giorni",
-    "createdAt": "Creato il "
+    "createdAt": "Creato il ",
+    "dialogs": {
+      "fail": {
+        "contentCanNotEditPauseEndBeforeToday": "La nuova data di inizio della pausa non può essere antecedente a oggi.",
+        "contentCanNotCreateAPauseInThePast": "La pausa non può iniziare nel passato.",
+        "contentUnknownError": "Si è verificato un errore imprevisto. Ci scusiamo per il disagio.",
+        "comeback": "Indietro"
+      },
+      "form": {
+        "titleCreation": "In pausa",
+        "titleEdition": "Modifica la pausa",
+        "causePlaceholder": "Motivo *",
+        "duration": {
+          "title": "Durata della pausa",
+          "start": "Data di inizio (inclusa)",
+          "end": "Data di fine (inclusa)",
+          "warning": "La data di fine non può essere precedente alla data di inizio"
+        },
+        "information": "L'abbonamento sarà sospeso dal {{- dateStart}} al {{- dateEnd}} incluso. Il prossimo pagamento sarà posticipato di {{count}} giorni, così come tutti i pagamenti futuri.",
+        "information_plural": "Gli abbonamenti saranno sospesi dal {{- dateStart}} al {{- dateEnd}} incluso. Il prossimo pagamento sarà posticipato di {{count}} giorni, così come tutti i pagamenti futuri.",
+        "information2": "La data di scadenza del pacchetto verrà estesa di un numero di giorni pari alla durata della pausa e il pacchetto resterà valido durante la pausa.",
+        "confirm": "Salva"
+      }
+    }
   },
   "plannedInvoice": {
     "list": {

@@ -11,11 +11,11 @@ import { withTranslation, WithTranslation } from 'react-i18next';
 import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
 import { push } from 'connected-react-router';
-import GiftcardFormDrawer from '#src/libs/giftcard/components/GiftcardFormDrawer.component';
+import { GiftcardFormDrawer } from '#src/libs/giftcard/components/GiftcardFormDrawer';
 import GiftcardDeleteDialog from '#src/libs/giftcard/components/GiftcardDeleteDialog.component';
 import BottomActionsButton from '#src/components/button/BottomActionsButton.component';
 import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
-import {
+import type {
   Giftcard,
   ConsumerGiftcard,
   GiftcardDataAPI,

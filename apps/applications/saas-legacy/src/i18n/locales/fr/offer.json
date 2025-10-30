@@ -299,9 +299,9 @@
           "isManagerOnly": "Disponible à la réservation (web + app)",
           "allowGuestOffer": "Autoriser la réservation pour un invité",
           "partnership": {
-            "title": "Intégrations marketplace",
-            "availableOnPartnership": "Sur les marketplaces (ClassPass, OneFit...)",
-            "partnerMaxBookingCount": "Nombre maximum de réservations provenant de Wellhub et Urban Sports Club combinés (les autres marketplaces ne sont pas concernées par ce paramètre)",
+            "title": "Intégrations d'agrégateurs",
+            "availableOnPartnership": "Sur les agrégateurs (ClassPass, OneFit...)",
+            "partnerMaxBookingCount": "Nombre maximal de réservations provenant de Wellhub et Urban Sports Club combinés (les autres agrégateurs ne sont pas concernés par ce paramètre)",
             "uscIntegrationWarning": "Votre intégration à la marketplace Urban Sports Club est active, toute séance débordant sur 2 jours ou plus n'y apparaîtra pas.",
             "uscIntegrationWorkshopWarning": "Les ateliers ne sont pas compatibles avec la marketplace Urban Sports Club, cette séance n'y appraîtra pas.",
             "wellhubProduct": {
@@ -309,8 +309,8 @@
               "helperText": "Ces produits sont proposés par votre studio sur la plateforme Wellhub. Pour plus d'informations, consultez la section « Partenariat » dans le portail des partenaires de votre compte Wellhub.",
               "title": "Vos produits disponibles sur Wellhub :"
             },
-            "subtitle": "Comprend : ClassPass, Urban Sports Club, Gymlib et Wellhub pour les réservations externes.",
-            "enablePartneshipBookings": "Permettre les réservations marketplace"
+            "subtitle": "Comprend : ClassPass, Urban Sports Club, Wellpass et Wellhub pour les réservations externes.",
+            "enablePartneshipBookings": "Permettre les réservations via les agrégateurs"
           },
           "isNotifyConsumers": "Voulez-vous informer vos clients de cette modification ?",
           "isModifyRecursively": "Voulez-vous modifier les séances similaires selon ces nouvelles conditions ?",

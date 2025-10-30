@@ -31,6 +31,27 @@ export const extractMetaActivityIds = (
 };
 
 /**
+ * Extracts location IDs from booking notifications
+ */
+export const extractLocationIds = (
+  notifications: MarketingNotification[],
+): number[] => {
+  const ids = new Set<number>();
+
+  for (const notification of notifications) {
+    if (isMarketingNotificationBookingType(notification)) {
+      const { establishment_id } = notification.event_rules;
+
+      if (establishment_id) {
+        ids.add(establishment_id);
+      }
+    }
+  }
+
+  return Array.from(ids);
+};
+
+/**
  * Extracts establishment IDs from booking notifications
  */
 export const extractEstablishmentIds = (
@@ -40,12 +61,8 @@ export const extractEstablishmentIds = (
 
   for (const notification of notifications) {
     if (isMarketingNotificationBookingType(notification)) {
-      const { establishment_id, establishment_group_id } =
-        notification.event_rules;
+      const { establishment_group_id } = notification.event_rules;
 
-      if (establishment_id) {
-        ids.add(establishment_id);
-      }
       if (establishment_group_id) {
         ids.add(establishment_group_id);
       }
@@ -208,6 +225,7 @@ export const extractAllNotificationIds = ({
   extractAllPassIds: boolean;
 }) => {
   return {
+    locationIds: extractLocationIds(notifications),
     establishmentIds: extractEstablishmentIds(notifications),
     metaActivityIds: extractMetaActivityIds(notifications),
     privateServiceIds: extractPrivateServiceIds(notifications),

@@ -102,6 +102,7 @@ export function CommunicationFactory(
       randomArray(total_recipients, 5000),
     is_answer: isAnswer !== undefined ? isAnswer : Math.random() < 0.3,
     status: status ?? COMMUNICATION_SENT_SENDING_SUCCESS,
+    error_code: null,
   };
 }
 

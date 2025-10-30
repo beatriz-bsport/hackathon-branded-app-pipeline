@@ -352,7 +352,11 @@
         },
         "row": {
           "no": "No",
-          "yes": "Yes"
+          "yes": "Yes",
+          "no_display_date": "Invalid Data"
+        },
+        "tooltip": {
+          "no_display_date": "Some data is missing or invalid."
         }
       }
     },
@@ -759,8 +763,8 @@
       "lostTrigger": {
         "timeout": {
           "title": "Time limit",
-          "label": "Days in the {{ workflowLowerCase }}",
-          "helperText": "Member will exit the {{ workflowLowerCase }} after this number of days, no matter what step they are in."
+          "label": "Days inactive in the {{ workflowLowerCase }}",
+          "helperText": "Members will exit the {{ workflowLowerCase }} if no progress is made after this number of days"
         },
         "addTrigger": "Add exit trigger",
         "helperText": "Set when your objective is considered not met: define a time limit for it and/or specific trigger(s) after which the member will unsuccessfully exit this {{ workflowLowerCase }}.",

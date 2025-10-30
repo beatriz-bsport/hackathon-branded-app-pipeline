@@ -1,23 +1,28 @@
 import { useMemo } from "react";
 
 import {
-  type Appointment,
-  selectAllAppointments,
+  selectAllAppointmentMappedById,
+  selectSearchedAppointment,
   useAppointmentStore,
 } from "@bsport/store-booking-appointment";
 import {
-  type MetaActivity,
-  selectGroupActivities,
+  selectGroupActivitiesMappedById,
+  selectSearchedGroupActivities,
   useGroupActivityStore,
 } from "@bsport/store-booking-group-activity";
 import {
   selectAppointmentPassesById,
+  selectAppointmentPassesSearched,
   useAppointmentPassStore,
 } from "@bsport/store-buyables-appointment-pass";
-import { selectPassesById, usePassStore } from "@bsport/store-buyables-pass";
 import {
-  type Subscription,
-  selectAllSubscriptions,
+  selectPassesById,
+  selectSearchedPasses,
+  usePassStore,
+} from "@bsport/store-buyables-pass";
+import {
+  selectAllSubscriptionMappedById,
+  selectFuzzySearchedSubscriptions,
   useSubscriptionStore,
 } from "@bsport/store-buyables-subscription";
 import {
@@ -30,79 +35,63 @@ import {
   useSmartlistStore,
 } from "@bsport/store-cdp-smartlist";
 import {
-  type Establishment,
-  selectEstablishments,
+  selectEstablishmentGroupMappedById,
+  selectEstablishmentMappedById,
+  selectSearchedEstablishmentGroups,
+  selectSearchedEstablishments,
   useEstablishmentStore,
 } from "@bsport/store-core-data-establishment";
 
 export const useGetMarketingNotificationDependenciesData = () => {
-  const groupActivities = useGroupActivityStore(selectGroupActivities);
+  const groupActivitiesById = useGroupActivityStore(
+    selectGroupActivitiesMappedById,
+  );
 
-  const appointments = useAppointmentStore(selectAllAppointments);
+  const searchedGroupActivities = useGroupActivityStore(
+    selectSearchedGroupActivities,
+  );
 
-  const establishments = useEstablishmentStore(selectEstablishments);
+  const appointmentsById = useAppointmentStore(selectAllAppointmentMappedById);
+
+  const searchedAppointments = useAppointmentStore(selectSearchedAppointment);
+
+  const searchedLocations = useEstablishmentStore(selectSearchedEstablishments);
+
+  const locationsById = useEstablishmentStore(selectEstablishmentMappedById);
+
+  const searchedEstablishments = useEstablishmentStore(
+    selectSearchedEstablishmentGroups,
+  );
+
+  const establishmentsById = useEstablishmentStore(
+    selectEstablishmentGroupMappedById,
+  );
 
   const appointmentPassesById = useAppointmentPassStore(
     selectAppointmentPassesById,
   );
 
-  const subscriptions = useSubscriptionStore(selectAllSubscriptions);
+  const searchedAppointmentPasses = useAppointmentPassStore(
+    selectAppointmentPassesSearched,
+  );
+
+  const subscriptionsById = useSubscriptionStore(
+    selectAllSubscriptionMappedById,
+  );
+
+  const searchedSubscriptions = useSubscriptionStore(
+    selectFuzzySearchedSubscriptions,
+  );
 
   const passesById = usePassStore(selectPassesById);
+
+  const searchedPasses = usePassStore(selectSearchedPasses);
 
   const emailTemplateSummaries = useEmailTemplateStore(
     selectAllEmailTemplateSummaries,
   );
 
   const smartlistsById = useSmartlistStore(selectAllMappedSmartlists);
-
-  const groupActivitiesById = useMemo(
-    () =>
-      groupActivities.reduce(
-        (acc, activity) => {
-          acc[activity.id] = activity;
-          return acc;
-        },
-        {} as Record<number, MetaActivity>,
-      ),
-    [groupActivities],
-  );
-
-  const appointmentsById = useMemo(
-    () =>
-      appointments.reduce(
-        (acc, appointment) => {
-          acc[appointment.id] = appointment;
-          return acc;
-        },
-        {} as Record<number, Appointment>,
-      ),
-    [appointments],
-  );
-
-  const establishmentsById = useMemo(
-    () =>
-      establishments.reduce(
-        (acc, establishment) => {
-          acc[establishment.id] = establishment;
-          return acc;
-        },
-        {} as Record<number, Establishment>,
-      ),
-    [establishments],
-  );
-
-  const subscriptionsById = useMemo(
-    () =>
-      subscriptions.reduce(
-        (acc, subscription) => {
-          acc[subscription.id] = subscription;
-          return acc;
-        },
-        {} as Record<number, Subscription>,
-      ),
-    [subscriptions],
-  );
 
   const emailTemplatesById = useMemo(
     () =>
@@ -117,13 +106,21 @@ export const useGetMarketingNotificationDependenciesData = () => {
   );
 
   return {
-    groupActivitiesById,
+    searchedAppointments,
+    searchedAppointmentPasses,
+    searchedEstablishments,
+    searchedGroupActivities,
+    searchedLocations,
+    searchedPasses,
+    searchedSubscriptions,
     appointmentsById,
-    establishmentsById,
     appointmentPassesById,
-    subscriptionsById,
-    passesById,
     emailTemplatesById,
+    establishmentsById,
+    groupActivitiesById,
+    locationsById,
+    passesById,
     smartlistsById,
+    subscriptionsById,
   };
 };

@@ -2,19 +2,21 @@ import Button from '@material-ui/core/Button';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Switch from '@material-ui/core/Switch';
 import Typography from '@material-ui/core/Typography';
+import makeStyles from '@material-ui/core/styles/makeStyles';
 
-import { withFormik, type FormikProps, Form } from 'formik';
+import { Form, type FormikProps, withFormik } from 'formik';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import makeStyles from '@material-ui/core/styles/makeStyles';
+import omit from 'lodash/omit';
 import { PAYMENT_GROUP_METHOD_IDENTIFIER_CB } from '@bsport/common/lib/master-data/payment-group.js';
 import PaymentMethodMultiSelector from '#src/libs/payment/components/PaymentMethodMultiSelector.component';
 import NumericInput from '#src/components/input/NumericInput.component';
-import { addOrRemove } from './utils';
+import type { StripeDomainListState } from '#src/libs/payment/types';
 
+import { addOrRemove } from './utils';
 import { validationSchema } from './validationSchema';
 import { MAX_DAYS_FIRST_WARNING_PAYMENT_METHOD_EXPIRATION } from './constants';
-import omit from 'lodash/omit';
+import StripeDomainManagement from './StripeDomainManagement.component';
 
 export type PaymentMethodsFormValues = {
   payment_method_available: number[];
@@ -36,6 +38,8 @@ type AdditionalProps = {
       force_billing_details_on_cards: boolean;
     },
   ) => void;
+  stripeDomainList: StripeDomainListState;
+  onRegisterStripeDomain: (domainName: string, onSuccess?: () => void) => void;
 };
 
 const useStyles = makeStyles((theme) => ({
@@ -117,6 +121,8 @@ const PaymentMethodsForm: React.FC<
   setFieldValue,
   updateLoading,
   handleSubmit,
+  stripeDomainList,
+  onRegisterStripeDomain,
 }) => {
   const classes = useStyles();
   const { t } = useTranslation(['settings', 'common']);
@@ -290,6 +296,11 @@ const PaymentMethodsForm: React.FC<
           </Typography>
         </div>
       </div>
+
+      <StripeDomainManagement
+        onRegisterDomain={onRegisterStripeDomain}
+        stripeDomainList={stripeDomainList}
+      />
 
       {updateLoading && <LinearProgress className={classes.fullWidth} />}
 

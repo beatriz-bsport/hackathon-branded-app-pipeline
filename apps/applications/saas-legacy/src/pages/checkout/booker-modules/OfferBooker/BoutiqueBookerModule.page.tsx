@@ -439,7 +439,9 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
             this.props.offerId,
             offer.company,
           );
-          this.props.fetchMemberTagList(offer.company);
+          if (this.props.authenticated) {
+            this.props.fetchMemberTagList(offer.company);
+          }
           this.props.fetchAllPaymentPackCategory(offer.company);
           this.props.fetchMetaActivityBulk([offer.meta_activity]);
           this.props.fetchCoachBulkForCompany(

@@ -759,8 +759,8 @@
       "lostTrigger": {
         "timeout": {
           "title": "Zeitlimit",
-          "label": "Tage im {{ workflowLowerCase }}",
-          "helperText": "Hier legst du fest, nach wieviel Tagen ein laufender Workflow für ein Mitglied beendet wird."
+          "label": "Tage inaktiv in {{ workflowLowerCase }}",
+          "helperText": "Mitglieder verlassen den {{ workflowLowerCase }} , wenn nach dieser Anzahl von Tagen keine Fortschritte erzielt wurden"
         },
         "addTrigger": "Ausgangsauslöser hinzufügen",
         "helperText": "Hier legst du fest, wann ein Kriterium als \"nicht erfolgreich\" abgeschlossen gilt.",
@@ -971,6 +971,44 @@
         "entryDate": "Eintrittsdatum",
         "exitDate": "Ausgangsdatum",
         "status": "Erfolg"
+      }
+    },
+    "freeTrial": {
+      "upgradeDialog": {
+        "quotaReached": {
+          "description": "Du hast die 3 {{ workflowPluralLowerCase }} aus der kostenlosen Testphase aufgebraucht. Um diesen zu aktivieren, führe ein Upgrade auf Audience durch oder pausiere einen bestehenden {{ workflowLowerCase }}.",
+          "title": "Du hast keine kostenlosen {{ workflowPluralLowerCase }} mehr"
+        },
+        "bannerClicked": {
+          "description": "Upgrade jetzt, um dein Geschäft mit Audience weiter auszubauen.",
+          "title": "Wachse weiter – ohne Grenzen"
+        },
+        "close": "Schließen",
+        "upgrade": "Upgrade",
+        "benefits": [
+          "Erstelle unbegrenzt automatisierte {{ workflowPluralLowerCase }}",
+          "Erstelle einzigartige Kundenerlebnisse über mehrere Kanäle hinweg",
+          "Richte Angebote gezielt an Kunden in jeder Phase ihrer Journey"
+        ]
+      },
+      "banner": {
+        "button": "Upgrade",
+        "title": "{{ count }} Tag verbleibt in der Testphase",
+        "title_plural": "{{ count }} Tage verbleiben in der Testphase"
+      }
+    },
+    "smsWarning": {
+      "modal": {
+        "actions": {
+          "secondary": "Abbrechen",
+          "primary": "Bestätigen"
+        },
+        "content": "<strong>Das Senden von SMS kann teurer sein als andere Kanäle,</strong> je nachdem, wie viele Personen in den Workflow eintreten. Prüfe deinen Vertrag, um die Kosten pro SMS zu sehen.",
+        "title": "Erinnerung an SMS-Kosten"
+      },
+      "alert": {
+        "content": "Je mehr Personen in den Workflow eintreten, desto höher sind die Kosten. Prüfe deinen Vertrag, um die Kosten pro SMS zu sehen.",
+        "title": "SMS kostet mehr als andere Kanäle"
       }
     }
   }

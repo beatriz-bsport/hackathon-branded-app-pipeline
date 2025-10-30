@@ -50,6 +50,7 @@ export const useFormatNotificationTriggerName = () => {
     appointmentPassesById,
     subscriptionsById,
     passesById,
+    locationsById,
   } = useGetMarketingNotificationDependenciesData();
 
   /**
@@ -62,7 +63,6 @@ export const useFormatNotificationTriggerName = () => {
     triggerType: NotificationType;
     marketingNotification: MarketingNotification;
   }): string => {
-    // Extract entity information
     const entityIds = extractEntityId(marketingNotification);
     const entityName = findEntityName(triggerType, entityIds, {
       groupActivitiesById,
@@ -71,6 +71,7 @@ export const useFormatNotificationTriggerName = () => {
       appointmentPassesById,
       subscriptionsById,
       passesById,
+      locationsById,
     });
 
     // Get refined trigger type

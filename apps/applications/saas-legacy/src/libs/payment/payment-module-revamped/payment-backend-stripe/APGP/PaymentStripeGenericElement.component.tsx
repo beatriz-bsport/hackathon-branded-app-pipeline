@@ -39,14 +39,14 @@ type PaymentStripeGenericElementProps = {
   checkItemsBasket: (basketId: string) => Promise<boolean>;
   children?: React.ReactNode;
   clientSecret: string;
-  createPendingBookingsIfNecessary?: (data?: {
+  createPendingBookingsAndBlockBasket?: (data?: {
     payment_group_method_identifier?: number;
   }) => void;
   forceDisabled?: boolean;
   forceHideConfirmPaymentButton?: boolean;
   forceSave?: boolean;
   hasAddPaymentMethodPermission?: boolean;
-  invalidatePendingBookingsIfNecessary?: () => void;
+  invalidatePendingBookingsAndUnblockBasket?: () => void;
   isEstablishmentBillingGroupSelected?: boolean;
   loading?: boolean;
   onCancel?: () => void;
@@ -71,12 +71,12 @@ export const PaymentStripeGenericElement = forwardRef(
       checkItemsBasket,
       children,
       clientSecret,
-      createPendingBookingsIfNecessary,
+      createPendingBookingsAndBlockBasket,
       forceDisabled,
       forceHideConfirmPaymentButton,
       forceSave,
       hasAddPaymentMethodPermission = true,
-      invalidatePendingBookingsIfNecessary,
+      invalidatePendingBookingsAndUnblockBasket,
       isEstablishmentBillingGroupSelected,
       loading,
       onCancel,
@@ -137,14 +137,11 @@ export const PaymentStripeGenericElement = forwardRef(
       basketTotalPriceCts,
       checkItemsBasket,
       clientSecret,
-      createPendingBookingsIfNecessary,
+      createPendingBookingsAndBlockBasket,
       elements,
       forceSave,
-      invalidatePendingBookingsIfNecessary,
-      onError: () => {
-        invalidatePendingBookingsIfNecessary?.();
-        onError?.();
-      },
+      invalidatePendingBookingsAndUnblockBasket,
+      onError,
       paymentGroupId,
       saveForLater,
       setPaymentPageProcessing: (process) => {

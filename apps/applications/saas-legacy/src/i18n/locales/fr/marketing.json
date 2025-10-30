@@ -759,8 +759,8 @@
       "lostTrigger": {
         "timeout": {
           "title": "Délai",
-          "label": "Jours dans le {{ workflowLowerCase }}",
-          "helperText": "Le membre quittera le {{ workflowLowerCase }} après ce délai, quelle que soit l'étape à laquelle il se trouve."
+          "label": "Jours d'inactivité dans le {{ workflowLowerCase }}",
+          "helperText": "Les membres quitteront le {{ workflowLowerCase }} si aucun progrès n'est réalisé après ce nombre de jours"
         },
         "addTrigger": "Ajouter un déclencheur de sortie",
         "helperText": "Définissez ce qui considère votre objectif comme non atteint : déterminez un délai après lequel le membre sortira sans succès de ce {{ workflowLowerCase }} et/ou un - ou plusieurs - déclencheurs spécifiques.",
@@ -971,6 +971,44 @@
         "entryDate": "Date d'entrée",
         "exitDate": "Date de sortie",
         "status": "Succès"
+      }
+    },
+    "freeTrial": {
+      "upgradeDialog": {
+        "quotaReached": {
+          "description": "Vous avez utilisé les 3 {{ workflowPluralLowerCase }} inclus dans la période d’essai gratuite. Pour activer celui-ci, mettez à niveau vers Audience ou mettez en pause un {{ workflowLowerCase }} existant.",
+          "title": "Vous n’avez plus de {{ workflowPluralLowerCase }} gratuits"
+        },
+        "bannerClicked": {
+          "description": "Mettez à niveau maintenant pour continuer à développer votre activité avec Audience.",
+          "title": "Continuez à grandir sans limites"
+        },
+        "close": "Fermer",
+        "upgrade": "Mettre à niveau",
+        "benefits": [
+          "Créez un nombre illimité de {{ workflowPluralLowerCase }} automatisés",
+          "Créez des expériences client uniques sur plusieurs canaux",
+          "Ciblez vos offres pour chaque étape du parcours client"
+        ]
+      },
+      "banner": {
+        "button": "Mettre à niveau",
+        "title": "{{ count }} jour restant dans la période d’essai",
+        "title_plural": "{{ count }} jours restants dans la période d’essai"
+      }
+    },
+    "smsWarning": {
+      "modal": {
+        "actions": {
+          "secondary": "Annuler",
+          "primary": "Confirmer"
+        },
+        "content": "<strong>L’envoi de SMS peut coûter plus cher que d’autres canaux,</strong> selon le nombre de personnes entrant dans le flux de travail. Consultez votre contrat pour connaître le coût par SMS.",
+        "title": "Rappel du coût des SMS"
+      },
+      "alert": {
+        "content": "Plus il y a de personnes dans le flux de travail, plus le coût est élevé. Consultez votre contrat pour connaître le coût par SMS.",
+        "title": "Les SMS coûtent plus cher que les autres canaux"
       }
     }
   }

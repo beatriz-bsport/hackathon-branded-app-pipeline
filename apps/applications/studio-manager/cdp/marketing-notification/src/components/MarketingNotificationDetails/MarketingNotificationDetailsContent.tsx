@@ -3,7 +3,6 @@ import { useSearchParams } from "react-router";
 
 import { SegmentedControl, Title } from "@bsport/kaizen-primitive-core";
 import { MarketingNotification } from "@bsport/store-cdp-marketing-notification";
-import { deletePaginationQueryParams } from "@bsport/use-pagination-query-params";
 
 import { NotificationActionsMenu } from "#src/components/Common/NotificationActionsMenu";
 import { NotificationToggle } from "#src/components/Common/NotificationToggle";
@@ -34,7 +33,7 @@ export const MarketingNotificationDetailsContent: React.FC<
     "marketingNotificationList",
     "marketingNotificationDetails",
   ]);
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const [currentSearchParam, setCurrentSearchParam] = useState(
     searchParams.get(SEGMENTED_CONTROL_QUERY_PARAM),
   );
@@ -49,7 +48,6 @@ export const MarketingNotificationDetailsContent: React.FC<
 
   const handleChangeSegmentedControl = (value: string) => {
     if (!isNotificationSegment(value)) return;
-    deletePaginationQueryParams(setSearchParams);
     setSelectedOption(value);
     setCurrentSearchParam(value);
   };
@@ -87,7 +85,6 @@ export const MarketingNotificationDetailsContent: React.FC<
         fullWidth
         id="marketing-notification-detail-view-segmented-control"
         className="h-xl"
-        urlQueryParamName={SEGMENTED_CONTROL_QUERY_PARAM}
         value={selectedOption}
         options={[
           {

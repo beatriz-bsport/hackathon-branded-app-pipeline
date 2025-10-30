@@ -18,7 +18,7 @@
         "label": "En casa"
       },
       "addSlot": "Añadir un tipo sesión",
-      "addEstablishment": "Añadir una sala",
+      "addEstablishment": "Añadir un establecimiento",
       "addCoach": "Añadir un profesor",
       "createButton": "Añadir un tipo de cita",
       "title": "Cita",
@@ -837,7 +837,7 @@
     "excludedSlots": {
       "helperText": "Seleccione las sesiones para las que la tarjeta RDV es compatible",
       "cancel": "Cancelar",
-      "submit": "Salvar",
+      "submit": "Guardar",
       "title": "Sesiones de {{ service }}",
       "isEmpty": "No se ha configurado ningún tipo de sesión en esta cita!"
     },

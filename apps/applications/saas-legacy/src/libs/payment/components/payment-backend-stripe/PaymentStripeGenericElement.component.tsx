@@ -32,10 +32,7 @@ import {
 } from '@material-ui/core';
 import Info from '@material-ui/icons/Info';
 
-import {
-  blockPendingBasket as blockPendingBasketAPI,
-  verifyPriceBasket as verifyPriceBasketAPI,
-} from '#src/libs/payment/api';
+import { verifyPriceBasket as verifyPriceBasketAPI } from '#src/libs/payment/api';
 import {
   StripePaymentMethodNames,
   USER_REGISTRATION_RESPONSE_LOCAL_STORAGE_KEY,
@@ -54,14 +51,14 @@ type PaymentStripeGenericElementProps = {
   checkItemsBasket: (basketId: string) => Promise<boolean>;
   children?: React.ReactNode;
   clientSecret: string;
-  createPendingBookingsIfNecessary?: (data?: {
+  createPendingBookingsAndBlockBasket?: (data?: {
     payment_group_method_identifier?: number;
   }) => void;
   forceDisabled?: boolean;
   forceHideConfirmPaymentButton?: boolean;
   forceSave?: boolean;
   hasAddPaymentMethodPermission?: boolean;
-  invalidatePendingBookingsIfNecessary?: () => void;
+  invalidatePendingBookingsAndUnblockBasket?: () => void;
   isEstablishmentBillingGroupSelected?: boolean;
   loading?: boolean;
   onCancel: () => void;
@@ -86,12 +83,12 @@ export const PaymentStripeGenericElement = forwardRef(
       checkItemsBasket,
       children,
       clientSecret,
-      createPendingBookingsIfNecessary,
+      createPendingBookingsAndBlockBasket,
       forceDisabled,
       forceHideConfirmPaymentButton,
       forceSave,
       hasAddPaymentMethodPermission = true,
-      invalidatePendingBookingsIfNecessary,
+      invalidatePendingBookingsAndUnblockBasket,
       isEstablishmentBillingGroupSelected,
       loading,
       onCancel,
@@ -189,7 +186,7 @@ export const PaymentStripeGenericElement = forwardRef(
           }
         }
 
-        createPendingBookingsIfNecessary?.({
+        createPendingBookingsAndBlockBasket?.({
           payment_group_method_identifier: paymentGroupMethodIdentifier,
         });
 
@@ -243,17 +240,8 @@ export const PaymentStripeGenericElement = forwardRef(
                   setErrorMessage(err.message);
                 }
                 setPaymentPageProcessing(false);
-                invalidatePendingBookingsIfNecessary?.();
+                invalidatePendingBookingsAndUnblockBasket?.();
                 onError?.();
-              },
-              onPaymentSuccess: async () => {
-                if (basketId) {
-                  try {
-                    await blockPendingBasketAPI(basketId);
-                  } catch (err) {
-                    console.error(err);
-                  }
-                }
               },
             },
           ),
@@ -264,11 +252,11 @@ export const PaymentStripeGenericElement = forwardRef(
         basketTotalPriceCts,
         checkItemsBasket,
         clientSecret,
-        createPendingBookingsIfNecessary,
+        createPendingBookingsAndBlockBasket,
         dispatch,
         elements,
         forceSave,
-        invalidatePendingBookingsIfNecessary,
+        invalidatePendingBookingsAndUnblockBasket,
         onError,
         paymentGroupId,
         paymentGroupMethodIdentifier,

@@ -61,8 +61,8 @@
   },
   "unsubscriber": {
     "success": {
-      "text": "Je hebt je succesvol uitgeschreven. U zult niet langer nieuwsbrieven ontvangen van {{- companyName}}.",
-      "title": "Je hebt afgemeld."
+      "text": "Je hebt je succesvol uitgeschreven. Je zult niet langer nieuwsbrieven ontvangen van {{- companyName}}.",
+      "title": "Je bent afgemeld"
     },
     "error": "Fout tijdens het uitschrijven",
     "doUnsubscribe": "Uitschrijven",

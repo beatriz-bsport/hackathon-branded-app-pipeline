@@ -1,6 +1,10 @@
 import { Result } from "typescript-result";
 
-import type { Action, PaginatedResponse } from "@bsport/store-base";
+import type {
+  Action,
+  PaginatedResponse,
+  SearchResponse,
+} from "@bsport/store-base";
 
 import {
   archiveGroupActivityAPI,
@@ -37,6 +41,7 @@ export const fetchGroupActivitiesAction: Action<
         groupActivities: data.results,
         count: data.count,
         page: data.page,
+        search: false,
       });
 
       return data;
@@ -59,6 +64,7 @@ export const fetchGroupActivitiesAndWorkshopsAction: Action<
         groupActivities: data.results,
         count: data.count,
         page: data.page,
+        search: false,
       });
 
       return data;
@@ -72,7 +78,7 @@ export const fetchGroupActivitiesAndWorkshopsAction: Action<
 
 export const searchGroupActivitiesAction: Action<
   SearchGroupActivitiesParams,
-  PaginatedResponse<MetaActivity>
+  SearchResponse<MetaActivity>
 > = async (fetch, params) => {
   const [uri, init] = searchGroupActivitiesAPI(params);
 
@@ -83,7 +89,8 @@ export const searchGroupActivitiesAction: Action<
       setGroupActivities({
         groupActivities: data.results,
         count: data.count,
-        page: data.page,
+        page: params?.page || 1,
+        search: true,
       });
 
       return data;

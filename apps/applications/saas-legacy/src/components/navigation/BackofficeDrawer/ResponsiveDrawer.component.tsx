@@ -55,7 +55,7 @@ import { useSafeFlag, FeatureFlags } from '#src/utils/feature-flag';
 
 import SwitchHorizontalIcon from '#src/components/icons/SwitchHorizontalIcon.component';
 import TutorialIconWithAlertings from '#src/libs/platform-tutorial/components/TutorialIconWithAlertings.component';
-
+import { hasAnyUpsell } from '#src/libs/platform-billing/utils';
 import {
   checkRequiredPermissions,
   hasUpsellIdentifier,
@@ -67,9 +67,9 @@ import {
   UPSELL_IDENTIFIER_CUSTOM_APP,
   UPSELL_IDENTIFIER_SUBTEACHER_TOOL,
   UPSELL_IDENTIFIER_QUICKSALE,
-  UPSELL_IDENTIFIER_CADENCE,
   UPSELL_IDENTIFIER_QUICKBOOKS,
   UPSELL_IDENTIFIER_ACCESS_MONITORING,
+  UPSELL_IDENTIFIER_KISI_INTEGRATION,
 } from '#src/libs/platform-billing/upsell-identifiers';
 
 import Config from '#src/config';
@@ -116,7 +116,6 @@ type Props = {
   iconsOnly?: boolean;
   setDrawerIconsOnly?: (isIconOnly: boolean) => void;
   handleUserSetDrawerIconsOnly?: (isIconOnly: boolean) => void;
-  hasLimitedAccesToAudience?: boolean;
   enableRevampedBackoffice: () => void;
 };
 
@@ -179,7 +178,6 @@ const ResponsiveDrawer: React.FC<Props> = ({
   iconsOnly,
   setDrawerIconsOnly,
   handleUserSetDrawerIconsOnly,
-  hasLimitedAccesToAudience,
   enableRevampedBackoffice,
 }) => {
   const { t } = useTranslation(['navigation']);
@@ -208,11 +206,10 @@ const ResponsiveDrawer: React.FC<Props> = ({
 
   const accessMonitoringItem = React.useMemo(() => {
     if (
-      !hasUpsellIdentifier(
+      !hasAnyUpsell({ upsell: featureList }, [
         UPSELL_IDENTIFIER_ACCESS_MONITORING,
-        featureList,
-        true,
-      )
+        UPSELL_IDENTIFIER_KISI_INTEGRATION,
+      ])
     ) {
       return [];
     }
@@ -520,16 +517,11 @@ const ResponsiveDrawer: React.FC<Props> = ({
             icon: LabelIcon,
             text: t('backofficeMenu.tags'),
           } as DrawerItemDefault,
-          ...(hasUpsellIdentifier(UPSELL_IDENTIFIER_CADENCE, featureList) ||
-          hasLimitedAccesToAudience
-            ? [
-                {
-                  to: '/audience',
-                  icon: SwitchHorizontalIcon,
-                  text: t('backofficeMenu.audience'),
-                } as DrawerItemDefault,
-              ]
-            : []),
+          {
+            to: '/audience',
+            icon: SwitchHorizontalIcon,
+            text: t('backofficeMenu.audience'),
+          } as DrawerItemDefault,
         ],
       } as DrawerItemNested,
       {
@@ -771,7 +763,6 @@ const ResponsiveDrawer: React.FC<Props> = ({
     newWebshopItem,
     oldWebshopItem,
     permissions,
-    hasLimitedAccesToAudience,
     isTabImpersonated,
     disconnect,
     iconsOnly,

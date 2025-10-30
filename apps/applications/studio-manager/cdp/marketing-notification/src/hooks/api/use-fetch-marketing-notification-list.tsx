@@ -44,6 +44,7 @@ export function useFetchMarketingNotificationList() {
     onSuccess: ({ value }) => {
       // Extract all relevant IDs using type-safe utility functions
       const {
+        locationIds,
         establishmentIds,
         metaActivityIds,
         privateServiceIds,
@@ -59,6 +60,7 @@ export function useFetchMarketingNotificationList() {
 
       // Fetch dependencies with extracted IDs
       fetchMarketingNotificationDependencies({
+        locationIds: locationIds,
         establishmentIds: establishmentIds,
         groupActivityIds: metaActivityIds,
         privateServiceIds: privateServiceIds,

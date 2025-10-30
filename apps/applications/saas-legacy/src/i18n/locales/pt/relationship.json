@@ -113,7 +113,7 @@
         "success": "Relação guardada"
       },
       "createOrUpdate": {
-        "error": "Impossível salvar a relação"
+        "error": "Impossível guardar a relação"
       }
     }
   },

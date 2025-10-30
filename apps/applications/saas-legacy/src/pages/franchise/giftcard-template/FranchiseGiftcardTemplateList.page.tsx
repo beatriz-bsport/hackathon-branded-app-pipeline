@@ -23,14 +23,18 @@ import {
   fetchGiftcardTemplateList as fetchGiftcardTemplateListAction,
   createOrUpdateGiftcardTemplate as createOrUpdateGiftcardTemplateAction,
 } from '#src/libs/giftcard/actions';
-import GiftcardFormDrawer from '#src/libs/giftcard/components/GiftcardFormDrawer.component';
+import { GiftcardFormDrawer } from '#src/libs/giftcard/components/GiftcardFormDrawer';
 import FranchiseGenericProductDoubleList from '#src/libs/franchise/components/generic-product/template-list/FranchiseGenericProductDoubleList.component';
-import { GiftcardTemplate, GiftcardDataAPI } from '#src/libs/giftcard/types';
+import type {
+  GiftcardTemplate,
+  GiftcardDataAPI,
+} from '#src/libs/giftcard/types';
 import { FranchiseCompany } from '#src/libs/franchise/types';
 import { WithHandlerType } from '../../../utils/types';
 import { OptionCallback } from '../../../state/types';
 import { RootState } from '../../../reducers';
 import { buildUrlParams } from '../../../http';
+import { GIFTCARD_TYPES } from '#src/libs/giftcard/constants';
 
 type StateHandlerType = typeof withStateHandlersInit &
   WithHandlerType<typeof withStateHandlersSetter>;
@@ -57,13 +61,22 @@ export class FranchiseGiftcardTemplateListPage extends Component<Props> {
   getTemplatePrimaryText = (template: GiftcardTemplate) => template.name;
 
   getTemplateSecondaryText = (template: GiftcardTemplate) => {
-    const price = getCurrencyDisplayWithPrice(template.price);
+    const { price, card_type } = template;
+    const t = this.props.t;
+
+    const displayedPrice =
+      card_type === GIFTCARD_TYPES.CUSTOM || !price
+        ? t('giftcardFreeAmount.customAmount', { ns: 'b2b_giftcard' })
+        : getCurrencyDisplayWithPrice(template.price);
+
     const validity = template.expiration_days
-      ? this.props.t('giftcardTemplate.template.validity', {
+      ? t('giftcardTemplate.template.validity', {
           count: template.expiration_days,
+          ns: 'giftcard',
         })
-      : this.props.t('giftcardTemplate.template.unlimited');
-    return `${price} - ${validity}`;
+      : t('giftcardTemplate.template.unlimited', { ns: 'giftcard' });
+
+    return `${displayedPrice} - ${validity}`;
   };
 
   getTemplateFranchiseCompanyList = (template: GiftcardTemplate) => {
@@ -88,13 +101,19 @@ export class FranchiseGiftcardTemplateListPage extends Component<Props> {
           activeItemList={this.props.activeGiftcardTemplateList}
           deleteTemplateDialogContent={t(
             'giftcardTemplate.template.deleteDialogContent',
+            { ns: 'giftcard' },
           )}
-          emptyButtonLabel={t('giftcardTemplate.listPage.addButton')}
-          emptyExplainLabel={t('giftcardTemplate.listPage.emptyLabel')}
+          emptyButtonLabel={t('giftcardTemplate.listPage.addButton', {
+            ns: 'giftcard',
+          })}
+          emptyExplainLabel={t('giftcardTemplate.listPage.emptyLabel', {
+            ns: 'giftcard',
+          })}
           fuzzySearchItemList={this.props.allGiftcardTemplateList}
           // @ts-expect-error
           fuzzySearchPlaceholder={t(
             'giftcardTemplate.listPage.fuzzyPlaceholder',
+            { ns: 'giftcard' },
           )}
           getItemCover={this.getTemplateCover}
           getItemFranchiseCompanies={this.getTemplateFranchiseCompanyList}
@@ -140,7 +159,7 @@ const connector = connect(
 
 const withStateHandlersInit: {
   openForm: boolean;
-  templateToUpdate?: GiftcardTemplate;
+  templateToUpdate?: GiftcardTemplate | null;
 } = {
   openForm: false,
   templateToUpdate: null,
@@ -149,8 +168,7 @@ const withStateHandlersInit: {
 const withStateHandlersSetter = {
   onCreateTemplate: () => () => ({
     openForm: true,
-    // @ts-expect-error
-    templateToUpdate: null,
+    templateToUpdate: null as GiftcardTemplate | null | undefined,
   }),
   closeCreateOrUpdateForm: () => () => ({ openForm: false }),
   setTemplateToUpdate: () => (gt: GiftcardTemplate) => ({
@@ -160,7 +178,7 @@ const withStateHandlersSetter = {
 };
 
 export default compose(
-  withTranslation(['giftcard']),
+  withTranslation(['giftcard', 'b2b_giftcard']),
   connector,
   withStateHandlers(withStateHandlersInit, withStateHandlersSetter),
   withHandlers({

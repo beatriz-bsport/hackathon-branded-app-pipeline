@@ -464,7 +464,9 @@ export const CommunicationMessageBubble = (props: Props) => {
                 variant="body2"
               >
                 <Error className={classes.statusIcon} fontSize="small" />
-                {t('sentStatus.fail')}
+                {communication.error_code
+                  ? t(`sentStatus.error_codes.${communication.error_code}`)
+                  : t('sentStatus.fail')}
               </Typography>
             )}
           {!reverse &&

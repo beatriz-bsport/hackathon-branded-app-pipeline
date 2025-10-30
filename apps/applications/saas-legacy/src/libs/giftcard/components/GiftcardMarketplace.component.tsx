@@ -1,19 +1,29 @@
-import React from 'react';
+import React, { type FC } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Typography } from '@material-ui/core';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import clsx from 'clsx';
-import { Giftcard } from '../types';
-import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
+
+import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
+
+import type { Giftcard } from '../types';
+import { GIFTCARD_TYPES } from '../constants';
 
 type Props = {
   giftcard: Giftcard;
   onClick: (id: number) => void;
 };
 
-export function GiftcardMarketplace(props: Props) {
-  const { giftcard } = props;
+export const GiftcardMarketplace: FC<Props> = ({ giftcard, onClick }) => {
+  const { t } = useTranslation('b2b_giftcard');
   const classes = useStyles();
+
+  const displayedPrice =
+    giftcard.card_type === GIFTCARD_TYPES.CUSTOM || !giftcard.price
+      ? t('giftcardFreeAmount.customAmount')
+      : getCurrencyDisplayWithPrice(giftcard.price);
+
   return (
     <>
       <ButtonBase
@@ -21,7 +31,7 @@ export function GiftcardMarketplace(props: Props) {
           'bs-marketplace-giftcard__item__button',
           classes.imageWrapper,
         )}
-        onClick={() => props.onClick(giftcard.id)}
+        onClick={() => onClick(giftcard.id)}
       >
         {giftcard.cover ? (
           <img
@@ -48,11 +58,11 @@ export function GiftcardMarketplace(props: Props) {
         className="bs-marketplace-giftcard__item__price"
         color="primary"
       >
-        {getCurrencyDisplayWithPrice(giftcard.price)}
+        {displayedPrice}
       </Typography>
     </>
   );
-}
+};
 
 const useStyles = makeStyles((theme) => ({
   imageWrapper: {

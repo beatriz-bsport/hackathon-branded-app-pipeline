@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { type FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import Paper from '@material-ui/core/Paper';
 import { makeStyles, Theme } from '@material-ui/core/styles';
@@ -20,44 +20,52 @@ type Props = {
   goToGiftcard: (giftcardId: number) => void;
 };
 
-const ConsumerGiftcardDetail = (props: Props) => {
+const ConsumerGiftcardDetail: FC<Props> = ({
+  consumerGiftcard,
+  consumerGiftCardLoading,
+  disabled,
+  goToGiftcard,
+  invoice,
+  onInvoiceClick,
+}) => {
   const { t } = useTranslation('giftcard');
   const classes = useStyles();
-  if (!props.consumerGiftcard) {
-    return props.consumerGiftCardLoading ? (
+
+  if (!consumerGiftcard) {
+    return consumerGiftCardLoading ? (
       <div className={classes.loadingContainer}>
         <CircularProgress />
       </div>
     ) : null;
   }
+
   return (
     <div className={classes.container}>
-      {!!props.invoice && (
+      {!!invoice && (
         <div className={classes.section}>
           <Typography className={classes.title} variant="h5">
             {t('consumerGiftcard.linkedInvoice')}
           </Typography>
           <Paper>
             <InvoiceListItem
-              disabled={props.disabled}
-              invoice={props.invoice}
-              onClick={() => props.onInvoiceClick(props.invoice.uuid)}
+              disabled={disabled}
+              invoice={invoice}
+              onClick={() => onInvoiceClick(invoice.uuid)}
             />
           </Paper>
         </div>
       )}
-      {props.consumerGiftcard?.giftcard && (
+
+      {consumerGiftcard?.giftcard && (
         <div className={classes.section}>
           <Typography className={classes.title} variant="h5">
             {t('giftcard.configurationTitle')}
           </Typography>
           <Paper>
             <GiftcardListItem
-              disabled={props.disabled}
-              giftcard={props.consumerGiftcard.giftcard}
-              onClick={() =>
-                props.goToGiftcard(props.consumerGiftcard.giftcard.id)
-              }
+              disabled={disabled}
+              giftcard={consumerGiftcard.giftcard}
+              onClick={() => goToGiftcard(consumerGiftcard.giftcard.id)}
             />
           </Paper>
         </div>

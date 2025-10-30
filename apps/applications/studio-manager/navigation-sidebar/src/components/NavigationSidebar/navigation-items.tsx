@@ -450,6 +450,12 @@ export const useNavigationElements = ({
           label: t("menus.settings.bsportSubscription"),
           ...navigationUrls.settings_bsportSubscription,
         },
+
+        {
+          id: "quicksale",
+          label: t("menus.settings.quicksale"),
+          ...navigationUrls.settings_quicksale,
+        },
         {
           id: "temporaryPass",
           label: t("menus.settings.temporaryPassword"),

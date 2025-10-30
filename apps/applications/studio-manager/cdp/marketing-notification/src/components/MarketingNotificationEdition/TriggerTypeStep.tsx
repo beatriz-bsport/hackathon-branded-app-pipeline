@@ -174,7 +174,11 @@ export const TriggerTypeStep = ({
           name="itemIds"
           mapProps={({ defaultProps, field }) => ({
             ...defaultProps,
-            key: field.value?.join("-"),
+            key:
+              selectedConfig?.type === NOTIFICATION_ADVANCED_TYPE.paymentPack ||
+              selectedConfig?.type === NOTIFICATION_ADVANCED_TYPE.privatePass
+                ? undefined
+                : field.value,
             selectedValues: field.value,
           })}
         >

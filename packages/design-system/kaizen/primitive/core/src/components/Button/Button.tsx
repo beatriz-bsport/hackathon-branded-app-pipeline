@@ -1,4 +1,4 @@
-import { type VariantProps, cva } from "class-variance-authority";
+import { type VariantProps, cva, cx } from "class-variance-authority";
 import React, { useMemo } from "react";
 import type { SetRequired } from "type-fest";
 
@@ -74,6 +74,7 @@ export type Props = React.ButtonHTMLAttributes<HTMLButtonElement> &
  * Function used in useMemo to render icons
  */
 const IconToRender = (props: {
+  className?: string;
   icon?: IconName;
   size: keyof typeof sizes;
   loading?: boolean;
@@ -82,13 +83,23 @@ const IconToRender = (props: {
   if (!props.size) {
     return null;
   }
-  const iconSize = props.size === "lg" ? ("md" as const) : ("sm" as const);
+
+  const iconSize = props.size === "lg" ? "md" : "sm";
+
   if (props.loading) {
     return <Loader size={iconSize} />;
   }
+
   if (props.icon) {
-    return <Icon icon={props.icon} size={iconSize} />;
+    return (
+      <Icon
+        className={props.className ?? ""}
+        icon={props.icon}
+        size={iconSize}
+      />
+    );
   }
+
   return null;
 };
 
@@ -132,6 +143,7 @@ const Button: React.FC<Props> = ({
   const renderedIconRight = useMemo(
     () => (
       <IconToRender
+        className={cx({ "ml-[auto]": fullWidth })}
         icon={iconRight}
         size={size}
         label={label}
@@ -142,7 +154,9 @@ const Button: React.FC<Props> = ({
   );
 
   const labelToRender = useMemo(() => {
-    return label ? <span className={"px-xs"}>{label}</span> : null;
+    return label ? (
+      <span className="px-xs truncate min-w-0">{label}</span>
+    ) : null;
   }, [label]);
 
   const customAriaLabel = props["aria-label"] ?? label;

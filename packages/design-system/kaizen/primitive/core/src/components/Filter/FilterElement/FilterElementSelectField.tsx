@@ -1,9 +1,8 @@
 import classNames from "classnames";
-import React, { useEffect, useState } from "react";
+import React, { useMemo, useState } from "react";
 
 import Button from "#src/components/Button";
-import Menu from "#src/components/Menu";
-import Popover from "#src/components/Popover";
+import DropdownMenu from "#src/components/DropdownMenu";
 
 import {
   FILTER_MENU_MAX_HEIGHT,
@@ -29,6 +28,17 @@ type FilterElementSelectFieldProps = {
   onSelectOption: (fieldId: string, shouldDisplayEntireFilter: boolean) => void;
 };
 
+type FilterType = "filter" | "values";
+
+type FilterElementFieldState = {
+  type: FilterType;
+};
+
+type OptionItem = {
+  id: string;
+  label: string;
+};
+
 const FilterElementSelectField: React.FC<FilterElementSelectFieldProps> = ({
   fields,
   label,
@@ -38,118 +48,92 @@ const FilterElementSelectField: React.FC<FilterElementSelectFieldProps> = ({
   hasTrailingSegment = false,
   onSelectOption,
 }) => {
-  const [menu, setMenu] = useState({
+  const [menu, setMenu] = useState<FilterElementFieldState>({
     type: "filter",
-    items: Object.keys(fields).map((fieldId) => ({
-      id: fieldId,
-      label: fields[fieldId].label,
-    })),
   });
 
-  useEffect(() => {
-    if (selectedField) {
-      setMenu({
-        type: "values",
-        items: fields[selectedField].values.map((value) => ({
-          id: value.id,
-          label: value.label,
+  const { filters, values } = useMemo(() => {
+    const filters: Array<OptionItem> = [];
+    const values: Record<string, Array<OptionItem>> = {};
+
+    for (const [key, value] of Object.entries(fields)) {
+      filters.push({ id: key, label: value.label });
+
+      values[key] ||= [];
+
+      values[key].push(
+        ...value.values.map((val) => ({
+          id: val.id,
+          label: val.label,
         })),
-      });
+      );
     }
-  }, [fields, selectedField, selectedValues]);
+
+    return { filters, values };
+  }, [fields]);
+
+  const items = menu.type === "filter" ? filters : values[selectedField!] || [];
+
+  const isMultiSelect =
+    menu.type === "values" && selectedField
+      ? fields[selectedField].multiSelect
+      : false;
+
+  const currentSelectedValues =
+    menu.type === "values" ? selectedValues || [] : [];
 
   return (
     <li className={filterElementClasses()}>
-      <Popover opened={openedByDefault}>
-        <Popover.Anchor>
-          {({ setIsPopoverOpened }) => {
-            const handleButtonClick = () => {
-              setIsPopoverOpened((prev: boolean) => !prev);
-              if (selectedField) {
-                setMenu({
-                  type: "values",
-                  items: fields[selectedField].values.map((value) => ({
-                    id: value.id,
-                    label: value.label,
-                  })),
-                });
-                return;
-              }
-              if (Object.keys(fields).length === 1) {
-                setMenu({
-                  type: "values",
-                  items: fields[Object.keys(fields)[0]].values.map((value) => ({
-                    id: value.id,
-                    label: value.label,
-                  })),
-                });
-              } else {
-                setMenu({
-                  type: "filter",
-                  items: Object.keys(fields).map((fieldId) => ({
-                    id: fieldId,
-                    label: fields[fieldId].label,
-                  })),
-                });
-              }
-            };
+      <DropdownMenu
+        defaultOpened={openedByDefault}
+        target={({ setIsPopoverOpened, isPopoverOpened }) => {
+          const handleButtonClick = () => {
+            setIsPopoverOpened(!isPopoverOpened);
 
-            return (
-              <Button
-                className={classNames(filterElementBtnClasses, {
-                  "!rounded-r-[0]": hasTrailingSegment,
-                })}
-                label={selectedField ? fields[selectedField].label : label}
-                color="default"
-                intent="flat"
-                size="md"
-                iconLeft="filter-lines"
-                onClick={handleButtonClick}
-              />
-            );
-          }}
-        </Popover.Anchor>
-        <Popover.Content
-          placement="bottom-left"
-          maxHeightPx={FILTER_MENU_MAX_HEIGHT}
-        >
-          {({ setIsPopoverOpened }) => {
-            const handleSelectOption = (fieldId: string) => {
-              onSelectOption(fieldId, menu.type === "values");
-              if (
-                menu.type === "values" &&
-                selectedField &&
-                !fields[selectedField].multiSelect
-              ) {
-                setIsPopoverOpened(false);
-              } else if (menu.type === "filter") {
-                setMenu({
-                  type: "filter",
-                  items: [
-                    ...Object.keys(fields).map((id) => ({
-                      id,
-                      label: fields[id].label,
-                    })),
-                  ],
-                });
-              }
-            };
+            if (selectedField) {
+              setMenu({ type: "values" });
+              return;
+            }
 
-            return (
-              <Menu
-                items={menu.items}
-                multiSelect={
-                  selectedField && menu.type === "values"
-                    ? fields[selectedField].multiSelect
-                    : false
-                }
-                onSelectOption={handleSelectOption}
-                selectedValues={selectedValues || []}
-              />
-            );
-          }}
-        </Popover.Content>
-      </Popover>
+            if (Object.keys(fields).length === 1) {
+              setMenu({ type: "values" });
+            } else {
+              setMenu({ type: "filter" });
+            }
+          };
+
+          return (
+            <Button
+              className={classNames(filterElementBtnClasses, {
+                "!rounded-r-[0]": hasTrailingSegment,
+              })}
+              label={selectedField ? fields[selectedField].label : label}
+              color="default"
+              intent="flat"
+              size="md"
+              iconLeft="filter-lines"
+              onClick={handleButtonClick}
+            />
+          );
+        }}
+        items={items}
+        multiSelect={isMultiSelect}
+        selectedValues={currentSelectedValues}
+        onSelectOption={({ id, setIsPopoverOpened }) => {
+          if (menu.type === "filter") {
+            onSelectOption(id, false);
+            setMenu({ type: "values" });
+          } else {
+            onSelectOption(id, true);
+
+            if (selectedField && !fields[selectedField].multiSelect) {
+              setIsPopoverOpened(false);
+            }
+          }
+        }}
+        placement="bottom-left"
+        maxHeightPx={FILTER_MENU_MAX_HEIGHT}
+      />
     </li>
   );
 };

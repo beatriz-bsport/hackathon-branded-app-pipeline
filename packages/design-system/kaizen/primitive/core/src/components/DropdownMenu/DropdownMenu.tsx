@@ -31,7 +31,11 @@ export interface DropdownMenuManagedProps {
     setIsPopoverOpened: (value: boolean) => void;
   }) => void;
   selectedValues?: ComponentProps<typeof Menu>["selectedValues"];
+  multiSelect?: boolean;
   searchConfig?: DropdownMenuSearchConfig;
+  maxHeightPx?: number;
+  fullWidth?: boolean;
+  defaultOpened?: boolean;
   children?: undefined;
 }
 
@@ -159,6 +163,9 @@ const isComposableProps = (
  * @param props.onSelectOption - (Managed API) Callback invoked when an item is selected.
  * @param props.selectedValues - (Managed API) Selected item IDs.
  * @param props.searchConfig - (Managed API) Optional search configuration.
+ * @param props.defaultOpened - (Managed API) Optional value to decide if the popover is opened by default
+ * @param props.maxHeightPx - (Managed API) Optional max height for the popover content
+ * @param props.fullWidth - (Managed API) Optional popover anchor taking full width of parent
  * @link https://docs.infra.bsport.io/storybook/kaizen/dev/index.html?path=/docs/components-dropdownmenu--docs
  **/
 function DropdownMenu(props: DropdownMenuManagedProps): JSX.Element;

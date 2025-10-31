@@ -2,41 +2,21 @@ import {
   forwardRef,
   useCallback,
   useEffect,
+  useEffectEvent,
   useImperativeHandle,
-  useMemo,
+  useRef,
   useState,
 } from "react";
 
 import Button from "#src/components/Button";
 import FilterElement from "#src/components/Filter/FilterElement";
+import { useMatchMedia } from "#src/hooks/use-match-media";
+import { useKaizenI18nInstance, useTranslation } from "#src/i18n";
 
-export type FilterElementState = {
-  id: number;
-  field: string | null;
-  filter: string | null;
-  valueIds: string[];
-};
+import { ResponsiveFilter } from "./ResponsiveFilter";
+import type { FilterElementState, FilterField, FilterProps } from "./types";
 
-export type FilterField = {
-  id: string;
-  label: string;
-  availableFilters: string[];
-  values: { id: string; label: string }[];
-  multiSelect: boolean;
-};
-
-export type FilterProps = {
-  filters: {
-    id: string;
-    label: string;
-  }[];
-  fields: {
-    [key: string]: FilterField;
-  };
-  selectFieldLabel: string;
-  onFilterChange: (filters: FilterElementState[]) => void;
-  singleField?: boolean;
-};
+export type { FilterElementState, FilterField, FilterProps };
 
 const FILTER_ELEMENTS_DEFAULT: FilterElementState[] = [
   { id: 0, field: null, filter: null, valueIds: [] },
@@ -44,38 +24,41 @@ const FILTER_ELEMENTS_DEFAULT: FilterElementState[] = [
 
 const Filter = forwardRef<{ resetFilters: () => void }, FilterProps>(
   ({ onFilterChange, singleField, ...props }, ref) => {
-    const [elementId, setElementId] = useState(1);
+    const isMobile = !useMatchMedia("sm");
+    const i18nInstance = useKaizenI18nInstance();
+    const { t } = useTranslation("default", { i18n: i18nInstance });
+
     const [filterElements, setFilterElements] = useState<FilterElementState[]>(
       FILTER_ELEMENTS_DEFAULT,
     );
+    const nextIdRef = useRef(1);
 
     /**
-     * The resetCounter is incremented each time resetFilters is called.
-     * Including resetCounter in the FilterElement key forces React to re-mount each FilterElement,
+     * The version is incremented each time resetFilters is called.
+     * Including version in the FilterElement key forces React to re-mount each FilterElement,
      * ensuring all internal state in child components is fully reset when the parent resets filters.
      */
-    const [resetCounter, setResetCounter] = useState(0);
+    const [version, setVersion] = useState(0);
 
-    useImperativeHandle(
-      ref,
-      () => ({
-        resetFilters: () => {
-          setElementId(1);
-          setFilterElements(FILTER_ELEMENTS_DEFAULT);
-          setResetCounter((c) => c + 1);
-          onFilterChange(FILTER_ELEMENTS_DEFAULT);
-        },
-      }),
-      [onFilterChange],
+    const onFilterElementChange = useEffectEvent(
+      (filters: FilterElementState[]) => {
+        const ensured =
+          filters.length === 0 ? FILTER_ELEMENTS_DEFAULT : filters;
+        onFilterChange(ensured);
+      },
     );
+
+    // Notify parent when filterElements changes (moved to effect to avoid infinite loop)
+    useEffect(() => {
+      onFilterElementChange(filterElements);
+    }, [filterElements]);
 
     const addFilter = useCallback(() => {
       setFilterElements((prev) => [
         ...prev,
-        { id: elementId, field: null, filter: null, valueIds: [] },
+        { id: nextIdRef.current++, field: null, filter: null, valueIds: [] },
       ]);
-      setElementId((prev) => prev + 1);
-    }, [elementId]);
+    }, []);
 
     const updateFilterElement = useCallback(
       (id: number, field: string, filter: string, valueIds: string[]) => {
@@ -99,44 +82,73 @@ const Filter = forwardRef<{ resetFilters: () => void }, FilterProps>(
       });
     }, []);
 
-    useEffect(() => {
-      if (filterElements.length === 0) {
-        onFilterChange(FILTER_ELEMENTS_DEFAULT);
-      } else {
-        onFilterChange(filterElements);
-      }
-    }, [filterElements, onFilterChange]);
+    const resetFilters = () => {
+      nextIdRef.current = 1;
+      setVersion((v) => v + 1);
+      setFilterElements(FILTER_ELEMENTS_DEFAULT);
+    };
 
-    const isEveryFilterComplete = useMemo(
-      () =>
-        filterElements.every(
-          (element) =>
-            element.field !== null &&
-            element.filter !== null &&
-            element.valueIds.length > 0,
-        ),
-      [filterElements],
+    useImperativeHandle(
+      ref,
+      () => ({
+        resetFilters: () => {
+          resetFilters();
+        },
+      }),
+      [],
     );
+
+    const isEveryFilterComplete = filterElements.every(
+      (element) =>
+        element.field !== null &&
+        element.filter !== null &&
+        element.valueIds.length > 0,
+    );
+
+    if (isMobile) {
+      return (
+        <ResponsiveFilter
+          {...props}
+          filterElements={filterElements}
+          setFilterElements={setFilterElements}
+          resetFilters={resetFilters}
+          singleField={singleField}
+        />
+      );
+    }
 
     return (
       <div className="flex flex-wrap gap-2xs">
-        {filterElements.map((element) => (
-          <FilterElement
-            key={`${element.id}-${resetCounter}`}
-            elementId={element.id}
-            openedByDefault={filterElements.length > 1}
-            onFilterElementChange={updateFilterElement}
-            onClear={() => removeFilterElement(element.id)}
-            {...props}
-          />
-        ))}
+        {filterElements.map((element) => {
+          const isEmpty =
+            element.field === null &&
+            element.filter === null &&
+            element.valueIds.length === 0;
+
+          // Only open if it's a newly added empty filter (not the initial one)
+          const shouldOpen = isEmpty && filterElements.length > 1;
+
+          return (
+            <FilterElement
+              key={`${element.id}-${version}`}
+              elementId={element.id}
+              field={element.field}
+              filter={element.filter}
+              valueIds={element.valueIds}
+              openedByDefault={shouldOpen}
+              onFilterElementChange={updateFilterElement}
+              onClear={() => removeFilterElement(element.id)}
+              {...props}
+            />
+          );
+        })}
         {isEveryFilterComplete && !singleField && (
           <Button
             color="default"
             intent="flat"
             size="md"
             iconLeft="filter-lines"
-            aria-label="Add filter"
+            aria-label={t("filter.addAriaLabel")}
             onClick={addFilter}
           />
         )}

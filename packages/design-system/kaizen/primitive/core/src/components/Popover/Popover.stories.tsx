@@ -10,6 +10,7 @@ import Popover from "./Popover";
 // Since placement is an argument of Popover.Content, we customize args in Storybook
 type CustomProps = React.ComponentProps<typeof Popover> & {
   placement: (typeof Placements)[number];
+  fullWidth?: boolean;
 };
 
 /**
@@ -30,6 +31,11 @@ const meta: Meta<CustomProps> = {
       table: { type: { summary: "string" } },
       options: [undefined, ...Object.values(Placements)],
       control: { type: "select" },
+    },
+    fullWidth: {
+      table: { type: { summary: "boolean" } },
+      control: { type: "boolean" },
+      description: "Makes the popover take full width of its container",
     },
   },
 };
@@ -168,5 +174,55 @@ export const PopoverInAScrollableContainer: Story = {
   },
   args: {
     placement: "bottom-left",
+  },
+};
+
+/**
+ * This story demonstrates the fullWidth property.
+ * When enabled, the popover takes the full width of its container.
+ */
+export const PopoverFullWidth: Story = {
+  name: "Popover with full width",
+  render: (args) => {
+    return (
+      <div className="relative h-[30vh] w-full px-lg">
+        <div className="flex flex-col gap-lg">
+          <Popover fullWidth={args.fullWidth}>
+            <Popover.Anchor>
+              {({ setIsPopoverOpened }) => (
+                <Button
+                  label="Open full width popover"
+                  intent="default"
+                  color="main"
+                  size="md"
+                  onClick={() => setIsPopoverOpened((prev) => !prev)}
+                />
+              )}
+            </Popover.Anchor>
+            <Popover.Content placement={args.placement}>
+              {({ setIsPopoverOpened }) => (
+                <div className="flex flex-col gap-sm">
+                  <Body htmlVariant="p" size="sm" color="default">
+                    This popover takes the full width of its container when
+                    fullWidth is true. Toggle the control to see the difference.
+                  </Body>
+                  <Button
+                    label="Close popover"
+                    intent="default"
+                    color="main"
+                    size="md"
+                    onClick={() => setIsPopoverOpened(false)}
+                  />
+                </div>
+              )}
+            </Popover.Content>
+          </Popover>
+        </div>
+      </div>
+    );
+  },
+  args: {
+    placement: "bottom-left",
+    fullWidth: true,
   },
 };

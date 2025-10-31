@@ -8,6 +8,7 @@ export const defaultClasses = [
   "font-weak",
   // Flex config
   "flex flex-row items-center justify-center",
+  "whitespace-nowrap",
   // Disabled
   "disabled:opacity-md",
   "disabled:shadow-none",

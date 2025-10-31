@@ -2,8 +2,7 @@ import classNames from "classnames";
 import React from "react";
 
 import Button from "#src/components/Button";
-import Menu from "#src/components/Menu";
-import Popover from "#src/components/Popover";
+import DropdownMenu from "#src/components/DropdownMenu";
 
 import {
   FILTER_MENU_MAX_HEIGHT,
@@ -34,72 +33,55 @@ const FilterElementValues: React.FC<FilterElementValuesProps> = ({
   fields,
   onSelectOption,
 }) => {
-  if (!displayEntireFilter) return null;
-
-  const handleSelectOption = (
-    itemId: string,
-    setIsPopoverOpened: (prev: boolean) => void,
-  ) => {
-    if (selectedField && !fields[selectedField].multiSelect) {
-      onSelectOption(itemId);
-      setIsPopoverOpened(false);
-    } else {
-      onSelectOption(itemId);
-    }
-  };
+  if (!displayEntireFilter) {
+    return null;
+  }
 
   return (
     <li className={filterElementClasses()}>
-      <Popover>
-        <Popover.Anchor>
-          {({ setIsPopoverOpened }) => (
-            <Button
-              className={classNames(
-                filterElementBtnClasses,
-                "!rounded-[0] max-w-[160px] overflow-ellipsis overflow-hidden text-nowrap !inline",
-              )}
-              color="default"
-              intent="flat"
-              size="md"
-              iconLeft={!selectedValues?.length ? "dots-horizontal" : undefined}
-              label={selectedValues
-                ?.map(
-                  (valueId) =>
-                    selectedField &&
-                    fields[selectedField].values.find(
-                      (value) => value.id === valueId,
-                    )?.label,
-                )
-                .join(", ")}
-              onClick={() => setIsPopoverOpened((prev) => !prev)}
-            />
-          )}
-        </Popover.Anchor>
-        <Popover.Content
-          placement="bottom-left"
-          maxHeightPx={FILTER_MENU_MAX_HEIGHT}
-        >
-          {({ setIsPopoverOpened }) => (
-            <Menu
-              items={
-                selectedField
-                  ? fields[selectedField].values.map((value) => ({
-                      id: value.id,
-                      label: value.label,
-                    }))
-                  : []
-              }
-              multiSelect={
-                selectedField ? fields[selectedField].multiSelect : false
-              }
-              onSelectOption={(itemId: string) =>
-                handleSelectOption(itemId, setIsPopoverOpened)
-              }
-              selectedValues={selectedValues || []}
-            />
-          )}
-        </Popover.Content>
-      </Popover>
+      <DropdownMenu
+        target={({ setIsPopoverOpened }) => (
+          <Button
+            className={classNames(
+              filterElementBtnClasses,
+              "!rounded-[0] max-w-[160px] overflow-ellipsis overflow-hidden text-nowrap !inline",
+            )}
+            color="default"
+            intent="flat"
+            size="md"
+            iconLeft={!selectedValues?.length ? "dots-horizontal" : undefined}
+            label={selectedValues
+              ?.map(
+                (valueId) =>
+                  selectedField &&
+                  fields[selectedField].values.find(
+                    (value) => value.id === valueId,
+                  )?.label,
+              )
+              .join(", ")}
+            onClick={() => setIsPopoverOpened((prev) => !prev)}
+          />
+        )}
+        placement="bottom-left"
+        maxHeightPx={FILTER_MENU_MAX_HEIGHT}
+        items={
+          selectedField
+            ? fields[selectedField].values.map((value) => ({
+                id: value.id,
+                label: value.label,
+              }))
+            : []
+        }
+        multiSelect={selectedField ? fields[selectedField].multiSelect : false}
+        selectedValues={selectedValues || []}
+        onSelectOption={({ id, setIsPopoverOpened }) => {
+          onSelectOption(id);
+
+          if (selectedField && !fields[selectedField].multiSelect) {
+            setIsPopoverOpened(false);
+          }
+        }}
+      />
     </li>
   );
 };

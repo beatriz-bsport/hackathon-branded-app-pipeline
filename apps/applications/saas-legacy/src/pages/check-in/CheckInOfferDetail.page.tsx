@@ -68,6 +68,8 @@ import {
   getCoachLoading,
 } from '#src/libs/associated-coach/selectors';
 
+import { getLocaleCountry } from '#src/utils/language';
+
 import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
 
 import type { RootState } from '#src/reducers';
@@ -353,7 +355,7 @@ const mapWithHandlers = {
 const connector = connect(
   (state: RootState, { offerId }: OwnProps) => ({
     theme: state.theme.theme,
-    companyCountry: state.theme.theme.locale.split('_')[1],
+    companyCountry: getLocaleCountry(state.theme.theme.locale),
     offer: getOfferById(state, offerId),
     searchedMemberList: getSearchedMembers(state),
     memberBarcodeLoading: state.member.barcode.loading,

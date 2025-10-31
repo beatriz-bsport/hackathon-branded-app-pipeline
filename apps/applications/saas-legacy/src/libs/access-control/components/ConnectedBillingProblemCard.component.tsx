@@ -65,6 +65,7 @@ import type { ConsumerGiftcard } from '#src/libs/giftcard/types';
 /* UTILS */
 
 import { getBackofficeBillingPlanEnabledPaymentMethods } from '#src/libs/payment/utils';
+import { getLocaleCountry } from '#src/utils/language';
 
 /* COMPONENTS */
 
@@ -82,7 +83,7 @@ type OwnProps = {
  */
 
 const mapStateToProps = (state: RootState, props: OwnProps) => ({
-  companyCountry: state.theme.theme.locale.split('_')[1],
+  companyCountry: getLocaleCountry(state.theme.theme.locale),
   companyId: state.theme.theme.company,
   companyTheme: themeSelectors.getTheme(state),
   consumerGiftcardList: withSender(

@@ -313,7 +313,10 @@
       "apple": {
         "title": "Apple: ",
         "instructions": "File → New Calendar Subscription → Paste URL"
-      }
+      },
+      "close": "Close",
+      "copyButton": "Copy URL",
+      "copyInstruction": "Copy this URL: "
     }
   },
   "selector": {

@@ -16,6 +16,11 @@
       "success": "The account has been successfully deleted."
     }
   },
+  "calendar": {
+    "syncCalendarDialog": {
+      "copySuccess": "Calendar URL copied to clipboard"
+    }
+  },
   "communication": {
     "error": "Error while sending email",
     "success": "Mail being sent"

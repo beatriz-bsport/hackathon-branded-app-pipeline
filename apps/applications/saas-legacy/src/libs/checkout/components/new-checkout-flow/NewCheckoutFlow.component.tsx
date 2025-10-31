@@ -63,6 +63,7 @@ import {
   STEPS,
 } from '../../types';
 import { useWidth } from '../../../../hooks/useWidth';
+import { getLocaleCountry } from '#src/utils/language';
 
 // These checkout item types are displayed in the bill after the basket summary
 const BILL_CHECKOUT_ITEMS = [BUYABLE_ITEM_COUPON, BUYABLE_ITEM_FEE];
@@ -362,7 +363,7 @@ export const NewCheckoutFlow: React.FC<Props> = ({
     },
     [addItemToBasket, basket.id],
   );
-  const companyCountry = useMemo(() => theme.locale.split('_')[1], [theme]);
+  const companyCountry = useMemo(() => getLocaleCountry(theme.locale), [theme]);
 
   const OnBasketRequest = React.useCallback(
     () => setIsBasketDisplayed(!isBasketDisplayed),

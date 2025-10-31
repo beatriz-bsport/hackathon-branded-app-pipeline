@@ -22,6 +22,7 @@ import {
 } from '../../libs/member/actions';
 import { mapFormData } from '../form.utils';
 import type { OptionCallback } from '../../state/types';
+import { getLocaleCountry } from '#src/utils/language';
 
 type Props = {
   theme: Theme,
@@ -117,7 +118,7 @@ export default compose(
       theme: state.theme.theme,
       srcMember: getMemberDetail(state, src),
       dstMember: getMemberDetail(state, dst),
-      country: state.theme.theme.locale.split('_')[1],
+      country: getLocaleCountry(state.theme.theme.locale),
     }),
     {
       fetchMember,

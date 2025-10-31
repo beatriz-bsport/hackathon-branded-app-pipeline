@@ -69,6 +69,7 @@ import RecurrenceRulePrivateBookingFields from '../components/booking/Recurrence
 import DateTimeForm from '../../../components/input/DateTimeInput.component';
 
 import { getMissingResourceForBooking } from '../utils';
+import { getLocaleCountry } from '#src/utils/language';
 import { RootState } from '../../../reducers';
 import { PrivateService } from '../types';
 import { MaterialStyleType, WithHandlerType } from '../../../utils/types';
@@ -583,7 +584,7 @@ const mapStateToProps = (
     getPrivateConsumerPassNonCompatibleIsLoading(state),
   timezone: state.theme.theme.timezone_name,
   processing: state.privateService.privateBooking.createOrUpdate.loading,
-  country: state.theme.theme.locale.split('_')[1],
+  country: getLocaleCountry(state.theme.theme.locale),
   searchedMembers: getSearchedMembers(state),
   compatibleWithUnpaidBooking: getUnPaidBookingAvailabilityForPrivateslot(
     state,

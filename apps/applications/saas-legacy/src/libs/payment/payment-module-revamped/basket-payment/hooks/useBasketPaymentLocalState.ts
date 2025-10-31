@@ -3,7 +3,10 @@ import { useSelector } from 'react-redux';
 
 import type { EstablishmentBillingGroup } from '#src/libs/establishment/types';
 import { getCurrentBasket } from '#src/libs/checkout/selectors';
-import { getDefaultEstablishmentBillingGroup } from '#src/libs/establishment/selectors';
+import {
+  getDefaultEstablishmentBillingGroup,
+  getEnabledEstablishmentBillingGroups,
+} from '#src/libs/establishment/selectors';
 import themeSelectors from '#src/libs/theme/selectors';
 import { type RootState } from '#src/reducers';
 
@@ -59,6 +62,9 @@ export const useBasketPaymentLocalState =
       useSelector((state: RootState) =>
         member ? getDefaultEstablishmentBillingGroup(state, member) : null,
       );
+    const enabledEstablishmentBillingGroups = useSelector((state: RootState) =>
+      getEnabledEstablishmentBillingGroups(state),
+    );
     const theme = useSelector((state: RootState) =>
       themeSelectors.getTheme(state),
     );
@@ -70,11 +76,15 @@ export const useBasketPaymentLocalState =
      * Logic:
      * - If there is no member (unauthenticated), always consider the billing group as selected.
      * - If multi-localization is not enabled, always consider the billing group as selected.
+     * - If multi-localization is enabled but no billing groups are defined, consider it as selected since there's nothing to select.
      * - If there is a default establishment billing group, consider it as selected.
      * - Otherwise, the billing group is not selected by default.
      */
     const initialIsEstablishmentBillingGroupSelected =
-      !member || !enableMultiLocalization || !!defaultEstablishmentBillingGroup;
+      !member ||
+      !enableMultiLocalization ||
+      !enabledEstablishmentBillingGroups.length ||
+      !!defaultEstablishmentBillingGroup;
 
     const [
       isEstablishmentBillingGroupSelected,

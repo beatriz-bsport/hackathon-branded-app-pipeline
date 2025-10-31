@@ -59,7 +59,7 @@ import PrivatePassCompatibleServiceList from '#src/libs/private-service/componen
 import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
 import PaginatedConsumerPrivatePass from '#src/libs/private-service/components/pass/PaginatedConsumerPrivatePass.component';
 import PrivatePassForm, {
-  FormikValues,
+  PrivatePassFormValues as FormikValues,
   PrivatePassFormStep,
 } from '#src/libs/private-service/components/pass/private-pass-form/PrivatePassForm.component';
 import PrivateConsumerPassFilters from '#src/libs/private-service/components/pass/PrivateConsumerPassFilters.component';

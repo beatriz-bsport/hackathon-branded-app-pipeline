@@ -630,6 +630,12 @@
         "valid": "Valid for ",
         "fullText": "This appointment pass will be valid for "
       },
+      "accessControl": {
+        "doorAccess": "Door access",
+        "accessControlInfo": "Members with this pass can unlock studio doors. To control when doors can’t be accessed, set time rules on the Kisi platform.",
+        "accessControlBetaAlert": "During this beta, pass restrictions like tags, usage limits, locations, activities, categories, and time slots don’t apply to door access.",
+        "enableAccessControl": "Grant studio access"
+      },
       "startDate": "Start date",
       "category": "Category name",
       "categoryTitle": {

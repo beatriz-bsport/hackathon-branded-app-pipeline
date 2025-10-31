@@ -37,7 +37,7 @@ import { useFormikContext, type FormikProps, FieldArray } from 'formik';
 import type { PaymentPack } from '#src/libs/payment-packs/types';
 import { DateTime } from 'luxon';
 import { CB } from '@bsport/common/lib/master-data/payment-methods.js';
-import { FormikValues } from './PrivatePassForm.component';
+import { PrivatePassFormValues as FormikValues } from './PrivatePassForm.component';
 import TagSelector from '#src/libs/tag/components/TagSelector.selector';
 import TagGroupDuplicatedAlert from '#src/libs/tag/components/TagGroupDuplicatedAlert.component';
 // @ts-expect-error
@@ -82,6 +82,15 @@ import type { Tag, TagGroup } from '#src/libs/tag/types';
 import type { MetaActivity } from '#src/libs/meta-activity/types';
 import type { Establishment } from '#src/libs/establishment/types';
 import { useHasTagsSameGroup } from '#src/libs/tag/components/hooks';
+import { FeatureList } from '#src/libs/company/types';
+import { hasAnyUpsell } from '#src/libs/platform-billing/utils';
+import {
+  UPSELL_IDENTIFIER_ACCESS_MONITORING,
+  UPSELL_IDENTIFIER_KISI_INTEGRATION,
+} from '#src/libs/platform-billing/upsell-identifiers';
+// @ts-expect-error
+import FeatureListProvider from '#src/libs/company/hocs/feature-list-provider.hoc.js';
+import PrivatePassFormAccessControl from './PrivatePassFormAccessControl.component';
 
 type PrivatePassFormDetailsAndRestrictionsStepProps = {
   initial?: PrivatePassWithCompatibility<PaymentPack>;
@@ -438,6 +447,26 @@ const PrivatePassFormDetailsAndRestrictionsStep = (
         </div>
       </div>
 
+      <Divider className={classes.divider} />
+      <FeatureListProvider featureList={['privatePassAccessControl']}>
+        {(featureList: FeatureList) => {
+          const hasAccessControlUpsell = hasAnyUpsell(featureList, [
+            UPSELL_IDENTIFIER_KISI_INTEGRATION,
+            UPSELL_IDENTIFIER_ACCESS_MONITORING,
+          ]);
+
+          return (
+            !props.initial?.template_instance &&
+            hasAccessControlUpsell && (
+              <>
+                <div className={classes.formContainer}>
+                  <PrivatePassFormAccessControl />
+                </div>
+              </>
+            )
+          );
+        }}
+      </FeatureListProvider>
       <Divider className={classes.divider} />
 
       <div
@@ -845,6 +874,10 @@ const useStyles = makeStyles((theme: Theme) => ({
     marginRight: theme.spacing(-4),
     height: 2,
     color: '#C6C6C6',
+  },
+  formContainer: {
+    paddingBottom: theme.spacing(4),
+    paddingTop: theme.spacing(4),
   },
   categoryBlock: {
     paddingBottom: theme.spacing(2),

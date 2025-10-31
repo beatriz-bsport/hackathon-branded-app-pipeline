@@ -1,7 +1,7 @@
 import React from 'react';
 import { compose, withState, withHandlers } from 'recompose';
 import { DateTime } from 'luxon';
-import { withTranslation } from 'react-i18next';
+import { WithTranslation, withTranslation } from 'react-i18next';
 import { connect, ConnectedProps } from 'react-redux';
 import uniq from 'lodash/uniq';
 import { TFunction } from 'i18next';
@@ -77,6 +77,7 @@ type RouterProps = {
 };
 type Props = ConnectedProps<typeof connector> &
   WithHandlerType<typeof mapWithHandlers> &
+  WithTranslation &
   withStateType &
   WithStyles<typeof styles> &
   RouterProps;
@@ -239,7 +240,8 @@ export class CoachPrivateCalendar extends React.Component<Props, State> {
 
   getCalendarSubscriptionUrl = () => {
     const authToken = getAuthToken();
-    return `${Config.REACT_APP_BASE_URI_BOOK_V1}/booking/calendar-for-teacher/${authToken}/booking-feed.ics`;
+    const locale = this.props.i18n.language;
+    return `${Config.REACT_APP_BASE_URI_BOOK_V1}/booking/calendar-for-teacher/${authToken}/${locale}/booking-feed.ics`;
   };
 
   disableCoachAvailabilitySlot = (

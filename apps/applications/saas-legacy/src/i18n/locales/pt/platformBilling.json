@@ -109,7 +109,7 @@
         "invalidFormat": "Formato inválido",
         "content": "bsport requer o seu número de IVA (também conhecido como número de registo de IVA ou número de IVA intracomunitário) para o incluir nas facturas que lhe emitimos.",
         "vatIdLabel": "Número de identificação para efeitos de IVA",
-        "hasAttributedVatIdLabel": "Não tenho um número de IVA registado. Se a sua empresa estiver sediada na UE (exceto em França), o mecanismo de autoliquidação não será aplicável e a bsport cobrará a taxa de IVA francesa (20%).",
+        "hasAttributedVatIdLabel": "Não tenho um número de IVA registado. Se a sua empresa estiver sediada na UE (exceto em França), o mecanismo de autoliquidação não será aplicável e a bsport cobrará a taxa de IVA local.",
         "update": "Atualizar o número de IVA",
         "actions": {
           "cancel": "Cancel",

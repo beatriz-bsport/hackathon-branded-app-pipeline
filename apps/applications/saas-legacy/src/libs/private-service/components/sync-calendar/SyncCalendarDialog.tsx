@@ -101,5 +101,4 @@ class SyncCalendarDialog extends React.PureComponent<Props> {
 export default compose(
   withTranslation(['privateService']),
   withStyles(styles),
-  // @ts-expect-error
 )(SyncCalendarDialog);

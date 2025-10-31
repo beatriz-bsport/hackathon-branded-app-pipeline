@@ -40,6 +40,31 @@ export const FeatureFlags = {
 
 - Use in components:
 
+<details>
+<summary>For class components</summary>
+
+In [withFeatureFlags.tsx](https://gitlab.com/bsport/ichizen/-/blob/dev/apps/applications/saas-legacy/src/utils/feature-flag/withFeatureFlags.tsx), add a prop using your feature flag.
+
+In your component
+
+```tsx
+import {
+  FeatureFlagProps,
+  withFeatureFlags,
+} from "#src/utils/feature-flag/withFeatureFlags";
+
+type Props = ConnectedProps<typeof connector> & FeatureFlagProps;
+
+const show = this.props.yourNewFlag;
+
+export default compose(withFeatureFlags)(YourComponent);
+```
+
+</details>
+
+<details>
+<summary>For functional components</summary>
+
 ```tsx
 import { FeatureFlags, useSafeFlag } from "#src/utils/feature-flag";
 
@@ -47,6 +72,8 @@ const showFeature = useSafeFlag(FeatureFlags.MY_NEW_FEATURE);
 ```
 
 > We have to `useSafeFlag` to avoid raising error if `FlagProvider` fails to load
+
+</details>
 
 #### Local Development
 

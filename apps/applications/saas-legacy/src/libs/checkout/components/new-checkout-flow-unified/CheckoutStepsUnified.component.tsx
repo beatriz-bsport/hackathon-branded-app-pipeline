@@ -27,6 +27,7 @@ import {
 } from '#src/libs/checkout/types';
 
 import { useBasketPaymentContext } from '#src/libs/checkout/components/new-checkout-flow-unified/BasketPaymentContext';
+import { useBasket } from '#src/libs/payment/payment-module-revamped/basket-payment/hooks/useBasket';
 import BasketDeliveryFormUnified from '#src/libs/checkout/components/new-checkout-flow-unified/BasketDeliveryFormUnified.component';
 import { BasketNullPriceUnified } from './BasketNullPriceUnified.component';
 import { OnlinePaymentBasketUnified } from './OnlinePaymentBasketUnified.component';
@@ -77,6 +78,15 @@ export const CheckoutStepsUnified: React.FC<CheckoutStepsProps> = forwardRef(
     const classes = useStyles();
 
     const { selectedEstablishmentBillingGroup } = useBasketPaymentContext();
+    const { submitUnpaidBasket } = useBasket(
+      basket.id,
+      companyId,
+      basket.member,
+    );
+
+    const handlePayLaterSubmit = React.useCallback(() => {
+      submitUnpaidBasket({ onSuccess: () => onConfirmPaymentSuccess() });
+    }, [submitUnpaidBasket, onConfirmPaymentSuccess]);
 
     useImperativeHandle(ref, () => ({
       updateMemberDefaultEstablishmentBillingGroup() {
@@ -87,7 +97,8 @@ export const CheckoutStepsUnified: React.FC<CheckoutStepsProps> = forwardRef(
       onAddressSubmit: (options?: { onSuccess?: () => void }) =>
         basketDeliveryRef.current?.onAddressSubmit(options),
       onPaymentConfirm: paymentStepRef.current?.onPaymentConfirm,
-      onPayLaterSubmit: paymentStepRef.current?.onPayLaterSubmit,
+      onPayLaterSubmit:
+        paymentStepRef.current?.onPayLaterSubmit || handlePayLaterSubmit,
       onPayPalCreateOrder: paymentStepRef.current?.onPayPalCreateOrder,
       onPayPalApprove: paymentStepRef.current?.onPayPalApprove,
       onPayPalCancel: paymentStepRef.current?.onPayPalCancel,
@@ -165,6 +176,7 @@ export const CheckoutStepsUnified: React.FC<CheckoutStepsProps> = forwardRef(
       isOnlinePaymentAvailable,
       isPayLaterAvailable,
       isTotalPriceNull,
+      onConfirmPaymentSuccess,
       paymentStepRef,
     ]);
 

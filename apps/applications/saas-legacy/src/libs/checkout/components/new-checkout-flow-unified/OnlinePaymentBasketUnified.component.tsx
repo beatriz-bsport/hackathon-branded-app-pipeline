@@ -282,6 +282,7 @@ export const OnlinePaymentBasketUnified: React.FC<Props> = forwardRef(
       handleFetchBasket();
       handleFetchInstalmentPaymentByBasket();
       handleFetchMemberPaymentMethodList();
+      if (paymentGroupId) handleSetPaymentProcessing(false);
     }, []);
 
     // This useEffect is mandatory in the new checkout flow, since if this condition is not

@@ -51,8 +51,6 @@ import type { AvailabilitySlot, PrivateBooking } from '../types';
 import RecurrentAvailabilityFormDialog from './RecurrentAvailabilityFormDialog.component';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-import { getAuthToken } from '../../../http';
-import Config from '../../../config';
 import SyncCalendarDialog from './sync-calendar/SyncCalendarDialog.tsx';
 
 const EVENT_DEFAULT_COLOR = '#8fdf82';
@@ -436,6 +434,8 @@ export class PrivateCalendar extends React.PureComponent<Props, State> {
     availabilityDetailData: null,
 
     datePickerOpen: false,
+    syncCalendarAnchorEl: null,
+    otherCalendarsModalOpen: false,
   };
 
   select = (eventSlotSelected: EventSlot) => {
@@ -767,7 +767,7 @@ export class PrivateCalendar extends React.PureComponent<Props, State> {
     const calendarUrl = this.props.calendarSyncUrl;
     const outlookCalendarUrl = `https://outlook.office.com/calendar/0/addfromweb?url=${calendarUrl}`;
 
-    window.open(outlookCalendarUrl, '_blank');
+    window.open(outlookCalendarUrl, '_blank', 'noopener,noreferrer');
     this.handleSyncCalendarClose();
   };
 
@@ -780,25 +780,27 @@ export class PrivateCalendar extends React.PureComponent<Props, State> {
     this.setState({ otherCalendarsModalOpen: false });
   };
 
-  getCustomButtons = memoize(() =>
-    Immutable({
-      zoomIn: {
-        text: '+',
-        click: this.zoomIn,
-      },
-      zoomOut: {
-        text: '-',
-        click: this.zoomOut,
-      },
-      datePicker: {
-        text: this.props.t('calendar.header.dateSelector'),
-        click: this.openDatePicker,
-      },
-      calendarSync: {
-        text: this.props.t('calendar.header.syncCalendar.button'),
-        click: this.handleSyncCalendarClick,
-      },
-    }),
+  getCustomButtons = memoize(
+    () =>
+      Immutable({
+        zoomIn: {
+          text: '+',
+          click: this.zoomIn,
+        },
+        zoomOut: {
+          text: '-',
+          click: this.zoomOut,
+        },
+        datePicker: {
+          text: this.props.t('calendar.header.dateSelector'),
+          click: this.openDatePicker,
+        },
+        calendarSync: {
+          text: this.props.t('calendar.header.syncCalendar.button'),
+          click: this.handleSyncCalendarClick,
+        },
+      }),
+    this.props.t,
   );
 
   getHeaderToolbar = () => {

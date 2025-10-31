@@ -38,16 +38,12 @@ const SyncCalendarDialog: React.FC<Props> = ({
   const dispatch = useDispatch();
 
   const handleCopyCalendarUrl = () => {
-    navigator.clipboard
-      .writeText(calendarUrl)
-      .then(() => {
+    if (!!navigator.clipboard) {
+      navigator.clipboard.writeText(calendarUrl).then(() => {
         dispatch(snackbarSuccess('calendar.syncCalendarDialog.copySuccess'));
         onClose();
-      })
-      .catch(() => {
-        // Fallback if clipboard API fails
-        prompt(t('calendar.syncCalendarDialog.copyInstruction'), calendarUrl);
       });
+    }
   };
 
   return (

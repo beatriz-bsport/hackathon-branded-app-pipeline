@@ -22,6 +22,9 @@ export type FilterElementProps = {
   };
   selectFieldLabel: string;
   openedByDefault: boolean;
+  field?: string | null;
+  filter?: string | null;
+  valueIds?: string[];
   onFilterElementChange: (
     id: number,
     field: string,
@@ -51,21 +54,48 @@ const FilterElement: React.FC<FilterElementProps> = ({
   fields,
   selectFieldLabel,
   openedByDefault,
+  field: propField,
+  filter: propFilter,
+  valueIds: propValueIds,
   onFilterElementChange,
   onClear,
 }) => {
   const [displayEntireFilter, setDisplayEntireFilter] = useState(false);
-  const [selectedField, setSelectedField] = useState<string | null>(null);
-  const [selectedFilter, setSelectedFilter] = useState("");
-  const [selectedValues, setSelectedValues] = useState<string[] | null>(null);
+  const [selectedField, setSelectedField] = useState<string | null>(
+    propField ?? null,
+  );
+  const [selectedFilter, setSelectedFilter] = useState(propFilter ?? "");
+  const [selectedValues, setSelectedValues] = useState<string[] | null>(
+    propValueIds ?? null,
+  );
+
+  // Sync internal state when props change (for responsive layout switches)
+  useEffect(() => {
+    if (propField !== undefined) {
+      setSelectedField(propField);
+    }
+    if (propFilter !== undefined) {
+      setSelectedFilter(propFilter ?? "");
+    }
+    if (propValueIds !== undefined) {
+      setSelectedValues(propValueIds);
+    }
+    // Set displayEntireFilter based on whether we have values
+    if (propField && propValueIds && propValueIds.length > 0) {
+      setDisplayEntireFilter(true);
+    }
+  }, [propField, propFilter, propValueIds]);
 
   useEffect(() => {
     const hasUniqueCategory = Object.keys(fields).length === 1;
-    if (hasUniqueCategory) {
-      setSelectedField(Object.keys(fields)[0]);
-      setSelectedFilter(fields[Object.keys(fields)[0]].availableFilters[0]);
+
+    if (hasUniqueCategory && selectedField === null) {
+      const onlyKey = Object.keys(fields)[0];
+
+      setSelectedField(onlyKey);
+      setSelectedFilter(fields[onlyKey].availableFilters[0]);
     }
-  }, [fields]);
+  }, [fields, selectedField]);
 
   useEffect(() => {
     if (selectedField && selectedFilter && selectedValues) {

@@ -17,8 +17,12 @@ export function DropdownMenuManaged(props: DropdownMenuManagedProps) {
     onSelectOption,
     placement,
     selectedValues: legacySelectedValues,
+    multiSelect,
     searchConfig,
     items,
+    maxHeightPx,
+    fullWidth,
+    defaultOpened: opened,
   } = props;
 
   const textFieldId = useId();
@@ -65,9 +69,9 @@ export function DropdownMenuManaged(props: DropdownMenuManagedProps) {
   }, [items, query]);
 
   return (
-    <Popover className={className}>
+    <Popover className={className} opened={opened} fullWidth={fullWidth}>
       <Popover.Anchor>{target}</Popover.Anchor>
-      <Popover.Content placement={placement}>
+      <Popover.Content placement={placement} maxHeightPx={maxHeightPx}>
         {({ setIsPopoverOpened }) => (
           <div>
             {searchConfig?.placeholder && (
@@ -86,6 +90,7 @@ export function DropdownMenuManaged(props: DropdownMenuManagedProps) {
             {filteredItems.length > 0 && (
               <Menu
                 items={filteredItems}
+                multiSelect={multiSelect}
                 onSelectOption={(id: string) => {
                   onSelectOption({
                     id,

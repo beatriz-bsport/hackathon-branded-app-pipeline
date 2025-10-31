@@ -34,7 +34,17 @@ const defaultClasses = [
   "will-change-[top,left]",
 ] as const;
 
-const popoverClasses = cva("relative w-fit h-fit");
+const popoverClasses = cva("relative h-fit", {
+  variants: {
+    fullWidth: {
+      true: "w-full",
+      false: "w-fit",
+    },
+  },
+  defaultVariants: {
+    fullWidth: false,
+  },
+});
 
 export const PopoverContext = createContext<{
   isPopoverOpened: boolean;
@@ -50,6 +60,7 @@ export type PopoverProps = {
   children: ReactNode;
   className?: string;
   opened?: boolean;
+  fullWidth?: boolean;
 };
 
 /**
@@ -59,12 +70,18 @@ export type PopoverProps = {
  * The Content subcomponent holds the additional information or actions that the Popover provides.
  * @param placement The position of the Popover relative to the Anchor.
  * @param children Node(s) to render inside the Popover, including Anchor and Content components.
+ * @param fullWidth Makes the popover take full width of its container.
  * @link https://docs.infra.bsport.io/storybook/kaizen/main/index.html?path=/docs/components-popover--docs
  */
 const Popover: React.FC<PopoverProps> & {
   Anchor: typeof Anchor;
   Content: typeof Content;
-} = ({ children, className, opened = false }: PopoverProps) => {
+} = ({
+  children,
+  className,
+  opened = false,
+  fullWidth = false,
+}: PopoverProps) => {
   const [isPopoverOpened, setIsPopoverOpened] = useState(opened);
   const popoverRef = useRef(null);
   const anchorRef = useRef<HTMLDivElement | null>(null);
@@ -78,7 +95,10 @@ const Popover: React.FC<PopoverProps> & {
     <PopoverContext.Provider
       value={{ isPopoverOpened, setIsPopoverOpened, anchorRef }}
     >
-      <div className={popoverClasses({ className })} ref={popoverRef}>
+      <div
+        className={popoverClasses({ fullWidth, className })}
+        ref={popoverRef}
+      >
         {children}
       </div>
     </PopoverContext.Provider>
@@ -97,12 +117,13 @@ const Anchor: React.FC<{
     isPopoverOpened: boolean;
     setIsPopoverOpened: React.Dispatch<React.SetStateAction<boolean>>;
   }) => ReactNode;
-}> = ({ children }) => {
+  className?: string;
+}> = ({ children, className }) => {
   const { isPopoverOpened, setIsPopoverOpened, anchorRef } =
     useContext(PopoverContext);
 
   return (
-    <div ref={anchorRef}>
+    <div ref={anchorRef} className={className}>
       {children({ isPopoverOpened, setIsPopoverOpened })}
     </div>
   );

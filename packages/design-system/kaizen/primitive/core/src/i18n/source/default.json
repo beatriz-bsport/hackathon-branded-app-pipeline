@@ -76,5 +76,18 @@
     "search": {
       "placeholder": "Search..."
     }
+  },
+  "filter": {
+    "openAriaLabel": "Open filters",
+    "clearAriaLabel": "Clear filters",
+    "addAriaLabel": "Add filter",
+    "deleteAriaLabel": "Delete filter",
+    "modalTitle": "Filter",
+    "clearAction": "Clear",
+    "applyAction": "Apply filter",
+    "addAction": "Add filter",
+    "selectFieldPlaceholder": "Select filter",
+    "selectOperatorPlaceholder": "Select",
+    "selectValuePlaceholder": "Select"
   }
 }

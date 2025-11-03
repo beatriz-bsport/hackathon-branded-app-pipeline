@@ -11,7 +11,7 @@ type Props = {
   consumerGiftcard: ConsumerGiftcardPersonnalizationElements & {
     price?: number | string | null;
   };
-  companyCover: string;
+  companyCover?: string;
   giftcard?: Giftcard | null;
   // Whether giftcard.price corresponds to a translation string instead of a value
   valueIsPlaceholderString?: boolean;

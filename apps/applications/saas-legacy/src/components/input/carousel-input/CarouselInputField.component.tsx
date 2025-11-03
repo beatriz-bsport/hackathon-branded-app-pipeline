@@ -5,7 +5,7 @@ import CarouselInput, {
   Props as CarouselInputProps,
 } from './CarouselInput.component';
 
-type Props = CarouselInputProps & {
+type Props = Omit<CarouselInputProps, 'handleClick'> & {
   textFieldName?: string;
   handleSelectedImage?: (index: number) => void;
 };
@@ -22,7 +22,7 @@ export const CarouselInputField = (props: Props) => {
               error={!!(touched[field.name] && errors[field.name])}
               handleClick={(index) => {
                 setFieldValue(field.name, props.imagesArr[index]);
-                props.handleSelectedImage(index);
+                props.handleSelectedImage?.(index);
               }}
               handleSelectedImage={props.handleSelectedImage}
               imagesArr={props.imagesArr}

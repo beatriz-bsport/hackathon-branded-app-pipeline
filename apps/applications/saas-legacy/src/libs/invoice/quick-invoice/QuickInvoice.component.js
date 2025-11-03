@@ -15,7 +15,7 @@ import { BUYABLE_ITEM_GIFTCARD } from '@bsport/common/lib/master-data/buyable-it
 
 import EstablishmentBillingGroupSelector from '#src/libs/establishment/components/EstablishmentBillingGroupSelector';
 import GenericResponsiveDialog from '#src/components/genericDialog/GenericResponsiveDialog';
-import ConsumerGiftcardFormWithPreview from '#src/libs/giftcard/components/ConsumerGiftcardFormWithPreview.component';
+import { ConsumerGiftcardFormWithPreview } from '#src/libs/giftcard/components/ConsumerGiftcardFormWithPreview';
 import CreditMemberBadge from '../../member/components/CreditMemberBadge.component';
 
 import InvoiceItem from '../components/InvoiceItem.component';

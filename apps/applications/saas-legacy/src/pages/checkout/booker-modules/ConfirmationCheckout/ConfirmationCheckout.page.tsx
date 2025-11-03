@@ -243,16 +243,24 @@ export class ConfirmationCheckout extends React.PureComponent<Props, State> {
     //   Analytics.bookingSuccess(offerBooked);
     // });
     this.props.offerBookedList.forEach((offerBooked) => {
-      analyticsClientB2C.track(
-        trackBookingConfirmedEvent({
-          activity_id: offerBooked.meta_activity.id,
-          activity_name: offerBooked.meta_activity.name,
-          offer_id: offerBooked.id,
-          session_type: offerBooked.meta_activity.is_workshop
-            ? 'workshop'
-            : 'group-activity',
-        }),
-      );
+      try {
+        analyticsClientB2C.track(
+          trackBookingConfirmedEvent({
+            activity_id: offerBooked.meta_activity.id,
+            activity_name: offerBooked.meta_activity.name,
+            offer_id: offerBooked.id,
+            session_type: offerBooked.meta_activity.is_workshop
+              ? 'workshop'
+              : 'group-activity',
+          }),
+        );
+      } catch (error) {
+        console.error('Failed to track booking confirmation:', {
+          error,
+          offerId: offerBooked?.id,
+          metaActivityId: offerBooked?.meta_activity?.id,
+        });
+      }
     });
   };
 

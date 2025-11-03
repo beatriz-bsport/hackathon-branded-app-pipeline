@@ -14,7 +14,7 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { appliesToInvoice } from '#src/libs/coupon/api';
 import { EstablishmentBillingGroup } from '#src/libs/establishment/types';
-import ConsumerGiftcardFormWithPreview from '#src/libs/giftcard/components/ConsumerGiftcardFormWithPreview.component';
+import { ConsumerGiftcardFormWithPreview } from '#src/libs/giftcard/components/ConsumerGiftcardFormWithPreview';
 import { GiftcardBackgroundImage } from '#src/libs/giftcard/types';
 import { Member } from '#src/libs/member/types';
 import { isErrorWithCustomCode } from '#src/libs/utils';
@@ -417,14 +417,12 @@ export class InvoiceForm extends React.Component<Props, State> {
                 >
                   <div style={{ width: '100%' }}>
                     <ConsumerGiftcardFormWithPreview
-                      // @ts-expect-error
                       forceVertical
                       giftcard={giftcardToConfigure}
                       giftcardBackgroundImageList={
                         this.props.giftcardBackgroundImageList
                       }
                       isManager={this.props.imageCarouselChangeable}
-                      // @ts-expect-error
                       onSubmit={(data) =>
                         this.storeGiftcardConfig({
                           ...data,

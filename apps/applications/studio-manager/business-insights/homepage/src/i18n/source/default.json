@@ -7,7 +7,7 @@
   "banner": {
     "insights": {
       "title": "New Insights feature",
-      "description": "Get smarter, faster decisions with real-time insights.",
+      "description": "Spot trends, track performance and make smarter business decisions with real-time insights",
       "ctaLabel": "Explore now"
     }
   },
@@ -25,18 +25,18 @@
     },
     "substitution": {
       "helperText": "Substitution",
-      "errorMissingReplacement": "Substitution required"
+      "errorMissingReplacement": "Substitution needed"
     },
     "rates": {
       "badge": {
-        "waitingCount": "{{ count }} waiting"
+        "waitingCount": "{{ count }} on Waitlist"
       },
       "tooltip": {
         "classIsFull": "This class is full",
-        "hasEmptySpots_one": "{{ count }} spot left",
-        "hasEmptySpots_other": "{{ count }} spots left",
-        "hasEmptySpotsForWaitlist_one": "{{ count }} spot left on Waitlist",
-        "hasEmptySpotsForWaitlist_other": "{{ count }} spots left on Waitlist"
+        "hasEmptySpots_one": "{{ count }} spot left in class",
+        "hasEmptySpots_other": "{{ count }} spots left in class",
+        "hasEmptySpotsForWaitlist_one": "{{ count }} spot pending on Waitlist",
+        "hasEmptySpotsForWaitlist_other": "{{ count }} spots pending on Waitlist"
       }
     }
   },
@@ -45,7 +45,7 @@
       "title": "Explore the Platform",
       "productUpdatesCard": {
         "title": "Product updates",
-        "description": "Explore all product updates and improvements"
+        "description": "Explore all our latest product updates "
       }
     },
     "advices": {
@@ -61,7 +61,7 @@
     "unavailable": "Metrics are currently unavailable"
   },
   "insightsPanel": {
-    "title": "Insights Panel",
+    "title": "Insights at a Glance",
     "unavailable": "Insights are currently unavailable"
   }
 }

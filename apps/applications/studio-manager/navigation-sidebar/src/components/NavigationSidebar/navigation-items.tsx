@@ -376,6 +376,11 @@ export const useNavigationElements = ({
           ...navigationUrls.settings_personalization,
         },
         {
+          id: "brandedApp",
+          label: t("menus.settings.brandedApp"),
+          ...navigationUrls.settings_mobilePersonalization,
+        },
+        {
           id: "teacherView",
           label: t("menus.settings.teacherView"),
           ...navigationUrls.settings_teacherView,

@@ -1,0 +1,90 @@
+.bs-express-checkout__payment-combo-card__root {
+  display: flex;
+  flex-direction: column;
+  gap: var(--bs-space-size-4);
+  width: 100%;
+  box-shadow: var(--bs-border-shadow) var(--bs-border-width-regular)
+    var(--bs-color-border-brand-main);
+  align-items: stretch;
+}
+
+.bs-express-checkout__payment-combo-card__header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.bs-express-checkout__payment-combo-card__header__price {
+}
+
+.bs-express-checkout__payment-combo-card__header__title {
+}
+
+.bs-express-checkout__payment-combo-card__validity {
+  display: flex;
+  flex-direction: row;
+  gap: var(--bs-space-size-2);
+}
+
+.bs-express-checkout__payment-combo-card__validity__icon {
+  stroke: var(--bs-color-icon-weak);
+}
+
+.bs-express-checkout__payment-combo-card__validity__label {
+}
+
+.bs-express-checkout__payment-combo-card__chips {
+  display: flex;
+  flex-flow: row wrap;
+  gap: var(--bs-space-size-2);
+}
+
+.bs-express-checkout__payment-combo-card__chips__credits {
+}
+
+.bs-express-checkout__payment-combo-card__chips__no-appointments {
+}
+
+.bs-express-checkout__payment-combo-card__chips__new-member {
+}
+
+.bs-express-checkout__payment-combo-card__description-section {
+}
+
+.bs-express-checkout__payment-combo-card__description {
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.bs-express-checkout__payment-combo-card__compatibility {
+}
+
+.bs-express-checkout__payment-combo-card__compatibility__content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--bs-space-size-3);
+}
+
+.bs-express-checkout__payment-combo-card__compatibility__list {
+}
+
+.bs-express-checkout__payment-combo-card__compatibility__list-item,
+.bs-express-checkout__payment-combo-card__compatibility__appointments__list-item,
+.bs-express-checkout__payment-combo-card__restrictions__list-item {
+  padding: 0;
+}
+
+.bs-express-checkout__payment-combo-card__compatibility__appointments,
+.bs-express-checkout__payment-combo-card__compatibility__time-slots,
+.bs-express-checkout__payment-combo-card__compatibility__activities {
+  display: flex;
+  flex-direction: column;
+  gap: var(--bs-space-size-1);
+}
+
+.bs-express-checkout__payment-combo-detail__compatibility__appointments__title {
+}
+.bs-express-checkout__payment-combo-detail__compatibility__appointments__list {
+}

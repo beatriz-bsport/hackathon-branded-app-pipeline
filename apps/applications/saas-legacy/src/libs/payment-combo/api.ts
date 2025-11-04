@@ -63,3 +63,11 @@ export const createOrUpdatePaymentCombo = async (
   }
   return postAuth(PAYMENT_COMBO_ENDOINT, data);
 };
+
+export const checkExpressCheckoutEligibility = async (
+  paymentComboId: number,
+) => {
+  return postAuth(
+    `${PAYMENT_COMBO_ENDOINT}${paymentComboId}/check_express_checkout_eligibility/`,
+  );
+};

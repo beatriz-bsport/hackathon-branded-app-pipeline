@@ -3,6 +3,7 @@ import { usePassCardDataContext } from '#src/pages/checkout/express-checkouts/pa
 import { PaymentPackCard } from '#src/pages/checkout/express-checkouts/pass/components/payment-pack-card/PaymentPackCard';
 import { PrivatePassCard } from '#src/pages/checkout/express-checkouts/pass/components/private-pass-card/PrivatePassCard';
 import { PassTypes } from '#src/libs/marketplace/types';
+import { PaymentComboCard } from '../components/payment-combo-card/PaymentComboCard';
 
 export const usePassCard = () => {
   const { passCardData } = usePassCardDataContext();
@@ -12,8 +13,11 @@ export const usePassCard = () => {
 
     if (passCardData.passType === PassTypes.PAYMENTPACK) {
       return <PaymentPackCard />;
-    } else if (passCardData.passType === PassTypes.PRIVATEPASS) {
+    }
+    if (passCardData.passType === PassTypes.PRIVATEPASS) {
       return <PrivatePassCard />;
+    } else if (passCardData.passType === PassTypes.PAYMENTCOMBO) {
+      return <PaymentComboCard />;
     }
     return null;
   }, [passCardData]);

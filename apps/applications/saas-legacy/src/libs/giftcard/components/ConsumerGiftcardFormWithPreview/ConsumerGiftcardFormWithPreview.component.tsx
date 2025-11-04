@@ -7,7 +7,7 @@ import Button from '@material-ui/core/Button';
 
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import Grid from '@material-ui/core/Grid';
-// @ts-expect-error
+// @ts-expect-error Import Component from JS file
 import { Submit } from '#src/components/forms';
 
 import ConsumerGiftcardPreview from '../ConsumerGiftcardPreview.component';
@@ -15,6 +15,7 @@ import ConsumerGiftcardPreview from '../ConsumerGiftcardPreview.component';
 import { ConsumerGiftcardForm } from './ConsumerGiftcardForm.component';
 import { ConsumerGiftcardFormHOC } from './ConsumerGiftcardFormHOC';
 import type { ConsumerGiftcardFormWithPreviewProps } from './types';
+import { GIFTCARD_TYPES } from '../../constants';
 
 const ConsumerGiftcardFormWithPreview = React.memo(
   (props: ConsumerGiftcardFormWithPreviewProps) => {
@@ -33,6 +34,10 @@ const ConsumerGiftcardFormWithPreview = React.memo(
           message_is_for: values.message_is_for,
           message_content: values.message_content,
           background_image: values.background_image,
+          price:
+            props.giftcard?.card_type === GIFTCARD_TYPES.CUSTOM
+              ? values.price
+              : null,
         }}
         giftcard={props.giftcard}
       />

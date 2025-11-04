@@ -39,6 +39,7 @@ export type ConsumerGiftcardAPI = Pick<
   date_to_send: string;
   force: boolean;
   activation_datetime: DateTime | null;
+  price: number | null;
 };
 
 export type ConsumerGiftcardFilterParams = {

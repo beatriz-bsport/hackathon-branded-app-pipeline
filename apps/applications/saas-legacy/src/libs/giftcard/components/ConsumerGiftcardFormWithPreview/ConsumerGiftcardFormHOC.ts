@@ -5,9 +5,10 @@ import { parseQueryString } from '#src/http';
 
 import {
   getFieldActivationDateTimeMinDate,
-  ConsumerGiftcardSchema,
+  getConsumerGiftcardSchema,
 } from './schema';
 import type { ConsumerGiftcardFormValues, OuterProps } from './types';
+import { GIFTCARD_TYPES } from '../../constants';
 
 export const INITIAL_DATA: ConsumerGiftcardFormValues = {
   activation_datetime: getFieldActivationDateTimeMinDate(),
@@ -21,6 +22,7 @@ export const INITIAL_DATA: ConsumerGiftcardFormValues = {
   message_is_for: '',
   message_content: '',
   name: '',
+  price: null,
 };
 
 export const ConsumerGiftcardFormHOC = withFormik<
@@ -31,9 +33,17 @@ export const ConsumerGiftcardFormHOC = withFormik<
     return {
       ...INITIAL_DATA,
       name: giftcard?.name ?? '',
+      price:
+        giftcard?.card_type === GIFTCARD_TYPES.CUSTOM
+          ? giftcard.min_price
+          : null,
     };
   },
-  validationSchema: ConsumerGiftcardSchema,
+  validationSchema: ({ giftcard }: OuterProps) =>
+    getConsumerGiftcardSchema({
+      minValue: giftcard?.min_price,
+      maxValue: giftcard?.max_price,
+    }),
   handleSubmit: (values, { props: { onSubmit }, setSubmitting }) => {
     const force = !!parseQueryString(location.search || '')?.force;
     onSubmit(

@@ -74,7 +74,14 @@ export type CheckoutItem = {
 };
 
 type ExtraData = {
-  [key: string]: string | string[] | number | boolean | ExtraData | DateTime;
+  [key: string]:
+    | string
+    | string[]
+    | number
+    | boolean
+    | null
+    | ExtraData
+    | DateTime;
 };
 
 export type CheckoutItemData = {

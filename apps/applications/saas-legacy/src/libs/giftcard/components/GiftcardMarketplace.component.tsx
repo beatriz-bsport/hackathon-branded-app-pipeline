@@ -21,7 +21,7 @@ export const GiftcardMarketplace: FC<Props> = ({ giftcard, onClick }) => {
 
   const displayedPrice =
     giftcard.card_type === GIFTCARD_TYPES.CUSTOM || !giftcard.price
-      ? t('giftcardFreeAmount.customAmount')
+      ? t('customAmount.label')
       : getCurrencyDisplayWithPrice(giftcard.price);
 
   return (

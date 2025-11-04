@@ -1,24 +1,34 @@
 import { withFormik } from 'formik';
-import * as Yup from 'yup';
 import { CB } from '@bsport/common/lib/master-data/payment-methods.js';
 
+import { GIFTCARD_TYPES } from '../../constants';
 import type { GiftcardDataAPIKeys } from '../../types';
 
 import { trackFormSuccess } from './trackers';
 import type { OuterProps, GiftcardFormValues } from './types';
+import {
+  GiftcardSchema,
+  FIELD_PRICE_MAX,
+  FIELD_PRICE_MIN,
+  FIELD_ERROR_MAX_PRICE_LOWER_THAN_MIN_PRICE,
+} from './schema';
 
-const GiftcardSchema = Yup.object().shape({
-  name: Yup.string().required(),
-  cover: Yup.object().nullable(),
-  description: Yup.string().required(),
-  price: Yup.number().required().min(1),
-  manager_only: Yup.boolean(),
-  unlimited: Yup.boolean(),
-  available_payment_method_identifiers: Yup.array().of(Yup.number()),
-  expiration_days: Yup.number().nullable().min(1),
-  tags_on_consumer_item_creation: Yup.array().of(Yup.number().integer()),
-  bookkeeping_account: Yup.number().nullable(),
-});
+const INITIAL_FORM_DATA: GiftcardFormValues = {
+  name: '',
+  cover: undefined,
+  description: '',
+  price: FIELD_PRICE_MIN,
+  manager_only: false,
+  unlimited: false,
+  expiration_days: 365,
+  available_payment_method_identifiers: [CB.id],
+  tags_on_consumer_item_creation: [],
+  bookkeeping_account: null,
+  is_shared_giftcard: false,
+  hasCustomPrice: false,
+  min_price: FIELD_PRICE_MIN,
+  max_price: FIELD_PRICE_MAX,
+};
 
 export const GiftcardFormHOC = withFormik<OuterProps, GiftcardFormValues>({
   /**
@@ -27,37 +37,54 @@ export const GiftcardFormHOC = withFormik<OuterProps, GiftcardFormValues>({
    */
   mapPropsToValues: ({ initial }) => {
     if (!initial) {
-      return {
-        name: '',
-        cover: '',
-        description: '',
-        price: 1,
-        manager_only: false,
-        unlimited: false,
-        expiration_days: 30,
-        available_payment_method_identifiers: [CB.id],
-        tags_on_consumer_item_creation: [],
-        bookkeeping_account: null,
-        is_shared_giftcard: false,
-      };
+      return INITIAL_FORM_DATA;
     }
 
     return {
       // Default data that are in Giftcard but not in GiftcardTemplate
-      bookkeeping_account: null,
-      tags_on_consumer_item_creation: [],
-      is_shared_giftcard: false,
+      bookkeeping_account: INITIAL_FORM_DATA.bookkeeping_account,
+      tags_on_consumer_item_creation:
+        INITIAL_FORM_DATA.tags_on_consumer_item_creation,
+      is_shared_giftcard: INITIAL_FORM_DATA.is_shared_giftcard,
       // Override with values of the initial object
       ...initial,
-      // Transform data to fit Form usage
-      price: initial.price ? Number(initial.price) : 1,
+      // Transform data to fit Form usage and prefill numeric fields
+      price: initial.price ? Number(initial.price) : INITIAL_FORM_DATA.price,
+      max_price: initial.max_price ?? INITIAL_FORM_DATA.max_price,
+      min_price: initial.min_price ?? INITIAL_FORM_DATA.min_price,
+      expiration_days:
+        initial.expiration_days ?? INITIAL_FORM_DATA.expiration_days,
       unlimited: !initial.expiration_days,
-      expiration_days: initial.expiration_days || 30,
+      hasCustomPrice: !initial.price,
     };
   },
   validationSchema: GiftcardSchema,
   enableReinitialize: true,
-  handleSubmit: (values, { props, setSubmitting }) => {
+  handleSubmit: (values, { props, setSubmitting, setFieldError }) => {
+    /**
+     * Sanitize prices values to correspond to backend
+     */
+    const { price, minPrice, maxPrice, cardType } = values.hasCustomPrice
+      ? {
+          minPrice: values.min_price,
+          maxPrice: values.max_price,
+          price: null,
+          cardType: GIFTCARD_TYPES.CUSTOM,
+        }
+      : {
+          minPrice: null,
+          maxPrice: null,
+          price: values.price,
+          cardType: GIFTCARD_TYPES.FIXED,
+        };
+
+    // Check that minPrice < maxPrice. If not, raises a specific error.
+    if (values.hasCustomPrice && minPrice && maxPrice && minPrice > maxPrice) {
+      setFieldError('max_price', FIELD_ERROR_MAX_PRICE_LOWER_THAN_MIN_PRICE);
+      setSubmitting(false);
+      return;
+    }
+
     /**
      * Transform Form Values (FE form) into form-data (BE payload)
      */
@@ -84,7 +111,7 @@ export const GiftcardFormHOC = withFormik<OuterProps, GiftcardFormValues>({
     // Append fields
     appendField('name', values.name);
     appendField('description', values.description);
-    appendField('price', values.price);
+    appendField('price', price);
     appendField('manager_only', values.manager_only);
     appendField(
       'expiration_days',
@@ -99,6 +126,9 @@ export const GiftcardFormHOC = withFormik<OuterProps, GiftcardFormValues>({
       'tags_on_consumer_item_creation',
       values.tags_on_consumer_item_creation,
     );
+    appendField('min_price', minPrice);
+    appendField('max_price', maxPrice);
+    appendField('card_type', cardType);
 
     // Cover: only append if it's a file (not an existing URL)
     if (values.cover && typeof values.cover !== 'string') {

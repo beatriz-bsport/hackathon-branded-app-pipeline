@@ -18,6 +18,9 @@ type GiftcardDataAPIParams = Pick<
   | 'available_payment_method_identifiers'
   | 'tags_on_consumer_item_creation'
   | 'price'
+  | 'max_price'
+  | 'min_price'
+  | 'card_type'
 >;
 
 export type GiftcardDataAPIKeys = keyof GiftcardDataAPIParams;

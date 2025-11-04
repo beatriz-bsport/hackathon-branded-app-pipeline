@@ -1,5 +1,5 @@
 {
-  "giftcardFreeAmount": {
-    "customAmount": "Personalisatie"
+  "customAmount": {
+    "label": "Personalisatie"
   }
 }

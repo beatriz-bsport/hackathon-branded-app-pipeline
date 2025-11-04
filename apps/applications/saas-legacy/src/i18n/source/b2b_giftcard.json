@@ -1,5 +1,20 @@
 {
-  "giftcardFreeAmount": {
-    "customAmount": "Custom"
+  "customAmount": {
+    "label": "Custom",
+    "form": {
+      "toggle": "Custom value",
+      "maxPrice": {
+        "label": "Maximum",
+        "helperText": "Enter a whole number up to {{ maxPriceWithCurrency }}",
+        "limitExplanation": "Why this number?"
+      },
+      "minPrice": {
+        "label": "Minimum",
+        "helperText": "Enter a whole number of at least 1"
+      },
+      "errors": {
+        "maxGreaterThanMin": "The maximum value should be greater than the minimum value"
+      }
+    }
   }
 }

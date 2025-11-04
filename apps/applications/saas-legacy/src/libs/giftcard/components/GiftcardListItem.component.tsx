@@ -58,7 +58,7 @@ export default function GiftcardListItem(props: Props) {
 
   const priceMessage =
     giftcard.card_type === GIFTCARD_TYPES.CUSTOM || !giftcard.price
-      ? t('giftcardFreeAmount.customAmount', { ns: 'b2b_giftcard' })
+      ? t('customAmount.label', { ns: 'b2b_giftcard' })
       : getCurrencyDisplayWithPrice(giftcard.price);
 
   return (

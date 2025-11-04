@@ -32,7 +32,7 @@ const ConsumerGiftcardPreview: FC<Props> = (props) => {
       : getCurrencyDisplayWithPrice(price);
   } else if (giftcard) {
     if (giftcard.card_type === GIFTCARD_TYPES.CUSTOM || !giftcard.price) {
-      const customMessage = t('giftcardFreeAmount.customAmount', {
+      const customMessage = t('customAmount.label', {
         ns: 'b2b_giftcard',
       });
       displayedPrice = customMessage;

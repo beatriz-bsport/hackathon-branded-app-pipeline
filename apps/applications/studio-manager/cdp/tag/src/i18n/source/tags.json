@@ -49,7 +49,6 @@
       "create": "Create main tag",
       "update": "Edit main tag"
     },
-    "helper": "STALE KEY - TO BE REMOVED",
     "formField": {
       "tagGroupName": {
         "label": "Main tag name",

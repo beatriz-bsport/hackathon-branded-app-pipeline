@@ -51,7 +51,6 @@ export const CreateEditTagGroupModal: React.FC<Props> = ({
       confirmButton: t(
         `tagGroupModal.actions.${tagGroupDraft ? "update" : "create"}`,
       ),
-      description: t("tagGroupModal.helper"),
       cancelButton: t("tagGroupModal.actions.cancel"),
     },
     textInput: {
@@ -147,7 +146,6 @@ export const CreateEditTagGroupModal: React.FC<Props> = ({
       open={isOpen}
       onClose={onClose}
       title={translations.modal.title}
-      description={translations.modal.description}
       confirmButton={{
         form: formId,
         type: "submit",

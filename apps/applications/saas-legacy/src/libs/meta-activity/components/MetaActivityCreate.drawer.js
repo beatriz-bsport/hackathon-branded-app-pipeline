@@ -279,19 +279,11 @@ export class MetaActivityCreateDrawer extends Component<Props> {
   };
 
   /**
-   * Renders a stepper form based on the provided permissions.
+   * Renders a stepper form.
    *
-   * @returns The rendered stepper form or null.
+   * @returns The rendered stepper form.
    */
-  renderStepper(kind: 'top' | 'bottom' = 'top') {
-    if (kind === 'bottom') {
-      if (this.props.step === STEP_PASS) {
-        return null;
-      }
-      if (this.props.step === STEP_OFFER && this.props.skipOfferStep) {
-        return null;
-      }
-    }
+  renderStepper() {
     return <StepperForm activeStep={this.props.step} />;
   }
 
@@ -333,7 +325,6 @@ export class MetaActivityCreateDrawer extends Component<Props> {
           this.renderMetaActivityStep()}
         {this.props.step.id === STEP_OFFER.id && this.renderOfferStep()}
         {this.props.step.id === STEP_PASS.id && this.renderPaymentPackStep()}
-        {this.renderStepper('bottom')}
       </GenericResponsiveDrawer>
     );
   }

@@ -167,8 +167,10 @@ export const InvoiceListPage = () => {
               <Popover.Anchor>
                 {({ setIsPopoverOpened }) => (
                   <Button
-                    iconLeft="download-01"
+                    icon="download-01"
                     intent="flat"
+                    kind="icon-button"
+                    label={t("download.label")}
                     color="main"
                     size="md"
                     onClick={(event) => {

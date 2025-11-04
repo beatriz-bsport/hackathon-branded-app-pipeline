@@ -157,7 +157,7 @@ const TableRow = withLink(
               />
             ) : col.type === "copy" ? (
               <CopyToClipboard
-                value={typeof value === "string" ? value : String(value ?? "")}
+                label={typeof value === "string" ? value : String(value ?? "")}
                 color="default"
                 intent="flat"
                 size="md"

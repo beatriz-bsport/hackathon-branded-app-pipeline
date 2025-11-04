@@ -43,6 +43,8 @@ const VariantList = ({
   }) => void;
   itemsById: ReturnType<typeof useItemsById>[ItemVariant];
 }) => {
+  const { t } = useTranslation("details");
+
   const getItem = useGetListItemConfig({
     variant,
     getExtraConfig: (data) => {
@@ -54,7 +56,9 @@ const VariantList = ({
             id: `${data.variant}-${data.id}-remove`,
             intent: "flat",
             size: "sm",
-            iconLeft: "minus",
+            kind: "icon-button",
+            icon: "minus",
+            label: t("formFields.packContent.buttons.removeItem"),
             onClick: () => {
               removeVariantItem({ variant, id: parseInt(data.id) });
             },

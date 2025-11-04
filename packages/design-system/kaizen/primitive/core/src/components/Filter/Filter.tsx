@@ -144,11 +144,12 @@ const Filter = forwardRef<{ resetFilters: () => void }, FilterProps>(
         })}
         {isEveryFilterComplete && !singleField && (
           <Button
+            kind="icon-button"
             color="default"
             intent="flat"
             size="md"
-            iconLeft="filter-lines"
-            aria-label={t("filter.addAriaLabel")}
+            icon="filter-lines"
+            label={t("filter.addAriaLabel")}
             onClick={addFilter}
           />
         )}

@@ -10,6 +10,7 @@ import React, {
 import Badge from "#src/components/Badge";
 import Button from "#src/components/Button";
 import Icon, { IconName } from "#src/components/Icon";
+import { useKaizenI18nInstance, useTranslation } from "#src/i18n";
 
 import ColorInput from "./ColorInput";
 
@@ -147,6 +148,8 @@ const TextField: React.FC<TextFieldProps> = ({
 }) => {
   /* TODO: Check with design if the color picker needs all these props, and split it in a separate component (explained here: https://gitlab.com/bsport/ichizen/-/merge_requests/425#note_2402509306) */
 
+  const i18n = useKaizenI18nInstance();
+  const { t } = useTranslation("default", { i18n });
   const [isInputFocused, setIsInputFocused] = useState(false);
 
   const isValidHex = (val?: string) =>
@@ -309,7 +312,9 @@ const TextField: React.FC<TextFieldProps> = ({
             {!["number", "color", "time"].includes(type) && value ? (
               <div className="flex items-center justify-center w-sm">
                 <Button
-                  iconLeft="x-close"
+                  kind="icon-button"
+                  label={t("textField.clear")}
+                  icon="x-close"
                   size="sm"
                   intent="flat"
                   color="default"

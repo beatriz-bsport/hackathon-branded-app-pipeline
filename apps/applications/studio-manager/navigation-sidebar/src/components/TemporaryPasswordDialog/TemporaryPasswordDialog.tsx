@@ -44,7 +44,10 @@ export const TemporaryPasswordDialog: React.FC<
         onClick: () => generateTemporaryPassword(),
       };
   const cancelButton = temporaryPassword
-    ? {}
+    ? {
+        label: t("temporaryPassword.buttons.close"),
+        onClick: onClose,
+      }
     : {
         label: t("temporaryPassword.buttons.close"),
         onClick: onClose,

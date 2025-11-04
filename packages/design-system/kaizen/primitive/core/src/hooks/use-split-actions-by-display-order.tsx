@@ -1,6 +1,7 @@
 import Button, { type ButtonProps } from "#src/components/Button";
 import type { DropdownMenuManagedProps } from "#src/components/DropdownMenu";
 import type { MenuOption } from "#src/components/Menu/types";
+import { useKaizenI18nInstance, useTranslation } from "#src/i18n";
 
 export type ActionButton = ButtonProps & {
   id: string;
@@ -34,15 +35,20 @@ const useSplitActionsByDisplayOrder = ({
   actions,
   dropdownConfig,
 }: UseActionsPlacementProps): UseActionsPlacementReturn => {
+  const i18n = useKaizenI18nInstance();
+  const { t } = useTranslation("default", { i18n });
+
   const visibleActionsDisplayLimit =
     dropdownConfig?.visibleActionsDisplayLimit ??
     BASE_MAXIMUM_NUMBER_OF_PRIMARY_ACTIONS;
   const dropdownTargetProps = dropdownConfig?.dropdownTargetProps || {
+    kind: "icon-button" as const,
+    label: t("actions.more"),
+    icon: "dots-horizontal" as const,
     id: "dropdown-menu-button",
-    size: "md",
-    intent: "flat",
-    color: "default",
-    iconLeft: "dots-horizontal",
+    size: "md" as const,
+    intent: "flat" as const,
+    color: "default" as const,
   };
 
   const transformButtonPropsIntoDropdownMenuItems = (
@@ -50,8 +56,8 @@ const useSplitActionsByDisplayOrder = ({
   ): MenuOption[] => {
     return actionsToRefine.map((action) => ({
       id: action.id,
-      label: action.label || "",
-      iconLeft: action.iconLeft,
+      label: action.label,
+      iconLeft: "iconLeft" in action ? action.iconLeft : undefined,
     }));
   };
 

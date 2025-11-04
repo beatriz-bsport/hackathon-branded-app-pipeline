@@ -3,6 +3,7 @@ import React from "react";
 
 import Button from "#src/components/Button";
 import DropdownMenu from "#src/components/DropdownMenu";
+import { useKaizenI18nInstance, useTranslation } from "#src/i18n";
 
 import {
   FILTER_MENU_MAX_HEIGHT,
@@ -33,6 +34,9 @@ const FilterElementValues: React.FC<FilterElementValuesProps> = ({
   fields,
   onSelectOption,
 }) => {
+  const i18n = useKaizenI18nInstance();
+  const { t } = useTranslation("default", { i18n });
+
   if (!displayEntireFilter) {
     return null;
   }
@@ -49,16 +53,17 @@ const FilterElementValues: React.FC<FilterElementValuesProps> = ({
             color="default"
             intent="flat"
             size="md"
-            iconLeft={!selectedValues?.length ? "dots-horizontal" : undefined}
-            label={selectedValues
-              ?.map(
-                (valueId) =>
-                  selectedField &&
-                  fields[selectedField].values.find(
-                    (value) => value.id === valueId,
-                  )?.label,
-              )
-              .join(", ")}
+            label={
+              selectedValues
+                ?.map(
+                  (valueId) =>
+                    selectedField &&
+                    fields[selectedField].values.find(
+                      (value) => value.id === valueId,
+                    )?.label,
+                )
+                .join(", ") || t("filter.selectFieldPlaceholder")
+            }
             onClick={() => setIsPopoverOpened((prev) => !prev)}
           />
         )}

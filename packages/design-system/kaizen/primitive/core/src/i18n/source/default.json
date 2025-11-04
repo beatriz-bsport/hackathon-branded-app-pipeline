@@ -11,6 +11,11 @@
     "uploadStatus": {
       "success": "Upload successfully",
       "error": "Could not upload this file"
+    },
+    "actions": {
+      "abort": "Abort upload",
+      "remove": "Remove file",
+      "retry": "Retry upload"
     }
   },
   "emptyState": {
@@ -46,16 +51,22 @@
   },
   "modal": {
     "back": "Back",
-    "next": "Next"
+    "next": "Next",
+    "close": "Close"
   },
   "pagination": {
     "rows": "Rows",
-    "showingRange": "Showing {{currentItemsRendered}} of {{totalItems}}"
+    "showingRange": "Showing {{currentItemsRendered}} of {{totalItems}}",
+    "firstPage": "First page",
+    "previousPage": "Previous page",
+    "nextPage": "Next page",
+    "lastPage": "Last page"
   },
   "headerLayout": {
     "search": {
       "tooltip": "Search on this page"
-    }
+    },
+    "editTitle": "Edit title"
   },
   "copyToClipboard": {
     "copied": "Copied to clipboard",
@@ -89,5 +100,26 @@
     "selectFieldPlaceholder": "Select filter",
     "selectOperatorPlaceholder": "Select",
     "selectValuePlaceholder": "Select"
+  },
+  "button": {
+    "clear": "Clear",
+    "search": "Search"
+  },
+  "alert": {
+    "clear": "Clear alert"
+  },
+  "list": {
+    "toggleCollapse": "Toggle collapse",
+    "collapse": "Collapse",
+    "expand": "Expand"
+  },
+  "tabs": {
+    "selectTab": "Select tab"
+  },
+  "textField": {
+    "clear": "Clear"
+  },
+  "actions": {
+    "more": "More actions"
   }
 }

@@ -68,10 +68,12 @@ export const NotificationActionsMenu = ({
       <Popover.Anchor>
         {({ setIsPopoverOpened }) => (
           <Button
+            kind="icon-button"
+            label={t("table.actions.menu")}
+            icon="dots-vertical"
             color="default"
             intent="flat"
             size="md"
-            iconLeft="dots-vertical"
             onClick={(event: React.MouseEvent<HTMLButtonElement>) => {
               event.stopPropagation();
               setIsPopoverOpened((opened) => !opened);

@@ -6,6 +6,7 @@ import Body from "#src/components/Body";
 import Button from "#src/components/Button";
 import Icon, { type IconName } from "#src/components/Icon";
 import Title from "#src/components/Title";
+import { useKaizenI18nInstance, useTranslation } from "#src/i18n";
 
 const defaultClasses = [
   "rounded-lg",
@@ -104,6 +105,8 @@ const Alert: React.FC<AlertProps> = ({
   children,
   ...props
 }) => {
+  const i18n = useKaizenI18nInstance();
+  const { t } = useTranslation("default", { i18n });
   const isClearable = !!onClearClick;
   const isDisplayingActions = buttonLabel || isClearable;
 
@@ -162,13 +165,14 @@ const Alert: React.FC<AlertProps> = ({
           )}
           {isClearable && (
             <Button
+              kind="icon-button"
+              label={t("alert.clear")}
               intent="flat"
               color={type === "weak" ? "default" : "onstrong"}
               size="sm"
-              iconLeft="x-close"
+              icon="x-close"
               onClick={onClearClick}
               loading={false}
-              aria-label="Clear alert"
             />
           )}
         </div>

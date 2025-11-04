@@ -50,7 +50,9 @@ export const TeacherListPage: React.FC = () => {
             placement="bottom-right"
           >
             <Button
-              iconLeft="box"
+              kind="icon-button"
+              icon="box"
+              label={t("pages.archived")}
               intent="default"
               color="main"
               size="md"

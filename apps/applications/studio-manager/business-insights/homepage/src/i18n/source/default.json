@@ -5,6 +5,7 @@
     "titleWithoutName": "Welcome back"
   },
   "banner": {
+    "close": "Close banner",
     "insights": {
       "title": "New Insights feature",
       "description": "Spot trends, track performance and make smarter business decisions with real-time insights",

@@ -71,6 +71,7 @@ export const FilterEmptyResults: Story = {
       "No members match your filters.\nTry clearing them to see more results",
     className: "max-w-[320px]",
     secondaryButtonConfig: {
+      label: "Clear filters",
       onClick: () => console.log("Clear the filters"),
     },
     variant: "no-results-found",

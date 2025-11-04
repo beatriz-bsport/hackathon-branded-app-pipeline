@@ -1,7 +1,8 @@
 {
   "common": {
     "back": "Back",
-    "new": "New"
+    "new": "New",
+    "search": "Search members"
   },
   "menus": {
     "popover": {

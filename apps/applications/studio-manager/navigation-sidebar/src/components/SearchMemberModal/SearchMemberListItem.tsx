@@ -86,7 +86,7 @@ export const SearchMemberListItem: React.FC<ListItemProps> = ({
               size="md"
               intent="flat"
               color="default"
-              value={phone}
+              label={phone}
               toastMessage={toastPhoneCopied}
             />
           ) : undefined}
@@ -95,7 +95,7 @@ export const SearchMemberListItem: React.FC<ListItemProps> = ({
               size="md"
               intent="flat"
               color="default"
-              value={email}
+              label={email}
               toastMessage={toastEmailCopied}
             />
           ) : undefined}
@@ -103,10 +103,12 @@ export const SearchMemberListItem: React.FC<ListItemProps> = ({
             <Popover.Anchor>
               {({ setIsPopoverOpened }) => (
                 <Button
-                  iconLeft="info-circle"
+                  kind="icon-button"
+                  icon="info-circle"
                   size="md"
                   intent="flat"
                   color="default"
+                  label={tagsTooltip}
                   onMouseEnter={() => setIsPopoverOpened(true)}
                   onMouseLeave={() => setIsPopoverOpened(false)}
                 />

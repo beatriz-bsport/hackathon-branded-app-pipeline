@@ -7,6 +7,7 @@ import Icon from "#src/components/Icon";
 import { sortableListItem } from "#src/components/SortableList/SortableList";
 import type { ActionButton, ActionsDropdownConfig } from "#src/hooks";
 import useSplitActionsByDisplayOrder from "#src/hooks/use-split-actions-by-display-order";
+import { useKaizenI18nInstance, useTranslation } from "#src/i18n";
 
 export type SortableListHeaderProps = React.HTMLAttributes<HTMLDivElement> & {
   collapseController?: () => void;
@@ -44,6 +45,8 @@ const Header: React.FC<SortableListHeaderProps> = ({
   isDraggable,
   ...props
 }) => {
+  const i18n = useKaizenI18nInstance();
+  const { t } = useTranslation("default", { i18n });
   const { actions, dropdownMenuProps } = useSplitActionsByDisplayOrder({
     actions: buttons || [],
     dropdownConfig: dropdownConfig,
@@ -88,13 +91,15 @@ const Header: React.FC<SortableListHeaderProps> = ({
         {dropdownMenuProps && <DropdownMenu {...dropdownMenuProps} />}
         {collapseController && (
           <Button
+            kind="icon-button"
+            label={isCollapseOpen ? t("list.collapse") : t("list.expand")}
+            icon="chevron-down"
             color="default"
             intent="flat"
             size="md"
             className={`w-fit transform transition-transform duration-300 ease-in-out ${
               isCollapseOpen ? "rotate-0" : "-rotate-90"
             }`}
-            iconRight="chevron-down"
             onClick={collapseController}
           />
         )}{" "}

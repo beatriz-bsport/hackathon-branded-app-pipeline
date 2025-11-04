@@ -12,7 +12,9 @@ export const BsportTemplateInformation = () => {
             intent="default"
             color="main"
             size="md"
-            iconLeft="alert-circle"
+            kind="icon-button"
+            icon="alert-circle"
+            label={t("activeList.bsportTemplateInfo.label")}
             onMouseOver={() => setIsPopoverOpened(true)}
             onMouseLeave={() => setIsPopoverOpened(false)}
           />

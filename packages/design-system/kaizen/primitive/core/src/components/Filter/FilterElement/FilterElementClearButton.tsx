@@ -13,18 +13,19 @@ type FilterElementClearButtonProps = {
 const FilterElementClearButton: React.FC<FilterElementClearButtonProps> = ({
   onClear,
 }) => {
-  const i18nInstance = useKaizenI18nInstance();
-  const { t } = useTranslation("default", { i18n: i18nInstance });
+  const i18n = useKaizenI18nInstance();
+  const { t } = useTranslation("default", { i18n });
 
   return (
     <li className={filterElementClasses()}>
       <Button
+        kind="icon-button"
         className={classNames(filterElementBtnClasses, "!rounded-l-[0]")}
         color="default"
         intent="flat"
         size="md"
-        iconLeft="x-close"
-        aria-label={t("filter.clearAriaLabel")}
+        icon="x-close"
+        label={t("filter.clearAriaLabel")}
         onClick={onClear}
       />
     </li>

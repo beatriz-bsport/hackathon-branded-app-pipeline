@@ -5,7 +5,6 @@ import {
   Body,
   Checkbox,
   Modal,
-  type TooltipProps,
   toast,
 } from "@bsport/kaizen-primitive-core";
 import type { Tag, TagGroup, TagUsage } from "@bsport/store-cdp-tag";
@@ -37,13 +36,6 @@ export const DeleteTagGroupModal: React.FC<Props> = ({
 }: Props) => {
   const [acceptWarning, setAcceptWarning] = useState(false);
   const { t } = useTranslation("tags");
-
-  const confirmButtonTooltipProps: TooltipProps = {
-    label: t(
-      "deleteMainTagModal.alerts.tagInUse.confirmCheckbox.confirmButtonTooltip",
-    ),
-    placement: "bottom-left",
-  };
 
   const usedTags = useMemo(
     () => tagGroupToDelete.tags.map((tagId) => tagsMap[tagId]).filter(Boolean),
@@ -106,9 +98,6 @@ export const DeleteTagGroupModal: React.FC<Props> = ({
         onClick: handleDelete,
         label: t("deleteMainTagModal.actions.confirm"),
         disabled: isTagGroupUsedInMembers && !acceptWarning,
-        tooltipProps: isTagGroupUsedInMembers
-          ? confirmButtonTooltipProps
-          : undefined,
       }}
       cancelButton={{
         label: t("deleteMainTagModal.actions.cancel"),

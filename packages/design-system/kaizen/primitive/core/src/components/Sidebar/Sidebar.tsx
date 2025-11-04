@@ -202,14 +202,15 @@ const Sidebar: React.FC<SidebarProps> = ({
           )}
         >
           <Button
+            kind="icon-button"
+            label={
+              isMobileMenuOpen ? t("sidebar.closeMenu") : t("sidebar.openMenu")
+            }
+            icon="layout-left"
             intent="default"
             size="md"
             color="main"
-            iconLeft="layout-left"
             onClick={toggleMenu}
-            aria-label={
-              isMobileMenuOpen ? t("sidebar.closeMenu") : t("sidebar.openMenu")
-            }
             aria-expanded={isMobileMenuOpen}
             aria-controls={sidebarId}
           />

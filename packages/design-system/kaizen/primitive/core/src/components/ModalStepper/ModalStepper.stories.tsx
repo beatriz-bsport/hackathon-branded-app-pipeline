@@ -202,10 +202,12 @@ export const Basic: Story = {
           onClose={handleClose}
           confirmButton={{
             ...args.confirmButton,
+            label: args.confirmButton?.label || "Complete",
             color: "main",
           }}
           cancelButton={{
             ...args.cancelButton,
+            label: args.cancelButton?.label || "Cancel",
           }}
         />
       </div>
@@ -306,11 +308,13 @@ export const WithValidation: Story = {
           onClose={handleClose}
           confirmButton={{
             ...args.confirmButton,
+            label: args.confirmButton?.label || "Complete",
             onClick: handleConfirm,
             color: "main",
           }}
           cancelButton={{
             ...args.cancelButton,
+            label: args.cancelButton?.label || "Cancel",
             onClick: handleClose,
           }}
         />
@@ -364,10 +368,12 @@ export const WithColumnFooter: Story = {
           onClose={handleClose}
           confirmButton={{
             ...args.confirmButton,
+            label: args.confirmButton?.label || "Complete",
             onClick: handleConfirm,
           }}
           cancelButton={{
             ...args.cancelButton,
+            label: args.cancelButton?.label || "Cancel",
             onClick: handleClose,
           }}
         />
@@ -421,11 +427,13 @@ export const CriticalAction: Story = {
           onClose={handleClose}
           confirmButton={{
             ...args.confirmButton,
+            label: args.confirmButton?.label || "Delete",
             onClick: handleConfirm,
             color: "critical",
           }}
           cancelButton={{
             ...args.cancelButton,
+            label: args.cancelButton?.label || "Cancel",
             onClick: handleClose,
           }}
         />
@@ -537,10 +545,12 @@ export const ModalStepForm: Story = {
           onCloseButtonClick={handleClose}
           confirmButton={{
             ...args.confirmButton,
+            label: args.confirmButton?.label || "Next",
             onClick: handleNext,
           }}
           cancelButton={{
             ...args.cancelButton,
+            label: args.cancelButton?.label || "Back",
             onClick: handleBack,
           }}
         />

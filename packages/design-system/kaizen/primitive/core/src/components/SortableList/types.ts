@@ -17,6 +17,6 @@ export type Sortable = {
     | [ListItemChipsProps, ListItemChipsProps, ListItemChipsProps];
   chipsDirection?: "start" | "end";
   dropdownConfig?: ActionsDropdownConfig;
-  buttons?: WithTooltip<ActionButton[]>;
+  buttons?: WithTooltip<ActionButton>[];
   onItemClick?: () => void;
 };

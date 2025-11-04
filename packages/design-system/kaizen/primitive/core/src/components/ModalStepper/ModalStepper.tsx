@@ -134,10 +134,12 @@ const ModalStepper: React.FC<ModalStepperProps> = ({
             ))}
         </div>
         <Button
+          kind="icon-button"
+          label={t("modal.close")}
+          icon="x"
           size="sm"
           intent="flat"
           color="default"
-          iconRight="x"
           className="h-fit"
           onClick={handleCrossButtonClick}
         />

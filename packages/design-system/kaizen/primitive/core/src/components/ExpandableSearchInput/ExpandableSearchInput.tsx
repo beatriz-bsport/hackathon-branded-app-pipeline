@@ -5,6 +5,7 @@ import { flushSync } from "react-dom";
 import Button from "#src/components/Button";
 import TextField from "#src/components/TextField";
 import useDebounce from "#src/hooks/debounce";
+import { useKaizenI18nInstance, useTranslation } from "#src/i18n";
 
 const DEFAULT_EXPANDED_WIDTH = 200;
 const COLLAPSED_WIDTH = 32;
@@ -52,6 +53,8 @@ const ExpandableSearchInput: React.FC<ExpandableSearchInputProps> = ({
   debounceValue = 0,
   ...props
 }) => {
+  const i18n = useKaizenI18nInstance();
+  const { t } = useTranslation("default", { i18n });
   const [displayedAsInput, setDisplayedAsInput] = useState(false);
   const [value, setValue] = useState(inputValue || "");
   const [isOpened, setIsOpened] = useState(false);
@@ -122,10 +125,12 @@ const ExpandableSearchInput: React.FC<ExpandableSearchInputProps> = ({
         />
       ) : (
         <Button
+          kind="icon-button"
           color="main"
           intent="default"
           size="md"
-          iconLeft="search-refraction"
+          icon="search-refraction"
+          label={t("button.search")}
           onClick={handleButtonClick}
         />
       )}

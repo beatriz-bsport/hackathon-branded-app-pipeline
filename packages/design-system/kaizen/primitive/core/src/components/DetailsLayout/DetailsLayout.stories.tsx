@@ -193,6 +193,7 @@ export const Primary: Story = {
           endGroupActions={[
             <Button
               key="chevron-right-button"
+              label="Toggle Panel"
               iconLeft="chevron-right-double"
               color="main"
               intent="default"
@@ -245,6 +246,7 @@ export const DetailsWithoutPanel: Story = {
           endGroupActions={[
             <Button
               key="chevron-right-button"
+              label="Toggle Panel"
               iconLeft="chevron-right-double"
               color="main"
               intent="default"

@@ -132,9 +132,12 @@ export const useTableColumns = ({
             placement="bottom-right"
           >
             <Button
+              kind="icon-button"
+              icon="unarchive"
               color="default"
               intent="flat"
               size="md"
+              label={t("giftcardTable.tooltips.restore")}
               onClick={(event) => {
                 event.stopPropagation();
                 event.preventDefault();
@@ -143,7 +146,6 @@ export const useTableColumns = ({
                   giftcardName: row.name,
                 });
               }}
-              iconLeft="unarchive"
             />
           </Tooltip>
         );
@@ -157,9 +159,12 @@ export const useTableColumns = ({
               placement="bottom"
             >
               <Button
+                kind="icon-button"
+                icon="copy-03"
                 color="default"
                 intent="flat"
                 size="md"
+                label={t("giftcardTable.tooltips.duplicate")}
                 onClick={(event) => {
                   event.stopPropagation();
                   event.preventDefault();
@@ -168,7 +173,6 @@ export const useTableColumns = ({
                     giftcardName: row.name,
                   });
                 }}
-                iconLeft="copy-03"
               />
             </Tooltip>
           )}
@@ -178,9 +182,12 @@ export const useTableColumns = ({
               placement="bottom-right"
             >
               <Button
+                kind="icon-button"
+                icon="archive"
                 color="default"
                 intent="flat"
                 size="md"
+                label={t("giftcardTable.tooltips.archive")}
                 onClick={(event) => {
                   event.stopPropagation();
                   event.preventDefault();
@@ -189,7 +196,6 @@ export const useTableColumns = ({
                     giftcardName: row.name,
                   });
                 }}
-                iconLeft="archive"
               />
             </Tooltip>
           )}

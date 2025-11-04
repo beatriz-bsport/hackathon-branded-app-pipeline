@@ -8,8 +8,10 @@ export type FooterDirection = (typeof footerDirections)[number];
 
 type DefaultPropsWithConstraints = Omit<
   ButtonProps,
-  "size" | "intent" | "color"
->;
+  "size" | "intent" | "color" | "kind" | "icon"
+> & {
+  label: string;
+};
 
 export type ConfirmButtonProps = DefaultPropsWithConstraints & {
   color?: ConfirmColor;

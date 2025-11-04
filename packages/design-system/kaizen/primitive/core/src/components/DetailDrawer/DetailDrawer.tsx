@@ -249,6 +249,7 @@ const DetailDrawerComponent: React.FC<ComponentProps> = ({
           intent="flat"
           size="sm"
           color="default"
+          label={t("detailDrawer.tooltip.close")}
           iconLeft={
             isResponsiveRequired
               ? "chevron-down-double"

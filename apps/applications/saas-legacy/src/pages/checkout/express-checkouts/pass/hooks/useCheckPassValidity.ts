@@ -2,6 +2,7 @@ import { useCallback, useState } from 'react';
 import { DateTime } from 'luxon';
 import { PassTypes } from '#src/libs/marketplace/types';
 import type { PassCardData } from '#src/pages/checkout/express-checkouts/pass/context/PassCardDataContext';
+import { checkExpressCheckoutEligibility } from '#src/libs/payment-combo/api';
 import { useFetchPassData } from './useFetchPassData';
 import { parseQueryString } from '#src/http';
 
@@ -15,9 +16,9 @@ type PassValidityResponse = {
   errorCode?: PassErrorCode;
 };
 
-const checkPassValidity = (
+const checkPassValidity = async (
   passCardData: PassCardData,
-): PassValidityResponse => {
+): Promise<PassValidityResponse> => {
   const { force } = parseQueryString(window.location.href);
 
   if (passCardData.passType === PassTypes.PAYMENTPACK) {
@@ -52,7 +53,8 @@ const checkPassValidity = (
         errorCode: PASS_ERROR_INVALID,
       };
     }
-  } else {
+  }
+  if (passCardData.passType === PassTypes.PRIVATEPASS) {
     const privatePass = passCardData.privatePassData?.privatePass;
 
     if (
@@ -60,6 +62,32 @@ const checkPassValidity = (
       !privatePass.available ||
       (privatePass.manager_only && force !== 'true')
     ) {
+      return {
+        isValid: false,
+        shouldDisplayErrorPage: true,
+        errorCode: PASS_ERROR_INVALID,
+      };
+    }
+  }
+
+  if (passCardData.passType === PassTypes.PAYMENTCOMBO) {
+    const paymentCombo = passCardData.paymentComboData;
+
+    if (!paymentCombo || !paymentCombo.available || paymentCombo.manager_only) {
+      return {
+        isValid: false,
+        shouldDisplayErrorPage: true,
+        errorCode: PASS_ERROR_INVALID,
+      };
+    }
+
+    try {
+      await checkExpressCheckoutEligibility(paymentCombo.id);
+    } catch (error) {
+      console.error(
+        'Payment combo express checkout eligibility check failed:',
+        error,
+      );
       return {
         isValid: false,
         shouldDisplayErrorPage: true,
@@ -82,7 +110,7 @@ const useCheckPassValidity = () => {
 
   const checkValidity = useCallback(async () => {
     const passData = await refetchPassData();
-    const result = checkPassValidity(passData);
+    const result = await checkPassValidity(passData);
     setValidityState(result);
     return result;
   }, [refetchPassData]);

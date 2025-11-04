@@ -202,6 +202,8 @@ const ExpressPassCheckoutContent: React.FC<ContentProps> = ({
   const isPassFree =
     passCardData?.passType === PassTypes.PAYMENTPACK
       ? !passCardData?.paymentPackData?.paymentPack?.price
+      : passCardData?.passType === PassTypes.PAYMENTCOMBO
+      ? !Number(passCardData?.paymentComboData?.price)
       : !Number(passCardData?.privatePassData?.privatePass?.price);
 
   // Payment

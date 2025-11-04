@@ -167,6 +167,9 @@ export class PaymentRouter extends React.Component<Props> {
               {
                 path: '/checkout/:companyId/pre-checkout/payment-combo/:id',
                 component: PaymentComboPreCheckoutPage,
+                redirectTo: this.getExpressCheckoutRedirect(
+                  PassTypes.PAYMENTCOMBO,
+                ),
               },
               {
                 path: '/(|customer/)checkout/:companyId/pre-checkout/private-pass/:id',

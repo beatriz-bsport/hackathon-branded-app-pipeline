@@ -25,6 +25,7 @@ import type { PaymentPack } from '#src/libs/payment-packs/types';
 import { PassTypes } from '#src/libs/marketplace/types';
 import { Establishment } from '#src/libs/establishment/types';
 import { MetaActivity } from '#src/libs/meta-activity/types';
+import { retrievePaymentCombo } from '#src/libs/payment-combo/api';
 
 export const useFetchPassData = () => {
   const { passId, passType, companyId, setPassCardData } =
@@ -95,13 +96,30 @@ export const useFetchPassData = () => {
     }
   }, [companyId, passId]);
 
+  const fetchPaymentComboData = useCallback(async () => {
+    try {
+      const { data: paymentCombo } = await retrievePaymentCombo(passId);
+      return paymentCombo;
+    } catch (error) {
+      console.error(error);
+    }
+  }, [passId]);
+
   const [state, fetchData] = useAsyncFn(async () => {
-    if (passType === PassTypes.PAYMENTPACK) {
-      const paymentPackData = await fetchPaymentPackData();
-      return { passType, passId, paymentPackData };
-    } else {
-      const privatePassData = await fetchPrivatePassData();
-      return { passType, passId, privatePassData };
+    switch (passType) {
+      case PassTypes.PRIVATEPASS: {
+        const privatePassData = await fetchPrivatePassData();
+        return { passType, passId, privatePassData };
+      }
+      case PassTypes.PAYMENTCOMBO: {
+        const paymentComboData = await fetchPaymentComboData();
+        return { passType, passId, paymentComboData };
+      }
+      case PassTypes.PAYMENTPACK:
+      default: {
+        const paymentPackData = await fetchPaymentPackData();
+        return { passType, passId, paymentPackData };
+      }
     }
   });
 

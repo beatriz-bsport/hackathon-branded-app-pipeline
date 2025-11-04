@@ -227,6 +227,9 @@
         "title": "Pass no longer available",
         "description": "Please check to see which passes are currently on offer at your studio.",
         "goBackButtonLabel": "See available passes"
+      },
+      "ineligible": {
+        "paymentCombo": "Pack not eligible for express checkout"
       }
     }
   }

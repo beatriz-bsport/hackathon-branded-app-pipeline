@@ -68,6 +68,7 @@ export const MarketingNotificationTypeByEventRulesKindMap: Record<
 export type NotificationType =
   | "birthday"
   | "location"
+  | "establishment"
   | "groupActivity"
   | "workshop"
   | "privateService"
@@ -114,6 +115,7 @@ export const NOTIFICATION_TYPE_TO_REFINED_TYPE: Record<
   location: "booking",
   workshop: "booking",
   groupActivity: "booking",
+  establishment: "booking",
   privateService: "booking",
   unknown_groupActivity: "booking",
   paymentPack: "passes",
@@ -127,4 +129,19 @@ export type PassListItemData = {
   name: string;
   credits: number | null;
   price: string;
+};
+
+type ExcludedNotificationTypesFromSelector =
+  | "unknown"
+  | "unknown_groupActivity";
+
+export type SelectableNotificationType = Exclude<
+  NotificationType,
+  ExcludedNotificationTypesFromSelector
+>;
+
+export type TriggerTypeSelectorConfig = {
+  type: SelectableNotificationType;
+  translationKey: string;
+  mode?: "groupActivity" | "workshop" | "all";
 };

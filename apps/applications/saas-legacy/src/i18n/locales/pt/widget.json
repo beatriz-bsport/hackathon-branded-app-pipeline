@@ -434,7 +434,7 @@
         "content": "Atenção: está prestes a anular todos os campos que já foram personalizados.",
         "title": "Redefinir configurações"
       },
-      "submit": "Registo",
+      "submit": "Guardar",
       "selectAlert": "Atualmente, a personalização de widgets só está disponível para workshops, calendários, subscrições e cartões"
     },
     "groupSessionByPeriod": "Manhãs, tardes e noites separadas",

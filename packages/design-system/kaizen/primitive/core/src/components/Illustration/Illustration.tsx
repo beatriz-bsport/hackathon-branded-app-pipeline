@@ -19,31 +19,21 @@ const illustrationCva = cva("", {
 export type IllustrationProps = HTMLAttributes<HTMLDivElement> &
   VariantProps<typeof illustrationCva> & {
     name: IllustrationName;
-    /**
-     * Accessibility label for the illustration. If not provided, the illustration will be treated as decorative
-     * and hidden from screen readers.
-     */
     alt?: string;
   } & ComponentPropsWithRef<"div">;
 
-/**
- * Illustration component allowing to render supported illustrations.
- * @param name Name of the illustration to use, as listed in the exported illustrations const.
- * @param className Classes for styling the container of your illustration.
- * @param size Size of the illustration.
- * @param alt Accessibility label for the illustration. If not provided, the illustration will be treated as decorative
- * and hidden from screen readers.
- */
-const Illustration: React.FC<IllustrationProps> = (
-  { name, className, alt, size, ...rest },
+function Illustration({
+  name,
+  className,
+  alt,
+  size,
   ref,
-) => {
+  ...rest
+}: IllustrationProps & { ref?: React.Ref<HTMLDivElement> }) {
   const SvgIllustration = useMemo(() => {
     return React.lazy(async () => await import(`./assets/${name}.svg?react`));
   }, [name]);
 
-  // With a string union type, TypeScript ensures only valid values are passed
-  // This error handling is just for runtime safety
   if (!ILLUSTRATION_NAMES.includes(name)) {
     console.error(
       `Invalid value for props name: ${name}. Available values: ${ILLUSTRATION_NAMES.join(", ")}`,
@@ -51,7 +41,6 @@ const Illustration: React.FC<IllustrationProps> = (
     return null;
   }
 
-  // Prepare accessibility attributes - hidden by default unless alt is provided
   const a11yProps = alt
     ? { "aria-label": alt, role: "img" }
     : { "aria-hidden": true };
@@ -68,7 +57,7 @@ const Illustration: React.FC<IllustrationProps> = (
       </Suspense>
     </div>
   );
-};
+}
 
 Illustration.displayName = "KaizenIllustration";
 

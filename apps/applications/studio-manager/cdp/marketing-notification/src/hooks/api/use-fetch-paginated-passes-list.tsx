@@ -37,11 +37,13 @@ export function useFetchPaginatedPasses({
   const passesCount = usePassStore(selectActivePassesCount);
 
   useEffect(() => {
-    handleFetchPasses({
-      page: page,
-      page_size: page_size,
-      id__in: paymentPassesIds,
-    });
+    if (paymentPassesIds?.length) {
+      handleFetchPasses({
+        page: page,
+        page_size: page_size,
+        id__in: paymentPassesIds,
+      });
+    }
   }, [page, page_size, paymentPassesIds]);
 
   const paginationParams: PaginationProps | undefined =

@@ -48,10 +48,10 @@ type PaymentStripeProps = {
   checkItemsBasket?: (basketId: string) => boolean; // Only necessary if there is a basketId
   clientSecret: string;
   companyId: number;
-  createPendingBookingsIfNecessary?: (data?: {
+  createPendingBookingsAndBlockBasket?: (data?: {
     payment_group_method_identifier?: number;
   }) => void;
-  invalidatePendingBookingsIfNecessary?: () => void;
+  invalidatePendingBookingsAndUnblockBasket?: () => void;
   creditAccountBalance?: number | null;
   detachPaymentMethod: (pm_id: string) => void;
   detachPaymentMethodLoading: boolean;
@@ -124,8 +124,8 @@ const PaymentStripeRevamped: React.FC<
       children,
       clientSecret,
       companyId,
-      createPendingBookingsIfNecessary,
-      invalidatePendingBookingsIfNecessary,
+      createPendingBookingsAndBlockBasket,
+      invalidatePendingBookingsAndUnblockBasket,
       creditAccountBalance,
       detachPaymentMethod,
       detachPaymentMethodLoading,
@@ -239,8 +239,8 @@ const PaymentStripeRevamped: React.FC<
               clientSecret={clientSecret}
               companyCountry={companyCountry}
               companyId={companyId}
-              createPendingBookingsIfNecessary={
-                createPendingBookingsIfNecessary
+              createPendingBookingsAndBlockBasket={
+                createPendingBookingsAndBlockBasket
               }
               creditAccountBalance={creditAccountBalance}
               detachPaymentMethod={detachPaymentMethod}
@@ -249,8 +249,8 @@ const PaymentStripeRevamped: React.FC<
               forceSave={forceSaveForInstalments}
               fromApp={fromApp}
               hasAddPaymentMethodPermission={hasAddPaymentMethodPermission}
-              invalidatePendingBookingsIfNecessary={
-                invalidatePendingBookingsIfNecessary
+              invalidatePendingBookingsAndUnblockBasket={
+                invalidatePendingBookingsAndUnblockBasket
               }
               isEstablishmentBillingGroupSelected={
                 isEstablishmentBillingGroupSelected

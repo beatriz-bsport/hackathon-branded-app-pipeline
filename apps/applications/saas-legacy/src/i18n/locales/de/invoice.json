@@ -307,12 +307,12 @@
     "content": {
       "label": {
         "0": "Karte oder Überweisung",
-        "1": "Credits",
+        "1": "Internal Account Balance (Internes Guthaben)",
         "2": "Andere Option"
       },
       "explain": {
         "0": "Wähle diese Option aus, um den Rechnungsbetrag per Überweisung oder Karte zu erstatten.",
-        "1": "Wähle diese Option aus, um den Rechnungsbetrag dem Kundenkonto als Gutschrift (Credits) zu erstatten.",
+        "1": "Wähle diese Option aus, um den Rechnungsbetrag dem Mitglied als internes Guthaben zu erstatten.",
         "2": "Wähle diese Option aus, um den Rechnungsbetrag, z. B. bar oder per Scheck zu erstatten."
       },
       "explainEmptyPayment": "Möchten Sie diese Rechnung wirklich stornieren?",

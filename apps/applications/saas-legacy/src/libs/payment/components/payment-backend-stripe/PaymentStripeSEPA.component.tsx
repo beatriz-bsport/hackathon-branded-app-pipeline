@@ -39,7 +39,6 @@ import { STRIPE_SEPA_ERROR_CODES } from '#src/libs/payment/constants';
 import type { PaymentMethod } from '#src/libs/payment/types';
 
 import {
-  blockPendingBasket as blockPendingBasketAPI,
   fetchPaymentMethodList as fetchPaymentMethodListAPI,
   verifyPriceBasket as verifyPriceBasketAPI,
 } from '#src/libs/payment/api';
@@ -62,7 +61,7 @@ type PaymentStripeSEPAProps = {
   clientSecret: string;
   companyCountry?: string;
   creditAccountBalance?: number | null;
-  createPendingBookingsIfNecessary?: (data?: {
+  createPendingBookingsAndBlockBasket?: (data?: {
     payment_group_method_identifier?: number;
   }) => void;
   customClasses?: { [className: string]: string };
@@ -73,7 +72,7 @@ type PaymentStripeSEPAProps = {
   forceSave?: boolean;
   hasAddPaymentMethodPermission?: boolean;
   hideSaveForLater?: boolean;
-  invalidatePendingBookingsIfNecessary?: () => void;
+  invalidatePendingBookingsAndUnblockBasket?: () => void;
   isEstablishmentBillingGroupSelected?: boolean;
   loading?: boolean;
   memberId?: number;
@@ -104,7 +103,7 @@ export const PaymentStripeSEPA = forwardRef(
       children,
       clientSecret,
       companyCountry,
-      createPendingBookingsIfNecessary,
+      createPendingBookingsAndBlockBasket,
       creditAccountBalance,
       customClasses,
       detachPaymentMethod,
@@ -114,7 +113,7 @@ export const PaymentStripeSEPA = forwardRef(
       forceSave,
       hasAddPaymentMethodPermission = true,
       hideSaveForLater,
-      invalidatePendingBookingsIfNecessary,
+      invalidatePendingBookingsAndUnblockBasket,
       isEstablishmentBillingGroupSelected,
       loading,
       memberId,
@@ -254,7 +253,7 @@ export const PaymentStripeSEPA = forwardRef(
           }
         }
 
-        createPendingBookingsIfNecessary?.({
+        createPendingBookingsAndBlockBasket?.({
           payment_group_method_identifier: PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA,
         });
 
@@ -310,18 +309,10 @@ export const PaymentStripeSEPA = forwardRef(
               onPaymentError: (err) => {
                 setError(err);
                 setPaymentPageProcessing(false);
-                invalidatePendingBookingsIfNecessary?.();
+                invalidatePendingBookingsAndUnblockBasket?.();
                 onError?.();
               },
               onPaymentSuccess: async () => {
-                if (basketId) {
-                  try {
-                    await blockPendingBasketAPI(basketId);
-                  } catch (err) {
-                    console.error(err);
-                  }
-                }
-
                 onSuccess(() => setPaymentPageProcessing(false));
               },
             },
@@ -333,11 +324,11 @@ export const PaymentStripeSEPA = forwardRef(
         basketTotalPriceCts,
         checkItemsBasket,
         clientSecret,
-        createPendingBookingsIfNecessary,
+        createPendingBookingsAndBlockBasket,
         dispatch,
         elements,
         forceSave,
-        invalidatePendingBookingsIfNecessary,
+        invalidatePendingBookingsAndUnblockBasket,
         isAddingPaymentMethod,
         onError,
         onSuccess,

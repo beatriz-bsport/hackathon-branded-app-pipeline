@@ -1,7 +1,8 @@
 import { cva } from "class-variance-authority";
 import classNames from "classnames";
 import React, {
-  ReactNode,
+  type ReactElement,
+  type ReactNode,
   createContext,
   isValidElement,
   useCallback,
@@ -38,7 +39,7 @@ const popoverClasses = cva("relative w-fit h-fit");
 export const PopoverContext = createContext<{
   isPopoverOpened: boolean;
   setIsPopoverOpened: React.Dispatch<React.SetStateAction<boolean>>;
-  anchorRef: React.RefObject<HTMLDivElement> | null;
+  anchorRef: React.RefObject<HTMLDivElement | null> | null;
 }>({
   isPopoverOpened: false,
   setIsPopoverOpened: () => {},
@@ -66,7 +67,7 @@ const Popover: React.FC<PopoverProps> & {
 } = ({ children, className, opened = false }: PopoverProps) => {
   const [isPopoverOpened, setIsPopoverOpened] = useState(opened);
   const popoverRef = useRef(null);
-  const anchorRef = useRef(null);
+  const anchorRef = useRef<HTMLDivElement | null>(null);
 
   const handleClose = () => setIsPopoverOpened(false);
 
@@ -123,7 +124,7 @@ const Content: React.FC<{
   children: (props: {
     setIsPopoverOpened: React.Dispatch<React.SetStateAction<boolean>>;
     isPopoverOpened: boolean;
-    contentRef: React.RefObject<HTMLDivElement>;
+    contentRef: React.RefObject<HTMLDivElement | null>;
   }) => ReactNode;
   placement?: (typeof Placements)[number];
   maxHeightPx?: number;
@@ -211,18 +212,21 @@ const Content: React.FC<{
       ? children({ setIsPopoverOpened, isPopoverOpened, contentRef })
       : children;
   const hasInteractiveContent = (node: ReactNode): boolean => {
-    if (isValidElement(node)) {
+    if (isValidElement<ReactElement>(node)) {
       if (
         node.type === "button" ||
         node.type === "a" ||
         node.type === "input" ||
         (typeof node.type === "function" &&
-          (node.props.onClick || node.props.href || node.props.onChange))
+          ("onClick" in node.props ||
+            "href" in node.props ||
+            "onChange" in node.props))
       ) {
         return true;
       }
 
-      if (node.props?.children) {
+      if ("children" in node.props) {
+        // @ts-expect-error children can be ReactNode
         return React.Children.toArray(node.props.children).some(
           hasInteractiveContent,
         );

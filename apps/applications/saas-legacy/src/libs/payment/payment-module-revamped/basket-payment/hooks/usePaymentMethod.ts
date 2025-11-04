@@ -13,8 +13,8 @@ import {
   checkStripeDomainActions,
 } from '#src/libs/payment/actions';
 import {
-  getStripeDomainRegistrationLoading,
-  getStripeDomainRegistrationIsRegistered,
+  getStripeDomainCheckLoading,
+  getStripeDomainCheckIsRegistered,
 } from '#src/libs/payment/selectors';
 import WidgetUtils from '#src/libs/widget/WidgetUtils';
 import {
@@ -62,10 +62,10 @@ export const usePaymentMethod = (
   const dispatch = useDispatch();
 
   const isStripeDomainRegistered = useSelector(
-    getStripeDomainRegistrationIsRegistered,
+    getStripeDomainCheckIsRegistered,
   );
   const isStripeDomainRegistrationLoading = useSelector(
-    getStripeDomainRegistrationLoading,
+    getStripeDomainCheckLoading,
   );
 
   const [availableExpressCheckoutMethods, setAvailableExpressCheckoutMethods] =

@@ -7,7 +7,7 @@ import {
   deleteAuth,
   buildUrlParams,
 } from '../../http';
-import {
+import type {
   Giftcard,
   ConsumerGiftcard,
   GiftcardBackgroundImage,

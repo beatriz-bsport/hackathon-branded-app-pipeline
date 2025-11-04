@@ -1,34 +1,30 @@
 import { createStore } from "zustand/vanilla";
 
-import { bindStore } from "@bsport/store-base";
+import { type PaginatedState, bindStore } from "@bsport/store-base";
 
-import type { Establishment } from "#src/types";
+import type { Establishment, EstablishmentGroup } from "#src/types";
 
 export interface EstablishmentState {
-  byId: { [key: number]: Establishment };
-  list: {
-    count: number;
-    ids: number[];
-    page: number;
+  establishmentGroup: PaginatedState<EstablishmentGroup> & {
+    searchedIds: number[];
   };
-  search: {
-    count: number;
-    ids: number[];
-    page: number;
-  };
+  establishment: PaginatedState<Establishment> & { searchedIds: number[] };
 }
 
 export const establishmentStore = createStore<EstablishmentState>()(() => ({
-  byId: {},
-  list: {
+  establishmentGroup: {
+    byId: {},
     count: 0,
     ids: [],
     page: 1,
+    searchedIds: [],
   },
-  search: {
+  establishment: {
+    byId: {},
     count: 0,
     ids: [],
     page: 1,
+    searchedIds: [],
   },
 }));
 

@@ -16,7 +16,7 @@ export const ExploreCard: FC<ExploreCardProps> = ({
   link,
 }) => {
   return (
-    <Card elevated padding="none">
+    <Card elevated padding="none" actionable>
       <a href={link} rel="noopener noreferrer" target="_blank">
         <div className="flex flex-row items-center w-full h-full px-md py-sm">
           <Media

@@ -17,6 +17,7 @@ import { formatAsDate } from '#src/utils/datetime';
 import type { MaterialStyleType } from '#src/utils/types';
 import type { Member } from '#src/libs/member/types';
 import type { CustomFromStatistics } from '#src/libs/custom-form/types';
+import ToolTip from '#src/components/Tooltip.component';
 
 type MemberAPIDataPaginated = {
   data: {
@@ -131,7 +132,18 @@ const renderRow = (member: MemberStatistics, t: TFunction) => {
   const { display_count, last_display, completed, name, archived } = member;
   return {
     name: renderMemberName(name, archived, t),
-    last_display: formatAsDate(DateTime.fromSeconds(last_display).toISODate()),
+    last_display: last_display ? (
+      formatAsDate(DateTime.fromSeconds(last_display).toISODate())
+    ) : (
+      <ToolTip
+        placement="bottom-start"
+        title={String(t('customForm.statistics.table.tooltip.no_display_date'))}
+      >
+        <Typography align="left" color="error">
+          {t('customForm.statistics.table.row.no_display_date')}
+        </Typography>
+      </ToolTip>
+    ),
     display_count: renderDisplayAccount(display_count),
     completed: renderCompleted(completed, t),
   };

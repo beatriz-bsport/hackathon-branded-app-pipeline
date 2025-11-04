@@ -41,7 +41,7 @@ type Props = {
   clientSecret: string;
   clientSecretLoading: boolean;
   companyId: number;
-  createPendingBookingsIfNecessary?: (data?: {
+  createPendingBookingsAndBlockBasket?: (data?: {
     payment_group_method_identifier?: number;
   }) => void;
   creditAccountBalance?: number | null;
@@ -56,7 +56,7 @@ type Props = {
     | InstalmentPaymentApiWithBasketId[]
     | null;
   instalmentPaymentSelectedId?: number;
-  invalidatePendingBookingsIfNecessary?: () => void;
+  invalidatePendingBookingsAndUnblockBasket?: () => void;
   isEstablishmentBillingGroupSelected?: boolean;
   loading: boolean;
   memberId: number;
@@ -109,7 +109,7 @@ const OnlinePayment: React.FC<Props> = forwardRef(
       clientSecret,
       clientSecretLoading,
       companyId,
-      createPendingBookingsIfNecessary,
+      createPendingBookingsAndBlockBasket,
       creditAccountBalance,
       detachPaymentMethod,
       detachPaymentMethodLoading,
@@ -120,7 +120,7 @@ const OnlinePayment: React.FC<Props> = forwardRef(
       hideTotalPriceBeforePayment,
       instalmentPaymentConfigurationList,
       instalmentPaymentSelectedId,
-      invalidatePendingBookingsIfNecessary,
+      invalidatePendingBookingsAndUnblockBasket,
       isEstablishmentBillingGroupSelected = true,
       loading,
       memberId,
@@ -296,16 +296,16 @@ const OnlinePayment: React.FC<Props> = forwardRef(
                 checkItemsBasket={checkItemsBasket}
                 clientSecret={clientSecret}
                 companyId={companyId}
-                createPendingBookingsIfNecessary={
-                  createPendingBookingsIfNecessary
+                createPendingBookingsAndBlockBasket={
+                  createPendingBookingsAndBlockBasket
                 }
                 creditAccountBalance={creditAccountBalance}
                 detachPaymentMethod={detachPaymentMethod}
                 detachPaymentMethodLoading={detachPaymentMethodLoading}
                 forceHideConfirmPaymentButton={forceHideConfirmPaymentButton}
                 instalmentPaymentSelectedId={instalmentPaymentSelectedId}
-                invalidatePendingBookingsIfNecessary={
-                  invalidatePendingBookingsIfNecessary
+                invalidatePendingBookingsAndUnblockBasket={
+                  invalidatePendingBookingsAndUnblockBasket
                 }
                 isEstablishmentBillingGroupSelected={
                   isEstablishmentBillingGroupSelected

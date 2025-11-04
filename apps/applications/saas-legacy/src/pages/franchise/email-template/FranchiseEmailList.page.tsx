@@ -162,10 +162,17 @@ const FranchiseEmailList: React.FC<Props> = ({
   }, [queryParams?.tab, setQueryParam]);
 
   useEffect(() => {
+    if (id === undefined) {
+      return;
+    }
+    if (isNaN(id)) {
+      push(`/f/email-template/`);
+      return;
+    }
     if (id) {
       emailTemplateDetail(id);
     }
-  }, [emailTemplateDetail, id]);
+  }, [push, emailTemplateDetail, id]);
 
   const emailTemplateActionToUse = React.useCallback(
     (params: EmailDesignQueryParamsPaginated) => {

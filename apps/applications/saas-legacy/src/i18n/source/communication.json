@@ -439,7 +439,10 @@
   },
   "sentStatus": {
     "fail": "An error occurred while sending",
-    "processing": "The communication is being sent"
+    "processing": "The communication is being sent",
+    "error_codes": {
+      "1": "Message not sent. No recipients found."
+    }
   },
   "forms": {
     "twoWayEmail": {

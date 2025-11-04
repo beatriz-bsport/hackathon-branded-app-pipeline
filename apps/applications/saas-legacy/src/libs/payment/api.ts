@@ -9,6 +9,7 @@ import type {
   PaymentGroup,
   PaymentMethod,
   StripeBalance,
+  StripePaymentMethodDomain,
   StripePayout,
 } from '#src/libs/payment/types';
 import type { BillingDetails } from '#src/libs/marketplace/types';
@@ -192,12 +193,6 @@ export const updatePaymentGroupPriceCts = async (
   );
 };
 
-export const blockPendingBasket = async (basketId: string) => {
-  return postAuth(
-    `${API_V1_URI}/checkout/basket/${basketId}/block_pending_basket/`,
-  );
-};
-
 export const verifyPriceBasket = async (basketId: string) => {
   return postAuth(`${API_V1_URI}/checkout/basket/${basketId}/verify_price/`);
 };
@@ -281,19 +276,21 @@ export const executePaymentAttemptWebview = ({
   );
 };
 
-export const createPendingBookings = async (
+export const createPendingBookingsAndBlockBasket = async (
   basketId: string,
   data: { payment_group_method_identifier?: number } = {},
 ) => {
   return postAuth(
-    `${API_V1_URI}/checkout/basket/${basketId}/create_pending_bookings/`,
+    `${API_V1_URI}/checkout/basket/${basketId}/create_pending_bookings_and_block_basket/`,
     data,
   );
 };
 
-export const invalidatePendingBookings = async (basketId: string) => {
+export const invalidatePendingBookingsAndUnblockBasket = async (
+  basketId: string,
+) => {
   return postAuth(
-    `${API_V1_URI}/checkout/basket/${basketId}/invalidate_pending_bookings/`,
+    `${API_V1_URI}/checkout/basket/${basketId}/invalidate_pending_bookings_and_unblock_basket/`,
   );
 };
 
@@ -335,6 +332,23 @@ export const checkStripePaymentMethodDomainRegistration = async (
       'X-React-Referrer': document.referrer,
       Authorization: `Token ${token}`,
     },
+  );
+};
+
+export const fetchStripePaymentMethodDomains = async (): Promise<
+  AxiosResponse<StripePaymentMethodDomain[]>
+> => {
+  return getAuth<StripePaymentMethodDomain[]>(
+    `${API_V1_URI}/payment_backend/stripe/stripe-payment-method-domain/`,
+  );
+};
+
+export const registerStripePaymentMethodDomain = async (
+  domain_name: string,
+): Promise<AxiosResponse<StripePaymentMethodDomain>> => {
+  return postAuth<StripePaymentMethodDomain>(
+    `${API_V1_URI}/payment_backend/stripe/stripe-payment-method-domain/`,
+    { domain_name },
   );
 };
 

@@ -16,6 +16,15 @@ export const hasUpsell = (
   );
 };
 
+export const hasAnyUpsell = (
+  featureList: FeatureList,
+  upsellIdentifiers: number[],
+) => {
+  return featureList?.upsell?.some((f) =>
+    upsellIdentifiers.includes(f.upsell_identifier),
+  );
+};
+
 export const hasFreeTrial = (
   featureList: FeatureList,
   upsellIdentifier: number,

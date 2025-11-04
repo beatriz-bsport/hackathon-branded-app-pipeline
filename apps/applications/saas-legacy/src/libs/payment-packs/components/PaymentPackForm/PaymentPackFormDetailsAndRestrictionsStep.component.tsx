@@ -27,7 +27,7 @@ import PaymentPackFormAccessControl from './PaymentPackFormAccessControl.compone
 // @ts-expect-error
 import FeatureListProvider from '#src/libs/company/hocs/feature-list-provider.hoc.js';
 import { FeatureList } from '#src/libs/company/types';
-import { hasUpsell } from '#src/libs/platform-billing/utils';
+import { hasAnyUpsell } from '#src/libs/platform-billing/utils';
 import {
   UPSELL_IDENTIFIER_ACCESS_MONITORING,
   UPSELL_IDENTIFIER_KISI_INTEGRATION,
@@ -89,9 +89,10 @@ const PaymentPackFormDetailsAndRestrictionsStep = ({
       <Divider className={classes.divider} />
       <FeatureListProvider featureList={['paymentPackAccessControl']}>
         {(featureList: FeatureList) => {
-          const hasAccessControlUpsell =
-            hasUpsell(featureList, UPSELL_IDENTIFIER_KISI_INTEGRATION) ||
-            hasUpsell(featureList, UPSELL_IDENTIFIER_ACCESS_MONITORING);
+          const hasAccessControlUpsell = hasAnyUpsell(featureList, [
+            UPSELL_IDENTIFIER_KISI_INTEGRATION,
+            UPSELL_IDENTIFIER_ACCESS_MONITORING,
+          ]);
 
           return (
             !initial?.template_instance &&

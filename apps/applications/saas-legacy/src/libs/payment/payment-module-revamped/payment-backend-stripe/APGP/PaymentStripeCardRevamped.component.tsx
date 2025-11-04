@@ -68,7 +68,7 @@ type Props = {
   clientSecret: string;
   companyCountry?: string;
   companyId?: number;
-  createPendingBookingsIfNecessary?: (data?: {
+  createPendingBookingsAndBlockBasket?: (data?: {
     payment_group_method_identifier?: number;
   }) => void;
   creditAccountBalance?: number | null;
@@ -88,7 +88,7 @@ type Props = {
   ) => void;
   hideSaveForLater?: boolean;
   instalmentPaymentSelectedId?: number | null;
-  invalidatePendingBookingsIfNecessary?: () => void;
+  invalidatePendingBookingsAndUnblockBasket?: () => void;
   isEstablishmentBillingGroupSelected?: boolean;
   loading?: boolean;
   memberId: number;
@@ -122,7 +122,7 @@ const PaymentStripeCardRevamped = forwardRef(
       companyCountry,
       companyId,
       creditAccountBalance,
-      createPendingBookingsIfNecessary,
+      createPendingBookingsAndBlockBasket,
       customClasses,
       detachPaymentMethod,
       detachPaymentMethodLoading,
@@ -133,7 +133,7 @@ const PaymentStripeCardRevamped = forwardRef(
       hasAddPaymentMethodPermission = true,
       hideSaveForLater,
       instalmentPaymentSelectedId,
-      invalidatePendingBookingsIfNecessary,
+      invalidatePendingBookingsAndUnblockBasket,
       isEstablishmentBillingGroupSelected,
       loading,
       memberId,
@@ -332,12 +332,12 @@ const PaymentStripeCardRevamped = forwardRef(
       basketTotalPriceCts,
       checkItemsBasket,
       clientSecret,
-      createPendingBookingsIfNecessary,
+      createPendingBookingsAndBlockBasket,
       elements,
       forceSave,
       instalmentPaymentSelectedId,
       handleAssignInstalmentPayment,
-      invalidatePendingBookingsIfNecessary,
+      invalidatePendingBookingsAndUnblockBasket,
       onError,
       onSuccess,
       paymentGroupId,

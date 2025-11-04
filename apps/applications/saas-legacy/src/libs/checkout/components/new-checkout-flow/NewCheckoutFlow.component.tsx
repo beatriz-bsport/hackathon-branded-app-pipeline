@@ -86,10 +86,10 @@ type Props = {
   clientSecret: string | null;
   clientSecretLoading: boolean;
   companyId: number;
-  createPendingBookingsIfNecessary?: (data?: {
+  createPendingBookingsAndBlockBasket?: (data?: {
     payment_group_method_identifier?: number;
   }) => void;
-  invalidatePendingBookingsIfNecessary?: () => void;
+  invalidatePendingBookingsAndUnblockBasket?: () => void;
   creditAccountBalance?: number | null;
   detachPaymentMethod: (paymentMethodId: string) => void;
   detachPaymentMethodLoading: boolean;
@@ -156,7 +156,7 @@ export const NewCheckoutFlow: React.FC<Props> = ({
   clientSecret,
   clientSecretLoading,
   companyId,
-  createPendingBookingsIfNecessary,
+  createPendingBookingsAndBlockBasket,
   updateMemberBillingGroup,
   creditAccountBalance,
   detachPaymentMethod,
@@ -165,7 +165,7 @@ export const NewCheckoutFlow: React.FC<Props> = ({
   establishmentBillingGroups,
   goBack,
   instalmentPaymentConfigurationList,
-  invalidatePendingBookingsIfNecessary,
+  invalidatePendingBookingsAndUnblockBasket,
   isEstablishmentBillingGroupSelected,
   isExcludingTax,
   onPaymentSuccess,
@@ -424,8 +424,8 @@ export const NewCheckoutFlow: React.FC<Props> = ({
               clientSecretLoading={clientSecretLoading}
               companyCountry={companyCountry}
               companyId={companyId}
-              createPendingBookingsIfNecessary={
-                createPendingBookingsIfNecessary
+              createPendingBookingsAndBlockBasket={
+                createPendingBookingsAndBlockBasket
               }
               creditAccountBalance={creditAccountBalance}
               currentStep={currentStep}
@@ -436,8 +436,8 @@ export const NewCheckoutFlow: React.FC<Props> = ({
               instalmentPaymentConfigurationList={instalmentPaymentConfigurationList.filter(
                 (ipc) => ipc.basketId === basket?.id,
               )}
-              invalidatePendingBookingsIfNecessary={
-                invalidatePendingBookingsIfNecessary
+              invalidatePendingBookingsAndUnblockBasket={
+                invalidatePendingBookingsAndUnblockBasket
               }
               isEstablishmentBillingGroupSelected={
                 isEstablishmentBillingGroupSelected

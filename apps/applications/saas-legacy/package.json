@@ -9,7 +9,7 @@
     "ci:compile": "tsc --strict false -p ./tsconfig.json",
     "ci:deploy": "./scripts/ci-deploy.sh",
     "compile": "npx tsc -p .",
-    "debug-only:start-production": "concurrently --kill-others \"pnpm run start:sidebar\" \"pnpm run debug-only:sstart:production\"",
+    "debug-only:start-production": "concurrently --kill-others \"pnpm run start:sidebar\" \"pnpm run debug-only:start:production\"",
     "debug-only:start:production": "export NODE_OPTIONS=--openssl-legacy-provider NODE_ENV=development && pnpm run translation:update && cp envs/production-api-only public/env.js && BROWSER=none webpack serve --config config/webpack.dev.js",
     "format": "find src -name \"*.js\" | xargs pnpm exec prettier --write",
     "generate-all-css-marketplace": "cat  **/Marketplace*.css > ./Marketplace.css",

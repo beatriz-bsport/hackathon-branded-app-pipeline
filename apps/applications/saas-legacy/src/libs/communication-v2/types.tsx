@@ -134,6 +134,7 @@ export type Communication = {
   sender_member_id?: number;
   is_answer?: boolean;
   status: number;
+  error_code: number | null;
 };
 
 export type CommunicationMessage = {

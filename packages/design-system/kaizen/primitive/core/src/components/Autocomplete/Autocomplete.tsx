@@ -161,11 +161,9 @@ const Autocomplete: React.FC<AutocompleteProps> = ({
 
       setTextFieldValue(inputValue);
       if (searchMode === "remote") {
+        setIsDebouncing(true);
         setIsPopoverOpened(true);
-        setSearchedValue(inputValue);
-        if (onValueChange) {
-          onValueChange(inputValue);
-        }
+        debouncedOnChange(inputValue);
       }
 
       if (searchMode === "local") {
@@ -173,13 +171,7 @@ const Autocomplete: React.FC<AutocompleteProps> = ({
         debouncedOnChange(inputValue);
       }
     },
-    [
-      searchMode,
-      debouncedOnChange,
-      onValueChange,
-      setTextFieldValue,
-      setSearchedValue,
-    ],
+    [searchMode, debouncedOnChange, setTextFieldValue],
   );
 
   // Handle item selection

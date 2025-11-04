@@ -4,6 +4,6 @@ export type TableRowData = {
   isShared: boolean;
   isUnavailable: boolean;
   name: string;
-  price: number;
+  price: number | string;
   validity: string;
 };

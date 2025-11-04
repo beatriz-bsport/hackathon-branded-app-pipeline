@@ -46,6 +46,7 @@ export const communicationVariableTags: Record<string, string[]> = {
     "subscription_name",
     "subscription_recurrent_price",
     "subscription_nb_months",
+    "subscription_nb_bills",
     "subscription_duration",
     "subscription_flat_fee",
     "subscription_payment_method",

@@ -23,7 +23,7 @@ import {
   addItemToBasket,
   fetchCurrentBasket,
 } from '#src/libs/checkout/actions';
-import { ConsumerGiftcardAPI, Giftcard } from '#src/libs/giftcard/types';
+import type { ConsumerGiftcardAPI, Giftcard } from '#src/libs/giftcard/types';
 
 import { getCurrentBasket } from '#src/libs/checkout/selectors';
 import { getCheckoutUrl } from '#src/libs/marketplace/routing-utils';

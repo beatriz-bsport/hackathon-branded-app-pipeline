@@ -3,10 +3,12 @@ import { type TFunctionGeneric, instanciateAppI18n } from "@bsport/i18n";
 import namespaces from "#src/i18n/namespaces.json";
 import type marketingNotificationDetails from "#src/i18n/source/marketingNotificationDetails.json";
 import type marketingNotificationList from "#src/i18n/source/marketingNotificationList.json";
+import type marketingNotificationsModal from "#src/i18n/source/marketingNotificationsModal.json";
 
 type Translations = {
   marketingNotificationList: typeof marketingNotificationList;
   marketingNotificationDetails: typeof marketingNotificationDetails;
+  marketingNotificationsModal: typeof marketingNotificationsModal;
 };
 
 const applicationName = __MARKETING_NOTIFICATION__.__I18N_NAMESPACE_PREFIX__;

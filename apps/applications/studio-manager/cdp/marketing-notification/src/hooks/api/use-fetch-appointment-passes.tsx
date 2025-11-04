@@ -1,4 +1,8 @@
-import { fetchAppointmentPassesAction } from "@bsport/store-buyables-appointment-pass";
+import {
+  type FetchAppointmentPassesParams,
+  fetchAppointmentPassesAction,
+  searchAppointmentPassesAction,
+} from "@bsport/store-buyables-appointment-pass";
 import { useAsync } from "@bsport/use-async";
 
 import { fetch } from "#src/utils/fetch";
@@ -22,8 +26,19 @@ export function useFetchAppointmentPasses() {
     asyncFn: fetchPaginatedAppointmentPassesBound,
   });
 
+  const handleSearchAppointmentPasses = async (
+    query: string,
+    params?: FetchAppointmentPassesParams,
+  ) => {
+    return await searchAppointmentPassesAction(fetch, {
+      q: query,
+      ...params,
+    });
+  };
+
   return {
     handleFetchAppointmentPasses: fetchPaginatedAppointmentPasses,
+    handleSearchAppointmentPasses,
     isAppointmentPassesLoading: isLoading,
   };
 }

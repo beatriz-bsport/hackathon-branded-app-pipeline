@@ -2,7 +2,7 @@ import { Decimal } from "decimal.js";
 import React from "react";
 
 import { Table, type TableProps } from "@bsport/kaizen-primitive-core";
-import type { Giftcard } from "@bsport/store-buyables-giftcard";
+import { GIFTCARD_TYPES, type Giftcard } from "@bsport/store-buyables-giftcard";
 
 import { LEGACY_ROUTES } from "#src/urls";
 import { useTranslation } from "#src/utils/i18n";
@@ -45,7 +45,10 @@ export const GiftcardTable: React.FC<GiftcardTableProps> = ({
     isShared: giftcard.is_shared_giftcard,
     isUnavailable: giftcard.manager_only,
     name: giftcard.name,
-    price: new Decimal(giftcard.price).toNumber(),
+    price:
+      giftcard.card_type === GIFTCARD_TYPES.CUSTOM || !giftcard.price
+        ? t("giftcardTable.values.customAmount")
+        : new Decimal(giftcard.price).toNumber(),
     validity: giftcard.expiration_days
       ? t("giftcardTable.values.expireInXDays", {
           expiration: giftcard.expiration_days,

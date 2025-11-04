@@ -46,11 +46,13 @@ export function useFetchPaginatedAppoinmentPasses({
   );
 
   useEffect(() => {
-    handleFetchAppointmentPasses({
-      page: page,
-      page_size: page_size,
-      id__in: appointmentPassesIds,
-    });
+    if (appointmentPassesIds?.length) {
+      handleFetchAppointmentPasses({
+        page: page,
+        page_size: page_size,
+        id__in: appointmentPassesIds,
+      });
+    }
   }, [page, page_size, appointmentPassesIds]);
 
   const paginationParams: PaginationProps | undefined =

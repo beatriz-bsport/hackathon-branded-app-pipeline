@@ -10,6 +10,7 @@ export const NOTIFICATION_ADVANCED_TYPE = {
   unknown: "unknown",
   birthday: "birthday",
   location: "location",
+  establishment: "establishment",
   workshop: "workshop",
   groupActivity: "groupActivity",
   privateService: "privateService",

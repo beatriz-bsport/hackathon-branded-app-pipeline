@@ -759,8 +759,8 @@
       "lostTrigger": {
         "timeout": {
           "title": "Tijdslimiet",
-          "label": "Dagen in de {{ workflowLowerCase }}",
-          "helperText": "Als een lid nog steeds aanwezig is in deze {{ workflowLowerCase }} na de geselecteerde tijdslimiet, wordt het lid beschouwd als 'Verloren'."
+          "label": "Dagen inactief in de {{ workflowLowerCase }}",
+          "helperText": "Leden zullen de {{ workflowLowerCase }} verlaten als er na dit aantal dagen geen vooruitgang is geboekt"
         },
         "addTrigger": "Een uitgangstrigger toevoegen",
         "helperText": "Definieer wat wordt beschouwd als een mislukking, het lid wordt gemarkeerd als 'Verloren' bij het verlaten van de {{ workflowLowerCase }}. Stel ook de maximale tijd in dat een lid aanwezig kan zijn in {{ workflowLowerCase }}.",
@@ -971,6 +971,44 @@
         "entryDate": "Invoerdatum",
         "exitDate": "Uitvoerdatum",
         "status": "Status"
+      }
+    },
+    "freeTrial": {
+      "upgradeDialog": {
+        "quotaReached": {
+          "description": "Je hebt de 3 {{ workflowPluralLowerCase }} uit de gratis proefperiode gebruikt. Om deze te activeren, voer een upgrade uit naar Audience of pauzeer een bestaande {{ workflowLowerCase }}.",
+          "title": "Je hebt geen gratis {{ workflowPluralLowerCase }} meer"
+        },
+        "bannerClicked": {
+          "description": "Upgrade nu om je bedrijf verder te laten groeien met Audience.",
+          "title": "Blijf groeien zonder grenzen"
+        },
+        "close": "Sluiten",
+        "upgrade": "Upgrade",
+        "benefits": [
+          "Bouw onbeperkte geautomatiseerde {{ workflowPluralLowerCase }}",
+          "Creëer unieke klantervaringen via meerdere kanalen",
+          "Richt aanbiedingen op klanten in elke fase van hun journey"
+        ]
+      },
+      "banner": {
+        "button": "Upgrade",
+        "title": "{{ count }} dag over in proefperiode",
+        "title_plural": "{{ count }} dagen over in proefperiode"
+      }
+    },
+    "smsWarning": {
+      "modal": {
+        "actions": {
+          "secondary": "Annuleren",
+          "primary": "Bevestigen"
+        },
+        "content": "<strong>Het versturen van sms-berichten kan duurder zijn dan andere kanalen,</strong> afhankelijk van hoeveel mensen in de workflow komen. Controleer je contract om de kosten per sms te zien.",
+        "title": "Herinnering aan sms-kosten"
+      },
+      "alert": {
+        "content": "Hoe meer mensen in de workflow komen, hoe hoger de kosten. Controleer je contract om de kosten per sms te zien.",
+        "title": "Sms-berichten zijn duurder dan andere kanalen"
       }
     }
   }

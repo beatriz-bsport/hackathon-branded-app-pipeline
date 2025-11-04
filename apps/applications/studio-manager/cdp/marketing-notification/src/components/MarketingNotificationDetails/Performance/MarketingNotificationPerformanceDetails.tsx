@@ -1,10 +1,8 @@
-import { Body, Card, Table, Title } from "@bsport/kaizen-primitive-core";
+import { Body, Card, Title } from "@bsport/kaizen-primitive-core";
 import type { MarketingNotification } from "@bsport/store-cdp-marketing-notification";
 
-import { CommunicationStatusHelper } from "#src/components/MarketingNotificationDetails/Performance/CommunicationStatusHelper";
+import { CommunicationSentRecipientTable } from "#src/components/MarketingNotificationDetails/Performance/CommunicationSentRecipientTable";
 import { useFetchCommunicationCampaignSummary } from "#src/hooks/api/use-fetch-communication-campaign-summary";
-import { useFetchCommunicationRecipients } from "#src/hooks/api/use-fetch-communication-recipients";
-import { useFormatMarketingNotificationRecipientsTableColumns } from "#src/hooks/layout/use-format-marketing-notification-recipients-table-config";
 import { useTranslation } from "#src/utils/i18n";
 
 type MarketingNotificationPerformanceDetailsProps = {
@@ -20,15 +18,8 @@ export const MarketingNotificationPerformanceDetails = ({
       communicationObjectId: notification.id,
     },
   );
-  const { communicationRecipients, paginationParams } =
-    useFetchCommunicationRecipients({
-      communicationObjectId: notification.id,
-    });
-
   const totalMembersReached =
     communicationCampaignSummary?.total_recipients ?? 0;
-
-  const tableColumns = useFormatMarketingNotificationRecipientsTableColumns();
 
   return (
     <div className="flex flex-col gap-md">
@@ -73,22 +64,7 @@ export const MarketingNotificationPerformanceDetails = ({
           </Body>
         </div>
       ) : (
-        <div className="flex flex-col gap-sm">
-          <div className="flex flex-row justify-between items-center">
-            <Title htmlVariant="h3" weight="strong">
-              {t("drawer.performance.allNotifications.title")}
-            </Title>
-            <CommunicationStatusHelper />
-          </div>
-          <Card padding="none" className="w-full overflow-x-scroll">
-            <Table
-              columns={tableColumns}
-              rowHeight="sm"
-              rows={communicationRecipients}
-              paginationProps={paginationParams}
-            />
-          </Card>
-        </div>
+        <CommunicationSentRecipientTable notification={notification} />
       )}
     </div>
   );

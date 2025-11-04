@@ -122,8 +122,8 @@ export const OnlinePaymentBasketUnified: React.FC<Props> = forwardRef(
       useInternalAccount,
       handleFetchInstalmentPaymentByBasket,
       getClientSecret,
-      createPendingBookingsIfNecessary,
-      invalidatePendingBookingsIfNecessary,
+      createPendingBookingsAndBlockBasket,
+      invalidatePendingBookingsAndUnblockBasket,
     } = usePayment(basketId, companyId, memberId);
 
     const {
@@ -260,9 +260,9 @@ export const OnlinePaymentBasketUnified: React.FC<Props> = forwardRef(
     ]);
 
     const handleExpressCheckoutError = useCallback(() => {
-      invalidatePendingBookingsIfNecessary();
+      invalidatePendingBookingsAndUnblockBasket();
       onConfirmPaymentError?.();
-    }, [invalidatePendingBookingsIfNecessary, onConfirmPaymentError]);
+    }, [invalidatePendingBookingsAndUnblockBasket, onConfirmPaymentError]);
 
     const handleExpressCheckoutReady = useCallback(
       (event: {
@@ -427,8 +427,8 @@ export const OnlinePaymentBasketUnified: React.FC<Props> = forwardRef(
                 checkItemsBasket={checkBasketItems}
                 clientSecret={clientSecret}
                 companyId={companyId}
-                createPendingBookingsIfNecessary={
-                  createPendingBookingsIfNecessary
+                createPendingBookingsAndBlockBasket={
+                  createPendingBookingsAndBlockBasket
                 }
                 creditAccountBalance={creditAccountBalance}
                 detachPaymentMethod={detachPaymentMethod}
@@ -439,8 +439,8 @@ export const OnlinePaymentBasketUnified: React.FC<Props> = forwardRef(
                 fromApp={fromApp}
                 handleAssignInstalmentPayment={handleAssignInstalmentPayment}
                 instalmentPaymentSelectedId={instalmentPaymentSelectedId}
-                invalidatePendingBookingsIfNecessary={
-                  invalidatePendingBookingsIfNecessary
+                invalidatePendingBookingsAndUnblockBasket={
+                  invalidatePendingBookingsAndUnblockBasket
                 }
                 isEstablishmentBillingGroupSelected={
                   isEstablishmentBillingGroupSelected

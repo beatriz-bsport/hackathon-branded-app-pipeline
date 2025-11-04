@@ -301,13 +301,15 @@ class BridgeWidgetPage extends React.PureComponent<Props> {
   };
 
   fetchMemberTagList = () => {
-    this.props.fetchMemberTagList(this.props.companyId, {
-      onSuccess: (payload: Array<Tag>) => {
-        WidgetUtils.sendBridgeResponse(WidgetMessageType.REQUEST_MEMBER_TAG, {
-          data: payload,
-        });
-      },
-    });
+    if (this.props.auth.authenticated) {
+      this.props.fetchMemberTagList(this.props.companyId, {
+        onSuccess: (payload: Array<Tag>) => {
+          WidgetUtils.sendBridgeResponse(WidgetMessageType.REQUEST_MEMBER_TAG, {
+            data: payload,
+          });
+        },
+      });
+    }
   };
 
   fetchPlaybackUrl = (videoId: number) => {

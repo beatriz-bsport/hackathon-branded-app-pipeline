@@ -135,7 +135,6 @@ export type Theme = {
   show_past_sessions_calendar: boolean;
   mobile_app_default_page: DefaultPageOption;
   checkin_tablet_visible_session_cutoff_minute: number;
-  has_limited_access_to_sequential_marketing: boolean;
   simplifyUI: boolean;
   reset_password_url_redirection: string;
   earliest_hour_to_send_communications: number;

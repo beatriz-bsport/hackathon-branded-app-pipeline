@@ -27,10 +27,12 @@ import {
   fetchPaymentMethodList as fetchPaymentMethodListAPI,
   fetchPayoutList as fetchPayoutListAPI,
   fetchStripeBalance as fetchStripeBalanceAPI,
+  fetchStripePaymentMethodDomains as fetchStripePaymentMethodDomainsAPI,
   fetchStripePayoutList as fetchStripePayoutListAPI,
   getLinkedProductNames as getLinkedProductNamesAPI,
   getPaymentGroup as getPaymentGroupAPI,
   getPaymentGroupStatus as getPaymentGroupStatusAPI,
+  registerStripePaymentMethodDomain as registerStripePaymentMethodDomainAPI,
   requestSetupIntentSecret as requestSetupIntentSecretAPI,
   setBillingEstablishmentOnCompletedPaymentGroupStatus as setBillingEstablishmentOnCompletedPaymentGroupStatusAPI,
   setPaymentMethodAsDefault as setPaymentMethodAsDefaultAPI,
@@ -51,6 +53,7 @@ import type {
   PaymentMethod,
   Payout,
   StripeBalance,
+  StripePaymentMethodDomain,
   StripePayout,
 } from './types';
 import { RequestClientSecretPayload } from '../invoice/types';
@@ -600,9 +603,21 @@ export const checkStripeDomainActions = {
   ),
 };
 
-// Future actions for domain management:
-// export const listStripeDomainActions = { ... }  // STRIPE_DOMAIN/LIST/*
-// export const registerStripeDomainActions = { ... }  // STRIPE_DOMAIN/REGISTER/*
+export const listStripeDomainActions = {
+  isLoading: createAction<boolean>('STRIPE_DOMAIN/LIST/LOADING'),
+  error: createAction<Error | null>('STRIPE_DOMAIN/LIST/ERROR'),
+  success: createAction<StripePaymentMethodDomain[]>(
+    'STRIPE_DOMAIN/LIST/SUCCESS',
+  ),
+};
+
+export const registerStripeDomainActions = {
+  isLoading: createAction<boolean>('STRIPE_DOMAIN/REGISTER/LOADING'),
+  error: createAction<Error | null>('STRIPE_DOMAIN/REGISTER/ERROR'),
+  success: createAction<StripePaymentMethodDomain>(
+    'STRIPE_DOMAIN/REGISTER/SUCCESS',
+  ),
+};
 
 export function checkStripePaymentMethodDomainRegistration(
   companyId: number,
@@ -623,6 +638,47 @@ export function checkStripePaymentMethodDomainRegistration(
       options?.onError?.(err);
     } finally {
       dispatch(checkStripeDomainActions.isLoading(false));
+    }
+  };
+}
+
+export function fetchStripePaymentMethodDomains(
+  options?: OptionCallback<StripePaymentMethodDomain[]>,
+): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    dispatch(listStripeDomainActions.isLoading(true));
+    dispatch(listStripeDomainActions.error(null));
+    try {
+      const response = await fetchStripePaymentMethodDomainsAPI();
+      dispatch(listStripeDomainActions.success(response.data));
+      options?.onSuccess?.(response.data);
+    } catch (err) {
+      console.error(err);
+      dispatch(listStripeDomainActions.error(err));
+      options?.onError?.(err);
+    } finally {
+      dispatch(listStripeDomainActions.isLoading(false));
+    }
+  };
+}
+
+export function registerStripePaymentMethodDomain(
+  domain_name: string,
+  options?: OptionCallback<StripePaymentMethodDomain>,
+): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    dispatch(registerStripeDomainActions.isLoading(true));
+    dispatch(registerStripeDomainActions.error(null));
+    try {
+      const response = await registerStripePaymentMethodDomainAPI(domain_name);
+      dispatch(registerStripeDomainActions.success(response.data));
+      options?.onSuccess?.(response.data);
+    } catch (err) {
+      console.error(err);
+      dispatch(registerStripeDomainActions.error(err));
+      options?.onError?.(err);
+    } finally {
+      dispatch(registerStripeDomainActions.isLoading(false));
     }
   };
 }

@@ -72,7 +72,8 @@
       "unavailable": "Hidden",
       "shared": "Visible",
       "unlimited": "Unlimited",
-      "expireInXDays": "{{ expiration }} days"
+      "expireInXDays": "{{ expiration }} days",
+      "customAmount": "Custom"
     },
     "tooltips": {
       "archive": "Archive Gift Card",

@@ -513,7 +513,7 @@ export const DebouncedSearch: Story = {
     items,
     multiSelect: false,
     fullWidth: false,
-    debounceValue: 300,
+    debounceValue: 800,
     onValueChange: (value: string) => {
       console.log("Debounced search value:", value);
     },

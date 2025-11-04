@@ -867,7 +867,7 @@
   },
   "reportCreateModal": {
     "title": "Añadir vista",
-    "content": "You can adjust filters and columns for each view after its creation.",
+    "content": "Puedes ajustar los filtros y las columnas de cada vista después de crearla.",
     "inputLabel": "Ver nombre",
     "error": "Se requiere un nombre para la vista",
     "maxLength": "Un nombre puede tener un máximo de 200 caracteres.",

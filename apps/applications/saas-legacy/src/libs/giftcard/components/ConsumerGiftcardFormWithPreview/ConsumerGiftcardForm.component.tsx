@@ -28,6 +28,8 @@ import {
   FIELD_MESSAGE_CONTENT_MAX_LENGTH_DIGITAL,
   FIELD_MESSAGE_CONTENT_MAX_LENGTH_PRINTABLE,
 } from './schema';
+import { PriceField } from '#src/components/form-fields/PriceField.component';
+import { GIFTCARD_TYPES } from '../../constants';
 
 export const ConsumerGiftcardForm: FC<ConsumerGiftcardFormWithPreviewProps> = ({
   errors,
@@ -37,7 +39,7 @@ export const ConsumerGiftcardForm: FC<ConsumerGiftcardFormWithPreviewProps> = ({
   setFieldValue,
   values,
 }) => {
-  const { t } = useTranslation(['giftcard']);
+  const { t } = useTranslation(['giftcard', 'b2c_giftcard']);
   const classes = useStyles();
 
   const [selectedImage, setSelectedImage] = useState<number | null>(null);
@@ -73,12 +75,18 @@ export const ConsumerGiftcardForm: FC<ConsumerGiftcardFormWithPreviewProps> = ({
   const minDate = getFieldActivationDateTimeMinDate();
   const maxDate = getFieldActivationDateTimeMaxDate(minDate);
 
+  const isCustomGiftcard = giftcard.card_type === GIFTCARD_TYPES.CUSTOM;
+
+  const displayedPrice = isCustomGiftcard
+    ? t('giftcardCustomAmount.customAmount', { ns: 'b2c_giftcard' })
+    : getCurrencyDisplayWithPrice(giftcard.price);
+
   return (
     <div className={classes.container}>
       <div className={classes.titleContainer}>
         <Typography variant="h4">{giftcard.name}</Typography>
         <Typography color="primary" variant="h5">
-          {getCurrencyDisplayWithPrice(giftcard.price)}
+          {displayedPrice}
         </Typography>
       </div>
 
@@ -93,21 +101,45 @@ export const ConsumerGiftcardForm: FC<ConsumerGiftcardFormWithPreviewProps> = ({
       <TextField
         helperText={`${values.name.length}/40`}
         inputProps={{ maxLength: 40 }}
-        label={t('consumerGiftcard.form.name.label')}
+        label={t('consumerGiftcard.form.name.label', { ns: 'giftcard' })}
         name="name"
       />
+
+      {isCustomGiftcard && (
+        <PriceField
+          helperText={t('giftcardCustomAmount.form.priceInput.helperText', {
+            ns: 'b2c_giftcard',
+            minPrice: getCurrencyDisplayWithPrice(giftcard.min_price),
+            maxPrice: getCurrencyDisplayWithPrice(giftcard.max_price),
+          })}
+          inputProps={{
+            min: giftcard.min_price,
+            max: giftcard.max_price,
+            step: 1,
+          }}
+          label={t('giftcardCustomAmount.form.priceInput.label', {
+            ns: 'b2c_giftcard',
+          })}
+          name="price"
+          required={isCustomGiftcard}
+        />
+      )}
 
       <TextField
         helperText={`${values.message_is_from.length}/40`}
         inputProps={{ maxLength: 40 }}
-        label={t('consumerGiftcard.form.message_is_from.label')}
+        label={t('consumerGiftcard.form.message_is_from.label', {
+          ns: 'giftcard',
+        })}
         name="message_is_from"
       />
 
       <TextField
         helperText={`${values.message_is_for.length}/40`}
         inputProps={{ maxLength: 40 }}
-        label={t('consumerGiftcard.form.message_is_for.label')}
+        label={t('consumerGiftcard.form.message_is_for.label', {
+          ns: 'giftcard',
+        })}
         name="message_is_for"
       />
 
@@ -116,24 +148,32 @@ export const ConsumerGiftcardForm: FC<ConsumerGiftcardFormWithPreviewProps> = ({
         className={classes.multilineInput}
         helperText={`${values.message_content.length}/${messageContentFieldMaxCharCount}`}
         inputProps={{ maxLength: messageContentFieldMaxCharCount }}
-        label={t('consumerGiftcard.form.message_content.label')}
+        label={t('consumerGiftcard.form.message_content.label', {
+          ns: 'giftcard',
+        })}
         name="message_content"
         variant="outlined"
       />
 
       <FormControl component="fieldset">
         <FormLabel component="legend">
-          {t('consumerGiftcard.form.type.label')}
+          {t('consumerGiftcard.form.type.label', {
+            ns: 'giftcard',
+          })}
         </FormLabel>
         <RadioGroup name="kind" onChange={handleChangeKind} value={values.kind}>
           <FormControlLabel
             control={<Radio color="primary" />}
-            label={t('consumerGiftcard.form.type.option.physical')}
+            label={t('consumerGiftcard.form.type.option.physical', {
+              ns: 'giftcard',
+            })}
             value={ConsumerGiftcardKind.PRINTABLE}
           />
           <FormControlLabel
             control={<Radio color="primary" />}
-            label={t('consumerGiftcard.form.type.option.digital')}
+            label={t('consumerGiftcard.form.type.option.digital', {
+              ns: 'giftcard',
+            })}
             value={ConsumerGiftcardKind.DIGITAL}
           />
         </RadioGroup>
@@ -145,11 +185,17 @@ export const ConsumerGiftcardForm: FC<ConsumerGiftcardFormWithPreviewProps> = ({
             <DateField
               helperText={
                 errors.activation_datetime
-                  ? t('consumerGiftcard.form.activationDate.errorMaxDate')
-                  : t('consumerGiftcard.form.activationDate.helperText')
+                  ? t('consumerGiftcard.form.activationDate.errorMaxDate', {
+                      ns: 'giftcard',
+                    })
+                  : t('consumerGiftcard.form.activationDate.helperText', {
+                      ns: 'giftcard',
+                    })
               }
               initialFocusedDate={minDate}
-              label={t('consumerGiftcard.form.activationDate.label')}
+              label={t('consumerGiftcard.form.activationDate.label', {
+                ns: 'giftcard',
+              })}
               maxDate={maxDate}
               minDate={minDate}
               name="activation_datetime"
@@ -158,6 +204,7 @@ export const ConsumerGiftcardForm: FC<ConsumerGiftcardFormWithPreviewProps> = ({
             {!!values.activation_datetime && (
               <Alert className={classes.footer} severity="info">
                 {t('consumerGiftcard.form.footerPhysical', {
+                  ns: 'giftcard',
                   activation_date: formatAsDate(
                     values.activation_datetime.toISO() as string,
                   ),
@@ -178,7 +225,9 @@ export const ConsumerGiftcardForm: FC<ConsumerGiftcardFormWithPreviewProps> = ({
       {values.kind === ConsumerGiftcardKind.PRINTABLE &&
         !giftcard.expiration_days && (
           <Alert severity="info">
-            {t('consumerGiftcard.form.footerPhysicalUnlimited')}
+            {t('consumerGiftcard.form.footerPhysicalUnlimited', {
+              ns: 'giftcard',
+            })}
           </Alert>
         )}
 
@@ -191,25 +240,31 @@ export const ConsumerGiftcardForm: FC<ConsumerGiftcardFormWithPreviewProps> = ({
               isManager={isManager}
               selectedImage={selectedImage}
               textFieldName="background_image"
-              title={t('consumerGiftcard.form.select_image')}
+              title={t('consumerGiftcard.form.select_image', {
+                ns: 'giftcard',
+              })}
             />
           )}
 
           {/* @ts-expect-error */}
           <EmailInputWithChipsField
             emailList={values.recipients}
-            textFieldLabel={t('consumerGiftcard.form.recipients.label')}
+            textFieldLabel={t('consumerGiftcard.form.recipients.label', {
+              ns: 'giftcard',
+            })}
             textFieldName="recipients"
           />
 
           <DateField
-            label={t('consumerGiftcard.form.date_send.label')}
+            label={t('consumerGiftcard.form.date_send.label', {
+              ns: 'giftcard',
+            })}
             name="date_to_send"
           />
 
           <div className={classes.clockField}>
             <Typography className={classes.clockText}>
-              {t('consumerGiftcard.form.hour_send')}
+              {t('consumerGiftcard.form.hour_send', { ns: 'giftcard' })}
             </Typography>
             <TimeField name="date_to_send" />
           </div>
@@ -217,12 +272,14 @@ export const ConsumerGiftcardForm: FC<ConsumerGiftcardFormWithPreviewProps> = ({
           <Alert className={classes.footer} severity="info">
             {giftcard?.expiration_days
               ? t('consumerGiftcard.form.footer', {
+                  ns: 'giftcard',
                   expiration_days: giftcard?.expiration_days || 0,
                   date_send: dateToSend.toLocaleString(DateTime.DATE_SHORT),
                   hour_send: dateToSend.toLocaleString(DateTime.TIME_SIMPLE),
                   price: getCurrencyDisplayWithPrice(giftcard.price),
                 })
               : t('consumerGiftcard.form.footerUnlimited', {
+                  ns: 'giftcard',
                   date_send: dateToSend.toLocaleString(DateTime.DATE_SHORT),
                   hour_send: dateToSend.toLocaleString(DateTime.TIME_SIMPLE),
                   price: getCurrencyDisplayWithPrice(giftcard.price),

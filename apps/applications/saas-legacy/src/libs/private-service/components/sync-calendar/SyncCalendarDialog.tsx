@@ -37,12 +37,11 @@ const SyncCalendarDialog: React.FC<Props> = ({
   const { t } = useTranslation(['privateService']);
   const dispatch = useDispatch();
 
-  const handleCopyCalendarUrl = () => {
+  const handleCopyCalendarUrl = async () => {
     if (!!navigator.clipboard) {
-      navigator.clipboard.writeText(calendarUrl).then(() => {
-        dispatch(snackbarSuccess('calendar.syncCalendarDialog.copySuccess'));
-        onClose();
-      });
+      await navigator.clipboard.writeText(calendarUrl);
+      dispatch(snackbarSuccess('calendar.syncCalendarDialog.copySuccess'));
+      onClose();
     }
   };
 

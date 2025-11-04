@@ -353,7 +353,7 @@ export const InvoiceListPage = () => {
               className: "h-full justify-center",
             },
           }}
-          loadingProps={{ isLoading }}
+          loadingProps={{ isLoading: isLoading && invoices.length === 0 }}
         />
       </ListLayout.Content>
     </ListLayout>

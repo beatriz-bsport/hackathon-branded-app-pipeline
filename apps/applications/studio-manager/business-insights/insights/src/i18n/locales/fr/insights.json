@@ -2,7 +2,7 @@
   "pageTitle": "Aperçus",
   "sections": {
     "member": "Aperçus Membres",
-    "financial": "Santé Financière",
+    "financial": "Santé financière",
     "booking": "Performance des Réservations",
     "teacher": "Performance des Professeurs",
     "marketing": "Performance Marketing"
@@ -10,12 +10,24 @@
   "items": {
     "trial": {
       "title": "Suivre les performances de l'offre d'essai",
-      "description": "Découvrez plus sur l'acquisition, les taux de conversion et comment augmenter l'efficacité de votre offre d'essai."
+      "description": "Découvrez plus sur l'acquisition, les taux de conversion et comment augmenter l'efficacité de votre offre d'essai"
     },
     "recurring": {
-      "title": "Surveiller les revenus récurrents",
-      "description": "Suivez les tendances et comprenez comment stabiliser les flux de revenus récurrents."
+      "title": "Surveiller la performance des abonnements",
+      "description": "Suivez la santé des abonnements, analysez les revenus récurrents et identifiez les risques ou opportunités"
     }
+  },
+  "pages": {
+    "trialAnalysis": {
+      "title": "Performance de l'offre d'essai"
+    },
+    "recurringRevenue": {
+      "title": "Surveiller la performance des abonnements"
+    }
+  },
+  "errors": {
+    "loadDashboard": "Impossible de charger le tableau de bord. Veuillez rafraîchir la page.",
+    "fetchFailed": "Échec du chargement du tableau de bord. Veuillez rafraîchir la page."
   },
   "filter": {
     "selectFieldLabel": "Filtrer par section",

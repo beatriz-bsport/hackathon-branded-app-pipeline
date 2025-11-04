@@ -66,7 +66,9 @@ export const GroupActivitiesList: React.FC = () => {
         endGroupActions={[
           <Link key="link-to-archive" to={ROUTES.ARCHIVED}>
             <Button
-              iconLeft="archive"
+              kind="icon-button"
+              label={t("list.header.archivedActivities")}
+              icon="archive"
               intent="default"
               color="main"
               size="md"
@@ -109,10 +111,11 @@ export const GroupActivitiesList: React.FC = () => {
                 return (
                   <div className="flex flex-row gap-sm">
                     <Button
-                      iconLeft="copy-03"
+                      kind="icon-button"
+                      icon="copy-03"
                       intent="default"
                       color="main"
-                      aria-label={t("list.actions.duplicate")}
+                      label={t("list.actions.duplicate")}
                       size="md"
                       onClick={(e) => {
                         e.preventDefault();
@@ -120,10 +123,11 @@ export const GroupActivitiesList: React.FC = () => {
                       }}
                     />
                     <Button
-                      iconLeft="archive"
+                      kind="icon-button"
+                      icon="archive"
                       intent="default"
                       color="main"
-                      aria-label={t("list.actions.archive")}
+                      label={t("list.actions.archive")}
                       size="md"
                       onClick={(e) => {
                         e.preventDefault();

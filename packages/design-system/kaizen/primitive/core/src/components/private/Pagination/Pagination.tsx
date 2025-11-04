@@ -257,20 +257,22 @@ const Pagination: React.FC<PaginationProps> = ({
         {totalPages > 1 && (
           <>
             <Button
+              kind="icon-button"
+              label={t("pagination.firstPage")}
+              icon="chevron-left-double"
               intent="flat"
               color="default"
               size="sm"
-              iconLeft="chevron-left-double"
-              aria-label="First page"
               onClick={() => handlePageChange(1)}
               disabled={currentPage === 1 || disabled}
             />
             <Button
+              kind="icon-button"
+              label={t("pagination.previousPage")}
+              icon="chevron-left"
               intent="flat"
               color="default"
               size="sm"
-              iconLeft="chevron-left"
-              aria-label="Previous page"
               onClick={() => handlePageChange(currentPage - 1)}
               disabled={currentPage === 1 || disabled}
             />
@@ -315,20 +317,22 @@ const Pagination: React.FC<PaginationProps> = ({
               })}
             </div>
             <Button
+              kind="icon-button"
+              label={t("pagination.nextPage")}
+              icon="chevron-right"
               intent="flat"
               color="default"
               size="sm"
-              iconLeft="chevron-right"
-              aria-label="Next page"
               onClick={() => handlePageChange(currentPage + 1)}
               disabled={currentPage === totalPages || disabled}
             />
             <Button
+              kind="icon-button"
+              label={t("pagination.lastPage")}
+              icon="chevron-right-double"
               intent="flat"
               color="default"
               size="sm"
-              iconLeft="chevron-right-double"
-              aria-label="Last page"
               onClick={() => handlePageChange(totalPages)}
               disabled={currentPage === totalPages || disabled}
             />

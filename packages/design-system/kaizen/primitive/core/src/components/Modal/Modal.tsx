@@ -11,6 +11,7 @@ import Dialog, {
   type DialogPosition,
   type DialogSize,
 } from "#src/components/private/Dialog";
+import { useKaizenI18nInstance, useTranslation } from "#src/i18n";
 
 import Footer from "./Footer";
 import type { FooterDirection } from "./types";
@@ -65,6 +66,9 @@ const Modal: FC<ModalProps> = ({
   children,
   ...props
 }) => {
+  const i18n = useKaizenI18nInstance();
+  const { t } = useTranslation("default", { i18n });
+
   const handleClose = () => {
     onClose?.();
   };
@@ -105,7 +109,9 @@ const Modal: FC<ModalProps> = ({
           size="sm"
           intent="flat"
           color="default"
-          iconRight="x"
+          label={t("modal.close")}
+          kind="icon-button"
+          icon="x"
           className="h-fit"
           onClick={handleCloseButtonClick}
         />

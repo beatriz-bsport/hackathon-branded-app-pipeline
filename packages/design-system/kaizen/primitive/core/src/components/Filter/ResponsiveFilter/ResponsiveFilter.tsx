@@ -114,8 +114,9 @@ export const ResponsiveFilter = (props: ResponsiveFilterProps) => {
       color="main"
       size="md"
       intent="default"
-      iconLeft="filter-lines"
-      aria-label={t("filter.openAriaLabel")}
+      icon="filter-lines"
+      kind="icon-button"
+      label={t("filter.openAriaLabel")}
       onClick={() => setIsOpen(true)}
     />
   );

@@ -13,7 +13,11 @@ export const PushNotificationHelper = ({ id }: { id: string }) => {
             intent="default"
             color="main"
             size="md"
-            iconLeft="alert-circle"
+            kind="icon-button"
+            icon="alert-circle"
+            label={t(
+              "notificationRuleEventDetails.table.tooltip.pushNotificationHelper.label",
+            )}
             onMouseOver={() => setIsPopoverOpened(true)}
             onMouseLeave={() => setIsPopoverOpened(false)}
           />

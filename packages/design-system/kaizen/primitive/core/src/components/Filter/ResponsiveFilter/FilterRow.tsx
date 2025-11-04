@@ -102,7 +102,8 @@ const FilterRow = ({
                 iconLeft="filter-lines"
                 label={
                   element.field
-                    ? selectedField?.label
+                    ? (selectedField?.label ??
+                      t("filter.selectFieldPlaceholder"))
                     : t("filter.selectFieldPlaceholder")
                 }
                 onClick={() => {
@@ -126,8 +127,9 @@ const FilterRow = ({
             color="main"
             intent="default"
             size="md"
-            iconLeft="trash-01"
-            aria-label={t("filter.deleteAriaLabel")}
+            icon="trash-01"
+            kind="icon-button"
+            label={t("filter.deleteAriaLabel")}
             onClick={onDelete}
           />
         )}

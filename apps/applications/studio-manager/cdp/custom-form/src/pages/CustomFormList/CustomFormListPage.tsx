@@ -90,10 +90,12 @@ const CustomFormListPage: React.FC = () => {
             placement="bottom-left"
           >
             <Button
-              iconLeft="box"
+              kind="icon-button"
+              icon="box"
               intent="default"
               color="main"
               size="md"
+              label={t("pages.archived")}
               onClick={() => navigate(ROUTES.ARCHIVED)}
             />
           </Tooltip>,

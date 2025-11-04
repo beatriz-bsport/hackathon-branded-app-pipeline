@@ -224,6 +224,7 @@ export const CollapsibleWithComputedChildren: Story = {
               setIsCollapseOpen((prevState) => !prevState);
             return (
               <Button
+                label="Toggle Collapse"
                 color="default"
                 intent="flat"
                 size="md"

@@ -126,10 +126,12 @@ const NavigationSidebarHeader = ({
       />
       <Button
         className="shrink-0 hidden md:inline-flex"
+        kind="icon-button"
         intent="default"
         size="md"
         color="main"
-        iconLeft="search-refraction"
+        icon="search-refraction"
+        label={t("common.search")}
         onClick={onSearch}
       />
     </header>

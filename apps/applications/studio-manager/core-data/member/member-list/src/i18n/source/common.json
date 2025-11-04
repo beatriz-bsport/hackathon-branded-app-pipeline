@@ -5,7 +5,8 @@
   },
   "actions": {
     "addMember": "Add member",
-    "importLeads": "Import leads"
+    "importLeads": "Import leads",
+    "download": "Download"
   },
   "memberTable": {
     "loading": "Loading members ...",

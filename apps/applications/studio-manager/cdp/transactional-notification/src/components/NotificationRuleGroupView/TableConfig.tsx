@@ -148,7 +148,9 @@ export const getTableColumns = ({
           color="main"
           intent="default"
           size="md"
-          iconRight="edit-02"
+          kind="icon-button"
+          icon="edit-02"
+          label={t("notificationRuleEventDetails.table.actions.edit")}
           onClick={() => {
             openPreview(row.id);
           }}

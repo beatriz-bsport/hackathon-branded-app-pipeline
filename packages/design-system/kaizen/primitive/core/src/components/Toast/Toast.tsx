@@ -127,22 +127,28 @@ const Toast: React.FC<ToastProps> = ({
       </div>
       {(buttonLabel || buttonIcon) && (
         <div className="flex flex-row gap-sm">
-          <Button
-            label={buttonLabel}
-            iconLeft={buttonIcon}
-            {...(buttonLabel
-              ? {
-                  intent: "default",
-                  color: "main",
-                }
-              : {
-                  intent: "flat",
-                  color: "onstrong",
-                })}
-            size="sm"
-            onClick={handleButtonClick}
-            aria-label={`Dismiss ${title || "toast"}`}
-          />
+          {buttonLabel ? (
+            <Button
+              kind="default"
+              label={buttonLabel}
+              iconLeft={buttonIcon}
+              intent="default"
+              color="main"
+              size="sm"
+              onClick={handleButtonClick}
+              aria-label={`Dismiss ${title || "toast"}`}
+            />
+          ) : buttonIcon ? (
+            <Button
+              kind="icon-button"
+              label={`Dismiss ${title || "toast"}`}
+              icon={buttonIcon}
+              intent="flat"
+              color="onstrong"
+              size="sm"
+              onClick={handleButtonClick}
+            />
+          ) : null}
         </div>
       )}
     </li>

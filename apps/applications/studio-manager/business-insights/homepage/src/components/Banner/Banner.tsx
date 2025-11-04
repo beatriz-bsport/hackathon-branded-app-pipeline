@@ -2,6 +2,8 @@ import { type FC, useState } from "react";
 
 import { Body, Button, Title } from "@bsport/kaizen-primitive-core";
 
+import { useTranslation } from "#src/utils/i18n";
+
 type BannerProps = {
   ctaLabel: string;
   description: string;
@@ -40,6 +42,7 @@ export const Banner: FC<BannerProps> = ({
   onCTAClick,
   title,
 }) => {
+  const { t } = useTranslation("default");
   const [isShowing, setIsShowing] = useState(true);
   const bannerIdentifier = getBannerIdentifier(identifier);
 
@@ -66,7 +69,9 @@ export const Banner: FC<BannerProps> = ({
         </Title>
         <Button
           onClick={onCrossClick}
-          iconLeft="x-close"
+          kind="icon-button"
+          icon="x-close"
+          label={t("banner.close")}
           size="md"
           intent="flat"
           color="main"

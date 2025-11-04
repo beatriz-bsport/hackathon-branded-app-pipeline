@@ -36,7 +36,7 @@ type Props = {
   >;
   chipsDirection?: "start" | "end";
   customNode?: React.ReactNode;
-  buttons?: WithTooltip<ActionButton[]>;
+  buttons?: WithTooltip<ActionButton>[];
   dropdownConfig?: ActionsDropdownConfig;
   link?: string;
   className?: string;

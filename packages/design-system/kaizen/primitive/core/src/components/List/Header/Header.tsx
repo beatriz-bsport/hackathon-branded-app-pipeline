@@ -12,6 +12,7 @@ import useSplitActionsByDisplayOrder, {
   type ActionButton,
   type ActionsDropdownConfig,
 } from "#src/hooks/use-split-actions-by-display-order";
+import { useKaizenI18nInstance, useTranslation } from "#src/i18n";
 
 type HeaderProps = React.HTMLAttributes<HTMLDivElement> &
   VariantProps<typeof listItem> & {
@@ -59,6 +60,8 @@ const Header: React.FC<HeaderProps> = ({
   isCollapseOpen,
   ...props
 }) => {
+  const i18n = useKaizenI18nInstance();
+  const { t } = useTranslation("default", { i18n });
   const { indeterminateState, selectAll } = useCheckboxContext();
   const { actions, dropdownMenuProps } = useSplitActionsByDisplayOrder({
     actions: buttons || [],
@@ -113,13 +116,15 @@ const Header: React.FC<HeaderProps> = ({
         {dropdownMenuProps && <DropdownMenu {...dropdownMenuProps} />}
         {collapsibleProps && (
           <Button
+            kind="icon-button"
             color="default"
             intent="flat"
             size="md"
             className={`w-fit transform transition-transform duration-300 ease-in-out ${
               isCollapseOpen ? "rotate-0" : "-rotate-90"
             }`}
-            iconRight="chevron-down"
+            icon="chevron-down"
+            label={t("list.toggleCollapse")}
             onClick={onCollapse}
           />
         )}

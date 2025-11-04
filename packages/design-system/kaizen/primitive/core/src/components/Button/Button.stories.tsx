@@ -14,6 +14,12 @@ const meta: Meta<typeof Button> = {
   argTypes: {
     label: {
       control: { type: "text" },
+      type: { name: "string", required: true },
+    },
+    kind: {
+      options: ["default", "icon-button"],
+      control: { type: "inline-radio" },
+      table: { defaultValue: { summary: "default" } },
     },
     intent: {
       options: Object.keys(intents),
@@ -38,6 +44,14 @@ const meta: Meta<typeof Button> = {
     loading: {
       control: { type: "boolean" },
       table: { defaultValue: { summary: "false" } },
+    },
+    icon: {
+      options: [undefined, ...Object.keys(icons)],
+      control: { type: "select" },
+      table: {
+        type: { summary: "string" },
+        defaultValue: { summary: "undefined" },
+      },
     },
     iconLeft: {
       options: [undefined, ...Object.keys(icons)],
@@ -76,6 +90,21 @@ export const Primary: Story = {
     loading: false,
     iconLeft: "arrow-right",
     iconRight: undefined,
+    fullWidth: false,
+  },
+};
+
+export const IconButton: Story = {
+  name: "Icon Button",
+  args: {
+    kind: "icon-button",
+    label: "Close dialog",
+    icon: "x-close",
+    intent: "flat",
+    color: "default",
+    size: "md",
+    disabled: false,
+    loading: false,
     fullWidth: false,
   },
 };

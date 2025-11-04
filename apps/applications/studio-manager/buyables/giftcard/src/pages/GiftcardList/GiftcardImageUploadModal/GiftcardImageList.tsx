@@ -45,10 +45,12 @@ export const GiftcardImageList: React.FC<GiftcardImageListProps> = ({
     buttons: [
       {
         id: `giftcard-image-preview-action-${item.id}`,
+        kind: "icon-button",
         size: "md",
         intent: "flat",
         color: "default",
-        iconLeft: "trash-01",
+        icon: "trash-01",
+        label: t("toasts.actions.close"),
         onClick: () => {
           onArchiveClick(item.id);
         },

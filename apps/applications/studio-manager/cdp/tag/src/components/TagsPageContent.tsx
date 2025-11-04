@@ -118,7 +118,9 @@ export const TagsPageContent = ({
         actionsConfig={[
           {
             id: "previous-tag-details",
-            iconLeft: "chevron-up",
+            kind: "icon-button",
+            icon: "chevron-up",
+            label: t("tagsDetails.tooltip.previousSubTag"),
             intent: "default",
             size: "md",
             color: "main",
@@ -130,7 +132,9 @@ export const TagsPageContent = ({
           },
           {
             id: "next-tag-details",
-            iconLeft: "chevron-down",
+            kind: "icon-button",
+            icon: "chevron-down",
+            label: t("tagsDetails.tooltip.nextSubTag"),
             intent: "default",
             size: "md",
             color: "main",

@@ -147,7 +147,9 @@ const ARGS = {
   END_GROUP_ACTIONS: [
     <Button
       key="chevron-right-button"
-      iconLeft="chevron-right-double"
+      kind="icon-button"
+      label="Next"
+      icon="chevron-right-double"
       color="main"
       intent="default"
       size="md"
@@ -156,10 +158,12 @@ const ARGS = {
       <Popover.Anchor>
         {({ setIsPopoverOpened }) => (
           <Button
+            kind="icon-button"
+            label="Awards"
+            icon="award-03"
             intent="default"
             color="main"
             size="md"
-            iconLeft="award-03"
             onClick={() => setIsPopoverOpened((prev) => !prev)}
           />
         )}
@@ -266,18 +270,22 @@ const ARGS = {
   START_GROUP_ACTIONS: [
     <Button
       key="bank-note-button"
+      kind="icon-button"
+      label="Bank note"
+      icon="bank-note-03"
       intent="default"
       color="main"
       size="md"
-      iconLeft="bank-note-03"
     />,
     <Tooltip key="calendar-button" label="Super tooltip" className="h-full">
       <Button
-        key="bank-note-button"
+        key="calendar-button"
+        kind="icon-button"
+        label="Calendar"
+        icon="calendar"
         intent="default"
         color="main"
         size="md"
-        iconLeft="calendar"
       />
     </Tooltip>,
   ],

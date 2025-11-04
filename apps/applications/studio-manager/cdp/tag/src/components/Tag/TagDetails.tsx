@@ -75,7 +75,9 @@ export const TagDetails = ({ tag }: TagDetailsProps) => {
           >
             <Button
               id="edit-tag-button"
-              iconLeft="edit-02"
+              kind="icon-button"
+              icon="edit-02"
+              label={t("tagsDetails.tooltip.editTag")}
               size="md"
               intent="default"
               color="main"

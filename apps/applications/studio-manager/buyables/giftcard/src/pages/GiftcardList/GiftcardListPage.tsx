@@ -42,10 +42,12 @@ export const GiftcardListPage: React.FC = () => {
             placement="bottom-left"
           >
             <Button
-              iconLeft="box"
+              kind="icon-button"
+              icon="box"
               intent="default"
               color="main"
               size="md"
+              label={t("pages.archivedList")}
               onClick={navigateToArchivePage}
             />
           </Tooltip>,

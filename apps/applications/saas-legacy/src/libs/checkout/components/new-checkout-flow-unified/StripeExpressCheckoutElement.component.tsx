@@ -25,10 +25,13 @@ import { getCurrencyCode, getStripePkKey } from '#src/libs/theme/selectors';
 import { getLocaleFromLanguage } from '#src/utils/language';
 import { useBasketPaymentContext } from './BasketPaymentContext';
 import type { StripePaymentElementConfig } from '#src/libs/company/types';
+import { verifyPriceBasket as verifyPriceBasketAPI } from '#src/libs/payment/api';
 
 type StripeExpressCheckoutElementProps = {
   allowedWallets?: { applePay: boolean; googlePay: boolean };
-  basketTotalPriceCts: number;
+  amountToPayCts: number;
+  basketId: string;
+  checkBasketItems: (basketId: string) => Promise<boolean>;
   clientSecret: string;
   disabled?: boolean;
   onError?: () => void;
@@ -42,8 +45,9 @@ type StripeExpressCheckoutElementProps = {
 
 type StripeExpressCheckoutElementInnerProps = Omit<
   StripeExpressCheckoutElementProps,
-  'basketTotalPriceCts' | 'stripePaymentElementConfig'
+  'amountToPayCts' | 'stripePaymentElementConfig'
 > & {
+  amountToPayCts: number;
   paymentMethods: Record<string, 'always' | 'never'>;
   paymentMethodOrder: string[];
 };
@@ -51,6 +55,9 @@ type StripeExpressCheckoutElementInnerProps = Omit<
 const StripeExpressCheckoutElementInner: React.FC<
   StripeExpressCheckoutElementInnerProps
 > = ({
+  amountToPayCts,
+  basketId,
+  checkBasketItems,
   clientSecret,
   disabled,
   onError,
@@ -61,7 +68,7 @@ const StripeExpressCheckoutElementInner: React.FC<
   paymentMethodOrder,
 }) => {
   const classes = useStyles();
-  const { t } = useTranslation('checkout');
+  const { t } = useTranslation(['checkout', 'invoice']);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('xs'));
   const [wallets, setWallets] = useState<{
@@ -101,6 +108,34 @@ const StripeExpressCheckoutElementInner: React.FC<
     if (!stripe || !elements) return;
 
     setIsExpressPayLoading(true);
+
+    // Validate basket before confirming payment
+    // This ensures the basket amount hasn't changed in another tab
+    try {
+      const { data } = await verifyPriceBasketAPI(basketId);
+      const basketItemsChecked = await checkBasketItems(basketId);
+
+      if (!basketItemsChecked) {
+        setIsExpressPayLoading(false);
+        onError?.();
+        return;
+      }
+
+      if ((amountToPayCts || amountToPayCts === 0) && amountToPayCts !== data) {
+        setIsExpressPayLoading(false);
+        window.alert(
+          t('paymentPanel.actions.basketInconsistent', { ns: 'invoice' }),
+        );
+        window.location.reload();
+        return;
+      }
+    } catch (err) {
+      console.error('Basket validation error:', err);
+      setIsExpressPayLoading(false);
+      onError?.();
+      return;
+    }
+
     const { error } = await stripe.confirmPayment({
       elements,
       clientSecret,
@@ -127,9 +162,13 @@ const StripeExpressCheckoutElementInner: React.FC<
     stripe,
     elements,
     setIsExpressPayLoading,
+    amountToPayCts,
+    basketId,
+    checkBasketItems,
     clientSecret,
     onError,
     onSuccessfulPayment,
+    t,
   ]);
 
   const handleCancel = useCallback(() => {
@@ -183,7 +222,9 @@ const StripeExpressCheckoutElement: React.FC<
 > = (props) => {
   const {
     allowedWallets = { applePay: false, googlePay: false },
-    basketTotalPriceCts,
+    amountToPayCts,
+    basketId,
+    checkBasketItems,
     clientSecret,
     disabled,
     onError,
@@ -218,7 +259,7 @@ const StripeExpressCheckoutElement: React.FC<
     <Elements
       options={{
         mode: 'payment',
-        amount: basketTotalPriceCts,
+        amount: amountToPayCts,
         currency,
         ...(!stripePaymentElementConfig.isDefaultForRegion &&
         stripePaymentElementConfig.stripeId
@@ -239,6 +280,9 @@ const StripeExpressCheckoutElement: React.FC<
     >
       <StripeExpressCheckoutElementInner
         {...{
+          amountToPayCts,
+          basketId,
+          checkBasketItems,
           clientSecret,
           disabled,
           onError,

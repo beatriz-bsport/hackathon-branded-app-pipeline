@@ -200,6 +200,12 @@ export const useBasket = (
         .catch((err) => {
           console.error(err);
           options?.onError?.(err);
+        })
+        .finally(() => {
+          handleSetPaymentStatus({
+            paymentGroupId,
+            isPaymentProcessing: false,
+          });
         });
     },
     [

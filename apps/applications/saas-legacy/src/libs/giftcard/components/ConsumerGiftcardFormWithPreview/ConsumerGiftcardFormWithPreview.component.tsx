@@ -65,7 +65,7 @@ const ConsumerGiftcardFormWithPreview = React.memo(
     return (
       <Form className={classes.container}>
         {isHorizontal ? (
-          <Grid container className={classes.verticalContainer}>
+          <Grid container>
             <Grid
               item
               className={classes.previewContainer}
@@ -87,10 +87,8 @@ const ConsumerGiftcardFormWithPreview = React.memo(
           </Grid>
         ) : (
           <div className={classes.verticalContainer}>
-            <div className={`${classes.previewContainer} ${classes.center}`}>
-              {previewContent}
-            </div>
-            <div className={classes.innerContainer}>{formContent}</div>
+            <div className={classes.center}>{previewContent}</div>
+            <div>{formContent}</div>
           </div>
         )}
       </Form>

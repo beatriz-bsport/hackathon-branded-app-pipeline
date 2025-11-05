@@ -16,12 +16,12 @@ type Props = {
 };
 
 export const GiftcardMarketplace: FC<Props> = ({ giftcard, onClick }) => {
-  const { t } = useTranslation('b2b_giftcard');
+  const { t } = useTranslation('b2c_giftcard');
   const classes = useStyles();
 
   const displayedPrice =
     giftcard.card_type === GIFTCARD_TYPES.CUSTOM || !giftcard.price
-      ? t('customAmount.label')
+      ? t('giftcardCustomAmount.customAmount')
       : getCurrencyDisplayWithPrice(giftcard.price);
 
   return (

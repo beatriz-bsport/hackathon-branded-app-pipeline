@@ -7,6 +7,17 @@
     },
     "failToCreate": "Failed to create a new Pack"
   },
+  "detailsPage": {
+    "packsBreadcrumbs": "Packs",
+    "loading": "Loading Pack",
+    "canNotFindPack": "Could not find Pack",
+    "buttons": {
+      "copyPaymentLink": "Copy payment link"
+    },
+    "toasts": {
+      "paymentLinkCopied": "Link copied"
+    }
+  },
   "addItemsModal": {
     "title": "Add items",
     "buttons": {

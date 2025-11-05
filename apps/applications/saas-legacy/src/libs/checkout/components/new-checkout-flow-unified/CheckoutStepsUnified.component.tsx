@@ -38,6 +38,7 @@ type CheckoutStepsProps = {
   companyCountry?: string;
   companyId: number;
   currentStep: StepType;
+  displayedAmountToPayCts: number;
   enableMultiLocalization: boolean;
   isOnlinePaymentAvailable: boolean;
   isPayLaterAvailable: boolean;
@@ -58,6 +59,7 @@ export const CheckoutStepsUnified: React.FC<CheckoutStepsProps> = forwardRef(
       companyCountry,
       companyId,
       currentStep,
+      displayedAmountToPayCts,
       enableMultiLocalization,
       isOnlinePaymentAvailable,
       isPayLaterAvailable,
@@ -154,6 +156,7 @@ export const CheckoutStepsUnified: React.FC<CheckoutStepsProps> = forwardRef(
               showAcceptTermsAndConditions
               basketId={basket.id}
               companyId={companyId}
+              displayedAmountToPayCts={displayedAmountToPayCts}
               onConfirmPaymentSuccess={onConfirmPaymentSuccess}
               payerContext={{ memberId: basket.member }}
               stripePaymentElementConfig={{
@@ -173,6 +176,7 @@ export const CheckoutStepsUnified: React.FC<CheckoutStepsProps> = forwardRef(
       currentStep.id,
       enableMultiLocalization,
       handleBasketDeliverySubmit,
+      displayedAmountToPayCts,
       isOnlinePaymentAvailable,
       isPayLaterAvailable,
       isTotalPriceNull,

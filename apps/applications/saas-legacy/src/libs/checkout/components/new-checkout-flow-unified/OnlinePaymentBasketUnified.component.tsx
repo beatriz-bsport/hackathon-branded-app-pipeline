@@ -53,6 +53,7 @@ type Props = {
   companyId: number;
   hideConfirmPaymentButton?: boolean;
   showAcceptTermsAndConditions?: boolean;
+  displayedAmountToPayCts?: number;
   payerContext: {
     memberId: number;
     fromApp?: boolean;
@@ -72,6 +73,7 @@ export const OnlinePaymentBasketUnified: React.FC<Props> = forwardRef(
       companyId,
       hideConfirmPaymentButton,
       showAcceptTermsAndConditions,
+      displayedAmountToPayCts,
       payerContext: { memberId, fromApp, termsAndConditionsAccepted },
       stripePaymentElementConfig,
       onCancelPaymentBeforeConfirming,
@@ -282,7 +284,6 @@ export const OnlinePaymentBasketUnified: React.FC<Props> = forwardRef(
       handleFetchBasket();
       handleFetchInstalmentPaymentByBasket();
       handleFetchMemberPaymentMethodList();
-      if (paymentGroupId) handleSetPaymentProcessing(false);
     }, []);
 
     // This useEffect is mandatory in the new checkout flow, since if this condition is not
@@ -317,6 +318,14 @@ export const OnlinePaymentBasketUnified: React.FC<Props> = forwardRef(
     useEffect(() => {
       getClientSecret(selectedPaymentEngine);
     }, [selectedPaymentEngine]);
+
+    // Prioritize displayedAmountToPayCts if provided over basketTotalPriceCts.
+    // This is optional as it is specific to the basket and not Express Pass Checkout & One Click Booking, as it doesn't persist there.
+    // basketTotalPriceCts can be refetched after assigning an instalment, which we want to avoid
+    // to ensure the basket hasn't changed during the payment process.
+    const amountToPayCts =
+      displayedAmountToPayCts ??
+      basketTotalPriceCts - (basketTotalPricePrepaidLinesCts || 0);
 
     const allowedWallets = {
       applePay:
@@ -363,9 +372,9 @@ export const OnlinePaymentBasketUnified: React.FC<Props> = forwardRef(
           <div className={classes.expressCheckoutContainer}>
             <StripeExpressCheckoutElement
               allowedWallets={allowedWallets}
-              basketTotalPriceCts={
-                basketTotalPriceCts - (basketTotalPricePrepaidLinesCts || 0)
-              }
+              amountToPayCts={amountToPayCts}
+              basketId={basketId}
+              checkBasketItems={checkBasketItems}
               clientSecret={clientSecret}
               disabled={isExpressCheckoutDisabled}
               onError={handleExpressCheckoutError}
@@ -391,9 +400,7 @@ export const OnlinePaymentBasketUnified: React.FC<Props> = forwardRef(
           selectedPaymentEngine !== PAYMENT_ENGINE_PAYPAL &&
           paymentMethodSelected !== PAYMENT_GROUP_METHOD_IDENTIFIER_TWINT && (
             <InstalmentPaymentSelector
-              basketPriceCts={
-                basketTotalPriceCts - (basketTotalPricePrepaidLinesCts || 0)
-              }
+              basketPriceCts={amountToPayCts}
               fromApp={fromApp}
               instalmentPaymentConfigurationList={
                 instalmentPaymentConfigurations
@@ -419,7 +426,7 @@ export const OnlinePaymentBasketUnified: React.FC<Props> = forwardRef(
                   isConsumerAllowedToUseInternalAccount
                 }
                 basketId={basketId}
-                basketTotalPriceCts={basketTotalPriceCts}
+                basketTotalPriceCts={amountToPayCts}
                 cardBillingDetailsMandatory={
                   isCardBillingDetailsMandatory && false
                 }
@@ -475,9 +482,7 @@ export const OnlinePaymentBasketUnified: React.FC<Props> = forwardRef(
                   isConsumerAllowedToUseInternalAccount
                 }
                 basketId={basketId}
-                basketPriceCts={
-                  basketTotalPriceCts - (basketTotalPricePrepaidLinesCts || 0)
-                }
+                basketPriceCts={amountToPayCts}
                 clientSecret={clientSecret}
                 clientSecretLoading={isClientSecretLoading}
                 creditAccountBalance={creditAccountBalance}

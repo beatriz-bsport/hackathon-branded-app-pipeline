@@ -46,6 +46,7 @@ export const UserspaceSwitcher = (props: Props) => {
     storedToken,
     disconnect,
     companyId,
+    role,
     has_completed_account_configuration_on_boarding,
     hasEnabledRevampedBO,
     theme,
@@ -91,6 +92,7 @@ export const UserspaceSwitcher = (props: Props) => {
   }, [authenticated, isFranchisor, isManager, isCoach, companyId, theme]);
 
   const { navigateToHomepage, shouldNavigateToHomepage } = useRouteToHomepage({
+    role,
     revampedBoEnabledForUser: hasEnabledRevampedBO,
     revampedBoEnabledInTheme: !!theme?.revamped_backoffice_enabled,
   });
@@ -135,6 +137,7 @@ const connector = connect(
     isManager: state.auth.is_manager,
     isFranchisor: state.auth.is_franchisor,
     storedToken: state.auth.token,
+    role: state.auth.role,
     has_completed_account_configuration_on_boarding:
       state.auth.has_completed_account_configuration_on_boarding,
     email_confirmed: state.auth.email_confirmed,

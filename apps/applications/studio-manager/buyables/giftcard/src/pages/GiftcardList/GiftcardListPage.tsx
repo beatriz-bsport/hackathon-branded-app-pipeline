@@ -26,11 +26,10 @@ export const GiftcardListPage: React.FC = () => {
       <ListLayout.Header
         pageTitle={t("pages.list")}
         callToActionButton={
-          <Button
+          <ListLayout.Button
             iconLeft="plus"
             intent="call-to-action"
             color="main"
-            size="md"
             label={t("listPage.header.buttons.addGiftcard")}
             onClick={navigateToCreatePage}
           />

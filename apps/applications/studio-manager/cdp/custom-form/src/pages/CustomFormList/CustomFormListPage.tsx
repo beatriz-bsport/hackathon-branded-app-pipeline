@@ -74,11 +74,10 @@ const CustomFormListPage: React.FC = () => {
       <ListLayout.Header
         pageTitle={t("pages.active")}
         callToActionButton={
-          <Button
+          <ListLayout.Button
             iconLeft="plus"
             intent="call-to-action"
             color="main"
-            size="md"
             label={t("activeList.actions.addForm")}
             onClick={handleOpenCreateFormModal}
           />

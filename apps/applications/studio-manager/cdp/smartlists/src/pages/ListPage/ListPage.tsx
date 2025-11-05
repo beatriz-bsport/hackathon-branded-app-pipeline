@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { Button, List, ListLayout } from "@bsport/kaizen-primitive-core";
+import { List, ListLayout } from "@bsport/kaizen-primitive-core";
 import type { ListItemProps } from "@bsport/kaizen-primitive-core";
 import type { Smartlist } from "@bsport/store-cdp-smartlist";
 
@@ -128,9 +128,8 @@ const ListPage: React.FC = () => {
       <ListLayout.Header
         pageTitle={t("title")}
         callToActionButton={
-          <Button
+          <ListLayout.Button
             color="main"
-            size="md"
             intent="call-to-action"
             label={t("addSmartlist")}
             iconLeft="plus"

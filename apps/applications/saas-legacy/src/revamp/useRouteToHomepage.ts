@@ -4,6 +4,14 @@ import { useSafeFlag, FeatureFlags } from '#src/utils/feature-flag';
 import { useShowRevampedSidebar } from './useShowRevampedSidebar';
 import { REVAMPED_BO_DOMAIN } from './constants';
 import { useLocation } from 'react-router';
+import { RoleType } from '@bsport/common/lib/master-data/user-role';
+
+const ALLOWED_ROLES = [
+  RoleType.USER_ROLE_NO_RESTRICTION,
+  RoleType.USER_ROLE_ADMIN,
+  RoleType.USER_ROLE_ONLY_OFFER_MANAGEMENT,
+  RoleType.USER_ROLE_ONLY_OFFER_MANAGEMENT_AND_MEMBER,
+];
 
 /**
  * Hook to manage redirection to the revamp homepage when the homepage is enabled, as
@@ -11,6 +19,7 @@ import { useLocation } from 'react-router';
  *
  * @param revampedBoEnabledForUser Whether the revamped BO has been enabled at the user level.
  * @param revampedBoEnabledInTheme Whether the revamped BO has been enabled at the company level.
+ * @param role If provided, it checks that the bsport role does not have restricted urls
  *
  * @returns
  * - navigateToHomepage: callback that handles the navigation to the revamp homepage.
@@ -30,9 +39,11 @@ import { useLocation } from 'react-router';
 export const useRouteToHomepage = ({
   revampedBoEnabledForUser,
   revampedBoEnabledInTheme,
+  role,
 }: {
   revampedBoEnabledForUser: boolean;
   revampedBoEnabledInTheme: boolean;
+  role?: number;
 }) => {
   const isRevampedBOEnabled = useShowRevampedSidebar({
     enabledForUser: revampedBoEnabledForUser,
@@ -49,12 +60,16 @@ export const useRouteToHomepage = ({
 
   const isLocal = Config.REACT_APP_SENTRY_ENVIRONMENT === 'local';
 
+  // If role is not provided, set to true and let other mechanism handle the permissions check
+  // If provided, allow the redirection only for bsport roles that don't have restricted paths
+  const hasBOAccess = role ? ALLOWED_ROLES.includes(role) : true;
+
   return {
     navigateToHomepage: useCallback(() => {
       if (isLocal) {
         // eslint-disable-next-line no-console
         console.info(
-          `[REVAMP] On deployed environments, navigateToHomepage would have redirected to ${REVAMPED_BO_DOMAIN}/`,
+          `On deployed environments, navigateToHomepage would have redirected to ${REVAMPED_BO_DOMAIN}/`,
         );
         return null;
       }
@@ -64,9 +79,9 @@ export const useRouteToHomepage = ({
     }, [isLocal]),
 
     shouldNavigateToHomepage:
-      hasRevampFeaturesEnabled && !isLocal && isAtRootPath,
+      hasRevampFeaturesEnabled && !isLocal && isAtRootPath && hasBOAccess,
 
     shouldFallbackToHomepage:
-      hasRevampFeaturesEnabled && !isLocal && !isStudioLocation,
+      hasRevampFeaturesEnabled && !isLocal && !isStudioLocation && hasBOAccess,
   };
 };

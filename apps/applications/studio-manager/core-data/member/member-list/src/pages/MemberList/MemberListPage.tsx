@@ -49,11 +49,10 @@ export const MemberListPage: React.FC = () => {
         filterRef={filterRef}
         callToActionButton={
           permissions.create ? (
-            <Button
+            <ListLayout.Button
               iconLeft="plus"
               intent="call-to-action"
               color="main"
-              size="md"
               label={t("actions.addMember")}
               onClick={handleAddMember}
             />

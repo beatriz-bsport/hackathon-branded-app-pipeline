@@ -76,11 +76,10 @@ export const GroupActivitiesList: React.FC = () => {
           </Link>,
         ]}
         callToActionButton={
-          <Button
+          <ListLayout.Button
             iconLeft="plus"
             intent="call-to-action"
             color="main"
-            size="md"
             label={t("list.header.add")}
           />
         }

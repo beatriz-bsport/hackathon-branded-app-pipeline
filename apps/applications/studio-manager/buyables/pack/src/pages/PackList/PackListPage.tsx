@@ -1,7 +1,7 @@
 import { useEffect, useId, useState } from "react";
 
 import { getEnv } from "@bsport/envs";
-import { Button, ListLayout } from "@bsport/kaizen-primitive-core";
+import { ListLayout } from "@bsport/kaizen-primitive-core";
 
 import { PackCreateModal } from "#src/components/PackCreateModal";
 import { PackDeleteModal } from "#src/components/PackDeleteModal";
@@ -60,10 +60,9 @@ export const PackListPage: React.FC = () => {
       <ListLayout.Header
         pageTitle={t("title")}
         callToActionButton={
-          <Button
+          <ListLayout.Button
             color="main"
             intent="call-to-action"
-            size="md"
             label={t("actions.addAPack")}
             iconLeft="plus"
             onClick={onAddPackClick}

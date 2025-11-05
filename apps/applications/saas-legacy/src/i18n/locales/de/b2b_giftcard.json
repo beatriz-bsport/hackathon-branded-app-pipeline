@@ -1,0 +1,21 @@
+{
+  "customAmount": {
+    "label": "Benutzerdefiniert",
+    "form": {
+      "toggle": "Benutzerdefinierter Wert",
+      "maxPrice": {
+        "label": "Maximum",
+        "helperText": "Gib eine ganze Zahl bis {{ maxPriceWithCurrency }} ein",
+        "limitExplanation": "Warum diese Zahl?"
+      },
+      "minPrice": {
+        "label": "Minimum",
+        "helperText": "Gib eine ganze Zahl von mindestens 1 ein"
+      },
+      "errors": {
+        "maxGreaterThanMin": "Der Maximalwert sollte größer als der Minimalwert sein"
+      }
+    },
+    "featureBlocked": "Benutzerdefinierte Geschenkgutscheine sind noch nicht verfügbar."
+  }
+}

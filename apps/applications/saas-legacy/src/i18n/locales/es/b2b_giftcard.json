@@ -1,6 +1,6 @@
 {
   "customAmount": {
-    "label": "Personalización",
+    "label": "Personalizado",
     "form": {
       "toggle": "Valor personalizado",
       "maxPrice": {

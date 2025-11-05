@@ -168,10 +168,8 @@ export const NewCheckoutFlow: React.FC<Props> = ({
   const isPayLaterAvailable = basket.available_payment_methods.includes(
     PAYMENT_METHOD_CREDIT_ACCOUNT.id,
   );
-  const totalAmountToPay =
-    ((basket.total_price_cts || 0) -
-      (basket.total_price_prepaid_lines_cts || 0)) /
-    100;
+  const displayedAmountToPayCts =
+    (basket.total_price_cts || 0) - (basket.total_price_prepaid_lines_cts || 0);
   const isBasketModificationDisabled =
     isPaymentProcessing || isCurrentBasketProcessing || basketLoading;
   const noOfferInCheckoutItems = basketOffers?.length === 0;
@@ -236,22 +234,6 @@ export const NewCheckoutFlow: React.FC<Props> = ({
     [],
   );
 
-  // DISPLAY CONSTANTS DEFINITION
-
-  // All the submit buttons display logic should be here.
-
-  // NOTE: If one day we gather all payment methods (including Pay Later or something online different
-  // from Stripe) in one card selector/carousel, with only one submit button for all these payment methods,
-  // it would be more convenient to handle the state (including activated/disabled, processing and submit callback definition)
-  // of the submit button in the`PaymentStep` component.
-
-  // Indeed this component would handle a kind of 'selectedPaymentMethod' and redefine the activated/
-  // disabled state of the button according to this 'selectedPaymentMethod'.
-
-  // Then, this higher - level component
-  // `NewCheckoutFlow` should not be concerned about the chosen payment method and only look at the activated/disabled
-  // state of the submit button.
-
   // Empty basket
   const basketIsEmpty = useMemo(
     () =>
@@ -294,10 +276,11 @@ export const NewCheckoutFlow: React.FC<Props> = ({
               companyCountry={companyCountry}
               companyId={companyId}
               currentStep={currentStep}
+              displayedAmountToPayCts={displayedAmountToPayCts}
               enableMultiLocalization={enableMultiLocalization ?? false}
               isOnlinePaymentAvailable={isOnlinePaymentAvailable}
               isPayLaterAvailable={isPayLaterAvailable}
-              isTotalPriceNull={totalAmountToPay <= 0}
+              isTotalPriceNull={displayedAmountToPayCts <= 0}
               onConfirmPaymentSuccess={onConfirmPaymentSuccess}
               patchBasket={patchBasket}
               setCurrentStep={setCurrentStep}
@@ -376,7 +359,7 @@ export const NewCheckoutFlow: React.FC<Props> = ({
                   memberId: basket.member,
                   companyId: companyId,
                 }}
-                totalAmountToPay={totalAmountToPay}
+                totalAmountToPay={displayedAmountToPayCts / 100}
               />
             )}
           </div>
@@ -390,7 +373,7 @@ export const NewCheckoutFlow: React.FC<Props> = ({
                   memberId: basket.member,
                   companyId: companyId,
                 }}
-                totalAmountToPay={totalAmountToPay}
+                totalAmountToPay={displayedAmountToPayCts / 100}
               />
             </div>
           )}

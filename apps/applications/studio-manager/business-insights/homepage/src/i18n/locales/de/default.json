@@ -1,1 +1,68 @@
-{}
+{
+  "pageTitle": "Start",
+  "header": {
+    "title": "Willkommen zurück, {{ username }}",
+    "titleWithoutName": "Willkommen zurück"
+  },
+  "banner": {
+    "close": "Banner schließen",
+    "insights": {
+      "title": "Neue Insights-Funktion",
+      "description": "Mit den Echtzeit-Einblicken kannst du Trends erkennen und die Leistung deines Studios analysieren, um gute Entscheidungen zu treffen.",
+      "ctaLabel": "Jetzt entdecken"
+    }
+  },
+  "upcomingClassesPanel": {
+    "title": "Nächsten Kurse",
+    "headers": {
+      "class": "Kurs",
+      "teacher": "Lehrkraft",
+      "teacherSubstitution": "Vertretung",
+      "classFillRate": "Auslastung"
+    },
+    "emptyList": "Keine bevorstehenden Kurse",
+    "teacher": {
+      "helperText": "Lehrkraft"
+    },
+    "substitution": {
+      "helperText": "Vertretung",
+      "errorMissingReplacement": "Vertretung nötig"
+    },
+    "rates": {
+      "badge": {
+        "waitingCount": "{{ count }} auf der Warteliste"
+      },
+      "tooltip": {
+        "classIsFull": "Dieser Kurs ist leider schon voll.",
+        "hasEmptySpots_one": "{{ count }} Platz noch frei",
+        "hasEmptySpots_other": "{{ count }} Plätze noch frei",
+        "hasEmptySpotsForWaitlist_one": "{{ count }} Platz auf der Warteliste ausstehend",
+        "hasEmptySpotsForWaitlist_other": "{{ count }} Plätze auf der Warteliste ausstehend"
+      }
+    }
+  },
+  "exploreSection": {
+    "exploreThePlatform": {
+      "title": "Erkunde die Plattform",
+      "productUpdatesCard": {
+        "title": "Produkt-Neuigkeiten",
+        "description": "Schau dir unsere Produkt-Neuigkeiten an."
+      }
+    },
+    "advices": {
+      "title": "Tipps von bsport",
+      "latestNewsCard": {
+        "title": "News von bsport",
+        "description": "Entdecke die neuesten Nachrichten und Trends der Branche"
+      }
+    }
+  },
+  "keyMetrics": {
+    "title": "Hauptzahlen",
+    "unavailable": "Metriken sind derzeit nicht verfügbar"
+  },
+  "insightsPanel": {
+    "title": "Einblicke auf einen Blick",
+    "unavailable": "Einblicke sind derzeit nicht verfügbar"
+  }
+}

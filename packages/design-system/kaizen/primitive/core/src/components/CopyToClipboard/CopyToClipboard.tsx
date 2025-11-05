@@ -8,7 +8,6 @@ import { useKaizenI18nInstance, useTranslation } from "#src/i18n";
 export type CopyToClipboardProps = {
   value?: string;
   toastMessage?: string;
-  label: string;
   tooltip?: string;
   placement?: TooltipProps["placement"];
 } & ButtonProps;

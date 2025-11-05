@@ -6,5 +6,6 @@ export type TableRowData = {
   limitedTime: boolean;
   numberOfProducts: number;
   price: number;
-  link: string;
+  link: string | undefined;
+  onRowClick: (() => void | Promise<void>) | undefined;
 };

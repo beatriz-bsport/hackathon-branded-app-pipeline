@@ -43,6 +43,10 @@ export const fuzzySearchPacksAPI = (params: FuzzySearchParams): ApiConfig => {
   ];
 };
 
+export const fetchPackAPI = ({ id }: { id: number }): ApiConfig => {
+  return [`${API_URL}/${id}/`];
+};
+
 export const archivePackAPI = ({ id }: { id: number }): ApiConfig => {
   return [
     `${API_URL}/${id}/`,

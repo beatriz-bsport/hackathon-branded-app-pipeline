@@ -11,6 +11,7 @@ import { useCreateModal } from "#src/hooks/useCreateModal";
 import { useFetchPacks } from "#src/hooks/useFetchPacks";
 import { useSearchPacks } from "#src/hooks/useSearchPacks";
 import { LEGACY_URLS } from "#src/urls";
+import { USE_REVAMP_DETAILS } from "#src/utils/constants";
 import { useTranslation } from "#src/utils/i18n";
 
 export const PackListPage: React.FC = () => {
@@ -21,11 +22,12 @@ export const PackListPage: React.FC = () => {
 
   const { closeCreateModal, isCreateModalOpen, openCreateModal } =
     useCreateModal();
-  const env = getEnv();
 
   const onAddPackClick = () => {
-    if (env === "local" || env === "dev") {
-      // WIP - Display Create modal only on local or dev
+    const env = getEnv();
+
+    // WIP - Display Create modal in local, dev and FB
+    if (USE_REVAMP_DETAILS || !["production", "staging"].includes(env)) {
       openCreateModal();
     } else {
       // Use window history to navigate to legacy backoffice

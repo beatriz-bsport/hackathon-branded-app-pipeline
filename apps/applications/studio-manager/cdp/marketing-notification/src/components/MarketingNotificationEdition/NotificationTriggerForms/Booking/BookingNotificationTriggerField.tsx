@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 import type { ControlledFormProps } from "@bsport/form";
-import { Alert, Body, Button } from "@bsport/kaizen-primitive-core";
+import { Alert, Body } from "@bsport/kaizen-primitive-core";
 
 import { BookingActionField } from "#src/components/MarketingNotificationEdition/NotificationTriggerForms/Booking/BookingActionField";
 import { BookingOccurrenceField } from "#src/components/MarketingNotificationEdition/NotificationTriggerForms/Booking/BookingOccurenceField";
@@ -23,7 +23,7 @@ import {
   isValidBookingStatus,
 } from "#src/components/MarketingNotificationEdition/NotificationTriggerForms/Booking/utils";
 import { useTranslation } from "#src/utils/i18n";
-import type { TriggerConfigValidationFormData } from "#src/utils/schemas/types";
+import type { BookingTriggerConfigValidationFormData } from "#src/utils/schemas/types";
 
 const BOOKING_OCCURENCE_ANY_BOOKING_FORM_VALUE = 0;
 
@@ -33,8 +33,8 @@ interface BookingOccurrence {
 }
 
 type BookingNotificationTriggerFieldProps = Omit<
-  ControlledFormProps<TriggerConfigValidationFormData>,
-  "children"
+  ControlledFormProps<BookingTriggerConfigValidationFormData>,
+  "children" | "onSubmit"
 >;
 
 export const BookingNotificationTriggerField = ({
@@ -58,13 +58,12 @@ export const BookingNotificationTriggerField = ({
         value={selectedBookingAction}
         onChange={(event) => {
           const newValue = event.target.value;
-          console.log("new value : ", newValue);
           if (isValidBookingAction(newValue)) {
             setSelectedBookingAction(newValue);
             if (newValue === BOOKING_ACTION_MAKES_BOOKING) {
               setSelectedBookingStatus(BOOKING_STATUS_PRESENT);
               methods.setValue(
-                "notificationKind",
+                "bookingEventKind",
                 BOOKING_STATUS_MAP_TO_BOOKING_EVENT_KIND[
                   BOOKING_STATUS_PRESENT
                 ],
@@ -73,7 +72,7 @@ export const BookingNotificationTriggerField = ({
             } else {
               setSelectedBookingStatus(BOOKING_STATUS_REFUNDED);
               methods.setValue(
-                "notificationKind",
+                "bookingEventKind",
                 BOOKING_STATUS_MAP_TO_BOOKING_EVENT_KIND[
                   BOOKING_STATUS_REFUNDED
                 ],
@@ -96,7 +95,7 @@ export const BookingNotificationTriggerField = ({
             const newNotificationKind =
               BOOKING_STATUS_MAP_TO_BOOKING_EVENT_KIND[newNotificationStatus];
             setSelectedBookingStatus(newNotificationStatus);
-            methods.setValue("notificationKind", newNotificationKind, {
+            methods.setValue("bookingEventKind", newNotificationKind, {
               shouldValidate: true,
             });
           } else {
@@ -125,7 +124,7 @@ export const BookingNotificationTriggerField = ({
             }));
             if (newValue === BOOKING_OCCURENCE_ANY_BOOKING) {
               methods.setValue(
-                "eventOccurrence",
+                "bookingOccurrence",
                 BOOKING_OCCURENCE_ANY_BOOKING_FORM_VALUE,
                 {
                   shouldValidate: true,
@@ -133,7 +132,7 @@ export const BookingNotificationTriggerField = ({
               );
             } else if (newValue === BOOKING_OCCURENCE_SPECIFIC_AMOUNT) {
               methods.setValue(
-                "eventOccurrence",
+                "bookingOccurrence",
                 selectedBookingOccurrence.amount,
                 {
                   shouldValidate: true,
@@ -147,7 +146,7 @@ export const BookingNotificationTriggerField = ({
           }
         }}
         onAmountChange={(newAmount) => {
-          methods.setValue("eventOccurrence", Number(newAmount), {
+          methods.setValue("bookingOccurrence", Number(newAmount), {
             shouldValidate: true,
           });
           setSelectedBookingOccurrence((prev) => ({
@@ -155,13 +154,6 @@ export const BookingNotificationTriggerField = ({
             amount: Number(newAmount),
           }));
         }}
-      />
-      <Button
-        intent="call-to-action"
-        color="main"
-        size="md"
-        label="Check form"
-        onClick={() => console.log("form values : ", methods.getValues())}
       />
     </div>
   );

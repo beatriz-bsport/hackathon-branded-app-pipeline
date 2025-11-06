@@ -1,7 +1,4 @@
-import { useFormController } from "@bsport/form";
-
 import { BookingEventForm } from "#src/components/MarketingNotificationEdition/NotificationTriggerForms/Booking/BookingEventForm";
-import { triggerConfigValidationSchema } from "#src/utils/schemas/triggerConfigValidation";
 import {
   NOTIFICATION_TYPE_TO_REFINED_TYPE,
   type SelectableNotificationType,
@@ -19,21 +16,9 @@ export const TriggerConditionStep = ({
   const notificationRefinedType =
     NOTIFICATION_TYPE_TO_REFINED_TYPE[notificationType];
 
-  const methods = useFormController({
-    schema: triggerConfigValidationSchema,
-    mode: "onBlur",
-    defaultValues: {
-      itemIds,
-    },
-  });
-
   if (notificationRefinedType === "booking") {
     return (
-      <BookingEventForm
-        itemIds={itemIds}
-        {...methods}
-        onSubmit={(data) => console.log("validate form : ", data)}
-      />
+      <BookingEventForm itemIds={itemIds} notificationType={notificationType} />
     );
   }
   return null;

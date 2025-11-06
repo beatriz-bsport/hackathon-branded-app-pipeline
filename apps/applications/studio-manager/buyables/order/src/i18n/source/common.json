@@ -3,10 +3,10 @@
     "label": "Status",
     "values": {
       "toBeProcessed": "To be processed",
-      "cancelled": "Cancelled",
+      "cancelled": "Canceled",
       "clickAndCollect": "Click & collect",
       "sent": "Sent",
-      "initialized": "Initialized"
+      "initialized": "Started"
     }
   }
 }

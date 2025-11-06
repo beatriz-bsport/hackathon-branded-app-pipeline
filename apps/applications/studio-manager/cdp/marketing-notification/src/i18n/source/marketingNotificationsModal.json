@@ -71,6 +71,11 @@
           "placeholder": "Select an Appointment Pass",
           "loading": "Searching Appointment Passes..."
         },
+        "smartlists": {
+          "label": "Associated Smartlists",
+          "placeholder": "Select associated smartlists",
+          "loading": "Searching smartlists..."
+        },
         "errors": {
           "notEmpty": "Select a trigger type to continue",
           "atLeastOne": "Select at least 1  trigger type"
@@ -81,7 +86,16 @@
       "title": "Set up an automation",
       "errors": {
         "noFloat": "Must be a whole number without decimal points",
-        "atLeastOneTimeValue": "Must be at least 1 {{ timeUnit }}"
+        "atLeastOneTimeValue": "Must be at least 1 {{ timeUnit }}",
+        "smartlistShouldBeFilledWhenToggled": "Select a Smartlist or deactivate this option to continue"
+      },
+      "smartlists": {
+        "included": {
+          "label": "Send notification if member is included in a Smartlist"
+        },
+        "excluded": {
+          "label": "Don't send notification if member is included in a Smartlist"
+        }
       },
       "booking": {
         "actionLabel": "Send this notification when a member",

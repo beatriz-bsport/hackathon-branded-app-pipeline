@@ -29,10 +29,6 @@ export const EditMarketingNotificationModal = ({
       size="lg"
       steps={[
         {
-          label: t("steps.label.triggerType"),
-          content: <TriggerTypeStep />,
-        },
-        {
           label: t("steps.label.notificationRules"),
           content: (
             <TriggerConditionStep
@@ -40,6 +36,10 @@ export const EditMarketingNotificationModal = ({
               itemIds={[9]}
             />
           ),
+        },
+        {
+          label: t("steps.label.triggerType"),
+          content: <TriggerTypeStep />,
         },
         {
           label: t("steps.label.content"),

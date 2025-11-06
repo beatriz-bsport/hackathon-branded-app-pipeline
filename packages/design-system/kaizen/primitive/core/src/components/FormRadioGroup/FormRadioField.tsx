@@ -233,7 +233,7 @@ const FormRadioField: React.FC<FormRadioFieldProps> = ({
       }}
     >
       <div
-        className={classNames("flex items-center", {
+        className={classNames("flex items-center relative", {
           "justify-end": direction === "end",
         })}
         style={{ gridArea: "input" }}

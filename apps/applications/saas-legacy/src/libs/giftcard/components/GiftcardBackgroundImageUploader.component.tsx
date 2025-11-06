@@ -82,7 +82,7 @@ export const GiftcardBackgroundImageUploader = (props: Props) => {
             ),
             background_image:
               props.giftcardBackgroundImageList[selectedImage]?.image,
-            price: t(
+            price_bought: t(
               'consumerGiftcard.previewPlaceholder.giftcard_amount',
             ) as string,
           }}

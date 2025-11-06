@@ -343,7 +343,8 @@
     "updated_status": "Updated status",
     "admission": "Admission",
     "kind": "Type",
-    "billing_date_start": "First billing date"
+    "billing_date_start": "First billing date",
+    "type": "Type"
   },
   "groupedColumns": {
     "member": "Member",

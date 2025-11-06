@@ -9,7 +9,7 @@ import { GIFTCARD_TYPES } from '../constants';
 
 type Props = {
   consumerGiftcard: ConsumerGiftcardPersonnalizationElements & {
-    price?: number | string | null;
+    price_bought?: number | string | null;
   };
   companyCover?: string;
   giftcard?: Giftcard | null;
@@ -22,14 +22,19 @@ const ConsumerGiftcardPreview: FC<Props> = (props) => {
   const classes = useStyles(props);
   const { consumerGiftcard, companyCover, giftcard, valueIsPlaceholderString } =
     props;
-  const { name, message_is_from, message_is_for, message_content, price } =
-    consumerGiftcard;
+  const {
+    name,
+    message_is_from,
+    message_is_for,
+    message_content,
+    price_bought,
+  } = consumerGiftcard;
 
   let displayedPrice: string | number = '';
-  if (price) {
+  if (price_bought) {
     displayedPrice = valueIsPlaceholderString
-      ? price
-      : getCurrencyDisplayWithPrice(price);
+      ? price_bought
+      : getCurrencyDisplayWithPrice(price_bought);
   } else if (giftcard) {
     if (giftcard.card_type === GIFTCARD_TYPES.CUSTOM || !giftcard.price) {
       const customMessage = t('customAmount.label', {

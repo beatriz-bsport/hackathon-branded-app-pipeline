@@ -1,5 +1,6 @@
 import { createSelector } from 'reselect';
 import memoize from 'memoize-one';
+import { safeParseFloat } from '#src/utils/numbers';
 import { RootState } from '../../reducers';
 import type {
   Giftcard,
@@ -207,19 +208,21 @@ export const onlyUsable = memoize(
       if (!consumer_giftcard) return null;
       if (!Array.isArray(consumer_giftcard)) {
         if (
-          parseFloat(consumer_giftcard?.giftcard.price || '0') >
-          parseFloat(consumer_giftcard?.consumed_amount_gifted || '0')
+          safeParseFloat(consumer_giftcard?.price_bought) >
+          safeParseFloat(consumer_giftcard?.consumed_amount_gifted)
         ) {
           return consumer_giftcard;
         }
         return null;
       }
-      return consumer_giftcard.filter((cgc: ConsumerGiftcard<Giftcard>) => {
-        return (
-          parseFloat(cgc.giftcard?.price || '0') >
-          parseFloat(cgc?.consumed_amount_gifted || '0')
-        );
-      });
+      return consumer_giftcard.filter(
+        (consumerGiftcard: ConsumerGiftcard<Giftcard>) => {
+          return (
+            safeParseFloat(consumerGiftcard?.price_bought) >
+            safeParseFloat(consumerGiftcard?.consumed_amount_gifted)
+          );
+        },
+      );
     }),
 );
 

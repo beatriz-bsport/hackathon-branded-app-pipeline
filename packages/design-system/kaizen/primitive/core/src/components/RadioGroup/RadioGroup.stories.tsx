@@ -1,5 +1,14 @@
+import {
+  Controls,
+  Description,
+  Primary,
+  Stories,
+  Story,
+  Subtitle,
+  Title,
+} from "@storybook/blocks";
 import type { Meta, StoryObj } from "@storybook/react";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useId, useState } from "react";
 
 import RadioGroup from "./RadioGroup";
 
@@ -34,8 +43,23 @@ const meta: Meta<typeof RadioGroup> = {
       table: { type: { summary: "string" } },
       options: ["start", "end"],
     },
-    onChangeValue: {
+    onChange: {
       table: { type: { summary: "function" } },
+    },
+  },
+  parameters: {
+    docs: {
+      page: () => (
+        <>
+          <Title />
+          <Subtitle />
+          <Description />
+          <Primary />
+          <Controls />
+          {/* 🟢 Only show the stories list, no Primary story */}
+          <Stories includePrimary={false} />
+        </>
+      ),
     },
   },
 };
@@ -44,9 +68,10 @@ export default meta;
 
 type Story = StoryObj<typeof RadioGroup>;
 
-export const Primary: Story = {
-  name: "RadioGroup",
+export const ControlledComponent: Story = {
+  name: "Controlled Radio Group",
   render: (args) => {
+    const id = useId();
     const [checked, setChecked] = useState(args.value);
     useEffect(() => {
       setChecked(args.value);
@@ -55,10 +80,11 @@ export const Primary: Story = {
     return (
       <RadioGroup
         {...args}
+        id={id}
+        onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+          setChecked(event.target.value);
+        }}
         value={checked}
-        onChangeValue={(event: React.ChangeEvent<HTMLInputElement>) =>
-          setChecked(event.target.value)
-        }
       />
     );
   },
@@ -66,23 +92,23 @@ export const Primary: Story = {
     id: "radio-group-1",
     options: [
       {
-        id: "radio-1",
-        value: "Mango",
+        value: "mango",
+        label: "You want Mango",
         helperText: "bsport’s favourite",
       },
       {
-        id: "radio-2",
-        value: "Orange",
+        value: "orange",
+        label: "Or you prefer Orange",
         errorText: "Too much orange",
       },
       {
-        id: "radio-3",
-        value: "Banana",
+        value: "banana",
+        label: "Maybe Banana",
         helperText: "another looong helper text",
         errorText: "Too much banana",
       },
     ],
-    value: "",
+    value: "mango",
     disabled: false,
     direction: "start",
   },

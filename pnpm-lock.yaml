@@ -66,6 +66,9 @@ importers:
       '@storybook/addon-themes':
         specifier: 8.6.14
         version: 8.6.14(storybook@8.6.14(prettier@3.3.3))
+      '@storybook/blocks':
+        specifier: 8.6.14
+        version: 8.6.14(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(storybook@8.6.14(prettier@3.3.3))
       '@storybook/core-server':
         specifier: 8.6.14
         version: 8.6.14(storybook@8.6.14(prettier@3.3.3))

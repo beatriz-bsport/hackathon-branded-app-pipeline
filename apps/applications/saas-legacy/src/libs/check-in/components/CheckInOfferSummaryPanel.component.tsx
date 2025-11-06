@@ -75,7 +75,12 @@ class CheckInOfferSummaryPanel extends Component<Props> {
           </Typography>
         </div>
         <div className={classes.item}>
-          <Level align="center" customLevel={customLevel} variant="body1" />
+          <Level
+            isChip
+            align="center"
+            customLevel={customLevel}
+            variant="body1"
+          />
         </div>
 
         <div className={classes.item} />

@@ -1,7 +1,7 @@
 {
   "pageTitle": "Approfondimenti",
   "sections": {
-    "member": "Approfondimenti Membri",
+    "member": "Panoramica sui membri",
     "financial": "Salute Finanziaria",
     "booking": "Performance Prenotazioni",
     "teacher": "Performance Insegnanti",
@@ -9,13 +9,25 @@
   },
   "items": {
     "trial": {
-      "title": "Tracciare le prestazioni dell'offerta di prova",
-      "description": "Scopri di più su acquisizione, tassi di conversione e come aumentare l'efficacia della tua offerta di prova."
+      "title": "Monitora le prestazioni delle offerte di prova",
+      "description": "Scopri di più su acquisizione, tassi di conversione e come aumentare l'efficacia della tua offerta di prova"
     },
     "recurring": {
-      "title": "Monitorare i ricavi ricorrenti",
-      "description": "Segui le tendenze e comprendi come stabilizzare i flussi di reddito ricorrenti."
+      "title": "Monitorare le prestazioni degli abbonamenti",
+      "description": "Monitora lo stato degli abbonamenti, analizza i ricavi ricorrenti e individua rischi o opportunità"
     }
+  },
+  "pages": {
+    "trialAnalysis": {
+      "title": "Prestazioni delle offerte di prova"
+    },
+    "recurringRevenue": {
+      "title": "Monitorare le prestazioni degli abbonamenti"
+    }
+  },
+  "errors": {
+    "loadDashboard": "Impossibile caricare il cruscotto. Per favore aggiorna la pagina.",
+    "fetchFailed": "Impossibile caricare il cruscotto. Per favore aggiorna la pagina."
   },
   "filter": {
     "selectFieldLabel": "Filtra per sezione",

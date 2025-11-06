@@ -10,10 +10,10 @@
     },
     "actions": {
       "createTagGroup": {
-        "label": "Add main tag"
+        "label": "Create main tag"
       },
       "createTag": {
-        "label": "Add sub tag"
+        "label": "Create sub-tag"
       }
     },
     "loadingState": {
@@ -21,20 +21,20 @@
     },
     "emptyFilteredPageState": {
       "title": "No results found",
-      "description": "No main tags match your filters. Try clearing them to see more results.",
+      "description": "No main tags found — clear filters to see more results",
       "secondaryButtonLabel": "Clear filters"
     },
     "emptyPageState": {
       "title": "No tags yet",
-      "description": "Create tags to manage your members"
+      "description": "Create tags to target and track your members"
     },
     "emptyMainTagState": {
-      "description": "You haven’t created any sub tags in this main tag yet"
+      "description": "You haven’t created any sub-tags in this main tag yet"
     }
   },
   "tagGroupList": {
     "actions": {
-      "addSubTag": "Add a sub tag",
+      "addSubTag": "Create sub-tag",
       "rename": "Rename",
       "delete": "Delete"
     },
@@ -46,68 +46,67 @@
   },
   "tagGroupModal": {
     "title": {
-      "create": "Create a main tag",
+      "create": "Create main tag",
       "update": "Edit main tag"
     },
-    "helper": "Example: add a Main Tag named \"VIP\", add the Sub Tags \"Yes\" and \"No\", and you'll have an overview of all your current VIPs.",
     "formField": {
       "tagGroupName": {
         "label": "Main tag name",
         "placeholder": "Add a main tag name...",
         "errors": {
           "required": "Enter a main tag name",
-          "alreadyInUse": "This name is already in use. Please choose a different main tag name.",
-          "tooLong": "The main tag name is too long, it should be less than {{ max }} characters",
-          "tooShort": "The main tag name is too short, it should be at least {{ min}} characters"
+          "alreadyInUse": "Name already in use",
+          "tooLong": "Name must be less than {{ max }} characters",
+          "tooShort": "Name must be at least {{ min}} characters"
         }
       }
     },
     "actions": {
       "create": "Create",
       "update": "Save",
-      "cancel": "Cancel",
-      "goTo": "Go to Main Tag"
+      "cancel": "Close",
+      "goTo": "View main tag"
     },
     "result": {
       "createSuccess": {
-        "title": "Main Tag created"
+        "title": "Main tag created"
       },
       "updateSuccess": {
-        "title": "Main Tag updated"
+        "title": "Main tag updated"
       },
       "updateFailure": {
-        "title": "There was an error while updating your main tag"
+        "title": "Unable to update main tag due to technical issue"
       },
       "createFailure": {
-        "title": "There was an error while creating your main tag"
+        "title": "Unable to create main tag"
       }
     }
   },
   "tagModal": {
     "title": {
-      "create": "Create a sub tag",
-      "update": "Edit sub tag"
+      "create": "Create a sub-tag",
+      "update": "Edit sub-tag"
     },
     "formField": {
       "mainTagAssociated": {
-        "label": "Select a main tag",
-        "placeholder": "No main tag selected",
+        "label": "Main tag",
+        "placeholder": "Select a main tag",
         "errors": {
-          "required": "Select a main tag"
+          "required": "You need to select a main tag first"
         }
       },
       "tagName": {
-        "label": "Sub tag name",
-        "placeholder": "Add a sub tag name...",
+        "label": "Sub-tag",
+        "placeholder": "Enter a sub-tag name...",
         "errors": {
-          "required": "Enter a sub tag name",
-          "alreadyInUse": "This name is already in use. Please choose a different sub tag name.",
-          "tooLong": "The sub tag name is too long, it should be less than {{ max }} characters",
-          "tooShort": "The sub tag name is too short, it should be at least {{ min}} characters"
+          "required": "Enter a sub-tag name first",
+          "alreadyInUse": "Name already in use",
+          "tooLong": "Name must be less than {{ max }} characters",
+          "tooShort": "Name must be at least {{ min}} characters"
         }
       },
       "tagColor": {
-        "label": "Colour",
+        "label": "Color",
         "placeholder": "#FFFFFF"
       }
     },
@@ -115,31 +114,31 @@
       "create": "Create",
       "update": "Update",
       "cancel": "Cancel",
-      "goTo": "Go to Sub Tag"
+      "goTo": "View sub-tag"
     },
     "result": {
       "createSuccess": {
-        "title": "Sub Tag created"
+        "title": "Sub-tag created"
       },
       "createFailure": {
-        "title": "Your sub tag could not be saved"
+        "title": "Unable to save sub-tag "
       },
       "updateSuccess": {
-        "title": "Sub Tag updated"
+        "title": "Sub-tag updated"
       },
       "updateFailure": {
-        "title": "Your sub tag revisions could not be saved"
+        "title": "Unable to update sub-tag "
       }
     }
   },
   "deleteMainTagModal": {
     "title": "Permanently delete main tag?",
-    "description": "Deleting this main tag will permanently remove it from {{ number }} members that it's assigned to.",
+    "description": "Deleting this main tag will permanently remove it from {{ number }} members that it's assigned to",
     "alerts": {
       "tagInUse": {
-        "description": "Just a heads up: deleting this main tag will also remove any associated sub-tags and tag rules within any conditional workflows that it's used in.",
+        "description": "Just a heads up: deleting this main tag will also remove any associated sub-tags and tag rules in conditional workflows that it's used in",
         "confirmCheckbox": {
-          "label": "Please tick to confirm: ",
+          "label": "Tick to confirm: ",
           "description": "I understand that deleting this main tag is a permanent action that will affect any associated workflows.",
           "confirmButtonTooltip": "Please check the impact of this change before you continue"
         }
@@ -151,22 +150,22 @@
     },
     "result": {
       "success": {
-        "title": "Your main tag was deleted"
+        "title": "Main tag deleted"
       },
       "failure": {
-        "title": "Failed to delete main tag"
+        "title": "Unable to delete main tag"
       }
     }
   },
   "deleteSubTagModal": {
     "title": "Permanently delete sub-tag?",
-    "description": "Deleting this sub-tag will permanently remove it from {{number}} members that it's assigned to. ",
+    "description": "Deleting this sub-tag will permanently remove it from {{number}} members that it's assigned to",
     "alerts": {
       "tagInUse": {
-        "description": "Just a heads up: deleting this sub-tag will also affect any conditional workflows that it's used in. ",
+        "description": "Just a heads up: deleting this sub-tag will also affect any conditional workflows that it's used in",
         "confirmCheckbox": {
-          "label": "Please tick to confirm:",
-          "description": "I understand that deleting this sub-tag is a permanent action that will affect any associate workflows. ",
+          "label": "Tick to confirm:",
+          "description": "I understand that deleting this sub-tag is a permanent action that will affect any associated workflows",
           "confirmButtonTooltip": "Please check the impact of this change before you continue"
         }
       }
@@ -177,10 +176,10 @@
     },
     "result": {
       "success": {
-        "title": "Your sub tag was deleted"
+        "title": "Sub-tag deleted"
       },
       "failure": {
-        "title": "There was an error while deleting your sub tag"
+        "title": "Unable to delete sub-tag, please try again"
       }
     }
   },
@@ -196,8 +195,8 @@
       "tagMember": "Tag member",
       "untagMember": "Untag member",
       "editTag": "Change name or color",
-      "previousSubTag": "View previous sub tag",
-      "nextSubTag": "View next sub tag"
+      "previousSubTag": "View previous sub-tag",
+      "nextSubTag": "View next sub-tag"
     },
     "segmentedControl": {
       "tagged": "Tagged",
@@ -207,18 +206,18 @@
       "actions": {
         "tag": {
           "success": {
-            "title": "Member tagged successfully"
+            "title": "Member tagged"
           },
           "failure": {
-            "title": "Failed to tag member"
+            "title": "Unable to tag member, please try again"
           }
         },
         "untag": {
           "success": {
-            "title": "Member untagged successfully"
+            "title": "Member untagged"
           },
           "failure": {
-            "title": "Failed to untag member"
+            "title": "Unable to untag member, please try again"
           }
         }
       },
@@ -232,8 +231,8 @@
           "untagged": "No members untagged yet"
         },
         "description": {
-          "untagged": "You can tag members by clicking on the plus icon next to their name on the untagged list.",
-          "tagged": "You can untag members by clicking on the minus icon next to their name on the tagged list."
+          "untagged": "You can tag members by clicking on the plus icon next to their name on the untagged list",
+          "tagged": "You can untag members by clicking on the minus icon next to their name on the tagged list"
         }
       }
     }
@@ -260,18 +259,18 @@
     "results": {
       "tag": {
         "success": {
-          "title": "All members were tagged"
+          "title": "All members tagged"
         },
         "failure": {
-          "title": "Failed to tag members"
+          "title": "Unable to tag members, please try again"
         }
       },
       "untag": {
         "success": {
-          "title": "All members were untagged"
+          "title": "All members untagged"
         },
         "failure": {
-          "title": "Failed to untag members"
+          "title": "Unable to untag members, please try again"
         }
       }
     }

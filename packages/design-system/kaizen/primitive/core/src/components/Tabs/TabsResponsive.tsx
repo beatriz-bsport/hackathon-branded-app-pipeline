@@ -3,6 +3,7 @@ import React from "react";
 import Button from "#src/components/Button";
 import DropdownMenu from "#src/components/DropdownMenu";
 import Popover from "#src/components/Popover";
+import { useKaizenI18nInstance, useTranslation } from "#src/i18n";
 
 import { TabsContext, useTabsContext } from "./TabsContext";
 
@@ -28,6 +29,8 @@ export function TabsResponsive({
   activeTab,
   setActiveTab,
 }: TabsResponsiveProps) {
+  const i18n = useKaizenI18nInstance();
+  const { t } = useTranslation("default", { i18n });
   const parentContext = useTabsContext();
 
   const activeTabData = parentContext.activeTabData;
@@ -57,12 +60,13 @@ export function TabsResponsive({
         <DropdownMenu.Trigger>
           {({ setIsOpen, isOpen }) => (
             <Button
+              kind="default"
               intent="default"
               color="main"
               size="md"
               iconLeft={activeTabData?.icon}
               iconRight="chevron-down"
-              label={activeTabData?.label}
+              label={activeTabData?.label || t("tabs.selectTab")}
               onClick={() => setIsOpen(!isOpen)}
               aria-label={`Tab navigation: ${activeTabData?.label}`}
             />

@@ -1,0 +1,11 @@
+{
+  "giftcardCustomAmount": {
+    "customAmount": "Aangepaste waarde",
+    "form": {
+      "priceInput": {
+        "label": "Aangepaste waarde",
+        "helperText": "Voer een heel getal in tussen {{ minPrice }} en {{ maxPrice }}."
+      }
+    }
+  }
+}

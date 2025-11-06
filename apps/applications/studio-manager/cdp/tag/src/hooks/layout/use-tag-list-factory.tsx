@@ -1,4 +1,7 @@
-import { ListHeaderProps, ListItemProps } from "@bsport/kaizen-primitive-core";
+import type {
+  ListHeaderProps,
+  ListItemProps,
+} from "@bsport/kaizen-primitive-core";
 import { Tag, TagGroup, TagUsage } from "@bsport/store-cdp-tag";
 
 import {
@@ -105,7 +108,9 @@ export const useTagListFactory = ({
         buttons: [
           {
             id: TAG_LIST_ITEM_DELETE_ACTION_BUTTON_ID(tag.id),
-            iconLeft: "trash-01",
+            kind: "icon-button",
+            icon: "trash-01",
+            label: t("tagGroupList.items.tooltip.delete"),
             intent: "flat",
             size: "md",
             color: "default",

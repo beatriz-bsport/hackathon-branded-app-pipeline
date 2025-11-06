@@ -328,12 +328,17 @@ const SlotSelectorPage: React.FC<PageProps> = ({
    * any changes in availability intervals.
    */
   useEffect(() => {
-    if (selectedDayTimeInterval && availableEstablishments) {
+    if (
+      selectedDayTimeInterval &&
+      availableEstablishments &&
+      showEstablishmentSelector
+    ) {
       setActiveEstablishment(availableEstablishments[0]);
     }
   }, [
     selectedDayTimeInterval,
     availableEstablishments,
+    showEstablishmentSelector,
     setActiveEstablishment,
   ]);
 

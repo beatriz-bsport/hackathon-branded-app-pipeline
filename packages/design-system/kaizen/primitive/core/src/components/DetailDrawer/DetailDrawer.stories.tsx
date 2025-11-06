@@ -465,6 +465,7 @@ export const WithListIntegration: Story = {
               intent: "default",
               size: "sm",
               color: "main",
+              label: "Previous User",
               tooltipProps: {
                 label: "Previous User",
                 placement: "bottom-left",
@@ -477,6 +478,7 @@ export const WithListIntegration: Story = {
               intent: "default",
               size: "sm",
               color: "main",
+              label: "Next User",
               tooltipProps: {
                 label: "Next User",
                 placement: "bottom-right",

@@ -51,7 +51,7 @@ import {
 } from '#src/libs/private-service/actions';
 import PrivatePassListItem from '#src/libs/private-service/components/pass/PrivatePassListItem.component';
 import PrivatePassForm, {
-  FormikValues,
+  PrivatePassFormValues as FormikValues,
 } from '#src/libs/private-service/components/pass/private-pass-form/PrivatePassForm.component';
 import type {
   PrivatePass,

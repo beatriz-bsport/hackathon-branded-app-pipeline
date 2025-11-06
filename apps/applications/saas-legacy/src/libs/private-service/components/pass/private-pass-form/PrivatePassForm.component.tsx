@@ -44,7 +44,7 @@ import { CompanyTheme } from '#src/libs/theme/types';
 import { MultiStepper } from '#src/components/forms/Stepper';
 import { getCreditFactor } from '#src/libs/theme/selectors';
 
-export interface FormikValues {
+export interface PrivatePassFormValues {
   name: string | null;
   category: number | null;
   tax: number;
@@ -73,6 +73,7 @@ export interface FormikValues {
   description?: string | null;
   tags_on_consumer_item_creation?: Array<number>;
   bookkeeping_account?: number;
+  grants_door_access: boolean;
 
   addToNotifications?: Array<MarketingNotification>;
   removeFromNotifications?: Array<MarketingNotification>;
@@ -87,7 +88,7 @@ type Props = {
 
   onCancel: (ev: MouseEvent) => void;
 
-  onSubmit: (data: FormikValues, options?: OptionCallback) => void;
+  onSubmit: (data: PrivatePassFormValues, options?: OptionCallback) => void;
 
   categoryList: Array<SCT>;
   establishmentList: Array<Establishment>;
@@ -110,7 +111,7 @@ type Props = {
   smartListsById?: { [key: string]: SmartList };
   smartListLoading?: boolean;
   theme?: CompanyTheme;
-} & FormikProps<FormikValues>;
+} & FormikProps<PrivatePassFormValues>;
 
 export enum PrivatePassFormStep {
   DetailsAndRestrictions,
@@ -194,14 +195,15 @@ export const PrivatePassForm = (props: Props) => {
             expiration_date_active: false,
             description: null,
             tags_on_consumer_item_creation: [],
+            grants_door_access: false,
           },
     [props.initial],
   );
 
   const submitForm = useCallback(
     (
-      values: FormikValues,
-      { setSubmitting }: FormikBag<Props, FormikValues>,
+      values: PrivatePassFormValues,
+      { setSubmitting }: FormikBag<Props, PrivatePassFormValues>,
     ) => {
       const { linked_payment_pack, credits, ...otherValues } = values;
 
@@ -236,7 +238,10 @@ export const PrivatePassForm = (props: Props) => {
   );
 
   const handleNext = useCallback(
-    (values: FormikValues, formikHelpers: FormikBag<Props, FormikValues>) => {
+    (
+      values: PrivatePassFormValues,
+      formikHelpers: FormikBag<Props, PrivatePassFormValues>,
+    ) => {
       if (
         currentStep === PrivatePassFormStep.DetailsAndRestrictions &&
         notificationStepAvailable &&
@@ -296,7 +301,7 @@ export const PrivatePassForm = (props: Props) => {
       onSubmit={handleNext}
       validationSchema={PrivatePassSchema}
     >
-      {({ handleSubmit, isSubmitting }: FormikProps<FormikValues>) => (
+      {({ handleSubmit, isSubmitting }: FormikProps<PrivatePassFormValues>) => (
         <Form className={classes.container} data-testid="private-pass-form">
           {props.enableNotificationStep && (
             <>

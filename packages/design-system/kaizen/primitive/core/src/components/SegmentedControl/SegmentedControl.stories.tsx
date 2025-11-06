@@ -666,9 +666,11 @@ export const Basic: Story = {
                     )}
                   </div>
                   <Button
+                    kind="icon-button"
+                    label="Remove option"
+                    icon="x-close"
                     intent="flat"
                     color="critical"
-                    iconRight="x-close"
                     size="lg"
                     onClick={() => handleRemoveOption(item.value)}
                   />

@@ -22,8 +22,18 @@ const emptyState = cva(defaultClasses);
 export type EmptyStateProps = HTMLAttributes<HTMLDivElement> &
   VariantProps<typeof emptyState> & {
     children?: React.ReactNode;
-    ctaButtonConfig?: Partial<ButtonProps>;
-    secondaryButtonConfig?: Partial<ButtonProps>;
+    ctaButtonConfig?: Omit<
+      Partial<ButtonProps>,
+      "kind" | "icon" | "size" | "intent"
+    > & {
+      label: string;
+    };
+    secondaryButtonConfig?: Omit<
+      Partial<ButtonProps>,
+      "kind" | "icon" | "size" | "intent" | "color"
+    > & {
+      label: string;
+    };
     subtitle?: string;
     title?: string;
     variant?: "empty-state" | "no-results-found";
@@ -55,7 +65,9 @@ const EmptyState: FC<EmptyStateProps> = ({
   const { t } = useTranslation("default", { i18n: i18nInstance });
 
   let defaultTitle = "";
-  let defaultSecondaryButtonConfig = {};
+  let defaultSecondaryButtonConfig:
+    | Partial<Omit<ButtonProps, "kind" | "icon" | "size" | "intent" | "color">>
+    | undefined;
   if (variant === "no-results-found") {
     // Set some default parameters
     defaultTitle = t("emptyState.noResultsFound.title");
@@ -98,9 +110,10 @@ const EmptyState: FC<EmptyStateProps> = ({
       )}
       {(ctaButtonConfig || finalSecondaryButtonConfig) && (
         <div className="flex flex-row items-center justify-center gap-xs mt-sm">
-          {secondaryButtonConfig && (
+          {finalSecondaryButtonConfig && (
             <Button
               {...finalSecondaryButtonConfig}
+              kind="default"
               color="main"
               size="md"
               intent="default"
@@ -109,6 +122,7 @@ const EmptyState: FC<EmptyStateProps> = ({
           {ctaButtonConfig && (
             <Button
               {...ctaButtonConfig}
+              kind="default"
               color="main"
               size="md"
               intent="call-to-action"

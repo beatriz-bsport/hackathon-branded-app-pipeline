@@ -74,11 +74,10 @@ const CustomFormListPage: React.FC = () => {
       <ListLayout.Header
         pageTitle={t("pages.active")}
         callToActionButton={
-          <Button
+          <ListLayout.Button
             iconLeft="plus"
             intent="call-to-action"
             color="main"
-            size="md"
             label={t("activeList.actions.addForm")}
             onClick={handleOpenCreateFormModal}
           />
@@ -90,10 +89,12 @@ const CustomFormListPage: React.FC = () => {
             placement="bottom-left"
           >
             <Button
-              iconLeft="box"
+              kind="icon-button"
+              icon="box"
               intent="default"
               color="main"
               size="md"
+              label={t("pages.archived")}
               onClick={() => navigate(ROUTES.ARCHIVED)}
             />
           </Tooltip>,

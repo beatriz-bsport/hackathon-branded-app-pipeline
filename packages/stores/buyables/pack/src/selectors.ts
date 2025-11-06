@@ -10,6 +10,7 @@ export const selectFuzzyPacks = (state: PackState) => {
   return fuzzyIds.map((id) => byId[id]);
 };
 
-export const selectPack = (state: PackState, id: number) => state.byId[id];
+export const selectPack = (state: PackState, id?: number) =>
+  id ? state.byId[id] : undefined;
 
 export const selectCount = (state: PackState) => state.count;

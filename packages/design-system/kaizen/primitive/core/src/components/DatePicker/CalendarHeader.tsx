@@ -111,19 +111,21 @@ const CalendarHeader: React.FC<CalendarHeaderProps> = ({
 
       <div className="flex items-center gap-2xs">
         <Button
+          kind="icon-button"
           intent="flat"
           color="default"
           size="sm"
-          iconLeft="chevron-left"
-          aria-label={t("datePicker.previousMonth")}
+          icon="chevron-left"
+          label={t("datePicker.previousMonth")}
           onClick={handlePrevMonth}
         />
         <Button
+          kind="icon-button"
           intent="flat"
           color="default"
           size="sm"
-          iconRight="chevron-right"
-          aria-label={t("datePicker.nextMonth")}
+          icon="chevron-right"
+          label={t("datePicker.nextMonth")}
           onClick={handleNextMonth}
         />
       </div>

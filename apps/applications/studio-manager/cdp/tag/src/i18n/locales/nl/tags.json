@@ -1,1 +1,278 @@
-{}
+{
+  "page": {
+    "title": "Tags",
+    "filters": {
+      "label": "Filter op hoofdtag",
+      "operators": {
+        "is": "is",
+        "isNot": "is niet"
+      }
+    },
+    "actions": {
+      "createTagGroup": {
+        "label": "Maak hoofdtag aan"
+      },
+      "createTag": {
+        "label": "Maak een subtag aan"
+      }
+    },
+    "loadingState": {
+      "message": "Laden tags..."
+    },
+    "emptyFilteredPageState": {
+      "title": "Geen resultaten gevonden",
+      "description": "Geen hoofdlabels gevonden - verwijder filters om meer resultaten te zien",
+      "secondaryButtonLabel": "Wis filters"
+    },
+    "emptyPageState": {
+      "title": "Nog geen tags",
+      "description": "Maak tags om je leden te targeten en te volgen"
+    },
+    "emptyMainTagState": {
+      "description": "Je hebt nog geen sublabels in deze hoofdtag gemaakt."
+    }
+  },
+  "tagGroupList": {
+    "actions": {
+      "addSubTag": "Maak een subtag aan",
+      "rename": "Hernoemen",
+      "delete": "Verwijderen"
+    },
+    "items": {
+      "tooltip": {
+        "delete": "Verwijderen"
+      }
+    }
+  },
+  "tagGroupModal": {
+    "title": {
+      "create": "Maak een hoofdtag aan",
+      "update": "Bewerk hoofdlabel"
+    },
+    "formField": {
+      "tagGroupName": {
+        "label": "Naam van hoofdtag",
+        "placeholder": "Voeg een hoofdlabelnaam toe...",
+        "errors": {
+          "required": "Voer een hoofdtagnaam in",
+          "alreadyInUse": "Naam al in gebruik",
+          "tooLong": "Naam moet minder dan {{ max }} tekens bevatten",
+          "tooShort": "Naam moet minstens {{ min }} tekens bevatten"
+        }
+      }
+    },
+    "actions": {
+      "create": "Creëer",
+      "update": "Opslaan",
+      "cancel": "Sluiten",
+      "goTo": "Ga naar Hoofdtags"
+    },
+    "result": {
+      "createSuccess": {
+        "title": "Hoofdtags aangemaakt"
+      },
+      "updateSuccess": {
+        "title": "HoofdTags bijgewerkt"
+      },
+      "updateFailure": {
+        "title": "Kan hoofdtag niet bijwerken vanwege een technisch probleem"
+      },
+      "createFailure": {
+        "title": "Kan hoofdtag niet aanmaken"
+      }
+    }
+  },
+  "tagModal": {
+    "title": {
+      "create": "Maak een subtag aan",
+      "update": "Bewerk subtag"
+    },
+    "formField": {
+      "mainTagAssociated": {
+        "label": "Hoofd-tag",
+        "placeholder": "Selecteer een hoofdtag",
+        "errors": {
+          "required": "Je moet eerst een hoofdlabel selecteren"
+        }
+      },
+      "tagName": {
+        "label": "Sub-tag",
+        "placeholder": "Voer een subtagnaam in...",
+        "errors": {
+          "required": "Je moet eerst een subtagnaam invoeren",
+          "alreadyInUse": "Naam al in gebruik",
+          "tooLong": "Naam moet minder dan {{ max }} tekens bevatten",
+          "tooShort": "Naam moet minstens {{ min }} tekens bevatten"
+        }
+      },
+      "tagColor": {
+        "label": "Kleur",
+        "placeholder": "#FFFFFF"
+      }
+    },
+    "actions": {
+      "create": "Maak",
+      "update": "Bijwerken",
+      "cancel": "Annuleren",
+      "goTo": "Ga naar Sub Tags"
+    },
+    "result": {
+      "createSuccess": {
+        "title": "Sub Tag aangemaakt"
+      },
+      "createFailure": {
+        "title": "Kan subtag niet opslaan "
+      },
+      "updateSuccess": {
+        "title": "Subtags bijgewerkt"
+      },
+      "updateFailure": {
+        "title": "Kan subtag niet bijwerken "
+      }
+    }
+  },
+  "deleteMainTagModal": {
+    "title": "Permanent hoofdtag verwijderen?",
+    "description": "Het verwijderen van deze hoofdtag zal het permanent verwijderen van {{ number }} leden waaraan het is toegewezen.",
+    "alerts": {
+      "tagInUse": {
+        "description": "Weet je, als je deze hoofdtag verwijdert, worden ook alle bijbehorende sub-tags en tagregels binnen de voorwaardelijke workflows waarin het wordt gebruikt, verwijderd.",
+        "confirmCheckbox": {
+          "label": "Vink aan om te bevestigen: ",
+          "description": "Ik begrijp dat het verwijderen van deze hoofdtag een permanente actie is die invloed zal hebben op alle bijbehorende workflows.",
+          "confirmButtonTooltip": "Controleer de impact van deze wijziging voordat je doorgaat"
+        }
+      }
+    },
+    "actions": {
+      "confirm": "Verwijderen",
+      "cancel": "Annuleren"
+    },
+    "result": {
+      "success": {
+        "title": "Hoofdtag verwijderd"
+      },
+      "failure": {
+        "title": "Kan hoofdlabel niet verwijderen"
+      }
+    }
+  },
+  "deleteSubTagModal": {
+    "title": "Subtag permanent verwijderen?",
+    "description": "Het verwijderen van deze subtag zal het permanent verwijderen van {{number}} leden waaraan het is toegewezen. ",
+    "alerts": {
+      "tagInUse": {
+        "description": "Een kleine waarschuwing: het verwijderen van deze sub-tag zal ook invloed hebben op eventuele voorwaardelijke workflows waarin het wordt gebruikt. ",
+        "confirmCheckbox": {
+          "label": "Vink aan om te bevestigen:",
+          "description": "Ik begrijp dat het verwijderen van deze sub-tag een permanente actie is die invloed zal hebben op alle bijbehorende workflows.",
+          "confirmButtonTooltip": "Controleer de impact van deze wijziging voordat je doorgaat"
+        }
+      }
+    },
+    "actions": {
+      "confirm": "Verwijderen",
+      "cancel": "Annuleren"
+    },
+    "result": {
+      "success": {
+        "title": "Subtag verwijderd"
+      },
+      "failure": {
+        "title": "Er is iets misgegaan bij het verwijderen van de subtag. Probeer het opnieuw."
+      }
+    }
+  },
+  "tagsDetails": {
+    "members": "Lid",
+    "actions": {
+      "tagAll": "Alle tags",
+      "untagAll": "Deselecteer alles",
+      "edit": "Bewerken"
+    },
+    "tooltip": {
+      "close": "Sluiten",
+      "tagMember": "Leden taggen",
+      "untagMember": "Leden onttaggen",
+      "editTag": "Wijzig naam of kleur",
+      "previousSubTag": "Bekijk vorige subtag",
+      "nextSubTag": "Bekijk volgende subtag"
+    },
+    "segmentedControl": {
+      "tagged": "Getagd",
+      "untagged": "Ongetagd"
+    },
+    "memberList": {
+      "actions": {
+        "tag": {
+          "success": {
+            "title": "Lid getagd"
+          },
+          "failure": {
+            "title": "Kan lid niet taggen, probeer het opnieuw."
+          }
+        },
+        "untag": {
+          "success": {
+            "title": "Lid niet getagd"
+          },
+          "failure": {
+            "title": "Kan lid niet onttaggen, probeer het opnieuw."
+          }
+        }
+      },
+      "loadingState": {
+        "tagged": "Laden van getagde leden...",
+        "untagged": "Leden zonder tag laden..."
+      },
+      "emptyState": {
+        "title": {
+          "tagged": "Nog geen leden getagd",
+          "untagged": "Nog geen leden zonder tag"
+        },
+        "description": {
+          "untagged": "Je kunt leden taggen door op het pluspictogram naast hun naam in de niet-getagde lijst te klikken.",
+          "tagged": "Je kunt Leden onttaggen door op het min-icoon naast hun naam op de getagde lijst te klikken."
+        }
+      }
+    }
+  },
+  "updateMemberTagBatchModal": {
+    "title": {
+      "tag": "Allemaal taggen?",
+      "untag": "Allemaal onttaggen?"
+    },
+    "description": {
+      "tag": "Voeg de {{tagName}} tag toe aan {{number}} leden?",
+      "untag": "Verwijder de {{tagName}} tag van {{number}} leden?"
+    },
+    "actions": {
+      "tag": "Tags alles",
+      "untag": "Onttag alles",
+      "cancel": "Annuleren",
+      "undo": "Ongedaan maken"
+    },
+    "loading": {
+      "tag": "Taggen van {{number}} Leden...",
+      "untag": "Onttaggen van {{number}} leden..."
+    },
+    "results": {
+      "tag": {
+        "success": {
+          "title": "Alle leden zijn getagd"
+        },
+        "failure": {
+          "title": "Kan leden niet taggen, probeer het opnieuw."
+        }
+      },
+      "untag": {
+        "success": {
+          "title": "Alle leden zijn onttagd"
+        },
+        "failure": {
+          "title": "Kan leden niet onttaggen, probeer het opnieuw."
+        }
+      }
+    }
+  }
+}

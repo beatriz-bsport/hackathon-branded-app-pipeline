@@ -17,7 +17,7 @@ import type {
 import type { SmartList } from '#src/libs/smart-list/types';
 import type { CompanyTheme } from '#src/libs/theme/types';
 import type { PaymentPackFormValues } from '../../../payment-packs/types';
-import type { FormikValues } from '#src/libs/private-service/components/pass/private-pass-form/PrivatePassForm.component';
+import type { PrivatePassFormValues as FormikValues } from '#src/libs/private-service/components/pass/private-pass-form/PrivatePassForm.component';
 import { PassType } from '#src/components/passes/types';
 import { splitPassNotificationsByTrigger } from '#src/libs/marketing/utils';
 import MarketingRulePassNotificationItem from '#src/libs/marketing/components/MarketingRulePassNotificationItem.component';

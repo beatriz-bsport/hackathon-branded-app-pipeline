@@ -86,6 +86,9 @@ export const useTeacherTableColumns = ({
       return (
         <Tooltip label={tooltip} placement="bottom-right">
           <Button
+            kind="icon-button"
+            icon={icon}
+            label={tooltip}
             color="default"
             intent="flat"
             size="md"
@@ -97,7 +100,6 @@ export const useTeacherTableColumns = ({
                 teacherName: row.name,
               });
             }}
-            iconLeft={icon}
           />
         </Tooltip>
       );

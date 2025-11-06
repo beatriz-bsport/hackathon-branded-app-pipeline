@@ -1,1 +1,68 @@
-{}
+{
+  "pageTitle": "Startpagina",
+  "header": {
+    "title": "Welkom terug, {{ username }}",
+    "titleWithoutName": "Welkom terug"
+  },
+  "banner": {
+    "close": "Sluit banner",
+    "insights": {
+      "title": "Nieuwe Inzichten-functie",
+      "description": "Spot trends, volg prestaties en neem slimmere zakelijke beslissingen met realtime inzichten",
+      "ctaLabel": "Ontdek nu"
+    }
+  },
+  "upcomingClassesPanel": {
+    "title": "Aankomende lessen",
+    "headers": {
+      "class": "Les",
+      "teacher": "Instructeur",
+      "teacherSubstitution": "Vervanging",
+      "classFillRate": "Vulgraad"
+    },
+    "emptyList": "Geen aankomende lessen",
+    "teacher": {
+      "helperText": "Instructeur"
+    },
+    "substitution": {
+      "helperText": "Vervanging",
+      "errorMissingReplacement": "Vervanging nodig"
+    },
+    "rates": {
+      "badge": {
+        "waitingCount": "{{ count }} op wachtlijst"
+      },
+      "tooltip": {
+        "classIsFull": "Deze les is vol",
+        "hasEmptySpots_one": "{{ count }} plek over in de les",
+        "hasEmptySpots_other": "{{ count }} plekken over in de les",
+        "hasEmptySpotsForWaitlist_one": "{{ count }} plek in afwachting op de wachtlijst",
+        "hasEmptySpotsForWaitlist_other": "{{ count }} plekken in afwachting op de wachtlijst"
+      }
+    }
+  },
+  "exploreSection": {
+    "exploreThePlatform": {
+      "title": "Ontdek het platform",
+      "productUpdatesCard": {
+        "title": "Productupdates",
+        "description": "Ontdek al onze nieuwste productupdates "
+      }
+    },
+    "advices": {
+      "title": "bsport Advies",
+      "latestNewsCard": {
+        "title": "Laatste van bsport",
+        "description": "Ontdek het laatste nieuws en de trends in de branche"
+      }
+    }
+  },
+  "keyMetrics": {
+    "title": "Belangrijke statistieken",
+    "unavailable": "Statistieken zijn momenteel niet beschikbaar"
+  },
+  "insightsPanel": {
+    "title": "In één oogopslag inzicht",
+    "unavailable": "Inzichten zijn momenteel niet beschikbaar"
+  }
+}

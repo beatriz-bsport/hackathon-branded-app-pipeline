@@ -1,0 +1,21 @@
+{
+  "customAmount": {
+    "label": "Personalizzazione",
+    "form": {
+      "toggle": "Valore personalizzato",
+      "maxPrice": {
+        "label": "Massimo",
+        "helperText": "Inserisci un numero intero fino a {{ maxPriceWithCurrency }}",
+        "limitExplanation": "Perché questo numero?"
+      },
+      "minPrice": {
+        "label": "Minimo",
+        "helperText": "Inserisci un numero intero di almeno 1"
+      },
+      "errors": {
+        "maxGreaterThanMin": "Il valore massimo deve essere maggiore del valore minimo"
+      }
+    },
+    "featureBlocked": "Le carte regalo con valore personalizzato non sono ancora disponibili"
+  }
+}

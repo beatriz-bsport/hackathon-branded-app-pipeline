@@ -94,9 +94,12 @@ export const getTableColumns = ({
             placement="bottom-right"
           >
             <Button
-              color="default"
+              kind="icon-button"
+              icon="unarchive"
               intent="flat"
+              color="default"
               size="md"
+              label={t("memberTable.tooltips.restore")}
               onClick={(event) => {
                 event.preventDefault();
                 event.stopPropagation();
@@ -105,7 +108,6 @@ export const getTableColumns = ({
                   memberName: row.name,
                 });
               }}
-              iconLeft="unarchive"
             />
           </Tooltip>
         );
@@ -118,9 +120,12 @@ export const getTableColumns = ({
             placement="bottom-right"
           >
             <Button
-              color="default"
+              kind="icon-button"
+              icon="archive"
               intent="flat"
+              color="default"
               size="md"
+              label={t("memberTable.tooltips.archive")}
               onClick={(event) => {
                 event.preventDefault();
                 event.stopPropagation();
@@ -129,7 +134,6 @@ export const getTableColumns = ({
                   memberName: row.name,
                 });
               }}
-              iconLeft="archive"
             />
           </Tooltip>
         );

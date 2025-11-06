@@ -48,6 +48,7 @@
       "moreActions": "More actions"
     },
     "bsportTemplateInfo": {
+      "label": "bsport templates info",
       "title": "bsport templates",
       "description": "Duplicate the template that you want to use, then edit and send the copied version to members directly from this page.",
       "quit": "Quit"

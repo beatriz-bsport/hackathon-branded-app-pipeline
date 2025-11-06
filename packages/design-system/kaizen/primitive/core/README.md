@@ -35,14 +35,13 @@ function MyComponent() {
 
 ## Icons
 
-Kaizen is using [Untitled UI Icons](https://www.untitledui.com/free-icons) for icons.
+Kaizen is using [Untitled UI Icons](https://www.untitledui.com/free-icons) for icons. You can find all the svgs on [their github](https://github.com/untitleduico/icons/tree/main/icons).
 
 ### Update icons
 
 You can easily update the icons into Kaizen, for this you need to:
 
-1. Inside the `src/components/Icon/assets` folder, copy-paste your new icon as a SVG. You can also remove some if they
-   are no longer needed.
+1. Inside the `src/components/Icon/assets` folder, copy-paste your new icon as a SVG. You can also remove some if they are no longer needed. :warning: Make sure to have width and height set to `100%`.
 2. Run the command below.
 
 ```sh

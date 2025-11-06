@@ -1,7 +1,8 @@
 import type { DateTime } from 'luxon';
-import type { ConsumerGiftcardKind } from '@bsport/common/lib/master-data/giftcard.js';
 import type { PaginationFilterParams } from '#src/libs/types';
-import type { Giftcard } from './models';
+import type { Giftcard, ConsumerGiftcard } from './models';
+
+// ----- Giftcard Form -----
 
 /**
  * Keys that will be injected in the form-data
@@ -17,40 +18,31 @@ type GiftcardDataAPIParams = Pick<
   | 'available_payment_method_identifiers'
   | 'tags_on_consumer_item_creation'
   | 'price'
+  | 'max_price'
+  | 'min_price'
+  | 'card_type'
 >;
 
 export type GiftcardDataAPIKeys = keyof GiftcardDataAPIParams;
 
 export type GiftcardDataAPI = FormData;
 
-export type GiftcardFormValues = {
-  activation_datetime: DateTime | null;
-  background_image: string | null;
+// ----- Consumer Giftcard -----
+
+export type ConsumerGiftcardAPI = Pick<
+  ConsumerGiftcard,
+  | 'background_image'
+  | 'message_content'
+  | 'message_is_for'
+  | 'message_is_from'
+  | 'name'
+  | 'kind'
+> & {
+  recipients: string[];
   date_to_send: string;
   force: boolean;
-  message_content: string;
-  message_is_for: string;
-  message_is_from: string;
-  name: string;
-  recipients: string[];
-  kind: ConsumerGiftcardKind;
-};
-
-export type ConsumerGiftcardAPI = Omit<
-  GiftcardFormValues,
-  'activation_datetime'
-> & {
-  activation_datetime: string | null;
-};
-
-export type GiftcardAttributeMemberPayload = {
-  dst_member: string;
-  activation_code?: string;
-};
-
-export type GiftcardAttributePrintableCodePayload = {
-  dst_member: string;
-  code: string;
+  activation_datetime: DateTime | null;
+  price: number | null;
 };
 
 export type ConsumerGiftcardFilterParams = {
@@ -62,3 +54,15 @@ export type ConsumerGiftcardFilterParams = {
   id__in?: number[];
   in_timeframe?: boolean;
 } & PaginationFilterParams;
+
+// ----- Attribution -----
+
+export type GiftcardAttributeMemberPayload = {
+  dst_member: string;
+  activation_code?: string;
+};
+
+export type GiftcardAttributePrintableCodePayload = {
+  dst_member: string;
+  code: string;
+};

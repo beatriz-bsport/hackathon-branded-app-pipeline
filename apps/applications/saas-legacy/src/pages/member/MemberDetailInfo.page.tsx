@@ -133,6 +133,7 @@ import {
   getReferralMemberStatusWithMemberId,
   getTheReferralProgram,
 } from '#src/libs/referral/selectors';
+import { getLocaleCountry } from '#src/utils/language';
 // @ts-expect-error
 import { resetPassword } from '../../actions/auth.actions';
 import { WithHandlerType } from '../../utils/types';
@@ -682,7 +683,7 @@ const connector = connect(
     taskLoading: state.reminder.task.byMember.loading,
     staffList: getUsersWithRole(state),
     theme: state.theme.theme,
-    companyCountry: state.theme.theme.locale.split('_')[1],
+    companyCountry: getLocaleCountry(state.theme.theme.locale),
     onlinePaymentEnabled: state.theme.theme.online_payment_enabled,
     companyId: state.theme.theme.company,
     unpaidInvoiceList: withInvoiceItem(getInvoiceList)(state),

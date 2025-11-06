@@ -140,9 +140,13 @@ const icons = {
   "info-circle": React.lazy(
     async () => await import("./assets/info-circle.svg?react"),
   ),
+  "layout-alt-02": React.lazy(
+    async () => await import("./assets/layout-alt-02.svg?react"),
+  ),
   "layout-left": React.lazy(
     async () => await import("./assets/layout-left.svg?react"),
   ),
+  "link-01": React.lazy(async () => await import("./assets/link-01.svg?react")),
   "link-external-02": React.lazy(
     async () => await import("./assets/link-external-02.svg?react"),
   ),

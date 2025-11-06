@@ -8,6 +8,8 @@ import {
   type IconName,
 } from "@bsport/kaizen-primitive-core";
 
+import { useTranslation } from "#src/utils/i18n";
+
 type GenericDownloadFileProps = {
   caption: string;
   filename: string;
@@ -21,6 +23,8 @@ export const GenericDownloadFile: React.FC<GenericDownloadFileProps> = ({
   pathname,
   iconName,
 }) => {
+  const { t } = useTranslation("common");
+
   return (
     <div className="w-full">
       <Body size="sm">{caption}</Body>
@@ -36,11 +40,12 @@ export const GenericDownloadFile: React.FC<GenericDownloadFileProps> = ({
           <Body size="sm">{filename}</Body>
         </div>
         <Button
-          color="default"
+          kind="icon-button"
+          icon="download-01"
           intent="flat"
-          iconLeft="download-01"
+          color="default"
           size="sm"
-          aria-label={`Download ${filename}`}
+          label={t("actions.download")}
           onClick={() => {
             const link = document.createElement("a");
             link.href = pathname;

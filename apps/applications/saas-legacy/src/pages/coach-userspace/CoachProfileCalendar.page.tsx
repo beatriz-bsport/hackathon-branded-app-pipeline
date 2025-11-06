@@ -1,7 +1,7 @@
 import React from 'react';
 import { compose, withState, withHandlers } from 'recompose';
 import { DateTime } from 'luxon';
-import { withTranslation } from 'react-i18next';
+import { WithTranslation, withTranslation } from 'react-i18next';
 import { connect, ConnectedProps } from 'react-redux';
 import uniq from 'lodash/uniq';
 import { TFunction } from 'i18next';
@@ -60,6 +60,12 @@ import { getCustomEventList } from '#src/libs/private-service/selectors/custom-e
 import { WithHandlerType } from '../../utils/types';
 import { RootState } from '../../reducers';
 import { OptionCallback } from '../../state/types';
+import { getAuthToken } from '#src/http';
+import Config from '#src/config';
+import {
+  FeatureFlagProps,
+  withFeatureFlags,
+} from '#src/utils/feature-flag/withFeatureFlags';
 
 type Period = { start: string; end: string };
 type withStateType = {
@@ -75,8 +81,10 @@ type RouterProps = {
 };
 type Props = ConnectedProps<typeof connector> &
   WithHandlerType<typeof mapWithHandlers> &
+  WithTranslation &
   withStateType &
   WithStyles<typeof styles> &
+  FeatureFlagProps &
   RouterProps;
 
 type State = {
@@ -235,6 +243,15 @@ export class CoachPrivateCalendar extends React.Component<Props, State> {
     );
   };
 
+  getCalendarSubscriptionUrl = () => {
+    if (!this.props.showCalendarFeed) {
+      return null;
+    }
+    const authToken = getAuthToken();
+    const locale = this.props.i18n.language;
+    return `${Config.REACT_APP_BASE_URI_BOOK_V1}/booking/calendar-for-teacher/${authToken}/${locale}/booking-feed.ics`;
+  };
+
   disableCoachAvailabilitySlot = (
     data: { date_start: string; date_end: string },
     options: {
@@ -272,6 +289,7 @@ export class CoachPrivateCalendar extends React.Component<Props, State> {
             showOfferListToogle
             showPrivateBookingToogle
             availabilitySlots={this.props.availabilitySlots}
+            calendarSyncUrl={this.getCalendarSubscriptionUrl()}
             companyTheme={this.props.companyTheme}
             customEventList={this.props.customEventList}
             disableResourceAvailabilitySlot={this.disableCoachAvailabilitySlot}
@@ -473,4 +491,5 @@ export default compose(
   withTitle(({ t }: { t: TFunction }) =>
     t('navigation:backofficeMenu.schedule'),
   ),
+  withFeatureFlags,
 )(CoachPrivateCalendar);

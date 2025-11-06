@@ -60,6 +60,8 @@ import { fetchProfile } from '#src/libs/consumer-space/actions';
 import {
   MarketplaceSettings,
   MarketplaceTabConfig,
+  PassesPageTabNames,
+  PassTypes,
 } from '#src/libs/marketplace/types';
 import { fetchMarketplaceSettings } from '#src/libs/marketplace/actions';
 import {
@@ -113,9 +115,10 @@ import MarketplaceBasketSummaryDialogCssOnly from '../../libs/marketplace/compon
 import { getItemInStorage } from '../../utils/storage';
 import { STORAGE_KEY_BSPORT_RELATED_MEMBER_TOKEN } from '../../actions/constants';
 import analyticsUtils from '../../components/analytics/analytics';
-import { PassesPageTabNames } from '../../libs/marketplace/types';
 import Config from '#src/config';
 import { withFeatureFlags } from '#src/utils/feature-flag/withFeatureFlags';
+import { snackbarError } from '#src/actions/snackbar.actions';
+import { checkExpressCheckoutEligibility } from '#src/libs/payment-combo/api';
 
 const MarketplacePassPage = asyncComponent(() => import('./MarketplacePass'));
 
@@ -316,7 +319,20 @@ export class MarketPlace extends Component<Props, State> {
     this.props.goToTab(newPath);
   };
 
-  redirectToPassExpressCheckout = ({ passType, passId }) => {
+  redirectToPassExpressCheckout = async ({ passType, passId }) => {
+    if (passType === PassTypes.PAYMENTCOMBO) {
+      try {
+        await checkExpressCheckoutEligibility(passId);
+      } catch (error) {
+        this.props.snackbarErrorMsg(
+          this.props.t(
+            'checkout:passExpressCheckout.errors.ineligible.paymentCombo',
+          ),
+        );
+        this.openLogin();
+        return;
+      }
+    }
     const canRedirect =
       this.props.showExpressCheckout &&
       this.props.companyTheme.one_click_checkout_enabled &&
@@ -710,6 +726,7 @@ export default compose(
       // navigation
       replace,
       retrieveCompanyCssConfiguration: retrieveCompanyCssConfigurationAction,
+      snackbarErrorMsg: snackbarError,
     },
   ),
   connect((state: RootState) => ({

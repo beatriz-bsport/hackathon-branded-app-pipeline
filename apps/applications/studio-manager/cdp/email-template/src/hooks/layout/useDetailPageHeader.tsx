@@ -86,7 +86,9 @@ export const useDetailPageHeader = ({
           target={({ setIsPopoverOpened }) => (
             <Button
               key="chevron-right-button"
-              iconLeft="dots-vertical"
+              kind="icon-button"
+              icon="dots-vertical"
+              label={t("details.hover.moreActions", { ns: "detail" })}
               color="main"
               intent="default"
               size="md"
@@ -104,7 +106,9 @@ export const useDetailPageHeader = ({
       label={t("details.hover.exportHtml", { ns: "detail" })}
     >
       <Button
-        iconLeft="download-01"
+        kind="icon-button"
+        icon="download-01"
+        label={t("details.hover.exportHtml", { ns: "detail" })}
         color="main"
         intent="default"
         size="md"

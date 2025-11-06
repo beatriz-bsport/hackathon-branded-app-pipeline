@@ -42,3 +42,41 @@ export const getLocaleFromLanguage = memoize((language: string) => {
     (country) => country.locale.slice(0, 2) === language,
   )?.locale;
 });
+
+/**
+ * Returns the [language, country] parts for a given locale string with fallback.
+ */
+export type LocaleParts = [string, string];
+
+export const getLocaleParts = (
+  locale: string | undefined | null,
+): LocaleParts => {
+  if (typeof locale !== 'string' || locale.trim() === '') {
+    return ['en', 'US'];
+  }
+
+  const [language, country] = locale.split('_');
+
+  if (
+    typeof language !== 'string' ||
+    typeof country !== 'string' ||
+    language.trim() === '' ||
+    country.trim() === ''
+  ) {
+    return ['en', 'US'];
+  }
+
+  return [language, country];
+};
+
+/**
+ * Returns the language part (`en` in `en_US`) from a locale string (with fallback).
+ */
+export const getLocaleLanguage = (locale: string | undefined | null): string =>
+  getLocaleParts(locale)[0];
+
+/**
+ * Returns the country part (`US` in `en_US`) from a locale string (with fallback).
+ */
+export const getLocaleCountry = (locale: string | undefined | null): string =>
+  getLocaleParts(locale)[1];

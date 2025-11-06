@@ -26,11 +26,10 @@ export const GiftcardListPage: React.FC = () => {
       <ListLayout.Header
         pageTitle={t("pages.list")}
         callToActionButton={
-          <Button
+          <ListLayout.Button
             iconLeft="plus"
             intent="call-to-action"
             color="main"
-            size="md"
             label={t("listPage.header.buttons.addGiftcard")}
             onClick={navigateToCreatePage}
           />
@@ -42,10 +41,12 @@ export const GiftcardListPage: React.FC = () => {
             placement="bottom-left"
           >
             <Button
-              iconLeft="box"
+              kind="icon-button"
+              icon="box"
               intent="default"
               color="main"
               size="md"
+              label={t("pages.archivedList")}
               onClick={navigateToArchivePage}
             />
           </Tooltip>,

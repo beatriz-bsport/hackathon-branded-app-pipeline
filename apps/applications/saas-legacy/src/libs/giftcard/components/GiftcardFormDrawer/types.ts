@@ -23,14 +23,17 @@ export type GiftcardFormValues = {
   name: string;
   cover?: string;
   description: string;
-  price: number;
   manager_only: boolean;
   unlimited: boolean;
   available_payment_method_identifiers: number[];
   expiration_days: number | null;
   tags_on_consumer_item_creation: number[];
-  bookkeeping_account?: number | null;
-  is_shared_giftcard?: boolean | null;
+  is_shared_giftcard: boolean;
+  bookkeeping_account: number | null;
+  price: number | null;
+  min_price: number | null;
+  max_price: number | null;
+  hasCustomPrice: boolean;
 };
 
 export type GiftcardFormDrawerProps = OuterProps &

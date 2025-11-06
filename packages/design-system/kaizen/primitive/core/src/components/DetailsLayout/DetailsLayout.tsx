@@ -15,6 +15,7 @@ import Button from "#src/components/Button";
 import HeaderLayout, {
   HeaderLayoutProps,
 } from "#src/components/private/HeaderLayout";
+import LayoutButton from "#src/components/private/LayoutButton";
 import { useKaizenI18nInstance, useTranslation } from "#src/i18n";
 
 import {
@@ -42,11 +43,12 @@ const detailsLayout = cva([
 ]);
 
 /**
- * Define Layout for Details pages, with four subcomponents:
+ * Define Layout for Details pages, with five subcomponents:
  * - DetailsLayout.Header : See https://docs.infra.bsport.io/storybook/kaizen/dev/index.html?path=/docs/components-private-headerlayout--docs
  * - DetailsLayout.Confirmation
  * - DetailsLayout.Content
  * - DetailsLayout.Panel
+ * - DetailsLayout.Button : Responsive button that adapts to mobile/desktop screens
  * The Header will stick to the top of the page while the Content
  * will be scrollable if its content exceeds the window height
  * the Panel on the left side will ocuppy the whole height and can be collapsed/expanded -triggered using toggleIsPanelOpened-
@@ -64,6 +66,7 @@ type DetailsLayoutComponent = ForwardRefExoticComponent<
   Content: typeof DetailsLayoutContent;
   Panel: typeof DetailsLayoutPanel;
   Confirmation: typeof DetailsLayoutConfirmation;
+  Button: typeof LayoutButton;
 };
 
 const DetailsLayout = forwardRef<LayoutProviderRef, DetailsLayoutProps>(
@@ -279,6 +282,14 @@ const DetailsLayoutConfirmation: FC<DetailsLayoutConfirmationProps> = ({
 };
 
 DetailsLayout.Confirmation = DetailsLayoutConfirmation;
+
+// ----- Button -----
+
+/**
+ * Responsive button that shows full button on desktop (≥640px)
+ * and icon-only button on mobile (<640px)
+ */
+DetailsLayout.Button = LayoutButton;
 
 // ----- Export DetailsLayout -----
 

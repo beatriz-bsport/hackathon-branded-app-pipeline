@@ -1,4 +1,5 @@
 import React, { useId } from "react";
+import { useNavigate } from "react-router";
 
 import { ControlledForm, useFormController } from "@bsport/form";
 import { Modal } from "@bsport/kaizen-primitive-core";
@@ -16,7 +17,8 @@ import {
 } from "#src/components/PackForm/schema";
 import { useSelectedItemsContext } from "#src/contexts/selectedItemsContext";
 import { useCreatePack } from "#src/hooks/useCreatePack";
-import { LEGACY_URLS } from "#src/urls";
+import { LEGACY_URLS, URLS } from "#src/urls";
+import { USE_REVAMP_DETAILS } from "#src/utils/constants";
 import { useTranslation } from "#src/utils/i18n";
 
 type PackCreateModalProps = {
@@ -51,10 +53,16 @@ export const PackCreateModal: React.FC<PackCreateModalProps> = ({
   const hasSelectedItems =
     passes.length + appointmentPasses.length + webshopItems.length > 0;
 
+  const navigate = useNavigate();
+
   const { handleCreatePack } = useCreatePack({
     onSuccess: (value) => {
       onClose();
-      window.location.assign(LEGACY_URLS.PACK_DETAILS(value.id));
+      if (USE_REVAMP_DETAILS) {
+        navigate(URLS.DETAILS(value.id));
+      } else {
+        window.location.assign(LEGACY_URLS.PACK_DETAILS(value.id));
+      }
     },
   });
 

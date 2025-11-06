@@ -45,7 +45,7 @@ const meta: Meta<typeof SortableList> = {
       chipsDirection?: "start" | "end";
     
       /** A list of buttons to display in the header; extra actions are pushed to a dropdown. */
-      buttons?: WithTooltip<ActionButton[]>;
+       buttons?: WithTooltip<ActionButton>[];
     
       /** Optional dropdown config, like the number of actions inline or dropdown fields. */
       dropdownConfig?: ActionsDropdownConfig;
@@ -437,18 +437,22 @@ export const ListWithNoPrimaryButtons: Story = {
         buttons: [
           {
             id: "list-header-button-2",
+            kind: "icon-button",
+            label: "Announcement",
+            icon: "announcement-01",
             intent: "flat",
             color: "default",
             size: "md",
-            iconLeft: "announcement-01",
             onClick: () => alert("Announcement clicked"),
           },
           {
             id: "list-header-button-3",
+            kind: "icon-button",
+            label: "Bank note",
+            icon: "bank-note-03",
             intent: "flat",
             color: "default",
             size: "md",
-            iconLeft: "bank-note-03",
             onClick: () => alert("Note clicked"),
           },
           {
@@ -472,18 +476,22 @@ export const ListWithNoPrimaryButtons: Story = {
         buttons: [
           {
             id: "list-header-button-2",
+            kind: "icon-button",
+            label: "Announcement",
+            icon: "announcement-01",
             intent: "flat",
             color: "default",
             size: "md",
-            iconLeft: "announcement-01",
             onClick: () => alert("Announcement clicked"),
           },
           {
             id: "list-header-button-3",
+            kind: "icon-button",
+            label: "Bank note",
+            icon: "bank-note-03",
             intent: "flat",
             color: "default",
             size: "md",
-            iconLeft: "bank-note-03",
             onClick: () => alert("Note clicked"),
           },
           {
@@ -625,18 +633,22 @@ export const LoadingList: Story = {
         buttons: [
           {
             id: "list-header-button-2",
+            kind: "icon-button",
+            label: "Announcement",
+            icon: "announcement-01",
             intent: "flat",
             color: "default",
             size: "md",
-            iconLeft: "announcement-01",
             onClick: () => alert("Announcement clicked"),
           },
           {
             id: "list-header-button-3",
+            kind: "icon-button",
+            label: "Bank note",
+            icon: "bank-note-03",
             intent: "flat",
             color: "default",
             size: "md",
-            iconLeft: "bank-note-03",
             onClick: () => alert("Note clicked"),
           },
           {
@@ -659,18 +671,22 @@ export const LoadingList: Story = {
         buttons: [
           {
             id: "list-header-button-2",
+            kind: "icon-button",
+            label: "Announcement",
+            icon: "announcement-01",
             intent: "flat",
             color: "default",
             size: "md",
-            iconLeft: "announcement-01",
             onClick: () => alert("Announcement clicked"),
           },
           {
             id: "list-header-button-3",
+            kind: "icon-button",
+            label: "Bank note",
+            icon: "bank-note-03",
             intent: "flat",
             color: "default",
             size: "md",
-            iconLeft: "bank-note-03",
             onClick: () => alert("Note clicked"),
           },
           {

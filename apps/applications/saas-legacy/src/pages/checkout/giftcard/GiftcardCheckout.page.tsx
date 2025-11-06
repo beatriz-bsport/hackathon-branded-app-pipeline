@@ -16,7 +16,7 @@ import {
   retrieveGiftcard,
   fetchGiftcardBackgroundImageList,
 } from '#src/libs/giftcard/actions';
-import ConsumerGiftcardFormWithPreview from '#src/libs/giftcard/components/ConsumerGiftcardFormWithPreview.component';
+import { ConsumerGiftcardFormWithPreview } from '#src/libs/giftcard/components/ConsumerGiftcardFormWithPreview';
 import themeSelectors from '#src/libs/theme/selectors';
 import { fetchCompanyTheme } from '#src/libs/theme/actions';
 import {
@@ -83,13 +83,12 @@ export class GiftcardCheckout extends React.Component<Props> {
       <ConsumerAppBarContainer>
         <div className={classes.container}>
           <ConsumerGiftcardFormWithPreview
-            // @ts-expect-error
+            consumerVariant
             companyCover={this.props.theme.cover}
             giftcard={this.props.giftcard}
             giftcardBackgroundImageList={this.props.giftcardBackgroundImageList}
             isManager={false}
             onSubmit={this.addItemToBasket}
-            variant="consumer"
           />
         </div>
       </ConsumerAppBarContainer>

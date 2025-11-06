@@ -12,7 +12,6 @@ import { useKaizenI18nInstance, useTranslation } from "#src/i18n";
 const defaultClasses = [
   "w-layout-sidebar py-md",
   "shrink-0",
-  "shadow-lg",
   "border-r-stroke-default border-r-stroke-thin",
   "bg-surface-page-navigation",
   "will-change-transform",
@@ -22,7 +21,7 @@ const variants = {
   platform: {
     desktop: "hidden md:flex md:flex-col md:h-screen",
     mobile:
-      "flex flex-col fixed left-0 top-layout-mobile-sidebar-offset h-layout-content-mobile",
+      "flex flex-col fixed left-0 top-layout-mobile-sidebar-offset h-layout-content-mobile shadow-lg",
   },
   state: {
     open: "animate-slide-in-left",
@@ -203,14 +202,15 @@ const Sidebar: React.FC<SidebarProps> = ({
           )}
         >
           <Button
+            kind="icon-button"
+            label={
+              isMobileMenuOpen ? t("sidebar.closeMenu") : t("sidebar.openMenu")
+            }
+            icon="layout-left"
             intent="default"
             size="md"
             color="main"
-            iconLeft="layout-left"
             onClick={toggleMenu}
-            aria-label={
-              isMobileMenuOpen ? t("sidebar.closeMenu") : t("sidebar.openMenu")
-            }
             aria-expanded={isMobileMenuOpen}
             aria-controls={sidebarId}
           />

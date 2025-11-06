@@ -87,7 +87,9 @@ export const PackAddItemsSelection: React.FC<PackAddItemsSelectionProps> = ({
                     id: `${variant}-${item.id}-selection-remove`,
                     intent: "flat",
                     size: "sm",
-                    iconLeft: "minus",
+                    kind: "icon-button",
+                    icon: "minus",
+                    label: t("addItemsModal.selectedItems.removeItem"),
                     onClick: () => {
                       removePreselectedItem({ id: String(item.id) });
                     },

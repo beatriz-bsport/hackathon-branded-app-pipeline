@@ -22,7 +22,6 @@
     "enabled": "Actif",
     "allEstablishment": "Toutes les salles",
     "pleaseChoseEstablishment": "Veuillez sélectionnez un établissement",
-    "pleaseChoseEstablishmentMany": "Veuillez sélectionnez au moins un établissement",
     "establishment": "Etablissement",
     "configurationTitle": "Configurez votre intégration",
     "add": "Ajouter",

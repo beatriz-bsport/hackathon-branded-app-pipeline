@@ -1204,6 +1204,23 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
   setBuyableItemsAndOfferFeature = () => {
     this.getBuyableItemCategories();
 
+    const isGroupedOffer = !!this.props.offer?.group;
+    const isGroupOfferStatusLoading =
+      isGroupedOffer && this.props.groupedOffersStatusLoading;
+
+    if (!this.props.offer) {
+      return;
+    }
+
+    const mainOfferStatus = this.props.offerStatusById[this.props.offerId];
+    if (!mainOfferStatus) {
+      return;
+    }
+
+    if (isGroupOfferStatusLoading) {
+      return;
+    }
+
     const {
       isBookable,
       isWaitingList,

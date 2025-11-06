@@ -1,0 +1,37 @@
+{
+  "pageTitle": "Insights",
+  "sections": {
+    "member": "Insights dos Membros",
+    "financial": "Saúde Financeira",
+    "booking": "Desempenho de Reservas",
+    "teacher": "Desempenho do Professor",
+    "marketing": "Desempenho de Marketing"
+  },
+  "items": {
+    "trial": {
+      "title": "Acompanhe o desempenho da oferta de teste",
+      "description": "Descubra mais sobre aquisição, taxas de conversão e como você pode aumentar a eficácia da sua oferta de teste."
+    },
+    "recurring": {
+      "title": "Monitorar o Desempenho das Assinaturas",
+      "description": "Acompanhe a saúde das assinaturas, analise a receita recorrente e identifique riscos ou oportunidades"
+    }
+  },
+  "pages": {
+    "trialAnalysis": {
+      "title": "Desempenho da oferta de teste"
+    },
+    "recurringRevenue": {
+      "title": "Monitorar o Desempenho das Assinaturas"
+    }
+  },
+  "errors": {
+    "loadDashboard": "Não foi possível carregar o painel. Por favor, atualize a página.",
+    "fetchFailed": "Falha ao carregar o painel. Por favor, atualize a página."
+  },
+  "filter": {
+    "selectFieldLabel": "Filtrar por seção",
+    "filterLabel": "Filtro",
+    "isLabel": "é"
+  }
+}

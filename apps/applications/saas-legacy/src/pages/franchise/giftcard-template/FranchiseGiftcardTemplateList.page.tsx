@@ -66,7 +66,7 @@ export class FranchiseGiftcardTemplateListPage extends Component<Props> {
 
     const displayedPrice =
       card_type === GIFTCARD_TYPES.CUSTOM || !price
-        ? t('giftcardFreeAmount.customAmount', { ns: 'b2b_giftcard' })
+        ? t('customAmount.label', { ns: 'b2b_giftcard' })
         : getCurrencyDisplayWithPrice(template.price);
 
     const validity = template.expiration_days

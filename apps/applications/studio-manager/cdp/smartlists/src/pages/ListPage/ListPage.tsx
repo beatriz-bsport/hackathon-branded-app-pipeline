@@ -1,6 +1,7 @@
 import { useState } from "react";
 
-import { Button, List, ListLayout } from "@bsport/kaizen-primitive-core";
+import { List, ListLayout } from "@bsport/kaizen-primitive-core";
+import type { ListItemProps } from "@bsport/kaizen-primitive-core";
 import type { Smartlist } from "@bsport/store-cdp-smartlist";
 
 import { useSmartlists } from "#src/api/use-smartlists";
@@ -51,14 +52,84 @@ const ListPage: React.FC = () => {
     setCurrentInlineAction("create");
   };
 
+  const handleEdit = (smartlist: Smartlist) => {
+    setCurrentSmartlist(smartlist);
+    setCurrentInlineAction("edit");
+  };
+
+  const handleDuplicate = (smartlist: Smartlist) => {
+    setCurrentSmartlist(smartlist);
+    setCurrentInlineAction("duplicate");
+  };
+
+  const handleDelete = (smartlist: Smartlist) => {
+    setCurrentSmartlist(smartlist);
+    setCurrentInlineAction("delete");
+  };
+
+  const listItems: ListItemProps[] = smartlists.map((smartlist: Smartlist) => ({
+    id: smartlist.id.toString(),
+    title: smartlist.name,
+    description: smartlist.description,
+    dropdownConfig: {
+      visibleActionsDisplayLimit: VISIBLE_ACTIONS_DISPLAY_LIMIT,
+    },
+    onClick: () => {
+      window.location.assign(LEGACY_URLS.SMARTLIST_MEMBER(smartlist.id));
+    },
+    buttons: [
+      {
+        id: `smartlist-edit-action-${smartlist.id}`,
+        kind: "icon-button",
+        icon: "edit-02",
+        label: t("inlineActions.edit"),
+        size: "md",
+        intent: "flat",
+        color: "default",
+        tooltipProps: {
+          label: t("inlineActions.edit"),
+          placement: "bottom",
+        },
+        onClick: () => handleEdit(smartlist),
+      },
+      {
+        id: `smartlist-copy-action-${smartlist.id}`,
+        kind: "icon-button",
+        icon: "copy-03",
+        label: t("inlineActions.duplicate"),
+        size: "md",
+        intent: "flat",
+        color: "default",
+        tooltipProps: {
+          label: t("inlineActions.duplicate"),
+          placement: "bottom",
+        },
+        onClick: () => handleDuplicate(smartlist),
+      },
+      {
+        id: `smartlist-trash-action-${smartlist.id}`,
+        kind: "icon-button",
+        icon: "trash-01",
+        label: t("inlineActions.delete"),
+        size: "md",
+        intent: "flat",
+        color: "default",
+        tooltipProps: {
+          label: t("inlineActions.delete"),
+          placement: "bottom-right",
+        },
+        onClick: () => handleDelete(smartlist),
+      },
+    ],
+  }));
+
   return (
     <ListLayout>
       <ListLayout.Header
         pageTitle={t("title")}
         callToActionButton={
-          <Button
+          <ListLayout.Button
             color="main"
-            size="md"
             intent="call-to-action"
             label={t("addSmartlist")}
             iconLeft="plus"
@@ -80,77 +151,7 @@ const ListPage: React.FC = () => {
               isLoading,
               message: t("loading"),
             }}
-            items={smartlists.map((smartlist: Smartlist) => {
-              const handleEdit = () => {
-                setCurrentSmartlist(smartlist);
-                setCurrentInlineAction("edit");
-              };
-
-              const handleDuplicate = () => {
-                setCurrentSmartlist(smartlist);
-                setCurrentInlineAction("duplicate");
-              };
-
-              const handleDelete = () => {
-                setCurrentSmartlist(smartlist);
-                setCurrentInlineAction("delete");
-              };
-
-              return {
-                id: smartlist.id.toString(),
-                title: smartlist.name,
-                description: smartlist.description,
-                dropdownConfig: {
-                  visibleActionsDisplayLimit: VISIBLE_ACTIONS_DISPLAY_LIMIT,
-                },
-                onClick: () => {
-                  window.location.assign(
-                    LEGACY_URLS.SMARTLIST_MEMBER(smartlist.id),
-                  );
-                },
-                buttons: [
-                  {
-                    id: `smartlist-edit-action-${smartlist.id}`,
-                    color: "default",
-                    size: "md",
-                    intent: "flat",
-                    iconLeft: "edit-02",
-                    "aria-label": t("inlineActions.edit"),
-                    tooltipProps: {
-                      label: t("inlineActions.edit"),
-                      placement: "bottom",
-                    },
-                    onClick: handleEdit,
-                  },
-                  {
-                    id: `smartlist-copy-action-${smartlist.id}`,
-                    color: "default",
-                    size: "md",
-                    intent: "flat",
-                    iconLeft: "copy-03",
-                    "aria-label": t("inlineActions.duplicate"),
-                    onClick: handleDuplicate,
-                    tooltipProps: {
-                      label: t("inlineActions.duplicate"),
-                      placement: "bottom",
-                    },
-                  },
-                  {
-                    id: `smartlist-trash-action-${smartlist.id}`,
-                    color: "default",
-                    size: "md",
-                    intent: "flat",
-                    iconLeft: "trash-01",
-                    "aria-label": t("inlineActions.delete"),
-                    tooltipProps: {
-                      label: t("inlineActions.delete"),
-                      placement: "bottom-right",
-                    },
-                    onClick: handleDelete,
-                  },
-                ],
-              };
-            })}
+            items={listItems}
             paginationProps={{
               currentPage,
               totalItems,

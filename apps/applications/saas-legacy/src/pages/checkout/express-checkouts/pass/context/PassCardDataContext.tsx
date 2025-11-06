@@ -10,6 +10,7 @@ import type {
 import type { Establishment } from '#src/libs/establishment/types';
 import type { MetaActivity } from '#src/libs/meta-activity/types';
 import type { SCT } from '#src/libs/category/types';
+import type { PaymentCombo } from '#src/libs/payment-combo/types';
 
 type PaymentPackData = {
   paymentPack: PaymentPack;
@@ -30,6 +31,7 @@ type PassCardData = {
   passId: number;
   paymentPackData?: PaymentPackData;
   privatePassData?: PrivatePassData;
+  paymentComboData?: PaymentCombo;
 };
 
 export type { PassCardData };

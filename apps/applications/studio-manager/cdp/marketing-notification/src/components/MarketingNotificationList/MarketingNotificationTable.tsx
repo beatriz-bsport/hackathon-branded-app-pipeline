@@ -107,25 +107,29 @@ export const MarketingNotificationTable = () => {
         actionsConfig={[
           {
             id: "previous-tag-details",
-            iconLeft: "chevron-up",
+            kind: "icon-button",
+            label: t("table.actions.previous"),
+            icon: "chevron-up",
             intent: "default",
             size: "md",
             color: "main",
             onClick: navigateToPreviousMarketingNotification,
             tooltipProps: {
-              label: "Previous",
+              label: t("table.actions.previous"),
               placement: "bottom-right",
             },
           },
           {
             id: "next-tag-details",
-            iconLeft: "chevron-down",
+            kind: "icon-button",
+            label: t("table.actions.next"),
+            icon: "chevron-down",
             intent: "default",
             size: "md",
             color: "main",
             onClick: navigateToNextMarketingNotification,
             tooltipProps: {
-              label: "Next",
+              label: t("table.actions.next"),
               placement: "bottom-right",
             },
           },

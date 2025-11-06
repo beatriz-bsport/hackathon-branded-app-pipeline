@@ -7,7 +7,7 @@ const variants = {
     block: "rounded-xs",
   },
   sizeByType: {
-    "line-2xs": "w-1xs",
+    "line-2xs": "w-2xs",
     "line-xs": "w-2xs",
     "line-sm": "w-2xs",
     "line-md": "w-xs",

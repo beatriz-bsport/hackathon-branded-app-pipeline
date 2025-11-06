@@ -1,1 +1,68 @@
-{}
+{
+  "pageTitle": "Accueil",
+  "header": {
+    "title": "Bienvenue à nouveau, {{ username }}",
+    "titleWithoutName": "Bienvenue !"
+  },
+  "banner": {
+    "close": "Fermer la bannière",
+    "insights": {
+      "title": "Nouvelle fonctionnalité Insights",
+      "description": "Repérez les tendances, suivez les performances et prenez des décisions commerciales plus éclairées grâce aux informations en temps réel",
+      "ctaLabel": "Explorer maintenant"
+    }
+  },
+  "upcomingClassesPanel": {
+    "title": "Cours à venir",
+    "headers": {
+      "class": "Cours",
+      "teacher": "Professeur",
+      "teacherSubstitution": "Remplacement",
+      "classFillRate": "Taux de remplissage"
+    },
+    "emptyList": "Aucun cours à venir",
+    "teacher": {
+      "helperText": "Professeur"
+    },
+    "substitution": {
+      "helperText": "Remplacement",
+      "errorMissingReplacement": "Remplacement nécessaire"
+    },
+    "rates": {
+      "badge": {
+        "waitingCount": "{{ count }} sur liste d'attente"
+      },
+      "tooltip": {
+        "classIsFull": "Ce cours est complet",
+        "hasEmptySpots_one": "{{ count }} place restante dans le cours",
+        "hasEmptySpots_other": "{{ count }} places restantes dans le cours",
+        "hasEmptySpotsForWaitlist_one": "{{ count }} place en attente sur la liste d'attente",
+        "hasEmptySpotsForWaitlist_other": "{{ count }} places en attente sur la liste d'attente"
+      }
+    }
+  },
+  "exploreSection": {
+    "exploreThePlatform": {
+      "title": "Explorer la plateforme",
+      "productUpdatesCard": {
+        "title": "Mises à jour des produits",
+        "description": "Découvrez toutes nos dernières mises à jour de produits "
+      }
+    },
+    "advices": {
+      "title": "Conseils de bsport",
+      "latestNewsCard": {
+        "title": "Dernières nouvelles de bsport",
+        "description": "Découvrez les dernières nouvelles et tendances de l'industrie"
+      }
+    }
+  },
+  "keyMetrics": {
+    "title": "Indicateurs principaux ",
+    "unavailable": "Les indicateurs sont actuellement indisponibles"
+  },
+  "insightsPanel": {
+    "title": "Aperçus",
+    "unavailable": "Les aperçus sont actuellement indisponibles"
+  }
+}

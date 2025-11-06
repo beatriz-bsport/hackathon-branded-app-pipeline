@@ -75,7 +75,6 @@ export const EditMarketingNotificationModal = ({
       }}
       cancelButton={{
         label: "Cancel",
-        color: "critical",
       }}
       onClickOutside={() => {
         onClose?.();

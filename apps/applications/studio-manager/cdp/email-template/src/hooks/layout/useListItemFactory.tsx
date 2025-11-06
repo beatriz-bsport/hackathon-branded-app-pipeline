@@ -32,7 +32,9 @@ export const useListItemFactory = ({
           size: "md",
           intent: "flat",
           color: "default",
-          iconLeft: "eye",
+          kind: "icon-button",
+          icon: "eye",
+          label: t("activeList.hover.preview"),
           tooltipProps: {
             label: t("activeList.hover.preview"),
             placement: "bottom-right",
@@ -53,7 +55,9 @@ export const useListItemFactory = ({
           size: "md",
           intent: "flat",
           color: "default",
-          iconLeft: "copy-03",
+          kind: "icon-button",
+          icon: "copy-03",
+          label: t("activeList.hover.duplicate"),
           onClick: () => handleDuplicateTemplate?.(emailTemplate),
           tooltipProps: {
             label: t("activeList.hover.duplicate"),
@@ -74,7 +78,9 @@ export const useListItemFactory = ({
           size: "md",
           intent: "flat",
           color: "default",
-          iconLeft: "trash-01",
+          kind: "icon-button",
+          icon: "trash-01",
+          label: t("activeList.hover.delete"),
           onClick: () => handleDeleteTemplate?.(emailTemplate),
           tooltipProps: {
             label: t("activeList.hover.delete"),

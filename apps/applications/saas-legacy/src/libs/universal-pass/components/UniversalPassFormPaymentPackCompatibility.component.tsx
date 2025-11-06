@@ -14,7 +14,7 @@ import { SCT } from '#src/libs/category/types';
 import { Establishment } from '#src/libs/establishment/types';
 import { MetaActivity } from '#src/libs/meta-activity/types';
 
-import { FormikValues } from '#src/libs/private-service/components/pass/private-pass-form/PrivatePassForm.component';
+import { PrivatePassFormValues as FormikValues } from '#src/libs/private-service/components/pass/private-pass-form/PrivatePassForm.component';
 import ObjectLevelPermissionProviderComponent from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 
 type Props = {

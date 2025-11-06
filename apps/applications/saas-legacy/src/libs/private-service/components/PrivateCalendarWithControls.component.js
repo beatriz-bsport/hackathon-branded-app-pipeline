@@ -106,6 +106,7 @@ type Props = {
   hideResourceSelector?: boolean,
   getHasPendingReplacementRequest: (offerId: number) => boolean,
   coachNotRelatedToPrivateService: boolean,
+  calendarSyncUrl?: string,
 };
 
 export const PrivateCalendarWithControls = (props: Props) => {
@@ -267,6 +268,7 @@ export const PrivateCalendarWithControls = (props: Props) => {
         <PrivateCalendar
           availabilitySlots={props.availabilitySlots}
           availabilitySlotUpdating={props.availabilitySlotUpdating}
+          calendarSyncUrl={props.calendarSyncUrl}
           createCustomEvent={props.createCustomEvent}
           customEventList={
             props.scheduleFilter?.showCustomEvents

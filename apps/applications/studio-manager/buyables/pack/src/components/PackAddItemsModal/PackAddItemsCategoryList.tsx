@@ -76,7 +76,9 @@ export const PackAddItemsCategoryList: React.FC<
           buttons: [
             {
               id: `${listId}-${id}-arrow-button`,
-              iconLeft: "arrow-right",
+              kind: "icon-button",
+              icon: "arrow-right",
+              label: t("addItemsModal.categories.open"),
               color: "default",
               intent: "flat",
               size: "md",

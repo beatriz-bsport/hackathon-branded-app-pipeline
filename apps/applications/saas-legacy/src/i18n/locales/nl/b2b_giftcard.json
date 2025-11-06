@@ -1,0 +1,21 @@
+{
+  "customAmount": {
+    "label": "Personalisatie",
+    "form": {
+      "toggle": "Aangepaste waarde",
+      "maxPrice": {
+        "label": "Maximum",
+        "helperText": "Voer een geheel getal in tot {{ maxPriceWithCurrency }}",
+        "limitExplanation": "Waarom dit nummer?"
+      },
+      "minPrice": {
+        "label": "Minimum",
+        "helperText": "Voer een geheel getal van minimaal 1 in"
+      },
+      "errors": {
+        "maxGreaterThanMin": "De maximale waarde moet groter zijn dan de minimale waarde."
+      }
+    },
+    "featureBlocked": "Cadeaubonnen met een aangepaste waarde zijn nog niet beschikbaar."
+  }
+}

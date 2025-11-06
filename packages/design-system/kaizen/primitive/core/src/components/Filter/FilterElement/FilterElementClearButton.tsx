@@ -2,6 +2,7 @@ import classNames from "classnames";
 import React from "react";
 
 import Button from "#src/components/Button";
+import { useKaizenI18nInstance, useTranslation } from "#src/i18n";
 
 import { filterElementBtnClasses, filterElementClasses } from "./constants";
 
@@ -11,18 +12,24 @@ type FilterElementClearButtonProps = {
 
 const FilterElementClearButton: React.FC<FilterElementClearButtonProps> = ({
   onClear,
-}) => (
-  <li className={filterElementClasses()}>
-    <Button
-      className={classNames(filterElementBtnClasses, "!rounded-l-[0]")}
-      color="default"
-      intent="flat"
-      size="md"
-      iconLeft="x-close"
-      aria-label="Clear filters"
-      onClick={onClear}
-    />
-  </li>
-);
+}) => {
+  const i18n = useKaizenI18nInstance();
+  const { t } = useTranslation("default", { i18n });
+
+  return (
+    <li className={filterElementClasses()}>
+      <Button
+        kind="icon-button"
+        className={classNames(filterElementBtnClasses, "!rounded-l-[0]")}
+        color="default"
+        intent="flat"
+        size="md"
+        icon="x-close"
+        label={t("filter.clearAriaLabel")}
+        onClick={onClear}
+      />
+    </li>
+  );
+};
 
 export default FilterElementClearButton;

@@ -471,6 +471,7 @@ export const ListWithNoPrimaryButtons: Story = {
         buttons: [
           {
             id: "list-header-button-2",
+            label: "Announcement",
             intent: "flat",
             color: "default",
             size: "md",
@@ -479,6 +480,7 @@ export const ListWithNoPrimaryButtons: Story = {
           },
           {
             id: "list-header-button-3",
+            label: "Note",
             intent: "flat",
             color: "default",
             size: "md",
@@ -504,6 +506,7 @@ export const ListWithNoPrimaryButtons: Story = {
         buttons: [
           {
             id: "list-header-button-2",
+            label: "Announcement",
             intent: "flat",
             color: "default",
             size: "md",
@@ -512,6 +515,7 @@ export const ListWithNoPrimaryButtons: Story = {
           },
           {
             id: "list-header-button-3",
+            label: "Note",
             intent: "flat",
             color: "default",
             size: "md",
@@ -975,6 +979,7 @@ export const CompactListOfAvatar: Story = {
         buttons: [
           {
             id: "plus-compact-1",
+            label: "Add",
             size: "sm",
             intent: "flat",
             color: "default",
@@ -994,6 +999,7 @@ export const CompactListOfAvatar: Story = {
         buttons: [
           {
             id: "plus-compact-1",
+            label: "Add",
             size: "sm",
             intent: "flat",
             color: "default",
@@ -1013,6 +1019,7 @@ export const CompactListOfAvatar: Story = {
         buttons: [
           {
             id: "plus-compact-1",
+            label: "Add",
             size: "sm",
             intent: "flat",
             color: "default",

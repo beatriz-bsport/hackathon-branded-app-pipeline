@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { Button, ListLayout } from "@bsport/kaizen-primitive-core";
+import { ListLayout } from "@bsport/kaizen-primitive-core";
 
 import { EditMarketingNotificationModal } from "#src/components/MarketingNotificationEdition/EditMarketingNotificationModal";
 import { MarketingNotificationTable } from "#src/components/MarketingNotificationList/MarketingNotificationTable";
@@ -14,8 +14,7 @@ const MarketingNotificationListPage: React.FC = () => {
       <ListLayout.Header
         pageTitle={t("page.title")}
         callToActionButton={
-          <Button
-            size="md"
+          <ListLayout.Button
             color="main"
             intent="call-to-action"
             label={t("page.actions.createNotificationButton")}

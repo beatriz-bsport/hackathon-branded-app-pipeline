@@ -9,6 +9,7 @@ import {
   BUYABLE_ITEM_CREDIT as CREDIT,
   BUYABLE_ITEM_GIFTCARD as GIFTCARD,
 } from '@bsport/common/lib/master-data/buyable-items.js';
+import type { DateTime } from 'luxon';
 import { AdditionalGuest } from '#src/libs/booker-module/types';
 
 export type AddItemToBasketParams = {
@@ -73,7 +74,14 @@ export type CheckoutItem = {
 };
 
 type ExtraData = {
-  [key: string]: string | string[] | number | boolean | ExtraData;
+  [key: string]:
+    | string
+    | string[]
+    | number
+    | boolean
+    | null
+    | ExtraData
+    | DateTime;
 };
 
 export type CheckoutItemData = {

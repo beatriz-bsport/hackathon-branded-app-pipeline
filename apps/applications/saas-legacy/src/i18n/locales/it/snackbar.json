@@ -1219,5 +1219,10 @@
   },
   "oneClickBooking": {
     "genericError": "Non è stato possibile completare la prenotazione. Ti preghiamo di rivedere i tuoi dati e di riprovare."
+  },
+  "calendar": {
+    "syncCalendarDialog": {
+      "copySuccess": "URL del calendario copiato"
+    }
   }
 }

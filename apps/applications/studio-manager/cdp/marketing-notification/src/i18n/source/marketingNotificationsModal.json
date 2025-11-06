@@ -79,6 +79,10 @@
     },
     "notificationRules": {
       "title": "Set up an automation",
+      "errors": {
+        "noFloat": "Must be a whole number without decimal points",
+        "atLeastOneTimeValue": "Must be at least 1 {{ timeUnit }}"
+      },
       "booking": {
         "actionLabel": "Send this notification when a member",
         "actions": {
@@ -106,6 +110,40 @@
           "absent": "Your settings are configured to mark members as absent by default",
           "refunded": "Your settings are configured to mark members as refunded by default",
           "tooLate": "Your settings are configured to mark members as too late to be refunded by default"
+        },
+        "timing": {
+          "temporality": {
+            "label": "Send this notification",
+            "options": {
+              "before": "Before the session",
+              "after": "After the session"
+            }
+          },
+          "timeUnit": {
+            "label": "Select interval",
+            "options": {
+              "hour": "Hourly",
+              "day": "Daily"
+            }
+          },
+          "timeValue": {
+            "label": "Timing of notification",
+            "prefix": {
+              "content": "Your notification will be sent ",
+              "before": {
+                "hour_one": "{{count}} hour before the session",
+                "hour_other": "{{count}} hours before the session",
+                "day_one": "{{count}} day before the session",
+                "day_other": "{{count}} days before the session"
+              },
+              "after": {
+                "hour_one": "{{count}} hour after the session",
+                "hour_other": "{{count}} hours after the session",
+                "day_one": "{{count}} day after the session",
+                "day_other": "{{count}} days after the session"
+              }
+            }
+          }
         }
       }
     }

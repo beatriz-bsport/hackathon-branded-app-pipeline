@@ -280,7 +280,11 @@ const AvailabilitySlotForm = withTranslation('privateService')(
                 <ListItemIcon color="primary">
                   <PersonAddIcon className={props.classes.leftIcon} />
                 </ListItemIcon>
-                <ListItemText primary={props.t('calendar.addBooking')} />
+                <ListItemText
+                  primary={props.t('calendar.addBooking', {
+                    ns: 'privateService',
+                  })}
+                />
               </ListItem>
             </ObjectLevelPermissionWrapper>
           )}
@@ -295,11 +299,15 @@ const AvailabilitySlotForm = withTranslation('privateService')(
                     <CheckIcon className={props.classes.leftIcon} />
                   </ListItemIcon>
                   <ListItemText
-                    primary={props.t('calendar.enableAvailability')}
+                    primary={props.t('calendar.enableAvailability', {
+                      ns: 'privateService',
+                    })}
                     secondary={
                       props.onEnableAvailability
                         ? null
-                        : props.t('calendar.selectCoachToModifyAvailability')
+                        : props.t('calendar.selectCoachToModifyAvailability', {
+                            ns: 'privateService',
+                          })
                     }
                   />
                 </ListItem>
@@ -312,11 +320,15 @@ const AvailabilitySlotForm = withTranslation('privateService')(
                     <RefreshIcon className={props.classes.leftIcon} />
                   </ListItemIcon>
                   <ListItemText
-                    primary={props.t('calendar.enableRecurrentAvailability')}
+                    primary={props.t('calendar.enableRecurrentAvailability', {
+                      ns: 'privateService',
+                    })}
                     secondary={
                       props.onEnableRecurrentAvailability
                         ? null
-                        : props.t('calendar.selectCoachToModifyAvailability')
+                        : props.t('calendar.selectCoachToModifyAvailability', {
+                            ns: 'privateService',
+                          })
                     }
                   />
                 </ListItem>
@@ -338,11 +350,15 @@ const AvailabilitySlotForm = withTranslation('privateService')(
                     <CancelIcon className={props.classes.leftIcon} />
                   </ListItemIcon>
                   <ListItemText
-                    primary={props.t('calendar.disableAvailability')}
+                    primary={props.t('calendar.disableAvailability', {
+                      ns: 'privateService',
+                    })}
                     secondary={
                       props.onDisableAvailability
                         ? null
-                        : props.t('calendar.selectCoachToModifyAvailability')
+                        : props.t('calendar.selectCoachToModifyAvailability', {
+                            ns: 'privateService',
+                          })
                     }
                   />
                 </ListItem>
@@ -355,11 +371,15 @@ const AvailabilitySlotForm = withTranslation('privateService')(
                     <RefreshIcon className={props.classes.leftIcon} />
                   </ListItemIcon>
                   <ListItemText
-                    primary={props.t('calendar.disableRecurrentAvailability')}
+                    primary={props.t('calendar.disableRecurrentAvailability', {
+                      ns: 'privateService',
+                    })}
                     secondary={
                       props.onDisableRecurrentAvailability
                         ? null
-                        : props.t('calendar.selectCoachToModifyAvailability')
+                        : props.t('calendar.selectCoachToModifyAvailability', {
+                            ns: 'privateService',
+                          })
                     }
                   />
                 </ListItem>
@@ -376,7 +396,11 @@ const AvailabilitySlotForm = withTranslation('privateService')(
                 <ListItemIcon>
                   <TodayIcon className={props.classes.leftIcon} />
                 </ListItemIcon>
-                <ListItemText primary={props.t('calendar.createCustomEvent')} />
+                <ListItemText
+                  primary={props.t('calendar.createCustomEvent', {
+                    ns: 'privateService',
+                  })}
+                />
               </ListItem>
             </React.Fragment>
           )}
@@ -395,7 +419,9 @@ const AvailabilitySlotForm = withTranslation('privateService')(
                     <InfoIcon className={props.classes.leftIcon} />
                   </ListItemIcon>
                   <ListItemText
-                    primary={props.t('calendar.showAvailabilityDetails')}
+                    primary={props.t('calendar.showAvailabilityDetails', {
+                      ns: 'privateService',
+                    })}
                   />
                 </ListItem>
               </React.Fragment>
@@ -792,11 +818,15 @@ export class PrivateCalendar extends React.PureComponent<Props, State> {
           click: this.zoomOut,
         },
         datePicker: {
-          text: this.props.t('calendar.header.dateSelector'),
+          text: this.props.t('calendar.header.dateSelector', {
+            ns: 'privateService',
+          }),
           click: this.openDatePicker,
         },
         calendarSync: {
-          text: this.props.t('calendar.header.syncCalendar.button'),
+          text: this.props.t('calendar.header.syncCalendar.button', {
+            ns: 'b2b_privateService',
+          }),
           click: this.handleSyncCalendarClick,
         },
       }),
@@ -824,7 +854,9 @@ export class PrivateCalendar extends React.PureComponent<Props, State> {
       resourceTimeGridThreeDays: {
         type: 'resourceTimeGrid',
         duration: { days: 3 },
-        buttonText: this.props.t('calendar.header.threeDaysView'),
+        buttonText: this.props.t('calendar.header.threeDaysView', {
+          ns: 'privateService',
+        }),
       },
       resourceTimeGridDay: {
         titleFormat: {
@@ -913,10 +945,14 @@ export class PrivateCalendar extends React.PureComponent<Props, State> {
               }}
             >
               <MenuItem onClick={this.handleOutlookCalendarSubscription}>
-                {this.props.t('calendar.header.syncCalendar.outlook')}
+                {this.props.t('calendar.header.syncCalendar.outlook', {
+                  ns: 'b2b_privateService',
+                })}
               </MenuItem>
               <MenuItem onClick={this.handleOtherCalendarsClick}>
-                {this.props.t('calendar.header.syncCalendar.otherCalendars')}
+                {this.props.t('calendar.header.syncCalendar.otherCalendars', {
+                  ns: 'b2b_privateService',
+                })}
               </MenuItem>
             </Menu>
           </div>
@@ -1069,7 +1105,7 @@ export class PrivateCalendar extends React.PureComponent<Props, State> {
 }
 
 export default compose(
-  withTranslation(['privateService']),
+  withTranslation(['privateService', 'b2b_privateService']),
   withMobileDialog(),
   withStyles(styles, { withTheme: true }),
   withWidth(),

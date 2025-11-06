@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import { ListLayout } from "@bsport/kaizen-primitive-core";
 
-import { EditMarketingNotificationModal } from "#src/components/MarketingNotificationEdition/EditMarketingNotificationModal";
+import { EditMarketingNotificationModalWrapper } from "#src/components/MarketingNotificationEdition/EditMarketingNotificationModal";
 import { MarketingNotificationTable } from "#src/components/MarketingNotificationList/MarketingNotificationTable";
 import { useTranslation } from "#src/utils/i18n";
 
@@ -25,7 +25,7 @@ const MarketingNotificationListPage: React.FC = () => {
       />
       <ListLayout.Content>
         <MarketingNotificationTable />
-        <EditMarketingNotificationModal
+        <EditMarketingNotificationModalWrapper
           isOpen={isEditModalOpen}
           onClose={() => setIsEditModalOpen(false)}
         />

@@ -52,7 +52,11 @@ import {
   getOfferById,
   getRetrieveOfferLoading,
 } from '#src/libs/offer/selectors';
-import { getSearchedMembers, getMember } from '#src/libs/member/selectors';
+import {
+  getSearchedMembers,
+  getMember,
+  getSearchMemberLoading,
+} from '#src/libs/member/selectors';
 import {
   getByOfferByMember,
   withPaymentPack as withPaymentPackForConsumer,
@@ -254,7 +258,6 @@ export class CheckInOfferDetailPage extends React.Component<Props> {
             generalTermsAndConditions={
               this.props.theme.general_terms_and_conditions
             }
-            // @ts-expect-error TODO - typing
             loading={this.props.memberLoading}
             managerFormConfig={this.props.managerFormConfig?.poll_fields}
             member={this.props.searchedMember}
@@ -359,6 +362,7 @@ const connector = connect(
     offer: getOfferById(state, offerId),
     searchedMemberList: getSearchedMembers(state),
     memberBarcodeLoading: state.member.barcode.loading,
+    memberLoading: getSearchMemberLoading(state),
     bookings: getOfferBookingListWithConsumerPack(state),
     loading:
       state.booking.byOffer.loading ||

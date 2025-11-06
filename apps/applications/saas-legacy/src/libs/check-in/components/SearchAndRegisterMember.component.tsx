@@ -125,16 +125,6 @@ const RegisterMember = compose<RegisterMemberOwnProps, RegisterMemberOwnProps>(
 )(RegisterMemberBase);
 
 export const SearchAndRegister = (props: SearchAndRegisterProps) => {
-  if (props.loading) {
-    return (
-      <Dialog open>
-        <DialogContent>
-          <CircularProgress />
-        </DialogContent>
-      </Dialog>
-    );
-  }
-
   if (props.memberDataToComplete) {
     return (
       <Dialog open>
@@ -176,6 +166,7 @@ export const SearchAndRegister = (props: SearchAndRegisterProps) => {
       handlMemberSelected={(memberId, member) => {
         props.setSearchedMember(member);
       }}
+      loading={props.loading}
       // @ts-expect-error TODO - typing
       managerFormConfig={props.managerFormConfig}
       onClose={props.onClose}

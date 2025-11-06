@@ -278,6 +278,9 @@ export const NewCheckoutFlow: React.FC<Props> = ({
               companyId={companyId}
               currentStep={currentStep}
               displayedAmountToPayCts={displayedAmountToPayCts}
+              displayedAmountToPayPrepaidLinesCts={
+                basket.total_price_prepaid_lines_cts
+              }
               enableMultiLocalization={enableMultiLocalization ?? false}
               isOnlinePaymentAvailable={isOnlinePaymentAvailable}
               isPayLaterAvailable={isPayLaterAvailable}

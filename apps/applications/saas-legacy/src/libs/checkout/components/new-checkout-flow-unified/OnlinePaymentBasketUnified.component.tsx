@@ -54,6 +54,7 @@ type Props = {
   hideConfirmPaymentButton?: boolean;
   showAcceptTermsAndConditions?: boolean;
   displayedAmountToPayCts?: number;
+  displayedAmountToPayPrepaidLinesCts?: number;
   payerContext: {
     memberId: number;
     fromApp?: boolean;
@@ -74,6 +75,7 @@ export const OnlinePaymentBasketUnified: React.FC<Props> = forwardRef(
       hideConfirmPaymentButton,
       showAcceptTermsAndConditions,
       displayedAmountToPayCts,
+      displayedAmountToPayPrepaidLinesCts,
       payerContext: { memberId, fromApp, termsAndConditionsAccepted },
       stripePaymentElementConfig,
       onCancelPaymentBeforeConfirming,
@@ -327,6 +329,15 @@ export const OnlinePaymentBasketUnified: React.FC<Props> = forwardRef(
       displayedAmountToPayCts ??
       basketTotalPriceCts - (basketTotalPricePrepaidLinesCts || 0);
 
+    // When checking the total price of the basket, remove the prepaid lines from the calculation.
+    // It only compares the total price of the items in the basket.
+    const prepaidLinesCts =
+      displayedAmountToPayPrepaidLinesCts ?? basketTotalPricePrepaidLinesCts;
+    const displayedBasketTotalPriceCts =
+      displayedAmountToPayCts !== undefined
+        ? amountToPayCts + (prepaidLinesCts || 0)
+        : basketTotalPriceCts;
+
     const allowedWallets = {
       applePay:
         paymentMethodAvailableBasket?.includes(
@@ -426,7 +437,7 @@ export const OnlinePaymentBasketUnified: React.FC<Props> = forwardRef(
                   isConsumerAllowedToUseInternalAccount
                 }
                 basketId={basketId}
-                basketTotalPriceCts={amountToPayCts}
+                basketTotalPriceCts={displayedBasketTotalPriceCts}
                 cardBillingDetailsMandatory={
                   isCardBillingDetailsMandatory && false
                 }

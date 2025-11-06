@@ -1222,5 +1222,10 @@
   },
   "oneClickBooking": {
     "genericError": "We konden je boeking niet voltooien. Controleer je gegevens en probeer het opnieuw."
+  },
+  "calendar": {
+    "syncCalendarDialog": {
+      "copySuccess": "Kalender-URL gekopieerd"
+    }
   }
 }

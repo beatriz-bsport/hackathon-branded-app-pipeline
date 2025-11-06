@@ -5,21 +5,21 @@
   },
   "steps": {
     "label": {
-      "triggerType": "Trigger Type",
+      "triggerType": "Select trigger type",
       "notificationRules": "Set up automation",
       "content": "Choose channels"
     },
     "triggerType": {
-      "title": "Select the trigger that starts the automation",
+      "title": "Select the trigger for the automation",
       "notificationType": {
-        "label": "Notification Type",
+        "label": "Tripper type",
         "choices": {
           "groupActivity": "Group Activity",
           "location": "Location",
           "establishment": "Establishment",
           "workshop": "Workshop",
           "privateService": "Appointment",
-          "paymentPack": "Pass",
+          "paymentPack": "Standard Pass",
           "privatePass": "Appointment Pass",
           "subscription": "Subscription",
           "birthday": "Birthday"
@@ -27,53 +27,53 @@
       },
       "selectors": {
         "appointment": {
-          "label": "Associated Appointment",
-          "placeholder": "Select associated appointment",
-          "loading": "Searching appointments..."
+          "label": "Class",
+          "placeholder": "Select a class",
+          "loading": "Searching classes..."
         },
         "groupActivity": {
-          "label": "Associated Group Activity",
-          "placeholder": "Select associated group activity",
-          "loading": "Searching group activities..."
+          "label": "Class",
+          "placeholder": "Select a class",
+          "loading": "Searching classes..."
         },
         "workshop": {
-          "label": "Associated Workshop",
-          "placeholder": "Select associated workshop",
-          "loading": "Searching workshops..."
+          "label": "Class",
+          "placeholder": "Select a class",
+          "loading": "Searching classes..."
         },
         "allActivities": {
-          "label": "All Activities",
-          "placeholder": "Select any activity",
-          "loading": "Searching activities..."
+          "label": "All classes",
+          "placeholder": "Select any class",
+          "loading": "Searching clases..."
         },
         "location": {
-          "label": "Associated Location",
-          "placeholder": "Select associated location",
+          "label": "Location",
+          "placeholder": "Select a location",
           "loading": "Searching locations..."
         },
         "establishment": {
-          "label": "Associated Establishment",
-          "placeholder": "Select associated establishment",
+          "label": "Establishment",
+          "placeholder": "Select an establishment",
           "loading": "Searching establishments..."
         },
         "subscription": {
-          "label": "Associated Subscription",
-          "placeholder": "Select associated subscription",
+          "label": "Subscription",
+          "placeholder": "Select a subscription",
           "loading": "Searching subscriptions..."
         },
         "pass": {
-          "label": "Associated Pass",
-          "placeholder": "Select associated pass",
-          "loading": "Searching passes..."
+          "label": "Standard Pass",
+          "placeholder": "Select a Standard Pass",
+          "loading": "Searching Standard Passes..."
         },
         "appointmentPass": {
-          "label": "Associated Appointment pass",
-          "placeholder": "Select associated appointment pass",
-          "loading": "Searching appointment passes..."
+          "label": "Appointment Pass",
+          "placeholder": "Select an Appointment Pass",
+          "loading": "Searching Appointment Passes..."
         },
         "errors": {
-          "notEmpty": "You have to select an item.",
-          "atLeastOne": "You have to select at least 1 item."
+          "notEmpty": "Select a trigger type to continue",
+          "atLeastOne": "Select at least 1  trigger type"
         }
       }
     },

@@ -1,8 +1,8 @@
 import classNames from "classnames";
-import React from "react";
+import React, { useId } from "react";
 
 export type RadioOptionsProps = {
-  id: string;
+  label: string;
   value: string;
   helperText?: string;
   errorText?: string;
@@ -23,8 +23,8 @@ export type RadioButtonProps = RadioOptionsProps & {
  * @remarks
  * This component is highly recommended to be used within a {@link RadioGroup} component.
  *
- * @param id Unique ID of the input element.
- * @param value Value displayed next to the input.
+ * @param label Value displayed next to the input.
+ * @param value Value used to manage the input.
  * @param helperText Helper text to display below the label.
  * @param errorText Error text to display below the label.
  * @param checked Whether the radio button is checked.
@@ -33,7 +33,7 @@ export type RadioButtonProps = RadioOptionsProps & {
  * @param direction Direction of the label relative to the input.
  */
 const RadioButton: React.FC<RadioButtonProps> = ({
-  id,
+  label,
   value,
   helperText,
   errorText,
@@ -42,6 +42,7 @@ const RadioButton: React.FC<RadioButtonProps> = ({
   disabled,
   direction = "start",
 }) => {
+  const id = useId();
   return (
     <div
       className={classNames(
@@ -130,7 +131,7 @@ const RadioButton: React.FC<RadioButtonProps> = ({
             "pr-xs": direction === "end",
           })}
         >
-          <span>{value}</span>
+          <span>{label}</span>
         </label>
       </div>
 

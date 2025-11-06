@@ -7,18 +7,20 @@ export const defaultClasses = ["flex flex-col gap-md"] as const;
 
 const radioGroup = cva(defaultClasses);
 
-export type RadioGroupProps =
-  React.FieldsetHTMLAttributes<HTMLFieldSetElement> &
-    VariantProps<typeof radioGroup> & {
-      id: string;
-      label?: string;
-      options: Array<RadioOptionsProps>;
-      value: string;
-      onChangeValue: (event: React.ChangeEvent<HTMLInputElement>) => void;
-      disabled?: boolean;
-      direction?: "start" | "end";
-      required?: boolean;
-    };
+export type RadioGroupProps = Omit<
+  React.FieldsetHTMLAttributes<HTMLFieldSetElement>,
+  "onChange"
+> &
+  VariantProps<typeof radioGroup> & {
+    id: string;
+    label?: string;
+    options: Array<RadioOptionsProps>;
+    value?: string;
+    onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+    disabled?: boolean;
+    direction?: "start" | "end";
+    required?: boolean;
+  };
 
 /**
  * A group of radio buttons presented as a single component.
@@ -29,7 +31,7 @@ export type RadioGroupProps =
  * @param props.label Optional label for the fieldset element.
  * @param props.options An array of options to display as radio buttons.
  * @param props.value Currently selected value.
- * @param props.onChangeValue Callback function triggered when the selected value changes.
+ * @param props.onChange Callback function triggered when the selected value changes.
  * @param props.disabled Whether the radio buttons should be disabled.
  * @param props.required Whether the radio buttons are required.
  * @param props.direction The direction in which the radio buttons are laid out. Default is "start".
@@ -41,12 +43,18 @@ const RadioGroup: React.FC<RadioGroupProps> = ({
   label,
   options,
   value,
-  onChangeValue,
+  onChange,
   disabled,
   direction = "start",
   required = false,
   ...props
 }) => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (onChange) {
+      onChange(event);
+    }
+  };
+
   return (
     <div className="flex flex-col gap-xs">
       {label && (
@@ -77,10 +85,10 @@ const RadioGroup: React.FC<RadioGroupProps> = ({
             <RadioButton
               {...option}
               checked={value === option.value}
-              onChange={onChangeValue}
+              onChange={handleChange}
               disabled={disabled!}
               direction={direction}
-              key={option.id}
+              key={option.value}
             />
           ))}
         </div>

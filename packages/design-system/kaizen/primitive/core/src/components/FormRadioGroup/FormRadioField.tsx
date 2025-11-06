@@ -1,10 +1,10 @@
 import classNames from "classnames";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useId, useRef } from "react";
 
 import Alert, { type AlertProps } from "#src/components/Alert";
 
 export type FormRadioOptionsProps = {
-  id: string;
+  label: string;
   value: string;
   helperText?: string;
   errorText?: string;
@@ -49,8 +49,8 @@ export type FormRadioFieldProps = FormRadioOptionsProps & {
  *   labelMaxWidth={120}
  * />
  *
- * @param {string} props.id - Unique HTML `id` of the input element (also used for label association).
- * @param {string} props.value - Value of the radio button (also displayed as the label).
+ * @param {string} props.label - Label displayed as the Radio option choice.
+ * @param {string} props.value - Value of the radio button used to manage state.
  * @param {boolean} props.checked - Whether the radio button is currently selected.
  * @param {(event: React.ChangeEvent<HTMLInputElement>) => void} props.onChange - Callback triggered when the value changes.
  * @param {boolean} props.disabled - Disables the radio button if true.
@@ -67,7 +67,7 @@ export type FormRadioFieldProps = FormRadioOptionsProps & {
  * @see FormRadioGroup
  */
 const FormRadioField: React.FC<FormRadioFieldProps> = ({
-  id,
+  label,
   value,
   helperText,
   errorText,
@@ -80,6 +80,7 @@ const FormRadioField: React.FC<FormRadioFieldProps> = ({
   setLabelColWidths,
   labelMaxWidth,
 }) => {
+  const id = useId();
   const labelRef = useRef<HTMLDivElement>(null);
   const elementRef = useRef<HTMLDivElement>(null);
   const helperRef = useRef<HTMLDivElement>(null);
@@ -310,7 +311,7 @@ const FormRadioField: React.FC<FormRadioFieldProps> = ({
             "pr-xs": direction === "end",
           })}
         >
-          <span>{value}</span>
+          <span>{label}</span>
         </label>
       </div>
       {element && (

@@ -16,16 +16,16 @@ export const BookingActionField = ({ value, onChange }: Props) => {
       label={t("steps.notificationRules.booking.actionLabel")}
       options={[
         {
-          id: "makes-booking",
-          value: t("steps.notificationRules.booking.actions.makesBooking"),
+          value: "makesBooking",
+          label: t("steps.notificationRules.booking.actions.makesBooking"),
         },
         {
-          id: "makes-cancellation",
-          value: t("steps.notificationRules.booking.actions.makesCancellation"),
+          value: "makesCancellation",
+          label: t("steps.notificationRules.booking.actions.makesCancellation"),
         },
       ]}
       value={value}
-      onChangeValue={onChange}
+      onChange={onChange}
     />
   );
 };

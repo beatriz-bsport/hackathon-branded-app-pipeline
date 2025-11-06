@@ -8,18 +8,20 @@ import { BookingOccurrenceField } from "#src/components/MarketingNotificationEdi
 import { BookingStatusField } from "#src/components/MarketingNotificationEdition/NotificationTriggerForms/Booking/BookingStatusField";
 import {
   BOOKING_ACTION_MAKES_BOOKING,
-  BOOKING_ACTION_MAKES_CANCELLATION,
   BOOKING_OCCURENCE_ANY_BOOKING,
   BOOKING_OCCURENCE_SPECIFIC_AMOUNT,
-  BOOKING_STATUS_ABSENT,
   BOOKING_STATUS_MAP_TO_BOOKING_EVENT_KIND,
   BOOKING_STATUS_PRESENT,
   BOOKING_STATUS_REFUNDED,
-  BOOKING_STATUS_TOO_LATE,
   type BookingAction,
   type BookingOccurrenceType,
   type BookingStatus,
 } from "#src/components/MarketingNotificationEdition/NotificationTriggerForms/Booking/types";
+import {
+  isValidBookingAction,
+  isValidBookingOccurenceType,
+  isValidBookingStatus,
+} from "#src/components/MarketingNotificationEdition/NotificationTriggerForms/Booking/utils";
 import { useTranslation } from "#src/utils/i18n";
 import type { TriggerConfigValidationFormData } from "#src/utils/schemas/types";
 
@@ -28,16 +30,6 @@ const BOOKING_OCCURENCE_ANY_BOOKING_FORM_VALUE = 0;
 interface BookingOccurrence {
   occurrenceType: BookingOccurrenceType;
   amount: number;
-}
-
-function reverseMap<T extends Record<string, string>>(
-  obj: T,
-): Record<string, string> {
-  const out: Record<string, string> = {};
-  for (const key in obj) {
-    out[obj[key]] = key;
-  }
-  return out;
 }
 
 type BookingNotificationTriggerFieldProps = Omit<
@@ -60,81 +52,58 @@ export const BookingNotificationTriggerField = ({
       amount: 0,
     });
 
-  const bookingActionMappedToTranslations: Record<string, BookingAction> = {
-    [t("steps.notificationRules.booking.actions.makesBooking")]:
-      BOOKING_ACTION_MAKES_BOOKING,
-    [t("steps.notificationRules.booking.actions.makesCancellation")]:
-      BOOKING_ACTION_MAKES_CANCELLATION,
-  };
-  const bookingStatusMappedToTranslations: Record<string, BookingStatus> = {
-    [t("steps.notificationRules.booking.statusOptions.present")]:
-      BOOKING_STATUS_PRESENT,
-    [t("steps.notificationRules.booking.statusOptions.absent")]:
-      BOOKING_STATUS_ABSENT,
-    [t("steps.notificationRules.booking.statusOptions.refunded")]:
-      BOOKING_STATUS_REFUNDED,
-    [t("steps.notificationRules.booking.statusOptions.tooLate")]:
-      BOOKING_STATUS_TOO_LATE,
-  };
-  const bookingOccurencesMappedToTranslations: Record<
-    string,
-    BookingOccurrenceType
-  > = {
-    [t("steps.notificationRules.booking.occurrences.anyBooking")]:
-      BOOKING_OCCURENCE_ANY_BOOKING,
-    [t("steps.notificationRules.booking.occurrences.specificAmount")]:
-      BOOKING_OCCURENCE_SPECIFIC_AMOUNT,
-  };
-
-  const translationsMappedToBookingActions = reverseMap(
-    bookingActionMappedToTranslations,
-  );
-
-  const translationsMappedToBookingStatus = reverseMap(
-    bookingStatusMappedToTranslations,
-  );
-
-  const translationsMappedToBookingOccurrences = reverseMap(
-    bookingOccurencesMappedToTranslations,
-  );
-
   return (
     <div className="flex flex-col gap-sm">
       <BookingActionField
-        value={translationsMappedToBookingActions[selectedBookingAction]}
+        value={selectedBookingAction}
         onChange={(event) => {
-          const newValue =
-            bookingActionMappedToTranslations[event.target.value];
-          if (newValue === BOOKING_ACTION_MAKES_BOOKING) {
-            setSelectedBookingStatus(BOOKING_STATUS_PRESENT);
-            methods.setValue(
-              "notificationKind",
-              BOOKING_STATUS_MAP_TO_BOOKING_EVENT_KIND[BOOKING_STATUS_PRESENT],
-              { shouldValidate: true },
-            );
+          const newValue = event.target.value;
+          console.log("new value : ", newValue);
+          if (isValidBookingAction(newValue)) {
+            setSelectedBookingAction(newValue);
+            if (newValue === BOOKING_ACTION_MAKES_BOOKING) {
+              setSelectedBookingStatus(BOOKING_STATUS_PRESENT);
+              methods.setValue(
+                "notificationKind",
+                BOOKING_STATUS_MAP_TO_BOOKING_EVENT_KIND[
+                  BOOKING_STATUS_PRESENT
+                ],
+                { shouldValidate: true },
+              );
+            } else {
+              setSelectedBookingStatus(BOOKING_STATUS_REFUNDED);
+              methods.setValue(
+                "notificationKind",
+                BOOKING_STATUS_MAP_TO_BOOKING_EVENT_KIND[
+                  BOOKING_STATUS_REFUNDED
+                ],
+                { shouldValidate: true },
+              );
+            }
           } else {
-            setSelectedBookingStatus(BOOKING_STATUS_REFUNDED);
-            methods.setValue(
-              "notificationKind",
-              BOOKING_STATUS_MAP_TO_BOOKING_EVENT_KIND[BOOKING_STATUS_REFUNDED],
-              { shouldValidate: true },
+            console.warn(
+              "[Marketing Notification Creation Modal] - booking action selected not valid",
             );
           }
-          setSelectedBookingAction(newValue);
         }}
       />
       <BookingStatusField
         selectedBookingAction={selectedBookingAction}
-        value={translationsMappedToBookingStatus[selectedBookingStatus]}
+        value={selectedBookingStatus}
         onChange={(event) => {
-          const newNotificationStatus =
-            bookingStatusMappedToTranslations[event.target.value];
-          const newNotificationKind =
-            BOOKING_STATUS_MAP_TO_BOOKING_EVENT_KIND[newNotificationStatus];
-          setSelectedBookingStatus(newNotificationStatus);
-          methods.setValue("notificationKind", newNotificationKind, {
-            shouldValidate: true,
-          });
+          const newNotificationStatus = event.target.value;
+          if (isValidBookingStatus(newNotificationStatus)) {
+            const newNotificationKind =
+              BOOKING_STATUS_MAP_TO_BOOKING_EVENT_KIND[newNotificationStatus];
+            setSelectedBookingStatus(newNotificationStatus);
+            methods.setValue("notificationKind", newNotificationKind, {
+              shouldValidate: true,
+            });
+          } else {
+            console.warn(
+              "[Marketing Notification Creation Modal] - booking status selected not valid",
+            );
+          }
         }}
       />
 
@@ -145,39 +114,37 @@ export const BookingNotificationTriggerField = ({
       </Alert>
 
       <BookingOccurrenceField
-        value={
-          translationsMappedToBookingOccurrences[
-            selectedBookingOccurrence.occurrenceType
-          ]
-        }
-        bookingOccurencesMappedToTranslations={
-          bookingOccurencesMappedToTranslations
-        }
+        value={selectedBookingOccurrence.occurrenceType}
         amount={selectedBookingOccurrence.amount}
         onChange={(event) => {
-          const newValue =
-            bookingOccurencesMappedToTranslations[event.target.value];
-          if (newValue === BOOKING_OCCURENCE_ANY_BOOKING) {
-            methods.setValue(
-              "eventOccurrence",
-              BOOKING_OCCURENCE_ANY_BOOKING_FORM_VALUE,
-              {
-                shouldValidate: true,
-              },
-            );
-          } else if (newValue === BOOKING_OCCURENCE_SPECIFIC_AMOUNT) {
-            methods.setValue(
-              "eventOccurrence",
-              selectedBookingOccurrence.amount,
-              {
-                shouldValidate: true,
-              },
+          const newValue = event.target.value;
+          if (isValidBookingOccurenceType(newValue)) {
+            setSelectedBookingOccurrence((prev) => ({
+              ...prev,
+              occurrenceType: newValue,
+            }));
+            if (newValue === BOOKING_OCCURENCE_ANY_BOOKING) {
+              methods.setValue(
+                "eventOccurrence",
+                BOOKING_OCCURENCE_ANY_BOOKING_FORM_VALUE,
+                {
+                  shouldValidate: true,
+                },
+              );
+            } else if (newValue === BOOKING_OCCURENCE_SPECIFIC_AMOUNT) {
+              methods.setValue(
+                "eventOccurrence",
+                selectedBookingOccurrence.amount,
+                {
+                  shouldValidate: true,
+                },
+              );
+            }
+          } else {
+            console.warn(
+              "[Marketing Notification Creation Modal] - booking occurence type selected not valid",
             );
           }
-          setSelectedBookingOccurrence((prev) => ({
-            ...prev,
-            occurrenceType: newValue,
-          }));
         }}
         onAmountChange={(newAmount) => {
           methods.setValue("eventOccurrence", Number(newAmount), {

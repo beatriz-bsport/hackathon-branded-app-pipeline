@@ -27,16 +27,16 @@ export const BookingStatusField = ({
           label: t("steps.notificationRules.booking.statusLabel.attendance"),
           options: [
             {
-              id: "present",
-              value: t("steps.notificationRules.booking.statusOptions.present"),
+              value: "present",
+              label: t("steps.notificationRules.booking.statusOptions.present"),
             },
             {
-              id: "absent",
-              value: t("steps.notificationRules.booking.statusOptions.absent"),
+              value: "absent",
+              label: t("steps.notificationRules.booking.statusOptions.absent"),
             },
           ],
           value,
-          onChangeValue: onChange,
+          onChange: onChange,
         }
       : {
           key: "cancellation-status-options",
@@ -45,18 +45,18 @@ export const BookingStatusField = ({
           label: t("steps.notificationRules.booking.statusLabel.cancellation"),
           options: [
             {
-              id: "refunded",
-              value: t(
+              value: "refunded",
+              label: t(
                 "steps.notificationRules.booking.statusOptions.refunded",
               ),
             },
             {
-              id: "too-late",
-              value: t("steps.notificationRules.booking.statusOptions.tooLate"),
+              value: "tooLate",
+              label: t("steps.notificationRules.booking.statusOptions.tooLate"),
             },
           ],
           value,
-          onChangeValue: onChange,
+          onChange: onChange,
         };
   return <RadioGroup {...statusRadioGroupProps} />;
 };

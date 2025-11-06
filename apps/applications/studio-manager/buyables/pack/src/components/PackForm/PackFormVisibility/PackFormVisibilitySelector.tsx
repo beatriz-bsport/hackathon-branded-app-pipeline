@@ -57,13 +57,13 @@ export const PackFormVisibilitySelector: React.FC<
 
   const radioOptions = [
     {
-      id: OPTION_VISIBLE,
-      value: visibleTranslations.value,
+      value: OPTION_VISIBLE,
+      label: visibleTranslations.value,
       helperText: visibleTranslations.helperText,
     },
     {
-      id: OPTION_HIDDEN,
-      value: hiddenTranslations.value,
+      value: OPTION_HIDDEN,
+      label: hiddenTranslations.value,
       helperText: hiddenTranslations.helperText,
     },
   ];
@@ -71,14 +71,6 @@ export const PackFormVisibilitySelector: React.FC<
   const dropdownButtonLabel = isHidden
     ? hiddenTranslations.buttonLabel
     : visibleTranslations.buttonLabel;
-
-  const mapManagerOnlyToRadioValue = (managerOnly: boolean) => {
-    return managerOnly ? hiddenTranslations.value : visibleTranslations.value;
-  };
-
-  const mapRadioValueToManagerOnly = (radioValue: string) => {
-    return radioValue === hiddenTranslations.value;
-  };
 
   return (
     <Popover>
@@ -119,14 +111,13 @@ export const PackFormVisibilitySelector: React.FC<
                 const {
                   // eslint-disable-next-line @typescript-eslint/no-unused-vars
                   statusText: _,
-                  value,
+                  value: isHiddenSelected,
                   ...otherDefaultProps
                 } = defaultProps;
                 return {
                   ...otherDefaultProps,
-                  onChangeValue: (event) => {
-                    const radioValue = event.target.value;
-                    const hidePack = mapRadioValueToManagerOnly(radioValue);
+                  onChange: (event) => {
+                    const hidePack = event.target.value === OPTION_HIDDEN;
                     form.setValue("manager_only", hidePack);
                     if (hidePack) {
                       // Fallback payment methods to default value to avoid hidden errors
@@ -138,13 +129,11 @@ export const PackFormVisibilitySelector: React.FC<
                     }
                     setIsPopoverOpened(false);
                   },
-                  value: mapManagerOnlyToRadioValue(value),
-                  onChange: undefined,
+                  value: isHiddenSelected ? OPTION_HIDDEN : OPTION_VISIBLE,
                   ref: undefined,
                 };
               }}
             >
-              {/** @ts-expect-error value and onChangeValue are provided by the FormField */}
               <RadioGroup
                 id={`${fieldIdPrefix}-visibility-radio-group`}
                 options={radioOptions}

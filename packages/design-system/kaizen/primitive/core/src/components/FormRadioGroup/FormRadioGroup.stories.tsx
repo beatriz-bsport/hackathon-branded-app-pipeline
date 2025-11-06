@@ -1,3 +1,11 @@
+import {
+  Controls,
+  Description,
+  Primary,
+  Stories,
+  Subtitle,
+  Title,
+} from "@storybook/blocks";
 import type { Meta, StoryObj } from "@storybook/react";
 import React, { useEffect, useState } from "react";
 
@@ -83,11 +91,26 @@ const meta: Meta<typeof FormRadioGroup> = {
       table: { type: { summary: "string" } },
       options: ["start", "end"],
     },
-    onChangeValue: {
+    onChange: {
       table: { type: { summary: "function" } },
     },
     required: {
       control: { type: "boolean" },
+    },
+  },
+  parameters: {
+    docs: {
+      page: () => (
+        <>
+          <Title />
+          <Subtitle />
+          <Description />
+          <Primary />
+          <Controls />
+          {/* 🟢 Only show the stories list, no Primary story */}
+          <Stories includePrimary={false} />
+        </>
+      ),
     },
   },
 };
@@ -96,7 +119,7 @@ export default meta;
 
 type Story = StoryObj<typeof FormRadioGroup>;
 
-export const Primary: Story = {
+export const ControlledForm: Story = {
   name: "FormRadioGroup",
   render: (args) => {
     const [checked, setChecked] = useState(args.value);
@@ -108,7 +131,7 @@ export const Primary: Story = {
       <FormRadioGroup
         {...args}
         value={checked}
-        onChangeValue={(event: React.ChangeEvent<HTMLInputElement>) =>
+        onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
           setChecked(event.target.value)
         }
       />
@@ -119,23 +142,23 @@ export const Primary: Story = {
     id: "radio-group-1",
     options: [
       {
-        id: "radio-1",
-        value: "Mango",
+        value: "mango",
+        label: "Mango",
         helperText: "bsport’s favourite",
       },
       {
-        id: "radio-2",
-        value: "Orange",
+        value: "orange",
+        label: "Orange",
         errorText: "Too much orange",
       },
       {
-        id: "radio-3",
-        value: "Banana",
+        value: "banana",
+        label: "Banana",
         helperText: "another looong helper text",
         errorText: "Too much banana",
       },
     ],
-    value: "",
+    value: "mango",
     disabled: false,
     direction: "start",
     required: true,
@@ -154,18 +177,18 @@ export const WithElementsAndHelpers: Story = {
       <FormRadioGroup
         {...args}
         value={checked}
-        onChangeValue={(event: React.ChangeEvent<HTMLInputElement>) =>
+        onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
           setChecked(event.target.value)
         }
       />
     );
   },
   args: {
-    id: "radio-group-1",
+    id: "radio-group-2",
     options: [
       {
-        id: "radio-1",
-        value: "Mango",
+        value: "react",
+        label: "React",
         helperText: "bsport’s favourite",
         element: (
           <Button
@@ -177,8 +200,8 @@ export const WithElementsAndHelpers: Story = {
         ),
       },
       {
-        id: "radio-2",
-        value: "Orange",
+        value: "vue",
+        label: "Vue",
         errorText: "Too much orange",
         element: (
           <Button
@@ -190,8 +213,8 @@ export const WithElementsAndHelpers: Story = {
         ),
       },
       {
-        id: "radio-3",
-        value: "Banana",
+        value: "angular",
+        label: "Angular",
         helperText: "another",
         errorText: "Too much banana",
         element: (
@@ -204,7 +227,7 @@ export const WithElementsAndHelpers: Story = {
         ),
       },
     ],
-    value: "",
+    value: "react",
     disabled: false,
     direction: "start",
   },
@@ -222,18 +245,18 @@ export const WithCustomElements: Story = {
       <FormRadioGroup
         {...args}
         value={checked}
-        onChangeValue={(event: React.ChangeEvent<HTMLInputElement>) =>
+        onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
           setChecked(event.target.value)
         }
       />
     );
   },
   args: {
-    id: "radio-group-1",
+    id: "radio-group-3",
     options: [
       {
-        id: "radio-1",
-        value: "Textfield with button in row",
+        value: "textfieldButtonRow",
+        label: "Textfield with button in row",
         element: (
           <div className="flex flex-row gap-xs">
             <TextField
@@ -261,8 +284,8 @@ export const WithCustomElements: Story = {
         },
       },
       {
-        id: "radio-2",
-        value: "Textfield with button in column",
+        value: "tetxfieldButtonColumn",
+        label: "Textfield with button in column",
         helperText: "another looong helper textanother",
         element: (
           <div className="flex flex-col gap-xs">
@@ -282,8 +305,8 @@ export const WithCustomElements: Story = {
         ),
       },
       {
-        id: "radio-3",
-        value: "Textfield alone",
+        value: "textfieldAlone",
+        label: "Textfield alone",
         helperText:
           "another looong helper textanother looong helper textanother looong helper text",
         element: (
@@ -295,8 +318,8 @@ export const WithCustomElements: Story = {
         ),
       },
       {
-        id: "radio-4",
-        value: "Textfield with label",
+        value: "textfieldLabel",
+        label: "Textfield with label",
         element: (
           <TextField
             id="textfield-test"
@@ -307,7 +330,7 @@ export const WithCustomElements: Story = {
         ),
       },
     ],
-    value: "",
+    value: "textfieldAlone",
     disabled: false,
     direction: "end",
   },
@@ -346,7 +369,7 @@ export const BasicExapleInFormsElements: Story = {
           {...args}
           options={getOptions()}
           value={checked}
-          onChangeValue={(event: React.ChangeEvent<HTMLInputElement>) =>
+          onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
             setChecked(event.target.value)
           }
         />
@@ -354,11 +377,11 @@ export const BasicExapleInFormsElements: Story = {
     );
   },
   args: {
-    id: "radio-group-1",
+    id: "radio-group-5",
     options: [
       {
-        id: "radio-1",
-        value: "Percentage",
+        value: "percentage",
+        label: "Percentage",
         element: (
           <TextField
             id="textfield-test"
@@ -384,8 +407,8 @@ export const BasicExapleInFormsElements: Story = {
         },
       },
       {
-        id: "radio-2",
-        value: "Amount",
+        value: "amount",
+        label: "Amount",
         element: (
           <TextField
             id="textfield-test"
@@ -410,7 +433,7 @@ export const BasicExapleInFormsElements: Story = {
         },
       },
     ],
-    value: "",
+    value: "percentage",
     disabled: false,
     direction: "start",
   },

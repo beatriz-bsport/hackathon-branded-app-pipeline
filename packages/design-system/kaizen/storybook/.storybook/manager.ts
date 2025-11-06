@@ -36,7 +36,7 @@ addons.setConfig({
   panelPosition: "right",
   theme: create({
     base: "light",
-    brandTitle: "bsport - Kaizen UI",
+    brandTitle: "bsport - Kaizen Design System",
     brandImage:
       "https://cdn.prod.website-files.com/6673de6d7fabfe3267680fc3/66e463f20336dbfc14e5bc18_logo_icon_for%20website.png",
     brandTarget: "_self",

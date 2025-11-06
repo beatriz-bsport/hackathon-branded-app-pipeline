@@ -1,6 +1,6 @@
 import { type VariantProps, cva } from "class-variance-authority";
 import mapValues from "lodash/mapValues";
-import React, { AnchorHTMLAttributes, useState } from "react";
+import { AnchorHTMLAttributes, useEffect, useState } from "react";
 
 import { useMatchMedia } from "#src/hooks/use-match-media";
 
@@ -81,9 +81,30 @@ const Tabs: React.FC<TabsProps> & { Item: typeof TabsItem } = ({
   ...props
 }: TabsProps) => {
   const [activeTab, setActiveTab] = useState(defaultValue);
-  const [activeTabData, setActiveTabData] =
-    useState<Omit<ActiveTabData, "id">>();
+  const [activeTabData, setActiveTabData] = useState<
+    Omit<ActiveTabData, "id"> | undefined
+  >(() => {
+    // Initialize activeTabData with the active tab's label and icon
+    const initialActiveTab = value ?? defaultValue;
+    const activeTabConfig = tabs.find((tab) => tab.id === initialActiveTab);
+    return activeTabConfig
+      ? { label: activeTabConfig.label, icon: activeTabConfig.icon }
+      : undefined;
+  });
   const isAboveSm = useMatchMedia("sm");
+
+  // Sync activeTabData when controlled value changes (for object declaration API)
+  useEffect(() => {
+    if (value !== undefined && tabs.length > 0) {
+      const activeTabConfig = tabs.find((tab) => tab.id === value);
+      if (activeTabConfig) {
+        setActiveTabData({
+          label: activeTabConfig.label,
+          icon: activeTabConfig.icon,
+        });
+      }
+    }
+  }, [value, tabs]);
 
   if (!tabs?.length && !TabsItems?.length) {
     console.warn(
@@ -164,6 +185,7 @@ const Tabs: React.FC<TabsProps> & { Item: typeof TabsItem } = ({
           TabsItems={tabsItems}
           activeTab={currentActiveTab}
           setActiveTab={currentSetActiveTab}
+          tabs={tabs}
         />
       </TabsContext.Provider>
     );

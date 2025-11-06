@@ -337,6 +337,16 @@ export const ConfigWithButtonsOnly: Story = {
   },
 };
 
+export const LongGermanTitle: Story = {
+  name: "With Long German Title",
+  args: {
+    pageTitle:
+      "ÜbermäßigLangesZusammengesetztesWortFürStudioManagementSystemKonfigurationsEinstellungenUndWeitereUntersuchungen",
+    callToActionButton: ARGS.CALL_TO_ACTION_BUTTON,
+    endGroupActions: ARGS.END_GROUP_ACTIONS,
+  },
+};
+
 export const ConfigWithClickDataActions: Story = {
   name: "With Click Data Actions",
   args: {

@@ -6,17 +6,17 @@ import {
 import type { BookingAction } from "#src/components/MarketingNotificationEdition/NotificationTriggerForms/Booking/types";
 import { useTranslation } from "#src/utils/i18n";
 
-interface Props {
+type BookingStatusFieldProps = {
   selectedBookingAction: BookingAction;
   value: string;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-}
+};
 
 export const BookingStatusField = ({
   selectedBookingAction,
   value,
   onChange,
-}: Props) => {
+}: BookingStatusFieldProps) => {
   const { t } = useTranslation("marketingNotificationsModal");
   const statusRadioGroupProps: RadioGroupProps =
     selectedBookingAction === "makesBooking"

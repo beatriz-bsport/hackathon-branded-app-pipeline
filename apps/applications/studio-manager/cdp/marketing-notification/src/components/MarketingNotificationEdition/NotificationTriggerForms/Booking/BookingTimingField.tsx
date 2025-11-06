@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 import { ControlledFormProps, FormField } from "@bsport/form";
 import {
   Alert,
@@ -12,10 +10,8 @@ import {
 } from "@bsport/kaizen-primitive-core";
 
 import {
-  BOOKING_TEMPORALITY_BEFORE,
   BOOKING_TIME_UNIT_DAY,
   BOOKING_TIME_UNIT_HOUR,
-  BookingTemporality,
 } from "#src/components/MarketingNotificationEdition/NotificationTriggerForms/Booking/types";
 import {
   isTemporalityTypeCorrect,
@@ -27,20 +23,22 @@ import type {
   ConfigTimeUnit,
 } from "#src/utils/schemas/types";
 
-type BookingTimingFieldProps = Omit<
-  ControlledFormProps<BookingTriggerConfigValidationFormData>,
-  "children" | "onSubmit"
->;
+import { MIN_BOOKING_OCCURENCE_SPECIFIC_AMOUNT } from "./BookingNotificationTriggerField";
 
-export const BookingTimingField = ({ ...methods }: BookingTimingFieldProps) => {
+type BookingTimingFieldProps = {
+  setFormValue: ControlledFormProps<BookingTriggerConfigValidationFormData>["setValue"];
+  watchFormValue: ControlledFormProps<BookingTriggerConfigValidationFormData>["watch"];
+};
+
+export const BookingTimingField = ({
+  setFormValue,
+  watchFormValue,
+}: BookingTimingFieldProps) => {
   const { t } = useTranslation("marketingNotificationsModal");
-  const [temporality, setTemporality] = useState<BookingTemporality>(
-    BOOKING_TEMPORALITY_BEFORE,
-  );
-  const { watch } = methods;
 
-  const timeUnit = watch("timingUnit");
-  const timeValue = watch("timingValue");
+  const temporality = watchFormValue("timingTemporality");
+  const timeUnit = watchFormValue("timingUnit");
+  const timeValue = watchFormValue("timingValue");
 
   const bookingTimeUnitMappedToTranslations = {
     [t("steps.notificationRules.booking.timing.timeUnit.options.hour")]:
@@ -68,6 +66,43 @@ export const BookingTimingField = ({ ...methods }: BookingTimingFieldProps) => {
     },
   )}`;
 
+  const handleTimingTemporalityUpdate = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    const newTemporality = event.target.value;
+    if (isTemporalityTypeCorrect(newTemporality)) {
+      setFormValue("timingTemporality", newTemporality, {
+        shouldValidate: true,
+      });
+    } else {
+      console.warn(
+        "[Marketing Notification Modal] - Booking timing temporality do not have a valid type",
+      );
+    }
+  };
+
+  const handleTimingUnitSelection = (option: string) => {
+    const newTimeUnit = bookingTimeUnitMappedToTranslations[option];
+    if (isTimeUnitTypeCorrect(newTimeUnit)) {
+      setFormValue("timingUnit", newTimeUnit, {
+        shouldValidate: true,
+      });
+    } else {
+      console.warn(
+        "[Marketing Notification Modal] - Booking timing unit do not have a valid type",
+      );
+    }
+  };
+
+  const handleTimingValueUpdate = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    const newTimeValue = parseInt(event.target.value);
+    setFormValue("timingValue", newTimeValue, {
+      shouldValidate: true,
+    });
+  };
+
   return (
     <div className="flex flex-col gap-xs w-full">
       <RadioGroup
@@ -87,19 +122,7 @@ export const BookingTimingField = ({ ...methods }: BookingTimingFieldProps) => {
           },
         ]}
         value={temporality}
-        onChangeValue={(event: React.ChangeEvent<HTMLInputElement>) => {
-          const newTemporality = event.target.value;
-          if (isTemporalityTypeCorrect(newTemporality)) {
-            setTemporality(newTemporality);
-            methods.setValue("timingTemporality", newTemporality, {
-              shouldValidate: true,
-            });
-          } else {
-            console.warn(
-              "[Marketing Notification Modal] - Booking timing temporality do not have a valid type",
-            );
-          }
-        }}
+        onChangeValue={handleTimingTemporalityUpdate}
       />
       <div className="flex flex-row gap-xs">
         <FormField<
@@ -108,21 +131,10 @@ export const BookingTimingField = ({ ...methods }: BookingTimingFieldProps) => {
           SelectProps
         >
           name="timingUnit"
-          mapProps={({ defaultProps, form }) => ({
+          mapProps={({ defaultProps }) => ({
             ...defaultProps,
             value: translationsKeyToTimeUnitMap[timeUnit],
-            onSelect: (option) => {
-              const newTimeUnit = bookingTimeUnitMappedToTranslations[option];
-              if (isTimeUnitTypeCorrect(newTimeUnit)) {
-                form.setValue("timingUnit", newTimeUnit, {
-                  shouldValidate: true,
-                });
-              } else {
-                console.warn(
-                  "[Marketing Notification Modal] - Booking timing unit do not have a valid type",
-                );
-              }
-            },
+            onSelect: handleTimingUnitSelection,
           })}
         >
           <Select
@@ -151,16 +163,11 @@ export const BookingTimingField = ({ ...methods }: BookingTimingFieldProps) => {
           TextFieldProps
         >
           name="timingValue"
-          mapProps={({ defaultProps, form }) => ({
+          mapProps={({ defaultProps }) => ({
             ...defaultProps,
             value: String(timeValue),
-            min: 1,
-            onChange: (event) => {
-              const newTimeValue = parseInt(event.target.value);
-              form.setValue("timingValue", newTimeValue, {
-                shouldValidate: true,
-              });
-            },
+            min: MIN_BOOKING_OCCURENCE_SPECIFIC_AMOUNT,
+            onChange: handleTimingValueUpdate,
           })}
         >
           <TextField

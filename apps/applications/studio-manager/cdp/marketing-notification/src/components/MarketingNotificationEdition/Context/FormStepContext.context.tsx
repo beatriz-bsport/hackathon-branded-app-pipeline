@@ -1,12 +1,66 @@
 import React, { createContext, useContext, useState } from "react";
 
+import type { BookingTriggerConfigValidationFormData } from "#src/utils/schemas/types";
+import type { SelectableNotificationType } from "#src/utils/types";
+
+type TriggerTypeStep = {
+  type: "triggerType";
+  notificationType: SelectableNotificationType;
+  itemIds: number[];
+};
+
+type BookingTriggerCondition = {
+  type: "booking";
+} & BookingTriggerConfigValidationFormData;
+
+type AppointmentTriggerCondition = {
+  type: "appointment";
+};
+
+type SubscriptionTriggerCondition = {
+  type: "subscription";
+};
+
+type BirthdayTriggerCondition = {
+  type: "birthday";
+};
+
+type PassesTriggerCondition = {
+  type: "passes";
+};
+
+type TriggerConditionStep =
+  | BookingTriggerCondition
+  | AppointmentTriggerCondition
+  | SubscriptionTriggerCondition
+  | BirthdayTriggerCondition
+  | PassesTriggerCondition;
+
+type ContentStep = {
+  type: "content";
+};
+
+type NotificationMultiStepFormState = {
+  triggerType?: TriggerTypeStep;
+  triggerCondition?: TriggerConditionStep;
+  content?: ContentStep;
+};
+
+export type GetCurrentFormValues =
+  | TriggerTypeStep
+  | TriggerConditionStep
+  | ContentStep;
+
 type FormStepContextType = {
   currentStep: number;
+  formData: NotificationMultiStepFormState;
   setCurrentStep: (newStep: number) => void;
   setStepValid: (step: number, isValid: boolean) => void;
   checkIfCurrentStepValid: () => boolean;
   goToNextStep: () => void;
   goToPreviousStep: () => void;
+  updateForm: (values: Partial<NotificationMultiStepFormState>) => void;
+  resetForm: () => void;
 };
 
 export const NOTIFICATION_TYPE_STEP_IDENTIFIER = 0;
@@ -23,6 +77,10 @@ export const FormStepContextProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
+  const [formData, setFormData] = React.useState<
+    Partial<NotificationMultiStepFormState>
+  >({});
+
   const [currentStep, setCurrentStep] = useState(
     NOTIFICATION_TYPE_STEP_IDENTIFIER,
   );
@@ -30,7 +88,7 @@ export const FormStepContextProvider = ({
     Record<number, boolean>
   >({
     [NOTIFICATION_TYPE_STEP_IDENTIFIER]: false,
-    [NOTIFICATION_TRIGGER_STEP_IDENTIFIER]: false,
+    [NOTIFICATION_TRIGGER_STEP_IDENTIFIER]: true,
     [NOTIFICATION_CONTENT_STEP_IDENTIFIER]: false,
   });
 
@@ -52,13 +110,21 @@ export const FormStepContextProvider = ({
     }
   };
 
+  const updateForm = (values: Partial<NotificationMultiStepFormState>) => {
+    setFormData((prev) => ({ ...prev, ...values }));
+  };
+  const resetForm = () => setFormData({});
+
   const value = {
     currentStep,
+    formData,
     setCurrentStep,
     setStepValid,
     checkIfCurrentStepValid,
     goToNextStep,
     goToPreviousStep,
+    updateForm,
+    resetForm,
   };
 
   return (

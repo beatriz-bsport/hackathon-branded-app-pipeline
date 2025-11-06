@@ -41,17 +41,10 @@ export const bookingTriggerConfigValidationSchema = z
         path: ["timingValue"],
       });
     }
-    console.log("super refine");
-    console.log(
-      "checking data integrity for included smartlists : ",
-      data.toggleIncludedSmartlists && !data.includedSmartlists,
-    );
-
     if (
       data.toggleIncludedSmartlists &&
       (!data.includedSmartlists || data.includedSmartlists.length < 1)
     ) {
-      console.log("toggleIncludedSmartlists triggered");
       ctx.addIssue({
         code: z.ZodIssueCode.custom,
         message: i18nInstance.t(
@@ -67,8 +60,6 @@ export const bookingTriggerConfigValidationSchema = z
       data.toggleExcludedSmartlists &&
       (!data.excludedSmartlists || data.excludedSmartlists.length < 1)
     ) {
-      console.log("toggleExcludedSmartlists triggered");
-
       ctx.addIssue({
         code: z.ZodIssueCode.custom,
         message: i18nInstance.t(

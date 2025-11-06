@@ -13,14 +13,18 @@ type EditMarketingNotificationModalProps = {
   isOpen: boolean;
   onClose?: () => void;
 };
-
 export const EditMarketingNotificationModal = ({
   isOpen,
   onClose,
 }: EditMarketingNotificationModalProps) => {
   const { t } = useTranslation("marketingNotificationsModal");
-  const { checkIfCurrentStepValid, goToNextStep, goToPreviousStep } =
+  const { checkIfCurrentStepValid, goToNextStep, goToPreviousStep, resetForm } =
     useFormStepContext();
+
+  const handleClose = () => {
+    onClose?.();
+    resetForm();
+  };
 
   return (
     <ModalStepper
@@ -29,17 +33,12 @@ export const EditMarketingNotificationModal = ({
       size="lg"
       steps={[
         {
-          label: t("steps.label.notificationRules"),
-          content: (
-            <TriggerConditionStep
-              notificationType={"groupActivity"}
-              itemIds={[9]}
-            />
-          ),
-        },
-        {
           label: t("steps.label.triggerType"),
           content: <TriggerTypeStep />,
+        },
+        {
+          label: t("steps.label.notificationRules"),
+          content: <TriggerConditionStep />,
         },
         {
           label: t("steps.label.content"),
@@ -62,13 +61,13 @@ export const EditMarketingNotificationModal = ({
         },
       }}
       onClickOutside={() => {
-        onClose?.();
+        handleClose?.();
       }}
       onClose={() => {
-        onClose?.();
+        handleClose?.();
       }}
       onCloseButtonClick={() => {
-        onClose?.();
+        handleClose?.();
       }}
     />
   );

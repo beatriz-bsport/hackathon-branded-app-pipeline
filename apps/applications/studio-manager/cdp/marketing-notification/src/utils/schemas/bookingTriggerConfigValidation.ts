@@ -22,8 +22,10 @@ export const bookingTriggerConfigValidationSchema = z
     timingUnit: z.custom<ConfigTimeUnit>(),
     timingValue: z.number(),
     timingTemporality: z.custom<BookingTemporality>(),
-    // includedSmartlists: z.array(z.number()).optional(),
-    // excludedSmartlists: z.array(z.number()).optional(),
+    toggleIncludedSmartlists: z.boolean(),
+    includedSmartlists: z.array(z.number()).optional(),
+    toggleExcludedSmartlists: z.boolean(),
+    excludedSmartlists: z.array(z.number()).optional(),
   })
   .superRefine((data, ctx) => {
     if (data.timingValue < 1) {
@@ -37,6 +39,45 @@ export const bookingTriggerConfigValidationSchema = z
           },
         ),
         path: ["timingValue"],
+      });
+    }
+    console.log("super refine");
+    console.log(
+      "checking data integrity for included smartlists : ",
+      data.toggleIncludedSmartlists && !data.includedSmartlists,
+    );
+
+    if (
+      data.toggleIncludedSmartlists &&
+      (!data.includedSmartlists || data.includedSmartlists.length < 1)
+    ) {
+      console.log("toggleIncludedSmartlists triggered");
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: i18nInstance.t(
+          "steps.notificationRules.errors.smartlistShouldBeFilledWhenToggled",
+          {
+            ns: "sm-marketing-notification_marketingNotificationsModal",
+          },
+        ),
+        path: ["includedSmartlists"],
+      });
+    }
+    if (
+      data.toggleExcludedSmartlists &&
+      (!data.excludedSmartlists || data.excludedSmartlists.length < 1)
+    ) {
+      console.log("toggleExcludedSmartlists triggered");
+
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: i18nInstance.t(
+          "steps.notificationRules.errors.smartlistShouldBeFilledWhenToggled",
+          {
+            ns: "sm-marketing-notification_marketingNotificationsModal",
+          },
+        ),
+        path: ["excludedSmartlists"],
       });
     }
   }) satisfies z.ZodType<BookingTriggerConfigValidationFormData>;

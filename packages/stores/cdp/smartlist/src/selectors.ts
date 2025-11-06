@@ -29,3 +29,8 @@ export const selectCount = (state: SmartlistState) => {
 export const selectAllMappedSmartlists = (state: SmartlistState) => {
   return state.byId;
 };
+
+export const selectSearchedSmartlists = (state: SmartlistState) => {
+  const { byId, fuzzySearchIds } = state;
+  return fuzzySearchIds.map((id) => byId[id]);
+};

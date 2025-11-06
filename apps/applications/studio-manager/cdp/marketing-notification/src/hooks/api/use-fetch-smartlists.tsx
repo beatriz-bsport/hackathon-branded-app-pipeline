@@ -1,9 +1,16 @@
-import { fetchSmartlistsAction } from "@bsport/store-cdp-smartlist";
+import {
+  type FetchSmartlistsParams,
+  type SmartlistOptions,
+  fetchSearchSmartlistsAction,
+  fetchSmartlistsAction,
+} from "@bsport/store-cdp-smartlist";
 import { useAsync } from "@bsport/use-async";
 
 import { fetch } from "#src/utils/fetch";
 
 const fetchSmartlistsBound = fetchSmartlistsAction.bind(null, fetch);
+
+const searchSmartlistsBound = fetchSearchSmartlistsAction.bind(null, fetch);
 
 /**
  * Hook for fetching smartlists data.
@@ -39,5 +46,19 @@ export function useFetchSmartlists() {
     });
   };
 
-  return { handleFetchSmartlists, isSmartlistsLoading: isLoading };
+  const handleSearchSmartlists = async (
+    query: string,
+    params: Required<FetchSmartlistsParams> & SmartlistOptions,
+  ) => {
+    return await searchSmartlistsBound({
+      ...params,
+      search: query.trim() ?? "",
+    });
+  };
+
+  return {
+    handleFetchSmartlists,
+    handleSearchSmartlists,
+    isSmartlistsLoading: isLoading,
+  };
 }

@@ -154,7 +154,7 @@ export const BookingTimingField = ({ ...methods }: BookingTimingFieldProps) => {
           mapProps={({ defaultProps, form }) => ({
             ...defaultProps,
             value: String(timeValue),
-            min: 0,
+            min: 1,
             onChange: (event) => {
               const newTimeValue = parseInt(event.target.value);
               form.setValue("timingValue", newTimeValue, {

@@ -21,6 +21,8 @@ export type BookingTriggerConfigValidationFormData = {
   timingUnit: ConfigTimeUnit;
   timingValue: number;
   timingTemporality: BookingTemporality;
+  toggleIncludedSmartlists: boolean;
   includedSmartlists?: number[];
+  toggleExcludedSmartlists: boolean;
   excludedSmartlists?: number[];
 };

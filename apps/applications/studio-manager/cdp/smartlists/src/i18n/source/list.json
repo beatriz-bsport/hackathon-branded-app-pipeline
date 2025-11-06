@@ -48,8 +48,8 @@
       "deleteFailed": "Unable to delete Smartlist, please try again",
       "deleteError": {
         "101000": "Unable to duplicate Smartlist, please try again",
-        "101001": "Unable to delete Smartlist as currently in use in communication ",
-        "101002": "DUPLICATE - IGNORE"
+        "101001": "Unable to delete Smartlist because it's currently in use in communications",
+        "101002": "This Smartlist cannot be deleted because it's being used in active Audience workflows"
       }
     }
   },

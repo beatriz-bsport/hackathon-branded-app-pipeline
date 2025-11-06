@@ -168,18 +168,6 @@ export const PartnershipConfigurationMultipleEstablishmentForm: React.FC<
                 }}
               />
             </div>
-            {conf.associated_establishment_list.length === 0 ? (
-              <div className={classes.rowAlert}>
-                <WarningIcon
-                  className={classes.iconLeft}
-                  color="error"
-                  fontSize="large"
-                />
-                <Typography>
-                  {t('parameters.pleaseChoseEstablishmentMany')}
-                </Typography>
-              </div>
-            ) : null}
             {conf.associated_establishment_list?.map(
               (id: number, i: number) => {
                 const establishment = props.establishmentList.find(

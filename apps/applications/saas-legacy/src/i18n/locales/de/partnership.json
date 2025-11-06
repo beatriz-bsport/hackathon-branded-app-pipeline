@@ -6,7 +6,6 @@
     "configurationTitle": "Konfigurieren Sie Ihre Integration",
     "configurationDescription": "Wähle aus, wie deine Einrichtungen in der ClassPass-App angezeigt werden sollen. Dies ändert nur, wie Gruppenaktivitäten angezeigt werden.",
     "establishment": "Einrichtung",
-    "pleaseChoseEstablishmentMany": "Bitte wählen Sie mindestens eine Einrichtung aus.",
     "pleaseChoseEstablishment": "Bitte wählen Sie eine Einrichtung aus.",
     "venueIds": "VenueIDs: {{ establishmentIdList }}",
     "partnerId": "PartnerID: {{ company }}",

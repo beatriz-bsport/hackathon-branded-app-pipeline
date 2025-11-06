@@ -55,14 +55,15 @@ const ClassPassTable: React.FC<Props> = ({
             </TableCell>
             <TableCell align="left">
               <div className={classes.gap}>
-                {venueEstablishment.establishmentNames?.map(
-                  (establishmentName) => (
-                    <Chip
-                      key={`${venueEstablishment.venueId}-${establishmentName}`}
-                      label={establishmentName}
-                      variant="outlined"
-                    />
-                  ),
+                {venueEstablishment?.establishmentNames?.map(
+                  (establishmentName) =>
+                    !!establishmentName && (
+                      <Chip
+                        key={`${venueEstablishment.venueId}-${establishmentName}`}
+                        label={establishmentName}
+                        variant="outlined"
+                      />
+                    ),
                 )}
               </div>
             </TableCell>

@@ -34,7 +34,7 @@ const SyncCalendarDialog: React.FC<Props> = ({
   calendarUrl,
 }) => {
   const classes = useStyles();
-  const { t } = useTranslation(['privateService']);
+  const { t } = useTranslation(['b2b_privateService']);
   const dispatch = useDispatch();
 
   const handleCopyCalendarUrl = async () => {

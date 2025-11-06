@@ -7,7 +7,6 @@
     "establishmentMergeMaster": "Entrare in questa istituzione ⬇️",
     "partnerId": "PartnerID: {{ company }}",
     "configurationTitle": "Configura la tua integrazione",
-    "pleaseChoseEstablishmentMany": "Seleziona almeno uno stabilimento",
     "establishmentMergedAs": "Unisci questi stabilimenti",
     "venueIds": "VenueIDs: {{ establishmentIdList }}",
     "pleaseChoseEstablishment": "Per favore, seleziona uno stabilimento",

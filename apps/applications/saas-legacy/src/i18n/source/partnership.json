@@ -6,7 +6,6 @@
     "configurationTitle": "Configure your integration",
     "configurationDescription": "Select how you want your establishments to appear on the ClassPass app.",
     "establishment": "Establishment",
-    "pleaseChoseEstablishmentMany": "Please select at least one establishment.",
     "pleaseChoseEstablishment": "Please select an establishment.",
     "venueIds": "Venue IDs: {{ establishmentIdList }}",
     "partnerId": "Partner ID: {{ company }}",

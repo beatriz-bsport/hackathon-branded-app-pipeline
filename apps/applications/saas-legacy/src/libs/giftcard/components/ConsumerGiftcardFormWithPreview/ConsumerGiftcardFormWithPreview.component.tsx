@@ -34,10 +34,10 @@ const ConsumerGiftcardFormWithPreview = React.memo(
           message_is_for: values.message_is_for,
           message_content: values.message_content,
           background_image: values.background_image,
-          price:
+          price_bought:
             props.giftcard?.card_type === GIFTCARD_TYPES.CUSTOM
               ? values.price
-              : null,
+              : props.giftcard?.price,
         }}
         giftcard={props.giftcard}
       />

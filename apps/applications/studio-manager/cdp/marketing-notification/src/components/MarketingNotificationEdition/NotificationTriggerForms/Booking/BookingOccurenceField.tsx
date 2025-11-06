@@ -12,19 +12,19 @@ import type { BookingTriggerConfigValidationFormData } from "#src/utils/schemas/
  */
 const SPECIFIC_AMOUNT_SELECTOR_MIN_VALUE = 1;
 
-interface Props {
+type BookingOccurrenceFieldProps = {
   amount: number;
   value: string;
   onAmountChange: (newValue: number) => void;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-}
+};
 
 export const BookingOccurrenceField = ({
   amount,
   value,
   onAmountChange,
   onChange,
-}: Props) => {
+}: BookingOccurrenceFieldProps) => {
   const { t } = useTranslation("marketingNotificationsModal");
   return (
     <FormRadioGroup

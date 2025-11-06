@@ -1,18 +1,12 @@
+import { useFormStepContext } from "#src/components/MarketingNotificationEdition/Context/FormStepContext.context";
 import { BookingEventForm } from "#src/components/MarketingNotificationEdition/NotificationTriggerForms/Booking/BookingEventForm";
-import {
-  NOTIFICATION_TYPE_TO_REFINED_TYPE,
-  type SelectableNotificationType,
-} from "#src/utils/types";
+import { NOTIFICATION_TYPE_TO_REFINED_TYPE } from "#src/utils/types";
 
-type TriggerConditionStepProps = {
-  notificationType: SelectableNotificationType;
-  itemIds: number[];
-};
-
-export const TriggerConditionStep = ({
-  notificationType,
-  itemIds,
-}: TriggerConditionStepProps) => {
+export const TriggerConditionStep = () => {
+  const { formData } = useFormStepContext();
+  const notificationType =
+    formData.triggerType?.notificationType ?? "groupActivity";
+  const itemIds = formData.triggerType?.itemIds ?? [];
   const notificationRefinedType =
     NOTIFICATION_TYPE_TO_REFINED_TYPE[notificationType];
 

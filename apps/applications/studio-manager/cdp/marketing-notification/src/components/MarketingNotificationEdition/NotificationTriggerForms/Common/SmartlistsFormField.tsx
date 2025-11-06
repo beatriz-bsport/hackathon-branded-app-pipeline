@@ -1,87 +1,97 @@
+import { useId } from "react";
+
 import { TextFieldProps, Toggle } from "@bsport/kaizen-primitive-core";
 
+import { SmartlistsSelector } from "#src/components/MarketingNotificationEdition/NotificationTriggerForms/Common/SmartlistsSelector";
 import { useTranslation } from "#src/utils/i18n";
 
-import { SmartlistsSelector } from "./SmartlistsSelector";
+export type SmartlistsSelectorType = "excluded" | "included";
 
 type SmartlistsFormFieldProps = {
-  isIncludedSmartlistsSelectorToggle: boolean;
-  isExcludedSmartlistsSelectorToggle: boolean;
+  isIncludedSmartlistsEnabled: boolean;
+  isExcludedSmartlistsEnabled: boolean;
+  includedSmartlistsTextfieldProps?: TextFieldProps;
+  excludedSmartlistsTextfieldProps?: TextFieldProps;
   onSmartlistsChange?: ({
     type,
-    smartlists,
+    smartlistIds,
   }: {
-    type: "excluded" | "included";
-    smartlists: number[];
+    type: SmartlistsSelectorType;
+    smartlistIds: number[];
   }) => void;
   onToggleField?: ({
     type,
     checked,
   }: {
-    type: "excluded" | "included";
+    type: SmartlistsSelectorType;
     checked: boolean;
   }) => void;
-  excludedSmartlistsSelectorTextfieldProps?: TextFieldProps;
-  includedSmartlistsSelectorTextfieldProps?: TextFieldProps;
+};
+
+type SmartlistSection = {
+  key: string;
+  type: SmartlistsSelectorType;
+  isEnabled: boolean;
+  textfieldProps?: TextFieldProps;
+  labelKey: string;
 };
 
 export const SmartlistsFormField = ({
-  isIncludedSmartlistsSelectorToggle,
-  isExcludedSmartlistsSelectorToggle,
-  excludedSmartlistsSelectorTextfieldProps,
-  includedSmartlistsSelectorTextfieldProps,
+  isIncludedSmartlistsEnabled,
+  isExcludedSmartlistsEnabled,
+  includedSmartlistsTextfieldProps,
+  excludedSmartlistsTextfieldProps,
   onSmartlistsChange,
   onToggleField,
 }: SmartlistsFormFieldProps) => {
   const { t } = useTranslation("marketingNotificationsModal");
+  const id = useId();
+  const sections: SmartlistSection[] = [
+    {
+      key: `${id}-included`,
+      type: "included",
+      isEnabled: isIncludedSmartlistsEnabled,
+      textfieldProps: includedSmartlistsTextfieldProps,
+      labelKey: t("steps.notificationRules.smartlists.included.label"),
+    },
+    {
+      key: `${id}-excluded`,
+      type: "excluded",
+      isEnabled: isExcludedSmartlistsEnabled,
+      textfieldProps: excludedSmartlistsTextfieldProps,
+      labelKey: t("steps.notificationRules.smartlists.excluded.label"),
+    },
+  ];
+
   return (
     <div className="flex flex-col gap-sm">
-      <Toggle
-        id="toggle-included-smartlists-selector"
-        label={t("steps.notificationRules.smartlists.included.label")}
-        checked={isIncludedSmartlistsSelectorToggle}
-        onChange={(checked) => {
-          if (typeof checked === "boolean") {
-            onToggleField?.({ type: "included", checked });
-          }
-        }}
-      />
-      {isIncludedSmartlistsSelectorToggle ? (
-        <div className="ml-sm">
-          <SmartlistsSelector
-            onSelectSmartlists={(smartlists) =>
-              onSmartlistsChange?.({
-                type: "included",
-                smartlists: smartlists.map((smartlist) => smartlist.id),
-              })
-            }
-            textfieldProps={includedSmartlistsSelectorTextfieldProps}
+      {sections.map(({ key, type, isEnabled, textfieldProps, labelKey }) => (
+        <div key={key}>
+          <Toggle
+            id={`toggle-${type}-smartlists-selector`}
+            label={labelKey}
+            checked={isEnabled}
+            onChange={(checked) => {
+              if (typeof checked === "boolean") {
+                onToggleField?.({ type, checked });
+              }
+            }}
           />
+          {isEnabled && (
+            <div className="ml-sm">
+              <SmartlistsSelector
+                onSelectSmartlists={(smartlists) =>
+                  onSmartlistsChange?.({
+                    type,
+                    smartlistIds: smartlists.map((smartlist) => smartlist.id),
+                  })
+                }
+                textfieldProps={textfieldProps}
+              />
+            </div>
+          )}
         </div>
-      ) : null}
-      <Toggle
-        id="toggle-excluded-smartlists-selector"
-        label={t("steps.notificationRules.smartlists.excluded.label")}
-        checked={isExcludedSmartlistsSelectorToggle}
-        onChange={(checked) => {
-          if (typeof checked === "boolean") {
-            onToggleField?.({ type: "excluded", checked });
-          }
-        }}
-      />
-      {isExcludedSmartlistsSelectorToggle ? (
-        <div className="ml-sm">
-          <SmartlistsSelector
-            onSelectSmartlists={(smartlists) =>
-              onSmartlistsChange?.({
-                type: "excluded",
-                smartlists: smartlists.map((smartlist) => smartlist.id),
-              })
-            }
-            textfieldProps={excludedSmartlistsSelectorTextfieldProps}
-          />
-        </div>
-      ) : null}
+      ))}
     </div>
   );
 };

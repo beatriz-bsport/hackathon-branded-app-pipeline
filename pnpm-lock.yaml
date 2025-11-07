@@ -3829,6 +3829,70 @@ importers:
         specifier: ^4.19.2
         version: 4.19.2
 
+  tools/templates/kaizen-business-component:
+    dependencies:
+      '@bsport/i18n':
+        specifier: workspace:*
+        version: link:../../../packages/utils/i18n
+      '@bsport/kaizen-primitive-core':
+        specifier: workspace:*
+        version: link:../../../packages/design-system/kaizen/primitive/core
+      class-variance-authority:
+        specifier: ^0.7.0
+        version: 0.7.0
+      react:
+        specifier: ^19.2.0
+        version: 19.2.0
+      react-dom:
+        specifier: ^19.2.0
+        version: 19.2.0(react@19.2.0)
+    devDependencies:
+      '@bsport/config-eslint-react':
+        specifier: workspace:*
+        version: link:../../config/eslint-react
+      '@bsport/kaizen-tokens':
+        specifier: workspace:*
+        version: link:../../../packages/design-system/kaizen/tokens
+      '@nx/vite':
+        specifier: 20.3.0
+        version: 20.3.0(@babel/traverse@7.28.3)(@swc-node/register@1.10.9(@swc/core@1.11.13(@swc/helpers@0.5.15))(@swc/types@0.1.20)(typescript@5.8.2))(@swc/core@1.11.13(@swc/helpers@0.5.15))(@types/node@22.13.15)(nx@20.3.0(@swc-node/register@1.10.9(@swc/core@1.11.13(@swc/helpers@0.5.15))(@swc/types@0.1.20)(typescript@5.8.2))(@swc/core@1.11.13(@swc/helpers@0.5.15)))(typescript@5.8.2)(vite@5.4.11(@types/node@22.13.15)(less@4.1.3)(sass@1.77.8)(terser@5.31.3))(vitest@3.2.4)
+      '@types/react':
+        specifier: ^19.0.0
+        version: 19.2.2
+      '@types/react-dom':
+        specifier: ^19.0.0
+        version: 19.2.2(@types/react@19.2.2)
+      '@vitejs/plugin-react':
+        specifier: ^4.3.3
+        version: 4.3.3(vite@5.4.11(@types/node@22.13.15)(less@4.1.3)(sass@1.77.8)(terser@5.31.3))
+      '@vitejs/plugin-react-swc':
+        specifier: ^3.7.2
+        version: 3.7.2(@swc/helpers@0.5.15)(vite@5.4.11(@types/node@22.13.15)(less@4.1.3)(sass@1.77.8)(terser@5.31.3))
+      autoprefixer:
+        specifier: ^10.4.20
+        version: 10.4.20(postcss@8.4.49)
+      classnames:
+        specifier: ^2.5.1
+        version: 2.5.1
+      postcss:
+        specifier: ^8.4.49
+        version: 8.4.49
+      tailwindcss:
+        specifier: ^3.4.14
+        version: 3.4.14(ts-node@10.9.2(@swc/core@1.11.13(@swc/helpers@0.5.15))(@types/node@22.13.15)(typescript@5.8.2))
+      tslib:
+        specifier: ^2.8.1
+        version: 2.8.1
+      vite:
+        specifier: ^5.4.11
+        version: 5.4.11(@types/node@22.13.15)(less@4.1.3)(sass@1.77.8)(terser@5.31.3)
+      vite-plugin-dts:
+        specifier: ^4.5.3
+        version: 4.5.3(@types/node@22.13.15)(rollup@4.30.1)(typescript@5.8.2)(vite@5.4.11(@types/node@22.13.15)(less@4.1.3)(sass@1.77.8)(terser@5.31.3))
+      vite-plugin-svgr:
+        specifier: ^4.3.0
+        version: 4.3.0(rollup@4.30.1)(typescript@5.8.2)(vite@5.4.11(@types/node@22.13.15)(less@4.1.3)(sass@1.77.8)(terser@5.31.3))
+
   tools/templates/sm-application:
     dependencies:
       '@bsport/fetch':
@@ -14555,6 +14619,7 @@ packages:
   keygrip@1.1.0:
     resolution: {integrity: sha512-iYSchDJ+liQ8iwbSI2QqsQOvqv58eJCEanyJPJi+Khyu8smkcKSFUCbPwzFcL7YVtZ6eONjqRX/38caJ7QjRAQ==}
     engines: {node: '>= 0.6'}
+    deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
 
   keyv@4.5.4:
     resolution: {integrity: sha512-oxVHkHR/EJf2CNXnWxRLW6mg7JyCCUcG0DtEGmL2ctUo1PNTin1PUil+r/+4r5MpVgC/fn1kjsx7mjSujKqIpw==}
@@ -22452,9 +22517,7 @@ snapshots:
       jest-runner: 24.9.0
       jest-runtime: 24.9.0
     transitivePeerDependencies:
-      - bufferutil
       - supports-color
-      - utf-8-validate
 
   '@jest/test-sequencer@28.1.3':
     dependencies:
@@ -34115,7 +34178,9 @@ snapshots:
       pretty-format: 24.9.0
       throat: 4.1.0
     transitivePeerDependencies:
+      - bufferutil
       - supports-color
+      - utf-8-validate
 
   jest-junit@14.0.1:
     dependencies:

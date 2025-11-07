@@ -17,6 +17,7 @@ import StripeExpressCheckoutElement from './StripeExpressCheckoutElement.compone
 import CheckoutBillingGroupSelector from '#src/libs/marketplace/components/@Basket/CheckoutBillingGroupSelector.component';
 import PaymentPaypal from '#src/libs/payment/components/paypal/PaymentPaypal.component';
 import AcceptTermsAndConditions from '#src/libs/payment/components/AcceptTermsAndConditions.component';
+import { FeatureFlags, useSafeFlag } from '#src/utils/feature-flag';
 
 import { useBasketPaymentContext } from '#src/libs/checkout/components/new-checkout-flow-unified/BasketPaymentContext';
 import { useBasketPaymentActions } from '#src/libs/payment/payment-module-revamped/basket-payment/hooks/useBasketPaymentActions';
@@ -86,6 +87,10 @@ export const OnlinePaymentBasketUnified: React.FC<Props> = forwardRef(
   ) => {
     const classes = useStyles();
     const { t } = useTranslation(['invoice']);
+
+    const isWebviewGooglePayEnabled = useSafeFlag(
+      FeatureFlags.WEBVIEW_GOOGLE_PAY,
+    );
 
     const paymentRef = React.useRef<OnlinePaymentBasketRef>(null);
 
@@ -338,16 +343,30 @@ export const OnlinePaymentBasketUnified: React.FC<Props> = forwardRef(
         ? amountToPayCts + (prepaidLinesCts || 0)
         : basketTotalPriceCts;
 
+    const isApplePayAvailableInBasket =
+      paymentMethodAvailableBasket?.includes(
+        PAYMENT_GROUP_METHOD_IDENTIFIER_APPLE_PAY,
+      ) ?? false;
+    const isGooglePayAvailableInBasket =
+      paymentMethodAvailableBasket?.includes(
+        PAYMENT_GROUP_METHOD_IDENTIFIER_GOOGLE_PAY,
+      ) ?? false;
+
+    // In webview (fromApp=true), Google Pay visibility is controlled by the feature flag
+    // In main basket (fromApp=false/undefined), Google Pay remains always visible
+    const isGooglePayAllowed = fromApp
+      ? isWebviewGooglePayEnabled && isGooglePayAvailableInBasket
+      : isGooglePayAvailableInBasket;
     const allowedWallets = {
-      applePay:
-        paymentMethodAvailableBasket?.includes(
-          PAYMENT_GROUP_METHOD_IDENTIFIER_APPLE_PAY,
-        ) ?? false,
-      googlePay:
-        paymentMethodAvailableBasket?.includes(
-          PAYMENT_GROUP_METHOD_IDENTIFIER_GOOGLE_PAY,
-        ) ?? false,
+      applePay: isApplePayAvailableInBasket,
+      googlePay: isGooglePayAllowed,
     };
+
+    // Override showStripeExpressCheckout to account for filtered wallets
+    // The hook checks raw paymentMethodAvailableBasket, but we need to check filtered allowedWallets
+    const shouldShowStripeExpressCheckout =
+      showStripeExpressCheckout &&
+      (allowedWallets.applePay || allowedWallets.googlePay);
 
     return (
       <div className={classes.container}>
@@ -379,7 +398,7 @@ export const OnlinePaymentBasketUnified: React.FC<Props> = forwardRef(
             )}
         </div>
 
-        {showStripeExpressCheckout && (
+        {shouldShowStripeExpressCheckout && (
           <div className={classes.expressCheckoutContainer}>
             <StripeExpressCheckoutElement
               allowedWallets={allowedWallets}
@@ -402,7 +421,7 @@ export const OnlinePaymentBasketUnified: React.FC<Props> = forwardRef(
           paymentMethodSelected={paymentMethodSelected}
           paymentProcessing={isPaymentProcessing}
           selectPaymentMethod={handleSelectPaymentMethod}
-          {...(showStripeExpressCheckout
+          {...(shouldShowStripeExpressCheckout
             ? { title: t('paymentMethod.select.orPayUsing') }
             : {})}
         />

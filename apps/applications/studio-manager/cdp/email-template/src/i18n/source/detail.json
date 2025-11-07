@@ -13,7 +13,8 @@
     },
     "actions": {
       "saveChanges": "Save changes",
-      "discardChanges": "Discard"
+      "discardChanges": "Discard",
+      "exportHtml": "Export to HTML"
     },
     "hover": {
       "exportHtml": "Export template to HTML",

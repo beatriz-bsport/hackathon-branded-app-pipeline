@@ -36,7 +36,6 @@ const SharedListPage: React.FC = () => {
   }, [companyTheme, isFranchisee, activeTab, navigate]);
 
   useEffect(() => {
-    console.log("pathname", pathname);
     const tab = pathname.includes("bsport") ? "bsport" : "master";
     setActiveTab(tab);
   }, [pathname]);

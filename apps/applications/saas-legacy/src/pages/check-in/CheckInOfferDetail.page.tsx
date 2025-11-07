@@ -11,7 +11,7 @@ import { push as pushRouter } from 'connected-react-router';
 import { withTranslation } from 'react-i18next';
 
 import { withStyles, WithStyles } from '@material-ui/styles';
-import { Theme } from '@material-ui/core';
+import { Theme, Typography } from '@material-ui/core';
 
 import GenericResponsiveDrawer from '#src/components/genericDrawer/GenericResponsiveDrawer.component';
 import CheckInOfferDetail from '#src/libs/check-in/components/CheckInOfferDetail.component';
@@ -212,8 +212,14 @@ export class CheckInOfferDetailPage extends React.Component<Props> {
   };
 
   render() {
+    const activityName = this.props?.offer?.activity_name;
     return (
       <div className={this.props.classes.container}>
+        {activityName && (
+          <Typography align="center" variant="h4">
+            {activityName}
+          </Typography>
+        )}
         <CheckInOfferDetail
           barcodeDetectorEnabled={this.props.barcodeDetectorEnabled}
           bookings={this.props.bookings}

@@ -1,7 +1,12 @@
 import React, { useEffect } from "react";
-import { Link } from "react-router";
+import { useNavigate } from "react-router";
 
-import { Button, ListLayout, Table } from "@bsport/kaizen-primitive-core";
+import {
+  Button,
+  type ButtonProps,
+  ListLayout,
+  Table,
+} from "@bsport/kaizen-primitive-core";
 import type { MetaActivity } from "@bsport/store-booking-group-activity";
 import { DEFAULT_DEBOUNCE_DELAY } from "@bsport/use-debounce";
 
@@ -60,21 +65,24 @@ export const GroupActivitiesList: React.FC = () => {
     });
   }, [searchGroupActivitiesPage, activeCategoryFilters, searchQuery]);
 
+  const { endGroupActions } = ListLayout.useAdaptiveActions({
+    endGroupActions: [
+      <GoToArchivedLink
+        key="link-to-archive"
+        kind="icon-button"
+        label={t("list.header.archivedActivities")}
+        icon="archive"
+        intent="default"
+        color="main"
+        size="md"
+      />,
+    ],
+  });
+
   return (
     <ListLayout>
       <ListLayout.Header
-        endGroupActions={[
-          <Link key="link-to-archive" to={ROUTES.ARCHIVED}>
-            <Button
-              kind="icon-button"
-              label={t("list.header.archivedActivities")}
-              icon="archive"
-              intent="default"
-              color="main"
-              size="md"
-            />
-          </Link>,
-        ]}
+        endGroupActions={endGroupActions}
         callToActionButton={
           <ListLayout.Button
             iconLeft="plus"
@@ -163,3 +171,9 @@ export const GroupActivitiesList: React.FC = () => {
     </ListLayout>
   );
 };
+
+function GoToArchivedLink(props: ButtonProps) {
+  const navigate = useNavigate();
+
+  return <Button {...props} onClick={() => navigate(ROUTES.ARCHIVED)} />;
+}

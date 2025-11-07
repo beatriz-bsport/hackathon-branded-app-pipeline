@@ -15,6 +15,7 @@ import Button from "#src/components/Button";
 import HeaderLayout, {
   HeaderLayoutProps,
 } from "#src/components/private/HeaderLayout";
+import { useAdaptiveActions } from "#src/components/private/HeaderLayout/use-adaptive-actions";
 import LayoutButton from "#src/components/private/LayoutButton";
 import { useKaizenI18nInstance, useTranslation } from "#src/i18n";
 
@@ -67,6 +68,7 @@ type DetailsLayoutComponent = ForwardRefExoticComponent<
   Panel: typeof DetailsLayoutPanel;
   Confirmation: typeof DetailsLayoutConfirmation;
   Button: typeof LayoutButton;
+  useAdaptiveActions: typeof useAdaptiveActions;
 };
 
 const DetailsLayout = forwardRef<LayoutProviderRef, DetailsLayoutProps>(
@@ -294,5 +296,12 @@ DetailsLayout.Button = LayoutButton;
 // ----- Export DetailsLayout -----
 
 DetailsLayout.displayName = "KaizenDetailsLayout";
+
+// ----- Adaptive Actions (mobile dropdown) -----
+// Static export to access the adaptive actions hook directly from the layout
+// Usage:
+// const adaptive = DetailsLayout.useAdaptiveActions({ endGroupActions: [...] });
+// <DetailsLayout.Header pageTitle="..." {...adaptive} />
+DetailsLayout.useAdaptiveActions = useAdaptiveActions;
 
 export default DetailsLayout;

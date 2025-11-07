@@ -66,7 +66,10 @@
     "search": {
       "tooltip": "Search on this page"
     },
-    "editTitle": "Edit title"
+    "editTitle": "Edit title",
+    "actions": {
+      "more": "More actions"
+    }
   },
   "copyToClipboard": {
     "copied": "Copied to clipboard",

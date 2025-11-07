@@ -182,6 +182,7 @@ export type Offer<
  */
 export type OfferREST = {
   activity: number;
+  activity_name: string;
   allow_guest_offer: boolean;
   available_on_partnership: boolean;
   available: boolean;

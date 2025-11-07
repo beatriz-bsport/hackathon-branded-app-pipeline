@@ -1,0 +1,11 @@
+{
+  "giftcardCustomAmount": {
+    "customAmount": "Valor personalizado",
+    "form": {
+      "priceInput": {
+        "label": "Valor personalizado",
+        "helperText": "Introduza um número inteiro entre {{ minPrice }} e {{ maxPrice }}"
+      }
+    }
+  }
+}

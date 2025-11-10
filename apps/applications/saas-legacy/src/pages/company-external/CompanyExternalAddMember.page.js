@@ -13,6 +13,7 @@ import { MemberMap } from '../../libs/member/utils';
 import CustomFormView from '../../libs/custom-form/components/consumer-form/CustomFormView.form';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import { getLocaleCountry } from '#src/utils/language';
+import { useLocation } from 'react-router-dom';
 
 import { mapFormData } from '../form.utils';
 import {
@@ -59,12 +60,17 @@ export const CompanyExternalAddMember = (props: Props) => {
   } = props;
 
   const classes = useStyles();
+  const location = useLocation();
+  const isTabletCheckIn =
+    new URLSearchParams(location.search).get('context') === 'tablet_checkin';
+
   React.useEffect(() => {
     fetchCompanyCustomSignUp({ company: companyId });
   }, [fetchCompanyCustomSignUp, companyId]);
 
   const submitCustomForm = (formdata: FormData, options?: OptionCallback) => {
     submitSignUpCustomForm(formdata, companyId, {
+      isTabletCheckIn,
       onSuccess: () => {
         goBack();
         if (options && options.onSuccess) options.onSuccess();

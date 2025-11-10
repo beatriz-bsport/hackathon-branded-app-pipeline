@@ -31,7 +31,7 @@ const StripeDomainManagement: React.FC<StripeDomainManagementProps> = ({
 }) => {
   const classes = useStyles();
   const theme = useTheme();
-  const { t } = useTranslation(['settings']);
+  const { t } = useTranslation('b2b_settings');
 
   const [isAddingDomain, setIsAddingDomain] = useState(false);
   const [newDomainInput, setNewDomainInput] = useState('');

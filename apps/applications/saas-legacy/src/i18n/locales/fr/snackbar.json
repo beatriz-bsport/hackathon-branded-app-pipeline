@@ -1221,5 +1221,10 @@
   },
   "oneClickBooking": {
     "genericError": "Nous n'avons pas pu finaliser votre réservation. Veuillez vérifier vos informations et réessayer."
+  },
+  "calendar": {
+    "syncCalendarDialog": {
+      "copySuccess": "URL du calendrier copiée"
+    }
   }
 }

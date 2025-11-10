@@ -269,8 +269,8 @@
         "931004": "Je hebt je QuickBooks-applicatie nog niet ingesteld",
         "931100": "Fout bij het bijwerken van de verificatie",
         "931101": "QuickBooks kan ons niet je data opsturen",
-        "932000": "Je account is niet langer bij BSPORT geverifieerd",
-        "932001": "Je account is niet langer bij BSPORT geverifieerd",
+        "932000": "Je account is niet langer bij bsport geverifieerd",
+        "932001": "Je account is niet langer bij bsport geverifieerd",
         "932100": "We hebben geen toegang tot je QuickBooks-gegevens",
         "933000": "Het lid dat aan deze factuur gekoppeld is beschikt niet over de benodigde informatie om bij QuickBooks te worden geregistreerd",
         "933100": "Error bij het koppelen van dit lid aan de factuur",
@@ -312,7 +312,9 @@
         "14100": "Kan een factuur niet annuleren met Interac betalingen.",
         "14101": "Onmogelijk om terug te betalen door een rekening voor balansaanpassing.",
         "14102": "Het is niet mogelijk om deze factuur terug te betalen.",
-        "35024": "Je kunt deze factuur niet terugbetalen omdat je PayPal-rekening niet genoeg saldo heeft."
+        "35024": "Je kunt deze factuur niet terugbetalen omdat je PayPal-rekening niet genoeg saldo heeft.",
+        "14112": "Restitutie niet mogelijk. Het huidige Stripe-saldo is onvoldoende.",
+        "14111": "Restitutie niet beschikbaar. Restituties zijn uitgeschakeld voor deze BO."
       }
     },
     "generateXml": {
@@ -516,7 +518,8 @@
       "error": {
         "11000": "Kan geen variant(en) maken op een product dat wordt gebruikt in een verpakking",
         "11001": "Kan geen pakket maken met variantproducten"
-      }
+      },
+      "fetchError": "Fout bij het ophalen van varianten"
     },
     "supplier": {
       "delete": {
@@ -1222,5 +1225,18 @@
   },
   "oneClickBooking": {
     "genericError": "We konden je boeking niet voltooien. Controleer je gegevens en probeer het opnieuw."
+  },
+  "calendar": {
+    "syncCalendarDialog": {
+      "copySuccess": "Kalender-URL gekopieerd"
+    }
+  },
+  "communicationScheduled": {
+    "delete": {
+      "133001": "Deze geplande campagne wordt momenteel verwerkt of is al verzonden."
+    }
+  },
+  "quicksaleCheckout": {
+    "15010": "Het winkelmandje is niet meer beschikbaar"
   }
 }

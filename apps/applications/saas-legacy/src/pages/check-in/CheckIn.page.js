@@ -194,7 +194,7 @@ export default compose(
       push,
       fetchCompanyRoles,
       goToCreateMember: (companyId) =>
-        push(`/external/${companyId}/add-member/`),
+        push(`/external/${companyId}/add-member/?context=tablet_checkin`),
     },
   ),
   withRudderStackHistoryTracker,

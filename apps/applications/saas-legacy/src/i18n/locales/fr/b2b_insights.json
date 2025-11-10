@@ -1,25 +1,25 @@
 {
   "pages": {
     "insights": {
-      "title": "Aperçus"
+      "title": "Insights"
     },
     "recurringRevenue": {
-      "title": "Surveiller la performance des abonnements"
+      "title": "Analysez la performance de vos abonnements"
     },
     "trialAnalysis": {
-      "title": "Surveiller la performance d'acquisition des membres"
+      "title": "Analysez la performance de votre acquisition de membres"
     }
   },
   "sections": {
-    "memberInsights": "Aperçus membres",
-    "financialHealth": "Santé financière"
+    "memberInsights": "Insights Membres",
+    "financialHealth": "Santé Financière"
   },
   "trackTrialOffer": {
-    "title": "Suivre les performances de l'offre d'essai",
-    "description": "Découvrir plus sur l'acquisition, les taux de conversion et comment augmenter l'efficacité de votre offre d'essai."
+    "title": "Analysez les performances de vos offres d'essai",
+    "description": "Explorez l'acquisition, les taux de conversion et comment optimiser vos offres d’essai"
   },
   "monitorRevenue": {
-    "title": "Surveiller la performance des abonnements",
-    "description": "Suivez la santé des abonnements, analysez les revenus récurrents et identifiez les risques ou opportunités"
+    "title": "Analysez la performance de vos abonnements",
+    "description": "Suivez la santé de vos abonnements, analysez vos revenus récurrents et identifiez les risques ou opportunités."
   }
 }

@@ -40,6 +40,8 @@ import MarketplaceSpotSelector from '#src/libs/marketplace/components/@SpotSched
 import { fetchCurrentBasket as fetchCurrentBasketAction } from '#src/libs/checkout/actions';
 import { getCurrentBasket } from '#src/libs/checkout/selectors';
 
+// @ts-expect-error
+import withQueryParams from '#src/hocs/with-query-params.hoc';
 import type { MetaActivity } from '#src/libs/meta-activity/types';
 import type { Establishment } from '#src/libs/establishment/types';
 import type { Coach } from '#src/libs/associated-coach/types';
@@ -53,16 +55,14 @@ type ParamsToProps = {
   companyId: number;
   offerId: number;
 };
-type OwnProps = {
-  title: string;
-};
+
 type State = {
   selectedSpotId: number | null;
   selectedSpot: string | undefined;
   offerStatusWasFirstFetched: boolean;
 };
 
-type Props = OwnProps & ParamsToProps & ConnectedProps<typeof connector>;
+type Props = ParamsToProps & ConnectedProps<typeof connector>;
 const DEFAULT_SPOT_TYPE = { id: -1 };
 
 export class SpotSchedulingSelector extends Component<Props, State> {
@@ -215,6 +215,8 @@ export class SpotSchedulingSelector extends Component<Props, State> {
             fetchOfferStatus={this.fetchOfferStatus}
             fetchSpotForBlueprint={this.props.fetchSpotForBlueprint}
             goToCheckout={this.goTocheckout}
+            // @ts-expect-error
+            hideHeader={this.props.queryParams?.hideHeader === 'true'}
             offer={this.props.offer}
             offerStatusById={this.props.offerStatusById}
             roomBlueprintsById={this.props.roomBlueprintsById}
@@ -274,6 +276,11 @@ const connector = connect(
 );
 
 export default compose(
+  withQueryParams([
+    ['hideHeader', 'guest_booking'],
+    'queryParams',
+    'setQueryParams',
+  ]),
   routerParamsToProps({
     companyId: 'companyId:number',
     offerId: 'offerId:number',

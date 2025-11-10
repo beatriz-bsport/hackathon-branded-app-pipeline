@@ -213,6 +213,7 @@ const OfferDuplicateDialog: React.FC<Props> = ({
         meta_activity: offer.meta_activity.id,
         recurrence_id: values.linkNewOffers ? offer.recurrence_id : undefined,
         level: offer.custom_level,
+        hour: values.dateIntervalStart.hour,
       };
 
       // Use Redux action which handles background tasks and snackbars automatically

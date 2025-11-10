@@ -84,6 +84,8 @@ import type { OptionCallback } from '#src/state/types';
 
 // @ts-expect-error audio file
 import boop from '../../sounds/boop.mp3';
+import { analyticsClientB2B } from '#src/components/analytics/mixpanel';
+import { trackBarcodeScanToggledEvent } from '#src/events/booking/trackers';
 
 const likeAudio = new Audio(boop);
 likeAudio.loop = false;
@@ -136,6 +138,11 @@ export class CheckInOfferDetailPage extends React.Component<Props> {
   componentDidMount() {
     this.props.retrieveOffer(this.props.offerId, {
       onSuccess: (offer) => {
+        analyticsClientB2B.addSuperProperties({
+          offer_id: offer?.id,
+          activity: offer?.activity,
+          activity_name: offer?.activity_name,
+        });
         !!(offer.custom_level || offer.level) &&
           this.props.fetchLevel(offer.custom_level ?? offer.level);
         this.props.retrieveEstablishment(this.props.offer?.establishment);
@@ -168,6 +175,14 @@ export class CheckInOfferDetailPage extends React.Component<Props> {
           this.props.retrieveConsumerPackBulk([booking.consumer_payment_pack]),
       });
     }
+  }
+
+  componentWillUnmount() {
+    analyticsClientB2B.removeSuperProperties([
+      'offer_id',
+      'activity',
+      'activity_name',
+    ]);
   }
 
   registerWithPass = (
@@ -246,7 +261,7 @@ export class CheckInOfferDetailPage extends React.Component<Props> {
           onAddMember={this.props.openSearchMemberModal}
           onMemberSearched={this.handleMemberSearched}
           refreshData={this.props.fetchOfferData}
-          toogleBarcodeDetector={this.props.toogleBarcodeDetector}
+          toggleBarcodeDetector={this.props.toggleBarcodeDetector}
         />
         {this.props.registrationFlowOpen && (
           <SearchAndRegisterMember
@@ -437,11 +452,14 @@ const withStateHandlersSetter = {
   closeBarcode: () => () => ({
     barcodeDetectorEnabled: false,
   }),
-  toogleBarcodeDetector:
+  toggleBarcodeDetector:
     ({ barcodeDetectorEnabled }: StateHandlerInit) =>
-    () => ({
-      barcodeDetectorEnabled: !barcodeDetectorEnabled,
-    }),
+    () => {
+      analyticsClientB2B.track(trackBarcodeScanToggledEvent({}));
+      return {
+        barcodeDetectorEnabled: !barcodeDetectorEnabled,
+      };
+    },
   setOnMemberUnSelectedCallback: () => (onMemberUnselectedCallback: any) => ({
     onMemberUnselectedCallback,
   }),

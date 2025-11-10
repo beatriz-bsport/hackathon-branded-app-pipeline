@@ -11,6 +11,9 @@ import {
   calendarViewedEventSchema,
   groupActivitySessionViewedEventSchema,
   paymentViewedEventSchema,
+  barcodeScanToggledEventSchema,
+  barcodeScanSuccessEventSchema,
+  tabletCheckInSignUpStartedEventSchema,
 } from './schemas';
 
 export const trackCalendarViewedEvent = generateEvent(
@@ -50,3 +53,15 @@ export const trackBookingCancelledEvent = generateEvent(
 );
 
 export const trackPaymentViewedEvent = generateEvent(paymentViewedEventSchema);
+
+export const trackBarcodeScanToggledEvent = generateEvent(
+  barcodeScanToggledEventSchema,
+);
+
+export const trackBarcodeScanSuccessEvent = generateEvent(
+  barcodeScanSuccessEventSchema,
+);
+
+export const trackTabletCheckInSignUpStartedEvent = generateEvent(
+  tabletCheckInSignUpStartedEventSchema,
+);

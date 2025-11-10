@@ -154,3 +154,31 @@ export const bookingCancelledEventSchema = z
       .describe('The type of session being cancelled'),
   })
   .describe('When the user successfully completes a booking cancellation');
+
+export const barcodeScanToggledEventSchema = z
+  .object({
+    eventType: z.string().default('barcode_scan_toggled'),
+  })
+  .describe(
+    'When a user toggles the barcode scanner on/off during tablet check-in',
+  );
+
+export const barcodeScanSuccessEventSchema = z
+  .object({
+    eventType: z.string().default('barcode_scan_success'),
+    member_id: z
+      .number()
+      .describe('The unique identifier of the member found via barcode scan'),
+    barcode: z.string().describe('The scanned barcode value'),
+  })
+  .describe(
+    'When a barcode scan successfully identifies a member during tablet check-in',
+  );
+
+export const tabletCheckInSignUpStartedEventSchema = z
+  .object({
+    eventType: z.string().default('tablet_check_in_sign_up_started'),
+  })
+  .describe(
+    'When a user starts the sign-up process during tablet check-in by clicking the Create Member button',
+  );

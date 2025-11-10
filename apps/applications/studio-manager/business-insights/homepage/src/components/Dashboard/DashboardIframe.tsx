@@ -18,11 +18,14 @@ const SUPPORTED_LOCALES = new Set([
   "de",
   "it",
   "pt",
+  "nl-nl",
   "ru",
   "th",
   "ja",
   "pl",
 ]);
+
+const DEFAULT_SIGMA_LOCALE_BY_LANGUAGE = new Map([["nl", "nl-nl"]]);
 
 /**
  * Coerce a language code to a Sigma-supported locale
@@ -35,6 +38,8 @@ const coerceSigmaLocale = (languageCode: string): string => {
   if (SUPPORTED_LOCALES.has(lc)) return lc;
   const [lang] = lc.split("-");
   if (SUPPORTED_LOCALES.has(lang)) return lang;
+  const mappedLocale = DEFAULT_SIGMA_LOCALE_BY_LANGUAGE.get(lang);
+  if (mappedLocale) return mappedLocale;
   return "en";
 };
 

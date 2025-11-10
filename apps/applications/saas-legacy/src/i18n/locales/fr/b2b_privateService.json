@@ -1,0 +1,27 @@
+{
+  "calendar": {
+    "syncCalendarDialog": {
+      "title": "Synchronisez votre calendrier avec bsport",
+      "description": "Recevez des mises à jour sur vos cours dans chaque établissement en synchronisant votre calendrier personnel avec le Back Office. Copiez et collez l'URL ci-dessous dans Google ou Apple Calendar pour commencer.",
+      "instructionsTitle": "Comment configurer :",
+      "google": {
+        "title": "Google : ",
+        "instructions": "Paramètres → Ajouter un calendrier → À partir de l'URL → Coller l'URL"
+      },
+      "apple": {
+        "title": "Apple : ",
+        "instructions": "Fichier → Nouvel abonnement au calendrier → Coller l'URL"
+      },
+      "close": "Fermer",
+      "copyButton": "Copier l'URL",
+      "copyInstruction": "Copiez cette URL : "
+    },
+    "header": {
+      "syncCalendar": {
+        "button": "Synchroniser le calendrier",
+        "outlook": "Outlook",
+        "otherCalendars": "Autres calendriers"
+      }
+    }
+  }
+}

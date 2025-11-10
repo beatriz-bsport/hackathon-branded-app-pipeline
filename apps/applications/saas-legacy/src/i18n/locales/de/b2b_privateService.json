@@ -1,0 +1,27 @@
+{
+  "calendar": {
+    "syncCalendarDialog": {
+      "title": "Synchronisiere deinen Kalender mit bsport",
+      "description": "Erhalte Updates zu deinen Kursen in jedem Studio, indem du deinen persönlichen Kalender mit dem Back Office synchronisierst. Kopiere und füge die untenstehende URL in Google oder Apple Kalender ein, um loszulegen.",
+      "instructionsTitle": "So richtest du es ein:",
+      "google": {
+        "title": "Google: ",
+        "instructions": "Einstellungen → Kalender hinzufügen → Aus URL → URL einfügen"
+      },
+      "apple": {
+        "title": "Apple: ",
+        "instructions": "Datei → Neues Kalenderabonnement → URL einfügen"
+      },
+      "close": "Schließen",
+      "copyButton": "Link kopieren",
+      "copyInstruction": "Kopiere diese URL: "
+    },
+    "header": {
+      "syncCalendar": {
+        "button": "Kalender synchronisieren",
+        "outlook": "Outlook",
+        "otherCalendars": "Andere Kalender"
+      }
+    }
+  }
+}

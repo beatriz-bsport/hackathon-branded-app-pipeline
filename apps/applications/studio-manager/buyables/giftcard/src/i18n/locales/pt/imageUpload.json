@@ -1,0 +1,16 @@
+{
+  "giftcardPreview": {
+    "placeholders": {
+      "amount": "[Valor do Cartão-presente]",
+      "buyer": "[Nome do comprador].",
+      "message": "[Mensagem personalizada]",
+      "name": "[Cartão-presente name]",
+      "recipient": "[Nome do destinatário]."
+    },
+    "hints": {
+      "amount": "Valor",
+      "buyer": "De",
+      "recipient": "à"
+    }
+  }
+}

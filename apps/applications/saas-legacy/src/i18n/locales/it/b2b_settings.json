@@ -1,0 +1,15 @@
+{
+  "paymentMethods": {
+    "stripeDomains": {
+      "title": "Aggiungi domini per abilitare Apple Pay e Google Pay",
+      "subtitle": "Aggiungi fino a 10 URL dove vuoi abilitare i pagamenti tramite wallet — sia domini principali (example.com) che sottodomini (studio.example.com).",
+      "infoMessage": "Una volta aggiunto il dominio, non potrai modificarlo.",
+      "errorLoading": "Errore nel caricamento dei domini: {{message}}",
+      "placeholder": "dominio.com",
+      "saveTooltip": "Attenzione: Una volta aggiunti, i domini non possono essere modificati",
+      "addButton": "Aggiungi un altro dominio",
+      "validationError": "L'URL del dominio deve essere in un formato valido, ad esempio domain.com"
+    }
+  }
+}
+

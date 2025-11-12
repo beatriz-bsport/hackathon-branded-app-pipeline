@@ -4,7 +4,11 @@ import { useState } from "react";
 import Checkbox from "#src/components/Checkbox";
 import CopyToClipboard from "#src/components/CopyToClipboard";
 import Icon from "#src/components/Icon";
-import List, { type ListItemProps, type ListProps } from "#src/components/List";
+import List, {
+  type ListItemChipsProps,
+  type ListItemProps,
+  type ListProps,
+} from "#src/components/List";
 import Popover from "#src/components/Popover";
 
 /**
@@ -1112,6 +1116,86 @@ export const WithCustomNode: Story = {
       emptySearchConfig: emptySearchConfig,
       isEmpty: false,
       emptyConfig: emptyConfig,
+    },
+  },
+};
+
+const sharedChipsForDeletionExample: [ListItemChipsProps, ListItemChipsProps] =
+  [
+    { type: "weak", color: "default", size: "lg", iconLeft: "package-x" },
+    { type: "weak", color: "default", size: "lg", iconLeft: "eye-off" },
+  ];
+
+const deletionExampleRawItems = [
+  {
+    id: "buyable-1",
+    title: "COTISATION TARIF REDUIT + CARTE",
+    price: "€ 20.00",
+  },
+  { id: "buyable-2", title: "TUANGO BAIN", price: "€ 20.00" },
+  {
+    id: "buyable-3",
+    title: "Coffret Prestige : Bulle de douceur",
+    price: "€ 56.78",
+  },
+  {
+    id: "buyable-4",
+    title: "COTISATION + CARTE DE 5 CREDITS",
+    price: "€ 90.12",
+  },
+  { id: "buyable-5", title: "Gold Pack", price: "€ 67.89" },
+  { id: "buyable-6", title: "Economy Membership", price: "€ 23.45" },
+  { id: "buyable-7", title: "New Client Welcome Package", price: "€ 12.34" },
+  {
+    id: "buyable-8",
+    title: "PROMOTION - 25% : 100 CREDITS",
+    price: "€ 78.90",
+  },
+  {
+    id: "buyable-9",
+    title: "💥 PROMO RÉSULTATS : 5 EMS SESSIONS",
+    price: "€ 34.56",
+  },
+  {
+    id: "buyable-10",
+    title: "Gold Membership Mon 130pm, Sat 2pm",
+    price: "€ 11.22",
+  },
+];
+
+const deletionExampleItems: ListItemProps[] = deletionExampleRawItems.map(
+  ({ id, title, price }) => ({
+    id,
+    title,
+    description: price,
+    chips: sharedChipsForDeletionExample,
+    chipsDirection: "start",
+    buttons: [
+      {
+        id: `delete-${id}`,
+        kind: "icon-button",
+        label: "Delete",
+        intent: "flat",
+        color: "default",
+        size: "md",
+        icon: "trash-01",
+        onClick: () => alert(`Delete ${id}`),
+      },
+    ],
+  }),
+);
+
+export const ItemsWithChipsAndDeleteAction: Story = {
+  name: "List With Chips And Delete Action",
+  args: {
+    id: "list-chips-delete",
+    items: deletionExampleItems,
+    isSelectable: false,
+    paginationProps: {
+      currentPage: 1,
+      rowsPerPage: 10,
+      totalItems: 100,
+      showRowsPerPageSelector: false,
     },
   },
 };

@@ -5,6 +5,7 @@ import {
   type PaginationProps,
   Table,
   type UseEmptyStateProps,
+  useMatchMedia,
 } from "@bsport/kaizen-primitive-core";
 import type { Pack } from "@bsport/store-buyables-pack";
 
@@ -12,6 +13,7 @@ import { LEGACY_URLS, URLS } from "#src/urls";
 import { USE_REVAMP_DETAILS } from "#src/utils/constants";
 import { useTranslation } from "#src/utils/i18n";
 
+import { PackList } from "./PackList";
 import { usePackTableColumns } from "./columns";
 import type { TableRowData } from "./types";
 
@@ -62,6 +64,8 @@ export const PackTable: React.FC<PackTableProps> = ({
   const tableColumns = usePackTableColumns({ handleArchive });
   const navigate = useNavigate();
 
+  const isMobile = !useMatchMedia("sm");
+
   const tableRows: Array<TableRowData> = packList.map((pack) => {
     const {
       id,
@@ -91,6 +95,20 @@ export const PackTable: React.FC<PackTableProps> = ({
         : undefined,
     };
   });
+
+  if (isMobile) {
+    return (
+      <PackList
+        tableRows={tableRows}
+        handleArchive={handleArchive}
+        paginationProps={paginationProps}
+        isEmpty={isEmpty}
+        isEmptySearch={isEmptySearch}
+        isLoading={isLoading}
+        emptyConfig={emptyConfig}
+      />
+    );
+  }
 
   return (
     <Table

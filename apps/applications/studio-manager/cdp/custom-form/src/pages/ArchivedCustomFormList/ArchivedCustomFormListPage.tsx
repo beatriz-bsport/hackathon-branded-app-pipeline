@@ -75,6 +75,7 @@ const ArchivedCustomFormListPage: React.FC = () => {
       <ListLayout.Content>
         <CustomFormTable
           customFormsItems={customFormTableItems}
+          customForms={customForms}
           isEmpty={isEmpty}
           isEmptySearch={isEmptySearch}
           isLoading={isLoading}

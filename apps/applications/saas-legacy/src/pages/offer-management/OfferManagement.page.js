@@ -193,6 +193,7 @@ import { RootState } from '../../reducers';
 import type { Offer } from '../../api/types';
 import OfferManagementComponent from './OfferManagement.component';
 import { snackbar } from '../../actions/snackbar.actions';
+import { getLocaleCountry } from '#src/utils/language';
 
 const RECURRENT_BOOKING_PAGE_SIZE = 10;
 
@@ -232,7 +233,7 @@ export default compose(
       searchedMembers: getSearchedMembers(state),
       memberCreationPending: state.member.upsert.loading,
       memberCreationErrors: state.member.upsert.error,
-      country: state.theme.theme.locale.split('_')[1],
+      country: getLocaleCountry(state.theme.theme.locale),
       coaches: getActiveCoaches(state),
 
       // booking

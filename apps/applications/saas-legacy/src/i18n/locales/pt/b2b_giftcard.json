@@ -1,0 +1,21 @@
+{
+  "customAmount": {
+    "label": "Personalizado",
+    "form": {
+      "toggle": "Valor personalizado",
+      "maxPrice": {
+        "label": "Máximo",
+        "helperText": "Digite um número inteiro até {{ maxPriceWithCurrency }}",
+        "limitExplanation": "Por que esse número?"
+      },
+      "minPrice": {
+        "label": "Mínimo",
+        "helperText": "Insira um número inteiro de pelo menos 1"
+      },
+      "errors": {
+        "maxGreaterThanMin": "O valor máximo deve ser maior que o valor mínimo"
+      }
+    },
+    "featureBlocked": "Cartões-presente de valor personalizado ainda não estão disponíveis"
+  }
+}

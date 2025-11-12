@@ -13,9 +13,21 @@
       "description": "Ontdek meer over acquisitie, conversieratio's en hoe je de effectiviteit van je proefaanbod kunt verhogen."
     },
     "recurring": {
-      "title": "Monitor terugkerende inkomsten",
-      "description": "Volg trends en begrijp hoe je terugkerende inkomstenstromen kunt stabiliseren."
+      "title": "Prestaties van abonnementen monitoren",
+      "description": "Volg de gezondheid van abonnementen, analyseer terugkerende inkomsten en identificeer risico's of kansen"
     }
+  },
+  "pages": {
+    "trialAnalysis": {
+      "title": "Prestaties van proefaanbiedingen"
+    },
+    "recurringRevenue": {
+      "title": "Prestaties van abonnementen monitoren"
+    }
+  },
+  "errors": {
+    "loadDashboard": "Kan dashboard niet laden. Vernieuw de pagina.",
+    "fetchFailed": "Kan dashboard niet laden. Vernieuw de pagina."
   },
   "filter": {
     "selectFieldLabel": "Filter op sectie",

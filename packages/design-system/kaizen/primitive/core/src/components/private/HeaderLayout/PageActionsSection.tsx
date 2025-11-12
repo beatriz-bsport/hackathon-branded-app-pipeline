@@ -9,6 +9,7 @@ import Button from "#src/components/Button";
 import Chip, { type ChipProps } from "#src/components/Chip";
 import Tabs, { type TabsProps } from "#src/components/Tabs";
 import Title from "#src/components/Title";
+import { useKaizenI18nInstance, useTranslation } from "#src/i18n";
 
 import CustomActionsSection, {
   type CustomActionsSectionProps,
@@ -36,6 +37,9 @@ const PageActionsSection: React.FC<PageActionsSectionProps> = ({
   pageTitle,
   startGroupActions,
 }) => {
+  const i18n = useKaizenI18nInstance();
+  const { t } = useTranslation("default", { i18n });
+
   return (
     <div
       className={classNames("px-md", {
@@ -59,8 +63,10 @@ const PageActionsSection: React.FC<PageActionsSectionProps> = ({
             </Title>
             {onEditTitleClick && (
               <Button
+                kind="icon-button"
+                label={t("headerLayout.editTitle")}
+                icon="pencil-02"
                 onClick={onEditTitleClick}
-                iconLeft="pencil-02"
                 intent="flat"
                 color="default"
                 size="md"

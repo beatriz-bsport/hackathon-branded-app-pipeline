@@ -1,0 +1,49 @@
+{
+  "title": "Pacote",
+  "actions": {
+    "addAPack": "Adicione um pacote"
+  },
+  "table": {
+    "loading": "Carregando pacotes...",
+    "emptyList": {
+      "title": "Nenhum pacote adicionado ainda",
+      "subtitle": "Adicione um Pacote para combinar seus produtos e Passes em uma única oferta. "
+    },
+    "headers": {
+      "name": "Nome",
+      "visibility": "Visibilidade",
+      "numberOfProducts": "artigos",
+      "price": "Preço"
+    },
+    "tooltips": {
+      "unavailableForUsers": "Este pacote não será exibido na Área do Membro",
+      "invisibleForStaff": "Este pacote não será mostrado aos membros da equipe",
+      "availableForALimitedTime": "Este pacote será exibido apenas por um tempo limitado",
+      "archive": "Excluir Pacotes"
+    }
+  },
+  "deleteModal": {
+    "title": "Excluir Pacotes?",
+    "description": {
+      "effect": "Se você excluir {{ name }}, compras atuais ou anteriores não serão afetadas.",
+      "canNotBeUndone": "Esta ação não pode ser desfeita."
+    },
+    "actions": {
+      "cancel": "Anterior",
+      "delete": "Excluir"
+    }
+  },
+  "toasts": {
+    "messageDelete": {
+      "success": "Pacotes excluído",
+      "error": "Falha ao excluir o pacote"
+    },
+    "messageUndo": {
+      "success": "Ação desfeita",
+      "error": "Falha ao desfazer ação"
+    },
+    "actions": {
+      "undo": "Desfazer"
+    }
+  }
+}

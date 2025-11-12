@@ -1219,5 +1219,10 @@
   },
   "oneClickBooking": {
     "genericError": "Wir konnten deine Buchung nicht abschließen. Bitte kontrolliere deine Angaben und versuche es nochmal."
+  },
+  "calendar": {
+    "syncCalendarDialog": {
+      "copySuccess": "Kalender-URL kopiert"
+    }
   }
 }

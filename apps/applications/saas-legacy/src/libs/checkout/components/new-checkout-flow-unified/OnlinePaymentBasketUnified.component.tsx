@@ -357,7 +357,6 @@ export const OnlinePaymentBasketUnified: React.FC<Props> = forwardRef(
     const isGooglePayAllowed = fromApp
       ? isWebviewGooglePayEnabled && isGooglePayAvailableInBasket
       : isGooglePayAvailableInBasket;
-
     const allowedWallets = {
       applePay: isApplePayAvailableInBasket,
       googlePay: isGooglePayAllowed,

@@ -9,7 +9,6 @@
     "allEstablishment": "Todas las salas",
     "companyId": "El identificador de tu club es: {{ company }}",
     "establishmentMergedAs": "Fusionar estos establecimientos",
-    "pleaseChoseEstablishmentMany": "Seleccione al menos un establecimiento",
     "add": "Añadir",
     "pleaseChoseEstablishment": "Seleccione un establecimiento",
     "establishmentMergeMaster": "Fusionarse con este establecimiento ⬇️",

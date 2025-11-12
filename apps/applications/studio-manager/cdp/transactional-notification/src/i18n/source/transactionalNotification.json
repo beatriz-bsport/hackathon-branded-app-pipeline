@@ -51,17 +51,19 @@
       "tooltip": {
         "pushNotificationHelper": {
           "title": "Push notifications",
-          "message": "You can start enabling a push notification after you’ve set it up."
+          "message": "You can start enabling a push notification after you've set it up.",
+          "label": "Help"
         },
         "franchiseOwned": "The Admin Account directly manages this transactional notification.",
         "setPushNotificationBeforeEnabling": "Set up your push notification before enabling it."
       },
       "helper": {
         "title": "Push notifications",
-        "description": "You can start enabling a push notification after you’ve set it up."
+        "description": "You can start enabling a push notification after you've set it up."
       },
       "actions": {
-        "preview": "Preview"
+        "preview": "Preview",
+        "edit": "Edit"
       },
       "notificationsToggle": {
         "deactivated": "Activate",
@@ -90,7 +92,7 @@
           "label": "Receive a copy of the email"
         },
         "requiredCommunicationVariablesAlert": {
-          "body": "The selected template couldn’t be used because it’s missing required variables. To use a custom template, make sure it includes these variables: "
+          "body": "The selected template couldn't be used because it's missing required variables. To use a custom template, make sure it includes these variables: "
         }
       },
       "pushNotification": {

@@ -2,6 +2,7 @@ import { type VariantProps, cva } from "class-variance-authority";
 import React, { ReactNode } from "react";
 
 import HeaderLayout from "#src/components/private/HeaderLayout";
+import LayoutButton from "#src/components/private/LayoutButton";
 
 export type ListLayoutProps = React.HTMLAttributes<HTMLDivElement> & {
   children: ReactNode;
@@ -20,9 +21,10 @@ const listLayout = cva([
 ]);
 
 /**
- * Define Layout for List pages, with two subcomponents:
+ * Define Layout for List pages, with three subcomponents:
  * - ListLayout.Header : See https://docs.infra.bsport.io/storybook/kaizen/dev/index.html?path=/docs/components-private-headerlayout--docs
  * - ListLayout.Content
+ * - ListLayout.Button : Responsive button that adapts to mobile/desktop screens
  * The Header will stick to the top of the page while the Content
  * will be scrollable if its content exceeds the window height
  * @param props.className Optional. Custom CSS classes for the container.
@@ -31,6 +33,7 @@ const listLayout = cva([
 const ListLayout: React.FC<ListLayoutProps> & {
   Header: typeof HeaderLayout;
   Content: typeof ListLayoutContent;
+  Button: typeof LayoutButton;
 } = ({ className, children, ...props }: ListLayoutProps) => {
   return (
     <main className={listLayout({ className })} {...props}>
@@ -83,6 +86,14 @@ const ListLayoutContent: React.FC<ListLayoutContentProps> = ({
 };
 
 ListLayout.Content = ListLayoutContent;
+
+// ----- Button -----
+
+/**
+ * Responsive button that shows full button on desktop (≥640px)
+ * and icon-only button on mobile (<640px)
+ */
+ListLayout.Button = LayoutButton;
 
 // ----- Export ListLayout -----
 

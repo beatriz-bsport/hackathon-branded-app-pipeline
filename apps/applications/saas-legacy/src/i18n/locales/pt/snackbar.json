@@ -1233,5 +1233,10 @@
     "delete": {
       "133001": "Esta campanha programada está a ser processada ou já foi enviada."
     }
+  },
+  "calendar": {
+    "syncCalendarDialog": {
+      "copySuccess": "URL do calendário copiado"
+    }
   }
 }

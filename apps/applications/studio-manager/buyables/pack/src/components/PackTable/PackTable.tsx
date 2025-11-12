@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router";
 
 import {
   type PaginationProps,
@@ -7,7 +8,8 @@ import {
 } from "@bsport/kaizen-primitive-core";
 import type { Pack } from "@bsport/store-buyables-pack";
 
-import { LEGACY_URLS } from "#src/urls";
+import { LEGACY_URLS, URLS } from "#src/urls";
+import { USE_REVAMP_DETAILS } from "#src/utils/constants";
 import { useTranslation } from "#src/utils/i18n";
 
 import { usePackTableColumns } from "./columns";
@@ -58,6 +60,7 @@ export const PackTable: React.FC<PackTableProps> = ({
   };
 
   const tableColumns = usePackTableColumns({ handleArchive });
+  const navigate = useNavigate();
 
   const tableRows: Array<TableRowData> = packList.map((pack) => {
     const {
@@ -82,7 +85,10 @@ export const PackTable: React.FC<PackTableProps> = ({
         aggregateQuantity(payment_packs) +
         aggregateQuantity(private_passes) +
         aggregateQuantity(shop_items),
-      link: LEGACY_URLS.PACK_DETAILS(id),
+      link: USE_REVAMP_DETAILS ? undefined : LEGACY_URLS.PACK_DETAILS(id),
+      onRowClick: USE_REVAMP_DETAILS
+        ? () => navigate(URLS.DETAILS(id))
+        : undefined,
     };
   });
 

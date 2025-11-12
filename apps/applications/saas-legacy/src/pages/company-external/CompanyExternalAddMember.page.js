@@ -12,6 +12,7 @@ import { createOrUpdateMember } from '../../libs/member/actions';
 import { MemberMap } from '../../libs/member/utils';
 import CustomFormView from '../../libs/custom-form/components/consumer-form/CustomFormView.form';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
+import { getLocaleCountry } from '#src/utils/language';
 
 import { mapFormData } from '../form.utils';
 import {
@@ -100,7 +101,7 @@ export default compose(
     (state) => ({
       theme: state.theme.theme,
       errors: state.member.upsert.error,
-      country: state.theme.theme.locale.split('_')[1],
+      country: getLocaleCountry(state.theme.theme.locale),
       signUpCustomForm: getSignUpCustomFormWithEnabledField(state),
     }),
     {

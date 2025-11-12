@@ -225,6 +225,9 @@ export class Partnership extends React.Component<Props> {
     !!this.props.classpass.id &&
       this.props.updatePartnership(this.props.classpass.id, data, {
         onSuccess: () => {
+          this.props.fetchAssociatedEstablishments({
+            company: this.props.company,
+          });
           this.props.fetchPartnershipEstablishmentMergeList();
           this.closePartnershipConfigurationForm();
         },

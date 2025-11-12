@@ -324,4 +324,5 @@ export enum PassesPageTabNames {
 export enum PassTypes {
   PAYMENTPACK = 'paymentPack',
   PRIVATEPASS = 'privatePass',
+  PAYMENTCOMBO = 'paymentCombo',
 }

@@ -50,10 +50,12 @@ export const CommunicationStatusHelper = () => {
       <Popover.Anchor>
         {({ setIsPopoverOpened }) => (
           <Button
+            kind="icon-button"
+            label={t("drawer.performance.allNotifications.helper.title")}
+            icon="alert-circle"
             intent="default"
             color="main"
             size="md"
-            iconLeft="alert-circle"
             onMouseOver={() => setIsPopoverOpened(true)}
             onMouseLeave={() => setIsPopoverOpened(false)}
           />

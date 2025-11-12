@@ -61,6 +61,7 @@ import { CouponErrorCodes } from '#src/libs/coupon/constants';
 import { CheckoutStepsUnified } from '#src/libs/checkout/components/new-checkout-flow-unified/CheckoutStepsUnified.component';
 import { useBasket } from '#src/libs/payment/payment-module-revamped/basket-payment/hooks/useBasket';
 import { useBasketPaymentStatusTracker } from '#src/libs/payment/payment-module-revamped/basket-payment/hooks/useBasketPaymentStatusTracker';
+import { getLocaleCountry } from '#src/utils/language';
 
 // These checkout item types are displayed in the bill after the basket summary
 const BILL_CHECKOUT_ITEMS = [BUYABLE_ITEM_COUPON, BUYABLE_ITEM_FEE];
@@ -173,7 +174,7 @@ export const NewCheckoutFlow: React.FC<Props> = ({
   const isBasketModificationDisabled =
     isPaymentProcessing || isCurrentBasketProcessing || basketLoading;
   const noOfferInCheckoutItems = basketOffers?.length === 0;
-  const companyCountry = useMemo(() => theme.locale.split('_')[1], [theme]);
+  const companyCountry = useMemo(() => getLocaleCountry(theme.locale), [theme]);
   const width = useWidth();
   const isMobile = isWidthDown('sm', width);
 

@@ -53,13 +53,12 @@ export default meta;
 
 type Story = StoryObj<typeof CopyToClipboard>;
 
-export const Primary: Story = {
-  name: "Primary",
+export const Basic: Story = {
+  name: "Basic Usage",
   args: {
-    value: "hello@kaizen.com",
     toastMessage: "Copied!",
     tooltip: "Copy email",
-    label: undefined,
+    label: "hello@kaizen.com",
     placement: "bottom",
     size: "md",
     color: "default",
@@ -72,10 +71,9 @@ export const Primary: Story = {
 export const Disabled: Story = {
   name: "Disabled",
   args: {
-    value: "disabled@kaizen.com",
     toastMessage: "Copied!",
     tooltip: "Copy email",
-    label: undefined,
+    label: "disabled@kaizen.com",
     placement: "bottom",
     size: "md",
     color: "default",
@@ -98,5 +96,22 @@ export const CustomLabelAndColor: Story = {
     intent: "flat",
     iconLeft: "copy-07",
     disabled: false,
+  },
+};
+
+export const IconOnly: Story = {
+  name: "Icon Only",
+  args: {
+    toastMessage: "URL copied to clipboard !",
+    tooltip: "Copy url",
+    value: "https://dogtime.com/dog-breeds/pug",
+    label: "copy-url",
+    placement: "bottom",
+    size: "md",
+    color: "default",
+    intent: "flat",
+    disabled: false,
+    icon: "copy-07",
+    kind: "icon-button",
   },
 };

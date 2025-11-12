@@ -6,7 +6,6 @@
   "pageTitle": "Parceria",
   "parameters": {
     "partnerId": "ID do parceiro: {{ company }}",
-    "pleaseChoseEstablishmentMany": "Seleccione pelo menos um estabelecimento",
     "establishment": "Estabelecimento",
     "allEstablishment": "Todas as salas",
     "pleaseChoseEstablishment": "Selecionar um estabelecimento",

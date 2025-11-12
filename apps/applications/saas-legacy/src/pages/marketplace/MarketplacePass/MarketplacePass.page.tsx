@@ -319,7 +319,10 @@ export class MarketPlacePassPage extends Component<Props, State> {
     }
 
     if (!this.props.authenticated) {
-      this.props.requestSignUp();
+      this.props.redirectToPassExpressCheckout({
+        passId: comboId.toString(),
+        passType: PassTypes.PAYMENTCOMBO,
+      });
     } else if (this.props.currentBasket) {
       if (this.state.dialogSelectedItem) {
         analyticsUtils.addItemToCart(this.state.dialogSelectedItem);

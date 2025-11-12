@@ -111,7 +111,7 @@
       },
       "dialog": {
         "update": "Actualizar el Número de Identificación Fiscal (NIF)",
-        "hasAttributedVatIdLabel": "No tengo un Número de Identificación Fiscal (NIF). Si su empresa está radicada en la UE (excluida Francia), no se aplicará el mecanismo de inversión impositiva y bsport aplicará el tipo de IVA francés (20%).",
+        "hasAttributedVatIdLabel": "No tengo un Número de Identificación Fiscal (NIF). Si su empresa está radicada en la UE (excluida Francia), no se aplicará el mecanismo de inversión impositiva y bsport aplicará el tipo de IVA local.",
         "vatIdLabel": "Número de Identificación Fiscal (NIF)",
         "content": "bsport necesita su NIF (también conocido como número de registro de IVA o número de IVA intracomunitario) para incluirlo en las facturas que le emitamos.",
         "errorChip": "Falta el NIF válido",

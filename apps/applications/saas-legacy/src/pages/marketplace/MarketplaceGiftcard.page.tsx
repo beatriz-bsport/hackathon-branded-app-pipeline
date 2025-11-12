@@ -60,7 +60,22 @@ export class MarketplaceGiftcardList extends Component<Props> {
   render() {
     const { classes, giftcardList, params } = this.props;
 
-    let filteredGiftcards: Array<Giftcard> = [...giftcardList];
+    // GC with Custom price should be on top
+    let filteredGiftcards: Array<Giftcard> = [...(giftcardList ?? [])].sort(
+      (gc1, gc2) => {
+        const price1 = gc1.price ? parseFloat(gc1.price) : 0;
+        const price2 = gc2.price ? parseFloat(gc2.price) : 0;
+
+        if (price1 === 0 && price2 === 0) {
+          // When having 2 Giftcards with custom price, compare with min_price
+          const minPrice1 = gc1.min_price ?? 1;
+          const minPrice2 = gc2.min_price ?? 1;
+          return minPrice1 - minPrice2;
+        }
+
+        return price1 - price2;
+      },
+    );
     if (params?.giftcards?.length) {
       let selectedGiftcards: number[] = [];
       if (typeof params.giftcards === 'string') {
@@ -70,7 +85,7 @@ export class MarketplaceGiftcardList extends Component<Props> {
       } else {
         selectedGiftcards = params.giftcards;
       }
-      filteredGiftcards = giftcardList?.filter((gc: Giftcard) =>
+      filteredGiftcards = filteredGiftcards.filter((gc: Giftcard) =>
         selectedGiftcards.includes(gc.id),
       );
     }
@@ -123,7 +138,7 @@ export const MarketplaceGiftcardBase = compose<Props, OwnProps>(
   marketplaceCssHoc(),
   withStyles(styles),
   connector,
-  withTranslation(['giftcard']),
+  withTranslation(['giftcard', 'b2c_giftcard']),
   withTitle(({ t }: { t: TFunction }) =>
     t('titles:marketplace.marketplaceGiftcard'),
   ),

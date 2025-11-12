@@ -21,8 +21,10 @@ const errorFallback = cva(defaultClasses);
 
 export type ErrorFallbackActionProps = Omit<
   ButtonProps,
-  "color" | "size" | "intent"
->;
+  "color" | "size" | "intent" | "label" | "kind" | "icon"
+> & {
+  label?: string;
+};
 
 export type ErrorFallbackProps = HTMLAttributes<HTMLDivElement> &
   VariantProps<typeof errorFallback> & {
@@ -63,7 +65,7 @@ const ErrorFallback = ({
   const defaultActionLabel = t("errorFallback.actionLabel");
 
   const finalActionProps = actionProps
-    ? { label: defaultActionLabel, ...actionProps }
+    ? { ...actionProps, label: actionProps.label ?? defaultActionLabel }
     : undefined;
 
   return (
@@ -100,6 +102,7 @@ const ErrorFallback = ({
         <div className="flex flex-row items-center justify-center mt-sm">
           <Button
             {...finalActionProps}
+            kind="default"
             color="main"
             size="md"
             intent="default"

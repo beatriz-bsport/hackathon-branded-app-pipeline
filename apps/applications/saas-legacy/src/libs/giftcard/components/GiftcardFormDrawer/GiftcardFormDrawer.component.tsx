@@ -27,6 +27,7 @@ const GiftcardFormDrawer = (props: GiftcardFormDrawerProps) => {
     // Reset Formik errors and status
     props.setErrors({});
     props.setStatus(undefined);
+    props.setSubmitting(false);
 
     props.onClose();
   };

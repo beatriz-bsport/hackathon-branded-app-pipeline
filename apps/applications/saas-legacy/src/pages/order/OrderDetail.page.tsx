@@ -21,6 +21,7 @@ import {
 import { fetchByQueryInvoice as fetchByQueryInvoiceAction } from '#src/libs/invoice/actions';
 import OrderDetailComponent from '#src/libs/order/components/OrderDetail.component';
 
+import { getLocaleCountry } from '#src/utils/language';
 import withTitle from '../../hocs/with-title.hoc';
 import { WithHandlerType } from '../../utils/types';
 import type { RootState } from '../../reducers';
@@ -96,7 +97,7 @@ const connector = connect(
     // @ts-expect-error
     order: withMember(getOrder)(state, orderId),
     invoice: getInvoice(state, relatedInvoice),
-    companyCountry: state.theme.theme.locale.split('_')[1],
+    companyCountry: getLocaleCountry(state.theme.theme.locale),
   }),
   {
     fetchByQueryInvoice: fetchByQueryInvoiceAction,

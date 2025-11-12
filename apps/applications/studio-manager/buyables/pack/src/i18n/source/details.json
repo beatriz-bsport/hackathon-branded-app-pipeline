@@ -7,6 +7,17 @@
     },
     "failToCreate": "Failed to create a new Pack"
   },
+  "detailsPage": {
+    "packsBreadcrumbs": "Packs",
+    "loading": "Loading Pack",
+    "canNotFindPack": "Could not find Pack",
+    "buttons": {
+      "copyPaymentLink": "Copy payment link"
+    },
+    "toasts": {
+      "paymentLinkCopied": "Link copied"
+    }
+  },
   "addItemsModal": {
     "title": "Add items",
     "buttons": {
@@ -17,6 +28,9 @@
       "appointmentPassCategories": "Appointment Pass categories",
       "passCategories": "Pass categories",
       "webshopItemCategories": "Product categories"
+    },
+    "categories": {
+      "open": "Open category"
     },
     "items": {
       "webshopItem": {
@@ -32,7 +46,8 @@
     },
     "selectedItems": {
       "show": "Show selected items",
-      "hide": "Hide selected items"
+      "hide": "Hide selected items",
+      "removeItem": "Remove item"
     },
     "noCategories": "No category"
   },
@@ -62,7 +77,8 @@
         "addItem": "Add item",
         "addPass": "Add Pass",
         "addAppointmentPass": "Add Appointment Pass",
-        "addWebshopItem": "Add product"
+        "addWebshopItem": "Add product",
+        "removeItem": "Remove item"
       }
     },
     "advancedSection": {

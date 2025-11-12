@@ -82,12 +82,9 @@ export const GiftcardBackgroundImageUploader = (props: Props) => {
             ),
             background_image:
               props.giftcardBackgroundImageList[selectedImage]?.image,
-          }}
-          // @ts-expect-error
-          giftcard={{
-            amount_gifted: t(
+            price_bought: t(
               'consumerGiftcard.previewPlaceholder.giftcard_amount',
-            ),
+            ) as string,
           }}
         />
       </DialogContent>

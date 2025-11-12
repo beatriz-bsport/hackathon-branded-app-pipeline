@@ -1,14 +1,25 @@
 {
+  "pages": {
+    "insights": {
+      "title": "Insights"
+    },
+    "recurringRevenue": {
+      "title": "Monitorar o Desempenho das Assinaturas"
+    },
+    "trialAnalysis": {
+      "title": "Monitorar o Desempenho de Aquisição de Membros"
+    }
+  },
   "sections": {
-    "memberInsights": "Informações sobre os membros",
-    "financialHealth": "Saúde financeira"
+    "memberInsights": "Insights dos Membros",
+    "financialHealth": "Saúde Financeira"
   },
   "trackTrialOffer": {
-    "title": "Acompanhar o desempenho da oferta experimental",
-    "description": "Saiba mais sobre aquisição, taxas de conversão e como pode aumentar a eficácia da sua oferta de avaliação."
+    "title": "Acompanhe o desempenho da oferta de teste",
+    "description": "Descubra mais sobre aquisição, taxas de conversão e como você pode aumentar a eficácia da sua oferta de teste."
   },
   "monitorRevenue": {
-    "title": "Monitorizar as receitas recorrentes",
-    "description": "Acompanhar as tendências e compreender como estabilizar os fluxos de rendimento recorrentes."
+    "title": "Monitorar o Desempenho das Assinaturas",
+    "description": "Acompanhe a saúde das assinaturas, analise a receita recorrente e identifique riscos ou oportunidades"
   }
 }

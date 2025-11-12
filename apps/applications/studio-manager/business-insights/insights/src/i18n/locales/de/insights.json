@@ -9,16 +9,28 @@
   },
   "items": {
     "trial": {
-      "title": "Verfolgen Sie die Leistung des Testangebots",
-      "description": "Erfahren Sie mehr über Akquisition, Conversion-Raten und wie Sie die Effektivität Ihres Testangebots steigern können."
+      "title": "Leistung des Testangebots verfolgen",
+      "description": "Erfahre mehr über Neuanmeldungen, Konversionsraten und wie du dein Testangebot optimieren kannst"
     },
     "recurring": {
-      "title": "Wiederkehrende Einnahmen überwachen",
-      "description": "Verfolgen Sie Trends und verstehen Sie, wie Sie wiederkehrende Einnahmequellen stabilisieren können."
+      "title": "Abo-Statistiken",
+      "description": "Schau dir deine Abo-Kennzahlen an, analysiere wiederkehrende Einnahmen und entdecke Risiken und Chancen"
     }
   },
+  "pages": {
+    "trialAnalysis": {
+      "title": "Übersicht des Probeangebots"
+    },
+    "recurringRevenue": {
+      "title": "Abo-Statistiken"
+    }
+  },
+  "errors": {
+    "loadDashboard": "Das Dashboard konnte nicht geladen werden. Bitte lade die Seite neu.",
+    "fetchFailed": "Das Dashboard konnte nicht geladen werden. Bitte lade die Seite neu."
+  },
   "filter": {
-    "selectFieldLabel": "Nach Sektion filtern",
+    "selectFieldLabel": "Nach Kategorie filtern",
     "filterLabel": "Filter",
     "isLabel": "ist"
   }

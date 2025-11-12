@@ -120,7 +120,9 @@ const meta: Meta<DropdownMenuManagedProps> = {
     },
   },
   args: {
-    target: () => <Button size="sm" intent="default" color="main" />,
+    target: () => (
+      <Button label="Menu" size="sm" intent="default" color="main" />
+    ),
     placement: "bottom-left",
     items: [],
     onSelectOption: ({ id }) => console.log("Selected:", id),

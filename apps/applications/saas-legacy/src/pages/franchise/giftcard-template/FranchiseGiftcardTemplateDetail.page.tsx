@@ -134,7 +134,7 @@ export class GiftcardDetailPage extends Component<Props> {
     const { displayedPrice, displayedTaxFreePrice } =
       card_type === GIFTCARD_TYPES.CUSTOM || !price
         ? {
-            displayedPrice: t('giftcardFreeAmount.customAmount', {
+            displayedPrice: t('customAmount.label', {
               ns: 'b2b_giftcard',
             }),
             displayedTaxFreePrice: '',

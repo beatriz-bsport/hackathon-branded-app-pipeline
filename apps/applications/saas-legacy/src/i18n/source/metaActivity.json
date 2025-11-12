@@ -1,6 +1,6 @@
 {
   "metaActivity": "Activity",
-  "search": "Search a group activity",
+  "search": "Search for an activity",
   "forms": {
     "create": {
       "compatible_packs": {

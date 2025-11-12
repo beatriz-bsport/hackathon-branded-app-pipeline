@@ -49,11 +49,10 @@ export const MemberListPage: React.FC = () => {
         filterRef={filterRef}
         callToActionButton={
           permissions.create ? (
-            <Button
+            <ListLayout.Button
               iconLeft="plus"
               intent="call-to-action"
               color="main"
-              size="md"
               label={t("actions.addMember")}
               onClick={handleAddMember}
             />
@@ -66,10 +65,12 @@ export const MemberListPage: React.FC = () => {
             placement="bottom-left"
           >
             <Button
-              iconLeft="box"
+              kind="icon-button"
+              icon="box"
               intent="default"
               color="main"
               size="md"
+              label={t("pages.archivedMemberList")}
               onClick={() => navigate(URLS.ARCHIVED)}
             />
           </Tooltip>,

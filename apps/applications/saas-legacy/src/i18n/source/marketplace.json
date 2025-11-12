@@ -27,7 +27,9 @@
     }
   },
   "paymentCombo": {
-    "addToCart": "Add to cart"
+    "addToCart": "Add to cart",
+    "content": "Content",
+    "itemQuantityFormat": "{{quantity}} x {{name}}"
   },
   "warning": {
     "isManager": "You're connected with a staff account. Log out to open the customer view or return to your Back Office.",

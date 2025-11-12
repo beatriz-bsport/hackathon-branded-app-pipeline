@@ -11,15 +11,10 @@ import type {
   CheckoutItemData,
   AddItemToBasketParams,
 } from '#src/libs/checkout/types';
-import { PassTypes } from '#src/libs/marketplace/types';
 import { usePassCardDataContext } from '#src/pages/checkout/express-checkouts/pass/context/PassCardDataContext';
-import {
-  BUYABLE_ITEM_PASS,
-  BUYABLE_ITEM_PRIVATE_PASS,
-} from '@bsport/common/lib/master-data/buyable-items';
-import { FlowTypes } from '#src/libs/checkout/constants';
 import { trackAddToCartEvent } from '#src/events/purchase/utils';
 import { parseQueryString } from '#src/http';
+import { getCheckoutItemData } from '../utils';
 
 export const useBasket = () => {
   const { companyId, passId, passType } = usePassCardDataContext();
@@ -66,18 +61,11 @@ export const useBasket = () => {
         await removeItemFromBasket(basket.id, checkoutItems[0]);
       }
 
-      const checkoutItemData: CheckoutItemData = {
-        buyable_item_id: passId,
-        buyable_item_identifier:
-          passType === PassTypes.PAYMENTPACK
-            ? BUYABLE_ITEM_PASS
-            : BUYABLE_ITEM_PRIVATE_PASS,
-        quantity: 1,
-        extra_data: {
-          flow: FlowTypes.ONE_CLICK_CHECKOUT,
-          ...(force && { force }),
-        },
-      };
+      const checkoutItemData: CheckoutItemData = getCheckoutItemData({
+        id: passId,
+        passType,
+        force,
+      });
 
       const { data: updatedBasket } = await addItemToBasket(
         basket.id,

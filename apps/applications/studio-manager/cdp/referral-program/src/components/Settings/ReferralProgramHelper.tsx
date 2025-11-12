@@ -43,6 +43,7 @@ export const ReferralProgramHelper: React.FC<Props> = ({
         </div>
         <Button
           className="h-fit self-center"
+          kind="default"
           intent={isProgramActivated ? "default" : "call-to-action"}
           size="md"
           color="main"

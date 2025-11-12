@@ -74,7 +74,6 @@ import { fetchAssociatedCoachesList as fetchAssociatedCoaches } from '../libs/as
 //
 import { getPermissions, getObjectPermissions } from '../libs/role/selectors';
 import { ObjectLevelPermissions } from '../libs/role/types';
-import { parseRestrictedPath } from '../libs/role/utils';
 import {
   fetchUserTutorialCompletion,
   updateUserAcknowlegdeTutorial,
@@ -156,6 +155,7 @@ import { AuthState } from '#src/libs/types';
 import WidgetUtils from '#src/libs/widget/WidgetUtils';
 import { UpsellSumup } from '#src/libs/company/types';
 import { useRouteToHomepage } from '#src/revamp';
+import { checkHasBackofficeAccess } from '#src/utils/permissions';
 
 const CompanyDetailPage = asyncComponent(() =>
   import('./settings/CompanyDetailPage.page'),
@@ -799,26 +799,13 @@ export class Backoffice extends Component<Props, State> {
       return <LoadingBackoffice />;
     }
 
-    if (
-      this.props.permissions &&
-      this.props.permissions.restrictedPaths &&
-      this.props.permissions.restrictedPaths.length
-    ) {
-      let navigationIsAuthorized = false;
-      this.props.permissions.restrictedPaths.forEach((p) => {
-        const cleanedPath = parseRestrictedPath(p);
-        navigationIsAuthorized =
-          navigationIsAuthorized ||
-          window.location.pathname.includes(cleanedPath);
-      });
-      if (!navigationIsAuthorized) {
-        return (
-          <Redirect
-            to={parseRestrictedPath(this.props.permissions.restrictedPaths[0])}
-          />
-        );
-      }
+    const { hasBOAccess, redirectionUrl } = checkHasBackofficeAccess(
+      this.props.permissions,
+    );
+    if (!hasBOAccess) {
+      return <Redirect to={redirectionUrl} />;
     }
+
     const { language } = i18n;
     const isoLanguage = getCurrentLanguageIsoCode(language);
 

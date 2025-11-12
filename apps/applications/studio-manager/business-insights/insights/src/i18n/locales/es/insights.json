@@ -1,7 +1,7 @@
 {
-  "pageTitle": "Perspectivas",
+  "pageTitle": "Visión empresarial",
   "sections": {
-    "member": "Perspectivas de Miembros",
+    "member": "Visión sobre miembros",
     "financial": "Salud Financiera",
     "booking": "Rendimiento de Reservas",
     "teacher": "Rendimiento de Profesores",
@@ -10,12 +10,24 @@
   "items": {
     "trial": {
       "title": "Seguir el rendimiento de la oferta de prueba",
-      "description": "Descubre más sobre adquisición, tasas de conversión y cómo aumentar la efectividad de tu oferta de prueba."
+      "description": "Descubre más sobre adquisición, tasas de conversión y cómo aumentar la efectividad de tu oferta de prueba"
     },
     "recurring": {
-      "title": "Monitorear ingresos recurrentes",
-      "description": "Sigue las tendencias y comprende cómo estabilizar los flujos de ingresos recurrentes."
+      "title": "Monitorea el rendimiento de las suscripciones",
+      "description": "Controla la salud de las suscripciones, analiza los ingresos recurrentes y detecta riesgos u oportunidades"
     }
+  },
+  "pages": {
+    "trialAnalysis": {
+      "title": "Rendimiento de la oferta de prueba"
+    },
+    "recurringRevenue": {
+      "title": "Monitorea el rendimiento de las suscripciones"
+    }
+  },
+  "errors": {
+    "loadDashboard": "No se puede cargar el panel. Por favor, actualiza la página.",
+    "fetchFailed": "No se pudo cargar el panel. Por favor, actualiza la página."
   },
   "filter": {
     "selectFieldLabel": "Filtrar por sección",

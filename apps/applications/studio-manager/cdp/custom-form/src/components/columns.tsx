@@ -117,15 +117,17 @@ export const useCustomFormTableColumns = ({
               return (
                 <Tooltip key={id} label={tooltip} placement="bottom-right">
                   <Button
+                    kind="icon-button"
                     color="default"
                     intent="flat"
                     size="md"
+                    icon={icon}
+                    label={tooltip}
                     onClick={(event: React.MouseEvent) => {
                       event.stopPropagation();
                       event.preventDefault();
                       handler?.({ formId: row.id, formName: row.name });
                     }}
-                    iconLeft={icon}
                   />
                 </Tooltip>
               );

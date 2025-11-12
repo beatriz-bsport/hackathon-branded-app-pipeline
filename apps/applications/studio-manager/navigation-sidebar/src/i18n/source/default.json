@@ -1,7 +1,8 @@
 {
   "common": {
     "back": "Back",
-    "new": "New"
+    "new": "New",
+    "search": "Search members"
   },
   "menus": {
     "popover": {
@@ -9,19 +10,19 @@
       "attendance": "Attendance",
       "ledger": "Ledger",
       "tutorials": "Tutorials",
-      "help": "Help center",
+      "help": "Help Center",
       "feedback": "Feedback board",
       "logout": "Logout"
     },
     "inbox": "Inbox",
-    "notifications": "Notifications",
+    "notifications": "Alerts",
     "home": "Home",
     "calendar": "Calendar",
     "schedule": "Schedule",
     "accessControl": "Access Control",
     "classes": {
       "title": "Classes",
-      "activities": "Activities",
+      "activities": "Group Activities",
       "workshops": "Workshops",
       "appointments": "Appointments"
     },
@@ -32,17 +33,17 @@
       "subscriptions": "Subscriptions"
     },
     "products": {
-      "title": "Products",
-      "webshop": "Webshop",
+      "title": "Store",
+      "webshop": "Products",
       "packs": "Packs",
       "giftcards": "Gift cards",
-      "videosAndEbooks": "Videos & ebooks",
+      "videosAndEbooks": "On-Demand",
       "orders": "Orders"
     },
     "marketing": {
       "title": "Marketing",
-      "marketingNotifications": "Member notifications",
-      "emailTemplates": "Email templates",
+      "marketingNotifications": "Notifications",
+      "emailTemplates": "Templates",
       "smartlists": "Smartlists",
       "audience": "Audience",
       "promotions": "Promotions",
@@ -64,23 +65,24 @@
       "payroll": "Payroll"
     },
     "membersHub": {
-      "title": "Members Hub",
-      "members": "Members",
+      "title": "Members",
+      "members": "Profiles",
       "forms": "Forms",
       "tags": "Tags"
     },
     "myStudio": {
-      "title": "My studio",
+      "title": "Studio",
       "teachers": "Teachers",
       "establishments": "Establishments"
     },
     "settings": {
       "title": "Settings",
       "general": "General",
-      "marketplace": "Marketplace",
+      "marketplace": "Member Area",
       "widgets": "Widgets",
       "permissions": "Permissions",
       "personalization": "Personalization",
+      "brandedApp": "Branded App",
       "teacherView": "Teacher view",
       "memberForms": "Member forms",
       "livestreaming": "Livestreaming",
@@ -95,6 +97,7 @@
       "partnership": "Partnership",
       "activeCampaign": "ActiveCampaign",
       "referral": "Referral",
+      "quicksale": "POS",
       "bsportSubscription": "bsport subscription",
       "temporaryPassword": "Temporary password",
       "changeLanguage": "Change language"
@@ -116,10 +119,10 @@
     "debug": "Debug (cimode)"
   },
   "notifications": {
-    "title": "Notification center",
+    "title": "Alerts",
     "empty": {
       "title": "You're all caught up",
-      "description": "No notifications right now"
+      "description": "No alerts right now"
     },
     "tabs": {
       "billing": "Billing",
@@ -217,7 +220,7 @@
       "loading": "Loading appointments to complete...",
       "empty": {
         "title": "No appointments to complete",
-        "description": "All your appointments have assigned coaches"
+        "description": "All your appointments have assigned teachers"
       },
       "member": "Member: {{userName}}",
       "date": "Date: {{date}}"

@@ -6,7 +6,6 @@
     "configurationTitle": "Configureer de integratie",
     "configurationDescription": "Selecteer hoe je je vestigingen wilt weergeven op de ClassPass app.",
     "establishment": "Vestiging",
-    "pleaseChoseEstablishmentMany": "Selecteer ten minste één vestiging.",
     "pleaseChoseEstablishment": "Selecteer een vestiging.",
     "venueIds": "Vestiging-ID's: {{ establishmentIdList }}",
     "partnerId": "Partner-ID: {{ company }}",

@@ -1,1 +1,25 @@
-{}
+{
+  "pages": {
+    "insights": {
+      "title": "Visión empresarial"
+    },
+    "recurringRevenue": {
+      "title": "Monitorea el rendimiento de las suscripciones"
+    },
+    "trialAnalysis": {
+      "title": "Supervisa el rendimiento de adquisición de miembros"
+    }
+  },
+  "sections": {
+    "memberInsights": "Análisis de miembros",
+    "financialHealth": "Salud Financiera"
+  },
+  "trackTrialOffer": {
+    "title": "Seguir el rendimiento de la oferta de prueba",
+    "description": "Descubre más sobre adquisición, tasas de conversión y cómo aumentar la efectividad de tu oferta de prueba."
+  },
+  "monitorRevenue": {
+    "title": "Monitorea el rendimiento de las suscripciones",
+    "description": "Controla la salud de las suscripciones, analiza los ingresos recurrentes y detecta riesgos u oportunidades"
+  }
+}

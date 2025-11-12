@@ -376,6 +376,11 @@ export const useNavigationElements = ({
           ...navigationUrls.settings_personalization,
         },
         {
+          id: "brandedApp",
+          label: t("menus.settings.brandedApp"),
+          ...navigationUrls.settings_mobilePersonalization,
+        },
+        {
           id: "teacherView",
           label: t("menus.settings.teacherView"),
           ...navigationUrls.settings_teacherView,
@@ -449,6 +454,12 @@ export const useNavigationElements = ({
           id: "bsportSubscription",
           label: t("menus.settings.bsportSubscription"),
           ...navigationUrls.settings_bsportSubscription,
+        },
+
+        {
+          id: "quicksale",
+          label: t("menus.settings.quicksale"),
+          ...navigationUrls.settings_quicksale,
         },
         {
           id: "temporaryPass",

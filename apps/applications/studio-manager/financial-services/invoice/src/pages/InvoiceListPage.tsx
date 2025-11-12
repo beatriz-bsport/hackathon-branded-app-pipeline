@@ -167,8 +167,10 @@ export const InvoiceListPage = () => {
               <Popover.Anchor>
                 {({ setIsPopoverOpened }) => (
                   <Button
-                    iconLeft="download-01"
+                    icon="download-01"
                     intent="flat"
+                    kind="icon-button"
+                    label={t("download.label")}
                     color="main"
                     size="md"
                     onClick={(event) => {
@@ -351,7 +353,7 @@ export const InvoiceListPage = () => {
               className: "h-full justify-center",
             },
           }}
-          loadingProps={{ isLoading }}
+          loadingProps={{ isLoading: isLoading && invoices.length === 0 }}
         />
       </ListLayout.Content>
     </ListLayout>

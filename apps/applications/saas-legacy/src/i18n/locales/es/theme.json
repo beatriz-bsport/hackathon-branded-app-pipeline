@@ -241,7 +241,7 @@
       "expressCheckout": {
         "oneClickBooking": {
           "label": "Activar Pago rápido (beta)",
-          "helperText": "Los nuevos clientes pueden reservar actividades sin crear primero una cuenta. Esta función no es compatible con las citas ni con la \"confirmación por correo electrónico al registrarse\". Solo se aplica a las actividades que pueden reservarse con un pase \"solo para nuevos socios\"."
+          "helperText": "Los nuevos clientes podrán comprar pases y pases para citas sin necesidad de crear una cuenta previamente. En el caso de los pases configurados como «solo para nuevos miembros», los clientes pueden comprar un pase y reservar actividades grupales en un único proceso de pago."
         },
         "title": "Pago exprés"
       },

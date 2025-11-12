@@ -52,7 +52,11 @@ import {
   getOfferById,
   getRetrieveOfferLoading,
 } from '#src/libs/offer/selectors';
-import { getSearchedMembers, getMember } from '#src/libs/member/selectors';
+import {
+  getSearchedMembers,
+  getMember,
+  getSearchMemberLoading,
+} from '#src/libs/member/selectors';
 import {
   getByOfferByMember,
   withPaymentPack as withPaymentPackForConsumer,
@@ -67,6 +71,8 @@ import {
   getCoach,
   getCoachLoading,
 } from '#src/libs/associated-coach/selectors';
+
+import { getLocaleCountry } from '#src/utils/language';
 
 import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
 
@@ -252,7 +258,6 @@ export class CheckInOfferDetailPage extends React.Component<Props> {
             generalTermsAndConditions={
               this.props.theme.general_terms_and_conditions
             }
-            // @ts-expect-error TODO - typing
             loading={this.props.memberLoading}
             managerFormConfig={this.props.managerFormConfig?.poll_fields}
             member={this.props.searchedMember}
@@ -353,10 +358,11 @@ const mapWithHandlers = {
 const connector = connect(
   (state: RootState, { offerId }: OwnProps) => ({
     theme: state.theme.theme,
-    companyCountry: state.theme.theme.locale.split('_')[1],
+    companyCountry: getLocaleCountry(state.theme.theme.locale),
     offer: getOfferById(state, offerId),
     searchedMemberList: getSearchedMembers(state),
     memberBarcodeLoading: state.member.barcode.loading,
+    memberLoading: getSearchMemberLoading(state),
     bookings: getOfferBookingListWithConsumerPack(state),
     loading:
       state.booking.byOffer.loading ||

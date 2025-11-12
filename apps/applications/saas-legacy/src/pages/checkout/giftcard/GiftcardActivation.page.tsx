@@ -102,7 +102,7 @@ export class GiftcardCheckout extends React.Component<Props> {
                     expiration_days:
                       this.props.consumerGiftcard.giftcard.expiration_days,
                     price: getCurrencyDisplayWithPrice(
-                      this.props.consumerGiftcard?.giftcard?.price,
+                      this.props.consumerGiftcard?.price_bought,
                     ),
                   },
                 )}

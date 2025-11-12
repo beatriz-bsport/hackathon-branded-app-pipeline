@@ -1,0 +1,27 @@
+{
+  "calendar": {
+    "syncCalendarDialog": {
+      "title": "Synchroniseer je agenda met bsport",
+      "description": "Krijg updates over je lessen in elke vestiging door je persoonlijke agenda te synchroniseren met de Back Office. Kopieer en plak de onderstaande URL in Google of Apple Agenda om te beginnen.",
+      "instructionsTitle": "Hoe je het instelt:",
+      "google": {
+        "title": "Google: ",
+        "instructions": "Instellingen → Kalender toevoegen → Van URL → URL plakken"
+      },
+      "apple": {
+        "title": "Apple: ",
+        "instructions": "Bestand → Nieuw agenda-abonnement → URL plakken"
+      },
+      "close": "Sluiten",
+      "copyButton": "Kopieer URL",
+      "copyInstruction": "Kopieer deze URL: "
+    },
+    "header": {
+      "syncCalendar": {
+        "button": "Agenda synchroniseren",
+        "outlook": "Outlook",
+        "otherCalendars": "Andere agenda's"
+      }
+    }
+  }
+}

@@ -12,6 +12,7 @@ import {
   type FuzzySearchParams,
   archivePackAPI,
   createPackAPI,
+  fetchPackAPI,
   fetchPacksAPI,
   fuzzySearchPacksAPI,
   restorePackAPI,
@@ -81,6 +82,28 @@ export const fuzzySearchPacksAction: Action<
     (error) =>
       createErrorWithContext(error, {
         message: "Failed to fuzzy search packs",
+        params,
+      }),
+  );
+};
+
+export const fetchPackAction: Action<{ id: number }, Pack> = async (
+  fetch,
+  params,
+) => {
+  const [uri, init] = fetchPackAPI(params);
+
+  return Result.try(
+    async () => {
+      const { data } = await fetch(uri, init);
+
+      updatePack(data);
+
+      return data;
+    },
+    (error) =>
+      createErrorWithContext(error, {
+        message: `Failed to fetch pack n°${params.id}`,
         params,
       }),
   );

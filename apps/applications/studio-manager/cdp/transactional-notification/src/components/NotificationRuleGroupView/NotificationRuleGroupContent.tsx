@@ -155,7 +155,9 @@ export const NotificationRuleTableContent = ({
         actionsConfig={[
           {
             id: "previous-tag-details",
-            iconLeft: "chevron-up",
+            kind: "icon-button",
+            icon: "chevron-up",
+            label: "Previous",
             intent: "default",
             size: "md",
             color: "main",
@@ -167,7 +169,9 @@ export const NotificationRuleTableContent = ({
           },
           {
             id: "next-tag-details",
-            iconLeft: "chevron-down",
+            kind: "icon-button",
+            icon: "chevron-down",
+            label: "Next",
             intent: "default",
             size: "md",
             color: "main",

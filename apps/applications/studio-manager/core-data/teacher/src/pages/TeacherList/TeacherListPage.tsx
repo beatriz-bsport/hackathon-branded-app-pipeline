@@ -33,11 +33,10 @@ export const TeacherListPage: React.FC = () => {
         pageTitle={t("pages.active")}
         callToActionButton={
           permissions.create ? (
-            <Button
+            <ListLayout.Button
               iconLeft="plus"
               intent="call-to-action"
               color="main"
-              size="md"
               label={t("activeList.actions.addTeacher")}
               onClick={onAddTeacherClick}
             />
@@ -50,7 +49,9 @@ export const TeacherListPage: React.FC = () => {
             placement="bottom-right"
           >
             <Button
-              iconLeft="box"
+              kind="icon-button"
+              icon="box"
+              label={t("pages.archived")}
               intent="default"
               color="main"
               size="md"

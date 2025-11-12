@@ -87,6 +87,9 @@ export const usePackTableColumns = ({
             color="default"
             intent="flat"
             size="md"
+            kind="icon-button"
+            icon="trash-01"
+            label={t("table.tooltips.archive")}
             onClick={(event) => {
               event.stopPropagation();
               event.preventDefault();
@@ -95,7 +98,6 @@ export const usePackTableColumns = ({
                 name: row.name,
               });
             }}
-            iconLeft="trash-01"
             id="pack-column-actions-archive-button"
           />
         </Tooltip>

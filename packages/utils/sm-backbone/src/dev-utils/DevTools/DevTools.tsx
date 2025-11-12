@@ -129,7 +129,9 @@ const DevTools: React.FC<DevToolsProps> = ({
           {({ setIsPopoverOpened }) => (
             <Tooltip label="Dev tools box" placement="right">
               <Button
-                iconLeft="loading"
+                label="Dev tools"
+                kind="icon-button"
+                icon="loading"
                 color="critical"
                 intent="call-to-action"
                 size="md"

@@ -1,6 +1,7 @@
 import type {
   ActionButton,
   ListItemProps,
+  WithTooltip,
 } from "@bsport/kaizen-primitive-core";
 import type { Member } from "@bsport/store-core-data-member";
 
@@ -39,13 +40,15 @@ export const useMemberListFactory = ({
     isTagged: boolean;
   }): ListItemProps[] => {
     return memberList.map((member) => {
-      const buttonConfig: ActionButton = isTagged
+      const buttonConfig: WithTooltip<ActionButton> = isTagged
         ? {
             id: `tag-${member.id}`,
+            kind: "icon-button",
+            icon: "x-close",
+            label: t("tagsDetails.tooltip.untagMember"),
             size: "sm",
             intent: "flat",
             color: "default",
-            iconLeft: "x-close",
             tooltipProps: {
               label: t("tagsDetails.tooltip.untagMember"),
               placement: "bottom-right",
@@ -56,10 +59,12 @@ export const useMemberListFactory = ({
           }
         : {
             id: `untag-${member.id}`,
+            kind: "icon-button",
+            icon: "plus",
+            label: t("tagsDetails.tooltip.tagMember"),
             size: "sm",
             intent: "flat",
             color: "default",
-            iconLeft: "plus",
             tooltipProps: {
               label: t("tagsDetails.tooltip.tagMember"),
               placement: "bottom-right",

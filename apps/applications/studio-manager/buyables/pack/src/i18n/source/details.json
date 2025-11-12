@@ -1,16 +1,16 @@
 {
   "createModal": {
-    "title": "Create a new Pack",
+    "title": "Create a new pack",
     "buttons": {
       "create": "Create",
       "cancel": "Cancel"
     },
-    "failToCreate": "Failed to create a new Pack"
+    "failToCreate": "Failed to create a new pack"
   },
   "detailsPage": {
     "packsBreadcrumbs": "Packs",
-    "loading": "Loading Pack",
-    "canNotFindPack": "Could not find Pack",
+    "loading": "Loading pack",
+    "canNotFindPack": "Couldn't find pack",
     "buttons": {
       "copyPaymentLink": "Copy payment link"
     },
@@ -25,7 +25,7 @@
       "save": "Save"
     },
     "breadcrumbs": {
-      "appointmentPassCategories": "Appointment Pass categories",
+      "appointmentPassCategories": "Appointment pass categories",
       "passCategories": "Pass categories",
       "webshopItemCategories": "Product categories"
     },
@@ -39,8 +39,8 @@
       "tooltips": {
         "credits": "Credits",
         "price": "Price",
-        "unavailableForMember": "Unavailable",
-        "invisibleToStaff": "Invisible",
+        "unavailableForMember": "Unlisted",
+        "invisibleToStaff": "Hidden",
         "category": "Category"
       }
     },
@@ -55,23 +55,23 @@
     "name": {
       "label": "Pack name",
       "helperText": "Limited to {{ maxLength }} characters ({{ length }}/{{ maxLength }})",
-      "errorMaxLength": "The name is too long."
+      "errorMaxLength": "Shorten the name to continue"
     },
     "description": {
       "label": "Description",
       "helperText": "Limited to {{ maxLength }} characters ({{ length }}/{{ maxLength }})",
-      "errorMaxLength": "The description is too long."
+      "errorMaxLength": "Shorten the description to continue"
     },
     "packContent": {
       "title": "Pack contents",
-      "description": "Add a Pass, Appointment Pass, or product to build your pack.",
+      "description": "Add a pass, appointment pass, or product to build your pack.",
       "card": {
         "placeholder": "Add at least one item in your Pack"
       },
       "itemVariants": {
         "passes": "Passes",
         "appointmentPasses": "Appointment Passes",
-        "webshopItems": "Webshop items"
+        "webshopItems": "Products"
       },
       "buttons": {
         "addItem": "Add item",
@@ -96,9 +96,9 @@
         "helperText": "Total value of items in this pack: {{ amount }}"
       },
       "taxToggle": {
-        "label": "VAT/Sales Tax rate",
-        "description": "Apply a single VAT/Sales Tax rate to the whole Pack",
-        "helperText": "The VAT/Sales Tax rate will be set for all the items included in this Pack",
+        "label": "Sales Tax rate",
+        "description": "Apply a single Sales Tax rate to the whole Pack",
+        "helperText": "The Sales Tax rate will be set for all the items included in this Pack",
         "errorMissingRate": "Add a rate or deactivate this option to continue"
       },
       "maxPurchaseToggle": {
@@ -108,29 +108,29 @@
       },
       "paymentMethod": {
         "label": "Payment method",
-        "helperText": "Choose at least one payment method",
+        "helperText": "Choose at least one ",
         "checkboxes": {
-          "onlinePayments": "Online payments (default)",
-          "onsitePayments": "On-site payments"
+          "onlinePayments": "Online (default)",
+          "onsitePayments": "On-site"
         },
-        "alertVisibilityHidden": "Hidden Packs can still be shared with members using a link and paid for via online payment.",
+        "alertVisibilityHidden": "Hidden packs can still be shared with members using a link and paid for via online payment.",
         "errorMissingPaymentMethod": "Select a payment method"
       }
     },
     "visibilitySection": {
       "title": "Visibility",
       "visibilitySelector": {
-        "label": "Select the visibility of this Pack",
+        "label": "Select the visibility of this pack",
         "options": {
           "visible": {
             "shortTitle": "Visible",
-            "fullTitle": "Visible on Member Area",
-            "description": "Your pack will be displayed on the Member Area for your members to buy."
+            "fullTitle": "Listed on Member Area",
+            "description": "Your pack will be listed on the Member Area for your members to buy."
           },
           "hidden": {
-            "shortTitle": "Hidden",
-            "fullTitle": "Hidden on Member Area",
-            "description": "Your pack won't be displayed on the Member Area but can be shared with a link or purchased via the BackOffice."
+            "shortTitle": "Unlisted",
+            "fullTitle": "Unlisted on Member Area",
+            "description": "Your pack won't be listed on the Member Area but can be shared with a link or purchased via the BackOffice."
           }
         }
       },
@@ -145,7 +145,7 @@
         "checkboxes": {
           "recommended": {
             "label": "Mark as recommended",
-            "helperText": "Highlight your Pack to customers by marking it as recommended."
+            "helperText": "Highlight your pack to customers by marking it as recommended."
           },
           "newMembersOnly": {
             "label": "Only available to new members",

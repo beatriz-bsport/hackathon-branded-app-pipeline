@@ -4,9 +4,9 @@
     "archived": "Archived email templates"
   },
   "tabs": {
-    "customTemplates": "Custom templates",
-    "masterTemplates": "Default templates",
-    "bsportTemplates": "bsport templates"
+    "customTemplates": "Custom",
+    "masterTemplates": "Central",
+    "bsportTemplates": "bsport"
   },
   "filters": {
     "filterButton": {
@@ -20,11 +20,11 @@
   "templateList": {
     "loading": "Loading email templates...",
     "emptyPage": {
-      "title": "You haven't made any custom templates yet!",
-      "description": "Create your first custom template to send personalized emails to your members."
+      "title": "You haven't made any custom templates yet",
+      "description": "Create your first custom template to send personalized emails to your members"
     },
     "emptyCategory": {
-      "description": "Create a custom template for this category to send personalized emails to members."
+      "description": "Create a custom template for this category to send personalized emails to members"
     },
     "noCategory": "No Category ({{emailTemplateCount}})"
   },

@@ -17,6 +17,7 @@ export type TextItem = {
   label: string;
   description?: string;
   rightSlot?: React.ReactNode;
+  disabled?: boolean;
 };
 
 export type MenuOption = {
@@ -27,6 +28,7 @@ export type MenuOption = {
   rightSlot?: React.ReactNode;
   description?: string;
   type?: null;
+  disabled?: boolean;
 };
 
 export type Item = TitleItem | DividerItem | TextItem | MenuOption;

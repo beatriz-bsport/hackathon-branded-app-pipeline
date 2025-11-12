@@ -1,9 +1,10 @@
 import React from "react";
 
 import Button, { type ButtonProps } from "#src/components/Button";
-import { toast } from "#src/components/Toast";
 import Tooltip, { type TooltipProps } from "#src/components/Tooltip";
 import { useKaizenI18nInstance, useTranslation } from "#src/i18n";
+
+import { useCopyToClipboard } from "./use-copy-to-clipboard";
 
 export type CopyToClipboardProps = {
   value?: string;
@@ -60,6 +61,11 @@ const CopyToClipboard: React.FC<CopyToClipboardProps> = ({
   const i18nInstance = useKaizenI18nInstance();
   const { t } = useTranslation("default", { i18n: i18nInstance });
 
+  const { copyToClipboard } = useCopyToClipboard({
+    toastMessage,
+    disabled: props.disabled,
+  });
+
   if (!value && !label) {
     return null;
   }
@@ -68,58 +74,7 @@ const CopyToClipboard: React.FC<CopyToClipboardProps> = ({
     event.preventDefault();
     event.stopPropagation();
 
-    if (props.disabled) {
-      return;
-    }
-
-    try {
-      if (navigator.clipboard?.writeText) {
-        await navigator.clipboard.writeText(value ?? label);
-      } else {
-        const textarea = document.createElement("textarea");
-        textarea.value = value ?? label;
-        textarea.setAttribute("readonly", "");
-        textarea.style.position = "absolute";
-        textarea.style.left = "-9999px";
-        document.body.appendChild(textarea);
-
-        const selection = document.getSelection();
-        const originalRange =
-          selection && selection.rangeCount > 0
-            ? selection.getRangeAt(0)
-            : null;
-
-        textarea.select();
-        textarea.setSelectionRange(0, textarea.value.length);
-
-        try {
-          document.execCommand("copy");
-        } catch (err) {
-          console.error("Fallback: copy command failed", err);
-        }
-        document.body.removeChild(textarea);
-
-        // Restore previous selection if possible
-        if (originalRange && selection) {
-          selection.removeAllRanges();
-          selection.addRange(originalRange);
-        }
-      }
-
-      toast({
-        status: "default",
-        icon: "copy-07",
-        title: toastMessage ?? t("copyToClipboard.copied"),
-        buttonIcon: "x-close",
-      });
-    } catch {
-      toast({
-        status: "critical",
-        icon: "alert-triangle",
-        title: t("copyToClipboard.failed"),
-        buttonIcon: "x-close",
-      });
-    }
+    await copyToClipboard(value ?? label);
   };
 
   return (

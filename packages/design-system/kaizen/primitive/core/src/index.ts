@@ -36,6 +36,9 @@ export {
 export {
   default as CopyToClipboard,
   type CopyToClipboardProps,
+  useCopyToClipboard,
+  type UseCopyToClipboardOptions,
+  type UseCopyToClipboardReturn,
 } from "./components/CopyToClipboard";
 export {
   default as DatePicker,

@@ -51,6 +51,8 @@
       "success": "Action undone",
       "error": "Failed to undo action"
     },
+    "emailCopied": "Email copied to clipboard",
+    "phoneCopied": "Phone copied to clipboard",
     "actions": {
       "undo": "Undo"
     }
@@ -78,6 +80,12 @@
     "tooltips": {
       "archive": "Archive teacher",
       "restore": "Restore teacher"
+    }
+  },
+  "list": {
+    "actions": {
+      "copyEmail": "Copy email",
+      "copyPhone": "Copy phone"
     }
   }
 }

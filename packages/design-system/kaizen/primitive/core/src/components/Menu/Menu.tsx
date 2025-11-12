@@ -66,7 +66,7 @@ const Menu: React.FC<MenuProps> = ({
       return multiSelect ? (
         <MenuItem
           type="checkbox"
-          disabled={disabled}
+          disabled={disabled || !!item.disabled}
           label={item.label}
           avatar={item.avatar}
           rightSlot={item.rightSlot}
@@ -79,7 +79,7 @@ const Menu: React.FC<MenuProps> = ({
       ) : (
         <MenuItem
           type="radio"
-          disabled={disabled}
+          disabled={disabled || !!item.disabled}
           label={item.label}
           avatar={item.avatar}
           rightSlot={item.rightSlot}

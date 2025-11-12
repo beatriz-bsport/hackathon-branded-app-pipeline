@@ -1,7 +1,7 @@
 {
   "paymentMethods": {
     "stripeDomains": {
-      "title": "Add domains to enable Apple Pay and Google Pay",
+      "title": "Add domains to enable Apple Pay and Google Pay on your widgets",
       "subtitle": "Add up to 10 URLs where you want to enable wallet payments — either main domains (example.com) or sub-domains (studio.example.com).",
       "infoMessage": "Once you add the domain you won't be able to edit it",
       "errorLoading": "Error loading domains: {{message}}",

@@ -1,4 +1,7 @@
-import type { ListItemProps } from "@bsport/kaizen-primitive-core";
+import {
+  type ListItemProps,
+  useMatchMedia,
+} from "@bsport/kaizen-primitive-core";
 import {
   type NotificationRuleEvent,
   isValidNotificationRuleEventCategory,
@@ -24,6 +27,8 @@ export const useFormatNotificationGroupList = ({
 }: {
   notificationRuleEventMapByGroup: Record<string, NotificationRuleEvent[]>;
 }) => {
+  const isMobile = !useMatchMedia("sm");
+
   const { navigateToNotificationGroupDetails } =
     useNotificationRuleNavigation();
 
@@ -68,12 +73,15 @@ export const useFormatNotificationGroupList = ({
         buttons: [
           {
             id: `goto-notification-rule-event-${item}`,
-            label: String(
-              i18nInstance.t("notificationRuleEvents.list.notificationNumber", {
-                count: notificationCount,
-                ns: "sm-transactional-notification_transactionalNotification",
-              }),
-            ),
+            label: isMobile
+              ? String(notificationCount)
+              : i18nInstance.t(
+                  "notificationRuleEvents.list.notificationNumber",
+                  {
+                    count: notificationCount,
+                    ns: "sm-transactional-notification_transactionalNotification",
+                  },
+                ),
             iconRight: "arrow-right",
             intent: "flat",
             color: "default",

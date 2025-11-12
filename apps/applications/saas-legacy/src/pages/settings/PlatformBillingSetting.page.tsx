@@ -55,6 +55,7 @@ import PayoutList from '#src/libs/payment/components/PayoutList.component';
 import { getFeatureList } from '#src/libs/company/actions';
 // import StripeBalance from '#src/libs/payment/components/StripeBalance.component';
 import { fetchCompanyTheme as fetchCompanyThemeAction } from '#src/libs/theme/actions';
+import { closeIntercom, openIntercomConversation } from '#src/utils/intercom';
 
 import type {
   PlatformInvoice,
@@ -400,16 +401,14 @@ export default compose(
       ({ requestUpsellPackage, setOpenFeatureRequest }) =>
       (upsellIdentifier: number) => {
         setOpenFeatureRequest(true);
-        // @ts-expect-error
-        window.Intercom?.('showNewMessage');
+        openIntercomConversation();
         requestUpsellPackage(upsellIdentifier);
       },
     onCloseFeatureRequest:
       ({ setOpenFeatureRequest }) =>
       () => {
         setOpenFeatureRequest(false);
-        // @ts-expect-error
-        window.Intercom?.('hide');
+        closeIntercom();
       },
   }),
 )(PlatformBillingSetting);

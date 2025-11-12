@@ -1,5 +1,8 @@
 import type { ConfigType } from 'src/config';
 import type { Analytics } from '@segment/analytics-next';
+import type { IntercomSettings } from '#src/types/intercom';
+
+type IntercomInstance = Function;
 
 export declare global {
   interface Runtime {
@@ -13,5 +16,8 @@ export declare global {
     runtimeBsport: Runtime;
     bsportSegment: Analytics;
     ReactNativeWebView?: ReactNativeWebView;
+    intercomSettings?: IntercomSettings;
+    Intercom: IntercomInstance | undefined;
+    attachEvent: Function;
   }
 }

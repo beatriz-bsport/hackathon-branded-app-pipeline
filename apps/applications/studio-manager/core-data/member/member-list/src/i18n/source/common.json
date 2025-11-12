@@ -1,25 +1,25 @@
 {
   "pages": {
-    "memberList": "Members",
-    "archivedMemberList": "Archived members"
+    "memberList": "Profiles",
+    "archivedMemberList": "Archived profiles"
   },
   "actions": {
-    "addMember": "Add member",
+    "addMember": "Add profile",
     "importLeads": "Import leads",
     "download": "Download"
   },
   "memberTable": {
-    "loading": "Loading members ...",
+    "loading": "Loading profiles . . .",
     "emptySearch": {
-      "subtitle": "No members match your filters. Try clearing them to see more results."
+      "subtitle": "No profiles found - try clearing filters to see more results"
     },
     "emptyList": {
       "activeMode": {
-        "title": "No members yet",
-        "subtitle": "Start adding members in your studio"
+        "title": "No profiles yet",
+        "subtitle": "Add profiles or import leads to get started"
       },
       "archivedMode": {
-        "title": "No archived members"
+        "title": "No archived profiles"
       }
     },
     "headers": {
@@ -29,8 +29,8 @@
       "joinDate": "Join Date"
     },
     "tooltips": {
-      "archive": "Archive member",
-      "restore": "Unarchive member"
+      "archive": "Archive profile",
+      "restore": "Unarchive profile"
     }
   },
   "list": {
@@ -38,31 +38,31 @@
       "copyEmail": "Copy email"
     },
     "loading": {
-      "activeList": "Loading members ...",
-      "archivedList": "Loading archived members ..."
+      "activeList": "Loading profiles . . .",
+      "archivedList": "Loading archived profiles . . . "
     }
   },
   "listPage": {
     "archiveModal": {
-      "title": "Archive member",
+      "title": "Archive profile?",
       "description": {
-        "action": "Once you archive 1 {{ name }} 1, they will no longer be active. ",
-        "effect": "They can be restored any time from your archive."
+        "action": "Once you archive {{ name }}, their profile will no longer be active. ",
+        "effect": "You can restore this profile at any time from your archive."
       },
       "alertIrregularity": {
-        "adviseRegularization": "Based on the following criteria, we advise that you regularize your member's internal account balance before the member is archived:",
+        "adviseRegularization": "Before you archive this profile, we recommend that you settle the profile's account balance first. This is due to one of the following: ",
         "items": {
-          "negativeBalance": "Negative internal account balance",
-          "unpaidInvoices": "Unpaid invoice(s)",
-          "currentSubscription": "Current subscription",
-          "autorenewalSubscriptions": "Subscriptions with automatic renewals",
-          "futureBookings": "Future bookings",
-          "recurringBookings": "Recurring bookings",
-          "scheduledAppointments": "Scheduled appointments"
+          "negativeBalance": "Negative account balance",
+          "unpaidInvoices": "One or more unpaid invoices",
+          "currentSubscription": "Profile has an active subscription",
+          "autorenewalSubscriptions": "Profile has a subscription that is set to automatically renew",
+          "futureBookings": "Profile has future bookings",
+          "recurringBookings": "Profile has recurring bookings",
+          "scheduledAppointments": "Profile has appointments scheduled"
         }
       },
       "buttons": {
-        "cancel": "Cancel",
+        "cancel": "Back",
         "archive": "Archive"
       }
     }
@@ -77,12 +77,12 @@
       "error": "Failed to undo the action"
     },
     "messageArchived": {
-      "success": "Member archived",
-      "error": "Failed to archive member"
+      "success": "Profile archived",
+      "error": "Unable to archive profile, please try again"
     },
     "messageRestored": {
-      "success": "Member restored",
-      "error": "Failed to restore member"
+      "success": "Profile restored",
+      "error": "Unable to restore profile, please try again"
     }
   },
   "filters": {
@@ -93,26 +93,26 @@
     }
   },
   "importLeadsModal": {
-    "title": "Import your leads",
-    "description": "Upload your CSV file to export leads from Zoho CRM and import them into bsport.",
-    "moreHelpSection": "Need more help ? <key>Visit our help center</key>",
+    "title": "Import leads",
+    "description": "Upload a CSV file to import your leads into bsport Back Office",
+    "moreHelpSection": "Need help with this? <key>Visit our Help Center</key>",
     "uploadFile": {
-      "extensionCSVOnly": "CSV only",
-      "workInProgress": "Importing members ...",
+      "extensionCSVOnly": "CSV file only",
+      "workInProgress": "Importing leads ...",
       "wipDoNotRefresh": "Please do not refresh or leave this page",
       "errors": {
         "wrongNumberOfColumns": {
-          "title": "This file does not have the required number of columns.",
-          "formatIndication": "Please follow <key>our format</key> for a successful import."
+          "title": "File does not have the required number of columns",
+          "formatIndication": "Please follow <key>our format</key> to successfully import your leads"
         },
-        "invalidFileType": "Invalid file type. Please upload a CSV file.",
-        "datasetTooLarge": "Dataset too large. Reduce to 100,000 rows.",
-        "wrongEncoding": "The encoding of your file is not correct. Please use UTF-8."
+        "invalidFileType": "Invalid file type - please upload a CSV file",
+        "datasetTooLarge": "Dataset too large - reduce to max. 100,000 rows",
+        "wrongEncoding": "Incompatible encoding of file - please use UTF-8"
       }
     },
     "importSuccess": {
-      "title": "Your members were successfully imported!",
-      "outputText": "Here is a CSV file of the successfully imported leads:",
+      "title": "Leads successfully imported",
+      "outputText": "Your CSV file of successfully imported leads:",
       "outputFilename": "rows_success",
       "importedLeadsNumber_one": "{{ count }} lead was imported",
       "importedLeadsNumber_other": "{{ count }} leads were imported"
@@ -124,15 +124,15 @@
     },
     "otherImportInProgress": {
       "title": "An import is already in progress",
-      "subtitle": "Please wait for it to finish before making a new import"
+      "subtitle": "Please wait for import to finish before making a new one"
     },
     "importError": {
       "title": "Import failed",
-      "unknownError": "An unknown error happened during the import."
+      "unknownError": "An unknown error happened during the import, please try again"
     },
     "importTimeout": {
-      "title": "Refresh timed out",
-      "comeBackLater": "The import task is taking longer than expected. Please come back later."
+      "title": "Refresh timed out, please try again",
+      "comeBackLater": "Import is taking longer than expected - please come back later"
     }
   }
 }

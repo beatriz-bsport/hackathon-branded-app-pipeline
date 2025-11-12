@@ -101,5 +101,9 @@
       "search": "Search for a form",
       "switchToArchived": "Archived forms"
     }
+  },
+  "list": {
+    "questions": "{{count}} question",
+    "questions_other": "{{count}} questions"
   }
 }

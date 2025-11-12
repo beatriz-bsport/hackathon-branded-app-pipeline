@@ -6,7 +6,7 @@ import {
 
 import { useTranslation } from "#src/utils/i18n";
 
-import { VisibilityBadge } from "./VisibilityBadge";
+import { VisibilityBadges } from "./VisibilityBadges";
 import type { TableRowData } from "./types";
 
 type TableColumn = GenericTableColumn<TableRowData>;
@@ -33,26 +33,11 @@ export const usePackTableColumns = ({
     header: t("table.headers.visibility"),
     render: (row) => {
       return (
-        <div className="flex flex-row gap-2xs">
-          {row.hiddenForUsers && (
-            <VisibilityBadge
-              tooltip={t("table.tooltips.unavailableForUsers")}
-              icon="package-x"
-            />
-          )}
-          {row.hiddenForStaff && (
-            <VisibilityBadge
-              tooltip={t("table.tooltips.invisibleForStaff")}
-              icon="eye-off"
-            />
-          )}
-          {row.limitedTime && (
-            <VisibilityBadge
-              tooltip={t("table.tooltips.availableForALimitedTime")}
-              icon="clock-stopwatch"
-            />
-          )}
-        </div>
+        <VisibilityBadges
+          hiddenForUsers={row.hiddenForUsers}
+          hiddenForStaff={row.hiddenForStaff}
+          limitedTime={row.limitedTime}
+        />
       );
     },
   };

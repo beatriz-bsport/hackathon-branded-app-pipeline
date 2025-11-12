@@ -38,6 +38,14 @@ npm install -g pnpm@$(grep pnpm_version .npmrc | cut -d '=' -f 2)
 pnpm install
 ```
 
+If you encounter an error about pnpm version, delete the global one that lives in a global binary
+
+On mac, it would be in 
+
+```sh
+rm /Users/xxxx/Library/pnpm/pnpm
+```
+
 ### Run an application
 
 Currently we have two different macro-projects in the monorepository :

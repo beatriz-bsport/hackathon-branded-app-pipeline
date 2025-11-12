@@ -33,6 +33,15 @@
       "restore": "Unarchive member"
     }
   },
+  "list": {
+    "actions": {
+      "copyEmail": "Copy email"
+    },
+    "loading": {
+      "activeList": "Loading members ...",
+      "archivedList": "Loading archived members ..."
+    }
+  },
   "listPage": {
     "archiveModal": {
       "title": "Archive member",
@@ -62,6 +71,7 @@
     "actions": {
       "undo": "Undo"
     },
+    "emailCopied": "Email copied to clipboard",
     "messageUndone": {
       "success": "Action undone",
       "error": "Failed to undo the action"

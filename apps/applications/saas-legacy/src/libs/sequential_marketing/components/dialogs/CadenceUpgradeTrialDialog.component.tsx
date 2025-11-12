@@ -10,6 +10,7 @@ import Dialog from '@material-ui/core/Dialog';
 import Typography from '@material-ui/core/Typography';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 
+import { closeIntercom, openIntercomConversation } from '#src/utils/intercom';
 import { requestUpsellPackage as requestUpsellPackageAction } from '#src/libs/platform-billing/actions';
 
 import { rudderStackFormTrackingFunctionsRegistry } from '#src/components/analytics/rudderstack/utils';
@@ -93,6 +94,7 @@ const CadenceUpgradeTrialDialog = ({
   const closeFeatureRequestDialog = () => {
     setIsFeatureRequestDialogOpen(false);
     closeDialog();
+    closeIntercom();
   };
 
   const handleRequestUpsellPackage = () => {
@@ -101,6 +103,7 @@ const CadenceUpgradeTrialDialog = ({
     });
     requestUpsellPackage(UPSELL_IDENTIFIER_CADENCE);
     setIsFeatureRequestDialogOpen(true);
+    openIntercomConversation();
   };
 
   React.useEffect(() => {

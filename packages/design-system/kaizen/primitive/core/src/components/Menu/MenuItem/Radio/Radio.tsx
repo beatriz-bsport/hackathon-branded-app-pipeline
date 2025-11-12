@@ -87,15 +87,11 @@ const Radio: React.FC<RadioProps> = ({
   const renderedLabel = useMemo(
     () =>
       label || value ? (
-        <label
-          id={`${id}-menu-radio-item-label`}
-          htmlFor={id}
-          className="flex cursor-pointer"
-        >
+        <div id={`${id}-menu-radio-item-label`} className="flex cursor-pointer">
           <Body htmlVariant="span" className="pr-xs">
             {label ?? value}
           </Body>
-        </label>
+        </div>
       ) : null,
     [label, value, id],
   );
@@ -114,19 +110,10 @@ const Radio: React.FC<RadioProps> = ({
     [description, id],
   );
 
-  const handleMenuItemClick = () => {
-    if (!disabled) {
-      inputRef.current?.click();
-    }
-  };
-
   return (
-    <button
+    <label
       className={radio({ disabled, checked: checked ?? false })}
-      onClick={handleMenuItemClick}
       tabIndex={0}
-      role="radio"
-      type="button"
     >
       <Indicator disabled={disabled} />
       <input
@@ -155,7 +142,7 @@ const Radio: React.FC<RadioProps> = ({
         </div>
         {rightSlot ?? null}
       </div>
-    </button>
+    </label>
   );
 };
 

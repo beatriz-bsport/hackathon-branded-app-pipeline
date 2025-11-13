@@ -48,7 +48,7 @@
       "moreActions": "More actions"
     },
     "bsportTemplateInfo": {
-      "label": "bsport templates info",
+      "label": "bsport templates",
       "title": "bsport templates",
       "description": "Duplicate the template that you want to use, then edit and send the copied version to members directly from this page.",
       "quit": "Quit"
@@ -57,7 +57,7 @@
       "title": "Create new email template",
       "description": "Name your template to get started!",
       "confirmButton": "Create",
-      "cancelButton": "Back",
+      "cancelButton": "Cancel",
       "textInput": {
         "label": "Template title",
         "placeholder": "Template title here..."
@@ -75,14 +75,14 @@
     },
     "previewEmailTemplateModal": {
       "confirmButton": "Edit",
-      "cancelButton": "Close"
+      "cancelButton": "Cancel"
     },
     "duplicateTemplateModal": {
       "title": "Duplicate template?",
       "description": "You can edit <b>{{emailTemplateTitle}}</b> after",
       "duplicateEmailTitle": "{{emailTemplateTitle}} - Copy",
       "confirmButton": "Duplicate",
-      "cancelButton": "Back",
+      "cancelButton": "Cancel",
       "onSuccess": {
         "title": "Template duplicated",
         "action": "Open"
@@ -95,7 +95,7 @@
       "title": "Delete email template?",
       "description": "Deleting <b>{{emailTemplateTitle}}</b> will also remove it from any transactional emails that it's linked to.",
       "confirmButton": "Delete",
-      "cancelButton": "Back",
+      "cancelButton": "Cancel",
       "onSuccess": {
         "title": "Email template deleted",
         "action": "Undo"
@@ -111,7 +111,7 @@
         "placeholder": "Category name here..."
       },
       "confirmButton": "Create",
-      "cancelButton": "Back",
+      "cancelButton": "Cancel",
       "onSuccess": {
         "title": "Category created"
       },
@@ -129,7 +129,7 @@
         "placeholder": "Category name here..."
       },
       "confirmButton": "Rename",
-      "cancelButton": "Back",
+      "cancelButton": "Cancel",
       "onSuccess": {
         "title": "Category renamed",
         "action": "Undo"
@@ -142,7 +142,7 @@
       "title": "Delete category?",
       "description": "All items listed under <b>{{categoryName}}</b> will be moved to the 'No Category' section.",
       "confirmButton": "Delete",
-      "cancelButton": "Back",
+      "cancelButton": "Cancel",
       "onSuccess": {
         "title": "Category deleted",
         "action": "Undo"
@@ -163,7 +163,7 @@
         "placeholder": "Template title here..."
       },
       "confirmButton": "Rename",
-      "cancelButton": "Back",
+      "cancelButton": "Cancel",
       "onSuccess": {
         "title": "Template renamed",
         "action": "Undo"

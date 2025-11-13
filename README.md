@@ -56,6 +56,7 @@ cd apps/applications/saas-legacy
 pnpm run start-dev
 # pnpm run start -> connect to local backend and DB
 # pnpm run start-staging -> connect to staging backend and DB
+# pnpm run start-production -> connect to production backend and DB
 ```
 
 or use a single line command

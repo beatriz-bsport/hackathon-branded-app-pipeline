@@ -25,11 +25,11 @@
   "deleteModal": {
     "title": "Delete Pack?",
     "description": {
-      "effect": "Deleting {{ name }} will not affect current or previous purchases",
-      "canNotBeUndone": "This action cannot be undone."
+      "effect": "Once you delete {{ name }} , it will no longer be visible to members. ",
+      "canNotBeUndone": "All current or previous purchases of this Pack will be unaffected. "
     },
     "actions": {
-      "cancel": "Back",
+      "cancel": "Cancel",
       "delete": "Delete"
     }
   },

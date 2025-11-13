@@ -158,6 +158,12 @@ describe("getConfig", () => {
         "@bsport/sentry": {
           singleton: true,
         },
+        "@bsport/currency": {
+          singleton: true,
+        },
+        "@bsport/datetime-formatting": {
+          singleton: true,
+        },
       },
     });
   });

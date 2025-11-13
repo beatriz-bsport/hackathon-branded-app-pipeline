@@ -1,7 +1,11 @@
 import { Decimal } from "decimal.js";
 import React from "react";
 
-import { Table, type TableProps } from "@bsport/kaizen-primitive-core";
+import {
+  Table,
+  type TableProps,
+  useMatchMedia,
+} from "@bsport/kaizen-primitive-core";
 import type { Order } from "@bsport/store-buyables-order";
 
 import { LEGACY_URLS } from "#src/urls";
@@ -11,8 +15,10 @@ import {
 } from "#src/utils/constants";
 import { useTranslation } from "#src/utils/i18n";
 
+import { OrderList } from "./OrderList";
 import { useOrderTableColumns } from "./columns";
 import type { TableRowData } from "./constants";
+import { getMemberInitials, getMemberName } from "./transformers";
 
 type OrderTableProps = {
   orderList: Array<Order>;
@@ -43,17 +49,11 @@ export const OrderTable: React.FC<OrderTableProps> = ({
     dateCreated: new Date(order.created_at),
     dateUpdated: new Date(order.updated_at),
     memberPhotoSrc: undefined, // Missing in the serializer
-    memberInitials:
-      `${order.first_name?.[0] ?? ""}${order.last_name?.[0] ?? ""}`.toUpperCase(),
-    memberName: [
-      order?.first_name,
-      order?.last_name,
-      order.member_archived
-        ? `(${t("table.rows.memberArchived", { ns: "list" })})`
-        : undefined,
-    ]
-      .filter((name) => !!name)
-      .join(" "),
+    memberInitials: getMemberInitials(order),
+    memberName: getMemberName(
+      order,
+      t("table.rows.memberArchived", { ns: "list" }),
+    ),
     orderQuantity: (order.product_lines || []).reduce(
       (acc, product) => acc + product.quantity,
       0,
@@ -64,28 +64,48 @@ export const OrderTable: React.FC<OrderTableProps> = ({
   }));
 
   // Configure empty state based on the mode
-  const emptyStateProps = {
-    isEmpty,
-    emptyConfig: {
-      title: t("table.emptyState.title", { ns: "list" }),
-      subtitle: t("table.emptyState.emptyDatabase", { ns: "list" }),
-    },
-    isEmptySearch,
-    emptySearchConfig: {
-      title: t("table.emptyState.title", { ns: "list" }),
-      subtitle: t("table.emptyState.emptySearch", {
-        ns: "list",
-        status: filterStatus
-          ? t(`status.values.${ORDER_STATUS_TO_I18N_KEY[filterStatus]}`, {
-              ns: "common",
-            })
-          : "",
-      }),
-      secondaryButtonConfig: {
-        onClick: handleClearFilters,
-      },
+  const emptyConfig = {
+    title: t("table.emptyState.title", { ns: "list" }),
+    subtitle: t("table.emptyState.emptyDatabase", { ns: "list" }),
+  };
+
+  const emptySearchConfig = {
+    title: t("table.emptyState.title", { ns: "list" }),
+    subtitle: t("table.emptyState.emptySearch", {
+      ns: "list",
+      status: filterStatus
+        ? t(`status.values.${ORDER_STATUS_TO_I18N_KEY[filterStatus]}`, {
+            ns: "common",
+          })
+        : "",
+    }),
+    secondaryButtonConfig: {
+      onClick: handleClearFilters,
     },
   };
+
+  const emptyStateProps = {
+    isEmpty,
+    emptyConfig,
+    isEmptySearch,
+    emptySearchConfig,
+  };
+
+  const isMobile = !useMatchMedia("lg");
+
+  if (isMobile) {
+    return (
+      <OrderList
+        orderList={orderList}
+        paginationProps={paginationProps}
+        isEmpty={isEmpty}
+        isEmptySearch={isEmptySearch}
+        isLoading={isLoading}
+        emptyConfig={emptyConfig}
+        emptySearchConfig={emptySearchConfig}
+      />
+    );
+  }
 
   return (
     <Table

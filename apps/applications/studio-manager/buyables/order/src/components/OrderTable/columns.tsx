@@ -5,14 +5,10 @@ import {
   type GenericTableColumn,
 } from "@bsport/kaizen-primitive-core";
 
-import { ORDER_STATUS_TO_I18N_KEY } from "#src/utils/constants";
 import { useTranslation } from "#src/utils/i18n";
 
-import {
-  DEFAULT_ORDER_STATE_COLOR,
-  ORDER_STATE_TO_COLOR,
-  type TableRowData,
-} from "./constants";
+import { type TableRowData } from "./constants";
+import { getOrderStatusChipConfig } from "./transformers";
 
 type TableColumn = GenericTableColumn<TableRowData>;
 
@@ -52,22 +48,10 @@ export const useOrderTableColumns = () => {
     id: "column-status",
     type: "custom",
     align: "center",
-    render: (row) => (
-      <Chip
-        color={
-          ORDER_STATE_TO_COLOR[row.orderStatus] ?? DEFAULT_ORDER_STATE_COLOR
-        }
-        size="lg"
-        type="weak"
-        label={
-          ORDER_STATUS_TO_I18N_KEY[row.orderStatus]
-            ? t(`status.values.${ORDER_STATUS_TO_I18N_KEY[row.orderStatus]}`, {
-                ns: "common",
-              })
-            : `${row.orderStatus}`
-        }
-      />
-    ),
+    render: (row) => {
+      const { color, label } = getOrderStatusChipConfig(row.orderStatus, t);
+      return <Chip color={color} size="lg" type="weak" label={label} />;
+    },
   };
 
   const columnQuantity: TableColumn = {

@@ -15,6 +15,7 @@ export const useFetchSessions = () => {
   const processedSessions = sessions.map((session) => ({
     ...session,
     name: session.name_override || session.name,
+    color: session.meta_activity_color,
   }));
 
   const _fetchManagerSessions = useCallback(async () => {

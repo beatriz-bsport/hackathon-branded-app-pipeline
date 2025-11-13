@@ -1,3 +1,11 @@
 {
-  "helloName": "Hello {{ name }} !"
+  "header": "Calendar",
+  "table": {
+    "headers": {
+      "time": "Time",
+      "sessionName": "Session name",
+      "participants": "Participants"
+    },
+    "isLoading": "Loading sessions..."
+  }
 }

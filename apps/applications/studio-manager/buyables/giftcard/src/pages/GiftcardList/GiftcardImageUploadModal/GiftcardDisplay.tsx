@@ -19,7 +19,7 @@ export const GiftcardDisplay: React.FC<GiftcardPreviewProps> = ({
   const { t } = useTranslation(["imageUpload", "common"]);
 
   return (
-    <div className="flex flex-col justify-center items-center w-1/2 gap-md p-md">
+    <div className="flex flex-col justify-center items-center gap-md">
       <GiftcardPreview
         amount={t("giftcardPreview.placeholders.amount", { ns: "imageUpload" })}
         amountHint={t("giftcardPreview.hints.amount", { ns: "imageUpload" })}

@@ -79,7 +79,7 @@
     },
     "duplicateTemplateModal": {
       "title": "Duplicate template?",
-      "description": "You can still edit <b>{{emailTemplateTitle}}</b> afterwards ",
+      "description": "You'll be able to edit <b>{{emailTemplateTitle}}</b> after",
       "duplicateEmailTitle": "{{emailTemplateTitle}} - Copy",
       "confirmButton": "Duplicate",
       "cancelButton": "Cancel",

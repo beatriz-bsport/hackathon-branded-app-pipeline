@@ -79,7 +79,7 @@
     },
     "duplicateTemplateModal": {
       "title": "Duplicate template?",
-      "description": "You can edit <b>{{emailTemplateTitle}}</b> after",
+      "description": "You can still edit <b>{{emailTemplateTitle}}</b> afterwards ",
       "duplicateEmailTitle": "{{emailTemplateTitle}} - Copy",
       "confirmButton": "Duplicate",
       "cancelButton": "Cancel",
@@ -93,7 +93,7 @@
     },
     "deleteTemplateModal": {
       "title": "Delete email template?",
-      "description": "Deleting <b>{{emailTemplateTitle}}</b> will also remove it from any transactional emails that it's linked to.",
+      "description": "Once you delete <b>{{emailTemplateTitle}}</b>,  it will no longer be visible to members. \n\nIt will also be removed any transactional emails that it's been linked to.",
       "confirmButton": "Delete",
       "cancelButton": "Cancel",
       "onSuccess": {
@@ -140,7 +140,7 @@
     },
     "deleteCategoryModal": {
       "title": "Delete category?",
-      "description": "All items listed under <b>{{categoryName}}</b> will be moved to the 'No Category' section.",
+      "description": " Once you delete <b>{{categoryName}}</b> , it will no longer be visible. \n\nAll items organized under this category will be now be uncategorized. ",
       "confirmButton": "Delete",
       "cancelButton": "Cancel",
       "onSuccess": {

@@ -10,7 +10,7 @@
     "project:transform": "tsx ./scripts/transform-project-structure.ts",
     "project:translate-missing-strings": "tsx ./scripts/translate-missing-strings.ts",
     "translation:migrate": "tsx ./scripts/import-legacy-translations.ts",
-    "translation:update": "tsx ./scripts/build-public-locales-files.ts"
+    "translation:update": "TS_NODE_TRANSPILE_ONLY=1 TS_NODE_COMPILER_OPTIONS=\"{\\\"module\\\":\\\"commonjs\\\"}\" node -r ts-node/register ./scripts/build-public-locales-files.ts"
   },
   "dependencies": {
     "@bsport/typescript-monorepo-utils": "workspace:*",

@@ -59,6 +59,10 @@
         "devPort": 4150,
         "watchPath": "../buyables/giftcard/src/**/*"
       },
+      "sm-offer": {
+        "devPort": 4201,
+        "watchPath": "../booking/offer/src/**/*"
+      },
       "sm-order": {
         "devPort": 4151,
         "watchPath": "../buyables/order/src/**/*"

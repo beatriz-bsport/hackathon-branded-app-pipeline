@@ -84,6 +84,13 @@
     },
     "loading": "Loading Gift Cards"
   },
+  "list": {
+    "actions": {
+      "archive": "Archive",
+      "duplicate": "Duplicate",
+      "restore": "Restore"
+    }
+  },
   "imageUploadModal": {
     "title": "Image library",
     "uploadButton": "Upload image",

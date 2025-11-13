@@ -7,7 +7,13 @@
   flex-direction: row;
   max-width: 700px;
   width: 100%;
-  scale: 0.9;
+}
+
+/* On larger screens, keep the original styling with slight scale */
+@media (min-width: 1024px) {
+  .giftcard-preview__card {
+    scale: 0.9;
+  }
 }
 
 .giftcard-preview__image {

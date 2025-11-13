@@ -13,7 +13,7 @@
   },
   "duplicateModal": {
     "title": "Duplicate Smartlist?",
-    "description": "You can edit <b>{{name}}</b> after",
+    "description": "You can still edit <b>{{name}}</b> afterwards",
     "buttons": {
       "duplicate": "Duplicate",
       "cancel": "Back"
@@ -21,14 +21,14 @@
   },
   "deleteModal": {
     "title": "Delete Smartlist?",
-    "description": "If you delete 1{{name}}1, any scheduled messages or automatic tagging will be cancelled but previously tagged members won't be affected.",
-    "warning": "STRING TO BE DELETED",
+    "description": "STRING DELETED",
+    "warning": "If you delete 1{{name}}1, any scheduled messages or automatic tagging will no longer run but previously tagged members won't be affected.",
     "audienceWarning": "Smartlists used in Audience workflows can't be deleted. ",
     "cannotBeDeleted": "This Smartlist is currently being used in Audience workflows and can't be deleted on this page.",
     "audienceCallToAction": "To delete this Smartlist, go to Audience and remove it from associated workflows.",
     "buttons": {
       "delete": "Delete",
-      "cancel": "Back"
+      "cancel": "Cancel"
     }
   },
   "toasts": {

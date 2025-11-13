@@ -1,9 +1,15 @@
 import { useCallback, useMemo } from "react";
 
-import { DetailDrawer, ListLayout, Table } from "@bsport/kaizen-primitive-core";
+import {
+  DetailDrawer,
+  ListLayout,
+  Table,
+  useMatchMedia,
+} from "@bsport/kaizen-primitive-core";
 import type { NotificationRuleSettings } from "@bsport/store-cdp-notification-rule";
 
 import { NotificationRuleDetailsContent } from "#src/components/NotificationRuleEventDetail/NotificationRuleDetailsContent";
+import { NotificationRuleList } from "#src/components/NotificationRuleGroupView/NotificationRuleList";
 import { getTableColumns } from "#src/components/NotificationRuleGroupView/TableConfig";
 import { useDrawerQueryParam } from "#src/hooks/actions/use-drawer-query-params";
 import { useNotificationRuleNavigation } from "#src/hooks/actions/use-notification-rule-navigation";
@@ -28,6 +34,7 @@ export const NotificationRuleTableContent = ({
   const { t } = useTranslation("transactionalNotification");
   const { openId, openDrawer, closeDrawer } = useDrawerQueryParam();
   const { isPushNotificationEnabled } = useAvailableUpsells();
+  const isMobile = !useMatchMedia("lg");
 
   const {
     formatNotificationRuleEventTableItems,
@@ -143,7 +150,16 @@ export const NotificationRuleTableContent = ({
 
   return (
     <ListLayout.Content>
-      <Table columns={tableColumns} rowHeight="lg" rows={tableRow} />
+      {isMobile ? (
+        <NotificationRuleList
+          notificationEventsRefinedData={notificationEventsRefinedData}
+          selectedNotificationRule={selectedNotificationRule}
+          isPushNotificationEnabled={isPushNotificationEnabled}
+          onItemClick={openDetailDrawer}
+        />
+      ) : (
+        <Table columns={tableColumns} rowHeight="lg" rows={tableRow} />
+      )}
       <DetailDrawer
         className="w-[650px]"
         id="notification-rule-detail-drawer"

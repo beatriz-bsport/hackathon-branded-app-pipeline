@@ -1,10 +1,16 @@
 import { useState } from "react";
 
-import { type PaginationProps, Table } from "@bsport/kaizen-primitive-core";
+import {
+  type PaginationProps,
+  Table,
+  useMatchMedia,
+} from "@bsport/kaizen-primitive-core";
+import type { CustomForm } from "@bsport/store-cdp-custom-form";
 
 import { useRestoreAction } from "#src/hooks/actions/useRestoreAction";
 import { useTranslation } from "#src/utils/i18n";
 
+import { CustomFormList, type EmptyConfig } from "./CustomFormList";
 import { DisableFormModal } from "./Modal/DisableFormModal";
 import { DuplicateFormModal } from "./Modal/DuplicateFormModal";
 import {
@@ -15,6 +21,7 @@ import {
 
 type BaseCustomFormTableProps = {
   customFormsItems: CustomFormTableRowData[];
+  customForms?: CustomForm[];
   isEmpty: boolean;
   isEmptySearch: boolean;
   isLoading: boolean;
@@ -31,6 +38,7 @@ export const CustomFormTable: React.FC<BaseCustomFormTableProps> = ({
   mode,
   paginationProps,
   customFormsItems,
+  customForms = [],
   refreshCustomForms,
   resetCustomForms,
   onCreateForm,
@@ -83,7 +91,7 @@ export const CustomFormTable: React.FC<BaseCustomFormTableProps> = ({
     setSelectedFormName(null);
   };
 
-  const emptyConfig =
+  const emptyConfig: EmptyConfig =
     mode === "active" && onCreateForm
       ? {
           title: t("table.empty.activeList.title"),
@@ -98,6 +106,7 @@ export const CustomFormTable: React.FC<BaseCustomFormTableProps> = ({
           title: t("table.empty.archivedList.title"),
           subtitle: t("table.empty.archivedList.subtitle"),
         };
+
   const loadingConfig = {
     isLoading: isLoading,
     message: t(
@@ -107,21 +116,38 @@ export const CustomFormTable: React.FC<BaseCustomFormTableProps> = ({
     ),
   };
 
+  const isMobile = !useMatchMedia("sm");
+
   return (
-    <div>
-      <Table
-        columns={tableColumns}
-        rowHeight="lg"
-        rows={customFormsItems}
-        loadingProps={loadingConfig}
-        paginationProps={paginationProps}
-        emptyStateProps={{
-          isEmpty: !!isEmpty,
-          emptyConfig: emptyConfig,
-          isEmptySearch: !!isEmptySearch,
-          emptySearchConfig: emptyConfig,
-        }}
-      />
+    <>
+      {isMobile ? (
+        <CustomFormList
+          mode={mode}
+          customForms={customForms}
+          isEmpty={isEmpty}
+          isEmptySearch={isEmptySearch}
+          isLoading={isLoading}
+          loadingMessage={loadingConfig.message}
+          handleArchive={handleArchiveForm}
+          handleDuplicate={handleDuplicateForm}
+          handleRestore={restoreFormAction}
+          emptyConfig={emptyConfig}
+        />
+      ) : (
+        <Table
+          columns={tableColumns}
+          rowHeight="lg"
+          rows={customFormsItems}
+          loadingProps={loadingConfig}
+          paginationProps={paginationProps}
+          emptyStateProps={{
+            isEmpty: !!isEmpty,
+            emptyConfig: emptyConfig,
+            isEmptySearch: !!isEmptySearch,
+            emptySearchConfig: emptyConfig,
+          }}
+        />
+      )}
 
       {currentInlineAction === "archive" &&
       selectedFormId &&
@@ -147,6 +173,6 @@ export const CustomFormTable: React.FC<BaseCustomFormTableProps> = ({
           onSuccess={resetCustomForms}
         />
       ) : null}
-    </div>
+    </>
   );
 };

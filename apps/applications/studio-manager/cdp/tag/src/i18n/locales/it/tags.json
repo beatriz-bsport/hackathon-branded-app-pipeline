@@ -1,1 +1,278 @@
-{}
+{
+  "page": {
+    "title": "Tag",
+    "filters": {
+      "label": "Filtra per tag principale",
+      "operators": {
+        "is": "è",
+        "isNot": "non è"
+      }
+    },
+    "actions": {
+      "createTagGroup": {
+        "label": "Crea un tag principale"
+      },
+      "createTag": {
+        "label": "Crea un sottotag"
+      }
+    },
+    "loadingState": {
+      "message": "Caricamento tag..."
+    },
+    "emptyFilteredPageState": {
+      "title": "Nessun risultato trovato",
+      "description": "Nessun tag principale trovato - cancella i filtri per vedere più risultati",
+      "secondaryButtonLabel": "Cancella filtri"
+    },
+    "emptyPageState": {
+      "title": "Nessun tag ancora",
+      "description": "Crea tag per indirizzare e monitorare i tuoi membri"
+    },
+    "emptyMainTagState": {
+      "description": "Non hai ancora creato alcun sottotag in questo tag principale."
+    }
+  },
+  "tagGroupList": {
+    "actions": {
+      "addSubTag": "Crea un sottotag",
+      "rename": "Rinomina",
+      "delete": "Elimina"
+    },
+    "items": {
+      "tooltip": {
+        "delete": "Elimina"
+      }
+    }
+  },
+  "tagGroupModal": {
+    "title": {
+      "create": "Crea un tag principale",
+      "update": "Modifica tag principale"
+    },
+    "formField": {
+      "tagGroupName": {
+        "label": "Nome del tag principale",
+        "placeholder": "Aggiungi un nome al tag principale...",
+        "errors": {
+          "required": "Inserisci un nome per il tag principale",
+          "alreadyInUse": "Nome già in uso",
+          "tooLong": "Il nome deve essere inferiore a {{ max }} caratteri",
+          "tooShort": "Il nome deve avere almeno {{ min }} caratteri"
+        }
+      }
+    },
+    "actions": {
+      "create": "Crea",
+      "update": "Salva",
+      "cancel": "Chiudi",
+      "goTo": "Vai al Tag Principale"
+    },
+    "result": {
+      "createSuccess": {
+        "title": "Tag principale creato"
+      },
+      "updateSuccess": {
+        "title": "Tag principale aggiornato"
+      },
+      "updateFailure": {
+        "title": "Impossibile aggiornare il tag principale a causa di un problema tecnico"
+      },
+      "createFailure": {
+        "title": "Impossibile creare il tag principale"
+      }
+    }
+  },
+  "tagModal": {
+    "title": {
+      "create": "Crea un sottotag",
+      "update": "Modifica sottotag"
+    },
+    "formField": {
+      "mainTagAssociated": {
+        "label": "Categoria",
+        "placeholder": "Seleziona un tag principale",
+        "errors": {
+          "required": "Devi prima selezionare un tag principale"
+        }
+      },
+      "tagName": {
+        "label": "Tag di sottocategoria",
+        "placeholder": "Inserisci un nome per il sottotag...",
+        "errors": {
+          "required": "Devi prima inserire un nome per il sotto-tag",
+          "alreadyInUse": "Nome già in uso",
+          "tooLong": "Il nome deve essere inferiore a {{ max }} caratteri",
+          "tooShort": "Il nome deve avere almeno {{ min }} caratteri"
+        }
+      },
+      "tagColor": {
+        "label": "Colore",
+        "placeholder": "#FFFFFF"
+      }
+    },
+    "actions": {
+      "create": "Crea",
+      "update": "Aggiorna",
+      "cancel": "Cancella",
+      "goTo": "Vai al sottotag"
+    },
+    "result": {
+      "createSuccess": {
+        "title": "Sottotag creato"
+      },
+      "createFailure": {
+        "title": "Impossibile salvare il sottotag "
+      },
+      "updateSuccess": {
+        "title": "Tag secondario aggiornato"
+      },
+      "updateFailure": {
+        "title": "Impossibile aggiornare il sottotag "
+      }
+    }
+  },
+  "deleteMainTagModal": {
+    "title": "Eliminare definitivamente il tag principale?",
+    "description": "Eliminando questo tag principale, lo rimuoverai in modo permanente da {{ number }} Membri a cui è assegnato.",
+    "alerts": {
+      "tagInUse": {
+        "description": "Promemoria: eliminando questo tag principale verranno rimossi anche tutti i sotto‑tag associati e le regole dei tag nei workflow condizionali in cui è utilizzato",
+        "confirmCheckbox": {
+          "label": "Spunta per confermare: ",
+          "description": "Comprendo che eliminare questo tag principale è un'azione permanente che influenzerà qualsiasi flusso di lavoro associato.",
+          "confirmButtonTooltip": "Controlla l'impatto di questa modifica prima di continuare"
+        }
+      }
+    },
+    "actions": {
+      "confirm": "Elimina",
+      "cancel": "Cancella"
+    },
+    "result": {
+      "success": {
+        "title": "Tag principale eliminato"
+      },
+      "failure": {
+        "title": "Impossibile eliminare il tag principale"
+      }
+    }
+  },
+  "deleteSubTagModal": {
+    "title": "Eliminare definitivamente il sotto-tag?",
+    "description": "Eliminando questo sottotag lo rimuoverai permanentemente da {{number}} Membri a cui è assegnato. ",
+    "alerts": {
+      "tagInUse": {
+        "description": "Attenzione: eliminare questo sotto-tag influenzerà anche qualsiasi flusso di lavoro condizionale in cui è utilizzato. ",
+        "confirmCheckbox": {
+          "label": "Spunta per confermare:",
+          "description": "Capisco che eliminare questo sotto-tag è un'azione permanente che influenzerà qualsiasi flusso di lavoro associato.",
+          "confirmButtonTooltip": "Controlla l'impatto di questa modifica prima di continuare"
+        }
+      }
+    },
+    "actions": {
+      "confirm": "Elimina",
+      "cancel": "Cancella"
+    },
+    "result": {
+      "success": {
+        "title": "Sottotag eliminato"
+      },
+      "failure": {
+        "title": "Qualcosa è andato storto durante l'eliminazione del sottotag. Per favore riprova."
+      }
+    }
+  },
+  "tagsDetails": {
+    "members": "Membri",
+    "actions": {
+      "tagAll": "Tag tutti",
+      "untagAll": "Rimuovi tutti i tag",
+      "edit": "Modifica"
+    },
+    "tooltip": {
+      "close": "Chiudi",
+      "tagMember": "Tag membri",
+      "untagMember": "Rimuovi tag dal membro",
+      "editTag": "Cambia nome o colore",
+      "previousSubTag": "Visualizza il sottotag precedente",
+      "nextSubTag": "Visualizza il prossimo sottotag"
+    },
+    "segmentedControl": {
+      "tagged": "Taggato",
+      "untagged": "Non taggato"
+    },
+    "memberList": {
+      "actions": {
+        "tag": {
+          "success": {
+            "title": "Membro taggato"
+          },
+          "failure": {
+            "title": "Impossibile taggare il membro, per favore riprova"
+          }
+        },
+        "untag": {
+          "success": {
+            "title": "Tag rimosso dal membro"
+          },
+          "failure": {
+            "title": "Impossibile rimuovere il tag al membro, per favore riprova."
+          }
+        }
+      },
+      "loadingState": {
+        "tagged": "Caricamento dei membri taggati...",
+        "untagged": "Caricamento dei membri non taggati..."
+      },
+      "emptyState": {
+        "title": {
+          "tagged": "Nessun membro ancora taggato",
+          "untagged": "Nessun membro senza tag al momento"
+        },
+        "description": {
+          "untagged": "Puoi aggiungere tag ai membri cliccando sull’icona ‘più’ accanto al loro nome nell’elenco dei non taggati",
+          "tagged": "Puoi rimuovere i tag dai membri cliccando sull’icona ‘meno’ accanto al loro nome nell’elenco dei taggati"
+        }
+      }
+    }
+  },
+  "updateMemberTagBatchModal": {
+    "title": {
+      "tag": "Tagga tutti?",
+      "untag": "Rimuovere tutti i tag?"
+    },
+    "description": {
+      "tag": "Aggiungere il tag {{tagName}} a {{number}} membri?",
+      "untag": "Rimuovere il tag {{tagName}} da {{number}} membri?"
+    },
+    "actions": {
+      "tag": "Tagga tutti",
+      "untag": "Rimuovi tag a tutti",
+      "cancel": "Cancella",
+      "undo": "Annulla"
+    },
+    "loading": {
+      "tag": "Tagging {{number}} membro...",
+      "untag": "Rimozione del tag da {{number}} membro..."
+    },
+    "results": {
+      "tag": {
+        "success": {
+          "title": "Tutti i membri taggati"
+        },
+        "failure": {
+          "title": "Impossibile taggare i membri, per favore riprova"
+        }
+      },
+      "untag": {
+        "success": {
+          "title": "Tutti i membri non taggati"
+        },
+        "failure": {
+          "title": "Impossibile rimuovere i tag dai membri, per favore riprova."
+        }
+      }
+    }
+  }
+}

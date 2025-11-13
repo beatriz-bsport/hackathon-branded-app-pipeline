@@ -441,7 +441,7 @@
     "fail": "An error occurred while sending",
     "processing": "The communication is being sent",
     "error_codes": {
-      "1": "Message not sent. No recipients found."
+      "1": "Message not sent. No eligible recipients found."
     }
   },
   "forms": {

@@ -1,6 +1,11 @@
 import { useNavigate } from "react-router";
 
-import { Button, ListLayout, Tooltip } from "@bsport/kaizen-primitive-core";
+import {
+  Button,
+  type ButtonProps,
+  ListLayout,
+  Tooltip,
+} from "@bsport/kaizen-primitive-core";
 
 import { useFilterTeachers } from "#src/hooks/useFilterTeachers";
 import { useTeacherPermissions } from "#src/hooks/useTeacherPermissions";
@@ -27,6 +32,21 @@ export const TeacherListPage: React.FC = () => {
 
   const permissions = useTeacherPermissions();
 
+  const { endGroupActions } = ListLayout.useAdaptiveActions({
+    endGroupActions: [
+      <GoToArchivedListButton
+        key="bt-navigate-to-archive-page"
+        kind="icon-button"
+        icon="box"
+        label={t("pages.archived")}
+        intent="default"
+        color="main"
+        size="md"
+        onClick={() => navigate(URLS.ARCHIVED)}
+      />,
+    ],
+  });
+
   return (
     <ListLayout>
       <ListLayout.Header
@@ -42,23 +62,7 @@ export const TeacherListPage: React.FC = () => {
             />
           ) : null
         }
-        endGroupActions={[
-          <Tooltip
-            key="bt-navigate-to-archive-page"
-            label={t("pages.archived")}
-            placement="bottom-right"
-          >
-            <Button
-              kind="icon-button"
-              icon="box"
-              label={t("pages.archived")}
-              intent="default"
-              color="main"
-              size="md"
-              onClick={() => navigate(URLS.ARCHIVED)}
-            />
-          </Tooltip>,
-        ]}
+        endGroupActions={endGroupActions}
         searchConfig={{
           id: "teacher-active-search",
           inputValue: searchInput,
@@ -83,3 +87,17 @@ export const TeacherListPage: React.FC = () => {
     </ListLayout>
   );
 };
+
+function GoToArchivedListButton(props: ButtonProps) {
+  const { t } = useTranslation("common");
+
+  return (
+    <Tooltip
+      key="button-navigate-to-archive-page"
+      label={t("pages.archived")}
+      placement="bottom-left"
+    >
+      <Button {...props} />
+    </Tooltip>
+  );
+}

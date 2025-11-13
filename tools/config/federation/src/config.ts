@@ -284,6 +284,12 @@ export const getConfig = (config: {
       "@bsport/sentry": {
         singleton: true,
       },
+      "@bsport/currency": {
+        singleton: true,
+      },
+      "@bsport/datetime-formatting": {
+        singleton: true,
+      },
     },
     exposes,
     remotes,

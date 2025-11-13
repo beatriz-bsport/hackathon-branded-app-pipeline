@@ -8,10 +8,7 @@ import { MetaActivitySelector } from "#src/components/MarketingNotificationEditi
 import { PassSelector } from "#src/components/MarketingNotificationEdition/TriggerTypeSelector/PassSelector";
 import { SubscriptionSelector } from "#src/components/MarketingNotificationEdition/TriggerTypeSelector/SubscriptionSelector";
 import { NOTIFICATION_ADVANCED_TYPE } from "#src/utils/constants";
-import type {
-  NotificationType,
-  TriggerTypeSelectorConfig,
-} from "#src/utils/types";
+import type { TriggerTypeSelectorConfig } from "#src/utils/types";
 
 function isTriggerSelectorConfigMetaActivityType(
   config: TriggerTypeSelectorConfig,
@@ -23,13 +20,7 @@ function isTriggerSelectorConfigMetaActivityType(
 
 export type TriggerTypeSelectorProps = {
   selectedConfig?: TriggerTypeSelectorConfig;
-  onSelectTriggerType?: ({
-    triggerType,
-    objectIds,
-  }: {
-    triggerType: NotificationType;
-    objectIds: number[];
-  }) => void;
+  onSelectTriggerType?: ({ itemIds }: { itemIds: number[] }) => void;
   selectedValues?: number[];
   textfieldProps?: TextFieldProps;
 };
@@ -57,8 +48,7 @@ export const TriggerTypeSelector = ({
         onSelectActivity={(metaActivity) => {
           const metaActivityId = metaActivity?.id;
           onSelectTriggerType?.({
-            objectIds: metaActivityId ? [metaActivityId] : [],
-            triggerType: selectedConfig.type,
+            itemIds: metaActivityId ? [metaActivityId] : [],
           });
         }}
         textfieldProps={textfieldProps}
@@ -73,8 +63,7 @@ export const TriggerTypeSelector = ({
         onSelectLocation={(location) => {
           const locationId = location?.id;
           onSelectTriggerType?.({
-            objectIds: locationId ? [locationId] : [],
-            triggerType: selectedConfig.type,
+            itemIds: locationId ? [locationId] : [],
           });
         }}
         textfieldProps={textfieldProps}
@@ -89,8 +78,7 @@ export const TriggerTypeSelector = ({
         onSelectEstablishmentGroup={(establishment) => {
           const establishmentId = establishment?.id;
           onSelectTriggerType?.({
-            objectIds: establishmentId ? [establishmentId] : [],
-            triggerType: selectedConfig.type,
+            itemIds: establishmentId ? [establishmentId] : [],
           });
         }}
         textfieldProps={textfieldProps}
@@ -105,8 +93,7 @@ export const TriggerTypeSelector = ({
         onSelectAppointment={(appointment) => {
           const appointmentId = appointment?.id;
           onSelectTriggerType?.({
-            objectIds: appointmentId ? [appointmentId] : [],
-            triggerType: selectedConfig.type,
+            itemIds: appointmentId ? [appointmentId] : [],
           });
         }}
         textfieldProps={textfieldProps}
@@ -121,8 +108,7 @@ export const TriggerTypeSelector = ({
         onSelectSubscription={(subscription) => {
           const subscriptionId = subscription?.id;
           onSelectTriggerType?.({
-            objectIds: subscriptionId ? [subscriptionId] : [],
-            triggerType: selectedConfig.type,
+            itemIds: subscriptionId ? [subscriptionId] : [],
           });
         }}
         textfieldProps={textfieldProps}
@@ -136,8 +122,7 @@ export const TriggerTypeSelector = ({
         defaultValues={selectedValues}
         onSelectPasses={(passes) => {
           onSelectTriggerType?.({
-            objectIds: passes.map((pass) => pass?.id),
-            triggerType: selectedConfig.type,
+            itemIds: (passes || []).map((pass) => pass.id),
           });
         }}
         textfieldProps={textfieldProps}
@@ -151,8 +136,7 @@ export const TriggerTypeSelector = ({
         defaultValues={selectedValues}
         onSelectAppointmentPasses={(passes) => {
           onSelectTriggerType?.({
-            objectIds: passes.map((pass) => pass?.id),
-            triggerType: selectedConfig.type,
+            itemIds: (passes || []).map((pass) => pass.id),
           });
         }}
         textfieldProps={textfieldProps}

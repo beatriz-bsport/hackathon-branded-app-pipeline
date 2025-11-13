@@ -1,0 +1,15 @@
+{
+  "paymentMethods": {
+    "stripeDomains": {
+      "title": "Domeinen toevoegen om Apple Pay en Google Pay in te schakelen",
+      "subtitle": "Voeg tot 10 URL's toe waar je portemonnee-betalingen wilt inschakelen — dit kunnen hoofddomeinen (example.com) of subdomeinen (studio.example.com) zijn.",
+      "infoMessage": "Zodra je het domein toevoegt, kun je het niet meer bewerken.",
+      "errorLoading": "Fout bij het laden van domeinen: {{message}}",
+      "placeholder": "domein.com",
+      "saveTooltip": "Let op: Zodra toegevoegd, kunnen domeinen niet worden bewerkt",
+      "addButton": "Voeg een ander domein toe",
+      "validationError": "De domein-URL moet in een geldig formaat zijn, bijv. domein.com"
+    }
+  }
+}
+

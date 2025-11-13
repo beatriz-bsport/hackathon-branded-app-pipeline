@@ -38,6 +38,14 @@ npm install -g pnpm@$(grep pnpm_version .npmrc | cut -d '=' -f 2)
 pnpm install
 ```
 
+If you encounter an error about pnpm version, delete the global one that lives in a global binary
+
+On mac, it would be in 
+
+```sh
+rm /Users/xxxx/Library/pnpm/pnpm
+```
+
 ### Run an application
 
 Currently we have two different macro-projects in the monorepository :
@@ -56,6 +64,7 @@ cd apps/applications/saas-legacy
 pnpm run start-dev
 # pnpm run start -> connect to local backend and DB
 # pnpm run start-staging -> connect to staging backend and DB
+# pnpm run start-production -> connect to production backend and DB
 ```
 
 or use a single line command

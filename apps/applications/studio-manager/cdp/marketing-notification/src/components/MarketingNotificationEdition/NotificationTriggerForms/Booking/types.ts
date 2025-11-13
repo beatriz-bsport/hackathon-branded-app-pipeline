@@ -30,3 +30,17 @@ export const BOOKING_STATUS_MAP_TO_BOOKING_EVENT_KIND: Record<
   [BOOKING_STATUS_REFUNDED]: 5,
   [BOOKING_STATUS_TOO_LATE]: 6,
 };
+
+export const BOOKING_TEMPORALITY_BEFORE = "before";
+export const BOOKING_TEMPORALITY_AFTER = "after";
+
+export const BOOKING_TIME_UNIT_HOUR = "hour";
+export const BOOKING_TIME_UNIT_DAY = "day";
+
+export type BookingTemporality =
+  | typeof BOOKING_TEMPORALITY_BEFORE
+  | typeof BOOKING_TEMPORALITY_AFTER;
+
+export type BookingTimeUnit =
+  | typeof BOOKING_TIME_UNIT_HOUR
+  | typeof BOOKING_TIME_UNIT_DAY;

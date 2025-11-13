@@ -1,4 +1,4 @@
-import { Button } from "@bsport/kaizen-primitive-core";
+import { Button, ListLayout } from "@bsport/kaizen-primitive-core";
 
 import { useTranslation } from "#src/utils/i18n";
 
@@ -54,28 +54,30 @@ export const usePageLayout = ({
     };
   };
 
-  const pageActions = [
-    <Button
-      key="create-tag-header-button"
-      id="create-tag-header-button"
-      intent="default"
-      label={t("page.actions.createTag.label")}
-      color="main"
-      size="md"
-      iconLeft="plus"
-      onClick={() => handleCreateTag?.()}
-    />,
-    <Button
-      key="create-tag-group-header-button"
-      id="create-tag-group-header-button"
-      intent="call-to-action"
-      label={t("page.actions.createTagGroup.label")}
-      color="main"
-      size="md"
-      iconLeft="plus"
-      onClick={handleCreateTagGroup}
-    />,
-  ];
+  const { endGroupActions: pageActions } = ListLayout.useAdaptiveActions({
+    endGroupActions: [
+      <Button
+        key="create-tag-header-button"
+        id="create-tag-header-button"
+        intent="default"
+        label={t("page.actions.createTag.label")}
+        color="main"
+        size="md"
+        iconLeft="plus"
+        onClick={() => handleCreateTag?.()}
+      />,
+      <Button
+        key="create-tag-group-header-button"
+        id="create-tag-group-header-button"
+        intent="call-to-action"
+        label={t("page.actions.createTagGroup.label")}
+        color="main"
+        size="md"
+        iconLeft="plus"
+        onClick={handleCreateTagGroup}
+      />,
+    ],
+  });
 
   return {
     emptyPageState,

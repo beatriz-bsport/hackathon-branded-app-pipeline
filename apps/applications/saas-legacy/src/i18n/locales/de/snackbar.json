@@ -1222,7 +1222,7 @@
   },
   "calendar": {
     "syncCalendarDialog": {
-      "copySuccess": "Kalender-URL kopiert"
+      "copySuccess": "Kalender-Link kopiert"
     }
   }
 }

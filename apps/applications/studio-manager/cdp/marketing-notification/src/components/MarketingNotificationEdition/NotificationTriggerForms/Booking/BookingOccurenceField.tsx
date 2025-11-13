@@ -1,28 +1,30 @@
 import { FormField } from "@bsport/form";
 import { FormRadioGroup, TextField } from "@bsport/kaizen-primitive-core";
 
-import {
-  BOOKING_OCCURENCE_ANY_BOOKING,
-  type BookingOccurrenceType,
-} from "#src/components/MarketingNotificationEdition/NotificationTriggerForms/Booking/types";
+import { BOOKING_OCCURENCE_ANY_BOOKING } from "#src/components/MarketingNotificationEdition/NotificationTriggerForms/Booking/types";
 import { useTranslation } from "#src/utils/i18n";
-import { TriggerConfigValidationFormData } from "#src/utils/schemas/types";
+import type { BookingTriggerConfigValidationFormData } from "#src/utils/schemas/types";
 
-interface Props {
+/**
+ * This value differs from the base value because the bookingOccurrence field can be set
+ * to 0 to send a notification for every event. However, in this case, the minimum should be 1,
+ * since at least one event must occur to trigger the notification. A value of 0 wouldn’t make sense here.
+ */
+const SPECIFIC_AMOUNT_SELECTOR_MIN_VALUE = 1;
+
+type BookingOccurrenceFieldProps = {
   amount: number;
   value: string;
-  bookingOccurencesMappedToTranslations: Record<string, BookingOccurrenceType>;
   onAmountChange: (newValue: number) => void;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-}
+};
 
 export const BookingOccurrenceField = ({
   amount,
   value,
-  bookingOccurencesMappedToTranslations,
   onAmountChange,
   onChange,
-}: Props) => {
+}: BookingOccurrenceFieldProps) => {
   const { t } = useTranslation("marketingNotificationsModal");
   return (
     <FormRadioGroup
@@ -31,24 +33,25 @@ export const BookingOccurrenceField = ({
       label={t("steps.notificationRules.booking.occurrenceLabel")}
       options={[
         {
-          id: "any-booking",
-          value: t("steps.notificationRules.booking.occurrences.anyBooking"),
+          value: "anyBooking",
+          label: t("steps.notificationRules.booking.occurrences.anyBooking"),
         },
         {
-          id: "specific-amount",
-          value: t(
+          value: "specificAmount",
+          label: t(
             "steps.notificationRules.booking.occurrences.specificAmount",
           ),
           element: (
-            <FormField<TriggerConfigValidationFormData, "eventOccurrence">
-              name="eventOccurrence"
+            <FormField<
+              BookingTriggerConfigValidationFormData,
+              "bookingOccurrence"
+            >
+              name="bookingOccurrence"
               mapProps={({ defaultProps }) => ({
                 ...defaultProps,
                 value: String(amount),
-                disabled:
-                  bookingOccurencesMappedToTranslations[value] ===
-                  BOOKING_OCCURENCE_ANY_BOOKING,
-                min: 0,
+                disabled: value === BOOKING_OCCURENCE_ANY_BOOKING,
+                min: SPECIFIC_AMOUNT_SELECTOR_MIN_VALUE,
                 onChange: (event) => onAmountChange(Number(event.target.value)),
               })}
             >
@@ -65,7 +68,7 @@ export const BookingOccurrenceField = ({
         },
       ]}
       value={value}
-      onChangeValue={onChange}
+      onChange={onChange}
     />
   );
 };

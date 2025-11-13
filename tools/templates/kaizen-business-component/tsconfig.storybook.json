@@ -1,0 +1,7 @@
+{
+  "extends": "../../config/typescript/src/application/tsconfig.storybook.json",
+  "compilerOptions": {
+    "composite": true,
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.storybook.tsbuildinfo"
+  }
+}

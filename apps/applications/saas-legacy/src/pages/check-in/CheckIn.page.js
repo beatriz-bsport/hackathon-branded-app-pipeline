@@ -34,6 +34,8 @@ import CheckInSignout from '../../libs/check-in/components/CheckInSignout.compon
 import CheckInRouter from './CheckIn.router';
 import { fetchCompanyRoles } from '../../libs/role/actions';
 import withRudderStackHistoryTracker from '../../components/analytics/rudderstack/with-rudderstack-history-tracking';
+import { analyticsClientB2B } from '../../components/analytics/mixpanel';
+import { trackTabletCheckInSignUpStartedEvent } from '../../events/booking/trackers';
 
 type Props = {
   fetchEstablishments: () => void,
@@ -81,16 +83,29 @@ export class CheckInPage extends React.Component<Props, State> {
     this.setState({
       refreshInterval: setInterval(this.refreshData, 5 * 60 * 1000),
     });
+
+    if (this.props.theme?.company) {
+      analyticsClientB2B.addSuperProperties({
+        company: this.props.theme.company,
+      });
+    }
   }
 
   componentWillUnmount() {
     clearInterval(this.state.refreshInterval);
+
+    analyticsClientB2B.removeSuperProperties(['company']);
   }
 
   signout = (username, password: string) => {
     loginAPI(username, password)
       .then(() => this.props.push('/login/signout'))
       .catch(this.props.errorLogin);
+  };
+
+  handleCreateMemberClick = () => {
+    analyticsClientB2B.track(trackTabletCheckInSignUpStartedEvent({}));
+    this.props.goToCreateMember(this.props.theme.company);
   };
 
   render() {
@@ -121,9 +136,7 @@ export class CheckInPage extends React.Component<Props, State> {
           <Fab
             className={this.props.classes.bottomButton}
             color="primary"
-            onClick={() =>
-              this.props.goToCreateMember(this.props.theme.company)
-            }
+            onClick={this.handleCreateMemberClick}
             variant="extended"
           >
             <PersonAddIcon className={this.props.classes.leftIcon} />
@@ -181,7 +194,7 @@ export default compose(
       push,
       fetchCompanyRoles,
       goToCreateMember: (companyId) =>
-        push(`/external/${companyId}/add-member/`),
+        push(`/external/${companyId}/add-member/?context=tablet_checkin`),
     },
   ),
   withRudderStackHistoryTracker,

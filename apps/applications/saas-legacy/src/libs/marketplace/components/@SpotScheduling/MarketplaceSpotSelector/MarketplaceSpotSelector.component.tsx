@@ -123,6 +123,7 @@ type Props = {
   assetForBlueprint?: {
     [identifier: string]: AssetForBlueprint;
   };
+  hideHeader?: boolean;
 };
 
 const MarketplaceSpotSelector: React.FC<Props> = (props) => {
@@ -206,44 +207,46 @@ const MarketplaceSpotSelector: React.FC<Props> = (props) => {
 
   return (
     <div className="bs-marketplace-spot-selector">
-      <div className="bs-marketplace-spot-selector__header">
-        <BookerModuleOfferSummary
-          fromSpotSelector
-          noStyledContainer
-          companyTheme={props.theme}
-          // @ts-expect-error
-          establishment={props.establishment || props.offer?.establishment}
-          expirationDatetime={props.expirationDatetime}
-          goToCheckout={props.goToCheckout}
-          // @ts-expect-error
-          metaActivity={props.metaActivity || props.offer?.meta_activity}
-          offer={props.offer}
-          spotId={props.spotCurrentlyInBasket}
-        />
+      {!props.hideHeader && (
+        <div className="bs-marketplace-spot-selector__header">
+          <BookerModuleOfferSummary
+            fromSpotSelector
+            noStyledContainer
+            companyTheme={props.theme}
+            // @ts-expect-error
+            establishment={props.establishment || props.offer?.establishment}
+            expirationDatetime={props.expirationDatetime}
+            goToCheckout={props.goToCheckout}
+            // @ts-expect-error
+            metaActivity={props.metaActivity || props.offer?.meta_activity}
+            offer={props.offer}
+            spotId={props.spotCurrentlyInBasket}
+          />
 
-        {!isMobile && (
-          <div className="bs-marketplace-spot-selector__legend">
-            <div className="bs-marketplace-spot-selector__legend-text">
-              {t('spotSelector.legend')}
-            </div>
-            <SpotLegend spotTypes={firstSpotTypes} />
+          {!isMobile && (
+            <div className="bs-marketplace-spot-selector__legend">
+              <div className="bs-marketplace-spot-selector__legend-text">
+                {t('spotSelector.legend')}
+              </div>
+              <SpotLegend spotTypes={firstSpotTypes} />
 
-            {spotTypesOfBlueprint.length > 2 && (
-              <ToolTip
-                style={{ backgroundColor: 'white', color: 'white' }}
-                title={<SpotLegend spotTypes={lastSpotTypes} />}
-              >
-                <div className="bs-marketplace-spot-selector__legend__row">
-                  <VisibilityIcon className="bs-marketplace-spot-selector__legend__icon" />
-                  <div className="bs-marketplace-spot-selector__legend__icon-text">
-                    {t('spotSelector.seeAll')}
+              {spotTypesOfBlueprint.length > 2 && (
+                <ToolTip
+                  style={{ backgroundColor: 'white', color: 'white' }}
+                  title={<SpotLegend spotTypes={lastSpotTypes} />}
+                >
+                  <div className="bs-marketplace-spot-selector__legend__row">
+                    <VisibilityIcon className="bs-marketplace-spot-selector__legend__icon" />
+                    <div className="bs-marketplace-spot-selector__legend__icon-text">
+                      {t('spotSelector.seeAll')}
+                    </div>
                   </div>
-                </div>
-              </ToolTip>
-            )}
-          </div>
-        )}
-      </div>
+                </ToolTip>
+              )}
+            </div>
+          )}
+        </div>
+      )}
 
       {!!props.expirationDatetime && (
         <Countdown
@@ -284,7 +287,7 @@ const MarketplaceSpotSelector: React.FC<Props> = (props) => {
         spotTypesOfBlueprint={spotTypesOfBlueprint}
         takenSpot={takenSpots}
       />
-      {isMobile && (
+      {(isMobile || props.hideHeader) && (
         <div
           className={clsx(
             'bs-marketplace-spot-selector__legend',

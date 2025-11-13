@@ -4,7 +4,7 @@
 
 # Env variables
 ENVIRONMENT=$1
-echo "Start uploading Kaizen Storybook for Environment : $ENVIRONMENT"
+echo "Start uploading Kaizen Unified Storybook for Environment : $ENVIRONMENT"
 
 # Common variables
 S3_BUCKET="s3://bsport-eu-docs"
@@ -34,3 +34,4 @@ STORYBOOK_ENV=$ENVIRONMENT STORYBOOK_COMMIT_SHORT_SHA=$CI_COMMIT_SHORT_SHA NODE_
 aws s3 cp ./storybook/ $S3_FINAL_PATH --recursive --only-show-errors --acl public-read
 
 echo "✅ Upload successful at $S3_FINAL_PATH"
+

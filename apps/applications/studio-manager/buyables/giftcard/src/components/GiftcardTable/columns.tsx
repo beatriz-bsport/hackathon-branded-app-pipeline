@@ -10,23 +10,9 @@ import {
 import { useTranslation } from "#src/utils/i18n";
 
 import type { TableRowData } from "./constants";
+import type { GetTableColumnsParams, GiftcardHandler } from "./types";
 
 type TableColumn = GenericTableColumn<TableRowData>;
-
-type GiftcardHandler = ({
-  giftcardId,
-  giftcardName,
-}: {
-  giftcardId: number;
-  giftcardName: string;
-}) => void;
-
-export type GetTableColumnsParams = {
-  handleArchive?: GiftcardHandler;
-  handleDuplicate?: GiftcardHandler;
-  handleRestore?: GiftcardHandler;
-  mode: "archived" | "active";
-};
 
 /**
  * Return the colums configs for the Giftcard table
@@ -79,6 +65,7 @@ export const useTableColumns = ({
               size="lg"
               type="weak"
               color="default"
+              iconLeft="eye"
             />
           </Tooltip>
         )}
@@ -92,6 +79,7 @@ export const useTableColumns = ({
               size="lg"
               type="weak"
               color="default"
+              iconLeft="eye-off"
             />
           </Tooltip>
         )}
@@ -103,7 +91,7 @@ export const useTableColumns = ({
     header: t("giftcardTable.headers.price"),
     id: "column-price",
     keyPath: "price",
-    type: "price",
+    type: "string",
     align: "center",
   };
 
@@ -213,3 +201,5 @@ export const useTableColumns = ({
     columnActions,
   ];
 };
+
+export type { GetTableColumnsParams, GiftcardHandler };

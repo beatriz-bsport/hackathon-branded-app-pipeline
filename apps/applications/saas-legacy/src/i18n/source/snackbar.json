@@ -953,6 +953,10 @@
       "error": "Error when enrolling",
       "success": "You've successfully enrolled!"
     },
+    "tabletCheckIn": {
+      "success": "You've successfully created an account!",
+      "error": "Error when creating account"
+    },
     "customFormStepper": {
       "error": "Error while saving responses."
     }

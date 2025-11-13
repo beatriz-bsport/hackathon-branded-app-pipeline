@@ -32,6 +32,7 @@ import {
 } from "@bsport/store-cdp-email-template";
 import {
   selectAllMappedSmartlists,
+  selectSearchedSmartlists,
   useSmartlistStore,
 } from "@bsport/store-cdp-smartlist";
 import {
@@ -93,6 +94,8 @@ export const useGetMarketingNotificationDependenciesData = () => {
 
   const smartlistsById = useSmartlistStore(selectAllMappedSmartlists);
 
+  const searchedSmartlists = useSmartlistStore(selectSearchedSmartlists);
+
   const emailTemplatesById = useMemo(
     () =>
       emailTemplateSummaries.reduce(
@@ -112,6 +115,7 @@ export const useGetMarketingNotificationDependenciesData = () => {
     searchedGroupActivities,
     searchedLocations,
     searchedPasses,
+    searchedSmartlists,
     searchedSubscriptions,
     appointmentsById,
     appointmentPassesById,

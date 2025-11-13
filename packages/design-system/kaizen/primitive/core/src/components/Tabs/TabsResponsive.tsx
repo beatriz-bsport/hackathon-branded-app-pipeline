@@ -1,17 +1,19 @@
-import React from "react";
+import type { ReactNode } from "react";
 
 import Button from "#src/components/Button";
 import DropdownMenu from "#src/components/DropdownMenu";
 import Popover from "#src/components/Popover";
 import { useKaizenI18nInstance, useTranslation } from "#src/i18n";
 
+import type { TabConfig } from "./Tabs";
 import { TabsContext, useTabsContext } from "./TabsContext";
 
 type TabsResponsiveProps = {
   className?: string;
-  TabsItems: Array<React.ReactNode>;
+  TabsItems: Array<ReactNode>;
   activeTab: string;
   setActiveTab: (id: string) => void;
+  tabs: Array<TabConfig>;
 };
 
 /**
@@ -28,12 +30,25 @@ export function TabsResponsive({
   TabsItems,
   activeTab,
   setActiveTab,
+  tabs,
 }: TabsResponsiveProps) {
   const i18n = useKaizenI18nInstance();
   const { t } = useTranslation("default", { i18n });
   const parentContext = useTabsContext();
 
   const activeTabData = parentContext.activeTabData;
+
+  const handleSelectTab = (id: string) => {
+    setActiveTab(id);
+    const selectedTab = tabs.find((tab) => tab.id === id);
+    if (selectedTab) {
+      parentContext.setActiveTabData({
+        id,
+        label: selectedTab.label,
+        icon: selectedTab.icon,
+      });
+    }
+  };
 
   // Context for hidden container: force desktop rendering for NavLink state sync
   const hiddenContainerContext = {
@@ -54,8 +69,8 @@ export function TabsResponsive({
       <DropdownMenu
         className={className}
         selectedValues={activeTab ? [activeTab] : []}
-        onSelectedValuesChange={(values) => setActiveTab(values[0])}
-        onSelectItem={setActiveTab}
+        onSelectedValuesChange={(values) => handleSelectTab(values[0])}
+        onSelectItem={handleSelectTab}
       >
         <DropdownMenu.Trigger>
           {({ setIsOpen, isOpen }) => (

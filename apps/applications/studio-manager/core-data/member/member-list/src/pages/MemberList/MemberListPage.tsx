@@ -1,6 +1,11 @@
 import { useNavigate } from "react-router";
 
-import { Button, ListLayout, Tooltip } from "@bsport/kaizen-primitive-core";
+import {
+  Button,
+  type ButtonProps,
+  ListLayout,
+  Tooltip,
+} from "@bsport/kaizen-primitive-core";
 
 import {
   ImportLeadsModal,
@@ -40,6 +45,31 @@ export const MemberListPage: React.FC = () => {
   });
 
   const permissions = useMemberPermissions();
+  const { endGroupActions } = ListLayout.useAdaptiveActions({
+    endGroupActions: [
+      <GoToArchivedListButton
+        key="button-navigate-to-archive-page"
+        kind="icon-button"
+        icon="box"
+        intent="default"
+        color="main"
+        size="md"
+        label={t("pages.archivedMemberList")}
+        onClick={() => navigate(URLS.ARCHIVED)}
+      />,
+      permissions.importLeads ? (
+        <Button
+          key="button-import-leads"
+          iconLeft="upload-cloud-02"
+          intent="default"
+          color="main"
+          size="md"
+          label={t("actions.importLeads")}
+          onClick={handleOpenImportLeads}
+        />
+      ) : undefined,
+    ].filter((e) => e !== undefined),
+  });
 
   return (
     <ListLayout>
@@ -58,34 +88,7 @@ export const MemberListPage: React.FC = () => {
             />
           ) : undefined
         }
-        endGroupActions={[
-          <Tooltip
-            key="button-navigate-to-archive-page"
-            label={t("pages.archivedMemberList")}
-            placement="bottom-left"
-          >
-            <Button
-              kind="icon-button"
-              icon="box"
-              intent="default"
-              color="main"
-              size="md"
-              label={t("pages.archivedMemberList")}
-              onClick={() => navigate(URLS.ARCHIVED)}
-            />
-          </Tooltip>,
-          permissions.importLeads ? (
-            <Button
-              key="button-import-leads"
-              iconLeft="upload-cloud-02"
-              intent="default"
-              color="main"
-              size="md"
-              label={t("actions.importLeads")}
-              onClick={handleOpenImportLeads}
-            />
-          ) : undefined,
-        ]}
+        endGroupActions={endGroupActions}
         searchConfig={searchConfig}
       />
       <ListLayout.Content>
@@ -108,3 +111,17 @@ export const MemberListPage: React.FC = () => {
     </ListLayout>
   );
 };
+
+function GoToArchivedListButton(props: ButtonProps) {
+  const { t } = useTranslation("common");
+
+  return (
+    <Tooltip
+      key="button-navigate-to-archive-page"
+      label={t("pages.archivedMemberList")}
+      placement="bottom-left"
+    >
+      <Button {...props} />
+    </Tooltip>
+  );
+}

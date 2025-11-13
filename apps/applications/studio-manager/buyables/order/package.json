@@ -19,6 +19,8 @@
   },
   "dependencies": {
     "@bsport/common": "workspace:*",
+    "@bsport/currency": "workspace:*",
+    "@bsport/datetime-formatting": "workspace:*",
     "@bsport/fetch": "workspace:*",
     "@bsport/i18n": "workspace:*",
     "@bsport/kaizen-primitive-core": "workspace:*",

@@ -227,7 +227,13 @@
         "2": "Backoffice",
         "3": "Other",
         "4": "Migration",
+        "5": "Aggregator",
+        "6": "Unknown",
         "7": "POS",
+        "8": "Company branded app",
+        "9": "Franchisor branded app",
+        "10": "Bsport general app",
+        "11": "Django admin",
         "label": "Channel : {{ source }}"
       },
       "clientAuthor": "Customer",

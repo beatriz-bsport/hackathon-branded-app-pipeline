@@ -71,6 +71,11 @@
           "placeholder": "Select an Appointment Pass",
           "loading": "Searching Appointment Passes..."
         },
+        "smartlists": {
+          "label": "Associated Smartlists",
+          "placeholder": "Select associated smartlists",
+          "loading": "Searching smartlists..."
+        },
         "errors": {
           "notEmpty": "Select a trigger type to continue",
           "atLeastOne": "Select at least 1  trigger type"
@@ -79,6 +84,19 @@
     },
     "notificationRules": {
       "title": "Set up an automation",
+      "errors": {
+        "noFloat": "Must be a whole number without decimal points",
+        "atLeastOneTimeValue": "Must be at least 1 {{ timeUnit }}",
+        "smartlistShouldBeFilledWhenToggled": "Select a Smartlist or deactivate this option to continue"
+      },
+      "smartlists": {
+        "included": {
+          "label": "Send notification if member is included in a Smartlist"
+        },
+        "excluded": {
+          "label": "Don't send notification if member is included in a Smartlist"
+        }
+      },
       "booking": {
         "actionLabel": "Send this notification when a member",
         "actions": {
@@ -106,6 +124,40 @@
           "absent": "Your settings are configured to mark members as absent by default",
           "refunded": "Your settings are configured to mark members as refunded by default",
           "tooLate": "Your settings are configured to mark members as too late to be refunded by default"
+        },
+        "timing": {
+          "temporality": {
+            "label": "Send this notification",
+            "options": {
+              "before": "Before the session",
+              "after": "After the session"
+            }
+          },
+          "timeUnit": {
+            "label": "Select interval",
+            "options": {
+              "hour": "Hourly",
+              "day": "Daily"
+            }
+          },
+          "timeValue": {
+            "label": "Timing of notification",
+            "prefix": {
+              "content": "Your notification will be sent ",
+              "before": {
+                "hour_one": "{{count}} hour before the session",
+                "hour_other": "{{count}} hours before the session",
+                "day_one": "{{count}} day before the session",
+                "day_other": "{{count}} days before the session"
+              },
+              "after": {
+                "hour_one": "{{count}} hour after the session",
+                "hour_other": "{{count}} hours after the session",
+                "day_one": "{{count}} day after the session",
+                "day_other": "{{count}} days after the session"
+              }
+            }
+          }
         }
       }
     }

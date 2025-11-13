@@ -36,6 +36,9 @@ export {
 export {
   default as CopyToClipboard,
   type CopyToClipboardProps,
+  useCopyToClipboard,
+  type UseCopyToClipboardOptions,
+  type UseCopyToClipboardReturn,
 } from "./components/CopyToClipboard";
 export {
   default as DatePicker,
@@ -202,6 +205,7 @@ export {
 } from "./components/Tooltip";
 export type { UseEmptyStateProps } from "./hooks/use-empty-state.hook";
 export { useLoadingState } from "./hooks/use-loading-state";
+export { useMatchMedia } from "./hooks/use-match-media";
 export type {
   ActionButton,
   ActionsDropdownConfig,

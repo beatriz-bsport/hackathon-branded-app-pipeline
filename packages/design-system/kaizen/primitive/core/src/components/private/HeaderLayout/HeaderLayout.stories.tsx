@@ -3,9 +3,12 @@ import type { Meta, StoryObj } from "@storybook/react";
 import Button from "#src/components/Button";
 import Popover from "#src/components/Popover";
 import Select from "#src/components/Select";
-import Tooltip from "#src/components/Tooltip";
+import Tooltip, { withTooltip } from "#src/components/Tooltip";
 
 import HeaderLayout from "./HeaderLayout";
+import { useAdaptiveActions } from "./use-adaptive-actions";
+
+const ButtonWithTooltip = withTooltip(Button);
 
 const CATEGORIES = {
   DATA_ACTIONS: "Actions related to data : filter, search, display",
@@ -337,6 +340,16 @@ export const ConfigWithButtonsOnly: Story = {
   },
 };
 
+export const LongGermanTitle: Story = {
+  name: "With Long German Title",
+  args: {
+    pageTitle:
+      "ÜbermäßigLangesZusammengesetztesWortFürStudioManagementSystemKonfigurationsEinstellungenUndWeitereUntersuchungen",
+    callToActionButton: ARGS.CALL_TO_ACTION_BUTTON,
+    endGroupActions: ARGS.END_GROUP_ACTIONS,
+  },
+};
+
 export const ConfigWithClickDataActions: Story = {
   name: "With Click Data Actions",
   args: {
@@ -412,5 +425,63 @@ export const TabsWithCTAs: Story = {
         label="Create template"
       />
     ),
+  },
+};
+
+export const WithAdaptiveActions: Story = {
+  name: "With Adaptive Actions (Hook Demo)",
+  render: () => {
+    const adaptiveActions = useAdaptiveActions({
+      startGroupActions: [
+        <Button
+          key="export-btn"
+          iconLeft="download-01"
+          intent="flat"
+          color="default"
+          size="md"
+          label="Export"
+          onClick={() => console.log("Export clicked")}
+        />,
+        <ButtonWithTooltip
+          key="share-btn"
+          iconLeft="share-03"
+          intent="flat"
+          color="default"
+          size="md"
+          label="Share"
+          onClick={() => console.log("Share clicked")}
+          tooltipProps={{ label: "Share this content" }}
+        />,
+      ],
+      endGroupActions: [
+        <ButtonWithTooltip
+          key="edit-btn"
+          iconLeft="edit-02"
+          intent="flat"
+          color="default"
+          size="md"
+          label="Edit"
+          onClick={() => console.log("Edit clicked")}
+          tooltipProps={{ label: "Edit this item" }}
+        />,
+        <Button
+          key="delete-btn"
+          iconLeft="trash-01"
+          intent="flat"
+          color="default"
+          size="md"
+          label="Delete"
+          onClick={() => console.log("Delete clicked")}
+        />,
+      ],
+    });
+
+    return (
+      <HeaderLayout
+        pageTitle="Adaptive Actions Demo"
+        pageStatusBadge={ARGS.PAGE_STATUS_BADGE}
+        {...adaptiveActions}
+      />
+    );
   },
 };

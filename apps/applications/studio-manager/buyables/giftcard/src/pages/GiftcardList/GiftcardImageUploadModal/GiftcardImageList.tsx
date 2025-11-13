@@ -62,7 +62,7 @@ export const GiftcardImageList: React.FC<GiftcardImageListProps> = ({
   }));
 
   return (
-    <div className="w-1/2">
+    <div>
       {!isEmpty && (
         <GiftcardImageUploader
           refreshGiftcardImageList={refreshGiftcardImageList}

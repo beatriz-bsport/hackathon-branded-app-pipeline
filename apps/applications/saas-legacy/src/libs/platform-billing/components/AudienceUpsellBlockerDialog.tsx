@@ -12,6 +12,7 @@ import { rudderStackFormTrackingFunctionsRegistry } from '#src/components/analyt
 import { SegmentAnalyticsFormObjectIdentifier } from '#src/components/analytics/segment';
 import FeatureRequestDialog from '#src/libs/platform-billing/components/FeatureRequestDialog.component';
 import YoutubeEmbedVideo from '#src/libs/video/components/YoutubeEmbedVideo';
+import { closeIntercom, openIntercomConversation } from '#src/utils/intercom';
 
 const { trackFormSubmitIntent: trackFormSubmitIntentUpsellRequest } =
   rudderStackFormTrackingFunctionsRegistry(
@@ -82,6 +83,7 @@ const AudienceUpsellBlockerDialog = ({
 
   const closeFeatureRequestDialog = () => {
     setIsFeatureRequestDialogOpen(false);
+    closeIntercom();
   };
 
   const handleRequestUpsellPackage = () => {
@@ -90,6 +92,7 @@ const AudienceUpsellBlockerDialog = ({
     });
     requestUpsellPackage(upsellIdentifier);
     setIsFeatureRequestDialogOpen(true);
+    openIntercomConversation();
   };
 
   const redirectToCalendar = () => {

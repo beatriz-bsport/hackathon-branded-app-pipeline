@@ -1,6 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
+import Button from "#src/components/Button";
+
 import CopyToClipboard from "./CopyToClipboard";
+import { useCopyToClipboard } from "./use-copy-to-clipboard";
 
 const meta: Meta<typeof CopyToClipboard> = {
   component: CopyToClipboard,
@@ -113,5 +116,51 @@ export const IconOnly: Story = {
     disabled: false,
     icon: "copy-07",
     kind: "icon-button",
+  },
+};
+
+/**
+ * Example demonstrating the useCopyToClipboard hook with custom UI.
+ * This shows how to use the hook in contexts other than the CopyToClipboard button,
+ * such as dropdown menu items, context menus, or custom interactive elements.
+ */
+export const HookUsageExample: StoryObj = {
+  name: "Hook Usage (Custom UI)",
+  render: () => {
+    const HookExample = () => {
+      const { copyToClipboard } = useCopyToClipboard({
+        toastMessage: "Email copied from custom button!",
+      });
+
+      const email = "custom@kaizen.com";
+
+      return (
+        <div className="flex flex-col gap-4 p-4">
+          <div className="space-y-2">
+            <div className="border rounded p-3 flex items-center justify-between">
+              <span className="font-mono text-sm">{email}</span>
+              <Button
+                size="md"
+                intent="default"
+                color="main"
+                label="Copy Email"
+                iconLeft="copy-07"
+                onClick={() => copyToClipboard(email)}
+              />
+            </div>
+          </div>
+        </div>
+      );
+    };
+
+    return <HookExample />;
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "This example demonstrates how to use the `useCopyToClipboard` hook to add copy functionality to custom UI elements like dropdowns, lists, or any interactive component. The hook handles clipboard operations and toast notifications automatically.",
+      },
+    },
   },
 };

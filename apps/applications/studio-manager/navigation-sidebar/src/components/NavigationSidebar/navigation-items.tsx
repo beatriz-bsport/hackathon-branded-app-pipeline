@@ -66,8 +66,19 @@ export const useNavigationElements = ({
   // Feature flags
   const isAnalyticsEnabled = useNavFlag(NavFlags.INSIGHTS_PAGE);
   const isHomepageEnabled = useNavFlag(NavFlags.HOMEPAGE);
+  const isCalendarRevampEnabled = useNavFlag(NavFlags.CALENDAR_REVAMP);
 
   const navigationItems: Record<MenuSet, NavigationElement[]> = useMemo(() => {
+    const calendarUrlItem = (() => {
+      const item = navigationUrls.calendar;
+      if (!item) return undefined;
+
+      if (!isCalendarRevampEnabled && item.revamped && item.legacyUrl) {
+        return { ...item, href: item.legacyUrl, revamped: false };
+      }
+      return item;
+    })();
+
     return {
       default: [
         {
@@ -115,7 +126,7 @@ export const useNavigationElements = ({
           icon: "calendar",
           id: "calendar",
           label: t("menus.calendar"),
-          ...navigationUrls.calendar,
+          ...(calendarUrlItem ?? navigationUrls.calendar),
         },
         {
           icon: "clock",
@@ -476,6 +487,7 @@ export const useNavigationElements = ({
     totalAlertsCount,
     isAnalyticsEnabled,
     isHomepageEnabled,
+    isCalendarRevampEnabled,
   ]);
 
   return navigationItems[menuSet];

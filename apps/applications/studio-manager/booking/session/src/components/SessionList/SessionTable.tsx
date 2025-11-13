@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Table } from "@bsport/kaizen-primitive-core";
+import { Body, Icon, Table } from "@bsport/kaizen-primitive-core";
 import { ManagerSession } from "@bsport/store-booking-session";
 
 import { i18nInstance, useTranslation } from "#src/utils/i18n";
@@ -24,6 +24,7 @@ export const SessionTable: React.FC<SessionTableProps> = ({
           header: t("table.headers.time"),
           id: "time",
           type: "custom",
+          align: "start",
           render: (row: ManagerSession) => {
             const startDate = new Date(row.date_start);
             const endDate = new Date(
@@ -41,7 +42,29 @@ export const SessionTable: React.FC<SessionTableProps> = ({
           header: t("table.headers.sessionName"),
           id: "sessionName",
           type: "string",
+          align: "start",
           keyPath: "name",
+        },
+        {
+          header: t("table.headers.participants"),
+          id: "participants",
+          type: "custom",
+          align: "start",
+          render: (row: ManagerSession) => {
+            return (
+              <div className="flex gap-xs items-center">
+                <Body htmlVariant="p" size="md" className="w-2xl">
+                  {row.nb_bookings + " / " + row.effectif}
+                </Body>
+                <div className="flex items-center gap-xs text-onsurface-weak">
+                  <Icon icon="hourglass-03" size="sm" />
+                  <Body htmlVariant="p" size="md" color="weak">
+                    {row.nb_option + " / " + row.waiting_list_max_size}
+                  </Body>
+                </div>
+              </div>
+            );
+          },
         },
       ]}
       rowHeight="sm"

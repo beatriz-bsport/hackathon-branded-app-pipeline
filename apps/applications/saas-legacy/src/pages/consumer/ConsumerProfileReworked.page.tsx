@@ -258,8 +258,8 @@ class ConsumerProfileReworked extends React.Component<Props> {
           setPaymentGroupBillingEstablishment
         }
         stripePaymentElementConfig={{
-          isDefaultForRegion: this.props.companyTheme.is_default_for_region,
-          stripeId: this.props.companyTheme.stripe_id,
+          isDefaultForRegion: this.props.companyTheme?.is_default_for_region,
+          stripeId: this.props.companyTheme?.stripe_id,
         }}
         updateMyFranchiseMarketingPreferences={
           updateMyFranchiseMarketingPreferences

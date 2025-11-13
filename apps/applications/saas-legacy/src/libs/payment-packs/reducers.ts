@@ -839,7 +839,7 @@ export const newPaymentPackReducer = handleActions(
       state,
       { payload }: { payload: { results: PaymentPack[] } },
     ) => {
-      const { results } = payload;
+      const { results } = payload ?? {};
       return state.merge(
         {
           byId: (results ?? []).reduce<{ [id: number]: PaymentPack }>(

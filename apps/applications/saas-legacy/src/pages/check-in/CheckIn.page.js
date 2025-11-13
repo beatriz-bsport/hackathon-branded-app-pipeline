@@ -84,11 +84,9 @@ export class CheckInPage extends React.Component<Props, State> {
       refreshInterval: setInterval(this.refreshData, 5 * 60 * 1000),
     });
 
-    if (this.props.theme?.company) {
-      analyticsClientB2B.addSuperProperties({
-        company: this.props.theme.company,
-      });
-    }
+    analyticsClientB2B.addSuperProperties({
+      company: this.props.theme?.company,
+    });
   }
 
   componentWillUnmount() {

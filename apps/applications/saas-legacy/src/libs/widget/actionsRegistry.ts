@@ -14,9 +14,7 @@ export class BridgeAPIActionsRegistry<T> {
   // Method to add an entry to the registry
   add(key: WidgetApiMessageType, value: T): void {
     if (this.has(key)) {
-      throw new Error(
-        `Key ${key} is already bound to a ${this.#_client} action`,
-      );
+      console.warn(`Key ${key} is already bound to a ${this.#_client} action`);
     }
     this.#_registry[key] = value;
   }

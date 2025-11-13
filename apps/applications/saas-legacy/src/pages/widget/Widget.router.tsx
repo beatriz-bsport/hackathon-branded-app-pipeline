@@ -24,7 +24,6 @@ import { RootState } from '#src/reducers';
 import { ConsumerSpaceContextEnum } from '#src/libs/consumer-space/constants';
 //@ts-expect-error
 import BasketPage from '#src/pages/checkout/basket/Basket.page';
-import { fetchMembershipByCompany as fetchMembershipByCompanyAction } from '#src/libs/membership/actions';
 import { requestOptInTrackingB2C as requestOptInTrackingB2CAction } from '#src/components/analytics/actions';
 
 const BridgeWidget = asyncComponent(() => import('./BridgeWidget.page'));
@@ -43,9 +42,6 @@ class WidgetRouter extends React.Component<Props> {
     this.props.requestOptInTrackingB2C();
 
     this.props.fetchCompanyTheme(this.props.companyId);
-    if (!this.props.membership) {
-      this.props.fetchMembershipByCompany(this.props.companyId);
-    }
   }
 
   attachConsumerProps =
@@ -103,7 +99,6 @@ const connector = connect(
   }),
   {
     fetchCompanyTheme,
-    fetchMembershipByCompany: fetchMembershipByCompanyAction,
     requestOptInTrackingB2C: requestOptInTrackingB2CAction,
   },
 );

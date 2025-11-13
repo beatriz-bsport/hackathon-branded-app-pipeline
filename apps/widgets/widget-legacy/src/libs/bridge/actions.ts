@@ -106,42 +106,41 @@ export function bridgeRequestVideoPlaybackUrl(videoId: number) {
  * @param type action type, used to identify the action in the bridge
  */
 
-export const createAuthenticatedBridgeAction = <T, R>(
-  type: WidgetApiMessageType,
-) => (args: T, options?: OptionCallback<R>) => {
-  return async (
-    dispatch: ThunkDispatch<RootState, unknown, Action<unknown>>,
-    getState: () => RootState,
-  ) => {
-    if (!getState().bridge.authentication.hasBeenReceived) return;
+export const createAuthenticatedBridgeAction =
+  <T, R>(type: WidgetApiMessageType) =>
+  (args: T, options?: OptionCallback<R>) => {
+    return async (
+      dispatch: ThunkDispatch<RootState, unknown, Action<unknown>>,
+      getState: () => RootState,
+    ) => {
+      if (!getState().bridge.authentication.hasBeenReceived) return;
 
-    apiCallHandler.sendRequest({
-      payload: { args, options },
-      dispatch,
-      type,
-    });
+      apiCallHandler.sendRequest({
+        payload: { args, options },
+        dispatch,
+        type,
+      });
+    };
   };
-};
 
 /**
  * This function is used to create a bridge action that does not require authentication
  * @param type action type, used to identify the action in the bridge
  */
 
-export const createFreeBridgeAction = <T, R>(type: WidgetApiMessageType) => (
-  args: T,
-  options?: OptionCallback<R>,
-) => {
-  return async (
-    dispatch: ThunkDispatch<RootState, unknown, Action<unknown>>,
-  ) => {
-    apiCallHandler.sendRequest({
-      payload: { args, options },
-      dispatch,
-      type,
-    });
+export const createFreeBridgeAction =
+  <T, R>(type: WidgetApiMessageType) =>
+  (args: T, options?: OptionCallback<R>) => {
+    return async (
+      dispatch: ThunkDispatch<RootState, unknown, Action<unknown>>,
+    ) => {
+      apiCallHandler.sendRequest({
+        payload: { args, options },
+        dispatch,
+        type,
+      });
+    };
   };
-};
 
 // Internal Actions to mutate the reducer
 // --------------------------------------
@@ -187,137 +186,137 @@ actionsBinder();
 // -----------------------------------
 
 type UnhandledEventData = {
-  type: WidgetMessageType,
-  authenticated?: unknown,
-  count?: unknown,
-  data?: { videoId: unknown, playbackUrl: unknown, accessDenied: unknown },
-  offer_ids?: unknown,
-  username?: unknown,
-  videoId?: number,
+  type: WidgetMessageType;
+  authenticated?: unknown;
+  count?: unknown;
+  data?: { videoId: unknown; playbackUrl: unknown; accessDenied: unknown };
+  offer_ids?: unknown;
+  username?: unknown;
+  videoId?: number;
 };
 
 export type HandledEventData = {
-  type: WidgetApiMessageType,
-  data: unknown,
-  error?: Error,
+  type: WidgetApiMessageType;
+  data: unknown;
+  error?: Error;
 };
 
 type EventData = HandledEventData | UnhandledEventData;
 
-export const handleBridgeMessage = (eventData: EventData) => (
-  dispatch: any,
-) => {
-  switch (eventData.type) {
-    case WidgetMessageType.RESPONSE_LOGIN_SUCCESS:
-      dispatch(closeUserInteractionPortal());
-      break;
-
-    case WidgetMessageType.RESPONSE_AUTHENTICATED_STATUS:
-      dispatch(
-        authenticationStatusActions.success({
-          authenticated: eventData.authenticated,
-          username: eventData && eventData.username,
-        }),
-      );
-
-      dispatch(authenticationStatusActions.hasBeenReceived(true));
-
-      if (!eventData.authenticated) {
-        dispatch(basketCountActions.success(null));
-        dispatch(bookingCountActions.success(null));
+export const handleBridgeMessage =
+  (eventData: EventData) => (dispatch: any) => {
+    switch (eventData.type) {
+      case WidgetMessageType.RESPONSE_LOGIN_SUCCESS:
         dispatch(closeUserInteractionPortal());
-      }
-      break;
+        break;
 
-    case WidgetMessageType.RESPONSE_BASKET_COUNT:
-      dispatch(basketCountActions.success(eventData.count));
-      dispatch(basketCountActions.isLoading(false));
-      dispatch(basketCountActions.error(null));
-      break;
-
-    case WidgetMessageType.RESPONSE_REGISTERED_OFFER_IDS:
-      dispatch(listRegisteredIds.success(eventData.offer_ids));
-      dispatch(listRegisteredIds.isLoading(false));
-      dispatch(listRegisteredIds.error(null));
-      break;
-
-    case WidgetMessageType.RESPONSE_BOOKINGS_COUNT:
-      dispatch(bookingCountActions.success(eventData.count));
-      dispatch(bookingCountActions.isLoading(false));
-      dispatch(bookingCountActions.error(null));
-      break;
-
-    case WidgetMessageType.RESPONSE_PAYMENT_SUCCESS:
-    case WidgetMessageType.PAYMENT_SUCCESS:
-      dispatch(closeUserInteractionPortal());
-      dispatch(snackbarSuccess('snackbar:consumerPass.success'));
-      dispatch(bridgeRequestRegisteredOfferIdList());
-      break;
-
-    case WidgetMessageType.REQUEST_MEMBER_TAG:
-      dispatch(memberTagActions.success(eventData));
-      dispatch(memberTagActions.isLoading(false));
-      dispatch(memberTagActions.error(null));
-      break;
-
-    case WidgetMessageType.VIDEO_REGISTERED:
-      dispatch(closeUserInteractionPortal());
-      dispatch(bridgeRequestVideoPlaybackUrl(eventData.videoId));
-      break;
-    case WidgetMessageType.RESPONSE_PLAYBACK_URL_ACCESS_DENIED:
-      if (
-        eventData.data?.accessDenied === false ||
-        eventData.data?.accessDenied === true
-      ) {
+      case WidgetMessageType.RESPONSE_AUTHENTICATED_STATUS:
         dispatch(
-          getVideoPlaybackUrlActions.accessDenied(eventData.data.accessDenied),
+          authenticationStatusActions.success({
+            authenticated: eventData.authenticated,
+            username: eventData && eventData.username,
+          }),
         );
-      }
-      break;
-    case WidgetMessageType.RESPONSE_PLAYBACK_URL_ERROR:
-      dispatch(
-        getVideoPlaybackUrlActions.success({
-          videoId: eventData.data.videoId,
-          playbackUrl: '',
-        }),
-      );
-      dispatch(getVideoPlaybackUrlActions.isLoading(false));
-      dispatch(getVideoPlaybackUrlActions.error(null));
-      break;
 
-    case WidgetMessageType.RESPONSE_PLAYBACK_URL_SUCCESS:
-      if (eventData.data?.playbackUrl) {
+        dispatch(authenticationStatusActions.hasBeenReceived(true));
+
+        if (!eventData.authenticated) {
+          dispatch(basketCountActions.success(null));
+          dispatch(bookingCountActions.success(null));
+        }
+        break;
+
+      case WidgetMessageType.RESPONSE_BASKET_COUNT:
+        dispatch(basketCountActions.success(eventData.count));
+        dispatch(basketCountActions.isLoading(false));
+        dispatch(basketCountActions.error(null));
+        break;
+
+      case WidgetMessageType.RESPONSE_REGISTERED_OFFER_IDS:
+        dispatch(listRegisteredIds.success(eventData.offer_ids));
+        dispatch(listRegisteredIds.isLoading(false));
+        dispatch(listRegisteredIds.error(null));
+        break;
+
+      case WidgetMessageType.RESPONSE_BOOKINGS_COUNT:
+        dispatch(bookingCountActions.success(eventData.count));
+        dispatch(bookingCountActions.isLoading(false));
+        dispatch(bookingCountActions.error(null));
+        break;
+
+      case WidgetMessageType.RESPONSE_PAYMENT_SUCCESS:
+      case WidgetMessageType.PAYMENT_SUCCESS:
+        dispatch(closeUserInteractionPortal());
+        dispatch(snackbarSuccess('snackbar:consumerPass.success'));
+        dispatch(bridgeRequestRegisteredOfferIdList());
+        break;
+
+      case WidgetMessageType.REQUEST_MEMBER_TAG:
+        dispatch(memberTagActions.success(eventData));
+        dispatch(memberTagActions.isLoading(false));
+        dispatch(memberTagActions.error(null));
+        break;
+
+      case WidgetMessageType.VIDEO_REGISTERED:
+        dispatch(closeUserInteractionPortal());
+        dispatch(bridgeRequestVideoPlaybackUrl(eventData.videoId));
+        break;
+      case WidgetMessageType.RESPONSE_PLAYBACK_URL_ACCESS_DENIED:
+        if (
+          eventData.data?.accessDenied === false ||
+          eventData.data?.accessDenied === true
+        ) {
+          dispatch(
+            getVideoPlaybackUrlActions.accessDenied(
+              eventData.data.accessDenied,
+            ),
+          );
+        }
+        break;
+      case WidgetMessageType.RESPONSE_PLAYBACK_URL_ERROR:
         dispatch(
           getVideoPlaybackUrlActions.success({
             videoId: eventData.data.videoId,
-            playbackUrl: eventData.data.playbackUrl,
+            playbackUrl: '',
           }),
         );
+        dispatch(getVideoPlaybackUrlActions.isLoading(false));
+        dispatch(getVideoPlaybackUrlActions.error(null));
+        break;
+
+      case WidgetMessageType.RESPONSE_PLAYBACK_URL_SUCCESS:
+        if (eventData.data?.playbackUrl) {
+          dispatch(
+            getVideoPlaybackUrlActions.success({
+              videoId: eventData.data.videoId,
+              playbackUrl: eventData.data.playbackUrl,
+            }),
+          );
+          dispatch(closeUserInteractionPortal());
+        }
+        dispatch(getVideoPlaybackUrlActions.isLoading(false));
+        dispatch(getVideoPlaybackUrlActions.error(null));
+        break;
+
+      case WidgetMessageType.RESPONSE_CLOSE_SUBSCRIPTION_MODAL_ON_ERROR:
         dispatch(closeUserInteractionPortal());
-      }
-      dispatch(getVideoPlaybackUrlActions.isLoading(false));
-      dispatch(getVideoPlaybackUrlActions.error(null));
-      break;
+        break;
 
-    case WidgetMessageType.RESPONSE_CLOSE_SUBSCRIPTION_MODAL_ON_ERROR:
-      dispatch(closeUserInteractionPortal());
-      break;
+      case WidgetMessageType.CLOSE_MODAL:
+        dispatch(closeUserInteractionPortal());
+        break;
 
-    case WidgetMessageType.CLOSE_MODAL:
-      dispatch(closeUserInteractionPortal());
-      break;
-
-    default:
-      // @ts-expect-error type narrowing issues that will be fixed once refactor complete
-      if (widgetApiMessageTypes.includes(eventData.type)) {
-        apiCallHandler.handleResponse({
-          // @ts-expect-error same
-          type: eventData.type,
-          dispatch,
-          // @ts-expect-error same
-          response: { data: eventData.data, error: eventData.error },
-        });
-      }
-      break;
-  }
-};
+      default:
+        // @ts-expect-error type narrowing issues that will be fixed once refactor complete
+        if (widgetApiMessageTypes.includes(eventData.type)) {
+          apiCallHandler.handleResponse({
+            // @ts-expect-error same
+            type: eventData.type,
+            dispatch,
+            // @ts-expect-error same
+            response: { data: eventData.data, error: eventData.error },
+          });
+        }
+        break;
+    }
+  };

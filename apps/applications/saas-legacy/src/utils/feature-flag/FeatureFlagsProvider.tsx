@@ -27,8 +27,6 @@ const FeatureFlagsProvider: React.FC<{ children?: React.ReactNode }> = ({
   const franchiseId = useSelector((s: RootState) => getFranchiseId(s));
   const userEmail = useSelector((s: RootState) => s.auth?.username);
 
-  if (!companyId && !franchiseId) return <>{children}</>;
-
   const config = buildUnleashConfig();
 
   if (!config.url || !config.clientKey) {
@@ -46,6 +44,8 @@ const FeatureFlagsProvider: React.FC<{ children?: React.ReactNode }> = ({
     return <>{children}</>;
   }
 
+  // Always render FlagProvider, even without companyId/franchiseId
+  // This prevents component tree structure changes during DISCONNECT
   return (
     <FlagProvider
       config={{

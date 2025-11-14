@@ -66,11 +66,18 @@ export const EditSmartlistModal: FC<EditSmartlistModalProps> = ({
 
   const formId = useId();
 
+  const handleClickOutside = () => {
+    const { isDirty, isSubmitting } = methods.formState;
+    if (isDirty || isSubmitting) return;
+
+    onClose();
+  };
+
   return (
     <Modal
       open={isOpen}
       onClose={onClose}
-      onClickOutside={onClose}
+      onClickOutside={handleClickOutside}
       title={t("editForm.title.edit")}
       size="md"
       confirmButton={{

@@ -24,7 +24,7 @@ export const NoCategoryList: React.FC<Props> = ({
   handleDeleteTemplate,
   handlePreviewTemplate,
 }: Props) => {
-  const { getFormattedListItems } = useListItemFactory({
+  const { getFormattedListItems, isMobile } = useListItemFactory({
     handlePreviewTemplate,
     handleDeleteTemplate,
     handleDuplicateTemplate,
@@ -58,6 +58,7 @@ export const NoCategoryList: React.FC<Props> = ({
   return (
     <div className="flex flex-col w-full self-center">
       <SortableList
+        key={`no-category-sortable-${isMobile}`}
         id="custom-email-template-sortable-list-no-category"
         header={noCategoryListHeader}
         items={orderedEmailTemplateList}

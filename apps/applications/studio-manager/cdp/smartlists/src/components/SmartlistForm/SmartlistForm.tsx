@@ -58,6 +58,7 @@ export const SmartlistForm: React.FC<SmartlistFormProps> = ({
           label={t("editForm.fields.name.label")}
           placeholder={t("editForm.fields.name.placeholder")}
           disabled={methods.formState.isSubmitting}
+          fullWidth
         />
       </FormField>
 

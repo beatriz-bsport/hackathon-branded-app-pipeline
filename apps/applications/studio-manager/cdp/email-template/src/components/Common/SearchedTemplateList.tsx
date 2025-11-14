@@ -70,7 +70,7 @@ export const SearchedTemplateList: React.FC<Props> = ({
     resetTemplateList?.();
   };
 
-  const { getFormattedListItems } = useListItemFactory({
+  const { getFormattedListItems, isMobile } = useListItemFactory({
     handlePreviewTemplate,
     handleDuplicateTemplate,
     handleDeleteTemplate,
@@ -106,6 +106,7 @@ export const SearchedTemplateList: React.FC<Props> = ({
         })}
       >
         <List
+          key={`search-email-template-list-${isMobile}`}
           id={`search-bsport-email-template-list`}
           items={searchEmailTemplateList}
           emptyStateProps={emptyListState}

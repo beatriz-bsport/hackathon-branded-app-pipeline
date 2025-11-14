@@ -60,11 +60,18 @@ export const CreateSmartlistModal: FC<CreateSmartlistModalProps> = ({
 
   const formId = useId();
 
+  const handleClickOutside = () => {
+    const { isDirty, isSubmitting } = methods.formState;
+    if (isDirty || isSubmitting) return;
+
+    onClose();
+  };
+
   return (
     <Modal
       open={isOpen}
       onClose={onClose}
-      onClickOutside={onClose}
+      onClickOutside={handleClickOutside}
       title={t("createForm.title")}
       description={t("createForm.subtitle")}
       size="md"

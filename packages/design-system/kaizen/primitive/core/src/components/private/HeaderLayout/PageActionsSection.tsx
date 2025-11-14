@@ -57,11 +57,11 @@ const PageActionsSection: React.FC<PageActionsSectionProps> = ({
           />
         )}
         <div className="flex flex-row gap-xs justify-between items-center">
-          <div className="flex flex-row gap-xs items-start justify-start flex-1 min-w-0">
+          <div className="flex flex-row gap-xs items-center justify-start flex-1 min-w-0">
             <Title
               htmlVariant="h1"
               weight="stronger"
-              className="flex-1 min-w-0 line-clamp-2 hyphens-auto break-words [overflow-wrap:anywhere]"
+              className="w-fit min-w-0 line-clamp-2 hyphens-auto break-words [overflow-wrap:anywhere]"
             >
               {pageTitle}
             </Title>

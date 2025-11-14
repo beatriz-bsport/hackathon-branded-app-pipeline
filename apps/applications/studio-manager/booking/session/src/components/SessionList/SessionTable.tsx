@@ -75,6 +75,22 @@ export const SessionTable: React.FC<SessionTableProps> = ({
           );
         },
       },
+      {
+        id: "teacherName",
+        header: t("table.headers.teacher"),
+        type: "string",
+        align: "start",
+        keyPath: "teacherName",
+        cellsClassName: "truncate max-w-[140px]",
+      },
+      {
+        id: "establishmentName",
+        header: t("table.headers.establishment"),
+        type: "string",
+        align: "start",
+        keyPath: "establishmentName",
+        cellsClassName: "truncate max-w-[128px]",
+      },
     ],
     [t, intlLocale],
   );

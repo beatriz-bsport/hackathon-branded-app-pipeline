@@ -4,7 +4,9 @@
     "headers": {
       "time": "Time",
       "sessionName": "Session name",
-      "participants": "Participants"
+      "participants": "Participants",
+      "teacher": "Teacher",
+      "establishment": "Establishment"
     },
     "isLoading": "Loading sessions..."
   }

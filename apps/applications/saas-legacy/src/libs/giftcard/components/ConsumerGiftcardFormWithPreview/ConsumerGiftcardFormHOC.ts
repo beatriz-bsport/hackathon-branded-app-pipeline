@@ -8,7 +8,6 @@ import {
   getConsumerGiftcardSchema,
 } from './schema';
 import type { ConsumerGiftcardFormValues, OuterProps } from './types';
-import { GIFTCARD_TYPES } from '../../constants';
 
 export const INITIAL_DATA: ConsumerGiftcardFormValues = {
   activation_datetime: getFieldActivationDateTimeMinDate(),
@@ -33,10 +32,6 @@ export const ConsumerGiftcardFormHOC = withFormik<
     return {
       ...INITIAL_DATA,
       name: giftcard?.name ?? '',
-      price:
-        giftcard?.card_type === GIFTCARD_TYPES.CUSTOM
-          ? giftcard.min_price
-          : null,
     };
   },
   validationSchema: ({ giftcard }: OuterProps) =>

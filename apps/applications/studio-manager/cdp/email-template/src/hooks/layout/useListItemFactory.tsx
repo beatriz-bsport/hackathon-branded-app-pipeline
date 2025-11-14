@@ -1,6 +1,8 @@
 import type { ActionButton, Sortable } from "@bsport/kaizen-primitive-core";
+import { useMatchMedia } from "@bsport/kaizen-primitive-core";
 import type { EmailTemplateSummary } from "@bsport/store-cdp-email-template";
 
+import { VISIBLE_ACTIONS_DISPLAY_LIMIT } from "#src/utils/constants";
 import { useTranslation } from "#src/utils/i18n";
 import { getEmailTemplateType } from "#src/utils/templates";
 
@@ -21,6 +23,8 @@ export const useListItemFactory = ({
 
   const { navigateToTemplateDetails } = useTemplateNavigation();
 
+  const isMobile = !useMatchMedia("sm");
+
   const getPreviewActionConfig = ({
     emailTemplate,
   }: {
@@ -34,7 +38,9 @@ export const useListItemFactory = ({
           color: "default",
           kind: "icon-button",
           icon: "eye",
-          label: t("activeList.hover.preview"),
+          label: isMobile
+            ? t("activeList.dropdownActions.preview")
+            : t("activeList.hover.preview"),
           tooltipProps: {
             label: t("activeList.hover.preview"),
             placement: "bottom-right",
@@ -57,7 +63,9 @@ export const useListItemFactory = ({
           color: "default",
           kind: "icon-button",
           icon: "copy-03",
-          label: t("activeList.hover.duplicate"),
+          label: isMobile
+            ? t("activeList.dropdownActions.duplicate")
+            : t("activeList.hover.duplicate"),
           onClick: () => handleDuplicateTemplate?.(emailTemplate),
           tooltipProps: {
             label: t("activeList.hover.duplicate"),
@@ -80,7 +88,9 @@ export const useListItemFactory = ({
           color: "default",
           kind: "icon-button",
           icon: "trash-01",
-          label: t("activeList.hover.delete"),
+          label: isMobile
+            ? t("activeList.dropdownActions.delete")
+            : t("activeList.hover.delete"),
           onClick: () => handleDeleteTemplate?.(emailTemplate),
           tooltipProps: {
             label: t("activeList.hover.delete"),
@@ -197,7 +207,9 @@ export const useListItemFactory = ({
       title: emailTemplate.title,
       description: emailTemplate.subject ?? "",
       dropdownConfig: {
-        visibleActionsDisplayLimit: 3,
+        visibleActionsDisplayLimit: isMobile
+          ? 0
+          : VISIBLE_ACTIONS_DISPLAY_LIMIT,
       },
       buttons: getListItemActionByTemplateType({
         emailTemplate,
@@ -206,5 +218,5 @@ export const useListItemFactory = ({
     }));
   };
 
-  return { getFormattedListItems };
+  return { getFormattedListItems, isMobile };
 };

@@ -83,7 +83,7 @@ export const PageListContent: React.FC<Props> = ({
     fetchEmailTemplates();
   };
 
-  const { getFormattedListItems } = useListItemFactory({
+  const { getFormattedListItems, isMobile } = useListItemFactory({
     handlePreviewTemplate,
     handleDeleteTemplate,
     handleDuplicateTemplate,
@@ -174,6 +174,7 @@ export const PageListContent: React.FC<Props> = ({
     <>
       <div className="flex flex-col w-full">
         <NestedSortableList
+          key={`custom-email-template-nested-${isMobile}`}
           id="custom-email-template-nested-sortable-list"
           onSortChildren={({ reorderedChildren }) => {
             reorderEmailTemplates(reorderedChildren);

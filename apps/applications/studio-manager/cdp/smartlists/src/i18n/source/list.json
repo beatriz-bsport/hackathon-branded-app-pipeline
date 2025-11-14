@@ -2,6 +2,7 @@
   "title": "Smartlists",
   "addSmartlist": "Create Smartlist",
   "loading": "Loading Smartlists...",
+  "search": "Search Smartlists",
   "emptyState": {
     "title": "No Smartlists yet",
     "subtitle": "Create your first Smartlist to segment members with tags, send targeted messages and track engagement."
@@ -57,6 +58,11 @@
     "duplicate": "Duplicate Smartlist",
     "edit": "Rename",
     "delete": "Delete Smartlist"
+  },
+  "dropdownActions": {
+    "duplicate": "Duplicate",
+    "edit": "Rename",
+    "delete": "Delete"
   },
   "createForm": {
     "title": "Create Smartlist",

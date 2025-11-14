@@ -47,6 +47,11 @@
       "delete": "Delete template",
       "moreActions": "More actions"
     },
+    "dropdownActions": {
+      "preview": "Preview",
+      "duplicate": "Duplicate",
+      "delete": "Delete"
+    },
     "bsportTemplateInfo": {
       "label": "bsport templates",
       "title": "bsport templates",

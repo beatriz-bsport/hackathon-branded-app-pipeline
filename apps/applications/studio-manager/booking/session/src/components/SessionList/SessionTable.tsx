@@ -35,7 +35,11 @@ export const SessionTable: React.FC<SessionTableProps> = ({
               timeStyle: "short",
             });
 
-            return `${timeFormatter.format(startDate)} - ${timeFormatter.format(endDate)}`;
+            return (
+              <Body htmlVariant="p" size="md">
+                {`${timeFormatter.format(startDate)} - ${timeFormatter.format(endDate)}`}
+              </Body>
+            );
           },
         },
         {
@@ -54,12 +58,12 @@ export const SessionTable: React.FC<SessionTableProps> = ({
             return (
               <div className="flex gap-xs items-center">
                 <Body htmlVariant="p" size="md" className="w-2xl">
-                  {row.nb_bookings + " / " + row.effectif}
+                  {`${row.nb_bookings} / ${row.effectif}`}
                 </Body>
                 <div className="flex items-center gap-xs text-onsurface-weak">
                   <Icon icon="hourglass-03" size="sm" />
                   <Body htmlVariant="p" size="md" color="weak">
-                    {row.nb_option + " / " + row.waiting_list_max_size}
+                    {`${row.nb_option} / ${row.waiting_list_max_size}`}
                   </Body>
                 </div>
               </div>

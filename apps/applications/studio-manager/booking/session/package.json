@@ -24,6 +24,8 @@
     "@bsport/kaizen-primitive-core": "workspace:*",
     "@bsport/sm-backbone": "workspace:*",
     "@bsport/store-booking-session": "workspace:*",
+    "@bsport/store-core-data-establishment": "workspace:*",
+    "@bsport/store-core-data-teacher": "workspace:*",
     "@bsport/use-async": "workspace:*",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",

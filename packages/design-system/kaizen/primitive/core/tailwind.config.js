@@ -86,7 +86,7 @@ export default {
       addBase({
         ":root": {
           "--kz-topbar-height": "56px",
-          "--kz-sidebar-width": "300px",
+          "--kz-sidebar-width": "240px",
         },
       });
     }),

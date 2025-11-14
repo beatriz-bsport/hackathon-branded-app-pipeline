@@ -1083,7 +1083,7 @@ importers:
         version: 19.2.0(react@19.2.0)
       react-router:
         specifier: ^7.2.0
-        version: 7.2.0(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+        version: 7.9.5(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       typescript-result:
         specifier: ^3.1.1
         version: 3.1.1
@@ -1129,7 +1129,7 @@ importers:
         version: 19.2.0(react@19.2.0)
       react-router:
         specifier: ^7.2.0
-        version: 7.2.0(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+        version: 7.9.5(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
     devDependencies:
       '@bsport/config-eslint-react':
         specifier: workspace:*
@@ -1193,7 +1193,7 @@ importers:
         version: 19.2.0(react@19.2.0)
       react-router:
         specifier: ^7.2.0
-        version: 7.2.0(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+        version: 7.9.5(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
     devDependencies:
       '@bsport/config-eslint-react':
         specifier: workspace:*
@@ -1242,7 +1242,7 @@ importers:
         version: 19.2.0(react@19.2.0)
       react-router:
         specifier: ^7.2.0
-        version: 7.2.0(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+        version: 7.9.5(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
     devDependencies:
       '@bsport/config-eslint-react':
         specifier: workspace:*
@@ -1297,7 +1297,7 @@ importers:
         version: 19.2.0(react@19.2.0)
       react-router:
         specifier: ^7.2.0
-        version: 7.2.0(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+        version: 7.9.5(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
     devDependencies:
       '@bsport/config-eslint-react':
         specifier: workspace:*
@@ -1364,7 +1364,7 @@ importers:
         version: 19.2.0(react@19.2.0)
       react-router:
         specifier: ^7.2.0
-        version: 7.2.0(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+        version: 7.9.5(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
     devDependencies:
       '@bsport/config-eslint-react':
         specifier: workspace:*
@@ -1446,7 +1446,7 @@ importers:
         version: 19.2.0(react@19.2.0)
       react-router:
         specifier: ^7.2.0
-        version: 7.2.0(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+        version: 7.9.5(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       zod:
         specifier: ^3.25.64
         version: 3.25.67
@@ -1507,7 +1507,7 @@ importers:
         version: 19.2.0(react@19.2.0)
       react-router:
         specifier: ^7.2.0
-        version: 7.2.0(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+        version: 7.9.5(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       zod:
         specifier: ^3.25.64
         version: 3.25.67
@@ -1583,7 +1583,7 @@ importers:
         version: 1.7.11(react@19.2.0)
       react-router:
         specifier: ^7.2.0
-        version: 7.2.0(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+        version: 7.9.5(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
     devDependencies:
       '@bsport/config-eslint-react':
         specifier: workspace:*
@@ -1635,7 +1635,7 @@ importers:
         version: 19.2.0(react@19.2.0)
       react-router:
         specifier: ^7.2.0
-        version: 7.2.0(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+        version: 7.9.5(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       typescript-result:
         specifier: ^3.1.1
         version: 3.1.1
@@ -1744,7 +1744,7 @@ importers:
         version: 19.2.0(react@19.2.0)
       react-router:
         specifier: ^7.2.0
-        version: 7.2.0(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+        version: 7.9.5(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       zod:
         specifier: ^3.25.64
         version: 3.25.67
@@ -1814,7 +1814,7 @@ importers:
         version: 7.58.1(react@19.2.0)
       react-router:
         specifier: ^7.2.0
-        version: 7.2.0(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+        version: 7.9.5(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       zod:
         specifier: ^3.25.64
         version: 3.25.67
@@ -1878,7 +1878,7 @@ importers:
         version: 19.2.0(react@19.2.0)
       react-router:
         specifier: ^7.2.0
-        version: 7.2.0(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+        version: 7.9.5(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       zod:
         specifier: ^3.25.64
         version: 3.25.67
@@ -1945,7 +1945,7 @@ importers:
         version: 19.2.0(react@19.2.0)
       react-router:
         specifier: ^7.2.0
-        version: 7.2.0(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+        version: 7.9.5(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       typescript-result:
         specifier: ^3.1.1
         version: 3.1.1
@@ -2024,7 +2024,7 @@ importers:
         version: 19.2.0(react@19.2.0)
       react-router:
         specifier: ^7.2.0
-        version: 7.2.0(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+        version: 7.9.5(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
     devDependencies:
       '@bsport/config-eslint-react':
         specifier: workspace:*
@@ -2082,7 +2082,7 @@ importers:
         version: 19.2.0(react@19.2.0)
       react-router:
         specifier: ^7.2.0
-        version: 7.2.0(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+        version: 7.9.5(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
     devDependencies:
       '@bsport/config-eslint-react':
         specifier: workspace:*
@@ -2137,7 +2137,7 @@ importers:
         version: 19.2.0(react@19.2.0)
       react-router:
         specifier: ^7.2.0
-        version: 7.2.0(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+        version: 7.9.5(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
     devDependencies:
       '@bsport/config-eslint-react':
         specifier: workspace:*
@@ -2192,7 +2192,7 @@ importers:
         version: 19.2.0(react@19.2.0)
       react-router:
         specifier: ^7.2.0
-        version: 7.2.0(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+        version: 7.9.5(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
     devDependencies:
       '@bsport/config-eslint-react':
         specifier: workspace:*
@@ -2262,7 +2262,7 @@ importers:
         version: link:../../../../packages/hooks/use-debounce
       '@module-federation/bridge-react':
         specifier: ^0.13.1
-        version: 0.13.1(react-dom@19.2.0(react@19.2.0))(react-router-dom@5.3.4(react@19.2.0))(react@19.2.0)
+        version: 0.13.1(react-dom@19.2.0(react@19.2.0))(react-router-dom@7.9.5(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(react@19.2.0)
       react:
         specifier: ^19.2.0
         version: 19.2.0
@@ -2271,7 +2271,7 @@ importers:
         version: 19.2.0(react@19.2.0)
       react-router:
         specifier: ^7.2.0
-        version: 7.2.0(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+        version: 7.9.5(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
     devDependencies:
       '@bsport/config-eslint-react':
         specifier: workspace:*
@@ -2288,6 +2288,40 @@ importers:
       tailwindcss:
         specifier: ^3.4.14
         version: 3.4.14(ts-node@10.9.2(@swc/core@1.11.13(@swc/helpers@0.5.15))(@types/node@22.13.15)(typescript@5.8.2))
+      vite:
+        specifier: ^5.4.11
+        version: 5.4.11(@types/node@22.13.15)(less@4.1.3)(sass@1.77.8)(terser@5.31.3)
+
+  apps/tools/widget-debugger:
+    dependencies:
+      react:
+        specifier: ^19.2.0
+        version: 19.2.0
+      react-dom:
+        specifier: ^19.2.0
+        version: 19.2.0(react@19.2.0)
+      react-router-dom:
+        specifier: ^7.9.5
+        version: 7.9.5(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+      uuid:
+        specifier: ^11.0.4
+        version: 11.0.4
+    devDependencies:
+      '@types/react':
+        specifier: ^19.0.0
+        version: 19.2.2
+      '@types/react-dom':
+        specifier: ^19.0.0
+        version: 19.2.2(@types/react@19.2.2)
+      '@types/uuid':
+        specifier: ^11.0.0
+        version: 11.0.0
+      '@vitejs/plugin-react':
+        specifier: ^4.3.3
+        version: 4.3.3(vite@5.4.11(@types/node@22.13.15)(less@4.1.3)(sass@1.77.8)(terser@5.31.3))
+      typescript:
+        specifier: ^5.6.3
+        version: 5.6.3
       vite:
         specifier: ^5.4.11
         version: 5.4.11(@types/node@22.13.15)(less@4.1.3)(sass@1.77.8)(terser@5.31.3)
@@ -3656,7 +3690,7 @@ importers:
         version: 19.2.0(react@19.2.0)
       react-router:
         specifier: ^7.2.0
-        version: 7.2.0(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+        version: 7.9.5(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
     devDependencies:
       '@bsport/config-eslint-react':
         specifier: workspace:*
@@ -3678,7 +3712,7 @@ importers:
         version: 19.2.0(react@19.2.0)
       react-router:
         specifier: ^7.2.0
-        version: 7.2.0(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+        version: 7.9.5(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
     devDependencies:
       '@bsport/config-eslint-react':
         specifier: workspace:*
@@ -3759,7 +3793,7 @@ importers:
         version: 5.0.1(unleash-proxy-client@3.7.8)
       react-router:
         specifier: ^7.2.0
-        version: 7.2.0(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+        version: 7.9.5(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
     devDependencies:
       '@bsport/config-eslint-react':
         specifier: workspace:*
@@ -3967,7 +4001,7 @@ importers:
         version: 19.2.0(react@19.2.0)
       react-router:
         specifier: ^7.2.0
-        version: 7.2.0(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+        version: 7.9.5(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
     devDependencies:
       '@bsport/config-eslint-react':
         specifier: workspace:*
@@ -8577,6 +8611,10 @@ packages:
 
   '@types/urijs@1.19.25':
     resolution: {integrity: sha512-XOfUup9r3Y06nFAZh3WvO0rBU4OtlfPB/vgxpjg+NRdGU6CN6djdc6OEiH+PcqHCY6eFLo9Ista73uarf4gnBg==}
+
+  '@types/uuid@11.0.0':
+    resolution: {integrity: sha512-HVyk8nj2m+jcFRNazzqyVKiZezyhDKrGUA3jlEcg/nZ6Ms+qHwocba1Y/AaVaznJTAM9xpdFSh+ptbNrhOGvZA==}
+    deprecated: This is a stub types definition. uuid provides its own type definitions, so you do not need this installed.
 
   '@types/uuid@8.3.4':
     resolution: {integrity: sha512-c/I8ZRb51j+pYGAu5CrFMRxqZ2ke4y2grEBO5AUjgSkSk+qT2Ea+OdWElz/OiMf5MNpn2b17kuVBwZLQJXzihw==}
@@ -17041,13 +17079,20 @@ packages:
     peerDependencies:
       react: '>=15'
 
+  react-router-dom@7.9.5:
+    resolution: {integrity: sha512-mkEmq/K8tKN63Ae2M7Xgz3c9l9YNbY+NHH6NNeUmLA3kDkhKXRsNb/ZpxaEunvGo2/3YXdk5EJU3Hxp3ocaBPw==}
+    engines: {node: '>=20.0.0'}
+    peerDependencies:
+      react: '>=18'
+      react-dom: '>=18'
+
   react-router@5.3.4:
     resolution: {integrity: sha512-Ys9K+ppnJah3QuaRiLxk+jDWOR1MekYQrlytiXxC1RyfbdsZkS5pvKAzCCr031xHixZwpnsYNT5xysdFHQaYsA==}
     peerDependencies:
       react: '>=15'
 
-  react-router@7.2.0:
-    resolution: {integrity: sha512-fXyqzPgCPZbqhrk7k3hPcCpYIlQ2ugIXDboHUzhJISFVy2DEPsmHgN588MyGmkIOv3jDgNfUE3kJi83L28s/LQ==}
+  react-router@7.9.5:
+    resolution: {integrity: sha512-JmxqrnBZ6E9hWmf02jzNn9Jm3UqyeimyiwzD69NjxGySG6lIz/1LVPsoTCwN7NBX2XjCEa1LIX5EMz1j2b6u6A==}
     engines: {node: '>=20.0.0'}
     peerDependencies:
       react: '>=18'
@@ -18995,9 +19040,6 @@ packages:
 
   tunnel-agent@0.6.0:
     resolution: {integrity: sha512-McnNiV1l8RYeY8tBgEpuodCC1mLUdbSN+CYBL7kJsJNInOP8UjDDEwdk6Mw60vdLLrr5NHKZhMAOSrR2NZuQ+w==}
-
-  turbo-stream@2.4.0:
-    resolution: {integrity: sha512-FHncC10WpBd2eOmGwpmQsWLDoK4cqsA/UT/GqNoaKOQnT8uzhtCbg3EoUDMvqpOSAI0S26mr0rkjzbOO6S3v1g==}
 
   tween-functions@1.2.0:
     resolution: {integrity: sha512-PZBtLYcCLtEcjL14Fzb1gSxPBeL7nWvGhO5ZFPGqziCcr8uvHp0NDmdjBchp6KHL+tExcg0m3NISmKxhU394dA==}
@@ -22451,7 +22493,9 @@ snapshots:
       source-map: 0.6.1
       string-length: 2.0.0
     transitivePeerDependencies:
+      - bufferutil
       - supports-color
+      - utf-8-validate
 
   '@jest/reporters@28.1.3(node-notifier@8.0.2)':
     dependencies:
@@ -23013,14 +23057,14 @@ snapshots:
       react-error-boundary: 4.1.2(react@16.10.2)
       react-router-dom: 5.3.4(react@16.10.2)
 
-  '@module-federation/bridge-react@0.13.1(react-dom@19.2.0(react@19.2.0))(react-router-dom@5.3.4(react@19.2.0))(react@19.2.0)':
+  '@module-federation/bridge-react@0.13.1(react-dom@19.2.0(react@19.2.0))(react-router-dom@7.9.5(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(react@19.2.0)':
     dependencies:
       '@module-federation/bridge-shared': 0.13.1
       '@module-federation/sdk': 0.13.1
       react: 19.2.0
       react-dom: 19.2.0(react@19.2.0)
       react-error-boundary: 4.1.2(react@19.2.0)
-      react-router-dom: 5.3.4(react@19.2.0)
+      react-router-dom: 7.9.5(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
 
   '@module-federation/bridge-shared@0.13.1': {}
 
@@ -26772,6 +26816,10 @@ snapshots:
   '@types/unist@2.0.11': {}
 
   '@types/urijs@1.19.25': {}
+
+  '@types/uuid@11.0.0':
+    dependencies:
+      uuid: 11.0.4
 
   '@types/uuid@8.3.4': {}
 
@@ -34232,7 +34280,9 @@ snapshots:
       pretty-format: 24.9.0
       throat: 4.1.0
     transitivePeerDependencies:
+      - bufferutil
       - supports-color
+      - utf-8-validate
 
   jest-junit@14.0.1:
     dependencies:
@@ -38238,16 +38288,11 @@ snapshots:
       tiny-invariant: 1.3.3
       tiny-warning: 1.0.3
 
-  react-router-dom@5.3.4(react@19.2.0):
+  react-router-dom@7.9.5(react-dom@19.2.0(react@19.2.0))(react@19.2.0):
     dependencies:
-      '@babel/runtime': 7.25.0
-      history: 4.10.1
-      loose-envify: 1.4.0
-      prop-types: 15.8.1
       react: 19.2.0
-      react-router: 5.3.4(react@19.2.0)
-      tiny-invariant: 1.3.3
-      tiny-warning: 1.0.3
+      react-dom: 19.2.0(react@19.2.0)
+      react-router: 7.9.5(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
 
   react-router@5.3.4(react@16.10.2):
     dependencies:
@@ -38262,26 +38307,11 @@ snapshots:
       tiny-invariant: 1.3.3
       tiny-warning: 1.0.3
 
-  react-router@5.3.4(react@19.2.0):
+  react-router@7.9.5(react-dom@19.2.0(react@19.2.0))(react@19.2.0):
     dependencies:
-      '@babel/runtime': 7.25.0
-      history: 4.10.1
-      hoist-non-react-statics: 3.3.2
-      loose-envify: 1.4.0
-      path-to-regexp: 1.9.0
-      prop-types: 15.8.1
-      react: 19.2.0
-      react-is: 16.13.1
-      tiny-invariant: 1.3.3
-      tiny-warning: 1.0.3
-
-  react-router@7.2.0(react-dom@19.2.0(react@19.2.0))(react@19.2.0):
-    dependencies:
-      '@types/cookie': 0.6.0
       cookie: 1.0.2
       react: 19.2.0
       set-cookie-parser: 2.7.1
-      turbo-stream: 2.4.0
     optionalDependencies:
       react-dom: 19.2.0(react@19.2.0)
 
@@ -40710,8 +40740,6 @@ snapshots:
   tunnel-agent@0.6.0:
     dependencies:
       safe-buffer: 5.2.1
-
-  turbo-stream@2.4.0: {}
 
   tween-functions@1.2.0: {}
 

@@ -2,9 +2,13 @@ import { useMemo } from "react";
 
 import type { PaginationProps } from "@bsport/kaizen-primitive-core";
 import {
-  type MetaActivity,
+  type FetchGroupActivitiesParams,
   type SearchGroupActivitiesParams,
+  fetchGroupActivitiesAction,
   searchGroupActivitiesAction,
+  selectCount,
+  selectCurrentGroupActivities,
+  selectSearchedGroupActivities,
   useGroupActivityStore,
 } from "@bsport/store-booking-group-activity";
 import { useAsync } from "@bsport/use-async";
@@ -17,15 +21,36 @@ type ConfigurableSearchParams = Pick<
   "inCategoryIds" | "notInCategoryIds" | "searchQuery"
 >;
 
-export const usePaginatedGroupActivities = (customerEnabled: boolean) => {
+export const usePaginatedGroupActivities = ({
+  customerEnabled,
+}: {
+  customerEnabled: boolean;
+}) => {
   const { currentPage, currentPageSize, setPageSettings } =
     usePaginationQueryParams();
 
-  const { count: totalItems, byId, ids } = useGroupActivityStore();
-  const groupActivities = useMemo<MetaActivity[]>(
-    () => ids.map((id) => byId[id]),
-    [byId, ids],
+  const groupActivities = useGroupActivityStore(selectCurrentGroupActivities);
+
+  const searchedGroupActivities = useGroupActivityStore(
+    selectSearchedGroupActivities,
   );
+
+  const totalItems = useGroupActivityStore(selectCount);
+
+  const _fetchGroupActivities = (params?: FetchGroupActivitiesParams) =>
+    fetchGroupActivitiesAction(fetch, {
+      customerEnabled,
+      page: currentPage,
+      pageSize: currentPageSize,
+      ...(params ?? {}),
+    });
+
+  const [{ isLoading: isFetchLoading }, fetchGroupActivities] = useAsync<
+    typeof _fetchGroupActivities
+  >({
+    asyncFn: _fetchGroupActivities,
+    dependencies: [currentPage, currentPageSize, customerEnabled],
+  });
 
   const _searchGroupActivitiesPage = (params?: ConfigurableSearchParams) =>
     searchGroupActivitiesAction(fetch, {
@@ -35,12 +60,14 @@ export const usePaginatedGroupActivities = (customerEnabled: boolean) => {
       ...(params ?? {}),
     });
 
-  const [{ isLoading }, searchGroupActivitiesPage] = useAsync<
+  const [{ isLoading: isSearchLoading }, searchGroupActivitiesPage] = useAsync<
     typeof _searchGroupActivitiesPage
   >({
     asyncFn: _searchGroupActivitiesPage,
     dependencies: [currentPage, currentPageSize, customerEnabled],
   });
+
+  const isLoading = isFetchLoading || isSearchLoading;
 
   const paginationProps: PaginationProps = useMemo(
     () => ({
@@ -57,7 +84,9 @@ export const usePaginatedGroupActivities = (customerEnabled: boolean) => {
 
   return {
     groupActivities,
+    searchedGroupActivities,
     searchGroupActivitiesPage,
+    fetchGroupActivities,
     paginationProps,
     isLoading,
   };

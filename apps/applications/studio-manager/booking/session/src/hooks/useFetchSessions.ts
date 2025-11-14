@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+import { useCallback, useMemo } from "react";
 
 import { getIsoDateString } from "@bsport/datetime-manipulation";
 import {
@@ -12,12 +12,15 @@ import { fetch } from "#src/utils/fetch";
 
 export const useFetchSessions = () => {
   const sessions = useSessionStore(selectManagerSessions);
-  const processedSessions = sessions.map((session) => ({
-    ...session,
-    name: session.name_override || session.name,
-    color: session.meta_activity_color,
-  }));
-
+  const processedSessions = useMemo(
+    () =>
+      sessions.map((session) => ({
+        ...session,
+        name: session.name_override || session.name,
+        color: session.meta_activity_color,
+      })),
+    [sessions],
+  );
   const _fetchManagerSessions = useCallback(async () => {
     const today = new Date();
 

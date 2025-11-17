@@ -404,6 +404,7 @@ export const OnlinePaymentBasketUnified: React.FC<Props> = forwardRef(
               allowedWallets={allowedWallets}
               amountToPayCts={amountToPayCts}
               basketId={basketId}
+              basketTotalPriceCts={displayedBasketTotalPriceCts}
               checkBasketItems={checkBasketItems}
               clientSecret={clientSecret}
               disabled={isExpressCheckoutDisabled}

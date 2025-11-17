@@ -16,7 +16,7 @@
         "placeholder": "Add a form name..."
       },
       "actions": {
-        "cancel": "Cancel",
+        "cancel": "Close",
         "create": "Create"
       },
       "errors": {

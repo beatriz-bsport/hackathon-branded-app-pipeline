@@ -4,7 +4,7 @@
     "archivedMemberList": "Archived profiles"
   },
   "actions": {
-    "addMember": "Add profile",
+    "addMember": "Create profile",
     "importLeads": "Import leads",
     "download": "Download"
   },

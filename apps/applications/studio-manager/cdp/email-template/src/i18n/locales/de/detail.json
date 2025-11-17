@@ -1,1 +1,85 @@
-{}
+{
+  "pages": {
+    "detail": "E-Mail-Vorlagen"
+  },
+  "breadcrumbs": {
+    "rootPage": "E-Mail-Vorlagen",
+    "customPage": "Benutzerdefiniert"
+  },
+  "details": {
+    "defaultTitle": "Unbenannte Vorlage",
+    "state": {
+      "loading": "E-Mail-Vorlagen werden geladen ..."
+    },
+    "actions": {
+      "saveChanges": "Änderungen speichern",
+      "discardChanges": "Verwerfen",
+      "exportHtml": "Export nach HTML"
+    },
+    "hover": {
+      "exportHtml": "Vorlage als HTML exportieren",
+      "renameTemplate": "Speichern",
+      "moreActions": "Weitere Optionen"
+    },
+    "bsportTemplateInfo": {
+      "title": "bsport Vorlagen",
+      "description": {
+        "firstStep": "Dupliziere die Vorlage, die du verwenden möchtest, bearbeite sie und sende die kopierte Version direkt von dieser Seite an die Mitglieder. ",
+        "secondStep": "Wähle dann die Kopie der E-Mail aus, wenn du eine Nachricht sendest."
+      },
+      "quit": "Beenden"
+    },
+    "renameTemplateModal": {
+      "title": "E-Mail-Vorlage umbenennen",
+      "textInput": {
+        "label": "Name der Vorlage",
+        "placeholder": "Name der Vorlage hinzufügen"
+      },
+      "confirmButton": "Umbenennen",
+      "cancelButton": "Schließen",
+      "onSuccess": {
+        "title": "Vorlage umbenannt",
+        "action": "Änderungen verwerfen"
+      },
+      "onFailure": {
+        "title": "Vorlage kann nicht umbenannt werden - bitte versuche es erneut"
+      },
+      "errors": {
+        "notProvided": "Dies ist erforderlich, um fortzufahren",
+        "tooLong": "Der Titel ist zu lang"
+      }
+    }
+  },
+  "saveTemplateAction": {
+    "description": "Die Seite enthält ungespeicherte Änderungen.",
+    "success": {
+      "title": "E-Mail-Vorlage gespeichert"
+    },
+    "error": {
+      "missingFields": "Wähle eine Kategorie, um deine Vorlage zu speichern",
+      "problemWhileSaving": "Änderungen konnten nicht gespeichert werden - bitte versuche es erneut"
+    }
+  },
+  "leaveConfirmationModal": {
+    "description": "Bist du sicher, dass du diese Seite verlassen möchtest?",
+    "confirmButton": "OK",
+    "cancelButton": "Schließen"
+  },
+  "templateSubject": {
+    "label": "Betreff",
+    "placeholder": "Füge einen E-Mail-Betreff hinzu",
+    "error": {
+      "notProvided": "Dies ist erforderlich, um fortzufahren",
+      "tooLong": "Betreff zu lang"
+    }
+  },
+  "templateDesign": {
+    "error": {
+      "notProvided": "Kein Vorlagendesign bereitgestellt"
+    }
+  },
+  "templateCategory": {
+    "label": "Kategorie",
+    "noCategory": "Kategorie auswählen"
+  }
+}

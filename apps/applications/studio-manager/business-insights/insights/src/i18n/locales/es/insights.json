@@ -26,7 +26,7 @@
     }
   },
   "errors": {
-    "loadDashboard": "No se puede cargar el panel. Por favor, actualiza la página.",
+    "loadDashboard": "No se pudo cargar el panel. Por favor, actualiza la página.",
     "fetchFailed": "No se pudo cargar el panel. Por favor, actualiza la página."
   },
   "filter": {

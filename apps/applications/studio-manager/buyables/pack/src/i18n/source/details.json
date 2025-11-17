@@ -3,7 +3,7 @@
     "title": "Create a new pack",
     "buttons": {
       "create": "Create",
-      "cancel": "Cancel"
+      "cancel": "Close"
     },
     "failToCreate": "Failed to create a new pack"
   },
@@ -21,7 +21,7 @@
   "addItemsModal": {
     "title": "Add items",
     "buttons": {
-      "cancel": "Cancel",
+      "cancel": "Close",
       "save": "Save"
     },
     "breadcrumbs": {

@@ -2,7 +2,7 @@
   "page": {
     "title": "Tags",
     "filters": {
-      "label": "Filter by main tag",
+      "label": "Filter by tag",
       "operators": {
         "is": "is",
         "isNot": "is not"

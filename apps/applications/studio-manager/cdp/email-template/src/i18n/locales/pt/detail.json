@@ -4,7 +4,7 @@
   },
   "breadcrumbs": {
     "rootPage": "Modelos de e-mail",
-    "customPage": "Modelos personalizados"
+    "customPage": "Personalizado"
   },
   "details": {
     "defaultTitle": "Modelos sem título",
@@ -13,7 +13,8 @@
     },
     "actions": {
       "saveChanges": "Salvar alterações",
-      "discardChanges": "Descartar"
+      "discardChanges": "Descartar",
+      "exportHtml": "Exportar para HTML"
     },
     "hover": {
       "exportHtml": "Exportar modelos para HTML",
@@ -35,41 +36,41 @@
         "placeholder": "Adicione um título ao modelo"
       },
       "confirmButton": "Renomear",
-      "cancelButton": "Cancelar",
+      "cancelButton": "Fechar",
       "onSuccess": {
         "title": "Modelos renomeado",
         "action": "Desfazer"
       },
       "onFailure": {
-        "title": "Ocorreu um erro ao renomear seus modelos."
+        "title": "Não foi possível renomear o modelo - por favor, tente novamente"
       },
       "errors": {
-        "notProvided": "Isso é obrigatório",
+        "notProvided": "Isso é necessário para continuar",
         "tooLong": "O título é muito longo"
       }
     }
   },
   "saveTemplateAction": {
-    "description": "Esta página tem alterações não salvas.",
+    "description": "Esta página tem alterações não salvas",
     "success": {
       "title": "E-mail modelos salvo"
     },
     "error": {
-      "missingFields": "Alguns campos obrigatórios estão faltando",
-      "problemWhileSaving": "Houve um problema ao salvar suas alterações."
+      "missingFields": "Seleciona uma categoria para salvar seu modelo",
+      "problemWhileSaving": "Não foi possível salvar as alterações - por favor, tente novamente"
     }
   },
   "leaveConfirmationModal": {
     "description": "Tem certeza de que deseja sair desta página?",
     "confirmButton": "OK",
-    "cancelButton": "Cancelar"
+    "cancelButton": "Fechar"
   },
   "templateSubject": {
     "label": "Assunto do e-mail",
     "placeholder": "Adicione um assunto ao e-mail",
     "error": {
-      "notProvided": "Isso é obrigatório",
-      "tooLong": "O assunto é muito longo"
+      "notProvided": "Isso é necessário para continuar",
+      "tooLong": "Assunto do e-mail muito longo"
     }
   },
   "templateDesign": {

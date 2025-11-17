@@ -1,9 +1,9 @@
-import { useCallback, useMemo } from "react";
+import { useCallback, useEffect } from "react";
 
 import { getIsoDateString } from "@bsport/datetime-manipulation";
 import {
   fetchManagerSessionsAction,
-  selectManagerSessions,
+  selectProcessedManagerSessions,
   useSessionStore,
 } from "@bsport/store-booking-session";
 import { useAsync } from "@bsport/use-async";
@@ -11,16 +11,8 @@ import { useAsync } from "@bsport/use-async";
 import { fetch } from "#src/utils/fetch";
 
 export const useFetchSessions = () => {
-  const sessions = useSessionStore(selectManagerSessions);
-  const processedSessions = useMemo(
-    () =>
-      sessions.map((session) => ({
-        ...session,
-        name: session.name_override || session.name,
-        color: session.meta_activity_color,
-      })),
-    [sessions],
-  );
+  const sessions = useSessionStore(selectProcessedManagerSessions);
+
   const _fetchManagerSessions = useCallback(async () => {
     const today = new Date();
 
@@ -36,9 +28,13 @@ export const useFetchSessions = () => {
     dependencies: [_fetchManagerSessions],
   });
 
+  // -- Load data
+  useEffect(() => {
+    fetchManagerSessions();
+  }, [fetchManagerSessions]);
+
   return {
     isLoading,
-    sessions: processedSessions,
-    fetchManagerSessions,
+    sessions,
   };
 };

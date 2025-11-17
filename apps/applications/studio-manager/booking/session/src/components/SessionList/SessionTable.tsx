@@ -1,12 +1,12 @@
 import React from "react";
 
 import { Body, Icon, Table } from "@bsport/kaizen-primitive-core";
-import { ManagerSession } from "@bsport/store-booking-session";
+import { ProcessedManagerSession } from "@bsport/store-booking-session";
 
 import { i18nInstance, useTranslation } from "#src/utils/i18n";
 
 type SessionTableProps = {
-  sessions: ManagerSession[];
+  sessions: ProcessedManagerSession[];
   isLoading: boolean;
 };
 
@@ -25,7 +25,7 @@ export const SessionTable: React.FC<SessionTableProps> = ({
           id: "time",
           type: "custom",
           align: "start",
-          render: (row: ManagerSession) => {
+          render: (row: ProcessedManagerSession) => {
             const startDate = new Date(row.date_start);
             const endDate = new Date(
               startDate.getTime() + row.duration_minute * 60 * 1000,
@@ -54,7 +54,7 @@ export const SessionTable: React.FC<SessionTableProps> = ({
           id: "participants",
           type: "custom",
           align: "start",
-          render: (row: ManagerSession) => {
+          render: (row: ProcessedManagerSession) => {
             return (
               <div className="flex gap-xs items-center">
                 <Body htmlVariant="p" size="md" className="w-2xl">

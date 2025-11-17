@@ -31,6 +31,7 @@ type StripeExpressCheckoutElementProps = {
   allowedWallets?: { applePay: boolean; googlePay: boolean };
   amountToPayCts: number;
   basketId: string;
+  basketTotalPriceCts: number;
   checkBasketItems: (basketId: string) => Promise<boolean>;
   clientSecret: string;
   disabled?: boolean;
@@ -47,7 +48,7 @@ type StripeExpressCheckoutElementInnerProps = Omit<
   StripeExpressCheckoutElementProps,
   'amountToPayCts' | 'stripePaymentElementConfig'
 > & {
-  amountToPayCts: number;
+  basketTotalPriceCts: number;
   paymentMethods: Record<string, 'always' | 'never'>;
   paymentMethodOrder: string[];
 };
@@ -55,8 +56,8 @@ type StripeExpressCheckoutElementInnerProps = Omit<
 const StripeExpressCheckoutElementInner: React.FC<
   StripeExpressCheckoutElementInnerProps
 > = ({
-  amountToPayCts,
   basketId,
+  basketTotalPriceCts,
   checkBasketItems,
   clientSecret,
   disabled,
@@ -121,7 +122,10 @@ const StripeExpressCheckoutElementInner: React.FC<
         return;
       }
 
-      if ((amountToPayCts || amountToPayCts === 0) && amountToPayCts !== data) {
+      if (
+        (!!basketTotalPriceCts || basketTotalPriceCts === 0) &&
+        basketTotalPriceCts !== data
+      ) {
         setIsExpressPayLoading(false);
         window.alert(
           t('paymentPanel.actions.basketInconsistent', { ns: 'invoice' }),
@@ -162,7 +166,7 @@ const StripeExpressCheckoutElementInner: React.FC<
     stripe,
     elements,
     setIsExpressPayLoading,
-    amountToPayCts,
+    basketTotalPriceCts,
     basketId,
     checkBasketItems,
     clientSecret,
@@ -224,6 +228,7 @@ const StripeExpressCheckoutElement: React.FC<
     allowedWallets = { applePay: false, googlePay: false },
     amountToPayCts,
     basketId,
+    basketTotalPriceCts,
     checkBasketItems,
     clientSecret,
     disabled,
@@ -280,8 +285,8 @@ const StripeExpressCheckoutElement: React.FC<
     >
       <StripeExpressCheckoutElementInner
         {...{
-          amountToPayCts,
           basketId,
+          basketTotalPriceCts,
           checkBasketItems,
           clientSecret,
           disabled,

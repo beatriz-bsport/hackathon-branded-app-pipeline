@@ -318,7 +318,10 @@ export const getConverter = (
     if (datatype === 'price') {
       return {
         cellProps: { className: classes.right },
-        value: `${getCurrencyDisplayWithPrice(Number(value).toFixed(2))}`,
+        value:
+          value !== null && value !== undefined
+            ? `${getCurrencyDisplayWithPrice(Number(value).toFixed(2))}`
+            : '',
       };
     }
 
@@ -331,9 +334,10 @@ export const getConverter = (
     if (datatype === 'cts') {
       return {
         cellProps: { className: classes.right },
-        value: `${getCurrencyDisplayWithPrice(
-          (Number(value) / 100).toFixed(2),
-        )}`,
+        value:
+          value !== null && value !== undefined
+            ? `${getCurrencyDisplayWithPrice((Number(value) / 100).toFixed(2))}`
+            : '',
       };
     }
 

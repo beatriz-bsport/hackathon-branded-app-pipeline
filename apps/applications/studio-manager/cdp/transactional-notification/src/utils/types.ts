@@ -4,6 +4,8 @@ import type {
   NotificationRuleEventSetting,
 } from "@bsport/store-cdp-notification-rule";
 
+import { NOTIFICATION_TYPE_EMAIL, NOTIFICATION_TYPE_PUSH } from "./constants";
+
 export type NotificationRuleEventTableRowData = {
   openPreview: (notificationRuleEventId: number) => void;
   checkCommunicationMethodPreferences: ({
@@ -51,3 +53,7 @@ export type TogglePushNotificationMethodParams = {
   checked: boolean;
   notificationEventDetails: NotificationRuleDetail;
 };
+
+export type NotificationSegments =
+  | typeof NOTIFICATION_TYPE_EMAIL
+  | typeof NOTIFICATION_TYPE_PUSH;

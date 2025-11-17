@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { FC } from "react";
 import { useSearchParams } from "react-router";
 
@@ -7,11 +7,19 @@ import { SegmentedControl, Title } from "@bsport/kaizen-primitive-core";
 import { NotificationRuleEmailNotificationDetails } from "#src/components/NotificationRuleEventDetail/NotificationRuleEmailNotificationDetails";
 import { useFetchNotificationRuleEventGroupDetails } from "#src/hooks/api/use-fetch-notification-rule-event-group-details";
 import { useAvailableUpsells } from "#src/hooks/layout/use-upsell-blocker";
+import {
+  NOTIFICATION_EVENT_QUERY_PARAM,
+  NOTIFICATION_TYPE_EMAIL,
+  NOTIFICATION_TYPE_PUSH,
+  NOTIFICATION_TYPE_QUERY_PARAM,
+} from "#src/utils/constants";
 import { useTranslation } from "#src/utils/i18n";
 import type {
+  NotificationSegments,
   RefinedNotificationRuleEventData,
   ToggleEmailNotificationMethodParams,
 } from "#src/utils/types";
+import { isNotificationSegment } from "#src/utils/utils";
 
 import { NotificationRulePushNotificationDetails } from "./NotificationRulePushNotificationDetails";
 
@@ -25,12 +33,6 @@ type NotificationRuleDetailsContentProps = {
   ) => void;
 };
 
-type NotificationSegments = "email_notification" | "push_notification";
-
-function isNotificationSegment(value: string): value is NotificationSegments {
-  return value === "email_notification" || value === "push_notification";
-}
-
 export const NotificationRuleDetailsContent: FC<
   NotificationRuleDetailsContentProps
 > = ({
@@ -40,31 +42,55 @@ export const NotificationRuleDetailsContent: FC<
   toggleEmailCarbonCopy,
   toggleEmailNotification,
 }: NotificationRuleDetailsContentProps) => {
-  const [searchParams] = useSearchParams();
+  const { t } = useTranslation("transactionalNotification");
   const { isPushNotificationEnabled } = useAvailableUpsells();
-  const notificationType = searchParams.get("notificationType");
-  const initialSegment: NotificationSegments =
-    isPushNotificationEnabled &&
-    notificationType &&
-    isNotificationSegment(notificationType)
-      ? notificationType
-      : "email_notification";
-  const [selectedOption, setSelectedOption] =
-    useState<NotificationSegments>(initialSegment);
-
-  const shouldBlockPushNotification =
+  const [searchParams, setSearchParams] = useSearchParams();
+  const hidePushNotification =
     !isPushNotificationEnabled ||
     selectedNotificationRule?.settings?.disabled_checkboxes ||
     (selectedNotificationRule?.rule.required_tags || []).length > 0;
+  const [selectedOption, setSelectedOption] = useState<
+    NotificationSegments | undefined
+  >(undefined);
 
-  const { t } = useTranslation("transactionalNotification");
   const { fetchNotificationRuleEventData } =
     useFetchNotificationRuleEventGroupDetails();
 
   const handleChangeSegmentedControl = (value: string) => {
     if (!isNotificationSegment(value)) return;
     setSelectedOption(value);
+    setSearchParams((params) => {
+      searchParams.set(NOTIFICATION_TYPE_QUERY_PARAM, value);
+      return params;
+    });
   };
+
+  useEffect(() => {
+    const notificationType = searchParams.get(NOTIFICATION_TYPE_QUERY_PARAM);
+    const initialSegment: NotificationSegments =
+      isPushNotificationEnabled &&
+      notificationType &&
+      !hidePushNotification &&
+      isNotificationSegment(notificationType)
+        ? notificationType
+        : NOTIFICATION_TYPE_EMAIL;
+    setSelectedOption(initialSegment);
+    setSearchParams((params) => {
+      searchParams.set(NOTIFICATION_TYPE_QUERY_PARAM, initialSegment);
+      searchParams.set(
+        NOTIFICATION_EVENT_QUERY_PARAM,
+        String(selectedNotificationEventId),
+      );
+      return params;
+    });
+    return () => {
+      setSearchParams((params) => {
+        searchParams.delete(NOTIFICATION_TYPE_QUERY_PARAM);
+        searchParams.delete(NOTIFICATION_EVENT_QUERY_PARAM);
+        return params;
+      });
+    };
+  }, [selectedNotificationEventId]);
 
   if (!selectedNotificationRule || !selectedNotificationRule?.rule) {
     return null;
@@ -80,22 +106,21 @@ export const NotificationRuleDetailsContent: FC<
               )
             : ""}
         </Title>
-        {!shouldBlockPushNotification ? (
+        {hidePushNotification ? null : (
           <SegmentedControl
             fullWidth
             id="notification-rule-communication-type"
             className="h-xl"
-            urlQueryParamName="notificationType"
             value={selectedOption}
             options={[
               {
-                value: "email_notification",
+                value: NOTIFICATION_TYPE_EMAIL,
                 label: t(
                   "notificationRuleEventDetails.details.segmentedControl.email",
                 ),
               },
               {
-                value: "push_notification",
+                value: NOTIFICATION_TYPE_PUSH,
                 label: t(
                   "notificationRuleEventDetails.details.segmentedControl.push",
                 ),
@@ -103,8 +128,8 @@ export const NotificationRuleDetailsContent: FC<
             ]}
             onChangeValue={handleChangeSegmentedControl}
           />
-        ) : null}
-        {selectedOption === "email_notification" ? (
+        )}
+        {selectedOption === NOTIFICATION_TYPE_EMAIL ? (
           <NotificationRuleEmailNotificationDetails
             emailDesignId={
               selectedNotificationRule?.details?.email_design ?? null
@@ -116,14 +141,14 @@ export const NotificationRuleDetailsContent: FC<
             toggleEmailNotification={toggleEmailNotification}
           />
         ) : null}
-        {!shouldBlockPushNotification &&
-        selectedOption === "push_notification" ? (
+        {hidePushNotification ||
+        selectedOption !== NOTIFICATION_TYPE_PUSH ? null : (
           <NotificationRulePushNotificationDetails
             selectedNotificationEventId={selectedNotificationEventId}
             selectedNotificationRule={selectedNotificationRule}
             fetchNotificationRuleEventData={fetchNotificationRuleEventData}
           />
-        ) : null}
+        )}
       </div>
     </div>
   );

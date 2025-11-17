@@ -29,7 +29,7 @@
     "audienceCallToAction": "To delete this Smartlist, go to Audience and remove it from associated workflows.",
     "buttons": {
       "delete": "Delete",
-      "cancel": "Cancel"
+      "cancel": "Keep"
     }
   },
   "toasts": {

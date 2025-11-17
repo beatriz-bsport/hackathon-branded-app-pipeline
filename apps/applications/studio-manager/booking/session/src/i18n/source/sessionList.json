@@ -6,7 +6,8 @@
       "sessionName": "Session name",
       "participants": "Participants",
       "teacher": "Teacher",
-      "establishment": "Establishment"
+      "establishment": "Establishment",
+      "sessionType": "Session type"
     },
     "isLoading": "Loading sessions..."
   }

@@ -4,6 +4,7 @@ import { Body, GenericTableColumn, Icon } from "@bsport/kaizen-primitive-core";
 
 import { i18nInstance, useTranslation } from "#src/utils/i18n";
 
+import { SessionTypeChips } from "./SessionTypeChips";
 import { TableRowData } from "./types";
 
 type TableColumn = GenericTableColumn<TableRowData>;
@@ -36,6 +37,19 @@ export const useSessionListColumns = () => {
       },
     }),
     [t, intlLocale],
+  );
+
+  const sessionTypeColumn: TableColumn = useMemo(
+    () => ({
+      id: "sessionType",
+      header: t("table.headers.sessionType"),
+      type: "custom",
+      align: "start",
+      render: (row: TableRowData) => {
+        return <SessionTypeChips session={row} />;
+      },
+    }),
+    [t],
   );
 
   const sessionNameColumn: TableColumn = useMemo(
@@ -105,5 +119,6 @@ export const useSessionListColumns = () => {
     participantsColumn,
     teacherNameColumn,
     establishmentNameColumn,
+    sessionTypeColumn,
   ];
 };

@@ -27,7 +27,7 @@
   },
   "errors": {
     "loadDashboard": "Não foi possível carregar o painel. Por favor, atualize a página.",
-    "fetchFailed": "Falha ao carregar o painel. Por favor, atualize a página."
+    "fetchFailed": "Não foi possível carregar o painel. Por favor, atualize a página."
   },
   "filter": {
     "selectFieldLabel": "Filtrar por seção",

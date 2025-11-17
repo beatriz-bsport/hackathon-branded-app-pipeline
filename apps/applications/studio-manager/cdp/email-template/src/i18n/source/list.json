@@ -55,12 +55,12 @@
     "bsportTemplateInfo": {
       "label": "bsport templates",
       "title": "bsport templates",
-      "description": "Duplicate the template that you want to use, then edit and send the copied version to members directly from this page.",
+      "description": "These pre-made templates are ready to use. Duplicate the template, then edit and send the copied version to your members ",
       "quit": "Quit"
     },
     "createTemplateModal": {
       "title": "Create new email template",
-      "description": "Name your template to get started!",
+      "description": "Name your template to get started",
       "confirmButton": "Create",
       "cancelButton": "Close",
       "textInput": {
@@ -72,7 +72,7 @@
         "action": "Open"
       },
       "onFailure": {
-        "title": "An error occurred when creating your email template."
+        "title": "An error occurred when creating your email template"
       },
       "errors": {
         "name": "Cannot create a template: template name not valid"
@@ -110,12 +110,12 @@
       }
     },
     "createCategoryModal": {
-      "title": "Create a new category",
+      "title": "Add a new category",
       "textInput": {
         "label": "Category name",
         "placeholder": "Category name here..."
       },
-      "confirmButton": "Create",
+      "confirmButton": "Add",
       "cancelButton": "Close",
       "onSuccess": {
         "title": "Category created"

@@ -404,6 +404,8 @@ export class BasketPaymentIntent extends React.Component<Props, State> {
         validateUnpaidAPI(this.props.basketId)
           .then(() => {
             this.onSuccess();
+            // @ts-expect-error
+            this.props.refreshBasket();
             this.setState({ selfProcessing: false });
           })
           .catch((err) => {
@@ -482,10 +484,11 @@ export class BasketPaymentIntent extends React.Component<Props, State> {
     ).toFixed(2);
 
     const showBillingGroupSelector =
-      !this.validateUnpaid &&
-      !isNil(this.props.basket.total_price_cts) &&
-      (this.props.basket.total_price_cts || 0) -
-        (this.props.basket.total_price_prepaid_lines_cts || 0);
+      isNil(this.props.basket.total_price_cts) ||
+      !(
+        (this.props.basket.total_price_cts || 0) -
+        (this.props.basket.total_price_prepaid_lines_cts || 0)
+      );
 
     return (
       <div className={classes.container}>

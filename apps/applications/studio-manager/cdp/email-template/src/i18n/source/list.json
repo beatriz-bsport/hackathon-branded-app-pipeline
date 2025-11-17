@@ -62,7 +62,7 @@
       "title": "Create new email template",
       "description": "Name your template to get started!",
       "confirmButton": "Create",
-      "cancelButton": "Cancel",
+      "cancelButton": "Close",
       "textInput": {
         "label": "Template title",
         "placeholder": "Template title here..."
@@ -80,14 +80,14 @@
     },
     "previewEmailTemplateModal": {
       "confirmButton": "Edit",
-      "cancelButton": "Cancel"
+      "cancelButton": "Close"
     },
     "duplicateTemplateModal": {
       "title": "Duplicate template?",
       "description": "You'll be able to edit <b>{{emailTemplateTitle}}</b> after",
       "duplicateEmailTitle": "{{emailTemplateTitle}} - Copy",
       "confirmButton": "Duplicate",
-      "cancelButton": "Cancel",
+      "cancelButton": "Close",
       "onSuccess": {
         "title": "Template duplicated",
         "action": "Open"
@@ -100,7 +100,7 @@
       "title": "Delete email template?",
       "description": "Once you delete <b>{{emailTemplateTitle}}</b>,  it will no longer be visible to members. \n\nIt will also be removed any transactional emails that it's been linked to.",
       "confirmButton": "Delete",
-      "cancelButton": "Cancel",
+      "cancelButton": "Keep",
       "onSuccess": {
         "title": "Email template deleted",
         "action": "Undo"
@@ -116,7 +116,7 @@
         "placeholder": "Category name here..."
       },
       "confirmButton": "Create",
-      "cancelButton": "Cancel",
+      "cancelButton": "Close",
       "onSuccess": {
         "title": "Category created"
       },
@@ -134,7 +134,7 @@
         "placeholder": "Category name here..."
       },
       "confirmButton": "Rename",
-      "cancelButton": "Cancel",
+      "cancelButton": "Close",
       "onSuccess": {
         "title": "Category renamed",
         "action": "Undo"
@@ -147,7 +147,7 @@
       "title": "Delete category?",
       "description": " Once you delete <b>{{categoryName}}</b> , it will no longer be visible. \n\nAll items organized under this category will be now be uncategorized. ",
       "confirmButton": "Delete",
-      "cancelButton": "Cancel",
+      "cancelButton": "Keep",
       "onSuccess": {
         "title": "Category deleted",
         "action": "Undo"
@@ -168,7 +168,7 @@
         "placeholder": "Template title here..."
       },
       "confirmButton": "Rename",
-      "cancelButton": "Cancel",
+      "cancelButton": "Close",
       "onSuccess": {
         "title": "Template renamed",
         "action": "Undo"

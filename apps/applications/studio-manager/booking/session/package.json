@@ -1,5 +1,5 @@
 {
-  "name": "@bsport/sm-offer",
+  "name": "@bsport/sm-session",
   "version": "0.0.0",
   "private": true,
   "description": "Application for studio managers to manage sessions",

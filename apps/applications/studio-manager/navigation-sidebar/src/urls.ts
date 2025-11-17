@@ -80,7 +80,7 @@ export const LEGACY_URLS: LegacyUrls = {
 export const REVAMP_URLS_DEVELOPMENT = {
   activity: "/activity",
   insights: "/insights",
-  calendar: "/offer",
+  calendar: "/session",
   customForm: "/custom-form",
   emailTemplate: "/email-template",
   giftcard: "/giftcard",

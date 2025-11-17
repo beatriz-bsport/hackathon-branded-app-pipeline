@@ -1107,7 +1107,7 @@ importers:
         specifier: ^5.4.11
         version: 5.4.11(@types/node@22.13.15)(less@4.1.3)(sass@1.77.8)(terser@5.31.3)
 
-  apps/applications/studio-manager/booking/offer:
+  apps/applications/studio-manager/booking/session:
     dependencies:
       '@bsport/fetch':
         specifier: workspace:*

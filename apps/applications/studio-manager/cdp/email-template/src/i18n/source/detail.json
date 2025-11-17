@@ -4,7 +4,7 @@
   },
   "breadcrumbs": {
     "rootPage": "Email templates",
-    "customPage": "Custom templates"
+    "customPage": "Custom"
   },
   "details": {
     "defaultTitle": "Untitled template",
@@ -42,22 +42,22 @@
         "action": "Undo"
       },
       "onFailure": {
-        "title": "An error occurred when renaming your template."
+        "title": "Unable to rename template - please try again"
       },
       "errors": {
-        "notProvided": "This is required",
+        "notProvided": "This is required to continue",
         "tooLong": "The title is too long"
       }
     }
   },
   "saveTemplateAction": {
-    "description": "This page has unsaved changes.",
+    "description": "This page has unsaved changes",
     "success": {
       "title": "Email template saved"
     },
     "error": {
-      "missingFields": "Some required fields are missing",
-      "problemWhileSaving": "There was a problem saving your changes."
+      "missingFields": "Select a category to save your template",
+      "problemWhileSaving": "Unable to save changes - please try again"
     }
   },
   "leaveConfirmationModal": {
@@ -69,8 +69,8 @@
     "label": "Email subject",
     "placeholder": "Add an email subject",
     "error": {
-      "notProvided": "This is required",
-      "tooLong": "The subject is too long"
+      "notProvided": "This is required to continue",
+      "tooLong": "Email subject too long"
     }
   },
   "templateDesign": {

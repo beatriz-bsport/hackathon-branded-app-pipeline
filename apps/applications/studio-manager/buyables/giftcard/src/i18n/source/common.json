@@ -1,60 +1,60 @@
 {
   "pages": {
     "list": "Gift Cards",
-    "archivedList": "Gift Cards archive"
+    "archivedList": "Gift card archive"
   },
   "listPage": {
     "header": {
       "buttons": {
-        "addGiftcard": "Add Gift Card",
+        "addGiftcard": "Create Gift Card",
         "openBankImage": "Image library"
       }
     },
     "empty": {
-      "title": "No Gift Cards yet",
-      "subtitle": "Create Gift Cards for members to share with friends and family"
+      "title": "No gift cards yet",
+      "subtitle": "Create gift cards for members to share with friends and family"
     },
     "archiveModal": {
-      "title": "Archive Gift Card?",
+      "title": "Archive gift card?",
       "description": {
         "lineOne": "'{{ name }}' won't be visible to members any more but current or previous purchases won't be affected.",
-        "lineTwo": "You can restore this Gift Card at any time from your archive."
+        "lineTwo": "You can restore this gift card at any time from your archive."
       },
       "buttons": {
-        "cancel": "Back",
+        "cancel": "Keep",
         "archive": "Archive"
       }
     },
     "duplicateModal": {
-      "title": "Duplicate Gift Card?",
+      "title": "Duplicate gift card?",
       "description": {
         "action": "You can edit '{{ name }}' once duplicated."
       },
       "buttons": {
-        "cancel": "Back",
+        "cancel": "Close",
         "duplicate": "Duplicate"
       }
     }
   },
   "archivedListPage": {
     "empty": {
-      "title": "No archived Gift Cards"
+      "title": "No archived gift cards"
     }
   },
   "toasts": {
     "successMessages": {
-      "restoreGiftcard": "Gift Card restored",
-      "archiveGiftcard": "Gift Card archived",
-      "duplicateGiftcard": "Gift Card duplicated",
-      "deleteGiftcardImage": "Gift Card image deleted",
+      "restoreGiftcard": "Gift card restored",
+      "archiveGiftcard": "Gift card archived",
+      "duplicateGiftcard": "Gift card duplicated",
+      "deleteGiftcardImage": "Gift card image deleted",
       "undoAction": "Action undone"
     },
     "errorMessages": {
-      "restoreGiftcard": "Unable to restore Gift Card, please try again",
-      "archiveGiftcard": "Unable to archive Gift Card, please try again",
-      "duplicateGiftcard": "Unable to duplicate Gift Card, please try again",
+      "restoreGiftcard": "Unable to restore gift card, please try again",
+      "archiveGiftcard": "Unable to archive gift card, please try again",
+      "duplicateGiftcard": "Unable to duplicate gift card, please try again",
       "undoAction": "Unable to undo action, please try again",
-      "deleteGiftcardImage": "Unable to delete Gift Card image, please try again"
+      "deleteGiftcardImage": "Unable to delete gift card image, please try again"
     },
     "actions": {
       "undo": "Undo",
@@ -70,19 +70,19 @@
     },
     "values": {
       "unavailable": "Hidden",
-      "shared": "Visible",
+      "shared": "Central",
       "unlimited": "Unlimited",
       "expireInXDays": "{{ expiration }} days",
       "customAmount": "Custom"
     },
     "tooltips": {
-      "archive": "Archive Gift Card",
-      "duplicate": "Duplicate Gift Card",
-      "restore": "Restore Gift Card",
-      "shared": "Item created from Admin Account",
-      "unavailable": "Not visible in the Member Area"
+      "archive": "Archive gift card",
+      "duplicate": "Duplicate gift card",
+      "restore": "Restore gift card",
+      "shared": "Gift card created from Central Account",
+      "unavailable": "Not listed on the Member Area"
     },
-    "loading": "Loading Gift Cards"
+    "loading": "Loading gift cards"
   },
   "list": {
     "actions": {
@@ -94,8 +94,8 @@
   "imageUploadModal": {
     "title": "Image library",
     "uploadButton": "Upload image",
-    "description": "Add custom images to your library so your members can personalize their Gift Cards. ",
-    "selectImage": "Select an image to preview it in the Gift Card design",
+    "description": "Add custom images to your library so your members can personalize their gift cards",
+    "selectImage": "Select an image to preview it in the gift card design",
     "emptyList": "No custom images yet"
   }
 }

@@ -6,7 +6,7 @@
 @bsport/sm-invoice
 @bsport/sm-member-list
 @bsport/sm-navigation-sidebar
-@bsport/sm-offer
+@bsport/sm-session
 @bsport/sm-order
 @bsport/sm-pack
 @bsport/sm-smartlists

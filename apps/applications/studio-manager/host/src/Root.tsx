@@ -20,7 +20,7 @@ import { NavFlags, useNavFlag } from "#src/utils/featureFlags";
 
 // ----- Booking -----
 const GroupActivities = lazy(() => import("sm-group-activity/App"));
-const Offer = lazy(() => import("sm-offer/App"));
+const Session = lazy(() => import("sm-session/App"));
 
 // ----- Buyables -----
 const Giftcard = lazy(() => import("sm-giftcard/App"));
@@ -142,7 +142,7 @@ const AuthenticatedRoutes = () => {
   const routesConfigs: RouteConfig[] = [
     /* ----- Booking ----- */
     { url: urls.activity, element: <GroupActivities /> },
-    { url: urls.calendar, element: <Offer /> },
+    { url: urls.calendar, element: <Session /> },
 
     /* ----- Buyables ----- */
     { url: urls.giftcard, element: <Giftcard /> },

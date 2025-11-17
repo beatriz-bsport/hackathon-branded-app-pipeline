@@ -3,7 +3,7 @@ import { ListLayout } from "@bsport/kaizen-primitive-core";
 import { useTranslation } from "#src/utils/i18n";
 
 const ListPage: React.FC = () => {
-  const { t } = useTranslation("offerList");
+  const { t } = useTranslation("sessionList");
   return (
     <ListLayout>
       <ListLayout.Header pageTitle={t("helloName", { name: "John Doe" })} />

@@ -1,14 +1,14 @@
 import { type TFunctionGeneric, instanciateAppI18n } from "@bsport/i18n";
 
 import namespaces from "#src/i18n/namespaces.json";
-import type offerList from "#src/i18n/source/offerList.json";
+import type sessionList from "#src/i18n/source/sessionList.json";
 
 type Translations = {
-  offerList: typeof offerList;
+  sessionList: typeof sessionList;
 };
 
-const applicationName = __OFFER__.__I18N_NAMESPACE_PREFIX__;
-const applicationUrl = __OFFER__.__APPLICATION_BASE_URL__;
+const applicationName = __SESSION__.__I18N_NAMESPACE_PREFIX__;
+const applicationUrl = __SESSION__.__APPLICATION_BASE_URL__;
 
 export const {
   i18nInstance,

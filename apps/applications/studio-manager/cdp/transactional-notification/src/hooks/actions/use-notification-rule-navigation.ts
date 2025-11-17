@@ -3,8 +3,6 @@ import { useNavigate } from "react-router";
 
 import type { RefinedNotificationRuleEventData } from "#src/utils/types";
 
-import { useDrawerQueryParam } from "./use-drawer-query-params";
-
 type UseNotificationRuleNavigationProps = {
   refinedNotificationRules: RefinedNotificationRuleEventData[];
   baseNotificationEventId?: number;
@@ -20,7 +18,6 @@ export const useNotificationRuleNavigation = (
   const navigate = useNavigate();
   const [selectedNotificationRule, setSelectedNotificationRule] =
     useState<RefinedNotificationRuleEventData | null>(null);
-  const { openDrawer } = useDrawerQueryParam();
 
   const navigateToNotificationGroupDetails = (notificationRuleId: string) => {
     navigate(`../${notificationRuleId}`);
@@ -63,7 +60,6 @@ export const useNotificationRuleNavigation = (
     const notificationEventToNavigate = mappedNotificationRulesById.get(
       nextNotificationEventId,
     );
-    openDrawer(notificationEventToNavigate?.rule?.notification_event || 0);
     setSelectedNotificationRule(notificationEventToNavigate || null);
   };
 

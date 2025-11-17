@@ -12,3 +12,9 @@ export const notificationRuleEventMap: Record<string, string> = {
   invoice: "invoice",
   referral: "referral",
 };
+
+export const NOTIFICATION_TYPE_QUERY_PARAM = "notificationType";
+export const NOTIFICATION_EVENT_QUERY_PARAM = "notificationEvent";
+
+export const NOTIFICATION_TYPE_EMAIL = "email_notification";
+export const NOTIFICATION_TYPE_PUSH = "push_notification";

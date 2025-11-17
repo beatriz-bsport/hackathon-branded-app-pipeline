@@ -32,6 +32,9 @@ export const NotificationRulePushNotificationDetails: React.FC<
   const isPushNotificationDisabled = getIsPushNotificationDisabled({
     refinedNotificationRuleData: selectedNotificationRule,
   });
+  const isPushNotificationContentEmpty =
+    !selectedNotificationRule?.details?.push_notification_title ||
+    !selectedNotificationRule?.details?.push_notification_content;
   const { t } = useTranslation("transactionalNotification");
   const { togglePushNotification } = useTogglePushNotification({
     onSuccess: fetchNotificationRuleEventData,
@@ -85,7 +88,9 @@ export const NotificationRulePushNotificationDetails: React.FC<
           id={`push-checkbox-action-${selectedNotificationEventId}`}
           size="md"
           checked={isPushNotificationChecked}
-          disabled={isPushNotificationDisabled}
+          disabled={
+            isPushNotificationDisabled || isPushNotificationContentEmpty
+          }
           onChange={({ checked }) => {
             if (!selectedNotificationRule?.details) {
               return;

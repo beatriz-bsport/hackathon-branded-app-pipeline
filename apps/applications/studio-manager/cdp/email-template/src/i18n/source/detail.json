@@ -36,7 +36,7 @@
         "placeholder": "Add a template title"
       },
       "confirmButton": "Rename",
-      "cancelButton": "Cancel",
+      "cancelButton": "Close",
       "onSuccess": {
         "title": "Template renamed",
         "action": "Undo"
@@ -63,7 +63,7 @@
   "leaveConfirmationModal": {
     "description": "Are you sure you want to leave this page?",
     "confirmButton": "OK",
-    "cancelButton": "Cancel"
+    "cancelButton": "Close"
   },
   "templateSubject": {
     "label": "Email subject",

@@ -35,7 +35,7 @@
         "address": "Address",
         "ics_calendar_link": "ICS Calendar Link",
         "spot": "Place",
-        "canceled_grouped_session": "Cancelled reservation group"
+        "canceled_grouped_session": "Canceled reservation group"
       },
       "subtitles": {
         "workshop": "Workshop",

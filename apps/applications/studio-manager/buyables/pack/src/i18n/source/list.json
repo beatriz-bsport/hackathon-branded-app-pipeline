@@ -16,9 +16,9 @@
       "price": "Price"
     },
     "tooltips": {
-      "unavailableForUsers": "This Pack won't be shown on the Member Area",
+      "unavailableForUsers": "This Pack won't be listed on the Member Area",
       "invisibleForStaff": "This Pack won't be shown to staff members",
-      "availableForALimitedTime": "This Pack will only be shown for a limited time",
+      "availableForALimitedTime": "This Pack will only be listed for a limited time",
       "archive": "Delete Pack"
     }
   },
@@ -29,7 +29,7 @@
       "canNotBeUndone": "All current or previous purchases of this Pack will be unaffected. "
     },
     "actions": {
-      "cancel": "Cancel",
+      "cancel": "Keep",
       "delete": "Delete"
     }
   },

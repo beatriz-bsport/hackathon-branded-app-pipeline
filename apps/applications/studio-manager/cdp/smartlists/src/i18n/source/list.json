@@ -68,8 +68,8 @@
     "title": "Create Smartlist",
     "subtitle": "Segment your members by specific criteria with Smartlists. Add a name and description for this Smartlist so you can find it later.",
     "actions": {
-      "create": "Save",
-      "cancel": "Back"
+      "create": "Create",
+      "cancel": "Close"
     }
   },
   "editForm": {

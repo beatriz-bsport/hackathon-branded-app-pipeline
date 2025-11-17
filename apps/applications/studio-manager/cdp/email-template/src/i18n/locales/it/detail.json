@@ -4,7 +4,7 @@
   },
   "breadcrumbs": {
     "rootPage": "Modelli email",
-    "customPage": "Modelli email personalizzati"
+    "customPage": "Personalizzazione"
   },
   "details": {
     "defaultTitle": "Modello email senza titolo",
@@ -13,7 +13,8 @@
     },
     "actions": {
       "saveChanges": "Salva modifiche",
-      "discardChanges": "Scarta"
+      "discardChanges": "Scarta",
+      "exportHtml": "Esporta in HTML"
     },
     "hover": {
       "exportHtml": "Esporta modello email in HTML",
@@ -35,41 +36,41 @@
         "placeholder": "Aggiungi un titolo al modello"
       },
       "confirmButton": "Rinomina",
-      "cancelButton": "Cancella",
+      "cancelButton": "Chiudi",
       "onSuccess": {
         "title": "Modello email rinominato",
         "action": "Annulla"
       },
       "onFailure": {
-        "title": "Si è verificato un errore durante la rinomina del tuo modello email."
+        "title": "Impossibile rinominare il modello - per favore riprova"
       },
       "errors": {
-        "notProvided": "Questo è richiesto",
+        "notProvided": "Questo è richiesto per continuare",
         "tooLong": "Il titolo è troppo lungo"
       }
     }
   },
   "saveTemplateAction": {
-    "description": "Questa pagina ha modifiche non salvate.",
+    "description": "Questa pagina ha modifiche non salvate",
     "success": {
       "title": "Modello email salvato"
     },
     "error": {
-      "missingFields": "Alcuni campi obbligatori sono mancanti",
-      "problemWhileSaving": "C'è stato un problema nel salvare le tue modifiche."
+      "missingFields": "Seleziona una categoria per salvare il tuo modello",
+      "problemWhileSaving": "Impossibile salvare le modifiche - per favore riprova"
     }
   },
   "leaveConfirmationModal": {
     "description": "Sei sicuro di voler lasciare questa pagina?",
     "confirmButton": "Ok",
-    "cancelButton": "Cancella"
+    "cancelButton": "Chiudi"
   },
   "templateSubject": {
     "label": "Oggetto email",
     "placeholder": "Aggiungi un oggetto email",
     "error": {
-      "notProvided": "Questo è obbligatorio",
-      "tooLong": "L'oggetto è troppo lungo"
+      "notProvided": "Questo è necessario per continuare",
+      "tooLong": "Oggetto email troppo lungo"
     }
   },
   "templateDesign": {

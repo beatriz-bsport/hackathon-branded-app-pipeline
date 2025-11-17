@@ -4,7 +4,7 @@
   },
   "breadcrumbs": {
     "rootPage": "Emailsjablonen",
-    "customPage": "Aangepaste sjablonen"
+    "customPage": "Personalisatie"
   },
   "details": {
     "defaultTitle": "Naamloos sjabloon",
@@ -13,7 +13,8 @@
     },
     "actions": {
       "saveChanges": "Wijzigingen opslaan",
-      "discardChanges": "Verwijderen"
+      "discardChanges": "Verwijderen",
+      "exportHtml": "Exporteren naar HTML"
     },
     "hover": {
       "exportHtml": "Exporteer sjabloon naar HTML",
@@ -35,16 +36,16 @@
         "placeholder": "Voeg een sjabloontitel toe"
       },
       "confirmButton": "Hernoemen",
-      "cancelButton": "Annuleren",
+      "cancelButton": "Sluiten",
       "onSuccess": {
         "title": "Sjabloon hernoemd",
         "action": "Ongedaan maken"
       },
       "onFailure": {
-        "title": "Er is een fout opgetreden bij het hernoemen van je sjabloon."
+        "title": "Kan sjabloon niet hernoemen - probeer het opnieuw"
       },
       "errors": {
-        "notProvided": "Dit is verplicht",
+        "notProvided": "Dit is vereist om door te gaan",
         "tooLong": "De titel is te lang"
       }
     }
@@ -55,21 +56,21 @@
       "title": "Email sjabloon opgeslagen"
     },
     "error": {
-      "missingFields": "Sommige verplichte velden ontbreken",
-      "problemWhileSaving": "Er was een probleem bij het opslaan van je wijzigingen."
+      "missingFields": "Selecteer een categorie om je sjabloon op te slaan",
+      "problemWhileSaving": "Kan wijzigingen niet opslaan - probeer het opnieuw."
     }
   },
   "leaveConfirmationModal": {
     "description": "Weet je zeker dat je deze pagina wilt verlaten?",
     "confirmButton": "Oké",
-    "cancelButton": "Annuleren"
+    "cancelButton": "Sluiten"
   },
   "templateSubject": {
     "label": "Emailonderwerp",
     "placeholder": "Voeg een emailonderwerp toe",
     "error": {
-      "notProvided": "Dit is verplicht",
-      "tooLong": "Het onderwerp is te lang"
+      "notProvided": "Dit is vereist om door te gaan",
+      "tooLong": "E-mailonderwerp te lang"
     }
   },
   "templateDesign": {

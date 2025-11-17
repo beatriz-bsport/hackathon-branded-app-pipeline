@@ -113,7 +113,7 @@
     "actions": {
       "create": "Create",
       "update": "Update",
-      "cancel": "Cancel",
+      "cancel": "Close",
       "goTo": "View sub-tag"
     },
     "result": {
@@ -146,7 +146,7 @@
     },
     "actions": {
       "confirm": "Delete",
-      "cancel": "Cancel"
+      "cancel": "Keep"
     },
     "result": {
       "success": {
@@ -172,7 +172,7 @@
     },
     "actions": {
       "confirm": "Delete",
-      "cancel": "Cancel"
+      "cancel": "Keep"
     },
     "result": {
       "success": {
@@ -249,7 +249,7 @@
     "actions": {
       "tag": "Tag all",
       "untag": "Untag all",
-      "cancel": "Cancel",
+      "cancel": "Close",
       "undo": "Undo"
     },
     "loading": {

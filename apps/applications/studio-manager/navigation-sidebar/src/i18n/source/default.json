@@ -28,15 +28,15 @@
     },
     "memberships": {
       "title": "Memberships",
-      "passes": "Passes",
+      "passes": "Standard Passes",
       "appointmentPasses": "Appointment Passes",
       "subscriptions": "Subscriptions"
     },
     "products": {
-      "title": "Store",
+      "title": "Retail",
       "webshop": "Products",
       "packs": "Packs",
-      "giftcards": "Gift cards",
+      "giftcards": "Gift Cards",
       "videosAndEbooks": "On-Demand",
       "orders": "Orders"
     },
@@ -65,7 +65,7 @@
       "payroll": "Payroll"
     },
     "membersHub": {
-      "title": "Members",
+      "title": "Clients",
       "members": "Profiles",
       "forms": "Forms",
       "tags": "Tags"
@@ -104,8 +104,8 @@
     }
   },
   "revampCard": {
-    "betaFeedbackLink": "Beta feedback",
-    "goBackToOldUi": "Switch to old design"
+    "betaFeedbackLink": "Share feedback",
+    "goBackToOldUi": "Return to old Back Office"
   },
   "languages": {
     "french": "French",
@@ -119,10 +119,10 @@
     "debug": "Debug (cimode)"
   },
   "notifications": {
-    "title": "Alerts",
+    "title": "Feed",
     "empty": {
       "title": "You're all caught up",
-      "description": "No alerts right now"
+      "description": "Nothing to show right now"
     },
     "tabs": {
       "billing": "Billing",

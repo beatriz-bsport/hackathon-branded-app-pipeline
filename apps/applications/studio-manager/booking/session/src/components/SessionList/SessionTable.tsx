@@ -52,6 +52,7 @@ export const SessionTable: React.FC<SessionTableProps> = ({
         type: "string",
         align: "start",
         keyPath: "name",
+        cellsClassName: "truncate max-w-[202px]",
       },
       {
         header: t("table.headers.participants"),

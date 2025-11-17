@@ -494,6 +494,7 @@ export const ColumnTypes: StoryObj<typeof Table> = {
         keyPath: "name",
         header: "Name",
         type: "string",
+        cellsClassName: "truncate max-w-[100px]",
       },
       {
         id: "email",
@@ -559,7 +560,7 @@ export const ColumnTypes: StoryObj<typeof Table> = {
       {
         id: "2",
         avatar: AvatarImage,
-        name: "Jane Smith",
+        name: "Truncated name example",
         email: "jane.smith@company.com",
         registeredDate: new Date("2023-03-22"),
         lastLogin: new Date("2024-01-09T09:15:00Z"),

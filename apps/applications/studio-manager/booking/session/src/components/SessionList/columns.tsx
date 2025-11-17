@@ -1,9 +1,19 @@
 import {
+  DATETIME_FORMATS,
+  formatDateTimeFromDate,
+} from "@bsport/datetime-formatting";
+import {
+  DateTime,
+  fromIsoString,
+  modifyTime,
+} from "@bsport/datetime-manipulation";
+import {
   Body,
   Button,
   type GenericTableColumn,
   Icon,
 } from "@bsport/kaizen-primitive-core";
+import { dataAccessLayer } from "@bsport/sm-backbone";
 
 import { i18nInstance, useTranslation } from "#src/utils/i18n";
 
@@ -15,6 +25,7 @@ type TableColumn = GenericTableColumn<TableRowData>;
 export const useSessionListColumns = () => {
   const { t } = useTranslation("sessionList");
   const intlLocale = i18nInstance?.language;
+  const companyTimeZone = dataAccessLayer.useCompanyTheme()?.timezone_name;
 
   const timeColumn: TableColumn = {
     header: t("table.headers.time"),
@@ -22,23 +33,26 @@ export const useSessionListColumns = () => {
     type: "custom",
     align: "start",
     render: (row: TableRowData) => {
-      const startDate = new Date(row.date_start);
-      const endDate = new Date(
-        startDate.getTime() + row.duration_minute * 60 * 1000,
-      );
-
-      const timeFormatter = new Intl.DateTimeFormat(intlLocale, {
-        timeStyle: "short",
+      const startDate = fromIsoString(row.date_start, {
+        zone: companyTimeZone,
+        locale: intlLocale,
       });
+      const endDate = modifyTime({
+        datetime: startDate,
+        duration: { minute: row.duration_minute },
+        operator: "plus",
+      });
+
+      const timeFormatter = (dateTime: DateTime) =>
+        formatDateTimeFromDate(dateTime, DATETIME_FORMATS.TIME_SIMPLE);
 
       return (
         <Body htmlVariant="p" size="md">
-          {`${timeFormatter.format(startDate)} - ${timeFormatter.format(endDate)}`}
+          {`${timeFormatter(startDate)} - ${timeFormatter(endDate)}`}
         </Body>
       );
     },
   };
-
   const sessionTypeColumn: TableColumn = {
     id: "sessionType",
     header: t("table.headers.sessionType"),

@@ -1,6 +1,11 @@
 import { useMemo } from "react";
 
-import { Body, GenericTableColumn, Icon } from "@bsport/kaizen-primitive-core";
+import {
+  Body,
+  Button,
+  GenericTableColumn,
+  Icon,
+} from "@bsport/kaizen-primitive-core";
 
 import { i18nInstance, useTranslation } from "#src/utils/i18n";
 
@@ -113,6 +118,24 @@ export const useSessionListColumns = () => {
     [t],
   );
 
+  const attendanceColumn: TableColumn = useMemo(
+    () => ({
+      id: "attendance",
+      header: "",
+      type: "custom",
+      align: "center",
+      render: () => (
+        <Button
+          label={t("table.attendanceButton")}
+          size="sm"
+          intent="default"
+          color="main"
+        />
+      ),
+    }),
+    [t],
+  );
+
   return [
     timeColumn,
     sessionNameColumn,
@@ -120,5 +143,6 @@ export const useSessionListColumns = () => {
     teacherNameColumn,
     establishmentNameColumn,
     sessionTypeColumn,
+    attendanceColumn,
   ];
 };

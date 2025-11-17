@@ -9,6 +9,7 @@
       "establishment": "Establishment",
       "sessionType": "Session type"
     },
-    "isLoading": "Loading sessions..."
+    "isLoading": "Loading sessions...",
+    "attendanceButton": "Attendance"
   }
 }

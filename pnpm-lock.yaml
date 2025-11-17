@@ -1109,6 +1109,9 @@ importers:
 
   apps/applications/studio-manager/booking/session:
     dependencies:
+      '@bsport/datetime-manipulation':
+        specifier: workspace:*
+        version: link:../../../../../packages/utils/datetime/manipulation
       '@bsport/fetch':
         specifier: workspace:*
         version: link:../../../../../packages/utils/fetch
@@ -1121,6 +1124,12 @@ importers:
       '@bsport/sm-backbone':
         specifier: workspace:*
         version: link:../../../../../packages/utils/sm-backbone
+      '@bsport/store-booking-session':
+        specifier: workspace:*
+        version: link:../../../../../packages/stores/booking/session
+      '@bsport/use-async':
+        specifier: workspace:*
+        version: link:../../../../../packages/hooks/use-async
       react:
         specifier: ^19.2.0
         version: 19.2.0

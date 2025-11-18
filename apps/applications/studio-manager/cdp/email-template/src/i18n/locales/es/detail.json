@@ -32,8 +32,8 @@
     "renameTemplateModal": {
       "title": "Renombrar plantilla de correo",
       "textInput": {
-        "label": "Título de la plantilla",
-        "placeholder": "Añade un título de plantilla"
+        "label": "Nombre",
+        "placeholder": "Añade un nombre de plantilla"
       },
       "confirmButton": "Renombrar",
       "cancelButton": "Cerrar",

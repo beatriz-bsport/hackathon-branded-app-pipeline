@@ -118,14 +118,23 @@ DetailsLayout.Header = DetailsLayoutHeader;
 
 // ----- Content -----
 
-const detailsLayoutContent = cva([
-  "[grid-area:content]",
-  "p-md",
-  "overflow-y-scroll",
-  "m-[0_auto]",
-  "w-full",
-  "max-w-component-content-centered",
-]);
+const detailsLayoutContent = cva(
+  [
+    "[grid-area:content]",
+    "p-md",
+    "m-[0_auto]",
+    "w-full",
+    "max-w-component-content-centered",
+  ],
+  {
+    variants: {
+      isPanelOpened: {
+        true: "overflow-y-scroll",
+        false: "",
+      },
+    },
+  },
+);
 
 type DetailsLayoutContentProps = PropsWithChildren<
   HTMLAttributes<HTMLDivElement>
@@ -141,8 +150,13 @@ const DetailsLayoutContent: FC<DetailsLayoutContentProps> = ({
   className,
   ...htmlProps
 }) => {
+  const { isPanelOpened } = useLayoutContext();
+
   return (
-    <div className={detailsLayoutContent({ className })} {...htmlProps}>
+    <div
+      className={detailsLayoutContent({ className, isPanelOpened })}
+      {...htmlProps}
+    >
       {children}
     </div>
   );
@@ -177,6 +191,7 @@ const DetailsLayoutPanel: FC<DetailsLayoutPanelProps> = ({
   ...htmlProps
 }) => {
   const { isPanelOpened } = useLayoutContext();
+
   return (
     <aside
       className={detailsLayoutPanel({ className })}

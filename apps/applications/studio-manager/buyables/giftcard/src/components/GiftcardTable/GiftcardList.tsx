@@ -13,8 +13,6 @@ import { useTranslation } from "#src/utils/i18n";
 
 import type { EmptyConfig, GiftcardHandler } from "./types";
 
-const MAX_VISIBLE_PAGES = 6;
-
 // Helper function to create a chip configuration
 const createChip = (iconLeft: string, tooltipLabel: string) => ({
   label: "",
@@ -151,19 +149,11 @@ export const GiftcardList: FC<GiftcardListProps> = ({
     };
   });
 
-  const mobilePagination: PaginationProps | undefined = paginationProps
-    ? {
-        ...paginationProps,
-        showRowsPerPageSelector: false,
-        maxVisiblePages: MAX_VISIBLE_PAGES,
-      }
-    : undefined;
-
   return (
     <List
       id="giftcard-mobile-list"
       items={listItems}
-      paginationProps={mobilePagination}
+      paginationProps={paginationProps}
       emptyStateProps={{
         isEmpty: !!isEmpty,
         emptyConfig,

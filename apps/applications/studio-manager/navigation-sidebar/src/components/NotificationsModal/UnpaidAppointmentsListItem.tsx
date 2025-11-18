@@ -7,6 +7,7 @@ import { LEGACY_URLS } from "#src/urls";
 import { useTranslation } from "#src/utils/i18n";
 import { useDateFormatter } from "#src/utils/use-date-formatter";
 
+import { NotificationItemLayout } from "./NotificationItemLayout";
 import { useNotificationsNavigation } from "./NotificationsNavigationContext";
 
 export type UnpaidAppointmentsListItemProps = {
@@ -47,10 +48,9 @@ const UnpaidAppointmentsListItem: FC<UnpaidAppointmentsListItemProps> = ({
   const { navigateAndClose } = useNotificationsNavigation();
 
   const renderItem = () => (
-    <div className="grid grid-cols-[minmax(0,7fr)_minmax(0,3fr)] w-full gap-xs items-center">
-      {/* Left column with title and description */}
-      <div className="flex items-center gap-xs">
-        <div className="flex-1 min-w-0">
+    <NotificationItemLayout
+      leftContent={
+        <>
           <Body
             htmlVariant="span"
             size="lg"
@@ -67,24 +67,29 @@ const UnpaidAppointmentsListItem: FC<UnpaidAppointmentsListItemProps> = ({
           >
             {memberName}
           </Body>
-        </div>
-      </div>
-
-      {/* Right column with credits due and date */}
-      <div className="flex flex-col items-end justify-center gap-2xs">
-        <div className="flex items-center">
-          <Body htmlVariant="span" size="md" color="warning">
-            {t("notifications.unpaidAppointments.credits")}:
+        </>
+      }
+      rightContent={
+        <>
+          <div className="flex items-center">
+            <Body htmlVariant="span" size="md" color="warning">
+              {t("notifications.unpaidAppointments.credits")}:
+            </Body>
+            <Body
+              htmlVariant="span"
+              size="md"
+              color="warning"
+              className="ml-2xs"
+            >
+              ({creditsDue})
+            </Body>
+          </div>
+          <Body htmlVariant="span" size="sm" color="weak">
+            {formatLong(dateStart)}
           </Body>
-          <Body htmlVariant="span" size="md" color="warning" className="ml-2xs">
-            ({creditsDue})
-          </Body>
-        </div>
-        <Body htmlVariant="span" size="sm" color="weak">
-          {formatLong(dateStart)}
-        </Body>
-      </div>
-    </div>
+        </>
+      }
+    />
   );
 
   return (

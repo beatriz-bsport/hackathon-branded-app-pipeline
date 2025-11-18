@@ -13,8 +13,6 @@ import { useTranslation } from "#src/utils/i18n";
 
 import { VISIBLE_ACTIONS_DISPLAY_LIMIT } from "./constants";
 
-const MAX_VISIBLE_PAGES = 6;
-
 type SmartlistListProps = {
   smartlists: Smartlist[];
   paginationProps: Pick<
@@ -123,11 +121,7 @@ export const SmartlistList: FC<SmartlistListProps> = ({
           message: t("loading"),
         }}
         items={listItems}
-        paginationProps={{
-          ...paginationProps,
-          showRowsPerPageSelector: !isMobile,
-          ...(isMobile && { maxVisiblePages: MAX_VISIBLE_PAGES }),
-        }}
+        paginationProps={paginationProps}
         emptyStateProps={{
           emptyConfig: {
             ctaButtonConfig: {

@@ -17,8 +17,6 @@ import { useTranslation } from "#src/utils/i18n";
 
 import type { TableRequiredPermissions, TeacherHandler } from "./types";
 
-const MAX_VISIBLE_PAGES = 6;
-
 export type EmptyConfig = {
   title: string;
   subtitle?: string;
@@ -144,17 +142,11 @@ export const TeacherList: FC<TeacherMobileListProps> = ({
     };
   });
 
-  const mobilePagination: PaginationProps = {
-    ...paginationProps,
-    showRowsPerPageSelector: false,
-    maxVisiblePages: MAX_VISIBLE_PAGES,
-  };
-
   return (
     <List
       id="teacher-mobile-list"
       items={listItems}
-      paginationProps={mobilePagination}
+      paginationProps={paginationProps}
       emptyStateProps={{
         isEmpty: !!isEmpty,
         emptyConfig,

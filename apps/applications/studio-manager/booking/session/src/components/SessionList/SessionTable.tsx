@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React from "react";
 
 import { Table } from "@bsport/kaizen-primitive-core";
 
@@ -18,17 +18,13 @@ export const SessionTable: React.FC<SessionTableProps> = ({
 }) => {
   const { t } = useTranslation("sessionList");
   const columns = useSessionListColumns();
-  const loadingProps = useMemo(
-    () => ({ isLoading, message: t("table.isLoading") }),
-    [isLoading, t],
-  );
 
   return (
     <Table
       columns={columns}
       rowHeight="sm"
       // TODO(elisabeth): add empty state
-      loadingProps={loadingProps}
+      loadingProps={{ isLoading, message: t("table.isLoading") }}
       rows={sessions}
     ></Table>
   );

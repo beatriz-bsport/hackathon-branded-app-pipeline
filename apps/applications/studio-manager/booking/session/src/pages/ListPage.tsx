@@ -1,5 +1,3 @@
-import { useMemo } from "react";
-
 import { ListLayout } from "@bsport/kaizen-primitive-core";
 
 import { useTranslation } from "#src/utils/i18n";
@@ -28,26 +26,22 @@ const ListPage: React.FC = () => {
     },
   });
 
-  const renderedSessions = useMemo(
-    () =>
-      sessions.map((session) => {
-        const originalTeacher = teachers.find((t) => t.id === session.coach);
-        const overrideTeacher = teachers.find(
-          (t) => t.id === session.coach_override,
-        );
-        const establishment = establishments.find(
-          (e) => e.id === session.establishment,
-        );
+  const renderedSessions = sessions.map((session) => {
+    const originalTeacher = teachers.find((t) => t.id === session.coach);
+    const overrideTeacher = teachers.find(
+      (t) => t.id === session.coach_override,
+    );
+    const establishment = establishments.find(
+      (e) => e.id === session.establishment,
+    );
 
-        return {
-          ...session,
-          teacherName: overrideTeacher?.name ?? originalTeacher?.name,
-          originalTeacherName: originalTeacher?.name,
-          establishmentName: establishment?.title,
-        };
-      }),
-    [sessions, teachers, establishments],
-  );
+    return {
+      ...session,
+      teacherName: overrideTeacher?.name ?? originalTeacher?.name,
+      originalTeacherName: originalTeacher?.name,
+      establishmentName: establishment?.title,
+    };
+  });
 
   return (
     <ListLayout>

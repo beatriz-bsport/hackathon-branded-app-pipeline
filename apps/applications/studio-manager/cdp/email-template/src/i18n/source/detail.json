@@ -32,8 +32,8 @@
     "renameTemplateModal": {
       "title": "Rename email template",
       "textInput": {
-        "label": "Template title",
-        "placeholder": "Add a template title"
+        "label": "Name",
+        "placeholder": "Give your template a name to find it later"
       },
       "confirmButton": "Rename",
       "cancelButton": "Close",

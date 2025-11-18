@@ -12,6 +12,7 @@ declare module "sm-navigation-sidebar/NavigationSidebar" {
 declare module "sm-navigation-sidebar/urls" {
   export const REVAMP_URLS_DEVELOPMENT: {
     activity: string;
+    calendar: string;
     insights: string;
     customForm: string;
     emailTemplate: string;
@@ -38,6 +39,10 @@ declare module "sm-group-activity/App" {
   export default App;
 }
 
+declare module "sm-offer/App" {
+  const App: BaseApp["App"];
+  export default App;
+}
 // ----- Buyables -----
 declare module "sm-giftcard/App" {
   const App: BaseApp["App"];

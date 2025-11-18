@@ -38,7 +38,7 @@ addons.setConfig({
     base: "light",
     brandTitle: "bsport - Kaizen UI",
     brandImage:
-      "https://pro.bsport.io/_next/image/?url=%2Flogo_bsport_color.svg&w=1920&q=75",
+      "https://cdn.prod.website-files.com/6673de6d7fabfe3267680fc3/66e463f20336dbfc14e5bc18_logo_icon_for%20website.png",
     brandTarget: "_self",
   }),
 });

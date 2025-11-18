@@ -145,7 +145,7 @@ const ModalStepper: React.FC<ModalStepperProps> = ({
         />
       </div>
 
-      <div className="flex items-start gap-md p-md min-h-full">
+      <div className="flex items-start gap-md p-md min-h-full overflow-y-auto">
         <div className="flex flex-col items-start gap-md p-md border-r-stroke-thin border-r-stroke-weak h-full">
           {steps.map((step, index) => {
             return (
@@ -165,9 +165,7 @@ const ModalStepper: React.FC<ModalStepperProps> = ({
             );
           })}
         </div>
-        <div className="flex flex-1 p-lg overflow-auto">
-          {steps[currentStep].content}
-        </div>
+        <div className="flex flex-1 p-lg">{steps[currentStep].content}</div>
       </div>
 
       <Footer

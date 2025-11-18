@@ -1,33 +1,24 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
-import { ControlledForm, ControlledFormProps, FormField } from "@bsport/form";
-import { Select, SelectProps, Title } from "@bsport/kaizen-primitive-core";
+import { ControlledForm, FormField, useFormController } from "@bsport/form";
+import { Select, type SelectProps, Title } from "@bsport/kaizen-primitive-core";
 
 import {
+  NOTIFICATION_TYPE_STEP_IDENTIFIER,
+  useFormStepContext,
+} from "#src/components/MarketingNotificationEdition/Context/FormStepContext.context";
+import {
   TriggerTypeSelector,
-  TriggerTypeSelectorProps,
+  type TriggerTypeSelectorProps,
 } from "#src/components/MarketingNotificationEdition/TriggerTypeSelector/TriggerTypeSelector";
 import { NOTIFICATION_ADVANCED_TYPE } from "#src/utils/constants";
 import { useTranslation } from "#src/utils/i18n";
-import { TriggerTypeValidationFormData } from "#src/utils/schemas/types";
+import { triggerTypeValidationFormSchema } from "#src/utils/schemas/triggerTypeValidation";
+import type { TriggerTypeValidationFormData } from "#src/utils/schemas/types";
 import type {
-  NotificationType,
   SelectableNotificationType,
   TriggerTypeSelectorConfig,
 } from "#src/utils/types";
-
-type TriggerTypeStepProps = Omit<
-  ControlledFormProps<TriggerTypeValidationFormData>,
-  "onSubmit" | "children"
-> & {
-  onSelectTriggerType?: ({
-    triggerType,
-    objectIds,
-  }: {
-    triggerType: NotificationType;
-    objectIds: number[];
-  }) => void;
-};
 
 // Centralized configuration
 const TRIGGER_CONFIG: TriggerTypeSelectorConfig[] = [
@@ -71,15 +62,35 @@ const TRIGGER_CONFIG: TriggerTypeSelectorConfig[] = [
   },
 ] as const;
 
-export const TriggerTypeStep = ({
-  onSelectTriggerType,
-  ...methods
-}: TriggerTypeStepProps) => {
+export const TriggerTypeStep = () => {
   const { t } = useTranslation("marketingNotificationsModal");
+  const { formData, setStepValid, updateForm } = useFormStepContext();
   const [selectedTriggerType, setSelectedTriggerType] =
     useState<SelectableNotificationType>(
-      NOTIFICATION_ADVANCED_TYPE.groupActivity,
+      formData.triggerType?.notificationType ??
+        NOTIFICATION_ADVANCED_TYPE.groupActivity,
     );
+
+  const defaultValues: TriggerTypeValidationFormData = {
+    itemIds: formData.triggerType?.itemIds ?? [],
+    notificationType:
+      formData.triggerType?.notificationType ??
+      NOTIFICATION_ADVANCED_TYPE.groupActivity,
+  };
+
+  const methods = useFormController({
+    mode: "onBlur",
+    schema: triggerTypeValidationFormSchema,
+    defaultValues,
+  });
+
+  const {
+    getValues: getFormValues,
+    setValue: setFormValue,
+    trigger: trigggerFormValidationCheck,
+    formState: { isValid, errors },
+  } = methods;
+
   // Memoized computations
   const { selectOptions, translationToTypeMap, selectedConfig } =
     useMemo(() => {
@@ -119,11 +130,19 @@ export const TriggerTypeStep = ({
       };
     }, [selectedTriggerType]);
 
+  const handleSelectTriggerItems = ({ itemIds }: { itemIds: number[] }) => {
+    setFormValue("itemIds", itemIds, {
+      shouldValidate: true,
+    });
+    setStepValid(NOTIFICATION_TYPE_STEP_IDENTIFIER, isValid);
+  };
+
   const handleTriggerSelect = (translationLabel: string) => {
     const triggerType = translationToTypeMap[translationLabel];
     setSelectedTriggerType(triggerType);
-    methods.setValue("notificationType", triggerType, { shouldValidate: true });
-    methods.trigger("itemIds");
+    setStepValid(NOTIFICATION_TYPE_STEP_IDENTIFIER, isValid);
+    setFormValue("notificationType", triggerType, { shouldValidate: true });
+    trigggerFormValidationCheck("itemIds");
   };
 
   const currentLabel = selectedConfig
@@ -135,6 +154,23 @@ export const TriggerTypeStep = ({
         ),
       )
     : "";
+
+  useEffect(() => {
+    setStepValid(NOTIFICATION_TYPE_STEP_IDENTIFIER, isValid);
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      const formValues = getFormValues();
+      updateForm({
+        triggerType: {
+          type: "triggerType",
+          itemIds: formValues.itemIds ?? [],
+          notificationType: formValues.notificationType,
+        },
+      });
+    };
+  }, []);
 
   return (
     <div className="flex flex-col gap-md w-full">
@@ -184,14 +220,12 @@ export const TriggerTypeStep = ({
         >
           <TriggerTypeSelector
             selectedConfig={selectedConfig}
-            onSelectTriggerType={onSelectTriggerType}
+            onSelectTriggerType={handleSelectTriggerItems}
             textfieldProps={{
               id: "item-ids-selector-textfield",
-              status: methods.formState.errors.itemIds ? "error" : "default",
-              helperText: methods.formState.errors.itemIds
-                ? methods.formState.errors.itemIds.message
-                : undefined,
-              onBlur: () => methods.trigger("itemIds"),
+              status: errors.itemIds ? "error" : "default",
+              helperText: errors.itemIds ? errors.itemIds.message : undefined,
+              onBlur: () => trigggerFormValidationCheck("itemIds"),
             }}
           />
         </FormField>

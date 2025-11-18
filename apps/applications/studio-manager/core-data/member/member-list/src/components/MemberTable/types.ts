@@ -5,17 +5,24 @@ export type TableRequiredPermissions = Omit<
   "importLeads" | "search"
 >;
 
-export type TableRowData = {
-  balance: number;
-  email: string;
+/**
+ * Shared transformed member data used by both Table and List views.
+ * Computed once in the parent MemberTable component to avoid duplication.
+ */
+export type MemberViewData = {
   id: number;
-  initials: string;
-  joinDate: string;
   name: string;
+  email: string;
   photo?: string;
+  initials: string;
+  balance: number;
+  joinDate: string;
+  link?: string;
 };
 
-type MemberHandler = ({
+export type TableRowData = MemberViewData;
+
+export type MemberHandler = ({
   memberId,
   memberName,
 }: {

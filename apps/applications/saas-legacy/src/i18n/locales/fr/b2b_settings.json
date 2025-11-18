@@ -1,0 +1,15 @@
+{
+  "paymentMethods": {
+    "stripeDomains": {
+      "title": "Ajoutez des domaines pour activer Apple Pay et Google Pay sur vos widgets",
+      "subtitle": "Ajoutez jusqu'à 10 URL où vous souhaitez activer les paiements par portefeuille — soit des domaines principaux (exemple.com), soit des sous-domaines (studio.exemple.com).",
+      "infoMessage": "Une fois que vous ajoutez le domaine, vous ne pourrez plus le modifier.",
+      "errorLoading": "Erreur de chargement des domaines : {{message}}",
+      "placeholder": "domaine.com",
+      "saveTooltip": "Attention : Une fois ajoutés, les domaines ne peuvent pas être modifiés",
+      "addButton": "Ajouter un autre domaine",
+      "validationError": "L'URL du domaine doit être dans un format valide, par exemple domaine.com"
+    }
+  }
+}
+

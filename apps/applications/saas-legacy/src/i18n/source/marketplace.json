@@ -42,7 +42,7 @@
       "showMore": "More information",
       "book": "Book",
       "bookOption": "Waitlist",
-      "isPast": "Completed",
+      "isPast": "Closed",
       "notAvailable": "Cancelled",
       "duration": "Duration: {{duration}}",
       "loadMore": "More sessions",

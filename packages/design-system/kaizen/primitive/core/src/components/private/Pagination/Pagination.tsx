@@ -60,6 +60,7 @@ export type PaginationProps = React.HTMLAttributes<HTMLDivElement> &
     totalItems: number;
     showRowsPerPageSelector?: boolean;
     disabled?: boolean;
+    maxVisiblePages?: number;
     onPageSettingsChange?: (page: number, rowsPerPage: number) => void;
     onPageChange?: (page: number) => void;
     onRowsPerPageChange?: (rowsPerPage: number) => void;
@@ -85,6 +86,7 @@ type PageButton = { label: string; value: number };
  * @param props.totalItems The total number of items in the dataset.
  * @param props.showRowsPerPageSelector Whether to display a selector for rows per page.
  * @param props.disabled Whether the pagination buttons are disabled.
+ * @param props.maxVisiblePages Maximum number of page buttons to display (excluding ellipsis, but including [last]). Defaults to 8. Useful for responsive designs (e.g., 6 for mobile).
  * @param props.onPageSettingsChange Callback for handling changes to both the page number and the rows selector.
  * @param props.onPageChange Callback for handling page changes. Receives the new page number as an argument.
  * @param props.onRowsPerPageChange Callback for handling rows per page changes. Receives the new rowsPerPage value as an argument.
@@ -96,6 +98,7 @@ const Pagination: React.FC<PaginationProps> = ({
   totalItems,
   showRowsPerPageSelector = false,
   disabled = false,
+  maxVisiblePages = 8,
   onPageSettingsChange,
   onPageChange,
   onRowsPerPageChange,
@@ -158,6 +161,7 @@ const Pagination: React.FC<PaginationProps> = ({
   };
 
   // Returns an array of { label, value } for each page button
+  // maxVisiblePages represents the total number of page buttons shown (excluding ellipsis)
   const getPages = useCallback((): PageButton[] => {
     const addRange = (start: number, end: number) => {
       const rangeLength = end - start + 1;
@@ -167,32 +171,55 @@ const Pagination: React.FC<PaginationProps> = ({
       });
     };
 
-    if (currentPage <= 5) {
-      return [
-        ...addRange(1, Math.min(7, totalPages)),
-        ...(totalPages > 7
-          ? [
-              { label: "...", value: -1 },
-              { label: shortenPage(totalPages), value: totalPages },
-            ]
-          : []),
-      ];
+    // If total pages fit in maxVisiblePages, show all
+    if (totalPages <= maxVisiblePages) {
+      return addRange(1, totalPages);
     }
-    if (currentPage + 5 <= totalPages) {
+
+    // Scenario 1: Early pages - show [1, 2, 3, ..., maxVisiblePages-1] ... [last]
+    // Reserve 1 space for last page button
+    const pagesAtStart = maxVisiblePages - 1;
+    const earlyThreshold = pagesAtStart;
+
+    if (currentPage <= earlyThreshold) {
       return [
-        { label: "1", value: 1 },
-        { label: "...", value: -1 },
-        ...addRange(currentPage - 2, currentPage + 2),
+        ...addRange(1, pagesAtStart),
         { label: "...", value: -1 },
         { label: shortenPage(totalPages), value: totalPages },
       ];
     }
+
+    // Scenario 2: Middle pages - show [1] ... [middle pages] ... [last]
+    // Reserve 2 spaces for first and last page buttons
+    const middlePages = maxVisiblePages - 2;
+    const halfSide = Math.floor(middlePages / 2);
+    const lateThreshold = totalPages - halfSide;
+
+    if (currentPage < lateThreshold) {
+      // Calculate the range to show middlePages total
+      // For even middlePages: show halfSide pages on each side
+      // For odd middlePages: show halfSide pages before, current, and (halfSide - 1) after
+      const startPage = currentPage - halfSide;
+      const endPage = startPage + middlePages - 1;
+
+      return [
+        { label: "1", value: 1 },
+        { label: "...", value: -1 },
+        ...addRange(startPage, endPage),
+        { label: "...", value: -1 },
+        { label: shortenPage(totalPages), value: totalPages },
+      ];
+    }
+
+    // Scenario 3: Near end pages - show [1] ... [last maxVisiblePages-1 pages]
+    // Reserve 1 space for first page button
+    const pagesAtEnd = maxVisiblePages - 1;
     return [
       { label: "1", value: 1 },
       { label: "...", value: -1 },
-      ...addRange(Math.max(1, totalPages - 6), totalPages),
+      ...addRange(totalPages - pagesAtEnd + 1, totalPages),
     ];
-  }, [currentPage, totalPages]);
+  }, [currentPage, totalPages, maxVisiblePages]);
 
   const pages = useMemo(getPages, [getPages]);
 

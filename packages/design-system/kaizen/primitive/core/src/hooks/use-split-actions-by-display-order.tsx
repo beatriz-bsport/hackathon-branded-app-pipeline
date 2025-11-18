@@ -1,3 +1,5 @@
+import type { MouseEvent } from "react";
+
 import Button, { type ButtonProps } from "#src/components/Button";
 import type { DropdownMenuManagedProps } from "#src/components/DropdownMenu";
 import type { MenuOption } from "#src/components/Menu/types";
@@ -42,9 +44,9 @@ const useSplitActionsByDisplayOrder = ({
     dropdownConfig?.visibleActionsDisplayLimit ??
     BASE_MAXIMUM_NUMBER_OF_PRIMARY_ACTIONS;
   const dropdownTargetProps = dropdownConfig?.dropdownTargetProps || {
-    kind: "icon-button" as const,
+    kind: "icon-button",
     label: t("actions.more"),
-    icon: "dots-horizontal" as const,
+    icon: "dots-vertical",
     id: "dropdown-menu-button",
     size: "md" as const,
     intent: "flat" as const,
@@ -58,6 +60,7 @@ const useSplitActionsByDisplayOrder = ({
       id: action.id,
       label: action.label,
       iconLeft: "iconLeft" in action ? action.iconLeft : undefined,
+      disabled: action.disabled,
     }));
   };
 
@@ -88,11 +91,13 @@ const useSplitActionsByDisplayOrder = ({
         placement: "bottom-right",
         onSelectOption: ({
           id,
+          setIsPopoverOpened,
         }: {
           id: string;
           setIsPopoverOpened: (value: boolean) => void;
         }) => {
           effectByActionIdMap.find((action) => action.id === id)?.onClick?.();
+          setIsPopoverOpened(false);
         },
         target: ({
           setIsPopoverOpened,
@@ -101,7 +106,8 @@ const useSplitActionsByDisplayOrder = ({
           setIsPopoverOpened: (value: boolean) => void;
         }) => (
           <Button
-            onClick={(event: React.MouseEvent<HTMLButtonElement>) => {
+            onClick={(event: MouseEvent<HTMLButtonElement>) => {
+              event.preventDefault();
               event.stopPropagation();
               setIsPopoverOpened(true);
             }}

@@ -23,6 +23,8 @@ import BookingList from '#src/libs/check-in/components/BookingList.component';
 import CheckInOfferSummaryPanel from '#src/libs/check-in/components/CheckInOfferSummaryPanel.component';
 // @ts-expect-error JS
 import BarcodeLiveReader from '#src/components/BarcodeLiveReader.component';
+import { analyticsClientB2B } from '#src/components/analytics/mixpanel';
+import { trackBarcodeScanSuccessEvent } from '#src/events/booking/trackers';
 
 import type { Member } from '#src/libs/member/types';
 import type { OfferREST } from '#src/libs/offer/types';
@@ -57,7 +59,7 @@ type OwnProps = {
   confirmBookingAttendance: (bookingId: number) => void;
   onAddMember: () => void;
   refreshData: () => void;
-  toogleBarcodeDetector: () => void;
+  toggleBarcodeDetector: () => void;
   closeBarcode: () => void;
   // eslint-disable-next-line
   fetchMemberByBarcode: (
@@ -123,7 +125,7 @@ export class CheckInOfferDetail extends React.Component<Props> {
           <div className={this.props.classes.row}>
             <Switch
               checked={!!this.props.barcodeDetectorEnabled}
-              onChange={this.props.toogleBarcodeDetector}
+              onChange={this.props.toggleBarcodeDetector}
             />
 
             <Typography>
@@ -238,8 +240,15 @@ const mapWithHandlers = {
     ({ fetchMemberByBarcode, onMemberSearched }: OwnProps) =>
     // @ts-expect-error TODO - typing
     (data) => {
-      fetchMemberByBarcode(data.codeResult.code, {
+      const barcode = data.codeResult.code;
+      fetchMemberByBarcode(barcode, {
         onSuccess: (member) => {
+          analyticsClientB2B.track(
+            trackBarcodeScanSuccessEvent({
+              member_id: member.id,
+              barcode,
+            }),
+          );
           onMemberSearched(member);
         },
       });

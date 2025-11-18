@@ -1,11 +1,11 @@
-import { useFormController } from "@bsport/form";
 import { ModalStepper } from "@bsport/kaizen-primitive-core";
 
-import { NOTIFICATION_ADVANCED_TYPE } from "#src/utils/constants";
 import { useTranslation } from "#src/utils/i18n";
-import { triggerTypeValidationFormSchema } from "#src/utils/schemas/triggerTypeValidation";
-import type { TriggerTypeValidationFormData } from "#src/utils/schemas/types";
 
+import {
+  FormStepContextProvider,
+  useFormStepContext,
+} from "./Context/FormStepContext.context";
 import { TriggerConditionStep } from "./NotificationTriggerForms/TriggerConditionStep";
 import { TriggerTypeStep } from "./TriggerTypeSelector/TriggerTypeStep";
 
@@ -13,23 +13,18 @@ type EditMarketingNotificationModalProps = {
   isOpen: boolean;
   onClose?: () => void;
 };
-
 export const EditMarketingNotificationModal = ({
   isOpen,
   onClose,
 }: EditMarketingNotificationModalProps) => {
   const { t } = useTranslation("marketingNotificationsModal");
+  const { checkIfCurrentStepValid, goToNextStep, goToPreviousStep, resetForm } =
+    useFormStepContext();
 
-  const defaultValues: TriggerTypeValidationFormData = {
-    itemIds: [],
-    notificationType: NOTIFICATION_ADVANCED_TYPE.groupActivity,
+  const handleClose = () => {
+    onClose?.();
+    resetForm();
   };
-
-  const methods = useFormController({
-    mode: "onBlur",
-    schema: triggerTypeValidationFormSchema,
-    defaultValues,
-  });
 
   return (
     <ModalStepper
@@ -38,26 +33,12 @@ export const EditMarketingNotificationModal = ({
       size="lg"
       steps={[
         {
-          label: t("steps.label.notificationRules"),
-          content: (
-            <TriggerConditionStep
-              notificationType={"groupActivity"}
-              itemIds={[9]}
-            />
-          ),
+          label: t("steps.label.triggerType"),
+          content: <TriggerTypeStep />,
         },
         {
-          label: t("steps.label.triggerType"),
-          content: (
-            <TriggerTypeStep
-              {...methods}
-              onSelectTriggerType={(params) => {
-                methods.setValue("itemIds", params.objectIds, {
-                  shouldValidate: true,
-                });
-              }}
-            />
-          ),
+          label: t("steps.label.notificationRules"),
+          content: <TriggerConditionStep />,
         },
         {
           label: t("steps.label.content"),
@@ -68,23 +49,36 @@ export const EditMarketingNotificationModal = ({
       confirmButton={{
         label: "Create",
         color: "main",
-        disabled: !methods.formState.isValid,
+        disabled: !checkIfCurrentStepValid(),
         onClick: () => {
-          // Handle create notification logic here
+          goToNextStep();
         },
       }}
       cancelButton={{
         label: "Cancel",
+        onClick: () => {
+          goToPreviousStep();
+        },
       }}
       onClickOutside={() => {
-        onClose?.();
+        handleClose?.();
       }}
       onClose={() => {
-        onClose?.();
+        handleClose?.();
       }}
       onCloseButtonClick={() => {
-        onClose?.();
+        handleClose?.();
       }}
     />
+  );
+};
+
+export const EditMarketingNotificationModalWrapper = (
+  props: EditMarketingNotificationModalProps,
+) => {
+  return (
+    <FormStepContextProvider>
+      <EditMarketingNotificationModal {...props} />
+    </FormStepContextProvider>
   );
 };

@@ -96,9 +96,9 @@ const BaseItem: React.FC<
 
     return (
       <>
-        <div className="grid grid-cols-[minmax(0,7fr)_minmax(0,3fr)] w-full gap-xs items-center">
+        <div className="grid grid-cols-[minmax(0,1fr)_auto] w-full gap-xs items-center">
           {/* Left column with title and description */}
-          <div className="flex items-center gap-xs text-onsurface-default">
+          <div className="flex items-center gap-xs text-onsurface-default flex-1 min-w-0">
             {color && (
               <ColorIndicator
                 color={color}
@@ -126,7 +126,7 @@ const BaseItem: React.FC<
           </div>
 
           {/* Right column with actions */}
-          <div className="flex items-center justify-end gap-sm">
+          <div className="flex items-center justify-end gap-sm flex-shrink-0">
             {chipsDirection === "start" && renderedChips}
 
             {rightTitle && (

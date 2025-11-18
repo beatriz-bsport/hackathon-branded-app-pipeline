@@ -2,6 +2,7 @@
 import React from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { compose } from 'recompose';
+import throttle from 'lodash/throttle';
 import Quagga from 'quagga';
 
 type Props = {
@@ -11,11 +12,28 @@ type Props = {
 };
 
 export class BarcodeReader extends React.Component<Props> {
-  waiting: boolean = false;
+  constructor(props) {
+    super(props);
+    this.throttledOnDetected = throttle(
+      (data) => {
+        this.props.onDetected(data);
+      },
+      1000,
+      { leading: true, trailing: false },
+    );
+  }
 
   componentWillUnmount() {
+    this.throttledOnDetected.cancel();
+    Quagga.offDetected(this.handleDetected);
     Quagga.stop();
   }
+
+  handleDetected = (data) => {
+    if (data && data.codeResult && data.codeResult.code) {
+      this.throttledOnDetected(data);
+    }
+  };
 
   componentDidMount() {
     Quagga.init(
@@ -31,17 +49,7 @@ export class BarcodeReader extends React.Component<Props> {
       },
       () => {
         Quagga.start();
-        Quagga.onDetected((data) => {
-          if (!BarcodeReader.waiting) {
-            if (data && data.codeResult && data.codeResult.code) {
-              this.props.onDetected(data);
-              BarcodeReader.waiting = true;
-              setTimeout(() => {
-                BarcodeReader.waiting = false;
-              }, 3000);
-            }
-          }
-        });
+        Quagga.onDetected(this.handleDetected);
       },
     );
   }

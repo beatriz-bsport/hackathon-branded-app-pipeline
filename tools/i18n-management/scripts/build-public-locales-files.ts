@@ -51,7 +51,7 @@ async function main() {
   );
 
   console.group(
-    "🕰️  Start uploading translations files to public/locales folder",
+    "🕰️  Start copying translations files to public/locales folder",
   );
   for (const project of projectList) {
     try {

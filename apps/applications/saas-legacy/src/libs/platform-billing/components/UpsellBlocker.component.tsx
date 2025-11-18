@@ -13,6 +13,7 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Dialog from '@material-ui/core/Dialog';
 
+import { closeIntercom, openIntercomConversation } from '#src/utils/intercom';
 import { BLOCKER_FRAME_ID } from '#src/libs/platform-billing/constant';
 import { hasUpsell } from '#src/libs/platform-billing/utils';
 import {
@@ -130,6 +131,7 @@ export const UpsellBlockerDialog = React.memo(
 
     const handleCloseFeatureRequestDialog = React.useCallback(() => {
       setIsFeatureRequestDialogOpen(false);
+      closeIntercom();
     }, []);
 
     const handleRequestUpsellPackage = React.useCallback(() => {
@@ -138,6 +140,7 @@ export const UpsellBlockerDialog = React.memo(
       });
       requestUpsellPackage(upsellIdentifier);
       setIsFeatureRequestDialogOpen(true);
+      openIntercomConversation();
     }, [requestUpsellPackage, upsellIdentifier]);
 
     const isPageContent = !(

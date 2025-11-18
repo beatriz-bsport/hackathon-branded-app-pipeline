@@ -2,12 +2,15 @@ import { RadioGroup } from "@bsport/kaizen-primitive-core";
 
 import { useTranslation } from "#src/utils/i18n";
 
-interface Props {
+type BookingActionFieldProps = {
   value: string;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-}
+};
 
-export const BookingActionField = ({ value, onChange }: Props) => {
+export const BookingActionField = ({
+  value,
+  onChange,
+}: BookingActionFieldProps) => {
   const { t } = useTranslation("marketingNotificationsModal");
   return (
     <RadioGroup
@@ -16,16 +19,16 @@ export const BookingActionField = ({ value, onChange }: Props) => {
       label={t("steps.notificationRules.booking.actionLabel")}
       options={[
         {
-          id: "makes-booking",
-          value: t("steps.notificationRules.booking.actions.makesBooking"),
+          value: "makesBooking",
+          label: t("steps.notificationRules.booking.actions.makesBooking"),
         },
         {
-          id: "makes-cancellation",
-          value: t("steps.notificationRules.booking.actions.makesCancellation"),
+          value: "makesCancellation",
+          label: t("steps.notificationRules.booking.actions.makesCancellation"),
         },
       ]}
       value={value}
-      onChangeValue={onChange}
+      onChange={onChange}
     />
   );
 };

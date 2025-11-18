@@ -3,9 +3,12 @@ import { Link } from "react-router";
 import {
   Breadcrumbs,
   Button,
+  DetailsLayout,
   DropdownMenu,
   type DropdownMenuItems,
+  IconName,
   Tooltip,
+  useMatchMedia,
 } from "@bsport/kaizen-primitive-core";
 
 import { ROUTES } from "#src/urls";
@@ -17,14 +20,23 @@ type UseDetailPageHeaderProps = {
   onExportTemplate: () => void;
 };
 
+type ActionConfig =
+  | {
+      id: string;
+      label: string;
+      iconLeft: IconName;
+    }
+  | undefined;
+
 export const useDetailPageHeader = ({
   onExportTemplate,
   onDeleteTemplate,
   onDuplicateTemplate,
 }: UseDetailPageHeaderProps) => {
   const { t } = useTranslation(["list", "detail"]);
+  const isMobile = !useMatchMedia("sm");
 
-  const getDuplicateTemplateActionConfig = () => {
+  const getDuplicateTemplateActionConfig = (): ActionConfig => {
     return onDuplicateTemplate
       ? {
           id: "duplicate-template",
@@ -34,7 +46,7 @@ export const useDetailPageHeader = ({
       : undefined;
   };
 
-  const getDeleteTemplateActionConfig = () => {
+  const getDeleteTemplateActionConfig = (): ActionConfig => {
     return onDeleteTemplate
       ? {
           id: "delete-template",
@@ -48,7 +60,7 @@ export const useDetailPageHeader = ({
     return [
       getDuplicateTemplateActionConfig(),
       getDeleteTemplateActionConfig(),
-    ].filter(Boolean) as DropdownMenuItems;
+    ].filter((action) => action !== undefined);
   };
 
   const BreadcrumbsItems = [
@@ -75,7 +87,7 @@ export const useDetailPageHeader = ({
       >
         <DropdownMenu
           placement="bottom-right"
-          items={getDropdownMenuAction()}
+          items={getDropdownMenuAction() as DropdownMenuItems}
           onSelectOption={({ id }) => {
             if (id === "duplicate-template") {
               onDuplicateTemplate?.();
@@ -99,7 +111,7 @@ export const useDetailPageHeader = ({
       </Tooltip>
     ) : undefined;
 
-  const endGroupActions = [
+  const desktopActions = [
     <Tooltip
       key="export-html-button"
       placement="bottom-right"
@@ -118,8 +130,42 @@ export const useDetailPageHeader = ({
     dropdownMenuConfig,
   ];
 
+  const mobileActions = [
+    <Button
+      key="export-html-button"
+      iconLeft="download-01"
+      label={t("details.actions.exportHtml", { ns: "detail" })}
+      color="main"
+      intent="default"
+      size="md"
+      onClick={onExportTemplate}
+    />,
+    ...getDropdownMenuAction().map(({ id, label, iconLeft }) => {
+      return (
+        <Button
+          key={id}
+          label={label}
+          iconLeft={iconLeft}
+          color="main"
+          intent="default"
+          size="md"
+          onClick={() => {
+            if (id === "duplicate-template") {
+              onDuplicateTemplate?.();
+            } else if (id === "delete-template") {
+              onDeleteTemplate?.();
+            }
+          }}
+        />
+      );
+    }),
+  ];
+  const { endGroupActions } = DetailsLayout.useAdaptiveActions({
+    endGroupActions: mobileActions,
+  });
+
   return {
     BreadcrumbsItems,
-    endGroupActions,
+    endGroupActions: isMobile ? endGroupActions : desktopActions,
   };
 };

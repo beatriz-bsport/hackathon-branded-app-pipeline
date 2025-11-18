@@ -659,7 +659,9 @@ export const signUpViaCustomFormActions = {
 export function submitSignUpCustomForm(
   sign_up_custom_form_filled: CustomFormFieldAnswer,
   company: number | string,
-  options?: OptionCallback<SignUpSuccessResponse>,
+  options?: OptionCallback<SignUpSuccessResponse> & {
+    isTabletCheckIn?: boolean;
+  },
   referral_uuid?: string | null,
 ) {
   return async (dispatch: Dispatch) => {
@@ -672,7 +674,10 @@ export function submitSignUpCustomForm(
         referral_uuid,
       );
       dispatch(signUpViaCustomFormActions.success(response.data));
-      dispatch(snackbarSuccess(`customForm.signupViaCustomForm.success`));
+      const messageKey = options?.isTabletCheckIn
+        ? 'customForm.tabletCheckIn.success'
+        : 'customForm.signupViaCustomForm.success';
+      dispatch(snackbarSuccess(messageKey));
       options?.onSuccess?.(response.data);
     } catch (error) {
       options?.onError?.();
@@ -683,7 +688,10 @@ export function submitSignUpCustomForm(
           ),
         );
       } else {
-        dispatch(snackbarError(`customForm.signupViaCustomForm.error`));
+        const errorMessageKey = options?.isTabletCheckIn
+          ? 'customForm.tabletCheckIn.error'
+          : 'customForm.signupViaCustomForm.error';
+        dispatch(snackbarError(errorMessageKey));
       }
 
       dispatch(signUpViaCustomFormActions.error(error?.response?.data));

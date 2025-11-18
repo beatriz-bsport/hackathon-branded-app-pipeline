@@ -85,7 +85,7 @@ export const ReferredRewardField: FC<Props> = ({
           name="referringRewardType"
           mapProps={({ defaultProps, field, form }) => ({
             ...defaultProps,
-            value: radioOptionMap[field.value],
+            value: field.value,
             onChangeValue: (event: React.ChangeEvent<HTMLInputElement>) => {
               if (!isReferringRewardOptionType(event.target.id)) {
                 return;
@@ -118,8 +118,8 @@ export const ReferredRewardField: FC<Props> = ({
             direction="start"
             options={[
               {
-                id: "percent_off",
-                value: radioOptionMap[referringRewardTypeValues.percentage],
+                value: "percent_off",
+                label: radioOptionMap[referringRewardTypeValues.percentage],
                 alertConfig: getAlertToDisplay(
                   referringRewardTypeValues.percentage,
                   referringRewardPercentage,
@@ -160,8 +160,8 @@ export const ReferredRewardField: FC<Props> = ({
                 ),
               },
               {
-                id: "amount_off",
-                value: radioOptionMap[referringRewardTypeValues.amount],
+                value: "amount_off",
+                label: radioOptionMap[referringRewardTypeValues.amount],
                 alertConfig: getAlertToDisplay(
                   referringRewardTypeValues.amount,
                   referringRewardAmount,

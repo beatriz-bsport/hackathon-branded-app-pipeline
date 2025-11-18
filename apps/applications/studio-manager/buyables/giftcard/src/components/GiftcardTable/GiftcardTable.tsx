@@ -1,12 +1,17 @@
-import { Decimal } from "decimal.js";
-import React from "react";
+import type { FC } from "react";
 
-import { Table, type TableProps } from "@bsport/kaizen-primitive-core";
+import { getCurrencyDisplayWithPrice } from "@bsport/currency";
+import {
+  Table,
+  type TableProps,
+  useMatchMedia,
+} from "@bsport/kaizen-primitive-core";
 import { GIFTCARD_TYPES, type Giftcard } from "@bsport/store-buyables-giftcard";
 
 import { LEGACY_ROUTES } from "#src/urls";
 import { useTranslation } from "#src/utils/i18n";
 
+import { GiftcardList } from "./GiftcardList";
 import { type GetTableColumnsParams, useTableColumns } from "./columns";
 import type { TableRowData } from "./constants";
 
@@ -15,10 +20,11 @@ type GiftcardTableProps = Omit<GetTableColumnsParams, "t"> & {
   paginationProps: TableProps<TableRowData>["paginationProps"];
   isLoading?: boolean;
   isEmpty?: boolean;
+  isEmptySearch?: boolean;
   onAddGiftcardClick?: () => void;
 };
 
-export const GiftcardTable: React.FC<GiftcardTableProps> = ({
+export const GiftcardTable: FC<GiftcardTableProps> = ({
   giftcardList,
   handleArchive,
   handleDuplicate,
@@ -27,6 +33,7 @@ export const GiftcardTable: React.FC<GiftcardTableProps> = ({
   paginationProps,
   isLoading,
   isEmpty,
+  isEmptySearch,
   onAddGiftcardClick,
 }) => {
   const { t } = useTranslation("common");
@@ -48,7 +55,7 @@ export const GiftcardTable: React.FC<GiftcardTableProps> = ({
     price:
       giftcard.card_type === GIFTCARD_TYPES.CUSTOM || !giftcard.price
         ? t("giftcardTable.values.customAmount")
-        : new Decimal(giftcard.price).toNumber(),
+        : getCurrencyDisplayWithPrice(+giftcard.price),
     validity: giftcard.expiration_days
       ? t("giftcardTable.values.expireInXDays", {
           expiration: giftcard.expiration_days,
@@ -73,6 +80,25 @@ export const GiftcardTable: React.FC<GiftcardTableProps> = ({
           },
         };
 
+  const isMobile = !useMatchMedia("lg");
+
+  if (isMobile) {
+    return (
+      <GiftcardList
+        mode={mode}
+        giftcardList={giftcardList}
+        paginationProps={paginationProps}
+        isEmpty={isEmpty}
+        isEmptySearch={isEmptySearch}
+        isLoading={isLoading}
+        handleArchive={handleArchive}
+        handleDuplicate={handleDuplicate}
+        handleRestore={handleRestore}
+        emptyConfig={emptyConfig}
+      />
+    );
+  }
+
   return (
     <Table
       columns={tableColumns}
@@ -82,6 +108,8 @@ export const GiftcardTable: React.FC<GiftcardTableProps> = ({
       emptyStateProps={{
         isEmpty: !!isEmpty,
         emptyConfig: emptyConfig,
+        isEmptySearch: !!isEmptySearch,
+        emptySearchConfig: emptyConfig,
       }}
       loadingProps={{
         isLoading,

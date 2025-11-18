@@ -7,18 +7,20 @@ export const defaultClasses = ["flex flex-col gap-md"] as const;
 
 const radioGroup = cva(defaultClasses);
 
-export type FormRadioGroupProps =
-  React.FieldsetHTMLAttributes<HTMLFieldSetElement> &
-    VariantProps<typeof radioGroup> & {
-      id: string;
-      options: Array<FormRadioOptionsProps>;
-      label?: string;
-      value?: string;
-      onChangeValue?: (event: React.ChangeEvent<HTMLInputElement>) => void;
-      disabled?: boolean;
-      direction?: "start" | "end";
-      required?: boolean;
-    };
+export type FormRadioGroupProps = Omit<
+  React.FieldsetHTMLAttributes<HTMLFieldSetElement>,
+  "onChange"
+> &
+  VariantProps<typeof radioGroup> & {
+    id: string;
+    options: Array<FormRadioOptionsProps>;
+    label?: string;
+    value?: string;
+    onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+    disabled?: boolean;
+    direction?: "start" | "end";
+    required?: boolean;
+  };
 
 /**
  * FormRadioGroup Component
@@ -63,7 +65,7 @@ const FormRadioGroup: React.FC<FormRadioGroupProps> = ({
   label,
   options,
   value,
-  onChangeValue,
+  onChange,
   disabled,
   direction = "start",
   required,
@@ -71,6 +73,12 @@ const FormRadioGroup: React.FC<FormRadioGroupProps> = ({
 }) => {
   const [labelColWidths, setLabelColWidths] = useState<number[]>([]);
   const [labelMaxWidth, setLabelMaxWidth] = useState(0);
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (onChange) {
+      onChange(event);
+    }
+  };
 
   useEffect(() => {
     setLabelMaxWidth(
@@ -110,10 +118,10 @@ const FormRadioGroup: React.FC<FormRadioGroupProps> = ({
               <FormRadioField
                 {...option}
                 checked={value === option.value}
-                onChange={onChangeValue}
+                onChange={handleChange}
                 disabled={disabled!}
                 direction={direction}
-                key={option.id}
+                key={option.value}
                 element={option.element}
                 setLabelColWidths={setLabelColWidths}
                 labelMaxWidth={labelMaxWidth}

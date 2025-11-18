@@ -11,7 +11,7 @@ import { push as pushRouter } from 'connected-react-router';
 import { withTranslation } from 'react-i18next';
 
 import { withStyles, WithStyles } from '@material-ui/styles';
-import { Theme } from '@material-ui/core';
+import { Theme, Typography } from '@material-ui/core';
 
 import GenericResponsiveDrawer from '#src/components/genericDrawer/GenericResponsiveDrawer.component';
 import CheckInOfferDetail from '#src/libs/check-in/components/CheckInOfferDetail.component';
@@ -28,7 +28,7 @@ import { fetchLevel as fetchLevelAction } from '#src/libs/level/actions';
 import {
   confirmAttendance as confirmBookingAttendanceAction,
   fetchBookingsByOffer as fetchBookingsByOfferAction,
-  registerBooking as registerBookingAction,
+  registerTabletBooking as registerTabletBookingAction,
   retrieveBooking as retrieveBookingAction,
 } from '#src/libs/booking/actions';
 import { retrieveOffer as retrieveOfferAction } from '#src/libs/offer/actions';
@@ -84,6 +84,8 @@ import type { OptionCallback } from '#src/state/types';
 
 // @ts-expect-error audio file
 import boop from '../../sounds/boop.mp3';
+import { analyticsClientB2B } from '#src/components/analytics/mixpanel';
+import { trackBarcodeScanToggledEvent } from '#src/events/booking/trackers';
 
 const likeAudio = new Audio(boop);
 likeAudio.loop = false;
@@ -136,6 +138,11 @@ export class CheckInOfferDetailPage extends React.Component<Props> {
   componentDidMount() {
     this.props.retrieveOffer(this.props.offerId, {
       onSuccess: (offer) => {
+        analyticsClientB2B.addSuperProperties({
+          offer_id: offer?.id,
+          activity: offer?.activity,
+          activity_name: offer?.activity_name,
+        });
         !!(offer.custom_level || offer.level) &&
           this.props.fetchLevel(offer.custom_level ?? offer.level);
         this.props.retrieveEstablishment(this.props.offer?.establishment);
@@ -170,17 +177,21 @@ export class CheckInOfferDetailPage extends React.Component<Props> {
     }
   }
 
+  componentWillUnmount() {
+    analyticsClientB2B.removeSuperProperties([
+      'offer_id',
+      'activity',
+      'activity_name',
+    ]);
+  }
+
   registerWithPass = (
     consumerPaymentPackId: number,
     options: OptionCallback,
   ) => {
-    this.props.registerBooking(
+    this.props.registerTabletBooking(
       consumerPaymentPackId,
-      // @ts-expect-error TODO - typing
-      {
-        offer: this.props.offerId,
-        auto_assign_spot: true,
-      },
+      this.props.offerId,
       {
         onError: options?.onError,
         onSuccess: () => {
@@ -216,8 +227,14 @@ export class CheckInOfferDetailPage extends React.Component<Props> {
   };
 
   render() {
+    const activityName = this.props?.offer?.activity_name;
     return (
       <div className={this.props.classes.container}>
+        {activityName && (
+          <Typography align="center" variant="h4">
+            {activityName}
+          </Typography>
+        )}
         <CheckInOfferDetail
           barcodeDetectorEnabled={this.props.barcodeDetectorEnabled}
           bookings={this.props.bookings}
@@ -244,7 +261,7 @@ export class CheckInOfferDetailPage extends React.Component<Props> {
           onAddMember={this.props.openSearchMemberModal}
           onMemberSearched={this.handleMemberSearched}
           refreshData={this.props.fetchOfferData}
-          toogleBarcodeDetector={this.props.toogleBarcodeDetector}
+          toggleBarcodeDetector={this.props.toggleBarcodeDetector}
         />
         {this.props.registrationFlowOpen && (
           <SearchAndRegisterMember
@@ -399,7 +416,7 @@ const connector = connect(
     upsertMember: upsertMemberAction,
     searchMembers,
     fetchMemberByBarcode: fetchMemberByBarcodeAction,
-    registerBooking: registerBookingAction,
+    registerTabletBooking: registerTabletBookingAction,
     goBack: () => pushRouter('/check-in'),
     fetchSignFormUpConfiguration,
     fetchLevel: fetchLevelAction,
@@ -435,11 +452,14 @@ const withStateHandlersSetter = {
   closeBarcode: () => () => ({
     barcodeDetectorEnabled: false,
   }),
-  toogleBarcodeDetector:
+  toggleBarcodeDetector:
     ({ barcodeDetectorEnabled }: StateHandlerInit) =>
-    () => ({
-      barcodeDetectorEnabled: !barcodeDetectorEnabled,
-    }),
+    () => {
+      analyticsClientB2B.track(trackBarcodeScanToggledEvent({}));
+      return {
+        barcodeDetectorEnabled: !barcodeDetectorEnabled,
+      };
+    },
   setOnMemberUnSelectedCallback: () => (onMemberUnselectedCallback: any) => ({
     onMemberUnselectedCallback,
   }),

@@ -56,9 +56,13 @@ const PageActionsSection: React.FC<PageActionsSectionProps> = ({
             BreadcrumbsItems={BreadcrumbsItems}
           />
         )}
-        <div className="flex flex-row justify-between items-center">
-          <div className="flex flex-row gap-xs items-center justify-start">
-            <Title htmlVariant="h1" weight="stronger">
+        <div className="flex flex-row gap-xs justify-between items-center">
+          <div className="flex flex-row gap-xs items-start justify-start flex-1 min-w-0">
+            <Title
+              htmlVariant="h1"
+              weight="stronger"
+              className="flex-1 min-w-0 line-clamp-2 hyphens-auto break-words [overflow-wrap:anywhere]"
+            >
               {pageTitle}
             </Title>
             {onEditTitleClick && (
@@ -85,7 +89,7 @@ const PageActionsSection: React.FC<PageActionsSectionProps> = ({
         </div>
       </div>
       {pageTabs && (
-        <div className="flex flex-row justify-between items-center">
+        <div className="flex flex-row justify-between items-center pb-[var(--kz-spacing-xs)] sm:pb-[0px]">
           <Tabs {...pageTabs} orientation="horizontal" className="sm:pt-xs" />
           <CustomActionsSection
             callToActionButton={callToActionButton}

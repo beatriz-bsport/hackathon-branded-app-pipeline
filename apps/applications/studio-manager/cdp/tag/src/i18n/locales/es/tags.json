@@ -1,1 +1,278 @@
-{}
+{
+  "page": {
+    "title": "Etiquetas",
+    "filters": {
+      "label": "Filtrar por etiqueta principal",
+      "operators": {
+        "is": "es",
+        "isNot": "no es"
+      }
+    },
+    "actions": {
+      "createTagGroup": {
+        "label": "Crea una etiqueta principal"
+      },
+      "createTag": {
+        "label": "Crea una subetiqueta"
+      }
+    },
+    "loadingState": {
+      "message": "Cargando etiquetas..."
+    },
+    "emptyFilteredPageState": {
+      "title": "No se han encontrado resultados",
+      "description": "No se encontraron etiquetas principales - borra los filtros para ver más resultados",
+      "secondaryButtonLabel": "Borrar filtros"
+    },
+    "emptyPageState": {
+      "title": "Aún no hay etiquetas",
+      "description": "Crea etiquetas para segmentar y rastrear a tus miembros"
+    },
+    "emptyMainTagState": {
+      "description": "Aún no has creado subetiquetas en esta etiqueta principal."
+    }
+  },
+  "tagGroupList": {
+    "actions": {
+      "addSubTag": "Crea una subetiqueta",
+      "rename": "Renombrar",
+      "delete": "Eliminar"
+    },
+    "items": {
+      "tooltip": {
+        "delete": "Eliminar"
+      }
+    }
+  },
+  "tagGroupModal": {
+    "title": {
+      "create": "Crea una etiqueta principal",
+      "update": "Edita la etiqueta principal"
+    },
+    "formField": {
+      "tagGroupName": {
+        "label": "Nombre de la etiqueta principal",
+        "placeholder": "Añade un nombre de etiqueta principal...",
+        "errors": {
+          "required": "Introduce un nombre de etiqueta principal",
+          "alreadyInUse": "Nombre ya en uso",
+          "tooLong": "El nombre debe tener menos de {{ max }} caracteres",
+          "tooShort": "El nombre debe tener al menos {{ min}} caracteres"
+        }
+      }
+    },
+    "actions": {
+      "create": "Crear",
+      "update": "Guardar",
+      "cancel": "Cerrar",
+      "goTo": "Ver a la Etiqueta Principal"
+    },
+    "result": {
+      "createSuccess": {
+        "title": "Etiqueta principal creada"
+      },
+      "updateSuccess": {
+        "title": "Etiqueta principal actualizada"
+      },
+      "updateFailure": {
+        "title": "No se puede actualizar la etiqueta principal debido a un problema técnico"
+      },
+      "createFailure": {
+        "title": "No se puede crear la etiqueta principal"
+      }
+    }
+  },
+  "tagModal": {
+    "title": {
+      "create": "Crea una subetiqueta",
+      "update": "Editar subetiqueta"
+    },
+    "formField": {
+      "mainTagAssociated": {
+        "label": "Etiqueta principal",
+        "placeholder": "Selecciona una etiqueta principal",
+        "errors": {
+          "required": "Necesitas seleccionar una etiqueta principal primero"
+        }
+      },
+      "tagName": {
+        "label": "Subetiqueta",
+        "placeholder": "Introduce un nombre de subetiqueta...",
+        "errors": {
+          "required": "Necesitas ingresar un nombre de subetiqueta primero",
+          "alreadyInUse": "Nombre ya en uso",
+          "tooLong": "El nombre debe tener menos de {{ max }} caracteres",
+          "tooShort": "El nombre debe tener al menos {{ min }} caracteres"
+        }
+      },
+      "tagColor": {
+        "label": "Color",
+        "placeholder": "#FFFFFF"
+      }
+    },
+    "actions": {
+      "create": "Crear",
+      "update": "Actualizar",
+      "cancel": "Cancelar",
+      "goTo": "Ir a Subetiqueta"
+    },
+    "result": {
+      "createSuccess": {
+        "title": "Subetiqueta creada"
+      },
+      "createFailure": {
+        "title": "No se puede guardar la subetiqueta "
+      },
+      "updateSuccess": {
+        "title": "Subetiqueta actualizada"
+      },
+      "updateFailure": {
+        "title": "No se puede actualizar la subetiqueta "
+      }
+    }
+  },
+  "deleteMainTagModal": {
+    "title": "¿Eliminar permanentemente la etiqueta principal?",
+    "description": "Eliminar esta etiqueta principal la eliminará permanentemente de {{ number }} miembros a los que está asignada.",
+    "alerts": {
+      "tagInUse": {
+        "description": "Solo un aviso: eliminar esta etiqueta principal también eliminará cualquier subetiqueta asociada y las reglas de etiquetas dentro de cualquier flujo de trabajo condicional en el que se utilice.",
+        "confirmCheckbox": {
+          "label": "Marca para confirmar: ",
+          "description": "Entiendo que eliminar esta etiqueta principal es una acción permanente que afectará cualquier flujo de trabajo asociado.",
+          "confirmButtonTooltip": "Por favor, verifica el impacto de este cambio antes de continuar"
+        }
+      }
+    },
+    "actions": {
+      "confirm": "Eliminar",
+      "cancel": "Cancelar"
+    },
+    "result": {
+      "success": {
+        "title": "Etiqueta principal eliminada"
+      },
+      "failure": {
+        "title": "No se puede eliminar la etiqueta principal"
+      }
+    }
+  },
+  "deleteSubTagModal": {
+    "title": "¿Eliminar permanentemente la subetiqueta?",
+    "description": "Eliminar esta subetiqueta la eliminará permanentemente de {{number}} miembros a los que está asignada. ",
+    "alerts": {
+      "tagInUse": {
+        "description": "Solo un aviso: eliminar esta subetiqueta también afectará cualquier flujo de trabajo condicional en el que se utilice. ",
+        "confirmCheckbox": {
+          "label": "Marca para confirmar:",
+          "description": "Entiendo que eliminar esta subetiqueta es una acción permanente que afectará cualquier flujo de trabajo asociado.",
+          "confirmButtonTooltip": "Por favor, verifica el impacto de este cambio antes de continuar"
+        }
+      }
+    },
+    "actions": {
+      "confirm": "Eliminar",
+      "cancel": "Cancelar"
+    },
+    "result": {
+      "success": {
+        "title": "Subetiqueta eliminada"
+      },
+      "failure": {
+        "title": "No se pudo eliminar la subetiqueta, por favor, inténtalo de nuevo."
+      }
+    }
+  },
+  "tagsDetails": {
+    "members": "Miembros",
+    "actions": {
+      "tagAll": "Etiquetar a todos",
+      "untagAll": "Desetiquetar todo",
+      "edit": "Editar"
+    },
+    "tooltip": {
+      "close": "Cerrar",
+      "tagMember": "Etiquetar miembro",
+      "untagMember": "Desetiquetar miembros",
+      "editTag": "Cambia el nombre o el color",
+      "previousSubTag": "Ver subetiqueta anterior",
+      "nextSubTag": "Ver subetiqueta siguiente"
+    },
+    "segmentedControl": {
+      "tagged": "Etiquetado",
+      "untagged": "Sin etiquetar"
+    },
+    "memberList": {
+      "actions": {
+        "tag": {
+          "success": {
+            "title": "Miembro etiquetado"
+          },
+          "failure": {
+            "title": "No se puede etiquetar al miembro, por favor intenta de nuevo"
+          }
+        },
+        "untag": {
+          "success": {
+            "title": "Miembro sin etiquetar"
+          },
+          "failure": {
+            "title": "No se puede desmarcar al miembro, por favor intenta de nuevo"
+          }
+        }
+      },
+      "loadingState": {
+        "tagged": "Cargando Miembros etiquetados...",
+        "untagged": "Cargando Miembros sin etiquetar..."
+      },
+      "emptyState": {
+        "title": {
+          "tagged": "Aún no hay miembros etiquetados",
+          "untagged": "Aún no hay miembros sin etiquetar"
+        },
+        "description": {
+          "untagged": "Puedes etiquetar a los Miembros haciendo clic en el ícono de más junto a su nombre en la lista sin etiquetar.",
+          "tagged": "Puedes desetiquetar a los miembros haciendo clic en el icono de menos junto a su nombre en la lista de etiquetados."
+        }
+      }
+    }
+  },
+  "updateMemberTagBatchModal": {
+    "title": {
+      "tag": "¿Etiquetar a todos?",
+      "untag": "¿Desetiquetar a todos?"
+    },
+    "description": {
+      "tag": "¿Añadir la etiqueta {{tagName}} a {{number}} Miembros?",
+      "untag": "¿Eliminar la etiqueta {{tagName}} de {{number}} Miembros?"
+    },
+    "actions": {
+      "tag": "Etiquetar a todos",
+      "untag": "Desetiquetar a todos",
+      "cancel": "Cancelar",
+      "undo": "Deshacer"
+    },
+    "loading": {
+      "tag": "Etiquetando {{number}} miembros...",
+      "untag": "Desetiquetando a {{number}} miembros..."
+    },
+    "results": {
+      "tag": {
+        "success": {
+          "title": "Todos los Miembros fueron etiquetados"
+        },
+        "failure": {
+          "title": "No puedo etiquetar a los miembros, por favor intenta de nuevo"
+        }
+      },
+      "untag": {
+        "success": {
+          "title": "Todos los miembros desetiquetados"
+        },
+        "failure": {
+          "title": "No se pueden desetiquetar los miembros, por favor intenta de nuevo"
+        }
+      }
+    }
+  }
+}

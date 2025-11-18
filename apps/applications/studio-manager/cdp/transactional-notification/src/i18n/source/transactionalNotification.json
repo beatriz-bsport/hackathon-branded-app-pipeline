@@ -7,10 +7,10 @@
       "notificationNumber_one": "1 notification",
       "notificationNumber_other": "{{ count }} notifications",
       "loading": {
-        "message": "Loading notification rule events..."
+        "message": "Loading transactional notifications . . ."
       },
       "emptyState": {
-        "title": "No notification rule events found",
+        "title": "No transactional notifications found",
         "description": "There are no notification rule events available at the moment. Please check back later or contact support."
       }
     },
@@ -54,8 +54,8 @@
           "message": "You can start enabling a push notification after you've set it up.",
           "label": "Help"
         },
-        "franchiseOwned": "The Admin Account directly manages this transactional notification.",
-        "setPushNotificationBeforeEnabling": "Set up your push notification before enabling it."
+        "franchiseOwned": "This notification is managed by the Central Account ",
+        "setPushNotificationBeforeEnabling": "Set up your push notification first to enable it"
       },
       "helper": {
         "title": "Push notifications",
@@ -71,7 +71,7 @@
       }
     },
     "details": {
-      "notificationStatus": "Notification status : ",
+      "notificationStatus": "Notification status: ",
       "segmentedControl": {
         "email": "Email",
         "push": "Push"

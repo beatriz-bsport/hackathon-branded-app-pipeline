@@ -156,7 +156,7 @@ export const GiftcardImageUploadModal: React.FC<UploadModalProps> = ({
       description={t("imageUploadModal.description")}
       title={t("imageUploadModal.title")}
     >
-      <div className="flex flex-row items-stretch gap-md p-md justify-between">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-md p-sm lg:p-md">
         <GiftcardDisplay
           displaySelectMessage={totalItems > 0}
           selectedImage={selectedImage}

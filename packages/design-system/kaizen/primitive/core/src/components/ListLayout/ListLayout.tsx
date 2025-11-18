@@ -2,6 +2,7 @@ import { type VariantProps, cva } from "class-variance-authority";
 import React, { ReactNode } from "react";
 
 import HeaderLayout from "#src/components/private/HeaderLayout";
+import { useAdaptiveActions } from "#src/components/private/HeaderLayout/use-adaptive-actions";
 import LayoutButton from "#src/components/private/LayoutButton";
 
 export type ListLayoutProps = React.HTMLAttributes<HTMLDivElement> & {
@@ -30,17 +31,27 @@ const listLayout = cva([
  * @param props.className Optional. Custom CSS classes for the container.
  * @link https://docs.infra.bsport.io/storybook/kaizen/dev/index.html?path=/docs/components-listlayout--docs
  */
-const ListLayout: React.FC<ListLayoutProps> & {
+interface ListLayoutStatics {
   Header: typeof HeaderLayout;
   Content: typeof ListLayoutContent;
   Button: typeof LayoutButton;
-} = ({ className, children, ...props }: ListLayoutProps) => {
+  useAdaptiveActions: typeof useAdaptiveActions;
+}
+
+const ListLayoutComponent: React.FC<ListLayoutProps> = ({
+  className,
+  children,
+  ...props
+}) => {
   return (
     <main className={listLayout({ className })} {...props}>
       {children}
     </main>
   );
 };
+
+const ListLayout = ListLayoutComponent as React.FC<ListLayoutProps> &
+  ListLayoutStatics;
 
 // ----- Header -----
 
@@ -98,5 +109,12 @@ ListLayout.Button = LayoutButton;
 // ----- Export ListLayout -----
 
 ListLayout.displayName = "KaizenListLayout";
+
+// ----- Adaptive Actions (mobile dropdown) -----
+// Static export to access the adaptive actions hook directly from the layout
+// Usage:
+// const adaptive = ListLayout.useAdaptiveActions({ endGroupActions: [...] });
+// <ListLayout.Header pageTitle="..." {...adaptive} />
+ListLayout.useAdaptiveActions = useAdaptiveActions;
 
 export default ListLayout;

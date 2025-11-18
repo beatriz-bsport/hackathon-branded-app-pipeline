@@ -7,9 +7,9 @@
   "banner": {
     "close": "Fermer la bannière",
     "insights": {
-      "title": "Nouvelle fonctionnalité Insights",
-      "description": "Repérez les tendances, suivez les performances et prenez des décisions commerciales plus éclairées grâce aux informations en temps réel",
-      "ctaLabel": "Explorer maintenant"
+      "title": "Nouvelle fonctionnalité : Insights !",
+      "description": "Suivez l'évolution de vos KPI, identifiez des opportunités et maîtrisez vos risques",
+      "ctaLabel": "Explorer"
     }
   },
   "upcomingClassesPanel": {
@@ -18,7 +18,7 @@
       "class": "Cours",
       "teacher": "Professeur",
       "teacherSubstitution": "Remplacement",
-      "classFillRate": "Taux de remplissage"
+      "classFillRate": "Taux d'occupation"
     },
     "emptyList": "Aucun cours à venir",
     "teacher": {
@@ -43,17 +43,17 @@
   },
   "exploreSection": {
     "exploreThePlatform": {
-      "title": "Explorer la plateforme",
+      "title": " Découvrez les nouveautés bsport",
       "productUpdatesCard": {
-        "title": "Mises à jour des produits",
-        "description": "Découvrez toutes nos dernières mises à jour de produits "
+        "title": "Fonctionnalités, améliorations et correctifs",
+        "description": "Consultez nos dernières nouveautés produit"
       }
     },
     "advices": {
-      "title": "Conseils de bsport",
+      "title": "Découvrez les tendances de l'industrie",
       "latestNewsCard": {
-        "title": "Dernières nouvelles de bsport",
-        "description": "Découvrez les dernières nouvelles et tendances de l'industrie"
+        "title": "Conseils et actualités pour développer votre entreprise",
+        "description": "Lisez les dernières nouvelles de nos experts"
       }
     }
   },
@@ -63,6 +63,6 @@
   },
   "insightsPanel": {
     "title": "Aperçus",
-    "unavailable": "Les aperçus sont actuellement indisponibles"
+    "unavailable": "Les insights sont actuellement indisponibles"
   }
 }

@@ -1,11 +1,16 @@
 import React from "react";
 
-import { type PaginationProps, Table } from "@bsport/kaizen-primitive-core";
+import {
+  type PaginationProps,
+  Table,
+  useMatchMedia,
+} from "@bsport/kaizen-primitive-core";
 import type { Teacher } from "@bsport/store-core-data-teacher";
 
 import { LEGACY_URLS } from "#src/urls";
 import { useTranslation } from "#src/utils/i18n";
 
+import { TeacherList } from "./TeacherList";
 import { useTeacherTableColumns } from "./columns";
 import type {
   TableColumnsParams,
@@ -74,6 +79,25 @@ export const TeacherTable: React.FC<TeacherTableProps> = ({
               }
             : undefined,
         };
+
+  const isMobile = !useMatchMedia("lg");
+
+  if (isMobile) {
+    return (
+      <TeacherList
+        mode={mode}
+        teachers={teachers}
+        permissions={permissions}
+        paginationProps={paginationProps}
+        isEmpty={isEmpty}
+        isEmptySearch={isEmptySearch}
+        isLoading={isLoading}
+        handleArchive={handleArchive}
+        handleRestore={handleRestore}
+        emptyConfig={emptyConfig}
+      />
+    );
+  }
 
   return (
     <Table

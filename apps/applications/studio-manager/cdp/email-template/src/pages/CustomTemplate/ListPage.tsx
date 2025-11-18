@@ -59,31 +59,35 @@ const CustomListPage: React.FC = () => {
     fetchAllEmailTemplates();
   };
 
+  const { endGroupActions } = ListLayout.useAdaptiveActions({
+    endGroupActions: [
+      <Button
+        key="create-category-cta-email-template-page"
+        intent="default"
+        color="main"
+        size="md"
+        iconLeft="plus"
+        label={t("activeList.actions.addCategory")}
+        onClick={handleCreateCategory}
+      />,
+      <Button
+        key="create-template-cta-email-template-page"
+        intent="call-to-action"
+        color="main"
+        size="md"
+        iconLeft="plus"
+        label={t("activeList.actions.addTemplate")}
+        onClick={navigateToCreateTemplate}
+      />,
+    ],
+  });
+
   return (
     <>
       <ListLayout>
         <ListLayout.Header
           pageTitle={t("pages.active")}
-          endGroupActions={[
-            <Button
-              key="create-category-cta-email-template-page"
-              intent="default"
-              color="main"
-              size="md"
-              iconLeft="plus"
-              label={t("activeList.actions.addCategory")}
-              onClick={handleCreateCategory}
-            />,
-            <Button
-              key="create-template-cta-email-template-page"
-              intent="call-to-action"
-              color="main"
-              size="md"
-              iconLeft="plus"
-              label={t("activeList.actions.addTemplate")}
-              onClick={navigateToCreateTemplate}
-            />,
-          ]}
+          endGroupActions={endGroupActions}
           pageTabs={tabsConfig}
           searchConfig={searchConfig}
         />

@@ -1,7 +1,12 @@
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router";
 
-import { Button, ListLayout, Tooltip } from "@bsport/kaizen-primitive-core";
+import {
+  Button,
+  type ButtonProps,
+  ListLayout,
+  Tooltip,
+} from "@bsport/kaizen-primitive-core";
 
 import { CustomFormTable } from "#src/components/CustomFormTable";
 import { CreateFormModal } from "#src/components/Modal/CreateFormModal";
@@ -29,6 +34,21 @@ const CustomFormListPage: React.FC = () => {
   } = useFetchCustomForms({ searchInput, archived: false });
 
   const navigate = useNavigate();
+
+  const { endGroupActions } = ListLayout.useAdaptiveActions({
+    endGroupActions: [
+      <GoToArchivedListButton
+        key="bt-navigate-to-archive-page"
+        kind="icon-button"
+        icon="box"
+        intent="default"
+        color="main"
+        size="md"
+        label={t("pages.archived")}
+        onClick={() => navigate(ROUTES.ARCHIVED)}
+      />,
+    ],
+  });
 
   const customFormTableItems = useMemo(
     () =>
@@ -82,23 +102,7 @@ const CustomFormListPage: React.FC = () => {
             onClick={handleOpenCreateFormModal}
           />
         }
-        endGroupActions={[
-          <Tooltip
-            key="bt-navigate-to-archive-page"
-            label={t("pages.archived")}
-            placement="bottom-left"
-          >
-            <Button
-              kind="icon-button"
-              icon="box"
-              intent="default"
-              color="main"
-              size="md"
-              label={t("pages.archived")}
-              onClick={() => navigate(ROUTES.ARCHIVED)}
-            />
-          </Tooltip>,
-        ]}
+        endGroupActions={endGroupActions}
         searchConfig={{
           id: "form-active-search",
           inputValue: searchInput,
@@ -109,6 +113,7 @@ const CustomFormListPage: React.FC = () => {
       <ListLayout.Content>
         <CustomFormTable
           customFormsItems={customFormTableItems}
+          customForms={customForms}
           isEmpty={isEmpty}
           isEmptySearch={isEmptySearch}
           isLoading={isLoading}
@@ -130,5 +135,15 @@ const CustomFormListPage: React.FC = () => {
     </ListLayout>
   );
 };
+
+function GoToArchivedListButton(props: ButtonProps) {
+  const { t } = useTranslation("common");
+
+  return (
+    <Tooltip label={t("pages.archived")} placement="bottom-left">
+      <Button {...props} />
+    </Tooltip>
+  );
+}
 
 export default CustomFormListPage;

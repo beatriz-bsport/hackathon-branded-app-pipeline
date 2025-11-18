@@ -19,8 +19,6 @@ import {
   getOrderStatusChipConfig,
 } from "./transformers";
 
-const MAX_VISIBLE_PAGES = 6;
-
 export type EmptyConfig = {
   title: string;
   subtitle?: string;
@@ -99,19 +97,11 @@ export const OrderList: FC<OrderListProps> = ({
     };
   });
 
-  const mobilePagination: PaginationProps | undefined = paginationProps
-    ? {
-        ...paginationProps,
-        showRowsPerPageSelector: false,
-        maxVisiblePages: MAX_VISIBLE_PAGES,
-      }
-    : undefined;
-
   return (
     <List
       id="order-mobile-list"
       items={listItems}
-      paginationProps={mobilePagination}
+      paginationProps={paginationProps}
       emptyStateProps={{
         isEmpty: !!isEmpty,
         emptyConfig,

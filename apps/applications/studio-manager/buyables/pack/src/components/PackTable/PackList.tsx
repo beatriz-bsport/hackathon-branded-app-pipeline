@@ -14,8 +14,6 @@ import { useTranslation } from "#src/utils/i18n";
 import { VisibilityBadges } from "./VisibilityBadges";
 import type { TableRowData } from "./types";
 
-const MAX_VISIBLE_PAGES = 6;
-
 export type PackListProps = {
   tableRows: Array<TableRowData>;
   handleArchive?: ({ id, name }: { id: number; name: string }) => void;
@@ -75,17 +73,11 @@ export const PackList: FC<PackListProps> = ({
     };
   });
 
-  const mobilePagination: PaginationProps = {
-    ...paginationProps,
-    showRowsPerPageSelector: false,
-    maxVisiblePages: MAX_VISIBLE_PAGES,
-  };
-
   return (
     <List
       id="pack-mobile-list"
       items={listItems}
-      paginationProps={mobilePagination}
+      paginationProps={paginationProps}
       emptyStateProps={{
         isEmpty: !!isEmpty,
         emptyConfig,

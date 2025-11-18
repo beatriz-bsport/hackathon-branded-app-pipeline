@@ -32,7 +32,7 @@
     "renameTemplateModal": {
       "title": "Hernoem emailsjabloon",
       "textInput": {
-        "label": "Sjabloontitel",
+        "label": "Naam",
         "placeholder": "Voeg een sjabloontitel toe"
       },
       "confirmButton": "Hernoemen",

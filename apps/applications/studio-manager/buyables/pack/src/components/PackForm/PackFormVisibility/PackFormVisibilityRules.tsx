@@ -1,7 +1,7 @@
 import React from "react";
 
 import { getCurrencyDisplayWithPrice } from "@bsport/currency";
-import { FormField, useFormController } from "@bsport/form";
+import { FormField, type UseFormControllerOutput } from "@bsport/form";
 import {
   Checkbox,
   CheckboxGroup,
@@ -15,7 +15,7 @@ import { type PackFormSchema } from "../schema";
 
 type PackFormVisibilityRulesProps = {
   fieldIdPrefix: string;
-  methods: ReturnType<typeof useFormController<PackFormSchema>>;
+  methods: UseFormControllerOutput<PackFormSchema>;
 };
 
 type CheckboxFields =

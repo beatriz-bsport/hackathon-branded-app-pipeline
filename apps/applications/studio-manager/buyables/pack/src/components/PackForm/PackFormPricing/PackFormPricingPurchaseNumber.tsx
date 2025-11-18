@@ -1,6 +1,6 @@
 import React from "react";
 
-import { FormField, useFormController } from "@bsport/form";
+import { FormField, type UseFormControllerOutput } from "@bsport/form";
 import {
   TextField,
   type TextFieldProps,
@@ -14,7 +14,7 @@ import { FIELD_MAX_NB_PURCHASE_MINIMUM, type PackFormSchema } from "../schema";
 
 type PackFormPricingPurchaseNumberProps = {
   fieldIdPrefix: string;
-  methods: ReturnType<typeof useFormController<PackFormSchema>>;
+  methods: UseFormControllerOutput<PackFormSchema>;
 };
 
 export const PackFormPricingPurchaseNumber: React.FC<

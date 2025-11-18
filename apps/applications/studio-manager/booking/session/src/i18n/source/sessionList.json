@@ -1,5 +1,8 @@
 {
   "header": "Calendar",
+  "title": {
+    "occupancyRate": "{{rate}}% enrolled"
+  },
   "table": {
     "headers": {
       "time": "Time",

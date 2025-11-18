@@ -102,18 +102,6 @@ export const registerBooking = (
   );
 };
 
-export const registerTabletBooking = (data: {
-  consumer_payment_pack: number;
-  offer: number;
-}) => {
-  return postAuth<{
-    success: boolean;
-    booked_offers: number[];
-    error?: string;
-    offer_id?: number;
-  }>(`${API_V1_URI}/tablet-booking/book/`, data);
-};
-
 export function fetchRecurrenceRuleBookingList(params: any = {}) {
   return getAuth(
     `${API_V1_URI}/booking/recurrence_rule_booking/${buildUrlParams(params)}`,

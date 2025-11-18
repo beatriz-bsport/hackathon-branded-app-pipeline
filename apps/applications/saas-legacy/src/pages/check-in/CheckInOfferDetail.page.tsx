@@ -28,7 +28,7 @@ import { fetchLevel as fetchLevelAction } from '#src/libs/level/actions';
 import {
   confirmAttendance as confirmBookingAttendanceAction,
   fetchBookingsByOffer as fetchBookingsByOfferAction,
-  registerTabletBooking as registerTabletBookingAction,
+  registerBooking as registerBookingAction,
   retrieveBooking as retrieveBookingAction,
 } from '#src/libs/booking/actions';
 import { retrieveOffer as retrieveOfferAction } from '#src/libs/offer/actions';
@@ -189,9 +189,13 @@ export class CheckInOfferDetailPage extends React.Component<Props> {
     consumerPaymentPackId: number,
     options: OptionCallback,
   ) => {
-    this.props.registerTabletBooking(
+    this.props.registerBooking(
       consumerPaymentPackId,
-      this.props.offerId,
+      // @ts-expect-error TODO - typing
+      {
+        offer: this.props.offerId,
+        auto_assign_spot: true,
+      },
       {
         onError: options?.onError,
         onSuccess: () => {
@@ -416,7 +420,7 @@ const connector = connect(
     upsertMember: upsertMemberAction,
     searchMembers,
     fetchMemberByBarcode: fetchMemberByBarcodeAction,
-    registerTabletBooking: registerTabletBookingAction,
+    registerBooking: registerBookingAction,
     goBack: () => pushRouter('/check-in'),
     fetchSignFormUpConfiguration,
     fetchLevel: fetchLevelAction,

@@ -32,7 +32,7 @@
     "renameTemplateModal": {
       "title": "E-Mail-Vorlage umbenennen",
       "textInput": {
-        "label": "Name der Vorlage",
+        "label": "Name",
         "placeholder": "Name der Vorlage hinzufügen"
       },
       "confirmButton": "Umbenennen",

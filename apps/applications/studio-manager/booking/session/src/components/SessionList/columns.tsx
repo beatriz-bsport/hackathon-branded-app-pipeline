@@ -15,7 +15,7 @@ import {
 } from "@bsport/kaizen-primitive-core";
 import { dataAccessLayer } from "@bsport/sm-backbone";
 
-import { i18nInstance, useTranslation } from "#src/utils/i18n";
+import { useTranslation } from "#src/utils/i18n";
 
 import { SessionTypeChips } from "./SessionTypeChips";
 import type { TableRowData } from "./types";
@@ -23,8 +23,8 @@ import type { TableRowData } from "./types";
 type TableColumn = GenericTableColumn<TableRowData>;
 
 export const useSessionListColumns = () => {
-  const { t } = useTranslation("sessionList");
-  const intlLocale = i18nInstance?.language;
+  const { t, i18n } = useTranslation("sessionList");
+  const intlLocale = i18n?.language;
   const companyTimeZone = dataAccessLayer.useCompanyTheme()?.timezone_name;
 
   const timeColumn: TableColumn = {

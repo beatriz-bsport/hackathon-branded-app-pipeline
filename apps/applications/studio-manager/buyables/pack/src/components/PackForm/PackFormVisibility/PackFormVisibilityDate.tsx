@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 import { getIsoDateString } from "@bsport/datetime-manipulation";
-import { FormField, useFormController } from "@bsport/form";
+import { FormField, type UseFormControllerOutput } from "@bsport/form";
 import {
   Body,
   DatePicker,
@@ -16,7 +16,7 @@ import type { PackFormSchema } from "../schema";
 
 type PackFormVisibilityDateProps = {
   fieldIdPrefix: string;
-  methods: ReturnType<typeof useFormController<PackFormSchema>>;
+  methods: UseFormControllerOutput<PackFormSchema>;
 };
 
 export const PackFormVisibilityDate: React.FC<PackFormVisibilityDateProps> = ({

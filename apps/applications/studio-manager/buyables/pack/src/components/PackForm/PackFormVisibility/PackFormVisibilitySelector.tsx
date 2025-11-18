@@ -1,7 +1,7 @@
 import { clsx } from "clsx";
 import React from "react";
 
-import { FormField, useFormController } from "@bsport/form";
+import { FormField, type UseFormControllerOutput } from "@bsport/form";
 import {
   Body,
   Button,
@@ -18,7 +18,7 @@ import { DEFAULT_FORM_DATA, type PackFormSchema } from "../schema";
 
 type PackFormVisibilitySelectorProps = {
   fieldIdPrefix: string;
-  methods: ReturnType<typeof useFormController<PackFormSchema>>;
+  methods: UseFormControllerOutput<PackFormSchema>;
 };
 
 const OPTION_VISIBLE = "visible";

@@ -1,6 +1,6 @@
 import React from "react";
 
-import { FormField, useFormController } from "@bsport/form";
+import { FormField, type UseFormControllerOutput } from "@bsport/form";
 import {
   Alert,
   Body,
@@ -15,7 +15,7 @@ import { PAYMENT_METHOD_IDENTIFIERS, type PackFormSchema } from "../schema";
 
 type PackFormPricingPaymentMethodsProps = {
   fieldIdPrefix: string;
-  methods: ReturnType<typeof useFormController<PackFormSchema>>;
+  methods: UseFormControllerOutput<PackFormSchema>;
 };
 
 export const PackFormPricingPaymentMethods: React.FC<

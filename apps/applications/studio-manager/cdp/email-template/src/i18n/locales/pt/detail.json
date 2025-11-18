@@ -32,8 +32,8 @@
     "renameTemplateModal": {
       "title": "Renomear modelos de e-mail",
       "textInput": {
-        "label": "Título do Modelos",
-        "placeholder": "Adicione um título ao modelo"
+        "label": "Nome",
+        "placeholder": "Adicione um nome ao modelo"
       },
       "confirmButton": "Renomear",
       "cancelButton": "Fechar",

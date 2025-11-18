@@ -1,4 +1,3 @@
-import { useCallback, useMemo } from "react";
 import { useSearchParams } from "react-router";
 
 import {
@@ -17,7 +16,10 @@ import { useTogglePushNotification } from "#src/hooks/api/use-toggle-push-notifi
 import { useUpdateNotificationRuleSettings } from "#src/hooks/api/use-update-notification-rule-settings";
 import { useFormatNotificationEventTable } from "#src/hooks/layout/use-format-notification-event-table";
 import { useAvailableUpsells } from "#src/hooks/layout/use-upsell-blocker";
-import { NOTIFICATION_EVENT_QUERY_PARAM } from "#src/utils/constants";
+import {
+  NOTIFICATION_EVENT_QUERY_PARAM,
+  NOTIFICATION_TYPE_QUERY_PARAM,
+} from "#src/utils/constants";
 import { useTranslation } from "#src/utils/i18n";
 import type { RefinedNotificationRuleEventData } from "#src/utils/types";
 
@@ -36,7 +38,7 @@ export const NotificationRuleTableContent = ({
   const { isPushNotificationEnabled } = useAvailableUpsells();
   const isMobile = !useMatchMedia("lg");
 
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const notificationId = searchParams.get(NOTIFICATION_EVENT_QUERY_PARAM);
   const {
     formatNotificationRuleEventTableItems,
@@ -65,88 +67,64 @@ export const NotificationRuleTableContent = ({
       onSuccess: fetchNotificationRuleEventData,
     });
 
-  const openDetailDrawer = useCallback(
-    (notificationEventId: number) => {
-      if (
-        selectedNotificationRule?.rule.notification_event ===
-        notificationEventId
-      ) {
-        setSelectedNotificationRule(null);
-      } else {
+  const openDetailDrawer = (notificationEventId: number) => {
+    if (
+      selectedNotificationRule?.rule.notification_event === notificationEventId
+    ) {
+      setSearchParams((params) => {
+        params.delete(NOTIFICATION_EVENT_QUERY_PARAM);
+        params.delete(NOTIFICATION_TYPE_QUERY_PARAM);
+        return params;
+      });
+      setSelectedNotificationRule(null);
+    } else {
+      const notificationEvent = notificationEventsRefinedData.find(
+        (event) => event.rule.notification_event === notificationEventId,
+      );
+      if (notificationEvent) {
+        setSelectedNotificationRule(notificationEvent);
+      }
+    }
+  };
+
+  const tableColumns = getTableColumns({
+    openPreview: (notificationEventId: number) =>
+      openDetailDrawer(notificationEventId),
+    checkCommunicationMethodPreferences: ({
+      notificationRuleEventId,
+      communicationMethod,
+      checked,
+    }) => {
+      if (communicationMethod === "push_notification") {
         const notificationEvent = notificationEventsRefinedData.find(
-          (event) => event.rule.notification_event === notificationEventId,
+          (event) => event.rule.notification_event === notificationRuleEventId,
         );
-        if (notificationEvent) {
-          setSelectedNotificationRule(notificationEvent);
-        }
+        if (!notificationEvent?.details) return;
+        togglePushNotification({
+          checked,
+          notificationEventDetails: notificationEvent.details,
+        });
+      } else if (communicationMethod === "email_notification") {
+        toggleEmailNotification({
+          notificationEventId: notificationRuleEventId,
+          checked,
+        });
       }
     },
-    [
-      notificationEventsRefinedData,
-      selectedNotificationRule,
-      setSelectedNotificationRule,
-    ],
-  );
-
-  // Memoize table columns to prevent unnecessary re-creation
-  const tableColumns = useMemo(
-    () =>
-      getTableColumns({
-        openPreview: (notificationEventId: number) =>
-          openDetailDrawer(notificationEventId),
-        checkCommunicationMethodPreferences: ({
-          notificationRuleEventId,
-          communicationMethod,
-          checked,
-        }) => {
-          if (communicationMethod === "push_notification") {
-            const notificationEvent = notificationEventsRefinedData.find(
-              (event) =>
-                event.rule.notification_event === notificationRuleEventId,
-            );
-            if (!notificationEvent?.details) return;
-            togglePushNotification({
-              checked,
-              notificationEventDetails: notificationEvent.details,
-            });
-          } else if (communicationMethod === "email_notification") {
-            toggleEmailNotification({
-              notificationEventId: notificationRuleEventId,
-              checked,
-            });
-          }
-        },
-        t,
-        permissions: {
-          isPushNotificationEnabled,
-        },
-      }),
-    [
-      openDetailDrawer,
-      notificationEventsRefinedData,
-      togglePushNotification,
-      toggleEmailNotification,
+    t,
+    permissions: {
       isPushNotificationEnabled,
-    ],
-  );
+    },
+  });
 
-  const tableRow = useMemo(() => {
-    const rows = formatNotificationRuleEventTableItems({
-      selectedNotificationRule,
-      isPushNotificationEnabled,
-      items: notificationEventsRefinedData,
-      onRowClick: (row) => {
-        openDetailDrawer(row.rule.notification_event);
-      },
-    });
-    return rows;
-  }, [
-    formatNotificationRuleEventTableItems,
-    notificationEventsRefinedData,
-    isPushNotificationEnabled,
-    openDetailDrawer,
+  const tableRow = formatNotificationRuleEventTableItems({
     selectedNotificationRule,
-  ]);
+    isPushNotificationEnabled,
+    items: notificationEventsRefinedData,
+    onRowClick: (row) => {
+      openDetailDrawer(row.rule.notification_event);
+    },
+  });
 
   return (
     <ListLayout.Content>
@@ -165,6 +143,11 @@ export const NotificationRuleTableContent = ({
         id="notification-rule-detail-drawer"
         onClose={() => {
           setSelectedNotificationRule(null);
+          setSearchParams((params) => {
+            params.delete(NOTIFICATION_EVENT_QUERY_PARAM);
+            params.delete(NOTIFICATION_TYPE_QUERY_PARAM);
+            return params;
+          });
         }}
         isOpen={!!selectedNotificationRule}
         actionsConfig={[

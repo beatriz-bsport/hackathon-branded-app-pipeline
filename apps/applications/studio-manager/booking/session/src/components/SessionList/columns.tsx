@@ -1,14 +1,14 @@
 import {
   Body,
   Button,
-  GenericTableColumn,
+  type GenericTableColumn,
   Icon,
 } from "@bsport/kaizen-primitive-core";
 
 import { i18nInstance, useTranslation } from "#src/utils/i18n";
 
 import { SessionTypeChips } from "./SessionTypeChips";
-import { TableRowData } from "./types";
+import type { TableRowData } from "./types";
 
 type TableColumn = GenericTableColumn<TableRowData>;
 

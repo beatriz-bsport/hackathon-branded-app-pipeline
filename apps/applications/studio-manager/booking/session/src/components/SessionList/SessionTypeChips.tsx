@@ -3,7 +3,7 @@ import React from "react";
 import { GroupedIconChip } from "../common/GroupedIconChip";
 import { HybridChip } from "../common/HybridChip";
 import { OnlineIconChip } from "../common/OnlineIconChip";
-import { TableRowData } from "./types";
+import type { TableRowData } from "./types";
 
 type SessionTypeChipsProps = {
   session: TableRowData;

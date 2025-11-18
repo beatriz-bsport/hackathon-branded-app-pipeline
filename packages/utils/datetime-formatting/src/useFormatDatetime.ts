@@ -22,32 +22,33 @@ const DEFAULT_OPTIONS: Required<DateTimeFormatOptions> = {
 /**
  * Single endpoint for datetime formatting with comprehensive format support.
  * This function handles all datetime formatting needs across the application.
+ * Use formatDateTimeFromDate if you have a DateTime object instead.
  *
  * @param dateTimeString - ISO datetime string to format (e.g., "2024-10-15T14:30:00Z")
  * @param format - The desired output format from DATETIME_FORMATS
  * @param options - Optional formatting options (locale, timezone, etc.)
- * @returns DateTimeFormatResult with formatted string and metadata
+ * @returns formatted date as string
  *
  * @example
  * ```ts
  * // Basic date formatting
  * const result = formatDateTime("2024-10-15T14:30:00Z", DATETIME_FORMATS.FULL_DATE);
- * console.log(result.formatted); // "October 15, 2024"
+ * console.log(result); // "October 15, 2024"
  *
  * // Time formatting
  * formatDateTime("2024-10-15T14:30:00Z", DATETIME_FORMATS.TIME_SIMPLE);
- * // { formatted: "14:30", success: true, ... }
+ * // result: "14:30"
  *
  * // With custom locale and timezone
  * formatDateTime("2024-10-15T14:30:00Z", DATETIME_FORMATS.FULL_DATETIME, {
  *   locale: "fr-FR",
  *   timeZone: "Europe/Paris"
  * });
- * // { formatted: "15 octobre 2024 à 16:30", success: true, ... }
+ * // result: "15 octobre 2024 à 16:30"
  *
  * // Relative formatting
  * formatDateTime("2024-10-15T14:30:00Z", DATETIME_FORMATS.RELATIVE);
- * // { formatted: "2 hours ago", success: true, ... }
+ * // result: "2 hours ago"
  * ```
  */
 export const formatDateTime = (
@@ -76,6 +77,63 @@ export const formatDateTime = (
       return "N/A";
     }
 
+    return formatByType(dateTime, format, opts);
+  } catch (error) {
+    console.error(
+      `Error formatting datetime: ${error instanceof Error ? error.message : String(error)}`,
+    );
+    return "N/A";
+  }
+};
+
+/**
+ * Single endpoint for datetime formatting with comprehensive format support.
+ * This function handles all datetime formatting needs across the application.
+ * Use formatDateTime if you have an ISO string instead.
+ *
+ * @param dateTime - DateTime object to format
+ * @param format - The desired output format from DATETIME_FORMATS
+ * @param options - Optional formatting options (locale, timezone, etc.)
+ * @returns formatted date as string
+ *
+ * @example
+ * ```ts
+ * // Basic date formatting
+ * const dateTime = DateTime.fromISO("2024-10-15T14:30:00Z");
+ * const result = formatDateTimeFromDate(dateTime, DATETIME_FORMATS.FULL_DATE);
+ * console.log(result); // "October 15, 2024"
+ *
+ * // Time formatting
+ * formatDateTimeFromDate(dateTime, DATETIME_FORMATS.TIME_SIMPLE);
+ * // result: "14:30"
+ *
+ * // With custom locale and timezone
+ * formatDateTimeFromDate(dateTime, DATETIME_FORMATS.FULL_DATETIME, {
+ *   locale: "fr-FR",
+ *   timeZone: "Europe/Paris"
+ * });
+ * // result: "15 octobre 2024 à 16:30"
+ *
+ * // Relative formatting
+ * const dateTime = DateTime.fromISO("2024-10-15T14:30:00Z");
+ * formatDateTimeFromDate(dateTime, DATETIME_FORMATS.RELATIVE);
+ * // result: "2 hours ago"
+ * ```
+ */
+export const formatDateTimeFromDate = (
+  dateTime: DateTime,
+  format: DateTimeFormat,
+  options: DateTimeFormatOptions = {},
+): string => {
+  const opts = { ...DEFAULT_OPTIONS, ...options };
+
+  try {
+    if (!dateTime.isValid) {
+      console.error(
+        `Invalid datetime string: ${dateTime.invalidExplanation}. Reason: ${dateTime.invalidReason}`,
+      );
+      return "N/A";
+    }
     return formatByType(dateTime, format, opts);
   } catch (error) {
     console.error(

@@ -28,6 +28,18 @@ export const toDateTime = (date: Date): DateTime =>
 export const toDate = (dateTime: DateTime): Date => dateTime.toJSDate();
 
 /**
+ * Parses an ISO 8601 string to a DateTime object.
+ *
+ * @param isoString - The ISO 8601 formatted string.
+ * @param options - Optional settings such as time zone and locale.
+ * @returns The corresponding DateTime object.
+ */
+export const fromIsoString = (
+  isoString: string,
+  options?: { zone?: string; locale?: string },
+): DateTime => LuxonDateTime.fromISO(isoString, options);
+
+/**
  * Retrieves all days in the month of the provided DateTime.
  *
  * @param date - The DateTime representing any day in the month.

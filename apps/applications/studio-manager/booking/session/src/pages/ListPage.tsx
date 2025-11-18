@@ -24,6 +24,7 @@ const ListPage: React.FC = () => {
     },
   });
 
+  // TODO: merge all the fetching hooks together for clarity.
   const renderedSessions = useTableRowData();
 
   return (

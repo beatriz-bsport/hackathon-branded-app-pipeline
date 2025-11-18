@@ -37,6 +37,9 @@ import GenericResponsiveDialog from '../../components/genericDialog/GenericRespo
 import type { OptionCallback } from '../../state/types';
 import type { RootState } from '../../reducers';
 import withQueryParamsToProps from '#src/hocs/query-params-to-props.hoc';
+import { getTheme } from '#src/libs/theme/selectors';
+
+import { REVAMPED_TEACHER_URL } from '#src/revamp';
 
 type OwnProps = {
   coachId: number;
@@ -88,6 +91,15 @@ export class CoachFormPage extends React.Component<Props, State> {
   handleUserAlreadyRegisteredDialogClose = () =>
     this.setState({ isUserAlreadyRegisteredDialogOpen: false });
 
+  navigateToCoachList = () => {
+    if (this.props.revampedBackofficeEnabled) {
+      // No better way to navigate to the revamp for now
+      window.location.assign(REVAMPED_TEACHER_URL);
+    } else {
+      this.props.goToCoachList();
+    }
+  };
+
   onSubmit = (values: CoachUpdateOrCreatedPayload, options: OptionCallback) => {
     if (!values.birthday) {
       delete values.birthday;
@@ -101,7 +113,7 @@ export class CoachFormPage extends React.Component<Props, State> {
     this.props.upsertCoach(formData, {
       onSuccess: () => {
         if (options && options.onSuccess) options.onSuccess();
-        this.props.goToCoachList();
+        this.navigateToCoachList();
       },
       onError: options?.onError,
       customErrorAction: () => {
@@ -116,7 +128,7 @@ export class CoachFormPage extends React.Component<Props, State> {
   onConfirmLinkCoachByEmail = (email: string) => {
     this.props.linkCoachViaEmail(email?.toLowerCase() || '', {
       onSuccess: () => {
-        this.props.goToCoachList();
+        this.navigateToCoachList();
         this.setState({ isEmailChecking: false });
       },
       onError: () => {
@@ -198,6 +210,9 @@ export class CoachFormPage extends React.Component<Props, State> {
 const connector = connect(
   (state: RootState, { coachId }: { coachId: number }) => ({
     initial: coachId !== null ? getCoach(state, coachId) : null,
+    revampedBackofficeEnabled:
+      getTheme(state)?.revamped_backoffice_enabled &&
+      state.auth?.has_enabled_revamped_backoffice,
   }),
   {
     fetchAssociatedCoach,

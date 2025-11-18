@@ -1,4 +1,4 @@
 export { withNavigationSwitcher } from './withNavigationSwitcher';
 export { useShowRevampedSidebar } from './useShowRevampedSidebar';
-export { NAVIGATION_SIDEBAR_WIDTH } from './constants';
+export { NAVIGATION_SIDEBAR_WIDTH, REVAMPED_TEACHER_URL } from './constants';
 export { useRouteToHomepage } from './useRouteToHomepage';

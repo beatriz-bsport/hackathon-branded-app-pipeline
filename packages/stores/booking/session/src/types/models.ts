@@ -31,6 +31,7 @@ export type ManagerSession = {
   id: number;
   is_broadcast: boolean;
   level: number;
+  linked_hybrid_offer_id?: number | null;
   manager_only: boolean;
   meta_activity_color: string;
   meta_activity: number;

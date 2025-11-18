@@ -1,17 +1,14 @@
-import React, { useMemo } from "react";
+import React from "react";
 
-import {
-  Body,
-  GenericTableColumn,
-  Icon,
-  Table,
-} from "@bsport/kaizen-primitive-core";
-import { ProcessedManagerSession } from "@bsport/store-booking-session";
+import { Table } from "@bsport/kaizen-primitive-core";
 
-import { i18nInstance, useTranslation } from "#src/utils/i18n";
+import { useTranslation } from "#src/utils/i18n";
+
+import { useSessionListColumns } from "./columns";
+import type { TableRowData } from "./types";
 
 type SessionTableProps = {
-  sessions: ProcessedManagerSession[];
+  sessions: TableRowData[];
   isLoading: boolean;
 };
 
@@ -20,79 +17,14 @@ export const SessionTable: React.FC<SessionTableProps> = ({
   isLoading,
 }) => {
   const { t } = useTranslation("sessionList");
-  const intlLocale = i18nInstance?.language;
-
-  const columns: GenericTableColumn<ProcessedManagerSession>[] = useMemo(
-    () => [
-      {
-        header: t("table.headers.time"),
-        id: "time",
-        type: "custom",
-        align: "start",
-        render: (row: ProcessedManagerSession) => {
-          const startDate = new Date(row.date_start);
-          const endDate = new Date(
-            startDate.getTime() + row.duration_minute * 60 * 1000,
-          );
-
-          const timeFormatter = new Intl.DateTimeFormat(intlLocale, {
-            timeStyle: "short",
-          });
-
-          return (
-            <Body htmlVariant="p" size="md">
-              {`${timeFormatter.format(startDate)} - ${timeFormatter.format(endDate)}`}
-            </Body>
-          );
-        },
-      },
-      {
-        header: t("table.headers.sessionName"),
-        id: "sessionName",
-        type: "string",
-        align: "start",
-        keyPath: "name",
-        cellsClassName: "truncate max-w-[202px]",
-      },
-      {
-        header: t("table.headers.participants"),
-        id: "participants",
-        type: "custom",
-        align: "start",
-        render: (row: ProcessedManagerSession) => {
-          return (
-            <div className="flex gap-xs items-center">
-              <Body htmlVariant="p" size="md" className="w-2xl">
-                {`${row.nb_bookings} / ${row.effectif}`}
-              </Body>
-              <div className="flex items-center gap-xs text-onsurface-weak">
-                <Icon icon="hourglass-03" size="sm" />
-                <Body htmlVariant="p" size="md" color="weak">
-                  {`${row.nb_option} / ${row.waiting_list_max_size}`}
-                </Body>
-              </div>
-            </div>
-          );
-        },
-      },
-    ],
-    [t, intlLocale],
-  );
-
-  const loadingProps = useMemo(
-    () => ({
-      isLoading,
-      message: t("table.isLoading"),
-    }),
-    [isLoading, t],
-  );
+  const columns = useSessionListColumns();
 
   return (
     <Table
       columns={columns}
       rowHeight="sm"
       // TODO(elisabeth): add empty state
-      loadingProps={loadingProps}
+      loadingProps={{ isLoading, message: t("table.isLoading") }}
       rows={sessions}
     ></Table>
   );

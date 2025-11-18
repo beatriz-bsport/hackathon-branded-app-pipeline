@@ -18,7 +18,7 @@ const variants = {
   },
   colorByType: {
     "text:default": [
-      "bg-surface-default-weak",
+      "bg-surface-default-weaker",
       "border-stroke-strong",
       "text-onsurface-default",
     ],

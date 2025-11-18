@@ -4,8 +4,12 @@
     "headers": {
       "time": "Time",
       "sessionName": "Session name",
-      "participants": "Participants"
+      "participants": "Participants",
+      "teacher": "Teacher",
+      "establishment": "Establishment",
+      "sessionType": "Session type"
     },
-    "isLoading": "Loading sessions..."
+    "isLoading": "Loading sessions...",
+    "attendanceButton": "Attendance"
   }
 }

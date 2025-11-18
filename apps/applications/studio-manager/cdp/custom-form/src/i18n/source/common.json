@@ -1,7 +1,7 @@
 {
   "pages": {
     "active": "Forms",
-    "archived": "Archived Forms",
+    "archived": "Archived forms",
     "loading": "Loading..."
   },
   "activeList": {
@@ -9,10 +9,10 @@
       "addForm": "Create form"
     },
     "addFormModal": {
-      "title": "Create new Form",
+      "title": "Create form",
       "description": "Name your new form to get started!",
       "input": {
-        "label": "Form name",
+        "label": "Name",
         "placeholder": "Add a form name..."
       },
       "actions": {
@@ -20,9 +20,9 @@
         "create": "Create"
       },
       "errors": {
-        "nameTooLong": "The name is not valid, the maximum length is {{ maximalLength }} characters.",
-        "nameTooShort": "The name is not valid, the minimal length is {{ minimalLength }} character.",
-        "nameRequired": "The name is not valid, you cannot enter an empty name."
+        "nameTooLong": "Name must be a maximum of {{ maximalLength }} characters",
+        "nameTooShort": "Name must be at least {{ minimalLength }} character",
+        "nameRequired": "Give your form a name to continue"
       }
     },
     "archiveModal": {
@@ -30,18 +30,18 @@
         "archive": "Archive",
         "cancel": "Back"
       },
-      "title": "Archive Form?",
-      "description": "Members won't see <b>{{ name }}</b> anymore but you can access it from your archive."
+      "title": "Archive form?",
+      "description": "Once you archive<b>{{ name }}</b>, it will no longer be visible to members.  \n\nYou can restore this form at any time from your archive. "
     },
     "duplicateModal": {
       "actions": {
         "duplicate": "Duplicate",
         "cancel": "Back"
       },
-      "title": "Duplicate Form?",
+      "title": "Duplicate form?",
       "description": {
         "verification": "Duplicate <b>{{ name }}</b> ?",
-        "effect": "You can edit <b>{{ name }}</b> after."
+        "effect": "You'll be able to edit <b>{{ name }}</b> after"
       }
     }
   },
@@ -56,15 +56,15 @@
     },
     "messageRestored": {
       "success": "Form restored",
-      "error": "Failed to restore your form"
+      "error": "Unable to restore form - please try again"
     },
     "messageDuplicated": {
-      "success": "Form duplicated",
-      "error": "Failed to duplicate your form"
+      "success": "Form duplicated - please try again",
+      "error": "Unable to duplicate form - please try again"
     },
     "messageUndone": {
       "success": "Action undone",
-      "error": "Failed to undo action"
+      "error": "Unable to undo action - please try again"
     },
     "actions": {
       "undo": "Undo",
@@ -95,9 +95,9 @@
       }
     },
     "tooltips": {
-      "archive": "Archive Form",
-      "restore": "Restore Form",
-      "duplicate": "Duplicate Form",
+      "archive": "Archive form",
+      "restore": "Restore form",
+      "duplicate": "Duplicate form",
       "search": "Search for a form",
       "switchToArchived": "Archived forms"
     }

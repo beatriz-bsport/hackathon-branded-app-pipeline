@@ -55,7 +55,7 @@
     "bsportTemplateInfo": {
       "label": "bsport templates",
       "title": "bsport templates",
-      "description": "These pre-made templates are ready to use. Duplicate the template, then edit and send the copied version to your members ",
+      "description": "These pre-made templates are ready to use. Duplicate the template, then edit and send the copied version to your members. ",
       "quit": "Quit"
     },
     "createTemplateModal": {
@@ -164,8 +164,8 @@
     "renameTemplateModal": {
       "title": "Rename email template",
       "textInput": {
-        "label": "Template title",
-        "placeholder": "Template title here..."
+        "label": "Template name",
+        "placeholder": "Give your template a name to find it later"
       },
       "confirmButton": "Rename",
       "cancelButton": "Close",

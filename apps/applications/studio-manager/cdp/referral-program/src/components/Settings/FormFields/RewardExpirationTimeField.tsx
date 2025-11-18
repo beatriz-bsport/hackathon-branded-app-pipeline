@@ -5,6 +5,7 @@ import {
   Select,
   type SelectProps,
   TextField,
+  useMatchMedia,
 } from "@bsport/kaizen-primitive-core";
 
 import { APPLICATION_TIME_LIMIT_INTERVAL_DEFAULT } from "#src/utils/constants";
@@ -21,6 +22,7 @@ type Props = Omit<
 >;
 
 export const RewardExpirationTimeField: FC<Props> = ({ ...methods }: Props) => {
+  const isMobile = !useMatchMedia("sm");
   const [timeLimitIntervalCounter, setTimeLimitIntervalCounter] = useState(
     methods.getValues().applicationTimeLimitInterval ??
       APPLICATION_TIME_LIMIT_INTERVAL_DEFAULT,
@@ -60,8 +62,15 @@ export const RewardExpirationTimeField: FC<Props> = ({ ...methods }: Props) => {
     timeLimitIntervalCounter,
   );
 
+  const elementGroupFlexOrientation = isMobile
+    ? "flex flex-col gap-md"
+    : "flex flex-row gap-md";
+
   return (
-    <div id="referring-reward-time-limit" className="flex flex-row gap-md">
+    <div
+      id="referring-reward-time-limit"
+      className={elementGroupFlexOrientation}
+    >
       <FormField<
         ReferralProgramFormData,
         "applicationTimeLimitUnit",
@@ -80,6 +89,7 @@ export const RewardExpirationTimeField: FC<Props> = ({ ...methods }: Props) => {
       >
         <Select
           required
+          fullWidth={isMobile}
           className="min-w-[190px]"
           id="application-time-limit-unit"
           label={t("active.form.timeLimitForUsage.unit.label")}
@@ -120,7 +130,6 @@ export const RewardExpirationTimeField: FC<Props> = ({ ...methods }: Props) => {
       >
         <TextField
           required
-          className="max-w-[190px]"
           fullWidth
           type="number"
           label={t("active.form.timeLimitForUsage.interval.label")}

@@ -2,7 +2,10 @@ import { DATETIME_FORMATS, formatDateTime } from "@bsport/datetime-formatting";
 
 import { LEGACY_URLS } from "#src/urls";
 import { useTranslation } from "#src/utils/i18n";
-import { useSessionsWithTeacher } from "#src/utils/stores-interface";
+import {
+  useCompanyTimezone,
+  useSessionsWithTeacher,
+} from "#src/utils/stores-interface";
 
 import type { TableRowData } from "./types";
 
@@ -10,6 +13,7 @@ export const useUpcomingActivitiesRows = (): Array<TableRowData> => {
   const { i18n } = useTranslation("default");
   const sessions = useSessionsWithTeacher();
   const today = new Date();
+  const companyTimezone = useCompanyTimezone();
 
   return sessions.map((session) => {
     return {
@@ -17,7 +21,7 @@ export const useUpcomingActivitiesRows = (): Array<TableRowData> => {
       activityDate: formatDateTime(
         session.date_start,
         DATETIME_FORMATS.TIME_SIMPLE,
-        { locale: i18n.language },
+        { locale: i18n.language, timeZone: companyTimezone },
       ),
       activityName: session.name,
       teacherName: session.teacher?.name ?? "",
@@ -25,13 +29,18 @@ export const useUpcomingActivitiesRows = (): Array<TableRowData> => {
       teacherSubstituteRequired: session.substitutionRequests.length > 0,
       fillRate:
         session.effectif > 0
-          ? (100 * session.nb_bookings) / session.effectif
+          ? 100 *
+            parseFloat((session.nb_bookings / session.effectif).toFixed(2))
           : 0,
       hasWaitingList: !session.waiting_list_disabled,
       waitingListCount: session.nb_option,
       emptySpotsCount: Math.max(0, session.effectif - session.nb_bookings),
       link: LEGACY_URLS.CALENDAR_OFFER({
-        date: today,
+        isoDate: formatDateTime(
+          today.toISOString(),
+          DATETIME_FORMATS.ISO_DATE,
+          { timeZone: companyTimezone },
+        ),
         sessionId: session.id,
       }),
     };

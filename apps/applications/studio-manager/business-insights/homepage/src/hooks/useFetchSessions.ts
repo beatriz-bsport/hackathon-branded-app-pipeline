@@ -1,10 +1,11 @@
 import { useCallback } from "react";
 
-import { getIsoDateString } from "@bsport/datetime-manipulation";
+import { DATETIME_FORMATS, formatDateTime } from "@bsport/datetime-formatting";
 import { fetchManagerSessionsAction } from "@bsport/store-booking-session";
 import { useAsync } from "@bsport/use-async";
 
 import { fetch } from "#src/utils/fetch";
+import { useCompanyTimezone } from "#src/utils/stores-interface";
 
 export const useFetchSessions = (params: {
   onSuccess: ({
@@ -15,15 +16,22 @@ export const useFetchSessions = (params: {
     sessionIds: number[];
   }) => void;
 }) => {
+  const companyTimezone = useCompanyTimezone();
+
   const handleFetchManagerSessions = useCallback(async () => {
-    const today = new Date();
+    const todayUTC = new Date();
+    const todayCompanyTimezone = formatDateTime(
+      todayUTC.toISOString(),
+      DATETIME_FORMATS.ISO_DATE,
+      { timeZone: companyTimezone },
+    );
 
     return fetchManagerSessionsAction(fetch, {
       only_future_strict: true,
       available: true,
-      date: getIsoDateString(today), // YYYY-MM-DD
+      date: todayCompanyTimezone, // YYYY-MM-DD
     });
-  }, []);
+  }, [companyTimezone]);
 
   const [{ isLoading }, fetchManagerSessions] = useAsync<
     typeof handleFetchManagerSessions

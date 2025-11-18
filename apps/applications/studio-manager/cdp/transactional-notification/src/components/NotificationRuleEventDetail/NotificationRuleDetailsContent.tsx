@@ -60,7 +60,7 @@ export const NotificationRuleDetailsContent: FC<
     if (!isNotificationSegment(value)) return;
     setSelectedOption(value);
     setSearchParams((params) => {
-      searchParams.set(NOTIFICATION_TYPE_QUERY_PARAM, value);
+      params.set(NOTIFICATION_TYPE_QUERY_PARAM, value);
       return params;
     });
   };
@@ -76,20 +76,13 @@ export const NotificationRuleDetailsContent: FC<
         : NOTIFICATION_TYPE_EMAIL;
     setSelectedOption(initialSegment);
     setSearchParams((params) => {
-      searchParams.set(NOTIFICATION_TYPE_QUERY_PARAM, initialSegment);
-      searchParams.set(
+      params.set(
         NOTIFICATION_EVENT_QUERY_PARAM,
         String(selectedNotificationEventId),
       );
+      params.set(NOTIFICATION_TYPE_QUERY_PARAM, initialSegment);
       return params;
     });
-    return () => {
-      setSearchParams((params) => {
-        searchParams.delete(NOTIFICATION_TYPE_QUERY_PARAM);
-        searchParams.delete(NOTIFICATION_EVENT_QUERY_PARAM);
-        return params;
-      });
-    };
   }, [selectedNotificationEventId]);
 
   if (!selectedNotificationRule || !selectedNotificationRule?.rule) {

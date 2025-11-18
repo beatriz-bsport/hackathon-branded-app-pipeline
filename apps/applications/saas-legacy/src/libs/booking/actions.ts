@@ -3,10 +3,7 @@ import { DateTime } from 'luxon';
 
 import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code.js';
 
-import {
-  OFFER_BOOKABLE_STATUS_ALREADY_BOOKED,
-  SPOT_NOT_AVAILABLE,
-} from '@bsport/common/lib/master-data/error-codes/buyable-item-can-not-be-bought.js';
+import { SPOT_NOT_AVAILABLE } from '@bsport/common/lib/master-data/error-codes/buyable-item-can-not-be-bought.js';
 import {
   LOCK_ACQUISITION_FAILURE_GENERIC,
   LOCK_ACQUISITION_FAILURE_SPOT_SCHEDULING,
@@ -26,7 +23,6 @@ import {
   cancelBooking as cancelBookingAPI,
   cancelMultipleBooking as cancelMultipleBookingAPI,
   registerBooking as registerBookingAPI,
-  registerTabletBooking as registerTabletBookingAPI,
   fetchBookingBroadcastRoom as fetchBookingBroadcastRoomAPI,
   fetchRecurrenceRuleBookingList as fetchRecurrenceRuleBookingListAPI,
   createRecurrenceRuleBooking as createRecurrenceRuleBookingAPI,
@@ -639,53 +635,6 @@ export function registerBooking(
       if (options && options.onError) {
         options.onError(err);
       }
-    }
-  };
-}
-
-const registerTabletActions = {
-  success: createAction('BOOKING/TABLET_CHECK_IN/SUCCESS'),
-  isLoading: createAction('BOOKING/TABLET_CHECK_IN/IS_LOADING'),
-  error: createAction('BOOKING/TABLET_CHECK_IN/ERROR'),
-};
-
-export function registerTabletBooking(
-  consumer_payment_pack: number,
-  offer: number,
-  options?: OptionCallback,
-) {
-  return async (dispatch: Dispatch) => {
-    dispatch(registerTabletActions.isLoading(true));
-    dispatch(registerTabletActions.error(null));
-
-    try {
-      const response = await registerTabletBookingAPI({
-        consumer_payment_pack,
-        offer,
-      });
-
-      dispatch(registerTabletActions.success(response.data));
-      if (options && options.onSuccess) {
-        // @ts-expect-error
-        options.onSuccess(response.data);
-      }
-    } catch (err) {
-      dispatch(registerTabletActions.error(err));
-      const bookingError = err.response?.data?.error;
-      if (bookingError === OFFER_BOOKABLE_STATUS_ALREADY_BOOKED) {
-        dispatch(
-          snackbarError(
-            `canNotBuyErrorCode.${OFFER_BOOKABLE_STATUS_ALREADY_BOOKED}`,
-          ),
-        );
-      } else {
-        dispatch(snackbarError(`canNotBuyErrorCode.generic`));
-      }
-      if (options && options.onError) {
-        options.onError(err);
-      }
-    } finally {
-      dispatch(registerTabletActions.isLoading(false));
     }
   };
 }

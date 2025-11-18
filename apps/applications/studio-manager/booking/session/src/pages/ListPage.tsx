@@ -15,8 +15,12 @@ const ListPage: React.FC = () => {
     useFetchEstablishments();
   const { isLoading: isLoadingSessions } = useFetchSessions({
     onSuccess: ({ teacherIds, establishmentIds }) => {
-      fetchTeachers({ teacherIds });
-      fetchEstablishments({ establishmentIds });
+      if (teacherIds.length > 0) {
+        fetchTeachers({ teacherIds });
+      }
+      if (establishmentIds.length > 0) {
+        fetchEstablishments({ establishmentIds });
+      }
     },
   });
 

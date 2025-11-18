@@ -1,11 +1,7 @@
 import { useCallback, useEffect } from "react";
 
 import { getIsoDateString } from "@bsport/datetime-manipulation";
-import {
-  fetchManagerSessionsAction,
-  selectProcessedManagerSessions,
-  useSessionStore,
-} from "@bsport/store-booking-session";
+import { fetchManagerSessionsAction } from "@bsport/store-booking-session";
 import { useAsync } from "@bsport/use-async";
 
 import { fetch } from "#src/utils/fetch";
@@ -19,8 +15,6 @@ export const useFetchSessions = (params: {
     establishmentIds: number[];
   }) => void;
 }) => {
-  const sessions = useSessionStore(selectProcessedManagerSessions);
-
   const _fetchManagerSessions = useCallback(async () => {
     const today = new Date();
 
@@ -64,6 +58,5 @@ export const useFetchSessions = (params: {
 
   return {
     isLoading,
-    sessions,
   };
 };

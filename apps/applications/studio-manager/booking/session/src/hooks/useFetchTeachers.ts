@@ -1,16 +1,11 @@
 import { useCallback } from "react";
 
-import {
-  fetchFlatTeachersAction,
-  selectFlatTeachers,
-  useTeacherStore,
-} from "@bsport/store-core-data-teacher";
+import { fetchFlatTeachersAction } from "@bsport/store-core-data-teacher";
 import { useAsync } from "@bsport/use-async";
 
 import { fetch } from "#src/utils/fetch";
 
 export const useFetchTeachers = () => {
-  const teachers = useTeacherStore(selectFlatTeachers);
   const handleFetchTeachers = useCallback(
     async ({ teacherIds }: { teacherIds: number[] }) => {
       return fetchFlatTeachersAction(fetch, {
@@ -28,7 +23,6 @@ export const useFetchTeachers = () => {
 
   return {
     isLoading,
-    teachers,
     fetchTeachers,
   };
 };

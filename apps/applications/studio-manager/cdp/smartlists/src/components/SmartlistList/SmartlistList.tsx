@@ -17,7 +17,7 @@ type SmartlistListProps = {
   smartlists: Smartlist[];
   paginationProps: Pick<
     PaginationProps,
-    "currentPage" | "totalItems" | "onPageChange" | "onPageSettingsChange"
+    "currentPage" | "totalItems" | "onPageSettingsChange"
   > & {
     rowsPerPage: number;
   };
@@ -121,7 +121,7 @@ export const SmartlistList: FC<SmartlistListProps> = ({
           message: t("loading"),
         }}
         items={listItems}
-        paginationProps={paginationProps}
+        paginationProps={{ ...paginationProps, showRowsPerPageSelector: true }}
         emptyStateProps={{
           emptyConfig: {
             ctaButtonConfig: {

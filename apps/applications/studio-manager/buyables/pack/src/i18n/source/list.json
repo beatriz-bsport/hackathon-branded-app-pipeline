@@ -1,13 +1,13 @@
 {
   "title": "Packs",
   "actions": {
-    "addAPack": "Create Pack"
+    "addAPack": "Create pack"
   },
   "table": {
-    "loading": "Loading Packs...",
+    "loading": "Loading packs...",
     "emptyList": {
-      "title": "No Packs added yet",
-      "subtitle": "Add a Pack to combine your products and Passes into a single offer. "
+      "title": "No packs added yet",
+      "subtitle": "Add a pack to combine your products and passes into a single offer"
     },
     "headers": {
       "name": "Name",
@@ -21,17 +21,17 @@
       "limitedTime": "Limited"
     },
     "tooltips": {
-      "unlisted": "Won't be visible on the Member Area",
-      "hiddenToStaff": "Won't be visible to staff members",
-      "limitedTime": "Only be listed for a limited time",
-      "archive": "Delete Pack"
+      "unlisted": "Not listed on the Member Area",
+      "hiddenToStaff": "Hidden from staff members",
+      "limitedTime": "Only listed for a limited time",
+      "archive": "Delete pack"
     }
   },
   "deleteModal": {
-    "title": "Delete Pack?",
+    "title": "Delete pack?",
     "description": {
       "effect": "Once you delete {{ name }} , it will no longer be visible to members. ",
-      "canNotBeUndone": "All current or previous purchases of this Pack will be unaffected. "
+      "canNotBeUndone": "All members who bought this pack will be unaffected. "
     },
     "actions": {
       "cancel": "Keep",
@@ -41,11 +41,11 @@
   "toasts": {
     "messageDelete": {
       "success": "Pack deleted",
-      "error": "Failed to delete Pack"
+      "error": "Pack couldn't be deleted. Please try again. "
     },
     "messageUndo": {
-      "success": "Action undone",
-      "error": "Failed to undo action"
+      "success": "Change undone",
+      "error": "Change couldn't be undone. Please try again. "
     },
     "actions": {
       "undo": "Undo"

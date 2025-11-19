@@ -10,7 +10,7 @@
     },
     "addFormModal": {
       "title": "Create form",
-      "description": "Name your new form to get started!",
+      "description": "Give your form a name to get started",
       "input": {
         "label": "Name",
         "placeholder": "Add a form name..."

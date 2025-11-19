@@ -47,7 +47,7 @@
       "archiveGiftcard": "Gift card archived",
       "duplicateGiftcard": "Gift card duplicated",
       "deleteGiftcardImage": "Gift card image deleted",
-      "undoAction": "Action undone"
+      "undoAction": "Change undone"
     },
     "errorMessages": {
       "restoreGiftcard": "Unable to restore gift card, please try again",

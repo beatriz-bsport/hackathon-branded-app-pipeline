@@ -8,37 +8,55 @@ import {
   useOrderStore,
 } from "@bsport/store-buyables-order";
 import { useAsync } from "@bsport/use-async";
-import { usePaginationQueryParams } from "@bsport/use-pagination-query-params";
+import {
+  DEFAULT_PAGE,
+  usePaginationQueryParams,
+} from "@bsport/use-pagination-query-params";
 
-import { OrderStatus } from "#src/utils/constants";
+import type { OrderStatus } from "#src/utils/constants";
 import { fetch } from "#src/utils/fetch";
 
-export const useFetchOrders = ({ status }: { status?: OrderStatus }) => {
+export const useFetchOrders = () => {
   const { currentPage, currentPageSize, setPageSettings } =
     usePaginationQueryParams();
 
   const orders = useOrderStore(selectOrders);
   const totalItems = useOrderStore(selectCount);
 
-  const _fetchOrdersPage = useCallback(async () => {
-    const params = status ? { state: status } : {};
-    return fetchOrdersAction(fetch, {
-      page: currentPage,
-      page_size: currentPageSize,
-      ...params,
-    });
-  }, [currentPage, currentPageSize, status]);
+  const _fetchOrdersPage = useCallback(
+    async ({ status }: { status?: OrderStatus }) => {
+      const params = status ? { state: status } : {};
+      return fetchOrdersAction(fetch, {
+        page: currentPage,
+        page_size: currentPageSize,
+        ...params,
+      });
+    },
+    [currentPage, currentPageSize],
+  );
 
   const [{ isLoading }, fetchOrdersPage] = useAsync<typeof _fetchOrdersPage>({
     asyncFn: _fetchOrdersPage,
     dependencies: [_fetchOrdersPage],
   });
 
+  const onFilterChange = () => {
+    setPageSettings(DEFAULT_PAGE, currentPageSize);
+  };
+
+  const onPageSettingsChange = (page: number, pageSize: number) => {
+    if (pageSize !== currentPageSize) {
+      setPageSettings(DEFAULT_PAGE, pageSize);
+    } else {
+      setPageSettings(page, pageSize);
+    }
+  };
+
   const paginationParams: PaginationProps = {
     currentPage,
     rowsPerPage: currentPageSize,
     totalItems,
-    onPageSettingsChange: setPageSettings,
+    onPageSettingsChange,
     showRowsPerPageSelector: true,
   };
 
@@ -53,5 +71,6 @@ export const useFetchOrders = ({ status }: { status?: OrderStatus }) => {
     orders,
     paginationParams,
     totalItems,
+    onFilterChange,
   };
 };

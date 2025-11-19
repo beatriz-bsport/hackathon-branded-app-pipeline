@@ -34,9 +34,9 @@ export const usePackTableColumns = ({
     render: (row) => {
       return (
         <VisibilityBadges
-          hiddenForUsers={row.hiddenForUsers}
-          hiddenForStaff={row.hiddenForStaff}
+          hiddenToStaff={row.hiddenToStaff}
           limitedTime={row.limitedTime}
+          unlisted={row.unlisted}
         />
       );
     },

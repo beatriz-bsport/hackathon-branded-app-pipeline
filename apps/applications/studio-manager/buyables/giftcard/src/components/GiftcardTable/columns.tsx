@@ -2,13 +2,13 @@ import {
   Avatar,
   Body,
   Button,
-  Chip,
   type GenericTableColumn,
   Tooltip,
 } from "@bsport/kaizen-primitive-core";
 
 import { useTranslation } from "#src/utils/i18n";
 
+import { VisibilityBadges } from "./VisibilityBadges";
 import type { TableRowData } from "./constants";
 import type { GetTableColumnsParams, GiftcardHandler } from "./types";
 
@@ -54,36 +54,7 @@ export const useTableColumns = ({
     type: "custom",
     align: "end",
     render: (row) => (
-      <div className="flex flex-row giftcards-center justify-center gap-2xs">
-        {row.isShared && (
-          <Tooltip
-            label={t("giftcardTable.tooltips.shared")}
-            placement="bottom"
-          >
-            <Chip
-              label={t("giftcardTable.values.shared")}
-              size="lg"
-              type="weak"
-              color="default"
-              iconLeft="eye"
-            />
-          </Tooltip>
-        )}
-        {row.isUnavailable && (
-          <Tooltip
-            label={t("giftcardTable.tooltips.unavailable")}
-            placement="bottom"
-          >
-            <Chip
-              label={t("giftcardTable.values.unavailable")}
-              size="lg"
-              type="weak"
-              color="default"
-              iconLeft="eye-off"
-            />
-          </Tooltip>
-        )}
-      </div>
+      <VisibilityBadges shared={row.isShared} hiddenToUsers={row.isUnlisted} />
     ),
   };
 

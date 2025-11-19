@@ -81,8 +81,8 @@ export const PackTable: React.FC<PackTableProps> = ({
     return {
       id,
       name,
-      hiddenForStaff: !is_usable_by_staff,
-      hiddenForUsers: !!manager_only,
+      hiddenToStaff: !is_usable_by_staff,
+      unlisted: !!manager_only,
       limitedTime: !!expiration_date,
       price: Number.isNaN(parseFloat(price)) ? 0 : parseFloat(price),
       numberOfProducts:

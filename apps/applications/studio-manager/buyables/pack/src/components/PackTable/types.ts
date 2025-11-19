@@ -1,8 +1,8 @@
 export type TableRowData = {
   id: number;
   name: string;
-  hiddenForStaff: boolean;
-  hiddenForUsers: boolean;
+  hiddenToStaff: boolean;
+  unlisted: boolean;
   limitedTime: boolean;
   numberOfProducts: number;
   price: number;

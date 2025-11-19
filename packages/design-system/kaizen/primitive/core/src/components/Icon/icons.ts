@@ -227,6 +227,9 @@ const icons = {
   "shopping-cart-03": React.lazy(
     async () => await import("./assets/shopping-cart-03.svg?react"),
   ),
+  "shopping-cart-cross": React.lazy(
+    async () => await import("./assets/shopping-cart-cross.svg?react"),
+  ),
   "spacing-width-02": React.lazy(
     async () => await import("./assets/spacing-width-02.svg?react"),
   ),

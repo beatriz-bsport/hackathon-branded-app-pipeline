@@ -15,10 +15,15 @@
       "numberOfProducts": "Items",
       "price": "Price"
     },
+    "values": {
+      "unlisted": "Unlisted",
+      "hiddenToStaff": "Hidden",
+      "limitedTime": "Limited"
+    },
     "tooltips": {
-      "unavailableForUsers": "This Pack won't be listed on the Member Area",
-      "invisibleForStaff": "This Pack won't be shown to staff members",
-      "availableForALimitedTime": "This Pack will only be listed for a limited time",
+      "unlisted": "Won't be visible on the Member Area",
+      "hiddenToStaff": "Won't be visible to staff members",
+      "limitedTime": "Only be listed for a limited time",
       "archive": "Delete Pack"
     }
   },

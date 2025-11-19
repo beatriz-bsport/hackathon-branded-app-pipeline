@@ -61,6 +61,14 @@ export const useFetchPacks = ({ searchInput }: { searchInput: string }) => {
     onFailure: console.error,
   });
 
+  const onPageSettingsChange = (page: number, pageSize: number) => {
+    if (pageSize !== currentPageSize) {
+      setPageSettings(DEFAULT_PAGE, pageSize);
+    } else {
+      setPageSettings(page, pageSize);
+    }
+  };
+
   // Define paramaters to provide to Table
   const paginationParams: PaginationProps = searchInput
     ? // Fuzzy search pagination parameters
@@ -75,7 +83,7 @@ export const useFetchPacks = ({ searchInput }: { searchInput: string }) => {
         currentPage: currentPage,
         rowsPerPage: currentPageSize,
         totalItems: count,
-        onPageSettingsChange: setPageSettings,
+        onPageSettingsChange: onPageSettingsChange,
         showRowsPerPageSelector: true,
       };
 

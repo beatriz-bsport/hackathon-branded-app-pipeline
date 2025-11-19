@@ -37,8 +37,8 @@
       "preview": "Preview",
       "rename": "Rename",
       "undo": {
-        "success": "Action undone",
-        "error": "An error occurred while undoing the action"
+        "success": "Change undone",
+        "error": "Change couldn’t be undone. Please try again."
       }
     },
     "hover": {
@@ -64,18 +64,18 @@
       "confirmButton": "Create",
       "cancelButton": "Close",
       "textInput": {
-        "label": "Template title",
-        "placeholder": "Template title here..."
+        "label": "Template name",
+        "placeholder": "Give your template a name"
       },
       "onSuccess": {
         "title": "Template created",
         "action": "Open"
       },
       "onFailure": {
-        "title": "An error occurred when creating your email template"
+        "title": " Template couldn’t be created. Please try again."
       },
       "errors": {
-        "name": "Cannot create a template: template name not valid"
+        "name": "Template name not valid. Please try different name. "
       }
     },
     "previewEmailTemplateModal": {
@@ -93,7 +93,7 @@
         "action": "Open"
       },
       "onFailure": {
-        "title": "An error occurred when duplicating your email template."
+        "title": "Template couldn’t be duplicated. Please try again."
       }
     },
     "deleteTemplateModal": {
@@ -106,32 +106,32 @@
         "action": "Undo"
       },
       "onFailure": {
-        "title": "An error occurred when deleting your email template."
+        "title": "Template couldn’t be deleted. Please try again."
       }
     },
     "createCategoryModal": {
       "title": "Add a new category",
       "textInput": {
         "label": "Category name",
-        "placeholder": "Category name here..."
+        "placeholder": "Give your category a name"
       },
       "confirmButton": "Add",
       "cancelButton": "Close",
       "onSuccess": {
-        "title": "Category created"
+        "title": "Category added"
       },
       "onFailure": {
-        "title": "An error occurred when creating your category."
+        "title": " Category couldn’t be added. Please try again."
       },
       "errors": {
-        "name": "Cannot create a category: category name not valid"
+        "name": "Category name not valid. Please try another name. "
       }
     },
     "renameCategoryModal": {
-      "title": "Rename category",
+      "title": "Rename category?",
       "textInput": {
         "label": "Category name",
-        "placeholder": "Category name here..."
+        "placeholder": "Give your category a name"
       },
       "confirmButton": "Rename",
       "cancelButton": "Close",
@@ -140,12 +140,12 @@
         "action": "Undo"
       },
       "onFailure": {
-        "title": "An error occurred when renaming your category."
+        "title": " Category couldn’t be renamed. Please try again."
       }
     },
     "deleteCategoryModal": {
       "title": "Delete category?",
-      "description": " Once you delete <b>{{categoryName}}</b> , it will no longer be visible. \n\nAll items organized under this category will be now be uncategorized. ",
+      "description": "Once you delete <b>{{categoryName}}</b> , it will no longer be visible. \n\nAll items organized under this category will be now be uncategorized. ",
       "confirmButton": "Delete",
       "cancelButton": "Keep",
       "onSuccess": {
@@ -153,19 +153,19 @@
         "action": "Undo"
       },
       "onFailure": {
-        "title": "An error occurred when deleting your category."
+        "title": " Category couldn’t be deleted. Please try again."
       }
     },
     "restoreEmailTemplateAction": {
       "onFailure": {
-        "title": "An error occurred when restoring your email template."
+        "title": " Template couldn’t be restored. Please try again."
       }
     },
     "renameTemplateModal": {
-      "title": "Rename email template",
+      "title": "Rename email template?",
       "textInput": {
-        "label": "Template name",
-        "placeholder": "Give your template a name to find it later"
+        "label": "Name",
+        "placeholder": "Give your template a name "
       },
       "confirmButton": "Rename",
       "cancelButton": "Close",
@@ -174,7 +174,7 @@
         "action": "Undo"
       },
       "onFailure": {
-        "title": "An error occurred when renaming your template."
+        "title": " Template couldn’t be renamed. Please try again."
       }
     }
   }

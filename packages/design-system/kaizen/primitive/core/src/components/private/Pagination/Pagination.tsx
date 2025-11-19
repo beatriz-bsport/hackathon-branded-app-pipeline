@@ -138,15 +138,15 @@ const Pagination: React.FC<PaginationProps> = ({
 
   useEffect(() => {
     const validPage = Math.max(1, Math.min(currentPage, totalPages));
-    if (currentPage !== validPage) {
+    if (currentPage !== validPage && totalPages > 0) {
       onPageChange?.(validPage);
-      onPageSettingsChange?.(validPage, rowsPerPage);
+      onPageSettingsChange?.(validPage, localRowsPerPage);
     }
   }, [
     currentPage,
+    localRowsPerPage,
     onPageChange,
     onPageSettingsChange,
-    rowsPerPage,
     totalPages,
   ]);
 
@@ -154,10 +154,10 @@ const Pagination: React.FC<PaginationProps> = ({
     (page: number) => {
       if (!isNaN(page) && page >= 1 && page <= totalPages) {
         onPageChange?.(page);
-        onPageSettingsChange?.(page, rowsPerPage);
+        onPageSettingsChange?.(page, localRowsPerPage);
       }
     },
-    [onPageChange, onPageSettingsChange, rowsPerPage, totalPages],
+    [localRowsPerPage, onPageChange, onPageSettingsChange, totalPages],
   );
 
   const handleRowsPerPageChange = (option: string) => {

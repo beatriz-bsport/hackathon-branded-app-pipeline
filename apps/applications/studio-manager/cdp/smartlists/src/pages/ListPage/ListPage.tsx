@@ -22,7 +22,6 @@ const ListPage: React.FC = () => {
     searchTerm,
     onSearchChange,
     onSearchClear,
-    onPageChange,
     onPageSettingsChange,
   } = useFilters();
 
@@ -95,7 +94,6 @@ const ListPage: React.FC = () => {
             currentPage,
             totalItems,
             rowsPerPage: currentPageSize,
-            onPageChange,
             onPageSettingsChange,
           }}
           loadingProps={{

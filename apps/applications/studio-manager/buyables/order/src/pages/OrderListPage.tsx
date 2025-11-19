@@ -10,9 +10,6 @@ import { useTranslation } from "#src/utils/i18n";
 const OrderListPage: React.FC = () => {
   const { t } = useTranslation("list");
 
-  const { filterConfig, filterRef, activeFilters, handleClearFilters } =
-    useFilterOrders();
-
   const {
     isLoading,
     isEmpty,
@@ -20,11 +17,15 @@ const OrderListPage: React.FC = () => {
     paginationParams,
     orders,
     fetchOrdersPage,
-  } = useFetchOrders({ status: activeFilters });
+    onFilterChange,
+  } = useFetchOrders();
+
+  const { filterConfig, filterRef, activeFilters, handleClearFilters } =
+    useFilterOrders({ onFilterChange });
 
   useEffect(() => {
-    fetchOrdersPage();
-  }, [fetchOrdersPage]);
+    fetchOrdersPage({ status: activeFilters });
+  }, [fetchOrdersPage, activeFilters]);
 
   return (
     <ListLayout>

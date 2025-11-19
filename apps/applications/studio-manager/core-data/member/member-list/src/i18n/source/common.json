@@ -9,14 +9,14 @@
     "download": "Download"
   },
   "memberTable": {
-    "loading": "Loading profiles . . .",
+    "loading": "Loading profiles...",
     "emptySearch": {
       "subtitle": "No profiles found - try clearing filters to see more results"
     },
     "emptyList": {
       "activeMode": {
         "title": "No profiles yet",
-        "subtitle": "Add profiles or import leads to get started"
+        "subtitle": "Add client profiles or import leads to get started"
       },
       "archivedMode": {
         "title": "No archived profiles"
@@ -73,16 +73,16 @@
     },
     "emailCopied": "Email copied to clipboard",
     "messageUndone": {
-      "success": "Action undone",
-      "error": "Failed to undo the action"
+      "success": "Change undone",
+      "error": "Change couldn't be undone. Please try again. "
     },
     "messageArchived": {
       "success": "Profile archived",
-      "error": "Unable to archive profile, please try again"
+      "error": "Profile couldn't be archived. Please try again."
     },
     "messageRestored": {
       "success": "Profile restored",
-      "error": "Unable to restore profile, please try again"
+      "error": "Profile couldn't be restored. Please try again."
     }
   },
   "filters": {
@@ -114,12 +114,12 @@
       "title": "Leads successfully imported",
       "outputText": "Your CSV file of successfully imported leads:",
       "outputFilename": "rows_success",
-      "importedLeadsNumber_one": "{{ count }} lead was imported",
-      "importedLeadsNumber_other": "{{ count }} leads were imported"
+      "importedLeadsNumber_one": "{{ count }} lead imported",
+      "importedLeadsNumber_other": "{{ count }} leads imported"
     },
     "importPartialSuccess": {
       "title": "Some rows in the file contained errors and could not be processed.",
-      "outputText": "And here is a CSV file of the leads that could not be imported due to incorrect rows.",
+      "outputText": "Here is a CSV file of the leads that could not be imported due to incorrect rows.",
       "outputFilename": "rows_failure"
     },
     "otherImportInProgress": {
@@ -128,10 +128,10 @@
     },
     "importError": {
       "title": "Import failed",
-      "unknownError": "An unknown error happened during the import, please try again"
+      "unknownError": "Something went wrong during import. Please try again"
     },
     "importTimeout": {
-      "title": "Refresh timed out, please try again",
+      "title": "Refresh timed out. Please try again",
       "comeBackLater": "Import is taking longer than expected - please come back later"
     }
   }

@@ -1,17 +1,17 @@
 {
   "page": {
-    "title": "Follow-ups"
+    "title": "Transactional Notifications"
   },
   "notificationRuleEvents": {
     "list": {
-      "notificationNumber_one": "1 follow-up",
-      "notificationNumber_other": "{{ count }} follow-ups",
+      "notificationNumber_one": "1 notification",
+      "notificationNumber_other": "{{ count }} notifications",
       "loading": {
-        "message": "Loading follow-ups..."
+        "message": "Loading notifications..."
       },
       "emptyState": {
-        "title": "No follow-ups found",
-        "description": "There are no follow-ups to display at the moment. Please check back later or contact support."
+        "title": "No notifications found",
+        "description": "There are no notifications to display at the moment. Please check back later or contact support."
       }
     },
     "categories": {
@@ -33,18 +33,18 @@
   "notificationRuleEventDetails": {
     "toast": {
       "create": {
-        "failure": "Couldn't create follow-up. Please try again. "
+        "failure": "Couldn't create notification. Please try again. "
       },
       "update": {
-        "failure": "Couldn't update follow-up. Please try again. "
+        "failure": "Couldn't update notification. Please try again. "
       },
       "delete": {
-        "failure": "Couldn't delete email follow-up. Please try again. "
+        "failure": "Couldn't delete email notification. Please try again. "
       }
     },
     "table": {
       "headers": {
-        "name": "Follow-up",
+        "name": "Notification",
         "email": "Email",
         "pushNotification": "Push Notification"
       },
@@ -54,7 +54,7 @@
           "message": "Set up your push notification first to activate it",
           "label": "Help"
         },
-        "franchiseOwned": "This follow-up is managed by the Central Account ",
+        "franchiseOwned": "This notification is managed by the Central Account ",
         "setPushNotificationBeforeEnabling": "Set up your push notification first to activate it"
       },
       "helper": {
@@ -113,7 +113,7 @@
         "preview": {
           "title": "Preview",
           "placeholder": "Set up your push notification to preview it here",
-          "noPreview": "Preview unavailable. Check the follow-up is set up correctly first. "
+          "noPreview": "Preview unavailable. Check the notification is set up correctly first. "
         },
         "actions": {
           "save": "Save"

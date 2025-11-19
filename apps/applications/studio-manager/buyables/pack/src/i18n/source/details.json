@@ -5,12 +5,12 @@
       "create": "Create",
       "cancel": "Close"
     },
-    "failToCreate": "Failed to create a new pack"
+    "failToCreate": "Couldn't create pack. Please try again. "
   },
   "detailsPage": {
     "packsBreadcrumbs": "Packs",
     "loading": "Loading pack",
-    "canNotFindPack": "Couldn't find pack",
+    "canNotFindPack": "Pack not found",
     "buttons": {
       "copyPaymentLink": "Copy payment link"
     },
@@ -18,7 +18,7 @@
       "paymentLinkCopied": "Link copied"
     },
     "updatePack": {
-      "failToUpdate": "Failed to update pack",
+      "failToUpdate": "Couldn't update pack. Please try again. ",
       "success": "Updated successfully"
     }
   },
@@ -57,30 +57,30 @@
   },
   "formFields": {
     "name": {
-      "label": "Pack name",
-      "helperText": "Limited to {{ maxLength }} characters ({{ length }}/{{ maxLength }})",
-      "errorMaxLength": "Shorten the name to continue"
+      "label": "Name",
+      "helperText": "Name cannot be longer than {{ maxLength }} characters ({{ length }}/{{ maxLength }})",
+      "errorMaxLength": "Name must be under 200 characters"
     },
     "description": {
       "label": "Description",
-      "helperText": "Limited to {{ maxLength }} characters ({{ length }}/{{ maxLength }})",
-      "errorMaxLength": "Shorten the description to continue"
+      "helperText": "Name cannot be longer than {{ maxLength }} characters ({{ length }}/{{ maxLength }})",
+      "errorMaxLength": "Description must be under 2000 characters"
     },
     "packContent": {
-      "title": "Pack contents",
-      "description": "Add a pass, appointment pass, or product to build your pack.",
+      "title": "Contents",
+      "description": "Add a pass, appointment pass, or product to build your pack",
       "card": {
         "placeholder": "Add at least one item in your Pack"
       },
       "itemVariants": {
         "passes": "Passes",
-        "appointmentPasses": "Appointment Passes",
+        "appointmentPasses": "Appointment passes",
         "webshopItems": "Products"
       },
       "buttons": {
         "addItem": "Add item",
-        "addPass": "Add Pass",
-        "addAppointmentPass": "Add Appointment Pass",
+        "addPass": "Add pass",
+        "addAppointmentPass": "Add appointment pass",
         "addWebshopItem": "Add product",
         "removeItem": "Remove item"
       }
@@ -94,28 +94,28 @@
       }
     },
     "pricingSection": {
-      "title": "Pricing",
+      "title": "Cost & Payment",
       "price": {
         "label": "Price",
         "helperText": "Total value of items in this pack: {{ amount }}"
       },
       "taxToggle": {
-        "label": "Sales Tax rate",
-        "description": "Apply a single Sales Tax rate to the whole Pack",
-        "helperText": "The Sales Tax rate will be set for all the items included in this Pack",
-        "errorMissingRate": "Add a rate or deactivate this option to continue"
+        "label": "Sales tax/VAT rate",
+        "description": "Apply a single sales tax rate to the whole pack",
+        "helperText": "This rate will be set for all items included in this pack",
+        "errorMissingRate": "Set a sales tax rate or unselect this option to continue"
       },
       "maxPurchaseToggle": {
-        "label": "Max. per member",
-        "description": "Add a maximum amount of purchases per member",
-        "errorMissingNumber": "Add a number or deactivate this option to continue"
+        "label": "Maximum per client",
+        "description": "Set a maximum amount of purchases per client",
+        "errorMissingNumber": "Add a maximum amount or unselect this option to continue"
       },
       "paymentMethod": {
-        "label": "Payment method",
+        "label": "Payment methods",
         "helperText": "Choose at least one ",
         "checkboxes": {
-          "onlinePayments": "Online (default)",
-          "onsitePayments": "On-site"
+          "onlinePayments": "Online ",
+          "onsitePayments": "In-person"
         },
         "alertVisibilityHidden": "Hidden packs can still be shared with members using a link and paid for via online payment.",
         "errorMissingPaymentMethod": "Select a payment method"

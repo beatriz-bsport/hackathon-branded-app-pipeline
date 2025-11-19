@@ -16,7 +16,7 @@ const navigationMenuSubItem = cva([
   "w-full",
   "gap-2xs",
   "pl-md",
-  "transition ease-out duration-long",
+  "transition ease-out duration-default",
 ]);
 
 const navigationMenuSubItemLabel = cva(

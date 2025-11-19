@@ -16,7 +16,7 @@ const defaultClasses = [
 
 const collapse = cva(defaultClasses);
 
-const BASE_ANIMATION_TIME = 300;
+const BASE_ANIMATION_TIME = 200;
 
 export const CollapseContext = createContext<{
   isCollapseOpen: boolean;
@@ -176,7 +176,7 @@ const Content: React.FC<{
       role="region"
       aria-hidden={!isCollapseOpen}
       style={{ maxHeight: maxHeight }}
-      className="transition-all ease-in-out duration-extra-long overflow-hidden"
+      className="transition-all ease-in-out duration-default overflow-hidden"
     >
       <div ref={childrenContainerRef}>
         {typeof children === "function"

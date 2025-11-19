@@ -11,13 +11,13 @@ import {
   Body,
   Button,
   type GenericTableColumn,
-  Icon,
 } from "@bsport/kaizen-primitive-core";
 import { dataAccessLayer } from "@bsport/sm-backbone";
 
 import { useTranslation } from "#src/utils/i18n";
 
 import { CancelledSessionName } from "./CancelledSessionName";
+import { ParticipantsCell } from "./ParticipantsCell";
 import { SessionTypeChips } from "./SessionTypeChips";
 import type { TableRowData } from "./types";
 
@@ -87,17 +87,12 @@ export const useSessionListColumns = () => {
     align: "start",
     render: (row: TableRowData) => {
       return (
-        <div className="flex gap-xs items-center">
-          <Body htmlVariant="p" size="md" className="w-2xl">
-            {`${row.nb_bookings} / ${row.effectif}`}
-          </Body>
-          <div className="flex items-center gap-xs text-onsurface-weak">
-            <Icon icon="hourglass-03" size="sm" />
-            <Body htmlVariant="p" size="md" color="weak">
-              {`${row.nb_option} / ${row.waiting_list_max_size}`}
-            </Body>
-          </div>
-        </div>
+        <ParticipantsCell
+          nb_bookings={row.nb_bookings}
+          effectif={row.effectif}
+          nb_option={row.nb_option}
+          waiting_list_max_size={row.waiting_list_max_size}
+        />
       );
     },
   };

@@ -13,7 +13,7 @@
       "description": "Give your form a name to get started",
       "input": {
         "label": "Name",
-        "placeholder": "Add a form name..."
+        "placeholder": "Give your form a name to find it later"
       },
       "actions": {
         "cancel": "Close",
@@ -28,7 +28,7 @@
     "archiveModal": {
       "actions": {
         "archive": "Archive",
-        "cancel": "Back"
+        "cancel": "Keep"
       },
       "title": "Archive form?",
       "description": "Once you archive<b>{{ name }}</b>, it will no longer be visible to members.  \n\nYou can restore this form at any time from your archive. "
@@ -36,7 +36,7 @@
     "duplicateModal": {
       "actions": {
         "duplicate": "Duplicate",
-        "cancel": "Back"
+        "cancel": "Close"
       },
       "title": "Duplicate form?",
       "description": {
@@ -48,23 +48,23 @@
   "toasts": {
     "messageCreated": {
       "success": "Form created",
-      "error": "Failed to create your form"
+      "error": " Form couldn’t be restored. Please try again."
     },
     "messageArchived": {
       "success": "Form archived",
-      "error": "Failed to archive your form"
+      "error": " Form couldn’t be archived. Please try again."
     },
     "messageRestored": {
       "success": "Form restored",
-      "error": "Unable to restore form - please try again"
+      "error": " Form couldn’t be restored. Please try again."
     },
     "messageDuplicated": {
-      "success": "Form duplicated - please try again",
-      "error": "Unable to duplicate form - please try again"
+      "success": "Form duplicated",
+      "error": " Form couldn’t be duplicated. Please try again."
     },
     "messageUndone": {
       "success": "Action undone",
-      "error": "Unable to undo action - please try again"
+      "error": "Action couldn't be undone. Please try again."
     },
     "actions": {
       "undo": "Undo",
@@ -83,7 +83,7 @@
     "empty": {
       "activeList": {
         "title": "No forms to display yet",
-        "subtitle": "Create your first form to get feedback from your members."
+        "subtitle": "Create your first form to get feedback from your members"
       },
       "archivedList": {
         "title": "No archived forms yet",

@@ -17,7 +17,7 @@
     "description": "You can still edit <b>{{name}}</b> afterwards",
     "buttons": {
       "duplicate": "Duplicate",
-      "cancel": "Back"
+      "cancel": "Close"
     }
   },
   "deleteModal": {

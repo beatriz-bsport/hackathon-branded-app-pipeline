@@ -114,17 +114,23 @@ export const GiftcardList: FC<GiftcardListProps> = ({
     const chips: ListItemProps["chips"] = (() => {
       if (giftcard.is_shared_giftcard && giftcard.manager_only) {
         return [
-          createChip("eye", t("giftcardTable.tooltips.shared")),
-          createChip("eye-off", t("giftcardTable.tooltips.unavailable")),
+          /**
+           * @todo Uncomment when the Shared chip is ready
+           * createChip("eye", t("giftcardTable.tooltips.shared")),
+           */
+          createChip(
+            "shopping-cart-cross",
+            t("giftcardTable.tooltips.unlisted"),
+          ),
         ];
       }
-
-      if (giftcard.is_shared_giftcard) {
-        return [createChip("eye", t("giftcardTable.tooltips.shared"))];
-      }
-
       if (giftcard.manager_only) {
-        return [createChip("eye-off", t("giftcardTable.tooltips.unavailable"))];
+        return [
+          createChip(
+            "shopping-cart-cross",
+            t("giftcardTable.tooltips.unlisted"),
+          ),
+        ];
       }
 
       return undefined;

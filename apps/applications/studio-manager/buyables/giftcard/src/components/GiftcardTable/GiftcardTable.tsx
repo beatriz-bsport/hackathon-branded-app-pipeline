@@ -50,7 +50,7 @@ export const GiftcardTable: FC<GiftcardTableProps> = ({
     id: giftcard.id,
     iconSrc: giftcard.cover,
     isShared: giftcard.is_shared_giftcard,
-    isUnavailable: giftcard.manager_only,
+    isUnlisted: !!giftcard.manager_only,
     name: giftcard.name,
     price:
       giftcard.card_type === GIFTCARD_TYPES.CUSTOM || !giftcard.price

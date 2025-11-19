@@ -39,9 +39,10 @@ export const PackList: FC<PackListProps> = ({
   const listItems: ListProps["items"] = tableRows.map((row) => {
     const visibilityBadges = (
       <VisibilityBadges
-        hiddenForUsers={row.hiddenForUsers}
-        hiddenForStaff={row.hiddenForStaff}
+        hiddenToStaff={row.hiddenToStaff}
+        isMobile
         limitedTime={row.limitedTime}
+        unlisted={row.unlisted}
       />
     );
 

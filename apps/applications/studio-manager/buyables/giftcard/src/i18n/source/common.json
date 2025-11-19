@@ -69,18 +69,17 @@
       "price": "Price"
     },
     "values": {
-      "unavailable": "Hidden",
+      "unlisted": "Unlisted",
       "shared": "Central",
-      "unlimited": "Unlimited",
       "expireInXDays": "{{ expiration }} days",
       "customAmount": "Custom"
     },
     "tooltips": {
-      "archive": "Archive gift card",
-      "duplicate": "Duplicate gift card",
-      "restore": "Restore gift card",
+      "archive": "Archive Gift Card",
+      "duplicate": "Duplicate Gift Card",
+      "restore": "Restore Gift Card",
       "shared": "Gift card created from Central Account",
-      "unavailable": "Not listed on the Member Area"
+      "unlisted": "Won't be visible on the Member Area"
     },
     "loading": "Loading gift cards"
   },

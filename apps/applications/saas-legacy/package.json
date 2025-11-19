@@ -44,6 +44,7 @@
     "@bsport/broadcast-channel-polyfill": "workspace:*",
     "@bsport/common": "workspace:*",
     "@bsport/consent-management": "workspace:*",
+    "@bsport/onboarding-manager": "workspace:*",
     "@bsport/sm-navigation-sidebar": "workspace:*",
     "@date-io/luxon": "^1.3.13",
     "@didomi/react": "^1.8.8",

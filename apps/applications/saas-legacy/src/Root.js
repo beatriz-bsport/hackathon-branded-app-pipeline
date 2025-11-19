@@ -19,8 +19,10 @@ import { fetchAccessLevel } from './actions/auth.actions';
 import WidgetUtils from './libs/widget/WidgetUtils';
 import withQueryParams from './hocs/with-query-params.hoc';
 import Analytics from './components/analytics/Analytics.component';
+import OnboardingPageTracker from './components/onboarding/OnboardingPageTracker.tsx';
 import { removeTrackingScripts } from './components/analytics/utils.ts';
 import type { NetworkState } from './libs/network/types';
+import { onboardingManagerClient } from './components/onboarding/onboardingManagerClient.ts';
 
 const MarketPlaceRouter = asyncComponent(() =>
   import('./pages/marketplace/Marketplace.router'),
@@ -109,6 +111,10 @@ type Props = {
   isFranchisor: boolean,
   isCoach: boolean,
   theme: CompanyTheme,
+  id: number,
+  username: string,
+  company_role?: number,
+  franchise_role?: number,
 };
 
 export class Root extends Component<Props> {
@@ -158,6 +164,39 @@ export class Root extends Component<Props> {
     if (query.consumerspacecontext) {
       WidgetUtils.setConsumerSpaceContext(query.consumerspacecontext);
     }
+    onboardingManagerClient.loadScript();
+    this.initOnboardingUser();
+  }
+
+  initOnboardingUser(prevProps?: Props) {
+    const { id, username, company_role, franchise_role, theme } = this.props;
+
+    if (!id || !username) {
+      return;
+    }
+
+    if (
+      prevProps &&
+      prevProps.id === id &&
+      prevProps.username === username &&
+      prevProps.company_role === company_role &&
+      prevProps.franchise_role === franchise_role &&
+      prevProps.theme?.company === theme?.company &&
+      prevProps.theme?.franchisor === theme?.franchisor
+    ) {
+      return;
+    }
+
+    onboardingManagerClient.initUser({
+      user_id: String(id),
+      username,
+      company_role,
+      franchise_role,
+      company_id: theme?.company,
+      franchise_id: theme?.franchisor,
+      environment: Config.NODE_ENV,
+      app: 'saas-legacy',
+    });
   }
 
   // Function to send a scroll-up post message to the parent widget
@@ -193,6 +232,7 @@ export class Root extends Component<Props> {
         }
       }
     }
+    this.initOnboardingUser(prevProps);
   }
 
   render() {
@@ -207,6 +247,10 @@ export class Root extends Component<Props> {
       isCoach,
       theme,
       networkState,
+      id,
+      username,
+      company_role,
+      franchise_role,
     } = this.props;
 
     const isUsingMarketplace = !isManager && !isFranchisor && !isCoach;
@@ -220,6 +264,7 @@ export class Root extends Component<Props> {
     }
     return (
       <div className={classes.root}>
+        <OnboardingPageTracker />
         {!WidgetUtils.isWidget() && (
           <Banner
             paymentMethodMissing
@@ -320,6 +365,10 @@ function mapStateToProps(state) {
     isFranchisor: state.auth.is_franchisor,
     isCoach: state.auth.is_coach,
     theme: state.theme.theme,
+    id: state.auth.id,
+    username: state.auth.username,
+    company_role: state.auth.role,
+    franchise_role: state.auth.franchise_role,
   };
 }
 

@@ -63,6 +63,7 @@ import {
 
 import { getBaseURL } from '../utils/urlUtils';
 import analyticsUtils from '../components/analytics/analytics';
+import { onboardingManagerClient } from '../components/onboarding/onboardingManagerClient';
 
 export const initiateInterface = createAction('initiate');
 
@@ -113,6 +114,7 @@ export function fetchAccessLevel(
       dispatch(
         setLogin(
           {
+            id,
             username,
             token,
             is_manager,
@@ -194,6 +196,7 @@ export function fetchAccessLevelWithoutConnect(
     try {
       const response = await accessLevelAPI(token);
       const {
+        id,
         is_manager,
         is_consumer,
         is_franchisor,
@@ -211,6 +214,7 @@ export function fetchAccessLevelWithoutConnect(
       dispatch({
         type: types.CHECK_ACCESS_LEVEL,
         payload: {
+          id,
           storingKey,
           is_manager,
           is_consumer,
@@ -384,6 +388,7 @@ export function stampLastStripeAccountConfigurationWarningDateAction(
 
 function setLogin(
   {
+    id,
     username,
     token,
     is_manager,
@@ -401,6 +406,7 @@ function setLogin(
     email_confirmed,
     has_enabled_revamped_backoffice,
   }: {
+    id: number,
     username: string,
     token: string,
     is_manager: boolean,
@@ -422,6 +428,7 @@ function setLogin(
 ) {
   return {
     type: types.LOGIN_SUCCESSFUL,
+    id,
     username,
     name: name || '',
     token,
@@ -561,6 +568,7 @@ export function disconnect(callback) {
     removeItemInStorage('local', STORAGE_KEY_BSPORT_RELATED_MEMBER_TOKEN);
     removeItemInStorage('session', STORAGE_KEY_BSPORT_IMPERSONATED_ORIGIN_URL);
     removeItemInStorage('session', STORAGE_KEY_BSPORT_IMPERSONATED_LEFT_URL);
+    onboardingManagerClient.logOutUser();
     dispatch((() => ({ type: types.DISCONNECT }))());
     if (callback && typeof callback === 'function') callback();
   };

@@ -15,8 +15,11 @@ import {
 import { AppWrapper } from "@bsport/sm-backbone";
 import { dataAccessLayer } from "@bsport/sm-backbone";
 
+import { OnboardingPageTracker } from "#src/components/OnboardingPageTracker";
 import { analyticsClient, debugActive } from "#src/utils/analytics";
 import { NavFlags, useNavFlag } from "#src/utils/featureFlags";
+
+import { onboardingManagerClient } from "./utils/onboarding";
 
 // ----- Booking -----
 const GroupActivities = lazy(() => import("sm-group-activity/App"));
@@ -91,10 +94,12 @@ export function Root() {
         onLogoutCallback: () => {
           analyticsClient.resetIdentity();
           analyticsClient.overloadResetSuperProperties(); // Analytics tool level super properties
+          onboardingManagerClient.logOutUser();
         },
       }}
       loginUrl={loginUrl}
     >
+      <OnboardingPageTracker />
       <AuthenticatedRoutes />
     </AppWrapper>
   );
@@ -103,6 +108,7 @@ export function Root() {
 const AuthenticatedRoutes = () => {
   const user = dataAccessLayer.useUserAccess();
   const companyTheme = dataAccessLayer.useCompanyTheme();
+  const env = getEnv();
 
   useEffect(() => {
     if (user?.id) {
@@ -117,8 +123,18 @@ const AuthenticatedRoutes = () => {
           franchise_id: companyTheme?.franchisor,
         },
       });
+      onboardingManagerClient.initUser({
+        user_id: String(id),
+        username,
+        company_role,
+        franchise_role,
+        company_id: companyTheme?.company,
+        franchise_id: companyTheme?.franchisor,
+        environment: env,
+        app: "sm-host",
+      });
     }
-  }, [user, companyTheme]);
+  }, [user, companyTheme, env]);
 
   useEffect(() => {
     if (companyTheme) {

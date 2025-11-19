@@ -240,14 +240,14 @@ const NavigationSidebarContent = ({
       />
       <div
         role="presentation"
-        className="flex-1 overflow-y-scroll hide-scrollbar"
+        className="flex-1 overflow-y-scroll hide-scrollbar min-h-0"
       >
         <NavigationMenu className="px-xs">
           {renderNavigationItems()}
         </NavigationMenu>
         {menuSet === "settings" && <LanguageDropdown />}
       </div>
-      <Card elevated className="p-xs mx-xs flex flex-col gap-2xs mt-[auto]">
+      <Card elevated className="p-xs mx-xs flex flex-col gap-2xs shrink-0">
         <Button
           className="!justify-between"
           label={t("revampCard.betaFeedbackLink")}

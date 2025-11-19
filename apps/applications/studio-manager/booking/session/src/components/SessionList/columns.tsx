@@ -17,6 +17,7 @@ import { dataAccessLayer } from "@bsport/sm-backbone";
 
 import { useTranslation } from "#src/utils/i18n";
 
+import { CancelledSessionName } from "./CancelledSessionName";
 import { SessionTypeChips } from "./SessionTypeChips";
 import type { TableRowData } from "./types";
 
@@ -66,10 +67,17 @@ export const useSessionListColumns = () => {
   const sessionNameColumn: TableColumn = {
     header: t("table.headers.sessionName"),
     id: "sessionName",
-    type: "string",
+    type: "custom",
     align: "start",
-    keyPath: "name",
     cellsClassName: "truncate max-w-[202px]",
+    render: (row: TableRowData) =>
+      row.available ? (
+        <Body htmlVariant="p" size="md">
+          {row.name}
+        </Body>
+      ) : (
+        <CancelledSessionName name={row.name} />
+      ),
   };
 
   const participantsColumn: TableColumn = {

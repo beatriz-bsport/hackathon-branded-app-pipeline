@@ -40,6 +40,23 @@ export const fromIsoString = (
 ): DateTime => LuxonDateTime.fromISO(isoString, options);
 
 /**
+ * Gets the current local DateTime, with optional time zone and locale settings.
+ *
+ * @param options - Optional settings such as time zone and locale.
+ * @returns  The current local DateTime object.
+ */
+export const getLocalNow = ({
+  zone,
+  locale,
+}: {
+  zone?: string;
+  locale?: string;
+}): DateTime =>
+  LuxonDateTime.now()
+    .setZone(zone ?? "local")
+    .setLocale(locale ?? "en");
+
+/**
  * Retrieves all days in the month of the provided DateTime.
  *
  * @param date - The DateTime representing any day in the month.

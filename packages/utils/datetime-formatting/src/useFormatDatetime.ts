@@ -156,6 +156,9 @@ function formatByType(
     case DATETIME_FORMATS.ISO_DATE:
       return dateTime.toISODate() || "N/A";
 
+    case DATETIME_FORMATS.HUGE_DATE:
+      return dateTime.toLocaleString(DateTime.DATE_HUGE);
+
     case DATETIME_FORMATS.FULL_DATE:
       return dateTime.toLocaleString(DateTime.DATE_FULL);
 

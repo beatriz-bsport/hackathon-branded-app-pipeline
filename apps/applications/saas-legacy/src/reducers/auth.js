@@ -115,6 +115,7 @@ export default function authReducers(state = initialState, action = {}) {
 
     case actionTypes.LOGIN_SUCCESSFUL: {
       const {
+        id,
         username,
         token,
         is_manager,
@@ -168,11 +169,13 @@ export default function authReducers(state = initialState, action = {}) {
           has_completed_account_configuration_on_boarding,
         )
         .set('has_enabled_revamped_backoffice', has_enabled_revamped_backoffice)
-        .set('email_confirmed', email_confirmed);
+        .set('email_confirmed', email_confirmed)
+        .set('id', id);
     }
 
     case actionTypes.CHECK_ACCESS_LEVEL: {
       const {
+        id,
         storingKey,
         username,
         is_manager,
@@ -187,6 +190,7 @@ export default function authReducers(state = initialState, action = {}) {
       } = action.payload;
 
       return state.setIn(['doubleConnexion', storingKey], {
+        id,
         username,
         is_manager,
         is_coach,

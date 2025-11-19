@@ -12,7 +12,7 @@
       "input": {
         "label": "Email",
         "placeholder": "teacher@email.com",
-        "helper": "If we already have this email, the teacher's account will be linked automatically.",
+        "helper": "Teacher profile will be linked automatically if we already have this email address",
         "missingEmailError": "Enter the teacher's email to create their profile"
       },
       "actions": {
@@ -33,7 +33,7 @@
       },
       "title": "Archive teacher?",
       "description": {
-        "action": "Once you archive {{ name }}, their profile will no longer be active.\n",
+        "action": "Once you archive {{ name }}, their profile will no longer be active.\n\n",
         "effect": "You can restore this teacher at any time from your archive."
       }
     }

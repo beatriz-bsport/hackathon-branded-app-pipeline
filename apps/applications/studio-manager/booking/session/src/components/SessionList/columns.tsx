@@ -92,6 +92,7 @@ export const useSessionListColumns = () => {
           effectif={row.effectif}
           nb_option={row.nb_option}
           waiting_list_max_size={row.waiting_list_max_size}
+          available={row.available}
         />
       );
     },
@@ -120,12 +121,13 @@ export const useSessionListColumns = () => {
     header: "",
     type: "custom",
     align: "center",
-    render: () => (
+    render: (row: TableRowData) => (
       <Button
         label={t("table.attendanceButton")}
         size="sm"
         intent="default"
         color="main"
+        disabled={!row.available}
       />
     ),
   };

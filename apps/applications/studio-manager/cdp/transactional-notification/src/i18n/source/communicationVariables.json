@@ -10,7 +10,7 @@
         "coach": "Teacher",
         "date": "Time and date",
         "establishment": "Establishments",
-        "establishment_practical_info": "Establishment access information",
+        "establishment_practical_info": "Establishment details ",
         "address": "Address"
       }
     },
@@ -19,7 +19,7 @@
       "tags": {
         "firstname": "First name",
         "lastname": "Last name",
-        "unsubscribe_link": "Unsubscribe from the newsletter",
+        "unsubscribe_link": "Unsubscribe from newsletter",
         "reset_password_url": "Password reset link",
         "email_confirmation_url": "Email confirmation link"
       }
@@ -31,7 +31,7 @@
         "coach": "Teacher",
         "date": "Time and date",
         "establishment": "Establishment",
-        "establishment_practical_info": "Establishment access information",
+        "establishment_practical_info": "Establishment details",
         "address": "Address",
         "ics_calendar_link": "ICS Calendar Link",
         "spot": "Place",

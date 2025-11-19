@@ -16,10 +16,9 @@ export const PAYMENT_METHOD_IDENTIFIERS = {
   ONSITE_PAYMENTS_ID: 9,
 } as const;
 
-export const DEFAULT_FORM_DATA: Omit<PackFormData, "company"> = {
+export const DEFAULT_FORM_DATA: PackFormData = {
   description: "",
   name: "",
-  available: true,
   is_usable_by_staff: true,
   manager_only: false,
   payment_pack_ids: [],
@@ -36,19 +35,14 @@ export const DEFAULT_FORM_DATA: Omit<PackFormData, "company"> = {
   highlighted_as_recommended: false,
   new_member_only: false,
   tags_on_consumer_item_creation: [],
-} satisfies Omit<PackFormData, "company">;
+} satisfies PackFormData;
 
-/** @todo Remove the Partial when all fields have been added */
 export type PackFormSchema = z.ZodType<PackFormData>;
 
 export const usePackSchema = () => {
   const { t } = useTranslation("details");
 
   return z.object({
-    // Default values
-    available: z.boolean(),
-    company: z.number().nonnegative(),
-
     // Identity section
     name: z
       .string()

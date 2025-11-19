@@ -36,17 +36,12 @@ export const PackCreateModal: React.FC<PackCreateModalProps> = ({
 
   const companyId = dataAccessLayer.useCompanyTheme()?.company;
 
-  const defaultValues = {
-    ...DEFAULT_FORM_DATA,
-    company: companyId ?? 0,
-  };
-
   const packSchema = usePackSchema();
 
   const methods = useFormController<PackFormSchema>({
     mode: "onBlur",
     schema: packSchema,
-    defaultValues,
+    defaultValues: DEFAULT_FORM_DATA,
   });
 
   const formId = `pack-form-create-${useId()}`;
@@ -93,7 +88,7 @@ export const PackCreateModal: React.FC<PackCreateModalProps> = ({
         id={formId}
         onSubmit={(data) => {
           const finalData = {
-            ...defaultValues,
+            ...DEFAULT_FORM_DATA,
             ...data,
             payment_pack_ids: passes,
             private_pass_ids: appointmentPasses,

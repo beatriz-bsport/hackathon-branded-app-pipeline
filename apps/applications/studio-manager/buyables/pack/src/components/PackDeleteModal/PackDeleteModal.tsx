@@ -15,7 +15,8 @@ type PackDeleteModalProps = {
   onClose: () => void;
   packId: number;
   packName: string;
-  refreshPageList: () => void;
+  onDeleteSuccess: () => void;
+  onUndoSuccess: () => void;
 };
 
 export const PackDeleteModal: React.FC<PackDeleteModalProps> = ({
@@ -23,7 +24,8 @@ export const PackDeleteModal: React.FC<PackDeleteModalProps> = ({
   onClose,
   packId,
   packName,
-  refreshPageList,
+  onDeleteSuccess,
+  onUndoSuccess,
 }) => {
   const { t } = useTranslation("list");
 
@@ -37,7 +39,6 @@ export const PackDeleteModal: React.FC<PackDeleteModalProps> = ({
   const [, handleUndo] = useAsync<typeof restorePack>({
     asyncFn: restorePack,
     onSuccess: () => {
-      refreshPageList();
       // Display a toast to inform about the success
       toast({
         status: "default",
@@ -45,6 +46,7 @@ export const PackDeleteModal: React.FC<PackDeleteModalProps> = ({
         title: t("toasts.messageUndo.success"),
         buttonIcon: "x-close",
       });
+      onUndoSuccess();
     },
     onFailure: () => {
       // Display a toast to inform about the failure
@@ -55,7 +57,7 @@ export const PackDeleteModal: React.FC<PackDeleteModalProps> = ({
         buttonIcon: "x-close",
       });
     },
-    dependencies: [refreshPageList],
+    dependencies: [onUndoSuccess],
   });
 
   const deletePack = archivePackAction.bind(null, fetch, { id: packId });
@@ -72,8 +74,7 @@ export const PackDeleteModal: React.FC<PackDeleteModalProps> = ({
         onButtonClick: handleUndo,
       });
 
-      // Refresh the list page once the request has finished
-      refreshPageList();
+      onDeleteSuccess();
 
       // Close the modal
       onClose();
@@ -90,7 +91,7 @@ export const PackDeleteModal: React.FC<PackDeleteModalProps> = ({
       // Close the modal
       onClose();
     },
-    dependencies: [refreshPageList, onClose],
+    dependencies: [onDeleteSuccess, onClose],
   });
 
   return (

@@ -97,7 +97,8 @@ export const PackListPage: React.FC = () => {
             packName={packToDelete.name}
             isOpen={!!packToDelete}
             onClose={() => setPackToDelete(undefined)}
-            refreshPageList={fetchPacks}
+            onDeleteSuccess={fetchPacks}
+            onUndoSuccess={fetchPacks}
           />
         )}
         <SelectedItemsContextProvider>

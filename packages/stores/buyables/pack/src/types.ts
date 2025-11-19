@@ -41,8 +41,6 @@ export type PackFormData = Pick<
   | "name"
   | "description"
   | "manager_only"
-  | "company"
-  | "available"
   | "is_usable_by_staff"
   | "use_payment_combo_tax_on_items"
   | "expiration_date"
@@ -51,11 +49,12 @@ export type PackFormData = Pick<
   | "highlighted_as_recommended"
   | "new_member_only"
   | "tags_on_consumer_item_creation"
-> &
-  Partial<Pick<Pack, "id">> & {
-    payment_pack_ids: number[];
-    shop_item_ids: number[];
-    private_pass_ids: number[];
-    price: number;
-    tax: number;
-  };
+> & {
+  payment_pack_ids: number[];
+  shop_item_ids: number[];
+  private_pass_ids: number[];
+  price: number;
+  tax: number;
+};
+
+export type PackFormEditData = PackFormData & { id: number };

@@ -1,4 +1,4 @@
-import React from "react";
+import type { FC } from "react";
 
 import { FormField } from "@bsport/form";
 import { TextField } from "@bsport/kaizen-primitive-core";
@@ -12,9 +12,7 @@ type PackFormNameProps = {
   fieldIdPrefix: string;
 };
 
-export const PackFormName: React.FC<PackFormNameProps> = ({
-  fieldIdPrefix,
-}) => {
+export const PackFormName: FC<PackFormNameProps> = ({ fieldIdPrefix }) => {
   const { t } = useTranslation("details");
 
   return (

@@ -16,12 +16,16 @@ import { useTranslation } from "#src/utils/i18n";
 
 type PackDetailsHeaderProps = {
   methods: UseFormControllerOutput<PackFormSchema>;
+  onDeleteClick: () => void;
+  onEditTitleClick: () => void;
   pack: Pack;
   toggleIsPanelOpened: () => void;
 };
 
 export const PackDetailsHeader: FC<PackDetailsHeaderProps> = ({
   methods,
+  onDeleteClick,
+  onEditTitleClick,
   pack,
   toggleIsPanelOpened,
 }) => {
@@ -50,9 +54,7 @@ export const PackDetailsHeader: FC<PackDetailsHeaderProps> = ({
           <Breadcrumbs.Item text={t("detailsPage.packsBreadcrumbs")} />
         </Link>,
       ]}
-      onEditTitleClick={() => {
-        console.log("onEditTitleClick triggered");
-      }}
+      onEditTitleClick={onEditTitleClick}
       endGroupActions={[
         <CopyToClipboard
           key="pack-details-button-copy-payment-link"
@@ -89,9 +91,7 @@ export const PackDetailsHeader: FC<PackDetailsHeaderProps> = ({
           icon="trash-01"
           kind="icon-button"
           label="button-delete-pack"
-          onClick={() => {
-            console.log("onDeleteClick triggered");
-          }}
+          onClick={onDeleteClick}
         />,
       ]}
     />

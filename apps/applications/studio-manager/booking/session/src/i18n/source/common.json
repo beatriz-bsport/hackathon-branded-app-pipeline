@@ -4,7 +4,7 @@
       "recurring": "Recurring session",
       "groupedSession": "Grouped sessions",
       "online": "Online session",
-      "hybrid": "A hybrid session combines both an on-site session and a linked online session"
+      "hybrid": "A hybrid session combines both an in-person session and a linked online session"
     },
     "properties": {
       "hybrid": "Hybrid"

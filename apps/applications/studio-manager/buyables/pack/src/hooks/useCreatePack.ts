@@ -5,7 +5,7 @@ import { useAsync } from "@bsport/use-async";
 import { fetch } from "#src/utils/fetch";
 import { useTranslation } from "#src/utils/i18n";
 
-const createPackBinded = createPackAction.bind(null, fetch);
+const createPackBound = createPackAction.bind(null, fetch);
 
 export const useCreatePack = ({
   onSuccess,
@@ -14,8 +14,8 @@ export const useCreatePack = ({
 }) => {
   const { t } = useTranslation("details");
 
-  const [{ isLoading }, handleCreatePack] = useAsync<typeof createPackBinded>({
-    asyncFn: createPackBinded,
+  const [{ isLoading }, handleCreatePack] = useAsync<typeof createPackBound>({
+    asyncFn: createPackBound,
     onSuccess: ({ value }) => {
       onSuccess(value);
     },

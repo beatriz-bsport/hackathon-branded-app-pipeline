@@ -16,6 +16,10 @@
     },
     "toasts": {
       "paymentLinkCopied": "Link copied"
+    },
+    "updatePack": {
+      "failToUpdate": "Failed to update pack",
+      "success": "Updated successfully"
     }
   },
   "addItemsModal": {
@@ -159,5 +163,12 @@
       }
     },
     "requiredField": "This field is required."
+  },
+  "editNameModal": {
+    "title": "Rename Pack?",
+    "buttons": {
+      "cancel": "Cancel",
+      "rename": "Rename"
+    }
   }
 }

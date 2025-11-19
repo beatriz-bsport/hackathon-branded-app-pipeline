@@ -4,7 +4,7 @@ import {
   buildUrlParams,
 } from "@bsport/store-base";
 
-import type { PackFormData } from "./types";
+import type { PackFormData, PackFormEditData } from "./types";
 
 const API_URL = "buyable/v1/payment_combo";
 
@@ -70,6 +70,16 @@ export const createPackAPI = (data: PackFormData): ApiConfig => {
     `${API_URL}/`,
     {
       method: "POST",
+      body: JSON.stringify(data),
+    },
+  ];
+};
+
+export const updatePackAPI = (data: PackFormEditData): ApiConfig => {
+  return [
+    `${API_URL}/${data.id}/`,
+    {
+      method: "PUT",
       body: JSON.stringify(data),
     },
   ];

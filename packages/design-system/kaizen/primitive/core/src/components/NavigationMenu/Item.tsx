@@ -16,7 +16,7 @@ const defaultClasses = [
   "justify-between",
   "cursor-pointer",
   "border-none outline-none",
-  "transition ease-out duration-long",
+  "transition ease-out duration-default",
   // Flex config
   "flex flex-row items-center justify-start",
   // States
@@ -234,7 +234,7 @@ const CollapseContent: React.FC<CollapseContentProps> = ({
         {hasSubitems && (
           <Icon
             className={cx(
-              "transform transition-transform duration-long text-onsurface-default",
+              "transform transition-transform duration-default text-onsurface-default",
               isCollapseOpen ? "rotate-[-90deg]" : "rotate-90",
             )}
             icon="chevron-right"

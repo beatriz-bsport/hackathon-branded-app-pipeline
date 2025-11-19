@@ -48,8 +48,8 @@
       "error": "Teacher couldn't be restored. Please try again."
     },
     "messageUndone": {
-      "success": "Action undone",
-      "error": "Action couldn't be undone. Please try again."
+      "success": "Change undone",
+      "error": "Change couldn't be undone. Please try again."
     },
     "emailCopied": "Email copied to clipboard",
     "phoneCopied": "Phone copied to clipboard",

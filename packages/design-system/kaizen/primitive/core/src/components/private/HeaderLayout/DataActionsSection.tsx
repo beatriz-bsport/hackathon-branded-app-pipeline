@@ -2,7 +2,7 @@ import React from "react";
 
 import Button from "#src/components/Button";
 import ExpandableSearchInput, {
-  type ExpandableSearchInputProps,
+  type ExpandableSearchInputWithTooltipProps,
 } from "#src/components/ExpandableSearchInput";
 import Filter, { type FilterProps } from "#src/components/Filter";
 import { type TooltipProps, withTooltip } from "#src/components/Tooltip";
@@ -12,9 +12,7 @@ export type DataActionsSectionProps = {
   filterConfig?: FilterProps;
   filterRef?: React.Ref<{ resetFilters: () => void }>;
   onDisplayClick?: () => void;
-  searchConfig?: ExpandableSearchInputProps & {
-    tooltipConfig?: Partial<TooltipProps>;
-  };
+  searchConfig?: ExpandableSearchInputWithTooltipProps;
 };
 
 const SearchWithTooltip = withTooltip(ExpandableSearchInput);

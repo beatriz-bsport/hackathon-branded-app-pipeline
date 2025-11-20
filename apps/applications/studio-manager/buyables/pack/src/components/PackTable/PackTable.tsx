@@ -66,6 +66,14 @@ export const PackTable: React.FC<PackTableProps> = ({
 
   const isMobile = !useMatchMedia("sm");
 
+  const onItemClick = (id: number) => {
+    if (USE_REVAMP_DETAILS) {
+      navigate(URLS.DETAILS(id));
+    } else {
+      window.location.href = LEGACY_URLS.PACK_DETAILS(id);
+    }
+  };
+
   const tableRows: Array<TableRowData> = packList.map((pack) => {
     const {
       id,
@@ -81,18 +89,20 @@ export const PackTable: React.FC<PackTableProps> = ({
     return {
       id,
       name,
-      hiddenForStaff: !is_usable_by_staff,
-      hiddenForUsers: !!manager_only,
+      hiddenToStaff: !is_usable_by_staff,
+      unlisted: !!manager_only,
       limitedTime: !!expiration_date,
       price: Number.isNaN(parseFloat(price)) ? 0 : parseFloat(price),
       numberOfProducts:
         aggregateQuantity(payment_packs) +
         aggregateQuantity(private_passes) +
         aggregateQuantity(shop_items),
-      link: USE_REVAMP_DETAILS ? undefined : LEGACY_URLS.PACK_DETAILS(id),
-      onRowClick: USE_REVAMP_DETAILS
-        ? () => navigate(URLS.DETAILS(id))
-        : undefined,
+      onItemClick: () => {
+        onItemClick(id);
+      },
+      onRowClick: () => {
+        onItemClick(id);
+      },
     };
   });
 

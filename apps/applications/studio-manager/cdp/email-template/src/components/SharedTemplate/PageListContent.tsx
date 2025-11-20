@@ -53,7 +53,7 @@ export const SharedEmailTemplateList: React.FC<Props> = ({
     navigateToCustomList();
   };
 
-  const { getFormattedListItems } = useListItemFactory({
+  const { getFormattedListItems, isMobile } = useListItemFactory({
     handlePreviewTemplate,
     handleDuplicateTemplate,
   });
@@ -62,6 +62,7 @@ export const SharedEmailTemplateList: React.FC<Props> = ({
     categoryId: null,
   });
   const { emptyStateConfig } = useEmailTemplateEmptyListState({
+    templateType: model,
     isEmptyList: isEmpty,
   });
 
@@ -73,6 +74,7 @@ export const SharedEmailTemplateList: React.FC<Props> = ({
     <>
       <div className={clsx("flex flex-col w-full", { "self-center": isEmpty })}>
         <List
+          key={`${model}-email-template-list-${isMobile}`}
           id={`${model}-email-template-list`}
           items={emailTemplateListItems}
           emptyStateProps={emptyStateConfig}

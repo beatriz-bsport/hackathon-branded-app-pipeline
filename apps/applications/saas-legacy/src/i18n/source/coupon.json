@@ -53,6 +53,7 @@
       "label": "Discount code *",
       "helperText": "Your members will need to use this exact promotional code.",
       "codeAlreadyInUse": "This code is already in use.",
+      "codeTooShort": "Coupon code needs to be at least 12 characters long.",
       "helperTextFranchise": "Your members will need to use this exact promotional code. Please revise if any of the studios have already applied this promotion."
     },
     "voucher_type": {

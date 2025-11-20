@@ -7,22 +7,22 @@
       "notificationNumber_one": "1 notification",
       "notificationNumber_other": "{{ count }} notifications",
       "loading": {
-        "message": "Loading transactional notifications . . ."
+        "message": "Loading notifications..."
       },
       "emptyState": {
-        "title": "No transactional notifications found",
-        "description": "There are no notification rule events available at the moment. Please check back later or contact support."
+        "title": "No notifications found",
+        "description": "There are no notifications to display at the moment. Please check back later or contact support."
       }
     },
     "categories": {
-      "member": "Member registration",
+      "member": "Member signup",
       "booking": "Bookings",
       "private_booking": "Appointments",
       "recurrent_private_booking": "Recurring appointments",
       "payment_pack": "Penalties",
       "giftcard": "Gift Cards",
       "offer": "Sessions",
-      "replacement_request": "Substitution",
+      "replacement_request": "Substitutions",
       "waiting-list": "Waitlists",
       "subscription": "Subscriptions",
       "invoice": "Billing",
@@ -33,13 +33,13 @@
   "notificationRuleEventDetails": {
     "toast": {
       "create": {
-        "failure": "Failed to create notification rule"
+        "failure": "Couldn't create notification. Please try again. "
       },
       "update": {
-        "failure": "Failed to update notification rule"
+        "failure": "Couldn't update notification. Please try again. "
       },
       "delete": {
-        "failure": "Failed to delete notification rule email template"
+        "failure": "Couldn't delete email notification. Please try again. "
       }
     },
     "table": {
@@ -50,16 +50,16 @@
       },
       "tooltip": {
         "pushNotificationHelper": {
-          "title": "Push notifications",
-          "message": "You can start enabling a push notification after you've set it up.",
+          "title": "Enabling push notifications",
+          "message": "Set up your push notification first to activate it",
           "label": "Help"
         },
         "franchiseOwned": "This notification is managed by the Central Account ",
-        "setPushNotificationBeforeEnabling": "Set up your push notification first to enable it"
+        "setPushNotificationBeforeEnabling": "Set up your push notification first to activate it"
       },
       "helper": {
         "title": "Push notifications",
-        "description": "You can start enabling a push notification after you've set it up."
+        "description": "Set up your push notification first to activate it"
       },
       "actions": {
         "preview": "Preview",
@@ -71,7 +71,7 @@
       }
     },
     "details": {
-      "notificationStatus": "Notification status: ",
+      "notificationStatus": "Status",
       "segmentedControl": {
         "email": "Email",
         "push": "Push"
@@ -83,37 +83,37 @@
         "preview": "Preview",
         "noPreview": "No preview available",
         "select": {
-          "label": "Email notification",
+          "label": "Email template",
           "placeholder": "Select an email template",
-          "standardBsportTemplatePlaceholder": "Standard bsport template",
-          "alertCommunicationVariableStatus": "There was an issue with the selected template"
+          "standardBsportTemplatePlaceholder": "bsport template",
+          "alertCommunicationVariableStatus": "We ran into a problem with this template. Please try again or contact support. "
         },
         "carbonCopy": {
           "label": "Receive a copy of the email"
         },
         "requiredCommunicationVariablesAlert": {
-          "body": "The selected template couldn't be used because it's missing required variables. To use a custom template, make sure it includes these variables: "
+          "body": "This template couldn't be used because it's missing required information. Fill in the following to use this custom template: "
         }
       },
       "pushNotification": {
         "title": {
           "label": "Title",
           "errors": {
-            "minLength": "Cannot be empty",
-            "maxLength": "Cannot exceed 25 characters"
+            "minLength": "Must be filled in",
+            "maxLength": "Must not exceed 25 characters"
           }
         },
         "content": {
           "label": "Content",
           "errors": {
-            "minLength": "Cannot be empty",
-            "maxLength": "Cannot exceed 200 characters"
+            "minLength": "Must be filled in",
+            "maxLength": "Must not exceed 200 characters"
           }
         },
         "preview": {
           "title": "Preview",
-          "placeholder": "Set-up your push notification and preview here",
-          "noPreview": "No preview available"
+          "placeholder": "Set up your push notification to preview it here",
+          "noPreview": "Preview unavailable. Check the notification is set up correctly first. "
         },
         "actions": {
           "save": "Save"

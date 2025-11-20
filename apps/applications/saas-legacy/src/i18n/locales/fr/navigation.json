@@ -126,7 +126,11 @@
     "backToWebshop": "Revenir au magasin",
     "accessMonitoring": "Accès",
     "closeTab": "Fermer la fenêtre",
-    "feedbackBoard": "Tableau de retour d'expérience"
+    "feedbackBoard": "Tableau de retour d'expérience",
+    "insights": {
+      "insights": "Insights"
+    },
+    "enableRevampedBackoffice": "Nouveau Back-Office "
   },
   "multiSession": {
     "title": " Vous semblez utiliser plusieurs onglets simultanément",

@@ -14,7 +14,7 @@ export const baseMenuItemClasses = [
   "p-2xs",
   "gap-xs",
   "cursor-pointer w-full",
-  "transition ease-out duration-long",
+  "transition ease-out duration-default",
   "text-onsurface-action-weak-default",
   // Flex config
   "flex flex-row items-center text-start",
@@ -69,7 +69,7 @@ export const menuItemVariants = {
       "p-2xs",
       "gap-xs",
       "cursor-pointer w-full",
-      "transition ease-out duration-long",
+      "transition ease-out duration-default",
       "flex flex-row items-center justify-start",
       "border-stroke-thin",
       "border-stroke-action-main-selected",

@@ -10,9 +10,9 @@
       "content": "Choose channels"
     },
     "triggerType": {
-      "title": "Select the trigger for the automation",
+      "title": "Select which trigger type will start the automation",
       "notificationType": {
-        "label": "Tripper type",
+        "label": "Trigger type",
         "choices": {
           "groupActivity": "Group Activity",
           "location": "Location",
@@ -77,8 +77,8 @@
           "loading": "Searching smartlists..."
         },
         "errors": {
-          "notEmpty": "Select a trigger type to continue",
-          "atLeastOne": "Select at least 1  trigger type"
+          "notEmpty": "Select a trigger to continue",
+          "atLeastOne": "Select a trigger to continue"
         }
       }
     },

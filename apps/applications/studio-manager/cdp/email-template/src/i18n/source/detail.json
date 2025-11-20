@@ -4,7 +4,7 @@
   },
   "breadcrumbs": {
     "rootPage": "Email templates",
-    "customPage": "Custom templates"
+    "customPage": "Custom"
   },
   "details": {
     "defaultTitle": "Untitled template",
@@ -32,45 +32,45 @@
     "renameTemplateModal": {
       "title": "Rename email template",
       "textInput": {
-        "label": "Template title",
-        "placeholder": "Add a template title"
+        "label": "Name",
+        "placeholder": "Give your template a name to find it later"
       },
       "confirmButton": "Rename",
-      "cancelButton": "Cancel",
+      "cancelButton": "Close",
       "onSuccess": {
         "title": "Template renamed",
         "action": "Undo"
       },
       "onFailure": {
-        "title": "An error occurred when renaming your template."
+        "title": "Unable to rename template - please try again"
       },
       "errors": {
-        "notProvided": "This is required",
+        "notProvided": "This is required to continue",
         "tooLong": "The title is too long"
       }
     }
   },
   "saveTemplateAction": {
-    "description": "This page has unsaved changes.",
+    "description": "This page has unsaved changes",
     "success": {
       "title": "Email template saved"
     },
     "error": {
-      "missingFields": "Some required fields are missing",
-      "problemWhileSaving": "There was a problem saving your changes."
+      "missingFields": "Issue occured trying to save your changes : ",
+      "problemWhileSaving": "Unable to save changes - please try again"
     }
   },
   "leaveConfirmationModal": {
     "description": "Are you sure you want to leave this page?",
     "confirmButton": "OK",
-    "cancelButton": "Cancel"
+    "cancelButton": "Close"
   },
   "templateSubject": {
     "label": "Email subject",
     "placeholder": "Add an email subject",
     "error": {
-      "notProvided": "This is required",
-      "tooLong": "The subject is too long"
+      "notProvided": "No email subject provided",
+      "tooLong": "Email subject too long"
     }
   },
   "templateDesign": {
@@ -80,6 +80,6 @@
   },
   "templateCategory": {
     "label": "Category",
-    "noCategory": "Select a category"
+    "noCategory": "No category"
   }
 }

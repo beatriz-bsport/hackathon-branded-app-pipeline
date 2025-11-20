@@ -7,7 +7,7 @@ import { PackCreateModal } from "#src/components/PackCreateModal";
 import { PackDeleteModal } from "#src/components/PackDeleteModal";
 import { PackTable } from "#src/components/PackTable";
 import { SelectedItemsContextProvider } from "#src/contexts/selectedItemsContext";
-import { useCreateModal } from "#src/hooks/useCreateModal";
+import { useDisclosure } from "#src/hooks/useDisclosure";
 import { useFetchPacks } from "#src/hooks/useFetchPacks";
 import { useSearchPacks } from "#src/hooks/useSearchPacks";
 import { LEGACY_URLS } from "#src/urls";
@@ -20,8 +20,11 @@ export const PackListPage: React.FC = () => {
     { id: number; name: string } | undefined
   >(undefined);
 
-  const { closeCreateModal, isCreateModalOpen, openCreateModal } =
-    useCreateModal();
+  const {
+    onClose: closeCreateModal,
+    isOpen: isCreateModalOpen,
+    onOpen: openCreateModal,
+  } = useDisclosure();
 
   const onAddPackClick = () => {
     const env = getEnv();
@@ -94,7 +97,8 @@ export const PackListPage: React.FC = () => {
             packName={packToDelete.name}
             isOpen={!!packToDelete}
             onClose={() => setPackToDelete(undefined)}
-            refreshPageList={fetchPacks}
+            onDeleteSuccess={fetchPacks}
+            onUndoSuccess={fetchPacks}
           />
         )}
         <SelectedItemsContextProvider>

@@ -56,6 +56,8 @@ export type Column<RowType extends BaseRow> = {
   sortable?: boolean;
   /** Horizontal alignment of column content */
   align?: "start" | "center" | "end";
+  /** Additional CSS classes to apply to the row cells */
+  cellsClassName?: string;
 } & (
   | {
       /**

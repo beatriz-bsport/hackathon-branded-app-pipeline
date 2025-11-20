@@ -337,9 +337,9 @@ export class SchedulePage extends React.Component<Props, State> {
       const associatedCoachesIdsToFilter = coachSelectedInRoleList.map(
         (coach: Coach) => coach.associated_coach_id,
       );
-      const offerList = previousOfferList.filter((offer) =>
-        coachesIdsToFilter.includes(offer.coach),
-      );
+      const offerList = previousOfferList.filter((offer) => {
+        return coachesIdsToFilter.includes(offer.coach_override ?? offer.coach);
+      });
       const availabilitySlotList = previousAvailabilitySlotList.filter(
         (slot) =>
           //@ts-expect-error

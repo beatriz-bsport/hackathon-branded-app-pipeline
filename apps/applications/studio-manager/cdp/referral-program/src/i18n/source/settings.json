@@ -132,7 +132,7 @@
       "title": "Deactivate referrals?",
       "description": "We'll save your setup so that you can easily reactivate referrals in the future.",
       "cancelButton": {
-        "label": "Cancel"
+        "label": "Close"
       },
       "confirmButton": {
         "label": "Deactivate"

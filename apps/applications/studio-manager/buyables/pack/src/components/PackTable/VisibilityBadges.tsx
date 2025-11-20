@@ -5,36 +5,44 @@ import { useTranslation } from "#src/utils/i18n";
 import { VisibilityBadge } from "./VisibilityBadge";
 
 type VisibilityBadgesProps = {
-  hiddenForUsers: boolean;
-  hiddenForStaff: boolean;
+  hiddenToStaff: boolean;
+  isMobile?: boolean;
   limitedTime: boolean;
+  unlisted: boolean;
 };
 
 export const VisibilityBadges: React.FC<VisibilityBadgesProps> = ({
-  hiddenForUsers,
-  hiddenForStaff,
+  hiddenToStaff,
+  isMobile = false,
   limitedTime,
+  unlisted,
 }) => {
   const { t } = useTranslation("list");
 
   return (
     <div className="flex flex-row gap-2xs">
-      {hiddenForUsers && (
+      {unlisted && (
         <VisibilityBadge
-          tooltip={t("table.tooltips.unavailableForUsers")}
-          icon="package-x"
+          icon="shopping-cart-cross"
+          isMobile={isMobile}
+          label={t("table.values.unlisted")}
+          tooltip={t("table.tooltips.unlisted")}
         />
       )}
-      {hiddenForStaff && (
+      {hiddenToStaff && (
         <VisibilityBadge
-          tooltip={t("table.tooltips.invisibleForStaff")}
           icon="eye-off"
+          isMobile={isMobile}
+          label={t("table.values.hiddenToStaff")}
+          tooltip={t("table.tooltips.hiddenToStaff")}
         />
       )}
       {limitedTime && (
         <VisibilityBadge
-          tooltip={t("table.tooltips.availableForALimitedTime")}
           icon="clock-stopwatch"
+          isMobile={isMobile}
+          label={t("table.values.limitedTime")}
+          tooltip={t("table.tooltips.limitedTime")}
         />
       )}
     </div>

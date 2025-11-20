@@ -118,7 +118,11 @@
     "backToWebshop": "Zurück zum Webshop",
     "accessMonitoring": "Zugang",
     "closeTab": "Tab schließen",
-    "feedbackBoard": "Feedback-Board"
+    "feedbackBoard": "Feedback-Board",
+    "insights": {
+      "insights": "Einblicke"
+    },
+    "enableRevampedBackoffice": "Neues Back Office "
   },
   "deprecatedNavigator": {
     "close": "Schließen",

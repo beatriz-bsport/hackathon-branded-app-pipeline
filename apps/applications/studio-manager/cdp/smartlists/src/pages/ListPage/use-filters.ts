@@ -19,8 +19,7 @@ import {
  *   - setSearchTerm: Function to set search term directly
  *   - onSearchChange: Function to update search term and reset to first page
  *   - onSearchClear: Function to clear search term
- *   - onPageChange: Function to change current page
- *   - onPageSettingsChange: Function to update both page and page size
+ *   - onPageSettingsChange: Function to update both page and page size (resets to page 1 when page size changes)
  */
 export const useFilters = () => {
   const { currentPage, currentPageSize, setPageSettings } =
@@ -37,8 +36,12 @@ export const useFilters = () => {
     onSearchChange("");
   };
 
-  const onPageChange = (page: number) => {
-    setPageSettings(page, currentPageSize);
+  const onPageSettingsChange = (page: number, pageSize: number) => {
+    if (pageSize !== currentPageSize) {
+      setPageSettings(DEFAULT_PAGE, pageSize);
+    } else {
+      setPageSettings(page, pageSize);
+    }
   };
 
   return {
@@ -48,7 +51,6 @@ export const useFilters = () => {
     setSearchTerm,
     onSearchChange,
     onSearchClear,
-    onPageChange,
-    onPageSettingsChange: setPageSettings,
+    onPageSettingsChange,
   } as const;
 };

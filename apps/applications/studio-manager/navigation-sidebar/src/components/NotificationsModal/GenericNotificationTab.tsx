@@ -1,6 +1,6 @@
 import { type FC } from "react";
 
-import { List } from "@bsport/kaizen-primitive-core";
+import { List, useMatchMedia } from "@bsport/kaizen-primitive-core";
 
 import { useFetchAlertsByKind } from "#src/api/use-alerts";
 
@@ -11,6 +11,8 @@ export const GenericNotificationTab: FC<GenericNotificationTabProps> = ({
   config,
 }) => {
   const { page, pageSize, onPageChange } = usePagination();
+
+  const isDesktopOrTablet = useMatchMedia("sm");
 
   const { alerts, count, isLoading } = useFetchAlertsByKind({
     alertKind: config.alertKind,
@@ -35,8 +37,8 @@ export const GenericNotificationTab: FC<GenericNotificationTabProps> = ({
         currentPage: page,
         rowsPerPage: pageSize,
         totalItems: count,
+        maxVisiblePages: isDesktopOrTablet ? 8 : 4,
         onPageChange,
-        showRowsPerPageSelector: false,
       }}
       emptyStateProps={{
         isEmpty: !isLoading && alerts.length === 0,

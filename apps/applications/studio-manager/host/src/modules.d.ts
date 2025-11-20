@@ -39,7 +39,7 @@ declare module "sm-group-activity/App" {
   export default App;
 }
 
-declare module "sm-offer/App" {
+declare module "sm-session/App" {
   const App: BaseApp["App"];
   export default App;
 }

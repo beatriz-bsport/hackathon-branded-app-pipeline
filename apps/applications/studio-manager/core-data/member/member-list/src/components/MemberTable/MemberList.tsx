@@ -21,8 +21,6 @@ import type {
   TableRequiredPermissions,
 } from "./types";
 
-const MAX_VISIBLE_PAGES = 6;
-
 export type EmptyConfig = {
   title: string;
   subtitle?: string;
@@ -142,17 +140,11 @@ export const MemberList: FC<MemberListProps> = ({
     };
   });
 
-  const mobilePagination: PaginationProps = {
-    ...paginationProps,
-    showRowsPerPageSelector: false,
-    maxVisiblePages: MAX_VISIBLE_PAGES,
-  };
-
   return (
     <List
       id="member-mobile-list"
       items={listItems}
-      paginationProps={mobilePagination}
+      paginationProps={paginationProps}
       emptyStateProps={{
         isEmpty: !!isEmpty,
         emptyConfig,

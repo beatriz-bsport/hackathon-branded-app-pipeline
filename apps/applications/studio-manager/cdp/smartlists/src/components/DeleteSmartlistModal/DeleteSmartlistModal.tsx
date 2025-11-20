@@ -72,10 +72,10 @@ export const DeleteSmartlistModal: React.FC<DeleteSmartlistModalProps> = ({
       onClickOutside={onClose}
       onClose={onClose}
     >
-      <div className="flex flex-col gap-xl">
+      <div className="flex flex-col gap-md">
         <Body htmlVariant="p" size="lg" color="default" weight="weak">
           <Trans
-            i18nKey={"deleteModal.warning"}
+            i18nKey={"deleteModal.description"}
             values={{ name: smartlist.name }}
             components={{
               b: <b></b>,
@@ -84,6 +84,9 @@ export const DeleteSmartlistModal: React.FC<DeleteSmartlistModalProps> = ({
         </Body>
         <Body htmlVariant="p" size="lg" color="default" weight="weak">
           {t("deleteModal.audienceWarning")}
+        </Body>
+        <Body htmlVariant="p" size="lg" color="default" weight="stronger">
+          {t("deleteModal.warning")}
         </Body>
       </div>
     </Modal>

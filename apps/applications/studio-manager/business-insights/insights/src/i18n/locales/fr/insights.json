@@ -1,5 +1,5 @@
 {
-  "pageTitle": "Aperçus",
+  "pageTitle": "Insights",
   "sections": {
     "member": "Insights Membres",
     "financial": "Santé Financière",
@@ -26,7 +26,7 @@
     }
   },
   "errors": {
-    "loadDashboard": "Impossible de charger le tableau de bord. Veuillez rafraîchir la page.",
+    "loadDashboard": "Échec du chargement du tableau de bord. Veuillez rafraîchir la page.",
     "fetchFailed": "Échec du chargement du tableau de bord. Veuillez rafraîchir la page."
   },
   "filter": {

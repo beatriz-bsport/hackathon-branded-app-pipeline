@@ -70,7 +70,7 @@ export const SearchedTemplateList: React.FC<Props> = ({
     resetTemplateList?.();
   };
 
-  const { getFormattedListItems } = useListItemFactory({
+  const { getFormattedListItems, isMobile } = useListItemFactory({
     handlePreviewTemplate,
     handleDuplicateTemplate,
     handleDeleteTemplate,
@@ -86,8 +86,8 @@ export const SearchedTemplateList: React.FC<Props> = ({
   const emptyListState = {
     isEmpty: isEmptyList,
     emptyConfig: {
-      title: t("templateList.emptyPage.title"),
-      subtitle: t("templateList.emptyPage.description"),
+      title: t("templateList.emptyPage.search.title"),
+      subtitle: t("templateList.emptyPage.search.description"),
       variant: "empty-state",
     },
   };
@@ -106,6 +106,7 @@ export const SearchedTemplateList: React.FC<Props> = ({
         })}
       >
         <List
+          key={`search-email-template-list-${isMobile}`}
           id={`search-bsport-email-template-list`}
           items={searchEmailTemplateList}
           emptyStateProps={emptyListState}

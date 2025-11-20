@@ -1,6 +1,6 @@
 import React from "react";
 
-import { FormField, type useFormController } from "@bsport/form";
+import { FormField, type UseFormControllerOutput } from "@bsport/form";
 import {
   TextField,
   type TextFieldProps,
@@ -19,7 +19,7 @@ import {
 
 type PackFormPricingTaxProps = {
   fieldIdPrefix: string;
-  watch: ReturnType<typeof useFormController<PackFormSchema>>["watch"];
+  watch: UseFormControllerOutput<PackFormSchema>["watch"];
 };
 
 export const PackFormPricingTax: React.FC<PackFormPricingTaxProps> = ({

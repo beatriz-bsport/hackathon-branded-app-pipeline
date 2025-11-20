@@ -371,7 +371,7 @@ const SegmentedControl: React.FC<SegmentedControlProps> = ({
         updateUrlQuery(initialValue);
       }
       // Notify parent component if initial value is set
-      onChangeValue?.(initialValue);
+      // onChangeValue?.(initialValue);
     }
   }, []);
 

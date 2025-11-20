@@ -7,6 +7,7 @@ import { NavigationLink } from "#src/components/NavigationLink";
 import { LEGACY_URLS } from "#src/urls";
 import { useTranslation } from "#src/utils/i18n";
 
+import { NotificationItemLayout } from "./NotificationItemLayout";
 import { useNotificationsNavigation } from "./NotificationsNavigationContext";
 
 export type TutorialsListItemProps = {
@@ -56,10 +57,9 @@ const TutorialsListItem: FC<TutorialsListItemProps> = ({
   }
 
   const renderItem = () => (
-    <div className="grid grid-cols-[minmax(0,7fr)_minmax(0,3fr)] w-full gap-xs items-center">
-      {/* Left column with title and description */}
-      <div className="flex items-center gap-xs">
-        <div className="flex-1 min-w-0">
+    <NotificationItemLayout
+      leftContent={
+        <>
           <Body
             htmlVariant="span"
             size="lg"
@@ -76,9 +76,9 @@ const TutorialsListItem: FC<TutorialsListItemProps> = ({
           >
             {description}
           </Body>
-        </div>
-      </div>
-    </div>
+        </>
+      }
+    />
   );
 
   return (

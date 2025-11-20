@@ -83,7 +83,7 @@ export const PageListContent: React.FC<Props> = ({
     fetchEmailTemplates();
   };
 
-  const { getFormattedListItems } = useListItemFactory({
+  const { getFormattedListItems, isMobile } = useListItemFactory({
     handlePreviewTemplate,
     handleDeleteTemplate,
     handleDuplicateTemplate,
@@ -112,8 +112,8 @@ export const PageListContent: React.FC<Props> = ({
     const baseListEmptyState = {
       isEmpty: true,
       emptyConfig: {
-        title: t("templateList.emptyPage.title"),
-        subtitle: t("templateList.emptyPage.description"),
+        title: t("templateList.emptyPage.custom.title"),
+        subtitle: t("templateList.emptyPage.custom.description"),
         variant: "empty-state",
         ctaButtonConfig: {
           iconLeft: "plus",
@@ -174,6 +174,7 @@ export const PageListContent: React.FC<Props> = ({
     <>
       <div className="flex flex-col w-full">
         <NestedSortableList
+          key={`custom-email-template-nested-${isMobile}`}
           id="custom-email-template-nested-sortable-list"
           onSortChildren={({ reorderedChildren }) => {
             reorderEmailTemplates(reorderedChildren);

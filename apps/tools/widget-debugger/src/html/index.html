@@ -1,0 +1,234 @@
+<!-- The HTML file for the Classes page in the Widget Debugger tool
+  Each html page will look the same:
+  One navbar
+  The code snippet from dev backoffice of the widgets we want to render
+-->
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Widget Debugger - Home (HTML)</title>
+    <link rel="stylesheet" href="./styles.css" />
+    <script src="./burger-menu.js"></script>
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="navbar-content">
+        <button class="burger-menu" aria-label="Toggle navigation menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        <ul class="navbar-nav">
+          <li>
+            <a href="./index.html" class="nav-link active">Home</a>
+          </li>
+          <li>
+            <a href="./classes.html" class="nav-link">Classes</a>
+          </li>
+          <li>
+            <a href="./membership.html" class="nav-link">Membership</a>
+          </li>
+          <li>
+            <a href="./member-area.html" class="nav-link">Member Area</a>
+          </li>
+          <li>
+            <a href="./products.html" class="nav-link">Products</a>
+          </li>
+        </ul>
+        <div id="bsport-widget-921546"></div>
+      </div>
+    </nav>
+
+    <main class="main-content">
+      <div class="page-header">
+        <h1 class="page-title">Home</h1>
+        <p class="page-description">
+          Welcome to the Widget Debugger HTML environment
+        </p>
+      </div>
+      <script id="insert-bsport-widget-cdn">
+        !(function (b, s, p, o, r, t) {
+          !typeof window.BsportWidget !== "undefined" &&
+            !document.getElementById("bsport-widget-cdn") &&
+            !(function () {
+              (m = b.createElement(s)),
+                (m.id = "bsport-widget-cdn"),
+                (m.src = p),
+                b.getElementsByTagName("head")[0].appendChild(m);
+            })();
+        })(document, "script", "https://cdn.dev.bsport.io/scripts/widget.js");
+      </script>
+      <script id="bsport-widget-mount">
+        function MountBsportWidget(config, repeat = 1) {
+          if (repeat > 50) {
+            return;
+          }
+          if (!window.BsportWidget) {
+            return setTimeout(
+              () => {
+                MountBsportWidget(config, repeat + 1);
+              },
+              100 * repeat || 1,
+            );
+          }
+          BsportWidget.mount(config);
+        }
+      </script>
+      <script>
+        MountBsportWidget({
+          parentElement: "bsport-widget-513637",
+          companyId: 2,
+          franchiseId: null,
+          dialogMode: 1,
+          widgetType: "calendar",
+          showFab: false,
+          fullScreenPopup: false,
+          styles: undefined,
+          config: {
+            calendar: {},
+          },
+        });
+      </script>
+      <div id="bsport-widget-513637"></div>
+      <script id="insert-bsport-widget-cdn">
+        !(function (b, s, p, o, r, t) {
+          !typeof window.BsportWidget !== "undefined" &&
+            !document.getElementById("bsport-widget-cdn") &&
+            !(function () {
+              (m = b.createElement(s)),
+                (m.id = "bsport-widget-cdn"),
+                (m.src = p),
+                b.getElementsByTagName("head")[0].appendChild(m);
+            })();
+        })(document, "script", "https://cdn.dev.bsport.io/scripts/widget.js");
+      </script>
+      <script id="bsport-widget-mount">
+        function MountBsportWidget(config, repeat = 1) {
+          if (repeat > 50) {
+            return;
+          }
+          if (!window.BsportWidget) {
+            return setTimeout(
+              () => {
+                MountBsportWidget(config, repeat + 1);
+              },
+              100 * repeat || 1,
+            );
+          }
+          BsportWidget.mount(config);
+        }
+      </script>
+      <script>
+        MountBsportWidget({
+          parentElement: "bsport-widget-921546",
+          companyId: 2,
+          franchiseId: null,
+          dialogMode: 1,
+          widgetType: "loginButton",
+          showFab: false,
+          fullScreenPopup: false,
+          styles: undefined,
+          config: {
+            loginButton: { openMemberProfile: true },
+          },
+        });
+      </script>
+      <script id="insert-bsport-widget-cdn">
+        !(function (b, s, p, o, r, t) {
+          !typeof window.BsportWidget !== "undefined" &&
+            !document.getElementById("bsport-widget-cdn") &&
+            !(function () {
+              (m = b.createElement(s)),
+                (m.id = "bsport-widget-cdn"),
+                (m.src = p),
+                b.getElementsByTagName("head")[0].appendChild(m);
+            })();
+        })(document, "script", "https://cdn.dev.bsport.io/scripts/widget.js");
+      </script>
+      <script id="bsport-widget-mount">
+        function MountBsportWidget(config, repeat = 1) {
+          if (repeat > 50) {
+            return;
+          }
+          if (!window.BsportWidget) {
+            return setTimeout(
+              () => {
+                MountBsportWidget(config, repeat + 1);
+              },
+              100 * repeat || 1,
+            );
+          }
+          BsportWidget.mount(config);
+        }
+      </script>
+      <script>
+        MountBsportWidget({
+          parentElement: "bsport-widget-224022",
+          companyId: 2,
+          franchiseId: null,
+          dialogMode: 1,
+          widgetType: "newsletter",
+          showFab: false,
+          fullScreenPopup: false,
+          styles: undefined,
+          config: {
+            newsletter: {},
+          },
+        });
+      </script>
+      <div id="bsport-widget-224022"></div>
+
+      <script id="insert-bsport-widget-cdn">
+        !(function (b, s, p, o, r, t) {
+          !typeof window.BsportWidget !== "undefined" &&
+            !document.getElementById("bsport-widget-cdn") &&
+            !(function () {
+              (m = b.createElement(s)),
+                (m.id = "bsport-widget-cdn"),
+                (m.src = p),
+                b.getElementsByTagName("head")[0].appendChild(m);
+            })();
+        })(document, "script", "https://cdn.dev.bsport.io/scripts/widget.js");
+      </script>
+      <script id="bsport-widget-mount">
+        function MountBsportWidget(config, repeat = 1) {
+          if (repeat > 50) {
+            return;
+          }
+          if (!window.BsportWidget) {
+            return setTimeout(
+              () => {
+                MountBsportWidget(config, repeat + 1);
+              },
+              100 * repeat || 1,
+            );
+          }
+          BsportWidget.mount(config);
+        }
+      </script>
+      <script>
+        MountBsportWidget({
+          parentElement: "bsport-widget-937833",
+          companyId: 2,
+          franchiseId: null,
+          dialogMode: 1,
+          widgetType: "newsletterV2",
+          showFab: false,
+          fullScreenPopup: false,
+          styles: undefined,
+          config: {
+            newsletterV2: {
+              fieldsType: "fullNameAndEmail",
+              showSubtitle: true,
+              showSuccessTitle: true,
+              showSuccessText: true,
+            },
+          },
+        });
+      </script>
+      <div id="bsport-widget-937833"></div>
+    </main>
+  </body>
+</html>

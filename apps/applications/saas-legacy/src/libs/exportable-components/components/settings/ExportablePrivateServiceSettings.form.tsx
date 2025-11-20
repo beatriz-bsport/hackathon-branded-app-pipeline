@@ -7,6 +7,7 @@ import {
   makeStyles,
   TextField,
   FormHelperText,
+  LinearProgress,
 } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 
@@ -27,6 +28,8 @@ interface Props {
 const MarketplacePrivateServiceSettingsForm: React.FC<Props> = (props) => {
   const classes = useStyles();
   const { t } = useTranslation('settings');
+
+  if (!props.config) return <LinearProgress />;
 
   let typeValue = props.config?.type;
 

@@ -31,6 +31,7 @@ export type ManagerSession = {
   id: number;
   is_broadcast: boolean;
   level: number;
+  linked_hybrid_offer_id?: number | null;
   manager_only: boolean;
   meta_activity_color: string;
   meta_activity: number;
@@ -52,4 +53,16 @@ export type ManagerSession = {
   waiting_list_max_size: number;
   wellhub_product_id: number | null;
   whitelist_tags: number[];
+};
+
+/**
+ * Model: Offer
+ * Serializer: Partial OfferCompleteSerializer (see as_manager endpoint)
+ * A partial representation of a Session, specifically used for the session list page,
+ * with some additional processed fields.
+ * Here name is the final name of the session (taking into account name_override)
+ */
+
+export type ProcessedManagerSession = Omit<ManagerSession, "name_override"> & {
+  color: string;
 };

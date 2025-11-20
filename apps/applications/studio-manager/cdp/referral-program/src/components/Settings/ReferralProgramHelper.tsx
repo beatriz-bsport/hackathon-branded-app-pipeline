@@ -1,6 +1,11 @@
 import { useState } from "react";
 
-import { Body, Button, Title } from "@bsport/kaizen-primitive-core";
+import {
+  Body,
+  Button,
+  Title,
+  useMatchMedia,
+} from "@bsport/kaizen-primitive-core";
 
 import { useToggleReferralProgram } from "#src/hooks/actions/useToggleReferralProgram";
 import { useTranslation } from "#src/utils/i18n";
@@ -18,6 +23,7 @@ export const ReferralProgramHelper: React.FC<Props> = ({
   companyId,
   onToggleSuccess,
 }: Props) => {
+  const isMobile = !useMatchMedia("sm");
   const [isDeactivatingProgram, setIsDeactivatingProgram] = useState(false);
   const { toggleReferralProgram } = useToggleReferralProgram({
     isProgramActivated,
@@ -26,9 +32,15 @@ export const ReferralProgramHelper: React.FC<Props> = ({
   });
   const { t } = useTranslation("settings");
 
+  const titleContainerClassName = isMobile
+    ? "flex flex-col gap-lg"
+    : "flex flex-row gap-lg justify-between";
+
+  const buttonClassName = isMobile ? "w-fit" : "h-fit self-center";
+
   return (
     <>
-      <div className="flex flex-row gap-lg justify-between">
+      <div className={titleContainerClassName}>
         <div className="flex flex-col">
           <Title htmlVariant="h2" weight="strong">
             {t("referralProgramHelper.title")}
@@ -42,7 +54,7 @@ export const ReferralProgramHelper: React.FC<Props> = ({
           </Body>
         </div>
         <Button
-          className="h-fit self-center"
+          className={buttonClassName}
           kind="default"
           intent={isProgramActivated ? "default" : "call-to-action"}
           size="md"

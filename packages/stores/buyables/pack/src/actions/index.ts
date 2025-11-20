@@ -16,8 +16,9 @@ import {
   fetchPacksAPI,
   fuzzySearchPacksAPI,
   restorePackAPI,
+  updatePackAPI,
 } from "#src/api";
-import type { Pack, PackFormData } from "#src/types";
+import type { Pack, PackFormData, PackFormEditData } from "#src/types";
 
 import { setFuzzyPacks, setPacks, updatePack } from "./store";
 
@@ -178,6 +179,28 @@ export const createPackAction: Action<PackFormData, Pack> = async (
     (error) =>
       createErrorWithContext(error, {
         message: `Failed to create pack`,
+        params,
+      }),
+  );
+};
+
+export const updatePackAction: Action<PackFormEditData, Pack> = async (
+  fetch,
+  params,
+) => {
+  const [uri, init] = updatePackAPI(params);
+
+  return Result.try(
+    async () => {
+      const { data } = await fetch(uri, init);
+
+      updatePack(data);
+
+      return data;
+    },
+    (error) =>
+      createErrorWithContext(error, {
+        message: `Failed to update pack`,
         params,
       }),
   );

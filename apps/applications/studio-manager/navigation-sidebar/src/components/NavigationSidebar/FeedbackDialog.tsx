@@ -12,6 +12,7 @@ import { toggleRevampedBackofficeAction } from "@bsport/store-auth";
 import { useAsync } from "@bsport/use-async";
 
 import {
+  LEGACY_DEFAULT_PAGE,
   MAP_REVAMP_DEVELOPMENT_TO_LEGACY_URLS,
   MAP_REVAMP_PRODUCTION_TO_LEGACY_URLS,
 } from "#src/urls";
@@ -47,7 +48,6 @@ const DEFAULT_SELECTED_REASONS: FeedbackReasonState = {
   other: "unchecked",
 };
 
-const LEGACY_DEFAULT_PAGE = "/";
 interface FeedbackDialogProps {
   open: boolean;
   onClose: () => void;
@@ -192,7 +192,6 @@ const FeedbackDialog: React.FC<FeedbackDialogProps> = ({
       title={t("title")}
       confirmButton={{
         label: t("confirm"),
-        color: "critical",
         onClick: handleConfirm,
         disabled: isLoading,
       }}

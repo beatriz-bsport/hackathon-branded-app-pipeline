@@ -6,6 +6,7 @@ import { NavigationLink } from "#src/components/NavigationLink";
 import { LEGACY_URLS } from "#src/urls";
 import { useDateFormatter } from "#src/utils/use-date-formatter";
 
+import { NotificationItemLayout } from "./NotificationItemLayout";
 import { useNotificationsNavigation } from "./NotificationsNavigationContext";
 
 export type TasksListItemProps = {
@@ -29,10 +30,9 @@ const TasksListItem: FC<TasksListItemProps> = ({
   const { navigateAndClose } = useNotificationsNavigation();
 
   const renderItem = () => (
-    <div className="grid grid-cols-[minmax(0,7fr)_minmax(0,3fr)] w-full gap-xs items-center">
-      {/* Left column with title and description */}
-      <div className="flex items-center gap-xs">
-        <div className="flex-1 min-w-0">
+    <NotificationItemLayout
+      leftContent={
+        <>
           <Body
             htmlVariant="span"
             size="lg"
@@ -49,19 +49,19 @@ const TasksListItem: FC<TasksListItemProps> = ({
           >
             {description}
           </Body>
-        </div>
-      </div>
-
-      {/* Right column with date and member name */}
-      <div className="flex flex-col items-end justify-center gap-2xs">
-        <Body htmlVariant="span" size="sm" color="weak">
-          {formatLong(dateDue)}
-        </Body>
-        <Body htmlVariant="span" size="sm" color="weak">
-          {memberName}
-        </Body>
-      </div>
-    </div>
+        </>
+      }
+      rightContent={
+        <>
+          <Body htmlVariant="span" size="sm" color="weak">
+            {formatLong(dateDue)}
+          </Body>
+          <Body htmlVariant="span" size="sm" color="weak">
+            {memberName}
+          </Body>
+        </>
+      }
+    />
   );
 
   return (

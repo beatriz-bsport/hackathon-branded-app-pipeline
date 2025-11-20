@@ -7,6 +7,7 @@ import Button from "#src/components/Button";
 import Divider from "#src/components/Divider";
 import Select from "#src/components/Select";
 import Tooltip from "#src/components/Tooltip";
+import { useMatchMedia } from "#src/hooks/use-match-media";
 import { useKaizenI18nInstance, useTranslation } from "#src/i18n";
 
 const defaultClasses = [
@@ -98,14 +99,19 @@ const Pagination: React.FC<PaginationProps> = ({
   totalItems,
   showRowsPerPageSelector = false,
   disabled = false,
-  maxVisiblePages = 8,
+  maxVisiblePages,
   onPageSettingsChange,
   onPageChange,
   onRowsPerPageChange,
   ...props
 }) => {
+  const isMobile = !useMatchMedia("sm");
+  const visiblePages = maxVisiblePages ?? (isMobile ? 6 : 8);
+  const showPageSelector = isMobile ? false : showRowsPerPageSelector;
+
   const i18nInstance = useKaizenI18nInstance();
   const { t } = useTranslation("default", { i18n: i18nInstance });
+
   const [localRowsPerPage, setLocalRowsPerPage] = useState(rowsPerPage);
 
   useEffect(() => {
@@ -132,15 +138,15 @@ const Pagination: React.FC<PaginationProps> = ({
 
   useEffect(() => {
     const validPage = Math.max(1, Math.min(currentPage, totalPages));
-    if (currentPage !== validPage) {
+    if (currentPage !== validPage && totalPages > 0) {
       onPageChange?.(validPage);
-      onPageSettingsChange?.(validPage, rowsPerPage);
+      onPageSettingsChange?.(validPage, localRowsPerPage);
     }
   }, [
     currentPage,
+    localRowsPerPage,
     onPageChange,
     onPageSettingsChange,
-    rowsPerPage,
     totalPages,
   ]);
 
@@ -148,10 +154,10 @@ const Pagination: React.FC<PaginationProps> = ({
     (page: number) => {
       if (!isNaN(page) && page >= 1 && page <= totalPages) {
         onPageChange?.(page);
-        onPageSettingsChange?.(page, rowsPerPage);
+        onPageSettingsChange?.(page, localRowsPerPage);
       }
     },
-    [onPageChange, onPageSettingsChange, rowsPerPage, totalPages],
+    [localRowsPerPage, onPageChange, onPageSettingsChange, totalPages],
   );
 
   const handleRowsPerPageChange = (option: string) => {
@@ -172,13 +178,13 @@ const Pagination: React.FC<PaginationProps> = ({
     };
 
     // If total pages fit in maxVisiblePages, show all
-    if (totalPages <= maxVisiblePages) {
+    if (totalPages <= visiblePages) {
       return addRange(1, totalPages);
     }
 
     // Scenario 1: Early pages - show [1, 2, 3, ..., maxVisiblePages-1] ... [last]
     // Reserve 1 space for last page button
-    const pagesAtStart = maxVisiblePages - 1;
+    const pagesAtStart = visiblePages - 1;
     const earlyThreshold = pagesAtStart;
 
     if (currentPage <= earlyThreshold) {
@@ -191,7 +197,7 @@ const Pagination: React.FC<PaginationProps> = ({
 
     // Scenario 2: Middle pages - show [1] ... [middle pages] ... [last]
     // Reserve 2 spaces for first and last page buttons
-    const middlePages = maxVisiblePages - 2;
+    const middlePages = visiblePages - 2;
     const halfSide = Math.floor(middlePages / 2);
     const lateThreshold = totalPages - halfSide;
 
@@ -213,7 +219,7 @@ const Pagination: React.FC<PaginationProps> = ({
 
     // Scenario 3: Near end pages - show [1] ... [last maxVisiblePages-1 pages]
     // Reserve 1 space for first page button
-    const pagesAtEnd = maxVisiblePages - 1;
+    const pagesAtEnd = visiblePages - 1;
     return [
       { label: "1", value: 1 },
       { label: "...", value: -1 },
@@ -244,13 +250,13 @@ const Pagination: React.FC<PaginationProps> = ({
   return (
     <div
       className={classNames(pagination({ className }), {
-        "justify-between": showRowsPerPageSelector,
-        "justify-center": !showRowsPerPageSelector,
+        "justify-between": showPageSelector,
+        "justify-center": !showPageSelector,
       })}
       {...props}
     >
       <div className="flex items-center gap-2xs">
-        {rowsPerPageOptions.length > 1 && showRowsPerPageSelector && (
+        {rowsPerPageOptions.length > 1 && showPageSelector && (
           <>
             <Body htmlVariant="span" size="sm" color="weak" weight="weak">
               {t("pagination.rows")}
@@ -270,7 +276,7 @@ const Pagination: React.FC<PaginationProps> = ({
         )}
       </div>
       <div className="flex items-center gap-xs h-full">
-        {showRowsPerPageSelector && (
+        {showPageSelector && (
           <>
             <Body htmlVariant="p" size="sm" color="weak" weight="weak">
               {t("pagination.showingRange", {

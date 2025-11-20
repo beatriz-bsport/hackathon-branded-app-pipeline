@@ -1,6 +1,6 @@
 import React from "react";
 
-import type { useFormController } from "@bsport/form";
+import type { UseFormControllerOutput } from "@bsport/form";
 import { Title } from "@bsport/kaizen-primitive-core";
 
 import { useTranslation } from "#src/utils/i18n";
@@ -12,7 +12,7 @@ import { PackFormVisibilitySelector } from "./PackFormVisibilitySelector";
 
 type PackFormVisibilityProps = {
   fieldIdPrefix: string;
-  methods: ReturnType<typeof useFormController<PackFormSchema>>;
+  methods: UseFormControllerOutput<PackFormSchema>;
 };
 
 export const PackFormVisibility: React.FC<PackFormVisibilityProps> = ({

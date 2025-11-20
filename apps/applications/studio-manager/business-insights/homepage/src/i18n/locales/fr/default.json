@@ -7,7 +7,7 @@
   "banner": {
     "close": "Fermer la bannière",
     "insights": {
-      "title": "Nouvelle fonctionnalité : Insights !",
+      "title": "Nouveau : Insights",
       "description": "Suivez l'évolution de vos KPI, identifiez des opportunités et maîtrisez vos risques",
       "ctaLabel": "Explorer"
     }
@@ -43,7 +43,7 @@
   },
   "exploreSection": {
     "exploreThePlatform": {
-      "title": " Découvrez les nouveautés bsport",
+      "title": "Découvrez les nouveautés",
       "productUpdatesCard": {
         "title": "Fonctionnalités, améliorations et correctifs",
         "description": "Consultez nos dernières nouveautés produit"

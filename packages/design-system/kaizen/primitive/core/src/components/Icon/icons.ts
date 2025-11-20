@@ -271,6 +271,9 @@ const icons = {
   "video-recorder": React.lazy(
     async () => await import("./assets/video-recorder.svg?react"),
   ),
+  "x-circle-solid": React.lazy(
+    async () => await import("./assets/x-circle-solid.svg?react"),
+  ),
   "x-close": React.lazy(async () => await import("./assets/x-close.svg?react")),
   x: React.lazy(async () => await import("./assets/x.svg?react")),
 } as const;

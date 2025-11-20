@@ -73,14 +73,20 @@ export const InvoiceListPage = () => {
   }, [fetchData]);
 
   const handleClickDownload = useCallback((invoiceUuid: string) => {
+    const newWindow = window.open("", "_blank");
     finalizeInvoiceAction(fetch, invoiceUuid).then((response) => {
       response.fold(
         ({ stripe_invoice_pdf }) => {
-          if (stripe_invoice_pdf) {
-            window.open(stripe_invoice_pdf, "_blank");
+          if (stripe_invoice_pdf && newWindow) {
+            newWindow.location.href = stripe_invoice_pdf;
+          } else {
+            newWindow?.close();
           }
         },
-        (error) => console.error(error),
+        (error) => {
+          console.error(error);
+          newWindow?.close();
+        },
       );
     });
   }, []);

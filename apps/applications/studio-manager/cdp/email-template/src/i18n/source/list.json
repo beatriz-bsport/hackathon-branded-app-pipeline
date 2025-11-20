@@ -17,6 +17,9 @@
     },
     "status": "Status"
   },
+  "search": {
+    "tooltip": "Search a template"
+  },
   "templateList": {
     "loading": "Loading email templates...",
     "emptyPage": {

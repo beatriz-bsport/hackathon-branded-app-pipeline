@@ -140,11 +140,12 @@ export const PageListContent: React.FC<Props> = ({
   };
 
   const handleCancelTitleRename = () => {
-    setPageTitle(emailTemplateDetail?.title || t("details.defaultTitle"));
-    handleChange(
-      "title",
-      emailTemplateDetail?.title || t("details.defaultTitle"),
-    );
+    const newTitle =
+      formData?.title ??
+      emailTemplateDetail?.title ??
+      t("details.defaultTitle");
+    setPageTitle(newTitle);
+    handleChange("title", newTitle);
   };
 
   const handleDesignUpdated = async () => {

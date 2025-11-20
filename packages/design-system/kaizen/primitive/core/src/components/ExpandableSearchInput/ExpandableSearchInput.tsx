@@ -7,6 +7,8 @@ import TextField from "#src/components/TextField";
 import useDebounce from "#src/hooks/debounce";
 import { useKaizenI18nInstance, useTranslation } from "#src/i18n";
 
+import { TooltipProps } from "../Tooltip";
+
 const DEFAULT_EXPANDED_WIDTH = 200;
 const COLLAPSED_WIDTH = 32;
 const TRANSITION_DURATION = 300;
@@ -22,6 +24,11 @@ export type ExpandableSearchInputProps =
     onButtonClick?: () => void;
     onClear?: () => void;
     debounceValue?: number;
+  };
+
+export type ExpandableSearchInputWithTooltipProps =
+  ExpandableSearchInputProps & {
+    tooltipConfig?: Partial<TooltipProps>;
   };
 
 /**

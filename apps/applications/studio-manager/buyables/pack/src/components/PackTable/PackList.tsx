@@ -57,7 +57,9 @@ export const PackList: FC<PackListProps> = ({
         intent: "flat",
         color: "default",
         size: "md",
-        onClick: () => handleArchive({ id: row.id, name: row.name }),
+        onClick: () => {
+          handleArchive({ id: row.id, name: row.name });
+        },
       });
     }
 
@@ -70,7 +72,7 @@ export const PackList: FC<PackListProps> = ({
       customNode: visibilityBadges,
       buttons,
       link: row.link,
-      onClick: row.onRowClick,
+      onItemClick: row.onItemClick,
     };
   });
 

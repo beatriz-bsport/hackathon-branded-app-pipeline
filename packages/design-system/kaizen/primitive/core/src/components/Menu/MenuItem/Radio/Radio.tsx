@@ -114,9 +114,6 @@ const Radio: React.FC<RadioProps> = ({
     <label
       className={radio({ disabled, checked: checked ?? false })}
       tabIndex={0}
-      onClick={(event) => {
-        event.stopPropagation();
-      }}
     >
       <Indicator disabled={disabled} />
       <input

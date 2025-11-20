@@ -35,7 +35,8 @@ include:
 workflow:
   rules:
     # Prevent that pushing on a MR creates dupplicate pipelines ("push" and "merge_request_event")
-    - if: $CI_COMMIT_BRANCH && $CI_OPEN_MERGE_REQUESTS && $CI_PIPELINE_SOURCE == "push"
+    # We keep both events for dev and staging branches to allow deployments even if a MR is opened
+    - if: $CI_COMMIT_BRANCH && $CI_OPEN_MERGE_REQUESTS && $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH != "dev" && $CI_COMMIT_BRANCH != "staging"
       when: never
     # Skip pipelines for draft merge requests
     - if: $CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TITLE =~ /^(\[Draft\]|\(Draft\)|Draft:)/

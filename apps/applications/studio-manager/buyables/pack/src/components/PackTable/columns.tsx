@@ -76,15 +76,13 @@ export const usePackTableColumns = ({
             icon="trash-01"
             label={t("table.tooltips.archive")}
             onClick={(event) => {
+              event.preventDefault();
               event.stopPropagation();
 
               handleArchive({
                 id: row.id,
                 name: row.name,
               });
-            }}
-            onPointerDown={(event) => {
-              event.stopPropagation();
             }}
             id="pack-column-actions-archive-button"
           />

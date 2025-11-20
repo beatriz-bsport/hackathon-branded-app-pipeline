@@ -93,7 +93,6 @@ const Checkbox: React.FC<CheckboxProps> = ({
     (e: React.MouseEvent<HTMLLabelElement>) => {
       // Prevent inner elements from stopping the click event
       if (!disabled) {
-        e.stopPropagation();
         e.preventDefault(); // Prevent triggering input focus unnecessarily
         onClick?.(e); // Invoke parent click handler
       }

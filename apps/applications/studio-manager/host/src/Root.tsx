@@ -154,6 +154,7 @@ const AuthenticatedRoutes = () => {
       : REVAMP_URLS_DEVELOPMENT;
 
   const isHomepageEnabled = useNavFlag(NavFlags.HOMEPAGE);
+  const isPacksPageEnabled = useNavFlag(NavFlags.PACKS);
 
   const routesConfigs: RouteConfig[] = [
     /* ----- Booking ----- */
@@ -163,7 +164,7 @@ const AuthenticatedRoutes = () => {
     /* ----- Buyables ----- */
     { url: urls.giftcard, element: <Giftcard /> },
     { url: urls.order, element: <Order /> },
-    { url: urls.pack, element: <Pack /> },
+    { url: urls.pack, element: <Pack />, hidden: !isPacksPageEnabled },
 
     /* ----- Core-data ----- */
     { url: urls.member, element: <MemberList /> },

@@ -48,6 +48,34 @@ const BadgeNew: React.FC = () => {
   );
 };
 
+/**
+ * Override the navigation url configuration when the item href should be conditioned by a feature flag.
+ * -> Use it when the legacy page already exists, is always displayed, and should be the fallback.
+ * -> Do not use it your navigation items should be hidden when the FF is disabled. Instead, use hidden property.
+ *
+ * @param enabled Status of the feature flag
+ * @param navigationItem Child extracted from navigationUrls as base
+ * @returns An override configuration
+ */
+const flaggedNavigationUrl = ({
+  enabled,
+  navigationItem,
+}: {
+  enabled: boolean;
+  navigationItem: NavigationUrlItem;
+}) => {
+  if (enabled) {
+    // Contain already the revamped set to true and the revamp url
+    return navigationItem;
+  }
+  // Override href to legacy parameter
+  return {
+    ...navigationItem,
+    href: navigationItem.legacyUrl ?? "/",
+    revamped: false,
+  };
+};
+
 export const useNavigationElements = ({
   menuSet = "default",
   navigationUrls,
@@ -67,18 +95,9 @@ export const useNavigationElements = ({
   const isAnalyticsEnabled = useNavFlag(NavFlags.INSIGHTS_PAGE);
   const isHomepageEnabled = useNavFlag(NavFlags.HOMEPAGE);
   const isCalendarRevampEnabled = useNavFlag(NavFlags.CALENDAR_REVAMP);
+  const isPacksRevampEnabled = useNavFlag(NavFlags.PACKS_REVAMP);
 
   const navigationItems: Record<MenuSet, NavigationElement[]> = useMemo(() => {
-    const calendarUrlItem = (() => {
-      const item = navigationUrls.calendar;
-      if (!item) return undefined;
-
-      if (!isCalendarRevampEnabled && item.revamped && item.legacyUrl) {
-        return { ...item, href: item.legacyUrl, revamped: false };
-      }
-      return item;
-    })();
-
     return {
       default: [
         {
@@ -126,7 +145,10 @@ export const useNavigationElements = ({
           icon: "calendar",
           id: "calendar",
           label: t("menus.calendar"),
-          ...(calendarUrlItem ?? navigationUrls.calendar),
+          ...flaggedNavigationUrl({
+            enabled: isCalendarRevampEnabled,
+            navigationItem: navigationUrls.calendar,
+          }),
         },
         {
           icon: "clock",
@@ -203,7 +225,10 @@ export const useNavigationElements = ({
             {
               id: "packs",
               label: t("menus.products.packs"),
-              ...navigationUrls.pack,
+              ...flaggedNavigationUrl({
+                enabled: isPacksRevampEnabled,
+                navigationItem: navigationUrls.pack,
+              }),
             },
             {
               id: "gift-cards",
@@ -488,6 +513,7 @@ export const useNavigationElements = ({
     isAnalyticsEnabled,
     isHomepageEnabled,
     isCalendarRevampEnabled,
+    isPacksRevampEnabled,
   ]);
 
   return navigationItems[menuSet];

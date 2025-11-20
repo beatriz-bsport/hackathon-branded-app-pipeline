@@ -112,8 +112,8 @@ export const PageListContent: React.FC<Props> = ({
     const baseListEmptyState = {
       isEmpty: true,
       emptyConfig: {
-        title: t("templateList.emptyPage.title"),
-        subtitle: t("templateList.emptyPage.description"),
+        title: t("templateList.emptyPage.custom.title"),
+        subtitle: t("templateList.emptyPage.custom.description"),
         variant: "empty-state",
         ctaButtonConfig: {
           iconLeft: "plus",

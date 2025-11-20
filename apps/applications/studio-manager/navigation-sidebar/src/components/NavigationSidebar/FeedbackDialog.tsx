@@ -192,7 +192,6 @@ const FeedbackDialog: React.FC<FeedbackDialogProps> = ({
       title={t("title")}
       confirmButton={{
         label: t("confirm"),
-        color: "critical",
         onClick: handleConfirm,
         disabled: isLoading,
       }}

@@ -73,7 +73,6 @@ export const CreateSmartlistModal: FC<CreateSmartlistModalProps> = ({
       onClose={onClose}
       onClickOutside={handleClickOutside}
       title={t("createForm.title")}
-      description={t("createForm.subtitle")}
       size="md"
       confirmButton={{
         label: t("createForm.actions.create"),

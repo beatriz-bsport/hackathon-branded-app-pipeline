@@ -10,10 +10,10 @@
     },
     "actions": {
       "createTagGroup": {
-        "label": "Create tag"
+        "label": "Add main tag"
       },
       "createTag": {
-        "label": "Add category"
+        "label": "Add sub-tag"
       }
     },
     "loadingState": {

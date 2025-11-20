@@ -116,7 +116,7 @@ export const PackDeleteModal: React.FC<PackDeleteModalProps> = ({
         <Body htmlVariant="p">
           {t("deleteModal.description.effect", { name: packName })}
         </Body>
-        <Body htmlVariant="p" weight="strong" className="mt-md">
+        <Body htmlVariant="p" weight="stronger" className="mt-md">
           {t("deleteModal.description.canNotBeUndone")}
         </Body>
       </>

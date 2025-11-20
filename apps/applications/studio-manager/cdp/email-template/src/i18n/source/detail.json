@@ -56,7 +56,7 @@
       "title": "Email template saved"
     },
     "error": {
-      "missingFields": "Select a category to save your template",
+      "missingFields": "Issue occured trying to save your changes : ",
       "problemWhileSaving": "Unable to save changes - please try again"
     }
   },
@@ -69,7 +69,7 @@
     "label": "Email subject",
     "placeholder": "Add an email subject",
     "error": {
-      "notProvided": "This is required to continue",
+      "notProvided": "No email subject provided",
       "tooLong": "Email subject too long"
     }
   },
@@ -80,6 +80,6 @@
   },
   "templateCategory": {
     "label": "Category",
-    "noCategory": "Select a category"
+    "noCategory": "No category"
   }
 }

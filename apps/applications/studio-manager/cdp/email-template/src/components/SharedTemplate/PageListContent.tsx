@@ -62,6 +62,7 @@ export const SharedEmailTemplateList: React.FC<Props> = ({
     categoryId: null,
   });
   const { emptyStateConfig } = useEmailTemplateEmptyListState({
+    templateType: model,
     isEmptyList: isEmpty,
   });
 

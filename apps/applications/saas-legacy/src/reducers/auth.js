@@ -15,6 +15,7 @@ import {
 } from '../actions/auth.actions';
 
 const initialState = Immutable({
+  id: null,
   username: '',
   token: '',
   authenticated: false,
@@ -148,6 +149,7 @@ export default function authReducers(state = initialState, action = {}) {
           .set('lastPlatformSubscriptionWarningDate', null);
       }
       return res
+        .set('id', id)
         .set('username', username)
         .set('token', token)
         .set('name', name || '')

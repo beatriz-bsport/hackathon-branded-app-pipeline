@@ -20,8 +20,22 @@
   "templateList": {
     "loading": "Loading email templates...",
     "emptyPage": {
-      "title": "You haven't made any custom templates yet",
-      "description": "Create your first custom template to send personalized emails to your members"
+      "custom": {
+        "title": "You haven't made any custom templates yet",
+        "description": "Create your first custom template to send personalized emails to your members"
+      },
+      "bsport": {
+        "title": "You have no bsport template available",
+        "description": "This is a list of template provided by bsport, contact your Account Manager for any help"
+      },
+      "master": {
+        "title": "You have no central templates yet",
+        "description": "This is a list of templates managed by your franchisor, contact them in case of questions"
+      },
+      "search": {
+        "title": "No templates matching your search",
+        "description": "There is no template currently matching your search filters"
+      }
     },
     "emptyCategory": {
       "description": "Create a custom template for this category to send personalized emails to members"

@@ -100,7 +100,7 @@ export const useEmailTemplateForm = ({
     return true;
   };
 
-  const validateForm = (): boolean => {
+  const validateForm = (): string[] => {
     const newErrors: Partial<Record<EmailTemplateFormField, string>> = {};
 
     for (const [field, value] of Object.entries(formData)) {
@@ -115,7 +115,7 @@ export const useEmailTemplateForm = ({
 
     setErrors(newErrors);
 
-    return Object.keys(newErrors).length === 0;
+    return Object.values(newErrors);
   };
 
   const hasChanges = (originalData: EmailTemplateFormData): boolean => {

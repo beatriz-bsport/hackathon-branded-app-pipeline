@@ -45,7 +45,7 @@ export const usePageLayout = ({
     return {
       className: "h-full",
       subtitle: t("page.emptyMainTagState.description"),
-      secondaryButtonConfig: {
+      ctaButtonConfig: {
         id: "create-tag-empty-button",
         label: t("page.actions.createTag.label"),
         iconLeft: "plus",
@@ -57,24 +57,24 @@ export const usePageLayout = ({
   const { endGroupActions: pageActions } = ListLayout.useAdaptiveActions({
     endGroupActions: [
       <Button
-        key="create-tag-header-button"
-        id="create-tag-header-button"
-        intent="default"
-        label={t("page.actions.createTag.label")}
-        color="main"
-        size="md"
-        iconLeft="plus"
-        onClick={() => handleCreateTag?.()}
-      />,
-      <Button
         key="create-tag-group-header-button"
         id="create-tag-group-header-button"
-        intent="call-to-action"
+        intent="default"
         label={t("page.actions.createTagGroup.label")}
         color="main"
         size="md"
         iconLeft="plus"
         onClick={handleCreateTagGroup}
+      />,
+      <Button
+        key="create-tag-header-button"
+        id="create-tag-header-button"
+        intent="call-to-action"
+        label={t("page.actions.createTag.label")}
+        color="main"
+        size="md"
+        iconLeft="plus"
+        onClick={() => handleCreateTag?.()}
       />,
     ],
   });

@@ -86,8 +86,8 @@ export const SearchedTemplateList: React.FC<Props> = ({
   const emptyListState = {
     isEmpty: isEmptyList,
     emptyConfig: {
-      title: t("templateList.emptyPage.title"),
-      subtitle: t("templateList.emptyPage.description"),
+      title: t("templateList.emptyPage.search.title"),
+      subtitle: t("templateList.emptyPage.search.description"),
       variant: "empty-state",
     },
   };

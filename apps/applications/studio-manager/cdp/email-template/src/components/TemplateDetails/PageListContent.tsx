@@ -183,8 +183,9 @@ export const PageListContent: React.FC<Props> = ({
       const data = await exportEmailBuilderTemplate({
         emailBuilderRef,
       });
-      const isValid = validateForm();
-      if (isValid && data?.design) {
+      const formErrors = validateForm();
+      console.log("form errors", formErrors);
+      if ((formErrors ?? []).length === 0 && data?.design) {
         const templateData = {
           title: formData.title,
           subject: formData.subject,
@@ -195,12 +196,30 @@ export const PageListContent: React.FC<Props> = ({
         };
         saveTemplate(templateData);
       } else {
-        toast({
-          status: "critical",
-          icon: "alert-circle",
-          title: t("saveTemplateAction.error.missingFields"),
-          buttonIcon: "x-close",
-        });
+        const errorToastTitle = String(
+          t("saveTemplateAction.error.missingFields"),
+        );
+        const errorMap = formErrors.map((error) => error);
+        for (let i = 0; i < errorMap.length; i++) {
+          const errorToastMessage = errorMap[i];
+
+          // There is only 4 fields in the form so it cannot be equal to more than 4, if at one point there is a bug
+          // that make it run more than 4 time we break the loop as this is not possible and we want to avoid a loop that can run indefinitely
+          if (i > 4) {
+            break;
+          }
+
+          if (!errorToastMessage) {
+            continue;
+          }
+          toast({
+            status: "critical",
+            icon: "alert-circle",
+            title: errorToastTitle,
+            description: errorToastMessage,
+            buttonIcon: "x-close",
+          });
+        }
       }
     }
   };

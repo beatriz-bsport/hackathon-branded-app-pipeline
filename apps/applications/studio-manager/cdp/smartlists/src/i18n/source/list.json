@@ -22,8 +22,8 @@
   },
   "deleteModal": {
     "title": "Delete Smartlist?",
-    "description": "Once you delete 1{{name}}1, any scheduled messages or automatic tagging will no longer run but previously tagged clients won't be affected.",
-    "warning": "Heads up: this change is permanent and can't be undone. ",
+    "description": "If you delete <b>{{name}}</b>, any scheduled messages or automatic tagging will no longer run but previously tagged members won't be affected.",
+    "warning": "Just a heads up: this action is permanent and cannot be undone",
     "audienceWarning": "Smartlists used in Audience workflows can't be deleted. ",
     "cannotBeDeleted": "This Smartlist is currently being used in Audience workflows and can't be deleted on this page.",
     "audienceCallToAction": "To delete this Smartlist, go to Audience and remove it from associated workflows.",

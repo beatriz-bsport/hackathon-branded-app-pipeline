@@ -73,6 +73,7 @@ const DateInputField: React.FC<DateInputFieldProps> = ({
       id={`calendar-date-input-${id}`}
       status={!inputValue || isValidDate(inputValue) ? "default" : "error"}
       value={inputValue}
+      // TODO: remove hardcoded label
       label={t("datePicker.selectedDay")}
       iconLeft="calendar"
       onChange={handleChange}

@@ -24,6 +24,7 @@
     "@bsport/envs": "workspace:*",
     "@bsport/fetch": "workspace:*",
     "@bsport/i18n": "workspace:*",
+    "@bsport/intercom": "workspace:*",
     "@bsport/kaizen-primitive-core": "workspace:*",
     "@bsport/onboarding-manager": "workspace:*",
     "@bsport/request-from-header": "workspace:*",

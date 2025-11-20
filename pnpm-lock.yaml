@@ -2193,6 +2193,9 @@ importers:
       '@bsport/i18n':
         specifier: workspace:*
         version: link:../../../../packages/utils/i18n
+      '@bsport/intercom':
+        specifier: workspace:*
+        version: link:../../../../packages/utils/intercom
       '@bsport/kaizen-primitive-core':
         specifier: workspace:*
         version: link:../../../../packages/design-system/kaizen/primitive/core
@@ -3677,6 +3680,12 @@ importers:
       '@types/luxon':
         specifier: ^3.4.2
         version: 3.4.2
+
+  packages/utils/intercom:
+    devDependencies:
+      '@bsport/config-eslint-react':
+        specifier: workspace:*
+        version: link:../../../tools/config/eslint-react
 
   packages/utils/monorepo:
     dependencies:

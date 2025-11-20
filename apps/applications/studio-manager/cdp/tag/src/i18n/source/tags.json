@@ -92,7 +92,7 @@
         "label": "Category",
         "placeholder": "Select a category",
         "errors": {
-          "required": "Select a category for your tag"
+          "required": "Tag must have a category"
         }
       },
       "tagName": {

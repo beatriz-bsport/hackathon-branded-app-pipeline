@@ -71,6 +71,7 @@ export {
 export {
   default as ExpandableSearchInput,
   type ExpandableSearchInputProps,
+  type ExpandableSearchInputWithTooltipProps,
 } from "./components/ExpandableSearchInput";
 export {
   default as FileUpload,

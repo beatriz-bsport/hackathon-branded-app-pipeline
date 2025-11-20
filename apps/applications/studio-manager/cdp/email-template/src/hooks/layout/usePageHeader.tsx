@@ -1,7 +1,7 @@
 import { NavLink } from "react-router";
 
 import {
-  type ExpandableSearchInputProps,
+  type ExpandableSearchInputWithTooltipProps,
   Tabs,
   type TabsProps,
 } from "@bsport/kaizen-primitive-core";
@@ -14,7 +14,7 @@ import { usePageFilter } from "../usePageFilter";
 
 type HookReturn = {
   tabsConfig: TabsProps;
-  searchConfig: ExpandableSearchInputProps;
+  searchConfig: ExpandableSearchInputWithTooltipProps;
   searchInput: string;
   clearSearchInput: () => void;
 };
@@ -56,11 +56,15 @@ export const usePageHeader = (): HookReturn => {
     orientation: "horizontal",
   };
 
-  const emailTemplateSearchConfig: ExpandableSearchInputProps = {
+  const emailTemplateSearchConfig: ExpandableSearchInputWithTooltipProps = {
     id: "email-template-page-search",
     inputValue: searchInput,
     onInputValueChange: setSearchInput,
     onClear: clearSearchInput,
+    tooltipConfig: {
+      placement: "bottom-right",
+      label: t("search.tooltip"),
+    },
   };
 
   return {

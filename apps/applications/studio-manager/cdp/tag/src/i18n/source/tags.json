@@ -10,10 +10,10 @@
     },
     "actions": {
       "createTagGroup": {
-        "label": "Add main tag"
+        "label": "Add Category"
       },
       "createTag": {
-        "label": "Add sub-tag"
+        "label": "Create Tag"
       }
     },
     "loadingState": {
@@ -34,7 +34,7 @@
   },
   "tagGroupList": {
     "actions": {
-      "addSubTag": "Add category",
+      "addSubTag": "Create Tag",
       "rename": "Rename",
       "delete": "Delete"
     },
@@ -46,7 +46,7 @@
   },
   "tagGroupModal": {
     "title": {
-      "create": "Add category",
+      "add": "Add category",
       "update": "Edit category"
     },
     "formField": {
@@ -62,7 +62,7 @@
       }
     },
     "actions": {
-      "create": "Add",
+      "add": "Add",
       "update": "Save",
       "cancel": "Close",
       "goTo": "View category"

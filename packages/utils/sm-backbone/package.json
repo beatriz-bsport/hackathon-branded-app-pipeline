@@ -33,6 +33,7 @@
   },
   "dependencies": {
     "@bsport/broadcast-channel-polyfill": "workspace:*",
+    "@bsport/currency": "workspace:*",
     "@bsport/envs": "workspace:*",
     "@bsport/fetch": "workspace:*",
     "@bsport/i18n": "workspace:*",

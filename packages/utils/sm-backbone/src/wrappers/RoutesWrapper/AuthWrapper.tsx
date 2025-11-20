@@ -1,10 +1,12 @@
 import { type FC, type LazyExoticComponent, Suspense, useEffect } from "react";
 import { Navigate, Outlet, useLocation } from "react-router";
 
+import { setCurrencyCode, setCurrencyDisplay } from "@bsport/currency";
 import { getAuthToken } from "@bsport/local-storage-auth-token";
 
 import { fetchSharedData } from "#src/api";
 import { SidebarLayout } from "#src/components/SidebarLayout";
+import { dataAccessLayer } from "#src/data-access-layer";
 
 type NavigationSidebarProps = {
   navigate?: (to: string) => void;
@@ -77,12 +79,25 @@ export const AuthWrapper: FC<AuthWrapperProps> = ({
 };
 
 function DataLayerWrapper() {
+  const companyTheme = dataAccessLayer.useCompanyTheme();
+  const companyCurrencyCode = companyTheme?.currency;
+  const companyCurrencyDisplay = companyTheme?.currency_display;
+
   /**
    * here we fetch shared data
    */
   useEffect(() => {
     fetchSharedData();
   }, []);
+
+  useEffect(() => {
+    if (companyCurrencyCode) {
+      setCurrencyCode(companyCurrencyCode, "local");
+    }
+    if (companyCurrencyDisplay) {
+      setCurrencyDisplay(companyCurrencyDisplay, "local");
+    }
+  }, [companyCurrencyCode, companyCurrencyDisplay]);
 
   return null;
 }

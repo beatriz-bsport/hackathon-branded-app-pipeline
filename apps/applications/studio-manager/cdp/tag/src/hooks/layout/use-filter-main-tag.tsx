@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import type {
   FilterElementState,
@@ -24,6 +24,15 @@ export const useFilterMaintag = ({ tagGroups }: { tagGroups: TagGroup[] }) => {
       tag_groups_included: [],
       tag_groups_excluded: [],
     });
+
+  // Store tagGroups in a ref so onFilterChange always has access to the latest value
+  // This is necessary because Filter component uses useEffectEvent which requires
+  // a stable callback reference, but we need access to the latest tagGroups data
+  const tagGroupsRef = useRef<TagGroup[]>(tagGroups);
+
+  useEffect(() => {
+    tagGroupsRef.current = tagGroups;
+  }, [tagGroups]);
 
   // ----- Handlers -----
 
@@ -58,29 +67,38 @@ export const useFilterMaintag = ({ tagGroups }: { tagGroups: TagGroup[] }) => {
   };
 
   const onFilterChange = (filters: FilterElementState[]) => {
+    // Access the latest tagGroups via ref
+    const currentTagGroups = tagGroupsRef.current;
+
     const includedTagGroupIds = new Set<number>();
     const excludedTagGroupIds = new Set<number>();
 
     // Process each filter in the array
     for (const filter of filters) {
-      if (filter.field === "tagGroup") {
+      if (filter.field === "tagGroup" && filter.valueIds.length > 0) {
         // Convert tag names to IDs
         filter.valueIds.forEach((tagName) => {
-          const tagGroup = tagGroups.find((tg) => tg.name === tagName);
-          if (!tagGroup) return;
+          const tagGroup = currentTagGroups.find((tg) => tg.name === tagName);
+
+          if (!tagGroup) {
+            console.warn(
+              `Tag filter: Could not find tagGroup with name="${tagName}"`,
+            );
+
+            return;
+          }
 
           if (filter.filter === FILTER_IS) {
             includedTagGroupIds.add(tagGroup.id);
-          } else {
+          } else if (filter.filter === FILTER_IS_NOT) {
             excludedTagGroupIds.add(tagGroup.id);
           }
         });
       }
     }
 
-    // Remove duplicates using Set
-    const uniqueIncluded = Array.from(new Set(includedTagGroupIds));
-    const uniqueExcluded = Array.from(new Set(excludedTagGroupIds));
+    const uniqueIncluded = Array.from(includedTagGroupIds);
+    const uniqueExcluded = Array.from(excludedTagGroupIds);
 
     setActiveTagGroupIdFilters({
       tag_groups_included: uniqueIncluded,

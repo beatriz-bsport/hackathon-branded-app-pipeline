@@ -102,7 +102,6 @@ export const REVAMP_URLS_PRODUCTION = {
   customForm: "/custom-form",
   emailTemplate: "/email-template",
   homepage: REVAMP_URLS_DEVELOPMENT.homepage,
-  invoice: "/invoice",
   member: "/member",
   order: "/order",
   pack: "/pack",

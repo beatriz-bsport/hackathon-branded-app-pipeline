@@ -7,6 +7,7 @@ import {
 } from "sm-navigation-sidebar/urls";
 
 import { getEnv } from "@bsport/envs";
+import { initIntercomWidget } from "@bsport/intercom";
 import { Title } from "@bsport/kaizen-primitive-core";
 import {
   BSPORT_REQUEST_FROM_HEADER_VALUES,
@@ -108,7 +109,38 @@ export function Root() {
 const AuthenticatedRoutes = () => {
   const user = dataAccessLayer.useUserAccess();
   const companyTheme = dataAccessLayer.useCompanyTheme();
+  const permissions = dataAccessLayer.useUserRole();
   const env = getEnv();
+  const isProductionEnvironment = ["production", "staging"].includes(env);
+
+  useEffect(() => {
+    if (companyTheme?.hide_intercom || !isProductionEnvironment) {
+      console.log(
+        "Intercom has not been initialized as we are not on production environment",
+      );
+      return;
+    }
+    if (user?.name && companyTheme?.company && permissions?.name) {
+      const companyId = companyTheme?.company;
+      const userName = user?.name;
+      const companyName = companyTheme.company_name;
+      const email = user?.username;
+      const userRole = permissions?.name;
+      const companyLocale = companyTheme.locale;
+      const colorOverride = companyTheme.primary_color;
+
+      initIntercomWidget({
+        name: userName,
+        email: email,
+        environment: env,
+        role: userRole,
+        companyId: companyId,
+        companyName: companyName,
+        companyLocale,
+        actionColor: colorOverride,
+      });
+    }
+  }, [user?.name, permissions?.name, companyTheme?.company]);
 
   useEffect(() => {
     if (user?.id) {

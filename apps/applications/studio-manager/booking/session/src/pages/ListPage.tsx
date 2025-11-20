@@ -1,20 +1,12 @@
 import { useState } from "react";
 
-import {
-  DATETIME_FORMATS,
-  formatDateTimeFromDate,
-} from "@bsport/datetime-formatting";
-import { getLocalNow, toDate, toDateTime } from "@bsport/datetime-manipulation";
-import {
-  Body,
-  DatePicker,
-  ListLayout,
-  Title,
-} from "@bsport/kaizen-primitive-core";
+import { getLocalNow, toDate } from "@bsport/datetime-manipulation";
+import { DatePicker, ListLayout } from "@bsport/kaizen-primitive-core";
 import { dataAccessLayer } from "@bsport/sm-backbone";
 
 import { useTranslation } from "#src/utils/i18n";
 
+import { SessionDayTitle } from "../components/SessionList/SessionDayTitle";
 import { SessionTable } from "../components/SessionList/SessionTable";
 import { useTableRowData } from "../hooks/stores-interface";
 import { useFetchEstablishments } from "../hooks/useFetchEstablishments";
@@ -47,24 +39,6 @@ const ListPage: React.FC = () => {
   // TODO: merge all the fetching hooks together for clarity.
   const renderedSessions = useTableRowData();
 
-  const todayTitle = formatDateTimeFromDate(
-    toDateTime(selectedDate),
-    DATETIME_FORMATS.HUGE_DATE,
-  );
-
-  const totalEffectif = renderedSessions.reduce(
-    (acc, session) => acc + session.effectif,
-    0,
-  );
-  const totalOccupancy = renderedSessions.reduce(
-    (acc, session) => acc + session.nb_bookings,
-    0,
-  );
-
-  const occupancyRate = totalEffectif
-    ? Math.round((totalOccupancy / totalEffectif) * 100)
-    : 0;
-
   const onDateChange = (date: Date | [Date | null, Date | null] | null) => {
     if (date instanceof Date) {
       setSelectedDate(date);
@@ -83,14 +57,7 @@ const ListPage: React.FC = () => {
             onSelect={onDateChange}
           />
           <div>
-            <div className="mb-sm flex items-center gap-xs px-md">
-              <Title htmlVariant="h2" weight="strong">
-                {todayTitle}
-              </Title>
-              <Body size="md" weight="weak" color="weak" htmlVariant="span">
-                · {t("title.occupancyRate", { rate: occupancyRate })}
-              </Body>
-            </div>
+            <SessionDayTitle date={selectedDate} sessions={renderedSessions} />
             <SessionTable
               sessions={renderedSessions}
               isLoading={

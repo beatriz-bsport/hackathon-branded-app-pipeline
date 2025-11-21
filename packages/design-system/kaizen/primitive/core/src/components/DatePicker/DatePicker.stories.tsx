@@ -19,6 +19,7 @@ const meta: Meta<typeof DatePicker> = {
       options: ["popover", "modal"],
       control: { type: "inline-radio" },
     },
+    isInputField: { control: { type: "boolean" } },
     open: { control: { type: "boolean" } },
     onConfirm: { table: { type: { summary: "function" } } },
     onClose: { table: { type: { summary: "function" } } },
@@ -282,7 +283,23 @@ export const DatePickerRangeWithShortcuts: Story = {
 /**
  * In this case, we don't need to provide any trigger to open the DatePicker.<br>
  * It's automatically an input date field that acts as a button to trigger the opening of the popover.<br>
- * TODO: Note that clicking outside the popover will close it, even the date field like DD/MM/YYYY which is a problem
+ */
+export const DatePickerInputPopover: Story = {
+  name: "DatePicker input field popover",
+  render: (args) => <DatePicker {...args} />,
+  args: {
+    id: "datepicker-5",
+    mode: "single",
+    displayAs: "popover",
+    isInputField: true,
+    weekStartDay: 1,
+    shortcuts,
+  },
+};
+
+/**
+ * In this case, we don't need to provide any trigger to open the DatePicker.<br>
+ * It's automatically a button to trigger the opening of the popover.<br>
  */
 export const DatePickerPopover: Story = {
   name: "DatePicker popover",

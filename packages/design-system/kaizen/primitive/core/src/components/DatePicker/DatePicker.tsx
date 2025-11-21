@@ -21,6 +21,7 @@ export type DatePickerProps = Omit<
   id: string;
   mode: "single" | "range";
   displayAs: "popover" | "modal";
+  isInputField?: boolean;
   open?: boolean;
   onConfirm?: (selectedDate: SelectedDate) => void;
   onClose?: () => void;
@@ -43,6 +44,7 @@ export type DatePickerProps = Omit<
  * @param props.id Unique ID for the date picker element.
  * @param props.mode The mode of the date picker, either "single" or "range".
  * @param props.displayAs The display mode of the date picker, either "popover" or "modal". The popover doesn't require any anchor element.
+ * @param props.isInputField Whether the date picker is used as an input field. Only applicable when displayAs is "popover" and mode "single".
  * @param props.open Whether the date picker is open or not.
  * @param props.onConfirm Callback function to call when a date is selected.
  * @param props.onClose Callback function to call when the date picker is closed.
@@ -58,6 +60,7 @@ const DatePicker: React.FC<DatePickerProps> = ({
   id,
   mode,
   displayAs,
+  isInputField = false,
   open = false,
   onConfirm,
   onClose,
@@ -134,22 +137,20 @@ const DatePicker: React.FC<DatePickerProps> = ({
     [mode, shortcuts],
   );
 
+  const formatDate = (date: Date | null) => {
+    if (date) return date.toLocaleDateString();
+
+    // Check locale date format using a sample date
+    const sampleDate = new Date().toLocaleDateString();
+    return sampleDate.indexOf("/") === 2 ? "DD/MM/YYYY" : "MM/DD/YYYY";
+  };
+
   if (displayAs === "popover")
     return (
       <Popover className={popoverClassNames.container ?? ""}>
         <Popover.Anchor>
           {({ setIsPopoverOpened }) => {
             if (mode === "range" || Array.isArray(selectedDate)) {
-              const formatDate = (date: Date | null) => {
-                if (date) return date.toLocaleDateString();
-
-                // Check locale date format using a sample date
-                const sampleDate = new Date().toLocaleDateString();
-                return sampleDate.indexOf("/") === 2
-                  ? "DD/MM/YYYY"
-                  : "MM/DD/YYYY";
-              };
-
               const [start, end] = Array.isArray(selectedDate)
                 ? selectedDate
                 : [null, null];
@@ -163,12 +164,12 @@ const DatePicker: React.FC<DatePickerProps> = ({
                   size="md"
                   intent="default"
                   color="main"
+                  iconLeft="calendar"
                   onClick={() => setIsPopoverOpened(true)}
                 />
               );
             }
-
-            return (
+            return isInputField ? (
               <DateInputField
                 id={id}
                 selectedDate={selectedDate}
@@ -176,6 +177,16 @@ const DatePicker: React.FC<DatePickerProps> = ({
                   setSelectedDate(date);
                   onSelect?.(date);
                 }}
+                onClick={() => setIsPopoverOpened(true)}
+              />
+            ) : (
+              // Button used as Popover trigger for single mode without input field
+              <Button
+                label={formatDate(selectedDate as Date | null)}
+                size="md"
+                intent="default"
+                color="main"
+                iconLeft="calendar"
                 onClick={() => setIsPopoverOpened(true)}
               />
             );

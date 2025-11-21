@@ -18,6 +18,7 @@ export type PostAuth<T = unknown, D = unknown> = (
   data?: D,
   token?: string,
   cancelToken?: AxiosRequestConfig['cancelToken'],
+  headers?: AxiosRequestConfig['headers'],
 ) => Promise<AxiosResponse<T>>;
 
 export type Post<T = unknown, D = unknown> = (
@@ -31,6 +32,7 @@ export type GetAuth<T = unknown> = (
   uri: string,
   token?: string,
   cancelToken?: CancelToken,
+  headers?: AxiosRequestConfig['headers'],
 ) => Promise<AxiosResponse<T>>;
 
 export type PutAuth<T = unknown, D = unknown> = (

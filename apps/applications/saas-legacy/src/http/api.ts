@@ -285,11 +285,13 @@ export async function head<T = unknown>(
  * @deprecated This version is not type safe.
  */
 export const getAuthDeprecated = getAuth as GetAuth<any>;
+
 export async function getAuth<T = unknown>(
   uri: string,
   token?: string,
   cancelToken?: CancelToken,
   lockOptions?: AxiosLockOptions,
+  headers?: AxiosRequestConfig['headers'],
 ) {
   const token_ = token || getAuthToken();
   if (!token_ || token_ === 'null') {
@@ -303,12 +305,14 @@ export async function getAuth<T = unknown>(
       'X-Timezone-Name': getTimezoneName(),
       'X-Session-ID': setSessionId(),
       'X-React-Referrer': window.location.href.slice(0, 250),
+      ...(headers || {}),
       Authorization: `Token ${token_}`,
     },
     cancelToken,
     lockOptions,
   );
 }
+
 /**
  * @deprecated This version is not type safe.
  */
@@ -320,6 +324,7 @@ export async function postAuth<T = unknown, D = unknown>(
   token?: string,
   cancelToken?: AxiosRequestConfig['cancelToken'],
   lockOptions?: AxiosLockOptions,
+  headers?: AxiosRequestConfig['headers'],
 ) {
   const token_ = token || getAuthToken();
   return post<T>(
@@ -330,6 +335,7 @@ export async function postAuth<T = unknown, D = unknown>(
       'X-Timezone-Name': getTimezoneName(),
       'X-Session-ID': setSessionId(),
       'X-React-Referrer': window.location.href.slice(0, 250),
+      ...(headers || {}),
       Authorization: `Token ${token_}`,
     },
     cancelToken,

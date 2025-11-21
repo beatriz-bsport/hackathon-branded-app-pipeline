@@ -27,6 +27,7 @@ export type ConsumerSummaryCardProps = {
     zipcode: string;
   };
   birthday: string;
+  companyId: number;
   creditAccountBalance: number;
   email: string;
   emergencyContact: string;

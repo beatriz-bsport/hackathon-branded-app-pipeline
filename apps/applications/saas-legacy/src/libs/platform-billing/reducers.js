@@ -15,6 +15,9 @@ import {
   subscribeUpsellPackageActions,
   fetchUpsellPackageActions,
   fetchPlatformCustomerEntityActions,
+  listPlatformCustomerEntityRepresentativesActions,
+  createPlatformCustomerEntityRepresentativeActions,
+  updatePlatformCustomerEntityRepresentativeActions,
 } from './actions';
 
 const initialState = Immutable({
@@ -67,6 +70,11 @@ const initialState = Immutable({
   },
   subscriptionPaymentStatus: {
     data: null,
+    loading: false,
+    error: null,
+  },
+  platformCustomerEntityRepresentative: {
+    list: [],
     loading: false,
     error: null,
   },
@@ -313,6 +321,89 @@ export default handleActions(
             payload.upsell_package_subscribed.id,
           ],
         );
+    },
+    [listPlatformCustomerEntityRepresentativesActions.isLoading]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(
+        ['platformCustomerEntityRepresentative', 'loading'],
+        payload,
+      );
+    },
+    [listPlatformCustomerEntityRepresentativesActions.error]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(
+        ['platformCustomerEntityRepresentative', 'error'],
+        payload,
+      );
+    },
+    [listPlatformCustomerEntityRepresentativesActions.success]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(
+        ['platformCustomerEntityRepresentative', 'list'],
+        payload,
+      );
+    },
+    [createPlatformCustomerEntityRepresentativeActions.isLoading]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(
+        ['platformCustomerEntityRepresentative', 'loading'],
+        payload,
+      );
+    },
+    [createPlatformCustomerEntityRepresentativeActions.error]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(
+        ['platformCustomerEntityRepresentative', 'error'],
+        payload,
+      );
+    },
+    [createPlatformCustomerEntityRepresentativeActions.success]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(
+        ['platformCustomerEntityRepresentative', 'list'],
+        [...state.platformCustomerEntityRepresentative.list, payload],
+      );
+    },
+    [updatePlatformCustomerEntityRepresentativeActions.isLoading]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(
+        ['platformCustomerEntityRepresentative', 'loading'],
+        payload,
+      );
+    },
+    [updatePlatformCustomerEntityRepresentativeActions.error]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(
+        ['platformCustomerEntityRepresentative', 'error'],
+        payload,
+      );
+    },
+    [updatePlatformCustomerEntityRepresentativeActions.success]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(
+        ['platformCustomerEntityRepresentative', 'list'],
+        state.platformCustomerEntityRepresentative.list.map((rep) =>
+          rep.id === payload.id ? payload : rep,
+        ),
+      );
     },
   },
   initialState,

@@ -2,12 +2,12 @@ import React, { Fragment, useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import AddIcon from '@material-ui/icons/Add';
+import Alert from '@material-ui/lab/Alert';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Chip from '@material-ui/core/Chip';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
-import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import SaveIcon from '@material-ui/icons/Save';
 import TextField from '@material-ui/core/TextField';
@@ -104,12 +104,9 @@ const StripeDomainManagement: React.FC<StripeDomainManagementProps> = ({
       )}
 
       <div className={classes.domainListContainer}>
-        <Box className={classes.infoBox}>
-          <InfoOutlinedIcon className={classes.infoIcon} fontSize="small" />
-          <Typography variant="body2">
-            {t('paymentMethods.stripeDomains.infoMessage')}
-          </Typography>
-        </Box>
+        <Alert className={classes.alert} severity="info">
+          {t('paymentMethods.stripeDomains.infoMessage')}
+        </Alert>
 
         {!domainsError &&
           domains.map((domain, index) => (
@@ -199,18 +196,10 @@ const useStyles = makeStyles((theme) => ({
   domainsContainer: {
     marginTop: theme.spacing(3),
   },
-  infoBox: {
-    backgroundColor: theme.palette.info.light,
-    padding: theme.spacing(1.5),
-    borderRadius: theme.shape.borderRadius,
-    display: 'flex',
-    alignItems: 'center',
+  alert: {
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(2),
-  },
-  infoIcon: {
-    marginRight: theme.spacing(1),
-    color: theme.palette.text.primary,
+    alignItems: 'center',
   },
   domainRow: {
     display: 'flex',

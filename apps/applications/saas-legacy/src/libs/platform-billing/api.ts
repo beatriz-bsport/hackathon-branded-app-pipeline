@@ -2,11 +2,14 @@ import {
   UpsellPackage,
   UpsellPackageSubscribedAPI,
 } from '#src/libs/company/types';
-import { getAuth, postAuth, patchAuth, buildUrlParams } from '../../http';
+import { getAuth, postAuth, patchAuth, buildUrlParams } from '#src/http';
 
 import Config from '../../config';
+import type { PaginatedResponse } from '#src/state/types';
 import {
   PlatformCustomerEntity,
+  PlatformCustomerEntityRepresentative,
+  PlatformCustomerEntityRepresentativeInput,
   UpdatePlatformCustomerEntityVatInformationParams,
 } from '#src/libs/platform-billing/type';
 
@@ -132,5 +135,48 @@ export const checkPlatformSubscriptionSetup = () => {
 export const retrievePlatformSubscriptionPaymentStatusAPI = () => {
   return getAuth(
     `${API_V1_URI}/platform_billing/platform_subscription/retrieve_payment_status/`,
+  );
+};
+
+/**
+ * Fetches the list of platform customer entity representatives for the authenticated manager's company.
+ *
+ * @returns - A promise that resolves to an array of PlatformCustomerEntityRepresentative objects.
+ */
+export const fetchPlatformCustomerEntityRepresentatives = () => {
+  return getAuth<PaginatedResponse<PlatformCustomerEntityRepresentative>>(
+    `${API_V1_URI}/platform_billing/platform_customer_entity_representative/`,
+  );
+};
+
+/**
+ * Creates a new platform customer entity representative for the authenticated manager's company.
+ *
+ * @param data - The representative data to create.
+ * @returns - A promise that resolves to the created PlatformCustomerEntityRepresentative object.
+ */
+export const createPlatformCustomerEntityRepresentative = (
+  data: PlatformCustomerEntityRepresentativeInput,
+) => {
+  return postAuth<PlatformCustomerEntityRepresentative>(
+    `${API_V1_URI}/platform_billing/platform_customer_entity_representative/`,
+    data,
+  );
+};
+
+/**
+ * Partially updates a platform customer entity representative.
+ *
+ * @param id - The id of the representative to update.
+ * @param data - The partial representative data to update.
+ * @returns - A promise that resolves to the updated PlatformCustomerEntityRepresentative object.
+ */
+export const updatePlatformCustomerEntityRepresentative = (
+  id: number,
+  data: Partial<PlatformCustomerEntityRepresentativeInput>,
+) => {
+  return patchAuth<PlatformCustomerEntityRepresentative>(
+    `${API_V1_URI}/platform_billing/platform_customer_entity_representative/${id}/`,
+    data,
   );
 };

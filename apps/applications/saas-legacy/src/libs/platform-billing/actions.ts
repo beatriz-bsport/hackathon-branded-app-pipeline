@@ -20,16 +20,21 @@ import {
   subscribeUpsellPackage as subscribeUpsellPackageAPI,
   fetchPlatformCustomerEntity as fetchPlatformCustomerEntityAPI,
   updatePlatformCustomerEntityVatInformation as updatePlatformCustomerEntityVatInformationAPI,
+  fetchPlatformCustomerEntityRepresentatives as fetchPlatformCustomerEntityRepresentativesAPI,
+  createPlatformCustomerEntityRepresentative as createPlatformCustomerEntityRepresentativeAPI,
+  updatePlatformCustomerEntityRepresentative as updatePlatformCustomerEntityRepresentativeAPI,
 } from './api';
 
 import { snackbarError, snackbarSuccess } from '../snackbar/actions';
 import {
   PlatformSubscriptionPaymentStatus,
-  UpdatePlatformCustomerEntityVatInformationParams,
   PlatformCustomerEntity,
+  PlatformCustomerEntityRepresentative,
+  PlatformCustomerEntityRepresentativeInput,
+  UpdatePlatformCustomerEntityVatInformationParams,
 } from './type';
 
-import type { Dispatch, OptionCallback } from '../../state/types';
+import type { Dispatch, OptionCallback } from '#src/state/types';
 
 export const listPlatformInvoiceActions = {
   isLoading: createAction('PLATFORM_INVOICE/LIST/IS_LOADING'),
@@ -480,5 +485,135 @@ export function retrievePlatformSubscriptionPaymentStatusAction(
       if (options && options.onError) options.onError();
     }
     dispatch(retrievePlatformSubscriptionPaymentStatusActions.isLoading(false));
+  };
+}
+
+export const listPlatformCustomerEntityRepresentativesActions = {
+  isLoading: createAction<boolean>(
+    'PLATFORM_CUSTOMER_ENTITY_REPRESENTATIVE/LIST/IS_LOADING',
+  ),
+  error: createAction<Error | null>(
+    'PLATFORM_CUSTOMER_ENTITY_REPRESENTATIVE/LIST/ERROR',
+  ),
+  success: createAction<PlatformCustomerEntityRepresentative[]>(
+    'PLATFORM_CUSTOMER_ENTITY_REPRESENTATIVE/LIST/SUCCESS',
+  ),
+};
+
+export function fetchPlatformCustomerEntityRepresentatives(
+  options?: OptionCallback<PlatformCustomerEntityRepresentative[]>,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(listPlatformCustomerEntityRepresentativesActions.isLoading(true));
+    dispatch(listPlatformCustomerEntityRepresentativesActions.error(null));
+    try {
+      const response = await fetchPlatformCustomerEntityRepresentativesAPI();
+      const representatives = response.data.results || [];
+      dispatch(
+        listPlatformCustomerEntityRepresentativesActions.success(
+          representatives,
+        ),
+      );
+      options?.onSuccess?.(representatives);
+    } catch (err) {
+      console.error(err);
+      dispatch(
+        listPlatformCustomerEntityRepresentativesActions.error(
+          err instanceof Error ? err : new Error(String(err)),
+        ),
+      );
+      options?.onError?.();
+    }
+    dispatch(listPlatformCustomerEntityRepresentativesActions.isLoading(false));
+  };
+}
+
+export const createPlatformCustomerEntityRepresentativeActions = {
+  isLoading: createAction<boolean>(
+    'PLATFORM_CUSTOMER_ENTITY_REPRESENTATIVE/CREATE/IS_LOADING',
+  ),
+  error: createAction<Error | null>(
+    'PLATFORM_CUSTOMER_ENTITY_REPRESENTATIVE/CREATE/ERROR',
+  ),
+  success: createAction<PlatformCustomerEntityRepresentative>(
+    'PLATFORM_CUSTOMER_ENTITY_REPRESENTATIVE/CREATE/SUCCESS',
+  ),
+};
+
+export function createPlatformCustomerEntityRepresentative(
+  data: PlatformCustomerEntityRepresentativeInput,
+  options?: OptionCallback<PlatformCustomerEntityRepresentative>,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(createPlatformCustomerEntityRepresentativeActions.isLoading(true));
+    dispatch(createPlatformCustomerEntityRepresentativeActions.error(null));
+    try {
+      const response = await createPlatformCustomerEntityRepresentativeAPI(
+        data,
+      );
+      dispatch(
+        createPlatformCustomerEntityRepresentativeActions.success(
+          response.data,
+        ),
+      );
+      options?.onSuccess?.(response.data);
+    } catch (err) {
+      console.error(err);
+      dispatch(
+        createPlatformCustomerEntityRepresentativeActions.error(
+          err instanceof Error ? err : new Error(String(err)),
+        ),
+      );
+      options?.onError?.();
+    }
+    dispatch(
+      createPlatformCustomerEntityRepresentativeActions.isLoading(false),
+    );
+  };
+}
+
+export const updatePlatformCustomerEntityRepresentativeActions = {
+  isLoading: createAction<boolean>(
+    'PLATFORM_CUSTOMER_ENTITY_REPRESENTATIVE/UPDATE/IS_LOADING',
+  ),
+  error: createAction<Error | null>(
+    'PLATFORM_CUSTOMER_ENTITY_REPRESENTATIVE/UPDATE/ERROR',
+  ),
+  success: createAction<PlatformCustomerEntityRepresentative>(
+    'PLATFORM_CUSTOMER_ENTITY_REPRESENTATIVE/UPDATE/SUCCESS',
+  ),
+};
+
+export function updatePlatformCustomerEntityRepresentative(
+  id: number,
+  data: Partial<PlatformCustomerEntityRepresentativeInput>,
+  options?: OptionCallback<PlatformCustomerEntityRepresentative>,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(updatePlatformCustomerEntityRepresentativeActions.isLoading(true));
+    dispatch(updatePlatformCustomerEntityRepresentativeActions.error(null));
+    try {
+      const response = await updatePlatformCustomerEntityRepresentativeAPI(
+        id,
+        data,
+      );
+      dispatch(
+        updatePlatformCustomerEntityRepresentativeActions.success(
+          response.data,
+        ),
+      );
+      options?.onSuccess?.(response.data);
+    } catch (err) {
+      console.error(err);
+      dispatch(
+        updatePlatformCustomerEntityRepresentativeActions.error(
+          err instanceof Error ? err : new Error(String(err)),
+        ),
+      );
+      options?.onError?.();
+    }
+    dispatch(
+      updatePlatformCustomerEntityRepresentativeActions.isLoading(false),
+    );
   };
 }

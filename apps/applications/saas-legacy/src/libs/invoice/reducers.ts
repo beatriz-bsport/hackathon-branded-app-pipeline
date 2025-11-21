@@ -29,6 +29,9 @@ import {
   applyGiftcardOnInvoiceActions,
   generateInvoiceXmlActions,
   generateInvoiceXmlBulkActions,
+  checkFiskalyOnboardingStatusActions,
+  getFiskalyOnboardingRequirementsActions,
+  onboardFiskalyCompanyActions,
 } from '#src/libs/invoice/actions';
 
 import type {
@@ -38,10 +41,11 @@ import type {
   InvoiceV1Serializer,
   InvoiceState,
   PlannedPaymentEventSerializer,
+  FiskalyOnboardingRequirement,
 } from '#src/libs/invoice/types';
 import type { PaymentItem } from '#src/libs/invoice/payment/types';
 import type { InvoiceItem } from '#src/libs/invoice/invoice-item/types';
-import type { PaginatedResponse } from '../../state/types';
+import type { PaginatedResponse } from '#src/state/types';
 
 type PayloadReduceTypeUuid<T> = { [uuid: string]: T };
 type PayloadReduceTypeIdStr<T> = { [id: string]: T };
@@ -125,6 +129,13 @@ const initialState: Immutable.Immutable<InvoiceState> = Immutable<InvoiceState>(
     editEstablishmentBillingGroup: {
       loading: false,
       error: null,
+    },
+    fiskalyOnboarding: {
+      loading: false,
+      error: null,
+      isOnboarded: null,
+      requirements: [],
+      agreementUrl: null,
     },
   },
 );
@@ -634,6 +645,71 @@ export default handleActions<Immutable.Immutable<InvoiceState>, any>(
       { payload }: { payload: Error | null },
     ) => {
       return state.setIn(['applyGiftCard', 'error'], payload);
+    },
+    [checkFiskalyOnboardingStatusActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(['fiskalyOnboarding', 'loading'], payload);
+    },
+    [checkFiskalyOnboardingStatusActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(['fiskalyOnboarding', 'error'], payload);
+    },
+    [checkFiskalyOnboardingStatusActions.success.toString()]: (
+      state,
+      { payload }: { payload: { is_onboarded: boolean } },
+    ) => {
+      return state.setIn(
+        ['fiskalyOnboarding', 'isOnboarded'],
+        payload.is_onboarded,
+      );
+    },
+    [getFiskalyOnboardingRequirementsActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(['fiskalyOnboarding', 'loading'], payload);
+    },
+    [getFiskalyOnboardingRequirementsActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(['fiskalyOnboarding', 'error'], payload);
+    },
+    [getFiskalyOnboardingRequirementsActions.success.toString()]: (
+      state,
+      {
+        payload,
+      }: { payload: { requirements: FiskalyOnboardingRequirement[] } },
+    ) => {
+      return state.setIn(
+        ['fiskalyOnboarding', 'requirements'],
+        payload.requirements,
+      );
+    },
+    [onboardFiskalyCompanyActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(['fiskalyOnboarding', 'loading'], payload);
+    },
+    [onboardFiskalyCompanyActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(['fiskalyOnboarding', 'error'], payload);
+    },
+    [onboardFiskalyCompanyActions.success.toString()]: (
+      state,
+      { payload }: { payload: { agreement_url: string } },
+    ) => {
+      return state.setIn(
+        ['fiskalyOnboarding', 'agreementUrl'],
+        payload.agreement_url,
+      );
     },
   },
   initialState,

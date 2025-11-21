@@ -46,7 +46,8 @@
     "previousMonth": "Previous month",
     "invalidStartDate": "Invalid start date",
     "invalidEndDate": "Invalid end date",
-    "rangeLabel": "From {{ start }} to {{end}}"
+    "rangeLabel": "From {{ start }} to {{end}}",
+    "datePlaceholder": "MM/DD/YYYY"
   },
   "modal": {
     "back": "Back",

@@ -1,6 +1,10 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 
-import type { WeekStartDay } from "@bsport/datetime-manipulation";
+import {
+  DATETIME_FORMATS,
+  formatDateTimeFromDate,
+} from "@bsport/datetime-formatting";
+import { type WeekStartDay, toDateTime } from "@bsport/datetime-manipulation";
 
 import Button from "#src/components/Button";
 import Modal from "#src/components/Modal";
@@ -138,7 +142,11 @@ const DatePicker: React.FC<DatePickerProps> = ({
   );
 
   const formatDate = (date: Date | null) => {
-    if (date) return date.toLocaleDateString();
+    if (date)
+      return formatDateTimeFromDate(
+        toDateTime(date).setLocale(i18nInstance?.language ?? "en-US"),
+        DATETIME_FORMATS.SHORT_DATE,
+      );
 
     // Check locale date format using a sample date
     const sampleDate = new Date().toLocaleDateString();

@@ -39,7 +39,7 @@ export type DatePickerProps = Omit<
     container?: string;
     content?: string;
   };
-  defaultValue?: Date;
+  defaultValue?: SelectedDate;
 };
 
 /**
@@ -59,6 +59,7 @@ export type DatePickerProps = Omit<
  * @param props.shortcuts An array of shortcut items to display in the date picker.
  * @param props.popoverClassNames Custom classes to provide to the popover container and content
  * @param props.dateFormat The format to display dates for popover, either "short" or "medium".
+ * @param props.defaultValue Optional: the initial selected date or date range.
  * @link https://docs.infra.bsport.io/storybook/kaizen/dev/index.html?path=/docs/components-datepicker--docs
  */
 const DatePicker: React.FC<DatePickerProps> = ({

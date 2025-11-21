@@ -304,6 +304,7 @@ export const DatePickerInputPopover: Story = {
 /**
  * In this case, we don't need to provide any trigger to open the DatePicker.<br>
  * It's automatically a button to trigger the opening of the popover.<br>
+ * We use the initial selected date to show how the button label updates accordingly.
  */
 export const DatePickerPopover: Story = {
   name: "DatePicker popover",
@@ -314,6 +315,7 @@ export const DatePickerPopover: Story = {
     displayAs: "popover",
     weekStartDay: 1,
     shortcuts,
+    defaultValue: new Date(),
   },
 };
 

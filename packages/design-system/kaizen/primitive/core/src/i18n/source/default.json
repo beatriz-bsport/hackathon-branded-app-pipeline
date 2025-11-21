@@ -40,7 +40,6 @@
   "datePicker": {
     "modalTitle": "Select a day",
     "shortcutsTitle": "Shortcuts",
-    "selectedDay": "Selected day",
     "startDate": "Start date",
     "endDate": "End date",
     "nextMonth": "Next month",

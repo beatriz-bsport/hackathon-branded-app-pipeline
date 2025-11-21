@@ -1,4 +1,4 @@
-import { type FC, useEffect, useId } from "react";
+import { type FC, useEffect, useId, useState } from "react";
 import { useNavigate } from "react-router";
 
 import { ControlledForm, useFormController } from "@bsport/form";
@@ -15,7 +15,9 @@ import { useDisclosure } from "#src/hooks/useDisclosure";
 import { useUpdatePack } from "#src/hooks/useUpdatePack";
 import { URLS } from "#src/urls";
 
+import { PackDetailsContent } from "./PackDetailsContent";
 import { PackDetailsHeader } from "./PackDetailsHeader";
+import { PackDetailsPanel } from "./PackDetailsPanel";
 
 type PackDetailsPageProps = {
   pack: Pack;
@@ -44,6 +46,9 @@ const convertIntoPackFormData = (pack: Pack): PackFormEditData => {
 };
 
 export const PackDetailsPage: FC<PackDetailsPageProps> = ({ pack }) => {
+  // Internal counter to force rerendering by injecting it into key props
+  const [discardId, setDiscardId] = useState(0);
+
   const { detailsLayoutProps, toggleIsPanelOpened, toggleHasUnsavedChanges } =
     useDetailsLayout();
 
@@ -84,6 +89,8 @@ export const PackDetailsPage: FC<PackDetailsPageProps> = ({ pack }) => {
       return;
     }
     methods.reset();
+    // All components having a key built on discardId will be rerendered
+    setDiscardId((self) => self + 1);
   };
 
   const handleSaveChanges = async () => {
@@ -123,13 +130,13 @@ export const PackDetailsPage: FC<PackDetailsPageProps> = ({ pack }) => {
             toggleIsPanelOpened={toggleIsPanelOpened}
           />
 
-          <DetailsLayout.Content>
-            {/** Placeholder for the layout, will be removed in the next steps */}
-            <h3>Pack n°{pack.id}</h3>
-            {JSON.stringify(pack)}
-          </DetailsLayout.Content>
+          <PackDetailsContent fieldIdPrefix={formId} methods={methods} />
 
-          <DetailsLayout.Panel>Placeholder for Panel</DetailsLayout.Panel>
+          <PackDetailsPanel
+            discardId={discardId}
+            fieldIdPrefix={formId}
+            methods={methods}
+          />
 
           <DetailsLayout.Confirmation
             onDiscard={handleDiscardChanges}

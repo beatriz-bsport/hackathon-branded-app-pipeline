@@ -11,11 +11,20 @@ import { PackFormVisibilityRules } from "./PackFormVisibilityRules";
 import { PackFormVisibilitySelector } from "./PackFormVisibilitySelector";
 
 type PackFormVisibilityProps = {
+  discardId?: number;
   fieldIdPrefix: string;
   methods: UseFormControllerOutput<PackFormSchema>;
 };
 
+const getDynamicKey = (key: string, discardId?: number) => {
+  if (!discardId) {
+    return key;
+  }
+  return `${key}-${discardId}`;
+};
+
 export const PackFormVisibility: React.FC<PackFormVisibilityProps> = ({
+  discardId,
   fieldIdPrefix,
   methods,
 }) => {
@@ -32,7 +41,11 @@ export const PackFormVisibility: React.FC<PackFormVisibilityProps> = ({
         methods={methods}
       />
 
-      <PackFormVisibilityDate fieldIdPrefix={fieldIdPrefix} methods={methods} />
+      <PackFormVisibilityDate
+        key={getDynamicKey(`${fieldIdPrefix}-visibility-date`, discardId)}
+        fieldIdPrefix={fieldIdPrefix}
+        methods={methods}
+      />
 
       <PackFormVisibilityRules
         fieldIdPrefix={fieldIdPrefix}

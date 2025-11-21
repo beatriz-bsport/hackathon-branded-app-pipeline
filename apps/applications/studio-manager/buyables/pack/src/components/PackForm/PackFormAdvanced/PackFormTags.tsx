@@ -74,13 +74,19 @@ export const PackFormTags: React.FC<PackFormTagsProps> = ({
               form.setValue(
                 "tags_on_consumer_item_creation",
                 values.map((stringId) => parseInt(stringId, 10)),
+                { shouldDirty: true },
               );
             },
+            defaultSelectedIds: (
+              form.formState.defaultValues?.tags_on_consumer_item_creation ?? []
+            )
+              .filter((id) => id !== undefined)
+              .map((id) => id.toString()),
           };
         }}
       >
         <Autocomplete
-          id={`${fieldIdPrefix}-tag-selector`}
+          key={`${fieldIdPrefix}-tag-selector`}
           className="max-w-[320px]"
           multiSelect
           popoverPlacement="bottom-right"

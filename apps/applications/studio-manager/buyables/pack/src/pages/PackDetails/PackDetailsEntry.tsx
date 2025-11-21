@@ -8,6 +8,7 @@ import {
 } from "@bsport/kaizen-primitive-core";
 import { selectPack, usePackStore } from "@bsport/store-buyables-pack";
 
+import { SelectedItemsContextProvider } from "#src/contexts/selectedItemsContext";
 import { useFetchPack } from "#src/hooks/useFetchPack";
 import { useTranslation } from "#src/utils/i18n";
 
@@ -38,5 +39,9 @@ export const PackDetailsEntry: FC = () => {
     ) : null;
   }
 
-  return <PackDetailsPage pack={pack} />;
+  return (
+    <SelectedItemsContextProvider>
+      <PackDetailsPage pack={pack} />
+    </SelectedItemsContextProvider>
+  );
 };

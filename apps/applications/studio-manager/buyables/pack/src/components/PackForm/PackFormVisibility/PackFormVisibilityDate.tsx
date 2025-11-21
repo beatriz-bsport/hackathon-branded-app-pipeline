@@ -25,7 +25,9 @@ export const PackFormVisibilityDate: React.FC<PackFormVisibilityDateProps> = ({
 }) => {
   const { t } = useTranslation("details");
 
-  const [addExpirationDate, setAddExpirationDate] = useState(false);
+  const [addExpirationDate, setAddExpirationDate] = useState(
+    !!methods.formState.defaultValues?.expiration_date,
+  );
   const now = new Date();
   const today = new Date(
     now.getFullYear(),
@@ -89,8 +91,12 @@ export const PackFormVisibilityDate: React.FC<PackFormVisibilityDateProps> = ({
                 form.setValue(
                   "expiration_date",
                   selectedDate ? getIsoDateString(selectedDate) : null,
+                  { shouldDirty: true },
                 );
               },
+              defaultValue: form.formState.defaultValues?.expiration_date
+                ? new Date(form.formState.defaultValues?.expiration_date)
+                : undefined,
             })}
           >
             <DatePicker

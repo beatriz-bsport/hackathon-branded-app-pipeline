@@ -1,6 +1,10 @@
-import React from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { FlagProvider } from '@unleash/proxy-client-react';
+import {
+  FlagProvider,
+  IMutableContext,
+  useUnleashClient,
+} from '@unleash/proxy-client-react';
 import type { RootState } from '#src/reducers';
 import { getFranchiseId } from '#src/libs/franchise/selectors';
 import themeSelectors from '#src/libs/theme/selectors';
@@ -18,15 +22,105 @@ function buildUnleashConfig() {
   } as const;
 }
 
-const FeatureFlagsProvider: React.FC<{ children?: React.ReactNode }> = ({
-  children,
-}) => {
+// Component to start the client when companyId is available
+const ClientStarter: React.FC = () => {
+  const CONTEXT_TIMEOUT = 5000; // 5 seconds
+
+  const client = useUnleashClient();
+
+  const [isClientStarted, setIsClientStarted] = useState(false);
+
+  const startWithContext = useCallback(
+    (context: IMutableContext) => {
+      client.updateContext(context);
+      client.start();
+      setIsClientStarted(true);
+    },
+    [client],
+  );
+
   const companyId = useSelector(
     (s: RootState) => themeSelectors.getTheme(s)?.company,
   );
-  const franchiseId = useSelector((s: RootState) => getFranchiseId(s));
-  const userEmail = useSelector((s: RootState) => s.auth?.username);
 
+  const franchiseId = useSelector((s: RootState) => getFranchiseId(s));
+
+  const userId = useSelector((s: RootState) => s.auth?.id);
+
+  const context = useMemo<IMutableContext>(() => {
+    const properties: Record<string, string> = {
+      currentTime: new Date().toISOString(),
+    };
+
+    if (companyId) {
+      properties.companyId = String(companyId);
+    }
+    if (franchiseId) {
+      properties.franchiseId = String(franchiseId);
+    }
+    if (userId) {
+      properties.userId = String(userId);
+    }
+
+    return { properties };
+  }, [companyId, franchiseId, userId]);
+
+  useEffect(() => {
+    /* Function to start client with default context
+    if required context is not available within timeout
+    This ensures the client always starts */
+    const startWithDefault = () => {
+      if (isClientStarted) return;
+      startWithContext({
+        properties: {
+          currentTime: new Date().toISOString(),
+        },
+      });
+      console.warn(
+        '[FeatureFlags] Starting Unleash client with default context after timeout',
+      );
+      const error = new Error('Unleash started with default context');
+      sentryCaptureException(error, {
+        extra: {
+          feature: 'unleash',
+          issue: 'context-timeout',
+        },
+      });
+    };
+
+    if (isClientStarted || !client) {
+      return;
+    }
+
+    let timeoutId: NodeJS.Timeout | undefined;
+
+    const hasRequiredContext =
+      context.properties?.companyId || context.properties?.franchiseId;
+
+    if (!hasRequiredContext) {
+      timeoutId = setTimeout(startWithDefault, CONTEXT_TIMEOUT);
+    }
+
+    if (hasRequiredContext) {
+      try {
+        startWithContext(context);
+      } catch (error) {
+        console.error('[FeatureFlags] Failed to start Unleash client:', error);
+      }
+    }
+    return () => {
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
+    };
+  }, [context, client, isClientStarted, startWithContext]);
+
+  return null;
+};
+
+const FeatureFlagsProvider: React.FC<{ children?: React.ReactNode }> = ({
+  children,
+}) => {
   const config = buildUnleashConfig();
 
   if (!config.url || !config.clientKey) {
@@ -44,24 +138,12 @@ const FeatureFlagsProvider: React.FC<{ children?: React.ReactNode }> = ({
     return <>{children}</>;
   }
 
-  // Always render FlagProvider, even without companyId/franchiseId
-  // This prevents component tree structure changes during DISCONNECT
   return (
     <FlagProvider
-      config={{
-        ...config,
-        context: {
-          // Standard Unleash context fields
-          ...(userEmail ? { userId: userEmail } : {}),
-          currentTime: new Date().toISOString(),
-          // Custom properties
-          properties: {
-            ...(companyId ? { companyId: String(companyId) } : {}),
-            ...(franchiseId ? { franchiseId: String(franchiseId) } : {}),
-          },
-        },
-      }}
+      config={config}
+      startClient={false} // Don't start immediately
     >
+      <ClientStarter />
       {children}
     </FlagProvider>
   );

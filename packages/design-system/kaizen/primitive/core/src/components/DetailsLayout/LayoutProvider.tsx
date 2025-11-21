@@ -29,7 +29,7 @@ export const LayoutProvider = forwardRef<LayoutProviderRef, PropsWithChildren>(
       setHasUnsavedChanges((prev) => (value !== undefined ? value : !prev));
     }, []);
 
-    const [isPanelOpened, setIsPanelOpened] = useState(false);
+    const [isPanelOpened, setIsPanelOpened] = useState(true);
     const toggleIsPanelOpened = useCallback((value?: boolean) => {
       setIsPanelOpened((prev) => (value !== undefined ? value : !prev));
     }, []);

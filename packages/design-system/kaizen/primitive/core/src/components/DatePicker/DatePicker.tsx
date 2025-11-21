@@ -16,7 +16,7 @@ export type SelectedDate = Date | [Date | null, Date | null] | null;
 
 export type DatePickerProps = Omit<
   React.HTMLAttributes<HTMLDivElement>,
-  "onSelect"
+  "onSelect" | "defaultValue"
 > & {
   id: string;
   mode: "single" | "range";
@@ -33,6 +33,7 @@ export type DatePickerProps = Omit<
     container?: string;
     content?: string;
   };
+  defaultValue?: Date;
 };
 
 /**
@@ -66,12 +67,13 @@ const DatePicker: React.FC<DatePickerProps> = ({
   shortcuts,
   popoverClassNames = {},
   onSelect,
+  defaultValue = null,
   ...props
 }) => {
   const i18nInstance = useKaizenI18nInstance();
   const { t } = useTranslation("default", { i18n: i18nInstance });
 
-  const [selectedDate, setSelectedDate] = useState<SelectedDate>(null);
+  const [selectedDate, setSelectedDate] = useState<SelectedDate>(defaultValue);
   const [isManuallySelected, setIsManuallySelected] = useState(false);
 
   useEffect(() => {

@@ -9,10 +9,12 @@ import { useTranslation } from "#src/utils/i18n";
 import { PackFormTags } from "./PackFormTags";
 
 type PackFormAdvancedProps = {
+  contentOnly?: boolean;
   fieldIdPrefix: string;
 };
 
 export const PackFormAdvanced: React.FC<PackFormAdvancedProps> = ({
+  contentOnly = false,
   fieldIdPrefix,
 }) => {
   const { t } = useTranslation("details");
@@ -20,6 +22,10 @@ export const PackFormAdvanced: React.FC<PackFormAdvancedProps> = ({
   useFetchTags();
 
   const keyBase = `${fieldIdPrefix}-advanced`;
+
+  if (contentOnly) {
+    return <PackFormTags fieldIdPrefix={keyBase} />;
+  }
 
   return (
     <section id={`${keyBase}-section`}>

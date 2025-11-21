@@ -134,7 +134,6 @@ export type AuthConnection = {
 };
 
 export type AuthState = {
-  id: number | null;
   allowed_franchisees: number[];
   authenticated: boolean;
   coaches_selected_in_role: number[];

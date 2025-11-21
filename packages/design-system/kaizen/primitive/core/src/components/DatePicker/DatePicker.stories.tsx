@@ -28,6 +28,10 @@ const meta: Meta<typeof DatePicker> = {
     calendarYears: { control: "object" },
     disableDate: { table: { type: { summary: "function" } } },
     shortcuts: { control: "object" },
+    dateFormat: {
+      options: ["short", "medium"],
+      control: { type: "inline-radio" },
+    },
   },
 };
 

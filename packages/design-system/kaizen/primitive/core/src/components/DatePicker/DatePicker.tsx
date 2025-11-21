@@ -27,6 +27,7 @@ export type DatePickerProps = Omit<
   displayAs: "popover" | "modal";
   isInputField?: boolean;
   open?: boolean;
+  dateFormat?: "short" | "medium";
   onConfirm?: (selectedDate: SelectedDate) => void;
   onClose?: () => void;
   onSelect?: (date: Date | null) => void;
@@ -57,6 +58,7 @@ export type DatePickerProps = Omit<
  * @param props.disableDate A comparison function to disable specific dates in the calendar.
  * @param props.shortcuts An array of shortcut items to display in the date picker.
  * @param props.popoverClassNames Custom classes to provide to the popover container and content
+ * @param props.dateFormat The format to display dates for popover, either "short" or "medium".
  * @link https://docs.infra.bsport.io/storybook/kaizen/dev/index.html?path=/docs/components-datepicker--docs
  */
 const DatePicker: React.FC<DatePickerProps> = ({
@@ -75,6 +77,7 @@ const DatePicker: React.FC<DatePickerProps> = ({
   popoverClassNames = {},
   onSelect,
   defaultValue = null,
+  dateFormat = "short",
   ...props
 }) => {
   const i18nInstance = useKaizenI18nInstance();
@@ -142,15 +145,14 @@ const DatePicker: React.FC<DatePickerProps> = ({
   );
 
   const formatDate = (date: Date | null) => {
-    if (date)
-      return formatDateTimeFromDate(
-        toDateTime(date).setLocale(i18nInstance?.language ?? "en-US"),
-        DATETIME_FORMATS.SHORT_DATE,
-      );
-
-    // Check locale date format using a sample date
-    const sampleDate = new Date().toLocaleDateString();
-    return sampleDate.indexOf("/") === 2 ? "DD/MM/YYYY" : "MM/DD/YYYY";
+    return date
+      ? formatDateTimeFromDate(
+          toDateTime(date).setLocale(i18nInstance?.language ?? "en-US"),
+          dateFormat === "medium"
+            ? DATETIME_FORMATS.MEDIUM_DATE_WITH_WEEKDAY
+            : DATETIME_FORMATS.SHORT_DATE,
+        )
+      : t("datePicker.datePlaceholder");
   };
 
   if (displayAs === "popover")

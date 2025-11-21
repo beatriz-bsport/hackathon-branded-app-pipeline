@@ -203,7 +203,7 @@ const DatePicker: React.FC<DatePickerProps> = ({
           }}
         </Popover.Anchor>
         <Popover.Content className={popoverClassNames.content ?? ""}>
-          {() => (
+          {({ setIsPopoverOpened }) => (
             <DatePickerContent
               className={className}
               id={id}
@@ -216,7 +216,10 @@ const DatePicker: React.FC<DatePickerProps> = ({
               hideSelector={true}
               shortcuts={shortcuts}
               manuallySelected={isManuallySelected}
-              onCalendarSelect={handleCalendarSelect}
+              onCalendarSelect={(date) => {
+                handleCalendarSelect(date);
+                setIsPopoverOpened(false);
+              }}
               onShortcutSelect={handleShortcutSelect}
               {...props}
             />

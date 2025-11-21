@@ -33,7 +33,7 @@ const MenuItem: React.FC<MenuItemProps> = ({
       return <Radio {...props} />;
     }
     if (type === menuItemTypes.checkbox) {
-      return <Checkbox {...props} readOnly />;
+      return <Checkbox {...props} />;
     }
     if (type === menuItemTypes.divider) {
       return <Divider orientation="horizontal" weight="thin" {...props} />;

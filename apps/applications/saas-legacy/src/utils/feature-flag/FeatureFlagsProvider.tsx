@@ -24,7 +24,7 @@ function buildUnleashConfig() {
 
 // Component to start the client when companyId is available
 const ClientStarter: React.FC = () => {
-  const CONTEXT_TIMEOUT = 3000; // 3 seconds
+  const CONTEXT_TIMEOUT = 5000; // 5 seconds
 
   const client = useUnleashClient();
 

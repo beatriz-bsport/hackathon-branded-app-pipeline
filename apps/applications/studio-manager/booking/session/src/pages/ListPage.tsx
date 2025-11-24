@@ -50,12 +50,16 @@ const ListPage: React.FC = () => {
       <ListLayout.Header pageTitle={t("header")} />
       <ListLayout.Content>
         <div className="flex flex-col gap-xl">
-          <DatePicker
-            id="daily-sessions-picker"
-            mode="single"
-            displayAs="popover"
-            onSelect={onDateChange}
-          />
+          <div className="flex pt-sm px-sm justify-center">
+            <DatePicker
+              id="daily-sessions-picker"
+              mode="single"
+              displayAs="popover"
+              onSelect={onDateChange}
+              dateFormat="medium"
+              defaultValue={selectedDate}
+            />
+          </div>
           <div>
             <SessionDayTitle date={selectedDate} sessions={renderedSessions} />
             <SessionTable

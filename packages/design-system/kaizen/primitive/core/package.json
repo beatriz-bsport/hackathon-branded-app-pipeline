@@ -36,6 +36,7 @@
   },
   "dependencies": {
     "@bsport/currency": "workspace:*",
+    "@bsport/datetime-formatting": "workspace:*",
     "@bsport/datetime-manipulation": "workspace:*",
     "@bsport/i18n": "workspace:*",
     "class-variance-authority": "^0.7.0",

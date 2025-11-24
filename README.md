@@ -40,7 +40,7 @@ pnpm install
 
 If you encounter an error about pnpm version, delete the global one that lives in a global binary
 
-On mac, it would be in 
+On mac, it would be in
 
 ```sh
 rm /Users/xxxx/Library/pnpm/pnpm
@@ -247,7 +247,7 @@ To use a package made by our developers in the monorepository (for example `@bsp
 }
 ```
 
-or if you don't want your package to appear in the production build
+or if you don't want your package to appear in the production build:
 
 ```jsonc
 {
@@ -349,7 +349,7 @@ pnpm dlx nx migrate latest
 ```
 
 You should do this regularly to ensure your dependencies are up-to-date.
-You can find more regarding upgrading NX here: https://nx.dev/features/automate-updating-dependencies/
+You can find more regarding upgrading NX here: <https://nx.dev/features/automate-updating-dependencies/>
 
 ### Upgrade pnpm
 

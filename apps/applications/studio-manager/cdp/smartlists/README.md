@@ -32,7 +32,7 @@ You will automatically have intellisense of your available translations.
 To build your application for local preview :
 
 ```sh
-pnpm run build:preview
+pnpm build:preview
 ```
 
 :warning: The application is not built with react, as it is aimed to be shared in the Module Federation architecture. You need to run the host app in preview mode as well.
@@ -42,5 +42,5 @@ pnpm run build:preview
 To build your application in production environment :
 
 ```sh
-pnpm run build
+pnpm build
 ```

@@ -2,14 +2,20 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router";
 
 import { toast } from "@bsport/kaizen-primitive-core";
-import { fetchPackAction } from "@bsport/store-buyables-pack";
+import { type Pack, fetchPackAction } from "@bsport/store-buyables-pack";
 import { useAsync } from "@bsport/use-async";
 
 import { URLS } from "#src/urls";
 import { fetch } from "#src/utils/fetch";
 import { useTranslation } from "#src/utils/i18n";
 
-export const useFetchPack = ({ id }: { id?: number }) => {
+export const useFetchPack = ({
+  id,
+  onSuccess,
+}: {
+  id?: number;
+  onSuccess: (pack: Pack) => void;
+}) => {
   const { t } = useTranslation("details");
 
   const _handleFetchPack = async (id: number) => {
@@ -20,6 +26,9 @@ export const useFetchPack = ({ id }: { id?: number }) => {
 
   const [{ isLoading }, fetchPack] = useAsync<typeof _handleFetchPack>({
     asyncFn: _handleFetchPack,
+    onSuccess: ({ value }) => {
+      onSuccess(value);
+    },
     onFailure: () => {
       toast({
         status: "critical",

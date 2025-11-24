@@ -11,6 +11,7 @@ import {
   type PackFormSchema,
   usePackSchema,
 } from "#src/components/PackForm/schema";
+import { SelectedItemsContextProvider } from "#src/contexts/selectedItemsContext";
 import { useDisclosure } from "#src/hooks/useDisclosure";
 import { useUpdatePack } from "#src/hooks/useUpdatePack";
 import { URLS } from "#src/urls";
@@ -65,6 +66,10 @@ export const PackDetailsPage: FC<PackDetailsPageProps> = ({ pack }) => {
     criteriaMode: "all",
   });
 
+  const passes = methods.watch("payment_pack_ids");
+  const appointmentPasses = methods.watch("private_pass_ids");
+  const webshopItems = methods.watch("shop_item_ids");
+
   const {
     isOpen: isDeleteModalOpen,
     onClose: onCloseDeleteModal,
@@ -97,9 +102,14 @@ export const PackDetailsPage: FC<PackDetailsPageProps> = ({ pack }) => {
     // Check whether the form is valid.
     // Don't rely on methods.formState.isValid as it's "one render behind"
     const ok = await methods.trigger();
+    const hasSelectedItems =
+      passes.length + appointmentPasses.length + webshopItems.length > 0;
 
-    if (!ok || isUpdating) {
-      console.warn("[Form] Invalid", methods.formState.errors);
+    if (!ok || isUpdating || !hasSelectedItems) {
+      console.warn("[Form] Invalid", {
+        errors: methods.formState.errors,
+        missingItems: !hasSelectedItems,
+      });
       return;
     }
 
@@ -130,7 +140,28 @@ export const PackDetailsPage: FC<PackDetailsPageProps> = ({ pack }) => {
             toggleIsPanelOpened={toggleIsPanelOpened}
           />
 
-          <PackDetailsContent fieldIdPrefix={formId} methods={methods} />
+          <SelectedItemsContextProvider
+            passes={passes}
+            setPasses={(nextValues) => {
+              methods.setValue("payment_pack_ids", nextValues, {
+                shouldDirty: true,
+              });
+            }}
+            appointmentPasses={appointmentPasses}
+            setAppointmentPasses={(nextValues) => {
+              methods.setValue("private_pass_ids", nextValues, {
+                shouldDirty: true,
+              });
+            }}
+            webshopItems={webshopItems}
+            setWebshopItems={(nextValues) => {
+              methods.setValue("shop_item_ids", nextValues, {
+                shouldDirty: true,
+              });
+            }}
+          >
+            <PackDetailsContent fieldIdPrefix={formId} methods={methods} />
+          </SelectedItemsContextProvider>
 
           <PackDetailsPanel
             discardId={discardId}

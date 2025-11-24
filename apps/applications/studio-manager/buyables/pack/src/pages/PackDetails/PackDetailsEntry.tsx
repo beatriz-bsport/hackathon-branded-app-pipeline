@@ -8,11 +8,15 @@ import {
 } from "@bsport/kaizen-primitive-core";
 import { selectPack, usePackStore } from "@bsport/store-buyables-pack";
 
-import { SelectedItemsContextProvider } from "#src/contexts/selectedItemsContext";
+import { useFetchItems } from "#src/hooks/useFetchItems";
 import { useFetchPack } from "#src/hooks/useFetchPack";
 import { useTranslation } from "#src/utils/i18n";
 
 import { PackDetailsPage } from "./PackDetailsPage";
+
+const getIds = (items: Array<{ id: number }>) => {
+  return items.map((item) => item.id);
+};
 
 export const PackDetailsEntry: FC = () => {
   const { t } = useTranslation("details");
@@ -23,7 +27,17 @@ export const PackDetailsEntry: FC = () => {
   const validId = parsedId && !isNaN(parsedId) ? parsedId : undefined;
 
   // Fetch Pack value related to this id
-  const { isLoading } = useFetchPack({ id: validId });
+  const { fetchPasses, fetchAppointmentPasses, fetchWebshopItems } =
+    useFetchItems();
+  const { isLoading } = useFetchPack({
+    id: validId,
+    onSuccess: (pack) => {
+      fetchPasses({ id__in: getIds(pack.payment_packs) });
+      fetchAppointmentPasses({ id__in: getIds(pack.private_passes) });
+      fetchWebshopItems({ id__in: getIds(pack.shop_items) });
+    },
+  });
+
   const pack = usePackStore((state) => selectPack(state, validId));
 
   const { detailsLayoutProps } = useDetailsLayout();
@@ -39,9 +53,5 @@ export const PackDetailsEntry: FC = () => {
     ) : null;
   }
 
-  return (
-    <SelectedItemsContextProvider>
-      <PackDetailsPage pack={pack} />
-    </SelectedItemsContextProvider>
-  );
+  return <PackDetailsPage pack={pack} />;
 };

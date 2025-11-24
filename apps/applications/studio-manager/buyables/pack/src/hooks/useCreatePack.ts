@@ -14,7 +14,7 @@ export const useCreatePack = ({
 }) => {
   const { t } = useTranslation("details");
 
-  const [{ isLoading }, handleCreatePack] = useAsync<typeof createPackBound>({
+  const [{ isLoading }, createPack] = useAsync<typeof createPackBound>({
     asyncFn: createPackBound,
     onSuccess: ({ value }) => {
       onSuccess(value);
@@ -31,6 +31,6 @@ export const useCreatePack = ({
 
   return {
     isLoading,
-    handleCreatePack,
+    createPack,
   };
 };

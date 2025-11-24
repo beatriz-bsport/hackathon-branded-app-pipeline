@@ -1,3 +1,4 @@
+import { clsx } from "clsx";
 import React from "react";
 
 import {
@@ -55,6 +56,9 @@ export const PackFormContent: React.FC<PackFormContentProps> = ({
     closeAddItemsModal,
   } = useAddItemsModal();
 
+  const hasSelectedItems =
+    passes.length + appointmentPasses.length + webshopItems.length > 0;
+
   return (
     <section>
       <div className="flex flex-row justify-between w-full items-center">
@@ -84,7 +88,13 @@ export const PackFormContent: React.FC<PackFormContentProps> = ({
           )}
         />
       </div>
-      <Card padding="none">
+      <Card
+        padding="none"
+        className={clsx({
+          "border-onsurface-status-critical-weak border-stroke-regular":
+            !hasSelectedItems,
+        })}
+      >
         <PackFormContentItems
           appointmentPasses={appointmentPasses}
           passes={passes}

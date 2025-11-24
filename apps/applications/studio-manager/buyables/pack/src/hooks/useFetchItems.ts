@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 
 import {
   type FetchAppointmentPassesParams,
@@ -30,9 +30,9 @@ export const useFetchItems = ({
   variant,
   categoryId,
 }: {
-  variant: ItemVariant | null;
+  variant?: ItemVariant | null;
   categoryId?: number;
-}) => {
+} = {}) => {
   const [page, setPage] = useState(DEFAULT_PAGE);
   const [pageSize, setPageSize] = useState(DEFAULT_PAGE_SIZE);
 
@@ -120,7 +120,7 @@ export const useFetchItems = ({
 
   // ----- Fetch data on change -----
 
-  useEffect(() => {
+  const fetchItems = useCallback(() => {
     if (categoryId === null || categoryId === undefined) {
       // Even for no-category category there is an id. Here it means it's the category list view.
       setPage(1);
@@ -154,5 +154,9 @@ export const useFetchItems = ({
     pageSize,
     setPage,
     setPageSize,
+    fetchItems,
+    fetchPasses,
+    fetchAppointmentPasses,
+    fetchWebshopItems,
   };
 };

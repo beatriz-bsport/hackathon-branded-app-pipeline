@@ -175,6 +175,7 @@ export const PageListContent: React.FC<Props> = ({
       initializeUnlayerBuilder({ emailBuilderRef, initialDesign });
       resetForm();
       setPageTitle(emailTemplateDetail?.title || t("details.defaultTitle"));
+      toggleHasUnsavedChanges(false);
     }
   };
 
@@ -196,6 +197,7 @@ export const PageListContent: React.FC<Props> = ({
           company_id: companyId ?? null,
         };
         saveTemplate(templateData);
+        toggleHasUnsavedChanges(false);
       } else {
         const errorToastTitle = String(
           t("saveTemplateAction.error.missingFields"),

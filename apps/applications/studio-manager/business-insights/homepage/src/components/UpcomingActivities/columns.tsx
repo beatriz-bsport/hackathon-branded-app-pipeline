@@ -24,11 +24,17 @@ const BodyWithSubtext: React.FC<{
   hasErrorStatus?: boolean;
 }> = ({ text, subtext, hasErrorStatus }) => {
   return (
-    <div>
-      <Body size="lg" color={hasErrorStatus ? "critical" : "default"}>
+    <div className="min-w-0">
+      <Body
+        size="lg"
+        color={hasErrorStatus ? "critical" : "default"}
+        className="break-words whitespace-normal"
+      >
         {text}
       </Body>
-      <Body color="weak">{subtext}</Body>
+      <Body color="weak" className="break-words whitespace-normal text-sm">
+        {subtext}
+      </Body>
     </div>
   );
 };
@@ -45,6 +51,7 @@ export const useUpcomingActivitiesColumns = ({
     type: "custom",
     align: "start",
     header: t("upcomingClassesPanel.headers.class"),
+    cellsClassName: "max-w-[180px] md:max-w-[250px]",
     render: (row) => {
       return (
         <BodyWithSubtext text={row.activityName} subtext={row.activityDate} />
@@ -57,6 +64,7 @@ export const useUpcomingActivitiesColumns = ({
     type: "custom",
     align: "start",
     header: t("upcomingClassesPanel.headers.teacher"),
+    cellsClassName: "max-w-[140px] md:max-w-[200px]",
     render: (row) => {
       return (
         <BodyWithSubtext
@@ -72,6 +80,7 @@ export const useUpcomingActivitiesColumns = ({
     type: "custom",
     align: "start",
     header: t("upcomingClassesPanel.headers.teacherSubstitution"),
+    cellsClassName: "max-w-[140px] md:max-w-[200px]",
     render: (row) => {
       const { teacherSubstituteName, teacherSubstituteRequired } = row;
 

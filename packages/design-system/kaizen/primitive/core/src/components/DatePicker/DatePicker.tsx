@@ -124,6 +124,16 @@ const DatePicker: React.FC<DatePickerProps> = ({
     }
   };
 
+  const onPopoverCalendarSelect = (
+    date: SelectedDate,
+    setIsPopoverOpened: (open: boolean) => void,
+  ) => {
+    handleCalendarSelect(date);
+    if (!Array.isArray(date) || date[1] !== null) {
+      setIsPopoverOpened(false);
+    }
+  };
+
   const handleShortcutSelect = (shortcutLabel: string) => {
     const shortcut = shortcuts?.find((s) => s.label === shortcutLabel);
     if (!shortcut) return;
@@ -217,10 +227,9 @@ const DatePicker: React.FC<DatePickerProps> = ({
               hideSelector={true}
               shortcuts={shortcuts}
               manuallySelected={isManuallySelected}
-              onCalendarSelect={(date) => {
-                handleCalendarSelect(date);
-                setIsPopoverOpened(false);
-              }}
+              onCalendarSelect={(date) =>
+                onPopoverCalendarSelect(date, setIsPopoverOpened)
+              }
               onShortcutSelect={handleShortcutSelect}
               {...props}
             />

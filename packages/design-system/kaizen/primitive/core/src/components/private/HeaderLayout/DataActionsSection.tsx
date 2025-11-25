@@ -1,17 +1,23 @@
-import React from "react";
+import React, { ReactNode, SetStateAction } from "react";
 
 import Button from "#src/components/Button";
 import ExpandableSearchInput, {
   type ExpandableSearchInputWithTooltipProps,
 } from "#src/components/ExpandableSearchInput";
 import Filter, { type FilterProps } from "#src/components/Filter";
+import Popover from "#src/components/Popover";
 import { type TooltipProps, withTooltip } from "#src/components/Tooltip";
 import { useKaizenI18nInstance, useTranslation } from "#src/i18n";
 
 export type DataActionsSectionProps = {
   filterConfig?: FilterProps;
   filterRef?: React.Ref<{ resetFilters: () => void }>;
-  onDisplayClick?: () => void;
+  onDisplayPopover?: (props: {
+    setIsPopoverOpened: React.Dispatch<React.SetStateAction<boolean>>;
+    isPopoverOpened: boolean;
+    contentRef: React.RefObject<HTMLDivElement | null>;
+  }) => ReactNode;
+
   searchConfig?: ExpandableSearchInputWithTooltipProps;
 };
 
@@ -20,13 +26,13 @@ const SearchWithTooltip = withTooltip(ExpandableSearchInput);
 const DataActionsSection: React.FC<DataActionsSectionProps> = ({
   filterConfig,
   filterRef,
-  onDisplayClick,
+  onDisplayPopover,
   searchConfig,
 }) => {
   const i18nInstance = useKaizenI18nInstance();
   const { t } = useTranslation("default", { i18n: i18nInstance });
 
-  if (!filterConfig && !onDisplayClick && !searchConfig) {
+  if (!filterConfig && !onDisplayPopover && !searchConfig) {
     return null;
   }
 
@@ -47,15 +53,24 @@ const DataActionsSection: React.FC<DataActionsSectionProps> = ({
         {searchProps && "id" in searchProps && (
           <SearchWithTooltip tooltipProps={tooltipProps} {...searchProps} />
         )}
-        {onDisplayClick && (
-          <Button
-            color="main"
-            iconLeft="settings-04"
-            intent="default"
-            label={t("headerLayout.display.buttonLabel")}
-            size="md"
-            onClick={onDisplayClick}
-          />
+        {onDisplayPopover && (
+          <Popover>
+            <Popover.Anchor>
+              {({ setIsPopoverOpened }) => (
+                <Button
+                  color="main"
+                  iconLeft="settings-04"
+                  intent="default"
+                  label={t("headerLayout.display.buttonLabel")}
+                  size="md"
+                  onClick={() => setIsPopoverOpened(true)}
+                />
+              )}
+            </Popover.Anchor>
+            <Popover.Content placement="bottom-right">
+              {onDisplayPopover}
+            </Popover.Content>
+          </Popover>
         )}
       </div>
     </div>

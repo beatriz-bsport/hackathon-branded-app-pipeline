@@ -33,7 +33,7 @@ export type HeaderLayoutProps = React.HTMLAttributes<HTMLDivElement> &
  * @param props.callToActionButton Optional. Button that should be CTA.
  * @param props.endGroupActions Optional. Array of ReactNode to display next to the CTA Button.
  * @param props.filterConfig Optional. Configuration for the filter component.
- * @param props.onDisplayClick Optional. Callback function triggered when the display button is clicked.
+ * @param props.onDisplayPopover Optional. ReactNode to display inside the popover triggered by the display button.
  * @param props.onEditTitleClick Optional. Callback function triggered when the Edit icon next to the title is clicked.
  * @param props.pageStatusBadge Optional. Configuration for badge displayed new to the page title.
  * @param props.pageStatusChip Optional. Configuration for chip displayed new to the page title.
@@ -51,7 +51,7 @@ const LayoutHeader: React.FC<HeaderLayoutProps> = ({
   endGroupActions,
   filterConfig,
   filterRef,
-  onDisplayClick,
+  onDisplayPopover,
   onEditTitleClick,
   pageStatusBadge,
   pageStatusChip,
@@ -62,7 +62,7 @@ const LayoutHeader: React.FC<HeaderLayoutProps> = ({
   ...props
 }) => {
   const hasDataActionsLayer =
-    !!filterConfig || !!onDisplayClick || !!searchConfig;
+    !!filterConfig || !!onDisplayPopover || !!searchConfig;
   // As the Tabs compoennt from the Page Actions Layer has its own Bottom Divider with specific padding,
   // The Header container bottom divider should not be displayed when there are Tabs but no LayerDataActions
   const withoutBottomDivider = !hasDataActionsLayer && !!pageTabs;
@@ -90,7 +90,7 @@ const LayoutHeader: React.FC<HeaderLayoutProps> = ({
       <DataActionsSection
         filterConfig={filterConfig}
         filterRef={filterRef}
-        onDisplayClick={onDisplayClick}
+        onDisplayPopover={onDisplayPopover}
         searchConfig={searchConfig}
       />
     </div>

@@ -245,6 +245,7 @@ export class MemberShipValidationWrapper extends React.Component<Props> {
                   this.handleSubmitSnooze(customFormId)
                 }
                 temporaryCustomFormData={this.props.temporaryCustomFormData}
+                waiver={this.props.theme.waiver}
               />
             </Dialog>
           )}

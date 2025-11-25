@@ -1,3 +1,5 @@
+import { MetaActivity } from "@bsport/store-booking-group-activity";
+
 import {
   CHOOSE_GROUP_ACTIVITY_STEP,
   MAX_STEP,
@@ -48,4 +50,11 @@ export const goToPreviousStep = () => {
  */
 export const resetForm = () => {
   sessionCreationStore.setState(getInitialState(), true);
+};
+
+/**
+ * Sets the selected activity in the session creation state.
+ */
+export const setSelectedGroupActivity = (activity: MetaActivity | null) => {
+  sessionCreationStore.setState({ selectedGroupActivity: activity });
 };

@@ -82,6 +82,8 @@ import {
   checkFiskalyOnboardingStatus as checkFiskalyOnboardingStatusAPI,
   getFiskalyOnboardingRequirements as getFiskalyOnboardingRequirementsAPI,
   onboardFiskalyCompany as onboardFiskalyCompanyAPI,
+  getLastUploadedSignedAgreement as getLastUploadedSignedAgreementAPI,
+  uploadSignedAgreement as uploadSignedAgreementAPI,
 } from './api';
 import { ExportInvoiceStatus } from './constants';
 import { monitorBackgroundTask } from '#src/libs/background-task/actions';
@@ -1455,5 +1457,68 @@ export function onboardFiskalyCompany(
       options?.onError?.();
     }
     dispatch(onboardFiskalyCompanyActions.isLoading(false));
+  };
+}
+
+export const getLastUploadedSignedAgreementActions = {
+  isLoading: createAction<boolean>(
+    'FISKALY_ONBOARDING/GET_LAST_UPLOADED_AGREEMENT/IS_LOADING',
+  ),
+  error: createAction<Error | null>(
+    'FISKALY_ONBOARDING/GET_LAST_UPLOADED_AGREEMENT/ERROR',
+  ),
+  success: createAction<{ file: string } | null>(
+    'FISKALY_ONBOARDING/GET_LAST_UPLOADED_AGREEMENT/SUCCESS',
+  ),
+};
+
+export function getLastUploadedSignedAgreement(
+  options?: OptionCallback<{ file: string } | null>,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(getLastUploadedSignedAgreementActions.isLoading(true));
+    dispatch(getLastUploadedSignedAgreementActions.error(null));
+    try {
+      const response = await getLastUploadedSignedAgreementAPI();
+      dispatch(getLastUploadedSignedAgreementActions.success(response.data));
+      options?.onSuccess?.(response.data);
+    } catch (err) {
+      const error = err instanceof Error ? err : new Error(String(err));
+      dispatch(getLastUploadedSignedAgreementActions.error(error));
+      options?.onError?.();
+    }
+    dispatch(getLastUploadedSignedAgreementActions.isLoading(false));
+  };
+}
+
+export const uploadSignedAgreementActions = {
+  isLoading: createAction<boolean>(
+    'FISKALY_ONBOARDING/UPLOAD_SIGNED_AGREEMENT/IS_LOADING',
+  ),
+  error: createAction<Error | null>(
+    'FISKALY_ONBOARDING/UPLOAD_SIGNED_AGREEMENT/ERROR',
+  ),
+  success: createAction<{ file: string }>(
+    'FISKALY_ONBOARDING/UPLOAD_SIGNED_AGREEMENT/SUCCESS',
+  ),
+};
+
+export function uploadSignedAgreement(
+  file: File,
+  options?: OptionCallback<{ file: string }>,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(uploadSignedAgreementActions.isLoading(true));
+    dispatch(uploadSignedAgreementActions.error(null));
+    try {
+      const response = await uploadSignedAgreementAPI(file);
+      dispatch(uploadSignedAgreementActions.success(response.data));
+      options?.onSuccess?.(response.data);
+    } catch (err) {
+      const error = err instanceof Error ? err : new Error(String(err));
+      dispatch(uploadSignedAgreementActions.error(error));
+      options?.onError?.();
+    }
+    dispatch(uploadSignedAgreementActions.isLoading(false));
   };
 }

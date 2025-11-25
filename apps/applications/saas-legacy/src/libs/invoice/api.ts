@@ -396,6 +396,26 @@ export async function onboardFiskalyCompany(): Promise<
   );
 }
 
+export async function getLastUploadedSignedAgreement(): Promise<
+  AxiosResponse<{ file: string } | null>
+> {
+  return postAuth(
+    `${API_V1_URI}/fiskaly-sign-es/fiskaly-sign-es-collaborator-agreement/get_last_uploaded_signed_agreement/`,
+    {},
+  );
+}
+
+export async function uploadSignedAgreement(
+  file: File,
+): Promise<AxiosResponse<{ file: string }>> {
+  const formData = new FormData();
+  formData.append('signed_agreement_file', file);
+  return postAuth(
+    `${API_V1_URI}/fiskaly-sign-es/fiskaly-sign-es-collaborator-agreement/upload_signed_agreement/`,
+    formData,
+  );
+}
+
 export default {
   fetchSpecific,
   updatePaymentMethod,
@@ -412,4 +432,6 @@ export default {
   checkFiskalyOnboardingStatus,
   getFiskalyOnboardingRequirements,
   onboardFiskalyCompany,
+  getLastUploadedSignedAgreement,
+  uploadSignedAgreement,
 };

@@ -51,6 +51,9 @@ export type InvoiceState = ErrorAndLoading & {
     isOnboarded: boolean | null;
     requirements: FiskalyOnboardingRequirement[];
     agreementUrl: string | null;
+    signedAgreementFile: string | null;
+    isLoadingSignedAgreement: boolean;
+    isUploadingSignedAgreement: boolean;
   };
 };
 

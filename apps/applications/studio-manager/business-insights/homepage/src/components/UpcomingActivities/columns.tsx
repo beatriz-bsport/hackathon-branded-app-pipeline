@@ -50,8 +50,12 @@ export const useUpcomingActivitiesColumns = ({
     id: "homepage-activities-name",
     type: "custom",
     align: "start",
-    header: t("upcomingClassesPanel.headers.class"),
-    cellsClassName: "max-w-[180px] md:max-w-[250px]",
+    header: (
+      <span className="whitespace-normal">
+        {t("upcomingClassesPanel.headers.class")}
+      </span>
+    ),
+    cellsClassName: "max-w-[100px] md:max-w-none",
     render: (row) => {
       return (
         <BodyWithSubtext text={row.activityName} subtext={row.activityDate} />
@@ -63,8 +67,12 @@ export const useUpcomingActivitiesColumns = ({
     id: "homepage-activities-teacher",
     type: "custom",
     align: "start",
-    header: t("upcomingClassesPanel.headers.teacher"),
-    cellsClassName: "max-w-[140px] md:max-w-[200px]",
+    header: (
+      <span className="whitespace-normal">
+        {t("upcomingClassesPanel.headers.teacher")}
+      </span>
+    ),
+    cellsClassName: "max-w-[90px] md:max-w-none",
     render: (row) => {
       return (
         <BodyWithSubtext
@@ -79,8 +87,12 @@ export const useUpcomingActivitiesColumns = ({
     id: "homepage-activities-substitute",
     type: "custom",
     align: "start",
-    header: t("upcomingClassesPanel.headers.teacherSubstitution"),
-    cellsClassName: "max-w-[140px] md:max-w-[200px]",
+    header: (
+      <span className="whitespace-normal">
+        {t("upcomingClassesPanel.headers.teacherSubstitution")}
+      </span>
+    ),
+    cellsClassName: "max-w-[90px] md:max-w-none",
     render: (row) => {
       const { teacherSubstituteName, teacherSubstituteRequired } = row;
 
@@ -105,7 +117,11 @@ export const useUpcomingActivitiesColumns = ({
     id: "homepage-activities-fill-rate",
     type: "custom",
     align: "center",
-    header: t("upcomingClassesPanel.headers.classFillRate"),
+    header: (
+      <span className="whitespace-normal">
+        {t("upcomingClassesPanel.headers.classFillRate")}
+      </span>
+    ),
     render: (row) => {
       const rate = row.fillRate;
       const hasPeopleInWaitingList =

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 import { Card, Table } from "@bsport/kaizen-primitive-core";
 
@@ -13,6 +13,19 @@ import { useUpcomingActivitiesRows } from "./rows";
 
 export const UpcomingActivities: React.FC = () => {
   const { t } = useTranslation("default");
+
+  // Hide headers on mobile (< 500px)
+  const [hideHeader, setHideHeader] = useState(
+    typeof window !== "undefined" && window.innerWidth < 500,
+  );
+
+  useEffect(() => {
+    const handleResize = () => {
+      setHideHeader(window.innerWidth < 500);
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const { isLoading: isLoadingTeachers, fetchTeachers } = useFetchTeachers();
 
@@ -56,6 +69,7 @@ export const UpcomingActivities: React.FC = () => {
           columns={columns}
           rows={rows}
           withVerticalBorders={false}
+          hideHeader={hideHeader}
           emptyStateProps={{
             isEmpty: rows.length === 0,
             emptyConfig: {

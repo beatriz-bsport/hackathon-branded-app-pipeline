@@ -7,6 +7,7 @@ import { dataAccessLayer } from "@bsport/sm-backbone";
 import { AddSessionModal } from "#src/components/AddSessionModal/AddSessionModal";
 import { useTranslation } from "#src/utils/i18n";
 
+import { DisplaySettings } from "../components/SessionList/DisplaySettings";
 import { SessionDayTitle } from "../components/SessionList/SessionDayTitle";
 import { SessionTable } from "../components/SessionList/SessionTable";
 import { useTableRowData } from "../hooks/stores-interface";
@@ -60,6 +61,7 @@ const ListPage: React.FC = () => {
     <ListLayout>
       <ListLayout.Header
         pageTitle={t("header")}
+        onDisplayPopover={() => <DisplaySettings />}
         callToActionButton={
           <ListLayout.Button
             iconLeft="plus"

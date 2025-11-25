@@ -18,10 +18,10 @@
   },
   "displaySettings": {
     "calendarView": {
-      "label": "Calendar view",
+      "label": "View",
       "options": {
-        "daily": "Daily",
-        "range": "Date range"
+        "daily": "By day",
+        "range": "Range"
       }
     }
   }

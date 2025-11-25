@@ -1,30 +1,17 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 // eslint-disable-next-line bsport/no-redux-in-component
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Paper, Typography } from '@material-ui/core';
 import { Theme } from '@material-ui/core/styles';
 import makeStyles from '@material-ui/core/styles/makeStyles';
-import { FormikHelpers } from 'formik';
 import Alert from '@material-ui/lab/Alert';
 
 import { FeatureFlags, useSafeFlag } from '#src/utils/feature-flag';
 // @ts-expect-error
 import FeatureListProvider from '#src/libs/company/hocs/feature-list-provider.hoc';
 import type { FeatureList } from '#src/libs/company/types';
-import {
-  checkFiskalyOnboardingStatus,
-  getFiskalyOnboardingRequirements,
-  getLastUploadedSignedAgreement,
-  onboardFiskalyCompany,
-  uploadSignedAgreement,
-} from '#src/libs/invoice/actions';
 import { FiskalyOnboardingRequirement } from '#src/libs/invoice/types';
-import {
-  createPlatformCustomerEntityRepresentative,
-  fetchPlatformCustomerEntityRepresentatives,
-  updatePlatformCustomerEntityRepresentative,
-} from '#src/libs/platform-billing/actions';
 import {
   getPlatformCustomerEntityRepresentatives,
   getPlatformCustomerEntityRepresentativesLoading,
@@ -32,17 +19,17 @@ import {
 } from '#src/libs/platform-billing/selectors';
 import { UPSELL_IDENTIFIER_FISKALY_SIGN_ES } from '#src/libs/platform-billing/upsell-identifiers';
 import { hasUpsell } from '#src/libs/platform-billing/utils';
-import { snackbarError, snackbarSuccess } from '#src/libs/snackbar/actions';
 import type { RootState } from '#src/reducers';
 import type { FormValues } from '#src/libs/invoice/verifactu/types';
 import VerifactuRepresentativeForm from '#src/libs/invoice/verifactu/components/VerifactuRepresentativeForm.component';
 import VerifactuSignedAgreementForm from '#src/libs/invoice/verifactu/components/VerifactuSignedAgreementForm.component';
 import VerifactuActive from '#src/libs/invoice/verifactu/components/VerifactuActive.component';
+import { useVerifactuHandlers } from '#src/libs/invoice/verifactu/hooks/useVerifactuHandlers';
+import { useVerifactuOnboardingStatus } from '#src/libs/invoice/verifactu/hooks/useVerifactuOnboardingStatus';
 
 const VerifactuSettings: React.FC = () => {
   const classes = useStyles();
   const { t } = useTranslation('b2b_invoice');
-  const dispatch = useDispatch();
   const isVerifactuEnabled = useSafeFlag(FeatureFlags.VERIFACTU_SETTINGS);
   const representatives = useSelector((state: RootState) =>
     getPlatformCustomerEntityRepresentatives(state),
@@ -50,21 +37,34 @@ const VerifactuSettings: React.FC = () => {
   const isLoadingRepresentatives = useSelector((state: RootState) =>
     getPlatformCustomerEntityRepresentativesLoading(state),
   );
-  const [isOnboarded, setIsOnboarded] = useState(false);
-  const [isLoadingOnboarding, setIsLoadingOnboarding] = useState(true);
-  const [agreementUrl, setAgreementUrl] = useState<string | null>(null);
-  const [signedAgreementFile, setSignedAgreementFile] = useState<string | null>(
-    null,
-  );
-  const [isLoadingSignedAgreement, setIsLoadingSignedAgreement] =
-    useState(false);
   const [isUploadingFile, setIsUploadingFile] = useState(false);
-  const [requirements, setRequirements] = useState<
-    FiskalyOnboardingRequirement[]
-  >([]);
 
   // Get the first representative from Redux state
   const representative = representatives?.[0] || null;
+
+  // Fetch and manage Verifactu onboarding status and related data
+  const {
+    isOnboarded,
+    setIsOnboarded,
+    isLoadingOnboarding,
+    agreementUrl,
+    setAgreementUrl,
+    signedAgreementFile,
+    setSignedAgreementFile,
+    isLoadingSignedAgreement,
+    requirements,
+  } = useVerifactuOnboardingStatus();
+
+  const {
+    handleSaveForLater,
+    handleOnboardCompany,
+    handleUploadSignedAgreement,
+  } = useVerifactuHandlers(
+    representative,
+    setAgreementUrl,
+    setIsOnboarded,
+    setSignedAgreementFile,
+  );
 
   const initialValues: FormValues = useMemo(
     () => ({
@@ -81,303 +81,17 @@ const VerifactuSettings: React.FC = () => {
     [representative],
   );
 
-  useEffect(() => {
-    dispatch(
-      checkFiskalyOnboardingStatus({
-        onSuccess: (data) => {
-          setIsLoadingOnboarding(false);
-
-          if (!data) return;
-
-          setIsOnboarded(data.is_onboarded);
-
-          dispatch(
-            fetchPlatformCustomerEntityRepresentatives({
-              onError: () => console.error('Failed to fetch representatives'),
-            }),
-          );
-          dispatch(
-            getFiskalyOnboardingRequirements({
-              onSuccess: (requirementsData) => {
-                if (requirementsData) {
-                  setRequirements(requirementsData.requirements || []);
-                }
-              },
-              onError: () =>
-                console.error('Failed to fetch onboarding requirements'),
-            }),
-          );
-
-          // If company is onboarded, fetch agreement URL and signed agreement status
-          if (data.is_onboarded) {
-            // Fetch agreement URL for download button
-            dispatch(
-              onboardFiskalyCompany({
-                onSuccess: (onboardData) => {
-                  if (onboardData?.agreement_url) {
-                    setAgreementUrl(onboardData.agreement_url);
-                  }
-                },
-                onError: () => {
-                  console.error('Failed to fetch agreement URL');
-                },
-              }),
-            );
-
-            // Fetch signed agreement status
-            setIsLoadingSignedAgreement(true);
-            dispatch(
-              getLastUploadedSignedAgreement({
-                onSuccess: (agreementData) => {
-                  setSignedAgreementFile(agreementData?.file || null);
-                  setIsLoadingSignedAgreement(false);
-                },
-                onError: () => {
-                  setSignedAgreementFile(null);
-                  setIsLoadingSignedAgreement(false);
-                },
-              }),
-            );
-          }
-        },
-        onError: () => {
-          console.error('Failed to check onboarding status');
-          setIsLoadingOnboarding(false);
-          setIsOnboarded(false);
-        },
-      }),
-    );
-  }, [dispatch]);
-
-  const handleSaveForLater = useCallback(
-    (values: FormValues, formikHelpers: FormikHelpers<FormValues>) => {
-      return new Promise<void>((resolve) => {
-        formikHelpers.setSubmitting(true);
-
-        // Only first_name and last_name are required for "save for later"
-        // Other fields can be saved partially filled
-        if (!values.first_name || !values.last_name) {
-          if (!values.first_name) {
-            formikHelpers.setFieldError('first_name', 'common:requiredField');
-          }
-          if (!values.last_name) {
-            formikHelpers.setFieldError('last_name', 'common:requiredField');
-          }
-          formikHelpers.setSubmitting(false);
-          return resolve();
-        }
-
-        // Validate format of filled fields (but don't require them)
-        formikHelpers.validateForm().then((errors) => {
-          const formatErrors: Record<string, string> = {};
-          Object.keys(errors).forEach((key) => {
-            const error = errors[key as keyof typeof errors];
-            // Only keep format validation errors, not required field errors
-            if (
-              error &&
-              error !== 'common:requiredField' &&
-              values[key as keyof FormValues]
-            ) {
-              formatErrors[key] = error;
-            }
-          });
-          if (Object.keys(formatErrors).length > 0) {
-            formikHelpers.setErrors(formatErrors);
-            formikHelpers.setSubmitting(false);
-            return resolve();
-          }
-
-          try {
-            // Map form values to API format
-            // Empty strings are included to clear fields that were previously filled
-            const representativeData = {
-              first_name: values.first_name,
-              last_name: values.last_name,
-              identification_number: values.dni_nie || '',
-              address_street: values.address || '',
-              address_number: values.street_number || '',
-              address_postal_code: values.postal_code || '',
-              address_city: values.city || '',
-              address_municipality: values.municipality || '',
-              address_country_code: values.country || '',
-            };
-
-            if (representative?.id) {
-              // Update existing representative
-              dispatch(
-                updatePlatformCustomerEntityRepresentative(
-                  representative.id,
-                  representativeData,
-                  {
-                    onSuccess: () => {
-                      dispatch(
-                        snackbarSuccess(
-                          t(
-                            'configuration.verifactu.form.save_for_later_success',
-                          ),
-                        ),
-                      );
-                      formikHelpers.setSubmitting(false);
-                      resolve();
-                    },
-                    onError: () => {
-                      dispatch(
-                        snackbarError(
-                          t(
-                            'configuration.verifactu.form.save_for_later_error',
-                          ),
-                        ),
-                      );
-                      formikHelpers.setSubmitting(false);
-                      resolve();
-                    },
-                  },
-                ),
-              );
-            } else {
-              // Create new representative
-              dispatch(
-                createPlatformCustomerEntityRepresentative(representativeData, {
-                  onSuccess: () => {
-                    dispatch(
-                      snackbarSuccess(
-                        t(
-                          'configuration.verifactu.form.save_for_later_success',
-                        ),
-                      ),
-                    );
-                    formikHelpers.setSubmitting(false);
-                    resolve();
-                  },
-                  onError: () => {
-                    dispatch(
-                      snackbarError(
-                        t('configuration.verifactu.form.save_for_later_error'),
-                      ),
-                    );
-                    formikHelpers.setSubmitting(false);
-                    resolve();
-                  },
-                }),
-              );
-            }
-          } catch (error) {
-            console.error('Failed to save for later:', error);
-            formikHelpers.setSubmitting(false);
-            resolve();
-          }
-        });
-      });
-    },
-    [dispatch, representative, t],
-  );
-
-  const handleOnboardCompany = useCallback(
-    (values: FormValues, formikHelpers: FormikHelpers<FormValues>) => {
-      return new Promise<void>((resolve) => {
-        // Validate all fields are filled (including DNI/NIE for create agreement)
-        formikHelpers.validateForm().then((errors) => {
-          if (Object.keys(errors).length > 0) {
-            formikHelpers.setErrors(errors);
-            formikHelpers.setSubmitting(false);
-            return resolve();
-          }
-
-          // Check that all fields have values (including DNI/NIE)
-          if (!values.dni_nie || values.dni_nie.trim() === '') {
-            formikHelpers.setFieldError('dni_nie', 'common:requiredField');
-            formikHelpers.setSubmitting(false);
-            return resolve();
-          }
-
-          const hasEmptyFields = Object.values(values).some(
-            (value) => !value || String(value).trim() === '',
-          );
-          if (hasEmptyFields) {
-            Object.keys(values).forEach((key) => {
-              const value = values[key as keyof FormValues];
-              if (!value || String(value).trim() === '') {
-                formikHelpers.setFieldError(key, 'common:requiredField');
-              }
-            });
-            formikHelpers.setSubmitting(false);
-            return resolve();
-          }
-
-          // TODO: same update/create as in handleSaveForLater above, then onboard
-          dispatch(
-            onboardFiskalyCompany({
-              onSuccess: (data) => {
-                if (!data?.agreement_url) {
-                  console.error('No agreement URL found');
-                  return;
-                }
-
-                dispatch(
-                  snackbarSuccess(
-                    t('configuration.verifactu.onboarding.agreement_created'),
-                  ),
-                );
-                // Store agreement URL for download button && Update state to show signed agreement form
-                setAgreementUrl(data.agreement_url);
-                setIsOnboarded(true);
-                formikHelpers.setSubmitting(false);
-                resolve();
-              },
-              onError: () => {
-                dispatch(
-                  snackbarError(
-                    t('configuration.verifactu.onboarding.agreement_error'),
-                  ),
-                );
-                formikHelpers.setSubmitting(false);
-                resolve();
-              },
-            }),
-          );
-        });
-      });
-    },
-    [dispatch, t],
-  );
-
   const handleDownloadPDF = useCallback(() => {
     if (agreementUrl) {
       window.open(agreementUrl, '_blank');
     }
   }, [agreementUrl]);
 
-  const handleUploadSignedAgreement = useCallback(
+  const handleUploadFile = useCallback(
     (file: File) => {
-      return new Promise<void>((resolve) => {
-        setIsUploadingFile(true);
-        dispatch(
-          uploadSignedAgreement(file, {
-            onSuccess: (data) => {
-              dispatch(
-                snackbarSuccess(
-                  t('configuration.verifactu.signed_agreement.upload_success'),
-                ),
-              );
-              // Use the signed agreement URL returned directly from the upload endpoint
-              setSignedAgreementFile(data?.file || null);
-              setIsUploadingFile(false);
-              resolve();
-            },
-            onError: () => {
-              dispatch(
-                snackbarError(
-                  t('configuration.verifactu.signed_agreement.upload_error'),
-                ),
-              );
-              setIsUploadingFile(false);
-              resolve();
-            },
-          }),
-        );
-      });
+      return handleUploadSignedAgreement(file, setIsUploadingFile);
     },
-    [dispatch, t],
+    [handleUploadSignedAgreement],
   );
 
   const renderContent = (isUpsellEnabled: boolean): React.ReactElement => {
@@ -425,7 +139,7 @@ const VerifactuSettings: React.FC = () => {
           isUploading={isUploadingFile}
           onDownloadPDF={handleDownloadPDF}
           onEdit={() => setIsOnboarded(false)}
-          onUploadPDF={handleUploadSignedAgreement}
+          onUploadPDF={handleUploadFile}
           representative={representative}
         />
       );

@@ -109,6 +109,7 @@ type Props = {
 
 type State = {
   with_expiration_date: boolean;
+  isCodeTooShort: boolean;
 } & Coupon;
 
 export class CouponForm extends React.Component<Props, State> {
@@ -117,6 +118,7 @@ export class CouponForm extends React.Component<Props, State> {
     if (props.initial) {
       this.state = {
         isCodeUsedError: false,
+        isCodeTooShort: false,
         name: props.initial.name,
         percent_off: props.initial.percent_off,
         amount_off: props.initial.amount_off,
@@ -146,6 +148,7 @@ export class CouponForm extends React.Component<Props, State> {
     } else {
       this.state = {
         isCodeUsedError: false,
+        isCodeTooShort: false,
         name: null,
         percent_off: 0,
         amount_off: 0,
@@ -192,6 +195,15 @@ export class CouponForm extends React.Component<Props, State> {
     }
   }, 500);
 
+  checkCouponTooShort = (code: string) => {
+    if (!code?.length) return;
+    // if there was something not adjusted to 12 char limitation, keep it OK
+    if (this.props.initial && this.props.initial.code.length < 12) {
+      return;
+    }
+    this.setState({ isCodeTooShort: code?.length < 12 });
+  };
+
   // @ts-expect-error
   handleChange = (key: string, isEvent: boolean) => (value) => {
     const inputValue = isEvent ? value.target.value : value;
@@ -199,6 +211,7 @@ export class CouponForm extends React.Component<Props, State> {
     this.setState({ [key]: inputValue });
     if (key === 'code') {
       this.checkCouponCodeAvailability(inputValue);
+      this.checkCouponTooShort(inputValue);
     }
   };
 
@@ -834,11 +847,13 @@ export class CouponForm extends React.Component<Props, State> {
           className={classes.field}
           disabled={!!initial?.coupon_template_instance}
           // @ts-expect-error
-          error={this.state.isCodeUsedError}
+          error={this.state.isCodeUsedError || this.state.isCodeTooShort}
           helperText={
             // @ts-expect-error
             this.state.isCodeUsedError
               ? t('form.code.codeAlreadyInUse')
+              : this.state.isCodeTooShort
+              ? t('form.code.codeTooShort')
               : t('form.code.helperText')
           }
           inputProps={{ maxLength: 32 }}
@@ -955,7 +970,8 @@ export class CouponForm extends React.Component<Props, State> {
               // @ts-expect-error
               this.state.tag_selection_error ||
               // @ts-expect-error
-              this.state.isCodeUsedError
+              this.state.isCodeUsedError ||
+              this.state.isCodeTooShort
             }
             onClick={(ev) => {
               ev.preventDefault();

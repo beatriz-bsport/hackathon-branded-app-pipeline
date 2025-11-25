@@ -112,6 +112,7 @@ const Radio: React.FC<RadioProps> = ({
 
   return (
     <label
+      htmlFor={id}
       className={radio({ disabled, checked: checked ?? false })}
       tabIndex={0}
     >

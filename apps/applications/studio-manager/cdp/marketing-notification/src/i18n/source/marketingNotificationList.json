@@ -1,15 +1,15 @@
 {
   "searching": "Searching...",
-  "loading": "Loading marketing notifications ...",
+  "loading": "Loading notifications ...",
   "page": {
     "title": "Marketing notifications",
     "emptyState": {
       "title": "No notifications yet",
-      "description": "Set up an automation to send notifications to your members.",
+      "description": "Set up an automation to send notifications to your members",
       "primaryAction": "Add automation"
     },
     "actions": {
-      "createNotificationButton": "Add notification"
+      "createNotificationButton": "Create notification"
     }
   },
   "filters": {
@@ -61,21 +61,21 @@
             "afterX_other": "After {{count}} bookings attended in {{entityName}}"
           },
           "absent": {
-            "any": "Any booking cancelled in {{entityName}}",
-            "afterX_one": "After {{count}} booking cancelled in {{entityName}}",
-            "afterX_other": "After {{count}} bookings cancelled in {{entityName}}"
+            "any": "Any booking canceled in {{entityName}}",
+            "afterX_one": "After {{count}} booking canceled in {{entityName}}",
+            "afterX_other": "After {{count}} bookings canceled in {{entityName}}"
           }
         },
         "cancelled": {
           "onTime": {
-            "any": "Any booking cancelled on time in {{entityName}}",
-            "afterX_one": "After {{count}} booking cancelled on time in {{entityName}}",
-            "afterX_other": "After {{count}} bookings cancelled on time in {{entityName}}"
+            "any": "Any booking canceled on time in {{entityName}}",
+            "afterX_one": "After {{count}} booking canceled on time in {{entityName}}",
+            "afterX_other": "After {{count}} bookings canceled on time in {{entityName}}"
           },
           "tooLate": {
-            "any": "Any booking cancelled late in {{entityName}}",
-            "afterX_one": "After {{count}} booking cancelled late in {{entityName}}",
-            "afterX_other": "After {{count}} bookings cancelled late in {{entityName}}"
+            "any": "Any late cancelation in {{entityName}}",
+            "afterX_one": "After {{count}} late cancelations in {{entityName}}",
+            "afterX_other": "After {{count}} late cancelations in {{entityName}}"
           }
         }
       },
@@ -98,8 +98,8 @@
           "credit_other": "{{count}} credits remaining in all passes",
           "validity_one": "{{count}} valid day remaining in all passes",
           "validity_other": "{{count}} valid days remaining in all passes",
-          "expired_one": "{{count}} day expired in all passes",
-          "expired_other": "{{count}} days expired in all passes"
+          "expired_one": "{{count}} day past expiry in all passes",
+          "expired_other": "{{count}} days past expiry in all passes"
         }
       },
       "birthday": "Member birthday"
@@ -122,30 +122,30 @@
       "subscription": {
         "creation": {
           "before": {
-            "day_one": "Sent {{count}} day before subscription creation",
-            "day_other": "Sent {{count}} days before subscription creation",
-            "hour_one": "Sent {{count}} hour before subscription creation",
+            "day_one": "Sent {{count}} day before subscription created",
+            "day_other": "Sent {{count}} days before subscription created",
+            "hour_one": "Sent {{count}} hour before subscription created",
             "hour_other": "Sent {{count}} hours before subscription creation"
           },
           "after": {
-            "day_one": "Sent {{count}} day after subscription creation",
-            "day_other": "Sent {{count}} days after subscription creation",
-            "hour_one": "Sent {{count}} hour after subscription creation",
-            "hour_other": "Sent {{count}} hours after subscription creation"
+            "day_one": "Sent {{count}} day after subscription created",
+            "day_other": "Sent {{count}} days after subscription created",
+            "hour_one": "Sent {{count}} hour after subscription created",
+            "hour_other": "Sent {{count}} hours after subscription created"
           }
         },
         "firstBilling": {
           "before": {
-            "day_one": "Sent {{count}} day before subscription first invoice",
-            "day_other": "Sent {{count}} days before subscription first invoice",
-            "hour_one": "Sent {{count}} hour before subscription first invoice",
-            "hour_other": "Sent {{count}} hours before subscription first invoice"
+            "day_one": "Sent {{count}} day before first invoice of subscription",
+            "day_other": "Sent {{count}} days before first invoice of subscription",
+            "hour_one": "Sent {{count}} hour before first invoice of subscription",
+            "hour_other": "Sent {{count}} before first invoice of subscription"
           },
           "after": {
-            "day_one": "Sent {{count}} day after subscription first invoice",
-            "day_other": "Sent {{count}} days after subscription first invoice",
-            "hour_one": "Sent {{count}} hour after subscription first invoice",
-            "hour_other": "Sent {{count}} hours after subscription first invoice"
+            "day_one": "Sent {{count}} day after first invoice of subscription ",
+            "day_other": "Sent {{count}} days after first invoice of subscription ",
+            "hour_one": "Sent {{count}} hour after first invoice of subscription",
+            "hour_other": "Sent {{count}} hours after first invoice of subscription"
           }
         },
         "end": {
@@ -165,7 +165,7 @@
       },
       "passes": {
         "expired": {
-          "day_one": "Sent {{count}} day after pass expiration",
+          "day_one": "Sent {{count}} day after pass expires",
           "day_other": "Sent {{count}} days after pass expiration"
         },
         "validity": {
@@ -174,12 +174,12 @@
         },
         "credits": {
           "booking": {
-            "hour_one": "Sent {{count}} hour after the booking of a session",
-            "hour_other": "Sent {{count}} hours after the booking of a session"
+            "hour_one": "Sent {{count}} hour after session booked",
+            "hour_other": "Sent {{count}} hours after session booked"
           },
           "end": {
-            "hour_one": "Sent {{count}} hour after the end of a session",
-            "hour_other": "Sent {{count}} hours after the end of a session"
+            "hour_one": "Sent {{count}} hour after session ends",
+            "hour_other": "Sent {{count}} hours after session ends"
           },
           "appointmentPass": "Sent on automation trigger"
         }

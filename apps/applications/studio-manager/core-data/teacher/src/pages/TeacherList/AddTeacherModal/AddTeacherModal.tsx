@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 
-import { Body, Modal, TextField } from "@bsport/kaizen-primitive-core";
+import { Modal, TextField } from "@bsport/kaizen-primitive-core";
 
 import { useTranslation } from "#src/utils/i18n";
 
@@ -82,9 +82,6 @@ export const AddTeacherModal: React.FC<AddTeacherModalProps> = ({
             : undefined
         }
       />
-      <Body size="md" htmlVariant="p" className="mt-md">
-        {t("activeList.addTeacherModal.input.helper")}
-      </Body>
     </Modal>
   );
 };

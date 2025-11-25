@@ -4,7 +4,8 @@
 
 :root,
 #root {
-  min-height: 100vh;
+  min-height: 100vh; /* Fallback for older browsers */
+  min-height: 100dvh; /* Dynamic viewport height for iOS */
 }
 
 /* Same animation as in apps/applications/saas-legacy/src/revamp/loading-animation.css */

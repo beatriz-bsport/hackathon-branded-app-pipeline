@@ -80,7 +80,7 @@ export const LEGACY_URLS: LegacyUrls = {
 export const REVAMP_URLS_DEVELOPMENT = {
   activity: "/activity",
   insights: "/insights",
-  calendar: "/offer",
+  calendar: "/session",
   customForm: "/custom-form",
   emailTemplate: "/email-template",
   giftcard: "/giftcard",
@@ -101,19 +101,22 @@ export const REVAMP_URLS_PRODUCTION = {
   insights: "/insights",
   customForm: "/custom-form",
   emailTemplate: "/email-template",
-  giftcard: "/giftcard",
   homepage: REVAMP_URLS_DEVELOPMENT.homepage,
-  invoice: "/invoice",
   member: "/member",
   order: "/order",
   pack: "/pack",
   smartlist: "/smartlist",
   settings_referral: `${SETTINGS_URL}/referral-program`,
+  settings_transactionalNotification: `${SETTINGS_URL}/notification-rule`,
   tag: "/tag",
   teacher: "/teacher",
 } satisfies Partial<typeof REVAMP_URLS_DEVELOPMENT>; // Ensure that it's a subset of REVAMP_URLS_DEVELOPMENT
 
-const REVAMP_ONLY_URLS = [REVAMP_URLS_DEVELOPMENT.homepage, "payout"];
+const REVAMP_ONLY_KEYS: Array<string> = ["homepage", "payout"] satisfies Array<
+  keyof Urls
+>;
+
+export const LEGACY_DEFAULT_PAGE = LEGACY_URLS.calendar;
 
 /**
  * When disabling the revamp, we redirect the user to the corresponding legacy page.
@@ -121,8 +124,8 @@ const REVAMP_ONLY_URLS = [REVAMP_URLS_DEVELOPMENT.homepage, "payout"];
  */
 export const MAP_REVAMP_DEVELOPMENT_TO_LEGACY_URLS = new Map();
 for (const [key, url] of Object.entries(REVAMP_URLS_DEVELOPMENT)) {
-  if (REVAMP_ONLY_URLS.includes(key)) {
-    MAP_REVAMP_DEVELOPMENT_TO_LEGACY_URLS.set(url, "/");
+  if (REVAMP_ONLY_KEYS.includes(key)) {
+    MAP_REVAMP_DEVELOPMENT_TO_LEGACY_URLS.set(url, LEGACY_DEFAULT_PAGE);
   } else {
     MAP_REVAMP_DEVELOPMENT_TO_LEGACY_URLS.set(
       url,
@@ -133,8 +136,8 @@ for (const [key, url] of Object.entries(REVAMP_URLS_DEVELOPMENT)) {
 
 export const MAP_REVAMP_PRODUCTION_TO_LEGACY_URLS = new Map();
 for (const [key, url] of Object.entries(REVAMP_URLS_PRODUCTION)) {
-  if (REVAMP_ONLY_URLS.includes(key)) {
-    MAP_REVAMP_PRODUCTION_TO_LEGACY_URLS.set(url, "/");
+  if (REVAMP_ONLY_KEYS.includes(key)) {
+    MAP_REVAMP_PRODUCTION_TO_LEGACY_URLS.set(url, LEGACY_DEFAULT_PAGE);
   } else {
     MAP_REVAMP_PRODUCTION_TO_LEGACY_URLS.set(
       url,

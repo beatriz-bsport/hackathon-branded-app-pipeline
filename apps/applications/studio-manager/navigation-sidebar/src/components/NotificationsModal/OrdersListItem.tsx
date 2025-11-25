@@ -7,6 +7,7 @@ import { NavigationLink } from "#src/components/NavigationLink";
 import { LEGACY_URLS } from "#src/urls";
 import { Trans } from "#src/utils/i18n";
 
+import { NotificationItemLayout } from "./NotificationItemLayout";
 import { useNotificationsNavigation } from "./NotificationsNavigationContext";
 
 export type OrdersListItemProps = {
@@ -40,10 +41,9 @@ const OrdersListItem: FC<OrdersListItemProps> = ({
 }) => {
   const { navigateAndClose } = useNotificationsNavigation();
   const renderItem = () => (
-    <div className="grid grid-cols-[minmax(0,7fr)_minmax(0,3fr)] w-full gap-xs items-center">
-      {/* Left column with title, description, and member name */}
-      <div className="flex items-center gap-xs">
-        <div className="flex-1 min-w-0">
+    <NotificationItemLayout
+      leftContent={
+        <>
           <Body
             htmlVariant="span"
             size="lg"
@@ -65,16 +65,14 @@ const OrdersListItem: FC<OrdersListItemProps> = ({
               }}
             />
           </Body>
-        </div>
-      </div>
-
-      {/* Right column with price */}
-      <div className="flex flex-col items-end justify-center">
+        </>
+      }
+      rightContent={
         <Body htmlVariant="span" size="md" className="font-medium">
           {formatPriceWithCurrency(price, currencySymbol)}
         </Body>
-      </div>
-    </div>
+      }
+    />
   );
 
   return (

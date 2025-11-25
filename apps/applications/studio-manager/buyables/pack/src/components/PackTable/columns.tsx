@@ -34,9 +34,9 @@ export const usePackTableColumns = ({
     render: (row) => {
       return (
         <VisibilityBadges
-          hiddenForUsers={row.hiddenForUsers}
-          hiddenForStaff={row.hiddenForStaff}
+          hiddenToStaff={row.hiddenToStaff}
           limitedTime={row.limitedTime}
+          unlisted={row.unlisted}
         />
       );
     },
@@ -76,8 +76,9 @@ export const usePackTableColumns = ({
             icon="trash-01"
             label={t("table.tooltips.archive")}
             onClick={(event) => {
-              event.stopPropagation();
               event.preventDefault();
+              event.stopPropagation();
+
               handleArchive({
                 id: row.id,
                 name: row.name,

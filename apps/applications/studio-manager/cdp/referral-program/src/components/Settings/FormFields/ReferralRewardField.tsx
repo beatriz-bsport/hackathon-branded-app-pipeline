@@ -1,7 +1,12 @@
 import type { FC } from "react";
 
 import { type ControlledFormProps, FormField } from "@bsport/form";
-import { Alert, TextField, Title } from "@bsport/kaizen-primitive-core";
+import {
+  Alert,
+  TextField,
+  Title,
+  useMatchMedia,
+} from "@bsport/kaizen-primitive-core";
 
 import { useTranslation } from "#src/utils/i18n";
 import type { ReferralProgramFormData } from "#src/utils/types";
@@ -15,11 +20,16 @@ export const ReferralRewardField: FC<Props> = ({
   companyCurrency,
   ...methods
 }: Props) => {
+  const isMobile = !useMatchMedia("sm");
   const { t } = useTranslation("settings");
 
   const { watch } = methods;
 
   const amountReferringReward = watch("amountReferringReward");
+
+  const elementGroupFlexOrientation = isMobile
+    ? "flex flex-col gap-md"
+    : "flex flex-row gap-xl";
 
   return (
     <div className="flex flex-col gap-md">
@@ -27,7 +37,7 @@ export const ReferralRewardField: FC<Props> = ({
         {t("active.form.referringReward.title")}
       </Title>
       <div className="flex flex-col gap-xs">
-        <div className="flex flex-row gap-xl">
+        <div className={elementGroupFlexOrientation}>
           <FormField<ReferralProgramFormData, "amountReferringReward">
             name="amountReferringReward"
             mapProps={({ defaultProps, field }) => ({
@@ -38,6 +48,7 @@ export const ReferralRewardField: FC<Props> = ({
             })}
           >
             <TextField
+              fullWidth={isMobile}
               type="number"
               id="referring-amount-reward"
               label={t("active.form.referringReward.amountOff.label")}

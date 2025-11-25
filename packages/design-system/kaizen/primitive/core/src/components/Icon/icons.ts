@@ -125,6 +125,7 @@ const icons = {
   "flag-pt": React.lazy(async () => await import("./assets/flag-pt.svg?react")),
   "flag-uk": React.lazy(async () => await import("./assets/flag-uk.svg?react")),
   "flag-us": React.lazy(async () => await import("./assets/flag-us.svg?react")),
+  folder: React.lazy(async () => await import("./assets/folder.svg?react")),
   "gift-02": React.lazy(async () => await import("./assets/gift-02.svg?react")),
   "graduation-hat-02": React.lazy(
     async () => await import("./assets/graduation-hat-02.svg?react"),
@@ -133,6 +134,9 @@ const icons = {
     async () => await import("./assets/help-circle.svg?react"),
   ),
   "home-03": React.lazy(async () => await import("./assets/home-03.svg?react")),
+  "hourglass-03": React.lazy(
+    async () => await import("./assets/hourglass-03.svg?react"),
+  ),
   "image-03": React.lazy(
     async () => await import("./assets/image-03.svg?react"),
   ),
@@ -198,6 +202,9 @@ const icons = {
     async () => await import("./assets/play-circle-solid.svg?react"),
   ),
   plus: React.lazy(async () => await import("./assets/plus.svg?react")),
+  "refresh-ccw-01": React.lazy(
+    async () => await import("./assets/refresh-ccw-01.svg?react"),
+  ),
   "refresh-cw-01": React.lazy(
     async () => await import("./assets/refresh-cw-01.svg?react"),
   ),
@@ -219,6 +226,9 @@ const icons = {
   ),
   "shopping-cart-03": React.lazy(
     async () => await import("./assets/shopping-cart-03.svg?react"),
+  ),
+  "shopping-cart-cross": React.lazy(
+    async () => await import("./assets/shopping-cart-cross.svg?react"),
   ),
   "spacing-width-02": React.lazy(
     async () => await import("./assets/spacing-width-02.svg?react"),
@@ -260,6 +270,9 @@ const icons = {
   ),
   "video-recorder": React.lazy(
     async () => await import("./assets/video-recorder.svg?react"),
+  ),
+  "x-circle-solid": React.lazy(
+    async () => await import("./assets/x-circle-solid.svg?react"),
   ),
   "x-close": React.lazy(async () => await import("./assets/x-close.svg?react")),
   x: React.lazy(async () => await import("./assets/x.svg?react")),

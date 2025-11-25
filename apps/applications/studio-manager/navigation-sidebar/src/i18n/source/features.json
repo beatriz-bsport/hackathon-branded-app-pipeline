@@ -1,9 +1,9 @@
 {
   "searchMembers": {
-    "title": "Search members",
-    "addMember": "Add member",
+    "title": "Search client profiles",
+    "addMember": "Create profile",
     "loading": "Loading results...",
-    "emptySearch": "Type above to start your search or add a new member",
+    "emptySearch": "Search for clients or create a new profile",
     "tagsTooltip": "Tags:",
     "segments": {
       "active": "Active",
@@ -12,7 +12,7 @@
     "copyToClipboard": {
       "action": "Click to copy",
       "toasts": {
-        "phoneNumberCopied": "Member mobile number was copied to your clipboard",
+        "phoneNumberCopied": "Phone number copied to clipboard",
         "emailCopied": "Member email was copied to your clipboard"
       }
     }

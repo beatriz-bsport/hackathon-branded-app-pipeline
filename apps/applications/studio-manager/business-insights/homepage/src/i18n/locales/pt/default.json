@@ -1,1 +1,68 @@
-{}
+{
+  "pageTitle": "Início",
+  "header": {
+    "title": "Bem-vindo de volta, {{ username }}",
+    "titleWithoutName": "Bem-vindo de volta"
+  },
+  "banner": {
+    "close": "Fechar a faixa",
+    "insights": {
+      "title": "Chega ... Insights",
+      "description": "Acompanhe suas tendências de KPI, identifique oportunidades e gerencie riscos",
+      "ctaLabel": "Explore agora"
+    }
+  },
+  "upcomingClassesPanel": {
+    "title": "Próximas Aulas",
+    "headers": {
+      "class": "Aula",
+      "teacher": "Professor",
+      "teacherSubstitution": "Substituição",
+      "classFillRate": "Taxa de ocupação"
+    },
+    "emptyList": "Sem aulas futuras",
+    "teacher": {
+      "helperText": "Professor"
+    },
+    "substitution": {
+      "helperText": "Substituição",
+      "errorMissingReplacement": "Substituição necessária"
+    },
+    "rates": {
+      "badge": {
+        "waitingCount": "{{ count }} na lista de espera"
+      },
+      "tooltip": {
+        "classIsFull": "Esta aula está cheia",
+        "hasEmptySpots_one": "{{ count }} vaga restante na aula",
+        "hasEmptySpots_other": "{{ count }} vagas restantes na aula",
+        "hasEmptySpotsForWaitlist_one": "{{ count }} vaga pendente na lista de espera",
+        "hasEmptySpotsForWaitlist_other": "{{ count }} vagas pendentes na lista de espera"
+      }
+    }
+  },
+  "exploreSection": {
+    "exploreThePlatform": {
+      "title": "Explore as novidades",
+      "productUpdatesCard": {
+        "title": "Recursos, melhorias e correções",
+        "description": "Veja nossas últimas atualizações de produtos"
+      }
+    },
+    "advices": {
+      "title": "Descubra as tendências do setor",
+      "latestNewsCard": {
+        "title": "Dicas e novidades para fazer o seu negócio crescer",
+        "description": "Leia as últimas novidades dos nossos especialistas"
+      }
+    }
+  },
+  "keyMetrics": {
+    "title": "Métricas Principais",
+    "unavailable": "As métricas estão atualmente indisponíveis"
+  },
+  "insightsPanel": {
+    "title": "Perspetivas Rápidas",
+    "unavailable": "Perspetivas estão atualmente indisponíveis"
+  }
+}

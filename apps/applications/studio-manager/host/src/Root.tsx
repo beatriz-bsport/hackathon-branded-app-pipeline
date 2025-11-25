@@ -7,6 +7,7 @@ import {
 } from "sm-navigation-sidebar/urls";
 
 import { getEnv } from "@bsport/envs";
+import { initIntercomWidget } from "@bsport/intercom";
 import { Title } from "@bsport/kaizen-primitive-core";
 import {
   BSPORT_REQUEST_FROM_HEADER_VALUES,
@@ -15,12 +16,15 @@ import {
 import { AppWrapper } from "@bsport/sm-backbone";
 import { dataAccessLayer } from "@bsport/sm-backbone";
 
+import { OnboardingPageTracker } from "#src/components/OnboardingPageTracker";
 import { analyticsClient, debugActive } from "#src/utils/analytics";
 import { NavFlags, useNavFlag } from "#src/utils/featureFlags";
 
+import { onboardingManagerClient } from "./utils/onboarding";
+
 // ----- Booking -----
 const GroupActivities = lazy(() => import("sm-group-activity/App"));
-const Offer = lazy(() => import("sm-offer/App"));
+const Session = lazy(() => import("sm-session/App"));
 
 // ----- Buyables -----
 const Giftcard = lazy(() => import("sm-giftcard/App"));
@@ -91,10 +95,12 @@ export function Root() {
         onLogoutCallback: () => {
           analyticsClient.resetIdentity();
           analyticsClient.overloadResetSuperProperties(); // Analytics tool level super properties
+          onboardingManagerClient.logOutUser();
         },
       }}
       loginUrl={loginUrl}
     >
+      <OnboardingPageTracker />
       <AuthenticatedRoutes />
     </AppWrapper>
   );
@@ -103,6 +109,38 @@ export function Root() {
 const AuthenticatedRoutes = () => {
   const user = dataAccessLayer.useUserAccess();
   const companyTheme = dataAccessLayer.useCompanyTheme();
+  const permissions = dataAccessLayer.useUserRole();
+  const env = getEnv();
+  const isProductionEnvironment = ["production", "staging"].includes(env);
+
+  useEffect(() => {
+    if (companyTheme?.hide_intercom || !isProductionEnvironment) {
+      console.log(
+        "Intercom has not been initialized as we are not on production environment",
+      );
+      return;
+    }
+    if (user?.name && companyTheme?.company && permissions?.name) {
+      const companyId = companyTheme?.company;
+      const userName = user?.name;
+      const companyName = companyTheme.company_name;
+      const email = user?.username;
+      const userRole = permissions?.name;
+      const companyLocale = companyTheme.locale;
+      const colorOverride = companyTheme.primary_color;
+
+      initIntercomWidget({
+        name: userName,
+        email: email,
+        environment: env,
+        role: userRole,
+        companyId: companyId,
+        companyName: companyName,
+        companyLocale,
+        actionColor: colorOverride,
+      });
+    }
+  }, [user?.name, permissions?.name, companyTheme?.company]);
 
   useEffect(() => {
     if (user?.id) {
@@ -117,8 +155,18 @@ const AuthenticatedRoutes = () => {
           franchise_id: companyTheme?.franchisor,
         },
       });
+      onboardingManagerClient.initUser({
+        user_id: String(id),
+        username,
+        company_role,
+        franchise_role,
+        company_id: companyTheme?.company,
+        franchise_id: companyTheme?.franchisor,
+        environment: env,
+        app: "sm-host",
+      });
     }
-  }, [user, companyTheme]);
+  }, [user, companyTheme, env]);
 
   useEffect(() => {
     if (companyTheme) {
@@ -138,16 +186,17 @@ const AuthenticatedRoutes = () => {
       : REVAMP_URLS_DEVELOPMENT;
 
   const isHomepageEnabled = useNavFlag(NavFlags.HOMEPAGE);
+  const isPacksPageEnabled = useNavFlag(NavFlags.PACKS);
 
   const routesConfigs: RouteConfig[] = [
     /* ----- Booking ----- */
     { url: urls.activity, element: <GroupActivities /> },
-    { url: urls.calendar, element: <Offer /> },
+    { url: urls.calendar, element: <Session /> },
 
     /* ----- Buyables ----- */
     { url: urls.giftcard, element: <Giftcard /> },
     { url: urls.order, element: <Order /> },
-    { url: urls.pack, element: <Pack /> },
+    { url: urls.pack, element: <Pack />, hidden: !isPacksPageEnabled },
 
     /* ----- Core-data ----- */
     { url: urls.member, element: <MemberList /> },

@@ -118,7 +118,11 @@
     "backToWebshop": "Torna allo shop",
     "accessMonitoring": "Accesso",
     "closeTab": "Chiudi la scheda",
-    "feedbackBoard": "Scheda di feedback"
+    "feedbackBoard": "Scheda di feedback",
+    "insights": {
+      "insights": "Approfondimenti"
+    },
+    "enableRevampedBackoffice": "Nuovo Back Office "
   },
   "deprecatedNavigator": {
     "close": "Chiudi",

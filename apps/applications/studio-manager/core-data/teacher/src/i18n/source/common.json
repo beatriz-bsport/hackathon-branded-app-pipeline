@@ -5,35 +5,35 @@
   },
   "activeList": {
     "actions": {
-      "addTeacher": "Add teacher"
+      "addTeacher": "Create teacher"
     },
     "addTeacherModal": {
-      "title": "Add teacher",
+      "title": "Create teacher",
       "input": {
         "label": "Email",
         "placeholder": "teacher@email.com",
-        "helper": "If we already have this email, the teacher's account will be linked automatically.",
-        "missingEmailError": "This is required"
+        "helper": "Teacher profile will be linked automatically if we already have this email address",
+        "missingEmailError": "Enter the teacher's email to create their profile"
       },
       "actions": {
-        "back": "Back",
-        "add": "Add",
+        "back": "Close",
+        "add": "Create",
         "open": "Open"
       },
-      "linkedTeacher": "Teacher successfully linked",
+      "linkedTeacher": "Teacher linked successfully",
       "errors": {
-        "staffExists": "The email indicated is already linked to a staff account.",
-        "staffFranchiseExists": "The email indicated is already linked to a staff franchise account."
+        "staffExists": "This email is already linked to a staff account",
+        "staffFranchiseExists": "This is already linked to a staff franchise account"
       }
     },
     "archiveModal": {
       "buttons": {
         "archive": "Archive",
-        "back": "Back"
+        "back": "Keep"
       },
       "title": "Archive teacher?",
       "description": {
-        "action": "Once you archive {{ name }}, they will no longer be active.",
+        "action": "Once you archive {{ name }}, their profile will no longer be active.\n\n",
         "effect": "You can restore this teacher at any time from your archive."
       }
     }
@@ -41,15 +41,15 @@
   "toasts": {
     "messageArchived": {
       "success": "Teacher archived",
-      "error": "Failed to archive your teacher"
+      "error": "Teacher couldn't be archived. Please try again."
     },
     "messageRestored": {
       "success": "Teacher restored",
-      "error": "Failed to restore your teacher"
+      "error": "Teacher couldn't be restored. Please try again."
     },
     "messageUndone": {
-      "success": "Action undone",
-      "error": "Failed to undo action"
+      "success": "Change undone",
+      "error": "Change couldn't be undone. Please try again."
     },
     "emailCopied": "Email copied to clipboard",
     "phoneCopied": "Phone copied to clipboard",

@@ -1,7 +1,6 @@
 import { useState } from "react";
 
-import { List, ListLayout } from "@bsport/kaizen-primitive-core";
-import type { ListItemProps } from "@bsport/kaizen-primitive-core";
+import { ListLayout } from "@bsport/kaizen-primitive-core";
 import type { Smartlist } from "@bsport/store-cdp-smartlist";
 
 import { useSmartlists } from "#src/api/use-smartlists";
@@ -9,10 +8,9 @@ import { CreateSmartlistModal } from "#src/components/CreateSmartlistModal";
 import { DeleteSmartlistModal } from "#src/components/DeleteSmartlistModal";
 import { DuplicateSmartlistModal } from "#src/components/DuplicateSmartlistModal";
 import { EditSmartlistModal } from "#src/components/EditSmartlistModal";
-import { LEGACY_URLS } from "#src/urls";
+import { SmartlistList } from "#src/components/SmartlistList";
 import { useTranslation } from "#src/utils/i18n";
 
-import { VISIBLE_ACTIONS_DISPLAY_LIMIT } from "./constants";
 import { useFilters } from "./use-filters";
 
 const ListPage: React.FC = () => {
@@ -24,7 +22,6 @@ const ListPage: React.FC = () => {
     searchTerm,
     onSearchChange,
     onSearchClear,
-    onPageChange,
     onPageSettingsChange,
   } = useFilters();
 
@@ -67,62 +64,6 @@ const ListPage: React.FC = () => {
     setCurrentInlineAction("delete");
   };
 
-  const listItems: ListItemProps[] = smartlists.map((smartlist: Smartlist) => ({
-    id: smartlist.id.toString(),
-    title: smartlist.name,
-    description: smartlist.description,
-    dropdownConfig: {
-      visibleActionsDisplayLimit: VISIBLE_ACTIONS_DISPLAY_LIMIT,
-    },
-    onClick: () => {
-      window.location.assign(LEGACY_URLS.SMARTLIST_MEMBER(smartlist.id));
-    },
-    buttons: [
-      {
-        id: `smartlist-edit-action-${smartlist.id}`,
-        kind: "icon-button",
-        icon: "edit-02",
-        label: t("inlineActions.edit"),
-        size: "md",
-        intent: "flat",
-        color: "default",
-        tooltipProps: {
-          label: t("inlineActions.edit"),
-          placement: "bottom",
-        },
-        onClick: () => handleEdit(smartlist),
-      },
-      {
-        id: `smartlist-copy-action-${smartlist.id}`,
-        kind: "icon-button",
-        icon: "copy-03",
-        label: t("inlineActions.duplicate"),
-        size: "md",
-        intent: "flat",
-        color: "default",
-        tooltipProps: {
-          label: t("inlineActions.duplicate"),
-          placement: "bottom",
-        },
-        onClick: () => handleDuplicate(smartlist),
-      },
-      {
-        id: `smartlist-trash-action-${smartlist.id}`,
-        kind: "icon-button",
-        icon: "trash-01",
-        label: t("inlineActions.delete"),
-        size: "md",
-        intent: "flat",
-        color: "default",
-        tooltipProps: {
-          label: t("inlineActions.delete"),
-          placement: "bottom-right",
-        },
-        onClick: () => handleDelete(smartlist),
-      },
-    ],
-  }));
-
   return (
     <ListLayout>
       <ListLayout.Header
@@ -141,55 +82,35 @@ const ListPage: React.FC = () => {
           inputValue: searchTerm,
           onInputValueChange: onSearchChange,
           onClear: onSearchClear,
+          tooltipConfig: {
+            label: t("search"),
+          },
         }}
       />
       <ListLayout.Content>
-        <div className="w-full h-full">
-          <List
-            id="smartlists-list"
-            loadingProps={{
-              isLoading,
-              message: t("loading"),
-            }}
-            items={listItems}
-            paginationProps={{
-              currentPage,
-              totalItems,
-              onPageChange,
-              onPageSettingsChange,
-              rowsPerPage: currentPageSize,
-              showRowsPerPageSelector: true,
-            }}
-            emptyStateProps={{
-              emptyConfig: {
-                ctaButtonConfig: {
-                  iconLeft: "plus",
-                  label: t("addSmartlist"),
-                  color: "main",
-                  size: "md",
-                  intent: "call-to-action",
-                  onClick: handleCreateClick,
-                },
-                subtitle: t("emptyState.subtitle"),
-                title: t("emptyState.title"),
-              },
-              emptySearchConfig: {
-                secondaryButtonConfig: {
-                  iconLeft: "x",
-                  label: t("emptySearch.clearFilters"),
-                  color: "default",
-                  size: "md",
-                  intent: "flat",
-                  onClick: onSearchClear,
-                },
-                subtitle: t("emptySearch.subtitle"),
-                title: t("emptySearch.title"),
-              },
-              isEmpty,
-              isEmptySearch,
-            }}
-          />
-        </div>
+        <SmartlistList
+          smartlists={smartlists}
+          paginationProps={{
+            currentPage,
+            totalItems,
+            rowsPerPage: currentPageSize,
+            onPageSettingsChange,
+          }}
+          loadingProps={{
+            isLoading,
+          }}
+          emptyStateConfig={{
+            isEmpty,
+            isEmptySearch,
+            onSearchClear,
+            onCreateClick: handleCreateClick,
+          }}
+          actions={{
+            onEdit: handleEdit,
+            onDuplicate: handleDuplicate,
+            onDelete: handleDelete,
+          }}
+        />
         {currentSmartlist !== null && currentInlineAction === "duplicate" ? (
           <DuplicateSmartlistModal
             isOpen

@@ -12,7 +12,11 @@ import { useTranslation } from "#src/utils/i18n";
 
 const FILTER_IS = "is" as const;
 
-export const useFilterOrders = () => {
+export const useFilterOrders = ({
+  onFilterChange,
+}: {
+  onFilterChange: () => void;
+}) => {
   const { t } = useTranslation(["list", "common"]);
   const [activeFilters, setActiveFilters] = useState<OrderStatus | undefined>(
     undefined,
@@ -59,10 +63,11 @@ export const useFilterOrders = () => {
             ? (Number(nonEmptyFilterField[0].valueIds[0]) as OrderStatus)
             : undefined;
         setActiveFilters(nextStatus);
+        onFilterChange();
       },
       singleField: true, // If a field is already selected, then it's not possible to add another filter
     };
-  }, [t]);
+  }, [t, onFilterChange]);
 
   // ----- Handlers -----
 

@@ -14,6 +14,8 @@ export const DATETIME_FORMATS = {
   // Date formats
   /** ISO date format: "2024-10-15" */
   ISO_DATE: "iso-date",
+  /** Huge date format: "Tuesday, October 15, 2024" */
+  HUGE_DATE: "date-huge",
   /** Full date format: "October 15, 2024" */
   FULL_DATE: "full-date",
   /** Medium date format: "Oct 15, 2024" */

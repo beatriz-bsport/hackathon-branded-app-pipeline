@@ -7,6 +7,7 @@ import { LEGACY_URLS } from "#src/urls";
 import { useTranslation } from "#src/utils/i18n";
 import { useDateFormatter } from "#src/utils/use-date-formatter";
 
+import { NotificationItemLayout } from "./NotificationItemLayout";
 import { useNotificationsNavigation } from "./NotificationsNavigationContext";
 
 export type PrivateBookingIncompleteListItemProps = {
@@ -27,9 +28,9 @@ const PrivateBookingIncompleteListItem: FC<
   const url = `${LEGACY_URLS.member}/${memberId}/private-booking/${privateBooking}`;
 
   const renderItem = () => (
-    <div className="grid grid-cols-[minmax(0,7fr)_minmax(0,3fr)] w-full gap-xs items-center">
-      <div className="flex items-center gap-xs">
-        <div className="flex-1 min-w-0">
+    <NotificationItemLayout
+      leftContent={
+        <>
           <Body
             htmlVariant="span"
             size="lg"
@@ -55,9 +56,9 @@ const PrivateBookingIncompleteListItem: FC<
               date: formatShort(dateStart),
             })}
           </Body>
-        </div>
-      </div>
-    </div>
+        </>
+      }
+    />
   );
 
   return (

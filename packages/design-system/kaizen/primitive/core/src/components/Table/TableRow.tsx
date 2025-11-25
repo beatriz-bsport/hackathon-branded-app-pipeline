@@ -101,11 +101,11 @@ const TableRow = withLink(
             col.type === "custom" && col.render ? (
               col.render(row)
             ) : col.type === "string" ? (
-              <Body htmlVariant="span" size="md">
+              <Body htmlVariant="span" size="md" className={col.cellsClassName}>
                 {value as React.ReactNode}
               </Body>
             ) : col.type === "number" ? (
-              <Body htmlVariant="span" size="md">
+              <Body htmlVariant="span" size="md" className={col.cellsClassName}>
                 {new Intl.NumberFormat(intlLocale).format(value as number)}
               </Body>
             ) : col.type === "price" ? (
@@ -113,26 +113,27 @@ const TableRow = withLink(
                 htmlVariant="span"
                 size="md"
                 color={getPriceColor(value as number, col.priceColoring)}
+                className={col.cellsClassName}
               >
                 {typeof value === "number" && !isNaN(value)
                   ? getCurrencyDisplayWithPrice(value as number)
                   : typeof value}
               </Body>
             ) : col.type === "date" ? (
-              <Body htmlVariant="span" size="md">
+              <Body htmlVariant="span" size="md" className={col.cellsClassName}>
                 {new Intl.DateTimeFormat(intlLocale, {
                   dateStyle: "medium",
                 }).format(new Date(value as string))}
               </Body>
             ) : col.type === "datetime" ? (
-              <Body htmlVariant="span" size="md">
+              <Body htmlVariant="span" size="md" className={col.cellsClassName}>
                 {new Intl.DateTimeFormat(intlLocale, {
                   dateStyle: "medium",
                   timeStyle: "short",
                 }).format(new Date(value as string))}
               </Body>
             ) : col.type === "time" ? (
-              <Body htmlVariant="span" size="md">
+              <Body htmlVariant="span" size="md" className={col.cellsClassName}>
                 {new Intl.DateTimeFormat(intlLocale, {
                   timeStyle: "short",
                 }).format(new Date(value as string))}
@@ -154,6 +155,7 @@ const TableRow = withLink(
                     : ""
                 }
                 size={col.size}
+                className={col.cellsClassName}
               />
             ) : col.type === "copy" ? (
               <CopyToClipboard
@@ -161,6 +163,7 @@ const TableRow = withLink(
                 color="default"
                 intent="flat"
                 size="md"
+                className={col.cellsClassName}
               />
             ) : null;
 

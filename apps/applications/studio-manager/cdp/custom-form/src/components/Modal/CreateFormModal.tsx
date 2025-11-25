@@ -1,7 +1,7 @@
 import { useId } from "react";
 
 import { ControlledForm, FormField, useFormController } from "@bsport/form";
-import { Body, Modal, TextField, toast } from "@bsport/kaizen-primitive-core";
+import { Modal, TextField, toast } from "@bsport/kaizen-primitive-core";
 import type { CustomForm } from "@bsport/store-cdp-custom-form";
 
 import { useCreateCustomForm } from "#src/hooks/api/use-create-form";
@@ -90,7 +90,6 @@ export const CreateFormModal: React.FC<Props> = ({
       size="md"
     >
       <div className="flex flex-col gap-md">
-        <Body htmlVariant="p">{t("activeList.addFormModal.description")}</Body>
         <ControlledForm
           id={formId}
           onSubmit={(data) => handleSaveForm({ formName: data.name })}

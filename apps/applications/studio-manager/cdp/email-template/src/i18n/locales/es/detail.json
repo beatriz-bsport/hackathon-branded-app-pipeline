@@ -4,7 +4,7 @@
   },
   "breadcrumbs": {
     "rootPage": "Plantillas de correo",
-    "customPage": "Plantillas personalizadas"
+    "customPage": "Personalizado"
   },
   "details": {
     "defaultTitle": "Plantilla sin título",
@@ -13,7 +13,8 @@
     },
     "actions": {
       "saveChanges": "Guarda cambios",
-      "discardChanges": "Descartar"
+      "discardChanges": "Descartar",
+      "exportHtml": "Exportar a HTML"
     },
     "hover": {
       "exportHtml": "Exportar plantillas a HTML",
@@ -31,45 +32,45 @@
     "renameTemplateModal": {
       "title": "Renombrar plantilla de correo",
       "textInput": {
-        "label": "Título de la plantilla",
-        "placeholder": "Añade un título de plantilla"
+        "label": "Nombre",
+        "placeholder": "Añade un nombre de plantilla"
       },
       "confirmButton": "Renombrar",
-      "cancelButton": "Cancelar",
+      "cancelButton": "Cerrar",
       "onSuccess": {
         "title": "Plantillas renombrada",
         "action": "Deshacer"
       },
       "onFailure": {
-        "title": "Ocurrió un error al renombrar tu plantilla."
+        "title": "No se puede renombrar la plantilla, por favor intenta de nuevo"
       },
       "errors": {
-        "notProvided": "Esto es obligatorio",
+        "notProvided": "Esto es necesario para continuar",
         "tooLong": "El título es demasiado largo"
       }
     }
   },
   "saveTemplateAction": {
-    "description": "Esta página tiene cambios sin guardar.",
+    "description": "Esta página tiene cambios sin guardar",
     "success": {
       "title": "Plantilla de correo guardada"
     },
     "error": {
-      "missingFields": "Faltan algunos campos obligatorios",
-      "problemWhileSaving": "Hubo un problema al guardar tus cambios."
+      "missingFields": "Selecciona una categoría para guardar tu plantilla",
+      "problemWhileSaving": "No se pueden guardar los cambios, por favor intenta de nuevo"
     }
   },
   "leaveConfirmationModal": {
     "description": "¿Estás seguro de que quieres salir de esta página?",
     "confirmButton": "OK",
-    "cancelButton": "Cancelar"
+    "cancelButton": "Cerrar"
   },
   "templateSubject": {
     "label": "Asunto del correo",
     "placeholder": "Añade un asunto al correo",
     "error": {
-      "notProvided": "Esto es obligatorio",
-      "tooLong": "El asunto es demasiado largo"
+      "notProvided": "Esto es necesario para continuar",
+      "tooLong": "El asunto del correo es demasiado largo"
     }
   },
   "templateDesign": {

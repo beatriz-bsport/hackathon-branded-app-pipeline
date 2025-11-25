@@ -13,8 +13,6 @@ import { useTranslation } from "#src/utils/i18n";
 
 import type { EmptyConfig, GiftcardHandler } from "./types";
 
-const MAX_VISIBLE_PAGES = 6;
-
 // Helper function to create a chip configuration
 const createChip = (iconLeft: string, tooltipLabel: string) => ({
   label: "",
@@ -116,17 +114,23 @@ export const GiftcardList: FC<GiftcardListProps> = ({
     const chips: ListItemProps["chips"] = (() => {
       if (giftcard.is_shared_giftcard && giftcard.manager_only) {
         return [
-          createChip("eye", t("giftcardTable.tooltips.shared")),
-          createChip("eye-off", t("giftcardTable.tooltips.unavailable")),
+          /**
+           * @todo Uncomment when the Shared chip is ready
+           * createChip("eye", t("giftcardTable.tooltips.shared")),
+           */
+          createChip(
+            "shopping-cart-cross",
+            t("giftcardTable.tooltips.unlisted"),
+          ),
         ];
       }
-
-      if (giftcard.is_shared_giftcard) {
-        return [createChip("eye", t("giftcardTable.tooltips.shared"))];
-      }
-
       if (giftcard.manager_only) {
-        return [createChip("eye-off", t("giftcardTable.tooltips.unavailable"))];
+        return [
+          createChip(
+            "shopping-cart-cross",
+            t("giftcardTable.tooltips.unlisted"),
+          ),
+        ];
       }
 
       return undefined;
@@ -151,19 +155,11 @@ export const GiftcardList: FC<GiftcardListProps> = ({
     };
   });
 
-  const mobilePagination: PaginationProps | undefined = paginationProps
-    ? {
-        ...paginationProps,
-        showRowsPerPageSelector: false,
-        maxVisiblePages: MAX_VISIBLE_PAGES,
-      }
-    : undefined;
-
   return (
     <List
       id="giftcard-mobile-list"
       items={listItems}
-      paginationProps={mobilePagination}
+      paginationProps={paginationProps}
       emptyStateProps={{
         isEmpty: !!isEmpty,
         emptyConfig,

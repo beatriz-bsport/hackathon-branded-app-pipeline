@@ -6,6 +6,7 @@ import {
   TextField,
   Toggle,
   ToggleProps,
+  useMatchMedia,
 } from "@bsport/kaizen-primitive-core";
 import type { ReferralSettings } from "@bsport/store-cdp-referral";
 import type { Tag } from "@bsport/store-cdp-tag";
@@ -40,6 +41,7 @@ export const ReferralProgramForm: React.FC<ReferralProgramFormProps> = ({
   referralProgram,
   onSaveProgram,
 }: ReferralProgramFormProps) => {
+  const isMobile = !useMatchMedia("sm");
   const { t } = useTranslation("settings");
   const { tags, tagGroups, tagsMappedByTagId, fetchTags, fetchTagGroups } =
     useFetchTag();
@@ -128,6 +130,7 @@ export const ReferralProgramForm: React.FC<ReferralProgramFormProps> = ({
         })}
       >
         <TextField
+          fullWidth={isMobile}
           type="number"
           id="referral-program-basket-minimal-amount"
           label={t("active.form.basketMinimalAmount.label")}
@@ -260,7 +263,8 @@ export const ReferralProgramForm: React.FC<ReferralProgramFormProps> = ({
                 })}
               >
                 <TextField
-                  className="min-w-[490px]"
+                  fullWidth
+                  className={isMobile ? "" : "min-w-[490px]"}
                   id="referral-program-redirect-link"
                   label={t("active.form.redirectLink.textfield.label")}
                   placeholder={t(

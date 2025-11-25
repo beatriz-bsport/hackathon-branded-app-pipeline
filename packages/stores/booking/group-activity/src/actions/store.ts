@@ -55,15 +55,13 @@ export const setGroupActivities = ({
       newItems: groupActivities,
     });
 
+    const newIds = groupActivities.map((groupActivity) => groupActivity.id);
+
     return {
       groupActivity: {
         ...state.groupActivity,
-        ids: search
-          ? []
-          : groupActivities.map((groupActivity) => groupActivity.id),
-        searchedIds: search
-          ? groupActivities.map((groupActivity) => groupActivity.id)
-          : [],
+        ids: search ? state.groupActivity.ids : newIds,
+        searchedIds: search ? newIds : [],
         byId,
         count,
         page,

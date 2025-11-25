@@ -118,7 +118,11 @@
     "backToWebshop": "Terug naar Webshop",
     "accessMonitoring": "Toegang",
     "closeTab": "Sluit tabblad",
-    "feedbackBoard": "Feedbackbord"
+    "feedbackBoard": "Feedbackbord",
+    "insights": {
+      "insights": "Inzichten"
+    },
+    "enableRevampedBackoffice": "Nieuwe Back Office "
   },
   "deprecatedNavigator": {
     "close": "Sluiten",

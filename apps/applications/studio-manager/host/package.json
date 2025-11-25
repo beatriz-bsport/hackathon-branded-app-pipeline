@@ -24,7 +24,9 @@
     "@bsport/envs": "workspace:*",
     "@bsport/fetch": "workspace:*",
     "@bsport/i18n": "workspace:*",
+    "@bsport/intercom": "workspace:*",
     "@bsport/kaizen-primitive-core": "workspace:*",
+    "@bsport/onboarding-manager": "workspace:*",
     "@bsport/request-from-header": "workspace:*",
     "@bsport/sm-backbone": "workspace:*",
     "@bsport/use-pagination-query-params": "workspace:*",
@@ -59,9 +61,9 @@
         "devPort": 4150,
         "watchPath": "../buyables/giftcard/src/**/*"
       },
-      "sm-offer": {
+      "sm-session": {
         "devPort": 4201,
-        "watchPath": "../booking/offer/src/**/*"
+        "watchPath": "../booking/session/src/**/*"
       },
       "sm-order": {
         "devPort": 4151,

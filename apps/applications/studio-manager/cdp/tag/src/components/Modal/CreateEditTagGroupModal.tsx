@@ -47,9 +47,9 @@ export const CreateEditTagGroupModal: React.FC<Props> = ({
   // Translation keys based on mode
   const translations = {
     modal: {
-      title: t(`tagGroupModal.title.${tagGroupDraft ? "update" : "create"}`),
+      title: t(`tagGroupModal.title.${tagGroupDraft ? "update" : "add"}`),
       confirmButton: t(
-        `tagGroupModal.actions.${tagGroupDraft ? "update" : "create"}`,
+        `tagGroupModal.actions.${tagGroupDraft ? "update" : "add"}`,
       ),
       cancelButton: t("tagGroupModal.actions.cancel"),
     },

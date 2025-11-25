@@ -5,6 +5,7 @@ import {
 import { captureException } from '@sentry/react';
 
 import Config from '#src/config';
+import { onboardingManagerClient } from '#src/components/onboarding/onboardingManagerClient';
 
 const ACTIVATE_DEBUG = process.env.NODE_ENV !== 'production';
 const IS_PRODUCTION = Config.REACT_APP_SENTRY_ENVIRONMENT === 'production';
@@ -113,6 +114,7 @@ export const resetAnalyticsB2B = () => {
   analyticsClientB2B.resetIdentity();
   analyticsClientB2B.overloadResetSuperProperties();
   optOutTrackingAnalyticsB2B();
+  onboardingManagerClient.logOutUser();
 };
 
 // ==================== B2C ====================

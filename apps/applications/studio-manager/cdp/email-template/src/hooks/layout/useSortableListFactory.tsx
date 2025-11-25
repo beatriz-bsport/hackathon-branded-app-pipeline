@@ -117,8 +117,8 @@ export const useSortableListFactory = ({
     return {
       isEmpty,
       emptyConfig: {
-        title: t("templateList.emptyPage.title"),
-        subtitle: t("templateList.emptyPage.description"),
+        title: t("templateList.emptyPage.custom.title"),
+        subtitle: t("templateList.emptyPage.custom.description"),
         variant: "empty-state",
       },
     };

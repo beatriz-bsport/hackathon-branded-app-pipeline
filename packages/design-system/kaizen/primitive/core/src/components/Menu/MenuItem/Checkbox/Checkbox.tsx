@@ -50,19 +50,10 @@ const Checkbox: React.FC<CheckboxProps> = ({
   id,
   label,
   onChange,
-  onClick,
   value,
   rightSlot,
   ...props
 }) => {
-  const handleCheckboxChange = useCallback(
-    (event: React.MouseEvent<HTMLButtonElement>) => {
-      if (disabled) return;
-      if ((event.target as HTMLElement).tagName === "INPUT") return;
-      onClick?.(event);
-    },
-    [onClick],
-  );
   const renderedAvatar = useMemo(
     () =>
       avatar ? (
@@ -89,24 +80,21 @@ const Checkbox: React.FC<CheckboxProps> = ({
     }
   }, [value]);
 
-  const handleOnClick = useCallback(
-    (e: React.MouseEvent<HTMLLabelElement>) => {
-      // Prevent inner elements from stopping the click event
-      if (!disabled) {
-        e.stopPropagation();
-        e.preventDefault(); // Prevent triggering input focus unnecessarily
-        onClick?.(e); // Invoke parent click handler
-      }
+  const handleInputChange = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      if (disabled) return;
+
+      onChange?.(event);
     },
-    [disabled],
+    [disabled, onChange],
   );
 
   return (
-    <button
-      role="check"
-      aria-checked={value === "checked"}
-      className={checkbox({ disabled })}
-      onClick={handleCheckboxChange}
+    <label
+      htmlFor={id}
+      className={classNames(checkbox({ disabled }), "cursor-pointer", {
+        "cursor-default": disabled,
+      })}
       tabIndex={0}
     >
       <Indicator disabled={disabled} />
@@ -117,6 +105,7 @@ const Checkbox: React.FC<CheckboxProps> = ({
         )}
       >
         <input
+          tabIndex={-1}
           className={classNames(
             "appearance-none w-md h-md rounded-xs",
             "cursor-pointer disabled:cursor-default",
@@ -140,42 +129,27 @@ const Checkbox: React.FC<CheckboxProps> = ({
             },
           )}
           type="checkbox"
-          role="checkbox"
           ref={checkboxRef}
           id={id}
           checked={value !== "unchecked"}
           disabled={disabled}
-          onChange={onChange}
-          onClick={onClick}
+          onChange={handleInputChange}
           aria-checked={
             value === "indeterminate" ? "mixed" : value === "checked"
           }
           aria-disabled={disabled}
-          aria-labelledby={id}
-          tabIndex={-1}
           {...props}
         />
         <CheckboxSVG value={value} />
       </div>
       <div className="flex items-center justify-between w-full">
-        <label
-          onClick={handleOnClick}
-          htmlFor={id}
-          className={classNames(
-            "flex items-center justify-between cursor-pointer",
-            {
-              "cursor-default": disabled,
-            },
-          )}
-        >
-          <div className="flex gap-xs">
-            {renderedAvatar ?? renderedIcon}
-            <span>{label}</span>
-          </div>
-        </label>
+        <div className="flex gap-xs items-center">
+          {renderedAvatar ?? renderedIcon}
+          <span>{label}</span>
+        </div>
         {rightSlot ?? null}
       </div>
-    </button>
+    </label>
   );
 };
 

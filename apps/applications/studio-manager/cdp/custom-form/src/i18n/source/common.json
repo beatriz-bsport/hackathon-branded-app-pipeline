@@ -1,7 +1,7 @@
 {
   "pages": {
     "active": "Forms",
-    "archived": "Archived Forms",
+    "archived": "Archived forms",
     "loading": "Loading..."
   },
   "activeList": {
@@ -10,61 +10,60 @@
     },
     "addFormModal": {
       "title": "Create new Form",
-      "description": "Name your new form to get started!",
       "input": {
-        "label": "Form name",
-        "placeholder": "Add a form name..."
+        "label": "Name",
+        "placeholder": "Give your form a name to find it later"
       },
       "actions": {
-        "cancel": "Cancel",
+        "cancel": "Close",
         "create": "Create"
       },
       "errors": {
-        "nameTooLong": "The name is not valid, the maximum length is {{ maximalLength }} characters.",
-        "nameTooShort": "The name is not valid, the minimal length is {{ minimalLength }} character.",
-        "nameRequired": "The name is not valid, you cannot enter an empty name."
+        "nameTooLong": "Name must be a maximum of {{ maximalLength }} characters",
+        "nameTooShort": "Name must be at least {{ minimalLength }} character",
+        "nameRequired": "Give your form a name to continue"
       }
     },
     "archiveModal": {
       "actions": {
         "archive": "Archive",
-        "cancel": "Back"
+        "cancel": "Keep"
       },
-      "title": "Archive Form?",
-      "description": "Members won't see <b>{{ name }}</b> anymore but you can access it from your archive."
+      "title": "Archive form?",
+      "description": "Once you archive<b>{{ name }}</b>, it will no longer be visible to members.  \n\nYou can restore this form at any time from your archive. "
     },
     "duplicateModal": {
       "actions": {
         "duplicate": "Duplicate",
-        "cancel": "Back"
+        "cancel": "Close"
       },
-      "title": "Duplicate Form?",
+      "title": "Duplicate form?",
       "description": {
         "verification": "Duplicate <b>{{ name }}</b> ?",
-        "effect": "You can edit <b>{{ name }}</b> after."
+        "effect": "You'll be able to edit <b>{{ name }}</b> after"
       }
     }
   },
   "toasts": {
     "messageCreated": {
       "success": "Form created",
-      "error": "Failed to create your form"
+      "error": " Form couldn’t be restored. Please try again."
     },
     "messageArchived": {
       "success": "Form archived",
-      "error": "Failed to archive your form"
+      "error": " Form couldn’t be archived. Please try again."
     },
     "messageRestored": {
       "success": "Form restored",
-      "error": "Failed to restore your form"
+      "error": " Form couldn’t be restored. Please try again."
     },
     "messageDuplicated": {
       "success": "Form duplicated",
-      "error": "Failed to duplicate your form"
+      "error": " Form couldn’t be duplicated. Please try again."
     },
     "messageUndone": {
-      "success": "Action undone",
-      "error": "Failed to undo action"
+      "success": "Change undone",
+      "error": "Change couldn't be undone. Please try again."
     },
     "actions": {
       "undo": "Undo",
@@ -83,7 +82,7 @@
     "empty": {
       "activeList": {
         "title": "No forms to display yet",
-        "subtitle": "Create your first form to get feedback from your members."
+        "subtitle": "Create your first form to get feedback from your members"
       },
       "archivedList": {
         "title": "No archived forms yet",
@@ -95,9 +94,9 @@
       }
     },
     "tooltips": {
-      "archive": "Archive Form",
-      "restore": "Restore Form",
-      "duplicate": "Duplicate Form",
+      "archive": "Archive form",
+      "restore": "Restore form",
+      "duplicate": "Duplicate form",
       "search": "Search for a form",
       "switchToArchived": "Archived forms"
     }

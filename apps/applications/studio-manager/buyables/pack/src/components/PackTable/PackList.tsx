@@ -14,8 +14,6 @@ import { useTranslation } from "#src/utils/i18n";
 import { VisibilityBadges } from "./VisibilityBadges";
 import type { TableRowData } from "./types";
 
-const MAX_VISIBLE_PAGES = 6;
-
 export type PackListProps = {
   tableRows: Array<TableRowData>;
   handleArchive?: ({ id, name }: { id: number; name: string }) => void;
@@ -41,9 +39,10 @@ export const PackList: FC<PackListProps> = ({
   const listItems: ListProps["items"] = tableRows.map((row) => {
     const visibilityBadges = (
       <VisibilityBadges
-        hiddenForUsers={row.hiddenForUsers}
-        hiddenForStaff={row.hiddenForStaff}
+        hiddenToStaff={row.hiddenToStaff}
+        isMobile
         limitedTime={row.limitedTime}
+        unlisted={row.unlisted}
       />
     );
 
@@ -58,7 +57,9 @@ export const PackList: FC<PackListProps> = ({
         intent: "flat",
         color: "default",
         size: "md",
-        onClick: () => handleArchive({ id: row.id, name: row.name }),
+        onClick: () => {
+          handleArchive({ id: row.id, name: row.name });
+        },
       });
     }
 
@@ -71,21 +72,15 @@ export const PackList: FC<PackListProps> = ({
       customNode: visibilityBadges,
       buttons,
       link: row.link,
-      onClick: row.onRowClick,
+      onItemClick: row.onItemClick,
     };
   });
-
-  const mobilePagination: PaginationProps = {
-    ...paginationProps,
-    showRowsPerPageSelector: false,
-    maxVisiblePages: MAX_VISIBLE_PAGES,
-  };
 
   return (
     <List
       id="pack-mobile-list"
       items={listItems}
-      paginationProps={mobilePagination}
+      paginationProps={paginationProps}
       emptyStateProps={{
         isEmpty: !!isEmpty,
         emptyConfig,

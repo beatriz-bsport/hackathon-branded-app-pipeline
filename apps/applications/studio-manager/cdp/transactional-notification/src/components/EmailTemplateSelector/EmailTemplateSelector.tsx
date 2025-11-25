@@ -77,7 +77,8 @@ export const EmailTemplateSelector = ({
       optionsFormatter={(results) => groupEmailTemplates(results)}
       textfieldProps={{
         iconLeft: "mail-01",
-        id: "email-template-selector-textfield",
+        id: "template-selector-textfield",
+        autocomplete: "none",
         label: t(
           "notificationRuleEventDetails.details.emailNotification.select.label",
         ),

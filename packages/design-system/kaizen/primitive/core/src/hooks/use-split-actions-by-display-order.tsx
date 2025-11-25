@@ -59,7 +59,7 @@ const useSplitActionsByDisplayOrder = ({
     return actionsToRefine.map((action) => ({
       id: action.id,
       label: action.label,
-      iconLeft: "iconLeft" in action ? action.iconLeft : undefined,
+      iconLeft: getIconFromButton(action),
       disabled: action.disabled,
     }));
   };
@@ -129,5 +129,12 @@ const useSplitActionsByDisplayOrder = ({
     dropdownMenuProps,
   };
 };
+
+function getIconFromButton(action: ActionButton): ActionButton["icon"] {
+  if ("iconLeft" in action) return action.iconLeft;
+  if ("icon" in action) return action.icon;
+
+  return undefined;
+}
 
 export default useSplitActionsByDisplayOrder;

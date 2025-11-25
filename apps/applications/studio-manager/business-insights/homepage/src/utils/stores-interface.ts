@@ -1,3 +1,4 @@
+import { dataAccessLayer } from "@bsport/sm-backbone";
 import {
   type ManagerSession,
   selectManagerSessions,
@@ -37,4 +38,8 @@ export const useSessionsWithTeacher = (): SessionWithTeacher[] => {
       substitutionRequests: requestsBySessionId.get(session.id) ?? [],
     };
   });
+};
+
+export const useCompanyTimezone = () => {
+  return dataAccessLayer.useCompanyTheme()?.timezone_name;
 };

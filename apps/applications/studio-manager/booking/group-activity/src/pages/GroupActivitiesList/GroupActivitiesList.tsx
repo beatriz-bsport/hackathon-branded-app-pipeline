@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useNavigate } from "react-router";
 
 import {
@@ -11,8 +11,10 @@ import type { MetaActivity } from "@bsport/store-booking-group-activity";
 import { DEFAULT_DEBOUNCE_DELAY } from "@bsport/use-debounce";
 
 import { useCategoryFilter } from "#src/hooks/useCategoryFilter";
+import { useFetchGroupActivities } from "#src/hooks/useFetchGroupActivities";
 import { useGroupActivityModals } from "#src/hooks/useGroupActivityModals";
 import { usePaginatedGroupActivities } from "#src/hooks/usePaginatedGroupActivities";
+import { useRefinedGroupActivities } from "#src/hooks/useRefinedGroupActivities";
 import useTableColumns from "#src/hooks/useTableColumns";
 import { ROUTES } from "#src/urls";
 import { useTranslation } from "#src/utils/i18n";
@@ -26,44 +28,30 @@ export const GroupActivitiesList: React.FC = () => {
   const { t } = useTranslation("groupActivity");
   const [searchQuery, setSearchQuery] = React.useState("");
   const columns = useTableColumns<Row>();
+  const { fetchGroupActivities, paginationProps, isLoading } =
+    usePaginatedGroupActivities({ customerEnabled: true });
   const {
-    searchGroupActivitiesPage,
-    groupActivities,
-    paginationProps,
-    isLoading,
-  } = usePaginatedGroupActivities(true);
-  const {
-    activeCategoryFilters,
     resetFilters,
     categoryFiltersConfig,
     categoryFiltersRef,
+    activeCategoryFilters,
   } = useCategoryFilter();
-
-  const getGroupActivityDetailLink = (groupActivityId: string) =>
-    `/activity/${groupActivityId}/general`;
 
   const clearSearchQuery = () => {
     setSearchQuery("");
   };
 
-  const renderedGroupActivities = groupActivities.map((item) => ({
-    ...item,
-    link: getGroupActivityDetailLink(item.id.toString()),
-    color: item.color,
-  }));
+  const renderedGroupActivities = useRefinedGroupActivities({
+    searchQuery,
+    activeCategoryFilters,
+  });
 
   const { archiveModal, duplicateModal, onClickArchive, onClickDuplicate } =
     useGroupActivityModals({
-      fetchGroupActivitiesPage: searchGroupActivitiesPage,
+      fetchGroupActivitiesPage: fetchGroupActivities,
     });
 
-  useEffect(() => {
-    searchGroupActivitiesPage({
-      inCategoryIds: activeCategoryFilters.is,
-      notInCategoryIds: activeCategoryFilters.isNot,
-      searchQuery,
-    });
-  }, [searchGroupActivitiesPage, activeCategoryFilters, searchQuery]);
+  useFetchGroupActivities({ searchQuery, activeCategoryFilters });
 
   const { endGroupActions } = ListLayout.useAdaptiveActions({
     endGroupActions: [

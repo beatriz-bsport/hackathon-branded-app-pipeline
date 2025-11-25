@@ -1,0 +1,18 @@
+{
+  "header": "Calendar",
+  "title": {
+    "occupancyRate": "{{rate}}% enrolled"
+  },
+  "table": {
+    "headers": {
+      "time": "Time",
+      "sessionName": "Session name",
+      "participants": "Participants",
+      "teacher": "Teacher",
+      "establishment": "Establishment",
+      "sessionType": "Session type"
+    },
+    "isLoading": "Loading sessions...",
+    "attendanceButton": "Attendance"
+  }
+}

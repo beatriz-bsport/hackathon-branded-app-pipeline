@@ -1,1 +1,1 @@
-export { PackDetailsPage as default } from "./PackDetailsPage";
+export { PackDetailsEntry as default } from "./PackDetailsEntry";

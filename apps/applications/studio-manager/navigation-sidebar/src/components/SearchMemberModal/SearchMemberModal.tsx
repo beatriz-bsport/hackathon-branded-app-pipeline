@@ -143,16 +143,14 @@ export const SearchMemberModal: React.FC<SearchMemberModalProps> = ({
               )}
             </Popover.Content>
           </Popover>
-          {input.length === 0 && (
-            <Button
-              iconLeft="plus"
-              intent="default"
-              color="main"
-              size="md"
-              label={t("searchMembers.addMember")}
-              onClick={onAddMemberClick}
-            />
-          )}
+          <Button
+            iconLeft="plus"
+            intent="default"
+            color="main"
+            size="md"
+            label={t("searchMembers.addMember")}
+            onClick={onAddMemberClick}
+          />
         </div>
         <SearchMemberList
           searchInput={debouncedInput}

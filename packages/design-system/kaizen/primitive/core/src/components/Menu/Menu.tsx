@@ -97,7 +97,13 @@ const Menu: React.FC<MenuProps> = ({
 
   return (
     <div className={className} {...props}>
-      <ul role="menu" className="flex flex-col gap-xs">
+      <ul
+        role="menu"
+        className="flex flex-col gap-xs"
+        onClick={(event) => {
+          event.stopPropagation();
+        }}
+      >
         {menuItems}
       </ul>
     </div>

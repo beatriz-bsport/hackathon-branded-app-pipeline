@@ -10,7 +10,7 @@ export const indicatorClasses = [
   "group-hover:opacity-[100]",
   "group-focus-visible:opacity-[100]",
   "group-active:opacity-[100] group-active:bg-onsurface-main-strong ",
-  "transition-opacity ease-out duration-long",
+  "transition-opacity ease-out duration-default",
 ] as const;
 
 export const indicatorVariants = {

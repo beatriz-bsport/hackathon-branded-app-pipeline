@@ -2,6 +2,9 @@ import plugin from "tailwindcss/plugin";
 
 import THEME from "@bsport/kaizen-tokens/src/tailwind.theme.json";
 
+// Screen height value that uses progressive enhancement fixing ios issue with 100vh
+const SCREEN_HEIGHT = ["100vh", "100dvh"];
+
 /** @type {import("tailwindcss").Config} */
 export default {
   // Do not edit theme directly as it is auto-generated from tokens
@@ -10,8 +13,18 @@ export default {
     extend: {
       height: {
         "layout-mobile-header": "var(--kz-topbar-height)",
-        "layout-content-mobile": "calc(100vh - var(--kz-topbar-height))",
-        "layout-content-desktop": "100vh",
+        "layout-content-mobile": [
+          "calc(100vh - var(--kz-topbar-height))",
+          "calc(100dvh - var(--kz-topbar-height))",
+        ],
+        "layout-content-desktop": SCREEN_HEIGHT,
+        screen: SCREEN_HEIGHT,
+      },
+      minHeight: {
+        screen: SCREEN_HEIGHT,
+      },
+      maxHeight: {
+        screen: SCREEN_HEIGHT,
       },
       width: {
         "layout-sidebar": "var(--kz-sidebar-width)",
@@ -86,7 +99,7 @@ export default {
       addBase({
         ":root": {
           "--kz-topbar-height": "56px",
-          "--kz-sidebar-width": "300px",
+          "--kz-sidebar-width": "240px",
         },
       });
     }),

@@ -107,3 +107,9 @@ export const fetchSessionsAction: Action<
       }),
   );
 };
+
+export const setCalendarView = (calendarView: "range" | "daily") => {
+  sessionListStore.setState({
+    calendarView,
+  });
+};

@@ -19,3 +19,6 @@ export const selectProcessedSessions = (state: SessionListState) => {
     };
   });
 };
+
+export const selectCalendarView = (state: SessionListState) =>
+  state.calendarView;

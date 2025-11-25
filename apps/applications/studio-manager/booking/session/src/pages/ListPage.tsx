@@ -11,6 +11,10 @@ import { DisplaySettings } from "../components/SessionList/DisplaySettings";
 import { SessionDayTitle } from "../components/SessionList/SessionDayTitle";
 import { SessionTable } from "../components/SessionList/SessionTable";
 import { useSessionListData } from "../hooks/useSessionListData";
+import {
+  selectCalendarView,
+  useSessionListStore,
+} from "../stores/session-list";
 
 const ListPage: React.FC = () => {
   const { t, i18n } = useTranslation("sessionList");
@@ -40,6 +44,8 @@ const ListPage: React.FC = () => {
     setAddSessionModalOpen(false);
   };
 
+  const calendarView = useSessionListStore(selectCalendarView);
+
   return (
     <ListLayout>
       <ListLayout.Header
@@ -60,7 +66,7 @@ const ListPage: React.FC = () => {
           <div className="flex pt-sm px-sm justify-center">
             <DatePicker
               id="daily-sessions-picker"
-              mode="single"
+              mode={calendarView === "daily" ? "single" : "range"}
               displayAs="popover"
               onSelect={onDateChange}
               dateFormat="medium"

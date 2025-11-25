@@ -49,7 +49,7 @@ export const UpcomingActivities: React.FC = () => {
       <Card
         elevated
         padding="none"
-        className="overflow-scroll mt-md max-h-[370px] min-h-[var(--card-min-height)]"
+        className="overflow-x-auto mt-md max-h-[370px] min-h-[var(--card-min-height)] w-full"
         style={{ "--card-min-height": "100px" }}
       >
         <Table

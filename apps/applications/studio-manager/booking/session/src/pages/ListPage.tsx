@@ -1,6 +1,10 @@
 import { useEffect, useState } from "react";
 
-import { getLocalNow, toDate } from "@bsport/datetime-manipulation";
+import {
+  fromIsoString,
+  getLocalNow,
+  toDate,
+} from "@bsport/datetime-manipulation";
 import { ListLayout } from "@bsport/kaizen-primitive-core";
 import { dataAccessLayer } from "@bsport/sm-backbone";
 
@@ -39,8 +43,7 @@ const ListPage: React.FC = () => {
       ? { date: selectedDate.date }
       : { minDate: selectedDate.minDate, maxDate: selectedDate.maxDate };
 
-  const { sessions: renderedSessions, isLoading } =
-    useSessionListData(fetchParams);
+  const { sessionsByDate, isLoading } = useSessionListData(fetchParams);
 
   const openAddSessionModal = () => {
     setAddSessionModalOpen(true);
@@ -68,22 +71,17 @@ const ListPage: React.FC = () => {
       <ListLayout.Content>
         <div className="flex flex-col gap-xl">
           <SessionDatePicker />
-          <div>
-            <SessionDayTitle
-              date={
-                selectedDate.type === "single"
-                  ? selectedDate.date
-                  : selectedDate.minDate
-              }
-              sessions={renderedSessions}
-            />
-            <SessionTable sessions={renderedSessions} isLoading={isLoading} />
-            <AddSessionModal
-              isOpen={addSessionModalOpen}
-              onClose={closeAddSessionModal}
-            />
-          </div>
+          {Object.entries(sessionsByDate).map(([date, sessions]) => (
+            <div key={date}>
+              <SessionDayTitle date={fromIsoString(date)} sessions={sessions} />
+              <SessionTable sessions={sessions} isLoading={isLoading} />
+            </div>
+          ))}
         </div>
+        <AddSessionModal
+          isOpen={addSessionModalOpen}
+          onClose={closeAddSessionModal}
+        />
       </ListLayout.Content>
     </ListLayout>
   );

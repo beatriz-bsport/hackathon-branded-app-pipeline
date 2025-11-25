@@ -14,7 +14,7 @@ import { useAsync } from "@bsport/use-async";
 import {
   enrichSessionsWithRelatedData,
   fetchSessionsAction,
-  selectProcessedSessions,
+  selectProcessedSessionsByDate,
   useSessionListStore,
 } from "../stores/session-list";
 import { fetch } from "../utils/fetch";
@@ -90,10 +90,10 @@ export const useSessionListData = (
     }
   }, [teachersById, establishmentsById]);
 
-  const sessions = useSessionListStore(selectProcessedSessions);
+  const sessionsByDate = useSessionListStore(selectProcessedSessionsByDate);
 
   return {
-    sessions,
+    sessionsByDate,
     isLoading:
       isLoadingSessions || isLoadingTeachers || isLoadingEstablishments,
   };

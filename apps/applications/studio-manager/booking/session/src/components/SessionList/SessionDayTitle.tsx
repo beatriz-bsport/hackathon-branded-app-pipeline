@@ -4,14 +4,14 @@ import {
   DATETIME_FORMATS,
   formatDateTimeFromDate,
 } from "@bsport/datetime-formatting";
-import { toDateTime } from "@bsport/datetime-manipulation";
+import { DateTime } from "@bsport/datetime-manipulation";
 import { Body, Title } from "@bsport/kaizen-primitive-core";
 
 import type { EnrichedSession } from "../../stores/session-list/types";
 import { useTranslation } from "../../utils/i18n";
 
 export type SessionDayTitleProps = {
-  date: Date;
+  date: DateTime;
   sessions: EnrichedSession[];
 };
 
@@ -20,10 +20,7 @@ export const SessionDayTitle: React.FC<SessionDayTitleProps> = ({
   sessions,
 }) => {
   const { t } = useTranslation("sessionList");
-  const todayTitle = formatDateTimeFromDate(
-    toDateTime(date),
-    DATETIME_FORMATS.HUGE_DATE,
-  );
+  const todayTitle = formatDateTimeFromDate(date, DATETIME_FORMATS.HUGE_DATE);
 
   const totalEffectif = sessions.reduce(
     (acc, session) => acc + session.effectif,

@@ -17,6 +17,8 @@ type SetSessionsParams = {
   sessions: ManagerSession[];
 };
 
+// Action to set sessions in the store, organizing them by ID and date
+// This is overriding the existing sessions in the store
 export const setSessionsForDateRange = ({ sessions }: SetSessionsParams) => {
   const byId: Record<number, InternalEnrichedSession> = {};
   const ids: number[] = [];
@@ -37,13 +39,9 @@ export const setSessionsForDateRange = ({ sessions }: SetSessionsParams) => {
   sessionListStore.setState((state) => ({
     ...state,
     sessions: {
-      ...state.sessions,
-      byId: { ...state.sessions.byId, ...byId },
+      byId,
       ids,
-      byDate: {
-        ...state.sessions.byDate,
-        ...byDate,
-      },
+      byDate,
     },
   }));
 };

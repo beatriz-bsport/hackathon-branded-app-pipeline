@@ -1,12 +1,12 @@
 import React from "react";
 
+import type { EnrichedSession } from "../../stores/session-list";
 import { GroupedIconChip } from "../common/GroupedIconChip";
 import { HybridChip } from "../common/HybridChip";
 import { OnlineIconChip } from "../common/OnlineIconChip";
-import type { TableRowData } from "./types";
 
 type SessionTypeChipsProps = {
-  session: TableRowData;
+  session: EnrichedSession;
 };
 
 export const SessionTypeChips: React.FC<SessionTypeChipsProps> = ({

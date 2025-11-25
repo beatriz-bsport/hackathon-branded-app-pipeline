@@ -7,12 +7,12 @@ import {
 import { toDateTime } from "@bsport/datetime-manipulation";
 import { Body, Title } from "@bsport/kaizen-primitive-core";
 
+import type { EnrichedSession } from "../../stores/session-list";
 import { useTranslation } from "../../utils/i18n";
-import type { TableRowData } from "./types";
 
 export type SessionDayTitleProps = {
   date: Date;
-  sessions: TableRowData[];
+  sessions: EnrichedSession[];
 };
 
 export const SessionDayTitle: React.FC<SessionDayTitleProps> = ({

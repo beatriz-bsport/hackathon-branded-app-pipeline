@@ -1,9 +1,9 @@
 import { useCallback, useEffect } from "react";
 
 import { getIsoDateString } from "@bsport/datetime-manipulation";
-import { fetchManagerSessionsAction } from "@bsport/store-booking-session";
 import { useAsync } from "@bsport/use-async";
 
+import { fetchSessionsAction } from "#src/stores/session-list";
 import { fetch } from "#src/utils/fetch";
 
 export const useFetchSessions = (params: {
@@ -16,17 +16,14 @@ export const useFetchSessions = (params: {
     establishmentIds: number[];
   }) => void;
 }) => {
-  const _fetchManagerSessions = useCallback(async () => {
-    return fetchManagerSessionsAction(fetch, {
-      date: getIsoDateString(params.date), // YYYY-MM-DD
-    });
+  const _fetchSessions = useCallback(async () => {
+    const dateKey = getIsoDateString(params.date);
+    return fetchSessionsAction(fetch, { date: dateKey });
   }, [params.date]);
 
-  const [{ isLoading }, fetchManagerSessions] = useAsync<
-    typeof _fetchManagerSessions
-  >({
-    asyncFn: _fetchManagerSessions,
-    dependencies: [_fetchManagerSessions],
+  const [{ isLoading }, fetchSessions] = useAsync<typeof _fetchSessions>({
+    asyncFn: _fetchSessions,
+    dependencies: [_fetchSessions],
     onSuccess: ({ value }) => {
       const sessions = Array.isArray(value) ? value : value.results;
 
@@ -52,8 +49,8 @@ export const useFetchSessions = (params: {
 
   // -- Load data
   useEffect(() => {
-    fetchManagerSessions();
-  }, [fetchManagerSessions]);
+    fetchSessions();
+  }, [fetchSessions]);
 
   return {
     isLoading,

@@ -1,8 +1,4 @@
 import {
-  selectProcessedManagerSessions,
-  useSessionStore,
-} from "@bsport/store-booking-session";
-import {
   selectEstablishmentMappedById,
   useEstablishmentStore,
 } from "@bsport/store-core-data-establishment";
@@ -12,9 +8,13 @@ import {
 } from "@bsport/store-core-data-teacher";
 
 import type { TableRowData } from "../components/SessionList/types";
+import {
+  selectProcessedSessions,
+  useSessionListStore,
+} from "../stores/session-list";
 
 export const useTableRowData = (): TableRowData[] => {
-  const sessions = useSessionStore(selectProcessedManagerSessions);
+  const sessions = useSessionListStore(selectProcessedSessions);
   const teachersById = useTeacherStore(selectTeachersById);
   const establishmentsById = useEstablishmentStore(
     selectEstablishmentMappedById,

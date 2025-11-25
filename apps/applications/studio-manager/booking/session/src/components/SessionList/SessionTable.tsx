@@ -4,11 +4,11 @@ import { Table } from "@bsport/kaizen-primitive-core";
 
 import { useTranslation } from "#src/utils/i18n";
 
+import type { EnrichedSession } from "../../stores/session-list";
 import { useSessionListColumns } from "./columns";
-import type { TableRowData } from "./types";
 
 type SessionTableProps = {
-  sessions: TableRowData[];
+  sessions: EnrichedSession[];
   isLoading: boolean;
 };
 

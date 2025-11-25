@@ -16,7 +16,7 @@ import { dataAccessLayer } from "@bsport/sm-backbone";
 
 import { useTranslation } from "#src/utils/i18n";
 
-import type { EnrichedSession } from "../../stores/session-list";
+import type { EnrichedSession } from "../../stores/session-list/types";
 import { CancelledSessionName } from "./CancelledSessionName";
 import { ParticipantsCell } from "./ParticipantsCell";
 import { SessionTypeChips } from "./SessionTypeChips";

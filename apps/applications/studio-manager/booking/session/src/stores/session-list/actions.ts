@@ -6,7 +6,8 @@ import type { Establishment } from "@bsport/store-core-data-establishment";
 import type { Teacher } from "@bsport/store-core-data-teacher";
 
 import { fetchManagerSessionsAPI } from "./api";
-import { type EnrichedSession, sessionListStore } from "./store";
+import { sessionListStore } from "./store";
+import type { InternalEnrichedSession } from "./types";
 
 type FetchSessionsResponse = {
   results: ManagerSession[];
@@ -17,7 +18,7 @@ type SetSessionsParams = {
 };
 
 export const setSessionsForDateRange = ({ sessions }: SetSessionsParams) => {
-  const byId: Record<number, EnrichedSession> = {};
+  const byId: Record<number, InternalEnrichedSession> = {};
   const ids: number[] = [];
   const byDate: Record<string, number[]> = {};
 
@@ -55,7 +56,7 @@ export const enrichSessionsWithRelatedData = ({
   establishmentsById: Record<number, Establishment>;
 }) => {
   sessionListStore.setState((state) => {
-    const enrichedById: Record<number, EnrichedSession> = {};
+    const enrichedById: Record<number, InternalEnrichedSession> = {};
 
     Object.entries(state.sessions.byId).forEach(([id, session]) => {
       const teacher = teachersById[session.coach];

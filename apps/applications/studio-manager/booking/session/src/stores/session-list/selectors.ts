@@ -1,4 +1,5 @@
 import type { SessionListState } from "./store";
+import { EnrichedSession } from "./types";
 
 export const selectSessions = (state: SessionListState) => {
   const { ids, byId } = state.sessions;
@@ -8,7 +9,9 @@ export const selectSessions = (state: SessionListState) => {
 export const selectSession = (state: SessionListState, id: number) =>
   state.sessions.byId[id];
 
-export const selectProcessedSessions = (state: SessionListState) => {
+export const selectProcessedSessions = (
+  state: SessionListState,
+): EnrichedSession[] => {
   const sessions = selectSessions(state);
   return sessions.map((session) => {
     const { name_override, ...sessionWithoutOverride } = session;

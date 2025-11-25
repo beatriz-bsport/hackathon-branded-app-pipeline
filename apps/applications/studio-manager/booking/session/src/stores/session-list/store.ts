@@ -1,17 +1,12 @@
 import { createStore } from "zustand/vanilla";
 
 import { bindStore } from "@bsport/store-base";
-import type { ManagerSession } from "@bsport/store-booking-session";
 
-export type EnrichedSession = ManagerSession & {
-  teacherName?: string;
-  originalTeacherName?: string;
-  establishmentName?: string;
-};
+import { InternalEnrichedSession } from "./types";
 
 type SessionsState = {
   byId: {
-    [key: number]: EnrichedSession;
+    [key: number]: InternalEnrichedSession;
   };
   ids: number[];
   byDate: {

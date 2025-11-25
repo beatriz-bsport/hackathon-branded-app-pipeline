@@ -28,7 +28,8 @@ export const KeyMetrics: FC = () => {
       <Dashboard
         errorMessage={t("keyMetrics.unavailable")}
         iframeLeftTranslate={-16}
-        iframeMinHeight={285}
+        iframeLoadingHeight={284}
+        iframeLoadingMobileHeight={647}
         iframeTitle={t("keyMetrics.title")}
         iframeUrl={iframeUrl}
         isLoading={isLoading}

@@ -1,18 +1,18 @@
 import { useEffect, useState } from "react";
 
 import { getLocalNow, toDate } from "@bsport/datetime-manipulation";
-import { DatePicker, ListLayout } from "@bsport/kaizen-primitive-core";
+import { ListLayout } from "@bsport/kaizen-primitive-core";
 import { dataAccessLayer } from "@bsport/sm-backbone";
 
 import { AddSessionModal } from "#src/components/AddSessionModal/AddSessionModal";
 import { useTranslation } from "#src/utils/i18n";
 
 import { DisplaySettings } from "../components/SessionList/DisplaySettings";
+import { SessionDatePicker } from "../components/SessionList/SessionDatePicker";
 import { SessionDayTitle } from "../components/SessionList/SessionDayTitle";
 import { SessionTable } from "../components/SessionList/SessionTable";
 import { useSessionListData } from "../hooks/useSessionListData";
 import {
-  selectCalendarView,
   selectSelectedDate,
   setSelectedDate,
   useSessionListStore,
@@ -23,7 +23,6 @@ const ListPage: React.FC = () => {
   const intlLocale = i18n?.language;
   const companyTimeZone = dataAccessLayer.useCompanyTheme()?.timezone_name;
 
-  const calendarView = useSessionListStore(selectCalendarView);
   const selectedDate = useSessionListStore(selectSelectedDate);
 
   const [addSessionModalOpen, setAddSessionModalOpen] = useState(false);
@@ -42,14 +41,6 @@ const ListPage: React.FC = () => {
 
   const { sessions: renderedSessions, isLoading } =
     useSessionListData(fetchParams);
-
-  const onDateChange = (date: Date | [Date | null, Date | null] | null) => {
-    if (date instanceof Date) {
-      setSelectedDate(date);
-    } else if (Array.isArray(date) && date[0] && date[1]) {
-      setSelectedDate([date[0], date[1]]);
-    }
-  };
 
   const openAddSessionModal = () => {
     setAddSessionModalOpen(true);
@@ -76,18 +67,7 @@ const ListPage: React.FC = () => {
       />
       <ListLayout.Content>
         <div className="flex flex-col gap-xl">
-          <div className="flex pt-sm px-sm justify-center">
-            <DatePicker
-              id="daily-sessions-picker"
-              mode={calendarView === "daily" ? "single" : "range"}
-              displayAs="popover"
-              onSelect={onDateChange}
-              dateFormat="medium"
-              defaultValue={
-                selectedDate.type === "single" ? selectedDate.date : null
-              }
-            />
-          </div>
+          <SessionDatePicker />
           <div>
             <SessionDayTitle
               date={

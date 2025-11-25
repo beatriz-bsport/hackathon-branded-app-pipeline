@@ -2,9 +2,11 @@ import { Result } from "typescript-result";
 
 import { type Action, createErrorWithContext } from "@bsport/store-base";
 import type { ManagerSession } from "@bsport/store-booking-session";
+import type { Establishment } from "@bsport/store-core-data-establishment";
+import type { Teacher } from "@bsport/store-core-data-teacher";
 
 import { fetchManagerSessionsAPI } from "./api";
-import { sessionListStore } from "./store";
+import { type EnrichedSession, sessionListStore } from "./store";
 
 type FetchSessionsResponse = {
   results: ManagerSession[];
@@ -17,7 +19,7 @@ export const setSessionsForDate = ({
   date: string;
   sessions: ManagerSession[];
 }) => {
-  const byId: Record<number, ManagerSession> = {};
+  const byId: Record<number, EnrichedSession> = {};
   const ids: number[] = [];
 
   sessions.forEach((session) => {
@@ -37,6 +39,41 @@ export const setSessionsForDate = ({
       },
     },
   }));
+};
+
+export const enrichSessionsWithRelatedData = ({
+  teachersById,
+  establishmentsById,
+}: {
+  teachersById: Record<number, Teacher>;
+  establishmentsById: Record<number, Establishment>;
+}) => {
+  sessionListStore.setState((state) => {
+    const enrichedById: Record<number, EnrichedSession> = {};
+
+    Object.entries(state.sessions.byId).forEach(([id, session]) => {
+      const teacher = teachersById[session.coach];
+      const teacherOverride = session.coach_override
+        ? teachersById[session.coach_override]
+        : undefined;
+      const establishment = establishmentsById[session.establishment];
+
+      enrichedById[Number(id)] = {
+        ...session,
+        teacherName: teacherOverride?.name ?? teacher?.name,
+        originalTeacherName: teacher?.name,
+        establishmentName: establishment?.title,
+      };
+    });
+
+    return {
+      ...state,
+      sessions: {
+        ...state.sessions,
+        byId: enrichedById,
+      },
+    };
+  });
 };
 
 export const fetchSessionsAction: Action<

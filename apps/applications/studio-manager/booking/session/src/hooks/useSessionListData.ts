@@ -11,8 +11,8 @@ import {
 } from "@bsport/store-core-data-teacher";
 import { useAsync } from "@bsport/use-async";
 
-import type { EnrichedSession } from "../../stores/session-list";
 import {
+  enrichSessionsWithRelatedData,
   fetchSessionsAction,
   selectProcessedSessions,
   useSessionListStore,
@@ -25,6 +25,11 @@ export const useSessionListData = (params: { date: Date }) => {
   const { isLoading: isLoadingTeachers, fetchTeachers } = useFetchTeachers();
   const { isLoading: isLoadingEstablishments, fetchEstablishments } =
     useFetchEstablishments();
+
+  const teachersById = useTeacherStore(selectTeachersById);
+  const establishmentsById = useEstablishmentStore(
+    selectEstablishmentMappedById,
+  );
 
   const _fetchSessions = useCallback(async () => {
     const dateKey = getIsoDateString(params.date);
@@ -65,27 +70,20 @@ export const useSessionListData = (params: { date: Date }) => {
     executeFetchSessions();
   }, [executeFetchSessions]);
 
-  const sessions = useSessionListStore(selectProcessedSessions);
-  const teachersById = useTeacherStore(selectTeachersById);
-  const establishmentsById = useEstablishmentStore(
-    selectEstablishmentMappedById,
-  );
+  // Enrich sessions whenever teachers or establishments are loaded
+  useEffect(() => {
+    if (
+      Object.keys(teachersById).length > 0 ||
+      Object.keys(establishmentsById).length > 0
+    ) {
+      enrichSessionsWithRelatedData({ teachersById, establishmentsById });
+    }
+  }, [teachersById, establishmentsById]);
 
-  const tableRowData: EnrichedSession[] = sessions.map((session) => ({
-    ...session,
-    teacher: teachersById[session.coach],
-    teacherOverride: session.coach_override
-      ? teachersById[session.coach_override]
-      : undefined,
-    teacherName: session.coach_override
-      ? teachersById[session.coach_override]?.name
-      : teachersById[session.coach]?.name,
-    originalTeacherName: teachersById[session.coach]?.name,
-    establishmentName: establishmentsById[session.establishment]?.title,
-  }));
+  const sessions = useSessionListStore(selectProcessedSessions);
 
   return {
-    sessions: tableRowData,
+    sessions,
     isLoading:
       isLoadingSessions || isLoadingTeachers || isLoadingEstablishments,
   };

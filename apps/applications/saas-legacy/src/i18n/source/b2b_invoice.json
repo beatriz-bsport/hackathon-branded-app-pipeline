@@ -5,6 +5,30 @@
       "description": "Set up Fiskaly SIGN ES to automatically share invoices with the Spanish Tax Agency (AEAT) and comply with VERI*FACTU requirements. Enter the details of the representative to create a social collaboration agreement, which authorises bsport to transmit invoices on your behalf.",
       "info": "This add-on isn't active on your account yet — please contact your Account Manager to request it",
       "loading": "Loading...",
+      "onboarding": {
+        "agreement_created": "Social Collaboration Agreement created",
+        "agreement_error": "Failed to create Social Collaboration Agreement"
+      },
+      "signed_agreement": {
+        "details_title": "Details of representative",
+        "edit": "Edit",
+        "full_name": "Full name",
+        "dni_nie": "DNI/NIE",
+        "address": "Address",
+        "municipality": "Municipality",
+        "country": "Country",
+        "agreement_title": "Social Collaboration Agreement is ready for your signature",
+        "agreement_subtitle": "Follow the steps to validate your Social Collaboration Agreement",
+        "step1_text": "Download PDF",
+        "step2_text": "Representative signs the PDF",
+        "step3_text": "Upload signed PDF",
+        "download_pdf": "Download PDF",
+        "upload_pdf": "Upload PDF",
+        "upload_info": "Upload signed PDF to continue",
+        "send_document": "Send document",
+        "upload_success": "Signed agreement uploaded successfully",
+        "upload_error": "Failed to upload signed agreement"
+      },
       "form": {
         "sectionTitle": "Details of representative",
         "first_name": "First name",

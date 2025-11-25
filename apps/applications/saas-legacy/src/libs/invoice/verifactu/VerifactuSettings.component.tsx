@@ -1,10 +1,4 @@
-import React, {
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 // eslint-disable-next-line bsport/no-redux-in-component
 import { useDispatch, useSelector } from 'react-redux';
@@ -21,7 +15,9 @@ import type { FeatureList } from '#src/libs/company/types';
 import {
   checkFiskalyOnboardingStatus,
   getFiskalyOnboardingRequirements,
+  getLastUploadedSignedAgreement,
   onboardFiskalyCompany,
+  uploadSignedAgreement,
 } from '#src/libs/invoice/actions';
 import { FiskalyOnboardingRequirement } from '#src/libs/invoice/types';
 import {
@@ -36,10 +32,11 @@ import {
 } from '#src/libs/platform-billing/selectors';
 import { UPSELL_IDENTIFIER_FISKALY_SIGN_ES } from '#src/libs/platform-billing/upsell-identifiers';
 import { hasUpsell } from '#src/libs/platform-billing/utils';
-import { snackbarSuccess, snackbarError } from '#src/libs/snackbar/actions';
+import { snackbarError, snackbarSuccess } from '#src/libs/snackbar/actions';
 import type { RootState } from '#src/reducers';
 import type { FormValues } from '#src/libs/invoice/verifactu/types';
 import VerifactuForm from '#src/libs/invoice/verifactu/components/VerifactuForm.component';
+import VerifactuSignedAgreementForm from '#src/libs/invoice/verifactu/components/VerifactuSignedAgreementForm.component';
 
 const VerifactuSettings: React.FC = () => {
   const classes = useStyles();
@@ -54,10 +51,16 @@ const VerifactuSettings: React.FC = () => {
   );
   const [isOnboarded, setIsOnboarded] = useState(false);
   const [isLoadingOnboarding, setIsLoadingOnboarding] = useState(true);
+  const [agreementUrl, setAgreementUrl] = useState<string | null>(null);
+  const [signedAgreementFile, setSignedAgreementFile] = useState<string | null>(
+    null,
+  );
+  const [isLoadingSignedAgreement, setIsLoadingSignedAgreement] =
+    useState(false);
+  const [isUploadingFile, setIsUploadingFile] = useState(false);
   const [requirements, setRequirements] = useState<
     FiskalyOnboardingRequirement[]
   >([]);
-  const isMountedRef = useRef(true);
 
   // Get the first representative from Redux state
   const representative = representatives?.[0] || null;
@@ -78,25 +81,23 @@ const VerifactuSettings: React.FC = () => {
   );
 
   useEffect(() => {
-    isMountedRef.current = true;
-
     dispatch(
       checkFiskalyOnboardingStatus({
         onSuccess: (data) => {
-          if (!isMountedRef.current) return;
           setIsLoadingOnboarding(false);
 
           if (!data) return;
 
           setIsOnboarded(data.is_onboarded);
 
-          if (data.is_onboarded) return;
-
-          // Fetch onboarding requirements & representatives if not onboarded already
+          dispatch(
+            fetchPlatformCustomerEntityRepresentatives({
+              onError: () => console.error('Failed to fetch representatives'),
+            }),
+          );
           dispatch(
             getFiskalyOnboardingRequirements({
               onSuccess: (requirementsData) => {
-                if (!isMountedRef.current) return;
                 if (requirementsData) {
                   setRequirements(requirementsData.requirements || []);
                 }
@@ -105,24 +106,46 @@ const VerifactuSettings: React.FC = () => {
                 console.error('Failed to fetch onboarding requirements'),
             }),
           );
-          dispatch(
-            fetchPlatformCustomerEntityRepresentatives({
-              onError: () => console.error('Failed to fetch representatives'),
-            }),
-          );
+
+          // If company is onboarded, fetch agreement URL and signed agreement status
+          if (data.is_onboarded) {
+            // Fetch agreement URL for download button
+            dispatch(
+              onboardFiskalyCompany({
+                onSuccess: (onboardData) => {
+                  if (onboardData?.agreement_url) {
+                    setAgreementUrl(onboardData.agreement_url);
+                  }
+                },
+                onError: () => {
+                  console.error('Failed to fetch agreement URL');
+                },
+              }),
+            );
+
+            // Fetch signed agreement status
+            setIsLoadingSignedAgreement(true);
+            dispatch(
+              getLastUploadedSignedAgreement({
+                onSuccess: (agreementData) => {
+                  setSignedAgreementFile(agreementData?.file || null);
+                  setIsLoadingSignedAgreement(false);
+                },
+                onError: () => {
+                  setSignedAgreementFile(null);
+                  setIsLoadingSignedAgreement(false);
+                },
+              }),
+            );
+          }
         },
         onError: () => {
-          if (!isMountedRef.current) return;
           console.error('Failed to check onboarding status');
           setIsLoadingOnboarding(false);
           setIsOnboarded(false);
         },
       }),
     );
-
-    return () => {
-      isMountedRef.current = false;
-    };
   }, [dispatch]);
 
   const handleSaveForLater = useCallback(
@@ -248,7 +271,7 @@ const VerifactuSettings: React.FC = () => {
     [dispatch, representative, t],
   );
 
-  const handleSubmit = useCallback(
+  const handleOnboardCompany = useCallback(
     (values: FormValues, formikHelpers: FormikHelpers<FormValues>) => {
       return new Promise<void>((resolve) => {
         // Validate all fields are filled (including DNI/NIE for create agreement)
@@ -280,16 +303,32 @@ const VerifactuSettings: React.FC = () => {
             return resolve();
           }
 
+          // TODO: same update/create as in handleSaveForLater above, then onboard
           dispatch(
             onboardFiskalyCompany({
               onSuccess: (data) => {
-                if (data?.agreement_url) {
-                  window.open(data.agreement_url, '_blank');
+                if (!data?.agreement_url) {
+                  console.error('No agreement URL found');
+                  return;
                 }
+
+                dispatch(
+                  snackbarSuccess(
+                    t('configuration.verifactu.onboarding.agreement_created'),
+                  ),
+                );
+                // Store agreement URL for download button && Update state to show signed agreement form
+                setAgreementUrl(data.agreement_url);
+                setIsOnboarded(true);
                 formikHelpers.setSubmitting(false);
                 resolve();
               },
               onError: () => {
+                dispatch(
+                  snackbarError(
+                    t('configuration.verifactu.onboarding.agreement_error'),
+                  ),
+                );
                 formikHelpers.setSubmitting(false);
                 resolve();
               },
@@ -298,7 +337,46 @@ const VerifactuSettings: React.FC = () => {
         });
       });
     },
-    [dispatch],
+    [dispatch, t],
+  );
+
+  const handleDownloadPDF = useCallback(() => {
+    if (agreementUrl) {
+      window.open(agreementUrl, '_blank');
+    }
+  }, [agreementUrl]);
+
+  const handleUploadSignedAgreement = useCallback(
+    (file: File) => {
+      return new Promise<void>((resolve) => {
+        setIsUploadingFile(true);
+        dispatch(
+          uploadSignedAgreement(file, {
+            onSuccess: (data) => {
+              dispatch(
+                snackbarSuccess(
+                  t('configuration.verifactu.signed_agreement.upload_success'),
+                ),
+              );
+              // Use the signed agreement URL returned directly from the upload endpoint
+              setSignedAgreementFile(data?.file || null);
+              setIsUploadingFile(false);
+              resolve();
+            },
+            onError: () => {
+              dispatch(
+                snackbarError(
+                  t('configuration.verifactu.signed_agreement.upload_error'),
+                ),
+              );
+              setIsUploadingFile(false);
+              resolve();
+            },
+          }),
+        );
+      });
+    },
+    [dispatch, t],
   );
 
   const renderContent = (isUpsellEnabled: boolean): React.ReactElement => {
@@ -316,10 +394,35 @@ const VerifactuSettings: React.FC = () => {
       );
     }
 
-    // Company is already onboarded - show signed agreement upload form
+    // Company is already onboarded - check signed agreement status
     if (isOnboarded) {
-      // TODO: has_uploaded_signed_agreement
-      return <div>Signed agreement upload form</div>;
+      if (isLoadingSignedAgreement) {
+        return (
+          <Typography variant="body2">
+            {t('configuration.verifactu.loading')}
+          </Typography>
+        );
+      }
+
+      // TODO: Sign ES is active - show success message
+      if (signedAgreementFile) {
+        return (
+          <Alert className={classes.alert} severity="success">
+            Sign ES is active
+          </Alert>
+        );
+      }
+
+      // Signed agreement not uploaded - show sign & upload form
+      return (
+        <VerifactuSignedAgreementForm
+          isUploading={isUploadingFile}
+          onDownloadPDF={handleDownloadPDF}
+          onEdit={() => setIsOnboarded(false)}
+          onUploadPDF={handleUploadSignedAgreement}
+          representative={representative}
+        />
+      );
     }
 
     // Upsell not activated - show info alert to contact Account Manager
@@ -336,7 +439,7 @@ const VerifactuSettings: React.FC = () => {
       <VerifactuForm
         initialValues={initialValues}
         onSaveForLater={handleSaveForLater}
-        onSubmit={handleSubmit}
+        onSubmit={handleOnboardCompany}
         requirements={requirements}
       />
     );

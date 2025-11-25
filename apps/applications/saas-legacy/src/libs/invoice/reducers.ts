@@ -32,6 +32,8 @@ import {
   checkFiskalyOnboardingStatusActions,
   getFiskalyOnboardingRequirementsActions,
   onboardFiskalyCompanyActions,
+  getLastUploadedSignedAgreementActions,
+  uploadSignedAgreementActions,
 } from '#src/libs/invoice/actions';
 
 import type {
@@ -136,6 +138,9 @@ const initialState: Immutable.Immutable<InvoiceState> = Immutable<InvoiceState>(
       isOnboarded: null,
       requirements: [],
       agreementUrl: null,
+      signedAgreementFile: null,
+      isLoadingSignedAgreement: false,
+      isUploadingSignedAgreement: false,
     },
   },
 );
@@ -709,6 +714,54 @@ export default handleActions<Immutable.Immutable<InvoiceState>, any>(
       return state.setIn(
         ['fiskalyOnboarding', 'agreementUrl'],
         payload.agreement_url,
+      );
+    },
+    [getLastUploadedSignedAgreementActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(
+        ['fiskalyOnboarding', 'isLoadingSignedAgreement'],
+        payload,
+      );
+    },
+    [getLastUploadedSignedAgreementActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(['fiskalyOnboarding', 'error'], payload);
+    },
+    [getLastUploadedSignedAgreementActions.success.toString()]: (
+      state,
+      { payload }: { payload: { file: string } | null },
+    ) => {
+      return state.setIn(
+        ['fiskalyOnboarding', 'signedAgreementFile'],
+        payload?.file || null,
+      );
+    },
+    [uploadSignedAgreementActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(
+        ['fiskalyOnboarding', 'isUploadingSignedAgreement'],
+        payload,
+      );
+    },
+    [uploadSignedAgreementActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(['fiskalyOnboarding', 'error'], payload);
+    },
+    [uploadSignedAgreementActions.success.toString()]: (
+      state,
+      { payload }: { payload: { file: string } },
+    ) => {
+      return state.setIn(
+        ['fiskalyOnboarding', 'signedAgreementFile'],
+        payload.file,
       );
     },
   },

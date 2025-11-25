@@ -1,6 +1,7 @@
 import { createStore } from "zustand/vanilla";
 
 import { bindStore } from "@bsport/store-base";
+import type { MetaActivity } from "@bsport/store-booking-group-activity";
 
 export const CHOOSE_GROUP_ACTIVITY_STEP = 0;
 export const CONFIGURE_SESSION_STEP = 1;
@@ -10,6 +11,7 @@ export const MAX_STEP = ADVANCED_OPTIONS_STEP;
 export interface SessionCreationState {
   currentStep: number;
   stepValidations: Record<number, boolean>;
+  selectedGroupActivity: MetaActivity | null;
 }
 
 export const getInitialState = (): SessionCreationState => ({
@@ -19,6 +21,7 @@ export const getInitialState = (): SessionCreationState => ({
     [CONFIGURE_SESSION_STEP]: false,
     [ADVANCED_OPTIONS_STEP]: false,
   },
+  selectedGroupActivity: null,
 });
 
 export const sessionCreationStore =

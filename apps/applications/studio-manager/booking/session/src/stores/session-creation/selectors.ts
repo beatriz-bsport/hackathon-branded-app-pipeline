@@ -23,3 +23,8 @@ export const selectIsStepValid = (state: SessionCreationState, step: number) =>
  */
 export const selectIsCurrentStepValid = (state: SessionCreationState) =>
   state.stepValidations[state.currentStep] ?? false;
+
+/** Selects the selected activity.
+ */
+export const selectSelectedGroupActivity = (state: SessionCreationState) =>
+  state.selectedGroupActivity;

@@ -16,6 +16,8 @@ import {
 } from "#src/stores/session-creation/store";
 import { useTranslation } from "#src/utils/i18n";
 
+import { ChooseActivityStep } from "./ChooseActivityStep";
+
 type AddSessionModalProps = {
   isOpen: boolean;
   onClose?: () => void;
@@ -54,7 +56,7 @@ export const AddSessionModal = ({ isOpen, onClose }: AddSessionModalProps) => {
       steps={[
         {
           label: t("addSessionModal.steps.chooseActivity.label"),
-          content: <>Choose Activity Step</>,
+          content: <ChooseActivityStep />,
           validate: checkIfCurrentStepValid,
         },
         {

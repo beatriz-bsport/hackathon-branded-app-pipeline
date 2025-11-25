@@ -21,7 +21,7 @@ type ConfigurableSearchParams = Pick<
   "inCategoryIds" | "notInCategoryIds" | "searchQuery"
 >;
 
-// DUPLICATED IN apps/applications/studio-manager/booking/session/src/hooks/usePaginatedGroupActivities.ts
+// DUPLICATED IN apps/applications/studio-manager/booking/group-activity/src/hooks/usePaginatedGroupActivities.ts
 export const usePaginatedGroupActivities = ({
   customerEnabled,
 }: {

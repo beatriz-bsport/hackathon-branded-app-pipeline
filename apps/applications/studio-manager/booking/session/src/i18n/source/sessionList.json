@@ -3,6 +3,7 @@
   "title": {
     "occupancyRate": "{{rate}}% enrolled"
   },
+  "addSession": "Add session",
   "table": {
     "headers": {
       "time": "Time",

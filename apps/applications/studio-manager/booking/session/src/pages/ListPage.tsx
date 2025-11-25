@@ -4,6 +4,7 @@ import { getLocalNow, toDate } from "@bsport/datetime-manipulation";
 import { DatePicker, ListLayout } from "@bsport/kaizen-primitive-core";
 import { dataAccessLayer } from "@bsport/sm-backbone";
 
+import { AddSessionModal } from "#src/components/AddSessionModal/AddSessionModal";
 import { useTranslation } from "#src/utils/i18n";
 
 import { SessionDayTitle } from "../components/SessionList/SessionDayTitle";
@@ -20,6 +21,8 @@ const ListPage: React.FC = () => {
   const today = getLocalNow({ locale: intlLocale, zone: companyTimeZone });
 
   const [selectedDate, setSelectedDate] = useState<Date>(toDate(today));
+
+  const [addSessionModalOpen, setAddSessionModalOpen] = useState(false);
 
   const { isLoading: isLoadingTeachers, fetchTeachers } = useFetchTeachers();
   const { isLoading: isLoadingEstablishments, fetchEstablishments } =
@@ -45,9 +48,28 @@ const ListPage: React.FC = () => {
     }
   };
 
+  const openAddSessionModal = () => {
+    setAddSessionModalOpen(true);
+  };
+
+  const closeAddSessionModal = () => {
+    setAddSessionModalOpen(false);
+  };
+
   return (
     <ListLayout>
-      <ListLayout.Header pageTitle={t("header")} />
+      <ListLayout.Header
+        pageTitle={t("header")}
+        callToActionButton={
+          <ListLayout.Button
+            iconLeft="plus"
+            intent="call-to-action"
+            color="main"
+            label={t("addSession")}
+            onClick={openAddSessionModal}
+          />
+        }
+      />
       <ListLayout.Content>
         <div className="flex flex-col gap-xl">
           <div className="flex pt-sm px-sm justify-center">
@@ -69,6 +91,10 @@ const ListPage: React.FC = () => {
                 isLoadingTeachers ||
                 isLoadingEstablishments
               }
+            />
+            <AddSessionModal
+              isOpen={addSessionModalOpen}
+              onClose={closeAddSessionModal}
             />
           </div>
         </div>

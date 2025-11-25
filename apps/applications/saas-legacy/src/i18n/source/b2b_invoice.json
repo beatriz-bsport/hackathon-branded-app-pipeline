@@ -70,6 +70,15 @@
           "legal_identifier_required": "Invoice identifiers required",
           "legal_identifier_description": "Speak to your Account Manager to set up invoice identifiers for Sign-ES."
         }
+      },
+      "active": {
+        "success_message": "Your invoices are now automatically transmitted to the Spanish Tax Agency (AEAT)",
+        "agreement_title": "Social Collaboration Agreement",
+        "agreement_subtitle": "You can access your Social Collaboration Agreement at any time via this link",
+        "agreement_link": "Link to PDF",
+        "certificate_title": "VERI*FACTU Responsibility Declaration",
+        "certificate_subtitle": "BSPORT Solutions complies with Spanish invoicing regulations (Verifactu and TicketBAI). Download our official responsibility declaration.",
+        "certificate_link": "VERI*FACTU certificate"
       }
     }
   }

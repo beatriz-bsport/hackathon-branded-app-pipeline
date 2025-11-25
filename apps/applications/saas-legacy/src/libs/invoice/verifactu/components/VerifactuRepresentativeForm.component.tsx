@@ -12,7 +12,7 @@ import VerifactuFormFields from '#src/libs/invoice/verifactu/components/Verifact
 import VerifactuRequirementsAlerts from '#src/libs/invoice/verifactu/components/VerifactuRequirementsAlerts.component';
 import { FiskalyOnboardingRequirement } from '#src/libs/invoice/types';
 
-type VerifactuFormProps = {
+type VerifactuRepresentativeFormProps = {
   initialValues: FormValues;
   requirements: FiskalyOnboardingRequirement[];
   onSaveForLater: (
@@ -25,12 +25,9 @@ type VerifactuFormProps = {
   ) => Promise<void>;
 };
 
-const VerifactuForm: React.FC<VerifactuFormProps> = ({
-  initialValues,
-  requirements,
-  onSaveForLater,
-  onSubmit,
-}) => {
+const VerifactuRepresentativeForm: React.FC<
+  VerifactuRepresentativeFormProps
+> = ({ initialValues, requirements, onSaveForLater, onSubmit }) => {
   const classes = useStyles();
   const { t } = useTranslation('b2b_invoice');
 
@@ -124,4 +121,4 @@ const useStyles = makeStyles<Theme>((theme) => ({
   },
 }));
 
-export default VerifactuForm;
+export default VerifactuRepresentativeForm;

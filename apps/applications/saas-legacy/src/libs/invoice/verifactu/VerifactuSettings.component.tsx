@@ -35,8 +35,9 @@ import { hasUpsell } from '#src/libs/platform-billing/utils';
 import { snackbarError, snackbarSuccess } from '#src/libs/snackbar/actions';
 import type { RootState } from '#src/reducers';
 import type { FormValues } from '#src/libs/invoice/verifactu/types';
-import VerifactuForm from '#src/libs/invoice/verifactu/components/VerifactuForm.component';
+import VerifactuRepresentativeForm from '#src/libs/invoice/verifactu/components/VerifactuRepresentativeForm.component';
 import VerifactuSignedAgreementForm from '#src/libs/invoice/verifactu/components/VerifactuSignedAgreementForm.component';
+import VerifactuActive from '#src/libs/invoice/verifactu/components/VerifactuActive.component';
 
 const VerifactuSettings: React.FC = () => {
   const classes = useStyles();
@@ -404,16 +405,21 @@ const VerifactuSettings: React.FC = () => {
         );
       }
 
-      // TODO: Sign ES is active - show success message
+      // Signed agreement uploaded - show active state (3rd step)
       if (signedAgreementFile) {
         return (
-          <Alert className={classes.alert} severity="success">
-            Sign ES is active
-          </Alert>
+          <VerifactuActive
+            agreementUrl={signedAgreementFile}
+            // TODO: Certificate URL - This should be a link to BSPORT's VERI*FACTU responsibility declaration certificate
+            // This should be a static link
+            certificateUrl={null}
+            onEdit={() => setIsOnboarded(false)}
+            representative={representative}
+          />
         );
       }
 
-      // Signed agreement not uploaded - show sign & upload form
+      // Signed agreement not uploaded - show sign & upload form (2nd step)
       return (
         <VerifactuSignedAgreementForm
           isUploading={isUploadingFile}
@@ -434,9 +440,9 @@ const VerifactuSettings: React.FC = () => {
       );
     }
 
-    // Upsell activated and not onboarded - show onboarding form
+    // Upsell activated and not onboarded - show onboarding form (1st step)
     return (
-      <VerifactuForm
+      <VerifactuRepresentativeForm
         initialValues={initialValues}
         onSaveForLater={handleSaveForLater}
         onSubmit={handleOnboardCompany}
@@ -469,11 +475,13 @@ const VerifactuSettings: React.FC = () => {
                 {t('configuration.verifactu.title')}
               </Typography>
             </div>
-            <div className={classes.content}>
-              <Typography className={classes.bodyText} variant="body2">
-                {t('configuration.verifactu.description')}
-              </Typography>
-            </div>
+            {!signedAgreementFile && (
+              <div className={classes.content}>
+                <Typography className={classes.bodyText} variant="body2">
+                  {t('configuration.verifactu.description')}
+                </Typography>
+              </div>
+            )}
 
             {renderContent(isUpsellEnabled)}
           </Paper>

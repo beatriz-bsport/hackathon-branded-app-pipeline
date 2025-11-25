@@ -2205,6 +2205,7 @@ const mapStateToProps = (state: RootState, props: OwnProps) => {
   const authenticated = props.authenticated || state.auth.authenticated;
   const isGroupedOfferFullBookingOnly = offer?.group?.full_booking_only;
   return {
+    authenticated,
     offer,
     offerStatusById: isGroupedOfferFullBookingOnly
       ? getGroupOffersStatus(state, offer?.group.id)

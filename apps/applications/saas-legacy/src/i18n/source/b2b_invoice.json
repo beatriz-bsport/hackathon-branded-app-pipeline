@@ -44,7 +44,7 @@
         "country": "Country",
         "save_for_later": "Save for later",
         "save_for_later_success": "Representative details saved successfully",
-        "save_for_later_error": "Failed to save representative details",
+        "representative_error": "Failed to save representative details",
         "create_agreement": "Create agreement",
         "chips": {
           "vat_id_validated": "VAT ID validated",

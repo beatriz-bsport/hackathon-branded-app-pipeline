@@ -11,6 +11,7 @@ import {
   type Translations,
   i18nNamespacePrefix,
   i18nNamespaces,
+  inMemoryTranslationsLoader,
   instanciateAppI18n,
   switchLanguage,
 } from "../../primitive/core/src/i18n/index";
@@ -18,6 +19,7 @@ import {
 const { i18nInstance } = instanciateAppI18n<Translations>({
   applicationName: i18nNamespacePrefix,
   namespaces: i18nNamespaces,
+  inMemoryTranslationsLoader,
 });
 
 const preview: Preview = {

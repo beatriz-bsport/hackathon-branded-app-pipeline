@@ -12,19 +12,25 @@ type FetchSessionsResponse = {
   results: ManagerSession[];
 };
 
-export const setSessionsForDate = ({
-  date,
-  sessions,
-}: {
-  date: string;
+type SetSessionsParams = {
   sessions: ManagerSession[];
-}) => {
+};
+
+export const setSessionsForDateRange = ({ sessions }: SetSessionsParams) => {
   const byId: Record<number, EnrichedSession> = {};
   const ids: number[] = [];
+  const byDate: Record<string, number[]> = {};
 
   sessions.forEach((session) => {
     byId[session.id] = session;
     ids.push(session.id);
+
+    // Extract date from session's date_start (format: "YYYY-MM-DDTHH:mm:ss")
+    const sessionDate = session.date_start.split("T")[0];
+    if (!byDate[sessionDate]) {
+      byDate[sessionDate] = [];
+    }
+    byDate[sessionDate].push(session.id);
   });
 
   sessionListStore.setState((state) => ({
@@ -35,7 +41,7 @@ export const setSessionsForDate = ({
       ids,
       byDate: {
         ...state.sessions.byDate,
-        [date]: ids,
+        ...byDate,
       },
     },
   }));
@@ -77,26 +83,23 @@ export const enrichSessionsWithRelatedData = ({
 };
 
 export const fetchSessionsAction: Action<
-  { date: string },
+  { minDate: string; maxDate: string },
   FetchSessionsResponse
 > = async (fetch, params) => {
-  const [uri, init] = fetchManagerSessionsAPI(params);
+  const [uri, init] = fetchManagerSessionsAPI({
+    min_date: params.minDate,
+    max_date: params.maxDate,
+  });
 
   return Result.try(
     async () => {
       const { data } = await fetch(uri, init);
 
-      if (Array.isArray(data)) {
-        setSessionsForDate({
-          date: params.date,
-          sessions: data,
-        });
-      } else {
-        setSessionsForDate({
-          date: params.date,
-          sessions: data.results,
-        });
-      }
+      const sessions = Array.isArray(data) ? data : data.results;
+
+      setSessionsForDateRange({
+        sessions,
+      });
 
       return data;
     },
@@ -112,4 +115,16 @@ export const setCalendarView = (calendarView: "range" | "daily") => {
   sessionListStore.setState({
     calendarView,
   });
+};
+
+export const setSelectedDate = (date: Date | [Date, Date]) => {
+  if (Array.isArray(date)) {
+    sessionListStore.setState({
+      selectedDate: { type: "range", minDate: date[0], maxDate: date[1] },
+    });
+  } else {
+    sessionListStore.setState({
+      selectedDate: { type: "single", date },
+    });
+  }
 };

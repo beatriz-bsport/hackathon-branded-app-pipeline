@@ -22,3 +22,6 @@ export const selectProcessedSessions = (state: SessionListState) => {
 
 export const selectCalendarView = (state: SessionListState) =>
   state.calendarView;
+
+export const selectSelectedDate = (state: SessionListState) =>
+  state.selectedDate;

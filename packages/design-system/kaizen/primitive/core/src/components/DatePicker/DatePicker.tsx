@@ -30,7 +30,7 @@ export type DatePickerProps = Omit<
   dateFormat?: "short" | "medium";
   onConfirm?: (selectedDate: SelectedDate) => void;
   onClose?: () => void;
-  onSelect?: (date: Date | null) => void;
+  onSelect?: (date: SelectedDate) => void;
   weekStartDay?: WeekStartDay;
   calendarYears?: number[];
   disableDate?: (date: Date) => boolean;
@@ -119,9 +119,7 @@ const DatePicker: React.FC<DatePickerProps> = ({
   const handleCalendarSelect = (date: SelectedDate) => {
     setSelectedDate(date);
     setIsManuallySelected(true);
-    if (!Array.isArray(date)) {
-      onSelect?.(date);
-    }
+    onSelect?.(date);
   };
 
   const onPopoverCalendarSelect = (

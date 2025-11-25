@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { getLocalNow, toDate } from "@bsport/datetime-manipulation";
 import { DatePicker, ListLayout } from "@bsport/kaizen-primitive-core";
@@ -13,6 +13,8 @@ import { SessionTable } from "../components/SessionList/SessionTable";
 import { useSessionListData } from "../hooks/useSessionListData";
 import {
   selectCalendarView,
+  selectSelectedDate,
+  setSelectedDate,
   useSessionListStore,
 } from "../stores/session-list";
 
@@ -20,19 +22,32 @@ const ListPage: React.FC = () => {
   const { t, i18n } = useTranslation("sessionList");
   const intlLocale = i18n?.language;
   const companyTimeZone = dataAccessLayer.useCompanyTheme()?.timezone_name;
-  const today = getLocalNow({ locale: intlLocale, zone: companyTimeZone });
 
-  const [selectedDate, setSelectedDate] = useState<Date>(toDate(today));
+  const calendarView = useSessionListStore(selectCalendarView);
+  const selectedDate = useSessionListStore(selectSelectedDate);
 
   const [addSessionModalOpen, setAddSessionModalOpen] = useState(false);
 
-  const { sessions: renderedSessions, isLoading } = useSessionListData({
-    date: selectedDate,
-  });
+  // Initialize selectedDate on first render
+  useEffect(() => {
+    const today = getLocalNow({ locale: intlLocale, zone: companyTimeZone });
+    setSelectedDate(toDate(today));
+  }, [intlLocale, companyTimeZone]);
+
+  // Determine fetch params based on selected date type
+  const fetchParams =
+    selectedDate.type === "single"
+      ? { date: selectedDate.date }
+      : { minDate: selectedDate.minDate, maxDate: selectedDate.maxDate };
+
+  const { sessions: renderedSessions, isLoading } =
+    useSessionListData(fetchParams);
 
   const onDateChange = (date: Date | [Date | null, Date | null] | null) => {
     if (date instanceof Date) {
       setSelectedDate(date);
+    } else if (Array.isArray(date) && date[0] && date[1]) {
+      setSelectedDate([date[0], date[1]]);
     }
   };
 
@@ -43,8 +58,6 @@ const ListPage: React.FC = () => {
   const closeAddSessionModal = () => {
     setAddSessionModalOpen(false);
   };
-
-  const calendarView = useSessionListStore(selectCalendarView);
 
   return (
     <ListLayout>
@@ -70,11 +83,20 @@ const ListPage: React.FC = () => {
               displayAs="popover"
               onSelect={onDateChange}
               dateFormat="medium"
-              defaultValue={selectedDate}
+              defaultValue={
+                selectedDate.type === "single" ? selectedDate.date : null
+              }
             />
           </div>
           <div>
-            <SessionDayTitle date={selectedDate} sessions={renderedSessions} />
+            <SessionDayTitle
+              date={
+                selectedDate.type === "single"
+                  ? selectedDate.date
+                  : selectedDate.minDate
+              }
+              sessions={renderedSessions}
+            />
             <SessionTable sessions={renderedSessions} isLoading={isLoading} />
             <AddSessionModal
               isOpen={addSessionModalOpen}

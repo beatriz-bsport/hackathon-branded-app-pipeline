@@ -4,7 +4,8 @@ const API_URL = "book/v1";
 const API_URL_SESSION = `${API_URL}/offer`;
 
 type FetchSessionsParams = {
-  date: string;
+  min_date: string;
+  max_date: string;
 };
 
 export const fetchManagerSessionsAPI = (

@@ -18,9 +18,15 @@ type SessionsState = {
     [key: string]: number[]; // array of session IDs
   };
 };
+
+export type DateSelection =
+  | { type: "single"; date: Date }
+  | { type: "range"; minDate: Date; maxDate: Date };
+
 export interface SessionListState {
   sessions: SessionsState;
   calendarView: "daily" | "range";
+  selectedDate: DateSelection;
 }
 
 export const getInitialState = (): SessionListState => ({
@@ -30,6 +36,7 @@ export const getInitialState = (): SessionListState => ({
     byDate: {},
   },
   calendarView: "daily",
+  selectedDate: { type: "single", date: new Date() },
 });
 
 export const sessionListStore = createStore<SessionListState>(getInitialState);

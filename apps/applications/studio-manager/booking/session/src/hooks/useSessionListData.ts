@@ -21,7 +21,9 @@ import { fetch } from "../utils/fetch";
 import { useFetchEstablishments } from "./useFetchEstablishments";
 import { useFetchTeachers } from "./useFetchTeachers";
 
-export const useSessionListData = (params: { date: Date }) => {
+export const useSessionListData = (
+  params: { date: Date } | { minDate: Date; maxDate: Date },
+) => {
   const { isLoading: isLoadingTeachers, fetchTeachers } = useFetchTeachers();
   const { isLoading: isLoadingEstablishments, fetchEstablishments } =
     useFetchEstablishments();
@@ -31,10 +33,18 @@ export const useSessionListData = (params: { date: Date }) => {
     selectEstablishmentMappedById,
   );
 
+  const minDate = "date" in params ? params.date : params.minDate;
+  const maxDate = "date" in params ? params.date : params.maxDate;
+
+  const minDateKey = getIsoDateString(minDate);
+  const maxDateKey = getIsoDateString(maxDate);
+
   const _fetchSessions = useCallback(async () => {
-    const dateKey = getIsoDateString(params.date);
-    return fetchSessionsAction(fetch, { date: dateKey });
-  }, [params.date]);
+    return fetchSessionsAction(fetch, {
+      minDate: minDateKey,
+      maxDate: maxDateKey,
+    });
+  }, [minDateKey, maxDateKey]);
 
   const [{ isLoading: isLoadingSessions }, executeFetchSessions] = useAsync<
     typeof _fetchSessions

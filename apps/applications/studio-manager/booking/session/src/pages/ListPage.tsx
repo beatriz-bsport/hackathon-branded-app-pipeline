@@ -10,10 +10,7 @@ import { useTranslation } from "#src/utils/i18n";
 import { DisplaySettings } from "../components/SessionList/DisplaySettings";
 import { SessionDayTitle } from "../components/SessionList/SessionDayTitle";
 import { SessionTable } from "../components/SessionList/SessionTable";
-import { useTableRowData } from "../hooks/stores-interface";
-import { useFetchEstablishments } from "../hooks/useFetchEstablishments";
-import { useFetchSessions } from "../hooks/useFetchSessions";
-import { useFetchTeachers } from "../hooks/useFetchTeachers";
+import { useSessionListData } from "../hooks/useSessionListData";
 
 const ListPage: React.FC = () => {
   const { t, i18n } = useTranslation("sessionList");
@@ -25,23 +22,9 @@ const ListPage: React.FC = () => {
 
   const [addSessionModalOpen, setAddSessionModalOpen] = useState(false);
 
-  const { isLoading: isLoadingTeachers, fetchTeachers } = useFetchTeachers();
-  const { isLoading: isLoadingEstablishments, fetchEstablishments } =
-    useFetchEstablishments();
-  const { isLoading: isLoadingSessions } = useFetchSessions({
+  const { sessions: renderedSessions, isLoading } = useSessionListData({
     date: selectedDate,
-    onSuccess: ({ teacherIds, establishmentIds }) => {
-      if (teacherIds.length > 0) {
-        fetchTeachers({ teacherIds });
-      }
-      if (establishmentIds.length > 0) {
-        fetchEstablishments({ establishmentIds });
-      }
-    },
   });
-
-  // TODO: merge all the fetching hooks together for clarity.
-  const renderedSessions = useTableRowData();
 
   const onDateChange = (date: Date | [Date | null, Date | null] | null) => {
     if (date instanceof Date) {
@@ -86,14 +69,7 @@ const ListPage: React.FC = () => {
           </div>
           <div>
             <SessionDayTitle date={selectedDate} sessions={renderedSessions} />
-            <SessionTable
-              sessions={renderedSessions}
-              isLoading={
-                isLoadingSessions ||
-                isLoadingTeachers ||
-                isLoadingEstablishments
-              }
-            />
+            <SessionTable sessions={renderedSessions} isLoading={isLoading} />
             <AddSessionModal
               isOpen={addSessionModalOpen}
               onClose={closeAddSessionModal}

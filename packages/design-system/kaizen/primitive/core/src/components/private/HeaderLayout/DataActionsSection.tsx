@@ -52,7 +52,7 @@ const DataActionsSection: React.FC<DataActionsSectionProps> = ({
             color="main"
             iconLeft="settings-04"
             intent="default"
-            label="Display"
+            label={t("headerLayout.display.buttonLabel")}
             size="md"
             onClick={onDisplayClick}
           />

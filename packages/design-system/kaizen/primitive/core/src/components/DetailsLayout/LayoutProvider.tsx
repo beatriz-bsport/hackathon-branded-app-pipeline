@@ -22,14 +22,16 @@ type LayoutContextType = {
 
 const LayoutContext = createContext<LayoutContextType | undefined>(undefined);
 
-export const LayoutProvider = forwardRef<LayoutProviderRef, PropsWithChildren>(
-  ({ children }, ref) => {
+type ProviderProps = PropsWithChildren<{ openPanelByDefault?: boolean }>;
+
+export const LayoutProvider = forwardRef<LayoutProviderRef, ProviderProps>(
+  ({ children, openPanelByDefault = false }, ref) => {
     const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
     const toggleHasUnsavedChanges = useCallback((value?: boolean) => {
       setHasUnsavedChanges((prev) => (value !== undefined ? value : !prev));
     }, []);
 
-    const [isPanelOpened, setIsPanelOpened] = useState(true);
+    const [isPanelOpened, setIsPanelOpened] = useState(openPanelByDefault);
     const toggleIsPanelOpened = useCallback((value?: boolean) => {
       setIsPanelOpened((prev) => (value !== undefined ? value : !prev));
     }, []);

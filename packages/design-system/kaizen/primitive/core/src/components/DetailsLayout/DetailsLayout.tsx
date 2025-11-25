@@ -29,6 +29,7 @@ const SIDE_PANEL_WIDTH = 320;
 
 export type DetailsLayoutProps = HTMLAttributes<HTMLDivElement> & {
   children: ReactNode;
+  openPanelByDefault?: boolean;
 };
 
 const detailsLayout = cva([
@@ -58,6 +59,7 @@ const detailsLayout = cva([
  *
  * @param props.className Optional. Custom CSS classes for the container.
  * @param props.children Required. Place subcomponents here
+ * @param props.openPanelByDefault Optional. Whether the Panel should be open by default. Default to false.
  * @link https://docs.infra.bsport.io/storybook/kaizen/dev/index.html?path=/docs/components-detailslayout--docs
  */
 type DetailsLayoutComponent = ForwardRefExoticComponent<
@@ -72,16 +74,19 @@ type DetailsLayoutComponent = ForwardRefExoticComponent<
 };
 
 const DetailsLayout = forwardRef<LayoutProviderRef, DetailsLayoutProps>(
-  ({ children, ...props }, ref) => {
+  ({ children, openPanelByDefault, ...props }, ref) => {
     return (
-      <LayoutProvider ref={ref}>
+      <LayoutProvider ref={ref} openPanelByDefault={openPanelByDefault}>
         <Main {...props}>{children}</Main>
       </LayoutProvider>
     );
   },
 ) as DetailsLayoutComponent;
 
-function Main({ className, ...props }: DetailsLayoutProps) {
+function Main({
+  className,
+  ...props
+}: Omit<DetailsLayoutProps, "openPanelByDefault">) {
   const { hasUnsavedChanges, isPanelOpened } = useLayoutContext();
   const panelWidth = isPanelOpened ? SIDE_PANEL_WIDTH : 0;
   const confirmHeight = hasUnsavedChanges ? "auto" : "0fr";
@@ -230,15 +235,15 @@ const detailsLayoutConfirmation = cva(
 type DetailsLayoutConfirmationProps = PropsWithChildren<
   HTMLAttributes<HTMLDivElement>
 > & {
-  onDiscard?: () => void;
-  onSave?: () => void;
+  onDiscard: () => void;
+  onSave: () => void;
 };
 
 /**
  * Wrapper for the unsaved changes confirmation alert
  * @param props.className Optional. Custom CSS classes for the container.
- * @param props.onDiscard Optional. Callback to handle discard changes
- * @param props.onSave Optional. Callback to handle save changes
+ * @param props.onDiscard Required. Callback to handle discard changes
+ * @param props.onSave Required. Callback to handle save changes
  */
 const DetailsLayoutConfirmation: FC<DetailsLayoutConfirmationProps> = ({
   className,
@@ -246,19 +251,9 @@ const DetailsLayoutConfirmation: FC<DetailsLayoutConfirmationProps> = ({
   onSave,
   ...htmlProps
 }) => {
-  const { hasUnsavedChanges, toggleHasUnsavedChanges } = useLayoutContext();
+  const { hasUnsavedChanges } = useLayoutContext();
   const i18nInstance = useKaizenI18nInstance();
   const { t } = useTranslation("default", { i18n: i18nInstance });
-
-  const handleSave = () => {
-    onSave?.();
-    toggleHasUnsavedChanges();
-  };
-
-  const handleDiscard = () => {
-    onDiscard?.();
-    toggleHasUnsavedChanges();
-  };
 
   return (
     <div
@@ -283,14 +278,14 @@ const DetailsLayoutConfirmation: FC<DetailsLayoutConfirmationProps> = ({
             size="md"
             intent="flat"
             color="default"
-            onClick={handleDiscard}
+            onClick={onDiscard}
           />
           <Button
             label={t("detailsLayout.confirmation.save")}
             size="md"
             intent="default"
             color="main"
-            onClick={handleSave}
+            onClick={onSave}
           />
         </>
       )}

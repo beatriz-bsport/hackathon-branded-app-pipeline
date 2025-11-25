@@ -131,7 +131,7 @@ export const PackDetailsPage: FC<PackDetailsPageProps> = ({ pack }) => {
   return (
     <>
       <ControlledForm {...methods} onSubmit={console.log} id={formId}>
-        <DetailsLayout {...detailsLayoutProps}>
+        <DetailsLayout {...detailsLayoutProps} openPanelByDefault>
           <PackDetailsHeader
             methods={methods}
             onDeleteClick={onOpenDeleteModal}

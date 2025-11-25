@@ -7,7 +7,10 @@ import { DashboardIframe } from "./DashboardIframe";
 export type DashboardContentProps = {
   errorMessage: string;
   iframeLeftTranslate?: number;
-  iframeMinHeight: number;
+  /** Loading placeholder height (desktop) */
+  iframeLoadingHeight: number;
+  /** Loading placeholder height (mobile) */
+  iframeLoadingMobileHeight?: number;
   iframeTitle: string;
   iframeUrl: string | null;
   isLoading: boolean;
@@ -19,7 +22,8 @@ const FALLBACK_CONTAINER_CLASSNAME =
 export const DashboardContent: FC<DashboardContentProps> = ({
   errorMessage,
   iframeLeftTranslate,
-  iframeMinHeight,
+  iframeLoadingHeight,
+  iframeLoadingMobileHeight,
   iframeTitle,
   iframeUrl,
   isLoading,
@@ -28,7 +32,7 @@ export const DashboardContent: FC<DashboardContentProps> = ({
     return (
       <div
         className={FALLBACK_CONTAINER_CLASSNAME}
-        style={{ "--iframe-min-h": `${iframeMinHeight}px` }}
+        style={{ "--iframe-min-h": `${iframeLoadingHeight}px` }}
       >
         <Loader size="xl" />
       </div>
@@ -39,7 +43,8 @@ export const DashboardContent: FC<DashboardContentProps> = ({
     return (
       <DashboardIframe
         leftTranslate={iframeLeftTranslate}
-        minHeight={iframeMinHeight}
+        loadingHeight={iframeLoadingHeight}
+        loadingMobileHeight={iframeLoadingMobileHeight}
         src={iframeUrl}
         title={iframeTitle}
       />
@@ -49,7 +54,7 @@ export const DashboardContent: FC<DashboardContentProps> = ({
   return (
     <div
       className={FALLBACK_CONTAINER_CLASSNAME}
-      style={{ "--iframe-min-h": `${iframeMinHeight}px` }}
+      style={{ "--iframe-min-h": `${iframeLoadingHeight}px` }}
     >
       <Body color="weak" size="md">
         {errorMessage}

@@ -1,11 +1,17 @@
 import { type FC, useEffect, useMemo, useRef, useState } from "react";
 
+import { useMatchMedia } from "@bsport/kaizen-primitive-core";
+
 import { useTranslation } from "#src/utils/i18n";
 
 interface DashboardIframeProps {
   src: string;
   title: string;
-  minHeight?: number;
+  /** Placeholder height before first Sigma height event (desktop) */
+  loadingHeight?: number;
+  /** Placeholder height before first Sigma height event (mobile <600px) */
+  loadingMobileHeight?: number;
+  /** Horizontal translation applied (visual alignment tweak) */
   leftTranslate?: number;
 }
 
@@ -52,50 +58,60 @@ const coerceSigmaLocale = (languageCode: string): string => {
 export const DashboardIframe: FC<DashboardIframeProps> = ({
   src,
   title,
-  minHeight = 400,
+  loadingHeight = 400,
+  loadingMobileHeight,
   leftTranslate = 0,
 }) => {
   const { i18n } = useTranslation();
   const iframeRef = useRef<HTMLIFrameElement>(null);
-  const [iframeHeight, setIframeHeight] = useState(minHeight);
+  const isMobile = !useMatchMedia("(min-width: 600px)"); // Match Sigma's mobile breakpoint
+
+  // Use dynamic height from Sigma events
+  const initialLoadingHeight =
+    isMobile && loadingMobileHeight ? loadingMobileHeight : loadingHeight;
+  const [iframeHeight, setIframeHeight] = useState(initialLoadingHeight);
 
   const localizedSrc = useMemo(() => {
     const lng = coerceSigmaLocale(i18n.language);
     try {
       const urlObj = new URL(src);
       urlObj.searchParams.set(":lng", lng);
+      urlObj.searchParams.set(":responsive_height", "true");
       return urlObj.toString();
     } catch {
       const separator = src.includes("?") ? "&" : "?";
-      return `${src}${separator}:lng=${encodeURIComponent(lng)}`;
+      return `${src}${separator}:lng=${encodeURIComponent(lng)}&:responsive_height=true`;
     }
   }, [src, i18n.language]);
 
   useEffect(() => {
-    /**
-     * Listen for Sigma workbook height change events
-     * Sigma sends postMessage events with the workbook height
-     */
     const handleMessage = (event: MessageEvent) => {
-      // Verify the message is from Sigma
-      if (!event.data || typeof event.data !== "object") return;
-
-      // Sigma sends events with type 'workbook:pageheight:onchange'
+      // Only process messages from this iframe
       if (
-        event.data.type === "workbook:pageheight:onchange" &&
-        typeof event.data.pageHeight === "number"
+        !iframeRef.current ||
+        event.source !== iframeRef.current.contentWindow ||
+        !event.data ||
+        typeof event.data !== "object"
       ) {
-        const newHeight = Math.max(event.data.pageHeight, minHeight);
-        setIframeHeight(newHeight);
+        return;
+      }
+
+      const { type, pageHeight } = event.data as {
+        type?: string;
+        pageHeight?: number;
+      };
+
+      if (
+        type === "workbook:pageheight:onchange" &&
+        typeof pageHeight === "number"
+      ) {
+        setIframeHeight(Math.ceil(pageHeight));
       }
     };
 
     window.addEventListener("message", handleMessage);
-
-    return () => {
-      window.removeEventListener("message", handleMessage);
-    };
-  }, [minHeight]);
+    return () => window.removeEventListener("message", handleMessage);
+  }, []);
 
   return (
     <iframe
@@ -109,6 +125,7 @@ export const DashboardIframe: FC<DashboardIframeProps> = ({
       }}
       title={title}
       allowFullScreen
+      scrolling="no"
       loading="lazy"
     />
   );

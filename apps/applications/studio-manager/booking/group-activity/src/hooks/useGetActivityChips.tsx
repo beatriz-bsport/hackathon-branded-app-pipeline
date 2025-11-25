@@ -4,6 +4,7 @@ import type { ChipProps, WithTooltip } from "@bsport/kaizen-primitive-core";
 
 import { useTranslation } from "#src/utils/i18n";
 
+// DUPLICATED IN apps/applications/studio-manager/booking/session/src/hooks/useGetActivityChips.tsx
 const useGetActivityChips = () => {
   const { t } = useTranslation();
   const getChips = (hasNotification: boolean, isBroadcast: boolean) => {

@@ -15,7 +15,7 @@ const ListPage: FC = () => {
   return (
     <DetailsLayout>
       <DetailsLayout.Header pageTitle={t("pageTitle")} />
-      <DetailsLayout.Content className="pt-md pb-xl px-lg gap-xl flex flex-col">
+      <DetailsLayout.Content className="pt-md pb-xl px-md md:px-lg gap-xl flex flex-col">
         <section className="flex flex-col gap-lg">
           <Header />
           <InsightsBanner />

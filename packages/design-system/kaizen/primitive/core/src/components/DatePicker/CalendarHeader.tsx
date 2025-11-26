@@ -6,9 +6,6 @@ import Button from "#src/components/Button";
 import Select from "#src/components/Select";
 import { useKaizenI18nInstance, useTranslation } from "#src/i18n";
 
-const MONTH_SELECT_MIN_WIDTH = 73;
-const YEAR_SELECT_MIN_WIDTH = 82;
-const MONTH_DISPLAY_WIDTH = 258;
 const MIN_ABBREVIATION_LENGTH = 3;
 const YEARS_RANGE = 11;
 const YEARS_OFFSET = 5;
@@ -82,7 +79,7 @@ const CalendarHeader: React.FC<CalendarHeaderProps> = ({
       {mode === "single" ? (
         <div className="flex center gap-xs">
           <Select
-            className={`min-w-[${MONTH_SELECT_MIN_WIDTH}px]`}
+            className={`min-w-[73px]`}
             value={selectLabel}
             items={months.map((month, idx) => ({
               id: String(idx),
@@ -91,7 +88,7 @@ const CalendarHeader: React.FC<CalendarHeaderProps> = ({
             onSelect={handleMonthChange}
           />
           <Select
-            className={`min-w-[${YEAR_SELECT_MIN_WIDTH}px]`}
+            className={`min-w-[82px]`}
             value={String(displayMonth.getFullYear())}
             items={yearsRendered.map((year) => ({
               id: String(year),
@@ -102,7 +99,7 @@ const CalendarHeader: React.FC<CalendarHeaderProps> = ({
         </div>
       ) : (
         <div className="flex">
-          <div className={`flex center gap-xs w-[${MONTH_DISPLAY_WIDTH}px]`}>
+          <div className={`flex center gap-xs w-[258px]`}>
             {getMonthYearDisplay(0)}
           </div>
           <div className="flex center gap-xs">{getMonthYearDisplay(1)}</div>

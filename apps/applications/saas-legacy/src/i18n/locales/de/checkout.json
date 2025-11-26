@@ -151,7 +151,8 @@
       "goToCalendar": "Zum Kalender zurückkehren",
       "backToMyProfile": "Zurück zu meinem Profil",
       "seeAllPasses": "Alle Kurspässe ansehen",
-      "bookAClass": "Einen Kurs buchen"
+      "bookAClass": "Einen Kurs buchen",
+      "payAmountNow": "Jetzt {{ amount }} bezahlen"
     },
     "bookingItem": {
       "bookingItemStatus": {

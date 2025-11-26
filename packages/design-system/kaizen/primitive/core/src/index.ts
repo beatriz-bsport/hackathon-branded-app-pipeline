@@ -89,6 +89,7 @@ export {
   default as FormRadioGroup,
   type FormRadioGroupProps,
 } from "./components/FormRadioGroup";
+export type { HeaderLayoutProps } from "./components/private/HeaderLayout";
 export { KaizenI18nProvider } from "./components/I18nProvider";
 export {
   default as Icon,

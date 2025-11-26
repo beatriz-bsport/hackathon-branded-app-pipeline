@@ -1,16 +1,11 @@
 import type { FC } from "react";
-import { useParams } from "react-router";
 
-import {
-  DetailsLayout,
-  Loader,
-  useDetailsLayout,
-} from "@bsport/kaizen-primitive-core";
 import { selectPack, usePackStore } from "@bsport/store-buyables-pack";
 
+import { PackDetailsLoading } from "#src/components/PackDetailsLoading";
 import { useFetchItems } from "#src/hooks/useFetchItems";
 import { useFetchPack } from "#src/hooks/useFetchPack";
-import { useTranslation } from "#src/utils/i18n";
+import { useRetrieveId } from "#src/hooks/useRetrieveId";
 
 import { PackDetailsPage } from "./PackDetailsPage";
 
@@ -19,12 +14,7 @@ const getIds = (items: Array<{ id: number }>) => {
 };
 
 export const PackDetailsEntry: FC = () => {
-  const { t } = useTranslation("details");
-
-  // Retrieve id from query params
-  const { id } = useParams();
-  const parsedId = id ? parseInt(id, 10) : undefined;
-  const validId = parsedId && !isNaN(parsedId) ? parsedId : undefined;
+  const validId = useRetrieveId();
 
   // Fetch Pack value related to this id
   const { fetchPasses, fetchAppointmentPasses, fetchWebshopItems } =
@@ -40,17 +30,8 @@ export const PackDetailsEntry: FC = () => {
 
   const pack = usePackStore((state) => selectPack(state, validId));
 
-  const { detailsLayoutProps } = useDetailsLayout();
-
-  if (!pack) {
-    return isLoading ? (
-      <DetailsLayout {...detailsLayoutProps}>
-        <DetailsLayout.Header pageTitle={t("detailsPage.loading")} />
-        <DetailsLayout.Content>
-          <Loader size="xl" />
-        </DetailsLayout.Content>
-      </DetailsLayout>
-    ) : null;
+  if (isLoading || !pack) {
+    return <PackDetailsLoading />;
   }
 
   return <PackDetailsPage pack={pack} />;

@@ -35,10 +35,22 @@ echo "Feature flag environment: ${FEATURE_FLAG_ENV:-$ENVIRONMENT_FLAG}"
 echo "=========================================="
 echo ""
 
-# Fetch the base branch
+# Fetch the base branch/commit if needed
 echo "⏳ Fetching base branch..."
-git fetch $(echo "$BASE_BRANCH" | cut -d'/' -f1) $(echo "$BASE_BRANCH" | cut -d'/' -f2-) 2>/dev/null || echo "Base branch already fetched"
-echo "✅ Base branch fetched"
+if [[ "$BASE_BRANCH" == *"/"* ]]; then
+  # Branch reference (e.g., origin/dev)
+  REMOTE=$(echo "$BASE_BRANCH" | cut -d'/' -f1)
+  BRANCH=$(echo "$BASE_BRANCH" | cut -d'/' -f2-)
+  git fetch "$REMOTE" "$BRANCH" 2>/dev/null || echo "Branch already fetched"
+  # For Nx commands, use the full ref (origin/dev)
+  NX_BASE="$BASE_BRANCH"
+else
+  # Commit SHA - fetch it from origin
+  git fetch origin "$BASE_BRANCH" 2>/dev/null || echo "⚠️  Could not fetch commit $BASE_BRANCH"
+  # For Nx commands, use the SHA directly
+  NX_BASE="$BASE_BRANCH"
+fi
+echo "✅ Base reference ready"
 echo ""
 
 # Build translations
@@ -67,7 +79,7 @@ echo ""
 
 # Show affected projects
 echo "🔱 Detecting affected projects..."
-AFFECTED_PROJECTS=$(pnpm exec nx show projects --affected --base="$BASE_BRANCH" --head=HEAD)
+AFFECTED_PROJECTS=$(pnpm exec nx show projects --affected --base="$NX_BASE" --head=HEAD)
 echo "These are the affected projects:"
 echo "$AFFECTED_PROJECTS"
 echo ""
@@ -85,9 +97,9 @@ echo ""
 # Build affected projects
 echo "⏳ Building affected projects and their dependencies"
 if [ "$FRONTEND_ONLY_FLAG" = "frontend-only" ]; then
-  pnpm exec nx affected --target=ci:build --base=$BASE_BRANCH --head=HEAD $(echo "$ENVIRONMENT_FLAG" | awk '{print $1}') true
+  pnpm exec nx affected --target=ci:build --base="$NX_BASE" --head=HEAD $(echo "$ENVIRONMENT_FLAG" | awk '{print $1}') true
 else
-  pnpm exec nx affected --target=ci:build --base=$BASE_BRANCH --head=HEAD $ENVIRONMENT_FLAG
+  pnpm exec nx affected --target=ci:build --base="$NX_BASE" --head=HEAD $ENVIRONMENT_FLAG
 fi
 echo "✅ All affected projects have been rebuilt"
 echo ""
@@ -95,9 +107,9 @@ echo ""
 # Deploy affected projects
 echo "⏳ Deploying affected projects"
 if [ "$FRONTEND_ONLY_FLAG" = "frontend-only" ]; then
-  pnpm exec nx affected --target=ci:deploy --base=$BASE_BRANCH --head=HEAD $(echo "$ENVIRONMENT_FLAG" | awk '{print $1}') true
+  pnpm exec nx affected --target=ci:deploy --base="$NX_BASE" --head=HEAD $(echo "$ENVIRONMENT_FLAG" | awk '{print $1}') true
 else
-  pnpm exec nx affected --target=ci:deploy --base=$BASE_BRANCH --head=HEAD $ENVIRONMENT_FLAG
+  pnpm exec nx affected --target=ci:deploy --base="$NX_BASE" --head=HEAD $ENVIRONMENT_FLAG
 fi
 echo "✅ All affected projects have been deployed"
 echo ""

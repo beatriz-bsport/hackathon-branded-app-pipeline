@@ -17,7 +17,7 @@ include:
     - echo "Target branch is $TARGET_BRANCH"
     - echo "Target environment is $ENV"
     - echo "Previous latest commit, serving as base, is $CI_COMMIT_BEFORE_SHA"
-    - bash tools/scripts/deploy.sh origin/$CI_COMMIT_BEFORE_SHA $ENV
+    - bash tools/scripts/deploy.sh $CI_COMMIT_BEFORE_SHA $ENV
 
 Deploy Dev:
   extends: .Deploy Base

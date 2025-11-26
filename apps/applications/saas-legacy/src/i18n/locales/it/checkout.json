@@ -150,7 +150,8 @@
       "goToCalendar": "Ritorna al calendario",
       "backToMyProfile": "Torna al mio profilo",
       "seeAllPasses": "Vedi tutti i pacchetti",
-      "bookAClass": "Prenota una classe"
+      "bookAClass": "Prenota una classe",
+      "payAmountNow": "Paga {{ amount }} ora"
     },
     "bookingItem": {
       "bookingItemStatus": {

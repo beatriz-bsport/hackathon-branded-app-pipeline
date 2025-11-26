@@ -1,0 +1,91 @@
+{
+  "pages": {
+    "active": "Profesores",
+    "archived": "Profesores archivados"
+  },
+  "activeList": {
+    "actions": {
+      "addTeacher": "Crear profesor"
+    },
+    "addTeacherModal": {
+      "title": "Crear profesor",
+      "input": {
+        "label": "Correo electrónico",
+        "placeholder": "teacher@email.com",
+        "helper": "El perfil del profesor se vinculará automáticamente si ya tenemos esta dirección de correo electrónico",
+        "missingEmailError": "Introduce el correo del profesor para crear su perfil"
+      },
+      "actions": {
+        "back": "Cerrar",
+        "add": "Crear",
+        "open": "Abrir"
+      },
+      "linkedTeacher": "Profesor vinculado con éxito",
+      "errors": {
+        "staffExists": "Este correo ya está vinculado a una cuenta de personal",
+        "staffFranchiseExists": "Esto ya está vinculado a una cuenta de franquicia del personal"
+      }
+    },
+    "archiveModal": {
+      "buttons": {
+        "archive": "Archivar",
+        "back": "Mantener"
+      },
+      "title": "¿Archivar profesor?",
+      "description": {
+        "action": "Una vez que archives a {{ name }}, su perfil ya no estará activo.\n\n",
+        "effect": "Puedes restaurar a este profesor en cualquier momento desde tu archivo."
+      }
+    }
+  },
+  "toasts": {
+    "messageArchived": {
+      "success": "Profesor archivado",
+      "error": "El profesor no pudo ser archivado. Por favor, inténtalo de nuevo."
+    },
+    "messageRestored": {
+      "success": "Profesor restaurado",
+      "error": "El profesor no pudo ser restaurado. Por favor, inténtalo de nuevo."
+    },
+    "messageUndone": {
+      "success": "Cambio deshecho",
+      "error": "El cambio no pudo deshacerse. Por favor, inténtalo de nuevo."
+    },
+    "emailCopied": "Correo copiado ",
+    "phoneCopied": "Teléfono copiado al portapapeles",
+    "actions": {
+      "undo": "Deshacer"
+    }
+  },
+  "table": {
+    "headers": {
+      "name": "Nombre",
+      "email": "Correo electrónico",
+      "phone": "Teléfono"
+    },
+    "loading": {
+      "activeList": "Cargando profesores ...",
+      "archivedList": "Cargando profesores archivados ..."
+    },
+    "empty": {
+      "activeList": {
+        "title": "Aún no hay profesores",
+        "subtitle": "Empieza a añadir profesores a tu estudio"
+      },
+      "archivedList": {
+        "title": "No hay profesores archivados todavía",
+        "subtitle": "Cualquier profesor movido aquí puede ser restaurado"
+      }
+    },
+    "tooltips": {
+      "archive": "Archivar profesor",
+      "restore": "Restaurar profesor"
+    }
+  },
+  "list": {
+    "actions": {
+      "copyEmail": "Copia correo",
+      "copyPhone": "Copiar teléfono"
+    }
+  }
+}

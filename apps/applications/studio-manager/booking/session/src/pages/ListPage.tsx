@@ -1,10 +1,6 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
-import {
-  fromIsoString,
-  getLocalNow,
-  toDate,
-} from "@bsport/datetime-manipulation";
+import { getLocalNow, toDate } from "@bsport/datetime-manipulation";
 import { ListLayout } from "@bsport/kaizen-primitive-core";
 import { dataAccessLayer } from "@bsport/sm-backbone";
 
@@ -13,8 +9,7 @@ import { useTranslation } from "#src/utils/i18n";
 
 import { DisplaySettings } from "../components/SessionList/DisplaySettings";
 import { SessionDatePicker } from "../components/SessionList/SessionDatePicker";
-import { SessionDayTitle } from "../components/SessionList/SessionDayTitle";
-import { SessionTable } from "../components/SessionList/SessionTable";
+import { SessionDay } from "../components/SessionList/SessionDay";
 import { useSessionListData } from "../hooks/useSessionListData";
 import {
   selectSelectedDate,
@@ -45,38 +40,53 @@ const ListPage: React.FC = () => {
 
   const { sessionsByDate, isLoading } = useSessionListData(fetchParams);
 
-  const openAddSessionModal = () => {
+  const openAddSessionModal = useCallback(() => {
     setAddSessionModalOpen(true);
-  };
+  }, []);
 
-  const closeAddSessionModal = () => {
+  const closeAddSessionModal = useCallback(() => {
     setAddSessionModalOpen(false);
-  };
+  }, []);
+
+  const displaySettings = useCallback(() => <DisplaySettings />, []);
+
+  const callToActionButton = useMemo(
+    () => (
+      <ListLayout.Button
+        iconLeft="plus"
+        intent="call-to-action"
+        color="main"
+        label={t("addSession")}
+        onClick={openAddSessionModal}
+      />
+    ),
+    [t, openAddSessionModal],
+  );
+
+  const sessionDays = useMemo(
+    () =>
+      Object.entries(sessionsByDate).map(([date, sessions]) => (
+        <SessionDay
+          key={date}
+          date={date}
+          sessions={sessions}
+          isLoading={isLoading}
+        />
+      )),
+    [sessionsByDate, isLoading],
+  );
 
   return (
     <ListLayout>
       <ListLayout.Header
         pageTitle={t("header")}
-        onDisplayPopover={() => <DisplaySettings />}
-        callToActionButton={
-          <ListLayout.Button
-            iconLeft="plus"
-            intent="call-to-action"
-            color="main"
-            label={t("addSession")}
-            onClick={openAddSessionModal}
-          />
-        }
+        onDisplayPopover={displaySettings}
+        callToActionButton={callToActionButton}
       />
       <ListLayout.Content>
         <div className="flex flex-col gap-xl">
           <SessionDatePicker />
-          {Object.entries(sessionsByDate).map(([date, sessions]) => (
-            <div key={date}>
-              <SessionDayTitle date={fromIsoString(date)} sessions={sessions} />
-              <SessionTable sessions={sessions} isLoading={isLoading} />
-            </div>
-          ))}
+          {sessionDays}
         </div>
         <AddSessionModal
           isOpen={addSessionModalOpen}

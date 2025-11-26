@@ -151,7 +151,8 @@
       "goToCalendar": "Terug naar de kalender",
       "backToMyProfile": "Terug naar profiel",
       "seeAllPasses": "Toon alle kaarten",
-      "bookAClass": "Een les boeken"
+      "bookAClass": "Een les boeken",
+      "payAmountNow": "Betaal {{ amount }} nu"
     },
     "bookingItem": {
       "bookingItemStatus": {

@@ -38,7 +38,7 @@
       "hasReachedMaxUses": "Die maximale Anzahl an Verwendungen für den Empfehlungslink wurde erreicht.",
       "missingAmountBeforeApplication": "Der Mindestkaufbetrag wurde nicht erreicht. Du riskierst, deinen Empfehlungslink zu verlieren. Nur noch {{ missingAmount }}, um vom Rabatt zu profitieren!"
     },
-    "expressCheckoutTitle": "Express-Zahlung"
+    "expressCheckoutTitle": "Digitale Wallets"
   },
   "forms": {
     "delivery": {

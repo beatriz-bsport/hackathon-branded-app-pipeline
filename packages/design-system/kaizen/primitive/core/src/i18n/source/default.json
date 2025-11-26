@@ -80,6 +80,9 @@
     "editTitle": "Edit title",
     "actions": {
       "more": "More actions"
+    },
+    "display": {
+      "buttonLabel": "Display"
     }
   },
   "copyToClipboard": {

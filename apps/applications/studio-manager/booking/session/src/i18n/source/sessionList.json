@@ -15,5 +15,14 @@
     },
     "isLoading": "Loading sessions...",
     "attendanceButton": "Attendance"
+  },
+  "displaySettings": {
+    "calendarView": {
+      "label": "View",
+      "options": {
+        "daily": "By day",
+        "range": "Range"
+      }
+    }
   }
 }

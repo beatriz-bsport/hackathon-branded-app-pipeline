@@ -15,7 +15,7 @@ import {
   fetchMemberCustomFormFilled as fetchMemberCustomFormFilledAPI,
   submitCustomForm as submitCustomFormAPI,
   submitDraftCustomForm as submitDraftCustomFormAPI,
-  fetchAllCustomFormStatistics as fetchAllCustomFormStatisticsAPI,
+  fetchCustomFormStatistics as fetchCustomFormStatisticsAPI,
   fetchAllCustomFormAutDisplayRules as fetchAllCustomFormAutDisplayRulesAPI,
   fetchCustomFormDisplayRuleBulk as fetchCustomFormDisplayRuleBulkAPI,
   updateCustomFormDisplayRule as updateCustomFormDisplayRuleAPI,
@@ -428,23 +428,24 @@ export function submitCustomFormDraft(
     dispatch(submitCustomFormDratActions.isLoading(false));
   };
 }
-export const fetchAllCustomFormStatisticsActions = {
+
+export const fetchCustomFormStatisticsActions = {
   isLoading: createAction('CUSTOM_FORM/STAT/IS_LOADING'),
   error: createAction('CUSTOM_FORM/STAT/ERROR'),
   success: createAction('CUSTOM_FORM/STAT/SUCCESS'),
 };
-export function fetchAllCustomFormStatistics() {
+export function fetchCustomFormStatistics(formId: number) {
   return async (dispatch: Dispatch) => {
-    dispatch(fetchAllCustomFormStatisticsActions.isLoading(true));
-    dispatch(fetchAllCustomFormStatisticsActions.error(null));
+    dispatch(fetchCustomFormStatisticsActions.isLoading(true));
+    dispatch(fetchCustomFormStatisticsActions.error(null));
     try {
-      const response = await fetchAllCustomFormStatisticsAPI();
-      dispatch(fetchAllCustomFormStatisticsActions.success(response.data));
+      const response = await fetchCustomFormStatisticsAPI({ formId });
+      dispatch(fetchCustomFormStatisticsActions.success(response.data));
     } catch (err) {
       console.error(err);
-      dispatch(fetchAllCustomFormStatisticsActions.error(err));
+      dispatch(fetchCustomFormStatisticsActions.error(err));
     }
-    dispatch(fetchAllCustomFormStatisticsActions.isLoading(false));
+    dispatch(fetchCustomFormStatisticsActions.isLoading(false));
   };
 }
 

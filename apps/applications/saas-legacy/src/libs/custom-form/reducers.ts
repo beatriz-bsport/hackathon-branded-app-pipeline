@@ -15,7 +15,7 @@ import {
   fetchMemberCustomFormFilledActions,
   submitCustomFormActions,
   submitCustomFormDratActions,
-  fetchAllCustomFormStatisticsActions,
+  fetchCustomFormStatisticsActions,
   fetchAllCustomFormDisplayRuleActions,
   upsertCustomFormDisplayRuleActions,
   deleteCustomFormDisplayRuleActions,
@@ -323,40 +323,24 @@ export default handleActions(
     [submitCustomFormDratActions.error.toString()]: (state, { payload }) => {
       return state.setIn(['upsert', 'error'], payload);
     },
-    [fetchAllCustomFormStatisticsActions.isLoading.toString()]: (
+    [fetchCustomFormStatisticsActions.isLoading.toString()]: (
       state,
       { payload },
     ) => {
       return state.setIn(['statistics', 'loading'], payload);
     },
-    [fetchAllCustomFormStatisticsActions.error.toString()]: (
+    [fetchCustomFormStatisticsActions.error.toString()]: (
       state,
       { payload },
     ) => {
       return state.setIn(['statistics', 'error'], payload);
     },
-    [fetchAllCustomFormStatisticsActions.success.toString()]: (
+    [fetchCustomFormStatisticsActions.success.toString()]: (
       state,
       { payload },
     ) => {
-      return state
-        .setIn(
-          ['statistics', 'allIds'],
-          // @ts-expect-error
-          payload.results.map((cus_stats) => cus_stats.id),
-        )
-        .merge(
-          {
-            statistics: {
-              // @ts-expect-error
-              byId: payload.results.reduce((acc: any, ps: any) => {
-                acc[ps.id] = ps;
-                return acc;
-              }, {}),
-            },
-          },
-          { deep: true },
-        );
+      // @ts-expect-error
+      return state.setIn(['statistics', 'byId', payload.id], payload);
     },
     [fetchAllCustomFormDisplayRuleActions.isLoading.toString()]: (
       state,

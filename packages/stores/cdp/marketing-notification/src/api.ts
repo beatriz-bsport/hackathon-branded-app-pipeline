@@ -1,6 +1,7 @@
 import { type ApiConfig, buildUrlParams } from "@bsport/store-base";
 
 import type {
+  CreateMarketingNotificationParams,
   FetchMarketingNotificationsParams,
   MarketingNotification,
 } from "./types";
@@ -24,11 +25,6 @@ export const fetchMarketingNotificationAPI = (
 export const fetchAllMarketingNotificationAPI = (): ApiConfig => {
   return [`${API_URL}/`];
 };
-
-export type CreateMarketingNotificationParams = Omit<
-  MarketingNotification,
-  "id"
->;
 
 export const createMarketingNotificationAPI = (
   params: CreateMarketingNotificationParams,

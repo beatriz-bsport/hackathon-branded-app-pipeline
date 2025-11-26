@@ -6,6 +6,7 @@ import {
   FormStepContextProvider,
   useFormStepContext,
 } from "./Context/FormStepContext.context";
+import { NotificationContentForm } from "./NotificationContent/NotificationContentForm";
 import { TriggerConditionStep } from "./NotificationTriggerForms/TriggerConditionStep";
 import { TriggerTypeStep } from "./TriggerTypeSelector/TriggerTypeStep";
 
@@ -42,7 +43,7 @@ export const EditMarketingNotificationModal = ({
         },
         {
           label: t("steps.label.content"),
-          content: <>Content Step</>,
+          content: <NotificationContentForm />,
         },
       ]}
       initialStep={0}

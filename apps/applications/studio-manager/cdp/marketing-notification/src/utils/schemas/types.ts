@@ -26,3 +26,11 @@ export type BookingTriggerConfigValidationFormData = {
   toggleExcludedSmartlists: boolean;
   excludedSmartlists?: number[];
 };
+
+export type NotificationContentFormData = {
+  isEmailNotificationChecked: boolean;
+  isPushNotificationChecked: boolean;
+  emailTemplateId?: number;
+  pushNotificationTitle?: string;
+  pushNotificationContent?: string;
+};

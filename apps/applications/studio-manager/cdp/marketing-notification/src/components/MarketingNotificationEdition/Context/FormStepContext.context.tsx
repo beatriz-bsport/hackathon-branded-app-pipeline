@@ -1,6 +1,9 @@
 import React, { createContext, useContext, useState } from "react";
 
-import type { BookingTriggerConfigValidationFormData } from "#src/utils/schemas/types";
+import type {
+  BookingTriggerConfigValidationFormData,
+  NotificationContentFormData,
+} from "#src/utils/schemas/types";
 import type { SelectableNotificationType } from "#src/utils/types";
 
 type TriggerTypeStep = {
@@ -29,7 +32,7 @@ type PassesTriggerCondition = {
   type: "passes";
 };
 
-type TriggerConditionStep =
+export type TriggerConditionStepProps =
   | BookingTriggerCondition
   | AppointmentTriggerCondition
   | SubscriptionTriggerCondition
@@ -38,17 +41,17 @@ type TriggerConditionStep =
 
 type ContentStep = {
   type: "content";
-};
+} & NotificationContentFormData;
 
-type NotificationMultiStepFormState = {
+export type NotificationMultiStepFormState = {
   triggerType?: TriggerTypeStep;
-  triggerCondition?: TriggerConditionStep;
+  triggerCondition?: TriggerConditionStepProps;
   content?: ContentStep;
 };
 
 export type GetCurrentFormValues =
   | TriggerTypeStep
-  | TriggerConditionStep
+  | TriggerConditionStepProps
   | ContentStep;
 
 type FormStepContextType = {

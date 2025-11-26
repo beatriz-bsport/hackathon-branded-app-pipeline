@@ -9,6 +9,21 @@
       "notificationRules": "Set up automation",
       "content": "Choose channels"
     },
+    "content": {
+      "errors": {
+        "noEmailTemplate": "Select a template",
+        "noPushNotificationContent": "Fill in the push notification content",
+        "noContentKind": "Select at least 1 communication kind"
+      },
+      "selector": {
+        "emailTemplates": {
+          "label": "Select an email template",
+          "placeholder": "Select Email Template",
+          "loading": "Searching email templates...",
+          "noCategory": "No category"
+        }
+      }
+    },
     "triggerType": {
       "title": "Select which trigger type will start the automation",
       "notificationType": {

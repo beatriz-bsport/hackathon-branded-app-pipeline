@@ -25,10 +25,10 @@ export const InsightsPanel: FC = () => {
 
   return (
     <HomepageSection title={t("insightsPanel.title")}>
-      {/* Larger height for detailed insights panel - removed border for cleaner look */}
       <Dashboard
         errorMessage={t("insightsPanel.unavailable")}
-        iframeMinHeight={690}
+        iframeLoadingHeight={690}
+        iframeLoadingMobileHeight={2081}
         iframeTitle={t("insightsPanel.title")}
         iframeUrl={iframeUrl}
         isLoading={isLoading}

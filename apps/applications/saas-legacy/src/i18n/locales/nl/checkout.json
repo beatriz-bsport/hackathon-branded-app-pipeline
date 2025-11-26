@@ -59,7 +59,7 @@
       "hasReachedMaxUses": "Het gebruikslimiet van deze referral-link is bereikt.",
       "missingAmountBeforeApplication": "Je bent slechts {{ missingAmount }} van het minimum bestedingslimiet verwijderd om van je referral-link te kunnen genieten!"
     },
-    "expressCheckoutTitle": "Snel afrekenen"
+    "expressCheckoutTitle": "Carteras digitales"
   },
   "paymentIntent": {
     "isProcessing": "Laden..."

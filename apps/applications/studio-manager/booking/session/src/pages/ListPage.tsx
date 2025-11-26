@@ -71,9 +71,10 @@ const ListPage: React.FC = () => {
           date={date}
           sessions={sessions}
           isLoading={isLoading}
+          locale={intlLocale || "en-US"}
         />
       )),
-    [sessionsByDate, isLoading],
+    [sessionsByDate, isLoading, intlLocale],
   );
 
   return (

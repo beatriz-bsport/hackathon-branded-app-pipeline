@@ -10,13 +10,17 @@ type SessionDayProps = {
   date: string;
   sessions: EnrichedSession[];
   isLoading: boolean;
+  locale: string;
 };
 
 export const SessionDay: React.FC<SessionDayProps> = memo(
-  ({ date, sessions, isLoading }: SessionDayProps) => {
+  ({ date, sessions, isLoading, locale }: SessionDayProps) => {
+    const localizedDate = fromIsoString(date, {
+      locale: locale,
+    });
     return (
       <div>
-        <SessionDayTitle date={fromIsoString(date)} sessions={sessions} />
+        <SessionDayTitle date={localizedDate} sessions={sessions} />
         <SessionTable sessions={sessions} isLoading={isLoading} />
       </div>
     );

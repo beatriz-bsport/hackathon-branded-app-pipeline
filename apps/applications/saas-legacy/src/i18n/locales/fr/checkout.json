@@ -125,7 +125,8 @@
       "myPasses": "Mes cartes de cours",
       "backToMyProfile": "Retour à mon profil",
       "seeAllPasses": "Voir toutes les cartes de cours",
-      "bookAClass": "Réserver un cours"
+      "bookAClass": "Réserver un cours",
+      "payAmountNow": "Payer {{ amount }} maintenant"
     },
     "sections": {
       "explain": "Votre opération a bien été prise en compte. Nous vous enverrons un mail de confirmation.",

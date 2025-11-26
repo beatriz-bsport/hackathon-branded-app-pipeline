@@ -89,7 +89,8 @@
       "myPasses": "Meus Passes",
       "backToMyProfile": "Voltar ao meu perfil",
       "bookAClass": "Marcar uma aula",
-      "seeAllPasses": "Ver todos os passes"
+      "seeAllPasses": "Ver todos os passes",
+      "payAmountNow": "Pague {{ amount }} agora"
     },
     "sections": {
       "errorExplain": {

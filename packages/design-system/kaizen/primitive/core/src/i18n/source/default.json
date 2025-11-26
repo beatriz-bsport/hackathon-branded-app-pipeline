@@ -28,7 +28,17 @@
     "title": "We're sorry —",
     "description": "We've logged the issue and our team is working hard to resolve it.\nIn the meantime, try refreshing the page.",
     "subtitle": "something went wrong on our side.",
-    "actionLabel": "Try again"
+    "actionLabel": "Try again",
+    "crashReportModalToggle": "Send feedback"
+  },
+  "crashReportModal": {
+    "title": "Report this issue",
+    "feedbackContentPlaceholder": "Describe what you were doing when the error occurred so our team can resolve the issue.",
+    "confirmButtonLabel": "Send report",
+    "toast": {
+      "success": "Report sent successfully",
+      "failure": "An error occured when sending a Feedback"
+    }
   },
   "detailsLayout": {
     "confirmation": {
@@ -52,7 +62,8 @@
   "modal": {
     "back": "Back",
     "next": "Next",
-    "close": "Close"
+    "close": "Close",
+    "cancel": "Cancel"
   },
   "pagination": {
     "rows": "Rows",

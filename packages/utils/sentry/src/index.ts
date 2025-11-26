@@ -15,4 +15,5 @@ export {
   configureScope,
   getCurrentHub,
   startTransaction,
+  sendFeedback,
 } from "@sentry/react";

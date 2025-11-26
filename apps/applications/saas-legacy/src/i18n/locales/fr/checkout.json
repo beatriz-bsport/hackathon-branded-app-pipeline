@@ -87,7 +87,7 @@
       "hasReachedMaxUses": "Le nombre maximum d'utilisations du lien de parrainage a été atteint.",
       "missingAmountBeforeApplication": "Le montant minimum d'achat n'a pas été atteint. Vous risquez de perdre votre lien de parrainage. Il suffit de {{ missingAmount }} de plus pour pouvoir bénéficier de la réduction !"
     },
-    "expressCheckoutTitle": "Paiement express"
+    "expressCheckoutTitle": "Portefeuilles numériques"
   },
   "payLater": {
     "submit": "Payer sur place",

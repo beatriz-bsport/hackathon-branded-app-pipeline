@@ -184,7 +184,7 @@ const Autocomplete: React.FC<AutocompleteProps> = ({
 
       if (!multiSelect && clearOnSelect) {
         const singleValue = value || "";
-        (onSelect as (selectedItem: string) => void)?.(singleValue);
+        setSelectedValues([singleValue]);
         setSearchedValue("");
         setTextFieldValue("");
         setIsPopoverOpened(false);
@@ -373,9 +373,9 @@ const Autocomplete: React.FC<AutocompleteProps> = ({
                 <Menu
                   multiSelect={multiSelect}
                   items={flatMenuItems}
-                  onSelectOption={(value) =>
-                    handleSelect(value, setIsPopoverOpened)
-                  }
+                  onSelectOption={(value) => {
+                    handleSelect(value, setIsPopoverOpened);
+                  }}
                   selectedValues={selectedValues}
                 />
               );

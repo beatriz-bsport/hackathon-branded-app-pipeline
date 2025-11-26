@@ -1,12 +1,22 @@
 import { useCallback } from "react";
 
-import { fetchAllEmailTemplateSummariesAction } from "@bsport/store-cdp-email-template";
+import {
+  type FetchEmailTemplateSummaryParams,
+  fetchAllEmailTemplateSummariesAction,
+  fuzzySearchEmailTemplateAction,
+} from "@bsport/store-cdp-email-template";
 import { useAsync } from "@bsport/use-async";
 
 import { fetch } from "#src/utils/fetch";
 
 const fetchEmailTemplateSummariesBound =
   fetchAllEmailTemplateSummariesAction.bind(null, fetch);
+
+export type EmailTemplateSearchParams = {
+  page?: number;
+  page_size?: number;
+  id__in?: string;
+};
 
 /**
  * Hook for fetching email template summaries.
@@ -37,8 +47,23 @@ export function useFetchEmailTemplateSummaries() {
     [fetchEmailTemplateSummaries],
   );
 
+  const handleSearchEmailTemplates = useCallback(
+    async (query: string, params?: FetchEmailTemplateSummaryParams) => {
+      return await fuzzySearchEmailTemplateAction(fetch, {
+        queryString: query,
+        ...params,
+        is_default_bsport_template: false,
+        is_franchise: false,
+        page_size: 10,
+        page: 1,
+      });
+    },
+    [],
+  );
+
   return {
     handleFetchEmailTemplateSummaries,
+    handleSearchEmailTemplates,
     isEmailTemplateSummariesLoading: isLoading,
   };
 }

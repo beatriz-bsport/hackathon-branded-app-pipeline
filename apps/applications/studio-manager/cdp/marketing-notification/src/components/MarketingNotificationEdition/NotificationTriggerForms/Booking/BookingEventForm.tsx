@@ -155,7 +155,7 @@ export const BookingEventForm = ({
       </Title>
       <ControlledForm
         {...methods}
-        onSubmit={(data) => console.log("data for the booking form", data)}
+        onSubmit={() => {}}
         className="flex flex-col gap-sm"
       >
         <BookingNotificationTriggerField setFormValue={setFormValue} />

@@ -23,9 +23,12 @@ export type TagsMap = Map<number, TagConfig>;
 export type ItemSharedProps = {
   navigate?: (to: string) => void;
   tagsTooltip: string;
+  copyEmailLabel: string;
+  copyPhoneLabel: string;
   toastPhoneCopied: string;
   toastEmailCopied: string;
   tagsMap: TagsMap;
+  isMobile?: boolean;
 };
 
 export type ListItemProps = FormattedMember & ItemSharedProps;

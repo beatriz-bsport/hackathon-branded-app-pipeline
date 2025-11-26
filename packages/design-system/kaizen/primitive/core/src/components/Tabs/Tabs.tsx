@@ -149,19 +149,37 @@ const Tabs: React.FC<TabsProps> & { Item: typeof TabsItem } = ({
       };
 
     tabsItems = tabs.map(
-      ({ id, icon, disabled, isActive, label, onClick, ...otherProps }) => (
-        <a key={id} {...otherProps}>
-          <TabsItem
-            id={id}
-            icon={icon}
-            disabled={disabled}
-            isActive={isActive ?? id === currentActiveTab}
-            label={label}
-            orientation={orientation}
-            onClick={getHandleTabClick({ id, disabled, onClick })}
-          />
-        </a>
-      ),
+      ({ id, icon, disabled, isActive, label, onClick, ...otherProps }) => {
+        // In responsive mode, don't wrap in anchor or provide onClick
+        // DropdownMenu.Item handles its own selection through context
+        if (shouldUseResponsive) {
+          return (
+            <TabsItem
+              key={id}
+              id={id}
+              icon={icon}
+              disabled={disabled}
+              isActive={isActive ?? id === currentActiveTab}
+              label={label}
+              orientation={orientation}
+            />
+          );
+        }
+
+        return (
+          <a key={id} {...otherProps}>
+            <TabsItem
+              id={id}
+              icon={icon}
+              disabled={disabled}
+              isActive={isActive ?? id === currentActiveTab}
+              label={label}
+              orientation={orientation}
+              onClick={getHandleTabClick({ id, disabled, onClick })}
+            />
+          </a>
+        );
+      },
     );
   }
 

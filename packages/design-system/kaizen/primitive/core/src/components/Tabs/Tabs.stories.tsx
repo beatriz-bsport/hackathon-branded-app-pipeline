@@ -174,3 +174,31 @@ export const TabsWithDisabledResponsive: Story = {
     },
   },
 };
+
+export const TabsResponsiveManagedState: Story = {
+  name: "Tabs responsive with managed state (mobile test)",
+  args: {
+    tabs,
+    orientation: "horizontal",
+  },
+  parameters: {
+    viewport: {
+      defaultViewport: "mobile1",
+    },
+    docs: {
+      description: {
+        story:
+          "Test case for mobile responsive behavior with controlled state. This story should properly update the selected tab in the dropdown when clicked.",
+      },
+    },
+  },
+  render: (args) => {
+    const [selectedTab, setSelectedTab] = useState("tab-2");
+    return (
+      <div>
+        <p className="mb-4 text-sm">Current tab: {selectedTab}</p>
+        <Tabs {...args} value={selectedTab} onValueChange={setSelectedTab} />
+      </div>
+    );
+  },
+};

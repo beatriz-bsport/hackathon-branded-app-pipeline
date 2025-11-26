@@ -7,7 +7,7 @@
       "loading": "Loading...",
       "onboarding": {
         "agreement_created": "Social Collaboration Agreement created",
-        "agreement_error": "Failed to create Social Collaboration Agreement"
+        "agreement_error": "Couldn't create Social Collaboration Agreement. Please try again. "
       },
       "signed_agreement": {
         "details_title": "Details of representative",
@@ -27,7 +27,7 @@
         "upload_info": "Upload signed PDF to continue",
         "send_document": "Send document",
         "upload_success": "Signed agreement uploaded successfully",
-        "upload_error": "Failed to upload signed agreement"
+        "upload_error": "Couldn't upload signed agreement. Please try again. "
       },
       "form": {
         "sectionTitle": "Details of representative",
@@ -44,7 +44,7 @@
         "country": "Country",
         "save_for_later": "Save for later",
         "save_for_later_success": "Representative details saved successfully",
-        "representative_error": "Failed to save representative details",
+        "representative_error": "Could't save representative details. Please try again. ",
         "create_agreement": "Create agreement",
         "chips": {
           "vat_id_validated": "VAT ID validated",
@@ -64,7 +64,7 @@
           "vat_and_address_required": "VAT ID & Business address required",
           "vat_description": "Add your VAT ID in Settings -> Company to set up VERI*FACTU",
           "address_description": "Provide your business address as part of the Stripe onboarding to set up VERI*FACTU",
-          "vat_and_address_description": "Add your VAT ID in Settings > Company and complete your Stripe onboarding to provide your business address. Both are required by Spanish tax authorities before setting up VERI*FACTU.",
+          "vat_and_address_description": "Add your VAT ID in Settings -> Company and complete your Stripe onboarding to provide your business address. Both are required by Spanish tax authorities before setting up VERI*FACTU.",
           "go_to_settings": "Go to Settings",
           "complete_stripe_onboarding": "Complete Stripe onboarding",
           "legal_identifier_required": "Invoice identifiers required",

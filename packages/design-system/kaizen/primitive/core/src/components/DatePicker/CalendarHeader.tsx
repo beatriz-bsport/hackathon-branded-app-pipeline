@@ -16,7 +16,6 @@ type CalendarHeaderProps = {
   mode: "single" | "range";
   years?: number[];
   onSelect: (date: Date) => void;
-  locale?: string;
 };
 
 const CalendarHeader: React.FC<CalendarHeaderProps> = ({
@@ -24,7 +23,6 @@ const CalendarHeader: React.FC<CalendarHeaderProps> = ({
   mode,
   years,
   onSelect,
-  locale = "en",
 }) => {
   const i18nInstance = useKaizenI18nInstance();
   const { t } = useTranslation("default", { i18n: i18nInstance });
@@ -57,7 +55,10 @@ const CalendarHeader: React.FC<CalendarHeaderProps> = ({
       (_, i) => currentYear - YEARS_OFFSET + i,
     );
 
-  const months = useMemo(() => getMonths("long", locale), [locale]);
+  const months = useMemo(
+    () => getMonths("long", i18nInstance?.language),
+    [i18nInstance?.language],
+  );
 
   const selectLabel = useMemo(() => {
     const month = months[displayMonth.getMonth()];

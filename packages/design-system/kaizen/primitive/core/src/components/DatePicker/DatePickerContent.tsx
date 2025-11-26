@@ -1,8 +1,6 @@
 import { cx } from "class-variance-authority";
 import React from "react";
 
-import type { WeekStartDay } from "@bsport/datetime-manipulation";
-
 import Divider from "#src/components/Divider";
 
 import CalendarRange from "./CalendarRange";
@@ -15,7 +13,6 @@ export type DatePickerContentProps = React.HTMLAttributes<HTMLDivElement> & {
   id: string;
   mode: "single" | "range";
   displayAs: "popover" | "modal";
-  weekStartDay: WeekStartDay;
   calendarYears?: number[];
   disableDate?: (date: Date) => boolean;
   sanitizedSelected: SelectedDate;
@@ -31,7 +28,6 @@ const DatePickerContent: React.FC<DatePickerContentProps> = ({
   id,
   mode,
   displayAs,
-  weekStartDay,
   calendarYears,
   disableDate,
   sanitizedSelected,
@@ -51,7 +47,6 @@ const DatePickerContent: React.FC<DatePickerContentProps> = ({
         {mode === "single" ? (
           <CalendarSingle
             id={id}
-            weekStartDay={weekStartDay}
             years={calendarYears}
             disableDate={disableDate}
             selectedDate={sanitizedSelected as Date}
@@ -61,7 +56,6 @@ const DatePickerContent: React.FC<DatePickerContentProps> = ({
         ) : (
           <CalendarRange
             id={id}
-            weekStartDay={weekStartDay}
             years={calendarYears}
             disableDate={disableDate}
             selectedDate={sanitizedSelected as [Date, Date]}

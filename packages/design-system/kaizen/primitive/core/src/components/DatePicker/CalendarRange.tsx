@@ -1,9 +1,6 @@
 import React, { useState } from "react";
 
-import {
-  type WeekStartDay,
-  getIsoDateString,
-} from "@bsport/datetime-manipulation";
+import { getIsoDateString } from "@bsport/datetime-manipulation";
 
 import Divider from "#src/components/Divider";
 import TextField from "#src/components/TextField";
@@ -14,7 +11,6 @@ import Month from "./Month";
 
 type CalendarRangeProps = {
   id: string;
-  weekStartDay: WeekStartDay;
   years?: number[];
   disableDate?: (date: Date) => boolean;
   selectedDate: [Date | null, Date | null] | null;
@@ -24,7 +20,6 @@ type CalendarRangeProps = {
 
 const CalendarRange: React.FC<CalendarRangeProps> = ({
   id,
-  weekStartDay,
   disableDate,
   years,
   selectedDate,
@@ -131,7 +126,6 @@ const CalendarRange: React.FC<CalendarRangeProps> = ({
           displayMonth={displayMonth}
           selectedDate={selectedDate}
           onSelect={handleDateSelect}
-          weekStartDay={weekStartDay}
           disableDate={disableDate}
         />
         <Divider orientation="vertical" weight="thin" />
@@ -141,7 +135,6 @@ const CalendarRange: React.FC<CalendarRangeProps> = ({
           }
           selectedDate={selectedDate}
           onSelect={handleDateSelect}
-          weekStartDay={weekStartDay}
           disableDate={disableDate}
         />
       </div>

@@ -1,8 +1,8 @@
 import React, { useMemo } from "react";
 
 import {
-  type WeekStartDay,
   generateCalendarDays,
+  getWeekStartDayFromLocale,
   getWeekdays,
   isSameDay,
   toDate,
@@ -19,7 +19,6 @@ type MonthProps = {
   displayMonth: Date;
   onSelect?: (date: Date) => void;
   selectedDate: SelectedDate;
-  weekStartDay: WeekStartDay;
 };
 
 const Month: React.FC<MonthProps> = ({
@@ -27,14 +26,16 @@ const Month: React.FC<MonthProps> = ({
   displayMonth,
   onSelect,
   selectedDate,
-  weekStartDay,
 }) => {
   const i18nInstance = useKaizenI18nInstance();
   const weekdays = useMemo(
-    () => getWeekdays("short", weekStartDay, i18nInstance?.language),
-    [weekStartDay, i18nInstance?.language],
+    () => getWeekdays("short", i18nInstance?.language || "en-US"),
+    [i18nInstance?.language],
   );
   const displayDateTime = toDateTime(displayMonth);
+  const weekStartDay = getWeekStartDayFromLocale(
+    i18nInstance?.language || "en-US",
+  );
   const calendarDays = useMemo(
     () => generateCalendarDays(displayDateTime, weekStartDay),
     [displayDateTime, weekStartDay],

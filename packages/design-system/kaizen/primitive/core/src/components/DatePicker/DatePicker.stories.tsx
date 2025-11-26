@@ -24,7 +24,6 @@ const meta: Meta<typeof DatePicker> = {
     onConfirm: { table: { type: { summary: "function" } } },
     onClose: { table: { type: { summary: "function" } } },
     onSelect: { table: { type: { summary: "function" } } },
-    weekStartDay: { control: { type: "number", min: 0, max: 6 } },
     calendarYears: { control: "object" },
     disableDate: { table: { type: { summary: "function" } } },
     shortcuts: { control: "object" },
@@ -116,7 +115,6 @@ export const DatePickerModal: Story = {
     id: "datepicker-1",
     mode: "single",
     displayAs: "modal",
-    weekStartDay: 1,
     shortcuts,
   },
 };
@@ -159,7 +157,6 @@ export const DatePickerModalWithDisabledPastDates: Story = {
     id: "datepicker-2",
     mode: "single",
     displayAs: "modal",
-    weekStartDay: 1,
     disableDate: (date: Date) => date < new Date(),
     shortcuts,
   },
@@ -201,7 +198,6 @@ export const DatePickerModalWithNoShortcuts: Story = {
     id: "datepicker-3",
     mode: "single",
     displayAs: "modal",
-    weekStartDay: 1,
     shortcuts: [],
   },
 };
@@ -244,7 +240,6 @@ export const DatePickerRangeWithShortcuts: Story = {
     id: "datepicker-4",
     mode: "range",
     displayAs: "modal",
-    weekStartDay: 1,
     shortcuts: [
       {
         label: "This Weekend",
@@ -296,7 +291,6 @@ export const DatePickerInputPopover: Story = {
     mode: "single",
     displayAs: "popover",
     isInputField: true,
-    weekStartDay: 1,
     shortcuts,
   },
 };
@@ -313,7 +307,6 @@ export const DatePickerPopover: Story = {
     id: "datepicker-5",
     mode: "single",
     displayAs: "popover",
-    weekStartDay: 1,
     shortcuts,
     defaultValue: new Date(),
   },
@@ -330,7 +323,6 @@ export const DatePickerPopoverRange: Story = {
     id: "datepicker-6",
     mode: "range",
     displayAs: "popover",
-    weekStartDay: 1,
     shortcuts,
   },
 };
@@ -347,7 +339,6 @@ export const DatePickerWithCustomRangeOfYears: Story = {
     id: "datepicker-7",
     mode: "single",
     displayAs: "popover",
-    weekStartDay: 1,
     calendarYears: Array.from(
       { length: 50 },
       (_, i) => new Date().getFullYear() - 50 + i,

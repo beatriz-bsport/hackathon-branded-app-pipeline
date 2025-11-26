@@ -1,0 +1,10 @@
+# Common base configuration for all deployment jobs
+# This job should be extended by specific deployment jobs
+
+.Deploy Common Base:
+  before_script: !reference [.pnpm-setup, before_script]
+  tags:
+    - build-frontend
+    - cluster:bsport-tooling
+  variables:
+    VITE_RELEASE_SHA: $CI_COMMIT_SHORT_SHA

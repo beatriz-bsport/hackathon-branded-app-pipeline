@@ -9,25 +9,23 @@ import { URLS } from "#src/urls";
 import { fetch } from "#src/utils/fetch";
 import { useTranslation } from "#src/utils/i18n";
 
+const fetchPackBound = fetchPackAction.bind(null, fetch);
+
 export const useFetchPack = ({
   id,
   onSuccess,
 }: {
   id?: number;
-  onSuccess: (pack: Pack) => void;
+  onSuccess?: (pack: Pack) => void;
 }) => {
   const { t } = useTranslation("details");
 
-  const _handleFetchPack = async (id: number) => {
-    return fetchPackAction(fetch, { id });
-  };
-
   const navigate = useNavigate();
 
-  const [{ isLoading }, fetchPack] = useAsync<typeof _handleFetchPack>({
-    asyncFn: _handleFetchPack,
+  const [{ isLoading }, fetchPack] = useAsync<typeof fetchPackBound>({
+    asyncFn: fetchPackBound,
     onSuccess: ({ value }) => {
-      onSuccess(value);
+      onSuccess?.(value);
     },
     onFailure: () => {
       toast({
@@ -42,7 +40,7 @@ export const useFetchPack = ({
 
   useEffect(() => {
     if (id) {
-      fetchPack(id);
+      fetchPack({ id });
     }
   }, [id, fetchPack]);
 

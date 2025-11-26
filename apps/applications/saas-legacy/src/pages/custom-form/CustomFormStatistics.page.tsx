@@ -13,7 +13,7 @@ import {
 } from '#src/libs/custom-form/selectors';
 import {
   fetchCustomForm,
-  fetchAllCustomFormStatistics,
+  fetchCustomFormStatistics,
 } from '#src/libs/custom-form/actions';
 import { fetchMemberList as fetchMemberListAPI } from '#src/libs/member/api';
 import BackofficeLinearProgress from '#src/components/navigation/BackofficeLinearProgress.component';
@@ -89,7 +89,7 @@ const mapStateToProps = (state: RootState, { id }: { id: number }) => ({
 const mapDispatchToProps = {
   goToMemberPage: (id: number) => push(`/member/${id}/`),
   fetchCustomFormAction: fetchCustomForm,
-  fetchAllCustomFormStatistics,
+  fetchCustomFormStatistics,
 };
 
 const mapWithHandlers = {
@@ -97,7 +97,7 @@ const mapWithHandlers = {
     props.fetchCustomFormAction({
       customFormId: props.id,
       options: {
-        onSuccess: () => props.fetchAllCustomFormStatistics(),
+        onSuccess: () => props.fetchCustomFormStatistics(props.id),
       },
     });
   },

@@ -182,8 +182,13 @@ export async function submitDraftCustomForm({
     { custom_form_id },
   );
 }
-export async function fetchAllCustomFormStatistics() {
-  return getAuth(`${API_V1_URI}/custom_form/custom_form_statistics/`);
+
+export async function fetchCustomFormStatistics({
+  formId,
+}: {
+  formId: number;
+}) {
+  return getAuth(`${API_V1_URI}/custom_form/custom_form_statistics/${formId}/`);
 }
 
 export async function fetchAllCustomFormAutDisplayRules(companyId: number) {

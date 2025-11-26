@@ -13,12 +13,11 @@ const defaultClasses = [
   "h-xl min-h-xl w-full",
   "rounded-md",
   "p-xs",
-  "justify-between",
   "cursor-pointer",
   "border-none outline-none",
   "transition ease-out duration-default",
   // Flex config
-  "flex flex-row items-center justify-start",
+  "flex flex-row items-center justify-between",
   // States
   "hover:bg-surface-action-default-weak-hovered",
   "focus-visible:bg-surface-action-default-weak-hovered",

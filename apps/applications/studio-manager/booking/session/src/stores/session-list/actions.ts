@@ -100,7 +100,7 @@ export const fetchSessionsAction: Action<
         sessions,
       });
 
-      return data;
+      return { results: sessions };
     },
     (error) =>
       createErrorWithContext(error, {

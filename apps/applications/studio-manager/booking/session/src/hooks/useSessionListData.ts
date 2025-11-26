@@ -52,7 +52,7 @@ export const useSessionListData = (
     asyncFn: _fetchSessions,
     dependencies: [_fetchSessions],
     onSuccess: ({ value }) => {
-      const sessions = Array.isArray(value) ? value : value.results;
+      const sessions = value.results;
 
       // Retrieve teacher and establishment ids to fetch related data
       const teacherIds = new Set<number>();

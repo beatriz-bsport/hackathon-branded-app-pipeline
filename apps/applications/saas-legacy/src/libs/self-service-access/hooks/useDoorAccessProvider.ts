@@ -34,9 +34,9 @@ export const useDoorAccessProvider = (
           setError(true);
           dispatch(
             snackbarError(
-              i18next.t(
-                'consumerSpace:reworked.selfServiceAccess.error.fetchProvider',
-              ),
+              i18next.t('openDoorButton.error.fetchProvider', {
+                ns: 'b2c_accessControl',
+              }),
             ),
           );
         }

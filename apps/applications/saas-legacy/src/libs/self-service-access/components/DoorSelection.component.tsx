@@ -58,7 +58,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function DoorSelection({ companyId, userLocation }: Props) {
-  const { t } = useTranslation(['consumerSpace']);
+  const { t } = useTranslation(['b2c_accessControl']);
   const classes = useStyles();
   const { doors, loading: loadingDoors } = useFetchDoors(
     companyId,
@@ -89,10 +89,8 @@ export default function DoorSelection({ companyId, userLocation }: Props) {
       <div className={classes.loadingContainer}>
         <CircularProgress />
         <Typography align="center" variant="body-md">
-          {loadingDoors &&
-            t('consumerSpace:reworked.selfServiceAccess.loading.doors')}
-          {loadingUnlock &&
-            t('consumerSpace:reworked.selfServiceAccess.loading.unlock')}
+          {loadingDoors && t('openDoorButton.loading.doors')}
+          {loadingUnlock && t('openDoorButton.loading.unlock')}
         </Typography>
       </div>
     );
@@ -103,7 +101,7 @@ export default function DoorSelection({ companyId, userLocation }: Props) {
       <div className={classes.statusArea}>
         <ValidationIcon />
         <Typography align="center" color="success" variant="body-lg">
-          {t('consumerSpace:reworked.selfServiceAccess.status.success')}
+          {t('openDoorButton.status.success')}
         </Typography>
       </div>
     );
@@ -124,12 +122,10 @@ export default function DoorSelection({ companyId, userLocation }: Props) {
     return (
       <div className={classes.statusArea}>
         <Typography align="center" variant="title-md">
-          {t('consumerSpace:reworked.selfServiceAccess.status.noDoors.title')}
+          {t('openDoorButton.status.noDoors.title')}
         </Typography>
         <Typography align="center" variant="body-md">
-          {t(
-            'consumerSpace:reworked.selfServiceAccess.status.noDoors.description',
-          )}
+          {t('openDoorButton.status.noDoors.description')}
         </Typography>
       </div>
     );
@@ -158,7 +154,7 @@ export default function DoorSelection({ companyId, userLocation }: Props) {
           onClick={handleUnlock}
           size="lg"
         >
-          {t('consumerSpace:reworked.selfServiceAccess.button.unlockDoor')}
+          {t('openDoorButton.button.unlockDoor')}
         </Button>
       </div>
     </div>

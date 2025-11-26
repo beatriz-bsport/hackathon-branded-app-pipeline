@@ -23,7 +23,7 @@ const useStyles = makeStyles({
 });
 
 export default function DoorAccessButton({ companyId }: Props) {
-  const { t } = useTranslation(['consumerSpace']);
+  const { t } = useTranslation(['b2c_accessControl']);
   const classes = useStyles();
   const { error, loading, isAvailable } = useDoorAccessProvider(companyId);
   const [isOpen, setIsOpen] = useState(false);
@@ -43,7 +43,7 @@ export default function DoorAccessButton({ companyId }: Props) {
         onClick={() => setIsOpen(true)}
         size="md"
       >
-        {t('consumerSpace:reworked.selfServiceAccess.button.openDoor')}
+        {t('openDoorButton.button.openDoor')}
       </Button>
       {isOpen && (
         <DoorAccessModal

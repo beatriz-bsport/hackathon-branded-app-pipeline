@@ -119,7 +119,7 @@
     "debug": "Debug (cimode)"
   },
   "notifications": {
-    "title": "Feed",
+    "title": "Notification Center",
     "empty": {
       "title": "You're all caught up",
       "description": "Nothing to show right now"

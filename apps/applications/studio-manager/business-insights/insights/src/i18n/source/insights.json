@@ -26,8 +26,8 @@
     }
   },
   "errors": {
-    "loadDashboard": "Unable to load dashboard - please refresh page",
-    "fetchFailed": "Failed to load dashboard - please refresh page"
+    "loadDashboard": "Couldn't load dashboard. Please refresh page.",
+    "fetchFailed": "Couldn't load dashboard. Please refresh page."
   },
   "filter": {
     "selectFieldLabel": "Filter by section",

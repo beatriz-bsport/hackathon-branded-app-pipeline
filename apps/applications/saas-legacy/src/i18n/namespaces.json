@@ -7,6 +7,7 @@
   "b2b_invoice",
   "b2b_settings",
   "b2b_privateService",
+  "b2c_accessControl",
   "b2c_giftcard",
   "booking",
   "campaign",

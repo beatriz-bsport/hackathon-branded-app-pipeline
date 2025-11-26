@@ -35,9 +35,9 @@ export default function useUnlockDoor(companyId: number): UseUnlockDoorReturn {
           success: false,
           error:
             doorUnlockOutput.message ||
-            i18next.t(
-              'consumerSpace:reworked.selfServiceAccess.error.failedToUnlock',
-            ),
+            i18next.t('openDoorButton.error.failedToUnlock', {
+              ns: 'b2c_accessControl',
+            }),
           loading: false,
         });
         return null;
@@ -49,9 +49,9 @@ export default function useUnlockDoor(companyId: number): UseUnlockDoorReturn {
       const errorMessage =
         err?.response?.data?.message ||
         err?.message ||
-        i18next.t(
-          'consumerSpace:reworked.selfServiceAccess.error.unknownError',
-        );
+        i18next.t('openDoorButton.error.unknownError', {
+          ns: 'b2c_accessControl',
+        });
       setState({ success: false, error: errorMessage, loading: false });
       return null;
     }

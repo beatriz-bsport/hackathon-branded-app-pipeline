@@ -44,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const DoorAccessModalWrapper = ({ children, onClose }: WrapperProps) => {
-  const { t } = useTranslation(['consumerSpace']);
+  const { t } = useTranslation(['b2c_accessControl']);
   const classes = useStyles();
 
   return (
@@ -53,7 +53,7 @@ const DoorAccessModalWrapper = ({ children, onClose }: WrapperProps) => {
         <ModalDialog
           className={classes.modal}
           onClose={onClose}
-          title={t('consumerSpace:reworked.selfServiceAccess.modal.title')}
+          title={t('openDoorButton.modal.title')}
         >
           {children}
         </ModalDialog>
@@ -63,7 +63,7 @@ const DoorAccessModalWrapper = ({ children, onClose }: WrapperProps) => {
 };
 
 const DoorAccessModalContent = ({ companyId }: Pick<Props, 'companyId'>) => {
-  const { t } = useTranslation(['consumerSpace']);
+  const { t } = useTranslation(['b2c_accessControl']);
   const classes = useStyles();
   const { loading, error, userLocation } = useGeolocation();
 
@@ -72,7 +72,7 @@ const DoorAccessModalContent = ({ companyId }: Pick<Props, 'companyId'>) => {
       <div className={classes.loadingContainer}>
         <CircularProgress />
         <Typography align="center" variant="body-md">
-          {t('consumerSpace:reworked.selfServiceAccess.loading.geolocation')}
+          {t('openDoorButton.loading.geolocation')}
         </Typography>
       </div>
     );

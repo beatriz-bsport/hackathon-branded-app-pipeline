@@ -17,22 +17,22 @@ function geoLocationErrorCodeToMessage(
 ): string {
   switch (errorCode) {
     case GeolocationErrorCode.PERMISSION_DENIED:
-      return i18next.t(
-        'consumerSpace:reworked.selfServiceAccess.error.permissionDenied',
-      );
+      return i18next.t('openDoorButton.error.permissionDenied', {
+        ns: 'b2c_accessControl',
+      });
     case GeolocationErrorCode.POSITION_UNAVAILABLE:
-      return i18next.t(
-        'consumerSpace:reworked.selfServiceAccess.error.positionUnavailable',
-      );
+      return i18next.t('openDoorButton.error.positionUnavailable', {
+        ns: 'b2c_accessControl',
+      });
     case GeolocationErrorCode.TIMEOUT:
-      return i18next.t(
-        'consumerSpace:reworked.selfServiceAccess.error.timeout',
-      );
+      return i18next.t('openDoorButton.error.timeout', {
+        ns: 'b2c_accessControl',
+      });
     case GeolocationErrorCode.NOT_SUPPORTED:
     default:
-      return i18next.t(
-        'consumerSpace:reworked.selfServiceAccess.error.geolocationNotSupported',
-      );
+      return i18next.t('openDoorButton.error.geolocationNotSupported', {
+        ns: 'b2c_accessControl',
+      });
   }
 }
 
@@ -47,9 +47,9 @@ export const useGeolocation = (): UseGeolocationReturn => {
     if (!navigator.geolocation) {
       setError({
         code: GeolocationErrorCode.NOT_SUPPORTED,
-        message: i18next.t(
-          'consumerSpace:reworked.selfServiceAccess.error.geolocationNotSupported',
-        ),
+        message: i18next.t('openDoorButton.error.geolocationNotSupported', {
+          ns: 'b2c_accessControl',
+        }),
       });
       setLoading(false);
       return;

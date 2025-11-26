@@ -25,9 +25,9 @@ export const useFetchDoors = (
         const response = await fetchDoorsNearby(companyId, userLocation);
         setDoors(response.data.doors);
       } catch (_) {
-        const errorMessage = i18next.t(
-          'consumerSpace:reworked.selfServiceAccess.error.fetchDoors',
-        );
+        const errorMessage = i18next.t('openDoorButton.error.fetchDoors', {
+          ns: 'b2c_accessControl',
+        });
         setError(errorMessage);
       } finally {
         setLoading(false);

@@ -6,6 +6,7 @@ import {
   Modal,
   Popover,
   TextField,
+  useMatchMedia,
 } from "@bsport/kaizen-primitive-core";
 import {
   selectSearchedMembers,
@@ -81,6 +82,8 @@ export const SearchMemberModal: React.FC<SearchMemberModalProps> = ({
 
   const textFieldId = useId();
 
+  const isMobile = !useMatchMedia("sm");
+
   const navigateInLegacy = navigate
     ? (to: string) => {
         handleClose();
@@ -137,25 +140,39 @@ export const SearchMemberModal: React.FC<SearchMemberModalProps> = ({
                     navigate: navigateInLegacy,
                     ...listItemTranslations,
                     tagsMap,
+                    isMobile,
                   }))}
                   isCompact
                 />
               )}
             </Popover.Content>
           </Popover>
-          <Button
-            iconLeft="plus"
-            intent="default"
-            color="main"
-            size="md"
-            label={t("searchMembers.addMember")}
-            onClick={onAddMemberClick}
-          />
+          {isMobile ? (
+            <Button
+              kind="icon-button"
+              icon="plus"
+              intent="default"
+              color="main"
+              size="md"
+              label={t("searchMembers.addMember")}
+              onClick={onAddMemberClick}
+            />
+          ) : (
+            <Button
+              iconLeft="plus"
+              intent="default"
+              color="main"
+              size="md"
+              label={t("searchMembers.addMember")}
+              onClick={onAddMemberClick}
+            />
+          )}
         </div>
         <SearchMemberList
           searchInput={debouncedInput}
           navigate={navigateInLegacy}
           tagsMap={tagsMap}
+          isMobile={isMobile}
         />
       </>
     </Modal>

@@ -5,6 +5,7 @@ import {
 } from "@bsport/store-core-data-company";
 import {
   selectCompanyTheme,
+  updateCompanyThemeAction,
   useCompanyThemeStore,
 } from "@bsport/store-core-data-company-theme";
 import {
@@ -40,4 +41,5 @@ export const dataAccessLayer = {
   useUserAccess,
   useUserRole,
   useCompanyRoles,
+  updateCompanyThemeAction,
 };

@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react";
-
+import { getCurrencyCode } from "@bsport/currency";
 import type { BadgeProps } from "@bsport/kaizen-primitive-core";
 import { dataAccessLayer } from "@bsport/sm-backbone";
 
@@ -8,11 +7,10 @@ import { useTranslation } from "#src/utils/i18n";
 export const useCompanyData = () => {
   const { t } = useTranslation("settings");
   const companyTheme = dataAccessLayer.useCompanyTheme();
-  const [isReferralProgramActivated, setIsReferralProgramActivated] = useState<
-    boolean | null
-  >(null);
-  const [companyId, setCompanyId] = useState<number | null>(null);
-  const [companyCurrency, setCompanyCurrency] = useState<string | null>(null);
+  const companyCurrency = getCurrencyCode()?.toUpperCase() ?? "";
+  const companyId = companyTheme?.company;
+  const isReferralProgramActivated =
+    companyTheme?.is_referral_program_activated;
 
   const headerBadgeConfiguration: BadgeProps = {
     text: isReferralProgramActivated
@@ -22,21 +20,10 @@ export const useCompanyData = () => {
     size: "sm",
   };
 
-  useEffect(() => {
-    if (companyTheme) {
-      setIsReferralProgramActivated(
-        companyTheme?.is_referral_program_activated ?? null,
-      );
-      setCompanyId(companyTheme?.company ?? null);
-      setCompanyCurrency(companyTheme?.currency?.toUpperCase() ?? null);
-    }
-  }, [companyTheme]);
-
   return {
     companyCurrency,
     companyId,
     isReferralProgramActivated,
     headerBadgeConfiguration,
-    setIsReferralProgramActivated,
   };
 };

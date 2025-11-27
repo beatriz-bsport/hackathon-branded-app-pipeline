@@ -16,15 +16,15 @@
       "success": "Door unlocked!",
       "noDoors": {
         "title": "No doors available.",
-        "description": "We couldn't find any doors near your position. Try to move closer to a door."
+        "description": "We couldn't find any nearby doors. Try moving closer to a door that has Access Control enabled. "
       }
     },
     "error": {
-      "failedToUnlock": "Failed to unlock the door",
-      "fetchProvider": "Failed to check door access availability",
-      "fetchDoors": "Failed to fetch doors",
+      "failedToUnlock": "Couldn't unlock door. Please try again. ",
+      "fetchProvider": "Couldn't check door access availability. Please try again. ",
+      "fetchDoors": "Couldn't fetch doors. Please try again. ",
       "geolocationNotSupported": "Geolocation is not supported by your browser.",
-      "permissionDenied": "Geolocation permission has been denied, please update your device settings.",
+      "permissionDenied": "Geolocation permission has been denied. Please update your device settings.",
       "positionUnavailable": "Geolocation position is not available.",
       "timeout": "Geolocation timed out. Please try again later.",
       "unknownError": "Unknown error occurred"

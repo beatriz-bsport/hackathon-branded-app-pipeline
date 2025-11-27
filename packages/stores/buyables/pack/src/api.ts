@@ -7,6 +7,7 @@ import {
 import type { PackFormData, PackFormEditData } from "./types";
 
 const API_URL = "buyable/v1/payment_combo";
+const API_URL_PURCHASE = "buyable/v1/payment_combo_purchase";
 
 function getUrlParams(params: URLParams) {
   const { archived, ...otherParams } = params;
@@ -82,5 +83,24 @@ export const updatePackAPI = (data: PackFormEditData): ApiConfig => {
       method: "PUT",
       body: JSON.stringify(data),
     },
+  ];
+};
+
+export type FetchPurchasedPacksParams = {
+  packId: number;
+
+  /** Page number of the results (for pagination). */
+  page: number;
+
+  /** Number of items per page (for pagination). */
+  page_size: number;
+};
+
+export const fetchPurchasedPacksAPI = (
+  params: FetchPurchasedPacksParams,
+): ApiConfig => {
+  const { packId, ...paginationParams } = params;
+  return [
+    `${API_URL_PURCHASE}/${getUrlParams({ payment_combo: packId, ...paginationParams })}`,
   ];
 };

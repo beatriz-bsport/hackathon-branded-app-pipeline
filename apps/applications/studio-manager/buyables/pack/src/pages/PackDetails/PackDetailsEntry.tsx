@@ -30,9 +30,11 @@ export const PackDetailsEntry: FC = () => {
 
   const pack = usePackStore((state) => selectPack(state, validId));
 
+  if (pack) {
+    return <PackDetailsPage pack={pack} />;
+  }
+
   if (isLoading || !pack) {
     return <PackDetailsLoading />;
   }
-
-  return <PackDetailsPage pack={pack} />;
 };

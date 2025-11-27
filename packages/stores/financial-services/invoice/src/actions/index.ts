@@ -1,6 +1,7 @@
 import { Result } from "typescript-result";
 
 import type { Action, PaginatedResponse } from "@bsport/store-base";
+import { createErrorWithContext } from "@bsport/store-base";
 
 import {
   setInvoices,
@@ -8,11 +9,12 @@ import {
   updateReceiptUrl,
 } from "#src/actions/store";
 import {
+  fetchInvoiceByInvoiceItemAPI,
   fetchInvoicesAPI,
   finalizeInvoiceAPI,
   getReceiptUrlAPI,
 } from "#src/api";
-import type { Invoice } from "#src/types";
+import type { FetchInvoiceByInvoiceItemParams, Invoice } from "#src/types";
 
 /**
  * Fetches a list of paginated invoices.
@@ -99,5 +101,27 @@ export const getReceiptUrlAction: Action<string, string> = async (
       return data;
     },
     (error) => new Error("Failed to generate receipt URL", { cause: error }),
+  );
+};
+
+export const fetchInvoiceByInvoiceItemAction: Action<
+  FetchInvoiceByInvoiceItemParams,
+  Invoice
+> = async (fetch, params) => {
+  const [uri, init] = fetchInvoiceByInvoiceItemAPI(params);
+
+  return Result.try(
+    async () => {
+      const { data } = await fetch(uri, init);
+
+      updateInvoice(data);
+
+      return data;
+    },
+    (error) =>
+      createErrorWithContext(error, {
+        message: "Failed to fetch invoice by its items",
+        params,
+      }),
   );
 };

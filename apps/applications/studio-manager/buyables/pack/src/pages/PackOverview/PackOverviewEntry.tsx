@@ -17,9 +17,11 @@ export const PackOverviewEntry: FC = () => {
 
   const pack = usePackStore((state) => selectPack(state, validId));
 
+  if (pack) {
+    return <PackOverviewPage pack={pack} />;
+  }
+
   if (isLoading || !pack) {
     return <PackDetailsLoading />;
   }
-
-  return <PackOverviewPage pack={pack} />;
 };

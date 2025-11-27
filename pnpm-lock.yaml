@@ -1429,6 +1429,9 @@ importers:
       '@bsport/currency':
         specifier: workspace:*
         version: link:../../../../../packages/utils/currency
+      '@bsport/datetime-formatting':
+        specifier: workspace:*
+        version: link:../../../../../packages/utils/datetime-formatting
       '@bsport/datetime-manipulation':
         specifier: workspace:*
         version: link:../../../../../packages/utils/datetime/manipulation
@@ -1447,6 +1450,9 @@ importers:
       '@bsport/kaizen-primitive-core':
         specifier: workspace:*
         version: link:../../../../../packages/design-system/kaizen/primitive/core
+      '@bsport/permissions':
+        specifier: workspace:*
+        version: link:../../../../../packages/utils/permissions
       '@bsport/sm-backbone':
         specifier: workspace:*
         version: link:../../../../../packages/utils/sm-backbone
@@ -1465,6 +1471,9 @@ importers:
       '@bsport/store-cdp-tag':
         specifier: workspace:*
         version: link:../../../../../packages/stores/cdp/tag
+      '@bsport/store-financial-services-invoice':
+        specifier: workspace:*
+        version: link:../../../../../packages/stores/financial-services/invoice
       '@bsport/use-async':
         specifier: workspace:*
         version: link:../../../../../packages/hooks/use-async

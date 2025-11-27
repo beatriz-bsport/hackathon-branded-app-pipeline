@@ -18,7 +18,19 @@ import { useTheme } from '@material-ui/core/styles';
 
 import type { StripeDomainListState } from '#src/libs/payment/types';
 
-const MAX_DOMAINS = 10;
+const MAX_DOMAINS = 10; // UI limit (backend limit is 15)
+
+type StripeApiError = {
+  response?: {
+    status?: number;
+    data?: {
+      error_code?: number;
+      error_message?: string;
+      domain_name?: string | string[];
+    };
+  };
+  message?: string;
+};
 
 type StripeDomainManagementProps = {
   stripeDomainList: StripeDomainListState;
@@ -170,7 +182,29 @@ const StripeDomainManagement: React.FC<StripeDomainManagementProps> = ({
         {registerError && (
           <Box mb={1} mt={1}>
             <Typography color="error" variant="caption">
-              {t('paymentMethods.stripeDomains.validationError')}
+              {(() => {
+                const error = registerError as StripeApiError;
+                const responseData = error?.response?.data;
+                const status = error?.response?.status;
+
+                // Handle custom error codes (HTTP 499)
+                if (status === 499 && responseData?.error_code) {
+                  const errorKey = `paymentMethods.stripeDomains.errors.${responseData.error_code}`;
+                  const translatedError = t(errorKey);
+                  // If translation returns the key itself, use the raw error message
+                  return translatedError !== errorKey
+                    ? translatedError
+                    : responseData.error_message ||
+                        t('paymentMethods.stripeDomains.errors.default');
+                }
+
+                // Handle validation errors (HTTP 400)
+                if (status === 400 && responseData?.domain_name) {
+                  return t('paymentMethods.stripeDomains.validationError');
+                }
+
+                return t('paymentMethods.stripeDomains.errors.default');
+              })()}
             </Typography>
           </Box>
         )}

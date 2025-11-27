@@ -28,6 +28,7 @@ import {
 import {
   type EmailTemplateSummary,
   selectAllEmailTemplateSummaries,
+  selectFuzzySearchEmailTemplateSummaries,
   useEmailTemplateStore,
 } from "@bsport/store-cdp-email-template";
 import {
@@ -92,6 +93,10 @@ export const useGetMarketingNotificationDependenciesData = () => {
     selectAllEmailTemplateSummaries,
   );
 
+  const searchedEmailTemplates = useEmailTemplateStore(
+    selectFuzzySearchEmailTemplateSummaries,
+  );
+
   const smartlistsById = useSmartlistStore(selectAllMappedSmartlists);
 
   const searchedSmartlists = useSmartlistStore(selectSearchedSmartlists);
@@ -111,6 +116,7 @@ export const useGetMarketingNotificationDependenciesData = () => {
   return {
     searchedAppointments,
     searchedAppointmentPasses,
+    searchedEmailTemplates,
     searchedEstablishments,
     searchedGroupActivities,
     searchedLocations,

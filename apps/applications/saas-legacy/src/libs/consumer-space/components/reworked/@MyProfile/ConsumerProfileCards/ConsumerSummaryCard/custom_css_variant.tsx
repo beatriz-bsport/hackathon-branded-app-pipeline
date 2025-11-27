@@ -35,6 +35,7 @@ const defaultProps: Omit<
     zipcode: '08012',
   },
   birthday: member.birthday,
+  companyId: 1,
   creditAccountBalance: member.credit_account_balance,
   email: member.email,
   emergencyContact: member.emergency_contact,

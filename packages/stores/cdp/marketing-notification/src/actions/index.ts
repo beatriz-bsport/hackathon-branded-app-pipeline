@@ -3,7 +3,6 @@ import { Result } from "typescript-result";
 import { type Action, createErrorWithContext } from "@bsport/store-base";
 
 import {
-  type CreateMarketingNotificationParams,
   createMarketingNotificationAPI,
   deleteMarketingNotificationAPI,
   fetchMarketingNotificationAPI,
@@ -11,6 +10,7 @@ import {
   updateMarketingNotificationAPI,
 } from "#src/api";
 import type {
+  CreateMarketingNotificationParams,
   FetchMarketingNotificationsParams,
   MarketingNotification,
 } from "#src/types";

@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import type { ActiveCategoryFilters } from "./useCategoryFilter";
 import { usePaginatedGroupActivities } from "./usePaginatedGroupActivities";
 
+// DUPLICATED IN apps/applications/studio-manager/booking/session/src/hooks/useFetchGroupActivities.ts
 /**
  * Custom hook that fetches group activities based on filters and search query.
  * - When filters or search query are active, it searches with those parameters

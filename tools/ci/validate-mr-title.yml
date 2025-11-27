@@ -7,8 +7,8 @@ Validate MR Title:
     - build-frontend
     - cluster:bsport-tooling
   script:
-    - chmod +x ./tools/ci/validate-mr-title.sh
-    - ./tools/ci/validate-mr-title.sh "$CI_MERGE_REQUEST_TITLE"
+    - chmod +x ./tools/scripts/validate-mr-title.sh
+    - ./tools/scripts/validate-mr-title.sh "$CI_MERGE_REQUEST_TITLE"
   rules:
     - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "staging"
       when: "never"

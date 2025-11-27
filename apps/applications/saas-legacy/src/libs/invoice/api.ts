@@ -16,10 +16,11 @@ import type {
   RequestClientSecretPayload,
   PlannedPaymentEventSerializer,
   InvoiceDetailsSerializer,
+  OnboardingRequirementsResponse,
 } from '#src/libs/invoice/types';
 import type { InvoiceItem } from '#src/libs/invoice/invoice-item/types';
 import type { Payment } from '#src/libs/payment/types';
-import { getAuth, post, postAuth, patchAuth, buildUrlParams } from '../../http';
+import { getAuth, post, postAuth, patchAuth, buildUrlParams } from '#src/http';
 import Config from '../../config';
 
 const API_V1_URI = Config.REACT_APP_BASE_URI_FINANCIAL_SERVICES_V1;
@@ -371,6 +372,50 @@ export const fetchInvoiceAllowedReverseTypes = (
   );
 };
 
+export async function checkFiskalyOnboardingStatus(): Promise<
+  AxiosResponse<{ is_onboarded: boolean }>
+> {
+  return getAuth(
+    `${API_V1_URI}/fiskaly-sign-es/fiskaly-sign-es-onboarding/is_company_onboarded/`,
+  );
+}
+
+export async function getFiskalyOnboardingRequirements(): Promise<
+  AxiosResponse<OnboardingRequirementsResponse>
+> {
+  return getAuth(
+    `${API_V1_URI}/fiskaly-sign-es/fiskaly-sign-es-onboarding/get_onboarding_requirements/`,
+  );
+}
+
+export async function onboardFiskalyCompany(): Promise<
+  AxiosResponse<{ agreement_url: string }>
+> {
+  return postAuth(
+    `${API_V1_URI}/fiskaly-sign-es/fiskaly-sign-es-onboarding/onboard_company/`,
+  );
+}
+
+export async function getLastUploadedSignedAgreement(): Promise<
+  AxiosResponse<{ file: string } | null>
+> {
+  return postAuth(
+    `${API_V1_URI}/fiskaly-sign-es/fiskaly-sign-es-collaborator-agreement/get_last_uploaded_signed_agreement/`,
+    {},
+  );
+}
+
+export async function uploadSignedAgreement(
+  file: File,
+): Promise<AxiosResponse<{ file: string }>> {
+  const formData = new FormData();
+  formData.append('signed_agreement_file', file);
+  return postAuth(
+    `${API_V1_URI}/fiskaly-sign-es/fiskaly-sign-es-collaborator-agreement/upload_signed_agreement/`,
+    formData,
+  );
+}
+
 export default {
   fetchSpecific,
   updatePaymentMethod,
@@ -384,4 +429,9 @@ export default {
   patchConfiguration,
   fetchByInvoiceItem,
   returnPayment,
+  checkFiskalyOnboardingStatus,
+  getFiskalyOnboardingRequirements,
+  onboardFiskalyCompany,
+  getLastUploadedSignedAgreement,
+  uploadSignedAgreement,
 };

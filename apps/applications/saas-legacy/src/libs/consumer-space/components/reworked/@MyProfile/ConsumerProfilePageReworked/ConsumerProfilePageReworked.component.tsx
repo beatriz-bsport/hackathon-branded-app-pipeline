@@ -312,6 +312,7 @@ const ConsumerProfilePageReworked: React.FC<Props> = ({
             acceptSms={accept_sms}
             address={address}
             birthday={birthday}
+            companyId={membershipCompany}
             creditAccountBalance={credit_account_balance}
             email={email}
             emergencyContact={emergency_contact}

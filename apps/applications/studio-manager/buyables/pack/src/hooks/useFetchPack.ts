@@ -2,24 +2,31 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router";
 
 import { toast } from "@bsport/kaizen-primitive-core";
-import { fetchPackAction } from "@bsport/store-buyables-pack";
+import { type Pack, fetchPackAction } from "@bsport/store-buyables-pack";
 import { useAsync } from "@bsport/use-async";
 
 import { URLS } from "#src/urls";
 import { fetch } from "#src/utils/fetch";
 import { useTranslation } from "#src/utils/i18n";
 
-export const useFetchPack = ({ id }: { id?: number }) => {
-  const { t } = useTranslation("details");
+const fetchPackBound = fetchPackAction.bind(null, fetch);
 
-  const _handleFetchPack = async (id: number) => {
-    return fetchPackAction(fetch, { id });
-  };
+export const useFetchPack = ({
+  id,
+  onSuccess,
+}: {
+  id?: number;
+  onSuccess?: (pack: Pack) => void;
+}) => {
+  const { t } = useTranslation("details");
 
   const navigate = useNavigate();
 
-  const [{ isLoading }, fetchPack] = useAsync<typeof _handleFetchPack>({
-    asyncFn: _handleFetchPack,
+  const [{ isLoading }, fetchPack] = useAsync<typeof fetchPackBound>({
+    asyncFn: fetchPackBound,
+    onSuccess: ({ value }) => {
+      onSuccess?.(value);
+    },
     onFailure: () => {
       toast({
         status: "critical",
@@ -33,7 +40,7 @@ export const useFetchPack = ({ id }: { id?: number }) => {
 
   useEffect(() => {
     if (id) {
-      fetchPack(id);
+      fetchPack({ id });
     }
   }, [id, fetchPack]);
 

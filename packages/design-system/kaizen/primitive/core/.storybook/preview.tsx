@@ -4,6 +4,7 @@ import React, { Suspense, useEffect } from "react";
 
 import "@bsport/kaizen-tokens/src/index.css";
 
+import { KaizenI18nProvider } from "../src";
 import {
   FLAG_EMOJIS,
   LOCALES,
@@ -14,7 +15,7 @@ import {
   switchLanguage,
 } from "../src/i18n/index";
 
-const { AppI18nextProvider } = instanciateAppI18n<Translations>({
+const { i18nInstance } = instanciateAppI18n<Translations>({
   applicationName: i18nNamespacePrefix,
   namespaces: i18nNamespaces,
 });
@@ -32,9 +33,9 @@ const preview: Preview = {
       return (
         <React.StrictMode>
           <Suspense fallback={<p>Loading translations ...</p>}>
-            <AppI18nextProvider>
+            <KaizenI18nProvider kaizenI18nInstance={i18nInstance}>
               <Story />
-            </AppI18nextProvider>
+            </KaizenI18nProvider>
           </Suspense>
         </React.StrictMode>
       );

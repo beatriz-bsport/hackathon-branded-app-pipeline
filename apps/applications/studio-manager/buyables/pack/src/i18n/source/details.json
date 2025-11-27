@@ -20,6 +20,10 @@
     "updatePack": {
       "failToUpdate": "Couldn't update pack. Please try again. ",
       "success": "Updated successfully"
+    },
+    "tabs": {
+      "overview": "Overview",
+      "editor": "Editor"
     }
   },
   "addItemsModal": {

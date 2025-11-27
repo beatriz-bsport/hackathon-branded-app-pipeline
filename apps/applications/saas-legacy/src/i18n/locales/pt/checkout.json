@@ -68,7 +68,8 @@
     "referral": {
       "hasReachedMaxUses": "O número máximo de utilizações do link de referência foi atingido.",
       "missingAmountBeforeApplication": "O montante mínimo de compra não foi atingido. Corre o risco de perder o seu link de referência. Apenas {{ missingAmount }} mais para poder aproveitar o desconto!"
-    }
+    },
+    "expressCheckoutTitle": "Carteiras digitais"
   },
   "validation": {
     "actions": {
@@ -89,7 +90,8 @@
       "myPasses": "Meus Passes",
       "backToMyProfile": "Voltar ao meu perfil",
       "bookAClass": "Marcar uma aula",
-      "seeAllPasses": "Ver todos os passes"
+      "seeAllPasses": "Ver todos os passes",
+      "payAmountNow": "Pague {{ amount }} agora"
     },
     "sections": {
       "errorExplain": {

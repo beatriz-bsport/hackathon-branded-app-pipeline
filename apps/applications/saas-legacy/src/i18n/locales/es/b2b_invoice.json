@@ -1,0 +1,85 @@
+{
+  "configuration": {
+    "verifactu": {
+      "title": "VERI*FACTU",
+      "description": "Configura Fiskaly SIGN ES para compartir automáticamente las Facturas con la Agencia Tributaria Española (AEAT) y cumplir con los requisitos de VERI*FACTU. Introduce los datos del representante para crear un Acuerdo de Colaborador Social, que autoriza a bsport a transmitir Facturas en tu nombre.",
+      "info": "Esta funcionalidad de pago no está activo en tu cuenta todavía — por favor contacta a tu gerente de cuenta para solicitarlo",
+      "loading": "Cargando...",
+      "onboarding": {
+        "agreement_created": "El Acuerdo de Colaborador Social creado",
+        "agreement_error": "No se pudo crear el Acuerdo de Colaborador Social. Por favor, inténtalo de nuevo. "
+      },
+      "signed_agreement": {
+        "details_title": "Detalles del representante",
+        "edit": "Modificar",
+        "full_name": "Nombre y apellido",
+        "dni_nie": "DNI/NIE",
+        "address": "Dirección",
+        "municipality": "Municipio",
+        "country": "País",
+        "agreement_title": "El  Acuerdo de Colaborador Social está listo para tu firma",
+        "agreement_subtitle": "Sigue los pasos para validar tu  Acuerdo de Colaborador Social",
+        "step1_text": "Descargar PDF",
+        "step2_text": "El representante firma el PDF",
+        "step3_text": "Sube el PDF firmado",
+        "download_pdf": "Descargar PDF",
+        "upload_pdf": "Subir PDF",
+        "upload_info": "Sube el PDF firmado para continuar",
+        "send_document": "Enviar documento",
+        "upload_success": "Acuerdo firmado subido con éxito",
+        "upload_error": "No se pudo cargar el acuerdo firmado. Por favor, inténtalo de nuevo. "
+      },
+      "form": {
+        "sectionTitle": "Detalles del representante",
+        "first_name": "Nombre",
+        "last_name": "Apellido",
+        "dni_nie": "DNI/NIE",
+        "dni_nie_invalid": "El número de DNI/NIE ingresado no es válido.",
+        "postal_code_invalid": "El código postal debe tener entre 3 y 10 caracteres y contener solo letras, dígitos, espacios y guiones.",
+        "address": "Dirección",
+        "street_number": "Número de calle",
+        "postal_code": "Código postal",
+        "city": "Ciudad",
+        "municipality": "Municipio",
+        "country": "País",
+        "save_for_later": "Guardar para más tarde",
+        "save_for_later_success": "Detalles del representante guardados con éxito",
+        "representative_error": "No se pudieron guardar los detalles del representante. Por favor, inténtalo de nuevo. ",
+        "create_agreement": "Crear acuerdo",
+        "chips": {
+          "vat_id_validated": "ID de IVA validado",
+          "vat_id_missing": "Falta el ID de IVA",
+          "business_address_provided": "Dirección comercial proporcionada",
+          "business_address_missing": "Falta la dirección comercial",
+          "invoice_identifiers_set_up": "Configuración de identificadores de factura",
+          "invoice_identifiers_not_set_up": "Identificadores de factura no configurados"
+        },
+        "alert": {
+          "content": "Atención: Revisa los detalles cuidadosamente\nUna vez que crees tu Acuerdo de Colaboración Social, no podrás editarlo a menos que crees otro con una nueva firma. Asegúrate de que toda la información sea correcta antes de continuar.",
+          "action": "Entendido"
+        },
+        "requirements": {
+          "vat_required": "Se requiere ID de IVA",
+          "address_required": "Se requiere dirección comercial",
+          "vat_and_address_required": "ID de IVA y dirección comercial requeridos",
+          "vat_description": "Añade tu ID de IVA en Ajustes -> Empresa para configurar VERI*FACTU",
+          "address_description": "Proporciona la dirección de tu negocio como parte del proceso de incorporación de Stripe para configurar VERI*FACTU",
+          "vat_and_address_description": "Añadir tu NIF en Ajustes -> Empresa y completa tu incorporación a Stripe para proporcionar la dirección de tu negocio. Ambos son requeridos por las autoridades fiscales españolas antes de configurar VERI*FACTU.",
+          "go_to_settings": "Ve a Ajustes",
+          "complete_stripe_onboarding": "Completa el proceso de incorporación de Stripe",
+          "legal_identifier_required": "Identificadores de factura requeridos",
+          "legal_identifier_description": "Habla con tu gestor de cuentas para configurar identificadores de facturas para Sign-ES."
+        }
+      },
+      "active": {
+        "success_message": "Tus facturas ahora se transmiten automáticamente a la Agencia Tributaria (AEAT)",
+        "agreement_title": "Acuerdo de Colaborador Social",
+        "agreement_subtitle": "Puedes acceder a tu Acuerdo de Colaborador Social en cualquier momento a través de este enlace",
+        "agreement_link": "Enlace al PDF",
+        "certificate_title": "Declaración de Responsabilidad VERI*FACTU",
+        "certificate_subtitle": "bsport Solutions cumple con las normativas de facturación españolas (Verifactu y TicketBAI). Descarga nuestra declaración oficial de responsabilidad.",
+        "certificate_link": "Certificado VERI*FACTU"
+      }
+    }
+  }
+}

@@ -1,7 +1,5 @@
-import {
-  type CompanyTheme,
-  updateCompanyThemeAction,
-} from "@bsport/store-core-data-company-theme";
+import { dataAccessLayer } from "@bsport/sm-backbone";
+import { type CompanyTheme } from "@bsport/store-core-data-company-theme";
 import { useAsync } from "@bsport/use-async";
 
 import { fetch } from "#src/utils/fetch";
@@ -11,7 +9,10 @@ type UseUpdateCompanyThemeParams = {
   onFailure?: (error: Error) => void;
 };
 
-const _updateCompanyTheme = updateCompanyThemeAction.bind(null, fetch);
+const updateCompanyThemeBound = dataAccessLayer.updateCompanyThemeAction.bind(
+  null,
+  fetch,
+);
 
 /**
  * Hook for updating the company theme
@@ -25,9 +26,9 @@ export function useUpdateCompanyTheme({
   onFailure,
 }: UseUpdateCompanyThemeParams = {}) {
   const [{ isLoading }, triggerUpdateCompanyTheme] = useAsync<
-    typeof _updateCompanyTheme
+    typeof updateCompanyThemeBound
   >({
-    asyncFn: _updateCompanyTheme,
+    asyncFn: updateCompanyThemeBound,
     onSuccess: ({ value }) => onSuccess?.(value),
     onFailure: ({ error }) => onFailure?.(error),
   });

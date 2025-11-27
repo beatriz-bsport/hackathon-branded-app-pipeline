@@ -10,10 +10,10 @@
     },
     "actions": {
       "createTagGroup": {
-        "label": "Add Category"
+        "label": "Add category"
       },
       "createTag": {
-        "label": "Create Tag"
+        "label": "Create tag"
       }
     },
     "loadingState": {
@@ -26,7 +26,7 @@
     },
     "emptyPageState": {
       "title": "No tags yet",
-      "description": "Create tags to track and target your members"
+      "description": "Create tags to track and target your clients"
     },
     "emptyMainTagState": {
       "description": "You haven’t created any tags in this category yet"
@@ -133,7 +133,7 @@
   },
   "deleteMainTagModal": {
     "title": "Permanently delete category?",
-    "description": "Deleting this category will permanently remove any associated tags from {{ number }} members",
+    "description": "Deleting this category will permanently remove any associated tags from {{ number }} clients",
     "alerts": {
       "tagInUse": {
         "description": "Heads up: deleting this category will also remove related tag rules that are still active in conditional workflows, such as Audience or Smartlists",
@@ -159,7 +159,7 @@
   },
   "deleteSubTagModal": {
     "title": "Permanently delete tag?",
-    "description": "Deleting this tag will permanently remove it from {{number}} members that it's assigned to",
+    "description": "Deleting this tag will permanently remove it from {{number}} clients that it's assigned to",
     "alerts": {
       "tagInUse": {
         "description": "Heads up: deleting this tag will also affect any conditional workflows that it's used in (such as Smartlists or Audience)",
@@ -184,7 +184,7 @@
     }
   },
   "tagsDetails": {
-    "members": "Members",
+    "members": "Clients",
     "actions": {
       "tagAll": "Tag all",
       "untagAll": "Untag all",
@@ -214,7 +214,7 @@
         },
         "untag": {
           "success": {
-            "title": "Member untagged"
+            "title": "Client untagged"
           },
           "failure": {
             "title": "Couldn't tag client. Please try again."
@@ -222,17 +222,17 @@
         }
       },
       "loadingState": {
-        "tagged": "Loading tagged members...",
-        "untagged": "Loading untagged members..."
+        "tagged": "Loading tagged clients...",
+        "untagged": "Loading untagged clients..."
       },
       "emptyState": {
         "title": {
-          "tagged": "No members tagged yet",
-          "untagged": "No members untagged yet"
+          "tagged": "No clients tagged yet",
+          "untagged": "No clients untagged yet"
         },
         "description": {
-          "untagged": "Tag members by clicking on the '+' icon next to their name in the untagged list",
-          "tagged": "Untag members by clicking on the '-' icon next to their name in the tagged list"
+          "untagged": "Tag clients by clicking on the '+' icon next to their name in the untagged list",
+          "tagged": "Untag clients by clicking on the '-' icon next to their name in the tagged list"
         }
       }
     }
@@ -243,8 +243,8 @@
       "untag": "Untag all?"
     },
     "description": {
-      "tag": "Add the {{tagName}} tag to {{number}} members?",
-      "untag": "Remove the {{tagName}} tag from {{number}} members?"
+      "tag": "Add the {{tagName}} tag to {{number}} clients?",
+      "untag": "Remove the {{tagName}} tag from {{number}} clients?"
     },
     "actions": {
       "tag": "Tag all",
@@ -253,24 +253,24 @@
       "undo": "Undo"
     },
     "loading": {
-      "tag": "Tagging {{number}} members...",
-      "untag": "Untagging {{number}} members..."
+      "tag": "Tagging {{number}} clients...",
+      "untag": "Untagging {{number}} clients..."
     },
     "results": {
       "tag": {
         "success": {
-          "title": "All members tagged"
+          "title": "All clients tagged"
         },
         "failure": {
-          "title": "Couldn't tag members. Please try again. "
+          "title": "Couldn't tag clients. Please try again. "
         }
       },
       "untag": {
         "success": {
-          "title": "All members untagged"
+          "title": "All clients untagged"
         },
         "failure": {
-          "title": "Couldn't untag members. Please try again. "
+          "title": "Couldn't untag clients. Please try again. "
         }
       }
     }

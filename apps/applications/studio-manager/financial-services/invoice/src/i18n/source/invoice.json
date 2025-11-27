@@ -17,7 +17,7 @@
   "tableColumnLabel": {
     "number": "Number",
     "date": "Date",
-    "member": "Member",
+    "member": "Client",
     "amount": "Amount",
     "type": "Type",
     "status": "Status"
@@ -28,7 +28,7 @@
   },
   "emptyTable": {
     "title": "No invoices yet",
-    "description": "Once you start making sales, your invoices will show up here."
+    "description": "Once you bill clients, their invoices will show up here."
   },
   "download": {
     "title": "Download...",

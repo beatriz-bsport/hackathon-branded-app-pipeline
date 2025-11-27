@@ -1,8 +1,12 @@
 import React from "react";
 import { NavLink } from "react-router";
 
+import { useMatchMedia } from "@bsport/kaizen-primitive-core";
+
 import { useCurrentPathname } from "#src/hooks/use-current-pathname";
 import { LEGACY_URLS } from "#src/urls";
+
+import { useSidebarContext } from "./NavigationSidebar/SidebarContext";
 
 type NavigationLinkProps = {
   renderElement: (params: {
@@ -33,6 +37,9 @@ export const NavigationLink: React.FC<NavigationLinkProps> = ({
   const { withOnClick, ...otherWrapperConfig } = wrapperConfig;
 
   const currentPathname = useCurrentPathname();
+  const isMobile = !useMatchMedia("md");
+  const sidebarContext = useSidebarContext();
+
   // Special case for calendar: Legacy SaaS redirects /calendar to /calendar/YYYY/MM/DD/
   // so we need to match calendar navigation item when on any calendar date URL
   const isCalendarLink = item.href === LEGACY_URLS.calendar;
@@ -40,6 +47,13 @@ export const NavigationLink: React.FC<NavigationLinkProps> = ({
     isCalendarLink && currentPathname.startsWith(`${LEGACY_URLS.calendar}/`)
       ? true
       : item.href === currentPathname;
+
+  // Helper to close mobile sidebar when navigating
+  const closeMobileSidebar = () => {
+    if (isMobile) {
+      sidebarContext?.closeSidebar?.();
+    }
+  };
 
   // Handle action items (items with onClick but no href) - prevent navigation highlighting
   if (!item.href && item.onClick) {
@@ -56,7 +70,12 @@ export const NavigationLink: React.FC<NavigationLinkProps> = ({
   // In Revamp Context, with a legacy link
   if (!isBridged && !item.revamped) {
     return (
-      <a key={item.id} href={item.href} {...otherWrapperConfig}>
+      <a
+        key={item.id}
+        href={item.href}
+        onClick={closeMobileSidebar}
+        {...otherWrapperConfig}
+      >
         {renderElement({ isActive: false })}
       </a>
     );
@@ -65,7 +84,12 @@ export const NavigationLink: React.FC<NavigationLinkProps> = ({
   // In Legacy Context, with a revamp link
   if (isBridged && item.revamped) {
     return (
-      <a key={item.id} href={`/studio${item.href}`} {...otherWrapperConfig}>
+      <a
+        key={item.id}
+        href={`/studio${item.href}`}
+        onClick={closeMobileSidebar}
+        {...otherWrapperConfig}
+      >
         {renderElement({ isActive: false })}
       </a>
     );
@@ -76,6 +100,7 @@ export const NavigationLink: React.FC<NavigationLinkProps> = ({
     const onClick = () => {
       item?.navigationCallback?.();
       navigate?.(item.href!);
+      closeMobileSidebar();
       // Dispatch custom event to help with reactive pathname detection
       window.dispatchEvent(
         new CustomEvent("navigation", { detail: { href: item.href } }),
@@ -96,7 +121,14 @@ export const NavigationLink: React.FC<NavigationLinkProps> = ({
 
   // In Revamp Context, with a revamp link, we can use React Router Context
   return (
-    <NavLink key={item.id} to={item.href} onClick={item?.navigationCallback}>
+    <NavLink
+      key={item.id}
+      to={item.href}
+      onClick={() => {
+        item?.navigationCallback?.();
+        closeMobileSidebar();
+      }}
+    >
       {({ isActive }) => {
         return renderElement({ isActive });
       }}

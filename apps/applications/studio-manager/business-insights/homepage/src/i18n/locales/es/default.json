@@ -1,1 +1,68 @@
-{}
+{
+  "pageTitle": "Inicio",
+  "header": {
+    "title": "Bienvenido de nuevo, {{ username }}",
+    "titleWithoutName": "Bienvenido de nuevo"
+  },
+  "banner": {
+    "close": "Cerrar banner",
+    "insights": {
+      "title": "Llega … Visión empresarial",
+      "description": "Sigue las tendencias de tus KPI, identifica oportunidades y gestiona riesgos",
+      "ctaLabel": "Explora ahora"
+    }
+  },
+  "upcomingClassesPanel": {
+    "title": "Próximas clases",
+    "headers": {
+      "class": "Clase",
+      "teacher": "Profesor",
+      "teacherSubstitution": "Sustitución",
+      "classFillRate": "Tasa de ocupación"
+    },
+    "emptyList": "No hay clases próximas",
+    "teacher": {
+      "helperText": "Profesor"
+    },
+    "substitution": {
+      "helperText": "Sustitución",
+      "errorMissingReplacement": "Sustitución necesaria"
+    },
+    "rates": {
+      "badge": {
+        "waitingCount": "{{ count }} en lista de espera"
+      },
+      "tooltip": {
+        "classIsFull": "Esta clase está llena",
+        "hasEmptySpots_one": "{{ count }} sitio disponible en la clase",
+        "hasEmptySpots_other": "{{ count }} sitios disponibles en la clase",
+        "hasEmptySpotsForWaitlist_one": "{{ count }} sitio pendiente en la lista de espera",
+        "hasEmptySpotsForWaitlist_other": "{{ count }} sitios pendientes en la lista de espera"
+      }
+    }
+  },
+  "exploreSection": {
+    "exploreThePlatform": {
+      "title": "Explora las novedades",
+      "productUpdatesCard": {
+        "title": "Características, mejoras y correcciones",
+        "description": "Consulta nuestras últimas actualizaciones de producto"
+      }
+    },
+    "advices": {
+      "title": "Descubre las tendencias de la industria",
+      "latestNewsCard": {
+        "title": "Consejos y noticias para hacer crecer tu negocio",
+        "description": "Lee lo último de nuestros expertos"
+      }
+    }
+  },
+  "keyMetrics": {
+    "title": "Métricas Clave",
+    "unavailable": "Las métricas no están disponibles actualmente"
+  },
+  "insightsPanel": {
+    "title": "Vista Rápida",
+    "unavailable": "Visión empresarial no está disponible actualmente"
+  }
+}

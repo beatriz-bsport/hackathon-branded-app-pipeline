@@ -15,6 +15,7 @@ import WidgetUtils from '#src/libs/widget/WidgetUtils';
 import { ConsumerSpaceContextEnum } from '#src/libs/consumer-space/constants';
 
 import '#src/libs/consumer-space/components/reworked/@MyProfile/ConsumerProfileCards/ConsumerSummaryCard/styles.css';
+import DoorAccessButton from '#src/libs/self-service-access/components/DoorAccessButton.component';
 
 type Props = Pick<
   ConsumerSummaryCardProps,
@@ -26,6 +27,7 @@ type Props = Pick<
   | 'showAccountBalance'
   | 'showBarcodeButton'
   | 'regularizeBalanceAllowed'
+  | 'companyId'
 > & {
   isMobile: boolean;
   handleToggleBarcodeModal: () => void;
@@ -42,6 +44,7 @@ const ConsumerSummaryCardHeader: React.FC<Props> = ({
   showAccountBalance,
   showBarcodeButton,
   regularizeBalanceAllowed,
+  companyId,
 }) => {
   const { toggleRegularizeBalancePortal } = useContext(ConsumerProfileContext);
   const { t } = useTranslation('consumerSpace');
@@ -117,19 +120,22 @@ const ConsumerSummaryCardHeader: React.FC<Props> = ({
           {t('reworked.myProfile.regularizeBalance')}
         </Button>
       </div>
-      <Button
-        className={clsx('bs-consumer-summary-card__barcode-button', {
-          'bs-consumer-summary-card__barcode-button--isMobile': isMobile,
-          'bs-consumer-summary-card__barcode-button--hidden':
-            !showBarcodeButton,
-        })}
-        color="primary"
-        leftIcon={<Scan stroke="currentColor" />}
-        onClick={handleToggleBarcodeModal}
-        size="md"
-      >
-        {t('reworked.myProfile.barCode.entryBarcode')}
-      </Button>
+      <div className="bs-consumer-summary-card__buttons-container">
+        <Button
+          className={clsx('bs-consumer-summary-card__barcode-button', {
+            'bs-consumer-summary-card__barcode-button--isMobile': isMobile,
+            'bs-consumer-summary-card__barcode-button--hidden':
+              !showBarcodeButton,
+          })}
+          color="primary"
+          leftIcon={<Scan stroke="currentColor" />}
+          onClick={handleToggleBarcodeModal}
+          size="md"
+        >
+          {t('reworked.myProfile.barCode.entryBarcode')}
+        </Button>
+        <DoorAccessButton companyId={companyId} />
+      </div>
     </ConsumerCardSection>
   );
 };

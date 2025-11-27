@@ -345,6 +345,7 @@ export class CustomFormListPage extends React.Component<Props, State> {
                     // @ts-expect-error
                     initial={this.props.customForm}
                     isCssVariantActivated={CUSTOM_FORM_CSS_VARIANT_ACTIVATED}
+                    waiver={this.props.theme.waiver}
                   />
                 </Paper>
               </>
@@ -474,7 +475,6 @@ const mapStateToProps = (
   state: RootState,
   { customFormSelected }: { customFormSelected: number },
 ) => ({
-  // eslint-disable-next-line
   theme: state.theme.theme,
   // @ts-expect-error
   customForm: withDisplayRule(getCustomFormWithEnableField)(

@@ -16,13 +16,6 @@ type SelectedItemsContextType = {
   webshopItems: number[];
   preselectedItems: string[];
   addPreselectedItem: ({ id }: { id: string }) => void;
-  addVariantItem: ({
-    id,
-    variant,
-  }: {
-    id: number;
-    variant: ItemVariant;
-  }) => void;
   removePreselectedItem: ({ id }: { id: string }) => void;
   removeVariantItem: ({
     id,
@@ -45,89 +38,100 @@ const SelectedItemsContext = createContext<SelectedItemsContextType | null>(
   null,
 );
 
+type FormSetState = (setState: (prev: number[]) => number[]) => void;
+
 export const SelectedItemsContextProvider = ({
   children,
-  initialPasses,
-  initialAppointmentPasses,
-  initialWebshopItems,
+  passes,
+  appointmentPasses,
+  webshopItems,
+  setPasses,
+  setAppointmentPasses,
+  setWebshopItems,
 }: PropsWithChildren<{
-  initialPasses?: number[];
-  initialAppointmentPasses?: number[];
-  initialWebshopItems?: number[];
+  passes: number[];
+  appointmentPasses: number[];
+  webshopItems: number[];
+  setPasses: (nextValues: number[]) => void;
+  setAppointmentPasses: (nextValues: number[]) => void;
+  setWebshopItems: (nextValues: number[]) => void;
 }>) => {
-  const [passes, setPasses] = useState(initialPasses ?? []);
+  /** ----- INTERNAL HELPERS ----- */
 
-  const [appointmentPasses, setAppointmentPasses] = useState(
-    initialAppointmentPasses ?? [],
-  );
-  const [webshopItems, setWebshopItems] = useState(initialWebshopItems ?? []);
+  const updatePasses: FormSetState = (setter) => {
+    const nextValues = setter(passes);
+    setPasses(nextValues);
+  };
 
+  const updateAppointmentPasses: FormSetState = (setter) => {
+    const nextValues = setter(appointmentPasses);
+    setAppointmentPasses(nextValues);
+  };
+
+  const updateWebshopItems: FormSetState = (setter) => {
+    const nextValues = setter(webshopItems);
+    setWebshopItems(nextValues);
+  };
+
+  const updateVariantItem = ({
+    variant,
+    updateState,
+  }: {
+    // Specify the variant to know which setState to use
+    variant: ItemVariant;
+    // Method to update the state (add item or remove item)
+    updateState: (prev: number[]) => number[];
+  }) => {
+    switch (variant) {
+      case "pass":
+        updatePasses(updateState);
+        return;
+
+      case "appointmentPass":
+        updateAppointmentPasses(updateState);
+        return;
+
+      case "webshopItem":
+        updateWebshopItems(updateState);
+        return;
+
+      default:
+        console.info(`[Packs] Could not recognize variant ${variant}`);
+        return;
+    }
+  };
+
+  /** ----- SELECTED ITEMS e.g. FINAL FORM STATE MANAGER */
+
+  const removeVariantItem = ({
+    id,
+    variant,
+  }: {
+    id: number;
+    variant: ItemVariant;
+  }) => {
+    const updateState = (prev: number[]) => {
+      return prev.includes(id) ? prev.filter((itemId) => itemId !== id) : prev;
+    };
+
+    updateVariantItem({ variant, updateState });
+  };
+
+  const setVariantItems = ({
+    ids,
+    variant,
+  }: {
+    ids: number[];
+    variant: ItemVariant;
+  }) => {
+    const updateState = () => ids;
+
+    updateVariantItem({ variant, updateState });
+  };
+
+  /** ---- PRESELECTED ITEMS e.g. MODAL STATE */
   /** Use string and not number to match checkbox context API */
   const [preselectedItems, setPreselectedItems] = useState<string[]>([]);
-
-  const updateVariantItem = useCallback(
-    ({
-      variant,
-      updateState,
-    }: {
-      // Specify the variant to know which setState to use
-      variant: ItemVariant;
-      // Method to update the state (add item or remove item)
-      updateState: (prev: number[]) => number[];
-    }) => {
-      switch (variant) {
-        case "pass":
-          setPasses(updateState);
-          return;
-
-        case "appointmentPass":
-          setAppointmentPasses(updateState);
-          return;
-
-        case "webshopItem":
-          setWebshopItems(updateState);
-          return;
-
-        default:
-          console.info(`[Packs] Could not recognize variant ${variant}`);
-          return;
-      }
-    },
-    [],
-  );
-
-  const removeVariantItem = useCallback(
-    ({ id, variant }: { id: number; variant: ItemVariant }) => {
-      const updateState = (prev: number[]) => {
-        return prev.includes(id)
-          ? prev.filter((itemId) => itemId !== id)
-          : prev;
-      };
-
-      updateVariantItem({ variant, updateState });
-    },
-    [updateVariantItem],
-  );
-
-  const addVariantItem = useCallback(
-    ({ id, variant }: { id: number; variant: ItemVariant }) => {
-      const updateState = (prev: number[]) => {
-        return prev.includes(id) ? prev : [...prev, id];
-      };
-
-      updateVariantItem({ variant, updateState });
-    },
-    [updateVariantItem],
-  );
-
-  const setVariantItems = useCallback(
-    ({ ids, variant }: { ids: number[]; variant: ItemVariant }) => {
-      const updateState = () => ids;
-
-      updateVariantItem({ variant, updateState });
-    },
-    [updateVariantItem],
-  );
 
   const addPreselectedItem = useCallback(({ id }: { id: string }) => {
     const updateState = (prev: string[]) => {
@@ -153,7 +157,6 @@ export const SelectedItemsContextProvider = ({
         webshopItems,
         preselectedItems,
         addPreselectedItem,
-        addVariantItem,
         removePreselectedItem,
         removeVariantItem,
         setPreselectedItems,

@@ -3,11 +3,11 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import { getIsoDateString, isValidDate } from "@bsport/datetime-manipulation";
 
 import TextField from "#src/components/TextField";
-import { useKaizenI18nInstance, useTranslation } from "#src/i18n";
 
 type DateInputFieldProps = {
   id: string;
   selectedDate: Date | null;
+  label?: string;
   onDateChange: (date: Date | null) => void;
   onClick?: () => void;
 };
@@ -17,10 +17,8 @@ const DateInputField: React.FC<DateInputFieldProps> = ({
   selectedDate,
   onDateChange,
   onClick,
+  label,
 }: DateInputFieldProps) => {
-  const i18nInstance = useKaizenI18nInstance();
-  const { t } = useTranslation("default", { i18n: i18nInstance });
-
   const [inputValue, setInputValue] = useState(
     selectedDate ? getIsoDateString(selectedDate) : "",
   );
@@ -73,8 +71,7 @@ const DateInputField: React.FC<DateInputFieldProps> = ({
       id={`calendar-date-input-${id}`}
       status={!inputValue || isValidDate(inputValue) ? "default" : "error"}
       value={inputValue}
-      // TODO: remove hardcoded label
-      label={t("datePicker.selectedDay")}
+      label={label}
       iconLeft="calendar"
       onChange={handleChange}
       onClear={handleClear}

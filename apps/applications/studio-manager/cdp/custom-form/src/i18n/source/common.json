@@ -30,7 +30,7 @@
         "cancel": "Keep"
       },
       "title": "Archive form?",
-      "description": "Once you archive<b>{{ name }}</b>, it will no longer be visible to members.  \n\nYou can restore this form at any time from your archive. "
+      "description": "Once you archive <b>{{ name }}</b>, it will no longer be visible to members.  \n\nYou can restore this form at any time from your archive. "
     },
     "duplicateModal": {
       "actions": {
@@ -86,7 +86,7 @@
       },
       "archivedList": {
         "title": "No archived forms yet",
-        "subtitle": "Any forms moved here can be restored"
+        "subtitle": "Any forms you archive will show here. You can restore them at any time. "
       },
       "search": {
         "title": "No forms found",

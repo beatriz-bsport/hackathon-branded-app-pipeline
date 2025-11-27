@@ -15,7 +15,7 @@ import {
   type PackFormSchema,
   usePackSchema,
 } from "#src/components/PackForm/schema";
-import { useSelectedItemsContext } from "#src/contexts/selectedItemsContext";
+import { SelectedItemsContextProvider } from "#src/contexts/selectedItemsContext";
 import { useCreatePack } from "#src/hooks/useCreatePack";
 import { LEGACY_URLS, URLS } from "#src/urls";
 import { USE_REVAMP_DETAILS } from "#src/utils/constants";
@@ -32,8 +32,6 @@ export const PackCreateModal: React.FC<PackCreateModalProps> = ({
 }) => {
   const { t } = useTranslation("details");
 
-  const { passes, appointmentPasses, webshopItems } = useSelectedItemsContext();
-
   const companyId = dataAccessLayer.useCompanyTheme()?.company;
 
   const packSchema = usePackSchema();
@@ -45,12 +43,17 @@ export const PackCreateModal: React.FC<PackCreateModalProps> = ({
   });
 
   const formId = `pack-form-create-${useId()}`;
+
+  const passes = methods.watch("payment_pack_ids");
+  const appointmentPasses = methods.watch("private_pass_ids");
+  const webshopItems = methods.watch("shop_item_ids");
+
   const hasSelectedItems =
     passes.length + appointmentPasses.length + webshopItems.length > 0;
 
   const navigate = useNavigate();
 
-  const { handleCreatePack } = useCreatePack({
+  const { createPack } = useCreatePack({
     onSuccess: (value) => {
       onClose();
       if (USE_REVAMP_DETAILS) {
@@ -84,28 +87,49 @@ export const PackCreateModal: React.FC<PackCreateModalProps> = ({
         onClick: onClose,
       }}
     >
-      <ControlledForm
-        id={formId}
-        onSubmit={(data) => {
-          const finalData = {
-            ...DEFAULT_FORM_DATA,
-            ...data,
-            payment_pack_ids: passes,
-            private_pass_ids: appointmentPasses,
-            shop_item_ids: webshopItems,
-          };
-          handleCreatePack(finalData);
+      <SelectedItemsContextProvider
+        passes={passes}
+        setPasses={(nextValues) => {
+          methods.setValue("payment_pack_ids", nextValues, {
+            shouldDirty: true,
+          });
         }}
-        {...methods}
+        appointmentPasses={appointmentPasses}
+        setAppointmentPasses={(nextValues) => {
+          methods.setValue("private_pass_ids", nextValues, {
+            shouldDirty: true,
+          });
+        }}
+        webshopItems={webshopItems}
+        setWebshopItems={(nextValues) => {
+          methods.setValue("shop_item_ids", nextValues, {
+            shouldDirty: true,
+          });
+        }}
       >
-        <div className="flex flex-col gap-lg w-full">
-          <PackFormIdentity fieldIdPrefix={formId} />
-          <PackFormContent fieldIdPrefix={formId} />
-          <PackFormPricing fieldIdPrefix={formId} methods={methods} />
-          <PackFormVisibility fieldIdPrefix={formId} methods={methods} />
-          <PackFormAdvanced fieldIdPrefix={formId} />
-        </div>
-      </ControlledForm>
+        <ControlledForm
+          id={formId}
+          onSubmit={(data) => {
+            const finalData = {
+              ...DEFAULT_FORM_DATA,
+              ...data,
+              payment_pack_ids: passes,
+              private_pass_ids: appointmentPasses,
+              shop_item_ids: webshopItems,
+            };
+            createPack(finalData);
+          }}
+          {...methods}
+        >
+          <div className="flex flex-col gap-lg w-full">
+            <PackFormIdentity fieldIdPrefix={formId} />
+            <PackFormContent fieldIdPrefix={formId} />
+            <PackFormPricing fieldIdPrefix={formId} methods={methods} />
+            <PackFormVisibility fieldIdPrefix={formId} methods={methods} />
+            <PackFormAdvanced fieldIdPrefix={formId} />
+          </div>
+        </ControlledForm>
+      </SelectedItemsContextProvider>
     </Modal>
   );
 };

@@ -118,7 +118,10 @@ export const PackFormVisibilitySelector: React.FC<
                   ...otherDefaultProps,
                   onChange: (event) => {
                     const hidePack = event.target.value === OPTION_HIDDEN;
-                    form.setValue("manager_only", hidePack);
+                    form.setValue("manager_only", hidePack, {
+                      shouldDirty: true,
+                      shouldValidate: true,
+                    });
                     if (hidePack) {
                       // Fallback payment methods to default value to avoid hidden errors
                       form.setValue(

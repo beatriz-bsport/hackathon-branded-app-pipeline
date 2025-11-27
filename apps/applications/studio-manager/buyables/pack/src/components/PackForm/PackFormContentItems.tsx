@@ -91,7 +91,7 @@ const EmptyCardList = memo(() => {
   return (
     <div className="my-xl flex flex-col items-center gap-xs">
       <Illustration name="no-search" />
-      <Body color="weak" size="lg">
+      <Body color="critical" size="lg">
         {t("formFields.packContent.card.placeholder")}
       </Body>
     </div>

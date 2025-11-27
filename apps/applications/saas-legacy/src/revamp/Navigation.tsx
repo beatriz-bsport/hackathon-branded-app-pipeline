@@ -29,6 +29,7 @@ type NavigationSidebarProps = {
   navigate: (path: string) => void;
   disableRevampOnLegacyStore?: () => void;
   onLogoutCallback?: () => void;
+  onMobileSidebarClose?: () => void;
 };
 
 const NavigationSidebarFallback = () => (
@@ -61,8 +62,13 @@ const NavigationSidebar = createRemoteComponent<
 
 export const Navigation: React.FC<{
   updateRevampedBackofficeEnabled: (nextValue: boolean) => void;
-}> = ({ updateRevampedBackofficeEnabled }) => {
-  const navigate = useHistory().push;
+  onDrawerClose?: () => void;
+}> = ({ updateRevampedBackofficeEnabled, onDrawerClose }) => {
+  const { push } = useHistory();
+  const navigate: ReturnType<typeof useHistory>['push'] = (...props) => {
+    push(...props);
+    onDrawerClose?.();
+  };
 
   useEffect(() => {
     //@ts-expect-error

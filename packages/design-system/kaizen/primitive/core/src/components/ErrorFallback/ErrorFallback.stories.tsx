@@ -135,3 +135,17 @@ export const NetworkError: Story = {
     },
   },
 };
+
+export const CrashFeedbackError: Story = {
+  name: "With crash report form example",
+  args: {
+    title: "Connection Lost",
+    subtitle: "we couldn't reach our servers.",
+    description: "Please check your internet connection and try again.",
+    actionProps: {
+      onClick: () => console.log("reload page"),
+    },
+    onSendFeedback: ({ feedbackContent }) =>
+      console.log("Here is the user feedback : ", feedbackContent),
+  },
+};

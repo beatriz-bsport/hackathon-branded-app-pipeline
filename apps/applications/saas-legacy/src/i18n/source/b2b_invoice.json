@@ -1,0 +1,85 @@
+{
+  "configuration": {
+    "verifactu": {
+      "title": "VERI*FACTU",
+      "description": "Set up Fiskaly SIGN ES to automatically share invoices with the Spanish Tax Agency (AEAT) and comply with VERI*FACTU requirements. Enter the details of the representative to create a social collaboration agreement, which authorises bsport to transmit invoices on your behalf.",
+      "info": "This add-on isn't active on your account yet — please contact your Account Manager to request it",
+      "loading": "Loading...",
+      "onboarding": {
+        "agreement_created": "Social Collaboration Agreement created",
+        "agreement_error": "Couldn't create Social Collaboration Agreement. Please try again. "
+      },
+      "signed_agreement": {
+        "details_title": "Details of representative",
+        "edit": "Edit",
+        "full_name": "Full name",
+        "dni_nie": "DNI/NIE",
+        "address": "Address",
+        "municipality": "Municipality",
+        "country": "Country",
+        "agreement_title": "Social Collaboration Agreement is ready for your signature",
+        "agreement_subtitle": "Follow the steps to validate your Social Collaboration Agreement",
+        "step1_text": "Download PDF",
+        "step2_text": "Representative signs the PDF",
+        "step3_text": "Upload signed PDF",
+        "download_pdf": "Download PDF",
+        "upload_pdf": "Upload PDF",
+        "upload_info": "Upload signed PDF to continue",
+        "send_document": "Send document",
+        "upload_success": "Signed agreement uploaded successfully",
+        "upload_error": "Couldn't upload signed agreement. Please try again. "
+      },
+      "form": {
+        "sectionTitle": "Details of representative",
+        "first_name": "First name",
+        "last_name": "Last name",
+        "dni_nie": "DNI/NIE",
+        "dni_nie_invalid": "The DNI/NIE number entered is not valid.",
+        "postal_code_invalid": "Postal code must be 3-10 characters and contain only letters, digits, spaces, and hyphens.",
+        "address": "Address",
+        "street_number": "Street number",
+        "postal_code": "Postal code",
+        "city": "City",
+        "municipality": "Municipality",
+        "country": "Country",
+        "save_for_later": "Save for later",
+        "save_for_later_success": "Representative details saved successfully",
+        "representative_error": "Could't save representative details. Please try again. ",
+        "create_agreement": "Create agreement",
+        "chips": {
+          "vat_id_validated": "VAT ID validated",
+          "vat_id_missing": "VAT ID missing",
+          "business_address_provided": "Business address provided",
+          "business_address_missing": "Business address missing",
+          "invoice_identifiers_set_up": "Invoice identifiers set up",
+          "invoice_identifiers_not_set_up": "Invoice identifiers not set up"
+        },
+        "alert": {
+          "content": "Heads up: Please review details carefully\nOnce you create your Social Collaboration Agreement, you won't be able to edit it unless you create another with a new signature. Please ensure all information is correct before you continue.",
+          "action": "Got it"
+        },
+        "requirements": {
+          "vat_required": "VAT ID required",
+          "address_required": "Business address required",
+          "vat_and_address_required": "VAT ID & Business address required",
+          "vat_description": "Add your VAT ID in Settings -> Company to set up VERI*FACTU",
+          "address_description": "Provide your business address as part of the Stripe onboarding to set up VERI*FACTU",
+          "vat_and_address_description": "Add your VAT ID in Settings -> Company and complete your Stripe onboarding to provide your business address. Both are required by Spanish tax authorities before setting up VERI*FACTU.",
+          "go_to_settings": "Go to Settings",
+          "complete_stripe_onboarding": "Complete Stripe onboarding",
+          "legal_identifier_required": "Invoice identifiers required",
+          "legal_identifier_description": "Speak to your Account Manager to set up invoice identifiers for Sign-ES."
+        }
+      },
+      "active": {
+        "success_message": "Your invoices are now automatically transmitted to the Spanish Tax Agency (AEAT)",
+        "agreement_title": "Social Collaboration Agreement",
+        "agreement_subtitle": "You can access your Social Collaboration Agreement at any time via this link",
+        "agreement_link": "Link to PDF",
+        "certificate_title": "VERI*FACTU Responsibility Declaration",
+        "certificate_subtitle": "BSPORT Solutions complies with Spanish invoicing regulations (Verifactu and TicketBAI). Download our official responsibility declaration.",
+        "certificate_link": "VERI*FACTU certificate"
+      }
+    }
+  }
+}

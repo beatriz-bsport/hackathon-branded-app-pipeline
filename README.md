@@ -16,6 +16,10 @@ The official documentation of the Frontend can be found on [Notion](https://www.
 
 ---
 
+[bsport-saas](https://gitlab.com/bsport/bsport-saas) is the old implementation of the front end. it was migrated to this repo in `./apps/applications/saas-legacy/`.
+
+[bsport-widget](https://gitlab.com/bsport/bsport-widget) is the old widget implementation. It was migrated to this repo in `./apps/widgets/widget-legacy/`
+
 ## How to use
 
 ### Get started
@@ -26,11 +30,15 @@ The official documentation of the Frontend can be found on [Notion](https://www.
 nvm install && nvm use
 ```
 
+You can also check which version should be used in `.nvmrc`.
+
 2. Install [pnpm](https://pnpm.io/)
 
 ```sh
 npm install -g pnpm@$(grep pnpm_version .npmrc | cut -d '=' -f 2)
 ```
+
+You can also check which version should be used in `.npmrc`.
 
 3. Install dependencies
 
@@ -40,7 +48,7 @@ pnpm install
 
 If you encounter an error about pnpm version, delete the global one that lives in a global binary
 
-On mac, it would be in 
+On mac, it would be in
 
 ```sh
 rm /Users/xxxx/Library/pnpm/pnpm
@@ -247,7 +255,7 @@ To use a package made by our developers in the monorepository (for example `@bsp
 }
 ```
 
-or if you don't want your package to appear in the production build
+or if you don't want your package to appear in the production build:
 
 ```jsonc
 {
@@ -349,7 +357,7 @@ pnpm dlx nx migrate latest
 ```
 
 You should do this regularly to ensure your dependencies are up-to-date.
-You can find more regarding upgrading NX here: https://nx.dev/features/automate-updating-dependencies/
+You can find more regarding upgrading NX here: <https://nx.dev/features/automate-updating-dependencies/>
 
 ### Upgrade pnpm
 

@@ -2,7 +2,6 @@ import type { ReactNode } from "react";
 
 import Button from "#src/components/Button";
 import DropdownMenu from "#src/components/DropdownMenu";
-import Popover from "#src/components/Popover";
 import { useKaizenI18nInstance, useTranslation } from "#src/i18n";
 
 import type { TabConfig } from "./Tabs";
@@ -41,6 +40,7 @@ export function TabsResponsive({
   const handleSelectTab = (id: string) => {
     setActiveTab(id);
     const selectedTab = tabs.find((tab) => tab.id === id);
+
     if (selectedTab) {
       parentContext.setActiveTabData({
         id,
@@ -56,21 +56,33 @@ export function TabsResponsive({
     isResponsive: false,
   };
 
+  // Context for dropdown content: force responsive rendering as DropdownMenu.Items
+  const dropdownContentContext = {
+    ...parentContext,
+    isResponsive: true,
+  };
+
+  // Check if using composable API (TabsItems contains React Router links)
+  // Non-composable API always provides tabs array
+  const isComposableAPI = tabs.length === 0;
+
   return (
     <>
-      {/* Hidden container to keep TabsItems mounted for the active tab when the dropdown content is not mounted */}
-      {/* Uses non-responsive context so TabsItems render as regular tabs, not DropdownMenu.Items */}
-      <TabsContext.Provider value={hiddenContainerContext}>
-        <div className="hidden" aria-hidden="true">
-          {TabsItems}
-        </div>
-      </TabsContext.Provider>
+      {/* Hidden container only for composable API to keep NavLink state synced */}
+      {isComposableAPI && (
+        <TabsContext.Provider value={hiddenContainerContext}>
+          <div className="hidden" aria-hidden="true">
+            {TabsItems}
+          </div>
+        </TabsContext.Provider>
+      )}
 
       <DropdownMenu
         className={className}
         selectedValues={activeTab ? [activeTab] : []}
-        onSelectedValuesChange={(values) => handleSelectTab(values[0])}
-        onSelectItem={handleSelectTab}
+        onSelectedValuesChange={(values) => {
+          handleSelectTab(values[0]);
+        }}
       >
         <DropdownMenu.Trigger>
           {({ setIsOpen, isOpen }) => (
@@ -87,9 +99,11 @@ export function TabsResponsive({
             />
           )}
         </DropdownMenu.Trigger>
-        <Popover.Content placement="bottom-left">
-          {() => <DropdownMenu.Content>{TabsItems}</DropdownMenu.Content>}
-        </Popover.Content>
+        <DropdownMenu.Content placement="bottom-left">
+          <TabsContext.Provider value={dropdownContentContext}>
+            {TabsItems}
+          </TabsContext.Provider>
+        </DropdownMenu.Content>
       </DropdownMenu>
     </>
   );

@@ -207,3 +207,8 @@ export const BOOKING_NOTIFICATION_KINDS = {
   CANCELLED_REFUNDED: 5,
   CANCELLED_NOT_REFUNDED: 6,
 } as const;
+
+export type CreateMarketingNotificationParams = Omit<
+  MarketingNotification,
+  "id"
+>;

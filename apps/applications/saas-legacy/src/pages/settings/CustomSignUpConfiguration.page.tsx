@@ -188,6 +188,7 @@ export class FormsConfiguration extends React.Component<Props> {
                     initial={this.props.customFormSelected}
                     isCssVariantActivated={CUSTOM_FORM_CSS_VARIANT_ACTIVATED}
                     layouts={this.props.customFormSelected.layout}
+                    waiver={this.props.theme.waiver}
                   />
                 </Paper>
               </div>

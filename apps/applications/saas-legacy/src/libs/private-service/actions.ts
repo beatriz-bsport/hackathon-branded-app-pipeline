@@ -147,6 +147,7 @@ import {
   ThunkAction,
   OptionCallback,
   PaginatedResponse,
+  OptionBackgroundCallback,
 } from '../../state/types';
 
 import {
@@ -3167,22 +3168,28 @@ export const deletePrivatePassTemplateActions = {
 export const restorePrivatePassTemplateActions = {
   isLoading: createAction<boolean>('PRIVATE_PASS_TEMPLATE/RESTORE/IS_LOADING'),
   error: createAction<Error | null>('PRIVATE_PASS_TEMPLATE/RESTORE/ERROR'),
-  success: createAction<PrivatePassTemplateAPI>(
-    'PRIVATE_PASS_TEMPLATE/RESTORE/SUCCESS',
-  ),
+  success: createAction<number>('PRIVATE_PASS_TEMPLATE/RESTORE/SUCCESS'),
 };
 
 export function deletePrivatePassTemplate(
   id: number,
-  options?: OptionCallback,
+  options?: OptionBackgroundCallback,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(deletePrivatePassTemplateActions.error(null));
     dispatch(deletePrivatePassTemplateActions.isLoading(true));
     try {
       const response = await deletePrivatePassTemplateAPI(id);
-      dispatch(deletePrivatePassTemplateActions.success(id));
-
+      const backgroundTaskUuid = response.headers['x-background-task-uuid'];
+      dispatch(
+        monitorBackgroundTask(backgroundTaskUuid, {
+          onSuccess: () => {
+            options?.onBackgroundSuccess?.();
+            dispatch(deletePrivatePassTemplateActions.success(id));
+          },
+          onError: options?.onBackgroundError,
+        }),
+      );
       if (options && options.onSuccess) {
         options.onSuccess(response.data);
       }
@@ -3197,16 +3204,24 @@ export function deletePrivatePassTemplate(
 
 export function restorePrivatePassTemplate(
   id: number,
-  options?: OptionCallback<PrivatePassTemplateAPI>,
+  options?: OptionBackgroundCallback,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(restorePrivatePassTemplateActions.error(null));
     dispatch(restorePrivatePassTemplateActions.isLoading(true));
     try {
       const response = await restorePrivatePassTemplateAPI(id);
-      dispatch(restorePrivatePassTemplateActions.success(response.data));
-
-      options?.onSuccess?.(response.data);
+      const backgroundTaskUuid = response.headers['x-background-task-uuid'];
+      dispatch(
+        monitorBackgroundTask(backgroundTaskUuid, {
+          onSuccess: () => {
+            options?.onBackgroundSuccess?.();
+            dispatch(restorePrivatePassTemplateActions.success(id));
+          },
+          onError: options?.onBackgroundError,
+        }),
+      );
+      options?.onSuccess?.();
     } catch (err) {
       dispatch(restorePrivatePassTemplateActions.error(err as Error));
       options?.onError?.(err as Error);

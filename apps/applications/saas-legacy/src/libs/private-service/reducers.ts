@@ -87,7 +87,6 @@ import type {
   ServiceCompatibilityPass,
   PrivatePassTemplateAPI,
   ResourceSlotsByDate,
-  PrivatePassTemplate,
 } from './types';
 
 const initialState: Seamless.Immutable<PrivateServiceState> =
@@ -1979,9 +1978,12 @@ export default handleActions<Seamless.Immutable<PrivateServiceState>, any>(
     },
     [restorePrivatePassTemplateActions.success.toString()]: (
       state,
-      { payload }: { payload: PrivatePassTemplate },
+      { payload }: { payload: number },
     ) => {
-      return state.setIn(['privatePassTemplate', 'byId', payload.id], payload);
+      return state.setIn(
+        ['privatePassTemplate', 'byId', payload, 'disabled'],
+        false,
+      );
     },
     [retrievePrivatePassTemplateActions.isLoading.toString()]: (
       state,

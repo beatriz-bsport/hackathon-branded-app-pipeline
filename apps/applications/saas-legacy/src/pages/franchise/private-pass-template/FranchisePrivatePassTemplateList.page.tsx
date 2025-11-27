@@ -283,8 +283,10 @@ const mapWithHandlers = {
     () =>
       deletePrivatePassTemplate(templateToDelete!, {
         onSuccess: () => {
-          fetchPrivatePassTemplateList();
           closeDeleteDialog();
+        },
+        onBackgroundSuccess: () => {
+          fetchPrivatePassTemplateList();
         },
       }),
   restorePrivatePassTemplate:
@@ -292,10 +294,12 @@ const mapWithHandlers = {
       restorePrivatePassTemplate,
       templateToRestore,
       closeRestoreDialog,
+      fetchPrivatePassTemplateList,
     }: ConnectedPropsWithStateHandlers) =>
     () =>
       restorePrivatePassTemplate(templateToRestore ?? -1, {
         onSuccess: closeRestoreDialog,
+        onBackgroundSuccess: fetchPrivatePassTemplateList,
       }),
   createOrUpdatePrivatePassTemplate:
     ({

@@ -8,7 +8,12 @@
       "placeholder": "domain.com",
       "saveTooltip": "Heads up: Once added, domains cannot be edited",
       "addButton": "Add another domain",
-      "validationError": "Domain URL must be in a valid format, e.g. domain.com"
+      "validationError": "The domain URL must be in a valid format, e.g. domain.com",
+      "errors": {
+        "4005": "You have reached the maximum number of payment method domains allowed (15 domains). Please remove a domain before adding a new one.",
+        "4007": "This domain is already registered. Each domain can only be registered once across all companies. Since domains are shared within a franchise, this won't prevent payments from being taken on this site.",
+        "default": "An error occurred while registering the domain."
+      }
     }
   }
 }

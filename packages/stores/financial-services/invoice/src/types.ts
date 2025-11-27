@@ -1,3 +1,8 @@
+import { FLATTEN_BUYABLE_IDENTIFIERS } from "./constants";
+
+export type BuyableItemIdentifier =
+  (typeof FLATTEN_BUYABLE_IDENTIFIERS)[number];
+
 export type Invoice<M = number, PI = number, II = number> = {
   amount_due_cts: number;
   amount_paid_cts: number;
@@ -75,3 +80,8 @@ enum PaymentRefundStatus {
   SUCCESS = "SUCCESS",
   FAILED = "FAILED",
 }
+
+export type FetchInvoiceByInvoiceItemParams = {
+  buyableItemIdentifier: BuyableItemIdentifier;
+  buyableItemId: number;
+};

@@ -1,7 +1,7 @@
 import { buildById } from "@bsport/store-base";
 
 import { packStore } from "#src/store";
-import type { Pack } from "#src/types";
+import type { Pack, PurchasedPack } from "#src/types";
 
 export const updatePack = (updatedPack: Pack) => {
   packStore.setState((state) => {
@@ -41,6 +41,31 @@ export const setFuzzyPacks = ({ packs }: { packs: Array<Pack> }) => {
     return {
       fuzzyIds: packs.map((item) => item.id),
       byId: buildById<Pack>({ initial: state.byId, newItems: packs }),
+    };
+  });
+};
+
+export const setPurchasedPacks = ({
+  purchasedPacks,
+  count,
+  page,
+}: {
+  purchasedPacks: PurchasedPack[];
+  count: number;
+  page: number;
+}) => {
+  packStore.setState((state) => {
+    return {
+      purchasedPacks: {
+        ...state.purchasedPacks,
+        ids: purchasedPacks.map((item) => item.id),
+        byId: buildById<PurchasedPack>({
+          initial: state.purchasedPacks.byId,
+          newItems: purchasedPacks,
+        }),
+        count,
+        page,
+      },
     };
   });
 };

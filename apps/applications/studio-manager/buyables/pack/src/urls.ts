@@ -14,4 +14,6 @@ export const LEGACY_URLS = {
   CREATE: "/combo?openForm=true",
   PAYMENT_LINK: ({ id, company }: { id: number; company: number }) =>
     `${window.location.origin}/customer/payment/combo/${id}/?membership=${company}`,
+  MEMBER_DETAILS: (memberId: number) => `/member/${memberId}`,
+  INVOICE_DETAILS: (invoiceId: string) => `/invoice/${invoiceId}`,
 } as const;

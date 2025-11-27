@@ -1,11 +1,16 @@
 import { createStore } from "zustand/vanilla";
 
-import { type PaginatedState, bindStore } from "@bsport/store-base";
+import {
+  DEFAULT_PAGE,
+  type PaginatedState,
+  bindStore,
+} from "@bsport/store-base";
 
-import type { Pack } from "#src/types";
+import type { Pack, PurchasedPack } from "#src/types";
 
 export type PackState = PaginatedState<Pack> & {
   fuzzyIds: Array<number>;
+  purchasedPacks: PaginatedState<PurchasedPack>;
 };
 
 export const packStore = createStore<PackState>()(() => ({
@@ -13,7 +18,13 @@ export const packStore = createStore<PackState>()(() => ({
   count: 0,
   ids: [],
   fuzzyIds: [],
-  page: 1,
+  page: DEFAULT_PAGE,
+  purchasedPacks: {
+    byId: {},
+    count: 0,
+    ids: [],
+    page: DEFAULT_PAGE,
+  },
 }));
 
 /**

@@ -19,7 +19,9 @@ const startDateMethodsTypes = [
   `${START_ON_FIRST_ATTENDANCE}`,
 ] as const;
 
-type StartDateMethodType = (typeof startDateMethodsTypes)[number] | number;
+export type StartDateMethodType =
+  | (typeof startDateMethodsTypes)[number]
+  | number;
 
 export type ConsumerPaymentPackExtension = {
   note: string;

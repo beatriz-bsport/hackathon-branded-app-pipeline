@@ -1,0 +1,9 @@
+function isNumber(value: unknown): value is number {
+  return !Number.isNaN(Number(value));
+}
+
+export function getIdOrObject<T extends { id: number }>(
+  value: T | number,
+): number {
+  return isNumber(value) ? value : value.id;
+}

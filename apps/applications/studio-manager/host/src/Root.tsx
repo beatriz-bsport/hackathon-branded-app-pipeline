@@ -8,7 +8,7 @@ import {
 
 import { getEnv } from "@bsport/envs";
 import { initIntercomWidget } from "@bsport/intercom";
-import { Title } from "@bsport/kaizen-primitive-core";
+import { Loader } from "@bsport/kaizen-primitive-core";
 import {
   BSPORT_REQUEST_FROM_HEADER_VALUES,
   setBsportRequestFrom,
@@ -239,14 +239,7 @@ const AuthenticatedRoutes = () => {
           path="/"
           element={
             <div className="flex flex-col justify-center h-screen items-center flex-1">
-              <Title
-                htmlVariant="h1"
-                color="positive"
-                weight="strong"
-                className="animate-bounce"
-              >
-                Welcome to our revamped backoffice !
-              </Title>
+              <Loader size="xl" />
             </div>
           }
         />

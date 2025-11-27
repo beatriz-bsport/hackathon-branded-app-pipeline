@@ -48,6 +48,7 @@ import { NavigationSidebarContainer } from "./NavigationSidebarContainer";
 import NavigationSidebarHeader, {
   type MenuOption,
 } from "./NavigationSidebarHeader";
+import { SidebarProvider } from "./SidebarContext";
 import { useNavigateInContext } from "./navigate";
 import {
   type MenuSet,
@@ -79,6 +80,7 @@ const NavigationSidebarContent = ({
   const navigateInContext = useNavigateInContext(navigate);
 
   const [menuSet, setMenuSet] = useState<MenuSet>("default");
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   useAlerts();
 
@@ -313,11 +315,17 @@ const NavigationSidebarContent = ({
   }
 
   return (
-    <Sidebar
-      topbarSlot={<SearchMemberTopbarButton onClick={openSearchMemberModal} />}
-    >
-      {sidebarContent}
-    </Sidebar>
+    <SidebarProvider closeSidebar={() => setIsSidebarOpen(false)}>
+      <Sidebar
+        topbarSlot={
+          <SearchMemberTopbarButton onClick={openSearchMemberModal} />
+        }
+        isOpen={isSidebarOpen}
+        onOpenChange={setIsSidebarOpen}
+      >
+        {sidebarContent}
+      </Sidebar>
+    </SidebarProvider>
   );
 };
 

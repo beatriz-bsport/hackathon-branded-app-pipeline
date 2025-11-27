@@ -45,6 +45,7 @@ export function withNavigationSwitcher(
               open={props.mobileOpen}
             >
               <Navigation
+                onDrawerClose={props.handleDrawerToggle}
                 updateRevampedBackofficeEnabled={
                   props.updateRevampedBackofficeEnabled
                 }

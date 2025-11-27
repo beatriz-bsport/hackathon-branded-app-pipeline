@@ -24,15 +24,19 @@ Checks if two DateTime objects represent the same calendar day.
 
 Returns all days in the month of the provided DateTime.
 
-#### getWeekdays(format?: "long" | "short" | "narrow", weekStartDay?: WeekStartDay, locale?: string): string[]
+#### getWeekdays(format?: "long" | "short" | "narrow", locale?: string): string[]
 
-Retrieves localized weekday names in the desired order.
+Retrieves localized weekday names, starting by the first day of the week in the desired locale.
+
+#### getWeekStartDayFromLocale(locale: string): WeekStartDay
+
+Retrieves the first day of the week in the locale, where 1 = Monday, 7 = Sunday
 
 #### getMonths(format?: "long" | "short", locale?: string): string[]
 
 Retrieves localized month names.
 
-#### generateCalendarDays(displayMonth: DateTime, weekStartDay: WeekStartDay): (DateTime | null)[]
+#### generateCalendarDays(displayMonth: DateTime, locale: string = en): (DateTime | null)[]
 
 Generates a calendar grid for the given month.
 
@@ -50,7 +54,7 @@ Validates Date objects and ISO date strings.
 
 #### WeekStartDay
 
-Represents the starting day of the week (0 = Sunday, 1 = Monday, etc.)
+Represents the starting day of the week (1 = Monday, ..., 7 = Sunday)
 
 ## Usage Examples
 
@@ -65,11 +69,13 @@ import {
 // Convert Date to DateTime
 const dt = toDateTime(new Date());
 
-// Get French weekday names starting with Monday
-const weekdays = getWeekdays("short", 1, "fr");
+// Get French weekday names. This will start with Monday.
+const weekdays = getWeekdays("short", "fr");
+// Get US weekday names. This will start with Sunday.
+const USWeekdays = getWeekdays("long", "en-US");
 
 // Generate calendar grid
-const calendar = generateCalendarDays(DateTime.now(), 1);
+const calendar = generateCalendarDays(DateTime.now(), "fr");
 ```
 
 ## Development

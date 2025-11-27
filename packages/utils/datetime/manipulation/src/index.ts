@@ -6,10 +6,9 @@ export type { DateTime } from "./constants";
 
 /**
  * Represents the starting day of the week.
- * 0 = Sunday, 1 = Monday, …, 6 = Saturday.
+ * 1 = Monday, …, 6 = Saturday, 7 = Sunday.
  */
-export type WeekStartDay = 0 | 1 | 2 | 3 | 4 | 5 | 6;
-
+export type WeekStartDay = 1 | 2 | 3 | 4 | 5 | 6 | 7;
 /**
  * Converts a native JavaScript Date to a DateTime object.
  *
@@ -85,13 +84,14 @@ export const isSameDay = (date1: DateTime, date2: DateTime): boolean =>
  * Calculates the offset for the first day of the month in a calendar grid based on the start of the week.
  *
  * @param date - A DateTime representing any day in the month.
- * @param weekStartDay - The index representing the starting day of the week (0 for Sunday, etc.).
+ * @param locale - The locale identifier, e.g., "en" or "fr". Default is "en".
  * @returns The number of blank cells before the first day of the month.
  */
 export const calculateOffset = (
   date: DateTime,
-  weekStartDay: WeekStartDay,
-): number => ((date.startOf("month").weekday % 7) - weekStartDay + 7) % 7;
+  locale: string = "en",
+): number =>
+  (date.startOf("month").weekday - getWeekStartDayFromLocale(locale) + 7) % 7;
 
 /**
  * Retrieves an array of localized weekday names in the desired order.
@@ -114,8 +114,7 @@ export const getWeekdays = (
 };
 
 export const getWeekStartDayFromLocale = (locale: string): WeekStartDay => {
-  const localeWeekStart = Info.getStartOfWeek({ locale });
-  return (localeWeekStart % 7) as WeekStartDay;
+  return Info.getStartOfWeek({ locale });
 };
 /**
  * Retrieves an array of localized month names.
@@ -133,14 +132,14 @@ export const getMonths = (
  * Generates a calendar grid for the given month, respecting the locale's week start day.
  *
  * @param displayMonth - A DateTime representing any day within the target month.
- * @param weekStartDay - The starting day of the week (0 = Sunday, 1 = Monday, etc.).
+ * @param locale - The locale identifier, e.g., "en" or "fr". Default is "en".
  * @returns An array containing nulls for offset cells and DateTime objects for each day in the month.
  */
 export const generateCalendarDays = (
   displayMonth: DateTime,
-  weekStartDay: WeekStartDay,
+  locale: string = "en",
 ): (DateTime | null)[] => {
-  const offset = calculateOffset(displayMonth, weekStartDay);
+  const offset = calculateOffset(displayMonth, locale);
   const daysInMonth = getDaysInMonth(displayMonth);
   return [...Array(offset).fill(null), ...daysInMonth];
 };

@@ -57,35 +57,54 @@ export const Banner: FC<BannerProps> = ({
   return (
     <div
       className={[
-        "rounded-xl flex flex-col w-full items-start p-md",
-        "bg-no-repeat bg-cover",
+        "relative",
+        "rounded-xl w-full max-w-full",
+        "bg-no-repeat bg-cover bg-center",
         "bg-[image:var(--bg-url)]",
+        "overflow-hidden",
       ].join(" ")}
       style={{ "--bg-url": `url(${image})` }}
     >
-      <div className="flex flex-row justify-between gap-md w-full">
-        <Title htmlVariant="h2" weight="stronger">
-          {title}
-        </Title>
-        <Button
-          onClick={onCrossClick}
-          kind="icon-button"
-          icon="x-close"
-          label={t("banner.close")}
-          size="md"
-          intent="flat"
-          color="main"
-        />
+      {/* Grid layout: left column expands, right column for close button */}
+      <div className="grid grid-cols-[1fr_auto] gap-md p-lg">
+        {/* Left column: Content stacked vertically */}
+        <div className="flex min-w-0 flex-col justify-center gap-sm">
+          <Title
+            htmlVariant="h2"
+            weight="stronger"
+            className="line-clamp-2 break-words max-w-[260px] md:max-w-[450px]"
+          >
+            {title}
+          </Title>
+          {description && (
+            <Body className="line-clamp-2 break-words max-w-[260px] md:max-w-[450px]">
+              {description}
+            </Body>
+          )}
+          <div className="mt-2xs">
+            <Button
+              intent="call-to-action"
+              label={ctaLabel}
+              color="main"
+              size="md"
+              onClick={onCTAClick}
+            />
+          </div>
+        </div>
+
+        {/* Right column: Close button aligned to top */}
+        <div className="flex items-start">
+          <Button
+            onClick={onCrossClick}
+            kind="icon-button"
+            icon="x-close"
+            label={t("banner.close")}
+            size="md"
+            intent="flat"
+            color="main"
+          />
+        </div>
       </div>
-      {description && <Body className="mt-2xs">{description}</Body>}
-      <Button
-        intent="call-to-action"
-        label={ctaLabel}
-        color="main"
-        size="md"
-        onClick={onCTAClick}
-        className="mt-lg"
-      />
     </div>
   );
 };

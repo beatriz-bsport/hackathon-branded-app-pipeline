@@ -27,8 +27,9 @@ export const KeyMetrics: FC = () => {
     <HomepageSection title={t("keyMetrics.title")} noGap>
       <Dashboard
         errorMessage={t("keyMetrics.unavailable")}
-        iframeLeftTranslate={-12}
-        iframeMinHeight={285}
+        iframeLeftTranslate={-16}
+        iframeLoadingHeight={284}
+        iframeLoadingMobileHeight={647}
         iframeTitle={t("keyMetrics.title")}
         iframeUrl={iframeUrl}
         isLoading={isLoading}

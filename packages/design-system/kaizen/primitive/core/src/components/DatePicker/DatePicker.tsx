@@ -86,11 +86,13 @@ const DatePicker: React.FC<DatePickerProps> = ({
 
   useEffect(() => {
     if (mode === "single" && Array.isArray(selectedDate)) {
-      setSelectedDate(null);
+      setSelectedDate(defaultValue instanceof Date ? defaultValue : null);
     } else if (mode === "range" && !Array.isArray(selectedDate)) {
-      setSelectedDate([null, null]);
+      setSelectedDate(
+        Array.isArray(defaultValue) ? defaultValue : [null, null],
+      );
     }
-  }, [mode, selectedDate]);
+  }, [mode, selectedDate, defaultValue]);
 
   const getSanitizedDate = useCallback(
     (value: SelectedDate): SelectedDate => {

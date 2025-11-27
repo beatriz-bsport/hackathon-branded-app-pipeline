@@ -111,6 +111,21 @@ export const fetchSessionsAction: Action<
 };
 
 export const setCalendarView = (calendarView: CalendarView) => {
+  const currentSelectedDate = sessionListStore.getState().selectedDate;
+  if (
+    calendarView === CalendarView.DAILY &&
+    currentSelectedDate.type === "range" &&
+    currentSelectedDate.minDate
+  ) {
+    sessionListStore.setState({
+      calendarView,
+      selectedDate: {
+        type: "single",
+        date: currentSelectedDate.minDate,
+      },
+    });
+    return;
+  }
   sessionListStore.setState({
     calendarView,
   });

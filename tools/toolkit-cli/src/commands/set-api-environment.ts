@@ -69,6 +69,7 @@ const FEATURE_BRANCH_API_IDENTIFIERS = [
   "torchic",
   "totodile",
   "turtwig",
+  "sylveon",
 ] as const;
 
 type FeatureBranchApiIdentifier =

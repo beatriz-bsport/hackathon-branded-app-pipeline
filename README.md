@@ -16,6 +16,10 @@ The official documentation of the Frontend can be found on [Notion](https://www.
 
 ---
 
+[bsport-saas](https://gitlab.com/bsport/bsport-saas) is the old implementation of the front end. it was migrated to this repo in `./apps/applications/saas-legacy/`.
+
+[bsport-widget](https://gitlab.com/bsport/bsport-widget) is the old widget implementation. It was migrated to this repo in `./apps/widgets/widget-legacy/`
+
 ## How to use
 
 ### Get started
@@ -26,11 +30,15 @@ The official documentation of the Frontend can be found on [Notion](https://www.
 nvm install && nvm use
 ```
 
+You can also check which version should be used in `.nvmrc`.
+
 2. Install [pnpm](https://pnpm.io/)
 
 ```sh
 npm install -g pnpm@$(grep pnpm_version .npmrc | cut -d '=' -f 2)
 ```
+
+You can also check which version should be used in `.npmrc`.
 
 3. Install dependencies
 

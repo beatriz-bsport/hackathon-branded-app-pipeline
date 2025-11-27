@@ -2,12 +2,13 @@ import React, { useEffect, useRef, useState } from "react";
 
 import CalendarHeader from "./CalendarHeader";
 import DateInputField from "./DateInputField";
+import type { SelectedDate } from "./DatePicker";
 import Month from "./Month";
 
 type CalendarSingleProps = {
   id: string;
   years?: number[];
-  disableDate?: (date: Date) => boolean;
+  disableDate?: (date: Date, selectedDate: SelectedDate) => boolean;
   selectedDate: Date | null;
   onSelect: (date: Date | null) => void;
   hideSelector?: boolean;

@@ -32,7 +32,7 @@ export type DatePickerProps = Omit<
   onClose?: () => void;
   onSelect?: (date: SelectedDate) => void;
   calendarYears?: number[];
-  disableDate?: (date: Date) => boolean;
+  disableDate?: (date: Date, selectedDate: SelectedDate) => boolean;
   shortcuts?: ShortcutItem[];
   popoverClassNames?: {
     container?: string;
@@ -53,7 +53,7 @@ export type DatePickerProps = Omit<
  * @param props.onConfirm Callback function to call when a date is selected.
  * @param props.onClose Callback function to call when the date picker is closed.
  * @param props.calendarYears The number of years to display in the calendar, defaults to 10.
- * @param props.disableDate A comparison function to disable specific dates in the calendar.
+ * @param props.disableDate A comparison function to disable specific dates in the calendar. Receives the date and current selected date.
  * @param props.shortcuts An array of shortcut items to display in the date picker.
  * @param props.popoverClassNames Custom classes to provide to the popover container and content
  * @param props.dateFormat The format to display dates for popover, either "short" or "medium".

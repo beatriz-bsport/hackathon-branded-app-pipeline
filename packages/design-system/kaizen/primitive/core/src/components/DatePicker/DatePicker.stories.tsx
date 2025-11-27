@@ -157,7 +157,8 @@ export const DatePickerModalWithDisabledPastDates: Story = {
     id: "datepicker-2",
     mode: "single",
     displayAs: "modal",
-    disableDate: (date: Date) => date < new Date(),
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    disableDate: (date: Date, _selectedDate) => date < new Date(),
     shortcuts,
   },
 };

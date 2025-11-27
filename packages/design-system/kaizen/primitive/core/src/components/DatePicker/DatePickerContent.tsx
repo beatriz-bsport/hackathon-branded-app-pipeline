@@ -14,7 +14,7 @@ export type DatePickerContentProps = React.HTMLAttributes<HTMLDivElement> & {
   mode: "single" | "range";
   displayAs: "popover" | "modal";
   calendarYears?: number[];
-  disableDate?: (date: Date) => boolean;
+  disableDate?: (date: Date, selectedDate: SelectedDate) => boolean;
   sanitizedSelected: SelectedDate;
   hideSelector?: boolean;
   shortcuts?: ShortcutItem[];

@@ -15,7 +15,7 @@ import type { SelectedDate } from "./DatePicker";
 import Day, { type DayStatus } from "./Day";
 
 type MonthProps = {
-  disableDate?: (date: Date) => boolean;
+  disableDate?: (date: Date, selectedDate: SelectedDate) => boolean;
   displayMonth: Date;
   onSelect?: (date: Date) => void;
   selectedDate: SelectedDate;
@@ -49,7 +49,7 @@ const Month: React.FC<MonthProps> = ({
   }, [calendarDays]);
 
   const getDayStatus = (date: Date): DayStatus => {
-    if (disableDate?.(date)) return "disabled";
+    if (disableDate?.(date, selectedDate)) return "disabled";
 
     if (!selectedDate) return "default";
 
@@ -118,7 +118,7 @@ const Month: React.FC<MonthProps> = ({
 
               const date = toDate(dt);
               const isCurrentDay = isSameDay(dt, toDateTime(new Date()));
-              const isDisabled = disableDate?.(date) ?? false;
+              const isDisabled = disableDate?.(date, selectedDate) ?? false;
               const status = getDayStatus(date);
 
               return (

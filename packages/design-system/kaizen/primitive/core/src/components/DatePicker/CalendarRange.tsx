@@ -7,12 +7,13 @@ import TextField from "#src/components/TextField";
 import { useKaizenI18nInstance, useTranslation } from "#src/i18n";
 
 import CalendarHeader from "./CalendarHeader";
+import type { SelectedDate } from "./DatePicker";
 import Month from "./Month";
 
 type CalendarRangeProps = {
   id: string;
   years?: number[];
-  disableDate?: (date: Date) => boolean;
+  disableDate?: (date: Date, selectedDate: SelectedDate) => boolean;
   selectedDate: [Date | null, Date | null] | null;
   onSelect: (dates: [Date | null, Date | null]) => void;
   hideSelector?: boolean;

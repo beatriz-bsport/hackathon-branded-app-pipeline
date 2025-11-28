@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import { fetchAppointmentPassCategoriesAction } from "@bsport/store-buyables-appointment-pass";
 import { fetchPassCategoriesAction } from "@bsport/store-buyables-pass";
@@ -9,94 +9,98 @@ import {
   DEFAULT_PAGE_SIZE,
 } from "@bsport/use-pagination-query-params";
 
-import type { ItemVariant } from "#src/utils/constants";
+import { ITEM_VARIANTS, type ItemVariant } from "#src/utils/constants";
 import { fetch } from "#src/utils/fetch";
 
-type CategoriesAction =
-  | typeof fetchPassCategoriesAction
-  | typeof fetchWebshopCategoriesAction
-  | typeof fetchAppointmentPassCategoriesAction;
+const fetchPassCategoriesBound = fetchPassCategoriesAction.bind(null, fetch);
+
+export const useFetchPassCategories = () => {
+  const [{ isLoading: isLoadingPassCategories }, fetchPassCategories] =
+    useAsync<typeof fetchPassCategoriesBound>({
+      asyncFn: fetchPassCategoriesBound,
+      onFailure: console.error,
+    });
+
+  return {
+    isLoadingPassCategories,
+    fetchPassCategories,
+  };
+};
+const fetchAppointmentPassCategoriesBound =
+  fetchAppointmentPassCategoriesAction.bind(null, fetch);
+
+export const useFetchAppointmentPassCategories = () => {
+  const [
+    { isLoading: isLoadingAppointmentPassCategories },
+    fetchAppointmentPassCategories,
+  ] = useAsync<typeof fetchAppointmentPassCategoriesBound>({
+    asyncFn: fetchAppointmentPassCategoriesBound,
+    onFailure: console.error,
+  });
+
+  return {
+    isLoadingAppointmentPassCategories,
+    fetchAppointmentPassCategories,
+  };
+};
+
+const fetchWebshopCategoriesBound = fetchWebshopCategoriesAction.bind(
+  null,
+  fetch,
+);
+
+export const useFetchWebshopCategories = () => {
+  const [{ isLoading: isLoadingWebshopCategories }, fetchWebshopCategories] =
+    useAsync<typeof fetchWebshopCategoriesBound>({
+      asyncFn: fetchWebshopCategoriesBound,
+      onFailure: console.error,
+    });
+
+  return {
+    isLoadingWebshopCategories,
+    fetchWebshopCategories,
+  };
+};
 
 export const useFetchItemsCategories = ({
   variant,
 }: {
-  variant: ItemVariant | null;
-}) => {
+  variant?: ItemVariant | null;
+} = {}) => {
   const [page, setPage] = useState(DEFAULT_PAGE);
   const [pageSize, setPageSize] = useState(DEFAULT_PAGE_SIZE);
 
-  const _fetchWithPagination = useCallback(
-    (action: CategoriesAction) => {
-      return action(fetch, {
-        page,
-        page_size: pageSize,
-      });
-    },
-    [page, pageSize],
-  );
-
-  // ----- Webshop -----
-
-  const _fetchWebshopCategories = useCallback(() => {
-    return _fetchWithPagination(
-      fetchWebshopCategoriesAction as CategoriesAction,
-    );
-  }, [_fetchWithPagination]);
-
-  const [{ isLoading: isLoadingWebshopCategories }, fetchWebshopCategories] =
-    useAsync<typeof _fetchWebshopCategories>({
-      asyncFn: _fetchWebshopCategories,
-      dependencies: [_fetchWebshopCategories],
-      onFailure: console.error,
-    });
-
-  // ----- Pass -----
-
-  const _fetchPassCategories = useCallback(() => {
-    return _fetchWithPagination(fetchPassCategoriesAction as CategoriesAction);
-  }, [_fetchWithPagination]);
-
-  const [{ isLoading: isLoadingPassCategories }, fetchPassCategories] =
-    useAsync<typeof _fetchPassCategories>({
-      asyncFn: _fetchPassCategories,
-      dependencies: [_fetchPassCategories],
-      onFailure: console.error,
-    });
-
-  // ----- Appointment Pass -----
-
-  const _fetchAppointmentPassCategories = useCallback(() => {
-    return _fetchWithPagination(
-      fetchAppointmentPassCategoriesAction as CategoriesAction,
-    );
-  }, [_fetchWithPagination]);
-
-  const [
-    { isLoading: isLoadingAppointmentPassCategories },
-    fetchAppointmentPassCategories,
-  ] = useAsync<typeof _fetchAppointmentPassCategories>({
-    asyncFn: _fetchAppointmentPassCategories,
-    dependencies: [_fetchAppointmentPassCategories],
-    onFailure: console.error,
-  });
+  const { fetchPassCategories, isLoadingPassCategories } =
+    useFetchPassCategories();
+  const { fetchAppointmentPassCategories, isLoadingAppointmentPassCategories } =
+    useFetchAppointmentPassCategories();
+  const { fetchWebshopCategories, isLoadingWebshopCategories } =
+    useFetchWebshopCategories();
 
   // ----- Fetch data on change -----
 
   useEffect(() => {
-    if (variant === "pass") {
-      fetchPassCategories();
+    const params = {
+      page,
+      page_size: pageSize,
+    };
+
+    if (variant === ITEM_VARIANTS.pass) {
+      fetchPassCategories(params);
     }
-    if (variant === "appointmentPass") {
-      fetchAppointmentPassCategories();
+    if (variant === ITEM_VARIANTS.appointmentPass) {
+      fetchAppointmentPassCategories(params);
     }
-    if (variant === "webshopItem") {
-      fetchWebshopCategories();
+    if (variant === ITEM_VARIANTS.webshopItem) {
+      fetchWebshopCategories(params);
     }
     if (!variant) {
       // Reset page state when closing the modal (e.g. variant being undefined)
       setPage(1);
     }
   }, [
+    page,
+    pageSize,
     variant,
     fetchWebshopCategories,
     fetchPassCategories,

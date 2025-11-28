@@ -6,7 +6,7 @@ import type { Establishment } from "@bsport/store-core-data-establishment";
 import type { Teacher } from "@bsport/store-core-data-teacher";
 
 import { fetchManagerSessionsAPI } from "./api";
-import { sessionListStore } from "./store";
+import { CalendarView, sessionListStore } from "./store";
 import type { InternalEnrichedSession } from "./types";
 
 type FetchSessionsResponse = {
@@ -110,7 +110,7 @@ export const fetchSessionsAction: Action<
   );
 };
 
-export const setCalendarView = (calendarView: "range" | "daily") => {
+export const setCalendarView = (calendarView: CalendarView) => {
   sessionListStore.setState({
     calendarView,
   });

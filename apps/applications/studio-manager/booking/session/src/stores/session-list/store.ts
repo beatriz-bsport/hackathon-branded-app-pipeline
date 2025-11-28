@@ -14,13 +14,18 @@ type SessionsState = {
   };
 };
 
+export enum CalendarView {
+  DAILY = "daily",
+  RANGE = "range",
+}
+
 export type DateSelection =
   | { type: "single"; date: Date }
   | { type: "range"; minDate: Date; maxDate: Date };
 
 export interface SessionListState {
   sessions: SessionsState;
-  calendarView: "daily" | "range";
+  calendarView: CalendarView;
   selectedDate: DateSelection;
 }
 
@@ -30,7 +35,7 @@ export const getInitialState = (): SessionListState => ({
     ids: [],
     byDate: {},
   },
-  calendarView: "daily",
+  calendarView: CalendarView.DAILY,
   selectedDate: { type: "single", date: new Date() },
 });
 

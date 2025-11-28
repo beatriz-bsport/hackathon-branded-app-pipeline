@@ -1,6 +1,7 @@
 import { DatePicker } from "@bsport/kaizen-primitive-core";
 
 import {
+  CalendarView,
   selectCalendarView,
   selectSelectedDate,
   setSelectedDate,
@@ -23,7 +24,7 @@ export const SessionDatePicker: React.FC = () => {
     <div className="flex pt-sm px-sm justify-center">
       <DatePicker
         id="daily-sessions-picker"
-        mode={calendarView === "daily" ? "single" : "range"}
+        mode={calendarView === CalendarView.DAILY ? "single" : "range"}
         displayAs="popover"
         onSelect={onDateChange}
         dateFormat="medium"

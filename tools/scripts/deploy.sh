@@ -6,22 +6,22 @@ set -euo pipefail
 # This script handles both environment deployments (dev/staging/production) and feature branch deployments
 #
 # Usage:
-#   deploy.sh <base_branch> <environment_flag> [frontend_only_flag] [feature_flag_env]
+#   deploy.sh <base_branch> <deploy_environment> [api_environment] [frontend_only_flag]
 #
 # Arguments:
 #   base_branch: The branch to compare against for affected projects (e.g., origin/dev, $CI_COMMIT_BEFORE_SHA)
-#   environment_flag: The environment flag to pass to api-environment:set (e.g., dev, staging, production, "feature-branch -fb my-branch")
-#   frontend_only_flag: Optional. Pass "frontend-only" to skip backend-related deployments
-#   feature_flag_env: Optional. The environment for feature flags (defaults to environment_flag if not provided, or "feature-branch" if not specified)
+#   deploy_environment: Where to deploy - passed to ci:build/ci:deploy (e.g., dev, staging, production, feature-branch)
+#   api_environment: Optional. API config - passed to api-environment:set (defaults to deploy_environment)
+#   frontend_only_flag: Optional. Pass "frontend-only" for frontend-only deployments
 
 BASE_BRANCH=$1
-ENVIRONMENT_FLAG=$2
-FRONTEND_ONLY_FLAG=${3:-""}
-FEATURE_FLAG_ENV=${4:-""}
+DEPLOY_ENVIRONMENT=$2
+API_ENVIRONMENT=${3:-$2}
+FRONTEND_ONLY_FLAG=${4:-""}
 
-if [ -z "$BASE_BRANCH" ] || [ -z "$ENVIRONMENT_FLAG" ]; then
+if [ -z "$BASE_BRANCH" ] || [ -z "$DEPLOY_ENVIRONMENT" ]; then
   echo "❌ Error: Missing required arguments"
-  echo "Usage: deploy.sh <base_branch> <environment_flag> [frontend_only_flag] [feature_flag_env]"
+  echo "Usage: deploy.sh <base_branch> <deploy_environment> [api_environment] [frontend_only_flag]"
   exit 1
 fi
 
@@ -29,9 +29,9 @@ echo "=========================================="
 echo "🚀 Starting deployment"
 echo "=========================================="
 echo "Base branch: $BASE_BRANCH"
-echo "Environment: $ENVIRONMENT_FLAG"
+echo "Deploy environment: $DEPLOY_ENVIRONMENT"
+echo "API environment: $API_ENVIRONMENT"
 echo "Frontend only: ${FRONTEND_ONLY_FLAG:-false}"
-echo "Feature flag environment: ${FEATURE_FLAG_ENV:-$ENVIRONMENT_FLAG}"
 echo "=========================================="
 echo ""
 
@@ -61,21 +61,17 @@ echo ""
 
 # Set API environment
 echo "⏳ Setting API environment"
-pnpm run -w api-environment:set $ENVIRONMENT_FLAG
+pnpm run -w api-environment:set $API_ENVIRONMENT
 echo "✅ API environment has been set"
 echo ""
 
-# Set Feature Flag environment
-echo "⏳ Setting Feature Flag environment"
-if [ -n "$FEATURE_FLAG_ENV" ]; then
-  pnpm run -w feature-flags-environment:set $FEATURE_FLAG_ENV
-else
-  # Extract first word from ENVIRONMENT_FLAG (e.g., "feature-branch" from "feature-branch -fb xyz")
-  FEATURE_FLAG_ENV_TO_USE=$(echo "$ENVIRONMENT_FLAG" | awk '{print $1}')
-  pnpm run -w feature-flags-environment:set $FEATURE_FLAG_ENV_TO_USE
+# Set Feature Flag environment (only for feature-branch deployments)
+if [ "$DEPLOY_ENVIRONMENT" = "feature-branch" ]; then
+  echo "⏳ Setting Feature Flag environment"
+  pnpm run -w feature-flags-environment:set feature-branch
+  echo "✅ Feature Flag environment has been set"
+  echo ""
 fi
-echo "✅ Feature Flag environment has been set"
-echo ""
 
 # Show affected projects
 echo "🔱 Detecting affected projects..."
@@ -97,9 +93,9 @@ echo ""
 # Build affected projects
 echo "⏳ Building affected projects and their dependencies"
 if [ "$FRONTEND_ONLY_FLAG" = "frontend-only" ]; then
-  pnpm exec nx affected --target=ci:build --base="$NX_BASE" --head=HEAD $(echo "$ENVIRONMENT_FLAG" | awk '{print $1}') true
+  pnpm exec nx affected --target=ci:build --base="$NX_BASE" --head=HEAD "$DEPLOY_ENVIRONMENT" true
 else
-  pnpm exec nx affected --target=ci:build --base="$NX_BASE" --head=HEAD $ENVIRONMENT_FLAG
+  pnpm exec nx affected --target=ci:build --base="$NX_BASE" --head=HEAD "$DEPLOY_ENVIRONMENT"
 fi
 echo "✅ All affected projects have been rebuilt"
 echo ""
@@ -107,9 +103,9 @@ echo ""
 # Deploy affected projects
 echo "⏳ Deploying affected projects"
 if [ "$FRONTEND_ONLY_FLAG" = "frontend-only" ]; then
-  pnpm exec nx affected --target=ci:deploy --base="$NX_BASE" --head=HEAD $(echo "$ENVIRONMENT_FLAG" | awk '{print $1}') true
+  pnpm exec nx affected --target=ci:deploy --base="$NX_BASE" --head=HEAD "$DEPLOY_ENVIRONMENT" true
 else
-  pnpm exec nx affected --target=ci:deploy --base="$NX_BASE" --head=HEAD $ENVIRONMENT_FLAG
+  pnpm exec nx affected --target=ci:deploy --base="$NX_BASE" --head=HEAD "$DEPLOY_ENVIRONMENT"
 fi
 echo "✅ All affected projects have been deployed"
 echo ""
@@ -122,15 +118,7 @@ if [ -n "$SM_AFFECTED_PROJECTS" ]; then
   echo ""
   
   echo "⏳ Deploying affected micro frontends"
-  if [ "$FRONTEND_ONLY_FLAG" = "frontend-only" ]; then
-    # For frontend-only in non-feature-branch environments, use the extracted environment
-    MFE_ENV=$(echo "$ENVIRONMENT_FLAG" | awk '{print $1}')
-    pnpm --filter=@bsport/sm-host ci:deploy:mfe "$MFE_ENV" "$SM_AFFECTED_PROJECTS"
-  else
-    # Extract first word from ENVIRONMENT_FLAG for MFE deployment
-    MFE_ENV=$(echo "$ENVIRONMENT_FLAG" | awk '{print $1}')
-    pnpm --filter=@bsport/sm-host ci:deploy:mfe "$MFE_ENV" "$SM_AFFECTED_PROJECTS"
-  fi
+  pnpm --filter=@bsport/sm-host ci:deploy:mfe "$DEPLOY_ENVIRONMENT" "$SM_AFFECTED_PROJECTS"
   echo "✅ All affected micro frontends have been deployed"
 else
   echo "ℹ️  No Studio Manager projects affected, skipping micro frontend deployment"

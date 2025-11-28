@@ -9,17 +9,18 @@ include:
     - echo "Start deploying feature branch ..."
     # Extract environment from CI_COMMIT_TAG
     - |
+      FEATURE_BRANCH_IDENTIFIER=$(echo "$CI_COMMIT_TAG" | sed -n 's/.*deploy-\(frontend-only-\)\{0,1\}\([[:alnum:]_-]\+\).*/\2/p')
+      DEPLOY_ENVIRONMENT="feature-branch"
       if [ "$FRONTEND_ONLY" = "true" ]; then
-        # For frontend-only deployments, always use dev environment
-        ENVIRONMENT_FLAG="dev"
+        # For frontend-only deployments, use dev API but deploy to feature-branch environment
+        API_ENVIRONMENT_FLAG="dev"
         FRONTEND_ONLY_ARG="frontend-only"
       else
         # For regular deployments, extract environment name after 'deploy-'
-        FEATURE_BRANCH_IDENTIFIER=$(echo "$CI_COMMIT_TAG" | sed -n 's/.*deploy-\(frontend-only-\)\{0,1\}\([[:alnum:]_-]\+\).*/\2/p')
-        ENVIRONMENT_FLAG="feature-branch -fb $FEATURE_BRANCH_IDENTIFIER"
+        API_ENVIRONMENT_FLAG="feature-branch -fb $FEATURE_BRANCH_IDENTIFIER"
         FRONTEND_ONLY_ARG=""
       fi
-    - bash tools/scripts/deploy.sh origin/dev "$ENVIRONMENT_FLAG" "$FRONTEND_ONLY_ARG" "feature-branch"
+    - bash tools/scripts/deploy.sh origin/dev "$DEPLOY_ENVIRONMENT" "$API_ENVIRONMENT_FLAG" "$FRONTEND_ONLY_ARG"
 
 Deploy Feature Branch Frontend Only:
   extends: .Deploy Feature Branch Base

@@ -6,7 +6,7 @@ import {
   selectSelectedDate,
   setSelectedDate,
   useSessionListStore,
-} from "../../stores/session-list";
+} from "#src/stores/session-list";
 
 export const SessionDatePicker: React.FC = () => {
   const calendarView = useSessionListStore(selectCalendarView);

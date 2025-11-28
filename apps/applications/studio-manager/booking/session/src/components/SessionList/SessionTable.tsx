@@ -2,9 +2,9 @@ import React, { memo } from "react";
 
 import { Table } from "@bsport/kaizen-primitive-core";
 
+import type { EnrichedSession } from "#src/stores/session-list/types";
 import { useTranslation } from "#src/utils/i18n";
 
-import type { EnrichedSession } from "../../stores/session-list/types";
 import { useSessionListColumns } from "./columns";
 
 type SessionTableProps = {

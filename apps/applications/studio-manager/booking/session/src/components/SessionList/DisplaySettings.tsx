@@ -7,8 +7,8 @@ import {
   selectCalendarView,
   setCalendarView,
   useSessionListStore,
-} from "../../stores/session-list";
-import { useTranslation } from "../../utils/i18n";
+} from "#src/stores/session-list";
+import { useTranslation } from "#src/utils/i18n";
 
 export const DisplaySettings: React.FC = () => {
   const { t } = useTranslation("sessionList");

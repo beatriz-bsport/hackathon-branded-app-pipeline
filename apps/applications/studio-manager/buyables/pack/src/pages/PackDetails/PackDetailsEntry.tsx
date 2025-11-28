@@ -3,7 +3,16 @@ import type { FC } from "react";
 import { selectPack, usePackStore } from "@bsport/store-buyables-pack";
 
 import { PackDetailsLoading } from "#src/components/PackDetailsLoading";
-import { useFetchItems } from "#src/hooks/useFetchItems";
+import {
+  useFetchAppointmentPasses,
+  useFetchPasses,
+  useFetchWebshopItems,
+} from "#src/hooks/useFetchItems";
+import {
+  useFetchAppointmentPassCategories,
+  useFetchPassCategories,
+  useFetchWebshopCategories,
+} from "#src/hooks/useFetchItemsCategories";
 import { useFetchPack } from "#src/hooks/useFetchPack";
 import { useRetrieveId } from "#src/hooks/useRetrieveId";
 
@@ -16,15 +25,61 @@ const getIds = (items: Array<{ id: number }>) => {
 export const PackDetailsEntry: FC = () => {
   const validId = useRetrieveId();
 
-  // Fetch Pack value related to this id
-  const { fetchPasses, fetchAppointmentPasses, fetchWebshopItems } =
-    useFetchItems();
+  // Categories fetchers
+  const { fetchPassCategories } = useFetchPassCategories();
+  const { fetchAppointmentPassCategories } =
+    useFetchAppointmentPassCategories();
+  const { fetchWebshopCategories } = useFetchWebshopCategories();
+
+  // Items fetchers
+  const { fetchPasses } = useFetchPasses({
+    onSuccess: () => {
+      fetchPassCategories({
+        page: 1,
+        page_size: 100,
+        /** @todo Unlock when backend ready */
+        // id__in: items.map((item) => item.id),
+      });
+    },
+  });
+  const { fetchAppointmentPasses } = useFetchAppointmentPasses({
+    onSuccess: () => {
+      fetchAppointmentPassCategories({
+        page: 1,
+        page_size: 100,
+        /** @todo Unlock when backend ready */
+        // id__in: items.map((item) => item.id),
+      });
+    },
+  });
+  const { fetchWebshopItems } = useFetchWebshopItems({
+    onSuccess: () => {
+      fetchWebshopCategories({
+        page: 1,
+        page_size: 100,
+        /** @todo Unlock when backend ready */
+        // id__in: items.map((item) => item.id),
+      });
+    },
+  });
+
   const { isLoading } = useFetchPack({
     id: validId,
     onSuccess: (pack) => {
-      fetchPasses({ id__in: getIds(pack.payment_packs) });
-      fetchAppointmentPasses({ id__in: getIds(pack.private_passes) });
-      fetchWebshopItems({ id__in: getIds(pack.shop_items) });
+      const passesIds = getIds(pack.payment_packs);
+      if (passesIds.length > 0) {
+        fetchPasses({ id__in: passesIds });
+      }
+
+      const appointmentPassesIds = getIds(pack.private_passes);
+      if (appointmentPassesIds.length > 0) {
+        fetchAppointmentPasses({ id__in: appointmentPassesIds });
+      }
+
+      const webshopItemsIds = getIds(pack.shop_items);
+      if (webshopItemsIds.length > 0) {
+        fetchWebshopItems({ id__in: webshopItemsIds });
+      }
     },
   });
 

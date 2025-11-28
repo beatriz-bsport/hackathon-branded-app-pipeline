@@ -62,10 +62,6 @@ import { RootState } from '../../reducers';
 import { OptionCallback } from '../../state/types';
 import { getAuthToken } from '#src/http';
 import Config from '#src/config';
-import {
-  FeatureFlagProps,
-  withFeatureFlags,
-} from '#src/utils/feature-flag/withFeatureFlags';
 
 type Period = { start: string; end: string };
 type withStateType = {
@@ -84,7 +80,6 @@ type Props = ConnectedProps<typeof connector> &
   WithTranslation &
   withStateType &
   WithStyles<typeof styles> &
-  FeatureFlagProps &
   RouterProps;
 
 type State = {
@@ -244,9 +239,6 @@ export class CoachPrivateCalendar extends React.Component<Props, State> {
   };
 
   getCalendarSubscriptionUrl = () => {
-    if (!this.props.showCalendarFeed) {
-      return null;
-    }
     const authToken = getAuthToken();
     const locale = this.props.i18n.language;
     return `${Config.REACT_APP_BASE_URI_BOOK_V1}/booking/calendar-for-teacher/${authToken}/${locale}/booking-feed.ics`;
@@ -491,5 +483,4 @@ export default compose(
   withTitle(({ t }: { t: TFunction }) =>
     t('navigation:backofficeMenu.schedule'),
   ),
-  withFeatureFlags,
 )(CoachPrivateCalendar);

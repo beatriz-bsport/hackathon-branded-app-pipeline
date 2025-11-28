@@ -1,4 +1,4 @@
-import { DatePicker } from "@bsport/kaizen-primitive-core";
+import { DatePicker, SelectedDate } from "@bsport/kaizen-primitive-core";
 
 import {
   CalendarView,
@@ -12,7 +12,7 @@ export const SessionDatePicker: React.FC = () => {
   const calendarView = useSessionListStore(selectCalendarView);
   const selectedDate = useSessionListStore(selectSelectedDate);
 
-  const onDateChange = (date: Date | [Date | null, Date | null] | null) => {
+  const onDateChange = (date: SelectedDate) => {
     if (date instanceof Date) {
       setSelectedDate(date);
     } else if (Array.isArray(date) && date[0] && date[1]) {

@@ -36,7 +36,9 @@ const ListPage: React.FC = () => {
   const fetchParams =
     selectedDate.type === "single"
       ? { date: selectedDate.date }
-      : { minDate: selectedDate.minDate, maxDate: selectedDate.maxDate };
+      : selectedDate.minDate && selectedDate.maxDate
+        ? { minDate: selectedDate.minDate, maxDate: selectedDate.maxDate }
+        : null;
 
   const { sessionsByDate, isLoading } = useSessionListData(fetchParams);
 

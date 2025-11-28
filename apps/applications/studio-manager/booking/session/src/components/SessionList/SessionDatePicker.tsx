@@ -16,7 +16,7 @@ export const SessionDatePicker: React.FC = () => {
   const onDateChange = (date: SelectedDate) => {
     if (date instanceof Date) {
       setSelectedDate(date);
-    } else if (Array.isArray(date) && date[0] && date[1]) {
+    } else if (Array.isArray(date)) {
       setSelectedDate([date[0], date[1]]);
     }
   };
@@ -37,6 +37,11 @@ export const SessionDatePicker: React.FC = () => {
     return dateDT < startDT || dateDT >= maxDT;
   };
 
+  const datePickerValue: SelectedDate =
+    selectedDate.type === "single"
+      ? selectedDate.date
+      : [selectedDate.minDate, selectedDate.maxDate];
+
   return (
     <div
       className={[
@@ -56,11 +61,7 @@ export const SessionDatePicker: React.FC = () => {
         displayAs="popover"
         onSelect={onDateChange}
         dateFormat="medium"
-        defaultValue={
-          selectedDate.type === "single"
-            ? selectedDate.date
-            : [selectedDate.minDate, selectedDate.maxDate]
-        }
+        dateValue={datePickerValue}
         disableDate={disableDate}
       />
     </div>

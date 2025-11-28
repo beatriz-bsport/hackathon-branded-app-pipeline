@@ -21,7 +21,7 @@ export enum CalendarView {
 
 export type DateSelection =
   | { type: "single"; date: Date }
-  | { type: "range"; minDate: Date; maxDate: Date };
+  | { type: "range"; minDate: Date | null; maxDate: Date | null };
 
 export interface SessionListState {
   sessions: SessionsState;

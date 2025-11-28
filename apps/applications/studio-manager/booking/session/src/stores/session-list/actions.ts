@@ -9,7 +9,7 @@ import { fetchManagerSessionsAPI } from "./api";
 import { CalendarView, sessionListStore } from "./store";
 import type { InternalEnrichedSession } from "./types";
 
-type FetchSessionsResponse = {
+export type FetchSessionsResponse = {
   results: ManagerSession[];
 };
 
@@ -131,7 +131,7 @@ export const setCalendarView = (calendarView: CalendarView) => {
   });
 };
 
-export const setSelectedDate = (date: Date | [Date, Date]) => {
+export const setSelectedDate = (date: Date | [Date | null, Date | null]) => {
   if (Array.isArray(date)) {
     sessionListStore.setState({
       selectedDate: { type: "range", minDate: date[0], maxDate: date[1] },

@@ -105,7 +105,8 @@ export const TeacherArchiveModal: React.FC<TeacherArchiveModalProps> = ({
             name: teacherName,
           })}
         </Body>
-        <Body htmlVariant="p" weight="strong">
+        <br />
+        <Body htmlVariant="p">
           {t("activeList.archiveModal.description.effect")}
         </Body>
       </>

@@ -14,15 +14,20 @@ import { useSelectedItemsContext } from "#src/contexts/selectedItemsContext";
 import { useAddItemsModal } from "#src/hooks/useAddItemsModal";
 import { ITEM_VARIANTS, type ItemVariant } from "#src/utils/constants";
 import { useTranslation } from "#src/utils/i18n";
+import type { FormattedData } from "#src/utils/stores-interface";
 
 import { PackFormContentItems } from "./PackFormContentItems";
 
 type PackFormContentProps = {
   fieldIdPrefix: string;
+  onItemClick?: (formattedData: FormattedData) => void;
+  clickedItem?: FormattedData | null;
 };
 
 export const PackFormContent: React.FC<PackFormContentProps> = ({
   fieldIdPrefix,
+  onItemClick,
+  clickedItem,
 }) => {
   const { t } = useTranslation("details");
   const { removeVariantItem, passes, webshopItems, appointmentPasses } =
@@ -100,6 +105,8 @@ export const PackFormContent: React.FC<PackFormContentProps> = ({
           passes={passes}
           removeVariantItem={removeVariantItem}
           webshopItems={webshopItems}
+          onItemClick={onItemClick}
+          clickedItem={clickedItem}
         />
       </Card>
       <PackAddItemsModal

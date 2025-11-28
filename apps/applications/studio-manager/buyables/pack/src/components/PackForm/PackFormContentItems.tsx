@@ -6,6 +6,7 @@ import { useGetListItemConfig } from "#src/hooks/useGetListItemConfig";
 import { ITEM_VARIANTS, type ItemVariant } from "#src/utils/constants";
 import { useTranslation } from "#src/utils/i18n";
 import {
+  type FormattedData,
   type VariantAndData,
   formatData,
   useItemsById,
@@ -22,6 +23,8 @@ type PackFormContentItemsProps = {
     variant: ItemVariant;
     id: number;
   }) => void;
+  onItemClick?: (formattedData: FormattedData) => void;
+  clickedItem?: FormattedData | null;
 };
 
 const VariantList = ({
@@ -30,6 +33,8 @@ const VariantList = ({
   title,
   removeVariantItem,
   itemsById,
+  onItemClick,
+  clickedItem,
 }: {
   variant: ItemVariant;
   ids: number[];
@@ -42,6 +47,8 @@ const VariantList = ({
     id: number;
   }) => void;
   itemsById: ReturnType<typeof useItemsById>[ItemVariant];
+  onItemClick?: (formattedData: FormattedData) => void;
+  clickedItem?: FormattedData | null;
 }) => {
   const { t } = useTranslation("details");
 
@@ -49,6 +56,13 @@ const VariantList = ({
     variant,
     getExtraConfig: (data) => {
       return {
+        isActive: Boolean(
+          clickedItem &&
+            data.id === clickedItem.id &&
+            data.variant === clickedItem.variant,
+        ),
+        // Add an onClick listener only when the method is defined (details view)
+        onClick: onItemClick ? () => onItemClick(data) : undefined,
         // Add a button to remove an item from the selected list
         buttons: [
           {
@@ -103,6 +117,8 @@ export const PackFormContentItems: React.FC<PackFormContentItemsProps> = ({
   passes,
   removeVariantItem,
   webshopItems,
+  onItemClick,
+  clickedItem,
 }) => {
   const { t } = useTranslation("details");
 
@@ -123,6 +139,8 @@ export const PackFormContentItems: React.FC<PackFormContentItemsProps> = ({
         variant={ITEM_VARIANTS.pass}
         removeVariantItem={removeVariantItem}
         itemsById={itemsById[ITEM_VARIANTS.pass]}
+        onItemClick={onItemClick}
+        clickedItem={clickedItem}
       />
 
       <VariantList
@@ -131,6 +149,8 @@ export const PackFormContentItems: React.FC<PackFormContentItemsProps> = ({
         variant={ITEM_VARIANTS.appointmentPass}
         removeVariantItem={removeVariantItem}
         itemsById={itemsById[ITEM_VARIANTS.appointmentPass]}
+        onItemClick={onItemClick}
+        clickedItem={clickedItem}
       />
 
       <VariantList
@@ -139,6 +159,8 @@ export const PackFormContentItems: React.FC<PackFormContentItemsProps> = ({
         variant={ITEM_VARIANTS.webshopItem}
         removeVariantItem={removeVariantItem}
         itemsById={itemsById[ITEM_VARIANTS.webshopItem]}
+        onItemClick={onItemClick}
+        clickedItem={clickedItem}
       />
     </div>
   );

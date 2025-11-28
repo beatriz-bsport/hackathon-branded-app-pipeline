@@ -124,14 +124,17 @@ describe("getConfig", () => {
         react: {
           singleton: true,
           requiredVersion: "^19.2.0",
+          version: "19.2.0",
         },
         "react-dom": {
           singleton: true,
           requiredVersion: "^19.2.0",
+          version: "19.2.0",
         },
         "react-router": {
           singleton: true,
-          requiredVersion: "7.2.0",
+          requiredVersion: "7.9.5",
+          version: "7.9.5",
         },
         zod: {
           singleton: true,
@@ -341,6 +344,7 @@ describe("getConfig", () => {
     expect(config.build).toEqual({
       emptyOutDir: true,
       cssCodeSplit: true,
+      target: "esnext",
     });
   });
 
@@ -385,23 +389,19 @@ describe("getConfig", () => {
     const { default: svgr } = await import("vite-plugin-svgr");
     const { default: react } = await import("@vitejs/plugin-react-swc");
     const { federation } = await import("@module-federation/vite");
-    const { default: topLevelAwait } = await import(
-      "vite-plugin-top-level-await"
-    );
     const { default: restart } = await import("vite-plugin-restart");
     const { translationsWatcher } = await import(
       "../translationsWatcherPlugin"
     );
 
     // Verify all plugins are present
-    expect(config.plugins).toHaveLength(7);
+    expect(config.plugins).toHaveLength(6);
 
     // Verify each plugin is called once
     expect(nxViteTsPaths).toHaveBeenCalledOnce();
     expect(svgr).toHaveBeenCalledOnce();
     expect(react).toHaveBeenCalledOnce();
     expect(federation).toHaveBeenCalledOnce();
-    expect(topLevelAwait).toHaveBeenCalledOnce();
     expect(restart).toHaveBeenCalledOnce();
     expect(translationsWatcher).toHaveBeenCalledOnce();
   });

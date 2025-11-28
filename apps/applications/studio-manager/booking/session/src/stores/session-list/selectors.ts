@@ -12,47 +12,45 @@ export const selectSession = (state: SessionListState, id: number) =>
 export const selectSessionsByDate = (
   state: SessionListState,
 ): Record<string, InternalEnrichedSession[]> => {
-  const result: Record<string, InternalEnrichedSession[]> = {};
   const { byDate, byId } = state.sessions;
 
-  Object.entries(byDate).forEach(([date, sessionIds]) => {
-    result[date] = sessionIds.map((id) => byId[id]).filter(Boolean);
-  });
+  return Object.entries(byDate).reduce(
+    (result, [date, sessionIds]) => {
+      result[date] = sessionIds.map((id) => byId[id]).filter(Boolean);
+      return result;
+    },
+    {} as Record<string, InternalEnrichedSession[]>,
+  );
+};
 
-  return result;
+const processSession = (session: InternalEnrichedSession): EnrichedSession => {
+  const { name_override, ...sessionWithoutOverride } = session;
+  return {
+    ...sessionWithoutOverride,
+    name: name_override || session.name,
+    color: session.meta_activity_color,
+  };
 };
 
 export const selectProcessedSessions = (
   state: SessionListState,
 ): EnrichedSession[] => {
   const sessions = selectSessions(state);
-  return sessions.map((session) => {
-    const { name_override, ...sessionWithoutOverride } = session;
-    return {
-      ...sessionWithoutOverride,
-      name: name_override || session.name,
-      color: session.meta_activity_color,
-    };
-  });
+  return sessions.map(processSession);
 };
 
 export const selectProcessedSessionsByDate = (
   state: SessionListState,
 ): Record<string, EnrichedSession[]> => {
   const sessionsByDate = selectSessionsByDate(state);
-  const result: Record<string, EnrichedSession[]> = {};
 
-  Object.entries(sessionsByDate).forEach(([date, sessions]) => {
-    result[date] = sessions.map((session) => {
-      const { name_override, ...sessionWithoutOverride } = session;
-      return {
-        ...sessionWithoutOverride,
-        name: name_override || session.name,
-        color: session.meta_activity_color,
-      };
-    });
-  });
-  return result;
+  return Object.entries(sessionsByDate).reduce(
+    (result, [date, sessions]) => {
+      result[date] = sessions.map(processSession);
+      return result;
+    },
+    {} as Record<string, EnrichedSession[]>,
+  );
 };
 
 export const selectCalendarView = (state: SessionListState) =>

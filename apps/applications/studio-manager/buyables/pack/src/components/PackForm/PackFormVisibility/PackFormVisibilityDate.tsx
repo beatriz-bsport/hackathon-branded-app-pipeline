@@ -88,6 +88,10 @@ export const PackFormVisibilityDate: React.FC<PackFormVisibilityDateProps> = ({
               },
               value: defaultProps.value,
               onSelect: (selectedDate) => {
+                if (!(selectedDate instanceof Date)) {
+                  return;
+                }
+
                 form.setValue(
                   "expiration_date",
                   selectedDate ? getIsoDateString(selectedDate) : null,

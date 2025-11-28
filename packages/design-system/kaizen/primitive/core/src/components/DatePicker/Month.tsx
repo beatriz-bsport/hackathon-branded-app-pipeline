@@ -1,13 +1,15 @@
 import React, { useMemo } from "react";
 
 import {
-  type WeekStartDay,
   generateCalendarDays,
+  getWeekStartDayFromLocale,
   getWeekdays,
   isSameDay,
   toDate,
   toDateTime,
 } from "@bsport/datetime-manipulation";
+
+import { useKaizenI18nInstance } from "#src/i18n";
 
 import type { SelectedDate } from "./DatePicker";
 import Day, { type DayStatus } from "./Day";
@@ -17,7 +19,6 @@ type MonthProps = {
   displayMonth: Date;
   onSelect?: (date: Date) => void;
   selectedDate: SelectedDate;
-  weekStartDay: WeekStartDay;
 };
 
 const Month: React.FC<MonthProps> = ({
@@ -25,15 +26,19 @@ const Month: React.FC<MonthProps> = ({
   displayMonth,
   onSelect,
   selectedDate,
-  weekStartDay,
 }) => {
-  // weekStartDay may not be relevant because we would need a locale aswell.
-  // locale only works with Luxon to get weekdays names & ordered (["lun.", "mar.", "mer."] vs ["Sun.", "Mon.", "Tue."],...)
-  const weekdays = getWeekdays("short", weekStartDay);
+  const i18nInstance = useKaizenI18nInstance();
+  const weekdays = useMemo(
+    () => getWeekdays("short", i18nInstance?.language || "en-US"),
+    [i18nInstance?.language],
+  );
   const displayDateTime = toDateTime(displayMonth);
+  const weekStartDay = getWeekStartDayFromLocale(
+    i18nInstance?.language || "en-US",
+  );
   const calendarDays = useMemo(
     () => generateCalendarDays(displayDateTime, weekStartDay),
-    [displayDateTime],
+    [displayDateTime, weekStartDay],
   );
 
   const weeks = useMemo(() => {

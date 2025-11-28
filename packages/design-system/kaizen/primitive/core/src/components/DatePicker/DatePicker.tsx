@@ -4,7 +4,7 @@ import {
   DATETIME_FORMATS,
   formatDateTimeFromDate,
 } from "@bsport/datetime-formatting";
-import { type WeekStartDay, toDateTime } from "@bsport/datetime-manipulation";
+import { toDateTime } from "@bsport/datetime-manipulation";
 
 import Button from "#src/components/Button";
 import Modal from "#src/components/Modal";
@@ -30,8 +30,7 @@ export type DatePickerProps = Omit<
   dateFormat?: "short" | "medium";
   onConfirm?: (selectedDate: SelectedDate) => void;
   onClose?: () => void;
-  onSelect?: (date: Date | null) => void;
-  weekStartDay?: WeekStartDay;
+  onSelect?: (date: SelectedDate) => void;
   calendarYears?: number[];
   disableDate?: (date: Date) => boolean;
   shortcuts?: ShortcutItem[];
@@ -53,7 +52,6 @@ export type DatePickerProps = Omit<
  * @param props.open Whether the date picker is open or not.
  * @param props.onConfirm Callback function to call when a date is selected.
  * @param props.onClose Callback function to call when the date picker is closed.
- * @param props.weekStartDay The day of the week to start the week, defaults to Monday.
  * @param props.calendarYears The number of years to display in the calendar, defaults to 10.
  * @param props.disableDate A comparison function to disable specific dates in the calendar.
  * @param props.shortcuts An array of shortcut items to display in the date picker.
@@ -71,7 +69,6 @@ const DatePicker: React.FC<DatePickerProps> = ({
   open = false,
   onConfirm,
   onClose,
-  weekStartDay = 1,
   calendarYears,
   disableDate,
   shortcuts,
@@ -119,9 +116,7 @@ const DatePicker: React.FC<DatePickerProps> = ({
   const handleCalendarSelect = (date: SelectedDate) => {
     setSelectedDate(date);
     setIsManuallySelected(true);
-    if (!Array.isArray(date)) {
-      onSelect?.(date);
-    }
+    onSelect?.(date);
   };
 
   const onPopoverCalendarSelect = (
@@ -220,7 +215,6 @@ const DatePicker: React.FC<DatePickerProps> = ({
               id={id}
               mode={mode}
               displayAs={displayAs}
-              weekStartDay={weekStartDay}
               calendarYears={calendarYears}
               disableDate={disableDate}
               sanitizedSelected={sanitizedSelected}
@@ -259,7 +253,6 @@ const DatePicker: React.FC<DatePickerProps> = ({
         id={id}
         mode={mode}
         displayAs={displayAs}
-        weekStartDay={weekStartDay}
         calendarYears={calendarYears}
         disableDate={disableDate}
         sanitizedSelected={sanitizedSelected}

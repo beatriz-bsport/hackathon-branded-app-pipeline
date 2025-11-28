@@ -1,0 +1,34 @@
+import React, { memo } from "react";
+
+import { fromIsoString } from "@bsport/datetime-manipulation";
+
+import type { EnrichedSession } from "#src/stores/session-list/types";
+
+import SessionDayTitle from "./SessionDayTitle";
+import SessionTable from "./SessionTable";
+
+type SessionDayProps = {
+  date: string;
+  sessions: EnrichedSession[];
+  isLoading: boolean;
+  locale: string;
+};
+
+const SessionDay: React.FC<SessionDayProps> = ({
+  date,
+  sessions,
+  isLoading,
+  locale,
+}: SessionDayProps) => {
+  const localizedDate = fromIsoString(date, {
+    locale: locale,
+  });
+  return (
+    <div>
+      <SessionDayTitle date={localizedDate} sessions={sessions} />
+      <SessionTable sessions={sessions} isLoading={isLoading} />
+    </div>
+  );
+};
+
+export default memo(SessionDay);

@@ -1,21 +1,21 @@
-import React from "react";
+import React, { memo } from "react";
 
 import { Table } from "@bsport/kaizen-primitive-core";
 
+import type { EnrichedSession } from "#src/stores/session-list/types";
 import { useTranslation } from "#src/utils/i18n";
 
 import { useSessionListColumns } from "./columns";
-import type { TableRowData } from "./types";
 
 type SessionTableProps = {
-  sessions: TableRowData[];
+  sessions: EnrichedSession[];
   isLoading: boolean;
 };
 
-export const SessionTable: React.FC<SessionTableProps> = ({
+const SessionTable: React.FC<SessionTableProps> = ({
   sessions,
   isLoading,
-}) => {
+}: SessionTableProps) => {
   const { t } = useTranslation("sessionList");
   const columns = useSessionListColumns();
 
@@ -29,3 +29,5 @@ export const SessionTable: React.FC<SessionTableProps> = ({
     ></Table>
   );
 };
+
+export default memo(SessionTable);

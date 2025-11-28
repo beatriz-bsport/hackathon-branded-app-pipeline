@@ -43,6 +43,7 @@ export {
 export {
   default as DatePicker,
   type DatePickerProps,
+  type SelectedDate,
 } from "./components/DatePicker";
 export {
   default as DetailDrawer,

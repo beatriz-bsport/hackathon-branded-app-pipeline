@@ -100,21 +100,23 @@ export const calculateOffset = (
  *  - "long" (e.g., "Monday", "Tuesday", etc.)
  *  - "short" (e.g., "Mon", "Tue", etc.)
  *  - "narrow" (e.g., "M", "T", etc.)
- * @param weekStartDay - The starting day of the week (0 = Sunday, 1 = Monday, etc.). Default is 1 (Monday).
  * @param locale - The locale identifier, e.g., "en" or "fr". Default is "en".
  * @returns An array of weekday names localized and rotated based on the weekStartDay.
  */
 export const getWeekdays = (
   format: "long" | "short" | "narrow" = "short",
-  weekStartDay: WeekStartDay = 0,
   locale = "en-GB",
 ): string[] => {
-  const localeWeekStart = Info.getStartOfWeek(locale as Info.LocaleInput);
   const weekdays = Info.weekdays(format, { locale });
-  const rotation = (7 + weekStartDay - (localeWeekStart % 7)) % 7;
+  const weekStartDay = getWeekStartDayFromLocale(locale);
+  const rotation = (7 + weekStartDay - 1) % 7;
   return [...weekdays.slice(rotation), ...weekdays.slice(0, rotation)];
 };
 
+export const getWeekStartDayFromLocale = (locale: string): WeekStartDay => {
+  const localeWeekStart = Info.getStartOfWeek({ locale });
+  return (localeWeekStart % 7) as WeekStartDay;
+};
 /**
  * Retrieves an array of localized month names.
  *

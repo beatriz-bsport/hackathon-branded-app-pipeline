@@ -23,7 +23,6 @@ const SessionTable: React.FC<SessionTableProps> = ({
     <Table
       columns={columns}
       rowHeight="sm"
-      // TODO(elisabeth): add empty state
       loadingProps={{ isLoading, message: t("table.isLoading") }}
       rows={sessions}
     ></Table>

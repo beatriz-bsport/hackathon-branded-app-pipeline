@@ -43,27 +43,14 @@ export const SessionDatePicker: React.FC = () => {
       : [selectedDate.minDate, selectedDate.maxDate];
 
   return (
-    <div
-      className={[
-        // Layout
-        "flex justify-center w-full",
-        // Spacing
-        "p-sm",
-        // Border
-        "border border-stroke-weak border-b-solid border-b-stroke-thin",
-        // Sticky positioning
-        "sticky top-0 z-10 bg-surface-page",
-      ].join(" ")}
-    >
-      <DatePicker
-        id="daily-sessions-picker"
-        mode={calendarView === CalendarView.DAILY ? "single" : "range"}
-        displayAs="popover"
-        onSelect={onDateChange}
-        dateFormat="medium"
-        dateValue={datePickerValue}
-        disableDate={disableDate}
-      />
-    </div>
+    <DatePicker
+      id="daily-sessions-picker"
+      mode={calendarView === CalendarView.DAILY ? "single" : "range"}
+      displayAs="popover"
+      onSelect={onDateChange}
+      dateFormat="medium"
+      dateValue={datePickerValue}
+      disableDate={disableDate}
+    />
   );
 };

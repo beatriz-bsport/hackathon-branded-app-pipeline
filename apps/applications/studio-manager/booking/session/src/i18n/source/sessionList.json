@@ -4,6 +4,7 @@
     "occupancyRate": "{{rate}}% enrolled"
   },
   "addSession": "Add session",
+  "todayButton": "Today",
   "table": {
     "headers": {
       "time": "Time",

@@ -7,8 +7,8 @@ import { dataAccessLayer } from "@bsport/sm-backbone";
 import { AddSessionModal } from "#src/components/AddSessionModal/AddSessionModal";
 import { useTranslation } from "#src/utils/i18n";
 
+import { DateNavigationHeader } from "../components/SessionList/DateNavigationHeader";
 import { DisplaySettings } from "../components/SessionList/DisplaySettings";
-import { SessionDatePicker } from "../components/SessionList/SessionDatePicker";
 import SessionDay from "../components/SessionList/SessionDay";
 import { useSessionListData } from "../hooks/useSessionListData";
 import {
@@ -103,7 +103,7 @@ const ListPage: React.FC = () => {
       />
       <ListLayout.Content>
         <div className="flex flex-col gap-xl h-full">
-          <SessionDatePicker />
+          <DateNavigationHeader />
           {shouldRenderEmptyState ? <EmptyState /> : sessionDays}
         </div>
         <AddSessionModal

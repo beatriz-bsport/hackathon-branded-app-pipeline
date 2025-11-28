@@ -12,21 +12,22 @@ type SessionTableProps = {
   isLoading: boolean;
 };
 
-export const SessionTable: React.FC<SessionTableProps> = memo(
-  ({ sessions, isLoading }: SessionTableProps) => {
-    const { t } = useTranslation("sessionList");
-    const columns = useSessionListColumns();
+const SessionTable: React.FC<SessionTableProps> = ({
+  sessions,
+  isLoading,
+}: SessionTableProps) => {
+  const { t } = useTranslation("sessionList");
+  const columns = useSessionListColumns();
 
-    return (
-      <Table
-        columns={columns}
-        rowHeight="sm"
-        // TODO(elisabeth): add empty state
-        loadingProps={{ isLoading, message: t("table.isLoading") }}
-        rows={sessions}
-      ></Table>
-    );
-  },
-);
+  return (
+    <Table
+      columns={columns}
+      rowHeight="sm"
+      // TODO(elisabeth): add empty state
+      loadingProps={{ isLoading, message: t("table.isLoading") }}
+      rows={sessions}
+    ></Table>
+  );
+};
 
-SessionTable.displayName = "SessionTable";
+export default memo(SessionTable);

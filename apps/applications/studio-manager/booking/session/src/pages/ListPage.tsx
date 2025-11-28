@@ -9,7 +9,7 @@ import { useTranslation } from "#src/utils/i18n";
 
 import { DisplaySettings } from "../components/SessionList/DisplaySettings";
 import { SessionDatePicker } from "../components/SessionList/SessionDatePicker";
-import { SessionDay } from "../components/SessionList/SessionDay";
+import SessionDay from "../components/SessionList/SessionDay";
 import { useSessionListData } from "../hooks/useSessionListData";
 import {
   selectSelectedDate,

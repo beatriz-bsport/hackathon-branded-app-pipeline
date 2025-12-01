@@ -3,5 +3,6 @@ export const InvoiceItemVoucherTraceKind = {
   COUPON_CODE: 'coupon',
   COUPON_REFERRED: 'coupon_referred',
   COUPON_REFERRING: 'coupon_referring',
+  PRO_RATED_FROM_SUBSCRIPTION: 'pro_rated_from_subscription',
   MANUAL: 'manual',
 };

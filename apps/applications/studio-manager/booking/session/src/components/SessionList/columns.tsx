@@ -64,19 +64,19 @@ export const useSessionListColumns = () => {
     },
   };
 
+  const sessionClassName = "truncate max-w-[202px]";
   const sessionNameColumn: TableColumn = {
     header: t("table.headers.sessionName"),
     id: "sessionName",
     type: "custom",
     align: "start",
-    cellsClassName: "truncate max-w-[202px]",
     render: (row: EnrichedSession) =>
       row.available ? (
-        <Body htmlVariant="p" size="md">
+        <Body htmlVariant="p" size="md" className={sessionClassName}>
           {row.name}
         </Body>
       ) : (
-        <CancelledSessionName name={row.name} />
+        <CancelledSessionName name={row.name} className={sessionClassName} />
       ),
   };
 

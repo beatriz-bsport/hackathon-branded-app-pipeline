@@ -1,4 +1,5 @@
-import { DatePicker, SelectedDate } from "@bsport/kaizen-primitive-core";
+import { modifyTime, toDateTime } from "@bsport/datetime-manipulation";
+import { DatePicker, type SelectedDate } from "@bsport/kaizen-primitive-core";
 
 import {
   CalendarView,
@@ -20,6 +21,22 @@ export const SessionDatePicker: React.FC = () => {
     }
   };
 
+  const disableDate = (date: Date, selectedDate: SelectedDate) => {
+    const [start] = Array.isArray(selectedDate) ? selectedDate : [];
+
+    if (!start) return false;
+
+    const dateDT = toDateTime(date);
+    const startDT = toDateTime(start);
+    const maxDT = modifyTime({
+      datetime: startDT,
+      duration: { month: 1 },
+      operator: "plus",
+    });
+
+    return dateDT < startDT || dateDT >= maxDT;
+  };
+
   return (
     <div className="flex pt-sm px-sm justify-center">
       <DatePicker
@@ -33,6 +50,7 @@ export const SessionDatePicker: React.FC = () => {
             ? selectedDate.date
             : [selectedDate.minDate, selectedDate.maxDate]
         }
+        disableDate={disableDate}
       />
     </div>
   );

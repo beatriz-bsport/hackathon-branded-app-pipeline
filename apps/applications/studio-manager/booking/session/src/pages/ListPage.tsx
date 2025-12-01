@@ -102,8 +102,8 @@ const ListPage: React.FC = () => {
         callToActionButton={callToActionButton}
       />
       <ListLayout.Content>
-        <div className="flex flex-col gap-xl h-full">
-          <DateNavigationHeader />
+        <DateNavigationHeader />
+        <div className="flex flex-col gap-xl h-full mt-md">
           {shouldRenderEmptyState ? <EmptyState /> : sessionDays}
         </div>
         <AddSessionModal

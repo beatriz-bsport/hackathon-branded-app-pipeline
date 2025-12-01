@@ -7,7 +7,7 @@ export const DateNavigationHeader: React.FC = () => (
   <div
     className={[
       // Layout
-      "relative",
+      "flex justify-center",
       // Spacing
       "p-sm",
       // Border

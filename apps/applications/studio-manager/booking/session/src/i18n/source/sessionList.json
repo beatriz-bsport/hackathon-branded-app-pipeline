@@ -24,5 +24,9 @@
         "range": "Range"
       }
     }
+  },
+  "emptyState": {
+    "title": "No sessions added yet",
+    "subtitle": "Add a new session to get started"
   }
 }

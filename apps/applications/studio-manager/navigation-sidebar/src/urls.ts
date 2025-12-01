@@ -1,6 +1,7 @@
 import type { LegacyUrls, Urls } from "./types";
 
-const SETTINGS_URL = "/settings";
+export const SETTINGS_URL = "/settings";
+export const STUDIO_URL = "/studio";
 
 export const HELP_CENTER = "https://intercom.help/bsport-helpcenter/";
 

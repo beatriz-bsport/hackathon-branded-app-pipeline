@@ -35,6 +35,7 @@ import type {
   PlannedPaymentEventSerializer,
   BulkExportRequestErrorResults,
   OnboardingRequirementsResponse,
+  FiskalySignEsInvoiceDetails,
 } from '#src/libs/invoice/types';
 import type { PaymentItem } from '#src/libs/invoice/payment/types';
 import type { InvoiceItem } from '#src/libs/invoice/invoice-item/types';
@@ -84,6 +85,8 @@ import {
   onboardFiskalyCompany as onboardFiskalyCompanyAPI,
   getLastUploadedSignedAgreement as getLastUploadedSignedAgreementAPI,
   uploadSignedAgreement as uploadSignedAgreementAPI,
+  fetchFiskalySignEsInvoice as fetchFiskalySignEsInvoiceAPI,
+  manuallySendInvoiceToSignEs as manuallySendInvoiceToSignEsAPI,
 } from './api';
 import { ExportInvoiceStatus } from './constants';
 import { monitorBackgroundTask } from '#src/libs/background-task/actions';
@@ -1520,5 +1523,67 @@ export function uploadSignedAgreement(
       options?.onError?.();
     }
     dispatch(uploadSignedAgreementActions.isLoading(false));
+  };
+}
+
+export const fetchFiskalySignEsInvoiceActions = {
+  isLoading: createAction<boolean>('FISKALY_SIGN_ES_INVOICE/FETCH/IS_LOADING'),
+  error: createAction<Error | null>('FISKALY_SIGN_ES_INVOICE/FETCH/ERROR'),
+  success: createAction<FiskalySignEsInvoiceDetails>(
+    'FISKALY_SIGN_ES_INVOICE/FETCH/SUCCESS',
+  ),
+};
+
+export function fetchFiskalySignEsInvoice(
+  invoice_uuid: string,
+  options?: OptionCallback<FiskalySignEsInvoiceDetails>,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(fetchFiskalySignEsInvoiceActions.isLoading(true));
+    dispatch(fetchFiskalySignEsInvoiceActions.error(null));
+    try {
+      const response = await fetchFiskalySignEsInvoiceAPI(invoice_uuid);
+      dispatch(fetchFiskalySignEsInvoiceActions.success(response.data));
+      options?.onSuccess?.(response.data);
+    } catch (err) {
+      const error = err instanceof Error ? err : new Error(String(err));
+      dispatch(fetchFiskalySignEsInvoiceActions.error(error));
+      options?.onError?.();
+    }
+    dispatch(fetchFiskalySignEsInvoiceActions.isLoading(false));
+  };
+}
+
+export const manuallySendInvoiceToSignEsActions = {
+  isLoading: createAction<boolean>(
+    'FISKALY_SIGN_ES_INVOICE/MANUALLY_SEND/IS_LOADING',
+  ),
+  error: createAction<Error | null>(
+    'FISKALY_SIGN_ES_INVOICE/MANUALLY_SEND/ERROR',
+  ),
+  success: createAction<FiskalySignEsInvoiceDetails>(
+    'FISKALY_SIGN_ES_INVOICE/MANUALLY_SEND/SUCCESS',
+  ),
+};
+
+export function manuallySendInvoiceToSignEs(
+  invoice_uuid: string,
+  options?: OptionCallback<FiskalySignEsInvoiceDetails>,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(manuallySendInvoiceToSignEsActions.isLoading(true));
+    dispatch(manuallySendInvoiceToSignEsActions.error(null));
+    try {
+      const response = await manuallySendInvoiceToSignEsAPI({
+        invoice_pk: invoice_uuid,
+      });
+      dispatch(manuallySendInvoiceToSignEsActions.success(response.data));
+      options?.onSuccess?.(response.data);
+    } catch (err) {
+      const error = err instanceof Error ? err : new Error(String(err));
+      dispatch(manuallySendInvoiceToSignEsActions.error(error));
+      options?.onError?.();
+    }
+    dispatch(manuallySendInvoiceToSignEsActions.isLoading(false));
   };
 }

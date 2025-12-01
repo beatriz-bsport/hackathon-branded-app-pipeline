@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 
 import { getLocalNow, toDate } from "@bsport/datetime-manipulation";
-import { ListLayout } from "@bsport/kaizen-primitive-core";
+import { ListLayout, useEmptyState } from "@bsport/kaizen-primitive-core";
 import { dataAccessLayer } from "@bsport/sm-backbone";
 
 import { AddSessionModal } from "#src/components/AddSessionModal/AddSessionModal";
@@ -50,6 +50,21 @@ const ListPage: React.FC = () => {
 
   const displaySettings = useCallback(() => <DisplaySettings />, []);
 
+  const { shouldRenderEmptyState, EmptyState } = useEmptyState({
+    isEmpty: !isLoading && Object.keys(sessionsByDate).length === 0,
+    emptyConfig: {
+      title: t("emptyState.title"),
+      subtitle: t("emptyState.subtitle"),
+      ctaButtonConfig: {
+        label: t("addSession"),
+        onClick: openAddSessionModal,
+        iconLeft: "plus",
+        intent: "call-to-action",
+        color: "main",
+      },
+    },
+  });
+
   const callToActionButton = useMemo(
     () => (
       <ListLayout.Button
@@ -85,9 +100,9 @@ const ListPage: React.FC = () => {
         callToActionButton={callToActionButton}
       />
       <ListLayout.Content>
-        <div className="flex flex-col gap-xl">
+        <div className="flex flex-col gap-xl h-full">
           <SessionDatePicker />
-          {sessionDays}
+          {shouldRenderEmptyState ? <EmptyState /> : sessionDays}
         </div>
         <AddSessionModal
           isOpen={addSessionModalOpen}

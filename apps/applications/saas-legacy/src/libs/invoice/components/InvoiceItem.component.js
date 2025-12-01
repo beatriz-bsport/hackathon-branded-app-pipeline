@@ -30,6 +30,7 @@ const translateVoucherReasons = (voucherReasons, t) => {
       case InvoiceItemVoucherTraceKind.PAYMENT_COMBO:
       case InvoiceItemVoucherTraceKind.COUPON_REFERRED:
       case InvoiceItemVoucherTraceKind.COUPON_REFERRING:
+      case InvoiceItemVoucherTraceKind.PRO_RATED_FROM_SUBSCRIPTION:
         return t(`invoiceItem.voucherReason.${voucherReason.kind}`);
       case InvoiceItemVoucherTraceKind.COUPON_CODE:
         return t(`invoiceItem.voucherReason.${voucherReason.kind}`, {

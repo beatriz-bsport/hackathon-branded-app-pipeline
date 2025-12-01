@@ -24,6 +24,7 @@ import {
 import { getCurrencyCode, getStripePkKey } from '#src/libs/theme/selectors';
 import { getLocaleFromLanguage } from '#src/utils/language';
 import { useBasketPaymentContext } from './BasketPaymentContext';
+import { usePayment } from '#src/libs/payment/payment-module-revamped/basket-payment/hooks/usePayment';
 import type { StripePaymentElementConfig } from '#src/libs/company/types';
 import { verifyPriceBasket as verifyPriceBasketAPI } from '#src/libs/payment/api';
 
@@ -34,7 +35,9 @@ type StripeExpressCheckoutElementProps = {
   basketTotalPriceCts: number;
   checkBasketItems: (basketId: string) => Promise<boolean>;
   clientSecret: string;
+  companyId: number;
   disabled?: boolean;
+  memberId: number;
   onError?: () => void;
   onLoadError?: () => void;
   onReady?: (event: {
@@ -49,6 +52,8 @@ type StripeExpressCheckoutElementInnerProps = Omit<
   'amountToPayCts' | 'stripePaymentElementConfig'
 > & {
   basketTotalPriceCts: number;
+  companyId: number;
+  memberId: number;
   paymentMethods: Record<string, 'always' | 'never'>;
   paymentMethodOrder: string[];
 };
@@ -60,7 +65,9 @@ const StripeExpressCheckoutElementInner: React.FC<
   basketTotalPriceCts,
   checkBasketItems,
   clientSecret,
+  companyId,
   disabled,
+  memberId,
   onError,
   onLoadError,
   onReady,
@@ -79,8 +86,17 @@ const StripeExpressCheckoutElementInner: React.FC<
   const stripe = useStripe();
   const elements = useElements();
 
-  const { isExpressPayLoading, setIsExpressPayLoading } =
-    useBasketPaymentContext();
+  const {
+    isExpressPayLoading,
+    setIsExpressPayLoading,
+    selectedEstablishmentBillingGroup,
+  } = useBasketPaymentContext();
+
+  const { handleUpdateMemberBillingGroupAsync } = usePayment(
+    basketId,
+    companyId,
+    memberId,
+  );
 
   const [isSuccessfulPayment, setIsSuccessfulPayment] = useState(false);
 
@@ -109,6 +125,13 @@ const StripeExpressCheckoutElementInner: React.FC<
     if (!stripe || !elements) return;
 
     setIsExpressPayLoading(true);
+
+    // Update member billing group before confirming payment
+    if (selectedEstablishmentBillingGroup?.id && memberId) {
+      await handleUpdateMemberBillingGroupAsync(
+        selectedEstablishmentBillingGroup.id,
+      );
+    }
 
     // Validate basket before confirming payment
     // This ensures the basket amount hasn't changed in another tab
@@ -173,6 +196,9 @@ const StripeExpressCheckoutElementInner: React.FC<
     onError,
     onSuccessfulPayment,
     t,
+    selectedEstablishmentBillingGroup,
+    handleUpdateMemberBillingGroupAsync,
+    memberId,
   ]);
 
   const handleCancel = useCallback(() => {
@@ -231,7 +257,9 @@ const StripeExpressCheckoutElement: React.FC<
     basketTotalPriceCts,
     checkBasketItems,
     clientSecret,
+    companyId,
     disabled,
+    memberId,
     onError,
     onLoadError,
     onReady,
@@ -289,7 +317,9 @@ const StripeExpressCheckoutElement: React.FC<
           basketTotalPriceCts,
           checkBasketItems,
           clientSecret,
+          companyId,
           disabled,
+          memberId,
           onError,
           onLoadError,
           onReady,

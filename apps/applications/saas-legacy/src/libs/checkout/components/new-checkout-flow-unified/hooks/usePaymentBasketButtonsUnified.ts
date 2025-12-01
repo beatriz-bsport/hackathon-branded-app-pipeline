@@ -166,7 +166,7 @@ export const usePaymentBasketButtonsUnified = ({
     memberId,
   );
 
-  const { handleUpdateMemberBillingGroup } = usePayment(
+  const { handleUpdateMemberBillingGroupAsync } = usePayment(
     basketId,
     companyId,
     memberId,
@@ -256,8 +256,11 @@ export const usePaymentBasketButtonsUnified = ({
         button.id === lastSubmitButtonClicked;
 
       const handleClick = async (event?: React.MouseEvent<HTMLElement>) => {
-        if (selectedEstablishmentBillingGroup?.id)
-          handleUpdateMemberBillingGroup(selectedEstablishmentBillingGroup.id);
+        if (selectedEstablishmentBillingGroup?.id) {
+          await handleUpdateMemberBillingGroupAsync(
+            selectedEstablishmentBillingGroup.id,
+          );
+        }
         setLastSubmitButtonClicked(button.id);
         if (button.id === SUBMIT_BUTTONS.PAY_LATER_BUTTON.id) {
           paymentBasketRef.current?.onPayLaterSubmit();
@@ -283,10 +286,11 @@ export const usePaymentBasketButtonsUnified = ({
         button.id === SUBMIT_BUTTONS.PAYPAL_BUTTON.id
           ? {
               createOrder: async () => {
-                if (selectedEstablishmentBillingGroup?.id)
-                  handleUpdateMemberBillingGroup(
+                if (selectedEstablishmentBillingGroup?.id) {
+                  await handleUpdateMemberBillingGroupAsync(
                     selectedEstablishmentBillingGroup.id,
                   );
+                }
                 setLastSubmitButtonClicked(button.id);
                 return paymentBasketRef.current?.onPayPalCreateOrder();
               },

@@ -407,7 +407,9 @@ export const OnlinePaymentBasketUnified: React.FC<Props> = forwardRef(
               basketTotalPriceCts={displayedBasketTotalPriceCts}
               checkBasketItems={checkBasketItems}
               clientSecret={clientSecret}
+              companyId={companyId}
               disabled={isExpressCheckoutDisabled}
+              memberId={memberId}
               onError={handleExpressCheckoutError}
               onLoadError={() => setAvailableExpressCheckoutMethods(false)}
               onReady={handleExpressCheckoutReady}

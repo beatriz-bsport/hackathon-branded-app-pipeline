@@ -1,4 +1,5 @@
 import { useCallback, useEffect } from "react";
+import { Result } from "typescript-result";
 
 import { getIsoDateString } from "@bsport/datetime-manipulation";
 import {
@@ -12,6 +13,7 @@ import {
 import { useAsync } from "@bsport/use-async";
 
 import {
+  FetchSessionsResponse,
   enrichSessionsWithRelatedData,
   fetchSessionsAction,
   selectProcessedSessionsByDate,
@@ -22,7 +24,7 @@ import { useFetchEstablishments } from "./useFetchEstablishments";
 import { useFetchTeachers } from "./useFetchTeachers";
 
 export const useSessionListData = (
-  params: { date: Date } | { minDate: Date; maxDate: Date },
+  params: { date: Date } | { minDate: Date; maxDate: Date } | null,
 ) => {
   const { isLoading: isLoadingTeachers, fetchTeachers } = useFetchTeachers();
   const { isLoading: isLoadingEstablishments, fetchEstablishments } =
@@ -33,13 +35,25 @@ export const useSessionListData = (
     selectEstablishmentMappedById,
   );
 
-  const minDate = "date" in params ? params.date : params.minDate;
-  const maxDate = "date" in params ? params.date : params.maxDate;
+  const minDate = params
+    ? "date" in params
+      ? params.date
+      : params.minDate
+    : null;
+  const maxDate = params
+    ? "date" in params
+      ? params.date
+      : params.maxDate
+    : null;
 
-  const minDateKey = getIsoDateString(minDate);
-  const maxDateKey = getIsoDateString(maxDate);
+  const minDateKey = minDate ? getIsoDateString(minDate) : null;
+  const maxDateKey = maxDate ? getIsoDateString(maxDate) : null;
 
   const _fetchSessions = useCallback(async () => {
+    // Don't fetch if we don't have complete date range
+    if (!minDateKey || !maxDateKey) {
+      return Result.ok<FetchSessionsResponse>({ results: [] });
+    }
     return fetchSessionsAction(fetch, {
       minDate: minDateKey,
       maxDate: maxDateKey,

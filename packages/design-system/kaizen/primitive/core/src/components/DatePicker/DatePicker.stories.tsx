@@ -347,3 +347,168 @@ export const DatePickerWithCustomRangeOfYears: Story = {
     shortcuts,
   },
 };
+
+/**
+ * This example demonstrates a controlled DatePicker in single mode.<br>
+ * The parent component manages the selected date state using the `value` prop.<br>
+ * Changes are handled via the `onSelect` callback, allowing full control over the date selection.
+ */
+export const ControlledSingleDatePicker: Story = {
+  name: "Controlled single date picker",
+  render: (args) => {
+    const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
+
+    return (
+      <div>
+        <p style={{ marginBottom: "16px" }}>
+          Selected date: {selectedDate?.toLocaleDateString() || "None"}
+        </p>
+        <DatePicker
+          {...args}
+          dateValue={selectedDate}
+          onSelect={(date) => {
+            console.log("Date selected:", date);
+            setSelectedDate(date as Date);
+          }}
+        />
+        <div style={{ marginTop: "16px", display: "flex", gap: "8px" }}>
+          <Button
+            label="Set to Today"
+            size="sm"
+            intent="default"
+            color="main"
+            onClick={() => setSelectedDate(new Date())}
+          />
+          <Button
+            label="Set to Tomorrow"
+            size="sm"
+            intent="default"
+            color="main"
+            onClick={() => {
+              const tomorrow = new Date();
+              tomorrow.setDate(tomorrow.getDate() + 1);
+              setSelectedDate(tomorrow);
+            }}
+          />
+          <Button
+            label="Clear"
+            size="sm"
+            intent="default"
+            color="main"
+            onClick={() => setSelectedDate(null)}
+          />
+        </div>
+      </div>
+    );
+  },
+  args: {
+    id: "datepicker-controlled-single",
+    mode: "single",
+    displayAs: "popover",
+    shortcuts,
+  },
+};
+
+/**
+ * This example demonstrates a controlled DatePicker in range mode.<br>
+ * The parent component manages the selected date range state using the `value` prop.<br>
+ * The component handles partial selections (when only the first date is selected) and allows<br>
+ * programmatic updates to the date range from external controls.
+ */
+export const ControlledRangeDatePicker: Story = {
+  name: "Controlled range date picker",
+  render: (args) => {
+    const [selectedRange, setSelectedRange] = useState<
+      [Date | null, Date | null]
+    >([new Date(), null]);
+
+    const formatRange = () => {
+      if (!selectedRange[0] && !selectedRange[1]) return "None";
+      if (selectedRange[0] && !selectedRange[1])
+        return `${selectedRange[0].toLocaleDateString()} - (selecting...)`;
+      if (selectedRange[0] && selectedRange[1])
+        return `${selectedRange[0].toLocaleDateString()} - ${selectedRange[1].toLocaleDateString()}`;
+      return "Invalid range";
+    };
+
+    return (
+      <div>
+        <p style={{ marginBottom: "16px" }}>Selected range: {formatRange()}</p>
+        <DatePicker
+          {...args}
+          dateValue={selectedRange}
+          onSelect={(date) => {
+            console.log("Range selected:", date);
+            if (Array.isArray(date)) {
+              setSelectedRange(date as [Date | null, Date | null]);
+            }
+          }}
+        />
+        <div style={{ marginTop: "16px", display: "flex", gap: "8px" }}>
+          <Button
+            label="This Week"
+            size="sm"
+            intent="default"
+            color="main"
+            onClick={() => {
+              const today = new Date();
+              const dayOfWeek = today.getDay();
+              const startOfWeek = new Date(today);
+              startOfWeek.setDate(
+                today.getDate() - (dayOfWeek === 0 ? 6 : dayOfWeek - 1),
+              );
+              const endOfWeek = new Date(startOfWeek);
+              endOfWeek.setDate(startOfWeek.getDate() + 6);
+              setSelectedRange([startOfWeek, endOfWeek]);
+            }}
+          />
+          <Button
+            label="Next 7 Days"
+            size="sm"
+            intent="default"
+            color="main"
+            onClick={() => {
+              const start = new Date();
+              const end = new Date();
+              end.setDate(end.getDate() + 6);
+              setSelectedRange([start, end]);
+            }}
+          />
+          <Button
+            label="Clear"
+            size="sm"
+            intent="default"
+            color="main"
+            onClick={() => setSelectedRange([null, null])}
+          />
+        </div>
+      </div>
+    );
+  },
+  args: {
+    id: "datepicker-controlled-range",
+    mode: "range",
+    displayAs: "popover",
+    shortcuts: [
+      {
+        label: "This Weekend",
+        getDate: () => {
+          const today = new Date();
+          const saturday = new Date(
+            today.setDate(today.getDate() + (6 - today.getDay())),
+          );
+          const sunday = new Date(saturday);
+          sunday.setDate(saturday.getDate() + 1);
+          return [saturday, sunday];
+        },
+      },
+      {
+        label: "Next Month",
+        getDate: () => {
+          const today = new Date();
+          return [new Date(), new Date(today.setMonth(today.getMonth() + 1))];
+        },
+      },
+    ],
+  },
+};

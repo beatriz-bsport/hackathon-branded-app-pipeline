@@ -1,5 +1,6 @@
 import { Result } from "typescript-result";
 
+import { getIsoDateString } from "@bsport/datetime-manipulation";
 import { type Action, createErrorWithContext } from "@bsport/store-base";
 import type { ManagerSession } from "@bsport/store-booking-session";
 import type { Establishment } from "@bsport/store-core-data-establishment";
@@ -9,7 +10,7 @@ import { fetchManagerSessionsAPI } from "./api";
 import { CalendarView, sessionListStore } from "./store";
 import type { InternalEnrichedSession } from "./types";
 
-type FetchSessionsResponse = {
+export type FetchSessionsResponse = {
   results: ManagerSession[];
 };
 
@@ -29,7 +30,7 @@ export const setSessionsForDateRange = ({ sessions }: SetSessionsParams) => {
     ids.push(session.id);
 
     // Extract date from session's date_start (format: "YYYY-MM-DDTHH:mm:ss")
-    const sessionDate = session.date_start.split("T")[0];
+    const sessionDate = getIsoDateString(new Date(session.date_start));
     if (!byDate[sessionDate]) {
       byDate[sessionDate] = [];
     }
@@ -131,7 +132,7 @@ export const setCalendarView = (calendarView: CalendarView) => {
   });
 };
 
-export const setSelectedDate = (date: Date | [Date, Date]) => {
+export const setSelectedDate = (date: Date | [Date | null, Date | null]) => {
   if (Array.isArray(date)) {
     sessionListStore.setState({
       selectedDate: { type: "range", minDate: date[0], maxDate: date[1] },
@@ -141,4 +142,11 @@ export const setSelectedDate = (date: Date | [Date, Date]) => {
       selectedDate: { type: "single", date },
     });
   }
+};
+
+export const setUniqueDate = (date: Date) => {
+  sessionListStore.setState({
+    calendarView: CalendarView.DAILY,
+    selectedDate: { type: "single", date },
+  });
 };

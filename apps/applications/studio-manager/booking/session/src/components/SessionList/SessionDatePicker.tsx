@@ -16,7 +16,7 @@ export const SessionDatePicker: React.FC = () => {
   const onDateChange = (date: SelectedDate) => {
     if (date instanceof Date) {
       setSelectedDate(date);
-    } else if (Array.isArray(date) && date[0] && date[1]) {
+    } else if (Array.isArray(date)) {
       setSelectedDate([date[0], date[1]]);
     }
   };
@@ -37,21 +37,20 @@ export const SessionDatePicker: React.FC = () => {
     return dateDT < startDT || dateDT >= maxDT;
   };
 
+  const datePickerValue: SelectedDate =
+    selectedDate.type === "single"
+      ? selectedDate.date
+      : [selectedDate.minDate, selectedDate.maxDate];
+
   return (
-    <div className="flex pt-sm px-sm justify-center">
-      <DatePicker
-        id="daily-sessions-picker"
-        mode={calendarView === CalendarView.DAILY ? "single" : "range"}
-        displayAs="popover"
-        onSelect={onDateChange}
-        dateFormat="medium"
-        defaultValue={
-          selectedDate.type === "single"
-            ? selectedDate.date
-            : [selectedDate.minDate, selectedDate.maxDate]
-        }
-        disableDate={disableDate}
-      />
-    </div>
+    <DatePicker
+      id="daily-sessions-picker"
+      mode={calendarView === CalendarView.DAILY ? "single" : "range"}
+      displayAs="popover"
+      onSelect={onDateChange}
+      dateFormat="medium"
+      dateValue={datePickerValue}
+      disableDate={disableDate}
+    />
   );
 };

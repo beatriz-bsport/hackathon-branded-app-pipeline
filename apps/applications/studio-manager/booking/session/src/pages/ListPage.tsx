@@ -7,8 +7,8 @@ import { dataAccessLayer } from "@bsport/sm-backbone";
 import { AddSessionModal } from "#src/components/AddSessionModal/AddSessionModal";
 import { useTranslation } from "#src/utils/i18n";
 
+import { DateNavigationHeader } from "../components/SessionList/DateNavigationHeader";
 import { DisplaySettings } from "../components/SessionList/DisplaySettings";
-import { SessionDatePicker } from "../components/SessionList/SessionDatePicker";
 import SessionDay from "../components/SessionList/SessionDay";
 import { useSessionListData } from "../hooks/useSessionListData";
 import {
@@ -36,7 +36,9 @@ const ListPage: React.FC = () => {
   const fetchParams =
     selectedDate.type === "single"
       ? { date: selectedDate.date }
-      : { minDate: selectedDate.minDate, maxDate: selectedDate.maxDate };
+      : selectedDate.minDate && selectedDate.maxDate
+        ? { minDate: selectedDate.minDate, maxDate: selectedDate.maxDate }
+        : null;
 
   const { sessionsByDate, isLoading } = useSessionListData(fetchParams);
 
@@ -100,8 +102,8 @@ const ListPage: React.FC = () => {
         callToActionButton={callToActionButton}
       />
       <ListLayout.Content>
-        <div className="flex flex-col gap-xl h-full">
-          <SessionDatePicker />
+        <DateNavigationHeader />
+        <div className="flex flex-col gap-xl h-full mt-md">
           {shouldRenderEmptyState ? <EmptyState /> : sessionDays}
         </div>
         <AddSessionModal

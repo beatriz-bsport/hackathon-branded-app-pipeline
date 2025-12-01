@@ -65,13 +65,11 @@ pnpm run -w api-environment:set $API_ENVIRONMENT
 echo "✅ API environment has been set"
 echo ""
 
-# Set Feature Flag environment (only for feature-branch deployments)
-if [ "$DEPLOY_ENVIRONMENT" = "feature-branch" ]; then
-  echo "⏳ Setting Feature Flag environment"
-  pnpm run -w feature-flags-environment:set feature-branch
-  echo "✅ Feature Flag environment has been set"
-  echo ""
-fi
+# Set Feature Flag environment
+echo "⏳ Setting Feature Flag environment"
+pnpm run -w feature-flags-environment:set $API_ENVIRONMENT
+echo "✅ Feature Flag environment has been set"
+echo ""
 
 # Show affected projects
 echo "🔱 Detecting affected projects..."

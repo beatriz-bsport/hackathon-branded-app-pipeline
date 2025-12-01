@@ -34,6 +34,8 @@ import {
   onboardFiskalyCompanyActions,
   getLastUploadedSignedAgreementActions,
   uploadSignedAgreementActions,
+  fetchFiskalySignEsInvoiceActions,
+  manuallySendInvoiceToSignEsActions,
 } from '#src/libs/invoice/actions';
 
 import type {
@@ -44,6 +46,7 @@ import type {
   InvoiceState,
   PlannedPaymentEventSerializer,
   FiskalyOnboardingRequirement,
+  FiskalySignEsInvoiceDetails,
 } from '#src/libs/invoice/types';
 import type { PaymentItem } from '#src/libs/invoice/payment/types';
 import type { InvoiceItem } from '#src/libs/invoice/invoice-item/types';
@@ -125,6 +128,11 @@ const initialState: Immutable.Immutable<InvoiceState> = Immutable<InvoiceState>(
     applyGiftCard: {
       error: null,
       loading: false,
+    },
+    fiskalySignEsInvoice: {
+      result: null,
+      loading: false,
+      error: null,
     },
     errorSpecific: null,
     loadingSpecific: false,
@@ -763,6 +771,42 @@ export default handleActions<Immutable.Immutable<InvoiceState>, any>(
         ['fiskalyOnboarding', 'signedAgreementFile'],
         payload.file,
       );
+    },
+    [fetchFiskalySignEsInvoiceActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(['fiskalySignEsInvoice', 'loading'], payload);
+    },
+    [fetchFiskalySignEsInvoiceActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(['fiskalySignEsInvoice', 'error'], payload);
+    },
+    [fetchFiskalySignEsInvoiceActions.success.toString()]: (
+      state,
+      { payload }: { payload: FiskalySignEsInvoiceDetails },
+    ) => {
+      return state.setIn(['fiskalySignEsInvoice', 'result'], payload);
+    },
+    [manuallySendInvoiceToSignEsActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(['fiskalySignEsInvoice', 'loading'], payload);
+    },
+    [manuallySendInvoiceToSignEsActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(['fiskalySignEsInvoice', 'error'], payload);
+    },
+    [manuallySendInvoiceToSignEsActions.success.toString()]: (
+      state,
+      { payload }: { payload: FiskalySignEsInvoiceDetails },
+    ) => {
+      return state.setIn(['fiskalySignEsInvoice', 'result'], payload);
     },
   },
   initialState,

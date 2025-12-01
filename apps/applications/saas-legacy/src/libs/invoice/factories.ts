@@ -63,6 +63,8 @@ export function invoiceFactory(options?: Partial<Invoice>): Invoice {
     uuid: options?.uuid ?? faker.string.uuid(),
     voucher: options?.voucher ?? '',
     revert_reason: options?.revert_reason ?? '',
+    fiskaly_sign_es_signature_status:
+      options?.fiskaly_sign_es_signature_status ?? null,
   };
 }
 

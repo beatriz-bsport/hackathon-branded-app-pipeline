@@ -50,6 +50,9 @@ type UsePayment = {
     defaultEstablishmentBillingGroupId: number,
     options?: OptionCallback<Member>,
   ) => void;
+  handleUpdateMemberBillingGroupAsync: (
+    billingGroupId: number,
+  ) => Promise<void>;
   paymentGroupId: number;
   paymentGroupPriceCts: number;
   selectInstalmentPayment: (
@@ -176,6 +179,20 @@ export const usePayment = (
     [dispatch, memberId],
   );
 
+  // TODO: When removing the AP/GP feature flag & merging the hooks from other payment flows
+  // update the main handleUpdateMemberBillingGroup hook to return a promise
+  // (used in other flows like Express Pass & Packs Checkout, One Click Booking)
+  const handleUpdateMemberBillingGroupAsync = useCallback(
+    (billingGroupId: number): Promise<void> =>
+      new Promise<void>((resolve) => {
+        handleUpdateMemberBillingGroup(billingGroupId, {
+          onSuccess: () => resolve(),
+          onError: () => resolve(), // Resolve even on error to not block payment
+        });
+      }),
+    [handleUpdateMemberBillingGroup],
+  );
+
   /**
    * Sets the payment processing state.
    *
@@ -252,6 +269,7 @@ export const usePayment = (
     handleResetBasketClientSecret,
     handleSetPaymentProcessing,
     handleUpdateMemberBillingGroup,
+    handleUpdateMemberBillingGroupAsync,
     paymentGroupId,
     paymentGroupPriceCts,
     selectInstalmentPayment,

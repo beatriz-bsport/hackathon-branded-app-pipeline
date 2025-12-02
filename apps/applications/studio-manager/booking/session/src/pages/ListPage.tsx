@@ -1,7 +1,11 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 import { getLocalNow, toDate } from "@bsport/datetime-manipulation";
-import { ListLayout, useEmptyState } from "@bsport/kaizen-primitive-core";
+import {
+  ListLayout,
+  useEmptyState,
+  useLoadingState,
+} from "@bsport/kaizen-primitive-core";
 import { dataAccessLayer } from "@bsport/sm-backbone";
 
 import { AddSessionModal } from "#src/components/AddSessionModal/AddSessionModal";
@@ -77,6 +81,11 @@ const ListPage: React.FC = () => {
     },
   });
 
+  const { shouldRenderLoadingState, LoadingState } = useLoadingState({
+    isLoading: isLoading && Object.keys(sessionsByDate).length === 0,
+    message: t("table.isLoading"),
+  });
+
   const callToActionButton = useMemo(
     () => (
       <ListLayout.Button
@@ -115,6 +124,7 @@ const ListPage: React.FC = () => {
         <DateNavigationHeader />
         <div className="flex flex-col gap-xl h-full mt-md">
           {shouldRenderEmptyState ? <EmptyState /> : sessionDays}
+          {shouldRenderLoadingState && <LoadingState />}
         </div>
         <AddSessionModal
           isOpen={addSessionModalOpen}

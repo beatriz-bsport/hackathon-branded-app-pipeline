@@ -10,12 +10,12 @@ export type FetchAppointmentPassesParams = {
   /** Include only appointment passes whose IDs are in this list. */
   id__in?: number[];
 
-  /** Filter passes within this category. */
-  /**
-   * @todo To be implemented in the backend
-   * https://linear.app/bsport/issue/COR-799/packs-creation-step-5-allow-to-filter-on-category-for-items
+  /** Filter appointment passes within
+   * - the specified category if it's an id
+   * - items without category if it's unset
+   * - all items if not passed
    */
-  category?: number | "none";
+  category?: number | "unset" | undefined;
 };
 
 export type SearchAppointmentPassesParams = {

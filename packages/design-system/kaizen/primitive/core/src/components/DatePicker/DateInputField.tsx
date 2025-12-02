@@ -2,15 +2,15 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 
 import { getIsoDateString, isValidDate } from "@bsport/datetime-manipulation";
 
-import TextField from "#src/components/TextField";
+import TextField, { type TextFieldProps } from "#src/components/TextField";
 
 type DateInputFieldProps = {
   id: string;
   selectedDate: Date | null;
-  label?: string;
   onDateChange: (date: Date | null) => void;
   onClick?: () => void;
-};
+  required?: boolean;
+} & Pick<TextFieldProps, "required" | "statusText" | "label" | "status">;
 
 const DateInputField: React.FC<DateInputFieldProps> = ({
   id,
@@ -18,6 +18,9 @@ const DateInputField: React.FC<DateInputFieldProps> = ({
   onDateChange,
   onClick,
   label,
+  required,
+  statusText,
+  status,
 }: DateInputFieldProps) => {
   const [inputValue, setInputValue] = useState(
     selectedDate ? getIsoDateString(selectedDate) : "",
@@ -64,12 +67,24 @@ const DateInputField: React.FC<DateInputFieldProps> = ({
     onDateChange(null);
   };
 
+  const getStatus = (): TextFieldProps["status"] => {
+    if (inputValue && !isValidDate(inputValue)) {
+      return "error";
+    }
+
+    if (status) {
+      return status;
+    }
+
+    return "default";
+  };
+
   return (
     <TextField
       className="min-w-[171px]"
       type="date"
       id={`calendar-date-input-${id}`}
-      status={!inputValue || isValidDate(inputValue) ? "default" : "error"}
+      status={getStatus()}
       value={inputValue}
       label={label}
       iconLeft="calendar"
@@ -79,6 +94,8 @@ const DateInputField: React.FC<DateInputFieldProps> = ({
         e.stopPropagation();
         onClick?.();
       }}
+      required={required}
+      statusText={statusText}
     />
   );
 };

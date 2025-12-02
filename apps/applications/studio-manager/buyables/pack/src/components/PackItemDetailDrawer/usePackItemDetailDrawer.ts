@@ -96,6 +96,10 @@ export const usePackItemDetailDrawer = ({
     handleSetFutureItem(nextIndex);
   }, [handleSetFutureItem, aggregatedList, selectedItem]);
 
+  const onItemClick = (item: FormattedData) => {
+    setSelectedItem((prev) => (prev?.id === item.id ? null : item));
+  };
+
   const selectedItemCategory = selectedItem?.category
     ? categoriesById[selectedItem.variant][selectedItem.category]?.name || ""
     : "";
@@ -104,8 +108,8 @@ export const usePackItemDetailDrawer = ({
     isOpen: !!selectedItem,
     onClose: () => setSelectedItem(null),
     selectedItem,
-    setSelectedItem,
     selectedItemCategory,
+    onItemClick,
     onSelectPreviousItem,
     onSelectNextItem,
   };

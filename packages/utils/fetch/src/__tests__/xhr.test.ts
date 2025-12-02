@@ -17,7 +17,7 @@ vi.mock("@bsport/sentry", () => ({
 }));
 
 vi.mock("@bsport/timezone-utils", () => ({
-  getTimezoneName: vi.fn(() => "Europe/Paris"),
+  getCompanyTimezone: vi.fn(() => "Europe/Paris"),
 }));
 
 // Mock window.location

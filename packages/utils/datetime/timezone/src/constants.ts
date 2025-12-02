@@ -5,6 +5,4 @@ export const STORAGES = {
   SESSION: "session",
 } as const;
 
-export const DEFAULT_TIMEZONE = "Europe/Paris";
-
 export type StorageType = (typeof STORAGES)[keyof typeof STORAGES];

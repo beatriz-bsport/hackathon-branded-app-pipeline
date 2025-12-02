@@ -1,5 +1,4 @@
 import {
-  DEFAULT_TIMEZONE,
   STORAGES,
   STORAGE_KEY_BSPORT_COMPANY_TIMEZONE,
   type StorageType,
@@ -51,7 +50,7 @@ const setItem = (storage: StorageType, key: string, value: string): void => {
 export const getCompanyTimezone = (): string =>
   getItem(STORAGES.SESSION, STORAGE_KEY_BSPORT_COMPANY_TIMEZONE) ||
   getItem(STORAGES.LOCAL, STORAGE_KEY_BSPORT_COMPANY_TIMEZONE) ||
-  DEFAULT_TIMEZONE;
+  Intl.DateTimeFormat().resolvedOptions().timeZone;
 
 /**
  * Stores the timezone in the specified storage.

@@ -2,9 +2,8 @@ import React, { useCallback, useMemo } from "react";
 
 import {
   getIsoDateString,
-  getLocalNow,
+  getTodayJSDate,
   isSameDay,
-  toDate,
   toDateTime,
 } from "@bsport/datetime-manipulation";
 import { Button } from "@bsport/kaizen-primitive-core";
@@ -44,7 +43,7 @@ export const TodayButton: React.FC = () => {
   const selectedDate = useSessionListStore(selectSelectedDate);
 
   const today = useMemo(
-    () => toDate(getLocalNow({ locale: intlLocale, zone: companyTimeZone })),
+    () => getTodayJSDate(intlLocale, companyTimeZone),
     [intlLocale, companyTimeZone],
   );
 

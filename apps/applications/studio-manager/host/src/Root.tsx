@@ -188,6 +188,11 @@ const AuthenticatedRoutes = () => {
   const isHomepageEnabled = useNavFlag(NavFlags.HOMEPAGE);
   const isPacksPageEnabled = useNavFlag(NavFlags.PACKS);
 
+  /**
+   * Add configs to the Host Router.
+   * If hidden is set to true, it will render the Route but with a null component,
+   * in order to have the route still defined while feature flags are loading.
+   */
   const routesConfigs: RouteConfig[] = [
     /* ----- Booking ----- */
     { url: urls.activity, element: <GroupActivities /> },
@@ -246,12 +251,12 @@ const AuthenticatedRoutes = () => {
       )}
 
       {routesConfigs
-        .filter((config) => !!config.url && !config.hidden)
+        .filter((config) => !!config.url)
         .map((config) => (
           <Route
             key={`route-${config.url}`}
             path={`${config.url}/*`}
-            element={config.element}
+            element={config.hidden ? null : config.element}
           />
         ))}
 

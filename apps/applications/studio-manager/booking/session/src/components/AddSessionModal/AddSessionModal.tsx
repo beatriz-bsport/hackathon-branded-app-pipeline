@@ -10,8 +10,8 @@ import {
   selectIsCurrentStepValid,
 } from "#src/stores/session-creation/selectors";
 import {
-  CHOOSE_GROUP_ACTIVITY_STEP,
   MAX_STEP,
+  SESSION_CREATION_STEPS,
   useSessionCreationStore,
 } from "#src/stores/session-creation/store";
 import { useTranslation } from "#src/utils/i18n";
@@ -70,7 +70,7 @@ export const AddSessionModal = ({ isOpen, onClose }: AddSessionModalProps) => {
           validate: checkIfCurrentStepValid,
         },
       ]}
-      initialStep={CHOOSE_GROUP_ACTIVITY_STEP}
+      initialStep={SESSION_CREATION_STEPS.CHOOSE_GROUP_ACTIVITY}
       confirmButton={{
         label: t("addSessionModal.buttons.createSession"),
         color: "main",

@@ -1,4 +1,4 @@
-import type { SessionCreationState } from "./store";
+import { SESSION_CREATION_STEPS, type SessionCreationState } from "./store";
 
 /**
  * Selects the current step number.
@@ -28,3 +28,21 @@ export const selectIsCurrentStepValid = (state: SessionCreationState) =>
  */
 export const selectSelectedGroupActivity = (state: SessionCreationState) =>
   state.selectedGroupActivity;
+
+/** Selects form data for a specific step.
+ */
+export const selectStepFormData =
+  (
+    step:
+      | SESSION_CREATION_STEPS.ADVANCED_OPTIONS
+      | SESSION_CREATION_STEPS.CONFIGURE_SESSION,
+  ) =>
+  (state: SessionCreationState) =>
+    state.formData[step];
+
+/** Selects merged form data.
+ */
+export const selectMergedFormData = (state: SessionCreationState) => ({
+  ...state.formData[SESSION_CREATION_STEPS.CONFIGURE_SESSION],
+  ...state.formData[SESSION_CREATION_STEPS.ADVANCED_OPTIONS],
+});

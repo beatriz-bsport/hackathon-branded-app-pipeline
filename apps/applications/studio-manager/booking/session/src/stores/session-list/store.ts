@@ -27,6 +27,7 @@ export interface SessionListState {
   sessions: SessionsState;
   calendarView: CalendarView;
   selectedDate: DateSelection;
+  locale: string;
 }
 
 export const getInitialState = (): SessionListState => ({
@@ -37,6 +38,7 @@ export const getInitialState = (): SessionListState => ({
   },
   calendarView: CalendarView.DAILY,
   selectedDate: { type: "single", date: new Date() },
+  locale: "en-US",
 });
 
 export const sessionListStore = createStore<SessionListState>(getInitialState);

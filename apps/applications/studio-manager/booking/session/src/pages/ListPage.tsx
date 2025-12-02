@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 import { getLocalNow, toDate } from "@bsport/datetime-manipulation";
 import { ListLayout, useEmptyState } from "@bsport/kaizen-primitive-core";
@@ -13,6 +13,7 @@ import SessionDay from "../components/SessionList/SessionDay";
 import { useSessionListData } from "../hooks/useSessionListData";
 import {
   selectSelectedDate,
+  setLocale,
   setSelectedDate,
   useSessionListStore,
 } from "../stores/session-list";
@@ -25,11 +26,20 @@ const ListPage: React.FC = () => {
   const selectedDate = useSessionListStore(selectSelectedDate);
 
   const [addSessionModalOpen, setAddSessionModalOpen] = useState(false);
+  const hasInitializedDate = useRef(false);
 
-  // Initialize selectedDate on first render
   useEffect(() => {
-    const today = getLocalNow({ locale: intlLocale, zone: companyTimeZone });
-    setSelectedDate(toDate(today));
+    if (intlLocale) {
+      setLocale(intlLocale);
+    }
+  }, [intlLocale]);
+
+  useEffect(() => {
+    if (!hasInitializedDate.current && companyTimeZone && intlLocale) {
+      const today = getLocalNow({ locale: intlLocale, zone: companyTimeZone });
+      setSelectedDate(toDate(today));
+      hasInitializedDate.current = true;
+    }
   }, [intlLocale, companyTimeZone]);
 
   // Determine fetch params based on selected date type

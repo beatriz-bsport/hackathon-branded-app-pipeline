@@ -116,6 +116,27 @@ export const getWeekdays = (
 export const getWeekStartDayFromLocale = (locale: string): WeekStartDay => {
   return Info.getStartOfWeek({ locale });
 };
+
+/**
+ * Gets the start and end of the week for a given date, respecting the locale's week start day.
+ *
+ * @param date - A Date object representing any day in the week.
+ * @param locale - The locale identifier (e.g., "en-US", "fr-FR"). Default is "en-GB".
+ * @returns An object with start and end Date objects representing the week boundaries.
+ */
+export const getWeekBounds = (
+  date: Date,
+  locale: string = "en-GB",
+): { start: Date; end: Date } => {
+  const dateTime = toDateTime(date).setLocale(locale);
+  const startOfWeek = dateTime.startOf("week", { useLocaleWeeks: true });
+  const endOfWeek = dateTime.endOf("week", { useLocaleWeeks: true });
+  return {
+    start: toDate(startOfWeek),
+    end: toDate(endOfWeek),
+  };
+};
+
 /**
  * Retrieves an array of localized month names.
  *

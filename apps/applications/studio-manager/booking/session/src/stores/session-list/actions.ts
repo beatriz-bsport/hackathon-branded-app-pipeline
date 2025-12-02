@@ -1,6 +1,6 @@
 import { Result } from "typescript-result";
 
-import { getIsoDateString } from "@bsport/datetime-manipulation";
+import { getIsoDateString, getWeekBounds } from "@bsport/datetime-manipulation";
 import { type Action, createErrorWithContext } from "@bsport/store-base";
 import type { ManagerSession } from "@bsport/store-booking-session";
 import type { Establishment } from "@bsport/store-core-data-establishment";
@@ -112,23 +112,43 @@ export const fetchSessionsAction: Action<
 };
 
 export const setCalendarView = (calendarView: CalendarView) => {
-  const currentSelectedDate = sessionListStore.getState().selectedDate;
-  if (
-    calendarView === CalendarView.DAILY &&
-    currentSelectedDate.type === "range" &&
-    currentSelectedDate.minDate
-  ) {
-    sessionListStore.setState({
+  sessionListStore.setState((state) => {
+    const currentSelectedDate = state.selectedDate;
+    if (
+      calendarView === CalendarView.DAILY &&
+      currentSelectedDate.type === "range" &&
+      currentSelectedDate.minDate
+    ) {
+      return {
+        ...state,
+        calendarView,
+        selectedDate: {
+          type: "single",
+          date: currentSelectedDate.minDate,
+        },
+      };
+    }
+
+    if (
+      calendarView === CalendarView.RANGE &&
+      currentSelectedDate.type === "single"
+    ) {
+      const weekBounds = getWeekBounds(currentSelectedDate.date, state.locale);
+      return {
+        ...state,
+        calendarView,
+        selectedDate: {
+          type: "range",
+          minDate: weekBounds.start,
+          maxDate: weekBounds.end,
+        },
+      };
+    }
+
+    return {
+      ...state,
       calendarView,
-      selectedDate: {
-        type: "single",
-        date: currentSelectedDate.minDate,
-      },
-    });
-    return;
-  }
-  sessionListStore.setState({
-    calendarView,
+    };
   });
 };
 
@@ -149,4 +169,8 @@ export const setUniqueDate = (date: Date) => {
     calendarView: CalendarView.DAILY,
     selectedDate: { type: "single", date },
   });
+};
+
+export const setLocale = (locale: string) => {
+  sessionListStore.setState({ locale });
 };

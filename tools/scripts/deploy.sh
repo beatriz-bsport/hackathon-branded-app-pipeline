@@ -67,7 +67,7 @@ echo ""
 
 # Set Feature Flag environment
 echo "⏳ Setting Feature Flag environment"
-pnpm run -w feature-flags-environment:set $API_ENVIRONMENT
+pnpm run -w feature-flags-environment:set $DEPLOY_ENVIRONMENT
 echo "✅ Feature Flag environment has been set"
 echo ""
 

@@ -3,25 +3,49 @@ import { createStore } from "zustand/vanilla";
 import { bindStore } from "@bsport/store-base";
 import type { MetaActivity } from "@bsport/store-booking-group-activity";
 
-export const CHOOSE_GROUP_ACTIVITY_STEP = 0;
-export const CONFIGURE_SESSION_STEP = 1;
-export const ADVANCED_OPTIONS_STEP = 2;
-export const MAX_STEP = ADVANCED_OPTIONS_STEP;
+import type { SessionCreate, SessionCreationFormData } from "./types";
+
+export enum SESSION_CREATION_STEPS {
+  CHOOSE_GROUP_ACTIVITY = 0,
+  CONFIGURE_SESSION = 1,
+  ADVANCED_OPTIONS = 2,
+}
+
+export const MAX_STEP = SESSION_CREATION_STEPS.ADVANCED_OPTIONS;
 
 export interface SessionCreationState {
   currentStep: number;
   stepValidations: Record<number, boolean>;
   selectedGroupActivity: MetaActivity | null;
+  formData: {
+    [SESSION_CREATION_STEPS.CONFIGURE_SESSION]: SessionCreationFormData;
+    [SESSION_CREATION_STEPS.ADVANCED_OPTIONS]: Partial<SessionCreate>;
+  };
 }
 
+export const DEFAULT_CONFIGURE_SESSION_FORM_DATA = {
+  allowCustomNameAndDescription: false,
+  name_override: "",
+  description_override: "",
+  manager_only: false,
+};
+
+export const DEFAULT_ADVANCED_OPTIONS_FORM_DATA = {};
+
 export const getInitialState = (): SessionCreationState => ({
-  currentStep: CHOOSE_GROUP_ACTIVITY_STEP,
+  currentStep: SESSION_CREATION_STEPS.CHOOSE_GROUP_ACTIVITY,
   stepValidations: {
-    [CHOOSE_GROUP_ACTIVITY_STEP]: false,
-    [CONFIGURE_SESSION_STEP]: false,
-    [ADVANCED_OPTIONS_STEP]: false,
+    [SESSION_CREATION_STEPS.CHOOSE_GROUP_ACTIVITY]: false,
+    [SESSION_CREATION_STEPS.CONFIGURE_SESSION]: false,
+    [SESSION_CREATION_STEPS.ADVANCED_OPTIONS]: false,
   },
   selectedGroupActivity: null,
+  formData: {
+    [SESSION_CREATION_STEPS.CONFIGURE_SESSION]:
+      DEFAULT_CONFIGURE_SESSION_FORM_DATA,
+    [SESSION_CREATION_STEPS.ADVANCED_OPTIONS]:
+      DEFAULT_ADVANCED_OPTIONS_FORM_DATA,
+  },
 });
 
 export const sessionCreationStore =

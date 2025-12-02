@@ -6,7 +6,7 @@ import {
 } from "#src/stores/session-creation/actions";
 import { selectSelectedGroupActivity } from "#src/stores/session-creation/selectors";
 import {
-  CHOOSE_GROUP_ACTIVITY_STEP,
+  SESSION_CREATION_STEPS,
   useSessionCreationStore,
 } from "#src/stores/session-creation/store";
 import { useTranslation } from "#src/utils/i18n";
@@ -32,7 +32,7 @@ export const useRefinedGroupActivities = ({
 
   const handleRowClick = (activity: MetaActivity) => {
     setSelectedGroupActivity(activity);
-    setStepValid(CHOOSE_GROUP_ACTIVITY_STEP, !!activity);
+    setStepValid(SESSION_CREATION_STEPS.CHOOSE_GROUP_ACTIVITY, !!activity);
   };
 
   const getIsRowActive = (activity: MetaActivity) => {

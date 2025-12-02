@@ -1,5 +1,5 @@
 import { clsx } from "clsx";
-import React from "react";
+import { type FC, useId } from "react";
 
 import {
   Body,
@@ -24,7 +24,7 @@ type PackFormContentProps = {
   clickedItem?: FormattedData | null;
 };
 
-export const PackFormContent: React.FC<PackFormContentProps> = ({
+export const PackFormContent: FC<PackFormContentProps> = ({
   fieldIdPrefix,
   onItemClick,
   clickedItem,
@@ -33,18 +33,20 @@ export const PackFormContent: React.FC<PackFormContentProps> = ({
   const { removeVariantItem, passes, webshopItems, appointmentPasses } =
     useSelectedItemsContext();
 
+  const menuId = useId();
+
   const variantPass = {
-    id: ITEM_VARIANTS.pass,
+    id: `${menuId}-${ITEM_VARIANTS.pass}`,
     label: t("formFields.packContent.buttons.addPass"),
     iconLeft: "plus" as const,
   };
   const variantAppointmentPass = {
-    id: ITEM_VARIANTS.appointmentPass,
+    id: `${menuId}-${ITEM_VARIANTS.appointmentPass}`,
     label: t("formFields.packContent.buttons.addAppointmentPass"),
     iconLeft: "plus" as const,
   };
   const variantWebshopItem = {
-    id: ITEM_VARIANTS.webshopItem,
+    id: `${menuId}-${ITEM_VARIANTS.webshopItem}`,
     label: t("formFields.packContent.buttons.addWebshopItem"),
     iconLeft: "plus" as const,
   };
@@ -76,7 +78,8 @@ export const PackFormContent: React.FC<PackFormContentProps> = ({
         <DropdownMenu
           items={variantItems}
           onSelectOption={({ id, setIsPopoverOpened }) => {
-            setSelectedVariant(id as ItemVariant);
+            const parsedId = id.slice(menuId.length + 1);
+            setSelectedVariant(parsedId as ItemVariant);
             setIsPopoverOpened(false);
           }}
           placement="bottom-right"

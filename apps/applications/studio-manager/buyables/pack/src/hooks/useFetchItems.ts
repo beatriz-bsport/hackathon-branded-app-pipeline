@@ -4,7 +4,11 @@ import {
   type AppointmentPass,
   fetchAppointmentPassesAction,
 } from "@bsport/store-buyables-appointment-pass";
-import { type Pass, fetchPassesAction } from "@bsport/store-buyables-pass";
+import {
+  type FetchPassesParams,
+  type Pass,
+  fetchPassesAction,
+} from "@bsport/store-buyables-pass";
 import {
   type WebshopItem,
   fetchWebshopItemsAction,
@@ -107,13 +111,12 @@ export const useFetchItems = ({
       return;
     }
     const params = {
-      // todo: Unlock when category can be filtered in the backend -wip-
-      // ...(categoryId
-      //   ? { category: categoryId > 0 ? categoryId : "unset" }
-      //   : {}),
+      ...(categoryId
+        ? { category: categoryId > 0 ? categoryId : "unset" }
+        : {}),
       page,
       page_size: pageSize,
-    };
+    } as Pick<FetchPassesParams, "category" | "page" | "page_size">;
 
     if (variant === "pass") {
       fetchPasses(params);

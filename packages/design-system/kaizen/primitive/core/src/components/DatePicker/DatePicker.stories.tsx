@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { useState } from "react";
 
 import Button from "#src/components/Button";
+import { Placements } from "#src/hooks/placement-classes.hook";
 
 import DatePicker from "./DatePicker";
 
@@ -30,6 +31,19 @@ const meta: Meta<typeof DatePicker> = {
     dateFormat: {
       options: ["short", "medium"],
       control: { type: "inline-radio" },
+    },
+    label: { control: "text" },
+    popoverPlacement: {
+      table: { type: { summary: "string" } },
+      options: [undefined, ...Object.values(Placements)],
+      control: { type: "select" },
+    },
+    required: { control: { type: "boolean" } },
+    statusText: { control: "text" },
+    status: {
+      options: [undefined, "default", "positive", "error"],
+      control: { type: "inline-radio" },
+      table: { type: { summary: "string" } },
     },
   },
 };
@@ -314,6 +328,32 @@ export const DatePickerPopover: Story = {
 };
 
 /**
+ * In this case, we don't need to provide any trigger to open the DatePicker.<br>
+ * It's automatically a button to trigger the opening of the popover.<br>
+ * We use the initial selected date to show how the button label updates accordingly.
+ */
+export const DatePickerPopoverCustom: Story = {
+  name: "DatePicker popover with custom label and placement",
+  render: (args) => (
+    <div className="flex flex-row justify-end">
+      <DatePicker {...args} />
+    </div>
+  ),
+  args: {
+    id: "datepicker-6",
+    mode: "single",
+    displayAs: "popover",
+    shortcuts,
+    defaultValue: new Date(),
+    isInputField: true,
+    label: "My datepicker label",
+    popoverPlacement: "bottom-right",
+    required: true,
+    statusText: "There is an error",
+  },
+};
+
+/**
  * In the range mode, the popover is rendered with a button as a trigger, displaying both dates in the label.<br>
  * A single input field is not sufficient, so this button is used instead.<br>
  * TODO: Find a way to display an input type date with two editable dates inside
@@ -321,7 +361,7 @@ export const DatePickerPopover: Story = {
 export const DatePickerPopoverRange: Story = {
   name: "DatePicker popover range",
   args: {
-    id: "datepicker-6",
+    id: "datepicker-7",
     mode: "range",
     displayAs: "popover",
     shortcuts,
@@ -337,7 +377,7 @@ export const DatePickerWithCustomRangeOfYears: Story = {
   name: "DatePicker with custom range of years",
   render: (args) => <DatePicker {...args} />,
   args: {
-    id: "datepicker-7",
+    id: "datepicker-8",
     mode: "single",
     displayAs: "popover",
     calendarYears: Array.from(

@@ -22,9 +22,9 @@ export const PackDetailsContent: FC<PackDetailsContentProps> = ({
   methods,
 }) => {
   const {
-    setSelectedItem,
     selectedItem,
     selectedItemCategory,
+    onItemClick,
     ...detailDrawerParams
   } = usePackItemDetailDrawer({
     passes: methods.watch("payment_pack_ids"),
@@ -38,7 +38,7 @@ export const PackDetailsContent: FC<PackDetailsContentProps> = ({
 
       <PackFormContent
         fieldIdPrefix={fieldIdPrefix}
-        onItemClick={setSelectedItem}
+        onItemClick={onItemClick}
         clickedItem={selectedItem}
       />
 

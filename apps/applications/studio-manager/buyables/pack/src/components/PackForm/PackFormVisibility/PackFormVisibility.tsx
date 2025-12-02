@@ -45,6 +45,7 @@ export const PackFormVisibility: React.FC<PackFormVisibilityProps> = ({
         key={getDynamicKey(`${fieldIdPrefix}-visibility-date`, discardId)}
         fieldIdPrefix={fieldIdPrefix}
         methods={methods}
+        isDetailsView={discardId !== undefined}
       />
 
       <PackFormVisibilityRules

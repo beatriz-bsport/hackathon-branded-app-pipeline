@@ -56,6 +56,17 @@ export const getLocalNow = ({
     .setLocale(locale ?? "en");
 
 /**
+ * Gets the current date of today at 00h00:00
+ *
+ * @param params - Optional settings to configure the timezone (zone, locale)
+ * @returns A Date
+ */
+export const getToday = (params?: { zone?: string; locale?: string }) => {
+  const localNow = getLocalNow(params ?? {});
+  return toDate(localNow.startOf("day"));
+};
+
+/**
  * Retrieves all days in the month of the provided DateTime.
  *
  * @param date - The DateTime representing any day in the month.

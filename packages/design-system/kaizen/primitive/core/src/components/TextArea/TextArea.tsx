@@ -27,6 +27,7 @@ const variants = {
     error: [
       "shadow-border-thin-critical",
       "focus:outline-stroke-status-critical",
+      "invalid:shadow-border-thin-critical invalid:outline-stroke-status-critical",
     ],
   },
 };

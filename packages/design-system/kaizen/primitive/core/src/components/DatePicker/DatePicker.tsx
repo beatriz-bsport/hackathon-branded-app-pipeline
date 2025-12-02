@@ -9,12 +9,14 @@ import { toDateTime } from "@bsport/datetime-manipulation";
 import Button from "#src/components/Button";
 import Modal from "#src/components/Modal";
 import Popover from "#src/components/Popover";
+import type { TextFieldProps } from "#src/components/TextField";
 import "#src/globals.css";
+import type { Placement } from "#src/hooks";
 import { useKaizenI18nInstance, useTranslation } from "#src/i18n";
 
 import DateInputField from "./DateInputField";
 import DatePickerContent from "./DatePickerContent";
-import { type ShortcutItem } from "./Shortcuts";
+import type { ShortcutItem } from "./Shortcuts";
 
 export type SelectedDate = Date | [Date | null, Date | null] | null;
 
@@ -42,7 +44,8 @@ export type DatePickerProps = Omit<
   defaultValue?: SelectedDate;
   /** For controlled mode: current value */
   dateValue?: SelectedDate;
-};
+  popoverPlacement?: Placement;
+} & Pick<TextFieldProps, "label" | "required" | "status" | "statusText">;
 
 /**
  * A configurable date picker component supporting single date or date range selection.
@@ -67,6 +70,10 @@ export type DatePickerProps = Omit<
  * @param props.dateFormat The format to display dates for popover, either "short" or "medium".
  * @param props.defaultValue Optional: the initial selected date or date range (uncontrolled mode).
  * @param props.dateValue Optional: the current selected date or date range (controlled mode).
+ * @param props.required Optional: Whether an input value is required
+ * @param props.label Optional: Label to display above the DatePicker input (TextField)
+ * @param props.statusText Optional: Status text to display below the DatePicker input (TextField)
+ * @param props.popoverPlacement Optional: The placement of the Popover in Popover mode
  * @link https://docs.infra.bsport.io/storybook/kaizen/dev/index.html?path=/docs/components-datepicker--docs
  */
 const DatePicker: React.FC<DatePickerProps> = ({
@@ -86,6 +93,11 @@ const DatePicker: React.FC<DatePickerProps> = ({
   defaultValue = null,
   dateValue,
   dateFormat = "short",
+  label,
+  popoverPlacement,
+  required,
+  statusText,
+  status,
   ...props
 }) => {
   const i18nInstance = useKaizenI18nInstance();
@@ -219,6 +231,10 @@ const DatePicker: React.FC<DatePickerProps> = ({
                   updateSelectedDate(date);
                 }}
                 onClick={() => setIsPopoverOpened(true)}
+                label={label}
+                required={required}
+                status={status}
+                statusText={statusText}
               />
             ) : (
               // Button used as Popover trigger for single mode without input field
@@ -233,7 +249,10 @@ const DatePicker: React.FC<DatePickerProps> = ({
             );
           }}
         </Popover.Anchor>
-        <Popover.Content className={popoverClassNames.content ?? ""}>
+        <Popover.Content
+          className={popoverClassNames.content ?? ""}
+          placement={popoverPlacement}
+        >
           {({ setIsPopoverOpened }) => (
             <DatePickerContent
               className={className}

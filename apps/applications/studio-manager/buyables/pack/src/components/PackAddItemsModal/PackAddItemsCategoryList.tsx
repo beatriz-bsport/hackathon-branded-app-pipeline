@@ -68,10 +68,11 @@ export const PackAddItemsCategoryList: React.FC<
       }}
       items={orderedCategories.map((category) => {
         const { id, name } = category;
+        const onClick = () => setSelectedCategory({ id, name });
         return {
           id: `${listId}-${id}`,
           title: name,
-          onClick: () => setSelectedCategory({ id, name }),
+          onClick,
           className: "hover:cursor-pointer text-ellipsis",
           buttons: [
             {
@@ -82,6 +83,7 @@ export const PackAddItemsCategoryList: React.FC<
               color: "default",
               intent: "flat",
               size: "md",
+              onClick,
             },
           ],
         };

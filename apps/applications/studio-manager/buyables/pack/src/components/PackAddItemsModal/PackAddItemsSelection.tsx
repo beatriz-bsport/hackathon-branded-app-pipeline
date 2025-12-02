@@ -27,7 +27,10 @@ export const PackAddItemsSelection: React.FC<PackAddItemsSelectionProps> = ({
   const itemsByIdByVariant = useItemsById();
   const itemsById = itemsByIdByVariant[variant];
 
-  if (preselectedItems.length === 0) return null;
+  if (preselectedItems.length === 0) {
+    return null;
+  }
+
   const selectedItems = preselectedItems
     .map((id) => parseInt(id) && itemsById[parseInt(id)])
     .filter((item) => !!item);
@@ -73,32 +76,36 @@ export const PackAddItemsSelection: React.FC<PackAddItemsSelectionProps> = ({
         }}
       </Collapse.Controller>
       <Collapse.Content>
-        <Card padding="none">
-          <List
-            isCompact
-            id={`${variant}-selected-items`}
-            items={selectedItems.map((item) => {
-              return {
-                id: String(item.id),
-                title: item.name,
-                buttons: [
-                  {
-                    color: "default",
-                    id: `${variant}-${item.id}-selection-remove`,
-                    intent: "flat",
-                    size: "sm",
-                    kind: "icon-button",
-                    icon: "minus",
-                    label: t("addItemsModal.selectedItems.removeItem"),
-                    onClick: () => {
-                      removePreselectedItem({ id: String(item.id) });
+        {/** Wrap the Card with a div so that the Collapse includes
+         * the Card border width in the height calculation */}
+        <div>
+          <Card padding="none">
+            <List
+              isCompact
+              id={`${variant}-selected-items`}
+              items={selectedItems.map((item) => {
+                return {
+                  id: String(item.id),
+                  title: item.name,
+                  buttons: [
+                    {
+                      color: "default",
+                      id: `${variant}-${item.id}-selection-remove`,
+                      intent: "flat",
+                      size: "sm",
+                      kind: "icon-button",
+                      icon: "minus",
+                      label: t("addItemsModal.selectedItems.removeItem"),
+                      onClick: () => {
+                        removePreselectedItem({ id: String(item.id) });
+                      },
                     },
-                  },
-                ],
-              };
-            })}
-          ></List>
-        </Card>
+                  ],
+                };
+              })}
+            />
+          </Card>
+        </div>
       </Collapse.Content>
     </Collapse>
   );

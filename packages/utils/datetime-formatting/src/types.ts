@@ -20,6 +20,8 @@ export const DATETIME_FORMATS = {
   FULL_DATE: "full-date",
   /** Medium date format: "Oct 15, 2024" */
   MEDIUM_DATE: "medium-date",
+  /** Medium date with weekday: "Tue, Oct 15, 2024" */
+  MEDIUM_DATE_WITH_WEEKDAY: "medium-date-with-weekday",
   /** Short date format: "10/15/24" */
   SHORT_DATE: "short-date",
   /** Year Month-Day format: "15 Oct-2024" */

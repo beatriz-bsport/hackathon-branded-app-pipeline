@@ -38,13 +38,15 @@ type OwnProps = {
     customFormId: number,
     isDraft?: boolean,
   ) => void;
+  waiver?: string;
   onDisconnect: () => void;
 };
 type Props = OwnProps &
   MaterialStyleType<ReturnType<typeof styles>> &
   WithTranslation;
 export const CustomFormStepper = (props: Props) => {
-  const { t, classes, customFormList, customFormDisplayRuleList } = props;
+  const { t, classes, customFormList, customFormDisplayRuleList, waiver } =
+    props;
   const [customFormStep, setCustomFormStep] = React.useState(0);
   const [currentCustomFormId, setCurrentCustomFormId] = React.useState(
     customFormList[0]?.id,
@@ -158,6 +160,7 @@ export const CustomFormStepper = (props: Props) => {
             onCancel={() => props.onDisconnect()}
             // @ts-expect-error
             onSubmit={handleDirectSubmit}
+            waiver={waiver}
           />
         </div>
       </div>

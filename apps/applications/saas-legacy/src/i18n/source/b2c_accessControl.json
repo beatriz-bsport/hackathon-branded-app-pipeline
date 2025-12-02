@@ -1,0 +1,33 @@
+{
+  "openDoorButton": {
+    "button": {
+      "openDoor": "Open door",
+      "unlockDoor": "Unlock door"
+    },
+    "modal": {
+      "title": "Open door"
+    },
+    "loading": {
+      "geolocation": "Loading geo location...",
+      "doors": "Loading doors...",
+      "unlock": "Opening door..."
+    },
+    "status": {
+      "success": "Door unlocked!",
+      "noDoors": {
+        "title": "No doors available.",
+        "description": "We couldn't find any nearby doors. Try moving closer to a door that has Access Control enabled. "
+      }
+    },
+    "error": {
+      "failedToUnlock": "Couldn't unlock door. Please try again. ",
+      "fetchProvider": "Couldn't check door access availability. Please try again. ",
+      "fetchDoors": "Couldn't fetch doors. Please try again. ",
+      "geolocationNotSupported": "Geolocation is not supported by your browser.",
+      "permissionDenied": "Geolocation permission has been denied. Please update your device settings.",
+      "positionUnavailable": "Geolocation position is not available.",
+      "timeout": "Geolocation timed out. Please try again later.",
+      "unknownError": "Unknown error occurred"
+    }
+  }
+}

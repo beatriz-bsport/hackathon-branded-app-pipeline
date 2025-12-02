@@ -7,6 +7,7 @@ import { useAsync } from "@bsport/use-async";
 import { fetch } from "#src/utils/fetch";
 
 export const useFetchSessions = (params: {
+  date: Date;
   onSuccess: ({
     teacherIds,
     establishmentIds,
@@ -16,12 +17,10 @@ export const useFetchSessions = (params: {
   }) => void;
 }) => {
   const _fetchManagerSessions = useCallback(async () => {
-    const today = new Date();
-
     return fetchManagerSessionsAction(fetch, {
-      date: getIsoDateString(today), // YYYY-MM-DD
+      date: getIsoDateString(params.date), // YYYY-MM-DD
     });
-  }, []);
+  }, [params.date]);
 
   const [{ isLoading }, fetchManagerSessions] = useAsync<
     typeof _fetchManagerSessions

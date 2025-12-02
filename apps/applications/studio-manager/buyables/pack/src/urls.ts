@@ -1,7 +1,12 @@
+const DETAILS_SLUG = ":id";
+const OVERVIEW_URL = "overview";
+
 export const URLS = {
   INDEX: "..",
-  DETAILS_SLUG: ":id",
+  DETAILS_SLUG: DETAILS_SLUG,
   DETAILS: (id: number) => String(id),
+  OVERVIEW: (id: number) => `${String(id)}/${OVERVIEW_URL}`,
+  OVERVIEW_SLUG: `${DETAILS_SLUG}/${OVERVIEW_URL}`,
 } as const;
 
 export const LEGACY_URLS = {

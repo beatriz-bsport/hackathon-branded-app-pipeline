@@ -7,6 +7,21 @@ export type FetchWebshopItemsParams = {
   /** Number of items per page (for pagination). */
   page_size?: number;
 
+  /** Include only webshop items whose IDs are in this list. */
+  id__in?: number[];
+
+  /** Include or exclude base shop items */
+  is_base_item?: boolean;
+
+  /** Include or exclude variant items */
+  is_variant?: boolean;
+
+  /** Include only items matching the provided color */
+  color?: string;
+
+  /** Include only items matching the provided size */
+  size?: string;
+
   /** Exclude items whose IDs are in this list. */
   id__not_in?: number[];
 

@@ -11,6 +11,8 @@
     },
     "copyToClipboard": {
       "action": "Click to copy",
+      "copyEmail": "Copy email",
+      "copyPhone": "Copy phone",
       "toasts": {
         "phoneNumberCopied": "Phone number copied to clipboard",
         "emailCopied": "Member email was copied to your clipboard"

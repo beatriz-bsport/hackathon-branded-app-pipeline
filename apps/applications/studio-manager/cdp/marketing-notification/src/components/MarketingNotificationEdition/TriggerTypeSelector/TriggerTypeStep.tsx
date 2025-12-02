@@ -157,7 +157,7 @@ export const TriggerTypeStep = () => {
 
   useEffect(() => {
     setStepValid(NOTIFICATION_TYPE_STEP_IDENTIFIER, isValid);
-  }, []);
+  }, [isValid]);
 
   useEffect(() => {
     return () => {

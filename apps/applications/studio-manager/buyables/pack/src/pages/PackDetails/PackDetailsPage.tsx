@@ -1,4 +1,4 @@
-import { type FC, useEffect, useId } from "react";
+import { type FC, useEffect, useId, useState } from "react";
 import { useNavigate } from "react-router";
 
 import { ControlledForm, useFormController } from "@bsport/form";
@@ -11,11 +11,14 @@ import {
   type PackFormSchema,
   usePackSchema,
 } from "#src/components/PackForm/schema";
+import { SelectedItemsContextProvider } from "#src/contexts/selectedItemsContext";
 import { useDisclosure } from "#src/hooks/useDisclosure";
 import { useUpdatePack } from "#src/hooks/useUpdatePack";
 import { URLS } from "#src/urls";
 
+import { PackDetailsContent } from "./PackDetailsContent";
 import { PackDetailsHeader } from "./PackDetailsHeader";
+import { PackDetailsPanel } from "./PackDetailsPanel";
 
 type PackDetailsPageProps = {
   pack: Pack;
@@ -44,6 +47,9 @@ const convertIntoPackFormData = (pack: Pack): PackFormEditData => {
 };
 
 export const PackDetailsPage: FC<PackDetailsPageProps> = ({ pack }) => {
+  // Internal counter to force rerendering by injecting it into key props
+  const [discardId, setDiscardId] = useState(0);
+
   const { detailsLayoutProps, toggleIsPanelOpened, toggleHasUnsavedChanges } =
     useDetailsLayout();
 
@@ -59,6 +65,10 @@ export const PackDetailsPage: FC<PackDetailsPageProps> = ({ pack }) => {
     // Display all errors at once
     criteriaMode: "all",
   });
+
+  const passes = methods.watch("payment_pack_ids");
+  const appointmentPasses = methods.watch("private_pass_ids");
+  const webshopItems = methods.watch("shop_item_ids");
 
   const {
     isOpen: isDeleteModalOpen,
@@ -84,15 +94,22 @@ export const PackDetailsPage: FC<PackDetailsPageProps> = ({ pack }) => {
       return;
     }
     methods.reset();
+    // All components having a key built on discardId will be rerendered
+    setDiscardId((self) => self + 1);
   };
 
   const handleSaveChanges = async () => {
     // Check whether the form is valid.
     // Don't rely on methods.formState.isValid as it's "one render behind"
     const ok = await methods.trigger();
+    const hasSelectedItems =
+      passes.length + appointmentPasses.length + webshopItems.length > 0;
 
-    if (!ok || isUpdating) {
-      console.warn("[Form] Invalid", methods.formState.errors);
+    if (!ok || isUpdating || !hasSelectedItems) {
+      console.warn("[Form] Invalid", {
+        errors: methods.formState.errors,
+        missingItems: !hasSelectedItems,
+      });
       return;
     }
 
@@ -114,7 +131,7 @@ export const PackDetailsPage: FC<PackDetailsPageProps> = ({ pack }) => {
   return (
     <>
       <ControlledForm {...methods} onSubmit={console.log} id={formId}>
-        <DetailsLayout {...detailsLayoutProps}>
+        <DetailsLayout {...detailsLayoutProps} openPanelByDefault>
           <PackDetailsHeader
             methods={methods}
             onDeleteClick={onOpenDeleteModal}
@@ -123,13 +140,34 @@ export const PackDetailsPage: FC<PackDetailsPageProps> = ({ pack }) => {
             toggleIsPanelOpened={toggleIsPanelOpened}
           />
 
-          <DetailsLayout.Content>
-            {/** Placeholder for the layout, will be removed in the next steps */}
-            <h3>Pack n°{pack.id}</h3>
-            {JSON.stringify(pack)}
-          </DetailsLayout.Content>
+          <SelectedItemsContextProvider
+            passes={passes}
+            setPasses={(nextValues) => {
+              methods.setValue("payment_pack_ids", nextValues, {
+                shouldDirty: true,
+              });
+            }}
+            appointmentPasses={appointmentPasses}
+            setAppointmentPasses={(nextValues) => {
+              methods.setValue("private_pass_ids", nextValues, {
+                shouldDirty: true,
+              });
+            }}
+            webshopItems={webshopItems}
+            setWebshopItems={(nextValues) => {
+              methods.setValue("shop_item_ids", nextValues, {
+                shouldDirty: true,
+              });
+            }}
+          >
+            <PackDetailsContent fieldIdPrefix={formId} methods={methods} />
+          </SelectedItemsContextProvider>
 
-          <DetailsLayout.Panel>Placeholder for Panel</DetailsLayout.Panel>
+          <PackDetailsPanel
+            discardId={discardId}
+            fieldIdPrefix={formId}
+            methods={methods}
+          />
 
           <DetailsLayout.Confirmation
             onDiscard={handleDiscardChanges}

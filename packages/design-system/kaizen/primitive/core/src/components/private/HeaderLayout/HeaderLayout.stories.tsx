@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
+import Body from "#src/components/Body";
 import Button from "#src/components/Button";
 import Popover from "#src/components/Popover";
 import Select from "#src/components/Select";
@@ -58,7 +59,12 @@ const meta: Meta<typeof HeaderLayout> = {
         category: CATEGORIES.DATA_ACTIONS,
       },
     },
-    onDisplayClick: { table: { category: CATEGORIES.DATA_ACTIONS } },
+    onDisplayPopover: {
+      table: {
+        type: { summary: "(props) => ReactNode" },
+        category: CATEGORIES.DATA_ACTIONS,
+      },
+    },
     onEditTitleClick: { table: { category: CATEGORIES.NAVIGATION } },
 
     pageStatusBadge: {
@@ -226,7 +232,7 @@ const ARGS = {
       }>,
     ) => console.log("Filters changed:", filters),
   },
-  ON_DISPLAY_CLICK: () => console.log("You click on display !"),
+  ON_DISPLAY_POPOVER: () => <Body>This is the popover content</Body>,
   ON_EDIT_TITLE_CLICK: () => console.log("You click on edit title !"),
   PAGE_STATUS_BADGE: {
     text: "New",
@@ -301,7 +307,7 @@ export const CompleteConfiguration: Story = {
     callToActionButton: ARGS.CALL_TO_ACTION_BUTTON,
     endGroupActions: ARGS.END_GROUP_ACTIONS,
     filterConfig: ARGS.FILTER_CONFIG,
-    onDisplayClick: ARGS.ON_DISPLAY_CLICK,
+    onDisplayPopover: ARGS.ON_DISPLAY_POPOVER,
     onEditTitleClick: ARGS.ON_EDIT_TITLE_CLICK,
     pageStatusBadge: ARGS.PAGE_STATUS_BADGE,
     pageStatusChip: undefined,
@@ -317,7 +323,7 @@ export const BasicConfiguration: Story = {
   args: {
     callToActionButton: ARGS.CALL_TO_ACTION_BUTTON,
     filterConfig: ARGS.FILTER_CONFIG,
-    onDisplayClick: ARGS.ON_DISPLAY_CLICK,
+    onDisplayPopover: ARGS.ON_DISPLAY_POPOVER,
     pageStatusBadge: ARGS.PAGE_STATUS_BADGE,
     pageTitle: "Header with basic configuration",
     searchConfig: ARGS.SEARCH_CONFIG,
@@ -353,7 +359,7 @@ export const LongGermanTitle: Story = {
 export const ConfigWithClickDataActions: Story = {
   name: "With Click Data Actions",
   args: {
-    onDisplayClick: ARGS.ON_DISPLAY_CLICK,
+    onDisplayPopover: ARGS.ON_DISPLAY_POPOVER,
     pageTitle: "Header with click data actions",
     searchConfig: ARGS.SEARCH_CONFIG,
   },
@@ -363,7 +369,7 @@ export const ConfigWithAllDataActions: Story = {
   name: "With All Data Actions",
   args: {
     filterConfig: ARGS.FILTER_CONFIG,
-    onDisplayClick: ARGS.ON_DISPLAY_CLICK,
+    onDisplayPopover: ARGS.ON_DISPLAY_POPOVER,
     pageTitle: "Header with all data actions",
     searchConfig: ARGS.SEARCH_CONFIG,
   },

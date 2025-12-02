@@ -1,11 +1,9 @@
+include:
+  - local: tools/ci/deploy-common.yml
+
 .Deploy Base:
+  extends: .Deploy Common Base
   stage: deploy
-  before_script: !reference [.pnpm-setup, before_script]
-  tags:
-    - build-frontend
-    - cluster:bsport-tooling
-  variables:
-    VITE_RELEASE_SHA: $CI_COMMIT_SHORT_SHA
   rules:
     - if: $CI_PIPELINE_SOURCE == "schedule"
       when: never
@@ -16,52 +14,10 @@
     - if: $CI_COMMIT_BRANCH == $TARGET_BRANCH
       when: "on_success"
   script:
-    - echo "Start deploying projects ..."
     - echo "Target branch is $TARGET_BRANCH"
     - echo "Target environment is $ENV"
     - echo "Previous latest commit, serving as base, is $CI_COMMIT_BEFORE_SHA"
-    - git fetch origin $CI_COMMIT_BEFORE_SHA
-    - echo "*"
-    - echo "⏳ Build translations"
-    - pnpm run -w translation:update
-    - echo "✅ Translations have been updated"
-    - echo "*"
-    - echo "⏳ Set API environment"
-    - pnpm run -w api-environment:set $ENV
-    - echo "✅ the API environment has been set"
-    - echo "*"
-    - echo "⏳ Set Feature Flag environment"
-    - pnpm run -w feature-flags-environment:set $ENV
-    - echo "✅ the Feature Flag environment has been set"
-    - echo "*"
-    - echo "🔱 These are the affected projects :"
-    - AFFECTED_PROJECTS=$(pnpm exec nx show projects --affected --base=$CI_COMMIT_BEFORE_SHA --head=HEAD)
-    - echo "$AFFECTED_PROJECTS"
-    - SM_AFFECTED_PROJECTS=$(echo "$AFFECTED_PROJECTS" | grep -E "^@bsport/sm-" | tr ' ' '\n' || echo "")
-    - echo "🔱 These are the SM affected projects :"
-    - echo "$SM_AFFECTED_PROJECTS"
-    - echo "*"
-    - echo "⏳ Build affected projects and their dependencies"
-    - pnpm exec nx affected --target=ci:build --base=$CI_COMMIT_BEFORE_SHA --head=HEAD $ENV
-    - echo "✅ All affected projets have been rebuilt"
-    - echo "*"
-    - echo "⏳ Deploy affected projects builds"
-    - pnpm exec nx affected --target=ci:deploy --base=$CI_COMMIT_BEFORE_SHA --head=HEAD $ENV
-    - echo "✅ All affected projets have been deployed"
-    - echo "*"
-    - |
-      if [ -n "$SM_AFFECTED_PROJECTS" ]; then
-        echo "Deploy affected micro frontends"
-        pnpm --filter=@bsport/sm-host ci:build:mfe "$SM_AFFECTED_PROJECTS"
-        echo "✅ All affected micro frontends have been rebuilt"
-        echo "*"
-        echo "Deploy affected micro frontends"
-        pnpm --filter=@bsport/sm-host ci:deploy:mfe $ENV "$SM_AFFECTED_PROJECTS"
-        echo "✅ All affected micro frontends have been deployed"
-      else
-        echo "No Studio Manager projects affected, skipping micro frontend deployment"
-      fi
-    - echo "*"
+    - bash tools/scripts/deploy.sh $CI_COMMIT_BEFORE_SHA $ENV
 
 Deploy Dev:
   extends: .Deploy Base

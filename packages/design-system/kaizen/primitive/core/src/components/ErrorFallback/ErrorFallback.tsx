@@ -1,11 +1,13 @@
 import { type VariantProps, cva } from "class-variance-authority";
-import type { HTMLAttributes } from "react";
+import { type HTMLAttributes, useId, useState } from "react";
 
 import Body from "#src/components/Body";
 import Button, { type ButtonProps } from "#src/components/Button";
 import { Illustration } from "#src/components/Illustration";
 import Title from "#src/components/Title";
 import { useKaizenI18nInstance, useTranslation } from "#src/i18n";
+
+import CrashReportModal from "../private/CrashReportModal/CrashReportModal";
 
 const defaultClasses = [
   "py-xl",
@@ -29,6 +31,7 @@ export type ErrorFallbackActionProps = Omit<
 export type ErrorFallbackProps = HTMLAttributes<HTMLDivElement> &
   VariantProps<typeof errorFallback> & {
     actionProps?: ErrorFallbackActionProps;
+    onSendFeedback?: ({ feedbackContent }: { feedbackContent: string }) => void;
     description?: string;
     subtitle?: string;
     title?: string;
@@ -50,14 +53,17 @@ const DEFAULT_ACTION_PROPS: ErrorFallbackActionProps = {
 
 const ErrorFallback = ({
   actionProps,
+  onSendFeedback,
   className,
   title,
   subtitle,
   description,
   ...props
 }: ErrorFallbackProps) => {
+  const id = useId();
   const i18nInstance = useKaizenI18nInstance();
   const { t } = useTranslation("default", { i18n: i18nInstance });
+  const [openCrashReportModal, setOpenCrashReportModal] = useState(false);
 
   const finalTitle = title ?? t("errorFallback.title");
   const finalSubtitle = subtitle ?? t("errorFallback.subtitle");
@@ -98,8 +104,8 @@ const ErrorFallback = ({
           {finalDescription}
         </Body>
       )}
-      {finalActionProps && (
-        <div className="flex flex-row items-center justify-center mt-sm">
+      <div className="flex flex-row gap-md">
+        {finalActionProps && (
           <Button
             {...finalActionProps}
             kind="default"
@@ -107,8 +113,26 @@ const ErrorFallback = ({
             size="md"
             intent="default"
           />
-        </div>
-      )}
+        )}
+        {onSendFeedback && (
+          <Button
+            kind="default"
+            color="main"
+            size="md"
+            intent="call-to-action"
+            label={t("errorFallback.crashReportModalToggle")}
+            onClick={() => setOpenCrashReportModal(true)}
+          />
+        )}
+      </div>
+      {onSendFeedback ? (
+        <CrashReportModal
+          key={`${id}-${String(openCrashReportModal)}`}
+          isOpen={openCrashReportModal}
+          onClose={() => setOpenCrashReportModal(false)}
+          onConfirm={onSendFeedback}
+        />
+      ) : null}
     </div>
   );
 };

@@ -1,0 +1,40 @@
+{
+  "invoiceListTitle": "Factuur",
+  "invoiceType": {
+    "reversed": "Facturen (teruggedraaid)",
+    "return": "Terugbetaalde facturen",
+    "credit_payment": "Saldoaanpassing",
+    "migration": "Migratie",
+    "regular": "Factuur"
+  },
+  "invoiceStatus": {
+    "draft": "Concept",
+    "open": "Open",
+    "paid": "Betaald",
+    "voided": "Geannuleerd",
+    "refunded": "Terugbetaald krediet"
+  },
+  "tableColumnLabel": {
+    "number": "Nummer",
+    "date": "Datum",
+    "member": "Klant",
+    "amount": "Bedrag",
+    "type": "Type",
+    "status": "Status"
+  },
+  "filters": {
+    "is": "is",
+    "is-not": "is niet"
+  },
+  "emptyTable": {
+    "title": "Nog geen facturen",
+    "description": "Zodra je klanten factureert, verschijnen hun facturen hier."
+  },
+  "download": {
+    "title": "Download...",
+    "pdf": "Facturen (PDF)",
+    "receipt": "Betaalbewijs (PDF)",
+    "explainPdfDraft": "De facturen is nog een concept, pdf is niet beschikbaar.",
+    "label": "Download factuur"
+  }
+}

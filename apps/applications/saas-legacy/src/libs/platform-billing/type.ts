@@ -88,3 +88,28 @@ export type PlatformSubscription = {
   default_currency_display: string;
   is_using_bundled_pricing: boolean;
 };
+
+export type PlatformCustomerEntityRepresentativeInput = {
+  first_name: string;
+  last_name: string;
+  identification_number?: string;
+  address_municipality?: string;
+  address_city?: string;
+  address_street?: string;
+  address_postal_code?: string;
+  address_number?: string;
+  address_country_code?: string;
+};
+
+export type PlatformCustomerEntityRepresentative = {
+  id: number;
+  first_name: string;
+  last_name: string;
+  identification_number: string | null;
+  address_municipality: string | null;
+  address_city: string | null;
+  address_street: string | null;
+  address_postal_code: string | null;
+  address_number: string | null;
+  address_country_code: string | null;
+};

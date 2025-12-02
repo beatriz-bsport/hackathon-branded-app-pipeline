@@ -5,65 +5,6 @@ import Button from "#src/components/Button";
 import DetailsLayout from "./DetailsLayout";
 import { useDetailsLayout } from "./LayoutProvider";
 
-/**
- * DetailsLayout - Compound Component for Detail Page Layouts
- *
- * Provides a structured grid layout for detail pages with four key subcomponents:
- * 1. **Header** - Sticky top bar
- * 2. **Content** - Scrollable main area
- * 3. **Panel** - Collapsible side panel
- * 4. **Confirmation** - Unsaved changes alert
- *
- * @example
- * // Basic Usage in Storybook
- * import DetailsLayout from '#src/components/DetailsLayout';
- *
- * export const Default = () => (
- *   <DetailsLayout>
- *     <DetailsLayout.Header title="User Profile" />
- *     <DetailsLayout.Content>
- *       Main form/content
- *     </DetailsLayout.Content>
- *     <DetailsLayout.Panel>
- *       Additional settings/options
- *     </DetailsLayout.Panel>
- *     <DetailsLayout.Confirmation
- *       onDiscard={() => console.log('Changes discarded')}
- *       onSave={() => console.log('Changes saved')}
- *     />
- *   </DetailsLayout>
- * );
- *
- * ### Subcomponent Props
- * | Component         | Required Props | Optional Props                      |
- * |-------------------|----------------|--------------------------------------|
- * | Header            | title          | className, children                 |
- * | Content           | -              | className, children                 |
- * | Panel             | -              | className, children                 |
- * | Confirmation      | -              | className, onDiscard, onSave        |
- *
- * ### Layout Behavior
- * - **Grid Areas**: Components are positioned using CSS grid template areas
- * - **Responsive**: Panel collapses to 0px width when closed
- * - **State Management**: Uses context provider for:
- *   - `toggleIsPanelOpened()`: Control panel visibility
- *   - `toggleHasUnsavedChanges()`: Show/hide confirmation bar
- *
- * ### Styling
- * - Max content width: 920px
- * - Panel width: 320px (when open)
- * - Built with `class-variance-authority` for variant management
- *
- * @see {@link https://docs.infra.bsport.io/storybook/kaizen/dev/index.html?path=/docs/components-detailslayout--docs|Storybook Docs}
- *
- * @param {string} [className] - Additional CSS classes for root element
- * @param {ReactNode} children - Composition of layout subcomponents
- *
- * @remarks
- * - Children order doesn't affect layout (positioned via grid areas)
- * - Confirmation bar only appears when `hasUnsavedChanges` context is true
- * - Panel visibility controlled through context state
- */
 const meta: Meta<typeof DetailsLayout> = {
   component: DetailsLayout,
   parameters: {
@@ -88,7 +29,7 @@ export const ParentPage = () => (
 const { detailsLayoutProps } = useDetailsLayout();
 
 return (
-  <DetailsLayout {...detailsLayoutProps}>
+  <DetailsLayout {...detailsLayoutProps} openPanelByDefault>
     <DetailsLayout.Header
       pageTitle="User Profile"
       onEditTitleClick={() => toggleEditTitleInModal()}
@@ -102,8 +43,14 @@ return (
       Additional settings/options
     </DetailsLayout.Panel>
     <DetailsLayout.Confirmation
-      onDiscard={() => console.log('Changes discarded')}
-      onSave={() => console.log('Changes saved')}
+      onSave={() => {
+        console.log("Save changes and close the Confirmation on Success");
+        toggleHasUnsavedChanges(false);
+      }}
+      onDiscard={() => {
+        console.log("Discard changes and close the Confirmation on Success");
+        toggleHasUnsavedChanges(false);
+      }}
     />
   </DetailsLayout>);
 }
@@ -162,13 +109,13 @@ export default meta;
 type Story = StoryObj<typeof DetailsLayout>;
 
 export const Primary: Story = {
-  name: "DetailsLayout",
+  name: "DetailsLayout with Panel (open by default)",
   render: () => {
     const { detailsLayoutProps, toggleHasUnsavedChanges, toggleIsPanelOpened } =
       useDetailsLayout();
 
     return (
-      <DetailsLayout {...detailsLayoutProps}>
+      <DetailsLayout {...detailsLayoutProps} openPanelByDefault>
         <DetailsLayout.Header
           pageTitle="Title"
           breadcrumbsItems={[
@@ -202,7 +149,16 @@ export const Primary: Story = {
             />,
           ]}
         />
-        <DetailsLayout.Confirmation />
+        <DetailsLayout.Confirmation
+          onSave={() => {
+            console.log("Save changes and close the Confirmation");
+            toggleHasUnsavedChanges(false);
+          }}
+          onDiscard={() => {
+            console.log("Discard changes and close the Confirmation");
+            toggleHasUnsavedChanges(false);
+          }}
+        />
         <DetailsLayout.Content>
           <div className="h-screen w-full bg-luna-grey-200 rounded-sm" />
         </DetailsLayout.Content>
@@ -255,7 +211,16 @@ export const DetailsWithoutPanel: Story = {
             />,
           ]}
         />
-        <DetailsLayout.Confirmation />
+        <DetailsLayout.Confirmation
+          onSave={() => {
+            console.log("Save changes and close the Confirmation");
+            toggleHasUnsavedChanges(false);
+          }}
+          onDiscard={() => {
+            console.log("Discard changes and close the Confirmation");
+            toggleHasUnsavedChanges(false);
+          }}
+        />
         <DetailsLayout.Content>
           <div className="h-screen w-full bg-luna-grey-200 rounded-sm" />
         </DetailsLayout.Content>

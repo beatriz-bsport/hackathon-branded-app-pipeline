@@ -165,6 +165,9 @@ function formatByType(
     case DATETIME_FORMATS.MEDIUM_DATE:
       return dateTime.toLocaleString(DateTime.DATE_MED);
 
+    case DATETIME_FORMATS.MEDIUM_DATE_WITH_WEEKDAY:
+      return dateTime.toLocaleString(DateTime.DATE_MED_WITH_WEEKDAY);
+
     case DATETIME_FORMATS.SHORT_DATE:
       return dateTime.toLocaleString(DateTime.DATE_SHORT);
 

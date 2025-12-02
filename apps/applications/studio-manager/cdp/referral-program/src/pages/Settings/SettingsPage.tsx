@@ -21,7 +21,6 @@ const SettingsPage: React.FC = () => {
     companyId,
     isReferralProgramActivated,
     headerBadgeConfiguration,
-    setIsReferralProgramActivated,
   } = useCompanyData();
   const { detailsLayoutProps } = useDetailsLayout();
   const { isLoading, referralProgram, fetchReferralProgram } =
@@ -43,17 +42,14 @@ const SettingsPage: React.FC = () => {
         pageStatusBadge={headerBadgeConfiguration}
       />
       <DetailsLayout.Content>
-        {companyId !== null &&
-        isReferralProgramActivated !== null &&
-        companyCurrency !== null &&
+        {companyId &&
+        isReferralProgramActivated !== undefined &&
+        companyCurrency &&
         !isLoading ? (
           <div className="flex flex-col gap-xl">
             <ReferralProgramHelper
               companyId={companyId}
               isProgramActivated={isReferralProgramActivated}
-              onToggleSuccess={() =>
-                setIsReferralProgramActivated((prev) => !prev)
-              }
             />
             {isReferralProgramActivated ? (
               <ReferralProgramForm

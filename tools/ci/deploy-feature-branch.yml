@@ -1,67 +1,25 @@
+include:
+  - local: tools/ci/deploy-common.yml
+
 .Deploy Feature Branch Base:
+  extends: .Deploy Common Base
   stage: deploy-feature-branch
-  before_script: !reference [.pnpm-setup, before_script]
   interruptible: true
-  tags:
-    - build-frontend
-    - cluster:bsport-tooling
-  variables:
-    VITE_RELEASE_SHA: $CI_COMMIT_SHORT_SHA
   script:
     - echo "Start deploying feature branch ..."
-    - git fetch origin dev
-    - echo "*"
-    - echo "⏳ Build translations"
-    - pnpm run -w translation:update
-    - echo "✅ Translations have been updated"
-    - echo "*"
-    # Feature branches updates should be compared with dev
-    # As feature branches can be used for multiple features that makes no sense to compare
-    - echo "🔱 These are the affected projects :"
-    - AFFECTED_PROJECTS=$(pnpm exec nx show projects --affected --base=origin/dev --head=HEAD)
-    - echo "$AFFECTED_PROJECTS"
-    - SM_AFFECTED_PROJECTS=$(echo "$AFFECTED_PROJECTS" | grep -E "^@bsport/sm-" | tr ' ' '\n' || echo "")
-    - echo "🔱 These are the SM affected projects :"
-    - echo "$SM_AFFECTED_PROJECTS"
-    - echo "*"
-    - echo "Set correct API environment"
     # Extract environment from CI_COMMIT_TAG
     - |
       if [ "$FRONTEND_ONLY" = "true" ]; then
         # For frontend-only deployments, always use dev environment
         ENVIRONMENT_FLAG="dev"
+        FRONTEND_ONLY_ARG="frontend-only"
       else
         # For regular deployments, extract environment name after 'deploy-'
         FEATURE_BRANCH_IDENTIFIER=$(echo "$CI_COMMIT_TAG" | sed -n 's/.*deploy-\(frontend-only-\)\{0,1\}\([[:alnum:]_-]\+\).*/\2/p')
         ENVIRONMENT_FLAG="feature-branch -fb $FEATURE_BRANCH_IDENTIFIER"
+        FRONTEND_ONLY_ARG=""
       fi
-    - pnpm run -w api-environment:set $ENVIRONMENT_FLAG
-    - echo "*"
-    - echo "⏳ Set Feature Flag environment"
-    - pnpm run -w feature-flags-environment:set feature-branch
-    - echo "✅ the Feature Flag environment has been set"
-    - echo "*"
-    - echo "⏳ Build affected projects and their dependencies"
-    - pnpm exec nx affected --target=ci:build --base=origin/dev --head=HEAD "feature-branch" $FRONTEND_ONLY
-    - echo "✅ All affected projets have been rebuilt"
-    - echo "*"
-    - echo "⏳ Deploy affected projects builds"
-    - pnpm exec nx affected --target=ci:deploy --base=origin/dev --head=HEAD "feature-branch" $FRONTEND_ONLY
-    - echo "✅ All affected projets have been deployed"
-    - echo "*"
-    - |
-      if [ -n "$SM_AFFECTED_PROJECTS" ]; then
-        echo "Deploy affected micro frontends"
-        pnpm --filter=@bsport/sm-host ci:build:mfe "$SM_AFFECTED_PROJECTS"
-        echo "✅ All affected micro frontends have been rebuilt"
-        echo "*"
-        echo "Deploy affected micro frontends"
-        pnpm --filter=@bsport/sm-host ci:deploy:mfe 'feature-branch' "$SM_AFFECTED_PROJECTS"
-        echo "✅ All affected micro frontends have been deployed"
-      else
-        echo "No Studio Manager projects affected, skipping micro frontend deployment"
-      fi
-    - echo "*"
+    - bash tools/scripts/deploy.sh origin/dev "$ENVIRONMENT_FLAG" "$FRONTEND_ONLY_ARG" "feature-branch"
 
 Deploy Feature Branch Frontend Only:
   extends: .Deploy Feature Branch Base

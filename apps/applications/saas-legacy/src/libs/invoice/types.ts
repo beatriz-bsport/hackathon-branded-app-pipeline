@@ -47,6 +47,14 @@ export type InvoiceState = ErrorAndLoading & {
   loadingSpecific: false;
   errorSpecific: Error;
   editEstablishmentBillingGroup: ErrorAndLoading;
+  fiskalyOnboarding: ErrorAndLoading & {
+    isOnboarded: boolean | null;
+    requirements: FiskalyOnboardingRequirement[];
+    agreementUrl: string | null;
+    signedAgreementFile: string | null;
+    isLoadingSignedAgreement: boolean;
+    isUploadingSignedAgreement: boolean;
+  };
 };
 
 export type Invoice<M = number, PI = number, II = number> = {
@@ -343,4 +351,16 @@ export type RequestClientSecretPayload = {
 
 export type BulkExportRequestErrorResults = {
   error_code: ExportInvoiceErrorCode;
+};
+
+export enum FiskalyOnboardingRequirement {
+  UPSELL_NOT_ACTIVATED = 'upsell_not_activated',
+  BUSINESS_VAT_ID_NOT_VERIFIED = 'business_vat_id_not_verified',
+  BUSINESS_ADDRESS_NOT_PROVIDED = 'business_address_not_provided',
+  REPRESENTATIVE_NOT_FULLY_SETUP = 'representative_not_fully_setup',
+  LEGAL_IDENTIFIER_NOT_ACTIVATED = 'legal_identifier_not_activated',
+}
+
+export type OnboardingRequirementsResponse = {
+  requirements: FiskalyOnboardingRequirement[];
 };

@@ -1,6 +1,10 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 
-import type { WeekStartDay } from "@bsport/datetime-manipulation";
+import {
+  DATETIME_FORMATS,
+  formatDateTimeFromDate,
+} from "@bsport/datetime-formatting";
+import { type WeekStartDay, toDateTime } from "@bsport/datetime-manipulation";
 
 import Button from "#src/components/Button";
 import Modal from "#src/components/Modal";
@@ -16,12 +20,14 @@ export type SelectedDate = Date | [Date | null, Date | null] | null;
 
 export type DatePickerProps = Omit<
   React.HTMLAttributes<HTMLDivElement>,
-  "onSelect"
+  "onSelect" | "defaultValue"
 > & {
   id: string;
   mode: "single" | "range";
   displayAs: "popover" | "modal";
+  isInputField?: boolean;
   open?: boolean;
+  dateFormat?: "short" | "medium";
   onConfirm?: (selectedDate: SelectedDate) => void;
   onClose?: () => void;
   onSelect?: (date: Date | null) => void;
@@ -33,6 +39,7 @@ export type DatePickerProps = Omit<
     container?: string;
     content?: string;
   };
+  defaultValue?: SelectedDate;
 };
 
 /**
@@ -42,6 +49,7 @@ export type DatePickerProps = Omit<
  * @param props.id Unique ID for the date picker element.
  * @param props.mode The mode of the date picker, either "single" or "range".
  * @param props.displayAs The display mode of the date picker, either "popover" or "modal". The popover doesn't require any anchor element.
+ * @param props.isInputField Whether the date picker is used as an input field. Only applicable when displayAs is "popover" and mode "single".
  * @param props.open Whether the date picker is open or not.
  * @param props.onConfirm Callback function to call when a date is selected.
  * @param props.onClose Callback function to call when the date picker is closed.
@@ -50,6 +58,8 @@ export type DatePickerProps = Omit<
  * @param props.disableDate A comparison function to disable specific dates in the calendar.
  * @param props.shortcuts An array of shortcut items to display in the date picker.
  * @param props.popoverClassNames Custom classes to provide to the popover container and content
+ * @param props.dateFormat The format to display dates for popover, either "short" or "medium".
+ * @param props.defaultValue Optional: the initial selected date or date range.
  * @link https://docs.infra.bsport.io/storybook/kaizen/dev/index.html?path=/docs/components-datepicker--docs
  */
 const DatePicker: React.FC<DatePickerProps> = ({
@@ -57,6 +67,7 @@ const DatePicker: React.FC<DatePickerProps> = ({
   id,
   mode,
   displayAs,
+  isInputField = false,
   open = false,
   onConfirm,
   onClose,
@@ -66,12 +77,14 @@ const DatePicker: React.FC<DatePickerProps> = ({
   shortcuts,
   popoverClassNames = {},
   onSelect,
+  defaultValue = null,
+  dateFormat = "short",
   ...props
 }) => {
   const i18nInstance = useKaizenI18nInstance();
   const { t } = useTranslation("default", { i18n: i18nInstance });
 
-  const [selectedDate, setSelectedDate] = useState<SelectedDate>(null);
+  const [selectedDate, setSelectedDate] = useState<SelectedDate>(defaultValue);
   const [isManuallySelected, setIsManuallySelected] = useState(false);
 
   useEffect(() => {
@@ -111,6 +124,16 @@ const DatePicker: React.FC<DatePickerProps> = ({
     }
   };
 
+  const onPopoverCalendarSelect = (
+    date: SelectedDate,
+    setIsPopoverOpened: (open: boolean) => void,
+  ) => {
+    handleCalendarSelect(date);
+    if (!Array.isArray(date) || date[1] !== null) {
+      setIsPopoverOpened(false);
+    }
+  };
+
   const handleShortcutSelect = (shortcutLabel: string) => {
     const shortcut = shortcuts?.find((s) => s.label === shortcutLabel);
     if (!shortcut) return;
@@ -132,22 +155,23 @@ const DatePicker: React.FC<DatePickerProps> = ({
     [mode, shortcuts],
   );
 
+  const formatDate = (date: Date | null) => {
+    return date
+      ? formatDateTimeFromDate(
+          toDateTime(date).setLocale(i18nInstance?.language ?? "en-US"),
+          dateFormat === "medium"
+            ? DATETIME_FORMATS.MEDIUM_DATE_WITH_WEEKDAY
+            : DATETIME_FORMATS.SHORT_DATE,
+        )
+      : t("datePicker.datePlaceholder");
+  };
+
   if (displayAs === "popover")
     return (
       <Popover className={popoverClassNames.container ?? ""}>
         <Popover.Anchor>
           {({ setIsPopoverOpened }) => {
             if (mode === "range" || Array.isArray(selectedDate)) {
-              const formatDate = (date: Date | null) => {
-                if (date) return date.toLocaleDateString();
-
-                // Check locale date format using a sample date
-                const sampleDate = new Date().toLocaleDateString();
-                return sampleDate.indexOf("/") === 2
-                  ? "DD/MM/YYYY"
-                  : "MM/DD/YYYY";
-              };
-
               const [start, end] = Array.isArray(selectedDate)
                 ? selectedDate
                 : [null, null];
@@ -161,12 +185,12 @@ const DatePicker: React.FC<DatePickerProps> = ({
                   size="md"
                   intent="default"
                   color="main"
+                  iconLeft="calendar"
                   onClick={() => setIsPopoverOpened(true)}
                 />
               );
             }
-
-            return (
+            return isInputField ? (
               <DateInputField
                 id={id}
                 selectedDate={selectedDate}
@@ -176,11 +200,21 @@ const DatePicker: React.FC<DatePickerProps> = ({
                 }}
                 onClick={() => setIsPopoverOpened(true)}
               />
+            ) : (
+              // Button used as Popover trigger for single mode without input field
+              <Button
+                label={formatDate(selectedDate as Date | null)}
+                size="md"
+                intent="default"
+                color="main"
+                iconLeft="calendar"
+                onClick={() => setIsPopoverOpened(true)}
+              />
             );
           }}
         </Popover.Anchor>
         <Popover.Content className={popoverClassNames.content ?? ""}>
-          {() => (
+          {({ setIsPopoverOpened }) => (
             <DatePickerContent
               className={className}
               id={id}
@@ -193,7 +227,9 @@ const DatePicker: React.FC<DatePickerProps> = ({
               hideSelector={true}
               shortcuts={shortcuts}
               manuallySelected={isManuallySelected}
-              onCalendarSelect={handleCalendarSelect}
+              onCalendarSelect={(date) =>
+                onPopoverCalendarSelect(date, setIsPopoverOpened)
+              }
               onShortcutSelect={handleShortcutSelect}
               {...props}
             />

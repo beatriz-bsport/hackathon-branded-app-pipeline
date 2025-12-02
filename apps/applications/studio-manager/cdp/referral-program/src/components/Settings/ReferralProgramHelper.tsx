@@ -15,20 +15,17 @@ import { DeactivateReferralProgramModal } from "../Modals/DeactivateProgramModal
 type Props = {
   isProgramActivated: boolean;
   companyId: number;
-  onToggleSuccess: () => void;
 };
 
 export const ReferralProgramHelper: React.FC<Props> = ({
   isProgramActivated,
   companyId,
-  onToggleSuccess,
 }: Props) => {
   const isMobile = !useMatchMedia("sm");
   const [isDeactivatingProgram, setIsDeactivatingProgram] = useState(false);
   const { toggleReferralProgram } = useToggleReferralProgram({
     isProgramActivated,
     companyId,
-    onSuccess: onToggleSuccess,
   });
   const { t } = useTranslation("settings");
 

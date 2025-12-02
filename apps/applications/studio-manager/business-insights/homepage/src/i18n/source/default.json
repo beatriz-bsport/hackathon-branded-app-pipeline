@@ -18,7 +18,7 @@
       "class": "Class",
       "teacher": "Teacher",
       "teacherSubstitution": "Substitution",
-      "classFillRate": "Occupancy rate"
+      "classFillRate": "Occupancy"
     },
     "emptyList": "No upcoming classes",
     "teacher": {

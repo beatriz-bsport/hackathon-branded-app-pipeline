@@ -36,6 +36,7 @@ import InvoiceRefundsAndDiscountsForm from '#src/libs/invoice/components/Invoice
 import TaxDisplayForm from '#src/libs/theme/components/TaxDisplay.form';
 import ProvincialTaxForm from '#src/libs/theme/components/ProvincialTax.form';
 import NumberInput from '#src/components/input/NumericInput.component';
+import VerifactuSettings from '#src/libs/invoice/verifactu/VerifactuSettings.component.tsx';
 
 import FeatureListProvider from '#src/libs/company/hocs/feature-list-provider.hoc';
 import { UPSELL_IDENTIFIER_STRIPE_TERMINAL } from '#src/libs/platform-billing/upsell-identifiers';
@@ -147,6 +148,10 @@ export class InvoiceConfigurationForm extends React.Component<Props, State> {
     return getCompanyCountry() === 'DE';
   };
 
+  isCompanySpanish = () => {
+    return getCompanyCountry() === 'ES';
+  };
+
   handlePatchInvoiceConfiguration = () => {
     this.props.patchInvoiceConfiguration({
       disable_pass_on_fail_subscription_payment:
@@ -170,6 +175,7 @@ export class InvoiceConfigurationForm extends React.Component<Props, State> {
   render() {
     const { classes, t } = this.props;
     const isCompanyGerman = this.isCompanyGerman();
+    const isCompanySpanish = this.isCompanySpanish();
     return (
       <>
         <div>
@@ -543,6 +549,11 @@ export class InvoiceConfigurationForm extends React.Component<Props, State> {
               {t('configuration.nf525Button')}
             </Button>
           </Paper>
+          {isCompanySpanish && (
+            <div className={classes.content}>
+              <VerifactuSettings />
+            </div>
+          )}
           <Paper className={classes.paper}>
             <Typography component="h3" variant="h6">
               {t('configuration.stripeTerminal.title')}

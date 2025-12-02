@@ -335,3 +335,9 @@ export const getPlatformBillingGroup = (
       }),
   };
 };
+
+export const getPlatformCustomerEntityRepresentatives = (state) =>
+  state.platformBilling.platformCustomerEntityRepresentative.list;
+
+export const getPlatformCustomerEntityRepresentativesLoading = (state) =>
+  state.platformBilling.platformCustomerEntityRepresentative.loading;

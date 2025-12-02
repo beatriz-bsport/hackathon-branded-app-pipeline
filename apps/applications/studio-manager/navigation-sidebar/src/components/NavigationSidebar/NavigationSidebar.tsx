@@ -34,7 +34,7 @@ import {
 } from "#src/components/TemporaryPasswordDialog";
 import { useBatchRoutingPermissions } from "#src/features/permissions";
 import "#src/index.css";
-import { HELP_CENTER, LEGACY_URLS } from "#src/urls";
+import { HELP_CENTER, LEGACY_URLS, SETTINGS_URL, STUDIO_URL } from "#src/urls";
 import {
   AppI18nextProvider,
   instanciateAppI18n,
@@ -48,6 +48,7 @@ import { NavigationSidebarContainer } from "./NavigationSidebarContainer";
 import NavigationSidebarHeader, {
   type MenuOption,
 } from "./NavigationSidebarHeader";
+import { SidebarProvider } from "./SidebarContext";
 import { useNavigateInContext } from "./navigate";
 import {
   type MenuSet,
@@ -78,7 +79,16 @@ const NavigationSidebarContent = ({
 
   const navigateInContext = useNavigateInContext(navigate);
 
-  const [menuSet, setMenuSet] = useState<MenuSet>("default");
+  const initialPathname = window.location.pathname;
+  // Find matching pattern with /studio/settings/* or /settings/*
+  // but avoid /page/settings
+  const isSettingsPage =
+    initialPathname.startsWith(SETTINGS_URL) ||
+    initialPathname.startsWith(`${STUDIO_URL}${SETTINGS_URL}`);
+  const [menuSet, setMenuSet] = useState<MenuSet>(
+    isSettingsPage ? "settings" : "default",
+  );
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   useAlerts();
 
@@ -313,11 +323,17 @@ const NavigationSidebarContent = ({
   }
 
   return (
-    <Sidebar
-      topbarSlot={<SearchMemberTopbarButton onClick={openSearchMemberModal} />}
-    >
-      {sidebarContent}
-    </Sidebar>
+    <SidebarProvider closeSidebar={() => setIsSidebarOpen(false)}>
+      <Sidebar
+        topbarSlot={
+          <SearchMemberTopbarButton onClick={openSearchMemberModal} />
+        }
+        isOpen={isSidebarOpen}
+        onOpenChange={setIsSidebarOpen}
+      >
+        {sidebarContent}
+      </Sidebar>
+    </SidebarProvider>
   );
 };
 

@@ -6,7 +6,6 @@ import { ListLayout } from "@bsport/kaizen-primitive-core";
 import { PackCreateModal } from "#src/components/PackCreateModal";
 import { PackDeleteModal } from "#src/components/PackDeleteModal";
 import { PackTable } from "#src/components/PackTable";
-import { SelectedItemsContextProvider } from "#src/contexts/selectedItemsContext";
 import { useDisclosure } from "#src/hooks/useDisclosure";
 import { useFetchPacks } from "#src/hooks/useFetchPacks";
 import { useSearchPacks } from "#src/hooks/useSearchPacks";
@@ -91,6 +90,7 @@ export const PackListPage: React.FC = () => {
           packList={packs}
           paginationProps={paginationParams}
         />
+
         {packToDelete && (
           <PackDeleteModal
             packId={packToDelete.id}
@@ -101,12 +101,11 @@ export const PackListPage: React.FC = () => {
             onUndoSuccess={fetchPacks}
           />
         )}
-        <SelectedItemsContextProvider>
-          <PackCreateModal
-            isOpen={isCreateModalOpen}
-            onClose={closeCreateModal}
-          />
-        </SelectedItemsContextProvider>
+
+        <PackCreateModal
+          isOpen={isCreateModalOpen}
+          onClose={closeCreateModal}
+        />
       </ListLayout.Content>
     </ListLayout>
   );

@@ -21,6 +21,7 @@ const ConsumerSummaryCard: React.FC<ConsumerSummaryCardProps> = ({
   acceptSms,
   address,
   birthday,
+  companyId,
   creditAccountBalance,
   email,
   emergencyContact,
@@ -47,6 +48,7 @@ const ConsumerSummaryCard: React.FC<ConsumerSummaryCardProps> = ({
     <div className="bs-consumer-summary-card__container">
       <Card className={clsx('bs-consumer-summary-card__root')}>
         <ConsumerSummaryCardHeader
+          companyId={companyId}
           creditAccountBalance={creditAccountBalance}
           email={email}
           firstName={firstName}

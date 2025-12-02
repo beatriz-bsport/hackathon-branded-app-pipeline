@@ -2,12 +2,12 @@ import React, { Fragment, useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import AddIcon from '@material-ui/icons/Add';
+import Alert from '@material-ui/lab/Alert';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Chip from '@material-ui/core/Chip';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
-import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import SaveIcon from '@material-ui/icons/Save';
 import TextField from '@material-ui/core/TextField';
@@ -18,7 +18,19 @@ import { useTheme } from '@material-ui/core/styles';
 
 import type { StripeDomainListState } from '#src/libs/payment/types';
 
-const MAX_DOMAINS = 10;
+const MAX_DOMAINS = 10; // UI limit (backend limit is 15)
+
+type StripeApiError = {
+  response?: {
+    status?: number;
+    data?: {
+      error_code?: number;
+      error_message?: string;
+      domain_name?: string | string[];
+    };
+  };
+  message?: string;
+};
 
 type StripeDomainManagementProps = {
   stripeDomainList: StripeDomainListState;
@@ -104,12 +116,9 @@ const StripeDomainManagement: React.FC<StripeDomainManagementProps> = ({
       )}
 
       <div className={classes.domainListContainer}>
-        <Box className={classes.infoBox}>
-          <InfoOutlinedIcon className={classes.infoIcon} fontSize="small" />
-          <Typography variant="body2">
-            {t('paymentMethods.stripeDomains.infoMessage')}
-          </Typography>
-        </Box>
+        <Alert className={classes.alert} severity="info">
+          {t('paymentMethods.stripeDomains.infoMessage')}
+        </Alert>
 
         {!domainsError &&
           domains.map((domain, index) => (
@@ -173,7 +182,29 @@ const StripeDomainManagement: React.FC<StripeDomainManagementProps> = ({
         {registerError && (
           <Box mb={1} mt={1}>
             <Typography color="error" variant="caption">
-              {t('paymentMethods.stripeDomains.validationError')}
+              {(() => {
+                const error = registerError as StripeApiError;
+                const responseData = error?.response?.data;
+                const status = error?.response?.status;
+
+                // Handle custom error codes (HTTP 499)
+                if (status === 499 && responseData?.error_code) {
+                  const errorKey = `paymentMethods.stripeDomains.errors.${responseData.error_code}`;
+                  const translatedError = t(errorKey);
+                  // If translation returns the key itself, use the raw error message
+                  return translatedError !== errorKey
+                    ? translatedError
+                    : responseData.error_message ||
+                        t('paymentMethods.stripeDomains.errors.default');
+                }
+
+                // Handle validation errors (HTTP 400)
+                if (status === 400 && responseData?.domain_name) {
+                  return t('paymentMethods.stripeDomains.validationError');
+                }
+
+                return t('paymentMethods.stripeDomains.errors.default');
+              })()}
             </Typography>
           </Box>
         )}
@@ -199,18 +230,10 @@ const useStyles = makeStyles((theme) => ({
   domainsContainer: {
     marginTop: theme.spacing(3),
   },
-  infoBox: {
-    backgroundColor: theme.palette.info.light,
-    padding: theme.spacing(1.5),
-    borderRadius: theme.shape.borderRadius,
-    display: 'flex',
-    alignItems: 'center',
+  alert: {
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(2),
-  },
-  infoIcon: {
-    marginRight: theme.spacing(1),
-    color: theme.palette.text.primary,
+    alignItems: 'center',
   },
   domainRow: {
     display: 'flex',

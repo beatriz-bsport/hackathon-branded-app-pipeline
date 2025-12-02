@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import { Breadcrumbs } from "@bsport/kaizen-primitive-core";
 
@@ -41,10 +41,15 @@ export const PackAddItemsModalContent: React.FC<
 }) => {
   const { t } = useTranslation("details");
 
-  const { isLoading, ...itemsPagination } = useFetchItems({
+  const { fetchItems, isLoading, ...itemsPagination } = useFetchItems({
     variant,
     categoryId: selectedCategory?.id,
   });
+
+  useEffect(() => {
+    fetchItems();
+  }, [fetchItems]);
+
   const itemsByVariant = useItems();
   const itemsCountByVariant = useItemsCount();
 

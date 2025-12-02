@@ -1,9 +1,7 @@
 import type { FC } from "react";
-import { Link } from "react-router";
 
 import type { UseFormControllerOutput } from "@bsport/form";
 import {
-  Breadcrumbs,
   Button,
   CopyToClipboard,
   DetailsLayout,
@@ -11,7 +9,8 @@ import {
 import type { Pack } from "@bsport/store-buyables-pack";
 
 import type { PackFormSchema } from "#src/components/PackForm/schema";
-import { LEGACY_URLS, URLS } from "#src/urls";
+import { useDetailsHeaderConfigs } from "#src/hooks/useDetailsHeaderConfigs";
+import { LEGACY_URLS } from "#src/urls";
 import { useTranslation } from "#src/utils/i18n";
 
 type PackDetailsHeaderProps = {
@@ -33,27 +32,15 @@ export const PackDetailsHeader: FC<PackDetailsHeaderProps> = ({
 
   const { watch } = methods;
 
-  const visibilityBadge = watch("manager_only")
-    ? t(
-        "formFields.visibilitySection.visibilitySelector.options.hidden.shortTitle",
-      )
-    : t(
-        "formFields.visibilitySection.visibilitySelector.options.visible.shortTitle",
-      );
+  const headerConfigs = useDetailsHeaderConfigs({
+    id: pack.id,
+    hidden: watch("manager_only"),
+  });
 
   return (
     <DetailsLayout.Header
       pageTitle={watch("name")}
-      pageStatusBadge={{
-        color: watch("manager_only") ? "default" : "main",
-        size: "lg",
-        text: visibilityBadge,
-      }}
-      BreadcrumbsItems={[
-        <Link key="to-packs-list" to={URLS.INDEX}>
-          <Breadcrumbs.Item text={t("detailsPage.packsBreadcrumbs")} />
-        </Link>,
-      ]}
+      {...headerConfigs}
       onEditTitleClick={onEditTitleClick}
       endGroupActions={[
         <CopyToClipboard

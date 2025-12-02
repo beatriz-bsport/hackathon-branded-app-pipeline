@@ -1,5 +1,5 @@
 import { type VariantProps, cva, cx } from "class-variance-authority";
-import React, { useEffect, useId, useState } from "react";
+import React, { useCallback, useEffect, useId, useState } from "react";
 import { createPortal, flushSync } from "react-dom";
 
 import Button from "#src/components/Button";
@@ -59,6 +59,16 @@ export type SidebarProps = React.HTMLAttributes<HTMLDivElement> &
     ariaLabel?: string;
     withPortal?: boolean;
     topbarSlot?: React.ReactNode;
+    /**
+     * Controlled state for mobile sidebar open/close.
+     * When provided, the component becomes controlled.
+     */
+    isOpen?: boolean;
+    /**
+     * Callback fired when the sidebar open state changes.
+     * Use with `isOpen` for controlled behavior.
+     */
+    onOpenChange?: (isOpen: boolean) => void;
   };
 
 type MobileOverlayProps = {
@@ -124,28 +134,45 @@ const Sidebar: React.FC<SidebarProps> = ({
   ariaLabel,
   withPortal = true,
   topbarSlot,
+  isOpen: controlledIsOpen,
+  onOpenChange,
   ...props
 }) => {
   const i18nInstance = useKaizenI18nInstance();
   const { t } = useTranslation("default", { i18n: i18nInstance });
 
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [internalIsOpen, setInternalIsOpen] = useState(false);
   const [shouldRenderMobileSidebar, setShouldRenderMobileSidebar] =
     useState(false);
   const { setOverflowHidden, resetOverflow } = useDocumentOverflow();
   const sidebarId = useId();
   const isDesktop = useMatchMedia("md");
 
+  // Support both controlled and uncontrolled mode
+  const isControlled = controlledIsOpen !== undefined;
+  const isMobileMenuOpen = isControlled ? controlledIsOpen : internalIsOpen;
+
+  const setIsOpen = useCallback(
+    (value: boolean) => {
+      if (isControlled) {
+        onOpenChange?.(value);
+      } else {
+        setInternalIsOpen(value);
+      }
+    },
+    [isControlled, onOpenChange],
+  );
+
   const resolvedAriaLabel = ariaLabel ?? t("sidebar.ariaLabel");
 
   const handleOpenMenu = () => {
     flushSync(() => setShouldRenderMobileSidebar(true));
-    setIsMobileMenuOpen(true);
+    setIsOpen(true);
     setOverflowHidden();
   };
 
   const handleCloseMenu = () => {
-    setIsMobileMenuOpen(false);
+    setIsOpen(false);
   };
 
   const toggleMenu = () => {
@@ -175,11 +202,17 @@ const Sidebar: React.FC<SidebarProps> = ({
 
   useEffect(() => {
     if (isDesktop && (isMobileMenuOpen || shouldRenderMobileSidebar)) {
-      setIsMobileMenuOpen(false);
+      setIsOpen(false);
       setShouldRenderMobileSidebar(false);
       resetOverflow();
     }
-  }, [isDesktop, isMobileMenuOpen, shouldRenderMobileSidebar, resetOverflow]);
+  }, [
+    isDesktop,
+    isMobileMenuOpen,
+    shouldRenderMobileSidebar,
+    resetOverflow,
+    setIsOpen,
+  ]);
 
   return (
     <>

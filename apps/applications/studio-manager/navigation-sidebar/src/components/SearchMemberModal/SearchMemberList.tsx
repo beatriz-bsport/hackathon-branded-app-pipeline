@@ -14,18 +14,20 @@ type SearchMemberListProps = {
   searchInput: string;
   navigate?: (to: string) => void;
   tagsMap: TagsMap;
+  isMobile?: boolean;
 };
 
 export const SearchMemberList: React.FC<SearchMemberListProps> = ({
   searchInput,
   navigate,
   tagsMap,
+  isMobile = false,
 }) => {
   const { t } = useTranslation("features");
-  const [archivedSegment, setArchivedSegment] = useState(false);
+  const [activeSegment, setActiveSegment] = useState<string>("segment-active");
 
   const { isEmptySearch, isLoading, members, isShowingList } = useSearchMembers(
-    { searchInput, searchArchived: archivedSegment },
+    { searchInput, searchArchived: activeSegment === "segment-archived" },
   );
 
   const formattedMembers = useFormatMembers({ members });
@@ -38,18 +40,16 @@ export const SearchMemberList: React.FC<SearchMemberListProps> = ({
         /**@todo Replace by segmented control when implemented */
         <Tabs
           orientation="horizontal"
+          value={activeSegment}
+          onValueChange={(value) => setActiveSegment(value)}
           tabs={[
             {
               id: "segment-active",
               label: t("searchMembers.segments.active"),
-              isActive: !archivedSegment,
-              onClick: () => setArchivedSegment(false),
             },
             {
               id: "segment-archived",
               label: t("searchMembers.segments.archived"),
-              isActive: archivedSegment,
-              onClick: () => setArchivedSegment(true),
             },
           ]}
         />
@@ -62,6 +62,7 @@ export const SearchMemberList: React.FC<SearchMemberListProps> = ({
           navigate,
           ...translations,
           tagsMap,
+          isMobile,
         }))}
         emptyStateProps={{
           // We want to show empty search state only

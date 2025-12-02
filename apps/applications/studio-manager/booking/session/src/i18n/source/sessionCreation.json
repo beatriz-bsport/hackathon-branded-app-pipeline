@@ -1,0 +1,49 @@
+{
+  "addSessionModal": {
+    "title": "Set up a session",
+    "steps": {
+      "chooseActivity": {
+        "label": "Choose activity",
+        "description": "Search or select an activity for the session, such as Group Activity or a Workshop.",
+        "loadingActivities": "Loading activities...",
+        "search": {
+          "placeholder": "Search"
+        },
+        "table": {
+          "columns": {
+            "activity": "Activity",
+            "type": "Type",
+            "features": "Features"
+          },
+          "type": {
+            "groupActivity": "Group Activity",
+            "workshop": "Workshop"
+          },
+          "emptyState": {
+            "title": "No Group Activities yet",
+            "body": "Add a Group Activity or Workshop to your studio before creating a session."
+          },
+          "features": {
+            "livestream": {
+              "popoverLabel": "Live streaming is enabled for this activity"
+            },
+            "notifications": {
+              "popoverLabel": "Notifications are configured for this activity"
+            }
+          }
+        }
+      },
+      "configureSession": {
+        "label": "Configure session"
+      },
+      "advancedOptions": {
+        "label": "Advanced options"
+      }
+    },
+    "buttons": {
+      "cancel": "Cancel",
+      "back": "Back",
+      "createSession": "Create session"
+    }
+  }
+}

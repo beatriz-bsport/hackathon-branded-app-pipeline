@@ -12,13 +12,13 @@
     "content": {
       "errors": {
         "noEmailTemplate": "Select a template",
-        "noPushNotificationContent": "Fill in the push notification content",
-        "noContentKind": "Select at least 1 communication kind"
+        "noPushNotificationContent": "Add content to your push notification ",
+        "noContentKind": "Select at least 1 email or notification"
       },
       "selector": {
         "emailTemplates": {
           "label": "Select an email template",
-          "placeholder": "Select Email Template",
+          "placeholder": "Select email template",
           "loading": "Searching email templates...",
           "noCategory": "No category"
         }
@@ -138,7 +138,7 @@
           "present": "Your settings are configured to mark members as present by default",
           "absent": "Your settings are configured to mark members as absent by default",
           "refunded": "Your settings are configured to mark members as refunded by default",
-          "tooLate": "Your settings are configured to mark members as too late to be refunded by default"
+          "tooLate": "Your settings are configured to not issue refunds for late members"
         },
         "timing": {
           "temporality": {

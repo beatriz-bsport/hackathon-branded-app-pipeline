@@ -1,0 +1,35 @@
+{
+  "signEsStatus": {
+    "registered": "Registered",
+    "registeredTooltip": "Invoice is registered with the Spanish Tax Agency (AEAT)",
+    "rejected": "Rejected",
+    "rejectedTooltip": "Invoice rejected by the Spanish Tax Agency (AEAT) due to: {{reason}}. Unable to edit or resubmit invoice once rejected.",
+    "pending": "Pending",
+    "pendingTooltip": "Invoice pending validation by the Spanish Tax Agency (AEAT)",
+    "notSendableAlertTitle": "Key information missing",
+    "notSendableAlertContent": "Unable to register invoice with the Spanish Tax Agency (AEAT) because some information about the member is missing ({{reasons}}). Update the {{memberProfileText}} and try again.",
+    "unexpectedFiskalyErrorContent": "An unexpected error from Fiskaly prevented the invoice from being signed.",
+    "reverseInvoiceAlertTitle": "The reverse invoice can't be sent.",
+    "reverseInvoiceAlertContent": "The original invoice wasn't sent to Verifactu. Send the {{originalInvoiceLink}} first and try again.",
+    "toBeSentManuallyAlertContent": "Invoice not sent to the Spanish Tax Agency (AEAT) because it was finalised before VERI*FACTU onboarding was completed. Try again to transmit the invoice to the agency.",
+    "originalInvoice": "original invoice",
+    "memberProfile": "member profile",
+    "tryAgain": "TRY AGAIN",
+    "notSendableReasons": {
+      "75604": "country",
+      "75605": "zip code",
+      "75606": "city",
+      "75607": "invalid Spanish ID",
+      "75608": "identification number",
+      "75609": "address"
+    },
+    "validationErrors": {
+      "75802": "Provided recipient NIF not registered",
+      "75803": "Tax rate not allowed in regular VAT system",
+      "75804": "Invalid company taxpayer Spanish NIF"
+    },
+    "unknownError": "unknown error",
+    "andConjunction": "and",
+    "retryFailure": "Failed to send invoice. Please try again."
+  }
+}

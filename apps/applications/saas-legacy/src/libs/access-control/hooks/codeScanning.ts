@@ -1,7 +1,8 @@
 import { useRef, useCallback, useEffect } from 'react';
 
 import {
-  MEMBERSHIP_ID_LENGTH,
+  BARCODE_CHARS_PATTERN,
+  MEMBERSHIP_ID_MIN_LENGTH,
   SCANNER_FILTER_DELAY_MS,
   SCANNER_FILTER_SOFT_DELAY_MS,
 } from '../constants';
@@ -23,25 +24,23 @@ import {
  *
  * @param {(catchedSequence: string) => void} onCodeScan - Callback function executed when
  * a valid code is scanned.
- * @param {number} kwargs.expectedInputLength - Expected length of the scanned input. This
+ * @param {number} kwargs.expectedInputMinLength - Minimum expected length of the scanned input. This
  * parameter determines when the `onCodeScan` callback is triggered.
  * @param {boolean} kwargs.canPerformAccessMonitoring - Flag to enable or disable the scanner
  */
 export function useNumericCodeScanner(
   onCodeScan: (catchedSequence: string) => void,
   {
-    expectedInputLength = MEMBERSHIP_ID_LENGTH,
+    expectedInputMinLength = MEMBERSHIP_ID_MIN_LENGTH,
     canPerformAccessMonitoring = false,
   }: {
-    expectedInputLength?: number;
+    expectedInputMinLength?: number;
     canPerformAccessMonitoring?: boolean;
   },
 ) {
-  // Reference to store the last key press time
   const lastKeyPressTimeRef = useRef(0);
-
-  // Reference to store the current scanner input
   const scannerInputRef = useRef('');
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   /**
    * Callback function to handle keydown events and catch a scanner input.
@@ -60,33 +59,46 @@ export function useNumericCodeScanner(
           event.preventDefault();
         }
 
-        // Keep the key value in the input sequence only if the time difference is lower than the
-        // soft filter delay.
-        // This different filter param enables to keep more inputs, even if the scanner has an unexpected
-        // transmitting delay.
+        if (timeoutRef.current) {
+          clearTimeout(timeoutRef.current);
+        }
+
+        // If the time difference is greater than the soft filter delay, reset accumulated input
+        // and skip this key (the code here assume that barcode reader send a first initialization `Shift` key)
         if (timeDifference > SCANNER_FILTER_SOFT_DELAY_MS) {
           scannerInputRef.current = '';
-        } else if (!Number.isNaN(Number(event.key))) {
+        } else if (BARCODE_CHARS_PATTERN.test(event.key)) {
+          // Only accumulate alphanumeric characters if we're in an active scan sequence
           scannerInputRef.current += event.key;
         }
 
-        // Trigger onCodeScan callback when the input sequence reaches the expected length
-        if (scannerInputRef.current.length === expectedInputLength) {
-          onCodeScan(scannerInputRef.current);
-          scannerInputRef.current = '';
+        // Set timeout to trigger callback after scanning completes
+        // Only set timeout if we have accumulated characters
+        if (scannerInputRef.current.length > 0) {
+          timeoutRef.current = setTimeout(() => {
+            if (scannerInputRef.current.length >= expectedInputMinLength) {
+              onCodeScan(scannerInputRef.current);
+            }
+            scannerInputRef.current = '';
+          }, SCANNER_FILTER_SOFT_DELAY_MS);
         }
 
         lastKeyPressTimeRef.current = currentTime;
       }
     },
-    [expectedInputLength, onCodeScan, canPerformAccessMonitoring],
+    [expectedInputMinLength, onCodeScan, canPerformAccessMonitoring],
   );
 
   // Attach and detach event listener for keydown on component mount and unmount
   useEffect(() => {
     if (canPerformAccessMonitoring) {
       document.addEventListener('keydown', handleKeyDown);
-      return () => document.removeEventListener('keydown', handleKeyDown);
+      return () => {
+        document.removeEventListener('keydown', handleKeyDown);
+        if (timeoutRef.current) {
+          clearTimeout(timeoutRef.current);
+        }
+      };
     }
     return () => {};
   }, [handleKeyDown, canPerformAccessMonitoring]);

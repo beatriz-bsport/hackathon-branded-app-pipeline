@@ -303,10 +303,7 @@ function updateTsConfigPaths(projectRoot) {
 
       // Update the extends path
       if (config.extends && typeof config.extends === "string") {
-        // Determine the correct config type based on the current extends path
-        const configType = config.extends.includes("/application/")
-          ? "application"
-          : "ts-package";
+        const configType = "kaizen";
 
         // Create a new path that uses the correct relative path to tools
         const newExtendsPath = `${relativePathToTools}/config/typescript/src/${configType}/${path.basename(config.extends)}`;

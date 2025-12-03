@@ -27,9 +27,23 @@ const config: UserConfig = {
       ],
     },
     sourcemap: true,
-    emptyOutDir: true,
+    emptyOutDir: false,
   },
-  plugins: [nxViteTsPaths(), svgr(), react(), dts({ insertTypesEntry: true })],
+  plugins: [
+    nxViteTsPaths(),
+    svgr(),
+    react(),
+    dts({
+      insertTypesEntry: true,
+      tsconfigPath: resolve(__dirname, "./tsconfig.dts.json"),
+      exclude: [
+        "**/*.stories.tsx",
+        "**/*.stories.ts",
+        "**/*.test.tsx",
+        "**/*.test.ts",
+      ],
+    }),
+  ],
   resolve: {
     alias: {
       "#src": resolve(__dirname, "src"),

@@ -16,6 +16,8 @@
         "maxGreaterThanMin": "The maximum value should be greater than the minimum value"
       }
     },
-    "featureBlocked": "Custom value gift cards aren’t available yet"
+    "billingForm": {
+      "priceIsToBeDetermined": "Undefined"
+    }
   }
 }

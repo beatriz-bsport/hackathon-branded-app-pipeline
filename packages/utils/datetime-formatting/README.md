@@ -1,4 +1,4 @@
-# DateTime Format Utils
+# DateTime Formatting
 
 A comprehensive, type-safe utility package for formatting dates and times across different locales, timezones, and display formats. This package provides a single endpoint for all datetime formatting needs in the application.
 
@@ -22,7 +22,7 @@ import {
   DATETIME_FORMATS,
   formatDateTime,
   useFormatDatetime,
-} from "@bsport/datetime-format-utils";
+} from "@bsport/datetime-formatting";
 ```
 
 Add it to your `package.json` dependencies:
@@ -30,7 +30,7 @@ Add it to your `package.json` dependencies:
 ```json
 {
   "dependencies": {
-    "@bsport/datetime-format-utils": "workspace:*"
+    "@bsport/datetime-formatting": "workspace:*"
   }
 }
 ```
@@ -40,10 +40,7 @@ Add it to your `package.json` dependencies:
 ### Basic Usage
 
 ```typescript
-import {
-  DATETIME_FORMATS,
-  formatDateTime,
-} from "@bsport/datetime-format-utils";
+import { DATETIME_FORMATS, formatDateTime } from "@bsport/datetime-formatting";
 
 // Simple date formatting
 const result = formatDateTime(
@@ -68,7 +65,7 @@ import React from "react";
 import {
   DATETIME_FORMATS,
   useFormatDatetime,
-} from "@bsport/datetime-format-utils";
+} from "@bsport/datetime-formatting";
 
 const MyComponent: React.FC<{ createdAt: string }> = ({ createdAt }) => {
   const { formatDate, formatTime, formatRelative } = useFormatDatetime({
@@ -251,7 +248,7 @@ import React from "react";
 import {
   DATETIME_FORMATS,
   useFormatDatetime,
-} from "@bsport/datetime-format-utils";
+} from "@bsport/datetime-formatting";
 
 interface EventCardProps {
   title: string;
@@ -293,6 +290,6 @@ export const EventCard: React.FC<EventCardProps> = ({
 ### Building
 
 ```bash
-cd packages/utils/datetime/format
+cd packages/utils/datetime-formatting
 npm run build
 ```

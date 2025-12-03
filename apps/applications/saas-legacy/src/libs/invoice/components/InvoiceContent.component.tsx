@@ -30,13 +30,13 @@ import type { EstablishmentBillingGroup } from '#src/libs/establishment/types';
 import ObjectLevelPermissionProviderComponent from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 import EstablishmentBillingGroupSelector from '#src/libs/establishment/components/EstablishmentBillingGroupSelector';
 import CouponPartiallyAppliedWarning from '#src/libs/coupon/components/CouponPartiallyAppliedWarning.component';
-// @ts-expect-error
-import InvoiceItem from './InvoiceItem.component';
-// @ts-expect-error
-import PaymentItem from './PaymentItem.component';
+import { InvoiceListItem } from './InvoiceItem.component';
+import { PaymentListItem } from './PaymentItem.component';
 import { getReceiptUrl as getReceiptUrlAPI } from '../api';
 import type { OptionCallback } from '#src/state/types';
 import type { Invoice } from '../types';
+import type { PaymentItem } from '#src/libs/invoice/payment/types';
+import type { BaseInvoiceItem } from '#src/libs/invoice/invoice-item/types';
 
 type Props = {
   amountInvoiceItem: number;
@@ -52,7 +52,7 @@ type Props = {
   establishmentLoading: boolean;
   invoice?: Invoice;
   invoiceItemLoading: boolean;
-  invoiceItemList: InvoiceItem[];
+  invoiceItemList: BaseInvoiceItem[];
   isReturningPayment: boolean;
   paymentItemList: PaymentItem[];
   requiredEstablishmentIsMissing: boolean;
@@ -127,7 +127,7 @@ export const InvoiceContent: React.FC<Props> = ({
     invoice?.source_invoice || invoice?.invoice_type === INVOICE_TYPE_REVERSE;
 
   const handleRemoveInvoiceItem = useCallback(
-    (ii: InvoiceItem) => () => removeInvoiceItem(ii.id),
+    (ii: BaseInvoiceItem) => () => removeInvoiceItem(ii.id),
     [removeInvoiceItem],
   );
 
@@ -149,7 +149,7 @@ export const InvoiceContent: React.FC<Props> = ({
   );
 
   const handleDeleteCoupon = useCallback(
-    (index: number) => () => deleteCoupon(index),
+    (index: number) => () => deleteCoupon?.(index),
     [deleteCoupon],
   );
 
@@ -208,9 +208,9 @@ export const InvoiceContent: React.FC<Props> = ({
           ) : (
             <Divider className={classes.divider} />
           )}
-          {invoiceItemList.map((ii: InvoiceItem) => (
+          {invoiceItemList.map((ii: BaseInvoiceItem) => (
             /* hotfix: key can't be unique, the same Invoice Item can be rendered multiple times */
-            <InvoiceItem
+            <InvoiceListItem
               key={`${ii.id}:${uuidv4()}`}
               handleShowPrintableGiftcardDetails={
                 handleShowPrintableGiftcardDetails
@@ -250,7 +250,7 @@ export const InvoiceContent: React.FC<Props> = ({
             <Divider className={classes.divider} />
             {!!paymentItemList &&
               paymentItemList.map((p: PaymentItem) => (
-                <PaymentItem
+                <PaymentListItem
                   key={p.uuid}
                   handleChangeMethod={updatePaymentMethod}
                   isReturningPayment={isReturningPayment}

@@ -1,5 +1,4 @@
-// @flow
-import React from 'react';
+import React, { type FC } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import Typography from '@material-ui/core/Typography';
@@ -14,27 +13,36 @@ import clsx from 'clsx';
 import { AttachFile } from '@material-ui/icons';
 import { ConsumerGiftcardKind } from '@bsport/common/lib/master-data/giftcard.js';
 import { InvoiceItemVoucherTraceKind } from '@bsport/common/lib/master-data/invoice-item.js';
+import type { BaseInvoiceItem } from '../invoice-item/types';
+import { TFunction } from 'i18next';
 
 type Props = {
-  invoiceItem: InvoiceItem,
-  onDelete: () => void,
+  invoiceItem: BaseInvoiceItem;
+  onDelete: () => void;
   /** An optional handler when clicking on an invoice item that is a printable gift card */
-  handleShowPrintableGiftcardDetails?: (id: number) => () => void,
+  handleShowPrintableGiftcardDetails?: (id: number) => () => void;
 };
 
 // Copy the logic in backend InvoiceItem.voucher_reasons_translated property
 // so that we use the language set in the frontend
-const translateVoucherReasons = (voucherReasons, t) => {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const translateVoucherReasons = (
+  voucherReasons: Array<{ kind: string; value: number }>,
+  t: TFunction,
+) => {
   return voucherReasons.map((voucherReason) => {
     switch (voucherReason.kind) {
       case InvoiceItemVoucherTraceKind.PAYMENT_COMBO:
       case InvoiceItemVoucherTraceKind.COUPON_REFERRED:
       case InvoiceItemVoucherTraceKind.COUPON_REFERRING:
       case InvoiceItemVoucherTraceKind.PRO_RATED_FROM_SUBSCRIPTION:
-        return t(`invoiceItem.voucherReason.${voucherReason.kind}`);
+        return t(`invoiceItem.voucherReason.${voucherReason.kind}`, {
+          ns: 'invoice',
+        });
       case InvoiceItemVoucherTraceKind.COUPON_CODE:
         return t(`invoiceItem.voucherReason.${voucherReason.kind}`, {
           coupon_name: voucherReason.value ?? '',
+          ns: 'invoice',
         });
       case InvoiceItemVoucherTraceKind.MANUAL:
         return voucherReason.value
@@ -43,53 +51,55 @@ const translateVoucherReasons = (voucherReasons, t) => {
               {
                 manual_reason: voucherReason.value,
                 interpolation: { escapeValue: false },
+                ns: 'invoice',
               },
             )
-          : t('invoiceItem.voucherReason.manualWithNoReason');
+          : t('invoiceItem.voucherReason.manualWithNoReason', {
+              ns: 'invoice',
+            });
       default:
         return '';
     }
   });
 };
 
-const InvoiceItem = (props: Props) => {
+export const InvoiceListItem: FC<Props> = (props) => {
   const { onDelete, invoiceItem, handleShowPrintableGiftcardDetails } = props;
   const classes = useStyles();
-  const { t } = useTranslation(['invoice']);
+  const { t } = useTranslation(['invoice', 'b2b_giftcard']);
 
   const subtitle = React.useMemo(
     () => invoiceItem.incremental_consumer_giftcard_identifier,
     [invoiceItem.incremental_consumer_giftcard_identifier],
   );
 
-  const voucherData = React.useMemo(() => {
-    if (parseFloat(invoiceItem.voucher) === 0)
-      return { voucher: null, voucher_reason: null };
-
-    const voucher = invoiceItem.voucher;
-    const voucherReasons = invoiceItem.voucher_reasons || [];
-    const voucherReasonsTranslated = translateVoucherReasons(voucherReasons, t);
-    const voucher_reason = voucherReasonsTranslated.join(' + ');
-
-    return { voucher, voucher_reason };
-  }, [invoiceItem.voucher, invoiceItem.voucher_reasons, t]);
-
   const voucherDisplayText = React.useMemo(() => {
-    if (!voucherData.voucher) return '';
-    if (voucherData.voucher_reason) {
-      return `${voucherData.voucher_reason} ${getCurrencyDisplayWithPrice(
-        voucherData.voucher,
+    if (!invoiceItem.voucher) return '';
+
+    if (invoiceItem.voucher_reason) {
+      return `${invoiceItem.voucher_reason} ${getCurrencyDisplayWithPrice(
+        invoiceItem.voucher,
       )}`;
     }
+
     return t('invoiceItem.voucher', {
-      voucher: getCurrencyDisplayWithPrice(voucherData.voucher),
+      voucher: getCurrencyDisplayWithPrice(invoiceItem.voucher),
+      ns: 'invoice',
     });
-  }, [voucherData.voucher, voucherData.voucher_reason, t]);
+  }, [invoiceItem.voucher, invoiceItem.voucher_reason, t]);
+
+  const displayedPrice = invoiceItem.hasCustomPrice
+    ? t('customAmount.billingForm.priceIsToBeDetermined', {
+        ns: 'b2b_giftcard',
+      })
+    : getCurrencyDisplayWithPrice(
+        (parseFloat(invoiceItem.price) - (invoiceItem.voucher ?? 0)).toFixed(2),
+      );
 
   return (
     <div className={classes.container}>
       <div className={classes.leftText}>
-        <Typography className={invoiceItem.reverted ? classes.revert : null}>
+        <Typography className={invoiceItem.reverted ? classes.revert : ''}>
           {getShopItemName({
             name: invoiceItem?.name ?? '',
             color: invoiceItem?.color ?? '',
@@ -108,7 +118,7 @@ const InvoiceItem = (props: Props) => {
           {subtitle}
         </Typography>
         <Typography
-          className={invoiceItem.reverted ? classes.revert : null}
+          className={invoiceItem.reverted ? classes.revert : ''}
           color="textSecondary"
           variant="caption"
         >
@@ -120,7 +130,11 @@ const InvoiceItem = (props: Props) => {
         ConsumerGiftcardKind.PRINTABLE && (
         <IconButton
           className={classes.printableGiftcardShowDetails}
-          onClick={handleShowPrintableGiftcardDetails?.(invoiceItem?.object_id)}
+          onClick={
+            invoiceItem?.object_id && handleShowPrintableGiftcardDetails
+              ? handleShowPrintableGiftcardDetails(invoiceItem.object_id)
+              : undefined
+          }
           size="small"
         >
           <AttachFile fontSize="inherit" />
@@ -139,12 +153,8 @@ const InvoiceItem = (props: Props) => {
         })}
       />
       <div className={classes.secondaryAction}>
-        <Typography className={invoiceItem.reverted ? classes.revert : null}>
-          {getCurrencyDisplayWithPrice(
-            parseFloat(invoiceItem.price - (voucherData.voucher || 0)).toFixed(
-              2,
-            ),
-          )}
+        <Typography className={invoiceItem.reverted ? classes.revert : ''}>
+          {displayedPrice}
         </Typography>
         {!!invoiceItem.editable && onDelete && (
           <IconButton
@@ -204,5 +214,3 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: theme.spacing(1),
   },
 }));
-
-export default InvoiceItem;

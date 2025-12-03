@@ -1,7 +1,7 @@
-// @flow
-import React from 'react';
+import React, { type FC } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
+import type { TFunction } from 'i18next';
 
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
@@ -23,15 +23,17 @@ import PAYMENT_METHODS, {
   CB as PAYMENT_METHOD_CB,
 } from '@bsport/common/lib/master-data/payment-methods.js';
 
+// @ts-expect-error Importing JS file
 import withConfirm from '../../../hocs/with-confirm.hoc';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
+import type { PaymentItem } from '#src/libs/invoice/payment/types';
 
 type Props = {
-  paymentItem: PaymentItem,
-  onDelete?: () => void,
-  returnPayment: (uuid: string) => void,
-  isReturningPayment: boolean,
-  handleChangeMethod: (uuid: string, paymentMethodId: number) => void,
+  paymentItem: PaymentItem;
+  onDelete?: () => void;
+  returnPayment: (uuid: string) => void;
+  isReturningPayment: boolean;
+  handleChangeMethod: (uuid: string, paymentMethodId: number) => void;
 };
 const ButtonReturnPayment = withConfirm(Button, 'onClick', {
   title: 'invoice:returnPayment.modal.title',
@@ -42,7 +44,7 @@ const ButtonReturnPayment = withConfirm(Button, 'onClick', {
   ),
 });
 
-const PaymentItem = (props: Props) => {
+export const PaymentListItem: FC<Props> = (props) => {
   const classes = useStyles();
   const { t } = useTranslation(['payment']);
   const { paymentItem } = props;
@@ -80,11 +82,11 @@ const PaymentItem = (props: Props) => {
             <CancelIcon color="secondary" />
           )}
         <div className={classes.leftText}>
-          <Typography className={paymentItem.reverted ? classes.revert : null}>
+          <Typography className={paymentItem.reverted ? classes.revert : ''}>
             {t(`paymentMethod.${paymentItem.payment_method}`)}
           </Typography>
           <Typography
-            className={paymentItem.reverted ? classes.revert : null}
+            className={paymentItem.reverted ? classes.revert : ''}
             color="textSecondary"
             variant="caption"
           >
@@ -94,7 +96,7 @@ const PaymentItem = (props: Props) => {
       </div>
       <div className={classes.line} />
       <div className={classes.secondaryAction}>
-        <div className={paymentItem.reverted ? classes.revert : null}>
+        <div className={paymentItem.reverted ? classes.revert : ''}>
           {`${getCurrencyDisplayWithPrice(
             parseFloat(paymentItem.price).toFixed(2),
           )}`}
@@ -192,5 +194,3 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: theme.spacing(1),
   },
 }));
-
-export default PaymentItem;

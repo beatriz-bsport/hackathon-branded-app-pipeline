@@ -1,5 +1,7 @@
 import { Navigate } from "react-router";
 
+import { useFlagsStatus } from "@bsport/sm-backbone";
+
 import { DashboardIframe } from "#src/components/DashboardIframe";
 import { InsightDetailLayout } from "#src/components/InsightDetailLayout";
 import { DASHBOARD_TYPES } from "#src/constants";
@@ -16,21 +18,42 @@ import { useHasSubscriptionInvoicesPermission } from "#src/utils/permissions";
 
 const TrialAnalysisPage = () => {
   const { t } = useTranslation("insights");
-  const hasPermission = useHasSubscriptionInvoicesPermission();
+  const { hasPermission, isLoading: isLoadingPermission } =
+    useHasSubscriptionInvoicesPermission();
   const isTrialAnalysisEnabled = useInsightFlag(InsightFlags.TRIAL_ANALYSIS);
-  const { iframeUrl, isLoading, error } = usePresignedUrl(
-    DASHBOARD_TYPES.TRIAL_ANALYSIS,
-  );
+  const { flagsReady } = useFlagsStatus();
+  const {
+    iframeUrl,
+    isLoading: isLoadingUrl,
+    error,
+  } = usePresignedUrl(DASHBOARD_TYPES.TRIAL_ANALYSIS);
 
   const pageTitle = t("pages.trialAnalysis.title");
 
-  // Redirect users without permission or if feature flag is off
-  if (!hasPermission || !isTrialAnalysisEnabled) {
+  // Wait for permissions and flags to load before redirecting
+  if (isLoadingPermission || !flagsReady) {
+    return (
+      <InsightDetailLayout title={pageTitle} isLoading={true} error={null}>
+        {null}
+      </InsightDetailLayout>
+    );
+  }
+
+  // Only redirect if permissions are loaded and explicitly false or feature flag is off
+  if (
+    !isLoadingPermission &&
+    flagsReady &&
+    (!hasPermission || !isTrialAnalysisEnabled)
+  ) {
     return <Navigate to="/" replace />;
   }
 
   return (
-    <InsightDetailLayout title={pageTitle} isLoading={isLoading} error={error}>
+    <InsightDetailLayout
+      title={pageTitle}
+      isLoading={isLoadingUrl}
+      error={error}
+    >
       {iframeUrl && <DashboardIframe src={iframeUrl} title={pageTitle} />}
     </InsightDetailLayout>
   );

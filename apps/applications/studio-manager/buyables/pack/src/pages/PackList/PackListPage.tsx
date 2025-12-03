@@ -1,6 +1,5 @@
 import { useEffect, useId, useState } from "react";
 
-import { getEnv } from "@bsport/envs";
 import { ListLayout } from "@bsport/kaizen-primitive-core";
 
 import { PackCreateModal } from "#src/components/PackCreateModal";
@@ -9,8 +8,6 @@ import { PackTable } from "#src/components/PackTable";
 import { useDisclosure } from "#src/hooks/useDisclosure";
 import { useFetchPacks } from "#src/hooks/useFetchPacks";
 import { useSearchPacks } from "#src/hooks/useSearchPacks";
-import { LEGACY_URLS } from "#src/urls";
-import { USE_REVAMP_DETAILS } from "#src/utils/constants";
 import { useTranslation } from "#src/utils/i18n";
 
 export const PackListPage: React.FC = () => {
@@ -24,18 +21,6 @@ export const PackListPage: React.FC = () => {
     isOpen: isCreateModalOpen,
     onOpen: openCreateModal,
   } = useDisclosure();
-
-  const onAddPackClick = () => {
-    const env = getEnv();
-
-    // WIP - Display Create modal in local, dev and FB
-    if (USE_REVAMP_DETAILS || !["production", "staging"].includes(env)) {
-      openCreateModal();
-    } else {
-      // Use window history to navigate to legacy backoffice
-      window.location.assign(LEGACY_URLS.CREATE);
-    }
-  };
 
   const { searchInput, setSearchInput, clearSearchInput } = useSearchPacks();
 
@@ -69,7 +54,7 @@ export const PackListPage: React.FC = () => {
             intent="call-to-action"
             label={t("actions.addAPack")}
             iconLeft="plus"
-            onClick={onAddPackClick}
+            onClick={openCreateModal}
           />
         }
         searchConfig={{
@@ -86,7 +71,7 @@ export const PackListPage: React.FC = () => {
           isEmpty={isEmpty}
           isEmptySearch={isEmptySearch}
           isLoading={isLoading}
-          onAddPackClick={onAddPackClick}
+          onAddPackClick={openCreateModal}
           packList={packs}
           paginationProps={paginationParams}
         />

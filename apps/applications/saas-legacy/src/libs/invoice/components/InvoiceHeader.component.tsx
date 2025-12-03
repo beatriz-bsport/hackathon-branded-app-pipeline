@@ -14,13 +14,13 @@ import LocationIcon from '@material-ui/icons/LocationOn';
 import EditIcon from '@material-ui/icons/Edit';
 import CloseIcon from '@material-ui/icons/Close';
 import IconButton from '@material-ui/core/IconButton';
-import Chip from '@material-ui/core/Chip';
 import {
   INVOICE_TYPE_EMPTY_PAYMENT_CONTAINER,
   INVOICE_TYPE_MIGRATION,
   INVOICE_TYPE_REVERSE,
 } from '@bsport/common/lib/master-data/invoice-type.js';
 import { CircularProgress } from '@material-ui/core';
+import { InvoiceHeaderFiskalyChip } from './InvoiceHeaderFiskalyChip.component';
 
 import EstablishmentBillingGroupSelector from '#src/libs/establishment/components/EstablishmentBillingGroupSelector';
 import type {
@@ -170,9 +170,7 @@ export const InvoiceHeader = (props: Props) => {
             uuid: invoice.invoice_legal_identifier || invoice.uuid.slice(0, 8),
           })}
         </Typography>
-        {invoice.is_signed_on_fiskaly && (
-          <Chip color="primary" label={t('sentToFiskaly')} />
-        )}
+        <InvoiceHeaderFiskalyChip invoice={invoice} />
       </div>
       <div className={classes.additionalInfo}>
         <div className={classes.row}>
@@ -247,10 +245,10 @@ export const InvoiceHeader = (props: Props) => {
           </>
         ) : null}
 
-        {!!invoice.source_invoice && (
+        {invoice.source_invoice && (
           <ButtonBase
             className={classes.row}
-            onClick={() => props.onClickInvoice(invoice.source_invoice)}
+            onClick={() => props.onClickInvoice(invoice.source_invoice!)}
           >
             <DoubleArrowIcon className={classes.leftIcon} fontSize="small" />
             <Typography color="textSecondary">
@@ -264,6 +262,7 @@ export const InvoiceHeader = (props: Props) => {
           !!invoice.reverse_invoices.length &&
           invoice.reverse_invoices.map((invUUID: string) => (
             <ButtonBase
+              key={invUUID}
               className={classes.row}
               onClick={() => props.onClickInvoice(invUUID)}
             >

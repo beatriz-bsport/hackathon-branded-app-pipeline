@@ -1,10 +1,11 @@
 import { Result } from "typescript-result";
 
-import { getIsoDateString, getWeekBounds } from "@bsport/datetime-manipulation";
+import { fromIsoString, getWeekBounds } from "@bsport/datetime-manipulation";
 import { type Action, createErrorWithContext } from "@bsport/store-base";
 import type { ManagerSession } from "@bsport/store-booking-session";
 import type { Establishment } from "@bsport/store-core-data-establishment";
 import type { Teacher } from "@bsport/store-core-data-teacher";
+import { getCompanyTimezone } from "@bsport/timezone-utils";
 
 import { fetchManagerSessionsAPI } from "./api";
 import { CalendarView, sessionListStore } from "./store";
@@ -30,7 +31,15 @@ export const setSessionsForDateRange = ({ sessions }: SetSessionsParams) => {
     ids.push(session.id);
 
     // Extract date from session's date_start (format: "YYYY-MM-DDTHH:mm:ss")
-    const sessionDate = getIsoDateString(new Date(session.date_start));
+    const sessionDate = fromIsoString(session.date_start, {
+      zone: getCompanyTimezone(),
+    }).toISODate();
+    if (!sessionDate) {
+      console.error(
+        `Invalid date_start format for session ID ${session.id}: ${session.date_start}`,
+      );
+      return;
+    }
     if (!byDate[sessionDate]) {
       byDate[sessionDate] = [];
     }

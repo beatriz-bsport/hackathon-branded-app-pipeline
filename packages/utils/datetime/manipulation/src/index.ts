@@ -27,6 +27,29 @@ export const toDateTime = (date: Date): DateTime =>
 export const toDate = (dateTime: DateTime): Date => dateTime.toJSDate();
 
 /**
+ * Gets today's date as a native JavaScript Date having the correct calendar day.
+ * For example, if the company timezone is "America/New_York" and the local timezone is "America/Los_Angeles",
+ * calling this function on April 7th at 10 PM PDT will return April 8th, since it's already past midnight in New York.
+ *
+ * @param locale - The locale identifier (e.g., "en-US", "fr-FR").
+ * @param zone - The IANA time zone name (e.g., "America/New_York").
+ * @returns Today's date as a native JavaScript Date.
+ */
+export const getTodayJSDate = (locale?: string, zone?: string): Date => {
+  const localToday = getLocalNow({
+    locale: locale,
+    zone: zone,
+  }).toISODate();
+  if (!localToday) {
+    return new Date();
+  }
+
+  // Build the Date object manually to avoid timezone issues
+  const [year, month, day] = localToday.split("-").map(Number);
+  return new Date(year, month - 1, day);
+};
+
+/**
  * Parses an ISO 8601 string to a DateTime object.
  *
  * @param isoString - The ISO 8601 formatted string.

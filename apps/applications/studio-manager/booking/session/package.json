@@ -30,6 +30,7 @@
     "@bsport/store-booking-session": "workspace:*",
     "@bsport/store-core-data-establishment": "workspace:*",
     "@bsport/store-core-data-teacher": "workspace:*",
+    "@bsport/timezone-utils": "workspace:*",
     "@bsport/use-async": "workspace:*",
     "@bsport/use-debounce": "workspace:*",
     "@bsport/use-pagination-query-params": "workspace:*",

@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
-import { getLocalNow, toDate } from "@bsport/datetime-manipulation";
+import { getTodayJSDate } from "@bsport/datetime-manipulation";
 import {
   ListLayout,
   useEmptyState,
@@ -40,8 +40,7 @@ const ListPage: React.FC = () => {
 
   useEffect(() => {
     if (!hasInitializedDate.current && companyTimeZone && intlLocale) {
-      const today = getLocalNow({ locale: intlLocale, zone: companyTimeZone });
-      setSelectedDate(toDate(today));
+      setSelectedDate(getTodayJSDate(intlLocale, companyTimeZone));
       hasInitializedDate.current = true;
     }
   }, [intlLocale, companyTimeZone]);

@@ -3,6 +3,7 @@ import { Navigate, Outlet, useLocation } from "react-router";
 
 import { setCurrencyCode, setCurrencyDisplay } from "@bsport/currency";
 import { getAuthToken } from "@bsport/local-storage-auth-token";
+import { setCompanyTimezone } from "@bsport/timezone-utils";
 
 import { fetchSharedData } from "#src/api";
 import { SidebarLayout } from "#src/components/SidebarLayout";
@@ -82,6 +83,7 @@ function DataLayerWrapper() {
   const companyTheme = dataAccessLayer.useCompanyTheme();
   const companyCurrencyCode = companyTheme?.currency;
   const companyCurrencyDisplay = companyTheme?.currency_display;
+  const companyTimezone = companyTheme?.timezone_name;
 
   /**
    * here we fetch shared data
@@ -97,7 +99,10 @@ function DataLayerWrapper() {
     if (companyCurrencyDisplay) {
       setCurrencyDisplay(companyCurrencyDisplay, "local");
     }
-  }, [companyCurrencyCode, companyCurrencyDisplay]);
+    if (companyTimezone) {
+      setCompanyTimezone(companyTimezone, "local");
+    }
+  }, [companyCurrencyCode, companyCurrencyDisplay, companyTimezone]);
 
   return null;
 }

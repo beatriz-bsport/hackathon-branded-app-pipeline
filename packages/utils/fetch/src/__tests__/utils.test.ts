@@ -23,7 +23,7 @@ vi.mock("@bsport/sentry", () => ({
 }));
 
 vi.mock("@bsport/timezone-utils", () => ({
-  getTimezoneName: vi.fn(() => "Europe/Paris"),
+  getCompanyTimezone: vi.fn(() => "Europe/Paris"),
 }));
 
 const mockGetAuthToken = vi.mocked(
@@ -125,10 +125,10 @@ describe("utils", () => {
     });
 
     it("should handle missing timezone", async () => {
-      const mockGetTimezoneName = vi.mocked(
+      const mockGetCompanyTimezone = vi.mocked(
         await import("@bsport/timezone-utils"),
-      ).getTimezoneName;
-      mockGetTimezoneName.mockReturnValue(null);
+      ).getCompanyTimezone;
+      mockGetCompanyTimezone.mockReturnValue("");
 
       const headers = getHeaders() as Record<string, string>;
 

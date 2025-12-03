@@ -27,12 +27,9 @@
     "lint": "eslint .",
     "lint:fix": "eslint --fix ."
   },
-  "dependencies": {
-    "luxon": "^3.4.4"
-  },
+  "dependencies": {},
   "devDependencies": {
-    "@bsport/config-eslint-react": "workspace:*",
-    "@types/luxon": "^3.4.2"
+    "@bsport/config-eslint-react": "workspace:*"
   },
   "nx": {
     "tags": [

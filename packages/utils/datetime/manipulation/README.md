@@ -18,6 +18,16 @@ Converts a Luxon DateTime to a native JavaScript Date.
 
 Checks if two DateTime objects represent the same calendar day.
 
+### getLocalNow = ({zone?: string; locale?: string;}): DateTime
+
+Returns the current date as a DateTime.
+
+#### getTodayJSDate = (locale?: string, zone?: string): Date
+
+Gets the calendar day in the locale as a native JavaScript Date.
+For example, if the given timezone is "America/New_York" and the local timezone is "America/Los_Angeles",
+calling this function on April 7th at 10 PM PDT will return April 8th, since it's already past midnight in New York.
+
 ### Calendar Functions
 
 #### getDaysInMonth(date: DateTime): DateTime[]

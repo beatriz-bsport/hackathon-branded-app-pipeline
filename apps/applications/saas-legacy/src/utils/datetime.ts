@@ -1,6 +1,7 @@
 import { TFunction } from 'i18next';
-import { DateTime, Info, SystemZone } from 'luxon';
+import { DateTime, Info, Settings, SystemZone } from 'luxon';
 import { MarketPlaceDaysFormatDisplay } from '@bsport/common/lib/master-data/personalization.js';
+import * as Sentry from '@sentry/react';
 
 import type { Theme } from '#src/libs/theme/types';
 
@@ -248,10 +249,52 @@ export function isDateTodayOrInTheFuture(date?: string | null) {
  * getLocaleWeekdays('narrow')
  */
 export const getLocaleWeekdays = (length: 'narrow' | 'short' | 'long') => {
-  const isoWeekdays = Info.weekdays(length);
+  const isoWeekdays = getWeekdaysWithExtraLogs(length);
   const startOfWeek = Info.getStartOfWeek();
 
   return Array(7)
     .fill('')
     .map((_, index) => isoWeekdays[(index + startOfWeek - 1) % 7]);
+};
+
+/*
+ * A user seems to be locked into a situation where `Info.weekdays` throws
+ * because of the timeZone being set to 'UTC'.
+ * This function is an attempt to add extra logs to maybe find more context.
+ * https://linear.app/bsport/issue/BOO-1382/user-cant-book-nor-access-schedule
+ * It should also add a default timezone to hopefully allow the user to access
+ * bsport schedules and be able to book.
+ *
+ * This is quite an edge case,
+ * so if necessary, feel free to remove to simplify the code.
+ */
+const getWeekdaysWithExtraLogs = (length: 'narrow' | 'short' | 'long') => {
+  try {
+    return Info.weekdays(length);
+  } catch (error) {
+    const isErrorOfInterest =
+      error instanceof RangeError &&
+      error.message.startsWith('Invalid time zone specified: ');
+    if (!isErrorOfInterest) {
+      throw error;
+    }
+    Sentry.captureException(error, {
+      contexts: {
+        luxon: {
+          defaultZone: Settings.defaultZone?.name,
+          defaultZoneType: Settings.defaultZone?.type,
+          defaultLocale: Settings.defaultLocale,
+        },
+      },
+      extra: {
+        length,
+        userAgent: navigator?.userAgent,
+        language: navigator?.language,
+        timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+      },
+    });
+  }
+  const fallBackTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+  Settings.defaultZone = fallBackTimeZone;
+  return Info.weekdays(length);
 };

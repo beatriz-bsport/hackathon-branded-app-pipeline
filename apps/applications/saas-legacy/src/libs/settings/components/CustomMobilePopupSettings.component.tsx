@@ -46,7 +46,7 @@ type Props = {
     },
     args_1?: OptionCallback<void>,
   ) => void;
-  deleteCustomMobilePopup: (id: string, options?: OptionCallback<void>) => void;
+  deleteCustomMobilePopup: (id: number, options?: OptionCallback<void>) => void;
 };
 const CustomMobilePopupSettings: React.FC<Props> = ({
   loading,
@@ -116,7 +116,7 @@ const CustomMobilePopupSettings: React.FC<Props> = ({
     });
   };
 
-  const handleDelete = (id: string) => () => {
+  const handleDelete = (id: number) => () => {
     deleteCustomMobilePopup(id);
   };
 
@@ -187,7 +187,6 @@ const CustomMobilePopupSettings: React.FC<Props> = ({
 
                     <DeleteWithConfirm
                       color="secondary"
-                      // @ts-expect-error
                       onClick={handleDelete(popup.id)}
                     />
                   </TableCell>

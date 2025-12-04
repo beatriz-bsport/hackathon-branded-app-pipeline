@@ -45,6 +45,7 @@ import {
   retrieveCommunicationSMSProviderVerification as retrieveCommunicationSMSProviderVerificationAPI,
   fetchFirstSelectedRecipientsForChatAllKinds as fetchFirstSelectedRecipientsForChatAllKindsAPI,
 } from '#src/libs/communication-v2/api';
+import { deleteCustomMobilePopup as deleteCustomMobilePopupAPI } from '#src/libs/settings/api';
 import type {
   FetchCommunicationParams,
   MessageParams,
@@ -470,6 +471,28 @@ export function sendSmartListPopup(
     } catch (error) {
       dispatch(smartListPopupSendingActions.error(error));
       dispatch(snackbarError('smartListPopup.send.error'));
+      if (options && options.onError) options.onError();
+    }
+    dispatch(smartListPopupSendingActions.loading(false));
+  };
+}
+
+export function deleteSmartListPopup(
+  customAppPopupLinkId: number,
+  options?: OptionCallback<number>,
+): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    dispatch(smartListPopupSendingActions.loading(true));
+    dispatch(smartListPopupSendingActions.error(null));
+
+    try {
+      // because of django magic, a smartlist popup can be deleted
+      // by deleting the underlying custom mobile popup
+      await deleteCustomMobilePopupAPI(customAppPopupLinkId);
+      options?.onSuccess?.();
+    } catch (error) {
+      dispatch(smartListPopupSendingActions.error(error));
+      dispatch(snackbarError('smartListPopup.delete.error'));
       if (options && options.onError) options.onError();
     }
     dispatch(smartListPopupSendingActions.loading(false));

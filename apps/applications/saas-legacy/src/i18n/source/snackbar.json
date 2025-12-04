@@ -1164,6 +1164,9 @@
   "smartListPopup": {
     "send": {
       "error": "An error has occurred while sending your pop-up."
+    },
+    "delete": {
+      "error": "An error has occurred while deleting your pop-up."
     }
   },
   "instalmentPayment": {

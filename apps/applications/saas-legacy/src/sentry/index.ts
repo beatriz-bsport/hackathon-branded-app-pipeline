@@ -58,6 +58,10 @@ Sentry.init({
   replaysOnErrorSampleRate: 1.0,
   tracesSampleRate: 0.002,
   beforeSend(event, hint) {
+    if (Config.REACT_APP_SENTRY_ENVIRONMENT === 'local') {
+      // eslint-disable-next-line no-console
+      console.log('🔍 Sentry Event:', { event, hint });
+    }
     const currentUrl = window?.location.pathname || '';
     const verticalOwner = getVerticalOwnerByPageUrl(currentUrl);
     const error = hint.originalException;

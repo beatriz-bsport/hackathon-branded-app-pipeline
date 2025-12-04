@@ -21,7 +21,7 @@ import { TextField, AlertError } from '#src/components/forms';
 import ImageField from '#src/components/forms/ImageField.component';
 
 import { OptionCallback } from '../../../state/types';
-import { CustomMobilePopup } from '../types';
+import { CustomMobilePopup, CustomMobilePopupCreateOrEditData } from '../types';
 import { createUrl } from '../../../utils/createUrlHandlers';
 
 interface FormikValues {
@@ -276,13 +276,12 @@ const CustomMobilePopupDialogHOC = withFormik<Props, FormikValues>({
   validationSchema: CustomMobilePopupDialogSchema,
   handleSubmit: (values, { props: { onSubmit, initial }, setSubmitting }) => {
     const formData = new FormData();
-    const keys: (keyof Omit<CustomMobilePopup, 'id'>)[] = ['name', 'link'];
+    const keys: (keyof CustomMobilePopupCreateOrEditData)[] = ['name', 'link'];
     const { image } = values;
     if (typeof image !== 'string' && !!image) {
       formData.append('image', image);
     }
     keys.forEach((key) => {
-      // @ts-expect-error
       formData.append(key, values[key]);
     });
 

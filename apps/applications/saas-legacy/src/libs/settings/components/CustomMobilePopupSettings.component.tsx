@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 import { TFunction } from 'i18next';
+import { DateTime } from 'luxon';
 
 import {
   Button,
@@ -23,15 +24,19 @@ import EditIcon from '@material-ui/icons/Edit';
 
 // @ts-expect-error
 import withConfirm from '#src/hocs/with-confirm.hoc';
-import { CustomMobilePopup } from '#src/libs/settings/types';
+import {
+  CustomMobilePopup,
+  CustomMobilePopupCreateOrEditData,
+  MobilePopup,
+} from '#src/libs/settings/types';
 import CustomMobilePopupDialog from './CustomMobilePopupDialog.dialog';
 import { OptionCallback } from '../../../state/types';
 
 type Props = {
   loading: boolean;
-  popups: CustomMobilePopup[];
+  popups: MobilePopup[];
   createCustomMobilePopup: (
-    data: Omit<CustomMobilePopup, 'id'>,
+    data: CustomMobilePopupCreateOrEditData,
     options?: OptionCallback<void>,
   ) => void;
   updateCustomMobilePopup: (
@@ -140,6 +145,12 @@ const CustomMobilePopupSettings: React.FC<Props> = ({
               <TableCell colSpan={10}>
                 {t('mobilePersonalization.popup.image')}
               </TableCell>
+              <TableCell colSpan={10}>
+                {t('mobilePersonalization.popup.creationDate')}
+              </TableCell>
+              <TableCell colSpan={10}>
+                {t('mobilePersonalization.popup.smartlist')}
+              </TableCell>
               <TableCell className={classes.action}>
                 {t('mobilePersonalization.popup.action')}
               </TableCell>
@@ -147,7 +158,7 @@ const CustomMobilePopupSettings: React.FC<Props> = ({
           </TableHead>
           <TableBody>
             {!loading &&
-              popups.map((popup) => (
+              popups.map((popup: MobilePopup) => (
                 <TableRow key={popup.id}>
                   <TableCell colSpan={10}>{popup.name}</TableCell>
                   <TableCell colSpan={10}>{popup.link}</TableCell>
@@ -155,6 +166,15 @@ const CustomMobilePopupSettings: React.FC<Props> = ({
                     <a href={popup.image} rel="noreferrer" target="_blank">
                       {t('mobilePersonalization.popup.see')}
                     </a>
+                  </TableCell>
+                  <TableCell colSpan={10}>
+                    {popup.date_created
+                      ? DateTime.fromISO(popup.date_created).toFormat('DDDD t')
+                      : t('mobilePersonalization.popup.noCreationDate')}
+                  </TableCell>
+                  <TableCell colSpan={10}>
+                    {popup.smartlist_name ??
+                      t('mobilePersonalization.popup.noSmartlistName')}
                   </TableCell>
                   <TableCell className={classes.action}>
                     <IconButton

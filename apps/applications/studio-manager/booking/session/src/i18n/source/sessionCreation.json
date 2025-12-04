@@ -58,6 +58,17 @@
               }
             }
           }
+        },
+        "settings": {
+          "title": "Settings",
+          "effectif": "Total spots in class",
+          "waitlist": "Spots on Waitlist",
+          "credits": {
+            "label": "Credits",
+            "helperText": "Number of credits required to book the session",
+            "decimalHelperText": "This session will cost {{count}} credits",
+            "warning": "Double-check: you’re entering credits, not a price."
+          }
         }
       },
       "advancedOptions": {

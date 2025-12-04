@@ -54,7 +54,12 @@ export type SessionEdit = SessionBase & {
 
 export type SessionCreationFormData = Pick<
   SessionCreate,
-  "name_override" | "description_override" | "manager_only"
+  | "name_override"
+  | "description_override"
+  | "manager_only"
+  | "credits"
+  | "waiting_list_max_size"
+  | "effectif"
 > & {
   allowCustomNameAndDescription: boolean;
 };

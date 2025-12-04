@@ -30,7 +30,7 @@ import { useVerifactuOnboardingStatus } from '#src/libs/invoice/verifactu/hooks/
 const VerifactuSettings: React.FC = () => {
   const classes = useStyles();
   const { t } = useTranslation('b2b_invoice');
-  const isVerifactuEnabled = useSafeFlag(FeatureFlags.VERIFACTU_SETTINGS);
+  const isFiskalySignEsEnabled = useSafeFlag(FeatureFlags.FISKALY_SIGN_ES);
   const representatives = useSelector((state: RootState) =>
     getPlatformCustomerEntityRepresentatives(state),
   );
@@ -165,7 +165,7 @@ const VerifactuSettings: React.FC = () => {
     );
   };
 
-  if (!isVerifactuEnabled) return null;
+  if (!isFiskalySignEsEnabled) return null;
 
   return (
     <FeatureListProvider>

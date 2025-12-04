@@ -350,6 +350,17 @@ export class InvoiceDetail extends React.Component<Props, State> {
           this.props.fetchPaymentGroupRequiringActionList();
         }
         this.props.fetchPaymentMethodList({ member: invoice.member });
+
+        // Fetch detailed Sign-ES info when status is NOT_SENDABLE or REJECTED
+        if (
+          (invoice.fiskaly_sign_es_signature_status ===
+            InvoiceSignEsSignatureStatus.NOT_SENDABLE ||
+            invoice.fiskaly_sign_es_signature_status ===
+              InvoiceSignEsSignatureStatus.REJECTED) &&
+          invoice.uuid
+        ) {
+          this.props.fetchFiskalySignEsInvoice(invoice.uuid);
+        }
       },
     });
     this.props.fetchInvoiceItemList(
@@ -457,17 +468,6 @@ export class InvoiceDetail extends React.Component<Props, State> {
   componentDidUpdate(prevProps: Props) {
     if (prevProps.uuid !== this.props.uuid) {
       this.fetchInvoiceData();
-    }
-
-    // Fetch detailed Sign-ES info when status is NOT_SENDABLE
-    if (
-      this.props.invoice?.fiskaly_sign_es_signature_status ===
-        InvoiceSignEsSignatureStatus.NOT_SENDABLE &&
-      prevProps.invoice?.fiskaly_sign_es_signature_status !==
-        InvoiceSignEsSignatureStatus.NOT_SENDABLE &&
-      this.props.invoice.uuid
-    ) {
-      this.props.fetchFiskalySignEsInvoice(this.props.invoice.uuid);
     }
   }
 

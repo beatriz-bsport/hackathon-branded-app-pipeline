@@ -4,7 +4,11 @@
     "occupancyRate": "{{rate}}% enrolled"
   },
   "addSession": "Add session",
-  "todayButton": "Today",
+  "dateNavigation": {
+    "todayButton": "Today",
+    "previousButton": "Previous day",
+    "nextButton": "Next day"
+  },
   "table": {
     "headers": {
       "time": "Time",

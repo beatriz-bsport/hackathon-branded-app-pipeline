@@ -68,7 +68,7 @@ export const TodayButton: React.FC = () => {
 
   return (
     <Button
-      label={t("todayButton")}
+      label={t("dateNavigation.todayButton")}
       onClick={handleTodayClick}
       size="md"
       intent="default"

@@ -155,16 +155,6 @@ const AuthenticatedRoutes = () => {
           franchise_id: companyTheme?.franchisor,
         },
       });
-      onboardingManagerClient.initUser({
-        user_id: String(id),
-        username,
-        company_role,
-        franchise_role,
-        company_id: companyTheme?.company,
-        franchise_id: companyTheme?.franchisor,
-        environment: env,
-        app: "sm-host",
-      });
     }
   }, [user, companyTheme, env]);
 

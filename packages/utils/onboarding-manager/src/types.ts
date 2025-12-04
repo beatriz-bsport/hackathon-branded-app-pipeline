@@ -57,7 +57,7 @@ export type OnboardingManagerAdapter = {
   /**
    * Load required script for the onboarding manager to be embedded on the page.
    */
-  loadScript: () => void;
+  loadScript: () => Promise<void>;
 
   /**
    * Initialize the User on the onboarding service with provided configuration

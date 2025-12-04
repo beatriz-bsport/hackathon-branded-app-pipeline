@@ -9,6 +9,15 @@ export type CustomShopRedirection = {
   idx: number;
 };
 
+export type MobilePopup = {
+  id: number;
+  name: string;
+  image: string;
+  link: string;
+  date_created: string;
+  smartlist_name: string;
+};
+
 export type CustomMobilePopup = {
   id: number;
   name: string;
@@ -16,6 +25,11 @@ export type CustomMobilePopup = {
   link: string;
   date_created: string;
 };
+
+export type CustomMobilePopupCreateOrEditData = Omit<
+  CustomMobilePopup,
+  'id' | 'date_created'
+>;
 
 export type CustomAppNavigationTabsNames = {
   bookings: string | null;
@@ -31,7 +45,7 @@ export type SettingsState = {
     allIds: string[];
   } & ErrorAndLoading;
   customMobilePopup: {
-    byId: Record<string, CustomMobilePopup>;
+    byId: Record<string, MobilePopup>;
     allIds: string[];
   } & ErrorAndLoading;
   customAppNavigation: {

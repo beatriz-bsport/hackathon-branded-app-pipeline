@@ -34,7 +34,7 @@ import {
   createCustomShopRedirection as createCustomShopRedirectionAction,
   updateCustomShopRedirection as updateCustomShopRedirectionAction,
   deleteCustomShopRedirection as deleteCustomShopRedirectionAction,
-  fetchCustomMobilePopups as fetchCustomMobilePopupsAction,
+  fetchMobilePopups as fetchMobilePopupsAction,
   createCustomMobilePopup as createCustomMobilePopupAction,
   updateCustomMobilePopup as updateCustomMobilePopupAction,
   deleteCustomMobilePopup as deleteCustomMobilePopupAction,
@@ -44,7 +44,7 @@ import {
   getCustomMobilePopupsLoading,
   getCustomShopRedirectionsLoading,
   getCustomAppNavigationLoading,
-  getCustomMobilePopupsList,
+  getMobilePopupsList,
   getCustomMobileRedirectionsList,
   getCustomAppNavigationTabsNames,
 } from '#src/libs/settings/selectors';
@@ -71,7 +71,7 @@ const SettingsMobileRouter: React.FC<Props> = ({
   customMobilePopupsLoading,
   customShopRedirectionsLoading,
   customNavigationLoading,
-  customMobilePopupsList,
+  mobilePopupsList,
   customMobileRedirectionsList,
   companyId,
   paymentComboList,
@@ -84,7 +84,7 @@ const SettingsMobileRouter: React.FC<Props> = ({
   createCustomShopRedirection,
   updateCustomShopRedirection,
   deleteCustomShopRedirection,
-  fetchCustomMobilePopups,
+  fetchMobilePopups,
   createCustomMobilePopup,
   updateCustomMobilePopup,
   deleteCustomMobilePopup,
@@ -112,7 +112,7 @@ const SettingsMobileRouter: React.FC<Props> = ({
 
   useEffect(() => {
     fetchCustomShopRedirections();
-    fetchCustomMobilePopups();
+    fetchMobilePopups();
     fetchCustomNavigationTabsNames(companyId);
 
     // For Mobile preview
@@ -132,7 +132,7 @@ const SettingsMobileRouter: React.FC<Props> = ({
   }, [
     companyId,
     fetchCustomShopRedirections,
-    fetchCustomMobilePopups,
+    fetchMobilePopups,
     fetchCustomNavigationTabsNames,
     fetchAllSubShop,
     fetchMarketplaceContractList,
@@ -179,7 +179,7 @@ const SettingsMobileRouter: React.FC<Props> = ({
               createCustomMobilePopup={createCustomMobilePopup}
               deleteCustomMobilePopup={deleteCustomMobilePopup}
               loading={customMobilePopupsLoading}
-              popups={customMobilePopupsList}
+              popups={mobilePopupsList}
               updateCustomMobilePopup={updateCustomMobilePopup}
             />
           </Route>
@@ -215,7 +215,7 @@ const connector = connect(
     customMobilePopupsLoading: getCustomMobilePopupsLoading(state),
     customShopRedirectionsLoading: getCustomShopRedirectionsLoading(state),
     customNavigationLoading: getCustomAppNavigationLoading(state),
-    customMobilePopupsList: getCustomMobilePopupsList(state),
+    mobilePopupsList: getMobilePopupsList(state),
     customMobileRedirectionsList: getCustomMobileRedirectionsList(state),
     customNavigationTabsNames: getCustomAppNavigationTabsNames(state),
 
@@ -237,7 +237,7 @@ const connector = connect(
     createCustomShopRedirection: createCustomShopRedirectionAction,
     updateCustomShopRedirection: updateCustomShopRedirectionAction,
     deleteCustomShopRedirection: deleteCustomShopRedirectionAction,
-    fetchCustomMobilePopups: fetchCustomMobilePopupsAction,
+    fetchMobilePopups: fetchMobilePopupsAction,
     createCustomMobilePopup: createCustomMobilePopupAction,
     updateCustomMobilePopup: updateCustomMobilePopupAction,
     deleteCustomMobilePopup: deleteCustomMobilePopupAction,

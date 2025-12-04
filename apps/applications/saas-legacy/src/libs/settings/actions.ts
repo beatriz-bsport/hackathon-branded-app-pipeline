@@ -5,7 +5,7 @@ import {
   createCustomShopRedirection as createCustomShopRedirectionAPI,
   editCustomShopRedirection as editCustomShopRedirectionAPI,
   deleteCustomShopRedirection as deleteCustomShopRedirectionAPI,
-  fetchCustomMobilePopups as fetchCustomMobilePopupsAPI,
+  fetchMobilePopups as fetchMobilePopupsAPI,
   createCustomMobilePopup as createCustomMobilePopupAPI,
   editCustomMobilePopup as editCustomMobilePopupAPI,
   deleteCustomMobilePopup as deleteCustomMobilePopupAPI,
@@ -16,6 +16,7 @@ import type {
   CustomMobilePopup,
   CustomShopRedirection,
   CustomAppNavigationTabsNames,
+  CustomMobilePopupCreateOrEditData,
 } from './types';
 
 export const fetchCustomShopRedirectionsActions = {
@@ -125,27 +126,27 @@ export function deleteCustomShopRedirection(
 
 //
 
-export const fetchCustomMobilePopupsActions = {
+export const fetchMobilePopupsActions = {
   isLoading: createAction('SETTINGS/CUSTOM_POPUP/LIST/IS_LOADING'),
   error: createAction('SETTINGS/CUSTOM_POPUP/LIST/ERROR'),
   success: createAction('SETTINGS/CUSTOM_POPUP/LIST/SUCCESS'),
 };
 
-export function fetchCustomMobilePopups(options?: OptionCallback) {
+export function fetchMobilePopups(options?: OptionCallback) {
   return async (dispatch: Dispatch) => {
-    dispatch(fetchCustomMobilePopupsActions.isLoading(true));
-    dispatch(fetchCustomMobilePopupsActions.error(null));
+    dispatch(fetchMobilePopupsActions.isLoading(true));
+    dispatch(fetchMobilePopupsActions.error(null));
     try {
-      const response = await fetchCustomMobilePopupsAPI();
-      dispatch(fetchCustomMobilePopupsActions.success(response.data));
+      const response = await fetchMobilePopupsAPI();
+      dispatch(fetchMobilePopupsActions.success(response.data));
       // @ts-expect-error
       if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (err) {
       console.error(err);
-      dispatch(fetchCustomMobilePopupsActions.error(err));
+      dispatch(fetchMobilePopupsActions.error(err));
       if (options && options.onError) options.onError(err);
     }
-    dispatch(fetchCustomMobilePopupsActions.isLoading(false));
+    dispatch(fetchMobilePopupsActions.isLoading(false));
   };
 }
 
@@ -156,7 +157,7 @@ export const createCustomMobilePopupActions = {
 };
 
 export function createCustomMobilePopup(
-  data: Omit<CustomMobilePopup, 'id'>,
+  data: CustomMobilePopupCreateOrEditData,
   options?: OptionCallback,
 ) {
   return async (dispatch: Dispatch) => {
@@ -192,7 +193,7 @@ export function updateCustomMobilePopup(
     try {
       const response = await editCustomMobilePopupAPI(id, data);
       dispatch(editCustomMobilePopupActions.success(response.data));
-      dispatch(fetchCustomMobilePopups());
+      dispatch(fetchMobilePopups());
       // @ts-expect-error
       if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (err) {

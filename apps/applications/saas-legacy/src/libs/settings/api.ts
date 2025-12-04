@@ -8,7 +8,7 @@ import {
 } from '../../http';
 import type {
   CustomAppNavigationTabsNames,
-  CustomMobilePopup,
+  CustomMobilePopupCreateOrEditData,
   CustomShopRedirection,
 } from './types';
 import Config from '../../config';
@@ -33,21 +33,22 @@ export const editCustomShopRedirection = async (
 export const deleteCustomShopRedirection = async (id: string) =>
   deleteAuth(`${API_V1_URI}/mobile_app/custom_shop_redirection/${id}/`);
 
-export const fetchCustomMobilePopups = () => {
-  return getAuth(`${API_V1_URI}/mobile_app/custom_popup_links/`);
+export const fetchMobilePopups = () => {
+  return getAuth(`${API_V1_URI}/mobile_app/manager/custom_popup_links/`);
 };
 
 export const createCustomMobilePopup = async (
-  data: Omit<CustomMobilePopup, 'id'>,
-) => postAuth(`${API_V1_URI}/mobile_app/custom_popup_links/`, data);
+  data: CustomMobilePopupCreateOrEditData,
+) => postAuth(`${API_V1_URI}/mobile_app/manager/custom_popup_links/`, data);
 
 export const editCustomMobilePopup = async (
   id: string,
-  data: CustomMobilePopup,
-) => patchAuth(`${API_V1_URI}/mobile_app/custom_popup_links/${id}/`, data);
+  data: CustomMobilePopupCreateOrEditData,
+) =>
+  patchAuth(`${API_V1_URI}/mobile_app/manager/custom_popup_links/${id}/`, data);
 
 export const deleteCustomMobilePopup = async (id: string) =>
-  deleteAuth(`${API_V1_URI}/mobile_app/custom_popup_links/${id}/`);
+  deleteAuth(`${API_V1_URI}/mobile_app/manager/custom_popup_links/${id}/`);
 
 export const fetchCustomNavigationTabsNames = (companyId: number) => {
   return getAuth<CustomAppNavigationTabsNames>(

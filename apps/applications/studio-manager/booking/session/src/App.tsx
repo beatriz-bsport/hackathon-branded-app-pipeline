@@ -1,7 +1,8 @@
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { QueryClient } from "@tanstack/react-query";
 
 import { ErrorBoundaryWrapper } from "@bsport/sm-backbone";
 
+import { ReactQueryProvider } from "#src/components/ReactQueryProvider";
 import { AppI18nextProvider } from "#src/utils/i18n";
 
 import { AppRoutes } from "./Routes";
@@ -17,11 +18,11 @@ const queryClient = new QueryClient();
 const App: React.FC = () => {
   return (
     <ErrorBoundaryWrapper appName={__SESSION__.__SENTRY_SCOPE_TAG__}>
-      <QueryClientProvider client={queryClient}>
+      <ReactQueryProvider client={queryClient}>
         <AppI18nextProvider>
           <AppRoutes />
         </AppI18nextProvider>
-      </QueryClientProvider>
+      </ReactQueryProvider>
     </ErrorBoundaryWrapper>
   );
 };

@@ -91,8 +91,8 @@ export const InvoiceHeaderFiskalyAlert: React.FC<Props> = ({
   ): string => {
     if (!reasons || reasons.length === 0) return '';
 
-    const descriptions = reasons.map(
-      (reason) => reason.description || getReasonDescription(reason.code),
+    const descriptions = reasons.map((reason) =>
+      getReasonDescription(reason.code),
     );
 
     if (descriptions.length === 1) return descriptions[0];
@@ -155,20 +155,45 @@ export const InvoiceHeaderFiskalyAlert: React.FC<Props> = ({
   const getNotSendableCase = () => {
     const notSendableReasons =
       fiskalySignEsInvoiceDetails?.current_invoice_not_sent_reasons;
-    const reasonsText = formatReasonsList(notSendableReasons);
+    const hasInvalidSpanishNIF = notSendableReasons?.some(
+      (reason) => reason.code === '75607',
+    );
+    const otherReasons = notSendableReasons?.filter(
+      (reason) => reason.code !== '75607',
+    );
+    const reasonsText = formatReasonsList(otherReasons);
     const memberProfileText = t('signEsStatus.memberProfile');
-    const contentText = t('signEsStatus.notSendableAlertContent', {
-      memberProfileText,
-      reasons: reasonsText,
-    });
-    const memberProfileIndex = contentText.indexOf(memberProfileText);
-    const contentParts =
-      memberProfileIndex >= 0
-        ? [
-            contentText.slice(0, memberProfileIndex),
-            contentText.slice(memberProfileIndex + memberProfileText.length),
-          ]
-        : [contentText, ''];
+    const invalidSpanishNIFContent = t(
+      'signEsStatus.invalidSpanishNIFAlertContent',
+    );
+
+    let title: string;
+    let contentText: string;
+
+    if (hasInvalidSpanishNIF && otherReasons && otherReasons.length > 0) {
+      // 75607 with other errors: insert invalidSpanishNIFAlertContent in the middle
+      title = t('signEsStatus.notSendableAlertTitle');
+      contentText = t('signEsStatus.notSendableAlertContent', {
+        memberProfileText,
+        reasons: reasonsText,
+        invalidSpanishNIFContent,
+      });
+    } else if (hasInvalidSpanishNIF) {
+      // 75607 is the only error: use invalidSpanishNIFAlertTitle and simplified content
+      title = t('signEsStatus.invalidSpanishNIFAlertTitle');
+      contentText = t('signEsStatus.notSendableAlertContentOnlyNIF', {
+        memberProfileText,
+        invalidSpanishNIFContent,
+      });
+    } else {
+      // No 75607 error: regular case
+      title = t('signEsStatus.notSendableAlertTitle');
+      contentText = t('signEsStatus.notSendableAlertContent', {
+        memberProfileText,
+        reasons: reasonsText,
+        invalidSpanishNIFContent: '',
+      });
+    }
 
     const handleMemberProfileClick = () => {
       if (invoice?.member?.id) {
@@ -188,15 +213,19 @@ export const InvoiceHeaderFiskalyAlert: React.FC<Props> = ({
       </Link>
     );
 
+    // Split contentText by all occurrences of memberProfileText and interleave memberProfileLink
+    const parts: (string | React.ReactElement)[] = [];
+    const fragments = contentText.split(memberProfileText);
+    fragments.forEach((fragment, idx) => {
+      if (fragment) parts.push(fragment);
+      if (idx < fragments.length - 1) {
+        parts.push(memberProfileLink);
+      }
+    });
+
     return {
-      title: t('signEsStatus.notSendableAlertTitle'),
-      content: (
-        <>
-          {contentParts[0]}
-          {memberProfileLink}
-          {contentParts[1]}
-        </>
-      ),
+      title,
+      content: <>{parts}</>,
     };
   };
 

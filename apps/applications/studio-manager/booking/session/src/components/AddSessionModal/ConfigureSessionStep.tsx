@@ -3,6 +3,7 @@ import { FC, useId } from "react";
 import { ControlledForm, UseFormControllerOutput } from "@bsport/form";
 
 import { SessionDetails } from "#src/components/SessionForm/Details/SessionDetails";
+import { SessionSettings } from "#src/components/SessionForm/Settings/SessionSettings";
 import { SessionCreationFormSchema } from "#src/components/SessionForm/schemas";
 
 export const ConfigureSessionStep: FC<{
@@ -19,6 +20,7 @@ export const ConfigureSessionStep: FC<{
       className="w-full"
     >
       <SessionDetails fieldIdPrefix={formId} />
+      <SessionSettings fieldIdPrefix={formId} />
     </ControlledForm>
   );
 };

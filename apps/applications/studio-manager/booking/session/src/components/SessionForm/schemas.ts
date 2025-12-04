@@ -11,4 +11,8 @@ export const useSessionSchema = () =>
     name_override: z.string(),
     description_override: z.string(),
     manager_only: z.boolean(),
+    credits: z.number().min(0),
+    waiting_list_max_size: z.number().min(0),
+    // TODO : ADD VALIDATION FOR EFFECTIF BASED ON ROOM BLUEPRINT CAPACITY
+    effectif: z.number().min(0),
   }) satisfies SessionCreationFormSchema;

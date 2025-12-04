@@ -158,17 +158,20 @@ export class Root extends Component<Props> {
     }
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     const query = parseQueryString(window?.location?.href ?? '');
 
     if (query.consumerspacecontext) {
       WidgetUtils.setConsumerSpaceContext(query.consumerspacecontext);
     }
-    onboardingManagerClient.loadScript();
-    this.initOnboardingUser();
+
+    if (this.props.isManager) {
+      await onboardingManagerClient.loadScript();
+      this.initOnboardingUser();
+    }
   }
 
-  initOnboardingUser(prevProps?: Props) {
+  initOnboardingUser(prevProps) {
     const { id, username, company_role, franchise_role, theme } = this.props;
 
     if (!id || !username) {
@@ -232,7 +235,10 @@ export class Root extends Component<Props> {
         }
       }
     }
-    this.initOnboardingUser(prevProps);
+
+    if (this.props.isManager) {
+      this.initOnboardingUser(prevProps);
+    }
   }
 
   render() {

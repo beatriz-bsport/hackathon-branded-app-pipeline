@@ -88,7 +88,6 @@ export class AppcuesAdapter implements OnboardingManagerAdapter {
       return;
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { user_id, ...appcuesConfig } = config;
 
     try {
@@ -116,7 +115,6 @@ export class AppcuesAdapter implements OnboardingManagerAdapter {
       return;
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { user_id, ...appcuesConfig } = config;
 
     try {
@@ -167,8 +165,6 @@ export class AppcuesAdapter implements OnboardingManagerAdapter {
     if (!this.checkIsInitialized()) {
       return;
     }
-
-    window?.Appcues?.anonymous();
   }
 
   navigate(): void {

@@ -1,0 +1,8 @@
+[tools]
+node = "22.5.1"
+pnpm = "10.11.0"
+"1password-cli" = "latest"
+
+[env]
+NX_SELF_HOSTED_REMOTE_CACHE_SERVER = "{{ exec(command='$(mise which op) read \"op://Engineering/NX remote cache server/hostname\" --no-newline', cache_key='nx-cache-server', cache_duration='1d') }}"
+NX_SELF_HOSTED_REMOTE_CACHE_ACCESS_TOKEN = "{{ exec(command='$(mise which op) read \"op://Engineering/NX remote cache server/credential\" --no-newline', cache_key='nx-cache-token', cache_duration='1d') }}"

@@ -54,15 +54,3 @@ export type ManagerSession = {
   wellhub_product_id: number | null;
   whitelist_tags: number[];
 };
-
-/**
- * Model: Offer
- * Serializer: Partial OfferCompleteSerializer (see as_manager endpoint)
- * A partial representation of a Session, specifically used for the session list page,
- * with some additional processed fields.
- * Here name is the final name of the session (taking into account name_override)
- */
-
-export type ProcessedManagerSession = Omit<ManagerSession, "name_override"> & {
-  color: string;
-};

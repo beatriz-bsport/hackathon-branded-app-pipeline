@@ -1,21 +1,21 @@
 import { createSelector } from 'reselect';
 import { RootState } from '../../reducers';
-import type { CustomMobilePopup, CustomShopRedirection } from './types';
+import type { CustomShopRedirection, MobilePopup } from './types';
 
 export const getCustomMobilePopupsLoading = (state: RootState) =>
   state.settings.customMobilePopup.loading;
 
-export const getCustomMobilePopupsListIds = (state: RootState) =>
+export const getMobilePopupsListIds = (state: RootState) =>
   state.settings.customMobilePopup.allIds;
 
-export const getCustomMobilePopupsData = (state: RootState) =>
+export const getMobilePopupsData = (state: RootState) =>
   state.settings.customMobilePopup.byId;
 
-export const getCustomMobilePopupsList = createSelector(
-  [getCustomMobilePopupsListIds, getCustomMobilePopupsData],
+export const getMobilePopupsList = createSelector(
+  [getMobilePopupsListIds, getMobilePopupsData],
   (
     ids: Array<string>,
-    data: { [id: string]: CustomMobilePopup },
+    data: { [id: string]: MobilePopup },
     // adding typing because reselect does not infer type
     // properly with heterogeneous first args
   ) => ids.map((id) => data[id]),

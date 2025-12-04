@@ -6,10 +6,9 @@ export type { DateTime } from "./constants";
 
 /**
  * Represents the starting day of the week.
- * 0 = Sunday, 1 = Monday, …, 6 = Saturday.
+ * 1 = Monday, …, 6 = Saturday, 7 = Sunday.
  */
-export type WeekStartDay = 0 | 1 | 2 | 3 | 4 | 5 | 6;
-
+export type WeekStartDay = 1 | 2 | 3 | 4 | 5 | 6 | 7;
 /**
  * Converts a native JavaScript Date to a DateTime object.
  *
@@ -26,6 +25,29 @@ export const toDateTime = (date: Date): DateTime =>
  * @returns The corresponding native JavaScript Date.
  */
 export const toDate = (dateTime: DateTime): Date => dateTime.toJSDate();
+
+/**
+ * Gets today's date as a native JavaScript Date having the correct calendar day.
+ * For example, if the company timezone is "America/New_York" and the local timezone is "America/Los_Angeles",
+ * calling this function on April 7th at 10 PM PDT will return April 8th, since it's already past midnight in New York.
+ *
+ * @param locale - The locale identifier (e.g., "en-US", "fr-FR").
+ * @param zone - The IANA time zone name (e.g., "America/New_York").
+ * @returns Today's date as a native JavaScript Date.
+ */
+export const getTodayJSDate = (locale?: string, zone?: string): Date => {
+  const localToday = getLocalNow({
+    locale: locale,
+    zone: zone,
+  }).toISODate();
+  if (!localToday) {
+    return new Date();
+  }
+
+  // Build the Date object manually to avoid timezone issues
+  const [year, month, day] = localToday.split("-").map(Number);
+  return new Date(year, month - 1, day);
+};
 
 /**
  * Parses an ISO 8601 string to a DateTime object.
@@ -57,6 +79,17 @@ export const getLocalNow = ({
     .setLocale(locale ?? "en");
 
 /**
+ * Gets the current date of today at 00h00:00
+ *
+ * @param params - Optional settings to configure the timezone (zone, locale)
+ * @returns A Date
+ */
+export const getToday = (params?: { zone?: string; locale?: string }) => {
+  const localNow = getLocalNow(params ?? {});
+  return toDate(localNow.startOf("day"));
+};
+
+/**
  * Retrieves all days in the month of the provided DateTime.
  *
  * @param date - The DateTime representing any day in the month.
@@ -85,13 +118,14 @@ export const isSameDay = (date1: DateTime, date2: DateTime): boolean =>
  * Calculates the offset for the first day of the month in a calendar grid based on the start of the week.
  *
  * @param date - A DateTime representing any day in the month.
- * @param weekStartDay - The index representing the starting day of the week (0 for Sunday, etc.).
+ * @param locale - The locale identifier, e.g., "en" or "fr". Default is "en".
  * @returns The number of blank cells before the first day of the month.
  */
 export const calculateOffset = (
   date: DateTime,
-  weekStartDay: WeekStartDay,
-): number => ((date.startOf("month").weekday % 7) - weekStartDay + 7) % 7;
+  locale: string = "en",
+): number =>
+  (date.startOf("month").weekday - getWeekStartDayFromLocale(locale) + 7) % 7;
 
 /**
  * Retrieves an array of localized weekday names in the desired order.
@@ -100,19 +134,41 @@ export const calculateOffset = (
  *  - "long" (e.g., "Monday", "Tuesday", etc.)
  *  - "short" (e.g., "Mon", "Tue", etc.)
  *  - "narrow" (e.g., "M", "T", etc.)
- * @param weekStartDay - The starting day of the week (0 = Sunday, 1 = Monday, etc.). Default is 1 (Monday).
  * @param locale - The locale identifier, e.g., "en" or "fr". Default is "en".
  * @returns An array of weekday names localized and rotated based on the weekStartDay.
  */
 export const getWeekdays = (
   format: "long" | "short" | "narrow" = "short",
-  weekStartDay: WeekStartDay = 0,
   locale = "en-GB",
 ): string[] => {
-  const localeWeekStart = Info.getStartOfWeek(locale as Info.LocaleInput);
   const weekdays = Info.weekdays(format, { locale });
-  const rotation = (7 + weekStartDay - (localeWeekStart % 7)) % 7;
+  const weekStartDay = getWeekStartDayFromLocale(locale);
+  const rotation = (7 + weekStartDay - 1) % 7;
   return [...weekdays.slice(rotation), ...weekdays.slice(0, rotation)];
+};
+
+export const getWeekStartDayFromLocale = (locale: string): WeekStartDay => {
+  return Info.getStartOfWeek({ locale });
+};
+
+/**
+ * Gets the start and end of the week for a given date, respecting the locale's week start day.
+ *
+ * @param date - A Date object representing any day in the week.
+ * @param locale - The locale identifier (e.g., "en-US", "fr-FR"). Default is "en-GB".
+ * @returns An object with start and end Date objects representing the week boundaries.
+ */
+export const getWeekBounds = (
+  date: Date,
+  locale: string = "en-GB",
+): { start: Date; end: Date } => {
+  const dateTime = toDateTime(date).setLocale(locale);
+  const startOfWeek = dateTime.startOf("week", { useLocaleWeeks: true });
+  const endOfWeek = dateTime.endOf("week", { useLocaleWeeks: true });
+  return {
+    start: toDate(startOfWeek),
+    end: toDate(endOfWeek),
+  };
 };
 
 /**
@@ -131,14 +187,14 @@ export const getMonths = (
  * Generates a calendar grid for the given month, respecting the locale's week start day.
  *
  * @param displayMonth - A DateTime representing any day within the target month.
- * @param weekStartDay - The starting day of the week (0 = Sunday, 1 = Monday, etc.).
+ * @param locale - The locale identifier, e.g., "en" or "fr". Default is "en".
  * @returns An array containing nulls for offset cells and DateTime objects for each day in the month.
  */
 export const generateCalendarDays = (
   displayMonth: DateTime,
-  weekStartDay: WeekStartDay,
+  locale: string = "en",
 ): (DateTime | null)[] => {
-  const offset = calculateOffset(displayMonth, weekStartDay);
+  const offset = calculateOffset(displayMonth, locale);
   const daysInMonth = getDaysInMonth(displayMonth);
   return [...Array(offset).fill(null), ...daysInMonth];
 };

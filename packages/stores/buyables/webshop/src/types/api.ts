@@ -44,12 +44,12 @@ export type FetchWebshopItemsParams = {
    */
   buyable_shop_item?: boolean;
 
-  /** If defined, include only items belonging to the provided category */
-  /**
-   * @todo To be implemented in the backend
-   * https://linear.app/bsport/issue/COR-799/packs-creation-step-5-allow-to-filter-on-category-for-items
+  /** Filter webshop items within
+   * - the specified category if it's an id
+   * - items without category if it's unset
+   * - all items if not passed
    */
-  category?: number | "none";
+  category?: number | "unset" | undefined;
 };
 
 export type SearchWebshopItemsParams = Omit<

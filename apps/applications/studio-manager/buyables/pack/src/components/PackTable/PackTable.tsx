@@ -9,8 +9,7 @@ import {
 } from "@bsport/kaizen-primitive-core";
 import type { Pack } from "@bsport/store-buyables-pack";
 
-import { LEGACY_URLS, URLS } from "#src/urls";
-import { USE_REVAMP_DETAILS } from "#src/utils/constants";
+import { URLS } from "#src/urls";
 import { useTranslation } from "#src/utils/i18n";
 
 import { PackList } from "./PackList";
@@ -67,11 +66,7 @@ export const PackTable: React.FC<PackTableProps> = ({
   const isMobile = !useMatchMedia("sm");
 
   const onItemClick = (id: number) => {
-    if (USE_REVAMP_DETAILS) {
-      navigate(URLS.DETAILS(id));
-    } else {
-      window.location.href = LEGACY_URLS.PACK_DETAILS(id);
-    }
+    navigate(URLS.DETAILS(id));
   };
 
   const tableRows: Array<TableRowData> = packList.map((pack) => {

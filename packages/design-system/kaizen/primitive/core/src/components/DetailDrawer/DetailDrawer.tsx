@@ -282,10 +282,14 @@ const DetailDrawerComponent: React.FC<ComponentProps> = ({
   );
 };
 
+DetailDrawerComponent.displayName = "KaizenDetailDrawerComponent";
+
 const DetailDrawer = withEscapeHandler(
   withDelayedUnmount(DetailDrawerComponent, {
     animationDuration: 300, // Match the CSS animation duration
   }),
 );
+
+DetailDrawer.displayName = "KaizenDetailDrawer";
 
 export default DetailDrawer;

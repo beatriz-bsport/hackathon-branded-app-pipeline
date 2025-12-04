@@ -17,6 +17,7 @@ import type {
   PlannedPaymentEventSerializer,
   InvoiceDetailsSerializer,
   OnboardingRequirementsResponse,
+  FiskalySignEsInvoiceDetails,
 } from '#src/libs/invoice/types';
 import type { InvoiceItem } from '#src/libs/invoice/invoice-item/types';
 import type { Payment } from '#src/libs/payment/types';
@@ -416,6 +417,23 @@ export async function uploadSignedAgreement(
   );
 }
 
+export async function fetchFiskalySignEsInvoice(
+  invoice_uuid: string,
+): Promise<AxiosResponse<FiskalySignEsInvoiceDetails>> {
+  return getAuth(
+    `${API_V1_URI}/fiskaly_sign_es/fiskaly_sign_es_invoice/${invoice_uuid}/`,
+  );
+}
+
+export async function manuallySendInvoiceToSignEs(data: {
+  invoice_pk: string;
+}): Promise<AxiosResponse<FiskalySignEsInvoiceDetails>> {
+  return postAuth(
+    `${API_V1_URI}/fiskaly_sign_es/fiskaly_sign_es_invoice/manually_send_invoice_to_sign_es/`,
+    data,
+  );
+}
+
 export default {
   fetchSpecific,
   updatePaymentMethod,
@@ -434,4 +452,6 @@ export default {
   onboardFiskalyCompany,
   getLastUploadedSignedAgreement,
   uploadSignedAgreement,
+  fetchFiskalySignEsInvoice,
+  manuallySendInvoiceToSignEs,
 };

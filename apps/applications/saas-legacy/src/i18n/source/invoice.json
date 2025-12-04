@@ -283,6 +283,7 @@
       "coupon": "Promo code: {{coupon_name}}",
       "coupon_referred": "Referral discount: Referred member",
       "coupon_referring": "Referral discount: Referring member",
+      "pro_rated_from_subscription": "Pro-rata on subscription",
       "manual": "Manual discount: {{manual_reason}}",
       "manualWithNoReason": "Manual discount"
     },

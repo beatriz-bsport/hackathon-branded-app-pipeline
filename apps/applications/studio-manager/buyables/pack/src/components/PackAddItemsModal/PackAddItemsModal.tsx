@@ -45,7 +45,9 @@ export const PackAddItemsModal: React.FC<PackAddItemsModalProps> = ({
     variant: variant,
   });
 
-  const categoriesPaginationParams = useFetchItemsCategories({ variant });
+  const paginationParams = useFetchItemsCategories({
+    variant,
+  });
   const categoriesByVariant = useCategories();
   const categoriesCountByVariant = useCategoriesCount();
 
@@ -96,7 +98,7 @@ export const PackAddItemsModal: React.FC<PackAddItemsModalProps> = ({
   const categories = categoriesByVariant[variant];
   const categoriesCount = categoriesCountByVariant[variant];
   const categoriesPagination = {
-    ...categoriesPaginationParams,
+    ...paginationParams,
     count: categoriesCount,
   };
 

@@ -9,20 +9,20 @@
   },
   "items": {
     "trial": {
-      "title": "Track trial offer performance",
+      "title": "Trial offers",
       "description": "Discover more about acquisition, conversion rates and how you can increase the effectiveness of your trial offer"
     },
     "recurring": {
-      "title": "Monitor subscriptions performance",
-      "description": "Track subscriptions health, analyse recurring revenue, and spot risks or opportunities"
+      "title": "Subscription performance",
+      "description": "Track health of subscriptions, analyse recurring revenue, and spot risks or opportunities"
     }
   },
   "pages": {
     "trialAnalysis": {
-      "title": "Trial offer performance"
+      "title": "Trial offers"
     },
     "recurringRevenue": {
-      "title": "Monitor subscriptions performance"
+      "title": "Subscription performance"
     }
   },
   "errors": {

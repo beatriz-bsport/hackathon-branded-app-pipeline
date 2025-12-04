@@ -26,6 +26,28 @@
       "editor": "Editor"
     }
   },
+  "overviewPage": {
+    "loading": "Loading sold Packs",
+    "emptyList": {
+      "title": "No packs sold yet",
+      "subtitle": "Once a member buys a pack, they'll be displayed here."
+    },
+    "table": {
+      "columns": {
+        "issueDate": "Issue date",
+        "buyer": "Buyer",
+        "value": "Value"
+      },
+      "actions": {
+        "openPrefix": "Open...",
+        "invoice": "Invoice",
+        "memberProfile": "Buyer member profile"
+      },
+      "errors": {
+        "failToGetInvoice": "Failed to access related invoice"
+      }
+    }
+  },
   "addItemsModal": {
     "title": "Add items",
     "buttons": {
@@ -174,5 +196,11 @@
       "cancel": "Cancel",
       "rename": "Rename"
     }
+  },
+  "itemDetailDrawer": {
+    "pricing": "Pricing",
+    "credits": "Credits",
+    "selectPreviousItem": "Select previous item",
+    "selectNextItem": "Select next item"
   }
 }

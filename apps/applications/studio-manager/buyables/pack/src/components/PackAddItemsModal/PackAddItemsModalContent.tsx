@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import type { FC } from "react";
 
 import { Breadcrumbs } from "@bsport/kaizen-primitive-core";
 
@@ -29,9 +29,7 @@ type PackAddItemsModalContentProps = {
   PackAddItemsCategoryListProps,
   "categories" | "categoriesPagination" | "setSelectedCategory"
 >;
-export const PackAddItemsModalContent: React.FC<
-  PackAddItemsModalContentProps
-> = ({
+export const PackAddItemsModalContent: FC<PackAddItemsModalContentProps> = ({
   categories,
   categoriesPagination,
   fieldIdPrefix,
@@ -41,14 +39,10 @@ export const PackAddItemsModalContent: React.FC<
 }) => {
   const { t } = useTranslation("details");
 
-  const { fetchItems, isLoading, ...itemsPagination } = useFetchItems({
+  const { isLoading, ...itemsPagination } = useFetchItems({
     variant,
     categoryId: selectedCategory?.id,
   });
-
-  useEffect(() => {
-    fetchItems();
-  }, [fetchItems]);
 
   const itemsByVariant = useItems();
   const itemsCountByVariant = useItemsCount();

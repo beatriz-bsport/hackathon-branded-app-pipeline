@@ -36,7 +36,7 @@ export const useTeacherTableColumns = ({
             alt={row.name}
             size="md"
           />
-          <Body htmlVariant="p" size="lg">
+          <Body htmlVariant="p" size="md">
             {row.name}
           </Body>
         </div>

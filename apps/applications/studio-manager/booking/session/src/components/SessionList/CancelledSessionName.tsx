@@ -4,10 +4,12 @@ import { Body, Icon } from "@bsport/kaizen-primitive-core";
 
 type CancelledSessionNameProps = {
   name: string;
+  className?: string;
 };
 
 export const CancelledSessionName: React.FC<CancelledSessionNameProps> = ({
   name,
+  className,
 }) => {
   return (
     <div className="flex items-center gap-xs">
@@ -20,7 +22,7 @@ export const CancelledSessionName: React.FC<CancelledSessionNameProps> = ({
         htmlVariant="p"
         size="md"
         color="inherit"
-        className="text-onsurface-action-weak-default line-through"
+        className={`text-onsurface-action-weak-default line-through ${className ?? ""}`}
       >
         {name}
       </Body>

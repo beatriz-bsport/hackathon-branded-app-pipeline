@@ -1,4 +1,5 @@
-export type { UseEmptyStateProps } from "./use-empty-state.hook";
+export { type UseEmptyStateProps } from "./use-empty-state.hook";
+export { default as useEmptyState } from "./use-empty-state.hook";
 export type {
   ActionButton,
   ActionsDropdownConfig,

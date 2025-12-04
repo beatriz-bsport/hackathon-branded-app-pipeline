@@ -1,16 +1,14 @@
 import React, { useEffect, useRef, useState } from "react";
 
-import type { WeekStartDay } from "@bsport/datetime-manipulation";
-
 import CalendarHeader from "./CalendarHeader";
 import DateInputField from "./DateInputField";
+import type { SelectedDate } from "./DatePicker";
 import Month from "./Month";
 
 type CalendarSingleProps = {
   id: string;
-  weekStartDay: WeekStartDay;
   years?: number[];
-  disableDate?: (date: Date) => boolean;
+  disableDate?: (date: Date, selectedDate: SelectedDate) => boolean;
   selectedDate: Date | null;
   onSelect: (date: Date | null) => void;
   hideSelector?: boolean;
@@ -18,7 +16,6 @@ type CalendarSingleProps = {
 
 const CalendarSingle: React.FC<CalendarSingleProps> = ({
   id,
-  weekStartDay,
   years,
   disableDate,
   selectedDate,
@@ -66,7 +63,6 @@ const CalendarSingle: React.FC<CalendarSingleProps> = ({
         displayMonth={displayMonth}
         selectedDate={selectedDate}
         onSelect={handleDateSelect}
-        weekStartDay={weekStartDay}
         disableDate={disableDate}
       />
     </div>

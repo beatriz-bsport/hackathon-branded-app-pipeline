@@ -320,6 +320,10 @@
       "image": "Image",
       "link": "Pop-up link",
       "name": "Pop-up name",
+      "creationDate": "Creation date",
+      "noCreationDate": "N/A",
+      "smartlist": "Smartlist",
+      "noSmartlistName": "N/A",
       "updated": "Update",
       "add": "Add pop-up"
     },

@@ -9,8 +9,7 @@ export const FeatureFlags = {
   WEBVIEW_BASKET_AP_GP: 'webview-basket-ap-gp',
   WEBVIEW_GOOGLE_PAY: 'webview-google-pay',
   STOP_SUBSCRIPTION_FROM_MEMBER_SIDE: 'stop_subscription_on_memberside',
-  BOOKING_TEACHER_CALENDAR_FEED: 'booking_teacher_calendar_feed',
-  VERIFACTU_SETTINGS: 'verifactu-settings',
+  FISKALY_SIGN_ES: 'fiskaly_sign_es',
 } as const;
 
 export type FlagName = (typeof FeatureFlags)[keyof typeof FeatureFlags];

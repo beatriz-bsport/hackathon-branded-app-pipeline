@@ -43,6 +43,7 @@ export {
 export {
   default as DatePicker,
   type DatePickerProps,
+  type SelectedDate,
 } from "./components/DatePicker";
 export {
   default as DetailDrawer,
@@ -205,7 +206,7 @@ export {
   type TooltipProps,
   type WithTooltip,
 } from "./components/Tooltip";
-export type { UseEmptyStateProps } from "./hooks/use-empty-state.hook";
+export { type UseEmptyStateProps, useEmptyState } from "./hooks";
 export { useLoadingState } from "./hooks/use-loading-state";
 export { useMatchMedia } from "./hooks/use-match-media";
 export type {

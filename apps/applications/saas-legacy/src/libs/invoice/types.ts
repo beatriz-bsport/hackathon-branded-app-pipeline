@@ -4,11 +4,16 @@ import {
   REVERSE_ON_NEW_PAYMENT_METHOD,
 } from '@bsport/common/lib/master-data/payment-group.js';
 import { PaymentEngine, PaymentItem } from '#src/libs/invoice/payment/types';
-import { ExportInvoiceErrorCode, ExportInvoiceStatus } from './constants';
+import {
+  ExportInvoiceErrorCode,
+  ExportInvoiceStatus,
+  InvoiceSignEsSignatureStatus,
+} from './constants';
 import type { InvoiceItem } from '#src/libs/invoice/invoice-item/types';
 import type { UserRoleData } from '#src/libs/role/types';
 import type { ErrorAndLoading } from '#src/libs/types';
 import type { Payment } from '#src/libs/payment/types';
+import type { OptionCallback } from '#src/state/types';
 
 export type InvoiceState = ErrorAndLoading & {
   byId: { [key: string]: Invoice };
@@ -44,6 +49,9 @@ export type InvoiceState = ErrorAndLoading & {
   quickbooks: ErrorAndLoading;
   applyBalance: ErrorAndLoading;
   applyGiftCard: ErrorAndLoading;
+  fiskalySignEsInvoice: ErrorAndLoading & {
+    result: FiskalySignEsInvoiceDetails | null;
+  };
   loadingSpecific: false;
   errorSpecific: Error;
   editEstablishmentBillingGroup: ErrorAndLoading;
@@ -95,6 +103,7 @@ export type Invoice<M = number, PI = number, II = number> = {
   source: number;
   is_member_pos: boolean;
   is_signed_on_fiskaly: boolean;
+  fiskaly_sign_es_signature_status: InvoiceSignEsSignatureStatus | null;
 };
 
 export type ConsumerInvoiceREST = {
@@ -364,3 +373,19 @@ export enum FiskalyOnboardingRequirement {
 export type OnboardingRequirementsResponse = {
   requirements: FiskalyOnboardingRequirement[];
 };
+
+export type FiskalySignEsError = {
+  code: string;
+  description: string;
+};
+
+export type FiskalySignEsInvoiceDetails = {
+  sign_es_signature_status: string;
+  current_invoice_not_sent_reasons: Array<FiskalySignEsError> | null;
+  validation_errors: Array<FiskalySignEsError> | null;
+};
+
+export type ManuallySendInvoiceToSignEsCallback = (
+  invoice_uuid: string,
+  options?: OptionCallback<FiskalySignEsInvoiceDetails>,
+) => void;

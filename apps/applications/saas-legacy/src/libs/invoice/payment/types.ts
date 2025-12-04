@@ -24,6 +24,7 @@ export type PaymentItem = {
   is_returnable: boolean;
   transaction_fee: string;
   id: number;
+  editable?: boolean;
 };
 
 export enum PaymentEngine {

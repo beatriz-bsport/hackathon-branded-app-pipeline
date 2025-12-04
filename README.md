@@ -24,35 +24,43 @@ The official documentation of the Frontend can be found on [Notion](https://www.
 
 ### Get started
 
-1. Install [nvm](https://github.com/nvm-sh/nvm?tab=readme-ov-file#installing-and-updating) and run
+1. Install [mise](https://mise.jdx.dev/getting-started.html)
+
+**macOS:**
 
 ```sh
-nvm install && nvm use
+brew install mise
 ```
 
-You can also check which version should be used in `.nvmrc`.
-
-2. Install [pnpm](https://pnpm.io/)
+**Ubuntu:**
 
 ```sh
-npm install -g pnpm@$(grep pnpm_version .npmrc | cut -d '=' -f 2)
+curl https://mise.run | sh
 ```
 
-You can also check which version should be used in `.npmrc`.
+2. Add mise to your shell (`~/.zshrc` or `~/.bashrc`):
 
-3. Install dependencies
+```sh
+echo 'eval "$(mise activate zsh)"' >> ~/.zshrc
+source ~/.zshrc
+```
+
+3. Trust and install project tools:
+
+```sh
+mise trust
+mise install
+```
+
+This installs the correct versions of Node.js, pnpm, and 1Password CLI automatically.
+
+4. Install dependencies:
 
 ```sh
 pnpm install
 ```
 
-If you encounter an error about pnpm version, delete the global one that lives in a global binary
-
-On mac, it would be in
-
-```sh
-rm /Users/xxxx/Library/pnpm/pnpm
-```
+> **Note:** For Nx remote cache setup (faster builds), see [docs/nx_remote_cache_server.md](./docs/nx_remote_cache_server.md).
 
 ### Run an application
 
@@ -213,6 +221,10 @@ pnpm exec nx [script] @bsport/[application]
 ### Tools
 
 Find out more about our monorepo tools (Nx, pnpm, ...) on [Exploit tools for mono repository management](https://www.notion.so/bright-shovel-41b/Exploit-tools-for-mono-repository-management-WIP-174137e4c640805e865ae0cfb7610bc3) guide.
+
+#### Nx Remote Cache
+
+See [docs/nx_remote_cache_server.md](./docs/nx_remote_cache_server.md) for instructions on setting up Nx remote cache authentication for faster builds.
 
 ---
 

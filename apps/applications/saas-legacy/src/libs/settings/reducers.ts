@@ -6,7 +6,7 @@ import {
   createCustomShopRedirectionActions,
   editCustomShopRedirectionActions,
   deleteCustomShopRedirectionActions,
-  fetchCustomMobilePopupsActions,
+  fetchMobilePopupsActions,
   createCustomMobilePopupActions,
   editCustomMobilePopupActions,
   deleteCustomMobilePopupActions,
@@ -126,15 +126,15 @@ export default handleActions<Immutable.Immutable<SettingsState>>(
         ['customShopRedirection', 'allIds'],
         [...state.customShopRedirection.allIds.filter((p) => p !== payload)],
       ),
-    [fetchCustomMobilePopupsActions.isLoading.toString()]: (
+    [fetchMobilePopupsActions.isLoading.toString()]: (
       state,
       { payload }: { payload: any },
     ) => state.setIn(['customMobilePopup', 'loading'], payload),
-    [fetchCustomMobilePopupsActions.error.toString()]: (
+    [fetchMobilePopupsActions.error.toString()]: (
       state,
       { payload }: { payload: any },
     ) => state.setIn(['customMobilePopup', 'error'], payload),
-    [fetchCustomMobilePopupsActions.success.toString()]: (
+    [fetchMobilePopupsActions.success.toString()]: (
       state,
       { payload }: { payload: any },
     ) =>
@@ -142,14 +142,17 @@ export default handleActions<Immutable.Immutable<SettingsState>>(
         .setIn(
           ['customMobilePopup', 'allIds'],
           // @ts-expect-error
-          payload.map((p) => p.id),
+          payload.map((p) => p.custom_popup_id),
         )
         .merge(
           {
             customMobilePopup: {
               // @ts-expect-error
               byId: payload.reduce((acc, ps) => {
-                acc[ps.id] = ps;
+                acc[ps.custom_popup_id] = {
+                  ...ps,
+                  id: ps.custom_popup_id,
+                };
                 return acc;
               }, {}),
             },

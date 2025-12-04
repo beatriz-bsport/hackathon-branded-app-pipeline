@@ -9,22 +9,22 @@
     },
     "content": {
       "email": {
-        "title": "Email Preview",
-        "noPreview": "Set-up your email and preview here"
+        "title": "Email",
+        "noPreview": "Set up your email to preview here"
       },
       "push": {
-        "title": "Push Notification Preview",
-        "noPreview": "Set-up your push notification and preview here"
+        "title": "Push notification",
+        "noPreview": "Set up your push notification to preview here"
       }
     },
     "trigger": {
-      "title": "Notification Rule",
+      "title": "Notification rule",
       "content": {
         "triggeredBy": "Condition",
         "triggeredWhen": "Delivery timing",
         "smartlist": {
-          "excluding": "Do not send to members in these smartlists",
-          "including": "Only send to members in these smartlists",
+          "excluding": "Don't send to clients in these Smartlists",
+          "including": "Only send to clients in these Smartlists",
           "noSmartlistsFiltering": "None"
         },
         "passes": {
@@ -33,11 +33,11 @@
           "credits_other": "{{count}} credits",
           "allIncluded": {
             "title": "All passes included",
-            "description": "This notification will be triggered for every passes."
+            "description": "This notification will be triggered for every pass."
           },
           "emptyList": {
             "title": "No passes included",
-            "description": "You can update this notification to add passes to trigger."
+            "description": "Update this notification to add passes as the trigger."
           }
         }
       }
@@ -45,7 +45,7 @@
     "performance": {
       "emails": {
         "title": "Emails",
-        "totalEmailsSent": "Total Emails Sent",
+        "totalEmailsSent": "Total emails sent",
         "recipientsTotal_one": "({{count}} member)",
         "recipientsTotal_other": "({{count}} members)",
         "openRate": "Open Rate"
@@ -54,7 +54,7 @@
         "title": "All notifications",
         "noCommunications": {
           "title": "No communications were sent",
-          "description": "There is no reached recipients to display for this notification yet."
+          "description": "There are no recipients to display for this notification yet."
         },
         "helper": {
           "title": "Performance Status",
@@ -70,11 +70,11 @@
             },
             "failed": {
               "label": "Failed",
-              "description": "Could not be delivered"
+              "description": "Couldn't be delivered. Please try again. "
             },
             "noData": {
               "label": "N/A",
-              "description": "Issue while retrieving communication data"
+              "description": "Couldn't retrieve communication data. Please try again. "
             }
           }
         },
@@ -88,7 +88,7 @@
             "forwardedToRelationships": "Forwarded to {{count}} relationships"
           },
           "tooltip": {
-            "relatedMember": "Counted in total emails sents statistics"
+            "relatedMember": "Counted in total emails sent"
           }
         },
         "status": {

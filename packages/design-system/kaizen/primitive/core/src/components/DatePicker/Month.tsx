@@ -1,23 +1,24 @@
 import React, { useMemo } from "react";
 
 import {
-  type WeekStartDay,
   generateCalendarDays,
+  getWeekStartDayFromLocale,
   getWeekdays,
   isSameDay,
   toDate,
   toDateTime,
 } from "@bsport/datetime-manipulation";
 
+import { useKaizenI18nInstance } from "#src/i18n";
+
 import type { SelectedDate } from "./DatePicker";
 import Day, { type DayStatus } from "./Day";
 
 type MonthProps = {
-  disableDate?: (date: Date) => boolean;
+  disableDate?: (date: Date, selectedDate: SelectedDate) => boolean;
   displayMonth: Date;
   onSelect?: (date: Date) => void;
   selectedDate: SelectedDate;
-  weekStartDay: WeekStartDay;
 };
 
 const Month: React.FC<MonthProps> = ({
@@ -25,15 +26,21 @@ const Month: React.FC<MonthProps> = ({
   displayMonth,
   onSelect,
   selectedDate,
-  weekStartDay,
 }) => {
-  // weekStartDay may not be relevant because we would need a locale aswell.
-  // locale only works with Luxon to get weekdays names & ordered (["lun.", "mar.", "mer."] vs ["Sun.", "Mon.", "Tue."],...)
-  const weekdays = getWeekdays("short", weekStartDay);
+  const i18nInstance = useKaizenI18nInstance();
+  const weekdays = useMemo(
+    () => getWeekdays("short", i18nInstance?.language || "en-US"),
+    [i18nInstance?.language],
+  );
   const displayDateTime = toDateTime(displayMonth);
+  const weekStartDay = getWeekStartDayFromLocale(
+    i18nInstance?.language || "en-US",
+  );
+
   const calendarDays = useMemo(
-    () => generateCalendarDays(displayDateTime, weekStartDay),
-    [displayDateTime],
+    () =>
+      generateCalendarDays(displayDateTime, i18nInstance?.language || "en-US"),
+    [displayDateTime, i18nInstance?.language],
   );
 
   const weeks = useMemo(() => {
@@ -42,7 +49,7 @@ const Month: React.FC<MonthProps> = ({
   }, [calendarDays]);
 
   const getDayStatus = (date: Date): DayStatus => {
-    if (disableDate?.(date)) return "disabled";
+    if (disableDate?.(date, selectedDate)) return "disabled";
 
     if (!selectedDate) return "default";
 
@@ -67,14 +74,13 @@ const Month: React.FC<MonthProps> = ({
       if (end && isSameDay(current, end)) return "end";
 
       if (end && current > start && current < end) {
-        const dayOfWeek = (date.getDay() - weekStartDay + 7) % 7;
-
         if (date.getDate() === 1) return "weekStartDay";
 
         const nextMonth = new Date(date.getFullYear(), date.getMonth() + 1, 1);
         const lastDayOfMonth = new Date(nextMonth.getTime() - 1);
         if (date.getDate() === lastDayOfMonth.getDate()) return "endOfWeek";
 
+        const dayOfWeek = (current.weekday - weekStartDay + 7) % 7;
         if (dayOfWeek === 0) return "weekStartDay";
         if (dayOfWeek === 6) return "endOfWeek";
 
@@ -112,7 +118,7 @@ const Month: React.FC<MonthProps> = ({
 
               const date = toDate(dt);
               const isCurrentDay = isSameDay(dt, toDateTime(new Date()));
-              const isDisabled = disableDate?.(date) ?? false;
+              const isDisabled = disableDate?.(date, selectedDate) ?? false;
               const status = getDayStatus(date);
 
               return (

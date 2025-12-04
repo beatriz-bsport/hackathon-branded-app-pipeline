@@ -4,7 +4,7 @@ This directory contains the **shared Storybook** for all Kaizen business compone
 
 ## Architecture
 
-Each business component is an **independent npm package**, but they all share **one Storybook**:
+Each business component represents a vertical, and is an **independent npm package**, but they all share **one Storybook**:
 
 ```
 business-components/
@@ -37,11 +37,31 @@ pnpm run project:create
 When prompted:
 
 - **Template:** Select `@bsport/kaizen-business-component`
-- **Directory:** `packages/design-system/kaizen/business-components/your-component`
+- **Directory:** `packages/design-system/kaizen/business-components/your-vertical`
+
+Next, navigate to your new package:
+
+```bash
+cd packages/design-system/kaizen/business-components/your-vertical
+```
+
+To generate a new component, use:
+
+```bash
+pnpm component:add MyComponent
+```
+
+You can also create components within subfolders for organization and Storybook grouping:
+
+```bash
+pnpm component:add appointment/MyComponent
+```
+
+The script lets you create components directly in nested folders, making it easier to organize your components. Feel free to move files or create folders as needed, even after generation.
 
 ## How It Works
 
-1. **Independent Packages**: Each component folder is a separate npm package
+1. **Independent Packages**: Each folder is a separate npm package
 
    - `@bsport/kaizen-business-booking`
    - `@bsport/kaizen-business-cdp`

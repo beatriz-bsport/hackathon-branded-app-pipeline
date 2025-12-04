@@ -14,20 +14,36 @@ import { useHasSubscriptionInvoicesPermission } from "#src/utils/permissions";
  */
 const RecurringRevenuePage = () => {
   const { t } = useTranslation("insights");
-  const hasPermission = useHasSubscriptionInvoicesPermission();
-  const { iframeUrl, isLoading, error } = usePresignedUrl(
-    DASHBOARD_TYPES.RECURRING_REVENUE,
-  );
+  const { hasPermission, isLoading: isLoadingPermission } =
+    useHasSubscriptionInvoicesPermission();
+  const {
+    iframeUrl,
+    isLoading: isLoadingUrl,
+    error,
+  } = usePresignedUrl(DASHBOARD_TYPES.RECURRING_REVENUE);
 
   const pageTitle = t("pages.recurringRevenue.title");
 
-  // Redirect users without permission back to insights home
-  if (!hasPermission) {
+  // Wait for permissions to load before redirecting
+  if (isLoadingPermission) {
+    return (
+      <InsightDetailLayout title={pageTitle} isLoading={true} error={null}>
+        {null}
+      </InsightDetailLayout>
+    );
+  }
+
+  // Only redirect if permissions are loaded and explicitly false
+  if (!isLoadingPermission && !hasPermission) {
     return <Navigate to="/" replace />;
   }
 
   return (
-    <InsightDetailLayout title={pageTitle} isLoading={isLoading} error={error}>
+    <InsightDetailLayout
+      title={pageTitle}
+      isLoading={isLoadingUrl}
+      error={error}
+    >
       {iframeUrl && <DashboardIframe src={iframeUrl} title={pageTitle} />}
     </InsightDetailLayout>
   );

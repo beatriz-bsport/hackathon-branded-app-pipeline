@@ -43,6 +43,13 @@ export const PackAddItemsList: React.FC<PackAddItemsListProps> = ({
             addPreselectedItem({ id: data.id });
           }
         },
+        onCheckboxChange: (checked) => {
+          if (checked) {
+            addPreselectedItem({ id: data.id });
+          } else {
+            removePreselectedItem({ id: data.id });
+          }
+        },
         className: "hover:cursor-pointer",
       };
     },

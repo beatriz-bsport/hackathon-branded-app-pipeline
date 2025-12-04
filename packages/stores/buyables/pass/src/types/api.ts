@@ -15,12 +15,12 @@ export type FetchPassesParams = {
   /** Filter passes by their `disabled` field value. */
   disabled?: boolean;
 
-  /** Filter passes within this category. */
-  /**
-   * @todo To be implemented in the backend
-   * https://linear.app/bsport/issue/COR-799/packs-creation-step-5-allow-to-filter-on-category-for-items
+  /** Filter passes within
+   * - the specified category if it's an id
+   * - items without category if it's unset
+   * - all items if not passed
    */
-  category?: number | "none";
+  category?: number | "unset" | undefined;
 
   /** Include only passes whose IDs are in this list. */
   id__in?: number[];

@@ -2,7 +2,7 @@ import React, { memo } from "react";
 
 import { Table } from "@bsport/kaizen-primitive-core";
 
-import type { EnrichedSession } from "#src/stores/session-list/types";
+import type { EnrichedSession } from "#src/types";
 import { useTranslation } from "#src/utils/i18n";
 
 import { useSessionListColumns } from "./columns";

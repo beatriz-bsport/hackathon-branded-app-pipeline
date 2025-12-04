@@ -14,7 +14,7 @@ import {
 } from "@bsport/kaizen-primitive-core";
 import { dataAccessLayer } from "@bsport/sm-backbone";
 
-import { EnrichedSession } from "#src/stores/session-list/types";
+import { EnrichedSession } from "#src/types";
 import { useTranslation } from "#src/utils/i18n";
 
 import { CancelledSessionName } from "./CancelledSessionName";

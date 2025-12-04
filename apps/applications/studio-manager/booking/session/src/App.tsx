@@ -1,3 +1,5 @@
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
 import { ErrorBoundaryWrapper } from "@bsport/sm-backbone";
 
 import { AppI18nextProvider } from "#src/utils/i18n";
@@ -6,6 +8,8 @@ import { AppRoutes } from "./Routes";
 
 import "./index.css";
 
+const queryClient = new QueryClient();
+
 /**
  * Core of the application.
  * This is what is built and federated.
@@ -13,9 +17,11 @@ import "./index.css";
 const App: React.FC = () => {
   return (
     <ErrorBoundaryWrapper appName={__SESSION__.__SENTRY_SCOPE_TAG__}>
-      <AppI18nextProvider>
-        <AppRoutes />
-      </AppI18nextProvider>
+      <QueryClientProvider client={queryClient}>
+        <AppI18nextProvider>
+          <AppRoutes />
+        </AppI18nextProvider>
+      </QueryClientProvider>
     </ErrorBoundaryWrapper>
   );
 };

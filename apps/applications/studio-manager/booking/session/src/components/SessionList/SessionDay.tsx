@@ -2,7 +2,7 @@ import React, { memo } from "react";
 
 import { fromIsoString } from "@bsport/datetime-manipulation";
 
-import type { EnrichedSession } from "#src/stores/session-list/types";
+import type { EnrichedSession } from "#src/types";
 
 import SessionDayTitle from "./SessionDayTitle";
 import SessionTable from "./SessionTable";

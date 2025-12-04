@@ -1136,9 +1136,6 @@ importers:
       '@bsport/store-booking-group-activity':
         specifier: workspace:*
         version: link:../../../../../packages/stores/booking/group-activity
-      '@bsport/store-booking-session':
-        specifier: workspace:*
-        version: link:../../../../../packages/stores/booking/session
       '@bsport/store-core-data-establishment':
         specifier: workspace:*
         version: link:../../../../../packages/stores/core-data/establishment

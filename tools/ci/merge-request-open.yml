@@ -1,5 +1,5 @@
 "Merge Request Open":
-  stage: merge-request-open
+  stage: init
   before_script: !reference [.pnpm-setup, before_script]
   interruptible: true
   tags:

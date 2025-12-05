@@ -3,10 +3,7 @@
  */
 export default {
   // Source files should be formatted and then linted
-  "*.{ts,tsx,js,jsx}": [
-    "prettier --write",
-    (files) => `nx affected:lint --files="${files.join(",")}"`,
-  ],
+  "*.{ts,tsx,js,jsx}": ["prettier --write", "eslint --fix"],
 
   // Other files should not be linted, only formatted
   "*.{cjs,mjs,scss,css,json,md,mdx,html,svg}": ["prettier --write"],

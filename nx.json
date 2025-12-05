@@ -13,7 +13,8 @@
       "dependsOn": ["^build"]
     },
     "ci:compile": {
-      "dependsOn": ["^build"]
+      "dependsOn": ["^build"],
+      "cache": true
     },
     "build-storybook": {
       "cache": true
@@ -28,6 +29,24 @@
       "cache": true
     },
     "pre-commit": {
+      "cache": true
+    },
+    "lint": {
+      "cache": true
+    },
+    "lint-old": {
+      "cache": true
+    },
+    "test": {
+      "cache": true
+    },
+    "ci:build": {
+      "cache": true
+    },
+    "pretty": {
+      "cache": true
+    },
+    "format:check": {
       "cache": true
     }
   },

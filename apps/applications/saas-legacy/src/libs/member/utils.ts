@@ -21,6 +21,8 @@ export const MemberMap = {
   accept_email: 'accept_email',
   accept_sms: 'accept_sms',
   waiver: 'waiver',
+  nationality: 'nationality',
+  official_document_type: 'official_document_type',
   official_document_id: 'official_document_id',
   default_establishment_billing_group: 'default_establishment_billing_group',
 };

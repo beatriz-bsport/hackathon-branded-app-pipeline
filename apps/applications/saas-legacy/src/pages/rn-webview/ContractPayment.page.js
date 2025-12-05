@@ -44,7 +44,7 @@ const SubscriptionPayment = asyncComponent(() =>
 
 type Props = {
   classes: Object,
-  onSuccess: () => void,
+  onSuccess: (responseData) => void,
   onCancel: () => void,
   date: string,
   memberId: number,
@@ -140,8 +140,8 @@ export class ContractPayment extends React.Component<Props, State> {
         establishment_billing_group_id: establishmentBillingGroupId,
       },
       {
-        onBackgroundSuccess: () => {
-          this.props.onSuccess();
+        onBackgroundSuccess: (responseData) => {
+          this.props.onSuccess(responseData);
           analyticsUtils.onContractPaymentSuccess(this.props.contract);
           this.setState({ processing: false });
         },
@@ -269,9 +269,12 @@ export default compose(
       },
   }),
   withProps(() => ({
-    onSuccess: () => {
+    onSuccess: (responseData) => {
       window.ReactNativeWebView.postMessage(
-        JSON.stringify({ status: 'succeeded' }),
+        JSON.stringify({
+          status: 'succeeded',
+          consumerPaymentPackId: responseData?.compatible_consumer_payment_pack_id,
+        }),
       );
     },
     onCancel: () => {

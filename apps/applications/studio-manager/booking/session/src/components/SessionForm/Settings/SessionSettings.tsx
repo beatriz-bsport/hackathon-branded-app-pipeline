@@ -8,6 +8,7 @@ import { useTranslation } from "#src/utils/i18n";
 
 import { SessionCapacityField } from "./SessionCapacityField";
 import { SessionCreditsField } from "./SessionCreditField";
+import { SessionPartnershipSettings } from "./SessionPartnershipSettings";
 
 export const SessionSettings: FC<{
   fieldIdPrefix: string;
@@ -22,7 +23,7 @@ export const SessionSettings: FC<{
 
   const credits = watch("credits");
 
-  const displayValue = Number(getCreditsDividedDisplay(credits));
+  const displayValue = Number(getCreditsDividedDisplay(credits)) || 0;
 
   return (
     <section className="flex flex-col gap-md">
@@ -34,6 +35,7 @@ export const SessionSettings: FC<{
         fieldName="effectif"
         label={t("addSessionModal.steps.configureSession.settings.effectif")}
       />
+      <SessionPartnershipSettings fieldIdPrefix={fieldIdPrefix} />
       <SessionCapacityField
         fieldIdPrefix={fieldIdPrefix}
         fieldName="waiting_list_max_size"

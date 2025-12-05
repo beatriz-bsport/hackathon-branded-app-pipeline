@@ -68,6 +68,14 @@
             "helperText": "Number of credits required to book the session",
             "decimalHelperText": "This session will cost {{count}} credits",
             "warning": "Double-check: you’re entering credits, not a price."
+          },
+          "partnership": {
+            "toggle": "Make session available to book for customers from aggregators (ClassPass, Urban Sports Club, Gymlib, Wellhub and myClubs).",
+            "capacity": {
+              "label": "Allocated spots",
+              "helperText": "This limit only applies when using Wellhub, Urban Sports Club or myClubs — other aggregators aren’t affected.",
+              "error": "The number of allocated spots for aggregators can't exceed the total available spots in the session."
+            }
           }
         }
       },

@@ -23,7 +23,9 @@
       "75605": "zip code",
       "75606": "city",
       "75608": "identification number",
-      "75609": "address"
+      "75609": "address",
+      "75626": "nationality",
+      "75627": "official document type"
     },
     "validationErrors": {
       "75802": "Provided recipient NIF not registered",

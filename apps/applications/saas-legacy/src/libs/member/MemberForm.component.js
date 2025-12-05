@@ -12,7 +12,13 @@ import Typography from '@material-ui/core/Typography';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import Divider from '@material-ui/core/Divider';
 import FormControl from '@material-ui/core/FormControl';
-import { withFormik, Form, connect as formikConnect } from 'formik';
+import {
+  withFormik,
+  Form,
+  connect as formikConnect,
+  Field,
+  ErrorMessage,
+} from 'formik';
 import { compose, withPropsOnChange, withProps, withState } from 'recompose';
 import { FormLabel } from '@material-ui/core';
 import HourglassEmptyIcon from '@material-ui/icons/HourglassEmpty';
@@ -30,15 +36,17 @@ import {
   TextField,
   DelayTextField,
   GenderField,
-  VaccinationStatusField,
   Actions,
   Submit,
   DateField,
   TextFieldEnhancedLabelWithError,
+  SelectField,
 } from '../../components/forms';
 import { PhoneFieldV2 } from '../../components/form-fields';
 import AlertExistingUser from './AlertExistingUser.component';
 import withConfirm from '../../hocs/with-confirm.hoc';
+import FullCountrySelect from '../../components/input/FullCountrySelect.component';
+import { validateSpanishNIF } from '../invoice/verifactu/validation';
 
 import { ALLOWED_COUNTRIES_FOR_STATES } from './constants';
 const API_URI_CORE = Config.REACT_APP_BASE_URI_CORE_V0;
@@ -88,6 +96,9 @@ const styles = (theme) => ({
   gridItem: {
     marginTop: theme.spacing(1.5),
     marginBottom: theme.spacing(1.5),
+  },
+  nationalityField: {
+    marginBottom: theme.spacing(2),
   },
 });
 
@@ -526,15 +537,153 @@ export function MemberForm(props: Props) {
                       required={!asManager}
                     />
                   </Grid>
-                  <Grid item className={classes.gridItem} xs={12}>
-                    <TextFieldEnhancedLabelWithError
-                      fullWidth
-                      disabled={disabled || !asManager}
-                      label={t('member:officialIdNumber.label')}
-                      name="official_document_id"
-                      required={!asManager}
-                    />
+
+                  <Grid
+                    item
+                    className={classes.nationalityField}
+                    md={12}
+                    xs={12}
+                  >
+                    <Field name="nationality">
+                      {({ field, form: { values, setFieldValue } }) => {
+                        const handleNationalityChange = (newNationality) => {
+                          const previousNationality = values.nationality;
+                          setFieldValue('nationality', newNationality);
+
+                          // Default-selection behavior instead of clearing
+                          const currentDocType = values.official_document_type;
+                          if (currentDocType) {
+                            const availableChoices = [
+                              'passport',
+                              ...(newNationality !== 'ES'
+                                ? ['national_id']
+                                : []),
+                              ...(newNationality === 'ES' ? ['es_dni'] : []),
+                            ];
+
+                            // If current type is still valid, keep it
+                            if (availableChoices.includes(currentDocType)) {
+                              return;
+                            }
+
+                            // Smart defaults when switching between Spain and non-Spain
+                            if (
+                              previousNationality === 'ES' &&
+                              newNationality !== 'ES'
+                            ) {
+                              // Changing from Spain to non-Spain: default es_dni -> national_id
+                              if (currentDocType === 'es_dni') {
+                                setFieldValue(
+                                  'official_document_type',
+                                  'national_id',
+                                );
+                                return;
+                              }
+                            } else if (
+                              previousNationality !== 'ES' &&
+                              newNationality === 'ES'
+                            ) {
+                              // Changing from non-Spain to Spain: default national_id -> es_dni
+                              if (currentDocType === 'national_id') {
+                                setFieldValue(
+                                  'official_document_type',
+                                  'es_dni',
+                                );
+                                return;
+                              }
+                            }
+
+                            // If no smart default applies, clear it
+                            setFieldValue('official_document_type', '');
+                          }
+                        };
+                        return (
+                          <FullCountrySelect
+                            disabled={disabled || !asManager}
+                            label={t('b2c_member:form.member.nationality')}
+                            onChange={(e) =>
+                              handleNationalityChange(e.target.value)
+                            }
+                            value={field.value || ''}
+                          />
+                        );
+                      }}
+                    </Field>
                   </Grid>
+
+                  <Field name="documentTypeFields">
+                    {({ form: { values } }) => {
+                      const documentTypeChoices = [
+                        {
+                          value: 'passport',
+                          label: 'b2c_member:form.member.documentType.passport',
+                        },
+                        ...(values.nationality !== 'ES'
+                          ? [
+                              {
+                                value: 'national_id',
+                                label:
+                                  'b2c_member:form.member.documentType.nationalId',
+                              },
+                            ]
+                          : []),
+                        ...(values.nationality === 'ES'
+                          ? [
+                              {
+                                value: 'es_dni',
+                                label:
+                                  'b2c_member:form.member.documentType.nif',
+                              },
+                            ]
+                          : []),
+                      ];
+                      return (
+                        <Grid container direction="row" spacing={2}>
+                          <Grid item md={6} xs={12}>
+                            <SelectField
+                              choices={documentTypeChoices}
+                              disabled={disabled || !asManager}
+                              fullWidth={true}
+                              label={t(
+                                'b2c_member:form.member.documentType.label',
+                              )}
+                              name="official_document_type"
+                              required={!asManager}
+                            />
+                          </Grid>
+                          <Grid item md={6} xs={12}>
+                            <Field name="official_document_id">
+                              {({ form: { submitCount } }) => (
+                                <>
+                                  <TextField
+                                    disabled={disabled || !asManager}
+                                    fullWidth={true}
+                                    label={t(
+                                      'b2c_member:form.member.documentId.label',
+                                    )}
+                                    name="official_document_id"
+                                    required={!asManager}
+                                  />
+                                  {submitCount > 0 && (
+                                    <ErrorMessage name="official_document_id">
+                                      {(message) => (
+                                        <Typography
+                                          color="error"
+                                          variant="caption"
+                                        >
+                                          {t(message)}
+                                        </Typography>
+                                      )}
+                                    </ErrorMessage>
+                                  )}
+                                </>
+                              )}
+                            </Field>
+                          </Grid>
+                        </Grid>
+                      );
+                    }}
+                  </Field>
 
                   <Grid item md={12} xs={12}>
                     <FormControl>
@@ -601,7 +750,7 @@ export function MemberForm(props: Props) {
               {validationErrors() &&
                 validationErrors().map((error) => {
                   return (
-                    <Typography color="error">
+                    <Typography key={error} color="error">
                       {t(`translation:form.member.errors.${error}`)}
                     </Typography>
                   );
@@ -662,7 +811,7 @@ export function MemberForm(props: Props) {
 
 export default compose(
   withStyles(styles),
-  withTranslation(['translation', 'member']),
+  withTranslation(['translation', 'member', 'b2c_member']),
   withState('emailExists', 'setEmailExists', false),
   withState('emailExistsError', 'setemailExistsError', false),
   withPropsOnChange(
@@ -742,6 +891,8 @@ export default compose(
         state: '',
         country: '',
         zipcode: '',
+        nationality: '',
+        official_document_type: '',
         official_document_id: '',
       },
     enableReinitialize: true,
@@ -785,9 +936,35 @@ export default compose(
       });
     },
     validationSchema: Yup.object().shape({
-      official_document_id: Yup.string().matches(
-        /^[A-Za-z0-9]+$/,
-        'marketing:customForm.submit.errors.invalidOfficialDocumentId',
+      official_document_id: Yup.string().test(
+        'document-id-validation',
+        function (value) {
+          const { official_document_type } = this.parent;
+          // Only validate if official_document_type is es_dni
+          if (official_document_type === 'es_dni') {
+            if (!validateSpanishNIF(value)) {
+              return this.createError({
+                message: 'b2c_member:form.member.documentId.invalidNIF',
+              });
+            }
+            return true;
+          }
+          // For passport and national_id, validate alphanumeric format
+          if (
+            official_document_type === 'passport' ||
+            official_document_type === 'national_id'
+          ) {
+            if (value && !/^[A-Za-z0-9]+$/.test(value)) {
+              return this.createError({
+                message:
+                  'marketing:customForm.submit.errors.invalidOfficialDocumentId',
+              });
+            }
+            return true;
+          }
+          // No validation if document type is not set
+          return true;
+        },
       ),
       barcode: Yup.string().max(
         16,

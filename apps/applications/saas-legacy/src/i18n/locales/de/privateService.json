@@ -655,7 +655,7 @@
       },
       "expiration_date": {
         "helperText": "Verfügbar bis",
-        "tooltip": "Nach dem gewählten Datum wird der Pass nicht mehr zum Verkauf stehen.",
+        "tooltip": "Ab dem gewählten Datum wird der Pass nicht mehr zum Verkauf stehen.",
         "label": "Dauer des Verkaufs"
       },
       "description": {

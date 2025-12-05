@@ -11,7 +11,6 @@ import type { CompanyTheme } from '#src/libs/theme/types';
 import type { Franchise } from '#src/libs/franchise/types';
 import { TextFieldVariant } from '#Fabrique/TextField/types';
 
-// @ts-expect-error
 import B_ASSET from '../../../public/images/b_dark.jpg';
 import './styles.css';
 

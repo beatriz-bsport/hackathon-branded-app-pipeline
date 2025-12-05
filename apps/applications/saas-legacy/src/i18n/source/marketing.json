@@ -1016,6 +1016,20 @@
           "description": "You've used up the 3 {{ workflowPluralLowerCase }} included in the free trial. To activate this one upgrade to Audience, or pause an existing {{ workflowLowerCase }}."
         }
       }
+    },
+    "template": {
+      "createFromScratch": "Create from scratch",
+      "useTemplate": "Use template",
+      "createFromScratchDescription": "Create a {{ workflowLowerCase }} to automate your audience actions.",
+      "addCadenceDialog": {
+        "title": "Select a template or create a {{ workflowLowerCase }} from scratch"
+      },
+      "configs": {
+        "abandonedCartRecovery": {
+          "name": "Abandoned Checkout Recovery",
+          "description": "Recover lost sales. Automatically engage with customers or leads who added items (passes, memberships, retail) to their basket."
+        }
+      }
     }
   }
 }

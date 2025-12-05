@@ -6,6 +6,10 @@ import {
   ListLayout,
   Tooltip,
 } from "@bsport/kaizen-primitive-core";
+import {
+  DEFAULT_PAGE,
+  usePaginationQueryParams,
+} from "@bsport/use-pagination-query-params";
 
 import {
   ImportLeadsModal,
@@ -24,8 +28,12 @@ import { MemberListContent } from "./MemberListContent";
 export const MemberListPage: React.FC = () => {
   const { t } = useTranslation("common");
 
+  const { setPage } = usePaginationQueryParams();
+
   const { filterConfig, handleClearFilters, activeFilters, filterRef } =
-    useFilterMembers();
+    useFilterMembers({
+      onFiltersChange: () => setPage(DEFAULT_PAGE),
+    });
 
   const searchConfig = useDebouncedSearch();
 

@@ -31,6 +31,8 @@ export const DEFAULT_CONFIGURE_SESSION_FORM_DATA = {
   credits: 1,
   waiting_list_max_size: 0,
   effectif: 0,
+  available_on_partnership: false,
+  partner_max_booking_count: 0,
 };
 
 export const DEFAULT_ADVANCED_OPTIONS_FORM_DATA = {};

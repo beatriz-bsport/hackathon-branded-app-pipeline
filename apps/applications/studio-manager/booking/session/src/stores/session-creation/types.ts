@@ -60,6 +60,8 @@ export type SessionCreationFormData = Pick<
   | "credits"
   | "waiting_list_max_size"
   | "effectif"
+  | "available_on_partnership"
+  | "partner_max_booking_count"
 > & {
   allowCustomNameAndDescription: boolean;
 };

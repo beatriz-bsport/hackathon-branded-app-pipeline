@@ -6,7 +6,7 @@ import type { Establishment } from "@bsport/store-core-data-establishment";
 import type { Teacher } from "@bsport/store-core-data-teacher";
 import { getCompanyTimezone } from "@bsport/timezone-utils";
 
-import { fetchManagerSessionsAPI } from "../api/api";
+import { fetchManagerSessionsAPI } from "../api";
 import { EnrichedSession, ManagerSession } from "../api/types";
 import { fetch } from "../utils/fetch";
 import { useFetchEstablishments } from "./useFetchEstablishments";

@@ -1,7 +1,7 @@
 import { queryOptions, useQuery } from "@tanstack/react-query";
 import { keyBy } from "lodash";
 
-import { fetchEstablishments } from "#src/api/api";
+import { fetchEstablishments } from "../api";
 
 const establishmentsQueryOptions = (
   establishmentIds: number[],

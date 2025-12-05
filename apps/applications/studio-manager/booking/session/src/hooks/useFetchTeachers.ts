@@ -1,7 +1,7 @@
 import { queryOptions, useQuery } from "@tanstack/react-query";
 import { keyBy } from "lodash";
 
-import { fetchTeachers } from "#src/api/api";
+import { fetchTeachers } from "../api";
 
 const teachersQueryOptions = (teacherIds: number[], enabled: boolean) =>
   queryOptions({

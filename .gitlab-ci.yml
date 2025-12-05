@@ -5,6 +5,9 @@ variables:
   REGISTRY_ENDPOINT: 672633452901.dkr.ecr.eu-west-3.amazonaws.com
   REGISTRY_NAME: bsport/bsport-ichizen-builder
   PNPM_HOME: "/builds/bsport/ichizen/.pnpm"
+  NX_TUI: "false"
+  NX_SELF_HOSTED_REMOTE_CACHE_SERVER: $CI_NX_SELF_HOSTED_REMOTE_CACHE_SERVER
+  NX_SELF_HOSTED_REMOTE_CACHE_ACCESS_TOKEN: $CI_NX_SELF_HOSTED_REMOTE_CACHE_ACCESS_TOKEN
 
 cache:
   key:
@@ -16,7 +19,6 @@ cache:
 
 stages:
   - init
-  - merge-request-open
   - analyze
   - deploy-feature-branch
   - deploy

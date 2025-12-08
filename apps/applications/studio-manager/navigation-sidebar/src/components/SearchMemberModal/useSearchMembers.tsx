@@ -21,7 +21,6 @@ export const useSearchMembers = ({
   const members = useMemberStore((state) =>
     selectSearchMembers(state, searchArchived),
   );
-  const count = members.length;
 
   // ----- Fetcher -----
   const handleSearchMembers = async ({
@@ -51,12 +50,12 @@ export const useSearchMembers = ({
     }
   }, [searchInput, searchArchived, searchMembers]);
 
-  const isEmptySearch = count === 0;
-
   return {
-    isEmptySearch,
     isLoading,
+    hasSearchResultEmpty:
+      !isLoading && searchInput.trim().length > 0 && members.length === 0,
+    hasSearchResult:
+      !isLoading && searchInput.trim().length > 0 && members.length > 0,
     members: members,
-    isShowingList: !isLoading && !isEmptySearch,
   };
 };

@@ -1,18 +1,20 @@
 import React, { useId, useState } from "react";
 
-import { List, Tabs } from "@bsport/kaizen-primitive-core";
+import { List, SegmentedControl } from "@bsport/kaizen-primitive-core";
+import {
+  selectSearchedMembers,
+  useMemberStore,
+} from "@bsport/store-core-data-member";
 
 import { useTranslation } from "#src/utils/i18n";
 
-import { SearchMemberListItem } from "./SearchMemberListItem";
-import type { ListItemProps, TagsMap } from "./constants";
-import { useFormatMembers } from "./useFormatMembers";
-import { useListItemTranslations } from "./useListItemTranslations";
+import type { TagsMap } from "./constants";
+import { useSearchMemberListItems } from "./useSearchMemberListItems";
 import { useSearchMembers } from "./useSearchMembers";
 
 type SearchMemberListProps = {
   searchInput: string;
-  navigate?: (to: string) => void;
+  navigate: (to: string) => void;
   tagsMap: TagsMap;
   isMobile?: boolean;
 };
@@ -26,58 +28,70 @@ export const SearchMemberList: React.FC<SearchMemberListProps> = ({
   const { t } = useTranslation("features");
   const [activeSegment, setActiveSegment] = useState<string>("segment-active");
 
-  const { isEmptySearch, isLoading, members, isShowingList } = useSearchMembers(
-    { searchInput, searchArchived: activeSegment === "segment-archived" },
-  );
+  const searchedMembers = useMemberStore(selectSearchedMembers);
+  const hasSearchHistoryEmpty =
+    searchedMembers.length === 0 && searchInput.trim().length === 0;
 
-  const formattedMembers = useFormatMembers({ members });
+  const { isLoading, members, hasSearchResult, hasSearchResultEmpty } =
+    useSearchMembers({
+      searchInput,
+      searchArchived: activeSegment === "segment-archived",
+    });
 
-  const translations = useListItemTranslations();
+  const displayedMembers = hasSearchResult
+    ? members
+    : [...searchedMembers].reverse();
+
+  const items = useSearchMemberListItems({
+    members: displayedMembers,
+    isMobile,
+    tagsMap,
+    navigate,
+  });
 
   return (
-    <div className="min-h-[400px] flex flex-col justify-center flex-1 mt-md">
-      {isShowingList && (
-        /**@todo Replace by segmented control when implemented */
-        <Tabs
-          orientation="horizontal"
-          value={activeSegment}
-          onValueChange={(value) => setActiveSegment(value)}
-          tabs={[
-            {
-              id: "segment-active",
-              label: t("searchMembers.segments.active"),
-            },
-            {
-              id: "segment-archived",
-              label: t("searchMembers.segments.archived"),
-            },
-          ]}
-        />
-      )}
-      <List<ListItemProps>
-        id={useId()}
-        ListItem={SearchMemberListItem}
-        items={formattedMembers.map((member) => ({
-          ...member,
-          navigate,
-          ...translations,
-          tagsMap,
-          isMobile,
-        }))}
-        emptyStateProps={{
-          // We want to show empty search state only
-          isEmptySearch: isEmptySearch,
-          emptySearchConfig: {
-            title: "", // Avoid default title
-            subtitle: t("searchMembers.emptySearch"),
+    <div className="mt-sm">
+      <SegmentedControl
+        id="member-search-archive-active-control"
+        options={[
+          {
+            value: "segment-active",
+            label: t("searchMembers.segments.active"),
           },
+          {
+            value: "segment-archived",
+            label: t("searchMembers.segments.archived"),
+          },
+        ]}
+        onChangeValue={(value: string) => {
+          setActiveSegment(value);
         }}
-        loadingProps={{
-          isLoading: isLoading,
-          message: t("searchMembers.loading"),
-          className: "self-center",
-        }}
+        value={activeSegment}
       />
+      <div className="h-[400px] overflow-y-scroll hide-scrollbar min-h-0">
+        <List
+          id={useId()}
+          items={items}
+          emptyStateProps={{
+            /**
+             * We want to show empty search state only when
+             * - there is an active search input but no results have been retrieved
+             * - there isn't an active search input and there is no search history
+             * still by considering that zustand store is not reset after one search
+             */
+            isEmptySearch: hasSearchResultEmpty || hasSearchHistoryEmpty,
+            emptySearchConfig: {
+              title: "", // Avoid default title
+              subtitle: t("searchMembers.emptySearch"),
+            },
+          }}
+          loadingProps={{
+            isLoading: isLoading,
+            message: t("searchMembers.loading"),
+          }}
+          className="h-full"
+        />
+      </div>
     </div>
   );
 };

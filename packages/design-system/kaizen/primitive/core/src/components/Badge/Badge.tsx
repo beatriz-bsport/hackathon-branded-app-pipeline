@@ -50,6 +50,7 @@ export type BadgeProps = React.HTMLAttributes<HTMLDivElement> & {
   size: (typeof sizes)[number];
   color: (typeof colors)[number];
   icon?: IconName;
+  textClassName?: string;
 };
 
 const badge = cva(defaultClasses, {
@@ -72,6 +73,7 @@ const Badge: React.FC<BadgeProps> = ({
   size,
   color,
   icon,
+  textClassName,
   ...props
 }) => {
   const buttonType = text?.length || icon ? "text" : "dot";
@@ -92,6 +94,7 @@ const Badge: React.FC<BadgeProps> = ({
         size={size === "lg" ? "md" : "sm"}
         color="inherit"
         htmlVariant="span"
+        className={textClassName ?? ""}
       >
         {text}
       </Body>

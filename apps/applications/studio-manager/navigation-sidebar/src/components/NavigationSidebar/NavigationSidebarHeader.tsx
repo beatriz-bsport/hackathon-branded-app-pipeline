@@ -11,6 +11,7 @@ import {
 } from "@bsport/kaizen-primitive-core";
 
 import { type TFunction, useTranslation } from "#src/utils/i18n";
+import { useObjectLevelPermission } from "#src/utils/permissions";
 
 import type { MenuSet } from "./navigation-items";
 
@@ -84,6 +85,9 @@ const NavigationSidebarHeader = ({
   hiddenItems,
 }: NavigationSidebarHeaderProps) => {
   const { t } = useTranslation("default");
+  const hasSearchPermission = useObjectLevelPermission(
+    "member.allowed_actions.search",
+  );
 
   if (menuSet === "settings" && onBack) {
     return (
@@ -124,16 +128,18 @@ const NavigationSidebarHeader = ({
           />
         )}
       />
-      <Button
-        className="shrink-0 hidden md:inline-flex"
-        kind="icon-button"
-        intent="default"
-        size="md"
-        color="main"
-        icon="search-refraction"
-        label={t("common.search")}
-        onClick={onSearch}
-      />
+      {hasSearchPermission && (
+        <Button
+          className="shrink-0 md:inline-flex"
+          kind="icon-button"
+          intent="default"
+          size="md"
+          color="main"
+          icon="search-refraction"
+          label={t("common.search")}
+          onClick={onSearch}
+        />
+      )}
     </header>
   );
 };

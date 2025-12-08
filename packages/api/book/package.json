@@ -28,11 +28,12 @@
     "lint": "eslint .",
     "lint:fix": "eslint --fix ."
   },
-  "dependencies": {},
-  "devDependencies": {
-    "@bsport/config-eslint-react": "workspace:*",
+  "dependencies": {
     "@bsport/fetch": "workspace:*",
     "@bsport/store-base": "workspace:*"
+  },
+  "devDependencies": {
+    "@bsport/config-eslint-react": "workspace:*"
   },
   "nx": {
     "tags": [

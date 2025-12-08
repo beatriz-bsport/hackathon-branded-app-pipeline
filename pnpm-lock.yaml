@@ -2727,16 +2727,17 @@ importers:
         version: 3.5.1(javascript-obfuscator@4.1.1)(webpack@5.103.0)
 
   packages/api/book:
-    devDependencies:
-      '@bsport/config-eslint-react':
-        specifier: workspace:*
-        version: link:../../../tools/config/eslint-react
+    dependencies:
       '@bsport/fetch':
         specifier: workspace:*
         version: link:../../utils/fetch
       '@bsport/store-base':
         specifier: workspace:*
         version: link:../../stores/base
+    devDependencies:
+      '@bsport/config-eslint-react':
+        specifier: workspace:*
+        version: link:../../../tools/config/eslint-react
 
   packages/common-legacy:
     dependencies:

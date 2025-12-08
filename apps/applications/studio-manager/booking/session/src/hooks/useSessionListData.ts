@@ -110,9 +110,9 @@ const sessionsQueryOptions = (
         max_date: maxDateKey,
       });
 
-      const { data: fetchData } = await fetch<ManagerSession[]>(uri, init);
+      const { data: fetchedData } = await fetch<ManagerSession[]>(uri, init);
 
-      return fetchData;
+      return fetchedData;
     },
     enabled: !!minDateKey && !!maxDateKey,
     staleTime: SESSIONS_STALE_TIME,

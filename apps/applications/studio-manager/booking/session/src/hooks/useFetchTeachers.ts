@@ -3,12 +3,14 @@ import { keyBy } from "lodash";
 
 import { fetchTeachers } from "../api";
 
+const TEACHERS_STALE_TIME = 2 * 60 * 1000; // 2 minutes
+
 const teachersQueryOptions = (teacherIds: number[], enabled: boolean) =>
   queryOptions({
     queryKey: ["teachers", [...teacherIds].sort().join(",")],
     queryFn: () => fetchTeachers(teacherIds),
     enabled: enabled && teacherIds.length > 0,
-    staleTime: 2 * 60 * 1000, // 2 minutes
+    staleTime: TEACHERS_STALE_TIME,
   });
 
 export const useFetchTeachers = (teacherIds: number[] = [], enabled = true) => {

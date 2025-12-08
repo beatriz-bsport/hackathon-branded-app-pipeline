@@ -1109,6 +1109,9 @@ importers:
 
   apps/applications/studio-manager/booking/session:
     dependencies:
+      '@bsport/api-book':
+        specifier: workspace:*
+        version: link:../../../../../packages/api/book
       '@bsport/datetime-formatting':
         specifier: workspace:*
         version: link:../../../../../packages/utils/datetime-formatting

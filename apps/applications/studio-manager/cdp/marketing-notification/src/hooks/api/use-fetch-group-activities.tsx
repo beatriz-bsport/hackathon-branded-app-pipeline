@@ -1,5 +1,5 @@
+import { FetchGroupActivitiesParams } from "@bsport/api-book";
 import {
-  type FetchGroupActivitiesParams,
   fetchGroupActivitiesAndWorkshopsAction,
   searchGroupActivitiesAction,
 } from "@bsport/store-booking-group-activity";

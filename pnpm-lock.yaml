@@ -1045,6 +1045,9 @@ importers:
 
   apps/applications/studio-manager/booking/group-activity:
     dependencies:
+      '@bsport/api-book':
+        specifier: workspace:*
+        version: link:../../../../../packages/api/book
       '@bsport/fetch':
         specifier: workspace:*
         version: link:../../../../../packages/utils/fetch
@@ -1139,9 +1142,6 @@ importers:
       '@bsport/store-base':
         specifier: workspace:*
         version: link:../../../../../packages/stores/base
-      '@bsport/store-booking-group-activity':
-        specifier: workspace:*
-        version: link:../../../../../packages/stores/booking/group-activity
       '@bsport/timezone-utils':
         specifier: workspace:*
         version: link:../../../../../packages/utils/datetime/timezone
@@ -1678,6 +1678,9 @@ importers:
 
   apps/applications/studio-manager/cdp/marketing-notification:
     dependencies:
+      '@bsport/api-book':
+        specifier: workspace:*
+        version: link:../../../../../packages/api/book
       '@bsport/fetch':
         specifier: workspace:*
         version: link:../../../../../packages/utils/fetch
@@ -3049,6 +3052,9 @@ importers:
 
   packages/stores/booking/group-activity:
     dependencies:
+      '@bsport/api-book':
+        specifier: workspace:*
+        version: link:../../../api/book
       '@bsport/store-base':
         specifier: workspace:*
         version: link:../../base

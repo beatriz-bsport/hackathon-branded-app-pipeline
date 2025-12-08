@@ -1,25 +1,23 @@
 import { Result } from "typescript-result";
 
+import {
+  type CanArchiveGroupActivityResponse,
+  type FetchGroupActivitiesParams,
+  type MetaActivity,
+  type SearchGroupActivitiesParams,
+  archiveGroupActivity,
+  checkCanArchiveGroupActivity,
+  duplicateGroupActivity,
+  fetchGroupActivities,
+  fetchGroupActivitiesAndWorkshops,
+  searchGroupActivities,
+  unarchiveGroupActivity,
+} from "@bsport/api-book";
 import type {
   Action,
   PaginatedResponse,
   SearchResponse,
 } from "@bsport/store-base";
-
-import {
-  archiveGroupActivityAPI,
-  checkCanArchiveGroupActivityAPI,
-  duplicateGroupActivityAPI,
-  fetchGroupActivitiesAPI,
-  fetchGroupActivitiesAndWorkshopsAPI,
-  searchGroupActivitiesAPI,
-  unarchiveGroupActivityAPI,
-} from "#src/api";
-import type {
-  FetchGroupActivitiesParams,
-  MetaActivity,
-  SearchGroupActivitiesParams,
-} from "#src/types";
 
 import {
   setGroupActivities,
@@ -31,11 +29,9 @@ export const fetchGroupActivitiesAction: Action<
   FetchGroupActivitiesParams,
   PaginatedResponse<MetaActivity>
 > = async (fetch, params) => {
-  const [uri, init] = fetchGroupActivitiesAPI(params);
-
   return Result.try(
     async () => {
-      const { data } = await fetch(uri, init);
+      const data = await fetchGroupActivities(fetch, params);
 
       setGroupActivities({
         groupActivities: data.results,
@@ -54,11 +50,9 @@ export const fetchGroupActivitiesAndWorkshopsAction: Action<
   Omit<FetchGroupActivitiesParams, "isWorkshop">,
   PaginatedResponse<MetaActivity>
 > = async (fetch, params) => {
-  const [uri, init] = fetchGroupActivitiesAndWorkshopsAPI(params);
-
   return Result.try(
     async () => {
-      const { data } = await fetch(uri, init);
+      const data = await fetchGroupActivitiesAndWorkshops(fetch, params);
 
       setGroupActivities({
         groupActivities: data.results,
@@ -80,11 +74,9 @@ export const searchGroupActivitiesAction: Action<
   SearchGroupActivitiesParams,
   SearchResponse<MetaActivity>
 > = async (fetch, params) => {
-  const [uri, init] = searchGroupActivitiesAPI(params);
-
   return Result.try(
     async () => {
-      const { data } = await fetch(uri, init);
+      const data = await searchGroupActivities(fetch, params);
 
       setGroupActivities({
         groupActivities: data.results,
@@ -99,11 +91,6 @@ export const searchGroupActivitiesAction: Action<
   );
 };
 
-type CanArchiveGroupActivityResponse = {
-  can_destroy: boolean;
-  offers: number[];
-};
-
 export const checkCanArchiveGroupActivityAction: Action<
   string,
   CanArchiveGroupActivityResponse
@@ -115,11 +102,9 @@ export const checkCanArchiveGroupActivityAction: Action<
       ),
     );
 
-  const [uri, init] = checkCanArchiveGroupActivityAPI(groupActivityId);
-
   return Result.try(
     async () => {
-      const { data } = await fetch(uri, init);
+      const data = await checkCanArchiveGroupActivity(fetch, groupActivityId);
 
       setInterrogate({
         canDestroy: data.can_destroy,
@@ -144,11 +129,9 @@ export const archiveGroupActivityAction: Action<string, MetaActivity> = async (
       new Error("A group activity Id is required to archive."),
     );
 
-  const [uri, init] = archiveGroupActivityAPI(groupActivityId);
-
   return Result.try(
     async () => {
-      const { data } = await fetch(uri, init);
+      const data = await archiveGroupActivity(fetch, groupActivityId);
 
       updateGroupActivity(data);
 
@@ -173,11 +156,9 @@ export const unarchiveGroupActivityAction: Action<
       new Error("A group activity Id is required to unarchive."),
     );
 
-  const [uri, init] = unarchiveGroupActivityAPI(groupActivityId);
-
   return Result.try(
     async () => {
-      const { data } = await fetch(uri, init);
+      const data = await unarchiveGroupActivity(fetch, groupActivityId);
 
       updateGroupActivity(data);
 
@@ -202,11 +183,9 @@ export const duplicateGroupActivityAction: Action<
       new Error("A group activity Id is required to duplicate it."),
     );
 
-  const [uri, init] = duplicateGroupActivityAPI(groupActivityId);
-
   return Result.try(
     async () => {
-      const { data } = await fetch(uri, init);
+      const data = await duplicateGroupActivity(fetch, groupActivityId);
 
       updateGroupActivity(data);
 

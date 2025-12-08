@@ -1,9 +1,11 @@
 import { useMemo } from "react";
 
+import {
+  FetchGroupActivitiesParams,
+  SearchGroupActivitiesParams,
+} from "@bsport/api-book";
 import type { PaginationProps } from "@bsport/kaizen-primitive-core";
 import {
-  type FetchGroupActivitiesParams,
-  type SearchGroupActivitiesParams,
   fetchGroupActivitiesAction,
   searchGroupActivitiesAction,
   selectCount,

@@ -1,4 +1,4 @@
-import { MetaActivity } from "@bsport/store-booking-group-activity";
+import { MetaActivity } from "@bsport/api-book";
 
 import {
   MAX_STEP,

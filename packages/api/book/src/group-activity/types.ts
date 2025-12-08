@@ -53,3 +53,8 @@ export type GroupActivityCustomRestriction<Tag = number> = {
   last_discard_minutes: number;
   tags: Tag[];
 };
+
+export type CanArchiveGroupActivityResponse = {
+  can_destroy: boolean;
+  offers: number[];
+};

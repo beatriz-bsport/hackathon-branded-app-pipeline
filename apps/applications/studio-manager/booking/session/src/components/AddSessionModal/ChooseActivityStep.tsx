@@ -1,7 +1,7 @@
 import { useState } from "react";
 
+import type { MetaActivity } from "@bsport/api-book";
 import { Body, Table, TextField } from "@bsport/kaizen-primitive-core";
-import type { MetaActivity } from "@bsport/store-booking-group-activity";
 import { useDebounce } from "@bsport/use-debounce";
 
 import { useFetchGroupActivities } from "#src/hooks/useFetchGroupActivities";

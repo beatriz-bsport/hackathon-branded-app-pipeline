@@ -1,4 +1,4 @@
-import type { MetaActivity } from "@bsport/store-booking-group-activity";
+import type { MetaActivity } from "@bsport/api-book";
 
 import {
   setSelectedGroupActivity,

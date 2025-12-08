@@ -1,7 +1,7 @@
+import { MetaActivity } from "@bsport/api-book";
 import { buildById } from "@bsport/store-base";
 
 import { groupActivityStore } from "#src/store";
-import type { MetaActivity } from "#src/types";
 
 export const updateGroupActivity = (updatedGroupActivity: MetaActivity) => {
   groupActivityStore.setState((state) => {

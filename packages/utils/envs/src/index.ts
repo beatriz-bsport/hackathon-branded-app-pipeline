@@ -68,6 +68,16 @@ export function getEnv(url?: string): Environment {
  */
 export function isFeatureBranch(url?: string): boolean {
   const env = getEnv(url);
+  return isEnvFeatureBranch(env);
+}
+
+/**
+ * Check if the provided environment is a feature branch deployment.
+ *
+ * @param env Env to check
+ * @returns true if provided environment is a feature branch, false otherwise
+ */
+export function isEnvFeatureBranch(env: Environment): boolean {
   const knownEnvironments: KnownEnvironment[] = [
     "local",
     "dev",

@@ -3609,6 +3609,9 @@ importers:
 
   packages/utils/fetch:
     dependencies:
+      '@bsport/envs':
+        specifier: workspace:*
+        version: link:../envs
       '@bsport/http-exception':
         specifier: workspace:*
         version: link:../http-exception

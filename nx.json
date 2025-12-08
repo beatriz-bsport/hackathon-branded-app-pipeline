@@ -40,9 +40,6 @@
     "test": {
       "cache": true
     },
-    "ci:build": {
-      "cache": true
-    },
     "pretty": {
       "cache": true
     },

@@ -118,5 +118,11 @@
         "watchPath": "../business-insights/homepage/src/**/*"
       }
     }
+  },
+  "nx": {
+    "tags": [
+      "application:revamp",
+      "scope:studio"
+    ]
   }
 }

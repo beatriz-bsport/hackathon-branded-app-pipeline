@@ -5,4 +5,7 @@
     - corepack enable
     - corepack prepare pnpm@$pnpm_version --activate
     - pnpm store path
+    - echo "*"
+    - echo "⏳ Install node modules and deps with pnpm..."
     - pnpm install --frozen-lockfile --prefer-offline
+    - echo "✅ Node modules have been installed successfully"

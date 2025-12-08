@@ -19,6 +19,8 @@ import withQueryParams from '../hocs/with-query-params.hoc';
 import namespaces from '../i18n/namespaces.json';
 import { identifyAnalyticsB2BWithTheme } from '#src/components/analytics/mixpanel';
 import { requestOptInTrackingB2B as requestOptInTrackingB2BAction } from '#src/components/analytics/actions';
+// @ts-expect-error Javascript file
+import { fetchAccessLevelWithoutConnect as fetchAccessLevelWithoutConnectAction } from '#src/actions/auth.actions';
 
 import { useRouteToHomepage } from '#src/revamp';
 
@@ -50,6 +52,7 @@ export const UserspaceSwitcher = (props: Props) => {
     has_completed_account_configuration_on_boarding,
     hasEnabledRevampedBO,
     theme,
+    fetchAccessLevelWithoutConnect,
   } = props;
   useTranslation(namespaces);
   useEffect(() => {
@@ -99,7 +102,15 @@ export const UserspaceSwitcher = (props: Props) => {
 
   useEffect(() => {
     if (isManager && shouldNavigateToHomepage) {
-      navigateToHomepage();
+      // Refresh Redux store with Access Level information
+      fetchAccessLevelWithoutConnect(storedToken, 'previous', {
+        onSuccess: (data: { has_enabled_revamped_backoffice: boolean }) => {
+          // Trigger redirection only if the user setting is still active
+          if (data.has_enabled_revamped_backoffice) {
+            navigateToHomepage();
+          }
+        },
+      });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isManager, shouldNavigateToHomepage]);
@@ -147,6 +158,7 @@ const connector = connect(
   {
     disconnect: disconnectAction,
     requestOptInTrackingB2B: requestOptInTrackingB2BAction,
+    fetchAccessLevelWithoutConnect: fetchAccessLevelWithoutConnectAction,
   },
 );
 

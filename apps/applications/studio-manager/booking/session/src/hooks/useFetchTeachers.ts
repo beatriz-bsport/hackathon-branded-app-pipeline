@@ -1,28 +1,23 @@
-import { useCallback } from "react";
+import { queryOptions, useQuery } from "@tanstack/react-query";
+import { keyBy } from "lodash";
 
-import { fetchFlatTeachersAction } from "@bsport/store-core-data-teacher";
-import { useAsync } from "@bsport/use-async";
+import { fetchTeachers } from "../api";
 
-import { fetch } from "#src/utils/fetch";
+const TEACHERS_STALE_TIME = 2 * 60 * 1000; // 2 minutes
 
-export const useFetchTeachers = () => {
-  const handleFetchTeachers = useCallback(
-    async ({ teacherIds }: { teacherIds: number[] }) => {
-      return fetchFlatTeachersAction(fetch, {
-        id__in: teacherIds,
-      });
-    },
-    [],
-  );
-
-  const [{ isLoading }, fetchTeachers] = useAsync<typeof handleFetchTeachers>({
-    asyncFn: handleFetchTeachers,
-    dependencies: [handleFetchTeachers],
-    onFailure: console.error,
+const teachersQueryOptions = (teacherIds: number[], enabled: boolean) => {
+  const teacherIdsSorted = [...teacherIds].sort();
+  return queryOptions({
+    queryKey: ["teachers", teacherIdsSorted],
+    queryFn: () => fetchTeachers(teacherIdsSorted),
+    enabled: enabled && teacherIdsSorted.length > 0,
+    staleTime: TEACHERS_STALE_TIME,
   });
+};
 
-  return {
-    isLoading,
-    fetchTeachers,
-  };
+export const useFetchTeachers = (teacherIds: number[] = [], enabled = true) => {
+  return useQuery({
+    ...teachersQueryOptions(teacherIds, enabled),
+    select: (teachers) => keyBy(teachers, "id"),
+  });
 };

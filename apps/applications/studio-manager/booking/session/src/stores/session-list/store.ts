@@ -2,18 +2,6 @@ import { createStore } from "zustand/vanilla";
 
 import { bindStore } from "@bsport/store-base";
 
-import { InternalEnrichedSession } from "./types";
-
-type SessionsState = {
-  byId: {
-    [key: number]: InternalEnrichedSession;
-  };
-  ids: number[];
-  byDate: {
-    [key: string]: number[]; // array of session IDs
-  };
-};
-
 export enum CalendarView {
   DAILY = "daily",
   RANGE = "range",
@@ -24,18 +12,12 @@ export type DateSelection =
   | { type: "range"; minDate: Date | null; maxDate: Date | null };
 
 export interface SessionListState {
-  sessions: SessionsState;
   calendarView: CalendarView;
   selectedDate: DateSelection;
   locale: string;
 }
 
 export const getInitialState = (): SessionListState => ({
-  sessions: {
-    byId: {},
-    ids: [],
-    byDate: {},
-  },
   calendarView: CalendarView.DAILY,
   selectedDate: { type: "single", date: new Date() },
   locale: "en-US",

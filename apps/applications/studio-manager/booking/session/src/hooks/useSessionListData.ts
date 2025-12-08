@@ -1,110 +1,152 @@
-import { useCallback, useEffect } from "react";
-import { Result } from "typescript-result";
+import { queryOptions, useQuery } from "@tanstack/react-query";
+import { groupBy } from "lodash";
+import { useMemo } from "react";
 
-import { getIsoDateString } from "@bsport/datetime-manipulation";
-import {
-  selectEstablishmentMappedById,
-  useEstablishmentStore,
-} from "@bsport/store-core-data-establishment";
-import {
-  selectTeachersById,
-  useTeacherStore,
-} from "@bsport/store-core-data-teacher";
-import { useAsync } from "@bsport/use-async";
+import { fromIsoString, getIsoDateString } from "@bsport/datetime-manipulation";
+import type { Establishment } from "@bsport/store-core-data-establishment";
+import type { Teacher } from "@bsport/store-core-data-teacher";
+import { getCompanyTimezone } from "@bsport/timezone-utils";
 
-import {
-  FetchSessionsResponse,
-  enrichSessionsWithRelatedData,
-  fetchSessionsAction,
-  selectProcessedSessionsByDate,
-  useSessionListStore,
-} from "../stores/session-list";
+import { fetchManagerSessionsAPI } from "../api";
+import { EnrichedSession, ManagerSession } from "../api/types";
 import { fetch } from "../utils/fetch";
 import { useFetchEstablishments } from "./useFetchEstablishments";
 import { useFetchTeachers } from "./useFetchTeachers";
 
+const SESSIONS_STALE_TIME = 2 * 60 * 1000; // 2 minutes
+
+/**
+ * Process a single session by enriching it with teacher and establishment data,
+ * applying name overrides, and adding color information.
+ */
+const processSession =
+  (
+    teachersById: Record<number, Teacher>,
+    establishmentsById: Record<number, Establishment>,
+  ) =>
+  (session: ManagerSession): EnrichedSession => {
+    const teacher = teachersById[session.coach];
+    const teacherOverride = session.coach_override
+      ? teachersById[session.coach_override]
+      : undefined;
+    const establishment = establishmentsById[session.establishment];
+
+    const { name_override, ...sessionWithoutOverride } = session;
+
+    return {
+      ...sessionWithoutOverride,
+      teacherName: teacherOverride?.name ?? teacher?.name,
+      originalTeacherName: teacher?.name,
+      establishmentName: establishment?.title,
+      name: name_override || session.name,
+      color: session.meta_activity_color,
+    };
+  };
+
+const getSessionDateStart = (session: ManagerSession): string => {
+  return fromIsoString(session.date_start, {
+    zone: getCompanyTimezone(),
+  }).toISODate()!;
+};
+
+const groupProcessedSessionsByDate = (
+  sessions: ManagerSession[],
+  teachersById: Record<number, Teacher>,
+  establishmentsById: Record<number, Establishment>,
+): Record<string, EnrichedSession[]> => {
+  sessions.map(processSession(teachersById, establishmentsById));
+
+  return groupBy(sessions, getSessionDateStart);
+};
+
+const extractRelatedIds = (sessions: ManagerSession[]) => {
+  const teacherIds = new Set<number>();
+  const establishmentIds = new Set<number>();
+
+  sessions.forEach((session) => {
+    teacherIds.add(session.coach);
+    if (session.coach_override) {
+      teacherIds.add(session.coach_override);
+    }
+    establishmentIds.add(session.establishment);
+  });
+
+  return {
+    teacherIds: Array.from(teacherIds),
+    establishmentIds: Array.from(establishmentIds),
+  };
+};
+
+const extractDateRangeParams = (
+  params: { date: Date } | { minDate: Date; maxDate: Date } | null,
+): { minDateKey: string | null; maxDateKey: string | null } => {
+  if (!params) return { minDateKey: null, maxDateKey: null };
+
+  if ("date" in params) {
+    return {
+      minDateKey: getIsoDateString(params.date),
+      maxDateKey: getIsoDateString(params.date),
+    };
+  }
+
+  return {
+    minDateKey: getIsoDateString(params.minDate),
+    maxDateKey: getIsoDateString(params.maxDate),
+  };
+};
+
+const sessionsQueryOptions = (
+  minDateKey: string | null,
+  maxDateKey: string | null,
+) =>
+  queryOptions({
+    queryKey: ["sessions", minDateKey, maxDateKey],
+    queryFn: async () => {
+      if (!minDateKey || !maxDateKey) {
+        return [];
+      }
+      const [uri, init] = fetchManagerSessionsAPI({
+        min_date: minDateKey,
+        max_date: maxDateKey,
+      });
+
+      const { data: fetchedData } = await fetch<ManagerSession[]>(uri, init);
+
+      return fetchedData;
+    },
+    enabled: !!minDateKey && !!maxDateKey,
+    staleTime: SESSIONS_STALE_TIME,
+  });
+
 export const useSessionListData = (
   params: { date: Date } | { minDate: Date; maxDate: Date } | null,
 ) => {
-  const { isLoading: isLoadingTeachers, fetchTeachers } = useFetchTeachers();
-  const { isLoading: isLoadingEstablishments, fetchEstablishments } =
-    useFetchEstablishments();
+  const { minDateKey, maxDateKey } = extractDateRangeParams(params);
 
-  const teachersById = useTeacherStore(selectTeachersById);
-  const establishmentsById = useEstablishmentStore(
-    selectEstablishmentMappedById,
+  const { data: rawSessions = [], isLoading: isLoadingSessions } = useQuery(
+    sessionsQueryOptions(minDateKey, maxDateKey),
   );
 
-  const minDate = params
-    ? "date" in params
-      ? params.date
-      : params.minDate
-    : null;
-  const maxDate = params
-    ? "date" in params
-      ? params.date
-      : params.maxDate
-    : null;
+  const { teacherIds, establishmentIds } = useMemo(
+    () => extractRelatedIds(rawSessions),
+    [rawSessions],
+  );
 
-  const minDateKey = minDate ? getIsoDateString(minDate) : null;
-  const maxDateKey = maxDate ? getIsoDateString(maxDate) : null;
+  // Fetch teachers and establishments as dependent queries (only after sessions load)
+  const { data: teachersById = {}, isLoading: isLoadingTeachers } =
+    useFetchTeachers(teacherIds, !isLoadingSessions);
+  const { data: establishmentsById = {}, isLoading: isLoadingEstablishments } =
+    useFetchEstablishments(establishmentIds, !isLoadingSessions);
 
-  const _fetchSessions = useCallback(async () => {
-    // Don't fetch if we don't have complete date range
-    if (!minDateKey || !maxDateKey) {
-      return Result.ok<FetchSessionsResponse>({ results: [] });
-    }
-    return fetchSessionsAction(fetch, {
-      minDate: minDateKey,
-      maxDate: maxDateKey,
-    });
-  }, [minDateKey, maxDateKey]);
-
-  const [{ isLoading: isLoadingSessions }, executeFetchSessions] = useAsync<
-    typeof _fetchSessions
-  >({
-    asyncFn: _fetchSessions,
-    dependencies: [_fetchSessions],
-    onSuccess: ({ value }) => {
-      const sessions = value.results;
-
-      // Retrieve teacher and establishment ids to fetch related data
-      const teacherIds = new Set<number>();
-      const establishmentIds = new Set<number>();
-      sessions.forEach((session) => {
-        teacherIds.add(session.coach);
-
-        if (session.coach_override) {
-          teacherIds.add(session.coach_override);
-        }
-
-        establishmentIds.add(session.establishment);
-      });
-
-      if (teacherIds.size > 0) {
-        fetchTeachers({ teacherIds: Array.from(teacherIds) });
-      }
-      if (establishmentIds.size > 0) {
-        fetchEstablishments({ establishmentIds: Array.from(establishmentIds) });
-      }
-    },
-  });
-
-  useEffect(() => {
-    executeFetchSessions();
-  }, [executeFetchSessions]);
-
-  // Enrich sessions whenever teachers or establishments are loaded
-  useEffect(() => {
-    if (
-      Object.keys(teachersById).length > 0 ||
-      Object.keys(establishmentsById).length > 0
-    ) {
-      enrichSessionsWithRelatedData({ teachersById, establishmentsById });
-    }
-  }, [teachersById, establishmentsById]);
-
-  const sessionsByDate = useSessionListStore(selectProcessedSessionsByDate);
+  const sessionsByDate = useMemo(
+    () =>
+      groupProcessedSessionsByDate(
+        rawSessions,
+        teachersById,
+        establishmentsById,
+      ),
+    [rawSessions, teachersById, establishmentsById],
+  );
 
   return {
     sessionsByDate,

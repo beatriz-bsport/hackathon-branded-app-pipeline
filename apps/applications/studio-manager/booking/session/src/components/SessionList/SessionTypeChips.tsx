@@ -1,7 +1,6 @@
 import React from "react";
 
-import type { EnrichedSession } from "#src/stores/session-list/types";
-
+import type { EnrichedSession } from "../../api/types";
 import { GroupedIconChip } from "../common/GroupedIconChip";
 import { HybridChip } from "../common/HybridChip";
 import { OnlineIconChip } from "../common/OnlineIconChip";

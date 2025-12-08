@@ -3,6 +3,8 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 
 import { HTTPException } from "@bsport/http-exception";
 
+import { MAP_ENV_TO_API_URL } from "#src/uri-management";
+
 import { getFetch } from "../fetch";
 import { server } from "./setup";
 
@@ -26,13 +28,13 @@ vi.mock("@bsport/timezone-utils", () => ({
 
 // Mock window.location
 Object.defineProperty(window, "location", {
-  value: { href: "https://app.bsport.io/dashboard" },
+  value: { href: "https://backoffice.dev.bsport.io/dashboard" },
   writable: true,
 });
 
 describe("getFetch", () => {
   const fetchFn = getFetch();
-  const baseUrl = "https://api.dev.bsport.io";
+  const baseUrl = MAP_ENV_TO_API_URL.dev;
 
   beforeEach(() => {
     vi.clearAllMocks();

@@ -1,4 +1,5 @@
 import { queryOptions, useQuery } from "@tanstack/react-query";
+import { groupBy } from "lodash";
 import { useMemo } from "react";
 
 import { fromIsoString, getIsoDateString } from "@bsport/datetime-manipulation";
@@ -18,27 +19,34 @@ const SESSIONS_STALE_TIME = 2 * 60 * 1000; // 2 minutes
  * Process a single session by enriching it with teacher and establishment data,
  * applying name overrides, and adding color information.
  */
-const processSession = (
-  session: ManagerSession,
-  teachersById: Record<number, Teacher>,
-  establishmentsById: Record<number, Establishment>,
-): EnrichedSession => {
-  const teacher = teachersById[session.coach];
-  const teacherOverride = session.coach_override
-    ? teachersById[session.coach_override]
-    : undefined;
-  const establishment = establishmentsById[session.establishment];
+const processSession =
+  (
+    teachersById: Record<number, Teacher>,
+    establishmentsById: Record<number, Establishment>,
+  ) =>
+  (session: ManagerSession): EnrichedSession => {
+    const teacher = teachersById[session.coach];
+    const teacherOverride = session.coach_override
+      ? teachersById[session.coach_override]
+      : undefined;
+    const establishment = establishmentsById[session.establishment];
 
-  const { name_override, ...sessionWithoutOverride } = session;
+    const { name_override, ...sessionWithoutOverride } = session;
 
-  return {
-    ...sessionWithoutOverride,
-    teacherName: teacherOverride?.name ?? teacher?.name,
-    originalTeacherName: teacher?.name,
-    establishmentName: establishment?.title,
-    name: name_override || session.name,
-    color: session.meta_activity_color,
+    return {
+      ...sessionWithoutOverride,
+      teacherName: teacherOverride?.name ?? teacher?.name,
+      originalTeacherName: teacher?.name,
+      establishmentName: establishment?.title,
+      name: name_override || session.name,
+      color: session.meta_activity_color,
+    };
   };
+
+const getSessionDateStart = (session: ManagerSession): string => {
+  return fromIsoString(session.date_start, {
+    zone: getCompanyTimezone(),
+  }).toISODate()!;
 };
 
 const groupProcessedSessionsByDate = (
@@ -46,28 +54,9 @@ const groupProcessedSessionsByDate = (
   teachersById: Record<number, Teacher>,
   establishmentsById: Record<number, Establishment>,
 ): Record<string, EnrichedSession[]> => {
-  const enrichedSessionsByDate: Record<string, EnrichedSession[]> = {};
+  sessions.map(processSession(teachersById, establishmentsById));
 
-  sessions.forEach((session) => {
-    const processedSession = processSession(
-      session,
-      teachersById,
-      establishmentsById,
-    );
-
-    const sessionDate = fromIsoString(session.date_start, {
-      zone: getCompanyTimezone(),
-    }).toISODate();
-
-    if (sessionDate) {
-      if (!enrichedSessionsByDate[sessionDate]) {
-        enrichedSessionsByDate[sessionDate] = [];
-      }
-      enrichedSessionsByDate[sessionDate].push(processedSession);
-    }
-  });
-
-  return enrichedSessionsByDate;
+  return groupBy(sessions, getSessionDateStart);
 };
 
 const extractRelatedIds = (sessions: ManagerSession[]) => {

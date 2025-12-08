@@ -1,10 +1,11 @@
 import { act, render, screen } from "@testing-library/react";
-import { FC, lazy } from "react";
+import { type FC, type ReactNode, lazy } from "react";
 import { MemoryRouter } from "react-router";
 import { beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 
 import * as authTokenModule from "@bsport/local-storage-auth-token";
 
+import { fetchSharedData } from "#src/api";
 import { AppWrapper } from "#src/wrappers/AppWrapper/AppWrapper";
 
 beforeAll(() => {
@@ -14,6 +15,13 @@ beforeAll(() => {
     disconnect() {}
   };
 });
+
+vi.mock("#src/wrappers/RoutesWrapper/DataLayerWrapper", () => ({
+  DataLayerWrapper: ({ children }: { children: ReactNode }) => {
+    fetchSharedData();
+    return children;
+  },
+}));
 
 const MockNavigation: FC = () => (
   <div data-testid="navigation-app">Navigation</div>

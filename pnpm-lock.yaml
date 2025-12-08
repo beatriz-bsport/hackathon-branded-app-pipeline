@@ -2720,6 +2720,18 @@ importers:
         specifier: ^3.5.1
         version: 3.5.1(javascript-obfuscator@4.1.1)(webpack@5.103.0)
 
+  packages/api/book:
+    devDependencies:
+      '@bsport/config-eslint-react':
+        specifier: workspace:*
+        version: link:../../../tools/config/eslint-react
+      '@bsport/fetch':
+        specifier: workspace:*
+        version: link:../../utils/fetch
+      '@bsport/store-base':
+        specifier: workspace:*
+        version: link:../../stores/base
+
   packages/common-legacy:
     dependencies:
       luxon:
@@ -23042,7 +23054,9 @@ snapshots:
       source-map: 0.6.1
       string-length: 2.0.0
     transitivePeerDependencies:
+      - bufferutil
       - supports-color
+      - utf-8-validate
 
   '@jest/reporters@28.1.3(node-notifier@8.0.2)':
     dependencies:
@@ -23164,7 +23178,9 @@ snapshots:
       jest-runner: 24.9.0
       jest-runtime: 24.9.0
     transitivePeerDependencies:
+      - bufferutil
       - supports-color
+      - utf-8-validate
 
   '@jest/test-sequencer@28.1.3':
     dependencies:

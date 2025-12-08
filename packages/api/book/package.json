@@ -30,7 +30,9 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "@bsport/config-eslint-react": "workspace:*"
+    "@bsport/config-eslint-react": "workspace:*",
+    "@bsport/fetch": "workspace:*",
+    "@bsport/store-base": "workspace:*"
   },
   "nx": {
     "tags": [

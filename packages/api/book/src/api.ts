@@ -1,15 +1,10 @@
 import { buildUrlParams } from "@bsport/store-base";
 
 import { fetch } from "#src/fetch";
-import { ManagerSession } from "#src/types";
+import type { FetchSessionsParams, ManagerSession } from "#src/types";
 
 const API_URL = "book/v1";
 const API_URL_SESSION = `${API_URL}/offer`;
-
-type FetchSessionsParams = {
-  min_date: string;
-  max_date: string;
-};
 
 export const fetchManagerSessionsURL = (
   params: FetchSessionsParams,

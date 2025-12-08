@@ -1,6 +1,6 @@
+import type { ManagerSession } from "@bsport/api-book";
 import { dataAccessLayer } from "@bsport/sm-backbone";
 import {
-  type ManagerSession,
   selectManagerSessions,
   useSessionStore,
 } from "@bsport/store-booking-session";

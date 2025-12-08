@@ -1209,6 +1209,9 @@ importers:
 
   apps/applications/studio-manager/business-insights/homepage:
     dependencies:
+      '@bsport/api-book':
+        specifier: workspace:*
+        version: link:../../../../../packages/api/book
       '@bsport/datetime-formatting':
         specifier: workspace:*
         version: link:../../../../../packages/utils/datetime-formatting
@@ -3051,6 +3054,9 @@ importers:
 
   packages/stores/booking/session:
     dependencies:
+      '@bsport/api-book':
+        specifier: workspace:*
+        version: link:../../../api/book
       '@bsport/store-base':
         specifier: workspace:*
         version: link:../../base

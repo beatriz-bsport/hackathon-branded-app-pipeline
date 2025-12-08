@@ -1,5 +1,5 @@
 import { queryOptions, useQuery } from "@tanstack/react-query";
-import { groupBy } from "lodash";
+import { Dictionary, groupBy } from "lodash";
 import { useMemo } from "react";
 
 import { fromIsoString, getIsoDateString } from "@bsport/datetime-manipulation";
@@ -43,7 +43,7 @@ const processSession =
     };
   };
 
-const getSessionDateStart = (session: ManagerSession): string => {
+const getSessionDateStart = (session: EnrichedSession): string => {
   return fromIsoString(session.date_start, {
     zone: getCompanyTimezone(),
   }).toISODate()!;
@@ -53,10 +53,12 @@ const groupProcessedSessionsByDate = (
   sessions: ManagerSession[],
   teachersById: Record<number, Teacher>,
   establishmentsById: Record<number, Establishment>,
-): Record<string, EnrichedSession[]> => {
-  sessions.map(processSession(teachersById, establishmentsById));
+): Dictionary<EnrichedSession[]> => {
+  const processedSessions = sessions.map(
+    processSession(teachersById, establishmentsById),
+  );
 
-  return groupBy(sessions, getSessionDateStart);
+  return groupBy(processedSessions, getSessionDateStart);
 };
 
 const extractRelatedIds = (sessions: ManagerSession[]) => {

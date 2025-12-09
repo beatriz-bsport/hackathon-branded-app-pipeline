@@ -1,6 +1,13 @@
 import type { DeepKeys } from "@bsport/permissions";
-import { checkFeaturePermission } from "@bsport/permissions";
-import type { CompanyRolePermissions } from "@bsport/sm-backbone";
+import {
+  type WithSignature,
+  checkFeaturePermission,
+  checkHasPermission,
+} from "@bsport/permissions";
+import type {
+  CompanyRolePermissions,
+  ObjectLevelPermissions,
+} from "@bsport/sm-backbone";
 import { dataAccessLayer } from "@bsport/sm-backbone";
 
 export {
@@ -18,5 +25,15 @@ export const useFeaturePermission = (identifier: number) => {
     features,
     identifier,
     enableInEnvMode: ["local"],
+  });
+};
+
+export const useObjectLevelPermission = (
+  path: DeepKeys<ObjectLevelPermissions>,
+) => {
+  const userRole = dataAccessLayer.useUserRole();
+  return checkHasPermission<WithSignature<ObjectLevelPermissions>>({
+    permissions: userRole?.object_level_permissions,
+    path,
   });
 };

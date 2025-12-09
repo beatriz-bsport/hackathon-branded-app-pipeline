@@ -55,7 +55,11 @@ export type FilterParams = {
   tags_excluded: string; // Union of excluded tags
 };
 
-export const useFilterMembers = () => {
+type UseFilterMembersOptions = {
+  onFiltersChange?: () => void;
+};
+
+export const useFilterMembers = (options?: UseFilterMembersOptions) => {
   const { t } = useTranslation("common");
 
   // ----- Load tags -----
@@ -82,7 +86,8 @@ export const useFilterMembers = () => {
   const handleClearFilters = useCallback(() => {
     setActiveFilters({ tags_excluded: "", tags_included: "" });
     filterRef.current?.resetFilters?.();
-  }, []);
+    options?.onFiltersChange?.();
+  }, [options]);
 
   // ----- Filter configuration -----
 
@@ -135,8 +140,9 @@ export const useFilterMembers = () => {
           operator: FILTER_IS_NOT,
         }),
       });
+      options?.onFiltersChange?.();
     },
-    [],
+    [options],
   );
 
   const filterConfig: FilterProps = useMemo(() => {

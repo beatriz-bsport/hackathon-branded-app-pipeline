@@ -1,11 +1,12 @@
 import { MetaActivity } from "@bsport/store-booking-group-activity";
 
 import {
-  CHOOSE_GROUP_ACTIVITY_STEP,
   MAX_STEP,
+  SESSION_CREATION_STEPS,
   getInitialState,
   sessionCreationStore,
 } from "#src/stores/session-creation/store";
+import type { SessionCreate } from "#src/stores/session-creation/types";
 
 /**
  * Sets the current step in the session creation flow.
@@ -39,7 +40,7 @@ export const goToNextStep = () => {
 export const goToPreviousStep = () => {
   sessionCreationStore.setState((state) => ({
     currentStep:
-      state.currentStep > CHOOSE_GROUP_ACTIVITY_STEP
+      state.currentStep > SESSION_CREATION_STEPS.CHOOSE_GROUP_ACTIVITY
         ? state.currentStep - 1
         : state.currentStep,
   }));
@@ -57,4 +58,19 @@ export const resetForm = () => {
  */
 export const setSelectedGroupActivity = (activity: MetaActivity | null) => {
   sessionCreationStore.setState({ selectedGroupActivity: activity });
+};
+
+export const saveStepFormData = ({
+  step,
+  data,
+}: {
+  step: SESSION_CREATION_STEPS;
+  data: Partial<SessionCreate>;
+}) => {
+  sessionCreationStore.setState((state) => ({
+    formData: {
+      ...state.formData,
+      [step]: data,
+    },
+  }));
 };

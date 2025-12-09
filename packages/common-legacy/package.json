@@ -33,7 +33,9 @@
     "format": "prettier --write '**/*.{ts,tsx,js,jsx,cjs,mjs,scss,css,json,md,mdx,html,svg}'",
     "format:check": "prettier --check '**/*.{ts,tsx,js,jsx,cjs,mjs}'",
     "lint": "eslint ./src",
-    "lint:fix": "eslint --fix ./src"
+    "lint:fix": "eslint --fix ./src",
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "dependencies": {
     "luxon": "^3.4.4",
@@ -43,6 +45,7 @@
   },
   "devDependencies": {
     "@bsport/config-eslint-react": "workspace:*",
+    "@bsport/config-vitest": "workspace:*",
     "@types/luxon": "^3.4.2",
     "@types/memoize-one": "^4.1.1",
     "@types/node": "^14.14.21",
@@ -51,7 +54,8 @@
   },
   "nx": {
     "tags": [
-      "postinstall"
+      "postinstall",
+      "execute:unit-tests"
     ]
   }
 }

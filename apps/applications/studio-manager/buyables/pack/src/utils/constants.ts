@@ -1,5 +1,3 @@
-import { getEnv } from "@bsport/envs";
-
 export const ITEM_VARIANTS = {
   pass: "pass",
   appointmentPass: "appointmentPass",
@@ -15,8 +13,3 @@ export type Category = {
   name: string;
   category_ordering?: number;
 };
-
-const env = getEnv();
-
-/** Whether to use the Revamp Details page */
-export const USE_REVAMP_DETAILS = env === "local";

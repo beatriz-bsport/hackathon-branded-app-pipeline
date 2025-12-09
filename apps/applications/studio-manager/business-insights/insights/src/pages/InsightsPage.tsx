@@ -30,7 +30,7 @@ const InsightsPage = () => {
   const filterRef = useRef<{ resetFilters: () => void }>(null);
 
   // Check permissions to filter available insights
-  const hasSubscriptionInvoicesPermission =
+  const { hasPermission: hasSubscriptionInvoicesPermission } =
     useHasSubscriptionInvoicesPermission();
 
   // Check feature flags

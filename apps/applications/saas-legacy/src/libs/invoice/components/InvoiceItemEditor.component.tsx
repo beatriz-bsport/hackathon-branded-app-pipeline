@@ -327,7 +327,12 @@ const InvoiceItemEditor: React.FC<Props> = ({
         onAddBuyableItem(buyableItemIdentifier, {
           ...buyableItem,
           buyable_item_id: buyableItem.id,
-          price: parseFloat(buyableItem.price).toFixed(2),
+          // Price can be null for giftcard
+          price:
+            buyableItem.price !== null && buyableItem.price !== undefined
+              ? parseFloat(buyableItem.price).toFixed(2)
+              : '0.00',
+          hasCustomPrice: !buyableItem.price,
           voucher: parseFloat(voucher || '0.00').toFixed(2),
           voucher_reason: voucherReason || '',
         });

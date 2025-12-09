@@ -2,10 +2,23 @@ import React from "react";
 
 import { Body, SegmentedControl } from "@bsport/kaizen-primitive-core";
 
-import { useTranslation } from "../../utils/i18n";
+import {
+  CalendarView,
+  selectCalendarView,
+  setCalendarView,
+  useSessionListStore,
+} from "#src/stores/session-list";
+import { useTranslation } from "#src/utils/i18n";
 
 export const DisplaySettings: React.FC = () => {
   const { t } = useTranslation("sessionList");
+
+  const onChangeCalendarView = (value: string) => {
+    if (value === CalendarView.DAILY || value === CalendarView.RANGE) {
+      setCalendarView(value as CalendarView);
+    }
+  };
+  const calendarView = useSessionListStore(selectCalendarView);
   return (
     <div className="p-xs flex flex-col gap-xs">
       <Body size="md" weight="weak">
@@ -16,15 +29,15 @@ export const DisplaySettings: React.FC = () => {
         options={[
           {
             label: t("displaySettings.calendarView.options.daily"),
-            value: "daily",
+            value: CalendarView.DAILY,
           },
           {
             label: t("displaySettings.calendarView.options.range"),
-            value: "range",
+            value: CalendarView.RANGE,
           },
         ]}
-        defaultValue="daily"
-        onChangeValue={(value) => console.log(value)}
+        onChangeValue={onChangeCalendarView}
+        value={calendarView}
       />
     </div>
   );

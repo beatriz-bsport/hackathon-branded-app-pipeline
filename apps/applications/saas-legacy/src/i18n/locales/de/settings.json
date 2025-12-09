@@ -411,8 +411,8 @@
       "errorChip": "Gültige Umsatzsteuer-Identifikationsnummer fehlt",
       "update": "Umsatzsteuer-Identifikationsnummer aktualisieren",
       "descriptionPart2": "Wenn dein Unternehmen außerhalb von Frankreich ansässig ist, brauchen wir deine Umsatzsteuer-Identifikationsnummer, um das Reverse-Charge-Verfahren anzuwenden und sicherzustellen, dass wir dir keine Umsatzsteuer in Rechnung stellen.",
-      "descriptionPart1": "Wir brauchen deine Umsatzsteuer-Identifikationsnummer (USt-ID oder USt-IdNr), damit wir sie in deinen Rechnungen angeben können.",
-      "title": "USt-ID"
+      "descriptionPart1": "Wir brauchen deine Umsatzsteuer-Identifikationsnummer (EU-USt-ID oder USt-IdNr), damit wir sie in deinen Rechnungen angeben können.",
+      "title": "EU-USt-ID"
     }
   }
 }

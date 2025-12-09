@@ -16,3 +16,4 @@
 @bsport/sm-tag
 @bsport/sm-transactional-notification
 @bsport/sm-marketing-notification
+@bsport/sm-homepage

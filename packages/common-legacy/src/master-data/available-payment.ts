@@ -25,9 +25,9 @@ import {
   PaymentPackWithMaxoutData,
   ContractWithPaymentPack,
   MaxoutData,
-  MaxoutInfo,
   OfferREST,
 } from './available-payment.type';
+import { getMaxoutInfoForPaymentPack } from './payment-pack-maxout-data';
 
 export const getPaymentPackTimeLimitation = (
   paymentPack: PaymentPack,
@@ -457,7 +457,7 @@ export const getAvailableConsumerPack = memoize(
     offersConstraint: OfferConstraint,
     consumerPaymentPackList: ConsumerPaymentPack<PaymentPack>[],
     consumerPaymentPackMaxoutBooking: { [key: string]: MaxoutBooking },
-    selectedOffer: Offer_FULL[] | OfferREST[],
+    selectedOffers: Offer_FULL[] | OfferREST[],
     offer: Offer_FULL | OfferREST,
     tz_name: string,
   ) => {
@@ -481,138 +481,15 @@ export const getAvailableConsumerPack = memoize(
       .map((cpp) => {
         const maxout = consumerPaymentPackMaxoutBooking[cpp.id];
 
-        let exceedsBookingMaxout = false;
-        let maxoutInfo = null;
+        const maxoutData = getMaxoutInfoForPaymentPack(
+          cpp.payment_pack,
+          [offer, ...selectedOffers].map((offer: Offer_FULL) =>
+            DateTime.fromISO(offer.date_start).setZone(tzName),
+          ),
+          maxout,
+        );
 
-        if (maxout) {
-          const { days = [], weeks = [], months = [] } = maxout;
-          const daysCopy = [...days];
-          const weeksCopy = [...weeks];
-          const monthsCopy = [...months];
-
-          [offer, ...selectedOffer].forEach((o: Offer_FULL) => {
-            const offerStart = DateTime.fromISO(o.date_start);
-
-            // Handle case day
-            if (cpp.payment_pack.max_bookings_per_day) {
-              const matchingEntry = daysCopy.find(
-                (day_maxout_entry) =>
-                  day_maxout_entry.start_date === offerStart.toISODate(),
-              );
-              if (matchingEntry) {
-                const index = daysCopy.indexOf(matchingEntry);
-                daysCopy[index] = {
-                  ...matchingEntry,
-                  booking_available: matchingEntry.booking_available - 1,
-                };
-              } else {
-                daysCopy.push({
-                  start_date: offerStart.toISODate(),
-                  end_date: offerStart.toISODate(),
-                  booking_available: cpp.payment_pack.max_bookings_per_day - 1,
-                });
-              }
-            }
-
-            // Handle case week
-            if (cpp.payment_pack.max_bookings_per_week) {
-              const matchingEntry = weeksCopy.find(
-                (week_maxout_entry) =>
-                  week_maxout_entry.start_date ===
-                  offerStart.startOf('week').toISODate(),
-              );
-              if (matchingEntry) {
-                const index = weeksCopy.indexOf(matchingEntry);
-                weeksCopy[index] = {
-                  ...matchingEntry,
-                  booking_available: matchingEntry.booking_available - 1,
-                };
-              } else {
-                const start_date = offerStart.startOf('week').toISODate();
-                const end_date = DateTime.fromISO(start_date)
-                  .plus({ day: 6 })
-                  .toISODate();
-                weeksCopy.push({
-                  start_date,
-                  end_date,
-                  booking_available: cpp.payment_pack.max_bookings_per_week - 1,
-                });
-              }
-            }
-
-            // Handle case month
-            if (cpp.payment_pack.max_bookings_per_month) {
-              const matchingEntry = monthsCopy.find(
-                (month_maxout_entry) =>
-                  offerStart >=
-                    DateTime.fromISO(month_maxout_entry.start_date) &&
-                  offerStart <= DateTime.fromISO(month_maxout_entry.end_date),
-              );
-              if (matchingEntry) {
-                const index = monthsCopy.indexOf(matchingEntry);
-                monthsCopy[index] = {
-                  ...matchingEntry,
-                  booking_available: matchingEntry.booking_available - 1,
-                };
-              } else {
-                const nbRelativeMonths = Math.floor(
-                  offerStart.diff(DateTime.fromISO(cpp.date_bought)).months,
-                );
-                const start_date = DateTime.fromISO(cpp.date_bought)
-                  .plus({ month: nbRelativeMonths })
-                  .toISODate();
-                const end_date = DateTime.fromISO(start_date)
-                  .plus({ month: 1 })
-                  .minus({ day: 1 })
-                  .toISODate();
-                monthsCopy.push({
-                  start_date,
-                  end_date,
-                  booking_available:
-                    cpp.payment_pack.max_bookings_per_month - 1,
-                });
-              }
-            }
-          });
-
-          if (
-            monthsCopy.some(
-              (month_maxout_entry) => month_maxout_entry.booking_available < 0,
-            )
-          ) {
-            exceedsBookingMaxout = true;
-            maxoutInfo = {
-              period: 'month',
-              nb: cpp.payment_pack.max_bookings_per_month,
-            };
-          }
-
-          if (
-            weeksCopy.some(
-              (week_maxout_entry) => week_maxout_entry.booking_available < 0,
-            )
-          ) {
-            exceedsBookingMaxout = true;
-            maxoutInfo = {
-              period: 'week',
-              nb: cpp.payment_pack.max_bookings_per_week,
-            };
-          }
-
-          if (
-            daysCopy.some(
-              (day_maxout_entry) => day_maxout_entry.booking_available < 0,
-            )
-          ) {
-            exceedsBookingMaxout = true;
-            maxoutInfo = {
-              period: 'day',
-              nb: cpp.payment_pack.max_bookings_per_day,
-            };
-          }
-        }
-
-        return { ...cpp, exceedsBookingMaxout, maxoutInfo };
+        return { ...cpp, ...maxoutData };
       });
   },
 );
@@ -644,82 +521,14 @@ export const getAvailablePaymentPacks = memoize(
         );
       })
       .map((pp) => {
-        const byDay: Record<number, number> = {};
-        const byWeek: Record<number, number> = {};
-        const byMonth: Record<number, number> = {};
+        const maxoutData = getMaxoutInfoForPaymentPack(
+          pp,
+          [offer, ...selectedOffer].map((offer: Offer_FULL) =>
+            DateTime.fromISO(offer.date_start).setZone(tzName),
+          ),
+        );
 
-        [offer, ...selectedOffer].forEach((o) => {
-          const date = DateTime.fromISO(o.date_start);
-          const dayOfYear = date.ordinal;
-          const { weekNumber } = date;
-          // For months, the behaviour is different, we don't start counting from first day of month (e.g. Jan 1st)
-          // but from the date pack was bought. In our case, we count the relative months starting from now
-          const month = Math.floor(
-            date.startOf('day').diff(DateTime.now().startOf('day')).months,
-          );
-
-          if (!byDay[dayOfYear]) {
-            byDay[dayOfYear] = 1;
-          } else {
-            byDay[dayOfYear] += 1;
-          }
-
-          if (!byWeek[weekNumber]) {
-            byWeek[weekNumber] = 1;
-          } else {
-            byWeek[weekNumber] += 1;
-          }
-
-          if (!byMonth[month]) {
-            byMonth[month] = 1;
-          } else {
-            byMonth[month] += 1;
-          }
-        });
-
-        let exceedsBookingMaxout = false;
-        let maxoutInfo = null;
-
-        Object.values(byMonth).forEach((bookingNumber) => {
-          if (
-            pp.max_bookings_per_month !== null &&
-            bookingNumber > pp.max_bookings_per_month
-          ) {
-            exceedsBookingMaxout = true;
-            maxoutInfo = {
-              period: 'month',
-              nb: pp.max_bookings_per_month,
-            };
-          }
-        });
-
-        Object.values(byWeek).forEach((bookingNumber) => {
-          if (
-            pp.max_bookings_per_week !== null &&
-            bookingNumber > pp.max_bookings_per_week
-          ) {
-            exceedsBookingMaxout = true;
-            maxoutInfo = {
-              period: 'week',
-              nb: pp.max_bookings_per_week,
-            };
-          }
-        });
-
-        Object.values(byDay).forEach((bookingNumber) => {
-          if (
-            pp.max_bookings_per_day !== null &&
-            bookingNumber > pp.max_bookings_per_day
-          ) {
-            exceedsBookingMaxout = true;
-            maxoutInfo = {
-              period: 'day',
-              nb: pp.max_bookings_per_day,
-            };
-          }
-        });
-
-        return { ...pp, exceedsBookingMaxout, maxoutInfo };
+        return { ...pp, ...maxoutData };
       });
   },
 );
@@ -730,42 +539,15 @@ export const getAvailablePaymentPacks = memoize(
 const getMaxoutFromAvailablePaymentPacks = (
   availablePaymentPacks: Array<PaymentPackWithMaxoutData>,
 ): MaxoutData => {
-  const exceedsBookingMaxout = availablePaymentPacks.some(
-    (pp) => pp.exceedsBookingMaxout,
-  );
-  let maxoutInfo: MaxoutInfo = null;
+  const sortedMaxedOutPacks = [...availablePaymentPacks]
+    .filter((pp) => pp.exceedsBookingMaxout)
+    .sort((a, b) => (b.maxoutInfo?.nb ?? 0) - (a.maxoutInfo?.nb ?? 0));
+  const firstMaxedOutPack = sortedMaxedOutPacks[0];
 
-  if (!exceedsBookingMaxout) {
-    return { exceedsBookingMaxout, maxoutInfo };
-  }
-
-  const biggestConstraintPerDay = Math.max(
-    ...availablePaymentPacks
-      .filter((pp) => pp.maxoutInfo?.period === 'day')
-      .map((pp) => pp.maxoutInfo.nb),
-  );
-  const biggestConstraintPerWeek = Math.max(
-    ...availablePaymentPacks
-      .filter((pp) => pp.maxoutInfo?.period === 'week')
-      .map((pp) => pp.maxoutInfo.nb),
-  );
-  const biggestConstraintPerMonth = Math.max(
-    ...availablePaymentPacks
-      .filter((pp) => pp.maxoutInfo?.period === 'month')
-      .map((pp) => pp.maxoutInfo.nb),
-  );
-
-  if (biggestConstraintPerMonth !== -Infinity) {
-    maxoutInfo = { period: 'month', nb: biggestConstraintPerMonth };
-  }
-  if (biggestConstraintPerWeek !== -Infinity) {
-    maxoutInfo = { period: 'week', nb: biggestConstraintPerWeek };
-  }
-  if (biggestConstraintPerDay !== -Infinity) {
-    maxoutInfo = { period: 'day', nb: biggestConstraintPerDay };
-  }
-
-  return { exceedsBookingMaxout, maxoutInfo };
+  return {
+    exceedsBookingMaxout: !!firstMaxedOutPack,
+    maxoutInfo: firstMaxedOutPack ? firstMaxedOutPack.maxoutInfo : null,
+  };
 };
 
 /*
@@ -781,26 +563,8 @@ export const getAvailableComboPacks = memoize(
     offer: Offer_FULL | OfferREST,
     tz_name: string,
   ) => {
-    const { credit, minDate, maxDate, mustAllowBookingForGuest } =
-      offersConstraint;
     const tzName = tz_name || 'Europe/Paris';
     return paymentComboList
-      .filter((pc) => {
-        return pc.payment_packs.find((comboItem) => {
-          const { start, end } = getPaymentPackTimeLimitation(
-            comboItem.data,
-            minDate,
-          );
-
-          return (
-            (comboItem.data.unlimited || comboItem.data.credits >= credit) &&
-            start.setZone(tzName) <=
-              DateTime.fromISO(minDate).setZone(tzName) &&
-            end.setZone(tzName) >= DateTime.fromISO(maxDate).setZone(tzName) &&
-            (comboItem.data.allow_guest_pass || !mustAllowBookingForGuest)
-          );
-        });
-      })
       .map((pc) => {
         const paymentPacks = pc.payment_packs
           .filter((comboItem) => !!comboItem.data)
@@ -815,12 +579,15 @@ export const getAvailableComboPacks = memoize(
             tzName,
           );
 
+        if (availablePaymentPacks.length === 0) return null;
+
         // Determine which maxout info to display on the whole payment combo
         const { exceedsBookingMaxout, maxoutInfo } =
           getMaxoutFromAvailablePaymentPacks(availablePaymentPacks);
 
         return { ...pc, exceedsBookingMaxout, maxoutInfo };
-      });
+      })
+      .filter((pc) => pc !== null);
   },
 );
 
@@ -839,15 +606,6 @@ export const getAvailableContracts = memoize(
   ) => {
     const tzName = tz_name || 'Europe/Paris';
     return contractList
-      .filter((contract) => {
-        return !!getAvailablePaymentPacks(
-          offersConstraint,
-          contract.allPaymentPacks || [],
-          selectedOffers,
-          offer,
-          tzName,
-        ).length;
-      })
       .map((contract) => {
         const availablePaymentPacks: Array<PaymentPackWithMaxoutData> =
           getAvailablePaymentPacks(
@@ -858,10 +616,13 @@ export const getAvailableContracts = memoize(
             tzName,
           );
 
+        if (availablePaymentPacks.length === 0) return null;
+
         const { exceedsBookingMaxout, maxoutInfo } =
           getMaxoutFromAvailablePaymentPacks(availablePaymentPacks);
 
         return { ...contract, exceedsBookingMaxout, maxoutInfo };
-      });
+      })
+      .filter((contract) => contract !== null);
   },
 );

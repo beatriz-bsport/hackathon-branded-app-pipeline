@@ -4,6 +4,11 @@
     "occupancyRate": "{{rate}}% enrolled"
   },
   "addSession": "Add session",
+  "dateNavigation": {
+    "todayButton": "Today",
+    "previousButton": "Previous day",
+    "nextButton": "Next day"
+  },
   "table": {
     "headers": {
       "time": "Time",
@@ -24,5 +29,9 @@
         "range": "Range"
       }
     }
+  },
+  "emptyState": {
+    "title": "No sessions added yet",
+    "subtitle": "Add a new session to get started"
   }
 }

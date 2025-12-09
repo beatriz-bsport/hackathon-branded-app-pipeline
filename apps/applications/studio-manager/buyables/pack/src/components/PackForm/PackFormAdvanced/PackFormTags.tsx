@@ -50,7 +50,7 @@ export const PackFormTags: React.FC<PackFormTagsProps> = ({
     }, [tagIdToTagMap, tagGroups]);
 
   return (
-    <>
+    <div>
       <Title htmlVariant="h5" weight="strong">
         {t("formFields.advancedSection.tagsSelector.title")}
       </Title>
@@ -102,6 +102,6 @@ export const PackFormTags: React.FC<PackFormTagsProps> = ({
           debounceValue={100}
         />
       </FormField>
-    </>
+    </div>
   );
 };

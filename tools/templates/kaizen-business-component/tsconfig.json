@@ -1,5 +1,5 @@
 {
-  "extends": "../../config/typescript/src/application/tsconfig.json",
+  "extends": "../../config/typescript/src/kaizen/tsconfig.json",
   "references": [
     {
       "path": "./tsconfig.node.json"

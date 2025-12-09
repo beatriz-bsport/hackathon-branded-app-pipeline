@@ -1,5 +1,7 @@
 import { type ApiConfig, buildUrlParams } from "@bsport/store-base";
 
+import type { FetchInvoiceByInvoiceItemParams } from "./types";
+
 const BASE_URL = "financial-services/v1/payment/invoices";
 const DEFAULT_PAGE = 1;
 const DEFAULT_PAGE_SIZE = 10;
@@ -36,4 +38,15 @@ export const getReceiptUrlAPI = (invoiceUuid: string): ApiConfig => {
       method: "POST",
     },
   ];
+};
+
+export const fetchInvoiceByInvoiceItemAPI = ({
+  buyableItemIdentifier,
+  buyableItemId,
+}: FetchInvoiceByInvoiceItemParams): ApiConfig => {
+  const queryParams = buildUrlParams({
+    buyable_item_identifier: buyableItemIdentifier,
+    object_id: buyableItemId,
+  });
+  return [`${BASE_URL}/by_invoice_item/${queryParams}`];
 };

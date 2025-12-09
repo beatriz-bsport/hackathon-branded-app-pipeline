@@ -14,14 +14,14 @@ import {
 } from "@bsport/kaizen-primitive-core";
 import { dataAccessLayer } from "@bsport/sm-backbone";
 
+import { EnrichedSession } from "#src/stores/session-list/types";
 import { useTranslation } from "#src/utils/i18n";
 
 import { CancelledSessionName } from "./CancelledSessionName";
 import { ParticipantsCell } from "./ParticipantsCell";
 import { SessionTypeChips } from "./SessionTypeChips";
-import type { TableRowData } from "./types";
 
-type TableColumn = GenericTableColumn<TableRowData>;
+type TableColumn = GenericTableColumn<EnrichedSession>;
 
 export const useSessionListColumns = () => {
   const { t, i18n } = useTranslation("sessionList");
@@ -33,7 +33,7 @@ export const useSessionListColumns = () => {
     id: "time",
     type: "custom",
     align: "start",
-    render: (row: TableRowData) => {
+    render: (row: EnrichedSession) => {
       const startDate = fromIsoString(row.date_start, {
         zone: companyTimeZone,
         locale: intlLocale,
@@ -59,24 +59,24 @@ export const useSessionListColumns = () => {
     header: t("table.headers.sessionType"),
     type: "custom",
     align: "start",
-    render: (row: TableRowData) => {
+    render: (row: EnrichedSession) => {
       return <SessionTypeChips session={row} />;
     },
   };
 
+  const sessionClassName = "truncate max-w-[202px]";
   const sessionNameColumn: TableColumn = {
     header: t("table.headers.sessionName"),
     id: "sessionName",
     type: "custom",
     align: "start",
-    cellsClassName: "truncate max-w-[202px]",
-    render: (row: TableRowData) =>
+    render: (row: EnrichedSession) =>
       row.available ? (
-        <Body htmlVariant="p" size="md">
+        <Body htmlVariant="p" size="md" className={sessionClassName}>
           {row.name}
         </Body>
       ) : (
-        <CancelledSessionName name={row.name} />
+        <CancelledSessionName name={row.name} className={sessionClassName} />
       ),
   };
 
@@ -85,7 +85,7 @@ export const useSessionListColumns = () => {
     id: "participants",
     type: "custom",
     align: "start",
-    render: (row: TableRowData) => {
+    render: (row: EnrichedSession) => {
       return (
         <ParticipantsCell
           nb_bookings={row.nb_bookings}
@@ -121,7 +121,7 @@ export const useSessionListColumns = () => {
     header: "",
     type: "custom",
     align: "center",
-    render: (row: TableRowData) => (
+    render: (row: EnrichedSession) => (
       <Button
         label={t("table.attendanceButton")}
         size="sm"

@@ -190,6 +190,7 @@ export function fetchAccessLevelWithoutConnect(
   storingKey: 'previous' | 'current',
   options?: {
     next?: ThunkAction,
+    onSuccess: (data: unknown) => void,
   },
 ) {
   return async (dispatch: Dispatch) => {
@@ -232,7 +233,7 @@ export function fetchAccessLevelWithoutConnect(
       });
 
       if (typeof options?.onSuccess === 'function') {
-        options?.onSuccess();
+        options?.onSuccess(response.data);
       }
     } catch (err) {
       if (!err.status) {

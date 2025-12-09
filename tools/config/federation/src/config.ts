@@ -5,7 +5,6 @@ import { resolve } from "path";
 import { type PreviewOptions, type ServerOptions, type UserConfig } from "vite";
 import restart from "vite-plugin-restart";
 import svgr from "vite-plugin-svgr";
-import topLevelAwait from "vite-plugin-top-level-await";
 import { z } from "zod";
 
 import { translationsWatcher } from "./translationsWatcherPlugin.js";
@@ -250,14 +249,17 @@ export const getConfig = (config: {
       react: {
         singleton: true,
         requiredVersion: packageJson.dependencies["react"] ?? "19.2.0",
+        version: "19.2.0",
       },
       "react-dom": {
         singleton: true,
         requiredVersion: packageJson.dependencies["react-dom"] ?? "19.2.0",
+        version: "19.2.0",
       },
       "react-router": {
         singleton: true,
-        requiredVersion: packageJson.dependencies["react-router"] ?? "7.2.0",
+        requiredVersion: packageJson.dependencies["react-router"] ?? "7.9.5",
+        version: "7.9.5",
       },
       zod: {
         singleton: true,
@@ -300,7 +302,6 @@ export const getConfig = (config: {
     svgr(),
     react(),
     federation(federationConfig),
-    topLevelAwait(),
     restart({
       restart: pathsToWatch,
     }),
@@ -314,6 +315,7 @@ export const getConfig = (config: {
     preview,
     plugins,
     build: {
+      target: "esnext",
       emptyOutDir: true,
       /**
        * Why?
@@ -326,6 +328,12 @@ export const getConfig = (config: {
     resolve: {
       alias: {
         "#src": resolve(config.rootDir, "src"),
+      },
+    },
+    esbuild: {
+      target: "esnext",
+      supported: {
+        "top-level-await": true,
       },
     },
     /**

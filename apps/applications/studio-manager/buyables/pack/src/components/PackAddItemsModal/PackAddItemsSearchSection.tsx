@@ -44,7 +44,7 @@ export const PackAddItemsSearchSection: React.FC<
           setSearchQuery("");
         }}
         containerProps={{
-          className: "flex-1",
+          className: "flex-1 mb-sm",
         }}
       />
       {searchQuery && (

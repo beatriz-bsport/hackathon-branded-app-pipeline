@@ -58,3 +58,39 @@ export type PackFormData = Pick<
 };
 
 export type PackFormEditData = PackFormData & { id: number };
+
+export type PurchasedPack = {
+  id: number;
+  consumer_payment_packs: number[];
+  provision_updates: number[];
+  private_consumer_passes: number[];
+  payment_combo: number;
+  tax: string;
+  price: string;
+  member: MemberMinimal;
+  date: string;
+};
+
+type MemberMinimal = {
+  id: number;
+  name: string;
+  first_name: string;
+  last_name: string;
+  credit_account_balance: {
+    source: string;
+    parsedValue: number;
+  };
+  total_unpaid_amount: string;
+  email: string;
+  consumer: number;
+  date_joined: string;
+  phone: string;
+  accept_email: boolean;
+  tags: number[];
+  archived: boolean;
+  birthday: string | null;
+  has_bought_pack: boolean;
+  is_pos: boolean;
+  user_id: number;
+  photo: string;
+};

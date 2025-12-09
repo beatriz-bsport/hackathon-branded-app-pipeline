@@ -27,8 +27,8 @@ export const usePrivatePassCardData = () => {
     .map((privateService) => {
       const slotIds = privateService?.slots ?? [];
       const populatedSlots = slotIds
-        .map((slotId) => privateSlots?.[slotId])
-        .filter((privateSlot) => !!privateSlot);
+        .map((slotId) => privateSlots?.find((slot) => slot.id === slotId))
+        .filter(Boolean);
       const availableSlots =
         populatedSlots?.filter((slot) => slot?.available) ?? [];
       const areAllSlotsAvailable =

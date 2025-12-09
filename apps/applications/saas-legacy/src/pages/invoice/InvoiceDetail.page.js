@@ -53,6 +53,8 @@ import {
   schedulePayment,
   applyGiftcardOnInvoice as applyGiftcardOnInvoiceAction,
   fetchInvoiceConfiguration as fetchInvoiceConfigurationAction,
+  fetchFiskalySignEsInvoice as fetchFiskalySignEsInvoiceAction,
+  manuallySendInvoiceToSignEs as manuallySendInvoiceToSignEsAction,
 } from '#src/libs/invoice/actions';
 import {
   fetchEstablishments,
@@ -124,13 +126,16 @@ import type {
   PlannedPaymentEvent,
   InvoiceV1Serializer,
   InvoiceConfigurationSerializer,
+  FiskalySignEsInvoiceDetails,
+  ManuallySendInvoiceToSignEsCallback,
 } from '#src/libs/invoice/types';
 import type { StripeReader } from '../../libs/terminal/types';
 import { TEMPORARY_AMOUNT_TO_FORCE_INTERNAL_PAYMENT_CTS } from '../../libs/invoice/constants';
 import { ConsumerGiftcardKind } from '@bsport/common/lib/master-data/giftcard.js';
 
 import { formatAsDate } from '../../utils/datetime';
-import isEqual from 'lodash/isEqual';
+import { InvoiceHeaderFiskalyAlert } from '#src/libs/invoice/components/InvoiceHeaderFiskalyAlert.component';
+import { InvoiceSignEsSignatureStatus } from '#src/libs/invoice/constants';
 
 const PAYMENT_INTENT_STATUS_REQUIRES_ACTION = 150;
 
@@ -253,6 +258,9 @@ type Props = {
   invoiceConfiguration: InvoiceConfigurationSerializer,
   isInvoiceConfigurationLoading: boolean,
   fetchInvoiceConfiguration: () => void,
+  fetchFiskalySignEsInvoice: (invoice_uuid: string) => void,
+  manuallySendInvoiceToSignEs: ManuallySendInvoiceToSignEsCallback,
+  fiskalySignEsInvoiceDetails: ?FiskalySignEsInvoiceDetails,
   t: TFunction,
 };
 
@@ -342,6 +350,17 @@ export class InvoiceDetail extends React.Component<Props, State> {
           this.props.fetchPaymentGroupRequiringActionList();
         }
         this.props.fetchPaymentMethodList({ member: invoice.member });
+
+        // Fetch detailed Sign-ES info when status is NOT_SENDABLE or REJECTED
+        if (
+          (invoice.fiskaly_sign_es_signature_status ===
+            InvoiceSignEsSignatureStatus.NOT_SENDABLE ||
+            invoice.fiskaly_sign_es_signature_status ===
+              InvoiceSignEsSignatureStatus.REJECTED) &&
+          invoice.uuid
+        ) {
+          this.props.fetchFiskalySignEsInvoice(invoice.uuid);
+        }
       },
     });
     this.props.fetchInvoiceItemList(
@@ -639,6 +658,12 @@ export class InvoiceDetail extends React.Component<Props, State> {
     return (
       <>
         <div className={this.props.classes.container}>
+          <InvoiceHeaderFiskalyAlert
+            fiskalySignEsInvoiceDetails={this.props.fiskalySignEsInvoiceDetails}
+            invoice={this.props.invoice}
+            manuallySendInvoiceToSignEs={this.props.manuallySendInvoiceToSignEs}
+            onManuallySendSuccess={this.fetchInvoiceData}
+          />
           <Grid container direction="row">
             <Grid item md={6} xs={12}>
               <InvoiceHeader
@@ -934,6 +959,9 @@ export class InvoiceDetail extends React.Component<Props, State> {
 
 const styles = (theme) => ({
   container: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: theme.spacing(2.5),
     paddingBottom: theme.spacing(10),
   },
   navigationButton: {
@@ -1029,6 +1057,10 @@ export default compose(
       getConsumerGiftcard: (id: number) => getConsumerGiftcard(state, id),
       invoiceConfiguration: state.invoice.configuration.result,
       isInvoiceConfigurationLoading: state.invoice.configuration.loading,
+      fiskalySignEsInvoiceDetails:
+        (state.invoice.fiskalySignEsInvoice &&
+          state.invoice.fiskalySignEsInvoice.result) ||
+        null,
     }),
     {
       attributeByPrintableCode: attributeByPrintableCodeAction,
@@ -1072,6 +1104,8 @@ export default compose(
       fetchAllEstablishmentBillingGroup:
         fetchAllEstablishmentBillingGroupAction,
       fetchInvoiceConfiguration: fetchInvoiceConfigurationAction,
+      fetchFiskalySignEsInvoice: fetchFiskalySignEsInvoiceAction,
+      manuallySendInvoiceToSignEs: manuallySendInvoiceToSignEsAction,
     },
   ),
   withHandlers({

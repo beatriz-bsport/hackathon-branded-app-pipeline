@@ -193,9 +193,9 @@
       "bookASession": "Réserver une séance",
       "buyANewPass": "Acheter une nouvelle carte de cours",
       "filters": {
-        "future": "Future",
-        "expired": "Expirée",
-        "active": "Active"
+        "future": "Futurs",
+        "expired": "Expirés",
+        "active": "Actifs"
       },
       "tab": {
         "universal": "Universelle",
@@ -444,9 +444,9 @@
         "backToSubscriptions": "Retour aux abonnements"
       },
       "tab": {
-        "expired": "Expirée",
-        "future": "Non démarrée",
-        "active": "Active"
+        "expired": "Expirés",
+        "future": "Non démarrés",
+        "active": "Actifs"
       },
       "title": "Mes souscriptions",
       "dateLabel": {

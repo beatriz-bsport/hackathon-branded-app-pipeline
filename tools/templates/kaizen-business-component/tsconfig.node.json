@@ -1,7 +1,3 @@
 {
-  "extends": "../../config/typescript/src/application/tsconfig.node.json",
-  "compilerOptions": {
-    "composite": true,
-    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.node.tsbuildinfo"
-  }
+  "extends": "../../config/typescript/src/kaizen/tsconfig.node.json"
 }

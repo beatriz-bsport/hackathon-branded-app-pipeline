@@ -9,18 +9,30 @@ import {
 
 import {
   type FetchPacksParams,
+  type FetchPurchasedPacksParams,
   type FuzzySearchParams,
   archivePackAPI,
   createPackAPI,
   fetchPackAPI,
   fetchPacksAPI,
+  fetchPurchasedPacksAPI,
   fuzzySearchPacksAPI,
   restorePackAPI,
   updatePackAPI,
 } from "#src/api";
-import type { Pack, PackFormData, PackFormEditData } from "#src/types";
+import type {
+  Pack,
+  PackFormData,
+  PackFormEditData,
+  PurchasedPack,
+} from "#src/types";
 
-import { setFuzzyPacks, setPacks, updatePack } from "./store";
+import {
+  setFuzzyPacks,
+  setPacks,
+  setPurchasedPacks,
+  updatePack,
+} from "./store";
 
 /**
  * Fetch a list of paginated packs.
@@ -201,6 +213,32 @@ export const updatePackAction: Action<PackFormEditData, Pack> = async (
     (error) =>
       createErrorWithContext(error, {
         message: `Failed to update pack`,
+        params,
+      }),
+  );
+};
+
+export const fetchPurchasedPacksAction: Action<
+  FetchPurchasedPacksParams,
+  PaginatedResponse<PurchasedPack>
+> = async (fetch, params) => {
+  const [uri, init] = fetchPurchasedPacksAPI(params);
+
+  return Result.try(
+    async () => {
+      const { data } = await fetch(uri, init);
+
+      setPurchasedPacks({
+        purchasedPacks: data.results,
+        page: data.page,
+        count: data.count,
+      });
+
+      return data;
+    },
+    (error) =>
+      createErrorWithContext(error, {
+        message: "Failed to fetch purchased packs",
         params,
       }),
   );

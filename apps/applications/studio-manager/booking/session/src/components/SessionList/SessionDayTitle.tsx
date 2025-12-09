@@ -1,29 +1,26 @@
-import React from "react";
+import React, { memo } from "react";
 
 import {
   DATETIME_FORMATS,
   formatDateTimeFromDate,
 } from "@bsport/datetime-formatting";
-import { toDateTime } from "@bsport/datetime-manipulation";
+import { DateTime } from "@bsport/datetime-manipulation";
 import { Body, Title } from "@bsport/kaizen-primitive-core";
 
-import { useTranslation } from "../../utils/i18n";
-import type { TableRowData } from "./types";
+import type { EnrichedSession } from "#src/stores/session-list/types";
+import { useTranslation } from "#src/utils/i18n";
 
 export type SessionDayTitleProps = {
-  date: Date;
-  sessions: TableRowData[];
+  date: DateTime;
+  sessions: EnrichedSession[];
 };
 
-export const SessionDayTitle: React.FC<SessionDayTitleProps> = ({
+const SessionDayTitle: React.FC<SessionDayTitleProps> = ({
   date,
   sessions,
-}) => {
+}: SessionDayTitleProps) => {
   const { t } = useTranslation("sessionList");
-  const todayTitle = formatDateTimeFromDate(
-    toDateTime(date),
-    DATETIME_FORMATS.HUGE_DATE,
-  );
+  const todayTitle = formatDateTimeFromDate(date, DATETIME_FORMATS.HUGE_DATE);
 
   const totalEffectif = sessions.reduce(
     (acc, session) => acc + session.effectif,
@@ -49,3 +46,5 @@ export const SessionDayTitle: React.FC<SessionDayTitleProps> = ({
     </div>
   );
 };
+
+export default memo(SessionDayTitle);

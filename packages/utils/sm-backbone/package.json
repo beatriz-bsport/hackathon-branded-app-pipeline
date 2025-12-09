@@ -45,6 +45,7 @@
     "@bsport/store-core-data-company": "workspace:*",
     "@bsport/store-core-data-company-theme": "workspace:*",
     "@bsport/store-staff-management-role": "workspace:*",
+    "@bsport/timezone-utils": "workspace:*",
     "@unleash/proxy-client-react": "^5.0.1"
   },
   "devDependencies": {

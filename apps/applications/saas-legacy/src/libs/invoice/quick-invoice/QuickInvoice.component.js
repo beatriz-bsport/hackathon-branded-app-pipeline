@@ -18,7 +18,7 @@ import GenericResponsiveDialog from '#src/components/genericDialog/GenericRespon
 import { ConsumerGiftcardFormWithPreview } from '#src/libs/giftcard/components/ConsumerGiftcardFormWithPreview';
 import CreditMemberBadge from '../../member/components/CreditMemberBadge.component';
 
-import InvoiceItem from '../components/InvoiceItem.component';
+import { InvoiceListItem } from '../components/InvoiceItem.component';
 import InvoiceItemEditor from '../components/InvoiceItemEditor.component';
 import type {
   Establishment,
@@ -264,9 +264,10 @@ export class QuickInvoice extends PureComponent<Props, State> {
                     editable: false,
                   })),
                 ].map((ii) => (
-                  <div>
-                    <InvoiceItem
-                      key={`${ii.buyable_item_identifier}:${ii.id}:${ii.voucher}`}
+                  <div
+                    key={`${ii.buyable_item_identifier}:${ii.id}:${ii.voucher}`}
+                  >
+                    <InvoiceListItem
                       invoiceItem={ii}
                       onDelete={() => this.removeInvoiceItem(ii.id)}
                     />

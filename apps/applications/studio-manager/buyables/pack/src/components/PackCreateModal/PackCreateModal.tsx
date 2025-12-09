@@ -17,8 +17,7 @@ import {
 } from "#src/components/PackForm/schema";
 import { SelectedItemsContextProvider } from "#src/contexts/selectedItemsContext";
 import { useCreatePack } from "#src/hooks/useCreatePack";
-import { LEGACY_URLS, URLS } from "#src/urls";
-import { USE_REVAMP_DETAILS } from "#src/utils/constants";
+import { URLS } from "#src/urls";
 import { useTranslation } from "#src/utils/i18n";
 
 type PackCreateModalProps = {
@@ -56,11 +55,7 @@ export const PackCreateModal: React.FC<PackCreateModalProps> = ({
   const { createPack } = useCreatePack({
     onSuccess: (value) => {
       onClose();
-      if (USE_REVAMP_DETAILS) {
-        navigate(URLS.DETAILS(value.id));
-      } else {
-        window.location.assign(LEGACY_URLS.PACK_DETAILS(value.id));
-      }
+      navigate(URLS.DETAILS(value.id));
     },
   });
 

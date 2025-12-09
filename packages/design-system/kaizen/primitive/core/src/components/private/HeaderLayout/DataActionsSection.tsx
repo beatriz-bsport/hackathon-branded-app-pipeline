@@ -1,4 +1,4 @@
-import React, { ReactNode, SetStateAction } from "react";
+import React, { ReactNode } from "react";
 
 import Button from "#src/components/Button";
 import ExpandableSearchInput, {

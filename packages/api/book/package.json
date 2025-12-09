@@ -1,10 +1,10 @@
 {
-  "name": "@bsport/store-booking-session",
+  "name": "@bsport/api-book",
   "version": "0.0.0",
   "private": true,
-  "description": "Provide state management for all kinds of sessions",
+  "description": "API endpoints and types for the book API",
   "license": "UNLICENSED",
-  "author": "David Bretaud <david.bretaud@bsport.io>",
+  "author": "Elisabeth <elisabeth@bsport.io>",
   "type": "module",
   "exports": {
     ".": {
@@ -29,10 +29,8 @@
     "lint:fix": "eslint --fix ."
   },
   "dependencies": {
-    "@bsport/api-book": "workspace:*",
-    "@bsport/store-base": "workspace:*",
-    "typescript-result": "^3.1.1",
-    "zustand": "^5.0.3"
+    "@bsport/fetch": "workspace:*",
+    "@bsport/store-base": "workspace:*"
   },
   "devDependencies": {
     "@bsport/config-eslint-react": "workspace:*"

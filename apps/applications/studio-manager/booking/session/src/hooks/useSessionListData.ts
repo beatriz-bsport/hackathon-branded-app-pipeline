@@ -1,15 +1,14 @@
 import { queryOptions, useQuery } from "@tanstack/react-query";
-import { Dictionary, groupBy } from "lodash";
+import { type Dictionary, groupBy } from "lodash";
 import { useMemo } from "react";
 
+import { type ManagerSession, fetchManagerSessions } from "@bsport/api-book";
 import { fromIsoString, getIsoDateString } from "@bsport/datetime-manipulation";
 import type { Establishment } from "@bsport/store-core-data-establishment";
 import type { Teacher } from "@bsport/store-core-data-teacher";
 import { getCompanyTimezone } from "@bsport/timezone-utils";
 
-import { fetchManagerSessionsAPI } from "../api";
-import { EnrichedSession, ManagerSession } from "../api/types";
-import { fetch } from "../utils/fetch";
+import type { EnrichedSession } from "../api/types";
 import { useFetchEstablishments } from "./useFetchEstablishments";
 import { useFetchTeachers } from "./useFetchTeachers";
 
@@ -107,12 +106,11 @@ const sessionsQueryOptions = (
       if (!minDateKey || !maxDateKey) {
         return [];
       }
-      const [uri, init] = fetchManagerSessionsAPI({
+
+      const fetchedData = await fetchManagerSessions({
         min_date: minDateKey,
         max_date: maxDateKey,
       });
-
-      const { data: fetchedData } = await fetch<ManagerSession[]>(uri, init);
 
       return fetchedData;
     },

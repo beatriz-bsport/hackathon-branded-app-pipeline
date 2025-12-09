@@ -1,4 +1,8 @@
-import { queryOptions, useQuery } from "@tanstack/react-query";
+import {
+  keepPreviousData,
+  queryOptions,
+  useQuery,
+} from "@tanstack/react-query";
 import { useMemo } from "react";
 
 import {
@@ -29,6 +33,7 @@ const groupActivitiesQueryOptions = (
       return data;
     },
     enabled,
+    placeholderData: keepPreviousData,
     staleTime: GROUP_ACTIVITIES_STALE_TIME,
   });
 
@@ -43,6 +48,7 @@ const searchGroupActivitiesQueryOptions = (
       return data;
     },
     enabled,
+    placeholderData: keepPreviousData,
     staleTime: GROUP_ACTIVITIES_STALE_TIME,
   });
 

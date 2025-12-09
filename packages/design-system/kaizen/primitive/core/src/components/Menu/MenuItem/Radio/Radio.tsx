@@ -61,6 +61,7 @@ const Radio: React.FC<RadioProps> = ({
   avatar,
   iconLeft,
   description,
+  leftSlot,
   ...props
 }) => {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -135,7 +136,7 @@ const Radio: React.FC<RadioProps> = ({
       />
       <div className="flex items-center justify-between w-full">
         <div className="flex items-center gap-xs">
-          {renderedAvatar ?? renderedIcon}
+          {leftSlot ?? renderedAvatar ?? renderedIcon}
           <div className="flex flex-col">
             {renderedLabel}
             {renderedDescription}

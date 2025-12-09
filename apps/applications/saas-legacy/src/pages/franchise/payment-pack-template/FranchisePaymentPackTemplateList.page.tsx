@@ -227,6 +227,8 @@ const FranchisePaymentPackTemplateListPageReworked: React.FC<Props> = ({
         {
           onSuccess: () => {
             setPaymentPackTemplateToDelete(null);
+          },
+          onBackgroundSuccess: () => {
             paymentPackTemplateToDelete.isManagerOnly &&
               fetchPaymentPackTemplatePaginatedListManagerOnly({
                 page: getPaginatedPageToRefreshOnListRemoval(
@@ -277,6 +279,8 @@ const FranchisePaymentPackTemplateListPageReworked: React.FC<Props> = ({
         {
           onSuccess: () => {
             setPaymentPackTemplateToRestore(null);
+          },
+          onBackgroundSuccess: () => {
             refreshOptions(
               'payment_pack_template',
               ACTIVE_TEMPLATE_SEARCH_PARAMS,

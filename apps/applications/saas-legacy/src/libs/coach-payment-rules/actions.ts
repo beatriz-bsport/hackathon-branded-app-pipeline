@@ -94,7 +94,14 @@ export function upsertCoachPaymentRule(
       // @ts-expect-error
       if (options.onSuccess) options.onSuccess(response.data);
     } catch (error) {
-      dispatch(snackbarError(`paymentRules.${kind}.error`));
+      let error_message = `paymentRules.${kind}.error`;
+
+      if (error.response.data?.error_code === 91000) {
+        error_message =
+          'paymentRules.errors.cannotHaveSeveralPaymentRulesWithSameName';
+      }
+
+      dispatch(snackbarError(error_message));
       dispatch(coachPaymentRuleSetUpsert.error(error.response.data));
       if (options.onError) options.onError();
     }

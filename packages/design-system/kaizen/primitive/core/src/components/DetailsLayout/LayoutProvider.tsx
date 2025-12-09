@@ -10,6 +10,8 @@ import {
   useState,
 } from "react";
 
+import { useMatchMedia } from "#src/hooks";
+
 export type LayoutProviderRef = {
   toggleHasUnsavedChanges: (value?: boolean) => void;
   toggleIsPanelOpened: (value?: boolean) => void;
@@ -18,6 +20,7 @@ export type LayoutProviderRef = {
 type LayoutContextType = {
   hasUnsavedChanges: boolean;
   isPanelOpened: boolean;
+  isMobile: boolean;
 } & LayoutProviderRef;
 
 const LayoutContext = createContext<LayoutContextType | undefined>(undefined);
@@ -26,12 +29,18 @@ type ProviderProps = PropsWithChildren<{ openPanelByDefault?: boolean }>;
 
 export const LayoutProvider = forwardRef<LayoutProviderRef, ProviderProps>(
   ({ children, openPanelByDefault = false }, ref) => {
+    const isMobile = !useMatchMedia("sm");
+
     const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
+
     const toggleHasUnsavedChanges = useCallback((value?: boolean) => {
       setHasUnsavedChanges((prev) => (value !== undefined ? value : !prev));
     }, []);
 
-    const [isPanelOpened, setIsPanelOpened] = useState(openPanelByDefault);
+    // Force the panel to be closed on mobile screen
+    const [isPanelOpened, setIsPanelOpened] = useState(
+      isMobile ? false : openPanelByDefault,
+    );
     const toggleIsPanelOpened = useCallback((value?: boolean) => {
       setIsPanelOpened((prev) => (value !== undefined ? value : !prev));
     }, []);
@@ -52,6 +61,7 @@ export const LayoutProvider = forwardRef<LayoutProviderRef, ProviderProps>(
           isPanelOpened,
           toggleHasUnsavedChanges,
           toggleIsPanelOpened,
+          isMobile,
         }}
       >
         {children}

@@ -18,8 +18,7 @@ import { useTrialPermission } from "#src/utils/permissions";
 
 const TrialAnalysisPage = () => {
   const { t } = useTranslation("insights");
-  const { hasPermission, isLoading: isLoadingPermission } =
-    useTrialPermission();
+  const hasPermission = useTrialPermission();
   const isTrialAnalysisEnabled = useInsightFlag(InsightFlags.TRIAL_ANALYSIS);
   const { flagsReady } = useFlagsStatus();
   const {
@@ -30,8 +29,8 @@ const TrialAnalysisPage = () => {
 
   const pageTitle = t("pages.trialAnalysis.title");
 
-  // Wait for permissions and flags to load before redirecting
-  if (isLoadingPermission || !flagsReady) {
+  // Wait for flags to load before redirecting
+  if (!flagsReady) {
     return (
       <InsightDetailLayout title={pageTitle} isLoading={true} error={null}>
         {null}
@@ -39,12 +38,8 @@ const TrialAnalysisPage = () => {
     );
   }
 
-  // Only redirect if permissions are loaded and explicitly false or feature flag is off
-  if (
-    !isLoadingPermission &&
-    flagsReady &&
-    (!hasPermission || !isTrialAnalysisEnabled)
-  ) {
+  // Redirect if no permission or feature flag is off
+  if (!hasPermission || !isTrialAnalysisEnabled) {
     return <Navigate to="/" replace />;
   }
 

@@ -30,7 +30,7 @@ const InsightsPage = () => {
   const filterRef = useRef<{ resetFilters: () => void }>(null);
 
   // Check permissions to filter available insights
-  const { context: insightPermissionContext } = useInsightPermissionContext();
+  const insightPermissionContext = useInsightPermissionContext();
 
   // Check feature flags
   const isTrialAnalysisEnabled = useInsightFlag(InsightFlags.TRIAL_ANALYSIS);

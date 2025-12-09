@@ -12,15 +12,12 @@ import {
 
 /**
  * Generic hook to check object-level permissions
- * Returns an object with hasPermission (boolean) and isLoading (boolean)
+ * Returns boolean indicating if user has the permission
  */
 export const useObjectLevelPermission = (
   path: DeepKeys<ObjectLevelPermissions>,
-): { hasPermission: boolean; isLoading: boolean } => {
+): boolean => {
   const userRole = dataAccessLayer.useUserRole();
-
-  // If userRole is undefined, permissions are still loading
-  const isLoading = userRole === undefined;
 
   const hasPermission = checkHasPermission<
     WithSignature<ObjectLevelPermissions>
@@ -29,7 +26,7 @@ export const useObjectLevelPermission = (
     path,
   });
 
-  return { hasPermission, isLoading };
+  return hasPermission;
 };
 
 /**
@@ -59,19 +56,12 @@ export const useRecurringPermission = () =>
  * Hook that returns permission context for all insights
  * Context is a simple object: { trial: boolean, recurring: boolean }
  */
-export const useInsightPermissionContext = () => {
-  const trialPermission = useTrialPermission();
-  const recurringPermission = useRecurringPermission();
+export const useInsightPermissionContext = (): InsightPermissionContext => {
+  const trial = useTrialPermission();
+  const recurring = useRecurringPermission();
 
-  const context = useMemo<InsightPermissionContext>(
-    () => ({
-      trial: trialPermission.hasPermission,
-      recurring: recurringPermission.hasPermission,
-    }),
-    [trialPermission.hasPermission, recurringPermission.hasPermission],
+  return useMemo<InsightPermissionContext>(
+    () => ({ trial, recurring }),
+    [trial, recurring],
   );
-
-  const isLoading = trialPermission.isLoading || recurringPermission.isLoading;
-
-  return { context, isLoading };
 };

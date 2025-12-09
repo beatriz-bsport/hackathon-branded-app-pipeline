@@ -14,8 +14,7 @@ import { useRecurringPermission } from "#src/utils/permissions";
  */
 const RecurringRevenuePage = () => {
   const { t } = useTranslation("insights");
-  const { hasPermission, isLoading: isLoadingPermission } =
-    useRecurringPermission();
+  const hasPermission = useRecurringPermission();
   const {
     iframeUrl,
     isLoading: isLoadingUrl,
@@ -24,17 +23,8 @@ const RecurringRevenuePage = () => {
 
   const pageTitle = t("pages.recurringRevenue.title");
 
-  // Wait for permissions to load before redirecting
-  if (isLoadingPermission) {
-    return (
-      <InsightDetailLayout title={pageTitle} isLoading={true} error={null}>
-        {null}
-      </InsightDetailLayout>
-    );
-  }
-
-  // Only redirect if permissions are loaded and explicitly false
-  if (!isLoadingPermission && !hasPermission) {
+  // Redirect if no permission
+  if (!hasPermission) {
     return <Navigate to="/" replace />;
   }
 

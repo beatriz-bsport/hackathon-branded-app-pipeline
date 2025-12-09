@@ -30,21 +30,6 @@
     },
     "pre-commit": {
       "cache": true
-    },
-    "lint": {
-      "cache": true
-    },
-    "lint-old": {
-      "cache": true
-    },
-    "test": {
-      "cache": true
-    },
-    "pretty": {
-      "cache": true
-    },
-    "format:check": {
-      "cache": true
     }
   },
   "affected": {

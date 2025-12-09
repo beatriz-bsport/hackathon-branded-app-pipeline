@@ -27,6 +27,7 @@ const Text: React.FC<TextProps> = ({
   label,
   rightSlot,
   description,
+  leftSlot,
   ...props
 }) => {
   const renderedAvatar = useMemo(
@@ -75,7 +76,7 @@ const Text: React.FC<TextProps> = ({
     <div className={menuItemText({ className })} {...props}>
       <div className="flex items-center justify-between w-full">
         <div className="flex gap-xs items-center">
-          {renderedAvatar ?? renderedIcon}
+          {leftSlot ?? renderedAvatar ?? renderedIcon}
           <div className="flex flex-col">
             {renderedLabel}
             {renderedDescription}

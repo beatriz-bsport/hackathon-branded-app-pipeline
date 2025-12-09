@@ -52,6 +52,7 @@ const Checkbox: React.FC<CheckboxProps> = ({
   onChange,
   value,
   rightSlot,
+  leftSlot,
   ...props
 }) => {
   const renderedAvatar = useMemo(
@@ -144,7 +145,7 @@ const Checkbox: React.FC<CheckboxProps> = ({
       </div>
       <div className="flex items-center justify-between w-full">
         <div className="flex gap-xs items-center">
-          {renderedAvatar ?? renderedIcon}
+          {leftSlot ?? renderedAvatar ?? renderedIcon}
           <span>{label}</span>
         </div>
         {rightSlot ?? null}

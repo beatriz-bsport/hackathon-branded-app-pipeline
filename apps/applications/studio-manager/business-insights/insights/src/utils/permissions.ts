@@ -1,3 +1,5 @@
+import { useMemo } from "react";
+
 import {
   type DeepKeys,
   type WithSignature,
@@ -31,15 +33,45 @@ export const useObjectLevelPermission = (
 };
 
 /**
- * Checks if the user has permission to view subscription invoices reports
- * This determines if the Recurring Revenue insight page should be accessible
- * Returns an object with hasPermission (boolean) and isLoading (boolean)
+ * Maps each insight to its required permission path(s)
  */
-export const useHasSubscriptionInvoicesPermission = (): {
-  hasPermission: boolean;
-  isLoading: boolean;
-} => {
-  return useObjectLevelPermission(
-    "report.Club.subscription.allowed_actions.read",
+const INSIGHT_PERMISSIONS = {
+  trial: "report.Payments.invoices.allowed_actions.read",
+  recurring: "report.Club.subscription.allowed_actions.read",
+} as const;
+
+export type InsightId = keyof typeof INSIGHT_PERMISSIONS;
+export type InsightPermissionContext = Record<InsightId, boolean>;
+
+/**
+ * Hook to check if user has permission to view trial insights
+ */
+export const useTrialPermission = () =>
+  useObjectLevelPermission(INSIGHT_PERMISSIONS.trial);
+
+/**
+ * Hook to check if user has permission to view recurring revenue insights
+ */
+export const useRecurringPermission = () =>
+  useObjectLevelPermission(INSIGHT_PERMISSIONS.recurring);
+
+/**
+ * Hook that returns permission context for all insights
+ * Context is a simple object: { trial: boolean, recurring: boolean }
+ */
+export const useInsightPermissionContext = () => {
+  const trialPermission = useTrialPermission();
+  const recurringPermission = useRecurringPermission();
+
+  const context = useMemo<InsightPermissionContext>(
+    () => ({
+      trial: trialPermission.hasPermission,
+      recurring: recurringPermission.hasPermission,
+    }),
+    [trialPermission.hasPermission, recurringPermission.hasPermission],
   );
+
+  const isLoading = trialPermission.isLoading || recurringPermission.isLoading;
+
+  return { context, isLoading };
 };

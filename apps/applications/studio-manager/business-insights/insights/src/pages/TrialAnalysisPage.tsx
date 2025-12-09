@@ -8,18 +8,18 @@ import { DASHBOARD_TYPES } from "#src/constants";
 import { usePresignedUrl } from "#src/hooks/api";
 import { InsightFlags, useInsightFlag } from "#src/utils/featureFlags";
 import { useTranslation } from "#src/utils/i18n";
-import { useHasSubscriptionInvoicesPermission } from "#src/utils/permissions";
+import { useTrialPermission } from "#src/utils/permissions";
 
 /**
  * Trial Analysis dashboard page.
  * Displays analytics for trial offer performance in an embedded iframe.
- * Protected route - requires subscription invoices permission.
+ * Protected route - requires invoices permission.
  */
 
 const TrialAnalysisPage = () => {
   const { t } = useTranslation("insights");
   const { hasPermission, isLoading: isLoadingPermission } =
-    useHasSubscriptionInvoicesPermission();
+    useTrialPermission();
   const isTrialAnalysisEnabled = useInsightFlag(InsightFlags.TRIAL_ANALYSIS);
   const { flagsReady } = useFlagsStatus();
   const {

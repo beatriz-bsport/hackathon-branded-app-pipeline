@@ -60,7 +60,7 @@ const TrialAnalysis: React.FC = () => {
   }
 
   return (
-    <ObjectLevelPermissionProvider requiredPermission="report.Club.subscription.allowed_actions.read">
+    <ObjectLevelPermissionProvider requiredPermission="report.Payments.invoices.allowed_actions.read">
       {(hasPermission: boolean) => {
         if (!hasPermission) {
           return <Redirect to="/dashboard" />;

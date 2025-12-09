@@ -12,13 +12,13 @@ type TriggerTypeStep = {
   itemIds: number[];
 };
 
-type BookingTriggerCondition = {
+export type BookingTriggerCondition = {
   type: "booking";
 } & BookingTriggerConfigValidationFormData;
 
-type AppointmentTriggerCondition = {
+export type AppointmentTriggerCondition = {
   type: "appointment";
-};
+} & BookingTriggerConfigValidationFormData;
 
 type SubscriptionTriggerCondition = {
   type: "subscription";
@@ -55,9 +55,11 @@ export type GetCurrentFormValues =
   | ContentStep;
 
 type FormStepContextType = {
+  validateForm: boolean;
   currentStep: number;
   formData: NotificationMultiStepFormState;
   setCurrentStep: (newStep: number) => void;
+  setValidateForm: (newValidationForm: boolean) => void;
   setStepValid: (step: number, isValid: boolean) => void;
   checkIfCurrentStepValid: () => boolean;
   goToNextStep: () => void;
@@ -84,6 +86,8 @@ export const FormStepContextProvider = ({
     Partial<NotificationMultiStepFormState>
   >({});
 
+  const [validateForm, setValidateForm] = useState(false);
+
   const [currentStep, setCurrentStep] = useState(
     NOTIFICATION_TYPE_STEP_IDENTIFIER,
   );
@@ -91,7 +95,7 @@ export const FormStepContextProvider = ({
     Record<number, boolean>
   >({
     [NOTIFICATION_TYPE_STEP_IDENTIFIER]: false,
-    [NOTIFICATION_TRIGGER_STEP_IDENTIFIER]: true,
+    [NOTIFICATION_TRIGGER_STEP_IDENTIFIER]: false,
     [NOTIFICATION_CONTENT_STEP_IDENTIFIER]: false,
   });
 
@@ -116,12 +120,23 @@ export const FormStepContextProvider = ({
   const updateForm = (values: Partial<NotificationMultiStepFormState>) => {
     setFormData((prev) => ({ ...prev, ...values }));
   };
-  const resetForm = () => setFormData({});
+  const resetForm = () => {
+    setFormData({});
+    setValidateForm(false);
+    setCurrentStep(NOTIFICATION_TYPE_STEP_IDENTIFIER);
+    setStepValidations({
+      [NOTIFICATION_TYPE_STEP_IDENTIFIER]: false,
+      [NOTIFICATION_TRIGGER_STEP_IDENTIFIER]: false,
+      [NOTIFICATION_CONTENT_STEP_IDENTIFIER]: false,
+    });
+  };
 
   const value = {
+    validateForm,
     currentStep,
     formData,
     setCurrentStep,
+    setValidateForm,
     setStepValid,
     checkIfCurrentStepValid,
     goToNextStep,

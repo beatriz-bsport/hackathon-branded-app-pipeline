@@ -1,4 +1,4 @@
-import { ControlledFormProps, FormField } from "@bsport/form";
+import { type ControlledFormProps, FormField } from "@bsport/form";
 import {
   Alert,
   Body,
@@ -10,20 +10,21 @@ import {
 } from "@bsport/kaizen-primitive-core";
 
 import {
+  BOOKING_TEMPORALITY_AFTER,
+  BOOKING_TEMPORALITY_BEFORE,
   BOOKING_TIME_UNIT_DAY,
   BOOKING_TIME_UNIT_HOUR,
+  MIN_BOOKING_OCCURENCE_SPECIFIC_AMOUNT,
 } from "#src/components/MarketingNotificationEdition/NotificationTriggerForms/Booking/types";
 import {
   isTemporalityTypeCorrect,
   isTimeUnitTypeCorrect,
-} from "#src/components/MarketingNotificationEdition/NotificationTriggerForms/Booking/utils";
+} from "#src/components/MarketingNotificationEdition/NotificationTriggerForms/utils";
 import { useTranslation } from "#src/utils/i18n";
 import type {
   BookingTriggerConfigValidationFormData,
   ConfigTimeUnit,
 } from "#src/utils/schemas/types";
-
-import { MIN_BOOKING_OCCURENCE_SPECIFIC_AMOUNT } from "./BookingNotificationTriggerField";
 
 type BookingTimingFieldProps = {
   setFormValue: ControlledFormProps<BookingTriggerConfigValidationFormData>["setValue"];
@@ -109,20 +110,20 @@ export const BookingTimingField = ({
         id="notification-timing-before-after"
         options={[
           {
-            value: "before",
+            value: BOOKING_TEMPORALITY_BEFORE,
             label: t(
               "steps.notificationRules.booking.timing.temporality.options.before",
             ),
           },
           {
-            value: "after",
+            value: BOOKING_TEMPORALITY_AFTER,
             label: t(
               "steps.notificationRules.booking.timing.temporality.options.after",
             ),
           },
         ]}
         value={temporality}
-        onChangeValue={handleTimingTemporalityUpdate}
+        onChange={handleTimingTemporalityUpdate}
       />
       <div className="flex flex-row gap-xs">
         <FormField<
@@ -146,13 +147,13 @@ export const BookingTimingField = ({
                 label: t(
                   "steps.notificationRules.booking.timing.timeUnit.options.hour",
                 ),
-                id: "hour",
+                id: BOOKING_TIME_UNIT_HOUR,
               },
               {
                 label: t(
                   "steps.notificationRules.booking.timing.timeUnit.options.day",
                 ),
-                id: "day",
+                id: BOOKING_TIME_UNIT_DAY,
               },
             ]}
           />

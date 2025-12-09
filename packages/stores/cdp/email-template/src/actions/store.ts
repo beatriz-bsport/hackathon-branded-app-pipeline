@@ -1,3 +1,5 @@
+import { buildById } from "@bsport/store-base";
+
 import { emailTemplateStore } from "#src/store";
 import type {
   EmailTemplateCategory,
@@ -16,19 +18,14 @@ export const setEmailTemplateCategories = ({
   count: number;
   page: number;
 }) => {
-  emailTemplateStore.setState(() => {
-    const byId = categories.reduce(
-      (acc: Record<string, EmailTemplateCategory>, category) => {
-        acc[category.id] = category;
-        return acc;
-      },
-      {},
-    );
-
+  emailTemplateStore.setState((state) => {
     return {
       categories: {
         ids: categories.map((category) => category.id),
-        byId,
+        byId: buildById<EmailTemplateCategory>({
+          initial: state.categories.byId,
+          newItems: categories,
+        }),
         count,
         page,
       },
@@ -47,15 +44,7 @@ export const setEmailTemplateSummaries = ({
   count: number;
   page: number;
 }) => {
-  emailTemplateStore.setState(() => {
-    const byId = emailTemplates.reduce(
-      (acc: Record<string, EmailTemplateSummary>, emailTemplate) => {
-        acc[emailTemplate.id] = emailTemplate;
-        return acc;
-      },
-      {},
-    );
-
+  emailTemplateStore.setState((state) => {
     const emailTemplatesIds = emailTemplates.map(
       (emailTemplate) => emailTemplate.id,
     );
@@ -65,7 +54,10 @@ export const setEmailTemplateSummaries = ({
         fuzzyIds: [],
         flatIds: emailTemplatesIds,
         ids: emailTemplatesIds,
-        byId,
+        byId: buildById<EmailTemplateSummary>({
+          initial: state.summaries.byId,
+          newItems: emailTemplates,
+        }),
         count,
         page,
       },
@@ -83,14 +75,6 @@ export const setFuzzySearchEmailTemplateSummaries = ({
   page: number;
 }) => {
   emailTemplateStore.setState((state) => {
-    const byId = emailTemplates.reduce(
-      (acc: Record<string, EmailTemplateSummary>, emailTemplate) => {
-        acc[emailTemplate.id] = emailTemplate;
-        return acc;
-      },
-      {},
-    );
-
     const emailTemplatesIds = emailTemplates.map(
       (emailTemplate) => emailTemplate.id,
     );
@@ -99,7 +83,10 @@ export const setFuzzySearchEmailTemplateSummaries = ({
       summaries: {
         ...state.summaries,
         fuzzyIds: emailTemplatesIds,
-        byId: byId,
+        byId: buildById<EmailTemplateSummary>({
+          initial: state.summaries.byId,
+          newItems: emailTemplates,
+        }),
         count,
         page,
       },
@@ -124,10 +111,10 @@ export const setEmailTemplateDetail = ({
 
     return {
       details: {
-        byId: {
-          ...state.details.byId,
-          [emailTemplateId]: emailTemplateDetail,
-        },
+        byId: buildById<EmailTemplateDetail>({
+          initial: state.details.byId,
+          newItems: [emailTemplateDetail],
+        }),
         ids: [...uniqueEmailTemplateIds],
         count: uniqueEmailTemplateIds.size,
       },

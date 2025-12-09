@@ -268,7 +268,7 @@ export function useFormatCommunicationVariableItems({
       return category;
     }
     return i18nInstance.t(`communicationVariable.${category}.name`, {
-      ns: "sm-transactional-notification_communicationVariables",
+      ns: "sm-marketing-notification_communicationVariables",
       defaultValue: category,
     });
   };

@@ -3,6 +3,16 @@
     "create": "Create a notification",
     "edit": "Edit notification"
   },
+  "toast": {
+    "create": {
+      "success": "Notification rule saved",
+      "failure": "Your notification rule could not be saved"
+    },
+    "edit": {
+      "success": "Your changes were saved",
+      "failure": "Your changes could not be saved"
+    }
+  },
   "steps": {
     "label": {
       "triggerType": "Select trigger type",
@@ -12,8 +22,11 @@
     "content": {
       "errors": {
         "noEmailTemplate": "Select a template",
-        "noPushNotificationContent": "Add content to your push notification ",
-        "noContentKind": "Select at least 1 email or notification"
+        "noContent": {
+          "pushNotificationTitle": "Fill in the push notification title",
+          "pushNotificationContent": "Fill in the push notification content"
+        },
+        "noContentKind": "Select at least 1 communication kind"
       },
       "selector": {
         "emailTemplates": {
@@ -173,6 +186,29 @@
               }
             }
           }
+        }
+      },
+      "appointment": {
+        "actionLabel": "Send this notification when a member",
+        "actions": {
+          "attend": "Attends their booked appointment",
+          "cancelOnTime": "Cancels their appointment within the cancellation window",
+          "cancelTooLate": "Cancels their appointment outside the cancellation window"
+        },
+        "occurrenceLabel": "Send this notification when",
+        "occurrences": {
+          "attend": {
+            "anyBooking": "A member makes any booking",
+            "specificAmount": "A member reaches a specific amount of bookings"
+          },
+          "cancel": {
+            "anyBooking": "A member makes any cancellation",
+            "specificAmount": "A member reaches a specific amount of cancellations"
+          }
+        },
+        "amountSuffix": {
+          "attend": "Bookings",
+          "cancel": "Cancellations"
         }
       }
     }

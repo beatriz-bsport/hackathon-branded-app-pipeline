@@ -140,9 +140,8 @@ export const BackendSelector = <
 
   const autocompleteProps: AutocompleteProps = {
     fullWidth: true,
-    clearOnSelect: true,
-    className: className,
-    disabled: disabled,
+    className,
+    disabled,
     searchMode: "remote",
     popoverPlacement: "bottom-right",
     textfieldProps: {

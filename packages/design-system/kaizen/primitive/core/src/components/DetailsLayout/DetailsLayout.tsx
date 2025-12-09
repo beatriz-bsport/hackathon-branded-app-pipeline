@@ -42,6 +42,7 @@ const detailsLayout = cva([
   "[grid-template-areas:'header_header''confirm_aside''content_aside']",
   "transition-all",
   "duration-long",
+  "relative",
 ]);
 
 /**
@@ -87,8 +88,9 @@ function Main({
   className,
   ...props
 }: Omit<DetailsLayoutProps, "openPanelByDefault">) {
-  const { hasUnsavedChanges, isPanelOpened } = useLayoutContext();
-  const panelWidth = isPanelOpened ? SIDE_PANEL_WIDTH : 0;
+  const { hasUnsavedChanges, isPanelOpened, isMobile } = useLayoutContext();
+  // On Mobile, Panel overlaps the Content
+  const panelWidth = isPanelOpened && !isMobile ? SIDE_PANEL_WIDTH : 0;
   const confirmHeight = hasUnsavedChanges ? "auto" : "0fr";
 
   return (
@@ -100,7 +102,7 @@ function Main({
           overflow: panelWidth ? "hidden" : "auto",
           "--aside-width": `${panelWidth}px`,
           "--confirm-height": confirmHeight,
-          gridTemplateColumns: "1fr var(--aside-width)",
+          gridTemplateColumns: isMobile ? "1fr" : "1fr var(--aside-width)",
           gridTemplateRows: "auto var(--confirm-height) 1fr",
         } as CSSProperties
       }
@@ -171,15 +173,41 @@ DetailsLayout.Content = DetailsLayoutContent;
 
 // ----- Panel -----
 
-const detailsLayoutPanel = cva([
-  "[grid-area:aside]",
-  "bg-surface-page-navigation",
-  "border-l-stroke-weak",
-  "border-l-stroke-thin",
-  "overflow-y-scroll",
-  "p-md",
-  "h-full",
-]);
+const detailsLayoutPanel = cva(
+  [
+    "[grid-area:aside]",
+    "bg-surface-page-navigation",
+    "border-l-stroke-weak",
+    "border-l-stroke-thin",
+    "overflow-y-scroll",
+    "h-full",
+    "duration-short",
+  ],
+  {
+    variants: {
+      isMobile: {
+        true: [
+          "absolute",
+          "right-0",
+          "top-0", // placed at top of grid container
+          "z-40",
+        ],
+        false: "",
+      },
+      isOpenByDevice: {
+        "mobile-true": [
+          "animate-slide-in-right",
+          "translate-x-0",
+          "p-md",
+          "w-[100vw]",
+        ],
+        "mobile-false": ["animate-slide-out-right", "translate-x-full", "w-0"],
+        "desktop-true": "p-md",
+        "desktop-false": "",
+      },
+    },
+  },
+);
 
 type DetailsLayoutPanelProps = PropsWithChildren<
   HTMLAttributes<HTMLDivElement>
@@ -195,11 +223,16 @@ const DetailsLayoutPanel: FC<DetailsLayoutPanelProps> = ({
   children,
   ...htmlProps
 }) => {
-  const { isPanelOpened } = useLayoutContext();
-
+  const { isPanelOpened, isMobile } = useLayoutContext();
+  const isOpenByDevice =
+    `${isMobile ? "mobile" : "desktop"}-${isPanelOpened}` as const;
   return (
     <aside
-      className={detailsLayoutPanel({ className })}
+      className={detailsLayoutPanel({
+        className,
+        isOpenByDevice,
+        isMobile,
+      })}
       aria-hidden={!isPanelOpened}
       {...htmlProps}
     >

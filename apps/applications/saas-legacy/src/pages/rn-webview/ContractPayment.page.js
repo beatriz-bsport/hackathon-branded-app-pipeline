@@ -273,7 +273,8 @@ export default compose(
       window.ReactNativeWebView.postMessage(
         JSON.stringify({
           status: 'succeeded',
-          consumerPaymentPackId: responseData?.compatible_consumer_payment_pack_id,
+          consumerPaymentPackId:
+            responseData?.compatible_consumer_payment_pack_id,
         }),
       );
     },

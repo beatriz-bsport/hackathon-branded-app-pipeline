@@ -72,7 +72,7 @@ export const SearchMemberModal: React.FC<SearchMemberModalProps> = ({
     if (navigate) {
       navigate?.(to);
     } else {
-      // window.location.assign(to);
+      window.location.assign(to);
     }
   };
 

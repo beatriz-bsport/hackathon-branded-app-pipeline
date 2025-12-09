@@ -1,5 +1,3 @@
-import { DATETIME_FORMATS } from "@bsport/datetime-formatting";
-
 /**
  * Base type representing common fields between Session (Offer) creation and editing
  */
@@ -44,7 +42,8 @@ export type SessionEdit = SessionBase & {
   credit_price_override?: number;
   custom_selection_ids: number[];
   custom_selection: boolean;
-  date_start: typeof DATETIME_FORMATS.ISO_DATETIME_WITH_ZONE;
+  /** ISO datetime string with timezone (format: YYYY-MM-DDTHH:mm:ssZ) */
+  date_start: string;
   id: number;
   meta_activity: number;
   modifyAllDates: boolean;
@@ -64,4 +63,5 @@ export type SessionCreationFormData = Pick<
   | "partner_max_booking_count"
 > & {
   allowCustomNameAndDescription: boolean;
+  startDateTime: Date;
 };

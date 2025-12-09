@@ -77,6 +77,22 @@
               "error": "The number of allocated spots for aggregators can't exceed the total available spots in the session."
             }
           }
+        },
+        "timeAndDate": {
+          "title": "Time and date",
+          "date": "Date",
+          "time": "Time",
+          "duration": {
+            "label": "Duration",
+            "minute": "min",
+            "hour": "hour",
+            "day": "day"
+          },
+          "errors": {
+            "invalidDate": "Invalid date. Please enter a valid date in the format DD/MM/YYYY.",
+            "invalidTime": "Invalid time. Please enter a valid time in the format HH:MM.",
+            "dateTooFar": "You can’t create sessions scheduled more than 3 years in the future."
+          }
         }
       },
       "advancedOptions": {
@@ -87,6 +103,7 @@
       "cancel": "Cancel",
       "back": "Back",
       "createSession": "Create session"
-    }
+    },
+    "errors": { "requiredField": "This field is required" }
   }
 }

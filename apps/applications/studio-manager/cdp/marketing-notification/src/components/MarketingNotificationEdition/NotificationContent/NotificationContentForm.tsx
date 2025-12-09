@@ -18,13 +18,20 @@ import { useUpsellChecker } from "#src/hooks/permissions/use-upsell-checker";
 import { notificationContentValidationFormSchema } from "#src/utils/schemas/notificationContentValidation";
 import type { NotificationContentFormData } from "#src/utils/schemas/types";
 
-export const NotificationContentForm = () => {
-  const { formData, setStepValid } = useFormStepContext();
+export const NotificationContentForm = ({
+  handleCloseModal,
+}: {
+  handleCloseModal: () => void;
+}) => {
+  const { formData, validateForm, setStepValid, setValidateForm, updateForm } =
+    useFormStepContext();
   const { companyId } = useCompanyData();
   const { getTriggerConditionKind, getTriggerEventRules } =
     useRefineNotificationFormData();
-  const { handleCreateMarketingNotification } =
-    useCreateMarketingNotification();
+  const { handleCreateMarketingNotification } = useCreateMarketingNotification({
+    onFailure: () => setValidateForm(false),
+    onSuccess: () => handleCloseModal(),
+  });
   const { isPushNotificationUpsellActivated } = useUpsellChecker();
   const pushNotificationContent =
     formData?.content?.pushNotificationContent || "";
@@ -89,17 +96,34 @@ export const NotificationContentForm = () => {
   );
   const emailTemplateId = watchFormValue("emailTemplateId");
 
+  const formValues = getFormValues();
+
+  useEffect(() => {
+    updateForm({
+      content: {
+        type: "content",
+        ...formValues,
+      },
+    });
+  }, [
+    formValues?.emailTemplateId,
+    formValues?.pushNotificationContent,
+    formValues?.pushNotificationTitle,
+    formValues?.isEmailNotificationChecked,
+    formValues?.isPushNotificationChecked,
+  ]);
+
   useEffect(() => {
     setStepValid(NOTIFICATION_CONTENT_STEP_IDENTIFIER, isValid);
   }, [isValid]);
 
   useEffect(() => {
-    return () => {
+    if (validateForm) {
       validateMarketingNotificationCreation({
         ...formData,
       });
-    };
-  }, []);
+    }
+  }, [validateForm]);
 
   if (!isPushNotificationUpsellActivated) {
     return (
@@ -131,7 +155,7 @@ export const NotificationContentForm = () => {
         CheckboxProps
       >
         name="isEmailNotificationChecked"
-        mapProps={({ defaultProps, fieldState }) => ({
+        mapProps={({ defaultProps, fieldState, form }) => ({
           ...defaultProps,
           value: isEmailTemplateSelectorToggled ? "checked" : "unchecked",
           errorText: fieldState.error?.message,
@@ -139,9 +163,14 @@ export const NotificationContentForm = () => {
             setFormValue("isEmailNotificationChecked", checked, {
               shouldValidate: true,
             });
+            form.trigger("emailTemplateId");
             if (checked) {
               methods.clearErrors("isEmailNotificationChecked");
               methods.clearErrors("isPushNotificationChecked");
+            } else {
+              setFormValue("emailTemplateId", undefined, {
+                shouldValidate: true,
+              });
             }
           },
         })}

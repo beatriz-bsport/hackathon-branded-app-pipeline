@@ -10,7 +10,7 @@ export type ConfigTimeUnit = "hour" | "day";
 
 export type BookingSelectableNotificationType = Omit<
   SelectableNotificationType,
-  "birthday" | "privatePass" | "privateService" | "paymentPack" | "subscription"
+  "birthday" | "privatePass" | "paymentPack" | "subscription"
 >;
 
 export type BookingTriggerConfigValidationFormData = {

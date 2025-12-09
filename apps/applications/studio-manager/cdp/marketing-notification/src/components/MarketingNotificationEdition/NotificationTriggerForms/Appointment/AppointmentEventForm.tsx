@@ -11,65 +11,66 @@ import {
   NOTIFICATION_TRIGGER_STEP_IDENTIFIER,
   useFormStepContext,
 } from "#src/components/MarketingNotificationEdition/Context/FormStepContext.context";
-import { BookingNotificationTriggerField } from "#src/components/MarketingNotificationEdition/NotificationTriggerForms/Booking/BookingNotificationTriggerField";
+import { AppointmentNotificationTriggerField } from "#src/components/MarketingNotificationEdition/NotificationTriggerForms/Appointment/AppointmentNotificationTriggerField";
+import {
+  APPOINTMENT_ACTIONS_MAP_TO_APPOINTMENT_EVENT_KIND,
+  APPOINTMENT_ACTION_ATTEND,
+} from "#src/components/MarketingNotificationEdition/NotificationTriggerForms/Appointment/types";
+import { getAppointmentFormData } from "#src/components/MarketingNotificationEdition/NotificationTriggerForms/Appointment/utils";
 import { BookingTimingField } from "#src/components/MarketingNotificationEdition/NotificationTriggerForms/Booking/BookingTimingField";
 import {
-  BOOKING_STATUS_MAP_TO_BOOKING_EVENT_KIND,
-  BOOKING_STATUS_PRESENT,
   BOOKING_TEMPORALITY_BEFORE,
   BOOKING_TIME_UNIT_HOUR,
   DEFAULT_BOOKING_OCCURRENCE,
   DEFAULT_TIMING_VALUE,
 } from "#src/components/MarketingNotificationEdition/NotificationTriggerForms/Booking/types";
-import { getBookingFormData } from "#src/components/MarketingNotificationEdition/NotificationTriggerForms/Booking/utils";
 import {
   SmartlistsFormField,
   type SmartlistsSelectorType,
 } from "#src/components/MarketingNotificationEdition/NotificationTriggerForms/Common/SmartlistsFormField";
 import { useTranslation } from "#src/utils/i18n";
 import { bookingTriggerConfigValidationSchema } from "#src/utils/schemas/bookingTriggerConfigValidation";
-import type { SelectableNotificationType } from "#src/utils/types";
 
 type BookingEventFormProps = {
   itemIds: number[];
-  notificationType: SelectableNotificationType;
 };
 
-export const BookingEventForm = ({
-  itemIds,
-  notificationType,
-}: BookingEventFormProps) => {
+export const AppointmentEventForm = ({ itemIds }: BookingEventFormProps) => {
   const { t } = useTranslation("marketingNotificationsModal");
   const { formData, setStepValid, updateForm } = useFormStepContext();
-  const bookingFormData = getBookingFormData(formData?.triggerCondition);
+  const appointmentFormData = getAppointmentFormData(
+    formData?.triggerCondition,
+  );
   const methods = useFormController({
     schema: bookingTriggerConfigValidationSchema,
-    mode: "all",
+    mode: "onBlur",
     defaultValues: {
-      notificationType,
+      notificationType: "privateService",
       bookingItemId: itemIds[0],
       bookingOccurrence:
-        bookingFormData?.bookingOccurrence || DEFAULT_BOOKING_OCCURRENCE,
+        appointmentFormData?.bookingOccurrence || DEFAULT_BOOKING_OCCURRENCE,
       bookingEventKind:
-        bookingFormData?.bookingEventKind ||
-        BOOKING_STATUS_MAP_TO_BOOKING_EVENT_KIND[BOOKING_STATUS_PRESENT],
-      timingUnit: bookingFormData?.timingUnit || BOOKING_TIME_UNIT_HOUR,
-      timingValue: bookingFormData?.timingValue || DEFAULT_TIMING_VALUE,
+        appointmentFormData?.bookingEventKind ||
+        APPOINTMENT_ACTIONS_MAP_TO_APPOINTMENT_EVENT_KIND[
+          APPOINTMENT_ACTION_ATTEND
+        ],
+      timingUnit: appointmentFormData?.timingUnit || BOOKING_TIME_UNIT_HOUR,
+      timingValue: appointmentFormData?.timingValue || DEFAULT_TIMING_VALUE,
       timingTemporality:
-        bookingFormData?.timingTemporality || BOOKING_TEMPORALITY_BEFORE,
+        appointmentFormData?.timingTemporality || BOOKING_TEMPORALITY_BEFORE,
       toggleIncludedSmartlists:
-        bookingFormData?.toggleIncludedSmartlists || false,
-      includedSmartlists: bookingFormData?.includedSmartlists || [],
+        appointmentFormData?.toggleIncludedSmartlists || false,
+      includedSmartlists: appointmentFormData?.includedSmartlists || [],
       toggleExcludedSmartlists:
-        bookingFormData?.toggleExcludedSmartlists || false,
-      excludedSmartlists: bookingFormData?.excludedSmartlists || [],
+        appointmentFormData?.toggleExcludedSmartlists || false,
+      excludedSmartlists: appointmentFormData?.excludedSmartlists || [],
     },
   });
 
   const {
     getValues: getFormValues,
     setValue: setFormValue,
-    trigger: trigggerFormValidationCheck,
+    trigger: triggerFormValidationCheck,
     watch: watchFormValue,
     formState: { isValid, errors },
   } = methods;
@@ -131,14 +132,14 @@ export const BookingEventForm = ({
         id: "marketing-notification-included-smartlists-selector-input",
         statusText: errors.includedSmartlists?.message,
         status: errors.includedSmartlists?.message ? "error" : "default",
-        onBlur: () => trigggerFormValidationCheck("includedSmartlists"),
+        onBlur: () => triggerFormValidationCheck("includedSmartlists"),
       };
     }
     return {
       id: "marketing-notification-excluded-smartlists-selector-input",
       statusText: errors.excludedSmartlists?.message,
       status: errors.excludedSmartlists?.message ? "error" : "default",
-      onBlur: () => trigggerFormValidationCheck("excludedSmartlists"),
+      onBlur: () => triggerFormValidationCheck("excludedSmartlists"),
     };
   };
 
@@ -151,7 +152,7 @@ export const BookingEventForm = ({
   useEffect(() => {
     updateForm({
       triggerCondition: {
-        type: "booking",
+        type: "appointment",
         ...formValues,
       },
     });
@@ -179,10 +180,10 @@ export const BookingEventForm = ({
         onSubmit={() => {}}
         className="flex flex-col gap-sm"
       >
-        <BookingNotificationTriggerField
+        <AppointmentNotificationTriggerField
           setFormValue={setFormValue}
-          defaultBookingOccurence={formValues?.bookingOccurrence}
-          defaultBookingStatus={formValues?.bookingEventKind}
+          defaultAppointmentOccurence={formValues?.bookingOccurrence}
+          defaultAppointmentStatus={formValues?.bookingEventKind}
         />
         <Divider orientation="horizontal" weight="thin" />
         <BookingTimingField

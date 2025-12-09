@@ -31,6 +31,18 @@ export const BOOKING_STATUS_MAP_TO_BOOKING_EVENT_KIND: Record<
   [BOOKING_STATUS_TOO_LATE]: 6,
 };
 
+export const BOOKING_CANCELLATIONS_EVENT_KIND = [5, 6];
+
+export const BOOKING_EVENT_KIND_MAP_TO_BOOKING_STATUS: Record<
+  number,
+  BookingStatus
+> = {
+  3: BOOKING_STATUS_PRESENT,
+  4: BOOKING_STATUS_ABSENT,
+  5: BOOKING_STATUS_REFUNDED,
+  6: BOOKING_STATUS_TOO_LATE,
+};
+
 export const BOOKING_TEMPORALITY_BEFORE = "before";
 export const BOOKING_TEMPORALITY_AFTER = "after";
 
@@ -44,3 +56,8 @@ export type BookingTemporality =
 export type BookingTimeUnit =
   | typeof BOOKING_TIME_UNIT_HOUR
   | typeof BOOKING_TIME_UNIT_DAY;
+
+export const BOOKING_OCCURENCE_ANY_BOOKING_FORM_VALUE = 0;
+export const MIN_BOOKING_OCCURENCE_SPECIFIC_AMOUNT = 1;
+export const DEFAULT_BOOKING_OCCURRENCE = 0;
+export const DEFAULT_TIMING_VALUE = 1;

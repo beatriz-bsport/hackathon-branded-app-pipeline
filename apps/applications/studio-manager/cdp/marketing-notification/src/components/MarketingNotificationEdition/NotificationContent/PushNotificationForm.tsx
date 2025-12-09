@@ -10,14 +10,20 @@ import { CommunicationVariableSelector } from "../CommunicationVariableSelector/
 const PUSH_NOTIFICATION_TITLE_MAX_LENGTH = 25;
 const PUSH_NOTIFICATION_CONTENT_MAX_LENGTH = 200;
 
+const PUSH_NOTIFICATION_TITLE_INPUT_TYPE = "pushNotificationTitle";
+const PUSH_NOTIFICATION_CONTENT_INPUT_TYPE = "pushNotificationContent";
+
 type PushNotificationInputType =
-  | "pushNotificationTitle"
-  | "pushNotificationContent";
+  | typeof PUSH_NOTIFICATION_TITLE_INPUT_TYPE
+  | typeof PUSH_NOTIFICATION_CONTENT_INPUT_TYPE;
 
 function isPushNotificationInputType(
   value: string,
 ): value is PushNotificationInputType {
-  return value === "title" || value === "content";
+  return (
+    value === PUSH_NOTIFICATION_TITLE_INPUT_TYPE ||
+    value === PUSH_NOTIFICATION_CONTENT_INPUT_TYPE
+  );
 }
 
 type PushNotificationFormProps = {
@@ -54,7 +60,11 @@ export const PushNotificationForm: React.FC<PushNotificationFormProps> = ({
     if (currentInput === null || currentInput === undefined) return;
 
     // Get DOM element reference
-    const elementId = `push-notification-${currentInputRef.current}`;
+    const fieldName =
+      currentInputRef.current === PUSH_NOTIFICATION_TITLE_INPUT_TYPE
+        ? "title"
+        : "content";
+    const elementId = `push-notification-${fieldName}`;
     const element = document.getElementById(elementId) as
       | HTMLTextAreaElement
       | HTMLInputElement;
@@ -115,7 +125,7 @@ export const PushNotificationForm: React.FC<PushNotificationFormProps> = ({
           id="push-notification-title"
           label="Title"
           onFocus={() => {
-            currentInputRef.current = "pushNotificationTitle";
+            currentInputRef.current = PUSH_NOTIFICATION_TITLE_INPUT_TYPE;
           }}
         />
       </FormField>
@@ -130,7 +140,7 @@ export const PushNotificationForm: React.FC<PushNotificationFormProps> = ({
           id="push-notification-content"
           label="Content"
           onFocus={() => {
-            currentInputRef.current = "pushNotificationContent";
+            currentInputRef.current = PUSH_NOTIFICATION_CONTENT_INPUT_TYPE;
           }}
         />
       </FormField>

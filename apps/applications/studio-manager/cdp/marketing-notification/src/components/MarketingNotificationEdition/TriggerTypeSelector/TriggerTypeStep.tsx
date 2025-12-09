@@ -91,6 +91,8 @@ export const TriggerTypeStep = () => {
     formState: { isValid, errors },
   } = methods;
 
+  const formValues = getFormValues();
+
   // Memoized computations
   const { selectOptions, translationToTypeMap, selectedConfig } =
     useMemo(() => {
@@ -160,24 +162,21 @@ export const TriggerTypeStep = () => {
   }, [isValid]);
 
   useEffect(() => {
-    return () => {
-      const formValues = getFormValues();
-      updateForm({
-        triggerType: {
-          type: "triggerType",
-          itemIds: formValues.itemIds ?? [],
-          notificationType: formValues.notificationType,
-        },
-      });
-    };
-  }, []);
+    updateForm({
+      triggerType: {
+        type: "triggerType",
+        itemIds: formValues.itemIds ?? [],
+        notificationType: formValues.notificationType,
+      },
+    });
+  }, [formValues?.itemIds, formValues?.notificationType]);
 
   return (
     <div className="flex flex-col gap-md w-full">
       <Title htmlVariant="h3">{t("steps.triggerType.title")}</Title>
       <ControlledForm
         id="trigger-type-validation-form"
-        onSubmit={(data: TriggerTypeValidationFormData) => console.log(data)}
+        onSubmit={() => {}}
         {...methods}
       >
         <FormField<
@@ -206,21 +205,11 @@ export const TriggerTypeStep = () => {
           TriggerTypeValidationFormData,
           "itemIds",
           TriggerTypeSelectorProps
-        >
-          name="itemIds"
-          mapProps={({ defaultProps, field }) => ({
-            ...defaultProps,
-            key:
-              selectedConfig?.type === NOTIFICATION_ADVANCED_TYPE.paymentPack ||
-              selectedConfig?.type === NOTIFICATION_ADVANCED_TYPE.privatePass
-                ? undefined
-                : field.value,
-            selectedValues: field.value,
-          })}
-        >
+        > name="itemIds">
           <TriggerTypeSelector
             selectedConfig={selectedConfig}
             onSelectTriggerType={handleSelectTriggerItems}
+            selectedValues={formData?.triggerType?.itemIds}
             textfieldProps={{
               id: "item-ids-selector-textfield",
               status: errors.itemIds ? "error" : "default",

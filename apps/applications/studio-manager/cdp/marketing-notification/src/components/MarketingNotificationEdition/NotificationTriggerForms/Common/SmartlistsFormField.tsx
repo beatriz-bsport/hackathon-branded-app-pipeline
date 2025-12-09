@@ -8,6 +8,8 @@ import { useTranslation } from "#src/utils/i18n";
 export type SmartlistsSelectorType = "excluded" | "included";
 
 type SmartlistsFormFieldProps = {
+  selectedIncludedSmartlists?: number[];
+  selectedExcludedSmartlists?: number[];
   isIncludedSmartlistsEnabled: boolean;
   isExcludedSmartlistsEnabled: boolean;
   includedSmartlistsTextfieldProps?: TextFieldProps;
@@ -34,9 +36,12 @@ type SmartlistSection = {
   isEnabled: boolean;
   textfieldProps?: TextFieldProps;
   labelKey: string;
+  defaultValues: number[];
 };
 
 export const SmartlistsFormField = ({
+  selectedIncludedSmartlists,
+  selectedExcludedSmartlists,
   isIncludedSmartlistsEnabled,
   isExcludedSmartlistsEnabled,
   includedSmartlistsTextfieldProps,
@@ -53,6 +58,7 @@ export const SmartlistsFormField = ({
       isEnabled: isIncludedSmartlistsEnabled,
       textfieldProps: includedSmartlistsTextfieldProps,
       labelKey: t("steps.notificationRules.smartlists.included.label"),
+      defaultValues: selectedIncludedSmartlists ?? [],
     },
     {
       key: `${id}-excluded`,
@@ -60,38 +66,42 @@ export const SmartlistsFormField = ({
       isEnabled: isExcludedSmartlistsEnabled,
       textfieldProps: excludedSmartlistsTextfieldProps,
       labelKey: t("steps.notificationRules.smartlists.excluded.label"),
+      defaultValues: selectedExcludedSmartlists ?? [],
     },
   ];
 
   return (
     <div className="flex flex-col gap-sm">
-      {sections.map(({ key, type, isEnabled, textfieldProps, labelKey }) => (
-        <div key={key}>
-          <Toggle
-            id={`toggle-${type}-smartlists-selector`}
-            label={labelKey}
-            checked={isEnabled}
-            onChange={(checked) => {
-              if (typeof checked === "boolean") {
-                onToggleField?.({ type, checked });
-              }
-            }}
-          />
-          {isEnabled && (
-            <div className="ml-sm">
-              <SmartlistsSelector
-                onSelectSmartlists={(smartlists) =>
-                  onSmartlistsChange?.({
-                    type,
-                    smartlistIds: smartlists.map((smartlist) => smartlist.id),
-                  })
+      {sections.map(
+        ({ key, type, isEnabled, textfieldProps, labelKey, defaultValues }) => (
+          <div key={key}>
+            <Toggle
+              id={`toggle-${type}-smartlists-selector`}
+              label={labelKey}
+              checked={isEnabled}
+              onChange={(checked) => {
+                if (typeof checked === "boolean") {
+                  onToggleField?.({ type, checked });
                 }
-                textfieldProps={textfieldProps}
-              />
-            </div>
-          )}
-        </div>
-      ))}
+              }}
+            />
+            {isEnabled && (
+              <div className="ml-sm">
+                <SmartlistsSelector
+                  onSelectSmartlists={(smartlists) =>
+                    onSmartlistsChange?.({
+                      type,
+                      smartlistIds: smartlists.map((smartlist) => smartlist.id),
+                    })
+                  }
+                  textfieldProps={textfieldProps}
+                  defaultValues={defaultValues}
+                />
+              </div>
+            )}
+          </div>
+        ),
+      )}
     </div>
   );
 };

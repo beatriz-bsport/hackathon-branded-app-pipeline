@@ -8,6 +8,7 @@ import {
   post,
   patchAuth,
   putAuth,
+  API_V1_URI,
 } from '../../http';
 import type {
   PauseRequestData,
@@ -22,6 +23,8 @@ import type {
   ContractTemplatePaginatedQueryParams,
   ContractTemplatePayload,
   SubscriptionPaymentMethodParams,
+  Contract,
+  ContractPayload,
 } from './types';
 import type { PaginationFilterParams } from '#src/libs/types';
 import type { PaginatedResponse } from '#src/state/types';
@@ -406,4 +409,20 @@ export const createOrUpdateContractTemplate = (
         `${API_URI}/subscription/contract-template/`,
         data,
       );
+};
+
+// ---------------------------------------- CONTRACT REVAMP API ----------------------------------------
+
+export const createContract = async (data: ContractPayload) => {
+  return postAuth<Contract>(`${API_V1_URI}/subscription/contract/`, data);
+};
+
+export const updateContract = async (data: ContractPayload) => {
+  if (!data?.id) {
+    throw new Error('Missing contract ID, which is required for update.');
+  }
+  return putAuth<Contract>(
+    `${API_V1_URI}/subscription/contract/${data?.id}/`,
+    data,
+  );
 };

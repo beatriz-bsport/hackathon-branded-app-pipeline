@@ -3,6 +3,7 @@ import type {
   FilterProps,
 } from "@bsport/kaizen-primitive-core";
 
+import { setFilters } from "../../stores/session-list";
 import { useTranslation } from "../../utils/i18n";
 
 const FILTER_IS = "is" as const;
@@ -10,12 +11,13 @@ const FILTER_NOT = "not" as const;
 
 export const useFilterConfig = (): FilterProps => {
   const { t } = useTranslation("sessionList");
+
   return {
     fields: {
       "activity-type": {
         id: "activity-type",
         label: t("table.filters.activityType.label"),
-        availableFilters: [FILTER_IS, FILTER_NOT],
+        availableFilters: [FILTER_IS],
         values: [
           {
             id: "group-activity",
@@ -41,7 +43,7 @@ export const useFilterConfig = (): FilterProps => {
     ],
     selectFieldLabel: t("table.filters.label"),
     onFilterChange: (filters: FilterElementState[]) => {
-      console.log("Filter changed:", filters);
+      setFilters(filters);
     },
   };
 };

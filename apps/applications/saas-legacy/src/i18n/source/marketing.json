@@ -1036,7 +1036,29 @@
       "configs": {
         "abandonedCartRecovery": {
           "name": "Abandoned Checkout Recovery",
-          "description": "Recover lost sales. Automatically engage with customers or leads who added items (passes, memberships, retail) to their basket."
+          "description": "Recover lost sales. Automatically engage with customers or leads who added items (passes, memberships, retail) to their basket.",
+          "steps": {
+            "entry": {
+              "actions": {
+                "push_notification": {
+                  "subject": "Psst, {firstname}!",
+                  "text": "You left something behind! Your basket is saved and waiting for you at the studio.\n{company} Team"
+                },
+                "email_design": {
+                  "subject": "Did you forget something?"
+                }
+              }
+            },
+            "reminder": {
+              "name": "Reminder",
+              "actions": {
+                "push_notification": {
+                  "subject": "Don't miss out!",
+                  "text": "{firstname}, don't forget you have new items in your basket waiting to be bought!\n{company} Team"
+                }
+              }
+            }
+          }
         }
       }
     }

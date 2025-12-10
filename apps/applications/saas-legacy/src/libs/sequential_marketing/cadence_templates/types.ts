@@ -17,6 +17,10 @@ import type {
   MarketingActions as MarketingActionCommunicationKind,
   TriggerIdentifier,
 } from '#src/libs/sequential_marketing/constants';
+import {
+  CoreBackendEnvironment,
+  FeatureBranchIdentifier,
+} from '#src/utils/environment';
 
 export type PositionData = {
   x: string;
@@ -54,9 +58,16 @@ export type ConnectedTriggerData = {
   canvas?: CanvasData | null;
 };
 
+// Supported languages for email designs used in cadence templates: English, French, German
+export type CadenceTemplateEmailDesign = {
+  en: number | null;
+  fr: number | null;
+  de: number | null;
+};
+
 export type ActionSpecData = {
   subject?: string;
-  email_design?: number | null;
+  email_design?: CadenceTemplateEmailDesign | null;
   text_content?: string;
   communication_kind?: MarketingActionCommunicationKind;
   tag_id?: number;
@@ -92,6 +103,15 @@ export type CadenceConfigData = {
 
 export type CadenceTemplate = {
   description: string;
-  cover: any;
+  cover: string;
   getConfig: (t: TFunction) => CadenceConfigData;
+};
+
+// Mapping of environments/feature branches to email design IDs for each supported language
+export type CadenceTemplateEmailDesignMap = {
+  [CoreBackendEnvironment.LOCAL]: CadenceTemplateEmailDesign;
+  [CoreBackendEnvironment.DEV]: CadenceTemplateEmailDesign;
+  [CoreBackendEnvironment.STAGING]: CadenceTemplateEmailDesign;
+  [CoreBackendEnvironment.PRODUCTION]: CadenceTemplateEmailDesign;
+  [FeatureBranchIdentifier.PIKACHU]: CadenceTemplateEmailDesign;
 };

@@ -9,7 +9,7 @@ import makeStyles from '@material-ui/core/styles/makeStyles';
 import clsx from 'clsx';
 import { MarketplaceSettings } from '#src/libs/marketplace/types';
 import { EXPORTABLE_COMPONENT_TYPE_VOD } from '#src/libs/exportable-components/constants';
-import { getDefaultTitleForComponent } from '#src/libs/exportable-components/utils';
+import { getDefaultTitleForComponent } from '#src/libs/exportable-components/utils-common';
 import Config from '../../../../../config';
 
 type MenuProps = {

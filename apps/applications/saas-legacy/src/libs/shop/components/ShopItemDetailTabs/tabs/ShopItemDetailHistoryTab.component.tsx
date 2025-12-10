@@ -1,6 +1,4 @@
 import React from 'react';
-import { fakerEN as faker } from '@faker-js/faker'; // TEMP IMPORT
-import { DateTime } from 'luxon';
 
 import { makeStyles } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
@@ -18,35 +16,11 @@ import ReceiptIcon from '@material-ui/icons/Receipt';
 
 import type { ShopItemHistoryTableRow } from '../types';
 
-import { SHOPITEM_PER_PAGE } from '#src/libs/shop/constants';
 import { ShopItemDetailTab } from '#src/libs/shop/components/ShopItemDetail/constants';
 
 type TableRowItemProps = {
   item: ShopItemHistoryTableRow;
 };
-
-const TEMP_HISTORY_TABLE_DATA = faker.helpers.multiple(
-  () => ({
-    id: faker.number.int(10000),
-    date: DateTime.now().toFormat('yyyy-MM-dd HH:mm ZZZ'),
-    variant: `${faker.helpers.arrayElement([
-      'Black',
-      'Blue',
-      'Red',
-      'Yellow',
-      'Green',
-    ])} - ${faker.helpers.arrayElement(['XS', 'S', 'M', 'L', 'XL'])}`,
-    studio: 'YogaZen - Paris',
-    updateType: faker.helpers.arrayElement([
-      'Sale',
-      'Manual adjustment',
-      'Purchase order',
-    ]),
-    quantity: faker.number.int({ min: 2, max: 25 }),
-    invoiceURL: faker.internet.url(),
-  }),
-  { count: SHOPITEM_PER_PAGE },
-);
 
 const TableRowItem: React.FC<TableRowItemProps> = ({ item }) => {
   const { t } = useTranslation('shop');
@@ -102,7 +76,7 @@ const ShopItemDetailHistoryTab: React.FC = () => {
           </TableHead>
 
           <TableBody>
-            {TEMP_HISTORY_TABLE_DATA.map((row) => (
+            {([] as TableRowItemProps['item'][]).map((row) => (
               <TableRowItem item={row} key={row.id}></TableRowItem>
             ))}
           </TableBody>

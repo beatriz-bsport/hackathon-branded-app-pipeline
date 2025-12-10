@@ -8,7 +8,7 @@ import {
   getCheckoutUrl,
   getUserSpaceUrl,
 } from '#src/libs/marketplace/routing-utils';
-import { getDefaultMarketplaceTabTitle } from '#src/libs/exportable-components/utils';
+import { getDefaultMarketplaceTabTitle } from '#src/libs/exportable-components/utils-common';
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 import NavigationAppBar from '#src/components/css-only/Navigation/NavigationAppBar';
 import useViewport from '#Fabrique/hooks/useViewport';

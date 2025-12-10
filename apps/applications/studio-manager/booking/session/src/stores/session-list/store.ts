@@ -1,5 +1,6 @@
 import { createStore } from "zustand/vanilla";
 
+import { FilterElementState } from "@bsport/kaizen-primitive-core";
 import { bindStore } from "@bsport/store-base";
 
 export enum CalendarView {
@@ -15,14 +16,15 @@ export interface SessionListState {
   calendarView: CalendarView;
   selectedDate: DateSelection;
   locale: string;
+  filters: FilterElementState[];
 }
 
 export const getInitialState = (): SessionListState => ({
   calendarView: CalendarView.DAILY,
   selectedDate: { type: "single", date: new Date() },
   locale: "en-US",
+  filters: [],
 });
-
 export const sessionListStore = createStore<SessionListState>(getInitialState);
 
 /**

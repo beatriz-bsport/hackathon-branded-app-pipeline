@@ -40,6 +40,7 @@ export type TooltipProps = React.HTMLAttributes<HTMLDivElement> & {
  * @param props.label Text to display in the tooltip.
  * @param props.chip Optional configuration for a chip element to be displayed in the tooltip.
  * @param props.children Node(s) to render as the children of the tooltip.
+ * @param props.placement Placement of the tooltip relative to the children.
  * @link https://docs.infra.bsport.io/storybook/kaizen/main/index.html?path=/docs/components-tooltip--docs
  */
 const Tooltip: React.FC<TooltipProps> = ({
@@ -65,8 +66,9 @@ const Tooltip: React.FC<TooltipProps> = ({
   const placementClasses = useRelativePlacementClasses(placement);
 
   return (
-    <div className="relative" {...props}>
+    <div className="relative inline-flex" {...props}>
       <div
+        className="inline-flex"
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
         onKeyDown={handleKeyDown}

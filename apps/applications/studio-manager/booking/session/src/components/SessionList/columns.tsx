@@ -135,8 +135,8 @@ export const useSessionListColumns = () => {
   return [
     timeColumn,
     sessionNameColumn,
-    participantsColumn,
     teacherNameColumn,
+    participantsColumn,
     establishmentNameColumn,
     sessionTypeColumn,
     attendanceColumn,

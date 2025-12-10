@@ -37,4 +37,5 @@ export enum CadenceStatusColors {
   WARNING_LIGHT_COLOR = '#FFF7EB',
   ERROR_DEFAULT_COLOR = '#F44336',
   ERROR_LIGHT_COLOR = '#FFF0EF',
+  ERROR_DARK_COLOR = '#E31B0C',
 }

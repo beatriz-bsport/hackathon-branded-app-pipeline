@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "analyze": "NODE_ENV=development ANALYZE=true webpack build --config config/webpack.dev.js",
+    "analyze": "NODE_ENV=production ANALYZE=true webpack build --config config/webpack.prod.js",
     "build": "export CI=false ; node --max_old_space_size=19000 scripts/build.js",
     "ci:build": "./scripts/ci-build.sh > /dev/null 2>&1",
     "ci:compile": "tsc --strict false -p ./tsconfig.json",

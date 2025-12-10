@@ -5,6 +5,7 @@ const JavaScriptObfuscator = require('webpack-obfuscator');
 const CopyPlugin = require('copy-webpack-plugin');
 const autoprefixer = require('autoprefixer');
 const path = require('path');
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
 const devMode = process.env.NODE_ENV !== 'production';
 
@@ -156,6 +157,11 @@ module.exports = {
     !devMode && new JavaScriptObfuscator(),
     new webpack.ProvidePlugin({
       process: 'process/browser.js',
+    }),
+    process.env.ANALYZE === 'true' && new BundleAnalyzerPlugin({
+      analyzerMode: 'static',
+      openAnalyzer: true,
+      reportFilename: 'bundle-report.html',
     }),
   ].filter(Boolean),
   optimization: {

@@ -38,7 +38,7 @@ import { Giftcard } from '../../giftcard/types';
 import {
   getDefaultConfigByIdentifier,
   checkExportableComponentConfig,
-} from '../../exportable-components/utils';
+} from '../../exportable-components/utils-common';
 import {
   PaymentPackCategory,
   PaymentPackTemplate,

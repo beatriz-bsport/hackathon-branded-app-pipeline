@@ -28,7 +28,6 @@
     "@bsport/kaizen-primitive-core": "workspace:*",
     "@bsport/sm-backbone": "workspace:*",
     "@bsport/store-base": "workspace:*",
-    "@bsport/store-booking-group-activity": "workspace:*",
     "@bsport/timezone-utils": "workspace:*",
     "@bsport/use-async": "workspace:*",
     "@bsport/use-debounce": "workspace:*",

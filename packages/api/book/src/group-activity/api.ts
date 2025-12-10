@@ -1,11 +1,20 @@
-import { type ApiConfig, buildUrlParams } from "@bsport/store-base";
+import {
+  type ApiConfig,
+  Fetch,
+  type PaginatedResponse,
+  type SearchResponse,
+  buildUrlParams,
+} from "@bsport/store-base";
 
+import { API_URL } from "#src/constants";
 import type {
+  CanArchiveGroupActivityResponse,
   FetchGroupActivitiesParams,
+  MetaActivity,
   SearchGroupActivitiesParams,
-} from "./types";
+} from "#src/group-activity/types";
 
-const API_URL = "book/v1/meta-activity";
+const META_ACTIVITY_URL = API_URL + "v1/meta-activity";
 
 const mapGroupActivitiesUrlParams = ({
   customerEnabled,
@@ -39,7 +48,7 @@ const mapGroupActivitiesUrlParams = ({
  * @param params.page - The current page number (by default 1).
  * @param params.pageSize - The number of items per page (by default 10).
  */
-export const fetchGroupActivitiesAPI = (
+const fetchGroupActivitiesAPI = (
   params: FetchGroupActivitiesParams,
 ): ApiConfig => {
   const paramsWithNoWorkshop = {
@@ -47,8 +56,18 @@ export const fetchGroupActivitiesAPI = (
     isWorkshop: false,
   };
   return [
-    `${API_URL}/${buildUrlParams(mapGroupActivitiesUrlParams(paramsWithNoWorkshop))}`,
+    `${META_ACTIVITY_URL}/${buildUrlParams(mapGroupActivitiesUrlParams(paramsWithNoWorkshop))}`,
   ];
+};
+
+export const fetchGroupActivities = async (
+  fetch: Fetch<PaginatedResponse<MetaActivity>>,
+  params: FetchGroupActivitiesParams,
+): Promise<PaginatedResponse<MetaActivity>> => {
+  const [uri, init] = fetchGroupActivitiesAPI(params);
+  const { data } = await fetch(uri, init);
+
+  return data;
 };
 
 /**
@@ -66,29 +85,52 @@ export const fetchGroupActivitiesAPI = (
  * Only group activities/workshops with these IDs will be included.
  * If undefined or empty, no filtering by IDs will be applied.
  */
-export const fetchGroupActivitiesAndWorkshopsAPI = (
+const fetchGroupActivitiesAndWorkshopsAPI = (
   params: FetchGroupActivitiesParams,
 ): ApiConfig => {
-  return [`${API_URL}/${buildUrlParams(mapGroupActivitiesUrlParams(params))}`];
+  return [
+    `${META_ACTIVITY_URL}/${buildUrlParams(mapGroupActivitiesUrlParams(params))}`,
+  ];
+};
+
+export const fetchGroupActivitiesAndWorkshops = async (
+  fetch: Fetch<PaginatedResponse<MetaActivity>>,
+  params: FetchGroupActivitiesParams,
+): Promise<PaginatedResponse<MetaActivity>> => {
+  const [uri, init] = fetchGroupActivitiesAndWorkshopsAPI(params);
+  const { data } = await fetch(uri, init);
+
+  return data;
 };
 
 /**
- * Fetches a paginated list of group activities based on the provided parameters.
+ * Searches a paginated list of group activities based on the provided parameters.
  *
- * @param params - The parameters for fetching group activities.
+ * @param params - The parameters for searching group activities.
  * @param params.customerEnabled - Whether customer-related activities should be included.
  * @param params.page - The current page number (by default 1).
  * @param params.pageSize - The number of items per page (by default 10).
+ * @param params.searchQuery - The search query string.
  */
-export const searchGroupActivitiesAPI = (
+const searchGroupActivitiesAPI = (
   params: SearchGroupActivitiesParams,
 ): ApiConfig => {
   return [
-    `${API_URL}/search/${buildUrlParams({
+    `${META_ACTIVITY_URL}/search/${buildUrlParams({
       ...mapGroupActivitiesUrlParams(params),
       q: params.searchQuery ?? "",
     })}`,
   ];
+};
+
+export const searchGroupActivities = async (
+  fetch: Fetch<SearchResponse<MetaActivity>>,
+  params: SearchGroupActivitiesParams,
+): Promise<SearchResponse<MetaActivity>> => {
+  const [uri, init] = searchGroupActivitiesAPI(params);
+  const { data } = await fetch(uri, init);
+
+  return data;
 };
 
 /**
@@ -96,10 +138,20 @@ export const searchGroupActivitiesAPI = (
  *
  * @param groupActivityId - The ID of the group activity to be archived.
  */
-export const checkCanArchiveGroupActivityAPI = (
+const checkCanArchiveGroupActivityAPI = (
   groupActivityId: string,
 ): ApiConfig => {
-  return [`${API_URL}/${groupActivityId}/can_destroy/`];
+  return [`${META_ACTIVITY_URL}/${groupActivityId}/can_destroy/`];
+};
+
+export const checkCanArchiveGroupActivity = async (
+  fetch: Fetch<CanArchiveGroupActivityResponse>,
+  groupActivityId: string,
+): Promise<CanArchiveGroupActivityResponse> => {
+  const [uri, init] = checkCanArchiveGroupActivityAPI(groupActivityId);
+  const { data } = await fetch(uri, init);
+
+  return data;
 };
 
 /**
@@ -107,13 +159,22 @@ export const checkCanArchiveGroupActivityAPI = (
  *
  * @param groupActivityId - The ID of the group activity to be archived.
  */
-export const archiveGroupActivityAPI = (groupActivityId: string): ApiConfig => {
+const archiveGroupActivityAPI = (groupActivityId: string): ApiConfig => {
   return [
-    `${API_URL}/${groupActivityId}/`,
+    `${META_ACTIVITY_URL}/${groupActivityId}/`,
     {
       method: "DELETE",
     },
   ];
+};
+
+export const archiveGroupActivity = async (
+  fetch: Fetch<MetaActivity>,
+  groupActivityId: string,
+): Promise<MetaActivity> => {
+  const [uri, init] = archiveGroupActivityAPI(groupActivityId);
+  const { data } = await fetch(uri, init);
+  return data;
 };
 
 /**
@@ -121,15 +182,23 @@ export const archiveGroupActivityAPI = (groupActivityId: string): ApiConfig => {
  *
  * @param groupActivityId - The ID of the group activity to be unarchived.
  */
-export const unarchiveGroupActivityAPI = (
-  groupActivityId: string,
-): ApiConfig => {
+const unarchiveGroupActivityAPI = (groupActivityId: string): ApiConfig => {
   return [
-    `${API_URL}/${groupActivityId}/restore/`,
+    `${META_ACTIVITY_URL}/${groupActivityId}/restore/`,
     {
       method: "PUT",
     },
   ];
+};
+
+export const unarchiveGroupActivity = async (
+  fetch: Fetch<MetaActivity>,
+  groupActivityId: string,
+): Promise<MetaActivity> => {
+  const [uri, init] = unarchiveGroupActivityAPI(groupActivityId);
+  const { data } = await fetch(uri, init);
+
+  return data;
 };
 
 /**
@@ -137,13 +206,20 @@ export const unarchiveGroupActivityAPI = (
  *
  * @param groupActivityId - The ID of the group activity to duplicate.
  */
-export const duplicateGroupActivityAPI = (
-  groupActivityId: string,
-): ApiConfig => {
+const duplicateGroupActivityAPI = (groupActivityId: string): ApiConfig => {
   return [
-    `${API_URL}/${groupActivityId}/copy/`,
+    `${META_ACTIVITY_URL}/${groupActivityId}/copy/`,
     {
       method: "POST",
     },
   ];
+};
+
+export const duplicateGroupActivity = async (
+  fetch: Fetch<MetaActivity>,
+  groupActivityId: string,
+): Promise<MetaActivity> => {
+  const [uri, init] = duplicateGroupActivityAPI(groupActivityId);
+  const { data } = await fetch(uri, init);
+  return data;
 };

@@ -1,8 +1,8 @@
 import { createStore } from "zustand/vanilla";
 
+import type { MetaActivity } from "@bsport/api-book";
 import { getTodayJSDate } from "@bsport/datetime-manipulation";
 import { bindStore } from "@bsport/store-base";
-import type { MetaActivity } from "@bsport/store-booking-group-activity";
 
 import type { SessionCreate, SessionCreationFormData } from "./types";
 

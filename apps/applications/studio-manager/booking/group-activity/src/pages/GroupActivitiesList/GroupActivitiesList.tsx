@@ -1,13 +1,13 @@
 import React from "react";
 import { useNavigate } from "react-router";
 
+import type { MetaActivity } from "@bsport/api-book";
 import {
   Button,
   type ButtonProps,
   ListLayout,
   Table,
 } from "@bsport/kaizen-primitive-core";
-import type { MetaActivity } from "@bsport/store-booking-group-activity";
 import { DEFAULT_DEBOUNCE_DELAY } from "@bsport/use-debounce";
 
 import { useCategoryFilter } from "#src/hooks/useCategoryFilter";

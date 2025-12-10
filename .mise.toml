@@ -4,5 +4,9 @@ pnpm = "10.11.0"
 "1password-cli" = "latest"
 
 [env]
-NX_SELF_HOSTED_REMOTE_CACHE_SERVER = "{{ exec(command='$(mise which op) read \"op://Engineering/NX remote cache server/hostname\" --no-newline', cache_key='nx-cache-server', cache_duration='1d') }}"
-NX_SELF_HOSTED_REMOTE_CACHE_ACCESS_TOKEN = "{{ exec(command='$(mise which op) read \"op://Engineering/NX remote cache server/credential\" --no-newline', cache_key='nx-cache-token', cache_duration='1d') }}"
+# NX Remote Cache credentials from 1Password
+# - Uses `tools = true` to defer evaluation until after mise installs tools (avoids bootstrap errors)
+# - Set DISABLE_NX_REMOTE_CACHE=1 to opt-out of remote caching
+# - Credentials are cached for 1 day; run `mise cache clear` to refresh
+NX_SELF_HOSTED_REMOTE_CACHE_SERVER = { value = "{{ exec(command='[ \"${DISABLE_NX_REMOTE_CACHE:-0}\" = \"1\" ] || op read \"op://Engineering/NX remote cache server/hostname\" --no-newline 2>/dev/null || echo \"\"', cache_key='nx-cache-server', cache_duration='1d') }}", tools = true }
+NX_SELF_HOSTED_REMOTE_CACHE_ACCESS_TOKEN = { value = "{{ exec(command='[ \"${DISABLE_NX_REMOTE_CACHE:-0}\" = \"1\" ] || op read \"op://Engineering/NX remote cache server/credential\" --no-newline 2>/dev/null || echo \"\"', cache_key='nx-cache-token', cache_duration='1d') }}", tools = true }

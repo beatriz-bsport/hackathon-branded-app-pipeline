@@ -69,17 +69,29 @@ Then confirm the cache server received the request by checking Kibana:
 
 If you see the requests in Kibana, your setup is complete.
 
+## Opting Out of NX Remote Cache
+
+If you don't want to use the NX remote cache (for example, if you don't have access to 1Password or prefer local-only caching), add the following to your shell profile (`~/.zshrc` or `~/.bashrc`):
+
+```bash
+export DISABLE_NX_REMOTE_CACHE=1
+```
+
+> **Important:** The `export` keyword is required. On Linux/Ubuntu, setting the variable without `export` (e.g., `DISABLE_NX_REMOTE_CACHE=1`) will not make it visible to mise's shell execution context.
+
+When this variable is set and exported, mise will skip loading the 1Password credentials and Nx will use local caching only.
+
+## Refreshing Cached Credentials
+
+NX remote cache credentials are cached for 1 day to avoid repeated 1Password lookups. If you need to refresh the credentials (e.g., after a password rotation), run:
+
+```bash
+mise cache clear
+```
+
+Then restart your terminal or run `cd . && cd -` to trigger mise to reload the environment.
+
 ## Troubleshooting
-
-### mise
-
-After setting up mise and executing `mise trust` you might see some errors and it is normal. They will go away after you mise install because they are associated to the tools mise has to install:
-
-```
-mise ERROR op is not a mise bin. Perhaps you need to install it first.
-mise ERROR Run with --verbose or MISE_VERBOSE=1 for more information
-
-```
 
 ### Nx commands failing and getting hanged
 

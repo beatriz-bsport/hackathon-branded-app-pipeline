@@ -143,17 +143,15 @@ export const useUpcomingActivitiesColumns = ({
 
       // Occupancy tooltip
       const occupancyTooltip: string =
-        rate === RATE_FULL
-          ? (t("upcomingClassesPanel.rates.tooltip.classIsFull") as string)
-          : (t(
-              // @ts-expect-error Can not detect plural for now
-              "upcomingClassesPanel.rates.tooltip.hasEmptySpots",
-              { count: row.emptySpotsCount },
-            ) as string);
+        rate >= RATE_FULL
+          ? t("upcomingClassesPanel.rates.tooltip.classIsFull")
+          : t("upcomingClassesPanel.rates.tooltip.hasEmptySpots", {
+              count: row.emptySpotsCount,
+            });
 
       return (
-        <div className="flex flex-col items-center gap-[0.2rem]">
-          <div>
+        <div className="flex flex-col sm:flex-row items-center gap-2xs ">
+          <div className="h-6 flex items-center">
             <Tooltip placement="top" label={occupancyTooltip}>
               <Chip
                 type="weak"
@@ -165,9 +163,9 @@ export const useUpcomingActivitiesColumns = ({
             </Tooltip>
           </div>
           {hasPeopleInWaitingList && (
-            <div>
+            <div className="h-6 flex items-center">
               <Tooltip
-                placement="bottom"
+                placement="top"
                 label={t("upcomingClassesPanel.rates.badge.waitingCount", {
                   count: row.waitingListCount,
                 })}
@@ -176,10 +174,8 @@ export const useUpcomingActivitiesColumns = ({
                   type="weak"
                   size="lg"
                   color="info"
-                  iconLeft="user-02"
-                  label={t("upcomingClassesPanel.rates.badge.waitingCount", {
-                    count: row.waitingListCount,
-                  })}
+                  iconLeft="clock"
+                  label={`${row.waitingListCount}`}
                 />
               </Tooltip>
             </div>

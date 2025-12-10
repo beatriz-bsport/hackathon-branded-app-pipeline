@@ -1,7 +1,7 @@
 import { FC, useCallback } from "react";
 
 import {
-  getIsMeridiemLocale,
+  getLocalNow,
   modifyTime,
   toDateTime,
 } from "@bsport/datetime-manipulation";
@@ -23,18 +23,15 @@ export const SessionStartDateTime: FC<{
 
   const error = formState.errors.startDateTime?.message;
 
-  const locale = i18n?.language;
-
-  const isMeridiem = getIsMeridiemLocale(locale);
+  const locale = i18n.language;
 
   const companyTimeZone = dataAccessLayer.useCompanyTheme()?.timezone_name;
 
   // When date changes, preserve the time
   const handleDateChange = useCallback(
     (newDate: Date) => {
-      const currentDateTime =
-        toDateTime(startDateTime).setZone(companyTimeZone);
-      const newDateTime = toDateTime(newDate).setZone(companyTimeZone);
+      const currentDateTime = toDateTime(startDateTime, companyTimeZone);
+      const newDateTime = toDateTime(newDate, companyTimeZone);
 
       const updatedDateTime = newDateTime.set({
         hour: currentDateTime.hour,
@@ -54,9 +51,8 @@ export const SessionStartDateTime: FC<{
   // When time changes, preserve the date
   const handleTimeChange = useCallback(
     (newTime: Date) => {
-      const currentDateTime =
-        toDateTime(startDateTime).setZone(companyTimeZone);
-      const newTimeDateTime = toDateTime(newTime).setZone(companyTimeZone);
+      const currentDateTime = toDateTime(startDateTime, companyTimeZone);
+      const newTimeDateTime = toDateTime(newTime, companyTimeZone);
 
       const updatedDateTime = currentDateTime.set({
         hour: newTimeDateTime.hour,
@@ -77,8 +73,8 @@ export const SessionStartDateTime: FC<{
     (date: Date) => {
       if (!companyTimeZone) return false;
 
-      const dateDT = toDateTime(date).setZone(companyTimeZone);
-      const now = toDateTime(new Date()).setZone(companyTimeZone);
+      const dateDT = toDateTime(date, companyTimeZone);
+      const now = getLocalNow({ zone: companyTimeZone, locale });
 
       const maxDate = modifyTime({
         datetime: now,
@@ -87,10 +83,12 @@ export const SessionStartDateTime: FC<{
       });
       return dateDT > maxDate;
     },
-    [companyTimeZone],
+    [companyTimeZone, locale],
   );
 
-  const timeString = toDateTime(startDateTime).toFormat("HH:mm");
+  const timeString = toDateTime(startDateTime, companyTimeZone).toFormat(
+    "HH:mm",
+  );
 
   return (
     <div className="flex flex-col gap-sm md:flex-row md:gap-md">
@@ -119,7 +117,6 @@ export const SessionStartDateTime: FC<{
         required
         value={timeString}
         onChange={handleTimeChange}
-        meridiem={isMeridiem}
       />
     </div>
   );

@@ -90,7 +90,6 @@
           },
           "errors": {
             "invalidDate": "Invalid date. Please enter a valid date in the format DD/MM/YYYY.",
-            "invalidTime": "Invalid time. Please enter a valid time in the format HH:MM.",
             "dateTooFar": "You can’t create sessions scheduled more than 3 years in the future."
           }
         }

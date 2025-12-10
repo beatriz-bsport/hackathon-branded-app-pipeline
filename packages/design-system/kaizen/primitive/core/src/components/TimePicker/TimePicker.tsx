@@ -1,12 +1,15 @@
 import { cx } from "class-variance-authority";
 import React, { useCallback, useMemo, useState } from "react";
 
+import { getIsMeridiemLocale } from "@bsport/datetime-manipulation";
+
 import Menu from "#src/components/Menu";
 import type { MenuOption } from "#src/components/Menu/types";
 import Popover from "#src/components/Popover";
 import Select from "#src/components/Select";
 import TextField from "#src/components/TextField";
 import "#src/globals.css";
+import { useKaizenI18nInstance } from "#src/i18n";
 
 import {
   buildDateFromSelection,
@@ -37,7 +40,6 @@ export type TimePickerProps = Omit<
   id: string;
   interval?: number;
   label?: string;
-  meridiem?: boolean;
   onChange?: (date: Date) => void;
   required?: boolean;
   value?: string;
@@ -50,7 +52,6 @@ export type TimePickerProps = Omit<
  * @param props.disabled Whether the time picker is disabled.
  * @param props.id Unique identifier for the time picker.
  * @param props.interval Minute interval between time options (default: 15).
- * @param props.meridiem Whether to use 12-hour format with AM/PM.
  * @param props.onChange Callback when the time changes. Receives a Date object.
  * @param props.required Whether the field is required.
  * @param props.value The selected time in `HH:mm` format.
@@ -62,12 +63,15 @@ const TimePicker: React.FC<TimePickerProps> = ({
   id,
   interval = TIME_PICKER_DEFAULT_INTERVAL,
   label,
-  meridiem,
   onChange,
   required,
   value,
   ...props
 }) => {
+  const i18nInstance = useKaizenI18nInstance();
+
+  const meridiem = getIsMeridiemLocale(i18nInstance?.language ?? "en-US");
+
   const [selectedMeridiem, setSelectedMeridiem] = useState<Meridiem>("AM");
 
   const timeOptions = useMemo(

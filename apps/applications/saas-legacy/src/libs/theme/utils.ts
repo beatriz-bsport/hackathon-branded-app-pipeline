@@ -163,13 +163,14 @@ export const formatPriceWithCurrency = (
   switch (symbol) {
     case '€':
     case 'kr.':
-    case 'chf':
     case 'sek':
     case 'nok':
     case 'dkk':
     case 'лв.':
     case 'RON':
       return `${negativeSign}${absolutePrice}${'\u00A0'}${symbol}`;
+    case 'CHF':
+      return `${negativeSign}${symbol}${'\u00A0'}${absolutePrice}`;
     default:
       return `${negativeSign}${symbol}${absolutePrice}`;
   }

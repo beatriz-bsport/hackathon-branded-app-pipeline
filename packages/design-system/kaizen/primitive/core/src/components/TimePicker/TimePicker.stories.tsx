@@ -23,12 +23,6 @@ const meta: Meta<typeof TimePicker> = {
       table: { defaultValue: { summary: "15" } },
     },
     label: { control: "text" },
-    meridiem: {
-      table: {
-        type: { summary: "boolean" },
-        defaultValue: { summary: "false" },
-      },
-    },
     required: {
       table: {
         type: { summary: "boolean" },
@@ -75,7 +69,6 @@ export const Primary: Story = {
     id: "timepicker-1",
     interval: 30,
     label: "Select a time",
-    meridiem: false,
     disabled: false,
     required: false,
     value: "13:00",

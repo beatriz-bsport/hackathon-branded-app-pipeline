@@ -15,8 +15,9 @@ export type WeekStartDay = 1 | 2 | 3 | 4 | 5 | 6 | 7;
  * @param date - The native JavaScript Date.
  * @returns The corresponding DateTime object.
  */
-export const toDateTime = (date: Date): DateTime =>
-  LuxonDateTime.fromJSDate(date);
+export const toDateTime = (date: Date, zone?: string): DateTime => {
+  return LuxonDateTime.fromJSDate(date, { zone });
+};
 
 /**
  * Converts a DateTime object to a native JavaScript Date.

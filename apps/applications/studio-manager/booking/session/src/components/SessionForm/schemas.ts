@@ -1,6 +1,10 @@
 import { z } from "zod";
 
-import { modifyTime, toDateTime } from "@bsport/datetime-manipulation";
+import {
+  getLocalNow,
+  modifyTime,
+  toDateTime,
+} from "@bsport/datetime-manipulation";
 import { dataAccessLayer } from "@bsport/sm-backbone";
 
 import type { SessionCreationFormData } from "#src/stores/session-creation/types";
@@ -12,7 +16,8 @@ export const MAX_YEARS_AHEAD = 3;
 
 // Will merge the schemas for each section here
 export const useSessionSchema = () => {
-  const { t } = useTranslation("sessionCreation");
+  const { t, i18n } = useTranslation("sessionCreation");
+  const locale = i18n.language;
   const companyTimeZone = dataAccessLayer.useCompanyTheme()?.timezone_name;
 
   return z
@@ -37,7 +42,7 @@ export const useSessionSchema = () => {
         .refine(
           (date) => {
             const maxDate = modifyTime({
-              datetime: toDateTime(new Date()).setZone(companyTimeZone),
+              datetime: getLocalNow({ zone: companyTimeZone, locale }),
               duration: { year: MAX_YEARS_AHEAD },
               operator: "plus",
             });

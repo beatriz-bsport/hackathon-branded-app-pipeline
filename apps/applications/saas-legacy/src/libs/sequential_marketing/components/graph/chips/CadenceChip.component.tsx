@@ -52,6 +52,7 @@ const useStyles = makeStyles(() => ({
     alignItems: 'center',
     position: 'relative',
     width: 'fit-content',
+    overflow: 'auto',
   },
   clickableChip: {
     cursor: 'pointer',

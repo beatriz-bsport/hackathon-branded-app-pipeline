@@ -1017,6 +1017,15 @@
         }
       }
     },
+    "upsells": {
+      "warning": {
+        "title": "Add-on required",
+        "message": {
+          "sms": "Upgrade to send SMS.",
+          "pushNotification": "Upgrade to send push notifications."
+        }
+      }
+    },
     "template": {
       "createFromScratch": "Create from scratch",
       "useTemplate": "Use template",

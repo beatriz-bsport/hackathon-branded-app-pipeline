@@ -8,6 +8,7 @@ import { makeStyles } from '@material-ui/core';
 import SubdirectoryArrowRight from '#src/components/icons/SubdirectoryArrowRight';
 import useFinnerGrainEventsItemProvider from '#src/libs/sequential_marketing/components/graph/nodes/hooks/useFinnerGrainEventsItemProvider.hook';
 import { CadenceChip } from '#src/libs/sequential_marketing/components/graph/chips/CadenceChip.component';
+import { CadenceStatusColors } from '#src/libs/sequential_marketing/constants';
 
 type FinnerGrainEventItemContainerProps = {
   itemIds: number[];
@@ -93,7 +94,7 @@ const FinnerGrainEventSpecificItemChips: React.FC<
   FinnerGrainEventSpecificItemChipsProps
 > = ({ color, label, disabled, isItemArchived }) => {
   const chipColor = React.useMemo(
-    () => (isItemArchived ? '#E31B0C' : color),
+    () => (isItemArchived ? CadenceStatusColors.ERROR_DARK_COLOR : color),
     [isItemArchived, color],
   );
   return (

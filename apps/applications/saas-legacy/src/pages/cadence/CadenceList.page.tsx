@@ -30,6 +30,7 @@ import {
   fetchCadenceStepList as fetchCadenceStepListAction,
   searchCadencePresentMembersData as searchCadencePresentMembersDataAction,
   searchCadenceMembersHistoric as searchCadenceMembersHistoricAction,
+  createCadenceFromTemplate as createCadenceFromTemplateAction,
 } from '#src/libs/sequential_marketing/actions';
 import { fetchMemberBulkById as fetchMemberBulkByIdAction } from '#src/libs/member/actions';
 
@@ -76,6 +77,9 @@ import {
   withFeatureFlags,
 } from '#src/utils/feature-flag/withFeatureFlags';
 
+import { SegmentAnalyticsFormObjectIdentifier } from '#src/components/analytics/segment';
+import { rudderStackFormTrackingFunctionsRegistry } from '#src/components/analytics/rudderstack/utils';
+
 import type {
   Cadence,
   CadenceGlobalMetricsParams,
@@ -83,8 +87,7 @@ import type {
   CadencePaginatedMetricsParams,
   MetricsPaginatedResponse,
 } from '#src/libs/sequential_marketing/types';
-import { SegmentAnalyticsFormObjectIdentifier } from '#src/components/analytics/segment';
-import { rudderStackFormTrackingFunctionsRegistry } from '#src/components/analytics/rudderstack/utils';
+import type { CadenceConfigData } from '#src/libs/sequential_marketing/cadence_templates/types';
 import type { RootState } from '../../reducers';
 import type { WithHandlerType } from '../../utils/types';
 import type { OptionCallback } from '../../state/types';
@@ -267,6 +270,15 @@ export class CadenceListPage extends React.Component<Props> {
     );
   };
 
+  handleCreateCadenceFromTemplate = (config: CadenceConfigData) => {
+    this.props.createCadenceFromTemplate(config, {
+      onSuccess: (cadenceId) => {
+        cadenceId && this.props.goToCadencePage(cadenceId);
+      },
+    });
+    this.closeAddCadenceDialog();
+  };
+
   handleGoToCadencePage = (cadence: Cadence) =>
     cadence?.id && this.props.goToCadencePage(cadence.id);
 
@@ -374,7 +386,7 @@ export class CadenceListPage extends React.Component<Props> {
                 </div>
                 <CadenceTemplatePicker
                   createFromScratch={this.handleOpenCreationForm}
-                  onTemplateUse={this.handleOpenCreationForm} // To be implemented in next MR
+                  onTemplateUse={this.handleCreateCadenceFromTemplate}
                 />
               </div>
             ) : (
@@ -506,7 +518,7 @@ export class CadenceListPage extends React.Component<Props> {
           closeDialog={this.closeAddCadenceDialog}
           createFromScratch={this.handleOpenCreationForm}
           isOpen={this.props.isAddCadenceDialogOpen}
-          onTemplateUse={this.handleOpenCreationForm} // To be implemented in next MR
+          onTemplateUse={this.handleCreateCadenceFromTemplate}
         />
         <CadenceCreateAndUpdateForm
           displayParametersSection
@@ -758,6 +770,19 @@ const mapWithHandlers = {
         });
       }
     },
+
+  createCadenceFromTemplate:
+    (props: ConnectedPropsAndState) =>
+    (config: CadenceConfigData, options?: OptionCallback<number>) => {
+      props.createCadenceFromTemplateAction(config, {
+        onSuccess: (cadence) => {
+          cadence?.id && options?.onSuccess?.(cadence.id);
+        },
+        onError: () => {
+          options?.onError?.();
+        },
+      });
+    },
 };
 
 const connector = connect(
@@ -785,6 +810,7 @@ const connector = connect(
     updateCadenceAction,
     archiveCadenceAction,
     restoreCadenceAction,
+    createCadenceFromTemplateAction,
     // METRICS
     fetchGlobalMetricsAction,
     fetchPresentMembersDataAction,

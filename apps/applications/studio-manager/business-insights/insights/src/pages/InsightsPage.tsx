@@ -16,7 +16,7 @@ import {
   filterBySearch,
   filterBySection,
 } from "#src/utils/insightFilters";
-import { useInsightPermissionContext } from "#src/utils/permissions";
+import { useInsightPermissions } from "#src/utils/permissions";
 
 /**
  * Main insights page displaying a list of available business insight dashboards.
@@ -30,7 +30,7 @@ const InsightsPage = () => {
   const filterRef = useRef<{ resetFilters: () => void }>(null);
 
   // Check permissions to filter available insights
-  const insightPermissionContext = useInsightPermissionContext();
+  const insightPermissions = useInsightPermissions();
 
   // Check feature flags
   const isTrialAnalysisEnabled = useInsightFlag(InsightFlags.TRIAL_ANALYSIS);
@@ -38,20 +38,14 @@ const InsightsPage = () => {
   const rows = useMemo(() => {
     const baseRows = createInsightRows(
       t,
-      insightPermissionContext,
+      insightPermissions,
       isTrialAnalysisEnabled,
     );
     const sectionFiltered = filterBySection(baseRows, selected);
     const searchFiltered = filterBySearch(sectionFiltered, searchInput);
 
     return searchFiltered;
-  }, [
-    selected,
-    searchInput,
-    t,
-    insightPermissionContext,
-    isTrialAnalysisEnabled,
-  ]);
+  }, [selected, searchInput, t, insightPermissions, isTrialAnalysisEnabled]);
 
   const filterConfig: FilterProps = useMemo(() => {
     const fields = {

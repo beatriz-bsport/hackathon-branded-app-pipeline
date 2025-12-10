@@ -1,5 +1,3 @@
-import { useMemo } from "react";
-
 import {
   type DeepKeys,
   type WithSignature,
@@ -32,13 +30,14 @@ export const useObjectLevelPermission = (
 /**
  * Maps each insight to its required permission path(s)
  */
-const INSIGHT_PERMISSIONS = {
-  trial: "report.Payments.invoices.allowed_actions.read",
-  recurring: "report.Club.subscription.allowed_actions.read",
-} as const;
+const INSIGHT_PERMISSIONS: { [key: string]: DeepKeys<ObjectLevelPermissions> } =
+  {
+    trial: "report.Payments.invoices.allowed_actions.read",
+    recurring: "report.Club.subscription.allowed_actions.read",
+  } as const;
 
 export type InsightId = keyof typeof INSIGHT_PERMISSIONS;
-export type InsightPermissionContext = Record<InsightId, boolean>;
+export type InsightPermissions = Record<InsightId, boolean>;
 
 /**
  * Hook to check if user has permission to view trial insights
@@ -53,15 +52,12 @@ export const useRecurringPermission = () =>
   useObjectLevelPermission(INSIGHT_PERMISSIONS.recurring);
 
 /**
- * Hook that returns permission context for all insights
- * Context is a simple object: { trial: boolean, recurring: boolean }
+ * Hook that returns permission state for all insights
+ * Returns simple object: { trial: boolean, recurring: boolean }
  */
-export const useInsightPermissionContext = (): InsightPermissionContext => {
+export const useInsightPermissions = () => {
   const trial = useTrialPermission();
   const recurring = useRecurringPermission();
 
-  return useMemo<InsightPermissionContext>(
-    () => ({ trial, recurring }),
-    [trial, recurring],
-  );
+  return { trial, recurring };
 };

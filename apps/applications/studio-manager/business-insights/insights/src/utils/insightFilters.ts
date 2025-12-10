@@ -1,6 +1,6 @@
 import { INSIGHT_ITEMS, INSIGHT_SECTIONS } from "#src/constants";
 import type { TFunction } from "#src/utils/i18n";
-import { type InsightPermissionContext } from "#src/utils/permissions";
+import { type InsightPermissions } from "#src/utils/permissions";
 
 export interface InsightRow {
   id: string;
@@ -16,16 +16,16 @@ export interface InsightRow {
  */
 export const createInsightRows = (
   t: TFunction,
-  permissionContext: InsightPermissionContext,
+  permissions: InsightPermissions,
   isTrialAnalysisEnabled: boolean,
 ): InsightRow[] => {
   // Hide all insights if user has no permissions at all
-  if (!Object.values(permissionContext).some(Boolean)) {
+  if (!Object.values(permissions).some(Boolean)) {
     return [];
   }
 
   return INSIGHT_ITEMS.filter((item) => {
-    if (!permissionContext[item.id]) {
+    if (!permissions[item.id]) {
       return false;
     }
 

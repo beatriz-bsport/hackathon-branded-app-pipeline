@@ -67,8 +67,6 @@ import { getEnabled as getPaymentPackEnabled } from '../../libs/payment-packs/se
 import { getPrivatePassAvailable } from '../../libs/private-service/selectors/private-pass';
 // @ts-expect-error
 import SubscriptionContractList from '../../libs/subscription/components/SubscriptionContractList.component';
-// @ts-expect-error
-import { FormValues as SubscriptionContractFormValues } from '../../libs/subscription/components/SubscriptionContractForm.component';
 import SubscriptionContractRegister from '../../libs/subscription/components/SubscriptionContractRegister.component';
 import { search as searchMembers } from '../../libs/member/actions';
 import { getSearchedMembers } from '../../libs/member/selectors';
@@ -90,12 +88,15 @@ import {
   restoreContract,
   fetchSubscriptionBulk as fetchSubscriptionBulkAction,
   registerContractBackground as registerContractBackgroundAction,
+  createContract as createContractAction,
+  updateContract as updateContractAction,
 } from '../../libs/subscription/actions';
 
 import { MaterialStyleType, WithHandlerType } from '../../utils/types';
 import type { OptionCallback } from '#src/state/types';
 import type {
   Contract,
+  ContractPayload,
   ContractWithPaymentPack,
 } from '#src/libs/subscription/types';
 import type { TagGroupAPI } from '#src/libs/tag/types';
@@ -179,7 +180,8 @@ export class SubscriptionList extends React.Component<Props, State> {
 
   setContractToEditFromSearch = (contract: Contract) =>
     this.setState({
-      contractToEditFromSearch: { ...contract },
+      // @ts-expect-error - id property comming from legacy type
+      contractToEditFromSearch: { ...contractWithBenefit },
     });
 
   onClickContract = (id: number) => {
@@ -193,11 +195,29 @@ export class SubscriptionList extends React.Component<Props, State> {
     }
   };
 
-  handleEditContract = (
-    data: SubscriptionContractFormValues,
+  handleCreateContract = (
+    data: ContractPayload,
     options?: OptionCallback<void>,
   ) => {
-    this.props.createOrUpdateContract(data, {
+    this.props.createContract(data, {
+      onSuccess: () => {
+        this.props.fetchContractList();
+        this.setState({
+          contractToEditFromSearch: null,
+        });
+        this.refreshSearchBarOptions();
+        if (options && options.onSuccess) {
+          options.onSuccess();
+        }
+      },
+    });
+  };
+
+  handleEditContract = (
+    data: ContractPayload,
+    options?: OptionCallback<void>,
+  ) => {
+    this.props.updateContract(data, {
       onSuccess: () => {
         this.props.fetchContractList();
         this.setState({
@@ -236,7 +256,6 @@ export class SubscriptionList extends React.Component<Props, State> {
       hasEditPermission: boolean,
     ) =>
     (contracts: Contract[]): ContractSearchOptionData[] =>
-      // @ts-expect-error - Fixed next PR
       contracts.map((contract) => {
         return {
           contract: {
@@ -529,7 +548,7 @@ export class SubscriptionList extends React.Component<Props, State> {
               onSubmit={
                 this.state.contractToEditFromSearch
                   ? this.handleEditContract
-                  : this.props.onCreate
+                  : this.handleCreateContract
               }
               open={
                 !!this.state.contractToEditFromSearch ||
@@ -658,6 +677,8 @@ const mapDispatchToProps = {
   fetchPaymentPackList: fetchPaymentPackListAction,
   fetchMetaActivities: fetchMetaActivitiesAction,
   fetchAllPaymentPackCategory,
+  createContract: createContractAction,
+  updateContract: updateContractAction,
 };
 
 const withStateHandlersInit: StateHandlerInit = {
@@ -679,24 +700,6 @@ const withStateHandlersSetter = {
   setShowDisabled: () => (showDisabled: boolean) => ({ showDisabled }),
   onCloseCreate: () => () => ({ createContractFormOpen: false }),
   onRequestCreate: () => () => ({ createContractFormOpen: true }),
-  onCreate:
-    (
-      // @ts-expect-error
-      _,
-      { createOrUpdateContract, fetchContractList }: typeof mapDispatchToProps,
-    ) =>
-    // @ts-expect-error
-    (data, options) => {
-      createOrUpdateContract(data, {
-        onSuccess: () => {
-          fetchContractList();
-          if (options && options.onSuccess) {
-            options.onSuccess();
-          }
-        },
-      });
-      return { createContractFormOpen: false };
-    },
 };
 
 const mapWithHandlers = {

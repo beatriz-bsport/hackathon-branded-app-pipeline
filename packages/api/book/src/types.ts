@@ -106,11 +106,13 @@ export type FetchSessionsParams = {
 
   /** Filter sessions that have an active sub-teacher request. */
   has_active_sub_teacher_request?: boolean;
+};
 
-  /** Number of items per page (for pagination). */
+export type PaginatedFetchSessionsParams = FetchSessionsParams & {
+  /** Number of items per page*/
   page_size?: number;
 
-  /** Page number of the results (for pagination). */
+  /** Page number of the results*/
   page?: number;
 };
 

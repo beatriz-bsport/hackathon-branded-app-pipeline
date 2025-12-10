@@ -1,22 +1,23 @@
 import { Result } from "typescript-result";
 
 import {
+  type FetchTeachersParams,
+  type FuzzySearchParams,
+  type PaginatedFetchTeachersParams,
+  type Teacher,
+  archiveTeacher,
+  fetchFlatTeachers,
+  fetchPaginatedTeachers,
+  fuzzySearchTeachers,
+  linkTeacherByEmail,
+  restoreTeacher,
+} from "@bsport/api-core";
+import {
   type Action,
   type HTTPException,
   type PaginatedResponse,
   createErrorWithContext,
 } from "@bsport/store-base";
-
-import {
-  type FetchTeachersParams,
-  type FuzzySearchParams,
-  archiveTeacherAPI,
-  fetchTeachersAPI,
-  fuzzySearchTeachersAPI,
-  linkByEmailAPI,
-  restoreTeacherAPI,
-} from "#src/api";
-import type { Teacher } from "#src/types";
 
 import {
   setFlatTeachers,
@@ -39,15 +40,12 @@ import {
  * @note page and page_size must be provided together to activate pagination
  */
 export const fetchTeachersAction: Action<
-  FetchTeachersParams &
-    Required<Pick<FetchTeachersParams, "page" | "page_size">>,
+  PaginatedFetchTeachersParams,
   PaginatedResponse<Teacher>
 > = async (fetch, params) => {
-  const [uri, init] = fetchTeachersAPI(params);
-
   return Result.try(
     async () => {
-      const { data } = await fetch(uri, init);
+      const data = await fetchPaginatedTeachers(fetch, params);
 
       setTeachers({
         teachers: data.results,
@@ -76,15 +74,13 @@ export const fetchTeachersAction: Action<
  * @param with_workshop [Optional] Whether an Associated Coach has an incoming workshop
  */
 export const fetchFlatTeachersAction: Action<
-  Omit<FetchTeachersParams, "page" | "page_size">,
+  FetchTeachersParams,
   Array<Teacher>,
   HTTPException
 > = async (fetch, params) => {
-  const [uri, init] = fetchTeachersAPI(params);
-
   return Result.try(
     async () => {
-      const { data } = await fetch(uri, init);
+      const data = await fetchFlatTeachers(fetch, params);
 
       setFlatTeachers({
         teachers: data,
@@ -105,11 +101,9 @@ export const fuzzySearchTeachersAction: Action<
   PaginatedResponse<Teacher>,
   HTTPException
 > = async (fetch, params) => {
-  const [uri, init] = fuzzySearchTeachersAPI(params);
-
   return Result.try(
     async () => {
-      const { data } = await fetch(uri, init);
+      const data = await fuzzySearchTeachers(fetch, params);
 
       setFuzzySearchTeachers({
         teachers: data.results,
@@ -134,11 +128,9 @@ export const archiveTeacherAction: Action<
   Teacher,
   HTTPException
 > = async (fetch, params) => {
-  const [uri, init] = archiveTeacherAPI(params);
-
   return Result.try(
     async () => {
-      const { data } = await fetch(uri, init);
+      const data = await archiveTeacher(fetch, params);
 
       updateTeacher(data);
 
@@ -161,11 +153,9 @@ export const restoreTeacherAction: Action<
   Teacher,
   HTTPException
 > = async (fetch, params) => {
-  const [uri, init] = restoreTeacherAPI(params);
-
   return Result.try(
     async () => {
-      const { data } = await fetch(uri, init);
+      const data = await restoreTeacher(fetch, params);
 
       updateTeacher(data);
 
@@ -188,11 +178,9 @@ export const linkByEmailAction: Action<
   Teacher,
   HTTPException
 > = async (fetch, params) => {
-  const [uri, init] = linkByEmailAPI(params);
-
   return Result.try(
     async () => {
-      const { data } = await fetch(uri, init);
+      const data = await linkTeacherByEmail(fetch, params);
 
       updateTeacher(data);
 

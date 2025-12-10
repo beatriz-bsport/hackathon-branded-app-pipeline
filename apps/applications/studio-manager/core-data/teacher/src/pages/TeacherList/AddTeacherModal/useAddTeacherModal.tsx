@@ -1,10 +1,8 @@
 import { useCallback, useState } from "react";
 
+import type { Teacher } from "@bsport/api-core";
 import { toast } from "@bsport/kaizen-primitive-core";
-import {
-  type Teacher,
-  linkByEmailAction,
-} from "@bsport/store-core-data-teacher";
+import { linkByEmailAction } from "@bsport/store-core-data-teacher";
 
 import { useFetchTeachers } from "#src/hooks/useFetchTeachers";
 import { LEGACY_URLS } from "#src/urls";

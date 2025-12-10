@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "@bsport/api-book": "workspace:*",
+    "@bsport/api-core": "workspace:*",
     "@bsport/datetime-formatting": "workspace:*",
     "@bsport/datetime-manipulation": "workspace:*",
     "@bsport/fetch": "workspace:*",
@@ -28,8 +29,6 @@
     "@bsport/sm-backbone": "workspace:*",
     "@bsport/store-base": "workspace:*",
     "@bsport/store-booking-group-activity": "workspace:*",
-    "@bsport/store-core-data-establishment": "workspace:*",
-    "@bsport/store-core-data-teacher": "workspace:*",
     "@bsport/timezone-utils": "workspace:*",
     "@bsport/use-async": "workspace:*",
     "@bsport/use-debounce": "workspace:*",

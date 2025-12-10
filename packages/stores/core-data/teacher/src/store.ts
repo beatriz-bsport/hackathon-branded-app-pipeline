@@ -1,8 +1,7 @@
 import { createStore } from "zustand/vanilla";
 
+import type { Teacher } from "@bsport/api-core";
 import { type PaginatedState, bindStore } from "@bsport/store-base";
-
-import type { Teacher } from "#src/types";
 
 export type TeacherState = {
   flatIds: number[];

@@ -4,7 +4,7 @@ import { Table } from "@bsport/kaizen-primitive-core";
 
 import { useTranslation } from "#src/utils/i18n";
 
-import type { EnrichedSession } from "../../api/types";
+import type { EnrichedSession } from "../../types";
 import { useSessionListColumns } from "./columns";
 
 type SessionTableProps = {

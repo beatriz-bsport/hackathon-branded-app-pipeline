@@ -1,5 +1,6 @@
 import { Result } from "typescript-result";
 
+import { fetchEstablishments, searchEstablishments } from "@bsport/api-core";
 import {
   type Action,
   type PaginatedResponse,
@@ -7,10 +8,6 @@ import {
   createErrorWithContext,
 } from "@bsport/store-base";
 
-import {
-  fetchEstablishmentsAPI,
-  searchEstablishmentsAPI,
-} from "#src/api/establishment";
 import type {
   Establishment,
   FetchEstablishmentParams,
@@ -29,11 +26,9 @@ export const fetchEstablishmentsAction: Action<
   FetchEstablishmentParams,
   PaginatedResponse<Establishment>
 > = async (fetch, params) => {
-  const [uri, init] = fetchEstablishmentsAPI(params);
-
   return Result.try(
     async () => {
-      const { data } = await fetch(uri, init);
+      const data = await fetchEstablishments(fetch, params);
 
       setEstablishments({
         establishments: data.results,
@@ -59,11 +54,9 @@ export const searchEstablishmentsAction: Action<
   SearchEstablishmentParams,
   SearchResponse<Establishment>
 > = async (fetch, params) => {
-  const [uri, init] = searchEstablishmentsAPI(params);
-
   return Result.try(
     async () => {
-      const { data } = await fetch(uri, init);
+      const data = await searchEstablishments(fetch, params);
 
       setEstablishments({
         establishments: data.results,

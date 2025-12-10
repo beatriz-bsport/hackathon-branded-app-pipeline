@@ -1112,6 +1112,9 @@ importers:
       '@bsport/api-book':
         specifier: workspace:*
         version: link:../../../../../packages/api/book
+      '@bsport/api-core':
+        specifier: workspace:*
+        version: link:../../../../../packages/api/core
       '@bsport/datetime-formatting':
         specifier: workspace:*
         version: link:../../../../../packages/utils/datetime-formatting
@@ -1139,12 +1142,6 @@ importers:
       '@bsport/store-booking-group-activity':
         specifier: workspace:*
         version: link:../../../../../packages/stores/booking/group-activity
-      '@bsport/store-core-data-establishment':
-        specifier: workspace:*
-        version: link:../../../../../packages/stores/core-data/establishment
-      '@bsport/store-core-data-teacher':
-        specifier: workspace:*
-        version: link:../../../../../packages/stores/core-data/teacher
       '@bsport/timezone-utils':
         specifier: workspace:*
         version: link:../../../../../packages/utils/datetime/timezone
@@ -1212,6 +1209,9 @@ importers:
       '@bsport/api-book':
         specifier: workspace:*
         version: link:../../../../../packages/api/book
+      '@bsport/api-core':
+        specifier: workspace:*
+        version: link:../../../../../packages/api/core
       '@bsport/datetime-formatting':
         specifier: workspace:*
         version: link:../../../../../packages/utils/datetime-formatting
@@ -2122,6 +2122,9 @@ importers:
 
   apps/applications/studio-manager/core-data/teacher:
     dependencies:
+      '@bsport/api-core':
+        specifier: workspace:*
+        version: link:../../../../../packages/api/core
       '@bsport/fetch':
         specifier: workspace:*
         version: link:../../../../../packages/utils/fetch
@@ -2728,9 +2731,16 @@ importers:
 
   packages/api/book:
     dependencies:
-      '@bsport/fetch':
+      '@bsport/store-base':
         specifier: workspace:*
-        version: link:../../utils/fetch
+        version: link:../../stores/base
+    devDependencies:
+      '@bsport/config-eslint-react':
+        specifier: workspace:*
+        version: link:../../../tools/config/eslint-react
+
+  packages/api/core:
+    dependencies:
       '@bsport/store-base':
         specifier: workspace:*
         version: link:../../stores/base
@@ -3381,6 +3391,9 @@ importers:
 
   packages/stores/core-data/establishment:
     dependencies:
+      '@bsport/api-core':
+        specifier: workspace:*
+        version: link:../../../api/core
       '@bsport/store-base':
         specifier: workspace:*
         version: link:../../base
@@ -3429,6 +3442,9 @@ importers:
 
   packages/stores/core-data/teacher:
     dependencies:
+      '@bsport/api-core':
+        specifier: workspace:*
+        version: link:../../../api/core
       '@bsport/store-base':
         specifier: workspace:*
         version: link:../../base

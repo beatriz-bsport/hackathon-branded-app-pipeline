@@ -35,6 +35,7 @@ export const DEFAULT_CONFIGURE_SESSION_FORM_DATA = {
   available_on_partnership: false,
   partner_max_booking_count: 0,
   startDateTime: getTodayJSDate(),
+  duration_minute: 60,
 };
 
 export const DEFAULT_ADVANCED_OPTIONS_FORM_DATA = {};

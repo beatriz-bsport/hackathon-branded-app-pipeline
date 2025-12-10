@@ -54,6 +54,15 @@ export const useSessionSchema = () => {
             ),
           },
         ),
+      duration_minute: z
+        .number({
+          required_error: t("addSessionModal.errors.requiredField"),
+        })
+        .positive(
+          t(
+            "addSessionModal.steps.configureSession.timeAndDate.errors.durationNull",
+          ),
+        ),
     })
     .refine(
       (data) =>

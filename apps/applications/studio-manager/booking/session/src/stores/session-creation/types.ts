@@ -61,6 +61,7 @@ export type SessionCreationFormData = Pick<
   | "effectif"
   | "available_on_partnership"
   | "partner_max_booking_count"
+  | "duration_minute"
 > & {
   allowCustomNameAndDescription: boolean;
   startDateTime: Date;

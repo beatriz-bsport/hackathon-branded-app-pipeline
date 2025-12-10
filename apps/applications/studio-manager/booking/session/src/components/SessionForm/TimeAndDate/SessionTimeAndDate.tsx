@@ -4,6 +4,7 @@ import { Divider, Title } from "@bsport/kaizen-primitive-core";
 
 import { useTranslation } from "#src/utils/i18n";
 
+import { SessionDuration } from "./SessionDuration";
 import { SessionStartDateTime } from "./SessionStartDateTime";
 
 export const SessionTimeAndDate: FC<{
@@ -19,7 +20,8 @@ export const SessionTimeAndDate: FC<{
 
       <SessionStartDateTime fieldIdPrefix={fieldIdPrefix} />
 
-      {/* TODO: Add Duration field */}
+      <SessionDuration fieldIdPrefix={fieldIdPrefix} />
+
       {/* TODO: Add Recurrence toggle */}
       {/* TODO: Add Recurrence options (interval, days, end date) */}
 

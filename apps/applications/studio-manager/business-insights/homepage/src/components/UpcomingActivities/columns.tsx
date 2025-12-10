@@ -127,6 +127,7 @@ export const useUpcomingActivitiesColumns = ({
       const hasPeopleInWaitingList =
         row.hasWaitingList && row.waitingListCount > 0;
 
+      // Determine occupancy chip color and icon
       let rateColor: ChipProps["color"];
       let rateIcon: IconName;
       if (rate < 50) {
@@ -135,57 +136,55 @@ export const useUpcomingActivitiesColumns = ({
       } else if (rate < 70) {
         rateColor = "warning";
         rateIcon = "contrast-02";
-      } else if (rate <= RATE_FULL && !hasPeopleInWaitingList) {
+      } else {
         rateColor = "positive";
         rateIcon = "check-circle";
-      } else {
-        // Display waiting list info instead
-        rateColor = "info";
-        rateIcon = "user-02";
       }
 
-      /**
-       * Badge label: 2 cases, whether there is a waiting list
-       * If yes, display the number of people waiting
-       */
-      const label = hasPeopleInWaitingList
-        ? t("upcomingClassesPanel.rates.badge.waitingCount", {
-            count: row.waitingListCount,
-          })
-        : `${rate}%`;
-
-      /**
-       * Tooltip: 3 cases, whether there is a waiting list and empty spots
-       */
-      let tooltip: string = "";
-      if (rate === RATE_FULL) {
-        tooltip = t("upcomingClassesPanel.rates.tooltip.classIsFull");
-      } else {
-        const waitlistSpotsMessage = t(
-          // @ts-expect-error Can not detect plural for now
-          "upcomingClassesPanel.rates.tooltip.hasEmptySpotsForWaitlist",
-          { count: row.emptySpotsCount },
-        ) as string;
-        const emptySpotsMessage = t(
-          // @ts-expect-error Can not detect plural for now
-          "upcomingClassesPanel.rates.tooltip.hasEmptySpots",
-          { count: row.emptySpotsCount },
-        ) as string;
-        tooltip = hasPeopleInWaitingList
-          ? waitlistSpotsMessage
-          : emptySpotsMessage;
-      }
+      // Occupancy tooltip
+      const occupancyTooltip: string =
+        rate === RATE_FULL
+          ? (t("upcomingClassesPanel.rates.tooltip.classIsFull") as string)
+          : (t(
+              // @ts-expect-error Can not detect plural for now
+              "upcomingClassesPanel.rates.tooltip.hasEmptySpots",
+              { count: row.emptySpotsCount },
+            ) as string);
 
       return (
-        <Tooltip placement="top-right" label={tooltip}>
-          <Chip
-            type="weak"
-            size="lg"
-            color={rateColor}
-            iconLeft={rateIcon}
-            label={label}
-          />
-        </Tooltip>
+        <div className="flex flex-col items-center gap-[0.2rem]">
+          <div>
+            <Tooltip placement="top" label={occupancyTooltip}>
+              <Chip
+                type="weak"
+                size="lg"
+                color={rateColor}
+                iconLeft={rateIcon}
+                label={`${rate}%`}
+              />
+            </Tooltip>
+          </div>
+          {hasPeopleInWaitingList && (
+            <div>
+              <Tooltip
+                placement="bottom"
+                label={t("upcomingClassesPanel.rates.badge.waitingCount", {
+                  count: row.waitingListCount,
+                })}
+              >
+                <Chip
+                  type="weak"
+                  size="lg"
+                  color="info"
+                  iconLeft="user-02"
+                  label={t("upcomingClassesPanel.rates.badge.waitingCount", {
+                    count: row.waitingListCount,
+                  })}
+                />
+              </Tooltip>
+            </div>
+          )}
+        </div>
       );
     },
   };

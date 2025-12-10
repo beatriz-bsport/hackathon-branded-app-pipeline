@@ -26,6 +26,11 @@
         "label": "Activity type",
         "workshop": "Workshop",
         "groupActivity": "Group activity"
+      },
+      "visibility": {
+        "label": "Visibility",
+        "aggregators": "Visible on aggregators",
+        "members": "Visible on Member Area"
       }
     },
     "isLoading": "Loading sessions...",

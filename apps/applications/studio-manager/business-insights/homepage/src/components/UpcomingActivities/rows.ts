@@ -29,8 +29,7 @@ export const useUpcomingActivitiesRows = (): Array<TableRowData> => {
       teacherSubstituteRequired: session.substitutionRequests.length > 0,
       fillRate:
         session.effectif > 0
-          ? 100 *
-            parseFloat((session.nb_bookings / session.effectif).toFixed(2))
+          ? Math.round((100 * session.nb_bookings) / session.effectif)
           : 0,
       hasWaitingList: !session.waiting_list_disabled,
       waitingListCount: session.nb_option,

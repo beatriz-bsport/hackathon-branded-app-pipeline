@@ -22,9 +22,10 @@ export const SessionDatePicker: React.FC = () => {
   };
 
   const disableDate = (date: Date, selectedDate: SelectedDate) => {
-    const [start] = Array.isArray(selectedDate) ? selectedDate : [];
+    const [start, end] = Array.isArray(selectedDate) ? selectedDate : [];
 
-    if (!start) return false;
+    // Do not disable if the user is starting a new range selection
+    if (!start || !!end) return false;
 
     const dateDT = toDateTime(date);
     const startDT = toDateTime(start);

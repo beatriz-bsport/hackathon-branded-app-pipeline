@@ -1,4 +1,4 @@
-import { MetaActivity } from "@bsport/api-book";
+import type { MetaActivity } from "@bsport/api-book";
 import { buildById } from "@bsport/store-base";
 
 import { groupActivityStore } from "#src/store";

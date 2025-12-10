@@ -5,18 +5,18 @@ import {
   ManagerSession,
   fetchManagerSessions,
 } from "@bsport/api-book";
-import type { Action, PaginatedResponse } from "@bsport/store-base";
+import type { Action } from "@bsport/store-base";
 import { DEFAULT_PAGE, createErrorWithContext } from "@bsport/store-base";
 
 import { setManagerSessions } from "./store";
 
 export const fetchManagerSessionsAction: Action<
   FetchSessionsParams,
-  PaginatedResponse<ManagerSession> | ManagerSession[]
+  ManagerSession[]
 > = async (fetch, params) => {
   return Result.try(
     async () => {
-      const data = await fetchManagerSessions(params);
+      const data = await fetchManagerSessions(fetch, params);
 
       setManagerSessions({
         sessions: data,

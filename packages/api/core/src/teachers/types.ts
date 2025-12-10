@@ -1,3 +1,22 @@
+export type FetchTeachersParams = {
+  associated_coach__in?: number[];
+  company?: number;
+  disabled?: boolean;
+  has_coach_payment_rule_group?: boolean;
+  id__in?: number[];
+
+  with_workshop?: boolean;
+};
+
+export type PaginatedFetchTeachersParams = FetchTeachersParams & {
+  page: number;
+  page_size: number;
+};
+
+export type FuzzySearchParams = PaginatedFetchTeachersParams & {
+  queryString: string;
+};
+
 // Correspond to AssociatedCoachSerializer
 export type Teacher = {
   associated_coach_id: number; // AssociatedCoach.id

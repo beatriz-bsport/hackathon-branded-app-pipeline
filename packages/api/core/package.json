@@ -1,10 +1,10 @@
 {
-  "name": "@bsport/store-core-data-establishment",
+  "name": "@bsport/api-core",
   "version": "0.0.0",
   "private": true,
-  "description": "Establishment Store",
+  "description": "API endpoints and types for the core_data API",
   "license": "UNLICENSED",
-  "author": "Théo Steffanetti <theo.steffanetti@bsport.io>",
+  "author": "Elisabeth <elisabeth@bsport.io>",
   "type": "module",
   "exports": {
     ".": {
@@ -29,10 +29,7 @@
     "lint:fix": "eslint --fix ."
   },
   "dependencies": {
-    "@bsport/api-core": "workspace:*",
-    "@bsport/store-base": "workspace:*",
-    "typescript-result": "^3.1.1",
-    "zustand": "^5.0.3"
+    "@bsport/store-base": "workspace:*"
   },
   "devDependencies": {
     "@bsport/config-eslint-react": "workspace:*"

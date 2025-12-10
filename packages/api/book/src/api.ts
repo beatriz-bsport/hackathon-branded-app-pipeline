@@ -1,6 +1,5 @@
-import { buildUrlParams } from "@bsport/store-base";
+import { Fetch, buildUrlParams } from "@bsport/store-base";
 
-import { fetch } from "#src/fetch";
 import type { FetchSessionsParams, ManagerSession } from "#src/types";
 
 const API_URL = "book/v1";
@@ -13,10 +12,11 @@ export const fetchManagerSessionsURL = (
 };
 
 export const fetchManagerSessions = async (
+  fetch: Fetch<ManagerSession[]>,
   params: FetchSessionsParams,
 ): Promise<ManagerSession[]> => {
   const uri = fetchManagerSessionsURL(params);
-  const { data: fetchedData } = await fetch<ManagerSession[]>(uri);
+  const { data: fetchedData } = await fetch(uri);
 
   return fetchedData;
 };

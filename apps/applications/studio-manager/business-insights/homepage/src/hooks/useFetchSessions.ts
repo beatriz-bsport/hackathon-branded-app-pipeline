@@ -39,7 +39,7 @@ export const useFetchSessions = (params: {
     asyncFn: handleFetchManagerSessions,
     dependencies: [handleFetchManagerSessions],
     onSuccess: ({ value }) => {
-      const sessions = Array.isArray(value) ? value : value.results;
+      const sessions = value;
 
       // Retrieve teacher ids to fetch related data
       const teacherIds = new Set<number>();

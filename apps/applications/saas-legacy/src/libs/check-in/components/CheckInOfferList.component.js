@@ -24,6 +24,9 @@ import OfferItemBase from '../../offer/components/OfferListItem.component';
 
 import EstablishmentSelector from '../../establishment/components/EstablishmentSelector.component';
 
+import { trackTabletCheckInSessionClickedEvent } from '#src/events/booking/trackers.ts';
+import { analyticsClientB2B } from '#src/components/analytics/mixpanel';
+
 const OFFERS_REFRESH_DURATION = 1000 * 60;
 
 type Props = {
@@ -78,6 +81,25 @@ const CheckInOfferListItem = withTranslation(['selfCheckIn'])(
       minute: props.offer.duration_minute,
     });
 
+    const onSelectOffer = (offerId) => {
+      try {
+        analyticsClientB2B.track(
+          trackTabletCheckInSessionClickedEvent({
+            nb_attendants: props.offer.nb_attendant,
+            nb_bookings: props.offer.nb_bookings,
+            nb_non_attendants: props.offer.nb_non_attendant,
+            offer_id: props.offer.id,
+          }),
+        );
+      } catch (error) {
+        console.error('Error tracking tablet check-in session clicked event', {
+          error,
+          offerId: props.offer.id,
+        });
+      }
+      props.onClick(offerId);
+    };
+
     // boolean : if the activity has started yet or is in progress
     const notStartedYet = datetime < DateTime.fromISO(props.offer.date_start);
 
@@ -108,7 +130,7 @@ const CheckInOfferListItem = withTranslation(['selfCheckIn'])(
     return (
       <OfferItemBase
         offer={props.offer}
-        onClick={props.onClick}
+        onClick={onSelectOffer}
         rightAction={
           <React.Fragment>
             <div className={props.classes.offerStatus}>

@@ -5,7 +5,7 @@
   "description": "Template to init Studio Manager application",
   "type": "module",
   "scripts": {
-    "build": "tsc -b && vite build",
+    "build": "tsc -b && vite build --logLevel warn",
     "build:preview": "vite build --mode preview",
     "ci:compile": "tsc -b",
     "dev": "concurrently \"pnpm run --silent -w federate:navigation\" \"vite\"",

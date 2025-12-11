@@ -5,9 +5,9 @@
   "scripts": {
     "analyze": "NODE_ENV=production ANALYZE=true webpack build --config config/webpack.prod.js",
     "build": "export CI=false ; node --max_old_space_size=19000 scripts/build.js",
-    "ci:build": "./scripts/ci-build.sh > /dev/null 2>&1",
+    "ci:build": "./scripts/ci-build.sh > /dev/null",
     "ci:compile": "tsc --strict false -p ./tsconfig.json",
-    "ci:deploy": "./scripts/ci-deploy.sh > /dev/null 2>&1",
+    "ci:deploy": "./scripts/ci-deploy.sh > /dev/null",
     "compile": "npx tsc -p .",
     "debug-only:start-production": "concurrently --kill-others \"pnpm run start:sidebar\" \"pnpm run debug-only:start:production\"",
     "debug-only:start:production": "export NODE_OPTIONS=--openssl-legacy-provider NODE_ENV=development && pnpm run translation:update && cp envs/production-api-only public/env.js && BROWSER=none webpack serve --config config/webpack.dev.js",

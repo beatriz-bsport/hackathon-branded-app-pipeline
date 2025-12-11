@@ -6,7 +6,7 @@
   "author": "Osmel Mora <osmel.mora@bsport.io>",
   "type": "module",
   "scripts": {
-    "build": "tsc && vite build",
+    "build": "tsc && vite build --logLevel warn",
     "build:preview": "vite build --mode preview",
     "ci:build:mfe": "./scripts/ci-build.sh",
     "ci:compile": "tsc",

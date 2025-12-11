@@ -91,6 +91,7 @@ const MarketingActionChip: React.FC<Props> = ({
   return (
     <ClickableChip onClick={onClick}>
       <CadenceChip
+        autoOverflow
         withBackgroundOnHover
         color={SequentialMarketingColors.MARKETING_ACTION_COLOR}
         icon={marketingActionIcon}

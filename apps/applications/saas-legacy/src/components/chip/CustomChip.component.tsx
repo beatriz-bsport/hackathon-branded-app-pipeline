@@ -13,6 +13,7 @@ type StylesProps = {
   mainColor?: string;
   iconColor?: string;
   maxWidth?: string;
+  autoOverflow?: boolean;
 };
 
 export type CustomChipProps = {
@@ -25,6 +26,7 @@ export type CustomChipProps = {
   disabled?: boolean;
   toolTip?: boolean;
   toolTipValue?: string;
+  autoOverflow?: boolean;
   onDelete?: () => void;
 } & StylesProps;
 
@@ -130,9 +132,10 @@ export const CustomChip: React.FC<CustomChipProps> = ({
   mainColor,
   iconColor,
   maxWidth,
+  autoOverflow,
   onDelete,
 }) => {
-  const classes = useStyles({ iconColor, mainColor, maxWidth });
+  const classes = useStyles({ iconColor, mainColor, maxWidth, autoOverflow });
 
   const [isBackgroundDisplayed, setIsBackgroundDisplayed] = useState(false);
 
@@ -206,8 +209,8 @@ export const CustomChip: React.FC<CustomChipProps> = ({
       >
         <ChipWrapper
           displayedValue={displayedValue}
-          toolTip={toolTip}
-          toolTipValue={toolTipValue}
+          toolTip={!!toolTip}
+          toolTipValue={toolTipValue ?? ''}
         >
           <Chip
             className={clsx(classes.chip, chipClass)}
@@ -235,9 +238,12 @@ const useStyles = makeStyles<Theme, StylesProps>((theme) => ({
   },
   chip: {
     borderRadius: theme.spacing(0.5),
-    maxWidth: ({ maxWidth }) => maxWidth || null,
+    maxWidth: ({ maxWidth }) => maxWidth || undefined,
   },
-  outerDiv: { display: 'flex', overflow: 'auto' },
+  outerDiv: {
+    display: 'flex',
+    overflow: ({ autoOverflow }) => (autoOverflow ? 'auto' : 'unset'),
+  },
 }));
 
 export default React.memo(CustomChip);

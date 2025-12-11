@@ -7,6 +7,7 @@ import {
   ActivityTypeFilterValues,
   SessionFilterTypes,
   SessionFilters,
+  TeacherSubstitutionFilterValues,
   VisibilityFilterValues,
 } from "./types";
 
@@ -43,6 +44,22 @@ export const useFilterConfig = (): FilterProps => {
           {
             id: VisibilityFilterValues.MEMBERS,
             label: t("table.filters.visibility.members"),
+          },
+        ],
+        multiSelect: false,
+      },
+      "teacher-substitution": {
+        id: SessionFilterTypes.TEACHER_SUBSTITUTION,
+        label: t("table.filters.teacherSubstitution.label"),
+        availableFilters: [SessionFilters.FILTER_IS],
+        values: [
+          {
+            id: TeacherSubstitutionFilterValues.CONFIRMED,
+            label: t("table.filters.teacherSubstitution.confirmed"),
+          },
+          {
+            id: TeacherSubstitutionFilterValues.PENDING,
+            label: t("table.filters.teacherSubstitution.pending"),
           },
         ],
         multiSelect: false,

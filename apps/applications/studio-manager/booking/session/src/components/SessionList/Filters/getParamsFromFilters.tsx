@@ -5,10 +5,11 @@ import {
   ActivityTypeFilterValues,
   SessionFilterTypes,
   SessionFilters,
+  TeacherSubstitutionFilterValues,
   VisibilityFilterValues,
 } from "./types";
 
-export const getActivityTypeParamFromFilter = (
+const getActivityTypeParamFromFilter = (
   filter: FilterElementState,
 ): Partial<FetchSessionsParams> | null => {
   const filterValue = filter.valueIds[0];
@@ -21,7 +22,7 @@ export const getActivityTypeParamFromFilter = (
   return null;
 };
 
-export const getVisibilityParamFromFilter = (
+const getVisibilityParamFromFilter = (
   filter: FilterElementState,
 ): Partial<FetchSessionsParams> | null => {
   const filterValue = filter.valueIds[0];
@@ -38,6 +39,23 @@ export const getVisibilityParamFromFilter = (
   return null;
 };
 
+const getTeacherSubstitutionParamFromFilter = (
+  filter: FilterElementState,
+): Partial<FetchSessionsParams> | null => {
+  const filterValue = filter.valueIds[0];
+  if (filterValue === TeacherSubstitutionFilterValues.CONFIRMED) {
+    return {
+      coach_override__isnull: false,
+    };
+  }
+  if (filterValue === TeacherSubstitutionFilterValues.PENDING) {
+    return {
+      has_active_sub_teacher_request: true,
+    };
+  }
+  return null;
+};
+
 export const getParamsFromFilters = (
   filters: FilterElementState[],
 ): FetchSessionsParams => {
@@ -46,6 +64,8 @@ export const getParamsFromFilters = (
       Object.assign(params, getActivityTypeParamFromFilter(filter));
     } else if (filter.field === SessionFilterTypes.VISIBILITY) {
       Object.assign(params, getVisibilityParamFromFilter(filter));
+    } else if (filter.field === SessionFilterTypes.TEACHER_SUBSTITUTION) {
+      Object.assign(params, getTeacherSubstitutionParamFromFilter(filter));
     }
     return params;
   }, {});

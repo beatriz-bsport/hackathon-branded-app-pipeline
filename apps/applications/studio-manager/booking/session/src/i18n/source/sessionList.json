@@ -31,6 +31,11 @@
         "label": "Visibility",
         "aggregators": "Visible on aggregators",
         "members": "Visible on Member Area"
+      },
+      "teacherSubstitution": {
+        "label": "Teacher substitution",
+        "confirmed": "Confirmed",
+        "pending": "Pending request"
       }
     },
     "isLoading": "Loading sessions...",

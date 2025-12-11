@@ -3,12 +3,18 @@ import type { Dictionary } from "lodash";
 import groupBy from "lodash/groupBy";
 import { useMemo } from "react";
 
-import { type ManagerSession, fetchManagerSessions } from "@bsport/api-book";
+import {
+  type FetchSessionsParams,
+  type ManagerSession,
+  fetchManagerSessions,
+} from "@bsport/api-book";
 import { Teacher } from "@bsport/api-core";
 import type { Establishment } from "@bsport/api-core";
 import { fromIsoString, getIsoDateString } from "@bsport/datetime-manipulation";
+import { FilterElementState } from "@bsport/kaizen-primitive-core";
 import { getCompanyTimezone } from "@bsport/timezone-utils";
 
+import { selectFilters, useSessionListStore } from "../stores/session-list";
 import type { EnrichedSession } from "../types";
 import { fetch } from "../utils/fetch";
 import { useFetchEstablishments } from "./useFetchEstablishments";
@@ -98,18 +104,38 @@ const extractDateRangeParams = (
   };
 };
 
+const getParamsFromFilters = (
+  filters: FilterElementState[],
+): FetchSessionsParams => {
+  let params = {};
+  const activityTypeFilter = filters.find(
+    (filter) => filter.field === "activity-type",
+  );
+  if (activityTypeFilter) {
+    const filterValue = activityTypeFilter.valueIds[0];
+    if (filterValue === "group-activity") {
+      params = { ...params, is_workshop: false };
+    } else if (filterValue === "workshop") {
+      params = { ...params, is_workshop: true };
+    }
+  }
+  return params;
+};
+
 const sessionsQueryOptions = (
   minDateKey: string | null,
   maxDateKey: string | null,
+  filterParams: FetchSessionsParams,
 ) =>
   queryOptions({
-    queryKey: ["sessions", minDateKey, maxDateKey],
+    queryKey: ["sessions", minDateKey, maxDateKey, filterParams],
     queryFn: async () => {
       if (!minDateKey || !maxDateKey) {
         return [];
       }
 
       const fetchedData = await fetchManagerSessions(fetch, {
+        ...filterParams,
         min_date: minDateKey,
         max_date: maxDateKey,
       });
@@ -125,8 +151,11 @@ export const useSessionListData = (
 ) => {
   const { minDateKey, maxDateKey } = extractDateRangeParams(params);
 
+  const filters = useSessionListStore(selectFilters);
+  const filterParams = getParamsFromFilters(filters);
+
   const { data: rawSessions = [], isLoading: isLoadingSessions } = useQuery(
-    sessionsQueryOptions(minDateKey, maxDateKey),
+    sessionsQueryOptions(minDateKey, maxDateKey, filterParams),
   );
 
   const { teacherIds, establishmentIds } = useMemo(

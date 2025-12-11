@@ -1,4 +1,5 @@
 import { getWeekBounds } from "@bsport/datetime-manipulation";
+import { FilterElementState } from "@bsport/kaizen-primitive-core";
 
 import { CalendarView, sessionListStore } from "./store";
 
@@ -64,4 +65,8 @@ export const setUniqueDate = (date: Date) => {
 
 export const setLocale = (locale: string) => {
   sessionListStore.setState({ locale });
+};
+
+export const setFilters = (filters: FilterElementState[]) => {
+  sessionListStore.setState({ filters });
 };

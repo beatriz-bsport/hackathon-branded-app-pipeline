@@ -14,6 +14,7 @@ import { useTranslation } from "#src/utils/i18n";
 import { DateNavigationHeader } from "../components/SessionList/DateNavigationHeader";
 import { DisplaySettings } from "../components/SessionList/DisplaySettings";
 import SessionDay from "../components/SessionList/SessionDay";
+import { useFilterConfig } from "../components/SessionList/filters";
 import { useSessionListData } from "../hooks/useSessionListData";
 import {
   selectSelectedDate,
@@ -112,12 +113,15 @@ const ListPage: React.FC = () => {
     [sessionsByDate, isLoading, intlLocale],
   );
 
+  const filterConfig = useFilterConfig();
+
   return (
     <ListLayout>
       <ListLayout.Header
         pageTitle={t("header")}
         onDisplayPopover={displaySettings}
         callToActionButton={callToActionButton}
+        filterConfig={filterConfig}
       />
       <ListLayout.Content>
         <DateNavigationHeader />

@@ -18,6 +18,16 @@
       "establishment": "Establishment",
       "sessionType": "Session type"
     },
+    "filters": {
+      "label": "Filters",
+      "is": "is",
+      "not": "is not",
+      "activityType": {
+        "label": "Activity type",
+        "workshop": "Workshop",
+        "groupActivity": "Group activity"
+      }
+    },
     "isLoading": "Loading sessions...",
     "attendanceButton": "Attendance"
   },

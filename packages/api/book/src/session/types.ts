@@ -35,6 +35,12 @@ export type FetchSessionsParams = {
   /** Return only strictly future sessions (>= now). */
   only_future_strict?: boolean;
 
+  /** Filter by whether the session is available on aggregators. */
+  available_on_partnership?: boolean;
+
+  /** Filter by whether the session is manager only.*/
+  manager_only?: boolean;
+
   /** Filter by establishment ID. */
   establishment?: number;
 

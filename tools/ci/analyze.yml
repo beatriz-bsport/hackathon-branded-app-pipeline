@@ -1,6 +1,6 @@
 Analyze:Core:
   extends:
-    - .ci-runner-large-highcpu # 8 vCPU, 8GB RAM
+    - .ci-runner-xlarge # 8 vCPU, 16GB RAM
   stage: analyze
   before_script: !reference [.pnpm-setup, before_script]
   interruptible: true

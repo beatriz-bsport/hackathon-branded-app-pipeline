@@ -46,11 +46,7 @@ export type Props = {
   t: TFunction;
   showOfferFilling: boolean;
   hideCoach: boolean;
-  activityLoading: boolean;
-  // eslint-disable-next-line react/no-unused-prop-types
-  coachLoading: boolean;
-  establishmentLoading: boolean;
-  offers: Array<Offer>;
+  offersByDay: { [key: string]: Array<Offer> };
   establishments: Array<Establishment>;
   genderCount: Object;
   group: Object;
@@ -64,7 +60,7 @@ export type Props = {
   variant?: 'activityName' | 'coach' | 'time';
   showDayParts: boolean;
   forceDayDisplayOnly: boolean;
-  searchedOffers: Offer[] | null;
+  isSearching: boolean;
   startWeekOnDaySelected?: boolean;
 };
 
@@ -72,9 +68,9 @@ type State = {
   panelsStatus: Array<boolean>;
 };
 
-const getWeekOffers = (
+export const getWeekOffers = (
   selectedDate: DateTime,
-  offers: Array<Offer>,
+  offersByDay: { [key: string]: Array<Offer> },
   themeOptions?: { startWeekOnDaySelected?: boolean },
 ) => {
   const date_start = themeOptions?.startWeekOnDaySelected
@@ -82,12 +78,10 @@ const getWeekOffers = (
     : selectedDate.startOf('week', {
         useLocaleWeeks: true,
       });
-  // split offers par week days
+  // split offers per week days
   return [...Array(7)].map((_: any, i) => {
     const currentDate = date_start.plus({ days: i });
-    return offers.filter((offer) =>
-      DateTime.fromISO(offer.date_start).hasSame(currentDate, 'day'),
-    );
+    return offersByDay[currentDate.toISODate() ?? 'invalid'] ?? [];
   });
 };
 
@@ -131,40 +125,41 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
   /**
    * function that split offers into day periods [morning, afternoon, evening]
    */
-  getOffersByPeriod = memoize((date: DateTime, offers: Array<Offer>) => {
-    const morning: Array<Array<Offer>> = [];
-    const afternoon: Array<Array<Offer>> = [];
-    const evening: Array<Array<Offer>> = [];
-    const weekOffers = getWeekOffers(date, offers, {
-      startWeekOnDaySelected: this.props.startWeekOnDaySelected,
-    });
-    (weekOffers ?? []).map((dayOffers: Array<Offer>, i) => {
-      morning[i] = dayOffers.filter(
-        (offer: Offer) =>
-          DateTime.fromISO(offer.date_start).hour < SPLIT_AFTERNOON,
-      );
-
-      afternoon[i] = dayOffers.filter((offer: Offer) => {
-        const offerStarHour = DateTime.fromISO(offer.date_start).hour;
-        return (
-          offerStarHour >= SPLIT_AFTERNOON && offerStarHour < SPLIT_EVENNING
-        );
+  getOffersByPeriod = memoize(
+    (date: DateTime, offersByDay: { [key: string]: Array<Offer> }) => {
+      const morning: Array<Array<Offer>> = [];
+      const afternoon: Array<Array<Offer>> = [];
+      const evening: Array<Array<Offer>> = [];
+      const weekOffers = getWeekOffers(date, offersByDay, {
+        startWeekOnDaySelected: this.props.startWeekOnDaySelected,
       });
-      evening[i] = dayOffers.filter(
-        (offer: Offer) =>
-          DateTime.fromISO(offer.date_start).hour >= SPLIT_EVENNING,
-      );
-      return true;
-    });
-    return [morning, afternoon, evening];
-  });
+      (weekOffers ?? []).map((dayOffers: Array<Offer>, i) => {
+        morning[i] = dayOffers.filter(
+          (offer: Offer) =>
+            DateTime.fromISO(offer.date_start).hour < SPLIT_AFTERNOON,
+        );
 
-  getOffersByDay = memoize((date: DateTime, offers: Array<Offer>) => {
-    const day_offers = offers.filter((offer) =>
-      DateTime.fromISO(offer.date_start).hasSame(date, 'day'),
-    );
-    return day_offers;
-  });
+        afternoon[i] = dayOffers.filter((offer: Offer) => {
+          const offerStarHour = DateTime.fromISO(offer.date_start).hour;
+          return (
+            offerStarHour >= SPLIT_AFTERNOON && offerStarHour < SPLIT_EVENNING
+          );
+        });
+        evening[i] = dayOffers.filter(
+          (offer: Offer) =>
+            DateTime.fromISO(offer.date_start).hour >= SPLIT_EVENNING,
+        );
+        return true;
+      });
+      return [morning, afternoon, evening];
+    },
+  );
+
+  getOffersByDay = memoize(
+    (date: DateTime, offersByDay: Record<string, Array<Offer>>) => {
+      return offersByDay[date.toISODate() ?? 'invalid'] ?? [];
+    },
+  );
 
   /**
    * function that split each period offers by row
@@ -239,15 +234,14 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
 
               return (
                 <div
+                  key={`offer-wrapper-${o.id}`}
                   className="bs-week__cardMode__offerRow__offer-wrapper"
                   id={cardOfferId}
                 >
                   <MarketPlaceCardOfferV2
                     key={o.id}
-                    activityLoading={this.props.activityLoading}
                     coach={o.coach_override || o.coach}
                     coaches={this.props.coaches}
-                    establishmentLoading={this.props.establishmentLoading}
                     establishments={this.props.establishments}
                     genderCount={this.props.genderCount}
                     getLevel={this.props.getLevel}
@@ -285,8 +279,11 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
     );
   };
 
-  renderOffersCardVersion = (periodOffers: Array<Array<Array<Offer>>>) => {
-    const weekOffers = getWeekOffers(this.props.date, this.props.offers, {
+  renderOffersCardVersion = (
+    periodOffers: Array<Array<Array<Offer>>>,
+    offersByDay: Record<string, Array<Offer>>,
+  ) => {
+    const weekOffers = getWeekOffers(this.props.date, offersByDay, {
       startWeekOnDaySelected: this.props.startWeekOnDaySelected,
     });
     const offersRows = this.periodByRow(weekOffers);
@@ -302,8 +299,11 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
     );
   };
 
-  renderDayOffersListVersion = (main_date: DateTime, offers: Array<Offer>) => {
-    const day_offers = this.getOffersByDay(main_date, offers);
+  renderDayOffersListVersion = (
+    main_date: DateTime,
+    offersByDay: Record<string, Array<Offer>>,
+  ) => {
+    const day_offers = this.getOffersByDay(main_date, offersByDay);
     const mainDateFormated = formatAsDateWithWeekday(
       main_date,
       this.props.theme,
@@ -391,7 +391,7 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
 
   renderNextDaysOffersListVersion = (
     main_date: DateTime,
-    offers: Array<Offer>,
+    offersByDay: Record<string, Array<Offer>>,
   ) => {
     const next_days = [
       this.props.forceDayDisplayOnly ? DateTime.now() : main_date,
@@ -403,18 +403,17 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
       next_day.weekNumber === main_date.weekNumber &&
       !this.props.forceDayDisplayOnly
     ) {
-      // @ts-expect-error
-      next_days.push(next_day.toISODate());
+      next_days.push(next_day);
       next_day = next_day.plus({ days: 1 });
     }
 
     return (
       <div className="bs-week__listMode__content">
         {next_days
-          .filter((day) => this.getOffersByDay(day, offers).length > 0)
+          .filter((day) => this.getOffersByDay(day, offersByDay).length > 0)
           .map((day) => (
             <React.Fragment key={`day-${day}`}>
-              {this.renderDayOffersListVersion(day, offers)}
+              {this.renderDayOffersListVersion(day, offersByDay)}
             </React.Fragment>
           ))}
       </div>
@@ -422,9 +421,12 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
   };
 
   render() {
-    const { loading, date, isCardModeDisplay } = this.props;
+    const { loading, date, isCardModeDisplay, offersByDay } = this.props;
 
-    if (this.props.searchedOffers && !this.props.searchedOffers.length) {
+    if (
+      this.props.isSearching &&
+      Object.values(offersByDay).flat().length === 0
+    ) {
       return (
         <div className="bs-week__search__noResult">
           {this.props.t('search:noResult')}
@@ -432,12 +434,8 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
       );
     }
 
-    const offers = this.props.searchedOffers
-      ? this.props.searchedOffers
-      : this.props.offers;
-
     const weekDays = getLocaleWeekdays('short');
-    const periodOffers = this.getOffersByPeriod(date, offers);
+    const periodOffers = this.getOffersByPeriod(date, offersByDay);
     const start_date = this.props.startWeekOnDaySelected
       ? date
       : date.startOf('week', {
@@ -501,7 +499,7 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
                   </div>
                   {!isCardModeDisplay && (
                     <div className="bs-week__header__date__dots">
-                      {this.getOffersByDay(currentDate, offers)
+                      {this.getOffersByDay(currentDate, offersByDay)
                         .slice(0, 3)
                         .map((offer: Offer, j: number) => (
                           <div key={`dots-${j}_${offer.id}`}> • </div>
@@ -514,8 +512,8 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
           </>
         )}
         {!isCardModeDisplay || this.props.forceDayDisplayOnly
-          ? this.renderNextDaysOffersListVersion(main_date, offers)
-          : this.renderOffersCardVersion(periodOffers)}
+          ? this.renderNextDaysOffersListVersion(main_date, offersByDay)
+          : this.renderOffersCardVersion(periodOffers, offersByDay)}
       </div>
     );
   }

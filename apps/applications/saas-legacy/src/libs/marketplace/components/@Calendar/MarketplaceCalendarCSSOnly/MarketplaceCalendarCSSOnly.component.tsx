@@ -1,7 +1,8 @@
 import React, { useMemo } from 'react';
 // @ts-expect-error
 import { withTranslation, TFunction } from 'react-i18next';
-import { DateTime, Interval } from 'luxon';
+import { DateTime } from 'luxon';
+import groupBy from 'lodash/groupBy';
 
 import CircularProgress from '@material-ui/core/CircularProgress';
 import EventAvailableIcon from '@material-ui/icons/EventAvailable';
@@ -19,7 +20,9 @@ import type {
   Establishment,
   EstablishmentGroup,
 } from '../../../../establishment/types';
-import MarketplaceWeekTimetableV2 from '../MarketplaceWeekTimeTableCSSOnly/MarketplaceWeekTimeTableCSSOnly.component';
+import MarketplaceWeekTimetableV2, {
+  getWeekOffers,
+} from '../MarketplaceWeekTimeTableCSSOnly/MarketplaceWeekTimeTableCSSOnly.component';
 
 import './MarketplaceCalendarCSSOnly.css';
 
@@ -48,9 +51,6 @@ type Props = {
   onClickBookOption: (offer: Offer) => void;
   showOfferFilling: boolean;
   hideCoach: boolean;
-  activityLoading: boolean;
-  coachLoading: boolean;
-  establishmentLoading: boolean;
   showOfferGender?: boolean;
   establishmentGroupList: Array<EstablishmentGroup>;
   showMultiLocalization: boolean;
@@ -66,7 +66,7 @@ type Props = {
   events: Array<Event>;
   onSearch: (searchText: string) => void;
   onClearInput: () => void;
-  searchedOffers: Offer[];
+  isSearching: boolean;
   startWeekOnDaySelected?: boolean;
   isCardModeDisplay: boolean;
   refContainer: React.RefObject<HTMLDivElement>;
@@ -88,32 +88,29 @@ export const MarketplaceCalendar = (props: Props) => {
     groupSessionByPeriod,
     onSearch,
     onClearInput,
-    searchedOffers,
+    isSearching,
     startWeekOnDaySelected,
     refContainer,
     theme,
   } = props;
 
-  const weekOffers = useMemo(() => {
-    const interval = Interval.fromDateTimes(
-      selectedDate,
-      selectedDate.plus({ days: 7 }),
-    );
+  const offersByDay = useMemo(() => {
+    return groupBy(offers, (offer) => {
+      const date = DateTime.fromISO(offer.date_start);
+      return date.toISODate() ?? 'invalid';
+    });
+  }, [offers]);
 
-    return (offers ?? []).filter((offer) =>
-      startWeekOnDaySelected
-        ? interval.contains(DateTime.fromISO(offer.date_start))
-        : DateTime.fromISO(offer.date_start)
-            .startOf('week', { useLocaleWeeks: true })
-            .toSeconds() ===
-          selectedDate.startOf('week', { useLocaleWeeks: true }).toSeconds(),
-    );
-  }, [offers, selectedDate, startWeekOnDaySelected]);
+  const weekOffers = useMemo(() => {
+    return getWeekOffers(selectedDate, offersByDay, {
+      startWeekOnDaySelected,
+    });
+  }, [offersByDay, selectedDate, startWeekOnDaySelected]);
 
   const showDayParts =
     groupSessionByPeriod == null || groupSessionByPeriod === true;
 
-  const noOfferDisplayed = !loading && weekOffers.length === 0;
+  const noOfferDisplayed = !loading && !isSearching && weekOffers.length === 0;
 
   const renderNoOffer = () => {
     const offerDateStart = nextAvailableOffer?.date_start
@@ -195,17 +192,15 @@ export const MarketplaceCalendar = (props: Props) => {
           variant="activity"
         />
       )}
-      {loading && <LoadingIndicator />}
-      {!loading && (
+      {loading ? (
+        <LoadingIndicator />
+      ) : (
         <>
           <MarketplaceWeekTimetableV2
             // @ts-expect-error
-            activityLoading={props.activityLoading}
             bookedOffers={props.bookedOffers}
             coaches={props.coaches}
-            coachLoading={props.coachLoading}
             date={selectedDate}
-            establishmentLoading={props.establishmentLoading}
             establishments={props.establishments}
             forceDayDisplayOnly={forceDayDisplayOnly}
             genderCount={props.genderCount}
@@ -213,13 +208,13 @@ export const MarketplaceCalendar = (props: Props) => {
             group={props.group}
             hideCoach={props.hideCoach}
             isCardModeDisplay={isCardModeDisplay}
+            isSearching={isSearching}
             metaActivities={metaActivities}
-            offers={offers}
+            offersByDay={offersByDay}
             onClickBook={props.onClickBook}
             onClickBookOption={props.onClickBookOption}
             onClickOffer={props.onClickOffer}
             onSelectDate={props.onSelectDate}
-            searchedOffers={searchedOffers}
             showDayParts={showDayParts}
             showOfferFilling={props.showOfferFilling}
             showOfferGender={props.showOfferGender}

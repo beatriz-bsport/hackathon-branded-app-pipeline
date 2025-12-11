@@ -11,7 +11,6 @@ import {
 import type {
   OfferCreate,
   OfferEdit,
-  OfferFilterData,
   UserRegistrationParams,
   OfferStatusWaitingListPosition,
   OfferStatusParams,
@@ -19,6 +18,7 @@ import type {
   OfferREST,
   DeleteOfferPayload,
   RecurrenceResponse,
+  OfferListParams,
 } from './types';
 
 import { PaginatedResponse } from '../../state/types';
@@ -66,18 +66,7 @@ export async function fetchOffersByDay(params: any) {
   return getAuth(`${API_V1_URI}/offer/as_manager/${buildUrlParams(params)}`);
 }
 
-export async function fetchOffersList(
-  params: {
-    company?: number;
-    min_date?: string;
-    max_date?: string;
-    username?: string;
-    available?: boolean;
-    is_workshop?: boolean;
-    only_future?: boolean;
-    with_booking_window?: boolean;
-  } & OfferFilterData,
-) {
+export async function fetchOffersList(params: OfferListParams) {
   return getAuth(`${API_V1_URI}/offer/${buildUrlParams(params)}`);
 }
 

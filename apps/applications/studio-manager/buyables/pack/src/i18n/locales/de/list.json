@@ -1,7 +1,7 @@
 {
   "title": "Pakete",
   "actions": {
-    "addAPack": "Füge ein Paket hinzu"
+    "addAPack": "Erstellen pack"
   },
   "table": {
     "loading": "Lade Pakete...",
@@ -15,32 +15,37 @@
       "numberOfProducts": "Produkte",
       "price": "Preis"
     },
+    "values": {
+      "unlisted": "Nicht gelistet",
+      "hiddenToStaff": "Ausgeblendet",
+      "limitedTime": "Begrenzt"
+    },
     "tooltips": {
-      "unavailableForUsers": "Dieses Paket wird im Mitgliederbereich nicht angezeigt.",
-      "invisibleForStaff": "Dieses Paket ist nicht für Mitarbeiter sichtbar",
-      "availableForALimitedTime": "Dieses Paket wird nur für eine begrenzte Zeit angezeigt.",
+      "unlisted": "Nicht im Mitgliederbereich aufgeführt",
+      "hiddenToStaff": "Für Mitarbeitende ausgeblendet",
+      "limitedTime": "Nur für eine begrenzte Zeit gelistet",
       "archive": "Paket löschen"
     }
   },
   "deleteModal": {
     "title": "Paket löschen?",
     "description": {
-      "effect": "Wenn du {{ name }} löschst, werden aktuelle oder frühere Käufe nicht beeinflusst.",
-      "canNotBeUndone": "Diese Aktion kann nicht rückgängig gemacht werden."
+      "effect": "Sobald du {{ name }} löschst, wird es für Mitglieder nicht mehr sichtbar sein. ",
+      "canNotBeUndone": "Diese Änderung gilt nicht für Mitglieder, die dieses Paket bereits gekauft haben."
     },
     "actions": {
-      "cancel": "Schließen",
+      "cancel": "Behalten",
       "delete": "Löschen"
     }
   },
   "toasts": {
     "messageDelete": {
       "success": "Pakete gelöscht",
-      "error": "Fehler beim Löschen des Pakets"
+      "error": "Das Paket konnte nicht gelöscht werden. Bitte versuche es erneut. "
     },
     "messageUndo": {
-      "success": "Aktion rückgängig gemacht",
-      "error": "Paket nicht wiederhergestellt"
+      "success": "Änderung rückgängig gemacht",
+      "error": "Änderung konnte nicht rückgängig gemacht werden. Bitte versuche es erneut. "
     },
     "actions": {
       "undo": "Wiederherstellen"

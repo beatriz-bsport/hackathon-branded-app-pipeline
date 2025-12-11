@@ -135,7 +135,9 @@ const getAbandonedCheckoutConfig = (t: TFunction): CadenceConfigData => {
     steps: [
       {
         id: 101,
-        name: 'Reminder',
+        name: t(
+          'audience.template.configs.abandonedCartRecovery.steps.reminder.name',
+        ),
         is_entrypoint: false,
         exits: [],
         canvas: {

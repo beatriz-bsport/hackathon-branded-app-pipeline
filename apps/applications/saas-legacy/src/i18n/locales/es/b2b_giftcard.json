@@ -16,6 +16,8 @@
         "maxGreaterThanMin": "El valor máximo debe ser mayor que el valor mínimo"
       }
     },
-    "featureBlocked": "Las tarjetas de regalo de valor personalizado aún no están disponibles"
+    "billingForm": {
+      "priceIsToBeDetermined": "Sin definir"
+    }
   }
 }

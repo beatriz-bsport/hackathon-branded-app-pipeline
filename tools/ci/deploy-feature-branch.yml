@@ -2,7 +2,9 @@ include:
   - local: tools/ci/deploy-common.yml
 
 .Deploy Feature Branch Base:
-  extends: .Deploy Common Base
+  extends:
+    - .Deploy Common Base
+    - .ci-runner-xlarge-highcpu # 16 vCPU, 16GB RAM
   stage: deploy-feature-branch
   interruptible: true
   script:

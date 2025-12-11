@@ -24,7 +24,14 @@ stages:
   - deploy
   - post-deploy
 
+default:
+  tags:
+    - build-frontend
+    - cluster:bsport-tooling
+
 include:
+  - project: "bsport/bsport-platform-ci-templates"
+    file: "/includes/ci.yaml"
   - local: "/tools/ci/common.yml"
   - local: "/tools/ci/validate-mr-title.yml"
   - local: "/tools/ci/deploy-widget-test-site.yml"

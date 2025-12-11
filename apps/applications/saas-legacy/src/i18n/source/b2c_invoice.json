@@ -17,7 +17,7 @@
     "toBeSentManuallyAlertContent": "Invoice not sent to the Spanish Tax Agency (AEAT) because it was finalised before VERI*FACTU onboarding was completed. Try again to transmit the invoice to the agency.",
     "originalInvoice": "original invoice",
     "memberProfile": "member profile",
-    "tryAgain": "TRY AGAIN",
+    "tryAgain": "Try again",
     "notSendableReasons": {
       "75604": "country",
       "75605": "zip code",
@@ -34,6 +34,6 @@
     },
     "unknownError": "unknown error",
     "andConjunction": "and",
-    "retryFailure": "Failed to send invoice. Please try again."
+    "retryFailure": "Couldn't send invoice. Please try again."
   }
 }

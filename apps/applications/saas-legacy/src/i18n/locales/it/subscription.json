@@ -184,7 +184,7 @@
       "nb_interval": {
         "label": "Numero di ricevute",
         "helperText": "Almeno 2 mesi",
-        "error": "Il numero di ricevute non deve superare 90",
+        "error": "Il numero di ricevute non deve superare 110",
         "errorForFixedBillingDay": "Il numero di ricevute non deve superare 12",
         "restrictionForFixedBillingDay": "Il numero di ricevute deve essere compreso tra 2 e 12 per la contabilizzazione a giorni fissi"
       },

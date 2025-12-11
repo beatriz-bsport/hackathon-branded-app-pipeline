@@ -145,7 +145,7 @@
     "addNewForWorkshop": "Workshops",
     "addNewForGroupActivity": "Group classes"
   },
-  "paymentRules": "Payment rules",
+  "paymentRules": "Payroll rules",
   "errors": {
     "cannotHaveSeveralPaymentRulesWithSameName": "Each payroll rule must have a unique name"
   },

@@ -1,10 +1,9 @@
 "Merge Request Open":
+  extends:
+    - .ci-runner-large-lowmem # 4 vCPU, 4GB RAM
   stage: init
   before_script: !reference [.pnpm-setup, before_script]
   interruptible: true
-  tags:
-    - build-frontend
-    - cluster:bsport-tooling
   rules:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
   script:

@@ -11,6 +11,10 @@
     - git config --global user.name "bsport-bot"
     # Set up authentication using Username and Password
     - git remote set-url origin "https://${GIT_USERNAME}:${GIT_PASSWORD}@gitlab.com/${CI_PROJECT_PATH}.git"
+  allow_failure: true # Don't fail the entire pipeline if merge conflicts occur
+  tags:
+    - light
+    - cluster:bsport-tooling
   script:
     - |
       echo "Starting merge from ${SOURCE_BRANCH} to ${TARGET_BRANCH}..."
@@ -81,10 +85,6 @@
         # Exit with error to mark job as failed
         exit 1
       fi
-  allow_failure: true # Don't fail the entire pipeline if merge conflicts occur
-  tags:
-    - light
-    - cluster:bsport-tooling
 
 # Merge production to staging after production deployment
 merge-production-to-staging:

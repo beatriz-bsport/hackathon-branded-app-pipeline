@@ -1,10 +1,9 @@
 Analyze:Core:
+  extends:
+    - .ci-runner-large-highcpu # 8 vCPU, 8GB RAM
   stage: analyze
   before_script: !reference [.pnpm-setup, before_script]
   interruptible: true
-  tags:
-    - build-frontend
-    - cluster:bsport-tooling
   rules:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
   script:
@@ -47,12 +46,11 @@ Analyze:Core:
     - echo "✅ All translations have been managed as expected"
 
 Analyze:LintFormat:
+  extends:
+    - .ci-runner-large-highcpu # 8 vCPU, 8GB RAM
   stage: analyze
   before_script: !reference [.pnpm-setup, before_script]
   interruptible: true
-  tags:
-    - build-frontend
-    - cluster:bsport-tooling
   rules:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
   script:

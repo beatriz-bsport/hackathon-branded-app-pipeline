@@ -182,3 +182,26 @@ export const tabletCheckInSignUpStartedEventSchema = z
   .describe(
     'When a user starts the sign-up process during tablet check-in by clicking the Create Member button',
   );
+
+export const tabletCheckInSessionClickedEventSchema = z
+  .object({
+    eventType: z.string().default('tablet_check_in_session_clicked'),
+    nb_attendants: z.number().describe('The number of attendants to check in'),
+    nb_bookings: z.number().describe('The number of bookings for the session'),
+    nb_non_attendants: z
+      .number()
+      .describe('The number of non-attendants for the session'),
+    offer_id: z.number().describe('The unique identifier for the session'),
+  })
+  .describe(
+    'When the user clicks on a session from the session management page',
+  );
+
+export const tabletCheckInCheckinButtonClickedEventSchema = z
+  .object({
+    eventType: z.string().default('tablet_check_in_checkin_button_clicked'),
+    offer_id: z.number().describe('The unique identifier for the session'),
+  })
+  .describe(
+    'When the user clicks on the check-in button from the session management page',
+  );

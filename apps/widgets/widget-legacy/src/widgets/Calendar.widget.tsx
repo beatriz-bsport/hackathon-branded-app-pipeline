@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
 import {
@@ -32,8 +32,8 @@ import '../../vendor/map.css';
 import { RootState } from '../reducers';
 import { getEnv } from '../utils/env';
 import {
-  bridgeRequestRegisteredOfferIdList,
-  bridgeRequestAuthenticationStatus,
+  bridgeRequestRegisteredOfferIdList as bridgeRequestRegisteredOfferIdListAction,
+  bridgeRequestAuthenticationStatus as bridgeRequestAuthenticationStatusAction,
 } from '../libs/bridge/actions';
 
 const getNowISODate = () => {
@@ -46,7 +46,7 @@ const getNowISODate = () => {
 };
 
 type MarketplaceCalendarStyledProps = MarketplaceCalendarOwnProps & {
-  theme: Theme,
+  theme: Theme;
 };
 
 const MarketplaceCalendarStyled = compose<
@@ -76,13 +76,13 @@ const MarketplaceCalendarStyled = compose<
 )(MarketplaceCalendar);
 
 type OwnProps = {
-  companyId: number,
-  config: MarketplaceCalendarData,
-  store: any,
-  theme: Theme,
-  onWindowOpen: (url: string) => void,
-  dialogMode?: number,
-  authenticated: boolean,
+  companyId: number;
+  config: MarketplaceCalendarData;
+  store: any;
+  theme: Theme;
+  onWindowOpen: (_url: string) => void;
+  dialogMode?: number;
+  authenticated: boolean;
 };
 
 type Props = OwnProps &
@@ -90,93 +90,110 @@ type Props = OwnProps &
   typeof mapDispatchToProps &
   WithStyles;
 
-type State = {
-  selectedDate: string,
-};
+export const CalendarWidget = (props: Props) => {
+  const {
+    config,
+    companyId,
+    theme,
+    classes,
+    authenticated,
+    authenticationReceived,
+    onWindowOpen,
+    bridgeRequestAuthenticationStatus,
+    bridgeRequestRegisteredOfferIdList,
+  } = props;
 
-export class CalendarWidget extends Component<Props, State> {
-  popupWindow: any;
+  const [selectedDate, setSelectedDate] = useState(getNowISODate);
 
-  filters: MarketplaceFilters = {
-    coaches: this.props.config.coaches || [],
-    establishments: this.props.config.establishments || [],
-    activity__in: this.props.config.metaActivities || [],
-    levels: this.props.config.levels || [],
-    establishment_group__in: this.props.config.establishmentGroups || [],
-  };
+  const filters: MarketplaceFilters = useMemo(
+    () => ({
+      coaches: config.coaches || [],
+      establishments: config.establishments || [],
+      activity__in: config.metaActivities || [],
+      levels: config.levels || [],
+      establishment_group__in: config.establishmentGroups || [],
+    }),
+    [
+      config.coaches,
+      config.establishments,
+      config.metaActivities,
+      config.levels,
+      config.establishmentGroups,
+    ],
+  );
 
-  onlineFilter = this.props.config.onlineFilter ?? {};
+  const onlineFilter = useMemo(
+    () => ({
+      is_online: config?.onlineFilter?.is_online || undefined,
+    }),
+    [config.onlineFilter],
+  );
 
-  constructor(props: Props) {
-    super(props);
+  const otherParams = useMemo(
+    () => ({
+      date: selectedDate,
+      onlyDay: config.todayOnly ? 'true' : '',
+      filtersOpen: '' as const,
+    }),
+    [selectedDate, config.todayOnly],
+  );
 
-    this.state = {
-      selectedDate: getNowISODate(),
-    };
-  }
+  const onCompletePurchaseProp = useCallback(() => {}, []);
 
-  componentDidMount() {
-    this.props.bridgeRequestAuthenticationStatus();
-    if (this.props.authenticated) {
-      this.props.bridgeRequestRegisteredOfferIdList();
+  useEffect(() => {
+    bridgeRequestAuthenticationStatus();
+    if (authenticated) {
+      bridgeRequestRegisteredOfferIdList();
     }
-  }
+  }, [
+    authenticated,
+    bridgeRequestAuthenticationStatus,
+    bridgeRequestRegisteredOfferIdList,
+  ]);
 
-  componentDidUpdate(prevProps: Props) {
-    if (!prevProps.authenticated && this.props.authenticated) {
-      this.props.bridgeRequestRegisteredOfferIdList();
-    }
-  }
-
-  setOtherParams = (key: string) => {
+  const setOtherParams = useCallback((key: string) => {
     return (arg: any) => {
       if (key === 'date') {
-        this.setState({ selectedDate: arg });
+        setSelectedDate(arg);
       }
     };
-  };
+  }, []);
 
-  onClickGoToBook = (id: number, companyId: number) => {
-    const { PUBLIC_URL } = getEnv();
-    const url = `${PUBLIC_URL}/customer/payment/offer/${id}?membership=${companyId}`;
-    this.props.onWindowOpen(url);
-  };
+  const onClickGoToBook = useCallback(
+    (id: number, givenCompanyId: number) => {
+      const { PUBLIC_URL } = getEnv();
+      const url = `${PUBLIC_URL}/customer/payment/offer/${id}?membership=${givenCompanyId}`;
+      onWindowOpen(url);
+    },
+    [onWindowOpen],
+  );
 
-  render() {
-    if (!this.props.authenticationReceived) {
-      return (
-        <div className={this.props.classes.container}>
-          <CircularProgress />
-        </div>
-      );
-    }
+  if (!authenticationReceived) {
     return (
-      <MarketplaceCalendarStyled
-        {...this.props}
-        companyId={this.props.companyId}
-        compactMode={
-          this.props.config ? this.props.config.compactMode : undefined
-        }
-        onlineFilter={{
-          is_online: this.onlineFilter.is_online || undefined,
-        }}
-        filters={this.filters}
-        variant={this.props?.config?.variant}
-        groupSessionByPeriod={this.props?.config?.groupSessionByPeriod}
-        otherParams={{
-          date: this.state.selectedDate,
-          onlyDay: this.props.config.todayOnly ? 'true' : '',
-          filtersOpen: '',
-        }}
-        setOtherParams={this.setOtherParams}
-        goToBook={this.onClickGoToBook}
-        onCompletePurchase={() => {}}
-        theme={this.props.theme}
-        mapContainerClassName="cleanslate"
-      />
+      <div className={classes.container}>
+        <CircularProgress />
+      </div>
     );
   }
-}
+
+  return (
+    <MarketplaceCalendarStyled
+      {...props}
+      compactMode={config ? config.compactMode : undefined}
+      companyId={companyId}
+      filters={filters}
+      goToBook={onClickGoToBook}
+      groupSessionByPeriod={config?.groupSessionByPeriod}
+      mapContainerClassName="cleanslate"
+      onCompletePurchase={onCompletePurchaseProp}
+      onlineFilter={onlineFilter}
+      otherParams={otherParams}
+      setOtherParams={setOtherParams}
+      theme={theme}
+      variant={config?.variant}
+    />
+  );
+};
 
 const styles = () =>
   createStyles({
@@ -198,8 +215,8 @@ const mapStateToProps = (state: RootState) => ({
 });
 
 const mapDispatchToProps = {
-  bridgeRequestAuthenticationStatus,
-  bridgeRequestRegisteredOfferIdList,
+  bridgeRequestAuthenticationStatus: bridgeRequestAuthenticationStatusAction,
+  bridgeRequestRegisteredOfferIdList: bridgeRequestRegisteredOfferIdListAction,
 };
 
 export default compose<Props, OwnProps>(

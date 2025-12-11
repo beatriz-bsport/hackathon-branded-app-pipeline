@@ -33,6 +33,19 @@ import { Coach, CoachMinimal } from '../associated-coach/types';
 import { OFFER_RECURRENCE, BookingWindowStatus } from './constants';
 import type { WellhubProductId } from '#src/libs/wellhub/types';
 
+export type OfferListParams = {
+  company?: number;
+  min_date?: string;
+  max_date?: string;
+  username?: string;
+  available?: boolean;
+  is_workshop?: boolean;
+  only_future?: boolean;
+  only_future_strict?: boolean;
+  with_booking_window?: boolean;
+  is_online?: boolean;
+} & OfferFilterData;
+
 export type OfferFilter = {
   establishments?: number[];
   coaches?: number[];
@@ -60,18 +73,6 @@ export type OfferFilterData = {
   similars__coach_override__isnull?: boolean;
   similars__coach_override__ne?: number;
 };
-
-//
-// export type ActivitySimplified = {
-//   id: number,
-//   parent_category: number,
-//   meta_activity_id: number,
-//   name: string,
-//   level: number,
-//   etablissement: Establishment,
-//   next_slot: string,
-//   coach: Profile,
-// };
 
 export type OfferMinimal<C = number, E = number, M = number, L = number> = {
   date_start: string;

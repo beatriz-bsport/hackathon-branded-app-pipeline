@@ -34,7 +34,8 @@ const usePropsFromVariation = (
 
   return {
     variant: variantSelected,
-    offers: [],
+    offersByDay: {},
+    isSearching: false,
     genderCount: {
       nb_booked_male: faker.number.int(10),
       nb_booked_female: faker.number.int(10),
@@ -49,17 +50,13 @@ const usePropsFromVariation = (
     isCardModeDisplay: true,
     showDayParts: false,
     forceDayDisplayOnly: false,
-    searchedOffers: null,
     onClickOffer: () => {},
     onClickBook: () => {},
     onClickBookOption: () => {},
     onSelectDate: () => {},
     getLevel: {},
     loading: false,
-    activityLoading: false,
     showOfferFilling: false,
-    establishmentLoading: false,
-    coachLoading: false,
     group: {},
   };
 };

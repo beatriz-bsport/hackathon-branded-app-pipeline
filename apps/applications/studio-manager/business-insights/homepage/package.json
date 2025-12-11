@@ -18,6 +18,8 @@
     "translation:update": "pnpm run -w translation:update"
   },
   "dependencies": {
+    "@bsport/api-book": "workspace:*",
+    "@bsport/api-core": "workspace:*",
     "@bsport/datetime-formatting": "workspace:*",
     "@bsport/datetime-manipulation": "workspace:*",
     "@bsport/envs": "workspace:*",
@@ -52,5 +54,11 @@
         "watchPath": "../../navigation-sidebar/src/**/*"
       }
     }
+  },
+  "nx": {
+    "tags": [
+      "application:revamp",
+      "scope:studio"
+    ]
   }
 }

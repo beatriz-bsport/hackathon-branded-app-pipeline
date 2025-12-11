@@ -259,6 +259,8 @@ const mapWithHandlers = {
       deletePaymentPackTemplate(paymentPackTemplateId, {
         onSuccess: () => {
           closePaymentPackDeleteDialog();
+        },
+        onBackgroundSuccess: () => {
           pushRouter('/f/payment-pack-template');
         },
       }),

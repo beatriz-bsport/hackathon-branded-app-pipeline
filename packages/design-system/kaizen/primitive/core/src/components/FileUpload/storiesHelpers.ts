@@ -72,7 +72,7 @@ export async function simulateUploadToBackend(
   try {
     // Need to authenticate to retrieve a token
     const authResponse = await fetch(
-      "https://api.dev.bsport.io/api/v1/authentication/signin/with-jwt-login/",
+      "https://api.dev.bsport.io/api/v1/authentication/signin/with-login/",
       {
         credentials: "omit",
         headers: {

@@ -222,6 +222,9 @@ const StripeExpressCheckoutElementInner: React.FC<
             [classes.singleWallet]: onlyOneWallet && !isMobile,
             [classes.disabled]: disabled || isExpressPayLoading,
           })}
+          data-apple-pay-available={wallets.applePay ? 'true' : 'false'}
+          data-google-pay-available={wallets.googlePay ? 'true' : 'false'}
+          data-testid="stripe-express-checkout-container"
           tabIndex={disabled ? -1 : undefined}
         >
           <ExpressCheckoutElement

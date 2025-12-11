@@ -1,7 +1,10 @@
 import { FormField } from "@bsport/form";
 import { FormRadioGroup, TextField } from "@bsport/kaizen-primitive-core";
 
-import { BOOKING_OCCURENCE_ANY_BOOKING } from "#src/components/MarketingNotificationEdition/NotificationTriggerForms/Booking/types";
+import {
+  BOOKING_OCCURENCE_ANY_BOOKING,
+  BOOKING_OCCURENCE_SPECIFIC_AMOUNT,
+} from "#src/components/MarketingNotificationEdition/NotificationTriggerForms/Booking/types";
 import { useTranslation } from "#src/utils/i18n";
 import type { BookingTriggerConfigValidationFormData } from "#src/utils/schemas/types";
 
@@ -33,11 +36,11 @@ export const BookingOccurrenceField = ({
       label={t("steps.notificationRules.booking.occurrenceLabel")}
       options={[
         {
-          value: "anyBooking",
+          value: BOOKING_OCCURENCE_ANY_BOOKING,
           label: t("steps.notificationRules.booking.occurrences.anyBooking"),
         },
         {
-          value: "specificAmount",
+          value: BOOKING_OCCURENCE_SPECIFIC_AMOUNT,
           label: t(
             "steps.notificationRules.booking.occurrences.specificAmount",
           ),

@@ -47,7 +47,7 @@ export const editCustomMobilePopup = async (
 ) =>
   patchAuth(`${API_V1_URI}/mobile_app/manager/custom_popup_links/${id}/`, data);
 
-export const deleteCustomMobilePopup = async (id: string) =>
+export const deleteCustomMobilePopup = async (id: number) =>
   deleteAuth(`${API_V1_URI}/mobile_app/manager/custom_popup_links/${id}/`);
 
 export const fetchCustomNavigationTabsNames = (companyId: number) => {

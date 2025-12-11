@@ -7,7 +7,7 @@ import { ImmutableArray } from 'seamless-immutable';
 import {
   getDefaultConfigByIdentifier,
   getDefaultTitleForComponent,
-} from '#src/libs/exportable-components/utils';
+} from '#src/libs/exportable-components/utils-common';
 
 import LinearProgress from '#src/components/navigation/BackofficeLinearProgress.component';
 import { getPrivatePassCategories } from '#src/libs/private-service/selectors/private-pass-category';

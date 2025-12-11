@@ -4,7 +4,7 @@ Validate MR Title:
   interruptible: true
   allow_failure: true
   tags:
-    - build-frontend
+    - light
     - cluster:bsport-tooling
   script:
     - chmod +x ./tools/scripts/validate-mr-title.sh

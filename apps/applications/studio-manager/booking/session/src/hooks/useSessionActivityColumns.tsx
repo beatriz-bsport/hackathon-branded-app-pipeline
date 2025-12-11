@@ -1,5 +1,6 @@
 import capitalize from "lodash/capitalize";
 
+import type { MetaActivity } from "@bsport/api-book";
 import {
   Avatar,
   Body,
@@ -7,7 +8,6 @@ import {
   GenericTableColumn,
   Tooltip,
 } from "@bsport/kaizen-primitive-core";
-import type { MetaActivity } from "@bsport/store-booking-group-activity";
 
 import { useTranslation } from "#src/utils/i18n";
 

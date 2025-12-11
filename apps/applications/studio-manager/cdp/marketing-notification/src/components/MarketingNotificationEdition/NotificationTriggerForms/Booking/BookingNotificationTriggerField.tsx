@@ -8,7 +8,11 @@ import { BookingOccurrenceField } from "#src/components/MarketingNotificationEdi
 import { BookingStatusField } from "#src/components/MarketingNotificationEdition/NotificationTriggerForms/Booking/BookingStatusField";
 import {
   BOOKING_ACTION_MAKES_BOOKING,
+  BOOKING_ACTION_MAKES_CANCELLATION,
+  BOOKING_CANCELLATIONS_EVENT_KIND,
+  BOOKING_EVENT_KIND_MAP_TO_BOOKING_STATUS,
   BOOKING_OCCURENCE_ANY_BOOKING,
+  BOOKING_OCCURENCE_ANY_BOOKING_FORM_VALUE,
   BOOKING_OCCURENCE_SPECIFIC_AMOUNT,
   BOOKING_STATUS_MAP_TO_BOOKING_EVENT_KIND,
   BOOKING_STATUS_PRESENT,
@@ -16,17 +20,15 @@ import {
   type BookingAction,
   type BookingOccurrenceType,
   type BookingStatus,
+  MIN_BOOKING_OCCURENCE_SPECIFIC_AMOUNT,
 } from "#src/components/MarketingNotificationEdition/NotificationTriggerForms/Booking/types";
 import {
   isValidBookingAction,
   isValidBookingOccurenceType,
   isValidBookingStatus,
-} from "#src/components/MarketingNotificationEdition/NotificationTriggerForms/Booking/utils";
+} from "#src/components/MarketingNotificationEdition/NotificationTriggerForms/utils";
 import { useTranslation } from "#src/utils/i18n";
 import type { BookingTriggerConfigValidationFormData } from "#src/utils/schemas/types";
-
-const BOOKING_OCCURENCE_ANY_BOOKING_FORM_VALUE = 0;
-export const MIN_BOOKING_OCCURENCE_SPECIFIC_AMOUNT = 1;
 
 interface BookingOccurrence {
   occurrenceType: BookingOccurrenceType;
@@ -35,21 +37,34 @@ interface BookingOccurrence {
 
 type BookingNotificationTriggerFieldProps = {
   setFormValue: ControlledFormProps<BookingTriggerConfigValidationFormData>["setValue"];
+  defaultBookingStatus: number;
+  defaultBookingOccurence: number;
 };
 
 export const BookingNotificationTriggerField = ({
+  defaultBookingStatus,
+  defaultBookingOccurence,
   setFormValue,
 }: BookingNotificationTriggerFieldProps) => {
   const { t } = useTranslation("marketingNotificationsModal");
-
   const [selectedBookingAction, setSelectedBookingAction] =
-    useState<BookingAction>(BOOKING_ACTION_MAKES_BOOKING);
+    useState<BookingAction>(
+      BOOKING_CANCELLATIONS_EVENT_KIND.includes(defaultBookingStatus)
+        ? BOOKING_ACTION_MAKES_CANCELLATION
+        : BOOKING_ACTION_MAKES_BOOKING,
+    );
   const [selectedBookingStatus, setSelectedBookingStatus] =
-    useState<BookingStatus>(BOOKING_STATUS_PRESENT);
+    useState<BookingStatus>(
+      BOOKING_EVENT_KIND_MAP_TO_BOOKING_STATUS[defaultBookingStatus] ??
+        BOOKING_STATUS_PRESENT,
+    );
   const [selectedBookingOccurrence, setSelectedBookingOccurrence] =
     useState<BookingOccurrence>({
-      occurrenceType: BOOKING_OCCURENCE_ANY_BOOKING,
-      amount: 0,
+      occurrenceType:
+        defaultBookingOccurence > 0
+          ? BOOKING_OCCURENCE_SPECIFIC_AMOUNT
+          : BOOKING_OCCURENCE_ANY_BOOKING,
+      amount: defaultBookingOccurence ?? 0,
     });
 
   const handleBookingActionUpdate = (

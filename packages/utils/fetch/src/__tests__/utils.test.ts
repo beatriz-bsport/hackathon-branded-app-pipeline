@@ -1,12 +1,11 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
 import {
-  API_BASE_URL,
+  UNKNOWN_TIMEZONE,
   getCustomErrorCodes,
-  getFullUri,
   getHeaders,
   getMessage,
-} from "../utils";
+} from "#src/utils";
 
 // Mock external dependencies
 vi.mock("@bsport/local-storage-auth-token", () => ({
@@ -45,13 +44,6 @@ Object.defineProperty(window, "location", {
 describe("utils", () => {
   beforeEach(() => {
     vi.clearAllMocks();
-  });
-
-  describe("API_BASE_URL", () => {
-    it("should have a valid API base URL", () => {
-      expect(API_BASE_URL).toBeDefined();
-      expect(typeof API_BASE_URL).toBe("string");
-    });
   });
 
   describe("getHeaders", () => {
@@ -131,15 +123,7 @@ describe("utils", () => {
       mockGetCompanyTimezone.mockReturnValue("");
 
       const headers = getHeaders() as Record<string, string>;
-
-      expect(headers["X-Timezone-Name"]).toBe("unknown");
-    });
-  });
-
-  describe("getFullUri", () => {
-    it("should return production URI unchanged", () => {
-      const result = getFullUri("platform/v1/users");
-      expect(result).toBe(`${API_BASE_URL}/platform/v1/users`);
+      expect(headers["X-Timezone-Name"]).toBe(UNKNOWN_TIMEZONE);
     });
   });
 

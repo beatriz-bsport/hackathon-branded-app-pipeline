@@ -1016,6 +1016,51 @@
           "description": "You've used up the 3 {{ workflowPluralLowerCase }} included in the free trial. To activate this one upgrade to Audience, or pause an existing {{ workflowLowerCase }}."
         }
       }
+    },
+    "upsells": {
+      "warning": {
+        "title": "Add-on required",
+        "message": {
+          "sms": "Upgrade to send SMS.",
+          "pushNotification": "Upgrade to send push notifications."
+        }
+      }
+    },
+    "template": {
+      "createFromScratch": "Create from scratch",
+      "useTemplate": "Use template",
+      "createFromScratchDescription": "Create a {{ workflowLowerCase }} to automate your audience actions.",
+      "addCadenceDialog": {
+        "title": "Select a template or create a {{ workflowLowerCase }} from scratch"
+      },
+      "configs": {
+        "abandonedCartRecovery": {
+          "name": "Abandoned Checkout Recovery",
+          "description": "Recover lost sales. Automatically engage with customers or leads who added items (passes, memberships, retail) to their basket.",
+          "steps": {
+            "entry": {
+              "actions": {
+                "push_notification": {
+                  "subject": "Psst, {firstname}!",
+                  "text": "You left something behind! Your basket is saved and waiting for you at the studio.\n{company} Team"
+                },
+                "email_design": {
+                  "subject": "Did you forget something?"
+                }
+              }
+            },
+            "reminder": {
+              "name": "Reminder",
+              "actions": {
+                "push_notification": {
+                  "subject": "Don't miss out!",
+                  "text": "{firstname}, don't forget you have new items in your basket waiting to be bought!\n{company} Team"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   }
 }

@@ -18,4 +18,11 @@ export const handlers = [
   http.get("https://api.dev.bsport.io/platform/v0/saas/access_level", () => {
     return HttpResponse.json({});
   }),
+
+  http.get(
+    "https://unleash.tooling.bsport.io/api/frontend?sessionId=995623640&appName=studio-manager&environment=default",
+    () => {
+      return HttpResponse.json({ toggles: [] });
+    },
+  ),
 ];

@@ -10,6 +10,7 @@ export const FeatureFlags = {
   WEBVIEW_GOOGLE_PAY: 'webview-google-pay',
   STOP_SUBSCRIPTION_FROM_MEMBER_SIDE: 'stop_subscription_on_memberside',
   FISKALY_SIGN_ES: 'fiskaly_sign_es',
+  AUDIENCE_TEMPLATES: 'audience_workflow_templates',
 } as const;
 
 export type FlagName = (typeof FeatureFlags)[keyof typeof FeatureFlags];

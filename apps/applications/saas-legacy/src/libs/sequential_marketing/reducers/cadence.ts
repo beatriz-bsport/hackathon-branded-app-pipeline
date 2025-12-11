@@ -11,6 +11,7 @@ import {
   activateCadenceActions,
   shutOffCadenceActions,
   upsertCadenceInitialConfigurationActions,
+  createCadenceFromTemplateActions,
 } from '#src/libs/sequential_marketing/actions';
 
 import { Cadence, CadenceState } from '#src/libs/sequential_marketing/types';
@@ -219,6 +220,27 @@ export default handleActions<ImmutableCadenceState, any>(
           },
           { deep: true },
         );
+    },
+
+    [createCadenceFromTemplateActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.set('loading', payload);
+    },
+    [createCadenceFromTemplateActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.set('error', payload);
+    },
+    [createCadenceFromTemplateActions.success.toString()]: (
+      state,
+      { payload }: { payload: Cadence },
+    ) => {
+      return state
+        .set('allIds', [...state.allIds, payload.id])
+        .setIn(['byId', payload.id.toString()], payload);
     },
   },
   initialCadenceState,

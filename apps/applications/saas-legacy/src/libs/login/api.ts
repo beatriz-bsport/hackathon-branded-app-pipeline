@@ -65,7 +65,7 @@ export const confirmEmail = (uuid: string, company?: number) => {
 };
 
 export const login = async (email: string, password: string) => {
-  return post(`${API_V1_URI}/authentication/signin/with-jwt-login/`, {
+  return post(`${API_V1_URI}/authentication/signin/with-login/`, {
     email,
     password,
   });
@@ -98,7 +98,7 @@ export const impersonateAdmin = async (params: {
   token: string;
   companyId: number;
 }) => {
-  return post(`${API_V1_URI}/authentication/impersonate_jwt/`, {
+  return post(`${API_V1_URI}/authentication/impersonate/`, {
     token: params.token,
     company: params.companyId,
   });
@@ -109,7 +109,7 @@ export async function getRelationToken(params: {
   company: number;
 }) {
   return postAuth(
-    `${API_V1_URI_CORE}/relationship/member/get_related_member_token_jwt/`,
+    `${API_V1_URI_CORE}/relationship/member/get_related_member_token/`,
     {
       relatedMemberId: params.relatedMemberId,
       company: params.company,

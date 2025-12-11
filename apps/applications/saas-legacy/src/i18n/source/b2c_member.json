@@ -1,0 +1,17 @@
+{
+  "form": {
+    "member": {
+      "nationality": "Nationality",
+      "documentType": {
+        "label": "Document type",
+        "passport": "Passport",
+        "nationalId": "National ID",
+        "nif": "NIF (DNI/NIE)"
+      },
+      "documentId": {
+        "label": "Document ID",
+        "invalidNIF": "Invalid Spanish NIF. Please enter a valid DNI or NIE number."
+      }
+    }
+  }
+}

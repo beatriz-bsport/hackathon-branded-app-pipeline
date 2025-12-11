@@ -59,18 +59,6 @@ pnpm run -w translation:update
 echo "✅ Translations have been updated"
 echo ""
 
-# Set API environment
-echo "⏳ Setting API environment"
-pnpm run -w api-environment:set $API_ENVIRONMENT
-echo "✅ API environment has been set"
-echo ""
-
-# Set Feature Flag environment
-echo "⏳ Setting Feature Flag environment"
-pnpm run -w feature-flags-environment:set $DEPLOY_ENVIRONMENT
-echo "✅ Feature Flag environment has been set"
-echo ""
-
 # Show affected projects
 echo "🔱 Detecting affected projects..."
 AFFECTED_PROJECTS=$(pnpm exec nx show projects --affected --base="$NX_BASE" --head=HEAD)
@@ -78,11 +66,13 @@ echo "These are the affected projects:"
 echo "$AFFECTED_PROJECTS"
 echo ""
 
-# Filter Studio Manager projects
-SM_AFFECTED_PROJECTS=$(echo "$AFFECTED_PROJECTS" | grep -E "^@bsport/sm-" | tr ' ' '\n' || echo "")
+# Retrieve Affected Revamp Micro-frontend via the tag application:revamp 
 echo "🔱 These are the SM affected projects:"
-if [ -n "$SM_AFFECTED_PROJECTS" ]; then
-  echo "$SM_AFFECTED_PROJECTS"
+AFFECTED_REVAMP_MFE=$(pnpm exec nx show projects \
+  --affected --base="$NX_BASE" --head=HEAD --sep="," \
+  --projects=tag:application:revamp --exclude="@bsport/template-*")
+if [ -n "$AFFECTED_REVAMP_MFE" ]; then
+  echo "$AFFECTED_REVAMP_MFE" | sed "s/,/\n/g"
 else
   echo "(none)"
 fi
@@ -108,15 +98,15 @@ fi
 echo "✅ All affected projects have been deployed"
 echo ""
 
-# Handle Studio Manager micro frontends
-if [ -n "$SM_AFFECTED_PROJECTS" ]; then
+# Handle Studio Manager micro frontends via the host app
+if [ -n "$AFFECTED_REVAMP_MFE" ]; then
   echo "⏳ Building affected micro frontends"
-  pnpm --filter=@bsport/sm-host ci:build:mfe "$SM_AFFECTED_PROJECTS"
+  pnpm exec nx ci:build:mfe @bsport/sm-host "$AFFECTED_REVAMP_MFE"
   echo "✅ All affected micro frontends have been rebuilt"
   echo ""
   
   echo "⏳ Deploying affected micro frontends"
-  pnpm --filter=@bsport/sm-host ci:deploy:mfe "$DEPLOY_ENVIRONMENT" "$SM_AFFECTED_PROJECTS"
+  pnpm exec nx ci:deploy:mfe @bsport/sm-host "$DEPLOY_ENVIRONMENT" "$AFFECTED_REVAMP_MFE"
   echo "✅ All affected micro frontends have been deployed"
 else
   echo "ℹ️  No Studio Manager projects affected, skipping micro frontend deployment"

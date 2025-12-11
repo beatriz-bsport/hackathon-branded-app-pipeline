@@ -211,7 +211,7 @@ export const deleteCustomMobilePopupActions = {
   success: createAction('SETTINGS/CUSTOM_POPUP/DELETE/SUCCESS'),
 };
 
-export function deleteCustomMobilePopup(id: string, options?: OptionCallback) {
+export function deleteCustomMobilePopup(id: number, options?: OptionCallback) {
   return async (dispatch: Dispatch) => {
     dispatch(deleteCustomMobilePopupActions.isLoading(true));
     dispatch(deleteCustomMobilePopupActions.error(null));

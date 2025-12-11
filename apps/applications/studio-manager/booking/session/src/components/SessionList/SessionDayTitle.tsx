@@ -7,8 +7,9 @@ import {
 import { DateTime } from "@bsport/datetime-manipulation";
 import { Body, Title } from "@bsport/kaizen-primitive-core";
 
-import type { EnrichedSession } from "#src/stores/session-list/types";
 import { useTranslation } from "#src/utils/i18n";
+
+import type { EnrichedSession } from "../../types";
 
 export type SessionDayTitleProps = {
   date: DateTime;

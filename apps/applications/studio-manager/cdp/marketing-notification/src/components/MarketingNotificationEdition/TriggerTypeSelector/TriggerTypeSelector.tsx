@@ -122,7 +122,9 @@ export const TriggerTypeSelector = ({
         defaultValues={selectedValues}
         onSelectPasses={(passes) => {
           onSelectTriggerType?.({
-            itemIds: (passes || []).map((pass) => pass.id),
+            itemIds: (passes || [])
+              .filter((pass) => !!pass)
+              .map((pass) => pass.id),
           });
         }}
         textfieldProps={textfieldProps}
@@ -136,7 +138,9 @@ export const TriggerTypeSelector = ({
         defaultValues={selectedValues}
         onSelectAppointmentPasses={(passes) => {
           onSelectTriggerType?.({
-            itemIds: (passes || []).map((pass) => pass.id),
+            itemIds: (passes || [])
+              .filter((pass) => !!pass)
+              .map((pass) => pass?.id),
           });
         }}
         textfieldProps={textfieldProps}

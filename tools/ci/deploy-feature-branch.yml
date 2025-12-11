@@ -2,7 +2,9 @@ include:
   - local: tools/ci/deploy-common.yml
 
 .Deploy Feature Branch Base:
-  extends: .Deploy Common Base
+  extends:
+    - .Deploy Common Base
+    - .ci-runner-xlarge-highcpu # 16 vCPU, 16GB RAM
   stage: deploy-feature-branch
   interruptible: true
   script:
@@ -20,6 +22,13 @@ include:
         API_ENVIRONMENT_FLAG="feature-branch -fb $FEATURE_BRANCH_IDENTIFIER"
         FRONTEND_ONLY_ARG=""
       fi
+    # Required to use the API FB
+    - echo "Rebuilding with FRONTEND_ONLY=$FRONTEND_ONLY the fetch package..."
+    - echo "VITE_FRONTEND_ONLY=$FRONTEND_ONLY" > ./packages/utils/fetch/.env.production
+    - echo "A dummy text to change the Nx hash" > ./packages/utils/fetch/src/dummy.txt
+    - pnpm exec nx run @bsport/fetch:build --excludeTaskDependencies
+    - echo "Rebuilding sm-backbone with new version of fetch"
+    - pnpm exec nx run @bsport/sm-backbone:build --excludeTaskDependencies
     - bash tools/scripts/deploy.sh origin/dev "$DEPLOY_ENVIRONMENT" "$API_ENVIRONMENT_FLAG" "$FRONTEND_ONLY_ARG"
 
 Deploy Feature Branch Frontend Only:

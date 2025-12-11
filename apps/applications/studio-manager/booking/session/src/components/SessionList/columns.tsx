@@ -14,9 +14,9 @@ import {
 } from "@bsport/kaizen-primitive-core";
 import { dataAccessLayer } from "@bsport/sm-backbone";
 
-import { EnrichedSession } from "#src/stores/session-list/types";
 import { useTranslation } from "#src/utils/i18n";
 
+import { EnrichedSession } from "../../types";
 import { CancelledSessionName } from "./CancelledSessionName";
 import { ParticipantsCell } from "./ParticipantsCell";
 import { SessionTypeChips } from "./SessionTypeChips";
@@ -135,8 +135,8 @@ export const useSessionListColumns = () => {
   return [
     timeColumn,
     sessionNameColumn,
-    participantsColumn,
     teacherNameColumn,
+    participantsColumn,
     establishmentNameColumn,
     sessionTypeColumn,
     attendanceColumn,

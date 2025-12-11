@@ -1,10 +1,9 @@
 import { useState } from "react";
 
+import type { MetaActivity } from "@bsport/api-book";
 import { Body, Table, TextField } from "@bsport/kaizen-primitive-core";
-import type { MetaActivity } from "@bsport/store-booking-group-activity";
 import { useDebounce } from "@bsport/use-debounce";
 
-import { useFetchGroupActivities } from "#src/hooks/useFetchGroupActivities";
 import { useRefinedGroupActivities } from "#src/hooks/useRefinedGroupActivities";
 import { useSessionActivityColumns } from "#src/hooks/useSessionActivityColumns";
 import { useTranslation } from "#src/utils/i18n";
@@ -16,13 +15,10 @@ export const ChooseActivityStep = () => {
 
   const columns = useSessionActivityColumns();
 
-  const renderedGroupActivities = useRefinedGroupActivities({
-    searchQuery,
-  });
-
-  const { isLoading, paginationProps } = useFetchGroupActivities({
-    searchQuery,
-  });
+  const { isLoading, paginationProps, groupedActivities } =
+    useRefinedGroupActivities({
+      searchQuery,
+    });
 
   const setSearchQueryDebounced = useDebounce(setSearchQuery);
 
@@ -61,7 +57,7 @@ export const ChooseActivityStep = () => {
           },
         }}
         paginationProps={paginationProps}
-        rows={renderedGroupActivities}
+        rows={groupedActivities}
       />
     </div>
   );

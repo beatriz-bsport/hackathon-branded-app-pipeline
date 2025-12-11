@@ -196,6 +196,10 @@ type Props = {
     values: FormData;
     options?: OptionCallback;
   }) => void;
+  deleteSmartListPopup: (
+    customAppPopupLinkId: number,
+    options?: OptionCallback,
+  ) => void;
   smartListUpdate: (id: number, smartlist: SmartList) => void;
   updateFilter: (
     filterNameId: number,
@@ -309,6 +313,13 @@ export class FiltersPanel extends Component<Props, State> {
     this.props.sendSmartListPopup(param);
   };
 
+  onSmartListPopupDelete = (
+    customAppPopupLinkId: number,
+    options?: OptionCallback,
+  ) => {
+    this.props.deleteSmartListPopup(customAppPopupLinkId, options);
+  };
+
   openCadencesDialog = () => {
     this.setState({ openCadenceListDialog: true });
   };
@@ -418,6 +429,7 @@ export class FiltersPanel extends Component<Props, State> {
             memberLoading={this.props.memberLoading}
             membersToDisplay={this.props.memberList}
             onClose={this.closeSmartListPopupHistoryDialog}
+            onSmartListPopupDelete={this.props.deleteSmartListPopup}
             open={this.state.openSmartListPopupHistoryDialog}
             smartListId={this.props.smartListId}
             smartListPopupList={this.props.smartListPopupList}

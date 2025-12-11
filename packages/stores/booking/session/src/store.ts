@@ -1,8 +1,7 @@
 import { createStore } from "zustand/vanilla";
 
+import type { ManagerSession } from "@bsport/api-book";
 import { type PaginatedState, bindStore } from "@bsport/store-base";
-
-import type { ManagerSession } from "#src/types";
 
 export interface SessionState {
   managerSessions: PaginatedState<ManagerSession>;

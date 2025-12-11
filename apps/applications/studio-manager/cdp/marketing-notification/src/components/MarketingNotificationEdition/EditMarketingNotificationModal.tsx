@@ -4,6 +4,8 @@ import { useTranslation } from "#src/utils/i18n";
 
 import {
   FormStepContextProvider,
+  NOTIFICATION_CONTENT_STEP_IDENTIFIER,
+  NOTIFICATION_TYPE_STEP_IDENTIFIER,
   useFormStepContext,
 } from "./Context/FormStepContext.context";
 import { NotificationContentForm } from "./NotificationContent/NotificationContentForm";
@@ -19,16 +21,23 @@ export const EditMarketingNotificationModal = ({
   onClose,
 }: EditMarketingNotificationModalProps) => {
   const { t } = useTranslation("marketingNotificationsModal");
-  const { checkIfCurrentStepValid, goToNextStep, goToPreviousStep, resetForm } =
-    useFormStepContext();
+  const {
+    currentStep,
+    setValidateForm,
+    checkIfCurrentStepValid,
+    goToNextStep,
+    goToPreviousStep,
+    resetForm,
+  } = useFormStepContext();
 
   const handleClose = () => {
-    onClose?.();
     resetForm();
+    onClose?.();
   };
 
   return (
     <ModalStepper
+      key={String(isOpen)}
       open={isOpen}
       title={t("title.create")}
       size="lg"
@@ -43,7 +52,7 @@ export const EditMarketingNotificationModal = ({
         },
         {
           label: t("steps.label.content"),
-          content: <NotificationContentForm />,
+          content: <NotificationContentForm handleCloseModal={handleClose} />,
         },
       ]}
       initialStep={0}
@@ -52,12 +61,19 @@ export const EditMarketingNotificationModal = ({
         color: "main",
         disabled: !checkIfCurrentStepValid(),
         onClick: () => {
-          goToNextStep();
+          if (currentStep === NOTIFICATION_CONTENT_STEP_IDENTIFIER) {
+            setValidateForm(true);
+          } else {
+            goToNextStep();
+          }
         },
       }}
       cancelButton={{
         label: "Cancel",
         onClick: () => {
+          if (currentStep === NOTIFICATION_TYPE_STEP_IDENTIFIER) {
+            handleClose();
+          }
           goToPreviousStep();
         },
       }}

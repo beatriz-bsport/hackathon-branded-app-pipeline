@@ -59,7 +59,7 @@ export const checkConformity = (bonuses) => {
 };
 
 export const openPdfDocument = (response) => {
-  const filename = response.data.split('/').at(-1);
+  const filename = response.data.split('/').at(-1).split('?')[0];
   axios
     .get(response.data, {
       responseType: 'blob',

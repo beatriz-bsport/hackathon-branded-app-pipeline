@@ -199,7 +199,11 @@ export const CustomChip: React.FC<CustomChipProps> = ({
 
   return (
     <MuiThemeProvider theme={theme}>
-      <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+      <div
+        className={classes.outerDiv}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+      >
         <ChipWrapper
           displayedValue={displayedValue}
           toolTip={toolTip}
@@ -233,6 +237,7 @@ const useStyles = makeStyles<Theme, StylesProps>((theme) => ({
     borderRadius: theme.spacing(0.5),
     maxWidth: ({ maxWidth }) => maxWidth || null,
   },
+  outerDiv: { display: 'flex', overflow: 'auto' },
 }));
 
 export default React.memo(CustomChip);

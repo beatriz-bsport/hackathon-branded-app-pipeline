@@ -1,16 +1,16 @@
 import { Result } from "typescript-result";
 
 import {
+  fetchEstablishmentGroups,
+  searchEstablishmentGroups,
+} from "@bsport/api-core";
+import {
   type Action,
   type PaginatedResponse,
   type SearchResponse,
   createErrorWithContext,
 } from "@bsport/store-base";
 
-import {
-  fetchEstablishmentGroupsAPI,
-  searchEstablishmentGroupsAPI,
-} from "#src/api/establishment-group";
 import type {
   EstablishmentGroup,
   FetchEstablishmentGroupQueryParams,
@@ -29,11 +29,9 @@ export const fetchEstablishmentGroupsAction: Action<
   FetchEstablishmentGroupQueryParams,
   PaginatedResponse<EstablishmentGroup>
 > = async (fetch, params) => {
-  const [uri, init] = fetchEstablishmentGroupsAPI(params);
-
   return Result.try(
     async () => {
-      const { data } = await fetch(uri, init);
+      const data = await fetchEstablishmentGroups(fetch, params);
 
       setEstablishmentGroups({
         establishmentGroups: data.results,
@@ -62,11 +60,9 @@ export const searchEstablishmentGroupsAction: Action<
   SearchEstablishmentGroupSearchParams,
   SearchResponse<EstablishmentGroup>
 > = async (fetch, params) => {
-  const [uri, init] = searchEstablishmentGroupsAPI(params);
-
   return Result.try(
     async () => {
-      const { data } = await fetch(uri, init);
+      const data = await searchEstablishmentGroups(fetch, params);
 
       setEstablishmentGroups({
         establishmentGroups: data.results,

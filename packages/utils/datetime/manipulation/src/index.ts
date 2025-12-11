@@ -15,8 +15,9 @@ export type WeekStartDay = 1 | 2 | 3 | 4 | 5 | 6 | 7;
  * @param date - The native JavaScript Date.
  * @returns The corresponding DateTime object.
  */
-export const toDateTime = (date: Date): DateTime =>
-  LuxonDateTime.fromJSDate(date);
+export const toDateTime = (date: Date, zone?: string): DateTime => {
+  return LuxonDateTime.fromJSDate(date, { zone });
+};
 
 /**
  * Converts a DateTime object to a native JavaScript Date.
@@ -227,6 +228,21 @@ export const isValidDate = (date: Date | string): boolean => {
     return /^\d{4}-\d{2}-\d{2}$/.test(date);
   }
   return !!date && !isNaN(date.getTime());
+};
+
+/**
+ * Determines if the locale uses a meridiem (AM/PM) format for time representation.
+ *
+ * @param locale - The locale identifier (e.g., "en-US", "fr-FR")
+ * @returns True if the locale uses 12-hour format with meridiem, false for 24-hour format
+ */
+export const getIsMeridiemLocale = (locale: string): boolean => {
+  const parts = new Intl.DateTimeFormat(locale, {
+    hour: "numeric",
+    minute: "numeric",
+  }).formatToParts(new Date(2020, 0, 1, 13, 0, 0));
+
+  return parts.some((part) => part.type === "dayPeriod");
 };
 
 export * from "./converters";

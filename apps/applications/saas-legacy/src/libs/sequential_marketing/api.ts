@@ -19,6 +19,8 @@ import type {
   CadenceGlobalMetricsParams,
   MetricsPaginatedResponse,
 } from './types';
+import type { CadenceConfigData } from './cadence_templates/types';
+
 import { InitialConfigurationStep, DestinationStatus } from './constants';
 
 import {
@@ -358,5 +360,14 @@ export const searchCadenceMembersHistoric = (
     `${API_V1_URI}/sequential_marketing/cadence_metrics/${cadenceId}/search_members_historic/${buildUrlParams(
       params,
     )}`,
+  );
+};
+
+// CADENCE TEMPLATES
+
+export const createCadenceFromTemplate = (config: CadenceConfigData) => {
+  return postAuth<Cadence>(
+    `${API_V1_URI}/sequential_marketing/create_cadence_from_template/`,
+    config,
   );
 };

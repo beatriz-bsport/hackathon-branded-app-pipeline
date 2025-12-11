@@ -1,7 +1,7 @@
 import { nxViteTsPaths } from "@nx/vite/plugins/nx-tsconfig-paths.plugin";
 import type { StorybookConfig } from "@storybook/react-vite";
 import { readdirSync, statSync } from "fs";
-import { join } from "path";
+import { join, resolve } from "path";
 import tailwindcss from "tailwindcss";
 import { fileURLToPath } from "url";
 import { mergeConfig } from "vite";
@@ -9,6 +9,7 @@ import svgr from "vite-plugin-svgr";
 
 const currentDir = fileURLToPath(new URL(".", import.meta.url));
 const businessComponentsDir = join(currentDir, "../../business-components");
+const coreSrcDir = resolve(currentDir, "../../primitive/core/src");
 
 // Auto-discover all business component packages
 const businessPackages = readdirSync(businessComponentsDir)
@@ -68,8 +69,28 @@ const config: StorybookConfig = {
       },
       resolve: {
         alias: {
-          "#src": new URL("../../primitive/core/src", import.meta.url).pathname,
+          "#src": coreSrcDir,
         },
+      },
+      optimizeDeps: {
+        include: [
+          ...(config.optimizeDeps?.include || []),
+          "react",
+          "react-dom",
+          "react/jsx-runtime",
+          "react/jsx-dev-runtime",
+        ],
+        esbuildOptions: {
+          jsx: "automatic",
+        },
+      },
+      build: {
+        commonjsOptions: {
+          include: [/node_modules/],
+        },
+      },
+      esbuild: {
+        jsx: "automatic",
       },
     }),
 

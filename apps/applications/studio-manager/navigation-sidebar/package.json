@@ -58,5 +58,11 @@
       "./urls": "./src/urls",
       "./BridgedSidebar": "./src/components/BridgedSidebar"
     }
+  },
+  "nx": {
+    "tags": [
+      "application:revamp",
+      "scope:studio"
+    ]
   }
 }

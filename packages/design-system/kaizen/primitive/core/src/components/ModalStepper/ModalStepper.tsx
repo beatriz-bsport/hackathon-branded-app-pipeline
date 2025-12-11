@@ -100,13 +100,13 @@ const ModalStepper: React.FC<ModalStepperProps> = ({
         confirmButton.onClick?.(event);
 
         if (isLastStep) {
-          handleClose();
+          return;
         } else {
           setCurrentStep((prev) => prev + 1);
         }
       }
     },
-    [currentStepConfig, isLastStep, confirmButton, handleClose],
+    [currentStepConfig, isLastStep, confirmButton],
   );
 
   return (

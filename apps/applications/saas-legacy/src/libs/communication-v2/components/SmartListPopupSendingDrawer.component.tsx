@@ -22,6 +22,7 @@ import { createUrl } from '#src/utils/createUrlHandlers';
 import SmartListPopupListItem, {
   MEMBER_PAGE_SIZE,
 } from '#src/libs/communication-v2/components/SmartListPopupListItem.component';
+import { OptionCallback } from '#src/state/types';
 
 const getUrl = (value: string | any) => {
   if (typeof value === 'string') {
@@ -44,6 +45,10 @@ type Props = {
   memberLoading: boolean;
   membersToDisplay?: Array<Member>;
   loading?: boolean;
+  onSmartListPopupDelete: (
+    customAppPopupLinkId: number,
+    options?: OptionCallback,
+  ) => void;
 };
 
 const SmartListPopupSendingDrawer: React.FC<Props> = ({
@@ -55,6 +60,7 @@ const SmartListPopupSendingDrawer: React.FC<Props> = ({
   memberLoading,
   membersToDisplay,
   loading,
+  onSmartListPopupDelete,
 }) => {
   const { t } = useTranslation(['communication']);
   const classes = useStyle();
@@ -137,6 +143,7 @@ const SmartListPopupSendingDrawer: React.FC<Props> = ({
               <SmartListPopupListItem
                 key={smartListPopup.id}
                 noDivider={index === 0}
+                onSmartListPopupDelete={onSmartListPopupDelete}
                 openMemberList={openMemberList}
                 openPreview={setSmartListPopupToPreview}
                 smartListPopup={smartListPopup}

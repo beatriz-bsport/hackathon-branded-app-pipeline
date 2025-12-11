@@ -1,5 +1,6 @@
+import type { ManagerSession } from "@bsport/api-book";
+
 import { sessionStore } from "#src/store";
-import type { ManagerSession } from "#src/types";
 
 export const setManagerSessions = ({
   sessions,

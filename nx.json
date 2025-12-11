@@ -13,7 +13,8 @@
       "dependsOn": ["^build"]
     },
     "ci:compile": {
-      "dependsOn": ["^build"]
+      "dependsOn": ["^build"],
+      "cache": true
     },
     "build-storybook": {
       "cache": true

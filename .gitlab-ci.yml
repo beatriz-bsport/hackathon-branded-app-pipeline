@@ -5,6 +5,9 @@ variables:
   REGISTRY_ENDPOINT: 672633452901.dkr.ecr.eu-west-3.amazonaws.com
   REGISTRY_NAME: bsport/bsport-ichizen-builder
   PNPM_HOME: "/builds/bsport/ichizen/.pnpm"
+  NX_TUI: "false"
+  NX_SELF_HOSTED_REMOTE_CACHE_SERVER: $CI_NX_SELF_HOSTED_REMOTE_CACHE_SERVER
+  NX_SELF_HOSTED_REMOTE_CACHE_ACCESS_TOKEN: $CI_NX_SELF_HOSTED_REMOTE_CACHE_ACCESS_TOKEN
 
 cache:
   key:
@@ -16,13 +19,19 @@ cache:
 
 stages:
   - init
-  - merge-request-open
   - analyze
   - deploy-feature-branch
   - deploy
   - post-deploy
 
+default:
+  tags:
+    - build-frontend
+    - cluster:bsport-tooling
+
 include:
+  - project: "bsport/bsport-platform-ci-templates"
+    file: "/includes/ci.yaml"
   - local: "/tools/ci/common.yml"
   - local: "/tools/ci/validate-mr-title.yml"
   - local: "/tools/ci/deploy-widget-test-site.yml"

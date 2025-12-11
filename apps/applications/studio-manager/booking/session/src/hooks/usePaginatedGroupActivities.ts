@@ -1,74 +1,93 @@
+import {
+  keepPreviousData,
+  queryOptions,
+  useQuery,
+} from "@tanstack/react-query";
 import { useMemo } from "react";
 
-import type { PaginationProps } from "@bsport/kaizen-primitive-core";
 import {
   type FetchGroupActivitiesParams,
   type SearchGroupActivitiesParams,
-  fetchGroupActivitiesAction,
-  searchGroupActivitiesAction,
-  selectCount,
-  selectCurrentGroupActivities,
-  selectSearchedGroupActivities,
-  useGroupActivityStore,
-} from "@bsport/store-booking-group-activity";
-import { useAsync } from "@bsport/use-async";
+  fetchGroupActivities,
+  searchGroupActivities,
+} from "@bsport/api-book";
+import type { PaginationProps } from "@bsport/kaizen-primitive-core";
 import { usePaginationQueryParams } from "@bsport/use-pagination-query-params";
 
-import { fetch } from "#src/utils/fetch";
+import { fetch } from "../utils/fetch";
 
-type ConfigurableSearchParams = Pick<
-  SearchGroupActivitiesParams,
-  "inCategoryIds" | "notInCategoryIds" | "searchQuery"
->;
+type ConfigurableSearchParams = {
+  searchQuery?: string;
+};
 
-// DUPLICATED IN apps/applications/studio-manager/booking/group-activity/src/hooks/usePaginatedGroupActivities.ts
+const GROUP_ACTIVITIES_STALE_TIME = 2 * 60 * 1000; // 2 minutes
+
+const groupActivitiesQueryOptions = (
+  params: FetchGroupActivitiesParams,
+  enabled: boolean,
+) =>
+  queryOptions({
+    queryKey: ["groupActivities", params],
+    queryFn: async () => {
+      const data = await fetchGroupActivities(fetch, params);
+      return data;
+    },
+    enabled,
+    placeholderData: keepPreviousData,
+    staleTime: GROUP_ACTIVITIES_STALE_TIME,
+  });
+
+const searchGroupActivitiesQueryOptions = (
+  params: SearchGroupActivitiesParams,
+  enabled: boolean,
+) =>
+  queryOptions({
+    queryKey: ["searchGroupActivities", params],
+    queryFn: async () => {
+      const data = await searchGroupActivities(fetch, params);
+      return data;
+    },
+    enabled,
+    placeholderData: keepPreviousData,
+    staleTime: GROUP_ACTIVITIES_STALE_TIME,
+  });
+
 export const usePaginatedGroupActivities = ({
   customerEnabled,
+  searchParams,
 }: {
   customerEnabled: boolean;
+  searchParams?: ConfigurableSearchParams;
 }) => {
   const { currentPage, currentPageSize, setPageSettings } =
     usePaginationQueryParams();
 
-  const groupActivities = useGroupActivityStore(selectCurrentGroupActivities);
+  const isSearchMode = !!searchParams?.searchQuery;
 
-  const searchedGroupActivities = useGroupActivityStore(
-    selectSearchedGroupActivities,
+  const fetchParams: FetchGroupActivitiesParams = {
+    customerEnabled,
+    page: currentPage,
+    pageSize: currentPageSize,
+  };
+
+  const searchQueryParams: SearchGroupActivitiesParams = {
+    ...fetchParams,
+    searchQuery: searchParams?.searchQuery ?? "",
+  };
+
+  const { data: fetchData, isLoading: isFetchLoading } = useQuery(
+    groupActivitiesQueryOptions(fetchParams, !isSearchMode),
   );
 
-  const totalItems = useGroupActivityStore(selectCount);
+  const { data: searchData, isLoading: isSearchLoading } = useQuery(
+    searchGroupActivitiesQueryOptions(searchQueryParams, isSearchMode),
+  );
 
-  const _fetchGroupActivities = (params?: FetchGroupActivitiesParams) =>
-    fetchGroupActivitiesAction(fetch, {
-      customerEnabled,
-      page: currentPage,
-      pageSize: currentPageSize,
-      ...(params ?? {}),
-    });
-
-  const [{ isLoading: isFetchLoading }, fetchGroupActivities] = useAsync<
-    typeof _fetchGroupActivities
-  >({
-    asyncFn: _fetchGroupActivities,
-    dependencies: [currentPage, currentPageSize, customerEnabled],
-  });
-
-  const _searchGroupActivitiesPage = (params?: ConfigurableSearchParams) =>
-    searchGroupActivitiesAction(fetch, {
-      customerEnabled,
-      page: currentPage,
-      pageSize: currentPageSize,
-      ...(params ?? {}),
-    });
-
-  const [{ isLoading: isSearchLoading }, searchGroupActivitiesPage] = useAsync<
-    typeof _searchGroupActivitiesPage
-  >({
-    asyncFn: _searchGroupActivitiesPage,
-    dependencies: [currentPage, currentPageSize, customerEnabled],
-  });
-
+  const activeData = isSearchMode ? searchData : fetchData;
   const isLoading = isFetchLoading || isSearchLoading;
+
+  const groupActivities = activeData?.results ?? [];
+  const totalItems = activeData?.count ?? 0;
 
   const paginationProps: PaginationProps = useMemo(
     () => ({
@@ -85,9 +104,6 @@ export const usePaginatedGroupActivities = ({
 
   return {
     groupActivities,
-    searchedGroupActivities,
-    searchGroupActivitiesPage,
-    fetchGroupActivities,
     paginationProps,
     isLoading,
   };

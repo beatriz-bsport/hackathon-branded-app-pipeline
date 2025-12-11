@@ -18,6 +18,17 @@ export type TextItem = {
   description?: string;
   rightSlot?: React.ReactNode;
   disabled?: boolean;
+  leftSlot?: React.ReactNode;
+};
+
+export type MenuButton = {
+  id: string;
+  type: "button";
+  label: string;
+  iconLeft?: IconName;
+  disabled?: boolean;
+  onClick: () => void;
+  leftSlot?: React.ReactNode;
 };
 
 export type MenuOption = {
@@ -26,12 +37,13 @@ export type MenuOption = {
   id: string;
   label: string;
   rightSlot?: React.ReactNode;
+  leftSlot?: React.ReactNode;
   description?: string;
   type?: null;
   disabled?: boolean;
 };
 
-export type Item = TitleItem | DividerItem | TextItem | MenuOption;
+export type Item = TitleItem | DividerItem | TextItem | MenuOption | MenuButton;
 
 export type MenuType = {
   disabled?: boolean;

@@ -2,9 +2,8 @@
 # This job should be extended by specific deployment jobs
 
 .Deploy Common Base:
+  extends:
+    - .ci-runner-xlarge-highcpu # 16 vCPU, 16GB RAM
   before_script: !reference [.pnpm-setup, before_script]
-  tags:
-    - build-frontend
-    - cluster:bsport-tooling
   variables:
     VITE_RELEASE_SHA: $CI_COMMIT_SHORT_SHA

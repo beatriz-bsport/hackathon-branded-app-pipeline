@@ -3,7 +3,13 @@ import {
   type RadioGroupProps,
 } from "@bsport/kaizen-primitive-core";
 
-import type { BookingAction } from "#src/components/MarketingNotificationEdition/NotificationTriggerForms/Booking/types";
+import {
+  BOOKING_STATUS_ABSENT,
+  BOOKING_STATUS_PRESENT,
+  BOOKING_STATUS_REFUNDED,
+  BOOKING_STATUS_TOO_LATE,
+  type BookingAction,
+} from "#src/components/MarketingNotificationEdition/NotificationTriggerForms/Booking/types";
 import { useTranslation } from "#src/utils/i18n";
 
 type BookingStatusFieldProps = {
@@ -27,11 +33,11 @@ export const BookingStatusField = ({
           label: t("steps.notificationRules.booking.statusLabel.attendance"),
           options: [
             {
-              value: "present",
+              value: BOOKING_STATUS_PRESENT,
               label: t("steps.notificationRules.booking.statusOptions.present"),
             },
             {
-              value: "absent",
+              value: BOOKING_STATUS_ABSENT,
               label: t("steps.notificationRules.booking.statusOptions.absent"),
             },
           ],
@@ -45,13 +51,13 @@ export const BookingStatusField = ({
           label: t("steps.notificationRules.booking.statusLabel.cancellation"),
           options: [
             {
-              value: "refunded",
+              value: BOOKING_STATUS_REFUNDED,
               label: t(
                 "steps.notificationRules.booking.statusOptions.refunded",
               ),
             },
             {
-              value: "tooLate",
+              value: BOOKING_STATUS_TOO_LATE,
               label: t("steps.notificationRules.booking.statusOptions.tooLate"),
             },
           ],

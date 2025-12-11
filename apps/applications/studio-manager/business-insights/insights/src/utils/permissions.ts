@@ -10,15 +10,12 @@ import {
 
 /**
  * Generic hook to check object-level permissions
- * Returns an object with hasPermission (boolean) and isLoading (boolean)
+ * Returns boolean indicating if user has the permission
  */
 export const useObjectLevelPermission = (
   path: DeepKeys<ObjectLevelPermissions>,
-): { hasPermission: boolean; isLoading: boolean } => {
+): boolean => {
   const userRole = dataAccessLayer.useUserRole();
-
-  // If userRole is undefined, permissions are still loading
-  const isLoading = userRole === undefined;
 
   const hasPermission = checkHasPermission<
     WithSignature<ObjectLevelPermissions>
@@ -27,19 +24,40 @@ export const useObjectLevelPermission = (
     path,
   });
 
-  return { hasPermission, isLoading };
+  return hasPermission;
 };
 
 /**
- * Checks if the user has permission to view subscription invoices reports
- * This determines if the Recurring Revenue insight page should be accessible
- * Returns an object with hasPermission (boolean) and isLoading (boolean)
+ * Maps each insight to its required permission path(s)
  */
-export const useHasSubscriptionInvoicesPermission = (): {
-  hasPermission: boolean;
-  isLoading: boolean;
-} => {
-  return useObjectLevelPermission(
-    "report.Club.subscription.allowed_actions.read",
-  );
+const INSIGHT_PERMISSIONS: { [key: string]: DeepKeys<ObjectLevelPermissions> } =
+  {
+    trial: "report.Payments.invoices.allowed_actions.read",
+    recurring: "report.Club.subscription.allowed_actions.read",
+  } as const;
+
+export type InsightId = keyof typeof INSIGHT_PERMISSIONS;
+export type InsightPermissions = Record<InsightId, boolean>;
+
+/**
+ * Hook to check if user has permission to view trial insights
+ */
+export const useTrialPermission = () =>
+  useObjectLevelPermission(INSIGHT_PERMISSIONS.trial);
+
+/**
+ * Hook to check if user has permission to view recurring revenue insights
+ */
+export const useRecurringPermission = () =>
+  useObjectLevelPermission(INSIGHT_PERMISSIONS.recurring);
+
+/**
+ * Hook that returns permission state for all insights
+ * Returns simple object: { trial: boolean, recurring: boolean }
+ */
+export const useInsightPermissions = () => {
+  const trial = useTrialPermission();
+  const recurring = useRecurringPermission();
+
+  return { trial, recurring };
 };

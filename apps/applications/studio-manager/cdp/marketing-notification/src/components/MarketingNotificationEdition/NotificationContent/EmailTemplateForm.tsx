@@ -27,20 +27,26 @@ export const EmailTemplateForm = ({
         EmailTemplateSelectorProps
       >
         name="emailTemplateId"
-        mapProps={({ defaultProps }) => ({
+        mapProps={({ defaultProps, fieldState }) => ({
           ...defaultProps,
-        })}
-      >
-        <EmailTemplateSelector
-          defaultTemplateId={defaultEmailTemplateId}
-          onSelectTemplate={(template) => {
+          textfieldProps: {
+            status: fieldState.error?.message ? "error" : "default",
+            statusText: fieldState.error?.message ?? "",
+          },
+          onSelectTemplate: (template) => {
             if (template) {
               setFormValue("emailTemplateId", template.id, {
                 shouldValidate: true,
               });
+            } else {
+              setFormValue("emailTemplateId", undefined, {
+                shouldValidate: true,
+              });
             }
-          }}
-        />
+          },
+        })}
+      >
+        <EmailTemplateSelector defaultTemplateId={defaultEmailTemplateId} />
       </FormField>
       <HTMLPreview htmlContent={emailTemplateDetail?.html ?? ""} />
     </div>

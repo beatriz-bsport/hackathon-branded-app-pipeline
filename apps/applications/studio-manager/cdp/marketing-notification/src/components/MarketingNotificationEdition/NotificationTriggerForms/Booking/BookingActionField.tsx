@@ -1,5 +1,9 @@
 import { RadioGroup } from "@bsport/kaizen-primitive-core";
 
+import {
+  BOOKING_ACTION_MAKES_BOOKING,
+  BOOKING_ACTION_MAKES_CANCELLATION,
+} from "#src/components/MarketingNotificationEdition/NotificationTriggerForms/Booking/types";
 import { useTranslation } from "#src/utils/i18n";
 
 type BookingActionFieldProps = {
@@ -19,11 +23,11 @@ export const BookingActionField = ({
       label={t("steps.notificationRules.booking.actionLabel")}
       options={[
         {
-          value: "makesBooking",
+          value: BOOKING_ACTION_MAKES_BOOKING,
           label: t("steps.notificationRules.booking.actions.makesBooking"),
         },
         {
-          value: "makesCancellation",
+          value: BOOKING_ACTION_MAKES_CANCELLATION,
           label: t("steps.notificationRules.booking.actions.makesCancellation"),
         },
       ]}

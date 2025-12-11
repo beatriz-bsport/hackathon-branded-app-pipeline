@@ -8,7 +8,7 @@ if [ -n "$2" ]; then
   # Use the provided list of affected projects
   echo "Using provided list of affected projects"
   # Convert literal \n to actual newlines
-  APPLICATIONS=$(printf "%b" "$2")
+  APPLICATIONS=$(echo "$2" | sed "s/,/\n/g")
 else
   # Fall back to the fixed list of applications from apps.txt
   echo "Using fixed list of applications from apps.txt"
@@ -130,5 +130,6 @@ curl --get \
   --data-urlencode token=${CLOUDFRONT_INVALIDATION_TOKEN} \
   ${CLOUDFRONT_INVALIDATION_LAMBDA_URL}
 
+echo "*"
 echo "✅ Successfully deployed: $ENVIRONMENT"
 echo "*"

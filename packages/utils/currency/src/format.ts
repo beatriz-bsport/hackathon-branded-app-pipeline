@@ -17,17 +17,15 @@ export const formatPriceWithCurrency = (
   const absolutePrice = Math.abs(price).toFixed(2);
   const negativeSign = price < 0 || isNegative ? "-" : "";
 
+  // Special case for CHF: symbol before price with a space
+  if (symbol === "CHF") {
+    return `${negativeSign}${symbol}\u00A0${absolutePrice}`;
+  }
+
   // List of symbols that should appear after the price
-  const symbolAfter = [
-    "€",
-    "kr.",
-    "chf",
-    "sek",
-    "nok",
-    "dkk",
-    "лв.",
-    "RON",
-  ].includes(symbol);
+  const symbolAfter = ["€", "kr.", "sek", "nok", "dkk", "лв.", "RON"].includes(
+    symbol,
+  );
 
   return symbolAfter
     ? `${negativeSign}${absolutePrice}\u00A0${symbol}`

@@ -8,7 +8,7 @@ if [ "$ECOSYSTEM_SKIP_HOOKS" != "true" ] && [ -z "$CI" ]; then
     else
         gitleaks git --pre-commit --redact --staged --verbose
     fi
-    pnpm exec nx affected --target=pre-commit --base=HEAD
+    NX_TUI=false pnpm exec nx affected --target=pre-commit --base=HEAD
     pnpm exec lint-staged --relative
 fi
 

@@ -1,7 +1,8 @@
 import { createStore } from "zustand/vanilla";
 
+import type { MetaActivity } from "@bsport/api-book";
+import { getTodayJSDate } from "@bsport/datetime-manipulation";
 import { bindStore } from "@bsport/store-base";
-import type { MetaActivity } from "@bsport/store-booking-group-activity";
 
 import type { SessionCreate, SessionCreationFormData } from "./types";
 
@@ -28,6 +29,13 @@ export const DEFAULT_CONFIGURE_SESSION_FORM_DATA = {
   name_override: "",
   description_override: "",
   manager_only: false,
+  credits: 1,
+  waiting_list_max_size: 0,
+  effectif: 0,
+  available_on_partnership: false,
+  partner_max_booking_count: 0,
+  startDateTime: getTodayJSDate(),
+  duration_minute: 60,
 };
 
 export const DEFAULT_ADVANCED_OPTIONS_FORM_DATA = {};

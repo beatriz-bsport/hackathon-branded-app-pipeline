@@ -27,7 +27,7 @@
     }
   },
   "overviewPage": {
-    "loading": "Loading sold Packs",
+    "loading": "Loading sold packs",
     "emptyList": {
       "title": "No packs sold yet",
       "subtitle": "Once a member buys a pack, they'll be displayed here."
@@ -96,7 +96,7 @@
       "title": "Contents",
       "description": "Add a pass, appointment pass, or product to build your pack",
       "card": {
-        "placeholder": "Add at least one item in your Pack"
+        "placeholder": "Add at least one item in your pack"
       },
       "itemVariants": {
         "passes": "Passes",
@@ -115,7 +115,7 @@
       "title": "Advanced",
       "tagsSelector": {
         "title": "Tag(s) after purchase",
-        "helperText": "Add tags to identify which member bought this Pack.",
+        "helperText": "Add tags to identify which member bought this pack.",
         "placeholder": "Add tags..."
       }
     },
@@ -160,7 +160,7 @@
           "hidden": {
             "shortTitle": "Unlisted",
             "fullTitle": "Unlisted on Member Area",
-            "description": "Your pack won't be listed on the Member Area but can be shared with a link or purchased via the BackOffice."
+            "description": "Your pack won't be listed on the Member Area but can be shared with a link or purchased via the Back Office."
           }
         }
       },
@@ -182,8 +182,8 @@
             "helperText": "Members are 'new' as long as they haven't bought an item with a value more than {{ minimalCurrency }}. Even if a member buys an item with a 100% discount, this still counts as a purchase."
           },
           "hideFromStaff": {
-            "label": "Hide from staff members",
-            "helperText": "Staff members will be unable to view or buy this Pack."
+            "label": "Hide from staff",
+            "helperText": "Staff will be unable to view or buy this pack."
           }
         }
       }
@@ -191,7 +191,7 @@
     "requiredField": "This field is required."
   },
   "editNameModal": {
-    "title": "Rename Pack?",
+    "title": "Rename pack?",
     "buttons": {
       "cancel": "Cancel",
       "rename": "Rename"

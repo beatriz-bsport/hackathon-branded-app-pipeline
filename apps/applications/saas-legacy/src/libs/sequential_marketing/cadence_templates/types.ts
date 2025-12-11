@@ -62,7 +62,6 @@ export type ConnectedTriggerData = {
 export type CadenceTemplateEmailDesign = {
   en: number | null;
   fr: number | null;
-  de: number | null;
 };
 
 export type ActionSpecData = {

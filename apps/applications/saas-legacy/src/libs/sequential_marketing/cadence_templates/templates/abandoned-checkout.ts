@@ -28,27 +28,22 @@ const ENTRY_EMAIL_DESIGN_BY_ENV_AND_LANGUAGE: CadenceTemplateEmailDesignMap = {
     // and must be configured for local development
     en: null,
     fr: null,
-    de: null,
   },
   [CoreBackendEnvironment.DEV]: {
     en: 30989,
-    fr: null,
-    de: null,
+    fr: 30990,
   },
   [CoreBackendEnvironment.STAGING]: {
     en: 20336,
-    fr: null,
-    de: null,
+    fr: 20341,
   },
   [CoreBackendEnvironment.PRODUCTION]: {
     en: null,
     fr: null,
-    de: null,
   },
   [FeatureBranchIdentifier.PIKACHU]: {
     en: null,
     fr: null,
-    de: null,
   },
 };
 

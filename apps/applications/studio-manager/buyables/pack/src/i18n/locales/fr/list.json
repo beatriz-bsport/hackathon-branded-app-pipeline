@@ -1,7 +1,7 @@
 {
   "title": "Packs",
   "actions": {
-    "addAPack": "Ajouter un pack"
+    "addAPack": "créer un pack"
   },
   "table": {
     "loading": "Chargement des packs...",
@@ -15,32 +15,37 @@
       "numberOfProducts": "articles",
       "price": "Prix"
     },
+    "values": {
+      "unlisted": "Non répertorié",
+      "hiddenToStaff": "Caché",
+      "limitedTime": "Limité"
+    },
     "tooltips": {
-      "unavailableForUsers": "Ce pack ne sera pas affiché dans l'espace membre",
-      "invisibleForStaff": "Ce pack ne sera pas affiché aux membres du personnel",
-      "availableForALimitedTime": "Ce pack ne sera affiché que pour une durée limitée",
+      "unlisted": "Non répertorié dans l'espace membre",
+      "hiddenToStaff": "Caché aux Membres du personnel",
+      "limitedTime": "Répertorié pour une durée limitée",
       "archive": "Supprimer le Pack"
     }
   },
   "deleteModal": {
     "title": "Supprimer le Pack ?",
     "description": {
-      "effect": "Si vous supprimez {{ name }}, les achats actuels ou précédents ne seront pas affectés.",
-      "canNotBeUndone": "Cette action est irréversible."
+      "effect": "Une fois que vous supprimez {{ name }}, il ne sera plus visible pour les membres. ",
+      "canNotBeUndone": "Tous les Membres qui ont acheté ce pack ne seront pas affectés. "
     },
     "actions": {
-      "cancel": "Fermer",
+      "cancel": "Garder",
       "delete": "Supprimer"
     }
   },
   "toasts": {
     "messageDelete": {
       "success": "Pack supprimé",
-      "error": "Échec de la suppression du pack"
+      "error": "Le pack n'a pas pu être supprimé. Veuillez réessayer. "
     },
     "messageUndo": {
-      "success": "Action annulée",
-      "error": "Échec de l'annulation de l'action"
+      "success": "Modification annulée",
+      "error": "Le changement n'a pas pu être annulé. Veuillez réessayer. "
     },
     "actions": {
       "undo": "Annuler"

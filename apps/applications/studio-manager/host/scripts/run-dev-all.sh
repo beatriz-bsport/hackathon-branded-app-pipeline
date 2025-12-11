@@ -18,7 +18,7 @@ fi
 command()
 {
     if [ "$MODE" = "--build:preview" ]; then
-        echo "pnpm --filter $APPLICATION build:preview > /dev/null 2>&1 && pnpm --filter $APPLICATION preview"
+        echo "pnpm --filter $APPLICATION build:preview > /dev/null && pnpm --filter $APPLICATION preview"
     else 
         echo "pnpm --filter $APPLICATION dev:single"
     fi
@@ -40,7 +40,7 @@ for APPLICATION in $APPLICATIONS; do
         CONCURRENTLY_COMMANDS="$CONCURRENTLY_COMMANDS \"$(command $APPLICATION)\""
     else
         # Redirect output to null for non-host apps
-        CONCURRENTLY_COMMANDS="$CONCURRENTLY_COMMANDS \"$(command $APPLICATION) > /dev/null 2>&1\""
+        CONCURRENTLY_COMMANDS="$CONCURRENTLY_COMMANDS \"$(command $APPLICATION) > /dev/null\""
     fi
 done
 

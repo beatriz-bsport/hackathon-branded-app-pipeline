@@ -19,7 +19,7 @@
     "build"
   ],
   "scripts": {
-    "build": "vite build",
+    "build": "vite build --logLevel warn",
     "build:sentry": "VITE_SENTRY_SEND_ERRORS_IN_LOCAL_DEVELOPMENT=true pnpm run build",
     "clean": "rm -rf build",
     "dev": "vite build --watch",

@@ -23,7 +23,7 @@
     "build"
   ],
   "scripts": {
-    "build": "rimraf build && tsc && cp src/vite.d.ts build/vite.d.ts",
+    "build": "rimraf build > /dev/null && tsc > /dev/null && cp src/vite.d.ts build/vite.d.ts",
     "dev": "tsc --watch",
     "format": "prettier --write '**/*.{ts,tsx,js,jsx,cjs,mjs,scss,css,json,md,mdx,html,svg}'",
     "format:check": "prettier --check '**/*.{ts,tsx,js,jsx,cjs,mjs}'",

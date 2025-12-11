@@ -13,6 +13,7 @@ type CadenceChipProps = {
   toolTipValue?: string;
   withBackgroundOnHover?: boolean;
   disabled?: boolean;
+  autoOverflow?: boolean;
 };
 
 export const CadenceChip: React.FC<CadenceChipProps> = ({
@@ -24,12 +25,14 @@ export const CadenceChip: React.FC<CadenceChipProps> = ({
   toolTipValue,
   withBackgroundOnHover,
   disabled,
+  autoOverflow,
 }) => {
   const classes = useStyles();
 
   return (
     <CustomChip
       blackText
+      autoOverflow={autoOverflow}
       chipClass={clsx(classes.customChip, {
         [classes.clickableChip]: isClickable,
       })}

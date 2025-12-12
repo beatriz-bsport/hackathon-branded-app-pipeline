@@ -16,6 +16,8 @@ import {
   tabletCheckInSignUpStartedEventSchema,
   tabletCheckInSessionClickedEventSchema,
   tabletCheckInCheckinButtonClickedEventSchema,
+  previousSessionClickedEventSchema,
+  nextSessionClickedEventSchema,
 } from './schemas';
 
 export const trackCalendarViewedEvent = generateEvent(
@@ -74,4 +76,12 @@ export const trackTabletCheckInSessionClickedEvent = generateEvent(
 
 export const trackTabletCheckInCheckinButtonClickedEvent = generateEvent(
   tabletCheckInCheckinButtonClickedEventSchema,
+);
+
+export const trackPreviousSessionClickedEvent = generateEvent(
+  previousSessionClickedEventSchema,
+);
+
+export const trackNextSessionClickedEvent = generateEvent(
+  nextSessionClickedEventSchema,
 );

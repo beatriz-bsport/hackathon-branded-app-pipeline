@@ -6,6 +6,7 @@ import {
   Body,
   Button,
   Icon,
+  type Placement,
   Popover,
   RadioGroup,
   type RadioGroupProps,
@@ -19,6 +20,7 @@ import { DEFAULT_FORM_DATA, type PackFormSchema } from "../schema";
 type PackFormVisibilitySelectorProps = {
   fieldIdPrefix: string;
   methods: UseFormControllerOutput<PackFormSchema>;
+  placement?: Placement;
 };
 
 const OPTION_VISIBLE = "visible";
@@ -26,7 +28,7 @@ const OPTION_HIDDEN = "hidden";
 
 export const PackFormVisibilitySelector: React.FC<
   PackFormVisibilitySelectorProps
-> = ({ fieldIdPrefix, methods }) => {
+> = ({ fieldIdPrefix, methods, placement }) => {
   const { t } = useTranslation("details");
 
   const isHidden = methods.watch("manager_only");
@@ -102,7 +104,10 @@ export const PackFormVisibilitySelector: React.FC<
           </>
         )}
       </Popover.Anchor>
-      <Popover.Content placement="bottom-right" className="max-w-[320px]">
+      <Popover.Content
+        placement={placement ?? "bottom-right"}
+        className="max-w-[320px]"
+      >
         {({ setIsPopoverOpened }) => {
           return (
             <FormField<PackFormData, "manager_only", RadioGroupProps>

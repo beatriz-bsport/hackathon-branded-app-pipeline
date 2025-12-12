@@ -3,8 +3,10 @@ import type { FC } from "react";
 import type { UseFormControllerOutput } from "@bsport/form";
 import {
   Button,
-  CopyToClipboard,
+  type ButtonProps,
   DetailsLayout,
+  Tooltip,
+  useCopyToClipboard,
 } from "@bsport/kaizen-primitive-core";
 import type { Pack } from "@bsport/store-buyables-pack";
 
@@ -12,6 +14,19 @@ import type { PackFormSchema } from "#src/components/PackForm/schema";
 import { useDetailsHeaderConfigs } from "#src/hooks/useDetailsHeaderConfigs";
 import { LEGACY_URLS } from "#src/urls";
 import { useTranslation } from "#src/utils/i18n";
+
+const CopyPaymentLinkButton = (props: ButtonProps) => {
+  const { t } = useTranslation("details");
+
+  return (
+    <Tooltip
+      key="pack-details-button-copy-payment-link-with-tooltip"
+      label={t("detailsPage.buttons.copyPaymentLink")}
+    >
+      <Button {...props} />
+    </Tooltip>
+  );
+};
 
 type PackDetailsHeaderProps = {
   methods: UseFormControllerOutput<PackFormSchema>;
@@ -37,39 +52,46 @@ export const PackDetailsHeader: FC<PackDetailsHeaderProps> = ({
     hidden: watch("manager_only"),
   });
 
-  return (
-    <DetailsLayout.Header
-      pageTitle={watch("name")}
-      {...headerConfigs}
-      onEditTitleClick={onEditTitleClick}
-      endGroupActions={[
-        <CopyToClipboard
+  const { copyToClipboard } = useCopyToClipboard({
+    toastMessage: t("detailsPage.toasts.paymentLinkCopied"),
+  });
+
+  const paymentLink = LEGACY_URLS.PAYMENT_LINK({
+    id: pack.id,
+    company: pack.company,
+  });
+
+  /**
+   * ===== ACTIONS =====
+   * ------ Desktop ------
+   * --- Start group actions ---
+   * DELETE
+   * --- End group actions ---
+   * COPY LINK
+   * PANEL
+   *
+   * ------ Mobile ------
+   * --- End group actions ---
+   * DROPDOWN: NAME, COPY LINK, DELETE
+   * PANEL
+   *
+   * --> PANEL is aggregated with the output of endGroupActions
+   */
+  const { endGroupActions, startGroupActions, isMobile } =
+    DetailsLayout.useAdaptiveActions({
+      endGroupActions: [
+        <CopyPaymentLinkButton
           key="pack-details-button-copy-payment-link"
           color="default"
           intent="flat"
           size="md"
           kind="icon-button"
           icon="link-01"
-          toastMessage={t("detailsPage.toasts.paymentLinkCopied")}
-          tooltip={t("detailsPage.buttons.copyPaymentLink")}
           label={t("detailsPage.buttons.copyPaymentLink")}
-          value={LEGACY_URLS.PAYMENT_LINK({
-            id: pack.id,
-            company: pack.company,
-          })}
+          onClick={() => copyToClipboard(paymentLink)}
         />,
-        <Button
-          key="pack-details-button-open-panel"
-          color="default"
-          intent="flat"
-          size="md"
-          kind="icon-button"
-          icon="layout-alt-02"
-          label="button-open-panel"
-          onClick={() => toggleIsPanelOpened()}
-        />,
-      ]}
-      startGroupActions={[
+      ],
+      startGroupActions: [
         <Button
           key="pack-details-button-delete-pack"
           color="default"
@@ -77,10 +99,46 @@ export const PackDetailsHeader: FC<PackDetailsHeaderProps> = ({
           size="md"
           icon="trash-01"
           kind="icon-button"
-          label="button-delete-pack"
+          label={t("detailsPage.buttons.deletePack")}
           onClick={onDeleteClick}
         />,
+      ],
+      mobileOnlyActions: [
+        <Button
+          key="pack-details-button-edit-pack-name"
+          color="default"
+          intent="flat"
+          size="md"
+          icon="edit-02"
+          kind="icon-button"
+          label={t("detailsPage.buttons.renamePack")}
+          onClick={onEditTitleClick}
+        />,
+      ],
+    });
+
+  const panelButtonResponsiveConfig = isMobile
+    ? ({ intent: "default", color: "main" } as const)
+    : ({ color: "default", intent: "flat" } as const);
+
+  return (
+    <DetailsLayout.Header
+      pageTitle={watch("name")}
+      {...headerConfigs}
+      onEditTitleClick={isMobile ? undefined : onEditTitleClick}
+      endGroupActions={[
+        ...endGroupActions,
+        <Button
+          key="pack-details-button-open-panel"
+          size="md"
+          kind="icon-button"
+          icon="layout-alt-02"
+          label="button-open-panel"
+          onClick={() => toggleIsPanelOpened()}
+          {...panelButtonResponsiveConfig}
+        />,
       ]}
+      startGroupActions={startGroupActions}
     />
   );
 };

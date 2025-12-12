@@ -1,6 +1,5 @@
 import { cva } from "class-variance-authority";
 import {
-  type CSSProperties,
   type FC,
   type ForwardRefExoticComponent,
   type HTMLAttributes,
@@ -91,21 +90,19 @@ function Main({
   const { hasUnsavedChanges, isPanelOpened, isMobile } = useLayoutContext();
   // On Mobile, Panel overlaps the Content
   const panelWidth = isPanelOpened && !isMobile ? SIDE_PANEL_WIDTH : 0;
-  const confirmHeight = hasUnsavedChanges ? "auto" : "0fr";
+  const confirmGridHeight = hasUnsavedChanges ? "auto" : "0fr";
 
   return (
     <main
       {...props}
       className={detailsLayout({ className })}
-      style={
-        {
-          overflow: panelWidth ? "hidden" : "auto",
-          "--aside-width": `${panelWidth}px`,
-          "--confirm-height": confirmHeight,
-          gridTemplateColumns: isMobile ? "1fr" : "1fr var(--aside-width)",
-          gridTemplateRows: "auto var(--confirm-height) 1fr",
-        } as CSSProperties
-      }
+      style={{
+        overflow: panelWidth ? "hidden" : "auto",
+        "--aside-width": `${panelWidth}px`,
+        "--confirm-grid-height": confirmGridHeight,
+        gridTemplateColumns: isMobile ? "1fr" : "1fr var(--aside-width)",
+        gridTemplateRows: "auto var(--confirm-grid-height) 1fr",
+      }}
     />
   );
 }
@@ -189,7 +186,8 @@ const detailsLayoutPanel = cva(
         true: [
           "absolute",
           "right-0",
-          "top-0", // placed at top of grid container
+          // placed at top of grid container, but under confirmation
+          "top-[var(--confirm-container-height)]",
           "z-40",
         ],
         false: "",
@@ -223,7 +221,7 @@ const DetailsLayoutPanel: FC<DetailsLayoutPanelProps> = ({
   children,
   ...htmlProps
 }) => {
-  const { isPanelOpened, isMobile } = useLayoutContext();
+  const { isPanelOpened, isMobile, confirmationHeight } = useLayoutContext();
   const isOpenByDevice =
     `${isMobile ? "mobile" : "desktop"}-${isPanelOpened}` as const;
   return (
@@ -235,6 +233,9 @@ const DetailsLayoutPanel: FC<DetailsLayoutPanelProps> = ({
       })}
       aria-hidden={!isPanelOpened}
       {...htmlProps}
+      style={{
+        "--confirm-container-height": `${confirmationHeight}px`,
+      }}
     >
       {children}
     </aside>
@@ -252,7 +253,9 @@ const detailsLayoutConfirmation = cva(
     "border-b-stroke-thin",
     "border-b-stroke-weak",
     "flex",
+    "flex-wrap",
     "items-center",
+    "justify-between",
     "gap-xs",
   ],
   {
@@ -284,7 +287,7 @@ const DetailsLayoutConfirmation: FC<DetailsLayoutConfirmationProps> = ({
   onSave,
   ...htmlProps
 }) => {
-  const { hasUnsavedChanges } = useLayoutContext();
+  const { hasUnsavedChanges, confirmationRef } = useLayoutContext();
   const i18nInstance = useKaizenI18nInstance();
   const { t } = useTranslation("default", { i18n: i18nInstance });
 
@@ -293,6 +296,7 @@ const DetailsLayoutConfirmation: FC<DetailsLayoutConfirmationProps> = ({
       className={detailsLayoutConfirmation({ className, hasUnsavedChanges })}
       aria-hidden={!hasUnsavedChanges}
       {...htmlProps}
+      ref={confirmationRef}
     >
       {hasUnsavedChanges && (
         <>
@@ -305,21 +309,23 @@ const DetailsLayoutConfirmation: FC<DetailsLayoutConfirmationProps> = ({
           >
             {t("detailsLayout.confirmation.title")}
           </Body>
-          <Button
-            className="ml-[auto]"
-            label={t("detailsLayout.confirmation.discard")}
-            size="md"
-            intent="flat"
-            color="default"
-            onClick={onDiscard}
-          />
-          <Button
-            label={t("detailsLayout.confirmation.save")}
-            size="md"
-            intent="default"
-            color="main"
-            onClick={onSave}
-          />
+          <div className="flex flex-row items-center grow">
+            <Button
+              className="ml-[auto]"
+              label={t("detailsLayout.confirmation.discard")}
+              size="md"
+              intent="flat"
+              color="default"
+              onClick={onDiscard}
+            />
+            <Button
+              label={t("detailsLayout.confirmation.save")}
+              size="md"
+              intent="default"
+              color="main"
+              onClick={onSave}
+            />
+          </div>
         </>
       )}
     </div>

@@ -12,7 +12,9 @@
     "loading": "Loading pack",
     "canNotFindPack": "Pack not found",
     "buttons": {
-      "copyPaymentLink": "Copy payment link"
+      "copyPaymentLink": "Copy payment link",
+      "renamePack": "Rename pack",
+      "deletePack": "Delete pack"
     },
     "toasts": {
       "paymentLinkCopied": "Link copied"

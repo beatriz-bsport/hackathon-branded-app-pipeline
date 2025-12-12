@@ -1,5 +1,6 @@
 import {
   type PropsWithChildren,
+  type RefObject,
   createContext,
   forwardRef,
   useCallback,
@@ -11,6 +12,7 @@ import {
 } from "react";
 
 import { useMatchMedia } from "#src/hooks";
+import { useElementHeight } from "#src/hooks/use-element-height";
 
 export type LayoutProviderRef = {
   toggleHasUnsavedChanges: (value?: boolean) => void;
@@ -21,6 +23,8 @@ type LayoutContextType = {
   hasUnsavedChanges: boolean;
   isPanelOpened: boolean;
   isMobile: boolean;
+  confirmationHeight: number;
+  confirmationRef: RefObject<HTMLDivElement | null>;
 } & LayoutProviderRef;
 
 const LayoutContext = createContext<LayoutContextType | undefined>(undefined);
@@ -30,6 +34,7 @@ type ProviderProps = PropsWithChildren<{ openPanelByDefault?: boolean }>;
 export const LayoutProvider = forwardRef<LayoutProviderRef, ProviderProps>(
   ({ children, openPanelByDefault = false }, ref) => {
     const isMobile = !useMatchMedia("sm");
+    const confirmationRef = useRef<HTMLDivElement | null>(null);
 
     const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
 
@@ -54,6 +59,11 @@ export const LayoutProvider = forwardRef<LayoutProviderRef, ProviderProps>(
       [toggleHasUnsavedChanges, toggleIsPanelOpened],
     );
 
+    const confirmationHeight = useElementHeight({
+      ref: confirmationRef,
+      enabled: isMobile,
+    });
+
     return (
       <LayoutContext.Provider
         value={{
@@ -62,6 +72,8 @@ export const LayoutProvider = forwardRef<LayoutProviderRef, ProviderProps>(
           toggleHasUnsavedChanges,
           toggleIsPanelOpened,
           isMobile,
+          confirmationHeight,
+          confirmationRef,
         }}
       >
         {children}

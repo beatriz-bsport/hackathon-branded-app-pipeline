@@ -5,7 +5,7 @@ import type { ContractTemplateFormValues } from '#src/libs/subscription/types';
 export const PAUSE_RESULT_SUCCESS = 1;
 export const CONTRACT_PAUSE_RESULT_SUCCESS = 2;
 export const PAUSE_NAME_MAX_LENGTH = 150;
-export const CONTRACT_MAX_NB_INTERVAL_ALLOWED = 90;
+export const CONTRACT_MAX_NB_INTERVAL_ALLOWED = 110;
 export const CONTRACT_TEMPLATE_PAGE_SIZE = 10;
 export const SUBSCRIBED_MEMBER_LIST_PAGE_SIZE = 10;
 export const PRIMARY_BLUE_CONTRACT_DETAIL = '#0B79D0';

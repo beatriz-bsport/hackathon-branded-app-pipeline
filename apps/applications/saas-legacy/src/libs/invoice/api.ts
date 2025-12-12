@@ -398,7 +398,7 @@ export async function onboardFiskalyCompany(): Promise<
 }
 
 export async function getLastUploadedSignedAgreement(): Promise<
-  AxiosResponse<{ file: string } | null>
+  AxiosResponse<{ signed_agreement_url: string } | null>
 > {
   return postAuth(
     `${API_V1_URI}/fiskaly-sign-es/fiskaly-sign-es-collaborator-agreement/get_last_uploaded_signed_agreement/`,

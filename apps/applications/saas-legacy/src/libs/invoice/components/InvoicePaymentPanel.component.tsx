@@ -36,7 +36,11 @@ import PaymentListItemV2 from './PaymentListItemV2.component';
 import PlannedPaymentEventListItem from './PlannedPaymentEventListItem.component';
 import PlannedPaymentEventErrorListItem from './PlannedPaymentEventErrorListItem.component';
 
-import { Invoice, InvoiceV1Serializer, PlannedPaymentEvent } from '../types';
+import {
+  InvoiceStatusEnum,
+  InvoiceV1Serializer,
+  PlannedPaymentEvent,
+} from '../types';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 import { OptionCallback } from '../../../state/types';
 
@@ -100,7 +104,7 @@ const PaymentActions: FC<{
   onPaymentIntent: () => void;
   onInstalmentPayment: () => void;
   paymentList: Array<Payment>;
-  invoice: Invoice;
+  invoice: InvoiceV1Serializer;
   consumeBalance?: (options?: OptionCallback) => void;
   onRevert: () => void;
   accountBalanceLoading: boolean;
@@ -234,8 +238,10 @@ const PaymentActions: FC<{
                     </React.Fragment>
                   )}
                   {hasCancelInvoicePermission &&
+                    // Only check should be: status in [DRAFT, OPEN, PAID]
                     !props.invoice.reverse_invoices.length &&
                     !props.invoice.source_invoice &&
+                    props.invoice.status !== InvoiceStatusEnum.VOIDED &&
                     (props.invoice.invoice_type === INVOICE_TYPE_REGULAR ||
                       props.paymentList.filter(
                         (p) => p.payment_engine !== PAYMENT_ENGINE_BSPORT,

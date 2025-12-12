@@ -65,6 +65,21 @@ export type InvoiceState = ErrorAndLoading & {
   };
 };
 
+export enum InvoiceType {
+  REGULAR = 0,
+  REVERSE = 1,
+  EMPTY_PAYMENT_CONTAINER = 2,
+  MIGRATION = 3,
+}
+
+export enum InvoiceStatusEnum {
+  DRAFT = 'draft',
+  OPEN = 'open',
+  PAID = 'paid',
+  VOIDED = 'voided',
+  REFUNDED = 'refunded',
+}
+
 export type Invoice<M = number, PI = number, II = number> = {
   payments: Array<PI>;
   invoice_items: Array<II>;
@@ -141,13 +156,6 @@ export type ConsumerInvoiceComplementary = {
 
 export type ConsumerInvoice = ConsumerInvoiceREST &
   ConsumerInvoiceComplementary;
-
-export enum InvoiceType {
-  REGULAR = 0,
-  REVERSE = 1,
-  EMPTY_PAYMENT_CONTAINER = 2,
-  MIGRATION = 3,
-}
 
 export type PlannedPaymentEvent = {
   id: number;
@@ -321,6 +329,7 @@ export type InvoiceInfoSerializer<PI = number, II = number> = {
 };
 
 export type InvoiceV1Serializer<M = number> = Invoice<M> & {
+  status: InvoiceStatusEnum;
   payment_methods: PaymentMethodSerializer;
   buyable_items: BuyableItemSerializer;
   has_pending_payment: boolean | null;

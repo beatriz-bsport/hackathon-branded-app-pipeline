@@ -15,6 +15,12 @@ import { withStyles } from '@material-ui/core/styles';
 import { withTranslation, TFunction } from 'react-i18next';
 import { DateTime } from 'luxon';
 
+import { analyticsClientB2B } from '../../components/analytics/mixpanel';
+import {
+  trackPreviousSessionClickedEvent,
+  trackNextSessionClickedEvent,
+} from '../../events/booking/trackers';
+
 import { compose } from 'recompose';
 
 const getDateDictionnary = (offer) => {
@@ -35,63 +41,102 @@ type Props = {
   offerLoading: boolean,
   goToCalendar: ({ year: number, month: number, day: number }) => void,
   refresh: () => void,
+  offerMetaActivity: MetaActivity,
 };
 
-export const OfferNavigationHeader = (props: Props) => (
-  <Paper className={props.classes.headerContainer}>
-    <div className={props.classes.titleBanner}>
-      <Button
-        disabled={
-          !props.offer ||
-          props.offer.id !== props.offerId ||
-          !props.offer.previous_offer
-        }
-        onClick={() => props.goToOffer(props.offer.previous_offer)}
-      >
-        <ChevronLeftIcon className={props.classes.leftIcon} />
-        <Hidden xsDown>{props.t('translation:offer.previousOffer')}</Hidden>
-      </Button>
-      <div
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          flexDirection: 'row',
-          justifyContent: 'center',
-        }}
-      >
+export const OfferNavigationHeader = (props: Props) => {
+  const goToOfferTrackingParams = {
+    session_type: props.offerMetaActivity?.is_workshop
+      ? 'workshop'
+      : 'group-activity',
+    is_grouped_session: !!props.offer?.group,
+    meta_activity_id: props.offer?.meta_activity_id,
+    offer_id: props.offer?.id,
+  };
+
+  const goToPreviousOffer = () => {
+    try {
+      analyticsClientB2B.track(
+        trackPreviousSessionClickedEvent(goToOfferTrackingParams),
+      );
+    } catch (error) {
+      console.error('Failed to track previous session clicked event:', {
+        error,
+        offerId: props.offer?.id,
+      });
+    }
+    props.goToOffer(props.offer.previous_offer);
+  };
+
+  const goToNextOffer = () => {
+    try {
+      analyticsClientB2B.track(
+        trackNextSessionClickedEvent(goToOfferTrackingParams),
+      );
+    } catch (error) {
+      console.error('Failed to track next session clicked event:', {
+        error,
+        offerId: props.offer?.id,
+      });
+    }
+    props.goToOffer(props.offer.next_offer);
+  };
+  return (
+    <Paper className={props.classes.headerContainer}>
+      <div className={props.classes.titleBanner}>
         <Button
-          onClick={() => props.goToCalendar(getDateDictionnary(props.offer))}
+          disabled={
+            !props.offer ||
+            props.offer.id !== props.offerId ||
+            !props.offer.previous_offer
+          }
+          onClick={goToPreviousOffer}
         >
-          <TodayIcon className={props.classes.leftIcon} />
-          {props.offer && !props.offerLoading && props.offer.date_start
-            ? DateTime.fromISO(props.offer.date_start)
-                .setZone(props.offer.timezone_name || 'Europe/Paris')
-                .toFormat('DDDD t')
-            : ''}
+          <ChevronLeftIcon className={props.classes.leftIcon} />
+          <Hidden xsDown>{props.t('translation:offer.previousOffer')}</Hidden>
         </Button>
-        {props.bookingLoading ? (
-          <CircularProgress size={16} />
-        ) : (
-          <IconButton onClick={props.refresh}>
-            <RefreshIcon />
-          </IconButton>
-        )}
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            flexDirection: 'row',
+            justifyContent: 'center',
+          }}
+        >
+          <Button
+            onClick={() => props.goToCalendar(getDateDictionnary(props.offer))}
+          >
+            <TodayIcon className={props.classes.leftIcon} />
+            {props.offer && !props.offerLoading && props.offer.date_start
+              ? DateTime.fromISO(props.offer.date_start)
+                  .setZone(props.offer.timezone_name || 'Europe/Paris')
+                  .toFormat('DDDD t')
+              : ''}
+          </Button>
+          {props.bookingLoading ? (
+            <CircularProgress size={16} />
+          ) : (
+            <IconButton onClick={props.refresh}>
+              <RefreshIcon />
+            </IconButton>
+          )}
+        </div>
+        <Button
+          disabled={
+            !props.offer ||
+            props.offer.id !== props.offerId ||
+            !props.offer.next_offer
+          }
+          onClick={goToNextOffer}
+        >
+          <Hidden xsDown>{props.t('translation:offer.nextOffer')}</Hidden>
+          <ChevronRightIcon className={props.classes.rightIcon} />
+        </Button>
       </div>
-      <Button
-        disabled={
-          !props.offer ||
-          props.offer.id !== props.offerId ||
-          !props.offer.next_offer
-        }
-        onClick={() => props.goToOffer(props.offer.next_offer)}
-      >
-        <Hidden xsDown>{props.t('translation:offer.nextOffer')}</Hidden>
-        <ChevronRightIcon className={props.classes.rightIcon} />
-      </Button>
-    </div>
-    {props.loading ? <LinearProgress /> : null}
-  </Paper>
-);
+      {props.loading ? <LinearProgress /> : null}
+    </Paper>
+  );
+};
 
 const styles = (theme) => ({
   leftIcon: {

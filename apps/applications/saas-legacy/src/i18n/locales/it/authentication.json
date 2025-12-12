@@ -10,7 +10,7 @@
     "noEmail": "Questo indirizzo e-mail non è presente nel nostro database.",
     "explain1": "Qual era l'indirizzo e-mail?",
     "explain2": "Ti invieremo le istruzioni per il recupero",
-    "emailHasBeenSent": "È stata inviata un'email a {{email}} per recuperare la password",
+    "emailHasBeenSent": "Se questa email esiste, invieremo un messaggio a {{email}}.",
     "contactUs": "Contattaci tramite ",
     "hasProblem": "Hai un problema con il reset?"
   }

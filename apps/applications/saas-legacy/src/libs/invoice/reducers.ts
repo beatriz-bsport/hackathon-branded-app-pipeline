@@ -741,11 +741,11 @@ export default handleActions<Immutable.Immutable<InvoiceState>, any>(
     },
     [getLastUploadedSignedAgreementActions.success.toString()]: (
       state,
-      { payload }: { payload: { file: string } | null },
+      { payload }: { payload: { signed_agreement_url: string } | null },
     ) => {
       return state.setIn(
         ['fiskalyOnboarding', 'signedAgreementFile'],
-        payload?.file || null,
+        payload?.signed_agreement_url || null,
       );
     },
     [uploadSignedAgreementActions.isLoading.toString()]: (

@@ -1470,13 +1470,13 @@ export const getLastUploadedSignedAgreementActions = {
   error: createAction<Error | null>(
     'FISKALY_ONBOARDING/GET_LAST_UPLOADED_AGREEMENT/ERROR',
   ),
-  success: createAction<{ file: string } | null>(
+  success: createAction<{ signed_agreement_url: string } | null>(
     'FISKALY_ONBOARDING/GET_LAST_UPLOADED_AGREEMENT/SUCCESS',
   ),
 };
 
 export function getLastUploadedSignedAgreement(
-  options?: OptionCallback<{ file: string } | null>,
+  options?: OptionCallback<{ signed_agreement_url: string } | null>,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(getLastUploadedSignedAgreementActions.isLoading(true));

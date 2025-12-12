@@ -74,7 +74,9 @@ export const useVerifactuOnboardingStatus = () => {
             dispatch(
               getLastUploadedSignedAgreement({
                 onSuccess: (agreementData) => {
-                  setSignedAgreementFile(agreementData?.file || null);
+                  setSignedAgreementFile(
+                    agreementData?.signed_agreement_url || null,
+                  );
                   setIsLoadingSignedAgreement(false);
                 },
                 onError: () => {

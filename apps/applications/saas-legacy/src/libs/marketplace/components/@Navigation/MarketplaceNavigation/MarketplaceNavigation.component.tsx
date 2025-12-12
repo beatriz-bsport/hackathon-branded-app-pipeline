@@ -67,10 +67,6 @@ type Props = {
   tabConfigList: MarketplaceTabConfig[];
   memberRelationshipList: MemberMinimal[];
   isAuthStateError: boolean;
-  authStateInvalidFields: {
-    email?: string;
-    password?: string;
-  };
   authStateLoading: boolean;
   franchisor?: Franchise;
   memberFirstName: string;
@@ -104,7 +100,6 @@ const MarketplaceNavigation: React.FC<Props> = ({
   basketProductListCount,
   tabConfigList,
   isAuthStateError,
-  authStateInvalidFields,
   authStateLoading,
   franchisor,
   memberFirstName,
@@ -308,7 +303,6 @@ const MarketplaceNavigation: React.FC<Props> = ({
                   logoHidden
                   doEmailLogin={handleEmailLogin}
                   error={isAuthStateError}
-                  errorFields={authStateInvalidFields}
                   franchisor={franchisor}
                   loading={authStateLoading}
                   onRequestResetPassword={onRequestResetPassword}

@@ -26,7 +26,6 @@ const initialState = Immutable({
   is_consumer: true,
   is_franchisor: false,
   initializating: false,
-  invalidFields: null,
   has_completed_account_configuration_on_boarding: false,
   email_confirmed: null,
   role: null,
@@ -212,7 +211,6 @@ export default function authReducers(state = initialState, action = {}) {
         .set('token', '')
         .set('authenticated', false)
         .set('error', true)
-        .set('invalidFields', action.invalidFields)
         .set('loading', false);
 
     case actionTypes.CHECK_EMAIL_EXISTS_LOADING:

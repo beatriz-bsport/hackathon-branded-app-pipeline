@@ -16,7 +16,7 @@
   "error": {
     "invalidPassword": "Invalid password",
     "invalidEmail": "This email does not exist in our database",
-    "authError": "Email or password wrong"
+    "authError": "Invalid email or password"
   },
   "actions": {
     "forgottenPassword": "Forgot your password?",

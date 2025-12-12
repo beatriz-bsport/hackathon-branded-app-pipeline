@@ -155,7 +155,6 @@ export type AuthState = {
   has_completed_account_configuration_on_boarding: boolean;
   has_enabled_revamped_backoffice: boolean;
   initializating: boolean;
-  invalidFields: { email?: string; password?: string } | null;
   is_coach: boolean;
   is_consumer: boolean;
   is_franchisor: boolean;

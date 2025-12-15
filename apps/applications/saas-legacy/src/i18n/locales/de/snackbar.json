@@ -116,6 +116,9 @@
     "update": {
       "error": "Fehler bei der Änderung",
       "success": "Standardregel geändert"
+    },
+    "errors": {
+      "cannotHaveSeveralPaymentRulesWithSameName": "Jede Vergütungsregel muss einen eindeutigen Namen haben."
     }
   },
   "relationship": {

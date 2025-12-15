@@ -178,5 +178,8 @@
     }
   },
   "simulate": "Simulare",
-  "privateSlotLabel": "Appuntamento"
+  "privateSlotLabel": "Appuntamento",
+  "errors": {
+    "cannotHaveSeveralPaymentRulesWithSameName": "Ogni regola di retribuzione deve avere un nome univoco."
+  }
 }

@@ -17,6 +17,7 @@ export type Urls = {
   // Group 4
   // --- Memberships ---
   pass: string;
+  appointmentPass: string;
   subscription: string;
   // --- Products ---
   webshop: string; // Root path for the Webshop Application
@@ -26,6 +27,7 @@ export type Urls = {
   pack: string;
   giftcard: string;
   video: string;
+  playlist: string; // Tab on video app
   order: string;
   // Group 5
   // --- Marketing ---
@@ -48,10 +50,12 @@ export type Urls = {
   // Group 8
   // --- Members Hub ---
   member: string;
+  performanceTracking: string;
   customForm: string;
   tag: string;
   // --- My Studio ---
   teacher: string;
+  substitution: string;
   establishment: string;
   // Menu
   search: string;
@@ -80,16 +84,10 @@ export type Urls = {
   settings_activeCampaign: string;
   settings_referral: string;
   settings_bsportSubscription: string;
-
-  // Missing in new Navigation Sidebar
-  settings_mobilePersonalization: string;
   settings_quickbook: string;
   settings_quicksale: string;
   settings_webshop: string;
-  appointmentPass: string;
-  performanceTracking: string;
-  playlist: string; // Tab on video app
-  substitution: string;
+  settings_mobilePersonalization: string;
 };
 
 export type LegacyUrls = Omit<Urls, "payout" | "homepage">;

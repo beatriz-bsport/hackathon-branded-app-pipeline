@@ -5,7 +5,7 @@ import { InsightDetailLayout } from "#src/components/InsightDetailLayout";
 import { DASHBOARD_TYPES } from "#src/constants";
 import { usePresignedUrl } from "#src/hooks/api";
 import { useTranslation } from "#src/utils/i18n";
-import { useRecurringPermission } from "#src/utils/permissions";
+import { useHasSubscriptionInvoicesPermission } from "#src/utils/permissions";
 
 /**
  * Recurring Revenue dashboard page.
@@ -14,7 +14,8 @@ import { useRecurringPermission } from "#src/utils/permissions";
  */
 const RecurringRevenuePage = () => {
   const { t } = useTranslation("insights");
-  const hasPermission = useRecurringPermission();
+  const { hasPermission, isLoading: isLoadingPermission } =
+    useHasSubscriptionInvoicesPermission();
   const {
     iframeUrl,
     isLoading: isLoadingUrl,
@@ -22,6 +23,15 @@ const RecurringRevenuePage = () => {
   } = usePresignedUrl(DASHBOARD_TYPES.RECURRING_REVENUE);
 
   const pageTitle = t("pages.recurringRevenue.title");
+
+  // Wait for permissions to load before redirecting
+  if (isLoadingPermission) {
+    return (
+      <InsightDetailLayout title={pageTitle} isLoading={true} error={null}>
+        {null}
+      </InsightDetailLayout>
+    );
+  }
 
   // Redirect if no permission
   if (!hasPermission) {

@@ -1,6 +1,5 @@
 import { INSIGHT_ITEMS, INSIGHT_SECTIONS } from "#src/constants";
 import type { TFunction } from "#src/utils/i18n";
-import { type InsightPermissions } from "#src/utils/permissions";
 
 export interface InsightRow {
   id: string;
@@ -16,22 +15,23 @@ export interface InsightRow {
  */
 export const createInsightRows = (
   t: TFunction,
-  permissions: InsightPermissions,
+  hasSubscriptionInvoicesPermission: boolean,
   isTrialAnalysisEnabled: boolean,
+  hasBookingsPermission: boolean,
+  isScheduleAnalysisEnabled: boolean,
 ): InsightRow[] => {
-  // Hide all insights if user has no permissions at all
-  if (!Object.values(permissions).some(Boolean)) {
-    return [];
-  }
-
   return INSIGHT_ITEMS.filter((item) => {
-    if (!permissions[item.id]) {
-      return false;
+    // Filter out trial analysis if feature flag is disabled or no subscription permission
+    if (item.id === "trial") {
+      return hasSubscriptionInvoicesPermission && isTrialAnalysisEnabled;
     }
-
-    // Filter out trial analysis if feature flag is disabled
-    if (item.id === "trial" && !isTrialAnalysisEnabled) {
-      return false;
+    // Filter out recurring revenue if no subscription permission
+    if (item.id === "recurring") {
+      return hasSubscriptionInvoicesPermission;
+    }
+    // Filter out schedule analysis if feature flag is disabled or no bookings permission
+    if (item.id === "schedule") {
+      return hasBookingsPermission && isScheduleAnalysisEnabled;
     }
 
     return true;

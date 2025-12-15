@@ -10,12 +10,15 @@ import {
 
 /**
  * Generic hook to check object-level permissions
- * Returns boolean indicating if user has the permission
+ * Returns an object with hasPermission (boolean) and isLoading (boolean)
  */
 export const useObjectLevelPermission = (
   path: DeepKeys<ObjectLevelPermissions>,
-): boolean => {
+): { hasPermission: boolean; isLoading: boolean } => {
   const userRole = dataAccessLayer.useUserRole();
+
+  // If userRole is undefined, permissions are still loading
+  const isLoading = userRole === undefined;
 
   const hasPermission = checkHasPermission<
     WithSignature<ObjectLevelPermissions>
@@ -24,40 +27,33 @@ export const useObjectLevelPermission = (
     path,
   });
 
-  return hasPermission;
+  return { hasPermission, isLoading };
 };
 
 /**
- * Maps each insight to its required permission path(s)
+ * Checks if the user has permission to view subscription invoices reports
+ * This determines if the Recurring Revenue insight page should be accessible
+ * Returns an object with hasPermission (boolean) and isLoading (boolean)
  */
-const INSIGHT_PERMISSIONS: { [key: string]: DeepKeys<ObjectLevelPermissions> } =
-  {
-    trial: "report.Payments.invoices.allowed_actions.read",
-    recurring: "report.Club.subscription.allowed_actions.read",
-  } as const;
-
-export type InsightId = keyof typeof INSIGHT_PERMISSIONS;
-export type InsightPermissions = Record<InsightId, boolean>;
+export const useHasSubscriptionInvoicesPermission = (): {
+  hasPermission: boolean;
+  isLoading: boolean;
+} => {
+  return useObjectLevelPermission(
+    "report.Club.subscription.allowed_actions.read",
+  );
+};
 
 /**
- * Hook to check if user has permission to view trial insights
+ * Checks if the user has permission to view bookings reports (group sessions)
+ * This determines if the Schedule Analysis insight page should be accessible
+ * Returns an object with hasPermission (boolean) and isLoading (boolean)
  */
-export const useTrialPermission = () =>
-  useObjectLevelPermission(INSIGHT_PERMISSIONS.trial);
-
-/**
- * Hook to check if user has permission to view recurring revenue insights
- */
-export const useRecurringPermission = () =>
-  useObjectLevelPermission(INSIGHT_PERMISSIONS.recurring);
-
-/**
- * Hook that returns permission state for all insights
- * Returns simple object: { trial: boolean, recurring: boolean }
- */
-export const useInsightPermissions = () => {
-  const trial = useTrialPermission();
-  const recurring = useRecurringPermission();
-
-  return { trial, recurring };
+export const useHasBookingsPermission = (): {
+  hasPermission: boolean;
+  isLoading: boolean;
+} => {
+  return useObjectLevelPermission(
+    "report.Bookings.bookings.allowed_actions.read",
+  );
 };

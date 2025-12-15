@@ -15,6 +15,10 @@
     "recurring": {
       "title": "Subscriptions Performance",
       "description": "Track health of subscriptions, analyse recurring revenue, and spot risks or opportunities"
+    },
+    "schedule": {
+      "title": "Schedule",
+      "description": "Analyse studio management and schedule performance to optimize your group sessions"
     }
   },
   "pages": {
@@ -23,6 +27,9 @@
     },
     "recurringRevenue": {
       "title": "Subscriptions Performance"
+    },
+    "scheduleAnalysis": {
+      "title": "Schedule"
     }
   },
   "errors": {

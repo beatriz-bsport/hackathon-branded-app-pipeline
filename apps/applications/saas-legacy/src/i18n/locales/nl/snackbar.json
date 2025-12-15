@@ -347,6 +347,9 @@
     "delete": {
       "error": "Fout bij verwijderen",
       "success": "Regel verwijderd"
+    },
+    "errors": {
+      "cannotHaveSeveralPaymentRulesWithSameName": "Elke payroll-regel moet een unieke naam hebben."
     }
   },
   "email": {

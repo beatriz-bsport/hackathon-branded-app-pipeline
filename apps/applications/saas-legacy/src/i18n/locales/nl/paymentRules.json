@@ -178,8 +178,5 @@
   },
   "search": "(Optioneel) Een payroll-regel toevoegen",
   "simulate": "Simuleer",
-  "privateSlotLabel": "Afspraken",
-  "errors": {
-    "cannotHaveSeveralPaymentRulesWithSameName": "Elke payroll-regel moet een unieke naam hebben."
-  }
+  "privateSlotLabel": "Afspraken"
 }

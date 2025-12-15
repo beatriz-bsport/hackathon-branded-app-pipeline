@@ -1070,6 +1070,9 @@
     "update": {
       "success": "Regra por defeito alterada",
       "error": "Erro durante a alteração"
+    },
+    "errors": {
+      "cannotHaveSeveralPaymentRulesWithSameName": "Cada regra de remuneração deve ter um nome único."
     }
   },
   "giftCard": {

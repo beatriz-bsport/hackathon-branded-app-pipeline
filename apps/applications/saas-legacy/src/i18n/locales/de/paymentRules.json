@@ -151,7 +151,7 @@
     "subtitle": {
       "helper": "Sie können Ihre Vergütungsregeln für Tätigkeiten, Workshops und Termine zusammenfassen. Wenn Sie eine Lehrkraft zu einer Gruppe hinzufügen, werden alle Vergütungsregeln der Gruppe automatisch auf die Lehrkraft angewendet. Alle Änderungen an der Gruppe werden auch für alle Lehrkräfte der Gruppe übernommen.",
       "default": "Standard-Lohnabrechungsregeln",
-      "specfic_private_slot": "Besondere Vergütung für eine Ernennung",
+      "specfic_private_slot": "Lohnabrechnungsregel für Termine",
       "coaches": "Assoziierte Professoren",
       "removed_coaches": "Entfernte Lehrer"
     },

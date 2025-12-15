@@ -1,10 +1,9 @@
-Analyze:
+Analyze:Core:
+  extends:
+    - .ci-runner-xlarge # 8 vCPU, 16GB RAM
   stage: analyze
   before_script: !reference [.pnpm-setup, before_script]
   interruptible: true
-  tags:
-    - build-frontend
-    - cluster:bsport-tooling
   rules:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
   script:
@@ -30,19 +29,6 @@ Analyze:
     - pnpm exec nx affected --target=test --base=origin/$NX_BASE --exclude='*,!tag:execute:unit-tests'
     - echo "✅ federation-config tests have been executed if affected"
     - echo "*"
-    - echo "⏳ Lint ichizen affected projects"
-    - pnpm exec nx affected --target=lint --base=origin/$NX_BASE
-    - echo "✅ All ichizen affected projects have been linted"
-    - echo "*"
-    - echo "⏳ Check that affected files are formatted correctly"
-    - pnpm exec nx affected --target=pretty,format:check --base=origin/$NX_BASE
-    - pnpm exec prettier --check package.json
-    - echo "✅ All affected projects are well formated"
-    - echo "*"
-    - echo "⏳ Lint legacy affected projects"
-    - pnpm exec nx affected --target=lint-old --base=origin/$NX_BASE
-    - echo "✅ All legacy affected projetcs have been linted"
-    - echo "*"
     - echo "⏳ Check translations files have been commited"
     - SAAS_LEGACY_AFFECTED=$(echo $(echo "$AFFECTED_PROJECTS" | grep '@bsport/saas-legacy' | wc -l | tr -d ' '))
     - |
@@ -58,6 +44,30 @@ Analyze:
         exit 1
       fi
     - echo "✅ All translations have been managed as expected"
+
+Analyze:LintFormat:
+  extends:
+    - .ci-runner-large-highcpu # 8 vCPU, 8GB RAM
+  stage: analyze
+  before_script: !reference [.pnpm-setup, before_script]
+  interruptible: true
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+  script:
+    - NX_BASE=$CI_MERGE_REQUEST_TARGET_BRANCH_NAME
+    - git fetch origin $NX_BASE
+    - echo "⏳ Lint ichizen affected projects"
+    - pnpm exec nx affected --target=lint --base=origin/$NX_BASE
+    - echo "✅ All ichizen affected projects have been linted"
+    - echo "*"
+    - echo "⏳ Check that affected files are formatted correctly"
+    - pnpm exec nx affected --target=pretty,format:check --base=origin/$NX_BASE
+    - pnpm exec prettier --check package.json
+    - echo "✅ All affected projects are well formatted"
+    - echo "*"
+    - echo "⏳ Lint legacy affected projects"
+    - pnpm exec nx affected --target=lint-old --base=origin/$NX_BASE
+    - echo "✅ All legacy affected projects have been linted"
 
 # Run gitleaks secret detection on changed files only
 gitleaks:

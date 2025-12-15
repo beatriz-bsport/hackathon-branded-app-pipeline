@@ -249,6 +249,9 @@
     "delete": {
       "error": "Erreur lors de la suppression",
       "success": "Règle supprimée"
+    },
+    "errors": {
+      "cannotHaveSeveralPaymentRulesWithSameName": "Chaque règle de rémunération doit avoir un nom unique."
     }
   },
   "paymentRuleGroups": {

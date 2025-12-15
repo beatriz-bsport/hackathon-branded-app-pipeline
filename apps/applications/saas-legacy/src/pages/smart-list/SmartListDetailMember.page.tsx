@@ -88,6 +88,7 @@ import {
   deleteCommunicationScheduled as deleteCommunicationScheduledAction,
   fetchSmartListPopupSendings,
   sendSmartListPopup,
+  deleteSmartListPopup,
 } from '#src/libs/communication-v2/actions';
 import type { CommunicationScheduled } from '#src/libs/communication-v2/types';
 
@@ -499,6 +500,7 @@ export class SmartListDetailMember extends React.Component<Props, State> {
           customForms={this.props.customForms}
           customLevels={this.props.customLevels}
           deleteFilter={this.deleteFilter}
+          deleteSmartListPopup={this.props.deleteSmartListPopup}
           editCommunicationScheduled={
             this.openCommunicationScheduledEditionDialog
           }
@@ -896,6 +898,7 @@ const connector = connect(
     // START-UP POP-UP
     fetchSmartListPopupSendings,
     sendSmartListPopup,
+    deleteSmartListPopup,
 
     // CADENCES
     fetchCadencesUsingSmartlist,
@@ -1000,6 +1003,18 @@ const mapWithHandlers = {
       props.sendSmartListPopup(param.values, {
         ...param.options,
         onBackgroundSuccess: async () => {
+          await props.fetchSmartListPopupSendings({
+            smartlist_id: props.id,
+          });
+        },
+      });
+    },
+  deleteSmartListPopup:
+    (props: OwnAndConnectedProps) =>
+    async (customAppPopupLinkId: number, options?: OptionCallback) => {
+      props.deleteSmartListPopup(customAppPopupLinkId, {
+        ...options,
+        onSuccess: async () => {
           await props.fetchSmartListPopupSendings({
             smartlist_id: props.id,
           });

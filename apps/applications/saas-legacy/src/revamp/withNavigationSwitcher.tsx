@@ -40,6 +40,8 @@ export function withNavigationSwitcher(
                 style: {
                   zIndex: COMPATIBILITY_Z_INDEX,
                 },
+                disableEnforceFocus: true,
+                disableAutoFocus: true,
               }}
               onClose={props.handleDrawerToggle}
               open={props.mobileOpen}

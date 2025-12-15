@@ -68,7 +68,7 @@ const CadenceNodeContent: React.FC<CadenceNodeContentProps> = ({
 
   return (
     <div className={classes.container}>
-      {marketingActionList?.length > 0 && (
+      {marketingActionList && marketingActionList?.length > 0 && (
         <div className={classes.chipSection}>
           {marketingActionList.map(
             (marketingAction) =>

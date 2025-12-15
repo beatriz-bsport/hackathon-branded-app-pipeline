@@ -1,10 +1,10 @@
 import { HTTPException } from "@bsport/http-exception";
 
+import { getFullUri } from "./uri-management";
 import {
   BACKGROUND_TASK_UUID_HEADER,
   type ResponseType,
   getCustomErrorCodes,
-  getFullUri,
   getHeaders,
   getMessage,
 } from "./utils";

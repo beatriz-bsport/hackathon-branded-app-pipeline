@@ -57,16 +57,24 @@ const InsightsIndex: React.FC = () => {
   };
 
   return (
-    <ObjectLevelPermissionProvider requiredPermission="report.Club.subscription.allowed_actions.read">
-      {(hasSubscriptionReportPermission: boolean) => {
-        // Return empty content if user doesn't have permission to view subscription reports
-        if (!hasSubscriptionReportPermission) {
+    <ObjectLevelPermissionProvider
+      requiredPermission={[
+        'report.Payments.invoices.allowed_actions.read',
+        'report.Club.subscription.allowed_actions.read',
+      ]}
+    >
+      {([
+        hasInvoicesReportPermission,
+        hasSubscriptionReportPermission,
+      ]: boolean[]) => {
+        // Hide entire Insights page if user has neither permission
+        if (!hasInvoicesReportPermission && !hasSubscriptionReportPermission) {
           return <div className={classes.pageContainer}></div>;
         }
 
         return (
           <div className={classes.pageContainer}>
-            {isTrialAnalysisEnabled && (
+            {isTrialAnalysisEnabled && hasInvoicesReportPermission && (
               <div className={classes.titleContainer}>
                 <Typography component="h2" variant="h5">
                   {t('sections.memberInsights')}
@@ -90,29 +98,31 @@ const InsightsIndex: React.FC = () => {
               </div>
             )}
 
-            <div className={classes.titleContainer}>
-              <Typography component="h2" variant="h5">
-                {t('sections.financialHealth')}
-              </Typography>
-              <Divider className={classes.divider} />
-              <div className={classes.sectionItemContainer}>
-                <Card className={classes.card} variant="outlined">
-                  <CardActionArea
-                    className={classes.cardActionArea}
-                    onClick={handleGoToReport(
-                      INSIGHTS_ROUTES.RECURRING_REVENUE,
-                    )}
-                  >
-                    <Typography color="textPrimary" variant="body1">
-                      {t('monitorRevenue.title')}
-                    </Typography>
-                    <Typography color="textSecondary" variant="body2">
-                      {t('monitorRevenue.description')}
-                    </Typography>
-                  </CardActionArea>
-                </Card>
+            {hasSubscriptionReportPermission && (
+              <div className={classes.titleContainer}>
+                <Typography component="h2" variant="h5">
+                  {t('sections.financialHealth')}
+                </Typography>
+                <Divider className={classes.divider} />
+                <div className={classes.sectionItemContainer}>
+                  <Card className={classes.card} variant="outlined">
+                    <CardActionArea
+                      className={classes.cardActionArea}
+                      onClick={handleGoToReport(
+                        INSIGHTS_ROUTES.RECURRING_REVENUE,
+                      )}
+                    >
+                      <Typography color="textPrimary" variant="body1">
+                        {t('monitorRevenue.title')}
+                      </Typography>
+                      <Typography color="textSecondary" variant="body2">
+                        {t('monitorRevenue.description')}
+                      </Typography>
+                    </CardActionArea>
+                  </Card>
+                </div>
               </div>
-            </div>
+            )}
           </div>
         );
       }}

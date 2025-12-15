@@ -14,6 +14,10 @@ import {
   barcodeScanToggledEventSchema,
   barcodeScanSuccessEventSchema,
   tabletCheckInSignUpStartedEventSchema,
+  tabletCheckInSessionClickedEventSchema,
+  tabletCheckInCheckinButtonClickedEventSchema,
+  previousSessionClickedEventSchema,
+  nextSessionClickedEventSchema,
 } from './schemas';
 
 export const trackCalendarViewedEvent = generateEvent(
@@ -64,4 +68,20 @@ export const trackBarcodeScanSuccessEvent = generateEvent(
 
 export const trackTabletCheckInSignUpStartedEvent = generateEvent(
   tabletCheckInSignUpStartedEventSchema,
+);
+
+export const trackTabletCheckInSessionClickedEvent = generateEvent(
+  tabletCheckInSessionClickedEventSchema,
+);
+
+export const trackTabletCheckInCheckinButtonClickedEvent = generateEvent(
+  tabletCheckInCheckinButtonClickedEventSchema,
+);
+
+export const trackPreviousSessionClickedEvent = generateEvent(
+  previousSessionClickedEventSchema,
+);
+
+export const trackNextSessionClickedEvent = generateEvent(
+  nextSessionClickedEventSchema,
 );

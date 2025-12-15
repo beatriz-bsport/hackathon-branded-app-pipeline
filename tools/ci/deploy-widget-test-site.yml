@@ -3,9 +3,6 @@ Deploy Widget Test Site:
   stage: deploy
   interruptible: true
   allow_failure: true
-  tags:
-    - build-frontend
-    - cluster:bsport-tooling
   script:
     - echo "Deploying widget test site to https://bsport.gitlab.io/ichizen/..."
   pages:

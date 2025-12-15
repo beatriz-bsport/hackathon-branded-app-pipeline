@@ -9,7 +9,7 @@
     "./styles": "./dist/assets/style.css"
   },
   "scripts": {
-    "build": "tsc && vite build",
+    "build": "tsc && vite build --logLevel warn",
     "build:compat": "vite build --mode compat",
     "build:preview": "vite build --mode preview",
     "ci:compile": "tsc --noEmit",
@@ -57,6 +57,20 @@
       "./NavigationSidebar": "./src/components/NavigationSidebar",
       "./urls": "./src/urls",
       "./BridgedSidebar": "./src/components/BridgedSidebar"
+    }
+  },
+  "nx": {
+    "tags": [
+      "application:revamp",
+      "scope:studio"
+    ],
+    "targets": {
+      "build": {
+        "dependsOn": [
+          "^build",
+          "translation:update"
+        ]
+      }
     }
   }
 }

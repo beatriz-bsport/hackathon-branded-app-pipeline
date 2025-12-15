@@ -78,6 +78,11 @@ import { AudienceUpgradeTrialDialogType } from './free_trial';
 
 import { ERROR_CADENCE_FREE_TRIAL_QUOTA_REACHED } from './errors';
 
+import {
+  CADENCE_TEMPLATE_CARD_WIDTH,
+  CADENCE_TEMPLATE_IMAGE_HEIGHT,
+} from './templates';
+
 export {
   // EVENT
   EventsCategory,
@@ -146,4 +151,7 @@ export {
   AudienceUpgradeTrialDialogType,
   // ERRORS
   ERROR_CADENCE_FREE_TRIAL_QUOTA_REACHED,
+  // TEMPLATES
+  CADENCE_TEMPLATE_CARD_WIDTH,
+  CADENCE_TEMPLATE_IMAGE_HEIGHT,
 };

@@ -6,7 +6,7 @@
     "explain2": "Nous vous enverrons des instructions de récupération.",
     "hasProblem": "Vous rencontrez un problème pour réinitialiser ?",
     "contactUs": "Contactez nous via ",
-    "emailHasBeenSent": "Un email a été envoyé à {{email}} pour récupérer votre mot de passe",
+    "emailHasBeenSent": "Si cet e-mail existe, nous enverrons un message à {{email}}.",
     "actions": {
       "cancel": "Annuler",
       "reset": "OK",

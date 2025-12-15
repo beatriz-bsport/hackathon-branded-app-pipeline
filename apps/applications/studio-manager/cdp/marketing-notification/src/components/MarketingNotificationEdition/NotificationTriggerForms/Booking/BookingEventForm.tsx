@@ -1,7 +1,11 @@
 import { useEffect } from "react";
 
 import { ControlledForm, useFormController } from "@bsport/form";
-import { Divider, TextFieldProps, Title } from "@bsport/kaizen-primitive-core";
+import {
+  Divider,
+  type TextFieldProps,
+  Title,
+} from "@bsport/kaizen-primitive-core";
 
 import {
   NOTIFICATION_TRIGGER_STEP_IDENTIFIER,
@@ -14,7 +18,10 @@ import {
   BOOKING_STATUS_PRESENT,
   BOOKING_TEMPORALITY_BEFORE,
   BOOKING_TIME_UNIT_HOUR,
+  DEFAULT_BOOKING_OCCURRENCE,
+  DEFAULT_TIMING_VALUE,
 } from "#src/components/MarketingNotificationEdition/NotificationTriggerForms/Booking/types";
+import { getBookingFormData } from "#src/components/MarketingNotificationEdition/NotificationTriggerForms/Booking/utils";
 import {
   SmartlistsFormField,
   type SmartlistsSelectorType,
@@ -22,9 +29,6 @@ import {
 import { useTranslation } from "#src/utils/i18n";
 import { bookingTriggerConfigValidationSchema } from "#src/utils/schemas/bookingTriggerConfigValidation";
 import type { SelectableNotificationType } from "#src/utils/types";
-
-const DEFAULT_BOOKING_OCCURRENCE = 0;
-const DEFAULT_TIMING_VALUE = 1;
 
 type BookingEventFormProps = {
   itemIds: number[];
@@ -36,23 +40,29 @@ export const BookingEventForm = ({
   notificationType,
 }: BookingEventFormProps) => {
   const { t } = useTranslation("marketingNotificationsModal");
-  const { setStepValid, updateForm } = useFormStepContext();
+  const { formData, setStepValid, updateForm } = useFormStepContext();
+  const bookingFormData = getBookingFormData(formData?.triggerCondition);
   const methods = useFormController({
     schema: bookingTriggerConfigValidationSchema,
-    mode: "onBlur",
+    mode: "all",
     defaultValues: {
       notificationType,
       bookingItemId: itemIds[0],
-      bookingOccurrence: DEFAULT_BOOKING_OCCURRENCE,
+      bookingOccurrence:
+        bookingFormData?.bookingOccurrence || DEFAULT_BOOKING_OCCURRENCE,
       bookingEventKind:
+        bookingFormData?.bookingEventKind ||
         BOOKING_STATUS_MAP_TO_BOOKING_EVENT_KIND[BOOKING_STATUS_PRESENT],
-      timingUnit: BOOKING_TIME_UNIT_HOUR,
-      timingValue: DEFAULT_TIMING_VALUE,
-      timingTemporality: BOOKING_TEMPORALITY_BEFORE,
-      toggleIncludedSmartlists: false,
-      includedSmartlists: [],
-      toggleExcludedSmartlists: false,
-      excludedSmartlists: [],
+      timingUnit: bookingFormData?.timingUnit || BOOKING_TIME_UNIT_HOUR,
+      timingValue: bookingFormData?.timingValue || DEFAULT_TIMING_VALUE,
+      timingTemporality:
+        bookingFormData?.timingTemporality || BOOKING_TEMPORALITY_BEFORE,
+      toggleIncludedSmartlists:
+        bookingFormData?.toggleIncludedSmartlists || false,
+      includedSmartlists: bookingFormData?.includedSmartlists || [],
+      toggleExcludedSmartlists:
+        bookingFormData?.toggleExcludedSmartlists || false,
+      excludedSmartlists: bookingFormData?.excludedSmartlists || [],
     },
   });
 
@@ -136,17 +146,28 @@ export const BookingEventForm = ({
     setStepValid(NOTIFICATION_TRIGGER_STEP_IDENTIFIER, isValid);
   }, [isValid]);
 
+  const formValues = getFormValues();
+
   useEffect(() => {
-    return () => {
-      const formValues = getFormValues();
-      updateForm({
-        triggerCondition: {
-          type: "booking",
-          ...formValues,
-        },
-      });
-    };
-  }, []);
+    updateForm({
+      triggerCondition: {
+        type: "booking",
+        ...formValues,
+      },
+    });
+  }, [
+    formValues?.bookingEventKind,
+    formValues?.bookingItemId,
+    formValues?.bookingOccurrence,
+    formValues?.excludedSmartlists,
+    formValues?.includedSmartlists,
+    formValues?.notificationType,
+    formValues?.timingTemporality,
+    formValues?.timingUnit,
+    formValues?.timingValue,
+    formValues?.toggleExcludedSmartlists,
+    formValues?.toggleIncludedSmartlists,
+  ]);
 
   return (
     <div className="flex flex-col gap-md">
@@ -158,7 +179,11 @@ export const BookingEventForm = ({
         onSubmit={() => {}}
         className="flex flex-col gap-sm"
       >
-        <BookingNotificationTriggerField setFormValue={setFormValue} />
+        <BookingNotificationTriggerField
+          setFormValue={setFormValue}
+          defaultBookingOccurence={formValues?.bookingOccurrence}
+          defaultBookingStatus={formValues?.bookingEventKind}
+        />
         <Divider orientation="horizontal" weight="thin" />
         <BookingTimingField
           setFormValue={setFormValue}
@@ -176,6 +201,8 @@ export const BookingEventForm = ({
           )}
           isIncludedSmartlistsEnabled={toggleIncludedSmartlistsSelector}
           isExcludedSmartlistsEnabled={toggleExcludedSmartlistsSelector}
+          selectedExcludedSmartlists={formValues?.excludedSmartlists}
+          selectedIncludedSmartlists={formValues?.includedSmartlists}
         />
       </ControlledForm>
     </div>

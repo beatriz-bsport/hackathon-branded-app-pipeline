@@ -1,8 +1,7 @@
 import { createStore } from "zustand/vanilla";
 
+import type { MetaActivity } from "@bsport/api-book";
 import { PaginatedState, bindStore } from "@bsport/store-base";
-
-import type { MetaActivity } from "#src/types";
 
 /** @indication Example of a paginated state */
 

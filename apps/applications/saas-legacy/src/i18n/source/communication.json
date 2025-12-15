@@ -464,7 +464,14 @@
     "previewTitle": "Preview",
     "preview": "Preview",
     "close": "Close",
-    "drawerTitle": "All pop-ups"
+    "drawerTitle": "All pop-ups",
+    "deleteModal": {
+        "description": "Deleting this pop-up will remove it from your branded app. You’ll also lose access to the list of members who saw it.",
+        "headsUp": "Heads up: this change is permanent and cannot be undone.",
+        "confirm": "Delete",
+        "cancel": "Keep",
+        "title": "Delete pop-up?"
+    }
   },
   "createThread": {
     "close": "Close",

@@ -2,19 +2,22 @@ import React, { ReactElement, useId, useMemo } from "react";
 
 import Button, { type ButtonProps } from "#src/components/Button";
 import DropdownMenu from "#src/components/DropdownMenu";
+import type { WithTooltip } from "#src/components/Tooltip";
 import { useMatchMedia } from "#src/hooks/use-match-media";
 import { useKaizenI18nInstance, useTranslation } from "#src/i18n";
 
-type AdaptiveAction = ReactElement<ButtonProps>;
+type AdaptiveAction = ReactElement<WithTooltip<ButtonProps>>;
 
 export type AdaptiveActionsInput = {
   endGroupActions?: Array<AdaptiveAction>;
   startGroupActions?: Array<AdaptiveAction>;
+  mobileOnlyActions?: Array<AdaptiveAction>;
 };
 
 export type AdaptiveActionsOutput = {
   endGroupActions: Array<React.ReactNode>;
   startGroupActions?: Array<React.ReactNode>;
+  isMobile: boolean;
 };
 
 function extractButtonProps(element: AdaptiveAction): ButtonProps {
@@ -32,30 +35,36 @@ function extractButtonProps(element: AdaptiveAction): ButtonProps {
  *
  * @param props.endGroupActions - Array of Button elements to display
  * @param props.startGroupActions - Array of Button elements to display
+ * @param props.mobileOnlyActions - Array of Buttons elements to display only in mobile dropdown
  * @returns Object with startGroupActions (and optionally endGroupActions) as ReactNode arrays
  *
  * @example
  * ```tsx
- * const adaptiveActions = useAdaptiveActions({
+ * const { endGroupActions, startGroupActions, isMobile } = useAdaptiveActions({
  *   endGroupActions: [
  *     <Button label="Edit" iconLeft="pencil-02" intent="flat" color="default" size="md" />,
  *     <Button label="Delete" iconLeft="trash-01" intent="flat" color="default" size="md" />
  *   ],
  *   startGroupActions: [
  *     <Button label="Export" iconLeft="download-01" intent="default" color="main" size="md" />
+ *   ],
+ *   mobileOnlyActions: [
+ *     <Button label="Rename" iconLeft="edit-02" intent="default" color="main" size="md" />
  *   ]
  * });
  *
  * // Spread directly into HeaderLayout
  * <HeaderLayout
  *   pageTitle="My Page"
- *   {...adaptiveActions}
+ *   endGroupActions={endGroupActions}
+ *   startGroupActions={startGroupActions}
  * />
  * ```
  */
 export function useAdaptiveActions({
   endGroupActions = [],
   startGroupActions = [],
+  mobileOnlyActions = [],
 }: AdaptiveActionsInput): AdaptiveActionsOutput {
   const i18n = useKaizenI18nInstance();
   const { t } = useTranslation("default", { i18n });
@@ -64,8 +73,8 @@ export function useAdaptiveActions({
   const dropdownItemId = useId();
 
   const allActions = useMemo(
-    () => [...startGroupActions, ...endGroupActions],
-    [endGroupActions, startGroupActions],
+    () => [...mobileOnlyActions, ...startGroupActions, ...endGroupActions],
+    [endGroupActions, startGroupActions, mobileOnlyActions],
   );
 
   const dropdown = useMemo(() => {
@@ -123,16 +132,19 @@ export function useAdaptiveActions({
         </DropdownMenu.Content>
       </DropdownMenu>
     );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [allActions, dropdownItemId]);
 
   if (!isMobile) {
     return {
       endGroupActions,
       startGroupActions,
+      isMobile,
     };
   }
 
   return {
     endGroupActions: dropdown ? [dropdown] : [],
+    isMobile,
   };
 }

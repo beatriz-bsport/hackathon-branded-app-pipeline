@@ -1,5 +1,5 @@
+import type { MetaActivity } from "@bsport/api-book";
 import type { Appointment } from "@bsport/store-booking-appointment";
-import type { MetaActivity } from "@bsport/store-booking-group-activity";
 import type { AppointmentPass } from "@bsport/store-buyables-appointment-pass";
 import type { Pass } from "@bsport/store-buyables-pass";
 import type { Subscription } from "@bsport/store-buyables-subscription";

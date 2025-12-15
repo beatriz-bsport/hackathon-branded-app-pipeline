@@ -30,6 +30,7 @@ import {
   fetchCadenceStepList as fetchCadenceStepListAction,
   searchCadencePresentMembersData as searchCadencePresentMembersDataAction,
   searchCadenceMembersHistoric as searchCadenceMembersHistoricAction,
+  createCadenceFromTemplate as createCadenceFromTemplateAction,
 } from '#src/libs/sequential_marketing/actions';
 import { fetchMemberBulkById as fetchMemberBulkByIdAction } from '#src/libs/member/actions';
 
@@ -69,6 +70,16 @@ import {
 } from '#src/libs/platform-billing/utils';
 import UpsellBlocker from '#src/libs/platform-billing/components/UpsellBlocker.component';
 
+import CadenceTemplatePicker from '#src/libs/sequential_marketing/components/CadenceTemplatePicker.component';
+import AddCadenceDialog from '#src/libs/sequential_marketing/components/dialogs/AddCadenceDialog.component';
+import {
+  FeatureFlagProps,
+  withFeatureFlags,
+} from '#src/utils/feature-flag/withFeatureFlags';
+
+import { SegmentAnalyticsFormObjectIdentifier } from '#src/components/analytics/segment';
+import { rudderStackFormTrackingFunctionsRegistry } from '#src/components/analytics/rudderstack/utils';
+
 import type {
   Cadence,
   CadenceGlobalMetricsParams,
@@ -76,13 +87,13 @@ import type {
   CadencePaginatedMetricsParams,
   MetricsPaginatedResponse,
 } from '#src/libs/sequential_marketing/types';
-import { SegmentAnalyticsFormObjectIdentifier } from '#src/components/analytics/segment';
-import { rudderStackFormTrackingFunctionsRegistry } from '#src/components/analytics/rudderstack/utils';
+import type { CadenceConfigData } from '#src/libs/sequential_marketing/cadence_templates/types';
 import type { RootState } from '../../reducers';
 import type { WithHandlerType } from '../../utils/types';
 import type { OptionCallback } from '../../state/types';
 
 const CADENCE_PAGE_SIZE = 500;
+const EMPTY_PAGE_MAX_WIDTH = 1082;
 
 type StateHandlerType = typeof StateHandlersInit &
   WithHandlerType<typeof StateHandlersSetter>;
@@ -94,7 +105,8 @@ type Props = ConnectedPropsAndState &
   WithHandlerType<typeof mapWithHandlers> &
   WithStyles<typeof styles> &
   StateHandlerType &
-  WithTranslation;
+  WithTranslation &
+  FeatureFlagProps;
 
 const {
   trackFormAdd,
@@ -164,6 +176,15 @@ export class CadenceListPage extends React.Component<Props> {
     this.props.setSelectedCadence(cadence);
     this.props.fetchCadenceStepListAction({ id__in: cadence.steps });
     this.handleFetchCadenceMetrics(cadence?.id);
+  };
+
+  handleAddCadence = () => {
+    const isAudienceTemplateFeatureEnabled = this.props.showAudienceTemplates;
+    if (isAudienceTemplateFeatureEnabled) {
+      this.openAddCadenceDialog();
+    } else {
+      this.handleOpenCreationForm();
+    }
   };
 
   handleOpenCreationForm = () => {
@@ -249,6 +270,15 @@ export class CadenceListPage extends React.Component<Props> {
     );
   };
 
+  handleCreateCadenceFromTemplate = (config: CadenceConfigData) => {
+    this.props.createCadenceFromTemplate(config, {
+      onSuccess: (cadenceId) => {
+        cadenceId && this.props.goToCadencePage(cadenceId);
+      },
+    });
+    this.closeAddCadenceDialog();
+  };
+
   handleGoToCadencePage = (cadence: Cadence) =>
     cadence?.id && this.props.goToCadencePage(cadence.id);
 
@@ -277,6 +307,14 @@ export class CadenceListPage extends React.Component<Props> {
     this.props.setIsUpgradeTrialDialogOpen(false);
   };
 
+  openAddCadenceDialog = () => {
+    this.props.setIsAddCadenceDialogOpen(true);
+  };
+
+  closeAddCadenceDialog = () => {
+    this.props.setIsAddCadenceDialogOpen(false);
+  };
+
   hasNotificationUpsell = hasUpsell(
     this.props.featureList,
     UPSELL_IDENTIFIER_PUSH_NOTIFICATION,
@@ -302,12 +340,15 @@ export class CadenceListPage extends React.Component<Props> {
       cadenceList,
     } = this.props;
 
+    const isAudienceTemplateFeatureEnabled = this.props.showAudienceTemplates;
+
     if (
-      !cadenceLoading &&
       (!cadenceList || cadenceList?.length === 0) &&
       (!cadenceArchivedList || cadenceArchivedList?.length === 0)
     ) {
-      return (
+      return cadenceLoading ? (
+        <LinearProgress />
+      ) : (
         <div className={classes.layoutContainer}>
           {this.isInFreeTrial && this.trialRemainingDays && (
             <CadenceFreeTrialBanner
@@ -317,41 +358,74 @@ export class CadenceListPage extends React.Component<Props> {
           )}
           <div className={classes.pageContainer}>
             <UpsellBlocker upsellIdentifier={UPSELL_IDENTIFIER_CADENCE} />
-            <div className={classes.centerVertical}>
-              <Alert
-                classes={{
-                  root: classes.alert,
-                  outlinedInfo: classes.outlinedInfo,
-                  icon: classes.alertIcon,
-                }}
-                className={classes.alert}
-                icon={<ErrorOutlineIcon className={classes.rotate} />}
-                severity="info"
-                variant="outlined"
-              >
-                {t('audience.form.emptyAudienceHelper')}
-              </Alert>
-              <div className={classes.emptyPageButtonsContainer}>
-                <Button
-                  className={classes.emptyPageButton}
-                  color="primary"
-                  onClick={this.handleOpenIntercomHelp}
+            {isAudienceTemplateFeatureEnabled ? (
+              <div className={classes.centerVertical}>
+                <div className={classes.emptyPageInfo}>
+                  <Alert
+                    classes={{
+                      root: classes.alert,
+                      outlinedInfo: classes.outlinedInfo,
+                      icon: classes.alertIcon,
+                    }}
+                    className={classes.alert}
+                    icon={<ErrorOutlineIcon className={classes.rotate} />}
+                    severity="info"
+                    variant="outlined"
+                  >
+                    {t('audience.form.emptyAudienceHelper')}
+                  </Alert>
+                  <Button
+                    className={classes.emptyPageButton}
+                    color="primary"
+                    onClick={this.handleOpenIntercomHelp}
+                    variant="outlined"
+                  >
+                    <HelpOutlineIcon className={classes.buttonIcon} />
+                    {t('audience.form.openIntercomHelp')}
+                  </Button>
+                </div>
+                <CadenceTemplatePicker
+                  createFromScratch={this.handleOpenCreationForm}
+                  onTemplateUse={this.handleCreateCadenceFromTemplate}
+                />
+              </div>
+            ) : (
+              <div className={classes.centerVertical}>
+                <Alert
+                  classes={{
+                    root: classes.alert,
+                    outlinedInfo: classes.outlinedInfo,
+                    icon: classes.alertIcon,
+                  }}
+                  className={classes.alert}
+                  icon={<ErrorOutlineIcon className={classes.rotate} />}
+                  severity="info"
                   variant="outlined"
                 >
-                  <HelpOutlineIcon className={classes.buttonIcon} />
-                  {t('audience.form.openIntercomHelp')}
-                </Button>
-                <Button
-                  className={classes.emptyPageButton}
-                  color="primary"
-                  onClick={this.handleOpenCreationForm}
-                  variant="contained"
-                >
-                  <AddIcon className={classes.buttonIcon} />
-                  {t('audience.form.addAWorkflow')}
-                </Button>
+                  {t('audience.form.emptyAudienceHelper')}
+                </Alert>
+                <div className={classes.emptyPageButtonsContainer}>
+                  <Button
+                    className={classes.emptyPageButton}
+                    color="primary"
+                    onClick={this.handleOpenIntercomHelp}
+                    variant="outlined"
+                  >
+                    <HelpOutlineIcon className={classes.buttonIcon} />
+                    {t('audience.form.openIntercomHelp')}
+                  </Button>
+                  <Button
+                    className={classes.emptyPageButton}
+                    color="primary"
+                    onClick={this.handleOpenCreationForm}
+                    variant="contained"
+                  >
+                    <AddIcon className={classes.buttonIcon} />
+                    {t('audience.form.addAWorkflow')}
+                  </Button>
+                </div>
               </div>
-            </div>
+            )}
             <CadenceCreateAndUpdateForm
               displayParametersSection
               loading={cadenceLoading}
@@ -381,9 +455,7 @@ export class CadenceListPage extends React.Component<Props> {
           <UpsellBlocker upsellIdentifier={UPSELL_IDENTIFIER_CADENCE} />
           <div className={classes.pageColumn}>
             <Alert
-              classes={{
-                root: classes.alert,
-              }}
+              classes={{ root: classes.infoAlert }}
               className={classes.alertHelper}
               severity="info"
               variant="outlined"
@@ -442,6 +514,12 @@ export class CadenceListPage extends React.Component<Props> {
             />
           </div>
         </div>
+        <AddCadenceDialog
+          closeDialog={this.closeAddCadenceDialog}
+          createFromScratch={this.handleOpenCreationForm}
+          isOpen={this.props.isAddCadenceDialogOpen}
+          onTemplateUse={this.handleCreateCadenceFromTemplate}
+        />
         <CadenceCreateAndUpdateForm
           displayParametersSection
           initial={this.props.cadenceToEdit}
@@ -461,7 +539,7 @@ export class CadenceListPage extends React.Component<Props> {
           closeDialog={this.handleCloseUpgradeTrialDialog}
           isOpen={this.props.isUpgradeTrialDialogOpen}
         />
-        <CadenceManagerFab onAdd={this.handleOpenCreationForm} />
+        <CadenceManagerFab onAdd={this.handleAddCadence} />
       </div>
     );
   }
@@ -475,6 +553,7 @@ type StateHandlerInit = {
   startDateFilter: string;
   endDateFilter: string;
   isUpgradeTrialDialogOpen: boolean;
+  isAddCadenceDialogOpen: boolean;
 };
 
 const StateHandlersInit: StateHandlerInit = {
@@ -485,6 +564,7 @@ const StateHandlersInit: StateHandlerInit = {
   startDateFilter: DateTime.now().minus({ month: 1 }).toISODate(),
   endDateFilter: DateTime.now().toISODate(),
   isUpgradeTrialDialogOpen: false,
+  isAddCadenceDialogOpen: false,
 };
 
 const StateHandlersSetter = {
@@ -510,6 +590,10 @@ const StateHandlersSetter = {
 
   setIsUpgradeTrialDialogOpen: () => (isUpgradeTrialDialogOpen: boolean) => {
     return { isUpgradeTrialDialogOpen };
+  },
+
+  setIsAddCadenceDialogOpen: () => (isAddCadenceDialogOpen: boolean) => {
+    return { isAddCadenceDialogOpen };
   },
 };
 
@@ -686,6 +770,19 @@ const mapWithHandlers = {
         });
       }
     },
+
+  createCadenceFromTemplate:
+    (props: ConnectedPropsAndState) =>
+    (config: CadenceConfigData, options?: OptionCallback<number>) => {
+      props.createCadenceFromTemplateAction(config, {
+        onSuccess: (cadence) => {
+          cadence?.id && options?.onSuccess?.(cadence.id);
+        },
+        onError: () => {
+          options?.onError?.();
+        },
+      });
+    },
 };
 
 const connector = connect(
@@ -713,6 +810,7 @@ const connector = connect(
     updateCadenceAction,
     archiveCadenceAction,
     restoreCadenceAction,
+    createCadenceFromTemplateAction,
     // METRICS
     fetchGlobalMetricsAction,
     fetchPresentMembersDataAction,
@@ -768,6 +866,10 @@ const styles = (theme: Theme) =>
     },
     alert: {
       alignItems: 'center',
+      padding: 0 /* override MUI */,
+    },
+    infoAlert: {
+      alignItems: 'center',
     },
     outlinedInfo: {
       color: 'black',
@@ -778,22 +880,31 @@ const styles = (theme: Theme) =>
     },
     centerVertical: {
       paddingTop: theme.spacing(11),
+      paddingBottom: theme.spacing(11),
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
       gap: theme.spacing(4),
-      width: '50%',
+      width: '85%',
+      maxWidth: EMPTY_PAGE_MAX_WIDTH,
     },
     rotate: {
       transform: 'rotate(180deg)',
       color: 'black',
+    },
+    emptyPageInfo: {
+      display: 'flex',
+      gap: theme.spacing(2),
+      alignItems: 'center',
+      padding: `${theme.spacing(1)}px 0`,
     },
     emptyPageButtonsContainer: {
       display: 'flex',
       gap: theme.spacing(2),
     },
     emptyPageButton: {
-      minWidth: theme.spacing(23),
+      minWidth: 'auto' /* override MUI */,
+      whiteSpace: 'nowrap',
     },
     buttonIcon: {
       marginRight: theme.spacing(1),
@@ -815,4 +926,5 @@ export default compose(
   connector,
   withStateHandlers(StateHandlersInit, StateHandlersSetter),
   withHandlers(mapWithHandlers),
+  withFeatureFlags,
 )(CadenceListPage);

@@ -20,7 +20,7 @@
     "build"
   ],
   "scripts": {
-    "build": "vite build",
+    "build": "vite build --logLevel warn",
     "ci:compile": "tsc",
     "dev": "vite build --watch",
     "format": "prettier --write '**/*.{ts,tsx,js,jsx,cjs,mjs,scss,css,json,md,mdx,html,svg}'",
@@ -29,6 +29,7 @@
     "lint:fix": "eslint --fix ."
   },
   "dependencies": {
+    "@bsport/api-core": "workspace:*",
     "@bsport/store-base": "workspace:*",
     "typescript-result": "^3.1.1",
     "zustand": "^5.0.3"

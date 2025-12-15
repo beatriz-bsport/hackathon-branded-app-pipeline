@@ -1,4 +1,4 @@
-import { MetaActivity } from "@bsport/store-booking-group-activity";
+import type { MetaActivity } from "@bsport/api-book";
 import {
   BIRTHDAY_NOTIFICATION,
   BOOKING_CREATION_NOTIFICATION,

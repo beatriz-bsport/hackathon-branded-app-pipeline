@@ -1,8 +1,6 @@
 import SelectorInput, {
   SelectorInputProps,
   SelectorInputClasses,
-  FABRIQUE_SELECTOR_INPUT_CONFIGURATION,
-  FABRIQUE_SELECTOR_INPUT_PREVIEW,
 } from './SelectorInput';
 import SelectorValues, {
   SelectorValuesProps,
@@ -12,10 +10,6 @@ import Selector, {
   SelectorStorybook,
   SelectorProps,
 } from './Selector.component';
-import {
-  FABRIQUE_SELECTOR_CONFIGURATION,
-  FABRIQUE_SELECTOR_PREVIEW,
-} from './custom_css_variant';
 
 export type {
   SelectorInputProps,
@@ -24,13 +18,5 @@ export type {
   SelectorValuesClasses,
   SelectorInputClasses,
 };
-export {
-  SelectorValues,
-  SelectorInput,
-  SelectorStorybook,
-  FABRIQUE_SELECTOR_CONFIGURATION,
-  FABRIQUE_SELECTOR_PREVIEW,
-  FABRIQUE_SELECTOR_INPUT_CONFIGURATION,
-  FABRIQUE_SELECTOR_INPUT_PREVIEW,
-};
+export { SelectorValues, SelectorInput, SelectorStorybook };
 export default Selector;

@@ -3,9 +3,9 @@ import { type FC, useId } from "react";
 
 import {
   Body,
-  Button,
   Card,
   DropdownMenu,
+  ListLayout,
   Title,
 } from "@bsport/kaizen-primitive-core";
 
@@ -84,11 +84,10 @@ export const PackFormContent: FC<PackFormContentProps> = ({
           }}
           placement="bottom-right"
           target={({ setIsPopoverOpened }) => (
-            <Button
+            <ListLayout.Button
               id={`${fieldIdPrefix}-pack-content-add-item`}
               intent="default"
               color="main"
-              size="md"
               label={t("formFields.packContent.buttons.addItem")}
               onClick={() => setIsPopoverOpened(true)}
               iconLeft="plus"

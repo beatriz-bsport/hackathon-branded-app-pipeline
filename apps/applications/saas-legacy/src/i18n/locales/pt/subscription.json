@@ -62,7 +62,7 @@
       },
       "nb_interval": {
         "restrictionForFixedBillingDay": "O número de faturas deve estar compreendido entre 2 e 12 para a faturação num dia fixo",
-        "error": "O número de faturas não deve exceder 90",
+        "error": "O número de faturas não deve exceder 110",
         "label": "Número de faturas",
         "errorForFixedBillingDay": "O número de faturas não deve exceder 12",
         "helperText": "O mínimo é de 2 meses"

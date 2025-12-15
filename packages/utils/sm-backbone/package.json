@@ -19,7 +19,7 @@
   "module": "build/lib.es.js",
   "types": "build/lib.d.ts",
   "scripts": {
-    "build": "tsc && vite build",
+    "build": "tsc && vite build --logLevel warn",
     "ci:compile": "tsc",
     "dev": "vite",
     "format": "prettier --write '**/*.{ts,tsx,js,jsx,cjs,mjs,scss,css,json,md,mdx,html,svg}'",

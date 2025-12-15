@@ -145,7 +145,7 @@
     "addNewForWorkshop": "Workshops",
     "addNewForGroupActivity": "Group classes"
   },
-  "paymentRules": "Payment rules",
+  "paymentRules": "Payroll rules",
   "coach_payment_rule_groups": {
     "subtitle": {
       "helper": "You can group together your compensation rules for activities, workshops and appointments. By adding a teacher to a group, all of the group's compensation rules automatically apply to the teacher. Any change to the group will also be made to all the teachers in the group.",

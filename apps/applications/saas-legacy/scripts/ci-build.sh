@@ -41,7 +41,7 @@ echo "Update translations"
 pnpm run translation:update
 echo "*"
 echo "Build @bsport/sm-navigation-sidebar in compatibility mode"
-pnpm --filter @bsport/sm-navigation-sidebar run build:compat
+pnpm exec nx build:compat @bsport/sm-navigation-sidebar
 echo "*"
 echo "Build @bsport/saas-legacy"
 pnpm run build

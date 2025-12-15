@@ -23,7 +23,7 @@
     "dist"
   ],
   "scripts": {
-    "build": "tsc && vite build",
+    "build": "tsc && vite build --logLevel warn",
     "ci:compile": "tsc --noEmit",
     "component:add": "pnpm exec hygen component new",
     "format": "prettier --write '**/*.{ts,tsx,js,jsx,cjs,mjs,scss,css,json,md,mdx,html,svg}'",
@@ -44,7 +44,7 @@
   "devDependencies": {
     "@bsport/config-eslint-react": "workspace:*",
     "@bsport/kaizen-tokens": "workspace:*",
-    "@nx/vite": "20.8.0",
+    "@nx/vite": "21.6.10",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
     "@vitejs/plugin-react": "^4.3.3",

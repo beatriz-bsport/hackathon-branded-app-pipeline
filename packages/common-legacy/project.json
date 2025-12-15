@@ -1,0 +1,12 @@
+{
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "name": "@bsport/common",
+  "projectType": "library",
+  "sourceRoot": "packages/common-legacy/src",
+  "targets": {
+    "build": {
+      "cache": true,
+      "outputs": ["{projectRoot}/lib"]
+    }
+  }
+}

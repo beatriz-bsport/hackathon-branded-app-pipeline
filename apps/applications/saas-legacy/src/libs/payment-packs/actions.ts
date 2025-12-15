@@ -1411,20 +1411,30 @@ export const deletePaymentPackTemplateActions = {
 
 export function deletePaymentPackTemplate(
   id: number,
-  options?: OptionCallback,
+  options: OptionBackgroundCallback,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(deletePaymentPackTemplateActions.error(null));
     dispatch(deletePaymentPackTemplateActions.isLoading(true));
     try {
       const response = await deletePaymentPackTemplateAPI(id);
-      dispatch(deletePaymentPackTemplateActions.success(id));
-
+      const backgroundTaskUuid = response.headers['x-background-task-uuid'];
+      dispatch(
+        monitorBackgroundTask(backgroundTaskUuid, {
+          onSuccess: () => {
+            options?.onBackgroundSuccess?.();
+            dispatch(deletePaymentPackTemplateActions.success(id));
+            dispatch(
+              snackbarSuccess(
+                `paymentPack.paymentPackTemplateArchived.success`,
+              ),
+            );
+          },
+          onError: options?.onBackgroundError,
+        }),
+      );
       if (options && options.onSuccess) {
         options.onSuccess(response.data);
-        dispatch(
-          snackbarSuccess(`paymentPack.paymentPackTemplateArchived.success`),
-        );
       }
     } catch (err) {
       console.error(err);
@@ -1439,27 +1449,35 @@ export function deletePaymentPackTemplate(
 export const restorePaymentPackTemplateActions = {
   isLoading: createAction<boolean>('PAYMENT_PACK_TEMPLATE/RESTORE/IS_LOADING'),
   error: createAction<Error | null>('PAYMENT_PACK_TEMPLATE/RESTORE/ERROR'),
-  success: createAction<PaymentPackTemplateAPI>(
-    'PAYMENT_PACK_TEMPLATE/RESTORE/SUCCESS',
-  ),
+  success: createAction<number>('PAYMENT_PACK_TEMPLATE/RESTORE/SUCCESS'),
 };
 
 export function restorePaymentPackTemplate(
   id: number,
-  options?: OptionCallback<PaymentPackTemplateAPI>,
+  options?: OptionBackgroundCallback,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(restorePaymentPackTemplateActions.error(null));
     dispatch(restorePaymentPackTemplateActions.isLoading(true));
     try {
       const response = await restorePaymentPackTemplateAPI(id);
-      dispatch(restorePaymentPackTemplateActions.success(response.data));
-
+      const backgroundTaskUuid = response.headers['x-background-task-uuid'];
+      dispatch(
+        monitorBackgroundTask(backgroundTaskUuid, {
+          onSuccess: () => {
+            options?.onBackgroundSuccess?.();
+            dispatch(restorePaymentPackTemplateActions.success(id));
+            dispatch(
+              snackbarSuccess(
+                `paymentPack.paymentPackTemplateRestored.success`,
+              ),
+            );
+          },
+          onError: options?.onBackgroundError,
+        }),
+      );
       if (options && options.onSuccess) {
-        options.onSuccess(response.data);
-        dispatch(
-          snackbarSuccess(`paymentPack.paymentPackTemplateRestored.success`),
-        );
+        options.onSuccess();
       }
     } catch (err) {
       console.error(err);

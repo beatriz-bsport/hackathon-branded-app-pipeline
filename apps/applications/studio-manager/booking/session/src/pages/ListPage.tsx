@@ -13,6 +13,7 @@ import { useTranslation } from "#src/utils/i18n";
 
 import { DateNavigationHeader } from "../components/SessionList/DateNavigationHeader";
 import { DisplaySettings } from "../components/SessionList/DisplaySettings";
+import { useFilterConfig } from "../components/SessionList/Filters/useFilterConfig";
 import SessionDay from "../components/SessionList/SessionDay";
 import { useSessionListData } from "../hooks/useSessionListData";
 import {
@@ -112,12 +113,15 @@ const ListPage: React.FC = () => {
     [sessionsByDate, isLoading, intlLocale],
   );
 
+  const filterConfig = useFilterConfig();
+
   return (
     <ListLayout>
       <ListLayout.Header
         pageTitle={t("header")}
         onDisplayPopover={displaySettings}
         callToActionButton={callToActionButton}
+        filterConfig={filterConfig}
       />
       <ListLayout.Content>
         <DateNavigationHeader />

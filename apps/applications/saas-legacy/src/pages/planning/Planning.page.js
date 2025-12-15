@@ -619,7 +619,11 @@ export class Planning extends PureComponent<Props, State> {
 
   openEditModal = () => {
     this.setState({ editModalOpened: true });
-    this.props.fetchEstablishments();
+    this.props.fetchEstablishments({
+      page_size: 1000,
+      disabled: false,
+      company: this.props.companyId,
+    });
     this.props.fetchAssociatedCoachesList();
   };
 
@@ -640,7 +644,11 @@ export class Planning extends PureComponent<Props, State> {
 
   openCreateOfferModal = () => {
     this.setState({ createOfferModalOpened: true });
-    this.props.fetchEstablishments();
+    this.props.fetchEstablishments({
+      page_size: 1000,
+      disabled: false,
+      company: this.props.companyId,
+    });
     this.props.fetchAssociatedCoachesList();
   };
 

@@ -10,7 +10,7 @@
       "cancel": "Annuleren",
       "confirm": "Confimeer"
     },
-    "emailHasBeenSent": "We hebben een e-mail naar \"{{email}}\" gestuurd om je wachtwoord te herstellen.",
+    "emailHasBeenSent": "Als dit e-mailadres bestaat, sturen we een bericht naar {{email}}.",
     "contactUs": "Stuur een e-mail naar: ",
     "hasProblem": "Ervaar je problemen met het herstellen van je wachtwoord?"
   }

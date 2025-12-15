@@ -1,4 +1,7 @@
-import type { ListItemProps } from "@bsport/kaizen-primitive-core";
+import {
+  type ListItemProps,
+  useMatchMedia,
+} from "@bsport/kaizen-primitive-core";
 
 import { PackItemPopoverInfo } from "#src/components/PackItemPopoverInfo";
 import { ITEM_VARIANTS } from "#src/utils/constants";
@@ -16,6 +19,7 @@ export const useGetListItemConfig = ({
 }) => {
   const { t } = useTranslation("details");
   const categoriesById = useCategoriesById()[variant];
+  const isMobile = !useMatchMedia("sm");
 
   const getConfig = (data: FormattedData) => {
     const columnStart =
@@ -39,7 +43,8 @@ export const useGetListItemConfig = ({
       id: data.id,
       title: data.name,
       ...columnStart,
-      customNode: (
+      // No Popover Info on mobile view
+      customNode: isMobile ? null : (
         <PackItemPopoverInfo
           price={data.price}
           credits={data.credits}

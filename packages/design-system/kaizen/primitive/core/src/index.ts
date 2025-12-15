@@ -207,6 +207,7 @@ export {
   type WithTooltip,
 } from "./components/Tooltip";
 export { type UseEmptyStateProps, useEmptyState } from "./hooks";
+export type { Placement } from "./hooks/placement-classes.hook";
 export { useLoadingState } from "./hooks/use-loading-state";
 export { useMatchMedia } from "./hooks/use-match-media";
 export type {

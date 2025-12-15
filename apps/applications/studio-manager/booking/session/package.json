@@ -6,7 +6,7 @@
   "author": "Elisabeth <elisabeth@bsport.io>",
   "type": "module",
   "scripts": {
-    "build": "tsc -b && vite build",
+    "build": "tsc -b && vite build --logLevel warn",
     "build:preview": "vite build --mode preview",
     "ci:compile": "tsc -b",
     "dev": "concurrently \"pnpm run --silent -w federate:navigation\" \"vite\"",
@@ -15,9 +15,14 @@
     "format:check": "prettier --check '**/*.{ts,tsx,js,jsx,cjs,mjs}'",
     "lint": "eslint .",
     "preview": "vite preview --mode preview",
+    "test": "vitest run",
+    "test:coverage": "vitest run --coverage",
+    "test:watch": "vitest",
     "translation:update": "pnpm run -w translation:update"
   },
   "dependencies": {
+    "@bsport/api-book": "workspace:*",
+    "@bsport/api-core": "workspace:*",
     "@bsport/datetime-formatting": "workspace:*",
     "@bsport/datetime-manipulation": "workspace:*",
     "@bsport/fetch": "workspace:*",
@@ -26,14 +31,11 @@
     "@bsport/kaizen-primitive-core": "workspace:*",
     "@bsport/sm-backbone": "workspace:*",
     "@bsport/store-base": "workspace:*",
-    "@bsport/store-booking-group-activity": "workspace:*",
-    "@bsport/store-booking-session": "workspace:*",
-    "@bsport/store-core-data-establishment": "workspace:*",
-    "@bsport/store-core-data-teacher": "workspace:*",
     "@bsport/timezone-utils": "workspace:*",
     "@bsport/use-async": "workspace:*",
     "@bsport/use-debounce": "workspace:*",
     "@bsport/use-pagination-query-params": "workspace:*",
+    "@tanstack/react-query": "^5.90.12",
     "clsx": "^2.1.1",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
@@ -46,6 +48,8 @@
   "devDependencies": {
     "@bsport/config-eslint-react": "workspace:*",
     "@bsport/config-federation": "workspace:*",
+    "@bsport/config-vitest": "workspace:*",
+    "@tanstack/eslint-plugin-query": "^5.91.2",
     "autoprefixer": "^10.4.20",
     "postcss": "^8.4.49",
     "tailwindcss": "^3.4.14",
@@ -62,5 +66,11 @@
         "watchPath": "../navigation-sidebar/src/**/*"
       }
     }
+  },
+  "nx": {
+    "tags": [
+      "application:revamp",
+      "scope:studio"
+    ]
   }
 }

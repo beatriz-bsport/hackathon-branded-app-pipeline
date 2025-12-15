@@ -4,6 +4,7 @@ import { FeatureFlags } from './flags';
 
 export type FeatureFlagProps = {
   showExpressCheckout: boolean;
+  showAudienceTemplates: boolean;
 };
 
 /**
@@ -15,9 +16,14 @@ export const withFeatureFlags = <TProps extends object>(
 ): React.ComponentType<TProps> => {
   const WithFeatureFlagsComponent = (props: TProps) => {
     const showExpressCheckout = useSafeFlag(FeatureFlags.EXPRESS_PASS_CHECKOUT);
+    const showAudienceTemplates = useSafeFlag(FeatureFlags.AUDIENCE_TEMPLATES);
 
     return (
-      <WrappedComponent {...props} showExpressCheckout={showExpressCheckout} />
+      <WrappedComponent
+        {...props}
+        showAudienceTemplates={showAudienceTemplates}
+        showExpressCheckout={showExpressCheckout}
+      />
     );
   };
 

@@ -97,10 +97,10 @@ const createOrUpdateRepresentative = (
  *    - Validates format of filled fields but doesn't require all fields
  *    - Creates or updates the representative in the platform
  *
- * 2. **handleOnboardCompany**: Creates the Social Collaboration Agreement.
+ * 2. **handleOnboardCompany**: Creates/regenerates the Social Collaboration Agreement.
  *    - Validates all fields are filled (including DNI/NIE)
  *    - Creates or updates the representative first
- *    - Then calls onboardFiskalyCompany to generate the agreement PDF
+ *    - Then calls onboardFiskalyCompany to generate/regenerate the agreement PDF
  *    - Updates state to show the sign & upload form (step 2)
  *
  * 3. **handleUploadSignedAgreement**: Uploads the signed agreement PDF.

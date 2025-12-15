@@ -31,7 +31,7 @@ import {
   getDefaultConfigByIdentifier,
   checkExportableComponentConfig,
   EXPORTABLE_COMPONENT_WITH_ADVANCED_SETTINGS,
-} from '../../../exportable-components/utils';
+} from '../../../exportable-components/utils-common';
 import { EXPORTABLE_COMPONENT_TYPE_CALENDAR } from '../../../exportable-components/constants';
 import ExportableComponentConfigurator from '../../../exportable-components/components/ExportableComponentConfigurator.component';
 import { Video } from '../../../video/types';

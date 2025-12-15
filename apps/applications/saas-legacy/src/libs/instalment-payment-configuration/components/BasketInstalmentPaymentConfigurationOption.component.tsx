@@ -82,18 +82,18 @@ export const BasketInstalmentPaymentOption: React.FC<Props> = ({
     if (number_of_billing === 1) return '0';
 
     return (
-      basketPrice -
-      parseFloat(firstInstalmentAmount) * (number_of_billing - 1)
+      (basketPrice - parseFloat(firstInstalmentAmount)) /
+      (number_of_billing - 1)
     ).toFixed(2);
   }, [basketPrice, firstInstalmentAmount, number_of_billing]);
 
   const instalmentAmountList = new Array(number_of_billing)
     .fill(0)
     .map((_, index) => {
-      if (index === number_of_billing - 1) {
-        return lastInstalmentAmount;
+      if (index === 0) {
+        return firstInstalmentAmount;
       }
-      return firstInstalmentAmount;
+      return lastInstalmentAmount;
     });
 
   const handleChange = useCallback(() => {

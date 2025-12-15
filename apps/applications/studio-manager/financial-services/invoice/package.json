@@ -6,7 +6,7 @@
   "author": "Charles Castelain <charles.castelain@bsport.io>",
   "type": "module",
   "scripts": {
-    "build": "tsc && vite build",
+    "build": "tsc && vite build --logLevel warn",
     "build:preview": "vite build --mode preview",
     "ci:compile": "tsc",
     "dev": "concurrently \"pnpm run --silent -w federate:navigation\" \"vite\"",
@@ -49,5 +49,11 @@
         "watchPath": "../../navigation-sidebar/src/**/*"
       }
     }
+  },
+  "nx": {
+    "tags": [
+      "application:revamp",
+      "scope:studio"
+    ]
   }
 }

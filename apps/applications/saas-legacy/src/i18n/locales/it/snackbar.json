@@ -237,6 +237,9 @@
     "delete": {
       "error": "Errore durante l'eliminazione",
       "success": "Regola eliminata"
+    },
+    "errors": {
+      "cannotHaveSeveralPaymentRulesWithSameName": "Ogni regola di retribuzione deve avere un nome univoco."
     }
   },
   "paymentPack": {

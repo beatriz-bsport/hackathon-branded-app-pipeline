@@ -1,5 +1,6 @@
+import type { Teacher } from "@bsport/api-core";
+
 import { teacherStore } from "#src/store";
-import type { Teacher } from "#src/types";
 
 export const updateTeacher = (updatedTeacher: Teacher) => {
   teacherStore.setState((state) => {

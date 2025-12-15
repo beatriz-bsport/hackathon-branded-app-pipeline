@@ -23,6 +23,12 @@ vi.mock("#src/wrappers/RoutesWrapper/DataLayerWrapper", () => ({
   },
 }));
 
+// Mock env imports
+vi.mock("@bsport/envs", () => ({
+  getEnv: () => "dev",
+  isEnvFeatureBranch: () => false,
+}));
+
 const MockNavigation: FC = () => (
   <div data-testid="navigation-app">Navigation</div>
 );
@@ -137,14 +143,16 @@ describe("AppWrapper", () => {
       }
     });
 
-    render(
-      <AppWrapper
-        NavigationApp={LazyMockNavigation}
-        LoginApp={<MockLogin />}
-        loginUrl={loginUrl}
-      >
-        <MockApp />
-      </AppWrapper>,
+    await act(async () =>
+      render(
+        <AppWrapper
+          NavigationApp={LazyMockNavigation}
+          LoginApp={<MockLogin />}
+          loginUrl={loginUrl}
+        >
+          <MockApp />
+        </AppWrapper>,
+      ),
     );
 
     await vi.waitFor(

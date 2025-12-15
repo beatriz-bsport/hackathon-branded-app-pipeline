@@ -229,7 +229,7 @@ export async function deletePaymentPackTemplate(id: number) {
 }
 
 export async function restorePaymentPackTemplate(id: number) {
-  return postAuth<PaymentPackTemplateAPI>(
+  return postAuth(
     `${API_V1_URI}/payment-pack/payment-pack-template/${id}/restore/`,
   );
 }

@@ -9,8 +9,12 @@ import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 import { SmartListPopupSending } from '#src/libs/communication-v2/types';
+// @ts-expect-error
+import withConfirm from '#src/hocs/with-confirm.hoc';
+import { OptionCallback } from '#src/state/types';
 
 export const MEMBER_PAGE_SIZE = 10;
 
@@ -19,6 +23,10 @@ type Props = {
   openPreview: (smartListPopup: SmartListPopupSending) => void;
   openMemberList: (smartListPopup: SmartListPopupSending) => void;
   noDivider?: boolean;
+  onSmartListPopupDelete: (
+    customAppPopupLinkId: number,
+    options?: OptionCallback,
+  ) => void;
 };
 
 const SmartListPopupListItem: React.FC<Props> = ({
@@ -26,6 +34,7 @@ const SmartListPopupListItem: React.FC<Props> = ({
   openPreview,
   openMemberList,
   noDivider,
+  onSmartListPopupDelete,
 }) => {
   const classes = useStyle();
   const { t } = useTranslation(['communication']);
@@ -38,6 +47,31 @@ const SmartListPopupListItem: React.FC<Props> = ({
   const openMemberListDialog = useCallback(
     () => openMemberList(smartListPopup),
     [openMemberList, smartListPopup],
+  );
+
+  const handleDelete = () => {
+    onSmartListPopupDelete(smartListPopup.custom_app_popup_link.id);
+  };
+
+  const DeleteWithConfirm = withConfirm(
+    ({ onClick }: { onClick: () => void }) => (
+      <Button className={classes.button} onClick={onClick} variant="outlined">
+        <DeleteIcon />
+      </Button>
+    ),
+    'onClick',
+    {
+      title: 'communication:smartListPopup.deleteModal.title',
+      cancel: 'communication:smartListPopup.deleteModal.cancel',
+      confirm: 'communication:smartListPopup.deleteModal.confirm',
+      Content: () => (
+        <>
+          <p>{t('communication:smartListPopup.deleteModal.description')}</p>
+          <p>{t('communication:smartListPopup.deleteModal.headsUp')}</p>
+        </>
+      ),
+      isDeletion: true,
+    },
   );
 
   return (
@@ -70,14 +104,17 @@ const SmartListPopupListItem: React.FC<Props> = ({
             </div>
           </div>
 
-          <Button
-            className={classes.previewButton}
-            onClick={openPreviewDialog}
-            variant="outlined"
-          >
-            <VisibilityIcon className={classes.leftIcon} />
-            {t('smartListPopup.see')}
-          </Button>
+          <div>
+            <Button
+              className={classes.button}
+              onClick={openPreviewDialog}
+              variant="outlined"
+            >
+              <VisibilityIcon className={classes.leftIcon} />
+              {t('smartListPopup.see')}
+            </Button>
+            <DeleteWithConfirm color="secondary" onClick={handleDelete} />
+          </div>
         </div>
       </div>
     </div>
@@ -112,7 +149,8 @@ const useStyle = makeStyles((theme) => ({
     alignItems: 'center',
     gap: theme.spacing(1),
   },
-  previewButton: {
+  button: {
+    marginLeft: theme.spacing(1),
     alignItems: 'center',
   },
   leftIcon: {

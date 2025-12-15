@@ -1,30 +1,40 @@
-import { useCallback } from "react";
+import { queryOptions, useQuery } from "@tanstack/react-query";
+import keyBy from "lodash/keyBy";
 
-import { fetchEstablishmentsAction } from "@bsport/store-core-data-establishment";
-import { useAsync } from "@bsport/use-async";
+import { Establishment, fetchEstablishments } from "@bsport/api-core";
 
-import { fetch } from "#src/utils/fetch";
+import { fetch } from "../utils/fetch";
 
-export const useFetchEstablishments = () => {
-  const handleFetchEstablishments = useCallback(
-    async ({ establishmentIds }: { establishmentIds: number[] }) => {
-      return fetchEstablishmentsAction(fetch, {
-        id__in: establishmentIds,
-      });
-    },
-    [],
-  );
+const ESTABLISHMENTS_STALE_TIME = 2 * 60 * 1000; // 2 minutes
 
-  const [{ isLoading }, fetchEstablishments] = useAsync<
-    typeof handleFetchEstablishments
-  >({
-    asyncFn: handleFetchEstablishments,
-    dependencies: [handleFetchEstablishments],
-    onFailure: console.error,
+const fetchEstablishmentsByIds = async (
+  establishmentIds: number[],
+): Promise<Establishment[]> => {
+  const { results } = await fetchEstablishments(fetch, {
+    id__in: establishmentIds,
   });
+  return results;
+};
 
-  return {
-    isLoading,
-    fetchEstablishments,
-  };
+const establishmentsQueryOptions = (
+  establishmentIds: number[],
+  enabled: boolean,
+) => {
+  const establishmentIdsSorted = [...establishmentIds].sort();
+  return queryOptions({
+    queryKey: ["establishments", establishmentIdsSorted],
+    queryFn: () => fetchEstablishmentsByIds(establishmentIdsSorted),
+    enabled: enabled && establishmentIdsSorted.length > 0,
+    staleTime: ESTABLISHMENTS_STALE_TIME,
+  });
+};
+
+export const useFetchEstablishments = (
+  establishmentIds: number[] = [],
+  enabled = true,
+) => {
+  return useQuery({
+    ...establishmentsQueryOptions(establishmentIds, enabled),
+    select: (establishments) => keyBy(establishments, "id"),
+  });
 };

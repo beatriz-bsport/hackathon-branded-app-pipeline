@@ -6,6 +6,7 @@ import cypress from 'eslint-plugin-cypress';
 import typescriptEslint from '@typescript-eslint/eslint-plugin';
 import typescriptParser from '@typescript-eslint/parser';
 import bsport from 'eslint-plugin-bsport';
+import { fixupPluginRules } from '@eslint/compat';
 
 export default [
   // Base JavaScript rules
@@ -15,7 +16,7 @@ export default [
   {
     files: ['**/*.jsx', '**/*.tsx'],
     plugins: {
-      react,
+      react: fixupPluginRules(react),
       'react-hooks': reactHooks,
     },
     rules: {
@@ -46,10 +47,11 @@ export default [
       sourceType: 'module',
     },
     plugins: {
-      '@typescript-eslint': typescriptEslint,
+      '@typescript-eslint': fixupPluginRules(typescriptEslint),
     },
     rules: {
-      '@typescript-eslint/no-unused-vars': ['error'],
+      'no-unused-vars': 'off',
+      '@typescript-eslint/no-unused-vars': 'error',
       '@typescript-eslint/no-shadow': 'error',
       '@typescript-eslint/ban-ts-comment': [
         'error',

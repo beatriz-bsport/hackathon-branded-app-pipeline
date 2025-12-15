@@ -15,7 +15,7 @@ import {
   getCheckoutUrl,
   getUserSpaceUrl,
 } from '#src/libs/marketplace/routing-utils';
-import { getDefaultMarketplaceTabTitle } from '#src/libs/exportable-components/utils';
+import { getDefaultMarketplaceTabTitle } from '#src/libs/exportable-components/utils-common';
 import { urlToMarketplace } from '#src/libs/marketplace/utils';
 import { getItemInStorage } from '#src/utils/storage';
 import NavigationAppBar from '#src/components/css-only/Navigation/NavigationAppBar';

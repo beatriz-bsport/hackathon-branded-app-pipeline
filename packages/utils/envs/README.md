@@ -66,6 +66,18 @@ Checks if the current environment is a feature branch deployment.
 
 - `boolean`: `true` if the current environment is a feature branch, `false` if it's a known environment
 
+### `isEnvFeatureBranch(env: Environment): boolean`
+
+Checks if the provided environment is a feature branch deployment.
+
+**Parameters:**
+
+- `env`: The env to analyze.
+
+**Returns:**
+
+- `boolean`: `true` if the current environment is a feature branch, `false` if it's a known environment
+
 **Type Definitions:**
 
 ```typescript

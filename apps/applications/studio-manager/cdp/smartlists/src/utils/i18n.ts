@@ -1,10 +1,12 @@
 import { type TFunctionGeneric, instanciateAppI18n } from "@bsport/i18n";
 
 import namespaces from "#src/i18n/namespaces.json";
+import type detailsTranslations from "#src/i18n/source/details.json";
 import type listTranslations from "#src/i18n/source/list.json";
 
 type Translations = {
   list: typeof listTranslations;
+  details: typeof detailsTranslations;
 };
 const applicationName = __SMARTLISTS__.__I18N_NAMESPACE_PREFIX__;
 const applicationUrl = __SMARTLISTS__.__APPLICATION_BASE_URL__;

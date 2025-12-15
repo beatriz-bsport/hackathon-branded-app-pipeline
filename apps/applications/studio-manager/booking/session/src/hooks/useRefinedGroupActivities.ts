@@ -1,4 +1,4 @@
-import type { MetaActivity } from "@bsport/store-booking-group-activity";
+import type { MetaActivity } from "@bsport/api-book";
 
 import {
   setSelectedGroupActivity,
@@ -20,15 +20,16 @@ type UseRefinedGroupActivitiesParams = {
 export const useRefinedGroupActivities = ({
   searchQuery,
 }: UseRefinedGroupActivitiesParams) => {
-  const { groupActivities, searchedGroupActivities } =
-    usePaginatedGroupActivities({ customerEnabled: true });
+  const { isLoading, paginationProps, groupActivities } =
+    usePaginatedGroupActivities({
+      customerEnabled: true,
+      searchParams: { searchQuery },
+    });
 
   const { t } = useTranslation("sessionCreation");
   const selectedGroupActivity = useSessionCreationStore(
     selectSelectedGroupActivity,
   );
-
-  const hasNoFilter = !searchQuery;
 
   const handleRowClick = (activity: MetaActivity) => {
     setSelectedGroupActivity(activity);
@@ -50,7 +51,9 @@ export const useRefinedGroupActivities = ({
     isActive: getIsRowActive(item),
   });
 
-  return hasNoFilter
-    ? groupActivities.map(enhanceWithActivityType)
-    : searchedGroupActivities.map(enhanceWithActivityType);
+  return {
+    isLoading,
+    paginationProps,
+    groupedActivities: groupActivities.map(enhanceWithActivityType),
+  };
 };

@@ -70,7 +70,6 @@ import {
   getBookedOffers,
   getNextAvailableOffer,
   getBookedGenderOffer,
-  getOfferForAnalytics,
 } from '#src/libs/offer/selectors';
 import { fetchAssociatedCoachBulkFromCoachIds as fetchAssociatedCoachBulkFromCoachIdsAction } from '#src/libs/associated-coach/actions';
 import {
@@ -84,7 +83,7 @@ import withTitle from '#src/hocs/with-title.hoc';
 
 import {
   Offer,
-  OfferFilterData,
+  OfferListParams,
   OfferREST,
   Offer_FULL,
 } from '#src/libs/offer/types';
@@ -162,34 +161,45 @@ type ContainerWidthListenerProps = {
   calendarRefContainer: React.Ref<null>;
 };
 
+type WidhContainerWidthListenerState = {
+  containerWidth: number | null;
+};
+
 function withContainerWidthListener<
   WrappedComponentProps extends object,
 >(): () => React.ComponentType<WrappedComponentProps> {
   // @ts-expect-error
   return (WrappedComponent: React.ComponentType<WrappedComponentProps>) => {
-    class WithContainerWidthListener extends Component<WrappedComponentProps> {
+    class WithContainerWidthListener extends Component<
+      WrappedComponentProps,
+      WidhContainerWidthListenerState
+    > {
+      calendarRefContainer: React.RefObject<HTMLDivElement>;
+
       constructor(props: FinalProps) {
         // @ts-expect-error FinalProps is not the right typing for Props received by the compose
         super(props);
         // This reference is used to evaluate the size of the calendar,
         // and to determine if it should be displayed in card mode or not.
         // That way, we can enable or disable the fetching of the offers when updating the start date.
-        // @ts-expect-error
         this.calendarRefContainer = React.createRef();
       }
 
-      state = {
-        // @ts-expect-error
-        containerWidth: this.calendarRefContainer?.current?.clientWidth,
+      state: WidhContainerWidthListenerState = {
+        containerWidth: null,
       };
 
       componentDidMount(): void {
         // @ts-expect-error
         this.intervalId = setInterval(() => {
-          this.setState(() => ({
-            // @ts-expect-error
-            containerWidth: this.calendarRefContainer?.current?.clientWidth,
-          }));
+          const currentContainerWidth =
+            this.calendarRefContainer?.current?.clientWidth;
+          const previousContainerWidth = this.state.containerWidth;
+          if (currentContainerWidth !== previousContainerWidth) {
+            this.setState(() => ({
+              containerWidth: currentContainerWidth ?? null,
+            }));
+          }
         }, 500);
       }
 
@@ -202,7 +212,6 @@ function withContainerWidthListener<
         return (
           <WrappedComponent
             {...this.props}
-            // @ts-expect-error
             calendarRefContainer={this.calendarRefContainer}
             containerWidth={this.state.containerWidth}
           />
@@ -221,6 +230,7 @@ type State = {
   filteredEstablishments: Array<Establishment> | null;
   filters: MarketplaceFilters;
   offerSearchResult: { query: string; offerList: Offer[] | OfferREST[] | null };
+  isLoading: boolean;
 };
 
 export class MarketplaceCalendar extends Component<FinalProps, State> {
@@ -244,6 +254,7 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
         establishment_group__in: props?.filters?.establishment_group__in || [],
       },
       offerSearchResult: { query: '', offerList: null },
+      isLoading: false,
     };
   }
 
@@ -306,102 +317,45 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
     this.props.theme.start_calendar_week_on_today &&
     this.getIsCardModeDisplay();
 
-  start_date = () => {
-    const paramsStartDate = this.props.otherParams.date
-      ? DateTime.fromISO(this.props.otherParams.date)
-      : DateTime.now();
+  getSelectedDate = memoize((date: string | undefined) => {
+    return date ? DateTime.fromISO(date) : DateTime.now();
+  });
 
-    return this.getStartCalendarWeekOnToday()
-      ? paramsStartDate.toISODate()
-      : paramsStartDate.startOf('week', { useLocaleWeeks: true }).toISODate();
+  start_date = () => {
+    const paramsStartDate = this.getSelectedDate(this.props.otherParams.date);
+
+    return (
+      this.getStartCalendarWeekOnToday()
+        ? paramsStartDate.toISODate()
+        : paramsStartDate.startOf('week', { useLocaleWeeks: true }).toISODate()
+    ) as string;
   };
 
   end_date = () => {
-    const paramsStartDate = this.props.otherParams.date
-      ? DateTime.fromISO(this.props.otherParams.date)
-      : DateTime.now();
+    const paramsStartDate = this.getSelectedDate(this.props.otherParams.date);
 
-    return this.getStartCalendarWeekOnToday()
-      ? paramsStartDate.plus({ days: 7 }).toISODate()
-      : paramsStartDate.endOf('week', { useLocaleWeeks: true }).toISODate();
+    return (
+      this.getStartCalendarWeekOnToday()
+        ? paramsStartDate.plus({ days: 7 }).toISODate()
+        : paramsStartDate.endOf('week', { useLocaleWeeks: true }).toISODate()
+    ) as string;
   };
 
   fetchData = () => {
-    this.props.fetchEstablishmentBulk(this.state.filters.establishments ?? []);
-
-    this.props.fetchAssociatedCoachBulkFromCoachIds(
-      this.state.filters.coaches || [],
-      this.props.companyId,
-    );
-
-    this.props.fetchLevelBulk({
-      company: this.props.companyId,
-      id__in: this.state.filters.levels || [],
+    this.setState({ isLoading: true });
+    this.props.fetchOfferList(this.getOfferListParams(), {
+      onSuccess: this.loadOffersDependencies,
+      onError: () => this.setState({ isLoading: false }),
     });
-
-    const optionalParams: any = {};
-
-    if (this.props.theme) {
-      if (!this.props.theme.show_workshops_customer) {
-        optionalParams.is_workshop = false;
-      }
-      if (!this.props.theme.show_cancelled_offers_customer) {
-        optionalParams.available = true;
-      }
-    }
-
-    if (typeof this.props.onlineFilter?.is_online === 'boolean') {
-      optionalParams.is_online = this.props.onlineFilter?.is_online;
-    }
-
-    this.props.fetchMetaActivityBulk(this.state.filters.activity__in ?? []);
-
-    this.props.fetchNextAvailableOffer({
-      company: this.props.companyId,
-      ...this.state.filters,
-      ...optionalParams,
-    });
-    this.props.fetchOfferList({
-      company: this.props.companyId,
-      min_date: this.start_date(),
-      max_date: this.end_date(),
-      ...(this.props.username
-        ? { username: encodeURI(this.props.username) }
-        : {}),
-      ...this.state.filters,
-      ...optionalParams,
-      with_tags: true,
-      only_future_strict: !this.props.theme.show_past_sessions_calendar,
-    });
-
-    this.props.fetchAllEstablishmentGroup(this.props.companyId);
-
-    if (this.props.authenticated) {
-      this.props.fetchOfferRegisteredIds();
-    }
   };
 
   componentDidMount() {
     this.props.resetLevels();
-    /**
-     * Ensures accurate data fetching for offers based on the specified containerWidth display,
-     * taking into account the start_date and end_date. Waiting for the container to be properly set
-     * prevents incorrect data from being fetched.
-     *
-     * @remarks
-     * This method triggers data fetching when the calendarRefContainer and containerWidth are both available.
-     */
-    this.props.calendarRefContainer &&
-      this.props.containerWidth &&
-      this.fetchData();
+    this.fetchData();
     analyticsClientB2C.track(trackCalendarViewedEvent({}));
   }
 
   componentDidUpdate(prevProps: Props, prevState: State) {
-    // @ts-expect-error
-    if (!prevProps.containerWidth && this.props.containerWidth) {
-      this.fetchData();
-    }
     const filtersStateChanged = !isEqual(prevState.filters, this.state.filters);
 
     const onlineFilterPropsHasChanged = !isEqual(
@@ -497,6 +451,78 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
     }
   }
 
+  getOfferListParams = (): OfferListParams => {
+    const optionalParams: OfferListParams = {};
+
+    if (this.props.username) {
+      optionalParams.username = encodeURI(this.props.username);
+    }
+    if (!this.props?.theme?.show_workshops_customer) {
+      optionalParams.is_workshop = false;
+    }
+    if (!this.props?.theme?.show_cancelled_offers_customer) {
+      optionalParams.available = true;
+    }
+    if (typeof this.props?.onlineFilter?.is_online === 'boolean') {
+      optionalParams.is_online = this.props.onlineFilter?.is_online;
+    }
+
+    return {
+      company: this.props.companyId,
+      min_date: this.start_date(),
+      max_date: this.end_date(),
+      with_tags: true,
+      only_future_strict: !this.props.theme.show_past_sessions_calendar,
+      ...this.state.filters,
+      ...optionalParams,
+    };
+  };
+
+  loadOffersDependencies = async (offerList: any) => {
+    this.setState({ isLoading: true });
+    const dependencyPromises = [
+      this.props.fetchEstablishmentBulk([
+        ...offerList.map((o: any) => o.establishment),
+        ...(this.state.filters.establishments ?? []),
+      ]),
+      this.props.fetchAssociatedCoachBulkFromCoachIds(
+        [
+          ...offerList.map((o: any) => o.coach),
+          ...offerList.map((o: any) => o.coach_override),
+          ...(this.state.filters.coaches ?? []),
+        ],
+        this.props.companyId,
+      ),
+      this.props.fetchMetaActivityBulk([
+        ...offerList.map((o: any) => o.meta_activity),
+        ...(this.state.filters.activity__in ?? []),
+      ]),
+      this.props.fetchGroupsOfferBulk(
+        // @ts-expect-error
+        Array.from(new Set(offerList.map((o) => o.group))),
+      ),
+      this.props.fetchLevelBulk({
+        company: this.props.companyId,
+        id__in: uniq([
+          ...offerList.map((o: any) => o.custom_level),
+          ...(this.state.filters.levels ?? []),
+        ]),
+      }),
+      this.props.fetchNextAvailableOffer(this.getOfferListParams()),
+      this.props.fetchAllEstablishmentGroup(this.props.companyId),
+      ...(this.props.authenticated
+        ? [this.props.fetchOfferRegisteredIds()]
+        : []),
+      ...(this.props.theme && this.props.theme.show_booked_gender_offer
+        ? [this.props.fetchBookedGender(this.getOfferListParams())]
+        : []),
+    ];
+
+    await Promise.all(dependencyPromises).finally(() =>
+      this.setState({ isLoading: false }),
+    );
+  };
+
   openOfferDialog = (offerId: number) => {
     const offerOpened = this.props.offers.find((o: any) => o.id === offerId);
     this.setState({
@@ -551,10 +577,10 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
   };
 
   goToFirstAvailableSession = () => {
-    if (this.props.nextAvailableOffer.date_start) {
+    if (this.props.nextAvailableOffer?.date_start) {
       const newDate = DateTime.fromISO(
         this.props.nextAvailableOffer.date_start,
-      ).toISODate();
+      ).toISODate() as string;
       this.handleDateChange(newDate);
     }
   };
@@ -567,6 +593,8 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
 
   handleContinueGroupPopup = () => {
     this.handleCloseGroupPopup();
+
+    if (!this.state.displayGroupPopup) return;
 
     const { redirect, group, ...offer } = this.state.displayGroupPopup;
     if (redirect === 'book') {
@@ -643,14 +671,10 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
       activeCustomLevels,
       customLevels,
       establishmentGroupList,
-      loading,
       metaActivities,
       compactMode,
     } = this.props;
 
-    // To prevent display flickering between the loading state and the "no offer message,"
-    // we need to show loading when the containerWidth is already defined.
-    const offerLoading = !this.props.containerWidth || loading;
     return (
       <>
         <MarketplaceCalendarComponent
@@ -678,15 +702,15 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
           groupSessionByPeriod={this.props.groupSessionByPeriod}
           hideCoach={this.props.theme.hideCoach}
           isCardModeDisplay={this.getIsCardModeDisplay()}
-          loading={offerLoading}
+          isSearching={this.state.offerSearchResult.query.length > 0}
+          loading={this.state.isLoading}
           metaActivities={
             this.props.theme.show_workshops_customer
               ? this.props.metaActivitiesWorkshops
               : metaActivities
           }
           nextAvailableOffer={this.props.nextAvailableOffer}
-          offers={this.props.offers}
-          offersLoading={offerLoading}
+          offers={this.state.offerSearchResult?.offerList ?? this.props.offers}
           onClearInput={this.handleClearSearchResult}
           onClickBook={this.goToBook}
           onClickBookOption={this.props.goToBookOption}
@@ -694,12 +718,7 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
           onSearch={this.handleSearch}
           onSelectDate={this.handleDateChange}
           refContainer={this.props.calendarRefContainer}
-          searchedOffers={this.state.offerSearchResult?.offerList}
-          selectedDate={
-            this.props.otherParams.date
-              ? DateTime.fromISO(this.props.otherParams.date)
-              : DateTime.now()
-          }
+          selectedDate={this.getSelectedDate(this.props.otherParams.date)}
           setFilters={this.props.setFilters || this.setFilters}
           showMultiLocalization={this.props.theme.enable_multi_localization}
           showOfferFilling={this.props.theme.show_offers_filling}
@@ -760,16 +779,9 @@ const GroupRulePopupContained = connect((state: RootState) => ({
 }))(GroupRulePopup);
 
 const mapStateToProps = (state: RootState) => ({
-  getEnrichedOfferForAnalytics: (offerId: number) => {
-    return getOfferForAnalytics(state, offerId);
-  },
   offers: getMarketplaceOfferList(state),
   genderCount: getBookedGenderOffer(state),
-  loading: state.offer.marketplace.loading,
   events: state.offer.calendar,
-  coachLoading: state.coach.loading,
-  establishmentLoading: state.establishment.bulkRetrieve.loading,
-  activityLoading: state.metaActivity.loading,
   coaches: getCoaches(state),
   establishments: getAllEstablishments(state),
   metaActivities: getPureMetaActivitiesDict(state),
@@ -810,53 +822,6 @@ const mapDispatchToProps = {
 };
 
 const mapWithHandlers = {
-  fetchOfferList:
-    (props: Props) =>
-    (params: {
-      company: number;
-      max_date: string;
-      min_date: string;
-      is_workshop?: boolean;
-      available?: boolean;
-      filters: OfferFilterData;
-    }) => {
-      props.fetchOfferList(
-        {
-          ...params,
-          only_future_strict: !props.theme.show_past_sessions_calendar,
-        },
-        {
-          onSuccess: (offerList: any) => {
-            props.fetchEstablishmentBulk([
-              ...offerList.map((o: any) => o.establishment),
-            ]);
-            props.fetchAssociatedCoachBulkFromCoachIds(
-              [
-                ...offerList.map((o: any) => o.coach),
-                ...offerList.map((o: any) => o.coach_override),
-              ],
-              props.companyId,
-            );
-
-            props.fetchMetaActivityBulk([
-              ...offerList.map((o: any) => o.meta_activity),
-            ]);
-
-            props.fetchGroupsOfferBulk(
-              // @ts-expect-error
-              Array.from(new Set(offerList.map((o) => o.group))),
-            );
-            props.fetchLevelBulk({
-              company: props.companyId,
-              id__in: uniq([...offerList.map((o: any) => o.custom_level)]),
-            });
-          },
-        },
-      );
-      if (props.theme && props.theme.show_booked_gender_offer) {
-        props.fetchBookedGender(params);
-      }
-    },
   goToBook: (props: Props) => (id: number, companyId: number) => {
     if (props.goToBook) {
       props.goToBook(id, companyId);

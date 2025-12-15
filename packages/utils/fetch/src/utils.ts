@@ -9,14 +9,12 @@ export type ResponseType<T> = {
   backgroundTaskUuid: string | null;
 };
 
-const API_DEV = "https://api.dev.bsport.io";
-const API_LOCAL = "http://localhost:8000";
-const API_SUFFIX_FEATURE_BRANCH = "chaos.bsport.io";
-
-export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL ?? API_DEV;
-
+export const UNKNOWN_TIMEZONE = "unknown";
 export const BACKGROUND_TASK_UUID_HEADER = "x-background-task-uuid";
 
+/**
+ * Build request headers as a combination of common and custom headers
+ */
 export function getHeaders(customHeaders?: HeadersInit): HeadersInit {
   const token = getAuthToken();
   const requestFrom = getBsportRequestFrom();
@@ -24,7 +22,7 @@ export function getHeaders(customHeaders?: HeadersInit): HeadersInit {
   return {
     Accept: "application/json",
     "X-Session-ID": getSessionId(),
-    "X-Timezone-Name": getCompanyTimezone() || "unknown",
+    "X-Timezone-Name": getCompanyTimezone() || UNKNOWN_TIMEZONE,
     "X-React-Referrer": window.location.href.slice(0, 250),
     "X-bsport-log-collection": "true",
     "X-Transaction-ID": getTransactionId(),
@@ -34,33 +32,9 @@ export function getHeaders(customHeaders?: HeadersInit): HeadersInit {
   };
 }
 
-export function getFullUri(uri: string) {
-  if (
-    API_BASE_URL === API_LOCAL ||
-    API_BASE_URL?.includes(API_SUFFIX_FEATURE_BRANCH)
-  ) {
-    // We need to remove the replace the prefix with `api`
-    // to be compliant with localhost API or Feature branch API usage in saas-legacy
-    // There are two cases :
-    // - if v0 (e.g. platform/v0) -> replace with api-v0
-    // - if v1 (e.g. platform/v1) -> replace with api/v1
-    const [version, ...otherParts] = uri.split("/").slice(1);
-
-    // Validate that we have a recognized version segment
-    if (!version || (version !== "v0" && version !== "v1")) {
-      console.warn(`Unexpected URI structure for local/feature API: ${uri}`);
-      return `${API_BASE_URL}/${uri}`;
-    }
-
-    const localUri =
-      version === "v0"
-        ? `api-v0/${otherParts.join("/")}`
-        : `api/v1/${otherParts.join("/")}`;
-    return `${API_BASE_URL}/${localUri}`;
-  }
-  return `${API_BASE_URL}/${uri}`;
-}
-
+/**
+ * Parsed custom error codes associated to a 499 response (custom bsport exception)
+ */
 export function getCustomErrorCodes(
   err:
     | number
@@ -80,6 +54,9 @@ export function getCustomErrorCodes(
   return [];
 }
 
+/**
+ * Stringify the http error in a consistent way
+ */
 export function getMessage(
   httpError:
     | string

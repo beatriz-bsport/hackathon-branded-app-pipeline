@@ -20,7 +20,7 @@
     "build"
   ],
   "scripts": {
-    "build": "vite build",
+    "build": "vite build --logLevel warn",
     "ci:compile": "tsc",
     "clean": "rm -rf build",
     "dev": "vite build --watch",
@@ -33,6 +33,7 @@
     "test:watch": "vitest"
   },
   "dependencies": {
+    "@bsport/envs": "workspace:*",
     "@bsport/http-exception": "workspace:*",
     "@bsport/local-storage-auth-token": "workspace:*",
     "@bsport/request-from-header": "workspace:*",

@@ -20,11 +20,12 @@ export const notificationContentValidationFormSchema = z
       isPushNotificationEnabled &&
       (!data.pushNotificationContent || !data.pushNotificationTitle);
     if (!isEmailNotificationEnabled && !isPushNotificationEnabled) {
-      const emptyCheckboxField = [
-        "isPushNotificationChecked",
-        "isEmailNotificationChecked",
-      ];
-      emptyCheckboxField.forEach((field) =>
+      const missingFields = [
+        !data.pushNotificationContent && "pushNotificationContent",
+        !data.pushNotificationTitle && "pushNotificationTitle",
+      ].filter(Boolean) as Array<keyof NotificationContentFormData>;
+
+      missingFields.forEach((field) =>
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
           message: i18nInstance.t("steps.content.errors.noContentKind", {
@@ -51,12 +52,9 @@ export const notificationContentValidationFormSchema = z
       emptyPushNotificationField.forEach((field) =>
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
-          message: i18nInstance.t(
-            "steps.content.errors.noPushNotificationContent",
-            {
-              ns: "sm-marketing-notification_marketingNotificationsModal",
-            },
-          ),
+          message: i18nInstance.t(`steps.content.errors.noContent.${field}`, {
+            ns: "sm-marketing-notification_marketingNotificationsModal",
+          }),
           path: [field],
         }),
       );

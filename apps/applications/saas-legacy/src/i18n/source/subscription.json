@@ -164,7 +164,7 @@
       },
       "nb_interval": {
         "label": "Number of invoices:",
-        "error": "The number of billings should not exceed 90",
+        "error": "The number of billings should not exceed 110",
         "errorForFixedBillingDay": "The number of billings should not exceed 12",
         "restrictionForFixedBillingDay": "The number of billings must be between 2 and 12 for fixed-day billing",
         "helperText": "Minimum is 2 months"

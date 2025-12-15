@@ -18,6 +18,26 @@
       "establishment": "Establishment",
       "sessionType": "Session type"
     },
+    "filters": {
+      "label": "Filters",
+      "is": "is",
+      "not": "is not",
+      "activityType": {
+        "label": "Activity type",
+        "workshop": "Workshop",
+        "groupActivity": "Group activity"
+      },
+      "visibility": {
+        "label": "Visibility",
+        "aggregators": "Visible on aggregators",
+        "members": "Visible on Member Area"
+      },
+      "teacherSubstitution": {
+        "label": "Teacher substitution",
+        "confirmed": "Confirmed",
+        "pending": "Pending request"
+      }
+    },
     "isLoading": "Loading sessions...",
     "attendanceButton": "Attendance"
   },

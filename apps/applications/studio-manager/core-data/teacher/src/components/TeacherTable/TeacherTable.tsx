@@ -1,11 +1,11 @@
 import React from "react";
 
+import type { Teacher } from "@bsport/api-core";
 import {
   type PaginationProps,
   Table,
   useMatchMedia,
 } from "@bsport/kaizen-primitive-core";
-import type { Teacher } from "@bsport/store-core-data-teacher";
 
 import { LEGACY_URLS } from "#src/urls";
 import { useTranslation } from "#src/utils/i18n";

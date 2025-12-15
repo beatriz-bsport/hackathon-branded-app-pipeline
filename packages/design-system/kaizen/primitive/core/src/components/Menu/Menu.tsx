@@ -60,6 +60,21 @@ const Menu: React.FC<MenuProps> = ({
             iconLeft={item.iconLeft}
             rightSlot={item.rightSlot}
             description={item.description}
+            leftSlot={item.leftSlot}
+          />
+        );
+
+      if (item.type === "button")
+        return (
+          <MenuItem
+            type="button"
+            label={item.label}
+            iconLeft={item.iconLeft}
+            disabled={disabled || !!item.disabled}
+            id={item.id}
+            key={item.id}
+            onClick={item.onClick}
+            leftSlot={item.leftSlot}
           />
         );
 
@@ -75,6 +90,7 @@ const Menu: React.FC<MenuProps> = ({
           id={item.id}
           key={item.id}
           onClick={handleSelectOption(item.id)}
+          leftSlot={item.leftSlot}
         />
       ) : (
         <MenuItem
@@ -90,6 +106,7 @@ const Menu: React.FC<MenuProps> = ({
           checked={selectedValues?.[0] === item.id}
           onChange={handleSelectOption(item.id)}
           description={item.description}
+          leftSlot={item.leftSlot}
         />
       );
     });

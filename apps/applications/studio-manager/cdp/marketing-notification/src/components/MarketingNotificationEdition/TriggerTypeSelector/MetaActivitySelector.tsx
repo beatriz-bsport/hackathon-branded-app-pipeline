@@ -1,8 +1,8 @@
-import type { TextFieldProps } from "@bsport/kaizen-primitive-core";
 import type {
   FetchGroupActivitiesParams,
   MetaActivity,
-} from "@bsport/store-booking-group-activity";
+} from "@bsport/api-book";
+import type { TextFieldProps } from "@bsport/kaizen-primitive-core";
 
 import { BackendSelector } from "#src/components/BackendSelector/BackendSelector";
 import { useFetchGroupActivities } from "#src/hooks/api/use-fetch-group-activities";

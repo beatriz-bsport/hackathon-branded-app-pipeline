@@ -1,4 +1,11 @@
-import React, { ReactNode, SetStateAction } from "react";
+import type {
+  Dispatch,
+  FC,
+  ReactNode,
+  Ref,
+  RefObject,
+  SetStateAction,
+} from "react";
 
 import Button from "#src/components/Button";
 import ExpandableSearchInput, {
@@ -11,11 +18,11 @@ import { useKaizenI18nInstance, useTranslation } from "#src/i18n";
 
 export type DataActionsSectionProps = {
   filterConfig?: FilterProps;
-  filterRef?: React.Ref<{ resetFilters: () => void }>;
+  filterRef?: Ref<{ resetFilters: () => void }>;
   onDisplayPopover?: (props: {
-    setIsPopoverOpened: React.Dispatch<React.SetStateAction<boolean>>;
+    setIsPopoverOpened: Dispatch<SetStateAction<boolean>>;
     isPopoverOpened: boolean;
-    contentRef: React.RefObject<HTMLDivElement | null>;
+    contentRef: RefObject<HTMLDivElement | null>;
   }) => ReactNode;
 
   searchConfig?: ExpandableSearchInputWithTooltipProps;
@@ -23,7 +30,7 @@ export type DataActionsSectionProps = {
 
 const SearchWithTooltip = withTooltip(ExpandableSearchInput);
 
-const DataActionsSection: React.FC<DataActionsSectionProps> = ({
+const DataActionsSection: FC<DataActionsSectionProps> = ({
   filterConfig,
   filterRef,
   onDisplayPopover,

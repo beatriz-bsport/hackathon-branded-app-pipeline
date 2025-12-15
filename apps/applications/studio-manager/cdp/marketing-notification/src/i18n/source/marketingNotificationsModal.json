@@ -3,6 +3,16 @@
     "create": "Create a notification",
     "edit": "Edit notification"
   },
+  "toast": {
+    "create": {
+      "success": "Notification rule saved",
+      "failure": "Your notification rule could not be saved"
+    },
+    "edit": {
+      "success": "Your changes were saved",
+      "failure": "Your changes could not be saved"
+    }
+  },
   "steps": {
     "label": {
       "triggerType": "Select trigger type",
@@ -12,8 +22,11 @@
     "content": {
       "errors": {
         "noEmailTemplate": "Select a template",
-        "noPushNotificationContent": "Add content to your push notification ",
-        "noContentKind": "Select at least 1 email or notification"
+        "noContent": {
+          "pushNotificationTitle": "Fill in the push notification title",
+          "pushNotificationContent": "Fill in the push notification content"
+        },
+        "noContentKind": "Select at least 1 communication kind"
       },
       "selector": {
         "emailTemplates": {
@@ -78,18 +91,18 @@
         },
         "pass": {
           "label": "Pass",
-          "placeholder": "Select a Pass",
-          "loading": "Searching Passes..."
+          "placeholder": "Select a pass",
+          "loading": "Searching passes..."
         },
         "appointmentPass": {
-          "label": "Appointment Pass",
-          "placeholder": "Select an Appointment Pass",
-          "loading": "Searching Appointment Passes..."
+          "label": "Appointment pass",
+          "placeholder": "Select an appointment pass",
+          "loading": "Searching appointment passes..."
         },
         "smartlists": {
           "label": "Associated Smartlists",
-          "placeholder": "Select associated smartlists",
-          "loading": "Searching smartlists..."
+          "placeholder": "Select associated Smartlists",
+          "loading": "Searching Smartlists..."
         },
         "errors": {
           "notEmpty": "Select a trigger to continue",
@@ -116,11 +129,11 @@
         "actionLabel": "Send this notification when a member",
         "actions": {
           "makesBooking": "Makes a booking",
-          "makesCancellation": "Makes a cancellation"
+          "makesCancellation": "Makes a cancelation"
         },
         "statusLabel": {
           "attendance": "Send this notification when members are marked as",
-          "cancellation": "Send this notification when cancellation was"
+          "cancellation": "Send this notification when cancelation was"
         },
         "statusOptions": {
           "present": "Present",
@@ -173,6 +186,29 @@
               }
             }
           }
+        }
+      },
+      "appointment": {
+        "actionLabel": "Send this notification when a member",
+        "actions": {
+          "attend": "Attends their booked appointment",
+          "cancelOnTime": "Cancels their appointment within the cancelation window",
+          "cancelTooLate": "Cancels their appointment outside the cancelation window"
+        },
+        "occurrenceLabel": "Send this notification when",
+        "occurrences": {
+          "attend": {
+            "anyBooking": "A member makes any booking",
+            "specificAmount": "A member reaches a specific amount of bookings"
+          },
+          "cancel": {
+            "anyBooking": "A member makes any cancelation",
+            "specificAmount": "A member reaches a specific amount of cancelations"
+          }
+        },
+        "amountSuffix": {
+          "attend": "Bookings",
+          "cancel": "Cancelations"
         }
       }
     }

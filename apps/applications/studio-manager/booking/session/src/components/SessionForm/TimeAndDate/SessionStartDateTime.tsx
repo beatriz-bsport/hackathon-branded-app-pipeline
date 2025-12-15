@@ -1,0 +1,123 @@
+import { FC, useCallback } from "react";
+
+import {
+  getLocalNow,
+  modifyTime,
+  toDateTime,
+} from "@bsport/datetime-manipulation";
+import { useFormContext } from "@bsport/form";
+import { DatePicker, TimePicker } from "@bsport/kaizen-primitive-core";
+import { dataAccessLayer } from "@bsport/sm-backbone";
+
+import { MAX_YEARS_AHEAD } from "#src/components/SessionForm/schemas";
+import { useTranslation } from "#src/utils/i18n";
+
+export const SessionStartDateTime: FC<{
+  fieldIdPrefix: string;
+}> = ({ fieldIdPrefix }) => {
+  const { t, i18n } = useTranslation("sessionCreation");
+
+  const { watch, setValue, formState } = useFormContext();
+
+  const startDateTime = watch("startDateTime");
+
+  const error = formState.errors.startDateTime?.message;
+
+  const locale = i18n.language;
+
+  const companyTimeZone = dataAccessLayer.useCompanyTheme()?.timezone_name;
+
+  // When date changes, preserve the time
+  const handleDateChange = useCallback(
+    (newDate: Date) => {
+      const currentDateTime = toDateTime(startDateTime, companyTimeZone);
+      const newDateTime = toDateTime(newDate, companyTimeZone);
+
+      const updatedDateTime = newDateTime.set({
+        hour: currentDateTime.hour,
+        minute: currentDateTime.minute,
+        second: 0,
+        millisecond: 0,
+      });
+
+      setValue("startDateTime", updatedDateTime.toJSDate(), {
+        shouldValidate: true,
+        shouldDirty: true,
+      });
+    },
+    [startDateTime, setValue, companyTimeZone],
+  );
+
+  // When time changes, preserve the date
+  const handleTimeChange = useCallback(
+    (newTime: Date) => {
+      const currentDateTime = toDateTime(startDateTime, companyTimeZone);
+      const newTimeDateTime = toDateTime(newTime, companyTimeZone);
+
+      const updatedDateTime = currentDateTime.set({
+        hour: newTimeDateTime.hour,
+        minute: newTimeDateTime.minute,
+        second: 0,
+        millisecond: 0,
+      });
+
+      setValue("startDateTime", updatedDateTime.toJSDate(), {
+        shouldValidate: true,
+        shouldDirty: true,
+      });
+    },
+    [startDateTime, setValue, companyTimeZone],
+  );
+
+  const disableDateTooFar = useCallback(
+    (date: Date) => {
+      if (!companyTimeZone) return false;
+
+      const dateDT = toDateTime(date, companyTimeZone);
+      const now = getLocalNow({ zone: companyTimeZone, locale });
+
+      const maxDate = modifyTime({
+        datetime: now,
+        duration: { year: MAX_YEARS_AHEAD },
+        operator: "plus",
+      });
+      return dateDT > maxDate;
+    },
+    [companyTimeZone, locale],
+  );
+
+  const timeString = toDateTime(startDateTime, companyTimeZone).toFormat(
+    "HH:mm",
+  );
+
+  return (
+    <div className="flex flex-col gap-sm md:flex-row md:gap-md">
+      <DatePicker
+        displayAs="popover"
+        isInputField
+        id={`${fieldIdPrefix}-start-date`}
+        label={t("addSessionModal.steps.configureSession.timeAndDate.date")}
+        required
+        mode="single"
+        defaultValue={startDateTime}
+        onSelect={(date) => {
+          if (date instanceof Date) {
+            handleDateChange(date);
+          }
+        }}
+        disableDate={disableDateTooFar}
+        aria-required="true"
+        status={error ? "error" : "default"}
+        statusText={error?.toString()}
+      />
+
+      <TimePicker
+        id={`${fieldIdPrefix}-start-time`}
+        label={t("addSessionModal.steps.configureSession.timeAndDate.time")}
+        required
+        value={timeString}
+        onChange={handleTimeChange}
+      />
+    </div>
+  );
+};

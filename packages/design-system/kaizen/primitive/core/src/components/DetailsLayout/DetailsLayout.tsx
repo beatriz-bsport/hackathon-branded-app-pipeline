@@ -1,6 +1,5 @@
 import { cva } from "class-variance-authority";
 import {
-  type CSSProperties,
   type FC,
   type ForwardRefExoticComponent,
   type HTMLAttributes,
@@ -42,6 +41,7 @@ const detailsLayout = cva([
   "[grid-template-areas:'header_header''confirm_aside''content_aside']",
   "transition-all",
   "duration-long",
+  "relative",
 ]);
 
 /**
@@ -87,23 +87,22 @@ function Main({
   className,
   ...props
 }: Omit<DetailsLayoutProps, "openPanelByDefault">) {
-  const { hasUnsavedChanges, isPanelOpened } = useLayoutContext();
-  const panelWidth = isPanelOpened ? SIDE_PANEL_WIDTH : 0;
-  const confirmHeight = hasUnsavedChanges ? "auto" : "0fr";
+  const { hasUnsavedChanges, isPanelOpened, isMobile } = useLayoutContext();
+  // On Mobile, Panel overlaps the Content
+  const panelWidth = isPanelOpened && !isMobile ? SIDE_PANEL_WIDTH : 0;
+  const confirmGridHeight = hasUnsavedChanges ? "auto" : "0fr";
 
   return (
     <main
       {...props}
       className={detailsLayout({ className })}
-      style={
-        {
-          overflow: panelWidth ? "hidden" : "auto",
-          "--aside-width": `${panelWidth}px`,
-          "--confirm-height": confirmHeight,
-          gridTemplateColumns: "1fr var(--aside-width)",
-          gridTemplateRows: "auto var(--confirm-height) 1fr",
-        } as CSSProperties
-      }
+      style={{
+        overflow: panelWidth ? "hidden" : "auto",
+        "--aside-width": `${panelWidth}px`,
+        "--confirm-grid-height": confirmGridHeight,
+        gridTemplateColumns: isMobile ? "1fr" : "1fr var(--aside-width)",
+        gridTemplateRows: "auto var(--confirm-grid-height) 1fr",
+      }}
     />
   );
 }
@@ -171,15 +170,42 @@ DetailsLayout.Content = DetailsLayoutContent;
 
 // ----- Panel -----
 
-const detailsLayoutPanel = cva([
-  "[grid-area:aside]",
-  "bg-surface-page-navigation",
-  "border-l-stroke-weak",
-  "border-l-stroke-thin",
-  "overflow-y-scroll",
-  "p-md",
-  "h-full",
-]);
+const detailsLayoutPanel = cva(
+  [
+    "[grid-area:aside]",
+    "bg-surface-page-navigation",
+    "border-l-stroke-weak",
+    "border-l-stroke-thin",
+    "overflow-y-scroll",
+    "h-full",
+    "duration-short",
+  ],
+  {
+    variants: {
+      isMobile: {
+        true: [
+          "absolute",
+          "right-0",
+          // placed at top of grid container, but under confirmation
+          "top-[var(--confirm-container-height)]",
+          "z-40",
+        ],
+        false: "",
+      },
+      isOpenByDevice: {
+        "mobile-true": [
+          "animate-slide-in-right",
+          "translate-x-0",
+          "p-md",
+          "w-[100vw]",
+        ],
+        "mobile-false": ["animate-slide-out-right", "translate-x-full", "w-0"],
+        "desktop-true": "p-md",
+        "desktop-false": "",
+      },
+    },
+  },
+);
 
 type DetailsLayoutPanelProps = PropsWithChildren<
   HTMLAttributes<HTMLDivElement>
@@ -195,13 +221,21 @@ const DetailsLayoutPanel: FC<DetailsLayoutPanelProps> = ({
   children,
   ...htmlProps
 }) => {
-  const { isPanelOpened } = useLayoutContext();
-
+  const { isPanelOpened, isMobile, confirmationHeight } = useLayoutContext();
+  const isOpenByDevice =
+    `${isMobile ? "mobile" : "desktop"}-${isPanelOpened}` as const;
   return (
     <aside
-      className={detailsLayoutPanel({ className })}
+      className={detailsLayoutPanel({
+        className,
+        isOpenByDevice,
+        isMobile,
+      })}
       aria-hidden={!isPanelOpened}
       {...htmlProps}
+      style={{
+        "--confirm-container-height": `${confirmationHeight}px`,
+      }}
     >
       {children}
     </aside>
@@ -219,7 +253,9 @@ const detailsLayoutConfirmation = cva(
     "border-b-stroke-thin",
     "border-b-stroke-weak",
     "flex",
+    "flex-wrap",
     "items-center",
+    "justify-between",
     "gap-xs",
   ],
   {
@@ -251,7 +287,7 @@ const DetailsLayoutConfirmation: FC<DetailsLayoutConfirmationProps> = ({
   onSave,
   ...htmlProps
 }) => {
-  const { hasUnsavedChanges } = useLayoutContext();
+  const { hasUnsavedChanges, confirmationRef } = useLayoutContext();
   const i18nInstance = useKaizenI18nInstance();
   const { t } = useTranslation("default", { i18n: i18nInstance });
 
@@ -260,6 +296,7 @@ const DetailsLayoutConfirmation: FC<DetailsLayoutConfirmationProps> = ({
       className={detailsLayoutConfirmation({ className, hasUnsavedChanges })}
       aria-hidden={!hasUnsavedChanges}
       {...htmlProps}
+      ref={confirmationRef}
     >
       {hasUnsavedChanges && (
         <>
@@ -272,21 +309,23 @@ const DetailsLayoutConfirmation: FC<DetailsLayoutConfirmationProps> = ({
           >
             {t("detailsLayout.confirmation.title")}
           </Body>
-          <Button
-            className="ml-[auto]"
-            label={t("detailsLayout.confirmation.discard")}
-            size="md"
-            intent="flat"
-            color="default"
-            onClick={onDiscard}
-          />
-          <Button
-            label={t("detailsLayout.confirmation.save")}
-            size="md"
-            intent="default"
-            color="main"
-            onClick={onSave}
-          />
+          <div className="flex flex-row items-center grow">
+            <Button
+              className="ml-[auto]"
+              label={t("detailsLayout.confirmation.discard")}
+              size="md"
+              intent="flat"
+              color="default"
+              onClick={onDiscard}
+            />
+            <Button
+              label={t("detailsLayout.confirmation.save")}
+              size="md"
+              intent="default"
+              color="main"
+              onClick={onSave}
+            />
+          </div>
         </>
       )}
     </div>

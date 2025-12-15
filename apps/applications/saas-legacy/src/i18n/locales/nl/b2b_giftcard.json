@@ -16,6 +16,8 @@
         "maxGreaterThanMin": "De maximale waarde moet groter zijn dan de minimale waarde."
       }
     },
-    "featureBlocked": "Cadeaubonnen met een aangepaste waarde zijn nog niet beschikbaar."
+    "billingForm": {
+      "priceIsToBeDetermined": "Ongedefinieerd"
+    }
   }
 }

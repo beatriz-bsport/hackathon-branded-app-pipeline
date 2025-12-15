@@ -1,4 +1,5 @@
 import { type FC } from "react";
+import { useNavigate } from "react-router";
 
 import {
   List,
@@ -9,6 +10,7 @@ import {
 import type { Smartlist } from "@bsport/store-cdp-smartlist";
 
 import { LEGACY_URLS } from "#src/urls";
+import { useSmartlistFlag } from "#src/utils/feature-flags/use-smartlist-flag";
 import { useTranslation } from "#src/utils/i18n";
 
 import { VISIBLE_ACTIONS_DISPLAY_LIMIT } from "./constants";
@@ -45,6 +47,8 @@ export const SmartlistList: FC<SmartlistListProps> = ({
   actions,
 }) => {
   const { t } = useTranslation("list");
+  const navigate = useNavigate();
+  const isSmartlistEnabled = useSmartlistFlag();
 
   const { isEmpty, isEmptySearch, onSearchClear, onCreateClick } =
     emptyStateConfig;
@@ -60,7 +64,11 @@ export const SmartlistList: FC<SmartlistListProps> = ({
       visibleActionsDisplayLimit: isMobile ? 0 : VISIBLE_ACTIONS_DISPLAY_LIMIT,
     },
     onClick: () => {
-      window.location.assign(LEGACY_URLS.SMARTLIST_MEMBER(smartlist.id));
+      if (isSmartlistEnabled) {
+        navigate(`/${smartlist.id}`);
+      } else {
+        window.location.assign(LEGACY_URLS.SMARTLIST_MEMBER(smartlist.id));
+      }
     },
     buttons: [
       {

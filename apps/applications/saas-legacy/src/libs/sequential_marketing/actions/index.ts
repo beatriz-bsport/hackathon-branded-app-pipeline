@@ -1,4 +1,9 @@
 import {
+  createCadenceFromTemplateActions,
+  createCadenceFromTemplate,
+} from './cadence_template';
+
+import {
   // CREATE
   createCadenceActions,
   createCadence,
@@ -103,6 +108,9 @@ import {
 } from './metrics';
 
 export {
+  // CADENCE TEMPLATE
+  createCadenceFromTemplateActions,
+  createCadenceFromTemplate,
   // CADENCE
   createCadenceActions,
   createCadence,

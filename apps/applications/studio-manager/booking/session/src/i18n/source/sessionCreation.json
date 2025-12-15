@@ -58,6 +58,41 @@
               }
             }
           }
+        },
+        "settings": {
+          "title": "Settings",
+          "effectif": "Total spots in class",
+          "waitlist": "Spots on Waitlist",
+          "credits": {
+            "label": "Credits",
+            "helperText": "Number of credits required to book the session",
+            "decimalHelperText": "This session will cost {{count}} credits",
+            "warning": "Double-check: you’re entering credits, not a price."
+          },
+          "partnership": {
+            "toggle": "Make session available to book for customers from aggregators (ClassPass, Urban Sports Club, Gymlib, Wellhub and myClubs).",
+            "capacity": {
+              "label": "Allocated spots",
+              "helperText": "This limit only applies when using Wellhub, Urban Sports Club or myClubs — other aggregators aren’t affected.",
+              "error": "The number of allocated spots for aggregators can't exceed the total available spots in the session."
+            }
+          }
+        },
+        "timeAndDate": {
+          "title": "Time and date",
+          "date": "Date",
+          "time": "Time",
+          "duration": {
+            "label": "Duration",
+            "minute": "min",
+            "hour": "hour",
+            "day": "day"
+          },
+          "errors": {
+            "invalidDate": "Invalid date. Please enter a valid date in the format DD/MM/YYYY.",
+            "dateTooFar": "You can’t create sessions scheduled more than 3 years in the future.",
+            "durationNull": "Duration must be greater than 0 minutes."
+          }
         }
       },
       "advancedOptions": {
@@ -68,6 +103,7 @@
       "cancel": "Cancel",
       "back": "Back",
       "createSession": "Create session"
-    }
+    },
+    "errors": { "requiredField": "This field is required" }
   }
 }

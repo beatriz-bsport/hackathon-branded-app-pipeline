@@ -53,8 +53,7 @@ import { monitorBackgroundTask } from '../background-task/actions';
 import { snackbarSuccess, snackbarError } from '../snackbar/actions';
 import type { RootState } from '../../reducers';
 import type {
-  OfferFilter,
-  OfferFilterData,
+  OfferListParams,
   OfferStatus,
   Offer,
   OfferCreate,
@@ -449,63 +448,17 @@ export const offerMarketplaceListActions = {
   success: createAction('OFFER/MARKETPLACE/SUCCESS'),
 };
 
-const createOfferFilter = (filters: OfferFilterData | OfferFilter) => {
-  if (!filters) return {};
-  const filterData: OfferFilterData = {};
-  // do not delete this, migration
-  if (filters) {
-    // @ts-expect-error
-    if (filters.establishments && filters.establishments.length > 0) {
-      // @ts-expect-error
-      filterData.establishment__in = filters.establishments;
-    }
-    // @ts-expect-error
-    if (filters.coaches && filters.coaches.length > 0) {
-      // @ts-expect-error
-      filterData.coach__in = filters.coaches;
-    }
-    // @ts-expect-error
-    if (filters.metaActivities && filters.metaActivities.length > 0) {
-      // @ts-expect-error
-      filterData.activity__in = filters.metaActivities;
-    }
-    // @ts-expect-error
-    if (filters.levels && filters.levels.length > 0) {
-      // @ts-expect-error
-      filterData.level__in = filters.levels;
-    }
-    // @ts-expect-error
-    if (filters.establishmentGroups && filters.establishmentGroups.length > 0) {
-      // @ts-expect-error
-      filterData.establishment_group__in = filters.establishmentGroups;
-    }
-  }
-  return filterData;
-};
-
 export function fetchMarketplaceOfferList(
-  params: {
-    company: number;
-    min_date: string;
-    max_date: string;
-    username?: string;
-    filters: OfferFilterData | OfferFilter;
-    is_workshop?: boolean;
-    available?: boolean;
-    only_future_strict?: boolean;
-  },
+  params: OfferListParams,
   options?: OptionCallback,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(offerMarketplaceListActions.error(null));
     dispatch(offerMarketplaceListActions.isLoading(true));
-    const { filters } = params;
 
     try {
-      delete params.filters;
       const response = await fetchOffersListAPI({
         ...params,
-        ...createOfferFilter(filters),
         with_booking_window: true,
       });
       // @ts-expect-error
@@ -532,27 +485,17 @@ export const offerNextActions = {
 };
 
 export function fetchNextAvailableOffer(
-  params: {
-    company: number;
-    filters: OfferFilterData | OfferFilter;
-    is_workshop?: boolean;
-    available?: boolean;
-  },
+  params: OfferListParams,
   options?: OptionCallback,
 ) {
   return async (dispatch: Dispatch) => {
     try {
       dispatch(offerNextActions.error(null));
       dispatch(offerNextActions.isLoading(true));
-      const { filters } = params;
-
-      delete params.filters;
       const response = await fetchOffersListAPI({
-        // @ts-expect-error
         only_future_strict: true,
         max_date: DateTime.now().plus({ months: 4 }).toISODate(),
         ...params,
-        ...createOfferFilter(filters),
         with_tags: true,
         page_size: 1,
         page: 1,
@@ -1076,7 +1019,6 @@ export function fetchMarketplaceOfferByMetaActivityList(
     max_date: string;
     with_unique_offer_by_group: boolean;
     username?: string;
-    filters: OfferFilterData | OfferFilter;
     is_workshop?: boolean;
     available?: boolean;
   },
@@ -1090,13 +1032,10 @@ export function fetchMarketplaceOfferByMetaActivityList(
         value: true,
       }),
     );
-    const { filters } = params;
 
     try {
-      delete params.filters;
       const response = await fetchOffersListAPI({
         ...params,
-        ...createOfferFilter(filters),
         activity__in: [metaActivityId],
         is_workshop: true,
         with_tags: true,

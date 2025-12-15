@@ -28,10 +28,10 @@ fi
 
 # ===== Build storybook with env vars =====
 echo "🛠️ Building Storybook with STORYBOOK_ENV=$ENVIRONMENT and SHA=$CI_COMMIT_SHORT_SHA"
-STORYBOOK_ENV=$ENVIRONMENT STORYBOOK_COMMIT_SHORT_SHA=$CI_COMMIT_SHORT_SHA NODE_OPTIONS=--max-old-space-size=8192 pnpm storybook:build --quiet --output-dir storybook
+STORYBOOK_ENV=$ENVIRONMENT STORYBOOK_COMMIT_SHORT_SHA=$CI_COMMIT_SHORT_SHA NODE_OPTIONS=--max-old-space-size=8192 pnpm storybook:build --quiet --output-dir storybook-static
 
 # Upload build on AWS S3 bucket
-aws s3 cp ./storybook/ $S3_FINAL_PATH --recursive --only-show-errors --acl public-read
+aws s3 cp ./storybook-static/ $S3_FINAL_PATH --recursive --only-show-errors --acl public-read
 
 echo "✅ Upload successful at $S3_FINAL_PATH"
 

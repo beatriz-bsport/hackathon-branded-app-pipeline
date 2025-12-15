@@ -6,6 +6,7 @@ import { menuItemTypes } from "./constants";
 export type LeftSlot = {
   avatar?: { src: string; initials: string };
   iconLeft?: IconName;
+  leftSlot?: React.ReactNode;
 };
 
 export type Title = {

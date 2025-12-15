@@ -45,7 +45,12 @@ echo 'eval "$(mise activate zsh)"' >> ~/.zshrc
 source ~/.zshrc
 ```
 
-3. Trust and install project tools:
+3. Allow 1password cli integration :
+
+- On 1Password desktop tool go to : `bsport` > `Settings...` > `Developer`
+- Toggle On the `Integrate with 1Password CLI` option under the `Command-Line Interface (CLI)` option group
+
+4. Trust and install project tools:
 
 ```sh
 mise trust
@@ -54,7 +59,7 @@ mise install
 
 This installs the correct versions of Node.js, pnpm, and 1Password CLI automatically.
 
-4. Install dependencies:
+5. Install dependencies:
 
 ```sh
 pnpm install

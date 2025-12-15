@@ -16,6 +16,8 @@
         "maxGreaterThanMin": "O valor máximo deve ser maior que o valor mínimo"
       }
     },
-    "featureBlocked": "Cartões-presente de valor personalizado ainda não estão disponíveis"
+    "billingForm": {
+      "priceIsToBeDetermined": "Indefinido"
+    }
   }
 }

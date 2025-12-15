@@ -6,7 +6,7 @@
   "author": "theo.steffanetti <theo.steffanetti@bsport.io>",
   "type": "module",
   "scripts": {
-    "build": "tsc -b && vite build",
+    "build": "tsc -b && vite build --logLevel warn",
     "build:preview": "vite build --mode preview",
     "ci:compile": "tsc -b",
     "dev": "concurrently \"pnpm run --silent -w federate:navigation\" \"vite\"",
@@ -55,5 +55,11 @@
         "watchPath": "../navigation-sidebar/src/**/*"
       }
     }
+  },
+  "nx": {
+    "tags": [
+      "application:revamp",
+      "scope:studio"
+    ]
   }
 }

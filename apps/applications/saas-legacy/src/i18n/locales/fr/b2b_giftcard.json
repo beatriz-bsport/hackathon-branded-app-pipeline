@@ -16,6 +16,8 @@
         "maxGreaterThanMin": "La valeur maximale doit être supérieure à la valeur minimale"
       }
     },
-    "featureBlocked": "Les cartes-cadeaux à valeur personnalisée ne sont pas encore disponibles."
+    "billingForm": {
+      "priceIsToBeDetermined": "Indéfini"
+    }
   }
 }

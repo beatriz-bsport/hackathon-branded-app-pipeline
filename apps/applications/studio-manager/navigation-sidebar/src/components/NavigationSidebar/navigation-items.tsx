@@ -6,6 +6,7 @@ import type {
   NavigationMenuItem,
 } from "@bsport/kaizen-primitive-core";
 import { Badge, Indicator } from "@bsport/kaizen-primitive-core";
+import { dataAccessLayer } from "@bsport/sm-backbone";
 import {
   selectAllAlertsCount,
   useAlertingStore,
@@ -13,6 +14,7 @@ import {
 
 import { NavFlags, useNavFlag } from "#src/utils/featureFlags";
 import { useTranslation } from "#src/utils/i18n";
+import { useObjectLevelPermission } from "#src/utils/permissions";
 
 import type { NavigationUrlItem, NavigationUrls } from "./navigation-urls";
 
@@ -96,6 +98,15 @@ export const useNavigationElements = ({
   const isHomepageEnabled = useNavFlag(NavFlags.HOMEPAGE);
   const isCalendarRevampEnabled = useNavFlag(NavFlags.CALENDAR_REVAMP);
   const isPacksRevampEnabled = useNavFlag(NavFlags.PACKS_REVAMP);
+
+  // Company Theme flags
+  const companyTheme = dataAccessLayer.useCompanyTheme();
+  const isNewWebshopEnabled = !!companyTheme?.display_new_webshop;
+
+  // Object level permissions flags
+  const hasSubstitutionToolAccess = useObjectLevelPermission(
+    "management.coach.allowed_actions.substitution",
+  );
 
   const navigationItems: Record<MenuSet, NavigationElement[]> = useMemo(() => {
     return {
@@ -220,7 +231,9 @@ export const useNavigationElements = ({
             {
               id: "webshop",
               label: t("menus.products.webshop"),
-              ...navigationUrls.webshopOld,
+              ...(isNewWebshopEnabled
+                ? navigationUrls.webshop
+                : navigationUrls.webshopOld),
             },
             {
               id: "packs",
@@ -239,6 +252,11 @@ export const useNavigationElements = ({
               id: "videos",
               label: t("menus.products.videosAndEbooks"),
               ...navigationUrls.video,
+            },
+            {
+              id: "playlists",
+              label: t("menus.products.playlists"),
+              ...navigationUrls.playlist,
             },
             {
               id: "orders",
@@ -361,6 +379,11 @@ export const useNavigationElements = ({
               label: t("menus.membersHub.tags"),
               ...navigationUrls.tag,
             },
+            {
+              id: "performance-tracking",
+              label: t("menus.membersHub.performanceTracking"),
+              ...navigationUrls.performanceTracking,
+            },
           ],
         },
         {
@@ -372,6 +395,12 @@ export const useNavigationElements = ({
               id: "teachers",
               label: t("menus.myStudio.teachers"),
               ...navigationUrls.teacher,
+            },
+            {
+              id: "substitutions",
+              label: t("menus.myStudio.substitutions"),
+              ...navigationUrls.substitution,
+              hidden: !hasSubstitutionToolAccess,
             },
             {
               id: "establishments",
@@ -491,11 +520,21 @@ export const useNavigationElements = ({
           label: t("menus.settings.bsportSubscription"),
           ...navigationUrls.settings_bsportSubscription,
         },
-
         {
           id: "quicksale",
           label: t("menus.settings.quicksale"),
           ...navigationUrls.settings_quicksale,
+        },
+        {
+          id: "quickbooks",
+          label: t("menus.settings.quickbooks"),
+          ...navigationUrls.settings_quickbook,
+        },
+        {
+          id: "old-webshop",
+          label: t("menus.settings.oldWebshop"),
+          ...navigationUrls.settings_webshop,
+          hidden: isNewWebshopEnabled,
         },
         {
           id: "temporaryPass",
@@ -514,6 +553,8 @@ export const useNavigationElements = ({
     isHomepageEnabled,
     isCalendarRevampEnabled,
     isPacksRevampEnabled,
+    isNewWebshopEnabled,
+    hasSubstitutionToolAccess,
   ]);
 
   return navigationItems[menuSet];

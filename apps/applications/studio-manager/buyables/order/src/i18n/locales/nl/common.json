@@ -1,1 +1,12 @@
-{}
+{
+  "status": {
+    "label": "Status",
+    "values": {
+      "toBeProcessed": "Te verwerken",
+      "cancelled": "Geannuleerd",
+      "clickAndCollect": "Afhalen",
+      "sent": "Verstuurd",
+      "initialized": "Begonnen"
+    }
+  }
+}

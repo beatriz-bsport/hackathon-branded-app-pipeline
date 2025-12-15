@@ -178,5 +178,8 @@
   },
   "search": "Buscar una regulación de remuneración (opcional)",
   "simulate": "Simular",
-  "privateSlotLabel": "Citas"
+  "privateSlotLabel": "Citas",
+  "errors": {
+    "cannotHaveSeveralPaymentRulesWithSameName": "Cada regla de remuneración debe tener un nombre único."
+  }
 }

@@ -363,6 +363,13 @@ export class BasketPaymentIntent extends React.Component<Props, State> {
             JSON.stringify({ status: 'succeeded' }),
           );
         }
+
+        // Stop polling if basket is finalized (component will show success screen)
+        if (this.props.basket?.is_finalized) return;
+
+        // Fetch basket to check if it's finalized
+        this.props.fetchBasket(this.props.basketId);
+        // Also try fetchPaymentGroupBasket if paymentGroupId is available
         this.fetchPaymentGroupBasket();
         if (i < delays.length) {
           sendMessage(i + 1);
@@ -452,16 +459,8 @@ export class BasketPaymentIntent extends React.Component<Props, State> {
       );
     }
 
-    if (shouldCheckPaymentStatus(this.props.queryParams)) {
-      return (
-        <CheckPaymentStatus
-          onFail={this.onFail}
-          onSuccess={this.onSuccess}
-          paymentIntent={this.props.queryParams.payment_intent}
-        />
-      );
-    }
-
+    // Check if basket is finalized first - if so, show success screen
+    // This prevents useless payment status check loop
     if (this.props.basket.is_finalized) {
       return (
         <div className={classes.container}>
@@ -474,6 +473,17 @@ export class BasketPaymentIntent extends React.Component<Props, State> {
             <Typography>{t('myBasket.isFinalized')}</Typography>
           </div>
         </div>
+      );
+    }
+
+    // Only show payment status check if basket is not yet finalized
+    if (shouldCheckPaymentStatus(this.props.queryParams)) {
+      return (
+        <CheckPaymentStatus
+          onFail={this.onFail}
+          onSuccess={this.onSuccess}
+          paymentIntent={this.props.queryParams.payment_intent}
+        />
       );
     }
 

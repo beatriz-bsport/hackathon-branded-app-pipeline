@@ -13,8 +13,8 @@ import { useTranslation } from "#src/utils/i18n";
 
 import { DateNavigationHeader } from "../components/SessionList/DateNavigationHeader";
 import { DisplaySettings } from "../components/SessionList/DisplaySettings";
+import { useFilterConfig } from "../components/SessionList/Filters/useFilterConfig";
 import SessionDay from "../components/SessionList/SessionDay";
-import { useFilterConfig } from "../components/SessionList/filters";
 import { useSessionListData } from "../hooks/useSessionListData";
 import {
   selectSelectedDate,

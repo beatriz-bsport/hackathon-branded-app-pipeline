@@ -20,7 +20,7 @@
     "dist"
   ],
   "scripts": {
-    "build": "tsc && vite build",
+    "build": "tsc && vite build --logLevel warn",
     "ci:compile": "tsc --noEmit",
     "component:add": "pnpm exec hygen component new",
     "dev": "STORYBOOK_ENV=local STORYBOOK_COMMIT_SHORT_SHA=$(git rev-parse --short=8 HEAD) pnpm run storybook:dev",

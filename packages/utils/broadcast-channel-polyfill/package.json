@@ -22,7 +22,7 @@
     "package.json"
   ],
   "scripts": {
-    "build": "vite build",
+    "build": "vite build --logLevel warn",
     "ci:compile": "tsc",
     "ci:publish": "./scripts/ci-publish.sh",
     "dev": "vite build --watch",

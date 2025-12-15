@@ -1,7 +1,7 @@
 import React from "react";
 
 import type { UseFormControllerOutput } from "@bsport/form";
-import { Title } from "@bsport/kaizen-primitive-core";
+import { Title, useMatchMedia } from "@bsport/kaizen-primitive-core";
 
 import { useTranslation } from "#src/utils/i18n";
 
@@ -29,6 +29,8 @@ export const PackFormVisibility: React.FC<PackFormVisibilityProps> = ({
   methods,
 }) => {
   const { t } = useTranslation("details");
+  const isMobile = !useMatchMedia("sm");
+  const isCreationFlow = discardId == null;
 
   return (
     <section className="flex flex-col gap-sm">
@@ -39,6 +41,7 @@ export const PackFormVisibility: React.FC<PackFormVisibilityProps> = ({
       <PackFormVisibilitySelector
         fieldIdPrefix={fieldIdPrefix}
         methods={methods}
+        placement={isMobile || isCreationFlow ? "bottom-left" : "bottom-right"}
       />
 
       <PackFormVisibilityDate

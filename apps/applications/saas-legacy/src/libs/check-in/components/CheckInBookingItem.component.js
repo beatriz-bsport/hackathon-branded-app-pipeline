@@ -16,6 +16,8 @@ import type { Offer } from '../../offer/types';
 import { anonymizeEmail, anonymizeName } from '../../member/utils';
 import { getSpotDisplayText } from '../utils';
 import type { Booking } from '#src/libs/booking/types.ts';
+import { trackTabletCheckInCheckinButtonClickedEvent } from '#src/events/booking/trackers.ts';
+import { analyticsClientB2B } from '#src/components/analytics/mixpanel';
 
 type Props = {
   t: TFunction,
@@ -28,17 +30,40 @@ type Props = {
 };
 
 export const CheckInBookingItem = (props: Props) => {
-  const { classes, member, t, bookingAttendance, confirmAttendance, booking } =
-    props;
+  const {
+    classes,
+    member,
+    t,
+    bookingAttendance,
+    confirmAttendance,
+    booking,
+    offer,
+  } = props;
 
   const secondaryTextEmail = member?.consumer
     ? anonymizeEmail(member.consumer.email)
     : ' - ';
 
   const secondarytextSpot =
-    props?.offer?.room_blueprint && booking
+    offer?.room_blueprint && booking
       ? getSpotDisplayText(booking.spot_id, booking.spot_information, t)
       : '';
+
+  const handleConfirmAttendance = () => {
+    try {
+      analyticsClientB2B.track(
+        trackTabletCheckInCheckinButtonClickedEvent({
+          offer_id: offer.id,
+        }),
+      );
+    } catch (error) {
+      console.error('Error while tracking checkIn button clicked event:', {
+        error,
+        offerId: offer?.id,
+      });
+    }
+    confirmAttendance();
+  };
 
   if (!member) {
     return null;
@@ -68,7 +93,7 @@ export const CheckInBookingItem = (props: Props) => {
           <Button
             className={classes.button}
             color="secondary"
-            onClick={confirmAttendance}
+            onClick={handleConfirmAttendance}
             size="small"
             variant="contained"
           >

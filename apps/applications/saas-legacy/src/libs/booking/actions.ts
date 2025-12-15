@@ -4,7 +4,7 @@ import { DateTime } from 'luxon';
 import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code.js';
 
 import {
-  OFFER_BOOKABLE_STATUS_ALREADY_BOOKED,
+  ALL_ERROR_CODES,
   SPOT_NOT_AVAILABLE,
 } from '@bsport/common/lib/master-data/error-codes/buyable-item-can-not-be-bought.js';
 import {
@@ -672,12 +672,8 @@ export function registerTabletBooking(
     } catch (err) {
       dispatch(registerTabletActions.error(err));
       const bookingError = err.response?.data?.error;
-      if (bookingError === OFFER_BOOKABLE_STATUS_ALREADY_BOOKED) {
-        dispatch(
-          snackbarError(
-            `canNotBuyErrorCode.${OFFER_BOOKABLE_STATUS_ALREADY_BOOKED}`,
-          ),
-        );
+      if (ALL_ERROR_CODES.includes(bookingError)) {
+        dispatch(snackbarError(`canNotBuyErrorCode.${bookingError}`));
       } else {
         dispatch(snackbarError(`canNotBuyErrorCode.generic`));
       }

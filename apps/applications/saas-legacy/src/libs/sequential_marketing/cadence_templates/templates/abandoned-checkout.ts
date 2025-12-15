@@ -38,8 +38,8 @@ const ENTRY_EMAIL_DESIGN_BY_ENV_AND_LANGUAGE: CadenceTemplateEmailDesignMap = {
     fr: 20341,
   },
   [CoreBackendEnvironment.PRODUCTION]: {
-    en: null,
-    fr: null,
+    en: 153667,
+    fr: 153669,
   },
   [FeatureBranchIdentifier.PIKACHU]: {
     en: null,
@@ -135,7 +135,9 @@ const getAbandonedCheckoutConfig = (t: TFunction): CadenceConfigData => {
     steps: [
       {
         id: 101,
-        name: 'Reminder',
+        name: t(
+          'audience.template.configs.abandonedCartRecovery.steps.reminder.name',
+        ),
         is_entrypoint: false,
         exits: [],
         canvas: {

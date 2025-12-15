@@ -1,1 +1,69 @@
-{}
+{
+  "pageTitle": "Home",
+  "header": {
+    "title": "Bentornato, {{ username }}",
+    "titleWithoutName": "Bentornato"
+  },
+  "banner": {
+    "close": "Chiudi il banner",
+    "insights": {
+      "title": "Arriva … Approfondimenti",
+      "description": "Tieni traccia delle tendenze dei tuoi KPI, individua opportunità e gestisci i rischi",
+      "ctaLabel": "Esplora ora"
+    }
+  },
+  "upcomingClassesPanel": {
+    "title": "Prossime lezioni",
+    "headers": {
+      "class": "Lezione",
+      "teacher": "Insegnante",
+      "teacherSubstitution": "Sostituzione",
+      "classFillRate": "Tasso di occupazione"
+    },
+    "emptyList": "Nessuna lezione in programma",
+    "teacher": {
+      "helperText": "Insegnante"
+    },
+    "substitution": {
+      "helperText": "Sostituzione",
+      "errorMissingReplacement": "Sostituzione necessaria"
+    },
+    "rates": {
+      "badge": {
+        "waitingCount": "{{ count }} in lista d'attesa"
+      },
+      "tooltip": {
+        "classIsFull": "Questa classe è al completo",
+        "hasEmptySpots": "",
+        "hasEmptySpots_one": "{{ count }} posto disponibile in classe",
+        "hasEmptySpots_other": "{{ count }} posti rimasti in classe",
+        "hasEmptySpotsForWaitlist_one": "{{ count }} posto in sospeso nella lista d'attesa",
+        "hasEmptySpotsForWaitlist_other": "{{ count }} posti in attesa nella lista d'attesa"
+      }
+    }
+  },
+  "exploreSection": {
+    "exploreThePlatform": {
+      "title": "Esplora le novità",
+      "productUpdatesCard": {
+        "title": "Funzionalità, miglioramenti e correzioni",
+        "description": "Scopri i nostri ultimi aggiornamenti sui prodotti"
+      }
+    },
+    "advices": {
+      "title": "Scopri le tendenze del settore",
+      "latestNewsCard": {
+        "title": "Suggerimenti e novità per far crescere la tua attività",
+        "description": "Leggi le ultime dai nostri esperti"
+      }
+    }
+  },
+  "keyMetrics": {
+    "title": "Metriche chiave",
+    "unavailable": "Le metriche non sono attualmente disponibili"
+  },
+  "insightsPanel": {
+    "title": "Panoramica degli approfondimenti",
+    "unavailable": "Gli approfondimenti non sono attualmente disponibili"
+  }
+}

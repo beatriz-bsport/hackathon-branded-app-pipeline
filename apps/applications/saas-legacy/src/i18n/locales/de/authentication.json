@@ -7,7 +7,7 @@
       "confirm": "Bestätigen"
     },
     "title": "Passwort wiederherstellen",
-    "emailHasBeenSent": "Eine E-Mail wurde an \"{{email}}\" gesendet, um Ihr Passwort wiederherzustellen.",
+    "emailHasBeenSent": "Wenn diese E-Mail existiert, senden wir eine Nachricht an {{email}}.",
     "explain1": "Welche E-Mail verwendest Du zur Anmeldung?",
     "noEmail": "Diese E-Mail existiert nicht in unserer Mitgliederdatenbank.",
     "explain2": "Wir senden Ihnen Anweisungen zur Wiederherstellung Ihres Passworts.",

@@ -6,7 +6,7 @@
     "explain2": "Enviaremos em breve as instruções de redefinição da palavra-passe.",
     "hasProblem": "Está a ter problemas em reiniciar?",
     "contactUs": "Contacte-nos através de ",
-    "emailHasBeenSent": "Foi enviada uma mensagem para o correio eletrónico {{email}} para redefinir a sua palavra-passe",
+    "emailHasBeenSent": "Se este e-mail existir, enviaremos uma mensagem para {{email}}.",
     "actions": {
       "cancel": "Cancelar",
       "reset": "OK",

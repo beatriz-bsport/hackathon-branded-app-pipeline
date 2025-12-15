@@ -6,7 +6,7 @@
       "cancel": "Cancelar",
       "confirm": "Confirmar"
     },
-    "emailHasBeenSent": "Se ha enviado un email a {{email}} para recuperar tu contraseña",
+    "emailHasBeenSent": "Si este correo existe, enviaremos un mensaje a {{email}}.",
     "explain2": "Te enviaremos instrucciones de recuperación",
     "explain1": "¿Cuál era el email de la cuenta?",
     "noEmail": "Este correo electrónico no existe en nuestra base de datos de miembros.",

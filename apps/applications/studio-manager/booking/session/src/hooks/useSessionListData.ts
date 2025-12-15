@@ -11,8 +11,9 @@ import {
 import { Teacher } from "@bsport/api-core";
 import type { Establishment } from "@bsport/api-core";
 import { fromIsoString, getIsoDateString } from "@bsport/datetime-manipulation";
-import { FilterElementState } from "@bsport/kaizen-primitive-core";
 import { getCompanyTimezone } from "@bsport/timezone-utils";
+
+import { getParamsFromFilters } from "#src/components/SessionList/Filters/getParamsFromFilters";
 
 import { selectFilters, useSessionListStore } from "../stores/session-list";
 import type { EnrichedSession } from "../types";
@@ -102,24 +103,6 @@ const extractDateRangeParams = (
     minDateKey: getIsoDateString(params.minDate),
     maxDateKey: getIsoDateString(params.maxDate),
   };
-};
-
-const getParamsFromFilters = (
-  filters: FilterElementState[],
-): FetchSessionsParams => {
-  let params = {};
-  const activityTypeFilter = filters.find(
-    (filter) => filter.field === "activity-type",
-  );
-  if (activityTypeFilter) {
-    const filterValue = activityTypeFilter.valueIds[0];
-    if (filterValue === "group-activity") {
-      params = { ...params, is_workshop: false };
-    } else if (filterValue === "workshop") {
-      params = { ...params, is_workshop: true };
-    }
-  }
-  return params;
 };
 
 const sessionsQueryOptions = (

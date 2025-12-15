@@ -245,5 +245,52 @@ export const getIsMeridiemLocale = (locale: string): boolean => {
   return parts.some((part) => part.type === "dayPeriod");
 };
 
+/**
+ * Get the start of day (00:00:00.000) for a given date, optionally in a specific timezone.
+ * If no timezone is provided, the system's local timezone is used.
+ *
+ * @param date - The input date.
+ * @param zone - Optional IANA time zone name (e.g., "America/New_York").
+ * @returns A Date object representing the start of the day.
+ */
+export function startOfDay(date: Date, zone?: string): Date {
+  return toDate(toDateTime(date, zone).startOf("day"));
+}
+
+/**
+ * Check if a date is within a range (inclusive)
+ */
+export function isWithinRange(
+  date: DateTime,
+  start: DateTime,
+  end: DateTime,
+  timezone?: string,
+): boolean {
+  const normalize = (dateTime: DateTime) =>
+    dateTime
+      .setZone(timezone ?? dateTime.zone)
+      .startOf("day")
+      .toMillis();
+
+  return (
+    normalize(date) >= normalize(start) && normalize(date) <= normalize(end)
+  );
+}
+
+/**
+ * Get ISO weekday from DateTime (1 = Monday, 7 = Sunday)
+ */
+export function getISOWeekday(date: DateTime, zone: string): WeekStartDay {
+  return date.setZone(zone ?? date.zone).weekday as WeekStartDay;
+}
+
+export function getStartOf(
+  date: Date,
+  unit: "day" | "month" | "year" | "week",
+  zone?: string,
+): DateTime {
+  return toDateTime(date, zone).startOf(unit);
+}
+
 export * from "./converters";
 export * from "./operators";

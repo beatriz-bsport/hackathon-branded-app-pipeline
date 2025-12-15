@@ -959,6 +959,9 @@ export class OfferManagement extends Component<Props, State> {
     const isAutoBookingWarningDialogOpened =
       this.props.autoBookingDialogOpened === AUTOBOOKING_DIALOGS.warning;
 
+    const offerMetaActivity = this.props.getOfferMetaActivity(
+      offer?.meta_activity_id,
+    );
     if (!this.props.offer) {
       return (
         <Grid container direction="row" spacing={2}>
@@ -1145,6 +1148,7 @@ export class OfferManagement extends Component<Props, State> {
             offer={offer}
             offerId={this.props.offerId}
             offerLoading={this.props.offerLoading || !this.props.offer}
+            offerMetaActivity={offerMetaActivity}
             refresh={this.refreshNavigationHeader}
           />
         </Grid>

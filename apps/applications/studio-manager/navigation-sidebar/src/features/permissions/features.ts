@@ -4,8 +4,10 @@ import { removeTrailingSlash } from "./utils";
 
 export const FEATURE_IDENTIFIERS = {
   CUSTOM_APP: 1,
-  CLOCK_IN: 21,
+  QUICKBOOKS: 16,
   PERFORMANCE_TRACKING: 19,
+  CLOCK_IN: 21,
+  SUBSTITUTION_TOOL: 26,
   ACCESS_MONITORING: 34,
 } as const;
 
@@ -26,6 +28,8 @@ export const PROTECTED_FEATURES_URLS: Record<number, Array<string>> = {
     LEGACY_URLS.settings_mobilePersonalization,
   ],
   [FEATURE_IDENTIFIERS.PERFORMANCE_TRACKING]: [LEGACY_URLS.performanceTracking],
+  [FEATURE_IDENTIFIERS.QUICKBOOKS]: [LEGACY_URLS.settings_quickbook],
+  [FEATURE_IDENTIFIERS.SUBSTITUTION_TOOL]: [LEGACY_URLS.substitution],
 };
 
 /**

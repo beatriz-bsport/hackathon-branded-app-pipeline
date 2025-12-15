@@ -206,7 +206,7 @@ const MarketplaceWorkshopPage: React.FC<Props> = ({
           ...(username ? { username: encodeURI(username) } : {}),
           company: companyId,
           with_unique_offer_by_group: true,
-          filters: { ...filters },
+          ...filters,
           ...(typeof onlineFilter?.is_online === 'boolean'
             ? { is_online: onlineFilter.is_online }
             : {}),

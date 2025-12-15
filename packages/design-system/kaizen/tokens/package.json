@@ -8,7 +8,7 @@
   "source": "src/index.ts",
   "types": "build/index.d.ts",
   "scripts": {
-    "build": "tsc",
+    "build": "tsc > /dev/null",
     "ci:merge-request:open": "./scripts/ci-merge-request-open.sh",
     "dev": "tsc -w",
     "format": "prettier --write '**/*.{ts,tsx,js,jsx,cjs,mjs,scss,css,json,md,mdx,html,svg}'",

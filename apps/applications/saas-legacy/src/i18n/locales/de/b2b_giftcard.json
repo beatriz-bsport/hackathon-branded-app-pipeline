@@ -16,6 +16,8 @@
         "maxGreaterThanMin": "Der Maximalwert sollte größer als der Minimalwert sein"
       }
     },
-    "featureBlocked": "Benutzerdefinierte Geschenkgutscheine sind noch nicht verfügbar."
+    "billingForm": {
+      "priceIsToBeDetermined": "Unbestimmt"
+    }
   }
 }

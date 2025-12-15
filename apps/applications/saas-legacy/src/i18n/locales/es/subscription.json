@@ -135,7 +135,7 @@
       "nb_interval": {
         "helperText": "Al menos 2 meses",
         "label": "Número de facturas",
-        "error": "El número de facturaciones no debe superar 90",
+        "error": "El número de facturaciones no debe superar 110",
         "errorForFixedBillingDay": "El número de facturaciones no debe superar 12",
         "restrictionForFixedBillingDay": "El número de facturaciones debe estar comprendido entre 2 y 12 para la facturación en día fijo."
       },

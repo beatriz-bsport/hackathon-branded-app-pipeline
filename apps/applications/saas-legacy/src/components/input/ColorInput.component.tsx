@@ -48,8 +48,15 @@ const ColorInput: React.FC<ColorInputProps> = ({
     (newColor: ColorResult) => {
       const { hex, rgb } = newColor;
 
+      if (hex === 'transparent') {
+        onChange('transparent');
+        return;
+      }
+
       if (typeof rgb.a === 'number' && rgb.a !== 1) {
-        const opacityInHexa = Math.round(254 * rgb.a).toString(16);
+        const opacityInHexa = Math.round(255 * rgb.a)
+          .toString(16)
+          .padStart(2, '0');
         onChange(`${hex}${opacityInHexa}`);
         return;
       }

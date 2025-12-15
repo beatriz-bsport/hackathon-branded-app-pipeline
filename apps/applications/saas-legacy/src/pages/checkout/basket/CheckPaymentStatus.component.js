@@ -16,11 +16,17 @@ export class CheckPaymentStatus extends React.Component<Props> {
           getPaymentGroupStatusBySecretAPI(this.props.paymentIntent).then(
             (r) => {
               if ([200, 400].includes(r.data)) {
+                // Stop polling when we get success response
+                if (this.state.interval) {
+                  clearInterval(this.state.interval);
+                }
                 this.props.onSuccess();
               } else if ([300, 600].includes(r.data)) {
                 // due to backend issue, we never get through this case,
                 // see https://bsporttest.atlassian.net/browse/BS-3786 for more information
-                clearInterval(this.interval);
+                if (this.state.interval) {
+                  clearInterval(this.state.interval);
+                }
                 this.props.onFail();
               }
             },

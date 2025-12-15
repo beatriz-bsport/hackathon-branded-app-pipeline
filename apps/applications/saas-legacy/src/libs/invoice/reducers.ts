@@ -32,6 +32,7 @@ import {
   checkFiskalyOnboardingStatusActions,
   getFiskalyOnboardingRequirementsActions,
   onboardFiskalyCompanyActions,
+  getLastGeneratedAgreementUrlActions,
   getLastUploadedSignedAgreementActions,
   uploadSignedAgreementActions,
   fetchFiskalySignEsInvoiceActions,
@@ -146,6 +147,8 @@ const initialState: Immutable.Immutable<InvoiceState> = Immutable<InvoiceState>(
       isOnboarded: null,
       requirements: [],
       agreementUrl: null,
+      lastGeneratedAgreementUrl: null,
+      isLoadingLastGeneratedAgreementUrl: false,
       signedAgreementFile: null,
       isLoadingSignedAgreement: false,
       isUploadingSignedAgreement: false,
@@ -719,10 +722,38 @@ export default handleActions<Immutable.Immutable<InvoiceState>, any>(
       state,
       { payload }: { payload: { agreement_url: string } },
     ) => {
+      return state
+        .setIn(['fiskalyOnboarding', 'agreementUrl'], payload.agreement_url)
+        .setIn(
+          ['fiskalyOnboarding', 'lastGeneratedAgreementUrl'],
+          payload.agreement_url,
+        );
+    },
+    [getLastGeneratedAgreementUrlActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
       return state.setIn(
-        ['fiskalyOnboarding', 'agreementUrl'],
-        payload.agreement_url,
+        ['fiskalyOnboarding', 'isLoadingLastGeneratedAgreementUrl'],
+        payload,
       );
+    },
+    [getLastGeneratedAgreementUrlActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(['fiskalyOnboarding', 'error'], payload);
+    },
+    [getLastGeneratedAgreementUrlActions.success.toString()]: (
+      state,
+      { payload }: { payload: { agreement_url: string } },
+    ) => {
+      return state
+        .setIn(
+          ['fiskalyOnboarding', 'lastGeneratedAgreementUrl'],
+          payload.agreement_url,
+        )
+        .setIn(['fiskalyOnboarding', 'agreementUrl'], payload.agreement_url);
     },
     [getLastUploadedSignedAgreementActions.isLoading.toString()]: (
       state,
@@ -741,11 +772,11 @@ export default handleActions<Immutable.Immutable<InvoiceState>, any>(
     },
     [getLastUploadedSignedAgreementActions.success.toString()]: (
       state,
-      { payload }: { payload: { file: string } | null },
+      { payload }: { payload: { signed_agreement_url: string } | null },
     ) => {
       return state.setIn(
         ['fiskalyOnboarding', 'signedAgreementFile'],
-        payload?.file || null,
+        payload?.signed_agreement_url || null,
       );
     },
     [uploadSignedAgreementActions.isLoading.toString()]: (

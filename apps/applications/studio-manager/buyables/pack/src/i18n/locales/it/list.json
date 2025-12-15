@@ -1,12 +1,12 @@
 {
   "title": "Pacchetti combinati",
   "actions": {
-    "addAPack": "Aggiungi un pacchetto"
+    "addAPack": "Crea pacchetto combinato"
   },
   "table": {
     "loading": "Caricamento pacchetti...",
     "emptyList": {
-      "title": "Nessun pacchetto aggiunto ancora",
+      "title": "Nessun pacchetto combinato ancora aggiunto",
       "subtitle": "Aggiungi un Pacchetto per combinare i tuoi prodotti e Pass con un'unica offerta. "
     },
     "headers": {
@@ -15,32 +15,37 @@
       "numberOfProducts": "articoli",
       "price": "Prezzo"
     },
+    "values": {
+      "unlisted": "Non in elenco",
+      "hiddenToStaff": "Nascosto",
+      "limitedTime": "Limitato"
+    },
     "tooltips": {
-      "unavailableForUsers": "Questo pacchetto combinato non verrà mostrato nell'area membri",
-      "invisibleForStaff": "Questo pacchetto combinato non verrà mostrato ai membri dello staff",
-      "availableForALimitedTime": "Questo pacchetto combinato sarà mostrato solo per un tempo limitato",
+      "unlisted": "Non è presente nell' Area Membri",
+      "hiddenToStaff": "Nascosto ai membri del personale",
+      "limitedTime": "In lista solo per un periodo limitato",
       "archive": "Elimina pacchetto combinato"
     }
   },
   "deleteModal": {
     "title": "Eliminare questo pacchetto combinato?",
     "description": {
-      "effect": "Se elimini {{ name }}, gli acquisti attuali o precedenti non saranno influenzati.",
-      "canNotBeUndone": "Questa azione non può essere annullata."
+      "effect": "Una volta che elimini {{ name }}, non sarà più visibile ai membri. ",
+      "canNotBeUndone": "Tutti i membri che hanno acquistato questo pacchetto combinato non subiscono alcuna conseguenza. "
     },
     "actions": {
-      "cancel": "Indietro",
+      "cancel": "Mantieni",
       "delete": "Elimina"
     }
   },
   "toasts": {
     "messageDelete": {
       "success": "Pacchetto combinato eliminato",
-      "error": "Impossibile eliminare il Pacchetto combinato"
+      "error": "Non è stato possibile eliminare questo pacchetto combinato. Si prega di riprovare. "
     },
     "messageUndo": {
-      "success": "Azione annullata",
-      "error": "Impossibile annullare l'azione"
+      "success": "Cambiamento annullato",
+      "error": "La modifica non può essere annullata. Riprova. "
     },
     "actions": {
       "undo": "Annulla"

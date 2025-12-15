@@ -4,7 +4,7 @@ import {
   checkFiskalyOnboardingStatus,
   getFiskalyOnboardingRequirements,
   getLastUploadedSignedAgreement,
-  onboardFiskalyCompany,
+  getLastGeneratedAgreementUrl,
 } from '#src/libs/invoice/actions';
 import { FiskalyOnboardingRequirement } from '#src/libs/invoice/types';
 import { fetchPlatformCustomerEntityRepresentatives } from '#src/libs/platform-billing/actions';
@@ -17,7 +17,7 @@ import { fetchPlatformCustomerEntityRepresentatives } from '#src/libs/platform-b
  * 2. Fetches platform customer entity representatives
  * 3. Fetches onboarding requirements (VAT ID, business address, etc.)
  * 4. If the company is already onboarded:
- *    - Fetches the agreement URL for the download button
+ *    - Fetches the last generated agreement URL for the download button
  *    - Fetches the signed agreement file status (if uploaded)
  *
  * Returns all state values and setters needed to manage the onboarding flow
@@ -57,10 +57,10 @@ export const useVerifactuOnboardingStatus = () => {
           if (data.is_onboarded) {
             // Fetch agreement URL for download button
             dispatch(
-              onboardFiskalyCompany({
-                onSuccess: (onboardData) => {
-                  if (onboardData?.agreement_url) {
-                    setAgreementUrl(onboardData.agreement_url);
+              getLastGeneratedAgreementUrl({
+                onSuccess: (agreementData) => {
+                  if (agreementData?.agreement_url) {
+                    setAgreementUrl(agreementData.agreement_url);
                   }
                 },
                 onError: () => {

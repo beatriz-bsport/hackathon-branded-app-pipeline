@@ -83,6 +83,7 @@ import {
   checkFiskalyOnboardingStatus as checkFiskalyOnboardingStatusAPI,
   getFiskalyOnboardingRequirements as getFiskalyOnboardingRequirementsAPI,
   onboardFiskalyCompany as onboardFiskalyCompanyAPI,
+  getLastGeneratedAgreementUrl as getLastGeneratedAgreementUrlAPI,
   getLastUploadedSignedAgreement as getLastUploadedSignedAgreementAPI,
   uploadSignedAgreement as uploadSignedAgreementAPI,
   fetchFiskalySignEsInvoice as fetchFiskalySignEsInvoiceAPI,
@@ -1460,6 +1461,37 @@ export function onboardFiskalyCompany(
       options?.onError?.();
     }
     dispatch(onboardFiskalyCompanyActions.isLoading(false));
+  };
+}
+
+export const getLastGeneratedAgreementUrlActions = {
+  isLoading: createAction<boolean>(
+    'FISKALY_ONBOARDING/GET_LAST_GENERATED_AGREEMENT_URL/IS_LOADING',
+  ),
+  error: createAction<Error | null>(
+    'FISKALY_ONBOARDING/GET_LAST_GENERATED_AGREEMENT_URL/ERROR',
+  ),
+  success: createAction<{ agreement_url: string }>(
+    'FISKALY_ONBOARDING/GET_LAST_GENERATED_AGREEMENT_URL/SUCCESS',
+  ),
+};
+
+export function getLastGeneratedAgreementUrl(
+  options?: OptionCallback<{ agreement_url: string }>,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(getLastGeneratedAgreementUrlActions.isLoading(true));
+    dispatch(getLastGeneratedAgreementUrlActions.error(null));
+    try {
+      const response = await getLastGeneratedAgreementUrlAPI();
+      dispatch(getLastGeneratedAgreementUrlActions.success(response.data));
+      options?.onSuccess?.(response.data);
+    } catch (err) {
+      const error = err instanceof Error ? err : new Error(String(err));
+      dispatch(getLastGeneratedAgreementUrlActions.error(error));
+      options?.onError?.(error);
+    }
+    dispatch(getLastGeneratedAgreementUrlActions.isLoading(false));
   };
 }
 

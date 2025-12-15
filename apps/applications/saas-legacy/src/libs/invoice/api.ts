@@ -397,6 +397,14 @@ export async function onboardFiskalyCompany(): Promise<
   );
 }
 
+export async function getLastGeneratedAgreementUrl(): Promise<
+  AxiosResponse<{ agreement_url: string }>
+> {
+  return getAuth(
+    `${API_V1_URI}/fiskaly-sign-es/fiskaly-sign-es-onboarding/get_last_generated_agreement_url/`,
+  );
+}
+
 export async function getLastUploadedSignedAgreement(): Promise<
   AxiosResponse<{ signed_agreement_url: string } | null>
 > {
@@ -450,6 +458,7 @@ export default {
   checkFiskalyOnboardingStatus,
   getFiskalyOnboardingRequirements,
   onboardFiskalyCompany,
+  getLastGeneratedAgreementUrl,
   getLastUploadedSignedAgreement,
   uploadSignedAgreement,
   fetchFiskalySignEsInvoice,

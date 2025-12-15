@@ -38,6 +38,7 @@
       "packs": "Packs",
       "giftcards": "Gift Cards",
       "videosAndEbooks": "On-Demand",
+      "playlists": "Playlists",
       "orders": "Orders"
     },
     "marketing": {
@@ -68,12 +69,14 @@
       "title": "Clients",
       "members": "Profiles",
       "forms": "Forms",
-      "tags": "Tags"
+      "tags": "Tags",
+      "performanceTracking": "Programs"
     },
     "myStudio": {
       "title": "Studio",
       "teachers": "Teachers",
-      "establishments": "Establishments"
+      "establishments": "Establishments",
+      "substitutions": "Substitutions"
     },
     "settings": {
       "title": "Settings",
@@ -98,6 +101,8 @@
       "activeCampaign": "ActiveCampaign",
       "referral": "Referral",
       "quicksale": "POS",
+      "oldWebshop": "Webshop settings",
+      "quickbooks": "QuickBooks",
       "bsportSubscription": "bsport subscription",
       "temporaryPassword": "Temporary password",
       "changeLanguage": "Change language"

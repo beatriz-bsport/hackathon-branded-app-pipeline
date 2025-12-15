@@ -178,5 +178,8 @@
     "private_service": "Termine"
   },
   "simulate": "Simulieren",
-  "privateSlotLabel": "Termine"
+  "privateSlotLabel": "Termine",
+  "errors": {
+    "cannotHaveSeveralPaymentRulesWithSameName": "Jede Vergütungsregel muss einen eindeutigen Namen haben."
+  }
 }

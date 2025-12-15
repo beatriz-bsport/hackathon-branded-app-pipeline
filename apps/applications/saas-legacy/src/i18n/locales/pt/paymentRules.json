@@ -190,5 +190,8 @@
   "delete": {
     "error": "Erro durante a eliminação",
     "success": "Taxa removida"
+  },
+  "errors": {
+    "cannotHaveSeveralPaymentRulesWithSameName": "Cada regra de remuneração deve ter um nome único."
   }
 }

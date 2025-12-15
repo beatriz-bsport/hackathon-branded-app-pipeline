@@ -16,7 +16,8 @@
       "dependsOn": ["^build"],
       "cache": true
     },
-    "build-storybook": {
+    "storybook:build": {
+      "dependsOn": ["translation:update"],
       "cache": true
     },
     "dev": {

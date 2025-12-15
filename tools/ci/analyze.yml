@@ -9,17 +9,17 @@ Analyze:Core:
   script:
     - NX_BASE=$CI_MERGE_REQUEST_TARGET_BRANCH_NAME
     - git fetch origin $NX_BASE
-    - echo "🔱 These are the affected projects :"
+    - echo "🔱 These are the affected projects:"
     - AFFECTED_PROJECTS=$(pnpm exec nx show projects --affected --base=origin/$NX_BASE --head=HEAD)
     - echo $AFFECTED_PROJECTS
     - echo "*"
     - echo "⏳ Verify all our packages versions are synchronized and checking integrity rules"
     - pnpm run sync:mismatch:list
-    - echo "✅ All dependencies are well configured !"
+    - echo "✅ All dependencies are well configured!"
     - echo "*"
     - echo "⏳ Check there are no duplicate dependencies"
     - pnpm dedupe --check
-    - echo "✅ pnpm-lock.yaml is clean !"
+    - echo "✅ pnpm-lock.yaml is clean!"
     - echo "*"
     - echo "⏳ Compile ichizen affected projects with Typescript"
     - pnpm exec nx affected --target=ci:compile --base=origin/$NX_BASE
@@ -45,7 +45,7 @@ Analyze:Core:
       fi
     - echo "✅ All translations have been managed as expected"
 
-Analyze:LintFormat:
+Analyze:Lint:
   extends:
     - .ci-runner-large-highcpu # 8 vCPU, 8GB RAM
   stage: analyze
@@ -60,14 +60,25 @@ Analyze:LintFormat:
     - pnpm exec nx affected --target=lint --base=origin/$NX_BASE
     - echo "✅ All ichizen affected projects have been linted"
     - echo "*"
+    - echo "⏳ Lint legacy affected projects"
+    - pnpm exec nx affected --target=lint-old --base=origin/$NX_BASE
+    - echo "✅ All legacy affected projects have been linted"
+
+Analyze:Format:
+  extends:
+    - .ci-runner-large-highcpu # 8 vCPU, 8GB RAM
+  stage: analyze
+  before_script: !reference [.pnpm-setup, before_script]
+  interruptible: true
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+  script:
+    - NX_BASE=$CI_MERGE_REQUEST_TARGET_BRANCH_NAME
+    - git fetch origin $NX_BASE
     - echo "⏳ Check that affected files are formatted correctly"
     - pnpm exec nx affected --target=pretty,format:check --base=origin/$NX_BASE
     - pnpm exec prettier --check package.json
     - echo "✅ All affected projects are well formatted"
-    - echo "*"
-    - echo "⏳ Lint legacy affected projects"
-    - pnpm exec nx affected --target=lint-old --base=origin/$NX_BASE
-    - echo "✅ All legacy affected projects have been linted"
 
 # Run gitleaks secret detection on changed files only
 gitleaks:

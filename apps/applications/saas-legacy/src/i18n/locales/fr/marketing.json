@@ -352,7 +352,11 @@
         },
         "row": {
           "no": "Non",
-          "yes": "Oui"
+          "yes": "Oui",
+          "no_display_date": "Données invalides"
+        },
+        "tooltip": {
+          "no_display_date": "Certaines données sont manquantes ou invalides."
         }
       }
     },
@@ -498,10 +502,10 @@
         "timeoutMustBeStrictPositive": "La limite de temps doit être d'au moins 1 jour."
       },
       "marketing_action": {
-        "1": "Ecrire un email",
-        "2": "SMS",
-        "3": "Notification push",
-        "4": "Tag",
+        "1": "Envoyer un e-mail",
+        "2": "Envoyer un SMS",
+        "3": "Envoyer une notification push",
+        "4": "Ajouter un tag",
         "5": "Sélectionner un template email",
         "form": {
           "helper": "Sélectionnez une ou plusieurs actions à effectuer quand un membre entre dans cette étape. Cette option est facultative.",
@@ -856,7 +860,9 @@
       "cadenceParameters": "Paramètres du {{ workflowLowerCase }}",
       "audienceStepHelper": "Définissez le nom de l'étape : vous pourrez voir ici le positionnement des membres dans le {{ workflowLowerCase }}.",
       "addAWorkflow": "Ajouter un {{ workflowLowerCase }}",
-      "createAudienceHelper": "Grâce aux {{ workflowPluralLowerCase }}, cibler les actions marketing envoyées à vos membres en fonction de leur comportement sur la plateforme. Créez une séquence d'actions que vos membres doivent accomplir pour obtenir certaines promotions ou certains tags, par exemple."
+      "createAudienceHelper": "Grâce aux {{ workflowPluralLowerCase }}, cibler les actions marketing envoyées à vos membres en fonction de leur comportement sur la plateforme. Créez une séquence d'actions que vos membres doivent accomplir pour obtenir certaines promotions ou certains tags, par exemple.",
+      "emptyAudienceHelper": "Utilisez Audience pour créer des {{ workflowPluralLowerCase }} automatisés qui ciblent vos clients à chaque étape de leur parcours. Par exemple, définissez une suite d’actions à réaliser pour accéder à une promotion. Consultez le guide pour en savoir plus sur cette fonctionnalité.",
+      "openIntercomHelp": "Lire le guide"
     },
     "graph": {
       "alert": {
@@ -1009,6 +1015,51 @@
       "alert": {
         "content": "Plus il y a de personnes dans le flux de travail, plus le coût est élevé. Consultez votre contrat pour connaître le coût par SMS.",
         "title": "Les SMS coûtent plus cher que les autres canaux"
+      }
+    },
+    "template": {
+      "configs": {
+        "abandonedCartRecovery": {
+          "steps": {
+            "reminder": {
+              "actions": {
+                "push_notification": {
+                  "text": "{firstname}, n’oubliez pas : des articles vous attendent dans votre panier.\nL’équipe {company}",
+                  "subject": "Ne passez pas à côté !"
+                }
+              },
+              "name": "Rappel"
+            },
+            "entry": {
+              "actions": {
+                "email_design": {
+                  "subject": "Auriez-vous oublié quelque chose ?"
+                },
+                "push_notification": {
+                  "text": "Vous avez laissé quelque chose ! Votre panier est enregistré et vous attend au studio.\nL’équipe {company}",
+                  "subject": "Salut, {firstname}!"
+                }
+              }
+            }
+          },
+          "description": "Récupérez les ventes perdues. Engagez automatiquement les clients ou prospects ayant ajouté des produits (cartes, abonnements, retail) à leur panier.",
+          "name": "Récupérer les paniers abandonnés"
+        }
+      },
+      "addCadenceDialog": {
+        "title": "Choisissez un modèle ou créez un nouveau {{ workflowLowerCase }} "
+      },
+      "createFromScratchDescription": "Créez un {{ workflowLowerCase }} pour automatiser vos actions Audience.",
+      "useTemplate": "Utiliser le modèle",
+      "createFromScratch": "Créer un nouveau modèle"
+    },
+    "upsells": {
+      "warning": {
+        "message": {
+          "pushNotification": "Mettez à niveau votre offre pour envoyer des notifications push.",
+          "sms": "Mettez à niveau votre offre pour envoyer des SMS."
+        },
+        "title": "Module complémentaire requis"
       }
     }
   }

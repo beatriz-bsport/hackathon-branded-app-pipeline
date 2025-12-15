@@ -439,6 +439,9 @@
     "update": {
       "error": "Error during update",
       "success": "Default rule changed"
+    },
+    "errors": {
+      "cannotHaveSeveralPaymentRulesWithSameName": "Each payroll rule must have a unique name"
     }
   },
   "relationship": {

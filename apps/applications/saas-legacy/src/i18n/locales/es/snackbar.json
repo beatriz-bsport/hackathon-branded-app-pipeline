@@ -543,6 +543,9 @@
     "update": {
       "error": "Error al editar",
       "success": "Regla modificada por defecto"
+    },
+    "errors": {
+      "cannotHaveSeveralPaymentRulesWithSameName": "Cada regla de remuneración debe tener un nombre único."
     }
   },
   "relationship": {

@@ -178,8 +178,5 @@
       "private_service": "Rendez-vous"
     }
   },
-  "privateSlotLabel": "Rendez-vous",
-  "errors": {
-    "cannotHaveSeveralPaymentRulesWithSameName": "Chaque règle de rémunération doit avoir un nom unique."
-  }
+  "privateSlotLabel": "Rendez-vous"
 }

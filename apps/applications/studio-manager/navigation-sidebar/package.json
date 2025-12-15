@@ -63,6 +63,14 @@
     "tags": [
       "application:revamp",
       "scope:studio"
-    ]
+    ],
+    "targets": {
+      "build": {
+        "dependsOn": [
+          "^build",
+          "translation:update"
+        ]
+      }
+    }
   }
 }

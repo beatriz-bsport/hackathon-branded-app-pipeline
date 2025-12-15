@@ -38,8 +38,8 @@ const ENTRY_EMAIL_DESIGN_BY_ENV_AND_LANGUAGE: CadenceTemplateEmailDesignMap = {
     fr: 20341,
   },
   [CoreBackendEnvironment.PRODUCTION]: {
-    en: null,
-    fr: null,
+    en: 153667,
+    fr: 153669,
   },
   [FeatureBranchIdentifier.PIKACHU]: {
     en: null,

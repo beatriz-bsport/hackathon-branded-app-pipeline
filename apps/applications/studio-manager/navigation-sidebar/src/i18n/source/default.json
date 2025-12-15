@@ -34,11 +34,11 @@
     },
     "products": {
       "title": "Retail",
-      "webshop": "Products",
+      "webshop": "Webshop",
       "packs": "Packs",
       "giftcards": "Gift Cards",
       "videosAndEbooks": "On-Demand",
-      "playlists": "Playlists",
+      "playlists": "Collections",
       "orders": "Orders"
     },
     "marketing": {

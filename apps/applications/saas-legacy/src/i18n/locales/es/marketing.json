@@ -321,13 +321,17 @@
       "table": {
         "row": {
           "no": "No",
-          "yes": "Si"
+          "yes": "Si",
+          "no_display_date": "Datos no válidos"
         },
         "column": {
           "member": "Miembro",
           "display_count": "Número de aperturas",
           "last_display_date": "Última apertura",
           "completed": "Completado"
+        },
+        "tooltip": {
+          "no_display_date": "Faltan algunos datos o no son válidos."
         }
       },
       "byMember": "Detalles por miembro"
@@ -557,11 +561,11 @@
         "minimumConnectedTrigger": "Debe seleccionar al menos un activador."
       },
       "marketing_action": {
-        "1": "Email",
-        "2": "Mensaje de texto",
+        "1": "Enviar correo",
+        "2": "Enviar SMS",
         "3": "Notificación push",
-        "4": "Etiqueta",
-        "5": "Plantilla de email",
+        "4": "Añadir etiqueta",
+        "5": "Enviar plantilla de correo",
         "form": {
           "helper": "Seleccione una o varias acciones a realizar cuando un miembro cumpla este paso. Es una opción facultativa.",
           "reset": "Eliminar",
@@ -860,7 +864,9 @@
         "updateTitle": "Edite su {{ workflowLowerCase }}",
         "createTitle": "Crear un {{ workflowLowerCase }}",
         "updateNameTitle": "Edite el nombre de su {{ workflowLowerCase }}"
-      }
+      },
+      "emptyAudienceHelper": "Utiliza Audience para crear {{ workflowPluralLowerCase }} automatizados que impacten a los clientes en cada etapa de su recorrido. Por ejemplo, puedes crear una secuencia de acciones que deban completar para acceder a una promoción. Consulta la guía para obtener más información sobre esta funcionalidad.",
+      "openIntercomHelp": "Leer la guía"
     },
     "audienceIndexHelper": "El orden de las {{ workflowPluralLowerCase }} establece el orden de prioridad: si un miembro puede introducir 2 {{ workflowPluralLowerCase }} diferentes al mismo tiempo, empezará por el más alto de la lista.",
     "graph": {
@@ -1016,6 +1022,51 @@
       "alert": {
         "content": "Cuantas más personas entren en el flujo de trabajo, mayor será el coste. Consulta tu contrato para ver el coste por SMS.",
         "title": "Los SMS cuestan más que otros canales"
+      }
+    },
+    "template": {
+      "configs": {
+        "abandonedCartRecovery": {
+          "steps": {
+            "reminder": {
+              "actions": {
+                "push_notification": {
+                  "text": "{firstname}, recuerda que tienes artículos en tu carrito esperando a ser comprados.\nEquipo de {company}",
+                  "subject": "¡No te lo pierdas!"
+                }
+              },
+              "name": "Recordatorio"
+            },
+            "entry": {
+              "actions": {
+                "email_design": {
+                  "subject": "¿Olvidaste algo?"
+                },
+                "push_notification": {
+                  "text": "¡Has dejado algo atrás! Tu cesta está guardado y te espera en el centro.\nEquipo de {company}",
+                  "subject": "Hola, {firstname}!"
+                }
+              }
+            }
+          },
+          "description": "Recupera ventas perdidas. Contacta automáticamente con clientes o leads que añadieron productos (bonos, suscripciones, retail) a su carrito.",
+          "name": "Recuperar carritos abandonados"
+        }
+      },
+      "addCadenceDialog": {
+        "title": "Elige una plantilla o crea un nuevo {{ workflowLowerCase }} "
+      },
+      "createFromScratchDescription": "Crea un {{ workflowLowerCase }} para automatizar tus acciones de Audience.",
+      "useTemplate": "Usar plantilla",
+      "createFromScratch": "Crear nueva plantilla"
+    },
+    "upsells": {
+      "warning": {
+        "message": {
+          "pushNotification": "Actualiza tu plan para enviar notificaciones push.",
+          "sms": "Actualiza tu plan para enviar SMS."
+        },
+        "title": "Complemento requerido"
       }
     }
   }

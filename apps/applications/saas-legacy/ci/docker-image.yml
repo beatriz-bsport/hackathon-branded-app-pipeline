@@ -6,9 +6,10 @@ Prepare Docker Builder Image:
   stage: prepare-image-docker
   retry:
     max: 2
-  script:
+  before_script:
     - sleep 10 # because the docker service needs to be up'd cf https://gitlab.com/gitlab-org/charts/gitlab/-/issues/478
-    - aws ecr get-login-password --region ${AWS_REGION} | docker login --username AWS --password-stdin ${REGISTRY_ENDPOINT}
+    - !reference [.ci-ecr-authentication, before_script]
+  script:
     - echo "Pulling most fitted image for reusing layers"
     - USED_IMAGE_TAG=dev
     - docker pull ${REGISTRY_ENDPOINT}/${REGISTRY_NAME}:${TAG} && USED_IMAGE_TAG=$TAG || true

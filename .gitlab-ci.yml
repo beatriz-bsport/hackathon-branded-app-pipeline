@@ -40,6 +40,7 @@ include:
   - local: "/tools/ci/deploy-feature-branch.yml"
   - local: "/tools/ci/deploy-environment.yml"
   - local: "/tools/ci/merge-branches.yml"
+  - local: "/tools/ci/e2e.yml"
 
 workflow:
   rules:

@@ -1,0 +1,14 @@
+Test Staging:
+  stage: post-deploy
+  rules:
+    - if: $CI_COMMIT_BRANCH == "staging" && $CI_PIPELINE_SOURCE == "push"
+      when: on_success
+    - when: never
+  needs:
+    - job: Deploy Staging
+  variables:
+    ENV: staging
+  trigger:
+    project: bsport/trailblazer-tests
+    strategy: mirror
+  allow_failure: true

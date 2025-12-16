@@ -7,6 +7,11 @@ import {
 } from "@bsport/datetime-manipulation";
 import { dataAccessLayer } from "@bsport/sm-backbone";
 
+import {
+  CustomRecurrenceUnit,
+  MonthlyRecurrencePattern,
+  RecurrenceType,
+} from "#src/helpers/recurrence/types";
 import type { SessionCreationFormData } from "#src/stores/session-creation/types";
 import { useTranslation } from "#src/utils/i18n";
 
@@ -63,7 +68,154 @@ export const useSessionSchema = () => {
             "addSessionModal.steps.configureSession.timeAndDate.errors.durationNull",
           ),
         ),
+      isReccurring: z.boolean(),
+      recurrenceType: z.nativeEnum(RecurrenceType),
+      recurrenceWeekdays: z.object({
+        1: z.boolean(),
+        2: z.boolean(),
+        3: z.boolean(),
+        4: z.boolean(),
+        5: z.boolean(),
+        6: z.boolean(),
+        7: z.boolean(),
+      }),
+      recurrenceUnit: z.nativeEnum(CustomRecurrenceUnit),
+      recurrenceInterval: z.number().int().positive(),
+      recurrencePattern: z.nativeEnum(MonthlyRecurrencePattern),
+      recurrenceEndDate: z.date(),
     })
+    .refine(
+      (data) => {
+        if (!data.isReccurring) return true;
+        return !!data.recurrenceType;
+      },
+      {
+        message: t(
+          "addSessionModal.steps.configureSession.timeAndDate.errors.recurrenceType",
+        ),
+        path: ["recurrenceType"],
+      },
+    )
+    .refine(
+      (data) => {
+        if (!data.isReccurring) return true;
+        return !!data.recurrenceEndDate;
+      },
+      {
+        message: t(
+          "addSessionModal.steps.configureSession.timeAndDate.errors.recurrenceEndDate",
+        ),
+        path: ["recurrenceEndDate"],
+      },
+    )
+    .refine(
+      (data) => {
+        if (!data.isReccurring || !data.recurrenceEndDate) return true;
+        return (
+          toDateTime(data.recurrenceEndDate, companyTimeZone) >
+          toDateTime(data.startDateTime, companyTimeZone)
+        );
+      },
+      {
+        message: t(
+          "addSessionModal.steps.configureSession.timeAndDate.errors.recurrenceEndDateBeforeStartDate",
+        ),
+        path: ["recurrenceEndDate"],
+      },
+    )
+    .refine(
+      (data) => {
+        if (!data.isReccurring || !data.recurrenceEndDate) return true;
+
+        const maxDate = modifyTime({
+          datetime: getLocalNow({ zone: companyTimeZone, locale }),
+          duration: { year: MAX_YEARS_AHEAD },
+          operator: "plus",
+        });
+        return (
+          toDateTime(data.recurrenceEndDate).setZone(companyTimeZone) <= maxDate
+        );
+      },
+      {
+        message: t(
+          "addSessionModal.steps.configureSession.timeAndDate.errors.dateTooFar",
+        ),
+        path: ["recurrenceEndDate"],
+      },
+    )
+    .refine(
+      (data) => {
+        if (!data.isReccurring) return true;
+        if (data.recurrenceType !== RecurrenceType.WEEKLY) return true;
+        if (!data.recurrenceWeekdays) return false;
+        return Object.values(data.recurrenceWeekdays).some(
+          (selected) => selected,
+        );
+      },
+      {
+        message: t(
+          "addSessionModal.steps.configureSession.timeAndDate.errors.recurrenceWeekdays",
+        ),
+        path: ["recurrenceWeekdays"],
+      },
+    )
+    .refine(
+      (data) => {
+        if (!data.isReccurring) return true;
+        if (data.recurrenceType !== RecurrenceType.CUSTOM) return true;
+        return !!data.recurrenceUnit;
+      },
+      {
+        message: t(
+          "addSessionModal.steps.configureSession.timeAndDate.errors.recurrenceUnit",
+        ),
+        path: ["recurrenceUnit"],
+      },
+    )
+    .refine(
+      (data) => {
+        if (!data.isReccurring) return true;
+        if (data.recurrenceType !== RecurrenceType.CUSTOM) return true;
+        return !!data.recurrenceInterval;
+      },
+      {
+        message: t(
+          "addSessionModal.steps.configureSession.timeAndDate.errors.recurrenceInterval",
+        ),
+        path: ["recurrenceInterval"],
+      },
+    )
+    .refine(
+      (data) => {
+        if (!data.isReccurring) return true;
+        if (data.recurrenceType !== RecurrenceType.CUSTOM) return true;
+        if (data.recurrenceUnit !== CustomRecurrenceUnit.WEEKS) return true;
+        if (!data.recurrenceWeekdays) return false;
+        return Object.values(data.recurrenceWeekdays).some(
+          (selected) => selected,
+        );
+      },
+      {
+        message: t(
+          "addSessionModal.steps.configureSession.timeAndDate.errors.recurrenceWeekdays",
+        ),
+        path: ["recurrenceWeekdays"],
+      },
+    )
+    .refine(
+      (data) => {
+        if (!data.isReccurring) return true;
+        if (data.recurrenceType !== RecurrenceType.CUSTOM) return true;
+        if (data.recurrenceUnit !== CustomRecurrenceUnit.MONTHS) return true;
+        return !!data.recurrencePattern;
+      },
+      {
+        message: t(
+          "addSessionModal.steps.configureSession.timeAndDate.errors.recurrencePattern",
+        ),
+        path: ["recurrencePattern"],
+      },
+    )
     .refine(
       (data) =>
         !data.available_on_partnership ||

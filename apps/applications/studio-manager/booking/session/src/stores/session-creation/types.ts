@@ -1,3 +1,10 @@
+import {
+  CustomRecurrenceUnit,
+  MonthlyRecurrencePattern,
+  RecurrenceType,
+  WeekdaySelection,
+} from "#src/helpers/recurrence/types";
+
 /**
  * Base type representing common fields between Session (Offer) creation and editing
  */
@@ -65,4 +72,11 @@ export type SessionCreationFormData = Pick<
 > & {
   allowCustomNameAndDescription: boolean;
   startDateTime: Date;
+  isReccurring: boolean;
+  recurrenceType: RecurrenceType;
+  recurrenceWeekdays: WeekdaySelection;
+  recurrenceUnit: CustomRecurrenceUnit;
+  recurrenceInterval: number;
+  recurrencePattern: MonthlyRecurrencePattern;
+  recurrenceEndDate: Date;
 };

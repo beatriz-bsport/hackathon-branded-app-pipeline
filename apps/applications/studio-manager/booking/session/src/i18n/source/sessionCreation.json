@@ -91,7 +91,14 @@
           "errors": {
             "invalidDate": "Invalid date. Please enter a valid date in the format DD/MM/YYYY.",
             "dateTooFar": "You can’t create sessions scheduled more than 3 years in the future.",
-            "durationNull": "Duration must be greater than 0 minutes."
+            "durationNull": "Duration must be greater than 0 minutes.",
+            "recurrenceType": "Please select a recurrence type",
+            "recurrenceEndDate": "Please select an end date",
+            "recurrenceEndDateBeforeStartDate": "End date must be after the start date",
+            "recurrenceWeekdays": "Please select at least one day of the week",
+            "recurrenceUnit": "Please select a recurrence unit (days, weeks, or months)",
+            "recurrenceInterval": "Please specify how often to repeat the session",
+            "recurrencePattern": "Please select a monthly recurrence pattern"
           }
         }
       },

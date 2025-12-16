@@ -861,7 +861,7 @@
       "audienceStepHelper": "Définissez le nom de l'étape : vous pourrez voir ici le positionnement des membres dans le {{ workflowLowerCase }}.",
       "addAWorkflow": "Ajouter un {{ workflowLowerCase }}",
       "createAudienceHelper": "Grâce aux {{ workflowPluralLowerCase }}, cibler les actions marketing envoyées à vos membres en fonction de leur comportement sur la plateforme. Créez une séquence d'actions que vos membres doivent accomplir pour obtenir certaines promotions ou certains tags, par exemple.",
-      "emptyAudienceHelper": "Utilisez Audience pour créer des {{ workflowPluralLowerCase }} automatisés qui ciblent vos clients à chaque étape de leur parcours. Par exemple, définissez une suite d’actions à réaliser pour accéder à une promotion. Consultez le guide pour en savoir plus sur cette fonctionnalité.",
+      "emptyAudienceHelper": "Utilisez Audience pour créer des {{ workflowPluralLowerCase }} automatisés qui ciblent vos clients à chaque étape de leur parcours. Par exemple, vous pouvez définir une suite d’actions à réaliser pour accéder à une promotion. Consultez le guide pour en savoir plus sur cette fonctionnalité.",
       "openIntercomHelp": "Lire le guide"
     },
     "graph": {
@@ -1024,8 +1024,8 @@
             "reminder": {
               "actions": {
                 "push_notification": {
-                  "text": "{firstname}, n’oubliez pas : des articles vous attendent dans votre panier.\nL’équipe {company}",
-                  "subject": "Ne passez pas à côté !"
+                  "text": "{firstname}, n’oubliez pas : Vous avez des articles qui vous attendent dans votre panier.\nL’équipe {company}",
+                  "subject": "Ne manquez pas l'occasion !"
                 }
               },
               "name": "Rappel"
@@ -1033,17 +1033,17 @@
             "entry": {
               "actions": {
                 "email_design": {
-                  "subject": "Auriez-vous oublié quelque chose ?"
+                  "subject": "Avez-vous oublié quelque chose ?"
                 },
                 "push_notification": {
-                  "text": "Vous avez laissé quelque chose ! Votre panier est enregistré et vous attend au studio.\nL’équipe {company}",
-                  "subject": "Salut, {firstname}!"
+                  "text": "Vous avez oublié quelque chose ! Votre panier vous attend au studio.\nL’équipe {company}",
+                  "subject": "Salut, {firstname} !"
                 }
               }
             }
           },
           "description": "Récupérez les ventes perdues. Engagez automatiquement les clients ou prospects ayant ajouté des produits (cartes, abonnements, retail) à leur panier.",
-          "name": "Récupérer les paniers abandonnés"
+          "name": "Récupérez les paniers abandonnés"
         }
       },
       "addCadenceDialog": {
@@ -1056,8 +1056,8 @@
     "upsells": {
       "warning": {
         "message": {
-          "pushNotification": "Mettez à niveau votre offre pour envoyer des notifications push.",
-          "sms": "Mettez à niveau votre offre pour envoyer des SMS."
+          "pushNotification": "Mettez à niveau pour envoyer des notifications push.",
+          "sms": "Mettez à niveau pour envoyer des SMS."
         },
         "title": "Module complémentaire requis"
       }

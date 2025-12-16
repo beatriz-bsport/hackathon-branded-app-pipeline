@@ -869,7 +869,7 @@ export async function deletePrivatePassTemplate(id: number) {
 }
 
 export async function restorePrivatePassTemplate(templateId: number) {
-  return postAuth(
+  return postAuth<PrivatePassTemplateAPI>(
     `${API_V1_URI}/private_service/private-pass-template/${templateId}/restore/`,
   );
 }

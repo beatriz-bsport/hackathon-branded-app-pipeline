@@ -3168,7 +3168,9 @@ export const deletePrivatePassTemplateActions = {
 export const restorePrivatePassTemplateActions = {
   isLoading: createAction<boolean>('PRIVATE_PASS_TEMPLATE/RESTORE/IS_LOADING'),
   error: createAction<Error | null>('PRIVATE_PASS_TEMPLATE/RESTORE/ERROR'),
-  success: createAction<number>('PRIVATE_PASS_TEMPLATE/RESTORE/SUCCESS'),
+  success: createAction<PrivatePassTemplateAPI>(
+    'PRIVATE_PASS_TEMPLATE/RESTORE/SUCCESS',
+  ),
 };
 
 export function deletePrivatePassTemplate(
@@ -3216,7 +3218,7 @@ export function restorePrivatePassTemplate(
         monitorBackgroundTask(backgroundTaskUuid, {
           onSuccess: () => {
             options?.onBackgroundSuccess?.();
-            dispatch(restorePrivatePassTemplateActions.success(id));
+            dispatch(restorePrivatePassTemplateActions.success(response.data));
           },
           onError: options?.onBackgroundError,
         }),

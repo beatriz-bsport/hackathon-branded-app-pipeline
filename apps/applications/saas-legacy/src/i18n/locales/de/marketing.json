@@ -353,10 +353,10 @@
         "row": {
           "no": "Nein",
           "yes": "Ja",
-          "no_display_date": "Ungültige Daten"
+          "no_display_date": "Daten ungültig"
         },
         "tooltip": {
-          "no_display_date": "Einige Daten fehlen oder sind ungültig."
+          "no_display_date": "Einige Daten fehlen noch oder sind ungültig."
         }
       }
     },
@@ -861,7 +861,7 @@
       "audienceStepHelper": "Legen Sie hier den Namen des Schritts fest: Hier können Sie sehen, wo sich die Mitglieder im {{ workflowLowerCase }} befinden.",
       "addAWorkflow": "Workflow hinzufügen",
       "createAudienceHelper": "Dank der {{ workflowPluralLowerCase }} können Sie die Marketingaktionen, die Sie an Ihre Mitglieder senden, auf deren Verhalten auf der Plattform abstimmen. Erstellen Sie eine Abfolge von Aktionen, die Ihre Mitglieder ausführen müssen, um z. B. bestimmte Aktionen oder Tags zu erhalten.",
-      "emptyAudienceHelper": "Nutze Audience, um automatisierte {{ workflowPluralLowerCase }} zu erstellen, die Kund:innen in jeder Phase ihrer Journey gezielt ansprechen. Erstelle z. B. eine Abfolge von Aktionen, die abgeschlossen werden müssen, um Zugang zu einer bestimmten Aktion zu erhalten. Im Leitfaden findest du weitere Informationen zu dieser Funktion.",
+      "emptyAudienceHelper": "Nutze Audience, um automatisierte {{ workflowPluralLowerCase }} zu erstellen, die Kund:innen während ihrer Journey gezielt ansprechen. Erstelle z. B. eine Abfolge von Aktionen, die abgeschlossen werden müssen, um Zugang zu einer bestimmten Aktion zu erhalten. Im Leitfaden findest du weitere Informationen zu dieser Funktion.",
       "openIntercomHelp": "Leitfaden lesen"
     },
     "graph": {
@@ -1024,8 +1024,8 @@
             "reminder": {
               "actions": {
                 "push_notification": {
-                  "text": "{firstname}, vergiss nicht: In deinem Warenkorb warten noch Artikel auf dich!",
-                  "subject": "Nicht verpassen!"
+                  "text": "{firstname}, in deinem Warenkorb warten noch Artikel auf dich!",
+                  "subject": "Lass es dir nicht entgehen!"
                 }
               },
               "name": "Erinnerung"
@@ -1033,21 +1033,21 @@
             "entry": {
               "actions": {
                 "email_design": {
-                  "subject": "Hast du etwas vergessen?"
+                  "subject": "Hast du vielleicht etwas vergessen?"
                 },
                 "push_notification": {
-                  "text": "Du hast etwas vergessen! Dein Warenkorb ist gespeichert und wartet im Studio auf dich.\n{company} Team",
+                  "text": "Du hast einen Artikel zu deinem Warenkorb hinzugefügt, der im Studio auf dich wartet. \nDein {company} Team",
                   "subject": "Hallo, {firstname}!"
                 }
               }
             }
           },
-          "description": "Gewinne verlorene Umsätze zurück. Sprich Kund:innen oder Leads automatisch an, die Produkte (Pässe, Abos, Retail) in ihren Warenkorb gelegt haben.",
-          "name": "Abgebrochene Warenkörbe zurückgewinnen"
+          "description": "Gewinne verlorene Umsätze zurück. Sprich Kund:innen oder Leads automatisch an, die Produkte (Pässe, Abos, Retail) zu ihrem Warenkorb hinzugefügt haben.",
+          "name": "Abgebrochene Warenkörbe wiederherstellen"
         }
       },
       "addCadenceDialog": {
-        "title": "Vorlage auswählen oder ein neues {{ workflowLowerCase }} erstellen "
+        "title": "Vorlage auswählen oder neues {{ workflowLowerCase }} erstellen "
       },
       "createFromScratchDescription": "Erstelle ein {{ workflowLowerCase }}, um deine Audience-Aktionen zu automatisieren.",
       "useTemplate": "Vorlage verwenden",
@@ -1056,8 +1056,8 @@
     "upsells": {
       "warning": {
         "message": {
-          "pushNotification": "Upgrade durchführen, um Push-Benachrichtigungen zu versenden.",
-          "sms": "Upgrade durchführen, um SMS zu versenden."
+          "pushNotification": "Du brauchst ein Upgrade, um Push-Benachrichtigungen zu versenden.",
+          "sms": "Du brauchst ein Upgrade, um SMS zu versenden."
         },
         "title": "Add-on erforderlich"
       }

@@ -63,7 +63,7 @@ export class WidgetCodeStringGenerator {
       url += '/scripts/widget.js';
     }
 
-    const code = `<script id="insert-bsport-widget-cdn">!function (b, s, p, o, r, t) { !typeof window.BsportWidget !== "undefined" && !document.getElementById("bsport-widget-cdn") && !function () { m = b.createElement(s), m.id = "bsport-widget-cdn", m.src = p, b.getElementsByTagName("head")[0].appendChild(m) }() }(document, "script", "${url}")</script>
+    const code = `<script id="insert-bsport-widget-cdn">!function (b, s, p, o, r, t) { typeof window.BsportWidget === "undefined" && !document.getElementById("bsport-widget-cdn") && !function () { m = b.createElement(s), m.id = "bsport-widget-cdn", m.src = p, b.getElementsByTagName("head")[0].appendChild(m) }() }(document, "script", "${url}")</script>
     <script id="bsport-widget-mount">
         function MountBsportWidget(config, repeat=1) {
             if (repeat > 50) { return }

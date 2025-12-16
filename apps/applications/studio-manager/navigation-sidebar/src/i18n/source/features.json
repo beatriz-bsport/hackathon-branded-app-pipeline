@@ -1,9 +1,9 @@
 {
   "searchMembers": {
-    "title": "Search client profiles",
+    "title": "Search profiles",
     "addMember": "Create profile",
     "loading": "Loading results...",
-    "emptySearch": "Search for clients or create a new profile",
+    "emptySearch": "Search clients or create a new profile",
     "tagsTooltip": "Tags:",
     "segments": {
       "active": "Active",
@@ -52,7 +52,7 @@
     "clockedOut": {
       "successfulClockOut": "Your schedules have been saved:",
       "failedClockOut": "Failed to clock-out",
-      "nextIterationCTA": "You can start a new punch the next time you open this window."
+      "nextIterationCTA": "You can start a new Clock-in the next time you open this window."
     },
     "schedule": {
       "arrivalTime": "Arrival Time",

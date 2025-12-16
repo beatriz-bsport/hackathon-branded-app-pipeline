@@ -862,7 +862,7 @@
       "addAWorkflow": "Add {{ workflowLowerCase }}",
       "openIntercomHelp": "Read guide",
       "createAudienceHelper": "Thanks to the {{ workflowPluralLowerCase }}, target the marketing actions you send to your members according to their behavior on the platform. Create a sequence of actions that your members must complete to obtain certain promotions or tags, for example.",
-      "emptyAudienceHelper": "Use Audience to build automated {{ workflowPluralLowerCase }} that target customers at each stage of their journey. For example, create a sequence of actions that members must complete to access a certain promotion. Read the guide to find more information on this feature."
+      "emptyAudienceHelper": "Use Audience to build automated {{ workflowPluralLowerCase }} that target clients at each stage of their journey. For example, create a sequence of actions that they must complete to access a certain promotion. Read the guide to find more information on this feature."
     },
     "graph": {
       "alert": {
@@ -1027,16 +1027,16 @@
       }
     },
     "template": {
-      "createFromScratch": "Create from scratch",
+      "createFromScratch": "Create new template",
       "useTemplate": "Use template",
-      "createFromScratchDescription": "Create a {{ workflowLowerCase }} to automate your audience actions.",
+      "createFromScratchDescription": "Create a {{ workflowLowerCase }} to automate your Audience actions.",
       "addCadenceDialog": {
-        "title": "Select a template or create a {{ workflowLowerCase }} from scratch"
+        "title": "Choose a template or create a new {{ workflowLowerCase }} "
       },
       "configs": {
         "abandonedCartRecovery": {
-          "name": "Abandoned Checkout Recovery",
-          "description": "Recover lost sales. Automatically engage with customers or leads who added items (passes, memberships, retail) to their basket.",
+          "name": "Recover abandoned checkouts",
+          "description": "Recover lost sales. Automatically engage with customers or leads who added items (passes, subscriptions, retail) to their basket.",
           "steps": {
             "entry": {
               "actions": {

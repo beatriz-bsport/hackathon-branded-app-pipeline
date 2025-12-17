@@ -42,7 +42,7 @@ export const DEFAULT_CONFIGURE_SESSION_FORM_DATA = {
   partner_max_booking_count: 0,
   startDateTime: getTodayJSDate(),
   duration_minute: 60,
-  isReccurring: false,
+  isRecurring: false,
   recurrenceType: RecurrenceType.WEEKLY,
   recurrenceWeekdays: {
     1: false,

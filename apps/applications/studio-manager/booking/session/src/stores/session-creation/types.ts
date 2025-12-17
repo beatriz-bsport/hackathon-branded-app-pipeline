@@ -72,11 +72,11 @@ export type SessionCreationFormData = Pick<
 > & {
   allowCustomNameAndDescription: boolean;
   startDateTime: Date;
-  isReccurring: boolean;
+  isRecurring: boolean;
   recurrenceType: RecurrenceType;
   recurrenceWeekdays: WeekdaySelection;
   recurrenceUnit: CustomRecurrenceUnit;
   recurrenceInterval: number;
   recurrencePattern: MonthlyRecurrencePattern;
-  recurrenceEndDate: Date;
+  recurrenceEndDate: Date | null;
 };

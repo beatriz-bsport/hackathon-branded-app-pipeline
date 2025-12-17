@@ -1055,7 +1055,7 @@
       },
       "createFromScratchDescription": "Cria um {{ workflowLowerCase }} para automatizar as tuas ações do Audience.",
       "useTemplate": "Usar modelo",
-      "createFromScratch": "Criar novo modelo"
+      "createFromScratch": "Criar novo {{ workflowLowerCase }}"
     },
     "upsells": {
       "warning": {

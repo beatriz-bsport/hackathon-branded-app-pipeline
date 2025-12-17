@@ -538,152 +538,160 @@ export function MemberForm(props: Props) {
                     />
                   </Grid>
 
-                  <Grid
-                    item
-                    className={classes.nationalityField}
-                    md={12}
-                    xs={12}
-                  >
-                    <Field name="nationality">
-                      {({ field, form: { values, setFieldValue } }) => {
-                        const handleNationalityChange = (newNationality) => {
-                          const previousNationality = values.nationality;
-                          setFieldValue('nationality', newNationality);
+                  {!asManager ? null : (
+                    <>
+                      <Grid
+                        item
+                        className={classes.nationalityField}
+                        md={12}
+                        xs={12}
+                      >
+                        <Field name="nationality">
+                          {({ field, form: { values, setFieldValue } }) => {
+                            const handleNationalityChange = (
+                              newNationality,
+                            ) => {
+                              const previousNationality = values.nationality;
+                              setFieldValue('nationality', newNationality);
 
-                          // Default-selection behavior instead of clearing
-                          const currentDocType = values.official_document_type;
-                          if (currentDocType) {
-                            const availableChoices = [
-                              'passport',
-                              ...(newNationality !== 'ES'
-                                ? ['national_id']
-                                : []),
-                              ...(newNationality === 'ES' ? ['es_dni'] : []),
-                            ];
+                              // Default-selection behavior instead of clearing
+                              const currentDocType =
+                                values.official_document_type;
+                              if (currentDocType) {
+                                const availableChoices = [
+                                  'passport',
+                                  ...(newNationality !== 'ES'
+                                    ? ['national_id']
+                                    : []),
+                                  ...(newNationality === 'ES'
+                                    ? ['es_dni']
+                                    : []),
+                                ];
 
-                            // If current type is still valid, keep it
-                            if (availableChoices.includes(currentDocType)) {
-                              return;
-                            }
+                                // If current type is still valid, keep it
+                                if (availableChoices.includes(currentDocType)) {
+                                  return;
+                                }
 
-                            // Smart defaults when switching between Spain and non-Spain
-                            if (
-                              previousNationality === 'ES' &&
-                              newNationality !== 'ES'
-                            ) {
-                              // Changing from Spain to non-Spain: default es_dni -> national_id
-                              if (currentDocType === 'es_dni') {
-                                setFieldValue(
-                                  'official_document_type',
-                                  'national_id',
-                                );
-                                return;
+                                // Smart defaults when switching between Spain and non-Spain
+                                if (
+                                  previousNationality === 'ES' &&
+                                  newNationality !== 'ES'
+                                ) {
+                                  // Changing from Spain to non-Spain: default es_dni -> national_id
+                                  if (currentDocType === 'es_dni') {
+                                    setFieldValue(
+                                      'official_document_type',
+                                      'national_id',
+                                    );
+                                    return;
+                                  }
+                                } else if (
+                                  previousNationality !== 'ES' &&
+                                  newNationality === 'ES'
+                                ) {
+                                  // Changing from non-Spain to Spain: default national_id -> es_dni
+                                  if (currentDocType === 'national_id') {
+                                    setFieldValue(
+                                      'official_document_type',
+                                      'es_dni',
+                                    );
+                                    return;
+                                  }
+                                }
+
+                                // If no smart default applies, clear it
+                                setFieldValue('official_document_type', '');
                               }
-                            } else if (
-                              previousNationality !== 'ES' &&
-                              newNationality === 'ES'
-                            ) {
-                              // Changing from non-Spain to Spain: default national_id -> es_dni
-                              if (currentDocType === 'national_id') {
-                                setFieldValue(
-                                  'official_document_type',
-                                  'es_dni',
-                                );
-                                return;
-                              }
-                            }
+                            };
+                            return (
+                              <FullCountrySelect
+                                disabled={disabled}
+                                label={t('b2c_member:form.member.nationality')}
+                                onChange={(e) =>
+                                  handleNationalityChange(e.target.value)
+                                }
+                                value={field.value || ''}
+                              />
+                            );
+                          }}
+                        </Field>
+                      </Grid>
 
-                            // If no smart default applies, clear it
-                            setFieldValue('official_document_type', '');
-                          }
-                        };
-                        return (
-                          <FullCountrySelect
-                            disabled={disabled || !asManager}
-                            label={t('b2c_member:form.member.nationality')}
-                            onChange={(e) =>
-                              handleNationalityChange(e.target.value)
-                            }
-                            value={field.value || ''}
-                          />
-                        );
-                      }}
-                    </Field>
-                  </Grid>
-
-                  <Field name="documentTypeFields">
-                    {({ form: { values } }) => {
-                      const documentTypeChoices = [
-                        {
-                          value: 'passport',
-                          label: 'b2c_member:form.member.documentType.passport',
-                        },
-                        ...(values.nationality !== 'ES'
-                          ? [
-                              {
-                                value: 'national_id',
-                                label:
-                                  'b2c_member:form.member.documentType.nationalId',
-                              },
-                            ]
-                          : []),
-                        ...(values.nationality === 'ES'
-                          ? [
-                              {
-                                value: 'es_dni',
-                                label:
-                                  'b2c_member:form.member.documentType.nif',
-                              },
-                            ]
-                          : []),
-                      ];
-                      return (
-                        <Grid container direction="row" spacing={2}>
-                          <Grid item md={6} xs={12}>
-                            <SelectField
-                              choices={documentTypeChoices}
-                              disabled={disabled || !asManager}
-                              fullWidth={true}
-                              label={t(
-                                'b2c_member:form.member.documentType.label',
-                              )}
-                              name="official_document_type"
-                              required={!asManager}
-                            />
-                          </Grid>
-                          <Grid item md={6} xs={12}>
-                            <Field name="official_document_id">
-                              {({ form: { submitCount } }) => (
-                                <>
-                                  <TextField
-                                    disabled={disabled || !asManager}
-                                    fullWidth={true}
-                                    label={t(
-                                      'b2c_member:form.member.documentId.label',
-                                    )}
-                                    name="official_document_id"
-                                    required={!asManager}
-                                  />
-                                  {submitCount > 0 && (
-                                    <ErrorMessage name="official_document_id">
-                                      {(message) => (
-                                        <Typography
-                                          color="error"
-                                          variant="caption"
-                                        >
-                                          {t(message)}
-                                        </Typography>
-                                      )}
-                                    </ErrorMessage>
+                      <Field name="documentTypeFields">
+                        {({ form: { values } }) => {
+                          const documentTypeChoices = [
+                            {
+                              value: 'passport',
+                              label:
+                                'b2c_member:form.member.documentType.passport',
+                            },
+                            ...(values.nationality !== 'ES'
+                              ? [
+                                  {
+                                    value: 'national_id',
+                                    label:
+                                      'b2c_member:form.member.documentType.nationalId',
+                                  },
+                                ]
+                              : []),
+                            ...(values.nationality === 'ES'
+                              ? [
+                                  {
+                                    value: 'es_dni',
+                                    label:
+                                      'b2c_member:form.member.documentType.nif',
+                                  },
+                                ]
+                              : []),
+                          ];
+                          return (
+                            <Grid container direction="row" spacing={2}>
+                              <Grid item md={6} xs={12}>
+                                <SelectField
+                                  choices={documentTypeChoices}
+                                  disabled={disabled}
+                                  fullWidth={true}
+                                  label={t(
+                                    'b2c_member:form.member.documentType.label',
                                   )}
-                                </>
-                              )}
-                            </Field>
-                          </Grid>
-                        </Grid>
-                      );
-                    }}
-                  </Field>
+                                  name="official_document_type"
+                                />
+                              </Grid>
+                              <Grid item md={6} xs={12}>
+                                <Field name="official_document_id">
+                                  {({ form: { submitCount } }) => (
+                                    <>
+                                      <TextField
+                                        disabled={disabled}
+                                        fullWidth={true}
+                                        label={t(
+                                          'b2c_member:form.member.documentId.label',
+                                        )}
+                                        name="official_document_id"
+                                      />
+                                      {submitCount > 0 && (
+                                        <ErrorMessage name="official_document_id">
+                                          {(message) => (
+                                            <Typography
+                                              color="error"
+                                              variant="caption"
+                                            >
+                                              {t(message)}
+                                            </Typography>
+                                          )}
+                                        </ErrorMessage>
+                                      )}
+                                    </>
+                                  )}
+                                </Field>
+                              </Grid>
+                            </Grid>
+                          );
+                        }}
+                      </Field>
+                    </>
+                  )}
 
                   <Grid item md={12} xs={12}>
                     <FormControl>

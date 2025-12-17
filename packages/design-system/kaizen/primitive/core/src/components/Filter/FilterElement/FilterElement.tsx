@@ -1,5 +1,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 
+import { FilterField } from "#src/components/Filter/types";
+
 import FilterElementClearButton from "./FilterElementClearButton";
 import FilterElementSelectField from "./FilterElementSelectField";
 import FilterElementTypeSelector from "./FilterElementTypeSelector";
@@ -12,13 +14,7 @@ export type FilterElementProps = {
     label: string;
   }[];
   fields: {
-    [key: string]: {
-      id: string;
-      label: string;
-      availableFilters: string[];
-      values: { id: string; label: string }[];
-      multiSelect: boolean;
-    };
+    [key: string]: FilterField;
   };
   selectFieldLabel: string;
   openedByDefault: boolean;

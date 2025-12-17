@@ -3,6 +3,7 @@ import React from "react";
 
 import Button from "#src/components/Button";
 import DropdownMenu from "#src/components/DropdownMenu";
+import { FilterField } from "#src/components/Filter/types";
 import { useKaizenI18nInstance, useTranslation } from "#src/i18n";
 
 import {
@@ -16,13 +17,7 @@ type FilterElementValuesProps = {
   selectedField: string | null;
   selectedValues: string[] | null;
   fields: {
-    [key: string]: {
-      id: string;
-      label: string;
-      availableFilters: string[];
-      values: { id: string; label: string }[];
-      multiSelect: boolean;
-    };
+    [key: string]: FilterField;
   };
   onSelectOption: (itemId: string) => void;
 };
@@ -86,6 +81,9 @@ const FilterElementValues: React.FC<FilterElementValuesProps> = ({
             setIsPopoverOpened(false);
           }
         }}
+        searchConfig={
+          selectedField ? fields[selectedField].searchConfig : undefined
+        }
       />
     </li>
   );

@@ -91,4 +91,5 @@ const FilterElementValues: React.FC<FilterElementValuesProps> = ({
   );
 };
 
+FilterElementValues.displayName = "KaizenFilterElementValues";
 export default FilterElementValues;

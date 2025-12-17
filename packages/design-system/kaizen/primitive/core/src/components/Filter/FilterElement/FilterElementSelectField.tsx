@@ -137,4 +137,5 @@ const FilterElementSelectField: React.FC<FilterElementSelectFieldProps> = ({
     </li>
   );
 };
+FilterElementSelectField.displayName = "KaizenFilterElementSelectField";
 export default FilterElementSelectField;

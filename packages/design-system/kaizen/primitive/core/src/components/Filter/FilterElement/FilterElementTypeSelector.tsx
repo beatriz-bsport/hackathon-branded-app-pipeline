@@ -58,4 +58,6 @@ const FilterElementTypeSelector: React.FC<FilterElementTypeSelectorProps> = ({
   </li>
 );
 
+FilterElementTypeSelector.displayName = "KaizenFilterElementTypeSelector";
+
 export default FilterElementTypeSelector;

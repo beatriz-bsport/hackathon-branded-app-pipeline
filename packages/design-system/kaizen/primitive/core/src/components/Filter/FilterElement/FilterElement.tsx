@@ -217,5 +217,5 @@ const FilterElement: React.FC<FilterElementProps> = ({
     </ol>
   );
 };
-
+FilterElement.displayName = "KaizenFilterElement";
 export default FilterElement;

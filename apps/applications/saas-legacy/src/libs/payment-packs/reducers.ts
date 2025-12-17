@@ -501,13 +501,11 @@ export const newPaymentPackReducer = handleActions(
     },
     [restorePaymentPackTemplateActions.success.toString()]: (
       state,
-      { payload }: { payload: number },
+      { payload }: { payload: PaymentPackTemplateAPI },
     ) => {
-      return state.setIn(
-        ['paymentPackTemplate', 'byId', payload, 'disabled'],
-        false,
-      );
+      return state.setIn(['paymentPackTemplate', 'byId', payload.id], payload);
     },
+
     [deleteUniversalPaymentPackTemplateActions.isLoading.toString()]: (
       state,
       { payload },

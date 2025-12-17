@@ -1976,15 +1976,15 @@ export default handleActions<Seamless.Immutable<PrivateServiceState>, any>(
     ) => {
       return state.setIn(['privatePassTemplate', 'upsert', 'error'], payload);
     },
+
     [restorePrivatePassTemplateActions.success.toString()]: (
       state,
-      { payload }: { payload: number },
+      { payload }: { payload: PrivatePassTemplateAPI },
     ) => {
-      return state.setIn(
-        ['privatePassTemplate', 'byId', payload, 'disabled'],
-        false,
-      );
+      // @ts-expect-error
+      return state.setIn(['privatePassTemplate', 'byId', payload.id], payload);
     },
+
     [retrievePrivatePassTemplateActions.isLoading.toString()]: (
       state,
       { payload },

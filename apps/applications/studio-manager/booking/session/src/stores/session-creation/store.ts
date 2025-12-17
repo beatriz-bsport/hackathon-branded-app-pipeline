@@ -4,6 +4,12 @@ import type { MetaActivity } from "@bsport/api-book";
 import { getTodayJSDate } from "@bsport/datetime-manipulation";
 import { bindStore } from "@bsport/store-base";
 
+import {
+  CustomRecurrenceUnit,
+  MonthlyRecurrencePattern,
+  RecurrenceType,
+} from "#src/helpers/recurrence/types";
+
 import type { SessionCreate, SessionCreationFormData } from "./types";
 
 export enum SESSION_CREATION_STEPS {
@@ -36,6 +42,25 @@ export const DEFAULT_CONFIGURE_SESSION_FORM_DATA = {
   partner_max_booking_count: 0,
   startDateTime: getTodayJSDate(),
   duration_minute: 60,
+  isReccurring: false,
+  recurrenceType: RecurrenceType.WEEKLY,
+  recurrenceWeekdays: {
+    1: false,
+    2: false,
+    3: false,
+    4: false,
+    5: false,
+    6: false,
+    7: false,
+  },
+  recurrenceUnit: CustomRecurrenceUnit.DAYS,
+  recurrenceInterval: 1,
+  recurrencePattern: MonthlyRecurrencePattern.NTH_WEEKDAY,
+  recurrenceEndDate: (() => {
+    const defaultEndDate = getTodayJSDate();
+    defaultEndDate.setDate(defaultEndDate.getDate() + 1);
+    return defaultEndDate;
+  })(),
 };
 
 export const DEFAULT_ADVANCED_OPTIONS_FORM_DATA = {};

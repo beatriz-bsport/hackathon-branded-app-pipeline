@@ -4,7 +4,6 @@ import uniq from 'lodash/uniq';
 import WellhubConfigurationDialog, {
   WellhubConfigurationFormValues,
 } from '#src/libs/wellhub/components/WellhubConfigurationDialog';
-import WellhubConfigurationPanel from '#src/libs/wellhub/components/WellhubConfigurationPanel';
 import WellhubWarningUnlinkDialog from '#src/libs/wellhub/components/WellhubWarningUnlinkDialog';
 
 import type {
@@ -12,6 +11,14 @@ import type {
   WellhubGym,
 } from '#src/libs/wellhub/types';
 import type { Establishment } from '#src/libs/establishment/types';
+import WellhubIcon from '#src/components/icons/WellhubIcon.component';
+import PartnershipConfigurationPanel from '#src/libs/partnership/components/PartnershipConfigurationPanel';
+import {
+  PartnershipIdentifier,
+  PartnershipVenue,
+} from '#src/libs/partnership/types';
+import { mapWellhubGymsToPartnershipVenues } from '#src/libs/wellhub/mapper';
+import WellhubProductAlert from '#src/libs/wellhub/components/WellhubProductAlert';
 
 type Props = {
   establishments: Establishment[];
@@ -72,24 +79,25 @@ const WellhubConfiguration: React.FC<Props> = ({
   const [wellhubGymToDelete, setWellhubGymToDelete] =
     React.useState<WellhubGym | null>(null);
 
-  const handleAddWellhubGym = React.useCallback(() => {
-    openConfigurationDialog();
-  }, [openConfigurationDialog]);
-
   const handleEditWellhubGym = React.useCallback(
-    (wellhubGym: WellhubGym) => {
+    (partnershipVenue: PartnershipVenue) => {
       openConfigurationDialog();
-      setWellhubGymToEdit(wellhubGym);
+      setWellhubGymToEdit(partnershipVenue.legacyObject as WellhubGym);
     },
     [openConfigurationDialog],
   );
 
   const handleDeleteWellhubGym = React.useCallback(
-    (wellhubGym: WellhubGym) => {
+    (partnershipVenue: PartnershipVenue) => {
       openWarningUnlinkDialog();
-      setWellhubGymToDelete(wellhubGym);
+      setWellhubGymToDelete(partnershipVenue.legacyObject as WellhubGym);
     },
     [openWarningUnlinkDialog],
+  );
+
+  const wellhubPartnershipVenues = React.useMemo(
+    () => mapWellhubGymsToPartnershipVenues(wellhubGyms),
+    [wellhubGyms],
   );
 
   // --------- WellhubConfigurationDialog ---------
@@ -242,15 +250,26 @@ const WellhubConfiguration: React.FC<Props> = ({
 
   return (
     <>
-      <WellhubConfigurationPanel
-        deleteWellhubGym={handleDeleteWellhubGym}
-        editWellhubGym={handleEditWellhubGym}
-        establishmentsNotLinked={establishmentsNotLinked}
-        handleAddUnit={handleAddWellhubGym}
-        offersMissingWellhubProductCount={offersMissingWellhubProductCount}
-        openWellhubProductSelectionDrawer={openWellhubProductSelectionDrawer}
-        wellhubGyms={wellhubGyms}
-        wellhubLoading={wellhubLoading}
+      <PartnershipConfigurationPanel
+        addConnectionDisabled={establishmentsNotLinked?.length === 0}
+        displayConfig={{
+          partnershipIdentifier: PartnershipIdentifier.WELLHUB,
+          icon: <WellhubIcon />,
+          helperTextKey: 'wellhub.configuration.panel.content.helperText',
+        }}
+        loading={wellhubLoading}
+        onAddConnection={openConfigurationDialog}
+        onDeleteVenue={handleDeleteWellhubGym}
+        onEditVenue={handleEditWellhubGym}
+        partnershipVenues={wellhubPartnershipVenues}
+        slots={{
+          alert: (
+            <WellhubProductAlert
+              onActionClick={openWellhubProductSelectionDrawer}
+              total={offersMissingWellhubProductCount}
+            />
+          ),
+        }}
       />
       {isConfigurationDialogInDOM && (
         <WellhubConfigurationDialog

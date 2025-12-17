@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { push } from 'connected-react-router';
-import { compose, withStateHandlers, withHandlers } from 'recompose';
+import { compose, withHandlers, withStateHandlers } from 'recompose';
 import { withTranslation, WithTranslation } from 'react-i18next';
-import { withStyles, WithStyles, createStyles, Theme } from '@material-ui/core';
+import { createStyles, Theme, withStyles, WithStyles } from '@material-ui/core';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 
@@ -19,35 +19,35 @@ import ObjectLevelPermissionWrapper from '#src/libs/role/permission-utils/Object
 import ObjectLevelPermissionProvider from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 
 import {
-  getAvailablePrivateServicesWithoutGroup,
-  getPrivateServiceListByGroup,
-  getPrivateServiceGroupList,
   getAvailablePrivateServices,
+  getAvailablePrivateServicesWithoutGroup,
+  getPrivateServiceGroupList,
+  getPrivateServiceListByGroup,
 } from '#src/libs/private-service/selectors/private-service';
 
 import {
-  getAvailableEstablishmentsWithAssociatedId,
   getAllEstablishmentsWithAssociatedId,
+  getAvailableEstablishmentsWithAssociatedId,
 } from '#src/libs/establishment/selectors';
 import {
   getActiveCoaches,
   getAllCoaches,
 } from '#src/libs/associated-coach/selectors';
-import { hasPartnershipByIdentifier } from '#src/libs/partnership/selectors';
+import { hasPartnershipByIdentifier } from '#src/libs/classpass/selectors';
 import { fetchAssociatedCoachesList } from '#src/libs/associated-coach/actions';
 import {
-  fetchEstablishments,
   fetchAssociatedEstablishments,
+  fetchEstablishments,
 } from '#src/libs/establishment/actions';
-import { fetchPartnershipList as fetchPartnershipListAction } from '#src/libs/partnership/actions';
+import { fetchPartnershipList as fetchPartnershipListAction } from '#src/libs/classpass/actions';
 import {
-  fetchAllPrivateServices as fetchAllPrivateServicesAction,
-  fetchPrivateServiceGroupList as fetchPrivateServiceGroupListAction,
-  fetchPrivateService,
   createOrUpdatePrivateService,
-  deleteServiceGroup as deleteServiceGroupAction,
   createOrUpdateServiceGroup as createOrUpdateServiceGroupAction,
   deletePrivateService,
+  deleteServiceGroup as deleteServiceGroupAction,
+  fetchAllPrivateServices as fetchAllPrivateServicesAction,
+  fetchPrivateService,
+  fetchPrivateServiceGroupList as fetchPrivateServiceGroupListAction,
 } from '#src/libs/private-service/actions';
 import { fetchMarketingNotificationList } from '#src/libs/marketing/actions';
 import { withPrivateBookingNotification } from '#src/libs/marketing/selectors';
@@ -68,7 +68,7 @@ import withTitle from '../../hocs/with-title.hoc';
 import type { OptionCallback } from '../../state/types';
 import type { RootState } from '../../reducers';
 import type { WithHandlerType } from '../../utils/types';
-import { CLASSPASS_INTEGRATION_IDENTIFIER } from '#src/libs/partnership/constants';
+import { CLASSPASS_INTEGRATION_IDENTIFIER } from '#src/libs/classpass/constants';
 import {
   withObjectSearch,
   WithObjectSearch,

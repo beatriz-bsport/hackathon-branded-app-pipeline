@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import ClassPassLogo from '#src/libs/partnership/components/ClassPassLogo.component';
+import ClassPassLogo from '#src/libs/classpass/components/ClassPassLogo.component';
 import ClassPassTable from './ClassPassTable.component';
 
 type Props = {

@@ -11,6 +11,7 @@
     <title>Widget Debugger - Products (HTML)</title>
     <link rel="stylesheet" href="./styles.css" />
     <script src="./burger-menu.js"></script>
+    <script src="./widget-config.js"></script>
   </head>
   <body>
     <nav class="navbar">
@@ -37,6 +38,7 @@
             <a href="./products.html" class="nav-link active">Products</a>
           </li>
         </ul>
+        <!-- Login Button -->
         <div id="bsport-widget-921546"></div>
       </div>
     </nav>
@@ -49,188 +51,104 @@
         </p>
       </div>
       <h1 class="page-title">Shop</h1>
-
-      <script id="insert-bsport-widget-cdn">
-        !(function (b, s, p, o, r, t) {
-          !typeof window.BsportWidget !== "undefined" &&
-            !document.getElementById("bsport-widget-cdn") &&
-            !(function () {
-              (m = b.createElement(s)),
-                (m.id = "bsport-widget-cdn"),
-                (m.src = p),
-                b.getElementsByTagName("head")[0].appendChild(m);
-            })();
-        })(document, "script", "https://cdn.dev.bsport.io/scripts/widget.js");
-      </script>
-      <script id="bsport-widget-mount">
-        function MountBsportWidget(config, repeat = 1) {
-          if (repeat > 50) {
-            return;
-          }
-          if (!window.BsportWidget) {
-            return setTimeout(
-              () => {
-                MountBsportWidget(config, repeat + 1);
-              },
-              100 * repeat || 1,
-            );
-          }
-          BsportWidget.mount(config);
-        }
-      </script>
-      <script>
-        MountBsportWidget({
-          parentElement: "bsport-widget-285134",
-          companyId: 2,
-          franchiseId: null,
-          dialogMode: 1,
-          widgetType: "shop",
-          showFab: false,
-          fullScreenPopup: false,
-          styles: undefined,
-          config: {
-            shop: {},
-          },
-        });
-      </script>
+      <!-- Shop -->
       <div id="bsport-widget-285134"></div>
 
       <h1 class="page-title">Gift Cards</h1>
 
-      <script id="insert-bsport-widget-cdn">
-        !(function (b, s, p, o, r, t) {
-          !typeof window.BsportWidget !== "undefined" &&
-            !document.getElementById("bsport-widget-cdn") &&
-            !(function () {
-              (m = b.createElement(s)),
-                (m.id = "bsport-widget-cdn"),
-                (m.src = p),
-                b.getElementsByTagName("head")[0].appendChild(m);
-            })();
-        })(document, "script", "https://cdn.dev.bsport.io/scripts/widget.js");
-      </script>
-      <script id="bsport-widget-mount">
-        function MountBsportWidget(config, repeat = 1) {
-          if (repeat > 50) {
-            return;
-          }
-          if (!window.BsportWidget) {
-            return setTimeout(
-              () => {
-                MountBsportWidget(config, repeat + 1);
-              },
-              100 * repeat || 1,
-            );
-          }
-          BsportWidget.mount(config);
-        }
-      </script>
-      <script>
-        MountBsportWidget({
-          parentElement: "bsport-widget-257898",
-          companyId: 2,
-          franchiseId: null,
-          dialogMode: 1,
-          widgetType: "giftcard",
-          showFab: false,
-          fullScreenPopup: false,
-          styles: undefined,
-          config: {
-            giftcard: { giftcards: [] },
-          },
-        });
-      </script>
+      <!-- Gift Cards -->
       <div id="bsport-widget-257898"></div>
 
       <h1 class="page-title">VOD</h1>
 
-      <script id="insert-bsport-widget-cdn">
-        !(function (b, s, p, o, r, t) {
-          !typeof window.BsportWidget !== "undefined" &&
-            !document.getElementById("bsport-widget-cdn") &&
-            !(function () {
-              (m = b.createElement(s)),
-                (m.id = "bsport-widget-cdn"),
-                (m.src = p),
-                b.getElementsByTagName("head")[0].appendChild(m);
-            })();
-        })(document, "script", "https://cdn.dev.bsport.io/scripts/widget.js");
-      </script>
-      <script id="bsport-widget-mount">
-        function MountBsportWidget(config, repeat = 1) {
-          if (repeat > 50) {
-            return;
-          }
-          if (!window.BsportWidget) {
-            return setTimeout(
-              () => {
-                MountBsportWidget(config, repeat + 1);
-              },
-              100 * repeat || 1,
-            );
-          }
-          BsportWidget.mount(config);
-        }
-      </script>
-      <script>
-        MountBsportWidget({
-          parentElement: "bsport-widget-626442",
-          companyId: 2,
-          franchiseId: null,
-          dialogMode: 1,
-          widgetType: "vod",
-          showFab: false,
-          fullScreenPopup: false,
-          styles: undefined,
-          config: {
-            vod: { videos: [] },
-          },
-        });
-      </script>
+      <!-- VOD -->
       <div id="bsport-widget-626442"></div>
-      <script id="insert-bsport-widget-cdn">
-        !(function (b, s, p, o, r, t) {
-          !typeof window.BsportWidget !== "undefined" &&
-            !document.getElementById("bsport-widget-cdn") &&
-            !(function () {
-              (m = b.createElement(s)),
-                (m.id = "bsport-widget-cdn"),
-                (m.src = p),
-                b.getElementsByTagName("head")[0].appendChild(m);
-            })();
-        })(document, "script", "https://cdn.dev.bsport.io/scripts/widget.js");
-      </script>
-      <script id="bsport-widget-mount">
-        function MountBsportWidget(config, repeat = 1) {
-          if (repeat > 50) {
-            return;
-          }
-          if (!window.BsportWidget) {
-            return setTimeout(
-              () => {
-                MountBsportWidget(config, repeat + 1);
-              },
-              100 * repeat || 1,
-            );
-          }
-          BsportWidget.mount(config);
-        }
-      </script>
-      <script>
-        MountBsportWidget({
-          parentElement: "bsport-widget-921546",
-          companyId: 2,
-          franchiseId: null,
-          dialogMode: 1,
-          widgetType: "loginButton",
-          showFab: false,
-          fullScreenPopup: false,
-          styles: undefined,
-          config: {
-            loginButton: { openMemberProfile: true },
-          },
-        });
-      </script>
     </main>
   </body>
+
+  <!-- Insert Bsport Widget CDN -->
+  <script id="insert-bsport-widget-cdn">
+    !(function (b, s, p, o, r, t) {
+      typeof window.BsportWidget === "undefined" &&
+        !document.getElementById("bsport-widget-cdn") &&
+        !(function () {
+          (m = b.createElement(s)),
+            (m.id = "bsport-widget-cdn"),
+            (m.src = p),
+            b.getElementsByTagName("head")[0].appendChild(m);
+        })();
+    })(document, "script", window.globalWidgetConfig.widgetScriptUrl);
+  </script>
+  <script id="bsport-widget-mount">
+    function MountBsportWidget(config, repeat = 1) {
+      if (repeat > 50) {
+        return;
+      }
+      if (!window.BsportWidget) {
+        return setTimeout(
+          () => {
+            MountBsportWidget(config, repeat + 1);
+          },
+          100 * repeat || 1,
+        );
+      }
+      BsportWidget.mount(config);
+    }
+  </script>
+
+  <!-- Mount Bsport Widgets -->
+  <script>
+    MountBsportWidget({
+      parentElement: "bsport-widget-285134",
+      companyId: window.globalWidgetConfig.companyId,
+      franchiseId: null,
+      dialogMode: 1,
+      widgetType: "shop",
+      showFab: false,
+      fullScreenPopup: false,
+      styles: undefined,
+      config: {
+        shop: {},
+      },
+    });
+    MountBsportWidget({
+      parentElement: "bsport-widget-257898",
+      companyId: window.globalWidgetConfig.companyId,
+      franchiseId: null,
+      dialogMode: 1,
+      widgetType: "giftcard",
+      showFab: false,
+      fullScreenPopup: false,
+      styles: undefined,
+      config: {
+        giftcard: { giftcards: [] },
+      },
+    });
+    MountBsportWidget({
+      parentElement: "bsport-widget-921546",
+      companyId: window.globalWidgetConfig.companyId,
+      franchiseId: null,
+      dialogMode: 1,
+      widgetType: "loginButton",
+      showFab: false,
+      fullScreenPopup: false,
+      styles: undefined,
+      config: {
+        loginButton: { openMemberProfile: true },
+      },
+    });
+    MountBsportWidget({
+      parentElement: "bsport-widget-626442",
+      companyId: window.globalWidgetConfig.companyId,
+      franchiseId: null,
+      dialogMode: 1,
+      widgetType: "vod",
+      showFab: false,
+      fullScreenPopup: false,
+      styles: undefined,
+      config: {
+        vod: { videos: [] },
+      },
+    });
+  </script>
 </html>

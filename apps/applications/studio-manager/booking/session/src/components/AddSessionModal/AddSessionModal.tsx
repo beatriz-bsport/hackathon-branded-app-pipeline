@@ -39,7 +39,7 @@ export const AddSessionModal = ({ isOpen, onClose }: AddSessionModalProps) => {
 
   const configureSessionMethods = useFormController({
     schema: sessionSchema,
-    mode: "onBlur",
+    mode: "onSubmit",
     shouldFocusError: true,
     defaultValues: configureSessionFormData,
   });

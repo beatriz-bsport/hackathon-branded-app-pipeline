@@ -352,7 +352,11 @@
         },
         "row": {
           "no": "Nee",
-          "yes": "Ja"
+          "yes": "Ja",
+          "no_display_date": "Ongeldige gegevens"
+        },
+        "tooltip": {
+          "no_display_date": "Sommige gegevens ontbreken of zijn ongeldig."
         }
       }
     },
@@ -856,7 +860,9 @@
       "cadenceParameters": "Instellingen van \"{{ workflowLowerCase }}\"",
       "audienceStepHelper": "Stel hier de naam van de stap in: hier kunt u zien waar de leden zich bevinden in de {{ workflowLowerCase }}.",
       "addAWorkflow": "Voeg een {{ workflowLowerCase }} toe.",
-      "createAudienceHelper": "Dankzij {{ workflowPluralLowerCase }} kun je de marketingacties die je naar je leden stuurt richten op basis van hun gedrag op het platform. Maak bijvoorbeeld een reeks acties die je leden moeten voltooien om bepaalde promoties of tags te krijgen."
+      "createAudienceHelper": "Dankzij {{ workflowPluralLowerCase }} kun je de marketingacties die je naar je leden stuurt richten op basis van hun gedrag op het platform. Maak bijvoorbeeld een reeks acties die je leden moeten voltooien om bepaalde promoties of tags te krijgen.",
+      "emptyAudienceHelper": "Gebruik Audience om geautomatiseerde {{ workflowPluralLowerCase }} te bouwen die klanten in elke fase van hun klantreis bereiken. Maak bijvoorbeeld een reeks acties die moeten worden voltooid om toegang te krijgen tot een promotie. Lees de handleiding voor meer informatie over deze functie.",
+      "openIntercomHelp": "Handleiding lezen"
     },
     "graph": {
       "alert": {
@@ -1009,6 +1015,51 @@
       "alert": {
         "content": "Hoe meer mensen in de workflow komen, hoe hoger de kosten. Controleer je contract om de kosten per sms te zien.",
         "title": "Sms-berichten zijn duurder dan andere kanalen"
+      }
+    },
+    "template": {
+      "configs": {
+        "abandonedCartRecovery": {
+          "steps": {
+            "reminder": {
+              "actions": {
+                "push_notification": {
+                  "text": "{firstname}, vergeet niet dat er items in je winkelwagen klaarstaan om te worden gekocht.\nHet {company}-team",
+                  "subject": "Mis het niet!"
+                }
+              },
+              "name": "Herinnering"
+            },
+            "entry": {
+              "actions": {
+                "email_design": {
+                  "subject": "Ben je iets vergeten?"
+                },
+                "push_notification": {
+                  "text": "Je hebt iets achtergelaten! Je winkelwagen is opgeslagen en wacht op je in de studio.\nHet {company}-team",
+                  "subject": "Hé {firstname}!"
+                }
+              }
+            }
+          },
+          "description": "Herstel gemiste omzet. Benader automatisch klanten of leads die producten (passen, abonnementen, retail) aan hun winkelwagen hebben toegevoegd.",
+          "name": "Verlaten winkelwagens herstellen"
+        }
+      },
+      "addCadenceDialog": {
+        "title": "Kies een sjabloon of maak een nieuw {{ workflowLowerCase }} "
+      },
+      "createFromScratchDescription": "Maak een {{ workflowLowerCase }} om je Audience-acties te automatiseren.",
+      "useTemplate": "Sjabloon gebruiken",
+      "createFromScratch": "Nieuw sjabloon maken"
+    },
+    "upsells": {
+      "warning": {
+        "message": {
+          "pushNotification": "Upgrade om pushmeldingen te verzenden.",
+          "sms": "Upgrade om SMS te verzenden."
+        },
+        "title": "Add-on vereist"
       }
     }
   }

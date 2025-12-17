@@ -1,12 +1,12 @@
 {
   "title": "Pakket",
   "actions": {
-    "addAPack": "Voeg een pakket toe"
+    "addAPack": "Voeg pakket toe"
   },
   "table": {
     "loading": "Laden van pakketten...",
     "emptyList": {
-      "title": "Nog geen pakketten toegevoegd",
+      "title": "Nog geen Pakketten toegevoegd",
       "subtitle": "Voeg een pakket toe om je producten en passen te combineren in één aanbieding. "
     },
     "headers": {
@@ -15,32 +15,37 @@
       "numberOfProducts": "artikelen",
       "price": "Prijs"
     },
+    "values": {
+      "unlisted": "Niet vermeld",
+      "hiddenToStaff": "Verborgen",
+      "limitedTime": "Beperkt"
+    },
     "tooltips": {
-      "unavailableForUsers": "Dit pakket wordt niet getoond in het ledengedeelte",
-      "invisibleForStaff": "Dit pakket wordt niet aan medewerkers getoond.",
-      "availableForALimitedTime": "Dit pakket wordt slechts voor een beperkte tijd getoond",
+      "unlisted": "Niet vermeld in de Ledenruimte",
+      "hiddenToStaff": "Verborgen voor stafleden",
+      "limitedTime": "Alleen voor een beperkte tijd beschikbaar",
       "archive": "Verwijder pakket"
     }
   },
   "deleteModal": {
     "title": "Verwijder pakket?",
     "description": {
-      "effect": "Als je {{ name }} verwijdert, worden huidige of eerdere aankopen niet beïnvloed.",
-      "canNotBeUndone": "Deze actie kan niet ongedaan worden gemaakt."
+      "effect": "Zodra jij {{ name }} verwijdert, is het niet langer zichtbaar voor leden. ",
+      "canNotBeUndone": "Alle leden die dit pakket hebben gekocht, blijven onaangetast. "
     },
     "actions": {
-      "cancel": "Terug",
+      "cancel": "Behouden",
       "delete": "Verwijderen"
     }
   },
   "toasts": {
     "messageDelete": {
       "success": "Pakket verwijderd",
-      "error": "Verwijderen van pakket mislukt"
+      "error": "Pakket kon niet worden verwijderd. Probeer het opnieuw. "
     },
     "messageUndo": {
-      "success": "Actie ongedaan gemaakt",
-      "error": "Actie ongedaan maken mislukt"
+      "success": "Wijziging ongedaan gemaakt",
+      "error": "De wijziging kan niet ongedaan worden gemaakt. Probeer het opnieuw. "
     },
     "actions": {
       "undo": "Ongedaan maken"

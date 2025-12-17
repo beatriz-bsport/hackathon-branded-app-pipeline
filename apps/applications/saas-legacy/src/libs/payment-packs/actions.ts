@@ -1449,7 +1449,9 @@ export function deletePaymentPackTemplate(
 export const restorePaymentPackTemplateActions = {
   isLoading: createAction<boolean>('PAYMENT_PACK_TEMPLATE/RESTORE/IS_LOADING'),
   error: createAction<Error | null>('PAYMENT_PACK_TEMPLATE/RESTORE/ERROR'),
-  success: createAction<number>('PAYMENT_PACK_TEMPLATE/RESTORE/SUCCESS'),
+  success: createAction<PaymentPackTemplateAPI>(
+    'PAYMENT_PACK_TEMPLATE/RESTORE/SUCCESS',
+  ),
 };
 
 export function restorePaymentPackTemplate(
@@ -1466,7 +1468,7 @@ export function restorePaymentPackTemplate(
         monitorBackgroundTask(backgroundTaskUuid, {
           onSuccess: () => {
             options?.onBackgroundSuccess?.();
-            dispatch(restorePaymentPackTemplateActions.success(id));
+            dispatch(restorePaymentPackTemplateActions.success(response.data));
             dispatch(
               snackbarSuccess(
                 `paymentPack.paymentPackTemplateRestored.success`,

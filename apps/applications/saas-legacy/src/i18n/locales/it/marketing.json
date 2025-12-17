@@ -299,7 +299,11 @@
         },
         "row": {
           "no": "No",
-          "yes": "Si"
+          "yes": "Si",
+          "no_display_date": "Dati non validi"
+        },
+        "tooltip": {
+          "no_display_date": "Alcuni dati sono mancanti o non validi."
         }
       },
       "byMember": "Dettagli per membro"
@@ -860,7 +864,9 @@
         "updateTitle": "Modifica il {{ workflowLowerCase }}",
         "createTitle": "Crea un {{ workflowLowerCase }}",
         "updateNameTitle": "Modifica il nome del {{ workflowLowerCase }}"
-      }
+      },
+      "emptyAudienceHelper": "Utilizza Audience per creare {{ workflowPluralLowerCase }} automatizzati che coinvolgono i clienti in ogni fase del loro percorso. Ad esempio, puoi definire una sequenza di azioni da completare per accedere a una promozione. Consulta la guida per maggiori informazioni su questa funzionalità.",
+      "openIntercomHelp": "Leggi la guida"
     },
     "activate": {
       "setupBeforeActivationHelper": "Termina la configurazione del {{ workflowLowerCase }} e crea la prima azione di marketing per lanciare il {{ workflowLowerCase }}.",
@@ -1016,6 +1022,51 @@
       "alert": {
         "content": "Più persone entrano nel flusso di lavoro, più aumenta il costo. Controlla il tuo contratto per conoscere il costo per SMS.",
         "title": "Gli SMS costano più degli altri canali"
+      }
+    },
+    "template": {
+      "configs": {
+        "abandonedCartRecovery": {
+          "steps": {
+            "reminder": {
+              "actions": {
+                "push_notification": {
+                  "text": "{firstname}, non dimenticare che hai articoli nel carrello pronti per l’acquisto.\nTeam {company}",
+                  "subject": "Non perdere l’occasione!"
+                }
+              },
+              "name": "Promemoria"
+            },
+            "entry": {
+              "actions": {
+                "email_design": {
+                  "subject": "Hai dimenticato qualcosa?"
+                },
+                "push_notification": {
+                  "text": "Hai lasciato qualcosa indietro! Il tuo carrello è salvato e ti aspetta nello studio.\nTeam {company}",
+                  "subject": "Ehi {firstname}!"
+                }
+              }
+            }
+          },
+          "description": "Recupera vendite perse. Coinvolgi automaticamente clienti o lead che hanno aggiunto prodotti (pass, abbonamenti, retail) al carrello.",
+          "name": "Recupera carrelli abbandonati"
+        }
+      },
+      "addCadenceDialog": {
+        "title": "Scegli un template o crea un nuovo {{ workflowLowerCase }} "
+      },
+      "createFromScratchDescription": "Crea un {{ workflowLowerCase }} per automatizzare le azioni di Audience.",
+      "useTemplate": "Usa template",
+      "createFromScratch": "Crea nuovo template"
+    },
+    "upsells": {
+      "warning": {
+        "message": {
+          "pushNotification": "Effettua l’upgrade per inviare notifiche push.",
+          "sms": "Effettua l’upgrade per inviare SMS."
+        },
+        "title": "Add-on richiesto"
       }
     }
   }

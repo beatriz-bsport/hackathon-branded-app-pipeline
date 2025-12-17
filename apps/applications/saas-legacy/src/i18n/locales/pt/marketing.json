@@ -80,7 +80,11 @@
         },
         "row": {
           "no": "Não",
-          "yes": "Sim"
+          "yes": "Sim",
+          "no_display_date": "Dados inválidos"
+        },
+        "tooltip": {
+          "no_display_date": "Alguns dados estão em falta ou são inválidos."
         }
       },
       "byMember": "Detalhes"
@@ -862,7 +866,7 @@
         "updateNameTitle": "Edite o nome do seu {{ workflowLowerCase }}"
       },
       "openIntercomHelp": "Ler o guia",
-      "emptyAudienceHelper": "Utilize o Audience para criar {{ workflowPluralLowerCase }} automatizados que visam os clientes em cada fase do seu percurso. Por exemplo, crie uma sequência de acções que os membros devem concluir para aceder a uma determinada promoção. Leia o guia para obter mais informações sobre esta funcionalidade."
+      "emptyAudienceHelper": "Utiliza o Audience para criar {{ workflowPluralLowerCase }} automatizados que impactam os clientes em cada fase da sua jornada. Por exemplo, cria uma sequência de ações que devem ser concluídas para aceder a uma promoção. Consulta o guia para saberes mais sobre esta funcionalidade."
     },
     "activate": {
       "setupBeforeActivationHelper": "Termine de configurar o seu {{ workflowLowerCase }} e crie a sua primeira ação de marketing para lançar o seu {{ workflowLowerCase }}.",
@@ -1015,6 +1019,51 @@
           "title": "Ficou sem espaço {{ workflowPluralLowerCase }}",
           "description": "Já utilizou os 3 {{ workflowPluralLowerCase }} incluídos na avaliação gratuita. Para ativar este, actualize para o Audience ou coloque em pausa um {{ workflowLowerCase }} existente."
         }
+      }
+    },
+    "template": {
+      "configs": {
+        "abandonedCartRecovery": {
+          "steps": {
+            "reminder": {
+              "actions": {
+                "push_notification": {
+                  "text": "{firstname}, não te esqueças: tens artigos no carrinho à espera de serem comprados.\nEquipa {company}",
+                  "subject": "Não percas!"
+                }
+              },
+              "name": "Lembrete"
+            },
+            "entry": {
+              "actions": {
+                "email_design": {
+                  "subject": "Esqueceste-te de algo?"
+                },
+                "push_notification": {
+                  "text": "Deixaste algo para trás! O teu carrinho está guardado e à tua espera no estúdio.\nEquipa {company}",
+                  "subject": "Olá {firstname}!"
+                }
+              }
+            }
+          },
+          "description": "Recupera vendas perdidas. Envolve automaticamente clientes ou leads que adicionaram produtos (passes, subscrições, retail) ao carrinho.",
+          "name": "Recuperar carrinhos abandonados"
+        }
+      },
+      "addCadenceDialog": {
+        "title": "Escolhe um modelo ou cria um novo {{ workflowLowerCase }} "
+      },
+      "createFromScratchDescription": "Cria um {{ workflowLowerCase }} para automatizar as tuas ações do Audience.",
+      "useTemplate": "Usar modelo",
+      "createFromScratch": "Criar novo modelo"
+    },
+    "upsells": {
+      "warning": {
+        "message": {
+          "pushNotification": "Faz upgrade para enviar notificações push.",
+          "sms": "Faz upgrade para enviar SMS."
+        },
+        "title": "Add-on necessário"
       }
     }
   }

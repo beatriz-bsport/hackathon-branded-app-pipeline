@@ -3,5 +3,19 @@
     "parameters": "Parameters",
     "campaigns": "Campaigns",
     "automations": "Automations"
+  },
+  "error": {
+    "notFound": {
+      "title": "Smartlist not found",
+      "subtitle": "",
+      "description": "The smartlist you're looking for doesn't exist or may have been deleted.",
+      "backToListLabel": "Back to smartlists"
+    },
+    "serverError": {
+      "title": "Something went wrong",
+      "subtitle": "",
+      "description": "We couldn't load this smartlist. Please try again.",
+      "retryLabel": "Retry"
+    }
   }
 }

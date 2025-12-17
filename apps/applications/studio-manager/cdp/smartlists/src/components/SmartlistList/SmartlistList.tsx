@@ -13,6 +13,7 @@ import { LEGACY_URLS } from "#src/urls";
 import { useSmartlistFlag } from "#src/utils/feature-flags/use-smartlist-flag";
 import { useTranslation } from "#src/utils/i18n";
 
+import { usePrefetchSmartlistDetail } from "../../api/use-smartlist-detail";
 import { VISIBLE_ACTIONS_DISPLAY_LIMIT } from "./constants";
 
 type SmartlistListProps = {
@@ -50,6 +51,8 @@ export const SmartlistList: FC<SmartlistListProps> = ({
   const navigate = useNavigate();
   const isSmartlistEnabled = useSmartlistFlag();
 
+  const prefetchSmartlistDetail = usePrefetchSmartlistDetail();
+
   const { isEmpty, isEmptySearch, onSearchClear, onCreateClick } =
     emptyStateConfig;
   const { onEdit, onDuplicate, onDelete } = actions;
@@ -65,6 +68,7 @@ export const SmartlistList: FC<SmartlistListProps> = ({
     },
     onClick: () => {
       if (isSmartlistEnabled) {
+        prefetchSmartlistDetail(smartlist.id.toString());
         navigate(`/${smartlist.id}`);
       } else {
         window.location.assign(LEGACY_URLS.SMARTLIST_MEMBER(smartlist.id));

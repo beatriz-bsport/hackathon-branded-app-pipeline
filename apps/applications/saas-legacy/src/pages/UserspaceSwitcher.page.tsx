@@ -101,9 +101,11 @@ export const UserspaceSwitcher = (props: Props) => {
   });
 
   useEffect(() => {
-    if (isManager && shouldNavigateToHomepage) {
+    // Use the same storage as in the revamp backoffice
+    const localOrSessionStorage = getAuthToken();
+    if (isManager && shouldNavigateToHomepage && localOrSessionStorage) {
       // Refresh Redux store with Access Level information
-      fetchAccessLevelWithoutConnect(storedToken, 'previous', {
+      fetchAccessLevelWithoutConnect(localOrSessionStorage, 'previous', {
         onSuccess: (data: { has_enabled_revamped_backoffice: boolean }) => {
           // Trigger redirection only if the user setting is still active
           if (data.has_enabled_revamped_backoffice) {

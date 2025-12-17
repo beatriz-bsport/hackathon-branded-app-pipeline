@@ -68,7 +68,7 @@ export const useSessionSchema = () => {
             "addSessionModal.steps.configureSession.timeAndDate.errors.durationNull",
           ),
         ),
-      isReccurring: z.boolean(),
+      isRecurring: z.boolean(),
       recurrenceType: z.nativeEnum(RecurrenceType),
       recurrenceWeekdays: z.object({
         1: z.boolean(),
@@ -82,11 +82,11 @@ export const useSessionSchema = () => {
       recurrenceUnit: z.nativeEnum(CustomRecurrenceUnit),
       recurrenceInterval: z.number().int().positive(),
       recurrencePattern: z.nativeEnum(MonthlyRecurrencePattern),
-      recurrenceEndDate: z.date(),
+      recurrenceEndDate: z.date().nullable(),
     })
     .refine(
       (data) => {
-        if (!data.isReccurring) return true;
+        if (!data.isRecurring) return true;
         return !!data.recurrenceType;
       },
       {
@@ -98,7 +98,7 @@ export const useSessionSchema = () => {
     )
     .refine(
       (data) => {
-        if (!data.isReccurring) return true;
+        if (!data.isRecurring) return true;
         return !!data.recurrenceEndDate;
       },
       {
@@ -110,7 +110,7 @@ export const useSessionSchema = () => {
     )
     .refine(
       (data) => {
-        if (!data.isReccurring || !data.recurrenceEndDate) return true;
+        if (!data.isRecurring || !data.recurrenceEndDate) return true;
         return (
           toDateTime(data.recurrenceEndDate, companyTimeZone) >
           toDateTime(data.startDateTime, companyTimeZone)
@@ -125,7 +125,7 @@ export const useSessionSchema = () => {
     )
     .refine(
       (data) => {
-        if (!data.isReccurring || !data.recurrenceEndDate) return true;
+        if (!data.isRecurring || !data.recurrenceEndDate) return true;
 
         const maxDate = modifyTime({
           datetime: getLocalNow({ zone: companyTimeZone, locale }),
@@ -145,7 +145,7 @@ export const useSessionSchema = () => {
     )
     .refine(
       (data) => {
-        if (!data.isReccurring) return true;
+        if (!data.isRecurring) return true;
         if (data.recurrenceType !== RecurrenceType.WEEKLY) return true;
         if (!data.recurrenceWeekdays) return false;
         return Object.values(data.recurrenceWeekdays).some(
@@ -161,7 +161,7 @@ export const useSessionSchema = () => {
     )
     .refine(
       (data) => {
-        if (!data.isReccurring) return true;
+        if (!data.isRecurring) return true;
         if (data.recurrenceType !== RecurrenceType.CUSTOM) return true;
         return !!data.recurrenceUnit;
       },
@@ -174,7 +174,7 @@ export const useSessionSchema = () => {
     )
     .refine(
       (data) => {
-        if (!data.isReccurring) return true;
+        if (!data.isRecurring) return true;
         if (data.recurrenceType !== RecurrenceType.CUSTOM) return true;
         return !!data.recurrenceInterval;
       },
@@ -187,7 +187,7 @@ export const useSessionSchema = () => {
     )
     .refine(
       (data) => {
-        if (!data.isReccurring) return true;
+        if (!data.isRecurring) return true;
         if (data.recurrenceType !== RecurrenceType.CUSTOM) return true;
         if (data.recurrenceUnit !== CustomRecurrenceUnit.WEEKS) return true;
         if (!data.recurrenceWeekdays) return false;
@@ -204,7 +204,7 @@ export const useSessionSchema = () => {
     )
     .refine(
       (data) => {
-        if (!data.isReccurring) return true;
+        if (!data.isRecurring) return true;
         if (data.recurrenceType !== RecurrenceType.CUSTOM) return true;
         if (data.recurrenceUnit !== CustomRecurrenceUnit.MONTHS) return true;
         return !!data.recurrencePattern;

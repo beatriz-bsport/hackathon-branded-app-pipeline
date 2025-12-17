@@ -1,3 +1,190 @@
 {
-  "helloName": "Hallo {{ name }} !"
+  "searching": "Zoeken...",
+  "loading": "Meldingen laden ...",
+  "page": {
+    "title": "Marketingmeldingen",
+    "emptyState": {
+      "title": "Nog geen meldingen",
+      "description": "Stel een automatisering in om meldingen naar je leden te sturen",
+      "primaryAction": "Voeg automatisering toe"
+    },
+    "actions": {
+      "createNotificationButton": "Maak een melding"
+    }
+  },
+  "filters": {
+    "label": "Type melding"
+  },
+  "table": {
+    "headers": {
+      "notificationType": "Type trigger",
+      "triggerCondition": "Automatisering",
+      "communicationChannel": "Communicatiekanaal"
+    },
+    "toggleNotification": {
+      "enabled": "Geactiveerd",
+      "disabled": "Activeren",
+      "broken": "Probleem oplossen"
+    },
+    "notificationType": {
+      "location": "Locatie",
+      "groupActivity": "Groepsactiviteit",
+      "workshop": "Workshops",
+      "establishment": "Vestiging",
+      "privateService": "Afspraken",
+      "privatePass": "Afspraakkaart",
+      "paymentPack": "Leskaart",
+      "subscription": "Abonnement",
+      "birthday": "Verjaardag",
+      "metaActivity": "Reservering"
+    },
+    "notificationState": {
+      "enabled": "Geactiveerd",
+      "disabled": "Activeren",
+      "broken": "Probleem oplossen"
+    },
+    "actions": {
+      "menu": "Acties",
+      "previous": "Terug",
+      "next": "Volgende",
+      "preview": "Open melding",
+      "edit": "Bewerken",
+      "delete": "Verwijderen"
+    },
+    "brokenEmailTooltip": "Deze automatisering kan niet worden uitgevoerd omdat de e-mailsjabloon is verwijderd.",
+    "triggerType": {
+      "booking": {
+        "attended": {
+          "present": {
+            "any": "Elke boeking bijgewoond in {{entityName}}",
+            "afterX_one": "Na {{count}} boeking bijgewoond in {{entityName}}",
+            "afterX_other": "Na {{count}} boekingen bijgewoond in {{entityName}}"
+          },
+          "absent": {
+            "any": "Elke boeking geannuleerd in {{entityName}}",
+            "afterX_one": "Na {{count}} boeking geannuleerd in {{entityName}}",
+            "afterX_other": "Na {{count}} boekingen geannuleerd in {{entityName}}"
+          }
+        },
+        "cancelled": {
+          "onTime": {
+            "any": "Elke boeking die op tijd is geannuleerd in {{entityName}}",
+            "afterX_one": "Na {{count}} boeking op tijd geannuleerd in {{entityName}}",
+            "afterX_other": "Na {{count}} boekingen op tijd geannuleerd in {{entityName}}"
+          },
+          "tooLate": {
+            "any": "Elke late annulering in {{entityName}}",
+            "afterX_one": "Na {{count}} te late annuleringen in {{entityName}}",
+            "afterX_other": "Na {{count}} te late annuleringen in {{entityName}}"
+          }
+        }
+      },
+      "subscription": {
+        "started": "Begin van {{entityName}}",
+        "ended": "Einde van {{entityName}}"
+      },
+      "passes": {
+        "finnerGraining": {
+          "credit_one": "{{count}} tegoed over in {{entityName}}",
+          "credit_other": "{{count}} credits over in {{entityName}}",
+          "validity_one": "{{count}} geldige dag over in {{entityName}}",
+          "validity_other": "{{count}} geldige dagen resterend in {{entityName}}",
+          "expired_one": "{{count}} dag verlopen in {{entityName}}",
+          "expired_other": "{{count}} dagen verlopen in {{entityName}}",
+          "severalPass": "en andere leskaarten ..."
+        },
+        "all": {
+          "credit_one": "{{count}} credit over in alle leskaarten",
+          "credit_other": "{{count}} credits over in alle leskaarten",
+          "validity_one": "{{count}} geldige dag resterend in alle leskaarten",
+          "validity_other": "{{count}} geldige dagen resterend in alle leskaarten",
+          "expired_one": "{{count}} dag na vervaldatum in alle leskaarten",
+          "expired_other": "{{count}} dagen na vervaldatum in alle leskaarten"
+        }
+      },
+      "birthday": "Verjaardag lid"
+    },
+    "triggerTiming": {
+      "booking": {
+        "before": {
+          "day_one": "Verzonden {{count}} dagen voor de sessie",
+          "day_other": "Verzonden {{count}} dagen voor de sessie",
+          "hour_one": "Verzonden {{count}} uur voor de sessie",
+          "hour_other": "Verzonden {{count}} uur voor de sessie"
+        },
+        "after": {
+          "day_one": "Verzonden {{count}} dagen na de sessie",
+          "day_other": "Verzonden {{count}} dagen na de sessie",
+          "hour_one": "Verzonden {{count}} uur na de sessie",
+          "hour_other": "Verzonden {{count}} uur na de sessie"
+        }
+      },
+      "subscription": {
+        "creation": {
+          "before": {
+            "day_one": "Verzonden {{count}} dag voordat het abonnement is aangemaakt",
+            "day_other": "Verzonden {{count}} dagen voordat het abonnement is aangemaakt",
+            "hour_one": "Verzonden {{count}} uur voordat het abonnement is aangemaakt",
+            "hour_other": "Verzonden {{count}} uur voor het aanmaken van het abonnement"
+          },
+          "after": {
+            "day_one": "Verzonden {{count}} dag na aanmaak van abonnement",
+            "day_other": "Verzonden {{count}} dagen na aanmaak van abonnement",
+            "hour_one": "Verzonden {{count}} uur na aanmaak abonnement",
+            "hour_other": "Verzonden {{count}} uur na aanmaak abonnement "
+          }
+        },
+        "firstBilling": {
+          "before": {
+            "day_one": "Verzonden {{count}} dag voor de eerste factuur van het abonnement",
+            "day_other": "Verzonden {{count}} dagen voor de eerste factuur van het abonnement",
+            "hour_one": "Verzonden {{count}} uur voor de eerste factuur van het abonnement",
+            "hour_other": "Verzonden {{count}} voor de eerste factuur van het abonnement"
+          },
+          "after": {
+            "day_one": "Verzonden {{count}} dag na de eerste factuur van het abonnement ",
+            "day_other": "Verzonden {{count}} dagen na de eerste factuur van het abonnement ",
+            "hour_one": "Verzonden {{count}} uur na de eerste factuur van het abonnement",
+            "hour_other": "Verzonden {{count}} uur na de eerste factuur van het abonnement"
+          }
+        },
+        "end": {
+          "before": {
+            "day_one": "Verzonden {{count}} dag voordat het abonnement eindigt",
+            "day_other": "Verzonden {{count}} dagen voordat het abonnement eindigt",
+            "hour_one": "Verzonden {{count}} uur voordat het abonnement eindigt",
+            "hour_other": "Verzonden {{count}} uur voordat het abonnement eindigt"
+          },
+          "after": {
+            "day_one": "Verzonden {{count}} dag na het einde van het abonnement",
+            "day_other": "Verzonden {{count}} dagen nadat het abonnement eindigt",
+            "hour_one": "Verzonden {{count}} uur nadat het abonnement eindigt",
+            "hour_other": "Verzonden {{count}} uur na het einde van het abonnement"
+          }
+        }
+      },
+      "passes": {
+        "expired": {
+          "day_one": "Verzonden {{count}} dag nadat de leskaarten zijn verlopen",
+          "day_other": "Verzonden {{count}} dagen na het verlopen van de leskaart"
+        },
+        "validity": {
+          "day_one": "Verzonden wanneer er {{count}} dag geldigheid over is",
+          "day_other": "Verzonden wanneer {{count}} dagen geldigheid over zijn"
+        },
+        "credits": {
+          "booking": {
+            "hour_one": "Verzonden {{count}} uur na het boeken van de sessie",
+            "hour_other": "Verzonden {{count}} uur na het boeken van de sessie"
+          },
+          "end": {
+            "hour_one": "Verzonden {{count}} uur na het einde van de sessie",
+            "hour_other": "Verzonden {{count}} uur na afloop van de sessie"
+          },
+          "appointmentPass": "Verzonden bij automatische trigger"
+        }
+      },
+      "birthday": "Verzonden op hun verjaardag"
+    }
+  }
 }

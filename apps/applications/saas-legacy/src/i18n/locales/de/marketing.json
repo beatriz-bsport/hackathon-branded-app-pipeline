@@ -1051,7 +1051,7 @@
       },
       "createFromScratchDescription": "Erstelle ein {{ workflowCamelCase }}, um deine Audience-Aktionen zu automatisieren.",
       "useTemplate": "Vorlage verwenden",
-      "createFromScratch": "Neue Vorlage erstellen"
+      "createFromScratch": "Neue {{ workflowCamelCase }} erstellen"
     },
     "upsells": {
       "warning": {

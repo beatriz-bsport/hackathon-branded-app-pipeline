@@ -163,6 +163,8 @@ const isComposableProps = (
  * @param props.onSelectOption - (Managed API) Callback invoked when an item is selected.
  * @param props.selectedValues - (Managed API) Selected item IDs.
  * @param props.searchConfig - (Managed API) Optional search configuration.
+ *   - If `onChange` is provided, the search is external (controlled). The component will NOT filter items internally.
+ *   - If `onChange` is omitted, the search is internal (uncontrolled). The component will filter items based on the search query.
  * @param props.defaultOpened - (Managed API) Optional value to decide if the popover is opened by default
  * @param props.maxHeightPx - (Managed API) Optional max height for the popover content
  * @param props.fullWidth - (Managed API) Optional popover anchor taking full width of parent

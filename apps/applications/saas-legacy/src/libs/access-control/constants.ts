@@ -1,6 +1,7 @@
-export const MEMBERSHIP_ID_LENGTH = 12;
-export const SCANNER_FILTER_DELAY_MS = 6;
-export const SCANNER_FILTER_SOFT_DELAY_MS = 30;
+export const MEMBERSHIP_ID_MIN_LENGTH = 6;
+export const SCANNER_FILTER_DELAY_MS = 30;
+
+export const BARCODE_CHARS_PATTERN = /^[a-zA-Z0-9]$/;
 
 export const FETCH_MEMBER_VISIT_PAGE_SIZE = 10;
 export const MAX_PHOTOS_IN_HISTORY = 6;

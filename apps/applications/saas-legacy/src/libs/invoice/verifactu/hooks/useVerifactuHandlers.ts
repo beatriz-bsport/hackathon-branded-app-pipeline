@@ -9,6 +9,7 @@ import {
 import {
   onboardFiskalyCompany,
   uploadSignedAgreement,
+  getSoftwareRegistrationUrl,
 } from '#src/libs/invoice/actions';
 import { snackbarError, snackbarSuccess } from '#src/libs/snackbar/actions';
 import type { FormValues } from '#src/libs/invoice/verifactu/types';
@@ -327,9 +328,35 @@ export const useVerifactuHandlers = (
     [dispatch, t, setSignedAgreementFile],
   );
 
+  const handleGetSoftwareRegistrationUrl = useCallback(() => {
+    dispatch(
+      getSoftwareRegistrationUrl({
+        onSuccess: (data) => {
+          if (data?.software_registration_url) {
+            window.open(data.software_registration_url, '_blank');
+          } else {
+            dispatch(
+              snackbarError(
+                t('configuration.verifactu.active.certificate_error'),
+              ),
+            );
+          }
+        },
+        onError: () => {
+          dispatch(
+            snackbarError(
+              t('configuration.verifactu.active.certificate_error'),
+            ),
+          );
+        },
+      }),
+    );
+  }, [dispatch, t]);
+
   return {
     handleSaveForLater,
     handleOnboardCompany,
     handleUploadSignedAgreement,
+    handleGetSoftwareRegistrationUrl,
   };
 };

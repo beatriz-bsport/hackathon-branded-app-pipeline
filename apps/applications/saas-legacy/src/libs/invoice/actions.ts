@@ -86,6 +86,7 @@ import {
   getLastGeneratedAgreementUrl as getLastGeneratedAgreementUrlAPI,
   getLastUploadedSignedAgreement as getLastUploadedSignedAgreementAPI,
   uploadSignedAgreement as uploadSignedAgreementAPI,
+  getSoftwareRegistrationUrl as getSoftwareRegistrationUrlAPI,
   fetchFiskalySignEsInvoice as fetchFiskalySignEsInvoiceAPI,
   manuallySendInvoiceToSignEs as manuallySendInvoiceToSignEsAPI,
 } from './api';
@@ -1555,6 +1556,37 @@ export function uploadSignedAgreement(
       options?.onError?.();
     }
     dispatch(uploadSignedAgreementActions.isLoading(false));
+  };
+}
+
+export const getSoftwareRegistrationUrlActions = {
+  isLoading: createAction<boolean>(
+    'FISKALY_ONBOARDING/GET_SOFTWARE_REGISTRATION_URL/IS_LOADING',
+  ),
+  error: createAction<Error | null>(
+    'FISKALY_ONBOARDING/GET_SOFTWARE_REGISTRATION_URL/ERROR',
+  ),
+  success: createAction<{ software_registration_url: string | null }>(
+    'FISKALY_ONBOARDING/GET_SOFTWARE_REGISTRATION_URL/SUCCESS',
+  ),
+};
+
+export function getSoftwareRegistrationUrl(
+  options?: OptionCallback<{ software_registration_url: string | null }>,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(getSoftwareRegistrationUrlActions.isLoading(true));
+    dispatch(getSoftwareRegistrationUrlActions.error(null));
+    try {
+      const response = await getSoftwareRegistrationUrlAPI();
+      dispatch(getSoftwareRegistrationUrlActions.success(response.data));
+      options?.onSuccess?.(response.data);
+    } catch (err) {
+      const error = err instanceof Error ? err : new Error(String(err));
+      dispatch(getSoftwareRegistrationUrlActions.error(error));
+      options?.onError?.();
+    }
+    dispatch(getSoftwareRegistrationUrlActions.isLoading(false));
   };
 }
 

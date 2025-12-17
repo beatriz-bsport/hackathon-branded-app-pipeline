@@ -425,6 +425,14 @@ export async function uploadSignedAgreement(
   );
 }
 
+export async function getSoftwareRegistrationUrl(): Promise<
+  AxiosResponse<{ software_registration_url: string | null }>
+> {
+  return getAuth(
+    `${API_V1_URI}/fiskaly-sign-es/fiskaly-sign-es-onboarding/get_software_registration_url/`,
+  );
+}
+
 export async function fetchFiskalySignEsInvoice(
   invoice_uuid: string,
 ): Promise<AxiosResponse<FiskalySignEsInvoiceDetails>> {
@@ -461,6 +469,7 @@ export default {
   getLastGeneratedAgreementUrl,
   getLastUploadedSignedAgreement,
   uploadSignedAgreement,
+  getSoftwareRegistrationUrl,
   fetchFiskalySignEsInvoice,
   manuallySendInvoiceToSignEs,
 };

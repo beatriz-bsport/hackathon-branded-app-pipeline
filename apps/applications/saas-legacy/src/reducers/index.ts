@@ -53,7 +53,7 @@ import notificationRule from '#src/libs/notification-rule/reducers';
 import objectSearchReducers from '#src/libs/fuzzy-search/reducers';
 import offer from '#src/libs/offer/reducers';
 import orderReducers from '#src/libs/order/reducers';
-import partnership from '#src/libs/partnership/reducers';
+import partnership from '#src/libs/classpass/reducers';
 // @ts-expect-error
 import paymentBackend from '#src/libs/payment/reducers';
 import paymentModule from '#src/libs/payment/payment-module-revamped/reducers';
@@ -144,7 +144,7 @@ import type { MetaActivityState } from '#src/libs/meta-activity/types';
 import type { NotificationRuleState } from '#src/libs/notification-rule/types';
 import type { OfferState } from '#src/libs/offer/types';
 import type { OrderState } from '#src/libs/order/types';
-import type { PartnershipState } from '#src/libs/partnership/types';
+import type { PartnershipState } from '#src/libs/classpass/types';
 import type { PaymentBackendState } from '#src/libs/payment/types';
 import type { PaymentComboState } from '#src/libs/payment-combo/types';
 import type { PaymentModuleState } from '#src/libs/payment/payment-module-revamped/types';

@@ -17,7 +17,7 @@ import { OrderState } from '../libs/order/types';
 import { ShopState } from '../libs/shop/types';
 import { CheckoutState } from '../libs/checkout/types';
 // @ts-expect-error
-import { SearchState, SearchAction } from './search/types';
+import { SearchAction, SearchState } from './search/types';
 import { ThemeState } from '../libs/theme/types';
 import { EstablishmentState } from '../libs/establishment/types';
 import { CouponState } from '../libs/coupon/types';
@@ -28,7 +28,7 @@ import { MembershipState } from '../libs/membership/types';
 import { CompanyState } from '../libs/company/types';
 import { NotificationRuleState } from '../libs/notification-rule/types';
 import { MarketingNotificationState } from '../libs/marketing/types';
-import { PartnershipState } from '../libs/partnership/types';
+import { PartnershipState } from '#src/libs/classpass/types';
 import { DashboardSettingsState } from '../libs/dashboard/types';
 import { RelationshipState } from '../libs/relationship/types';
 

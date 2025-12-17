@@ -9,7 +9,7 @@ import {
   getPerformAccessMonitoringUrl,
   staffMemberCanPerformAccessMonitoring,
 } from '../utils';
-import { useNumericCodeScanner } from './codeScanning';
+import { useBarcodeScanner } from './useBarcodeScanner';
 import type { MemberVisitREST } from '../types';
 
 /**
@@ -76,8 +76,8 @@ export const withAccessControlCheckInScanner = (
       ],
     );
 
-    useNumericCodeScanner(onCodeScan, {
-      canPerformAccessMonitoring: staffMemberCanPerformAccessMonitoring(
+    useBarcodeScanner(onCodeScan, {
+      enabled: staffMemberCanPerformAccessMonitoring(
         featureList,
         permissions,
         establishmentsSelectedInRole,

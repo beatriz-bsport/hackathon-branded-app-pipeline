@@ -7,28 +7,25 @@
     "jsx": "react-jsx",
     "outDir": "${configDir}/dist",
     "rootDir": "${configDir}/src",
-
     /* 🧳 Module Resolution */
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
-
     /* 🧼 Linting / Code Quality */
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
     "skipLibCheck": true,
-
     /* 🧩 Project Setup */
     "isolatedModules": true,
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
     "composite": true,
     "tsBuildInfoFile": "${configDir}/node_modules/.tmp/tsconfig.app.tsbuildinfo",
-
     /* 🎯 Path Aliases */
+    "baseUrl": "${configDir}",
     "paths": {
       "#src/*": ["${configDir}/src/*"]
     }

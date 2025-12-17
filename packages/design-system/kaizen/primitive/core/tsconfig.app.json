@@ -1,3 +1,9 @@
 {
-  "extends": "../../../../../tools/config/typescript/src/kaizen/tsconfig.app.json"
+  "extends": "../../../../../tools/config/typescript/src/kaizen/tsconfig.app.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "#src/*": ["./src/*"]
+    }
+  }
 }

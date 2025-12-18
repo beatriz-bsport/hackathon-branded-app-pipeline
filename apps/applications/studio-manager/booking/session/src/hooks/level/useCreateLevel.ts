@@ -5,6 +5,8 @@ import type { Level } from "@bsport/api-core";
 
 import { fetch } from "#src/utils/fetch";
 
+import { LEVEL_QUERY_KEY } from "./constants";
+
 const createLevel = createLevelAPI.bind(null, fetch);
 
 export const useCreateLevel = () => {
@@ -13,7 +15,7 @@ export const useCreateLevel = () => {
   return useMutation({
     mutationFn: (params: { data: Level }) => createLevel(params),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["levels"] });
+      queryClient.invalidateQueries({ queryKey: [LEVEL_QUERY_KEY] });
     },
   });
 };

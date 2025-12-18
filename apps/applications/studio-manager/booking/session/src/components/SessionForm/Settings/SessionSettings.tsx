@@ -3,6 +3,7 @@ import { FC } from "react";
 import { useFormContext } from "@bsport/form";
 import { Alert, Divider, Title } from "@bsport/kaizen-primitive-core";
 
+import { LevelSelectorField } from "#src/components/SessionForm/level/level-selector-field";
 import { useCreditFactor } from "#src/hooks/useCreditFactor";
 import { useTranslation } from "#src/utils/i18n";
 
@@ -47,6 +48,7 @@ export const SessionSettings: FC<{
           {t("addSessionModal.steps.configureSession.settings.credits.warning")}
         </Alert>
       )}
+      <LevelSelectorField fieldIdPrefix={fieldIdPrefix} />
       <Divider orientation="horizontal" weight="thin" className="my-xl" />
     </section>
   );

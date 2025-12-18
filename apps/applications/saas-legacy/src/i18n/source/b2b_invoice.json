@@ -26,6 +26,7 @@
         "upload_pdf": "Upload PDF",
         "upload_info": "Upload signed PDF to continue",
         "send_document": "Send document",
+        "uploading": "Uploading...",
         "upload_success": "Signed agreement uploaded successfully",
         "upload_error": "Couldn't upload signed agreement. Please try again. "
       },
@@ -46,6 +47,7 @@
         "save_for_later_success": "Representative details saved successfully",
         "representative_error": "Could't save representative details. Please try again. ",
         "create_agreement": "Create agreement",
+        "creating_agreement": "Creating...",
         "chips": {
           "vat_id_validated": "VAT ID validated",
           "vat_id_missing": "VAT ID missing",

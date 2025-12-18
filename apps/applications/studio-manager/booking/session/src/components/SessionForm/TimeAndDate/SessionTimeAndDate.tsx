@@ -6,6 +6,7 @@ import { useTranslation } from "#src/utils/i18n";
 
 import { SessionDuration } from "./SessionDuration";
 import { SessionStartDateTime } from "./SessionStartDateTime";
+import { SessionRecurrence } from "./recurrence/session-recurrence";
 
 export const SessionTimeAndDate: FC<{
   fieldIdPrefix: string;
@@ -21,10 +22,7 @@ export const SessionTimeAndDate: FC<{
       <SessionStartDateTime fieldIdPrefix={fieldIdPrefix} />
 
       <SessionDuration fieldIdPrefix={fieldIdPrefix} />
-
-      {/* TODO: Add Recurrence toggle */}
-      {/* TODO: Add Recurrence options (interval, days, end date) */}
-
+      <SessionRecurrence fieldIdPrefix={fieldIdPrefix} />
       <Divider orientation="horizontal" weight="thin" className="my-md" />
     </section>
   );

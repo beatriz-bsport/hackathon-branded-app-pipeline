@@ -42,12 +42,8 @@ export const RecurrenceUnitSelector: FC<{ fieldIdPrefix: string }> = ({
     <FormField<SessionCreationFormData, "recurrenceUnit", SelectProps>
       name="recurrenceUnit"
       mapProps={() => ({
-        onSelect: (selectedLabel) => {
-          const unit = options.find(
-            (option) => option.label === selectedLabel,
-          )?.id;
-          if (!unit) return;
-          setValue("recurrenceUnit", unit, {
+        onSelectId: (selectedOptionId) => {
+          setValue("recurrenceUnit", selectedOptionId as CustomRecurrenceUnit, {
             shouldValidate: true,
             shouldDirty: true,
           });

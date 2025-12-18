@@ -90,15 +90,15 @@ export const RecurrencePatternSelector: FC<{ fieldIdPrefix: string }> = ({
     <FormField<SessionCreationFormData, "recurrencePattern", SelectProps>
       name="recurrencePattern"
       mapProps={() => ({
-        onSelect: (selectedLabel) => {
-          const pattern = options.find(
-            (option) => option.label === selectedLabel,
-          )?.id;
-          if (!pattern) return;
-          setValue("recurrencePattern", pattern, {
-            shouldValidate: true,
-            shouldDirty: true,
-          });
+        onSelectId: (selectedOptionId) => {
+          setValue(
+            "recurrencePattern",
+            selectedOptionId as MonthlyRecurrencePattern,
+            {
+              shouldValidate: true,
+              shouldDirty: true,
+            },
+          );
         },
         value: displayValue,
       })}

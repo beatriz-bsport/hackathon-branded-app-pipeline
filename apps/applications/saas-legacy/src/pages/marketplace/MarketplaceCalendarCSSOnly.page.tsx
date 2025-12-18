@@ -343,7 +343,7 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
 
   fetchData = () => {
     this.setState({ isLoading: true });
-    this.props.fetchOfferList(this.getOfferListParams(), {
+    this.props.fetchOfferList(this.getOfferListParamsWithDates(), {
       onSuccess: this.loadOffersDependencies,
       onError: () => this.setState({ isLoading: false }),
     });
@@ -469,12 +469,18 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
 
     return {
       company: this.props.companyId,
-      min_date: this.start_date(),
-      max_date: this.end_date(),
       with_tags: true,
       only_future_strict: !this.props.theme.show_past_sessions_calendar,
       ...this.state.filters,
       ...optionalParams,
+    };
+  };
+
+  getOfferListParamsWithDates = (): OfferListParams => {
+    return {
+      ...this.getOfferListParams(),
+      min_date: this.start_date(),
+      max_date: this.end_date(),
     };
   };
 
@@ -508,13 +514,16 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
           ...(this.state.filters.levels ?? []),
         ]),
       }),
-      this.props.fetchNextAvailableOffer(this.getOfferListParams()),
+      this.props.fetchNextAvailableOffer({
+        ...this.getOfferListParams(),
+        min_date: DateTime.now().toISODate(),
+      }),
       this.props.fetchAllEstablishmentGroup(this.props.companyId),
       ...(this.props.authenticated
         ? [this.props.fetchOfferRegisteredIds()]
         : []),
       ...(this.props.theme && this.props.theme.show_booked_gender_offer
-        ? [this.props.fetchBookedGender(this.getOfferListParams())]
+        ? [this.props.fetchBookedGender(this.getOfferListParamsWithDates())]
         : []),
     ];
 

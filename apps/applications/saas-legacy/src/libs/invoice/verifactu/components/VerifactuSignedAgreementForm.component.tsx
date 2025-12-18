@@ -7,6 +7,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import SaveAltIcon from '@material-ui/icons/SaveAlt';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import Alert from '@material-ui/lab/Alert';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import type { PlatformCustomerEntityRepresentative } from '#src/libs/platform-billing/type';
 import VerifactuRepresentativeDetails from '#src/libs/invoice/verifactu/components/VerifactuRepresentativeDetails.component';
 
@@ -141,9 +142,12 @@ const VerifactuSignedAgreementForm: React.FC<
             color="primary"
             disabled={!selectedFile || isUploading}
             onClick={() => selectedFile && onUploadPDF(selectedFile)}
+            startIcon={isUploading ? <CircularProgress size={20} /> : undefined}
             variant="contained"
           >
-            {t('configuration.verifactu.signed_agreement.send_document')}
+            {isUploading
+              ? t('configuration.verifactu.signed_agreement.uploading')
+              : t('configuration.verifactu.signed_agreement.send_document')}
           </Button>
         </div>
       </div>

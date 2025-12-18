@@ -85,7 +85,15 @@
             "2": "Beginner",
             "3": "Intermediate",
             "4": "Advanced",
-            "5": "No level"
+            "5": "No level",
+            "create": "Create a new level",
+            "add": "Add level",
+            "nameLabel": "Name",
+            "colorLabel": "Colour",
+            "confirmCreate": "Create",
+            "cancel": "Cancel",
+            "edit": "Edit level",
+            "save": "Save"
           }
         },
         "timeAndDate": {
@@ -155,6 +163,10 @@
       "back": "Back",
       "createSession": "Create session"
     },
-    "errors": { "requiredField": "This field is required" }
+    "errors": {
+      "requiredField": "This field is required",
+      "levelNameTooLong": "Level name cannot exceed 50 characters",
+      "generic": "An error occurred. Please try again."
+    }
   }
 }

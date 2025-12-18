@@ -10,10 +10,13 @@ import { SessionCreationFormData } from "#src/stores/session-creation/types";
 import { useTranslation } from "#src/utils/i18n";
 
 import { Label } from "../label";
+import { LevelItemRightSlot } from "./level-item-right-slot";
 
 export type LevelSelectorProps = {
   fieldIdPrefix: string;
   onLevelSelect?: (levelId: number) => void;
+  openCreateLevelModal: () => void;
+  openEditLevelModal: (levelId: number) => void;
 };
 
 const ColorIndicator: FC<{ color: string }> = ({ color }) => (
@@ -26,6 +29,8 @@ const ColorIndicator: FC<{ color: string }> = ({ color }) => (
 export const LevelSelector: FC<LevelSelectorProps> = ({
   fieldIdPrefix,
   onLevelSelect,
+  openCreateLevelModal,
+  openEditLevelModal,
 }) => {
   const { t } = useTranslation("sessionCreation");
 
@@ -60,6 +65,12 @@ export const LevelSelector: FC<LevelSelectorProps> = ({
       leftSlot: level.color ? (
         <ColorIndicator color={level.color} />
       ) : undefined,
+      rightSlot: (
+        <LevelItemRightSlot
+          levelId={level.id}
+          openEditLevelModal={openEditLevelModal}
+        />
+      ),
     }))
     .sort((a, b) => a.label.localeCompare(b.label));
 
@@ -77,6 +88,14 @@ export const LevelSelector: FC<LevelSelectorProps> = ({
       label: t("addSessionModal.steps.configureSession.settings.level.custom"),
     },
     ...customLevelItems,
+    { type: "divider" },
+    {
+      type: "button",
+      onClick: openCreateLevelModal,
+      label: t("addSessionModal.steps.configureSession.settings.level.add"),
+      id: "create-level-button",
+      iconLeft: "plus",
+    },
   ];
 
   return (

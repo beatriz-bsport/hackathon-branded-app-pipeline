@@ -13,7 +13,7 @@ export const useUpdateLevel = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (params: { id: number; data: Level }) => updateLevel(params),
+    mutationFn: (params: { data: Level }) => updateLevel(params),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [LEVEL_QUERY_KEY] });
     },

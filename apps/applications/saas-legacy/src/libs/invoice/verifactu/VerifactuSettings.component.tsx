@@ -125,7 +125,10 @@ const VerifactuSettings: React.FC = () => {
         return (
           <VerifactuActive
             agreementUrl={signedAgreementFile}
-            onEdit={() => setIsOnboarded(false)}
+            onEdit={() => {
+              setIsOnboarded(false);
+              setSignedAgreementFile(null);
+            }}
             onGetSoftwareRegistrationUrl={handleGetSoftwareRegistrationUrl}
             representative={representative}
           />
@@ -137,7 +140,10 @@ const VerifactuSettings: React.FC = () => {
         <VerifactuSignedAgreementForm
           isUploading={isUploadingFile}
           onDownloadPDF={handleDownloadPDF}
-          onEdit={() => setIsOnboarded(false)}
+          onEdit={() => {
+            setIsOnboarded(false);
+            setSignedAgreementFile(null);
+          }}
           onUploadPDF={handleUploadFile}
           representative={representative}
         />

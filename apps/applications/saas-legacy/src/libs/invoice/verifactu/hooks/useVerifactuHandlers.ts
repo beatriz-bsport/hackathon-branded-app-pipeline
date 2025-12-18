@@ -10,6 +10,7 @@ import {
   onboardFiskalyCompany,
   uploadSignedAgreement,
   getSoftwareRegistrationUrl,
+  getLastUploadedSignedAgreement,
 } from '#src/libs/invoice/actions';
 import { snackbarError, snackbarSuccess } from '#src/libs/snackbar/actions';
 import type { FormValues } from '#src/libs/invoice/verifactu/types';
@@ -308,9 +309,26 @@ export const useVerifactuHandlers = (
                   t('configuration.verifactu.signed_agreement.upload_success'),
                 ),
               );
-              setSignedAgreementFile(data?.file || null);
-              setIsUploadingFile(false);
-              resolve();
+
+              // Refetch the latest signed agreement data to get updated links
+              dispatch(
+                getLastUploadedSignedAgreement({
+                  onSuccess: (agreementData) => {
+                    setSignedAgreementFile(
+                      agreementData?.signed_agreement_url || null,
+                    );
+                    setIsUploadingFile(false);
+                    resolve();
+                  },
+                  onError: () => {
+                    console.error('Failed to fetch updated signed agreement');
+                    // Fallback to upload response if refetch fails
+                    setSignedAgreementFile(data?.file || null);
+                    setIsUploadingFile(false);
+                    resolve();
+                  },
+                }),
+              );
             },
             onError: () => {
               dispatch(

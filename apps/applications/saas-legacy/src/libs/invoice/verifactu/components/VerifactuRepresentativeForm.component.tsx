@@ -80,16 +80,20 @@ const VerifactuRepresentativeForm: React.FC<
             >
               {t('configuration.verifactu.form.save_for_later')}
             </Button>
-            {formikProps.isSubmitting && (
-              <CircularProgress className={classes.loader} size={20} />
-            )}
             <Button
               color="primary"
               disabled={formikProps.isSubmitting || !allRequirementsMet}
+              startIcon={
+                formikProps.isSubmitting ? (
+                  <CircularProgress size={20} />
+                ) : undefined
+              }
               type="submit"
               variant="contained"
             >
-              {t('configuration.verifactu.form.create_agreement')}
+              {formikProps.isSubmitting
+                ? t('configuration.verifactu.form.creating_agreement')
+                : t('configuration.verifactu.form.create_agreement')}
             </Button>
           </div>
         </form>
@@ -115,9 +119,6 @@ const useStyles = makeStyles<Theme>((theme) => ({
     display: 'flex',
     gap: theme.spacing(2),
     marginTop: theme.spacing(3),
-  },
-  loader: {
-    marginLeft: theme.spacing(1.5),
   },
 }));
 

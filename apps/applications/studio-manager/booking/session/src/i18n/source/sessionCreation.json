@@ -76,6 +76,16 @@
               "helperText": "This limit only applies when using Wellhub, Urban Sports Club or myClubs — other aggregators aren’t affected.",
               "error": "The number of allocated spots for aggregators can't exceed the total available spots in the session."
             }
+          },
+          "level": {
+            "label": "Level",
+            "byDefault": "By default",
+            "custom": "Custom",
+            "1": "All levels",
+            "2": "Beginner",
+            "3": "Intermediate",
+            "4": "Advanced",
+            "5": "No level"
           }
         },
         "timeAndDate": {

@@ -18,6 +18,10 @@ import { getParamsFromFilters } from "#src/components/SessionList/Filters/getPar
 import { selectFilters, useSessionListStore } from "../stores/session-list";
 import type { EnrichedSession } from "../types";
 import { fetch } from "../utils/fetch";
+import {
+  ADD_ON_IDENTIFIER_SUBTEACHER_TOOL,
+  useCheckCompanyAddOn,
+} from "../utils/permission";
 import { useFetchSessionsWithPendingRequests } from "./use-fetch-sessions-with-pending-requests";
 import { useFetchEstablishments } from "./useFetchEstablishments";
 import { useFetchTeachers } from "./useFetchTeachers";
@@ -158,6 +162,9 @@ export const useSessionListData = (
     () => extractRelatedIds(rawSessions),
     [rawSessions],
   );
+  const shouldFetchPendingRequests = useCheckCompanyAddOn(
+    ADD_ON_IDENTIFIER_SUBTEACHER_TOOL,
+  );
 
   // Fetch teachers and establishments as dependent queries (only after sessions load)
   const { data: teachersById = {}, isLoading: isLoadingTeachers } =
@@ -165,7 +172,10 @@ export const useSessionListData = (
   const { data: establishmentsById = {}, isLoading: isLoadingEstablishments } =
     useFetchEstablishments(establishmentIds, !isLoadingSessions);
   const { data: sessionsWithPendingRequests = [] } =
-    useFetchSessionsWithPendingRequests(sessionIds, !isLoadingSessions);
+    useFetchSessionsWithPendingRequests(
+      sessionIds,
+      shouldFetchPendingRequests && !isLoadingSessions,
+    );
 
   const sessionsByDate = useMemo(
     () =>

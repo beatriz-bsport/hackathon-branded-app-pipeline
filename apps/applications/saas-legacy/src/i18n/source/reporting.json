@@ -462,7 +462,7 @@
     "billing_plan": "Subscription",
     "members_purchase": "Members' purchases",
     "referral_grant": "Referral",
-    "access_monitoring": "Access Monitoring"
+    "access_monitoring": "Studio Access"
   },
   "descriptions": {
     "dayBookings": "Analyze trends and participation rates by tracking group activity bookings for each day.",

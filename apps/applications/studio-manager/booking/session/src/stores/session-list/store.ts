@@ -16,7 +16,7 @@ export interface SessionListState {
   calendarView: CalendarView;
   selectedDate: DateSelection;
   locale: string;
-  showCancelledSessions?: boolean;
+  showCancelledSessions: boolean;
   filters: FilterElementState[];
 }
 

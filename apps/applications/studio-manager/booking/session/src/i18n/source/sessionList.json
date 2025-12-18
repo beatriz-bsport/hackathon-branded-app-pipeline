@@ -51,6 +51,9 @@
         "daily": "By day",
         "range": "Range"
       }
+    },
+    "showCancelledSessions": {
+      "label": "Show cancelled sessions"
     }
   },
   "emptyState": {

@@ -64,6 +64,7 @@ import { BuyableItemOptions, type Basket } from '#src/libs/checkout/types';
 import MarketplaceOfferBookingList from '#src/libs/marketplace/components/@Booking/MarketplaceOfferBookingList';
 
 import {
+  checkIfPurchasedPassGrantsDoorAccess,
   getConfirmationStatus,
   getNumberOfListToDisplay,
   getOneClickCheckoutConfirmationStatus,
@@ -82,6 +83,7 @@ import { Subscription } from '#src/libs/subscription/types';
 import ConfirmationMessage from '#src/libs/checkout/components/ConfirmationMessage';
 import { retrieveCompanyCssConfiguration as retrieveCompanyCssConfigurationAction } from '#src/libs/exportable-components/actions';
 import WithCustomCssProvider from '#src/hocs/company-custom-css.hoc';
+import Alert from '#Fabrique/Alert';
 import MarketplaceBookingAddGuestModal, {
   AddGuestFormValues,
 } from '#src/libs/marketplace/components/@Booking/MarketplaceBookingAddGuestModal';
@@ -129,6 +131,7 @@ type ConfirmationCheckoutProps = {
   goToMemberBookings: () => void;
   goToMarketplace: () => void;
   goToMemberPasses: () => void;
+  goToMemberProfilePage: () => void;
   goToMemberSubscriptions: () => void;
   goBack: () => void;
   onAddGuestSubmit: (values: AddGuestFormValues) => void;
@@ -498,6 +501,12 @@ export class ConfirmationCheckout extends React.PureComponent<Props, State> {
 
     const isFromOneClickCheckout = !!this.props.queryParams?.express_checkout;
 
+    const hasDoorAccess = checkIfPurchasedPassGrantsDoorAccess(
+      checkoutItems,
+      this.props.paymentPackById,
+      this.props.privatePassById,
+    );
+
     const confirmationStatus = isFromOneClickCheckout
       ? getOneClickCheckoutConfirmationStatus(
           this.isError(),
@@ -547,12 +556,14 @@ export class ConfirmationCheckout extends React.PureComponent<Props, State> {
               <ConfirmationMessage
                 billingPlan={billingPlan}
                 checkoutItems={checkoutItems}
+                hasDoorAccess={hasDoorAccess}
                 {...(showCallToActionButtons && { goBack: this.props.goBack })}
                 goToCalendar={this.props.goToMarketplace}
                 {...(showCallToActionButtons && {
                   goToMemberPasses: this.props.goToMemberPasses,
                 })}
                 goToMemberProfile={this.props.goToMemberProfile}
+                goToMemberProfilePage={this.props.goToMemberProfilePage}
                 {...(showCallToActionButtons && {
                   goToMemberSubscriptions: this.props.goToMemberSubscriptions,
                 })}
@@ -561,6 +572,19 @@ export class ConfirmationCheckout extends React.PureComponent<Props, State> {
                 offers={offers}
                 status={confirmationStatus}
               />
+              {hasDoorAccess && showCallToActionButtons && (
+                <div style={{ marginTop: '24px' }}>
+                  <Alert
+                    actionText={t('validation.actions.viewMyProfile')}
+                    color="info"
+                    onActionClick={this.props.goToMemberProfilePage}
+                    title={t('validation.sections.doorAccessInfo.title')}
+                    variant="weak"
+                  >
+                    {t('validation.sections.doorAccessInfo.message')}
+                  </Alert>
+                </div>
+              )}
             </div>
             <div
               className={clsx(
@@ -862,6 +886,11 @@ const mapWithHandlers = {
         return;
       }
       replace(`/c/${companyId}/pack/`);
+    },
+  goToMemberProfilePage:
+    ({ replace, companyId }: RouterProps & Props) =>
+    () => {
+      replace(`/c/${companyId}/profile/`);
     },
   goToMemberSubscriptions:
     ({ replace, companyId, queryParams }: RouterProps & Props) =>

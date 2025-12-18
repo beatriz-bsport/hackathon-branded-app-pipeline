@@ -106,6 +106,10 @@
       "myPass": "My pass",
       "myPass_plural": "My passes",
       "alert": "Oops! The booking failed.\nWe've had a problem processing your session booking. Please try again later or book a different session.",
+      "doorAccessInfo": {
+        "title": "Door Access Purchased",
+        "message": "You've bought a pass that includes door access. To use it, go to your profile and tap 'Open door'."
+      },
       "confirmationStatusMessage": {
         "offerAndPurchaseSuccess": "Congratulations! Your purchases and bookings have been confirmed. You will shortly receive a confirmation e-mail with all the details.",
         "paymentSuccess": "Congratulations! Your purchase has been confirmed!",
@@ -152,7 +156,8 @@
       "goToCalendar": "Back to calendar",
       "backToMyProfile": "Back to my profile",
       "bookAClass": "Book a class",
-      "seeAllPasses": "See all passes"
+      "seeAllPasses": "See all passes",
+      "viewMyProfile": "Go to profile"
     },
     "bookingItem": {
       "bookingItemStatus": {

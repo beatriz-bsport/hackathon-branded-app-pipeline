@@ -38,9 +38,11 @@ export const useConfirmationMessageData = (
   goToCalendar: () => void,
   goBack: () => void,
   goToMemberProfile: () => void,
+  goToMemberProfilePage: () => void,
   goToMemberBookings: () => void,
   goToMemberPasses: () => void,
   goToMemberSubscriptions: () => void,
+  hasDoorAccess: boolean = false,
 ) => {
   const { t } = useTranslation('checkout');
 
@@ -494,12 +496,14 @@ export const useConfirmationMessageData = (
     t,
     goToCalendar,
     goToMemberProfile,
+    goToMemberProfilePage,
     goToMemberBookings,
     goBack,
     checkoutItems?.length,
     offers?.length,
     goToMemberPasses,
     goToMemberSubscriptions,
+    hasDoorAccess,
   ]);
   return messageData;
 };

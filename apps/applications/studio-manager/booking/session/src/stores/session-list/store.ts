@@ -16,12 +16,14 @@ export interface SessionListState {
   calendarView: CalendarView;
   selectedDate: DateSelection;
   locale: string;
+  showCancelledSessions?: boolean;
   filters: FilterElementState[];
 }
 
 export const getInitialState = (): SessionListState => ({
   calendarView: CalendarView.DAILY,
   selectedDate: { type: "single", date: new Date() },
+  showCancelledSessions: true,
   locale: "en-US",
   filters: [],
 });

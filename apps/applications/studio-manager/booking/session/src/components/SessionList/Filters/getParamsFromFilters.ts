@@ -39,6 +39,15 @@ const getVisibilityParamFromFilter = (
   return null;
 };
 
+const getTeacherParamFromFilter = (
+  filter: FilterElementState,
+): Partial<FetchSessionsParams> | null => {
+  const teacherIds = filter.valueIds.map((id) => Number(id));
+  return {
+    coaches: teacherIds,
+  };
+};
+
 const getTeacherSubstitutionParamFromFilter = (
   filter: FilterElementState,
 ): Partial<FetchSessionsParams> | null => {
@@ -66,6 +75,8 @@ export const getParamsFromFilters = (
       Object.assign(params, getVisibilityParamFromFilter(filter));
     } else if (filter.field === SessionFilterTypes.TEACHER_SUBSTITUTION) {
       Object.assign(params, getTeacherSubstitutionParamFromFilter(filter));
+    } else if (filter.field === SessionFilterTypes.TEACHER) {
+      Object.assign(params, getTeacherParamFromFilter(filter));
     }
     return params;
   }, {});

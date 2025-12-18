@@ -15,6 +15,7 @@ export type PaginatedFetchTeachersParams = FetchTeachersParams & {
 
 export type FuzzySearchParams = PaginatedFetchTeachersParams & {
   queryString: string;
+  disabled?: boolean;
 };
 
 // Correspond to AssociatedCoachSerializer

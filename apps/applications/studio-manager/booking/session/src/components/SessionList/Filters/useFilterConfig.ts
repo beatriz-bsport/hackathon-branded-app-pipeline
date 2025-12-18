@@ -1,5 +1,9 @@
-import type { FilterProps } from "@bsport/kaizen-primitive-core";
+import { useState } from "react";
 
+import type { FilterProps } from "@bsport/kaizen-primitive-core";
+import { useDebounce } from "@bsport/use-debounce";
+
+import { useSearchTeachers } from "#src/hooks/use-search-teachers";
 import { setFilters } from "#src/stores/session-list";
 import { useTranslation } from "#src/utils/i18n";
 
@@ -13,6 +17,11 @@ import {
 
 export const useFilterConfig = (): FilterProps => {
   const { t } = useTranslation("sessionList");
+  const [teacherInputValue, setTeacherInputValue] = useState("");
+  const [debouncedSearch, setDebouncedSearch] = useState(teacherInputValue);
+  const debouncedSetDebouncedSearch = useDebounce(setDebouncedSearch);
+
+  const { data: teachers } = useSearchTeachers(debouncedSearch);
 
   return {
     fields: {
@@ -47,6 +56,21 @@ export const useFilterConfig = (): FilterProps => {
           },
         ],
         multiSelect: false,
+      },
+      teacher: {
+        id: SessionFilterTypes.TEACHER,
+        label: t("table.filters.teacher.label"),
+        availableFilters: [SessionFilters.FILTER_IS],
+        values: teachers || [],
+        multiSelect: true,
+        searchConfig: {
+          value: teacherInputValue,
+          onChange: (value: string) => {
+            setTeacherInputValue(value);
+            debouncedSetDebouncedSearch(value);
+          },
+          placeholder: t("table.filters.searchPlaceholder"),
+        },
       },
       "teacher-substitution": {
         id: SessionFilterTypes.TEACHER_SUBSTITUTION,

@@ -36,7 +36,11 @@
         "label": "Teacher substitution",
         "confirmed": "Confirmed",
         "pending": "Pending request"
-      }
+      },
+      "teacher": {
+        "label": "Teacher"
+      },
+      "searchPlaceholder": "Search"
     },
     "isLoading": "Loading sessions...",
     "attendanceButton": "Attendance",

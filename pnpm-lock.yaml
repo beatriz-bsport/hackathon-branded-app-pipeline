@@ -348,6 +348,9 @@ importers:
       css-loader:
         specifier: ^7.1.2
         version: 7.1.2(@rspack/core@1.6.6(@swc/helpers@0.5.17))(webpack@5.103.0)
+      dompurify:
+        specifier: ^3.2.6
+        version: 3.2.6
       dotenv:
         specifier: 4.0.0
         version: 4.0.0

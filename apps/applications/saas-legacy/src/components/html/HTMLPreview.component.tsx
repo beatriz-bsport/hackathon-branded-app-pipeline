@@ -1,3 +1,4 @@
+import DOMPurify from 'dompurify';
 import React, { useMemo } from 'react';
 import { compose } from 'recompose';
 import {
@@ -28,10 +29,7 @@ type Props = OwnProps & WithStyles<typeof styles> & WithTranslation;
 
 const HTMLPreview = (props: Props) => {
   const { title, loading, html, classes, t } = props;
-  const sanitizedHTML = html?.replace(
-    /<script[\s\S]*?>[\s\S]*?<\/script>/gi,
-    '',
-  );
+  const sanitizedHTML = DOMPurify.sanitize(html ?? '');
 
   const contentPreview = useMemo(
     () =>

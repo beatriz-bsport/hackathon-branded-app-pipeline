@@ -39,7 +39,10 @@
       }
     },
     "isLoading": "Loading sessions...",
-    "attendanceButton": "Attendance"
+    "attendanceButton": "Attendance",
+    "substitution": {
+      "pendingRequest": "Substitution pending"
+    }
   },
   "displaySettings": {
     "calendarView": {

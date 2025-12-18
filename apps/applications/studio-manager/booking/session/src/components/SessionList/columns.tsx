@@ -109,6 +109,7 @@ export const useSessionListColumns = () => {
         teacherName={row.teacherName}
         originalTeacherName={row.originalTeacherName}
         coach_override={row.coach_override}
+        hasPendingReplacementRequest={row.hasPendingReplacementRequest}
       />
     ),
   };

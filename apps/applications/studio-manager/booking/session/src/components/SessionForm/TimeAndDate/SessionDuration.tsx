@@ -2,6 +2,7 @@ import { FC } from "react";
 
 import { TextField } from "@bsport/kaizen-primitive-core";
 
+import { Label } from "#src/components/SessionForm/label";
 import { useDurationChange } from "#src/hooks/useDurationChange";
 import { useTranslation } from "#src/utils/i18n";
 
@@ -15,16 +16,11 @@ export const SessionDuration: FC<{
 
   return (
     <div className="flex flex-col gap-2xs">
-      <label className="flex gap-2xs text-onsurface-default text-body-md leading-sm">
-        <span>
-          {t(
-            "addSessionModal.steps.configureSession.timeAndDate.duration.label",
-          )}
-        </span>
-        <span className="text-onsurface-status-critical-strong text-body-sm leading-xs">
-          *
-        </span>
-      </label>
+      <Label
+        text={t(
+          "addSessionModal.steps.configureSession.timeAndDate.duration.label",
+        )}
+      />
 
       <div className="flex gap-xs items-center w-1/2">
         {/* Days Input */}

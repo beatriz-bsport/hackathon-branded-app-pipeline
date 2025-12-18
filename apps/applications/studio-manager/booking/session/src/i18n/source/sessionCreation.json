@@ -118,7 +118,9 @@
                 "dayOfMonthLabel": "Monthly on day {{day}}"
               },
               "nthWeekday": "Nth weekday"
-            }
+            },
+            "info": "{{count}} session will be created",
+            "info_other": "{{count}} sessions will be created"
           },
           "errors": {
             "invalidDate": "Invalid date. Please enter a valid date in the format DD/MM/YYYY.",

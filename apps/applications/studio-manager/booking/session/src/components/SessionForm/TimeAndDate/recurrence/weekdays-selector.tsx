@@ -2,7 +2,6 @@ import { FC } from "react";
 
 import { FormField, useFormContext } from "@bsport/form";
 import {
-  Body,
   Button,
   Chip,
   Menu,
@@ -10,6 +9,7 @@ import {
   Popover,
 } from "@bsport/kaizen-primitive-core";
 
+import { Label } from "#src/components/SessionForm/label";
 import {
   CustomRecurrenceUnit,
   type ISOWeekday,
@@ -93,17 +93,12 @@ export const RecurrenceWeekdaysSelector: FC<{ fieldIdPrefix: string }> = ({
         <Popover.Anchor>
           {({ setIsPopoverOpened }) => (
             <div className="flex flex-col gap-2xs">
-              <div className="flex gap-2xs">
-                <Body size="md" htmlVariant="p">
-                  {t(
-                    "addSessionModal.steps.configureSession.timeAndDate.recurrence.weekdaysSelector.label",
-                    { ns: "sessionCreation" },
-                  )}
-                </Body>
-                <span className="text-onsurface-status-critical-strong text-body-sm leading-xs">
-                  *
-                </span>
-              </div>
+              <Label
+                text={t(
+                  "addSessionModal.steps.configureSession.timeAndDate.recurrence.weekdaysSelector.label",
+                  { ns: "sessionCreation" },
+                )}
+              />
               <Button
                 id={`${fieldIdPrefix}-weekdays-selector`}
                 label={t(

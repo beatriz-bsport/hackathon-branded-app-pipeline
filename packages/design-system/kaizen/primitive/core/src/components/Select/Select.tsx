@@ -64,6 +64,7 @@ export type SelectProps = Omit<
     errorText?: string;
     popoverPlacement?: (typeof Placements)[number];
     onSelect?: (option: string) => void;
+    onSelectId?: (optionId: string) => void;
     fullWidth?: boolean;
     label?: string;
     required?: boolean;
@@ -90,6 +91,7 @@ export type SelectProps = Omit<
  * @param props.errorText Text to display when the select is in error.
  * @param props.popoverPlacement Placement of the popover. Defaults to `"bottom-left"`. Can be any valid placement from the `Placements` type.
  * @param props.onSelect Function to call when an option is selected. Receives the selected option's label or id as an argument.
+ * @param props.onSelectId Function to call when an option is selected. Receives the selected option's id as an argument.
  * @param props.fullWidth Optional Boolean to allow the Select component to take the whole available width of its parent.
  * @param props.label Optional String - gives a label title to the select field.
  * @param props.required Optional Boolean - Display a custom element next to the label if the select result is required.
@@ -110,6 +112,7 @@ const Select: React.FC<SelectProps> = ({
   errorText,
   popoverPlacement = "bottom-left",
   onSelect,
+  onSelectId,
   fullWidth,
   label,
   required,
@@ -134,8 +137,9 @@ const Select: React.FC<SelectProps> = ({
       }
 
       onSelect?.(newValue);
+      onSelectId?.(optionId);
     },
-    [isControlled, items, onSelect],
+    [isControlled, items, onSelect, onSelectId],
   );
 
   return (

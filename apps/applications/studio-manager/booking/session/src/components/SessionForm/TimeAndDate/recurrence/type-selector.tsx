@@ -41,12 +41,8 @@ export const RecurrenceTypeSelector: FC<{ fieldIdPrefix: string }> = ({
     <FormField<SessionCreationFormData, "recurrenceType", SelectProps>
       name="recurrenceType"
       mapProps={() => ({
-        onSelect: (selectedLabel) => {
-          const recurrenceType =
-            selectedLabel === weeklyLabel
-              ? RecurrenceType.WEEKLY
-              : RecurrenceType.CUSTOM;
-          setValue("recurrenceType", recurrenceType, {
+        onSelectId: (selectedOptionId) => {
+          setValue("recurrenceType", selectedOptionId as RecurrenceType, {
             shouldValidate: true,
             shouldDirty: true,
           });

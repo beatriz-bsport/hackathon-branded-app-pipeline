@@ -1,8 +1,8 @@
 import { FC } from "react";
 
 import { useFormContext } from "@bsport/form";
-import { Body } from "@bsport/kaizen-primitive-core";
 
+import { Label } from "#src/components/SessionForm/label";
 import { RecurrenceType } from "#src/helpers/recurrence/types";
 import { SessionCreationFormData } from "#src/stores/session-creation/types";
 import { useTranslation } from "#src/utils/i18n";
@@ -25,16 +25,11 @@ export const RecurrenceFrequencySelector: FC<{ fieldIdPrefix: string }> = ({
 
   return (
     <div className="flex-col gap-2xs flex">
-      <div className="flex gap-2xs">
-        <Body size="md" htmlVariant="p">
-          {t(
-            "addSessionModal.steps.configureSession.timeAndDate.recurrence.interval",
-          )}
-        </Body>
-        <span className="text-onsurface-status-critical-strong text-body-sm leading-xs">
-          *
-        </span>
-      </div>
+      <Label
+        text={t(
+          "addSessionModal.steps.configureSession.timeAndDate.recurrence.interval",
+        )}
+      />
       <div className="flex gap-md">
         <RecurrenceInterval fieldIdPrefix={fieldIdPrefix} />
         <RecurrenceUnitSelector fieldIdPrefix={fieldIdPrefix} />

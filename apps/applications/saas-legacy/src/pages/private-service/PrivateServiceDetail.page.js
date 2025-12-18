@@ -43,8 +43,8 @@ import {
   fetchEstablishments,
   fetchAssociatedEstablishments,
 } from '../../libs/establishment/actions';
-import { fetchPartnershipList as fetchPartnershipListAction } from '#src/libs/partnership/actions';
-import { hasPartnershipByIdentifier } from '#src/libs/partnership/selectors';
+import { fetchPartnershipList as fetchPartnershipListAction } from '#src/libs/classpass/actions';
+import { hasPartnershipByIdentifier } from '#src/libs/classpass/selectors';
 import {
   fetchAllPrivateServices,
   fetchAllPrivateSlots,
@@ -75,7 +75,7 @@ import {
   getAllEmailTemplatesSummaries,
   getEmailTemplatesDetail,
 } from '../../libs/email-editor/selectors';
-import { CLASSPASS_INTEGRATION_IDENTIFIER } from '#src/libs/partnership/constants';
+import { CLASSPASS_INTEGRATION_IDENTIFIER } from '#src/libs/classpass/constants';
 
 const PRIVATE_BOOKING_CREATION_NOTIFICATION = 1;
 

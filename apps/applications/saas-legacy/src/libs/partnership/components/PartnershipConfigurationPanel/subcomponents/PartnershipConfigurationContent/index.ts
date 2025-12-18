@@ -1,0 +1,2 @@
+import PartnershipConfigurationContent from './PartnershipConfigurationContent.component';
+export default PartnershipConfigurationContent;

@@ -26,6 +26,7 @@
         "upload_pdf": "Upload PDF",
         "upload_info": "Upload signed PDF to continue",
         "send_document": "Send document",
+        "uploading": "Uploading...",
         "upload_success": "Signed agreement uploaded successfully",
         "upload_error": "Couldn't upload signed agreement. Please try again. "
       },
@@ -46,6 +47,7 @@
         "save_for_later_success": "Representative details saved successfully",
         "representative_error": "Could't save representative details. Please try again. ",
         "create_agreement": "Create agreement",
+        "creating_agreement": "Creating...",
         "chips": {
           "vat_id_validated": "VAT ID validated",
           "vat_id_missing": "VAT ID missing",
@@ -78,7 +80,9 @@
         "agreement_link": "Link to PDF",
         "certificate_title": "VERI*FACTU Responsibility Declaration",
         "certificate_subtitle": "BSPORT Solutions complies with Spanish invoicing regulations (Verifactu and TicketBAI). Download our official responsibility declaration.",
-        "certificate_link": "VERI*FACTU certificate"
+        "certificate_link": "VERI*FACTU certificate",
+        "certificate_extension_link": "Responsibility declaration extension",
+        "certificate_error": "Couldn't get VERI*FACTU certificate."
       }
     }
   }

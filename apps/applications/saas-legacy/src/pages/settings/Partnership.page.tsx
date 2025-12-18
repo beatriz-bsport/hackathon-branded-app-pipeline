@@ -2,14 +2,14 @@ import React from 'react';
 import type { WithT } from 'i18next';
 import { withTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
-import { compose, withState, withHandlers } from 'recompose';
+import { compose, withHandlers, withState } from 'recompose';
 
 // MUI
 import {
+  createStyles,
+  Theme,
   withStyles,
   WithStyles,
-  Theme,
-  createStyles,
 } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
@@ -37,33 +37,33 @@ import type { FeatureList } from '#src/libs/company/types';
 import type {
   PartnershipCompany,
   PartnershipEstablishmentMerge,
-} from '#src/libs/partnership/types';
+} from '#src/libs/classpass/types';
 import {
   getMergedEstablishmentsWithAssociation,
   getPartnershipByIdentifier,
   getPartnershipEstablishmentMergeList,
-} from '#src/libs/partnership/selectors';
+} from '#src/libs/classpass/selectors';
 import {
+  fetchPartnershipEstablishmentMergeList,
   fetchPartnershipList,
   requestPartnership as requestPartnershipAction,
   updatePartnership,
-  fetchPartnershipEstablishmentMergeList,
-} from '#src/libs/partnership/actions';
-import PartnershipConfigurationForm from '#src/libs/partnership/components/PartnershipConfigurationForm.component';
+} from '#src/libs/classpass/actions';
+import PartnershipConfigurationForm from '#src/libs/classpass/components/PartnershipConfigurationForm.component';
 
 import {
-  getAllPageEstablishments,
   getAllAssociatedEstablishment,
+  getAllPageEstablishments,
 } from '#src/libs/establishment/selectors';
 import {
-  fetchEstablishments,
   fetchAssociatedEstablishments,
+  fetchEstablishments,
 } from '#src/libs/establishment/actions';
 import type {
-  Establishment,
   AssociatedEstablishment,
+  Establishment,
 } from '#src/libs/establishment/types';
-import { CLASSPASS_INTEGRATION_IDENTIFIER } from '#src/libs/partnership/constants';
+import { CLASSPASS_INTEGRATION_IDENTIFIER } from '#src/libs/classpass/constants';
 
 // Wellhub
 import WellhubConfiguration from '#src/libs/wellhub/components/WellhubConfiguration';
@@ -111,7 +111,7 @@ import type {
   WellhubGymUpsert,
 } from '#src/libs/wellhub/types';
 import GenericResponsiveDrawer from '#src/components/genericDrawer/GenericResponsiveDrawer.component';
-import PartnershipConfiguration from '#src/libs/partnership/components/PartnershipConfiguration.component';
+import PartnershipConfiguration from '#src/libs/classpass/components/PartnershipConfiguration.component';
 
 type StateProps = {
   hasRequested: boolean;

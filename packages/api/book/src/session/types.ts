@@ -122,6 +122,10 @@ export type PaginatedFetchSessionsParams = FetchSessionsParams & {
   page?: number;
 };
 
+export type ListSessionsWithPendingReplacementRequestIdsParams = {
+  offer_id_list: number[];
+};
+
 export declare type ManagerSession = {
   activity: number;
   allow_guest_offer: boolean;

@@ -18,6 +18,11 @@ import { getParamsFromFilters } from "#src/components/SessionList/Filters/getPar
 import { selectFilters, useSessionListStore } from "../stores/session-list";
 import type { EnrichedSession } from "../types";
 import { fetch } from "../utils/fetch";
+import {
+  ADD_ON_IDENTIFIER_SUBTEACHER_TOOL,
+  useCheckCompanyAddOn,
+} from "../utils/permission";
+import { useFetchSessionsWithPendingRequests } from "./use-fetch-sessions-with-pending-requests";
 import { useFetchEstablishments } from "./useFetchEstablishments";
 import { useFetchTeachers } from "./useFetchTeachers";
 
@@ -31,6 +36,7 @@ const processSession =
   (
     teachersById: Record<number, Teacher>,
     establishmentsById: Record<number, Establishment>,
+    sessionsWithPendingRequests: number[],
   ) =>
   (session: ManagerSession): EnrichedSession => {
     const teacher = teachersById[session.coach];
@@ -48,6 +54,9 @@ const processSession =
       establishmentName: establishment?.title,
       name: name_override || session.name,
       color: session.meta_activity_color,
+      hasPendingReplacementRequest: sessionsWithPendingRequests.includes(
+        session.id,
+      ),
     };
   };
 
@@ -61,9 +70,14 @@ const groupProcessedSessionsByDate = (
   sessions: ManagerSession[],
   teachersById: Record<number, Teacher>,
   establishmentsById: Record<number, Establishment>,
+  sessionsWithPendingRequests: number[],
 ): Dictionary<EnrichedSession[]> => {
   const processedSessions = sessions.map(
-    processSession(teachersById, establishmentsById),
+    processSession(
+      teachersById,
+      establishmentsById,
+      sessionsWithPendingRequests,
+    ),
   );
 
   return groupBy(processedSessions, getSessionDateStart);
@@ -72,6 +86,7 @@ const groupProcessedSessionsByDate = (
 const extractRelatedIds = (sessions: ManagerSession[]) => {
   const teacherIds = new Set<number>();
   const establishmentIds = new Set<number>();
+  const sessionIds = new Set<number>();
 
   sessions.forEach((session) => {
     teacherIds.add(session.coach);
@@ -79,11 +94,13 @@ const extractRelatedIds = (sessions: ManagerSession[]) => {
       teacherIds.add(session.coach_override);
     }
     establishmentIds.add(session.establishment);
+    sessionIds.add(session.id);
   });
 
   return {
     teacherIds: Array.from(teacherIds),
     establishmentIds: Array.from(establishmentIds),
+    sessionIds: Array.from(sessionIds),
   };
 };
 
@@ -141,9 +158,12 @@ export const useSessionListData = (
     sessionsQueryOptions(minDateKey, maxDateKey, filterParams),
   );
 
-  const { teacherIds, establishmentIds } = useMemo(
+  const { teacherIds, establishmentIds, sessionIds } = useMemo(
     () => extractRelatedIds(rawSessions),
     [rawSessions],
+  );
+  const shouldFetchPendingRequests = useCheckCompanyAddOn(
+    ADD_ON_IDENTIFIER_SUBTEACHER_TOOL,
   );
 
   // Fetch teachers and establishments as dependent queries (only after sessions load)
@@ -151,6 +171,11 @@ export const useSessionListData = (
     useFetchTeachers(teacherIds, !isLoadingSessions);
   const { data: establishmentsById = {}, isLoading: isLoadingEstablishments } =
     useFetchEstablishments(establishmentIds, !isLoadingSessions);
+  const { data: sessionsWithPendingRequests = [] } =
+    useFetchSessionsWithPendingRequests(
+      sessionIds,
+      shouldFetchPendingRequests && !isLoadingSessions,
+    );
 
   const sessionsByDate = useMemo(
     () =>
@@ -158,8 +183,14 @@ export const useSessionListData = (
         rawSessions,
         teachersById,
         establishmentsById,
+        sessionsWithPendingRequests,
       ),
-    [rawSessions, teachersById, establishmentsById],
+    [
+      rawSessions,
+      teachersById,
+      establishmentsById,
+      sessionsWithPendingRequests,
+    ],
   );
 
   return {

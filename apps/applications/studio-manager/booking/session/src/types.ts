@@ -5,4 +5,5 @@ export type EnrichedSession = Omit<ManagerSession, "name_override"> & {
   teacherName?: string;
   originalTeacherName?: string;
   establishmentName?: string;
+  hasPendingReplacementRequest?: boolean;
 };

@@ -29,6 +29,7 @@
     "@bsport/form": "workspace:*",
     "@bsport/i18n": "workspace:*",
     "@bsport/kaizen-primitive-core": "workspace:*",
+    "@bsport/permissions": "workspace:*",
     "@bsport/sm-backbone": "workspace:*",
     "@bsport/store-base": "workspace:*",
     "@bsport/timezone-utils": "workspace:*",

@@ -676,8 +676,7 @@
     "members": "Novos membros",
     "on_spot_payments": "Pagamentos no local",
     "dispute": "Conflito no pagamento",
-    "referral_grant": "Referência",
-    "access_monitoring": "Monitorização do acesso"
+    "referral_grant": "Referência"
   },
   "header": {
     "save": "Guardar",

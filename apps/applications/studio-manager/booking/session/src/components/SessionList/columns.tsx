@@ -20,6 +20,7 @@ import { EnrichedSession } from "../../types";
 import { CancelledSessionName } from "./CancelledSessionName";
 import { ParticipantsCell } from "./ParticipantsCell";
 import { SessionTypeChips } from "./SessionTypeChips";
+import { TeacherCell } from "./teacher-cell";
 
 type TableColumn = GenericTableColumn<EnrichedSession>;
 
@@ -101,10 +102,15 @@ export const useSessionListColumns = () => {
   const teacherNameColumn: TableColumn = {
     id: "teacherName",
     header: t("table.headers.teacher"),
-    type: "string",
+    type: "custom",
     align: "start",
-    keyPath: "teacherName",
-    cellsClassName: "truncate max-w-[140px]",
+    render: (row: EnrichedSession) => (
+      <TeacherCell
+        teacherName={row.teacherName}
+        originalTeacherName={row.originalTeacherName}
+        coach_override={row.coach_override}
+      />
+    ),
   };
 
   const establishmentNameColumn: TableColumn = {

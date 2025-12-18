@@ -50,13 +50,13 @@
     "configuration": {
       "panel": {
         "footer": {
-          "addUnitButton": "Ajouter Unit ID"
+          "addConnectionButton": "Ajouter Unit ID"
         },
         "content": {
           "table": {
             "column": {
               "establishments": "Établissements",
-              "unit": "Unit ID"
+              "externalId": "Unit ID"
             }
           },
           "helperText": "Demandez d'abord l'intégration avec bsport sur le portail partenaires Wellhub, pour chaque Unit",
@@ -77,7 +77,7 @@
           "deletion": "Supprimer le Unit ID"
         },
         "field": {
-          "unitId": {
+          "externalId": {
             "placeholder": "Numéro du Unit ID",
             "error": {
               "required": "Le Unit ID est requis",

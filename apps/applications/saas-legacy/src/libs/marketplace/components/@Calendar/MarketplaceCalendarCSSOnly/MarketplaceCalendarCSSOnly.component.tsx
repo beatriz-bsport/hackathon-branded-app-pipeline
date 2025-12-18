@@ -110,7 +110,8 @@ export const MarketplaceCalendar = (props: Props) => {
   const showDayParts =
     groupSessionByPeriod == null || groupSessionByPeriod === true;
 
-  const noOfferDisplayed = !loading && !isSearching && weekOffers.length === 0;
+  const noOfferDisplayed =
+    !loading && !isSearching && (weekOffers?.flat() ?? []).length === 0;
 
   const renderNoOffer = () => {
     const offerDateStart = nextAvailableOffer?.date_start

@@ -21,6 +21,8 @@ import {
 import type { MarketplacePaymentMethodBillingDetails } from '#src/libs/marketplace/types';
 import { OfferWithSpotInformation } from '#src/libs/offer/types';
 import { Subscription } from '#src/libs/subscription/types';
+import { PaymentPack } from '#src/libs/payment-packs/types';
+import { PrivatePass } from '#src/libs/private-service/types';
 import {
   EXCEPTION_BOOKING_GUEST_GENERIC,
   EXCEPTION_BOOKING_GUEST_IS_UNAVAILABLE_IN_OFFER,
@@ -513,3 +515,27 @@ export const removeQueryParamsFromUrl = (paramsToRemove: string[]): void => {
 
 export const getBasketItemCount = (checkoutItems: CheckoutItem[]) =>
   checkoutItems.reduce((acc, item) => acc + item.quantity, 0);
+
+export const checkIfPurchasedPassGrantsDoorAccess = (
+  checkoutItems: CheckoutItem[],
+  paymentPackById: Record<number, PaymentPack>,
+  privatePassById: Record<number, PrivatePass>,
+): boolean => {
+  const sortedCheckoutItems =
+    sortCheckoutItemByBuyableItemIdentifier(checkoutItems);
+  const checkoutItemsWithPaymentPack =
+    sortedCheckoutItems?.[BuyableItemOptions.BUYABLE_ITEM_PASS] ?? [];
+  const checkoutItemsWithPrivatePass =
+    sortedCheckoutItems?.[BuyableItemOptions.BUYABLE_ITEM_PRIVATE_PASS] ?? [];
+
+  return (
+    checkoutItemsWithPaymentPack.some((checkoutItem) => {
+      const paymentPack = paymentPackById[checkoutItem.buyable_item_id];
+      return paymentPack?.grants_door_access === true;
+    }) ||
+    checkoutItemsWithPrivatePass.some((checkoutItem) => {
+      const privatePass = privatePassById[checkoutItem.buyable_item_id];
+      return privatePass?.grants_door_access === true;
+    })
+  );
+};

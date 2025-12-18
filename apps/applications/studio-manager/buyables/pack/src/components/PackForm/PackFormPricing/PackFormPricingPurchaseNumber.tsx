@@ -32,7 +32,7 @@ export const PackFormPricingPurchaseNumber: React.FC<
         checked={addMaxNbOfPurchases}
         id={`${fieldIdPrefix}-pack-max-nb-purchase-toggle`}
         label={t("formFields.pricingSection.maxPurchaseToggle.description")}
-        onChange={(checked) => {
+        onToggleChange={(checked) => {
           if (checked) {
             methods.setValue(
               "max_purchase_per_member",

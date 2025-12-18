@@ -5,7 +5,8 @@ import { Body } from "@bsport/kaizen-primitive-core";
 type TeacherCellProps = {
   teacherName?: string;
   originalTeacherName?: string;
-  coach_override?: number;
+  coach_override?: number | null;
+  hasPendingReplacementRequest?: boolean;
 };
 export const TeacherCell: React.FC<TeacherCellProps> = ({
   teacherName,

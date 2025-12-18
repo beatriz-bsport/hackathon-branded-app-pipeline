@@ -20,7 +20,7 @@ import { Establishment } from '../../establishment/types';
 import type {
   ClassPassConfiguration,
   PartnershipCompany,
-} from '#src/libs/partnership/types';
+} from '#src/libs/classpass/types';
 
 type Props = {
   establishmentList: Array<Establishment>;

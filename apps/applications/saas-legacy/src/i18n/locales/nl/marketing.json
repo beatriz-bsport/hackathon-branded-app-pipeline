@@ -1051,7 +1051,7 @@
       },
       "createFromScratchDescription": "Maak een {{ workflowLowerCase }} om je Audience-acties te automatiseren.",
       "useTemplate": "Sjabloon gebruiken",
-      "createFromScratch": "Nieuw sjabloon maken"
+      "createFromScratch": "Nieuw {{ workflowLowerCase }} maken"
     },
     "upsells": {
       "warning": {

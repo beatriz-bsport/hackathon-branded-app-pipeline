@@ -1027,7 +1027,7 @@
       }
     },
     "template": {
-      "createFromScratch": "Create new template",
+      "createFromScratch": "Create new {{ workflowLowerCase }}",
       "useTemplate": "Use template",
       "createFromScratchDescription": "Create a {{ workflowLowerCase }} to automate your Audience actions.",
       "addCadenceDialog": {

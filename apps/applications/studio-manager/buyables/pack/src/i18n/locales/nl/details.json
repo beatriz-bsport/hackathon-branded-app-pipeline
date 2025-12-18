@@ -1,1 +1,208 @@
-{}
+{
+  "createModal": {
+    "title": "Maak een nieuw pakket aan",
+    "buttons": {
+      "create": "Maak",
+      "cancel": "Sluiten"
+    },
+    "failToCreate": "Kon het pakket niet maken. Probeer het opnieuw. "
+  },
+  "detailsPage": {
+    "packsBreadcrumbs": "Pakketten",
+    "loading": "Laden pakket",
+    "canNotFindPack": "Pakket niet gevonden",
+    "buttons": {
+      "copyPaymentLink": "Kopieer betalingslink",
+      "renamePack": "Pakket hernoemen",
+      "deletePack": "Verwijder pakket"
+    },
+    "toasts": {
+      "paymentLinkCopied": "Link gekopieerd"
+    },
+    "updatePack": {
+      "failToUpdate": "Kon het pakket niet bijwerken. Probeer het opnieuw. ",
+      "success": "Succesvol bijgewerkt"
+    },
+    "tabs": {
+      "overview": "Overzicht",
+      "editor": "Editor"
+    }
+  },
+  "overviewPage": {
+    "loading": "Laden van verkochte pakketten",
+    "emptyList": {
+      "title": "Nog geen pakketten verkocht",
+      "subtitle": "Zodra een lid een pakket koopt, wordt het hier weergegeven."
+    },
+    "table": {
+      "columns": {
+        "issueDate": "Uitgiftedatum",
+        "buyer": "Koper",
+        "value": "Waarde"
+      },
+      "actions": {
+        "openPrefix": "Open...",
+        "invoice": "Factuur",
+        "memberProfile": "Ledenprofiel koper"
+      },
+      "errors": {
+        "failToGetInvoice": "Kon de gerelateerde factuur niet openen"
+      }
+    }
+  },
+  "addItemsModal": {
+    "title": "Voeg items toe",
+    "buttons": {
+      "cancel": "Sluiten",
+      "save": "Opslaan"
+    },
+    "breadcrumbs": {
+      "appointmentPassCategories": "Categorieën afspraakkaarten",
+      "passCategories": "Leskaart-categorieën",
+      "webshopItemCategories": "Productcategorieën"
+    },
+    "categories": {
+      "open": "Open categorie"
+    },
+    "items": {
+      "webshopItem": {
+        "size": "Maat {{ size }}"
+      },
+      "tooltips": {
+        "credits": "Credits",
+        "price": "Prijs",
+        "unavailableForMember": "Niet vermeld",
+        "invisibleToStaff": "Verborgen",
+        "category": "Selecteer een categorie"
+      }
+    },
+    "selectedItems": {
+      "show": "Toon geselecteerde items",
+      "hide": "Verberg geselecteerde items",
+      "removeItem": "Verwijder item"
+    },
+    "noCategories": "Naamloze categorie"
+  },
+  "formFields": {
+    "name": {
+      "label": "Naam",
+      "helperText": "Beperkt tot {{ maxLength }} tekens ({{ length }}/{{ maxLength }})",
+      "errorMaxLength": "Naam moet minder dan 200 tekens bevatten"
+    },
+    "description": {
+      "label": "Beschrijving",
+      "helperText": "Beperkt tot {{ maxLength }} tekens ({{ length }}/{{ maxLength }})",
+      "errorMaxLength": "Beschrijving moet minder dan 2000 tekens bevatten"
+    },
+    "packContent": {
+      "title": "Inhoud",
+      "description": "Voeg een pas, afspraakpas of product toe om je pakket samen te stellen",
+      "card": {
+        "placeholder": "Voeg ten minste één item toe aan je pakket"
+      },
+      "itemVariants": {
+        "passes": "Leskaarten",
+        "appointmentPasses": "Afspraakkaarten",
+        "webshopItems": "Producten"
+      },
+      "buttons": {
+        "addItem": "Item toevoegen",
+        "addPass": "Een leskaart toevoegen",
+        "addAppointmentPass": "Een afspraakkaart toevoegen",
+        "addWebshopItem": "Product toevoegen",
+        "removeItem": "Verwijder item"
+      }
+    },
+    "advancedSection": {
+      "title": "Geavanceerd",
+      "tagsSelector": {
+        "title": "Tag(s) na aankoop",
+        "helperText": "Voeg tags toe om te identificeren welk lid dit pakket heeft gekocht.",
+        "placeholder": "Toevoegen tags..."
+      }
+    },
+    "pricingSection": {
+      "title": "Kosten & Betaling",
+      "price": {
+        "label": "Prijs",
+        "helperText": "Totale waarde van items in dit pakket: {{ amount }}"
+      },
+      "taxToggle": {
+        "label": "Btw-tarief",
+        "description": "Pas een enkel btw-tarief toe op het hele pakket",
+        "helperText": "Dit tarief wordt ingesteld voor alle items die in dit pakket zijn opgenomen.",
+        "errorMissingRate": "Stel een btw-tarief in of deselecteer deze optie om door te gaan"
+      },
+      "maxPurchaseToggle": {
+        "label": "Maximum per klant",
+        "description": "Stel een maximum aantal aankopen per klanten in",
+        "errorMissingNumber": "Voeg een maximumbedrag toe of deselecteer deze optie om door te gaan"
+      },
+      "paymentMethod": {
+        "label": "Betaalmethoden",
+        "helperText": "Kies er minstens één ",
+        "checkboxes": {
+          "onlinePayments": "Online ",
+          "onsitePayments": "Persoonlijk"
+        },
+        "alertVisibilityHidden": "Verborgen Pakketten kunnen nog steeds met leden worden gedeeld via een link en betaald worden via online betaling.",
+        "errorMissingPaymentMethod": "Selecteer een betaalmethode"
+      }
+    },
+    "visibilitySection": {
+      "title": "Zichtbaarheid",
+      "visibilitySelector": {
+        "label": "Selecteer de zichtbaarheid van dit pakket",
+        "options": {
+          "visible": {
+            "shortTitle": "Zichtbaar",
+            "fullTitle": "Vermeld in Ledenruimte",
+            "description": "Je pack wordt vermeld in de Ledenruimte zodat je leden het kunnen kopen."
+          },
+          "hidden": {
+            "shortTitle": "Niet vermeld",
+            "fullTitle": "Niet vermeld in de Ledenruimte",
+            "description": "Jouw pakket wordt niet vermeld in de Ledenruimte, maar kan worden gedeeld met een link of gekocht via de Back Office."
+          }
+        }
+      },
+      "dateLimitSelector": {
+        "toggleLabel": "Datum aankooplimiet",
+        "fieldLabel": "Beschikbaar tot",
+        "errorMissingDate": "Voeg een datum toe of deactiveer deze optie om door te gaan"
+      },
+      "additionalRules": {
+        "label": "Aanvullende regels",
+        "helperText": "Selecteer alle toepasselijke opties",
+        "checkboxes": {
+          "recommended": {
+            "label": "Markeer als aanbevolen",
+            "helperText": "Markeer je pakket voor klanten door het als aanbevolen te markeren."
+          },
+          "newMembersOnly": {
+            "label": "Alleen beschikbaar voor nieuwe leden",
+            "helperText": "Leden zijn 'nieuw' zolang ze geen artikel hebben gekocht met een waarde van meer dan {{ minimalCurrency }}. Zelfs als Leden een artikel kopen met 100 % korting, telt dit nog steeds als een aankoop."
+          },
+          "hideFromStaff": {
+            "label": "Onzichtbaar voor het personeel",
+            "helperText": "Personeel kan dit pakket niet bekijken of kopen."
+          }
+        }
+      }
+    },
+    "requiredField": "Dit veld is verplicht."
+  },
+  "editNameModal": {
+    "title": "Pakket hernoemen?",
+    "buttons": {
+      "cancel": "Sluiten",
+      "rename": "Hernoemen"
+    }
+  },
+  "itemDetailDrawer": {
+    "pricing": "Prijzen",
+    "credits": "Credits",
+    "selectPreviousItem": "Selecteer vorig item",
+    "selectNextItem": "Selecteer volgend item"
+  }
+}

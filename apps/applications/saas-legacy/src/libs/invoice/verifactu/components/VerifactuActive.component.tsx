@@ -10,16 +10,16 @@ import VerifactuRepresentativeDetails from '#src/libs/invoice/verifactu/componen
 
 type VerifactuActiveProps = {
   representative: PlatformCustomerEntityRepresentative | null;
-  onEdit: () => void;
   agreementUrl?: string | null;
-  certificateUrl?: string | null;
+  onEdit: () => void;
+  onGetSoftwareRegistrationUrl?: () => void;
 };
 
 const VerifactuActive: React.FC<VerifactuActiveProps> = ({
   representative,
-  onEdit,
   agreementUrl,
-  certificateUrl,
+  onEdit,
+  onGetSoftwareRegistrationUrl,
 }) => {
   const classes = useStyles();
   const { t } = useTranslation('b2b_invoice');
@@ -31,12 +31,6 @@ const VerifactuActive: React.FC<VerifactuActiveProps> = ({
   const handleAgreementLink = () => {
     if (agreementUrl) {
       window.open(agreementUrl, '_blank');
-    }
-  };
-
-  const handleCertificateLink = () => {
-    if (certificateUrl) {
-      window.open(certificateUrl, '_blank');
     }
   };
 
@@ -77,16 +71,35 @@ const VerifactuActive: React.FC<VerifactuActiveProps> = ({
         <Typography className={classes.subtitle} variant="body2">
           {t('configuration.verifactu.active.certificate_subtitle')}
         </Typography>
-        <Button
-          color="primary"
-          disabled={!certificateUrl}
-          onClick={handleCertificateLink}
-          size="small"
-          startIcon={<LinkIcon />}
-          variant="outlined"
-        >
-          {t('configuration.verifactu.active.certificate_link')}
-        </Button>
+
+        <div className={classes.buttonGroup}>
+          <Button
+            className={classes.button}
+            color="primary"
+            disabled={!onGetSoftwareRegistrationUrl}
+            onClick={() => onGetSoftwareRegistrationUrl?.()}
+            size="small"
+            startIcon={<LinkIcon />}
+            variant="outlined"
+          >
+            {t('configuration.verifactu.active.certificate_link')}
+          </Button>
+          <Button
+            className={classes.button}
+            color="primary"
+            onClick={() =>
+              window.open(
+                'https://cdn.bsport.io/assets/docs/declaraci%C3%B3n_responsable_integradores_verifactu.pdf',
+                '_blank',
+              )
+            }
+            size="small"
+            startIcon={<LinkIcon />}
+            variant="outlined"
+          >
+            {t('configuration.verifactu.active.certificate_extension_link')}
+          </Button>
+        </div>
       </div>
     </div>
   );
@@ -106,6 +119,14 @@ const useStyles = makeStyles<Theme>((theme) => ({
   subtitle: {
     color: theme.palette.text.secondary,
     marginBottom: theme.spacing(2),
+  },
+  buttonGroup: {
+    display: 'flex',
+    gap: theme.spacing(2),
+    flexWrap: 'wrap',
+  },
+  button: {
+    flex: '0 1 auto',
   },
 }));
 

@@ -78,7 +78,9 @@
         "agreement_link": "Link to PDF",
         "certificate_title": "VERI*FACTU Responsibility Declaration",
         "certificate_subtitle": "BSPORT Solutions complies with Spanish invoicing regulations (Verifactu and TicketBAI). Download our official responsibility declaration.",
-        "certificate_link": "VERI*FACTU certificate"
+        "certificate_link": "VERI*FACTU certificate",
+        "certificate_extension_link": "Responsibility declaration extension",
+        "certificate_error": "Couldn't get VERI*FACTU certificate."
       }
     }
   }

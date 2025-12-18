@@ -1058,7 +1058,7 @@
       },
       "createFromScratchDescription": "Crea un {{ workflowLowerCase }} para automatizar tus acciones de Audience.",
       "useTemplate": "Usar plantilla",
-      "createFromScratch": "Crear nueva plantilla"
+      "createFromScratch": "Crear {{ workflowLowerCase }}"
     },
     "upsells": {
       "warning": {

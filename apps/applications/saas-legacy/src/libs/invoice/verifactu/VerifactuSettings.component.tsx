@@ -59,6 +59,7 @@ const VerifactuSettings: React.FC = () => {
     handleSaveForLater,
     handleOnboardCompany,
     handleUploadSignedAgreement,
+    handleGetSoftwareRegistrationUrl,
   } = useVerifactuHandlers(
     representative,
     setAgreementUrl,
@@ -124,10 +125,8 @@ const VerifactuSettings: React.FC = () => {
         return (
           <VerifactuActive
             agreementUrl={signedAgreementFile}
-            // TODO: Certificate URL - This should be a link to BSPORT's VERI*FACTU responsibility declaration certificate
-            // This should be a static link
-            certificateUrl={null}
             onEdit={() => setIsOnboarded(false)}
+            onGetSoftwareRegistrationUrl={handleGetSoftwareRegistrationUrl}
             representative={representative}
           />
         );

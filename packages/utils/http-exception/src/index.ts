@@ -1,2 +1,2 @@
-export type { Serializable } from "./constants";
+export type { HTTPExceptionType, Serializable } from "./constants";
 export { HTTPException } from "./http-exception";

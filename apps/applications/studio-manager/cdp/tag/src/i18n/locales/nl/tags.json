@@ -2,7 +2,7 @@
   "page": {
     "title": "Tags",
     "filters": {
-      "label": "Filter op hoofdtag",
+      "label": "Categorie",
       "operators": {
         "is": "is",
         "isNot": "is niet"
@@ -10,31 +10,31 @@
     },
     "actions": {
       "createTagGroup": {
-        "label": "Maak hoofdtag aan"
+        "label": "Categorie toevoegen"
       },
       "createTag": {
-        "label": "Maak een subtag aan"
+        "label": "Maken tag"
       }
     },
     "loadingState": {
       "message": "Laden tags..."
     },
     "emptyFilteredPageState": {
-      "title": "Geen resultaten gevonden",
-      "description": "Geen hoofdlabels gevonden - verwijder filters om meer resultaten te zien",
+      "title": "Geen tags gevonden",
+      "description": "Probeer filters te wissen om meer resultaten te zien",
       "secondaryButtonLabel": "Wis filters"
     },
     "emptyPageState": {
       "title": "Nog geen tags",
-      "description": "Maak tags om je leden te targeten en te volgen"
+      "description": "Maken tags om je klanten te volgen en te targeten"
     },
     "emptyMainTagState": {
-      "description": "Je hebt nog geen sublabels in deze hoofdtag gemaakt."
+      "description": "Je hebt nog geen tags in deze categorie aangemaakt."
     }
   },
   "tagGroupList": {
     "actions": {
-      "addSubTag": "Maak een subtag aan",
+      "addSubTag": "Maken Tag",
       "rename": "Hernoemen",
       "delete": "Verwijderen"
     },
@@ -46,15 +46,15 @@
   },
   "tagGroupModal": {
     "title": {
-      "create": "Maak een hoofdtag aan",
-      "update": "Bewerk hoofdlabel"
+      "add": "Categorie toevoegen",
+      "update": "Categorie bewerken"
     },
     "formField": {
       "tagGroupName": {
-        "label": "Naam van hoofdtag",
-        "placeholder": "Voeg een hoofdlabelnaam toe...",
+        "label": "Naam",
+        "placeholder": "Geef je categorie een naam",
         "errors": {
-          "required": "Voer een hoofdtagnaam in",
+          "required": "Voer een naam in voor deze categorie om door te gaan",
           "alreadyInUse": "Naam al in gebruik",
           "tooLong": "Naam moet minder dan {{ max }} tekens bevatten",
           "tooShort": "Naam moet minstens {{ min }} tekens bevatten"
@@ -62,44 +62,44 @@
       }
     },
     "actions": {
-      "create": "Creëer",
+      "add": "Toevoegen",
       "update": "Opslaan",
       "cancel": "Sluiten",
-      "goTo": "Ga naar Hoofdtags"
+      "goTo": "Bekijk categorie"
     },
     "result": {
       "createSuccess": {
-        "title": "Hoofdtags aangemaakt"
+        "title": "Categorie aangemaakt"
       },
       "updateSuccess": {
-        "title": "HoofdTags bijgewerkt"
+        "title": "Categorie bijgewerkt"
       },
       "updateFailure": {
-        "title": "Kan hoofdtag niet bijwerken vanwege een technisch probleem"
+        "title": "Kon de categorie niet bijwerken vanwege een technisch probleem. Probeer het opnieuw of neem contact op met de ondersteuning. "
       },
       "createFailure": {
-        "title": "Kan hoofdtag niet aanmaken"
+        "title": "Kon de categorie niet maken. Probeer het opnieuw. "
       }
     }
   },
   "tagModal": {
     "title": {
-      "create": "Maak een subtag aan",
-      "update": "Bewerk subtag"
+      "create": "Maken tag",
+      "update": "Tag bewerken"
     },
     "formField": {
       "mainTagAssociated": {
-        "label": "Hoofd-tag",
-        "placeholder": "Selecteer een hoofdtag",
+        "label": "Categorie",
+        "placeholder": "Selecteer een categorie",
         "errors": {
-          "required": "Je moet eerst een hoofdlabel selecteren"
+          "required": "Tag moet een categorie hebben"
         }
       },
       "tagName": {
-        "label": "Sub-tag",
-        "placeholder": "Voer een subtagnaam in...",
+        "label": "Tag",
+        "placeholder": "Geef je tag een naam",
         "errors": {
-          "required": "Je moet eerst een subtagnaam invoeren",
+          "required": "Voer een naam in voor deze tag ",
           "alreadyInUse": "Naam al in gebruik",
           "tooLong": "Naam moet minder dan {{ max }} tekens bevatten",
           "tooShort": "Naam moet minstens {{ min }} tekens bevatten"
@@ -113,78 +113,78 @@
     "actions": {
       "create": "Maak",
       "update": "Bijwerken",
-      "cancel": "Annuleren",
-      "goTo": "Ga naar Sub Tags"
+      "cancel": "Sluiten",
+      "goTo": "Tag bekijken"
     },
     "result": {
       "createSuccess": {
-        "title": "Sub Tag aangemaakt"
+        "title": "Tag gemaakt"
       },
       "createFailure": {
-        "title": "Kan subtag niet opslaan "
+        "title": "Je kunt de tag niet opslaan. Probeer het opnieuw. "
       },
       "updateSuccess": {
-        "title": "Subtags bijgewerkt"
+        "title": "Tag bijgewerkt"
       },
       "updateFailure": {
-        "title": "Kan subtag niet bijwerken "
+        "title": "Kon de tag niet bijwerken. Probeer het opnieuw. "
       }
     }
   },
   "deleteMainTagModal": {
-    "title": "Permanent hoofdtag verwijderen?",
-    "description": "Het verwijderen van deze hoofdtag zal het permanent verwijderen van {{ number }} leden waaraan het is toegewezen.",
+    "title": "Categorie permanent verwijderen?",
+    "description": "Het verwijderen van deze categorie zal alle bijbehorende tags permanent van {{ number }} klanten verwijderen.",
     "alerts": {
       "tagInUse": {
-        "description": "Weet je, als je deze hoofdtag verwijdert, worden ook alle bijbehorende sub-tags en tagregels binnen de voorwaardelijke workflows waarin het wordt gebruikt, verwijderd.",
+        "description": "Let op: het verwijderen van deze categorie zal ook gerelateerde tagregels verwijderen die nog actief zijn in voorwaardelijke workflows, zoals Audience of Smartlists",
         "confirmCheckbox": {
           "label": "Vink aan om te bevestigen: ",
-          "description": "Ik begrijp dat het verwijderen van deze hoofdtag een permanente actie is die invloed zal hebben op alle bijbehorende workflows.",
+          "description": "Ik begrijp dat het verwijderen van deze categorie de bijbehorende tags permanent zal verwijderen en dat dit invloed kan hebben op eventuele voorwaardelijke workflows waarin ze worden gebruikt.",
           "confirmButtonTooltip": "Controleer de impact van deze wijziging voordat je doorgaat"
         }
       }
     },
     "actions": {
       "confirm": "Verwijderen",
-      "cancel": "Annuleren"
+      "cancel": "Behouden"
     },
     "result": {
       "success": {
-        "title": "Hoofdtag verwijderd"
+        "title": "Categorie verwijderd"
       },
       "failure": {
-        "title": "Kan hoofdlabel niet verwijderen"
+        "title": "Kon de categorie niet verwijderen. Probeer het opnieuw of controleer of het wordt gebruikt in voorwaardelijke workflows."
       }
     }
   },
   "deleteSubTagModal": {
-    "title": "Subtag permanent verwijderen?",
-    "description": "Het verwijderen van deze subtag zal het permanent verwijderen van {{number}} leden waaraan het is toegewezen. ",
+    "title": "Tag permanent verwijderen?",
+    "description": "Het verwijderen van deze tag zal het permanent verwijderen van {{number}} klanten waaraan het is toegewezen.",
     "alerts": {
       "tagInUse": {
-        "description": "Een kleine waarschuwing: het verwijderen van deze sub-tag zal ook invloed hebben op eventuele voorwaardelijke workflows waarin het wordt gebruikt. ",
+        "description": "Let op: het verwijderen van deze tag zal ook invloed hebben op eventuele voorwaardelijke workflows waarin het wordt gebruikt (zoals Smartlists of Audience)",
         "confirmCheckbox": {
           "label": "Vink aan om te bevestigen:",
-          "description": "Ik begrijp dat het verwijderen van deze sub-tag een permanente actie is die invloed zal hebben op alle bijbehorende workflows.",
+          "description": "Ik begrijp dat het verwijderen van deze tag een permanente wijziging is die invloed kan hebben op alle bijbehorende workflows.",
           "confirmButtonTooltip": "Controleer de impact van deze wijziging voordat je doorgaat"
         }
       }
     },
     "actions": {
       "confirm": "Verwijderen",
-      "cancel": "Annuleren"
+      "cancel": "Behouden"
     },
     "result": {
       "success": {
-        "title": "Subtag verwijderd"
+        "title": "Tag Verwijderen"
       },
       "failure": {
-        "title": "Er is iets misgegaan bij het verwijderen van de subtag. Probeer het opnieuw."
+        "title": "Kon de tag niet verwijderen. Probeer het opnieuw of controleer of het wordt gebruikt in voorwaardelijke workflows."
       }
     }
   },
   "tagsDetails": {
-    "members": "Lid",
+    "members": "Klanten",
     "actions": {
       "tagAll": "Alle tags",
       "untagAll": "Deselecteer alles",
@@ -192,11 +192,11 @@
     },
     "tooltip": {
       "close": "Sluiten",
-      "tagMember": "Leden taggen",
-      "untagMember": "Leden onttaggen",
+      "tagMember": "Tag klant",
+      "untagMember": "Ont-tag klant",
       "editTag": "Wijzig naam of kleur",
-      "previousSubTag": "Bekijk vorige subtag",
-      "nextSubTag": "Bekijk volgende subtag"
+      "previousSubTag": "Bekijk vorige tag",
+      "nextSubTag": "Bekijk volgende tag"
     },
     "segmentedControl": {
       "tagged": "Getagd",
@@ -206,33 +206,33 @@
       "actions": {
         "tag": {
           "success": {
-            "title": "Lid getagd"
+            "title": "Klant getagd"
           },
           "failure": {
-            "title": "Kan lid niet taggen, probeer het opnieuw."
+            "title": "Kon de klant niet taggen. Probeer het opnieuw. "
           }
         },
         "untag": {
           "success": {
-            "title": "Lid niet getagd"
+            "title": "Klant ont-tagd"
           },
           "failure": {
-            "title": "Kan lid niet onttaggen, probeer het opnieuw."
+            "title": "Je kunt de klant niet taggen. Probeer het opnieuw."
           }
         }
       },
       "loadingState": {
-        "tagged": "Laden van getagde leden...",
-        "untagged": "Leden zonder tag laden..."
+        "tagged": "Laden van getagde klanten...",
+        "untagged": "Laden van niet-getagde klanten..."
       },
       "emptyState": {
         "title": {
-          "tagged": "Nog geen leden getagd",
-          "untagged": "Nog geen leden zonder tag"
+          "tagged": "Nog geen klanten getagd",
+          "untagged": "Nog geen klanten ont-tagd"
         },
         "description": {
-          "untagged": "Je kunt leden taggen door op het pluspictogram naast hun naam in de niet-getagde lijst te klikken.",
-          "tagged": "Je kunt Leden onttaggen door op het min-icoon naast hun naam op de getagde lijst te klikken."
+          "untagged": "Tag klanten door op het '+'-icoon naast hun naam in de niet-gelabelde lijst te klikken",
+          "tagged": "Verwijder tags van klanten door op het '-' icoon naast hun naam in de getagde lijst te klikken."
         }
       }
     }
@@ -243,34 +243,34 @@
       "untag": "Allemaal onttaggen?"
     },
     "description": {
-      "tag": "Voeg de {{tagName}} tag toe aan {{number}} leden?",
-      "untag": "Verwijder de {{tagName}} tag van {{number}} leden?"
+      "tag": "Voeg de {{tagName}} tag toe aan {{number}} Klanten?",
+      "untag": "Verwijder de {{tagName}} tag van {{number}} Klanten?"
     },
     "actions": {
       "tag": "Tags alles",
       "untag": "Onttag alles",
-      "cancel": "Annuleren",
+      "cancel": "Sluiten",
       "undo": "Ongedaan maken"
     },
     "loading": {
-      "tag": "Taggen van {{number}} Leden...",
-      "untag": "Onttaggen van {{number}} leden..."
+      "tag": "Taggen van {{number}} klanten...",
+      "untag": "Untaggen van {{number}} klanten..."
     },
     "results": {
       "tag": {
         "success": {
-          "title": "Alle leden zijn getagd"
+          "title": "Alle Klanten getagd"
         },
         "failure": {
-          "title": "Kan leden niet taggen, probeer het opnieuw."
+          "title": "Je kunt klanten niet taggen. Probeer het opnieuw. "
         }
       },
       "untag": {
         "success": {
-          "title": "Alle leden zijn onttagd"
+          "title": "Alle klanten zonder tag"
         },
         "failure": {
-          "title": "Kan leden niet onttaggen, probeer het opnieuw."
+          "title": "Kon klanten niet ont-taggen. Probeer het opnieuw. "
         }
       }
     }

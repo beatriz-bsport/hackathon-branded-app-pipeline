@@ -88,6 +88,40 @@
             "hour": "hour",
             "day": "day"
           },
+          "recurrence": {
+            "toggle": "This session is recurrent",
+            "typeSelector": {
+              "label": "Interval",
+              "weekly": "Weekly",
+              "custom": "Custom..."
+            },
+            "weekdaysSelector": {
+              "label": "Repeat on",
+              "placeholder": "Choose recurring days..."
+            },
+            "endDate": "End date",
+            "unit": {
+              "days": "Days",
+              "weeks": "Weeks",
+              "months": "Months"
+            },
+            "interval": "Repeat every",
+            "pattern": {
+              "label": "Rule",
+              "position": {
+                "1": "first",
+                "2": "second",
+                "3": "third",
+                "4": "fourth",
+                "-1": "last",
+                "nthWeekdayLabel": "Monthly on the {{position}} {{weekday}}",
+                "dayOfMonthLabel": "Monthly on day {{day}}"
+              },
+              "nthWeekday": "Nth weekday"
+            },
+            "info": "{{count}} session will be created",
+            "info_other": "{{count}} sessions will be created"
+          },
           "errors": {
             "invalidDate": "Invalid date. Please enter a valid date in the format DD/MM/YYYY.",
             "dateTooFar": "You can’t create sessions scheduled more than 3 years in the future.",

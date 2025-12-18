@@ -30,9 +30,8 @@ const PartnershipConfigurationFooter: React.FC<Props> = ({
         <div className={classes.content}>
           <AddIcon />
           <Typography variant="button">
-            {/*TODO: Rename translation*/}
             {t(
-              `${displayConfig.partnershipIdentifier}.configuration.panel.footer.addUnitButton`,
+              `${displayConfig.partnershipIdentifier}.configuration.panel.footer.addConnectionButton`,
             )}
           </Typography>
         </div>

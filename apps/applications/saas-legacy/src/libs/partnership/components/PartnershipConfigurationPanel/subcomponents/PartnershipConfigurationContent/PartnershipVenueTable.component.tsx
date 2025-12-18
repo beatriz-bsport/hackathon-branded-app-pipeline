@@ -1,11 +1,16 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
+// eslint-disable-next-line bsport/no-redux-in-component
+import { connect } from 'react-redux';
 
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import withStyles from '@material-ui/core/styles/withStyles';
 
-import EditIcon from '@material-ui/icons/Edit';
-import DeleteIcon from '@material-ui/icons/Delete';
+import CopyIcon from '#src/components/icons/CopyIcon.component';
+import {
+  PartnershipDisplayConfig,
+  PartnershipVenue,
+} from '#src/libs/partnership/types';
 import {
   Avatar,
   Chip,
@@ -18,10 +23,12 @@ import {
   TableRow,
   Typography,
 } from '@material-ui/core';
-import {
-  PartnershipDisplayConfig,
-  PartnershipVenue,
-} from '#src/libs/partnership/types';
+import DeleteIcon from '@material-ui/icons/Delete';
+import EditIcon from '@material-ui/icons/Edit';
+import CopyToClipboard from 'react-copy-to-clipboard';
+import VenueStatusChip from '../VenueStatusChip.component';
+
+import { snackbarSuccess } from '#src/libs/snackbar/actions';
 
 const CustomTableCell = React.memo(
   withStyles(() => ({
@@ -38,6 +45,7 @@ type Props = {
   loading: boolean;
   onDeleteVenue: (partnershipVenue: PartnershipVenue) => void;
   onEditVenue: (partnershipVenue: PartnershipVenue) => void;
+  showSuccess: (message: string) => void;
 };
 
 const PartnershipVenueTable: React.FC<Props> = ({
@@ -46,9 +54,15 @@ const PartnershipVenueTable: React.FC<Props> = ({
   loading,
   onDeleteVenue,
   onEditVenue,
+  showSuccess,
 }) => {
   const classes = useStyles();
   const { t } = useTranslation('partnership');
+
+  const venuesHaveStatus = useMemo(
+    () => partnershipVenues.some((venue) => venue.active !== undefined),
+    [partnershipVenues],
+  );
 
   const onEditVenueCallback = React.useCallback(
     (partnershipVenue: PartnershipVenue) =>
@@ -76,7 +90,7 @@ const PartnershipVenueTable: React.FC<Props> = ({
         <TableRow>
           <TableCell>
             {t(
-              `${displayConfig.partnershipIdentifier}.configuration.panel.content.table.column.unit`,
+              `${displayConfig.partnershipIdentifier}.configuration.panel.content.table.column.externalId`,
             )}
           </TableCell>
           <TableCell align="left">
@@ -84,6 +98,13 @@ const PartnershipVenueTable: React.FC<Props> = ({
               `${displayConfig.partnershipIdentifier}.configuration.panel.content.table.column.establishments`,
             )}
           </TableCell>
+          {venuesHaveStatus && (
+            <TableCell>
+              {t(
+                `${displayConfig.partnershipIdentifier}.configuration.panel.content.table.column.status`,
+              )}
+            </TableCell>
+          )}
           <TableCell />
         </TableRow>
       </TableHead>
@@ -99,22 +120,35 @@ const PartnershipVenueTable: React.FC<Props> = ({
           <TableRow key={partnershipVenue.id}>
             <TableCell>
               <div className={classes.venueRow}>
+                <Typography noWrap className={classes.idTitle} variant="body1">
+                  {partnershipVenue.external_name ||
+                    partnershipVenue.external_id}
+                  {displayConfig.showCopyIdToClipboard && (
+                    <CopyToClipboard
+                      onCopy={() =>
+                        showSuccess(
+                          t(
+                            `${displayConfig.partnershipIdentifier}.configuration.panel.content.table.copied_to_clipboard`,
+                          ),
+                        )
+                      }
+                      text={partnershipVenue.external_id}
+                    >
+                      <IconButton className={classes.copyIcon} size="small">
+                        <CopyIcon fontSize="small" />
+                      </IconButton>
+                    </CopyToClipboard>
+                  )}
+                </Typography>
                 {partnershipVenue.external_name && (
                   <Typography
                     noWrap
-                    className={classes.externalName}
-                    variant="body1"
+                    className={classes.idSubtitle}
+                    variant="subtitle2"
                   >
-                    {partnershipVenue.external_name}
+                    {partnershipVenue.external_id}
                   </Typography>
                 )}
-                <Typography
-                  noWrap
-                  className={classes.externalId}
-                  variant="subtitle2"
-                >
-                  {partnershipVenue.external_id}
-                </Typography>
               </div>
             </TableCell>
             <TableCell>
@@ -136,6 +170,14 @@ const PartnershipVenueTable: React.FC<Props> = ({
                   ))}
               </div>
             </TableCell>
+            {venuesHaveStatus && (
+              <TableCell>
+                <VenueStatusChip
+                  active={partnershipVenue.active ?? false}
+                  partnershipIdentifier={displayConfig.partnershipIdentifier}
+                />
+              </TableCell>
+            )}
             <TableCell>
               <div className={classes.actionsRow}>
                 <IconButton onClick={onEditVenueCallback(partnershipVenue)}>
@@ -154,10 +196,10 @@ const PartnershipVenueTable: React.FC<Props> = ({
 };
 
 const useStyles = makeStyles((theme) => ({
-  externalName: {
+  idTitle: {
     color: theme.palette.common.black,
   },
-  externalId: {
+  idSubtitle: {
     color: theme.palette.text.disabled,
   },
   venueRow: {
@@ -181,6 +223,14 @@ const useStyles = makeStyles((theme) => ({
   greyIcon: {
     color: theme.palette.grey[600],
   },
+  copyIcon: {
+    color: theme.palette.common.black,
+    marginLeft: theme.spacing(0.5),
+  },
 }));
 
-export default React.memo(PartnershipVenueTable);
+export default React.memo(
+  connect(null, {
+    showSuccess: snackbarSuccess,
+  })(PartnershipVenueTable),
+);

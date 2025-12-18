@@ -58,7 +58,7 @@
           "deletion": "Delete Unit ID"
         },
         "field": {
-          "unitId": {
+          "externalId": {
             "placeholder": "Unit ID number",
             "error": {
               "required": "Unit ID is required",
@@ -94,13 +94,13 @@
           "helperText": "First, request the integration with bsport on Wellhub's Partners Portal, for each Unit",
           "table": {
             "column": {
-              "unit": "Unit ID",
+              "externalId": "Unit ID",
               "establishments": "Establishments"
             }
           }
         },
         "footer": {
-          "addUnitButton": "Add Unit ID"
+          "addConnectionButton": "Add a connection"
         }
       }
     },
@@ -127,6 +127,34 @@
           "back": "Back",
           "cancel": "Cancel",
           "save": "Save"
+        }
+      }
+    }
+  },
+  "myclubs": {
+    "title": "myClubs",
+    "configuration": {
+      "panel": {
+        "header": {
+          "subtitle": "Link one or more establishments to automatically sync all sessions from those establishments with myClubs. You'll be able to adjust the number of available spots for this aggregator in the session settings."
+        },
+        "content": {
+          "title": "Partner ID connection",
+          "table": {
+            "column": {
+              "externalId": "Partner ID",
+              "establishments": "Establishments",
+              "status": "Status"
+            },
+            "status": {
+              "active": "Connected",
+              "inactive": "Pending"
+            },
+            "copied_to_clipboard": "ID successfully copied to clipboard"
+          }
+        },
+        "footer": {
+          "addConnectionButton": "Add a connection"
         }
       }
     }

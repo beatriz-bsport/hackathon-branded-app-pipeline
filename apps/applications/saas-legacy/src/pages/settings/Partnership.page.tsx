@@ -30,7 +30,10 @@ import type {
 // UPSELL
 import { getCompanyFeatureList } from '#src/libs/company/selectors';
 import { hasUpsell } from '#src/libs/platform-billing/utils';
-import { UPSELL_IDENTIFIER_WELLHUB } from '#src/libs/platform-billing/upsell-identifiers';
+import {
+  UPSELL_IDENTIFIER_MY_CLUBS,
+  UPSELL_IDENTIFIER_WELLHUB,
+} from '#src/libs/platform-billing/upsell-identifiers';
 import type { FeatureList } from '#src/libs/company/types';
 
 // CLASSPASS
@@ -112,6 +115,8 @@ import type {
 } from '#src/libs/wellhub/types';
 import GenericResponsiveDrawer from '#src/components/genericDrawer/GenericResponsiveDrawer.component';
 import PartnershipConfiguration from '#src/libs/classpass/components/PartnershipConfiguration.component';
+import MyClubsConfiguration from '#src/libs/partnership/myclubs/MyClubsConfiguration';
+import { PartnershipIdentifier } from '#src/libs/partnership/types';
 
 type StateProps = {
   hasRequested: boolean;
@@ -125,6 +130,7 @@ type StateProps = {
 type ConnectorProps = {
   associatedEstablishmentList: AssociatedEstablishment[];
   classpass: PartnershipCompany | null;
+  myClubsPartnershipCompany: PartnershipCompany | null;
   company: number;
   establishmentList: Establishment[];
   featureList: FeatureList;
@@ -299,12 +305,11 @@ export class Partnership extends React.Component<Props> {
   };
 
   render() {
-    const { classpass, company } = this.props;
+    const { classpass, myClubsPartnershipCompany, company, featureList } =
+      this.props;
 
-    const hasWellhubUpsell = hasUpsell(
-      this.props.featureList,
-      UPSELL_IDENTIFIER_WELLHUB,
-    );
+    const hasWellhubUpsell = hasUpsell(featureList, UPSELL_IDENTIFIER_WELLHUB);
+    const hasMyClubsUpsell = hasUpsell(featureList, UPSELL_IDENTIFIER_MY_CLUBS);
 
     return (
       <div className={this.props.classes.container}>
@@ -321,6 +326,11 @@ export class Partnership extends React.Component<Props> {
           </Dialog>
         ) : null}
         {this.props.isSubmitting ? <LinearProgress /> : null}
+        {hasMyClubsUpsell && !!myClubsPartnershipCompany && (
+          <MyClubsConfiguration
+            myClubsPartnershipId={myClubsPartnershipCompany.partnership}
+          />
+        )}
         {hasWellhubUpsell && (
           <WellhubConfiguration
             checkAvailability={this.props.checkAvailability}
@@ -511,6 +521,10 @@ export default compose(
       classpass: getPartnershipByIdentifier(
         state,
         CLASSPASS_INTEGRATION_IDENTIFIER,
+      ),
+      myClubsPartnershipCompany: getPartnershipByIdentifier(
+        state,
+        PartnershipIdentifier.MYCLUBS,
       ),
       company: themeSelector.getTheme(state).company,
       establishmentList: getAllPageEstablishments(state),

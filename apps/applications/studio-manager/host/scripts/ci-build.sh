@@ -11,6 +11,12 @@ if [ -n "$1" ]; then
   echo "Using provided list of affected projects"
   # Convert literal \n to comma separator
   APPLICATIONS=$(echo $(printf "%b" "$1") | sed "s/ /,/g")
+  
+  # Always include sm-host to ensure release SHA can be injected during deployment
+  if ! echo "$APPLICATIONS" | grep -q "@bsport/sm-host"; then
+    echo "Adding @bsport/sm-host to build list for release SHA injection"
+    APPLICATIONS="@bsport/sm-host,$APPLICATIONS"
+  fi
 else
   # Fall back to the fixed list of applications from apps.txt
   echo "Using fixed list of applications from apps.txt"

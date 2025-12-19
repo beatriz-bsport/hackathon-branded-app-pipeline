@@ -137,6 +137,14 @@ useEffect(() => {
 <div id="bsport-widget"></div>
 ```
 
+### Test local changes
+
+You can point to your local server by using `dev:spa:local` and `serve:html:local` instead of the default `dev:spa` and `serve:html`.
+
+This will require you to serve the widget:  
+To do so, go to `apps/widgets/widget-legacy` and run `pnpm start:dev`.  
+You can also use `pnpm start:local` but this will require to also have `saas-legacy` to run.
+
 ## Development Tips
 
 - Use browser DevTools console for debugging

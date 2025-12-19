@@ -150,6 +150,9 @@ const icons = {
   "layout-left": React.lazy(
     async () => await import("./assets/layout-left.svg?react"),
   ),
+  "layout-right": React.lazy(
+    async () => await import("./assets/layout-right.svg?react"),
+  ),
   "link-01": React.lazy(async () => await import("./assets/link-01.svg?react")),
   "link-external-02": React.lazy(
     async () => await import("./assets/link-external-02.svg?react"),

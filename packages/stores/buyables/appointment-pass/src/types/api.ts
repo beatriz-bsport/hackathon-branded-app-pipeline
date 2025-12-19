@@ -34,6 +34,9 @@ export type FetchAppointmentPassCategoriesParams = {
 
   /** Page number of the results (for pagination). */
   page?: number;
+
+  /** Include only appointment pass categories whose IDs are in this list. */
+  id__in?: number[];
 };
 
 // #endregion

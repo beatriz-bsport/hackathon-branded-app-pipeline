@@ -30,4 +30,15 @@
   input[type="time"]::-webkit-datetime-edit {
     text-align: center;
   }
+
+  /* Expanded state */
+  .layout-toggle[aria-expanded="false"] .icon-layout-right {
+    width: 0px;
+    x: 21px;
+  }
+
+  .layout-toggle[aria-expanded="true"] .icon-layout-right {
+    width: 6px;
+    x: 15px;
+  }
 }

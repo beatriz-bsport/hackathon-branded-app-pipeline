@@ -70,6 +70,7 @@ export const PackFormVisibilityDate: React.FC<PackFormVisibilityDateProps> = ({
             typeof checked === "boolean" ? checked : !addExpirationDate,
           );
         }}
+        className="w-fit"
       />
       {addExpirationDate && (
         <FormField<PackFormData, "expiration_date", DatePickerProps>

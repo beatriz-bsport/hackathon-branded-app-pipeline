@@ -43,10 +43,10 @@ export const useGetListItemConfig = ({
       id: data.id,
       title: data.name,
       ...columnStart,
+      rightTitle: data.price,
       // No Popover Info on mobile view
       customNode: isMobile ? null : (
         <PackItemPopoverInfo
-          price={data.price}
           credits={data.credits}
           category={
             data.category ? categoriesById[data.category]?.name : undefined

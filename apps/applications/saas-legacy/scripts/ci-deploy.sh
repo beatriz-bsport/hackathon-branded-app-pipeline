@@ -7,7 +7,9 @@ set -eE
 ENVIRONMENT=$1
 
 if [ "$ENVIRONMENT" = "feature-branch" ]; then
-    FRONTEND_ONLY=$2
+    # Extract FEATURE_BRANCH_IDENTIFIER, FORCE and FRONTEND_ONLY from CI_COMMIT_TAG
+    REPO_ROOT="$(git rev-parse --show-toplevel)"
+    . $REPO_ROOT/tools/scripts/parse-feature-branch-id.sh "$CI_COMMIT_TAG"
     SLACK_WEBHOOK_URL=$SLACK_READY_FOR_TEST_WEBHOOK_URL # Gitlab CI/CD variable
     if [ "$FRONTEND_ONLY" = "true" ]; then
         echo "Define variables for frontend-only feature-branch"
@@ -16,7 +18,6 @@ if [ "$ENVIRONMENT" = "feature-branch" ]; then
         echo "Define variables for frontend & backend feature-branch"
         SLACK_TEMPLATE_FILE="./ci/slack_template/slack_template_feature-branch.json"
     fi
-    FEATURE_BRANCH_IDENTIFIER=$(echo $CI_COMMIT_TAG | sed -n 's/.*deploy-\(frontend-only-\)\{0,1\}\([[:alnum:]_-]\+\).*/\2/p')
     S3_BUCKET="s3://bsport-backoffice-assets-feature-branch-$FEATURE_BRANCH_IDENTIFIER"
     FRONTEND_URL="backoffice-$FEATURE_BRANCH_IDENTIFIER.chaos.bsport.io"
     CLOUDFRONT_ID=$(grep "^$FEATURE_BRANCH_IDENTIFIER " ci/feature-branch-listing.txt | cut -d' ' -f2)

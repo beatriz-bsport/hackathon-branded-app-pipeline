@@ -168,6 +168,32 @@ pnpm exec nx dev @bsport/kaizen-primitive-core
 
 ## Quick guide
 
+### How to deploy on a feature branch
+
+We are deploying to S3/CDNs applications (legacy and revamps) and UI components libraries storybooks (kaizen).
+
+These projects have their own ci-build/ci-deploy configs, but they can be deployed on a feature branch with the same command.
+
+```bash
+# Connect with dev backend (example: bowling)
+git push -f origin deploy-frontend-only-bowling
+# Connect with a FB backend (example: theta api)
+git push -f origin deploy-theta
+```
+
+With the above commands, only the **affected projects** compared to **origin/dev** (e.g. with changes) will be deployed.
+
+If you want to force the deployment of all the assets (Micro frontends, Kaizen storybooks, saas-legacy, ...), you can add the `-force` prefix to the commands.
+
+```bash
+# Connect with dev backend (example: bowling)
+git push -f origin deploy-frontend-only-bowling-force
+# Connect with a FB backend (example: theta api)
+git push -f origin deploy-theta-force
+```
+
+See the full documentation on [Notion "feature-branch deployment" page](https://www.notion.so/bright-shovel-41b/feature-branch-deployment-35064a84165548c8a8eda27d958a2393).
+
 ### CLI commands
 
 To administrate the monorepository, a set of CLIs commands have been introduced : creation of a project, listing of dependencies, updates of translations, etc...

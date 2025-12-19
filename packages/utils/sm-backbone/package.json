@@ -6,7 +6,7 @@
   "type": "module",
   "exports": {
     ".": {
-      "types": "./build/lib.d.ts",
+      "types": "./build/index.d.ts",
       "import": "./build/lib.es.js",
       "default": "./build/lib.es.js"
     },
@@ -17,7 +17,7 @@
   },
   "main": "build/lib.es.js",
   "module": "build/lib.es.js",
-  "types": "build/lib.d.ts",
+  "types": "build/index.d.ts",
   "scripts": {
     "build": "tsc && vite build --logLevel warn",
     "ci:compile": "tsc",

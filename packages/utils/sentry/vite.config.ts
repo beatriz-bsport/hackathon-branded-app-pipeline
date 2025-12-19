@@ -10,7 +10,7 @@ export default defineConfig({
   plugins: [
     react(),
     dts({
-      rollupTypes: true, // Don't emit extra .d.ts files
+      rollupTypes: false, // Don't emit extra .d.ts files
       insertTypesEntry: true, // Generates a types entry file
     }),
   ],

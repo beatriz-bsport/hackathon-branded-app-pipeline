@@ -8,7 +8,7 @@ export default defineConfig({
   },
   plugins: [
     dts({
-      rollupTypes: true, // Don't emit extra .d.ts files
+      rollupTypes: false, // Generate individual .d.ts files with source maps
       insertTypesEntry: true, // Generates a types entry file
     }),
   ],

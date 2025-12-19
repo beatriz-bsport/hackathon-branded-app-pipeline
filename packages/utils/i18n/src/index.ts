@@ -2,7 +2,12 @@
 export * from "./constants";
 export type { i18n as I18n, TOptions } from "i18next";
 export type { UseTranslationOptions, FallbackNs } from "react-i18next";
-export type { Locale, InMemoryTranslationsLoader } from "./types";
+export type {
+  Locale,
+  InMemoryTranslationsLoader,
+  DeepKeys,
+  GetDictValue,
+} from "./types";
 export type { TFunctionGeneric } from "./translation.hook";
 
 /* ----- Export based functions that can be useful in specific cases ----- */

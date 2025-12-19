@@ -37,7 +37,7 @@ const meta: Meta<typeof Toggle> = {
       options: ["start", "end"],
       control: { type: "inline-radio" },
     },
-    onChange: {
+    onToggleChange: {
       table: { type: { summary: "function" } },
     },
   },
@@ -55,7 +55,7 @@ export const Primary: Story = {
       <Toggle
         {...args}
         checked={checked}
-        onChange={() => setChecked(!checked)}
+        onToggleChange={() => setChecked(!checked)}
       />
     );
   },
@@ -68,6 +68,6 @@ export const Primary: Story = {
     helperText: "",
     errorText: "",
     direction: "start",
-    onChange: () => console.log("onChange"),
+    onToggleChange: () => console.log("onToggleChange"),
   },
 };

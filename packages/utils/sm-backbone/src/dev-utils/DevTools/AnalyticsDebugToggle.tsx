@@ -38,7 +38,7 @@ export const AnalyticsDebugToggle = ({
       id="analytics-debug-toggle"
       checked={debugMode}
       label="Analytics Debug"
-      onChange={() => {
+      onToggleChange={() => {
         setDebugMode((prev) => {
           AnalyticsMessageBus.send(!prev);
           return !prev;

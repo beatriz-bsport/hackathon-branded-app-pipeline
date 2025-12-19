@@ -19,7 +19,7 @@ export type ToggleProps = React.InputHTMLAttributes<HTMLInputElement> &
     direction?: "start" | "end";
     helperText?: string;
     errorText?: string;
-    onChange?: (value: boolean) => void;
+    onToggleChange?: (value: boolean) => void;
   };
 
 /**
@@ -33,7 +33,7 @@ export type ToggleProps = React.InputHTMLAttributes<HTMLInputElement> &
  * @param props.direction Direction of the toggle (start or end).
  * @param props.helperText Text below the label to describe the toggle.
  * @param props.errorText Text to display when the toggle is in error.
- * @param props.onChange Function to call when the toggle is changed.
+ * @param props.onToggleChange Function to call when the toggle is changed.
  * @link https://docs.infra.bsport.io/storybook/kaizen/main/index.html?path=/docs/components-toggle--docs
  */
 const Toggle: React.FC<ToggleProps> = ({
@@ -46,12 +46,13 @@ const Toggle: React.FC<ToggleProps> = ({
   direction = "start",
   helperText,
   errorText,
-  onChange,
+  onToggleChange,
   ...props
 }) => {
   const handleCheckboxChange = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => onChange?.(e.target.checked),
-    [onChange],
+    (e: React.ChangeEvent<HTMLInputElement>) =>
+      onToggleChange?.(e.target.checked),
+    [onToggleChange],
   );
 
   return (

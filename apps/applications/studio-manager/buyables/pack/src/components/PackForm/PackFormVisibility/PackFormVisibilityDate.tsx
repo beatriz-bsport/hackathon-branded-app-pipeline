@@ -52,7 +52,7 @@ export const PackFormVisibilityDate: React.FC<PackFormVisibilityDateProps> = ({
         checked={addExpirationDate}
         id={`${fieldIdPrefix}-visibility-toggle-add-expiration-date`}
         label={t("formFields.visibilitySection.dateLimitSelector.toggleLabel")}
-        onChange={(checked) => {
+        onToggleChange={(checked) => {
           if (!checked) {
             // Save the draft value before closing
             setExpirationDateDraft(methods.watch("expiration_date"));

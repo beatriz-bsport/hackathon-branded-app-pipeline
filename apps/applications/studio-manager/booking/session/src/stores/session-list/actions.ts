@@ -70,3 +70,7 @@ export const setLocale = (locale: string) => {
 export const setFilters = (filters: FilterElementState[]) => {
   sessionListStore.setState({ filters });
 };
+
+export const setShowCancelledSessions = (show: boolean) => {
+  sessionListStore.setState({ showCancelledSessions: show });
+};

@@ -15,7 +15,11 @@ import { getCompanyTimezone } from "@bsport/timezone-utils";
 
 import { getParamsFromFilters } from "#src/components/SessionList/Filters/getParamsFromFilters";
 
-import { selectFilters, useSessionListStore } from "../stores/session-list";
+import {
+  selectFilters,
+  selectShowCancelledSessions,
+  useSessionListStore,
+} from "../stores/session-list";
 import type { EnrichedSession } from "../types";
 import { fetch } from "../utils/fetch";
 import {
@@ -126,19 +130,31 @@ const sessionsQueryOptions = (
   minDateKey: string | null,
   maxDateKey: string | null,
   filterParams: FetchSessionsParams,
+  showCancelledSessions: boolean,
 ) =>
   queryOptions({
-    queryKey: ["sessions", minDateKey, maxDateKey, filterParams],
+    queryKey: [
+      "sessions",
+      minDateKey,
+      maxDateKey,
+      filterParams,
+      showCancelledSessions,
+    ],
     queryFn: async () => {
       if (!minDateKey || !maxDateKey) {
         return [];
       }
 
-      const fetchedData = await fetchManagerSessions(fetch, {
+      const params = {
         ...filterParams,
         min_date: minDateKey,
         max_date: maxDateKey,
-      });
+      };
+      if (!showCancelledSessions) {
+        params["available"] = true;
+      }
+
+      const fetchedData = await fetchManagerSessions(fetch, params);
 
       return fetchedData;
     },
@@ -154,8 +170,17 @@ export const useSessionListData = (
   const filters = useSessionListStore(selectFilters);
   const filterParams = getParamsFromFilters(filters);
 
+  const showCancelledSessions = useSessionListStore(
+    selectShowCancelledSessions,
+  );
+
   const { data: rawSessions = [], isLoading: isLoadingSessions } = useQuery(
-    sessionsQueryOptions(minDateKey, maxDateKey, filterParams),
+    sessionsQueryOptions(
+      minDateKey,
+      maxDateKey,
+      filterParams,
+      showCancelledSessions,
+    ),
   );
 
   const { teacherIds, establishmentIds, sessionIds } = useMemo(

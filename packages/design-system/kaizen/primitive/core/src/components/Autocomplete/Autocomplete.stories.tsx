@@ -76,7 +76,7 @@ import Autocomplete from "./Autocomplete";
  * | `defaultSelectedIds`  | `string[]`                              | `[]`           | Array of item IDs that should be pre-selected.                |
  * | `searchMode`          | `"local" \| "remote"`                   | `"local"`      | Search mode: local filtering or remote API calls.             |
  * | `onValueChange`       | `(value: string) => void`               | —              | Callback triggered when input value changes.                  |
- * | `debounceValue`       | `number`                                | `500`          | Debounce duration in milliseconds for value changes.          |
+ * | `debounceValue`       | `number`                                | `300`          | Debounce duration in milliseconds for value changes.          |
  * | `fullWidth`           | `boolean`                               | `false`        | Whether the popover should take full width.                   |
  * | `popoverPlacement`    | `Placement`                             | `"bottom-left"`| Placement of the popover relative to input.                   |
  * | `disabled`            | `boolean`                               | `false`        | Disables the autocomplete and prevents interaction.           |
@@ -315,7 +315,7 @@ const meta: Meta<typeof Autocomplete> = {
         "Debounce duration in milliseconds to limit how often value change callbacks are triggered.",
       table: {
         type: { summary: "number" },
-        defaultValue: { summary: "500" },
+        defaultValue: { summary: "300" },
         category: "Performance",
       },
     },
@@ -384,6 +384,24 @@ const meta: Meta<typeof Autocomplete> = {
       table: {
         type: { summary: "string" },
         category: "Styling",
+      },
+    },
+    hideChips: {
+      control: "boolean",
+      description: "Hide the rendered chips for a multi selection",
+      table: {
+        type: { summary: "boolean" },
+        defaultValue: { summary: "false" },
+        category: "Selection",
+      },
+    },
+    showSelectedItemsInBase: {
+      control: "boolean",
+      description: "Show the selected items in the base list",
+      table: {
+        type: { summary: "boolean" },
+        defaultValue: { summary: "false" },
+        category: "Selection",
       },
     },
   },
@@ -467,6 +485,8 @@ export const Primary: Story = {
     items,
     multiSelect: true,
     fullWidth: false,
+    hideChips: false,
+    showSelectedItemsInBase: false,
   },
 };
 
@@ -490,6 +510,7 @@ export const SingleSelect: Story = {
     items,
     multiSelect: false,
     fullWidth: false,
+    defaultSelectedIds: ["french"],
   },
 };
 

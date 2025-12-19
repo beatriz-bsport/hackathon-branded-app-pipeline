@@ -1,223 +1,292 @@
-import { useCallback, useMemo } from "react";
+import { useMemo } from "react";
 
-import type { AutocompleteItems } from "#src/components/Autocomplete";
-import type { MenuOption } from "#src/components/Menu";
+import type { Item, MenuOption } from "#src/components/Menu/types";
 import { useKaizenI18nInstance, useTranslation } from "#src/i18n";
 
-type UseAutocompleteItemsParams = {
-  items: AutocompleteItems;
-  cachedItems: MenuOption[];
-  searchInput: string;
-  searchMode: "local" | "remote";
-};
+import type { AutocompleteItems } from "../types";
 
-const areStringMatching = ({
+// #region Utils
+
+type GroupItems = { title: string; options: MenuOption[] };
+
+/**
+ * Determine whether an input can be found in a specified label following these rules:
+ * - Characters don't have to be one after another
+ * - When one character is not matching, return false
+ *
+ * @example
+ * areStringsMatching({label: "Paris", input: "P"}) => true
+ * areStringsMatching({label: "Paris", input: "Po"}) => false
+ * areStringsMatching({label: "Paris", input: "Prs"}) => true
+ */
+function areStringsMatching({
   label,
   input,
 }: {
   label: string;
   input: string;
-}): boolean => {
+}): boolean {
   if (!input) return true;
-  const normalizedInput = (input || "").toLowerCase();
-  const normalizedLabel = (label || "").toLowerCase();
-  let idx = 0;
-  for (const char of normalizedInput) {
-    idx = normalizedLabel.indexOf(char, idx);
-    if (idx === -1) return false;
-    idx++;
+
+  const normalizedInput = input.toLowerCase();
+  const normalizedLabel = label.toLowerCase();
+
+  // Early exit
+  if (normalizedInput.length > normalizedLabel.length) return false;
+
+  let inputIdx = 0;
+  for (
+    let labelIdx = 0;
+    labelIdx < normalizedLabel.length && inputIdx < normalizedInput.length;
+    labelIdx++
+  ) {
+    if (
+      normalizedInput.charCodeAt(inputIdx) ===
+      normalizedLabel.charCodeAt(labelIdx)
+    ) {
+      inputIdx++;
+    }
   }
-  return true;
+
+  return inputIdx === normalizedInput.length;
+}
+
+/**
+ * Determine whether items are an array of GroupItems
+ */
+function isGroupItemsList(items: AutocompleteItems): items is GroupItems[] {
+  return Array.isArray(items) && items.length > 0 && "title" in items[0];
+}
+
+/**
+ * Filter a list of MenuOption by:
+ * - hiding selected items on demand
+ * - keeping remaining items on remote search
+ * - keeping remaining items whose label is matching the input
+ */
+function filterFlatItems({
+  hideSelectedItemsInBase = false,
+  input,
+  isLocalSearch,
+  items,
+  selectedItemsIds = null,
+}: {
+  items: MenuOption[];
+  input: string;
+  isLocalSearch: boolean;
+  hideSelectedItemsInBase?: boolean;
+  selectedItemsIds?: Set<string> | null;
+}): MenuOption[] {
+  return items.filter((option) => {
+    // 1. Hide selected items
+    if (hideSelectedItemsInBase && selectedItemsIds?.has(option.id)) {
+      return false;
+    }
+
+    // 2. Display all items on remote search
+    if (!isLocalSearch) {
+      return true;
+    }
+
+    // 3. Return only matching strings
+    return areStringsMatching({
+      label: option.label,
+      input,
+    });
+  });
+}
+
+/**
+ * Filter a list of GroupItems by keeping:
+ * - group with options matching the filterFlatItems filtering
+ * - group with label matching the input
+ */
+function filterGroupItems({
+  hideSelectedItemsInBase,
+  input,
+  isLocalSearch,
+  items,
+  selectedItemsIds,
+}: {
+  hideSelectedItemsInBase: boolean;
+  input: string;
+  isLocalSearch: boolean;
+  items: GroupItems[];
+  selectedItemsIds: Set<string>;
+}): GroupItems[] {
+  const groupsWithFilteredOptions = items.map((groupOption) => {
+    return {
+      title: groupOption.title,
+      options: filterFlatItems({
+        hideSelectedItemsInBase,
+        input,
+        isLocalSearch,
+        selectedItemsIds,
+        items: groupOption.options,
+      }),
+    };
+  });
+
+  const filteredGroups = groupsWithFilteredOptions.filter((group) => {
+    if (group.options.length > 0) {
+      return true;
+    }
+
+    const titleMatchesSearch = areStringsMatching({
+      label: group.title,
+      input,
+    });
+
+    return isLocalSearch && titleMatchesSearch;
+  });
+
+  return filteredGroups;
+}
+
+/**
+ * From a list of Grouped Items or Flat Items, build a flat list to inject in a Menu.
+ */
+function buildFlatMenuItems(items: AutocompleteItems): Item[] {
+  return items
+    .flatMap((item, index) => {
+      const isGroupedItems = "title" in item && "options" in item;
+      if (isGroupedItems) {
+        const title = {
+          type: "title" as const,
+          label: item.title,
+          id: `${item.title}-title`,
+        };
+
+        const isLastItem = items.length - 1 === index;
+
+        const divider = isLastItem
+          ? null
+          : {
+              type: "divider" as const,
+              id: `${item.title}-divider`,
+            };
+
+        return [title, ...item.options, divider].filter((x) => x != null);
+      }
+
+      return [item];
+    })
+    .filter((x) => x != null);
+}
+
+// #endregion
+
+// #region Hook
+
+type UseAutocompleteItemsProps = {
+  hideSelectedItemsInBase: boolean;
+  items: AutocompleteItems;
+  searchedValue: string;
+  searchMode: "local" | "remote";
+  selectedItems: MenuOption[];
+  selectedItemsIds: Set<string>;
 };
 
 /**
- * Custom hook for managing autocomplete items with filtering and grouping logic
+ * Hook to manage:
+ * - the filtering of the items to display
+ * - the creation of the "Selection" section
  */
 export const useAutocompleteItems = ({
+  hideSelectedItemsInBase,
   items,
-  cachedItems,
-  searchInput,
+  searchedValue,
   searchMode,
-}: UseAutocompleteItemsParams) => {
+  selectedItems,
+  selectedItemsIds,
+}: UseAutocompleteItemsProps) => {
   const i18nInstance = useKaizenI18nInstance();
-  const { t } = useTranslation("default", { i18n: i18nInstance });
+  const { t, i18n } = useTranslation("default", { i18n: i18nInstance });
 
-  // Sanitize and normalize the search input
-  const normalizedInput = (searchInput || " ").toLowerCase().trim();
+  const normalizedInput = searchedValue.trim().toLowerCase();
+  const isLocalSearch = searchMode === "local";
 
-  // Create a set of cached item IDs for efficient lookup
-  const cachedItemIds = useMemo(
-    () => new Set(cachedItems.map((item: MenuOption) => item.id)),
-    [cachedItems],
-  );
+  const filteredSelectedItems = useMemo(() => {
+    return filterFlatItems({
+      items: selectedItems,
+      input: normalizedInput,
+      isLocalSearch,
+    });
+  }, [selectedItems, normalizedInput, isLocalSearch]);
 
-  // Filter function that removes cached items and applies search filter
-  const filterAndRemoveCached = useCallback(
-    (options: MenuOption[]) => {
-      return options
-        .filter((option) => !cachedItemIds.has(option.id))
-        .filter(
-          (option) =>
-            searchMode === "remote" ||
-            areStringMatching({
-              label: option.label,
-              input: normalizedInput,
-            }),
-        );
-    },
-    [cachedItemIds, searchMode, normalizedInput],
-  );
+  const filteredBaseItems = useMemo(() => {
+    const hasGroupItems = isGroupItemsList(items);
 
-  // Helper function to check if items are grouped
-  const isGroupedItems = useCallback(
-    (
-      items: AutocompleteItems,
-    ): items is { title: string; options: MenuOption[] }[] => {
-      return Array.isArray(items) && items.length > 0 && "title" in items[0];
-    },
-    [],
-  );
-
-  // Helper function to check if a group should be included
-  const shouldIncludeGroup = useCallback(
-    (group: { title: string; options: MenuOption[] }) => {
-      const hasMatchingOptions = group.options.length > 0;
-
-      if (hasMatchingOptions) {
-        return true;
-      }
-
-      const isLocalSearch = searchMode === "local";
-      const titleMatchesSearch = areStringMatching({
-        label: group.title,
+    if (hasGroupItems) {
+      return filterGroupItems({
+        items,
+        hideSelectedItemsInBase,
         input: normalizedInput,
+        isLocalSearch,
+        selectedItemsIds,
       });
-
-      return isLocalSearch && titleMatchesSearch;
-    },
-    [searchMode, normalizedInput],
-  );
-
-  // Helper function to filter grouped items
-  const filterGroupedItems = useCallback(
-    (groupedItems: { title: string; options: MenuOption[] }[]) => {
-      return groupedItems
-        .map(({ title, options }) => ({
-          title,
-          options: filterAndRemoveCached(options),
-        }))
-        .filter(shouldIncludeGroup);
-    },
-    [filterAndRemoveCached, shouldIncludeGroup],
-  );
-
-  // Helper function to filter flat items
-  const filterFlatItems = useCallback(
-    (flatItems: MenuOption[]) => {
-      return filterAndRemoveCached(flatItems);
-    },
-    [filterAndRemoveCached],
-  );
-
-  const filterBaseItems = useCallback((): AutocompleteItems => {
-    const isGrouped = isGroupedItems(items);
-
-    if (isGrouped) {
-      return filterGroupedItems(items);
     }
 
-    return filterFlatItems(items as MenuOption[]);
-  }, [items, isGroupedItems, filterGroupedItems, filterFlatItems]);
+    return filterFlatItems({
+      items,
+      hideSelectedItemsInBase,
+      input: normalizedInput,
+      isLocalSearch,
+      selectedItemsIds,
+    });
+  }, [
+    items,
+    hideSelectedItemsInBase,
+    normalizedInput,
+    isLocalSearch,
+    selectedItemsIds,
+  ]);
 
-  // Helper function to create cached items section
-  const createCachedItemsSection = useCallback(() => {
-    return {
+  const finalItems: GroupItems[] | MenuOption[] = useMemo(() => {
+    // If no selected items matching the search, return the same base structure
+    if (selectedItemsIds.size === 0 || filteredSelectedItems.length === 0) {
+      return filteredBaseItems;
+    }
+
+    // Create a section for Selected items
+    const groupedSelectedItems = {
       title: t("autocomplete.categories.selectedItems"),
-      options: cachedItems.filter(
-        (option: MenuOption) =>
-          searchMode === "remote" ||
-          areStringMatching({
-            label: option.label,
-            input: normalizedInput,
-          }),
-      ),
+      options: filteredSelectedItems,
     };
-  }, [cachedItems, searchMode, normalizedInput, t]);
 
-  // Helper function to merge cached items with grouped base items
-  const mergeWithGroupedItems = useCallback(
-    (
-      cachedSection: { title: string; options: MenuOption[] },
-      groupedBaseItems: { title: string; options: MenuOption[] }[],
-    ) => {
-      return [cachedSection, ...groupedBaseItems];
-    },
-    [],
+    if (filteredBaseItems.length === 0) {
+      return [groupedSelectedItems];
+    }
+
+    // When base items already have a group structure, join them
+    if (isGroupItemsList(filteredBaseItems)) {
+      return [groupedSelectedItems, ...filteredBaseItems];
+    }
+
+    // Else, create a "All items" section to gather base items
+    const groupedFilteredItems = {
+      title: t("autocomplete.categories.allItems"),
+      options: filteredBaseItems,
+    };
+    return [groupedSelectedItems, groupedFilteredItems];
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [
+    filteredBaseItems,
+    filteredSelectedItems,
+    selectedItemsIds.size,
+    i18n.language,
+  ]);
+
+  // Convert filtered items to flat menu items
+  const flatMenuItems = useMemo(
+    () => buildFlatMenuItems(finalItems),
+    [finalItems],
   );
 
-  // Helper function to merge cached items with flat base items
-  const mergeWithFlatItems = useCallback(
-    (
-      cachedSection: { title: string; options: MenuOption[] },
-      flatBaseItems: MenuOption[],
-    ) => {
-      const baseSection = {
-        title: t("autocomplete.categories.allItems"),
-        options: flatBaseItems,
-      };
-
-      const hasBaseItems = baseSection.options.length > 0;
-
-      if (hasBaseItems) {
-        return [cachedSection, baseSection];
-      }
-
-      return [cachedSection];
-    },
-    [t],
-  );
-
-  const mergeBaseItemsWithCachedItems = useCallback(
-    (filteredBaseItems: AutocompleteItems): AutocompleteItems => {
-      const hasCachedItems = cachedItems.length > 0;
-
-      if (!hasCachedItems) {
-        return filteredBaseItems;
-      }
-
-      const cachedSection = createCachedItemsSection();
-      const hasMatchingCachedItems = cachedSection.options.length > 0;
-
-      if (!hasMatchingCachedItems) {
-        return filteredBaseItems;
-      }
-
-      const areBaseItemsGrouped = isGroupedItems(filteredBaseItems);
-
-      if (areBaseItemsGrouped) {
-        return mergeWithGroupedItems(cachedSection, filteredBaseItems);
-      }
-
-      return mergeWithFlatItems(
-        cachedSection,
-        filteredBaseItems as MenuOption[],
-      );
-    },
-    [
-      cachedItems,
-      createCachedItemsSection,
-      isGroupedItems,
-      mergeWithGroupedItems,
-      mergeWithFlatItems,
-    ],
-  );
-
-  const filteredItems = useMemo((): AutocompleteItems => {
-    const filteredBaseItems: AutocompleteItems = filterBaseItems();
-
-    // Combine cached section with filtered items
-    return mergeBaseItemsWithCachedItems(filteredBaseItems);
-  }, [filterBaseItems, mergeBaseItemsWithCachedItems]);
-
-  return { items: filteredItems };
+  return {
+    isListEmpty: finalItems.length === 0,
+    flatMenuItems,
+  };
 };
+
+// #endregion

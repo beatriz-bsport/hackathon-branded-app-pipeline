@@ -276,20 +276,7 @@ export function requestLogin(
       options?.onDone?.(response.data);
     } catch (err) {
       if (!noStorageClearOnError) {
-        dispatch(
-          errorLogin({
-            email:
-              err.response &&
-              err.response.data &&
-              err.response.data.errors &&
-              err.response.data.errors.email,
-            password:
-              err.response &&
-              err.response.data &&
-              err.response.data.errors &&
-              err.response.data.errors.password,
-          }),
-        );
+        dispatch(errorLogin());
       }
       if (!err.status) {
         dispatch(networkError(err));
@@ -546,11 +533,8 @@ export function requestConfirmationEmail(
   };
 }
 
-export function errorLogin(invalidFields?: {
-  email?: string,
-  password?: string,
-}) {
-  return { type: types.LOGIN_FAILED, invalidFields };
+export function errorLogin() {
+  return { type: types.LOGIN_FAILED };
 }
 
 export function initiatedLogin(username: string) {

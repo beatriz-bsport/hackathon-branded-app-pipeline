@@ -1,25 +1,29 @@
 import { cva } from "class-variance-authority";
 import classNames from "classnames";
-import React, {
-  ChangeEvent,
-  FocusEvent,
-  useCallback,
-  useEffect,
-  useMemo,
-  useState,
-} from "react";
+import React, { ChangeEvent, FocusEvent, useEffect, useState } from "react";
 
-import { useAutocompleteItems } from "#src/components/Autocomplete/hooks/use-autocomplete-items";
-import { useAutocompleteSelection } from "#src/components/Autocomplete/hooks/use-autocomplete-selection";
 import Body from "#src/components/Body";
-import Chip from "#src/components/Chip";
 import Loader from "#src/components/Loader";
 import Menu from "#src/components/Menu";
-import type { Item, MenuOption } from "#src/components/Menu/types";
+import type { MenuOption } from "#src/components/Menu/types";
 import Popover from "#src/components/Popover";
 import TextField, { type TextFieldProps } from "#src/components/TextField";
 import type { Placement } from "#src/hooks";
-import useDebounce from "#src/hooks/debounce";
+import { useKaizenI18nInstance, useTranslation } from "#src/i18n";
+
+import { AutocompleteChips } from "./AutocompleteChips";
+import { useAutocompleteItems } from "./hooks/use-autocomplete-items";
+import {
+  type UseSelectedItemsProps,
+  useSelectedItems,
+} from "./hooks/use-selected-items";
+import { useTextFieldState } from "./hooks/use-text-field-state";
+import type {
+  AutocompleteItems,
+  MapIdToOption,
+  MultiSelectAutocompleteProps,
+  SingleSelectAutocompleteProps,
+} from "./types";
 
 const defaultClasses = ["flex", "flex-col", "gap-sm"] as const;
 
@@ -31,13 +35,6 @@ const autocomplete = cva(defaultClasses, {
     },
   },
 });
-
-export type AutocompleteItems =
-  | {
-      title: string;
-      options: MenuOption[];
-    }[]
-  | MenuOption[];
 
 type BaseAutocompleteProps = Omit<
   React.HTMLAttributes<HTMLDivElement>,
@@ -70,25 +67,14 @@ type BaseAutocompleteProps = Omit<
   clearOnSelect?: boolean;
   /** Callback function triggered when the textfield clear action is performed */
   onClear?: () => void;
+  /** Whether to not display chips in a multi select context */
+  hideChips?: boolean;
+  /** Whether to display selected items in the base items list, as they are grouped in a "Selected" section */
+  showSelectedItemsInBase?: boolean;
 };
 
-type MultiSelectAutocompleteProps = BaseAutocompleteProps & {
-  /** Enable multi-selection mode using checkboxes instead of radio buttons */
-  multiSelect: true;
-  /** Callback function triggered when items are selected (multi-select mode) */
-  onSelect?: (selectedValues: string[]) => void;
-};
-
-type SingleSelectAutocompleteProps = BaseAutocompleteProps & {
-  /** Enable multi-selection mode using checkboxes instead of radio buttons */
-  multiSelect?: false;
-  /** Callback function triggered when an item is selected (single-select mode) */
-  onSelect?: (selectedValue: string) => void;
-};
-
-export type AutocompleteProps =
-  | MultiSelectAutocompleteProps
-  | SingleSelectAutocompleteProps;
+export type AutocompleteProps = BaseAutocompleteProps &
+  (MultiSelectAutocompleteProps | SingleSelectAutocompleteProps);
 
 /**
  * Autocomplete Component
@@ -102,7 +88,7 @@ const Autocomplete: React.FC<AutocompleteProps> = ({
   textfieldProps,
   items,
   fullWidth = false,
-  debounceValue = 500,
+  debounceValue = 300,
   loadingProps,
   popoverPlacement = "bottom-left",
   multiSelect = false,
@@ -112,192 +98,71 @@ const Autocomplete: React.FC<AutocompleteProps> = ({
   onValueChange,
   disabled,
   clearOnSelect = false,
+  hideChips = false,
+  showSelectedItemsInBase = false,
   onClear,
   ...props
 }) => {
-  const textFieldRef = React.useRef<HTMLInputElement | null>(null);
-  // Use custom hooks for state management
+  const i18nInstance = useKaizenI18nInstance();
+  const { t } = useTranslation("default", { i18n: i18nInstance });
+
+  const [mapIdToOption, setMapIdToOption] = useState<MapIdToOption>(
+    new Map<string, MenuOption>(),
+  );
+
+  /**
+   * Maintains a persistent lookup map of all items ever seen.
+   * This allows retrieving full item details for selected items
+   * even when they're filtered out of the current results.
+   */
+  useEffect(() => {
+    const newMapIdToOption: MapIdToOption = new Map();
+
+    const flattenOptions = items.flatMap((item) =>
+      "options" in item ? item.options : [item],
+    );
+    for (const option of flattenOptions) {
+      newMapIdToOption.set(option.id, option);
+    }
+
+    setMapIdToOption((prev) => new Map([...prev, ...newMapIdToOption]));
+  }, [items]);
+
   const {
-    selectedValues,
-    setSelectedValues,
-    cachedItems,
-    setCachedItems,
-    textfieldValue,
-    setTextFieldValue,
+    textFieldRef,
+    textFieldValue,
     searchedValue,
-    setSearchedValue,
-  } = useAutocompleteSelection(
-    items,
+    setTextFieldValue,
+    handleTextFieldChange,
+    isDebouncing,
+    clearInput,
+  } = useTextFieldState({
+    debounceValue,
     defaultSelectedIds,
     multiSelect,
-    textfieldProps,
-  );
-
-  const { items: filteredItems } = useAutocompleteItems({
-    items,
-    cachedItems,
-    searchInput: searchedValue,
-    searchMode,
+    onValueChange,
+    textFieldDefaultValue: textfieldProps?.value,
+    mapIdToOption,
   });
 
-  const [isDebouncing, setIsDebouncing] = useState(false);
-
-  // Debounced value change handler
-  const debouncedOnChange = useDebounce((value: string) => {
-    if (onValueChange) {
-      onValueChange(value);
-    }
-    setSearchedValue(value);
-    setIsDebouncing(false);
-  }, debounceValue);
-
-  // Handle text field input changes
-  const handleTextFieldChange = useCallback(
-    (
-      event: ChangeEvent<HTMLInputElement>,
-      setIsPopoverOpened: (open: boolean) => void,
-    ) => {
-      const inputValue = event.target.value || "";
-
-      setTextFieldValue(inputValue);
-      if (searchMode === "remote") {
-        setIsDebouncing(true);
-        setIsPopoverOpened(true);
-        debouncedOnChange(inputValue);
-      }
-
-      if (searchMode === "local") {
-        setIsDebouncing(true);
-        debouncedOnChange(inputValue);
-      }
-    },
-    [searchMode, debouncedOnChange, setTextFieldValue],
-  );
-
-  // Handle item selection
-  const handleSelect = useCallback(
-    (value: string, setIsPopoverOpened: (open: boolean) => void) => {
-      const selectedItem = filteredItems
-        .flatMap((item) => ("options" in item ? item.options : [item]))
-        .find((option) => option.id === value);
-      if (!selectedItem) return;
-
-      if (!multiSelect && clearOnSelect) {
-        const singleValue = value || "";
-        setSelectedValues([singleValue]);
-        setSearchedValue("");
-        setTextFieldValue("");
-        setIsPopoverOpened(false);
-        return;
-      }
-
-      // Update cached items
-      setCachedItems((prev) => {
-        const existingItem = prev.find((item) => item.id === value);
-        if (existingItem) {
-          return prev.filter((item) => item.id !== value);
-        }
-        if (multiSelect) {
-          return [...prev, selectedItem];
-        }
-        return [selectedItem];
-      });
-      // Update selected values
-      setSelectedValues((prev) => {
-        if (multiSelect) {
-          return prev.includes(value)
-            ? prev.filter((v) => v !== value)
-            : [...prev, value];
-        }
-
-        return [value];
-      });
-
-      // For single-select, update input and close popover
-      if (!multiSelect) {
-        setTextFieldValue(selectedItem.label);
-        setIsPopoverOpened(false);
-      }
-    },
-    [
-      filteredItems,
-      setCachedItems,
-      setSelectedValues,
-      multiSelect,
-      clearOnSelect,
-      setTextFieldValue,
-    ],
-  );
-
-  // Generate chips for multi-select display
-  const chips = useMemo(() => {
-    if (!multiSelect) return undefined;
-
-    return selectedValues
-      .map((value) => {
-        const item = cachedItems.find((i) => i.id === value);
-        if (!item) return null;
-        return {
-          id: value,
-          label: item.label || "",
-          type: "weak" as const,
-          color: "main" as const,
-          size: "lg" as const,
-          dismissible: true,
-          onClick: () => {
-            setCachedItems((prev) => prev.filter((i) => i.id !== value));
-            setSelectedValues((prev) => prev.filter((v) => v !== value));
-          },
-        };
-      })
-      .filter((chip): chip is NonNullable<typeof chip> => chip !== null);
-  }, [
+  const { selectedItems, selectedItemsIds, toggleItem } = useSelectedItems({
+    defaultSelectedIds,
+    mapIdToOption,
     multiSelect,
-    selectedValues,
-    cachedItems,
-    setCachedItems,
-    setSelectedValues,
-  ]);
+    onSelect,
+    // Type assertion needed: onSelect signature varies based on multiSelect discriminant
+  } as UseSelectedItemsProps);
 
-  // Convert filtered items to flat menu items
-  const flatMenuItems = useMemo(() => {
-    return filteredItems
-      .flatMap((item, index, array) => {
-        if ("title" in item && "options" in item) {
-          const title = {
-            type: "title" as const,
-            label: item.title,
-            id: `${item.title}-title`,
-          };
+  const { flatMenuItems, isListEmpty } = useAutocompleteItems({
+    hideSelectedItemsInBase: !showSelectedItemsInBase,
+    items,
+    searchedValue,
+    searchMode,
+    selectedItems,
+    selectedItemsIds,
+  });
 
-          const divider =
-            array.length - 1 !== index
-              ? {
-                  type: "divider" as const,
-                  id: `${item.title}-divider`,
-                }
-              : null;
-
-          return [title, ...item.options, divider].filter((x) => x !== null);
-        }
-        return [item];
-      })
-      .filter((x) => x !== null) as Item[];
-  }, [filteredItems]);
-
-  useEffect(() => {
-    // Call onSelect with appropriate parameter based on multiSelect mode
-    if (onSelect) {
-      if (multiSelect) {
-        // In multi-select mode, pass the array
-        (onSelect as (selectedValues: string[]) => void)(selectedValues);
-      } else {
-        // In single-select mode, pass the first selected value or empty string
-        const singleValue = selectedValues[0] || "";
-        (onSelect as (selectedValue: string) => void)(singleValue);
-      }
-    }
-  }, [selectedValues]);
+  const isLoading = isDebouncing || loadingProps?.isLoading;
 
   return (
     <div
@@ -307,16 +172,20 @@ const Autocomplete: React.FC<AutocompleteProps> = ({
       <Popover className={classNames({ "w-full": fullWidth })}>
         <Popover.Anchor>
           {({ setIsPopoverOpened, isPopoverOpened }) => {
-            const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+            const openPopover = () => {
               if (!isPopoverOpened) {
                 setIsPopoverOpened(true);
               }
-              handleTextFieldChange(e, setIsPopoverOpened);
+            };
+
+            const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+              openPopover();
+              handleTextFieldChange(e.target.value);
               props.onChange?.(e);
             };
 
             const handleFocus = (e: FocusEvent<HTMLInputElement>) => {
-              setIsPopoverOpened(filteredItems.length > 0);
+              openPopover();
               props.onFocus?.(e);
             };
 
@@ -325,73 +194,87 @@ const Autocomplete: React.FC<AutocompleteProps> = ({
                 disabled={disabled}
                 inputRef={textFieldRef}
                 {...textfieldProps}
-                value={textfieldValue}
+                value={textFieldValue}
                 onChange={handleChange}
                 onFocus={handleFocus}
+                onClick={openPopover}
                 id={textfieldProps.id}
                 autocomplete="off"
                 fullWidth={fullWidth || textfieldProps.fullWidth}
                 onClear={() => {
-                  setTextFieldValue("");
-                  setSearchedValue("");
-                  if (onValueChange) onValueChange("");
+                  clearInput();
                   onClear?.();
                 }}
               />
             );
           }}
         </Popover.Anchor>
-        {(filteredItems.length > 0 ||
-          isDebouncing ||
-          loadingProps?.isLoading) && (
-          <Popover.Content
-            placement={popoverPlacement}
-            className={classNames({ "w-full": fullWidth })}
-            maxWidthPx={
-              textFieldRef.current?.getBoundingClientRect().width || undefined
-            }
-          >
-            {({ setIsPopoverOpened }) => {
-              if (isDebouncing || loadingProps?.isLoading) {
-                return (
-                  <div
-                    className="flex items-center justify-center p-4"
-                    role="status"
-                    aria-live="polite"
-                  >
-                    <Loader size="md" />
-                    {loadingProps?.message && (
-                      <Body htmlVariant="span" className="ml-2">
-                        {loadingProps.message}
-                      </Body>
-                    )}
-                  </div>
-                );
-              }
 
+        <Popover.Content
+          placement={popoverPlacement}
+          className={classNames({ "w-full": fullWidth })}
+          maxWidthPx={
+            textFieldRef.current?.getBoundingClientRect().width || undefined
+          }
+        >
+          {({ setIsPopoverOpened }) => {
+            if (isLoading) {
+              const loadingMessage = loadingProps?.message;
               return (
-                <Menu
-                  multiSelect={multiSelect}
-                  items={flatMenuItems}
-                  onSelectOption={(value) => {
-                    handleSelect(value, setIsPopoverOpened);
-                  }}
-                  selectedValues={selectedValues}
-                />
+                <div
+                  className="flex items-center justify-center p-4 gap-md"
+                  role="status"
+                  aria-live="polite"
+                >
+                  <Loader size="md" />
+
+                  {loadingMessage && (
+                    <Body htmlVariant="span">{loadingMessage}</Body>
+                  )}
+                </div>
               );
-            }}
-          </Popover.Content>
-        )}
+            }
+
+            if (isListEmpty) {
+              return (
+                <div className="flex items-center justify-center p-4">
+                  <Body>{t("emptyState.noResultsFound.title")}</Body>
+                </div>
+              );
+            }
+
+            return (
+              <Menu
+                multiSelect={multiSelect}
+                items={flatMenuItems}
+                onSelectOption={(value) => {
+                  const item = toggleItem(value);
+
+                  if (!item) return;
+
+                  if (!multiSelect) {
+                    if (clearOnSelect) {
+                      clearInput();
+                    } else {
+                      setTextFieldValue(item.label);
+                    }
+
+                    setIsPopoverOpened(false);
+                  }
+                }}
+                selectedValues={Array.from(selectedItemsIds)}
+              />
+            );
+          }}
+        </Popover.Content>
       </Popover>
-      <div>
-        {chips && chips.length > 0 ? (
-          <div className="flex flex-wrap gap-2xs">
-            {chips.map((chip, index) => (
-              <Chip key={chip.id || index} {...chip} />
-            ))}
-          </div>
-        ) : null}
-      </div>
+
+      <AutocompleteChips
+        hideChips={hideChips}
+        multiSelect={multiSelect}
+        onDismissChip={toggleItem}
+        selectedItems={selectedItems}
+      />
     </div>
   );
 };

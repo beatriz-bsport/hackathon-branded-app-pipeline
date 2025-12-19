@@ -56,15 +56,23 @@ export class MixpanelAdapter implements AnalyticsAdapter {
 
     if (!mixpanelToken) throw new Error("[Mixpanel] No token provided !");
 
+    const mixpanelConfig: Partial<MixpanelConfig> = {
+      // Override the default config to
+      // 1. prevent sending cookies with non-https requests
+      secure_cookie: true,
+      // 2. prevent mixing cookies across bsport.io subdomains
+      cross_subdomain_cookie: false,
+      ...otherConfig,
+    };
     if (this.instanceName) {
       // Call init with a third argument, that will return a unique mixpanel instance
       this.instance = this.instance.init(
         mixpanelToken,
-        otherConfig,
+        mixpanelConfig,
         this.instanceName,
       ) as OverridedMixpanel;
     } else {
-      this.instance.init(mixpanelToken, otherConfig);
+      this.instance.init(mixpanelToken, mixpanelConfig);
     }
 
     console.log(

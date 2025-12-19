@@ -45,6 +45,10 @@
       "title": "This page has unsaved changes.",
       "discard": "Discard",
       "save": "Save changes"
+    },
+    "panelControlButton": {
+      "openPanel": "Open panel",
+      "closePanel": "Close panel"
     }
   },
   "datePicker": {

@@ -32,6 +32,7 @@ type SelectedItemsContextType = {
     ids: number[];
     variant: ItemVariant;
   }) => void;
+  isDirtySelection: boolean;
 };
 
 const SelectedItemsContext = createContext<SelectedItemsContextType | null>(
@@ -48,6 +49,7 @@ export const SelectedItemsContextProvider = ({
   setPasses,
   setAppointmentPasses,
   setWebshopItems,
+  isDirtySelection,
 }: PropsWithChildren<{
   passes: number[];
   appointmentPasses: number[];
@@ -55,6 +57,7 @@ export const SelectedItemsContextProvider = ({
   setPasses: (nextValues: number[]) => void;
   setAppointmentPasses: (nextValues: number[]) => void;
   setWebshopItems: (nextValues: number[]) => void;
+  isDirtySelection: boolean;
 }>) => {
   /** ----- INTERNAL HELPERS ----- */
 
@@ -161,6 +164,7 @@ export const SelectedItemsContextProvider = ({
         removeVariantItem,
         setPreselectedItems,
         setVariantItems,
+        isDirtySelection,
       }}
     >
       {children}

@@ -8,6 +8,7 @@ import type { Pack, PackFormEditData } from "@bsport/store-buyables-pack";
 import { PackDeleteModal } from "#src/components/PackDeleteModal";
 import { PackEditNameModal } from "#src/components/PackEditNameModal";
 import {
+  DEFAULT_FORM_DATA,
   type PackFormSchema,
   usePackSchema,
 } from "#src/components/PackForm/schema";
@@ -113,7 +114,17 @@ export const PackDetailsPage: FC<PackDetailsPageProps> = ({ pack }) => {
       return;
     }
 
-    handleUpdatePack({ ...methods.getValues(), id: pack.id });
+    const formValues = methods.getValues();
+    const finalData: PackFormEditData = {
+      id: pack.id,
+      ...formValues,
+      // Sanitize Payment Methods
+      available_payment_method_identifiers: formValues.manager_only
+        ? DEFAULT_FORM_DATA.available_payment_method_identifiers
+        : formValues.available_payment_method_identifiers,
+    };
+
+    handleUpdatePack(finalData);
   };
 
   // Whether some fields have different values compared to the default values
@@ -128,10 +139,12 @@ export const PackDetailsPage: FC<PackDetailsPageProps> = ({ pack }) => {
 
   const currentFormName = methods.watch("name");
 
+  const dirtyFields = methods.formState.dirtyFields;
+
   return (
     <>
       <ControlledForm {...methods} onSubmit={console.log} id={formId}>
-        <DetailsLayout {...detailsLayoutProps} openPanelByDefault>
+        <DetailsLayout {...detailsLayoutProps} withPanel>
           <PackDetailsHeader
             methods={methods}
             onDeleteClick={onOpenDeleteModal}
@@ -159,6 +172,11 @@ export const PackDetailsPage: FC<PackDetailsPageProps> = ({ pack }) => {
                 shouldDirty: true,
               });
             }}
+            isDirtySelection={
+              !!dirtyFields.payment_pack_ids ||
+              !!dirtyFields.private_pass_ids ||
+              !!dirtyFields.shop_item_ids
+            }
           >
             <PackDetailsContent fieldIdPrefix={formId} methods={methods} />
           </SelectedItemsContextProvider>

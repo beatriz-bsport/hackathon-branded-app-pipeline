@@ -64,6 +64,9 @@ export type FetchPassCategoriesParams = {
 
   /** Page number of the results (for pagination). */
   page?: number;
+
+  /** Include only pass categories whose IDs are in this list. */
+  id__in?: number[];
 };
 
 // #endregion

@@ -1,4 +1,9 @@
-import { type ApiConfig, buildUrlParams } from "@bsport/store-base";
+import {
+  type ApiConfig,
+  DEFAULT_PAGE,
+  DEFAULT_PAGE_SIZE,
+  buildUrlParams,
+} from "@bsport/store-base";
 
 import type { FetchPassCategoriesParams } from "#src/types";
 
@@ -9,5 +14,15 @@ const PASS_CATEGORY_API_URL = `${API_URL}/payment-pack-category`;
 export const fetchPassCategoriesAPI = (
   params?: FetchPassCategoriesParams,
 ): ApiConfig => {
-  return [`${PASS_CATEGORY_API_URL}/${buildUrlParams(params ?? {})}`];
+  const { id__in, page, page_size, ...otherParams } = params ?? {};
+
+  const defaultPageSize = id__in?.length ? id__in.length : DEFAULT_PAGE_SIZE;
+  const finalParams = {
+    page_size: page_size ?? defaultPageSize,
+    page: page ?? DEFAULT_PAGE,
+    ...(id__in?.length ? { id__in } : {}),
+    ...otherParams,
+  };
+
+  return [`${PASS_CATEGORY_API_URL}/${buildUrlParams(finalParams)}`];
 };

@@ -29,6 +29,8 @@ import {
   applyGiftcardOnInvoiceActions,
   generateInvoiceXmlActions,
   generateInvoiceXmlBulkActions,
+  getSequentialNumberingStatusActions,
+  initializeLegalIdentifierLegacyActions,
   checkFiskalyOnboardingStatusActions,
   getFiskalyOnboardingRequirementsActions,
   onboardFiskalyCompanyActions,
@@ -48,6 +50,7 @@ import type {
   PlannedPaymentEventSerializer,
   FiskalyOnboardingRequirement,
   FiskalySignEsInvoiceDetails,
+  SequentialNumberingStatusResponse,
 } from '#src/libs/invoice/types';
 import type { PaymentItem } from '#src/libs/invoice/payment/types';
 import type { InvoiceItem } from '#src/libs/invoice/invoice-item/types';
@@ -152,6 +155,15 @@ const initialState: Immutable.Immutable<InvoiceState> = Immutable<InvoiceState>(
       signedAgreementFile: null,
       isLoadingSignedAgreement: false,
       isUploadingSignedAgreement: false,
+    },
+    sequentialNumberingStatus: {
+      loading: false,
+      error: null,
+      result: null,
+    },
+    initializeLegalIdentifierLegacy: {
+      loading: false,
+      error: null,
     },
   },
 );
@@ -832,6 +844,43 @@ export default handleActions<Immutable.Immutable<InvoiceState>, any>(
       { payload }: { payload: Error | null },
     ) => {
       return state.setIn(['fiskalySignEsInvoice', 'error'], payload);
+    },
+    [getSequentialNumberingStatusActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(['sequentialNumberingStatus', 'loading'], payload);
+    },
+    [getSequentialNumberingStatusActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(['sequentialNumberingStatus', 'error'], payload);
+    },
+    [getSequentialNumberingStatusActions.success.toString()]: (
+      state,
+      { payload }: { payload: SequentialNumberingStatusResponse },
+    ) => {
+      return state.setIn(['sequentialNumberingStatus', 'result'], payload);
+    },
+    [initializeLegalIdentifierLegacyActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(
+        ['initializeLegalIdentifierLegacy', 'loading'],
+        payload,
+      );
+    },
+    [initializeLegalIdentifierLegacyActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(['initializeLegalIdentifierLegacy', 'error'], payload);
+    },
+    [initializeLegalIdentifierLegacyActions.success.toString()]: (state) => {
+      // Success is handled by refetching status, no need to store response
+      return state;
     },
     [manuallySendInvoiceToSignEsActions.success.toString()]: (
       state,

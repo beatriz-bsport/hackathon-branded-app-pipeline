@@ -53,7 +53,7 @@ export type InvoiceState = ErrorAndLoading & {
     result: FiskalySignEsInvoiceDetails | null;
   };
   loadingSpecific: false;
-  errorSpecific: Error;
+  errorSpecific: Error | null;
   editEstablishmentBillingGroup: ErrorAndLoading;
   fiskalyOnboarding: ErrorAndLoading & {
     isOnboarded: boolean | null;
@@ -65,6 +65,10 @@ export type InvoiceState = ErrorAndLoading & {
     isLoadingSignedAgreement: boolean;
     isUploadingSignedAgreement: boolean;
   };
+  sequentialNumberingStatus: ErrorAndLoading & {
+    result: SequentialNumberingStatusResponse | null;
+  };
+  initializeLegalIdentifierLegacy: ErrorAndLoading;
 };
 
 export enum InvoiceType {
@@ -394,6 +398,47 @@ export type FiskalySignEsInvoiceDetails = {
   sign_es_signature_status: string;
   current_invoice_not_sent_reasons: Array<FiskalySignEsError> | null;
   validation_errors: Array<FiskalySignEsError> | null;
+};
+
+export type SequentialNumberingStatusResponse = {
+  legal_identifier_activated: boolean;
+  date_legal_identifier_activated: string | null;
+  invoice_prefix: string;
+  invoice_suffix: string;
+  invoice_identifier_format: number;
+  incremental_invoice_number: number;
+  bsport_first_invoice_number: number;
+  first_timestamp_to_check: string;
+  last_invoice_before_end_of_last_month: {
+    uuid: string;
+    issue_date: string;
+    member_name: string;
+    amount_due_cts: number;
+  } | null;
+};
+
+export type InitializeLegalIdentifierLegacyRequest = {
+  date_to_start: string;
+  prefix: string;
+  suffix: string;
+  format_: number;
+  first_invoice_number: number;
+};
+
+export type InitializeLegalIdentifierLegacyResponse = {
+  date_start: string;
+  updated_invoices_count: number;
+  first_invoice_number: number;
+  first_invoice: {
+    uuid: string;
+    invoice_legal_identifier: string;
+    issue_date: string;
+  } | null;
+  last_invoice: {
+    uuid: string;
+    invoice_legal_identifier: string;
+    issue_date: string;
+  } | null;
 };
 
 export type ManuallySendInvoiceToSignEsCallback = (

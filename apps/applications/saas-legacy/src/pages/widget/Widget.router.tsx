@@ -9,8 +9,6 @@ import {
 import { connect, ConnectedComponent, ConnectedProps } from 'react-redux';
 import { compose } from 'recompose';
 
-// @ts-expect-error
-import asyncComponent from '../../AsyncComponent';
 import themeSelectors from '../../libs/theme/selectors';
 // @ts-expect-error
 import { getTheme } from '../../theme';
@@ -25,8 +23,6 @@ import { ConsumerSpaceContextEnum } from '#src/libs/consumer-space/constants';
 //@ts-expect-error
 import BasketPage from '#src/pages/checkout/basket/Basket.page';
 import { requestOptInTrackingB2C as requestOptInTrackingB2CAction } from '#src/components/analytics/actions';
-
-const BridgeWidget = asyncComponent(() => import('./BridgeWidget.page'));
 
 type RouterProps = {
   companyId: number;
@@ -66,10 +62,6 @@ class WidgetRouter extends React.Component<Props> {
     return (
       <MuiThemeProvider theme={getTheme(this.props.theme)}>
         <Switch>
-          <Route
-            component={BridgeWidget}
-            path="/widget/:companyName/:companyId/bridge"
-          />
           <Route
             component={BasketPage}
             path="/widget/:companyName/:companyId/basket"

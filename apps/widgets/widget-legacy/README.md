@@ -88,15 +88,14 @@ An iframe is a complete different website encapsulated into another. It does not
 
 We leverage this feature to build a _bridge_ between the widget and the @bsport/saas-legacy project.
 
-### The BackofficeDataBridge
+### The ProxyBridge.component
 
-Inside `libs/bridge/BackofficeDataBridge` we spawn a 1px iframe that displays an empty, fully isolated page.
+Inside `libs/bridge/ProxyBridge.component` we spawn a 1px iframe that displays an empty, fully isolated page.
 
 This webpage has the following properties :
 
 - does not share any data by default with the main website (except browser compromised)
 - it is automatically authenticated to the bsport servers, as is the main backoffice
-- has the full redux store of @bsport/saas-legacy (consumer-side)
 - it can receive message from the main website via `postMessage`
 - it can answer non privacy-sensitive messages with the widget (aka the whole website)
 
@@ -106,40 +105,26 @@ This webpage has the following properties :
 
 In `libs/bridge/BackofficeDataBridge`
 
-- when mounted it prepare an iframe of the backoffice (`pages/widget/WidgetBridge`)
+- when mounted it prepare an iframe of a small app acting as http proxy (`@bsport/widget-proxy-bridge`)
 - if an iframe with this ID already exists, it mounts but without the iframe, not to load too much js several times and for consistency
 
-2. When needed dispatch actions
+2. When needed to trigger an API call
 
-In `libs/bridge/actions`
+In `libs/api`
 
-- has a few requestBridgeXXXXX methods to speak the backoffice
-- when dispatched it updates its reducer store to put some loading for instance
+- will check for the existence of the iframe in the page
+- If it's there, send a message to the iframe instead of calling API directly
+- Wait for an answer from the iframe
 
-3. Handled by @bsport/saas-legacy
+3. Handled by @bsport/widget-proxy-bridge
 
-In `@bsport/saas-legacy: pages/widget/WidgetBridge.page`
-
-- has an eventListener and prepare the data based on each message type
+- has an eventListener and call API with the token stored in bsport.io localstorage
 - send the postMessage containing what it needs to be transmitted
 
-4. Sanitized data handled by the widget
+## But why a widget and not everything in the client website?
 
-In `libs/bridge/BackofficeDataBridge`
-
-- has an event listener for these messages
-- dispatch other success redux actions to update the redux store when received
-
-## But why a widget and not just a global iframe?
-
-- Interaction between the frame and the hosting page is tricky and not recommended
-- You can only display content within the iframe, no floating button or modal
-- iframe and content resizing is impossible or very clumsy / hard
-- iframe sandboxing can result in missing functionalities, also no responsiveness (the iframe only know its size, not the webpage one)
-
-## My selector doesn't work ?
-
-If your selector doesn't work, it can be because the widget has his own reducer. Add the field you want in `src/reducers/index.ts`
+- No token in client localstorage
+- No critical flow on client website (login / payment)
 
 ### Read more
 

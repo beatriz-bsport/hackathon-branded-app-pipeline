@@ -1,5 +1,5 @@
-import React from 'react';
-import { compose, withHandlers } from 'recompose';
+import React, { useEffect, useState } from 'react';
+import { compose } from 'recompose';
 import themify from '@bsport/saas-legacy/src/hocs/company-themifier.hoc';
 
 import {
@@ -7,32 +7,19 @@ import {
   createStyles,
 } from '@bsport/saas-legacy/node_modules/@material-ui/core/styles';
 import type { WithStyles } from '@bsport/saas-legacy/node_modules/@material-ui/core/styles';
-import { connect } from 'react-redux';
+import { connect, ConnectedProps } from 'react-redux';
 import withLoginDisconnectedStatus from '../hocs/withLoginDisconnectedStatus.hoc';
 
 /* IMPORT WIDGETS */
-import { UnconnectedConsumerBookingPage } from '@bsport/saas-legacy/src/pages/consumer/ConsumerBookingReworked.page';
-import { UnconnectedConsumerPass } from '@bsport/saas-legacy/src/pages/consumer/ConsumerPassReworked.page';
-import {
-  UnconnectedConsumerSubscription,
-  consumerSubscriptionMapWithHandlers,
-} from '@bsport/saas-legacy/src/pages/consumer/ConsumerSubscriptionReworked.page';
-import { UnconnectedConsumerProfile } from '@bsport/saas-legacy/src/pages/consumer/ConsumerProfileReworked.page';
-import {
-  UnconnectedConsumerInvoiceReworked,
-  mapWithConsumerInvoiceReworkedHandlers,
-} from '@bsport/saas-legacy/src/pages/consumer/ConsumerInvoiceReworked.page';
+import ConsumerBookingPage from '@bsport/saas-legacy/src/pages/consumer/ConsumerBookingReworked.page';
+import ConsumerPassPage from '@bsport/saas-legacy/src/pages/consumer/ConsumerPassReworked.page';
+import ConsumerSubscriptionPage from '@bsport/saas-legacy/src/pages/consumer/ConsumerSubscriptionReworked.page';
+import ConsumerProfile from '@bsport/saas-legacy/src/pages/consumer/ConsumerProfileReworked.page';
+import ConsumerInvoiceReworked from '@bsport/saas-legacy/src/pages/consumer/ConsumerInvoiceReworked.page';
+import { bridgeRequestLogout as bridgeRequestLogoutAction } from '../libs/bridge/actions';
 
 /* COMPONENTS & UTILS */
 import ConsumerNavigation from '@bsport/saas-legacy/src/libs/consumer-space/components/reworked/@Navigation/ConsumerNavigation/ConsumerNavigation.component';
-import {
-  consumerBookingBridgeSelectors,
-  consumerInvoiceBridgeSelectors,
-  consumerPassBridgeSelectors,
-  consumerProfileBridgeSelectors,
-  consumerSpaceCommonBridgeSelectors,
-  consumerSubscriptionBridgeSelectors,
-} from '../libs/bridge/consumer-space/consumerSpaceBridgeSelectors';
 import withPostMessageOnPropsUpdate from '@bsport/saas-legacy/src/hocs/postMessages/with-post-message-on-props-update';
 import withPostMessageToUpdateProps from '@bsport/saas-legacy/src/hocs/postMessages/with-post-message-to-update-props';
 import { ConsumerSpacePageValidationSchema } from '@bsport/saas-legacy/src/libs/marketplace/utils/post-message-props-update';
@@ -43,136 +30,94 @@ import type {
   ConsumerSpaceWidgetConfig,
   ConsumerSpaceWidgetPage,
 } from '@bsport/saas-legacy/src/libs/exportable-components/types';
-import {
-  consumerBookingBridgeActions,
-  consumerInvoiceBridgeActions,
-  consumerPassBridgeActions,
-  consumerProfileBridgeActions,
-  consumerSpaceCommonBridgeActions,
-  consumerSubscriptionBridgeActions,
-} from '../libs/bridge/consumer-space/consumerSpaceBridgeActions';
 import { ConsumerSpaceContextEnum } from '@bsport/saas-legacy/src/libs/consumer-space/constants';
 import WidgetUtils from '@bsport/saas-legacy/src/libs/widget/WidgetUtils';
+import { RootState } from '@bsport/saas-legacy/src/reducers';
+import { getMembership } from '@bsport/saas-legacy/src/libs/membership/selectors';
+import { fetchMembershipByCompany as fetchMembershipByCompanyAction } from '@bsport/saas-legacy/src/libs/membership/actions';
 
 type OwnProps = {
-  companyId: number,
-  theme: CompanyTheme,
-  timezone: string,
-  config: ConsumerSpaceWidgetConfig,
+  companyId: number;
+  theme: CompanyTheme;
+  timezone: string;
+  config: ConsumerSpaceWidgetConfig;
   /** Dynamic prop that can change  with postMessages */
-  page: ConsumerSpaceWidgetPage,
+  page: ConsumerSpaceWidgetPage;
 };
 
-type ConnectedProps = ReturnType<typeof consumerSpaceCommonBridgeSelectors> &
-  typeof consumerSpaceCommonBridgeActions;
-
-type State = {
-  selectedPage: ConsumerSpaceWidgetPage,
-};
-
-type Props = OwnProps & WithStyles<ReturnType<typeof styles>> & ConnectedProps;
+type Props = OwnProps &
+  WithStyles<ReturnType<typeof styles>> &
+  ConnectedProps<typeof connector>;
 
 /* IMPORT CONSUMER SPACE PAGES */
-const ConsumerBookingPageStyled = themify(UnconnectedConsumerBookingPage);
-const ConsumerPassPageStyled = themify(UnconnectedConsumerPass);
-const ConsumerSubscriptionPageStyled = themify(UnconnectedConsumerSubscription);
-const ConsumerProfilePageStyled = themify(UnconnectedConsumerProfile);
-const ConsumerInvoicePageStyled = themify(UnconnectedConsumerInvoiceReworked);
+// @ts-expect-error - Type mismatch between different @types/react versions
+const ConsumerBookingWidget = themify(ConsumerBookingPage);
+// @ts-expect-error - Type mismatch between different @types/react versions
+const ConsumerInvoiceWidget = themify(ConsumerInvoiceReworked);
+// @ts-expect-error - Type mismatch between different @types/react versions
+const ConsumerPassWidget = themify(ConsumerPassPage);
+// @ts-expect-error - Type mismatch between different @types/react versions
+const ConsumerProfileWidget = themify(ConsumerProfile);
+// @ts-expect-error - Type mismatch between different @types/react versions
+const ConsumerSubscriptionWidget = themify(ConsumerSubscriptionPage);
 
-const ConsumerBookingWidget = compose(
-  connect(consumerBookingBridgeSelectors, consumerBookingBridgeActions),
-)(ConsumerBookingPageStyled);
+const ConsumerSpaceWidget = (props: Props) => {
+  const {
+    page,
+    config,
+    bridgeRequestLogout,
+    companyId,
+    fetchMembershipByCompany,
+    membership,
+  } = props;
+  const [selectedPage, setSelectedPage] = useState<ConsumerSpaceWidgetPage>(
+    page || config?.defaultPage || 'consumerBooking',
+  );
 
-const ConsumerPassWidget = compose(
-  connect(consumerPassBridgeSelectors, consumerPassBridgeActions),
-)(ConsumerPassPageStyled);
+  const changePage = (page: ConsumerSpaceWidgetPage) => setSelectedPage(page);
 
-const ConsumerSubscriptionWidget = compose(
-  connect(
-    consumerSubscriptionBridgeSelectors,
-    consumerSubscriptionBridgeActions,
-  ),
-  withHandlers(consumerSubscriptionMapWithHandlers),
-)(ConsumerSubscriptionPageStyled);
-
-const ConsumerProfileWidget = compose(
-  connect(consumerProfileBridgeSelectors, consumerProfileBridgeActions),
-)(ConsumerProfilePageStyled);
-
-const ConsumerInvoiceWidget = compose(
-  connect(consumerInvoiceBridgeSelectors, consumerInvoiceBridgeActions),
-  withHandlers(mapWithConsumerInvoiceReworkedHandlers),
-)(ConsumerInvoicePageStyled);
-
-class ConsumerSpaceWidget extends React.Component<Props, State> {
-  constructor(props: Props) {
-    super(props);
-    this.state = {
-      selectedPage:
-        props.page || props.config?.defaultPage || 'consumerBooking',
-    };
-  }
-
-  componentDidMount() {
+  useEffect(() => {
     WidgetUtils.setConsumerSpaceContext(ConsumerSpaceContextEnum.WIDGET);
-  }
+  }, []);
 
-  componentDidUpdate(prevProps: Props) {
-    /** If page prop changed from a post message, change state */
-    if (prevProps.page !== this.props.page) {
-      this.changePage(this.props.page);
-    }
-    if (
-      !!this.props.membership?.id &&
-      prevProps.membership?.id !== this.props.membership?.id
-    ) {
-      this.props.fetchMember(this.props.membership?.id);
-    }
-  }
+  useEffect(() => {
+    changePage(page);
+  }, [page]);
 
-  /** Set the current member profile page */
-  changePage = (page: OwnProps['page']) => {
-    this.setState(() => ({
-      selectedPage: page,
-    }));
-  };
+  useEffect(() => {
+    fetchMembershipByCompany(companyId);
+  }, [companyId]);
 
-  signOut = () => this.props.bridgeRequestLogout();
-
-  getCurrentConsumerWidget = () => {
-    switch (this.state.selectedPage) {
+  const getCurrentConsumerWidget = () => {
+    switch (selectedPage) {
       case 'consumerBooking':
-        return <ConsumerBookingWidget {...this.props} />;
+        return <ConsumerBookingWidget {...props} />;
       case 'consumerInvoice':
-        return <ConsumerInvoiceWidget {...this.props} />;
+        return <ConsumerInvoiceWidget {...props} />;
       case 'consumerPass':
-        return <ConsumerPassWidget {...this.props} />;
+        return <ConsumerPassWidget {...props} />;
       case 'consumerProfile':
-        return <ConsumerProfileWidget {...this.props} />;
+        return <ConsumerProfileWidget {...props} />;
       case 'consumerSubscription':
-        return <ConsumerSubscriptionWidget {...this.props} />;
+        return <ConsumerSubscriptionWidget {...props} />;
       default:
-        return <ConsumerBookingWidget {...this.props} />;
+        return <ConsumerBookingWidget {...props} />;
     }
   };
 
-  render() {
-    return (
-      // @ts-expect-error children prop typing
-      <ConsumerNavigation
-        memberName={
-          this.props.getMember(this.props.membership?.id)?.firstname ?? ''
-        }
-        changeWidgetPage={this.changePage}
-        selectedWidgetPage={this.state.selectedPage}
-        widgetSignOut={this.signOut}
-        widgetHideNavigation={this.props.config?.hideNavigation}
-      >
-        {this.getCurrentConsumerWidget()}
-      </ConsumerNavigation>
-    );
-  }
-}
+  return (
+    // @ts-expect-error children prop typing
+    <ConsumerNavigation
+      memberName={membership?.name ?? ''}
+      changeWidgetPage={changePage}
+      selectedWidgetPage={selectedPage}
+      widgetSignOut={bridgeRequestLogout}
+      widgetHideNavigation={config?.hideNavigation}
+    >
+      {getCurrentConsumerWidget()}
+    </ConsumerNavigation>
+  );
+};
 
 const styles = () =>
   createStyles({
@@ -185,8 +130,18 @@ const styles = () =>
     },
   });
 
+const mapStateToProps = (state: RootState, { companyId }: OwnProps) => ({
+  membership: getMembership(state, companyId),
+});
+const mapDispatchToProps = {
+  bridgeRequestLogout: bridgeRequestLogoutAction,
+  fetchMembershipByCompany: fetchMembershipByCompanyAction,
+};
+
+const connector = connect(mapStateToProps, mapDispatchToProps);
+
 export default compose<Props, OwnProps>(
-  connect(consumerSpaceCommonBridgeSelectors, consumerSpaceCommonBridgeActions),
+  connector,
   withStyles(styles),
   withLoginDisconnectedStatus,
   withPostMessageOnPropsUpdate([

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { compose } from 'recompose';
 import {
   Badge,
@@ -27,28 +27,28 @@ import { WithTranslation, withTranslation } from 'react-i18next';
 import { ConnectedProps, connect } from 'react-redux';
 import { RootState } from '../reducers';
 import {
-  closeUserInteractionPortal,
-  fabShowBasket,
-  fabShowBookings,
-  fabShowLogin,
-  fabShowProfile,
-  fabShowSubscription,
+  closeUserInteractionPortal as closeUserInteractionPortalAction,
+  fabShowBasket as fabShowBasketAction,
+  fabShowBookings as fabShowBookingsAction,
+  fabShowLogin as fabShowLoginAction,
+  fabShowProfile as fabShowProfileAction,
+  fabShowSubscription as fabShowSubscriptionAction,
 } from '../libs/modal/actions';
 import { getEnv } from '../utils/env';
-import {
-  bridgeRequestLogout,
-  bridgeRequestAuthenticationStatus,
-  bridgeRequestBasketCount,
-  bridgeRequestBookingCount,
-} from '../libs/bridge/actions';
+import { bridgeRequestLogout as bridgeRequestLogoutAction } from '../libs/bridge/actions';
 import { buildUrlParams } from '../utils/http';
 import { ConsumerSpaceContextEnum } from '@bsport/saas-legacy/src/libs/consumer-space/constants';
 import WidgetUtils from '@bsport/saas-legacy/src/libs/widget/WidgetUtils';
+import { fetchCurrentBasket as fetchCurrentBasketAction } from '@bsport/saas-legacy/src/libs/checkout/actions';
+import { fetchBookingsAndPrivateBookings as fetchBookingsAndPrivateBookingsAction } from '@bsport/saas-legacy/src/libs/consumer-space/actions';
+import { getAllBookingAndPrivateBooking } from '@bsport/saas-legacy/src/libs/consumer-space/selectors';
+import { getCurrentBasket } from '@bsport/saas-legacy/src/libs/checkout/selectors';
+import { CheckoutItem } from '@bsport/saas-legacy/src/libs/checkout/types';
 
 type OwnProps = {
-  companyId: number,
-  companyName: string,
-  onWindowOpen: (url: string) => void,
+  companyId: number;
+  companyName: string;
+  onWindowOpen: (url: string) => void;
 };
 
 type Props = OwnProps &
@@ -56,232 +56,229 @@ type Props = OwnProps &
   WithStyles<typeof styles> &
   WithTranslation;
 
-type State = {
-  showActions: boolean,
-};
+const FabWidget = (props: Props) => {
+  const [showActions, setShowActions] = useState(false);
+  const {
+    authenticated,
+    bridgeRequestLogout,
+    classes,
+    closeUserInteractionPortal,
+    companyId,
+    dialogUrl,
+    t,
+    fabShowLogin,
+    fabShowBasket,
+    fabShowBookings,
+    fabShowProfile,
+    fabShowSubscription,
+    fetchCurrentBasket,
+    fetchBookingsAndPrivateBookings,
+    currentBookings,
+    currentBasket,
+  } = props;
 
-class FabWidget extends React.PureComponent<Props, State> {
-  state: State = {
-    showActions: false,
-  };
+  const fetchData = useCallback(() => {
+    fetchCurrentBasket(companyId);
+    fetchBookingsAndPrivateBookings({
+      page: 1,
+      date_start: new Date().toISOString(),
+      member: companyId,
+    });
+  }, [companyId]);
 
-  componentDidMount() {
-    this.props.bridgeRequestAuthenticationStatus();
-    if (this.props.authenticated) {
-      this.fetchData();
-    }
+  useEffect(() => {
     WidgetUtils.setConsumerSpaceContext(ConsumerSpaceContextEnum.FAB);
-  }
+  }, []);
 
-  fetchData = () => {
-    this.props.bridgeRequestBasketCount();
-    this.props.bridgeRequestBookingCount();
-  };
-
-  componentDidUpdate(prevProps: Props) {
-    if (this.props.authenticated && !prevProps.authenticated) {
-      const { PUBLIC_URL } = getEnv();
-      this.fetchData();
-      if (
-        this.props.dialogUrl.includes(
-          `${PUBLIC_URL}/login${buildUrlParams({
-            next: `/c/${this.props.companyId}/booking/`,
-          })}`,
-        )
-      ) {
-        this.props.closeUserInteractionPortal();
-        // eslint-disable-next-line
-        this.setState({ showActions: true });
-      }
+  useEffect(() => {
+    const { PUBLIC_URL } = getEnv();
+    fetchData();
+    if (
+      dialogUrl.includes(
+        `${PUBLIC_URL}/login${buildUrlParams({
+          next: `/c/${companyId}/booking/`,
+        })}`,
+      )
+    ) {
+      closeUserInteractionPortal();
+      setShowActions(true);
     }
-  }
+  }, [authenticated, companyId]);
 
-  onClick = () => {
-    if (this.props.authenticated) {
-      this.setState({ showActions: true });
+  const onClick = () => {
+    if (authenticated) {
+      setShowActions(true);
     } else {
-      this.props.fabShowLogin();
+      fabShowLogin();
     }
   };
 
-  onClickBasket = () => {
-    this.setState({ showActions: false });
-    this.props.fabShowBasket();
+  const closeMenu = () => setShowActions(false);
+
+  const onClickBasket = () => {
+    closeMenu();
+    fabShowBasket();
   };
 
-  onClickBookings = () => {
-    this.setState({ showActions: false });
-    this.props.fabShowBookings();
+  const onClickBookings = () => {
+    closeMenu();
+    fabShowBookings();
   };
 
-  onClickLogout = () => {
-    this.setState({ showActions: false });
-    this.props.bridgeRequestLogout();
+  const onClickLogout = () => {
+    closeMenu();
+    bridgeRequestLogout();
   };
 
-  onClickProfile = () => {
-    this.setState({ showActions: false });
-    this.props.fabShowProfile();
+  const onClickProfile = () => {
+    closeMenu();
+    fabShowProfile();
   };
 
-  onClickSubscription = () => {
-    this.setState({ showActions: false });
-    this.props.fabShowSubscription();
+  const onClickSubscription = () => {
+    closeMenu();
+    fabShowSubscription();
   };
 
-  render() {
-    const { classes, t } = this.props;
-    return (
-      <Portal container={document.body}>
-        <Fade in={this.state.showActions} mountOnEnter unmountOnExit>
-          <div className={classes.backgroundActions}>
-            <ButtonBase
-              disableRipple
-              className={classes.backgroundButton}
-              onClick={() => this.setState({ showActions: false })}
-            />
-          </div>
-        </Fade>
+  const bookingsCount = currentBookings.length;
+  const basketCount =
+    currentBasket?.checkout_items?.reduce(
+      (s: number, a: CheckoutItem) => s + a.quantity,
+      0,
+    ) ?? 0;
 
-        <div className={classes.container}>
-          <Grow
-            in={this.state.showActions}
-            timeout={this.state.showActions ? 600 : 0}
-          >
-            <Tooltip
-              title={t('navigation:backofficeMenu.consumer.bookings')}
-              placement="right"
-            >
-              <ButtonBase
-                onClick={this.onClickBookings}
-                classes={{ root: classes.radius50 }}
-              >
-                <Badge
-                  badgeContent={this.props.bookingsCount}
-                  invisible={this.props.bookingsCount === null}
-                  color="secondary"
-                >
-                  <div className={classes.actionButton}>
-                    <TodayIcon fontSize="small" color="inherit" />
-                  </div>
-                </Badge>
-              </ButtonBase>
-            </Tooltip>
-          </Grow>
-
-          <Grow
-            in={this.state.showActions}
-            timeout={this.state.showActions ? 300 : 300}
-          >
-            <Tooltip title={t('checkout:myBasket.title')} placement="right">
-              <ButtonBase
-                onClick={this.onClickBasket}
-                classes={{ root: classes.radius50 }}
-              >
-                <Badge
-                  badgeContent={this.props.basketCount}
-                  invisible={this.props.basketCount === null}
-                  color="secondary"
-                >
-                  <div className={classes.actionButton}>
-                    <ShoppingBasketIcon fontSize="small" color="inherit" />
-                  </div>
-                </Badge>
-              </ButtonBase>
-            </Tooltip>
-          </Grow>
-
-          <Grow
-            in={this.state.showActions && this.props.authenticated}
-            timeout={this.state.showActions ? 0 : 600}
-          >
-            <Tooltip
-              title={t('navigation:backofficeMenu.consumer.profile')}
-              placement="right"
-            >
-              <ButtonBase
-                onClick={this.onClickProfile}
-                classes={{ root: classes.radius50 }}
-              >
-                <div className={classes.actionButton}>
-                  <PersonIcon fontSize="small" color="inherit" />
-                </div>
-              </ButtonBase>
-            </Tooltip>
-          </Grow>
-
-          <Grow
-            in={this.state.showActions && this.props.authenticated}
-            timeout={this.state.showActions ? 0 : 600}
-          >
-            <Tooltip
-              title={t('navigation:backofficeMenu.consumer.subscriptions')}
-              placement="right"
-            >
-              <ButtonBase
-                onClick={this.onClickSubscription}
-                classes={{ root: classes.radius50 }}
-              >
-                <div className={classes.actionButton}>
-                  <CreditCard fontSize="small" color="inherit" />
-                </div>
-              </ButtonBase>
-            </Tooltip>
-          </Grow>
-
-          <Grow
-            in={this.state.showActions}
-            timeout={this.state.showActions ? 0 : 600}
-          >
-            <Tooltip
-              title={t('navigation:backofficeMenu.logoff')}
-              placement="right"
-            >
-              <ButtonBase
-                onClick={this.onClickLogout}
-                classes={{ root: classes.radius50 }}
-              >
-                <div className={classes.actionButton}>
-                  <PowerSettingsNewIcon fontSize="small" color="inherit" />
-                </div>
-              </ButtonBase>
-            </Tooltip>
-          </Grow>
-
+  return (
+    // eslint-disable-next-line no-undef
+    <Portal container={document.body}>
+      <Fade mountOnEnter unmountOnExit in={showActions}>
+        <div className={classes.backgroundActions}>
           <ButtonBase
-            classes={{ root: classes.radius50 }}
-            onClick={this.onClick}
-            disabled={!this.props.authenticationReceived}
-          >
-            <div className={classes.fab}>
-              {this.props.authenticated ? (
-                <HomeIcon fontSize="large" color="inherit" />
-              ) : (
-                <PersonIcon fontSize="large" color="inherit" />
-              )}
-              <Grow
-                in={!this.state.showActions && !!this.props.basketCount}
-                timeout={this.state.showActions ? 0 : 600}
-              >
-                <div className={classes.fabBadgeBasket}>
-                  <ShoppingBasketIcon fontSize="inherit" />
-                </div>
-              </Grow>
-              <Grow
-                in={!this.state.showActions && !!this.props.bookingsCount}
-                timeout={this.state.showActions ? 0 : 600}
-              >
-                <div className={classes.fabBadgeBookings}>
-                  <TodayIcon fontSize="inherit" />
-                </div>
-              </Grow>
-            </div>
-          </ButtonBase>
+            disableRipple
+            className={classes.backgroundButton}
+            onClick={closeMenu}
+          />
         </div>
-      </Portal>
-    );
-  }
-}
+      </Fade>
+
+      <div className={classes.container}>
+        <Grow in={showActions} timeout={showActions ? 600 : 0}>
+          <Tooltip
+            placement="right"
+            title={t('navigation:backofficeMenu.consumer.bookings')}
+          >
+            <ButtonBase
+              classes={{ root: classes.radius50 }}
+              onClick={onClickBookings}
+            >
+              <Badge
+                badgeContent={bookingsCount}
+                color="secondary"
+                invisible={bookingsCount === null}
+              >
+                <div className={classes.actionButton}>
+                  <TodayIcon color="inherit" fontSize="small" />
+                </div>
+              </Badge>
+            </ButtonBase>
+          </Tooltip>
+        </Grow>
+
+        <Grow in={showActions} timeout={showActions ? 300 : 300}>
+          <Tooltip placement="right" title={t('checkout:myBasket.title')}>
+            <ButtonBase
+              classes={{ root: classes.radius50 }}
+              onClick={onClickBasket}
+            >
+              <Badge
+                badgeContent={basketCount}
+                color="secondary"
+                invisible={basketCount === null}
+              >
+                <div className={classes.actionButton}>
+                  <ShoppingBasketIcon color="inherit" fontSize="small" />
+                </div>
+              </Badge>
+            </ButtonBase>
+          </Tooltip>
+        </Grow>
+
+        <Grow in={showActions && authenticated} timeout={showActions ? 0 : 600}>
+          <Tooltip
+            placement="right"
+            title={t('navigation:backofficeMenu.consumer.profile')}
+          >
+            <ButtonBase
+              classes={{ root: classes.radius50 }}
+              onClick={onClickProfile}
+            >
+              <div className={classes.actionButton}>
+                <PersonIcon color="inherit" fontSize="small" />
+              </div>
+            </ButtonBase>
+          </Tooltip>
+        </Grow>
+
+        <Grow in={showActions && authenticated} timeout={showActions ? 0 : 600}>
+          <Tooltip
+            placement="right"
+            title={t('navigation:backofficeMenu.consumer.subscriptions')}
+          >
+            <ButtonBase
+              classes={{ root: classes.radius50 }}
+              onClick={onClickSubscription}
+            >
+              <div className={classes.actionButton}>
+                <CreditCard color="inherit" fontSize="small" />
+              </div>
+            </ButtonBase>
+          </Tooltip>
+        </Grow>
+
+        <Grow in={showActions} timeout={showActions ? 0 : 600}>
+          <Tooltip
+            placement="right"
+            title={t('navigation:backofficeMenu.logoff')}
+          >
+            <ButtonBase
+              classes={{ root: classes.radius50 }}
+              onClick={onClickLogout}
+            >
+              <div className={classes.actionButton}>
+                <PowerSettingsNewIcon color="inherit" fontSize="small" />
+              </div>
+            </ButtonBase>
+          </Tooltip>
+        </Grow>
+
+        <ButtonBase classes={{ root: classes.radius50 }} onClick={onClick}>
+          <div className={classes.fab}>
+            {authenticated ? (
+              <HomeIcon color="inherit" fontSize="large" />
+            ) : (
+              <PersonIcon color="inherit" fontSize="large" />
+            )}
+            <Grow
+              in={!showActions && !!basketCount}
+              timeout={showActions ? 0 : 600}
+            >
+              <div className={classes.fabBadgeBasket}>
+                <ShoppingBasketIcon fontSize="inherit" />
+              </div>
+            </Grow>
+            <Grow
+              in={!showActions && !!bookingsCount}
+              timeout={showActions ? 0 : 600}
+            >
+              <div className={classes.fabBadgeBookings}>
+                <TodayIcon fontSize="inherit" />
+              </div>
+            </Grow>
+          </div>
+        </ButtonBase>
+      </div>
+    </Portal>
+  );
+};
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -365,23 +362,21 @@ const styles = (theme: Theme) =>
 
 const mapStateToProps = (state: RootState) => ({
   dialogUrl: state.modal.url,
-  authenticated: state.bridge.authentication.authenticated,
-  authenticationReceived: state.bridge.authentication.hasBeenReceived,
-  basketCount: state.bridge.basket.count,
-  bookingsCount: state.bridge.booking.count,
+  authenticated: state.auth.authenticated,
+  currentBookings: getAllBookingAndPrivateBooking(state),
+  currentBasket: getCurrentBasket(state),
 });
 
 const mapDispatchToProps = {
-  closeUserInteractionPortal,
-  fabShowLogin,
-  fabShowBasket,
-  fabShowBookings,
-  fabShowProfile,
-  fabShowSubscription,
-  bridgeRequestLogout,
-  bridgeRequestAuthenticationStatus,
-  bridgeRequestBasketCount,
-  bridgeRequestBookingCount,
+  closeUserInteractionPortal: closeUserInteractionPortalAction,
+  fabShowLogin: fabShowLoginAction,
+  fabShowBasket: fabShowBasketAction,
+  fabShowBookings: fabShowBookingsAction,
+  fabShowProfile: fabShowProfileAction,
+  fabShowSubscription: fabShowSubscriptionAction,
+  bridgeRequestLogout: bridgeRequestLogoutAction,
+  fetchCurrentBasket: fetchCurrentBasketAction,
+  fetchBookingsAndPrivateBookings: fetchBookingsAndPrivateBookingsAction,
 };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);

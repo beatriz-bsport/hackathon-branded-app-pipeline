@@ -106,6 +106,18 @@ describe("getConfig", () => {
       }),
     );
     expect(prodRemoteConfig.base).toBe("/studio/apps/navigation-sidebar/");
+
+    // Development mode, remote app with usePathInDev
+    const devRemoteConfig = getConfig(
+      createConfig({
+        mode: "development",
+        appType: "shared", // Something different than hosts
+        federationConfig: { devPort: 4050 },
+        usePathInDev: true,
+        deploymentRelativeUrl: "/studio/",
+      }),
+    );
+    expect(devRemoteConfig.base).toBe("/studio/");
   });
 
   it("generates correct federation config", async () => {
@@ -257,7 +269,7 @@ describe("getConfig", () => {
       "sm-navigation-sidebar",
     );
     expect(variables["__SENTRY_SCOPE_TAG__"]).toBe("sm-navigation-sidebar");
-    expect(variables["__BASENAME__"]).toBe("");
+    expect(variables["__BASENAME__"]).toBe("/");
 
     // Preview mode
     const previewConfig = getConfig(
@@ -278,7 +290,7 @@ describe("getConfig", () => {
     expect(previewVariables["__SENTRY_SCOPE_TAG__"]).toBe(
       "sm-navigation-sidebar",
     );
-    expect(previewVariables["__BASENAME__"]).toBe("");
+    expect(previewVariables["__BASENAME__"]).toBe("/");
 
     // Production mode
     const prodConfig = getConfig(

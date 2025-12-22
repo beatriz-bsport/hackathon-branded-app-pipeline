@@ -56,6 +56,7 @@ function storageToString(type: StorageType): string {
     return JSON.stringify(storageObject);
   } catch (error) {
     console.error(`Error clearing ${type}Storage:`, error);
+    return '';
   }
 }
 

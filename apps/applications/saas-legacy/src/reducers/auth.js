@@ -243,6 +243,9 @@ export default function authReducers(state = initialState, action = {}) {
     case actionTypes.UPDATE_HAS_ENABLED_REVAMPED_BACKOFFICE:
       return state.set(['has_enabled_revamped_backoffice'], action.payload);
 
+    case actionTypes.RESPONSE_AUTHENTICATED_STATUS:
+      return state.set('authenticated', action.authenticated);
+
     default:
       return state;
   }

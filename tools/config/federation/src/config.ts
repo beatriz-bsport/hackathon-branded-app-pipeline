@@ -79,12 +79,13 @@ const ConfigSchema = z
     }),
     rootDir: z.string(),
     deploymentRelativeUrl: z
-      .enum(["/v2/", "/studio/"], {
+      .enum(["/v2/", "/studio/", "/widget-proxy-bridge/"], {
         description:
           "Base URL for the application that matches the path in the S3 bucket",
       })
       .optional()
       .default("/studio/"),
+    usePathInDev: z.boolean().optional().default(false),
   })
   .refine(
     (data) => {
@@ -152,6 +153,7 @@ export const getConfig = (config: {
   packageJson: z.infer<typeof ConfigSchema>["packageJson"];
   rootDir: string;
   deploymentRelativeUrl?: z.infer<typeof ConfigSchema>["deploymentRelativeUrl"];
+  usePathInDev?: boolean;
 }) => {
   const result = ConfigSchema.safeParse(config);
 
@@ -164,7 +166,8 @@ export const getConfig = (config: {
     throw new Error(errorMessage);
   }
 
-  const { packageJson, mode, deploymentRelativeUrl } = result.data;
+  const { packageJson, mode, deploymentRelativeUrl, usePathInDev } =
+    result.data;
   const isHost = config.appType === "hosts";
   const isLocal =
     mode === "preview" || mode === "development" || mode === "compat";
@@ -175,6 +178,7 @@ export const getConfig = (config: {
     deploymentRelativeUrl,
     isLocal,
     isHost,
+    usePathInDev,
   });
 
   /**
@@ -182,9 +186,9 @@ export const getConfig = (config: {
    * In production the i18n URL already has a slash for building the URL for the locales location
    * so we have to remove it to avoid double slashes
    */
-  const appBaseUrl = isLocal
-    ? `http://localhost:${devPort}`
-    : base.slice(0, -1);
+  const appBaseUrl = (
+    isLocal ? `http://localhost:${devPort}${base}` : base
+  ).slice(0, -1);
 
   const namespace = compose(
     uppercase,
@@ -198,7 +202,7 @@ export const getConfig = (config: {
       __I18N_NAMESPACE_PREFIX__: removeScope(packageJson.name),
       __SENTRY_SCOPE_TAG__: removeScope(packageJson.name),
       __APPLICATION_BASE_URL__: appBaseUrl,
-      __BASENAME__: isLocal ? "" : base,
+      __BASENAME__: base,
     }),
   };
 
@@ -352,14 +356,16 @@ function getBase({
   appName,
   isLocal,
   deploymentRelativeUrl,
+  usePathInDev = false,
 }: {
   isHost: boolean;
   appName: string;
   isLocal: boolean;
   deploymentRelativeUrl: string;
+  usePathInDev?: boolean;
 }) {
   if (isLocal) {
-    return "/";
+    return usePathInDev ? deploymentRelativeUrl : "/";
   }
 
   /**

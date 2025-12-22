@@ -7,6 +7,7 @@ import typescriptEslint from '@typescript-eslint/eslint-plugin';
 import typescriptParser from '@typescript-eslint/parser';
 import bsport from 'eslint-plugin-bsport';
 import { fixupPluginRules } from '@eslint/compat';
+import globals from 'globals';
 
 export default [
   // Base JavaScript rules
@@ -102,6 +103,9 @@ export default [
   // General rules
   {
     files: ['**/*.{js,jsx,ts,tsx}'],
+    languageOptions: {
+      globals: globals.browser,
+    },
     rules: {
       'no-console': [
         'error',

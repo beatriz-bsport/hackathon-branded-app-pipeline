@@ -20,6 +20,7 @@ type FilterElementValuesProps = {
     [key: string]: FilterField;
   };
   onSelectOption: (itemId: string) => void;
+  cachedValues?: Record<string, string>;
 };
 
 const FilterElementValues: React.FC<FilterElementValuesProps> = ({
@@ -28,9 +29,64 @@ const FilterElementValues: React.FC<FilterElementValuesProps> = ({
   selectedValues,
   fields,
   onSelectOption,
+  cachedValues = {},
 }) => {
   const i18n = useKaizenI18nInstance();
   const { t } = useTranslation("default", { i18n });
+
+  const getFieldByValueId = (valueId: string) => {
+    if (!selectedField) {
+      return null;
+    }
+    const currentValue = fields[selectedField].values.find(
+      (value) => value.id === valueId,
+    );
+
+    if (currentValue) {
+      return { id: currentValue.id, label: currentValue.label };
+    }
+    if (cachedValues[valueId]) {
+      return { id: valueId, label: cachedValues[valueId] };
+    }
+    return null;
+  };
+
+  const getItems = () => {
+    if (!selectedField) {
+      return [];
+    }
+
+    if (
+      !fields[selectedField].multiSelect ||
+      !fields[selectedField].searchConfig
+    ) {
+      return fields[selectedField].values.map((value) => ({
+        id: value.id,
+        label: value.label,
+      }));
+    }
+
+    // For multi-select with search, show selected items at the top
+    const items = [];
+    if (!!selectedValues && selectedValues.length > 0) {
+      items.push(
+        ...selectedValues
+          .map((valueId) => getFieldByValueId(valueId))
+          .filter((value) => value !== null),
+      );
+      items.push({ type: "divider" as const });
+    }
+    items.push(
+      ...fields[selectedField].values
+        .filter((value) => !selectedValues?.includes(value.id))
+        .map((value) => ({
+          id: value.id,
+          label: value.label,
+        })),
+    );
+
+    return items.filter(Boolean);
+  };
 
   if (!displayEntireFilter) {
     return null;
@@ -50,13 +106,8 @@ const FilterElementValues: React.FC<FilterElementValuesProps> = ({
             size="md"
             label={
               selectedValues
-                ?.map(
-                  (valueId) =>
-                    selectedField &&
-                    fields[selectedField].values.find(
-                      (value) => value.id === valueId,
-                    )?.label,
-                )
+                ?.map((valueId) => getFieldByValueId(valueId)?.label)
+                .filter(Boolean)
                 .join(", ") || t("filter.selectFieldPlaceholder")
             }
             onClick={() => setIsPopoverOpened((prev) => !prev)}
@@ -64,14 +115,7 @@ const FilterElementValues: React.FC<FilterElementValuesProps> = ({
         )}
         placement="bottom-left"
         maxHeightPx={FILTER_MENU_MAX_HEIGHT}
-        items={
-          selectedField
-            ? fields[selectedField].values.map((value) => ({
-                id: value.id,
-                label: value.label,
-              }))
-            : []
-        }
+        items={getItems()}
         multiSelect={selectedField ? fields[selectedField].multiSelect : false}
         selectedValues={selectedValues || []}
         onSelectOption={({ id, setIsPopoverOpened }) => {

@@ -64,6 +64,42 @@ const FilterElement: React.FC<FilterElementProps> = ({
   const [selectedValues, setSelectedValues] = useState<string[] | null>(
     propValueIds ?? null,
   );
+  const [cachedValues, setCachedValues] = useState<Record<string, string>>({});
+
+  const addNewCachedValueFromId = useCallback(
+    (valueId: string) => {
+      if (!selectedField) return;
+      const field = fields[selectedField];
+      if (!field) return;
+
+      const value = field.values.find((v) => v.id === valueId);
+      if (value) {
+        setCachedValues((prev) => ({
+          ...prev,
+          [valueId]: value.label,
+        }));
+      }
+    },
+    [fields, selectedField],
+  );
+
+  const addNewCachedValuesFromIdsAndField = useCallback(
+    (valueIds: string[], affectedField: string) => {
+      if (!fields[affectedField]) return;
+      const field = fields[affectedField];
+      const newCachedValues = Object.fromEntries(
+        field.values
+          .filter((val) => valueIds.includes(val.id))
+          .map((val) => [val.id, val.label]),
+      );
+
+      setCachedValues((prev) => ({
+        ...prev,
+        ...newCachedValues,
+      }));
+    },
+    [fields],
+  );
 
   // Sync internal state when props change (for responsive layout switches)
   useEffect(() => {
@@ -75,12 +111,15 @@ const FilterElement: React.FC<FilterElementProps> = ({
     }
     if (propValueIds !== undefined) {
       setSelectedValues(propValueIds);
+      if (propField) {
+        addNewCachedValuesFromIdsAndField(propValueIds, propField);
+      }
     }
     // Set displayEntireFilter based on whether we have values
     if (propField && propValueIds && propValueIds.length > 0) {
       setDisplayEntireFilter(true);
     }
-  }, [propField, propFilter, propValueIds]);
+  }, [addNewCachedValuesFromIdsAndField, propField, propFilter, propValueIds]);
 
   useEffect(() => {
     const hasUniqueCategory = Object.keys(fields).length === 1;
@@ -119,6 +158,7 @@ const FilterElement: React.FC<FilterElementProps> = ({
         );
         setSelectedFilter(fields[fieldId].availableFilters[0]);
         setDisplayEntireFilter(false);
+        setCachedValues({});
         return;
       }
 
@@ -126,6 +166,7 @@ const FilterElement: React.FC<FilterElementProps> = ({
 
       if (!fields[selectedField].multiSelect) {
         setSelectedValues([fieldId]);
+        addNewCachedValueFromId(fieldId);
         return;
       }
 
@@ -134,8 +175,9 @@ const FilterElement: React.FC<FilterElementProps> = ({
           ? prevState!.filter((selected) => selected !== fieldId)
           : [...(prevState ?? []), fieldId],
       );
+      addNewCachedValueFromId(fieldId);
     },
-    [fields, selectedField, selectedValues],
+    [addNewCachedValueFromId, fields, selectedField, selectedValues],
   );
 
   const handleSelectValue = useCallback(
@@ -146,6 +188,7 @@ const FilterElement: React.FC<FilterElementProps> = ({
 
       if (!field.multiSelect) {
         setSelectedValues([itemId]);
+        addNewCachedValueFromId(itemId);
       } else {
         setSelectedValues((prev) => {
           const prevArr = prev ?? [];
@@ -153,9 +196,10 @@ const FilterElement: React.FC<FilterElementProps> = ({
             ? prevArr.filter((id) => id !== itemId)
             : [...prevArr, itemId];
         });
+        addNewCachedValueFromId(itemId);
       }
     },
-    [fields, selectedField],
+    [addNewCachedValueFromId, fields, selectedField],
   );
 
   const handleClear = useCallback(() => {
@@ -163,6 +207,7 @@ const FilterElement: React.FC<FilterElementProps> = ({
     setSelectedField(hasUniqueCategory ? Object.keys(fields)[0] : null);
     setDisplayEntireFilter(false);
     setSelectedValues(null);
+    setCachedValues({});
     onClear?.();
   }, [fields, onClear]);
 
@@ -206,6 +251,7 @@ const FilterElement: React.FC<FilterElementProps> = ({
         selectedValues={selectedValues}
         fields={fields}
         onSelectOption={handleSelectValue}
+        cachedValues={cachedValues}
       />
       {shouldShowClearButton && (
         <FilterElementClearButton onClear={handleClear} />

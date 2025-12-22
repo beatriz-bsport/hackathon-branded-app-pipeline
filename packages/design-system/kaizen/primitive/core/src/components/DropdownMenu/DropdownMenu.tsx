@@ -152,7 +152,7 @@ const isComposableProps = (
  *
  * @param props.className - Optional CSS class name for the component.
  * @param props.children - (Composable API) Child components
- * @param props.multiSelect - (Composable API) Enable multi-selection
+ * @param props.multiSelect - (both) Enable multi-selection
  * @param props.onSelectItem - (Composable API) Callback when item is selected (id, nextValues)
  * @param props.defaultSelectedValues - (Composable API) Initial selected values for uncontrolled mode
  * @param props.selectedValues - (Composable API) Controlled selected values; MUST be paired with onSelectedValuesChange

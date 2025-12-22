@@ -342,6 +342,8 @@
     "initial_status": "Authorization status",
     "updated_status": "Updated status",
     "admission": "Admission",
+    "door_id": "Door ID",
+    "door_distance": "Door distance",
     "kind": "Type",
     "billing_date_start": "First billing date",
     "type": "Type"

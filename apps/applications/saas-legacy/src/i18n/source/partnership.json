@@ -134,9 +134,42 @@
   "myclubs": {
     "title": "myClubs",
     "configuration": {
+      "copied_to_clipboard": "ID successfully copied to clipboard",
+      "dialog": {
+        "title": {
+          "creation": "Choose establishment(s)",
+          "creation_success": "Link Partner ID with myClubs",
+          "edition": "Edit Connection",
+          "deletion": "Delete Connection"
+        },
+        "helperText": "Select which establishments you want to synchronise with myClubs. This will make all sessions in these establishments available to myClubs customers.",
+        "helperTextCreateSuccess": "Copy and paste this Partner ID into your <1>myClubs account</1> to make the sessions in your selected establishments available to myClubs customers.",
+        "field": {
+          "establishmentIds": {
+            "placeholder": "Link your bsport establishment(s)",
+            "title": "Establishments",
+            "error": {
+              "required": "Please select at least one establishment"
+            }
+          }
+        },
+        "action": {
+          "back": "Back",
+          "cancel": "Cancel",
+          "close": "Close",
+          "confirm": "Confirm",
+          "save": "Continue"
+        },
+        "notification": {
+          "create": {
+            "success": "Partner ID generated",
+            "error": "An error occurred while generating the Partner ID"
+          }
+        }
+      },
       "panel": {
         "header": {
-          "subtitle": "Link one or more establishments to automatically sync all sessions from those establishments with myClubs. You'll be able to adjust the number of available spots for this aggregator in the session settings."
+          "subtitle": "Generate and link Partner IDs to synchronise the sessions in your establishments with myClubs. You'll be able to adjust the number of available spots for this aggregator in the session settings."
         },
         "content": {
           "title": "Partner ID connection",
@@ -149,12 +182,11 @@
             "status": {
               "active": "Connected",
               "inactive": "Pending"
-            },
-            "copied_to_clipboard": "ID successfully copied to clipboard"
+            }
           }
         },
         "footer": {
-          "addConnectionButton": "Add a connection"
+          "addConnectionButton": "Generate Partner ID"
         }
       }
     }

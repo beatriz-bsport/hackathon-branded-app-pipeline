@@ -1,12 +1,10 @@
 import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-// eslint-disable-next-line bsport/no-redux-in-component
-import { connect } from 'react-redux';
 
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import withStyles from '@material-ui/core/styles/withStyles';
 
-import CopyIcon from '#src/components/icons/CopyIcon.component';
+import CopyExternalIdButton from '#src/libs/partnership/components/CopyExternalIdButton';
 import {
   PartnershipDisplayConfig,
   PartnershipVenue,
@@ -25,10 +23,7 @@ import {
 } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
-import CopyToClipboard from 'react-copy-to-clipboard';
 import VenueStatusChip from '../VenueStatusChip.component';
-
-import { snackbarSuccess } from '#src/libs/snackbar/actions';
 
 const CustomTableCell = React.memo(
   withStyles(() => ({
@@ -45,7 +40,6 @@ type Props = {
   loading: boolean;
   onDeleteVenue: (partnershipVenue: PartnershipVenue) => void;
   onEditVenue: (partnershipVenue: PartnershipVenue) => void;
-  showSuccess: (message: string) => void;
 };
 
 const PartnershipVenueTable: React.FC<Props> = ({
@@ -54,7 +48,6 @@ const PartnershipVenueTable: React.FC<Props> = ({
   loading,
   onDeleteVenue,
   onEditVenue,
-  showSuccess,
 }) => {
   const classes = useStyles();
   const { t } = useTranslation('partnership');
@@ -124,20 +117,12 @@ const PartnershipVenueTable: React.FC<Props> = ({
                   {partnershipVenue.external_name ||
                     partnershipVenue.external_id}
                   {displayConfig.showCopyIdToClipboard && (
-                    <CopyToClipboard
-                      onCopy={() =>
-                        showSuccess(
-                          t(
-                            `${displayConfig.partnershipIdentifier}.configuration.panel.content.table.copied_to_clipboard`,
-                          ),
-                        )
+                    <CopyExternalIdButton
+                      externalId={partnershipVenue.external_id}
+                      partnershipIdentifier={
+                        displayConfig.partnershipIdentifier
                       }
-                      text={partnershipVenue.external_id}
-                    >
-                      <IconButton className={classes.copyIcon} size="small">
-                        <CopyIcon fontSize="small" />
-                      </IconButton>
-                    </CopyToClipboard>
+                    />
                   )}
                 </Typography>
                 {partnershipVenue.external_name && (
@@ -223,14 +208,6 @@ const useStyles = makeStyles((theme) => ({
   greyIcon: {
     color: theme.palette.grey[600],
   },
-  copyIcon: {
-    color: theme.palette.common.black,
-    marginLeft: theme.spacing(0.5),
-  },
 }));
 
-export default React.memo(
-  connect(null, {
-    showSuccess: snackbarSuccess,
-  })(PartnershipVenueTable),
-);
+export default React.memo(PartnershipVenueTable);

@@ -74,7 +74,7 @@ export default function DoorSelection({ companyId, userLocation }: Props) {
 
   const handleUnlock = async () => {
     if (selectedDoorId) {
-      await unlockDoor(selectedDoorId);
+      await unlockDoor(selectedDoorId, userLocation);
     }
   };
 

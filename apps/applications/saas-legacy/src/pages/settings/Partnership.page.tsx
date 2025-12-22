@@ -328,6 +328,7 @@ export class Partnership extends React.Component<Props> {
         {this.props.isSubmitting ? <LinearProgress /> : null}
         {hasMyClubsUpsell && !!myClubsPartnershipCompany && (
           <MyClubsConfiguration
+            establishments={this.props.establishmentList}
             myClubsPartnershipId={myClubsPartnershipCompany.partnership}
           />
         )}

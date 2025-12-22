@@ -28,3 +28,8 @@ export type PartnershipVenue = {
 export type PartnershipVenueFilters = {
   partnership?: number; // The partnership ID
 };
+
+export type PartnershipVenuePayload = {
+  establishment_group: number[];
+  partnership: number; // The partnership ID
+};

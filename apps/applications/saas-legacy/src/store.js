@@ -16,7 +16,7 @@ import history from './history';
 import networkErrorMiddleWare from './libs/network/redux-middleware';
 import { analyticsMiddleware } from './components/analytics/mixpanel/middleware';
 import { meiroAnalyticsMiddleware } from './components/analytics/meiro/middleware';
-
+import { widgetMiddleware } from './libs/widget/middleware';
 import createRootReducer from './reducers/index';
 
 const persistConfig = {
@@ -52,6 +52,7 @@ export default function initStore(initialState: Object = {}) {
         networkErrorMiddleWare,
         analyticsMiddleware,
         meiroAnalyticsMiddleware,
+        widgetMiddleware,
       ),
     ),
   );

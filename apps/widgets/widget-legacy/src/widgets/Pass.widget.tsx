@@ -13,18 +13,17 @@ import type { CompanyTheme } from '@bsport/saas-legacy/src/libs/theme/types';
 import type { WithStyles } from '@material-ui/styles';
 import { RootState } from '../reducers';
 import { getEnv } from '../utils/env';
-import { bridgeRequestMemberTag } from '../libs/bridge/actions';
 
 const MarketplacePassStyled = themify(MarketplacePassBase);
 
 type OwnProps = {
-  companyId: number,
-  store: any,
-  theme: CompanyTheme,
-  config?: MarketplacePassData,
-  onWindowOpen: (url: string) => void,
-  uniqueWidgetId: string,
-  parentElement: string,
+  companyId: number;
+  store: any;
+  theme: CompanyTheme;
+  config?: MarketplacePassData;
+  onWindowOpen: (url: string) => void;
+  uniqueWidgetId: string;
+  parentElement: string;
 };
 
 type Props = OwnProps &
@@ -33,7 +32,6 @@ type Props = OwnProps &
 
 class PassWidget extends Component<Props> {
   componentDidMount() {
-    this.props.bridgeRequestMemberTag();
     window?.addEventListener('message', this.handleAddToCartPostMessages);
   }
 
@@ -73,7 +71,6 @@ class PassWidget extends Component<Props> {
       prevProps.authenticated !== this.props.authenticated ||
       prevProps?.username !== this.props.username
     ) {
-      this.props.bridgeRequestMemberTag();
     }
   }
 
@@ -142,7 +139,6 @@ class PassWidget extends Component<Props> {
           addComboToCart={this.addComboToCart}
           addPaymentPackToCart={this.addPaymentPackToCart}
           addPrivatePassToCart={this.addPrivatePassToCart}
-          memberTagList={this.props.memberTagList}
           authenticated={this.props.authenticated}
           widgetContext={{ parentElement: this.props.parentElement }}
         />
@@ -157,16 +153,10 @@ const styles = () => ({
   },
 });
 
-const connector = connect(
-  (state: RootState) => ({
-    authenticated: state.bridge.authentication.authenticated,
-    username: state.bridge.authentication.username,
-    memberTagList: state.bridge.tag.tag_list,
-  }),
-  {
-    bridgeRequestMemberTag,
-  },
-);
+const connector = connect((state: RootState) => ({
+  authenticated: state.auth.authenticated,
+  username: state.auth.username,
+}));
 
 export default compose<Props, OwnProps>(
   withStyles(styles),

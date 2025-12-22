@@ -1,6 +1,5 @@
 import originalAxios, { CancelToken, AxiosRequestConfig } from 'axios';
 import * as Sentry from '@sentry/react';
-
 import { setSessionId } from '../sentry/session';
 import { setTransactionId } from '../sentry/transaction';
 
@@ -22,6 +21,8 @@ import type {
   PutAuth,
 } from './types';
 import { ProtectedAxiosBuilder } from './protectedAxios';
+import { sendWithProxyBridge } from './bridgeClient';
+import { shouldUseBridge } from '#src/libs/widget/bridge';
 
 const axios = new ProtectedAxiosBuilder(originalAxios).protectedAxios;
 
@@ -38,13 +39,10 @@ export async function postBase<T = unknown, D = unknown>(
   lockOptions?: AxiosLockOptions,
 ) {
   const baseHeaders = {
-    'X-Transaction-ID': setTransactionId(),
-    'X-Timezone-Name': getTimezoneName(),
-    'X-Session-ID': setSessionId(),
-    'X-React-Referrer': window.location.href.slice(0, 250),
     Accept: 'application/json',
     'Content-Type': 'application/json',
     'X-bsport-log-collection': 'true',
+    ...createBaseHeaders(),
     ...getBsportRequestFromHeader(),
   };
 
@@ -80,13 +78,10 @@ export async function post<T = unknown, D = unknown>(
   lockOptions?: AxiosLockOptions,
 ) {
   const baseHeaders = {
-    'X-Transaction-ID': setTransactionId(),
-    'X-Timezone-Name': getTimezoneName(),
-    'X-Session-ID': setSessionId(),
-    'X-React-Referrer': window.location.href.slice(0, 250),
     Accept: 'application/json',
     'Content-Type': 'application/json',
     'X-bsport-log-collection': 'true',
+    ...createBaseHeaders(),
     ...getBsportRequestFromHeader(),
   };
 
@@ -118,13 +113,10 @@ export async function put<T = unknown, D = unknown>(
   lockOptions?: AxiosLockOptions,
 ) {
   const baseHeaders = {
-    'X-Transaction-ID': setTransactionId(),
-    'X-Timezone-Name': getTimezoneName(),
-    'X-Session-ID': setSessionId(),
-    'X-React-Referrer': window.location.href.slice(0, 250),
     Accept: 'application/json',
     'Content-Type': 'application/json',
     'X-bsport-log-collection': 'true',
+    ...createBaseHeaders(),
     ...getBsportRequestFromHeader(),
   };
 
@@ -155,13 +147,10 @@ export async function patch<T = unknown, D = unknown>(
   lockOptions?: AxiosLockOptions,
 ) {
   const baseHeaders = {
-    'X-Transaction-ID': setTransactionId(),
-    'X-Timezone-Name': getTimezoneName(),
-    'X-Session-ID': setSessionId(),
-    'X-React-Referrer': window.location.href.slice(0, 250),
     Accept: 'application/json',
     'Content-Type': 'application/json',
     'X-bsport-log-collection': 'true',
+    ...createBaseHeaders(),
     ...getBsportRequestFromHeader(),
   };
 
@@ -191,13 +180,10 @@ async function delete_<D = unknown>(
   cancelToken?: AxiosRequestConfig['cancelToken'],
 ) {
   const baseHeaders = {
-    'X-Transaction-ID': setTransactionId(),
-    'X-Timezone-Name': getTimezoneName(),
-    'X-Session-ID': setSessionId(),
-    'X-React-Referrer': window.location.href.slice(0, 250),
     Accept: 'application/json',
     'Content-Type': 'application/json',
     'X-bsport-log-collection': 'true',
+    ...createBaseHeaders(),
     ...getBsportRequestFromHeader(),
   };
   try {
@@ -227,11 +213,8 @@ export async function get<T = unknown>(
       {
         headers: {
           'Accept-Language': i18n.language || 'en',
-          'X-Transaction-ID': setTransactionId(),
-          'X-Timezone-Name': getTimezoneName(),
-          'X-Session-ID': setSessionId(),
-          'X-React-Referrer': window.location.href.slice(0, 250),
           'X-bsport-log-collection': 'true',
+          ...createBaseHeaders(),
           ...(headers || {}),
           ...getBsportRequestFromHeader(),
         },
@@ -260,11 +243,8 @@ export async function head<T = unknown>(
       {
         headers: {
           'Accept-Language': i18n.language || 'en',
-          'X-Transaction-ID': setTransactionId(),
-          'X-Timezone-Name': getTimezoneName(),
-          'X-Session-ID': setSessionId(),
-          'X-React-Referrer': window.location.href.slice(0, 250),
           'X-bsport-log-collection': 'true',
+          ...createBaseHeaders(),
           ...(headers || {}),
           ...getBsportRequestFromHeader(),
         },
@@ -293,6 +273,16 @@ export async function getAuth<T = unknown>(
   lockOptions?: AxiosLockOptions,
   headers?: AxiosRequestConfig['headers'],
 ) {
+  if (shouldUseBridge()) {
+    return sendWithProxyBridge<T>({
+      url: uri,
+      method: 'GET',
+      cancelToken,
+      headers,
+      lockOptions,
+    });
+  }
+
   const token_ = token || getAuthToken();
   if (!token_ || token_ === 'null') {
     return get<T>(uri, {}, cancelToken);
@@ -301,12 +291,8 @@ export async function getAuth<T = unknown>(
     uri,
     {
       'Accept-Language': i18n.language || 'en',
-      'X-Transaction-ID': setTransactionId(),
-      'X-Timezone-Name': getTimezoneName(),
-      'X-Session-ID': setSessionId(),
-      'X-React-Referrer': window.location.href.slice(0, 250),
+      ...createBaseAuthHeaders(token),
       ...(headers || {}),
-      Authorization: `Token ${token_}`,
     },
     cancelToken,
     lockOptions,
@@ -326,17 +312,22 @@ export async function postAuth<T = unknown, D = unknown>(
   lockOptions?: AxiosLockOptions,
   headers?: AxiosRequestConfig['headers'],
 ) {
-  const token_ = token || getAuthToken();
+  if (shouldUseBridge()) {
+    return sendWithProxyBridge<T>({
+      url: uri,
+      method: 'POST',
+      data,
+      cancelToken,
+      headers,
+      lockOptions,
+    });
+  }
   return post<T>(
     uri,
     data,
     {
-      'X-Transaction-ID': setTransactionId(),
-      'X-Timezone-Name': getTimezoneName(),
-      'X-Session-ID': setSessionId(),
-      'X-React-Referrer': window.location.href.slice(0, 250),
+      ...createBaseAuthHeaders(token),
       ...(headers || {}),
-      Authorization: `Token ${token_}`,
     },
     cancelToken,
     lockOptions,
@@ -354,17 +345,19 @@ export async function postBaseAuth<T = unknown, D = unknown>(
   cancelToken?: AxiosRequestConfig['cancelToken'],
   lockOptions?: AxiosLockOptions,
 ) {
-  const token_ = token || getAuthToken();
+  if (shouldUseBridge()) {
+    return sendWithProxyBridge<T>({
+      url: uri,
+      method: 'POST',
+      data,
+      cancelToken,
+      lockOptions,
+    });
+  }
   return postBase<T>(
     uri,
     data,
-    {
-      'X-Transaction-ID': setTransactionId(),
-      'X-Timezone-Name': getTimezoneName(),
-      'X-Session-ID': setSessionId(),
-      'X-React-Referrer': window.location.href.slice(0, 250),
-      Authorization: `Token ${token_}`,
-    },
+    createBaseAuthHeaders(token),
     cancelToken,
     lockOptions,
   );
@@ -379,19 +372,15 @@ export async function putAuth<T = unknown, D = unknown>(
   data?: D,
   cancelToken?: AxiosRequestConfig['cancelToken'],
 ) {
-  const token = getAuthToken();
-  return put<T>(
-    uri,
-    data,
-    {
-      'X-Transaction-ID': setTransactionId(),
-      'X-Timezone-Name': getTimezoneName(),
-      'X-Session-ID': setSessionId(),
-      'X-React-Referrer': window.location.href.slice(0, 250),
-      Authorization: `Token ${token}`,
-    },
-    cancelToken,
-  );
+  if (shouldUseBridge()) {
+    return sendWithProxyBridge<T>({
+      url: uri,
+      method: 'PUT',
+      data,
+      cancelToken,
+    });
+  }
+  return put<T>(uri, data, createBaseAuthHeaders(), cancelToken);
 }
 
 /**
@@ -403,19 +392,14 @@ export async function patchAuth<T = unknown, D = unknown>(
   data: D,
   cancelToken?: AxiosRequestConfig['cancelToken'],
 ) {
-  const token = getAuthToken();
-  return patch<T>(
-    uri,
-    data,
-    {
-      'X-Transaction-ID': setTransactionId(),
-      'X-Timezone-Name': getTimezoneName(),
-      'X-Session-ID': setSessionId(),
-      'X-React-Referrer': window.location.href.slice(0, 250),
-      Authorization: `Token ${token}`,
-    },
-    cancelToken,
-  );
+  if (shouldUseBridge()) {
+    return sendWithProxyBridge<T>({
+      url: uri,
+      method: 'PATCH',
+      cancelToken,
+    });
+  }
+  return patch<T>(uri, data, createBaseAuthHeaders(), cancelToken);
 }
 
 export async function deleteAuth<D = unknown>(
@@ -423,30 +407,18 @@ export async function deleteAuth<D = unknown>(
   data?: D,
   cancelToken?: AxiosRequestConfig['cancelToken'],
 ) {
-  const token = getAuthToken();
-  return delete_(
-    uri,
-    data || {},
-    {
-      'X-Transaction-ID': setTransactionId(),
-      'X-Timezone-Name': getTimezoneName(),
-      'X-Session-ID': setSessionId(),
-      'X-React-Referrer': window.location.href.slice(0, 250),
-      Authorization: `Token ${token}`,
-    },
-    cancelToken,
-  );
+  if (shouldUseBridge()) {
+    return sendWithProxyBridge({
+      url: uri,
+      method: 'DELETE',
+      cancelToken,
+    });
+  }
+  return delete_(uri, data || {}, createBaseAuthHeaders(), cancelToken);
 }
 
 export async function getJSONAuth(uri: string, token?: string) {
-  const token_ = token || getAuthToken();
-  const response = await get(uri, {
-    'X-Transaction-ID': setTransactionId(),
-    'X-Timezone-Name': getTimezoneName(),
-    'X-Session-ID': setSessionId(),
-    'X-React-Referrer': window.location.href.slice(0, 250),
-    Authorization: `Token ${token_}`,
-  });
+  const response = await get(uri, createBaseAuthHeaders(token));
 
   if (response.status !== 200 && response.status !== 201) {
     console.error(response);
@@ -455,3 +427,18 @@ export async function getJSONAuth(uri: string, token?: string) {
 
   return response.data;
 }
+
+const createBaseHeaders = () => ({
+  'X-Transaction-ID': setTransactionId(),
+  'X-Timezone-Name': getTimezoneName(),
+  'X-Session-ID': setSessionId(),
+  'X-React-Referrer': window.location.href.slice(0, 250),
+});
+
+const createBaseAuthHeaders = (token?: string) => {
+  const token_ = token || getAuthToken();
+  return {
+    ...createBaseHeaders(),
+    Authorization: `Token ${token_}`,
+  };
+};

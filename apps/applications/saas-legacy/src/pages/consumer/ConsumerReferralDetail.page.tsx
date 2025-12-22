@@ -121,17 +121,6 @@ export class ConsumerReferralDetail extends Component<Props> {
   }
 }
 
-const ConsumerReferralDetailWidget = compose<
-  Props,
-  OwnProps & ConnectedProps<typeof authenticatedCallsConnector>
->(
-  routerParamsToProps({ companyId: 'companyId:number' }),
-  marketplaceCssHoc(),
-  WithCustomCssProvider,
-)(ConsumerReferralDetail);
-
-export default ConsumerReferralDetailWidget;
-
 const pageDataConnector = connect(
   (state: RootState, { companyId }: { companyId: number }) => {
     return {

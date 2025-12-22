@@ -1,7 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { compose } from 'recompose';
-import { ConnectedProps, connect } from 'react-redux';
-
 import { ButtonBase } from '@material-ui/core';
 import {
   createStyles,
@@ -10,216 +8,153 @@ import {
 import type { WithStyles } from '@bsport/saas-legacy/node_modules/@material-ui/core/styles';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 
-import {
-  MarketplaceVideo,
-  MarketplaceVideoDataProvider,
-} from '@bsport/saas-legacy/src/pages/marketplace/MarketplaceVideo.page';
-import {
-  MarketplaceVideoDetail,
-  MarketplaceVideoDetailDataProvider,
-} from '@bsport/saas-legacy/src/pages/marketplace/MarketplaceVideoDetail.page';
-import {
-  MarketplacePlaylistDetailPage,
-  MarketplacePlaylistDetailDataProvider,
-} from '@bsport/saas-legacy/src/pages/marketplace/MarketplacePlaylistDetail.page';
+import MarketplaceVideo from '@bsport/saas-legacy/src/pages/marketplace/MarketplaceVideo.page';
+import MarketplaceVideoDetail from '@bsport/saas-legacy/src/pages/marketplace/MarketplaceVideoDetail.page';
+import MarketplacePlaylistDetailPage from '@bsport/saas-legacy/src/pages/marketplace/MarketplacePlaylistDetail.page';
 import {
   MarketplacePlaylistData,
   MarketplaceVODData,
 } from '@bsport/saas-legacy/src/libs/marketplace/types';
 import themify from '@bsport/saas-legacy/src/hocs/company-themifier.hoc';
 import { CompanyTheme } from '@bsport/saas-legacy/src/libs/theme/types';
-import {
-  bridgeRequestAuthenticationStatus,
-  bridgeRequestVideoPlaybackUrl,
-} from '../libs/bridge/actions';
-import { RootState } from '../reducers';
 import { getEnv } from '../utils/env';
-import { getVideoPlaybackUrlState } from '../libs/bridge/selectors';
 
 import '../../vendor/video.css';
 
 type OwnProps = {
-  companyId: number,
-  store: any,
-  config: MarketplacePlaylistData & MarketplaceVODData,
-  onRequestLogin: () => void,
-  theme: CompanyTheme,
-  onWindowOpen: (popupWindow: any) => void,
-  dialogMode: number,
+  companyId: number;
+  store: any;
+  config: MarketplacePlaylistData & MarketplaceVODData;
+  onRequestLogin: () => void;
+  theme: CompanyTheme;
+  onWindowOpen: (popupWindow: any) => void;
+  dialogMode: number;
 };
 
-type Props = OwnProps &
-  ConnectedProps<typeof connector> &
-  WithStyles<typeof styles>;
+type Props = OwnProps & WithStyles<typeof styles>;
 
 interface State {
   videoId?: number;
   playlistId?: number;
   searchParams: {
-    coaches: string,
-    duration_second_range: string,
-    SCTs: string,
-    search: string,
-    levels: string,
+    coaches: string;
+    duration_second_range: string;
+    SCTs: string;
+    search: string;
+    levels: string;
   };
   showLogin?: boolean;
   showSignup?: boolean;
 }
 
-const MarketPlaceVideoStyled = themify(
-  MarketplaceVideoDataProvider(MarketplaceVideo),
-);
+const MarketPlaceVideoStyled = themify(MarketplaceVideo);
+const MarketplaceVideoDetailStyled = themify(MarketplaceVideoDetail);
+const MarketplacePlaylistStyled = themify(MarketplacePlaylistDetailPage);
 
-const MarketplaceVideoDetailStyled = themify(
-  MarketplaceVideoDetailDataProvider(MarketplaceVideoDetail),
-);
+const VODWidget = (props: Props) => {
+  const { companyId, onWindowOpen, classes, theme, store } = props;
+  const [videoId, setVideoId] = useState(props.config.videoId);
+  const [playlistId, setPlaylistId] = useState(props.config.playlistId);
+  const [searchParams, setSearchParams] = useState({
+    coaches: '',
+    duration_second_range: '',
+    SCTs: '',
+    search: '',
+    levels: '',
+  });
 
-const MarketplacePlaylistStyled = themify(
-  MarketplacePlaylistDetailDataProvider(MarketplacePlaylistDetailPage),
-);
-
-class VODWidget extends React.PureComponent<Props, State> {
-  constructor(props: Props) {
-    super(props);
-
-    this.state = {
-      videoId: props.config.videoId,
-      playlistId: props.config.playlistId,
-      searchParams: {
-        coaches: '',
-        duration_second_range: '',
-        SCTs: '',
-        search: '',
-        levels: '',
-      },
-    };
-  }
-
-  componentDidMount() {
-    this.props.requestAuthenticationStatus();
-  }
-
-  openVideo = (videoId: number) => {
-    this.setState({ videoId });
+  const openVideo = (videoId: number) => {
+    setVideoId(videoId);
   };
 
-  openPlaylist = (playlistId: number, videoId?: number) => {
-    this.setState({ playlistId, videoId });
+  const openPlaylist = (playlistId: number, videoId?: number) => {
+    setPlaylistId(playlistId);
+    setVideoId(videoId);
   };
 
-  setSearchParams = (key: string) => (value: string) => {
-    this.setState((prevState) => ({
-      searchParams: {
-        ...prevState.searchParams,
-        [key]: value,
-      },
+  const updateSearchParams = (key: string) => (value: string) => {
+    setSearchParams((prevState) => ({
+      ...prevState,
+      [key]: value,
     }));
   };
 
-  requestVideoAccess = () => {
+  const requestVideoAccess = () => {
     const { PUBLIC_URL } = getEnv();
-    const url = `${PUBLIC_URL}/checkout/${this.props.companyId}/vod/${this.state.videoId}`;
-    this.props.onWindowOpen(url);
+    const url = `${PUBLIC_URL}/checkout/${companyId}/vod/${videoId}`;
+    onWindowOpen(url);
   };
 
-  requestPlaybackUrl = () => {
-    this.props.bridgeRequestVideoPlaybackUrl(this.state.videoId);
-  };
+  const showVODList =
+    (videoId === undefined || videoId === null) && playlistId === undefined;
 
-  render() {
-    const showVODList =
-      (this.state.videoId === undefined || this.state.videoId === null) &&
-      this.state.playlistId === undefined;
+  const showVODDetail =
+    videoId !== undefined && videoId !== null && !playlistId;
 
-    const showVODDetail =
-      this.state.videoId !== undefined &&
-      this.state.videoId !== null &&
-      !this.state.playlistId;
+  return (
+    <div className={classes.container}>
+      {showVODList && (
+        <MarketPlaceVideoStyled
+          companyId={companyId}
+          searchParams={searchParams}
+          setSearchParams={updateSearchParams}
+          companyName=""
+          openVideo={openVideo}
+          openPlaylist={(playlistId: number) => openPlaylist(playlistId)}
+          store={store}
+          theme={theme}
+        />
+      )}
 
-    return (
-      <div className={this.props.classes.container}>
-        {showVODList && (
-          <MarketPlaceVideoStyled
-            companyId={this.props.companyId}
-            searchParams={this.state.searchParams}
-            setSearchParams={this.setSearchParams}
-            companyName=""
-            openVideo={this.openVideo}
-            openPlaylist={(playlistId: number) => this.openPlaylist(playlistId)}
-            store={this.props.store}
-            theme={this.props.theme}
-          />
-        )}
+      {showVODDetail && (
+        <div className={classes.videoContainer}>
+          <ButtonBase onClick={() => setVideoId(undefined)}>
+            <ChevronLeftIcon className={classes.icon} fontSize="large" />
+          </ButtonBase>
 
-        {showVODDetail && (
-          <div className={this.props.classes.videoContainer}>
-            <ButtonBase
-              onClick={() => {
-                this.setState({ videoId: undefined });
-              }}
-            >
-              <ChevronLeftIcon
-                className={this.props.classes.icon}
-                fontSize="large"
-              />
-            </ButtonBase>
-
-            <div className={this.props.classes.videoDetail}>
-              <MarketplaceVideoDetailStyled
-                companyId={this.props.companyId}
-                videoId={this.state.videoId}
-                companyName=""
-                requestVideoAccess={this.requestVideoAccess}
-                playbackUrlLoading={this.props.playbackUrlLoading}
-                accessDenied={this.props.accessDenied}
-                getPlaybackUrl={this.requestPlaybackUrl}
-                playbackUrl={this.props.playbackUrlData[this.state.videoId]}
-                authenticated={this.props.authenticated}
-                openVideo={this.openVideo}
-                store={this.props.store}
-                theme={this.props.theme}
-              />
-            </div>
+          <div className={classes.videoDetail}>
+            <MarketplaceVideoDetailStyled
+              companyId={companyId}
+              videoId={videoId}
+              companyName=""
+              requestVideoAccess={requestVideoAccess}
+              openVideo={openVideo}
+              store={store}
+              theme={theme}
+            />
           </div>
-        )}
+        </div>
+      )}
 
-        {this.state.playlistId !== undefined && (
-          <div className={this.props.classes.videoContainer}>
-            <ButtonBase
-              onClick={() => {
-                this.setState({ videoId: undefined, playlistId: undefined });
-              }}
-            >
-              <ChevronLeftIcon
-                className={this.props.classes.icon}
-                fontSize="large"
-              />
-            </ButtonBase>
+      {playlistId !== undefined && (
+        <div className={classes.videoContainer}>
+          <ButtonBase
+            onClick={() => {
+              setVideoId(undefined);
+              setPlaylistId(undefined);
+            }}
+          >
+            <ChevronLeftIcon className={classes.icon} fontSize="large" />
+          </ButtonBase>
 
-            <div className={this.props.classes.videoDetail}>
-              <MarketplacePlaylistStyled
-                companyId={this.props.companyId}
-                companyName=""
-                id={this.state.playlistId}
-                videoId={this.state.videoId}
-                authenticated={this.props.authenticated}
-                accessDenied={this.props.accessDenied}
-                getPlaybackUrl={this.requestPlaybackUrl}
-                playbackUrlLoading={this.props.playbackUrlLoading}
-                playbackUrl={this.props.playbackUrlData[this.state.videoId]}
-                requestVideoAccess={this.requestVideoAccess}
-                goToVideoInPlaylist={this.openPlaylist}
-                replaceVideoInPlaylist={this.openPlaylist}
-                store={this.props.store}
-                theme={this.props.theme}
-              />
-            </div>
+          <div className={classes.videoDetail}>
+            <MarketplacePlaylistStyled
+              companyId={companyId}
+              companyName=""
+              id={playlistId}
+              videoId={videoId}
+              requestVideoAccess={requestVideoAccess}
+              goToVideoInPlaylist={openPlaylist}
+              replaceVideoInPlaylist={openPlaylist}
+              store={store}
+              theme={theme}
+            />
           </div>
-        )}
-      </div>
-    );
-  }
-}
+        </div>
+      )}
+    </div>
+  );
+};
 
 const styles = () =>
   createStyles({
@@ -247,21 +182,4 @@ const styles = () =>
     },
   });
 
-const mapStateToProps = (state: RootState) => ({
-  authenticated: state.bridge.authentication.authenticated,
-  playbackUrlData: getVideoPlaybackUrlState(state),
-  playbackUrlLoading: state.bridge.video.playbackUrl.loading,
-  accessDenied: state.bridge.video.playbackUrl.accessDenied,
-});
-
-const mapDispatchToProps = {
-  requestAuthenticationStatus: bridgeRequestAuthenticationStatus,
-  bridgeRequestVideoPlaybackUrl,
-};
-
-const connector = connect(mapStateToProps, mapDispatchToProps);
-
-export default compose<Props, OwnProps>(
-  withStyles(styles),
-  connector,
-)(VODWidget);
+export default compose<Props, OwnProps>(withStyles(styles))(VODWidget);

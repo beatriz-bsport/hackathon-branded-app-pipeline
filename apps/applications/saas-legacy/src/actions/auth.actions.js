@@ -21,7 +21,6 @@ import {
 } from '../libs/login/api';
 import { Dispatch, ThunkAction, OptionCallback } from '../state/types';
 import WidgetUtils from '../libs/widget/WidgetUtils';
-import { WidgetMessageType } from '../libs/widget/types';
 import { snackbarError } from './snackbar.actions';
 import { getAuthToken } from '../http';
 import Config from '../config';
@@ -160,14 +159,6 @@ export function fetchAccessLevel(
       } catch (err) {
         console.error(err);
       }
-      WidgetUtils.DEPRECATEDonLoginSuccess(username);
-      WidgetUtils.sendBridgeResponse(
-        WidgetMessageType.RESPONSE_AUTHENTICATED_STATUS,
-        {
-          authenticated: true,
-          username,
-        },
-      );
       options?.onSuccess?.(response.data);
       if (options && options?.goNext) {
         options.goNext({ is_franchisor, is_manager });
@@ -374,7 +365,7 @@ export function stampLastStripeAccountConfigurationWarningDateAction(
   };
 }
 
-function setLogin(
+export function setLogin(
   {
     id,
     username,
@@ -539,6 +530,10 @@ export function errorLogin() {
 
 export function initiatedLogin(username: string) {
   return { type: types.LOGIN_INITIATED, username };
+}
+
+export function responseAuthenticatedStatus(authenticated: boolean) {
+  return { type: types.RESPONSE_AUTHENTICATED_STATUS, authenticated };
 }
 
 export function disconnect(callback) {

@@ -1,0 +1,42 @@
+{
+  "name": "@bsport/widget-proxy-bridge",
+  "version": "0.0.0",
+  "private": true,
+  "description": "An app to render in an iframe to act as a proxy to our API",
+  "author": "Nicolas Ngomai <nicolas.ngomai@gmail.com>",
+  "type": "module",
+  "scripts": {
+    "build": "tsc -b && vite build",
+    "build:preview": "vite build --mode preview",
+    "ci:build": "./scripts/ci-build.sh",
+    "ci:compile": "tsc -b",
+    "ci:deploy": "./scripts/ci-deploy.sh",
+    "dev": "vite",
+    "format": "prettier --write '**/*.{ts,tsx,js,jsx,cjs,mjs,scss,css,json,md,mdx,html,svg}'",
+    "format:check": "prettier --check '**/*.{ts,tsx,js,jsx,cjs,mjs}'",
+    "lint": "eslint .",
+    "preview": "vite preview --mode preview"
+  },
+  "dependencies": {
+    "@bsport/fetch": "workspace:*",
+    "@bsport/local-storage-auth-token": "workspace:*",
+    "axios": "^1.13.2"
+  },
+  "devDependencies": {
+    "@bsport/config-eslint-react": "workspace:*",
+    "@bsport/config-federation": "workspace:*",
+    "vite": "^5.4.11"
+  },
+  "federation": {
+    "devPort": 4048,
+    "exposes": {
+      "./index": "./src/index.ts"
+    }
+  },
+  "nx": {
+    "tags": [
+      "application:revamp",
+      "scope:studio"
+    ]
+  }
+}

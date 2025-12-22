@@ -709,18 +709,6 @@ export class MarketPlacePassPage extends Component<Props, State> {
   }
 }
 
-const mapMemberInfoStateToProps = (
-  // Have to do this separation here for widget purpose
-
-  state: RootState,
-  {
-    memberTagList,
-    authenticated,
-  }: { memberTagList: number[]; authenticated: boolean },
-) => ({
-  memberTagList: memberTagList || getMemberTagsIdsList(state),
-  authenticated: authenticated || state.auth.authenticated,
-});
 const mapStateToProps = (
   state: RootState,
   {
@@ -739,6 +727,8 @@ const mapStateToProps = (
     authenticated,
     memberTagList,
   ),
+  memberTagList: memberTagList ?? getMemberTagsIdsList(state),
+  authenticated: authenticated ?? state.auth.authenticated,
   privatePassByCategory: getPrivatePassByCategoryWithPasses(
     getPrivatePassAsConsumer,
   )(state),
@@ -783,7 +773,6 @@ const mapDispatchToProps = {
 };
 
 export const MarketplacePassBase = compose<any, OwnProps>(
-  connect(mapMemberInfoStateToProps),
   connect(mapStateToProps, mapDispatchToProps),
   withHandlers({
     fetchPaymentPacks:

@@ -4,10 +4,9 @@ import {
   DIALOG_MODE_TAB,
   DIALOG_MODE_DEACTIVATED,
 } from '@bsport/common/lib/master-data/widget-dialog-mode.js';
+
 import { ConsumerSpaceContextEnum } from '#src/libs/consumer-space/constants';
-
-import { WidgetApiMessageType, WidgetMessageType } from './types';
-
+import { WidgetMessageType } from './types';
 class WidgetUtils {
   static setWidgetContext() {
     // @ts-expect-error
@@ -106,11 +105,15 @@ class WidgetUtils {
     }
   }
 
-  static sendBridgeResponse(
-    type: WidgetMessageType | WidgetApiMessageType,
-    data?: any,
-  ) {
+  static sendBridgeResponse(type: WidgetMessageType, data?: any) {
     WidgetUtils.postMessage({ type, ...(data || {}) });
+  }
+
+  static sendBridgeLoginSuccess() {
+    WidgetUtils.postMessage({ type: WidgetMessageType.IFRAME_LOGIN_SUCCESS });
+  }
+  static sendBridgeLogout() {
+    WidgetUtils.postMessage({ type: WidgetMessageType.IFRAME_LOGOUT });
   }
 
   static paymentSuccess() {
@@ -134,32 +137,6 @@ class WidgetUtils {
     WidgetUtils.postMessage({
       type: WidgetMessageType.VIDEO_REGISTERED,
       videoId,
-    });
-  }
-
-  static DEPRECATEDauthenticatedStatus(
-    authenticated: boolean,
-    username: string,
-  ) {
-    WidgetUtils.postMessage({
-      type: WidgetMessageType.AUTHENTICATED_STATUS,
-      authenticated,
-      username,
-    });
-  }
-
-  static DEPRECATEDbasketCount(count: number) {
-    WidgetUtils.postMessage({ type: WidgetMessageType.BASKET_COUNT, count });
-  }
-
-  static DEPRECATEDbookingsCount(count: number) {
-    WidgetUtils.postMessage({ type: WidgetMessageType.BOOKINGS_COUNT, count });
-  }
-
-  static DEPRECATEDonLoginSuccess(username: string) {
-    WidgetUtils.postMessage({
-      type: WidgetMessageType.LOGIN_SUCCESS,
-      payload: { username },
     });
   }
 }

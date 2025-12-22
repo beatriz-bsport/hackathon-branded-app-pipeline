@@ -11,6 +11,7 @@ export const FeatureFlags = {
   STOP_SUBSCRIPTION_FROM_MEMBER_SIDE: 'stop_subscription_on_memberside',
   FISKALY_SIGN_ES: 'fiskaly_sign_es',
   AUDIENCE_TEMPLATES: 'audience_workflow_templates',
+  INVOICE_SEQUENTIAL_NUMBERING: 'invoice_sequential_numbering',
 } as const;
 
 export type FlagName = (typeof FeatureFlags)[keyof typeof FeatureFlags];

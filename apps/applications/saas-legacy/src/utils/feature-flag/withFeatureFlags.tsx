@@ -5,6 +5,7 @@ import { FeatureFlags } from './flags';
 export type FeatureFlagProps = {
   showExpressCheckout: boolean;
   showAudienceTemplates: boolean;
+  isInvoiceSequentialNumberingEnabled: boolean;
 };
 
 /**
@@ -17,10 +18,16 @@ export const withFeatureFlags = <TProps extends object>(
   const WithFeatureFlagsComponent = (props: TProps) => {
     const showExpressCheckout = useSafeFlag(FeatureFlags.EXPRESS_PASS_CHECKOUT);
     const showAudienceTemplates = useSafeFlag(FeatureFlags.AUDIENCE_TEMPLATES);
+    const isInvoiceSequentialNumberingEnabled = useSafeFlag(
+      FeatureFlags.INVOICE_SEQUENTIAL_NUMBERING,
+    );
 
     return (
       <WrappedComponent
         {...props}
+        isInvoiceSequentialNumberingEnabled={
+          isInvoiceSequentialNumberingEnabled
+        }
         showAudienceTemplates={showAudienceTemplates}
         showExpressCheckout={showExpressCheckout}
       />

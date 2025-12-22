@@ -1,10 +1,12 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { useState } from "react";
 
 import Body from "#src/components/Body";
 import Button from "#src/components/Button";
 import Popover from "#src/components/Popover";
 import Select from "#src/components/Select";
 import Tooltip, { withTooltip } from "#src/components/Tooltip";
+import { MenuOption } from "#src/index";
 
 import HeaderLayout from "./HeaderLayout";
 import { useAdaptiveActions } from "./use-adaptive-actions";
@@ -487,6 +489,199 @@ export const WithAdaptiveActions: Story = {
         pageTitle="Adaptive Actions Demo"
         pageStatusBadge={ARGS.PAGE_STATUS_BADGE}
         {...adaptiveActions}
+      />
+    );
+  },
+};
+
+// Mock API data for different continents
+const mockApiData = {
+  europe: [
+    { id: "london", label: "London", description: "Capital of United Kingdom" },
+    { id: "paris", label: "Paris", description: "Capital of France" },
+    { id: "berlin", label: "Berlin", description: "Capital of Germany" },
+    { id: "madrid", label: "Madrid", description: "Capital of Spain" },
+    { id: "rome", label: "Rome", description: "Capital of Italy" },
+    {
+      id: "amsterdam",
+      label: "Amsterdam",
+      description: "Capital of Netherlands",
+    },
+    { id: "vienna", label: "Vienna", description: "Capital of Austria" },
+    { id: "prague", label: "Prague", description: "Capital of Czech Republic" },
+  ],
+  asia: [
+    { id: "tokyo", label: "Tokyo", description: "Capital of Japan" },
+    { id: "seoul", label: "Seoul", description: "Capital of South Korea" },
+    { id: "beijing", label: "Beijing", description: "Capital of China" },
+    { id: "bangkok", label: "Bangkok", description: "Capital of Thailand" },
+    {
+      id: "singapore",
+      label: "Singapore",
+      description: "City-state in Southeast Asia",
+    },
+    {
+      id: "mumbai",
+      label: "Mumbai",
+      description: "Financial capital of India",
+    },
+    { id: "delhi", label: "Delhi", description: "Capital of India" },
+    { id: "jakarta", label: "Jakarta", description: "Capital of Indonesia" },
+  ],
+  africa: [
+    { id: "cairo", label: "Cairo", description: "Capital of Egypt" },
+    { id: "lagos", label: "Lagos", description: "Largest city in Nigeria" },
+    {
+      id: "johannesburg",
+      label: "Johannesburg",
+      description: "Largest city in South Africa",
+    },
+    {
+      id: "casablanca",
+      label: "Casablanca",
+      description: "Largest city in Morocco",
+    },
+    { id: "nairobi", label: "Nairobi", description: "Capital of Kenya" },
+    {
+      id: "addis-ababa",
+      label: "Addis Ababa",
+      description: "Capital of Ethiopia",
+    },
+    { id: "accra", label: "Accra", description: "Capital of Ghana" },
+    { id: "tunis", label: "Tunis", description: "Capital of Tunisia" },
+  ],
+  americas: [
+    { id: "new-york", label: "New York", description: "Largest city in USA" },
+    {
+      id: "sao-paulo",
+      label: "São Paulo",
+      description: "Largest city in Brazil",
+    },
+    {
+      id: "mexico-city",
+      label: "Mexico City",
+      description: "Capital of Mexico",
+    },
+    { id: "toronto", label: "Toronto", description: "Largest city in Canada" },
+    {
+      id: "buenos-aires",
+      label: "Buenos Aires",
+      description: "Capital of Argentina",
+    },
+    { id: "lima", label: "Lima", description: "Capital of Peru" },
+    { id: "bogota", label: "Bogotá", description: "Capital of Colombia" },
+    { id: "santiago", label: "Santiago", description: "Capital of Chile" },
+  ],
+  oceania: [
+    { id: "sydney", label: "Sydney", description: "Largest city in Australia" },
+    {
+      id: "melbourne",
+      label: "Melbourne",
+      description: "Second largest city in Australia",
+    },
+    {
+      id: "auckland",
+      label: "Auckland",
+      description: "Largest city in New Zealand",
+    },
+    {
+      id: "wellington",
+      label: "Wellington",
+      description: "Capital of New Zealand",
+    },
+    {
+      id: "brisbane",
+      label: "Brisbane",
+      description: "Third largest city in Australia",
+    },
+    {
+      id: "perth",
+      label: "Perth",
+      description: "Fourth largest city in Australia",
+    },
+    { id: "suva", label: "Suva", description: "Capital of Fiji" },
+    {
+      id: "port-moresby",
+      label: "Port Moresby",
+      description: "Capital of Papua New Guinea",
+    },
+  ],
+};
+
+// Simulate API delay
+const simulateApiCall = (
+  query: string,
+  delay: number = 800,
+): Promise<MenuOption[]> => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      const allCities = Object.values(mockApiData).flat();
+      const filteredCities = allCities.filter(
+        (city) =>
+          city.label.toLowerCase().includes(query.toLowerCase()) ||
+          city.description.toLowerCase().includes(query.toLowerCase()),
+      );
+      resolve(filteredCities);
+    }, delay);
+  });
+};
+
+export const withAPIMockFilterComponent: Story = {
+  name: "With API Mock Filter Component",
+  render: (args) => {
+    const [searchValue, setSearchValue] = useState("");
+    const [searchResults, setSearchResults] = useState<MenuOption[]>([]);
+    const filterConfig = {
+      filters: [
+        { id: "is", label: "is" },
+        { id: "is-not", label: "is not" },
+      ],
+      fields: {
+        city: {
+          id: "city",
+          label: "City",
+          availableFilters: ["is", "is-not"],
+          values: searchResults,
+          multiSelect: true,
+          searchConfig: {
+            value: searchValue,
+            onChange: (newValue: string) => {
+              setSearchValue(newValue);
+              simulateApiCall(newValue).then((results) => {
+                setSearchResults(results);
+              });
+            },
+            placeholder: "Search for a city...",
+          },
+        },
+        country: {
+          id: "country",
+          label: "Country",
+          availableFilters: ["is", "is-not"],
+          values: [
+            { id: "usa", label: "USA" },
+            { id: "brazil", label: "Brazil" },
+            { id: "mexico", label: "Mexico" },
+          ],
+          multiSelect: false,
+        },
+      },
+      selectFieldLabel: "Filter",
+      onFilterChange: (
+        filters: Array<{
+          id: number;
+          field: string | null;
+          filter: string | null;
+          valueIds: string[];
+        }>,
+      ) => console.log("Filters changed:", filters),
+    };
+
+    return (
+      <HeaderLayout
+        {...args}
+        pageTitle="Header with API Mock Filter Component"
+        filterConfig={filterConfig}
       />
     );
   },

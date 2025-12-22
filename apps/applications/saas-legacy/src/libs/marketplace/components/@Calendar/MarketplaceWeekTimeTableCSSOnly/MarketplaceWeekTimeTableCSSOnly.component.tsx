@@ -389,37 +389,6 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
     );
   };
 
-  renderNextDaysOffersListVersion = (
-    main_date: DateTime,
-    offersByDay: Record<string, Array<Offer>>,
-  ) => {
-    const next_days = [
-      this.props.forceDayDisplayOnly ? DateTime.now() : main_date,
-    ];
-    let next_day = main_date.plus({
-      days: 1,
-    });
-    while (
-      next_day.weekNumber === main_date.weekNumber &&
-      !this.props.forceDayDisplayOnly
-    ) {
-      next_days.push(next_day);
-      next_day = next_day.plus({ days: 1 });
-    }
-
-    return (
-      <div className="bs-week__listMode__content">
-        {next_days
-          .filter((day) => this.getOffersByDay(day, offersByDay).length > 0)
-          .map((day) => (
-            <React.Fragment key={`day-${day}`}>
-              {this.renderDayOffersListVersion(day, offersByDay)}
-            </React.Fragment>
-          ))}
-      </div>
-    );
-  };
-
   render() {
     const { loading, date, isCardModeDisplay, offersByDay } = this.props;
 
@@ -511,9 +480,13 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
             })}
           </>
         )}
-        {!isCardModeDisplay || this.props.forceDayDisplayOnly
-          ? this.renderNextDaysOffersListVersion(main_date, offersByDay)
-          : this.renderOffersCardVersion(periodOffers, offersByDay)}
+        {!isCardModeDisplay || this.props.forceDayDisplayOnly ? (
+          <div className="bs-week__listMode__content">
+            {this.renderDayOffersListVersion(main_date, offersByDay)}
+          </div>
+        ) : (
+          this.renderOffersCardVersion(periodOffers, offersByDay)
+        )}
       </div>
     );
   }

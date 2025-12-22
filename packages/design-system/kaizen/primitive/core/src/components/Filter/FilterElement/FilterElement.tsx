@@ -133,12 +133,12 @@ const FilterElement: React.FC<FilterElementProps> = ({
   }, [fields, selectedField]);
 
   useEffect(() => {
-    if (selectedField && selectedFilter && selectedValues) {
+    if (selectedField && selectedFilter) {
       onFilterElementChange(
         elementId,
         selectedField,
         selectedFilter,
-        selectedValues,
+        selectedValues ?? [],
       );
     }
   }, [

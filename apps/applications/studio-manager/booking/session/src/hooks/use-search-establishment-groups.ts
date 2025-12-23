@@ -5,7 +5,7 @@ import {
 } from "@tanstack/react-query";
 
 import {
-  type SearchEstablishmentGroupParams,
+  type SearchEstablishmentGroupSearchParams,
   searchEstablishmentGroups,
 } from "@bsport/api-core";
 
@@ -15,7 +15,7 @@ const ESTABLISHMENT_GROUPS_DEFAULT_PAGE_SIZE = 20;
 const ESTABLISHMENT_GROUPS_STALE_TIME = 2 * 60 * 1000; // 2 minutes
 
 const fetchSearchEstablishmentGroups = async (
-  params: SearchEstablishmentGroupParams,
+  params: SearchEstablishmentGroupSearchParams,
 ) => {
   const result = await searchEstablishmentGroups(fetch, params);
   return result.results;

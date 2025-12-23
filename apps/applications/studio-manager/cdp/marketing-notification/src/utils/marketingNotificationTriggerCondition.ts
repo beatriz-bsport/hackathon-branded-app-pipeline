@@ -1,4 +1,5 @@
 import type { MetaActivity } from "@bsport/api-book";
+import type { Establishment, EstablishmentGroup } from "@bsport/api-core";
 import type { Appointment } from "@bsport/store-booking-appointment";
 import type { AppointmentPass } from "@bsport/store-buyables-appointment-pass";
 import type { Pass } from "@bsport/store-buyables-pass";
@@ -7,10 +8,6 @@ import type {
   BookingCreationEventRules,
   MarketingNotification,
 } from "@bsport/store-cdp-marketing-notification";
-import type {
-  Establishment,
-  EstablishmentGroup,
-} from "@bsport/store-core-data-establishment";
 
 import { NOTIFICATION_ADVANCED_TYPE } from "#src/utils/constants";
 import { useTranslation } from "#src/utils/i18n";

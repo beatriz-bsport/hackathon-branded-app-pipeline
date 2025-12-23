@@ -1,5 +1,5 @@
+import { FetchEstablishmentGroupQueryParams } from "@bsport/api-core";
 import {
-  type FetchEstablishmentGroupQueryParams,
   fetchEstablishmentGroupsAction,
   searchEstablishmentGroupsAction,
 } from "@bsport/store-core-data-establishment";

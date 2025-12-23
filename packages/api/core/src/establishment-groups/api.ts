@@ -8,21 +8,21 @@ import {
 
 import type {
   EstablishmentGroup,
-  FetchEstablishmentGroupParams,
-  SearchEstablishmentGroupParams,
-} from "#src/establishment-groups/types";
+  FetchEstablishmentGroupQueryParams,
+  SearchEstablishmentGroupSearchParams,
+} from "./types";
 
 const ESTABLISHMENT_GROUP_API_URL = "core-data/v1/establishment-group";
 
 const fetchEstablishmentGroupsAPI = (
-  params: FetchEstablishmentGroupParams = {},
+  params: FetchEstablishmentGroupQueryParams = {},
 ): ApiConfig => {
   return [`${ESTABLISHMENT_GROUP_API_URL}/${buildUrlParams(params)}`];
 };
 
 export const fetchEstablishmentGroups = async (
   fetch: Fetch<PaginatedResponse<EstablishmentGroup>>,
-  params: FetchEstablishmentGroupParams = {},
+  params: FetchEstablishmentGroupQueryParams = {},
 ): Promise<PaginatedResponse<EstablishmentGroup>> => {
   const [uri, init] = fetchEstablishmentGroupsAPI(params);
   const { data } = await fetch(uri, init);
@@ -31,14 +31,14 @@ export const fetchEstablishmentGroups = async (
 };
 
 const searchEstablishmentGroupsAPI = (
-  params: SearchEstablishmentGroupParams,
+  params: SearchEstablishmentGroupSearchParams,
 ): ApiConfig => {
   return [`${ESTABLISHMENT_GROUP_API_URL}/search/${buildUrlParams(params)}`];
 };
 
 export const searchEstablishmentGroups = async (
   fetch: Fetch<SearchResponse<EstablishmentGroup>>,
-  params: SearchEstablishmentGroupParams,
+  params: SearchEstablishmentGroupSearchParams,
 ): Promise<SearchResponse<EstablishmentGroup>> => {
   const [uri, init] = searchEstablishmentGroupsAPI(params);
   const { data } = await fetch(uri, init);

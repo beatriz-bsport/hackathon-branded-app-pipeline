@@ -1,15 +1,5 @@
-import { useState } from "react";
-
 import type { FilterProps } from "@bsport/kaizen-primitive-core";
-import { dataAccessLayer } from "@bsport/sm-backbone";
-import { useDebounce } from "@bsport/use-debounce";
 
-import { useFetchLevels } from "#src/hooks/level/useFetchLevels";
-import { useLevelName } from "#src/hooks/level/useLevelName";
-import { useFetchCategories } from "#src/hooks/use-fetch-categories";
-import { useSearchEstablishmentGroups } from "#src/hooks/use-search-establishment-groups";
-import { useSearchEstablishments } from "#src/hooks/use-search-establishments";
-import { useSearchTeachers } from "#src/hooks/use-search-teachers";
 import { setFilters } from "#src/stores/session-list";
 import { useTranslation } from "#src/utils/i18n";
 
@@ -20,97 +10,27 @@ import {
   TeacherSubstitutionFilterValues,
   VisibilityFilterValues,
 } from "./types";
+import { useCategoryFilter } from "./use-category-filter";
+import { useEstablishmentFilter } from "./use-establishment-filter";
+import { useLevelFilter } from "./use-level-filter";
+import { useLocationFilter } from "./use-location-filter";
+import { useTeacherFilter } from "./use-teacher-filter";
 
 export const useFilterConfig = (): FilterProps => {
   const { t } = useTranslation("sessionList");
 
-  // Load teachers for the teacher filter
-  const [teacherInputValue, setTeacherInputValue] = useState("");
-  const [debouncedSearch, setDebouncedSearch] = useState(teacherInputValue);
-  const debouncedSetDebouncedSearch = useDebounce(setDebouncedSearch);
-
-  const { data: teachers } = useSearchTeachers(debouncedSearch);
-
-  // Load establishments for the establishment filter
-  const [establishmentInputValue, setEstablishmentInputValue] = useState("");
-  const [debouncedEstablishmentSearch, setDebouncedEstablishmentSearch] =
-    useState(establishmentInputValue);
-  const debouncedSetDebouncedEstablishmentSearch = useDebounce(
-    setDebouncedEstablishmentSearch,
-  );
-
-  const { data: establishments } = useSearchEstablishments(
-    debouncedEstablishmentSearch,
-  );
-
-  // Load and filter establishment groups for the establishment group filter
-  const [establishmentGroupInputValue, setEstablishmentGroupInputValue] =
-    useState("");
-  const [
-    debouncedEstablishmentGroupSearch,
-    setDebouncedEstablishmentGroupSearch,
-  ] = useState(establishmentGroupInputValue);
-  const debouncedSetDebouncedEstablishmentGroupSearch = useDebounce(
-    setDebouncedEstablishmentGroupSearch,
-  );
-
-  const { data: establishmentGroups } = useSearchEstablishmentGroups(
-    debouncedEstablishmentGroupSearch,
-  );
-
-  const hasMultiLocation =
-    dataAccessLayer.useCompanyTheme()?.enable_multi_localization &&
-    establishmentGroups &&
-    establishmentGroups.length !== 0;
-
-  const companyId = dataAccessLayer.useCompanyTheme()?.company;
-
-  // Load and filter levels for the level filter
-  const { data: levels } = useFetchLevels(companyId);
-  const [levelsSearch, setLevelsSearch] = useState("");
-  const getLevelName = useLevelName();
-
-  const filteredLevels = levels
-    ? Object.values(levels)
-        .map((level) => ({
-          id: level.id.toString(),
-          label: getLevelName({ levelId: level.id, levelName: level.name }),
-        }))
-        .filter((level) =>
-          level.label.toLowerCase().includes(levelsSearch.toLowerCase()),
-        )
-    : [];
-
-  // Load and filter categories
-  const { data: categories } = useFetchCategories(companyId);
-  const [categoriesSearch, setCategoriesSearch] = useState("");
-
-  const filteredCategories =
-    categories
-      ?.map((category) => ({
-        id: category.id.toString(),
-        label: category.name,
-      }))
-      .filter((category) =>
-        category.label.toLowerCase().includes(categoriesSearch.toLowerCase()),
-      ) ?? [];
+  const teacherFilter = useTeacherFilter();
+  const establishmentFilter = useEstablishmentFilter();
+  const {
+    shouldDisplayFilter: shouldDisplayLocationFilter,
+    filterConfig: locationFilter,
+  } = useLocationFilter();
+  const levelFilter = useLevelFilter();
+  const categoryFilter = useCategoryFilter();
 
   return {
     fields: {
-      "activity-category": {
-        id: SessionFilterTypes.ACTIVITY_CATEGORY,
-        label: t("table.filters.activityCategory.label"),
-        availableFilters: [SessionFilters.FILTER_IS],
-        values: filteredCategories,
-        multiSelect: true,
-        searchConfig: {
-          value: categoriesSearch,
-          onChange: (value: string) => {
-            setCategoriesSearch(value);
-          },
-          placeholder: t("table.filters.searchPlaceholder"),
-        },
-      },
+      "activity-category": categoryFilter,
       "activity-type": {
         id: SessionFilterTypes.ACTIVITY_TYPE,
         label: t("table.filters.activityType.label"),
@@ -127,69 +47,14 @@ export const useFilterConfig = (): FilterProps => {
         ],
         multiSelect: false,
       },
-      establishment: {
-        id: SessionFilterTypes.ESTABLISHMENT,
-        label: t("table.filters.establishment.label"),
-        availableFilters: [SessionFilters.FILTER_IS],
-        values: establishments || [],
-        multiSelect: true,
-        searchConfig: {
-          value: establishmentInputValue,
-          onChange: (value: string) => {
-            setEstablishmentInputValue(value);
-            debouncedSetDebouncedEstablishmentSearch(value);
-          },
-          placeholder: t("table.filters.searchPlaceholder"),
-        },
-      },
-      ...(hasMultiLocation
+      establishment: establishmentFilter,
+      ...(shouldDisplayLocationFilter
         ? {
-            location: {
-              id: SessionFilterTypes.LOCATION,
-              label: t("table.filters.location.label"),
-              availableFilters: [SessionFilters.FILTER_IS],
-              values: establishmentGroups,
-              multiSelect: true,
-              searchConfig: {
-                value: establishmentGroupInputValue,
-                onChange: (value: string) => {
-                  setEstablishmentGroupInputValue(value);
-                  debouncedSetDebouncedEstablishmentGroupSearch(value);
-                },
-                placeholder: t("table.filters.searchPlaceholder"),
-              },
-            },
+            location: locationFilter,
           }
         : {}),
-      level: {
-        id: SessionFilterTypes.LEVEL,
-        label: t("table.filters.level.label"),
-        availableFilters: [SessionFilters.FILTER_IS],
-        values: filteredLevels,
-        multiSelect: true,
-        searchConfig: {
-          value: levelsSearch,
-          onChange: (value: string) => {
-            setLevelsSearch(value);
-          },
-          placeholder: t("table.filters.searchPlaceholder"),
-        },
-      },
-      teacher: {
-        id: SessionFilterTypes.TEACHER,
-        label: t("table.filters.teacher.label"),
-        availableFilters: [SessionFilters.FILTER_IS],
-        values: teachers || [],
-        multiSelect: true,
-        searchConfig: {
-          value: teacherInputValue,
-          onChange: (value: string) => {
-            setTeacherInputValue(value);
-            debouncedSetDebouncedSearch(value);
-          },
-          placeholder: t("table.filters.searchPlaceholder"),
-        },
-      },
+      level: levelFilter,
+      teacher: teacherFilter,
       "teacher-substitution": {
         id: SessionFilterTypes.TEACHER_SUBSTITUTION,
         label: t("table.filters.teacherSubstitution.label"),

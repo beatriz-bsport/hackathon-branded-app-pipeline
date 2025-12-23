@@ -20,6 +20,7 @@ export type PartnershipVenue = {
   establishments: Establishment[];
   // Active is mandatory for actual PartnershipVenue objects, but optional here to ease the Wellhub migration to the new framework
   active?: boolean;
+  activated_at?: Date; // used in combination with "active" for deactivated status: active=false and activated_at!=null means the venue was deactivated
   // legacyObject is used to store the original object from which this PartnershipVenue was mapped
   // TODO: remove this property once wellhub is merged into the new partnership framework
   legacyObject?: unknown;

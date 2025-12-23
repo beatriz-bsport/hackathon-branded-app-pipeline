@@ -1,5 +1,9 @@
 import useAsyncFn from '#src/hooks/useAsyncFn';
-import { createPartnershipVenue, getPartnershipVenues } from './api';
+import {
+  createPartnershipVenue,
+  deletePartnershipVenue,
+  getPartnershipVenues,
+} from './api';
 
 export const useGetPartnershipVenues = (partnershipId: number) => {
   const doFetchPartnershipVenues = async () => {
@@ -26,4 +30,12 @@ export const useCreatePartnershipVenue = (partnershipId: number) => {
   };
 
   return useAsyncFn(doCreatePartnershipVenues, [partnershipId]);
+};
+
+export const useDeletePartnershipVenue = () => {
+  const doDeletePartnershipVenue = async (venueId: string) => {
+    await deletePartnershipVenue(venueId);
+  };
+
+  return useAsyncFn(doDeletePartnershipVenue, []);
 };

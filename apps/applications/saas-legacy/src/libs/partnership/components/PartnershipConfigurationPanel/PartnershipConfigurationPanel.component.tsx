@@ -6,7 +6,7 @@ import {
   PartnershipConfigurationContent,
   PartnershipConfigurationFooter,
   PartnershipConfigurationHeader,
-} from './subcomponents';
+} from './components';
 
 import { PartnershipDisplayConfig, PartnershipVenue } from '../../types';
 

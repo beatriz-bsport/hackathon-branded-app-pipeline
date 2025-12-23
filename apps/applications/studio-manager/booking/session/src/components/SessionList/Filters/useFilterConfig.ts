@@ -10,12 +10,27 @@ import {
   TeacherSubstitutionFilterValues,
   VisibilityFilterValues,
 } from "./types";
+import { useCategoryFilter } from "./use-category-filter";
+import { useEstablishmentFilter } from "./use-establishment-filter";
+import { useLevelFilter } from "./use-level-filter";
+import { useLocationFilter } from "./use-location-filter";
+import { useTeacherFilter } from "./use-teacher-filter";
 
 export const useFilterConfig = (): FilterProps => {
   const { t } = useTranslation("sessionList");
 
+  const teacherFilter = useTeacherFilter();
+  const establishmentFilter = useEstablishmentFilter();
+  const {
+    shouldDisplayFilter: shouldDisplayLocationFilter,
+    filterConfig: locationFilter,
+  } = useLocationFilter();
+  const levelFilter = useLevelFilter();
+  const categoryFilter = useCategoryFilter();
+
   return {
     fields: {
+      "activity-category": categoryFilter,
       "activity-type": {
         id: SessionFilterTypes.ACTIVITY_TYPE,
         label: t("table.filters.activityType.label"),
@@ -32,22 +47,14 @@ export const useFilterConfig = (): FilterProps => {
         ],
         multiSelect: false,
       },
-      visibility: {
-        id: SessionFilterTypes.VISIBILITY,
-        label: t("table.filters.visibility.label"),
-        availableFilters: [SessionFilters.FILTER_IS, SessionFilters.FILTER_NOT],
-        values: [
-          {
-            id: VisibilityFilterValues.AGGREGATORS,
-            label: t("table.filters.visibility.aggregators"),
-          },
-          {
-            id: VisibilityFilterValues.MEMBERS,
-            label: t("table.filters.visibility.members"),
-          },
-        ],
-        multiSelect: false,
-      },
+      establishment: establishmentFilter,
+      ...(shouldDisplayLocationFilter
+        ? {
+            location: locationFilter,
+          }
+        : {}),
+      level: levelFilter,
+      teacher: teacherFilter,
       "teacher-substitution": {
         id: SessionFilterTypes.TEACHER_SUBSTITUTION,
         label: t("table.filters.teacherSubstitution.label"),
@@ -60,6 +67,22 @@ export const useFilterConfig = (): FilterProps => {
           {
             id: TeacherSubstitutionFilterValues.PENDING,
             label: t("table.filters.teacherSubstitution.pending"),
+          },
+        ],
+        multiSelect: false,
+      },
+      visibility: {
+        id: SessionFilterTypes.VISIBILITY,
+        label: t("table.filters.visibility.label"),
+        availableFilters: [SessionFilters.FILTER_IS, SessionFilters.FILTER_NOT],
+        values: [
+          {
+            id: VisibilityFilterValues.AGGREGATORS,
+            label: t("table.filters.visibility.aggregators"),
+          },
+          {
+            id: VisibilityFilterValues.MEMBERS,
+            label: t("table.filters.visibility.members"),
           },
         ],
         multiSelect: false,

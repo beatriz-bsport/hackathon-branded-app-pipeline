@@ -1,21 +1,29 @@
-export type FetchEstablishmentGroupParams = {
+export type FetchEstablishmentGroupQueryParams = {
   // Pagination
   page?: number;
-  page_size?: number;
+  page_size?: number; // Default: MAX_ESTABLISHMENT_GROUP_PER_COMPANY
 
   // Fuzzy search
-  search?: string;
-  companyId?: number;
+  search?: string; // Searches in 'name' field
+  companyId?: number; // Required for fuzzy search
 
   // Ordering
   ordering?: string;
   id__in?: number[];
 };
 
-export type SearchEstablishmentGroupParams = {
+export type SearchEstablishmentGroupSearchParams = {
   q?: string;
-} & FetchEstablishmentGroupParams;
+} & FetchEstablishmentGroupQueryParams;
 
 // Core EstablishmentGroup model
-// Already defined in establishments/types.ts, re-export for convenience
-export type { EstablishmentGroup } from "#src/establishments/types";
+// Model : EstablishmentGroup
+// Serializer : EstablishmentGroupSerializer
+export type EstablishmentGroup = {
+  id: number;
+  name: string;
+  company_id: number;
+  date_created: string; // ISO datetime
+  date_updated?: string; // ISO datetime
+  disabled?: boolean;
+};

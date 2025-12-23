@@ -22,21 +22,37 @@
       "label": "Filters",
       "is": "is",
       "not": "is not",
+      "activityCategory": {
+        "label": "Activity category"
+      },
       "activityType": {
         "label": "Activity type",
         "workshop": "Workshop",
         "groupActivity": "Group activity"
+      },
+      "establishment": {
+        "label": "Establishment"
+      },
+      "location": {
+        "label": "Location"
+      },
+      "level": {
+        "label": "Session level"
+      },
+      "teacher": {
+        "label": "Teacher"
+      },
+      "teacherSubstitution": {
+        "label": "Teacher substitution",
+        "confirmed": "Confirmed",
+        "pending": "Pending request"
       },
       "visibility": {
         "label": "Visibility",
         "aggregators": "Visible on aggregators",
         "members": "Visible on Member Area"
       },
-      "teacherSubstitution": {
-        "label": "Teacher substitution",
-        "confirmed": "Confirmed",
-        "pending": "Pending request"
-      }
+      "searchPlaceholder": "Search"
     },
     "isLoading": "Loading sessions...",
     "attendanceButton": "Attendance",

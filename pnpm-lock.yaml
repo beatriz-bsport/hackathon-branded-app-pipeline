@@ -1693,6 +1693,9 @@ importers:
       '@bsport/api-book':
         specifier: workspace:*
         version: link:../../../../../packages/api/book
+      '@bsport/api-core':
+        specifier: workspace:*
+        version: link:../../../../../packages/api/core
       '@bsport/fetch':
         specifier: workspace:*
         version: link:../../../../../packages/utils/fetch
@@ -3465,6 +3468,9 @@ importers:
 
   packages/stores/core-data/master-data:
     dependencies:
+      '@bsport/api-core':
+        specifier: workspace:*
+        version: link:../../../api/core
       '@bsport/store-base':
         specifier: workspace:*
         version: link:../../base

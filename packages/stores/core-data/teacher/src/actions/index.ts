@@ -2,7 +2,7 @@ import { Result } from "typescript-result";
 
 import {
   type FetchTeachersParams,
-  type FuzzySearchParams,
+  type FuzzySearchTeacherParams,
   type PaginatedFetchTeachersParams,
   type Teacher,
   archiveTeacher,
@@ -97,7 +97,7 @@ export const fetchFlatTeachersAction: Action<
 };
 
 export const fuzzySearchTeachersAction: Action<
-  FuzzySearchParams,
+  FuzzySearchTeacherParams,
   PaginatedResponse<Teacher>,
   HTTPException
 > = async (fetch, params) => {

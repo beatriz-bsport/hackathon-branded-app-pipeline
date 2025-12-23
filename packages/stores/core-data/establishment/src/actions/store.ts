@@ -1,7 +1,7 @@
+import type { Establishment, EstablishmentGroup } from "@bsport/api-core";
 import { buildById } from "@bsport/store-base";
 
 import { establishmentStore } from "#src/store";
-import type { Establishment, EstablishmentGroup } from "#src/types";
 
 export const setEstablishments = ({
   establishments,

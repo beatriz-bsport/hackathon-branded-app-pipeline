@@ -10,3 +10,7 @@ export type SportCategory = {
   scs: SportParentCategory;
   language: string;
 };
+
+export type FetchSportCategoryParams = {
+  companyId: number;
+};

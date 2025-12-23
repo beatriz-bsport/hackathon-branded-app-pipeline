@@ -1,18 +1,17 @@
 import { Result } from "typescript-result";
 
 import { fetchEstablishments, searchEstablishments } from "@bsport/api-core";
+import type {
+  Establishment,
+  FetchEstablishmentParams,
+  SearchEstablishmentParams,
+} from "@bsport/api-core";
 import {
   type Action,
   type PaginatedResponse,
   type SearchResponse,
   createErrorWithContext,
 } from "@bsport/store-base";
-
-import type {
-  Establishment,
-  FetchEstablishmentParams,
-  SearchEstablishmentParams,
-} from "#src/types";
 
 import { setEstablishments } from "./store";
 

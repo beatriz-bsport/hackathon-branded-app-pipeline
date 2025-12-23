@@ -7,7 +7,7 @@ import {
 
 import type {
   FetchTeachersParams,
-  FuzzySearchParams,
+  FuzzySearchTeacherParams,
   PaginatedFetchTeachersParams,
   Teacher,
 } from "#src/teachers/types";
@@ -54,7 +54,9 @@ export const fetchFlatTeachers = async (
   return data;
 };
 
-const fuzzySearchTeachersAPIConfig = (params: FuzzySearchParams): ApiConfig => {
+const fuzzySearchTeachersAPIConfig = (
+  params: FuzzySearchTeacherParams,
+): ApiConfig => {
   const { queryString, ...otherParams } = params;
   return [
     `${API_URL_ASSOCIATED_COACH}/search/${buildUrlParams({ ...otherParams, q: queryString ?? "" })}`,
@@ -63,7 +65,7 @@ const fuzzySearchTeachersAPIConfig = (params: FuzzySearchParams): ApiConfig => {
 
 export const fuzzySearchTeachers = async (
   fetch: Fetch<PaginatedResponse<Teacher>>,
-  params: FuzzySearchParams,
+  params: FuzzySearchTeacherParams,
 ): Promise<PaginatedResponse<Teacher>> => {
   const [uri, init] = fuzzySearchTeachersAPIConfig(params);
 

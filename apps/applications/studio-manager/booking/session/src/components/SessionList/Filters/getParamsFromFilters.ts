@@ -39,6 +39,15 @@ const getEstablishmentParamFromFilter = (
   };
 };
 
+const getLocationParamFromFilter = (
+  filter: FilterElementState,
+): Partial<FetchSessionsParams> | null => {
+  const locationIds = filter.valueIds.map((id) => Number(id));
+  return {
+    establishment_group__in: locationIds,
+  };
+};
+
 const getLevelParamFromFilter = (
   filter: FilterElementState,
 ): Partial<FetchSessionsParams> | null => {
@@ -101,6 +110,8 @@ export const getParamsFromFilters = (
       Object.assign(params, getActivityTypeParamFromFilter(filter));
     } else if (filter.field === SessionFilterTypes.ESTABLISHMENT) {
       Object.assign(params, getEstablishmentParamFromFilter(filter));
+    } else if (filter.field === SessionFilterTypes.LOCATION) {
+      Object.assign(params, getLocationParamFromFilter(filter));
     } else if (filter.field === SessionFilterTypes.LEVEL) {
       Object.assign(params, getLevelParamFromFilter(filter));
     } else if (filter.field === SessionFilterTypes.TEACHER_SUBSTITUTION) {

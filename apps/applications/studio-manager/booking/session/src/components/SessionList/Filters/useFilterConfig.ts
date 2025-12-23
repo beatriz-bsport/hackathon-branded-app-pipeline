@@ -7,6 +7,7 @@ import { useDebounce } from "@bsport/use-debounce";
 import { useFetchLevels } from "#src/hooks/level/useFetchLevels";
 import { useLevelName } from "#src/hooks/level/useLevelName";
 import { useFetchCategories } from "#src/hooks/use-fetch-categories";
+import { useSearchEstablishmentGroups } from "#src/hooks/use-search-establishment-groups";
 import { useSearchEstablishments } from "#src/hooks/use-search-establishments";
 import { useSearchTeachers } from "#src/hooks/use-search-teachers";
 import { setFilters } from "#src/stores/session-list";
@@ -41,6 +42,26 @@ export const useFilterConfig = (): FilterProps => {
   const { data: establishments } = useSearchEstablishments(
     debouncedEstablishmentSearch,
   );
+
+  // Load and filter establishment groups for the establishment group filter
+  const [establishmentGroupInputValue, setEstablishmentGroupInputValue] =
+    useState("");
+  const [
+    debouncedEstablishmentGroupSearch,
+    setDebouncedEstablishmentGroupSearch,
+  ] = useState(establishmentGroupInputValue);
+  const debouncedSetDebouncedEstablishmentGroupSearch = useDebounce(
+    setDebouncedEstablishmentGroupSearch,
+  );
+
+  const { data: establishmentGroups } = useSearchEstablishmentGroups(
+    debouncedEstablishmentGroupSearch,
+  );
+
+  const hasMultiLocation =
+    dataAccessLayer.useCompanyTheme()?.enable_multi_localization &&
+    establishmentGroups &&
+    establishmentGroups.length !== 0;
 
   const companyId = dataAccessLayer.useCompanyTheme()?.company;
 
@@ -121,6 +142,25 @@ export const useFilterConfig = (): FilterProps => {
           placeholder: t("table.filters.searchPlaceholder"),
         },
       },
+      ...(hasMultiLocation
+        ? {
+            location: {
+              id: SessionFilterTypes.LOCATION,
+              label: t("table.filters.location.label"),
+              availableFilters: [SessionFilters.FILTER_IS],
+              values: establishmentGroups,
+              multiSelect: true,
+              searchConfig: {
+                value: establishmentGroupInputValue,
+                onChange: (value: string) => {
+                  setEstablishmentGroupInputValue(value);
+                  debouncedSetDebouncedEstablishmentGroupSearch(value);
+                },
+                placeholder: t("table.filters.searchPlaceholder"),
+              },
+            },
+          }
+        : {}),
       level: {
         id: SessionFilterTypes.LEVEL,
         label: t("table.filters.level.label"),

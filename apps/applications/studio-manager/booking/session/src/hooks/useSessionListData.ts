@@ -1,6 +1,4 @@
 import { queryOptions, useQuery } from "@tanstack/react-query";
-import type { Dictionary } from "lodash";
-import groupBy from "lodash/groupBy";
 import { useMemo } from "react";
 
 import {
@@ -64,27 +62,10 @@ const processSession =
     };
   };
 
-const getSessionDateStart = (session: EnrichedSession): string => {
+export const getSessionDateStart = (session: EnrichedSession): string => {
   return fromIsoString(session.date_start, {
     zone: getCompanyTimezone(),
   }).toISODate()!;
-};
-
-const groupProcessedSessionsByDate = (
-  sessions: ManagerSession[],
-  teachersById: Record<number, Teacher>,
-  establishmentsById: Record<number, Establishment>,
-  sessionsWithPendingRequests: number[],
-): Dictionary<EnrichedSession[]> => {
-  const processedSessions = sessions.map(
-    processSession(
-      teachersById,
-      establishmentsById,
-      sessionsWithPendingRequests,
-    ),
-  );
-
-  return groupBy(processedSessions, getSessionDateStart);
 };
 
 const extractRelatedIds = (sessions: ManagerSession[]) => {
@@ -202,13 +183,14 @@ export const useSessionListData = (
       shouldFetchPendingRequests && !isLoadingSessions,
     );
 
-  const sessionsByDate = useMemo(
+  const sessions = useMemo(
     () =>
-      groupProcessedSessionsByDate(
-        rawSessions,
-        teachersById,
-        establishmentsById,
-        sessionsWithPendingRequests,
+      rawSessions.map(
+        processSession(
+          teachersById,
+          establishmentsById,
+          sessionsWithPendingRequests,
+        ),
       ),
     [
       rawSessions,
@@ -219,7 +201,7 @@ export const useSessionListData = (
   );
 
   return {
-    sessionsByDate,
+    sessions,
     isLoading:
       isLoadingSessions || isLoadingTeachers || isLoadingEstablishments,
   };

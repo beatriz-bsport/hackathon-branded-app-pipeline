@@ -1,3 +1,4 @@
+import groupBy from "lodash/groupBy";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 import { getTodayJSDate } from "@bsport/datetime-manipulation";
@@ -15,7 +16,11 @@ import { DateNavigationHeader } from "../components/SessionList/DateNavigationHe
 import { DisplaySettings } from "../components/SessionList/DisplaySettings";
 import { useFilterConfig } from "../components/SessionList/Filters/useFilterConfig";
 import SessionDay from "../components/SessionList/SessionDay";
-import { useSessionListData } from "../hooks/useSessionListData";
+import { useSearchSessions } from "../hooks/useSearchSessions";
+import {
+  getSessionDateStart,
+  useSessionListData,
+} from "../hooks/useSessionListData";
 import {
   selectSelectedDate,
   setLocale,
@@ -31,6 +36,7 @@ const ListPage: React.FC = () => {
   const selectedDate = useSessionListStore(selectSelectedDate);
 
   const [addSessionModalOpen, setAddSessionModalOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
   const hasInitializedDate = useRef(false);
 
   useEffect(() => {
@@ -54,7 +60,14 @@ const ListPage: React.FC = () => {
         ? { minDate: selectedDate.minDate, maxDate: selectedDate.maxDate }
         : null;
 
-  const { sessionsByDate, isLoading } = useSessionListData(fetchParams);
+  const { sessions, isLoading } = useSessionListData(fetchParams);
+
+  const filteredSessions = useSearchSessions(sessions, searchQuery);
+
+  const sessionsByDate = useMemo(
+    () => groupBy(filteredSessions, getSessionDateStart),
+    [filteredSessions],
+  );
 
   const openAddSessionModal = useCallback(() => {
     setAddSessionModalOpen(true);
@@ -122,6 +135,12 @@ const ListPage: React.FC = () => {
         onDisplayPopover={displaySettings}
         callToActionButton={callToActionButton}
         filterConfig={filterConfig}
+        searchConfig={{
+          id: "session-search",
+          inputValue: searchQuery,
+          onInputValueChange: setSearchQuery,
+          onClear: () => setSearchQuery(""),
+        }}
       />
       <ListLayout.Content>
         <DateNavigationHeader />

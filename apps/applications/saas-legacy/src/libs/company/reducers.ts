@@ -25,6 +25,7 @@ import {
   BANK_ACCOUNT_CONFIGURATION_STEP,
   PAYMENT_METHOD_CONFIGURATION_STEP,
   STRIPE_CONFIGURATION_STEP,
+  INVOICE_NUMBERING_CONFIGURATION_STEP,
 } from './constants';
 
 const initialState: Immutable.Immutable<CompanyState> = Immutable<CompanyState>(
@@ -132,6 +133,10 @@ export default handleActions<Immutable.Immutable<CompanyState>, any>(
           break;
         case PAYMENT_METHOD_CONFIGURATION_STEP:
           propertyModified = 'has_completed_payment_method_configuration';
+          break;
+        case INVOICE_NUMBERING_CONFIGURATION_STEP:
+          propertyModified =
+            'has_completed_invoice_sequential_number_configuration';
           break;
         default:
           propertyModified = 'has_completed_account_configuration_on_boarding';

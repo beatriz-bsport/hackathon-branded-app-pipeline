@@ -12,6 +12,7 @@ import CompanyThemifierHoc from '#src/hocs/company-themifier.hoc';
 import { RootState } from '../../../reducers';
 import WelcomeStepPage from './AccountConfigurationWelcomeStep.page';
 import PaymentMethodStepPage from './AccountConfigurationPaymentMethodStep.page';
+import AccountConfigurationInvoiceNumberingStepPage from './AccountConfigurationInvoiceNumberingStep.page';
 import AccountConfigurationFinalStepPage from './AccountConfigurationFinalStep.page';
 import AccountConfigurationStepSwitcherRouter from './AccountConfigurationStepSwitcher.router';
 import AccountConfigurationStripeStepPage from './AccountConfigurationStripeStep.page';
@@ -30,6 +31,9 @@ export const AccountConfigurationBankAccountStepUrl =
 
 export const AccountConfigurationPaymentMethodStepUrl =
   '/login/accountConfiguration/paymentMethodStep/';
+
+export const AccountConfigurationInvoiceNumberingStepUrl =
+  '/login/accountConfiguration/invoiceNumberingStep/';
 
 export const AccountConfigurationFinalStepUrl =
   '/login/accountConfiguration/finalStep/';
@@ -51,6 +55,7 @@ export const AccountConfiguration: React.FC<
     has_completed_stripe_configuration,
     has_completed_bank_account_configuration,
     has_completed_payment_method_configuration,
+    has_completed_invoice_sequential_number_configuration,
     has_no_need_for_stripe_configuration,
     has_no_need_for_bank_account_configuration,
     has_no_need_for_payment_method_configuration,
@@ -61,10 +66,12 @@ export const AccountConfiguration: React.FC<
     has_completed_account_configuration_on_boarding ||
     (has_no_need_for_stripe_configuration &&
       has_no_need_for_payment_method_configuration &&
-      has_no_need_for_bank_account_configuration)
+      has_no_need_for_bank_account_configuration &&
+      has_completed_invoice_sequential_number_configuration)
   ) {
     return <Route component={AccountConfigurationFinalStepPage} path="/" />;
   }
+
   const bankAccountStepCompletedOrNotMandatory =
     has_completed_bank_account_configuration ||
     has_no_need_for_stripe_configuration ||
@@ -105,7 +112,6 @@ export const AccountConfiguration: React.FC<
             path={AccountConfigurationStripeStepUrl}
           />
         )}
-
         {need_bank_account_configuration &&
           has_completed_stripe_configuration && (
             <Route
@@ -113,7 +119,6 @@ export const AccountConfiguration: React.FC<
               path={AccountConfigurationBankAccountStepUrl}
             />
           )}
-
         {need_payment_method_configuration &&
           stripeConfigurationStepCompletedOrNotMandatory &&
           bankAccountStepCompletedOrNotMandatory && (
@@ -122,15 +127,34 @@ export const AccountConfiguration: React.FC<
               path={AccountConfigurationPaymentMethodStepUrl}
             />
           )}
-        {stripeConfigurationStepCompletedOrNotMandatory &&
+        {!has_completed_invoice_sequential_number_configuration &&
+          stripeConfigurationStepCompletedOrNotMandatory &&
           bankAccountStepCompletedOrNotMandatory &&
           paymentMethodStepCompletedOrNotMandatory && (
+            <Route
+              component={AccountConfigurationInvoiceNumberingStepPage}
+              path={AccountConfigurationInvoiceNumberingStepUrl}
+            />
+          )}
+
+        {stripeConfigurationStepCompletedOrNotMandatory &&
+          bankAccountStepCompletedOrNotMandatory &&
+          paymentMethodStepCompletedOrNotMandatory &&
+          has_completed_invoice_sequential_number_configuration && (
             <Route
               component={AccountConfigurationFinalStepPage}
               path={AccountConfigurationFinalStepUrl}
             />
           )}
-        <Route component={AccountConfigurationStepSwitcherRouter} path="/" />
+        {has_completed_account_configuration_on_boarding ||
+        (has_no_need_for_stripe_configuration &&
+          has_no_need_for_payment_method_configuration &&
+          has_no_need_for_bank_account_configuration &&
+          has_completed_invoice_sequential_number_configuration) ? (
+          <Route component={AccountConfigurationFinalStepPage} path="/" />
+        ) : (
+          <Route component={AccountConfigurationStepSwitcherRouter} path="/" />
+        )}
       </Switch>
     </div>
   );

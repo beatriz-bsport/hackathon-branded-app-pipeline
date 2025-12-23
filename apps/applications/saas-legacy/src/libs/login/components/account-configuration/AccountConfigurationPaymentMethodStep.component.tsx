@@ -54,6 +54,7 @@ export const AccountConfigurationPaymentMethodStep: React.FC<Props> = ({
       has_visited_bank_account_configuration: true,
       has_no_need_for_payment_method_configuration,
       has_visited_payment_method_configuration: true,
+      has_visited_invoice_numbering_step: false,
       no_last_step: false,
       has_visited_last_step: false,
     });
@@ -108,7 +109,7 @@ export const AccountConfigurationPaymentMethodStep: React.FC<Props> = ({
               onClick={goNext}
               variant="contained"
             >
-              {t('common:finish')}
+              {t('common:next')}
             </Button>
           </div>
         )}

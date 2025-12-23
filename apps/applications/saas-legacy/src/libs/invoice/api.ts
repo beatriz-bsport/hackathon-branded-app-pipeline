@@ -21,6 +21,7 @@ import type {
   SequentialNumberingStatusResponse,
   InitializeLegalIdentifierLegacyRequest,
   InitializeLegalIdentifierLegacyResponse,
+  InitializeLegalIdentifierOnboarding,
 } from '#src/libs/invoice/types';
 import type { InvoiceItem } from '#src/libs/invoice/invoice-item/types';
 import type { Payment } from '#src/libs/payment/types';
@@ -393,6 +394,15 @@ export async function initializeLegalIdentifierLegacy(
   );
 }
 
+export async function initializeLegalIdentifierOnboarding(
+  data: InitializeLegalIdentifierOnboarding,
+): Promise<AxiosResponse<InitializeLegalIdentifierOnboarding>> {
+  return postAuth(
+    `${API_V1_URI}/payment/configuration/initialize_legal_identifier_onboarding/`,
+    data,
+  );
+}
+
 export async function checkFiskalyOnboardingStatus(): Promise<
   AxiosResponse<{ is_onboarded: boolean }>
 > {
@@ -485,6 +495,7 @@ export default {
   returnPayment,
   getSequentialNumberingStatus,
   initializeLegalIdentifierLegacy,
+  initializeLegalIdentifierOnboarding,
   checkFiskalyOnboardingStatus,
   getFiskalyOnboardingRequirements,
   onboardFiskalyCompany,

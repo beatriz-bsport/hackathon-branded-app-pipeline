@@ -14,6 +14,7 @@ type Step =
   | 'stripeStep'
   | 'bankAccountStep'
   | 'paymentMethodStep'
+  | 'invoiceNumberingStep'
   | 'finalStep';
 
 export type StepManager = { step: Step; visited: boolean };

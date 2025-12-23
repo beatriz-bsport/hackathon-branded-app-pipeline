@@ -69,6 +69,7 @@ export type InvoiceState = ErrorAndLoading & {
     result: SequentialNumberingStatusResponse | null;
   };
   initializeLegalIdentifierLegacy: ErrorAndLoading;
+  initializeLegalIdentifierOnboarding: ErrorAndLoading;
 };
 
 export enum InvoiceType {
@@ -439,6 +440,12 @@ export type InitializeLegalIdentifierLegacyResponse = {
     invoice_legal_identifier: string;
     issue_date: string;
   } | null;
+};
+
+export type InitializeLegalIdentifierOnboarding = {
+  prefix: string;
+  suffix: string;
+  format_: number;
 };
 
 export type ManuallySendInvoiceToSignEsCallback = (

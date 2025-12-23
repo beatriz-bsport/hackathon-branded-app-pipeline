@@ -17,7 +17,7 @@ import {
 } from '../../../libs/company/actions';
 import {
   AccountConfigurationBankAccountStepUrl,
-  AccountConfigurationFinalStepUrl,
+  AccountConfigurationInvoiceNumberingStepUrl,
   AccountConfigurationStripeStepUrl,
 } from './AccountConfiguration.router';
 import {
@@ -78,11 +78,11 @@ export class AccountConfigurationPaymentMethodStepPage extends Component<Props> 
           step: PAYMENT_METHOD_CONFIGURATION_STEP,
         },
         {
-          onSuccess: this.redirect(AccountConfigurationFinalStepUrl),
+          onSuccess: this.redirect(AccountConfigurationInvoiceNumberingStepUrl),
         },
       );
     } else {
-      this.props.push(AccountConfigurationFinalStepUrl);
+      this.props.push(AccountConfigurationInvoiceNumberingStepUrl);
     }
   };
 

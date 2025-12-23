@@ -54,7 +54,9 @@ export class AccountConfiguationWelcomeStepPage extends Component<Props> {
     if (
       this.props.stripeCompany.has_no_need_for_payment_method_configuration &&
       this.props.stripeCompany.has_no_need_for_stripe_configuration &&
-      this.props.stripeCompany.has_no_need_for_bank_account_configuration
+      this.props.stripeCompany.has_no_need_for_bank_account_configuration &&
+      this.props.stripeCompany
+        .has_completed_invoice_sequential_number_configuration
     ) {
       this.finishConfiguration();
     }
@@ -71,7 +73,9 @@ export class AccountConfiguationWelcomeStepPage extends Component<Props> {
         .has_completed_account_configuration_on_boarding ||
       (this.props.stripeCompany.has_no_need_for_payment_method_configuration &&
         this.props.stripeCompany.has_no_need_for_stripe_configuration &&
-        this.props.stripeCompany.has_no_need_for_bank_account_configuration)
+        this.props.stripeCompany.has_no_need_for_bank_account_configuration &&
+        this.props.stripeCompany
+          .has_completed_invoice_sequential_number_configuration)
     ) {
       return <LinearProgress />;
     }

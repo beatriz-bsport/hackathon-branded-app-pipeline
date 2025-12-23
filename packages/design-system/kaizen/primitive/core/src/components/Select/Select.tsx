@@ -143,7 +143,7 @@ const Select: React.FC<SelectProps> = ({
   );
 
   return (
-    <div className="flex flex-col gap-2xs">
+    <div data-component="Kaizen-Select" className="flex flex-col gap-2xs">
       {label && (
         <label
           htmlFor={id}
@@ -170,7 +170,7 @@ const Select: React.FC<SelectProps> = ({
             };
 
             return (
-              <>
+              <div data-component="Kaizen-Select-Anchor">
                 {/* Invisible input to support form submission */}
                 <input
                   type="hidden"
@@ -208,7 +208,7 @@ const Select: React.FC<SelectProps> = ({
                   </span>
                   <Icon icon="chevron-down" size="sm" />
                 </button>
-              </>
+              </div>
             );
           }}
         </Popover.Anchor>

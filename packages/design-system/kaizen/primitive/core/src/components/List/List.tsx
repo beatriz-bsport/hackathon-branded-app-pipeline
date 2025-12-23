@@ -177,7 +177,7 @@ const List = <T extends { id: string }>(props: ListProps<T>) => {
         checkedIds={checkedIds}
         setCheckedIds={setCheckedIds}
       >
-        <div className={className} id={id}>
+        <div data-component="Kaizen-List" className={className} id={id}>
           {!!header && (
             <Collapse.Controller>
               {({ isCollapseOpen, setIsCollapseOpen }) => {

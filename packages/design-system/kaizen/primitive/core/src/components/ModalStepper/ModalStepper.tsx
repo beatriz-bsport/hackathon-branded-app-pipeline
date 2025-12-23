@@ -111,6 +111,7 @@ const ModalStepper: React.FC<ModalStepperProps> = ({
 
   return (
     <Dialog
+      data-component="Kaizen-ModalStepper"
       open={open}
       size={size}
       onClose={onClose}
@@ -119,7 +120,10 @@ const ModalStepper: React.FC<ModalStepperProps> = ({
       aria-labelledby="modal-stepper-title"
       {...props}
     >
-      <div className="flex justify-between p-md gap-xs border-b-stroke-divider border-b-stroke-thin border-opacity-md">
+      <div
+        data-component="Kaizen-ModalStepper-Header"
+        className="flex justify-between p-md gap-xs border-b-stroke-divider border-b-stroke-thin border-opacity-md"
+      >
         <div className="flex flex-col gap-2xs text-onsurface-default">
           <Title htmlVariant="h4" weight="stronger" id="modal-stepper-title">
             {title}
@@ -145,8 +149,14 @@ const ModalStepper: React.FC<ModalStepperProps> = ({
         />
       </div>
 
-      <div className="flex items-start gap-md p-md min-h-full overflow-y-auto">
-        <div className="flex flex-col items-start gap-md p-md border-r-stroke-thin border-r-stroke-weak h-full">
+      <div
+        data-component="Kaizen-ModalStepper-Body"
+        className="flex items-start gap-md p-md min-h-full overflow-y-auto"
+      >
+        <div
+          data-component="Kaizen-ModalStepper-Steps"
+          className="flex flex-col items-start gap-md p-md border-r-stroke-thin border-r-stroke-weak h-full"
+        >
           {steps.map((step, index) => {
             return (
               <div
@@ -165,7 +175,12 @@ const ModalStepper: React.FC<ModalStepperProps> = ({
             );
           })}
         </div>
-        <div className="flex flex-1 p-lg">{steps[currentStep].content}</div>
+        <div
+          data-component="Kaizen-ModalStepper-Body-Content"
+          className="flex flex-1 p-lg overflow-auto"
+        >
+          {steps[currentStep].content}
+        </div>
       </div>
 
       <Footer

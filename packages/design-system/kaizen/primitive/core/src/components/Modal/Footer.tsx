@@ -40,7 +40,7 @@ const Footer: React.FC<FooterProps> = ({
   );
 
   return (
-    <div className={footerClassName}>
+    <div data-component="Kaizen-Modal-Footer" className={footerClassName}>
       {cancelButton && (
         <Button {...cancelButton} size="md" intent="flat" color="default" />
       )}

@@ -47,7 +47,7 @@ const Loader: React.FC<LoaderProps> = ({ className, size, ...props }) => {
   });
 
   return (
-    <div className={loader({ className, size })}>
+    <div data-component="Kaizen-Loader" className={loader({ className, size })}>
       <div
         className={classNames(
           "transform translate-z-0 w-[2.5em] h-[2.5em] rounded-full",

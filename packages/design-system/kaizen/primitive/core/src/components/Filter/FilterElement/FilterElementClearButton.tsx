@@ -17,7 +17,10 @@ const FilterElementClearButton: React.FC<FilterElementClearButtonProps> = ({
   const { t } = useTranslation("default", { i18n });
 
   return (
-    <li className={filterElementClasses()}>
+    <li
+      data-component="Kaizen-Filter-Element-ClearButton"
+      className={filterElementClasses()}
+    >
       <Button
         kind="icon-button"
         className={classNames(filterElementBtnClasses, "!rounded-l-[0]")}

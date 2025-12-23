@@ -109,6 +109,7 @@ const Indicator: React.FC<IndicatorProps> = ({
 
   return (
     <div
+      data-component="Kaizen-Indicator"
       className="relative inline-block align-top text-onsurface-default"
       {...props}
     >

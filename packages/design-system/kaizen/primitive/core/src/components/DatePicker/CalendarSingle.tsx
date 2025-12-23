@@ -43,7 +43,10 @@ const CalendarSingle: React.FC<CalendarSingleProps> = ({
   };
 
   return (
-    <div className="flex flex-col gap-md w-fit">
+    <div
+      data-component="Kaizen-DatePicker-CalendarSingle"
+      className="flex flex-col gap-md w-fit"
+    >
       {!hideSelector && (
         <DateInputField
           id={id}

@@ -201,7 +201,10 @@ const DatePicker: React.FC<DatePickerProps> = ({
 
   if (displayAs === "popover")
     return (
-      <Popover className={popoverClassNames.container ?? ""}>
+      <Popover
+        data-component="Kaizen-DatePicker-Popover"
+        className={popoverClassNames.container ?? ""}
+      >
         <Popover.Anchor>
           {({ setIsPopoverOpened }) => {
             if (mode === "range" || Array.isArray(selectedDate)) {
@@ -211,6 +214,7 @@ const DatePicker: React.FC<DatePickerProps> = ({
 
               return (
                 <Button
+                  data-component="Kaizen-DatePicker-Popover-Anchor-Button"
                   label={t("datePicker.rangeLabel", {
                     start: formatDate(start),
                     end: formatDate(end),
@@ -278,6 +282,7 @@ const DatePicker: React.FC<DatePickerProps> = ({
 
   return (
     <Modal
+      data-component="Kaizen-DatePicker-Modal"
       open={open}
       size={modalSize}
       title={t("datePicker.modalTitle")}

@@ -85,7 +85,10 @@ const CalendarRange: React.FC<CalendarRangeProps> = ({
   };
 
   return (
-    <div className="flex flex-col gap-md w-fit">
+    <div
+      data-component="Kaizen-DatePicker-CalendarRange"
+      className="flex flex-col gap-md w-fit"
+    >
       {!hideSelector && (
         <div className="flex gap-md">
           <TextField

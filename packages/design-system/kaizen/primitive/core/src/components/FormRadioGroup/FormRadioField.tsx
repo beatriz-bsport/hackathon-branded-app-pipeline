@@ -222,6 +222,7 @@ const FormRadioField: React.FC<FormRadioFieldProps> = ({
 
   return (
     <div
+      data-component="Kaizen-FormRadioGroup-Field"
       className={classNames(
         "grid grid-cols-[auto,auto,1fr] grid-rows-[auto, auto, auto, 1fr] items-center gap-y-xs",
         {

@@ -65,7 +65,10 @@ const LoaderProgressBar = ({
       isVisible={displayUploadProgress}
       classNameVisibility="max-h-[80px] w-full"
     >
-      <div className="flex flex-row justify-start items-start w-full gap-xs">
+      <div
+        data-component="Kaizen-FileUpload-LoaderProgressBar"
+        className="flex flex-row justify-start items-start w-full gap-xs"
+      >
         <ProgressBar
           size="sm"
           label={file.name}

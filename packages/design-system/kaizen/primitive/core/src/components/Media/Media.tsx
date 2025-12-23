@@ -97,7 +97,10 @@ const Media: React.FC<MediaProps> = ({
 
   if (!src || hasError)
     return (
-      <div className={placeholder({ className, size, ratio })}>
+      <div
+        data-component="Kaizen-Media"
+        className={placeholder({ className, size, ratio })}
+      >
         <Icon
           icon={hasError ? "image-x" : "image-03"}
           className="inset-0 h-1/3 w-1/3 max-h-icon-xl text-onsurface-weaker"

@@ -71,6 +71,7 @@ const Checkbox: React.FC<CheckboxProps> = ({
 
   return (
     <div
+      data-component="Kaizen-Checkbox"
       className={classNames(
         checkbox({ className }),
         "grid grid-cols-[auto,1fr] grid-rows-[auto,auto,auto,1fr]",

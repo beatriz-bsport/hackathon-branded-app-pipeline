@@ -50,6 +50,7 @@ const RadioButton: React.FC<RadioButtonProps> = ({
   });
   return (
     <div
+      data-component="Kaizen-RadioButton"
       className={cx(
         "grid grid-cols-[auto,1fr] grid-rows-[auto,auto,auto,1fr]",
         {

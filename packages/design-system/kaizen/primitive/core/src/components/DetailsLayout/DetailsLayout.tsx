@@ -91,6 +91,7 @@ function Main({ className, ...props }: Omit<DetailsLayoutProps, "withPanel">) {
 
   return (
     <main
+      data-component="Kaizen-DetailsLayout"
       {...props}
       className={detailsLayout({ className })}
       style={{
@@ -193,6 +194,7 @@ const DetailsLayoutContent: FC<DetailsLayoutContentProps> = ({
 
   return (
     <div
+      data-component="Kaizen-DetailsLayout-Content"
       className={detailsLayoutContent({ className, isPanelOpened })}
       {...htmlProps}
     >
@@ -261,6 +263,7 @@ const DetailsLayoutPanel: FC<DetailsLayoutPanelProps> = ({
     `${isMobile ? "mobile" : "desktop"}-${isPanelOpened}` as const;
   return (
     <aside
+      data-component="Kaizen-DetailsLayout-Panel"
       className={detailsLayoutPanel({
         className,
         isOpenByDevice,
@@ -328,6 +331,7 @@ const DetailsLayoutConfirmation: FC<DetailsLayoutConfirmationProps> = ({
 
   return (
     <div
+      data-component="Kaizen-DetailsLayout-Confirmation"
       className={detailsLayoutConfirmation({ className, hasUnsavedChanges })}
       aria-hidden={!hasUnsavedChanges}
       {...htmlProps}

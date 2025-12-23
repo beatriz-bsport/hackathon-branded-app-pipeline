@@ -46,6 +46,7 @@ const Icon: React.FC<IconProps> = ({ icon, className, size, ...rest }) => {
 
   return (
     <div
+      data-component="Kaizen-Icon"
       className={iconCva({ className, size })}
       aria-label={icon}
       role="img"

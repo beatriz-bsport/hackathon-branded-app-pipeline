@@ -103,7 +103,11 @@ const FileUploadInput: React.FC<FileUploadInputProps> = ({
   const { fileExtensionList: fileExtensionListText } = customTexts;
 
   return (
-    <label htmlFor={inputId} className={fileUploadInput({ className })}>
+    <label
+      data-component="Kaizen-FileUpload-Input"
+      htmlFor={inputId}
+      className={fileUploadInput({ className })}
+    >
       <input
         className="hidden"
         type="file"

@@ -82,6 +82,7 @@ const Modal: FC<ModalProps> = ({
 
   return (
     <Dialog
+      data-component="Kaizen-Modal"
       open={open}
       size={size}
       position={position}
@@ -91,7 +92,10 @@ const Modal: FC<ModalProps> = ({
       aria-labelledby="modal-title"
       {...props}
     >
-      <div className="flex justify-between p-md gap-xs border-b-stroke-divider border-b-stroke-thin border-opacity-md">
+      <div
+        data-component="Kaizen-Modal-Header"
+        className="flex justify-between p-md gap-xs border-b-stroke-divider border-b-stroke-thin border-opacity-md"
+      >
         <div className="flex flex-col gap-2xs text-onsurface-default">
           <Title htmlVariant="h4" weight="stronger" id="modal-title">
             {title}
@@ -118,7 +122,10 @@ const Modal: FC<ModalProps> = ({
       </div>
 
       {children !== undefined && (
-        <div className="p-md flex-grow overflow-y-auto">
+        <div
+          data-component="Kaizen-Modal-Body"
+          className="p-md flex-grow overflow-y-auto"
+        >
           {typeof children === "string" ? (
             <Body htmlVariant="p" size="md" weight="weak">
               {children}

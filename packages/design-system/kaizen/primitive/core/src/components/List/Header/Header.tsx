@@ -78,6 +78,7 @@ const Header: React.FC<HeaderProps> = ({
 
   return (
     <div
+      data-component="Kaizen-List-Header"
       className={classNames(
         listItem({ className, selected: indeterminateState === "checked" }),
         {

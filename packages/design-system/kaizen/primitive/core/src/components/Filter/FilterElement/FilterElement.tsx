@@ -184,7 +184,7 @@ const FilterElement: React.FC<FilterElementProps> = ({
     (!!selectedField && Object.keys(fields).length > 1);
 
   return (
-    <ol className="inline-flex">
+    <ol data-component="Kaizen-Filter-Element" className="inline-flex">
       <FilterElementSelectField
         fields={fields}
         label={selectFieldLabel}

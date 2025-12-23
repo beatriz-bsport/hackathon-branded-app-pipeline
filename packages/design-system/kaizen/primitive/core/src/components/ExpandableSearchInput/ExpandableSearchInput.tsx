@@ -102,6 +102,7 @@ const ExpandableSearchInput: React.FC<ExpandableSearchInputProps> = ({
 
   return (
     <div
+      data-component="Kaizen-ExpandableSearchInput"
       className={classNames(
         className,
         "flex gap-xs items-center justify-between w-fit",

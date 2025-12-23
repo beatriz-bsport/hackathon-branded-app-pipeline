@@ -129,6 +129,7 @@ const Avatar: React.FC<AvatarProps> = ({
 
   return (
     <div
+      data-component="Kaizen-Avatar"
       className={classNames(
         avatar({ className, size }),
         shapeStyle,

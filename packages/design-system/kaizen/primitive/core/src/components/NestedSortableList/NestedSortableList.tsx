@@ -96,7 +96,7 @@ const NestedSortableList: React.FC<NestedSortableListProps> = ({
   };
 
   return (
-    <div ref={divRef}>
+    <div data-component="Kaizen-NestedSortableList" ref={divRef}>
       <DragAndDrop
         id={id}
         onDrop={handleDrop}

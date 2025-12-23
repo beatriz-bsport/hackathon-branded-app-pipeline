@@ -101,6 +101,7 @@ const Toast: React.FC<ToastProps> = ({
 
   return (
     <li
+      data-component="Kaizen-Toast"
       className={toast({ className, status })}
       role="alert"
       aria-live="assertive"

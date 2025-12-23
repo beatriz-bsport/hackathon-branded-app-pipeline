@@ -202,6 +202,7 @@ const TextField: React.FC<TextFieldProps> = ({
 
   return (
     <div
+      data-component="Kaizen-TextField"
       className={classNames(
         "flex flex-col gap-2xs",
         {
@@ -214,6 +215,7 @@ const TextField: React.FC<TextFieldProps> = ({
     >
       {label && (
         <label
+          data-component="Kaizen-TextField-Label"
           htmlFor={id}
           className="flex gap-2xs text-onsurface-default text-body-md leading-sm"
         >
@@ -255,7 +257,10 @@ const TextField: React.FC<TextFieldProps> = ({
           )}
           {/* TODO: type country */}
           {prefix && Object.keys(prefix).length > 0 && (
-            <div className="flex px-md items-center gap-xs border-r-stroke-thin border-r-stroke-default bg-surface-default-weak text-onsurface-weak">
+            <div
+              data-component="Kaizen-TextField-Prefix"
+              className="flex px-md items-center gap-xs border-r-stroke-thin border-r-stroke-default bg-surface-default-weak text-onsurface-weak"
+            >
               {prefix.type === "text" ? (
                 <span>{prefix.value}</span>
               ) : prefix.type === "icon" ? (
@@ -270,6 +275,7 @@ const TextField: React.FC<TextFieldProps> = ({
             </div>
           )}
           <div
+            data-component="Kaizen-TextField-Input"
             className="flex gap-xs items-center justify-between w-full px-xs py-2xs"
             onClick={handleIconClick}
           >
@@ -310,7 +316,10 @@ const TextField: React.FC<TextFieldProps> = ({
               {...colorInputProps}
             />
             {!["number", "color", "time"].includes(type) && value ? (
-              <div className="flex items-center justify-center w-sm">
+              <div
+                data-component="Kaizen-TextField-ClearButton"
+                className="flex items-center justify-center w-sm"
+              >
                 <Button
                   kind="icon-button"
                   label={t("textField.clear")}
@@ -331,7 +340,10 @@ const TextField: React.FC<TextFieldProps> = ({
           </div>
           {/* TODO: type country */}
           {suffix && Object.keys(suffix).length > 0 && (
-            <div className="flex px-md justify-center items-center gap-xs border-l-stroke-thin border-l-stroke-default bg-surface-default-weak text-onsurface-weak">
+            <div
+              data-component="Kaizen-TextField-Suffix"
+              className="flex px-md justify-center items-center gap-xs border-l-stroke-thin border-l-stroke-default bg-surface-default-weak text-onsurface-weak"
+            >
               {suffix?.type === "text" ? (
                 <span>{suffix.value}</span>
               ) : suffix?.type === "icon" ? (
@@ -355,12 +367,16 @@ const TextField: React.FC<TextFieldProps> = ({
         )}
       </div>
       {helperText && (
-        <p className="text-body-sm leading-xs text-ellipsis text-onsurface-weak">
+        <p
+          data-component="Kaizen-TextField-HelperText"
+          className="text-body-sm leading-xs text-ellipsis text-onsurface-weak"
+        >
           {helperText}
         </p>
       )}
       {statusText && (
         <p
+          data-component="Kaizen-TextField-StatusText"
           className={classNames("text-body-sm leading-xs text-ellipsis", {
             "text-onsurface-weak": status === "default",
             "text-onsurface-status-positive-strong": status === "positive",

@@ -140,6 +140,7 @@ const TimePicker: React.FC<TimePickerProps> = ({
 
   return (
     <div
+      data-component="Kaizen-TimePicker"
       className={cx(className, "flex flex-col gap-2xs", {
         "opacity-sm pointer-events-none": disabled,
       })}

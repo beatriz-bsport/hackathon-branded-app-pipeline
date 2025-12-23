@@ -19,7 +19,7 @@ const ColorInput: React.FC<ColorInputProps> = ({
   };
 
   return (
-    <>
+    <div data-component="Kaizen-TextField-ColorInput">
       {/* 🎨 Input type="color" custom swatch style as there is no way to do it with tailwind. https://developer.mozilla.org/fr/docs/Web/CSS/::-moz-color-swatch */}
       <style>
         {`
@@ -46,7 +46,7 @@ const ColorInput: React.FC<ColorInputProps> = ({
         onChange={onChange}
         disabled={disabled}
       />
-    </>
+    </div>
   );
 };
 

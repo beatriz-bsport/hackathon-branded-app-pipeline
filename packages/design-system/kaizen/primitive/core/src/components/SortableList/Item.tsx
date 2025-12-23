@@ -66,6 +66,7 @@ const Item: React.FC<ListItemProps> = ({
 
   return (
     <li
+      data-component="Kaizen-SortableList-Item"
       id={id}
       className={classNames(sortableListItem({ className }))}
       onClick={() => {

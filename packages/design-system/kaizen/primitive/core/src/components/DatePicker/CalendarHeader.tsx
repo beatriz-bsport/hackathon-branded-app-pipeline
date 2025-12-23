@@ -76,7 +76,10 @@ const CalendarHeader: React.FC<CalendarHeaderProps> = ({
   };
 
   return (
-    <div className="flex justify-between items-center self-stretch">
+    <div
+      data-component="Kaizen-DatePicker-CalendarHeader"
+      className="flex justify-between items-center self-stretch"
+    >
       {mode === "single" ? (
         <div className="flex center gap-xs">
           <Select

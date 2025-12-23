@@ -86,7 +86,10 @@ const ProgressBar: React.FC<ProgressBarProps> = ({
   const messageColor = getMessageColor(status);
 
   return (
-    <div className="w-full gap-xs flex flex-col items-start">
+    <div
+      data-component="Kaizen-ProgressBar"
+      className="w-full gap-xs flex flex-col items-start"
+    >
       {label && (
         <div className="flex flex-row items-center gap-2xs text-onsurface-weak">
           <Icon icon="file-06" size="sm" />

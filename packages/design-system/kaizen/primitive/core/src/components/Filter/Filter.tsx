@@ -118,7 +118,7 @@ const Filter = forwardRef<{ resetFilters: () => void }, FilterProps>(
     }
 
     return (
-      <div className="flex flex-wrap gap-2xs">
+      <div data-component="Kaizen-Filter" className="flex flex-wrap gap-2xs">
         {filterElements.map((element) => {
           const isEmpty =
             element.field === null &&

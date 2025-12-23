@@ -218,6 +218,7 @@ const Item: React.FC<ListItemProps> = ({
 
   return (
     <li
+      data-component="Kaizen-List-Item"
       id={id}
       className={classNames(
         listItem({

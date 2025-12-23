@@ -77,7 +77,11 @@ const Button: React.FC<ButtonProps> = ({
   );
 
   return (
-    <button className={button({ className, disabled })} {...props}>
+    <button
+      data-component="Kaizen-Menu-Item-Button"
+      className={button({ className, disabled })}
+      {...props}
+    >
       <MenuItemIndicator disabled={disabled} />
       <div className="flex items-center justify-between w-full">
         <div className="flex items-center gap-xs">

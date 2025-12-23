@@ -56,7 +56,10 @@ const FileUploadLoading = ({
     (item) => item.status === UPLOAD_STATUSES.loading,
   );
   return (
-    <div className={fileUploadLoading({ className, inline })}>
+    <div
+      data-component="Kaizen-FileUpload-Loading"
+      className={fileUploadLoading({ className, inline })}
+    >
       {!inline && <LoadingIcon isUploading={isUploading} />}
       {_fileUploadTrackerList.map((fileUploadTracker) => (
         <LoaderProgressBar

@@ -92,7 +92,7 @@ const Month: React.FC<MonthProps> = ({
   };
 
   return (
-    <table>
+    <table data-component="Kaizen-DatePicker-Month">
       <thead>
         <tr className="flex">
           {weekdays.map((day) => (

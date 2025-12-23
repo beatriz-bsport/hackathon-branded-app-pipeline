@@ -83,7 +83,10 @@ const FilterElementSelectField: React.FC<FilterElementSelectFieldProps> = ({
     menu.type === "values" ? selectedValues || [] : [];
 
   return (
-    <li className={filterElementClasses()}>
+    <li
+      data-component="Kaizen-Filter-Element-SelectField"
+      className={filterElementClasses()}
+    >
       <DropdownMenu
         defaultOpened={openedByDefault}
         target={({ setIsPopoverOpened, isPopoverOpened }) => {

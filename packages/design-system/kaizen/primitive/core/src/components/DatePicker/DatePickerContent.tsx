@@ -38,7 +38,10 @@ const DatePickerContent: React.FC<DatePickerContentProps> = ({
   onShortcutSelect,
 }) => {
   return (
-    <div className={cx("flex gap-lg", className)}>
+    <div
+      data-component="Kaizen-DatePicker-Content"
+      className={cx("flex gap-lg", className)}
+    >
       <div
         className={cx("flex flex-1 p-lg", {
           "justify-center": !shortcuts?.length,

@@ -82,6 +82,7 @@ export const TabsItem: FC<TabsItemProps> = ({
 
   return (
     <div
+      data-component="Kaizen-Tabs-Item"
       className={tabsItemContainer({ isActive, disabled, orientation })}
       aria-selected={isActive}
       tabIndex={isActive ? 0 : -1}

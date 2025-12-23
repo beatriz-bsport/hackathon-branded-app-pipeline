@@ -95,6 +95,7 @@ const TextArea: React.FC<TextAreaProps> = ({
 
   return (
     <div
+      data-component="Kaizen-TextArea"
       className={classNames("flex flex-col gap-2xs", {
         "opacity-sm pointer-events-none": disabled,
       })}

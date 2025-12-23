@@ -48,7 +48,9 @@ const Collapse: React.FC<CollapseProps> & {
   const [isCollapseOpen, setIsCollapseOpen] = useState(initiallyOpen ?? false);
   return (
     <CollapseContext.Provider value={{ isCollapseOpen, setIsCollapseOpen, id }}>
-      <div className={collapse({ className })}>{children}</div>
+      <div data-component="Kaizen-Collapse" className={collapse({ className })}>
+        {children}
+      </div>
     </CollapseContext.Provider>
   );
 };

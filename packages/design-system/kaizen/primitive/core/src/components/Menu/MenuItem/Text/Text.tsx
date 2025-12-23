@@ -73,7 +73,11 @@ const Text: React.FC<TextProps> = ({
   );
 
   return (
-    <div className={menuItemText({ className })} {...props}>
+    <div
+      data-component="Kaizen-Menu-Item-Text"
+      className={menuItemText({ className })}
+      {...props}
+    >
       <div className="flex items-center justify-between w-full">
         <div className="flex gap-xs items-center">
           {leftSlot ?? renderedAvatar ?? renderedIcon}

@@ -44,7 +44,12 @@ export type IndicatorProps = {
 };
 
 const Indicator: React.FC<IndicatorProps> = ({ disabled }) => {
-  return <div className={indicator({ disabled })} />;
+  return (
+    <div
+      data-component="Kaizen-Menu-Item-Indicator"
+      className={indicator({ disabled })}
+    />
+  );
 };
 
 export default Indicator;

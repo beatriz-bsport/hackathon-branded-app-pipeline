@@ -166,6 +166,7 @@ const Autocomplete: React.FC<AutocompleteProps> = ({
 
   return (
     <div
+      data-component="Kaizen-Autocomplete"
       className={autocomplete({ className, fullWidth: fullWidth })}
       {...props}
     >

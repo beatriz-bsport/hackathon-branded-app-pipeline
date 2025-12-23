@@ -89,6 +89,7 @@ const Chip: React.FC<ChipProps> = ({
 
   return (
     <div
+      data-component="Kaizen-Chip"
       className={chip({
         className,
         size,

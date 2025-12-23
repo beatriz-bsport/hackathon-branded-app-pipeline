@@ -54,7 +54,10 @@ const DataActionsSection: FC<DataActionsSectionProps> = ({
     : undefined;
 
   return (
-    <div className="flex flex-row justify-between items-start px-md py-xs">
+    <div
+      data-component="Kaizen-HeaderLayout-DataActionsSection"
+      className="flex flex-row justify-between items-start px-md py-xs"
+    >
       {filterConfig ? <Filter {...filterConfig} ref={filterRef} /> : <div />}
       <div className="flex flex-row gap-xs items-stretch h-fit">
         {searchProps && "id" in searchProps && (

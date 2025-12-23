@@ -45,6 +45,7 @@ const Item: React.FC<
 
   return (
     <div
+      data-component="Kaizen-DragAndDrop-Item"
       draggable={isDnDActive}
       id={id}
       onDragStart={handleDragStart}

@@ -57,6 +57,7 @@ const Toggle: React.FC<ToggleProps> = ({
 
   return (
     <div
+      data-component="Kaizen-Toggle"
       className={classNames(
         toggle({ className }),
         "grid grid-cols-[auto,1fr] grid-rows-[auto,auto,auto,1fr]",

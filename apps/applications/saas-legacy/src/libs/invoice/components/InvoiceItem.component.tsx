@@ -74,16 +74,17 @@ export const InvoiceListItem: FC<Props> = (props) => {
   );
 
   const voucherDisplayText = React.useMemo(() => {
-    if (!invoiceItem.voucher) return '';
+    const voucherValue = invoiceItem.voucher ?? 0;
+    if (voucherValue <= 0) return '';
 
     if (invoiceItem.voucher_reason) {
       return `${invoiceItem.voucher_reason} ${getCurrencyDisplayWithPrice(
-        invoiceItem.voucher,
+        voucherValue,
       )}`;
     }
 
     return t('invoiceItem.voucher', {
-      voucher: getCurrencyDisplayWithPrice(invoiceItem.voucher),
+      voucher: getCurrencyDisplayWithPrice(voucherValue),
       ns: 'invoice',
     });
   }, [invoiceItem.voucher, invoiceItem.voucher_reason, t]);
@@ -117,13 +118,15 @@ export const InvoiceListItem: FC<Props> = (props) => {
         >
           {subtitle}
         </Typography>
-        <Typography
-          className={invoiceItem.reverted ? classes.revert : ''}
-          color="textSecondary"
-          variant="caption"
-        >
-          {voucherDisplayText}
-        </Typography>
+        {voucherDisplayText && (
+          <Typography
+            className={invoiceItem.reverted ? classes.revert : ''}
+            color="textSecondary"
+            variant="caption"
+          >
+            {voucherDisplayText}
+          </Typography>
+        )}
       </div>
 
       {invoiceItem?.consumer_giftcard_kind ===

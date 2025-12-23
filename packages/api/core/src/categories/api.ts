@@ -1,6 +1,6 @@
-import { FetchSportCategoryParams, SportCategory } from "src/categories/types";
-
 import { type ApiConfig, Fetch, buildUrlParams } from "@bsport/store-base";
+
+import { FetchSportCategoryParams, SportCategory } from "./types";
 
 const API_URL = "core-data/v1/master-data";
 

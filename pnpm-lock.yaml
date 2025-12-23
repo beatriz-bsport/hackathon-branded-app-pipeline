@@ -3465,6 +3465,9 @@ importers:
 
   packages/stores/core-data/master-data:
     dependencies:
+      '@bsport/api-core':
+        specifier: workspace:*
+        version: link:../../../api/core
       '@bsport/store-base':
         specifier: workspace:*
         version: link:../../base

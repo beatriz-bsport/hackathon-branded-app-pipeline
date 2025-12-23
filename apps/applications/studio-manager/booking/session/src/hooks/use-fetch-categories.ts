@@ -13,7 +13,7 @@ const categoriesQueryOptions = (companyId?: number) => {
     queryKey: ["categories", companyId],
     queryFn: () =>
       fetchCategories({
-        companyId: companyId,
+        companyId: companyId!,
       }),
     enabled: !!companyId,
     staleTime: CATEGORIES_STALE_TIME,

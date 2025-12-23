@@ -1,3 +1,5 @@
+import first from "lodash/first";
+
 import { FetchSessionsParams } from "@bsport/api-book";
 import { FilterElementState } from "@bsport/kaizen-primitive-core";
 
@@ -20,7 +22,7 @@ const getActivityCategoryParamFromFilter = (
 const getActivityTypeParamFromFilter = (
   filter: FilterElementState,
 ): Partial<FetchSessionsParams> | null => {
-  const filterValue = filter.valueIds[0];
+  const filterValue = first(filter.valueIds);
   if (filterValue === ActivityTypeFilterValues.GROUP_ACTIVITY) {
     return { is_workshop: false };
   }
@@ -69,7 +71,7 @@ const getTeacherParamFromFilter = (
 const getTeacherSubstitutionParamFromFilter = (
   filter: FilterElementState,
 ): Partial<FetchSessionsParams> | null => {
-  const filterValue = filter.valueIds[0];
+  const filterValue = first(filter.valueIds);
   if (filterValue === TeacherSubstitutionFilterValues.CONFIRMED) {
     return {
       coach_override__isnull: false,
@@ -86,7 +88,7 @@ const getTeacherSubstitutionParamFromFilter = (
 const getVisibilityParamFromFilter = (
   filter: FilterElementState,
 ): Partial<FetchSessionsParams> | null => {
-  const filterValue = filter.valueIds[0];
+  const filterValue = first(filter.valueIds);
   if (filterValue === VisibilityFilterValues.AGGREGATORS) {
     return {
       available_on_partnership: filter.filter === SessionFilters.FILTER_IS,

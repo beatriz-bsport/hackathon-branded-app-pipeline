@@ -27,21 +27,24 @@
         "workshop": "Workshop",
         "groupActivity": "Group activity"
       },
-      "visibility": {
-        "label": "Visibility",
-        "aggregators": "Visible on aggregators",
-        "members": "Visible on Member Area"
+      "establishment": {
+        "label": "Establishment"
+      },
+      "level": {
+        "label": "Session level"
+      },
+      "teacher": {
+        "label": "Teacher"
       },
       "teacherSubstitution": {
         "label": "Teacher substitution",
         "confirmed": "Confirmed",
         "pending": "Pending request"
       },
-      "teacher": {
-        "label": "Teacher"
-      },
-      "establishment": {
-        "label": "Establishment"
+      "visibility": {
+        "label": "Visibility",
+        "aggregators": "Visible on aggregators",
+        "members": "Visible on Member Area"
       },
       "searchPlaceholder": "Search"
     },

@@ -1,8 +1,11 @@
 import { useState } from "react";
 
 import type { FilterProps } from "@bsport/kaizen-primitive-core";
+import { dataAccessLayer } from "@bsport/sm-backbone";
 import { useDebounce } from "@bsport/use-debounce";
 
+import { useFetchLevels } from "#src/hooks/level/useFetchLevels";
+import { useLevelName } from "#src/hooks/level/useLevelName";
 import { useSearchEstablishments } from "#src/hooks/use-search-establishments";
 import { useSearchTeachers } from "#src/hooks/use-search-teachers";
 import { setFilters } from "#src/stores/session-list";
@@ -38,6 +41,23 @@ export const useFilterConfig = (): FilterProps => {
     debouncedEstablishmentSearch,
   );
 
+  // Load levels for the level filter
+  const companyId = dataAccessLayer.useCompanyTheme()?.company;
+  const { data: levels } = useFetchLevels(companyId);
+  const [levelsSearch, setLevelsSearch] = useState("");
+  const getLevelName = useLevelName();
+
+  const filteredLevels = levels
+    ? Object.values(levels)
+        .map((level) => ({
+          id: level.id.toString(),
+          label: getLevelName({ levelId: level.id, levelName: level.name }),
+        }))
+        .filter((level) =>
+          level.label.toLowerCase().includes(levelsSearch.toLowerCase()),
+        )
+    : [];
+
   return {
     fields: {
       "activity-type": {
@@ -67,6 +87,20 @@ export const useFilterConfig = (): FilterProps => {
           onChange: (value: string) => {
             setEstablishmentInputValue(value);
             debouncedSetDebouncedEstablishmentSearch(value);
+          },
+          placeholder: t("table.filters.searchPlaceholder"),
+        },
+      },
+      level: {
+        id: SessionFilterTypes.LEVEL,
+        label: t("table.filters.level.label"),
+        availableFilters: [SessionFilters.FILTER_IS],
+        values: filteredLevels,
+        multiSelect: true,
+        searchConfig: {
+          value: levelsSearch,
+          onChange: (value: string) => {
+            setLevelsSearch(value);
           },
           placeholder: t("table.filters.searchPlaceholder"),
         },

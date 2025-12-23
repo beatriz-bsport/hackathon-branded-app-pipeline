@@ -31,6 +31,15 @@ const getEstablishmentParamFromFilter = (
   };
 };
 
+const getLevelParamFromFilter = (
+  filter: FilterElementState,
+): Partial<FetchSessionsParams> | null => {
+  const levelIds = filter.valueIds.map((id) => Number(id));
+  return {
+    levels: levelIds,
+  };
+};
+
 const getTeacherParamFromFilter = (
   filter: FilterElementState,
 ): Partial<FetchSessionsParams> | null => {
@@ -82,6 +91,8 @@ export const getParamsFromFilters = (
       Object.assign(params, getActivityTypeParamFromFilter(filter));
     } else if (filter.field === SessionFilterTypes.ESTABLISHMENT) {
       Object.assign(params, getEstablishmentParamFromFilter(filter));
+    } else if (filter.field === SessionFilterTypes.LEVEL) {
+      Object.assign(params, getLevelParamFromFilter(filter));
     } else if (filter.field === SessionFilterTypes.TEACHER_SUBSTITUTION) {
       Object.assign(params, getTeacherSubstitutionParamFromFilter(filter));
     } else if (filter.field === SessionFilterTypes.TEACHER) {

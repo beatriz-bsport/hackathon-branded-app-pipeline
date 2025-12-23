@@ -3,6 +3,7 @@ import { useState } from "react";
 import type { FilterProps } from "@bsport/kaizen-primitive-core";
 import { useDebounce } from "@bsport/use-debounce";
 
+import { useSearchEstablishments } from "#src/hooks/use-search-establishments";
 import { useSearchTeachers } from "#src/hooks/use-search-teachers";
 import { setFilters } from "#src/stores/session-list";
 import { useTranslation } from "#src/utils/i18n";
@@ -17,11 +18,25 @@ import {
 
 export const useFilterConfig = (): FilterProps => {
   const { t } = useTranslation("sessionList");
+
+  // Load teachers for the teacher filter
   const [teacherInputValue, setTeacherInputValue] = useState("");
   const [debouncedSearch, setDebouncedSearch] = useState(teacherInputValue);
   const debouncedSetDebouncedSearch = useDebounce(setDebouncedSearch);
 
   const { data: teachers } = useSearchTeachers(debouncedSearch);
+
+  // Load establishments for the establishment filter
+  const [establishmentInputValue, setEstablishmentInputValue] = useState("");
+  const [debouncedEstablishmentSearch, setDebouncedEstablishmentSearch] =
+    useState(establishmentInputValue);
+  const debouncedSetDebouncedEstablishmentSearch = useDebounce(
+    setDebouncedEstablishmentSearch,
+  );
+
+  const { data: establishments } = useSearchEstablishments(
+    debouncedEstablishmentSearch,
+  );
 
   return {
     fields: {
@@ -40,6 +55,21 @@ export const useFilterConfig = (): FilterProps => {
           },
         ],
         multiSelect: false,
+      },
+      establishment: {
+        id: SessionFilterTypes.ESTABLISHMENT,
+        label: t("table.filters.establishment.label"),
+        availableFilters: [SessionFilters.FILTER_IS],
+        values: establishments || [],
+        multiSelect: true,
+        searchConfig: {
+          value: establishmentInputValue,
+          onChange: (value: string) => {
+            setEstablishmentInputValue(value);
+            debouncedSetDebouncedEstablishmentSearch(value);
+          },
+          placeholder: t("table.filters.searchPlaceholder"),
+        },
       },
       teacher: {
         id: SessionFilterTypes.TEACHER,

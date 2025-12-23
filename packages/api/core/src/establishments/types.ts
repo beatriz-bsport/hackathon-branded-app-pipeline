@@ -2,6 +2,7 @@ export type FetchEstablishmentParams = {
   page?: number;
   page_size?: number;
   id__in?: number[];
+  disabled?: boolean;
 };
 
 export type SearchEstablishmentParams = FetchEstablishmentParams & {

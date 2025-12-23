@@ -40,6 +40,9 @@
       "teacher": {
         "label": "Teacher"
       },
+      "establishment": {
+        "label": "Establishment"
+      },
       "searchPlaceholder": "Search"
     },
     "isLoading": "Loading sessions...",

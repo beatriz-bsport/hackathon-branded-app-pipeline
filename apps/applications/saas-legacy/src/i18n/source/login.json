@@ -176,6 +176,7 @@
     "welcomeConfigure_plural": "Set up your account in just {{numberOfSteps}} steps!",
     "ibanStep": "IBAN",
     "cardStep": "Payment method",
+    "invoiceNumberingStep": "Invoice numbering set-up",
     "finishStep": "Complete!",
     "createStripe": "Stripe",
     "configureStripe": "It's required to configure your Stripe account to continue.",

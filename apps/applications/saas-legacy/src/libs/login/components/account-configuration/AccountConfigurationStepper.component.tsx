@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Theme } from '@material-ui/core/styles';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import { Typography } from '@material-ui/core';
-import { AccountBalance, CreditCard } from '@material-ui/icons';
+import { AccountBalance, CreditCard, Description } from '@material-ui/icons';
 import clsx from 'clsx';
 import chroma from 'chroma-js';
 import { StepManager } from '#src/libs/login/types';
@@ -34,6 +34,9 @@ export const AccountConfigurationStepper: React.FC<Props> = ({
   );
   const paymentMethodStep = steps.findIndex(
     (stepManager) => stepManager.step === 'paymentMethodStep',
+  );
+  const invoiceNumberingStep = steps.findIndex(
+    (stepManager) => stepManager.step === 'invoiceNumberingStep',
   );
   const finalStep = steps.findIndex(
     (stepManager) => stepManager.step === 'finalStep',
@@ -127,7 +130,36 @@ export const AccountConfigurationStepper: React.FC<Props> = ({
           </div>
         </>
       )}
-      {paymentMethodStep !== -1 && finalStep !== -1 && (
+      {paymentMethodStep !== -1 && invoiceNumberingStep !== -1 && (
+        <div className={classes.greyLine} />
+      )}
+      {invoiceNumberingStep !== -1 && (
+        <>
+          <div
+            className={clsx(classes.box, {
+              [classes.primary]: steps[invoiceNumberingStep].visited,
+              [classes.grey]: !steps[invoiceNumberingStep].visited,
+            })}
+          >
+            <Description
+              className={clsx({
+                [classes.iconPrimary]: steps[invoiceNumberingStep].visited,
+                [classes.icon]: !steps[invoiceNumberingStep].visited,
+              })}
+            />
+            <Typography
+              className={clsx(classes.stepName, {
+                [classes.opacity]:
+                  !noTitleGrey && !steps[invoiceNumberingStep].visited,
+              })}
+              variant="subtitle2"
+            >
+              {t(`accountConfiguration.invoiceNumberingStep`)}
+            </Typography>
+          </div>
+        </>
+      )}
+      {invoiceNumberingStep !== -1 && finalStep !== -1 && (
         <div className={classes.greyLine} />
       )}
       {finalStep !== -1 && (

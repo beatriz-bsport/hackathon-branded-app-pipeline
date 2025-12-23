@@ -7,6 +7,7 @@ export const buildSteps = ({
   has_visited_bank_account_configuration,
   has_no_need_for_payment_method_configuration,
   has_visited_payment_method_configuration,
+  has_visited_invoice_numbering_step,
   no_last_step,
   has_visited_last_step,
 }: {
@@ -16,6 +17,7 @@ export const buildSteps = ({
   has_visited_bank_account_configuration: boolean;
   has_no_need_for_payment_method_configuration: boolean;
   has_visited_payment_method_configuration: boolean;
+  has_visited_invoice_numbering_step: boolean;
   no_last_step: boolean;
   has_visited_last_step: boolean;
 }) => {
@@ -39,6 +41,10 @@ export const buildSteps = ({
       visited: has_visited_payment_method_configuration,
     });
   }
+  res.push({
+    step: 'invoiceNumberingStep',
+    visited: has_visited_invoice_numbering_step,
+  });
   if (!no_last_step) {
     res.push({
       step: 'finalStep',

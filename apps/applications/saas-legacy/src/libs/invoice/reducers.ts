@@ -31,6 +31,7 @@ import {
   generateInvoiceXmlBulkActions,
   getSequentialNumberingStatusActions,
   initializeLegalIdentifierLegacyActions,
+  initializeLegalIdentifierOnboardingActions,
   checkFiskalyOnboardingStatusActions,
   getFiskalyOnboardingRequirementsActions,
   onboardFiskalyCompanyActions,
@@ -162,6 +163,10 @@ const initialState: Immutable.Immutable<InvoiceState> = Immutable<InvoiceState>(
       result: null,
     },
     initializeLegalIdentifierLegacy: {
+      loading: false,
+      error: null,
+    },
+    initializeLegalIdentifierOnboarding: {
       loading: false,
       error: null,
     },
@@ -878,10 +883,28 @@ export default handleActions<Immutable.Immutable<InvoiceState>, any>(
     ) => {
       return state.setIn(['initializeLegalIdentifierLegacy', 'error'], payload);
     },
-    [initializeLegalIdentifierLegacyActions.success.toString()]: (state) => {
-      // Success is handled by refetching status, no need to store response
-      return state;
+    [initializeLegalIdentifierLegacyActions.success.toString()]: (state) =>
+      state,
+    [initializeLegalIdentifierOnboardingActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(
+        ['initializeLegalIdentifierOnboarding', 'loading'],
+        payload,
+      );
     },
+    [initializeLegalIdentifierOnboardingActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(
+        ['initializeLegalIdentifierOnboarding', 'error'],
+        payload,
+      );
+    },
+    [initializeLegalIdentifierOnboardingActions.success.toString()]: (state) =>
+      state,
     [manuallySendInvoiceToSignEsActions.success.toString()]: (
       state,
       { payload }: { payload: FiskalySignEsInvoiceDetails },

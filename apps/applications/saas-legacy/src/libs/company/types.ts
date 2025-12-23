@@ -9,6 +9,7 @@ import {
   ACCOUNT_CONFIGURATION_FINAL_STEP,
   PAYMENT_METHOD_CONFIGURATION_STEP,
   STRIPE_CONFIGURATION_STEP,
+  INVOICE_NUMBERING_CONFIGURATION_STEP,
   PAYPAL_NOT_CONNECTED,
   PAYPAL_CONNECTED,
   PAYPAL_CONNECTED_WITHOUT_VAULTING,
@@ -214,6 +215,7 @@ export type StripeCompany = {
   has_completed_stripe_configuration: boolean;
   has_completed_bank_account_configuration: boolean;
   has_completed_payment_method_configuration: boolean;
+  has_completed_invoice_sequential_number_configuration: boolean;
   has_completed_account_configuration_on_boarding: boolean;
 };
 
@@ -221,6 +223,7 @@ export type AccountConfigurationStep =
   | typeof STRIPE_CONFIGURATION_STEP
   | typeof BANK_ACCOUNT_CONFIGURATION_STEP
   | typeof PAYMENT_METHOD_CONFIGURATION_STEP
+  | typeof INVOICE_NUMBERING_CONFIGURATION_STEP
   | typeof ACCOUNT_CONFIGURATION_FINAL_STEP;
 
 export type CompanyCreationParams = {

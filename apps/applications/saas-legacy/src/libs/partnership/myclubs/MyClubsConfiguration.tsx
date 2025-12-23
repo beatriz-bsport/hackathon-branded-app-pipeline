@@ -6,6 +6,7 @@ import {
 } from '#src/libs/partnership/types';
 import {
   useCreatePartnershipVenue,
+  useDeletePartnershipVenue,
   useGetPartnershipVenues,
 } from '#src/libs/partnership/hooks';
 import MyClubsLogoIcon from '#src/components/icons/MyClubsLogoIcon.component';
@@ -16,6 +17,8 @@ import { connect } from 'react-redux';
 import { snackbarSuccess } from '#src/libs/snackbar/actions';
 import { snackbarError } from '#src/actions/snackbar.actions';
 import { useTranslation } from 'react-i18next';
+import PartnershipWarningDialog from '#src/libs/partnership/components/PartnershipWarningDialog';
+import { PartnershipWarningDialogTextProps } from '#src/libs/partnership/components/PartnershipWarningDialog/PartnershipWarningDialog.component';
 
 type Props = {
   establishments: Establishment[];
@@ -23,6 +26,14 @@ type Props = {
   showSnackbarSuccess: (message: string) => void;
   showSnackbarError: (message: string) => void;
 };
+
+const computeWarningDialogKeys = (): PartnershipWarningDialogTextProps => ({
+  title: 'myclubs.configuration.dialog.title.deletion',
+  alertTitle: 'myclubs.configuration.dialog.unlink.title',
+  alertContent: 'myclubs.configuration.dialog.unlink.content',
+  confirmAction: 'myclubs.configuration.dialog.action.confirm',
+  cancelAction: 'myclubs.configuration.dialog.action.cancel',
+});
 
 const MyClubsConfiguration: React.FC<Props> = ({
   establishments,
@@ -37,8 +48,13 @@ const MyClubsConfiguration: React.FC<Props> = ({
   ] = useGetPartnershipVenues(myClubsPartnershipId);
   const [createActionState, createPartnershipVenue] =
     useCreatePartnershipVenue(myClubsPartnershipId);
+  const [deleteActionState, deletePartnershipVenue] =
+    useDeletePartnershipVenue();
 
   const [createdVenue, setCreatedVenue] = useState<PartnershipVenue | null>(
+    null,
+  );
+  const [selectVenue, setSelectedVenue] = useState<PartnershipVenue | null>(
     null,
   );
 
@@ -54,7 +70,9 @@ const MyClubsConfiguration: React.FC<Props> = ({
 
   const [isConfigurationDialogOpen, setIsConfigurationDialogOpen] =
     useState(false);
+  const [isWarningDialogOpen, setIsWarningDialogOpen] = useState(false);
 
+  const warningDialogKeys = useMemo(computeWarningDialogKeys, []);
   const openConfigurationDialog = useCallback(() => {
     setIsConfigurationDialogOpen(true);
     setCreatedVenue(null);
@@ -63,6 +81,41 @@ const MyClubsConfiguration: React.FC<Props> = ({
     setIsConfigurationDialogOpen(false);
     setCreatedVenue(null);
   }, []);
+
+  const openWarningDialog = useCallback(() => {
+    setIsWarningDialogOpen(true);
+  }, []);
+
+  const closeWarningDialog = useCallback(() => {
+    setIsWarningDialogOpen(false);
+  }, []);
+
+  const cancelWarningDialog = useCallback(() => {
+    closeWarningDialog();
+  }, [closeWarningDialog, openConfigurationDialog]);
+
+  const handleDeleteVenue = useCallback((venue: PartnershipVenue) => {
+    setSelectedVenue(venue);
+    openWarningDialog();
+  }, []);
+
+  const doDeleteVenue = useCallback(async () => {
+    if (selectVenue == null) return;
+    await deletePartnershipVenue(selectVenue.id);
+    setSelectedVenue(null);
+    fetchPartnershipVenues();
+    showSnackbarSuccess(
+      t('myclubs.configuration.dialog.notification.delete.success'),
+    );
+    closeWarningDialog();
+  }, [
+    selectVenue,
+    deletePartnershipVenue,
+    fetchPartnershipVenues,
+    showSnackbarSuccess,
+    closeWarningDialog,
+    t,
+  ]);
 
   const handleFormSubmit = useCallback(
     async (values: FormValues) => {
@@ -79,12 +132,20 @@ const MyClubsConfiguration: React.FC<Props> = ({
   );
 
   useEffect(() => {
-    if (showSnackbarError && createActionState.error) {
+    if (!showSnackbarError) return;
+
+    if (createActionState.error) {
       showSnackbarError(
         t('myclubs.configuration.dialog.notification.create.error'),
       );
     }
-  }, [createActionState.error, showSnackbarError, t]);
+
+    if (deleteActionState.error) {
+      showSnackbarError(
+        t('myclubs.configuration.dialog.notification.delete.error'),
+      );
+    }
+  }, [createActionState.error, deleteActionState.error, showSnackbarError, t]);
 
   useEffect(() => {
     fetchPartnershipVenues();
@@ -100,7 +161,7 @@ const MyClubsConfiguration: React.FC<Props> = ({
         }}
         loading={fetchVenuesLoading}
         onAddConnection={openConfigurationDialog}
-        onDeleteVenue={() => alert('Coming soon!')}
+        onDeleteVenue={handleDeleteVenue}
         onEditVenue={() => alert('Coming soon!')}
         partnershipVenues={partnershipVenues ?? []}
       />
@@ -115,6 +176,13 @@ const MyClubsConfiguration: React.FC<Props> = ({
         onClose={closeConfigurationDialog}
         onSubmit={handleFormSubmit}
         partnershipIdentifier={PartnershipIdentifier.MYCLUBS}
+      />
+      <PartnershipWarningDialog
+        isOpen={isWarningDialogOpen}
+        onCancel={cancelWarningDialog}
+        onClose={closeWarningDialog}
+        onConfirm={doDeleteVenue}
+        textContentKeys={warningDialogKeys}
       />
     </>
   );

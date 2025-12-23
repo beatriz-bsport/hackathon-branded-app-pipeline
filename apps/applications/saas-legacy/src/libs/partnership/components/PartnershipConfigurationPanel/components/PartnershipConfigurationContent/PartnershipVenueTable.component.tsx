@@ -158,6 +158,7 @@ const PartnershipVenueTable: React.FC<Props> = ({
             {venuesHaveStatus && (
               <TableCell>
                 <VenueStatusChip
+                  activatedAt={partnershipVenue.activated_at}
                   active={partnershipVenue.active ?? false}
                   partnershipIdentifier={displayConfig.partnershipIdentifier}
                 />

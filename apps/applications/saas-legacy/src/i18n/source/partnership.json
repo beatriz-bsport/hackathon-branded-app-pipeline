@@ -160,7 +160,15 @@
           "confirm": "Confirm",
           "save": "Continue"
         },
+        "unlink": {
+          "title": "You are about to unlink one or several establishments from myClubs",
+          "content": "Upcoming sessions linked to those establishments will be canceled on myClubs, along with any myClubs booking."
+        },
         "notification": {
+          "delete": {
+            "success": "Partner ID deleted",
+            "error": "An error occurred while deleting the Partner ID"
+          },
           "create": {
             "success": "Partner ID generated",
             "error": "An error occurred while generating the Partner ID"
@@ -181,7 +189,8 @@
             },
             "status": {
               "active": "Connected",
-              "inactive": "Pending"
+              "pending": "Pending",
+              "deactivated": "Deactivated"
             }
           }
         },

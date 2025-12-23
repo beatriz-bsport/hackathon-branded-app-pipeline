@@ -1,4 +1,4 @@
-import { buildUrlParams, getAuth, postAuth } from '#src/http';
+import { buildUrlParams, deleteAuth, getAuth, postAuth } from '#src/http';
 
 import Config from '#src/config';
 import {
@@ -19,5 +19,11 @@ export const createPartnershipVenue = (data: PartnershipVenuePayload) => {
   return postAuth<PartnershipVenue>(
     `${API_V1_URI}/partnership/partnership_venue/create_venue/`,
     data,
+  );
+};
+
+export const deletePartnershipVenue = (venueId: string) => {
+  return deleteAuth<PartnershipVenue>(
+    `${API_V1_URI}/partnership/partnership_venue/${venueId}/`,
   );
 };

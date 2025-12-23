@@ -1,5 +1,7 @@
 import type { Dispatch, SetStateAction } from "react";
 
+import type { DropdownMenuSearchConfig } from "#src/components/DropdownMenu/DropdownMenu";
+
 export type FilterElementState = {
   id: number;
   field: string | null;
@@ -13,6 +15,7 @@ export type FilterField = {
   availableFilters: string[];
   values: { id: string; label: string }[];
   multiSelect: boolean;
+  searchConfig?: DropdownMenuSearchConfig;
 };
 
 export type FilterProps = {

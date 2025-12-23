@@ -3,6 +3,7 @@ import React, { useMemo, useState } from "react";
 
 import Button from "#src/components/Button";
 import DropdownMenu from "#src/components/DropdownMenu";
+import type { FilterField } from "#src/components/Filter/types";
 
 import {
   FILTER_MENU_MAX_HEIGHT,
@@ -12,13 +13,7 @@ import {
 
 type FilterElementSelectFieldProps = {
   fields: {
-    [key: string]: {
-      id: string;
-      label: string;
-      availableFilters: string[];
-      values: { id: string; label: string }[];
-      multiSelect: boolean;
-    };
+    [key: string]: FilterField;
   };
   label: string;
   openedByDefault: boolean;
@@ -93,7 +88,10 @@ const FilterElementSelectField: React.FC<FilterElementSelectFieldProps> = ({
           const handleButtonClick = () => {
             setIsPopoverOpened(!isPopoverOpened);
 
-            if (selectedField) {
+            const hasSelectedValues =
+              selectedValues && selectedValues.length > 0;
+
+            if (selectedField && !hasSelectedValues) {
               setMenu({ type: "values" });
               return;
             }
@@ -136,8 +134,14 @@ const FilterElementSelectField: React.FC<FilterElementSelectFieldProps> = ({
         }}
         placement="bottom-left"
         maxHeightPx={FILTER_MENU_MAX_HEIGHT}
+        searchConfig={
+          menu.type === "values" && selectedField
+            ? fields[selectedField].searchConfig
+            : undefined
+        }
       />
     </li>
   );
 };
+FilterElementSelectField.displayName = "KaizenFilterElementSelectField";
 export default FilterElementSelectField;

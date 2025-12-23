@@ -53,6 +53,10 @@ export function DropdownMenuManaged(props: DropdownMenuManagedProps) {
     searchConfig?.value !== undefined ? searchConfig.value : internalSearch;
 
   const filteredItems = useMemo(() => {
+    if (searchConfig?.onChange) {
+      return items;
+    }
+
     if (!query) {
       return items;
     }
@@ -66,7 +70,7 @@ export function DropdownMenuManaged(props: DropdownMenuManagedProps) {
 
       return item.label?.toLowerCase().includes(lowerQuery);
     });
-  }, [items, query]);
+  }, [items, query, searchConfig]);
 
   return (
     <Popover className={className} opened={opened} fullWidth={fullWidth}>
@@ -74,7 +78,7 @@ export function DropdownMenuManaged(props: DropdownMenuManagedProps) {
       <Popover.Content placement={placement} maxHeightPx={maxHeightPx}>
         {({ setIsPopoverOpened }) => (
           <div>
-            {searchConfig?.placeholder && (
+            {searchConfig && (
               <div className="mb-xs">
                 <TextField
                   id={textFieldId}

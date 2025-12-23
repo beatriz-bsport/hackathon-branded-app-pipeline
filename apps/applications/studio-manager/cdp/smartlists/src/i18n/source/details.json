@@ -4,6 +4,35 @@
     "campaigns": "Campaigns",
     "automations": "Automations"
   },
+  "automation": {
+    "messages": {
+      "title": "Messages",
+      "description": "These messages send once profiles enter or exit the defined filters.",
+      "emptyState": "No automated messages yet",
+      "columns": {
+        "createdOn": "Created on",
+        "condition": "Condition",
+        "analytics": "Analytics",
+        "recipients": "Recipients",
+        "opens": "Opens",
+        "clicks": "Clicks"
+      },
+      "conditions": {
+        "onJoin": "When member enters Smartlist",
+        "onLeave": "When member leaves Smartlist"
+      },
+      "channels": {
+        "email": "Email",
+        "sms": "SMS",
+        "push": "Push"
+      },
+      "error": {
+        "title": "Failed to load automations",
+        "description": "We couldn't load the automated messages. Please try again.",
+        "retryLabel": "Retry"
+      }
+    }
+  },
   "error": {
     "notFound": {
       "title": "Smartlist not found",

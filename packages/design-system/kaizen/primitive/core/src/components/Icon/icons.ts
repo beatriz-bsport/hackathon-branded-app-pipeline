@@ -172,6 +172,9 @@ const icons = {
   "message-check-square": React.lazy(
     async () => await import("./assets/message-check-square.svg?react"),
   ),
+  "message-dots-circle": React.lazy(
+    async () => await import("./assets/message-dots-circle.svg?react"),
+  ),
   "message-question-square": React.lazy(
     async () => await import("./assets/message-question-square.svg?react"),
   ),

@@ -15,6 +15,9 @@ const getActivityCategoryParamFromFilter = (
   filter: FilterElementState,
 ): Partial<FetchSessionsParams> | null => {
   const categoryIds = filter.valueIds.map((id) => Number(id));
+  if (categoryIds.length === 0) {
+    return null;
+  }
   return {
     category__in: categoryIds,
   };
@@ -36,6 +39,9 @@ const getEstablishmentParamFromFilter = (
   filter: FilterElementState,
 ): Partial<FetchSessionsParams> | null => {
   const establishmentIds = filter.valueIds.map((id) => Number(id));
+  if (establishmentIds.length === 0) {
+    return null;
+  }
   return {
     establishments: establishmentIds,
   };
@@ -45,6 +51,9 @@ const getLocationParamFromFilter = (
   filter: FilterElementState,
 ): Partial<FetchSessionsParams> | null => {
   const locationIds = filter.valueIds.map((id) => Number(id));
+  if (locationIds.length === 0) {
+    return null;
+  }
   return {
     establishment_group__in: locationIds,
   };
@@ -54,6 +63,9 @@ const getLevelParamFromFilter = (
   filter: FilterElementState,
 ): Partial<FetchSessionsParams> | null => {
   const levelIds = filter.valueIds.map((id) => Number(id));
+  if (levelIds.length === 0) {
+    return null;
+  }
   return {
     levels: levelIds,
   };
@@ -63,6 +75,9 @@ const getTeacherParamFromFilter = (
   filter: FilterElementState,
 ): Partial<FetchSessionsParams> | null => {
   const teacherIds = filter.valueIds.map((id) => Number(id));
+  if (teacherIds.length === 0) {
+    return null;
+  }
   return {
     coaches: teacherIds,
   };

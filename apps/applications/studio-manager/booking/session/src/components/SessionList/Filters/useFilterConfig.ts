@@ -41,22 +41,6 @@ export const useFilterConfig = (): FilterProps => {
         ],
         multiSelect: false,
       },
-      visibility: {
-        id: SessionFilterTypes.VISIBILITY,
-        label: t("table.filters.visibility.label"),
-        availableFilters: [SessionFilters.FILTER_IS, SessionFilters.FILTER_NOT],
-        values: [
-          {
-            id: VisibilityFilterValues.AGGREGATORS,
-            label: t("table.filters.visibility.aggregators"),
-          },
-          {
-            id: VisibilityFilterValues.MEMBERS,
-            label: t("table.filters.visibility.members"),
-          },
-        ],
-        multiSelect: false,
-      },
       teacher: {
         id: SessionFilterTypes.TEACHER,
         label: t("table.filters.teacher.label"),
@@ -84,6 +68,22 @@ export const useFilterConfig = (): FilterProps => {
           {
             id: TeacherSubstitutionFilterValues.PENDING,
             label: t("table.filters.teacherSubstitution.pending"),
+          },
+        ],
+        multiSelect: false,
+      },
+      visibility: {
+        id: SessionFilterTypes.VISIBILITY,
+        label: t("table.filters.visibility.label"),
+        availableFilters: [SessionFilters.FILTER_IS, SessionFilters.FILTER_NOT],
+        values: [
+          {
+            id: VisibilityFilterValues.AGGREGATORS,
+            label: t("table.filters.visibility.aggregators"),
+          },
+          {
+            id: VisibilityFilterValues.MEMBERS,
+            label: t("table.filters.visibility.members"),
           },
         ],
         multiSelect: false,

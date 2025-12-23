@@ -6,6 +6,7 @@ import { useDebounce } from "@bsport/use-debounce";
 
 import { useFetchLevels } from "#src/hooks/level/useFetchLevels";
 import { useLevelName } from "#src/hooks/level/useLevelName";
+import { useFetchCategories } from "#src/hooks/use-fetch-categories";
 import { useSearchEstablishments } from "#src/hooks/use-search-establishments";
 import { useSearchTeachers } from "#src/hooks/use-search-teachers";
 import { setFilters } from "#src/stores/session-list";
@@ -41,8 +42,9 @@ export const useFilterConfig = (): FilterProps => {
     debouncedEstablishmentSearch,
   );
 
-  // Load levels for the level filter
   const companyId = dataAccessLayer.useCompanyTheme()?.company;
+
+  // Load and filter levels for the level filter
   const { data: levels } = useFetchLevels(companyId);
   const [levelsSearch, setLevelsSearch] = useState("");
   const getLevelName = useLevelName();
@@ -58,8 +60,36 @@ export const useFilterConfig = (): FilterProps => {
         )
     : [];
 
+  // Load and filter categories
+  const { data: categories } = useFetchCategories(companyId);
+  const [categoriesSearch, setCategoriesSearch] = useState("");
+
+  const filteredCategories =
+    categories
+      ?.map((category) => ({
+        id: category.id.toString(),
+        label: category.name,
+      }))
+      .filter((category) =>
+        category.label.toLowerCase().includes(categoriesSearch.toLowerCase()),
+      ) ?? [];
+
   return {
     fields: {
+      "activity-category": {
+        id: SessionFilterTypes.ACTIVITY_CATEGORY,
+        label: t("table.filters.activityCategory.label"),
+        availableFilters: [SessionFilters.FILTER_IS],
+        values: filteredCategories,
+        multiSelect: true,
+        searchConfig: {
+          value: categoriesSearch,
+          onChange: (value: string) => {
+            setCategoriesSearch(value);
+          },
+          placeholder: t("table.filters.searchPlaceholder"),
+        },
+      },
       "activity-type": {
         id: SessionFilterTypes.ACTIVITY_TYPE,
         label: t("table.filters.activityType.label"),

@@ -9,6 +9,14 @@ import {
   VisibilityFilterValues,
 } from "./types";
 
+const getActivityCategoryParamFromFilter = (
+  filter: FilterElementState,
+): Partial<FetchSessionsParams> | null => {
+  const categoryIds = filter.valueIds.map((id) => Number(id));
+  return {
+    category__in: categoryIds,
+  };
+};
 const getActivityTypeParamFromFilter = (
   filter: FilterElementState,
 ): Partial<FetchSessionsParams> | null => {
@@ -87,7 +95,9 @@ export const getParamsFromFilters = (
   filters: FilterElementState[],
 ): FetchSessionsParams => {
   return filters.reduce<FetchSessionsParams>((params, filter) => {
-    if (filter.field === SessionFilterTypes.ACTIVITY_TYPE) {
+    if (filter.field === SessionFilterTypes.ACTIVITY_CATEGORY) {
+      Object.assign(params, getActivityCategoryParamFromFilter(filter));
+    } else if (filter.field === SessionFilterTypes.ACTIVITY_TYPE) {
       Object.assign(params, getActivityTypeParamFromFilter(filter));
     } else if (filter.field === SessionFilterTypes.ESTABLISHMENT) {
       Object.assign(params, getEstablishmentParamFromFilter(filter));

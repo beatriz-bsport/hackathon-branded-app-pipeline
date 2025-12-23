@@ -1,5 +1,6 @@
 export enum SessionFilterTypes {
   ACTIVITY_TYPE = "activity-type",
+  ACTIVITY_CATEGORY = "activity-category",
   ESTABLISHMENT = "establishment",
   LEVEL = "level",
   TEACHER = "teacher",

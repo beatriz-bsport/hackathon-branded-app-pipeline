@@ -22,6 +22,9 @@
       "label": "Filters",
       "is": "is",
       "not": "is not",
+      "activityCategory": {
+        "label": "Activity category"
+      },
       "activityType": {
         "label": "Activity type",
         "workshop": "Workshop",

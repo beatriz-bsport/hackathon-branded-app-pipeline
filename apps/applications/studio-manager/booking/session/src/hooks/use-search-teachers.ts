@@ -4,14 +4,17 @@ import {
   useQuery,
 } from "@tanstack/react-query";
 
-import { type FuzzySearchParams, fuzzySearchTeachers } from "@bsport/api-core";
+import {
+  type FuzzySearchTeacherParams,
+  fuzzySearchTeachers,
+} from "@bsport/api-core";
 
 import { fetch } from "../utils/fetch";
 
 const TEACHERS_DEFAULT_PAGE_SIZE = 20;
 const TEACHERS_STALE_TIME = 2 * 60 * 1000; // 2 minutes
 
-const searchTeachers = async (params: FuzzySearchParams) => {
+const searchTeachers = async (params: FuzzySearchTeacherParams) => {
   const result = await fuzzySearchTeachers(fetch, params);
   return result.results;
 };

@@ -4,7 +4,12 @@ import { Button, Item, Menu, Popover } from "@bsport/kaizen-primitive-core";
 
 import { useTranslation } from "#src/utils/i18n";
 
-export const MoreActionsButton: React.FC = () => {
+type MoreActionsButtonProps = {
+  onParticipantsExport: () => void;
+};
+export const MoreActionsButton: React.FC<MoreActionsButtonProps> = ({
+  onParticipantsExport,
+}) => {
   const { t } = useTranslation("sessionList");
 
   const getMenuItems = useCallback(
@@ -17,7 +22,7 @@ export const MoreActionsButton: React.FC = () => {
         iconLeft: "upload-01",
         type: "button",
         onClick: () => {
-          console.log("Export Participants clicked");
+          onParticipantsExport();
           setIsPopoverOpened(false);
         },
       };
@@ -33,7 +38,7 @@ export const MoreActionsButton: React.FC = () => {
       };
       return [exportParticipantsAction, cancelMultipleSessionsAction];
     },
-    [t],
+    [t, onParticipantsExport],
   );
 
   return (

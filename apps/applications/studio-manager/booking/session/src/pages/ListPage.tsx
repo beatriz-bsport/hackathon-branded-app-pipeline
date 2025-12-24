@@ -10,6 +10,7 @@ import {
 import { dataAccessLayer } from "@bsport/sm-backbone";
 
 import { AddSessionModal } from "#src/components/AddSessionModal/AddSessionModal";
+import { ExportParticipantsModal } from "#src/components/SessionList/export-participants-modal";
 import { MoreActionsButton } from "#src/components/SessionList/more-actions-button";
 import { useTranslation } from "#src/utils/i18n";
 
@@ -36,9 +37,28 @@ const ListPage: React.FC = () => {
 
   const selectedDate = useSessionListStore(selectSelectedDate);
 
-  const [addSessionModalOpen, setAddSessionModalOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+
+  const [addSessionModalOpen, setAddSessionModalOpen] = useState(false);
+  const openAddSessionModal = useCallback(() => {
+    setAddSessionModalOpen(true);
+  }, []);
+
+  const closeAddSessionModal = useCallback(() => {
+    setAddSessionModalOpen(false);
+  }, []);
+
   const hasInitializedDate = useRef(false);
+
+  const [exportParticipantsModalOpen, setExportParticipantsModalOpen] =
+    useState(false);
+  const openExportParticipantsModal = useCallback(() => {
+    setExportParticipantsModalOpen(true);
+  }, []);
+
+  const closeExportParticipantsModal = useCallback(() => {
+    setExportParticipantsModalOpen(false);
+  }, []);
 
   useEffect(() => {
     if (intlLocale) {
@@ -70,15 +90,15 @@ const ListPage: React.FC = () => {
     [filteredSessions],
   );
 
-  const openAddSessionModal = useCallback(() => {
-    setAddSessionModalOpen(true);
-  }, []);
-
-  const closeAddSessionModal = useCallback(() => {
-    setAddSessionModalOpen(false);
-  }, []);
-
   const displaySettings = useCallback(() => <DisplaySettings />, []);
+  const endGroupActions = useMemo(() => {
+    return [
+      <MoreActionsButton
+        key="more-actions"
+        onParticipantsExport={openExportParticipantsModal}
+      />,
+    ];
+  }, [openExportParticipantsModal]);
 
   const { shouldRenderEmptyState, EmptyState } = useEmptyState({
     isEmpty: !isLoading && Object.keys(sessionsByDate).length === 0,
@@ -136,7 +156,7 @@ const ListPage: React.FC = () => {
         onDisplayPopover={displaySettings}
         callToActionButton={callToActionButton}
         filterConfig={filterConfig}
-        endGroupActions={[<MoreActionsButton key="more-actions" />]}
+        endGroupActions={endGroupActions}
         searchConfig={{
           id: "session-search",
           inputValue: searchQuery,
@@ -153,6 +173,10 @@ const ListPage: React.FC = () => {
         <AddSessionModal
           isOpen={addSessionModalOpen}
           onClose={closeAddSessionModal}
+        />
+        <ExportParticipantsModal
+          isOpen={exportParticipantsModalOpen}
+          onClose={closeExportParticipantsModal}
         />
       </ListLayout.Content>
     </ListLayout>

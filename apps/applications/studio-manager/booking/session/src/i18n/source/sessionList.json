@@ -9,6 +9,11 @@
     "previousButton": "Previous day",
     "nextButton": "Next day"
   },
+  "moreActions": {
+    "label": "More actions",
+    "exportParticipants": "Export participant list",
+    "cancelMultipleSessions": "Cancel multiple sessions"
+  },
   "table": {
     "headers": {
       "time": "Time",

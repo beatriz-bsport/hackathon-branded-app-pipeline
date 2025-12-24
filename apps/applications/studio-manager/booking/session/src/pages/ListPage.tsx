@@ -10,6 +10,7 @@ import {
 import { dataAccessLayer } from "@bsport/sm-backbone";
 
 import { AddSessionModal } from "#src/components/AddSessionModal/AddSessionModal";
+import { MoreActionsButton } from "#src/components/SessionList/more-actions-button";
 import { useTranslation } from "#src/utils/i18n";
 
 import { DateNavigationHeader } from "../components/SessionList/DateNavigationHeader";
@@ -135,6 +136,7 @@ const ListPage: React.FC = () => {
         onDisplayPopover={displaySettings}
         callToActionButton={callToActionButton}
         filterConfig={filterConfig}
+        endGroupActions={[<MoreActionsButton key="more-actions" />]}
         searchConfig={{
           id: "session-search",
           inputValue: searchQuery,

@@ -1,6 +1,11 @@
 import React, { useState } from "react";
 
-import { getIsoDateString } from "@bsport/datetime-manipulation";
+import {
+  DateTime,
+  fromIsoString,
+  getIsoDate,
+  getLocalNow,
+} from "@bsport/datetime-manipulation";
 
 import Divider from "#src/components/Divider";
 import TextField from "#src/components/TextField";
@@ -13,9 +18,9 @@ import Month from "./Month";
 type CalendarRangeProps = {
   id: string;
   years?: number[];
-  disableDate?: (date: Date, selectedDate: SelectedDate) => boolean;
-  selectedDate: [Date | null, Date | null] | null;
-  onSelect: (dates: [Date | null, Date | null]) => void;
+  disableDate?: (date: DateTime, selectedDate: SelectedDate) => boolean;
+  selectedDate: [DateTime | null, DateTime | null] | null;
+  onSelect: (dates: [DateTime | null, DateTime | null]) => void;
   hideSelector?: boolean;
 };
 
@@ -31,7 +36,7 @@ const CalendarRange: React.FC<CalendarRangeProps> = ({
   const { t } = useTranslation("default", { i18n: i18nInstance });
 
   const [displayMonth, setDisplayMonth] = useState(
-    selectedDate?.[0] || new Date(),
+    selectedDate?.[0] || getLocalNow({}),
   );
   const [errors, setErrors] = useState<[string | null, string | null]>([
     null,
@@ -40,10 +45,10 @@ const CalendarRange: React.FC<CalendarRangeProps> = ({
 
   const handleInputChange =
     (index: number) => (event: React.ChangeEvent<HTMLInputElement>) => {
-      const date = new Date(event.target.value);
-      if (isNaN(date.getTime())) return;
+      const date = fromIsoString(event.target.value);
+      if (!date.isValid) return;
 
-      const updatedDates: [Date | null, Date | null] = [
+      const updatedDates: [DateTime | null, DateTime | null] = [
         ...(selectedDate || [null, null]),
       ];
       updatedDates[index] = date;
@@ -62,14 +67,14 @@ const CalendarRange: React.FC<CalendarRangeProps> = ({
 
   const handleClear = (index: number) => {
     setErrors([null, null]);
-    const updatedDates: [Date | null, Date | null] = [
+    const updatedDates: [DateTime | null, DateTime | null] = [
       ...(selectedDate || [null, null]),
     ];
     updatedDates[index] = null;
     onSelect(updatedDates);
   };
 
-  const handleDateSelect = (date: Date) => {
+  const handleDateSelect = (date: DateTime) => {
     if (!selectedDate || (!selectedDate[0] && !selectedDate[1])) {
       onSelect([date, null]);
     } else if (selectedDate[0] && !selectedDate[1]) {
@@ -96,7 +101,7 @@ const CalendarRange: React.FC<CalendarRangeProps> = ({
             id={`calendar-date-input-${id}`}
             label={t("datePicker.startDate")}
             type="date"
-            value={selectedDate?.[0] ? getIsoDateString(selectedDate[0]) : ""}
+            value={selectedDate?.[0] ? getIsoDate(selectedDate[0]) : ""}
             iconLeft="calendar"
             status={errors[0] ? "error" : "default"}
             statusText={errors[0] || ""}
@@ -108,7 +113,7 @@ const CalendarRange: React.FC<CalendarRangeProps> = ({
             id={`calendar-date-input-end-${id}`}
             label={t("datePicker.endDate")}
             type="date"
-            value={selectedDate?.[1] ? getIsoDateString(selectedDate[1]) : ""}
+            value={selectedDate?.[1] ? getIsoDate(selectedDate[1]) : ""}
             iconLeft="calendar"
             status={errors[1] ? "error" : "default"}
             statusText={errors[1] || ""}
@@ -134,9 +139,7 @@ const CalendarRange: React.FC<CalendarRangeProps> = ({
         />
         <Divider orientation="vertical" weight="thin" />
         <Month
-          displayMonth={
-            new Date(displayMonth.getFullYear(), displayMonth.getMonth() + 1)
-          }
+          displayMonth={displayMonth.plus({ months: 1 })}
           selectedDate={selectedDate}
           onSelect={handleDateSelect}
           disableDate={disableDate}

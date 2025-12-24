@@ -216,6 +216,10 @@ export const getIsoDateString = (date: Date): string => {
     .split("T")[0];
 };
 
+export const getIsoDate = (date: DateTime): string => {
+  return date.toISODate() ?? "";
+};
+
 /**
  * Validates whether a value is a Date object or ISO date string (YYYY-MM-DD).
  * For strings, checks format only (not calendar validity).

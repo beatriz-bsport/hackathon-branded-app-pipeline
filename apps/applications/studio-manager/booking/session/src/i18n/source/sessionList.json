@@ -25,6 +25,9 @@
       "activityCategory": {
         "label": "Activity category"
       },
+      "activityName": {
+        "label": "Activity name"
+      },
       "activityType": {
         "label": "Activity type",
         "workshop": "Workshop",

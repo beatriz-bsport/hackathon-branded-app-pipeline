@@ -10,6 +10,7 @@ import {
   TeacherSubstitutionFilterValues,
   VisibilityFilterValues,
 } from "./types";
+import { useActivityNameFilter } from "./use-activity-name-filter";
 import { useCategoryFilter } from "./use-category-filter";
 import { useEstablishmentFilter } from "./use-establishment-filter";
 import { useLevelFilter } from "./use-level-filter";
@@ -27,10 +28,12 @@ export const useFilterConfig = (): FilterProps => {
   } = useLocationFilter();
   const levelFilter = useLevelFilter();
   const categoryFilter = useCategoryFilter();
+  const activityNameFilter = useActivityNameFilter();
 
   return {
     fields: {
       "activity-category": categoryFilter,
+      "activity-name": activityNameFilter,
       "activity-type": {
         id: SessionFilterTypes.ACTIVITY_TYPE,
         label: t("table.filters.activityType.label"),

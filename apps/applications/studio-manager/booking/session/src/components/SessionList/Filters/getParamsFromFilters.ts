@@ -22,6 +22,19 @@ const getActivityCategoryParamFromFilter = (
     category__in: categoryIds,
   };
 };
+
+const getActivityNameParamFromFilter = (
+  filter: FilterElementState,
+): Partial<FetchSessionsParams> | null => {
+  const activityIds = filter.valueIds.map((id) => Number(id));
+  if (activityIds.length === 0) {
+    return null;
+  }
+  return {
+    activity__in: activityIds,
+  };
+};
+
 const getActivityTypeParamFromFilter = (
   filter: FilterElementState,
 ): Partial<FetchSessionsParams> | null => {
@@ -123,6 +136,8 @@ export const getParamsFromFilters = (
   return filters.reduce<FetchSessionsParams>((params, filter) => {
     if (filter.field === SessionFilterTypes.ACTIVITY_CATEGORY) {
       Object.assign(params, getActivityCategoryParamFromFilter(filter));
+    } else if (filter.field === SessionFilterTypes.ACTIVITY_NAME) {
+      Object.assign(params, getActivityNameParamFromFilter(filter));
     } else if (filter.field === SessionFilterTypes.ACTIVITY_TYPE) {
       Object.assign(params, getActivityTypeParamFromFilter(filter));
     } else if (filter.field === SessionFilterTypes.ESTABLISHMENT) {

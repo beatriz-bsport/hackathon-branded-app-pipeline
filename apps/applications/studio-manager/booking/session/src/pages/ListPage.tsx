@@ -50,8 +50,9 @@ const ListPage: React.FC = () => {
 
   const hasInitializedDate = useRef(false);
 
+  // TODO: change to false
   const [exportParticipantsModalOpen, setExportParticipantsModalOpen] =
-    useState(false);
+    useState(true);
   const openExportParticipantsModal = useCallback(() => {
     setExportParticipantsModalOpen(true);
   }, []);

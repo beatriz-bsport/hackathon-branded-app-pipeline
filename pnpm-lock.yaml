@@ -1121,6 +1121,9 @@ importers:
       '@bsport/api-book':
         specifier: workspace:*
         version: link:../../../../../packages/api/book
+      '@bsport/api-business-insights':
+        specifier: workspace:*
+        version: link:../../../../../packages/api/business-insights
       '@bsport/api-core':
         specifier: workspace:*
         version: link:../../../../../packages/api/core

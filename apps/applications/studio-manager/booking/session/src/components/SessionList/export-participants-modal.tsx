@@ -1,13 +1,23 @@
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 
 import { getTodayJSDate } from "@bsport/datetime-manipulation";
-import { Body, DatePicker, Modal, Toggle } from "@bsport/kaizen-primitive-core";
-
 import {
+  Body,
+  DatePicker,
+  Modal,
+  SelectedDate,
+  Toggle,
+} from "@bsport/kaizen-primitive-core";
+
+import { useExportParticipantsList } from "#src/hooks/use-export-participants";
+import {
+  selectFilters,
   selectSelectedDate,
   useSessionListStore,
 } from "#src/stores/session-list";
 import { useTranslation } from "#src/utils/i18n";
+
+import { getParamsFromFilters } from "./Filters/getParamsFromFilters";
 
 export const ExportParticipantsModal: FC<{
   isOpen: boolean;
@@ -22,6 +32,42 @@ export const ExportParticipantsModal: FC<{
       : currentSelectedDate.minDate || getTodayJSDate();
 
   const [applyFilters, setApplyFilters] = useState(false);
+  const [exportDate, setExportDate] = useState<Date>(defaultDatePickerValue);
+
+  useEffect(() => {
+    if (isOpen) {
+      setExportDate(defaultDatePickerValue);
+    }
+  }, [isOpen, defaultDatePickerValue]);
+
+  const handleDateChange = (date: SelectedDate) => {
+    if (date instanceof Date) {
+      setExportDate(date);
+    }
+  };
+
+  const exportParticipantList = useExportParticipantsList();
+  const filters = useSessionListStore(selectFilters);
+  const getFormattedFilters = () => {
+    if (!applyFilters) {
+      return {};
+    }
+    const {
+      establishments,
+      coaches,
+      activity__in,
+      levels: level_in,
+    } = getParamsFromFilters(filters);
+    return { establishments, coaches, activity__in, level_in };
+  };
+
+  const handleExport = () => {
+    onClose();
+    exportParticipantList.mutate({
+      date: exportDate,
+      filters: getFormattedFilters(),
+    });
+  };
 
   return (
     <Modal
@@ -31,6 +77,7 @@ export const ExportParticipantsModal: FC<{
       onClose={onClose}
       confirmButton={{
         label: t("exportParticipantsModal.confirmButton"),
+        onClick: handleExport,
       }}
       cancelButton={{
         label: t("exportParticipantsModal.cancelButton"),
@@ -50,6 +97,7 @@ export const ExportParticipantsModal: FC<{
             mode="single"
             displayAs="popover"
             defaultValue={defaultDatePickerValue}
+            onSelect={handleDateChange}
           />
         </div>
         <Toggle

@@ -5,8 +5,10 @@ import {
   fetchReportParticipantsListAPI,
 } from "@bsport/api-business-insights";
 import { getIsoDateString } from "@bsport/datetime-manipulation";
+import { toast } from "@bsport/kaizen-primitive-core";
 
 import { fetch } from "#src/utils/fetch";
+import { useTranslation } from "#src/utils/i18n";
 
 const fetchReportParticipantsList = fetchReportParticipantsListAPI.bind(
   null,
@@ -14,6 +16,7 @@ const fetchReportParticipantsList = fetchReportParticipantsListAPI.bind(
 );
 
 export const useExportParticipantsList = () => {
+  const { t } = useTranslation("sessionList");
   return useMutation({
     mutationFn: (params: {
       date: Date;
@@ -34,6 +37,12 @@ export const useExportParticipantsList = () => {
       setTimeout(() => {
         (window.URL || window.webkitURL).revokeObjectURL(url);
       }, 0);
+    },
+    onError: () => {
+      toast({
+        status: "critical",
+        title: t("exportParticipantsModal.errorMessage"),
+      });
     },
   });
 };

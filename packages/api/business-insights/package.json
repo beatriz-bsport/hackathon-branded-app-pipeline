@@ -28,7 +28,9 @@
     "lint": "eslint .",
     "lint:fix": "eslint --fix ."
   },
-  "dependencies": {},
+  "dependencies": {
+    "@bsport/store-base": "workspace:*"
+  },
   "devDependencies": {
     "@bsport/config-eslint-react": "workspace:*"
   },

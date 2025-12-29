@@ -7,6 +7,7 @@ import {
 import {
   useCreatePartnershipVenue,
   useDeletePartnershipVenue,
+  useUpdatePartnershipVenue,
   useGetPartnershipVenues,
 } from '#src/libs/partnership/hooks';
 import MyClubsLogoIcon from '#src/components/icons/MyClubsLogoIcon.component';
@@ -27,8 +28,12 @@ type Props = {
   showSnackbarError: (message: string) => void;
 };
 
-const computeWarningDialogKeys = (): PartnershipWarningDialogTextProps => ({
-  title: 'myclubs.configuration.dialog.title.deletion',
+const computeWarningDialogKeys = (
+  isEdit: boolean = false,
+): PartnershipWarningDialogTextProps => ({
+  title: isEdit
+    ? 'myclubs.configuration.dialog.title.deletion'
+    : 'myclubs.configuration.dialog.title.edition',
   alertTitle: 'myclubs.configuration.dialog.unlink.title',
   alertContent: 'myclubs.configuration.dialog.unlink.content',
   confirmAction: 'myclubs.configuration.dialog.action.confirm',
@@ -42,6 +47,7 @@ const MyClubsConfiguration: React.FC<Props> = ({
   showSnackbarError,
 }) => {
   const { t } = useTranslation('partnership');
+
   const [
     { loading: fetchVenuesLoading, value: partnershipVenues },
     fetchPartnershipVenues,
@@ -50,14 +56,34 @@ const MyClubsConfiguration: React.FC<Props> = ({
     useCreatePartnershipVenue(myClubsPartnershipId);
   const [deleteActionState, deletePartnershipVenue] =
     useDeletePartnershipVenue();
+  const [updateActionState, updatePartnershipVenue] =
+    useUpdatePartnershipVenue(myClubsPartnershipId);
 
   const [createdVenue, setCreatedVenue] = useState<PartnershipVenue | null>(
     null,
   );
-  const [selectVenue, setSelectedVenue] = useState<PartnershipVenue | null>(
-    null,
+  const [selectedVenueToEdit, setSelectedVenueToEdit] =
+    useState<PartnershipVenue | null>(null);
+
+  const warningDialogKeys = useMemo(
+    () => computeWarningDialogKeys(selectedVenueToEdit !== null),
+    [selectedVenueToEdit],
+  );
+  useEffect(() => {
+    fetchPartnershipVenues();
+  }, [myClubsPartnershipId, fetchPartnershipVenues]);
+
+  // The list of establishment IDs linked to the venue being edited
+  const selectedEstablishmentIds = useMemo(
+    () =>
+      selectedVenueToEdit?.establishments.map(
+        (establishment) => establishment.id,
+      ) || [],
+    [selectedVenueToEdit],
   );
 
+  // The list of establishment IDs already linked to other venues
+  // These ids will be disabled in the establishment selector
   const establishmentsLinkedIds = useMemo(
     () =>
       partnershipVenues
@@ -68,56 +94,122 @@ const MyClubsConfiguration: React.FC<Props> = ({
     [partnershipVenues],
   );
 
+  /* Configuration Dialog */
   const [isConfigurationDialogOpen, setIsConfigurationDialogOpen] =
     useState(false);
-  const [isWarningDialogOpen, setIsWarningDialogOpen] = useState(false);
 
-  const warningDialogKeys = useMemo(computeWarningDialogKeys, []);
   const openConfigurationDialog = useCallback(() => {
     setIsConfigurationDialogOpen(true);
     setCreatedVenue(null);
   }, []);
   const closeConfigurationDialog = useCallback(() => {
     setIsConfigurationDialogOpen(false);
+    setSelectedVenueToEdit(null);
     setCreatedVenue(null);
   }, []);
 
-  const openWarningDialog = useCallback(() => {
-    setIsWarningDialogOpen(true);
-  }, []);
+  /* Warning Dialog */
+  const [isWarningDialogOpen, setIsWarningDialogOpen] = useState(false);
+  const [warningOnConfirmCallback, setWarningOnConfirmCallback] = useState<
+    (() => void) | undefined
+  >();
+  const [warningOnCancelCallback, setWarningOnCancelCallback] = useState<
+    (() => void) | undefined
+  >();
+
+  const openWarningDialog = useCallback(
+    (onConfirm?: () => void, onCancel?: () => void) => {
+      setIsWarningDialogOpen(true);
+      setWarningOnConfirmCallback(() => onConfirm);
+      setWarningOnCancelCallback(() => onCancel);
+    },
+    [],
+  );
 
   const closeWarningDialog = useCallback(() => {
     setIsWarningDialogOpen(false);
+    setWarningOnConfirmCallback(undefined);
+    setWarningOnCancelCallback(undefined);
   }, []);
 
-  const cancelWarningDialog = useCallback(() => {
-    closeWarningDialog();
-  }, [closeWarningDialog, openConfigurationDialog]);
+  /* Action Handlers */
 
-  const handleDeleteVenue = useCallback((venue: PartnershipVenue) => {
-    setSelectedVenue(venue);
-    openWarningDialog();
-  }, []);
+  // DELETE: Remove partnership venue
+  const deleteVenue = useCallback(
+    async (venue: PartnershipVenue) => {
+      await deletePartnershipVenue(venue.id);
+      fetchPartnershipVenues();
+      showSnackbarSuccess(
+        t('myclubs.configuration.dialog.notification.delete.success'),
+      );
+      closeWarningDialog();
+    },
+    [
+      deletePartnershipVenue,
+      fetchPartnershipVenues,
+      showSnackbarSuccess,
+      closeWarningDialog,
+      t,
+    ],
+  );
 
-  const doDeleteVenue = useCallback(async () => {
-    if (selectVenue == null) return;
-    await deletePartnershipVenue(selectVenue.id);
-    setSelectedVenue(null);
-    fetchPartnershipVenues();
-    showSnackbarSuccess(
-      t('myclubs.configuration.dialog.notification.delete.success'),
-    );
-    closeWarningDialog();
-  }, [
-    selectVenue,
-    deletePartnershipVenue,
-    fetchPartnershipVenues,
-    showSnackbarSuccess,
-    closeWarningDialog,
-    t,
-  ]);
+  // EDIT: Update partnership venue
+  const updateVenue = useCallback(
+    async (values: FormValues) => {
+      if (!selectedVenueToEdit) return;
 
-  const handleFormSubmit = useCallback(
+      // Check if any establishments were removed
+      const removedEstablishments = selectedEstablishmentIds.filter(
+        (id) => !values.establishmentIds.includes(id),
+      );
+
+      if (removedEstablishments.length > 0) {
+        // Show warning dialog for confirmation before removing establishments
+        closeConfigurationDialog();
+        openWarningDialog(
+          async () => {
+            await updatePartnershipVenue(selectedVenueToEdit.id, values);
+            setSelectedVenueToEdit(null);
+            fetchPartnershipVenues();
+            showSnackbarSuccess(
+              t('myclubs.configuration.dialog.notification.update.success'),
+            );
+            closeWarningDialog();
+          },
+          () => {
+            // Reopen configuration dialog on cancel
+            closeWarningDialog();
+            setSelectedVenueToEdit(selectedVenueToEdit);
+            openConfigurationDialog();
+          },
+        );
+        return;
+      }
+
+      await updatePartnershipVenue(selectedVenueToEdit.id, values);
+      setSelectedVenueToEdit(null);
+      closeConfigurationDialog();
+      fetchPartnershipVenues();
+      showSnackbarSuccess(
+        t('myclubs.configuration.dialog.notification.update.success'),
+      );
+    },
+    [
+      selectedVenueToEdit,
+      selectedEstablishmentIds,
+      updatePartnershipVenue,
+      closeConfigurationDialog,
+      fetchPartnershipVenues,
+      showSnackbarSuccess,
+      t,
+      openWarningDialog,
+      closeWarningDialog,
+      openConfigurationDialog,
+    ],
+  );
+
+  // CREATE: Add new partnership venue
+  const createVenue = useCallback(
     async (values: FormValues) => {
       const createdValue = await createPartnershipVenue(values);
       if (createdValue) {
@@ -131,6 +223,33 @@ const MyClubsConfiguration: React.FC<Props> = ({
     [createPartnershipVenue, fetchPartnershipVenues, showSnackbarSuccess, t],
   );
 
+  const handleDeleteVenue = useCallback(
+    (venue: PartnershipVenue) => {
+      openWarningDialog(() => deleteVenue(venue));
+    },
+    [deleteVenue, openWarningDialog],
+  );
+
+  const handleEditVenue = useCallback(
+    (venue: PartnershipVenue) => {
+      setSelectedVenueToEdit(venue);
+      openConfigurationDialog();
+    },
+    [openConfigurationDialog],
+  );
+
+  const handleFormSubmit = useCallback(
+    async (values: FormValues) => {
+      if (selectedVenueToEdit) {
+        await updateVenue(values);
+      } else {
+        await createVenue(values);
+      }
+    },
+    [selectedVenueToEdit, updateVenue, createVenue],
+  );
+
+  /* Error management */
   useEffect(() => {
     if (!showSnackbarError) return;
 
@@ -145,11 +264,19 @@ const MyClubsConfiguration: React.FC<Props> = ({
         t('myclubs.configuration.dialog.notification.delete.error'),
       );
     }
-  }, [createActionState.error, deleteActionState.error, showSnackbarError, t]);
 
-  useEffect(() => {
-    fetchPartnershipVenues();
-  }, [myClubsPartnershipId, fetchPartnershipVenues]);
+    if (updateActionState.error) {
+      showSnackbarError(
+        t('myclubs.configuration.dialog.notification.update.error'),
+      );
+    }
+  }, [
+    createActionState.error,
+    deleteActionState.error,
+    updateActionState.error,
+    showSnackbarError,
+    t,
+  ]);
 
   return (
     <>
@@ -162,16 +289,18 @@ const MyClubsConfiguration: React.FC<Props> = ({
         loading={fetchVenuesLoading}
         onAddConnection={openConfigurationDialog}
         onDeleteVenue={handleDeleteVenue}
-        onEditVenue={() => alert('Coming soon!')}
+        onEditVenue={handleEditVenue}
         partnershipVenues={partnershipVenues ?? []}
       />
       <PartnershipConfigurationDialog
-        establishmentIds={[]} /* TODO: update this when edit is implemented */
+        establishmentIds={selectedEstablishmentIds}
         establishmentIdsLinked={establishmentsLinkedIds}
         establishments={establishments}
-        externalId={createdVenue?.external_id || ''}
-        isCreation={true}
-        isLoading={createActionState.loading}
+        externalId={
+          createdVenue?.external_id || selectedVenueToEdit?.external_id || ''
+        }
+        isCreation={selectedVenueToEdit == null}
+        isLoading={createActionState.loading || updateActionState.loading}
         isOpen={isConfigurationDialogOpen}
         onClose={closeConfigurationDialog}
         onSubmit={handleFormSubmit}
@@ -179,9 +308,9 @@ const MyClubsConfiguration: React.FC<Props> = ({
       />
       <PartnershipWarningDialog
         isOpen={isWarningDialogOpen}
-        onCancel={cancelWarningDialog}
+        onCancel={warningOnCancelCallback ?? closeWarningDialog}
         onClose={closeWarningDialog}
-        onConfirm={doDeleteVenue}
+        onConfirm={warningOnConfirmCallback}
         textContentKeys={warningDialogKeys}
       />
     </>

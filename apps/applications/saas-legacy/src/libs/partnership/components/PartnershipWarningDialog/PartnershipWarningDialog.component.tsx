@@ -26,7 +26,7 @@ type Props = {
   isOpen: boolean;
   onCancel: () => void;
   onClose: () => void;
-  onConfirm: () => void;
+  onConfirm?: () => void;
 };
 
 const PartnershipWarningDialog: React.FC<Props> = ({

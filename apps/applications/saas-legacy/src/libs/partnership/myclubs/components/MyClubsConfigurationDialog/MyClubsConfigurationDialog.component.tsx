@@ -54,8 +54,8 @@ const MyClubsConfigurationDialog: React.FC<Props> = ({
     () =>
       isCreation
         ? t('myclubs.configuration.dialog.title.creation')
-        : t('myclubs.configuration.dialog.title.edition'),
-    [isCreation, t],
+        : t('myclubs.configuration.dialog.title.edition', { externalId }),
+    [isCreation, t, externalId],
   );
 
   const handleCloseDialog = React.useCallback(() => {
@@ -104,8 +104,8 @@ const withFormikWrapper = withFormik<HOCProps, FormValues>({
   enableReinitialize: true,
   validateOnMount: true,
   validationSchema: PartnershipConfigurationValidationSchema,
-  mapPropsToValues: ({ establishmentIds }) => ({
-    externalId: '',
+  mapPropsToValues: ({ externalId, establishmentIds }) => ({
+    externalId,
     establishmentIds: establishmentIds || [],
   }),
   handleSubmit: (_values, { setSubmitting }) => {

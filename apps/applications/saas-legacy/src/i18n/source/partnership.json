@@ -139,7 +139,7 @@
         "title": {
           "creation": "Choose establishment(s)",
           "creation_success": "Link Partner ID with myClubs",
-          "edition": "Edit Connection",
+          "edition": "Edit Connection {{ externalId }}",
           "deletion": "Delete Connection"
         },
         "helperText": "Select which establishments you want to synchronise with myClubs. This will make all sessions in these establishments available to myClubs customers.",
@@ -172,6 +172,10 @@
           "create": {
             "success": "Partner ID generated",
             "error": "An error occurred while generating the Partner ID"
+          },
+          "update": {
+            "success": "Partner ID updated",
+            "error": "An error occurred while updating the Partner ID"
           }
         }
       },

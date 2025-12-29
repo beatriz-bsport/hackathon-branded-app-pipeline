@@ -1,4 +1,10 @@
-import { buildUrlParams, deleteAuth, getAuth, postAuth } from '#src/http';
+import {
+  buildUrlParams,
+  deleteAuth,
+  getAuth,
+  patchAuth,
+  postAuth,
+} from '#src/http';
 
 import Config from '#src/config';
 import {
@@ -25,5 +31,15 @@ export const createPartnershipVenue = (data: PartnershipVenuePayload) => {
 export const deletePartnershipVenue = (venueId: string) => {
   return deleteAuth<PartnershipVenue>(
     `${API_V1_URI}/partnership/partnership_venue/${venueId}/`,
+  );
+};
+
+export const updatePartnershipVenue = (
+  venueId: string,
+  data: PartnershipVenuePayload,
+) => {
+  return patchAuth<PartnershipVenue>(
+    `${API_V1_URI}/partnership/partnership_venue/${venueId}/`,
+    data,
   );
 };

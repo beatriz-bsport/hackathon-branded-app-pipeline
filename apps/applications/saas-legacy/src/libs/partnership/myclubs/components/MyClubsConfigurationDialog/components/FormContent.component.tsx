@@ -16,7 +16,6 @@ import {
   Typography,
 } from '@material-ui/core';
 
-import { DelayedNumberInputField } from '#src/components/form-fields';
 import EstablishmentSelector from '#src/libs/establishment/components/EstablishmentSelector.component';
 
 import type {
@@ -69,7 +68,7 @@ const groupSelectedEstablishmentsByAddress = (
 
 const FormDialogContent: React.FC<Props> = ({
   partnershipIdentifier,
-  isCreation,
+
   establishments,
   establishmentIdsLinked,
   isLoading,
@@ -146,19 +145,6 @@ const FormDialogContent: React.FC<Props> = ({
         <Typography variant="subtitle1">
           {t(`${partnershipIdentifier}.configuration.dialog.helperText`)}
         </Typography>
-
-        {!isCreation && (
-          <DelayedNumberInputField
-            disabled
-            fullWidth
-            required
-            label={t(
-              `${partnershipIdentifier}.configuration.dialog.field.externalId.placeholder`,
-            )}
-            name="externalId"
-          />
-        )}
-
         <div className={classes.establishmentsField}>
           <Typography variant="body2">
             {t(

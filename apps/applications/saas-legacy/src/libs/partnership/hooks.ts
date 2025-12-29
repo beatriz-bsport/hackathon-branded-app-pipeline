@@ -3,6 +3,7 @@ import {
   createPartnershipVenue,
   deletePartnershipVenue,
   getPartnershipVenues,
+  updatePartnershipVenue,
 } from './api';
 
 export const useGetPartnershipVenues = (partnershipId: number) => {
@@ -38,4 +39,20 @@ export const useDeletePartnershipVenue = () => {
   };
 
   return useAsyncFn(doDeletePartnershipVenue, []);
+};
+
+export const useUpdatePartnershipVenue = (partnershipId: number) => {
+  const doUpdatePartnershipVenue = async (
+    venueId: string,
+    data: { establishmentIds: number[] },
+  ) => {
+    const partnershipVenueResponse = await updatePartnershipVenue(venueId, {
+      partnership: partnershipId,
+      establishment_group: data.establishmentIds,
+    });
+
+    return partnershipVenueResponse.data;
+  };
+
+  return useAsyncFn(doUpdatePartnershipVenue, [partnershipId]);
 };

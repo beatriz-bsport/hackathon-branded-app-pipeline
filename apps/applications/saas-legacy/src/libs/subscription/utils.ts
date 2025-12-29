@@ -25,6 +25,7 @@ import type {
 import type {
   PrivatePass,
   PrivatePassTemplate,
+  ServiceCompatibilityPass,
 } from '#src/libs/private-service/types';
 import { SubscriptionStatusEnum } from '#src/libs/consumer-space/components/reworked/@MySubscriptions/constants';
 import {
@@ -33,7 +34,10 @@ import {
   InvoicingType,
   ObjectType,
 } from '#src/libs/subscription/components/contract/contract-revamp/types';
-import { emptyPaymentPackDetailsForms } from './components/contract/contract-revamp/constants';
+import {
+  emptyPaymentPackDetailsForms,
+  emptyPrivatePassDetailsForms,
+} from './components/contract/contract-revamp/constants';
 import { PaymentCombo } from '../payment-combo/types';
 import {
   formatOffPeakScheduleOnEdit,
@@ -46,6 +50,7 @@ import {
 import { penaltyKindDict } from '../payment-packs/components/PaymentPackForm/PaymentPackForm.component';
 import { ImmutableArray } from 'seamless-immutable';
 import { getObjectTypeFromContract } from './components/contract/contract-revamp/utils';
+import { getFormInitial } from '../private-service/utils';
 
 export function isPaused(
   pausesArray?: (SubscriptionPause | FranchiseUserBillingPlanPause)[],
@@ -330,6 +335,7 @@ export const contractToFormValues = (
   contract: ContractWithPaymentPack<PrivatePass, PaymentCombo>,
   paymentPackList: ImmutableArray<PaymentPack>,
   privatePassList: PrivatePass[],
+  compatibleServicePass?: Array<ServiceCompatibilityPass>,
 ): FormValues => {
   const paymentPack = paymentPackList?.find(
     (pp) => pp?.id === contract?.payment_pack?.id,
@@ -338,6 +344,7 @@ export const contractToFormValues = (
     (pp) => pp?.id === contract?.private_pass?.id,
   );
   const objectType = getObjectTypeFromContract(contract);
+
   return {
     ...contract,
     invoicing_type: contract.month_billing_day
@@ -352,6 +359,7 @@ export const contractToFormValues = (
     payment_pack_details:
       objectType === ObjectType.PAYMENT_PACK
         ? {
+            id: paymentPack?.id,
             credits: paymentPack?.credits || undefined,
             theorical_margin_value: paymentPack?.theorical_margin_value || 0,
             bookkeeping_account: paymentPack?.bookkeeping_account || null,
@@ -370,12 +378,6 @@ export const contractToFormValues = (
             grants_door_access: paymentPack?.grants_door_access || false,
             expiration_days_before_first_use:
               paymentPack?.expiration_days_before_first_use || 0,
-            expiration_date_active: !!paymentPack?.expiration_date,
-            expiration_date: !!paymentPack?.expiration_date
-              ? DateTime.fromISO(paymentPack?.expiration_date)
-              : null,
-            onsite_payment_available:
-              paymentPack?.onsite_payment_available || false,
             penalty_active: paymentPack?.penalty_active || false,
             penalty_nb_late_cancellations:
               paymentPack?.penalty_nb_late_cancellations || 3,
@@ -413,10 +415,29 @@ export const contractToFormValues = (
         : emptyPaymentPackDetailsForms,
     private_pass_details:
       objectType === ObjectType.PRIVATE_PASS
-        ? {}
-        : {
-            tax: 0,
-          },
+        ? {
+            id: privatePass?.id,
+            credits: privatePass?.credits || 0,
+            tax: privatePass?.tax || 0,
+            expiration_days_before_first_use:
+              privatePass?.expiration_days_before_first_use || 365,
+            description: privatePass?.description || null,
+            available: privatePass?.available ?? true,
+            applies_for_payroll: privatePass?.applies_for_payroll ?? true,
+            on_behalf_of_teacher: privatePass?.on_behalf_of_teacher ?? false,
+            full_vod_access: privatePass?.full_vod_access ?? true,
+            grants_door_access: privatePass?.grants_door_access ?? false,
+            private_services: privatePass?.private_services || null,
+            category: privatePass?.category || null,
+            template_instance: privatePass?.template_instance || null,
+            bookkeeping_account: privatePass?.bookkeeping_account || null,
+            compatibility:
+              !!compatibleServicePass && !!privatePass
+                ? getFormInitial(privatePass, compatibleServicePass)
+                    .compatibility
+                : [],
+          }
+        : emptyPrivatePassDetailsForms,
     unusable_by_staff: !contract.is_usable_by_staff,
     tags_on_first_billing: contract.tags_on_first_billing || [],
   };
@@ -426,6 +447,7 @@ export const formValuesToContract = (
   formValues: FormValues,
 ): ContractPayload => {
   const base = {
+    id: formValues?.id,
     name: formValues.name,
     description: formValues.description,
     contract: formValues.contract,
@@ -436,7 +458,6 @@ export const formValuesToContract = (
     nb_interval: formValues.nb_interval,
     interval: formValues.interval,
     recurrence_basis: formValues.recurrence_basis,
-    tax: formValues.tax,
     is_usable_by_staff: !formValues.unusable_by_staff,
     month_billing_day:
       formValues.invoicing_type === InvoicingType.FIXED_DAY
@@ -456,7 +477,11 @@ export const formValuesToContract = (
     const details_values = formValues.payment_pack_details;
 
     const payment_pack_details_payload = {
-      credits: details_values.credits ?? undefined,
+      credits:
+        details_values.credit_number === CREDIT_NUMBER_OPTION.limited
+          ? details_values.credits
+          : null,
+      tax: String(formValues.tax),
       theorical_margin_value: details_values.theorical_margin_value,
       bookkeeping_account: details_values.bookkeeping_account ?? null,
       sct_ids:
@@ -475,21 +500,20 @@ export const formValuesToContract = (
       max_bookings_per_week: details_values.max_bookings_per_week ?? null,
       max_bookings_per_month: details_values.max_bookings_per_month ?? null,
       max_purchase_per_member: details_values.max_purchase_per_member ?? null,
-      tax: details_values.tax ?? 0,
       full_vod_access: !!details_values.full_vod_access,
-      only_vod_access: !!details_values.only_vod_access,
+      only_vod_access: !!details_values.full_vod_access
+        ? !!details_values.only_vod_access
+        : false,
       allow_guest_pass: !!details_values.allow_guest_pass,
-      adetails_valueslies_for_payroll: !!details_values.applies_for_payroll,
-      grants_door_access: !!details_values.grants_door_access,
+      grants_door_access:
+        !details_values.only_vod_access && !!details_values.grants_door_access,
       expiration_days_before_first_use:
         details_values.expiration_days_before_first_use ?? null,
-      expiration_date:
-        details_values.expiration_date && details_values.expiration_date_active
-          ? details_values.expiration_date.toISODate()
-          : null,
-      onsite_payment_available: !!details_values.onsite_payment_available,
       applies_for_payroll: !!details_values.applies_for_payroll,
-      penalty_active: !!details_values.penalty_active,
+      penalty_active:
+        details_values.credit_number === CREDIT_NUMBER_OPTION.unlimited &&
+        details_values.apply_penalties &&
+        !!details_values.penalty_active,
       penalty_nb_late_cancellations:
         details_values.penalty_nb_late_cancellations ?? null,
       penalty_nb_days: details_values.penalty_nb_days ?? null,
@@ -499,7 +523,10 @@ export const formValuesToContract = (
           : PENALTY_KIND_NEGATIVE_ACCOUNT,
       penalty_days_blocked: details_values.penalty_days_blocked ?? null,
       penalty_account_value: details_values.penalty_account_value ?? null,
-      no_show_penalty_active: !!details_values.no_show_penalty_active,
+      no_show_penalty_active:
+        details_values.credit_number === CREDIT_NUMBER_OPTION.unlimited &&
+        details_values.apply_penalties &&
+        !!details_values.no_show_penalty_active,
       no_show_penalty_threshold:
         details_values.no_show_penalty_threshold ?? null,
       no_show_penalty_time_window_days:
@@ -522,8 +549,35 @@ export const formValuesToContract = (
     };
   }
 
+  const details_values = formValues.private_pass_details;
+
+  const private_pass_details_payload = {
+    credits: details_values.credits,
+    tax: String(formValues.tax),
+    expiration_days_before_first_use:
+      details_values.expiration_days_before_first_use,
+    description: details_values.description,
+    available: details_values.available,
+    applies_for_payroll: details_values.applies_for_payroll,
+    on_behalf_of_teacher: details_values.on_behalf_of_teacher,
+    full_vod_access: details_values.full_vod_access,
+    grants_door_access: details_values.grants_door_access,
+    bookkeeping_account_id: details_values.bookkeeping_account ?? null,
+    private_service_ids:
+      details_values.private_services && details_values.private_services.length
+        ? details_values.private_services
+        : null,
+    category_id:
+      details_values.category !== null ? details_values.category : null,
+    template_instance:
+      details_values.template_instance !== null
+        ? details_values.template_instance
+        : null,
+    compatibility: details_values.compatibility,
+  };
+
   return {
     ...base,
-    private_pass_details: formValues.private_pass_details,
+    private_pass_details: private_pass_details_payload,
   };
 };

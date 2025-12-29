@@ -3,14 +3,17 @@ import {
   CONTRACT_MAX_NB_INTERVAL_ALLOWED,
 } from '#src/libs/subscription/constants';
 import * as Yup from 'yup';
-import { InvoicingType, ObjectType } from './types';
+import { InvoicingType } from './types';
 import { ALMOST_100 } from '#src/constants';
 import {
   START_ON_FIRST_ATTENDANCE,
   START_ON_FIRST_BOOKING,
 } from '@bsport/common/lib/master-data/payment-pack';
 import { offPeakScheduleSchemaValidation } from '#src/libs/payment-packs/components/PaymentPackForm/PaymentPackForm.component';
-import { emptyPaymentPackDetailsForms } from './constants';
+import {
+  emptyPaymentPackDetailsForms,
+  emptyPrivatePassDetailsForms,
+} from './constants';
 
 export const paymentPackDetailsSchema = Yup.object().shape({
   credit_number: Yup.string().required(
@@ -166,6 +169,20 @@ export const paymentPackDetailsSchema = Yup.object().shape({
   grants_door_access: Yup.boolean(),
 });
 
+export const privatePassDetailsSchema = Yup.object().shape({
+  category: Yup.number().nullable(true),
+  full_vod_access: Yup.boolean().required(),
+  expiration_days_before_first_use: Yup.number(),
+  compatibility: Yup.array().of(
+    Yup.object().shape({
+      private_service: Yup.number(),
+      excluded_slot_ids: Yup.array().of(Yup.number()),
+    }),
+  ),
+  applies_for_payroll: Yup.boolean().required(),
+  on_behalf_of_teacher: Yup.boolean().required(),
+});
+
 export const SubscriptionContractFieldsSchema = Yup.object().shape({
   name: Yup.string().required(),
   tax: Yup.number()
@@ -278,7 +295,6 @@ export const SubscriptionContractFieldsSchema = Yup.object().shape({
       CONTRACT_MAX_COMMITMENT_VALUE_ALLOWED,
       'contract.form.commitmentPeriod.error',
     )
-<<<<<<< HEAD
     .nullable()
     .test(
       'required-when-commitment-enabled',
@@ -302,11 +318,10 @@ export const SubscriptionContractFieldsSchema = Yup.object().shape({
         );
       },
     ),
-=======
-    .nullable(),
-  commitment_period_unit: Yup.string().nullable(),
   payment_pack_details: paymentPackDetailsSchema
     .nullable()
     .default(emptyPaymentPackDetailsForms),
->>>>>>> 342c6d0f2f (feat(contract): Prepare assets for payment pack details form)
+  private_pass_details: privatePassDetailsSchema
+    .nullable()
+    .default(emptyPrivatePassDetailsForms),
 });

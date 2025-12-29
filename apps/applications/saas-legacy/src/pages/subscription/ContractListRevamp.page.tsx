@@ -17,6 +17,7 @@ import {
   fetchPaymentPackList as fetchPaymentPackListAction,
   fetchAllPaymentPackCategory,
 } from '#src/libs/payment-packs/actions';
+import { getCompatibilityPassWithService as getCompatibleServicePass } from '#src/libs/private-service/selectors/private-pass';
 
 import { TFunction } from 'i18next';
 import { NOTIFICATION_KIND } from '@bsport/common/lib/master-data/notification-rule-events.js';
@@ -46,7 +47,11 @@ import themeSelectors, {
 import BottomActionsButton from '../../components/button/BottomActionsButton.component';
 
 import { fetchPaymentMethodList as fetchPaymentMethodListAction } from '../../libs/payment/actions';
-import { getSavedPaymentMethodList } from '../../libs/payment/selectors';
+import {
+  getBookkeepingAccountById,
+  getBookkeepingAccountList,
+  getSavedPaymentMethodList,
+} from '../../libs/payment/selectors';
 import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '../../libs/payment/api';
 import { fetchPrivatePassList } from '../../libs/private-service/actions';
 import { fetchPaymentComboList } from '../../libs/payment-combo/actions';
@@ -116,6 +121,15 @@ import {
 } from '#src/libs/meta-activity/selectors';
 import uniqBy from 'lodash/uniqBy';
 import { getEditableSCTs } from '#src/libs/category/selectors';
+import { getPrivateServices } from '#src/libs/private-service/selectors/private-service';
+import { fetchBookkeepingAccountList as fetchBookkeepingAccountListAction } from '#src/libs/payment/actions';
+import { IS_BOOKKEEPING_ACOUNT_FEATURE_ENABLED } from '#src/libs/payment/constants';
+import {
+  fetchAllPrivateServices,
+  fetchCompatibleServicePassList as fetchCompatibleServicePassListAction,
+  fetchAllPrivateSlots,
+} from '#src/libs/private-service/actions';
+import { PrivateSlot } from '#src/libs/private-service/types';
 
 type ContractSearchOptionData = {
   tagList: {
@@ -167,7 +181,24 @@ export class SubscriptionList extends React.Component<Props, State> {
       });
     }
     this.props.fetchTags();
+    IS_BOOKKEEPING_ACOUNT_FEATURE_ENABLED &&
+      this.props.fetchBookkeepingAccountList();
+    this.props.fetchAllPrivateServices();
   }
+
+  fetchSelectedContractCompatibleServicePasses = (
+    contract: ContractWithPaymentPack,
+  ) => {
+    const currentPrivatePassId = !!contract?.private_pass
+      ? contract?.private_pass?.id
+      : null;
+
+    if (!currentPrivatePassId) {
+      return;
+    }
+
+    this.props.fetchCompatibleServicePasses(currentPrivatePassId);
+  };
 
   readonly searchBarAdditionalParams = {
     manager_only: false,
@@ -178,11 +209,18 @@ export class SubscriptionList extends React.Component<Props, State> {
   refreshSearchBarOptions = () =>
     this.props.refreshOptions('contract', this.searchBarAdditionalParams);
 
-  setContractToEditFromSearch = (contract: Contract) =>
+  setContractToEditFromSearch = (contract: Contract) => {
+    if (!!contract?.private_pass) {
+      this.props.fetchCompatibleServicePasses(contract?.private_pass);
+    }
+    const contractWithBenefit = this.props.contractListAvailableAll?.find(
+      (c: Contract) => c.id === contract.id,
+    );
     this.setState({
       // @ts-expect-error - id property comming from legacy type
       contractToEditFromSearch: { ...contractWithBenefit },
     });
+  };
 
   onClickContract = (id: number) => {
     if (id === this.props.selectedContract) {
@@ -220,6 +258,13 @@ export class SubscriptionList extends React.Component<Props, State> {
     this.props.updateContract(data, {
       onSuccess: () => {
         this.props.fetchContractList();
+        this.props.fetchPaymentPackBulk(
+          (this.props.contractListAvailableAll ?? []).map(
+            // @ts-expect-error - type is PaymentPack, not number
+            (c) => c?.payment_pack?.id,
+          ),
+        );
+        this.props.fetchPrivatePassList();
         this.setState({
           contractToEditFromSearch: null,
         });
@@ -366,16 +411,32 @@ export class SubscriptionList extends React.Component<Props, State> {
                   <SubscriptionContractList
                     dense
                     divider
+                    shouldDisplayNewSubscriptionContractForm
+                    allowGuestMaster={
+                      this.props.theme.allow_guest_activatable &&
+                      this.props.theme.allow_guest
+                    }
+                    availableEstablishmentList={
+                      this.props.availableEstablishmentList
+                    }
+                    bookkeepingAccountById={this.props.bookkeepingAccountById}
+                    bookkeepingAccounts={this.props.bookkeepingAccounts}
+                    categoryList={categoryList}
                     company={{
                       id: this.props.theme.company,
                       name: this.props.theme.company_name,
                     }}
+                    compatibleServicePass={this.props.compatibleServicePass}
                     contractList={this.props.contractListAvailableAll}
                     displayStopSubscriptionFromMemberSide={
                       !!this.props.theme
                         ?.display_stop_subscription_from_member_side
                     }
+                    fetchSelectedContractCompatibleServicePasses={
+                      this.fetchSelectedContractCompatibleServicePasses
+                    }
                     loading={this.props.contractLoading}
+                    metaActivityList={this.props.metaActivityList}
                     onClick={this.onClickContract}
                     onDelete={hasDeletePermission && this.handleDeleteContract}
                     onEdit={hasEditPermission && this.handleEditContract}
@@ -386,6 +447,8 @@ export class SubscriptionList extends React.Component<Props, State> {
                     paymentComboList={this.props.paymentComboList}
                     paymentPackList={this.props.paymentPackList}
                     privatePassList={this.props.privatePassList}
+                    privateServices={this.props.privateServices}
+                    provincialTax={this.props.theme?.provincial_tax_value}
                     selectedContract={this.props.selectedContract}
                     tagList={this.props.allTagsWithTagGroup}
                   />
@@ -405,12 +468,28 @@ export class SubscriptionList extends React.Component<Props, State> {
                   <SubscriptionContractList
                     dense
                     divider
+                    shouldDisplayNewSubscriptionContractForm
+                    allowGuestMaster={
+                      this.props.theme.allow_guest_activatable &&
+                      this.props.theme.allow_guest
+                    }
+                    availableEstablishmentList={
+                      this.props.availableEstablishmentList
+                    }
+                    bookkeepingAccountById={this.props.bookkeepingAccountById}
+                    bookkeepingAccounts={this.props.bookkeepingAccounts}
+                    categoryList={categoryList}
+                    compatibleServicePass={this.props.compatibleServicePass}
                     contractList={this.props.contractListManagerOnly}
                     displayStopSubscriptionFromMemberSide={
                       !!this.props.theme
                         ?.display_stop_subscription_from_member_side
                     }
+                    fetchSelectedContractCompatibleServicePasses={
+                      this.fetchSelectedContractCompatibleServicePasses
+                    }
                     loading={this.props.contractLoading}
+                    metaActivityList={this.props.metaActivityList}
                     onClick={this.onClickContract}
                     onDelete={hasDeletePermission && this.handleDeleteContract}
                     onEdit={hasEditPermission && this.handleEditContract}
@@ -421,6 +500,8 @@ export class SubscriptionList extends React.Component<Props, State> {
                     paymentComboList={this.props.paymentComboList}
                     paymentPackList={this.props.paymentPackList}
                     privatePassList={this.props.privatePassList}
+                    privateServices={this.props.privateServices}
+                    provincialTax={this.props.theme?.provincial_tax_value}
                     selectedContract={this.props.selectedContract}
                     tagList={this.props.allTagsWithTagGroup}
                   />
@@ -452,18 +533,36 @@ export class SubscriptionList extends React.Component<Props, State> {
                     <SubscriptionContractList
                       dense
                       divider
+                      shouldDisplayNewSubscriptionContractForm
+                      allowGuestMaster={
+                        this.props.theme.allow_guest_activatable &&
+                        this.props.theme.allow_guest
+                      }
+                      availableEstablishmentList={
+                        this.props.availableEstablishmentList
+                      }
+                      bookkeepingAccountById={this.props.bookkeepingAccountById}
+                      bookkeepingAccounts={this.props.bookkeepingAccounts}
+                      categoryList={categoryList}
+                      compatibleServicePass={this.props.compatibleServicePass}
                       contractList={this.props.inactiveContracts}
                       displayStopSubscriptionFromMemberSide={
                         !!this.props.theme
                           ?.display_stop_subscription_from_member_side
                       }
+                      fetchSelectedContractCompatibleServicePasses={
+                        this.fetchSelectedContractCompatibleServicePasses
+                      }
                       loading={this.props.contractLoading}
+                      metaActivityList={this.props.metaActivityList}
                       onRestore={
                         hasEditPermission && this.handleRestoreContract
                       }
                       paymentComboList={this.props.paymentComboList}
                       paymentPackList={this.props.paymentPackList}
                       privatePassList={this.props.privatePassList}
+                      privateServices={this.props.privateServices}
+                      provincialTax={this.props.theme?.provincial_tax_value}
                       tagList={this.props.allTagsWithTagGroup}
                     />
                   )}
@@ -534,7 +633,10 @@ export class SubscriptionList extends React.Component<Props, State> {
                 this.props.theme.allow_guest
               }
               availableEstablishmentList={this.props.availableEstablishmentList}
+              bookkeepingAccountById={this.props.bookkeepingAccountById}
+              bookkeepingAccounts={this.props.bookkeepingAccounts}
               categoryList={categoryList}
+              compatibleServicePass={this.props.compatibleServicePass}
               displayStopSubscriptionFromMemberSide={
                 !!this.props.theme?.display_stop_subscription_from_member_side
               }
@@ -554,6 +656,11 @@ export class SubscriptionList extends React.Component<Props, State> {
                 !!this.state.contractToEditFromSearch ||
                 this.props.createContractFormOpen
               }
+              paymentPackList={this.props.paymentPackList}
+              privatePassList={this.props.privatePassList}
+              // @ts-expect-error - Legacy handler typing issue
+              privateServices={this.props.privateServices}
+              provincialTax={this.props.theme?.provincial_tax_value}
               // @ts-expect-error - Legacy typing issue
               tagList={this.props.allTagsWithTagGroup}
             />
@@ -650,6 +757,10 @@ const mapStateToProps = (state: RootState) => ({
   ),
   categoryList: getEditableSCTs(state),
   videoCategories: state.video.filterableParams.items.SCTs,
+  bookkeepingAccounts: getBookkeepingAccountList(state),
+  bookkeepingAccountById: getBookkeepingAccountById(state),
+  privateServices: getPrivateServices(state),
+  compatibleServicePass: getCompatibleServicePass(state),
 });
 
 const mapDispatchToProps = {
@@ -679,6 +790,10 @@ const mapDispatchToProps = {
   fetchAllPaymentPackCategory,
   createContract: createContractAction,
   updateContract: updateContractAction,
+  fetchBookkeepingAccountList: fetchBookkeepingAccountListAction,
+  fetchAllPrivateServices: () => fetchAllPrivateServices({ mine: true }),
+  fetchPrivateSlotsByService: fetchAllPrivateSlots,
+  fetchCompatibleServicePassList: fetchCompatibleServicePassListAction,
 };
 
 const withStateHandlersInit: StateHandlerInit = {
@@ -688,6 +803,8 @@ const withStateHandlersInit: StateHandlerInit = {
   memberToBill: null,
   showDisabled: false,
 };
+
+type WithStateProps = ConnectedProps & StateHandlerType;
 
 const withStateHandlersSetter = {
   setSelectedContract: () => (selectedContract: number | null) => ({
@@ -803,6 +920,23 @@ const mapWithHandlers = {
     () => {
       fetchPaymentMethodList({ member: memberToBill.id });
     },
+  fetchBookkeepingAccountList: (props: WithStateProps) => () =>
+    props.fetchBookkeepingAccountList({ is_active: true }),
+  fetchCompatibleServicePasses:
+    (props: WithStateProps) => (privatePassId: number) =>
+      props.fetchCompatibleServicePassList(privatePassId, {
+        onSuccess: (csps) => {
+          // @ts-expect-error
+          const private_service__in = csps?.map(
+            (c: PrivateSlot) => c.private_service,
+          );
+          if (private_service__in?.length !== 0) {
+            props.fetchPrivateSlotsByService({
+              private_service__in,
+            });
+          }
+        },
+      }),
 };
 
 export default compose(

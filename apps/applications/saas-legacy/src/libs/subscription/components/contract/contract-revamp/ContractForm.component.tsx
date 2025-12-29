@@ -46,10 +46,13 @@ import {
 } from './types';
 import { PaymentPackDetailsForm } from './benefit/PaymentPackDetailsForm.component';
 import PrivatePassDetailsForm from './benefit/PrivatePassDetailsForm.component';
-import { emptyPaymentPackDetailsForms } from './constants';
 import { ALMOST_100 } from '#src/constants';
 import { provincialTaxHelperText } from '#src/libs/theme/utils';
 import BookkeepingAccountSelector from '#src/libs/payment/components/BookkeepingAccountSelector';
+import {
+  emptyPaymentPackDetailsForms,
+  emptyPrivatePassDetailsForms,
+} from './constants';
 
 const { trackFormAdd } = rudderStackFormTrackingFunctionsRegistry(
   SegmentAnalyticsFormObjectIdentifier.Subscription,
@@ -543,7 +546,17 @@ export function SubscriptionContractFields(
           </Collapse>
           <Collapse in={props.values.object_type === ObjectType.PRIVATE_PASS}>
             <PrivatePassDetailsForm
-              isContractEditable={!!isContractNotEditable}
+              categoryList={props.categoryList}
+              compatibleServicePass={props.compatibleServicePass}
+              establishmentList={props.availableEstablishmentList}
+              initialPrivatePassDetails={
+                initialValues?.private_pass_details ??
+                emptyPrivatePassDetailsForms
+              }
+              isContractFromFranchise={isFromContractTemplate}
+              isContractNotEditable={!!isContractNotEditable}
+              metaActivityList={props.metaActivityList}
+              privateServices={props.privateServices}
             />
           </Collapse>
         </div>

@@ -263,11 +263,11 @@
           "isModifyRecursively": "Do you want to modify similar sessions according to these new conditions?",
           "isNotifyConsumers": "Do you want to inform your customers of this change?",
           "partnership": {
-            "partnerMaxBookingCount": "Maximum number of bookings from Wellhub and Urban Sports Club combined (the other aggregators are not affected by this setting)",
+            "partnerMaxBookingCount": "Maximum number of bookings from myClubs, Wellhub and Urban Sports Club combined (the other aggregators are not affected by this setting)",
             "availableOnPartnership": "On aggregators (ClassPass, OneFit...)",
             "enablePartneshipBookings": "Enable aggregator bookings",
             "title": "Aggregator integrations",
-            "subtitle": "Includes: ClassPass, Urban Sports Club, Wellpass and Wellhub for external bookings.",
+            "subtitle": "Includes: ClassPass, myClubs, Urban Sports Club, Wellpass and Wellhub for external bookings.",
             "uscIntegrationWarning": "Your integration to Urban Sports Club is active, any session spanning 2 days or more will not appear.",
             "uscIntegrationWorkshopWarning": "Workshops are not compatible with Urban Sports Club, so this session will not be included.",
             "wellhubProduct": {

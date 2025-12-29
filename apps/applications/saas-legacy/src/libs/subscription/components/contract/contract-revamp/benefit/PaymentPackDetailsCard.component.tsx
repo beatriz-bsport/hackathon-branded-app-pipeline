@@ -1,211 +1,69 @@
 import React, { Component } from 'react';
-import memoize from 'memoize-one';
-import { compose, withStateHandlers } from 'recompose';
-import { withStyles, WithStyles } from '@material-ui/core/styles';
-import AccessTimeIcon from '@material-ui/icons/AccessTime';
-import Paper from '@material-ui/core/Paper';
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
-import Hidden from '@material-ui/core/Hidden';
-import LinkIcon from '@material-ui/icons/Link';
-import StarIcon from '@material-ui/icons/Star';
-import DateRangeIcon from '@material-ui/icons/DateRange';
-import VisibilityIcon from '@material-ui/icons/Visibility';
-import DoneAllIcon from '@material-ui/icons/DoneAll';
-import LocalOfferIcon from '@material-ui/icons/LocalOffer';
-import NotInterestedIcon from '@material-ui/icons/NotInterested';
-import StyleIcon from '@material-ui/icons/Style';
-import OndemandVideoIcon from '@material-ui/icons/OndemandVideo';
-import { withTranslation, WithTranslation } from 'react-i18next';
-import { TFunction } from 'i18next';
-import { CopyToClipboard } from 'react-copy-to-clipboard';
-import ButtonBase from '@material-ui/core/ButtonBase';
-import ObjectLevelPermissionWrapper from '#src/libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
 import TypographyMultilineComponent from '#src/components/typo/TypographyMultiline.component';
-import ObjectLevelPermissionProviderComponent from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
-import RedButton from '../../../components/button/RedButton.component';
-import type { MetaActivity, Establishment } from '../../../api/types';
 import {
-  getValidityInfo,
   getCompatibilityInfo,
-  getTagInfo,
   getCreditInfo,
-} from '../utils';
-import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
-// @ts-expect-error
-import PaymentPackScaleCreditDialog from './PaymentPackScaleCreditDialog.component';
-import PaymentPackCompatibilityDialog from './PaymentPackCompatibilityDialog.component';
-import PaymentPackTagsDialog from './PaymentPackTagsDialog.component';
+} from '#src/libs/payment-packs/utils';
+import ObjectLevelPermissionProviderComponent from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
+import Grid from '@material-ui/core/Grid';
+import IconButton from '@material-ui/core/IconButton';
+import Paper from '@material-ui/core/Paper';
+import { withStyles, WithStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
+import AccessTimeIcon from '@material-ui/icons/AccessTime';
+import DoneAllIcon from '@material-ui/icons/DoneAll';
+import NotInterestedIcon from '@material-ui/icons/NotInterested';
+import OndemandVideoIcon from '@material-ui/icons/OndemandVideo';
+import StarIcon from '@material-ui/icons/Star';
+import StyleIcon from '@material-ui/icons/Style';
+import VisibilityIcon from '@material-ui/icons/Visibility';
+import { withTranslation, WithTranslation } from 'react-i18next';
+import { compose } from 'recompose';
+import PaymentPackCompatibilityDialog from '#src/libs/payment-packs/components/PaymentPackCompatibilityDialog.component';
 
-import type { PaymentPack, PaymentPackCategory } from '../types';
+import type { SCT } from '#src/libs/category/types';
+import type { Establishment } from '#src/libs/establishment/types';
+import type { MetaActivity } from '#src/libs/meta-activity/types';
+import OffPeakDisplayByDay from '#src/libs/payment-packs/components/OffPeakDisplayByDay.component';
 import {
   PENALTY_KIND_BLOCK_CPP,
   PENALTY_KIND_NEGATIVE_ACCOUNT,
-} from '../constants';
-import OffPeakDisplayByDay from './OffPeakDisplayByDay.component';
+} from '#src/libs/payment-packs/constants';
+import type {
+  PaymentPack,
+  PaymentPackCompatibilitiesData,
+} from '#src/libs/payment-packs/types';
+import CompatibilityFormComponent from '#src/libs/private-service/components/pass/compatibility/CompatibilityForm.component';
 
 type OwnProps = {
-  onlyPublic?: boolean;
-
   pack: PaymentPack;
 
-  metaActivities: Array<MetaActivity>;
-  establishments: Array<Establishment>;
-  paymentPackCategory: PaymentPackCategory;
+  metaActivityList: MetaActivity[];
+  availableEstablishmentList: Establishment[];
+  SCTList: SCT[];
 
-  onEditButtonClick: () => void;
-  onDeleteButtonClick: () => void;
-  snackbarSuccess: (text: string) => void;
+  updatePaymentPackCompatibilities: (
+    data: PaymentPackCompatibilitiesData,
+  ) => void;
 
-  t: TFunction;
-  classes: Object;
-  scaleMenuOpen: boolean;
-  scaleCreditLoading: boolean;
-  toogleScaleMenuOpen: () => void;
-  onScaleCredit: (paymentPackId: number, data: any) => void;
   isManager?: boolean;
-  isExcludingTax?: boolean;
 };
 
 type Props = OwnProps & WithStyles & WithTranslation;
 
 type State = {
   compatibilityDialogOpen: boolean;
-  tagsDialogOpen: Boolean;
 };
-export class PaymentPackCard extends Component<Props, State> {
+
+export class PaymentPackDetailsCard extends Component<Props, State> {
   state = {
     compatibilityDialogOpen: false,
-    tagsDialogOpen: false,
   };
 
-  onEditPaymentPack = () => {
-    this.props.onEditButtonClick();
-    this.setState({ compatibilityDialogOpen: false, tagsDialogOpen: false });
-  };
-
-  renderLinkToPaymentPage = () => {
-    const { pack, t } = this.props;
-    return !this.props.onlyPublic && pack.id && pack.company ? (
-      <CopyToClipboard
-        text={`${window.location.origin}/customer/payment/pass/${pack.id}/?membership=${pack.company}&force=true`}
-      >
-        <ButtonBase
-          className={this.props.classes.link}
-          id="button_pass_copy"
-          onClick={() => this.props.snackbarSuccess('paymentPack:link.copied')}
-        >
-          <LinkIcon />
-          <Typography className={this.props.classes.linkTypo}>
-            {t('link.copyLink')}
-          </Typography>
-        </ButtonBase>
-      </CopyToClipboard>
-    ) : (
-      <CircularProgress />
-    );
-  };
-
-  renderEditDeleteButtons = (
-    hasEditPermission: boolean,
-    hasDeletePermission: boolean,
-    hasManageCreditPermission: boolean,
-  ) => {
-    const { pack, classes, t } = this.props;
-    if (pack.disabled) {
-      return (
-        <Grid container item alignItems="center" justify="center">
-          <Typography color="error" variant="subtitle2">
-            {t('disabled')}
-          </Typography>
-        </Grid>
-      );
-    }
-    return (
-      <div className={classes.buttonContainer}>
-        {!!this.props.onScaleCredit &&
-          !pack.linked_private_pass &&
-          hasEditPermission &&
-          hasManageCreditPermission && (
-            <Button
-              className={`${classes.multiDivButton} ${classes.buttonAlign}`}
-              color="primary"
-              disabled={!!pack.linked_private_pass || pack.unlimited}
-              id="button_pass_multdiv"
-              onClick={this.props.toogleScaleMenuOpen}
-            >
-              <Hidden xsDown>{t('actions.scaleCredit')}</Hidden>
-            </Button>
-          )}
-        {hasEditPermission && (
-          <Button
-            className={`${classes.buttonWidth} ${classes.buttonAlign}`}
-            color="primary"
-            id="button_pass_modify"
-            onClick={this.onEditPaymentPack}
-          >
-            <Hidden xsDown>{t('actions.edit')}</Hidden>
-          </Button>
-        )}
-        {hasDeletePermission && !!this.props.onDeleteButtonClick && (
-          <RedButton
-            className={`${classes.buttonWidth} ${classes.buttonAlign}`}
-            id="button_pass_delete"
-            onClick={this.props.onDeleteButtonClick}
-          >
-            <Hidden xsDown>{t('actions.delete')}</Hidden>
-          </RedButton>
-        )}
-      </div>
-    );
-  };
-
-  renderTitleAndPrice = (
-    hasEditPermission: boolean,
-    hasDeletePermission: boolean,
-    hasManageCreditPermission: boolean,
-  ) => {
-    const { pack, t, onlyPublic, classes } = this.props;
-
-    return (
-      <React.Fragment>
-        <Typography className={classes.price} color="primary" variant="h3">
-          {getCurrencyDisplayWithPrice(
-            pack.price,
-            this.props.isExcludingTax,
-            pack.tax,
-          )}
-        </Typography>
-        {onlyPublic ? null : (
-          <Typography color="textSecondary" variant="caption">
-            {getCurrencyDisplayWithPrice(pack.price, true, pack.tax)}
-            {t('ht')}
-          </Typography>
-        )}
-        {!onlyPublic && (
-          <div className={classes.buttonBlock}>
-            {this.renderEditDeleteButtons(
-              hasEditPermission,
-              hasDeletePermission,
-              hasManageCreditPermission,
-            )}
-          </div>
-        )}
-      </React.Fragment>
-    );
-  };
-
-  renderCardHeader = (
-    hasEditPermission: boolean,
-    hasDeletePermission: boolean,
-    hasManageCreditPermission: boolean,
-  ) => {
-    const { pack, t, onlyPublic, classes, paymentPackCategory, isManager } =
-      this.props;
-    const { name, description } = pack;
+  renderCardHeader = () => {
+    const { pack, t, classes, isManager } = this.props;
+    const { description } = pack;
 
     return (
       <Grid
@@ -217,12 +75,7 @@ export class PaymentPackCard extends Component<Props, State> {
         <Grid item sm={7}>
           <div className={classes.header}>
             <div>
-              <Typography variant="h4">{name}</Typography>
-              {paymentPackCategory && (
-                <Typography className={classes.category} variant="h6">
-                  {paymentPackCategory}
-                </Typography>
-              )}
+              <Typography variant="h4">{t('detailTitles.name')}</Typography>
             </div>
 
             {description && (
@@ -234,30 +87,7 @@ export class PaymentPackCard extends Component<Props, State> {
               </TypographyMultilineComponent>
             )}
 
-            <Hidden smUp>
-              <Grid item>
-                <div className={classes.marginTop}>
-                  {this.renderTitleAndPrice(
-                    hasEditPermission,
-                    hasDeletePermission,
-                    hasManageCreditPermission,
-                  )}
-                </div>
-              </Grid>
-            </Hidden>
-
             <div>
-              {!onlyPublic && (
-                <ObjectLevelPermissionWrapper
-                  forcedBehavior="hidden"
-                  requiredPermission="billing.allowed_actions.readPaymentLink"
-                >
-                  <div className={classes.copyButton}>
-                    {this.renderLinkToPaymentPage()}
-                  </div>
-                </ObjectLevelPermissionWrapper>
-              )}
-
               <div className={isManager ? '' : classes.marginTop}>
                 <div className={classes.detailInfo}>
                   <div className={classes.detailCategory}>
@@ -278,47 +108,8 @@ export class PaymentPackCard extends Component<Props, State> {
             </div>
           </div>
         </Grid>
-
-        <Hidden xsDown>
-          <Grid item sm={5}>
-            <div className={classes.columnLeft}>
-              {this.renderTitleAndPrice(
-                hasEditPermission,
-                hasDeletePermission,
-                hasManageCreditPermission,
-              )}
-            </div>
-          </Grid>
-        </Hidden>
       </Grid>
     );
-  };
-
-  renderAccessibilityInfo = () => {
-    const { t, pack, classes } = this.props;
-    const { new_member_only, onsite_payment_available, manager_only } = pack;
-    if (new_member_only || onsite_payment_available || manager_only) {
-      return (
-        <>
-          {new_member_only && !manager_only && (
-            <p className={classes.detailContent}>
-              {t('accessibility.newMembers')}
-            </p>
-          )}
-          {manager_only && (
-            <p className={classes.detailContent}>
-              {t('accessibility.managerOnly')}
-            </p>
-          )}
-          {onsite_payment_available && !manager_only && (
-            <p className={classes.detailContent}>
-              {t('accessibility.onsitePayment')}
-            </p>
-          )}
-        </>
-      );
-    }
-    return null;
   };
 
   getVODAccessType = () => {
@@ -452,28 +243,17 @@ export class PaymentPackCard extends Component<Props, State> {
     return null;
   };
 
-  getPackInfo = (
-    hasEditPermission: boolean,
-    hasDeletePermission: boolean,
-    hasManageCreditPermission: boolean,
-  ) => {
-    const { pack, t, classes, isManager } = this.props;
+  getPackInfo = () => {
+    const { pack, t, classes } = this.props;
     const { categories, establishments, metaActivities } = pack;
-    const accessibility = this.renderAccessibilityInfo();
     const restrictions = this.renderRestrictions();
-    const tags = getTagInfo(pack, t);
     const VOD = this.getVODAccessType();
     const off_peak_schedule = JSON.parse(
       JSON.stringify(pack?.off_peak_schedule ?? {}),
     );
 
-    const getOffPeakScheduleMapped = memoize(
-      (offPeakSchedule: Record<string, string[][]>): [string, string[][]][] => {
-        return Object.entries(offPeakSchedule);
-      },
-    );
-
-    const offPeakScheduleMapped = getOffPeakScheduleMapped(off_peak_schedule);
+    const offPeakScheduleMapped: [string, string[][]][] =
+      Object.entries(off_peak_schedule);
 
     return (
       <div>
@@ -485,26 +265,7 @@ export class PaymentPackCard extends Component<Props, State> {
           </div>
         ) : null}
 
-        {this.renderCardHeader(
-          hasEditPermission,
-          hasDeletePermission,
-          hasManageCreditPermission,
-        )}
-        <div className={classes.detailInfo}>
-          <div className={classes.detailCategory}>
-            <DateRangeIcon className={classes.leftIcon} />
-            <Typography variant="subtitle2">
-              {t('detailTitles.validity')}
-            </Typography>
-          </div>
-          <Typography
-            className={classes.packInfo}
-            color="textSecondary"
-            variant="caption"
-          >
-            {getValidityInfo(pack, t, true)}
-          </Typography>
-        </div>
+        {this.renderCardHeader()}
 
         <div className={classes.detailInfo}>
           <div className={classes.titleWithSeeAll}>
@@ -534,21 +295,6 @@ export class PaymentPackCard extends Component<Props, State> {
           </Typography>
         </div>
 
-        {accessibility && (
-          <div className={classes.detailInfo}>
-            <div className={classes.detailCategory}>
-              <VisibilityIcon className={classes.leftIcon} />
-              <Typography variant="subtitle2">
-                {t('detailTitles.accessibility')}
-              </Typography>
-            </div>
-            <div className={classes.packInfo}>
-              <Typography color="textSecondary" variant="caption">
-                {accessibility}
-              </Typography>
-            </div>
-          </div>
-        )}
         {!!pack?.linked_private_pass && (
           <div className={classes.detailInfo}>
             <div className={classes.detailCategory}>
@@ -580,32 +326,6 @@ export class PaymentPackCard extends Component<Props, State> {
               variant="caption"
             >
               {t(VOD)}
-            </Typography>
-          </div>
-        )}
-
-        {isManager && tags && (
-          <div className={classes.detailInfo}>
-            <div className={classes.titleWithSeeAll}>
-              <div className={classes.detailCategory}>
-                <LocalOfferIcon className={classes.leftIcon} />
-                <Typography variant="subtitle2">
-                  {t('detailTitles.tags')}
-                </Typography>
-                <IconButton
-                  color="primary"
-                  onClick={() => this.setState({ tagsDialogOpen: true })}
-                >
-                  <VisibilityIcon fontSize="small" />
-                </IconButton>
-              </div>
-            </div>
-            <Typography
-              className={classes.packInfo}
-              color="textSecondary"
-              variant="caption"
-            >
-              {tags}
             </Typography>
           </div>
         )}
@@ -652,74 +372,72 @@ export class PaymentPackCard extends Component<Props, State> {
   };
 
   render() {
-    const { classes, pack, isManager } = this.props;
     const {
-      categories,
-      establishments,
-      metaActivities,
-      whitelist_tags,
-      blacklist_tags,
-    } = pack;
-    return (
-      <ObjectLevelPermissionProviderComponent
-        requiredPermission={[
-          'product.paymentPack.allowed_actions.edit',
-          'product.paymentPack.allowed_actions.delete',
-          'product.paymentPack.allowed_actions.manageCredit',
-        ]}
-      >
-        {([
-          hasEditPermission,
-          hasDeletePermission,
-          hasManageCreditPermission,
-        ]: boolean[]) => (
-          <Paper
-            className={[
-              classes.paper,
-              pack.disabled ? classes.disabled : null,
-            ].join(' ')}
-          >
-            <div className={classes.horizontalBlock}>
-              {this.getPackInfo(
-                hasEditPermission,
-                hasDeletePermission,
-                hasManageCreditPermission,
-              )}
-            </div>
+      classes,
+      pack,
+      availableEstablishmentList,
+      metaActivityList,
+      SCTList,
+      updatePaymentPackCompatibilities,
+    } = this.props;
+    const { categories, establishments, metaActivities } = pack;
 
-            <PaymentPackScaleCreditDialog
-              loading={this.props.scaleCreditLoading}
-              onClose={this.props.toogleScaleMenuOpen}
-              // @ts-expect-error
-              onSubmit={(data) =>
-                this.props.onScaleCredit(this.props.pack.id, data)
-              }
-              open={this.props.scaleMenuOpen}
+    return (
+      <div className={classes.paymentPackContainer}>
+        <ObjectLevelPermissionProviderComponent
+          requiredPermission={[
+            'product.paymentPack.allowed_actions.edit',
+            'product.paymentPack.allowed_actions.delete',
+            'product.paymentPack.allowed_actions.manageCredit',
+          ]}
+        >
+          {() => (
+            <Paper
+              className={[
+                classes.paper,
+                pack.disabled ? classes.disabled : null,
+              ].join(' ')}
+            >
+              <div className={classes.horizontalBlock}>
+                {this.getPackInfo()}
+              </div>
+
+              <PaymentPackCompatibilityDialog
+                isManager
+                // @ts-expect-error
+                activities={metaActivities}
+                // @ts-expect-error
+                categories={categories}
+                // @ts-expect-error
+                establishments={establishments}
+                onClose={() =>
+                  this.setState({ compatibilityDialogOpen: false })
+                }
+                open={this.state.compatibilityDialogOpen}
+              />
+            </Paper>
+          )}
+        </ObjectLevelPermissionProviderComponent>
+        {!(pack?.linked_private_pass || pack?.is_universal_pass) && (
+          <>
+            <div className={classes.spacerVertical} />
+            <CompatibilityFormComponent
+              availableEstablishmentList={availableEstablishmentList}
+              metaActivityList={metaActivityList}
+              paymentPackValues={{
+                // @ts-expect-error
+                metaActivities: pack.metaActivities,
+                // @ts-expect-error
+                SCTs: pack.categories,
+                // @ts-expect-error
+                establishments: pack.establishments,
+              }}
+              SCTList={SCTList}
+              updatePassCompatibility={updatePaymentPackCompatibilities}
             />
-            <PaymentPackCompatibilityDialog
-              // @ts-expect-error
-              activities={metaActivities}
-              // @ts-expect-error
-              categories={categories}
-              // @ts-expect-error
-              establishments={establishments}
-              isManager={isManager}
-              onClose={() => this.setState({ compatibilityDialogOpen: false })}
-              onModify={this.onEditPaymentPack}
-              open={this.state.compatibilityDialogOpen}
-            />
-            <PaymentPackTagsDialog
-              // @ts-expect-error
-              blacklistTags={blacklist_tags}
-              onClose={() => this.setState({ tagsDialogOpen: false })}
-              onModify={this.onEditPaymentPack}
-              open={this.state.tagsDialogOpen}
-              // @ts-expect-error
-              whitelistTags={whitelist_tags}
-            />
-          </Paper>
+          </>
         )}
-      </ObjectLevelPermissionProviderComponent>
+      </div>
     );
   }
 }
@@ -831,20 +549,17 @@ const styles = (theme: any) => ({
     alignItems: 'flex-start',
     gap: theme.spacing(1),
   },
+  paymentPackContainer: {
+    paddingTop: theme.spacing(2),
+    paddingBottom: theme.spacing(4),
+  },
+  spacerVertical: {
+    height: theme.spacing(2),
+  },
 });
 
-export default compose(
+export default compose<Props, OwnProps>(
+  withTranslation(['paymentPack', 'datetime']),
   // @ts-expect-error
   withStyles(styles),
-  withTranslation(['paymentPack', 'datetime']),
-  withStateHandlers(
-    { scaleMenuOpen: false },
-    {
-      toogleScaleMenuOpen:
-        ({ scaleMenuOpen }) =>
-        () => ({
-          scaleMenuOpen: !scaleMenuOpen,
-        }),
-    },
-  ),
-)(PaymentPackCard);
+)(PaymentPackDetailsCard);

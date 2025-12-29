@@ -24,11 +24,27 @@ import {
   FONT_SIZE_CONTRACT_DETAIL,
   PRIMARY_BLUE_CONTRACT_DETAIL,
 } from '#src/libs/subscription/constants';
+import PaymentPackDetailsCard from './benefit/PaymentPackDetailsCard.component';
+import { SCT } from '#src/libs/category/types';
+import { MetaActivity } from '#src/libs/meta-activity/types';
+import { Establishment } from '#src/libs/establishment/types';
+import {
+  PaymentPack,
+  PaymentPackCompatibilitiesData,
+} from '#src/libs/payment-packs/types';
+
 type Props = {
   contract: ContractWithPaymentPack;
+  paymentPack?: PaymentPack;
   displayStopSubscriptionFromMemberSide?: boolean;
   company: { id: number; name: string };
   snackbarSuccess: (snackbarText: string) => void;
+  availableEstablishmentList: Establishment[];
+  metaActivityList: MetaActivity[];
+  categoryList: SCT[];
+  updatePaymentPackCompatibilities: (
+    data: PaymentPackCompatibilitiesData,
+  ) => void;
 };
 
 const ContractDetail = (props: Props) => {
@@ -58,7 +74,10 @@ const ContractDetail = (props: Props) => {
     [nb_interval, recurrence_basis],
   );
   const durationAfterAutoRenewal = useMemo(
-    () => nb_interval_after_auto_renewal * recurrence_basis,
+    () =>
+      nb_interval_after_auto_renewal !== null
+        ? nb_interval_after_auto_renewal * recurrence_basis
+        : null,
     [nb_interval_after_auto_renewal, recurrence_basis],
   );
   const shouldDisplayCommitmentPeriodSection = useMemo(
@@ -162,12 +181,7 @@ const ContractDetail = (props: Props) => {
             )}
           </div>
         )}
-        {!!props.contract.payment_pack && (
-          <div className={classes.block}>
-            <Typography variant="h6">{t('contract.paymentPack')}</Typography>
-            <>payment pack benefit details</>
-          </div>
-        )}
+
         {!!props.contract.private_pass && (
           <div className={classes.block}>
             <Typography variant="h6">{t('contract.privatePass')}</Typography>
@@ -227,6 +241,18 @@ const ContractDetail = (props: Props) => {
           </ObjectLevelPermissionWrapper>
         ) : null}
       </Paper>
+      {!!props.paymentPack && (
+        <PaymentPackDetailsCard
+          availableEstablishmentList={props.availableEstablishmentList}
+          isManager={manager_only}
+          metaActivityList={props.metaActivityList}
+          pack={props.paymentPack}
+          SCTList={props.categoryList}
+          updatePaymentPackCompatibilities={
+            props.updatePaymentPackCompatibilities
+          }
+        />
+      )}
     </div>
   );
 };

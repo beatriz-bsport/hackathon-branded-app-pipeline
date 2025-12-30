@@ -32,10 +32,18 @@ import {
   PaymentPack,
   PaymentPackCompatibilitiesData,
 } from '#src/libs/payment-packs/types';
+import PrivatePassDetailsCard from './benefit/PrivatePassDetailsCard.component';
+import {
+  PrivatePass,
+  PrivateServiceWithSlots,
+  ServiceCompatibilityPass,
+} from '#src/libs/private-service/types';
+import { OptionCallback } from '#src/state/types';
 
 type Props = {
   contract: ContractWithPaymentPack;
   paymentPack?: PaymentPack;
+  privatePass?: PrivatePass;
   displayStopSubscriptionFromMemberSide?: boolean;
   company: { id: number; name: string };
   snackbarSuccess: (snackbarText: string) => void;
@@ -44,6 +52,24 @@ type Props = {
   categoryList: SCT[];
   updatePaymentPackCompatibilities: (
     data: PaymentPackCompatibilitiesData,
+  ) => void;
+  privateServices: Array<PrivateServiceWithSlots>;
+  compatibleServicePass: Array<ServiceCompatibilityPass>;
+  deleteCompatibleServicePass?: (
+    privatePassId: number,
+    privateServiceId: number,
+    options: OptionCallback,
+  ) => void;
+  createCompatibleServicePass?: (
+    privatePassId: number,
+    privateServiceId: number,
+    options: OptionCallback,
+  ) => void;
+  updateCompatibleServicePass?: (
+    privatePassId: number,
+    serviceId: number,
+    data: any,
+    options?: { onSuccess?: () => void; onError?: () => void },
   ) => void;
 };
 
@@ -182,12 +208,6 @@ const ContractDetail = (props: Props) => {
           </div>
         )}
 
-        {!!props.contract.private_pass && (
-          <div className={classes.block}>
-            <Typography variant="h6">{t('contract.privatePass')}</Typography>
-            <>private pass benefit details</>
-          </div>
-        )}
         <div className={classes.block}>
           <Typography variant="h6">{t('contract.description')}</Typography>
           <TypographyMultiline whiteSpace="break-spaces">
@@ -241,7 +261,7 @@ const ContractDetail = (props: Props) => {
           </ObjectLevelPermissionWrapper>
         ) : null}
       </Paper>
-      {!!props.paymentPack && (
+      {!!props?.paymentPack && (
         <PaymentPackDetailsCard
           availableEstablishmentList={props.availableEstablishmentList}
           isManager={manager_only}
@@ -251,6 +271,17 @@ const ContractDetail = (props: Props) => {
           updatePaymentPackCompatibilities={
             props.updatePaymentPackCompatibilities
           }
+        />
+      )}
+      {!!props?.privatePass && (
+        <PrivatePassDetailsCard
+          compatibleServicePass={props.compatibleServicePass}
+          createCompatibleServicePass={props.createCompatibleServicePass}
+          deleteCompatibleServicePass={props.deleteCompatibleServicePass}
+          isManager={manager_only}
+          pass={props.privatePass}
+          privateServices={props.privateServices}
+          updateCompatibleServicePass={props.updateCompatibleServicePass}
         />
       )}
     </div>

@@ -37,6 +37,9 @@ import {
   fetchAllPrivateSlots,
   fetchPrivatePassList,
   fetchPrivatePassRetrieve as fetchPrivatePassRetrieveAction,
+  deleteCompatibleServicePass,
+  createCompatibleServicePass,
+  updateCompatibleServicePass,
 } from '#src/libs/private-service/actions';
 
 import { fetchPaymentComboList } from '#src/libs/payment-combo/actions';
@@ -45,6 +48,9 @@ import { fetchAllSmartLists } from '#src/libs/smart-list/actions';
 import {
   getPrivatePassAvailable,
   getCompatibilityPassWithService as getCompatibleServicePass,
+  withAvailable,
+  withServices,
+  getPrivatePass,
 } from '#src/libs/private-service/selectors/private-pass';
 import { fetchTags } from '#src/libs/tag/actions';
 import { getAllTagsWithTagGroup } from '#src/libs/tag/selectors';
@@ -166,6 +172,7 @@ type OwnProps = {
   setContractPauseToUpdate: (cp?: ContractPauseDetails) => void;
   fetchResolvedGenericTags: () => void;
   resolvedGenericTags: ResolvedGenericTags;
+  fetchCompatibleServicePasses: (privatePassId: number) => void;
 };
 
 type Props = OwnProps &
@@ -177,7 +184,13 @@ const SUBSCRIPTION_PAGINATION_SIZE = 7;
 
 export class ContractDetailPage extends Component<Props> {
   componentDidMount() {
-    this.props.fetchContractDetail(this.props.contractId);
+    this.props.fetchContractDetail(this.props.contractId, {
+      onSuccess: (contract) => {
+        if (!!contract?.private_pass) {
+          this.props.fetchCompatibleServicePasses(contract.private_pass);
+        }
+      },
+    });
     this.props.refreshAllPaymentPack();
     this.props.fetchPrivatePassList();
     this.props.fetchPaymentComboList();
@@ -196,6 +209,18 @@ export class ContractDetailPage extends Component<Props> {
     IS_BOOKKEEPING_ACOUNT_FEATURE_ENABLED &&
       this.props.fetchBookkeepingAccountList();
     this.props.fetchAllPrivateServices();
+  }
+
+  componentDidUpdate(prevProps: Props) {
+    if (
+      !!this.props.contract?.private_pass &&
+      prevProps.privatePass?.private_services.length !==
+        this.props.privatePass?.private_services.length
+    ) {
+      this.props.fetchCompatibleServicePasses(
+        this.props.contract.private_pass.id,
+      );
+    }
   }
 
   onCreateNewContractPause = () => {
@@ -248,6 +273,9 @@ export class ContractDetailPage extends Component<Props> {
         }
         if (!!this.props.contract?.private_pass) {
           this.props.fetchPrivatePassRetrieve(
+            this.props.contract.private_pass.id,
+          );
+          this.props.fetchCompatibleServicePasses(
             this.props.contract.private_pass.id,
           );
         }
@@ -328,7 +356,14 @@ export class ContractDetailPage extends Component<Props> {
                   categoryList={categoryList}
                   company={this.getCompany(this.props.theme)}
                   companyTheme={this.props.theme}
+                  compatibleServicePass={this.props.compatibleServicePass}
                   contract={this.props.contract}
+                  createCompatibleServicePass={
+                    this.props.createCompatibleServicePass
+                  }
+                  deleteCompatibleServicePass={
+                    this.props.deleteCompatibleServicePass
+                  }
                   displayStopSubscriptionFromMemberSide={
                     !!this.props.theme
                       ?.display_stop_subscription_from_member_side
@@ -336,7 +371,13 @@ export class ContractDetailPage extends Component<Props> {
                   metaActivityList={this.props.metaActivityList}
                   // @ts-expect-error - Legacy HOC typing issue
                   paymentPack={this.props.paymentPack}
+                  privatePass={this.props.privatePass}
+                  // @ts-expect-error - Legacy typing issue
+                  privateServices={this.props.privateServices}
                   snackbarSuccess={this.props.snackbarSuccess}
+                  updateCompatibleServicePass={
+                    this.props.updateCompatibleServicePass
+                  }
                   updatePaymentPackCompatibilities={
                     this.updatePaymentPackCompatibilities
                   }
@@ -568,6 +609,13 @@ const connector = connect(
             // @ts-expect-error
           )(state, contract.payment_pack.id)
         : undefined,
+      privatePass: !!contract?.private_pass
+        ? withAvailable(withServices(getPrivatePass))(
+            state,
+            // @ts-expect-error
+            contract.private_pass.id,
+          )
+        : undefined,
       paymentPackList: getPaymentPackEnabled(state),
       privatePassList: getPrivatePassAvailable(state),
       email_templates_list: getAllEmailTemplatesSummaries(state),
@@ -646,6 +694,9 @@ const connector = connect(
     updatePaymentPackCompatibilities: updatePaymentPackCompatibilitiesAction,
     fetchPaymentPackRetrieve: fetchPaymentPackAction,
     fetchPrivatePassRetrieve: fetchPrivatePassRetrieveAction,
+    createCompatibleServicePass,
+    deleteCompatibleServicePass,
+    updateCompatibleServicePass,
   },
 );
 

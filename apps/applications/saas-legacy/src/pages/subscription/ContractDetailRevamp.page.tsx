@@ -19,17 +19,30 @@ import LinearProgress from '#src/components/navigation/BackofficeLinearProgress.
 import BottomActionsButtonCustom from '#src/components/button/BottomActionsButtonCustom.component';
 // @ts-expect-error
 import ContractDeleteDialog from '#src/libs/subscription/components/SubscriptionContractDeleteModal.component';
-import SubscriptionContractFormDrawer from '#src/libs/subscription/components/SubscriptionContractFormDrawer.component';
 import PaginatedSubscriptionList from '#src/libs/subscription/components/PaginatedSubscriptionList.component';
 import themeSelectors from '#src/libs/theme/selectors';
 import { Theme as CompanyTheme } from '#src/libs/theme/types';
 import { getContractDetailNotifications } from '#src/libs/marketing/selectors';
+import {
+  fetchPaymentPackList as fetchPaymentPackListAction,
+  fetchAllPaymentPackCategory,
+  refreshAllPaymentPack,
+} from '#src/libs/payment-packs/actions';
+import { fetchMetaActivities as fetchMetaActivitiesAction } from '#src/libs/meta-activity/actions';
+import {
+  fetchAllPrivateServices,
+  fetchCompatibleServicePassList as fetchCompatibleServicePassListAction,
+  fetchAllPrivateSlots,
+  fetchPrivatePassList,
+} from '#src/libs/private-service/actions';
 
-import { fetchPrivatePassList } from '#src/libs/private-service/actions';
 import { fetchPaymentComboList } from '#src/libs/payment-combo/actions';
 import { getAllSmartList } from '#src/libs/smart-list/selectors';
 import { fetchAllSmartLists } from '#src/libs/smart-list/actions';
-import { getPrivatePassAvailable } from '#src/libs/private-service/selectors/private-pass';
+import {
+  getPrivatePassAvailable,
+  getCompatibilityPassWithService as getCompatibleServicePass,
+} from '#src/libs/private-service/selectors/private-pass';
 import { fetchTags } from '#src/libs/tag/actions';
 import { getAllTagsWithTagGroup } from '#src/libs/tag/selectors';
 import {
@@ -62,7 +75,7 @@ import {
   getContractPauseList,
 } from '#src/libs/subscription/selectors';
 import { getEnabled as getPaymentPackEnabled } from '#src/libs/payment-packs/selectors';
-import ContractDetail from '#src/libs/subscription/components/contract/ContractDetail.component';
+import ContractDetail from '#src/libs/subscription/components/contract/contract-revamp/ContractDetailRevamp.component';
 import ContractPauseListItemDetail from '#src/libs/subscription/components/contract/ContractPauseListItemDetail.component';
 import {
   fetchContractDetail as fetchContractDetailAction,
@@ -76,7 +89,11 @@ import {
   fetchContractPauseList,
 } from '#src/libs/subscription/actions';
 import { fetchFilteredMembers as fetchFilteredMembersAction } from '#src/libs/member/actions';
-import { refreshAllPaymentPack } from '#src/libs/payment-packs/actions';
+import { fetchBookkeepingAccountList as fetchBookkeepingAccountListAction } from '#src/libs/payment/actions';
+import { fetchEstablishments } from '../../libs/establishment/actions';
+
+import { IS_BOOKKEEPING_ACOUNT_FEATURE_ENABLED } from '#src/libs/payment/constants';
+
 import { snackbarSuccess } from '#src/libs/snackbar/actions';
 import {
   Contract,
@@ -92,6 +109,22 @@ import ObjectLevelPermissionProvider from '#src/libs/role/permission-utils/Objec
 import { RootState } from '../../reducers';
 import { getAvailablePaymentComboList } from '#src/libs/payment-combo/selectors';
 import { OptionCallback } from '../../state/types';
+import ContractOneObjectFormDrawer from '#src/libs/subscription/components/contract/contract-revamp/ContractOneObjectFormDrawer.component';
+import { getAvailableEstablishmentList } from '#src/libs/establishment/selectors';
+import { uniqBy } from 'lodash';
+import {
+  getActivitiesByIdList,
+  getEnabledMetaActivities,
+  getEnabledWorkshops,
+} from '#src/libs/meta-activity/selectors';
+import { getEditableSCTs } from '#src/libs/category/selectors';
+import {
+  getBookkeepingAccountById,
+  getBookkeepingAccountList,
+} from '#src/libs/payment/selectors';
+import { getPrivateServices } from '#src/libs/private-service/selectors/private-service';
+import { PrivateSlot } from '#src/libs/private-service/types';
+import SubscriptionContractFormDrawer from '#src/libs/subscription/components/SubscriptionContractFormDrawer.component';
 
 type OwnProps = {
   contractId: number;
@@ -148,6 +181,12 @@ export class ContractDetailPage extends Component<Props> {
       { onSuccess: () => this.props.setContractPauseLoading(false) },
     );
     this.props.fetchTags();
+    this.props.fetchEstablishments();
+    this.props.fetchMetaActivities();
+    this.props.fetchAllPaymentPackCategory();
+    IS_BOOKKEEPING_ACOUNT_FEATURE_ENABLED &&
+      this.props.fetchBookkeepingAccountList();
+    this.props.fetchAllPrivateServices();
   }
 
   onCreateNewContractPause = () => {
@@ -224,6 +263,19 @@ export class ContractDetailPage extends Component<Props> {
       return <LinearProgress />;
     }
     const { classes, t } = this.props;
+
+    const categoryList = [...this.props.categoryList]
+      .filter(
+        (category) =>
+          this.props.metaActivityList.map((a) => a.SCT).indexOf(category.id) !==
+          -1,
+      )
+      .concat(this.props.videoCategories)
+      .filter(
+        (value, index, arr) =>
+          arr.findIndex((sct) => sct.id === value.id) === index,
+      );
+
     return (
       <ObjectLevelPermissionProvider
         requiredPermission={[
@@ -244,16 +296,12 @@ export class ContractDetailPage extends Component<Props> {
               <Grid item className={classes.detailContainer} md={6} xs={12}>
                 <ContractDetail
                   company={this.getCompany(this.props.theme)}
-                  // @ts-expect-error
                   companyTheme={this.props.theme}
                   contract={this.props.contract}
                   displayStopSubscriptionFromMemberSide={
                     !!this.props.theme
                       ?.display_stop_subscription_from_member_side
                   }
-                  goToCombo={this.props.goToCombo}
-                  goToPack={this.props.goToPaymentPackDetail}
-                  goToPrivatePass={this.props.goToPrivatePass}
                   snackbarSuccess={this.props.snackbarSuccess}
                 />
                 <MarketingRuleListItemContract
@@ -396,19 +444,28 @@ export class ContractDetailPage extends Component<Props> {
                 onClose={this.closeDeleteContractModal}
               />
             </Grid>
-            <SubscriptionContractFormDrawer
+            <ContractOneObjectFormDrawer
+              allowGuestMaster={
+                this.props.theme.allow_guest_activatable &&
+                this.props.theme.allow_guest
+              }
+              availableEstablishmentList={this.props.availableEstablishmentList}
+              bookkeepingAccountById={this.props.bookkeepingAccountById}
+              bookkeepingAccounts={this.props.bookkeepingAccounts}
+              categoryList={categoryList}
+              compatibleServicePass={this.props.compatibleServicePass}
               displayStopSubscriptionFromMemberSide={
                 !!this.props.theme?.display_stop_subscription_from_member_side
               }
               initial={this.props.contract}
+              metaActivityList={this.props.metaActivityList}
               onClose={this.closeContractFormDrawer}
               onSubmit={this.submitContractForm}
               open={!!this.props.contractToEdit}
-              paymentComboList={this.props.paymentComboList}
-              // @ts-expect-error
               paymentPackList={this.props.paymentPackList}
               privatePassList={this.props.privatePassList}
-              // @ts-expect-error
+              privateServices={this.props.privateServices}
+              provincialTax={this.props.theme?.provincial_tax_value}
               tagList={this.props.allTagsWithTagGroup}
             />
           </div>
@@ -476,6 +533,21 @@ const connector = connect(
     smartListLoading: state.smartList.loading,
     resolvedGenericTags: getResolvedGenericTags(state),
     allTagsWithTagGroup: getAllTagsWithTagGroup(state),
+    availableEstablishmentList: getAvailableEstablishmentList(state),
+    metaActivityList: uniqBy(
+      [
+        ...getEnabledMetaActivities(state),
+        ...getEnabledWorkshops(state),
+        ...getActivitiesByIdList(state, []),
+      ],
+      'id',
+    ),
+    categoryList: getEditableSCTs(state),
+    videoCategories: state.video.filterableParams.items.SCTs,
+    bookkeepingAccounts: getBookkeepingAccountList(state),
+    bookkeepingAccountById: getBookkeepingAccountById(state),
+    privateServices: getPrivateServices(state),
+    compatibleServicePass: getCompatibleServicePass(state),
   }),
   {
     fetchContractDetail: fetchContractDetailAction,
@@ -510,6 +582,14 @@ const connector = connect(
     getSmartLists: fetchAllSmartLists,
     fetchResolvedGenericTags: fetchResolvedGenericTagsAction,
     fetchTags,
+    fetchPaymentPackList: fetchPaymentPackListAction,
+    fetchMetaActivities: fetchMetaActivitiesAction,
+    fetchAllPaymentPackCategory,
+    fetchBookkeepingAccountList: fetchBookkeepingAccountListAction,
+    fetchAllPrivateServices: () => fetchAllPrivateServices({ mine: true }),
+    fetchPrivateSlotsByService: fetchAllPrivateSlots,
+    fetchCompatibleServicePassList: fetchCompatibleServicePassListAction,
+    fetchEstablishments,
   },
 );
 
@@ -618,5 +698,24 @@ export default compose(
           id__in: subscriptions.map((b) => b.member),
         });
       },
+    fetchBookkeepingAccountList:
+      ({ fetchBookkeepingAccountList }) =>
+      () =>
+        fetchBookkeepingAccountList({ is_active: true }),
+    fetchCompatibleServicePasses:
+      ({ fetchCompatibleServicePassList, fetchPrivateSlotsByService }) =>
+      (privatePassId: number) =>
+        fetchCompatibleServicePassList(privatePassId, {
+          onSuccess: (csps) => {
+            const private_service__in = csps?.map(
+              (c: PrivateSlot) => c.private_service,
+            );
+            if (private_service__in?.length !== 0) {
+              fetchPrivateSlotsByService({
+                private_service__in,
+              });
+            }
+          },
+        }),
   }),
 )(ContractDetailPage);

@@ -27,21 +27,21 @@ import { useFormikContext } from 'formik';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 // @ts-expect-error
-import PaymentComboSelectorField from '../../payment-combo/components/PaymentComboSelectorField.component';
+import PaymentComboSelectorField from '#src/libs/payment-combo/components/PaymentComboSelectorField.component';
 // @ts-expect-error
-import PrivatePassSelectorField from '../../private-service/components/pass/PrivatePassSelectorField.component';
+import PrivatePassSelectorField from '#src/libs/private-service/components/pass/PrivatePassSelectorField.component';
+import {
+  IntegerField,
+  IntervalRecurrenceSelectField,
+  PriceField,
+  RadioGroupField,
+  SelectField,
+  SwitchField,
+  TextField,
+  // @ts-expect-error
+} from '#src/components/forms';
 // @ts-expect-error
 import PaymentPackSelectorField from '../../payment-packs/components/PaymentPackSelectorField.component';
-import {
-  TextField,
-  PriceField,
-  SwitchField,
-  RadioGroupField,
-  IntervalRecurrenceSelectField,
-  IntegerField,
-  SelectField,
-  // @ts-expect-error
-} from '../../../components/forms';
 import { FormValues, InvoicingType, ObjectType } from './types';
 import { useStyles } from './style';
 import { useShowNbIntervalAfterAutoRenewalInput } from './hooks/useShowNbIntervalAfterAutoRenewalInput';

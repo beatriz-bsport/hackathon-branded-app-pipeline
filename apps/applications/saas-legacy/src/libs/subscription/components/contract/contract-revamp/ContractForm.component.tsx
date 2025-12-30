@@ -3,8 +3,6 @@ import { SegmentAnalyticsFormObjectIdentifier } from '#src/components/analytics/
 import FormSection from '#src/components/forms/FormSection';
 import PopOver from '#src/components/Popover';
 import { SHOULD_DISPLAY_AUTO_RENEWAL_WARNING_MESSAGE } from '#src/libs/subscription/constants';
-import { useHasTagsSameGroup } from '#src/libs/tag/components/hooks';
-import TagGroupDuplicatedAlert from '#src/libs/tag/components/TagGroupDuplicatedAlert.component';
 import TagSelector from '#src/libs/tag/components/TagSelector.selector';
 import { Tag, TagGroup } from '#src/libs/tag/types';
 import { getCurrencyDisplay } from '#src/libs/theme/selectors';
@@ -26,10 +24,6 @@ import clsx from 'clsx';
 import { useFormikContext } from 'formik';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-// @ts-expect-error
-import PaymentComboSelectorField from '#src/libs/payment-combo/components/PaymentComboSelectorField.component';
-// @ts-expect-error
-import PrivatePassSelectorField from '#src/libs/private-service/components/pass/PrivatePassSelectorField.component';
 import {
   IntegerField,
   IntervalRecurrenceSelectField,
@@ -40,12 +34,14 @@ import {
   TextField,
   // @ts-expect-error
 } from '#src/components/forms';
-// @ts-expect-error
-import PaymentPackSelectorField from '../../payment-packs/components/PaymentPackSelectorField.component';
-import { FormValues, InvoicingType, ObjectType } from './types';
-import { useStyles } from './style';
 import { useShowNbIntervalAfterAutoRenewalInput } from './hooks/useShowNbIntervalAfterAutoRenewalInput';
-import { SubscriptionContractFormDrawerProps } from '../../SubscriptionContractForm.component';
+import { useStyles } from './style';
+import {
+  FormValues,
+  InvoicingType,
+  ObjectType,
+  SubscriptionContractFormDrawerProps,
+} from './types';
 
 const { trackFormAdd } = rudderStackFormTrackingFunctionsRegistry(
   SegmentAnalyticsFormObjectIdentifier.Subscription,
@@ -126,44 +122,6 @@ export function SubscriptionContractFields(
     [setFieldValue, values?.tags_on_first_billing],
   );
 
-  const allSubscriptionTagIds = React.useMemo(() => {
-    const selectedPaymentPackTags = props.paymentPackList
-      .filter((paymentPack) => paymentPack.id === values.payment_pack)
-      .map((paymentPack) => paymentPack?.tags_on_consumer_item_creation)
-      .flat();
-
-    const selectedPaymentComboTags = props.paymentComboList
-      .filter((paymentCombo) => values.payment_combo === paymentCombo.id)
-      .map((paymentCombo) => paymentCombo?.tags_on_consumer_item_creation)
-      .flat();
-
-    const selectedPrivatePassTags = props.privatePassList
-      .filter((privatePass) => values.private_pass === privatePass.id)
-      .map((privatePass) => privatePass?.tags_on_consumer_item_creation)
-      .flat();
-
-    const allPackTags = [].concat(
-      selectedPaymentPackTags,
-      selectedPaymentComboTags,
-      selectedPrivatePassTags,
-      values?.tags_on_first_billing,
-    );
-
-    return [...new Set(allPackTags)];
-  }, [
-    props.paymentPackList,
-    props.paymentComboList,
-    props.privatePassList,
-    values.payment_pack,
-    values.private_pass,
-    values.payment_combo,
-    values.tags_on_first_billing,
-  ]);
-
-  const hasItemsWithTagsSameGroup = useHasTagsSameGroup({
-    selectedTagsIds: allSubscriptionTagIds,
-    tagsWithGroup: props.tagList,
-  });
   return (
     <div>
       {isContractNotEditable && (
@@ -218,41 +176,16 @@ export function SubscriptionContractFields(
               label: t('contract.form.object_type.paymentPack'),
               value: ObjectType.paymentPack,
             },
-            {
-              label: t('contract.form.object_type.paymentCombo'),
-              value: ObjectType.paymentCombo,
-            },
           ]}
           disabled={isContractNotEditable}
           name="object_type"
         />
         <div>
           <Collapse in={props.values.object_type === ObjectType.paymentPack}>
-            <PaymentPackSelectorField
-              fullWidth
-              choices={props.paymentPackList}
-              classes={classes}
-              disabled={isContractNotEditable}
-              name="payment_pack"
-            />
+            <div>Payment pack forms</div>
           </Collapse>
           <Collapse in={props.values.object_type === ObjectType.privatePass}>
-            <PrivatePassSelectorField
-              fullWidth
-              choices={props.privatePassList}
-              classes={classes}
-              disabled={isContractNotEditable}
-              name="private_pass"
-            />
-          </Collapse>
-          <Collapse in={props.values.object_type === ObjectType.paymentCombo}>
-            <PaymentComboSelectorField
-              fullWidth
-              choices={props.paymentComboList}
-              classes={classes}
-              disabled={isContractNotEditable}
-              name="payment_combo"
-            />
+            <div>Private pass forms</div>
           </Collapse>
         </div>
       </FormSection>
@@ -348,7 +281,9 @@ export function SubscriptionContractFields(
           required
           className={classes.field}
           disabled={isFromContractTemplate}
-          helperText={t(errors.nb_interval)}
+          helperText={t(
+            `${errors.nb_interval ? errors.nb_interval : undefined}`,
+          )}
           label={t('contract.form.nb_interval.label', {
             interval: t(`contract.interval.${props.values.interval}`, {
               count: props.values.recurrence_basis,
@@ -472,7 +407,13 @@ export function SubscriptionContractFields(
             <TextField
               fullWidth
               disabled={props.initial && props.initial?.editable === false}
-              helperText={t(errors.nb_interval_after_auto_renewal)}
+              helperText={t(
+                `${
+                  errors.nb_interval_after_auto_renewal
+                    ? errors.nb_interval_after_auto_renewal
+                    : undefined
+                }`,
+              )}
               label={t('contract.form.nbIntervalAfterAutoRenewal.secondLabel')}
               name="nb_interval_after_auto_renewal"
             />
@@ -481,8 +422,8 @@ export function SubscriptionContractFields(
                 `contract.nbIntervalAfterAutoRenewal.details.${values.interval}`,
                 {
                   durationAfterAutoRenewal:
-                    values.nb_interval_after_auto_renewal *
-                    values.recurrence_basis,
+                    (values.nb_interval_after_auto_renewal ??
+                      values.nb_interval) * values.recurrence_basis,
                 },
               )}
             </Alert>
@@ -596,6 +537,7 @@ export function SubscriptionContractFields(
           closeMenuOnSelect
           inScrollBar
           isClearable
+          // @ts-expect-error - Legacy typing issue
           allTagsWithTagGroup={props.tagList || []}
           onChange={onChangeTagsOnAcquisition}
           onDeleteTag={onDeleteTagsOnAcquisition}
@@ -603,13 +545,6 @@ export function SubscriptionContractFields(
           selectedTags={values.tags_on_first_billing}
           variant={'exclusive'}
         />
-        {hasItemsWithTagsSameGroup && (
-          <TagGroupDuplicatedAlert
-            tagGroupDuplicatedText={t(
-              'contract.form.advancedOptions.tag.tagGroupDuplicated',
-            )}
-          />
-        )}
       </FormSection>
     </div>
   );

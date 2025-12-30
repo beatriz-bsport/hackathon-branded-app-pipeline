@@ -7,10 +7,10 @@ import { makeStyles } from '@material-ui/core';
 import { SegmentAnalyticsFormObjectIdentifier } from '#src/components/analytics/segment';
 import GenericResponsiveDrawer from '#src/components/genericDrawer/GenericResponsiveDrawer.component';
 import { rudderStackFormTrackingFunctionsRegistry } from '#src/components/analytics/rudderstack/utils';
-import SubscriptionContractFields, {
-  SubscriptionContractFormDrawerProps,
-  SubscriptionContractFormHoc,
-} from '#src/libs/subscription/components/SubscriptionContractForm.component';
+
+import SubscriptionContractFields from './ContractForm.component';
+import { SubscriptionContractFormDrawerProps } from './types';
+import { SubscriptionContractFormHoc } from './hooks/SubscriptionContractFormHoc';
 
 const { trackFormSubmitIntent, trackFormCancel } =
   rudderStackFormTrackingFunctionsRegistry(

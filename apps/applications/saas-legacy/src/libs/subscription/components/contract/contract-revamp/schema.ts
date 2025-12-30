@@ -145,6 +145,27 @@ export const SubscriptionContractFieldsSchema = Yup.object().shape({
       CONTRACT_MAX_COMMITMENT_VALUE_ALLOWED,
       'contract.form.commitmentPeriod.error',
     )
-    .nullable(),
-  commitment_period_unit: Yup.string().nullable(),
+    .nullable()
+    .test(
+      'required-when-commitment-enabled',
+      'contract.form.commitmentPeriod.valueRequired',
+      function checkCommitmentValue(commitment_period_value) {
+        return (
+          !this.parent.has_mandatory_commitment_period ||
+          !!commitment_period_value
+        );
+      },
+    ),
+  commitment_period_unit: Yup.string()
+    .nullable()
+    .test(
+      'required-when-commitment-enabled',
+      'contract.form.commitmentPeriod.unitRequired',
+      function checkCommitmentUnit(commitment_period_unit) {
+        return (
+          !this.parent.has_mandatory_commitment_period ||
+          !!commitment_period_unit
+        );
+      },
+    ),
 });

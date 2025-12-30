@@ -1,5 +1,5 @@
 function isNumber(value: unknown): value is number {
-  return !Number.isNaN(Number(value));
+  return typeof value === 'number' && !Number.isNaN(value);
 }
 
 export function getIdOrObject<T extends { id: number }>(

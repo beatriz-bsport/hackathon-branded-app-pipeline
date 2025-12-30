@@ -1,14 +1,11 @@
 import { PaymentCombo } from '#src/libs/payment-combo/types';
-import {
-  PaymentPack,
-  StartDateMethodType,
-} from '#src/libs/payment-packs/types';
+import { StartDateMethodType } from '#src/libs/payment-packs/types';
 import { PrivatePass } from '#src/libs/private-service/types';
 import {
   Contract,
   ContractWithPaymentPack,
 } from '#src/libs/subscription/types';
-import { Tag, TagGroup } from '#src/libs/tag/types';
+import { Tag } from '#src/libs/tag/types';
 import { OptionCallback } from '#src/state/types';
 import { FormikProps } from 'formik';
 
@@ -123,10 +120,7 @@ export type SubscriptionContractFormDrawerPropsWithoutFormik = {
 
   isSubmitting: boolean;
   initial?: ContractWithPaymentPack<PrivatePass, PaymentCombo> | Contract;
-  paymentPackList: PaymentPack[];
-  privatePassList: PrivatePass[];
-  paymentComboList: PaymentCombo[];
-  tagList?: Array<Tag<TagGroup>>;
+  tagList?: Array<Tag>;
 };
 
 export type SubscriptionContractFormDrawerProps =

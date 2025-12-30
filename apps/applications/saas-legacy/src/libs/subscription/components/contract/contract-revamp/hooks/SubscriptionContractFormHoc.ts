@@ -88,15 +88,18 @@ export const SubscriptionContractFormHoc = withFormik<
       ...omit(values, ['object_type']),
       private_pass:
         values.object_type === ObjectType.privatePass
-          ? values.private_pass
+          ? // @ts-expect-error - Fixed next PR
+            values.private_pass
           : null,
       payment_combo:
         values.object_type === ObjectType.paymentCombo
-          ? values.payment_combo
+          ? // @ts-expect-error - Fixed next PR
+            values.payment_combo
           : null,
       payment_pack:
         values.object_type === ObjectType.paymentPack
-          ? values.payment_pack
+          ? // @ts-expect-error - Fixed next PR
+            values.payment_pack
           : null,
       is_usable_by_staff: !values.unusable_by_staff,
     };

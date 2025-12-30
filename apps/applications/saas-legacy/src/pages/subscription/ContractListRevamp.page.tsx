@@ -60,7 +60,6 @@ import { getEnabled as getPaymentPackEnabled } from '../../libs/payment-packs/se
 import { getPrivatePassAvailable } from '../../libs/private-service/selectors/private-pass';
 // @ts-expect-error
 import SubscriptionContractList from '../../libs/subscription/components/SubscriptionContractList.component';
-import SubscriptionContractFormDrawer from '../../libs/subscription/components/SubscriptionContractFormDrawer.component';
 // @ts-expect-error
 import { FormValues as SubscriptionContractFormValues } from '../../libs/subscription/components/SubscriptionContractForm.component';
 import SubscriptionContractRegister from '../../libs/subscription/components/SubscriptionContractRegister.component';
@@ -104,7 +103,7 @@ import {
   withObjectSearch,
   WithObjectSearch,
 } from '#src/libs/fuzzy-search/components/ObjectSearch.hoc';
-import ContractOneObjectFormDrawer from '#src/libs/subscription/components/contract/ contract-forms-revamp/ContractOneObjectFormDrawer.component';
+import ContractOneObjectFormDrawer from '#src/libs/subscription/components/contract/contract-revamp/ContractOneObjectFormDrawer.component';
 
 type ContractSearchOptionData = {
   tagList: {
@@ -227,6 +226,7 @@ export class SubscriptionList extends React.Component<Props, State> {
       hasEditPermission: boolean,
     ) =>
     (contracts: Contract[]): ContractSearchOptionData[] =>
+      // @ts-expect-error - Fixed next PR
       contracts.map((contract) => {
         return {
           contract: {
@@ -254,9 +254,6 @@ export class SubscriptionList extends React.Component<Props, State> {
             name: this.props.theme.company_name,
           },
           onClick: () => this.onClickContract(contract.id),
-          paymentComboList: this.props.paymentComboList,
-          paymentPackList: this.props.paymentPackList,
-          privatePassList: this.props.privatePassList,
           // TODO: Needs another way instead of relying on another fetch
           tagList: this.props.allTagsWithTagGroup,
           onDelete: hasDeletePermission
@@ -516,10 +513,7 @@ export class SubscriptionList extends React.Component<Props, State> {
                 !!this.state.contractToEditFromSearch ||
                 this.props.createContractFormOpen
               }
-              paymentComboList={this.props.paymentComboList}
-              // @ts-expect-error
-              paymentPackList={this.props.paymentPackList}
-              privatePassList={this.props.privatePassList}
+              // @ts-expect-error - Legacy typing issue
               tagList={this.props.allTagsWithTagGroup}
             />
           </div>

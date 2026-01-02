@@ -58,13 +58,13 @@ export const SessionStartDateTime: FC<{
 
   // When time changes, preserve the date
   const handleTimeChange = useCallback(
-    (newTime: Date) => {
+    (newTime: string) => {
       const currentDateTime = toDateTime(startDateTime, companyTimeZone);
-      const newTimeDateTime = toDateTime(newTime, companyTimeZone);
+      const [hour, minute] = newTime.split(":").map(Number);
 
       const updatedDateTime = currentDateTime.set({
-        hour: newTimeDateTime.hour,
-        minute: newTimeDateTime.minute,
+        hour,
+        minute,
         second: 0,
         millisecond: 0,
       });

@@ -64,10 +64,16 @@ export type AccessStatusData = {
   check_on_member_account: CheckOnMemberAccount;
 };
 
+export type DoorAccess = {
+  door_id: string;
+  distance: number | null;
+};
+
 export type MemberVisitREST = {
   access_status_data: AccessStatusData;
   access_status: AccessStatus;
   datetime_created: string;
+  door_access?: DoorAccess;
   establishments?: number[];
   entry_status: EntryStatus;
   id: number;

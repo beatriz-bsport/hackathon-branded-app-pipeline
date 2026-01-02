@@ -10,7 +10,7 @@ import {
 } from "@bsport/kaizen-primitive-core";
 import { dataAccessLayer } from "@bsport/sm-backbone";
 
-import { useExportParticipantsList } from "#src/hooks/use-export-participants";
+import { useExportParticipantsList } from "#src/hooks/bulk-actions/use-export-participants";
 import {
   selectFilters,
   selectSelectedDate,

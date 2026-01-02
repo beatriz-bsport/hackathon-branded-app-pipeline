@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 
 import { DateTime, getLocalNow } from "@bsport/datetime-manipulation";
+import { getCompanyTimezone } from "@bsport/timezone-utils";
 
 import CalendarHeader from "./CalendarHeader";
 import DateInputField from "./DateInputField";
@@ -24,7 +25,10 @@ const CalendarSingle: React.FC<CalendarSingleProps> = ({
   onSelect,
   hideSelector = false,
 }) => {
-  const [displayMonth, setDisplayMonth] = useState<DateTime>(getLocalNow({}));
+  const timezone = getCompanyTimezone();
+  const [displayMonth, setDisplayMonth] = useState<DateTime>(
+    getLocalNow({ zone: timezone }),
+  );
   const isInputChange = useRef(false);
 
   useEffect(() => {

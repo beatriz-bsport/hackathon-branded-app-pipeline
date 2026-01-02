@@ -8,6 +8,7 @@ import {
   getWeekdays,
   isSameDay,
 } from "@bsport/datetime-manipulation";
+import { getCompanyTimezone } from "@bsport/timezone-utils";
 
 import { useKaizenI18nInstance } from "#src/i18n";
 
@@ -45,6 +46,8 @@ const Month: React.FC<MonthProps> = ({
     if (calendarDays.length === 0) return 0;
     return Math.ceil(calendarDays.length / 7);
   }, [calendarDays]);
+
+  const timezone = getCompanyTimezone();
 
   const getDayStatus = (date: DateTime): DayStatus => {
     if (disableDate?.(date, selectedDate)) return "disabled";
@@ -104,7 +107,10 @@ const Month: React.FC<MonthProps> = ({
                 return <td key={dayIndex} className="w-xl h-xl" />;
               }
 
-              const isCurrentDay = isSameDay(date, getLocalNow({}));
+              const isCurrentDay = isSameDay(
+                date,
+                getLocalNow({ zone: timezone }),
+              );
               const isDisabled = disableDate?.(date, selectedDate) ?? false;
               const status = getDayStatus(date);
 

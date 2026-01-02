@@ -6,6 +6,7 @@ import {
   getIsoDate,
   getLocalNow,
 } from "@bsport/datetime-manipulation";
+import { getCompanyTimezone } from "@bsport/timezone-utils";
 
 import Divider from "#src/components/Divider";
 import TextField from "#src/components/TextField";
@@ -34,9 +35,10 @@ const CalendarRange: React.FC<CalendarRangeProps> = ({
 }) => {
   const i18nInstance = useKaizenI18nInstance();
   const { t } = useTranslation("default", { i18n: i18nInstance });
+  const timezone = getCompanyTimezone();
 
   const [displayMonth, setDisplayMonth] = useState(
-    selectedDate?.[0] || getLocalNow({}),
+    selectedDate?.[0] || getLocalNow({ zone: timezone }),
   );
   const [errors, setErrors] = useState<[string | null, string | null]>([
     null,

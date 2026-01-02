@@ -5,6 +5,7 @@ import {
   getLocalNow,
   getMonths,
 } from "@bsport/datetime-manipulation";
+import { getCompanyTimezone } from "@bsport/timezone-utils";
 
 import Button from "#src/components/Button";
 import Select from "#src/components/Select";
@@ -46,7 +47,8 @@ const CalendarHeader: React.FC<CalendarHeaderProps> = ({
   const handleYearChange = (id: string) =>
     onSelect(displayMonth.set({ year: parseInt(id, 10), day: 1 }));
 
-  const currentYear = getLocalNow({}).year;
+  const timezone = getCompanyTimezone();
+  const currentYear = getLocalNow({ zone: timezone }).year;
   const yearsRendered =
     years ||
     Array.from(

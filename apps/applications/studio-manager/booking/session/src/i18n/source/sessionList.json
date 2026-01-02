@@ -9,6 +9,11 @@
     "previousButton": "Previous day",
     "nextButton": "Next day"
   },
+  "moreActions": {
+    "label": "More actions",
+    "exportParticipants": "Export participant list",
+    "cancelMultipleSessions": "Cancel multiple sessions"
+  },
   "table": {
     "headers": {
       "time": "Time",
@@ -78,5 +83,15 @@
   "emptyState": {
     "title": "No sessions added yet",
     "subtitle": "Add a new session to get started"
+  },
+  "exportParticipantsModal": {
+    "title": "Export list of participants?",
+    "description": "Choose a date to export the participant list for the entire day, broken down by session.",
+    "dayLabel": "Day",
+    "applyFilterLabel": "Apply calendar view filters (Activity name, Establishment, Teacher, Session level)",
+    "applyFilterDescription": "If unselected, the list will be exported without filters.",
+    "cancelButton": "Close",
+    "confirmButton": "Export",
+    "errorMessage": "An error occurred while exporting the participant list. Please try again."
   }
 }

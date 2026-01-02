@@ -160,15 +160,15 @@ export const getWeekStartDayFromLocale = (locale: string): WeekStartDay => {
  * @returns An object with start and end Date objects representing the week boundaries.
  */
 export const getWeekBounds = (
-  date: Date,
+  date: DateTime,
   locale: string = "en-GB",
-): { start: Date; end: Date } => {
-  const dateTime = toDateTime(date).setLocale(locale);
+): { start: DateTime; end: DateTime } => {
+  const dateTime = date.setLocale(locale);
   const startOfWeek = dateTime.startOf("week", { useLocaleWeeks: true });
   const endOfWeek = dateTime.endOf("week", { useLocaleWeeks: true });
   return {
-    start: toDate(startOfWeek),
-    end: toDate(endOfWeek),
+    start: startOfWeek,
+    end: endOfWeek,
   };
 };
 

@@ -1,6 +1,7 @@
 import { FC, useCallback } from "react";
 
 import {
+  DateTime,
   getLocalNow,
   modifyTime,
   toDateTime,
@@ -20,6 +21,10 @@ export const SessionStartDateTime: FC<{
   const { watch, setValue, formState } = useFormContext();
 
   const startDateTime = watch("startDateTime");
+  const startDateTimeForDatePicker = toDateTime(
+    startDateTime,
+    dataAccessLayer.useCompanyTheme()?.timezone_name,
+  );
 
   const error = formState.errors.startDateTime?.message;
 
@@ -29,9 +34,12 @@ export const SessionStartDateTime: FC<{
 
   // When date changes, preserve the time
   const handleDateChange = useCallback(
-    (newDate: Date) => {
+    (newDate: DateTime | null) => {
+      if (!newDate) {
+        return;
+      }
       const currentDateTime = toDateTime(startDateTime, companyTimeZone);
-      const newDateTime = toDateTime(newDate, companyTimeZone);
+      const newDateTime = newDate.setZone(companyTimeZone);
 
       const updatedDateTime = newDateTime.set({
         hour: currentDateTime.hour,
@@ -70,10 +78,10 @@ export const SessionStartDateTime: FC<{
   );
 
   const disableDateTooFar = useCallback(
-    (date: Date) => {
+    (date: DateTime) => {
       if (!companyTimeZone) return false;
 
-      const dateDT = toDateTime(date, companyTimeZone);
+      const dateDT = date.setZone(companyTimeZone);
       const now = getLocalNow({ zone: companyTimeZone, locale });
 
       const maxDate = modifyTime({
@@ -99,9 +107,9 @@ export const SessionStartDateTime: FC<{
         label={t("addSessionModal.steps.configureSession.timeAndDate.date")}
         required
         mode="single"
-        defaultValue={startDateTime}
+        defaultValue={startDateTimeForDatePicker}
         onSelect={(date) => {
-          if (date instanceof Date) {
+          if (!Array.isArray(date)) {
             handleDateChange(date);
           }
         }}

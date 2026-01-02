@@ -1,7 +1,7 @@
 import groupBy from "lodash/groupBy";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
-import { getTodayJSDate } from "@bsport/datetime-manipulation";
+import { getLocalNow } from "@bsport/datetime-manipulation";
 import {
   ListLayout,
   useEmptyState,
@@ -68,7 +68,9 @@ const ListPage: React.FC = () => {
 
   useEffect(() => {
     if (!hasInitializedDate.current && companyTimeZone && intlLocale) {
-      setSelectedDate(getTodayJSDate(intlLocale, companyTimeZone));
+      setSelectedDate(
+        getLocalNow({ locale: intlLocale, zone: companyTimeZone }),
+      );
       hasInitializedDate.current = true;
     }
   }, [intlLocale, companyTimeZone]);

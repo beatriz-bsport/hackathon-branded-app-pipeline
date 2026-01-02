@@ -1,5 +1,6 @@
 import { createStore } from "zustand/vanilla";
 
+import { DateTime, getLocalNow } from "@bsport/datetime-manipulation";
 import { FilterElementState } from "@bsport/kaizen-primitive-core";
 import { bindStore } from "@bsport/store-base";
 
@@ -9,8 +10,8 @@ export enum CalendarView {
 }
 
 export type DateSelection =
-  | { type: "single"; date: Date }
-  | { type: "range"; minDate: Date | null; maxDate: Date | null };
+  | { type: "single"; date: DateTime }
+  | { type: "range"; minDate: DateTime | null; maxDate: DateTime | null };
 
 export interface SessionListState {
   calendarView: CalendarView;
@@ -22,7 +23,7 @@ export interface SessionListState {
 
 export const getInitialState = (): SessionListState => ({
   calendarView: CalendarView.DAILY,
-  selectedDate: { type: "single", date: new Date() },
+  selectedDate: { type: "single", date: getLocalNow({}) },
   showCancelledSessions: true,
   locale: "en-US",
   filters: [],

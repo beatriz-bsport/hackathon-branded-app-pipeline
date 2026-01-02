@@ -1,6 +1,6 @@
 import React from "react";
 
-import { modifyTime, toDate, toDateTime } from "@bsport/datetime-manipulation";
+import { modifyTime } from "@bsport/datetime-manipulation";
 import { Button } from "@bsport/kaizen-primitive-core";
 
 import {
@@ -27,11 +27,11 @@ export const DateNavigationHeader: React.FC = () => {
       return;
     }
     const previousDate = modifyTime({
-      datetime: toDateTime(selectedDate.date),
+      datetime: selectedDate.date,
       duration: { day: 1 },
       operator: "minus",
     });
-    setUniqueDate(toDate(previousDate));
+    setUniqueDate(previousDate);
   };
 
   const handleNextClick = () => {
@@ -39,11 +39,11 @@ export const DateNavigationHeader: React.FC = () => {
       return;
     }
     const nextDate = modifyTime({
-      datetime: toDateTime(selectedDate.date),
+      datetime: selectedDate.date,
       duration: { day: 1 },
       operator: "plus",
     });
-    setUniqueDate(toDate(nextDate));
+    setUniqueDate(nextDate);
   };
 
   return (

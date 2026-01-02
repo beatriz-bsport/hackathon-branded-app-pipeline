@@ -1,0 +1,7 @@
+---
+include:
+  - component: gitlab.com/bsport/bsport-platform-ci-templates/security-scan@v1.2.1
+    inputs:
+      gitleaks-enabled: true
+      gitleaks-pipeline-stage: "analyze"
+      gitleaks-allow-failure: true

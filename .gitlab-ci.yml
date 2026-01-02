@@ -41,6 +41,7 @@ include:
   - local: "/tools/ci/deploy-environment.yml"
   - local: "/tools/ci/merge-branches.yml"
   - local: "/tools/ci/e2e.yml"
+  - local: "/tools/ci/security-scan.yml"
 
 workflow:
   rules:

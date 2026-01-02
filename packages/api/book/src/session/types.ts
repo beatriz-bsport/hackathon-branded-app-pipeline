@@ -126,6 +126,11 @@ export type ListSessionsWithPendingReplacementRequestIdsParams = {
   offer_id_list: number[];
 };
 
+export type FetchNumberOfSessionsToCancelParams = FetchSessionsParams & {
+  start: string;
+  end: string;
+};
+
 export declare type ManagerSession = {
   activity: number;
   allow_guest_offer: boolean;

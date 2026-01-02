@@ -18,7 +18,7 @@ import {
 } from "#src/stores/session-list";
 import { useTranslation } from "#src/utils/i18n";
 
-import { getParamsFromFilters } from "./Filters/getParamsFromFilters";
+import { getParamsFromFilters } from "../Filters/getParamsFromFilters";
 
 export const ExportParticipantsModal: FC<{
   isOpen: boolean;

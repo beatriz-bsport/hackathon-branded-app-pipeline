@@ -93,5 +93,12 @@
     "cancelButton": "Close",
     "confirmButton": "Export",
     "errorMessage": "An error occurred while exporting the participant list. Please try again."
+  },
+  "cancelMultipleSessionsModal": {
+    "title": "Cancel multiple sessions?",
+    "description": "You can restore these sessions at any time, but you won’t be able to retrieve any bookings related to them. If you applied filters before cancelling, those filters will be kept for the selected period.",
+    "dateRangeLabel": "Time period",
+    "confirmButton": "Cancel",
+    "cancelButton": "Close"
   }
 }

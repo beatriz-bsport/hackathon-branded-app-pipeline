@@ -10,8 +10,10 @@ import {
 import { dataAccessLayer } from "@bsport/sm-backbone";
 
 import { AddSessionModal } from "#src/components/AddSessionModal/AddSessionModal";
-import { ExportParticipantsModal } from "#src/components/SessionList/export-participants-modal";
+import { CancelMultipleSessionsModal } from "#src/components/SessionList/actions/cancel-multiple-sessions-modal";
+import { ExportParticipantsModal } from "#src/components/SessionList/actions/export-participants-modal";
 import { MoreActionsButton } from "#src/components/SessionList/more-actions-button";
+import { useModal } from "#src/hooks/use-modal";
 import { useTranslation } from "#src/utils/i18n";
 
 import { DateNavigationHeader } from "../components/SessionList/DateNavigationHeader";
@@ -39,26 +41,23 @@ const ListPage: React.FC = () => {
 
   const [searchQuery, setSearchQuery] = useState("");
 
-  const [addSessionModalOpen, setAddSessionModalOpen] = useState(false);
-  const openAddSessionModal = useCallback(() => {
-    setAddSessionModalOpen(true);
-  }, []);
-
-  const closeAddSessionModal = useCallback(() => {
-    setAddSessionModalOpen(false);
-  }, []);
+  const {
+    isOpen: addSessionModalOpen,
+    open: openAddSessionModal,
+    close: closeAddSessionModal,
+  } = useModal();
+  const {
+    isOpen: exportParticipantsModalOpen,
+    open: openExportParticipantsModal,
+    close: closeExportParticipantsModal,
+  } = useModal();
+  const {
+    isOpen: cancelMultipleSessionsModal,
+    open: openCancelMultipleSessionsModal,
+    close: closeCancelMultipleSessionsModal,
+  } = useModal();
 
   const hasInitializedDate = useRef(false);
-
-  const [exportParticipantsModalOpen, setExportParticipantsModalOpen] =
-    useState(false);
-  const openExportParticipantsModal = useCallback(() => {
-    setExportParticipantsModalOpen(true);
-  }, []);
-
-  const closeExportParticipantsModal = useCallback(() => {
-    setExportParticipantsModalOpen(false);
-  }, []);
 
   useEffect(() => {
     if (intlLocale) {
@@ -98,9 +97,10 @@ const ListPage: React.FC = () => {
       <MoreActionsButton
         key="more-actions"
         onParticipantsExport={openExportParticipantsModal}
+        onCancelMultipleSessions={openCancelMultipleSessionsModal}
       />,
     ];
-  }, [openExportParticipantsModal]);
+  }, [openExportParticipantsModal, openCancelMultipleSessionsModal]);
 
   const { shouldRenderEmptyState, EmptyState } = useEmptyState({
     isEmpty: !isLoading && Object.keys(sessionsByDate).length === 0,
@@ -179,6 +179,10 @@ const ListPage: React.FC = () => {
         <ExportParticipantsModal
           isOpen={exportParticipantsModalOpen}
           onClose={closeExportParticipantsModal}
+        />
+        <CancelMultipleSessionsModal
+          isOpen={cancelMultipleSessionsModal}
+          onClose={closeCancelMultipleSessionsModal}
         />
       </ListLayout.Content>
     </ListLayout>

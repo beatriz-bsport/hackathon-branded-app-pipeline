@@ -6,9 +6,11 @@ import { useTranslation } from "#src/utils/i18n";
 
 type MoreActionsButtonProps = {
   onParticipantsExport: () => void;
+  onCancelMultipleSessions: () => void;
 };
 export const MoreActionsButton: React.FC<MoreActionsButtonProps> = ({
   onParticipantsExport,
+  onCancelMultipleSessions,
 }) => {
   const { t } = useTranslation("sessionList");
 
@@ -32,13 +34,13 @@ export const MoreActionsButton: React.FC<MoreActionsButtonProps> = ({
         iconLeft: "x-circle-solid",
         type: "button",
         onClick: () => {
-          console.log("Cancel Multiple Sessions clicked");
+          onCancelMultipleSessions();
           setIsPopoverOpened(false);
         },
       };
       return [exportParticipantsAction, cancelMultipleSessionsAction];
     },
-    [t, onParticipantsExport],
+    [t, onParticipantsExport, onCancelMultipleSessions],
   );
 
   return (

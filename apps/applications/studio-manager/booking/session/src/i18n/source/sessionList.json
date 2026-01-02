@@ -98,6 +98,7 @@
     "title": "Cancel multiple sessions?",
     "description": "You can restore these sessions at any time, but you won’t be able to retrieve any bookings related to them. If you applied filters before cancelling, those filters will be kept for the selected period.",
     "dateRangeLabel": "Time period",
+    "cancelAlert": "<strong>{{sessionsNumber}} sessions scheduled between {{startDate}} and {{endDate}} will be cancelled</strong>. Members who booked them will receive a credit refund.",
     "confirmButton": "Cancel",
     "cancelButton": "Close"
   }

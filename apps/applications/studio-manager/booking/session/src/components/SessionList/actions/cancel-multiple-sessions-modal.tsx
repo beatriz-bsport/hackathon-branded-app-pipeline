@@ -1,7 +1,12 @@
-import { FC, useState } from "react";
+import { FC, useCallback, useEffect, useState } from "react";
 
-import { getLocalNow } from "@bsport/datetime-manipulation";
 import {
+  DATETIME_FORMATS,
+  formatDateTimeFromDate,
+} from "@bsport/datetime-formatting";
+import { DateTime, getLocalNow } from "@bsport/datetime-manipulation";
+import {
+  Alert,
   Body,
   DatePicker,
   Modal,
@@ -9,11 +14,12 @@ import {
 } from "@bsport/kaizen-primitive-core";
 import { dataAccessLayer } from "@bsport/sm-backbone";
 
+import { useFetchNumberOfSessionsToCancel } from "#src/hooks/bulk-actions/use-fetch-number-of-cancelled-sessions";
 import {
   selectSelectedDate,
   useSessionListStore,
 } from "#src/stores/session-list";
-import { useTranslation } from "#src/utils/i18n";
+import { Trans, useTranslation } from "#src/utils/i18n";
 
 export const CancelMultipleSessionsModal: FC<{
   isOpen: boolean;
@@ -23,10 +29,18 @@ export const CancelMultipleSessionsModal: FC<{
   const companyTimezone = dataAccessLayer.useCompanyTheme()?.timezone_name;
 
   const currentSelectedDate = useSessionListStore(selectSelectedDate);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [cancelRange, setCancelRange] = useState<SelectedDate>(null);
 
-  const getDefaultDateRange = (): SelectedDate => {
+  const [cancelRange, setCancelRange] = useState<
+    [DateTime | null, DateTime | null] | null
+  >(null);
+
+  const { data: numberOfCancelledSessions } = useFetchNumberOfSessionsToCancel(
+    cancelRange ? cancelRange[0] : null,
+    cancelRange ? cancelRange[1] : null,
+    {},
+  );
+
+  const getDefaultDateRange = useCallback((): SelectedDate => {
     if (currentSelectedDate.type === "single" && currentSelectedDate.date) {
       return [currentSelectedDate.date, currentSelectedDate.date];
     }
@@ -39,7 +53,7 @@ export const CancelMultipleSessionsModal: FC<{
     }
     const today = getLocalNow({ zone: companyTimezone });
     return [today, today];
-  };
+  }, [currentSelectedDate, companyTimezone]);
 
   const handleDateChange = (date: SelectedDate) => {
     if (!date || !Array.isArray(date)) {
@@ -47,6 +61,18 @@ export const CancelMultipleSessionsModal: FC<{
     }
     setCancelRange([date[0], date[1]]);
   };
+
+  const getFormattedDate = (date: DateTime | null) => {
+    return date ? formatDateTimeFromDate(date, DATETIME_FORMATS.FULL_DATE) : "";
+  };
+
+  useEffect(() => {
+    if (isOpen) {
+      setCancelRange(
+        getDefaultDateRange() as [DateTime | null, DateTime | null],
+      );
+    }
+  }, [isOpen, getDefaultDateRange]);
 
   return (
     <Modal
@@ -79,6 +105,24 @@ export const CancelMultipleSessionsModal: FC<{
             onSelect={handleDateChange}
           />
         </div>
+        {numberOfCancelledSessions !== undefined && cancelRange && (
+          <Alert status="critical">
+            <Body htmlVariant="p" size="md" weight="weak" color="critical">
+              <Trans
+                // @ts-expect-error it works at runtime
+                t={t}
+                ns="sessionList"
+                i18nKey="cancelMultipleSessionsModal.cancelAlert"
+                components={{ strong: <strong /> }}
+                values={{
+                  sessionsNumber: numberOfCancelledSessions,
+                  startDate: getFormattedDate(cancelRange[0]),
+                  endDate: getFormattedDate(cancelRange[1]),
+                }}
+              />
+            </Body>
+          </Alert>
+        )}
       </div>
     </Modal>
   );

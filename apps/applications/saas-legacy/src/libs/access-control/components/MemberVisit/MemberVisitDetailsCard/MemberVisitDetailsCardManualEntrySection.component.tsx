@@ -20,9 +20,9 @@ const MemberVisitDetailsCardManualEntrySection: React.FC<
   const { t } = useTranslation('accessControl');
   const classes = useStyles();
 
-  const { access_status, entry_status } = memberVisit;
+  const { access_status, entry_status, door_access } = memberVisit;
 
-  if (!access_status || access_status !== AccessStatus.ORANGE) {
+  if (!access_status || access_status !== AccessStatus.ORANGE || door_access) {
     return null;
   }
 

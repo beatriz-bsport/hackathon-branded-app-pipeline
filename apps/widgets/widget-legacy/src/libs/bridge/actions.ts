@@ -13,6 +13,7 @@ import {
   responseAuthenticatedStatus,
   // @ts-expect-error: import of js file
 } from '@bsport/saas-legacy/src/actions/auth.actions';
+import { forceWidgetRefresh } from '../widget/actions';
 
 // First part: how to send message
 // ---------------------------------
@@ -80,6 +81,7 @@ export const handleBridgeMessage =
     switch (eventData.type) {
       case WidgetMessageType.IFRAME_LOGIN_SUCCESS:
         dispatch(responseAuthenticatedStatus(true));
+        dispatch(forceWidgetRefresh());
         dispatch(closeUserInteractionPortal());
         break;
 
@@ -134,8 +136,8 @@ export const handleBridgeMessage =
         dispatch(getVideoPlaybackUrlActions.error(null));
         break;
 
-      case WidgetMessageType.RESPONSE_CLOSE_SUBSCRIPTION_MODAL_ON_ERROR:
-        dispatch(closeUserInteractionPortal());
+      case WidgetMessageType.PAYMENT_SUCCESS:
+        dispatch(forceWidgetRefresh());
         break;
 
       case WidgetMessageType.CLOSE_MODAL:

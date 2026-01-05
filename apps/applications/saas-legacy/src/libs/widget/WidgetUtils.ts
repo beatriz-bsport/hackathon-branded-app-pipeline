@@ -121,9 +121,7 @@ class WidgetUtils {
   }
 
   static closeContractModalOnError() {
-    WidgetUtils.postMessage({
-      type: WidgetMessageType.RESPONSE_CLOSE_SUBSCRIPTION_MODAL_ON_ERROR,
-    });
+    WidgetUtils.closeModal();
   }
 
   static closeModal() {

@@ -96,6 +96,10 @@ export class ValidationCheckout extends React.Component<Props> {
     // @ts-expect-error
     this.props.fetchMembershipByCompany(this.props.companyId);
 
+    if (WidgetUtils.isWidget()) {
+      WidgetUtils.paymentSuccess();
+    }
+
     if (
       this.props.queryParams?.basket &&
       this.props.queryParams.basket !== 'null'
@@ -603,7 +607,7 @@ const mapWithHandlers = {
       ({ replace, companyId, queryParams }) =>
       () => {
         if (WidgetUtils.isWidget()) {
-          WidgetUtils.paymentSuccess();
+          WidgetUtils.closeModal();
           if (queryParams && queryParams.onValidation === 'close') {
             window.close();
           }
@@ -618,7 +622,7 @@ const mapWithHandlers = {
       ({ replace, companyId, queryParams, theme }) =>
       () => {
         if (WidgetUtils.isWidget()) {
-          WidgetUtils.paymentSuccess();
+          WidgetUtils.closeModal();
           if (queryParams && queryParams.onValidation === 'close') {
             window.close();
           }

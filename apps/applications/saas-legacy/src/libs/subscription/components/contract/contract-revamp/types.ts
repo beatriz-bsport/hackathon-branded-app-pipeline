@@ -90,6 +90,11 @@ export const CREDIT_NUMBER_OPTION = {
   unlimited: 'unlimited',
 } as const;
 
+export const PENALTY_TYPE_OPTION = {
+  block: 'block',
+  account: 'account',
+};
+
 type CreditNumberOption = keyof typeof CREDIT_NUMBER_OPTION;
 
 export type PaymentPackDetailsForms = Omit<

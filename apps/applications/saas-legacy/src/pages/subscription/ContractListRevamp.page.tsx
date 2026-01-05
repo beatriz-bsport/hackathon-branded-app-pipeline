@@ -13,7 +13,10 @@ import ButtonBase from '@material-ui/core/ButtonBase';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { Theme } from '@material-ui/core/styles';
-import type { ImmutableArray } from 'seamless-immutable';
+import {
+  fetchPaymentPackList as fetchPaymentPackListAction,
+  fetchAllPaymentPackCategory,
+} from '#src/libs/payment-packs/actions';
 
 import { TFunction } from 'i18next';
 import { NOTIFICATION_KIND } from '@bsport/common/lib/master-data/notification-rule-events.js';
@@ -52,7 +55,11 @@ import {
   fetchEstablishments,
 } from '../../libs/establishment/actions';
 import { getAvailablePaymentComboList } from '#src/libs/payment-combo/selectors';
-import { getEnabledEstablishmentBillingGroups } from '../../libs/establishment/selectors';
+import {
+  getAvailableEstablishmentList,
+  getEnabledEstablishmentBillingGroups,
+} from '../../libs/establishment/selectors';
+import { fetchMetaActivities as fetchMetaActivitiesAction } from '#src/libs/meta-activity/actions';
 
 import withTitle from '../../hocs/with-title.hoc';
 
@@ -92,9 +99,6 @@ import type {
   ContractWithPaymentPack,
 } from '#src/libs/subscription/types';
 import type { TagGroupAPI } from '#src/libs/tag/types';
-import type { PaymentCombo } from '#src/libs/payment-combo/types';
-import type { PaymentPack } from '#src/libs/payment-packs/types';
-import type { PrivatePass } from '#src/libs/private-service/types';
 import { Member } from '../../libs/member/types';
 
 // @ts-expect-error js file
@@ -104,6 +108,13 @@ import {
   WithObjectSearch,
 } from '#src/libs/fuzzy-search/components/ObjectSearch.hoc';
 import ContractOneObjectFormDrawer from '#src/libs/subscription/components/contract/contract-revamp/ContractOneObjectFormDrawer.component';
+import {
+  getActivitiesByIdList,
+  getEnabledMetaActivities,
+  getEnabledWorkshops,
+} from '#src/libs/meta-activity/selectors';
+import uniqBy from 'lodash/uniqBy';
+import { getEditableSCTs } from '#src/libs/category/selectors';
 
 type ContractSearchOptionData = {
   tagList: {
@@ -117,14 +128,11 @@ type ContractSearchOptionData = {
   company: { id: number; name: string };
   contract: ContractWithPaymentPack;
   label: string;
-  onClick: () => void;
-  onDelete: () => void;
-  onEdit: () => void;
-  onRegister: () => void;
-  paymentComboList: PaymentCombo[];
-  paymentPackList: ImmutableArray<PaymentPack>;
-  privatePassList: PrivatePass[];
-  selectedContract: number;
+  onClick: (() => void) | null;
+  onDelete: (() => void) | null;
+  onEdit: (() => void) | null;
+  onRegister: (() => void) | null;
+  selectedContract: number | null;
   value: number;
 };
 
@@ -150,6 +158,8 @@ export class SubscriptionList extends React.Component<Props, State> {
       ],
     });
     this.props.fetchEstablishments();
+    this.props.fetchMetaActivities();
+    this.props.fetchAllPaymentPackCategory();
     if (this.props.theme.enable_multi_localization) {
       this.props.fetchAllEstablishmentBillingGroup({
         params: { company: this.props.companyId },
@@ -231,21 +241,15 @@ export class SubscriptionList extends React.Component<Props, State> {
         return {
           contract: {
             ...contract,
-            // TODO: Needs another way instead of relying on another fetch
-            payment_combo:
-              this.props.paymentComboList.find(
-                (paymentCombo) => contract.payment_combo === paymentCombo.id,
-              ) || null,
-            // TODO: Needs another way instead of relying on another fetch
-            payment_pack:
-              this.props.paymentPackList.find(
-                (paymentPack) => contract.payment_pack === paymentPack.id,
-              ) || null,
-            // TODO: Needs another way instead of relying on another fetch
-            private_pass:
-              this.props.privatePassList.find(
-                (privatePass) => contract.private_pass === privatePass.id,
-              ) || null,
+            payment_pack: this.props.paymentPackList.find(
+              (paymentPack) => contract.payment_pack === paymentPack.id,
+            ),
+            private_pass: this.props.privatePassList.find(
+              (privatePass) => contract.private_pass === privatePass.id,
+            ),
+            payment_combo: this.props.paymentComboList.find(
+              (paymentCombo) => contract.payment_combo === paymentCombo.id,
+            ),
           },
           label: contract.name,
           value: contract.id,
@@ -254,7 +258,6 @@ export class SubscriptionList extends React.Component<Props, State> {
             name: this.props.theme.company_name,
           },
           onClick: () => this.onClickContract(contract.id),
-          // TODO: Needs another way instead of relying on another fetch
           tagList: this.props.allTagsWithTagGroup,
           onDelete: hasDeletePermission
             ? () => this.handleDeleteContract(contract.id)
@@ -272,6 +275,18 @@ export class SubscriptionList extends React.Component<Props, State> {
   render() {
     const stripeRegion = getStripeRegion();
     const companyCountry = getCompanyCountry();
+
+    const categoryList = [...this.props.categoryList]
+      .filter(
+        (category) =>
+          this.props.metaActivityList.map((a) => a.SCT).indexOf(category.id) !==
+          -1,
+      )
+      .concat(this.props.videoCategories)
+      .filter(
+        (value, index, arr) =>
+          arr.findIndex((sct) => sct.id === value.id) === index,
+      );
 
     return (
       <ObjectLevelPermissionProviderComponent
@@ -495,10 +510,17 @@ export class SubscriptionList extends React.Component<Props, State> {
               />
             ) : null}
             <ContractOneObjectFormDrawer
+              allowGuestMaster={
+                this.props.theme.allow_guest_activatable &&
+                this.props.theme.allow_guest
+              }
+              availableEstablishmentList={this.props.availableEstablishmentList}
+              categoryList={categoryList}
               displayStopSubscriptionFromMemberSide={
                 !!this.props.theme?.display_stop_subscription_from_member_side
               }
               initial={this.state.contractToEditFromSearch}
+              metaActivityList={this.props.metaActivityList}
               onClose={
                 this.state.contractToEditFromSearch
                   ? () => this.setState({ contractToEditFromSearch: null })
@@ -567,7 +589,7 @@ type ConnectedProps = ReturnType<typeof mapStateToProps> &
 type HandlersType = WithHandlerType<typeof mapWithHandlers>;
 
 type State = {
-  contractToEditFromSearch: Contract | null;
+  contractToEditFromSearch: ContractWithPaymentPack | null;
 };
 
 type Props = MaterialStyleType<ReturnType<typeof styles>> &
@@ -598,6 +620,17 @@ const mapStateToProps = (state: RootState) => ({
   stripeReaders: getStripeReaders(state),
   establishmentBillingGroups: getEnabledEstablishmentBillingGroups(state),
   allTagsWithTagGroup: getAllTagsWithTagGroup(state),
+  availableEstablishmentList: getAvailableEstablishmentList(state),
+  metaActivityList: uniqBy(
+    [
+      ...getEnabledMetaActivities(state),
+      ...getEnabledWorkshops(state),
+      ...getActivitiesByIdList(state, []),
+    ],
+    'id',
+  ),
+  categoryList: getEditableSCTs(state),
+  videoCategories: state.video.filterableParams.items.SCTs,
 });
 
 const mapDispatchToProps = {
@@ -622,6 +655,9 @@ const mapDispatchToProps = {
   deletebackgroundDialog: deletebackgroundDialogAction,
   fetchAllEstablishmentBillingGroup: fetchAllEstablishmentBillingGroupAction,
   fetchTags,
+  fetchPaymentPackList: fetchPaymentPackListAction,
+  fetchMetaActivities: fetchMetaActivitiesAction,
+  fetchAllPaymentPackCategory,
 };
 
 const withStateHandlersInit: StateHandlerInit = {

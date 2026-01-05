@@ -9,50 +9,45 @@ import {
   Grid,
   Typography,
 } from '@material-ui/core';
-import { useFormikContext, FormikProps } from 'formik';
+import { useFormikContext } from 'formik';
 import CancelIcon from '@material-ui/icons/Cancel';
 import WarningIcon from '@material-ui/icons/Warning';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import InfoIcon from '@material-ui/icons/Info';
-import InputLabel from '@material-ui/core/InputLabel';
 import AddIcon from '@material-ui/icons/Add';
-import { DateTime } from 'luxon';
-import { SCT } from '#src/libs/category/types';
+import type { SCT } from '#src/libs/category/types';
 import MaterialUISelector from '#src/components/Selector/MaterialUISelector.component';
-import { Establishment } from '#src/libs/establishment/types';
-import { MetaActivity } from '#src/libs/meta-activity/types';
+import type { Establishment } from '#src/libs/establishment/types';
+import type { MetaActivity } from '#src/libs/meta-activity/types';
 import { CheckboxField } from '#src/libs/custom-form/components/GenericFormik.input';
 import SCTChip from '#src/libs/category/components/SCTChip.component';
-import type { PrivatePass } from '#src/libs/private-service/types';
-import { getCurrencyDisplay } from '#src/libs/theme/selectors';
-import ToolTip from '#src/components/Tooltip.component';
 import OffPeakTimeSlotGroup from '#src/libs/payment-packs/components/PaymentPackForm/PaymentPackOffPeak.component';
 import { offPeakGroupDefault } from '#src/libs/payment-packs/utils';
 import ObjectLevelPermissionProvider from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 import {
   TextFieldEnhancedLabelWithError,
   SwitchField,
-  DateField,
-  // @ts-expect-error
-} from '../../../../components/forms';
-import { PaymentPack, PaymentPackFormValues } from '../../types';
+  // @ts-expect-error importing from a JS file
+} from '#src/components/forms';
+import type { FormValues, PaymentPackDetailsForms } from '../types';
+import { emptyPaymentPackDetailsForms } from '../constants';
 
 type Props = {
   categoryList: Array<SCT>;
   availableEstablishmentList: Array<Establishment>;
   metaActivityList: Array<MetaActivity>;
-  initial: PaymentPack<PrivatePass>;
-  disabledUniversalPassFields: boolean;
+  initial: PaymentPackDetailsForms;
   allowGuestMaster: boolean;
 };
-export const PaymentPackFormRestrictions = (props: Props) => {
+
+export const PaymentPackDetailsFormRestrictions: React.FC<Props> = (
+  props: Props,
+) => {
   const {
     categoryList,
     availableEstablishmentList,
     metaActivityList,
     initial,
-    disabledUniversalPassFields,
     allowGuestMaster,
   } = props;
   const { t } = useTranslation('paymentPack');
@@ -60,21 +55,28 @@ export const PaymentPackFormRestrictions = (props: Props) => {
     !!initial?.full_vod_access,
   );
   const classes = useStyles();
-  const { values, setFieldValue }: FormikProps<PaymentPackFormValues> =
-    useFormikContext();
-  const hasMultipleGroups = values.off_peak_schedule.length > 1;
+  const { values, setFieldValue } = useFormikContext<FormValues>();
+  const paymentPackDetailsValues =
+    values?.payment_pack_details ?? emptyPaymentPackDetailsForms;
+  const isSharedInstance = !!initial?.template_instance;
+  const hasMultipleGroups =
+    (paymentPackDetailsValues.off_peak_schedule ?? []).length > 1;
 
   const handleAddGroupTimeSlot = useCallback(() => {
     const newGroup = offPeakGroupDefault();
-    setFieldValue(`off_peak_schedule`, [...values.off_peak_schedule, newGroup]);
-  }, [setFieldValue, values.off_peak_schedule]);
+    setFieldValue(`payment_pack_details.off_peak_schedule`, [
+      ...(paymentPackDetailsValues.off_peak_schedule ?? []),
+      newGroup,
+    ]);
+  }, [setFieldValue, paymentPackDetailsValues.off_peak_schedule]);
 
   const handleDeleteGroup = useCallback(
     (indexGroup: number) => () => {
-      values.off_peak_schedule.splice(indexGroup, 1);
-      setFieldValue('off_peak_schedule', values.off_peak_schedule);
+      const currentSchedule = paymentPackDetailsValues.off_peak_schedule ?? [];
+      const newSchedule = currentSchedule.filter((_, i) => i !== indexGroup);
+      setFieldValue('payment_pack_details.off_peak_schedule', newSchedule);
     },
-    [setFieldValue, values.off_peak_schedule],
+    [setFieldValue, paymentPackDetailsValues.off_peak_schedule],
   );
 
   const addGroupTimeSlotLabel = t(
@@ -84,9 +86,7 @@ export const PaymentPackFormRestrictions = (props: Props) => {
   const isCreatingPass = !initial?.id;
 
   const disableVodOnlyAccessCheckbox =
-    disabledUniversalPassFields ||
-    !!initial?.template_instance ||
-    !!values?.grants_door_access;
+    isSharedInstance || !!paymentPackDetailsValues.grants_door_access;
 
   return (
     <>
@@ -102,151 +102,82 @@ export const PaymentPackFormRestrictions = (props: Props) => {
         <Grid item xs={6}>
           <TextFieldEnhancedLabelWithError
             fullWidth
-            disabled={
-              disabledUniversalPassFields || !!initial?.template_instance
-            }
+            disabled={isSharedInstance}
             helperText={t('addPaymentPack.maxUseHelper')}
             id="max-bookings-per-day"
             label={t('addPaymentPack.maxUseDay')}
-            name="max_bookings_per_day"
+            name="payment_pack_details.max_bookings_per_day"
             type="number"
           />
         </Grid>
         <Grid item xs={6}>
           <TextFieldEnhancedLabelWithError
             fullWidth
-            disabled={
-              disabledUniversalPassFields || !!initial?.template_instance
-            }
+            disabled={isSharedInstance}
             helperText={t('addPaymentPack.maxUseHelper')}
             id="max-bookings-per-week"
             label={t('addPaymentPack.maxUseWeek')}
-            name="max_bookings_per_week"
+            name="payment_pack_details.max_bookings_per_week"
             type="number"
           />
         </Grid>
         <Grid item xs={6}>
           <TextFieldEnhancedLabelWithError
             fullWidth
-            disabled={
-              disabledUniversalPassFields || !!initial?.template_instance
-            }
+            disabled={isSharedInstance}
             helperText={t('addPaymentPack.maxUseHelper')}
             id="max-bookings-per-month"
             label={t('addPaymentPack.maxUseMonth')}
-            name="max_bookings_per_month"
-            type="number"
-          />
-        </Grid>
-        <Grid item xs={6}>
-          <TextFieldEnhancedLabelWithError
-            fullWidth
-            disabled={!!initial?.template_instance}
-            helperText={t('addPaymentPack.maxUseHelper')}
-            id="max-purchase-per-member"
-            label={t('addPaymentPack.maxUseMember')}
-            name="max_purchase_per_member"
+            name="payment_pack_details.max_bookings_per_month"
             type="number"
           />
         </Grid>
         <Grid item id="restrictions-switchfields-grid" xs={12}>
           <div className={classes.switch}>
-            <div className={classes.row}>
-              <SwitchField
-                disabled={values.manager_only || !!initial?.template_instance}
-                helperText={t('member:forms.newMemberOnlyHelperText', {
-                  currency: getCurrencyDisplay(),
-                })}
-                label={t('addPaymentPack.newClientOnly')}
-                name="new_member_only"
-              />
-            </div>
-            <div className={classes.row}>
-              <SwitchField
-                disabled={!!initial?.template_instance}
-                name="manager_only"
-              />
-              <Typography>{t('addPaymentPack.notForSell')}</Typography>
-            </div>
-            <div className={classes.row}>
-              <SwitchField
-                disabled={values.manager_only || !!initial?.template_instance}
-                name="onsite_payment_available"
-              />
-              <Typography>{t('addPaymentPack.inShopPayment')}</Typography>
-            </div>
-            <div className={classes.row}>
-              <SwitchField
-                disabled={!!initial?.template_instance}
-                name="unusable_by_staff"
-              />
-              <Typography>{t('addPaymentPack.unusableByStaff')}</Typography>
-            </div>
             {allowGuestMaster && (
               <div className={classes.row}>
-                <SwitchField name="allow_guest_pass" />
+                <SwitchField name="payment_pack_details.allow_guest_pass" />
                 <Typography>{t('addPaymentPack.allowGuest')}</Typography>
               </div>
             )}
             <div className={classes.row}>
               <SwitchField
-                disabled={!!initial?.template_instance}
-                name="expiration_date_active"
-              />
-              <Typography>
-                {t('addPaymentPack.expiration_date.label')}
-              </Typography>
-              <ToolTip title={t('addPaymentPack.expiration_date.tooltip')}>
-                <InfoIcon className={classes.infoIcon} color="disabled" />
-              </ToolTip>
-            </div>
-            <Collapse in={values.expiration_date_active}>
-              <InputLabel className={classes.inputLabelExpirationDate}>
-                {t('addPaymentPack.expiration_date.helperText')}
-              </InputLabel>
-              <DateField
-                allowNullValue
-                disabled={!!initial?.template_instance}
-                format="D"
-                minDate={DateTime.now()}
-                name="expiration_date"
-              />
-            </Collapse>
-            <div className={classes.row}>
-              <SwitchField
-                disabled={
-                  disabledUniversalPassFields || !!initial?.template_instance
-                }
-                name="off_peak_active"
+                disabled={isSharedInstance}
+                name="payment_pack_details.off_peak_active"
               />
               <Typography>{t('addPaymentPack.offPeak.label')}</Typography>
             </div>
-            <div>
-              <Collapse in={values.off_peak_active}>
-                {values.off_peak_schedule.map((group, index) => (
-                  <OffPeakTimeSlotGroup
-                    key={`offPeakGroup-${index}`}
-                    disabled={!!initial?.template_instance}
-                    group={group}
-                    hasMultipleGroups={hasMultipleGroups}
-                    index={index}
-                    onGroupDelete={handleDeleteGroup(index)}
-                    setFieldValue={setFieldValue}
-                  />
-                ))}
-                <ButtonBase
-                  className={classes.buttonAdd}
-                  color="primary"
-                  disabled={!!initial?.template_instance}
-                  onClick={handleAddGroupTimeSlot}
-                >
-                  <AddIcon color="primary" />
-                  <Typography className={classes.bold}>
-                    {addGroupTimeSlotLabel}
-                  </Typography>
-                </ButtonBase>
-              </Collapse>
-            </div>
+            {paymentPackDetailsValues && (
+              <div>
+                <Collapse in={paymentPackDetailsValues.off_peak_active}>
+                  {paymentPackDetailsValues.off_peak_schedule?.map(
+                    (group, index) => (
+                      <OffPeakTimeSlotGroup
+                        key={`offPeakGroup-${index}`}
+                        baseName="payment_pack_details"
+                        disabled={isSharedInstance}
+                        group={group}
+                        hasMultipleGroups={hasMultipleGroups}
+                        index={index}
+                        onGroupDelete={handleDeleteGroup(index)}
+                        setFieldValue={setFieldValue}
+                      />
+                    ),
+                  )}
+                  <ButtonBase
+                    className={classes.buttonAdd}
+                    color="primary"
+                    disabled={isSharedInstance}
+                    onClick={handleAddGroupTimeSlot}
+                  >
+                    <AddIcon color="primary" />
+                    <Typography className={classes.bold}>
+                      {addGroupTimeSlotLabel}
+                    </Typography>
+                  </ButtonBase>
+                </Collapse>
+              </div>
+            )}
           </div>
         </Grid>
         <ObjectLevelPermissionProvider requiredPermission="product.paymentPack.allowed_actions.compatibility">
@@ -279,7 +210,7 @@ export const PaymentPackFormRestrictions = (props: Props) => {
                     isDisabled={!canEditCompatibilities && !isCreatingPass}
                     onChange={(options) => {
                       setFieldValue(
-                        'categories',
+                        'payment_pack_details.categories',
                         // @ts-expect-error
                         options?.map((option) => option.value),
                       );
@@ -292,14 +223,18 @@ export const PaymentPackFormRestrictions = (props: Props) => {
                       })),
                     ]}
                     placeholder={t('addPaymentPack.letBlank')}
-                    value={values?.categories?.map((id) => ({
-                      label: categoryList.find((category) => category.id === id)
-                        ?.name,
-                      value: id,
-                      parentCategory: categoryList.find(
-                        (category) => category.id === id,
-                      )?.SCS.id,
-                    }))}
+                    value={(paymentPackDetailsValues.categories ?? []).map(
+                      (id) => {
+                        const category = categoryList.find(
+                          (cat) => cat.id === id,
+                        );
+                        return {
+                          label: category?.name ?? '',
+                          value: id,
+                          parentCategory: category?.SCS.id,
+                        };
+                      },
+                    )}
                   />
                 </div>
               </Grid>
@@ -327,7 +262,7 @@ export const PaymentPackFormRestrictions = (props: Props) => {
                     menuPosition="fixed"
                     onChange={(options) => {
                       setFieldValue(
-                        'establishments',
+                        'payment_pack_details.establishments',
                         // @ts-expect-error
                         options?.map((option) => option.value),
                       );
@@ -341,12 +276,14 @@ export const PaymentPackFormRestrictions = (props: Props) => {
                       ),
                     ]}
                     placeholder={t('addPaymentPack.letBlank')}
-                    value={values?.establishments?.map((id) => ({
-                      label: availableEstablishmentList.find(
-                        (establishment) => establishment.id === id,
-                      )?.title,
-                      value: id,
-                    }))}
+                    value={paymentPackDetailsValues.establishments?.map(
+                      (id) => ({
+                        label: availableEstablishmentList.find(
+                          (establishment) => establishment.id === id,
+                        )?.title,
+                        value: id,
+                      }),
+                    )}
                   />
                 </div>
               </Grid>
@@ -371,26 +308,26 @@ export const PaymentPackFormRestrictions = (props: Props) => {
                     )}
                     defaultNumberShown={3}
                     id="activities-selector"
-                    isDisabled={!canEditCompatibilities && !!initial}
+                    isDisabled={!canEditCompatibilities && !isCreatingPass}
                     onChange={(options) => {
                       setFieldValue(
-                        'metaActivities',
+                        'payment_pack_details.metaActivities',
                         options?.map((option) => option.value),
                       );
                     }}
-                    options={[
-                      ...metaActivityList?.map((metaActivity) => ({
-                        label: metaActivity.name,
-                        value: metaActivity.id,
-                      })),
-                    ]}
-                    placeholder={t('addPaymentPack.letBlank')}
-                    value={values?.metaActivities?.map((id) => ({
-                      label: metaActivityList.find(
-                        (metaActivity) => metaActivity.id === id,
-                      )?.name,
-                      value: id,
+                    options={(metaActivityList ?? []).map((metaActivity) => ({
+                      label: metaActivity.name,
+                      value: metaActivity.id,
                     }))}
+                    placeholder={t('addPaymentPack.letBlank')}
+                    value={paymentPackDetailsValues.metaActivities?.map(
+                      (id) => ({
+                        label: metaActivityList.find(
+                          (metaActivity) => metaActivity.id === id,
+                        )?.name,
+                        value: id,
+                      }),
+                    )}
                   />
                 </div>
               </Grid>
@@ -413,15 +350,15 @@ export const PaymentPackFormRestrictions = (props: Props) => {
           <Collapse in={openVodOptions}>
             <div className={classes.switch}>
               <CheckboxField
-                disabled={!!initial?.template_instance}
+                disabled={isSharedInstance}
                 label={t('addPaymentPack.vodAccessCard')}
-                name="full_vod_access"
+                name="payment_pack_details.full_vod_access"
               />
-              <Collapse in={values.full_vod_access}>
+              <Collapse in={paymentPackDetailsValues.full_vod_access}>
                 <CheckboxField
                   disabled={disableVodOnlyAccessCheckbox}
                   label={t('addPaymentPack.only_vod_access')}
-                  name="only_vod_access"
+                  name="payment_pack_details.only_vod_access"
                 />
               </Collapse>
             </div>
@@ -483,4 +420,3 @@ const useStyles = makeStyles<Theme>((theme) => ({
     fontSize: theme.spacing(1.75),
   },
 }));
-export default PaymentPackFormRestrictions;

@@ -67,7 +67,7 @@ import type { CompanyTheme } from '#src/libs/theme/types';
 import { PassType } from '#src/components/passes/types';
 import { getCreditFactor } from '#src/libs/theme/selectors';
 
-const penaltyKindDict = {
+export const penaltyKindDict: Record<number, 'block' | 'account'> = {
   [PENALTY_KIND_BLOCK_CPP]: 'block',
   [PENALTY_KIND_NEGATIVE_ACCOUNT]: 'account',
 };
@@ -395,7 +395,6 @@ export const PaymentPackForm: React.FC<Props> = ({
             start_date_method: `${
               initial?.start_date_method ?? START_ON_PURCHASE
             }`,
-            // @ts-expect-error
             penalty_kind: penaltyKindDict[initial?.penalty_kind] || 'block',
             no_show_penalty_kind:
               penaltyKindDict[initial?.no_show_penalty_kind] || 'block',

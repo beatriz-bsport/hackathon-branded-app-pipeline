@@ -398,7 +398,6 @@ export const PaymentPackForm: React.FC<Props> = ({
             // @ts-expect-error
             penalty_kind: penaltyKindDict[initial?.penalty_kind] || 'block',
             no_show_penalty_kind:
-              // @ts-expect-error
               penaltyKindDict[initial?.no_show_penalty_kind] || 'block',
             categories:
               initial?.categories

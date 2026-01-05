@@ -5,10 +5,27 @@ import type {
   FetchSessionsParams,
   ListSessionsWithPendingReplacementRequestIdsParams,
   ManagerSession,
+  MinimalSession,
 } from "#src/session/types";
 
 const API_URL = "book/v1";
 const API_URL_SESSION = `${API_URL}/offer`;
+
+export const fetchMinimalSessionsAPIConfig = (
+  params: FetchSessionsParams,
+): string => {
+  return `${API_URL_SESSION}/minimal/${buildUrlParams(params)}`;
+};
+
+export const fetchMinimalSessionsAPI = async (
+  fetch: Fetch<MinimalSession[]>,
+  params: FetchSessionsParams,
+): Promise<MinimalSession[]> => {
+  const uri = fetchMinimalSessionsAPIConfig(params);
+  const { data: fetchedData } = await fetch(uri);
+
+  return fetchedData;
+};
 
 export const fetchManagerSessionsURL = (
   params: FetchSessionsParams,

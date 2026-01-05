@@ -17,6 +17,7 @@ import { dataAccessLayer } from "@bsport/sm-backbone";
 
 import { useCancelMultipleSessions } from "#src/hooks/bulk-actions/use-cancel-multiple-sessions";
 import { useFetchNumberOfSessionsToCancel } from "#src/hooks/bulk-actions/use-fetch-number-of-cancelled-sessions";
+import { useFetchGroupSessions } from "#src/hooks/use-fetch-group-sessions";
 import {
   selectFilters,
   selectSelectedDate,
@@ -78,6 +79,12 @@ export const CancelMultipleSessionsModal: FC<{
     cancelRange ? cancelRange[0] : null,
     cancelRange ? cancelRange[1] : null,
     filterParams,
+  );
+
+  const { data: groupSessions } = useFetchGroupSessions(
+    cancelRange ? cancelRange[0] : null,
+    cancelRange ? cancelRange[1] : null,
+    { ...filterParams, available: true },
   );
 
   const cancelMultipleSessions = useCancelMultipleSessions();
@@ -147,11 +154,19 @@ export const CancelMultipleSessionsModal: FC<{
                 i18nKey="cancelMultipleSessionsModal.cancelAlert"
                 components={{ strong: <strong /> }}
                 values={{
-                  sessionsNumber: numberOfCancelledSessions,
+                  sessionsNumber:
+                    numberOfCancelledSessions - (groupSessions?.length ?? 0),
                   startDate: getFormattedDate(cancelRange[0]),
                   endDate: getFormattedDate(cancelRange[1]),
                 }}
               />
+            </Body>
+          </Alert>
+        )}
+        {groupSessions && (
+          <Alert status="warning">
+            <Body htmlVariant="p" size="md" weight="weak" color="warning">
+              {groupSessions.length}
             </Body>
           </Alert>
         )}

@@ -15,6 +15,7 @@ import {
 } from "@bsport/kaizen-primitive-core";
 import { dataAccessLayer } from "@bsport/sm-backbone";
 
+import { SessionSummaryList } from "#src/components/common/session-summary-list";
 import { useCancelMultipleSessions } from "#src/hooks/bulk-actions/use-cancel-multiple-sessions";
 import { useFetchNumberOfSessionsToCancel } from "#src/hooks/bulk-actions/use-fetch-number-of-cancelled-sessions";
 import { useFetchGroupSessions } from "#src/hooks/use-fetch-group-sessions";
@@ -163,12 +164,21 @@ export const CancelMultipleSessionsModal: FC<{
             </Body>
           </Alert>
         )}
-        {groupSessions && (
-          <Alert status="warning">
-            <Body htmlVariant="p" size="md" weight="weak" color="warning">
-              {groupSessions.length}
-            </Body>
-          </Alert>
+        {groupSessions && groupSessions.length > 0 && (
+          <>
+            <Alert status="critical">
+              <Body htmlVariant="p" size="md" weight="weak" color="critical">
+                <Trans
+                  // @ts-expect-error it works at runtime
+                  t={t}
+                  ns="sessionList"
+                  i18nKey="cancelMultipleSessionsModal.groupSessionAlert"
+                  components={{ strong: <strong /> }}
+                />
+              </Body>
+            </Alert>
+            <SessionSummaryList sessions={groupSessions} />
+          </>
         )}
         <div className="flex flex-col gap-xs">
           <Body size="md" htmlVariant="p">

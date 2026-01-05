@@ -15,12 +15,16 @@ import {
 } from "@bsport/kaizen-primitive-core";
 import { dataAccessLayer } from "@bsport/sm-backbone";
 
+import { useCancelMultipleSessions } from "#src/hooks/bulk-actions/use-cancel-multiple-sessions";
 import { useFetchNumberOfSessionsToCancel } from "#src/hooks/bulk-actions/use-fetch-number-of-cancelled-sessions";
 import {
+  selectFilters,
   selectSelectedDate,
   useSessionListStore,
 } from "#src/stores/session-list";
 import { Trans, useTranslation } from "#src/utils/i18n";
+
+import { getParamsFromFilters } from "../Filters/getParamsFromFilters";
 
 export const CancelMultipleSessionsModal: FC<{
   isOpen: boolean;
@@ -36,12 +40,6 @@ export const CancelMultipleSessionsModal: FC<{
   >(null);
   const [confirmTick, setConfirmTick] = useState(false);
   const confirmTickValue = confirmTick ? "checked" : "unchecked";
-
-  const { data: numberOfCancelledSessions } = useFetchNumberOfSessionsToCancel(
-    cancelRange ? cancelRange[0] : null,
-    cancelRange ? cancelRange[1] : null,
-    {},
-  );
 
   const getDefaultDateRange = useCallback((): SelectedDate => {
     if (currentSelectedDate.type === "single" && currentSelectedDate.date) {
@@ -69,23 +67,49 @@ export const CancelMultipleSessionsModal: FC<{
     return date ? formatDateTimeFromDate(date, DATETIME_FORMATS.FULL_DATE) : "";
   };
 
+  const filters = useSessionListStore(selectFilters);
+  const filterParams = getParamsFromFilters(filters);
+
+  const { data: numberOfCancelledSessions } = useFetchNumberOfSessionsToCancel(
+    cancelRange ? cancelRange[0] : null,
+    cancelRange ? cancelRange[1] : null,
+    filterParams,
+  );
+
+  const cancelMultipleSessions = useCancelMultipleSessions();
+
+  const handleCancelMultipleSessions = () => {
+    if (confirmTick && cancelRange && cancelRange[0] && cancelRange[1]) {
+      onClose();
+      cancelMultipleSessions.mutate({
+        startDate: cancelRange[0],
+        endDate: cancelRange[1],
+        params: filterParams,
+      });
+    }
+  };
+
   useEffect(() => {
     if (isOpen) {
       setCancelRange(
         getDefaultDateRange() as [DateTime | null, DateTime | null],
       );
+      setConfirmTick(false);
     }
   }, [isOpen, getDefaultDateRange]);
 
   return (
     <Modal
       open={isOpen}
-      size="md"
+      size="lg"
       title={t("cancelMultipleSessionsModal.title")}
       onClose={onClose}
       confirmButton={{
         label: t("cancelMultipleSessionsModal.confirmButton"),
         color: "critical",
+        onClick: handleCancelMultipleSessions,
+        disabled:
+          !confirmTick || !cancelRange || !cancelRange[0] || !cancelRange[1],
       }}
       cancelButton={{
         label: t("cancelMultipleSessionsModal.cancelButton"),

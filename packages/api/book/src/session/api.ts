@@ -1,7 +1,7 @@
 import { ApiConfig, Fetch, buildUrlParams } from "@bsport/store-base";
 
 import type {
-  FetchNumberOfSessionsToCancelParams,
+  CancelMultipleSessionsParams,
   FetchSessionsParams,
   ListSessionsWithPendingReplacementRequestIdsParams,
   ManagerSession,
@@ -49,7 +49,7 @@ export const listSessionsWithPendingReplacementRequestIdsAPI = async (
 };
 
 const fetchNumberOfSessionsToCancelAPIConfig = (
-  params: FetchNumberOfSessionsToCancelParams,
+  params: CancelMultipleSessionsParams,
 ): ApiConfig => {
   return [
     `${API_URL_SESSION}/number_of_mass_disable_offer/${buildUrlParams(params)}`,
@@ -58,9 +58,30 @@ const fetchNumberOfSessionsToCancelAPIConfig = (
 
 export const fetchNumberOfSessionsToCancelAPI = async (
   fetch: Fetch<number>,
-  params: FetchNumberOfSessionsToCancelParams,
+  params: CancelMultipleSessionsParams,
 ): Promise<number> => {
   const [uri] = fetchNumberOfSessionsToCancelAPIConfig(params);
   const { data: numberOfCanceledSessions } = await fetch(uri);
   return numberOfCanceledSessions;
+};
+
+export const cancelMultipleSessionsAPIConfig = (
+  params: CancelMultipleSessionsParams,
+): ApiConfig => {
+  const { start, end, ...filters } = params;
+  return [
+    `${API_URL_SESSION}/mass_disable/${buildUrlParams(filters)}`,
+    {
+      method: "POST",
+      body: JSON.stringify({ start, end }),
+    },
+  ];
+};
+
+export const cancelMultipleSessionsAPI = async (
+  fetch: Fetch<void>,
+  params: CancelMultipleSessionsParams,
+): Promise<void> => {
+  const [uri, init] = cancelMultipleSessionsAPIConfig(params);
+  await fetch(uri, init);
 };

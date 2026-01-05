@@ -126,7 +126,7 @@ export type ListSessionsWithPendingReplacementRequestIdsParams = {
   offer_id_list: number[];
 };
 
-export type FetchNumberOfSessionsToCancelParams = FetchSessionsParams & {
+export type CancelMultipleSessionsParams = FetchSessionsParams & {
   start: string;
   end: string;
 };

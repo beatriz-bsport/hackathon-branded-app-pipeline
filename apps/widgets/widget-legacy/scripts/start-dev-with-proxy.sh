@@ -69,7 +69,7 @@ WIDGET_PID=$!
 
 echo -e "${BLUE}🌐 Starting main website dev server (port 3000)...${NC}"
 cd "$SAAS_LEGACY_DIR"
-pnpm run start > /tmp/saas-legacy-dev.log 2>&1 &
+pnpm run start-dev > /tmp/saas-legacy-dev.log 2>&1 &
 SAAS_PID=$!
 
 echo -e "${BLUE}🔌 Starting proxy bridge dev server (port 4048)...${NC}"

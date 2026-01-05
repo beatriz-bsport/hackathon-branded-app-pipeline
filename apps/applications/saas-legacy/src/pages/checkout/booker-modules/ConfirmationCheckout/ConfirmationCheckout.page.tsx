@@ -170,6 +170,9 @@ export class ConfirmationCheckout extends React.PureComponent<Props, State> {
 
   componentDidMount() {
     this.handleExpressCheckoutLogin();
+    if (WidgetUtils.isWidget()) {
+      WidgetUtils.paymentSuccess();
+    }
     if (
       this.props.offerBookedIdList?.[0] &&
       typeof this.props.offerBookedIdList?.[0] === 'number' // dont fetch if [undefined]
@@ -865,7 +868,7 @@ const mapWithHandlers = {
     }) =>
     () => {
       if (WidgetUtils.isWidget()) {
-        WidgetUtils.paymentSuccess();
+        WidgetUtils.closeModal();
         if (queryParams && queryParams.onValidation === 'close') {
           window.close();
         }
@@ -879,7 +882,7 @@ const mapWithHandlers = {
     ({ replace, companyId, queryParams }: RouterProps & Props) =>
     () => {
       if (WidgetUtils.isWidget()) {
-        WidgetUtils.paymentSuccess();
+        WidgetUtils.closeModal();
         if (queryParams && queryParams.onValidation === 'close') {
           window.close();
         }
@@ -896,7 +899,7 @@ const mapWithHandlers = {
     ({ replace, companyId, queryParams }: RouterProps & Props) =>
     () => {
       if (WidgetUtils.isWidget()) {
-        WidgetUtils.paymentSuccess();
+        WidgetUtils.closeModal();
         if (queryParams && queryParams.onValidation === 'close') {
           window.close();
         }

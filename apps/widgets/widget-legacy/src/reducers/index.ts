@@ -75,6 +75,7 @@ import type { createBrowserHistory } from 'history';
 // FROM WIDGET ONLY
 //  -----------------------------------------
 import modal, { ModalState } from '../libs/modal/reducers';
+import widget, { WidgetState } from '../libs/widget/reducers';
 
 //  -----------------------------------------
 
@@ -119,6 +120,7 @@ const reducer = (history: ReturnType<typeof createBrowserHistory>) =>
     theme: themeReducers,
     video,
     waitingList,
+    widget,
   });
 
 export interface RootState {
@@ -161,6 +163,7 @@ export interface RootState {
   theme: ThemeState;
   video: any;
   waitingList: WaitingListState;
+  widget: WidgetState;
 }
 
 export default (history: ReturnType<typeof createBrowserHistory>) =>

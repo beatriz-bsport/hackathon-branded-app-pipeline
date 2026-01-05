@@ -123,6 +123,7 @@ export const ConsumerFormFields = (props: Props) => {
     </FieldArray>
   );
 };
+
 const ValidationSchema = Yup.object().shape({
   id: Yup.number().nullable(false),
   date_created: Yup.string().nullable(false),
@@ -219,43 +220,46 @@ export const ConsumerFormFieldsHOC = withFormik({
     if (initialWithAnswer) {
       return {
         ...initialWithAnswer,
-        custom_form_field: initialWithAnswer.custom_form_field?.map(
-          (field: CustomFormFieldAnswer) => {
+        custom_form_field: (initialWithAnswer.custom_form_field ?? [])
+          .filter((field?: CustomFormFieldAnswer) => !!field)
+          .map((field: CustomFormFieldAnswer) => {
             let answer: string | boolean | any[] | null = field.answer;
+
             if (answer) {
-              if (SIGNUP_CHECKBOX_FIELDS.includes(field.signup_question_kind)) {
-                answer = answer === 'True';
-              }
+              const questionKind = field.signup_question_kind;
+              const isSignupCheckboxField =
+                questionKind && SIGNUP_CHECKBOX_FIELDS.includes(questionKind);
               return {
                 ...field,
-                answer: answer,
+                answer: isSignupCheckboxField
+                  ? answer === 'True' // Backend returns "True", FE handles "true"/true
+                  : answer,
               };
             }
 
-            if (
+            const isCustomInputField =
               CUSTOM_FORM_FIELDS_WITH_CHOICES.includes(field.kind) ||
-              field.kind === CUSTOM_FORM_FIELD_LOCATION_OPTION
-            ) {
-              answer = [];
-            } else
-              return {
-                ...field,
-                answer: answer,
-              };
-          },
-        ),
+              field.kind === CUSTOM_FORM_FIELD_LOCATION_OPTION;
+            return {
+              ...field,
+              answer: isCustomInputField ? [] : null,
+            };
+          }),
       };
     }
     if (initial) {
       return {
         ...initial,
-        custom_form_field: initial.custom_form_field?.map(
-          (field: CustomFormFieldAnswer) => {
+        custom_form_field: (initial.custom_form_field ?? [])
+          .filter((field?: CustomFormFieldAnswer) => !!field)
+          .map((field: CustomFormFieldAnswer) => {
             let answer: boolean | any[] | null;
+            const questionKind = field.signup_question_kind;
             if (field.answer) {
               answer = field.answer;
             } else if (
-              SIGNUP_CHECKBOX_FIELDS.includes(field.signup_question_kind)
+              questionKind &&
+              SIGNUP_CHECKBOX_FIELDS.includes(questionKind)
             ) {
               answer = false;
             } else if (
@@ -271,8 +275,7 @@ export const ConsumerFormFieldsHOC = withFormik({
               ...field,
               answer: answer,
             };
-          },
-        ),
+          }),
       };
     }
     return {};

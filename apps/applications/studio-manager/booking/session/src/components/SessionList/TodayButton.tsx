@@ -1,7 +1,7 @@
 import React, { useCallback, useMemo } from "react";
 
 import {
-  DateTime,
+  type DateTime,
   getIsoDate,
   getLocalNow,
   isSameDay,

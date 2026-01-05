@@ -4,7 +4,7 @@ import {
   DATETIME_FORMATS,
   formatDateTimeFromDate,
 } from "@bsport/datetime-formatting";
-import { DateTime } from "@bsport/datetime-manipulation";
+import type { DateTime } from "@bsport/datetime-manipulation";
 import { Body, Title } from "@bsport/kaizen-primitive-core";
 
 import { useTranslation } from "#src/utils/i18n";

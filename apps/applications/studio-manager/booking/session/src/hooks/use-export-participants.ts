@@ -4,7 +4,7 @@ import {
   FetchReportParticipantsListParams,
   fetchReportParticipantsListAPI,
 } from "@bsport/api-business-insights";
-import { DateTime, getIsoDate } from "@bsport/datetime-manipulation";
+import { type DateTime, getIsoDate } from "@bsport/datetime-manipulation";
 import { toast } from "@bsport/kaizen-primitive-core";
 
 import { fetch } from "#src/utils/fetch";

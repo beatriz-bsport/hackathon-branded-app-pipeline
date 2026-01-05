@@ -1,6 +1,6 @@
 import { FC, useEffect, useState } from "react";
 
-import { DateTime, getLocalNow } from "@bsport/datetime-manipulation";
+import { type DateTime, getLocalNow } from "@bsport/datetime-manipulation";
 import {
   Body,
   DatePicker,

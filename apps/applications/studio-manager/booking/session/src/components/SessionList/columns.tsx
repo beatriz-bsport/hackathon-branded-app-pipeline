@@ -3,7 +3,7 @@ import {
   formatDateTimeFromDate,
 } from "@bsport/datetime-formatting";
 import {
-  DateTime,
+  type DateTime,
   fromIsoString,
   modifyTime,
 } from "@bsport/datetime-manipulation";

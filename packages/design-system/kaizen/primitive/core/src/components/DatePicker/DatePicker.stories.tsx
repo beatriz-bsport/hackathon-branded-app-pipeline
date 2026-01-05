@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { useState } from "react";
 
-import { DateTime, getLocalNow } from "@bsport/datetime-manipulation";
+import { type DateTime, getLocalNow } from "@bsport/datetime-manipulation";
 
 import Button from "#src/components/Button";
 import { Placements } from "#src/hooks/placement-classes.hook";

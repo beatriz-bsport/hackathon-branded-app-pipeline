@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 import {
-  DateTime,
+  type DateTime,
   fromIsoString,
   getIsoDate,
   getLocalNow,

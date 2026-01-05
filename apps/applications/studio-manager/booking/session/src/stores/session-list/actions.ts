@@ -1,4 +1,4 @@
-import { DateTime, getWeekBounds } from "@bsport/datetime-manipulation";
+import { type DateTime, getWeekBounds } from "@bsport/datetime-manipulation";
 import { FilterElementState } from "@bsport/kaizen-primitive-core";
 
 import { CalendarView, sessionListStore } from "./store";

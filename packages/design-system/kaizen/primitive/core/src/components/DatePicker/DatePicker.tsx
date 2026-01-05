@@ -4,7 +4,7 @@ import {
   DATETIME_FORMATS,
   formatDateTimeFromDate,
 } from "@bsport/datetime-formatting";
-import { DateTime } from "@bsport/datetime-manipulation";
+import { type DateTime } from "@bsport/datetime-manipulation";
 
 import Button from "#src/components/Button";
 import Modal from "#src/components/Modal";

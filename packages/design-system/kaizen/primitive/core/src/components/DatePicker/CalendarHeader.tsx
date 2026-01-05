@@ -1,7 +1,7 @@
 import React, { useMemo } from "react";
 
 import {
-  DateTime,
+  type DateTime,
   getLocalNow,
   getMonths,
 } from "@bsport/datetime-manipulation";

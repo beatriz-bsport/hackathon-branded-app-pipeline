@@ -1,4 +1,4 @@
-import { DateTime, modifyTime } from "@bsport/datetime-manipulation";
+import { type DateTime, modifyTime } from "@bsport/datetime-manipulation";
 import { DatePicker, type SelectedDate } from "@bsport/kaizen-primitive-core";
 
 import {

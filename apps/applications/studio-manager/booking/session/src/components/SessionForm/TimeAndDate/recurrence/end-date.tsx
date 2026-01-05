@@ -1,7 +1,7 @@
 import { FC, useCallback } from "react";
 
 import {
-  DateTime,
+  type DateTime,
   getLocalNow,
   modifyTime,
   toDateTime,

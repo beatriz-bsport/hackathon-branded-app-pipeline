@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 
-import { DateTime, getLocalNow } from "@bsport/datetime-manipulation";
+import { type DateTime, getLocalNow } from "@bsport/datetime-manipulation";
 import { getCompanyTimezone } from "@bsport/timezone-utils";
 
 import CalendarHeader from "./CalendarHeader";

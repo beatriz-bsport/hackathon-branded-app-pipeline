@@ -1,6 +1,6 @@
 import { createStore } from "zustand/vanilla";
 
-import { DateTime, getLocalNow } from "@bsport/datetime-manipulation";
+import { type DateTime, getLocalNow } from "@bsport/datetime-manipulation";
 import { FilterElementState } from "@bsport/kaizen-primitive-core";
 import { bindStore } from "@bsport/store-base";
 

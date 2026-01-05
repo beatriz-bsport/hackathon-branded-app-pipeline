@@ -9,7 +9,7 @@ import {
 import { Teacher } from "@bsport/api-core";
 import type { Establishment } from "@bsport/api-core";
 import {
-  DateTime,
+  type DateTime,
   fromIsoString,
   getIsoDate,
 } from "@bsport/datetime-manipulation";

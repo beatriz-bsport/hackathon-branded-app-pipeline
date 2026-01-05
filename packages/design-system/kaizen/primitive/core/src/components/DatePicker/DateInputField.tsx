@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 
 import {
-  DateTime,
+  type DateTime,
   fromIsoString,
   getIsoDate,
   isValidDate,

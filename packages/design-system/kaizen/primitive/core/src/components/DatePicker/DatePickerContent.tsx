@@ -1,7 +1,7 @@
 import { cx } from "class-variance-authority";
 import React from "react";
 
-import { DateTime } from "@bsport/datetime-manipulation";
+import type { DateTime } from "@bsport/datetime-manipulation";
 
 import Divider from "#src/components/Divider";
 

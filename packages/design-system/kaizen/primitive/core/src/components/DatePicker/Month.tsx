@@ -1,7 +1,7 @@
 import React, { useMemo } from "react";
 
 import {
-  DateTime,
+  type DateTime,
   generateCalendarDays,
   getLocalNow,
   getWeekStartDayFromLocale,

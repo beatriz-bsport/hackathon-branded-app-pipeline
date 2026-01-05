@@ -8,6 +8,7 @@ import { DateTime, getLocalNow } from "@bsport/datetime-manipulation";
 import {
   Alert,
   Body,
+  Checkbox,
   DatePicker,
   Modal,
   SelectedDate,
@@ -33,6 +34,8 @@ export const CancelMultipleSessionsModal: FC<{
   const [cancelRange, setCancelRange] = useState<
     [DateTime | null, DateTime | null] | null
   >(null);
+  const [confirmTick, setConfirmTick] = useState(false);
+  const confirmTickValue = confirmTick ? "checked" : "unchecked";
 
   const { data: numberOfCancelledSessions } = useFetchNumberOfSessionsToCancel(
     cancelRange ? cancelRange[0] : null,
@@ -123,6 +126,17 @@ export const CancelMultipleSessionsModal: FC<{
             </Body>
           </Alert>
         )}
+        <div className="flex flex-col gap-xs">
+          <Body size="md" htmlVariant="p">
+            {t("cancelMultipleSessionsModal.confirmTickLabel")}
+          </Body>
+          <Checkbox
+            label={t("cancelMultipleSessionsModal.confirmTickDescription")}
+            value={confirmTickValue}
+            id="confirm-cancel-multiple-sessions-checkbox"
+            onChange={setConfirmTick}
+          ></Checkbox>
+        </div>
       </div>
     </Modal>
   );

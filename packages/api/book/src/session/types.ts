@@ -131,7 +131,7 @@ export type CancelMultipleSessionsParams = FetchSessionsParams & {
   end: string;
 };
 
-export declare type ManagerSession = {
+export type ManagerSession = {
   activity: number;
   allow_guest_offer: boolean;
   available_on_partnership: boolean;
@@ -181,4 +181,9 @@ export declare type ManagerSession = {
   waiting_list_max_size: number;
   wellhub_product_id: number | null;
   whitelist_tags: number[];
+};
+
+export type CancelMultipleSessionsResponse = {
+  disabled_offer_ids: number[];
+  failed_to_disable_offer_ids: number[];
 };

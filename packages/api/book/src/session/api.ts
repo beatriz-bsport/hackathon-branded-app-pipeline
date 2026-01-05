@@ -81,7 +81,8 @@ export const cancelMultipleSessionsAPIConfig = (
 export const cancelMultipleSessionsAPI = async (
   fetch: Fetch<void>,
   params: CancelMultipleSessionsParams,
-): Promise<void> => {
+): Promise<string | null> => {
   const [uri, init] = cancelMultipleSessionsAPIConfig(params);
-  await fetch(uri, init);
+  const { backgroundTaskUuid } = await fetch(uri, init);
+  return backgroundTaskUuid;
 };

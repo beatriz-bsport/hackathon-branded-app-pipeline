@@ -102,6 +102,8 @@
     "confirmTickLabel": "Tick to confirm:",
     "confirmTickDescription": "I understand that cancelling multiple sessions will remove these bookings from my calendar and automatically refund credits to members.",
     "confirmButton": "Cancel",
-    "cancelButton": "Close"
+    "cancelButton": "Close",
+    "errorMessage": "An error occurred while cancelling the sessions. Please try again later.",
+    "successMessage": "Multiple sessions cancelled between {{startDate}} and {{endDate}}."
   }
 }

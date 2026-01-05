@@ -30,7 +30,7 @@ export const CancelMultipleSessionsModal: FC<{
   isOpen: boolean;
   onClose: () => void;
 }> = ({ isOpen, onClose }) => {
-  const { t } = useTranslation("sessionList");
+  const { t, i18n } = useTranslation("sessionList");
   const companyTimezone = dataAccessLayer.useCompanyTheme()?.timezone_name;
 
   const currentSelectedDate = useSessionListStore(selectSelectedDate);
@@ -64,7 +64,11 @@ export const CancelMultipleSessionsModal: FC<{
   };
 
   const getFormattedDate = (date: DateTime | null) => {
-    return date ? formatDateTimeFromDate(date, DATETIME_FORMATS.FULL_DATE) : "";
+    return date
+      ? formatDateTimeFromDate(date, DATETIME_FORMATS.FULL_DATE, {
+          locale: i18n.language,
+        })
+      : "";
   };
 
   const filters = useSessionListStore(selectFilters);
@@ -85,6 +89,7 @@ export const CancelMultipleSessionsModal: FC<{
         startDate: cancelRange[0],
         endDate: cancelRange[1],
         params: filterParams,
+        locale: i18n.language,
       });
     }
   };

@@ -51,10 +51,13 @@ export const ShortcutActionsButton: React.FC<ShortcutActionsButtonProps> = ({
         label: t("table.shortcutActions.copyLink"),
         iconLeft: "link-01",
         type: "button",
+        disabled: !companyId,
         onClick: () => {
-          copyToClipboard(
-            `${window.location.origin}/customer/payment/offer/${session.id}?membership=${companyId}`,
-          );
+          if (companyId) {
+            copyToClipboard(
+              `${window.location.origin}/customer/payment/offer/${session.id}?membership=${companyId}`,
+            );
+          }
           setIsPopoverOpened(false);
         },
       };
@@ -87,19 +90,21 @@ export const ShortcutActionsButton: React.FC<ShortcutActionsButtonProps> = ({
         },
       };
 
-      return session.available
-        ? [
-            editShortcutAction,
-            duplicateShortcutAction,
-            copyLinkShortcutAction,
-            cancelShortcutAction,
-          ]
-        : [
-            restoreShortcutAction,
-            editShortcutAction,
-            duplicateShortcutAction,
-            deleteShortcutAction,
-          ];
+      const availableActions = [
+        editShortcutAction,
+        duplicateShortcutAction,
+        ...(companyId ? [copyLinkShortcutAction] : []),
+        cancelShortcutAction,
+      ];
+
+      const unavailableActions = [
+        restoreShortcutAction,
+        editShortcutAction,
+        duplicateShortcutAction,
+        deleteShortcutAction,
+      ];
+
+      return session.available ? availableActions : unavailableActions;
     },
     [t, session, copyToClipboard, companyId],
   );

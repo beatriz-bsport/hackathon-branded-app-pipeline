@@ -45,6 +45,9 @@ const icons = {
   "building-02": React.lazy(
     async () => await import("./assets/building-02.svg?react"),
   ),
+  "calendar-minus-02": React.lazy(
+    async () => await import("./assets/calendar-minus-02.svg?react"),
+  ),
   calendar: React.lazy(async () => await import("./assets/calendar.svg?react")),
   "check-circle-solid": React.lazy(
     async () => await import("./assets/check-circle-solid.svg?react"),

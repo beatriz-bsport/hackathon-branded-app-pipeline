@@ -66,6 +66,15 @@
     "attendanceButton": "Attendance",
     "substitution": {
       "pendingRequest": "Substitution pending"
+    },
+    "shortcutActions": {
+      "edit": "Edit",
+      "duplicate": "Duplicate",
+      "copyLink": "Copy link",
+      "cancel": "Cancel",
+      "restore": "Restore",
+      "delete": "Permanently delete",
+      "label": "Shortcut actions"
     }
   },
   "displaySettings": {

@@ -5,7 +5,6 @@ variables:
   REGISTRY_ENDPOINT: 672633452901.dkr.ecr.eu-west-3.amazonaws.com
 
 stages:
-  - prepare-image-docker
   - build-deploy-feature-branch
   - static-analysis
   - bump-version
@@ -20,7 +19,6 @@ before_script:
 include:
   # - local: '/ci_/storybook.yml'
   - local: '/ci/widget.yml'
-  - local: '/ci/docker-image.yml'
   - local: '/ci/static-analysis.yml'
   - local: '/ci/build.yml'
   - local: '/ci/tag-releases.yml'

@@ -10,7 +10,7 @@ import {
 } from "@bsport/kaizen-primitive-core";
 import { dataAccessLayer } from "@bsport/sm-backbone";
 
-import { useExportParticipantsList } from "#src/hooks/use-export-participants";
+import { useExportParticipantsList } from "#src/hooks/bulk-actions/use-export-participants";
 import {
   selectFilters,
   selectSelectedDate,
@@ -18,7 +18,7 @@ import {
 } from "#src/stores/session-list";
 import { useTranslation } from "#src/utils/i18n";
 
-import { getParamsFromFilters } from "./Filters/getParamsFromFilters";
+import { getParamsFromFilters } from "../Filters/getParamsFromFilters";
 
 export const ExportParticipantsModal: FC<{
   isOpen: boolean;

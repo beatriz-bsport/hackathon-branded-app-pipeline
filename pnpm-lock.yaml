@@ -1154,6 +1154,9 @@ importers:
       '@bsport/store-base':
         specifier: workspace:*
         version: link:../../../../../packages/stores/base
+      '@bsport/store-shared-background-task':
+        specifier: workspace:*
+        version: link:../../../../../packages/stores/shared/background-task
       '@bsport/timezone-utils':
         specifier: workspace:*
         version: link:../../../../../packages/utils/datetime/timezone

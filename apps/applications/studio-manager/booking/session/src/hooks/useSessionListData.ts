@@ -28,6 +28,7 @@ import {
   ADD_ON_IDENTIFIER_SUBTEACHER_TOOL,
   useCheckCompanyAddOn,
 } from "../utils/permission";
+import { SESSIONS_QUERY_KEY } from "./constants";
 import { useFetchSessionsWithPendingRequests } from "./use-fetch-sessions-with-pending-requests";
 import { useFetchEstablishments } from "./useFetchEstablishments";
 import { useFetchTeachers } from "./useFetchTeachers";
@@ -119,7 +120,7 @@ const sessionsQueryOptions = (
 ) =>
   queryOptions({
     queryKey: [
-      "sessions",
+      SESSIONS_QUERY_KEY,
       minDateKey,
       maxDateKey,
       filterParams,

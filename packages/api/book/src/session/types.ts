@@ -126,7 +126,12 @@ export type ListSessionsWithPendingReplacementRequestIdsParams = {
   offer_id_list: number[];
 };
 
-export declare type ManagerSession = {
+export type CancelMultipleSessionsParams = FetchSessionsParams & {
+  start: string;
+  end: string;
+};
+
+export type ManagerSession = {
   activity: number;
   allow_guest_offer: boolean;
   available_on_partnership: boolean;
@@ -142,7 +147,7 @@ export declare type ManagerSession = {
   custom_level: number;
   date_roll_call_last_modified: string | null;
   date_start: string;
-  description_override: string;
+  description_override?: string;
   duration_minute: number;
   effectif: number;
   establishment_override: number | null;
@@ -158,7 +163,7 @@ export declare type ManagerSession = {
   manager_only: boolean;
   meta_activity_color: string;
   meta_activity: number;
-  name_override: string;
+  name_override?: string;
   name: string;
   nb_attendant: number;
   nb_bookings: number;
@@ -176,4 +181,31 @@ export declare type ManagerSession = {
   waiting_list_max_size: number;
   wellhub_product_id: number | null;
   whitelist_tags: number[];
+};
+
+export type CancelMultipleSessionsResponse = {
+  disabled_offer_ids: number[];
+  failed_to_disable_offer_ids: number[];
+};
+
+export type MinimalSession = {
+  date_start: string;
+  duration_minute: number;
+  available: boolean;
+  establishment: number;
+  coach: number;
+  coach_override: number | null;
+  activity: number;
+  meta_activity: number;
+  id: number;
+  level: number;
+  custom_level: number;
+  price: number;
+  timezone_name: string;
+  room_blueprint: number | null;
+  whitelist_tags: number[];
+  blacklist_tags: number[];
+  group: number | null;
+  name_override?: string;
+  description_override?: string;
 };

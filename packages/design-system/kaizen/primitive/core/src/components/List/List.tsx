@@ -33,15 +33,16 @@ const defaultClasses = [
 
 const variants = {
   selected: {
-    true: [
+    selected: [
       "bg-surface-action-main-selected-rest",
       "hover:bg-surface-action-main-selected-hovered",
       "active:bg-surface-action-main-selected-pressed",
     ],
-    false: [
+    unselected: [
       "hover:bg-surface-action-default-weak-hovered",
       "active:bg-surface-action-default-weak-pressed",
     ],
+    disabled: [],
   },
   isLink: {
     true: "",
@@ -55,7 +56,7 @@ const variants = {
 
 export const listItem = cva(defaultClasses, {
   variants,
-  defaultVariants: { selected: false, compactMode: false },
+  defaultVariants: { selected: "unselected", compactMode: false },
 });
 
 export type ListItemChipsProps = Omit<ChipProps, "dismissible" | "onClick">;
@@ -134,7 +135,7 @@ export type ListProps<T extends { id: string } = ListItemProps> =
  * - emptySearchConfig [Optional] Configuration to display the empty search UI when isEmptySearch is true;
  * - isEmpty [Optional] Whether the fetch return an empty list;
  * - isEmptySearch [Optional] Whether the filtering return an empty list;
- * @param id Optional ID for the list.
+ * @param id ID for the list.
  * @param header Optional header component to display at the top of the list.
  * @param items An array of objects to display in the list. Each object must have a unique `id`.
  * These items will be rendered using either the default `Item` component or the custom `ListItem` if provided.

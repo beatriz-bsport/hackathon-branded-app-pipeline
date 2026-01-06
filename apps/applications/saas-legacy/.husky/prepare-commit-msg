@@ -4,6 +4,10 @@
 
 COMMIT_MSG_FILE=$1
 
+if [ "$SKIP_CZ" = "1" ]; then
+	exit 0
+fi
+
 COMMIT_MSG=`cat $COMMIT_MSG_FILE`
 
 echo $COMMIT_MSG | pgrep '[a-z]\(.+\): .+' && MATCHING=1 || MATCHING=0;

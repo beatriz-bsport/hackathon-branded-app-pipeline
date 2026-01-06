@@ -7,7 +7,7 @@ if [ "$3" -eq 0 ]; then
     exit 0
 fi
 
-if [ "$ECOSYSTEM_SKIP_HOOKS" != "true" ] && [ -z "$CI" ]; then
+if [ "$ECOSYSTEM_SKIP_HOOKS" != "true" ] && [ "$SKIP_INSTALL" != "true" ] && [ -z "$CI" ]; then
     exec < /dev/tty
     echo "Would you like to reinstall all dependencies? (y/N) "
     read REPLY

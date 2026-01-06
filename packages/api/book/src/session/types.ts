@@ -122,6 +122,13 @@ export type PaginatedFetchSessionsParams = FetchSessionsParams & {
   page?: number;
 };
 
+export type CancelSessionParams = {
+  should_notify: boolean;
+  apply_to_all_similar_offers: boolean;
+  selected_similar_offer_ids?: number[];
+  cancel_linked_hybrid_offer: boolean;
+};
+
 export type ListSessionsWithPendingReplacementRequestIdsParams = {
   offer_id_list: number[];
 };

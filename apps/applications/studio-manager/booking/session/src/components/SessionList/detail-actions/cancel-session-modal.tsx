@@ -1,11 +1,11 @@
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
 
 import { DATETIME_FORMATS, formatDateTime } from "@bsport/datetime-formatting";
-import { Body, Modal } from "@bsport/kaizen-primitive-core";
+import { Alert, Body, Modal, Toggle } from "@bsport/kaizen-primitive-core";
 import { dataAccessLayer } from "@bsport/sm-backbone";
 
 import { closeModal, useSessionListStore } from "#src/stores/session-list";
-import { useTranslation } from "#src/utils/i18n";
+import { TFunction, Trans, useTranslation } from "#src/utils/i18n";
 
 import {
   selectIsCancelModalOpen,
@@ -18,6 +18,8 @@ export const CancelSessionModal: FC = () => {
   const isOpen = useSessionListStore(selectIsCancelModalOpen);
   const session = useSessionListStore(selectModalState)?.session;
 
+  const [sendNotification, setSendNotification] = useState(false);
+
   const getDescription = () => {
     if (!session) return "";
     const sessionDate = formatDateTime(
@@ -27,6 +29,13 @@ export const CancelSessionModal: FC = () => {
     );
     return `${session.name} - ${sessionDate}`;
   };
+
+  useEffect(() => {
+    if (isOpen) {
+      setSendNotification(false);
+    }
+  }, [isOpen]);
+  x;
 
   return (
     <Modal
@@ -47,6 +56,30 @@ export const CancelSessionModal: FC = () => {
         <Body htmlVariant="p" size="lg">
           {t("cancelModal.description")}
         </Body>
+        {session && session.nb_bookings > 0 && (
+          <>
+            <Alert status="critical">
+              <Body htmlVariant="p" size="md" weight="weak" color="critical">
+                <Trans
+                  t={t as TFunction}
+                  ns="sessionList"
+                  i18nKey="cancelModal.bookingsAlert"
+                  values={{ number: session.nb_bookings }}
+                  components={{
+                    strong: <strong />,
+                  }}
+                  count={session.nb_bookings}
+                />
+              </Body>
+            </Alert>
+            <Toggle
+              id="cancel-session-send-notification-toggle"
+              label={t("cancelModal.notificationLabel")}
+              checked={sendNotification}
+              onChange={() => setSendNotification(!sendNotification)}
+            />
+          </>
+        )}
       </div>
     </Modal>
   );

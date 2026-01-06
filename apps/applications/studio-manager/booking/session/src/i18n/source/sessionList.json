@@ -106,8 +106,8 @@
   "cancelModal": {
     "title": "Cancel session?",
     "description": "You can restore this session at any time but you won’t be able to retrieve any bookings related to this session.",
-    "bookingsAlert_one": "<strong>{{number}}</strong> member who booked this session will have their credits refunded",
-    "bookingsAlert_other": "<strong>{{number}}</strong> members who booked this session will have their credits refunded",
+    "bookingsAlert_one": "<strong>{{number}} member </strong> who booked this session will have their credits refunded",
+    "bookingsAlert_other": "<strong>{{number}} members</strong> who booked this session will have their credits refunded",
     "notificationLabel": "Send a notification to all members who booked this session",
     "cancelButton": "Back",
     "confirmButton": "Cancel"

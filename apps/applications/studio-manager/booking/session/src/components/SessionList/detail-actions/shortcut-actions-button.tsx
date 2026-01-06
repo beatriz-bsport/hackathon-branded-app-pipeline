@@ -12,11 +12,11 @@ import { dataAccessLayer } from "@bsport/sm-backbone";
 import type { EnrichedSession } from "#src/types";
 import { useTranslation } from "#src/utils/i18n";
 
-type ShortcutActionsProps = {
+type ShortcutActionsButtonProps = {
   session: EnrichedSession;
 };
 
-export const ShortcutActions: React.FC<ShortcutActionsProps> = ({
+export const ShortcutActionsButton: React.FC<ShortcutActionsButtonProps> = ({
   session,
 }) => {
   const { t } = useTranslation("sessionList");

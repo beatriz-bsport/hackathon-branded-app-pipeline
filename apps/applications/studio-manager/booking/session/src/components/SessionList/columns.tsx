@@ -20,6 +20,7 @@ import { EnrichedSession } from "../../types";
 import { CancelledSessionName } from "./CancelledSessionName";
 import { ParticipantsCell } from "./ParticipantsCell";
 import { SessionTypeChips } from "./SessionTypeChips";
+import { ShortcutActions } from "./shortcut-actions";
 import { TeacherCell } from "./teacher-cell";
 
 type TableColumn = GenericTableColumn<EnrichedSession>;
@@ -123,19 +124,22 @@ export const useSessionListColumns = () => {
     cellsClassName: "truncate max-w-[128px]",
   };
 
-  const attendanceColumn: TableColumn = {
-    id: "attendance",
+  const actionsColumn: TableColumn = {
+    id: "actions",
     header: "",
     type: "custom",
     align: "center",
     render: (row: EnrichedSession) => (
-      <Button
-        label={t("table.attendanceButton")}
-        size="sm"
-        intent="default"
-        color="main"
-        disabled={!row.available}
-      />
+      <div className="flex items-center gap-xs">
+        <Button
+          label={t("table.attendanceButton")}
+          size="sm"
+          intent="default"
+          color="main"
+          disabled={!row.available}
+        />
+        <ShortcutActions session={row} />
+      </div>
     ),
   };
 
@@ -146,6 +150,6 @@ export const useSessionListColumns = () => {
     participantsColumn,
     establishmentNameColumn,
     sessionTypeColumn,
-    attendanceColumn,
+    actionsColumn,
   ];
 };

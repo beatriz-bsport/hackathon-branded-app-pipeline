@@ -103,6 +103,15 @@
     "confirmButton": "Export",
     "errorMessage": "An error occurred while exporting the participant list. Please try again."
   },
+  "cancelModal": {
+    "title": "Cancel session?",
+    "description": "You can restore this session at any time but you won’t be able to retrieve any bookings related to this session.",
+    "bookingsAlert_one": "<strong>{{number}}</strong> member who booked this session will have their credits refunded",
+    "bookingsAlert_other": "<strong>{{number}}</strong> members who booked this session will have their credits refunded",
+    "notificationLabel": "Send a notification to all members who booked this session",
+    "cancelButton": "Back",
+    "confirmButton": "Cancel"
+  },
   "cancelMultipleSessionsModal": {
     "title": "Cancel multiple sessions?",
     "description": "You can restore these sessions at any time, but you won’t be able to retrieve any bookings related to them. If you applied filters before cancelling, those filters will be kept for the selected period.",

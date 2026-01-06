@@ -1,6 +1,8 @@
 import { type DateTime, getWeekBounds } from "@bsport/datetime-manipulation";
 import { FilterElementState } from "@bsport/kaizen-primitive-core";
 
+import type { EnrichedSession } from "#src/types";
+
 import { CalendarView, sessionListStore } from "./store";
 
 export const setCalendarView = (calendarView: CalendarView) => {
@@ -71,6 +73,15 @@ export const setLocale = (locale: string) => {
 
 export const setFilters = (filters: FilterElementState[]) => {
   sessionListStore.setState({ filters });
+};
+
+// Modal actions
+export const openCancelModal = (session: EnrichedSession) => {
+  sessionListStore.setState({ modalState: { type: "cancel", session } });
+};
+
+export const closeModal = () => {
+  sessionListStore.setState({ modalState: null });
 };
 
 export const setShowCancelledSessions = (show: boolean) => {

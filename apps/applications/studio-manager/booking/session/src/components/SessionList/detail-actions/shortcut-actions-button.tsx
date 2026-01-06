@@ -9,6 +9,7 @@ import {
 } from "@bsport/kaizen-primitive-core";
 import { dataAccessLayer } from "@bsport/sm-backbone";
 
+import { openCancelModal } from "#src/stores/session-list";
 import type { EnrichedSession } from "#src/types";
 import { useTranslation } from "#src/utils/i18n";
 
@@ -64,6 +65,7 @@ export const ShortcutActionsButton: React.FC<ShortcutActionsButtonProps> = ({
         type: "button",
         onClick: () => {
           setIsPopoverOpened(false);
+          openCancelModal(session);
         },
       };
       const restoreShortcutAction: Item = {
@@ -99,7 +101,7 @@ export const ShortcutActionsButton: React.FC<ShortcutActionsButtonProps> = ({
             deleteShortcutAction,
           ];
     },
-    [t, session.available, session.id, copyToClipboard, companyId],
+    [t, session, copyToClipboard, companyId],
   );
 
   return (

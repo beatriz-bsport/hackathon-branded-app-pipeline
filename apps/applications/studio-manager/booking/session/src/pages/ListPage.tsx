@@ -12,6 +12,7 @@ import { dataAccessLayer } from "@bsport/sm-backbone";
 import { AddSessionModal } from "#src/components/AddSessionModal/AddSessionModal";
 import { CancelMultipleSessionsModal } from "#src/components/SessionList/actions/cancel-multiple-sessions-modal";
 import { ExportParticipantsModal } from "#src/components/SessionList/actions/export-participants-modal";
+import { CancelSessionModal } from "#src/components/SessionList/detail-actions/cancel-session-modal";
 import { MoreActionsButton } from "#src/components/SessionList/more-actions-button";
 import { useModal } from "#src/hooks/use-modal";
 import { useTranslation } from "#src/utils/i18n";
@@ -26,6 +27,7 @@ import {
   useSessionListData,
 } from "../hooks/useSessionListData";
 import {
+  selectModalState,
   selectSelectedDate,
   setLocale,
   setSelectedDate,
@@ -38,6 +40,7 @@ const ListPage: React.FC = () => {
   const companyTimeZone = dataAccessLayer.useCompanyTheme()?.timezone_name;
 
   const selectedDate = useSessionListStore(selectSelectedDate);
+  const detailsModalState = useSessionListStore(selectModalState);
 
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -184,6 +187,7 @@ const ListPage: React.FC = () => {
           isOpen={cancelMultipleSessionsModal}
           onClose={closeCancelMultipleSessionsModal}
         />
+        {detailsModalState?.type === "cancel" && <CancelSessionModal />}
       </ListLayout.Content>
     </ListLayout>
   );

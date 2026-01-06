@@ -103,6 +103,10 @@
     "confirmButton": "Export",
     "errorMessage": "An error occurred while exporting the participant list. Please try again."
   },
+  "backgroundTask": {
+    "genericError": "An error has occurred. Check your connection and try refreshing the page.",
+    "timeoutError": "The server took too long to respond. Try refreshing the page"
+  },
   "cancelModal": {
     "title": "Cancel session?",
     "description": "You can restore this session at any time but you won’t be able to retrieve any bookings related to this session.",

@@ -1,6 +1,13 @@
 import React, { useCallback } from "react";
 
-import { Button, Item, Menu, Popover } from "@bsport/kaizen-primitive-core";
+import {
+  Button,
+  Item,
+  Menu,
+  Popover,
+  useCopyToClipboard,
+} from "@bsport/kaizen-primitive-core";
+import { dataAccessLayer } from "@bsport/sm-backbone";
 
 import type { EnrichedSession } from "#src/types";
 import { useTranslation } from "#src/utils/i18n";
@@ -13,6 +20,8 @@ export const ShortcutActions: React.FC<ShortcutActionsProps> = ({
   session,
 }) => {
   const { t } = useTranslation("sessionList");
+  const { copyToClipboard } = useCopyToClipboard();
+  const companyId = dataAccessLayer.useCompanyTheme()?.company;
 
   const getMenuItems = useCallback(
     (
@@ -42,6 +51,9 @@ export const ShortcutActions: React.FC<ShortcutActionsProps> = ({
         iconLeft: "link-01",
         type: "button",
         onClick: () => {
+          copyToClipboard(
+            `${window.location.origin}/customer/payment/offer/${session.id}?membership=${companyId}`,
+          );
           setIsPopoverOpened(false);
         },
       };
@@ -87,7 +99,7 @@ export const ShortcutActions: React.FC<ShortcutActionsProps> = ({
             deleteShortcutAction,
           ];
     },
-    [t, session.available],
+    [t, session.available, session.id, copyToClipboard, companyId],
   );
 
   return (

@@ -8,7 +8,11 @@ import {
 } from "@bsport/api-book";
 import { Teacher } from "@bsport/api-core";
 import type { Establishment } from "@bsport/api-core";
-import { fromIsoString, getIsoDateString } from "@bsport/datetime-manipulation";
+import {
+  type DateTime,
+  fromIsoString,
+  getIsoDate,
+} from "@bsport/datetime-manipulation";
 import { getCompanyTimezone } from "@bsport/timezone-utils";
 
 import { getParamsFromFilters } from "#src/components/SessionList/Filters/getParamsFromFilters";
@@ -90,20 +94,20 @@ const extractRelatedIds = (sessions: ManagerSession[]) => {
 };
 
 const extractDateRangeParams = (
-  params: { date: Date } | { minDate: Date; maxDate: Date } | null,
+  params: { date: DateTime } | { minDate: DateTime; maxDate: DateTime } | null,
 ): { minDateKey: string | null; maxDateKey: string | null } => {
   if (!params) return { minDateKey: null, maxDateKey: null };
 
   if ("date" in params) {
     return {
-      minDateKey: getIsoDateString(params.date),
-      maxDateKey: getIsoDateString(params.date),
+      minDateKey: getIsoDate(params.date),
+      maxDateKey: getIsoDate(params.date),
     };
   }
 
   return {
-    minDateKey: getIsoDateString(params.minDate),
-    maxDateKey: getIsoDateString(params.maxDate),
+    minDateKey: getIsoDate(params.minDate),
+    maxDateKey: getIsoDate(params.maxDate),
   };
 };
 
@@ -144,7 +148,7 @@ const sessionsQueryOptions = (
   });
 
 export const useSessionListData = (
-  params: { date: Date } | { minDate: Date; maxDate: Date } | null,
+  params: { date: DateTime } | { minDate: DateTime; maxDate: DateTime } | null,
 ) => {
   const { minDateKey, maxDateKey } = extractDateRangeParams(params);
 

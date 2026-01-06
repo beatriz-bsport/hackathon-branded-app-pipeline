@@ -1,5 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 
+import { type DateTime, getLocalNow } from "@bsport/datetime-manipulation";
+import { getCompanyTimezone } from "@bsport/timezone-utils";
+
 import CalendarHeader from "./CalendarHeader";
 import DateInputField from "./DateInputField";
 import type { SelectedDate } from "./DatePicker";
@@ -8,9 +11,9 @@ import Month from "./Month";
 type CalendarSingleProps = {
   id: string;
   years?: number[];
-  disableDate?: (date: Date, selectedDate: SelectedDate) => boolean;
-  selectedDate: Date | null;
-  onSelect: (date: Date | null) => void;
+  disableDate?: (date: DateTime, selectedDate: SelectedDate) => boolean;
+  selectedDate: DateTime | null;
+  onSelect: (date: DateTime | null) => void;
   hideSelector?: boolean;
 };
 
@@ -22,7 +25,10 @@ const CalendarSingle: React.FC<CalendarSingleProps> = ({
   onSelect,
   hideSelector = false,
 }) => {
-  const [displayMonth, setDisplayMonth] = useState(new Date());
+  const timezone = getCompanyTimezone();
+  const [displayMonth, setDisplayMonth] = useState<DateTime>(
+    getLocalNow({ zone: timezone }),
+  );
   const isInputChange = useRef(false);
 
   useEffect(() => {
@@ -33,12 +39,10 @@ const CalendarSingle: React.FC<CalendarSingleProps> = ({
       return;
     }
     if (!selectedDate) return;
-    setDisplayMonth(
-      new Date(selectedDate.getFullYear(), selectedDate.getMonth(), 1),
-    );
+    setDisplayMonth(selectedDate.startOf("month"));
   }, [selectedDate]);
 
-  const handleDateSelect = (date: Date) => {
+  const handleDateSelect = (date: DateTime) => {
     onSelect(date);
   };
 

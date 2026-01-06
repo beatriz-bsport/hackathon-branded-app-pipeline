@@ -39,6 +39,7 @@
     "@bsport/datetime-formatting": "workspace:*",
     "@bsport/datetime-manipulation": "workspace:*",
     "@bsport/i18n": "workspace:*",
+    "@bsport/timezone-utils": "workspace:*",
     "class-variance-authority": "^0.7.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",

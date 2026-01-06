@@ -1,4 +1,4 @@
-import { getWeekBounds } from "@bsport/datetime-manipulation";
+import { type DateTime, getWeekBounds } from "@bsport/datetime-manipulation";
 import { FilterElementState } from "@bsport/kaizen-primitive-core";
 
 import { CalendarView, sessionListStore } from "./store";
@@ -44,7 +44,9 @@ export const setCalendarView = (calendarView: CalendarView) => {
   });
 };
 
-export const setSelectedDate = (date: Date | [Date | null, Date | null]) => {
+export const setSelectedDate = (
+  date: DateTime | [DateTime | null, DateTime | null],
+) => {
   if (Array.isArray(date)) {
     sessionListStore.setState({
       selectedDate: { type: "range", minDate: date[0], maxDate: date[1] },
@@ -56,7 +58,7 @@ export const setSelectedDate = (date: Date | [Date | null, Date | null]) => {
   }
 };
 
-export const setUniqueDate = (date: Date) => {
+export const setUniqueDate = (date: DateTime) => {
   sessionListStore.setState({
     calendarView: CalendarView.DAILY,
     selectedDate: { type: "single", date },

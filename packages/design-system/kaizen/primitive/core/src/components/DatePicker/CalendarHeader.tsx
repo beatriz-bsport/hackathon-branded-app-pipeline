@@ -1,6 +1,11 @@
 import React, { useMemo } from "react";
 
-import { getMonths } from "@bsport/datetime-manipulation";
+import {
+  type DateTime,
+  getLocalNow,
+  getMonths,
+} from "@bsport/datetime-manipulation";
+import { getCompanyTimezone } from "@bsport/timezone-utils";
 
 import Button from "#src/components/Button";
 import Select from "#src/components/Select";
@@ -12,10 +17,10 @@ const YEARS_OFFSET = 5;
 const BASE_MONTH_COUNT = 12;
 
 type CalendarHeaderProps = {
-  displayMonth: Date;
+  displayMonth: DateTime;
   mode: "single" | "range";
   years?: number[];
-  onSelect: (date: Date) => void;
+  onSelect: (date: DateTime) => void;
 };
 
 const CalendarHeader: React.FC<CalendarHeaderProps> = ({
@@ -27,27 +32,23 @@ const CalendarHeader: React.FC<CalendarHeaderProps> = ({
   const i18nInstance = useKaizenI18nInstance();
   const { t } = useTranslation("default", { i18n: i18nInstance });
 
-  const handlePrevMonth = () =>
-    onSelect(
-      new Date(displayMonth.getFullYear(), displayMonth.getMonth() - 1, 1),
-    );
+  const handlePrevMonth = () => onSelect(displayMonth.minus({ months: 1 }));
 
-  const handleNextMonth = () =>
-    onSelect(
-      new Date(displayMonth.getFullYear(), displayMonth.getMonth() + 1, 1),
-    );
+  const handleNextMonth = () => onSelect(displayMonth.plus({ months: 1 }));
 
   const handleMonthChange = (id: string) => {
     const monthIndex = months.indexOf(id);
     if (monthIndex >= 0) {
-      onSelect(new Date(displayMonth.getFullYear(), monthIndex, 1));
+      // Luxon months are 1-indexed
+      onSelect(displayMonth.set({ month: monthIndex + 1, day: 1 }));
     }
   };
 
   const handleYearChange = (id: string) =>
-    onSelect(new Date(parseInt(id, 10), displayMonth.getMonth(), 1));
+    onSelect(displayMonth.set({ year: parseInt(id, 10), day: 1 }));
 
-  const currentYear = new Date().getFullYear();
+  const timezone = getCompanyTimezone();
+  const currentYear = getLocalNow({ zone: timezone }).year;
   const yearsRendered =
     years ||
     Array.from(
@@ -61,7 +62,8 @@ const CalendarHeader: React.FC<CalendarHeaderProps> = ({
   );
 
   const selectLabel = useMemo(() => {
-    const month = months[displayMonth.getMonth()];
+    // Luxon months are 1-indexed
+    const month = months[displayMonth.month - 1];
     if (!month) return "";
     return month.length > MIN_ABBREVIATION_LENGTH
       ? month.slice(0, MIN_ABBREVIATION_LENGTH) + "."
@@ -69,10 +71,10 @@ const CalendarHeader: React.FC<CalendarHeaderProps> = ({
   }, [displayMonth, months]);
 
   const getMonthYearDisplay = (delta: number) => {
-    const monthIndex = (displayMonth.getMonth() + delta) % BASE_MONTH_COUNT;
+    const monthIndex = (displayMonth.month - 1 + delta) % BASE_MONTH_COUNT;
     const yearDelta =
-      displayMonth.getMonth() + delta >= BASE_MONTH_COUNT ? 1 : 0;
-    return `${months[monthIndex]} ${displayMonth.getFullYear() + yearDelta}`;
+      displayMonth.month - 1 + delta >= BASE_MONTH_COUNT ? 1 : 0;
+    return `${months[monthIndex]} ${displayMonth.year + yearDelta}`;
   };
 
   return (
@@ -93,7 +95,7 @@ const CalendarHeader: React.FC<CalendarHeaderProps> = ({
           />
           <Select
             className={`min-w-[82px]`}
-            value={String(displayMonth.getFullYear())}
+            value={String(displayMonth.year)}
             items={yearsRendered.map((year) => ({
               id: String(year),
               label: String(year),

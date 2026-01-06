@@ -1,10 +1,10 @@
 import React, { useCallback, useMemo } from "react";
 
 import {
-  getIsoDateString,
-  getTodayJSDate,
+  type DateTime,
+  getIsoDate,
+  getLocalNow,
   isSameDay,
-  toDateTime,
 } from "@bsport/datetime-manipulation";
 import { Button } from "@bsport/kaizen-primitive-core";
 import { dataAccessLayer } from "@bsport/sm-backbone";
@@ -19,15 +19,19 @@ import {
 } from "#src/stores/session-list";
 import { useTranslation } from "#src/utils/i18n";
 
-const scrollToDate = (date: Date) => {
-  const dateString = getIsoDateString(date);
+const scrollToDate = (date: DateTime) => {
+  const dateString = getIsoDate(date);
   const dateElement = document.querySelector(`[data-date="${dateString}"]`);
   if (dateElement) {
     dateElement.scrollIntoView({ behavior: "smooth", block: "start" });
   }
 };
 
-const isInRange = (date: Date, minDate: Date | null, maxDate: Date | null) => {
+const isInRange = (
+  date: DateTime,
+  minDate: DateTime | null,
+  maxDate: DateTime | null,
+) => {
   if (minDate && maxDate) {
     return date >= minDate && date <= maxDate;
   }
@@ -43,15 +47,14 @@ export const TodayButton: React.FC = () => {
   const selectedDate = useSessionListStore(selectSelectedDate);
 
   const today = useMemo(
-    () => getTodayJSDate(intlLocale, companyTimeZone),
+    () => getLocalNow({ locale: intlLocale, zone: companyTimeZone }),
     [intlLocale, companyTimeZone],
   );
 
   const handleTodayClick = useCallback(() => {
     if (calendarView === CalendarView.DAILY && selectedDate.type === "single") {
-      const selectedDateTime = toDateTime(selectedDate.date);
-      const todayDateTime = toDateTime(today);
-      if (!isSameDay(selectedDateTime, todayDateTime)) {
+      const selectedDateTime = selectedDate.date;
+      if (!isSameDay(selectedDateTime, today)) {
         setSelectedDate(today);
       }
       return;

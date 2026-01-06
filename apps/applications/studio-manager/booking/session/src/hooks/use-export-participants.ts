@@ -4,7 +4,7 @@ import {
   FetchReportParticipantsListParams,
   fetchReportParticipantsListAPI,
 } from "@bsport/api-business-insights";
-import { getIsoDateString } from "@bsport/datetime-manipulation";
+import { type DateTime, getIsoDate } from "@bsport/datetime-manipulation";
 import { toast } from "@bsport/kaizen-primitive-core";
 
 import { fetch } from "#src/utils/fetch";
@@ -19,10 +19,10 @@ export const useExportParticipantsList = () => {
   const { t } = useTranslation("sessionList");
   return useMutation({
     mutationFn: (params: {
-      date: Date;
+      date: DateTime;
       filters: Omit<FetchReportParticipantsListParams, "date">;
     }) => {
-      const formattedDate = getIsoDateString(params.date);
+      const formattedDate = getIsoDate(params.date);
       const formattedParams = { ...params.filters, date: formattedDate };
       return fetchReportParticipantsList(formattedParams);
     },

@@ -1,4 +1,4 @@
-import { modifyTime, toDateTime } from "@bsport/datetime-manipulation";
+import { type DateTime, modifyTime } from "@bsport/datetime-manipulation";
 import { DatePicker, type SelectedDate } from "@bsport/kaizen-primitive-core";
 
 import {
@@ -14,28 +14,27 @@ export const SessionDatePicker: React.FC = () => {
   const selectedDate = useSessionListStore(selectSelectedDate);
 
   const onDateChange = (date: SelectedDate) => {
-    if (date instanceof Date) {
-      setSelectedDate(date);
-    } else if (Array.isArray(date)) {
+    if (!date) return;
+    if (Array.isArray(date)) {
       setSelectedDate([date[0], date[1]]);
+    } else {
+      setSelectedDate(date);
     }
   };
 
-  const disableDate = (date: Date, selectedDate: SelectedDate) => {
+  const disableDate = (date: DateTime, selectedDate: SelectedDate) => {
     const [start, end] = Array.isArray(selectedDate) ? selectedDate : [];
 
     // Do not disable if the user is starting a new range selection
     if (!start || !!end) return false;
 
-    const dateDT = toDateTime(date);
-    const startDT = toDateTime(start);
-    const maxDT = modifyTime({
-      datetime: startDT,
+    const maxDate = modifyTime({
+      datetime: start,
       duration: { month: 1 },
       operator: "plus",
     });
 
-    return dateDT < startDT || dateDT >= maxDT;
+    return date < start || date >= maxDate;
   };
 
   const datePickerValue: SelectedDate =

@@ -1,13 +1,14 @@
 import React, { useMemo } from "react";
 
 import {
+  type DateTime,
   generateCalendarDays,
+  getLocalNow,
   getWeekStartDayFromLocale,
   getWeekdays,
   isSameDay,
-  toDate,
-  toDateTime,
 } from "@bsport/datetime-manipulation";
+import { getCompanyTimezone } from "@bsport/timezone-utils";
 
 import { useKaizenI18nInstance } from "#src/i18n";
 
@@ -15,9 +16,9 @@ import type { SelectedDate } from "./DatePicker";
 import Day, { type DayStatus } from "./Day";
 
 type MonthProps = {
-  disableDate?: (date: Date, selectedDate: SelectedDate) => boolean;
-  displayMonth: Date;
-  onSelect?: (date: Date) => void;
+  disableDate?: (date: DateTime, selectedDate: SelectedDate) => boolean;
+  displayMonth: DateTime;
+  onSelect?: (date: DateTime) => void;
   selectedDate: SelectedDate;
 };
 
@@ -32,15 +33,13 @@ const Month: React.FC<MonthProps> = ({
     () => getWeekdays("short", i18nInstance?.language || "en-US"),
     [i18nInstance?.language],
   );
-  const displayDateTime = toDateTime(displayMonth);
   const weekStartDay = getWeekStartDayFromLocale(
     i18nInstance?.language || "en-US",
   );
 
   const calendarDays = useMemo(
-    () =>
-      generateCalendarDays(displayDateTime, i18nInstance?.language || "en-US"),
-    [displayDateTime, i18nInstance?.language],
+    () => generateCalendarDays(displayMonth, i18nInstance?.language || "en-US"),
+    [displayMonth, i18nInstance?.language],
   );
 
   const weeks = useMemo(() => {
@@ -48,46 +47,38 @@ const Month: React.FC<MonthProps> = ({
     return Math.ceil(calendarDays.length / 7);
   }, [calendarDays]);
 
-  const getDayStatus = (date: Date): DayStatus => {
+  const timezone = getCompanyTimezone();
+
+  const getDayStatus = (date: DateTime): DayStatus => {
     if (disableDate?.(date, selectedDate)) return "disabled";
 
     if (!selectedDate) return "default";
 
-    if (selectedDate instanceof Date) {
-      return isSameDay(toDateTime(date), toDateTime(selectedDate))
-        ? "selected"
-        : "default";
+    if (!Array.isArray(selectedDate)) {
+      return isSameDay(date, selectedDate) ? "selected" : "default";
     }
 
-    if (Array.isArray(selectedDate)) {
-      const [startDate, endDate] = selectedDate;
-      if (!startDate) return "default";
+    const [startDate, endDate] = selectedDate;
+    if (!startDate) return "default";
 
-      const current = toDateTime(date);
-      const start = toDateTime(startDate);
-      const end = endDate ? toDateTime(endDate) : undefined;
-
-      if (isSameDay(current, start)) {
-        return end && isSameDay(start, end) ? "selected" : "start";
-      }
-
-      if (end && isSameDay(current, end)) return "end";
-
-      if (end && current > start && current < end) {
-        if (date.getDate() === 1) return "weekStartDay";
-
-        const nextMonth = new Date(date.getFullYear(), date.getMonth() + 1, 1);
-        const lastDayOfMonth = new Date(nextMonth.getTime() - 1);
-        if (date.getDate() === lastDayOfMonth.getDate()) return "endOfWeek";
-
-        const dayOfWeek = (current.weekday - weekStartDay + 7) % 7;
-        if (dayOfWeek === 0) return "weekStartDay";
-        if (dayOfWeek === 6) return "endOfWeek";
-
-        return "middle";
-      }
+    if (isSameDay(date, startDate)) {
+      return endDate && isSameDay(startDate, endDate) ? "selected" : "start";
     }
 
+    if (endDate && isSameDay(date, endDate)) return "end";
+    if (endDate && date > startDate && date < endDate) {
+      if (date.day === 1) return "weekStartDay";
+
+      const nextMonth = date.plus({ months: 1 }).startOf("month");
+      const lastDayOfMonth = nextMonth.minus({ days: 1 });
+      if (isSameDay(date, lastDayOfMonth)) return "endOfWeek";
+
+      const dayOfWeek = (date.weekday - weekStartDay + 7) % 7;
+      if (dayOfWeek === 0) return "weekStartDay";
+      if (dayOfWeek === 6) return "endOfWeek";
+
+      return "middle";
+    }
     return "default";
   };
 
@@ -110,21 +101,23 @@ const Month: React.FC<MonthProps> = ({
           <tr className="flex" key={weekIdx}>
             {Array.from({ length: 7 }).map((__, dayIdx) => {
               const dayIndex = weekIdx * 7 + dayIdx;
-              const dt = calendarDays[dayIndex];
+              const date = calendarDays[dayIndex];
 
-              if (!dt) {
+              if (!date) {
                 return <td key={dayIndex} className="w-xl h-xl" />;
               }
 
-              const date = toDate(dt);
-              const isCurrentDay = isSameDay(dt, toDateTime(new Date()));
+              const isCurrentDay = isSameDay(
+                date,
+                getLocalNow({ zone: timezone }),
+              );
               const isDisabled = disableDate?.(date, selectedDate) ?? false;
               const status = getDayStatus(date);
 
               return (
                 <Day
                   key={dayIndex}
-                  value={date.getDate()}
+                  value={date.day}
                   status={status}
                   isCurrentDay={isCurrentDay}
                   onClick={() => {

@@ -1,6 +1,8 @@
 import { cx } from "class-variance-authority";
 import React from "react";
 
+import type { DateTime } from "@bsport/datetime-manipulation";
+
 import Divider from "#src/components/Divider";
 
 import CalendarRange from "./CalendarRange";
@@ -14,7 +16,7 @@ export type DatePickerContentProps = React.HTMLAttributes<HTMLDivElement> & {
   mode: "single" | "range";
   displayAs: "popover" | "modal";
   calendarYears?: number[];
-  disableDate?: (date: Date, selectedDate: SelectedDate) => boolean;
+  disableDate?: (date: DateTime, selectedDate: SelectedDate) => boolean;
   sanitizedSelected: SelectedDate;
   hideSelector?: boolean;
   shortcuts?: ShortcutItem[];
@@ -52,7 +54,7 @@ const DatePickerContent: React.FC<DatePickerContentProps> = ({
             id={id}
             years={calendarYears}
             disableDate={disableDate}
-            selectedDate={sanitizedSelected as Date}
+            selectedDate={sanitizedSelected as DateTime}
             onSelect={onCalendarSelect}
             hideSelector={hideSelector}
           />
@@ -61,7 +63,7 @@ const DatePickerContent: React.FC<DatePickerContentProps> = ({
             id={id}
             years={calendarYears}
             disableDate={disableDate}
-            selectedDate={sanitizedSelected as [Date, Date]}
+            selectedDate={sanitizedSelected as [DateTime, DateTime]}
             onSelect={onCalendarSelect}
             hideSelector={hideSelector}
           />

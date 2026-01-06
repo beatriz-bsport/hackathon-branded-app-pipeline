@@ -1,6 +1,6 @@
 import { FC, useEffect, useState } from "react";
 
-import { getTodayJSDate } from "@bsport/datetime-manipulation";
+import { type DateTime, getLocalNow } from "@bsport/datetime-manipulation";
 import {
   Body,
   DatePicker,
@@ -8,6 +8,7 @@ import {
   SelectedDate,
   Toggle,
 } from "@bsport/kaizen-primitive-core";
+import { dataAccessLayer } from "@bsport/sm-backbone";
 
 import { useExportParticipantsList } from "#src/hooks/use-export-participants";
 import {
@@ -24,15 +25,18 @@ export const ExportParticipantsModal: FC<{
   onClose: () => void;
 }> = ({ isOpen, onClose }) => {
   const { t } = useTranslation("sessionList");
+  const companyTimeZone = dataAccessLayer.useCompanyTheme()?.timezone_name;
 
   const currentSelectedDate = useSessionListStore(selectSelectedDate);
   const defaultDatePickerValue =
     currentSelectedDate.type === "single"
       ? currentSelectedDate.date
-      : currentSelectedDate.minDate || getTodayJSDate();
+      : currentSelectedDate.minDate || getLocalNow({ zone: companyTimeZone });
 
   const [applyFilters, setApplyFilters] = useState(false);
-  const [exportDate, setExportDate] = useState<Date>(defaultDatePickerValue);
+  const [exportDate, setExportDate] = useState<DateTime>(
+    defaultDatePickerValue,
+  );
 
   useEffect(() => {
     if (isOpen) {
@@ -41,7 +45,7 @@ export const ExportParticipantsModal: FC<{
   }, [isOpen, defaultDatePickerValue]);
 
   const handleDateChange = (date: SelectedDate) => {
-    if (date instanceof Date) {
+    if (!!date && !Array.isArray(date)) {
       setExportDate(date);
     }
   };

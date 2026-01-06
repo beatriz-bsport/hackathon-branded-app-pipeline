@@ -114,7 +114,9 @@
     "bookingsAlert_other": "<strong>{{number}} members</strong> who booked this session will have their credits refunded",
     "notificationLabel": "Send a notification to all members who booked this session",
     "cancelButton": "Back",
-    "confirmButton": "Cancel"
+    "confirmButton": "Cancel",
+    "errorMessage": "An error occurred while cancelling the session. Please try again later.",
+    "successMessage": "Session cancelled"
   },
   "cancelMultipleSessionsModal": {
     "title": "Cancel multiple sessions?",

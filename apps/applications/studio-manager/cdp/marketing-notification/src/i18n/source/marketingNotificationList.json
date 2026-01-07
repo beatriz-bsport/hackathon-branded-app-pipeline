@@ -3,10 +3,35 @@
   "loading": "Loading notifications ...",
   "page": {
     "title": "Marketing notifications",
+    "filters": {
+      "label": "Notification type",
+      "notificationTypeLabel": {
+        "location": "Location",
+        "privateService": "Appointment",
+        "groupActivity": "Group Activity",
+        "workshop": "Workshop",
+        "establishment": "Establishment",
+        "paymentPack": "Pass",
+        "privatePass": "Appointment Pass",
+        "subscription": "Subscription",
+        "birthday": "Birthday"
+      },
+      "operators": {
+        "is": "Is",
+        "isNot": "Is not"
+      }
+    },
     "emptyState": {
-      "title": "No notifications yet",
-      "description": "Set up an automation to send notifications to your members",
-      "primaryAction": "Add automation"
+      "unfiltered": {
+        "title": "No notifications yet",
+        "description": "Set up an automation to send notifications to your members",
+        "primaryAction": "Add automation"
+      },
+      "filtered": {
+        "title": "No notifications matching your search",
+        "description": "Try to clear your filters to see your current notifications",
+        "primaryAction": "Clear filters"
+      }
     },
     "actions": {
       "createNotificationButton": "Create notification"

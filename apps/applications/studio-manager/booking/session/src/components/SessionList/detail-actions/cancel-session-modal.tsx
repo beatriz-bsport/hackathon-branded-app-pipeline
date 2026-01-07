@@ -5,40 +5,41 @@ import { Alert, Body, Modal, Toggle } from "@bsport/kaizen-primitive-core";
 import { dataAccessLayer } from "@bsport/sm-backbone";
 
 import { useCancelSession } from "#src/hooks/session-actions/use-cancel-session";
-import { closeModal, useSessionListStore } from "#src/stores/session-list";
+import {
+  closeModal,
+  selectIsCancelModalOpen,
+  useSessionListStore,
+} from "#src/stores/session-list";
+import { EnrichedSession } from "#src/types";
 import { TFunction, Trans, useTranslation } from "#src/utils/i18n";
 
-import {
-  selectIsCancelModalOpen,
-  selectModalState,
-} from "../../../stores/session-list/selectors";
-
-export const CancelSessionModal: FC = () => {
+type CancelSessionModalProps = {
+  session: EnrichedSession;
+};
+export const CancelSessionModal: FC<CancelSessionModalProps> = ({
+  session,
+}) => {
   const { t, i18n } = useTranslation("sessionList");
   const companyTimezone = dataAccessLayer.useCompanyTheme()?.timezone_name;
   const isOpen = useSessionListStore(selectIsCancelModalOpen);
-  const session = useSessionListStore(selectModalState)?.session;
 
   const [sendNotification, setSendNotification] = useState(false);
 
   const cancelSession = useCancelSession();
 
   const handleConfirm = () => {
-    if (session) {
-      closeModal();
-      cancelSession.mutate({
-        id: session.id,
-        params: {
-          should_notify: sendNotification,
-          apply_to_all_similar_offers: false,
-          cancel_linked_hybrid_offer: false,
-        },
-      });
-    }
+    closeModal();
+    cancelSession.mutate({
+      id: session.id,
+      params: {
+        should_notify: sendNotification,
+        apply_to_all_similar_offers: false,
+        cancel_linked_hybrid_offer: false,
+      },
+    });
   };
 
   const getDescription = () => {
-    if (!session) return "";
     const sessionDate = formatDateTime(
       session.date_start,
       DATETIME_FORMATS.MEDIUM_DATETIME,
@@ -74,7 +75,7 @@ export const CancelSessionModal: FC = () => {
         <Body htmlVariant="p" size="lg">
           {t("cancelModal.description")}
         </Body>
-        {session && session.nb_bookings > 0 && (
+        {session.nb_bookings > 0 && (
           <>
             <Alert status="critical">
               <Body htmlVariant="p" size="md" weight="weak" color="critical">

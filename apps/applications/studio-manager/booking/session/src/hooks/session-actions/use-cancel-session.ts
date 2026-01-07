@@ -6,7 +6,7 @@ import { toast } from "@bsport/kaizen-primitive-core";
 import { fetch } from "#src/utils/fetch";
 import {
   BACKGROUND_TASK_ERRORS,
-  waitForBackgroundTask,
+  useWaitForBackgroundTask,
 } from "#src/utils/fetch-background-task";
 import { useTranslation } from "#src/utils/i18n";
 
@@ -22,13 +22,14 @@ interface CancelSessionVariables {
 export const useCancelSession = () => {
   const queryClient = useQueryClient();
   const { t } = useTranslation("sessionList");
+  const waitForBackgroundTask = useWaitForBackgroundTask(fetch);
 
   return useMutation<string | null, Error, CancelSessionVariables>({
     mutationFn: async ({ id, params }: CancelSessionVariables) => {
       const backgroundTaskUuid = await cancelSession(id, params);
 
       if (backgroundTaskUuid) {
-        return waitForBackgroundTask(backgroundTaskUuid, fetch);
+        return waitForBackgroundTask(backgroundTaskUuid);
       }
 
       return null;

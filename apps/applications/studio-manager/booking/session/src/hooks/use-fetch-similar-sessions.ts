@@ -32,6 +32,7 @@ export const useFetchSimilarSessions = (sessionId: number, enabled = true) => {
           "date_start",
           "effectif",
           "validated_booking_count",
+          "timezone_name",
         ]),
       ),
   });

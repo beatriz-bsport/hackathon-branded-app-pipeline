@@ -4,7 +4,9 @@ import { DATETIME_FORMATS, formatDateTime } from "@bsport/datetime-formatting";
 import { Alert, Body, Modal, Toggle } from "@bsport/kaizen-primitive-core";
 import { dataAccessLayer } from "@bsport/sm-backbone";
 
+import { SessionSummaryList } from "#src/components/common/session-summary-list";
 import { useCancelSession } from "#src/hooks/session-actions/use-cancel-session";
+import { useFetchSimilarSessions } from "#src/hooks/use-fetch-similar-sessions";
 import {
   closeModal,
   selectIsCancelModalOpen,
@@ -24,6 +26,9 @@ export const CancelSessionModal: FC<CancelSessionModalProps> = ({
   const isOpen = useSessionListStore(selectIsCancelModalOpen);
 
   const [sendNotification, setSendNotification] = useState(false);
+  const [cancelFutureSessions, setCancelFutureSessions] = useState(false);
+
+  const { data: similarSessions } = useFetchSimilarSessions(session.id, true);
 
   const cancelSession = useCancelSession();
 
@@ -97,6 +102,23 @@ export const CancelSessionModal: FC<CancelSessionModalProps> = ({
               checked={sendNotification}
               onChange={() => setSendNotification(!sendNotification)}
             />
+          </>
+        )}
+        {similarSessions && similarSessions.length > 0 && (
+          <>
+            <Toggle
+              id="cancel-session-future-sessions-toggle"
+              label={t("cancelModal.cancelFutureSessions")}
+              checked={cancelFutureSessions}
+              onChange={() =>
+                setCancelFutureSessions((prevState) => !prevState)
+              }
+            />
+            {cancelFutureSessions && (
+              <div className="flex flex-col gap-md ml-xl">
+                <SessionSummaryList sessions={similarSessions} />
+              </div>
+            )}
           </>
         )}
       </div>

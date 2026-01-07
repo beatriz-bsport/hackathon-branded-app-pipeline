@@ -6,8 +6,12 @@ import { List } from "@bsport/kaizen-primitive-core";
 
 import { useTranslation } from "#src/utils/i18n";
 
+type SummaryListSession = Pick<
+  MinimalSession,
+  "id" | "date_start" | "timezone_name"
+>;
 type SessionSummaryListProps = {
-  sessions: MinimalSession[];
+  sessions: SummaryListSession[];
 };
 
 export const SessionSummaryList: React.FC<SessionSummaryListProps> = ({
@@ -32,6 +36,7 @@ export const SessionSummaryList: React.FC<SessionSummaryListProps> = ({
           id: `${session.id}`,
           title: `${startDate} • ${startTime}`,
           disabled: true,
+          selected: "disabled",
         };
       })}
       isCompact

@@ -113,6 +113,7 @@
     "bookingsAlert_one": "<strong>{{number}} member </strong> who booked this session will have their credits refunded",
     "bookingsAlert_other": "<strong>{{number}} members</strong> who booked this session will have their credits refunded",
     "notificationLabel": "Send a notification to all members who booked this session",
+    "cancelFutureSessions": "Cancel future sessions too",
     "cancelButton": "Back",
     "confirmButton": "Cancel",
     "errorMessage": "An error occurred while cancelling the session. Please try again later.",

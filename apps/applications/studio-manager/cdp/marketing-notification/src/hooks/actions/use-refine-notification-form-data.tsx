@@ -7,6 +7,17 @@ import {
 import type { TriggerConditionStepProps } from "#src/components/MarketingNotificationEdition/Context/FormStepContext.context";
 import type { BookingTemporality } from "#src/components/MarketingNotificationEdition/NotificationTriggerForms/Booking/types";
 import { TimeUnitType } from "#src/components/MarketingNotificationEdition/NotificationTriggerForms/Common/types";
+import {
+  APPOINTMENT_PASS_ACTIONS_MAP_TO_EVENT_KIND,
+  PASS_ACTION_CREDITS_LEFT,
+  PAYMENT_PASS_ACTIONS_MAP_TO_EVENT_KIND,
+} from "#src/components/MarketingNotificationEdition/NotificationTriggerForms/Pass/types";
+import {
+  PAYMENT_PACK_TYPE,
+  PRIVATE_PASS_TYPE,
+  PassTriggerConfigValidationFormData,
+  PassesType,
+} from "#src/utils/schemas/types";
 
 const TIME_OPTION_NOT_SELECTED = null;
 
@@ -22,6 +33,16 @@ export const useRefineNotificationFormData = () => {
     }
     if (triggerCondition.type === "subscription") {
       return triggerCondition.subscriptionEventKind;
+    }
+    if (triggerCondition.type === PRIVATE_PASS_TYPE) {
+      return APPOINTMENT_PASS_ACTIONS_MAP_TO_EVENT_KIND[
+        triggerCondition?.passEventAction
+      ];
+    }
+    if (triggerCondition.type === PAYMENT_PACK_TYPE) {
+      return PAYMENT_PASS_ACTIONS_MAP_TO_EVENT_KIND[
+        triggerCondition?.passEventAction
+      ];
     }
     return BIRTHDAY_NOTIFICATION;
   };
@@ -61,10 +82,52 @@ export const useRefineNotificationFormData = () => {
     };
   };
 
+  const getPassesEventRules = ({
+    triggerType,
+    triggerCondition,
+  }: {
+    triggerType: PassesType;
+    triggerCondition: PassTriggerConfigValidationFormData;
+  }) => {
+    const passIds = triggerCondition.passIds;
+    const creditsLeft = triggerCondition.creditsLeft ?? 0;
+    const daysLeft = triggerCondition.daysLeft ?? 0;
+    const daysLeftRefined = triggerCondition.isPassExpirationCheck
+      ? daysLeft * -1
+      : daysLeft;
+
+    const finerGrainParams =
+      triggerType === PRIVATE_PASS_TYPE
+        ? {
+            private_pass_ids: passIds,
+            contains_all_private_passes:
+              triggerCondition.shouldContainAllPasses,
+          }
+        : {
+            payment_pack_ids: passIds,
+            contains_all_payment_packs: triggerCondition.shouldContainAllPasses,
+          };
+
+    const occurenceEventParams =
+      triggerCondition.passEventAction === PASS_ACTION_CREDITS_LEFT
+        ? { credits_left: creditsLeft }
+        : { days_left: daysLeftRefined };
+    return {
+      ...occurenceEventParams,
+      ...finerGrainParams,
+      name: triggerCondition.notificationName,
+      disabled_if_in_contract: triggerCondition.disabledInContract,
+      event_based: false,
+      smartlist_exclude: triggerCondition.excludedSmartlists,
+      smartlist_include: triggerCondition.includedSmartlists,
+    };
+  };
+
   const getTriggerEventRules = (
     triggerCondition: TriggerConditionStepProps,
   ) => {
-    if (triggerCondition.type === "booking") {
+    const triggerType = triggerCondition.type;
+    if (triggerType === "booking") {
       const eventRulesTiming = getEventRuleDaysAndHours({
         timingTemporality: triggerCondition.timingTemporality,
         timingUnit: triggerCondition.timingUnit,
@@ -93,7 +156,7 @@ export const useRefineNotificationFormData = () => {
         smartlist_include: triggerCondition.includedSmartlists,
       };
     }
-    if (triggerCondition.type === "appointment") {
+    if (triggerType === "appointment") {
       const eventRulesTiming = getEventRuleDaysAndHours({
         timingTemporality: triggerCondition.timingTemporality,
         timingUnit: triggerCondition.timingUnit,
@@ -123,6 +186,12 @@ export const useRefineNotificationFormData = () => {
         smartlist_exclude: triggerCondition.excludedSmartlists,
         smartlist_include: triggerCondition.includedSmartlists,
       };
+    }
+    if (
+      triggerType === PRIVATE_PASS_TYPE ||
+      triggerType === PAYMENT_PACK_TYPE
+    ) {
+      return getPassesEventRules({ triggerType, triggerCondition });
     }
     return 0; // Birthday
   };

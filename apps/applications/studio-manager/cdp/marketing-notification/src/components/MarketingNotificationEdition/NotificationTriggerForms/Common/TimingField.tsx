@@ -25,7 +25,7 @@ import {
   isTimeUnitTypeCorrect,
 } from "#src/components/MarketingNotificationEdition/NotificationTriggerForms/Common/utils";
 import { useTranslation } from "#src/utils/i18n";
-import type { CommonTriggerConfigValidationFormData } from "#src/utils/schemas/types";
+import type { TimeTriggerConfigValidationFormData } from "#src/utils/schemas/types";
 
 type BookingTimingFieldProps = {
   notificationType:
@@ -134,7 +134,7 @@ export const TimingField = ({
       />
       <div className="flex flex-row gap-xs">
         <FormField<
-          CommonTriggerConfigValidationFormData,
+          TimeTriggerConfigValidationFormData,
           "timingUnit",
           SelectProps
         >
@@ -164,7 +164,7 @@ export const TimingField = ({
           />
         </FormField>
         <FormField<
-          CommonTriggerConfigValidationFormData,
+          TimeTriggerConfigValidationFormData,
           "timingValue",
           TextFieldProps
         >

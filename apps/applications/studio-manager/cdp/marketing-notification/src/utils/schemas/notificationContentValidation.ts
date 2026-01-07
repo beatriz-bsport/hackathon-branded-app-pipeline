@@ -3,12 +3,37 @@ import { z } from "zod";
 import { i18nInstance } from "../i18n";
 import type { NotificationContentFormData } from "./types";
 
+export const MAX_TITLE_LENGTH = 25;
+export const MAX_CONTENT_LENGTH = 200;
+
 export const notificationContentValidationFormSchema = z
   .object({
     isPushNotificationChecked: z.boolean(),
     isEmailNotificationChecked: z.boolean(),
-    pushNotificationTitle: z.string().optional(),
-    pushNotificationContent: z.string().optional(),
+    pushNotificationTitle: z
+      .string()
+      .max(MAX_TITLE_LENGTH, {
+        message: i18nInstance.t(
+          `steps.content.errors.tooLong.pushNotificationTitle`,
+          {
+            ns: "sm-marketing-notification_marketingNotificationsModal",
+            count: MAX_TITLE_LENGTH,
+          },
+        ),
+      })
+      .optional(),
+    pushNotificationContent: z
+      .string()
+      .max(MAX_CONTENT_LENGTH, {
+        message: i18nInstance.t(
+          `steps.content.errors.tooLong.pushNotificationContent`,
+          {
+            ns: "sm-marketing-notification_marketingNotificationsModal",
+            count: MAX_CONTENT_LENGTH,
+          },
+        ),
+      })
+      .optional(),
     emailTemplateId: z.number().optional(),
   })
   .superRefine((data, ctx) => {

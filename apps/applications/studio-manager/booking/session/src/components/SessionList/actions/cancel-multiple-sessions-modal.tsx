@@ -1,4 +1,4 @@
-import { FC, useCallback, useEffect, useState } from "react";
+import { FC, useCallback, useEffect, useMemo, useState } from "react";
 
 import {
   DATETIME_FORMATS,
@@ -46,7 +46,10 @@ export const CancelMultipleSessionsModal: FC<{
   >(null);
   const [confirmTick, setConfirmTick] = useState(false);
   const confirmTickValue = confirmTick ? "checked" : "unchecked";
-  const today = getLocalNow({ zone: companyTimezone });
+  const today = useMemo(
+    () => getLocalNow({ zone: companyTimezone }),
+    [companyTimezone],
+  );
 
   const getDefaultDateRange = useCallback((): SelectedDate => {
     if (currentSelectedDate.type === "single" && currentSelectedDate.date) {

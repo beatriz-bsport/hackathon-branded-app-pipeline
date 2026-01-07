@@ -15,6 +15,7 @@ type Props = {
   slots?: { alert?: React.ReactNode };
   partnershipVenues: PartnershipVenue[];
   loading: boolean;
+  onActivateVenue?: (venue: PartnershipVenue) => void;
   onDeleteVenue: (venue: PartnershipVenue) => void;
   onEditVenue: (venue: PartnershipVenue) => void;
   onAddConnection: () => void;
@@ -25,6 +26,7 @@ const PartnershipConfigurationPanel: React.FC<Props> = ({
   displayConfig,
   partnershipVenues,
   loading,
+  onActivateVenue,
   onDeleteVenue,
   onEditVenue,
   onAddConnection,
@@ -39,6 +41,7 @@ const PartnershipConfigurationPanel: React.FC<Props> = ({
       <PartnershipConfigurationContent
         displayConfig={displayConfig}
         loading={loading}
+        onActivateVenue={onActivateVenue}
         onDeleteVenue={onDeleteVenue}
         onEditVenue={onEditVenue}
         partnershipVenues={partnershipVenues}

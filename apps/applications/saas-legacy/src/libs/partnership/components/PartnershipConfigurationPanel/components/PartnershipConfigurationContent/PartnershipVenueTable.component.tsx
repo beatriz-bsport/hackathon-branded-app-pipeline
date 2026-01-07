@@ -23,7 +23,9 @@ import {
 } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
+import RestartAltIcon from '#src/components/icons/RestartAltIcon.component';
 import VenueStatusChip from '../VenueStatusChip.component';
+import Tooltip from '#src/components/Tooltip.component';
 
 const CustomTableCell = React.memo(
   withStyles(() => ({
@@ -38,14 +40,19 @@ type Props = {
   displayConfig: PartnershipDisplayConfig;
   partnershipVenues: PartnershipVenue[];
   loading: boolean;
+  onActivateVenue?: (partnershipVenue: PartnershipVenue) => void;
   onDeleteVenue: (partnershipVenue: PartnershipVenue) => void;
   onEditVenue: (partnershipVenue: PartnershipVenue) => void;
 };
+
+const isVenueDeactivated = (venue: PartnershipVenue) =>
+  !venue.active && !!venue.activated_at;
 
 const PartnershipVenueTable: React.FC<Props> = ({
   displayConfig,
   partnershipVenues,
   loading,
+  onActivateVenue,
   onDeleteVenue,
   onEditVenue,
 }) => {
@@ -75,6 +82,16 @@ const PartnershipVenueTable: React.FC<Props> = ({
         onDeleteVenue(partnershipVenue);
       },
     [onDeleteVenue],
+  );
+
+  const onActivateVenueCallback = React.useCallback(
+    (partnershipVenue: PartnershipVenue) =>
+      (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        event.stopPropagation();
+        event.preventDefault();
+        onActivateVenue(partnershipVenue);
+      },
+    [onActivateVenue],
   );
 
   return (
@@ -166,12 +183,34 @@ const PartnershipVenueTable: React.FC<Props> = ({
             )}
             <TableCell>
               <div className={classes.actionsRow}>
-                <IconButton onClick={onEditVenueCallback(partnershipVenue)}>
-                  <EditIcon color="primary" />
-                </IconButton>
-                <IconButton onClick={onDeleteVenueCallback(partnershipVenue)}>
-                  <DeleteIcon className={classes.greyIcon} />
-                </IconButton>
+                {!isVenueDeactivated(partnershipVenue) || !onActivateVenue ? (
+                  <>
+                    <IconButton onClick={onEditVenueCallback(partnershipVenue)}>
+                      <EditIcon color="primary" />
+                    </IconButton>
+                    <IconButton
+                      onClick={onDeleteVenueCallback(partnershipVenue)}
+                    >
+                      <DeleteIcon className={classes.greyIcon} />
+                    </IconButton>
+                  </>
+                ) : (
+                  <Tooltip
+                    title={
+                      <Typography>
+                        {t(
+                          `${displayConfig.partnershipIdentifier}.configuration.panel.content.table.action.reactivateTooltip`,
+                        )}
+                      </Typography>
+                    }
+                  >
+                    <IconButton
+                      onClick={onActivateVenueCallback(partnershipVenue)}
+                    >
+                      <RestartAltIcon color="primary" />
+                    </IconButton>
+                  </Tooltip>
+                )}
               </div>
             </TableCell>
           </TableRow>

@@ -17,6 +17,7 @@ type Props = {
   loading: boolean;
   onDeleteVenue: (partnershipVenue: PartnershipVenue) => void;
   onEditVenue: (partnershipVenue: PartnershipVenue) => void;
+  onActivateVenue?: (partnershipVenue: PartnershipVenue) => void;
 };
 
 const PartnershipConfigurationContent: React.FC<Props> = ({
@@ -25,6 +26,7 @@ const PartnershipConfigurationContent: React.FC<Props> = ({
   loading,
   onDeleteVenue,
   onEditVenue,
+  onActivateVenue,
 }) => {
   const { t } = useTranslation('partnership');
   const classes = useStyles();
@@ -43,6 +45,7 @@ const PartnershipConfigurationContent: React.FC<Props> = ({
       <PartnershipVenueTable
         displayConfig={displayConfig}
         loading={loading}
+        onActivateVenue={onActivateVenue}
         onDeleteVenue={onDeleteVenue}
         onEditVenue={onEditVenue}
         partnershipVenues={partnershipVenues}

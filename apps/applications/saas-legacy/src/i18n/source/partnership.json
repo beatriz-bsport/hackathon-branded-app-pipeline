@@ -158,7 +158,13 @@
           "cancel": "Cancel",
           "close": "Close",
           "confirm": "Confirm",
-          "save": "Continue"
+          "save": "Continue",
+          "reactivate": "Reactivate"
+        },
+        "activate": {
+          "title": "Reactivate this Partner ID",
+          "subtitle": "Are you sure you want to reactivate synchronization for this Partner ID?",
+          "content": "Once reactivated, session will start syncing again automatically."
         },
         "unlink": {
           "title": "You are about to unlink one or several establishments from myClubs",
@@ -176,6 +182,10 @@
           "update": {
             "success": "Partner ID updated",
             "error": "An error occurred while updating the Partner ID"
+          },
+          "activate": {
+            "success": "Partner ID activated",
+            "error": "An error occurred while activating the Partner ID"
           }
         }
       },
@@ -195,6 +205,9 @@
               "active": "Connected",
               "pending": "Pending",
               "deactivated": "Deactivated"
+            },
+            "action": {
+              "reactivateTooltip": "Reactivate"
             }
           }
         },

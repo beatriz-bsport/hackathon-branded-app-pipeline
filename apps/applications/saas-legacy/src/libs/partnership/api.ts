@@ -43,3 +43,9 @@ export const updatePartnershipVenue = (
     data,
   );
 };
+
+export const activatePartnershipVenue = (venueId: string) => {
+  return postAuth<PartnershipVenue>(
+    `${API_V1_URI}/partnership/partnership_venue/${venueId}/activate/`,
+  );
+};

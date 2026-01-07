@@ -94,6 +94,10 @@ export type TextFieldProps = Omit<
   containerProps?: React.HTMLAttributes<HTMLDivElement>;
   inputRef?: React.Ref<HTMLInputElement>;
   autocomplete?: HTMLInputAutoCompleteAttribute;
+  max?: number | string;
+  min?: number | string;
+  maxLength?: number;
+  minLength?: number;
 };
 
 /**
@@ -119,6 +123,10 @@ export type TextFieldProps = Omit<
  * @param props.onFocus Callback function to call when the textfield gains focus.
  * @param props.fullWidth Optionnal - boolean, make the component take the full available width of the parent.
  * @param props.inputRef Optionnal - React ref to the input element, useful for focusing the input programmatically.
+ * @param props.min Minimal value that can be inserted in the field
+ * @param props.max Maximal value that can be inserted in the field
+ * @param props.minLength Minimal length of the value that can be inserted in the field
+ * @param props.maxLength Maximal length of the value that can be inserted in the field
  */
 const TextField: React.FC<TextFieldProps> = ({
   className,
@@ -144,6 +152,10 @@ const TextField: React.FC<TextFieldProps> = ({
   containerProps,
   inputRef,
   autocomplete = "off",
+  min,
+  max,
+  maxLength,
+  minLength,
   ...props
 }) => {
   /* TODO: Check with design if the color picker needs all these props, and split it in a separate component (explained here: https://gitlab.com/bsport/ichizen/-/merge_requests/425#note_2402509306) */
@@ -312,6 +324,10 @@ const TextField: React.FC<TextFieldProps> = ({
               aria-invalid={status === "error"}
               aria-describedby={helperText ? `${id}-helper-text` : undefined}
               autoComplete={autocomplete}
+              min={min}
+              max={max}
+              minLength={minLength}
+              maxLength={maxLength}
               {...props}
               {...colorInputProps}
             />

@@ -17,6 +17,7 @@ type CheckboxContextType = {
   selectAll: () => void;
   indeterminateState: "checked" | "unchecked" | "indeterminate";
   getCheckboxState: (id: string) => "checked" | "unchecked";
+  isCheckboxDisabled: (id: string) => boolean;
 };
 
 const CheckboxContext = createContext<CheckboxContextType | null>(null);
@@ -28,6 +29,8 @@ export type CheckboxProviderProps = {
   checkedIds?: string[];
   /** State setter for controlled component */
   setCheckedIds?: Dispatch<SetStateAction<string[]>>;
+  /** IDs of checkboxes that should be disabled */
+  disabledIds?: string[];
 };
 
 export const CheckboxProvider = ({
@@ -36,6 +39,7 @@ export const CheckboxProvider = ({
   initialCheckedIds,
   checkedIds,
   setCheckedIds,
+  disabledIds = [],
 }: {
   children: ReactNode;
   valueIds: string[];
@@ -50,8 +54,16 @@ export const CheckboxProvider = ({
     ? setCheckedIds
     : setInternalCheckedIds;
 
+  const isCheckboxDisabled = useCallback(
+    (id: string) => disabledIds.includes(id),
+    [disabledIds],
+  );
+
   const toggleCheckbox = useCallback(
     (valueId: string) => {
+      if (disabledIds.includes(valueId)) {
+        return;
+      }
       setSelectedValues((values) => {
         const newValues = new Set(values);
         if (newValues.has(valueId)) {
@@ -62,7 +74,7 @@ export const CheckboxProvider = ({
         return Array.from(newValues);
       });
     },
-    [setSelectedValues],
+    [setSelectedValues, disabledIds],
   );
 
   // Compute using intersection between valueIds and initialCheckedIds
@@ -71,10 +83,28 @@ export const CheckboxProvider = ({
   ).length;
   const areAllSelected =
     valueIds.length > 0 && selectedCount === valueIds.length;
-  const areSomeSelected = selectedCount > 0 && selectedCount < valueIds.length;
+
+  const enabledValueIds = valueIds.filter((id) => !disabledIds.includes(id));
+  const enabledSelectedCount = selectedValues.filter((id) =>
+    enabledValueIds.includes(id),
+  ).length;
+  const areSomeSelected =
+    enabledSelectedCount > 0 && selectedCount < valueIds.length;
 
   const selectAll = () => {
-    setSelectedValues(indeterminateState === "unchecked" ? [...valueIds] : []);
+    if (indeterminateState === "unchecked") {
+      // Select all enabled checkboxes + keep disabled ones as they are
+      const disabledAndChecked = selectedValues.filter((id) =>
+        disabledIds.includes(id),
+      );
+      setSelectedValues([...enabledValueIds, ...disabledAndChecked]);
+    } else {
+      // Deselect all enabled checkboxes + keep disabled ones as they are
+      const disabledAndChecked = selectedValues.filter((id) =>
+        disabledIds.includes(id),
+      );
+      setSelectedValues(disabledAndChecked);
+    }
   };
 
   const indeterminateState = areAllSelected
@@ -99,6 +129,7 @@ export const CheckboxProvider = ({
         selectAll,
         indeterminateState,
         getCheckboxState,
+        isCheckboxDisabled,
       }}
     >
       {children}

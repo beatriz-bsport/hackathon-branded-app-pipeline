@@ -68,8 +68,13 @@ type CommonListProps = {
   isSelectable?: boolean;
 };
 
+type BasicItemProps = {
+  id: string;
+  disabled?: boolean;
+};
+
 // Discriminated union for the item/ListItem pair
-type ListVariantProps<T extends { id: string }> =
+type ListVariantProps<T extends BasicItemProps> =
   | {
       items?: ListItemProps[];
       ListItem?: undefined;
@@ -104,13 +109,13 @@ type ListVariantProps<T extends { id: string }> =
     };
 
 // ListContentProps combines common props and the variant
-export type ListContentProps<T extends { id: string }> = CommonListProps &
+export type ListContentProps<T extends BasicItemProps> = CommonListProps &
   ListVariantProps<T> & {
     isCompact?: boolean;
   };
 
 // ListProps has its own props, and also the common/variant props
-export type ListProps<T extends { id: string } = ListItemProps> =
+export type ListProps<T extends BasicItemProps = ListItemProps> =
   CommonListProps &
     CheckboxProviderProps &
     ListVariantProps<T> & {
@@ -145,7 +150,7 @@ export type ListProps<T extends { id: string } = ListItemProps> =
  * If undefined, the Pagination will not be rendered and therefore the list will not be paginated.
  * @link https://docs.infra.bsport.io/storybook/kaizen/main/index.html?path=/docs/components-list--docs
  */
-const List = <T extends { id: string }>(props: ListProps<T>) => {
+const List = <T extends BasicItemProps>(props: ListProps<T>) => {
   const {
     className,
     id,
@@ -159,6 +164,10 @@ const List = <T extends { id: string }>(props: ListProps<T>) => {
     ...listContentProps
   } = props;
   const valueIds = listContentProps.items?.map((item) => item.id) ?? [];
+  const disabledIds =
+    listContentProps.items
+      ?.filter((item) => item?.disabled)
+      .map((item) => item.id) ?? [];
 
   const { shouldRenderLoadingState, LoadingState } =
     useLoadingState(loadingProps);
@@ -177,6 +186,7 @@ const List = <T extends { id: string }>(props: ListProps<T>) => {
         initialCheckedIds={initialCheckedIds}
         checkedIds={checkedIds}
         setCheckedIds={setCheckedIds}
+        disabledIds={disabledIds}
       >
         <div data-component="Kaizen-List" className={className} id={id}>
           {!!header && (
@@ -214,7 +224,7 @@ const List = <T extends { id: string }>(props: ListProps<T>) => {
   );
 };
 
-const ListContent = <T extends { id: string }>(props: ListContentProps<T>) => {
+const ListContent = <T extends BasicItemProps>(props: ListContentProps<T>) => {
   const {
     isSelectable,
     emptyStateProps,

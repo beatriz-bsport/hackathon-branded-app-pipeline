@@ -635,7 +635,7 @@ export const Checkboxes: Story = {
       },
       {
         id: "list-item-5",
-        title: "Playing with fonts is fun",
+        title: "Disabled item already checked",
         rightTitle: "Right title",
         description: "Playing with fonts is fun",
         chips: [
@@ -652,6 +652,7 @@ export const Checkboxes: Story = {
             size: "lg",
           },
         ],
+        disabled: true,
       },
       {
         id: "list-item-6",
@@ -684,6 +685,27 @@ export const Checkboxes: Story = {
             iconLeft: "refresh-cw-01",
           },
         ],
+      },
+      {
+        id: "list-item-7",
+        title: "Disabled item not checked",
+        rightTitle: "Right title",
+        description: "Playing with fonts is fun",
+        chips: [
+          {
+            label: "Chip 1",
+            type: "weak",
+            color: "default",
+            size: "lg",
+          },
+          {
+            label: "Chip 2",
+            type: "weak",
+            color: "default",
+            size: "lg",
+          },
+        ],
+        disabled: true,
       },
     ],
     isSelectable: true,

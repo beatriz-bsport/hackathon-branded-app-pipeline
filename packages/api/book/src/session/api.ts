@@ -1,4 +1,9 @@
-import { ApiConfig, Fetch, buildUrlParams } from "@bsport/store-base";
+import {
+  ApiConfig,
+  Fetch,
+  PaginatedResponse,
+  buildUrlParams,
+} from "@bsport/store-base";
 
 import type {
   CancelMultipleSessionsParams,
@@ -7,6 +12,8 @@ import type {
   ListSessionsWithPendingReplacementRequestIdsParams,
   ManagerSession,
   MinimalSession,
+  PaginatedFetchSessionsParams,
+  Session,
 } from "#src/session/types";
 
 const API_URL = "book/v1";
@@ -39,6 +46,35 @@ export const fetchManagerSessions = async (
   params: FetchSessionsParams,
 ): Promise<ManagerSession[]> => {
   const uri = fetchManagerSessionsURL(params);
+  const { data: fetchedData } = await fetch(uri);
+
+  return fetchedData;
+};
+
+export const fetchSimilarSessionsAPIConfig = (
+  sessionId: number,
+  params: PaginatedFetchSessionsParams | FetchSessionsParams,
+): string => {
+  return `${API_URL_SESSION}/${sessionId}/similars/${buildUrlParams(params)}`;
+};
+
+export const fetchSimilarSessionsAPI = async (
+  fetch: Fetch<Session[]>,
+  sessionId: number,
+  params: FetchSessionsParams,
+): Promise<Session[]> => {
+  const uri = fetchSimilarSessionsAPIConfig(sessionId, params);
+  const { data: fetchedData } = await fetch(uri);
+
+  return fetchedData;
+};
+
+export const fetchPaginatedSimilarSessionsAPI = async (
+  fetch: Fetch<PaginatedResponse<Session[]>>,
+  sessionId: number,
+  params: PaginatedFetchSessionsParams,
+): Promise<PaginatedResponse<Session[]>> => {
+  const uri = fetchSimilarSessionsAPIConfig(sessionId, params);
   const { data: fetchedData } = await fetch(uri);
 
   return fetchedData;

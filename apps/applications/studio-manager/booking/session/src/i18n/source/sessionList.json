@@ -122,13 +122,15 @@
     "title": "Cancel multiple sessions?",
     "description": "You can restore these sessions at any time, but you won’t be able to retrieve any bookings related to them. If you applied filters before cancelling, those filters will be kept for the selected period.",
     "dateRangeLabel": "Time period",
-    "cancelAlert": "<strong>{{sessionsNumber}} sessions scheduled between {{startDate}} and {{endDate}} will be cancelled</strong>. Members who booked them will receive a credit refund.",
+    "cancelAlert_one": "<strong>{{sessionsNumber}} sessions scheduled on {{startDate}} will be cancelled</strong>. Members who booked them will receive a credit refund.",
+    "cancelAlert_other": "<strong>{{sessionsNumber}} sessions scheduled between {{startDate}} and {{endDate}} will be cancelled</strong>. Members who booked them will receive a credit refund.",
     "groupSessionAlert": "<strong>Just a heads up:</strong> the following sessions in this period cannot be canceled. To remove them, delete the associated 'Grouped session' first. All other sessions will still be canceled.",
     "confirmTickLabel": "Tick to confirm:",
     "confirmTickDescription": "I understand that cancelling multiple sessions will remove these bookings from my calendar and automatically refund credits to members.",
     "confirmButton": "Cancel",
     "cancelButton": "Close",
     "errorMessage": "An error occurred while cancelling the sessions. Please try again later.",
-    "successMessage": "Multiple sessions cancelled between {{startDate}} and {{endDate}}."
+    "successMessage_one": "Multiple sessions cancelled on {{startDate}}.",
+    "successMessage_other": "Multiple sessions cancelled between {{startDate}} and {{endDate}}."
   }
 }

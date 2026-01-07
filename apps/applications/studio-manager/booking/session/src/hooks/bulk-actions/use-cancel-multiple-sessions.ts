@@ -14,7 +14,7 @@ import { toast } from "@bsport/kaizen-primitive-core";
 import { fetch } from "#src/utils/fetch";
 import {
   BACKGROUND_TASK_ERRORS,
-  waitForBackgroundTask,
+  useWaitForBackgroundTask,
 } from "#src/utils/fetch-background-task";
 import { useTranslation } from "#src/utils/i18n";
 
@@ -32,6 +32,7 @@ interface CancelMultipleSessionsVariables {
 export const useCancelMultipleSessions = () => {
   const queryClient = useQueryClient();
   const { t } = useTranslation("sessionList");
+  const waitForBackgroundTask = useWaitForBackgroundTask(fetch);
 
   return useMutation<string | null, Error, CancelMultipleSessionsVariables>({
     mutationFn: async ({
@@ -49,7 +50,7 @@ export const useCancelMultipleSessions = () => {
       const backgroundTaskUuid = await cancelMultipleSessions(formattedParams);
 
       if (backgroundTaskUuid) {
-        return waitForBackgroundTask(backgroundTaskUuid, fetch);
+        return waitForBackgroundTask(backgroundTaskUuid);
       }
 
       return null;

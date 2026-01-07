@@ -21,7 +21,7 @@ import {
 
 // Ref handle to interact with ToastManager from parent components
 export interface ToastManagerHandles {
-  addToast: (toastProps: ToastProps) => void;
+  addToast: (toastProps: ToastProps & { id?: string }) => void;
   removeToast: (toastId: string) => void;
 }
 
@@ -38,8 +38,11 @@ const toastManagerRef = createRef<ToastManagerHandles>();
  * Function to show a toast notification.
  * This function creates a ToastManager if it doesn't exist and adds the toast to the manager.
  * @param toastProps The properties of the toast to show.
+ * @returns The ID of the created toast, which can be used to dismiss it later.
  */
-export const toast = (toastProps: ToastProps) => {
+export const toast = (toastProps: ToastProps): string => {
+  const toastId = uuid();
+
   if (!toastManagerRef.current) {
     // Create a div to hold the ToastManager
     const toastManagerContainer = document.createElement("div");
@@ -51,12 +54,22 @@ export const toast = (toastProps: ToastProps) => {
 
     // Use setTimeout to ensure the ToastManager is initialized before adding the toast
     setTimeout(() => {
-      toastManagerRef.current?.addToast(toastProps);
+      toastManagerRef.current?.addToast({ ...toastProps, id: toastId });
     }, 10);
   } else {
     // Add the toast if ToastManager is already initialized
-    toastManagerRef.current.addToast(toastProps);
+    toastManagerRef.current.addToast({ ...toastProps, id: toastId });
   }
+
+  return toastId;
+};
+
+/**
+ * Function to dismiss a toast notification by its ID.
+ * @param toastId The ID of the toast to dismiss.
+ */
+export const dismissToast = (toastId: string) => {
+  toastManagerRef.current?.removeToast(toastId);
 };
 
 /**
@@ -76,9 +89,9 @@ const ToastManager = forwardRef<ToastManagerHandles, object>((_, ref) => {
   const [isHovered, setIsHovered] = useState(false);
 
   // Function to add a new toast, and trigger animation after a short delay
-  const addToast = useCallback((toastProps: ToastProps) => {
+  const addToast = useCallback((toastProps: ToastProps & { id?: string }) => {
     const newToast = {
-      id: uuid(),
+      id: toastProps.id || uuid(),
       mounted: false, // Set to false initially to trigger animation
       ...toastProps,
     };

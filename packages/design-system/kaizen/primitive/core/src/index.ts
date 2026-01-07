@@ -195,7 +195,7 @@ export {
   type TimePickerProps,
 } from "./components/TimePicker";
 export { default as Title, type TitleProps } from "./components/Title";
-export { toast, type ToastProps } from "./components/Toast";
+export { toast, dismissToast, type ToastProps } from "./components/Toast";
 export { default as Toggle, type ToggleProps } from "./components/Toggle";
 export {
   default as ToggleButton,

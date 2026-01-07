@@ -9,14 +9,15 @@ import {
 } from "@bsport/kaizen-primitive-core";
 import { dataAccessLayer } from "@bsport/sm-backbone";
 
+import { openCancelModal } from "#src/stores/session-list";
 import type { EnrichedSession } from "#src/types";
 import { useTranslation } from "#src/utils/i18n";
 
-type ShortcutActionsProps = {
+type ShortcutActionsButtonProps = {
   session: EnrichedSession;
 };
 
-export const ShortcutActions: React.FC<ShortcutActionsProps> = ({
+export const ShortcutActionsButton: React.FC<ShortcutActionsButtonProps> = ({
   session,
 }) => {
   const { t } = useTranslation("sessionList");
@@ -50,10 +51,13 @@ export const ShortcutActions: React.FC<ShortcutActionsProps> = ({
         label: t("table.shortcutActions.copyLink"),
         iconLeft: "link-01",
         type: "button",
+        disabled: !companyId,
         onClick: () => {
-          copyToClipboard(
-            `${window.location.origin}/customer/payment/offer/${session.id}?membership=${companyId}`,
-          );
+          if (companyId) {
+            copyToClipboard(
+              `${window.location.origin}/customer/payment/offer/${session.id}?membership=${companyId}`,
+            );
+          }
           setIsPopoverOpened(false);
         },
       };
@@ -64,6 +68,7 @@ export const ShortcutActions: React.FC<ShortcutActionsProps> = ({
         type: "button",
         onClick: () => {
           setIsPopoverOpened(false);
+          openCancelModal(session);
         },
       };
       const restoreShortcutAction: Item = {
@@ -85,21 +90,23 @@ export const ShortcutActions: React.FC<ShortcutActionsProps> = ({
         },
       };
 
-      return session.available
-        ? [
-            editShortcutAction,
-            duplicateShortcutAction,
-            copyLinkShortcutAction,
-            cancelShortcutAction,
-          ]
-        : [
-            restoreShortcutAction,
-            editShortcutAction,
-            duplicateShortcutAction,
-            deleteShortcutAction,
-          ];
+      const availableActions = [
+        editShortcutAction,
+        duplicateShortcutAction,
+        ...(companyId ? [copyLinkShortcutAction] : []),
+        cancelShortcutAction,
+      ];
+
+      const unavailableActions = [
+        restoreShortcutAction,
+        editShortcutAction,
+        duplicateShortcutAction,
+        deleteShortcutAction,
+      ];
+
+      return session.available ? availableActions : unavailableActions;
     },
-    [t, session.available, session.id, copyToClipboard, companyId],
+    [t, session, copyToClipboard, companyId],
   );
 
   return (

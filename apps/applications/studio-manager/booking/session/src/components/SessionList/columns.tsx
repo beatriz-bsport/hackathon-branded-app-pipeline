@@ -20,7 +20,7 @@ import { EnrichedSession } from "../../types";
 import { CancelledSessionName } from "./CancelledSessionName";
 import { ParticipantsCell } from "./ParticipantsCell";
 import { SessionTypeChips } from "./SessionTypeChips";
-import { ShortcutActions } from "./shortcut-actions";
+import { ShortcutActionsButton } from "./detail-actions/shortcut-actions-button";
 import { TeacherCell } from "./teacher-cell";
 
 type TableColumn = GenericTableColumn<EnrichedSession>;
@@ -138,7 +138,7 @@ export const useSessionListColumns = () => {
           color="main"
           disabled={!row.available}
         />
-        <ShortcutActions session={row} />
+        <ShortcutActionsButton session={row} />
       </div>
     ),
   };

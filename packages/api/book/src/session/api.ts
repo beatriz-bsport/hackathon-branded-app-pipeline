@@ -2,6 +2,7 @@ import { ApiConfig, Fetch, buildUrlParams } from "@bsport/store-base";
 
 import type {
   CancelMultipleSessionsParams,
+  CancelSessionParams,
   FetchSessionsParams,
   ListSessionsWithPendingReplacementRequestIdsParams,
   ManagerSession,
@@ -63,6 +64,29 @@ export const listSessionsWithPendingReplacementRequestIdsAPI = async (
     listSessionsWithPendingReplacementRequestIdsAPIConfig(params);
   const { data } = await fetch(uri, init);
   return data;
+};
+
+export const cancelSessionAPIConfig = (
+  id: number,
+  params: CancelSessionParams,
+): ApiConfig => {
+  return [
+    `${API_URL_SESSION}/manager/${id}/cancel/`,
+    {
+      method: "PATCH",
+      body: JSON.stringify(params),
+    },
+  ];
+};
+
+export const cancelSessionAPI = async (
+  fetch: Fetch<void>,
+  id: number,
+  params: CancelSessionParams,
+): Promise<string | null> => {
+  const [uri, init] = cancelSessionAPIConfig(id, params);
+  const { backgroundTaskUuid } = await fetch(uri, init);
+  return backgroundTaskUuid;
 };
 
 const fetchNumberOfSessionsToCancelAPIConfig = (

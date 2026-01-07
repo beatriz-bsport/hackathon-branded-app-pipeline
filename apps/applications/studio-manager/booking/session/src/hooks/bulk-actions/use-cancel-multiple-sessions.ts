@@ -10,15 +10,17 @@ import {
 } from "@bsport/datetime-formatting";
 import { type DateTime, getIsoDate } from "@bsport/datetime-manipulation";
 import { toast } from "@bsport/kaizen-primitive-core";
-import { fetchBackgroundTaskAction } from "@bsport/store-shared-background-task";
 
 import { fetch } from "#src/utils/fetch";
+import {
+  BACKGROUND_TASK_ERRORS,
+  waitForBackgroundTask,
+} from "#src/utils/fetch-background-task";
 import { useTranslation } from "#src/utils/i18n";
 
 import { SESSIONS_QUERY_KEY } from "../constants";
 
 const cancelMultipleSessions = cancelMultipleSessionsAPI.bind(null, fetch);
-const fetchBackgroundTask = fetchBackgroundTaskAction.bind(null, fetch);
 
 interface CancelMultipleSessionsVariables {
   startDate: DateTime;
@@ -47,19 +49,7 @@ export const useCancelMultipleSessions = () => {
       const backgroundTaskUuid = await cancelMultipleSessions(formattedParams);
 
       if (backgroundTaskUuid) {
-        return new Promise((resolve, reject) => {
-          fetchBackgroundTask({
-            uuid: backgroundTaskUuid,
-            callbacks: {
-              onSuccess: () => resolve(backgroundTaskUuid),
-              onTaskFailure: () =>
-                reject(new Error("Background task failed to complete")),
-              onEndpointFailure: () =>
-                reject(new Error("Failed to reach background task endpoint")),
-              onTimeout: () => reject(new Error("Background task timed out")),
-            },
-          });
-        });
+        return waitForBackgroundTask(backgroundTaskUuid, fetch);
       }
 
       return null;
@@ -82,11 +72,28 @@ export const useCancelMultipleSessions = () => {
         }),
       });
     },
-    onError: () => {
-      toast({
-        status: "critical",
-        description: t("cancelMultipleSessionsModal.errorMessage"),
-      });
+    onError: (error: Error) => {
+      if (error.message === BACKGROUND_TASK_ERRORS.TASK_FAILURE) {
+        toast({
+          status: "critical",
+          description: t("cancelMultipleSessionsModal.errorMessage"),
+        });
+        return;
+      }
+      if (error.message === BACKGROUND_TASK_ERRORS.ENDPOINT_FAILURE) {
+        toast({
+          status: "critical",
+          description: t("backgroundTask.genericError"),
+        });
+        return;
+      }
+      if (error.message === BACKGROUND_TASK_ERRORS.TIMEOUT) {
+        toast({
+          status: "critical",
+          description: t("backgroundTask.timeoutError"),
+        });
+        return;
+      }
     },
   });
 };

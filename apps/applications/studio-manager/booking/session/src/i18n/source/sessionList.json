@@ -103,6 +103,21 @@
     "confirmButton": "Export",
     "errorMessage": "An error occurred while exporting the participant list. Please try again."
   },
+  "backgroundTask": {
+    "genericError": "An error has occurred. Check your connection and try refreshing the page.",
+    "timeoutError": "The server took too long to respond. Try refreshing the page"
+  },
+  "cancelModal": {
+    "title": "Cancel session?",
+    "description": "You can restore this session at any time but you won’t be able to retrieve any bookings related to this session.",
+    "bookingsAlert_one": "<strong>{{number}} member </strong> who booked this session will have their credits refunded",
+    "bookingsAlert_other": "<strong>{{number}} members</strong> who booked this session will have their credits refunded",
+    "notificationLabel": "Send a notification to all members who booked this session",
+    "cancelButton": "Back",
+    "confirmButton": "Cancel",
+    "errorMessage": "An error occurred while cancelling the session. Please try again later.",
+    "successMessage": "Session cancelled"
+  },
   "cancelMultipleSessionsModal": {
     "title": "Cancel multiple sessions?",
     "description": "You can restore these sessions at any time, but you won’t be able to retrieve any bookings related to them. If you applied filters before cancelling, those filters will be kept for the selected period.",

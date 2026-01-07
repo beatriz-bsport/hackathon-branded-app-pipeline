@@ -76,6 +76,7 @@ import type { createBrowserHistory } from 'history';
 //  -----------------------------------------
 import modal, { ModalState } from '../libs/modal/reducers';
 import widget, { WidgetState } from '../libs/widget/reducers';
+import { disconnectWidget } from './actions';
 
 //  -----------------------------------------
 
@@ -167,5 +168,9 @@ export interface RootState {
 }
 
 export default (history: ReturnType<typeof createBrowserHistory>) =>
-  (state: any, action: any) =>
-    reducer(history)(state, action);
+  (state: any, action: any) => {
+    if (action.type === disconnectWidget.toString()) {
+      return reducer(history)({ theme: state.theme } as any, action);
+    }
+    return reducer(history)(state, action);
+  };

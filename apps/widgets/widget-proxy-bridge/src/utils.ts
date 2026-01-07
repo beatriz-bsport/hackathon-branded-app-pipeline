@@ -18,3 +18,7 @@ export const listenOnMessage = (listener: (payload: EventPayload) => void) => {
   });
   return listener;
 };
+
+export const clearReduxStore = () => {
+  localStorage.removeItem("persist:root");
+};

@@ -1,4 +1,4 @@
-import { DetailDrawer, Table } from "@bsport/kaizen-primitive-core";
+import { DetailDrawer, ListLayout, Table } from "@bsport/kaizen-primitive-core";
 
 import { MarketingNotificationDetailsContent } from "#src/components/MarketingNotificationDetails/MarketingNotificationDetailsContent";
 import { getTableColumns } from "#src/components/MarketingNotificationList/MarketingNotificationTableConfig";
@@ -7,12 +7,17 @@ import { useMarketingNotificationNavigation } from "#src/hooks/actions/use-marke
 import { useFetchMarketingNotificationList } from "#src/hooks/api/use-fetch-marketing-notification-list";
 import { useGetMarketingNotificationDependenciesData } from "#src/hooks/api/use-get-marketing-notification-dependencies-data";
 import { useToggleMarketingNotification } from "#src/hooks/api/use-toggle-marketing-notification";
+import { useFilterNotificationType } from "#src/hooks/layout/use-filter-notification-type";
 import { useFormatMarketingNotificationTableRow } from "#src/hooks/layout/use-format-marketing-notification-table-row";
 import { usePermissionsChecker } from "#src/hooks/permissions/use-permissions-checker";
 import { useUpsellChecker } from "#src/hooks/permissions/use-upsell-checker";
 import { useTranslation } from "#src/utils/i18n";
 
-export const MarketingNotificationTable = () => {
+export const MarketingNotificationTable = ({
+  handleCreateNotification,
+}: {
+  handleCreateNotification: () => void;
+}) => {
   const { t } = useTranslation("marketingNotificationList");
   const { marketingNotificationsList, isLoading } =
     useFetchMarketingNotificationList();
@@ -88,57 +93,119 @@ export const MarketingNotificationTable = () => {
     onRowClick: openMarketingNotificationDetail,
   });
 
+  const { handleClearFilters, filterConfig, activeFilters, filterRef } =
+    useFilterNotificationType();
+
+  const isMarketingNotificationFilterActive =
+    activeFilters.notification_type_excluded.length > 0 ||
+    activeFilters.notification_type_included.length > 0;
+
+  const marketingNotificationsToDisplay = isMarketingNotificationFilterActive
+    ? tableRows.filter((row) => {
+        const passesInclusion =
+          activeFilters.notification_type_included.length === 0 ||
+          activeFilters.notification_type_included.includes(
+            row.notificationType,
+          );
+        const passesExclusion =
+          activeFilters.notification_type_excluded.length === 0 ||
+          !activeFilters.notification_type_excluded.includes(
+            row.notificationType,
+          );
+        return passesInclusion && passesExclusion;
+      })
+    : tableRows;
+
   return (
-    <div className="h-full">
-      <Table
-        columns={tableColumns}
-        rowHeight="lg"
-        rows={tableRows}
-        loadingProps={{ isLoading, message: t("loading") }}
+    <div>
+      <ListLayout.Header
+        pageTitle={t("page.title")}
+        filterConfig={filterConfig}
+        filterRef={filterRef}
+        callToActionButton={
+          <ListLayout.Button
+            color="main"
+            intent="call-to-action"
+            label={t("page.actions.createNotificationButton")}
+            iconLeft="plus"
+            onClick={handleCreateNotification}
+          />
+        }
       />
-      <DetailDrawer
-        className="w-[650px]"
-        id="marketing-notification-detail-drawer"
-        isOpen={!!selectedMarketingNotification}
-        onClose={() => {
-          setSelectedMarketingNotification(null);
-          closeDrawer();
-        }}
-        actionsConfig={[
-          {
-            id: "previous-tag-details",
-            kind: "icon-button",
-            label: t("table.actions.previous"),
-            icon: "chevron-up",
-            intent: "default",
-            size: "md",
-            color: "main",
-            onClick: navigateToPreviousMarketingNotification,
-            tooltipProps: {
-              label: t("table.actions.previous"),
-              placement: "bottom-right",
+
+      <div className="h-full">
+        <Table
+          columns={tableColumns}
+          rowHeight="lg"
+          rows={marketingNotificationsToDisplay}
+          loadingProps={{ isLoading, message: t("loading") }}
+          emptyStateProps={{
+            isEmpty: tableRows?.length === 0,
+            emptyConfig: {
+              title: t("page.emptyState.unfiltered.title"),
+              subtitle: t("page.emptyState.unfiltered.description"),
+              ctaButtonConfig: {
+                iconLeft: "plus",
+                label: t("page.emptyState.unfiltered.primaryAction"),
+                onClick: handleCreateNotification,
+              },
             },
-          },
-          {
-            id: "next-tag-details",
-            kind: "icon-button",
-            label: t("table.actions.next"),
-            icon: "chevron-down",
-            intent: "default",
-            size: "md",
-            color: "main",
-            onClick: navigateToNextMarketingNotification,
-            tooltipProps: {
-              label: t("table.actions.next"),
-              placement: "bottom-right",
+            isEmptySearch: marketingNotificationsToDisplay.length === 0,
+            emptySearchConfig: {
+              title: t("page.emptyState.filtered.title"),
+              subtitle: t("page.emptyState.filtered.description"),
+              secondaryButtonConfig: {
+                iconLeft: "x",
+                label: t("page.emptyState.filtered.primaryAction"),
+                onClick: handleClearFilters,
+              },
             },
-          },
-        ]}
-      >
-        <MarketingNotificationDetailsContent
-          notification={selectedMarketingNotification}
+          }}
         />
-      </DetailDrawer>
+        <DetailDrawer
+          className="w-[650px]"
+          id="marketing-notification-detail-drawer"
+          isOpen={!!selectedMarketingNotification}
+          onClose={() => {
+            setSelectedMarketingNotification(null);
+            closeDrawer();
+          }}
+          actionsConfig={[
+            {
+              id: "previous-tag-details",
+              kind: "icon-button",
+              label: t("table.actions.previous"),
+              icon: "chevron-up",
+              intent: "default",
+              size: "md",
+              color: "main",
+              onClick: navigateToPreviousMarketingNotification,
+              tooltipProps: {
+                label: t("table.actions.previous"),
+                placement: "bottom-right",
+              },
+            },
+            {
+              id: "next-tag-details",
+              kind: "icon-button",
+              label: t("table.actions.next"),
+              icon: "chevron-down",
+              intent: "default",
+              size: "md",
+              color: "main",
+              onClick: navigateToNextMarketingNotification,
+              tooltipProps: {
+                label: t("table.actions.next"),
+                placement: "bottom-right",
+              },
+            },
+          ]}
+        >
+          <MarketingNotificationDetailsContent
+            notification={selectedMarketingNotification}
+          />
+        </DetailDrawer>
+      </div>
     </div>
   );
 };

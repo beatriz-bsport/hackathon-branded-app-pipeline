@@ -116,7 +116,16 @@ export const CancelSessionModal: FC<CancelSessionModalProps> = ({
             />
             {cancelFutureSessions && (
               <div className="flex flex-col gap-md ml-xl">
-                <SessionSummaryList sessions={similarSessions} />
+                <SessionSummaryList
+                  sessions={similarSessions}
+                  isSelectable
+                  originalSessionId={session.id}
+                  title={t("cancelModal.futureSessionsHeader", {
+                    number: similarSessions.length,
+                  })}
+                  description={t("cancelModal.descriptionFutureSessions")}
+                  initialSelectAll
+                />
               </div>
             )}
           </>

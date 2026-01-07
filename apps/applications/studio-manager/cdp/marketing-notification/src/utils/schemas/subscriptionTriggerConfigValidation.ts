@@ -1,27 +1,20 @@
 import { z } from "zod";
 
-import type { BookingTemporality } from "#src/components/MarketingNotificationEdition/NotificationTriggerForms/Booking/types";
-import { TimeUnitType } from "#src/components/MarketingNotificationEdition/NotificationTriggerForms/Common/types";
+import type {
+  TemporalityType,
+  TimeUnitType,
+} from "#src/components/MarketingNotificationEdition/NotificationTriggerForms/Common/types";
 
 import { i18nInstance } from "../i18n";
-import type {
-  BookingSelectableNotificationType,
-  BookingTriggerConfigValidationFormData,
-} from "./types";
+import type { SubscriptionTriggerConfigValidationFormData } from "./types";
 
-export const bookingTriggerConfigValidationSchema = z
+export const subscriptionTriggerConfigValidationSchema = z
   .object({
-    notificationType: z.custom<BookingSelectableNotificationType>(),
-    bookingItemId: z.number(),
-    bookingEventKind: z.number(),
-    bookingOccurrence: z.number().int({
-      message: i18nInstance.t("steps.notificationRules.errors.noFloat", {
-        ns: "sm-marketing-notification_marketingNotificationsModal",
-      }),
-    }),
+    contractId: z.number(),
+    subscriptionEventKind: z.number(),
     timingUnit: z.custom<TimeUnitType>(),
     timingValue: z.number(),
-    timingTemporality: z.custom<BookingTemporality>(),
+    timingTemporality: z.custom<TemporalityType>(),
     toggleIncludedSmartlists: z.boolean(),
     includedSmartlists: z.array(z.number()).optional(),
     toggleExcludedSmartlists: z.boolean(),
@@ -71,8 +64,8 @@ export const bookingTriggerConfigValidationSchema = z
         path: ["excludedSmartlists"],
       });
     }
-  }) satisfies z.ZodType<BookingTriggerConfigValidationFormData>;
+  }) satisfies z.ZodType<SubscriptionTriggerConfigValidationFormData>;
 
-export type bookingTriggerConfigValidationFormSchema = z.infer<
-  typeof bookingTriggerConfigValidationSchema
+export type SubscriptionTriggerConfigValidationFormSchema = z.infer<
+  typeof subscriptionTriggerConfigValidationSchema
 >;

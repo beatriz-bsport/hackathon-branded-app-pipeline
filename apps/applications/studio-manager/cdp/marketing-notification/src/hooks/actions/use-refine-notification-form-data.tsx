@@ -6,9 +6,9 @@ import {
 
 import type { TriggerConditionStepProps } from "#src/components/MarketingNotificationEdition/Context/FormStepContext.context";
 import type { BookingTemporality } from "#src/components/MarketingNotificationEdition/NotificationTriggerForms/Booking/types";
-import type { ConfigTimeUnit } from "#src/utils/schemas/types";
+import { TimeUnitType } from "#src/components/MarketingNotificationEdition/NotificationTriggerForms/Common/types";
 
-const TIME_OPTION_NOT_SELECTED = 0;
+const TIME_OPTION_NOT_SELECTED = null;
 
 export const useRefineNotificationFormData = () => {
   const getTriggerConditionKind = (
@@ -19,6 +19,9 @@ export const useRefineNotificationFormData = () => {
     }
     if (triggerCondition.type === "appointment") {
       return PRIVATE_BOOKING_CREATION_NOTIFICATION;
+    }
+    if (triggerCondition.type === "subscription") {
+      return triggerCondition.subscriptionEventKind;
     }
     return BIRTHDAY_NOTIFICATION;
   };
@@ -38,7 +41,7 @@ export const useRefineNotificationFormData = () => {
     timingTemporality,
     timingValue,
   }: {
-    timingUnit: ConfigTimeUnit;
+    timingUnit: TimeUnitType;
     timingTemporality: BookingTemporality;
     timingValue: number;
   }) => {
@@ -103,6 +106,20 @@ export const useRefineNotificationFormData = () => {
         event_based: true,
         kind: triggerCondition.bookingEventKind,
         notify_booking_nb: triggerCondition.bookingOccurrence,
+        smartlist_exclude: triggerCondition.excludedSmartlists,
+        smartlist_include: triggerCondition.includedSmartlists,
+      };
+    }
+    if (triggerCondition.type === "subscription") {
+      const eventRulesTiming = getEventRuleDaysAndHours({
+        timingTemporality: triggerCondition.timingTemporality,
+        timingUnit: triggerCondition.timingUnit,
+        timingValue: triggerCondition.timingValue,
+      });
+      return {
+        contract_id: triggerCondition.contractId,
+        days: eventRulesTiming.days,
+        hours: eventRulesTiming.hours,
         smartlist_exclude: triggerCondition.excludedSmartlists,
         smartlist_include: triggerCondition.includedSmartlists,
       };

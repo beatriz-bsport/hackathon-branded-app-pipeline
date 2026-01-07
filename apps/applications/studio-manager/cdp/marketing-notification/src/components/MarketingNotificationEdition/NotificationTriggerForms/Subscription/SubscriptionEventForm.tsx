@@ -11,17 +11,6 @@ import {
   NOTIFICATION_TRIGGER_STEP_IDENTIFIER,
   useFormStepContext,
 } from "#src/components/MarketingNotificationEdition/Context/FormStepContext.context";
-import { AppointmentNotificationTriggerField } from "#src/components/MarketingNotificationEdition/NotificationTriggerForms/Appointment/AppointmentNotificationTriggerField";
-import {
-  APPOINTMENT_ACTIONS_MAP_TO_APPOINTMENT_EVENT_KIND,
-  APPOINTMENT_ACTION_ATTEND,
-} from "#src/components/MarketingNotificationEdition/NotificationTriggerForms/Appointment/types";
-import { getAppointmentFormData } from "#src/components/MarketingNotificationEdition/NotificationTriggerForms/Appointment/utils";
-import {
-  BOOKING_TEMPORALITY_BEFORE,
-  BOOKING_TIME_UNIT_HOUR,
-  DEFAULT_BOOKING_OCCURRENCE,
-} from "#src/components/MarketingNotificationEdition/NotificationTriggerForms/Booking/types";
 import {
   SmartlistsFormField,
   type SmartlistsSelectorType,
@@ -29,45 +18,50 @@ import {
 import { TimingField } from "#src/components/MarketingNotificationEdition/NotificationTriggerForms/Common/TimingField";
 import {
   DEFAULT_TIMING_VALUE,
+  TEMPORALITY_BEFORE,
+  TIME_UNIT_HOUR,
   type TemporalityType,
   type TimeUnitType,
 } from "#src/components/MarketingNotificationEdition/NotificationTriggerForms/Common/types";
+import { SubscriptionNotificationStatusField } from "#src/components/MarketingNotificationEdition/NotificationTriggerForms/Subscription/SubscriptionNotificationStatusField";
+import {
+  DEFAULT_SUBSCRIPTION_EVENT_KIND,
+  SUBSCRIPTIONS_EVENT_KIND_MAP_TO_SUBSCRIPTION_STATUS,
+} from "#src/components/MarketingNotificationEdition/NotificationTriggerForms/Subscription/types";
+import { getSubscriptionFormData } from "#src/components/MarketingNotificationEdition/NotificationTriggerForms/Subscription/utils";
 import { useTranslation } from "#src/utils/i18n";
-import { bookingTriggerConfigValidationSchema } from "#src/utils/schemas/bookingTriggerConfigValidation";
+import { subscriptionTriggerConfigValidationSchema } from "#src/utils/schemas/subscriptionTriggerConfigValidation";
 
-type BookingEventFormProps = {
+type SubscriptionEventFormProps = {
   itemIds: number[];
 };
 
-export const AppointmentEventForm = ({ itemIds }: BookingEventFormProps) => {
+export const SubscriptionEventForm = ({
+  itemIds,
+}: SubscriptionEventFormProps) => {
   const { t } = useTranslation("marketingNotificationsModal");
-  const { formData, setStepValid, updateForm } = useFormStepContext();
-  const appointmentFormData = getAppointmentFormData(
+  const { setStepValid, updateForm, formData } = useFormStepContext();
+  const subscriptionsFormData = getSubscriptionFormData(
     formData?.triggerCondition,
   );
   const methods = useFormController({
-    schema: bookingTriggerConfigValidationSchema,
+    schema: subscriptionTriggerConfigValidationSchema,
     mode: "onBlur",
     defaultValues: {
-      notificationType: "privateService",
-      bookingItemId: itemIds[0],
-      bookingOccurrence:
-        appointmentFormData?.bookingOccurrence || DEFAULT_BOOKING_OCCURRENCE,
-      bookingEventKind:
-        appointmentFormData?.bookingEventKind ||
-        APPOINTMENT_ACTIONS_MAP_TO_APPOINTMENT_EVENT_KIND[
-          APPOINTMENT_ACTION_ATTEND
-        ],
-      timingUnit: appointmentFormData?.timingUnit || BOOKING_TIME_UNIT_HOUR,
-      timingValue: appointmentFormData?.timingValue || DEFAULT_TIMING_VALUE,
+      contractId: itemIds[0],
+      subscriptionEventKind:
+        subscriptionsFormData?.subscriptionEventKind ||
+        DEFAULT_SUBSCRIPTION_EVENT_KIND,
+      timingUnit: subscriptionsFormData?.timingUnit || TIME_UNIT_HOUR,
+      timingValue: subscriptionsFormData?.timingValue || DEFAULT_TIMING_VALUE,
       timingTemporality:
-        appointmentFormData?.timingTemporality || BOOKING_TEMPORALITY_BEFORE,
+        subscriptionsFormData?.timingTemporality || TEMPORALITY_BEFORE,
       toggleIncludedSmartlists:
-        appointmentFormData?.toggleIncludedSmartlists || false,
-      includedSmartlists: appointmentFormData?.includedSmartlists || [],
+        subscriptionsFormData?.toggleIncludedSmartlists || false,
+      includedSmartlists: subscriptionsFormData?.includedSmartlists || [],
       toggleExcludedSmartlists:
-        appointmentFormData?.toggleExcludedSmartlists || false,
-      excludedSmartlists: appointmentFormData?.excludedSmartlists || [],
+        subscriptionsFormData?.toggleExcludedSmartlists || false,
+      excludedSmartlists: subscriptionsFormData?.excludedSmartlists || [],
     },
   });
 
@@ -172,24 +166,20 @@ export const AppointmentEventForm = ({ itemIds }: BookingEventFormProps) => {
   useEffect(() => {
     updateForm({
       triggerCondition: {
-        type: "appointment",
+        type: "subscription",
         ...formValues,
       },
     });
   }, [
-    formValues?.bookingEventKind,
-    formValues?.bookingItemId,
-    formValues?.bookingOccurrence,
+    formValues?.subscriptionEventKind,
     formValues?.excludedSmartlists,
     formValues?.includedSmartlists,
-    formValues?.notificationType,
     formValues?.timingTemporality,
     formValues?.timingUnit,
     formValues?.timingValue,
     formValues?.toggleExcludedSmartlists,
     formValues?.toggleIncludedSmartlists,
   ]);
-
   return (
     <div className="flex flex-col gap-md">
       <Title htmlVariant="h3" weight="strong">
@@ -200,14 +190,17 @@ export const AppointmentEventForm = ({ itemIds }: BookingEventFormProps) => {
         onSubmit={() => {}}
         className="flex flex-col gap-sm"
       >
-        <AppointmentNotificationTriggerField
+        <SubscriptionNotificationStatusField
           setFormValue={setFormValue}
-          defaultAppointmentOccurence={formValues?.bookingOccurrence}
-          defaultAppointmentStatus={formValues?.bookingEventKind}
+          selectedSubscriptionStatus={formValues?.subscriptionEventKind}
         />
         <Divider orientation="horizontal" weight="thin" />
         <TimingField
-          notificationType="booking"
+          notificationType={
+            SUBSCRIPTIONS_EVENT_KIND_MAP_TO_SUBSCRIPTION_STATUS[
+              formValues?.subscriptionEventKind
+            ]
+          }
           selectedTemporality={formValues?.timingTemporality}
           selectedTimeUnit={formValues?.timingUnit}
           selectedTimeValue={formValues?.timingValue}

@@ -1,12 +1,14 @@
-import type { BookingTemporality } from "#src/components/MarketingNotificationEdition/NotificationTriggerForms/Booking/types";
-import type { SelectableNotificationType } from "#src/utils/types";
+import type {
+  TemporalityType,
+  TimeUnitType,
+} from "#src/components/MarketingNotificationEdition/NotificationTriggerForms/Common/types";
+
+import { SelectableNotificationType } from "../types";
 
 export type TriggerTypeValidationFormData = {
   notificationType: SelectableNotificationType;
   itemIds?: number[];
 };
-
-export type ConfigTimeUnit = "hour" | "day";
 
 export type BookingSelectableNotificationType = Omit<
   SelectableNotificationType,
@@ -18,9 +20,17 @@ export type BookingTriggerConfigValidationFormData = {
   bookingEventKind: number;
   bookingOccurrence: number;
   bookingItemId: number;
-  timingUnit: ConfigTimeUnit;
+} & CommonTriggerConfigValidationFormData;
+
+export type SubscriptionTriggerConfigValidationFormData = {
+  subscriptionEventKind: number;
+  contractId: number;
+} & CommonTriggerConfigValidationFormData;
+
+export type CommonTriggerConfigValidationFormData = {
+  timingUnit: TimeUnitType;
   timingValue: number;
-  timingTemporality: BookingTemporality;
+  timingTemporality: TemporalityType;
   toggleIncludedSmartlists: boolean;
   includedSmartlists?: number[];
   toggleExcludedSmartlists: boolean;

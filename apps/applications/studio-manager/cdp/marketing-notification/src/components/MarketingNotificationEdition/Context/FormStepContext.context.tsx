@@ -3,6 +3,7 @@ import React, { createContext, useContext, useState } from "react";
 import type {
   BookingTriggerConfigValidationFormData,
   NotificationContentFormData,
+  SubscriptionTriggerConfigValidationFormData,
 } from "#src/utils/schemas/types";
 import type { SelectableNotificationType } from "#src/utils/types";
 
@@ -20,9 +21,9 @@ export type AppointmentTriggerCondition = {
   type: "appointment";
 } & BookingTriggerConfigValidationFormData;
 
-type SubscriptionTriggerCondition = {
+export type SubscriptionTriggerCondition = {
   type: "subscription";
-};
+} & SubscriptionTriggerConfigValidationFormData;
 
 type BirthdayTriggerCondition = {
   type: "birthday";

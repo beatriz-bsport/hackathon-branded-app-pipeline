@@ -46,6 +46,7 @@ export const CancelMultipleSessionsModal: FC<{
   >(null);
   const [confirmTick, setConfirmTick] = useState(false);
   const confirmTickValue = confirmTick ? "checked" : "unchecked";
+  const today = getLocalNow({ zone: companyTimezone });
 
   const getDefaultDateRange = useCallback((): SelectedDate => {
     if (currentSelectedDate.type === "single" && currentSelectedDate.date) {
@@ -58,15 +59,18 @@ export const CancelMultipleSessionsModal: FC<{
     ) {
       return [currentSelectedDate.minDate, currentSelectedDate.maxDate];
     }
-    const today = getLocalNow({ zone: companyTimezone });
     return [today, today];
-  }, [currentSelectedDate, companyTimezone]);
+  }, [currentSelectedDate, today]);
 
   const handleDateChange = (date: SelectedDate) => {
     if (!date || !Array.isArray(date)) {
       return;
     }
     setCancelRange([date[0], date[1]]);
+  };
+
+  const disablePastDates = (date: DateTime) => {
+    return date < today.startOf("day");
   };
 
   const getFormattedDate = (date: DateTime | null) => {
@@ -147,6 +151,7 @@ export const CancelMultipleSessionsModal: FC<{
             displayAs="popover"
             defaultValue={getDefaultDateRange()}
             onSelect={handleDateChange}
+            disableDate={disablePastDates}
           />
         </div>
         {numberOfCancelledSessions !== undefined && cancelRange && (

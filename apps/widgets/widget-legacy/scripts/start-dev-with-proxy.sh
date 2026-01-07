@@ -21,6 +21,7 @@ NC='\033[0m' # No Color
 # Check if required directories exist
 SAAS_LEGACY_DIR="$ICHIZEN_ROOT/apps/applications/saas-legacy"
 PROXY_BRIDGE_DIR="$ICHIZEN_ROOT/apps/widgets/widget-proxy-bridge"
+WIDGET_DEBUGGER_DIR="$ICHIZEN_ROOT/apps/tools/widget-debugger"
 
 if [ ! -d "$SAAS_LEGACY_DIR" ]; then
     echo "❌ Error: saas-legacy directory not found at $SAAS_LEGACY_DIR"
@@ -29,6 +30,11 @@ fi
 
 if [ ! -d "$PROXY_BRIDGE_DIR" ]; then
     echo "❌ Error: widget-proxy-bridge directory not found at $PROXY_BRIDGE_DIR"
+    exit 1
+fi
+
+if [ ! -d "$WIDGET_DEBUGGER_DIR" ]; then
+    echo "❌ Error: widget-debugger directory not found at $WIDGET_DEBUGGER_DIR"
     exit 1
 fi
 
@@ -77,6 +83,11 @@ cd "$PROXY_BRIDGE_DIR"
 pnpm run dev > /tmp/proxy-bridge-dev.log 2>&1 &
 PROXY_BRIDGE_PID=$!
 
+echo -e "${BLUE}🔌 Starting widget debugger dev server (port 3210)...${NC}"
+cd "$WIDGET_DEBUGGER_DIR"
+pnpm run dev:spa:local > /tmp/widget-debugger-dev.log 2>&1 &
+WIDGET_DEBUGGER_PID=$!
+
 
 cd "$ICHIZEN_ROOT"
 
@@ -104,12 +115,14 @@ echo "Individual dev servers (for debugging):"
 echo "   - Widget:  http://localhost:3100"
 echo "   - Website: http://localhost:3000"
 echo "   - Proxy:   http://localhost:4048"
+echo "   - Widget Debugger: http://localhost:3210"
 echo ""
 echo "Logs:"
 echo "   - Proxy:   tail -f /tmp/dev-proxy.log"
 echo "   - Widget:  tail -f /tmp/widget-dev.log"
 echo "   - Website: tail -f /tmp/saas-legacy-dev.log"
 echo "   - Bridge:  tail -f /tmp/proxy-bridge-dev.log"
+echo "   - Widget Debugger: tail -f /tmp/widget-debugger-dev.log"
 echo ""
 echo "Press Ctrl+C to stop all services"
 echo ""

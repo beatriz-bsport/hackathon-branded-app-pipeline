@@ -4,7 +4,11 @@ import {
 } from "@bsport/local-storage-auth-token";
 
 import { BridgeEvents, EventPayload } from "../types";
-import { listenOnMessage, postMessageToParent } from "../utils";
+import {
+  clearReduxStore,
+  listenOnMessage,
+  postMessageToParent,
+} from "../utils";
 
 const isAuthenticated = () => !!getAuthToken();
 
@@ -24,6 +28,7 @@ export const handleAuthenticationMessages = () => {
 
     if (payload.type === BridgeEvents.REQUEST_LOGOUT) {
       removeAuthToken();
+      clearReduxStore();
     }
   };
 

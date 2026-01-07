@@ -53,4 +53,8 @@ export const sendParentMessage = (data?: any) => {
   }
 };
 
+export const broadcastToAllWidgets = (data?: any) => {
+  window.postMessage(data, '*');
+};
+
 export const shouldUseBridge = () => !!getBridgeIframe();

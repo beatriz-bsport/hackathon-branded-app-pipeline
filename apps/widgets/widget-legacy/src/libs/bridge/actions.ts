@@ -2,6 +2,7 @@ import { WidgetMessageType } from '@bsport/saas-legacy/src/libs/widget/types';
 import {
   sendBridgeMessage,
   sendBridgeMessageWithRetry,
+  broadcastToAllWidgets,
 } from '@bsport/saas-legacy/src/libs/widget/bridge';
 
 import { createAction } from 'redux-actions';
@@ -9,11 +10,11 @@ import { createAction } from 'redux-actions';
 import { closeUserInteractionPortal } from '../modal/actions';
 
 import {
-  disconnect,
   responseAuthenticatedStatus,
   // @ts-expect-error: import of js file
 } from '@bsport/saas-legacy/src/actions/auth.actions';
 import { forceWidgetRefresh } from '../widget/actions';
+import { disconnectWidget } from '../../reducers/actions';
 
 // First part: how to send message
 // ---------------------------------
@@ -30,7 +31,7 @@ export function bridgeRequestAuthenticationStatus() {
 export function bridgeRequestLogout() {
   return async (dispatch: any) => {
     sendBridgeMessage({ type: WidgetMessageType.REQUEST_LOGOUT });
-    dispatch(disconnect());
+    broadcastToAllWidgets({ type: WidgetMessageType.DISCONNECT });
   };
 }
 
@@ -89,8 +90,10 @@ export const handleBridgeMessage =
         dispatch(responseAuthenticatedStatus(eventData.data?.authenticated));
         break;
 
+      case WidgetMessageType.DISCONNECT:
       case WidgetMessageType.IFRAME_LOGOUT:
-        dispatch(disconnect());
+        dispatch(disconnectWidget());
+        dispatch(forceWidgetRefresh());
         break;
 
       case WidgetMessageType.VIDEO_REGISTERED:

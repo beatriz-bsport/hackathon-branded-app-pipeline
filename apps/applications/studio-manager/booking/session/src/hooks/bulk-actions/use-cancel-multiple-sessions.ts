@@ -8,7 +8,11 @@ import {
   DATETIME_FORMATS,
   formatDateTimeFromDate,
 } from "@bsport/datetime-formatting";
-import { type DateTime, getIsoDate } from "@bsport/datetime-manipulation";
+import {
+  type DateTime,
+  getIsoDate,
+  isSameDay,
+} from "@bsport/datetime-manipulation";
 import { toast } from "@bsport/kaizen-primitive-core";
 import { fetchBackgroundTaskAction } from "@bsport/store-shared-background-task";
 
@@ -68,6 +72,7 @@ export const useCancelMultipleSessions = () => {
       queryClient.invalidateQueries({ queryKey: [SESSIONS_QUERY_KEY] });
       toast({
         status: "default",
+        // @ts-expect-error t function infers too narrow types
         description: t("cancelMultipleSessionsModal.successMessage", {
           startDate: formatDateTimeFromDate(
             variables.startDate,
@@ -79,6 +84,7 @@ export const useCancelMultipleSessions = () => {
             DATETIME_FORMATS.FULL_DATE,
             { locale: variables.locale },
           ),
+          count: isSameDay(variables.startDate, variables.endDate) ? 1 : 2,
         }),
       });
     },

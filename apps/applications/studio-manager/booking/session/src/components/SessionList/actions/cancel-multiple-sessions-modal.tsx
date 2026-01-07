@@ -4,7 +4,11 @@ import {
   DATETIME_FORMATS,
   formatDateTimeFromDate,
 } from "@bsport/datetime-formatting";
-import { DateTime, getLocalNow } from "@bsport/datetime-manipulation";
+import {
+  DateTime,
+  getLocalNow,
+  isSameDay,
+} from "@bsport/datetime-manipulation";
 import {
   Alert,
   Body,
@@ -160,6 +164,13 @@ export const CancelMultipleSessionsModal: FC<{
                   startDate: getFormattedDate(cancelRange[0]),
                   endDate: getFormattedDate(cancelRange[1]),
                 }}
+                count={
+                  cancelRange[0] &&
+                  cancelRange[1] &&
+                  isSameDay(cancelRange[0], cancelRange[1])
+                    ? 1
+                    : 2
+                }
               />
             </Body>
           </Alert>

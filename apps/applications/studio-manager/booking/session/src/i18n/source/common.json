@@ -27,5 +27,8 @@
       "4": "Advanced",
       "5": "No level"
     }
+  },
+  "backgroundTask": {
+    "processing": "Processing..."
   }
 }
